@@ -1,0 +1,161 @@
+:root {
+  --ifm-color-primary: #4f46e5;
+  --ifm-color-primary-dark: #4338ca;
+  --ifm-color-primary-darker: #3730a3;
+  --ifm-color-primary-darkest: #312e81;
+  --ifm-color-primary-light: #6366f1;
+  --ifm-color-primary-lighter: #818cf8;
+  --ifm-color-primary-lightest: #a5b4fc;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+[data-theme="dark"] {
+  --ifm-color-primary: #818cf8;
+  --ifm-color-primary-dark: #6366f1;
+  --ifm-color-primary-darker: #4f46e5;
+  --ifm-color-primary-darkest: #4338ca;
+  --ifm-color-primary-light: #a5b4fc;
+  --ifm-color-primary-lighter: #c7d2fe;
+  --ifm-color-primary-lightest: #e0e7ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Sidebar styling */
+.theme-doc-sidebar-menu .menu__link {
+  font-size: 0.9rem;
+}
+
+/* Table styling */
+table {
+  display: table;
+  width: 100%;
+}
+
+table th {
+  background-color: var(--ifm-color-primary-lightest);
+  font-weight: 600;
+}
+
+[data-theme="dark"] table th {
+  background-color: var(--ifm-color-primary-darkest);
+}
+
+/* Admonition custom - Light mode */
+.alert--info {
+  --ifm-alert-background-color: #eff6ff;
+  --ifm-alert-border-color: #3b82f6;
+  --ifm-alert-foreground-color: #1e3a5f;
+}
+
+.alert--tip {
+  --ifm-alert-background-color: #f0fdf4;
+  --ifm-alert-border-color: #22c55e;
+  --ifm-alert-foreground-color: #14532d;
+}
+
+.alert--warning {
+  --ifm-alert-background-color: #fffbeb;
+  --ifm-alert-border-color: #f59e0b;
+  --ifm-alert-foreground-color: #78350f;
+}
+
+.alert--danger {
+  --ifm-alert-background-color: #fef2f2;
+  --ifm-alert-border-color: #ef4444;
+  --ifm-alert-foreground-color: #7f1d1d;
+}
+
+/* Admonition custom - Dark mode */
+[data-theme="dark"] .alert--info {
+  --ifm-alert-background-color: #1e293b;
+  --ifm-alert-border-color: #60a5fa;
+  --ifm-alert-foreground-color: #e0f2fe;
+}
+
+[data-theme="dark"] .alert--tip {
+  --ifm-alert-background-color: #1a2e1a;
+  --ifm-alert-border-color: #4ade80;
+  --ifm-alert-foreground-color: #dcfce7;
+}
+
+[data-theme="dark"] .alert--warning {
+  --ifm-alert-background-color: #2d2305;
+  --ifm-alert-border-color: #fbbf24;
+  --ifm-alert-foreground-color: #fef3c7;
+}
+
+[data-theme="dark"] .alert--danger {
+  --ifm-alert-background-color: #2d1515;
+  --ifm-alert-border-color: #f87171;
+  --ifm-alert-foreground-color: #fee2e2;
+}
+
+/* Admonition 内的链接和代码在暗色下也要清晰 */
+[data-theme="dark"] .alert a {
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .alert code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: inherit;
+}
+
+/* Hero section on homepage */
+.hero-banner {
+  padding: 4rem 0;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Progress indicators - Light mode */
+.stage-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+.stage-badge--required {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.stage-badge--elective {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+/* Progress indicators - Dark mode */
+[data-theme="dark"] .stage-badge--required {
+  background-color: #451a1a;
+  color: #fca5a5;
+}
+
+[data-theme="dark"] .stage-badge--elective {
+  background-color: #1e1b4b;
+  color: #c7d2fe;
+}
+
+/* Code blocks */
+.prism-code {
+  font-size: 0.875rem;
+}
+
+/* ===== Mermaid 暗色主题修复 ===== */
+/* 核心思路：让 Mermaid dark 主题自行处理配色，
+   只修复 SVG 背景和 edge label 两个已知问题 */
+
+/* 暗色下 SVG 背景透明（避免白色方块） */
+[data-theme="dark"] .docusaurus-mermaid-container svg {
+  background-color: transparent !important;
+}
+
+/* 暗色下 edge label 背景适配（默认透明会看不清） */
+[data-theme="dark"] .docusaurus-mermaid-container .edgeLabel {
+  background-color: #1e293b !important;
+}

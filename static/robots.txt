@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://learning.airoads.org/sitemap.xml

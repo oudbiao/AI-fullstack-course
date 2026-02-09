@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  ai-course:
+    build: .
+    image: ai-fullstack-course:latest
+    container_name: ai-fullstack-course
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docs:/app/docs
+    networks:
+      - ai-network
+      - proxy-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  ai-network:
+    driver: bridge
+  proxy-net:
+    external: true
