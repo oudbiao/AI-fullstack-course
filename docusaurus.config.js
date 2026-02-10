@@ -32,13 +32,13 @@ const config = {
     //   },
     // },
     // 百度搜索资源平台: https://ziyuan.baidu.com
-    {
-      tagName: "meta",
-      attributes: {
-        name: "baidu-site-verification",
-        content: "6dfc73e25c48a3078c0e61b8dd196079",
-      },
-    },
+    // {
+    //   tagName: "meta",
+    //   attributes: {
+    //     name: "baidu-site-verification",
+    //     content: "6dfc73e25c48a3078c0e61b8dd196079",
+    //   },
+    // },
     {
       tagName: "meta",
       attributes: {

@@ -2,11 +2,13 @@
 
 ## 域名配置
 
+三个域名**都直接指向同一服务**（不互相跳转）：
+
 | 域名 | 用途 |
 |------|------|
-| `learning.airoads.org` | **主站**（Docusaurus 课程站点） |
-| `www.airoads.org` | 301 跳转到 `learning.airoads.org` |
-| `airoads.org` | 301 跳转到 `learning.airoads.org` |
+| `learning.airoads.org` | 直接代理到课程站点 |
+| `www.airoads.org` | 直接代理到课程站点 |
+| `airoads.org` | 直接代理到课程站点 |
 
 ## 配置文件
 
@@ -47,13 +49,10 @@ sudo systemctl reload nginx
 ### 4. 验证
 
 ```bash
-# airoads.org 主站
+# 三个域名均应直接返回 200（同一站点）
 curl -I https://learning.airoads.org
-# 应返回 200
-
-# airoads.org 跳转
-curl -I https://www.airoads.org   # 301 → learning.airoads.org
-curl -I https://airoads.org      # 301 → learning.airoads.org
+curl -I https://www.airoads.org
+curl -I https://airoads.org
 ```
 
 ## Docker 容器网络
@@ -77,9 +76,33 @@ networks:
 2. 确保容器在 `proxy-net` 网络中
 3. 检查防火墙规则
 
-### 问题：SSL 证书错误
+### 问题：访问时提示「证书不可信」/ Certificate not trusted
 
-确保证书覆盖了所有需要的域名（`*.airoads.org` + `airoads.org`）。
+**1. 使用 Cloudflare 时**
+
+- 访客必须通过域名访问：**https://learning.airoads.org**，不要用服务器 IP 或「直接解析到源站」的域名访问。
+- 在 Cloudflare 控制台：**SSL/TLS → 概述** 选择 **「完全」** 或 **「完全(严格)」**，不要用「灵活」。
+- DNS 里该域名的代理状态应为 **已代理（橙色云朵）**，这样流量才走 Cloudflare，浏览器拿到的是 Cloudflare 的可信证书。若解析到源站 IP，浏览器会看到源站证书（如 Origin Certificate），会报不可信。
+
+**2. 未使用 Cloudflare 时**
+
+- 源站必须使用**公信 CA 签发的证书**（浏览器才会信任）。推荐用 **Let's Encrypt**（免费）：
+  ```bash
+  # 在服务器上安装 certbot，示例（Ubuntu）
+  sudo apt install certbot
+  sudo certbot certonly --standalone -d learning.airoads.org
+  # 证书一般在 /etc/letsencrypt/live/learning.airoads.org/
+  ```
+- 在 `airoads.conf` 里把 `ssl_certificate` / `ssl_certificate_key` 指向上述路径，重载 Nginx。
+
+**3. 其他检查**
+
+- 确保证书未过期，且覆盖当前访问的域名（如 `*.airoads.org`、`airoads.org`）。
+- 若使用 Cloudflare Origin Certificate，仅用于「Cloudflare → 源站」这一段，访客应始终通过 Cloudflare 访问，才会看到可信证书。
+
+### 问题：SSL 证书错误（域名/过期）
+
+确保证书覆盖所有需要的域名（`*.airoads.org` + `airoads.org`），且未过期。
 
 ### 问题：重定向循环
 
