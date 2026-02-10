@@ -29,8 +29,10 @@
 ### 第一步：打开 Google Colab
 
 1. 在浏览器中打开 [Google Colab](https://colab.research.google.com)
-2. 点击左上角的 **「新建笔记本」**
-3. 你会看到一个类似记事本的界面，里面有一个输入框（叫做"代码单元格"）
+2. 新建一个笔记本，任选一种方式即可：
+   - 若首页有 **「新建笔记本」** 或 **「New notebook」** 按钮，点它
+   - 或点击顶部菜单 **文件 → 在云端硬盘中新建笔记本**（英文界面为 **File → New notebook**）
+3. 打开后你会看到一个类似记事本的界面，里面有一个可输入代码的方框（叫做「代码单元格」）
 
 ### 第二步：安装需要的库
 
@@ -48,7 +50,7 @@
 若想消除该警告（或以后要访问需登录的模型），可以：
 1. 打开 [Hugging Face → Settings → Access Tokens](https://huggingface.co/settings/tokens)，新建一个 Token（Read 权限即可）
 2. 在 Colab 左侧点击 **钥匙图标 🔑（Secrets）**，添加 Secret：名称填 `HF_TOKEN`，值填刚才复制的 Token
-3. 重启 Colab 运行时（菜单 **运行时 → 重新启动运行时**），再重新运行单元格
+3. 重启 Colab 会话：点击顶部 **代码执行程序** → **重启会话**（英文界面为 **Runtime → Restart runtime**）。中文版里没有「重新启动运行时」字样，选「重启会话」即可。重启后再重新运行单元格
 :::
 
 ### 第三步：运行图像识别
@@ -83,9 +85,9 @@ for r in results[:3]:
 
 ```
 🤖 AI 认为这张图片是：
-  Labrador retriever              置信度: 89.3%
-  golden retriever                置信度: 6.2%
-  kuvasz                          置信度: 1.1%
+  Labrador retriever              置信度: 95.6%
+  golden retriever                置信度: 1.0%
+  kuvasz                          置信度: 0.5%
 ```
 
 > 🎉 **想一想：** 你没有教 AI 什么是拉布拉多，也没有给它标注图片，它怎么就认出来了？因为这个模型已经在 1400 万张图片上"学习"过了。这种"先大规模学习、再识别新事物"的过程，就是**深度学习**的核心思想——也是本课程要教你的东西。
@@ -165,7 +167,7 @@ GPT-2 是 2019 年的模型，比现在的 ChatGPT 弱很多，生成的内容�
 ### 操作步骤（无需写代码）
 
 1. 打开以下任意一个 AI 绘画工具：
-   - [Hugging Face Spaces 上的 Stable Diffusion](https://huggingface.co/spaces/stabilityai/stable-diffusion)
+   - [Hugging Face Spaces 上的 Stable Diffusion](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)
    - [LiblibAI](https://www.liblib.art/)（国内可直接访问）
    - 或搜索 "AI 在线绘画" 找其他工具
 
