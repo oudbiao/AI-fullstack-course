@@ -43,44 +43,37 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             
-            # 2. 停止旧容器
-            echo "🛑 停止旧容器..."
-            docker-compose down 2>/dev/null || true
-            
-            # 2.5. 清理旧镜像
-            echo "🧹 清理旧镜像..."
-            docker rmi ai-fullstack-course:latest 2>/dev/null || true
-            
-            # 3.1 清理依赖和构建产物
-            echo "🧹 清理依赖和构建产物..."
+            # 2. 先构建新镜像（旧容器继续运行，服务保持可用）
+            echo "🧹 清理本地构建产物..."
             rm -rf node_modules build
-
-            # 3. 构建新镜像
-            echo "🔨 构建 Docker 镜像..."
+            echo "🔨 构建 Docker 镜像（构建期间旧容器仍在服务）..."
             docker-compose build --no-cache
             
-            # 4. 启动新容器
+            # 3. 构建成功后再停旧容器、启新容器（短暂切换）
+            echo "🛑 停止旧容器..."
+            docker-compose down 2>/dev/null || true
             echo "▶️  启动新容器..."
             docker-compose up -d
             
-            # 5. 等待应用就绪
+            # 4. 等待应用就绪并健康检查
             echo "⏳ 等待应用启动..."
-            sleep 10
+            for i in 1 2 3 4 5 6 7 8 9 10; do
+              if docker-compose exec -T ai-course curl -sf http://localhost:3000/ >/dev/null 2>&1; then
+                echo "✅ 应用已就绪（${i}0s 内）"
+                break
+              fi
+              if [ "$i" -eq 10 ]; then
+                echo "⚠️  应用启动超时，请检查日志"
+                docker-compose logs --tail=50 ai-course
+                exit 1
+              fi
+              sleep 10
+            done
             
-            # 6. 检查容器状态
+            # 5. 检查容器状态并清理悬空镜像
             echo "📊 检查容器状态..."
             docker-compose ps
-            
-            # 7. 检查应用健康状态
-            HEALTH_CHECK=$(docker-compose exec -T ai-course curl -s http://localhost:3000/ || echo "failed")
-            if [ "$HEALTH_CHECK" != "failed" ]; then
-              echo "✅ 应用响应正常"
-            else
-              echo "⚠️  应用响应缓慢，但容器已启动"
-            fi
-            
-            # 8. 清理旧镜像
-            echo "🧹 清理旧镜像..."
+            echo "🧹 清理悬空镜像..."
             docker image prune -f
             
             echo ""
