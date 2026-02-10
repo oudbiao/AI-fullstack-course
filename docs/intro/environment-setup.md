@@ -116,7 +116,7 @@
 
 - 推荐安装 **Homebrew** 包管理器
 - macOS 自带 Python 2，不要用它。通过 Miniconda 安装 Python 3.11
-- Apple Silicon（M1/M2/M3）的 PyTorch 支持已经很好，可以用 MPS 加速
+- Apple Silicon（M1/M2/M3/M4）的 PyTorch 支持已经很好，可以用 MPS 加速
 
 ### Linux（Ubuntu）用户
 
