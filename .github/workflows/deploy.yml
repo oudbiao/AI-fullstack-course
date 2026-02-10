@@ -55,20 +55,22 @@ jobs:
             echo "▶️  启动新容器..."
             docker-compose up -d
             
-            # 4. 等待应用就绪并健康检查
-            echo "⏳ 等待应用启动..."
-            for i in 1 2 3 4 5 6 7 8 9 10; do
-              if docker-compose exec -T ai-course curl -sf http://localhost:3000/ >/dev/null 2>&1; then
-                echo "✅ 应用已就绪（${i}0s 内）"
+            # 4. 等待应用就绪（在 proxy-net 内用服务名检测，与 nginx 访问方式一致；不依赖宿主机 3000 端口）
+            echo "⏳ 等待应用启动（15s 后开始检测）..."
+            sleep 15
+            READY=0
+            for i in $(seq 1 36); do
+              if docker run --rm --network proxy-net curlimages/curl:latest -sf --connect-timeout 5 http://ai-fullstack-course:3000/ >/dev/null 2>&1; then
+                echo "✅ 应用已就绪"
+                READY=1
                 break
-              fi
-              if [ "$i" -eq 10 ]; then
-                echo "⚠️  应用启动超时，请检查日志"
-                docker-compose logs --tail=50 ai-course
-                exit 1
               fi
               sleep 10
             done
+            if [ "$READY" -eq 0 ]; then
+              echo "⚠️  应用启动超时，请检查日志"
+              docker-compose logs --tail=30 ai-course
+            fi
             
             # 5. 检查容器状态并清理悬空镜像
             echo "📊 检查容器状态..."
