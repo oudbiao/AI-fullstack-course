@@ -42,6 +42,15 @@
 
 等大约 1 分钟，看到输出不报红色错误就行。
 
+:::tip 如果出现 `HF_TOKEN` 或 Hugging Face 登录提示
+运行后面代码时，可能会看到类似 **"The secret HF_TOKEN does not exist"** 的警告。**可以忽略**——本教程用的模型（如 `google/vit-base-patch16-224`、`gpt2`）都是公开的，不需要登录即可下载和使用，代码会正常跑完。
+
+若想消除该警告（或以后要访问需登录的模型），可以：
+1. 打开 [Hugging Face → Settings → Access Tokens](https://huggingface.co/settings/tokens)，新建一个 Token（Read 权限即可）
+2. 在 Colab 左侧点击 **钥匙图标 🔑（Secrets）**，添加 Secret：名称填 `HF_TOKEN`，值填刚才复制的 Token
+3. 重启 Colab 运行时（菜单 **运行时 → 重新启动运行时**），再重新运行单元格
+:::
+
 ### 第三步：运行图像识别
 
 点击左上角的 **「+ 代码」** 新建一个单元格，粘贴以下代码并运行：
@@ -50,13 +59,16 @@
 from transformers import pipeline
 from PIL import Image
 import requests
+import io
 
 # 加载一个图像分类模型（第一次运行要下载模型，稍等一下）
 classifier = pipeline("image-classification", model="google/vit-base-patch16-224")
 
-# 用一张网上的狗狗图片来测试
+# 用一张网上的狗狗图片来测试（先下载字节再打开，避免 Colab 下网络导致的识别失败）
 url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/1200px-YellowLabradorLooking_new.jpg"
-image = Image.open(requests.get(url, stream=True).raw)
+resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+resp.raise_for_status()
+image = Image.open(io.BytesIO(resp.content))
 
 # 让 AI 识别这张图片
 results = classifier(image)
@@ -84,7 +96,9 @@ for r in results[:3]:
 
 ```python
 url = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
-image = Image.open(requests.get(url, stream=True).raw)
+resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+resp.raise_for_status()
+image = Image.open(io.BytesIO(resp.content))
 results = classifier(image)
 
 print("🤖 AI 认为这张图片是：")
