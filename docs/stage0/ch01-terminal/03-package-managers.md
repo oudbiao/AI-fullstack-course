@@ -258,7 +258,7 @@ brew install tree wget
 tree ~/ai-study
 
 # 4. 用 wget 下载一个文件试试
-wget https://raw.githubusercontent.com/datasets/iris/master/data/iris.csv
+wget https://raw.githubusercontent.com/plotly/datasets/master/iris.csv
 cat iris.csv | head -5
 ```
 
@@ -275,7 +275,7 @@ sudo apt install -y tree wget
 tree ~/ai-study
 
 # 4. 下载测试文件
-wget https://raw.githubusercontent.com/datasets/iris/master/data/iris.csv
+wget https://raw.githubusercontent.com/plotly/datasets/master/iris.csv
 head -5 iris.csv
 ```
 
