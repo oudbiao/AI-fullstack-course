@@ -110,10 +110,10 @@ df["年龄"].fillna(df["年龄"].mean())
 df["薪资"].fillna(df["薪资"].median())
 
 # 用前一个值填充（时间序列常用）
-df["年龄"].fillna(method="ffill")    # forward fill
+df["年龄"].ffill()    # forward fill
 
 # 用后一个值填充
-df["年龄"].fillna(method="bfill")    # backward fill
+df["年龄"].bfill()    # backward fill
 
 # 对不同列用不同策略
 df_filled = df.fillna({
@@ -131,7 +131,7 @@ print(df_filled)
 | 删除行 | 缺失比例小（低于 5%）、数据量大 | `dropna()` |
 | 均值/中位数填充 | 数值型、分布对称 | `fillna(mean/median)` |
 | 众数填充 | 分类变量 | `fillna(mode()[0])` |
-| 前/后值填充 | 时间序列数据 | `fillna(method="ffill")` |
+| 前/后值填充 | 时间序列数据 | `ffill() / bfill()` |
 | 固定值填充 | 业务逻辑明确 | `fillna(0)` 或 `fillna("未知")` |
 | 插值 | 连续数据 | `interpolate()` |
 

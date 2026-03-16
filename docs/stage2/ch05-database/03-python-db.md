@@ -29,8 +29,8 @@ flowchart LR
     D --> E["5. commit()<br/>提交更改"]
     E --> F["6. close()<br/>关闭连接"]
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#fff3e0,stroke:#e65100,color:#333
+    style A fill:#e3f2fd,stroke:#1565c0
+    style E fill:#fff3e0,stroke:#e65100
 ```
 
 ### 完整示例

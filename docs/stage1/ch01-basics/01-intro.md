@@ -73,11 +73,25 @@ Python 的应用范围非常广泛，以下是几个最重要的方向：
 
 ### 1. AI 和机器学习（这门课的核心）
 
+:::tip 运行本段示例前请先安装 scikit-learn
+在 Colab 或 Jupyter 中运行下面代码前，先执行安装（只需一次）：
+```bash
+!pip install scikit-learn
+```
+在本地终端或 Conda 环境中则用：`pip install scikit-learn`
+:::
+
 ```python
-# 用 3 行代码训练一个机器学习模型
+# 用几行代码训练一个简单的线性回归模型（示例数据，可直接运行）
+import numpy as np
 from sklearn.linear_model import LinearRegression
+
+X_train = np.array([[1], [2], [3], [4], [5]])   # 特征
+y_train = np.array([2, 4, 6, 8, 10])             # 标签（y ≈ 2*x）
+
 model = LinearRegression()
 model.fit(X_train, y_train)
+# 训练完成后可用 model.predict() 做预测
 ```
 
 主流框架：PyTorch、TensorFlow、scikit-learn、Hugging Face Transformers
@@ -88,8 +102,8 @@ model.fit(X_train, y_train)
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 读取数据
-data = pd.read_csv("sales.csv")
+# 示例数据（实际项目中可用 pd.read_csv("sales.csv") 读取自己的文件）
+data = pd.DataFrame({"month": ["1月", "2月", "3月"], "revenue": [100, 150, 120]})
 
 # 一行代码画图
 data.plot(x="month", y="revenue", kind="bar")
@@ -99,6 +113,8 @@ plt.show()
 主流库：pandas、NumPy、Matplotlib、Seaborn
 
 ### 3. Web 后端开发
+
+用 Python 可以快速写一个提供 API 的网站后端，例如：
 
 ```python
 from fastapi import FastAPI
@@ -110,6 +126,17 @@ def say_hello():
     return {"message": "你好，世界！"}
 ```
 
+**把服务跑起来并访问：**
+
+1. 先把上面代码保存到一个文件（如 `main.py`），在终端进入该目录后执行：
+   ```bash
+   pip install fastapi uvicorn
+   uvicorn main:app --reload
+   ```
+2. 终端里出现 `Uvicorn running on http://127.0.0.1:8000` 后，在浏览器打开：
+   - **http://127.0.0.1:8000/hello** → 会返回 `{"message":"你好，世界！"}`
+   - **http://127.0.0.1:8000/docs** → 自动生成的 API 文档页面，可直接点接口调试
+
 主流框架：FastAPI、Django、Flask
 
 ### 4. 自动化脚本
@@ -117,22 +144,38 @@ def say_hello():
 ```python
 import os
 
-# 批量重命名文件夹中的所有图片
+# 示例：批量重命名文件夹中的图片（先建一个测试目录再运行，避免 FileNotFoundError）
+os.makedirs("photos", exist_ok=True)
+for i in range(3):
+    open(f"photos/old_{i}.jpg", "w").close()   # 创建 3 个空文件当示例
+
 for i, filename in enumerate(os.listdir("photos/")):
     new_name = f"photo_{i+1}.jpg"
     os.rename(f"photos/{filename}", f"photos/{new_name}")
+
+# 查看结果（实际项目中可删掉测试目录：os.removedirs 等）
+print(os.listdir("photos/"))   # ['photo_1.jpg', 'photo_2.jpg', 'photo_3.jpg']
 ```
 
 ### 5. 网络爬虫
 
 ```python
-import requests
+# 先安装：!pip install beautifulsoup4
 from bs4 import BeautifulSoup
 
-page = requests.get("https://example.com")
-soup = BeautifulSoup(page.text, "html.parser")
+# 用一段示例 HTML 演示解析（不依赖外网，可直接运行）
+html = """
+<html><body>
+  <h1>欢迎学习 Python</h1>
+  <p>第一段</p>
+  <p>第二段</p>
+</body></html>
+"""
+soup = BeautifulSoup(html, "html.parser")
 title = soup.find("h1").text
+paragraphs = soup.find_all("p")
 print(f"网页标题: {title}")
+print(f"共 {len(paragraphs)} 个段落")
 ```
 
 ---
