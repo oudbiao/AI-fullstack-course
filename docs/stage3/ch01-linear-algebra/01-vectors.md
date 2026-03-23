@@ -280,9 +280,9 @@ for ax, (a, b, title) in zip(axes, cases):
     dot = np.dot(a, b)
     
     ax.quiver(0, 0, a[0], a[1], angles='xy', scale_units='xy', scale=1,
-              color='steelblue', linewidth=2, label='a')
+              color='steelblue', width=0.02, label='a')
     ax.quiver(0, 0, b[0], b[1], angles='xy', scale_units='xy', scale=1,
-              color='coral', linewidth=2, label='b')
+              color='coral', width=0.02, label='b')
     
     ax.set_xlim(-3, 4)
     ax.set_ylim(-3, 4)
