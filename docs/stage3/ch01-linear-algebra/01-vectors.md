@@ -392,9 +392,9 @@ for ax, (a, b, desc) in zip(axes, pairs):
     sim = cosine_similarity(a, b)
     
     ax.quiver(0, 0, a[0], a[1], angles='xy', scale_units='xy', scale=1,
-              color='steelblue', linewidth=2.5)
+              color='steelblue', width=0.02)
     ax.quiver(0, 0, b[0], b[1], angles='xy', scale_units='xy', scale=1,
-              color='coral', linewidth=2.5)
+              color='coral', width=0.02)
     
     ax.set_xlim(-1.5, 1.5)
     ax.set_ylim(-1, 1.5)

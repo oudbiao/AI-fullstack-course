@@ -87,7 +87,7 @@ for ax, vectors, title in [(axes[0], unit_vectors, '变换前（单位圆）'),
             scale = eigenvalues[j]
         color = ['red', 'blue'][j]
         ax.quiver(0, 0, ev[0]*scale, ev[1]*scale, angles='xy', scale_units='xy', 
-                  scale=1, color=color, linewidth=3,
+                  scale=1, color=color, width=0.01,
                   label=f'特征向量 {j+1} (λ={eigenvalues[j]:.0f})')
     
     ax.set_xlim(-4, 4)
