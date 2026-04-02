@@ -1,74 +1,71 @@
 ---
 title: "5.1 项目：AI 创意内容平台"
 sidebar_position: 15
-description: "把文生图、改图、配音和资产管理真正组织成一个多模态创意平台项目闭环。"
+description: "把文生图、改图、配音和资产管理真正组织成一个多模态创意平台的作品级项目闭环。"
 keywords: [creative platform, multimodal project, image generation, editing, voice, asset management]
 ---
 
 # 项目：AI 创意内容平台
 
 :::tip 本节定位
-这类项目最容易做成“功能堆叠页”：
+AI 创意平台特别容易做成“功能堆叠页”：
 
 - 文生图一个按钮
 - 配音一个按钮
-- 视频一个按钮
+- 改图一个按钮
 
-但那还不够叫平台。  
-真正的平台感来自：
+但这还不够叫平台。  
+平台真正的难点是：
 
-> **任务路由、资产管理、工作流衔接和结果导出。**
+> **把多模态能力组织成连续工作流，并把中间资产稳定管理起来。**
 
-这节课会把它收成一个更像产品的项目骨架。
+这一节会把它往“作品级产品项目”再推一层。
 :::
 
 ## 学习目标
 
-- 理解创意平台和单一生成功能的差别
-- 学会设计多模态资产在平台里的流转方式
-- 通过可运行示例建立任务路由 + 资产管理的闭环
-- 学会把这个题材做成更像作品级产品项目
+- 学会把多模态生成能力组织成真实创作流程
+- 学会定义创意平台里的资产结构和版本逻辑
+- 学会把这个题材做成有产品感的作品级项目
+- 理解创意平台为什么不只是单步生成功能集合
 
 ---
 
-## 一、平台和“多个功能按钮”差在哪？
+## 一、什么样的题目才像“平台项目”？
 
-平台最核心的不是功能数量，  
-而是：
+一个更像作品的题目应该是：
 
-- 任务路由
-- 资产复用
-- 多步创作流程
+> **做一个活动海报创作平台：用户输入需求，系统生成海报、支持一次改图、再生成宣传配音，最后导出一个完整资产包。**
 
-例如：
+### 为什么这个范围合适？
 
-1. 先生成海报图
-2. 再对海报做局部修改
-3. 再根据海报文案生成配音
-4. 最后导出成内容包
+- 流程完整
+- 资产明确
+- 展示起来很直观
 
-这就是平台感。
+### 为什么不建议一开始就做“大而全创作平台”？
 
----
+因为：
 
-## 二、先定义最小产品目标
-
-先把范围收窄成：
-
-- 输入一个创意需求
-- 产出图像资产
-- 产出配音资产
-- 把它们打包成一个项目结果
-
-不要一开始就做：
-
-- 社区
-- 团队协作
-- 商业化运营后台
+- 功能太多会把主线冲淡
+- 资产管理和路由逻辑会很快失控
 
 ---
 
-## 三、先跑一个更像平台的最小示例
+## 二、作品级创意平台最小闭环长什么样？
+
+1. 用户给需求
+2. 路由到合适模块
+3. 生成初始资产
+4. 在已有资产基础上做修改
+5. 生成配套语音或文案
+6. 导出统一内容包
+
+只要这 6 步跑顺，项目就已经很像产品了。
+
+---
+
+## 三、先跑一个更像平台的工作流示例
 
 ```python
 from dataclasses import dataclass, field
@@ -78,16 +75,17 @@ from dataclasses import dataclass, field
 class AssetBundle:
     images: list = field(default_factory=list)
     voices: list = field(default_factory=list)
+    logs: list = field(default_factory=list)
     metadata: dict = field(default_factory=dict)
 
 
 def route_task(user_request):
     if "配音" in user_request or "语音" in user_request:
         return "tts"
-    if "海报" in user_request or "图片" in user_request:
-        return "image_generation"
     if "改图" in user_request or "修图" in user_request:
         return "image_editing"
+    if "海报" in user_request or "图片" in user_request:
+        return "image_generation"
     return "general"
 
 
@@ -104,16 +102,23 @@ def generate_voice(script, speaker="default"):
 
 
 def run_creative_project(requests):
-    bundle = AssetBundle(metadata={"style": "futuristic"})
+    bundle = AssetBundle(metadata={"style": "futuristic", "project_name": "tech_event_campaign"})
 
     for req in requests:
         task_type = route_task(req)
+        bundle.logs.append({"request": req, "task_type": task_type})
+
         if task_type == "image_generation":
-            bundle.images.append(generate_image(req, style="futuristic"))
+            asset = generate_image(req, style=bundle.metadata["style"])
+            bundle.images.append(asset)
+
         elif task_type == "image_editing" and bundle.images:
-            bundle.images.append(edit_image(bundle.images[-1], req))
+            asset = edit_image(bundle.images[-1], req)
+            bundle.images.append(asset)
+
         elif task_type == "tts":
-            bundle.voices.append(generate_voice(req, speaker="brand_voice"))
+            asset = generate_voice(req, speaker="brand_voice")
+            bundle.voices.append(asset)
 
     return bundle
 
@@ -128,93 +133,108 @@ bundle = run_creative_project(requests)
 print(bundle)
 ```
 
-### 3.1 这个例子最重要的地方是什么？
+### 3.1 这个版本比前一版强在哪？
 
-它已经不是简单的：
+这次不只是有：
 
-- 单次生成
+- images
+- voices
 
-而是：
+还多了：
 
-- 多任务路由
-- 上一步资产供下一步复用
-- 最终组织成一个 bundle
+- `logs`
+- 更明确的 `metadata`
 
-这就是平台型项目最核心的结构。
+这让它更接近真实平台里的：
 
-### 3.2 为什么 `AssetBundle` 很关键？
+- 资产流
+- 操作流
 
-因为多模态项目真正难的地方之一就是：
+### 3.2 为什么 `logs` 很值得展示？
 
-- 资产管理
+因为平台项目最怕用户只看到最后结果，  
+看不到中间过程。
 
-如果没有统一 bundle，后面很快就会乱：
-
-- 图像版本很多
-- 音频文件分散
-- 元数据丢失
+而作品级展示里，中间过程往往就是亮点。
 
 ---
 
-## 四、平台项目最该怎么展示？
+## 四、创意平台最容易失控的地方
 
-### 4.1 工作流，而不只是功能
-
-建议展示：
-
-1. 用户输入需求
-2. 路由到了哪些模块
-3. 生成了哪些中间资产
-4. 最终导出结果是什么
-
-### 4.2 资产版本
-
-很值得展示：
-
-- 初始海报
-- 改图后版本
-- 对应配音
-
-### 4.3 失败案例
+### 4.1 资产版本混乱
 
 例如：
 
-- 图像风格和文案不一致
-- 配音语气和海报品牌调性不匹配
+- 初始图
+- 改图 1
+- 改图 2
 
-这会让项目更真实。
+如果命名和归档不清楚，系统很快就乱。
+
+### 4.2 路由逻辑不清
+
+例如：
+
+- 同一句里既像图像请求又像语音请求
+
+这会导致结果难预测。
+
+### 4.3 多模态风格不一致
+
+例如：
+
+- 海报风格偏未来感
+- 配音文案却像官方新闻播报
+
+这类不一致很适合在项目里单独拿出来分析。
 
 ---
 
-## 五、最容易踩的坑
+## 五、作品级创意平台最该展示什么？
 
-### 5.1 只做单步调用
+建议至少展示：
 
-这样更像 demo，不像平台。
+1. 用户需求
+2. 路由结果
+3. 初始海报
+4. 改图后版本
+5. 配音资产
+6. 最终 bundle 结构
 
-### 5.2 不做资产管理
+### 为什么这比只贴一张海报更强？
 
-多模态输出一多，系统很快就会乱。
+因为这样别人能看到：
 
-### 5.3 不做工作流展示
-
-用户看到的只是结果，很难感受到平台逻辑。
+- 这是工作流系统
+- 不是单次生成 demo
 
 ---
 
-## 六、小结
+## 六、一个很适合补上的错误分析层
 
-这节最重要的是建立一个平台项目判断：
+例如你可以额外记录：
 
-> **AI 创意内容平台的核心，不是单个生成模块多强，而是能否把多模态能力通过任务路由和资产管理组织成连续创作工作流。**
+- 哪类需求最容易路由错
+- 哪类 prompt 最容易让图像和配音风格不一致
+- 哪些资产最容易在导出时丢元数据
 
-只要这条工作流讲清楚，这个项目就会很像一个真正的多模态产品。
+这会让项目显得非常成熟。
+
+---
+
+## 七、小结
+
+这节最重要的是建立一个作品级判断：
+
+> **AI 创意内容平台真正像平台的地方，不是功能多，而是能否把任务路由、资产版本和多步工作流组织成稳定、可展示的生产链路。**
+
+只要这条链路讲清楚，这个项目就会非常像一个有产品感的多模态作品。
 
 ---
 
 ## 练习
 
-1. 给示例再加一个 `video_script` 资产类型。
-2. 想一想：为什么平台项目比单功能 demo 更强调资产管理？
-3. 如果图像和配音风格不一致，你会把问题归到哪一层？
-4. 如果做作品集首页，你会怎样展示“从需求到资产包”的整个过程？
+1. 给 `AssetBundle` 再加一个 `video_scripts` 字段，想一想它在工作流里该怎么生成。
+2. 为什么创意平台比单步生成功能更依赖资产管理？
+3. 如果图像和配音风格总不一致，你会把问题归到路由、提示词，还是资产层？为什么？
+4. 如果你把这个项目放进作品集，首页最值得展示哪 5 个模块？
