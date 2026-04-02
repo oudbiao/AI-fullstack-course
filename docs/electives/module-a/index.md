@@ -47,12 +47,12 @@ C++ 与模型部署 不是为了“多学一点内容”，而是为了补上某
 
 | 文件 | 主题 |
 |---|---|
-| `01-cpp-basics.md` | -cpp-basics |
-| `02-cpp-advanced.md` | -cpp-advanced |
+| `01-cpp-basics.md` | C++ 编程基础 |
+| `02-cpp-advanced.md` | C++ 进阶 |
 | `03-model-optimization.md` | 模型优化技术 |
-| `04-inference-engines.md` | -inference-engines |
-| `05-edge-deployment.md` | -edge-deployment |
-| `06-model-serving.md` | -model-serving |
+| `04-inference-engines.md` | 推理引擎 |
+| `05-edge-deployment.md` | 边缘设备部署 |
+| `06-model-serving.md` | 模型服务化 |
 | `07-projects.md` | 部署综合项目 |
 
 ### 2.2 应该怎么使用这份模块？

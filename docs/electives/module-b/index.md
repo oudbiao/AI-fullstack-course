@@ -47,10 +47,10 @@ Python 进阶 不是为了“多学一点内容”，而是为了补上某类经
 
 | 文件 | 主题 |
 |---|---|
-| `01-decorators-advanced.md` | -decorators-advanced |
+| `01-decorators-advanced.md` | 装饰器高级用法 |
 | `02-iterators-advanced.md` | 迭代器与生成器进阶 |
-| `03-concurrency.md` | -concurrency |
-| `04-metaprogramming.md` | -metaprogramming |
+| `03-concurrency.md` | 并发编程（含 asyncio） |
+| `04-metaprogramming.md` | 元编程 |
 
 ### 2.2 应该怎么使用这份模块？
 
@@ -75,15 +75,15 @@ pip install numpy
 import asyncio
 
 async def fetch(name, delay):
-await asyncio.sleep(delay)
-return f"{name} done"
+    await asyncio.sleep(delay)
+    return f"{name} done"
 
 async def main():
-results = await asyncio.gather(
-    fetch("task_a", 0.2),
-    fetch("task_b", 0.1),
-)
-print(results)
+    results = await asyncio.gather(
+        fetch("task_a", 0.2),
+        fetch("task_b", 0.1),
+    )
+    print(results)
 
 asyncio.run(main())
 ```

@@ -1,201 +1,291 @@
 ---
 title: "4.6 实战：完整记忆系统"
 sidebar_position: 24
-description: "更详细地讲解 实战：完整记忆系统 的概念、直觉、代码示例和工程落地方式。"
+description: "做一个可运行的多层记忆 Agent：短期窗口、长期偏好、情景记录与流程记忆协同工作，并展示查询、写入、压缩和回复生成闭环。"
+keywords: [memory practice, short term, long term, episodic memory, procedural memory, agent]
 ---
 
 # 实战：完整记忆系统
 
 :::tip 本节定位
-没有合适的记忆，Agent 很难处理跨回合、跨任务和长期积累的问题。
-阅读这节时，建议先抓住“它解决什么问题、输入输出是什么、和前后章节怎样衔接”这三件事。
+前几节我们把记忆拆成了概念和策略。  
+这一节直接做一个能跑的“小系统”，把这些层串起来：
+
+- 短期记忆：最近对话和当前状态
+- 长期记忆：用户偏好和稳定信息
+- 情景记忆：一次次任务经历
+- 程序记忆：固定工作流步骤
+
+目标不是做大而全，而是先把“完整记忆闭环”跑通。
 :::
 
 ## 学习目标
 
-- 理解 实战：完整记忆系统 的核心概念与适用场景
-- 知道 实战：完整记忆系统 在 记忆系统 中的关键位置
-- 通过一个可运行示例建立第一层直觉
-- 能把玩具示例和真实项目场景联系起来
-- 能总结常见误区与落地时的关键注意点
+- 学会把多层记忆放进同一套 Agent 状态机
+- 学会设计“什么时候写入哪层记忆”的规则
+- 学会让记忆真正参与回答，而不是只做存档
+- 通过一个可运行示例建立可复用的项目骨架
 
 ---
 
-## 一、先建立直觉
+## 一、我们要做的系统长什么样？
 
-### 1.1 这节在解决什么问题？
+### 1.1 目标场景
 
-你可以先把 **实战：完整记忆系统** 理解成 记忆系统 里一个经常会反复出现的能力模块。
+我们继续沿用售后助手场景。  
+用户会连续问：
 
-假设你现在要做一个和 记忆系统 相关的小任务。你往往不会一上来就面对超大模型或超复杂系统，而是会先碰到一个很具体的问题：输入该怎么组织、核心计算到底在做什么、结果怎样判断对不对。实战：完整记忆系统 通常就是在回答这类问题。
+- 退款条件
+- 退款进度
+- 回答风格要求
 
-它通常负责回答这些问题中的一个或几个：
+系统要做到两件事：
 
-- 这类任务最核心的输入输出是什么？
-- 系统是靠什么机制得到结果的？
-- 在真实工程里，为什么这里容易出问题？
+1. 当前会话内保持连贯
+2. 下次再来还能记住用户偏好
 
-对新人来说，最重要的不是一上来把所有细节吃透，而是先建立“这节到底在做什么”的地图感。
+### 1.2 四层记忆分工
 
-### 1.2 它为什么会出现在这一章？
+这个示例里我们这样分工：
 
-因为 实战：完整记忆系统 往往不是孤立存在的，它通常和本章前后的内容形成很强的衔接关系。
+- `short_term`  
+  最近 N 轮消息 + 当前任务状态
+- `long_term`  
+  用户长期偏好
+- `episodic`  
+  每次处理任务后的总结条目
+- `procedural`  
+  预定义流程模板，例如退款处理步骤
 
-一个简单的理解方式是：
+### 1.3 评估目标
 
-- 前面的章节负责打基础
-- 这一节负责把某个关键能力单独拎出来
-- 后面的章节会把它放进更完整的系统或项目里
+这个实战示例最重要的检查点是：
 
-所以学习时要特别注意：这节不是“多一个名词”，而是后续章节的一个支点。
-
-### 1.3 一个帮助记忆的类比
-
-你可以把 实战：完整记忆系统 先理解成一个“把输入逐步变得更有信息量”的加工过程。它不像最终产品，更像生产线上的关键工序：如果这一步做错了，后面再复杂的模型也很难救回来。
-
----
-
-## 二、把核心概念拆开讲
-
-### 2.1 第一层：输入长什么样
-
-学习 实战：完整记忆系统 时，最先要确认的不是术语，而是输入对象的形态：它是向量、序列、图像块、标签，还是更复杂的状态结构。只要输入表示没想清楚，后面的公式和 API 看起来都会像黑盒。
-
-学 实战：完整记忆系统 时，很多人会急着记公式或框架名，但如果第一层没有吃透，后面的复杂版本通常也会变得很难稳稳接住。
-
-- 如果表示错了，模型和规则都会跟着错
-- 如果输入边界不清，效果评估也会漂
-- 如果目标定义模糊，优化方向就会混乱
-
-所以不要急着背 API，先把“输入是什么、输出是什么、中间状态怎么变”捋顺。
-
-### 2.2 第二层：中间发生了什么变换
-
-第二步要抓的是：从输入到输出，中间到底发生了哪种变换。是线性映射、局部感受野扫描、时间依赖传播、注意力加权，还是概率采样？只要能把这个“变换动作”说清楚，理解通常就跨过一大半。
-
-这一层往往就是“真正的本体”。如果你能把中间机制讲清楚，通常就已经从“会调用”跨到“真的理解了”。
-
-- 结果质量
-- 运行效率
-- 错误率
-- 可维护性
-
-也正因为这样，学习这类主题时最好始终带着“如果我要把它放进真实项目，会卡在哪里”这个问题去看。
-
-### 2.3 第三层：输出为什么有意义
-
-最后要看的是：输出怎样映射回业务目标。输出可能是分类分数、隐藏状态、边框、分割 mask，或者下一个 token 的概率。真正的理解，不是会跑代码，而是知道这个输出拿来做什么。
-
-读到这一步时，建议你停一下，试着用自己的话回答：
-
-- 如果别人问你“实战：完整记忆系统 到底有什么用”，你会怎么讲？
-- 如果把它从整个系统里拿掉，哪些能力会明显下降？
-- 它最常见的输入输出各是什么？
+- 能否正确写入偏好
+- 能否在后续回答时引用偏好
+- 能否留下可检索的情景记录
+- 能否在回答前引用程序记忆流程
 
 ---
 
-## 三、先跑一个最小可运行示例
+## 二、先跑一个完整可执行版本
 
-:::info 运行提示
-```bash
-pip install numpy
-```
-:::
+下面代码会模拟两轮对话：
+
+1. 第一轮用户提出“请简洁回答”并问退款条件
+2. 第二轮用户再问进度，系统要自动沿用简洁风格
+
+它会打印：
+
+- 回复结果
+- 四层记忆快照
 
 ```python
-state = {"short_term": [], "long_term": []}
-state["short_term"].append("本轮用户问退款")
-state["long_term"].append("用户偏好：回答要简洁")
-print(state)
+from collections import deque
+from dataclasses import dataclass, asdict
+
+
+def get_refund_policy():
+    return "退款规则：购买后7天内且学习进度低于20%可申请退款，款项原路返回，通常3-7个工作日到账。"
+
+
+def get_order_status(order_id):
+    mock = {
+        "ORD-1001": {"status": "未发货", "progress": 0.12, "amount": 299},
+        "ORD-1002": {"status": "已发货", "progress": 0.35, "amount": 499},
+    }
+    return mock.get(order_id, {"status": "未知", "progress": None, "amount": None})
+
+
+@dataclass
+class Episode:
+    user_id: str
+    topic: str
+    summary: str
+
+
+class MemoryAgent:
+    def __init__(self, short_window=4):
+        self.short_term_messages = deque(maxlen=short_window)
+        self.short_term_state = {}
+        self.long_term_profile = {}
+        self.episodic_memory = []
+        self.procedural_memory = {
+            "refund_workflow": [
+                "读取订单状态",
+                "读取退款政策",
+                "判断是否满足条件",
+                "返回结论和到账说明",
+            ]
+        }
+
+    def _remember_short(self, role, content):
+        self.short_term_messages.append({"role": role, "content": content})
+
+    def _update_profile(self, user_id, message):
+        if "简洁" in message:
+            self.long_term_profile.setdefault(user_id, {})["style"] = "concise"
+        if "详细" in message:
+            self.long_term_profile.setdefault(user_id, {})["style"] = "detailed"
+
+    def _style_for_user(self, user_id):
+        return self.long_term_profile.get(user_id, {}).get("style", "default")
+
+    def _format_answer(self, text, style):
+        if style == "concise":
+            return text[:70] + ("..." if len(text) > 70 else "")
+        if style == "detailed":
+            return text + " 若你愿意，我可以再补充具体操作步骤和常见失败原因。"
+        return text
+
+    def _write_episode(self, user_id, topic, summary):
+        self.episodic_memory.append(Episode(user_id=user_id, topic=topic, summary=summary))
+
+    def handle(self, user_id, user_message, order_id):
+        self._remember_short("user", user_message)
+        self._update_profile(user_id, user_message)
+
+        self.short_term_state["active_workflow"] = "refund_workflow"
+        self.short_term_state["order_id"] = order_id
+
+        workflow = self.procedural_memory["refund_workflow"]
+        order_info = get_order_status(order_id)
+        policy = get_refund_policy()
+
+        if order_info["status"] == "未知":
+            answer = "我暂时查不到该订单，请确认订单号后重试。"
+        elif order_info["progress"] is not None and order_info["progress"] < 0.2:
+            answer = (
+                f"订单 {order_id} 当前学习进度为 {order_info['progress']*100:.0f}%，"
+                f"符合退款进度条件。{policy}"
+            )
+        else:
+            answer = (
+                f"订单 {order_id} 当前学习进度为 {order_info['progress']*100:.0f}%，"
+                "已超过退款进度阈值，当前不满足直接退款条件。"
+            )
+
+        style = self._style_for_user(user_id)
+        final_answer = self._format_answer(answer, style)
+        self._remember_short("assistant", final_answer)
+
+        self._write_episode(
+            user_id=user_id,
+            topic="refund",
+            summary=f"workflow={workflow}; order={order_id}; style={style}; result={final_answer}",
+        )
+
+        return final_answer
+
+    def snapshot(self, user_id):
+        return {
+            "short_term_messages": list(self.short_term_messages),
+            "short_term_state": dict(self.short_term_state),
+            "long_term_profile": self.long_term_profile.get(user_id, {}),
+            "episodic_memory_tail": [asdict(x) for x in self.episodic_memory[-2:]],
+            "procedural_memory": self.procedural_memory,
+        }
+
+
+agent = MemoryAgent(short_window=4)
+
+print("round1:")
+print(agent.handle("u_001", "请简洁回答，我想看退款条件", "ORD-1001"))
+print("\nround2:")
+print(agent.handle("u_001", "那多久到账？", "ORD-1001"))
+
+print("\nmemory snapshot:")
+print(agent.snapshot("u_001"))
 ```
 
-### 3.2 先别急着记代码，先看三件事
+### 2.1 这段代码体现了哪四层协作？
 
-这段代码的目的不是一次把整节课全讲完，而是先帮你建立第一层可执行直觉。
+1. `short_term_messages`  
+   保留近期对话
+2. `long_term_profile`  
+   记住用户风格偏好
+3. `episodic_memory`  
+   每次完成任务后落一条“经历记录”
+4. `procedural_memory`  
+   定义退款任务流程模板
 
-阅读顺序建议是：
+这四层都被用到了，不再是“讲概念但没运行”。
 
-1. 先看输入张量或数据结构的形状，这通常决定了模型为什么这样写。
-2. 再看核心计算是哪一行，它往往就是本节最重要的机制实现。
-3. 最后看输出和打印结果，确认它是否真的对应了我们预期的任务目标。
+### 2.2 为什么第二轮还能保持简洁风格？
 
-如果你能把这三步说清楚，说明这节课的核心骨架已经搭起来了。
+因为第一轮用户说了“请简洁回答”，  
+系统把它写入了长期偏好：
 
-## 四、把示例一步步拆开看
+- `long_term_profile["u_001"]["style"] = "concise"`
 
-### 4.1 输入为什么这样组织？
+所以第二轮即使用户没再重复，回复也会继续沿用。
 
-最小示例里的输入形式，通常就是 实战：完整记忆系统 在最简场景下的标准输入。教程里故意把样本量压小、把结构写直，就是为了让你把注意力放在核心机制，而不是先被工程细节淹没。
+### 2.3 情景记忆在这里有什么价值？
 
-### 4.2 中间那几行为什么最关键？
+每轮处理完成后，系统都会写一条 episode summary。  
+这让我们后续可以回答：
 
-对 实战：完整记忆系统 来说，真正要看的通常不是所有样板代码，而是那几行决定“如何变换、如何打分、如何更新、如何组织上下文”的关键步骤。你读代码时可以先把这些关键行圈出来，再去补其余外围逻辑。
+- 用户之前经历过哪些退款判断
+- 当时依据是什么
 
-### 4.3 输出应该怎样解释？
-
-很多新人会在这一步犯错：代码跑通了，但不知道输出意味着什么。更好的习惯是，把输出翻译回任务语言。比如它是分类决策、相似度、规划结果、风险状态，还是一段可继续传给下一模块的中间表示？
-
----
-
-## 五、从玩具示例走到真实项目
-
-### 5.1 为什么教程先给你最小例子？
-
-因为真实系统往往同时包含太多变量：数据质量、框架封装、硬件环境、日志、配置、监控。直接把新人扔进完整项目，通常只会学会“复制代码”，很难真正理解原理。
-
-最小例子的作用是：
-
-- 在玩具示例里，我们通常只保留 实战：完整记忆系统 最核心的一步，让你先看懂机制本身。
-- 在真实项目里，前后还会加上数据清洗、批处理、评估指标和错误分析。
-- 所以你可以把这一节看成“记忆系统 的关键零件课”，而不是完整系统课。
-
-### 5.2 真正落到项目时，还要补什么？
-
-通常至少还会补上这些东西：
-
-- 更真实的数据样本或知识库
-- 明确的评估指标和 baseline
-- 错误分析与失败案例
-- 训练、部署或服务化环节
-- 成本、时延和稳定性约束
-
-也就是说，教程里的最小示例是在教“机制”，真实项目则是在教“系统”。
-
-### 5.3 学这节时最有用的习惯
-
-最有效的学习顺序通常是：先看输入输出，再看中间变换，最后回头补公式。先抓住计算流程，再补理论细节，会比反过来轻松很多。
+这对复盘和解释很有用。
 
 ---
 
-## 六、常见误区与排查方向
+## 三、这个系统还可以怎样扩展？
 
-### 6.1 这些坑特别常见
+### 3.1 给长期记忆加“可信度”和“更新时间”
 
-- 只背术语不跑代码
-- 把适用场景理解得过宽
-- 不区分训练阶段和推理阶段
+避免很旧、低可信的信息持续影响回答。
 
-### 6.2 如果你读着读着开始发虚，可以这样补救
+### 3.2 给情景记忆加检索
 
-1. 先用自己的话重述这节的输入、输出和关键机制。
-2. 再把最小示例改一个参数或输入，观察结果变化。
-3. 最后再回头看更抽象的概念、公式或框架名词。
+例如按 topic 和关键词查过去经历，  
+给复杂问题提供历史参照。
+
+### 3.3 给程序记忆做版本化
+
+流程一旦改变，可追踪：
+
+- 哪次对话用的是哪版流程
+
+这对审计和回放很重要。
 
 ---
 
-## 小结
+## 四、实战里最容易踩的坑
 
-这节课最重要的不是记住多少术语，而是建立这样一个判断：
+### 4.1 把所有信息都当长期记忆写入
 
-> **实战：完整记忆系统 在 记忆系统 里，到底解决了哪类问题，又会在哪些工程约束下变得关键。**
+结果会变成：
 
-当你能把“问题是什么、核心机制是什么、玩具示例怎么对应到真实项目”这三件事连起来时，这节课就不再是空洞知识点，而会变成你后面继续深入的支点。
+- 检索噪声越来越高
+
+### 4.2 没有“写入门槛”
+
+例如用户随口一句话就写长期，  
+系统很容易学到错误偏好。
+
+### 4.3 只存记忆，不让记忆参与决策
+
+这样系统看起来“有记忆”，  
+但实际上回答没有任何变化。
+
+---
+
+## 五、小结
+
+这节最重要的是把“完整记忆系统”落成一个可执行闭环：
+
+> **短期维持当前任务，长期保留稳定偏好，情景沉淀历史经历，程序记住可复用流程。**
+
+当这四层协同起来，Agent 才能从“一次性问答器”变成“持续可用的任务系统”。
 
 ---
 
 ## 练习
 
-1. 把上面的最小示例亲手跑一遍，并试着改一个参数、输入或配置，观察结果变化。
-2. 用自己的话解释：实战：完整记忆系统 主要解决什么问题，它和前后章节的衔接点是什么？
-3. 想一想：如果把 实战：完整记忆系统 放进真实项目，你最担心的工程问题会是什么？
-4. 试着写出一个你自己的更贴近真实业务的小样例，看看最小示例能否自然迁移过去。
+1. 给示例加一个 `user_blacklist_topic` 长期偏好，看系统能否在回答中规避不相关话题。
+2. 让 `episodic_memory` 支持按 `topic` 检索最近一条记录。
+3. 把 `procedural_memory` 改成多流程版本，例如 `refund_workflow` 和 `invoice_workflow`。
+4. 想一想：哪些信息最适合只放短期、不放长期？
