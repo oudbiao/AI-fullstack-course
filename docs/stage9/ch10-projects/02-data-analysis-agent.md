@@ -1,126 +1,235 @@
 ---
 title: "10.2 项目：数据分析 Agent"
 sidebar_position: 55
-description: "围绕读取数据、统计分析、画图和解释结果，建立一个数据分析 Agent 的最小项目闭环。"
-keywords: [data analysis agent, pandas, plotting, insight generation, agent project]
+description: "围绕读取表格、做统计、输出图表建议和解释结论，建立一个可复核的数据分析 Agent 项目闭环。"
+keywords: [data analysis agent, statistics, chart suggestion, insight generation, agent project]
 ---
 
 # 项目：数据分析 Agent
 
 :::tip 本节定位
-数据分析 Agent 类项目很适合展示：
+数据分析 Agent 的真正价值不在于：
 
-- 工具调用
-- 推理
-- 结果解释
+- 帮你算平均值
 
-因为它不只是“算一堆数”，  
-还要把数变成用户能理解的结论。
+而在于：
+
+> **它能否把“读数据 -> 做分析 -> 解释结论”串成一条可复核的链路。**
+
+所以这类项目非常适合拿来展示多步工具协作和中间状态。
 :::
 
 ## 学习目标
 
-- 学会定义一个数据分析 Agent 的最小范围
-- 学会把数据读取、分析和解释串起来
-- 理解这类项目为什么特别适合展示多步工具协作
-- 通过项目骨架建立作品集思路
+- 学会定义一个数据分析 Agent 的最小项目范围
+- 学会把数据输入、统计计算和解释输出串成闭环
+- 学会用最小样例做“可复核性”展示
+- 学会把这个题材包装成一页很强的作品集项目
 
 ---
 
-## 一、项目最小范围
+## 一、项目题目怎么收窄？
 
-建议先做：
+建议先做成：
 
 - 读取一个小表
-- 算几个统计量
-- 输出一段总结
+- 算几个核心统计量
+- 根据统计量生成洞察摘要
 
-而不是一开始就做：
+而不是一开始做成：
 
-- 全自动 BI 平台
+- 自动 BI 平台
+- 全自动报告工厂
 
 ---
 
-## 二、项目骨架示例
+## 二、先跑一个最小数据分析闭环
+
+这个例子会做：
+
+1. 读取一份小型销售表
+2. 计算总销售额和品类均值
+3. 给出一条简单分析结论
 
 ```python
-from dataclasses import dataclass, field
+sales = [
+    {"category": "course", "amount": 299},
+    {"category": "course", "amount": 199},
+    {"category": "book", "amount": 59},
+    {"category": "book", "amount": 79},
+    {"category": "service", "amount": 499},
+]
 
 
-@dataclass
-class DataAgentProject:
-    name: str
-    modules: list
-    outputs: list
-    metrics: list
-    risks: list = field(default_factory=list)
+def summarize_sales(rows):
+    total = sum(row["amount"] for row in rows)
+
+    grouped = {}
+    for row in rows:
+        grouped.setdefault(row["category"], []).append(row["amount"])
+
+    per_category_avg = {
+        category: round(sum(values) / len(values), 2)
+        for category, values in grouped.items()
+    }
+
+    top_category = max(per_category_avg, key=per_category_avg.get)
+
+    return {
+        "total_amount": total,
+        "per_category_avg": per_category_avg,
+        "insight": f"{top_category} 的客单价最高。",
+    }
 
 
-project = DataAgentProject(
-    name="data_analysis_agent",
-    modules=["load_table", "compute_stats", "plot", "write_insight"],
-    outputs=["summary", "chart", "insights"],
-    metrics=["analysis_accuracy", "latency", "tool_success_rate"],
-    risks=["误解字段含义", "统计口径不一致", "图表误导"],
-)
-
-print(project)
+result = summarize_sales(sales)
+print(result)
 ```
 
+### 2.1 这个例子为什么已经很像项目？
+
+因为它不只做了“计算”，  
+还做了：
+
+- 输入数据
+- 中间统计
+- 输出结论
+
+这已经是最小数据分析工作流。
+
+### 2.2 为什么“insight”特别重要？
+
+因为用户通常不是为了看原始数字，  
+而是为了得到：
+
+- 有解释力的结论
+
+这正是数据分析 Agent 和普通计算器的差别。
+
 ---
 
-## 三、真实项目里还应该补什么？
+## 三、一个作品级数据分析 Agent 最该展示什么？
 
-### 3.1 数据模式说明
+### 3.1 输入数据长什么样
 
-至少要写清：
+最好明确：
 
-- 字段有哪些
-- 哪些字段能直接分析
-- 哪些字段需要清洗
+- 字段
+- 样本量
+- 缺失值情况
 
-### 3.2 工具链闭环
+### 3.2 中间计算结果
 
-数据分析 Agent 真正的亮点通常是：
+例如：
 
-- 读表
-- 算统计
-- 画图
+- 汇总统计
+- 分组结果
+- 趋势判断
+
+### 3.3 最终解释
+
+例如：
+
+- 哪类商品表现最好
+- 哪段时间波动最大
+
+### 3.4 图表建议
+
+即使你不直接生成图，也可以输出：
+
+- 该用柱状图还是折线图
+
+这会让项目更接近真实分析助手。
+
+---
+
+## 四、再加一个最小“图表建议器”
+
+```python
+def suggest_chart(columns):
+    if "date" in columns and "amount" in columns:
+        return "line_chart"
+    if "category" in columns and "amount" in columns:
+        return "bar_chart"
+    return "table"
+
+
+print(suggest_chart(["category", "amount"]))
+print(suggest_chart(["date", "amount"]))
+```
+
+### 4.1 这个小模块有什么价值？
+
+它说明项目不只是“算数”，  
+而是在逐渐往：
+
+- 分析
 - 解释
+- 可视化建议
 
-这几个步骤是否真的衔接顺畅。
-
-### 3.3 可复核性
-
-这类项目特别适合展示：
-
-- 原始输入
-- 中间统计结果
-- 最终洞察文本
-
-这样别人能看出“结论是不是从数据里来的”。
-
-### 3.4 典型失败
-
-建议至少展示：
-
-- 字段理解错误
-- 统计口径错误
-- 图表误读
+推进。
 
 ---
 
-## 四、小结
+## 五、最容易踩的坑
 
-这节最重要的是建立一个项目判断：
+### 5.1 字段理解错
 
-> **数据分析 Agent 的价值，不只是调用分析工具，而是把分析过程和结果解释串成一个可复核的闭环。**
+这是数据分析 Agent 的典型致命问题。  
+如果字段含义理解错，后面全链路都可能被带偏。
+
+### 5.2 只展示结论，不展示中间过程
+
+这样项目会很像黑盒，难以建立信任。
+
+### 5.3 只做 happy path
+
+没有展示：
+
+- 缺失值
+- 异常值
+- 统计口径冲突
+
+项目会显得不够真实。
+
+---
+
+## 六、怎么把它打磨成作品级页面？
+
+### 6.1 结构建议
+
+1. 原始数据样例
+2. 中间统计表
+3. 洞察摘要
+4. 图表建议
+5. 错误案例
+
+### 6.2 很值得补的一个亮点
+
+把：
+
+- 原始数据
+- 中间计算
+- 最终结论
+
+做成一条 trace 展示出来。  
+这会比只贴一段结果强很多。
+
+---
+
+## 七、小结
+
+这节最重要的是建立一个作品级判断：
+
+> **数据分析 Agent 的真正亮点，不是会不会调用 pandas，而是能否把输入数据、中间计算和最终洞察组织成可复核的分析闭环。**
+
+只要这条闭环清楚，这个项目会非常适合展示你对多工具 Agent 的理解。
 
 ---
 
 ## 练习
 
-1. 给这个项目再加一个“异常检测”模块。
-2. 为什么数据分析 Agent 比普通聊天更适合展示多工具协作？
-3. 想一想：如果字段含义理解错了，后续结论会怎样被连锁带偏？
-4. 你会如何展示这个项目的“可复核性”？
+1. 给示例数据再加一个 `date` 字段，把项目扩成简单时间趋势分析。
+2. 想一想：为什么“可复核性”对数据分析 Agent 特别重要？
+3. 如果结论和数字对不上，这个项目最可能出问题的层在哪？
+4. 如果做作品集展示，你会把哪一块设计成最显眼的部分？

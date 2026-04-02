@@ -1,146 +1,226 @@
 ---
 title: "8.2 项目：文本情感分析"
 sidebar_position: 2
-description: "围绕一个最小情感分析项目，走完标签设计、基线模型、错误分析和部署思路。"
-keywords: [sentiment analysis project, text classification, labels, baseline, NLP]
+description: "围绕一个真正可展示的情感分析项目，从标签边界、baseline、错误分析到交付方式，走完完整闭环。"
+keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]
 ---
 
 # 项目：文本情感分析
 
 :::tip 本节定位
-情感分析项目非常适合作为 NLP 入门作品，  
-因为它把很多基础能力自然串起来：
+情感分析项目很适合做作品集，不是因为它最炫，而是因为它很适合训练“项目判断力”：
 
-- 文本预处理
-- 文本表示
-- 分类
-- 错误分析
+- 标签怎么定
+- baseline 怎么建
+- 错误怎么解释
+- 结果怎么展示
 
-同时任务边界也相对清楚。
+这一节的目标不是堆复杂模型，而是把一个小项目真正做完整。
 :::
 
 ## 学习目标
 
-- 学会给情感分析任务设计标签边界
-- 学会做一个可解释 baseline
-- 理解为什么错误分析比总分更重要
-- 通过项目闭环练习 NLP 基础能力
+- 学会给情感分析任务设计稳定的标签边界
+- 学会搭一个可解释 baseline 并读懂结果
+- 学会把错误分析做成项目亮点，而不是事后补丁
+- 学会把一个小 NLP 项目包装成可交付作品
 
 ---
 
-## 一、项目题目应该怎么定？
+## 一、项目题目先要收窄
 
-建议不要一开始就做特别复杂的多级情绪体系。  
-更稳妥的是先从：
+### 1.1 最稳的起点是二分类
+
+先做：
 
 - positive
 - negative
 
-两类开始。
+而不是一开始就做：
 
-原因很简单：
+- positive / neutral / negative / irony / mixed
 
-- 标签更稳
+### 1.2 为什么二分类适合练手？
+
+因为：
+
+- 标签更清楚
+- 数据更容易准备
 - 错误更容易分析
-- baseline 更容易建立
+
+### 1.3 一个适合作品集的题目
+
+例如：
+
+> **做一个“课程评价情感分析器”，判断评论是正向还是负向。**
+
+这个题目非常适合，因为用户语料、标签边界和业务意义都比较清楚。
 
 ---
 
-## 二、一个最小情感分析项目包含什么？
+## 二、项目最小闭环长什么样？
 
-### 1. 数据
+1. 定义标签边界
+2. 准备小型标注数据
+3. 做 baseline
+4. 做错误分析
+5. 设计一个最小推理接口或展示页
 
-- 评论文本
-- 情感标签
-
-### 2. 基线模型
-
-- 词袋 / TF-IDF + 逻辑回归
-
-### 3. 评估
-
-- accuracy
-- 典型错误案例
-
-### 4. 部署展示
-
-- 最小推理接口
+如果这 5 步都清楚，你的项目通常就已经比“只训个模型”更像作品级了。
 
 ---
 
-## 三、先跑一个最小项目骨架示例
+## 三、先跑一个最小 baseline 项目
+
+为了让逻辑足够清楚，这里先用一个关键词统计型 baseline。  
+它当然不够强，但非常适合解释项目闭环。
 
 ```python
-from dataclasses import dataclass, field
+from collections import Counter
+
+train_data = [
+    ("这门课讲得很清楚", "positive"),
+    ("案例很多，学起来很顺", "positive"),
+    ("内容太乱了", "negative"),
+    ("讲得太快，听不懂", "negative"),
+]
+
+test_data = [
+    ("这门课真的很清楚", "positive"),
+    ("内容有点乱", "negative"),
+    ("案例很多但是讲太快", "negative"),
+]
 
 
-@dataclass
-class NLPProjectPlan:
-    name: str
-    labels: list
-    modules: list
-    metrics: list
-    risks: list = field(default_factory=list)
+positive_words = Counter()
+negative_words = Counter()
+
+for text, label in train_data:
+    tokens = list(text)
+    if label == "positive":
+        positive_words.update(tokens)
+    else:
+        negative_words.update(tokens)
 
 
-plan = NLPProjectPlan(
-    name="sentiment_analysis_system",
-    labels=["positive", "negative"],
-    modules=["preprocess", "vectorize", "train", "evaluate", "serve"],
-    metrics=["accuracy", "error_cases"],
-    risks=["讽刺反语", "否定词处理", "训练集标签不一致"],
-)
+def predict(text):
+    score = 0
+    for token in text:
+        score += positive_words[token]
+        score -= negative_words[token]
+    return "positive" if score >= 0 else "negative", score
 
-print(plan)
+
+results = []
+for text, gold in test_data:
+    pred, score = predict(text)
+    results.append({"text": text, "gold": gold, "pred": pred, "score": score})
+    print(results[-1])
 ```
 
-### 3.1 为什么这一步很重要？
+### 3.1 这个 baseline 为什么有教学价值？
 
-因为项目不是“想到什么就加什么”，  
-而是先把：
+因为它很容易解释：
 
-- 标签
-- 模块
-- 指标
-- 风险
+- 为什么判成正面
+- 为什么判成负面
 
-讲清楚。
+这让你能真正做“错误分析”，而不是只盯一个数字。
 
 ---
 
-## 四、情感分析项目里最容易出错的地方
+## 四、真正让项目变强的是错误分析
 
-### 4.1 否定词
+### 4.1 先把错例挑出来
 
-例如：
+```python
+errors = [row for row in results if row["gold"] != row["pred"]]
+print(errors)
+```
 
-- “不差”
-- “不推荐”
+### 4.2 常见错误类型
 
-### 4.2 反讽
+对情感分析来说，最值得单独看的是：
 
-例如：
+- 否定词  
+  例如“不差”“不推荐”
+- 反讽  
+  例如“真棒，又崩了”
+- 混合评价  
+  例如“内容很好，但太难了”
 
-- “真是太棒了，又崩了”
+### 4.3 为什么错误分析这么值钱？
 
-### 4.3 标签标准不统一
+因为它能直接告诉你下一步该怎么做：
 
-如果标注者对“中性偏正”和“正面”理解不同，  
-模型会很难稳定。
+- 补数据
+- 改标签标准
+- 升级模型
 
 ---
 
-## 五、小结
+## 五、这个项目怎么往作品级再推一步？
 
-这节最重要的是建立一个 NLP 项目习惯：
+### 5.1 补一个传统强基线
 
-> **情感分析项目最先要做的是把标签边界、基线模型和错误类型分析清楚，而不是一开始就追最复杂模型。**
+例如：
+
+- TF-IDF + LogisticRegression
+
+让你的项目至少有：
+
+- 规则基线
+- 传统 ML 基线
+
+### 5.2 再补一个深度 baseline
+
+例如：
+
+- embedding + pooling
+- BERT 分类
+
+### 5.3 展示时不要只放总分
+
+很推荐展示：
+
+- 标签定义
+- baseline 对比
+- 典型错例
+- 负样本 hardest cases
+
+这样项目会非常完整。
+
+---
+
+## 六、最容易踩的坑
+
+### 6.1 标签标准不一致
+
+这是很多情感项目的第一大坑。
+
+### 6.2 只看准确率
+
+不看具体错在哪，你很难真正优化。
+
+### 6.3 一开始就追求最复杂模型
+
+没有 baseline，复杂模型的提升就很难讲清。
+
+---
+
+## 七、小结
+
+这节最重要的是建立一个项目习惯：
+
+> **情感分析项目最有价值的地方，不是模型多复杂，而是你能否把标签边界、baseline、错误分析和升级路线讲成一个完整闭环。**
+
+只要这一点做到位，即使题目不大，也会非常像作品级课程。
 
 ---
 
 ## 练习
 
-1. 设计 10 条评论并给出二分类标签。
-2. 想一想：如果模型总在否定句上出错，你会先改预处理还是改模型？为什么？
-3. 为什么情感分析项目特别适合练“错误分析”？
-4. 如果要扩成三分类（正/负/中性），你最担心什么问题？
+1. 自己设计 12 条课程评价，并给出正负标签。
+2. 在 baseline 上再手工加入一个“否定词翻转规则”，看看能否修掉某类错误。
+3. 想一想：为什么情感分析特别适合做错误分析展示？
+4. 如果你要把这个项目扩成三分类，你会先改标签标准还是先换模型？为什么？
