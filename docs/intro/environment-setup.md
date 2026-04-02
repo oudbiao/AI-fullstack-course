@@ -90,6 +90,60 @@
 
 ---
 
+## 推荐环境方案
+
+前面的课程可以按章节逐步装库。  
+但如果你想从第五阶段一路学到第九、十阶段，更稳妥的做法是直接准备一套“课程示例环境”。
+
+仓库根目录已经补了两份依赖清单：
+
+| 文件 | 适用范围 |
+|------|----------|
+| `requirements-course-core.txt` | 第 0～4 阶段 + 大部分传统机器学习 / 工程示例 |
+| `requirements-course-ai.txt` | 第 5 阶段之后常见的深度学习 / Transformers / LLM 工具依赖 |
+
+### 推荐安装顺序
+
+先创建一个新的 conda 环境：
+
+```bash
+conda create -n ai-course python=3.11 -y
+conda activate ai-course
+```
+
+然后安装基础依赖：
+
+```bash
+pip install -r requirements-course-core.txt
+```
+
+如果你准备学习第五阶段及之后的内容，再安装 AI 相关依赖：
+
+```bash
+pip install -r requirements-course-ai.txt
+```
+
+:::warning 关于 PyTorch
+`requirements-course-ai.txt` 里已经包含 `torch`。  
+如果你使用的是：
+
+- NVIDIA GPU
+- Apple Silicon
+- 或特定 CUDA 版本
+
+更推荐先根据 PyTorch 官方安装说明装好与你机器匹配的版本，再安装这份文件里的其他库。
+:::
+
+### 一个更稳的实践
+
+后续课程页里的 `pip install ...` 仍然可以单独使用，  
+但如果你打算系统刷完整条主线，建议优先维护这一套统一环境，避免：
+
+- 每章单独装库造成版本打架
+- 代码示例能看懂但本地跑不起来
+
+---
+
 ## Python 版本选择
 
 **推荐 Python 3.11**。原因：
@@ -158,4 +212,5 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 2. 粘贴到 Google 搜索（英文搜索效果更好）
 3. 99% 的环境问题都有人遇到过，Stack Overflow 上一定有答案
 4. 实在搞不定，先用 Google Colab 继续学习，环境问题以后再解决
+5. 如果是第 5 阶段后的课程代码跑不起来，优先检查你是否已经按上面的统一环境方案安装依赖
 :::

@@ -1,0 +1,11 @@
+torch>=2.2
+torchvision>=0.17
+transformers>=4.39
+datasets>=2.18
+accelerate>=0.28
+sentencepiece>=0.2
+langchain>=0.1
+chromadb>=0.4
+openai>=1.14
+anthropic>=0.21
+faiss-cpu>=1.8
