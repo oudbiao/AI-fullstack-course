@@ -47,9 +47,9 @@ fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 # 线性无关
 ax = axes[0]
 ax.quiver(0, 0, v1[0], v1[1], angles='xy', scale_units='xy', scale=1,
-          color='steelblue', linewidth=2.5, label='v1 = [1, 0]')
+          color='steelblue', width=0.01, label='v1 = [1, 0]')
 ax.quiver(0, 0, v2[0], v2[1], angles='xy', scale_units='xy', scale=1,
-          color='coral', linewidth=2.5, label='v2 = [0, 1]')
+          color='coral', width=0.01, label='v2 = [0, 1]')
 ax.set_xlim(-0.5, 2)
 ax.set_ylim(-0.5, 2)
 ax.set_aspect('equal')
@@ -60,9 +60,9 @@ ax.set_title('线性无关\n两个方向不同，无冗余')
 # 线性相关
 ax = axes[1]
 ax.quiver(0, 0, u1[0], u1[1], angles='xy', scale_units='xy', scale=1,
-          color='steelblue', linewidth=2.5, label='u1 = [1, 2]')
+          color='steelblue', width=0.01, label='u1 = [1, 2]')
 ax.quiver(0, 0, u2[0], u2[1], angles='xy', scale_units='xy', scale=1,
-          color='coral', linewidth=2.5, label='u2 = [2, 4]')
+          color='coral', width=0.01, label='u2 = [2, 4]')
 ax.set_xlim(-0.5, 3)
 ax.set_ylim(-0.5, 5)
 ax.set_aspect('equal')

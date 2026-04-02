@@ -163,7 +163,7 @@ ax.plot(p_values, likelihood / np.trapz(likelihood, p_values),
         '--', color='coral', linewidth=2, label='似然函数')
 ax.plot(p_values, prior / np.trapz(prior, p_values), 
         '--', color='green', linewidth=2, label='先验')
-ax.plot(p_values, posterior, color='steelblue', linewidth=2.5, label='后验')
+ax.plot(p_values, posterior, color='steelblue', width=0.01, label='后验')
 ax.axvline(x=p_mle, color='coral', linestyle=':', alpha=0.7, label=f'MLE = {p_mle:.2f}')
 ax.axvline(x=p_map, color='steelblue', linestyle=':', alpha=0.7, label=f'MAP = {p_map:.2f}')
 ax.set_xlabel('p')
