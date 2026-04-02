@@ -21,6 +21,23 @@ keywords: [向量, 点积, 余弦相似度, NumPy, 线性代数, AI数学]
 
 ---
 
+## 零、先建立一张地图
+
+这一节最重要的不是记住多少名词，而是先抓住一条主线：
+
+```mermaid
+flowchart LR
+    A["现实数据<br/>用户资料 / 词语 / 图片"] --> B["向量表示<br/>先把对象写成数字"]
+    B --> C["点积<br/>看两个向量有多对齐"]
+    C --> D["余弦相似度<br/>只比较方向"]
+    D --> E["推荐 / 搜索 / RAG / 语义匹配"]
+```
+
+你可以把这节课理解成：
+
+- 前半部分解决“一个对象怎样写成向量”
+- 后半部分解决“两个向量怎样比较是否相似”
+
 ## 一、向量是什么？
 
 ### 1.1 直觉理解
@@ -90,6 +107,48 @@ plt.show()
 :::info 高维向量怎么理解？
 AI 中的向量通常是几百上千维的，没法画出来。但数学上的操作是一样的——向量就是**一串数字**，所有运算规则对任意维度都适用。
 :::
+
+### 1.3 从一条真实数据记录到向量
+
+新人最容易卡住的一点是：知道“向量是一串数字”，但不知道它怎么和真实数据连起来。
+
+```python
+import numpy as np
+
+student = {
+    "math": 90,
+    "english": 85,
+    "physics": 92,
+}
+
+student_vector = np.array([
+    student["math"],
+    student["english"],
+    student["physics"],
+])
+
+print("学生向量:", student_vector)
+print("向量形状:", student_vector.shape)  # (3,)
+```
+
+这里的本质是：
+
+- 现实世界里是“有意义的字段”
+- 到计算机里要变成“固定顺序的数字数组”
+
+一旦你把对象写成向量，就能开始做数学运算。
+
+```python
+weights = np.array([0.4, 0.2, 0.4])
+score = student_vector @ weights
+print("综合分:", score)  # 89.8
+```
+
+这里其实已经提前连到了后面的机器学习主线：
+
+- 数据是向量
+- 规则也是向量
+- 二者做点积，可以得到一个分数
 
 ---
 
@@ -207,6 +266,30 @@ print(f"单位向量长度: {np.linalg.norm(unit_a)}")  # 1.0
 
 **为什么重要？** 在 AI 中，我们经常需要比较两个向量的**方向**而不是大小。单位化后就只保留了方向信息。
 
+### 2.5 新人一定要建立的 shape 感
+
+很多人一开始学向量，概念能懂，但一写代码就被 `shape` 绕晕。
+
+```python
+import numpy as np
+
+a = np.array([1, 2, 3])          # 一维向量
+row = a.reshape(1, 3)            # 行向量
+col = a.reshape(3, 1)            # 列向量
+
+print("a.shape   =", a.shape)    # (3,)
+print("row.shape =", row.shape)  # (1, 3)
+print("col.shape =", col.shape)  # (3, 1)
+```
+
+它们看起来都像“3 个数字”，但在矩阵乘法里含义不同：
+
+- `(3,)` 是 NumPy 里的普通一维数组
+- `(1, 3)` 明确表示“1 行 3 列”
+- `(3, 1)` 明确表示“3 行 1 列”
+
+后面学矩阵和神经网络时，`shape` 感比死背公式更重要。
+
 ---
 
 ## 三、点积——向量最重要的运算
@@ -264,7 +347,28 @@ b = np.array([-1, 0])
 print(f"反方向: a · b = {np.dot(a, b)}")  # -1（负数）
 ```
 
-### 3.3 用可视化理解点积
+### 3.3 为什么点积可以理解成“对齐程度”？
+
+点积还有一个非常重要的理解角度：
+
+> **一个向量在另一个向量方向上投影得越多，点积通常越大。**
+
+它的公式可以写成：
+
+`a · b = |a| × |b| × cos(theta)`
+
+你现在不用先推导它，只要先记住三件事：
+
+1. 两个向量越同向，`cos(theta)` 越接近 1
+2. 两个向量越垂直，`cos(theta)` 越接近 0
+3. 两个向量越反向，`cos(theta)` 越接近 -1
+
+所以点积同时包含了：
+
+- 长度信息
+- 方向信息
+
+### 3.4 用可视化理解点积
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
@@ -405,6 +509,37 @@ for ax, (a, b, desc) in zip(axes, pairs):
 plt.tight_layout()
 plt.show()
 ```
+
+### 4.5 一个最小检索示例：从 3 条候选里找最像的一条
+
+下面这个例子虽然用的是手工构造的小向量，但思路和向量检索、RAG、语义搜索是一样的。
+
+```python
+import numpy as np
+
+def cosine_similarity(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+query = np.array([0.9, 0.1, 0.8, 0.2])
+
+docs = {
+    "文档A：机器学习入门": np.array([0.8, 0.2, 0.75, 0.1]),
+    "文档B：旅行攻略":     np.array([0.1, 0.9, 0.2, 0.8]),
+    "文档C：深度学习基础": np.array([0.85, 0.15, 0.7, 0.25]),
+}
+
+scores = []
+for name, vec in docs.items():
+    sim = cosine_similarity(query, vec)
+    scores.append((name, sim))
+
+scores.sort(key=lambda x: x[1], reverse=True)
+
+for name, sim in scores:
+    print(f"{name}: {sim:.4f}")
+```
+
+你会发现，相似度最高的通常是语义方向更接近查询的文档。
 
 ---
 

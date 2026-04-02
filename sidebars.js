@@ -173,6 +173,7 @@ const sidebars = {
           type: "category",
           label: "第1章 线性代数实战",
           items: [
+            "stage3/ch01-linear-algebra/roadmap",
             "stage3/ch01-linear-algebra/vectors",
             "stage3/ch01-linear-algebra/matrices",
             "stage3/ch01-linear-algebra/eigenvalues",
@@ -183,6 +184,7 @@ const sidebars = {
           type: "category",
           label: "第2章 概率与统计实战",
           items: [
+            "stage3/ch02-probability/roadmap",
             "stage3/ch02-probability/probability-basics",
             "stage3/ch02-probability/distributions",
             "stage3/ch02-probability/statistical-inference",
@@ -193,6 +195,7 @@ const sidebars = {
           type: "category",
           label: "第3章 微积分与优化实战",
           items: [
+            "stage3/ch03-calculus/roadmap",
             "stage3/ch03-calculus/derivatives",
             "stage3/ch03-calculus/partial-derivatives-gradient",
             "stage3/ch03-calculus/gradient-descent",
