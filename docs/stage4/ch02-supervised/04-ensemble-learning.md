@@ -21,6 +21,36 @@ keywords: [集成学习, 随机森林, Bagging, Boosting, GBDT, XGBoost, LightGB
 
 ---
 
+## 零、先建立一张地图
+
+集成学习最容易让新人晕的地方不是概念少，而是名字太多：
+
+- Bagging
+- 随机森林
+- AdaBoost
+- GBDT
+- XGBoost
+- LightGBM
+- CatBoost
+
+如果一上来按工具名记，很容易碎。更稳的理解顺序是：
+
+```mermaid
+flowchart LR
+    A["先问为什么单棵树不够"] --> B["再分两条主线<br/>Bagging vs Boosting"]
+    B --> C["Bagging → 随机森林<br/>核心是降方差"]
+    B --> D["Boosting → GBDT/XGBoost/LightGBM/CatBoost<br/>核心是逐步纠错"]
+    C --> E["最后再看工程选型<br/>什么时候用哪一个"]
+    D --> E
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#333
+    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
+```
+
+只要你先把“并行投票”和“串行纠错”这两条主线分清，后面的模型名字就不容易乱。
+
+---
+
 ## 一、集成学习的核心思想
 
 ### 1.1 一张图理解集成学习
@@ -105,6 +135,15 @@ flowchart LR
     style V2 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
+### 1.4 先别急着记模型名，先记两件事
+
+这节最该先记的不是库名，而是下面两句话：
+
+- **Bagging** 更像“多找几个人独立判断，再投票”
+- **Boosting** 更像“每一轮专门补前一轮犯的错”
+
+这两句话几乎能解释后面大多数模型的家族关系。
+
 ---
 
 ## 二、Bagging 与随机森林
@@ -134,6 +173,16 @@ for i in range(3):
 随机森林 = Bagging + **特征随机选择**
 
 在每次分裂时，只从**随机选取的一部分特征**中选最优分裂点。这增加了树之间的多样性。
+
+### 2.2.1 为什么随机森林通常比单棵树稳？
+
+因为它做了两件单棵树做不到的事：
+
+- 对数据做随机采样
+- 对特征也做随机选择
+
+这样每棵树都会有一点不同。  
+单棵树很容易对某几个样本或某几个特征过度敏感，而随机森林通过“平均很多棵不完全一样的树”，把这种不稳定性压下来了。
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -186,6 +235,21 @@ plt.show()
 | `max_features` | 每次分裂考虑的特征数 | 'sqrt'（分类）, 'log2' |
 | `min_samples_split` | 节点分裂最小样本数 | 2~10 |
 | `min_samples_leaf` | 叶节点最小样本数 | 1~5 |
+
+### 2.4 第一次调随机森林时，更稳的顺序是什么？
+
+建议先按下面顺序来：
+
+1. 先把 `n_estimators` 拉到足够大，比如 `100~300`
+2. 再看 `max_depth`
+3. 再看 `min_samples_leaf`
+4. 最后再微调 `max_features`
+
+原因是：
+
+- 树太少时，波动大，不利于判断
+- `max_depth` 和 `min_samples_leaf` 更直接影响是否过拟合
+- `max_features` 更多是在做细调
 
 ```python
 # 树的数量 vs 准确率
@@ -253,6 +317,15 @@ print(f"AdaBoost | 训练: {ada.score(X_train, y_train):.1%} | 测试: {ada.scor
 > **Fm(x) = Fm-1(x) + η × hm(x)**
 
 其中 `hm(x)` 是第 m 棵树拟合的残差，`η` 是学习率。
+
+### 3.2.1 GBDT 最值得先记住的直觉
+
+如果只用一句话解释 GBDT，可以这样记：
+
+> **前一轮哪里没拟合好，后一轮就重点去补哪里。**
+
+这和随机森林非常不一样。  
+随机森林是“大家独立判断再平均”，而 GBDT 是“一轮一轮补漏洞”。
 
 ```python
 from sklearn.ensemble import GradientBoostingClassifier
@@ -368,6 +441,20 @@ print(f"XGBoost | 训练: {xgb_model.score(X_train, y_train):.1%} | 测试: {xgb
 | `reg_alpha` | L1 正则化系数 | 0~1 |
 | `reg_lambda` | L2 正则化系数 | 1~5 |
 
+### 4.3.1 第一次调 XGBoost，最该先动哪几个参数？
+
+不要一上来把十几个参数全开。更稳的顺序是：
+
+1. 先定 `learning_rate`
+2. 再配 `n_estimators`
+3. 再看 `max_depth`
+4. 最后再看 `subsample`、`colsample_bytree` 和正则项
+
+一个很实用的经验是：
+
+- 小学习率 + 更多树，通常比大步快跑更稳
+- 深度太大时，Boosting 系列会很容易开始记训练集
+
 ### 4.4 早停（Early Stopping）
 
 ```python
@@ -480,6 +567,16 @@ print(f"CatBoost | 训练: {cat_model.score(X_train, y_train):.1%} | 测试: {ca
 | 默认效果 | 好 | 好 | 通常最佳 |
 | Kaggle 使用 | 非常广泛 | 非常广泛 | 较广泛 |
 
+### 5.4 第一次做表格数据项目时，模型怎么选最稳？
+
+如果你是第一次做结构化表格数据任务，可以先这样选：
+
+- 想要稳、解释简单、训练快：先试随机森林
+- 想要更高上限：再试 XGBoost / LightGBM
+- 类别特征特别多：优先考虑 CatBoost
+
+这个顺序比“哪个最火就先上哪个”更稳，因为它先帮你建立 baseline，再逐步提高上限。
+
 ---
 
 ## 六、Stacking——模型堆叠
@@ -528,6 +625,20 @@ stack = StackingClassifier(
 stack.fit(X_train, y_train)
 print(f"Stacking | 训练: {stack.score(X_train, y_train):.1%} | 测试: {stack.score(X_test, y_test):.1%}")
 ```
+
+### 6.3 为什么 Stacking 不是新人第一步？
+
+因为 Stacking 虽然可能更强，但它对实验设计要求更高：
+
+- 更容易数据泄漏
+- 更依赖交叉验证
+- 更难解释最终为什么有效
+
+所以更稳的学习路径通常是：
+
+- 先学会单模型 baseline
+- 再学随机森林和 Boosting
+- 最后才碰 Stacking
 
 ---
 
@@ -650,6 +761,19 @@ flowchart TD
 | **Bagging** | 并行 + 投票 | 随机森林 | 减少方差，不易过拟合 |
 | **Boosting** | 串行 + 纠错 | XGBoost、LightGBM | 减少偏差，效果通常最好 |
 | **Stacking** | 模型堆叠 | 多种组合 | 充分利用不同模型的优势 |
+
+### 9.1 这节最该带走什么
+
+如果只带走一句话，我希望你记住：
+
+> **集成学习的本质不是“模型更多”，而是用不同方式让很多个不完美的树，组合成一个更稳或更强的系统。**
+
+所以真正的关键收获应该是：
+
+- 分清 Bagging 和 Boosting
+- 知道随机森林为什么稳
+- 知道 GBDT / XGBoost 为什么强
+- 知道第一次做表格数据项目时该怎么选路线
 
 :::info 连接后续
 - **第 3 章**：无监督学习——聚类、降维、异常检测
