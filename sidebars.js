@@ -217,6 +217,7 @@ const sidebars = {
             "stage4/ch01-ml-basics/roadmap",
             "stage4/ch01-ml-basics/what-is-ml",
             "stage4/ch01-ml-basics/sklearn-intro",
+            "stage4/ch01-ml-basics/math-to-ml-bridge",
           ],
         },
         {
@@ -286,6 +287,7 @@ const sidebars = {
           type: "category",
           label: "第1章 神经网络基础",
           items: [
+            "stage5/ch01-nn-basics/ml-to-dl-bridge",
             "stage5/ch01-nn-basics/roadmap",
             "stage5/ch01-nn-basics/neurons-activation",
             "stage5/ch01-nn-basics/forward-backward",
