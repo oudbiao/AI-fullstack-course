@@ -214,6 +214,7 @@ const sidebars = {
           type: "category",
           label: "第1章 机器学习基础概念",
           items: [
+            "stage4/ch01-ml-basics/roadmap",
             "stage4/ch01-ml-basics/what-is-ml",
             "stage4/ch01-ml-basics/sklearn-intro",
           ],
@@ -222,6 +223,7 @@ const sidebars = {
           type: "category",
           label: "第2章 监督学习核心算法",
           items: [
+            "stage4/ch02-supervised/roadmap",
             "stage4/ch02-supervised/linear-regression",
             "stage4/ch02-supervised/logistic-regression",
             "stage4/ch02-supervised/decision-trees",
@@ -232,6 +234,7 @@ const sidebars = {
           type: "category",
           label: "第3章 无监督学习算法",
           items: [
+            "stage4/ch03-unsupervised/roadmap",
             "stage4/ch03-unsupervised/clustering",
             "stage4/ch03-unsupervised/dimensionality-reduction",
             "stage4/ch03-unsupervised/anomaly-detection",
@@ -241,6 +244,7 @@ const sidebars = {
           type: "category",
           label: "第4章 模型评估与选择",
           items: [
+            "stage4/ch04-evaluation/roadmap",
             "stage4/ch04-evaluation/metrics",
             "stage4/ch04-evaluation/cross-validation",
             "stage4/ch04-evaluation/bias-variance",
@@ -251,6 +255,7 @@ const sidebars = {
           type: "category",
           label: "第5章 特征工程",
           items: [
+            "stage4/ch05-feature-engineering/roadmap",
             "stage4/ch05-feature-engineering/feature-understanding",
             "stage4/ch05-feature-engineering/preprocessing",
             "stage4/ch05-feature-engineering/feature-construction",
@@ -262,6 +267,7 @@ const sidebars = {
           type: "category",
           label: "第6章 实战项目",
           items: [
+            "stage4/ch06-projects/roadmap",
             "stage4/ch06-projects/house-price",
             "stage4/ch06-projects/customer-churn",
             "stage4/ch06-projects/user-segmentation",
@@ -280,6 +286,7 @@ const sidebars = {
           type: "category",
           label: "第1章 神经网络基础",
           items: [
+            "stage5/ch01-nn-basics/roadmap",
             "stage5/ch01-nn-basics/neurons-activation",
             "stage5/ch01-nn-basics/forward-backward",
             "stage5/ch01-nn-basics/optimizers",
@@ -291,6 +298,7 @@ const sidebars = {
           type: "category",
           label: "第2章 PyTorch 框架",
           items: [
+            "stage5/ch02-pytorch/roadmap",
             "stage5/ch02-pytorch/sklearn-to-pytorch-bridge",
             "stage5/ch02-pytorch/pytorch-basics",
             "stage5/ch02-pytorch/autograd",
@@ -304,6 +312,7 @@ const sidebars = {
           type: "category",
           label: "第3章 卷积神经网络 (CNN)",
           items: [
+            "stage5/ch03-cnn/roadmap",
             "stage5/ch03-cnn/convolution-basics",
             "stage5/ch03-cnn/cnn-structure",
             "stage5/ch03-cnn/classic-architectures",
@@ -315,6 +324,7 @@ const sidebars = {
           type: "category",
           label: "第4章 RNN 与序列模型",
           items: [
+            "stage5/ch04-rnn/roadmap",
             "stage5/ch04-rnn/rnn-basics",
             "stage5/ch04-rnn/lstm-gru",
             "stage5/ch04-rnn/sequence-practice",
@@ -324,6 +334,7 @@ const sidebars = {
           type: "category",
           label: "第5章 注意力与 Transformer",
           items: [
+            "stage5/ch05-transformer/roadmap",
             "stage5/ch05-transformer/attention-mechanism",
             "stage5/ch05-transformer/transformer-architecture",
           ],
@@ -332,6 +343,7 @@ const sidebars = {
           type: "category",
           label: "第6章 生成模型基础【选修】",
           items: [
+            "stage5/ch06-generative/roadmap",
             "stage5/ch06-generative/gan",
             "stage5/ch06-generative/vae",
           ],
@@ -340,6 +352,7 @@ const sidebars = {
           type: "category",
           label: "第7章 训练技巧与调优",
           items: [
+            "stage5/ch07-training-tips/roadmap",
             "stage5/ch07-training-tips/hyperparameter-tuning",
             "stage5/ch07-training-tips/training-diagnosis",
             "stage5/ch07-training-tips/model-compression",
@@ -349,6 +362,7 @@ const sidebars = {
           type: "category",
           label: "第8章 实战项目",
           items: [
+            "stage5/ch08-projects/roadmap",
             "stage5/ch08-projects/image-classification",
             "stage5/ch08-projects/sentiment-analysis",
             "stage5/ch08-projects/generative-practice",
@@ -366,6 +380,7 @@ const sidebars = {
           type: "category",
           label: "第1章 CV基础与OpenCV",
           items: [
+            "stage6/ch01-cv-basics/roadmap",
             "stage6/ch01-cv-basics/image-fundamentals",
             "stage6/ch01-cv-basics/opencv-basics",
             "stage6/ch01-cv-basics/image-processing",
@@ -375,6 +390,7 @@ const sidebars = {
           type: "category",
           label: "第2章 图像分类进阶",
           items: [
+            "stage6/ch02-classification/roadmap",
             "stage6/ch02-classification/data-augmentation",
             "stage6/ch02-classification/modern-architectures",
             "stage6/ch02-classification/training-tricks",
@@ -384,6 +400,7 @@ const sidebars = {
           type: "category",
           label: "第3章 目标检测",
           items: [
+            "stage6/ch03-detection/roadmap",
             "stage6/ch03-detection/detection-overview",
             "stage6/ch03-detection/classic-detectors",
             "stage6/ch03-detection/yolo-series",
@@ -394,6 +411,7 @@ const sidebars = {
           type: "category",
           label: "第4章 图像分割",
           items: [
+            "stage6/ch04-segmentation/roadmap",
             "stage6/ch04-segmentation/semantic-segmentation",
             "stage6/ch04-segmentation/instance-segmentation",
             "stage6/ch04-segmentation/segmentation-practice",
@@ -403,6 +421,7 @@ const sidebars = {
           type: "category",
           label: "第5章 CV进阶专题",
           items: [
+            "stage6/ch05-advanced/roadmap",
             "stage6/ch05-advanced/face-detection",
             "stage6/ch05-advanced/video-analysis",
             "stage6/ch05-advanced/ocr",
@@ -413,6 +432,7 @@ const sidebars = {
           type: "category",
           label: "第6章 综合项目",
           items: [
+            "stage6/ch06-projects/roadmap",
             "stage6/ch06-projects/security-detection",
             "stage6/ch06-projects/medical-imaging",
           ],
@@ -429,6 +449,7 @@ const sidebars = {
           type: "category",
           label: "第1章 文本处理基础",
           items: [
+            "stage7/ch01-text-basics/roadmap",
             "stage7/ch01-text-basics/nlp-overview",
             "stage7/ch01-text-basics/text-preprocessing",
             "stage7/ch01-text-basics/text-representation",
@@ -438,6 +459,7 @@ const sidebars = {
           type: "category",
           label: "第2章 词嵌入与语言模型",
           items: [
+            "stage7/ch02-embeddings/roadmap",
             "stage7/ch02-embeddings/word-embedding",
             "stage7/ch02-embeddings/contextual-embedding",
             "stage7/ch02-embeddings/language-models",
@@ -447,6 +469,7 @@ const sidebars = {
           type: "category",
           label: "第3章 文本分类",
           items: [
+            "stage7/ch03-classification/roadmap",
             "stage7/ch03-classification/traditional-methods",
             "stage7/ch03-classification/deep-learning-methods",
             "stage7/ch03-classification/classification-practice",
@@ -456,6 +479,7 @@ const sidebars = {
           type: "category",
           label: "第4章 序列标注",
           items: [
+            "stage7/ch04-sequence-labeling/roadmap",
             "stage7/ch04-sequence-labeling/ner-overview",
             "stage7/ch04-sequence-labeling/bilstm-crf",
             "stage7/ch04-sequence-labeling/ner-practice",
@@ -465,6 +489,7 @@ const sidebars = {
           type: "category",
           label: "第5章 Seq2Seq 与注意力",
           items: [
+            "stage7/ch05-seq2seq/roadmap",
             "stage7/ch05-seq2seq/encoder-decoder",
             "stage7/ch05-seq2seq/attention-in-nlp",
             "stage7/ch05-seq2seq/machine-translation",
@@ -474,6 +499,7 @@ const sidebars = {
           type: "category",
           label: "第6章 预训练语言模型",
           items: [
+            "stage7/ch06-pretrained/roadmap",
             "stage7/ch06-pretrained/pretrain-paradigm",
             "stage7/ch06-pretrained/bert",
             "stage7/ch06-pretrained/gpt-series",
@@ -485,6 +511,7 @@ const sidebars = {
           type: "category",
           label: "第7章 综合项目",
           items: [
+            "stage7/ch07-projects/roadmap",
             "stage7/ch07-projects/qa-system",
             "stage7/ch07-projects/text-summarization",
             "stage7/ch07-projects/information-extraction",
@@ -502,6 +529,7 @@ const sidebars = {
           type: "category",
           label: "第1章 NLP核心速成",
           items: [
+            "stage8a/ch01-nlp-crash/roadmap",
             "stage8a/ch01-nlp-crash/tokenizer",
             "stage8a/ch01-nlp-crash/embeddings",
             "stage8a/ch01-nlp-crash/pretrained-models",
@@ -512,6 +540,7 @@ const sidebars = {
           type: "category",
           label: "第2章 大语言模型概述",
           items: [
+            "stage8a/ch02-llm-overview/roadmap",
             "stage8a/ch02-llm-overview/development-history",
             "stage8a/ch02-llm-overview/core-concepts",
             "stage8a/ch02-llm-overview/industry-landscape",
@@ -521,6 +550,7 @@ const sidebars = {
           type: "category",
           label: "第3章 Transformer 架构深入",
           items: [
+            "stage8a/ch03-transformer-deep/roadmap",
             "stage8a/ch03-transformer-deep/architecture-review",
             "stage8a/ch03-transformer-deep/model-variants",
             "stage8a/ch03-transformer-deep/efficient-attention",
@@ -531,6 +561,7 @@ const sidebars = {
           type: "category",
           label: "第4章 预训练技术",
           items: [
+            "stage8a/ch04-pretraining/roadmap",
             "stage8a/ch04-pretraining/pretraining-data",
             "stage8a/ch04-pretraining/pretraining-methods",
             "stage8a/ch04-pretraining/pretraining-engineering",
@@ -540,6 +571,7 @@ const sidebars = {
           type: "category",
           label: "第5章 Prompt Engineering",
           items: [
+            "stage8a/ch05-prompt/roadmap",
             "stage8a/ch05-prompt/prompt-basics",
             "stage8a/ch05-prompt/advanced-prompting",
             "stage8a/ch05-prompt/structured-output",
@@ -550,6 +582,7 @@ const sidebars = {
           type: "category",
           label: "第6章 微调技术",
           items: [
+            "stage8a/ch06-finetuning/roadmap",
             "stage8a/ch06-finetuning/finetuning-overview",
             "stage8a/ch06-finetuning/lora-qlora",
             "stage8a/ch06-finetuning/other-peft",
@@ -561,6 +594,7 @@ const sidebars = {
           type: "category",
           label: "第7章 RLHF 与对齐",
           items: [
+            "stage8a/ch07-alignment/roadmap",
             "stage8a/ch07-alignment/alignment-problem",
             "stage8a/ch07-alignment/rlhf",
             "stage8a/ch07-alignment/alternative-methods",
@@ -569,7 +603,10 @@ const sidebars = {
         {
           type: "category",
           label: "第8章 综合项目",
-          items: ["stage8a/ch08-projects/domain-finetuning"],
+          items: [
+            "stage8a/ch08-projects/roadmap",
+            "stage8a/ch08-projects/domain-finetuning",
+          ],
         },
       ],
     },
@@ -583,6 +620,7 @@ const sidebars = {
           type: "category",
           label: "第1章 RAG 检索增强生成",
           items: [
+            "stage8b/ch01-rag/roadmap",
             "stage8b/ch01-rag/rag-basics",
             "stage8b/ch01-rag/document-processing",
             "stage8b/ch01-rag/vector-databases",
@@ -596,6 +634,7 @@ const sidebars = {
           type: "category",
           label: "第2章 LLM 本地部署",
           items: [
+            "stage8b/ch02-deployment/roadmap",
             "stage8b/ch02-deployment/local-models",
             "stage8b/ch02-deployment/inference-servers",
             "stage8b/ch02-deployment/unified-api",
@@ -605,6 +644,7 @@ const sidebars = {
           type: "category",
           label: "第3章 大模型应用开发",
           items: [
+            "stage8b/ch03-app-dev/roadmap",
             "stage8b/ch03-app-dev/llm-api-practice",
             "stage8b/ch03-app-dev/langchain-basics",
             "stage8b/ch03-app-dev/function-calling",
@@ -617,6 +657,7 @@ const sidebars = {
           type: "category",
           label: "第4章 AI 工程化实践",
           items: [
+            "stage8b/ch04-engineering/roadmap",
             "stage8b/ch04-engineering/async-programming",
             "stage8b/ch04-engineering/api-design",
             "stage8b/ch04-engineering/logging-monitoring",
@@ -627,6 +668,7 @@ const sidebars = {
           type: "category",
           label: "第5章 综合项目",
           items: [
+            "stage8b/ch05-projects/roadmap",
             "stage8b/ch05-projects/enterprise-kb",
             "stage8b/ch05-projects/domain-rag-finetuning",
             "stage8b/ch05-projects/intelligent-assistant",
@@ -644,6 +686,7 @@ const sidebars = {
           type: "category",
           label: "第1章 Agent 基础概念",
           items: [
+            "stage9/ch01-agent-basics/roadmap",
             "stage9/ch01-agent-basics/what-is-agent",
             "stage9/ch01-agent-basics/development-history",
             "stage9/ch01-agent-basics/capability-levels",
@@ -654,6 +697,7 @@ const sidebars = {
           type: "category",
           label: "第2章 推理与规划",
           items: [
+            "stage9/ch02-reasoning/roadmap",
             "stage9/ch02-reasoning/llm-reasoning",
             "stage9/ch02-reasoning/chain-reasoning",
             "stage9/ch02-reasoning/react",
@@ -666,6 +710,7 @@ const sidebars = {
           type: "category",
           label: "第3章 工具使用与 Function Calling",
           items: [
+            "stage9/ch03-tools/roadmap",
             "stage9/ch03-tools/function-calling-deep",
             "stage9/ch03-tools/tool-description",
             "stage9/ch03-tools/tool-strategies",
@@ -680,6 +725,7 @@ const sidebars = {
           type: "category",
           label: "第4章 记忆系统",
           items: [
+            "stage9/ch04-memory/roadmap",
             "stage9/ch04-memory/memory-overview",
             "stage9/ch04-memory/short-term-memory",
             "stage9/ch04-memory/long-term-memory",
@@ -692,6 +738,7 @@ const sidebars = {
           type: "category",
           label: "第5章 MCP 协议",
           items: [
+            "stage9/ch05-mcp/roadmap",
             "stage9/ch05-mcp/mcp-overview",
             "stage9/ch05-mcp/mcp-architecture",
             "stage9/ch05-mcp/mcp-server-dev",
@@ -703,6 +750,7 @@ const sidebars = {
           type: "category",
           label: "第6章 Agent 开发框架",
           items: [
+            "stage9/ch06-frameworks/roadmap",
             "stage9/ch06-frameworks/framework-overview",
             "stage9/ch06-frameworks/langchain-langgraph",
             "stage9/ch06-frameworks/llamaindex",
@@ -717,6 +765,7 @@ const sidebars = {
           type: "category",
           label: "第7章 多 Agent 系统",
           items: [
+            "stage9/ch07-multi-agent/roadmap",
             "stage9/ch07-multi-agent/architecture-patterns",
             "stage9/ch07-multi-agent/communication",
             "stage9/ch07-multi-agent/task-coordination",
@@ -729,6 +778,7 @@ const sidebars = {
           type: "category",
           label: "第8章 Agent 评估与安全",
           items: [
+            "stage9/ch08-eval-safety/roadmap",
             "stage9/ch08-eval-safety/evaluation-methods",
             "stage9/ch08-eval-safety/benchmarks",
             "stage9/ch08-eval-safety/agent-security",
@@ -740,6 +790,7 @@ const sidebars = {
           type: "category",
           label: "第9章 Agent 部署与运维",
           items: [
+            "stage9/ch09-deployment/roadmap",
             "stage9/ch09-deployment/deployment-architecture",
             "stage9/ch09-deployment/runtime-management",
             "stage9/ch09-deployment/persistence-recovery",
@@ -751,6 +802,7 @@ const sidebars = {
           type: "category",
           label: "第10章 综合项目",
           items: [
+            "stage9/ch10-projects/roadmap",
             "stage9/ch10-projects/research-assistant",
             "stage9/ch10-projects/data-analysis-agent",
             "stage9/ch10-projects/multi-agent-dev-team",
@@ -768,6 +820,7 @@ const sidebars = {
           type: "category",
           label: "第1章 多模态大模型",
           items: [
+            "stage10/ch01-multimodal/roadmap",
             "stage10/ch01-multimodal/multimodal-basics",
             "stage10/ch01-multimodal/vision-language",
             "stage10/ch01-multimodal/multimodal-apps",
@@ -777,6 +830,7 @@ const sidebars = {
           type: "category",
           label: "第2章 图像生成",
           items: [
+            "stage10/ch02-image-gen/roadmap",
             "stage10/ch02-image-gen/diffusion-models",
             "stage10/ch02-image-gen/stable-diffusion",
             "stage10/ch02-image-gen/sd-applications",
@@ -788,6 +842,7 @@ const sidebars = {
           type: "category",
           label: "第3章 视频生成与数字人",
           items: [
+            "stage10/ch03-video-gen/roadmap",
             "stage10/ch03-video-gen/video-generation",
             "stage10/ch03-video-gen/tts",
             "stage10/ch03-video-gen/digital-human",
@@ -797,6 +852,7 @@ const sidebars = {
           type: "category",
           label: "第4章 AIGC 前沿与伦理",
           items: [
+            "stage10/ch04-frontier/roadmap",
             "stage10/ch04-frontier/frontier-trends",
             "stage10/ch04-frontier/ai-ethics",
             "stage10/ch04-frontier/ai-regulations",
@@ -805,7 +861,10 @@ const sidebars = {
         {
           type: "category",
           label: "第5章 综合项目",
-          items: ["stage10/ch05-projects/creative-platform"],
+          items: [
+            "stage10/ch05-projects/roadmap",
+            "stage10/ch05-projects/creative-platform",
+          ],
         },
       ],
     },

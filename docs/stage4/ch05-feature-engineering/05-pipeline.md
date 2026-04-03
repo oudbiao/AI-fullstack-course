@@ -19,6 +19,31 @@ keywords: [Pipeline, ColumnTransformer, Transformer, 特征工程流水线, skle
 
 ---
 
+## 零、先建立一张地图
+
+很多新人前面每一步都能单独做，但一到真实项目就会乱掉。Pipeline 解决的就是：
+
+> **怎样把“数据处理 -> 特征工程 -> 模型训练”固化成一条稳定、可复现、不会泄漏的工作流。**
+
+```mermaid
+flowchart LR
+    A["原始数据"] --> B["按列分流"]
+    B --> C["数值处理"]
+    B --> D["类别处理"]
+    B --> E["自定义特征"]
+    C --> F["合并"]
+    D --> F
+    E --> F
+    F --> G["模型训练 / 预测"]
+```
+
+## 为什么真实项目必须用 Pipeline
+
+- 避免训练集和测试集处理方式不一致
+- 避免数据泄漏
+- 方便交叉验证和调参
+- 方便把整套流程复用到新数据上
+
 ## 一、ColumnTransformer——分列处理
 
 ```python
@@ -142,6 +167,18 @@ print(f"最佳 CV: {grid.best_score_:.4f}")
 | `ColumnTransformer` | 对不同列用不同处理 |
 | 自定义 Transformer | 继承 `BaseEstimator` + `TransformerMixin` |
 | Pipeline + GridSearch | 预处理和模型一起调参 |
+
+## 六、新人最应该先掌握的最小流水线
+
+如果你刚开始做 ML 项目，至少先学会把下面这条链写顺：
+
+1. 缺失值填充
+2. 数值缩放
+3. 类别编码
+4. 模型训练
+5. 交叉验证
+
+这条链一旦写顺，后面你再加复杂特征和调参都会轻松很多。
 
 ```mermaid
 flowchart LR

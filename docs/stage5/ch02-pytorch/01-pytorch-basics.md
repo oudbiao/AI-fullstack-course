@@ -16,6 +16,24 @@ keywords: [PyTorch, tensor, 张量, shape, broadcasting, numpy]
 
 ---
 
+## 零、先建立一张地图
+
+这一节不要把它看成“PyTorch 语法表”，更适合的理解顺序是：
+
+```mermaid
+flowchart LR
+    A["真实数据"] --> B["变成 Tensor"]
+    B --> C["看 shape 和 dtype"]
+    C --> D["做索引、变形、运算"]
+    D --> E["后面送进模型"]
+```
+
+也就是说，这一节真正要打稳的是：
+
+- 你能不能把数据装进 PyTorch
+- 你能不能看懂张量形状
+- 你能不能安全地做最基础的运算
+
 ## 一、张量到底是什么？
 
 最实用的理解方式是：
@@ -111,6 +129,16 @@ print("元素总数:", X.numel())   # 6
 3. 下一层会期待什么形状？
 
 很多训练报错，本质上都是 shape 不匹配。
+
+### 一个新人最该养成的记录方式
+
+建议你第一次接触 PyTorch 时，看到张量就顺手记一句：
+
+```python
+print("shape:", X.shape, "| meaning: [batch, features]")
+```
+
+把“形状”和“语义”一起写出来，会比单看 `torch.Size(...)` 清楚很多。
 
 ---
 
