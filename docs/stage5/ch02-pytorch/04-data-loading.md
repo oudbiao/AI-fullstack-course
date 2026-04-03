@@ -16,6 +16,32 @@ keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 
 ---
 
+## 零、先建立一张地图
+
+这一节最值得先看清的是：
+
+```mermaid
+flowchart LR
+    A["原始样本"] --> B["Dataset: 定义单条样本怎么取"]
+    B --> C["DataLoader: 凑 batch、打乱、迭代"]
+    C --> D["训练循环一批批读取"]
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#333
+    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
+```
+
+所以这一节真正解决的不是“背两个类名”，而是：
+
+- 数据到底怎么稳定地流进训练循环
+
+## 这节和前后内容是怎么接上的
+
+- 前面几节已经有了张量、梯度、模型
+- 这一节开始解决“训练时数据怎么按批流进来”
+- 下一节训练循环才会把“模型 + 数据”真正串在一起
+
+所以这节其实是在给训练闭环补“数据这一半”。
+
 ## 一、为什么需要数据加载器？
 
 想象你在喂模型吃饭。
@@ -38,6 +64,20 @@ for batch_x, batch_y in dataloader:
     pred = model(batch_x)
 ```
 
+### 1.1 第一次看 `batch`，最值得先记什么？
+
+可以先只记一句话：
+
+> **batch = 一次参数更新时，模型看到的一小批样本。**
+
+这句很关键，因为后面你看到：
+
+- `batch_size`
+- `shuffle`
+- `steps per epoch`
+
+其实都在围绕这句话打转。
+
 ---
 
 ## 二、`Dataset` 和 `DataLoader` 各负责什么？
@@ -53,6 +93,18 @@ for batch_x, batch_y in dataloader:
 
 - `Dataset` 负责“单条数据怎么取”
 - `DataLoader` 负责“怎么把单条数据凑成一批”
+
+### 2.1 为什么这两个对象要分开？
+
+因为它们解决的是两个不同层面的问题：
+
+- `Dataset` 更像“数据描述层”
+- `DataLoader` 更像“训练喂数层”
+
+这样分开以后，好处很大：
+
+- 同一个数据集可以配不同的 batch 策略
+- 同样的 DataLoader 思路可以复用到不同数据集
 
 ---
 
@@ -103,6 +155,16 @@ print("第 3 条样本:", dataset[3])
 - `__len__()`：返回总样本数
 - `__getitem__(idx)`：返回第 `idx` 条数据
 
+### 3.1 第一次自己写 `Dataset` 时，最该先检查什么？
+
+最值得先检查这三件事：
+
+1. `len(dataset)` 对不对
+2. `dataset[i]` 返回的是不是 `(x, y)` 这种你预期的结构
+3. 每条样本的 shape 和 dtype 对不对
+
+因为如果这一层就没写稳，后面 DataLoader 和训练循环里问题会越来越难找。
+
 ---
 
 ## 四、把数据集交给 `DataLoader`
@@ -151,6 +213,23 @@ for batch_idx, (batch_x, batch_y) in enumerate(loader):
 |---|---|
 | `batch_size=2` | 每次取 2 条样本 |
 | `shuffle=True` | 每个 epoch 开头打乱顺序 |
+
+### 4.1 为什么 DataLoader 这一层特别适合先打印 shape？
+
+因为这是训练前最后一个最容易排查数据问题的位置。  
+建议第一次写完 DataLoader 时都先做这件事：
+
+```python
+for batch_x, batch_y in loader:
+    print(batch_x.shape, batch_y.shape)
+    break
+```
+
+这样你会很快知道：
+
+- batch 是否凑对了
+- 标签 shape 是否合理
+- 数据是不是已经到了训练循环能直接吃的形式
 
 ---
 
@@ -299,6 +378,20 @@ for x, y in val_loader:
 
 等你开始训练更大的模型，再考虑显存和吞吐量平衡。
 
+### 8.1 一个更稳的默认思路
+
+初学阶段可以先这样想：
+
+- 先选一个你机器能轻松跑动的 batch_size
+- 再看 loss 是否稳定、速度是否能接受
+- 不要一上来就追“大 batch 一定更高级”
+
+因为教学阶段最重要的不是吞吐极限，而是：
+
+- 训练流程先顺
+- shape 先稳
+- loss 先正常下降
+
 ---
 
 ## 九、初学者常见误区
@@ -327,6 +420,12 @@ for x, y in val_loader:
 3. 然后一批一批送进模型
 
 下一节我们就把模型、损失、优化器和数据加载器连起来，写出完整训练流程。
+
+### 10.1 这节最该带走什么
+
+如果再压成一句话，那就是：
+
+> **`Dataset` 决定“单条数据长什么样”，`DataLoader` 决定“这些数据怎样被一批批送进训练”。**
 
 ---
 

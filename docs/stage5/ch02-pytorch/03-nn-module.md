@@ -16,6 +16,33 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 
 ---
 
+## 零、先建立一张地图
+
+这节最重要的不是记住多少类名，而是看清：
+
+```mermaid
+flowchart LR
+    A["Tensor"] --> B["Layer: Linear / ReLU"]
+    B --> C["Module: 把层组织起来"]
+    C --> D["forward(): 定义数据怎么流"]
+    D --> E["parameters(): 把参数交给优化器"]
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#333
+    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
+```
+
+所以这一节真正解决的是：
+
+- 模型结构怎么被组织成一个“可训练对象”
+
+## 这节和前后内容是怎么接上的
+
+- 前一节 `autograd` 已经解决“梯度怎么来”
+- 这一节开始解决“这些参数到底被装在哪、怎么统一管理”
+- 下一节 `DataLoader` 会解决“数据怎么一批批送进来”
+
+所以这一节其实是在给训练循环准备“模型这一半”。
+
 ## 一、为什么需要 `nn.Module`？
 
 如果说张量是“数据盒子”，那 `nn.Module` 就是“模型盒子”。
@@ -37,6 +64,21 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 
 如果没有 `nn.Module`，你也可以手写网络，但会非常乱。  
 有了它，模型就像乐高积木，可以一层层拼起来。
+
+### 1.1 一个更适合新人的直觉：`nn.Module` 就是“模型容器”
+
+你可以先把它理解成一个统一的模型盒子，里面会装：
+
+- 网络层
+- 参数
+- 前向逻辑
+- 训练 / 评估模式
+
+这就是为什么后面很多地方都只传一个 `model` 对象，就能完成：
+
+- 前向计算
+- 参数更新
+- 保存和加载
 
 ---
 
@@ -64,6 +106,17 @@ print("bias shape:", layer.bias.shape)
 
 - 输入是 `[1, 3]`，表示 1 个样本、每个样本 3 个特征
 - 输出是 `[1, 2]`，表示映射到 2 个输出值
+
+### 2.1 看到 `nn.Linear(in, out)` 时，脑子里最该立刻跳出什么？
+
+最值得先跳出来的是：
+
+- 这不是在“神秘变换”
+- 而是在把每个样本从 `in` 维表示映射到 `out` 维表示
+
+所以一个线性层最实用的理解方式通常是：
+
+- 输入空间被重新编码成了新的特征空间
 
 ---
 
@@ -140,6 +193,23 @@ print(model(x))
 - `__init__` 负责“搭机器”
 - `forward` 负责“机器怎么工作”
 
+### 4.1 为什么 `forward()` 里只写数据流，不写训练逻辑？
+
+因为训练逻辑属于另一个层面。  
+`forward()` 的职责非常纯粹：
+
+- 给定输入
+- 返回输出
+
+而像这些东西：
+
+- loss
+- backward
+- optimizer.step
+
+都不属于 `forward()`。  
+把这层职责分清，对后面读大模型代码非常重要。
+
 ---
 
 ## 五、模型参数是怎么被管理起来的？
@@ -173,6 +243,16 @@ for name, param in model.named_parameters():
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 ```
 
+### 5.1 为什么 `model.parameters()` 这么关键？
+
+因为它把“模型是很多参数的集合”这件事统一起来了。
+
+也就是说，优化器其实根本不关心你写了几层、用了什么结构，它最关心的是：
+
+- 我到底要更新哪些参数
+
+而 `nn.Module` 就是在自动替你把这件事整理好。
+
 因为模型已经把所有需要学习的参数打包好了。
 
 ---
@@ -198,6 +278,20 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 model.train()   # 训练前
 model.eval()    # 验证 / 测试前
 ```
+
+### 6.1 初学阶段先把这一点记死，非常值
+
+你现在甚至可以先不完全理解：
+
+- Dropout
+- BatchNorm
+
+但这两个动作最好先养成条件反射：
+
+- 训练前 `model.train()`
+- 验证前 `model.eval()`
+
+后面网络越复杂，这个习惯越能救你。
 
 ---
 
@@ -317,6 +411,12 @@ print("预测分数:", round(model(test).item(), 2))
 3. 模型参数会被自动收集，优化器才能统一更新
 
 有了模型盒子，下一步就是把数据一批一批喂进去。
+
+### 10.1 这节最该带走什么
+
+如果再压成一句话，那就是：
+
+> **`nn.Module` 的核心价值，不是让代码更像面向对象，而是让“层、参数、前向逻辑、训练模式”都能被统一管理。**
 
 ---
 
