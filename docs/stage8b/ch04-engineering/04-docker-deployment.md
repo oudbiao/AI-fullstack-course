@@ -340,7 +340,7 @@ docker compose up --build
 
 ---
 
-## 十、小结
+## 小结
 
 这一节最重要的不是背 Docker 命令，而是理解：
 

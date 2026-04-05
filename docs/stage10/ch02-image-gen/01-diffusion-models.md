@@ -49,7 +49,7 @@ keywords: [diffusion model, denoising, forward process, reverse process, generat
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 如果你已经接受了“图像生成不是分类”的前提，这一节最自然的续接就是：
 

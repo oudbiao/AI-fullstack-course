@@ -42,7 +42,7 @@ keywords: [word embedding, vector space, cosine similarity, one-hot, semantic re
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 如果你刚学完 one-hot、BoW、TF-IDF，这一节最自然的续接就是：
 
@@ -291,7 +291,7 @@ print("refund vs password:", round(cosine(embeddings["refund"], embeddings["pass
 
 词嵌入的价值最终还是要放回具体任务里判断。
 
-## 六、这节最该带走什么
+## 这节最该带走什么
 
 - 词嵌入不是给词换个编号，而是在给词建立语义空间位置
 - 余弦相似度是理解这层语义空间最重要的第一把钥匙

@@ -334,7 +334,7 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 
 ---
 
-## 九、小结
+## 小结
 
 这一节最重要的不是“把一个类写出来”，而是理解：
 

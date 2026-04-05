@@ -328,7 +328,7 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 
 ---
 
-## 十、小结
+## 小结
 
 这一节最重要的不是“会调用一次模型”，而是理解：
 

@@ -297,7 +297,7 @@ print("\nerror cases:", error_cases)
 
 ---
 
-## 八、小结
+## 小结
 
 这节最重要的是建立一个项目意识：
 

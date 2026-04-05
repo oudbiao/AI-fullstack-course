@@ -28,7 +28,7 @@ keywords: [finetuning, PEFT, full finetune, task adaptation, model customization
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 如果你已经学过预训练和 Prompt，这一节最自然的续接就是：
 
@@ -257,7 +257,7 @@ for name, count in params.items():
 
 如果这些问题答得清楚，微调决策通常就会稳很多。
 
-## 八、第一次做项目时最稳的顺序
+## 第一次做项目时最稳的顺序
 
 如果你想真的落地一个任务，建议先这样走：
 

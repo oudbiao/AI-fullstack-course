@@ -230,7 +230,7 @@ print("alert_recall:", round(alert_recall(pred_alerts, gold_alerts), 4))
 
 ---
 
-## 八、小结
+## 小结
 
 这节最重要的是建立一个作品级判断：
 

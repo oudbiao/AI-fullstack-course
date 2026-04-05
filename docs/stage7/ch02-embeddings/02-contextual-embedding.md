@@ -27,7 +27,7 @@ keywords: [contextual embedding, contextual representation, polysemy, BERT, dyna
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 上下文化表示这节最适合新人的理解顺序不是“它只是更强的词向量”，而是先看清：
 
@@ -232,7 +232,7 @@ print("bank in nature :", bank_in_nature)
 上下文化表示很强，  
 但仍然要放进具体任务和具体模型里使用。
 
-## 七、这节最该带走什么
+## 这节最该带走什么
 
 - 上下文化表示不是“更大的词向量”，而是“会随句子变化的表示”
 - 它是从传统 NLP 走向现代预训练模型的关键转折点

@@ -16,7 +16,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 这节最重要的不是记住多少类名，而是看清：
 
@@ -402,7 +402,7 @@ print("预测分数:", round(model(test).item(), 2))
 
 ---
 
-## 十、小结
+## 小结
 
 这一节你要带走的核心是：
 
@@ -412,7 +412,7 @@ print("预测分数:", round(model(test).item(), 2))
 
 有了模型盒子，下一步就是把数据一批一批喂进去。
 
-### 10.1 这节最该带走什么
+## 这节最该带走什么
 
 如果再压成一句话，那就是：
 

@@ -30,7 +30,7 @@ keywords: [face detection, face recognition, alignment, embeddings, computer vis
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 人脸任务最适合新人的理解方式不是“一个模型识别人脸”，而是先把完整流水线看清：
 
@@ -163,7 +163,7 @@ print("a vs c:", round(cosine(face_a, face_c), 4))
 
 > **人脸检测与识别不是单一模型问题，而是一条从检测到匹配的完整流水线。**
 
-## 五、这节最该带走什么
+## 这节最该带走什么
 
 - 人脸系统本质上是流水线
 - embedding 和阈值决定后续匹配体验

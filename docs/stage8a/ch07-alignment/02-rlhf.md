@@ -415,7 +415,7 @@ for response in candidates:
 
 ---
 
-## 七、小结
+## 小结
 
 这一节最重要的不是记住 PPO 这个缩写，  
 而是看懂 RLHF 的主线：

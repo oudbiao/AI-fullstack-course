@@ -18,7 +18,7 @@ keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity
 
 ---
 
-## 零、这节和前面文本基础主线是怎么接上的
+## 这节和前面文本基础主线是怎么接上的
 
 如果你刚看完 NLP 任务地图和预处理，这一节最自然的续接就是：
 
@@ -372,7 +372,7 @@ embedding 的核心目标是：
 
 这也是为什么从 one-hot、BoW、TF-IDF，一路走向 embedding 和语言模型，实际上是一条非常自然的演进线。
 
-### 这节最该带走什么
+## 这节最该带走什么
 
 - 表示方法不是小技巧，而是 NLP 的入口层
 - one-hot / BoW / TF-IDF 是从“身份”到“统计区分度”的演进

@@ -255,7 +255,7 @@ DreamBooth 很常见的目标是：
 
 ---
 
-## 十、小结
+## 小结
 
 这一节最重要的不是背 DreamBooth、LoRA、Textual Inversion 这些名字，而是理解：
 

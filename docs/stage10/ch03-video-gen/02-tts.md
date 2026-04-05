@@ -29,7 +29,7 @@ keywords: [TTS, text to speech, vocoder, speech synthesis, voice cloning, speake
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 TTS 这节最适合新人的理解顺序不是“文字直接变声音”，而是先看清：
 

@@ -27,7 +27,7 @@ keywords: [ResNet, EfficientNet, ConvNeXt, classification, architecture, compute
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 如果你刚学完数据增强，这一节最自然的续接就是：
 
@@ -295,7 +295,7 @@ print("with residual   :", block_with_residual(x))
 
 只要这个视角在，后面你看到新模型时就不会只剩名字。
 
-## 六、这节最该带走什么
+## 这节最该带走什么
 
 - 架构名字背后对应的是瓶颈和设计动机
 - ResNet 是第一次学视觉分类架构时最值得真正看懂的一条线

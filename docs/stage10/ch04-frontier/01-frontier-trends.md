@@ -28,7 +28,7 @@ keywords: [AIGC trends, multimodal, real-time generation, small models, agentic 
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 前沿趋势这节最适合新人的理解顺序不是“记住今年最火的名字”，而是先看清：
 

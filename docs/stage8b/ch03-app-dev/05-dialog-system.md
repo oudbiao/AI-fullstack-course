@@ -27,7 +27,7 @@ keywords: [dialog system, multi-turn, conversation state, memory, turn managemen
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 多轮对话这节最适合新人的理解顺序不是“把历史都塞进去”，而是先看清：
 
@@ -238,7 +238,7 @@ print(session)
 
 这在 Agent 化对话里特别重要。
 
-## 八、新人第一次做对话系统时最稳的顺序
+## 新人第一次做对话系统时最稳的顺序
 
 更稳的顺序通常是：
 

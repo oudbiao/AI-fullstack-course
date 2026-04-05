@@ -39,7 +39,7 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 ---
 
-## 零、这节和前面 LLM / 预训练主线是怎么接上的
+## 这节和前面 LLM / 预训练主线是怎么接上的
 
 如果你已经接受了“预训练会决定模型底座”这件事，这一节最自然的续接就是：
 

@@ -31,7 +31,7 @@ keywords: [benchmark, agent benchmark, leaderboard, evaluation, reproducibility]
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 Benchmark 这节最适合新人的理解顺序不是“看榜单”，而是先看清：
 

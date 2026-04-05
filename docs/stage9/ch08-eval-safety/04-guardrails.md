@@ -28,7 +28,7 @@ keywords: [guardrails, safety policy, input filter, output filter, tool guard, a
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 Guardrails 这节最适合新人的理解顺序不是“加一条规则”，而是先看清：
 
@@ -159,13 +159,13 @@ print("output ok:", output_guard("safe response"))
 
 ---
 
-## 七、小结
+## 小结
 
 这节最重要的是建立一个判断：
 
 > **Guardrails 的本质不是单点过滤，而是围绕输入、输出、工具和流程做多层约束。**
 
-## 八、这节最该带走什么
+## 这节最该带走什么
 
 - 护栏不是一条规则，而是一组分层约束
 - 风险来自哪里，护栏就该布到哪里

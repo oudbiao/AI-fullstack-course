@@ -40,7 +40,7 @@ keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 
 ---
 
-## 零、这节和 RNN 主线是怎么接上的
+## 这节和 RNN 主线是怎么接上的
 
 如果你刚学完 RNN，可以先把这节理解成：
 

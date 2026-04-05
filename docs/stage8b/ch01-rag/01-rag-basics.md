@@ -18,7 +18,7 @@ keywords: [RAG, retrieval augmented generation, 检索增强生成, chunk, retri
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 如果你刚学完 Prompt 和微调的判断逻辑，可以先把这节理解成：
 

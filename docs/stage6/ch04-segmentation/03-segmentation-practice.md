@@ -27,7 +27,7 @@ keywords: [segmentation practice, semantic segmentation project, mask, IoU, comp
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 如果你刚学完语义分割和实例分割，这一节最自然的续接就是：
 
@@ -217,13 +217,13 @@ print("mean_iou:", round(mean_iou, 4))
 
 ---
 
-## 五、小结
+## 小结
 
 这节最重要的是建立一个项目意识：
 
 > **分割项目的核心，不只是模型训练，还包括 mask 标签质量、IoU 评估和失败样本分析。**
 
-## 六、这节最该带走什么
+## 这节最该带走什么
 
 - 分割项目首先是数据和评估项目，其次才是模型项目
 - mask 标注质量会直接决定上限

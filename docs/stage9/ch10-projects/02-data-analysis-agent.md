@@ -217,7 +217,7 @@ print(suggest_chart(["date", "amount"]))
 
 ---
 
-## 七、小结
+## 小结
 
 这节最重要的是建立一个作品级判断：
 

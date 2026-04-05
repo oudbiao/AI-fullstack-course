@@ -27,7 +27,7 @@ keywords: [few-shot, role prompting, constraints, self-check, advanced prompting
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 高级 Prompt 技巧最适合新人的理解方式不是“看到什么招都往上堆”，而是先看清：
 
@@ -222,7 +222,7 @@ for ex in few_shot_examples:
 
 - 哪一层改动真的带来了收益
 
-## 八、第一次做 Prompt 调优时最稳的策略
+## 第一次做 Prompt 调优时最稳的策略
 
 建议你每次只新增一层技巧，例如：
 

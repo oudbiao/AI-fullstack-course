@@ -29,7 +29,7 @@ keywords: [model compression, quantization, pruning, distillation, deployment]
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 模型压缩更适合从部署问题反推，而不是从方法名出发：
 

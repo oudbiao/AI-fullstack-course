@@ -19,7 +19,7 @@ keywords: [Pipeline, ColumnTransformer, Transformer, 特征工程流水线, skle
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 很多新人前面每一步都能单独做，但一到真实项目就会乱掉。Pipeline 解决的就是：
 
@@ -159,7 +159,7 @@ print(f"最佳 CV: {grid.best_score_:.4f}")
 
 ---
 
-## 五、小结
+## 小结
 
 | 组件 | 说明 |
 |------|------|
@@ -168,7 +168,7 @@ print(f"最佳 CV: {grid.best_score_:.4f}")
 | 自定义 Transformer | 继承 `BaseEstimator` + `TransformerMixin` |
 | Pipeline + GridSearch | 预处理和模型一起调参 |
 
-## 六、新人最应该先掌握的最小流水线
+## 新人最应该先掌握的最小流水线
 
 如果你刚开始做 ML 项目，至少先学会把下面这条链写顺：
 

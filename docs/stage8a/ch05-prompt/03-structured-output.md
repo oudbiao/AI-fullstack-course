@@ -340,7 +340,7 @@ print(validate_output(bad))
 
 ---
 
-## 十、小结
+## 小结
 
 这一节最重要的不是记住 JSON 语法，而是理解：
 

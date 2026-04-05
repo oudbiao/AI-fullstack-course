@@ -32,7 +32,7 @@ keywords: [seq2seq, encoder decoder, translation, summarization, text generation
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 Seq2Seq 这节最适合新人的理解顺序不是“先看模型细节”，而是先看清任务形态变了什么：
 
@@ -220,7 +220,7 @@ Seq2Seq 任务真正难的是：
 - 生成合理
 - 保持结构
 
-## 七、这节最该带走什么
+## 这节最该带走什么
 
 - Seq2Seq 是“输入序列 -> 输出序列”的基础结构
 - encoder / decoder 是为了解决“先理解，再生成”

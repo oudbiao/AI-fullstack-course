@@ -28,7 +28,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 如果你已经学过训练循环和调参，这一节最自然的续接就是：
 
@@ -282,7 +282,7 @@ print(diagnose(train_losses, val_losses))
 
 只要这个习惯建立起来，训练就不会再只是“开盲盒”。
 
-### 这节最该带走什么
+## 这节最该带走什么
 
 - 曲线是入口，不是结论
 - 现象和根因要分开看

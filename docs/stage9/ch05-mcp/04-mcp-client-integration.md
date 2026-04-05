@@ -285,7 +285,7 @@ print(cached_client.discover_once())
 
 ---
 
-## 九、小结
+## 小结
 
 这一节最重要的不是写出一个能调 server 的类，而是理解：
 

@@ -9,7 +9,7 @@ keywords: [PyTorch导读, tensor, autograd, nn.Module, DataLoader, training loop
 
 这一章不是在教“某几个 API”，而是在帮你搭出深度学习训练的最小工程闭环。
 
-## 零、先建立一张桥接线
+## 先建立一张桥接线
 
 如果你前面已经学过第四阶段和第五阶段第一章，这一章最适合这样理解：
 

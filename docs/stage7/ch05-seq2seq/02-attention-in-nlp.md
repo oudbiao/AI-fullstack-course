@@ -26,7 +26,7 @@ keywords: [attention, seq2seq, encoder decoder, alignment, NLP]
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 注意力机制这节最适合新人的理解顺序是：
 
@@ -170,7 +170,7 @@ print("context:", [round(x, 4) for x in context])
 
 注意力是更大的概念，Transformer 是在其上发展出的完整架构。
 
-## 五、这节最该带走什么
+## 这节最该带走什么
 
 - 注意力不是小技巧，而是在改变模型访问输入信息的方式
 - 它最重要的价值是缓解固定编码的信息瓶颈

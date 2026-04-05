@@ -28,7 +28,7 @@ keywords: [machine translation, seq2seq, translation project, alignment, error a
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 机器翻译实战这节最适合新人的理解顺序不是“先换更强模型”，而是先看清项目闭环：
 
@@ -277,7 +277,7 @@ for src, expected in gold.items():
 
 更稳的做法通常是先把数据和基线结构理清。
 
-## 七、这节最该带走什么
+## 这节最该带走什么
 
 - 机器翻译项目首先是数据对和错误分析项目
 - 最小词典基线虽然弱，但特别适合建立项目判断力

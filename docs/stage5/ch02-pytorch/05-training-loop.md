@@ -16,7 +16,7 @@ keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 训练循环这节最适合新人的理解方式不是“背模板”，而是先看清训练到底在重复什么：
 
@@ -415,7 +415,7 @@ for epoch in range(num_epochs):
 
 ---
 
-## 十、小结
+## 小结
 
 如果这节你只记住一句话，那就是：
 
@@ -423,7 +423,7 @@ for epoch in range(num_epochs):
 
 把这条链路练熟，后面学 CNN、Transformer、微调大模型时，你不会总被框架代码吓住。
 
-### 10.1 这节最该带走什么
+## 这节最该带走什么
 
 如果再多带走一句，我希望你记住：
 

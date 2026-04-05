@@ -336,7 +336,7 @@ print(asyncio.run(handle_request("退款政策是什么", 1)))
 
 ---
 
-## 十、小结
+## 小结
 
 这一节最重要的不是背 `async` / `await` 语法，而是理解：
 

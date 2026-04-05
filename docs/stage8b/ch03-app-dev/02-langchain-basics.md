@@ -25,7 +25,7 @@ keywords: [LangChain, chain, prompt template, output parser, retriever, LLM appl
 
 ---
 
-## 零、先建立一张地图
+## 先建立一张地图
 
 LangChain 这节最适合新人的理解顺序不是“先学框架 API”，而是先看清：
 
@@ -263,7 +263,7 @@ print(chain.run("退款政策是什么？"))
 - 会写框架代码
 - 但不知道为什么要这么组织
 
-## 九、新人第一次用 LangChain 时最稳的方式
+## 新人第一次用 LangChain 时最稳的方式
 
 更稳的顺序通常是：
 
@@ -274,7 +274,7 @@ print(chain.run("退款政策是什么？"))
 
 ---
 
-## 十、小结
+## 小结
 
 这一节最重要的不是记住某个具体类，而是理解：
 
