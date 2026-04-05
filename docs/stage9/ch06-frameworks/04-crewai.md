@@ -1,5 +1,5 @@
 ---
-title: "6.4 CrewAI"
+title: "6.5 CrewAI"
 sidebar_position: 33
 description: "从角色、任务、crew 组织方式到团队协作工作流，理解 CrewAI 为什么特别适合用“团队模型”表达多 Agent 系统。"
 keywords: [CrewAI, multi-agent, roles, tasks, crew, team abstraction]

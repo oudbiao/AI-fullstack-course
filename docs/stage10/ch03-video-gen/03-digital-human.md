@@ -1,5 +1,5 @@
 ---
-title: "3.3 数字人技术【选修】"
+title: "3.4 数字人技术【选修】"
 sidebar_position: 11
 description: "从文本、语音、驱动信号、口型同步到人物渲染，理解数字人为什么本质上是一个多模块系统。"
 keywords: [digital human, avatar, lip sync, talking head, virtual human, audio-driven animation]

@@ -1,5 +1,5 @@
 ---
-title: "5.1 Seq2Seq 模型"
+title: "5.2 Seq2Seq 模型"
 sidebar_position: 13
 description: "从“输入一段文本，输出另一段文本”讲起，理解编码器-解码器为什么会成为翻译、摘要和改写任务的基础结构。"
 keywords: [seq2seq, encoder decoder, translation, summarization, text generation]

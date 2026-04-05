@@ -1,5 +1,5 @@
 ---
-title: "4.3 日志与监控"
+title: "4.4 日志与监控"
 sidebar_position: 19
 description: "从结构化日志、关键指标、trace 到告警思路，理解 LLM 服务为什么一定要可观测。"
 keywords: [logging, monitoring, tracing, metrics, observability, LLM ops]

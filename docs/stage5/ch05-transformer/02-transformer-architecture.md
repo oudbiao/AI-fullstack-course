@@ -1,5 +1,5 @@
 ---
-title: "5.2 Transformer 架构 🔧"
+title: "5.3 Transformer 架构 🔧"
 sidebar_position: 2
 description: "从一个 Transformer Block 的组成开始，理解残差、LayerNorm、前馈网络、编码器与解码器怎样组合成完整架构。"
 keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding]

@@ -1,5 +1,5 @@
 ---
-title: "1.2 OpenCV 基础操作"
+title: "1.3 OpenCV 基础操作"
 sidebar_position: 2
 description: "学会用 OpenCV 读写图像、缩放、裁剪、颜色转换和绘图，迈出 CV 工程实践的第一步。"
 keywords: [OpenCV, cv2, 图像读取, 图像缩放, 绘图, 颜色转换]

@@ -1,5 +1,5 @@
 ---
-title: "3.0 学前导读：CNN 这一章到底在学什么"
+title: "3.1 学前导读：CNN 这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 CNN 章节的学习地图：卷积、网络结构、经典架构、迁移学习和图像分类实践是怎么串起来的。"
 keywords: [CNN导读, 卷积, ResNet, 迁移学习, 图像分类]

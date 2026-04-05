@@ -1,5 +1,5 @@
 ---
-title: "3.1 视频生成技术"
+title: "3.2 视频生成技术"
 sidebar_position: 9
 description: "从时间一致性、运动建模和主流路线出发，建立对视频生成为什么比图像生成更难、也更有价值的系统直觉。"
 keywords: [video generation, temporal consistency, motion modeling, video diffusion, frame coherence]

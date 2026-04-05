@@ -1,5 +1,5 @@
 ---
-title: "5.5 MCP 生态与实践"
+title: "5.6 MCP 生态与实践"
 sidebar_position: 29
 description: "从工具服务器、客户端、生态连接器到落地场景，理解 MCP 为什么会成为工具生态组织方式的一部分。"
 keywords: [MCP ecosystem, connectors, tooling ecosystem, protocol adoption, practice]

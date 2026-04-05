@@ -1,5 +1,5 @@
 ---
-title: "3.2 CNN 基本结构"
+title: "3.3 CNN 基本结构"
 sidebar_position: 2
 description: "从卷积块、激活、池化到分类头，系统理解一个 CNN 是如何一层层把图像变成类别判断的。"
 keywords: [CNN, 卷积块, 池化, 特征图, 分类头, 全连接层, Global Average Pooling]

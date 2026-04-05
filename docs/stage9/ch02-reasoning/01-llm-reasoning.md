@@ -1,5 +1,5 @@
 ---
-title: "2.1 LLM 推理能力"
+title: "2.2 LLM 推理能力"
 sidebar_position: 5
 description: "从“知道答案”和“推出来答案”的差别讲起，理解 LLM 在多步推理、约束满足和中间状态维护上的优势与局限。"
 keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, agent]

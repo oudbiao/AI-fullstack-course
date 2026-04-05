@@ -1,5 +1,5 @@
 ---
-title: "7.3 替代对齐方法"
+title: "7.4 替代对齐方法"
 sidebar_position: 26
 description: "从 DPO、ORPO、RLAIF 到 Constitutional AI，理解为什么业界会寻找 RLHF 的替代路线，以及这些方法各自省掉了什么。"
 keywords: [DPO, ORPO, IPO, RLAIF, constitutional AI, alignment]

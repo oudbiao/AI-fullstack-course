@@ -1,5 +1,5 @@
 ---
-title: "6.0 学前导读：生成模型这一章到底在学什么"
+title: "6.1 学前导读：生成模型这一章到底在学什么"
 sidebar_position: 0
 description: "先建立生成模型章节的学习地图：GAN 和 VAE 分别在什么问题设定下工作、适合帮助新人建立什么直觉。"
 keywords: [生成模型导读, GAN, VAE, 潜空间]

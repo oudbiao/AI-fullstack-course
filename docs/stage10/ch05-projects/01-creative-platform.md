@@ -1,5 +1,5 @@
 ---
-title: "5.1 项目：AI 创意内容平台"
+title: "5.2 项目：AI 创意内容平台"
 sidebar_position: 15
 description: "把文生图、改图、配音和资产管理真正组织成一个多模态创意平台的作品级项目闭环。"
 keywords: [creative platform, multimodal project, image generation, editing, voice, asset management]

@@ -1,5 +1,5 @@
 ---
-title: "1.4 HuggingFace 快速上手"
+title: "1.5 HuggingFace 快速上手"
 sidebar_position: 4
 description: "从 tokenizer、config、model、batch 到 forward 输出，理解 HuggingFace 最常见的工作流，并给出一个不依赖网络下载的可运行入门示例。"
 keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]

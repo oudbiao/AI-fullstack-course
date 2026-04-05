@@ -1,5 +1,5 @@
 ---
-title: "6.6 OpenAI Agents SDK【选修】"
+title: "6.7 OpenAI Agents SDK【选修】"
 sidebar_position: 35
 description: "从 Agent、Tool、Runner 这些高层抽象出发，理解 OpenAI Agents SDK 为什么更像一个统一 Agent 编程模型。"
 keywords: [OpenAI Agents SDK, agent runtime, tools, runner, sdk, agent abstraction]

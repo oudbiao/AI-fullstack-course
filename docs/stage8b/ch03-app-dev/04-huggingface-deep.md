@@ -1,5 +1,5 @@
 ---
-title: "3.4 HuggingFace 生态深入"
+title: "3.5 HuggingFace 生态深入"
 sidebar_position: 14
 description: "从 models、datasets、tokenizers 到 pipelines 和 hub，理解 HuggingFace 为什么会成为大模型应用最重要的基础生态之一。"
 keywords: [HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem]

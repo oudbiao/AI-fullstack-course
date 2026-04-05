@@ -1,5 +1,5 @@
 ---
-title: "6.7 低代码平台【选修】"
+title: "6.8 低代码平台【选修】"
 sidebar_position: 36
 description: "从可视化节点、拖拽工作流到团队协作与长期维护，理解低代码平台在 Agent 系统里真正适合什么、不适合什么。"
 keywords: [low-code, visual workflow, drag-and-drop, no-code, agent builder]

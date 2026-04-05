@@ -1,5 +1,5 @@
 ---
-title: "5.1 项目：企业知识库问答"
+title: "5.2 项目：企业知识库问答"
 sidebar_position: 21
 description: "从文档切块、检索、权限过滤、引用来源到错误分析，建立一个企业知识库问答系统的作品级项目闭环。"
 keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source citation, permissions]

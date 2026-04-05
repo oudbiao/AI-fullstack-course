@@ -1,5 +1,5 @@
 ---
-title: "2.4 Plan-and-Execute"
+title: "2.5 Plan-and-Execute"
 sidebar_position: 8
 description: "把“先规划，再执行”拆开讲清楚，理解为什么长任务和复杂任务常常不适合全程即兴 ReAct，而需要更稳定的计划层。"
 keywords: [plan and execute, planner, executor, workflow, long horizon tasks, agent planning]

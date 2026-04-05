@@ -1,5 +1,5 @@
 ---
-title: "1.1 数字图像基础"
+title: "1.2 数字图像基础"
 sidebar_position: 1
 description: "从像素、通道、颜色空间和图像格式开始，用最直观的方式理解计算机到底是怎样看图的。"
 keywords: [图像, 像素, RGB, HSV, 通道, 图像格式, 计算机视觉]

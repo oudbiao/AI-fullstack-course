@@ -1,5 +1,5 @@
 ---
-title: "7.1 对齐问题"
+title: "7.2 对齐问题"
 sidebar_position: 24
 description: "从能力不等于可控讲起，理解大模型为什么会出现目标错位，以及对齐问题如何落到评估、护栏和工程治理。"
 keywords: [alignment, helpful honest harmless, safety, governance, evaluation]

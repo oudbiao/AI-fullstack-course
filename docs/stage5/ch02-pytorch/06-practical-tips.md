@@ -1,5 +1,5 @@
 ---
-title: "2.6 实用技巧"
+title: "2.8 实用技巧"
 sidebar_position: 6
 description: "从设备切换、随机种子、AMP、梯度裁剪到 checkpoint，掌握 PyTorch 训练中最常见也最实用的工程技巧。"
 keywords: [PyTorch, AMP, 混合精度, 梯度裁剪, checkpoint, device, reproducibility]

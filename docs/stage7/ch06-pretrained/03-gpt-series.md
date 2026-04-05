@@ -1,5 +1,5 @@
 ---
-title: "6.3 GPT 系列"
+title: "6.4 GPT 系列"
 sidebar_position: 18
 description: "从自回归语言建模、因果掩码、上下文学习到指令化演进，理解 GPT 系列为什么改变了生成式 NLP。"
 keywords: [GPT, 自回归, causal language model, decoder-only, in-context learning, next token]
@@ -22,6 +22,22 @@ keywords: [GPT, 自回归, causal language model, decoder-only, in-context learn
 - 理解 causal mask 为什么不可少
 - 通过一个最小 bigram 语言模型体验自回归生成
 - 理解 GPT 系列从“续写模型”走向“对话助手”的演化逻辑
+
+## 历史背景：GPT 这条线是怎样长出来的？
+
+GPT 更适合按“系列节点”来理解，而不是只盯一个模型：
+
+| 年份 | 节点 | 代表论文 | 它最重要地解决了什么 |
+|---|---|---|---|
+| 2018 | GPT-1 | *Improving Language Understanding by Generative Pre-Training* | 把 decoder-only 预训练路线真正推到主流视野 |
+| 2019 | GPT-2 | *Language Models are Unsupervised Multitask Learners* | 用更大规模模型展示出强生成能力和零样本潜力 |
+| 2020 | GPT-3 | *Language Models are Few-Shot Learners* | 把 in-context learning / few-shot 现象推到主流 |
+
+对新人来说，最值得先记的是：
+
+> **GPT 不是一下子就“会聊天”，而是先在“预测下一个 token”这条主线上不断扩规模、扩能力。**
+
+后面大家熟悉的对话助手、指令跟随和 Agent 能力，都是建立在这条生成主线继续演化出来的。
 
 ---
 

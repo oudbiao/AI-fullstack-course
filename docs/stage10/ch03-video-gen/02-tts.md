@@ -1,5 +1,5 @@
 ---
-title: "3.2 语音合成"
+title: "3.3 语音合成"
 sidebar_position: 10
 description: "从文本到语音、声学模型、声码器到多说话人控制，建立对 TTS 为什么能把文字变成自然语音的第一层直觉。"
 keywords: [TTS, text to speech, vocoder, speech synthesis, voice cloning, speaker control]

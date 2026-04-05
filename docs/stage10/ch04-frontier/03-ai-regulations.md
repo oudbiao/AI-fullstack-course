@@ -1,5 +1,5 @@
 ---
-title: "4.3 AI 法规与合规"
+title: "4.4 AI 法规与合规"
 sidebar_position: 14
 description: "从法律不是技术附属品、合规视角到产品落地要求，建立对 AI 法规与合规问题更工程化的理解。"
 keywords: [AI regulation, compliance, risk classification, governance, audit, legal requirements]

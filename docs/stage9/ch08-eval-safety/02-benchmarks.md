@@ -1,5 +1,5 @@
 ---
-title: "8.2 Agent 评估基准"
+title: "8.3 Agent 评估基准"
 sidebar_position: 45
 description: "从 benchmark 的作用、局限和使用方式讲起，理解为什么 Agent 评测不能只迷信公开榜单。"
 keywords: [benchmark, agent benchmark, leaderboard, evaluation, reproducibility]

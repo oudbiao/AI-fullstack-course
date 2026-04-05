@@ -1,5 +1,5 @@
 ---
-title: "7.0 学前导读：多 Agent 这一章到底在学什么"
+title: "7.1 学前导读：多 Agent 这一章到底在学什么"
 sidebar_position: 0
 description: "先建立多 Agent 章节的学习地图：架构模式、通信、协调、挑战和实战怎样共同构成协作系统。"
 keywords: [多Agent导读, 协作系统, Agent通信, Agent协调]

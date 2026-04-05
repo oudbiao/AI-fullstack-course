@@ -1,5 +1,5 @@
 ---
-title: "4.3 预训练工程【选修】"
+title: "4.4 预训练工程【选修】"
 sidebar_position: 14
 description: "从数据分片、流式读取、checkpoint、恢复训练和吞吐稳定性出发，理解预训练为什么往往是一个系统工程问题。"
 keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, throughput, distributed training]

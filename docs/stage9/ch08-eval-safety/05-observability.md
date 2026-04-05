@@ -1,5 +1,5 @@
 ---
-title: "8.5 Agent 可观测性"
+title: "8.6 Agent 可观测性"
 sidebar_position: 48
 description: "从日志、trace、指标和回放讲起，理解没有可观测性就几乎不可能稳定迭代 Agent 系统。"
 keywords: [observability, trace, metrics, logs, replay, agent]

@@ -1,5 +1,5 @@
 ---
-title: "6.1 Agent 框架全景"
+title: "6.2 Agent 框架全景"
 sidebar_position: 30
 description: "从为什么需要框架，到不同 Agent 框架在抽象层、控制力和适用场景上的区别，建立一张框架选择地图。"
 keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework overview]

@@ -1,5 +1,5 @@
 ---
-title: "2.0 学前导读：LLM 概览这一章到底在学什么"
+title: "2.1 学前导读：LLM 概览这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 LLM 概览章的学习地图：发展历史、核心概念和产业格局怎样拼成第一张大模型地图。"
 keywords: [LLM概览导读, 大模型发展, 大模型概念]

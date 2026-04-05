@@ -1,5 +1,5 @@
 ---
-title: "6.2 项目：医学影像分析【选修】"
+title: "6.3 项目：医学影像分析【选修】"
 sidebar_position: 19
 description: "围绕一个高风险视觉任务，从任务边界、标注协议、指标优先级和风险说明出发，建立更像真实临床辅助项目的闭环。"
 keywords: [medical imaging, segmentation, sensitivity, risk, annotation, project]

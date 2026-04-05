@@ -1,5 +1,5 @@
 ---
-title: "8.4 Guardrails 护栏机制"
+title: "8.5 Guardrails 护栏机制"
 sidebar_position: 47
 description: "从输入护栏、输出护栏、工具护栏到流程护栏，理解 guardrails 为什么更像多层系统约束，而不是一条规则。"
 keywords: [guardrails, safety policy, input filter, output filter, tool guard, agent]

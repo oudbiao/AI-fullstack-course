@@ -1,5 +1,5 @@
 ---
-title: "1.6 高级 RAG 架构"
+title: "1.7 高级 RAG 架构"
 sidebar_position: 6
 description: "从路由、多跳检索、Agentic RAG 到结构化检索，理解当基础 RAG 不够用时，系统如何继续进化。"
 keywords: [advanced RAG, router, multi-hop, agentic rag, graph rag, structured retrieval]

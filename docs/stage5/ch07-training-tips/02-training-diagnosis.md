@@ -1,5 +1,5 @@
 ---
-title: "7.2 训练监控与诊断"
+title: "7.3 训练监控与诊断"
 sidebar_position: 2
 description: "从 loss 曲线、过拟合、梯度异常和数据问题出发，建立训练诊断的基础方法。"
 keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, debugging]

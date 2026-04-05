@@ -1,5 +1,5 @@
 ---
-title: "5.3 MCP Server 开发"
+title: "5.4 MCP Server 开发"
 sidebar_position: 27
 description: "从工具描述、参数校验、结果返回到最小 server 结构，理解一个 MCP Server 到底应该怎样暴露能力。"
 keywords: [MCP server, tool server, schema, tool exposure, server development]

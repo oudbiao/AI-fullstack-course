@@ -1,5 +1,5 @@
 ---
-title: "1.4 深度学习中的正则化"
+title: "1.6 深度学习中的正则化"
 sidebar_position: 4
 description: "掌握 Dropout、Batch Normalization、Layer Normalization、数据增强和早停法"
 keywords: [正则化, Dropout, Batch Normalization, Layer Normalization, 数据增强, Early Stopping]

@@ -1,5 +1,5 @@
 ---
-title: "7.3 模型压缩【选修】"
+title: "7.4 模型压缩【选修】"
 sidebar_position: 3
 description: "从量化、剪枝、蒸馏三类思路出发，理解模型压缩为什么本质上是部署与精度之间的权衡。"
 keywords: [model compression, quantization, pruning, distillation, deployment]

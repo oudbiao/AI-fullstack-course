@@ -1,5 +1,5 @@
 ---
-title: "5.2 MCP 架构与核心概念"
+title: "5.3 MCP 架构与核心概念"
 sidebar_position: 26
 description: "从 client-server 关系、工具暴露、消息流转到 transport，系统理解一个 MCP 系统内部是怎样工作的。"
 keywords: [MCP architecture, client, server, transport, tools, protocol flow]

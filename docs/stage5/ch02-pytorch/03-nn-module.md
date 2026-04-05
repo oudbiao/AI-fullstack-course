@@ -1,5 +1,5 @@
 ---
-title: "2.3 nn 模块"
+title: "2.5 nn 模块"
 sidebar_position: 3
 description: "学会用 nn.Module、nn.Linear、nn.Sequential 组织模型，理解 forward 和参数管理。"
 keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]

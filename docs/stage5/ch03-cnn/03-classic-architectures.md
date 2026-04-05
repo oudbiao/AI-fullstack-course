@@ -1,5 +1,5 @@
 ---
-title: "3.3 经典 CNN 架构"
+title: "3.4 经典 CNN 架构"
 sidebar_position: 3
 description: "从 LeNet、AlexNet、VGG 到 ResNet，理解经典 CNN 架构为什么一代代演进，以及每一代到底解决了什么问题。"
 keywords: [LeNet, AlexNet, VGG, ResNet, CNN, 残差连接, 经典架构]

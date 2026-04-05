@@ -1,5 +1,5 @@
 ---
-title: "1.7 RAG 评估"
+title: "1.8 RAG 评估"
 sidebar_position: 7
 description: "理解 RAG 评估为什么要同时看检索和回答，并用一个玩具数据集计算简单指标。"
 keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluation]

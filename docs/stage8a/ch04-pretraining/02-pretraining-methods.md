@@ -1,5 +1,5 @@
 ---
-title: "4.2 预训练方法"
+title: "4.3 预训练方法"
 sidebar_position: 13
 description: "把 Causal LM、Masked LM、Span Corruption 等目标放在同一张图里，理解不同预训练方法究竟在让模型学什么。"
 keywords: [causal language modeling, masked language modeling, span corruption, pretraining objectives, BERT, GPT, T5]

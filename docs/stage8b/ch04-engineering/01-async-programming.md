@@ -1,5 +1,5 @@
 ---
-title: "4.1 异步编程与并发调用"
+title: "4.2 异步编程与并发调用"
 sidebar_position: 17
 description: "从为什么 LLM 工程常常慢在等待，到 asyncio、gather、Semaphore 和超时控制，理解并发调用的工程主线。"
 keywords: [asyncio, concurrency, gather, semaphore, timeout, async programming, LLM engineering]

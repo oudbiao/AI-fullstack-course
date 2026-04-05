@@ -1,5 +1,5 @@
 ---
-title: "2.5 训练流程 🔧"
+title: "2.7 训练流程 🔧"
 sidebar_position: 5
 description: "把模型、损失函数、优化器和 DataLoader 串起来，写出一个完整可运行的 PyTorch 训练循环。"
 keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]

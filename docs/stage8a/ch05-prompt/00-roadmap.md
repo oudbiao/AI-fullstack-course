@@ -1,5 +1,5 @@
 ---
-title: "5.0 学前导读：Prompt 工程这一章到底在学什么"
+title: "5.1 学前导读：Prompt 工程这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 Prompt 工程章的学习地图：基础 Prompt、高级技巧、结构化输出和 Prompt 实践怎样衔接。"
 keywords: [Prompt导读, Prompt Engineering, 结构化输出]

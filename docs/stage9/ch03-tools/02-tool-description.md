@@ -1,5 +1,5 @@
 ---
-title: "3.2 工具描述与发现"
+title: "3.3 工具描述与发现"
 sidebar_position: 12
 description: "从工具 schema、标签、权限和返回结构讲起，理解 Agent 为什么需要先“看懂工具”，才能稳定地选对工具。"
 keywords: [tool description, tool discovery, schema, registry, metadata, agent tools]

@@ -1,5 +1,5 @@
 ---
-title: "5.3 结构化输出"
+title: "5.4 结构化输出"
 sidebar_position: 17
 description: "从为什么自然语言输出不够稳，到 JSON 约束、字段设计和校验，真正理解结构化输出在 LLM 工程里的价值。"
 keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]

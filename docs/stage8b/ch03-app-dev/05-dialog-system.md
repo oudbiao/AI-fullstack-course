@@ -1,5 +1,5 @@
 ---
-title: "3.5 对话系统与多轮管理"
+title: "3.6 对话系统与多轮管理"
 sidebar_position: 15
 description: "从单轮问答到多轮状态、记忆和策略控制，理解一个真正可用的对话系统为什么比“接个聊天 API”难得多。"
 keywords: [dialog system, multi-turn, conversation state, memory, turn management, LLM app]

@@ -1,5 +1,5 @@
 ---
-title: "7.4 多 Agent 实战模式"
+title: "7.5 多 Agent 实战模式"
 sidebar_position: 41
 description: "从研究型、写作型、开发型到审核型协作，理解多 Agent 在真实任务中的几种常见组合方式。"
 keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent collaboration]

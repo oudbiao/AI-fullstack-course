@@ -1,5 +1,5 @@
 ---
-title: "5.2 NLP 中的注意力机制"
+title: "5.3 NLP 中的注意力机制"
 sidebar_position: 14
 description: "从 encoder-decoder 的信息瓶颈讲起，理解注意力如何让生成端动态查看输入不同位置。"
 keywords: [attention, seq2seq, encoder decoder, alignment, NLP]

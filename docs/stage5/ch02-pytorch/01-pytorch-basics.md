@@ -1,5 +1,5 @@
 ---
-title: "2.1 PyTorch 基础"
+title: "2.3 PyTorch 基础"
 sidebar_position: 1
 description: "从张量、形状、索引、广播到和 NumPy 的关系，打牢 PyTorch 的第一层基础。"
 keywords: [PyTorch, tensor, 张量, shape, broadcasting, numpy]

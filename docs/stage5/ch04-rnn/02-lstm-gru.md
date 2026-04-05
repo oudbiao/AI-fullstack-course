@@ -1,5 +1,5 @@
 ---
-title: "4.2 LSTM 与 GRU"
+title: "4.3 LSTM 与 GRU"
 sidebar_position: 2
 description: "从 RNN 为什么会忘，到门控机制如何控制信息流，理解 LSTM 和 GRU 在序列建模中的作用。"
 keywords: [LSTM, GRU, 门控机制, cell state, update gate, forget gate]
@@ -24,6 +24,27 @@ LSTM 和 GRU 就是为了解决这个“会读，但容易忘”的问题。
 - 掌握 GRU 的更新门与重置门
 - 看懂 PyTorch 中 `nn.LSTM` 和 `nn.GRU` 的输入输出
 - 理解什么时候更适合用 LSTM，什么时候 GRU 已经够用
+
+## 历史背景：为什么后来一定会走到 LSTM？
+
+这一节最关键的历史节点是：
+
+| 年份 | 节点 | 关键作者 | 它最重要地解决了什么 |
+|---|---|---|---|
+| 1994 | Learning Long-Term Dependencies is Difficult | Bengio, Simard, Frasconi | 系统揭示了普通 RNN 在长依赖训练里的梯度消失问题 |
+| 1997 | LSTM | Hochreiter, Schmidhuber | 用门控记忆机制缓解长期依赖和梯度问题 |
+
+对新人来说，最值得先记的是：
+
+> **LSTM 不是“RNN 再复杂一点”，而是为了解决普通 RNN 很难稳稳记住长距离信息这个核心问题。**
+
+所以这节课真正的主线不是：
+
+- 记住几个门的名字
+
+而是：
+
+- 理解这些门为什么会被发明出来
 
 ---
 

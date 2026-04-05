@@ -1,5 +1,5 @@
 ---
-title: "1.3 文本表示方法"
+title: "1.4 文本表示方法"
 sidebar_position: 3
 description: "从 one-hot、词袋、TF-IDF 到相似度计算，理解文本为什么必须先数值化，以及不同表示方式各自适合什么任务。"
 keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity, embedding]

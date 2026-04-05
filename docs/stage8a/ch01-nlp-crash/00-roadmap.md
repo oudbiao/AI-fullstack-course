@@ -1,5 +1,5 @@
 ---
-title: "1.0 学前导读：NLP 核心速成这一章到底在学什么"
+title: "1.1 学前导读：NLP 核心速成这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 NLP 核心速成章的学习地图：tokenizer、embedding、预训练模型和 Hugging Face 快速实践是怎样串起来的。"
 keywords: [NLP速成导读, tokenizer, embedding, HuggingFace]

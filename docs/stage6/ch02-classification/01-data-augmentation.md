@@ -1,5 +1,5 @@
 ---
-title: "2.1 数据增强策略"
+title: "2.2 数据增强策略"
 sidebar_position: 4
 description: "从翻转、裁剪、颜色扰动到 mixup，理解数据增强为什么是视觉任务里最便宜也最有效的泛化手段之一。"
 keywords: [data augmentation, flip, crop, color jitter, mixup, vision]

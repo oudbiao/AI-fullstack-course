@@ -1,5 +1,5 @@
 ---
-title: "9.3 持久化与恢复"
+title: "9.4 持久化与恢复"
 sidebar_position: 51
 description: "从状态快照、事件日志、幂等执行和崩溃恢复讲起，理解 Agent 任务为什么必须具备可恢复能力。"
 keywords: [persistence, recovery, checkpoint, event log, idempotency, resume, deployment]

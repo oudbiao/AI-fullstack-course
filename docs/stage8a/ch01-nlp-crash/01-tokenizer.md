@@ -1,5 +1,5 @@
 ---
-title: "1.1 分词与 Tokenizer"
+title: "1.2 分词与 Tokenizer"
 sidebar_position: 1
 description: "从“模型为什么不能直接读文字”讲起，理解词级、字级、子词级分词的取舍，以及 padding、truncation、special tokens 在工程里为什么重要。"
 keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation]

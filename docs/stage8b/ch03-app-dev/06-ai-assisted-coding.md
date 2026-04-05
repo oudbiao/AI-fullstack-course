@@ -1,5 +1,5 @@
 ---
-title: "3.6 大模型辅助编程"
+title: "3.7 大模型辅助编程"
 sidebar_position: 16
 description: "从补全、解释、重构、测试到代码审查，理解大模型辅助编程真正适合解决什么、又最容易在哪些地方出错。"
 keywords: [AI coding, code assistant, refactor, test generation, review, developer tools]

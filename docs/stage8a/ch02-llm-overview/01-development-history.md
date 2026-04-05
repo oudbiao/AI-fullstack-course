@@ -1,5 +1,5 @@
 ---
-title: "2.1 大模型发展历程"
+title: "2.2 大模型发展历程"
 sidebar_position: 5
 description: "从规则系统、统计语言模型、RNN、Transformer 到大语言模型，梳理语言模型演进的主线。"
 keywords: [LLM 历史, 语言模型, n-gram, RNN, Transformer, GPT]

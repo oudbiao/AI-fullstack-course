@@ -1,5 +1,5 @@
 ---
-title: "9.4 成本优化"
+title: "9.5 成本优化"
 sidebar_position: 52
 description: "从 token、模型路由、工具调用、缓存和重试开销出发，理解 Agent 成本为什么往往是“链路成本”而不是单次模型调用成本。"
 keywords: [cost optimization, token cost, model routing, caching, retries, tool cost, deployment]

@@ -1,5 +1,5 @@
 ---
-title: "6.2 BERT 系列"
+title: "6.3 BERT 系列"
 sidebar_position: 17
 description: "从双向上下文、Masked Language Model 到微调方式，真正理解 BERT 在现代 NLP 中解决了什么问题。"
 keywords: [BERT, MLM, 双向编码器, 预训练, Transformer Encoder, NLP]
@@ -19,6 +19,23 @@ BERT 是现代 NLP 进入“预训练大一统时代”的关键节点之一。
 - 掌握 `[CLS]`、`[SEP]`、`[MASK]`、双向上下文这些关键概念
 - 看懂一个最小 BERT 输入示例
 - 理解 BERT 常见的微调方式
+
+## 历史背景：BERT 来自哪篇论文？
+
+这一节最关键的历史节点是：
+
+| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+|---|---|---|---|
+| 2018 | *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding* | Devlin 等 | 把双向 Transformer 预训练 + 微调做成现代 NLP 理解任务的主线 |
+
+对新人来说，最值得先记的是：
+
+- BERT 不是“又一个模型名”
+- 它代表的是一种非常重要的范式变化：
+
+> **先在海量文本上做通用预训练，再把同一个底座微调到不同任务上。**
+
+这也是为什么你今天学大模型时，很多“先预训练、再适配”的感觉，会在 BERT 这里看到非常清楚的雏形。
 
 ---
 

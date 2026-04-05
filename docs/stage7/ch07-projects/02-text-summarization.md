@@ -1,5 +1,5 @@
 ---
-title: "7.2 项目：文本摘要系统"
+title: "7.3 项目：文本摘要系统"
 sidebar_position: 22
 description: "从切句、句子打分、摘要生成、评估到失败分析，走通一个真正可展示的文本摘要项目闭环。"
 keywords: [text summarization, extractive summarization, TF-IDF, evaluation, NLP project]

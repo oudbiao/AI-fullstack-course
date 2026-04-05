@@ -1,5 +1,5 @@
 ---
-title: "4.2 AI 伦理与安全"
+title: "4.3 AI 伦理与安全"
 sidebar_position: 13
 description: "从偏见、隐私、虚假内容、滥用风险到人类监督，建立对 AIGC 伦理与安全问题的系统认识。"
 keywords: [AI ethics, AI safety, bias, privacy, misuse, human oversight, AIGC]

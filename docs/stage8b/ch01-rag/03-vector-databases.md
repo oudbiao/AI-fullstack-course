@@ -1,5 +1,5 @@
 ---
-title: "1.3 向量数据库"
+title: "1.4 向量数据库"
 sidebar_position: 3
 description: "理解向量数据库为什么是 RAG 的基础设施，以及它如何存储向量、元数据并完成相似度检索。"
 keywords: [向量数据库, embedding, similarity search, metadata filter, RAG]

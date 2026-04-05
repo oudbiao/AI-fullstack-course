@@ -1,5 +1,5 @@
 ---
-title: "8.3 项目：生成模型实战【选修】"
+title: "8.4 项目：生成模型实战【选修】"
 sidebar_position: 3
 description: "从任务定义、数据、生成质量观察到样本多样性分析，建立一个最小生成模型项目的评估和展示框架。"
 keywords: [generative project, GAN, VAE, generation quality, diversity, evaluation]

@@ -1,5 +1,5 @@
 ---
-title: "5.1 MCP 协议概述"
+title: "5.2 MCP 协议概述"
 sidebar_position: 25
 description: "从为什么工具接入总是很乱，到 MCP 如何把客户端和工具服务器之间的交互标准化，建立对 MCP 的第一层直觉。"
 keywords: [MCP, Model Context Protocol, tool protocol, client-server, JSON-RPC]

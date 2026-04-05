@@ -1,5 +1,5 @@
 ---
-title: "1.3 数学如何真正流到机器学习"
+title: "1.2 数学如何真正流到机器学习"
 sidebar_position: 3
 description: "把第三阶段的线性代数、概率统计、微积分真正接到第四阶段机器学习：从矩阵、损失、概率到梯度下降。"
 keywords: [数学到机器学习, 线性代数, 概率统计, 微积分, 梯度下降, 机器学习桥接]
@@ -329,9 +329,9 @@ flowchart LR
 :::info 下一步怎么学最顺
 看完这页后，最推荐直接接着学：
 
-1. [1.2 Scikit-learn 框架入门](./02-sklearn-intro.md)
-2. [2.1 线性回归](../ch02-supervised/01-linear-regression.md)
-3. [4.1 评估指标](../ch04-evaluation/01-metrics.md)
+1. [1.4 Scikit-learn 框架入门](./02-sklearn-intro.md)
+2. [2.2 线性回归](../ch02-supervised/01-linear-regression.md)
+3. [4.2 评估指标](../ch04-evaluation/01-metrics.md)
 
 这样你会最明显地感受到“数学真的开始在模型里工作了”。
 :::

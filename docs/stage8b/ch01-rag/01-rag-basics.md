@@ -1,5 +1,5 @@
 ---
-title: "1.1 RAG 基础"
+title: "1.2 RAG 基础"
 sidebar_position: 1
 description: "用最容易理解的方式讲清楚 RAG 的动机、流程、优势和局限，并给出一个纯 Python 可运行迷你版 RAG。"
 keywords: [RAG, retrieval augmented generation, 检索增强生成, chunk, retrieval]

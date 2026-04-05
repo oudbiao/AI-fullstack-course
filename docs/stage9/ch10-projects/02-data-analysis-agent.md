@@ -1,5 +1,5 @@
 ---
-title: "10.2 项目：数据分析 Agent"
+title: "10.3 项目：数据分析 Agent"
 sidebar_position: 55
 description: "围绕读取表格、做统计、输出图表建议和解释结论，建立一个可复核的数据分析 Agent 项目闭环。"
 keywords: [data analysis agent, statistics, chart suggestion, insight generation, agent project]

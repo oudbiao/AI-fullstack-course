@@ -1,5 +1,5 @@
 ---
-title: "1.2 文档处理与向量化"
+title: "1.3 文档处理与向量化"
 sidebar_position: 2
 description: "从清洗、切块、重叠、元数据到简单向量化，理解 RAG 前处理链路为什么决定效果上限。"
 keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]

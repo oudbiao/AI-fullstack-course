@@ -1,5 +1,5 @@
 ---
-title: "3.7 代码生成与执行 Agent"
+title: "3.8 代码生成与执行 Agent"
 sidebar_position: 17
 description: "从读代码、做计划、改代码、跑验证到错误恢复，理解代码 Agent 为什么本质上是一个带执行回路的工程系统，而不只是“会写代码”。"
 keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests]

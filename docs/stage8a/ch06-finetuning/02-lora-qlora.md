@@ -1,5 +1,5 @@
 ---
-title: "6.2 LoRA 与 QLoRA"
+title: "6.3 LoRA 与 QLoRA"
 sidebar_position: 20
 description: "从低秩增量到量化微调，理解 LoRA 和 QLoRA 到底在改什么、为什么它们能把大模型微调门槛大幅拉低。"
 keywords: [LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning]

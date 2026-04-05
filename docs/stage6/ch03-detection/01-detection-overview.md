@@ -1,5 +1,5 @@
 ---
-title: "3.1 目标检测概述"
+title: "3.2 目标检测概述"
 sidebar_position: 7
 description: "从分类任务为什么不够讲起，理解目标检测如何同时回答“图里有什么”和“它在哪里”。"
 keywords: [object detection, bounding box, detection, localization, computer vision]

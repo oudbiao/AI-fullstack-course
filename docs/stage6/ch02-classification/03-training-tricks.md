@@ -1,5 +1,5 @@
 ---
-title: "2.3 训练技巧"
+title: "2.4 训练技巧"
 sidebar_position: 6
 description: "从学习率调度、正则化、标签平滑和混合精度等常见技巧出发，理解分类训练为什么往往靠一组细节拉开差距。"
 keywords: [training tricks, label smoothing, mixed precision, scheduler, regularization, vision]

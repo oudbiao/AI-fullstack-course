@@ -1,5 +1,5 @@
 ---
-title: "6.4 Kaggle 竞赛实战"
+title: "6.5 Kaggle 竞赛实战"
 sidebar_position: 22
 description: "Kaggle 平台入门、竞赛流程与技巧、参加入门级竞赛"
 keywords: [Kaggle, 竞赛, Titanic, 数据科学竞赛, Notebook, 排行榜]

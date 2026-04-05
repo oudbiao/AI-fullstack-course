@@ -1,5 +1,5 @@
 ---
-title: "2.3 大模型产业格局"
+title: "2.4 大模型产业格局"
 sidebar_position: 7
 description: "从模型层、平台层、应用层和开闭源生态出发，建立理解大模型产业格局的基础框架。"
 keywords: [LLM 产业, 开源模型, 闭源模型, API, 推理, 应用层]

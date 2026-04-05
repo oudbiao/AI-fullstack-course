@@ -1,5 +1,5 @@
 ---
-title: "2.5 高级规划策略【选修】"
+title: "2.6 高级规划策略【选修】"
 sidebar_position: 9
 description: "从线性任务清单进一步走向 DAG、并行调度、关键路径和重规划，理解高级规划为什么更像任务图管理而不只是“多列几个步骤”。"
 keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critical path]

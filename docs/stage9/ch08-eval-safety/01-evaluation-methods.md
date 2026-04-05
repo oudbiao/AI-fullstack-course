@@ -1,5 +1,5 @@
 ---
-title: "8.1 Agent 评估方法"
+title: "8.2 Agent 评估方法"
 sidebar_position: 44
 description: "从任务成功率、轨迹质量、工具使用质量到人工评估，理解 Agent 评估为什么必须是多维度的。"
 keywords: [agent evaluation, success rate, trajectory quality, tool usage, eval]

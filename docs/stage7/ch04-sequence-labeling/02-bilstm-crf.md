@@ -1,5 +1,5 @@
 ---
-title: "4.2 BiLSTM + CRF"
+title: "4.3 BiLSTM + CRF"
 sidebar_position: 11
 description: "从“先看上下文，再保证标签序列合法”讲起，理解 BiLSTM + CRF 为什么长期是序列标注里的经典组合。"
 keywords: [BiLSTM, CRF, sequence labeling, NER, transition constraints, decoding]

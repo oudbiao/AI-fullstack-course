@@ -1,5 +1,5 @@
 ---
-title: "2.2 Stable Diffusion 架构"
+title: "2.3 Stable Diffusion 架构"
 sidebar_position: 5
 description: "从 latent diffusion、VAE、文本编码器、U-Net 和 cross-attention 出发，理解 Stable Diffusion 为什么能把文生图真正做实用。"
 keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-attention]

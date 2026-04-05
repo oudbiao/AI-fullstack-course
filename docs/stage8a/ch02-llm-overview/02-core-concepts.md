@@ -1,5 +1,5 @@
 ---
-title: "2.2 大模型核心概念"
+title: "2.3 大模型核心概念"
 sidebar_position: 6
 description: "用新人能读懂的方式理解 token、上下文、注意力、采样温度、预训练和指令跟随等核心概念。"
 keywords: [token, 上下文窗口, attention, temperature, sampling, pretraining, LLM]

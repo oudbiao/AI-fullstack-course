@@ -1,5 +1,5 @@
 ---
-title: "6.1 项目：房价预测"
+title: "6.2 项目：房价预测"
 sidebar_position: 19
 description: "完整的回归项目实战：EDA、特征工程、多模型对比、模型融合与调优"
 keywords: [房价预测, 回归, EDA, 特征工程, XGBoost, 模型融合, Kaggle]

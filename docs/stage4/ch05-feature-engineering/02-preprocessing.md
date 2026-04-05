@@ -1,5 +1,5 @@
 ---
-title: "5.2 特征预处理"
+title: "5.3 特征预处理"
 sidebar_position: 15
 description: "掌握缺失值处理、标准化与归一化、类别特征编码和异常值处理"
 keywords: [缺失值, 标准化, 归一化, One-Hot, Label Encoding, Target Encoding, 异常值]

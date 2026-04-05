@@ -1,5 +1,5 @@
 ---
-title: "1.3 图像处理技术"
+title: "1.4 图像处理技术"
 sidebar_position: 3
 description: "从滤波、边缘检测到形态学操作，用可运行的 OpenCV 示例理解经典图像处理的工作方式。"
 keywords: [滤波, 边缘检测, 形态学, OpenCV, Canny, blur]

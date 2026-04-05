@@ -1,5 +1,5 @@
 ---
-title: "6.1 GAN 基础【选修】"
+title: "6.2 GAN 基础【选修】"
 sidebar_position: 1
 description: "从生成器和判别器的对抗博弈讲起，理解 GAN 为什么能学出逼真样本，以及它为什么容易训练不稳。"
 keywords: [GAN, generator, discriminator, adversarial training, mode collapse]

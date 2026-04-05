@@ -1,5 +1,5 @@
 ---
-title: "3.5 CNN 实战：图像分类"
+title: "3.6 CNN 实战：图像分类"
 sidebar_position: 5
 description: "从造数据、搭网络、训练、验证到预测，完整走通一个小型 CNN 图像分类项目。"
 keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic dataset]

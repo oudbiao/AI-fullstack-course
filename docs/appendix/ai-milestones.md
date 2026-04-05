@@ -1,0 +1,239 @@
+---
+title: "AI 重要论文与算法时间线"
+sidebar_position: 2
+description: "从感知机、反向传播、LeNet、AlexNet、Transformer、BERT、GPT 到 RLHF 与扩散模型，一页看懂 AI 主线是怎样长出来的。"
+keywords: [AI发展史, 重要论文, Transformer论文, BERT论文, GPT论文, RLHF论文, 扩散模型论文]
+---
+
+# AI 重要论文与算法时间线
+
+这页不是为了让你背论文名，而是帮你建立一种更稳的历史感：
+
+- 这个概念是从哪里来的
+- 它是在哪一年成为转折点的
+- 它到底解决了什么问题
+- 你应该回到课程哪一阶段去真正学它
+
+## 1. 怎么使用这页最值
+
+更推荐这样用：
+
+1. 先学主线课程
+2. 学到某个关键概念时，再回这页看它的历史位置
+3. 只记“它解决了什么问题”，不要急着背全部论文名
+
+如果你能回答下面这三个问题，这页就已经帮到你了：
+
+- 这个方法为什么会出现？
+- 它替代了前一代什么瓶颈？
+- 它在这套课程里的对应位置在哪里？
+
+## 1.1 先说明一件事：有些节点不是“一篇论文”
+
+这页里有些条目是：
+
+- 一篇非常明确的里程碑论文  
+  例如 `Attention Is All You Need`
+
+有些则更像：
+
+- 一个完整领域  
+  例如贝叶斯法则、最大似然估计
+
+还有些更像：
+
+- 一个方法族或一次历史转折  
+  例如“感知器时代的挫折”“深度学习复兴”
+
+所以更稳的理解方式不是要求它们都长得一样，  
+而是先看：
+
+- 这个节点是不是历史上非常重要
+- 它到底解决了什么问题
+- 它后面引出了哪条主线
+
+---
+
+## 2. 早期基础与概率推断节点
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 1763 | Bayes' Theorem（后验更新思想） | Thomas Bayes（后由 Price 整理发表） | 奠定了“拿到新证据后更新判断”的概率推断主线 | 第三阶段概率基础 |
+| 1948 | A Mathematical Theory of Communication | Claude Shannon | 奠定了信息量、熵和现代信息论主线 | 第三阶段信息论 |
+| 1943 | McCulloch-Pitts Neuron | Warren McCulloch, Walter Pitts | 提出了人工神经元的最早抽象，把“神经元可以做逻辑计算”这件事讲清了 | 第五阶段神经网络基础 |
+| 1950 | Turing Test | Alan Turing | 把“机器是否表现出智能”从哲学问题变成可讨论的测试框架 | 第九阶段 Agent / 第十阶段前沿 |
+| 1956 | Logic Theorist | Newell, Shaw, Simon | 让“程序能做符号推理和定理证明”第一次非常具体地落地 | AI 历史总览 / Agent 背景 |
+| 1922 | Maximum Likelihood Estimation | Ronald Fisher | 把“最能解释数据的参数”系统化，成为统计学习和损失函数主线的底层思想 | 第三阶段统计推断 |
+| 1977 | EM Algorithm | Dempster, Laird, Rubin | 给“有隐变量、缺失信息”场景提供了稳定迭代估计框架 | 第三阶段统计推断 / 后续概率模型背景 |
+| 1990 | MCMC in Bayesian Inference | Gelfand, Smith | 让复杂贝叶斯推断在实际计算上更可行 | 概率推断背景 / 选修扩展 |
+| 2000 | Causality | Judea Pearl | 把因果关系从“相关”中分离出来，成为现代 AI 推断与决策的重要背景 | 概率与推断扩展 / Agent / 安全 |
+
+---
+
+## 3. 神经网络三次浪潮中的关键节点
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 1958 | Perceptron | Frank Rosenblatt | 提出了最早可训练的线性分类器之一，让“机器能从数据学规则”第一次真正成型 | 第四阶段线性模型、第五阶段神经元 |
+| 1969 | Perceptrons | Marvin Minsky, Seymour Papert | 系统性揭示了单层感知器对 XOR 等非线性可分问题的局限，打击了第一波神经网络热潮 | 第五阶段感知器 / XOR |
+| 1980 | Neocognitron | Kunihiko Fukushima | 提前给出了卷积、局部感受野、层级特征提取的核心思想 | 第五阶段 CNN 历史背景 |
+| 1986 | Backpropagation | Rumelhart, Hinton, Williams | 让多层神经网络可以有效训练，成为第二波神经网络复兴的底层关键 | 第三阶段链式法则、第五阶段前向反向传播 |
+| 1989 | Universal Approximation Theorem | George Cybenko | 理论上说明了带非线性的前馈网络具有非常强的函数逼近能力 | 第五阶段 MLP 背景 |
+| 1994 | Learning Long-Term Dependencies is Difficult | Bengio, Simard, Frasconi | 系统揭示了长序列训练中的梯度消失问题，推动后续 LSTM 路线 | 第五阶段 RNN / LSTM |
+| 1997 | LSTM | Hochreiter, Schmidhuber | 用门控机制缓解长期依赖和梯度问题 | 第五阶段 LSTM |
+| 2006 | A Fast Learning Algorithm for Deep Belief Nets | Hinton, Osindero, Teh | 用 RBM / DBN 预训练让深层网络再次变得可训练，常被视为深度学习复兴起点之一 | 第五阶段深度学习历史背景 |
+
+---
+
+## 4. 经典机器学习主线
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 1984 | CART | Breiman, Friedman, Olshen, Stone | 系统化地奠定了决策树分类和回归的框架 | 第四阶段决策树 |
+| 1995 | Support-Vector Networks | Cortes, Vapnik | 用最大间隔思想建立了非常强的分类器路线 | 选修 / 经典 ML 背景 |
+| 1997 | AdaBoost | Freund, Schapire | 把“弱学习器组合成强学习器”这件事清晰地做成了主线 | 第四阶段集成学习 |
+| 2001 | Random Forests | Leo Breiman | 用 Bagging + 特征随机选择，让树模型更稳、更不易过拟合 | 第四阶段随机森林 |
+| 2016 | XGBoost: A Scalable Tree Boosting System | Chen, Guestrin | 把 GBDT 做成工业级高性能实现，表格数据时代的强 baseline 之一 | 第四阶段集成学习 |
+
+---
+
+## 5. 深度学习视觉主线
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 1998 | LeNet-5 | Yann LeCun 等 | 把卷积网络真正用在图像识别上，建立了 CNN 主线 | 第五阶段 CNN |
+| 2009 | ImageNet | Deng, Dong, Socher, Li, Li, Fei-Fei | 建立了大规模视觉数据集标准，推动后续深度视觉模型爆发 | 第六阶段视觉主线背景 |
+| 2012 | AlexNet | Krizhevsky, Sutskever, Hinton | 在 ImageNet 上让深度 CNN 真正爆发，推动深度学习复兴 | 第五阶段经典 CNN、 第六阶段视觉分类 |
+| 2015 | ResNet | He 等 | 用残差连接让网络可以训练得更深，解决深层网络训练困难 | 第五阶段经典 CNN、 第六阶段现代架构 |
+| 2015 | U-Net | Ronneberger 等 | 让医学图像分割和像素级预测变得实用 | 第六阶段分割 |
+| 2015 | Faster R-CNN | Ren 等 | 让目标检测从慢到可用，成为两阶段检测主线代表 | 第六阶段目标检测 |
+| 2016 | YOLO | Redmon 等 | 把检测做成端到端实时路线 | 第六阶段 YOLO 系列 |
+
+---
+
+## 6. 强化学习与博弈主线
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 1992 | TD-Gammon | Gerald Tesauro | 用时序差分学习在复杂博弈中逼近人类高手水平，证明强化学习路线很有潜力 | RL / Agent 历史背景 |
+| 2015 | Human-level control through deep reinforcement learning | Mnih 等 | 用深度强化学习在 Atari 游戏上达到人类水平，DQN 成为深度 RL 主线节点 | Agent / RL 历史背景 |
+| 2016 | AlphaGo | Silver 等 | 把深度学习、搜索与强化学习结合起来，在围棋上实现历史性突破 | Agent / 规划 / 前沿历史 |
+
+---
+
+## 7. 现代 NLP 与大模型主线
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 1980s~1990s | HMM / 统计序列建模路线 | Rabiner 等（经典综述与主线整理） | 让词性标注、分词、语音识别等序列任务形成成熟统计主线 | 第七阶段序列标注背景 |
+| 2006 | CTC（Connectionist Temporal Classification） | Alex Graves 等 | 解决了语音等序列任务中“输入输出未对齐”时如何训练的问题 | 第七阶段 / 语音建模背景 |
+| 2013 | Word2Vec | Mikolov 等 | 让词向量真正进入主流，词开始有分布式语义表示 | 第七阶段词嵌入 |
+| 2013 | AMR（Abstract Meaning Representation） | Banarescu 等 | 把语义图表示推到主流视野，体现“句子不只是一串词，也可以是结构化语义图” | NLP 语义表示扩展背景 |
+| 2014 | Sequence to Sequence Learning | Sutskever, Vinyals, Le | 把编码器-解码器做成翻译主线 | 第七阶段 Seq2Seq |
+| 2014 | Deep Speech | Hannun 等 / Baidu | 把端到端语音识别主线真正推到深度学习时代 | 语音识别 / CTC 背景 |
+| 2014 | GAN | Goodfellow 等 | 提出了生成式对抗学习，让生成模型路线出现重要分支 | 第五阶段 GAN |
+| 2017 | Attention Is All You Need | Vaswani 等 | 用 self-attention 替代 RNN 主线，解决长依赖和并行训练瓶颈 | 第五阶段 Transformer |
+| 2018 | BERT | Devlin 等 | 把双向 Transformer 预训练 + 微调做成 NLP 理解主线 | 第七阶段 BERT、第八A阶段 |
+| 2018 | GPT-1 | Radford 等 | 把 decoder-only 预训练路线真正推到台前 | 第七阶段 GPT |
+| 2019 | GPT-2 | Radford 等 | 用规模化自回归语言模型展示强生成能力 | 第七阶段 GPT |
+| 2020 | GPT-3 | Brown 等 | 用更大规模模型把 few-shot / in-context learning 现象推到主流 | 第七阶段 GPT、第八A阶段 |
+
+---
+
+## 8. 对齐、Agent 与系统化主线
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 2017 | Deep RL from Human Preferences | Christiano 等 | 把“人类偏好”正式引入强化学习反馈主线 | 第八A阶段 RLHF 背景 |
+| 2021 | LoRA | Hu 等 | 让大模型微调从“全量改参数”变成“低秩增量适配” | 第八A阶段微调 |
+| 2022 | InstructGPT | Ouyang 等 | 把 RLHF 在大语言模型中推到主流，解决“会续写但不一定听指令” | 第八A阶段 RLHF |
+| 2022 | Chain-of-Thought Prompting | Wei 等 | 让“先想步骤再回答”成为显式提示策略 | 第八A阶段 Prompt / 第九阶段推理 |
+| 2022 | ReAct | Yao 等 | 把推理和行动交替结合，成为 Agent 主线关键节点 | 第九阶段推理与 Agent |
+| 2023 | Toolformer | Schick 等 | 让模型学会何时调用外部工具 | 第九阶段工具调用 |
+
+---
+
+## 9. 多模态与 AIGC 主线
+
+| 年份 | 论文 / 算法 | 关键作者 | 它最重要地解决了什么 | 课程里对应哪里 |
+|---|---|---|---|---|
+| 2021 | CLIP | Radford 等 | 把图像和文本对齐到同一语义空间，成为多模态时代关键底座之一 | 第十阶段多模态基础 |
+| 2020 | DDPM | Ho 等 | 把扩散模型做成实用路线，显著提升生成质量和稳定性 | 第十阶段扩散模型 |
+| 2022 | Latent Diffusion Models | Rombach 等 | 把扩散从像素空间搬到潜空间，大幅降低成本，成为 Stable Diffusion 主线 | 第十阶段图像生成 |
+| 2022 | Whisper | Radford 等 | 把大规模弱监督语音识别做成通用可用路线 | 第十阶段语音生成 / 语音理解背景 |
+| 2023 | Segment Anything | Kirillov 等 | 把大规模视觉基础模型推到分割任务 | 第十阶段多模态 / 第六阶段视觉延伸 |
+
+---
+
+## 10. 综述、教材与脑启发补充节点
+
+下面这些节点不一定都是“直接改写主线的一篇算法论文”，  
+但它们很适合拿来补背景、补世界观，尤其是当你想把 AI 历史看得更完整时：
+
+| 年份 | 节点 | 作者 | 它更适合补什么 |
+|---|---|---|---|
+| 1998 | *Artificial Intelligence: A New Synthesis* | Nils J. Nilsson | 适合补“经典 AI 到现代 AI 之间的大图景” |
+| 2004 | 分层时间记忆（Hierarchical Temporal Memory, HTM） | Jeff Hawkins, Dileep George 等 | 适合补“脑启发路线”和层级时序记忆思想 |
+| 2015 | *Deep Learning*（Nature 综述） | LeCun, Bengio, Hinton | 适合补“深度学习为什么重新成为主流”的总览理解 |
+
+如果你是在学主线课程，这三类内容更适合作为：
+
+- 扩展阅读
+- 背景补充
+- 世界观校准
+
+而不是第一遍的必背节点。
+
+---
+
+## 11. 这套课程里，最值得先记住的 17 个节点
+
+如果你不想一次记太多，可以先只抓这 17 个：
+
+1. `1763 Bayes`：拿到新证据后怎样更新判断
+2. `1922 Fisher / MLE`：怎样找最能解释数据的参数
+3. `1948 Shannon`：信息量和熵怎样被严格定义
+4. `1958 Perceptron`：最早可训练线性分类器之一
+5. `1969 Minsky & Papert`：单层感知器对 XOR 一类问题的局限
+6. `1986 Backpropagation`：多层网络真正能学起来
+7. `1989 Cybenko`：神经网络逼近能力的理论底座
+8. `1994 梯度消失问题`：揭示长依赖训练困难
+9. `1997 LSTM`：门控记忆路线
+10. `2006 RBM / DBN`：深度学习复兴起点之一
+11. `2009 ImageNet`：大规模视觉数据集标准
+12. `2012 AlexNet`：深度视觉爆发
+13. `2013 Word2Vec`：词开始有了可计算的分布式语义空间
+14. `2017 Attention Is All You Need`：Transformer 主线起点
+15. `2018 BERT / GPT-1`：两条预训练主线分化得更清楚
+16. `2022 InstructGPT / RLHF`：把“会续写”推向“更会按人类意图回答”
+17. `2020 DDPM / 2022 Latent Diffusion / 2021 CLIP`：扩散与多模态主线成型
+
+---
+
+## 12. 课程阶段怎么对应这些历史节点
+
+| 阶段 | 最值得重点记住的历史节点 |
+|---|---|
+| 第三阶段 概率与数学 | Bayes、Shannon、MLE、EM |
+| 第四阶段 机器学习 | CART、SVM、Random Forest、XGBoost |
+| 第五阶段 深度学习 | Perceptron、XOR 局限、Backprop、Cybenko、LSTM、RBM、AlexNet、ResNet、Transformer |
+| 第六阶段 CV | AlexNet、ResNet、U-Net、Faster R-CNN、YOLO |
+| 第七阶段 NLP | HMM、Word2Vec、AMR、Seq2Seq、BERT、GPT、CTC / Deep Speech |
+| 第八A阶段 LLM | Transformer、BERT、GPT-3、LoRA、InstructGPT |
+| 第九阶段 Agent | DQN、AlphaGo、Chain-of-Thought、ReAct、Toolformer |
+| 第十阶段 多模态 / AIGC | CLIP、DDPM、Latent Diffusion |
+
+## 13. 最实用的记忆方式
+
+如果你怕这些名字太多，可以只按下面这个模板记：
+
+- `哪一年`
+- `哪篇论文 / 哪个算法`
+- `解决了什么老问题`
+- `它在课程哪一阶段会再次出现`
+
+比如：
+
+- `2017, Attention Is All You Need, 解决了 RNN 难并行和长依赖路径太长的问题, 对应第五阶段 Transformer`
+
+这样记，会比单纯背论文名有用得多。

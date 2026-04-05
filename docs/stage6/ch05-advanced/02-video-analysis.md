@@ -1,5 +1,5 @@
 ---
-title: "5.2 视频分析【选修】"
+title: "5.3 视频分析【选修】"
 sidebar_position: 15
 description: "从逐帧处理到时序建模，理解视频分析为什么比单张图更难，以及它为什么天然需要时间维度。"
 keywords: [video analysis, temporal modeling, frame sampling, tracking, action recognition]

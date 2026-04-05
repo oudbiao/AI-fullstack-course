@@ -1,5 +1,5 @@
 ---
-title: "1.3 预训练语言模型速览"
+title: "1.4 预训练语言模型速览"
 sidebar_position: 3
 description: "从“先在大语料上学通用模式，再迁移到具体任务”讲起，理解预训练模型为什么会成为现代 NLP 和大模型的共同底座。"
 keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models]

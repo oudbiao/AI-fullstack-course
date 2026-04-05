@@ -1,5 +1,5 @@
 ---
-title: "1.5 权重初始化"
+title: "1.7 权重初始化"
 sidebar_position: 5
 description: "理解权重初始化为什么重要、Xavier 和 He 初始化的原理与适用场景"
 keywords: [权重初始化, Xavier, Glorot, He, Kaiming, 梯度消失, 梯度爆炸]

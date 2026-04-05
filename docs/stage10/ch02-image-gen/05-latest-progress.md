@@ -1,5 +1,5 @@
 ---
-title: "2.5 最新进展"
+title: "2.6 最新进展"
 sidebar_position: 8
 description: "从更快采样、更强可控生成、统一多模态和内容生产工作流四条主线，理解图像生成领域近几年的稳定进展方向。"
 keywords: [image generation, latest progress, diffusion, controllable generation, multimodal, image editing]

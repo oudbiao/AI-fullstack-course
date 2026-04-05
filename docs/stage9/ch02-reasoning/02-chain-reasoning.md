@@ -1,5 +1,5 @@
 ---
-title: "2.2 链式推理策略"
+title: "2.3 链式推理策略"
 sidebar_position: 6
 description: "从 CoT 的核心作用讲起，理解“先拆步骤再回答”为什么能提升多步任务表现，以及它什么时候有帮助、什么时候会拖慢系统。"
 keywords: [chain of thought, CoT, reasoning trace, scratchpad, decomposition]

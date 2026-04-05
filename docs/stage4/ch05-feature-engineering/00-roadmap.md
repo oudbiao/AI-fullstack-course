@@ -1,5 +1,5 @@
 ---
-title: "5.0 学前导读：特征工程这一章到底在学什么"
+title: "5.1 学前导读：特征工程这一章到底在学什么"
 sidebar_position: 13
 description: "先建立特征工程章的学习地图：理解特征、预处理、构造、选择、Pipeline 为什么在 ML 项目里这么关键。"
 keywords: [特征工程导读, 预处理, 特征构造, 特征选择, Pipeline]

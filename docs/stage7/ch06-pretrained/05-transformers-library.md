@@ -1,5 +1,5 @@
 ---
-title: "6.5 Transformers 库实战"
+title: "6.6 Transformers 库实战"
 sidebar_position: 20
 description: "从 tokenizer、config、model 到最小 pipeline，真正学会怎样离线使用 HuggingFace Transformers 的核心接口。"
 keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]

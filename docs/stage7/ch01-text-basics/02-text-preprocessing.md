@@ -1,5 +1,5 @@
 ---
-title: "1.2 文本预处理"
+title: "1.3 文本预处理"
 sidebar_position: 2
 description: "从清洗、标准化、分词到保留关键信息，理解文本预处理为什么不是越重越好，而是任务驱动。"
 keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NLP]

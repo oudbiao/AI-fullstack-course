@@ -1,5 +1,5 @@
 ---
-title: "2.1 扩散模型原理"
+title: "2.2 扩散模型原理"
 sidebar_position: 4
 description: "从为什么图像生成难，到正向加噪、反向去噪和训练目标，真正理解扩散模型为什么能生成图像。"
 keywords: [diffusion model, denoising, forward process, reverse process, generative model, image generation]
@@ -27,6 +27,25 @@ keywords: [diffusion model, denoising, forward process, reverse process, generat
 - 看懂一个最小正向加噪示例
 - 理解模型训练时真正学的是什么
 - 建立对扩散模型整体流程的稳定直觉
+
+## 历史背景：扩散模型是怎么变成主线的？
+
+扩散模型不是一夜之间变成主流的。对新人来说，最值得知道的是这两个节点：
+
+| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+|---|---|---|---|
+| 2020 | *Denoising Diffusion Probabilistic Models (DDPM)* | Ho 等 | 把扩散模型做成高质量、稳定的生成路线 |
+| 2022 | *High-Resolution Image Synthesis with Latent Diffusion Models* | Rombach 等 | 把扩散从像素空间搬到潜空间，大幅降低成本，成为 Stable Diffusion 主线 |
+
+对新人来说，最值得先记的是：
+
+> **扩散模型之所以重要，不只是“图更好看”，而是它提供了一条比很多 GAN 路线更稳定、可控的生成主线。**
+
+而 Latent Diffusion 则进一步解决了：
+
+- 图像空间太大、直接扩散成本太高
+
+所以今天你看到的很多文生图系统，本质上都站在这条历史线上。
 
 ---
 

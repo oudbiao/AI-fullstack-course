@@ -1,5 +1,5 @@
 ---
-title: "6.2 LangChain / LangGraph"
+title: "6.3 LangChain / LangGraph"
 sidebar_position: 31
 description: "从链式组件组合到显式状态图，真正理解 LangChain 和 LangGraph 各自在帮你抽象什么。"
 keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framework]

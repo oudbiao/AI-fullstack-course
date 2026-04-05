@@ -1,5 +1,5 @@
 ---
-title: "3.4 常见工具集成"
+title: "3.5 常见工具集成"
 sidebar_position: 14
 description: "从搜索、计算器、数据库、文件系统到浏览器，理解 Agent 里最常见的工具类型以及怎样把它们接进系统。"
 keywords: [tool integration, search, calculator, database, filesystem, browser, Agent]

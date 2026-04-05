@@ -1,5 +1,5 @@
 ---
-title: "5.1 Prompt 基础"
+title: "5.2 Prompt 基础"
 sidebar_position: 15
 description: "从 Prompt 到底是什么、为什么模糊指令会把模型带偏开始，建立 Prompt 工程最基础也最关键的直觉。"
 keywords: [prompt, instruction, task framing, output format, constraints, prompt engineering]

@@ -1,5 +1,5 @@
 ---
-title: "2.3 SD 应用"
+title: "2.4 SD 应用"
 sidebar_position: 6
 description: "从文生图、图生图、局部修复到风格控制和工作流产品，理解 Stable Diffusion 在真实应用里最常怎么被用起来。"
 keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workflow product]

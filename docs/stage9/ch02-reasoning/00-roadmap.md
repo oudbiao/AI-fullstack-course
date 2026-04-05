@@ -1,5 +1,5 @@
 ---
-title: "2.0 学前导读：推理与规划这一章到底在学什么"
+title: "2.1 学前导读：推理与规划这一章到底在学什么"
 sidebar_position: 0
 description: "先建立推理与规划章的学习地图：链式推理、ReAct、Plan-and-Execute 和规划评估怎样串成 Agent 思考主线。"
 keywords: [Agent推理导读, ReAct, Plan-and-Execute, 规划]

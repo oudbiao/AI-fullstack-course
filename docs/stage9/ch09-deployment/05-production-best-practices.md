@@ -1,5 +1,5 @@
 ---
-title: "9.5 生产环境最佳实践"
+title: "9.6 生产环境最佳实践"
 sidebar_position: 53
 description: "从发布前检查、灰度、告警、回滚、人工接管到安全审计，整理一套真正可执行的 Agent 生产环境最佳实践。"
 keywords: [production best practices, rollout, canary, rollback, observability, oncall, safety]

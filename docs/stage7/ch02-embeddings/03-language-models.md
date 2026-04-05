@@ -1,5 +1,5 @@
 ---
-title: "2.3 语言模型基础"
+title: "2.4 语言模型基础"
 sidebar_position: 6
 description: "从 n-gram 到 next token prediction，理解语言模型在做什么，以及它为什么会成为后面大模型的共同底座。"
 keywords: [language model, next token prediction, n-gram, autoregressive, probability, NLP]

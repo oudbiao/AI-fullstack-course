@@ -1,5 +1,5 @@
 ---
-title: "5.4 Prompt 工程实践"
+title: "5.5 Prompt 工程实践"
 sidebar_position: 18
 description: "从坏 prompt 到好 prompt，系统练习改写、约束、示例设计和输出控制，把 Prompt 真正用进任务里。"
 keywords: [prompt engineering, few-shot, instruction design, prompt practice, output control]

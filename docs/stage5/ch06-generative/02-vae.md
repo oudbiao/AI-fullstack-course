@@ -1,5 +1,5 @@
 ---
-title: "6.2 VAE 基础【选修】"
+title: "6.3 VAE 基础【选修】"
 sidebar_position: 2
 description: "从编码、采样、解码三步讲起，理解 VAE 为什么能学到一个连续、可采样的潜空间。"
 keywords: [VAE, latent space, encoder, decoder, reparameterization, generation]

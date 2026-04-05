@@ -1,5 +1,5 @@
 ---
-title: "7.5 多 Agent 挑战与解决"
+title: "7.6 多 Agent 挑战与解决"
 sidebar_position: 42
 description: "从重复劳动、通信失真、冲突收敛、成本爆炸到可观测性，系统理解多 Agent 真实落地最常见的难点。"
 keywords: [multi-agent, failure modes, coordination, observability, cost, conflict resolution]

@@ -1,5 +1,5 @@
 ---
-title: "8.1 项目：图像分类系统"
+title: "8.2 项目：图像分类系统"
 sidebar_position: 1
 description: "围绕一个真正可展示的图像分类项目，从选题、数据、baseline、训练、评估到演示方式，走完整条交付闭环。"
 keywords: [image classification project, CNN, confusion matrix, error analysis, computer vision]

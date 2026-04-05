@@ -1,5 +1,5 @@
 ---
-title: "1.3 Agent 能力分级"
+title: "1.4 Agent 能力分级"
 sidebar_position: 3
 description: "用分层视角理解不同 Agent 系统的能力边界，避免把简单工作流说成全能智能体。"
 keywords: [agent capability, tool use, planning, workflow, autonomy]

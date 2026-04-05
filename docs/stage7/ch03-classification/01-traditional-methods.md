@@ -1,5 +1,5 @@
 ---
-title: "3.1 传统文本分类"
+title: "3.2 传统文本分类"
 sidebar_position: 7
 description: "从词袋模型、TF-IDF 和线性分类器讲起，理解为什么传统文本分类在很多真实任务里依然是很强的基线。"
 keywords: [text classification, bag of words, tf-idf, logistic regression, baseline, NLP]

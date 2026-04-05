@@ -1,5 +1,5 @@
 ---
-title: "2.2 上下文词嵌入"
+title: "2.3 上下文词嵌入"
 sidebar_position: 5
 description: "从固定词向量的局限讲起，理解为什么同一个词在不同句子里应该有不同表示，以及上下文化表示如何改变 NLP。"
 keywords: [contextual embedding, contextual representation, polysemy, BERT, dynamic embeddings]

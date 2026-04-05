@@ -1,5 +1,5 @@
 ---
-title: "8.3 Agent 安全与对齐"
+title: "8.4 Agent 安全与对齐"
 sidebar_position: 46
 description: "从越权、提示注入、工具误用到状态污染，理解 Agent 安全为什么比普通聊天系统更复杂。"
 keywords: [agent security, alignment, prompt injection, tool misuse, permissions]

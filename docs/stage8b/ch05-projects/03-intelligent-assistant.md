@@ -1,5 +1,5 @@
 ---
-title: "5.3 项目：智能问答助手"
+title: "5.4 项目：智能问答助手"
 sidebar_position: 23
 description: "从多轮对话、知识检索、状态管理到工具调用，建立一个更像真实产品的智能问答助手项目闭环。"
 keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calling, LLM app]

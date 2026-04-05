@@ -1,5 +1,5 @@
 ---
-title: "3.3 文本分类实战"
+title: "3.4 文本分类实战"
 sidebar_position: 9
 description: "围绕一个客服工单分类任务，从标签设计、数据整理、基线训练到错误分析，走完一条真正的文本分类项目闭环。"
 keywords: [text classification practice, intent classification, baseline, error analysis, NLP project]

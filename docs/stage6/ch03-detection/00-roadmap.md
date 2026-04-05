@@ -1,5 +1,5 @@
 ---
-title: "3.0 学前导读：目标检测这一章到底在学什么"
+title: "3.1 学前导读：目标检测这一章到底在学什么"
 sidebar_position: 0
 description: "先建立目标检测章的学习地图：检测任务、经典检测器、YOLO 系列和检测实战是怎么衔接的。"
 keywords: [目标检测导读, YOLO, IoU, mAP]

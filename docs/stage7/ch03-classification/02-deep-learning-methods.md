@@ -1,5 +1,5 @@
 ---
-title: "3.2 深度学习文本分类"
+title: "3.3 深度学习文本分类"
 sidebar_position: 8
 description: "从 embedding + pooling 讲起，理解深度学习文本分类为什么比传统方法更能处理语义与上下文。"
 keywords: [deep text classification, embedding, pooling, neural classifier, NLP]

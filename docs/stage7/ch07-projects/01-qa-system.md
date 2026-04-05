@@ -1,5 +1,5 @@
 ---
-title: "7.1 项目：智能问答系统"
+title: "7.2 项目：智能问答系统"
 sidebar_position: 21
 description: "从知识库设计、检索、拒答、评估到展示方式，走通一个真正可解释的小型问答系统项目。"
 keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project]

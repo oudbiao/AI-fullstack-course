@@ -1,5 +1,5 @@
 ---
-title: "5.3 OCR 文字识别【选修】"
+title: "5.4 OCR 文字识别【选修】"
 sidebar_position: 16
 description: "从文本检测、文本识别到版面理解，理解 OCR 为什么通常是一条多阶段流水线，而不是单一模型。"
 keywords: [OCR, text detection, text recognition, document AI, layout analysis]

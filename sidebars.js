@@ -57,6 +57,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage1/index" },
       items: [
+        "stage1/study-guide",
         {
           type: "category",
           label: "第1章 Python 语言入门",
@@ -101,6 +102,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage2/index" },
       items: [
+        "stage2/study-guide",
         {
           type: "category",
           label: "第1章 Python到数据分析的过渡",
@@ -169,6 +171,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage3/index" },
       items: [
+        "stage3/study-guide",
         {
           type: "category",
           label: "第1章 线性代数实战",
@@ -210,14 +213,15 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage4/index" },
       items: [
+        "stage4/study-guide",
         {
           type: "category",
           label: "第1章 机器学习基础概念",
           items: [
             "stage4/ch01-ml-basics/roadmap",
+            "stage4/ch01-ml-basics/math-to-ml-bridge",
             "stage4/ch01-ml-basics/what-is-ml",
             "stage4/ch01-ml-basics/sklearn-intro",
-            "stage4/ch01-ml-basics/math-to-ml-bridge",
           ],
         },
         {
@@ -283,12 +287,13 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage5/index" },
       items: [
+        "stage5/study-guide",
         {
           type: "category",
           label: "第1章 神经网络基础",
           items: [
-            "stage5/ch01-nn-basics/ml-to-dl-bridge",
             "stage5/ch01-nn-basics/roadmap",
+            "stage5/ch01-nn-basics/ml-to-dl-bridge",
             "stage5/ch01-nn-basics/neurons-activation",
             "stage5/ch01-nn-basics/forward-backward",
             "stage5/ch01-nn-basics/optimizers",
@@ -378,6 +383,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage6/index" },
       items: [
+        "stage6/study-guide",
         {
           type: "category",
           label: "第1章 CV基础与OpenCV",
@@ -447,6 +453,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage7/index" },
       items: [
+        "stage7/study-guide",
         {
           type: "category",
           label: "第1章 文本处理基础",
@@ -527,6 +534,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage8a/index" },
       items: [
+        "stage8a/study-guide",
         {
           type: "category",
           label: "第1章 NLP核心速成",
@@ -618,6 +626,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage8b/index" },
       items: [
+        "stage8b/study-guide",
         {
           type: "category",
           label: "第1章 RAG 检索增强生成",
@@ -684,6 +693,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage9/index" },
       items: [
+        "stage9/study-guide",
         {
           type: "category",
           label: "第1章 Agent 基础概念",
@@ -818,6 +828,7 @@ const sidebars = {
       collapsed: true,
       link: { type: "doc", id: "stage10/index" },
       items: [
+        "stage10/study-guide",
         {
           type: "category",
           label: "第1章 多模态大模型",
@@ -922,6 +933,7 @@ const sidebars = {
       collapsed: true,
       items: [
         "appendix/resources",
+        "appendix/ai-milestones",
         "appendix/hardware",
         "appendix/faq",
         "appendix/continuous-learning",

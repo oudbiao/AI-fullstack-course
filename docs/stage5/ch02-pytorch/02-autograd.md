@@ -1,5 +1,5 @@
 ---
-title: "2.2 自动求导"
+title: "2.4 自动求导"
 sidebar_position: 2
 description: "理解 requires_grad、backward、梯度累计和 no_grad，真正明白训练时参数为什么会更新。"
 keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]

@@ -1,5 +1,5 @@
 ---
-title: "10.1 项目：智能研究助手"
+title: "10.2 项目：智能研究助手"
 sidebar_position: 54
 description: "围绕检索、阅读、引用和结构化总结，建立一个研究助手 Agent 的作品级项目闭环。"
 keywords: [research assistant, citation, retrieval, summary, agent project, RAG]

@@ -1,5 +1,5 @@
 ---
-title: "4.0 学前导读：工程化这一章到底在学什么"
+title: "4.1 学前导读：工程化这一章到底在学什么"
 sidebar_position: 0
 description: "先建立工程化章节的学习地图：异步、API、日志监控和部署怎样共同决定 LLM 系统能否真正上线。"
 keywords: [LLM工程导读, 异步编程, API设计, 日志监控, Docker]

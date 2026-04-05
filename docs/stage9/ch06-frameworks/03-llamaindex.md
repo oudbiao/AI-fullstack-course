@@ -1,5 +1,5 @@
 ---
-title: "6.3 LlamaIndex"
+title: "6.4 LlamaIndex"
 sidebar_position: 32
 description: "从文档摄取、节点切分、索引、检索到查询引擎，理解 LlamaIndex 为什么更像知识系统框架。"
 keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]

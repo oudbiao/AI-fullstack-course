@@ -1,5 +1,5 @@
 ---
-title: "2.1 词嵌入"
+title: "2.2 词嵌入"
 sidebar_position: 4
 description: "从 one-hot 的局限讲起，理解词嵌入为什么能把“语义相近”变成向量空间里的距离关系。"
 keywords: [word embedding, vector space, cosine similarity, one-hot, semantic representation]
@@ -27,6 +27,18 @@ keywords: [word embedding, vector space, cosine similarity, one-hot, semantic re
 - 理解词嵌入为什么能表达相似性
 - 掌握余弦相似度这类最常见的相似度直觉
 - 通过可运行示例建立“词向量空间”第一层感觉
+
+## 历史背景：Word2Vec 为什么会变成 NLP 的关键节点？
+
+这一节最值得知道的历史节点是：
+
+| 年份 | 论文 / 方法 | 关键作者 | 它最重要地解决了什么 |
+|---|---|---|---|
+| 2013 | Word2Vec | Mikolov 等 | 让词开始有分布式语义表示，推动 NLP 从“词是否出现”走向“词之间的关系也可计算” |
+
+对新人来说，最值得先记的是：
+
+> **Word2Vec 的意义，不只是“词向量更酷”，而是它让“语义相近”第一次在向量空间里变成可计算的关系。**
 
 ---
 

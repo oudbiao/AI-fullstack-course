@@ -1,5 +1,5 @@
 ---
-title: "4.3 序列建模实战"
+title: "4.4 序列建模实战"
 sidebar_position: 3
 description: "用一个真正能训练的小型时间序列任务，把窗口构造、RNN/LSTM 训练、验证和预测串起来。"
 keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]

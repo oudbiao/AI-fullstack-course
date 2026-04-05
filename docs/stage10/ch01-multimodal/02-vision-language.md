@@ -1,5 +1,5 @@
 ---
-title: "1.2 视觉-语言模型"
+title: "1.3 视觉-语言模型"
 sidebar_position: 2
 description: "理解视觉语言模型如何把图像和文本放进同一套系统里，并通过玩具示例感受图文检索和图像问答的核心思路。"
 keywords: [视觉语言模型, VLM, 图文检索, 图像问答, image-text]

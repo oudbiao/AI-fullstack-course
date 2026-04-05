@@ -1,5 +1,5 @@
 ---
-title: "2.4 数据加载"
+title: "2.6 数据加载"
 sidebar_position: 4
 description: "理解 Dataset、DataLoader、batch、shuffle 和训练集划分，让模型能稳定地一批批吃数据。"
 keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]

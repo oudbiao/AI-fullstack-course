@@ -1,5 +1,5 @@
 ---
-title: "7.2 Agent 间通信"
+title: "7.3 Agent 间通信"
 sidebar_position: 39
 description: "从消息格式、同步与异步、共享状态到失败重试，系统理解多 Agent 之间到底怎样通信。"
 keywords: [multi-agent communication, message passing, event bus, shared state, async, protocol]

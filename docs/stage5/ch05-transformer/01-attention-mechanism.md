@@ -1,5 +1,5 @@
 ---
-title: "5.1 注意力机制 🔧"
+title: "5.2 注意力机制 🔧"
 sidebar_position: 1
 description: "从为什么需要注意力，到 Q/K/V、缩放点积、自注意力、多头和掩码，真正理解 Transformer 的心脏。"
 keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
@@ -22,6 +22,21 @@ keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 - 手算一个最小注意力例子
 - 理解 self-attention、multi-head 和 mask 的作用
 - 看懂 PyTorch 里的 `MultiheadAttention`
+
+## 历史背景：Transformer 来自哪篇论文？
+
+这一节最值得知道的历史节点是：
+
+| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+|---|---|---|---|
+| 2017 | *Attention Is All You Need* | Vaswani 等 | 用 self-attention 替代 RNN 主线，显著改善并行训练能力，并缩短长距离依赖的信息路径 |
+
+对新人来说，最值得先记的不是作者名，而是这句话：
+
+> **Transformer 之所以重要，不只是因为它“更强”，而是因为它把序列建模从“按顺序传”改成了“直接全局关联”。**
+
+所以这节课里你看到的注意力，不是一个局部小技巧，  
+而是整个 Transformer 路线真正的心脏。
 
 ---
 

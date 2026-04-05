@@ -1,5 +1,5 @@
 ---
-title: "1.2 Agent 发展历程"
+title: "1.3 Agent 发展历程"
 sidebar_position: 2
 description: "从规则机器人、工作流自动化到工具调用和现代智能体，梳理 Agent 概念是如何一步步演进出来的。"
 keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]

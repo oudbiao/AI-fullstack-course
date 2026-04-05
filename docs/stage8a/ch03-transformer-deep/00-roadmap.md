@@ -1,5 +1,5 @@
 ---
-title: "3.0 学前导读：Transformer 深入这一章到底在学什么"
+title: "3.1 学前导读：Transformer 深入这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 Transformer 深入章的学习地图：结构、变体、长上下文和规模化问题怎样串成现代大模型底座。"
 keywords: [Transformer深入导读, 注意力, 长上下文, MoE]

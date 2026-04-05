@@ -1,5 +1,5 @@
 ---
-title: "3.4 迁移学习 🔧"
+title: "3.5 迁移学习 🔧"
 sidebar_position: 4
 description: "从为什么不从零训练开始，到冻结骨干、替换分类头和逐步微调，真正理解视觉里的迁移学习。"
 keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN]

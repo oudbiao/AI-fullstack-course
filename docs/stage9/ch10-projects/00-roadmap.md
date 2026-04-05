@@ -1,5 +1,5 @@
 ---
-title: "10.0 学前导读：综合项目这一章到底该怎么学"
+title: "10.1 学前导读：综合项目这一章到底该怎么学"
 sidebar_position: 0
 description: "先建立第九阶段项目章的学习地图：研究助手、数据分析 Agent 和多 Agent 开发团队项目分别在练什么。"
 keywords: [Agent项目导读, 研究助手, 数据分析Agent, 多Agent项目]

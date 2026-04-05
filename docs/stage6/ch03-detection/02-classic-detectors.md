@@ -1,5 +1,5 @@
 ---
-title: "3.2 经典检测架构"
+title: "3.3 经典检测架构"
 sidebar_position: 8
 description: "从 R-CNN、Fast R-CNN 到 Faster R-CNN，理解经典检测架构是怎样一步步把检测变快的。"
 keywords: [R-CNN, Fast R-CNN, Faster R-CNN, object detection, region proposal]

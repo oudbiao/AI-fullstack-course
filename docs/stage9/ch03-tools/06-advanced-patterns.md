@@ -1,5 +1,5 @@
 ---
-title: "3.6 高级工具模式【选修】"
+title: "3.7 高级工具模式【选修】"
 sidebar_position: 16
 description: "从重试、缓存、批量、复合工具到工具代理层，理解当工具越来越多时，为什么必须把工具层做成一套可组合系统。"
 keywords: [tool patterns, composite tools, caching, batching, retries, decorators, orchestration]

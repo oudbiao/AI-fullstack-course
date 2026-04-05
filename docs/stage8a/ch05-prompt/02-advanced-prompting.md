@@ -1,5 +1,5 @@
 ---
-title: "5.2 高级 Prompt 技巧"
+title: "5.3 高级 Prompt 技巧"
 sidebar_position: 16
 description: "从 few-shot、角色设定、分步约束到自检，理解哪些 Prompt 技巧真的能提升稳定性，哪些只是看起来更花。"
 keywords: [few-shot, role prompting, constraints, self-check, advanced prompting]

@@ -1,5 +1,5 @@
 ---
-title: "7.2 RLHF 流程"
+title: "7.3 RLHF 流程"
 sidebar_position: 25
 description: "从偏好数据、奖励模型到策略优化，拆清 RLHF 为什么能让模型更贴近人类偏好，以及它为什么昂贵又难调。"
 keywords: [RLHF, reward model, preference data, PPO, alignment]
@@ -31,6 +31,25 @@ keywords: [RLHF, reward model, preference data, PPO, alignment]
 - 理解 RLHF 的三阶段主线：SFT、奖励模型、策略优化
 - 跑通一个真正和偏好学习相关的奖励模型最小示例
 - 建立何时值得做 RLHF、何时不值得的工程判断
+
+## 历史背景：RLHF 为什么会走到大模型主线里？
+
+RLHF 不只是一种技巧，它背后有两个特别值得知道的节点：
+
+| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+|---|---|---|---|
+| 2017 | *Deep Reinforcement Learning from Human Preferences* | Christiano 等 | 把“人类偏好”正式做成强化学习反馈信号 |
+| 2022 | *Training language models to follow instructions with human feedback* | Ouyang 等 | 把 RLHF 推到大语言模型主线里，解决“会续写但不一定按人类意图回答”的问题 |
+
+对新人来说，最值得先记的是：
+
+> **RLHF 不是在让模型“更聪明”，而是在让模型“更符合人类偏好和使用方式”。**
+
+所以它和预训练、SFT 的关系不是替代，而是：
+
+- 预训练先给能力
+- SFT 先给基本任务格式
+- RLHF 再去微调“哪种回答更像人类真正想要的”
 
 ---
 

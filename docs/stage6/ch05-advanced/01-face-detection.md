@@ -1,5 +1,5 @@
 ---
-title: "5.1 人脸检测与识别【选修】"
+title: "5.2 人脸检测与识别【选修】"
 sidebar_position: 14
 description: "从检测、对齐到识别，理解人脸系统为什么不只是一个模型，而是一条完整流水线。"
 keywords: [face detection, face recognition, alignment, embeddings, computer vision]

@@ -1,5 +1,5 @@
 ---
-title: "6.5 AutoGen【选修】"
+title: "6.6 AutoGen【选修】"
 sidebar_position: 34
 description: "从多 Agent 对话、角色协作到代码执行回路，理解 AutoGen 风格框架为什么特别适合“会话式多 Agent”系统。"
 keywords: [AutoGen, multi-agent, role dialogue, conversation loop, code execution, agent collaboration]

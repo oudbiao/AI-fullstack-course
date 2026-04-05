@@ -1,5 +1,5 @@
 ---
-title: "4.4 容器化与部署"
+title: "4.5 容器化与部署"
 sidebar_position: 20
 description: "从为什么要容器化、Dockerfile 的核心结构到 Compose 启动方式，理解 LLM 应用怎样从本地脚本变成可部署服务。"
 keywords: [Docker, containerization, deployment, Dockerfile, Compose, service deployment]

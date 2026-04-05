@@ -1,5 +1,5 @@
 ---
-title: "5.4 3D 视觉入门【选修】"
+title: "5.5 3D 视觉入门【选修】"
 sidebar_position: 17
 description: "从深度、点云和多视角几何讲起，理解 3D 视觉为什么比 2D 视觉多了一层空间结构问题。"
 keywords: [3D vision, depth, point cloud, stereo, camera geometry]

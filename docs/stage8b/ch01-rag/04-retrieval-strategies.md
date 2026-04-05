@@ -1,5 +1,5 @@
 ---
-title: "1.4 检索策略"
+title: "1.5 检索策略"
 sidebar_position: 4
 description: "理解关键词检索、向量检索、混合检索、重排和查询改写等常见策略，知道怎样把“找资料”这一步做得更准。"
 keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, sparse retrieval]

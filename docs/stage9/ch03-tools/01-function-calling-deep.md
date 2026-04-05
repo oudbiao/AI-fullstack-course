@@ -1,5 +1,5 @@
 ---
-title: "3.1 Function Calling 详解"
+title: "3.2 Function Calling 详解"
 sidebar_position: 11
 description: "从 schema 设计、参数校验、错误恢复到多步调用，深入理解 Function Calling 在 Agent 工具层里的真实工程价值。"
 keywords: [Function Calling, Tool Calling, 参数校验, Agent, schema, 工具调度]

@@ -1,5 +1,5 @@
 ---
-title: "4.5 记忆工程实现"
+title: "4.6 记忆工程实现"
 sidebar_position: 23
 description: "从记忆写入、检索、过期、压缩和隐私控制出发，理解 Agent 记忆系统如何从概念落地为可维护的工程模块。"
 keywords: [memory engineering, write policy, retrieval policy, ttl, summarization, agent memory]

@@ -1,5 +1,5 @@
 ---
-title: "4.2 API 设计与服务化"
+title: "4.3 API 设计与服务化"
 sidebar_position: 18
 description: "从请求结构、响应结构、幂等性、错误处理到版本管理，理解 LLM 服务 API 怎样设计得更稳。"
 keywords: [API design, service design, idempotency, request schema, response schema, versioning]

@@ -1,5 +1,5 @@
 ---
-title: "6.3 其他 PEFT 方法【选修】"
+title: "6.4 其他 PEFT 方法【选修】"
 sidebar_position: 21
 description: "从 Prompt Tuning、Prefix Tuning、Adapter 到 IA3，理解除了 LoRA 之外，参数高效微调还可以把可训练部分放在哪里。"
 keywords: [PEFT, prompt tuning, prefix tuning, adapter, IA3, finetuning]

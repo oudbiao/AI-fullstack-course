@@ -1,5 +1,5 @@
 ---
-title: "3.4 检测实战"
+title: "3.5 检测实战"
 sidebar_position: 10
 description: "围绕一个安防检测任务，走完目标定义、标注、评估和最小部署思路，建立检测项目闭环。"
 keywords: [detection practice, computer vision project, bounding box, evaluation, IoU, mAP]

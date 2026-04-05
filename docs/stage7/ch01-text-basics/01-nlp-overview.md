@@ -1,5 +1,5 @@
 ---
-title: "1.1 NLP 概述"
+title: "1.2 NLP 概述"
 sidebar_position: 1
 description: "从任务、流程、难点和最小示例出发，建立自然语言处理的整体地图，并理解它为什么会成为后面大模型与 Agent 的基础。"
 keywords: [NLP, 自然语言处理, 文本分类, 信息抽取, 机器翻译, 语言模型]

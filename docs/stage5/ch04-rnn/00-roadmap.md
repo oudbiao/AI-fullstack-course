@@ -1,5 +1,5 @@
 ---
-title: "4.0 学前导读：RNN 与序列模型这一章到底在学什么"
+title: "4.1 学前导读：RNN 与序列模型这一章到底在学什么"
 sidebar_position: 0
 description: "先建立序列模型章节的学习地图：RNN、LSTM/GRU 和序列建模实战是怎么衔接的。"
 keywords: [RNN导读, LSTM, GRU, 序列建模]

@@ -1,5 +1,5 @@
 ---
-title: "7.1 超参数调优策略"
+title: "7.2 超参数调优策略"
 sidebar_position: 1
 description: "从学习率、batch size、正则化和搜索顺序出发，理解超参数调优为什么更像实验设计而不是盲目撞运气。"
 keywords: [hyperparameter tuning, learning rate, batch size, regularization, search strategy]

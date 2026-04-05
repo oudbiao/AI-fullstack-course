@@ -1,5 +1,5 @@
 ---
-title: "4.3 长期记忆"
+title: "4.4 长期记忆"
 sidebar_position: 21
 description: "从用户偏好、稳定背景和跨会话信息出发，理解长期记忆为什么不能只是“存更多”，而必须关注可信度、更新和检索质量。"
 keywords: [long-term memory, user profile, persistent memory, retrieval, confidence, update policy]

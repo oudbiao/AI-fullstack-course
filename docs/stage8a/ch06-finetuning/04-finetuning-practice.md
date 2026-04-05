@@ -1,5 +1,5 @@
 ---
-title: "6.4 微调工程实践"
+title: "6.5 微调工程实践"
 sidebar_position: 22
 description: "从任务定义、数据格式、切分方式到训练计划和验证策略，建立一套真正能落地的微调工程流程。"
 keywords: [finetuning, sft, dataset formatting, training plan, validation, llmops]

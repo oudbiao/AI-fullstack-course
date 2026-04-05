@@ -1,5 +1,5 @@
 ---
-title: "1.1 什么是 AI Agent"
+title: "1.2 什么是 AI Agent"
 sidebar_position: 1
 description: "从工作流、聊天机器人和智能体的区别讲起，用一个可运行小例子理解 Agent 的最小闭环。"
 keywords: [AI Agent, 智能体, tools, planning, workflow, function calling]

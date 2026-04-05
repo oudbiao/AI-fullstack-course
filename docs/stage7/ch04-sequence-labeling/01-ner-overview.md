@@ -1,5 +1,5 @@
 ---
-title: "4.1 序列标注任务"
+title: "4.2 序列标注任务"
 sidebar_position: 10
 description: "从“整句一个标签”和“每个 token 一个标签”的差别讲起，理解序列标注为什么是信息抽取任务的重要基础。"
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]

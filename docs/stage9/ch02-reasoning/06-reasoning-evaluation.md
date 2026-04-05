@@ -1,5 +1,5 @@
 ---
-title: "2.6 推理评估与优化"
+title: "2.7 推理评估与优化"
 sidebar_position: 10
 description: "从“答案对不对”进一步走向“过程稳不稳、工具用得值不值、步骤有没有浪费”，建立 Agent 推理系统的评估与优化闭环。"
 keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, tool efficiency]

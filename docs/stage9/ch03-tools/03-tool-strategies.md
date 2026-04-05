@@ -1,5 +1,5 @@
 ---
-title: "3.3 工具调用策略"
+title: "3.4 工具调用策略"
 sidebar_position: 13
 description: "从何时调用、调哪个、调几次、失败后怎么办，系统理解 Agent 工具层的调用策略。"
 keywords: [tool strategy, Agent, routing, retry, fallback, verification, tool policy]

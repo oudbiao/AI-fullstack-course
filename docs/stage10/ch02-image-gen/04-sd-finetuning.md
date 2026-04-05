@@ -1,5 +1,5 @@
 ---
-title: "2.4 图像生成微调"
+title: "2.5 图像生成微调"
 sidebar_position: 7
 description: "从 DreamBooth、LoRA、Textual Inversion 的差异出发，理解 Stable Diffusion 微调到底在改什么、什么时候该选哪条路线。"
 keywords: [DreamBooth, LoRA, Textual Inversion, Stable Diffusion finetuning, personalization, style tuning]

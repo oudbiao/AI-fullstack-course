@@ -1,5 +1,5 @@
 ---
-title: "8.2 项目：文本情感分析"
+title: "8.3 项目：文本情感分析"
 sidebar_position: 2
 description: "围绕一个真正可展示的情感分析项目，从标签边界、baseline、错误分析到交付方式，走完完整闭环。"
 keywords: [sentiment analysis project, text classification, baseline, negation, sarcasm, NLP]

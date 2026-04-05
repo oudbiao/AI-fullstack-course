@@ -1,5 +1,5 @@
 ---
-title: "6.1 微调概述"
+title: "6.2 微调概述"
 sidebar_position: 19
 description: "从为什么不总是该微调、什么时候更适合微调，到全量微调与 PEFT 的差别，建立微调的第一层工程判断。"
 keywords: [finetuning, PEFT, full finetune, task adaptation, model customization]

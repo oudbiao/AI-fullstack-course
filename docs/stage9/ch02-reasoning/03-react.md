@@ -1,5 +1,5 @@
 ---
-title: "2.3 ReAct 框架"
+title: "2.4 ReAct 框架"
 sidebar_position: 7
 description: "从 Thought-Action-Observation 循环讲起，理解 ReAct 为什么能把推理和工具调用交织起来，以及它最适合哪类 Agent 任务。"
 keywords: [ReAct, thought action observation, tool use, agent loop, reasoning and acting]

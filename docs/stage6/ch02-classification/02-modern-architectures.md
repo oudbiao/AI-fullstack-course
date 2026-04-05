@@ -1,5 +1,5 @@
 ---
-title: "2.2 现代分类架构"
+title: "2.3 现代分类架构"
 sidebar_position: 5
 description: "从 VGG、ResNet 到 EfficientNet 与 ConvNeXt，理解现代图像分类架构为什么不断在深度、残差和效率之间迭代。"
 keywords: [ResNet, EfficientNet, ConvNeXt, classification, architecture, computer vision]

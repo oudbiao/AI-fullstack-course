@@ -1,5 +1,5 @@
 ---
-title: "6.0 学前导读：Agent 框架这一章到底在学什么"
+title: "6.1 学前导读：Agent 框架这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 Agent 框架章的学习地图：框架总览、不同框架风格和选型逻辑怎样共同支撑实际开发判断。"
 keywords: [Agent框架导读, LangGraph, LlamaIndex, CrewAI, AutoGen]

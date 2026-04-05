@@ -1,5 +1,5 @@
 ---
-title: "1.0 学前导读：RAG 这一章到底在学什么"
+title: "1.1 学前导读：RAG 这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 RAG 章节的学习地图：文档处理、向量库、检索策略、优化与评估怎样串成知识增强主线。"
 keywords: [RAG导读, 检索增强生成, 向量数据库, 重排, RAG评估]

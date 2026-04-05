@@ -1,5 +1,5 @@
 ---
-title: "4.4 情景与程序记忆【选修】"
+title: "4.5 情景与程序记忆【选修】"
 sidebar_position: 22
 description: "从“记住发生过什么”和“记住应该怎么做”这两条线，理解情景记忆与程序记忆为何对复杂 Agent 特别重要。"
 keywords: [episodic memory, procedural memory, workflow memory, agent experience, skill memory]

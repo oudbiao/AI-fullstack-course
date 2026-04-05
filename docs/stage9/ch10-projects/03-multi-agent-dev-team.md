@@ -1,5 +1,5 @@
 ---
-title: "10.3 项目：多 Agent 开发团队【选修】"
+title: "10.4 项目：多 Agent 开发团队【选修】"
 sidebar_position: 56
 description: "围绕 planner、coder、reviewer 和 tester 四类角色，建立一个多 Agent 开发团队项目的作品级最小闭环。"
 keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]

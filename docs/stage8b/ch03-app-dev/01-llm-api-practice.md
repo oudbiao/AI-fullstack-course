@@ -1,5 +1,5 @@
 ---
-title: "3.1 大模型 API 调用实践"
+title: "3.2 大模型 API 调用实践"
 sidebar_position: 11
 description: "从最小聊天请求、参数设计、错误处理到封装客户端，真正理解怎样把大模型 API 接进应用。"
 keywords: [LLM API, chat completion, API client, prompt, response parsing, error handling]

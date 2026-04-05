@@ -1,5 +1,5 @@
 ---
-title: "3.5 工具安全与错误处理"
+title: "3.6 工具安全与错误处理"
 sidebar_position: 15
 description: "从权限分级、参数校验、超时、幂等与审计讲起，理解 Agent 工具层为什么必须像后端系统一样认真处理安全和失败。"
 keywords: [tool safety, error handling, validation, timeout, idempotency, audit, permissions]

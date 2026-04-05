@@ -1,5 +1,5 @@
 ---
-title: "3.1 卷积操作原理 🔧"
+title: "3.2 卷积操作原理 🔧"
 sidebar_position: 1
 description: "从图像局部模式、卷积核、步长、填充到感受野，真正理解 CNN 的第一步到底在做什么。"
 keywords: [卷积, 卷积核, CNN, stride, padding, 感受野, 图像特征]

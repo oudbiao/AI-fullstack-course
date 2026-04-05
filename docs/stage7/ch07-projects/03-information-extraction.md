@@ -1,5 +1,5 @@
 ---
-title: "7.3 项目：信息抽取【选修】"
+title: "7.4 项目：信息抽取【选修】"
 sidebar_position: 23
 description: "围绕公告文本里的时间、地点、人物与事件字段，做一个最小信息抽取项目，串起规则、序列标注和结构化输出。"
 keywords: [information extraction, IE, NER project, event extraction, structured output, NLP project]

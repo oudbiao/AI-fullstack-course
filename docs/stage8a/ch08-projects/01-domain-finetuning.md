@@ -1,5 +1,5 @@
 ---
-title: "8.1 项目：垂直领域微调"
+title: "8.2 项目：垂直领域微调"
 sidebar_position: 27
 description: "围绕一个可展示的领域助手项目，从任务边界、SFT 数据、baseline、评估和 before/after 对比，做成作品级微调课程。"
 keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, project]

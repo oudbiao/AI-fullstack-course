@@ -1,5 +1,5 @@
 ---
-title: "4.2 短期记忆"
+title: "4.3 短期记忆"
 sidebar_position: 20
 description: "从上下文窗口、对话窗口、运行态状态到摘要压缩，理解 Agent 的短期记忆到底是什么、该怎么设计。"
 keywords: [short-term memory, context window, conversation memory, state, summary memory, Agent]

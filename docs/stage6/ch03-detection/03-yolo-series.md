@@ -1,5 +1,5 @@
 ---
-title: "3.3 YOLO 系列"
+title: "3.4 YOLO 系列"
 sidebar_position: 9
 description: "从单阶段检测思路讲起，理解 YOLO 为什么能把目标检测做得更实时，以及它在工程上为什么这么受欢迎。"
 keywords: [YOLO, one-stage detector, object detection, NMS, realtime vision]

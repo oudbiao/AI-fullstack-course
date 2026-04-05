@@ -1,5 +1,5 @@
 ---
-title: "5.3 机器翻译实战【选修】"
+title: "5.4 机器翻译实战【选修】"
 sidebar_position: 15
 description: "围绕一个最小翻译任务，走完数据对、基线系统、错误分析和下一步升级方向这条翻译项目闭环。"
 keywords: [machine translation, seq2seq, translation project, alignment, error analysis]

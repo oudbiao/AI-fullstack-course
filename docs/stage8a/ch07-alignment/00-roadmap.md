@@ -1,5 +1,5 @@
 ---
-title: "7.0 学前导读：对齐这一章到底在学什么"
+title: "7.1 学前导读：对齐这一章到底在学什么"
 sidebar_position: 0
 description: "先建立对齐章的学习地图：对齐问题、RLHF 和其他对齐方法怎样共同决定模型行为边界。"
 keywords: [对齐导读, RLHF, DPO, RLAIF]

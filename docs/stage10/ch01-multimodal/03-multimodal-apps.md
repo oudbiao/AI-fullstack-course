@@ -1,5 +1,5 @@
 ---
-title: "1.3 多模态应用开发"
+title: "1.4 多模态应用开发"
 sidebar_position: 3
 description: "从真实产品形态和工程链路出发，理解多模态应用如何把图像、文本、语音等输入组合成可用系统。"
 keywords: [multimodal app, OCR, screenshot assistant, image-text product, workflow]

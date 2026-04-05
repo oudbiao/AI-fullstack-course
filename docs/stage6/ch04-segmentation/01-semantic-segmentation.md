@@ -1,5 +1,5 @@
 ---
-title: "4.1 语义分割"
+title: "4.2 语义分割"
 sidebar_position: 11
 description: "从“整图一个标签”走到“每个像素一个标签”，理解语义分割为什么是更细粒度的视觉理解任务。"
 keywords: [semantic segmentation, pixel classification, mask, IoU, vision]

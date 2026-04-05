@@ -1,5 +1,5 @@
 ---
-title: "4.3 NER 实战"
+title: "4.4 NER 实战"
 sidebar_position: 12
 description: "围绕一个简历信息抽取小项目，走完标签设计、数据组织、实体恢复和错误分析这条 NER 实战闭环。"
 keywords: [NER, named entity recognition, information extraction, BIO, project, NLP]

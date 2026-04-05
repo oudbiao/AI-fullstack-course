@@ -1,5 +1,5 @@
 ---
-title: "2.2 高性能推理服务"
+title: "2.3 高性能推理服务"
 sidebar_position: 9
 description: "从吞吐、延迟、批处理和队列开始，建立对高性能推理服务为什么和“单次跑模型”完全不是一回事的理解。"
 keywords: [inference server, batching, throughput, latency, queue, serving]

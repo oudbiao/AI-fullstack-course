@@ -1,5 +1,5 @@
 ---
-title: "6.1 项目：智能安防系统"
+title: "6.2 项目：智能安防系统"
 sidebar_position: 18
 description: "围绕一个可展示的安防检测系统，从目标定义、规则、告警去重、评估到展示方式，建立作品级视觉项目闭环。"
 keywords: [security detection, surveillance, alerting, tracking, false alarm, vision project]

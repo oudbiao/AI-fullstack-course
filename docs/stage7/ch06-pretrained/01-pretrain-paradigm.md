@@ -1,5 +1,5 @@
 ---
-title: "6.1 预训练范式"
+title: "6.2 预训练范式"
 sidebar_position: 16
 description: "从“先学通用语言能力，再迁移到具体任务”讲起，理解预训练为什么会成为现代 NLP 的主线。"
 keywords: [pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-finetune]

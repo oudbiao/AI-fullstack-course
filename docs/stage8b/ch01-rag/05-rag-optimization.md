@@ -1,5 +1,5 @@
 ---
-title: "1.5 RAG 优化"
+title: "1.6 RAG 优化"
 sidebar_position: 5
 description: "从切块、召回、上下文拼装到答案约束，理解 RAG 系统最常见的优化杠杆。"
 keywords: [RAG optimization, chunking, top-k, rerank, prompt, context packing]

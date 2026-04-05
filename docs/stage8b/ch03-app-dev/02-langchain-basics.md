@@ -1,5 +1,5 @@
 ---
-title: "3.2 LangChain 基础"
+title: "3.3 LangChain 基础"
 sidebar_position: 12
 description: "从为什么需要链式抽象，到 Prompt、模型、检索器和解析器怎样被串起来，建立对 LangChain 的第一层应用直觉。"
 keywords: [LangChain, chain, prompt template, output parser, retriever, LLM application]

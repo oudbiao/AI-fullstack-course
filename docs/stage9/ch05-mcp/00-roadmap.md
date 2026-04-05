@@ -1,5 +1,5 @@
 ---
-title: "5.0 学前导读：MCP 这一章到底在学什么"
+title: "5.1 学前导读：MCP 这一章到底在学什么"
 sidebar_position: 0
 description: "先建立 MCP 章节的学习地图：概念、架构、服务端、客户端和生态怎样共同构成协议层能力网络。"
 keywords: [MCP导读, Model Context Protocol]

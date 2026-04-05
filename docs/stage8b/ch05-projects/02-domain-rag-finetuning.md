@@ -1,5 +1,5 @@
 ---
-title: "5.2 项目：RAG+微调综合系统"
+title: "5.3 项目：RAG+微调综合系统"
 sidebar_position: 22
 description: "从为什么单独 RAG 或单独微调都不够，到如何把两者组合，设计一个更完整的领域问答系统。"
 keywords: [RAG, finetuning, domain adaptation, hybrid system, LLM project]

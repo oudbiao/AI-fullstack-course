@@ -1,5 +1,5 @@
 ---
-title: "5.1 特征理解与探索"
+title: "5.2 特征理解与探索"
 sidebar_position: 14
 description: "掌握特征类型分析、特征分布分析和特征间相关性分析"
 keywords: [特征工程, 特征类型, 特征分布, 相关性分析, EDA, 数值特征, 类别特征]

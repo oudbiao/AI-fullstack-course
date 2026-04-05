@@ -1,5 +1,5 @@
 ---
-title: "9.1 Agent 部署架构"
+title: "9.2 Agent 部署架构"
 sidebar_position: 49
 description: "从 API 网关、任务编排、工具层、状态存储到观测系统，理解一个可上线的 Agent 服务通常由哪些模块组成。"
 keywords: [deployment architecture, agent architecture, api gateway, orchestrator, queue, storage, observability]

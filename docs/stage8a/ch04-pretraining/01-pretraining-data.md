@@ -1,5 +1,5 @@
 ---
-title: "4.1 预训练数据"
+title: "4.2 预训练数据"
 sidebar_position: 12
 description: "从数据来源、清洗、去重、混合比例到污染控制，理解预训练数据为什么往往比很多人想象得更决定模型上限。"
 keywords: [pretraining data, deduplication, data mixture, contamination, corpus cleaning]

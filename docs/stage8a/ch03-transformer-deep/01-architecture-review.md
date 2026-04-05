@@ -1,5 +1,5 @@
 ---
-title: "3.1 Transformer 架构回顾与深入"
+title: "3.2 Transformer 架构回顾与深入"
 sidebar_position: 8
 description: "从一个 Transformer block 的数据流出发，重新看懂 token embedding、位置编码、自注意力、残差连接和前馈网络是怎样串起来工作的。"
 keywords: [Transformer, self-attention, residual, layer norm, feed forward, decoder]

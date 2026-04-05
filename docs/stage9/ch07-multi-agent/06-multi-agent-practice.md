@@ -1,5 +1,5 @@
 ---
-title: "7.6 实战：多 Agent 协作系统"
+title: "7.7 实战：多 Agent 协作系统"
 sidebar_position: 43
 description: "从任务输入、角色划分、状态流转到结果汇总，完整搭一个最小多 Agent 协作系统。"
 keywords: [multi-agent project, planner, retriever, writer, reviewer, workflow, collaboration]

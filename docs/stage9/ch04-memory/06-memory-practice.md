@@ -1,5 +1,5 @@
 ---
-title: "4.6 实战：完整记忆系统"
+title: "4.7 实战：完整记忆系统"
 sidebar_position: 24
 description: "做一个可运行的多层记忆 Agent：短期窗口、长期偏好、情景记录与流程记忆协同工作，并展示查询、写入、压缩和回复生成闭环。"
 keywords: [memory practice, short term, long term, episodic memory, procedural memory, agent]

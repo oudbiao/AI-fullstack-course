@@ -1,5 +1,5 @@
 ---
-title: "3.8 实战：多工具协作 Agent"
+title: "3.9 实战：多工具协作 Agent"
 sidebar_position: 18
 description: "把工具发现、策略、安全和多步推理串成一个完整实践，做一个能处理退款工单的多工具 Agent。"
 keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund assistant]

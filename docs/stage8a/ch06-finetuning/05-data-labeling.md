@@ -1,5 +1,5 @@
 ---
-title: "6.5 数据标注与数据飞轮"
+title: "6.6 数据标注与数据飞轮"
 sidebar_position: 23
 description: "把数据标注看成任务定义的一部分，理解标注规范、一致性、难例挖掘与数据飞轮是怎样真正推动微调质量提升的。"
 keywords: [data labeling, data flywheel, annotation, agreement, hard example mining, finetuning]

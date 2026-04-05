@@ -1,5 +1,5 @@
 ---
-title: "7.1 多 Agent 架构模式"
+title: "7.2 多 Agent 架构模式"
 sidebar_position: 38
 description: "从监督者模式、流水线模式、群体协作模式到评审模式，理解多 Agent 系统为什么要这样分工。"
 keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architecture, collaboration]

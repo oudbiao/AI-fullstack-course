@@ -1,5 +1,5 @@
 ---
-title: "4.1 RNN 基础"
+title: "4.2 RNN 基础"
 sidebar_position: 1
 description: "从序列为什么难，到隐藏状态、时间展开和 PyTorch RNN，真正理解 RNN 在解决什么问题。"
 keywords: [RNN, 序列建模, hidden state, 循环神经网络, 时间步]

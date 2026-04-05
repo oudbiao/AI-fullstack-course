@@ -1,5 +1,5 @@
 ---
-title: "4.1 记忆系统概述"
+title: "4.2 记忆系统概述"
 sidebar_position: 19
 description: "从为什么 Agent 需要记忆，到短期、长期、情景与程序记忆的分层，建立完整的记忆系统地图。"
 keywords: [memory, Agent memory, short-term memory, long-term memory, episodic memory, procedural memory]

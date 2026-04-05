@@ -1,5 +1,5 @@
 ---
-title: "2.1 本地模型运行"
+title: "2.2 本地模型运行"
 sidebar_position: 8
 description: "从为什么要本地跑模型，到模型大小、量化、CPU/GPU 权衡和最小推理流程，建立本地模型运行的工程直觉。"
 keywords: [local models, local inference, quantization, CPU, GPU, model runtime]

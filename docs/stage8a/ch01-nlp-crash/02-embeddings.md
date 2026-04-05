@@ -1,5 +1,5 @@
 ---
-title: "1.2 词嵌入与语义表示"
+title: "1.3 词嵌入与语义表示"
 sidebar_position: 2
 description: "从 one-hot 到 dense vector，再到句子表示与上下文化表示，理解模型为什么能把“语义相近”变成向量空间里的距离关系。"
 keywords: [embedding, semantic representation, cosine similarity, sentence embedding, contextual embedding]

@@ -1,5 +1,5 @@
 ---
-title: "5.5 Pipeline 与工作流"
+title: "5.6 Pipeline 与工作流"
 sidebar_position: 18
 description: "掌握 sklearn Pipeline、ColumnTransformer 处理混合类型数据、自定义 Transformer"
 keywords: [Pipeline, ColumnTransformer, Transformer, 特征工程流水线, sklearn]

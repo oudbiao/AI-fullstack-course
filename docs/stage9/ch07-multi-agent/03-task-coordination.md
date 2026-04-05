@@ -1,5 +1,5 @@
 ---
-title: "7.3 任务分配与协调"
+title: "7.4 任务分配与协调"
 sidebar_position: 40
 description: "从拆任务、分配角色、同步状态到冲突解决，理解多 Agent 系统怎样真正把活分出去并收回来。"
 keywords: [task coordination, task assignment, multi-agent, scheduling, conflict resolution]

@@ -1,5 +1,5 @@
 ---
-title: "4.2 实例分割"
+title: "4.3 实例分割"
 sidebar_position: 12
 description: "从语义分割继续往前，理解实例分割为什么不仅要分出类别，还要区分同类物体的不同个体。"
 keywords: [instance segmentation, mask, object instance, vision]

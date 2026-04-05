@@ -1,5 +1,5 @@
 ---
-title: "2.0 从 sklearn 到 PyTorch"
+title: "2.2 过渡：从 sklearn 到 PyTorch"
 sidebar_position: 0
 description: "用最小可运行示例理解 sklearn 和 PyTorch 的思维差异，建立从传统机器学习到深度学习框架的桥梁。"
 keywords: [sklearn, PyTorch, 深度学习入门, 训练循环, 张量, 梯度下降]

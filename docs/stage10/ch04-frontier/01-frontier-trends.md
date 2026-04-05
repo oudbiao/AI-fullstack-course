@@ -1,5 +1,5 @@
 ---
-title: "4.1 AIGC 前沿趋势"
+title: "4.2 AIGC 前沿趋势"
 sidebar_position: 12
 description: "从多模态、实时生成、小模型化、Agent 化到端侧落地，建立一个更实用的 AIGC 趋势判断框架。"
 keywords: [AIGC trends, multimodal, real-time generation, small models, agentic systems, edge deployment]

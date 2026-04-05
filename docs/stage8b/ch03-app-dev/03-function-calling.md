@@ -1,5 +1,5 @@
 ---
-title: "3.3 Function Calling 初识"
+title: "3.4 Function Calling 初识"
 sidebar_position: 13
 description: "从为什么纯文本输出不够，到 schema、参数、调度与执行，真正看懂 Function Calling 是怎样把模型接到工具上的。"
 keywords: [Function Calling, Tool Calling, schema, 参数校验, LLM 工具调用]

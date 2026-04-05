@@ -1,5 +1,5 @@
 ---
-title: "6.8 框架选型指南"
+title: "6.9 框架选型指南"
 sidebar_position: 37
 description: "从任务结构、知识侧重、状态复杂度、团队能力和长期维护成本出发，建立更实用的 Agent 框架选型方法。"
 keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture decision, agent framework]

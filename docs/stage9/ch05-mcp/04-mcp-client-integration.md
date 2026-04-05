@@ -1,5 +1,5 @@
 ---
-title: "5.4 MCP Client 集成"
+title: "5.5 MCP Client 集成"
 sidebar_position: 28
 description: "从工具发现、调用调度、错误处理到最小 client 实现，理解客户端怎样真正消费 MCP Server 暴露的能力。"
 keywords: [MCP client, tool discovery, client integration, dispatch, protocol client]
