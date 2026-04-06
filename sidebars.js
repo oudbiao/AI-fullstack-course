@@ -125,6 +125,7 @@ const sidebars = {
           type: "category",
           label: "第3章 Pandas 数据处理",
           items: [
+            "stage2/ch03-pandas/roadmap",
             "stage2/ch03-pandas/core-structures",
             "stage2/ch03-pandas/read-write",
             "stage2/ch03-pandas/selection-filter",
@@ -139,6 +140,7 @@ const sidebars = {
           type: "category",
           label: "第4章 数据可视化",
           items: [
+            "stage2/ch04-visualization/roadmap",
             "stage2/ch04-visualization/matplotlib",
             "stage2/ch04-visualization/seaborn",
             "stage2/ch04-visualization/plotly",
@@ -149,6 +151,7 @@ const sidebars = {
           type: "category",
           label: "第5章 数据库基础【选修】",
           items: [
+            "stage2/ch05-database/roadmap",
             "stage2/ch05-database/relational-db",
             "stage2/ch05-database/sql-basics",
             "stage2/ch05-database/python-db",
@@ -662,6 +665,8 @@ const sidebars = {
             "stage8b/ch03-app-dev/huggingface-deep",
             "stage8b/ch03-app-dev/dialog-system",
             "stage8b/ch03-app-dev/ai-assisted-coding",
+            "stage8b/ch03-app-dev/document-parsing",
+            "stage8b/ch03-app-dev/template-doc-generation",
           ],
         },
         {
@@ -683,6 +688,7 @@ const sidebars = {
             "stage8b/ch05-projects/enterprise-kb",
             "stage8b/ch05-projects/domain-rag-finetuning",
             "stage8b/ch05-projects/intelligent-assistant",
+            "stage8b/ch05-projects/courseware-assistant",
           ],
         },
       ],

@@ -129,7 +129,7 @@ squares = [x ** 2 for x in numbers]
 print(squares)  # [1, 4, 9, 16, 25]
 ```
 
-### 实际应用
+### map() 实际应用
 
 ```python
 # 批量转换数据类型
@@ -169,7 +169,7 @@ evens = [x for x in numbers if x % 2 == 0]
 print(evens)  # [2, 4, 6, 8, 10]
 ```
 
-### 实际应用
+### filter() 实际应用
 
 ```python
 # 筛选及格的成绩

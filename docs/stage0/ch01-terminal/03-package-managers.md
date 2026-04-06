@@ -53,7 +53,7 @@ brew --version
 如果下载很慢，可以搜索 "Homebrew 清华镜像" 或 "Homebrew 中科大镜像" 使用国内加速源。
 :::
 
-### 常用命令
+### Homebrew 常用命令
 
 ```bash
 # 搜索软件
@@ -78,7 +78,7 @@ brew uninstall wget
 brew info git
 ```
 
-### 安装 AI 开发基础工具
+### Homebrew 安装 AI 开发基础工具
 
 ```bash
 # Git（版本管理，下一章会详细学）
@@ -118,7 +118,7 @@ tree
 
 `apt` 是 Ubuntu 和 Debian 系列 Linux 自带的包管理器，不需要额外安装。
 
-### 常用命令
+### apt 常用命令
 
 ```bash
 # 更新软件源信息（安装前建议先执行）
@@ -147,7 +147,7 @@ sudo apt remove wget
 `sudo` 的意思是"用管理员权限执行"。安装系统级软件需要管理员权限，所以 `apt install` 前面要加 `sudo`，会要求你输入密码。
 :::
 
-### 安装 AI 开发基础工具
+### apt 安装 AI 开发基础工具
 
 ```bash
 sudo apt update
