@@ -194,15 +194,6 @@ print(f"fare 异常值: {n_removed} 个, 剩余: {len(df_clean)} 行")
 
 ---
 
-## 小结
-
-| 预处理 | 方法 | 要点 |
-|--------|------|------|
-| 缺失值 | 填充 / 删除 | 训练集 fit，测试集 transform |
-| 标准化 | StandardScaler / MinMaxScaler | 线性模型必须做 |
-| 编码 | LabelEncoder / OneHotEncoder | 根据模型和特征类型选择 |
-| 异常值 | IQR / 截断 / 保留 | 看业务和模型类型 |
-
 ## 新人最该先掌握哪几种预处理
 
 如果你时间有限，优先先把这四件事练熟：
@@ -215,6 +206,15 @@ print(f"fare 异常值: {n_removed} 个, 剩余: {len(df_clean)} 行")
 这四件事会在后面项目里反复用到。
 
 ---
+
+## 小结
+
+| 预处理 | 方法 | 要点 |
+|--------|------|------|
+| 缺失值 | 填充 / 删除 | 训练集 fit，测试集 transform |
+| 标准化 | StandardScaler / MinMaxScaler | 线性模型必须做 |
+| 编码 | LabelEncoder / OneHotEncoder | 根据模型和特征类型选择 |
+| 异常值 | IQR / 截断 / 保留 | 看业务和模型类型 |
 
 ## 动手练习
 

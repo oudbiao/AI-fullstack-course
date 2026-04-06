@@ -34,6 +34,25 @@ keywords: [NER, named entity recognition, information extraction, BIO, project, 
 
 ---
 
+## 先建立一张地图
+
+NER 实战更适合按“标签 -> 实体 -> 评估 -> 迭代”的顺序理解：
+
+```mermaid
+flowchart LR
+    A["定义实体类型"] --> B["设计 BIO 标签"]
+    B --> C["模型输出标签序列"]
+    C --> D["恢复实体 span"]
+    D --> E["做实体级评估和错例分析"]
+```
+
+所以这节真正想解决的是：
+
+- NER 项目为什么不只是“标签预测”
+- 为什么实体恢复和错误分析才更像真实项目
+
+---
+
 ## 一、项目问题先要定义清楚
 
 ### 1.1 场景
@@ -65,6 +84,20 @@ keywords: [NER, named entity recognition, information extraction, BIO, project, 
 - `Python` -> `B-SKILL`
 
 这一步一旦含糊，后面模型和评估都会一起乱。
+
+### 1.4 一个更适合新人的总类比
+
+你可以把 NER 想成：
+
+- 在一段文字里拿荧光笔圈重点信息
+
+难点不只是“圈出来”，而是：
+
+- 从哪里开始圈
+- 到哪里结束
+- 这一段到底属于哪一类
+
+这样理解后，为什么 NER 特别容易卡在边界问题，就会自然很多。
 
 ---
 
@@ -156,6 +189,28 @@ for sample in samples:
 
 而不是某一个 token 单点是否打对。
 
+### 2.3 再看一个最小“实体日志”示例
+
+```python
+sample = samples[1]
+gold_entities = decode_entities(sample["tokens"], sample["gold_tags"])
+pred_entities = decode_entities(sample["tokens"], sample["pred_tags"])
+
+print(
+    {
+        "text": "".join(sample["tokens"]),
+        "gold_entities": gold_entities,
+        "pred_entities": pred_entities,
+    }
+)
+```
+
+这个日志特别适合初学者，因为它会把一个抽象的标签任务，变成更像真实项目的输出：
+
+- 原文本是什么
+- 正确实体有哪些
+- 系统到底漏了什么
+
 ---
 
 ## 三、NER 项目最该先看什么指标？
@@ -189,6 +244,17 @@ for sample in samples:
     print(entity_recall(gold_entities, pred_entities))
 ```
 
+### 3.4 第一次做 NER 项目时，最稳的默认顺序
+
+更稳的顺序通常是：
+
+1. 先把实体类型收窄
+2. 先把标签标准写清楚
+3. 先做实体恢复和实体级评估
+4. 再去换更强模型
+
+这样会比一开始就急着上 BERT 更容易把项目做稳。
+
 ---
 
 ## 四、NER 项目最常见的失败点
@@ -209,6 +275,20 @@ for sample in samples:
 
 因为 NER 的错误通常很具体，  
 非常适合逐条看、逐类修。
+
+### 4.5 一个新人很值得先用的错误分桶方式
+
+第一次做错例分析时，最值得先分的通常就是：
+
+1. 边界错
+2. 类型错
+3. 漏实体
+
+这三类已经足够帮助你判断：
+
+- 是数据标注问题
+- 是模型表示问题
+- 还是后处理规则不够
 
 ---
 
@@ -233,6 +313,25 @@ for sample in samples:
 
 很多业务项目里，  
 合理的后处理规则能明显提升实体质量。
+
+## 如果把它做成项目，最值得展示什么
+
+最值得展示的通常不是：
+
+- 一串标签预测结果
+
+而是：
+
+1. 原始文本
+2. gold 实体
+3. 预测实体
+4. 漏抽和错抽案例
+5. 你下一步准备优先修哪类错误
+
+这样别人会更容易感觉到：
+
+- 你做的是信息抽取项目
+- 不只是训练了一个序列标注模型
 
 ---
 

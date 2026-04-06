@@ -7,6 +7,20 @@ keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NL
 
 # 文本预处理
 
+:::tip 本节定位
+文本预处理最容易让新人误会成：
+
+- 一个固定流程
+
+但真实情况更像：
+
+- 一套按任务选择的整理工具
+
+所以这节最重要的不是背步骤，而是先建立一个判断：
+
+> **你为什么要做这一步，它会保留什么，又会丢掉什么。**
+:::
+
 ## 学习目标
 
 完成本节后，你将能够：
@@ -17,6 +31,22 @@ keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NL
 - 明白为什么预处理不是越重越好，而是任务驱动
 
 ---
+
+## 先建立一张地图
+
+文本预处理更适合按“任务 -> 信息 -> 操作”的顺序理解：
+
+```mermaid
+flowchart LR
+    A["任务类型"] --> B["哪些信息重要"]
+    B --> C["决定保留或清洗什么"]
+    C --> D["形成预处理流程"]
+```
+
+所以这节真正想解决的是：
+
+- 为什么预处理不是越重越好
+- 为什么同样一条文本，在不同任务里会有不同处理方式
 
 ## 一、为什么文本要预处理？
 
@@ -36,6 +66,27 @@ keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NL
 
 > **让文本更适合当前任务。**
 
+### 1.1 一个更适合新人的总类比
+
+你可以把文本预处理想成：
+
+- 出门前整理背包
+
+如果你去爬山，带的东西会和去办公室不一样。  
+同样地：
+
+- 做情感分析时，否定词很重要
+- 做检索时，关键词覆盖更重要
+- 做命名实体识别时，大小写和格式信息可能很重要
+
+所以预处理不是：
+
+- 永远固定一套动作
+
+而是：
+
+- 看你准备去做什么任务
+
 ---
 
 ## 二、预处理最常见的几步
@@ -53,6 +104,19 @@ keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NL
 
 - 这些步骤不是每次都全做
 - 也不是做得越多越好
+
+### 2.1 一个新人很值得先记住的判断表
+
+| 任务 | 最值得优先保留的信息 |
+|---|---|
+| 情感分析 | 否定词、情绪词、程度词 |
+| 检索 / RAG | 关键词、术语、数字、专有名词 |
+| NER | 大小写、格式、专名边界 |
+| 传统文本分类 | 稍重一点的清洗常常更常见 |
+
+这个表不是绝对规则，但它能帮新人先建立一个很重要的直觉：
+
+- 预处理是否合理，必须回到任务本身看
 
 ---
 
@@ -91,6 +155,33 @@ print(preprocess(sample))
 
 - 每一步为什么存在
 - 它是否真的适合当前任务
+
+### 3.1 再看一个“保留否定词”的最小对比
+
+```python
+import re
+
+stopwords_keep_not = {"the", "is", "a", "an", "and", "to", "of", "in"}
+stopwords_drop_not = {"the", "is", "a", "an", "and", "to", "of", "in", "not"}
+
+
+def preprocess_with_stopwords(text, stopwords):
+    text = text.lower()
+    text = re.sub(r"[^a-z0-9\\s]", " ", text)
+    text = re.sub(r"\\s+", " ", text).strip()
+    tokens = text.split()
+    return [t for t in tokens if t not in stopwords]
+
+
+sample = "This movie is not good"
+print("keep_not :", preprocess_with_stopwords(sample, stopwords_keep_not))
+print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
+```
+
+这个例子很适合初学者，因为它会直接让你看到：
+
+- 一个看起来“不重要”的词
+- 其实可能正是决定语义方向的关键
 
 ---
 
@@ -253,6 +344,17 @@ for text in texts:
 
 不是所有 NLP 时代都用同一套预处理策略。
 
+### 8.1 第一次做 NLP 项目时，最稳的默认顺序
+
+更稳的顺序通常是：
+
+1. 先想清楚任务是什么
+2. 先写一个很轻的 baseline 预处理
+3. 先看输出里丢掉了什么信息
+4. 再决定要不要继续加规则
+
+这样会比一开始就堆很多正则和规则更容易看清问题。
+
 ---
 
 ## 九、初学者常见误区
@@ -270,6 +372,25 @@ for text in texts:
 
 在很多任务里通常不够。
 
+## 如果把它做成项目，最值得展示什么
+
+最值得展示的通常不是：
+
+- 我用了多少正则
+
+而是：
+
+1. 原始文本长什么样
+2. 处理后文本长什么样
+3. 哪些信息被保留
+4. 哪些信息被删掉
+5. 这套处理为什么适合当前任务
+
+这样别人会更容易看出：
+
+- 你理解的是任务需求
+- 不只是机械清洗文本
+
 ---
 
 ## 小结
@@ -281,6 +402,12 @@ for text in texts:
 下一节我们会继续往前走，解决另一个关键问题：
 
 > **文本怎么表示成数字？**
+
+## 这节最该带走什么
+
+- 文本预处理不是固定模板，而是任务驱动选择
+- 删掉的信息和保留的信息同样重要
+- 第一次做项目时，先做轻量 baseline，通常比重度清洗更稳
 
 ---
 

@@ -138,6 +138,61 @@ for text, gold in test_data:
 
 这让你能真正做“错误分析”，而不是只盯一个数字。
 
+### 4.2 再补一个“否定词翻转”的最小升级版
+
+情感分析里最典型的一类错误就是：
+
+- 明明有正向词
+- 但前面被一个否定词翻掉了
+
+比如：
+
+- “不推荐”
+- “不清楚”
+- “不值得”
+
+下面这个极小版本不是工业方案，  
+但很适合初学者第一次体会：
+
+- **规则补丁为什么会直接改变错例分布**
+
+```python
+negation_words = {"不", "没", "无"}
+
+
+def predict_with_negation(text):
+    score = 0
+    chars = list(text)
+    for idx, token in enumerate(chars):
+        token_score = positive_words[token] - negative_words[token]
+
+        # 如果前一个字是否定词，就把当前情感方向翻一下
+        if idx > 0 and chars[idx - 1] in negation_words:
+            token_score *= -1
+
+        score += token_score
+
+    return "positive" if score >= 0 else "negative", score
+
+
+extra_cases = [
+    ("不推荐这门课", "negative"),
+    ("讲得不清楚", "negative"),
+    ("案例不少，但不系统", "negative"),
+]
+
+for text, gold in extra_cases:
+    pred, score = predict_with_negation(text)
+    print({"text": text, "gold": gold, "pred": pred, "score": score})
+```
+
+这段代码的教学价值不在“规则够强”，  
+而在于它会让你第一次很清楚地看到：
+
+- baseline 为什么会错
+- 一种具体补丁会修掉哪类错误
+- 错误分析怎样真正反过来推动方案升级
+
 ---
 
 ## 五、真正让项目变强的是错误分析
@@ -167,6 +222,49 @@ print(errors)
 - 补数据
 - 改标签标准
 - 升级模型
+
+### 5.4 给自己做一张最小错误分桶表
+
+初学者做情感分析项目时，很容易只说：
+
+- “模型错了几条”
+
+但更有价值的是先分桶：
+
+```python
+error_buckets = {
+    "negation": [],
+    "sarcasm": [],
+    "mixed_sentiment": [],
+    "other": [],
+}
+
+examples = [
+    ("不推荐这门课", "negative", "positive"),
+    ("真棒，又卡住了", "negative", "positive"),
+    ("内容很好，但节奏太快", "negative", "positive"),
+]
+
+for text, gold, pred in examples:
+    if "不" in text:
+        error_buckets["negation"].append(text)
+    elif "真棒" in text and "又" in text:
+        error_buckets["sarcasm"].append(text)
+    elif "但" in text:
+        error_buckets["mixed_sentiment"].append(text)
+    else:
+        error_buckets["other"].append(text)
+
+for k, v in error_buckets.items():
+    print(k, len(v), v)
+```
+
+这张表非常适合展示在项目里，  
+因为它会让别人立刻看出：
+
+- 你不是只会报分数
+- 你知道错误是有类型的
+- 你下一步怎么改是有依据的
 
 ---
 
@@ -201,6 +299,23 @@ print(errors)
 
 这样项目会非常完整。
 
+### 6.4 一个更像真实项目的展示顺序
+
+如果你把这题做成作品集页面，  
+比较推荐按这个顺序展示：
+
+1. 任务定义和标签边界
+2. baseline 方法
+3. baseline 对比表
+4. 错误分桶
+5. 你针对哪类错误做了什么升级
+6. 最终保留下来的方案和原因
+
+这样别人看到的就不是“做了一个情感分类器”，  
+而是：
+
+- 你真的知道一个 NLP 小项目该怎么从 baseline 走到作品级
+
 ---
 
 ## 七、最容易踩的坑
@@ -219,14 +334,6 @@ print(errors)
 
 ---
 
-## 小结
-
-这节最重要的是建立一个项目习惯：
-
-> **情感分析项目最有价值的地方，不是模型多复杂，而是你能否把标签边界、baseline、错误分析和升级路线讲成一个完整闭环。**
-
-只要这一点做到位，即使题目不大，也会非常像作品级课程。
-
 ## 项目交付时最好补上的内容
 
 - 一张标签定义表
@@ -235,6 +342,20 @@ print(errors)
 - 一段你对下一步升级路线的判断
 
 ---
+
+## 小结
+
+这节最重要的是建立一个项目习惯：
+
+> **情感分析项目最有价值的地方，不是模型多复杂，而是你能否把标签边界、baseline、错误分析和升级路线讲成一个完整闭环。**
+
+只要这一点做到位，即使题目不大，也会非常像作品级课程。
+
+## 这节最该带走什么
+
+- 情感分析最值钱的不是复杂模型，而是清楚的标签边界和错误分析
+- 一个简单 baseline 只要够可解释，就非常有教学价值
+- 真正能拉开项目质量差距的，往往是你有没有把错例变成下一步动作
 
 ## 练习
 

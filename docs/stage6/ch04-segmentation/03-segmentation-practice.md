@@ -56,6 +56,26 @@ flowchart LR
 - 分割项目到底该怎么推进
 - 除了模型之外，项目真正容易出问题的环节在哪里
 
+### 一个更适合新人的总类比
+
+你可以把分割项目想成：
+
+- 给一批地图做精细涂色
+
+难点不只是“能不能涂上颜色”，而是：
+
+- 每一块边界是不是涂准了
+- 小区域有没有被漏掉
+- 大家是不是按同一套标准在涂
+
+这样理解后，为什么分割项目会特别依赖：
+
+- mask 质量
+- 边界标准
+- 失败样本分析
+
+就会自然很多。
+
 ## 一、项目问题怎么定？
 
 一个很适合练手的分割项目是：
@@ -177,6 +197,37 @@ print("mean_iou:", round(mean_iou, 4))
 - 该改损失
 - 还是该改模型输入分辨率
 
+### 2.4 再看一个最小“项目检查表”示例
+
+```python
+checklist = {
+    "classes_defined": True,
+    "mask_quality_checked": True,
+    "baseline_ready": True,
+    "failure_buckets_defined": False,
+}
+
+
+def next_step(checklist):
+    if not checklist["classes_defined"]:
+        return "先把类别定义收窄。"
+    if not checklist["mask_quality_checked"]:
+        return "先抽样检查 mask 标注质量。"
+    if not checklist["baseline_ready"]:
+        return "先做最小 baseline。"
+    if not checklist["failure_buckets_defined"]:
+        return "先把失败样本分桶。"
+    return "可以继续做针对性优化。"
+
+
+print(next_step(checklist))
+```
+
+这个例子很小，但很适合帮助新人理解：
+
+- 项目不是只看模型训练跑没跑
+- 还要看项目骨架有没有搭完整
+
 ---
 
 ## 三、分割项目最容易踩的坑
@@ -192,6 +243,18 @@ print("mean_iou:", round(mean_iou, 4))
 ### 3.3 只看均值，不看失败样本
 
 均值可能掩盖一些特别糟的案例。
+
+### 3.4 只展示成功样本，不展示边界失败
+
+分割项目最容易“看起来不错”，  
+因为彩色 mask 图本身就很有视觉冲击力。  
+但如果你不展示：
+
+- 边界失败
+- 小目标漏检
+- 类别混淆
+
+就很难判断这个项目到底哪里还不稳。
 
 ## 四、一个新人可直接照抄的推进顺序
 
@@ -214,6 +277,23 @@ print("mean_iou:", round(mean_iou, 4))
 - 几类典型失败样本
 - 你怎么解释这些失败
 - 下一步你会先改哪里
+
+### 4.2 如果你第一次做这类项目，最稳的默认目标
+
+第一次做时，最推荐的不是追求：
+
+- 很多类别
+- 很复杂的模型
+- 很炫的可视化
+
+而是先做到：
+
+1. 类别定义清楚
+2. mask 质量可解释
+3. baseline 能稳定跑通
+4. IoU 和失败样本能讲清楚
+
+做到这四件事，项目就已经很像真正的项目了。
 
 ---
 

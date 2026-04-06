@@ -30,6 +30,24 @@ keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workfl
 
 ---
 
+## 先建立一张地图
+
+SD 应用更适合按“用户目标 -> 生成形态 -> 工作流”来理解：
+
+```mermaid
+flowchart LR
+    A["用户想要什么"] --> B["文生图 / 图生图 / 局部修复 / 条件控制"]
+    B --> C["批量生成与筛选"]
+    C --> D["编辑、后处理和导出"]
+```
+
+所以这节真正想解决的是：
+
+- 为什么 SD 在真实产品里很少只靠一个按钮
+- 为什么工作流设计常常比单次生成更重要
+
+---
+
 ## 一、为什么 Stable Diffusion 特别容易形成产品？
 
 因为它离用户需求非常近。  
@@ -49,6 +67,26 @@ keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workfl
 - 产品能力
 
 这就是它应用生态爆发的根本原因。
+
+### 1.1 一个更适合新人的总类比
+
+你可以把 Stable Diffusion 应用理解成：
+
+- 一个创意工作台
+
+文生图像是：
+
+- 从空白画布开始画
+
+图生图像是：
+
+- 拿着草图继续打磨
+
+局部修复像是：
+
+- 只改画面里某一小块
+
+这样理解后，为什么它会自然长成产品，而不只是模型 demo，就会清楚很多。
 
 ---
 
@@ -168,6 +206,17 @@ print(inpainting_task)
 
 所以真实应用中，用户输入常常不止一个 prompt，而是一组条件。
 
+### 5.1 一个很适合初学者先记的选择表
+
+| 用户需求 | 更适合哪种形态 |
+|---|---|
+| 从零做一张海报 | 文生图 |
+| 已有草图，想变精美 | 图生图 |
+| 只想改掉局部元素 | 局部修复 |
+| 想固定姿态、构图或结构 | 条件控制 |
+
+这个表很适合新人，因为它能帮助你把“功能名”直接翻译成“什么时候该用它”。
+
 ---
 
 ## 六、为什么真实 SD 应用通常不是“一个模型 + 一个 prompt”？
@@ -215,6 +264,28 @@ print(poster_workflow)
 
 > 应用层真正关心的通常不是“只生成一张图”，而是“怎样稳定地产出一个用户可接受的结果”。 
 
+### 7.1 再看一个最小“工作流选择器”示例
+
+```python
+def choose_sd_mode(request):
+    if "改图" in request or "修图" in request:
+        return "inpainting_or_img2img"
+    if "草图" in request:
+        return "img2img"
+    if "姿态" in request or "线稿" in request:
+        return "controlled_generation"
+    return "text_to_image"
+
+
+for request in ["做一张海报", "把这张草图变成插画", "改图：去掉右上角的人"]:
+    print(request, "->", choose_sd_mode(request))
+```
+
+这个示例很适合初学者，因为它会提醒你：
+
+- 产品层先要判断用户处于哪一种创作模式
+- 再决定后面的参数和流程
+
 ---
 
 ## 八、为什么应用里经常要批量生成？
@@ -258,6 +329,24 @@ print(poster_workflow)
 - control
 
 而不是只强调单次文生图。
+
+## 如果把它做成项目，最值得展示什么
+
+最值得展示的通常不是：
+
+- “我能生成图片”
+
+而是：
+
+1. 不同创作需求如何路由到不同工作流
+2. 候选图如何批量生成和筛选
+3. 编辑环节如何接上
+4. 最终结果如何导出
+
+这样别人会更容易看出：
+
+- 你理解的是创作工作台
+- 不只是单次生图按钮
 
 ---
 

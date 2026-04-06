@@ -68,6 +68,21 @@ flowchart LR
 - 为什么 one-hot 不够
 - 为什么“词和词的关系”要变成可计算的距离
 
+### 一个更适合新人的总类比
+
+你可以把这些表示方法理解成：
+
+- one-hot 像给每个词发一个工号
+- 词嵌入像把每个词放进一张“语义地图”
+
+工号当然能区分谁是谁，  
+但你看不出：
+
+- 哪些词彼此更像
+- 哪些词经常在同一类场景里出现
+
+而一旦变成地图坐标，“近”这件事就第一次能被算出来。
+
 ## 一、为什么我们需要词嵌入？
 
 ### 1.1 one-hot 只能区分身份，不能表达关系
@@ -239,6 +254,42 @@ print("refund vs password:", round(cosine(embeddings["refund"], embeddings["pass
 2. 词嵌入的价值是把“语义近”转成“向量近”
 3. 后面很多 NLP 模型第一步，本质上还是在用 embedding
 
+### 3.4 再看一个最小“找邻近词”示例
+
+```python
+from math import sqrt
+
+embeddings = {
+    "refund": [0.90, 0.80, 0.10],
+    "return": [0.88, 0.78, 0.12],
+    "invoice": [0.15, 0.85, 0.20],
+    "password": [0.10, 0.15, 0.95],
+}
+
+
+def cosine(a, b):
+    dot = sum(x * y for x, y in zip(a, b))
+    norm_a = sqrt(sum(x * x for x in a))
+    norm_b = sqrt(sum(x * x for x in b))
+    return dot / (norm_a * norm_b)
+
+
+target = "refund"
+neighbors = []
+for word, vector in embeddings.items():
+    if word == target:
+        continue
+    neighbors.append((word, round(cosine(embeddings[target], vector), 4)))
+
+neighbors.sort(key=lambda x: x[1], reverse=True)
+print(neighbors)
+```
+
+这个示例很适合初学者，因为它能马上把一个抽象概念变得具体：
+
+- 如果向量真的带了语义关系
+- 那你就应该能从空间里把“更像的词”找出来
+
 ---
 
 ## 四、词嵌入为什么对后续任务有帮助？
@@ -273,6 +324,16 @@ print("refund vs password:", round(cosine(embeddings["refund"], embeddings["pass
 - 上下文化表示更动态
 - 预训练模型会把这套表示能力规模化地学得更强
 
+### 4.5 如果你第一次把 embedding 放进项目里，最稳的默认用法
+
+更稳的用法通常是：
+
+1. 先把词变成向量
+2. 先看相似词和相似句子是否合理
+3. 再把 embedding 接到分类、检索或聚类里
+
+这样会比一开始就直接上复杂模型更容易建立手感。
+
 ---
 
 ## 五、词嵌入最容易踩的坑
@@ -291,6 +352,17 @@ print("refund vs password:", round(cosine(embeddings["refund"], embeddings["pass
 
 词嵌入的价值最终还是要放回具体任务里判断。
 
+## 小结
+
+这节最重要的，是把词嵌入理解成：
+
+> **一种把离散词汇映射到连续语义空间的方式，让“相近词”在向量上也更接近。**
+
+一旦这个直觉建立起来，  
+你后面再看上下文表示、句向量和语言模型时就会顺很多。
+
+---
+
 ## 这节最该带走什么
 
 - 词嵌入不是给词换个编号，而是在给词建立语义空间位置
@@ -300,17 +372,6 @@ print("refund vs password:", round(cosine(embeddings["refund"], embeddings["pass
 如果再压成一句话，那就是：
 
 > **词嵌入的意义，不在于把词变短，而在于让词和词之间终于开始有了可计算的语义距离。**
-
----
-
-## 小结
-
-这节最重要的，是把词嵌入理解成：
-
-> **一种把离散词汇映射到连续语义空间的方式，让“相近词”在向量上也更接近。**
-
-一旦这个直觉建立起来，  
-你后面再看上下文表示、句向量和语言模型时就会顺很多。
 
 ---
 

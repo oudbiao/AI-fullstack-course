@@ -32,6 +32,25 @@ keywords: [text classification, bag of words, tf-idf, logistic regression, basel
 
 ---
 
+## 先建立一张地图
+
+传统文本分类更适合按“文本怎么变成特征，再怎么进入分类器”来理解：
+
+```mermaid
+flowchart LR
+    A["原始文本"] --> B["预处理"]
+    B --> C["BoW / TF-IDF 向量化"]
+    C --> D["线性分类器 / 朴素贝叶斯"]
+    D --> E["类别结果"]
+```
+
+所以这节真正想解决的是：
+
+- 为什么这条路线在很多真实任务里已经够强
+- 为什么它很适合作为第一版 baseline
+
+---
+
 ## 一、传统文本分类在做什么？
 
 ### 1.1 先把文本变成特征，再把特征喂给分类器
@@ -62,6 +81,17 @@ keywords: [text classification, bag of words, tf-idf, logistic regression, basel
 
 传统文本分类很像人工整理线索卡片。  
 你先把关键词线索提出来，再让分类器根据这些线索判断。
+
+### 1.4 一个更适合新人的总类比
+
+你也可以把它理解成：
+
+- 先给每条文本做一张“关键词清单”，再让分类器按清单打分
+
+这就是为什么它在这些任务里会特别顺手：
+
+- 类别边界清楚
+- 关键词本身就很有区分度
 
 ---
 
@@ -95,6 +125,17 @@ keywords: [text classification, bag of words, tf-idf, logistic regression, basel
 因为很多类别区分，本来就依赖：
 
 - 哪些词更有代表性
+
+### 2.4 一个很适合初学者先记的选择表
+
+| 现象 | 更稳的第一反应 |
+|---|---|
+| 文本短、关键词很明显 | 先试传统方法 |
+| 数据不大 | 先试传统方法 |
+| 很在意可解释性和成本 | 先试传统方法 |
+| 很依赖上下文和否定关系 | 再考虑深度模型 |
+
+这个表很适合新人，因为它会把“什么时候传统方法够好”直接变成可判断的问题。
 
 ---
 
@@ -158,6 +199,27 @@ print(pred.tolist())
 
 它们的部署和维护成本都相对很低。
 
+### 3.3 再看一个最小“换 TF-IDF”示例
+
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.pipeline import make_pipeline
+from sklearn.linear_model import LogisticRegression
+
+clf_tfidf = make_pipeline(
+    TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b"),
+    LogisticRegression(max_iter=200),
+)
+
+clf_tfidf.fit(texts, labels)
+print(clf_tfidf.predict(["密码找回入口在哪"]).tolist())
+```
+
+这个例子很适合初学者，因为它会提醒你：
+
+- 传统方法里也有不同特征表示
+- baseline 不是只能有一种写法
+
 ---
 
 ## 四、为什么传统方法常常是好基线？
@@ -177,6 +239,16 @@ print(pred.tolist())
 
 特别在标签定义清楚、文本较短的任务里，  
 传统方法经常比大家预想得更强。
+
+### 4.4 第一次做文本分类项目时，最稳的默认顺序
+
+更稳的顺序通常是：
+
+1. 先做词袋或 TF-IDF baseline
+2. 先看最容易错的类别
+3. 再决定是否真的需要上深度模型
+
+这样会比一开始就直接上更重的模型更容易看清问题。
 
 ---
 
@@ -222,6 +294,24 @@ print(pred.tolist())
 
 虽然它不懂深语义，  
 但很多任务本来就不需要那么复杂。
+
+## 如果把它做成项目或笔记，最值得展示什么
+
+最值得展示的通常不是：
+
+- “我用了 CountVectorizer”
+
+而是：
+
+1. baseline 是什么
+2. 为什么这个任务适合先用传统方法
+3. 错误主要集中在哪类文本
+4. 什么时候你判断该升级到更复杂模型
+
+这样别人会更容易看出：
+
+- 你理解的是 baseline 选择逻辑
+- 不只是会调用 sklearn
 
 ---
 

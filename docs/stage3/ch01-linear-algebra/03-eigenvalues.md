@@ -438,15 +438,6 @@ plt.show()
 
 ---
 
-## 小结
-
-| 概念 | 直觉理解 | NumPy 实现 |
-|------|---------|-----------|
-| 特征向量 | 矩阵变换下方向不变的向量 | `np.linalg.eig(A)[1]` |
-| 特征值 | 特征向量被拉伸的倍数 | `np.linalg.eig(A)[0]` |
-| PCA | 找数据变化最大的方向，降维 | `sklearn.decomposition.PCA` |
-| 方差占比 | 每个主成分保留了多少信息 | `pca.explained_variance_ratio_` |
-
 ## 学到这里，下一节该带着什么问题走？
 
 看完这节以后，最值得带去后面的是这几个问题：
@@ -478,6 +469,15 @@ flowchart LR
 :::
 
 ---
+
+## 小结
+
+| 概念 | 直觉理解 | NumPy 实现 |
+|------|---------|-----------|
+| 特征向量 | 矩阵变换下方向不变的向量 | `np.linalg.eig(A)[1]` |
+| 特征值 | 特征向量被拉伸的倍数 | `np.linalg.eig(A)[0]` |
+| PCA | 找数据变化最大的方向，降维 | `sklearn.decomposition.PCA` |
+| 方差占比 | 每个主成分保留了多少信息 | `pca.explained_variance_ratio_` |
 
 ## 动手练习
 

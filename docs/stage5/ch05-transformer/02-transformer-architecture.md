@@ -26,6 +26,25 @@ keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional E
 
 ---
 
+## 先建立一张地图
+
+Transformer 架构更适合按“一个 block 里谁在负责什么”来理解：
+
+```mermaid
+flowchart LR
+    A["输入表示"] --> B["Self-Attention: 看关系"]
+    B --> C["Add & Norm: 保持稳定"]
+    C --> D["FFN: 再加工表示"]
+    D --> E["Add & Norm: 再次稳定"]
+```
+
+所以这节真正想解决的是：
+
+- 注意力之外，Transformer 剩下那些模块到底在补什么
+- 为什么 GPT、BERT、T5 虽然长得不完全一样，但骨架会这么像
+
+---
+
 ## 一、Transformer 不只等于“注意力”
 
 ### 1.1 一个常见误解
@@ -55,6 +74,22 @@ keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional E
 所以可以粗略记成：
 
 > 注意力负责“看哪里”，FFN 负责“怎么进一步加工”，残差和归一化负责“让整个系统更稳”。 
+
+### 1.3 一个更适合新人的总类比
+
+你可以把一个 Transformer Block 理解成：
+
+- 一个先开会、再整理笔记、再深加工、最后再次整理的工作小组
+
+其中：
+
+- Attention 像大家先互相交流信息
+- FFN 像每个人再把收到的信息单独加工一遍
+- 残差和归一化像让整个流程别越来越乱
+
+这样理解后，它就不再像：
+
+- 一堆神秘层叠在一起
 
 ---
 
@@ -88,6 +123,17 @@ flowchart LR
 4. 再把中间结果加回来，再归一化
 
 这就是 Transformer 编码器 block 的主线。
+
+### 2.3 一个很适合初学者先记的模块作用表
+
+| 模块 | 最值得先记住的作用 |
+|---|---|
+| Self-Attention | 看序列里谁和谁相关 |
+| Residual | 别把原信息丢掉 |
+| LayerNorm | 让表示保持稳定 |
+| FFN | 对每个位置再做一次非线性加工 |
+
+这个表很适合新人，因为它会把一个 block 从“结构图”重新压缩成几句能记住的话。
 
 ---
 
@@ -324,6 +370,22 @@ Decoder Block 通常会多一个模块：
 
 里都很常见。
 
+### 8.3 Encoder-only / Decoder-only / Encoder-Decoder 最稳的区分方式
+
+第一次学这三条路线时，更稳的区分方式通常是：
+
+1. Encoder-only：更偏理解
+2. Decoder-only：更偏生成
+3. Encoder-Decoder：更偏“读一段，再生成一段”
+
+先记这个主线，后面再去看：
+
+- BERT
+- GPT
+- T5
+
+就不会只剩模型名字。
+
 ---
 
 ## 九、三种主流 Transformer 路线
@@ -357,6 +419,24 @@ Decoder Block 通常会多一个模块：
 特点：
 
 - 输入输出都很灵活
+
+## 如果把它做成笔记或项目，最值得展示什么
+
+最值得展示的通常不是：
+
+- 一张很复杂的总架构图
+
+而是：
+
+1. 一个 block 里每个模块的职责
+2. Encoder 和 Decoder 的差别
+3. 三条主路线分别更偏什么任务
+4. 为什么这些模块组合起来后训练更稳
+
+这样别人会更容易看出：
+
+- 你理解的是 Transformer 的骨架
+- 不只是会背 QKV
 
 所以你后面学模型时，不要只看名字，而要先问：
 
