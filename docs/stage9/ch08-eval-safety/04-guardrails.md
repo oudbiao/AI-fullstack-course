@@ -184,6 +184,61 @@ print(process_guard("search_policy", "low"))
 
 先把风险最大的环节兜住，比一下子写很多细规则更稳。
 
+## 五、如果你的目标是“知识库驱动的课件生成助手”，哪些护栏特别值得先做？
+
+这类项目里，真正危险的地方往往不是“模型说脏话”，  
+而是：
+
+- 没有来源的内容被写进正式课件
+- 外部资料把内部标准内容带偏
+- 例题并不来自知识库却被当成“内部例题”
+- 用户一句模糊要求就直接导出正式 Word
+
+所以这类系统特别值得先做这几层护栏：
+
+| 护栏层 | 更适合拦什么 |
+|---|---|
+| 输入护栏 | 主题过于模糊、缺少必要条件 |
+| 知识护栏 | 内部资料优先、外部资料只能补充 |
+| 输出护栏 | 没有来源的内容不能进入正式文档 |
+| 流程护栏 | 正式导出前先预览或确认 |
+
+你可以先把这条线记成一句话：
+
+> **这类项目的护栏重点，不只是安全词过滤，而是“来源、优先级、导出流程”的稳定控制。**
+
+### 5.1 一个更像课件生成系统的最小护栏示例
+
+```python
+def knowledge_guard(item):
+    if item.get("source_origin") == "external" and item.get("used_as_core_content"):
+        return {"allow": False, "reason": "external_cannot_override_internal"}
+    if not item.get("source_ref"):
+        return {"allow": False, "reason": "missing_source_reference"}
+    return {"allow": True, "reason": "ok"}
+
+
+sample_1 = {
+    "source_origin": "internal",
+    "used_as_core_content": True,
+    "source_ref": {"doc_id": "word_001", "page": 3},
+}
+
+sample_2 = {
+    "source_origin": "external",
+    "used_as_core_content": True,
+    "source_ref": None,
+}
+
+print(knowledge_guard(sample_1))
+print(knowledge_guard(sample_2))
+```
+
+这个例子很适合新人，因为它会帮助你看到：
+
+- 护栏并不只是在审“文本”
+- 也在审“这段内容可不可以进入最终成品”
+
 ## 如果把它做成项目或系统设计，最值得展示什么
 
 最值得展示的通常不是：
@@ -204,15 +259,15 @@ print(process_guard("search_policy", "low"))
 
 ---
 
-## 五、最常见误区
+## 六、最常见误区
 
-### 1. 护栏只做在输出端
+### 6.1 护栏只做在输出端
 
-### 2. 护栏规则太死，正常请求也大量误伤
+### 6.2 护栏规则太死，正常请求也大量误伤
 
-### 3. 没有回归集就改护栏
+### 6.3 没有回归集就改护栏
 
-## 六、一个很实用的护栏检查清单
+## 七、一个很实用的护栏检查清单
 
 可以先问自己：
 

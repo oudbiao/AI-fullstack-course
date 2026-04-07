@@ -142,11 +142,33 @@ print(build_courseware("折扣应用题"))
 
 - 课件需要的栏目结构
 
-## 五、这个项目最需要哪些能力？
+## 五、一个更像真实项目的系统分层图
+
+很多新人做这类项目时，最容易把“知识库、检索、生成、导出”混在一起。
+
+更稳的做法是先分层：
+
+```mermaid
+flowchart TD
+    A["文档入库层"] --> B["知识处理层"]
+    B --> C["检索层"]
+    C --> D["课件结构生成层"]
+    D --> E["模板导出层"]
+```
+
+你可以简单把它理解成：
+
+- 入库层：把资料读进来
+- 处理层：把资料变成知识块
+- 检索层：把相关材料找出来
+- 生成层：把材料重组为课件结构
+- 导出层：把结构变成 Word
+
+## 六、这个项目最需要哪些能力？
 
 按系统分层看，核心能力是：
 
-### 5.1 文档解析
+### 6.1 文档解析
 
 - PDF / DOCX / PPTX 读取
 - 扫描件 OCR
@@ -157,7 +179,7 @@ print(build_courseware("折扣应用题"))
 - [文档处理](../ch01-rag/02-document-processing.md)
 - [OCR 文字识别](../../stage6/ch05-advanced/03-ocr.md)
 
-### 5.2 知识库与检索
+### 6.2 知识库与检索
 
 - 切块
 - 元数据
@@ -169,7 +191,7 @@ print(build_courseware("折扣应用题"))
 - [向量数据库](../ch01-rag/03-vector-databases.md)
 - [检索策略](../ch01-rag/04-retrieval-strategies.md)
 
-### 5.3 结构化输出与模板生成
+### 6.3 结构化输出与模板生成
 
 - 先生成大纲
 - 再生成知识点 / 例题 / 练习
@@ -180,7 +202,7 @@ print(build_courseware("折扣应用题"))
 - [结构化输出](../../stage8a/ch05-prompt/03-structured-output.md)
 - [模板化文档生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
 
-### 5.4 工具调用与工作流
+### 6.4 工具调用与工作流
 
 - 内部知识库检索
 - 外部资料补充
@@ -192,7 +214,79 @@ print(build_courseware("折扣应用题"))
 - [对话系统与多轮管理](../ch03-app-dev/05-dialog-system.md)
 - [Plan-and-Execute](../../stage9/ch02-reasoning/04-plan-and-execute.md)
 
-## 六、这个项目最该怎么评估？
+## 七、固定格式课件最小 schema 应该长什么样？
+
+对这个项目来说，最值得先定清楚的，不是模型名，  
+而是“课件长什么样”。
+
+一个最小 schema 至少可以先定成：
+
+```python
+courseware_schema = {
+    "title": "主题名称",
+    "audience": "适用对象",
+    "teaching_goal": ["目标1", "目标2"],
+    "sections": [
+        {"type": "concept", "heading": "知识点回顾", "items": []},
+        {"type": "example", "heading": "例题讲解", "items": []},
+        {"type": "exercise", "heading": "课堂练习", "items": []},
+    ],
+    "source_refs": [
+        {"doc_id": "word_001", "page_or_slide": 3}
+    ],
+}
+```
+
+这个 schema 特别重要，因为它会把：
+
+- 检索
+- 生成
+- 模板导出
+
+三层都绑到同一个稳定对象上。
+
+## 八、内部资料和外部资料，谁优先？
+
+你的项目有一个非常关键的现实问题：
+
+- 内部知识库里可能已经有成熟资料
+- 外部资料只是补充，不应该反客为主
+
+所以更适合新人的默认策略通常是：
+
+| 场景 | 默认优先级 |
+|---|---|
+| 主题知识点 | 先内部资料 |
+| 经典例题 | 先内部资料 |
+| 最新政策/新闻/新题型 | 再补外部资料 |
+| 内部资料缺口明显 | 外部资料做补充说明 |
+
+你可以先把这条规则记成一句话：
+
+> **内部资料决定主骨架，外部资料负责补空白。**
+
+## 九、一个更像真实产品的最小工作流骨架
+
+```python
+def generate_courseware(topic):
+    parsed_docs = load_parsed_documents()
+    internal_hits = retrieve_internal(parsed_docs, topic)
+    external_hits = retrieve_external(topic)
+    selected = merge_and_rank(internal_hits, external_hits)
+    structured = build_courseware_schema(topic, selected)
+    return export_word(structured)
+```
+
+这个骨架的价值不是“代码多高级”，  
+而是让你先脑子里有这 5 个动作：
+
+1. 读内部知识
+2. 查外部补充
+3. 合并与排序
+4. 生成固定 schema
+5. 导出文档
+
+## 十、这个项目最该怎么评估？
 
 最值得先看的不是“写出来像不像”，而是：
 
@@ -210,7 +304,7 @@ print(build_courseware("折扣应用题"))
 | 来源可追溯性 | 每一段内容能不能回溯到文档来源 |
 | 模板符合度 | 最终 Word 是否符合格式规范 |
 
-## 七、一个新人可直接照抄的推进顺序
+## 十一、一个新人可直接照抄的推进顺序
 
 第一次做这个项目时，更稳的顺序通常是：
 
@@ -222,7 +316,23 @@ print(build_courseware("折扣应用题"))
 
 这样会比一上来就做“全自动备课 Agent”更容易把系统做稳。
 
-## 八、如果把它做成作品集，最值得展示什么？
+## 十二、第一次做时最容易踩的坑
+
+第一次做这类项目，最容易踩的坑通常是：
+
+1. 一上来就让模型自由写完整文档
+2. 不区分内部资料和外部资料的优先级
+3. 没有保存来源，后面没法追溯
+4. 没有固定 schema，导致模板渲染层很脆
+5. 生成效果不好时，不知道是检索错了还是模板错了
+
+所以真正更稳的开发思路是：
+
+- 先把链路拆开
+- 每一层单独验证
+- 最后再把它们串起来
+
+## 十三、如果把它做成作品集，最值得展示什么？
 
 最值得展示的通常不是：
 
@@ -240,6 +350,12 @@ print(build_courseware("折扣应用题"))
 
 - 你做的是一个知识驱动内容生成系统
 - 不只是让模型写了一篇文章
+
+## 小结
+
+- 这个项目最核心的是“文档知识 -> 结构化课件 -> 模板导出”的完整链路
+- schema 和来源策略，往往比一开始选哪家模型更重要
+- 第一次做时，先把内部资料版工作流做稳，再补外部资料和 Agent 化会更现实
 
 ## 这节最该带走什么
 

@@ -198,9 +198,51 @@ for score, text in sorted(filtered_results, reverse=True):
 
 ---
 
-## 五、精确搜索和近似搜索有什么区别？
+## 五、如果你的目标是“知识库驱动的课件生成助手”，元数据至少要带哪些？
 
-### 5.1 精确搜索
+这类项目里，向量数据库不只是拿来“语义找相似”，  
+还要支撑后面：
+
+- 按主题筛
+- 按概念 / 例题 / 练习筛
+- 按内部资料 / 外部资料筛
+- 最后做来源回溯
+
+所以更适合新人的最小元数据集合通常是：
+
+| 字段 | 它在帮你做什么 |
+|---|---|
+| `topic` | 当前主题路由 |
+| `content_type` | 区分概念 / 例题 / 练习 |
+| `source_origin` | 区分内部资料 / 外部资料 |
+| `page_or_slide` | 生成时引用来源 |
+| `grade` | 过滤适用年级或对象 |
+
+一个很小的记录对象可以先写成：
+
+```python
+record = {
+    "id": "doc_001_chunk_03",
+    "text": "商品原价 100 元，打 8 折后价格是多少？",
+    "metadata": {
+        "topic": "折扣应用题",
+        "content_type": "example",
+        "source_origin": "internal",
+        "page_or_slide": 3,
+        "grade": "小学高年级",
+    },
+}
+
+print(record)
+```
+
+这个例子最值得新人注意的是：
+
+- 向量库这一层其实已经在悄悄决定后面课件能不能稳定组装
+
+## 六、精确搜索和近似搜索有什么区别？
+
+### 6.1 精确搜索
 
 就是把查询向量和所有向量都比一遍。
 
@@ -212,7 +254,7 @@ for score, text in sorted(filtered_results, reverse=True):
 
 - 数据量大时速度慢
 
-### 5.2 近似最近邻（ANN）
+### 6.2 近似最近邻（ANN）
 
 真实向量数据库常用近似方法加速搜索。
 
@@ -230,9 +272,9 @@ for score, text in sorted(filtered_results, reverse=True):
 
 ---
 
-## 六、常见向量数据库 / 工具的角色
+## 七、常见向量数据库 / 工具的角色
 
-### 6.1 轻量本地方案
+### 7.1 轻量本地方案
 
 适合：
 
@@ -246,7 +288,7 @@ for score, text in sorted(filtered_results, reverse=True):
 - Chroma
 - SQLite + 向量扩展
 
-### 6.2 更完整的服务型方案
+### 7.2 更完整的服务型方案
 
 适合：
 
@@ -264,9 +306,9 @@ for score, text in sorted(filtered_results, reverse=True):
 
 ---
 
-## 七、选型时该看什么？
+## 八、选型时该看什么？
 
-### 7.1 先看业务规模
+### 8.1 先看业务规模
 
 关键问题包括：
 
@@ -275,7 +317,7 @@ for score, text in sorted(filtered_results, reverse=True):
 - 是否必须在线增量写入？
 - 是否需要强元数据过滤？
 
-### 7.2 再看工程约束
+### 8.2 再看工程约束
 
 例如：
 
@@ -288,19 +330,19 @@ for score, text in sorted(filtered_results, reverse=True):
 
 ---
 
-## 八、初学者常见误区
+## 九、初学者常见误区
 
-### 8.1 以为向量数据库自己就懂语义
+### 9.1 以为向量数据库自己就懂语义
 
 不是。  
 真正决定语义质量的首先是 embedding 模型。
 
-### 8.2 以为只要存了向量，RAG 就一定好用
+### 9.2 以为只要存了向量，RAG 就一定好用
 
 不够。  
 前面还需要文档清洗、切块，后面还需要 prompt 和答案约束。
 
-### 8.3 只看召回，不看过滤和引用
+### 9.3 只看召回，不看过滤和引用
 
 很多实际项目里，元数据过滤和来源可追踪同样重要。
 

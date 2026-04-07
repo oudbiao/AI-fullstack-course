@@ -326,13 +326,54 @@ for q in queries:
 
 ---
 
-## 八、最常见的工程问题
+## 八、如果你的目标是做“知识库驱动的课件生成助手”，最小工具集应该长什么样？
 
-### 8.1 选错工具
+这类项目第一次做时，不需要一上来就几十个工具。  
+更稳的最小工具集通常只要 4 个：
+
+1. `retrieve_internal_docs(topic)`  
+   查内部知识库
+
+2. `retrieve_external_docs(topic)`  
+   补外部资料
+
+3. `build_courseware_schema(materials)`  
+   把资料整理成固定结构
+
+4. `export_word(schema)`  
+   套模板并导出 Word
+
+你可以先把它想成：
+
+- 模型不是直接写 Word
+- 模型是在决定“下一步该调用哪一个环节”
+
+一个很小的工具定义示例可以先写成：
+
+```python
+tools = [
+    {
+        "name": "retrieve_internal_docs",
+        "description": "按主题检索内部知识库资料",
+        "parameters": {"topic": {"type": "string"}},
+    },
+    {
+        "name": "export_word",
+        "description": "把结构化课件内容导出为 Word 文档",
+        "parameters": {"title": {"type": "string"}, "sections": {"type": "array"}},
+    },
+]
+
+print(tools)
+```
+
+## 九、最常见的工程问题
+
+### 9.1 选错工具
 
 比如本来该查知识库，结果去调计算器。
 
-### 8.2 参数不稳定
+### 9.2 参数不稳定
 
 例如：
 
@@ -342,7 +383,7 @@ for q in queries:
 
 模型可能混着来。
 
-### 8.3 工具执行失败
+### 9.3 工具执行失败
 
 即使工具调用结构正确，也可能：
 
@@ -356,18 +397,18 @@ for q in queries:
 
 ---
 
-## 九、初学者最常踩的坑
+## 十、初学者最常踩的坑
 
-### 9.1 把 Function Calling 当成“模型直接执行代码”
+### 10.1 把 Function Calling 当成“模型直接执行代码”
 
 不是。  
 模型只是产出结构化调用意图，真正执行的是你的程序。
 
-### 9.2 工具 schema 写得太模糊
+### 10.2 工具 schema 写得太模糊
 
 如果工具说明不清、参数定义不清，模型更容易调错。
 
-### 9.3 不做参数校验
+### 10.3 不做参数校验
 
 只要进了线上，这是很危险的习惯。
 

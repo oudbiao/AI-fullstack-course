@@ -117,7 +117,31 @@ print(courseware)
 也就是说，模型不应该直接输出最终 `.docx`，  
 而应该先输出一份结构化内容对象。
 
-## 四、一个最小模板填充示例
+## 四、一个更适合真实项目的课件 schema
+
+如果你的目标是“生成符合固定格式的 Word 课件”，  
+建议在最小对象上再多补两层：
+
+- 页面级或章节级顺序
+- 模板字段级映射
+
+一个更稳的课件 schema 往往至少包含：
+
+| 字段 | 用途 |
+|---|---|
+| `title` | 文档标题 |
+| `audience` | 适用对象 |
+| `teaching_goal` | 教学目标 |
+| `sections` | 正文结构 |
+| `source_refs` | 引用来源 |
+| `template_version` | 用的是哪个模板 |
+
+这张表特别适合新人，因为它会提醒你：
+
+- 你不是在生成“长文本”
+- 你是在生成“可被模板稳定消费的数据对象”
+
+## 五、一个最小模板填充示例
 
 下面这个例子不用真实 `python-docx`，  
 先用最简单的字符串模板讲清楚工作流。
@@ -155,7 +179,27 @@ print(result)
 - 模板化的核心不是库
 - 而是“先有结构，再套模板”
 
-## 五、Word / PPT 真正要额外处理什么？
+## 六、模板字段应该怎么设计？
+
+第一次做这类系统时，特别推荐先把模板字段明写出来。
+
+| 模板字段 | 对应内容 |
+|---|---|
+| `{title}` | 课件标题 |
+| `{target_audience}` | 适用对象 |
+| `{teaching_goal}` | 教学目标 |
+| `{concept_block}` | 知识点回顾 |
+| `{example_block}` | 例题讲解 |
+| `{exercise_block}` | 课堂练习 |
+| `{source_block}` | 来源说明 |
+
+它的好处是：
+
+- 模型知道自己要产什么
+- 模板渲染层知道自己要填什么
+- 你后面改版时也知道是哪一层出了问题
+
+## 七、Word / PPT 真正要额外处理什么？
 
 在真实工程里，除了正文内容，你还会处理：
 
@@ -172,7 +216,35 @@ print(result)
 1. 内容结构
 2. 文档排版
 
-## 六、为什么这一层和 Prompt / 结构化输出强相关？
+## 八、一个最小“结构对象 -> 模板字段”示例
+
+```python
+def to_template_payload(courseware):
+    blocks = {"concept": [], "example": [], "exercise": []}
+    for section in courseware["sections"]:
+        blocks[section["content_type"]].extend(section["items"])
+
+    return {
+        "title": courseware["title"],
+        "target_audience": courseware["target_audience"],
+        "teaching_goal": "理解折扣的基本计算方法",
+        "concept_block": "\n".join(f"- {x}" for x in blocks["concept"]),
+        "example_block": "\n".join(f"- {x}" for x in blocks["example"]),
+        "exercise_block": "\n".join(f"- {x}" for x in blocks["exercise"]),
+        "source_block": "来源：内部知识库 + 外部资料补充",
+    }
+
+
+payload = to_template_payload(courseware)
+print(payload)
+```
+
+这个小例子最值得新人注意的是：
+
+- 结构对象不一定等于模板对象
+- 中间往往还会有一层“字段整理”
+
+## 九、为什么这一层和 Prompt / 结构化输出强相关？
 
 因为你通常会让模型先产出：
 
@@ -187,7 +259,22 @@ print(result)
 - [Prompt 基础](../../stage8a/ch05-prompt/01-prompt-basics.md)
 - [结构化输出](../../stage8a/ch05-prompt/03-structured-output.md)
 
-## 七、一个新人可直接照抄的生成顺序
+## 十、第一次做这个模块时，最稳的范围控制
+
+第一次做时，最稳的范围通常是：
+
+1. 先只生成 `Word`
+2. 先只支持一种模板
+3. 先不加图片自动布局
+4. 先不做复杂样式切换
+
+这样更容易先证明：
+
+- 结构对象稳定
+- 模板字段稳定
+- 导出链路稳定
+
+## 十一、一个新人可直接照抄的生成顺序
 
 第一次做这种系统时，更稳的顺序通常是：
 
@@ -198,7 +285,7 @@ print(result)
 
 这样会比一上来直接生成 `.docx` 内容稳定很多。
 
-## 八、实际工程里会用到哪些库？
+## 十二、实际工程里会用到哪些库？
 
 这部分当前课程里还没有展开到具体库使用层，  
 但你做项目时大概率会接触：
@@ -212,7 +299,7 @@ print(result)
 - 先把思路讲顺
 - 具体库再去查官方文档
 
-## 九、如果把它做成项目，最值得展示什么？
+## 十三、如果把它做成项目，最值得展示什么？
 
 最值得展示的通常不是：
 
@@ -229,6 +316,12 @@ print(result)
 
 - 你理解的是模板化生成
 - 不只是“让模型写长文”
+
+## 小结
+
+- 模板化文档生成最关键的是先定义稳定 schema，再定义模板字段
+- “结构对象 -> 字段整理 -> 模板渲染” 这三层分开后，系统会稳很多
+- 第一次做时，先把单模板 Word 导出跑顺，比同时做 Word 和 PPT 更稳
 
 ## 这节最该带走什么
 

@@ -285,20 +285,81 @@ Agent 的工作不应该永远停留在低级操作。
 
 ---
 
-## 六、最常见的误区
+## 六、如果你的目标是“知识库驱动的课件生成助手”，哪些组合最值得先封装？
 
-### 6.1 误区一：高级模式就是“多写点装饰器”
+这类项目里，工具很容易自然长成下面这几类：
+
+- 查内部资料
+- 查外部资料
+- 去重和重排
+- 生成课件 schema
+- 导出 Word
+
+如果每一步都让 Agent 临场决定，  
+系统通常会出现：
+
+- 顺序不稳定
+- 一会儿漏查内部资料
+- 一会儿先导出、后补内容
+
+所以第一次做时，更值得先封装的，往往是这些高频固定流程：
+
+| 复合工具 | 它在替你固定什么 |
+|---|---|
+| `retrieve_teaching_materials` | 先查内部，再补外部，再合并去重 |
+| `build_courseware_outline` | 先抽概念、例题、练习，再整理 schema |
+| `export_courseware_doc` | 先校验 schema，再套模板导出 Word |
+
+你可以先把它理解成：
+
+> **把经常一起出现的动作，提前捆成一个稳定步骤。**
+
+### 6.1 一个更像真实项目的最小复合工具示例
+
+```python
+def retrieve_internal_docs(topic):
+    return [{"source": "internal", "text": f"内部资料：{topic} 的知识点和例题"}]
+
+
+def retrieve_external_docs(topic):
+    return [{"source": "external", "text": f"外部资料：{topic} 的补充说明"}]
+
+
+def merge_materials(internal_docs, external_docs):
+    return internal_docs + external_docs
+
+
+def retrieve_teaching_materials(topic):
+    internal_docs = retrieve_internal_docs(topic)
+    external_docs = retrieve_external_docs(topic)
+    return merge_materials(internal_docs, external_docs)
+
+
+print(retrieve_teaching_materials("折扣应用题"))
+```
+
+这个示例最重要的价值不是代码多复杂，  
+而是让新人先看到：
+
+- 高级工具模式不是“玄学设计”
+- 而是在把项目里反复出现的流程固化下来
+
+---
+
+## 七、最常见的误区
+
+### 7.1 误区一：高级模式就是“多写点装饰器”
 
 不是。  
 关键不是写法炫，  
 而是它是否真的减少了重复问题。
 
-### 6.2 误区二：有了缓存就一定更好
+### 7.2 误区二：有了缓存就一定更好
 
 如果数据变化快，  
 缓存可能反而带来陈旧结果风险。
 
-### 6.3 误区三：组合越多越说明系统强
+### 7.3 误区三：组合越多越说明系统强
 
 过度封装也会让系统变僵硬。  
 关键看组合是否稳定、是否高频。
