@@ -437,7 +437,7 @@ plt.show()
 ## 小结
 - 学会了创建和运行 Cell
 - 学会了在 Notebook 里画图
-- 发现 NumPy 比原生 Python 快很多（这就是第二阶段要学 NumPy 的原因！）
+- 发现 NumPy 比原生 Python 快很多（这就是 3 数据分析与可视化会学 NumPy 的原因！）
 ```
 
 ---

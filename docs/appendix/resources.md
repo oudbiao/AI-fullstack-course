@@ -68,15 +68,15 @@ sidebar_position: 1
 
 如果你不想每次都重新判断，可以按这条简单路线来选：
 
-| 你当前所在阶段 | 更值得优先补的资源类型 |
+| 你当前所在学习站 | 更值得优先补的资源类型 |
 |---|---|
-| 第 0~1 阶段 | Python 官方教程、Real Python |
-| 第 2~4 阶段 | 3Blue1Brown、吴恩达 ML、周志华《机器学习》 |
-| 第 5 阶段 | 《动手学深度学习》、Fast.ai、PyTorch 文档 |
-| 第 6~7 阶段 | CS231n、CS224n、OpenCV / Hugging Face 文档 |
-| 第 8A 阶段 | Transformer / LLM 工程博客、Hugging Face 文档 |
-| 第 8B~9 阶段 | LangChain / LlamaIndex / 工程化文档 |
-| 第 10 阶段 | 多模态、扩散模型、AIGC 工程与产品资料 |
+| 1 开发者工具基础、2 Python 编程基础 | Python 官方教程、Real Python、Git / VS Code 官方文档 |
+| 3 数据分析与可视化 | Pandas、NumPy、Matplotlib / Seaborn、数据库基础文档 |
+| 4 AI 数学最小必要基础、5 机器学习入门到实战 | 3Blue1Brown、吴恩达 ML、周志华《机器学习》、Scikit-learn 文档 |
+| 6 深度学习与 Transformer 基础 | 《动手学深度学习》、Fast.ai、PyTorch 文档 |
+| 7 大模型原理、Prompt 与微调、8 LLM 应用开发与 RAG | Hugging Face 文档、Transformer / LLM 工程博客、RAG 框架文档 |
+| 9 AI Agent 与智能体系统 | LangChain / LangGraph、LlamaIndex、MCP 与工程化文档 |
+| 10 计算机视觉、11 自然语言处理、12 AIGC 与多模态 | CS231n、CS224n、OpenCV、扩散模型、多模态与 AIGC 工程资料 |
 
 ## 8. 补资源时最容易踩的坑
 

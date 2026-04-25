@@ -14,7 +14,7 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 
 ## 硬件要求
 
-### 前四个阶段（Python + 数据分析 + 数学 + ML）
+### 1～5 学习站（工具 + Python + 数据分析 + 数学 + ML）
 
 任何能正常使用的电脑都行：
 
@@ -27,12 +27,12 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 | 操作系统 | Windows 10/11、macOS 10.15+、Ubuntu 20.04+ | 均可 |
 
 :::tip
-如果你的电脑很老，也不用担心。前四个阶段的所有代码都可以在 [Google Colab](https://colab.research.google.com) 上运行，只需要一个浏览器。
+如果你的电脑很老，也不用担心。1～5 学习站的所有代码都可以在 [Google Colab](https://colab.research.google.com) 上运行，只需要一个浏览器。
 :::
 
-### 第五阶段开始（深度学习）
+### 6 深度学习与 Transformer 基础开始
 
-从第五阶段开始训练神经网络，需要 GPU：
+从 6 深度学习与 Transformer 基础开始训练神经网络，需要 GPU：
 
 | 方案 | 说明 | 费用 | 推荐度 |
 |------|------|------|:---:|
@@ -41,7 +41,7 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 | **本地 NVIDIA GPU** | 显存 ≥ 8GB | 一次性投入 | ⭐⭐⭐ |
 
 :::info 不用提前买 GPU
-学完前四个阶段大约需要 4-6 个月。到了第五阶段再考虑 GPU 的事。课程在进入第五阶段前有详细的[硬件与云资源指南](/appendix/hardware)。
+学完 1～5 学习站大约需要 4-6 个月。到了 6 深度学习与 Transformer 基础再考虑 GPU 的事。课程在进入深度学习前有详细的[硬件与云资源指南](/appendix/hardware)。
 :::
 
 ---
@@ -59,7 +59,7 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 | **Git** | 版本管理工具 | 管理代码、上传 GitHub |
 | **Miniconda** | Python 环境管理 | 创建隔离的虚拟环境，避免包冲突 |
 
-### 第一阶段需要的
+### 2 Python 编程基础需要的
 
 | 软件/库 | 用途 |
 |---------|------|
@@ -67,7 +67,7 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 | `beautifulsoup4` | 解析 HTML（爬虫） |
 | `fastapi` + `uvicorn` | Web API 开发 |
 
-### 第二阶段需要的
+### 3 数据分析与可视化需要的
 
 | 软件/库 | 用途 |
 |---------|------|
@@ -76,7 +76,7 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 | `pandas` | 数据处理 |
 | `matplotlib` + `seaborn` | 数据可视化 |
 
-### 第五阶段需要的
+### 6 深度学习与 Transformer 基础需要的
 
 | 软件/库 | 用途 |
 |---------|------|
@@ -88,25 +88,25 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 
 | 软件/库 | 阶段 | 用途 |
 |---------|------|------|
-| `transformers` | 第七/八A | HuggingFace 预训练模型 |
-| `langchain` | 第八B/九 | 大模型应用开发框架 |
-| `docker` | 第八B | 容器化部署 |
-| `chromadb` / `faiss` | 第八B | 向量数据库 |
-| `openai` / `anthropic` | 第八B | 大模型 API 调用 |
+| `transformers` | 7 / 11 | Hugging Face 预训练模型 |
+| `langchain` | 8 / 9 | 大模型应用开发框架 |
+| `docker` | 8 | 容器化部署 |
+| `chromadb` / `faiss` | 8 | 向量数据库 |
+| `openai` / `anthropic` | 8 | 大模型 API 调用 |
 
 ---
 
 ## 推荐环境方案
 
 前面的课程可以按章节逐步装库。  
-但如果你想从第五阶段一路学到第九、十阶段，更稳妥的做法是直接准备一套“课程示例环境”。
+但如果你想从 6 深度学习与 Transformer 基础一路学到 9 AI Agent 与智能体系统、12 AIGC 与多模态，更稳妥的做法是直接准备一套“课程示例环境”。
 
 仓库根目录已经补了两份依赖清单：
 
 | 文件 | 适用范围 |
 |------|----------|
-| `requirements-course-core.txt` | 第 0～4 阶段 + 大部分传统机器学习 / 工程示例 |
-| `requirements-course-ai.txt` | 第 5 阶段之后常见的深度学习 / Transformers / LLM 工具依赖 |
+| `requirements-course-core.txt` | 1～5 学习站 + 大部分传统机器学习 / 工程示例 |
+| `requirements-course-ai.txt` | 6 深度学习与 Transformer 基础之后常见的深度学习 / Transformers / LLM 工具依赖 |
 
 ### 推荐安装顺序
 
@@ -123,7 +123,7 @@ conda activate ai-course
 pip install -r requirements-course-core.txt
 ```
 
-如果你准备学习第五阶段及之后的内容，再安装 AI 相关依赖：
+如果你准备学习 6 深度学习与 Transformer 基础及之后的内容，再安装 AI 相关依赖：
 
 ```bash
 pip install -r requirements-course-ai.txt

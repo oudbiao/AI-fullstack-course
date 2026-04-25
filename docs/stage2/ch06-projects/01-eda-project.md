@@ -8,7 +8,7 @@ keywords: [EDA, 探索性数据分析, Pandas, Matplotlib, Seaborn, 数据可视
 # 实战项目：探索性数据分析（EDA）
 
 :::tip 项目定位
-这是第二阶段的**综合实战项目**。你将用前面学到的 NumPy、Pandas、Matplotlib/Seaborn 知识，对一个真实数据集进行完整的探索性数据分析。
+这是 3 数据分析与可视化的**综合实战项目**。你将用前面学到的 NumPy、Pandas、Matplotlib/Seaborn 知识，对一个真实数据集进行完整的探索性数据分析。
 :::
 
 ## 先建立一张地图

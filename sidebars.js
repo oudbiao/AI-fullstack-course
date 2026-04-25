@@ -11,6 +11,7 @@ const sidebars = {
         "intro/learning-path",
         "intro/ai-history-map",
         "intro/project-roadmap",
+        "intro/concept-comparison",
         "intro/environment-setup",
       ],
     },

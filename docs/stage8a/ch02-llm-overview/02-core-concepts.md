@@ -20,11 +20,34 @@ keywords: [token, 上下文窗口, attention, temperature, sampling, pretraining
 
 ## 一、大模型到底在做什么？
 
+### 先看一个故事：自动补全文本的学徒
+
+假设你带一个新人编辑做文字校对。你不先教他“什么是智能”，而是让他每天做一件事：
+
+> 看前面已经写好的内容，猜下一个最合理的词。
+
+一开始他只能猜很短的句子。后来他看过大量新闻、代码、问答、小说和说明书之后，就慢慢学会了：什么表达更自然，什么知识经常连在一起，什么问题后面通常要给步骤。
+
+大模型的训练直觉也可以先这样理解：它不是一开始就被明确教会“回答问题”，而是在海量文本里反复练习“根据上下文预测下一个 token”，最后长出了很多看起来像理解、推理和写作的能力。
+
 先用最不容易误解的话说：
 
 > **大语言模型本质上是在做“给定上下文，预测下一个 token”。**
 
 这听起来朴素，但能力就是从这里长出来的。
+
+```mermaid
+flowchart LR
+    A["原始文本"] --> B["切成 token"]
+    B --> C["转成 embedding 向量"]
+    C --> D["Transformer 计算上下文关系"]
+    D --> E["输出 logits 分数"]
+    E --> F["softmax 变成概率"]
+    F --> G["采样下一个 token"]
+    G --> H["拼回上下文继续生成"]
+```
+
+这张图先帮你建立主线：大模型并不是直接“吐出答案”，而是不断重复一条生成链路。后面你看到 token、embedding、attention、temperature 时，都可以把它们放回这条链路里理解。
 
 比如你看到：
 
@@ -35,6 +58,36 @@ keywords: [token, 上下文窗口, attention, temperature, sampling, pretraining
 > “首都”
 
 模型做的事，本质上也是类似的，只不过它是在超大规模语料上学会这种预测。
+
+---
+
+### 一个完整的“下一 token”玩具示例
+
+下面这个例子非常小，但它把“上下文 -> logits -> 概率 -> 选择 token”的链路串起来了：
+
+```python
+import numpy as np
+
+context = "北京是中国的"
+candidates = ["首都", "城市", "大学"]
+logits = np.array([4.0, 2.0, 0.5])
+
+
+def softmax(x):
+    e = np.exp(x - x.max())
+    return e / e.sum()
+
+
+probs = softmax(logits)
+best = candidates[np.argmax(probs)]
+
+print("上下文:", context)
+for token, prob in zip(candidates, probs):
+    print(f"候选 token={token}, 概率={prob:.3f}")
+print("最可能的下一个 token:", best)
+```
+
+这个例子真正想说明的是：模型不是从候选里“凭感觉选”，而是先给每个可能 token 一个分数，再把分数转成概率分布。真实大模型的候选 token 数量会大得多，但核心流程是一致的。
 
 ---
 
@@ -273,7 +326,20 @@ print("输出表示:\n", np.round(output, 3))
 
 ---
 
-## 十、初学者常见误区
+## 十、自测一下：这些说法对不对？
+
+在继续往后学 RAG 和 Agent 之前，可以先判断下面几句话：
+
+| 说法 | 是否正确 | 为什么 |
+|---|---|---|
+| 大模型训练时的核心任务之一是根据上下文预测下一个 token | 正确 | next-token prediction 是理解 LLM 的入口直觉 |
+| token 一定等于中文里的一个字或英文里的一个完整单词 | 不正确 | token 可能是字、词、词片段或标点 |
+| temperature 越高，答案一定越聪明 | 不正确 | 高温只是更发散，不代表更准确 |
+| attention 可以理解成相关性加权 | 正确 | 先算相关性，再按权重汇总信息 |
+
+---
+
+## 十一、初学者常见误区
 
 ### 1. 以为大模型是“直接记住答案”
 
