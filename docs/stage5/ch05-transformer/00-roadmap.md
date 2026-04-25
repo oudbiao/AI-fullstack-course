@@ -1,61 +1,83 @@
 ---
 title: "5.1 学前导读：Transformer 这一章到底在学什么"
 sidebar_position: 0
-description: "先建立 Transformer 章节的学习地图：注意力机制和 Transformer 结构为什么会成为现代深度学习主线。"
-keywords: [Transformer导读, 注意力机制, 自注意力]
+description: "先建立 Transformer 章节的学习地图：注意力机制、Self-Attention、Encoder/Decoder 和大模型主线之间是什么关系。"
+keywords: [Transformer导读, 注意力机制, 自注意力, Attention, 大模型基础]
 ---
 
 # 学前导读：Transformer 这一章到底在学什么
 
-这一章解决的是：
+这一章解决的是一个非常关键的问题：为什么现代 NLP、大模型和很多多模态系统，都绕不开 Transformer。
 
-> **为什么现代 NLP 和很多深度学习系统，会从 RNN 转向注意力和 Transformer。**
+如果前面神经网络、CNN、RNN 让你知道了“深度学习模型可以处理不同类型的数据”，那么这一章要帮你看懂的是：当数据是文本这样的序列时，模型为什么需要一种更适合捕捉全局关系的结构。
 
-## 先建立一张桥接线
+## 这一章在整个课程里的位置
 
-如果你是从 RNN 那一章过来的，这一章最值得先看清的一件事是：
+你已经学过神经网络基础、PyTorch、CNN 和 RNN。到 Transformer 这一章，课程开始从传统深度学习模型进入大模型时代的核心结构。
 
-- RNN 已经在解决“序列怎么处理”
-- Transformer 要解决的是“序列很长时，怎么更高效、更全局地建关系”
-
-更稳的理解方式是：
+RNN 的直觉是“边读边记”，它适合解释序列处理的基本想法，但在长文本、并行训练和长距离依赖上会遇到明显瓶颈。Transformer 的关键变化是：不再只按顺序传递信息，而是让每个位置可以根据相关性直接关注其他位置。
 
 ```mermaid
 flowchart LR
-    A["RNN：边读边记"] --> B["痛点：长距离依赖难、并行性差"]
-    B --> C["Attention：当前位直接看全局相关位置"]
-    C --> D["Transformer：把注意力做成主干结构"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
+  A[神经网络基础] --> B[CNN 理解局部模式]
+  B --> C[RNN 理解序列顺序]
+  C --> D[RNN 痛点: 长距离依赖和并行性]
+  D --> E[Attention]
+  E --> F[Transformer]
+  F --> G[预训练模型和大模型]
 ```
 
-所以这一章真正新增的核心，不是“又一个新模型”，而是：
+## 这一章真正要解决的问题
 
-> **序列建模开始从“顺序传递”转向“全局关联”。**
+这一章不是让你一上来推公式，而是先建立结构直觉。你要理解 RNN 为什么不够，注意力机制为什么能让当前位置“看向”其他位置，Q/K/V 分别扮演什么角色，Self-Attention 为什么适合文本，Transformer 为什么要由多头注意力、前馈网络、残差连接、LayerNorm、位置编码等模块组合起来。
 
-## 这一章的主线
+这些概念第一次看会觉得多，但它们都在服务同一件事：让模型在处理序列时，既能看到局部信息，也能建立全局关联，并且可以更高效地并行训练。
+
+## 新人推荐学习顺序
+
+建议先从 RNN 的痛点开始看，不要直接跳进 Transformer 结构图。先问：如果句子很长，前面的词如何影响后面的词？如果每一步都必须等上一步算完，训练会不会很慢？这些问题理解后，再看 Attention 就会自然很多。
+
+然后重点理解 Q/K/V 的直觉。Query 可以理解成“我想找什么”，Key 可以理解成“我有什么特征可被匹配”，Value 可以理解成“真正要传过去的信息”。最后再看 Transformer 的整体结构，你会更容易理解为什么它要堆叠模块，而不是只靠一个注意力层。
+
+```mermaid
+flowchart TD
+  A[先理解 RNN 的限制] --> B[再理解 Attention 的直觉]
+  B --> C[拆开 Q K V 的角色]
+  C --> D[理解 Self-Attention]
+  D --> E[看 Transformer 模块结构]
+  E --> F[连接到 BERT GPT 和大模型]
+```
+
+## 学这一章时要抓住的主线
+
+这一章的主线可以压缩成一句话：序列建模从“顺序传递”走向“全局关联”。
 
 ```mermaid
 flowchart LR
-    A["注意力机制"] --> B["Transformer 架构"]
+  A[输入序列] --> B[词向量和位置编码]
+  B --> C[Self-Attention 建立位置关系]
+  C --> D[前馈网络处理表示]
+  D --> E[残差和归一化稳定训练]
+  E --> F[堆叠成 Transformer]
+  F --> G[支撑预训练语言模型]
 ```
 
-## 这一章更适合新人的学习顺序
+这条线看懂后，后面学 BERT、GPT、预训练、Prompt、微调、RAG 和 Agent 时，你会知道底层模型能力不是凭空来的，而是建立在 Transformer 对表示和上下文关系的建模能力之上。
 
-1. 先把“为什么 RNN 不够”搞清楚  
-   先理解长距离依赖和并行性问题。
+## 这一章和后面章节的关系
 
-2. 再把注意力机制看懂  
-   先稳住 Q / K / V 和 self-attention 的直觉。
+Transformer 是第五阶段和第八阶段之间的桥。第五阶段里，它是深度学习结构；第八阶段里，它会变成大模型原理的底座。后面讲预训练语言模型时，BERT 和 GPT 的差异，本质上也会回到 Transformer Encoder、Decoder、训练目标和使用方式的差异。
 
-3. 然后看 Transformer 架构  
-   这时再看 encoder / decoder / residual / layer norm 会顺很多。
+如果这一章没学稳，后面常见的问题是：知道 GPT 很强，但不知道上下文是怎样被建模的；知道 Attention 这个词，但不知道它为什么解决 RNN 的限制；会调用模型 API，但很难理解 token、上下文长度、Embedding 和推理成本之间的关系。
 
-## 这一章最该先抓住什么
+## 本章小项目出口
 
-- 注意力的本质是“当前位按相关性回头看全局”
-- Q / K / V 是角色分工，不是为了把问题搞复杂
-- Transformer 不是凭空出现，而是从注意力一步步长出来的
-- 这一章会成为后面 NLP、大模型、多模态主线的关键起点
+学完这一章后，建议做一个“手写注意力直觉演示”或“小型文本分类实验”。前者可以用简单矩阵展示一个词如何给其他词分配注意力权重；后者可以用现成框架跑一个 Transformer/BERT 文本分类样例，重点记录输入 token、attention mask、模型输出和评估结果。
+
+项目目标不是从零训练大模型，而是能把 Transformer 的核心信息流讲清楚。
+
+## 过关标准
+
+这一章结束时，你应该能解释 RNN 和 Transformer 的主要区别，能用通俗语言说明 Attention 和 Self-Attention 在做什么，能说清楚 Q/K/V 的角色分工，并能把 Transformer 和后面的 BERT、GPT、大模型主线连接起来。
+
+如果你能画出“输入 token → embedding → attention → transformer block → 输出表示”的流程，并说明每一步大致在解决什么问题，就达到了进入大模型原理阶段的基础要求。

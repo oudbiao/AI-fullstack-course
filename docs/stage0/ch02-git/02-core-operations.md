@@ -6,6 +6,10 @@ description: "掌握日常开发中最常用的 Git 操作"
 
 # Git 核心操作
 
+## 本节定位
+
+这一节开始把 Git 用起来。重点是掌握每天都会重复使用的 add、commit、status、log、diff 和撤销操作，形成“写一点代码、看一下状态、提交一次记录”的基本开发习惯。
+
 ## 学习目标
 
 - 熟练使用 `git add`、`git commit`、`git status`、`git log`

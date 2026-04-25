@@ -6,6 +6,10 @@ description: "掌握 Python 模块和包的使用方法"
 
 # 模块与包
 
+## 本节定位
+
+这一节学习如何把代码拆成多个文件，并复用别人写好的库。模块、包、import 和 pip 是 Python 生态的入口，理解它们后，你才能更自然地使用 NumPy、Pandas、FastAPI、PyTorch 等工具。
+
 ## 学习目标
 
 - 理解模块和包的概念

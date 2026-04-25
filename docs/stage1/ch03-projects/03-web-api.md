@@ -6,6 +6,10 @@ description: "使用 FastAPI 构建你的第一个 Web API"
 
 # 项目：Web API 开发
 
+## 项目定位
+
+这个项目把 Python 从脚本带到服务端。你会用 FastAPI 把功能包装成可被其他程序调用的接口，理解 API 如何连接模型、应用和用户，为后面的 AI 应用开发打基础。
+
 ## 项目目标
 
 - 理解什么是 API，为什么 AI 工程师需要会写 API
