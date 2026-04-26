@@ -34,7 +34,10 @@ const sidebars = {
             "intro/ai-learning-assistant-project",
             "intro/ai-learning-assistant-template",
             "intro/project-matrix",
+            "intro/project-delivery-standard",
+            "intro/assessment-standards",
             "intro/experiment-log-template",
+            "intro/ai-failure-samples",
             "intro/graduation-project-guide",
             "intro/portfolio-checklist",
           ],
@@ -240,6 +243,7 @@ const sidebars = {
           link: { type: "doc", id: "stage3/index" },
           items: [
             "stage3/study-guide",
+            "stage3/task-list",
             {
               type: "category",
               label: "4.1 线性代数实战",
@@ -449,6 +453,7 @@ const sidebars = {
           link: { type: "doc", id: "stage8a/index" },
           items: [
             "stage8a/study-guide",
+            "stage8a/task-list",
             {
               type: "category",
               label: "7.1-7.2 NLP 与 LLM 核心速成",
@@ -689,6 +694,7 @@ const sidebars = {
           link: { type: "doc", id: "stage6/index" },
           items: [
             "stage6/study-guide",
+            "stage6/task-list",
             {
               type: "category",
               label: "10.1-10.2 CV 基础与图像分类",
@@ -735,6 +741,7 @@ const sidebars = {
           link: { type: "doc", id: "stage7/index" },
           items: [
             "stage7/study-guide",
+            "stage7/task-list",
             {
               type: "category",
               label: "11.1-11.6 NLP 基础到预训练模型",
@@ -786,6 +793,7 @@ const sidebars = {
           link: { type: "doc", id: "stage10/index" },
           items: [
             "stage10/study-guide",
+            "stage10/task-list",
             {
               type: "category",
               label: "12.1-12.3 多模态、图像与视频生成",

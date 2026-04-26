@@ -348,6 +348,66 @@ print(record)
 
 ---
 
+## 向量库调试 Checklist
+
+向量数据库接入后，第一件事不是立刻接 LLM，而是确认“写入、过滤、检索、引用”四件事都可靠。
+
+| 检查项 | 你应该能看到什么 | 常见风险 |
+|---|---|---|
+| 写入数量 | 原始 chunk 数和入库记录数一致或有明确过滤原因 | 文档解析失败、重复写入 |
+| 向量维度 | 同一批记录维度一致 | embedding 模型切换后维度不一致 |
+| 元数据 | source、section、page、topic 等字段完整 | 后续无法引用和过滤 |
+| 相似度结果 | top-k 结果能打印 id、score、text、metadata | 只看答案，不看命中内容 |
+| 过滤条件 | metadata filter 能缩小搜索范围 | 过滤字段类型不一致，导致查不到 |
+
+如果这张表没通过，就不要急着优化 prompt。很多 RAG 问题其实在向量库这一层已经埋下了。
+
+## 一个最小入库记录校验示例
+
+```python
+records = [
+    {
+        "id": "doc_001_chunk_01",
+        "vector": [0.95, 0.05, 0.10],
+        "text": "课程购买后 7 天内可申请退款",
+        "metadata": {"source": "policy.md", "section": "退款政策", "page": 1},
+    },
+    {
+        "id": "doc_001_chunk_02",
+        "vector": [0.10, 0.90, 0.05],
+        "text": "完成结课项目后可获得证书",
+        "metadata": {"source": "policy.md", "section": "证书说明", "page": 2},
+    },
+]
+
+required_meta = {"source", "section", "page"}
+vector_dim = len(records[0]["vector"])
+
+for record in records:
+    problems = []
+    if len(record["vector"]) != vector_dim:
+        problems.append("vector_dim_mismatch")
+    missing = required_meta - set(record["metadata"])
+    if missing:
+        problems.append(f"missing_metadata={sorted(missing)}")
+    if not record["text"].strip():
+        problems.append("empty_text")
+    print(record["id"], problems or "ok")
+```
+
+这个校验可以放在入库前。真实项目里，一旦 metadata 丢失，后面很难做引用、过滤、权限和评估。
+
+## 向量数据库选型决策表
+
+| 场景 | 推荐起点 | 原因 |
+|---|---|---|
+| 课程学习、小型 Demo | 内存列表、FAISS、Chroma | 简单、可见、易调试 |
+| 本地原型，需要持久化 | Chroma、SQLite 向量扩展 | 便于保存和重跑 |
+| 企业知识库 | 支持元数据过滤和权限的服务型向量库 | 需要并发、权限、监控和运维 |
+| 多租户 SaaS | 托管向量数据库或成熟搜索服务 | 关注隔离、扩展、备份和成本 |
+
+选型不要从“哪个最流行”开始，而要从数据量、更新频率、过滤需求、部署方式和维护成本开始。
+
 ## 小结
 
 这一节最关键的认识是：

@@ -328,6 +328,83 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 
 ---
 
+## LLM API 最小工程规范
+
+当你开始把 API 调用接进真实项目时，可以先用下面这张表检查自己的封装是否够稳。
+
+| 检查项 | 最低要求 | 为什么重要 |
+|---|---|---|
+| 配置管理 | API key、model、base_url 不写死在业务函数里 | 便于切换环境和保护密钥 |
+| 统一入口 | 所有模型调用经过同一个 client 或 service | 便于加日志、重试、限流和成本统计 |
+| 超时设置 | 每次请求都有 timeout | 防止一个请求卡住整个流程 |
+| 重试策略 | 只对临时错误重试，且有最大次数 | 防止无限重试和成本失控 |
+| 错误结构 | 失败时返回统一 error 对象 | 上层业务能稳定处理失败 |
+| usage 记录 | 记录 token、模型名、耗时 | 后续才能分析成本和性能 |
+| 原始输出保留 | 保存 raw output 或关键 trace | 出错时能复盘模型到底返回了什么 |
+
+这张表的重点是让 API 层成为“稳定接口”，而不是散落在代码里的若干次模型请求。后面的 RAG、结构化输出、Function Calling 和 Agent 都会依赖这一层。
+
+## 一个更像真实项目的响应结构
+
+建议你从一开始就让模型调用返回统一结构，而不是有时返回字符串、有时返回字典、有时抛异常。
+
+```python
+import time
+
+
+def llm_response(ok, content=None, usage=None, error=None, raw=None, latency_ms=0):
+    return {
+        "ok": ok,
+        "content": content,
+        "usage": usage or {},
+        "error": error,
+        "raw": raw,
+        "latency_ms": latency_ms,
+    }
+
+
+def robust_chat(client, messages):
+    start = time.time()
+    try:
+        raw = client.chat(messages)
+        latency_ms = int((time.time() - start) * 1000)
+        return llm_response(
+            ok=True,
+            content=raw.get("content"),
+            usage=raw.get("usage"),
+            raw=raw,
+            latency_ms=latency_ms,
+        )
+    except Exception as e:
+        latency_ms = int((time.time() - start) * 1000)
+        return llm_response(ok=False, error=str(e), latency_ms=latency_ms)
+
+
+print(robust_chat(MockLLMClient(), [{"role": "user", "content": "退款政策是什么？"}]))
+```
+
+这个封装会让上层业务更容易判断：调用是否成功，内容在哪里，token 用了多少，失败原因是什么，请求花了多久。
+
+## API 调用日志应该记录什么
+
+LLM 应用出问题时，如果没有日志，通常只能靠猜。建议至少记录这些字段：
+
+| 字段 | 示例 | 用途 |
+|---|---|---|
+| `request_id` | `req_001` | 串联一次调用的上下文 |
+| `model` | `demo-chat-model` | 对比不同模型表现 |
+| `prompt_version` | `course_assistant_v1` | 追踪是哪版 prompt 出的问题 |
+| `input_preview` | `退款政策是什么` | 快速定位用户输入 |
+| `output_preview` | `课程购买后 7 天内...` | 快速查看模型输出 |
+| `prompt_tokens` | `42` | 成本分析 |
+| `completion_tokens` | `18` | 成本分析 |
+| `latency_ms` | `850` | 性能分析 |
+| `error` | `timeout` | 失败归因 |
+
+注意日志里不要直接保存敏感信息。真实项目里应当对用户隐私、密钥、内部资料做脱敏或权限控制。
+
+---
+
 ## 小结
 
 这一节最重要的不是“会调用一次模型”，而是理解：

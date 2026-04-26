@@ -490,9 +490,56 @@ flowchart LR
 
 ---
 
-## 小结
+## RAG 最小闭环检查表
 
-这节课最关键的一句话是：
+第一次做 RAG，不要先追求框架完整，而是先确保下面 5 步都能被你看见和解释。
+
+| 步骤 | 最小产出 | 如果失败，优先怀疑 |
+|---|---|---|
+| 准备资料 | 至少 3 条带标题的文档片段 | 知识范围不清、文档质量差 |
+| 检索片段 | 能打印命中的标题、内容和分数 | query、切块、检索策略 |
+| 拼上下文 | 能看到最终交给模型的 context | top-k、上下文过长、顺序混乱 |
+| 生成答案 | 答案明确基于 context | prompt 约束不足、证据不足 |
+| 记录日志 | 保存 query、hits、answer | 无法复盘失败 |
+
+这个检查表的意义是：RAG 项目不要只展示最终答案。你要能展示“系统到底查到了什么、为什么这么答、失败时是哪一层出问题”。
+
+## RAG 最小调试输出
+
+在接入真实 LLM 之前，建议先把调试输出做出来。哪怕最终答案还很简单，只要能打印检索过程，后面优化就有抓手。
+
+```python
+def debug_rag(query):
+    hits = retrieve(query, documents, top_k=2)
+    print("用户问题:", query)
+    print("命中文档:")
+    for idx, doc in enumerate(hits, start=1):
+        print(f"{idx}. {doc['title']} -> {doc['content']}")
+
+    if not hits:
+        print("回答: 知识库里没有找到足够相关的信息。")
+        return
+
+    context = "\n".join([doc["content"] for doc in hits])
+    print("最终上下文:", context)
+    print("回答: 请根据上面的命中文档组织答案，并保留来源。")
+
+debug_rag("课程多久内可以退款？")
+```
+
+这个函数不是最终产品代码，而是调试工具。真实项目里，你至少应该在日志中保留这些字段：`query`、`retrieved_chunks`、`scores`、`context_length`、`answer`、`source_refs`。
+
+## 典型失败样本分析
+
+| 失败现象 | 可能原因 | 下一步动作 |
+|---|---|---|
+| 知识库里明明有答案，但没有命中 | chunk 太大、关键词不匹配、embedding 不适合 | 打印 top-k，检查 query 和 chunk 文本 |
+| 命中了正确文档，但答案漏掉关键条件 | chunk 不完整、context 顺序不合理、prompt 约束弱 | 增加 overlap，调整 context packing，要求引用条件 |
+| 答案引用了来源，但来源不支持结论 | 生成阶段幻觉、引用拼接错误 | 做 citation check，逐句核对证据 |
+| 多个文档互相冲突，答案混乱 | 缺少版本、日期、来源优先级 | 加 metadata filter 和来源优先级规则 |
+
+这些失败样本应该写进项目 README 或实验记录。RAG 项目的含金量不只在“能答对”，也在于你能解释“为什么答错”。
+
 
 > **RAG 的本质，是让模型回答问题前先去查资料。**
 

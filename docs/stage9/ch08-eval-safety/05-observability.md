@@ -138,6 +138,86 @@ for step in trace:
 
 第一个误区是只记录最终答案。最终答案只能说明结果，不说明过程。第二个误区是只打自然语言日志，不保留结构化字段；这样后续很难统计和筛选。第三个误区是只在报错时记录，成功样本同样重要，因为你需要对比成功和失败链路的差异。第四个误区是没有成本指标，导致系统能跑但不可持续。
 
+## AI 应用统一观测字段
+
+虽然这一节重点是 Agent，但前面的 LLM API、Prompt、RAG 和工具调用也都需要观测。更好的做法是让所有 AI 应用共享一个 request_id，然后分层记录。
+
+| 层级 | 必记字段 | 用来排查什么 |
+|---|---|---|
+| LLM 调用层 | model、prompt_version、input_preview、output_preview、tokens、latency、error | 模型输出、成本、延迟、格式漂移 |
+| Prompt 层 | prompt_version、schema_version、parse_status、validation_error | 结构化输出是否稳定 |
+| RAG 层 | query、rewritten_query、top_k、scores、source_ids、context_length | 是否找到了正确资料，context 是否合理 |
+| Agent 层 | goal、step、action、arguments、observation、next_decision | 为什么选择这个动作，为什么继续或停止 |
+| 工具层 | tool_name、permission_scope、arguments、result_status、retry_count | 工具是否选对、参数是否正确、是否失败 |
+| 安全层 | risk_level、human_approval、blocked_reason、rollback_action | 高风险动作是否被确认和审计 |
+
+这张表可以作为所有 AI 项目的日志设计起点。不要等系统出问题后才想起补日志；没有 request_id 和结构化字段，后面很难把一次失败串起来。
+
+## 一次请求的跨层 trace 示例
+
+下面是一个“课程学习助手”的跨层 trace。它同时经过了 RAG、LLM 和 Agent 工具层。
+
+```json
+{
+  "request_id": "req_001",
+  "user_query": "帮我制定 RAG 三天复习计划",
+  "rag": {
+    "query": "RAG 三天复习计划",
+    "top_k": 3,
+    "source_ids": ["rag-basics", "retrieval-strategies", "rag-evaluation"],
+    "context_length": 820
+  },
+  "llm": {
+    "model": "demo-chat-model",
+    "prompt_version": "study_plan_v2",
+    "prompt_tokens": 520,
+    "completion_tokens": 180,
+    "latency_ms": 1200,
+    "parse_status": "ok"
+  },
+  "agent": {
+    "steps": [
+      {"step": 1, "action": "retrieve_course_docs", "status": "ok"},
+      {"step": 2, "action": "build_study_plan", "status": "ok"}
+    ],
+    "final_status": "ok"
+  }
+}
+```
+
+这个例子最值得注意的是：它不是把所有日志混成一段文字，而是分层记录。这样当答案不好时，你可以先判断是 RAG 没找对、Prompt 没约束好、LLM 输出不稳定，还是 Agent 工具步骤出了问题。
+
+## 观测数据怎么进入作品集
+
+作品集不需要展示所有原始日志，但应该展示你如何使用日志改进系统。
+
+| README 模块 | 可以展示什么 |
+|---|---|
+| 调试日志样例 | 一次成功请求和一次失败请求的 trace 摘要 |
+| 指标面板 | 平均延迟、失败率、token 成本、检索命中率 |
+| 失败归因 | 失败样本对应到 LLM、RAG、Agent、工具或安全层 |
+| 改进记录 | 改动前后指标变化和代价 |
+| 安全审计 | 高风险动作如何确认、拒绝和记录 |
+
+这会让项目显得更成熟：你不仅能做出功能，还能观察它、评估它、解释它，并持续改进它。
+
+## 最小日志文件设计
+
+如果暂时没有接入专业观测平台，可以先用 JSONL 文件记录。每一行是一条事件或一次 trace。
+
+```text
+logs/
+├── llm_calls.jsonl
+├── retrieval_logs.jsonl
+├── agent_traces.jsonl
+├── tool_calls.jsonl
+└── safety_audit.jsonl
+```
+
+每个文件都应该带 request_id。这样你可以用同一个 request_id 把一次用户请求从模型调用、检索、工具执行、安全确认一路串起来。
+
+---
+
 ## 练习
 
 1. 给上面的 trace 示例补充 `error_message` 和 `retry_count` 字段。

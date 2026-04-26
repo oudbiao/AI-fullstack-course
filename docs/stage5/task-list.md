@@ -34,6 +34,21 @@ keywords: [深度学习, PyTorch, Transformer, CNN, 学习任务单]
 
 常见问题包括张量维度不匹配、训练 loss 不下降、验证集效果很差、学习率过大或过小、过拟合、GPU/CPU device 不一致、把训练指标误当成泛化能力。遇到训练问题时，先用小数据集过拟合测试，确认代码能学到东西，再扩大数据。
 
+## 阶段作品集交付物
+
+如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+
+| 交付物 | 说明 |
+| --- | --- |
+| `train.py` | PyTorch 训练脚本，包含 Dataset、DataLoader、模型、loss 和 optimizer |
+| `config.yaml` | 学习率、batch size、epoch、模型结构等实验配置 |
+| `training_log.csv` | 每轮 loss、指标、耗时和验证结果 |
+| `curves/` | 训练曲线、验证曲线、混淆矩阵或预测可视化 |
+| `failure_cases.md` | 错误样本、过拟合/欠拟合现象和改进动作 |
+| `README.md` | 数据说明、运行命令、模型结果、限制和复盘 |
+
+这些材料会让深度学习项目从“训练跑起来”升级成“能诊断训练过程、能复现实验、能解释模型失败”。
+
 ## 阶段通关问题
 
 学完后，你应该能回答这些问题：为什么需要反向传播，optimizer 更新的是什么，Dataset 和 DataLoader 分别解决什么问题，Attention 为什么能建模上下文，Transformer 和后续大模型有什么关系。

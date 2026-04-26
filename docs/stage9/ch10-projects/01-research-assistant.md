@@ -250,6 +250,86 @@ for case in eval_cases:
 
 ---
 
+## 作品集级 Agent 交付标准
+
+如果把研究助手作为 Agent 作品集，建议不要只展示最终摘要，而是展示“目标、工具、执行、引用、评估、安全边界”的完整闭环。
+
+| 交付项 | 最低要求 | 作品集级要求 |
+|---|---|---|
+| 目标定义 | 能输入研究主题 | 明确适用范围、资料来源和不支持的任务 |
+| 工具清单 | 至少有检索或读取工具 | 写清工具用途、参数、返回值和权限边界 |
+| 执行 trace | 打印检索和总结过程 | 保存每一步 action、arguments、observation、next_decision |
+| 引用检查 | 每条摘要带来源 | 每个关键 claim 都能回到具体来源片段 |
+| 失败恢复 | 工具失败时给出错误 | 区分空结果、超时、引用不支持、总结漏点 |
+| 评估记录 | 准备少量测试问题 | 有固定评估集、baseline、失败样本和改进记录 |
+| 安全边界 | 不自动执行高风险动作 | 明确只读工具、人工确认、最大步数和成本限制 |
+
+这张表会让项目从“能总结资料”升级成“可信、可追踪、可复盘的 Agent 系统”。
+
+## 推荐 README 结构
+
+研究助手项目的 README 可以按下面顺序写：
+
+```text
+# Research Assistant Agent
+
+## 1. 项目目标
+说明它解决什么研究场景，以及不解决什么。
+
+## 2. 系统流程
+展示 query -> retrieval -> reading -> summary -> citation -> evaluation。
+
+## 3. 工具清单
+列出 search_docs、read_source、summarize、check_citation 等工具。
+
+## 4. 运行方式
+给出安装依赖、准备数据、运行示例和评估命令。
+
+## 5. 示例 Trace
+展示一次完整执行过程，而不只是最终答案。
+
+## 6. 评估结果
+展示检索命中、引用准确性、失败样本和改进记录。
+
+## 7. 安全与限制
+说明资料来源限制、引用风险、最大步数、人工确认边界。
+```
+
+README 最好让别人不用读源码，也能看懂系统做了什么、怎么验证、哪里还不可靠。
+
+## 一个最小 Agent Trace 示例
+
+```text
+goal: 总结 RAG 和长上下文模型的差异
+step 1: action=retrieve, arguments={query: "rag long context retrieval"}
+observation: 命中 d1, d2
+step 2: action=read_sources, arguments={source_ids: ["d1", "d2"]}
+observation: 读取到 grounding、precision、ranking 相关内容
+step 3: action=summarize_with_citations
+observation: 生成 3 条摘要，每条都有 source_id
+step 4: action=check_citations
+observation: 2 条通过，1 条引用证据不足
+final: 返回 2 条可信摘要，并标记 1 条需要人工复核
+```
+
+这个 trace 的价值在于：如果最终结果有问题，你可以回放到底是哪一步出错，而不是只盯着最终回答猜原因。
+
+## 失败样本库
+
+研究助手最常见的失败不是“完全不能回答”，而是“看起来合理但不可信”。建议至少记录下面几类失败。
+
+| 失败类型 | 现象 | 可能原因 | 改进方向 |
+|---|---|---|---|
+| 检索漏召回 | 关键资料没进入候选 | query 太窄、关键词不匹配、top-k 太小 | query rewrite、混合检索、扩大候选后 rerank |
+| 阅读不完整 | 命中文档对，但漏掉关键段落 | chunk 太小或 context packing 不合理 | parent-child retrieval、调整上下文拼装 |
+| 总结过度概括 | 摘要听起来对，但丢限制条件 | prompt 没要求保留条件 | 要求输出 claim、condition、source 三元组 |
+| 引用不支持 | claim 和 source 对不上 | 模型自由发挥或引用拼接错误 | citation check、逐条 claim 验证 |
+| 循环调用 | Agent 一直检索不停止 | 缺少停止条件 | 最大步数、无新增信息时停止 |
+
+把这些失败样本放进项目，会比只展示成功案例更能体现工程能力。
+
+---
+
 ## 小结
 
 这节最重要的是建立一个作品级判断：
@@ -257,8 +337,6 @@ for case in eval_cases:
 > **研究助手项目真正的亮点，不是“会总结”，而是“能把检索、总结和引用组织成可信、可追踪、可复核的输出”。**
 
 只要这点立住，这个项目就会很像一个成熟的 Agent 作品。
-
-
 
 ## 版本路线建议
 

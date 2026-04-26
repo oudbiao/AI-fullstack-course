@@ -352,6 +352,74 @@ for score, chunk in scores:
 
 ---
 
+## 文档处理验收表
+
+做完文档处理后，不要只看“生成了多少 chunk”，而要检查这些 chunk 是否真的能支撑后续问答。
+
+| 检查项 | 合格表现 | 常见问题 |
+|---|---|---|
+| 文本清洗 | 去掉页眉页脚、重复空白、无意义噪声 | 清洗过头，把标题和表格结构删掉 |
+| chunk 完整性 | 一个 chunk 能表达完整事实或完整步骤 | 关键条件被切到相邻 chunk |
+| chunk 粒度 | 能被准确召回，也不会太碎 | 太大召回不准，太小证据不完整 |
+| 元数据 | 保留 source、section、page、topic、content_type | 答案无法引用来源，无法按主题过滤 |
+| 样例抽查 | 随机抽 10 个 chunk 人工看一遍 | 只看数量，不看质量 |
+
+最实用的做法是先做一份“chunk 抽查表”。每次改切块规则后，随机抽几条 chunk，判断它们是否适合被检索、引用和展示。
+
+## 一个 chunk 质量抽查脚本
+
+下面这个脚本不依赖外部库，只用于帮你建立检查习惯。真实项目里可以把抽查结果写入 CSV 或 Markdown。
+
+```python
+chunks_with_meta = [
+    {
+        "id": "policy_001_01",
+        "text": "课程购买后 7 天内，如果学习进度低于 20%，可以申请退款",
+        "source": "course_policy.pdf",
+        "section": "退款政策",
+        "page": 3,
+        "content_type": "policy",
+    },
+    {
+        "id": "policy_001_02",
+        "text": "完成所有必修项目并通过结课测试后，可以获得结业证书",
+        "source": "course_policy.pdf",
+        "section": "证书说明",
+        "page": 5,
+        "content_type": "rule",
+    },
+]
+
+required_fields = {"id", "text", "source", "section", "page", "content_type"}
+
+for chunk in chunks_with_meta:
+    missing = required_fields - set(chunk)
+    too_short = len(chunk["text"]) < 10
+    too_long = len(chunk["text"]) > 300
+    print({
+        "id": chunk.get("id"),
+        "missing_fields": sorted(missing),
+        "too_short": too_short,
+        "too_long": too_long,
+        "preview": chunk["text"][:40],
+    })
+```
+
+这个脚本不会替你判断语义质量，但能先发现一类基础问题：字段缺失、chunk 过短、chunk 过长、来源不可追踪。
+
+## 切块策略对比记录
+
+建议每次尝试一种切块策略，都用固定格式记录结果。
+
+| 策略 | 参数 | 优点 | 暴露的问题 | 是否保留 |
+|---|---|---|---|---|
+| 按句子切 | 1 句 1 块 | 简单，召回精准 | 很多证据不完整 | 只适合短 FAQ |
+| 滑动窗口 | 2～4 句，overlap 1 | 不容易切断上下文 | chunk 数量增加 | 适合作为 baseline |
+| 按标题层级切 | H2/H3 下内容成块 | 保留结构 | 长章节可能过大 | 适合教程和文档 |
+| 按内容类型切 | 概念/例题/练习分开 | 适合生成课件 | 需要解析或标注 | 适合结构化项目 |
+
+如果你不知道从哪里开始，建议先用“标题层级 + 滑动窗口”作为 baseline，再根据评估集调整。
+
 ## 小结
 
 这节课最关键的认识是：
