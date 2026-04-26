@@ -16,6 +16,7 @@ const sidebars = {
           collapsed: true,
           items: [
             "intro/learning-path-layers",
+            "intro/learning-faq",
             "intro/phase-transition-guide",
             "intro/prerequisite-checklist",
             "intro/learning-strategy",
@@ -56,6 +57,7 @@ const sidebars = {
           collapsed: true,
           items: [
             "intro/teaching-guide",
+            "intro/course-page-guide",
             "intro/troubleshooting-index",
             "intro/career-guide",
             "intro/environment-setup",

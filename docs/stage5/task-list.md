@@ -37,3 +37,11 @@ keywords: [深度学习, PyTorch, Transformer, CNN, 学习任务单]
 ## 阶段通关问题
 
 学完后，你应该能回答这些问题：为什么需要反向传播，optimizer 更新的是什么，Dataset 和 DataLoader 分别解决什么问题，Attention 为什么能建模上下文，Transformer 和后续大模型有什么关系。
+
+## 完成状态 Checklist
+
+- [ ] 我能解释前向传播、损失、反向传播和参数更新。
+- [ ] 我能用 PyTorch 写出 Dataset、DataLoader、nn.Module 和训练循环。
+- [ ] 我能记录训练曲线、验证指标和错误样本。
+- [ ] 我能说明 Attention 和 Transformer 解决了什么问题。
+- [ ] 我已经完成一个深度学习小项目，并能解释它的输入、输出和失败原因。
