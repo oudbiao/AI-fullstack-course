@@ -1,207 +1,147 @@
 ---
 title: "5.2 特征理解与探索"
 sidebar_position: 14
-description: "掌握特征类型分析、特征分布分析和特征间相关性分析"
+description: "掌握特征类型分析、特征分布分析、相关性分析和目标泄漏检查，先看懂数据再做特征工程。"
 keywords: [特征工程, 特征类型, 特征分布, 相关性分析, EDA, 数值特征, 类别特征]
 ---
 
 # 特征理解与探索
 
 :::tip 本节定位
-特征工程是 ML 项目中**投入产出比最高**的环节——好的特征比好的算法更重要。而一切特征工程的前提是**理解你的数据**。
+特征工程是机器学习项目里投入产出比最高的环节之一，但它不是一上来就“造新列”。真正的第一步是理解数据：每一列代表什么、分布是否异常、和目标有没有关系、会不会泄漏未来信息。
 :::
 
 ## 学习目标
 
-- 掌握特征类型分析（数值型、类别型、时间型、文本型）
-- 掌握特征分布分析
-- 掌握特征间相关性分析
+- 掌握数值、类别、时间、文本等常见特征类型
+- 能用分布图和统计摘要发现异常、偏斜和缺失
+- 能分析特征和目标变量的关系
+- 能初步识别冗余特征和目标泄漏风险
 
 ---
 
 ## 先建立一张地图
 
-特征工程不是一上来就“造新特征”，而是先看清楚你手里到底有什么。
-
 ```mermaid
 flowchart LR
-    A["原始表格"] --> B["先识别特征类型"]
-    B --> C["再看分布是否异常"]
-    C --> D["再看特征之间是否冗余"]
-    D --> E["最后再决定要不要预处理或构造新特征"]
+  A[原始表格] --> B[识别特征类型]
+  B --> C[查看缺失和分布]
+  C --> D[分析与目标关系]
+  D --> E[检查冗余和泄漏]
+  E --> F[决定预处理和构造策略]
 ```
 
-这一步做得越稳，后面越不容易瞎试。
+这一步做得越稳，后面越不容易盲目试模型。很多模型效果差，并不是算法不够高级，而是数据含义、异常值、目标泄漏或训练测试分布差异没有看清。
 
 ## 一、特征类型
 
 ```mermaid
 flowchart TD
-    F["特征类型"] --> N["数值型 Numerical"]
-    F --> C["类别型 Categorical"]
-    F --> T["时间型 Temporal"]
-    F --> TX["文本型 Text"]
-    N --> N1["连续：身高、体重、温度"]
-    N --> N2["离散：年龄、评分（1-5）"]
-    C --> C1["有序：学历（小学→大学）"]
-    C --> C2["无序：颜色、城市"]
-
-    style N fill:#e3f2fd,stroke:#1565c0,color:#333
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-    style T fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style TX fill:#fce4ec,stroke:#c62828,color:#333
+  F[特征类型] --> N[数值型]
+  F --> C[类别型]
+  F --> T[时间型]
+  F --> TX[文本型]
+  N --> N1[连续：收入、温度、金额]
+  N --> N2[离散：购买次数、评分]
+  C --> C1[有序：学历、会员等级]
+  C --> C2[无序：城市、颜色、渠道]
+  T --> T1[日期、小时、星期、节假日]
+  TX --> TX1[评论、标题、问题描述]
 ```
 
-### 1.1 快速识别特征类型
+不同类型决定了后续处理方式。数值型可能需要缩放或分箱，类别型可能需要编码，时间型常常要拆出周期特征，文本型可能需要向量化或 embedding。
+
+## 二、快速识别特征类型
 
 ```python
 import pandas as pd
-import numpy as np
 import seaborn as sns
 
-# 加载 Titanic 数据集
-df = sns.load_dataset('titanic')
+df = sns.load_dataset("titanic")
 print(df.head())
-print(f"\n数据形状: {df.shape}")
-print(f"\n数据类型:\n{df.dtypes}")
+print(df.dtypes)
 
-# 自动识别
-numerical = df.select_dtypes(include=['number']).columns.tolist()
-categorical = df.select_dtypes(include=['object', 'category']).columns.tolist()
-print(f"\n数值特征 ({len(numerical)}): {numerical}")
-print(f"类别特征 ({len(categorical)}): {categorical}")
+num_cols = df.select_dtypes(include="number").columns.tolist()
+cat_cols = df.select_dtypes(include=["object", "category", "bool"]).columns.tolist()
+
+print("数值特征:", num_cols)
+print("类别特征:", cat_cols)
 ```
 
----
+自动识别只是起点，不是最终判断。比如邮编、用户 id、商品 id 可能看起来是数字，但业务上是类别或标识符，不能直接当连续数值使用。
 
-## 二、特征分布分析
+## 三、分布分析
 
-### 2.1 数值特征分布
+分布分析要回答三个问题：数值范围是否合理，是否有明显偏斜，是否存在极端值。
 
 ```python
 import matplotlib.pyplot as plt
 
-num_cols = ['age', 'fare', 'sibsp', 'parch']
+num_cols = ["age", "fare", "sibsp", "parch"]
 fig, axes = plt.subplots(2, 2, figsize=(12, 8))
 
 for ax, col in zip(axes.ravel(), num_cols):
-    df[col].hist(bins=30, ax=ax, color='steelblue', edgecolor='white', alpha=0.7)
-    ax.set_title(f'{col} 分布')
-    ax.axvline(df[col].mean(), color='red', linestyle='--', label=f'均值={df[col].mean():.1f}')
-    ax.axvline(df[col].median(), color='green', linestyle='--', label=f'中位数={df[col].median():.1f}')
-    ax.legend(fontsize=8)
+    df[col].hist(bins=30, ax=ax, color="steelblue", edgecolor="white", alpha=0.8)
+    ax.axvline(df[col].mean(), color="red", linestyle="--", label="mean")
+    ax.axvline(df[col].median(), color="green", linestyle="--", label="median")
+    ax.set_title(col)
+    ax.legend()
 
-plt.suptitle('数值特征分布', fontsize=13)
 plt.tight_layout()
 plt.show()
-
-# 统计摘要
-print(df[num_cols].describe())
 ```
 
-### 2.2 类别特征分布
+如果均值和中位数差距很大，通常说明分布偏斜。偏斜不一定要处理，但你应该知道它存在。比如收入、消费额、访问次数经常是长尾分布。
+
+## 四、类别特征分析
+
+类别特征要重点看取值数量、长尾类别和是否有未知类别风险。
 
 ```python
-cat_cols = ['sex', 'embarked', 'class', 'who']
-fig, axes = plt.subplots(1, 4, figsize=(16, 4))
-
-for ax, col in zip(axes, cat_cols):
-    df[col].value_counts().plot.bar(ax=ax, color='coral', edgecolor='white', alpha=0.8)
-    ax.set_title(f'{col} 分布')
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
-
-plt.tight_layout()
-plt.show()
+for col in ["sex", "embarked", "class"]:
+    print(col)
+    print(df[col].value_counts(dropna=False))
 ```
 
-### 2.3 目标变量与特征的关系
+如果一个类别特征有上千个取值，直接 one-hot 可能会让特征维度暴涨。如果训练集中没有出现的新类别在测试或线上出现，也需要提前用 `handle_unknown="ignore"` 这类策略处理。
+
+## 五、与目标变量的关系
+
+特征探索不能只看单列，还要看它和目标变量的关系。
 
 ```python
-fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-
-# 数值特征 vs 目标
-axes[0].hist([df[df['survived']==1]['age'].dropna(),
-              df[df['survived']==0]['age'].dropna()],
-             bins=20, label=['存活', '未存活'], color=['steelblue', 'coral'], alpha=0.7)
-axes[0].set_title('年龄 vs 存活')
-axes[0].legend()
-
-# 类别特征 vs 目标
-pd.crosstab(df['sex'], df['survived']).plot.bar(ax=axes[1], color=['coral', 'steelblue'])
-axes[1].set_title('性别 vs 存活')
-axes[1].set_xticklabels(['女', '男'], rotation=0)
-
-pd.crosstab(df['class'], df['survived']).plot.bar(ax=axes[2], color=['coral', 'steelblue'])
-axes[2].set_title('船舱等级 vs 存活')
-axes[2].set_xticklabels(axes[2].get_xticklabels(), rotation=0)
-
-plt.tight_layout()
-plt.show()
+pd.crosstab(df["sex"], df["survived"], normalize="index")
 ```
 
----
+数值特征可以按目标分组看分布，类别特征可以看不同类别的目标均值。但要小心：相关不等于因果。你看到某个特征和目标关系很强，只能说明它可能有预测价值，还不能说明它导致了结果。
 
-## 三、相关性分析
-
-### 3.1 数值特征相关矩阵
+## 六、相关性和冗余
 
 ```python
-corr = df[['survived', 'age', 'fare', 'sibsp', 'parch', 'pclass']].corr()
-
-plt.figure(figsize=(8, 6))
-sns.heatmap(corr, annot=True, cmap='coolwarm', center=0, fmt='.2f',
-            square=True, linewidths=0.5)
-plt.title('特征相关性热图')
-plt.tight_layout()
+corr = df[["survived", "age", "fare", "sibsp", "parch", "pclass"]].corr()
+sns.heatmap(corr, annot=True, cmap="coolwarm", center=0)
 plt.show()
 ```
 
-### 3.2 与目标变量的相关性排序
+高度相关的特征可能带来冗余。对于线性模型，冗余特征可能影响系数解释；对于树模型，影响通常较小，但仍可能增加噪声和训练成本。
 
-```python
-target_corr = corr['survived'].drop('survived').abs().sort_values(ascending=False)
+## 七、目标泄漏检查
 
-plt.figure(figsize=(8, 4))
-target_corr.plot.barh(color='steelblue')
-plt.xlabel('与目标变量的相关系数（绝对值）')
-plt.title('各特征与存活的相关性')
-plt.grid(axis='x', alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
+目标泄漏是特征工程里最危险的问题之一。它指训练时用了预测时不可能知道的信息。比如预测用户是否流失时，使用“流失后客服回访次数”；预测贷款违约时，使用“逾期后催收状态”。
 
----
+检查目标泄漏时，可以问三个问题：这个特征在预测时刻是否已经存在；它是不是目标结果的后续产物；它和目标过于完美相关是否可疑。如果答案不确定，宁愿先从 baseline 中移除，再做对比实验。
 
 ## 新人最实用的特征探索清单
 
-在真正开始建模前，至少先回答这 6 个问题：
+在真正建模前，至少先回答：哪些列是数值、类别、时间、文本；哪些列缺失很多；哪些数值特征明显偏斜；哪些类别特征取值特别多；哪些特征彼此高度相关；哪些特征可能泄漏目标；训练集和测试集分布是否明显不同。
 
-- 哪些列是数值特征，哪些是类别特征
-- 哪些列缺失很多
-- 哪些数值特征分布明显偏斜
-- 哪些类别特征取值特别多
-- 哪些特征彼此高度相关
-- 哪些特征和目标变量看起来关系更强
+## 练习
 
-如果这 6 个问题还没看清，就不要急着往后走。
+1. 用 Titanic 数据集识别所有数值和类别特征，并手动纠正自动识别不合理的列。
+2. 画出 `age`、`fare` 的分布，判断是否偏斜。
+3. 找出与 `survived` 关系最明显的 3 个特征，并说明它们是否可能存在泄漏。
+4. 选一个你自己的表格数据，写一份“特征探索记录”。
 
----
+## 过关标准
 
-## 小结
-
-| 步骤 | 内容 | 工具 |
-|------|------|------|
-| 1. 识别类型 | 数值/类别/时间/文本 | `dtypes`, `select_dtypes` |
-| 2. 分布分析 | 直方图、箱线图、计数图 | `hist`, `boxplot`, `value_counts` |
-| 3. 相关性 | 热图、相关系数排序 | `corr`, `sns.heatmap` |
-| 4. 目标关系 | 各特征与目标的关联 | `crosstab`, 分组可视化 |
-
-## 动手练习
-
-### 练习 1：Wine 数据探索
-
-用 `load_wine()` 做完整的特征探索：识别特征类型、画分布图、计算相关矩阵、找出与目标最相关的 3 个特征。
-
-### 练习 2：缺失值分析
-
-用 Titanic 数据集，分析每个特征的缺失率，画出缺失值柱状图，思考哪些特征的缺失值需要处理。
+学完本节后，你应该能拿到一份表格数据后先做系统探索，而不是直接训练模型；能解释每类特征适合怎样处理；能发现明显异常、冗余和泄漏风险，并把这些观察写进项目 README。

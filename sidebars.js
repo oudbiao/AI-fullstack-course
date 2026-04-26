@@ -10,19 +10,57 @@ const sidebars = {
         "intro/quick-experience",
         "intro/ai-fullstack-map",
         "intro/learning-path",
-        "intro/learning-strategy",
-        "intro/milestones",
-        "intro/ai-history-map",
-        "intro/project-roadmap",
-        "intro/concept-comparison",
-        "intro/modern-ai-stack",
-        "intro/ai-learning-assistant-project",
-        "intro/ai-learning-assistant-template",
-        "intro/learning-schedule",
-        "intro/role-based-paths",
-        "intro/career-guide",
-        "intro/ai-engineering-checklist",
-        "intro/environment-setup",
+        {
+          type: "category",
+          label: "路线与节奏",
+          collapsed: true,
+          items: [
+            "intro/learning-path-layers",
+            "intro/phase-transition-guide",
+            "intro/prerequisite-checklist",
+            "intro/learning-strategy",
+            "intro/learning-schedule",
+            "intro/role-based-paths",
+            "intro/milestones",
+          ],
+        },
+        {
+          type: "category",
+          label: "项目与作品集",
+          collapsed: true,
+          items: [
+            "intro/project-roadmap",
+            "intro/ai-learning-assistant-project",
+            "intro/ai-learning-assistant-template",
+            "intro/project-matrix",
+            "intro/experiment-log-template",
+            "intro/graduation-project-guide",
+            "intro/portfolio-checklist",
+          ],
+        },
+        {
+          type: "category",
+          label: "概念与工程视角",
+          collapsed: true,
+          items: [
+            "intro/concept-comparison",
+            "intro/glossary",
+            "intro/modern-ai-stack",
+            "intro/ai-history-map",
+            "intro/ai-engineering-checklist",
+          ],
+        },
+        {
+          type: "category",
+          label: "使用与准备",
+          collapsed: true,
+          items: [
+            "intro/teaching-guide",
+            "intro/troubleshooting-index",
+            "intro/career-guide",
+            "intro/environment-setup",
+          ],
+        },
       ],
     },
     {
@@ -36,6 +74,7 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "stage0/index" },
           items: [
+            "stage0/task-list",
             {
               type: "category",
               label: "1.1 终端与命令行",
@@ -73,6 +112,7 @@ const sidebars = {
           link: { type: "doc", id: "stage1/index" },
           items: [
             "stage1/study-guide",
+            "stage1/task-list",
             {
               type: "category",
               label: "2.1 Python 语言入门",
@@ -118,6 +158,7 @@ const sidebars = {
           link: { type: "doc", id: "stage2/index" },
           items: [
             "stage2/study-guide",
+            "stage2/task-list",
             {
               type: "category",
               label: "3.1 从 Python 到数据分析",
@@ -239,6 +280,7 @@ const sidebars = {
           link: { type: "doc", id: "stage4/index" },
           items: [
             "stage4/study-guide",
+            "stage4/task-list",
             {
               type: "category",
               label: "5.1 机器学习基础概念",
@@ -313,6 +355,7 @@ const sidebars = {
           link: { type: "doc", id: "stage5/index" },
           items: [
             "stage5/study-guide",
+            "stage5/task-list",
             {
               type: "category",
               label: "6.1 神经网络基础",
@@ -472,6 +515,7 @@ const sidebars = {
           link: { type: "doc", id: "stage8b/index" },
           items: [
             "stage8b/study-guide",
+            "stage8b/task-list",
             {
               type: "category",
               label: "8.1 RAG 检索增强生成",
@@ -536,6 +580,7 @@ const sidebars = {
           link: { type: "doc", id: "stage9/index" },
           items: [
             "stage9/study-guide",
+            "stage9/task-list",
             {
               type: "category",
               label: "9.1-9.2 Agent 基础、推理与规划",

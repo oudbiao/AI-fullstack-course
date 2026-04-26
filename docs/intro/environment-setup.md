@@ -5,7 +5,7 @@ description: "AI 全栈课程所需的电脑配置、Python、VS Code、Git、Ju
 keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型API]
 ---
 
-# 🔧 环境准备
+# 环境准备
 
 > **目标：** 确认你的电脑满足要求，了解需要安装的工具  
 > **说明：** 这里只做概览。每个工具的详细安装步骤在 1 开发者工具基础的对应章节里有手把手教程。

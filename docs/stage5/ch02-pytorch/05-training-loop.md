@@ -5,7 +5,7 @@ description: "把模型、损失函数、优化器和 DataLoader 串起来，写
 keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 ---
 
-# 训练流程 🔧
+# 训练流程
 
 ## 学习目标
 

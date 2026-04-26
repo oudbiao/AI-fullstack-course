@@ -5,7 +5,7 @@ description: "从为什么需要注意力，到 Q/K/V、缩放点积、自注意
 keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 ---
 
-# 注意力机制 🔧
+# 注意力机制
 
 :::tip 本节定位
 如果说 RNN 是“按顺序边读边记”，那注意力机制就是另一种思路：

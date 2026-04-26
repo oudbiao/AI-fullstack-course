@@ -5,7 +5,7 @@ description: "从一个 Transformer Block 的组成开始，理解残差、Layer
 keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional Encoding]
 ---
 
-# Transformer 架构 🔧
+# Transformer 架构
 
 :::tip 本节定位
 上一节你已经知道注意力机制是 Transformer 的心脏。  

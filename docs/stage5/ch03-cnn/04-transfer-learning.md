@@ -5,7 +5,7 @@ description: "从为什么不从零训练开始，到冻结骨干、替换分类
 keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN]
 ---
 
-# 迁移学习 🔧
+# 迁移学习
 
 :::tip 本节定位
 如果你现在已经知道 CNN 会提特征、经典架构怎么演进，那接下来非常自然的一个工程问题就是：
