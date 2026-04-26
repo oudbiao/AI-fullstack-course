@@ -56,8 +56,8 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    A["原始数据<br>CSV / Excel / JSON / SQL"] --> B["Pandas<br>读取 · 清洗 · 分析"]
-    B --> C["分析结果<br>统计 · 可视化 · 报告"]
+    A["原始数据<br/>CSV / Excel / JSON / SQL"] --> B["Pandas<br/>读取 · 清洗 · 分析"]
+    B --> C["分析结果<br/>统计 · 可视化 · 报告"]
 
     style B fill:#ff9800,color:#fff,stroke:#e65100
 ```

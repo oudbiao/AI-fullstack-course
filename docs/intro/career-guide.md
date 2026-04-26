@@ -1,5 +1,6 @@
 ---
-title: "🧭 AI 职业方向探索指南"
+sidebar_position: 12
+title: "AI 职业方向探索指南"
 description: "探索 AI 工程师的六大职业方向：机器学习工程师、数据科学家、CV 工程师、NLP 工程师、AI 应用开发和 AIGC 创作者，找到适合自己的发展路线。"
 keywords: [AI职业方向, 机器学习工程师, 数据科学家, AI就业, AI工程师]
 ---

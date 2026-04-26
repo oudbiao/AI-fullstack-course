@@ -418,16 +418,16 @@ print(dow_avg.sort_values(ascending=False))
 ```mermaid
 flowchart TB
     subgraph "第2章 Pandas 数据处理"
-        A["2.1 核心数据结构<br>Series + DataFrame"] --> B["2.2 数据读写<br>CSV/Excel/JSON"]
-        B --> C["2.3 选择与过滤<br>loc/iloc/布尔索引"]
-        C --> D["2.4 数据清洗<br>缺失值/重复值/异常值"]
-        D --> E["2.5 数据转换<br>apply/map/排序/分箱"]
-        E --> F["2.6 分组与聚合<br>groupby/agg/pivot_table"]
-        F --> G["2.7 数据合并<br>merge/concat"]
-        G --> H["2.8 时间序列<br>resample/rolling"]
+        A["2.1 核心数据结构<br/>Series + DataFrame"] --> B["2.2 数据读写<br/>CSV/Excel/JSON"]
+        B --> C["2.3 选择与过滤<br/>loc/iloc/布尔索引"]
+        C --> D["2.4 数据清洗<br/>缺失值/重复值/异常值"]
+        D --> E["2.5 数据转换<br/>apply/map/排序/分箱"]
+        E --> F["2.6 分组与聚合<br/>groupby/agg/pivot_table"]
+        F --> G["2.7 数据合并<br/>merge/concat"]
+        G --> H["2.8 时间序列<br/>resample/rolling"]
     end
 
-    H --> I["✅ Pandas 掌握！<br>准备进入数据可视化 →"]
+    H --> I["✅ Pandas 掌握！<br/>准备进入数据可视化 →"]
 
     style I fill:#4caf50,color:#fff
 ```

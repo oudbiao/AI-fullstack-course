@@ -1,6 +1,11 @@
+---
+sidebar_position: 0
+title: "30 分钟 AI 快速体验"
+description: "在正式学习前，用 Google Colab 快速体验图像识别、文本生成和图像生成，建立对 AI 能力的直观认识。"
+keywords: [AI快速体验, Google Colab, 图像识别, 文本生成, 图像生成, AI入门]
+---
 
-
-# 🚀 30分钟 AI 快速体验
+# 30 分钟 AI 快速体验
 
 > **目标：** 在正式学习前，先亲手玩一下 AI，感受它能做什么  
 > **时间：** 30 分钟 ～ 1 小时  

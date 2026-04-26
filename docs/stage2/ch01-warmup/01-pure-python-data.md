@@ -401,7 +401,7 @@ avg_fare_by_embarked(passengers)
 
 ```mermaid
 mindmap
-  root((纯 Python<br>处理数据的痛点))
+  root((纯 Python<br/>处理数据的痛点))
     类型转换
       CSV 读出来全是字符串
       每个字段都要手动转
@@ -680,9 +680,9 @@ flowchart TD
     C --> D["第4章：数据可视化"]
     D --> E["第6章：实战项目"]
 
-    B -- "解决痛点" --> B1["高效数组运算<br>不用写循环<br>向量化计算"]
-    C -- "解决痛点" --> C1["1 行读取 CSV<br>自动类型转换<br>1 行分组统计"]
-    D -- "解决痛点" --> D1["用图表呈现数据<br>直观发现规律"]
+    B -- "解决痛点" --> B1["高效数组运算<br/>不用写循环<br/>向量化计算"]
+    C -- "解决痛点" --> C1["1 行读取 CSV<br/>自动类型转换<br/>1 行分组统计"]
+    D -- "解决痛点" --> D1["用图表呈现数据<br/>直观发现规律"]
 
     style A fill:#4caf50,color:#fff
     style B fill:#2196f3,color:#fff

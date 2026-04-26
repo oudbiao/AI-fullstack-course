@@ -106,7 +106,7 @@ tree
 
 ```
 .
-└── stage0
+└── stage1
     └── terminal-practice
         ├── data.csv
         ├── hello.py

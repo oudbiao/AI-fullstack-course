@@ -188,7 +188,7 @@ print(f"共 {len(paragraphs)} 个段落")
 
 ### 方式一：在终端中使用 Python 交互模式
 
-打开终端（在 stage0 里你已经学过了），输入：
+打开终端（在第 1 站你已经学过了），输入：
 
 ```bash
 python
@@ -228,7 +228,7 @@ Hello, World!
 
 ### 方式二：在 VS Code 中编写并运行
 
-1. 打开 VS Code（在 stage0 里已经装好了）
+1. 打开 VS Code（在第 1 站里已经装好了）
 2. 创建一个新文件 `hello.py`（注意后缀是 `.py`）
 3. 输入以下代码：
 
@@ -258,7 +258,7 @@ Hello, World!
 
 ### 方式三：在 Jupyter Notebook 中运行
 
-在 stage0 里你已经装了 Jupyter。打开它：
+在第 1 站里你已经装了 Jupyter。打开它：
 
 ```bash
 jupyter notebook
@@ -341,7 +341,7 @@ python --version
 # 应该输出 Python 3.10.x 或更高
 ```
 
-如果输出是 `Python 2.x`，你需要使用 `python3` 命令，或者检查你在 stage0 中的 conda 环境是否正确激活。
+如果输出是 `Python 2.x`，你需要使用 `python3` 命令，或者检查你在第 1 站中配置的 conda 环境是否正确激活。
 
 ---
 

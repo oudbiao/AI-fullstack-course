@@ -78,14 +78,14 @@ df.groupby("Sex")["Survived"].mean()
 
 ```mermaid
 flowchart LR
-    A["原始数据"] --> B["拆分<br>Split"]
+    A["原始数据"] --> B["拆分<br/>Split"]
     B --> C1["组1"]
     B --> C2["组2"]
     B --> C3["组3"]
-    C1 --> D["应用<br>Apply"]
+    C1 --> D["应用<br/>Apply"]
     C2 --> D
     C3 --> D
-    D --> E["合并<br>Combine"]
+    D --> E["合并<br/>Combine"]
     E --> F["结果"]
 ```
 

@@ -453,15 +453,15 @@ english_scores = np.random.normal(78, 10, 200).clip(0, 100)  # 英语
 ```mermaid
 flowchart TB
     subgraph "第1章 NumPy 科学计算"
-        A["1.1 概述<br>为什么用 NumPy"] --> B["1.2 数组基础<br>创建 + 属性 + dtype"]
-        B --> C["1.3 索引与切片<br>基本/布尔/花式索引"]
-        C --> D["1.4 数组运算<br>向量化 + 广播 + 聚合"]
-        D --> E["1.5 变形操作<br>reshape + 拼接 + 分割"]
-        E --> F["1.6 线性代数<br>矩阵乘法 + 求逆 + 特征值"]
-        F --> G["1.7 随机数与统计<br>分布 + 采样 + 统计量"]
+        A["1.1 概述<br/>为什么用 NumPy"] --> B["1.2 数组基础<br/>创建 + 属性 + dtype"]
+        B --> C["1.3 索引与切片<br/>基本/布尔/花式索引"]
+        C --> D["1.4 数组运算<br/>向量化 + 广播 + 聚合"]
+        D --> E["1.5 变形操作<br/>reshape + 拼接 + 分割"]
+        E --> F["1.6 线性代数<br/>矩阵乘法 + 求逆 + 特征值"]
+        F --> G["1.7 随机数与统计<br/>分布 + 采样 + 统计量"]
     end
 
-    G --> H["✅ 你已掌握 NumPy 核心！<br>准备进入 Pandas →"]
+    G --> H["✅ 你已掌握 NumPy 核心！<br/>准备进入 Pandas →"]
 
     style H fill:#4caf50,color:#fff
 ```

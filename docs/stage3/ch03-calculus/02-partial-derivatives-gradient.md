@@ -411,7 +411,7 @@ for direction in ["wrong", "right"]:
 :::info 连接后续
 - **下一节**：梯度下降——沿负梯度方向一步步走，找到损失函数的最低点
 - **3.4 节**：链式法则——如何高效计算复杂网络的梯度
-- **第五阶段**：PyTorch 的 `loss.backward()` 就是在算梯度
+- **第 6 站**：PyTorch 的 `loss.backward()` 就是在算梯度
 :::
 
 ---

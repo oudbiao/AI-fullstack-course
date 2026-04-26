@@ -27,7 +27,7 @@ keywords: [sklearn, PyTorch, 深度学习入门, 训练循环, 张量, 梯度下
 
 ## 一、为什么学完 sklearn 还要学 PyTorch？
 
-在第四阶段里，你已经用过 `scikit-learn`：
+在第 5 站里，你已经用过 `scikit-learn`：
 
 ```python
 from sklearn.linear_model import LinearRegression

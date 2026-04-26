@@ -52,7 +52,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    A["原始数据<br>（脏）"] --> B["数据清洗"]
+    A["原始数据<br/>（脏）"] --> B["数据清洗"]
     B --> C["干净数据"]
     C --> D["分析 / 建模"]
 

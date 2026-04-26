@@ -127,10 +127,10 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 ```mermaid
 flowchart LR
-    A["原始数据\n网页 / 书籍 / 代码 / 论坛"] --> B["清洗\n去广告 / 去乱码 / 过滤低质"]
-    B --> C["去重\nexact / near duplicate"]
-    C --> D["风险控制\n隐私 / 版权 / 污染"]
-    D --> E["数据配比\nweb / book / code / chat"]
+    A["原始数据<br/>网页 / 书籍 / 代码 / 论坛"] --> B["清洗<br/>去广告 / 去乱码 / 过滤低质"]
+    B --> C["去重<br/>exact / near duplicate"]
+    C --> D["风险控制<br/>隐私 / 版权 / 污染"]
+    D --> E["数据配比<br/>web / book / code / chat"]
     E --> F["训练语料版本"]
     F --> G["预训练模型底座"]
 ```

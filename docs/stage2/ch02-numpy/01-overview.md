@@ -21,13 +21,13 @@ description: "认识 NumPy——Python 科学计算的基石"
 
 ```mermaid
 flowchart TB
-    NP["NumPy<br>科学计算基石"]
-    PD["Pandas<br>数据处理"]
-    MPL["Matplotlib<br>数据可视化"]
-    SK["Scikit-learn<br>机器学习"]
-    PT["PyTorch<br>深度学习"]
-    TF["TensorFlow<br>深度学习"]
-    SP["SciPy<br>高级科学计算"]
+    NP["NumPy<br/>科学计算基石"]
+    PD["Pandas<br/>数据处理"]
+    MPL["Matplotlib<br/>数据可视化"]
+    SK["Scikit-learn<br/>机器学习"]
+    PT["PyTorch<br/>深度学习"]
+    TF["TensorFlow<br/>深度学习"]
+    SP["SciPy<br/>高级科学计算"]
 
     NP --> PD
     NP --> MPL

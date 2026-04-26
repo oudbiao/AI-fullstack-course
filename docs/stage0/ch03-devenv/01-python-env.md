@@ -427,10 +427,10 @@ which python
 conda create -n ai-course python=3.11
 conda activate ai-course
 
-# 2. 安装第一阶段需要的基础包
+# 2. 安装第 1 站需要的基础包
 pip install requests beautifulsoup4 fastapi uvicorn
 
-# 3. 安装第二阶段需要的数据分析包
+# 3. 安装第 2 站需要的数据分析包
 pip install numpy pandas matplotlib seaborn jupyter
 
 # 4. 验证安装

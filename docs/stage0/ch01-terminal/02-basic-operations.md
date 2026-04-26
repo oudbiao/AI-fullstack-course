@@ -331,10 +331,10 @@ pwd
 cd ~
 
 # 3. 创建一个学习项目文件夹
-mkdir -p ai-study/stage0/terminal-practice
+mkdir -p ai-study/stage1/terminal-practice
 
 # 4. 进入这个文件夹
-cd ai-study/stage0/terminal-practice
+cd ai-study/stage1/terminal-practice
 
 # 5. 创建几个文件
 touch hello.py notes.txt data.csv
