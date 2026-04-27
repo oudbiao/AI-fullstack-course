@@ -9,7 +9,7 @@ keywords: [AI学习路线, AI全栈路线, 大模型学习路线, Agent学习路
 
 这套课程内容很多，但你不需要第一次就把所有分支推平。更好的方式是先选择一条主线，跑通从基础到项目的闭环，再根据兴趣补方向内容。
 
-如果你的目标是跟上 2025～2026 年的 AI 应用工程，不要只追工具名。建议先读 [2025-2026 AI 应用技术地图](/intro/modern-ai-stack)，再用 [贯穿项目：AI 学习助手成长路线](/intro/ai-learning-assistant-project) 把 RAG、Agent、多模态和工程化串成一个作品；如果你已经有明确职业目标，可以参考 [角色路线选择](/intro/role-based-paths) 决定哪些章节精读，最后用 [AI 工程评估与上线清单](/intro/ai-engineering-checklist) 检查项目质量。
+如果你的目标是跟上 2025～2026 年的 AI 应用工程，不要只追工具名。建议先读 [2025-2026 AI 应用技术地图](/intro/modern-ai-stack)，再用 [四条主线学习路线](/intro/main-learning-routes) 选定第一遍学习主线，并用 [贯穿项目：AI 学习助手成长路线](/intro/ai-learning-assistant-project) 和 [AI 学习助手版本路线图](/intro/ai-learning-assistant-version-roadmap) 把 RAG、Agent、多模态和工程化串成一个作品；如果你已经有明确职业目标，可以参考 [角色路线选择](/intro/role-based-paths) 决定哪些章节精读，最后用 [AI 工程评估与上线清单](/intro/ai-engineering-checklist) 检查项目质量。
 
 如果你更需要执行节奏，可以直接看 [学习节奏规划](/intro/learning-schedule)：里面把课程拆成 4 周、8 周和 12 周三种推进方式，每周都有明确交付物。
 

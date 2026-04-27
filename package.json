@@ -14,7 +14,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "clean": "docusaurus clear && rm -rf .docusaurus build",
     "dev:clean": "npm run clean && npm start",
-    "validate:docs": "python3 validate_markdown_fences.py && python3 validate_internal_links.py && python3 validate_sidebars.py && node -c sidebars.js"
+    "validate:docs": "python3 validate_markdown_fences.py && python3 validate_internal_links.py && python3 validate_sidebars.py && python3 validate_course_structure.py && node -c sidebars.js"
   },
   "dependencies": {
     "@docusaurus/core": "^3.7.0",
