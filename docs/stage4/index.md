@@ -128,6 +128,40 @@ flowchart LR
 
 这一阶段真正的出口，是你能写出一份别人看得懂的建模报告：它不仅有分数，还有问题定义、数据说明、baseline、指标、错误分析和下一步计划。
 
+## 最小可运行实验：先做一个可信 baseline
+
+本阶段最小实验是选择一个表格数据任务，先不追求高分，只完成数据划分、baseline 训练、指标计算和错误样本查看。你要证明模型结果来自正确流程，而不是数据泄漏或偶然运气。
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.dummy import DummyClassifier
+from sklearn.metrics import classification_report
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = DummyClassifier(strategy="most_frequent")
+model.fit(X_train, y_train)
+print(classification_report(y_test, model.predict(X_test)))
+```
+
+先有 baseline，再谈优化。没有 baseline 的模型分数，很难判断到底有没有进步。
+
+## 机器学习失败案例库：先查数据和评估
+
+| 现象 | 常见原因 | 定位方法 | 修复方向 |
+|---|---|---|---|
+| 分数异常高 | 数据泄漏、划分错误、目标列进入特征 | 检查特征列表和切分方式 | 重新划分，移除泄漏特征 |
+| 训练好测试差 | 过拟合、样本少、特征噪声大 | 对比训练集和测试集指标 | 简化模型、正则化、增加数据 |
+| 所有模型都很差 | 标签质量差、特征弱、指标不合适 | 查看错误样本和标签定义 | 改数据、补特征、换指标 |
+| 结果无法复现 | 随机种子、依赖或数据版本未固定 | 重跑并比较数据版本 | 固定 seed、保存配置和数据说明 |
+
+## 阶段验收 Rubric
+
+| 等级 | 验收标准 | 作品集证据 |
+|---|---|---|
+| 最低通关 | 能训练 baseline 并解释指标 | 训练脚本、指标输出 |
+| 推荐通关 | 能做模型对比和错误分析 | 实验表、错误样本、特征说明 |
+| 作品集通关 | 能写出完整建模报告和迭代计划 | README、评估记录、复盘报告 |
+
 ## 阶段项目
 
 基础版是完成一个表格数据 baseline 项目，包含数据划分、模型训练和基础指标。标准版需要加入特征处理、交叉验证、模型对比和误差分析，形成一份可解释的建模报告。挑战版可以选择 Kaggle 入门题或真实业务数据，加入实验记录、特征迭代和部署前的风险说明。

@@ -96,6 +96,39 @@ flowchart LR
 
 如果终端提示找不到命令，先检查命令是否安装、当前 shell 是否刷新、路径是否写错；如果 Python 能运行但包导入失败，先确认当前解释器和安装依赖的环境是不是同一个；如果 Git 提交失败，先看是否初始化仓库、是否配置用户名邮箱、是否真的把文件加入暂存区。
 
+## 最小可运行实验：从空文件夹到可复现仓库
+
+本阶段最小实验不是写复杂代码，而是完整走一遍开发工作流：创建一个 `ai-learning-lab` 文件夹，写一个 `hello_ai.py`，在终端运行它，把命令和输出写进 README，然后用 Git 提交一次。
+
+```bash
+mkdir ai-learning-lab
+cd ai-learning-lab
+python -m venv .venv
+python hello_ai.py
+git init
+git add .
+git commit -m "init learning lab"
+```
+
+如果这条链路能独立完成，后面学习 Python、数据分析、RAG 和 Agent 时就有了稳定工作台。
+
+## 工具失败案例库：先看路径、环境和版本
+
+| 现象 | 常见原因 | 定位方法 | 修复方向 |
+|---|---|---|---|
+| 终端提示 command not found | 命令未安装或 PATH 未生效 | 查看安装位置和当前 shell | 重新安装，刷新终端，检查 PATH |
+| Python 能运行但导包失败 | pip 和 python 不是同一环境 | 比较 `which python` 和 `python -m pip --version` | 用虚拟环境并通过 `python -m pip install` 安装 |
+| Git 提交失败 | 未初始化、未暂存或未配置身份 | 运行 `git status` 和 `git config --list` | 初始化仓库，配置用户名邮箱，先 add 再 commit |
+| README 里的命令跑不通 | 路径、文件名或依赖缺失 | 在新终端按 README 重跑 | 补充目录、依赖和完整命令 |
+
+## 阶段验收 Rubric
+
+| 等级 | 验收标准 | 作品集证据 |
+|---|---|---|
+| 最低通关 | 能打开终端、运行 Python、完成一次 Git 提交 | 运行截图、commit 记录 |
+| 推荐通关 | 能创建虚拟环境、安装依赖、写清 README | `.venv` 说明、`requirements.txt`、README |
+| 作品集通关 | 能把工具链沉淀成后续课程通用仓库 | 目录结构、命令记录、排障笔记、远程仓库链接 |
+
 ## 阶段项目
 
 基础版是创建一个 `ai-learning-lab` 学习仓库，包含一个能运行的 `hello_ai.py`、一次 Git 提交和一份命令记录。标准版需要补充 Python 环境说明、依赖安装方式、VS Code 或 Jupyter 使用记录，并把仓库推送到远程平台。挑战版可以把它整理成后续 12 个学习站的作品集根目录，提前设计 `scripts/`、`notebooks/`、`projects/`、`notes/` 等目录，让整个课程的成果都能持续沉淀。
