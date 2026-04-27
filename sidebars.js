@@ -12,6 +12,18 @@ const sidebars = {
         "intro/learning-path",
         {
           type: "category",
+          label: "轻松有趣地学",
+          collapsed: true,
+          items: [
+            "intro/beginner-friendly-guide",
+            "intro/story-quest-line",
+            "intro/boss-challenge-map",
+            "intro/debug-detective-missions",
+            "intro/badges-achievements",
+          ],
+        },
+        {
+          type: "category",
           label: "路线与节奏",
           collapsed: true,
           items: [
