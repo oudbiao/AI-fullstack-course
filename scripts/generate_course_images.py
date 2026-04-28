@@ -359,6 +359,314 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ml-basics-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习基础学习地图",
+        "suggested_page": "docs/stage4/ch01-ml-basics/00-roadmap.md",
+        "alt": "机器学习基础学习地图：问题定义、数据、模型、训练、评估和复盘组成入门主线。",
+        "prompt": """
+一张中文机器学习入门课程的学习地图插图，主题是“机器学习基础从问题到模型闭环”。
+画面用清晰路线表达：定义问题、准备数据、划分训练测试、选择 baseline、训练模型、评估指标、错误分析和迭代改进。
+风格像现代数据科学白板，温和、清晰、适合新人先建立全局地图。
+可以有少量中文标签和箭头，但不要出现密集小字，不要乱码，不要真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "math-to-ml-bridge.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数学到机器学习桥梁图",
+        "suggested_page": "docs/stage4/ch01-ml-basics/03-math-to-ml-bridge.md",
+        "alt": "数学到机器学习桥梁图：线性代数组织数据，概率统计定义不确定性，微积分指导参数更新。",
+        "prompt": """
+一张中文 AI 数学到机器学习的桥梁图，主题是“线性代数、概率统计、微积分如何流入模型训练”。
+画面分成三条河流或三条管道：线性代数把样本和参数组织成矩阵，概率统计描述不确定性和损失，微积分给出梯度方向，三条线汇入一个机器学习训练循环。
+构图要像新人友好的概念桥梁，抽象但容易懂，颜色区分三条线。
+不要出现真实品牌 logo，不要复杂公式，不要密集小字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "supervised-learning-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "监督学习路线图",
+        "suggested_page": "docs/stage4/ch02-supervised/00-roadmap.md",
+        "alt": "监督学习路线图：带标签数据进入回归、分类、决策树和集成模型。",
+        "prompt": """
+一张中文机器学习课程路线图，主题是“监督学习：带答案的数据如何训练模型”。
+画面表现带标签数据进入监督学习流水线，分成回归预测数值、分类判断类别、决策树做规则分裂、集成学习汇总多个模型。
+风格清晰、现代、像课程白板和数据工作台结合，帮助新人理解本章学习顺序。
+可以有少量中文标签，不要出现真实品牌 logo，不要生成密集小字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "unsupervised-learning-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "无监督学习路线图",
+        "suggested_page": "docs/stage4/ch03-unsupervised/00-roadmap.md",
+        "alt": "无监督学习路线图：没有标签的数据通过聚类、降维和异常检测发现结构。",
+        "prompt": """
+一张中文机器学习课程路线图，主题是“无监督学习：没有标签也能发现结构”。
+画面表现一堆未标注数据点进入三条路径：聚类把相似样本分组，降维把高维数据压到二维图，异常检测找出离群点。
+风格像数据探索地图，清晰、温和、帮助新人理解无监督学习不是预测答案而是发现结构。
+不要出现真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "anomaly-detection-outliers.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "异常检测离群点示意图",
+        "suggested_page": "docs/stage4/ch03-unsupervised/03-anomaly-detection.md",
+        "alt": "异常检测离群点示意图：正常样本聚成群，离群样本被统计方法、Isolation Forest 和 LOF 识别。",
+        "prompt": """
+一张中文异常检测课程教学图，主题是“从正常点群里找出不寻常样本”。
+画面表现大多数蓝色数据点聚成正常区域，少数橙色或红色点远离人群；旁边用三种小卡片表达统计阈值、Isolation Forest 随机切分、LOF 局部密度异常。
+风格像机器学习课堂图解，重点突出正常区域、边界、离群点和告警。
+不要真实品牌 logo，不要复杂公式，不要密集小字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ml-evaluation-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型评估学习地图",
+        "suggested_page": "docs/stage4/ch04-evaluation/00-roadmap.md",
+        "alt": "模型评估学习地图：指标、交叉验证、偏差方差和调参共同判断模型是否可靠。",
+        "prompt": """
+一张中文机器学习评估课程学习地图，主题是“不要只看一次分数，要判断模型是否可靠”。
+画面表现评估指标、训练测试切分、K 折交叉验证、偏差方差诊断、超参数调优、最终报告形成一条质量检查路线。
+风格像模型体检报告和数据科学白板结合，清晰、专业、新手友好。
+不要出现真实品牌 logo，不要生成密集小字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "cross-validation-kfold.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "K 折交叉验证切分图",
+        "suggested_page": "docs/stage4/ch04-evaluation/02-cross-validation.md",
+        "alt": "K 折交叉验证切分图：数据被分成多折，每一折轮流作为验证集，其余作为训练集。",
+        "prompt": """
+一张中文机器学习课程教学图，主题是“K 折交叉验证如何更稳定地估计模型效果”。
+画面表现一条数据长条被切成 K 份，每一轮不同颜色的一份作为验证集，其余作为训练集，最后多个分数取平均。
+构图要非常直观，像时间轴和表格结合，突出“轮流验证”和“平均更稳”。
+不要出现真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "bias-variance-tradeoff.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "偏差方差权衡三联图",
+        "suggested_page": "docs/stage4/ch04-evaluation/03-bias-variance.md",
+        "alt": "偏差方差权衡三联图：欠拟合、刚好和过拟合对应不同训练误差与泛化表现。",
+        "prompt": """
+一张中文机器学习课程教学图，主题是“偏差-方差权衡：欠拟合、刚好、过拟合”。
+画面用三联图展示：左边模型太简单无法贴合趋势，中间模型刚好捕捉规律，右边模型过度弯曲记住噪声；下方可用靶心或训练/验证误差曲线辅助说明。
+风格清晰、白板感、适合新人一眼理解泛化问题。
+不要出现真实品牌 logo，不要复杂公式，不要密集小字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "hyperparameter-tuning-search.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "超参数搜索方法对比图",
+        "suggested_page": "docs/stage4/ch04-evaluation/04-hyperparameter-tuning.md",
+        "alt": "超参数搜索方法对比图：网格搜索、随机搜索和贝叶斯优化用不同策略寻找更优参数。",
+        "prompt": """
+一张中文机器学习调参课程对比图，主题是“网格搜索、随机搜索、贝叶斯优化如何找好参数”。
+画面分成三块：网格搜索像规则棋盘逐点尝试，随机搜索像随机撒点探索，贝叶斯优化像根据前面结果逐步靠近高分区域。
+风格现代数据科学插图，重点突出搜索空间、候选点、最佳区域。
+不要出现真实品牌 logo，不要复杂公式，不要密集小字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "feature-engineering-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征工程路线图",
+        "suggested_page": "docs/stage4/ch05-feature-engineering/00-roadmap.md",
+        "alt": "特征工程路线图：理解特征、预处理、构造、选择和 Pipeline 组成建模前处理主线。",
+        "prompt": """
+一张中文机器学习课程学习地图，主题是“特征工程：把原始数据变成模型更容易学习的输入”。
+画面表现原始数据表进入五个环节：特征理解、缺失异常处理、缩放编码、构造新特征、筛选特征、进入 Pipeline 和模型。
+风格像数据加工工坊，清晰、工程化、适合新人理解特征工程为什么重要。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "feature-type-target-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征类型与目标关系图",
+        "suggested_page": "docs/stage4/ch05-feature-engineering/01-feature-understanding.md",
+        "alt": "特征类型与目标关系图：数值、类别、时间、文本等特征需要先看分布、关系和泄漏风险。",
+        "prompt": """
+一张中文特征理解课程教学图，主题是“先认识特征，再让模型学习”。
+画面把一张数据表拆成不同类型特征：数值、类别、时间、文本、ID；再用箭头连接到分布分析、和目标变量关系、相关性冗余、目标泄漏检查。
+风格像数据侦探工作台，清晰、可视化强，帮助新人知道探索特征该看什么。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "feature-preprocessing-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征预处理流水线图",
+        "suggested_page": "docs/stage4/ch05-feature-engineering/02-preprocessing.md",
+        "alt": "特征预处理流水线图：缺失值、异常值、数值缩放、类别编码和防泄漏 Pipeline 依次处理数据。",
+        "prompt": """
+一张中文机器学习特征预处理教学图，主题是“把脏乱特征整理成模型可用输入”。
+画面表现原始数据表通过流水线依次处理：缺失值填补、异常值检查、数值标准化、类别编码、训练集参数只用于测试集 transform，最后进入模型。
+风格工程化、清晰、像数据清洗流水线，突出防止数据泄漏。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "feature-construction-workshop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征构造工作坊图",
+        "suggested_page": "docs/stage4/ch05-feature-engineering/03-feature-construction.md",
+        "alt": "特征构造工作坊图：原始特征通过交互、时间、分组统计和领域知识生成更有用的新特征。",
+        "prompt": """
+一张中文机器学习特征构造课程插图，主题是“从原始字段加工出更有意义的新特征”。
+画面像一个特征工坊：原始字段进入加工台，产出交互特征、时间特征、分组统计特征、领域知识特征；旁边有模型效果对比小图表示构造后更容易学习。
+风格明亮、实战感强、新手友好。
+不要真实品牌 logo，不要复杂公式，不要密集小字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "feature-selection-methods.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征选择方法对比图",
+        "suggested_page": "docs/stage4/ch05-feature-engineering/04-feature-selection.md",
+        "alt": "特征选择方法对比图：过滤法、包裹法、嵌入法从不同角度保留有用特征。",
+        "prompt": """
+一张中文机器学习特征选择课程对比图，主题是“不是特征越多越好，要筛出真正有用的特征”。
+画面分成三种方法：过滤法像筛网按统计关系初筛，包裹法像反复试模型组合，嵌入法像模型自己给出重要性；最后汇总到更简洁的特征集合。
+风格清晰、工程白板感，帮助新人理解删特征也是建模能力。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "column-transformer-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "ColumnTransformer 与 Pipeline 工作流图",
+        "suggested_page": "docs/stage4/ch05-feature-engineering/05-pipeline.md",
+        "alt": "ColumnTransformer 与 Pipeline 工作流图：数值列和类别列分别处理后合并，再进入模型和调参流程。",
+        "prompt": """
+一张中文 Scikit-learn 工程课程结构图，主题是“ColumnTransformer + Pipeline 把预处理和模型串起来”。
+画面表现数据表按列分流：数值列进入缩放器，类别列进入编码器，文本或其他列进入对应处理器，最后合并成特征矩阵进入模型；外层接 GridSearch 或交叉验证。
+风格工程化、模块清楚、适合新人理解为什么真实项目要用 Pipeline。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "ml-projects-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习项目实战路线图",
+        "suggested_page": "docs/stage4/ch06-projects/00-roadmap.md",
+        "alt": "机器学习项目实战路线图：房价预测、客户流失、用户分群和 Kaggle 训练完整项目能力。",
+        "prompt": """
+一张中文机器学习项目实战路线图，主题是“从教程代码走向可交付项目”。
+画面表现四个项目关卡：房价预测练回归，客户流失练分类，用户分群练聚类，Kaggle 练竞赛提交；中间贯穿数据探索、特征工程、模型对比、评估报告、作品集交付。
+风格像课程闯关地图和数据科学工作流结合，专业但有趣。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "house-price-project-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "房价预测项目流程图",
+        "suggested_page": "docs/stage4/ch06-projects/01-house-price.md",
+        "alt": "房价预测项目流程图：房屋特征经过探索、特征工程、回归建模和误差分析得到价格预测。",
+        "prompt": """
+一张中文机器学习回归项目流程图，主题是“房价预测从数据到模型报告”。
+画面表现房屋数据表包含面积、房间数、位置、楼层等特征，经过 EDA、缺失处理、特征工程、回归模型对比、误差分析，最后输出预测价格和项目报告。
+风格像实战项目看板，清晰、新手友好、有作品集感。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "customer-churn-project-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "客户流失预测项目流程图",
+        "suggested_page": "docs/stage4/ch06-projects/02-customer-churn.md",
+        "alt": "客户流失预测项目流程图：用户行为数据经过分类建模、阈值选择和业务动作转成流失预警。",
+        "prompt": """
+一张中文机器学习分类项目流程图，主题是“客户流失预测从行为数据到预警名单”。
+画面表现用户使用时长、消费频次、投诉记录、最近登录等特征进入分类模型，输出流失概率；再通过阈值选择、混淆矩阵、业务干预策略形成闭环。
+风格清晰、业务感强、适合新人理解分类项目不只是准确率。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "user-segmentation-rfm.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "用户分群 RFM 聚类图",
+        "suggested_page": "docs/stage4/ch06-projects/03-user-segmentation.md",
+        "alt": "用户分群 RFM 聚类图：Recency、Frequency、Monetary 特征经过标准化和聚类形成可解释用户群体。",
+        "prompt": """
+一张中文机器学习聚类项目教学图，主题是“RFM 用户分群：把用户分成可行动的人群”。
+画面表现 Recency、Frequency、Monetary 三个用户特征进入标准化和 K-Means 聚类，得到高价值客户、沉睡客户、潜力客户等群体，并用雷达图或二维散点解释群体特征。
+风格像数据分析项目展示页，清晰、业务可解释、新手友好。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "kaggle-submission-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Kaggle 竞赛提交闭环图",
+        "suggested_page": "docs/stage4/ch06-projects/04-kaggle.md",
+        "alt": "Kaggle 竞赛提交闭环图：读取数据、建立 baseline、交叉验证、生成提交文件和复盘榜单形成训练闭环。",
+        "prompt": """
+一张中文机器学习竞赛训练图，主题是“Kaggle 入门竞赛的提交闭环”。
+画面表现下载训练集和测试集、建立 baseline、特征工程、交叉验证、本地分数、生成 submission.csv、提交榜单、复盘误差并迭代。
+风格像竞赛工作台和项目看板结合，专业、清晰、让新人知道不要盲目刷榜。
+不要出现真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "ml-study-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习学习循环图",
+        "suggested_page": "docs/stage4/study-guide.md",
+        "alt": "机器学习学习循环图：先跑 baseline，再解释结果、做错误分析、改特征和复盘。",
+        "prompt": """
+一张中文机器学习学习指南插图，主题是“机器学习不要只背算法，要形成学习循环”。
+画面表现学习者围绕一个循环：先理解问题，跑最小 baseline，看指标，做错误分析，改特征或模型，写复盘，再进入下一个实验。
+风格温暖、鼓励、像学习陪伴型课程图，让新人觉得可以一步步学会建模。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "ml-task-checklist.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习通关任务清单图",
+        "suggested_page": "docs/stage4/task-list.md",
+        "alt": "机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。",
+        "prompt": """
+一张中文机器学习阶段任务清单插图，主题是“完成这些小任务，就真正入门机器学习”。
+画面用任务卡片展示：训练一个回归模型、训练一个分类模型、做一次聚类分析、画混淆矩阵和学习曲线、搭建 Pipeline、完成一个项目报告。
+风格像课程闯关任务板，现代、清晰、有成就感，适合放在任务单页面。
+不要真实品牌 logo，不要密集小字，不要乱码。
+""".strip(),
+    },
+    {
         "filename": "stage5-deep-learning.png",
         "size": "1536x1024",
         "quality": "medium",

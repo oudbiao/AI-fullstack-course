@@ -7,6 +7,8 @@ keywords: [房价预测, 回归, EDA, 特征工程, XGBoost, 模型融合, Kaggl
 
 # 项目一：房价预测（回归问题）
 
+![房价预测项目流程图](/img/course/house-price-project-flow.png)
+
 :::tip 项目定位
 这是你的**第一个完整 ML 回归项目**。从数据探索到模型部署，走完完整流程。使用 sklearn 内置的加州房价数据集。
 :::

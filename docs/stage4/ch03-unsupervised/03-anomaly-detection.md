@@ -7,6 +7,8 @@ keywords: [异常检测, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, 离
 
 # 异常检测
 
+![异常检测离群点示意图](/img/course/anomaly-detection-outliers.png)
+
 :::tip 本节定位
 异常检测用于发现数据中**"不正常"的样本**——信用卡欺诈、网络入侵、设备故障等。与分类不同，异常通常是稀有的，没有足够的标签，所以需要特殊的算法。
 :::

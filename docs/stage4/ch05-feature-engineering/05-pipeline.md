@@ -7,6 +7,8 @@ keywords: [Pipeline, ColumnTransformer, Transformer, 特征工程流水线, skle
 
 # Pipeline 与工作流
 
+![ColumnTransformer 与 Pipeline 工作流图](/img/course/column-transformer-pipeline.png)
+
 :::tip 本节定位
 真实项目中，数值特征、类别特征需要**不同的预处理**。本节教你用 `ColumnTransformer` + `Pipeline` 构建**完整的特征工程流水线**，一个对象搞定所有。
 :::

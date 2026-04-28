@@ -7,6 +7,8 @@ keywords: [Kaggle, 竞赛, Titanic, 数据科学竞赛, Notebook, 排行榜]
 
 # Kaggle 竞赛实战（选修）
 
+![Kaggle 竞赛提交闭环图](/img/course/kaggle-submission-loop.png)
+
 :::tip 本节定位
 Kaggle 是全球最大的数据科学竞赛平台。通过参加入门竞赛，你可以把之前学到的所有技能**串联起来**，并向真实的评分系统验证。
 :::

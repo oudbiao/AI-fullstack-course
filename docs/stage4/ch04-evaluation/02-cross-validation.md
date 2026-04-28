@@ -7,6 +7,8 @@ keywords: [交叉验证, K折, 分层K折, 留一法, 时间序列, Hold-out, cr
 
 # 交叉验证
 
+![K 折交叉验证切分图](/img/course/cross-validation-kfold.png)
+
 :::tip 本节定位
 只用一次 train/test 分割来评估模型，结果可能受**随机划分**的影响很大。交叉验证让每个数据都有机会被用作训练和测试，给出更**稳定、可靠**的评估结果。
 :::

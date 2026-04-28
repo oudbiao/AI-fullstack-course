@@ -7,6 +7,8 @@ keywords: [偏差, 方差, 过拟合, 欠拟合, 学习曲线, 验证曲线, 正
 
 # 偏差-方差权衡
 
+![偏差方差权衡三联图](/img/course/bias-variance-tradeoff.png)
+
 :::tip 本节定位
 **偏差-方差权衡（Bias-Variance Tradeoff）** 是机器学习中最重要的理论框架之一。它解释了为什么模型会欠拟合或过拟合，以及如何找到两者之间的最佳平衡。
 :::

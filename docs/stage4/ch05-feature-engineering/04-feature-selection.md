@@ -7,6 +7,8 @@ keywords: [特征选择, feature selection, 过滤法, wrapper, embedded, 过拟
 
 # 特征选择
 
+![特征选择方法对比图](/img/course/feature-selection-methods.png)
+
 :::tip 本节定位
 特征选择不是为了把特征删得越少越好，而是为了在效果、稳定性、解释性和成本之间取得平衡。真正的目标是留下对任务有用、上线时可获得、不会泄漏的特征。
 :::

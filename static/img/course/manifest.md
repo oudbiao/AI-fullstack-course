@@ -26,6 +26,28 @@
 | `math-study-loop.png` | AI 数学学习循环图 | `docs/stage3/study-guide.md` | AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。 |
 | `math-task-checklist.png` | 数学最小通关任务单图 | `docs/stage3/task-list.md` | 数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。 |
 | `stage4-machine-learning.png` | 机器学习主视觉 | `docs/stage4/index.md` | 机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。 |
+| `ml-basics-roadmap.png` | 机器学习基础学习地图 | `docs/stage4/ch01-ml-basics/00-roadmap.md` | 机器学习基础学习地图：问题定义、数据、模型、训练、评估和复盘组成入门主线。 |
+| `math-to-ml-bridge.png` | 数学到机器学习桥梁图 | `docs/stage4/ch01-ml-basics/03-math-to-ml-bridge.md` | 数学到机器学习桥梁图：线性代数组织数据，概率统计定义不确定性，微积分指导参数更新。 |
+| `supervised-learning-roadmap.png` | 监督学习路线图 | `docs/stage4/ch02-supervised/00-roadmap.md` | 监督学习路线图：带标签数据进入回归、分类、决策树和集成模型。 |
+| `unsupervised-learning-roadmap.png` | 无监督学习路线图 | `docs/stage4/ch03-unsupervised/00-roadmap.md` | 无监督学习路线图：没有标签的数据通过聚类、降维和异常检测发现结构。 |
+| `anomaly-detection-outliers.png` | 异常检测离群点示意图 | `docs/stage4/ch03-unsupervised/03-anomaly-detection.md` | 异常检测离群点示意图：正常样本聚成群，离群样本被统计方法、Isolation Forest 和 LOF 识别。 |
+| `ml-evaluation-roadmap.png` | 模型评估学习地图 | `docs/stage4/ch04-evaluation/00-roadmap.md` | 模型评估学习地图：指标、交叉验证、偏差方差和调参共同判断模型是否可靠。 |
+| `cross-validation-kfold.png` | K 折交叉验证切分图 | `docs/stage4/ch04-evaluation/02-cross-validation.md` | K 折交叉验证切分图：数据被分成多折，每一折轮流作为验证集，其余作为训练集。 |
+| `bias-variance-tradeoff.png` | 偏差方差权衡三联图 | `docs/stage4/ch04-evaluation/03-bias-variance.md` | 偏差方差权衡三联图：欠拟合、刚好和过拟合对应不同训练误差与泛化表现。 |
+| `hyperparameter-tuning-search.png` | 超参数搜索方法对比图 | `docs/stage4/ch04-evaluation/04-hyperparameter-tuning.md` | 超参数搜索方法对比图：网格搜索、随机搜索和贝叶斯优化用不同策略寻找更优参数。 |
+| `feature-engineering-roadmap.png` | 特征工程路线图 | `docs/stage4/ch05-feature-engineering/00-roadmap.md` | 特征工程路线图：理解特征、预处理、构造、选择和 Pipeline 组成建模前处理主线。 |
+| `feature-type-target-map.png` | 特征类型与目标关系图 | `docs/stage4/ch05-feature-engineering/01-feature-understanding.md` | 特征类型与目标关系图：数值、类别、时间、文本等特征需要先看分布、关系和泄漏风险。 |
+| `feature-preprocessing-pipeline.png` | 特征预处理流水线图 | `docs/stage4/ch05-feature-engineering/02-preprocessing.md` | 特征预处理流水线图：缺失值、异常值、数值缩放、类别编码和防泄漏 Pipeline 依次处理数据。 |
+| `feature-construction-workshop.png` | 特征构造工作坊图 | `docs/stage4/ch05-feature-engineering/03-feature-construction.md` | 特征构造工作坊图：原始特征通过交互、时间、分组统计和领域知识生成更有用的新特征。 |
+| `feature-selection-methods.png` | 特征选择方法对比图 | `docs/stage4/ch05-feature-engineering/04-feature-selection.md` | 特征选择方法对比图：过滤法、包裹法、嵌入法从不同角度保留有用特征。 |
+| `column-transformer-pipeline.png` | ColumnTransformer 与 Pipeline 工作流图 | `docs/stage4/ch05-feature-engineering/05-pipeline.md` | ColumnTransformer 与 Pipeline 工作流图：数值列和类别列分别处理后合并，再进入模型和调参流程。 |
+| `ml-projects-roadmap.png` | 机器学习项目实战路线图 | `docs/stage4/ch06-projects/00-roadmap.md` | 机器学习项目实战路线图：房价预测、客户流失、用户分群和 Kaggle 训练完整项目能力。 |
+| `house-price-project-flow.png` | 房价预测项目流程图 | `docs/stage4/ch06-projects/01-house-price.md` | 房价预测项目流程图：房屋特征经过探索、特征工程、回归建模和误差分析得到价格预测。 |
+| `customer-churn-project-flow.png` | 客户流失预测项目流程图 | `docs/stage4/ch06-projects/02-customer-churn.md` | 客户流失预测项目流程图：用户行为数据经过分类建模、阈值选择和业务动作转成流失预警。 |
+| `user-segmentation-rfm.png` | 用户分群 RFM 聚类图 | `docs/stage4/ch06-projects/03-user-segmentation.md` | 用户分群 RFM 聚类图：Recency、Frequency、Monetary 特征经过标准化和聚类形成可解释用户群体。 |
+| `kaggle-submission-loop.png` | Kaggle 竞赛提交闭环图 | `docs/stage4/ch06-projects/04-kaggle.md` | Kaggle 竞赛提交闭环图：读取数据、建立 baseline、交叉验证、生成提交文件和复盘榜单形成训练闭环。 |
+| `ml-study-loop.png` | 机器学习学习循环图 | `docs/stage4/study-guide.md` | 机器学习学习循环图：先跑 baseline，再解释结果、做错误分析、改特征和复盘。 |
+| `ml-task-checklist.png` | 机器学习通关任务清单图 | `docs/stage4/task-list.md` | 机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。 |
 | `stage5-deep-learning.png` | 深度学习与 Transformer 主视觉 | `docs/stage5/index.md` | 深度学习与 Transformer 主视觉：张量、训练循环、CNN、RNN、Attention 和 Transformer 串成学习路径。 |
 | `stage6-computer-vision.png` | 计算机视觉主视觉 | `docs/stage6/index.md` | 计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。 |
 | `stage7-nlp.png` | 自然语言处理主视觉 | `docs/stage7/index.md` | 自然语言处理主视觉：文本经过分词、词向量、分类、序列标注和预训练模型处理。 |

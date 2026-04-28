@@ -4,11 +4,13 @@ Last updated: 2026-04-28
 
 Status: completed.
 
-Generated with image2: 74 / 74
+Generated with image2: 96 / 96
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
 Stage 3 note: the 12 additional math diagrams were regenerated with image2 and overwrite the earlier local preview diagrams.
+
+Stage 4 note: 22 additional machine learning diagrams were generated with image2 so every Stage 4 article now has a visual entry point.
 
 ## Completed
 
@@ -86,6 +88,28 @@ Stage 3 note: the 12 additional math diagrams were regenerated with image2 and o
 - `chain-rule-backprop-graph.png`
 - `math-study-loop.png`
 - `math-task-checklist.png`
+- `ml-basics-roadmap.png`
+- `math-to-ml-bridge.png`
+- `supervised-learning-roadmap.png`
+- `unsupervised-learning-roadmap.png`
+- `anomaly-detection-outliers.png`
+- `ml-evaluation-roadmap.png`
+- `cross-validation-kfold.png`
+- `bias-variance-tradeoff.png`
+- `hyperparameter-tuning-search.png`
+- `feature-engineering-roadmap.png`
+- `feature-type-target-map.png`
+- `feature-preprocessing-pipeline.png`
+- `feature-construction-workshop.png`
+- `feature-selection-methods.png`
+- `column-transformer-pipeline.png`
+- `ml-projects-roadmap.png`
+- `house-price-project-flow.png`
+- `customer-churn-project-flow.png`
+- `user-segmentation-rfm.png`
+- `kaggle-submission-loop.png`
+- `ml-study-loop.png`
+- `ml-task-checklist.png`
 
 ## Remaining
 
