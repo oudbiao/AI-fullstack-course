@@ -7,6 +7,8 @@ keywords: [BERT, MLM, 双向编码器, 预训练, Transformer Encoder, NLP]
 
 # BERT 系列
 
+![BERT Masked Language Model 图](/img/course/bert-masked-language-model.png)
+
 :::tip 本节定位
 BERT 是现代 NLP 进入“预训练大一统时代”的关键节点之一。  
 很多今天你看到的大模型概念，虽然形态已经演化，但不少理解基础都能从 BERT 身上找到。

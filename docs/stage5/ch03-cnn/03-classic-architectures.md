@@ -7,6 +7,8 @@ keywords: [LeNet, AlexNet, VGG, ResNet, CNN, 残差连接, 经典架构]
 
 # 经典 CNN 架构
 
+![经典 CNN 架构演进图](/img/course/imagenet-cnn-evolution.png)
+
 :::tip 本节定位
 学经典架构不是为了背模型名字，而是为了看清一条非常重要的演进主线：
 

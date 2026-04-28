@@ -7,6 +7,8 @@ keywords: [预训练导读, BERT, GPT, T5, transformers]
 
 # 学前导读：预训练模型这一章到底在学什么
 
+![BERT GPT T5 对比图](/img/course/bert-gpt-t5-comparison.png)
+
 ## 本章定位
 
 这一章是传统 NLP 通向大模型应用的桥。前面你学过文本表示、文本分类、序列标注和 Seq2Seq，这些内容通常围绕单个任务训练模型；这一章开始进入“先预训练一个通用底座，再迁移到不同任务”的现代 NLP 范式。

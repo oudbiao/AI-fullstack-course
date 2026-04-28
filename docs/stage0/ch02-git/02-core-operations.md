@@ -372,7 +372,7 @@ git commit -m "添加 .gitignore：忽略缓存、数据、模型权重和敏感
 mkdir -p __pycache__
 touch __pycache__/model.cpython-311.pyc
 touch .env
-echo "OPENAI_API_KEY=sk-secret123" > .env
+echo "OPENAI_API_KEY=your_api_key_here" > .env
 
 # 查看状态——这些文件不会出现
 git status
@@ -440,7 +440,7 @@ git reset --hard HEAD~1
 
 ```bash
 # 假设你不小心把 API 密钥提交了
-echo "API_KEY=sk-secret" > config.py
+echo "API_KEY=your_api_key_here" > config.py
 git add .
 git commit -m "添加配置文件"
 

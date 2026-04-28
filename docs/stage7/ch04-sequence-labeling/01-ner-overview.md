@@ -7,6 +7,8 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 # 序列标注任务
 
+![BIO 标签到实体恢复图](/img/course/bio-ner-recovery.png)
+
 :::tip 本节定位
 文本分类的输出通常是：
 

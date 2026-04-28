@@ -7,6 +7,8 @@ keywords: [courseware assistant, knowledge base, word generation, ppt parsing, d
 
 # 项目：知识库驱动的课件生成助手
 
+![课件生成助手工作流图](/img/course/courseware-assistant-workflow.png)
+
 :::tip 本节定位
 这个项目比普通知识库问答更进一步。  
 它不是只回答问题，而是要真正产出：

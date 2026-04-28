@@ -7,6 +7,8 @@ keywords: [信息论, 熵, 交叉熵, KL散度, 损失函数, AI数学]
 
 # 信息论基础
 
+![信息熵与不确定性图](/img/course/information-entropy-uncertainty.png)
+
 :::tip 为什么学信息论？
 你在训练分类模型时用的 `CrossEntropyLoss`（交叉熵损失），名字里就有"熵"。信息论告诉你**这个损失函数到底在度量什么**，以及为什么它对分类任务这么有效。
 :::

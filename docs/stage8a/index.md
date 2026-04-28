@@ -7,6 +7,8 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 # 7 大模型原理、Prompt 与微调
 
+![大模型原理主视觉](/img/course/stage8a-llm-principles.png)
+
 这一阶段解决的是“大模型能力从哪里来，怎样被控制和适配”。你不只是学习几个模型名字，而是理解 Token、Embedding、Transformer、预训练、Prompt、微调和对齐之间的关系。
 
 ## 故事化导入：拆开聊天机器人的魔法盒
@@ -177,4 +179,3 @@ flowchart LR
 | 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
 
 学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。下一阶段会把大模型接入 RAG 和应用系统。
-

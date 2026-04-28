@@ -7,6 +7,8 @@ keywords: [RAG, retrieval augmented generation, 检索增强生成, chunk, retri
 
 # RAG 基础
 
+![RAG 文档到答案闭环图](/img/course/rag-document-answer-loop.png)
+
 :::tip 本节定位
 RAG 最容易被误解成：
 

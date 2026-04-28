@@ -6,6 +6,8 @@ description: "掌握数据库的通用语言 SQL，学会增删改查"
 
 # SQL 基础
 
+![SQL 表连接关系图](/img/course/sql-table-join-map.png)
+
 :::tip 本节定位
 很多新人第一次学 SQL 时最容易卡住的不是语法多，而是：
 

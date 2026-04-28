@@ -5,6 +5,7 @@ import sys
 
 root = os.environ.get('COURSE_ROOT') or os.getcwd()
 docs = os.path.join(root, 'docs')
+static = os.path.join(root, 'static')
 existing = set()
 
 for dirpath, _, files in os.walk(docs):
@@ -19,6 +20,12 @@ for dirpath, _, files in os.walk(docs):
         if noext.endswith('/index'):
             existing.add('/' + noext[:-6].replace(os.sep, '/'))
             existing.add('/' + '/'.join(stripped_parts)[:-6])
+
+if os.path.isdir(static):
+    for dirpath, _, files in os.walk(static):
+        for filename in files:
+            rel = os.path.relpath(os.path.join(dirpath, filename), static)
+            existing.add('/' + rel.replace(os.sep, '/'))
 
 missing = []
 link_re = re.compile(r'\[[^\]]+\]\((/[^)\s#]+)(?:#[^)]+)?\)')

@@ -7,6 +7,8 @@ keywords: [RLHF, reward model, preference data, PPO, alignment]
 
 # RLHF 流程
 
+![RLHF 三阶段流程图](/img/course/rlhf-three-stage-loop.png)
+
 :::tip 本节定位
 很多人第一次听到 RLHF，会把它理解成一句模糊的话：
 

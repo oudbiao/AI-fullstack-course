@@ -291,8 +291,8 @@ echo $PATH
 
 ```bash
 # 临时设置（只在当前终端窗口有效）
-export MY_API_KEY="sk-abc123"
-echo $MY_API_KEY    # 输出: sk-abc123
+export MY_API_KEY="your_api_key_here"
+echo $MY_API_KEY    # 输出: your_api_key_here
 
 # 验证：关闭终端重新打开，MY_API_KEY 就没了
 ```
@@ -300,11 +300,11 @@ echo $MY_API_KEY    # 输出: sk-abc123
 ```bash
 # 永久设置（写入配置文件）
 # macOS/Linux 用 zsh：
-echo 'export MY_API_KEY="sk-abc123"' >> ~/.zshrc
+echo 'export MY_API_KEY="your_api_key_here"' >> ~/.zshrc
 source ~/.zshrc    # 立即生效
 
 # 如果用 bash：
-echo 'export MY_API_KEY="sk-abc123"' >> ~/.bashrc
+echo 'export MY_API_KEY="your_api_key_here"' >> ~/.bashrc
 source ~/.bashrc
 ```
 

@@ -7,6 +7,8 @@ keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 
 # 注意力机制
 
+![Self-Attention QKV 结构图](/img/course/self-attention-qkv.png)
+
 :::tip 本节定位
 如果说 RNN 是“按顺序边读边记”，那注意力机制就是另一种思路：
 

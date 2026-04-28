@@ -7,6 +7,8 @@ keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 
 # 训练流程
 
+![PyTorch 训练循环图](/img/course/pytorch-training-loop.png)
+
 ## 学习目标
 
 - 看懂并写出标准的 PyTorch 训练循环

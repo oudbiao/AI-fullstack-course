@@ -6,6 +6,8 @@ description: "认识 Series 和 DataFrame——Pandas 的两大基石"
 
 # Pandas 核心数据结构
 
+![Pandas DataFrame 结构图](/img/course/pandas-dataframe-structure.png)
+
 :::tip 本节定位
 很多新人第一次学 `Pandas` 会觉得：
 

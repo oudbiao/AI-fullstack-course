@@ -7,6 +7,8 @@ keywords: [卷积, 卷积核, CNN, stride, padding, 感受野, 图像特征]
 
 # 卷积操作原理
 
+![CNN 卷积核滑动示意图](/img/course/cnn-convolution-kernel.png)
+
 :::tip 本节定位
 如果说前面的神经元、MLP 让你学会了“神经网络会算什么”，那卷积这节就是在回答另一个更关键的问题：
 

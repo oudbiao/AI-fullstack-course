@@ -7,6 +7,8 @@ keywords: [线性回归, 最小二乘法, 梯度下降, 正则化, Ridge, Lasso,
 
 # 线性回归
 
+![线性回归拟合与损失曲面图](/img/course/linear-regression-loss-landscape.png)
+
 :::tip 本节定位
 线性回归是**最简单也最重要**的机器学习算法。它是理解所有后续算法的基石——逻辑回归、神经网络、甚至 GPT 的底层都能看到它的影子。
 :::

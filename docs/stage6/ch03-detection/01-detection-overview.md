@@ -7,6 +7,8 @@ keywords: [object detection, bounding box, detection, localization, computer vis
 
 # 目标检测概述
 
+![目标检测输出拆解图](/img/course/object-detection-output.png)
+
 :::tip 本节定位
 图像分类只能回答：
 

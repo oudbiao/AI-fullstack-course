@@ -72,7 +72,7 @@ pip install openai
 
 ```bash
 # 方法 1：设置环境变量（推荐）
-export OPENAI_API_KEY="sk-你的key"
+export OPENAI_API_KEY="your_api_key_here"
 
 # 方法 2：在代码中设置（不推荐提交到 Git）
 ```

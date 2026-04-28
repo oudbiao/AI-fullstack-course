@@ -7,6 +7,8 @@ keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict
 
 # Scikit-learn 框架入门
 
+![Scikit-learn Estimator 与 Pipeline 图](/img/course/sklearn-estimator-pipeline.png)
+
 :::tip 本节定位
 Scikit-learn 是 Python 机器学习的**事实标准库**。几乎所有经典 ML 任务都可以用它来完成。掌握 sklearn 的 API 模式，后续学任何算法都会非常顺畅。
 :::

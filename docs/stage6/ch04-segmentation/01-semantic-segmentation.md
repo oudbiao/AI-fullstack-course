@@ -7,6 +7,8 @@ keywords: [semantic segmentation, pixel classification, mask, IoU, vision]
 
 # 语义分割
 
+![语义分割 Mask 对比图](/img/course/semantic-segmentation-mask.png)
+
 :::tip 本节定位
 分类回答的是：
 

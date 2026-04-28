@@ -7,6 +7,8 @@ keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluatio
 
 # RAG 评估
 
+![RAG 评估三角图](/img/course/rag-evaluation-triangle.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

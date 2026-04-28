@@ -899,6 +899,7 @@ const sidebars = {
       items: [
         "appendix/resources",
         "appendix/ai-milestones",
+        "appendix/visual-enhancement-plan",
         "appendix/hardware",
         "appendix/faq",
         "appendix/continuous-learning",

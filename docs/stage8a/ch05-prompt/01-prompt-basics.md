@@ -7,6 +7,8 @@ keywords: [prompt, instruction, task framing, output format, constraints, prompt
 
 # Prompt 基础
 
+![Prompt 改写前后对比卡](/img/course/prompt-before-after.png)
+
 :::tip 本节定位
 很多人第一次学 Prompt，会把它理解成：
 

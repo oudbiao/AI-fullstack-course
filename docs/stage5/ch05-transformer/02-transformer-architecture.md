@@ -7,6 +7,8 @@ keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional E
 
 # Transformer 架构
 
+![Transformer Block 架构图](/img/course/transformer-block-architecture.png)
+
 :::tip 本节定位
 上一节你已经知道注意力机制是 Transformer 的心脏。  
 这一节我们要把心脏和其他器官拼起来，看完整系统：

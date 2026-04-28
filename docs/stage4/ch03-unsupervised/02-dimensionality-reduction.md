@@ -7,6 +7,8 @@ keywords: [降维, PCA, t-SNE, UMAP, 主成分分析, 高维可视化, 方差解
 
 # 降维算法
 
+![PCA 降维投影图](/img/course/pca-dimensionality-reduction.png)
+
 :::tip 本节定位
 真实数据往往有几十甚至上千个特征。降维能**减少特征数量，同时保留重要信息**——既能加速训练，又能帮助可视化。本节在第 4 站 PCA 基础上深入实战应用。
 :::

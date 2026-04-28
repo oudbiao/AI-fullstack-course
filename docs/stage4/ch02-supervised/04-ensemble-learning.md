@@ -7,6 +7,8 @@ keywords: [集成学习, 随机森林, Bagging, Boosting, GBDT, XGBoost, LightGB
 
 # 集成学习
 
+![集成学习投票与森林图](/img/course/ensemble-learning-voting-forest.png)
+
 :::tip 本节定位
 集成学习是 ML 竞赛和工业界中**最常用**的技术。核心思想很简单：**三个臭皮匠，顶个诸葛亮**——多个弱模型组合起来，比一个强模型更好。XGBoost 和 LightGBM 至今仍是表格数据的"默认首选"。
 :::

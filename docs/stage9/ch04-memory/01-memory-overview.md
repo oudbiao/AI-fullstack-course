@@ -7,6 +7,8 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 # 记忆系统概述
 
+![Agent 记忆系统分层图](/img/course/agent-memory-system.png)
+
 :::tip 本节定位
 很多 Agent 系统一开始看起来很聪明，但一旦任务一长、回合一多，就会暴露一个本质问题：
 

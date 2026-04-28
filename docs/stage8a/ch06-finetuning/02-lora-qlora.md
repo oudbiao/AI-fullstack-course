@@ -7,6 +7,8 @@ keywords: [LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning]
 
 # LoRA 与 QLoRA
 
+![LoRA 参数更新对比图](/img/course/lora-parameter-update.png)
+
 :::tip 本节定位
 上一节已经把“为什么不是所有任务都该全量微调”讲清楚了。  
 这一节继续回答一个非常关键的问题：

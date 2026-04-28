@@ -7,6 +7,8 @@ keywords: [LSTM, GRU, 门控机制, cell state, update gate, forget gate]
 
 # LSTM 与 GRU
 
+![LSTM 门控记忆流图](/img/course/lstm-gate-memory-flow.png)
+
 :::tip 本节定位
 上一节你已经看到 RNN 会“边读边记”。  
 这一节要解决一个更现实的问题：

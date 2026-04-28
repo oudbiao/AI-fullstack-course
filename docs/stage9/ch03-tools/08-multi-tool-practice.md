@@ -7,6 +7,8 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 # 实战：多工具协作 Agent
 
+![Agent 工具调用 Trace 图](/img/course/agent-tool-trace.png)
+
 :::tip 本节定位
 前面几节我们已经分别讲了：
 
