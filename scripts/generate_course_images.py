@@ -177,6 +177,175 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "stage3-linear-algebra-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "线性代数学习地图",
+        "suggested_page": "docs/stage3/ch01-linear-algebra/00-roadmap.md",
+        "alt": "线性代数学习地图：向量、矩阵、特殊方向和 AI 场景串成学习顺序。",
+        "prompt": """
+一张适合 AI 数学入门课程的学习地图插图，主题是“线性代数从向量到矩阵再到 AI 应用”。
+画面用清晰的视觉路径表达：向量像箭头表示对象和方向，矩阵像网格变换表示批量改变空间，特征方向像不被旋转的特殊箭头，最后连接到 embedding、attention、PCA 等 AI 场景。
+风格温和、现代、课堂白板与科技插画结合，帮助新手先建立直觉再看公式。
+不要出现真实品牌 logo，不要生成密集小字，不要生成乱码文字，可以用图标、箭头和分区表达结构。
+""".strip(),
+    },
+    {
+        "filename": "eigenvalue-special-directions.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征向量特殊方向示意图",
+        "suggested_page": "docs/stage3/ch01-linear-algebra/03-eigenvalues.md",
+        "alt": "特征向量特殊方向示意图：矩阵变换后方向不变，只发生拉伸或压缩。",
+        "prompt": """
+一张适合线性代数入门课程的教学插图，主题是“特征向量是矩阵变换中方向不变的特殊箭头”。
+画面表现一个坐标网格经过矩阵作用被拉伸或剪切，大多数箭头方向发生改变，只有一两根高亮箭头仍沿原方向，只是变长或变短。
+构图要让新手一眼看懂“方向不变，长度变化”，风格清晰、数学可视化、颜色区分明显。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "vector-space-basis-span.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "向量空间基向量张成示意图",
+        "suggested_page": "docs/stage3/ch01-linear-algebra/04-vector-spaces.md",
+        "alt": "向量空间基向量张成示意图：基向量通过线性组合覆盖可到达空间。",
+        "prompt": """
+一张适合线性代数入门课程的教学图，主题是“基向量如何张成一个向量空间”。
+画面表现两个不同颜色的基向量从原点出发，通过平移网格和线性组合覆盖整个二维平面；同时用一个目标点展示“沿着两个基向量走几步就能到达”。
+风格像新手友好的数学白板，几何直觉强，空间感清楚。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成难以阅读的小字。
+""".strip(),
+    },
+    {
+        "filename": "stage3-probability-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "概率与统计学习地图",
+        "suggested_page": "docs/stage3/ch02-probability/00-roadmap.md",
+        "alt": "概率与统计学习地图：不确定性、概率、分布、推断和信息论如何连接到模型。",
+        "prompt": """
+一张适合 AI 概率统计入门课程的学习地图插图，主题是“从不确定性到模型判断”。
+画面表现现实世界里有不确定事件，经过概率描述、概率分布、样本统计、参数估计、贝叶斯更新和信息熵，最后连接到模型预测置信度。
+风格清晰、温和、适合新人降低概率论畏难感，像一张由图标和箭头组成的学习路线图。
+不要出现真实品牌 logo，不要生成密集小字，不要生成乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "distribution-family-comparison.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "概率分布家族对比图",
+        "suggested_page": "docs/stage3/ch02-probability/02-distributions.md",
+        "alt": "概率分布家族对比图：二项、泊松、正态和中心极限定理对应不同随机现象。",
+        "prompt": """
+一张适合概率分布课程的教学插图，主题是“不同分布描述不同类型的随机现象”。
+画面用四个并列卡片表达：抛硬币次数的离散柱状分布、单位时间事件次数的稀疏柱状分布、测量误差的钟形曲线、许多随机因素叠加后趋近钟形曲线。
+整体要像数据科学课堂上的可视化对比图，图形准确、留白充足、颜色区分清楚。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "mle-likelihood-curve.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "最大似然估计似然曲线图",
+        "suggested_page": "docs/stage3/ch02-probability/03-statistical-inference.md",
+        "alt": "最大似然估计似然曲线图：让观测数据最可能出现的参数就是 MLE 选择。",
+        "prompt": """
+一张中文 AI 数学课程白板风格教学图，主题是“最大似然估计：找到最能解释数据的参数”。
+画面表现一条平滑的似然曲线，中间有最高点；下方有观测样本点，若干候选参数像滑块一样比较，最高点被高亮，表达“哪个参数让这些数据最可能出现”。
+请使用中文标题“最大似然估计”，少量中文标签即可，例如“候选参数”“似然最高”“观测数据”。不要使用英文标题，不要出现英文大段说明。
+风格像现代数学课程插图，曲线和峰值清楚，帮助新手从直觉理解 MLE。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "stage3-calculus-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "微积分与优化学习地图",
+        "suggested_page": "docs/stage3/ch03-calculus/00-roadmap.md",
+        "alt": "微积分与优化学习地图：导数、偏导、梯度、梯度下降和反向传播组成模型学习链路。",
+        "prompt": """
+一张适合 AI 微积分与优化入门课程的学习地图插图，主题是“模型如何根据 loss 的方向学习”。
+画面用视觉链路表达：函数曲线上的切线斜率、二维曲面上的偏导、等高线上的梯度方向、参数点沿坡下降、神经网络反向传播梯度。
+风格温和、清晰、把抽象公式变成地形和路线，适合新手理解优化。
+不要出现真实品牌 logo，不要生成密集小字，不要生成乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "derivative-tangent-slope.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "导数切线斜率示意图",
+        "suggested_page": "docs/stage3/ch03-calculus/01-derivatives.md",
+        "alt": "导数切线斜率示意图：某一点的切线越陡，函数在附近变化越快。",
+        "prompt": """
+一张适合微积分入门课程的教学插图，主题是“导数就是某一点附近变化有多快”。
+画面表现一条平滑曲线，曲线上选中一点并画出切线，旁边用小车上坡或温度曲线的类比表达斜率越陡变化越快。
+构图清爽、几何关系明确、颜色温和，帮助新手把导数看成局部速度。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成难以阅读的小字。
+""".strip(),
+    },
+    {
+        "filename": "gradient-contour-field.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "梯度等高线方向场图",
+        "suggested_page": "docs/stage3/ch03-calculus/02-partial-derivatives-gradient.md",
+        "alt": "梯度等高线方向场图：负梯度方向引导参数一步步走向更低 loss。",
+        "prompt": """
+一张适合梯度课程的教学图，主题是“梯度指向上坡最快方向，负梯度指向下降方向”。
+画面表现像地图等高线一样的损失函数地形，多个箭头组成方向场，参数点沿着负梯度箭头一步步走向低谷。
+风格清晰、空间直觉强，像机器学习优化的地形地图，颜色区分高低区域。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "chain-rule-backprop-graph.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "链式法则计算图与反向传播示意图",
+        "suggested_page": "docs/stage3/ch03-calculus/04-chain-rule-backprop.md",
+        "alt": "链式法则计算图与反向传播示意图：前向计算损失，反向逐层传播梯度。",
+        "prompt": """
+一张适合神经网络数学基础课程的教学图，主题是“链式法则如何支撑反向传播”。
+画面表现一个简洁计算图：输入经过若干计算节点得到预测和损失，蓝色箭头表示前向计算，红色箭头从损失反向传回每个节点表示梯度影响。
+风格现代、工程白板感强，重点突出“前向算结果，反向分责任”。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成乱码文字或密集小字。
+""".strip(),
+    },
+    {
+        "filename": "math-study-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 数学学习循环图",
+        "suggested_page": "docs/stage3/study-guide.md",
+        "alt": "AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。",
+        "prompt": """
+一张适合 AI 数学学习指南的流程插图，主题是“数学学习不要死磕证明，先建立可运行的理解循环”。
+画面表现一个学习者围绕五个环节循环：直觉类比、小数字手算、图形可视化、代码实验、连接到模型训练和复盘误区。
+风格鼓励、温暖、清晰，有学习陪伴感，适合新人看到后觉得数学可以拆小步学习。
+不要出现真实品牌 logo，不要生成密集小字，不要生成乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "math-task-checklist.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数学最小通关任务单图",
+        "suggested_page": "docs/stage3/task-list.md",
+        "alt": "数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。",
+        "prompt": """
+一张适合 AI 数学阶段任务清单的插图，主题是“三个最小实验通关数学基础”。
+画面表现三个并列小任务：画向量并比较相似度、采样随机数并观察分布、让一个点沿损失曲面下降。每个任务像可完成的实验卡片，带有轻量 check 标记和代码工作台氛围。
+风格新手友好、实战感强、让学习者愿意动手。
+不要出现真实品牌 logo，不要生成密集小字，不要生成乱码文字。
+""".strip(),
+    },
+    {
         "filename": "stage4-machine-learning.png",
         "size": "1536x1024",
         "quality": "medium",

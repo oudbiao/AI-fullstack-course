@@ -13,6 +13,18 @@
 | `stage1-python-foundation.png` | Python 编程基础主视觉 | `docs/stage1/index.md` | Python 编程基础主视觉：变量、函数、数据结构和小项目逐步组成程序。 |
 | `stage2-data-visualization.png` | 数据分析与可视化主视觉 | `docs/stage2/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
 | `stage3-ai-math.png` | AI 数学基础主视觉 | `docs/stage3/index.md` | AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。 |
+| `stage3-linear-algebra-roadmap.png` | 线性代数学习地图 | `docs/stage3/ch01-linear-algebra/00-roadmap.md` | 线性代数学习地图：向量、矩阵、特殊方向和 AI 场景串成学习顺序。 |
+| `eigenvalue-special-directions.png` | 特征向量特殊方向示意图 | `docs/stage3/ch01-linear-algebra/03-eigenvalues.md` | 特征向量特殊方向示意图：矩阵变换后方向不变，只发生拉伸或压缩。 |
+| `vector-space-basis-span.png` | 向量空间基向量张成示意图 | `docs/stage3/ch01-linear-algebra/04-vector-spaces.md` | 向量空间基向量张成示意图：基向量通过线性组合覆盖可到达空间。 |
+| `stage3-probability-roadmap.png` | 概率与统计学习地图 | `docs/stage3/ch02-probability/00-roadmap.md` | 概率与统计学习地图：不确定性、概率、分布、推断和信息论如何连接到模型。 |
+| `distribution-family-comparison.png` | 概率分布家族对比图 | `docs/stage3/ch02-probability/02-distributions.md` | 概率分布家族对比图：二项、泊松、正态和中心极限定理对应不同随机现象。 |
+| `mle-likelihood-curve.png` | 最大似然估计似然曲线图 | `docs/stage3/ch02-probability/03-statistical-inference.md` | 最大似然估计似然曲线图：让观测数据最可能出现的参数就是 MLE 选择。 |
+| `stage3-calculus-roadmap.png` | 微积分与优化学习地图 | `docs/stage3/ch03-calculus/00-roadmap.md` | 微积分与优化学习地图：导数、偏导、梯度、梯度下降和反向传播组成模型学习链路。 |
+| `derivative-tangent-slope.png` | 导数切线斜率示意图 | `docs/stage3/ch03-calculus/01-derivatives.md` | 导数切线斜率示意图：某一点的切线越陡，函数在附近变化越快。 |
+| `gradient-contour-field.png` | 梯度等高线方向场图 | `docs/stage3/ch03-calculus/02-partial-derivatives-gradient.md` | 梯度等高线方向场图：负梯度方向引导参数一步步走向更低 loss。 |
+| `chain-rule-backprop-graph.png` | 链式法则计算图与反向传播示意图 | `docs/stage3/ch03-calculus/04-chain-rule-backprop.md` | 链式法则计算图与反向传播示意图：前向计算损失，反向逐层传播梯度。 |
+| `math-study-loop.png` | AI 数学学习循环图 | `docs/stage3/study-guide.md` | AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。 |
+| `math-task-checklist.png` | 数学最小通关任务单图 | `docs/stage3/task-list.md` | 数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。 |
 | `stage4-machine-learning.png` | 机器学习主视觉 | `docs/stage4/index.md` | 机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。 |
 | `stage5-deep-learning.png` | 深度学习与 Transformer 主视觉 | `docs/stage5/index.md` | 深度学习与 Transformer 主视觉：张量、训练循环、CNN、RNN、Attention 和 Transformer 串成学习路径。 |
 | `stage6-computer-vision.png` | 计算机视觉主视觉 | `docs/stage6/index.md` | 计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。 |

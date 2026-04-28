@@ -4,9 +4,11 @@ Last updated: 2026-04-28
 
 Status: completed.
 
-Generated with image2: 62 / 62
+Generated with image2: 74 / 74
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
+
+Stage 3 note: the 12 additional math diagrams were regenerated with image2 and overwrite the earlier local preview diagrams.
 
 ## Completed
 
@@ -72,6 +74,18 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `rlhf-three-stage-loop.png`
 - `rag-evaluation-triangle.png`
 - `agent-memory-system.png`
+- `stage3-linear-algebra-roadmap.png`
+- `eigenvalue-special-directions.png`
+- `vector-space-basis-span.png`
+- `stage3-probability-roadmap.png`
+- `distribution-family-comparison.png`
+- `mle-likelihood-curve.png`
+- `stage3-calculus-roadmap.png`
+- `derivative-tangent-slope.png`
+- `gradient-contour-field.png`
+- `chain-rule-backprop-graph.png`
+- `math-study-loop.png`
+- `math-task-checklist.png`
 
 ## Remaining
 
