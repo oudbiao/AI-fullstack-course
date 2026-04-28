@@ -2,11 +2,11 @@
 
 Last updated: 2026-04-28
 
-Status: stopped by user request.
+Status: completed.
 
-Generated with image2: 39 / 62
+Generated with image2: 62 / 62
 
-Detection note: generated image2 PNG files are currently much larger than the local preview placeholders. Files listed as remaining still have the local preview placeholder and should be regenerated next.
+Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
 ## Completed
 
@@ -49,9 +49,6 @@ Detection note: generated image2 PNG files are currently much larger than the lo
 - `diffusion-noise-denoise.png`
 - `matplotlib-figure-axes.png`
 - `seaborn-statistical-plots.png`
-
-## Remaining
-
 - `sql-table-join-map.png`
 - `eda-analysis-workflow.png`
 - `vector-dot-cosine-geometry.png`
@@ -76,9 +73,13 @@ Detection note: generated image2 PNG files are currently much larger than the lo
 - `rag-evaluation-triangle.png`
 - `agent-memory-system.png`
 
+## Remaining
+
+- None.
+
 ## Resume Command
 
 ```bash
-npm run images:generate -- --overwrite --only sql-table-join-map.png eda-analysis-workflow.png vector-dot-cosine-geometry.png matrix-linear-transform-grid.png probability-distribution-map.png information-entropy-uncertainty.png sklearn-estimator-pipeline.png linear-regression-loss-landscape.png logistic-regression-boundary.png decision-tree-split-path.png ensemble-learning-voting-forest.png clustering-kmeans-centroids.png pca-dimensionality-reduction.png neural-network-forward-backward.png imagenet-cnn-evolution.png lstm-gate-memory-flow.png transformer-block-architecture.png word2vec-embedding-neighborhood.png bert-masked-language-model.png gpt-autoregressive-generation.png rlhf-three-stage-loop.png rag-evaluation-triangle.png agent-memory-system.png
+# No remaining images. To regenerate everything intentionally:
+npm run images:generate -- --overwrite
 ```
-
