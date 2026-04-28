@@ -218,5 +218,5 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 2. 粘贴到 Google 搜索（英文搜索效果更好）
 3. 99% 的环境问题都有人遇到过，Stack Overflow 上一定有答案
 4. 实在搞不定，先用 Google Colab 继续学习，环境问题以后再解决
-5. 如果是第 5 阶段后的课程代码跑不起来，优先检查你是否已经按上面的统一环境方案安装依赖
+5. 如果是第 5 章机器学习之后的课程代码跑不起来，优先检查你是否已经按上面的统一环境方案安装依赖
 :::

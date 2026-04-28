@@ -48,11 +48,11 @@ keywords: [AI项目矩阵, 作品集, 阶段项目, AI全栈项目]
 
 ```text
 ai-fullstack-portfolio/
-├── stage01-python-cli/
-├── stage02-data-analysis/
-├── stage05-ml-baseline/
-├── stage08-rag-assistant/
-├── stage09-agent-planner/
+├── ch01-tools1-python-cli/
+├── ch01-tools2-data-analysis/
+├── ch01-tools5-ml-baseline/
+├── ch01-tools8-rag-assistant/
+├── ch01-tools9-agent-planner/
 └── final-ai-app/
 ```
 

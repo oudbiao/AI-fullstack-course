@@ -125,11 +125,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage0-tools-foundation.png",
+        "filename": "ch01-tools-foundation.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "开发者工具基础主视觉",
-        "suggested_page": "docs/stage0/index.md",
+        "suggested_page": "docs/ch01-tools/index.md",
         "alt": "开发者工具基础主视觉：终端、Git、编辑器和 Python 环境组成稳定工作台。",
         "prompt": """
 一张适合中文技术课程的阶段主视觉，主题是“开发者工具基础”。
@@ -138,11 +138,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage1-python-foundation.png",
+        "filename": "ch02-python-foundation.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "Python 编程基础主视觉",
-        "suggested_page": "docs/stage1/index.md",
+        "suggested_page": "docs/ch02-python/index.md",
         "alt": "Python 编程基础主视觉：变量、函数、数据结构和小项目逐步组成程序。",
         "prompt": """
 一张适合中文编程课程的阶段主视觉，主题是“Python 编程基础”。
@@ -151,11 +151,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage2-data-visualization.png",
+        "filename": "ch03-data-visualization.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "数据分析与可视化主视觉",
-        "suggested_page": "docs/stage2/index.md",
+        "suggested_page": "docs/ch03-data-analysis/index.md",
         "alt": "数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。",
         "prompt": """
 一张适合数据分析课程的阶段主视觉，主题是“数据分析与可视化”。
@@ -164,11 +164,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage3-ai-math.png",
+        "filename": "ch04-ai-math.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "AI 数学基础主视觉",
-        "suggested_page": "docs/stage3/index.md",
+        "suggested_page": "docs/ch04-ai-math/index.md",
         "alt": "AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。",
         "prompt": """
 一张适合 AI 数学入门课程的阶段主视觉，主题是“AI 数学最小必要基础”。
@@ -177,11 +177,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage3-linear-algebra-roadmap.png",
+        "filename": "ch04-linear-algebra-roadmap.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "线性代数学习地图",
-        "suggested_page": "docs/stage3/ch01-linear-algebra/00-roadmap.md",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md",
         "alt": "线性代数学习地图：向量、矩阵、特殊方向和 AI 场景串成学习顺序。",
         "prompt": """
 一张适合 AI 数学入门课程的学习地图插图，主题是“线性代数从向量到矩阵再到 AI 应用”。
@@ -195,7 +195,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "特征向量特殊方向示意图",
-        "suggested_page": "docs/stage3/ch01-linear-algebra/03-eigenvalues.md",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/03-eigenvalues.md",
         "alt": "特征向量特殊方向示意图：矩阵变换后方向不变，只发生拉伸或压缩。",
         "prompt": """
 一张适合线性代数入门课程的教学插图，主题是“特征向量是矩阵变换中方向不变的特殊箭头”。
@@ -209,7 +209,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "向量空间基向量张成示意图",
-        "suggested_page": "docs/stage3/ch01-linear-algebra/04-vector-spaces.md",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md",
         "alt": "向量空间基向量张成示意图：基向量通过线性组合覆盖可到达空间。",
         "prompt": """
 一张适合线性代数入门课程的教学图，主题是“基向量如何张成一个向量空间”。
@@ -219,11 +219,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage3-probability-roadmap.png",
+        "filename": "ch04-probability-roadmap.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "概率与统计学习地图",
-        "suggested_page": "docs/stage3/ch02-probability/00-roadmap.md",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/00-roadmap.md",
         "alt": "概率与统计学习地图：不确定性、概率、分布、推断和信息论如何连接到模型。",
         "prompt": """
 一张适合 AI 概率统计入门课程的学习地图插图，主题是“从不确定性到模型判断”。
@@ -237,7 +237,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "概率分布家族对比图",
-        "suggested_page": "docs/stage3/ch02-probability/02-distributions.md",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/02-distributions.md",
         "alt": "概率分布家族对比图：二项、泊松、正态和中心极限定理对应不同随机现象。",
         "prompt": """
 一张适合概率分布课程的教学插图，主题是“不同分布描述不同类型的随机现象”。
@@ -251,7 +251,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "最大似然估计似然曲线图",
-        "suggested_page": "docs/stage3/ch02-probability/03-statistical-inference.md",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/03-statistical-inference.md",
         "alt": "最大似然估计似然曲线图：让观测数据最可能出现的参数就是 MLE 选择。",
         "prompt": """
 一张中文 AI 数学课程白板风格教学图，主题是“最大似然估计：找到最能解释数据的参数”。
@@ -262,11 +262,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage3-calculus-roadmap.png",
+        "filename": "ch04-calculus-roadmap.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "微积分与优化学习地图",
-        "suggested_page": "docs/stage3/ch03-calculus/00-roadmap.md",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/00-roadmap.md",
         "alt": "微积分与优化学习地图：导数、偏导、梯度、梯度下降和反向传播组成模型学习链路。",
         "prompt": """
 一张适合 AI 微积分与优化入门课程的学习地图插图，主题是“模型如何根据 loss 的方向学习”。
@@ -280,7 +280,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "导数切线斜率示意图",
-        "suggested_page": "docs/stage3/ch03-calculus/01-derivatives.md",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/01-derivatives.md",
         "alt": "导数切线斜率示意图：某一点的切线越陡，函数在附近变化越快。",
         "prompt": """
 一张适合微积分入门课程的教学插图，主题是“导数就是某一点附近变化有多快”。
@@ -294,7 +294,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "梯度等高线方向场图",
-        "suggested_page": "docs/stage3/ch03-calculus/02-partial-derivatives-gradient.md",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient.md",
         "alt": "梯度等高线方向场图：负梯度方向引导参数一步步走向更低 loss。",
         "prompt": """
 一张适合梯度课程的教学图，主题是“梯度指向上坡最快方向，负梯度指向下降方向”。
@@ -308,7 +308,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "链式法则计算图与反向传播示意图",
-        "suggested_page": "docs/stage3/ch03-calculus/04-chain-rule-backprop.md",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/04-chain-rule-backprop.md",
         "alt": "链式法则计算图与反向传播示意图：前向计算损失，反向逐层传播梯度。",
         "prompt": """
 一张适合神经网络数学基础课程的教学图，主题是“链式法则如何支撑反向传播”。
@@ -322,7 +322,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "AI 数学学习循环图",
-        "suggested_page": "docs/stage3/study-guide.md",
+        "suggested_page": "docs/ch04-ai-math/study-guide.md",
         "alt": "AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。",
         "prompt": """
 一张适合 AI 数学学习指南的流程插图，主题是“数学学习不要死磕证明，先建立可运行的理解循环”。
@@ -336,7 +336,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "数学最小通关任务单图",
-        "suggested_page": "docs/stage3/task-list.md",
+        "suggested_page": "docs/ch04-ai-math/task-list.md",
         "alt": "数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。",
         "prompt": """
 一张适合 AI 数学阶段任务清单的插图，主题是“三个最小实验通关数学基础”。
@@ -346,11 +346,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage4-machine-learning.png",
+        "filename": "ch05-machine-learning.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "机器学习主视觉",
-        "suggested_page": "docs/stage4/index.md",
+        "suggested_page": "docs/ch05-machine-learning/index.md",
         "alt": "机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。",
         "prompt": """
 一张适合机器学习课程的阶段主视觉，主题是“机器学习入门到实战”。
@@ -363,7 +363,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "机器学习基础学习地图",
-        "suggested_page": "docs/stage4/ch01-ml-basics/00-roadmap.md",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md",
         "alt": "机器学习基础学习地图：问题定义、数据、模型、训练、评估和复盘组成入门主线。",
         "prompt": """
 一张中文机器学习入门课程的学习地图插图，主题是“机器学习基础从问题到模型闭环”。
@@ -377,7 +377,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "数学到机器学习桥梁图",
-        "suggested_page": "docs/stage4/ch01-ml-basics/03-math-to-ml-bridge.md",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md",
         "alt": "数学到机器学习桥梁图：线性代数组织数据，概率统计定义不确定性，微积分指导参数更新。",
         "prompt": """
 一张中文 AI 数学到机器学习的桥梁图，主题是“线性代数、概率统计、微积分如何流入模型训练”。
@@ -391,7 +391,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "监督学习路线图",
-        "suggested_page": "docs/stage4/ch02-supervised/00-roadmap.md",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/00-roadmap.md",
         "alt": "监督学习路线图：带标签数据进入回归、分类、决策树和集成模型。",
         "prompt": """
 一张中文机器学习课程路线图，主题是“监督学习：带答案的数据如何训练模型”。
@@ -405,7 +405,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "无监督学习路线图",
-        "suggested_page": "docs/stage4/ch03-unsupervised/00-roadmap.md",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/00-roadmap.md",
         "alt": "无监督学习路线图：没有标签的数据通过聚类、降维和异常检测发现结构。",
         "prompt": """
 一张中文机器学习课程路线图，主题是“无监督学习：没有标签也能发现结构”。
@@ -419,7 +419,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "异常检测离群点示意图",
-        "suggested_page": "docs/stage4/ch03-unsupervised/03-anomaly-detection.md",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md",
         "alt": "异常检测离群点示意图：正常样本聚成群，离群样本被统计方法、Isolation Forest 和 LOF 识别。",
         "prompt": """
 一张中文异常检测课程教学图，主题是“从正常点群里找出不寻常样本”。
@@ -433,7 +433,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "模型评估学习地图",
-        "suggested_page": "docs/stage4/ch04-evaluation/00-roadmap.md",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/00-roadmap.md",
         "alt": "模型评估学习地图：指标、交叉验证、偏差方差和调参共同判断模型是否可靠。",
         "prompt": """
 一张中文机器学习评估课程学习地图，主题是“不要只看一次分数，要判断模型是否可靠”。
@@ -447,7 +447,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "K 折交叉验证切分图",
-        "suggested_page": "docs/stage4/ch04-evaluation/02-cross-validation.md",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/02-cross-validation.md",
         "alt": "K 折交叉验证切分图：数据被分成多折，每一折轮流作为验证集，其余作为训练集。",
         "prompt": """
 一张中文机器学习课程教学图，主题是“K 折交叉验证如何更稳定地估计模型效果”。
@@ -461,7 +461,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "偏差方差权衡三联图",
-        "suggested_page": "docs/stage4/ch04-evaluation/03-bias-variance.md",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/03-bias-variance.md",
         "alt": "偏差方差权衡三联图：欠拟合、刚好和过拟合对应不同训练误差与泛化表现。",
         "prompt": """
 一张中文机器学习课程教学图，主题是“偏差-方差权衡：欠拟合、刚好、过拟合”。
@@ -475,7 +475,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "超参数搜索方法对比图",
-        "suggested_page": "docs/stage4/ch04-evaluation/04-hyperparameter-tuning.md",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md",
         "alt": "超参数搜索方法对比图：网格搜索、随机搜索和贝叶斯优化用不同策略寻找更优参数。",
         "prompt": """
 一张中文机器学习调参课程对比图，主题是“网格搜索、随机搜索、贝叶斯优化如何找好参数”。
@@ -489,7 +489,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "特征工程路线图",
-        "suggested_page": "docs/stage4/ch05-feature-engineering/00-roadmap.md",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/00-roadmap.md",
         "alt": "特征工程路线图：理解特征、预处理、构造、选择和 Pipeline 组成建模前处理主线。",
         "prompt": """
 一张中文机器学习课程学习地图，主题是“特征工程：把原始数据变成模型更容易学习的输入”。
@@ -503,7 +503,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "特征类型与目标关系图",
-        "suggested_page": "docs/stage4/ch05-feature-engineering/01-feature-understanding.md",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md",
         "alt": "特征类型与目标关系图：数值、类别、时间、文本等特征需要先看分布、关系和泄漏风险。",
         "prompt": """
 一张中文特征理解课程教学图，主题是“先认识特征，再让模型学习”。
@@ -517,7 +517,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "特征预处理流水线图",
-        "suggested_page": "docs/stage4/ch05-feature-engineering/02-preprocessing.md",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/02-preprocessing.md",
         "alt": "特征预处理流水线图：缺失值、异常值、数值缩放、类别编码和防泄漏 Pipeline 依次处理数据。",
         "prompt": """
 一张中文机器学习特征预处理教学图，主题是“把脏乱特征整理成模型可用输入”。
@@ -531,7 +531,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "特征构造工作坊图",
-        "suggested_page": "docs/stage4/ch05-feature-engineering/03-feature-construction.md",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/03-feature-construction.md",
         "alt": "特征构造工作坊图：原始特征通过交互、时间、分组统计和领域知识生成更有用的新特征。",
         "prompt": """
 一张中文机器学习特征构造课程插图，主题是“从原始字段加工出更有意义的新特征”。
@@ -545,7 +545,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "特征选择方法对比图",
-        "suggested_page": "docs/stage4/ch05-feature-engineering/04-feature-selection.md",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/04-feature-selection.md",
         "alt": "特征选择方法对比图：过滤法、包裹法、嵌入法从不同角度保留有用特征。",
         "prompt": """
 一张中文机器学习特征选择课程对比图，主题是“不是特征越多越好，要筛出真正有用的特征”。
@@ -559,7 +559,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "ColumnTransformer 与 Pipeline 工作流图",
-        "suggested_page": "docs/stage4/ch05-feature-engineering/05-pipeline.md",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/05-pipeline.md",
         "alt": "ColumnTransformer 与 Pipeline 工作流图：数值列和类别列分别处理后合并，再进入模型和调参流程。",
         "prompt": """
 一张中文 Scikit-learn 工程课程结构图，主题是“ColumnTransformer + Pipeline 把预处理和模型串起来”。
@@ -573,7 +573,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "机器学习项目实战路线图",
-        "suggested_page": "docs/stage4/ch06-projects/00-roadmap.md",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/00-roadmap.md",
         "alt": "机器学习项目实战路线图：房价预测、客户流失、用户分群和 Kaggle 训练完整项目能力。",
         "prompt": """
 一张中文机器学习项目实战路线图，主题是“从教程代码走向可交付项目”。
@@ -587,7 +587,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "房价预测项目流程图",
-        "suggested_page": "docs/stage4/ch06-projects/01-house-price.md",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/01-house-price.md",
         "alt": "房价预测项目流程图：房屋特征经过探索、特征工程、回归建模和误差分析得到价格预测。",
         "prompt": """
 一张中文机器学习回归项目流程图，主题是“房价预测从数据到模型报告”。
@@ -601,7 +601,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "客户流失预测项目流程图",
-        "suggested_page": "docs/stage4/ch06-projects/02-customer-churn.md",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/02-customer-churn.md",
         "alt": "客户流失预测项目流程图：用户行为数据经过分类建模、阈值选择和业务动作转成流失预警。",
         "prompt": """
 一张中文机器学习分类项目流程图，主题是“客户流失预测从行为数据到预警名单”。
@@ -615,7 +615,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "用户分群 RFM 聚类图",
-        "suggested_page": "docs/stage4/ch06-projects/03-user-segmentation.md",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/03-user-segmentation.md",
         "alt": "用户分群 RFM 聚类图：Recency、Frequency、Monetary 特征经过标准化和聚类形成可解释用户群体。",
         "prompt": """
 一张中文机器学习聚类项目教学图，主题是“RFM 用户分群：把用户分成可行动的人群”。
@@ -629,7 +629,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Kaggle 竞赛提交闭环图",
-        "suggested_page": "docs/stage4/ch06-projects/04-kaggle.md",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/04-kaggle.md",
         "alt": "Kaggle 竞赛提交闭环图：读取数据、建立 baseline、交叉验证、生成提交文件和复盘榜单形成训练闭环。",
         "prompt": """
 一张中文机器学习竞赛训练图，主题是“Kaggle 入门竞赛的提交闭环”。
@@ -643,7 +643,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "机器学习学习循环图",
-        "suggested_page": "docs/stage4/study-guide.md",
+        "suggested_page": "docs/ch05-machine-learning/study-guide.md",
         "alt": "机器学习学习循环图：先跑 baseline，再解释结果、做错误分析、改特征和复盘。",
         "prompt": """
 一张中文机器学习学习指南插图，主题是“机器学习不要只背算法，要形成学习循环”。
@@ -657,7 +657,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "机器学习通关任务清单图",
-        "suggested_page": "docs/stage4/task-list.md",
+        "suggested_page": "docs/ch05-machine-learning/task-list.md",
         "alt": "机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。",
         "prompt": """
 一张中文机器学习阶段任务清单插图，主题是“完成这些小任务，就真正入门机器学习”。
@@ -667,11 +667,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage5-deep-learning.png",
+        "filename": "ch06-deep-learning.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "深度学习与 Transformer 主视觉",
-        "suggested_page": "docs/stage5/index.md",
+        "suggested_page": "docs/ch06-deep-learning/index.md",
         "alt": "深度学习与 Transformer 主视觉：张量、训练循环、CNN、RNN、Attention 和 Transformer 串成学习路径。",
         "prompt": """
 一张适合深度学习课程的阶段主视觉，主题是“深度学习与 Transformer 基础”。
@@ -680,11 +680,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage6-computer-vision.png",
+        "filename": "ch10-computer-vision.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "计算机视觉主视觉",
-        "suggested_page": "docs/stage6/index.md",
+        "suggested_page": "docs/ch10-computer-vision/index.md",
         "alt": "计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。",
         "prompt": """
 一张适合计算机视觉课程的阶段主视觉，主题是“计算机视觉”。
@@ -693,11 +693,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage7-nlp.png",
+        "filename": "ch11-nlp.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "自然语言处理主视觉",
-        "suggested_page": "docs/stage7/index.md",
+        "suggested_page": "docs/ch11-nlp/index.md",
         "alt": "自然语言处理主视觉：文本经过分词、词向量、分类、序列标注和预训练模型处理。",
         "prompt": """
 一张适合自然语言处理课程的阶段主视觉，主题是“NLP 自然语言处理”。
@@ -706,11 +706,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage8a-llm-principles.png",
+        "filename": "ch07-llm-principles.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "大模型原理主视觉",
-        "suggested_page": "docs/stage8a/index.md",
+        "suggested_page": "docs/ch07-llm-principles/index.md",
         "alt": "大模型原理主视觉：Token、Embedding、Transformer、预训练、Prompt、微调和对齐组成能力链路。",
         "prompt": """
 一张适合大模型课程的阶段主视觉，主题是“大模型原理、Prompt 与微调”。
@@ -719,11 +719,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage8b-rag-engineering.png",
+        "filename": "ch08-rag-engineering.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "LLM 应用与 RAG 主视觉",
-        "suggested_page": "docs/stage8b/index.md",
+        "suggested_page": "docs/ch08-rag/index.md",
         "alt": "LLM 应用与 RAG 主视觉：文档处理、向量库、检索、Prompt、API 和日志组成知识库系统。",
         "prompt": """
 一张适合 LLM 应用工程课程的阶段主视觉，主题是“LLM 应用开发与 RAG”。
@@ -732,11 +732,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage9-agent-systems.png",
+        "filename": "ch09-agent-systems.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "AI Agent 系统主视觉",
-        "suggested_page": "docs/stage9/index.md",
+        "suggested_page": "docs/ch09-agent/index.md",
         "alt": "AI Agent 系统主视觉：目标、计划、工具、记忆、观察和评估组成智能体执行闭环。",
         "prompt": """
 一张适合 AI Agent 课程的阶段主视觉，主题是“AI Agent 与智能体系统”。
@@ -745,11 +745,11 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
-        "filename": "stage10-multimodal-aigc.png",
+        "filename": "ch12-multimodal-aigc.png",
         "size": "1536x1024",
         "quality": "medium",
         "title": "AIGC 与多模态主视觉",
-        "suggested_page": "docs/stage10/index.md",
+        "suggested_page": "docs/ch12-multimodal/index.md",
         "alt": "AIGC 与多模态主视觉：文字、图像、语音、视频和审核导出组成创意工作流。",
         "prompt": """
 一张适合多模态与 AIGC 课程的阶段主视觉，主题是“AIGC 与多模态”。
@@ -762,7 +762,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Git 四区工作流图",
-        "suggested_page": "docs/stage0/ch02-git/01-git-basics.md",
+        "suggested_page": "docs/ch01-tools/ch02-git/01-git-basics.md",
         "alt": "Git 四区工作流图：工作区、暂存区、本地仓库和远程仓库之间的 add、commit、push、pull 关系。",
         "prompt": """
 一张适合 Git 新手课程的教学示意图，主题是“Git 四区工作流”。
@@ -775,7 +775,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Pandas DataFrame 结构图",
-        "suggested_page": "docs/stage2/ch03-pandas/01-core-structures.md",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/01-core-structures.md",
         "alt": "Pandas DataFrame 结构图：行、列、索引、Series 和 DataFrame 的关系。",
         "prompt": """
 一张适合 Pandas 入门课程的教学示意图，主题是“DataFrame 结构”。
@@ -788,7 +788,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "图表选择决策树",
-        "suggested_page": "docs/stage2/ch04-visualization/04-best-practices.md",
+        "suggested_page": "docs/ch03-data-analysis/ch04-visualization/04-best-practices.md",
         "alt": "图表选择决策树：比较大小、看趋势、看分布、看关系时选择不同图表。",
         "prompt": """
 一张适合数据可视化课程的教学图，主题是“如何选图表”。
@@ -801,7 +801,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "梯度下降路径图",
-        "suggested_page": "docs/stage3/ch03-calculus/03-gradient-descent.md",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/03-gradient-descent.md",
         "alt": "梯度下降路径图：参数点沿着损失函数曲面一步步走向较低位置。",
         "prompt": """
 一张适合 AI 数学课程的教学插图，主题是“梯度下降”。
@@ -814,7 +814,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "机器学习建模闭环图",
-        "suggested_page": "docs/stage4/ch01-ml-basics/01-what-is-ml.md",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/01-what-is-ml.md",
         "alt": "机器学习建模闭环图：任务定义、数据准备、baseline、训练、评估和错误分析形成循环。",
         "prompt": """
 一张适合机器学习入门课程的系统流程图，主题是“建模闭环”。
@@ -827,7 +827,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "混淆矩阵与错误代价图",
-        "suggested_page": "docs/stage4/ch04-evaluation/01-metrics.md",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/01-metrics.md",
         "alt": "混淆矩阵与错误代价图：TP、FP、FN、TN 对应不同业务后果。",
         "prompt": """
 一张适合机器学习评估课程的教学图，主题是“混淆矩阵和错误代价”。
@@ -840,7 +840,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "PyTorch 训练循环图",
-        "suggested_page": "docs/stage5/ch02-pytorch/05-training-loop.md",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/05-training-loop.md",
         "alt": "PyTorch 训练循环图：DataLoader、model、loss、backward、optimizer.step 组成训练闭环。",
         "prompt": """
 一张适合 PyTorch 入门课程的教学图，主题是“训练循环”。
@@ -853,7 +853,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "CNN 卷积核滑动示意图",
-        "suggested_page": "docs/stage5/ch03-cnn/01-convolution-basics.md",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/01-convolution-basics.md",
         "alt": "CNN 卷积核滑动示意图：小卷积核在图像网格上滑动并生成特征图。",
         "prompt": """
 一张适合 CNN 课程的教学示意图，主题是“卷积核滑动”。
@@ -866,7 +866,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Self-Attention QKV 结构图",
-        "suggested_page": "docs/stage5/ch05-transformer/01-attention-mechanism.md",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/01-attention-mechanism.md",
         "alt": "Self-Attention QKV 结构图：Query、Key、Value 计算相关性并汇总上下文信息。",
         "prompt": """
 一张适合 Transformer 课程的教学结构图，主题是“Self-Attention 的 QKV”。
@@ -879,7 +879,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "目标检测输出拆解图",
-        "suggested_page": "docs/stage6/ch03-detection/01-detection-overview.md",
+        "suggested_page": "docs/ch10-computer-vision/ch03-detection/01-detection-overview.md",
         "alt": "目标检测输出拆解图：图片中的目标框、类别和置信度组成检测结果。",
         "prompt": """
 一张适合计算机视觉课程的教学图，主题是“目标检测输出”。
@@ -892,7 +892,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "语义分割 Mask 对比图",
-        "suggested_page": "docs/stage6/ch04-segmentation/01-semantic-segmentation.md",
+        "suggested_page": "docs/ch10-computer-vision/ch04-segmentation/01-semantic-segmentation.md",
         "alt": "语义分割 Mask 对比图：原图、像素级类别 mask 和边界错误对照。",
         "prompt": """
 一张适合图像分割课程的教学图，主题是“语义分割 mask”。
@@ -905,7 +905,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "BIO 标签到实体恢复图",
-        "suggested_page": "docs/stage7/ch04-sequence-labeling/01-ner-overview.md",
+        "suggested_page": "docs/ch11-nlp/ch04-sequence-labeling/01-ner-overview.md",
         "alt": "BIO 标签到实体恢复图：词序列上的 B、I、O 标签被合并成命名实体。",
         "prompt": """
 一张适合 NLP 序列标注课程的教学图，主题是“BIO 到实体恢复”。
@@ -918,7 +918,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "BERT GPT T5 对比图",
-        "suggested_page": "docs/stage7/ch06-pretrained/00-roadmap.md",
+        "suggested_page": "docs/ch11-nlp/ch06-pretrained/00-roadmap.md",
         "alt": "BERT GPT T5 对比图：理解型、续写型和 text-to-text 统一任务范式的差异。",
         "prompt": """
 一张适合预训练模型课程的对比图，主题是“BERT、GPT、T5 的差异”。
@@ -931,7 +931,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Prompt 改写前后对比卡",
-        "suggested_page": "docs/stage8a/ch05-prompt/01-prompt-basics.md",
+        "suggested_page": "docs/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
         "alt": "Prompt 改写前后对比卡：模糊请求加入角色、任务、约束、格式和示例后变得可执行。",
         "prompt": """
 一张适合 Prompt 工程课程的教学图，主题是“坏 Prompt 到好 Prompt”。
@@ -944,7 +944,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "LoRA 参数更新对比图",
-        "suggested_page": "docs/stage8a/ch06-finetuning/02-lora-qlora.md",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/02-lora-qlora.md",
         "alt": "LoRA 参数更新对比图：冻结大模型主体，只训练小型低秩适配器参数。",
         "prompt": """
 一张适合大模型微调课程的结构图，主题是“LoRA 参数更新”。
@@ -957,7 +957,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "RAG 文档到答案闭环图",
-        "suggested_page": "docs/stage8b/ch01-rag/01-rag-basics.md",
+        "suggested_page": "docs/ch08-rag/ch01-rag/01-rag-basics.md",
         "alt": "RAG 文档到答案闭环图：文档切块、向量化、检索、重排、Prompt 和带来源答案组成闭环。",
         "prompt": """
 一张适合 RAG 课程的系统图，主题是“文档到答案闭环”。
@@ -970,7 +970,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "课件生成助手工作流图",
-        "suggested_page": "docs/stage8b/ch05-projects/04-courseware-assistant.md",
+        "suggested_page": "docs/ch08-rag/ch05-projects/04-courseware-assistant.md",
         "alt": "课件生成助手工作流图：主题输入、资料检索、例题抽取、结构化生成和 Word 模板导出。",
         "prompt": """
 一张适合 AI 项目课程的系统工作流图，主题是“知识库驱动的课件生成助手”。
@@ -983,7 +983,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Agent 工具调用 Trace 图",
-        "suggested_page": "docs/stage9/ch03-tools/08-multi-tool-practice.md",
+        "suggested_page": "docs/ch09-agent/ch03-tools/08-multi-tool-practice.md",
         "alt": "Agent 工具调用 Trace 图：计划、工具选择、参数、观察结果和最终回复串成可回放轨迹。",
         "prompt": """
 一张适合 AI Agent 课程的执行轨迹图，主题是“多工具调用 trace”。
@@ -996,7 +996,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Agent 护栏分层图",
-        "suggested_page": "docs/stage9/ch08-eval-safety/04-guardrails.md",
+        "suggested_page": "docs/ch09-agent/ch08-eval-safety/04-guardrails.md",
         "alt": "Agent 护栏分层图：输入、检索、工具、输出和人工确认构成多层安全边界。",
         "prompt": """
 一张适合 Agent 安全课程的教学图，主题是“护栏分层”。
@@ -1009,7 +1009,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "扩散模型加噪去噪图",
-        "suggested_page": "docs/stage10/ch02-image-gen/01-diffusion-models.md",
+        "suggested_page": "docs/ch12-multimodal/ch02-image-gen/01-diffusion-models.md",
         "alt": "扩散模型加噪去噪图：图像逐步加噪，再从噪声中一步步去噪生成图像。",
         "prompt": """
 一张适合图像生成课程的教学图，主题是“扩散模型加噪与去噪”。
@@ -1022,7 +1022,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Matplotlib Figure 与 Axes 结构图",
-        "suggested_page": "docs/stage2/ch04-visualization/01-matplotlib.md",
+        "suggested_page": "docs/ch03-data-analysis/ch04-visualization/01-matplotlib.md",
         "alt": "Matplotlib Figure 与 Axes 结构图：画布、子图、坐标轴、标题、图例和数据线之间的关系。",
         "prompt": """
 一张适合 Matplotlib 入门课程的教学图，主题是“Figure、Axes 和图表元素的关系”。
@@ -1035,7 +1035,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Seaborn 统计图选择图",
-        "suggested_page": "docs/stage2/ch04-visualization/02-seaborn.md",
+        "suggested_page": "docs/ch03-data-analysis/ch04-visualization/02-seaborn.md",
         "alt": "Seaborn 统计图选择图：分布、关系、类别、矩阵和分面图对应不同数据分析问题。",
         "prompt": """
 一张适合 Seaborn 课程的教学图，主题是“统计可视化图谱”。
@@ -1048,7 +1048,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "SQL 表连接关系图",
-        "suggested_page": "docs/stage2/ch05-database/02-sql-basics.md",
+        "suggested_page": "docs/ch03-data-analysis/ch05-database/02-sql-basics.md",
         "alt": "SQL 表连接关系图：用户表、订单表和商品表通过主键外键关联，并通过查询得到分析结果。",
         "prompt": """
 一张适合 SQL 入门课程的教学图，主题是“表、主键、外键和 JOIN”。
@@ -1061,7 +1061,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "EDA 探索性数据分析流程图",
-        "suggested_page": "docs/stage2/ch06-projects/01-eda-project.md",
+        "suggested_page": "docs/ch03-data-analysis/ch06-projects/01-eda-project.md",
         "alt": "EDA 探索性数据分析流程图：数据概览、质量检查、特征构造、统计分析、可视化和结论汇报。",
         "prompt": """
 一张适合 EDA 实战项目的教学流程图，主题是“探索性数据分析完整路径”。
@@ -1074,7 +1074,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "向量点积与余弦相似度几何图",
-        "suggested_page": "docs/stage3/ch01-linear-algebra/01-vectors.md",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/01-vectors.md",
         "alt": "向量点积与余弦相似度几何图：两个向量的夹角越小，方向越接近，相似度越高。",
         "prompt": """
 一张适合线性代数入门课程的教学图，主题是“向量、夹角、点积和余弦相似度”。
@@ -1087,7 +1087,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "矩阵线性变换网格图",
-        "suggested_page": "docs/stage3/ch01-linear-algebra/02-matrices.md",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/02-matrices.md",
         "alt": "矩阵线性变换网格图：矩阵把原始网格旋转、缩放、拉伸或压缩成新的空间。",
         "prompt": """
 一张适合矩阵课程的教学图，主题是“矩阵就是空间变换”。
@@ -1100,7 +1100,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "概率分布与贝叶斯更新图",
-        "suggested_page": "docs/stage3/ch02-probability/01-probability-basics.md",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/01-probability-basics.md",
         "alt": "概率分布与贝叶斯更新图：先验概率遇到新证据后，更新为后验概率。",
         "prompt": """
 一张适合概率论入门课程的教学图，主题是“概率分布、条件概率和贝叶斯更新”。
@@ -1113,7 +1113,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "信息熵与不确定性图",
-        "suggested_page": "docs/stage3/ch02-probability/04-information-theory.md",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/04-information-theory.md",
         "alt": "信息熵与不确定性图：越平均的分布越难猜，熵越高；越确定的分布熵越低。",
         "prompt": """
 一张适合信息论课程的教学图，主题是“熵、不确定性和交叉熵损失”。
@@ -1126,7 +1126,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Scikit-learn Estimator 与 Pipeline 图",
-        "suggested_page": "docs/stage4/ch01-ml-basics/02-sklearn-intro.md",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro.md",
         "alt": "Scikit-learn Estimator 与 Pipeline 图：数据经过预处理、模型训练、预测和评估，形成统一 fit/predict 工作流。",
         "prompt": """
 一张适合 Scikit-learn 入门课程的工程流程图，主题是“统一的 Estimator 和 Pipeline 工作流”。
@@ -1139,7 +1139,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "线性回归拟合与损失曲面图",
-        "suggested_page": "docs/stage4/ch02-supervised/01-linear-regression.md",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/01-linear-regression.md",
         "alt": "线性回归拟合与损失曲面图：直线拟合散点，参数在损失曲面上寻找更小误差。",
         "prompt": """
 一张适合线性回归课程的教学图，主题是“拟合直线和最小化误差”。
@@ -1152,7 +1152,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "逻辑回归决策边界图",
-        "suggested_page": "docs/stage4/ch02-supervised/02-logistic-regression.md",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/02-logistic-regression.md",
         "alt": "逻辑回归决策边界图：Sigmoid 把线性得分转成概率，并用边界分开两个类别。",
         "prompt": """
 一张适合逻辑回归课程的教学图，主题是“概率输出与决策边界”。
@@ -1165,7 +1165,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "决策树分裂路径图",
-        "suggested_page": "docs/stage4/ch02-supervised/03-decision-trees.md",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/03-decision-trees.md",
         "alt": "决策树分裂路径图：样本沿着特征判断节点一步步走到叶子结论。",
         "prompt": """
 一张适合决策树课程的教学图，主题是“从特征问题到叶子结论”。
@@ -1178,7 +1178,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "集成学习投票与森林图",
-        "suggested_page": "docs/stage4/ch02-supervised/04-ensemble-learning.md",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md",
         "alt": "集成学习投票与森林图：多个弱模型通过投票、平均或逐步修正残差得到更稳结果。",
         "prompt": """
 一张适合集成学习课程的教学图，主题是“多个模型一起做决定”。
@@ -1191,7 +1191,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "K-Means 聚类中心迭代图",
-        "suggested_page": "docs/stage4/ch03-unsupervised/01-clustering.md",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/01-clustering.md",
         "alt": "K-Means 聚类中心迭代图：样本点分配给最近中心，中心再移动到簇的平均位置。",
         "prompt": """
 一张适合聚类课程的教学图，主题是“K-Means 如何找簇中心”。
@@ -1204,7 +1204,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "PCA 降维投影图",
-        "suggested_page": "docs/stage4/ch03-unsupervised/02-dimensionality-reduction.md",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction.md",
         "alt": "PCA 降维投影图：高维数据沿主成分方向投影到低维平面，尽量保留主要变化。",
         "prompt": """
 一张适合降维课程的教学图，主题是“PCA 把高维数据投影到主方向”。
@@ -1217,7 +1217,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "神经网络前向与反向传播图",
-        "suggested_page": "docs/stage5/ch01-nn-basics/02-forward-backward.md",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md",
         "alt": "神经网络前向与反向传播图：数据向前得到预测和损失，梯度向后更新每层参数。",
         "prompt": """
 一张适合神经网络课程的教学图，主题是“前向传播和反向传播”。
@@ -1230,7 +1230,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "经典 CNN 架构演进图",
-        "suggested_page": "docs/stage5/ch03-cnn/03-classic-architectures.md",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/03-classic-architectures.md",
         "alt": "经典 CNN 架构演进图：LeNet、AlexNet、VGG、ResNet 从浅层到深层逐步演进。",
         "prompt": """
 一张适合 CNN 架构课程的历史演进图，主题是“经典 CNN 从 LeNet 到 ResNet”。
@@ -1243,7 +1243,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "LSTM 门控记忆流图",
-        "suggested_page": "docs/stage5/ch04-rnn/02-lstm-gru.md",
+        "suggested_page": "docs/ch06-deep-learning/ch04-rnn/02-lstm-gru.md",
         "alt": "LSTM 门控记忆流图：遗忘门、输入门、输出门共同控制长期记忆的保留、写入和读取。",
         "prompt": """
 一张适合 RNN 课程的教学结构图，主题是“LSTM 如何用门控制记忆”。
@@ -1256,7 +1256,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Transformer Block 架构图",
-        "suggested_page": "docs/stage5/ch05-transformer/02-transformer-architecture.md",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md",
         "alt": "Transformer Block 架构图：注意力、残差连接、LayerNorm 和前馈网络组成一个可堆叠模块。",
         "prompt": """
 一张适合 Transformer 架构课程的教学结构图，主题是“一个 Transformer Block 的内部结构”。
@@ -1269,7 +1269,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "词向量语义邻域图",
-        "suggested_page": "docs/stage7/ch02-embeddings/01-word-embedding.md",
+        "suggested_page": "docs/ch11-nlp/ch02-embeddings/01-word-embedding.md",
         "alt": "词向量语义邻域图：语义相近的词在向量空间里更靠近，并形成可计算的方向关系。",
         "prompt": """
 一张适合 NLP 词嵌入课程的教学图，主题是“词语在向量空间里的语义邻居”。
@@ -1282,7 +1282,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "BERT Masked Language Model 图",
-        "suggested_page": "docs/stage7/ch06-pretrained/02-bert.md",
+        "suggested_page": "docs/ch11-nlp/ch06-pretrained/02-bert.md",
         "alt": "BERT Masked Language Model 图：模型同时看左右上下文，预测被遮住的 token。",
         "prompt": """
 一张适合 BERT 课程的教学图，主题是“Masked Language Model”。
@@ -1295,7 +1295,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "GPT 自回归生成图",
-        "suggested_page": "docs/stage7/ch06-pretrained/03-gpt-series.md",
+        "suggested_page": "docs/ch11-nlp/ch06-pretrained/03-gpt-series.md",
         "alt": "GPT 自回归生成图：模型根据已有上下文一步一步预测下一个 token。",
         "prompt": """
 一张适合 GPT 课程的教学图，主题是“自回归下一词预测”。
@@ -1308,7 +1308,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "RLHF 三阶段流程图",
-        "suggested_page": "docs/stage8a/ch07-alignment/02-rlhf.md",
+        "suggested_page": "docs/ch07-llm-principles/ch07-alignment/02-rlhf.md",
         "alt": "RLHF 三阶段流程图：监督微调、奖励模型和强化学习优化共同把模型行为调得更符合人类偏好。",
         "prompt": """
 一张适合大模型对齐课程的流程图，主题是“RLHF 三阶段”。
@@ -1321,7 +1321,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "RAG 评估三角图",
-        "suggested_page": "docs/stage8b/ch01-rag/07-rag-evaluation.md",
+        "suggested_page": "docs/ch08-rag/ch01-rag/07-rag-evaluation.md",
         "alt": "RAG 评估三角图：检索质量、答案忠实度和用户可用性共同决定系统效果。",
         "prompt": """
 一张适合 RAG 评估课程的教学图，主题是“RAG 评估不是只看答案对不对”。
@@ -1334,7 +1334,7 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "size": "1536x1024",
         "quality": "medium",
         "title": "Agent 记忆系统分层图",
-        "suggested_page": "docs/stage9/ch04-memory/01-memory-overview.md",
+        "suggested_page": "docs/ch09-agent/ch04-memory/01-memory-overview.md",
         "alt": "Agent 记忆系统分层图：短期上下文、长期记忆、情景记忆和程序记忆共同支持持续任务。",
         "prompt": """
 一张适合 AI Agent 课程的系统结构图，主题是“Agent 记忆系统”。
@@ -1372,6 +1372,8 @@ def write_manifest(output_dir: Path, jobs: list[dict[str, Any]]) -> None:
     manifest = output_dir / "manifest.md"
     lines = ["# AI 全栈课程配图清单", ""]
     lines.append("这些图片由 `scripts/generate_course_images.py` 生成，Markdown 页面使用 `/img/course/...` 引用。")
+    lines.append("")
+    lines.append("编号说明：课程源码目录已经和网页展示章节号对齐；例如 `docs/ch01-tools` 对应第 1 章“开发者工具基础”，`docs/ch05-machine-learning` 对应第 5 章“机器学习入门到实战”。")
     lines.append("")
     lines.append("| 文件 | 用途 | 建议插入页面 | Alt 文案 |")
     lines.append("|---|---|---|---|")

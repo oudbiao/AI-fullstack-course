@@ -1,12 +1,16 @@
 ---
 title: "课程视觉增强规划"
-description: "按阶段和章节梳理哪些页面适合继续增加图片、示意图、流程图和代码可视化，帮助新人更快建立直觉。"
+description: "按展示章节梳理哪些页面适合继续增加图片、示意图、流程图和代码可视化，帮助新人更快建立直觉。"
 keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid, 图像生成]
 ---
 
 # 课程视觉增强规划
 
 现在课程已经有阶段首页主视觉，也有大量 Mermaid 流程图。下一步不是给每页都塞图片，而是把图片放在最能降低理解成本的位置。
+
+:::info 章节编号约定
+课程源码目录已经和网页展示章节号对齐：`ch01-tools` 对应第 1 章，`ch05-machine-learning` 对应第 5 章。侧边栏里的主线 1～4 是学习分组，不作为目录层级。
+:::
 
 一个简单原则是：
 
@@ -23,14 +27,14 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 | 优先级 | 适合先做的图 | 原因 |
 |---|---|---|
-| P0 | 每个阶段首页主视觉 | 已完成，负责建立阶段氛围 |
+| P0 | 每个章节首页主视觉 | 已完成，负责建立章节氛围 |
 | P1 | 每章第一篇主干课的概念图 | 最影响新人第一印象 |
 | P1 | 项目页的系统架构图和结果样例图 | 最能帮助上手 |
 | P2 | 数学、训练、评估类代码可视化 | 能把抽象过程变成可观察结果 |
 | P2 | 历史时间线和论文故事图 | 提升兴趣和记忆点 |
 | P3 | 装饰型插图 | 只有在页面很干、读感疲劳时再加 |
 
-## 第 0 阶段：开发者工具基础
+## 第 1 章（目录 ch01-tools）：开发者工具基础
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -42,7 +46,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合代码或 Mermaid 的图：Git 状态流、分支合并过程、虚拟环境路径关系。
 
-## 第 1 阶段：Python 编程基础
+## 第 2 章（目录 ch02-python）：Python 编程基础
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -54,7 +58,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合代码生成的图：函数调用栈、JSON 文件读写前后对比。
 
-## 第 2 阶段：数据分析与可视化
+## 第 3 章（目录 ch03-data-analysis）：数据分析与可视化
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -69,7 +73,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合代码生成的图：直方图、箱线图、散点图、折线图、热力图。
 
-## 第 3 阶段：AI 数学基础
+## 第 4 章（目录 ch04-ai-math）：AI 数学基础
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -81,7 +85,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合代码生成的图：二维向量、正态分布、交叉熵曲线、梯度下降轨迹。
 
-## 第 4 阶段：机器学习
+## 第 5 章（目录 ch05-machine-learning）：机器学习
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -96,7 +100,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合代码生成的图：决策边界、残差图、ROC/PR 曲线、PCA 可视化。
 
-## 第 5 阶段：深度学习与 Transformer
+## 第 6 章（目录 ch06-deep-learning）：深度学习与 Transformer
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -113,7 +117,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合代码生成的图：loss 曲线、激活函数曲线、注意力热力图、潜空间散点图。
 
-## 第 6 阶段：计算机视觉
+## 第 10 章（目录 ch10-computer-vision）：计算机视觉
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -128,7 +132,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合真实/代码图：预处理前后图、检测框、分割 mask、OCR 框选结果。
 
-## 第 7 阶段：自然语言处理
+## 第 11 章（目录 ch11-nlp）：自然语言处理
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -144,7 +148,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合代码生成的图：TF-IDF 表格、词向量近邻、注意力对齐热力图。
 
-## 第 8A 阶段：大模型原理、Prompt 与微调
+## 第 7 章（目录 ch07-llm-principles）：大模型原理、Prompt 与微调
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -161,7 +165,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合 Mermaid/代码图：结构化输出 schema、LoRA 插件结构、RLHF 流程。
 
-## 第 8B 阶段：LLM 应用开发与 RAG
+## 第 8 章（目录 ch08-rag）：LLM 应用开发与 RAG
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -175,7 +179,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合 Mermaid/结构图：RAG trace、工具调用链、API 请求响应、日志字段流。
 
-## 第 9 阶段：AI Agent
+## 第 9 章（目录 ch09-agent）：AI Agent
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -194,7 +198,7 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 更适合 Mermaid/结构图：执行 trace、状态机、工具白名单、人工确认流程。
 
-## 第 10 阶段：AIGC 与多模态
+## 第 12 章（目录 ch12-multimodal）：AIGC 与多模态
 
 | 章节 | 建议加图 | 优先级 |
 |---|---|---|
@@ -214,26 +218,26 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 | 顺序 | 图片 | 建议插入位置 | 类型 |
 |---|---|---|---|
-| 1 | Git 工作区、暂存区、本地库、远程库四格图 | `stage0/ch02-git/01-git-basics.md` | 流程示意 |
-| 2 | Pandas DataFrame 结构图 | `stage2/ch03-pandas/01-core-structures.md` | 概念图 |
-| 3 | 图表选择决策树 | `stage2/ch04-visualization/04-best-practices.md` | 决策图 |
-| 4 | 梯度下降下山路径图 | `stage3/ch03-calculus/03-gradient-descent.md` | 代码可视化 |
-| 5 | 机器学习建模闭环图 | `stage4/ch01-ml-basics/01-what-is-ml.md` | 流程图 |
-| 6 | 混淆矩阵和错误代价图 | `stage4/ch04-evaluation/01-metrics.md` | 教学图 |
-| 7 | PyTorch 训练循环图 | `stage5/ch02-pytorch/05-training-loop.md` | 流程图 |
-| 8 | CNN 卷积核滑动示意图 | `stage5/ch03-cnn/01-convolution-basics.md` | 概念图 |
-| 9 | Self-Attention QKV 图 | `stage5/ch05-transformer/01-attention-mechanism.md` | 结构图 |
-| 10 | 目标检测输出拆解图 | `stage6/ch03-detection/01-detection-overview.md` | 任务图 |
-| 11 | 语义分割 mask 对比图 | `stage6/ch04-segmentation/01-semantic-segmentation.md` | 结果图 |
-| 12 | BIO 标签到实体恢复图 | `stage7/ch04-sequence-labeling/01-ner-overview.md` | 标注图 |
-| 13 | BERT/GPT/T5 对比图 | `stage7/ch06-pretrained/00-roadmap.md` | 对比图 |
-| 14 | Prompt 改写前后对比卡 | `stage8a/ch05-prompt/01-prompt-basics.md` | 对比图 |
-| 15 | LoRA 参数更新对比图 | `stage8a/ch06-finetuning/02-lora-qlora.md` | 结构图 |
-| 16 | RAG 文档到答案闭环图 | `stage8b/ch01-rag/01-rag-basics.md` | 系统图 |
-| 17 | 课件生成助手工作流图 | `stage8b/ch05-projects/04-courseware-assistant.md` | 项目架构图 |
-| 18 | Agent 工具调用 trace 图 | `stage9/ch03-tools/08-multi-tool-practice.md` | 执行轨迹图 |
-| 19 | Agent 护栏分层图 | `stage9/ch08-eval-safety/04-guardrails.md` | 安全图 |
-| 20 | 扩散模型加噪去噪图 | `stage10/ch02-image-gen/01-diffusion-models.md` | 模型过程图 |
+| 1 | Git 工作区、暂存区、本地库、远程库四格图 | `ch01-tools/ch02-git/01-git-basics.md` | 流程示意 |
+| 2 | Pandas DataFrame 结构图 | `ch03-data-analysis/ch03-pandas/01-core-structures.md` | 概念图 |
+| 3 | 图表选择决策树 | `ch03-data-analysis/ch04-visualization/04-best-practices.md` | 决策图 |
+| 4 | 梯度下降下山路径图 | `ch04-ai-math/ch03-calculus/03-gradient-descent.md` | 代码可视化 |
+| 5 | 机器学习建模闭环图 | `ch05-machine-learning/ch01-ml-basics/01-what-is-ml.md` | 流程图 |
+| 6 | 混淆矩阵和错误代价图 | `ch05-machine-learning/ch04-evaluation/01-metrics.md` | 教学图 |
+| 7 | PyTorch 训练循环图 | `ch06-deep-learning/ch02-pytorch/05-training-loop.md` | 流程图 |
+| 8 | CNN 卷积核滑动示意图 | `ch06-deep-learning/ch03-cnn/01-convolution-basics.md` | 概念图 |
+| 9 | Self-Attention QKV 图 | `ch06-deep-learning/ch05-transformer/01-attention-mechanism.md` | 结构图 |
+| 10 | 目标检测输出拆解图 | `ch10-computer-vision/ch03-detection/01-detection-overview.md` | 任务图 |
+| 11 | 语义分割 mask 对比图 | `ch10-computer-vision/ch04-segmentation/01-semantic-segmentation.md` | 结果图 |
+| 12 | BIO 标签到实体恢复图 | `ch11-nlp/ch04-sequence-labeling/01-ner-overview.md` | 标注图 |
+| 13 | BERT/GPT/T5 对比图 | `ch11-nlp/ch06-pretrained/00-roadmap.md` | 对比图 |
+| 14 | Prompt 改写前后对比卡 | `ch07-llm-principles/ch05-prompt/01-prompt-basics.md` | 对比图 |
+| 15 | LoRA 参数更新对比图 | `ch07-llm-principles/ch06-finetuning/02-lora-qlora.md` | 结构图 |
+| 16 | RAG 文档到答案闭环图 | `ch08-rag/ch01-rag/01-rag-basics.md` | 系统图 |
+| 17 | 课件生成助手工作流图 | `ch08-rag/ch05-projects/04-courseware-assistant.md` | 项目架构图 |
+| 18 | Agent 工具调用 trace 图 | `ch09-agent/ch03-tools/08-multi-tool-practice.md` | 执行轨迹图 |
+| 19 | Agent 护栏分层图 | `ch09-agent/ch08-eval-safety/04-guardrails.md` | 安全图 |
+| 20 | 扩散模型加噪去噪图 | `ch12-multimodal/ch02-image-gen/01-diffusion-models.md` | 模型过程图 |
 
 ## 第二批建议生成的 25 张图
 
@@ -241,31 +245,31 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 | 顺序 | 图片 | 建议插入位置 | 类型 |
 |---|---|---|---|
-| 1 | Matplotlib Figure 与 Axes 结构图 | `stage2/ch04-visualization/01-matplotlib.md` | 对象模型图 |
-| 2 | Seaborn 统计图选择图 | `stage2/ch04-visualization/02-seaborn.md` | 图谱图 |
-| 3 | SQL 表连接关系图 | `stage2/ch05-database/02-sql-basics.md` | 数据关系图 |
-| 4 | EDA 探索性数据分析流程图 | `stage2/ch06-projects/01-eda-project.md` | 项目流程图 |
-| 5 | 向量点积与余弦相似度几何图 | `stage3/ch01-linear-algebra/01-vectors.md` | 几何直觉图 |
-| 6 | 矩阵线性变换网格图 | `stage3/ch01-linear-algebra/02-matrices.md` | 数学可视化 |
-| 7 | 概率分布与贝叶斯更新图 | `stage3/ch02-probability/01-probability-basics.md` | 概念图 |
-| 8 | 信息熵与不确定性图 | `stage3/ch02-probability/04-information-theory.md` | 概念图 |
-| 9 | Scikit-learn Estimator 与 Pipeline 图 | `stage4/ch01-ml-basics/02-sklearn-intro.md` | 工程流程图 |
-| 10 | 线性回归拟合与损失曲面图 | `stage4/ch02-supervised/01-linear-regression.md` | 算法直觉图 |
-| 11 | 逻辑回归决策边界图 | `stage4/ch02-supervised/02-logistic-regression.md` | 分类边界图 |
-| 12 | 决策树分裂路径图 | `stage4/ch02-supervised/03-decision-trees.md` | 算法结构图 |
-| 13 | 集成学习投票与森林图 | `stage4/ch02-supervised/04-ensemble-learning.md` | 模型集成图 |
-| 14 | K-Means 聚类中心迭代图 | `stage4/ch03-unsupervised/01-clustering.md` | 算法过程图 |
-| 15 | PCA 降维投影图 | `stage4/ch03-unsupervised/02-dimensionality-reduction.md` | 空间投影图 |
-| 16 | 神经网络前向与反向传播图 | `stage5/ch01-nn-basics/02-forward-backward.md` | 训练机制图 |
-| 17 | 经典 CNN 架构演进图 | `stage5/ch03-cnn/03-classic-architectures.md` | 历史演进图 |
-| 18 | LSTM 门控记忆流图 | `stage5/ch04-rnn/02-lstm-gru.md` | 结构机制图 |
-| 19 | Transformer Block 架构图 | `stage5/ch05-transformer/02-transformer-architecture.md` | 模块结构图 |
-| 20 | 词向量语义邻域图 | `stage7/ch02-embeddings/01-word-embedding.md` | 语义空间图 |
-| 21 | BERT Masked Language Model 图 | `stage7/ch06-pretrained/02-bert.md` | 预训练目标图 |
-| 22 | GPT 自回归生成图 | `stage7/ch06-pretrained/03-gpt-series.md` | 生成机制图 |
-| 23 | RLHF 三阶段流程图 | `stage8a/ch07-alignment/02-rlhf.md` | 对齐流程图 |
-| 24 | RAG 评估三角图 | `stage8b/ch01-rag/07-rag-evaluation.md` | 评估框架图 |
-| 25 | Agent 记忆系统分层图 | `stage9/ch04-memory/01-memory-overview.md` | 系统结构图 |
+| 1 | Matplotlib Figure 与 Axes 结构图 | `ch03-data-analysis/ch04-visualization/01-matplotlib.md` | 对象模型图 |
+| 2 | Seaborn 统计图选择图 | `ch03-data-analysis/ch04-visualization/02-seaborn.md` | 图谱图 |
+| 3 | SQL 表连接关系图 | `ch03-data-analysis/ch05-database/02-sql-basics.md` | 数据关系图 |
+| 4 | EDA 探索性数据分析流程图 | `ch03-data-analysis/ch06-projects/01-eda-project.md` | 项目流程图 |
+| 5 | 向量点积与余弦相似度几何图 | `ch04-ai-math/ch01-linear-algebra/01-vectors.md` | 几何直觉图 |
+| 6 | 矩阵线性变换网格图 | `ch04-ai-math/ch01-linear-algebra/02-matrices.md` | 数学可视化 |
+| 7 | 概率分布与贝叶斯更新图 | `ch04-ai-math/ch02-probability/01-probability-basics.md` | 概念图 |
+| 8 | 信息熵与不确定性图 | `ch04-ai-math/ch02-probability/04-information-theory.md` | 概念图 |
+| 9 | Scikit-learn Estimator 与 Pipeline 图 | `ch05-machine-learning/ch01-ml-basics/02-sklearn-intro.md` | 工程流程图 |
+| 10 | 线性回归拟合与损失曲面图 | `ch05-machine-learning/ch02-supervised/01-linear-regression.md` | 算法直觉图 |
+| 11 | 逻辑回归决策边界图 | `ch05-machine-learning/ch02-supervised/02-logistic-regression.md` | 分类边界图 |
+| 12 | 决策树分裂路径图 | `ch05-machine-learning/ch02-supervised/03-decision-trees.md` | 算法结构图 |
+| 13 | 集成学习投票与森林图 | `ch05-machine-learning/ch02-supervised/04-ensemble-learning.md` | 模型集成图 |
+| 14 | K-Means 聚类中心迭代图 | `ch05-machine-learning/ch03-unsupervised/01-clustering.md` | 算法过程图 |
+| 15 | PCA 降维投影图 | `ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction.md` | 空间投影图 |
+| 16 | 神经网络前向与反向传播图 | `ch06-deep-learning/ch01-nn-basics/02-forward-backward.md` | 训练机制图 |
+| 17 | 经典 CNN 架构演进图 | `ch06-deep-learning/ch03-cnn/03-classic-architectures.md` | 历史演进图 |
+| 18 | LSTM 门控记忆流图 | `ch06-deep-learning/ch04-rnn/02-lstm-gru.md` | 结构机制图 |
+| 19 | Transformer Block 架构图 | `ch06-deep-learning/ch05-transformer/02-transformer-architecture.md` | 模块结构图 |
+| 20 | 词向量语义邻域图 | `ch11-nlp/ch02-embeddings/01-word-embedding.md` | 语义空间图 |
+| 21 | BERT Masked Language Model 图 | `ch11-nlp/ch06-pretrained/02-bert.md` | 预训练目标图 |
+| 22 | GPT 自回归生成图 | `ch11-nlp/ch06-pretrained/03-gpt-series.md` | 生成机制图 |
+| 23 | RLHF 三阶段流程图 | `ch07-llm-principles/ch07-alignment/02-rlhf.md` | 对齐流程图 |
+| 24 | RAG 评估三角图 | `ch08-rag/ch01-rag/07-rag-evaluation.md` | 评估框架图 |
+| 25 | Agent 记忆系统分层图 | `ch09-agent/ch04-memory/01-memory-overview.md` | 系统结构图 |
 
 ## 生成策略
 

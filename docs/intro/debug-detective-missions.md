@@ -176,7 +176,7 @@ flowchart LR
 关闭生成，只打印 top-5 检索结果；用“Agent 工具调用”和“智能体”关键词重新检索。
 
 ### 真相
-索引只导入了 stage8b，没有导入 stage9。
+索引只导入了 ch08-rag，没有导入 ch09-agent。
 
 ### 修复
 扩大文档导入范围，并在 metadata 中保存 stage 和 title。

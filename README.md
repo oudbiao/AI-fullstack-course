@@ -160,20 +160,20 @@ flowchart LR
 
 | 展示编号 | 展示名称 | 实际文档目录 |
 |---|---|---|
-| 1 | 开发者工具基础 | `docs/stage0/` |
-| 2 | Python 编程基础 | `docs/stage1/` |
-| 3 | 数据分析与可视化 | `docs/stage2/` |
-| 4 | AI 数学最小必要基础 | `docs/stage3/` |
-| 5 | 机器学习入门到实战 | `docs/stage4/` |
-| 6 | 深度学习与 Transformer 基础 | `docs/stage5/` |
-| 7 | 大模型原理、Prompt 与微调 | `docs/stage8a/` |
-| 8 | LLM 应用开发与 RAG | `docs/stage8b/` |
-| 9 | AI Agent 与智能体系统 | `docs/stage9/` |
-| 10 | 计算机视觉（方向选修） | `docs/stage6/` |
-| 11 | 自然语言处理（方向选修） | `docs/stage7/` |
-| 12 | AIGC 与多模态 | `docs/stage10/` |
+| 1 | 开发者工具基础 | `docs/ch01-tools/` |
+| 2 | Python 编程基础 | `docs/ch02-python/` |
+| 3 | 数据分析与可视化 | `docs/ch03-data-analysis/` |
+| 4 | AI 数学最小必要基础 | `docs/ch04-ai-math/` |
+| 5 | 机器学习入门到实战 | `docs/ch05-machine-learning/` |
+| 6 | 深度学习与 Transformer 基础 | `docs/ch06-deep-learning/` |
+| 7 | 大模型原理、Prompt 与微调 | `docs/ch07-llm-principles/` |
+| 8 | LLM 应用开发与 RAG | `docs/ch08-rag/` |
+| 9 | AI Agent 与智能体系统 | `docs/ch09-agent/` |
+| 10 | 计算机视觉（方向选修） | `docs/ch10-computer-vision/` |
+| 11 | 自然语言处理（方向选修） | `docs/ch11-nlp/` |
+| 12 | AIGC 与多模态 | `docs/ch12-multimodal/` |
 
-说明：`stage0/` 到 `stage10/` 是历史文件夹路径，不代表学习顺序。课程导航、README 和阶段首页以 1～12 的展示编号为准。
+说明：`ch01-tools/` 到 `ch12-multimodal/` 是历史文件夹路径，不代表学习顺序。课程导航、README 和阶段首页以 1～12 的展示编号为准。
 
 ---
 
@@ -186,7 +186,7 @@ flowchart LR
 | 学习站 | `8 LLM 应用开发与 RAG` | 整门课里的第 8 个学习站 | README、sidebar 顶层、阶段首页 |
 | 章节 | `8.1 RAG 检索增强生成` | 第 8 站里的第 1 章 | sidebar 章节分组、章节导读 |
 | 小节 | `8.1.1 RAG 基础` | 第 8 站第 1 章里的第 1 个具体页面 | 文档页面标题，后续可逐步统一 |
-| 文件夹路径 | `docs/stage8b/ch01-rag/` | 维护用路径 | 只在维护者映射中出现 |
+| 文件夹路径 | `docs/ch08-rag/ch01-rag/` | 维护用路径 | 只在维护者映射中出现 |
 
 编号规则很简单：第一段表示学习站，第二段表示章节，第三段表示小节。学习者只需要按 1 → 2 → 3 往后学；维护者只在修改文档时关心实际文件夹路径。
 

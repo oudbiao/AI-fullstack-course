@@ -7,9 +7,9 @@ root = os.environ.get('COURSE_ROOT') or os.getcwd()
 docs = os.path.join(root, 'docs')
 errors = []
 
-stage_dirs = [
+chapter_dirs = [
     name for name in os.listdir(docs)
-    if re.fullmatch(r'stage[0-9]+[a-z]?', name)
+    if re.fullmatch(r'ch[0-9]{2}-[a-z0-9-]+', name)
     and os.path.isdir(os.path.join(docs, name))
 ]
 
@@ -25,25 +25,25 @@ required_task_sections = [
     '## 阶段通关问题',
 ]
 
-for stage in sorted(stage_dirs):
-    index_path = os.path.join(docs, stage, 'index.md')
-    task_path = os.path.join(docs, stage, 'task-list.md')
+for chapter in sorted(chapter_dirs):
+    index_path = os.path.join(docs, chapter, 'index.md')
+    task_path = os.path.join(docs, chapter, 'task-list.md')
 
     if not os.path.exists(index_path):
-        errors.append(f'{stage}/index.md missing')
+        errors.append(f'{chapter}/index.md missing')
     else:
         text = open(index_path, encoding='utf-8').read()
         for section in required_index_sections:
             if section not in text:
-                errors.append(f'{stage}/index.md missing section: {section}')
+                errors.append(f'{chapter}/index.md missing section: {section}')
 
     if not os.path.exists(task_path):
-        errors.append(f'{stage}/task-list.md missing')
+        errors.append(f'{chapter}/task-list.md missing')
     else:
         text = open(task_path, encoding='utf-8').read()
         for section in required_task_sections:
             if section not in text:
-                errors.append(f'{stage}/task-list.md missing section: {section}')
+                errors.append(f'{chapter}/task-list.md missing section: {section}')
 
 project_roadmaps = []
 for dirpath, _, files in os.walk(docs):
@@ -63,4 +63,4 @@ if errors:
         print(f'  ... and {len(errors) - 40} more')
     sys.exit(1)
 
-print('PASS course structure: stage indexes, task lists, and project roadmaps have required sections')
+print('PASS course structure: chapter indexes, task lists, and project roadmaps have required sections')

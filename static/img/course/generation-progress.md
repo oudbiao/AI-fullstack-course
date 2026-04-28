@@ -8,9 +8,11 @@ Generated with image2: 96 / 96
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
-Stage 3 note: the 12 additional math diagrams were regenerated with image2 and overwrite the earlier local preview diagrams.
+编号说明：课程源码目录已经和网页展示章节号对齐；例如 `docs/ch01-tools` 对应第 1 章“开发者工具基础”，`docs/ch05-machine-learning` 对应第 5 章“机器学习入门到实战”。
 
-Stage 4 note: 22 additional machine learning diagrams were generated with image2 so every Stage 4 article now has a visual entry point.
+第 4 章说明：目录 `docs/ch04-ai-math` 下的 12 张数学补充图已经用 image2 重新生成，并覆盖早前的本地预览图。
+
+第 5 章说明：目录 `docs/ch05-machine-learning` 下的 22 张机器学习补充图已经用 image2 生成，因此第 5 章每篇文章都有视觉入口。
 
 ## Completed
 
@@ -19,18 +21,18 @@ Stage 4 note: 22 additional machine learning diagrams were generated with image2
 - `prompt-rag-agent-progression.png`
 - `boss-challenge-map.png`
 - `debug-detective-missions.png`
-- `stage0-tools-foundation.png`
-- `stage1-python-foundation.png`
-- `stage2-data-visualization.png`
-- `stage3-ai-math.png`
-- `stage4-machine-learning.png`
-- `stage5-deep-learning.png`
-- `stage6-computer-vision.png`
-- `stage7-nlp.png`
-- `stage8a-llm-principles.png`
-- `stage8b-rag-engineering.png`
-- `stage9-agent-systems.png`
-- `stage10-multimodal-aigc.png`
+- `ch01-tools-foundation.png`
+- `ch02-python-foundation.png`
+- `ch03-data-visualization.png`
+- `ch04-ai-math.png`
+- `ch05-machine-learning.png`
+- `ch06-deep-learning.png`
+- `ch10-computer-vision.png`
+- `ch11-nlp.png`
+- `ch07-llm-principles.png`
+- `ch08-rag-engineering.png`
+- `ch09-agent-systems.png`
+- `ch12-multimodal-aigc.png`
 - `git-four-areas.png`
 - `pandas-dataframe-structure.png`
 - `chart-selection-decision-tree.png`
@@ -76,13 +78,13 @@ Stage 4 note: 22 additional machine learning diagrams were generated with image2
 - `rlhf-three-stage-loop.png`
 - `rag-evaluation-triangle.png`
 - `agent-memory-system.png`
-- `stage3-linear-algebra-roadmap.png`
+- `ch04-linear-algebra-roadmap.png`
 - `eigenvalue-special-directions.png`
 - `vector-space-basis-span.png`
-- `stage3-probability-roadmap.png`
+- `ch04-probability-roadmap.png`
 - `distribution-family-comparison.png`
 - `mle-likelihood-curve.png`
-- `stage3-calculus-roadmap.png`
+- `ch04-calculus-roadmap.png`
 - `derivative-tangent-slope.png`
 - `gradient-contour-field.png`
 - `chain-rule-backprop-graph.png`
