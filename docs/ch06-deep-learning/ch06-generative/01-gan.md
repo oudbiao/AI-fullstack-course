@@ -7,6 +7,8 @@ keywords: [GAN, generator, discriminator, adversarial training, mode collapse]
 
 # GAN 基础【选修】
 
+![GAN 生成器判别器对抗图](/img/course/gan-adversarial-loop.png)
+
 :::tip 本节定位
 GAN 最吸引人的地方是：
 

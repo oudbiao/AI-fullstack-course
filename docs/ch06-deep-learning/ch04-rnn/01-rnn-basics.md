@@ -7,6 +7,8 @@ keywords: [RNN, 序列建模, hidden state, 循环神经网络, 时间步]
 
 # RNN 基础
 
+![RNN 时间展开隐藏状态图](/img/course/rnn-unrolled-hidden-state.png)
+
 :::tip 本节定位
 前面的 MLP 和 CNN 更擅长处理“静态输入”，而 RNN 要解决的是另一类问题：
 

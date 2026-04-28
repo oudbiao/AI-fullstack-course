@@ -7,6 +7,8 @@ keywords: [embedding, semantic representation, cosine similarity, sentence embed
 
 # 词嵌入与语义表示
 
+![Embedding 语义空间图](/img/course/embedding-semantic-space.png)
+
 :::tip 本节定位
 Tokenizer 解决的是：
 

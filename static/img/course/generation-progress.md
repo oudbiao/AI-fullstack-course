@@ -1,10 +1,10 @@
 # Course Image Generation Progress
 
-Last updated: 2026-04-28
+Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 96 / 96
+Generated with image2: 121 / 121
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -13,6 +13,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 4 章说明：目录 `docs/ch04-ai-math` 下的 12 张数学补充图已经用 image2 重新生成，并覆盖早前的本地预览图。
 
 第 5 章说明：目录 `docs/ch05-machine-learning` 下的 22 张机器学习补充图已经用 image2 生成，因此第 5 章每篇文章都有视觉入口。
+
+第 6～9 章说明：目录 `docs/ch06-deep-learning`、`docs/ch07-llm-principles`、`docs/ch08-rag`、`docs/ch09-agent` 下新增的 25 张机制图、流程图和系统图已经用 image2 生成，并插入到对应核心教程页面。
 
 ## Completed
 
@@ -112,6 +114,31 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `kaggle-submission-loop.png`
 - `ml-study-loop.png`
 - `ml-task-checklist.png`
+- `mlp-neuron-activation.png`
+- `optimizer-comparison.png`
+- `regularization-overfitting-controls.png`
+- `pytorch-autograd-graph.png`
+- `dataset-dataloader-batch-flow.png`
+- `cnn-feature-map-pipeline.png`
+- `rnn-unrolled-hidden-state.png`
+- `gan-adversarial-loop.png`
+- `vae-latent-space-flow.png`
+- `training-curve-diagnosis.png`
+- `tokenizer-subword-flow.png`
+- `embedding-semantic-space.png`
+- `llm-history-timeline.png`
+- `pretraining-data-pipeline.png`
+- `finetuning-alignment-pipeline.png`
+- `document-processing-vectorization.png`
+- `vector-database-similarity-search.png`
+- `hybrid-search-rerank-flow.png`
+- `function-calling-workflow.png`
+- `template-doc-generation-pipeline.png`
+- `agent-vs-chatbot-comparison.png`
+- `agent-system-architecture.png`
+- `react-reason-act-observe-loop.png`
+- `mcp-host-client-server.png`
+- `multi-agent-message-flow.png`
 
 ## Remaining
 

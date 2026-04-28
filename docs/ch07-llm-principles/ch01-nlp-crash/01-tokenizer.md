@@ -7,6 +7,8 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 # 分词与 Tokenizer
 
+![Tokenizer 子词切分流程图](/img/course/tokenizer-subword-flow.png)
+
 :::tip 本节定位
 很多人第一次学大模型时，会把注意力全放在模型结构上。  
 但真正把文本送进模型之前，还有一道绕不过去的门：

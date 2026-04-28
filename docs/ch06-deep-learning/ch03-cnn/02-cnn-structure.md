@@ -7,6 +7,8 @@ keywords: [CNN, 卷积块, 池化, 特征图, 分类头, 全连接层, Global Av
 
 # CNN 基本结构
 
+![CNN 特征图流水线](/img/course/cnn-feature-map-pipeline.png)
+
 :::tip 本节定位
 上一节我们已经知道卷积核是在图像上“滑动找局部模式”。  
 这一节要把这些零散部件组装起来，回答一个更完整的问题：

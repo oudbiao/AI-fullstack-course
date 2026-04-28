@@ -7,6 +7,8 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 # Agent 系统架构
 
+![Agent 系统架构图](/img/course/agent-system-architecture.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

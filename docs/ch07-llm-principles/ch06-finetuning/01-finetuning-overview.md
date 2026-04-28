@@ -7,6 +7,8 @@ keywords: [finetuning, PEFT, full finetune, task adaptation, model customization
 
 # 微调概述
 
+![微调与对齐总流程图](/img/course/finetuning-alignment-pipeline.png)
+
 :::tip 本节定位
 很多人一提模型定制，第一反应就是：
 

@@ -7,6 +7,8 @@ keywords: [word generation, ppt generation, template, docx, pptx, structured out
 
 # 模板化文档生成（Word / PPT）
 
+![Word PPT 模板生成流水线图](/img/course/template-doc-generation-pipeline.png)
+
 :::tip 本节定位
 很多新人做“生成 Word / 课件”时，最容易直接让模型输出一大段正文，  
 然后希望它天然就符合：

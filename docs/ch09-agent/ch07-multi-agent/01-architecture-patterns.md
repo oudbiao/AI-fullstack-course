@@ -7,6 +7,8 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 # 多 Agent 架构模式
 
+![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.png)
+
 :::tip 本节定位
 很多人第一次做多 Agent 时，最容易犯的错就是：
 

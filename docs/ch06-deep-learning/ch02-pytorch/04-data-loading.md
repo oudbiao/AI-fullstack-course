@@ -7,6 +7,8 @@ keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 
 # 数据加载
 
+![Dataset DataLoader Batch 流程图](/img/course/dataset-dataloader-batch-flow.png)
+
 ## 学习目标
 
 - 理解为什么训练时几乎不会一次性把所有数据直接塞进模型

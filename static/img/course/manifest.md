@@ -102,3 +102,28 @@
 | `rlhf-three-stage-loop.png` | RLHF 三阶段流程图 | `docs/ch07-llm-principles/ch07-alignment/02-rlhf.md` | RLHF 三阶段流程图：监督微调、奖励模型和强化学习优化共同把模型行为调得更符合人类偏好。 |
 | `rag-evaluation-triangle.png` | RAG 评估三角图 | `docs/ch08-rag/ch01-rag/07-rag-evaluation.md` | RAG 评估三角图：检索质量、答案忠实度和用户可用性共同决定系统效果。 |
 | `agent-memory-system.png` | Agent 记忆系统分层图 | `docs/ch09-agent/ch04-memory/01-memory-overview.md` | Agent 记忆系统分层图：短期上下文、长期记忆、情景记忆和程序记忆共同支持持续任务。 |
+| `mlp-neuron-activation.png` | 神经元到 MLP 结构图 | `docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md` | 神经元到 MLP 结构图：输入、权重、偏置、激活函数和多层连接组成可学习模型。 |
+| `optimizer-comparison.png` | 优化器路径对比图 | `docs/ch06-deep-learning/ch01-nn-basics/03-optimizers.md` | 优化器路径对比图：SGD、Momentum 和 Adam 用不同下降轨迹寻找更低损失。 |
+| `regularization-overfitting-controls.png` | 正则化控制过拟合图 | `docs/ch06-deep-learning/ch01-nn-basics/04-regularization.md` | 正则化控制过拟合图：Dropout、Weight Decay、数据增强和早停共同限制模型记死训练集。 |
+| `pytorch-autograd-graph.png` | PyTorch Autograd 计算图 | `docs/ch06-deep-learning/ch02-pytorch/02-autograd.md` | PyTorch Autograd 计算图：张量运算形成计算图，loss.backward 沿图反向计算梯度。 |
+| `dataset-dataloader-batch-flow.png` | Dataset DataLoader Batch 流程图 | `docs/ch06-deep-learning/ch02-pytorch/04-data-loading.md` | Dataset DataLoader Batch 流程图：原始样本经过 Dataset、Sampler、DataLoader 组成可训练 batch。 |
+| `cnn-feature-map-pipeline.png` | CNN 特征图流水线 | `docs/ch06-deep-learning/ch03-cnn/02-cnn-structure.md` | CNN 特征图流水线：图像经过卷积、激活、池化和全连接层逐步提取局部到整体特征。 |
+| `rnn-unrolled-hidden-state.png` | RNN 时间展开隐藏状态图 | `docs/ch06-deep-learning/ch04-rnn/01-rnn-basics.md` | RNN 时间展开隐藏状态图：序列逐步输入，同一单元反复使用隐藏状态传递上下文。 |
+| `gan-adversarial-loop.png` | GAN 生成器判别器对抗图 | `docs/ch06-deep-learning/ch06-generative/01-gan.md` | GAN 生成器判别器对抗图：生成器尝试造假样本，判别器尝试分辨真假，双方一起进步。 |
+| `vae-latent-space-flow.png` | VAE 潜空间生成流程图 | `docs/ch06-deep-learning/ch06-generative/02-vae.md` | VAE 潜空间生成流程图：编码器把输入压到分布化潜空间，采样后由解码器重建或生成样本。 |
+| `training-curve-diagnosis.png` | 训练曲线诊断图 | `docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md` | 训练曲线诊断图：欠拟合、过拟合、学习率过大和正常收敛对应不同 loss 曲线形态。 |
+| `tokenizer-subword-flow.png` | Tokenizer 子词切分流程图 | `docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md` | Tokenizer 子词切分流程图：原始文本被清洗、切成 token、映射为 id，再进入模型。 |
+| `embedding-semantic-space.png` | Embedding 语义空间图 | `docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md` | Embedding 语义空间图：token 被映射到向量空间，语义相近的表示在空间中更接近。 |
+| `llm-history-timeline.png` | 大模型发展时间线图 | `docs/ch07-llm-principles/ch02-llm-overview/01-development-history.md` | 大模型发展时间线图：从统计语言模型、词向量、Transformer 到指令微调和多模态模型逐步演进。 |
+| `pretraining-data-pipeline.png` | 预训练数据流水线图 | `docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md` | 预训练数据流水线图：原始网页、书籍、代码和论文经过清洗、去重、过滤、切分后进入训练集。 |
+| `finetuning-alignment-pipeline.png` | 微调与对齐总流程图 | `docs/ch07-llm-principles/ch06-finetuning/01-finetuning-overview.md` | 微调与对齐总流程图：基础模型经过 SFT、LoRA、偏好数据和对齐评估变成更适合任务的助手。 |
+| `document-processing-vectorization.png` | 文档解析与向量化流程图 | `docs/ch08-rag/ch01-rag/02-document-processing.md` | 文档解析与向量化流程图：PDF、Word、PPT 经过解析、清洗、切块、embedding 后写入向量库。 |
+| `vector-database-similarity-search.png` | 向量数据库相似度检索图 | `docs/ch08-rag/ch01-rag/03-vector-databases.md` | 向量数据库相似度检索图：查询向量在向量空间中寻找最接近的文档片段。 |
+| `hybrid-search-rerank-flow.png` | Hybrid Search 与 Rerank 流程图 | `docs/ch08-rag/ch01-rag/04-retrieval-strategies.md` | Hybrid Search 与 Rerank 流程图：关键词检索和向量检索召回候选，再由重排模型筛选上下文。 |
+| `function-calling-workflow.png` | Function Calling 工作流图 | `docs/ch08-rag/ch03-app-dev/03-function-calling.md` | Function Calling 工作流图：模型根据工具 schema 选择函数、生成参数、执行工具并整合结果。 |
+| `template-doc-generation-pipeline.png` | Word PPT 模板生成流水线图 | `docs/ch08-rag/ch03-app-dev/08-template-doc-generation.md` | Word PPT 模板生成流水线图：结构化内容经过模板变量、版式校验和资源插入后导出文档。 |
+| `agent-vs-chatbot-comparison.png` | Agent 与普通 Chatbot 对比图 | `docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md` | Agent 与普通 Chatbot 对比图：聊天机器人主要回答，Agent 会规划、调用工具、观察结果并推进任务。 |
+| `agent-system-architecture.png` | Agent 系统架构图 | `docs/ch09-agent/ch01-agent-basics/04-system-architecture.md` | Agent 系统架构图：目标、规划器、模型、工具、记忆、环境和评估模块共同组成执行闭环。 |
+| `react-reason-act-observe-loop.png` | ReAct 推理行动观察循环图 | `docs/ch09-agent/ch02-reasoning/03-react.md` | ReAct 推理行动观察循环图：模型在思考、行动、观察之间循环，逐步接近任务答案。 |
+| `mcp-host-client-server.png` | MCP Host Client Server 架构图 | `docs/ch09-agent/ch05-mcp/02-mcp-architecture.md` | MCP Host Client Server 架构图：Host 通过 Client 连接多个 Server，统一发现资源、工具和提示能力。 |
+| `multi-agent-message-flow.png` | 多 Agent 协作消息流图 | `docs/ch09-agent/ch07-multi-agent/01-architecture-patterns.md` | 多 Agent 协作消息流图：规划者、研究者、执行者和评审者通过消息与共享状态协作完成任务。 |

@@ -7,6 +7,8 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 # 预训练数据
 
+![预训练数据流水线图](/img/course/pretraining-data-pipeline.png)
+
 :::tip 本节定位
 很多人提到大模型，会先想到：
 

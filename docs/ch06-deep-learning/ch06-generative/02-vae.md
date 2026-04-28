@@ -7,6 +7,8 @@ keywords: [VAE, latent space, encoder, decoder, reparameterization, generation]
 
 # VAE 基础【选修】
 
+![VAE 潜空间生成流程图](/img/course/vae-latent-space-flow.png)
+
 :::tip 本节定位
 如果说 GAN 是通过“真假对抗”来学分布，  
 VAE 更像另一条思路：

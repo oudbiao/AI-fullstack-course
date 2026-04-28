@@ -7,6 +7,8 @@ keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
 
 # 自动求导
 
+![PyTorch Autograd 计算图](/img/course/pytorch-autograd-graph.png)
+
 ## 学习目标
 
 - 理解梯度到底是什么

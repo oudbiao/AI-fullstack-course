@@ -7,6 +7,8 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 # 检索策略
 
+![Hybrid Search 与 Rerank 流程图](/img/course/hybrid-search-rerank-flow.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

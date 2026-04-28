@@ -7,6 +7,8 @@ keywords: [优化器, SGD, Adam, AdamW, Momentum, 学习率, 学习率调度, Co
 
 # 梯度下降与优化器
 
+![优化器路径对比图](/img/course/optimizer-comparison.png)
+
 :::tip 本节定位
 在第 4 站我们学了基础梯度下降。现在深入了解深度学习中的各种优化器——**Adam 是你最常用的**，但理解背后的演化逻辑很重要。
 :::

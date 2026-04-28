@@ -7,6 +7,8 @@ keywords: [LLM 历史, 语言模型, n-gram, RNN, Transformer, GPT]
 
 # 大模型发展历程
 
+![大模型发展时间线图](/img/course/llm-history-timeline.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

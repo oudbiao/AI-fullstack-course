@@ -7,6 +7,8 @@ keywords: [ReAct, thought action observation, tool use, agent loop, reasoning an
 
 # ReAct 框架
 
+![ReAct 推理行动观察循环图](/img/course/react-reason-act-observe-loop.png)
+
 :::tip 本节定位
 CoT 解决的是：
 

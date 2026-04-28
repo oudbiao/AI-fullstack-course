@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import http.client
 import json
 import os
 import stat
@@ -1342,6 +1343,356 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 风格清晰、像智能体大脑剖面图，不要出现真实品牌 logo，不要生成难以阅读的小字。
 """.strip(),
     },
+    {
+        "filename": "mlp-neuron-activation.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "神经元到 MLP 结构图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
+        "alt": "神经元到 MLP 结构图：输入、权重、偏置、激活函数和多层连接组成可学习模型。",
+        "prompt": """
+一张适合深度学习入门课程的教学图，主题是“从单个神经元到多层感知机”。
+画面表现输入特征经过权重和偏置汇总，再通过激活函数输出；右侧扩展成输入层、隐藏层、输出层的 MLP。
+重点突出“线性组合 + 非线性激活 + 多层堆叠”这三个直觉，风格清晰、现代教学白板感。
+不要出现真实品牌 logo，不要生成密集小字，不要生成乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "optimizer-comparison.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "优化器路径对比图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/03-optimizers.md",
+        "alt": "优化器路径对比图：SGD、Momentum 和 Adam 用不同下降轨迹寻找更低损失。",
+        "prompt": """
+一张适合深度学习优化器课程的教学图，主题是“SGD、Momentum、Adam 的下降路径差异”。
+画面表现同一个损失地形上有三条不同颜色的下降轨迹：SGD 抖动前进，Momentum 带惯性更平滑，Adam 自适应调整步长。
+构图要让新手一眼看懂“学习率和更新策略会改变训练路径”，风格清晰、带一点工程实验感。
+不要出现真实品牌 logo，不要生成复杂公式，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "regularization-overfitting-controls.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "正则化控制过拟合图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/04-regularization.md",
+        "alt": "正则化控制过拟合图：Dropout、Weight Decay、数据增强和早停共同限制模型记死训练集。",
+        "prompt": """
+一张适合深度学习正则化课程的教学图，主题是“如何防止模型过拟合”。
+画面左侧表现训练集被模型死记硬背，右侧用 Dropout、Weight Decay、数据增强、Early Stopping 四个工具把模型拉回更稳的泛化区域。
+风格像模型训练诊断白板，清晰、直观、适合新手理解“不要只追训练集分数”。
+不要出现真实品牌 logo，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "pytorch-autograd-graph.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PyTorch Autograd 计算图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+        "alt": "PyTorch Autograd 计算图：张量运算形成计算图，loss.backward 沿图反向计算梯度。",
+        "prompt": """
+一张适合 PyTorch 自动求导课程的教学图，主题是“Autograd 计算图”。
+画面表现多个 tensor 运算节点从输入一路组成 loss，调用 backward 后梯度沿着计算图反向流回需要更新的参数。
+突出 requires_grad、loss、backward、grad 四个概念之间的关系，风格工程化、清晰、适合新人理解。
+不要出现真实品牌 logo，不要生成密集代码或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "dataset-dataloader-batch-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Dataset DataLoader Batch 流程图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/04-data-loading.md",
+        "alt": "Dataset DataLoader Batch 流程图：原始样本经过 Dataset、Sampler、DataLoader 组成可训练 batch。",
+        "prompt": """
+一张适合 PyTorch 数据加载课程的教学图，主题是“Dataset 到 DataLoader 再到 Batch”。
+画面表现原始图片或文本样本进入 Dataset，经过索引、变换、打乱、分批，最终输出一个 batch 给训练循环。
+重点突出 batch 维度、shuffle、transform、collate 的角色，风格清晰、像工程流水线。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "cnn-feature-map-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "CNN 特征图流水线",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/02-cnn-structure.md",
+        "alt": "CNN 特征图流水线：图像经过卷积、激活、池化和全连接层逐步提取局部到整体特征。",
+        "prompt": """
+一张适合 CNN 结构课程的教学图，主题是“CNN 从像素到类别的特征提取流水线”。
+画面表现输入图像经过卷积层、激活、池化，多层后得到更抽象的特征图，最后进入分类头输出类别。
+强调浅层看边缘纹理、深层看局部结构和整体语义，风格清晰、层次分明。
+不要出现真实品牌 logo，不要生成复杂小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "rnn-unrolled-hidden-state.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RNN 时间展开隐藏状态图",
+        "suggested_page": "docs/ch06-deep-learning/ch04-rnn/01-rnn-basics.md",
+        "alt": "RNN 时间展开隐藏状态图：序列逐步输入，同一单元反复使用隐藏状态传递上下文。",
+        "prompt": """
+一张适合 RNN 入门课程的教学图，主题是“RNN 在时间上展开”。
+画面表现一个 RNN 单元沿时间轴复制展开，输入 token 或时间点逐步进入，隐藏状态像记忆接力棒一样从前一步传到后一步。
+重点突出共享参数、隐藏状态、many-to-one 和 many-to-many 的直觉，风格清晰、适合新手。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "gan-adversarial-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "GAN 生成器判别器对抗图",
+        "suggested_page": "docs/ch06-deep-learning/ch06-generative/01-gan.md",
+        "alt": "GAN 生成器判别器对抗图：生成器尝试造假样本，判别器尝试分辨真假，双方一起进步。",
+        "prompt": """
+一张适合生成模型课程的教学图，主题是“GAN 的生成器与判别器博弈”。
+画面表现生成器从随机噪声制造样本，判别器同时看到真实样本和生成样本并判断真假，反馈信号推动生成器改进。
+用“造假者与鉴别师”的直觉表达对抗训练，但保持专业技术课程风格。
+不要出现真实品牌 logo，不要生成密集文字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "vae-latent-space-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "VAE 潜空间生成流程图",
+        "suggested_page": "docs/ch06-deep-learning/ch06-generative/02-vae.md",
+        "alt": "VAE 潜空间生成流程图：编码器把输入压到分布化潜空间，采样后由解码器重建或生成样本。",
+        "prompt": """
+一张适合 VAE 入门课程的教学图，主题是“编码器、潜空间、采样、解码器”。
+画面表现输入样本经过编码器变成均值和方差描述的潜空间分布，从潜空间采样后再由解码器生成或重建样本。
+突出潜空间连续、可采样、可插值的直觉，风格清晰、柔和、适合新人理解。
+不要出现真实品牌 logo，不要生成复杂公式或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "training-curve-diagnosis.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "训练曲线诊断图",
+        "suggested_page": "docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md",
+        "alt": "训练曲线诊断图：欠拟合、过拟合、学习率过大和正常收敛对应不同 loss 曲线形态。",
+        "prompt": """
+一张适合深度学习训练诊断课程的教学图，主题是“从 loss 曲线看训练问题”。
+画面用四个并列小面板表现正常收敛、欠拟合、过拟合、学习率过大震荡这些典型训练曲线，并用颜色区分训练集和验证集。
+风格像实验记录看板，清晰、准确、帮助新手把曲线和问题对应起来。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "tokenizer-subword-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Tokenizer 子词切分流程图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md",
+        "alt": "Tokenizer 子词切分流程图：原始文本被清洗、切成 token、映射为 id，再进入模型。",
+        "prompt": """
+一张适合大模型入门课程的教学图，主题是“Tokenizer 如何把文本变成模型能读的 token id”。
+画面表现原始句子经过规范化、子词切分、词表查找，变成 token 序列和数字 id，最后进入 embedding 层。
+重点突出 token 不等于汉字或单词、切分会影响上下文长度和成本，风格清晰、现代。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "embedding-semantic-space.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Embedding 语义空间图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
+        "alt": "Embedding 语义空间图：token 被映射到向量空间，语义相近的表示在空间中更接近。",
+        "prompt": """
+一张适合大模型 embedding 课程的教学图，主题是“语义空间里的 token 向量”。
+画面表现 token id 经过 embedding 表变成向量点，语义相近的点聚在一起，不同方向代表不同语义维度。
+强调“模型不是直接理解文字，而是在向量空间里计算关系”，风格清晰、适合新手建立直觉。
+不要出现真实品牌 logo，不要生成乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "llm-history-timeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型发展时间线图",
+        "suggested_page": "docs/ch07-llm-principles/ch02-llm-overview/01-development-history.md",
+        "alt": "大模型发展时间线图：从统计语言模型、词向量、Transformer 到指令微调和多模态模型逐步演进。",
+        "prompt": """
+一张适合大模型发展史课程的时间线插图，主题是“从统计 NLP 到大模型时代”。
+画面用时间轴串起统计语言模型、词向量、Seq2Seq、Transformer、预训练模型、指令微调、RAG 与 Agent、多模态等里程碑。
+风格像技术史展板，清晰、有故事感，帮助新人把技术放进历史脉络。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "pretraining-data-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练数据流水线图",
+        "suggested_page": "docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "alt": "预训练数据流水线图：原始网页、书籍、代码和论文经过清洗、去重、过滤、切分后进入训练集。",
+        "prompt": """
+一张适合大模型预训练课程的工程流程图，主题是“预训练数据从原始资料到训练样本”。
+画面表现网页、书籍、代码、论文等资料进入清洗、去重、质量过滤、隐私安全过滤、tokenization、切分打包，最后进入训练集。
+风格工程化、清晰、适合新手理解“数据质量决定模型底座质量”。
+不要出现真实品牌 logo，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "finetuning-alignment-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "微调与对齐总流程图",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/01-finetuning-overview.md",
+        "alt": "微调与对齐总流程图：基础模型经过 SFT、LoRA、偏好数据和对齐评估变成更适合任务的助手。",
+        "prompt": """
+一张适合大模型微调课程的总流程图，主题是“从基础模型到领域助手”。
+画面表现基础模型经过任务数据准备、SFT、LoRA 或 QLoRA、偏好数据、对齐评估、上线监控，逐步变成适合业务场景的模型。
+重点突出“不是只训练一次，而是数据、训练、评估、反馈的循环”，风格清晰、专业。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "document-processing-vectorization.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "文档解析与向量化流程图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/02-document-processing.md",
+        "alt": "文档解析与向量化流程图：PDF、Word、PPT 经过解析、清洗、切块、embedding 后写入向量库。",
+        "prompt": """
+一张适合 RAG 文档处理课程的流程图，主题是“文档解析到向量化”。
+画面表现 PDF、Word、PPT、网页被解析成文本和结构，经过清洗、切块、元数据标注、embedding，最后写入向量库。
+重点突出 chunk、metadata、embedding 三个新人最容易混的概念，风格工程化、清晰。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "vector-database-similarity-search.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "向量数据库相似度检索图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/03-vector-databases.md",
+        "alt": "向量数据库相似度检索图：查询向量在向量空间中寻找最接近的文档片段。",
+        "prompt": """
+一张适合向量数据库课程的教学图，主题是“相似度检索如何找到相关文档片段”。
+画面表现用户问题变成查询向量，在向量空间中寻找距离最近的 chunk 点，并返回 Top-K 结果给 RAG 系统。
+重点突出向量空间、距离、Top-K、metadata filter 的关系，风格清晰、现代。
+不要出现真实品牌 logo，不要生成乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "hybrid-search-rerank-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Hybrid Search 与 Rerank 流程图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/04-retrieval-strategies.md",
+        "alt": "Hybrid Search 与 Rerank 流程图：关键词检索和向量检索召回候选，再由重排模型筛选上下文。",
+        "prompt": """
+一张适合 RAG 检索策略课程的流程图，主题是“Hybrid Search + Rerank”。
+画面表现同一个问题同时走关键词检索和向量检索，合并候选文档后进入 reranker 重排，最后选择最相关片段进入上下文。
+重点突出召回和精排的分工，风格工程化、清晰、适合新手理解检索优化。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "function-calling-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Function Calling 工作流图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/03-function-calling.md",
+        "alt": "Function Calling 工作流图：模型根据工具 schema 选择函数、生成参数、执行工具并整合结果。",
+        "prompt": """
+一张适合大模型应用开发课程的流程图，主题是“Function Calling 如何让模型调用工具”。
+画面表现用户请求进入模型，模型根据工具 schema 选择函数并生成结构化参数，应用执行函数，返回观察结果，再由模型整合最终回答。
+重点突出 schema、参数校验、工具结果和最终回复之间的边界，风格清晰、工程化。
+不要出现真实品牌 logo，不要生成复杂小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "template-doc-generation-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Word PPT 模板生成流水线图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
+        "alt": "Word PPT 模板生成流水线图：结构化内容经过模板变量、版式校验和资源插入后导出文档。",
+        "prompt": """
+一张适合大模型文档生成课程的工程流程图，主题是“结构化内容如何生成 Word 或 PPT”。
+画面表现主题和资料先变成大纲、段落、例题和图表资源，再进入模板变量填充、样式校验、引用检查，最后导出 Word 或 PPT 文件。
+重点突出结构化 JSON、模板、资源、校验、导出五个环节，风格清晰、像产品工作流。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "agent-vs-chatbot-comparison.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 与普通 Chatbot 对比图",
+        "suggested_page": "docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md",
+        "alt": "Agent 与普通 Chatbot 对比图：聊天机器人主要回答，Agent 会规划、调用工具、观察结果并推进任务。",
+        "prompt": """
+一张适合 AI Agent 入门课程的对比图，主题是“普通 Chatbot 和 Agent 的区别”。
+画面左侧表现聊天机器人接收问题并回答，右侧表现 Agent 有目标、计划、工具调用、观察结果、记忆和最终交付物。
+重点突出 Agent 更像“会行动的任务执行系统”，风格清晰、友好、适合新人建立边界。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "agent-system-architecture.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 系统架构图",
+        "suggested_page": "docs/ch09-agent/ch01-agent-basics/04-system-architecture.md",
+        "alt": "Agent 系统架构图：目标、规划器、模型、工具、记忆、环境和评估模块共同组成执行闭环。",
+        "prompt": """
+一张适合 AI Agent 架构课程的系统图，主题是“一个 Agent 系统由哪些模块组成”。
+画面表现用户目标进入规划器和模型，大模型连接工具、记忆、环境观察、执行日志、评估与安全护栏，形成持续执行闭环。
+重点突出模块边界和数据流，风格专业、清晰、像系统架构白板。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "react-reason-act-observe-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "ReAct 推理行动观察循环图",
+        "suggested_page": "docs/ch09-agent/ch02-reasoning/03-react.md",
+        "alt": "ReAct 推理行动观察循环图：模型在思考、行动、观察之间循环，逐步接近任务答案。",
+        "prompt": """
+一张适合 Agent 推理课程的流程图，主题是“ReAct：Reason、Act、Observe 的循环”。
+画面表现 Agent 根据任务先推理下一步，再调用工具或执行动作，读取观察结果后更新判断并进入下一轮，直到完成任务。
+重点突出循环、可回放轨迹和工具观察，风格清晰、像任务执行仪表盘。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "mcp-host-client-server.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "MCP Host Client Server 架构图",
+        "suggested_page": "docs/ch09-agent/ch05-mcp/02-mcp-architecture.md",
+        "alt": "MCP Host Client Server 架构图：Host 通过 Client 连接多个 Server，统一发现资源、工具和提示能力。",
+        "prompt": """
+一张适合 MCP 协议课程的系统架构图，主题是“MCP Host、Client、Server 如何协作”。
+画面表现应用 Host 内部有 MCP Client，连接多个 MCP Server，每个 Server 提供工具、资源、提示模板，Agent 通过协议统一发现和调用能力。
+重点突出协议边界、连接关系和能力发现，风格工程化、清晰。
+不要出现真实品牌 logo，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "multi-agent-message-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多 Agent 协作消息流图",
+        "suggested_page": "docs/ch09-agent/ch07-multi-agent/01-architecture-patterns.md",
+        "alt": "多 Agent 协作消息流图：规划者、研究者、执行者和评审者通过消息与共享状态协作完成任务。",
+        "prompt": """
+一张适合多 Agent 课程的协作架构图，主题是“多个 Agent 如何分工协作”。
+画面表现规划者、研究者、执行者、评审者等角色围绕共享任务板和消息通道协作，任务被拆分、分派、执行、复核、合并。
+重点突出角色分工、消息流、共享状态和冲突处理，风格清晰、像团队作战室。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
 ]
 
 
@@ -1509,7 +1860,7 @@ def generate_image_with_http(api_key: str, base_url: str, model: str, job: dict[
                 time.sleep(wait_seconds)
                 continue
             raise RuntimeError(f"Image API request failed with HTTP {exc.code} for {job['filename']}.") from exc
-        except urllib.error.URLError as exc:
+        except (urllib.error.URLError, TimeoutError, http.client.HTTPException) as exc:
             if attempt < retries:
                 wait_seconds = 8 * (attempt + 1)
                 print(

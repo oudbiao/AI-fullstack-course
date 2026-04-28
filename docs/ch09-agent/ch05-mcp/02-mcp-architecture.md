@@ -7,6 +7,8 @@ keywords: [MCP architecture, client, server, transport, tools, protocol flow]
 
 # MCP 架构与核心概念
 
+![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.png)
+
 :::tip 本节定位
 上一节我们已经知道 MCP 是“工具接入层的统一协议”。  
 这一节要继续往里走一步，回答：

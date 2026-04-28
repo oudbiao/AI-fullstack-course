@@ -7,6 +7,8 @@ keywords: [向量数据库, embedding, similarity search, metadata filter, RAG]
 
 # 向量数据库
 
+![向量数据库相似度检索图](/img/course/vector-database-similarity-search.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

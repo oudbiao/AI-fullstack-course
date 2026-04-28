@@ -7,6 +7,8 @@ keywords: [AI Agent, 智能体, tools, planning, workflow, function calling]
 
 # 什么是 AI Agent
 
+![Agent 与普通 Chatbot 对比图](/img/course/agent-vs-chatbot-comparison.png)
+
 :::tip 本节定位
 Agent 最容易被新人误会成：
 

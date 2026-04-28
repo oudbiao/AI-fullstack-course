@@ -7,6 +7,8 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 
 # 训练监控与诊断
 
+![训练曲线诊断图](/img/course/training-curve-diagnosis.png)
+
 :::tip 本节定位
 很多训练失败并不是“模型不够强”，而是：
 

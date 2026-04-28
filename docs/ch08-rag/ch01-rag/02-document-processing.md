@@ -7,6 +7,8 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 
 # 文档处理与向量化
 
+![文档解析与向量化流程图](/img/course/document-processing-vectorization.png)
+
 ## 学习目标
 
 完成本节后，你将能够：
