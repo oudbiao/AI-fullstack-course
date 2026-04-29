@@ -38,11 +38,7 @@ description: "用 Plotly 制作可交互的动态图表"
 
 `Plotly` 最适合按“什么时候要让用户自己探索图表”来理解：
 
-```mermaid
-flowchart LR
-    A["静态图已经能说明问题"] --> B["继续用 Matplotlib / Seaborn"]
-    C["需要悬停、缩放、筛选、网页展示"] --> D["考虑 Plotly"]
-```
+![Plotly 交互式仪表盘图](/img/course/ch03-plotly-interactive-dashboard.png)
 
 所以这节真正想解决的是：
 

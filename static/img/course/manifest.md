@@ -35,7 +35,48 @@
 | `ch02-web-scraper-pipeline.png` | 网络爬虫数据采集流程图 | `docs/ch02-python/ch03-projects/02-web-scraper.md` | 网络爬虫数据采集流程图：HTTP 请求获取网页，解析 HTML，清洗结构化数据并保存。 |
 | `ch02-web-api-request-response.png` | Web API 请求响应架构图 | `docs/ch02-python/ch03-projects/03-web-api.md` | Web API 请求响应架构图：客户端发送请求，FastAPI 路由接收，函数处理后返回 JSON 响应。 |
 | `ch03-data-visualization.png` | 数据分析与可视化主视觉 | `docs/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
+| `ch03-learning-quest-map.png` | 数据分析学习闯关地图 | `docs/ch03-data-analysis/index.md` | 数据分析学习闯关地图：原始数据经过字段观察、清洗、聚合、可视化、解释和报告输出。 |
+| `ch03-data-analysis-backbone.png` | 数据分析主线闭环 | `docs/ch03-data-analysis/index.md` | 数据分析主线闭环：获取数据、理解字段、清洗异常、转换聚合、可视化探索并服务建模或业务决策。 |
+| `ch03-study-guide-data-loop.png` | 数据分析学习指南最小闭环 | `docs/ch03-data-analysis/study-guide.md` | 数据分析学习指南最小闭环：读取数据、理解字段、清洗整理、统计分析、可视化和写出结论。 |
+| `ch03-task-list-workflow.png` | 数据分析阶段任务链 | `docs/ch03-data-analysis/task-list.md` | 数据分析阶段任务链：读取数据、检查质量、清洗转换、统计分析、可视化表达和写出结论。 |
+| `ch03-pure-python-data-flow.png` | 纯 Python 数据处理痛点图 | `docs/ch03-data-analysis/ch01-warmup/01-pure-python-data.md` | 纯 Python 数据处理痛点图：CSV 解析、字典列表、手写循环、清洗统计和输出结果串成繁琐流程。 |
+| `ch03-numpy-overview-array-engine.png` | NumPy 科学计算引擎图 | `docs/ch03-data-analysis/ch02-numpy/01-overview.md` | NumPy 科学计算引擎图：ndarray 作为底层数组能力，支撑 Pandas、可视化、机器学习和深度学习。 |
+| `ch03-numpy-indexing-slicing-map.png` | NumPy 索引切片地图 | `docs/ch03-data-analysis/ch02-numpy/03-indexing-slicing.md` | NumPy 索引切片地图：基本索引、切片、布尔索引、花式索引、视图和拷贝帮助选择数组子集。 |
+| `ch03-numpy-reshape-axis-flow.png` | NumPy 变形与轴操作图 | `docs/ch03-data-analysis/ch02-numpy/05-reshaping.md` | NumPy 变形与轴操作图：同一组元素通过 reshape、转置、拼接和分割变成不同数组形状。 |
+| `ch03-numpy-linear-algebra-toolkit.png` | NumPy 线性代数工具箱 | `docs/ch03-data-analysis/ch02-numpy/06-linear-algebra.md` | NumPy 线性代数工具箱：矩阵乘法、点积、范数、解方程、特征值和余弦相似度服务 AI 计算。 |
+| `ch03-numpy-random-statistics-map.png` | NumPy 随机数与统计地图 | `docs/ch03-data-analysis/ch02-numpy/07-random-stats.md` | NumPy 随机数与统计地图：随机种子、分布、抽样、描述统计、相关性和蒙特卡洛模拟组成统计实验流程。 |
+| `ch03-pandas-roadmap.png` | Pandas 数据处理路线图 | `docs/ch03-data-analysis/ch03-pandas/00-roadmap.md` | Pandas 数据处理路线图：读入数据、看结构、选择过滤、清洗、转换、聚合、合并和输出给图表或模型。 |
+| `ch03-pandas-read-write-first-look.png` | Pandas 数据读写初次见面流程 | `docs/ch03-data-analysis/ch03-pandas/02-read-write.md` | Pandas 数据读写初次见面流程：读取文件、检查 info/head/shape、确认编码类型、分块处理和导出结果。 |
+| `ch03-pandas-selection-filter-map.png` | Pandas 数据选择与过滤地图 | `docs/ch03-data-analysis/ch03-pandas/03-selection-filter.md` | Pandas 数据选择与过滤地图：loc、iloc、布尔条件、isin、between、query 帮助从 DataFrame 中挑出目标数据。 |
+| `ch03-pandas-cleaning-workflow.png` | Pandas 数据清洗工作流 | `docs/ch03-data-analysis/ch03-pandas/04-data-cleaning.md` | Pandas 数据清洗工作流：缺失值、重复值、异常值、类型错误和字符串脏数据被检查、记录和修复。 |
+| `ch03-pandas-transform-pipeline.png` | Pandas 数据转换流水线 | `docs/ch03-data-analysis/ch03-pandas/05-data-transform.md` | Pandas 数据转换流水线：映射、替换、apply、派生列、分箱和标准化让原始字段变成可分析特征。 |
+| `ch03-pandas-merge-concat-join.png` | Pandas 合并拼接连接图 | `docs/ch03-data-analysis/ch03-pandas/07-merge.md` | Pandas 合并拼接连接图：merge 按键匹配，concat 上下或左右拼接，join 按索引连接多张表。 |
+| `ch03-pandas-time-series-analysis.png` | Pandas 时间序列分析图 | `docs/ch03-data-analysis/ch03-pandas/08-time-series.md` | Pandas 时间序列分析图：日期解析、时间索引、重采样、滑动窗口和趋势对比帮助分析随时间变化的数据。 |
+| `ch03-visualization-roadmap.png` | 数据可视化学习路线图 | `docs/ch03-data-analysis/ch04-visualization/00-roadmap.md` | 数据可视化学习路线图：先明确表达目标，再选择图表、绘图库、标注样式并用于分析或汇报。 |
+| `ch03-plotly-interactive-dashboard.png` | Plotly 交互式仪表盘图 | `docs/ch03-data-analysis/ch04-visualization/03-plotly.md` | Plotly 交互式仪表盘图：筛选器、悬停提示、缩放、动态图表和网页展示帮助探索数据。 |
+| `ch03-database-roadmap.png` | 数据库选修学习路线图 | `docs/ch03-data-analysis/ch05-database/00-roadmap.md` | 数据库选修学习路线图：本地文件、关系型数据库、SQL 查询、Python 连接和数据分析协作逐步连接。 |
+| `ch03-relational-database-foundation.png` | 关系型数据库基础图 | `docs/ch03-data-analysis/ch05-database/01-relational-db.md` | 关系型数据库基础图：数据库、表、行、列、主键、外键、索引和权限共同支撑可靠数据管理。 |
+| `ch03-python-database-bridge.png` | Python 与数据库协作桥梁图 | `docs/ch03-data-analysis/ch05-database/03-python-db.md` | Python 与数据库协作桥梁图：Python 连接数据库、执行 SQL、取回结果、交给 Pandas 分析并写回数据。 |
+| `ch03-database-design-erd-normalization.png` | 数据库设计与范式图 | `docs/ch03-data-analysis/ch05-database/04-db-design.md` | 数据库设计与范式图：实体拆表、主键外键、范式、索引和查询场景共同减少重复和维护风险。 |
 | `ch04-ai-math.png` | AI 数学基础主视觉 | `docs/ch04-ai-math/index.md` | AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。 |
+| `ch04-learning-quest-map.png` | AI 数学学习闯关地图 | `docs/ch04-ai-math/index.md` | AI 数学学习闯关地图：向量、矩阵、概率、损失、梯度和优化逐步连接到模型训练。 |
+| `ch04-ai-math-backbone.png` | AI 数学最小必要主线图 | `docs/ch04-ai-math/index.md` | AI 数学最小必要主线图：线性代数负责表示，概率统计负责不确定性，微积分负责损失和优化。 |
+| `ch04-study-guide-math-minimum-loop.png` | AI 数学学习指南最小闭环 | `docs/ch04-ai-math/study-guide.md` | AI 数学学习指南最小闭环：向量矩阵表示数据，概率统计衡量不确定性，导数梯度优化参数。 |
+| `ch04-linear-algebra-chapter-flow.png` | 线性代数章节关系图 | `docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 线性代数章节关系图：现实数据先表示成向量，再堆成矩阵，经过变换找到特征方向并连接 PCA 和神经网络。 |
+| `ch04-vector-ai-meaning-map.png` | 向量 AI 含义地图 | `docs/ch04-ai-math/ch01-linear-algebra/01-vectors.md` | 向量 AI 含义地图：现实对象被写成数字向量，通过点积和余弦相似度连接推荐、搜索、RAG 和语义匹配。 |
+| `ch04-matrix-batch-transform-flow.png` | 矩阵批量变换流程图 | `docs/ch04-ai-math/ch01-linear-algebra/02-matrices.md` | 矩阵批量变换流程图：单个样本向量堆成样本矩阵，乘权重矩阵后得到批量输出。 |
+| `ch04-eigen-pca-direction-map.png` | 特征方向与 PCA 地图 | `docs/ch04-ai-math/ch01-linear-algebra/03-eigenvalues.md` | 特征方向与 PCA 地图：矩阵变换中少数方向不改变方向，特征值衡量拉伸倍数，PCA 用它找重要方向。 |
+| `ch04-vector-space-high-level-map.png` | 向量空间高层理解图 | `docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | 向量空间高层理解图：向量、线性无关、基、维度、线性变换和 SVD 串成更高层的线性代数视角。 |
+| `ch04-probability-chapter-flow.png` | 概率统计章节关系图 | `docs/ch04-ai-math/ch02-probability/00-roadmap.md` | 概率统计章节关系图：概率描述事件，分布描述随机现象，统计推断从数据反推规律，信息论衡量不确定性和预测误差。 |
+| `ch04-probability-bayes-update-flow.png` | 概率与贝叶斯更新流程图 | `docs/ch04-ai-math/ch02-probability/01-probability-basics.md` | 概率与贝叶斯更新流程图：事件概率在获得新证据后通过条件概率和贝叶斯法则更新判断。 |
+| `ch04-distribution-random-world-map.png` | 概率分布随机现象地图 | `docs/ch04-ai-math/ch02-probability/02-distributions.md` | 概率分布随机现象地图：很多次随机结果堆起来形成分布，离散分布处理计数标签，连续分布处理噪声误差和连续特征。 |
+| `ch04-statistical-inference-data-to-parameter.png` | 统计推断从数据到参数图 | `docs/ch04-ai-math/ch02-probability/03-statistical-inference.md` | 统计推断从数据到参数图：观测数据用于估计参数，MLE、MAP、假设检验和 A/B 测试帮助做判断。 |
+| `ch04-information-theory-loss-map.png` | 信息论到损失函数地图 | `docs/ch04-ai-math/ch02-probability/04-information-theory.md` | 信息论到损失函数地图：信息量、熵、交叉熵和 KL 散度连接到分类损失和语言模型训练。 |
+| `ch04-calculus-training-flow.png` | 微积分优化章节关系图 | `docs/ch04-ai-math/ch03-calculus/00-roadmap.md` | 微积分优化章节关系图：导数衡量变化，梯度指明方向，梯度下降更新参数，反向传播高效计算所有梯度。 |
+| `ch04-derivative-change-rate-bridge.png` | 导数变化率桥梁图 | `docs/ch04-ai-math/ch03-calculus/01-derivatives.md` | 导数变化率桥梁图：一个量的变化率连接到梯度、梯度下降和反向传播的优化主线。 |
+| `ch04-gradient-parameter-knobs-map.png` | 偏导与梯度调参旋钮图 | `docs/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient.md` | 偏导与梯度调参旋钮图：固定其他变量只看一个旋钮的影响，所有偏导合成梯度给出整体调整方向。 |
+| `ch04-gradient-descent-iteration-loop.png` | 梯度下降迭代闭环图 | `docs/ch04-ai-math/ch03-calculus/03-gradient-descent.md` | 梯度下降迭代闭环图：当前位置计算梯度，沿负梯度方向走一步，损失变小并重复直到收敛。 |
+| `ch04-backprop-chain-rule-training-bridge.png` | 反向传播链式法则桥梁图 | `docs/ch04-ai-math/ch03-calculus/04-chain-rule-backprop.md` | 反向传播链式法则桥梁图：前向传播算出输出和损失，损失沿计算图反向传递，用链式法则得到每个参数梯度。 |
 | `ch04-linear-algebra-roadmap.png` | 线性代数学习地图 | `docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 线性代数学习地图：向量、矩阵、特殊方向和 AI 场景串成学习顺序。 |
 | `eigenvalue-special-directions.png` | 特征向量特殊方向示意图 | `docs/ch04-ai-math/ch01-linear-algebra/03-eigenvalues.md` | 特征向量特殊方向示意图：矩阵变换后方向不变，只发生拉伸或压缩。 |
 | `vector-space-basis-span.png` | 向量空间基向量张成示意图 | `docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | 向量空间基向量张成示意图：基向量通过线性组合覆盖可到达空间。 |

@@ -4,13 +4,13 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 202 / 202
+Generated with image2: 243 / 243
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
 编号说明：课程源码目录已经和网页展示章节号对齐；例如 `docs/ch01-tools` 对应第 1 章“开发者工具基础”，`docs/ch05-machine-learning` 对应第 5 章“机器学习入门到实战”。
 
-第 4 章说明：目录 `docs/ch04-ai-math` 下的 12 张数学补充图已经用 image2 重新生成，并覆盖早前的本地预览图。
+第 4 章说明：目录 `docs/ch04-ai-math` 下原有 12 张数学补充图已经用 image2 重新生成，并覆盖早前的本地预览图；本轮新增 18 张真实 PNG，用于替换数学首页、学习指南、线性代数、概率统计、微积分与优化页面的入口学习地图。
 
 第 5 章说明：目录 `docs/ch05-machine-learning` 下的 22 张机器学习补充图已经用 image2 生成，因此第 5 章每篇文章都有视觉入口。
 
@@ -22,7 +22,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 附录说明：目录 `docs/appendix` 下新增的 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。
 
-第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 36 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。其中第 1 章本轮新增 6 张真实 PNG，用于替换任务单、命令行、包管理器、Git 核心操作、远程仓库和 VS Code 页面的文字流程入口；第 2 章本轮新增 15 张真实 PNG，用于替换 Python 首页、学习指南、任务链、基础语法、文件处理、进阶机制和项目页的文字流程入口。
+第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 59 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。其中第 1 章本轮新增 6 张真实 PNG，用于替换任务单、命令行、包管理器、Git 核心操作、远程仓库和 VS Code 页面的文字流程入口；第 2 章本轮新增 15 张真实 PNG，用于替换 Python 首页、学习指南、任务链、基础语法、文件处理、进阶机制和项目页的文字流程入口；第 3 章本轮新增 23 张真实 PNG，用于替换数据分析首页、学习指南、任务链、NumPy、Pandas、可视化和数据库页面的文字流程入口。
 
 学习地图说明：目录 `docs/intro` 下新增的 8 张能力地图、现代技术栈、学习路线、四条主线、卡点诊断、项目作品集、角色路线和毕业项目闭环图已经用 image2 生成，并插入到对应导览页面。
 
@@ -37,6 +37,24 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch02-python-foundation.png`
 - `ch03-data-visualization.png`
 - `ch04-ai-math.png`
+- `ch04-learning-quest-map.png`
+- `ch04-ai-math-backbone.png`
+- `ch04-study-guide-math-minimum-loop.png`
+- `ch04-linear-algebra-chapter-flow.png`
+- `ch04-vector-ai-meaning-map.png`
+- `ch04-matrix-batch-transform-flow.png`
+- `ch04-eigen-pca-direction-map.png`
+- `ch04-vector-space-high-level-map.png`
+- `ch04-probability-chapter-flow.png`
+- `ch04-probability-bayes-update-flow.png`
+- `ch04-distribution-random-world-map.png`
+- `ch04-statistical-inference-data-to-parameter.png`
+- `ch04-information-theory-loss-map.png`
+- `ch04-calculus-training-flow.png`
+- `ch04-derivative-change-rate-bridge.png`
+- `ch04-gradient-parameter-knobs-map.png`
+- `ch04-gradient-descent-iteration-loop.png`
+- `ch04-backprop-chain-rule-training-bridge.png`
 - `ch05-machine-learning.png`
 - `ch06-deep-learning.png`
 - `ch10-computer-vision.png`
@@ -222,6 +240,29 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch03-numpy-broadcasting-vectorization.png`
 - `ch03-pandas-groupby-split-apply-combine.png`
 - `ch03-multi-source-analysis-architecture.png`
+- `ch03-learning-quest-map.png`
+- `ch03-data-analysis-backbone.png`
+- `ch03-study-guide-data-loop.png`
+- `ch03-task-list-workflow.png`
+- `ch03-pure-python-data-flow.png`
+- `ch03-numpy-overview-array-engine.png`
+- `ch03-numpy-indexing-slicing-map.png`
+- `ch03-numpy-reshape-axis-flow.png`
+- `ch03-numpy-linear-algebra-toolkit.png`
+- `ch03-numpy-random-statistics-map.png`
+- `ch03-pandas-roadmap.png`
+- `ch03-pandas-read-write-first-look.png`
+- `ch03-pandas-selection-filter-map.png`
+- `ch03-pandas-cleaning-workflow.png`
+- `ch03-pandas-transform-pipeline.png`
+- `ch03-pandas-merge-concat-join.png`
+- `ch03-pandas-time-series-analysis.png`
+- `ch03-visualization-roadmap.png`
+- `ch03-plotly-interactive-dashboard.png`
+- `ch03-database-roadmap.png`
+- `ch03-relational-database-foundation.png`
+- `ch03-python-database-bridge.png`
+- `ch03-database-design-erd-normalization.png`
 - `intro-ai-fullstack-capability-map.png`
 - `intro-modern-ai-stack-map.png`
 - `intro-learning-path-selection.png`

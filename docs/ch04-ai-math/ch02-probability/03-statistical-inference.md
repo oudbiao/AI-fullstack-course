@@ -95,13 +95,7 @@ MLE 最打动人的地方，恰恰就是它很像侦探工作：
 
 > **既然我们拿到了数据，怎样反推出背后的参数和结论？**
 
-```mermaid
-flowchart LR
-    A["观测数据"] --> B["先猜参数"]
-    B --> C["MLE / MAP"]
-    C --> D["进一步做判断"]
-    D --> E["假设检验 / A-B 测试"]
-```
+![统计推断从数据到参数图](/img/course/ch04-statistical-inference-data-to-parameter.png)
 
 这节课最重要的不是记名词，而是先抓住：
 

@@ -456,6 +456,325 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch03-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据分析学习闯关地图",
+        "suggested_page": "docs/ch03-data-analysis/index.md",
+        "alt": "数据分析学习闯关地图：原始数据经过字段观察、清洗、聚合、可视化、解释和报告输出。",
+        "prompt": """
+一张适合数据分析与可视化首页的学习闯关地图，主题是“从原始数据到可信分析报告”。
+画面表现学习者拿到原始数据，依次经过观察字段、检查缺失异常、清洗转换、统计聚合、可视化探索、解释发现、写成报告。
+风格像数据侦探路线图，清爽、现代、新手友好；用图标、箭头和节点表达，不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-data-analysis-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据分析主线闭环",
+        "suggested_page": "docs/ch03-data-analysis/index.md",
+        "alt": "数据分析主线闭环：获取数据、理解字段、清洗异常、转换聚合、可视化探索并服务建模或业务决策。",
+        "prompt": """
+一张适合数据分析课程首页的主线流程图，主题是“AI 项目为什么离不开数据闭环”。
+画面表现数据从文件、日志、数据库进入分析流程，经过字段理解、缺失异常清洗、转换聚合、图表探索、结论沉淀，最后服务机器学习建模、RAG 评估或业务决策。
+重点让新手看到数据处理不是背 API，而是一个可重复的工作流。
+风格专业、清晰、有数据工作台质感；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-study-guide-data-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据分析学习指南最小闭环",
+        "suggested_page": "docs/ch03-data-analysis/study-guide.md",
+        "alt": "数据分析学习指南最小闭环：读取数据、理解字段、清洗整理、统计分析、可视化和写出结论。",
+        "prompt": """
+一张适合数据分析学习指南的教学图，主题是“新手第一遍只要抓住数据分析最小闭环”。
+画面表现数据读进来，先理解字段，再清洗整理，接着统计分析，最后用图表表达结论并写入报告。
+重点帮助初学者把 NumPy、Pandas 和可视化看成一条连续数据流，而不是零散库函数。
+风格温和、清晰、像老师手绘的现代流程图；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-task-list-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据分析阶段任务链",
+        "suggested_page": "docs/ch03-data-analysis/task-list.md",
+        "alt": "数据分析阶段任务链：读取数据、检查质量、清洗转换、统计分析、可视化表达和写出结论。",
+        "prompt": """
+一张适合数据分析阶段任务单的任务链插图，主题是“把原始数据变成可解释结论的六步任务”。
+画面表现读取数据、检查质量、清洗转换、统计分析、可视化表达、写出结论和局限六个环节逐步连接。
+风格像课程通关路线图，清爽、实用、适合新人执行；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pure-python-data-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "纯 Python 数据处理痛点图",
+        "suggested_page": "docs/ch03-data-analysis/ch01-warmup/01-pure-python-data.md",
+        "alt": "纯 Python 数据处理痛点图：CSV 解析、字典列表、手写循环、清洗统计和输出结果串成繁琐流程。",
+        "prompt": """
+一张适合纯 Python 数据处理预热课的教学图，主题是“为什么处理数据需要 NumPy 和 Pandas”。
+画面表现一份 CSV 数据进入纯 Python 脚本后，需要手写解析、列表字典循环、类型转换、缺失处理、统计汇总和结果输出，流程显得笨重但可理解。
+右侧隐约展示后续 NumPy/Pandas 会把同样流程变得更清晰高效。
+风格像数据侦探工作台，亲切、具体；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-numpy-overview-array-engine.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 科学计算引擎图",
+        "suggested_page": "docs/ch03-data-analysis/ch02-numpy/01-overview.md",
+        "alt": "NumPy 科学计算引擎图：ndarray 作为底层数组能力，支撑 Pandas、可视化、机器学习和深度学习。",
+        "prompt": """
+一张适合 NumPy 概述课程的教学图，主题是“NumPy 是 Python 数据科学的数组引擎”。
+画面表现 ndarray 多维数组作为中央引擎，向外支撑 Pandas 表格处理、Matplotlib 可视化、机器学习、深度学习和科学计算。
+重点让新手理解 NumPy 不是孤立工具，而是后续数据和 AI 库的共同底座。
+风格现代、工程化、清晰友好；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-numpy-indexing-slicing-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 索引切片地图",
+        "suggested_page": "docs/ch03-data-analysis/ch02-numpy/03-indexing-slicing.md",
+        "alt": "NumPy 索引切片地图：基本索引、切片、布尔索引、花式索引、视图和拷贝帮助选择数组子集。",
+        "prompt": """
+一张适合 NumPy 索引与切片课程的教学图，主题是“从数组里精准取出想要的数据”。
+画面表现一个二维数组网格，分别用不同颜色高亮单个元素、连续切片、整行整列、布尔条件选中的格子、花式索引选中的离散格子，并用视图与拷贝做轻量对比。
+重点让新手看到索引不是背语法，而是在问“我想取哪一块数据”。
+风格清晰、白板教学和数据网格结合；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-numpy-reshape-axis-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 变形与轴操作图",
+        "suggested_page": "docs/ch03-data-analysis/ch02-numpy/05-reshaping.md",
+        "alt": "NumPy 变形与轴操作图：同一组元素通过 reshape、转置、拼接和分割变成不同数组形状。",
+        "prompt": """
+一张适合 NumPy 数组变形课程的教学图，主题是“数据不变，形状在变”。
+画面表现一串数字积木先变成二维矩阵，再变成三维数据块，并通过转置、拼接、分割等操作改变组织方式。
+重点突出 reshape 不改变元素总数，axis 决定操作方向，适合后续批量数据和图像数据理解。
+风格像数学积木和数据管道结合，准确、清晰；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-numpy-linear-algebra-toolkit.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 线性代数工具箱",
+        "suggested_page": "docs/ch03-data-analysis/ch02-numpy/06-linear-algebra.md",
+        "alt": "NumPy 线性代数工具箱：矩阵乘法、点积、范数、解方程、特征值和余弦相似度服务 AI 计算。",
+        "prompt": """
+一张适合 NumPy 线性代数课程的教学图，主题是“矩阵运算是 AI 计算的工具箱”。
+画面表现矩阵乘法、向量点积、范数长度、线性方程组、特征方向、余弦相似度这些工具被放在一个清晰工具箱里，连接到推荐、相似度、降维和模型计算场景。
+重点让新手把抽象矩阵操作和真实数据任务联系起来。
+风格现代数学白板、直观、有几何感；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-numpy-random-statistics-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 随机数与统计地图",
+        "suggested_page": "docs/ch03-data-analysis/ch02-numpy/07-random-stats.md",
+        "alt": "NumPy 随机数与统计地图：随机种子、分布、抽样、描述统计、相关性和蒙特卡洛模拟组成统计实验流程。",
+        "prompt": """
+一张适合 NumPy 随机数与统计课程的教学图，主题是“用随机数做可重复的统计实验”。
+画面表现随机种子控制实验复现，随机分布产生样本，抽样和打乱制造实验数据，描述统计、百分位数、相关性和直方图帮助理解数据，最后连接到蒙特卡洛模拟。
+风格像实验室和数据图表结合，清晰、具体、新手友好；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas 数据处理路线图",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/00-roadmap.md",
+        "alt": "Pandas 数据处理路线图：读入数据、看结构、选择过滤、清洗、转换、聚合、合并和输出给图表或模型。",
+        "prompt": """
+一张适合 Pandas 导读页的路线图，主题是“真实表格数据如何一步步变成分析结果”。
+画面表现原始 CSV/Excel/JSON 数据被 Pandas 读入，经过查看结构、选择过滤、清洗缺失异常、转换派生列、分组聚合、多表合并，最后输出给图表、报告或机器学习模型。
+重点让新手先建立数据流顺序，再去学习 API。
+风格像数据工厂流水线，表格和箭头清晰；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-read-write-first-look.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas 数据读写初次见面流程",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/02-read-write.md",
+        "alt": "Pandas 数据读写初次见面流程：读取文件、检查 info/head/shape、确认编码类型、分块处理和导出结果。",
+        "prompt": """
+一张适合 Pandas 数据读写课程的教学图，主题是“第一次拿到新数据文件该怎么稳稳读进来”。
+画面表现 CSV、Excel、JSON、SQL 数据源进入 Pandas，先检查行列规模、字段类型、缺失值、编码和样例行，再根据需要分块读取或导出为新文件。
+重点帮助新手避免一上来就分析，而是先和数据做“初次见面”。
+风格清晰、实用、像数据入口检查站；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-selection-filter-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas 数据选择与过滤地图",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/03-selection-filter.md",
+        "alt": "Pandas 数据选择与过滤地图：loc、iloc、布尔条件、isin、between、query 帮助从 DataFrame 中挑出目标数据。",
+        "prompt": """
+一张适合 Pandas 数据选择与过滤课程的教学图，主题是“从大表里挑出你真正想看的那部分”。
+画面表现一张 DataFrame 表格，分别用标签索引、位置索引、布尔条件、多条件组合、范围筛选和 query 查询选出不同数据子集。
+重点突出 loc 看标签、iloc 看位置、布尔索引看条件。
+风格像数据筛选控制台，清楚、亲切；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-cleaning-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas 数据清洗工作流",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/04-data-cleaning.md",
+        "alt": "Pandas 数据清洗工作流：缺失值、重复值、异常值、类型错误和字符串脏数据被检查、记录和修复。",
+        "prompt": """
+一张适合 Pandas 数据清洗课程的教学图，主题是“把脏数据变成可信数据”。
+画面表现一张混乱表格中存在缺失值、重复行、异常值、错误类型、空格和大小写问题，经过检查、记录、修复和验证后变成干净数据集。
+重点提醒新手清洗不是随便删除，而是要有原因、有记录、有复核。
+风格像数据医院或清洗工作台，直观、友好；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-transform-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas 数据转换流水线",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/05-data-transform.md",
+        "alt": "Pandas 数据转换流水线：映射、替换、apply、派生列、分箱和标准化让原始字段变成可分析特征。",
+        "prompt": """
+一张适合 Pandas 数据转换课程的教学图，主题是“把原始字段加工成更有用的分析特征”。
+画面表现原始列进入转换流水线，经过映射替换、类型转换、apply 函数、派生新列、分箱、标准化和重命名，最后输出更适合统计和建模的表格。
+重点让新手理解转换不是炫技，而是把数据变成问题需要的形状。
+风格现代数据流水线，清晰、有工程感；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-merge-concat-join.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas 合并拼接连接图",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/07-merge.md",
+        "alt": "Pandas 合并拼接连接图：merge 按键匹配，concat 上下或左右拼接，join 按索引连接多张表。",
+        "prompt": """
+一张适合 Pandas 数据合并课程的教学图，主题是“多张表怎样变成一张可分析的大表”。
+画面表现用户表、订单表、商品表通过共同键进行 merge，不同月份数据通过 concat 上下拼接，按索引的数据通过 join 连接。
+重点对比 inner、left、outer 的直觉：保留交集、保留左表、保留全集。
+风格像表格拼图和关系图结合，清楚、实用；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-time-series-analysis.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas 时间序列分析图",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/08-time-series.md",
+        "alt": "Pandas 时间序列分析图：日期解析、时间索引、重采样、滑动窗口和趋势对比帮助分析随时间变化的数据。",
+        "prompt": """
+一张适合 Pandas 时间序列课程的教学图，主题是“让表格沿着时间轴动起来”。
+画面表现日期字段被解析成时间索引，数据按天、周、月重采样，滑动窗口平滑趋势，并用折线图观察周期、峰值和异常点。
+连接到学习记录、销售数据、日志监控和模型训练曲线场景。
+风格清晰、时间轴与数据图表结合；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-visualization-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据可视化学习路线图",
+        "suggested_page": "docs/ch03-data-analysis/ch04-visualization/00-roadmap.md",
+        "alt": "数据可视化学习路线图：先明确表达目标，再选择图表、绘图库、标注样式并用于分析或汇报。",
+        "prompt": """
+一张适合数据可视化导读页的路线图，主题是“先学会选图，再学会美化”。
+画面表现整理好的数据先进入表达目标判断：趋势、对比、分布、关系、相关性，再选择折线图、柱状图、直方图、散点图、热力图等图表，最后优化标题、坐标轴、图例和注释用于分析报告。
+重点让新手知道图表是为了回答问题，不是为了装饰。
+风格清爽、图表卡片丰富但不拥挤；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-plotly-interactive-dashboard.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Plotly 交互式仪表盘图",
+        "suggested_page": "docs/ch03-data-analysis/ch04-visualization/03-plotly.md",
+        "alt": "Plotly 交互式仪表盘图：筛选器、悬停提示、缩放、动态图表和网页展示帮助探索数据。",
+        "prompt": """
+一张适合 Plotly 交互式可视化课程的教学图，主题是“当图表需要被探索，而不只是被观看”。
+画面表现一个数据仪表盘，包含筛选器、悬停提示、缩放框选、动态图表联动和网页展示区域，让用户可以自己探索数据。
+重点对比静态图适合汇报，交互图适合探索、演示和产品页面。
+风格现代仪表盘、清晰、产品感强；不要出现真实品牌 logo，不要生成具体文字或乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-database-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据库选修学习路线图",
+        "suggested_page": "docs/ch03-data-analysis/ch05-database/00-roadmap.md",
+        "alt": "数据库选修学习路线图：本地文件、关系型数据库、SQL 查询、Python 连接和数据分析协作逐步连接。",
+        "prompt": """
+一张适合数据库导读页的学习路线图，主题是“为什么数据分析后面还要补数据库”。
+画面表现小规模本地文件适合 Pandas，数据变多、多人协作、需要长期保存时进入关系型数据库，再通过 SQL 查询和 Python 连接回到数据分析流程。
+重点让新手理解数据库不是替代 Pandas，而是现实数据来源和持久化系统。
+风格像数据档案室和分析工作台连接图，清晰、稳重；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-relational-database-foundation.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "关系型数据库基础图",
+        "suggested_page": "docs/ch03-data-analysis/ch05-database/01-relational-db.md",
+        "alt": "关系型数据库基础图：数据库、表、行、列、主键、外键、索引和权限共同支撑可靠数据管理。",
+        "prompt": """
+一张适合关系型数据库入门课程的教学图，主题是“从 Excel 表格到可靠数据库系统”。
+画面表现数据库里有多张表，每张表由行、列、字段类型组成，通过主键和外键建立关系，并用索引、事务、权限和备份支撑多人协作和可靠存储。
+重点让新手理解数据库不是一个更大的 CSV，而是管理长期数据的系统。
+风格清晰、数据库蓝图感、适合教学；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-python-database-bridge.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 与数据库协作桥梁图",
+        "suggested_page": "docs/ch03-data-analysis/ch05-database/03-python-db.md",
+        "alt": "Python 与数据库协作桥梁图：Python 连接数据库、执行 SQL、取回结果、交给 Pandas 分析并写回数据。",
+        "prompt": """
+一张适合 Python 数据库操作课程的教学图，主题是“代码怎样真正和数据库协作”。
+画面表现 Python 程序连接数据库，执行参数化 SQL，取回结果集，交给 Pandas 做分析，再把清洗或统计结果写回数据库。
+重点突出连接、游标、查询、防注入、事务提交和 Pandas read_sql/to_sql 的协作关系。
+风格像桥梁和数据管道结合，清晰、工程化；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-database-design-erd-normalization.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据库设计与范式图",
+        "suggested_page": "docs/ch03-data-analysis/ch05-database/04-db-design.md",
+        "alt": "数据库设计与范式图：实体拆表、主键外键、范式、索引和查询场景共同减少重复和维护风险。",
+        "prompt": """
+一张适合数据库设计课程的教学图，主题是“先分表，再连表，再补索引”。
+画面表现一个混乱的大宽表被拆成用户、订单、商品等实体表，通过主键和外键连接，减少重复和更新冲突；旁边展示索引像目录一样加速查询。
+重点让新手理解范式不是背概念，而是为了减少重复、减少冲突、减少维护事故。
+风格像仓库货架规划图和 ERD 结构图结合，清晰、实用；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
         "filename": "ch04-ai-math.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -466,6 +785,258 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 一张适合 AI 数学入门课程的阶段主视觉，主题是“AI 数学最小必要基础”。
 画面把向量箭头、矩阵网格、概率分布曲线、梯度下降路径和小模型训练连接在一起，像一张温和的学习地图。
 风格清晰、具体、帮助新手降低公式恐惧，不要生成具体文字，不要出现真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch04-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 数学学习闯关地图",
+        "suggested_page": "docs/ch04-ai-math/index.md",
+        "alt": "AI 数学学习闯关地图：向量、矩阵、概率、损失、梯度和优化逐步连接到模型训练。",
+        "prompt": """
+一张适合 AI 数学基础首页的学习闯关地图，主题是“从数学直觉到模型训练”。
+画面表现学习者从向量表示一个样本开始，经过矩阵表示一批数据、概率表达不确定性、损失衡量错误、梯度指出改进方向、优化让模型逐步变好。
+重点降低公式恐惧，让新人看到数学概念是一组可用工具，而不是孤立定理。
+风格温和、清晰、现代教育插图；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-ai-math-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 数学最小必要主线图",
+        "suggested_page": "docs/ch04-ai-math/index.md",
+        "alt": "AI 数学最小必要主线图：线性代数负责表示，概率统计负责不确定性，微积分负责损失和优化。",
+        "prompt": """
+一张适合 AI 数学基础首页的主线关系图，主题是“为什么这里叫最小必要数学基础”。
+画面分成三条支柱：线性代数负责数据和参数表示，概率统计负责不确定性、评估和预测置信度，微积分与优化负责损失函数、梯度和参数更新；三条支柱共同支撑机器学习、深度学习和大模型。
+重点让新手知道第一遍不用学完整数学体系，只要先抓住最高频的模型语言。
+风格清爽、结构化、像课程能力架构图；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-study-guide-math-minimum-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 数学学习指南最小闭环",
+        "suggested_page": "docs/ch04-ai-math/study-guide.md",
+        "alt": "AI 数学学习指南最小闭环：向量矩阵表示数据，概率统计衡量不确定性，导数梯度优化参数。",
+        "prompt": """
+一张适合 AI 数学学习指南的教学图，主题是“第一遍数学只抓三个模型直觉”。
+画面表现向量和矩阵把数据变成可计算表示，概率和统计衡量不确定性与评估，导数和梯度告诉模型如何更新参数，最后汇入机器学习模型。
+重点帮助初学者避免陷入证明细节，先用图和代码建立直觉。
+风格温和、清晰、像老师手绘的现代流程图；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-linear-algebra-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "线性代数章节关系图",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md",
+        "alt": "线性代数章节关系图：现实数据先表示成向量，再堆成矩阵，经过变换找到特征方向并连接 PCA 和神经网络。",
+        "prompt": """
+一张适合线性代数导读页的章节关系图，主题是“向量、矩阵、特征值和向量空间如何串起来”。
+画面表现现实世界的数据先被写成向量，很多向量堆成矩阵，矩阵完成批量变换，特征向量找到特殊方向，进一步连接 PCA 降维、神经网络矩阵乘法和向量空间视角。
+重点让新手先看懂整章关系，再进入公式。
+风格像数学地图和 AI 数据流结合，清晰、具体；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-vector-ai-meaning-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "向量 AI 含义地图",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/01-vectors.md",
+        "alt": "向量 AI 含义地图：现实对象被写成数字向量，通过点积和余弦相似度连接推荐、搜索、RAG 和语义匹配。",
+        "prompt": """
+一张适合向量入门课程的教学图，主题是“向量是 AI 世界的信息卡片”。
+画面表现用户资料、词语、图片或文档被编码成数字向量，然后通过点积、夹角和余弦相似度比较方向是否接近，最终用于推荐、搜索、RAG 检索和语义匹配。
+重点让新手把向量从抽象箭头理解成“可计算的对象表示”。
+风格直观、友好、带几何箭头和数据卡片；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-matrix-batch-transform-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "矩阵批量变换流程图",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/02-matrices.md",
+        "alt": "矩阵批量变换流程图：单个样本向量堆成样本矩阵，乘权重矩阵后得到批量输出。",
+        "prompt": """
+一张适合矩阵入门课程的教学图，主题是“矩阵让模型一次处理一批样本”。
+画面表现单个样本向量像信息卡片，很多样本堆成样本矩阵 X，经过权重矩阵 W 的批量变换，输出预测结果或下一层表示。
+重点让新手理解为什么机器学习和神经网络代码里到处都是 X @ W。
+风格像数据表格、矩阵网格和神经网络层结合，清晰、工程化；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-eigen-pca-direction-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征方向与 PCA 地图",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/03-eigenvalues.md",
+        "alt": "特征方向与 PCA 地图：矩阵变换中少数方向不改变方向，特征值衡量拉伸倍数，PCA 用它找重要方向。",
+        "prompt": """
+一张适合特征值与特征向量课程的教学图，主题是“在变化中找到不变的特殊方向”。
+画面表现一个矩阵变换让大多数箭头方向改变，但少数特殊方向只被拉伸或缩短，这些方向连接到特征向量和特征值；右侧展示 PCA 沿最重要方向压缩数据。
+重点降低特征值概念的陌生感，让新人先抓住“特殊方向”和“信息保留”。
+风格几何直觉强、清晰、有动画感；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-vector-space-high-level-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "向量空间高层理解图",
+        "suggested_page": "docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md",
+        "alt": "向量空间高层理解图：向量、线性无关、基、维度、线性变换和 SVD 串成更高层的线性代数视角。",
+        "prompt": """
+一张适合向量空间选修课的高层理解图，主题是“把向量、矩阵和变换放进同一个框架”。
+画面表现一组向量是否冗余，如何形成基和维度，矩阵如何表示线性变换，SVD 如何把复杂变换拆成可理解的方向和尺度。
+重点让新手知道这一节是整理视角，不是必须一次吃透的高级理论。
+风格像概念地图和空间网格结合，清晰、抽象但亲切；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-probability-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "概率统计章节关系图",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/00-roadmap.md",
+        "alt": "概率统计章节关系图：概率描述事件，分布描述随机现象，统计推断从数据反推规律，信息论衡量不确定性和预测误差。",
+        "prompt": """
+一张适合概率与统计导读页的章节关系图，主题是“从不确定事件到模型损失函数”。
+画面表现现实世界有不确定性，概率描述单个事件，概率分布描述随机变量整体规律，统计推断从观测数据反推参数，信息论衡量不确定性和预测误差，最后连接分类损失、贝叶斯推断、A/B 测试、决策树和语言模型。
+重点让新手看到概率统计不是公式集合，而是 AI 处理不确定性的语言。
+风格现代、清晰、数据科学感；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-probability-bayes-update-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "概率与贝叶斯更新流程图",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/01-probability-basics.md",
+        "alt": "概率与贝叶斯更新流程图：事件概率在获得新证据后通过条件概率和贝叶斯法则更新判断。",
+        "prompt": """
+一张适合概率基础课程的教学图，主题是“有了新证据后，判断会怎样更新”。
+画面表现一个不确定事件先有初始概率，新证据进入后，通过条件概率和贝叶斯更新改变判断，最后连接到垃圾邮件判断、医疗检测和分类模型概率输出。
+重点让新手理解概率不是 0 或 1，而是可以随着证据更新的信心。
+风格像侦探证据板和概率仪表盘结合，清晰、具体；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-distribution-random-world-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "概率分布随机现象地图",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/02-distributions.md",
+        "alt": "概率分布随机现象地图：很多次随机结果堆起来形成分布，离散分布处理计数标签，连续分布处理噪声误差和连续特征。",
+        "prompt": """
+一张适合概率分布课程的教学图，主题是“随机现象整体长什么样”。
+画面表现很多次随机结果堆叠形成分布形状，左侧是离散结果的柱状分布，右侧是连续变量的曲线分布，并连接到标签计数、噪声、误差、连续特征和随机初始化。
+重点让新手先看懂分布形状和使用场景，而不是背所有分布名称。
+风格像统计实验可视化，清晰、亲切；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-statistical-inference-data-to-parameter.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "统计推断从数据到参数图",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/03-statistical-inference.md",
+        "alt": "统计推断从数据到参数图：观测数据用于估计参数，MLE、MAP、假设检验和 A/B 测试帮助做判断。",
+        "prompt": """
+一张适合统计推断课程的教学图，主题是“看到数据后，怎样反推出背后的参数和结论”。
+画面表现观测样本进入推断流程，先提出参数假设，通过 MLE 找到最能解释数据的参数，通过 MAP 加入先验，再通过假设检验和 A/B 测试判断差异是否可靠。
+重点让新手理解 MLE/MAP 不是孤立公式，而是在回答“什么解释最合理”。
+风格像数据实验室和推理流程结合，清晰、专业；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-information-theory-loss-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "信息论到损失函数地图",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/04-information-theory.md",
+        "alt": "信息论到损失函数地图：信息量、熵、交叉熵和 KL 散度连接到分类损失和语言模型训练。",
+        "prompt": """
+一张适合信息论入门课程的教学图，主题是“从惊讶程度到模型损失函数”。
+画面表现越意外的事件信息量越大，一个分布越不确定熵越高，预测分布和真实分布之间的差距由交叉熵和 KL 散度衡量，最后连接到分类损失函数和语言模型训练。
+重点让新手理解交叉熵不是突然出现的 API，而是衡量预测分布差距的工具。
+风格像概率分布和模型训练面板结合，清晰、现代；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-calculus-training-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "微积分优化章节关系图",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/00-roadmap.md",
+        "alt": "微积分优化章节关系图：导数衡量变化，梯度指明方向，梯度下降更新参数，反向传播高效计算所有梯度。",
+        "prompt": """
+一张适合微积分与优化导读页的章节关系图，主题是“模型到底是怎么学起来的”。
+画面表现模型有损失函数，导数先看一个变量如何影响损失，梯度把多个参数的影响合成方向，梯度下降沿负梯度更新参数，反向传播高效算出深层网络中所有参数的梯度。
+重点让新手把 loss.backward 和 optimizer.step 背后的直觉先看懂。
+风格像训练过程剖面图，清晰、有运动方向；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-derivative-change-rate-bridge.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "导数变化率桥梁图",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/01-derivatives.md",
+        "alt": "导数变化率桥梁图：一个量的变化率连接到梯度、梯度下降和反向传播的优化主线。",
+        "prompt": """
+一张适合导数入门课程的教学图，主题是“导数是变化率，也是优化的第一块地基”。
+画面表现一条曲线上的切线斜率表示一个量变化得多快，再从单变量变化率延伸到多变量梯度、负梯度方向、梯度下降和反向传播。
+重点让新手知道导数不是孤立知识点，而是在为模型参数更新做准备。
+风格像曲线、切线和训练路线结合，直观、温和；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-gradient-parameter-knobs-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "偏导与梯度调参旋钮图",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient.md",
+        "alt": "偏导与梯度调参旋钮图：固定其他变量只看一个旋钮的影响，所有偏导合成梯度给出整体调整方向。",
+        "prompt": """
+一张适合偏导数与梯度课程的教学图，主题是“多参数模型像一台有很多旋钮的机器”。
+画面表现水温、研磨、粉量、时间等旋钮影响咖啡味道的类比，偏导数逐个检查每个旋钮的影响，梯度把所有影响合成一张整体调参指南，负梯度指向让损失下降最快的方向。
+重点让新手理解偏导和梯度不是抽象符号，而是多变量调参信息。
+风格像机器控制台和数学等高线结合，清晰、形象；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-gradient-descent-iteration-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "梯度下降迭代闭环图",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/03-gradient-descent.md",
+        "alt": "梯度下降迭代闭环图：当前位置计算梯度，沿负梯度方向走一步，损失变小并重复直到收敛。",
+        "prompt": """
+一张适合梯度下降课程的教学图，主题是“蒙着眼睛下山的模型训练过程”。
+画面表现参数点在损失地形上，从当前位置计算坡度方向，沿负梯度方向走一步，来到损失更小的新位置，不断重复直到接近低谷。
+同时表现学习率太大容易越过低谷、太小会走得慢的直觉。
+风格像山谷地形和训练循环结合，清晰、直观；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch04-backprop-chain-rule-training-bridge.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "反向传播链式法则桥梁图",
+        "suggested_page": "docs/ch04-ai-math/ch03-calculus/04-chain-rule-backprop.md",
+        "alt": "反向传播链式法则桥梁图：前向传播算出输出和损失，损失沿计算图反向传递，用链式法则得到每个参数梯度。",
+        "prompt": """
+一张适合链式法则与反向传播课程的教学图，主题是“从损失往回追责，算出每个参数该怎么改”。
+画面表现前向传播先经过多层计算得到输出和损失，随后损失沿计算图反向流动，每一层用链式法则把梯度传回去，最终得到所有参数的梯度并交给优化器更新。
+重点让新手理解 PyTorch backward 本质是在自动执行这条反向计算链。
+风格像计算图流水线和回流箭头结合，清晰、工程化；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
 """.strip(),
     },
     {

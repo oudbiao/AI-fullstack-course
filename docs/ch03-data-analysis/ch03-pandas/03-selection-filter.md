@@ -29,13 +29,7 @@ description: "掌握 loc、iloc、布尔索引和 query 等数据筛选方法"
 
 数据选择与过滤更适合按“我要选谁”来理解：
 
-```mermaid
-flowchart TD
-    A["我想选什么？"] --> B["按列选"]
-    A --> C["按标签选"]
-    A --> D["按位置选"]
-    A --> E["按条件筛"]
-```
+![Pandas 数据选择与过滤地图](/img/course/ch03-pandas-selection-filter-map.png)
 
 所以这节真正想解决的是：
 

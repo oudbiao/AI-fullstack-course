@@ -31,13 +31,7 @@ description: "掌握缺失值、重复值、异常值处理和字符串清洗"
 
 数据清洗更适合按“先检查，再决定怎么处理”来理解：
 
-```mermaid
-flowchart LR
-    A["缺失值"] --> B["重复值"]
-    B --> C["异常值"]
-    C --> D["类型与格式"]
-    D --> E["得到可分析数据"]
-```
+![Pandas 数据清洗工作流](/img/course/ch03-pandas-cleaning-workflow.png)
 
 所以这节真正想解决的是：
 

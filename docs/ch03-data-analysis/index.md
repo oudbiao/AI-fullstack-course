@@ -17,15 +17,7 @@ keywords: [NumPy, Pandas, Matplotlib, Seaborn, 数据分析, 数据可视化, Py
 
 ## 学习闯关地图
 
-```mermaid
-flowchart LR
-  A[拿到原始数据] --> B[观察字段]
-  B --> C[清洗缺失与异常]
-  C --> D[转换和聚合]
-  D --> E[画图探索]
-  E --> F[解释发现]
-  F --> G[写成分析报告]
-```
+![数据分析学习闯关地图](/img/course/ch03-learning-quest-map.png)
 
 ## 互动练习：每个数据集都做三次提问
 
@@ -62,15 +54,7 @@ flowchart LR
 
 模型并不是从空气中学习。数据的质量、结构、分布和标注方式会直接影响模型结果。即使你未来主要做大模型应用，也会遇到文档清洗、日志分析、评估集构造、用户反馈统计和检索质量分析。
 
-```mermaid
-flowchart LR
-  A[获取数据] --> B[理解字段]
-  B --> C[清洗缺失和异常]
-  C --> D[转换与聚合]
-  D --> E[可视化探索]
-  E --> F[形成结论]
-  F --> G[服务建模或业务决策]
-```
+![数据分析主线闭环](/img/course/ch03-data-analysis-backbone.png)
 
 ## 本阶段学习路径
 

@@ -31,21 +31,7 @@ description: "用纯 Python 处理真实数据集，亲身体会为什么需要 
 
 在动手之前，先看看数据分析的典型流程：
 
-```mermaid
-flowchart LR
-    A[获取数据] --> B[读取与解析]
-    B --> C[数据清洗]
-    C --> D[数据探索与统计]
-    D --> E[可视化呈现]
-    E --> F[得出结论]
-
-    style A fill:#e1f5fe,color:#333
-    style B fill:#e1f5fe,color:#333
-    style C fill:#fff3e0,color:#333
-    style D fill:#fff3e0,color:#333
-    style E fill:#e8f5e9,color:#333
-    style F fill:#e8f5e9,color:#333
-```
+![纯 Python 数据处理痛点图](/img/course/ch03-pure-python-data-flow.png)
 
 今天我们用**纯 Python** 走完前四步。后面学了 NumPy 和 Pandas，你会发现同样的事情代码量能少 **5-10 倍**。
 

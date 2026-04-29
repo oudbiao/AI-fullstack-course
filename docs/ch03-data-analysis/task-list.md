@@ -10,14 +10,7 @@ keywords: [数据分析, Pandas, NumPy, 可视化, 学习任务单]
 
 ## 一图读懂：本阶段任务链
 
-```mermaid
-flowchart LR
-  A["读取数据"] --> B["检查质量"]
-  B --> C["清洗转换"]
-  C --> D["统计分析"]
-  D --> E["可视化表达"]
-  E --> F["写出结论和局限"]
-```
+![数据分析阶段任务链](/img/course/ch03-task-list-workflow.png)
 
 ## 本阶段必须完成的任务
 

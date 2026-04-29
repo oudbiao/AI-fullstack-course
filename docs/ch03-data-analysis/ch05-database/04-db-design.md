@@ -6,6 +6,8 @@ description: "学会设计合理的数据库结构，掌握范式、索引和实
 
 # 数据库设计
 
+![数据库设计与范式图](/img/course/ch03-database-design-erd-normalization.png)
+
 :::tip 本节定位
 很多新人第一次学数据库设计时，容易把注意力全放在：
 

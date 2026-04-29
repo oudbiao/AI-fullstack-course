@@ -34,13 +34,7 @@ description: "掌握 apply、map、排序、排名和替换等数据转换方法
 
 数据转换更适合按“我要把这列变成什么”来理解：
 
-```mermaid
-flowchart LR
-    A["原始列"] --> B["映射 / 替换"]
-    A --> C["逐列或逐行计算"]
-    A --> D["排序 / 排名"]
-    A --> E["分箱 / 分段"]
-```
+![Pandas 数据转换流水线](/img/course/ch03-pandas-transform-pipeline.png)
 
 所以这节真正想解决的是：
 

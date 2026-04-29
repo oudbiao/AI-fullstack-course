@@ -31,13 +31,7 @@ description: "掌握日期时间处理、重采样和滚动窗口计算"
 
 时间序列更适合按“先把日期变成可操作对象，再按时间维度做分析”来理解：
 
-```mermaid
-flowchart LR
-    A["字符串日期"] --> B["datetime 类型"]
-    B --> C["时间索引与切片"]
-    C --> D["重采样"]
-    D --> E["滚动窗口与趋势分析"]
-```
+![Pandas 时间序列分析图](/img/course/ch03-pandas-time-series-analysis.png)
 
 所以这节真正想解决的是：
 

@@ -17,15 +17,7 @@ keywords: [数据可视化, 图表选择, matplotlib, seaborn, plotly, visualiza
 
 在后面的机器学习和项目阶段，可视化还会用于 EDA、特征分布分析、模型结果展示、错误分析和项目汇报。因此这一章不是“美化图表”的附属内容，而是数据分析表达能力的核心部分。
 
-```mermaid
-flowchart LR
-  A[Pandas 整理数据] --> B[明确表达目标]
-  B --> C[选择图表类型]
-  C --> D[选择绘图库]
-  D --> E[画清楚]
-  E --> F[优化标注和样式]
-  F --> G[用于分析或汇报]
-```
+![数据可视化学习路线图](/img/course/ch03-visualization-roadmap.png)
 
 ## 这一章真正要解决的问题
 

@@ -33,12 +33,7 @@ description: "掌握 merge、join、concat 等数据合并方法"
 
 数据合并更适合按“有没有共同键”来理解：
 
-```mermaid
-flowchart TD
-    A["我要合并两张表"] --> B{"有没有共同键？"}
-    B -->|"有"| C["先想 merge / join"]
-    B -->|"没有，只是叠在一起"| D["先想 concat"]
-```
+![Pandas 合并拼接连接图](/img/course/ch03-pandas-merge-concat-join.png)
 
 所以这节真正想解决的是：
 
