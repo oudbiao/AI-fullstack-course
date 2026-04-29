@@ -17,13 +17,7 @@ keywords: [特征工程导读, 预处理, 特征构造, 特征选择, Pipeline]
 
 ## 这一章五节之间的关系
 
-```mermaid
-flowchart LR
-    A["特征理解"] --> B["特征预处理"]
-    B --> C["特征构造"]
-    C --> D["特征选择"]
-    D --> E["Pipeline 工作流"]
-```
+![特征工程章节关系图](/img/course/ch05-feature-engineering-chapter-flow.png)
 
 这条线很适合新人：
 

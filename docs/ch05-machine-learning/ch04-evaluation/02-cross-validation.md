@@ -43,12 +43,7 @@ keywords: [交叉验证, K折, 分层K折, 留一法, 时间序列, Hold-out, cr
 
 交叉验证这节最适合新人的理解顺序不是“记不同 split 类名”，而是先看清它到底在解决什么问题：
 
-```mermaid
-flowchart LR
-    A["一次 train/test 划分不稳定"] --> B["K 折重复评估"]
-    B --> C["分类任务要保持类别比例"]
-    C --> D["特殊任务再用特殊切法"]
-```
+![交叉验证稳定评估流程图](/img/course/ch05-cross-validation-stability-flow.png)
 
 这节真正想解决的是：
 

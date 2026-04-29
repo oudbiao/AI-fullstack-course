@@ -47,16 +47,7 @@ keywords: [降维, PCA, t-SNE, UMAP, 主成分分析, 高维可视化, 方差解
 
 更稳的学习顺序是：
 
-```mermaid
-flowchart LR
-    A["先问目标<br/>我要加速训练，还是做可视化？"] --> B["如果是建模预处理<br/>优先想 PCA"]
-    A --> C["如果是可视化探索<br/>再考虑 t-SNE / UMAP"]
-    B --> D["再决定保留多少主成分"]
-    C --> E["再决定参数和解释方式"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![降维目的选择图](/img/course/ch05-dimensionality-reduction-purpose-map.png)
 
 先把“为了建模”和“为了可视化”分开，是这节最重要的第一步。
 

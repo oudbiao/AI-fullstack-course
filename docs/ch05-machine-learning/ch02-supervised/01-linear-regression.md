@@ -49,17 +49,7 @@ keywords: [线性回归, 最小二乘法, 梯度下降, 正则化, Ridge, Lasso,
 
 更稳的理解顺序是：
 
-```mermaid
-flowchart LR
-    A["先问任务<br/>我要预测连续数值吗？"] --> B["再定模型形式<br/>ŷ = wx + b 或 w^T x + b"]
-    B --> C["再定目标<br/>让预测误差尽量小"]
-    C --> D["再定求解方法<br/>正规方程 or 梯度下降"]
-    D --> E["再看模型是否太简单或太复杂"]
-    E --> F["最后才讨论<br/>多项式、正则化、调参"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style F fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![线性回归学习主线图](/img/course/ch05-linear-regression-learning-flow.png)
 
 如果你先抓住这条线，后面所有公式都会更容易落到一个明确的问题上。
 

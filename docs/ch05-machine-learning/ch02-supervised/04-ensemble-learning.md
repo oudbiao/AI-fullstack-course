@@ -54,17 +54,7 @@ keywords: [集成学习, 随机森林, Bagging, Boosting, GBDT, XGBoost, LightGB
 
 如果一上来按工具名记，很容易碎。更稳的理解顺序是：
 
-```mermaid
-flowchart LR
-    A["先问为什么单棵树不够"] --> B["再分两条主线<br/>Bagging vs Boosting"]
-    B --> C["Bagging → 随机森林<br/>核心是降方差"]
-    B --> D["Boosting → GBDT/XGBoost/LightGBM/CatBoost<br/>核心是逐步纠错"]
-    C --> E["最后再看工程选型<br/>什么时候用哪一个"]
-    D --> E
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![集成学习 Bagging Boosting 对比图](/img/course/ch05-ensemble-bagging-boosting-flow.png)
 
 只要你先把“并行投票”和“串行纠错”这两条主线分清，后面的模型名字就不容易乱。
 

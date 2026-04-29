@@ -15,16 +15,7 @@ keywords: [机器学习学习指南, sklearn怎么学, 机器学习项目, basel
 
 机器学习要抓住一条项目主线：把问题翻译成任务，准备数据，建立 baseline，用指标评估，再通过特征和模型改进效果。
 
-```mermaid
-flowchart LR
-  A[问题] --> B[任务定义]
-  B --> C[数据划分]
-  C --> D[Baseline]
-  D --> E[指标评估]
-  E --> F[特征工程]
-  F --> G[模型改进]
-  G --> H[误差分析]
-```
+![机器学习学习指南项目循环](/img/course/ch05-study-guide-project-loop.png)
 
 ## 推荐学习顺序
 

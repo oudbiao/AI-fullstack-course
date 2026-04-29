@@ -42,16 +42,7 @@ Scikit-learn 是 Python 机器学习的**事实标准库**。几乎所有经典 
 
 更稳的心智模型是：
 
-```mermaid
-flowchart LR
-    A["先准备数据 X, y"] --> B["创建模型或变换器"]
-    B --> C["fit：从训练数据中学参数"]
-    C --> D["predict / transform：把学到的东西用到新数据"]
-    D --> E["score / metric：判断结果好不好"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![sklearn fit predict 统一流程图](/img/course/ch05-sklearn-fit-predict-loop.png)
 
 如果这条线装进脑子里，后面你换任何经典 ML 模型都不会特别慌。
 

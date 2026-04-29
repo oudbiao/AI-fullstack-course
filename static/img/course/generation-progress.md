@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 243 / 243
+Generated with image2: 267 / 267
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -12,7 +12,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 第 4 章说明：目录 `docs/ch04-ai-math` 下原有 12 张数学补充图已经用 image2 重新生成，并覆盖早前的本地预览图；本轮新增 18 张真实 PNG，用于替换数学首页、学习指南、线性代数、概率统计、微积分与优化页面的入口学习地图。
 
-第 5 章说明：目录 `docs/ch05-machine-learning` 下的 22 张机器学习补充图已经用 image2 生成，因此第 5 章每篇文章都有视觉入口。
+第 5 章说明：目录 `docs/ch05-machine-learning` 下原有 22 张机器学习补充图已经用 image2 生成；本轮新增 24 张真实 PNG，用于替换机器学习首页、学习指南、基础概念、监督学习、无监督学习、模型评估、特征工程和项目实战页面的入口学习地图。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 6～9 章说明：目录 `docs/ch06-deep-learning`、`docs/ch07-llm-principles`、`docs/ch08-rag`、`docs/ch09-agent` 下新增的 25 张机制图、流程图和系统图已经用 image2 生成，并插入到对应核心教程页面。
 
@@ -56,6 +56,30 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch04-gradient-descent-iteration-loop.png`
 - `ch04-backprop-chain-rule-training-bridge.png`
 - `ch05-machine-learning.png`
+- `ch05-learning-quest-map.png`
+- `ch05-modeling-loop-backbone.png`
+- `ch05-study-guide-project-loop.png`
+- `ch05-basics-chapter-flow.png`
+- `ch05-task-type-decision-map.png`
+- `ch05-sklearn-fit-predict-loop.png`
+- `ch05-math-to-ml-training-map.png`
+- `ch05-supervised-chapter-flow.png`
+- `ch05-linear-regression-learning-flow.png`
+- `ch05-logistic-classification-flow.png`
+- `ch05-decision-tree-learning-flow.png`
+- `ch05-ensemble-bagging-boosting-flow.png`
+- `ch05-unsupervised-chapter-flow.png`
+- `ch05-clustering-decision-flow.png`
+- `ch05-dimensionality-reduction-purpose-map.png`
+- `ch05-anomaly-detection-decision-flow.png`
+- `ch05-evaluation-chapter-flow.png`
+- `ch05-metrics-selection-flow.png`
+- `ch05-cross-validation-stability-flow.png`
+- `ch05-bias-variance-action-map.png`
+- `ch05-hyperparameter-tuning-workflow.png`
+- `ch05-feature-engineering-chapter-flow.png`
+- `ch05-feature-understanding-workflow.png`
+- `ch05-projects-portfolio-loop.png`
 - `ch06-deep-learning.png`
 - `ch10-computer-vision.png`
 - `ch11-nlp.png`

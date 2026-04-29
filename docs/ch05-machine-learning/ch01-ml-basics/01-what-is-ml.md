@@ -30,18 +30,7 @@ keywords: [机器学习, 监督学习, 无监督学习, 强化学习, AI, 工作
 
 这篇最重要的任务，不是把定义背下来，而是先帮你建立一个判断框架：
 
-```mermaid
-flowchart LR
-    A["先问：我要解决什么问题？"] --> B["再问：有没有标签？"]
-    B --> C["有标签 → 监督学习"]
-    B --> D["没标签 → 无监督学习"]
-    C --> E["再分：分类 or 回归"]
-    D --> F["再分：聚类 / 降维 / 异常检测"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style F fill:#fff3e0,stroke:#e65100,color:#333
-```
+![机器学习任务类型判断图](/img/course/ch05-task-type-decision-map.png)
 
 如果这张图你看懂了，后面第 5 站很多章节都会突然顺起来。
 

@@ -1222,6 +1222,342 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch05-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习学习闯关地图",
+        "suggested_page": "docs/ch05-machine-learning/index.md",
+        "alt": "机器学习学习闯关地图：定义问题、准备数据、建立 baseline、选择指标、训练模型、错误分析和建模报告。",
+        "prompt": """
+一张适合机器学习课程首页的学习闯关地图，主题是“从问题到可复盘的模型项目”。
+画面表现定义问题、准备数据、建立 baseline、选择指标、训练模型、分析错误、改进特征和模型、形成建模报告这些环节逐步连接。
+风格延续课程之前的视觉优先路线，图形清晰、流程感强、新手友好。
+文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准机器学习术语、API、变量名和公式保留英文或数学形式，例如 baseline、fit、predict、AUC、X/y、loss。不要出现整段英文说明、无意义英文、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-modeling-loop-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习建模主线闭环",
+        "suggested_page": "docs/ch05-machine-learning/index.md",
+        "alt": "机器学习建模主线闭环：业务问题、任务定义、数据准备、baseline、指标评估、特征工程、模型改进和误差分析。",
+        "prompt": """
+一张适合机器学习课程首页的建模闭环图，主题是“机器学习不是模型名称大全，而是一套可复盘流程”。
+画面表现业务问题进入任务定义，经过数据准备、baseline 模型、指标评估、特征工程、模型改进、误差分析与解释，最后回到下一轮实验。
+风格像数据科学实验台和项目看板结合，强调迭代、评估和复盘。
+文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准术语、API、变量名和公式保留英文或数学形式，例如 baseline、train/test、AUC、RMSE、Pipeline。不要出现整段英文说明、无意义英文、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-study-guide-project-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习学习指南项目循环",
+        "suggested_page": "docs/ch05-machine-learning/study-guide.md",
+        "alt": "机器学习学习指南项目循环：问题、任务定义、数据划分、baseline、指标评估、特征工程、模型改进和误差分析。",
+        "prompt": """
+一张适合机器学习学习指南的流程插图，主题是“第一遍机器学习只抓完整项目循环”。
+画面表现学习者围绕项目循环前进：理解问题、定义任务、划分数据、训练 baseline、查看指标、做特征工程、改进模型、做误差分析。
+风格温暖、清晰、有陪伴感，帮助新人不要被算法名称吓住。
+文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准术语、API、变量名和公式保留英文或数学形式，例如 baseline、fit、predict、score、X/y。不要出现整段英文说明、无意义英文、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-basics-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习基础章节关系图",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md",
+        "alt": "机器学习基础章节关系图：Python 数据分析、AI 数学、机器学习基础、sklearn、监督学习、无监督学习、评估与特征工程逐步连接。",
+        "prompt": """
+一张适合机器学习基础导读页的章节关系图，主题是“从数据和数学进入机器学习基础”。
+画面表现 Python 与数据分析提供数据处理能力，AI 数学提供向量、概率和优化直觉，随后进入机器学习基础、sklearn 最小流程、监督学习、无监督学习、评估与特征工程。
+风格像课程路线图和桥梁结合，清晰、有层次。
+文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准术语和 API 保留英文，例如 sklearn、fit、predict、score。不要出现整段英文说明、无意义英文、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-task-type-decision-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习任务类型判断图",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/01-what-is-ml.md",
+        "alt": "机器学习任务类型判断图：先问有没有标签，再判断监督学习、无监督学习、分类、回归、聚类、降维和异常检测。",
+        "prompt": """
+一张适合“什么是机器学习”页面的任务判断图，主题是“先问问题类型，再选学习方法”。
+画面表现一个决策树：先问有没有标签；有标签进入监督学习，再分分类和回归；没有标签进入无监督学习，再分聚类、降维和异常检测。
+风格像清晰的路线选择图，适合新人快速判断任务类型。
+文字不是主体；如确实需要标签，中英文自然混用：中文写判断问题，标准术语保留英文，例如 Regression、Classification、Clustering，但不要整张图全英文。不要出现无意义英文、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-sklearn-fit-predict-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "sklearn fit predict 统一流程图",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro.md",
+        "alt": "sklearn fit predict 统一流程图：准备 X 和 y，创建模型，fit 学参数，predict 或 transform 用到新数据，score 或 metric 评估结果。",
+        "prompt": """
+一张适合 sklearn 入门课程的流程图，主题是“sklearn 把不同模型统一成同一套操作习惯”。
+画面表现准备 X 和 y，创建模型或变换器，fit 从训练数据中学习参数，predict 或 transform 用到新数据，score 或 metric 判断效果。
+风格像工程白板和数据流水线结合，简洁、清楚。
+文字不是主体；这里应该保留英文 API 和变量名：X、y、fit、predict、transform、score、metric。其他说明可以用少量中文短标签。不要出现整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-math-to-ml-training-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数学到机器学习训练地图",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md",
+        "alt": "数学到机器学习训练地图：线性代数组织 X 和 w，概率统计描述不确定性和 loss，微积分提供梯度和参数更新方向。",
+        "prompt": """
+一张适合“数学到机器学习桥梁”页面的概念图，主题是“第 4 章数学如何进入第 5 章建模流程”。
+画面分成三股力量汇入训练循环：线性代数把数据组织成 X、参数组织成 w；概率统计描述不确定性、损失和评估；微积分通过梯度告诉参数怎么更新。
+风格像三条管道汇入模型训练引擎，直观、有桥梁感。
+文字不是主体；公式、变量和标准术语保留英文或数学符号，例如 X、w、loss、gradient。其他说明可以用少量中文短标签。不要出现整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-supervised-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "监督学习章节关系图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/00-roadmap.md",
+        "alt": "监督学习章节关系图：线性回归、逻辑回归、决策树和集成学习由简单到复杂逐步连接。",
+        "prompt": """
+一张适合监督学习导读页的章节关系图，主题是“从最简单模型到更强模型的监督学习主线”。
+画面表现带标签数据进入模型学习路径：线性回归预测连续值，逻辑回归输出分类概率，决策树做规则分裂，集成学习把多个模型组合成更稳结果。
+风格像课程路线图和模型进化图结合，清晰、有层次。
+文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准术语保留英文，例如 Regression、Classification、Bagging、Boosting。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-linear-regression-learning-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "线性回归学习主线图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/01-linear-regression.md",
+        "alt": "线性回归学习主线图：连续值预测、模型形式、误差目标、正规方程或梯度下降、残差分析、正则化和调参。",
+        "prompt": """
+一张适合线性回归课程的学习主线图，主题是“先看任务，再看模型、损失、求解和改进”。
+画面表现连续值预测任务从散点数据开始，建立一条拟合线，计算误差和 loss，用正规方程或梯度下降求解，再通过残差分析、多项式和正则化改进。
+风格像数学白板和实战流程结合，清晰、温和。
+文字不是主体；公式和标准术语保留英文或符号，例如 y = wx + b、loss、Ridge、Lasso。其他说明可以用少量中文短标签。不要出现整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-logistic-classification-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "逻辑回归分类主线图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/02-logistic-regression.md",
+        "alt": "逻辑回归分类主线图：分类任务、线性分数、Sigmoid 概率、交叉熵损失、决策边界和多分类扩展。",
+        "prompt": """
+一张适合逻辑回归课程的分类主线图，主题是“从线性分数到分类概率和决策边界”。
+画面表现分类数据点先经过线性打分，再通过 Sigmoid 变成 0 到 1 的概率，使用交叉熵 loss 训练，最后形成决策边界并可扩展到多分类。
+风格像二维分类图和概率仪表盘结合，直观、清晰。
+文字不是主体；公式和标准术语保留英文或符号，例如 Sigmoid、Cross Entropy、p、threshold。其他说明可以用少量中文短标签。不要出现整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-decision-tree-learning-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "决策树学习主线图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/03-decision-trees.md",
+        "alt": "决策树学习主线图：树是一串 if-else 规则，每次分裂让节点更纯，树越深越容易过拟合，通过剪枝控制复杂度。",
+        "prompt": """
+一张适合决策树课程的学习主线图，主题是“树模型从规则分裂到复杂度控制”。
+画面表现一棵树用一串 if-else 规则分裂数据，每次分裂让子节点更纯；树太深会记住训练集噪声，通过剪枝和深度限制控制复杂度，最后连接随机森林和 Boosting。
+风格像规则树、样本点和剪枝工具结合，清晰、具体。
+文字不是主体；标准术语保留英文，例如 if-else、Gini、Entropy、max_depth。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-ensemble-bagging-boosting-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "集成学习 Bagging Boosting 对比图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md",
+        "alt": "集成学习 Bagging Boosting 对比图：Bagging 并行训练多棵树降低方差，Boosting 串行纠错逐步提升模型。",
+        "prompt": """
+一张适合集成学习课程的对比图，主题是“并行投票和串行纠错是两条主线”。
+画面左侧表现 Bagging：多棵树并行训练、投票或平均、降低方差；右侧表现 Boosting：模型按顺序训练，每一步关注上一步错的样本，逐步纠错。
+风格像双路线技术白板，图形清楚、对比强。
+文字不是主体；标准术语保留英文，例如 Bagging、Boosting、Random Forest、GBDT、XGBoost。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-unsupervised-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "无监督学习章节关系图",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/00-roadmap.md",
+        "alt": "无监督学习章节关系图：没有标签的数据通过聚类、降维和异常检测发现结构。",
+        "prompt": """
+一张适合无监督学习导读页的章节关系图，主题是“没有标签时，先发现结构”。
+画面表现一堆未标注样本进入三条路径：聚类发现自然分组，降维把高维数据压缩成可视化平面，异常检测找出少数不寻常样本。
+风格像数据探索地图，清晰、温和、有发现感。
+文字不是主体；标准术语保留英文，例如 Clustering、PCA、t-SNE、UMAP、Anomaly。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-clustering-decision-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "聚类算法选择流程图",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/01-clustering.md",
+        "alt": "聚类算法选择流程图：先看目标和数据形状，再选择 K-Means、层次聚类或 DBSCAN，并用轮廓系数和业务解释评估。",
+        "prompt": """
+一张适合聚类课程的选择流程图，主题是“聚类不是自动真相，要看目标、形状和解释”。
+画面表现未标注数据点进入判断流程：先问目标是分群还是探索，再看数据形状是否球形、链状或有噪声，再选择 K-Means、层次聚类或 DBSCAN，最后用轮廓系数和业务解释评估。
+风格像数据侦探地图，清晰、具体。
+文字不是主体；标准术语保留英文，例如 K-Means、DBSCAN、silhouette。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-dimensionality-reduction-purpose-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "降维目的选择图",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction.md",
+        "alt": "降维目的选择图：建模预处理优先 PCA，可视化探索再考虑 t-SNE 或 UMAP，并关注主成分数量和解释方式。",
+        "prompt": """
+一张适合降维课程的目的选择图，主题是“先问为什么降维，再选方法”。
+画面表现高维数据进入两个方向：为了建模预处理时优先考虑 PCA，关注主成分数量和信息保留；为了可视化探索时考虑 t-SNE 或 UMAP，关注局部结构和解释方式。
+风格像高维数据云被投影到二维平面，清晰、有空间感。
+文字不是主体；标准术语和公式保留英文，例如 PCA、t-SNE、UMAP、variance。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-anomaly-detection-decision-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "异常检测决策流程图",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md",
+        "alt": "异常检测决策流程图：先定义异常类型，再看数据维度、样本量和异常比例，选择统计方法、Isolation Forest、One-Class SVM 或 LOF。",
+        "prompt": """
+一张适合异常检测课程的决策流程图，主题是“先定义异常是什么，再选择方法和阈值”。
+画面表现数据点中有少数离群样本，流程先判断异常是极端值、局部稀疏点还是边界外样本，再看维度、样本量和异常比例，最后选择统计方法、Isolation Forest、One-Class SVM 或 LOF，并思考误报漏报代价。
+风格像风险雷达和数据点地图结合，清晰、实用。
+文字不是主体；标准术语保留英文，例如 Isolation Forest、One-Class SVM、LOF。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-evaluation-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型评估章节关系图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/00-roadmap.md",
+        "alt": "模型评估章节关系图：指标、交叉验证、偏差方差和超参数调优串成判断模型是否可靠的闭环。",
+        "prompt": """
+一张适合模型评估导读页的章节关系图，主题是“模型到底好不好，不能只看一次分数”。
+画面表现评估指标先回答看什么，交叉验证让分数更稳定，偏差方差诊断欠拟合或过拟合，超参数调优在正确验证流程内改进模型。
+风格像模型体检路线图，清晰、专业。
+文字不是主体；标准术语保留英文，例如 Accuracy、Recall、AUC、RMSE、K-fold。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-metrics-selection-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "评估指标选择流程图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/01-metrics.md",
+        "alt": "评估指标选择流程图：先看分类或回归，再看错误代价，选择 Accuracy、Recall、Precision、F1、AUC、RMSE 等指标。",
+        "prompt": """
+一张适合评估指标课程的选择流程图，主题是“指标不是训练结束后顺手看的分数，而是模型设计的一部分”。
+画面表现先判断任务是分类还是回归，再判断错误代价是误报更贵还是漏报更贵，最后选择 Accuracy、Recall、Precision、F1、AUC、RMSE 等指标，并连接阈值选择和模型对比。
+风格像决策树和仪表盘结合，清晰、实用。
+文字不是主体；指标名称保留英文，例如 Accuracy、Recall、Precision、F1、AUC、RMSE。其他说明可以用少量中文短标签。不要出现整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-cross-validation-stability-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "交叉验证稳定评估流程图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/02-cross-validation.md",
+        "alt": "交叉验证稳定评估流程图：一次 train/test 划分不稳定，K 折重复评估，分类任务保持类别比例，特殊任务使用特殊切分。",
+        "prompt": """
+一张适合交叉验证课程的流程图，主题是“为什么一次随机划分不够可信”。
+画面表现一次 train/test 划分像单次考试，K-fold 交叉验证像多轮轮流验证，分类任务需要 Stratified 保持类别比例，时间序列或分组数据需要特殊切法。
+风格像数据切分条带和评估仪表盘结合，直观、清晰。
+文字不是主体；标准术语保留英文，例如 train/test、K-fold、Stratified、Group、TimeSeries。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-bias-variance-action-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "偏差方差行动诊断图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/03-bias-variance.md",
+        "alt": "偏差方差行动诊断图：模型效果不好时先分辨欠拟合还是过拟合，再决定加复杂度、加数据或加正则化。",
+        "prompt": """
+一张适合偏差方差课程的行动诊断图，主题是“模型效果不好时，不要乱试，要先诊断”。
+画面表现模型效果差先进入诊断：训练分和验证分都差是欠拟合，可尝试加复杂度或更好特征；训练分高验证分差是过拟合，可尝试加数据、正则化、简化模型或交叉验证。
+风格像医生诊断流程和学习曲线结合，清晰、实用。
+文字不是主体；标准术语保留英文，例如 bias、variance、regularization。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hyperparameter-tuning-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "超参数调优验证流程图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md",
+        "alt": "超参数调优验证流程图：先有 baseline 和验证方式，再选搜索方法、比较参数组合，最后只用测试集做最终评估。",
+        "prompt": """
+一张适合超参数调优课程的工作流图，主题是“调参必须放在正确评估流程里”。
+画面表现先建立 baseline，确定验证方式，再设计搜索空间，选择网格搜索、随机搜索或贝叶斯优化，比较参数组合，最后只在最终测试集上评估一次。
+风格像实验控制台和搜索空间地图结合，强调不要用测试集反复调参。
+文字不是主体；标准术语保留英文，例如 baseline、Grid Search、Random Search、Bayesian、validation、test set。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-feature-engineering-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征工程章节关系图",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/00-roadmap.md",
+        "alt": "特征工程章节关系图：特征理解、预处理、构造、选择和 Pipeline 逐步把原始数据变成模型容易学习的输入。",
+        "prompt": """
+一张适合特征工程导读页的章节关系图，主题是“给模型看的数据，决定模型能学到什么”。
+画面表现原始数据先经过特征理解，再进入预处理、特征构造、特征选择，最后用 Pipeline 固化成可复用、可验证、少泄漏的建模流程。
+风格像数据加工工坊和流水线结合，清晰、工程感强。
+文字不是主体；标准术语保留英文，例如 Pipeline、One-Hot、scaler。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-feature-understanding-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征理解与泄漏检查图",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md",
+        "alt": "特征理解与泄漏检查图：原始表格先识别特征类型、查看缺失分布、分析与目标关系、检查冗余和目标泄漏。",
+        "prompt": """
+一张适合特征理解课程的工作流图，主题是“先认识特征，再决定怎样处理”。
+画面表现原始表格进入特征检查流程：识别数值、类别、时间、文本、ID 等特征类型，查看缺失和分布，分析与目标变量关系，检查冗余和目标泄漏，再决定预处理和构造策略。
+风格像数据侦探桌面和检查清单结合，清晰、实用。
+文字不是主体；标准术语保留英文，例如 ID、target、leakage、correlation。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-projects-portfolio-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习项目作品集闭环图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/00-roadmap.md",
+        "alt": "机器学习项目作品集闭环图：业务问题、任务定义、数据准备、baseline、评估指标、特征工程、错误分析、结论解释和作品集报告。",
+        "prompt": """
+一张适合机器学习项目实战导读页的作品集闭环图，主题是“项目不是跑完代码，而是可复盘、可解释、可交付”。
+画面表现业务问题进入任务定义，经过数据准备、baseline、评估指标、特征工程和模型改进、错误分析、结论解释，最后输出 README、报告、图表和作品集材料。
+风格像项目看板和实验记录台结合，专业但不死板。
+文字不是主体；标准术语保留英文，例如 baseline、README、report、metric。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ml-basics-roadmap.png",
         "size": "1536x1024",
         "quality": "medium",

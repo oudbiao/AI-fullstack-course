@@ -43,15 +43,7 @@ keywords: [异常检测, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, 离
 
 更稳的理解顺序是：
 
-```mermaid
-flowchart LR
-    A["先问异常是什么<br/>是极端值、局部稀疏点，还是边界外样本？"] --> B["再看数据情况<br/>低维 or 高维，样本多不多，异常比例大概多少"]
-    B --> C["再选方法<br/>统计方法 / Isolation Forest / One-Class SVM / LOF"]
-    C --> D["最后再想评估和阈值<br/>误报能接受多少，漏报能接受多少"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![异常检测决策流程图](/img/course/ch05-anomaly-detection-decision-flow.png)
 
 所以异常检测最重要的不是先记模型名，而是先把“你眼里的异常到底是什么”想清楚。
 

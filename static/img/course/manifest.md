@@ -90,6 +90,30 @@
 | `math-study-loop.png` | AI 数学学习循环图 | `docs/ch04-ai-math/study-guide.md` | AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。 |
 | `math-task-checklist.png` | 数学最小通关任务单图 | `docs/ch04-ai-math/task-list.md` | 数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。 |
 | `ch05-machine-learning.png` | 机器学习主视觉 | `docs/ch05-machine-learning/index.md` | 机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。 |
+| `ch05-learning-quest-map.png` | 机器学习学习闯关地图 | `docs/ch05-machine-learning/index.md` | 机器学习学习闯关地图：定义问题、准备数据、建立 baseline、选择指标、训练模型、错误分析和建模报告。 |
+| `ch05-modeling-loop-backbone.png` | 机器学习建模主线闭环 | `docs/ch05-machine-learning/index.md` | 机器学习建模主线闭环：业务问题、任务定义、数据准备、baseline、指标评估、特征工程、模型改进和误差分析。 |
+| `ch05-study-guide-project-loop.png` | 机器学习学习指南项目循环 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习指南项目循环：问题、任务定义、数据划分、baseline、指标评估、特征工程、模型改进和误差分析。 |
+| `ch05-basics-chapter-flow.png` | 机器学习基础章节关系图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础章节关系图：Python 数据分析、AI 数学、机器学习基础、sklearn、监督学习、无监督学习、评估与特征工程逐步连接。 |
+| `ch05-task-type-decision-map.png` | 机器学习任务类型判断图 | `docs/ch05-machine-learning/ch01-ml-basics/01-what-is-ml.md` | 机器学习任务类型判断图：先问有没有标签，再判断监督学习、无监督学习、分类、回归、聚类、降维和异常检测。 |
+| `ch05-sklearn-fit-predict-loop.png` | sklearn fit predict 统一流程图 | `docs/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro.md` | sklearn fit predict 统一流程图：准备 X 和 y，创建模型，fit 学参数，predict 或 transform 用到新数据，score 或 metric 评估结果。 |
+| `ch05-math-to-ml-training-map.png` | 数学到机器学习训练地图 | `docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md` | 数学到机器学习训练地图：线性代数组织 X 和 w，概率统计描述不确定性和 loss，微积分提供梯度和参数更新方向。 |
+| `ch05-supervised-chapter-flow.png` | 监督学习章节关系图 | `docs/ch05-machine-learning/ch02-supervised/00-roadmap.md` | 监督学习章节关系图：线性回归、逻辑回归、决策树和集成学习由简单到复杂逐步连接。 |
+| `ch05-linear-regression-learning-flow.png` | 线性回归学习主线图 | `docs/ch05-machine-learning/ch02-supervised/01-linear-regression.md` | 线性回归学习主线图：连续值预测、模型形式、误差目标、正规方程或梯度下降、残差分析、正则化和调参。 |
+| `ch05-logistic-classification-flow.png` | 逻辑回归分类主线图 | `docs/ch05-machine-learning/ch02-supervised/02-logistic-regression.md` | 逻辑回归分类主线图：分类任务、线性分数、Sigmoid 概率、交叉熵损失、决策边界和多分类扩展。 |
+| `ch05-decision-tree-learning-flow.png` | 决策树学习主线图 | `docs/ch05-machine-learning/ch02-supervised/03-decision-trees.md` | 决策树学习主线图：树是一串 if-else 规则，每次分裂让节点更纯，树越深越容易过拟合，通过剪枝控制复杂度。 |
+| `ch05-ensemble-bagging-boosting-flow.png` | 集成学习 Bagging Boosting 对比图 | `docs/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md` | 集成学习 Bagging Boosting 对比图：Bagging 并行训练多棵树降低方差，Boosting 串行纠错逐步提升模型。 |
+| `ch05-unsupervised-chapter-flow.png` | 无监督学习章节关系图 | `docs/ch05-machine-learning/ch03-unsupervised/00-roadmap.md` | 无监督学习章节关系图：没有标签的数据通过聚类、降维和异常检测发现结构。 |
+| `ch05-clustering-decision-flow.png` | 聚类算法选择流程图 | `docs/ch05-machine-learning/ch03-unsupervised/01-clustering.md` | 聚类算法选择流程图：先看目标和数据形状，再选择 K-Means、层次聚类或 DBSCAN，并用轮廓系数和业务解释评估。 |
+| `ch05-dimensionality-reduction-purpose-map.png` | 降维目的选择图 | `docs/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction.md` | 降维目的选择图：建模预处理优先 PCA，可视化探索再考虑 t-SNE 或 UMAP，并关注主成分数量和解释方式。 |
+| `ch05-anomaly-detection-decision-flow.png` | 异常检测决策流程图 | `docs/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md` | 异常检测决策流程图：先定义异常类型，再看数据维度、样本量和异常比例，选择统计方法、Isolation Forest、One-Class SVM 或 LOF。 |
+| `ch05-evaluation-chapter-flow.png` | 模型评估章节关系图 | `docs/ch05-machine-learning/ch04-evaluation/00-roadmap.md` | 模型评估章节关系图：指标、交叉验证、偏差方差和超参数调优串成判断模型是否可靠的闭环。 |
+| `ch05-metrics-selection-flow.png` | 评估指标选择流程图 | `docs/ch05-machine-learning/ch04-evaluation/01-metrics.md` | 评估指标选择流程图：先看分类或回归，再看错误代价，选择 Accuracy、Recall、Precision、F1、AUC、RMSE 等指标。 |
+| `ch05-cross-validation-stability-flow.png` | 交叉验证稳定评估流程图 | `docs/ch05-machine-learning/ch04-evaluation/02-cross-validation.md` | 交叉验证稳定评估流程图：一次 train/test 划分不稳定，K 折重复评估，分类任务保持类别比例，特殊任务使用特殊切分。 |
+| `ch05-bias-variance-action-map.png` | 偏差方差行动诊断图 | `docs/ch05-machine-learning/ch04-evaluation/03-bias-variance.md` | 偏差方差行动诊断图：模型效果不好时先分辨欠拟合还是过拟合，再决定加复杂度、加数据或加正则化。 |
+| `ch05-hyperparameter-tuning-workflow.png` | 超参数调优验证流程图 | `docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md` | 超参数调优验证流程图：先有 baseline 和验证方式，再选搜索方法、比较参数组合，最后只用测试集做最终评估。 |
+| `ch05-feature-engineering-chapter-flow.png` | 特征工程章节关系图 | `docs/ch05-machine-learning/ch05-feature-engineering/00-roadmap.md` | 特征工程章节关系图：特征理解、预处理、构造、选择和 Pipeline 逐步把原始数据变成模型容易学习的输入。 |
+| `ch05-feature-understanding-workflow.png` | 特征理解与泄漏检查图 | `docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md` | 特征理解与泄漏检查图：原始表格先识别特征类型、查看缺失分布、分析与目标关系、检查冗余和目标泄漏。 |
+| `ch05-projects-portfolio-loop.png` | 机器学习项目作品集闭环图 | `docs/ch05-machine-learning/ch06-projects/00-roadmap.md` | 机器学习项目作品集闭环图：业务问题、任务定义、数据准备、baseline、评估指标、特征工程、错误分析、结论解释和作品集报告。 |
 | `ml-basics-roadmap.png` | 机器学习基础学习地图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础学习地图：问题定义、数据、模型、训练、评估和复盘组成入门主线。 |
 | `math-to-ml-bridge.png` | 数学到机器学习桥梁图 | `docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md` | 数学到机器学习桥梁图：线性代数组织数据，概率统计定义不确定性，微积分指导参数更新。 |
 | `supervised-learning-roadmap.png` | 监督学习路线图 | `docs/ch05-machine-learning/ch02-supervised/00-roadmap.md` | 监督学习路线图：带标签数据进入回归、分类、决策树和集成模型。 |
