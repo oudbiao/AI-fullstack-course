@@ -3077,6 +3077,398 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch10-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "计算机视觉学习闯关地图",
+        "suggested_page": "docs/ch10-computer-vision/index.md",
+        "alt": "计算机视觉学习闯关地图：像素颜色、OpenCV 预处理、图像分类、目标检测、图像分割、OCR 视频和视觉综合项目逐步连接。",
+        "prompt": """
+一张适合计算机视觉首页的学习闯关地图，主题是“模型如何从像素看见世界”。
+画面表现 pixels/RGB、OpenCV preprocessing、image classification、object detection、segmentation、OCR/video、CV project 逐步连接。
+风格像视觉任务路线图和工程流水线结合，清晰、新人友好。
+文字不是主体；标准术语保留英文，例如 pixels、RGB、OpenCV、classification、object detection、segmentation、OCR、video。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-visual-task-progression-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视觉任务输出粒度进阶图",
+        "suggested_page": "docs/ch10-computer-vision/index.md",
+        "alt": "视觉任务输出粒度进阶图：图像基础、OpenCV、图像分类、目标检测、图像分割、OCR 视频 3D 和视觉综合项目由粗到细连接。",
+        "prompt": """
+一张适合解释视觉任务由浅入深的输出粒度图，主题是“从整图类别到框，再到像素区域”。
+画面从 image basics、OpenCV 到 classification、detection、segmentation，再到 OCR/video/3D 和 CV project，输出越来越精细。
+风格像阶梯式任务地图，突出“这是什么、在哪里、边界在哪里”的递进关系。
+文字不是主体；标准术语保留英文，例如 OpenCV、classification、detection、segmentation、OCR、video、3D。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-study-guide-output-granularity-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视觉输出粒度学习指南图",
+        "suggested_page": "docs/ch10-computer-vision/study-guide.md",
+        "alt": "视觉输出粒度学习指南图：图像基础、分类、检测、分割、OCR 视频 3D 按输出粒度逐步升级。",
+        "prompt": """
+一张适合计算机视觉学习指南的学习地图，主题是“先按输出是什么来分清视觉任务”。
+画面表现 image basics、classification: what、detection: where、segmentation: pixel mask、OCR/video/3D，像一条从粗到细的视觉理解路线。
+风格像清爽教学卡片和任务粒度仪表盘结合。
+文字不是主体；标准术语保留英文，例如 classification、detection、segmentation、pixel mask、OCR、video、3D。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-cv-basics-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视觉基础章节学习顺序图",
+        "suggested_page": "docs/ch10-computer-vision/ch01-cv-basics/00-roadmap.md",
+        "alt": "视觉基础章节学习顺序图：图像是什么、OpenCV 读写查看图像、基础图像处理逐步连接。",
+        "prompt": """
+一张适合视觉基础导读页的章节学习顺序图，主题是“先看懂输入图像，再谈模型”。
+画面表现 what is image、pixels/channels、OpenCV read/write/view、basic image processing、model input intuition。
+风格像图像数据白板和 OpenCV 工作台结合，帮助新人建立输入直觉。
+文字不是主体；标准术语保留英文，例如 pixels、channels、OpenCV、image processing、model input。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-classification-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像分类章节学习顺序图",
+        "suggested_page": "docs/ch10-computer-vision/ch02-classification/00-roadmap.md",
+        "alt": "图像分类章节学习顺序图：数据增强、现代分类架构和训练技巧共同决定整图类别判断效果。",
+        "prompt": """
+一张适合图像分类导读页的章节学习顺序图，主题是“给整张图输出一个主要类别”。
+画面表现 data augmentation、modern CNN/ViT architectures、training tricks、validation、error samples，形成分类训练闭环。
+风格像训练实验看板和图片样例墙结合。
+文字不是主体；标准术语保留英文，例如 data augmentation、CNN、ViT、training tricks、validation、error samples。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-detection-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "目标检测章节学习顺序图",
+        "suggested_page": "docs/ch10-computer-vision/ch03-detection/00-roadmap.md",
+        "alt": "目标检测章节学习顺序图：检测任务概览、经典检测器、YOLO 系列和检测项目实战逐步连接。",
+        "prompt": """
+一张适合目标检测导读页的章节学习顺序图，主题是“图里有什么，还要知道它在哪里”。
+画面表现 detection overview、bounding box、IoU、mAP、classic detectors、YOLO、NMS、detection practice。
+风格像带框标注的视觉项目地图，突出位置理解和指标。
+文字不是主体；标准术语保留英文，例如 bounding box、IoU、mAP、YOLO、NMS、detection practice。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-segmentation-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像分割章节学习顺序图",
+        "suggested_page": "docs/ch10-computer-vision/ch04-segmentation/00-roadmap.md",
+        "alt": "图像分割章节学习顺序图：语义分割、实例分割和分割实战逐步连接，突出像素级 mask 输出。",
+        "prompt": """
+一张适合图像分割导读页的章节学习顺序图，主题是“从框级定位走向像素级区域理解”。
+画面表现 semantic segmentation、instance segmentation、mask、IoU/Dice、boundary errors、segmentation practice。
+风格像原图与 mask 叠加的教学图，突出边界和区域。
+文字不是主体；标准术语保留英文，例如 semantic segmentation、instance segmentation、mask、IoU、Dice、boundary errors。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-advanced-vision-route-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "高级视觉方向选择地图",
+        "suggested_page": "docs/ch10-computer-vision/ch05-advanced/00-roadmap.md",
+        "alt": "高级视觉方向选择地图：OCR、人脸、视频、3D 视觉和多模态行业项目逐步连接，帮助学习者选择作品方向。",
+        "prompt": """
+一张适合高级视觉导读页的方向选择地图，主题是“从基础视觉任务走向真实应用方向”。
+画面表现 image basics、classification、detection、segmentation 之后分出 OCR、face、video、3D vision，再连接 multimodal/AIGC/industry project。
+风格像方向分叉地图，强调每个方向的输入输出和应用边界。
+文字不是主体；标准术语保留英文，例如 OCR、face、video、3D vision、multimodal、industry project。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-projects-delivery-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视觉项目交付闭环图",
+        "suggested_page": "docs/ch10-computer-vision/ch06-projects/00-roadmap.md",
+        "alt": "视觉项目交付闭环图：场景需求、任务定义、数据收集、标注规范、训练验证、指标评估、可视化结果、失败案例分析和项目交付形成闭环。",
+        "prompt": """
+一张适合计算机视觉综合项目导读页的交付闭环图，主题是“视觉项目不是只放预测图，而是数据、标注、指标和失败案例闭环”。
+画面表现 scenario need、task definition、data collection、annotation rules、train/validation、metrics、visualized results、failure cases、delivery。
+风格像作品集交付看板和视觉评估仪表盘结合。
+文字不是主体；标准术语保留英文，例如 annotation rules、train/validation、metrics、failure cases、delivery、portfolio。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 学习闯关地图",
+        "suggested_page": "docs/ch11-nlp/index.md",
+        "alt": "NLP 学习闯关地图：文本清洗、分词与 Token、词向量、文本分类、序列标注、Seq2Seq、预训练模型和 LLM 理解基础逐步连接。",
+        "prompt": """
+一张适合 NLP 首页的学习闯关地图，主题是“把人类语言变成模型能计算的表示”。
+画面表现 text cleaning、Token、Embedding、text classification、sequence labeling、Seq2Seq、pretrained models、LLM foundation 逐步连接。
+风格像文本处理流水线和学习路线图结合，清晰、新人友好。
+文字不是主体；标准术语保留英文，例如 Token、Embedding、text classification、sequence labeling、Seq2Seq、pretrained models、LLM。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-nlp-to-llm-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 到大模型技术主线图",
+        "suggested_page": "docs/ch11-nlp/index.md",
+        "alt": "NLP 到大模型技术主线图：文本预处理、文本表示、词向量和语言模型、文本分类、序列标注、Seq2Seq 注意力、预训练模型和 LLM 理解基础逐步连接。",
+        "prompt": """
+一张适合解释 NLP 和大模型关系的技术主线图，主题是“NLP 是理解大模型的重要来源”。
+画面表现 text preprocessing、text representation、word embedding、language model、classification、sequence labeling、Seq2Seq/Attention、pretrained models、LLM foundation。
+风格像技术历史路线和现代模型栈结合，突出概念延续。
+文字不是主体；标准术语保留英文，例如 word embedding、language model、Seq2Seq、Attention、BERT、GPT、T5、LLM。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-study-guide-text-to-model-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 文本到模型学习指南图",
+        "suggested_page": "docs/ch11-nlp/study-guide.md",
+        "alt": "NLP 文本到模型学习指南图：文本预处理、表示、分类、抽取、生成和预训练模型组成文本任务主线。",
+        "prompt": """
+一张适合 NLP 学习指南的主线图，主题是“先理解文本如何进入模型，再理解任务和预训练”。
+画面表现 raw text、preprocessing、representation、classification、extraction、generation、pretrained model，形成一条清楚学习路线。
+风格像文本流水线和任务分流图结合，帮助新人不被模型名带乱。
+文字不是主体；标准术语保留英文，例如 raw text、preprocessing、representation、classification、extraction、generation、pretrained model。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-text-basics-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "文本基础章节学习顺序图",
+        "suggested_page": "docs/ch11-nlp/ch01-text-basics/00-roadmap.md",
+        "alt": "文本基础章节学习顺序图：NLP 地图、文本预处理、文本表示逐步连接，帮助学习者理解文本如何变成特征。",
+        "prompt": """
+一张适合文本基础导读页的章节学习顺序图，主题是“先把原始字符串变成可计算特征”。
+画面表现 NLP map、text preprocessing、normalization、Token、BoW/TF-IDF、model input。
+风格像文本清洗流水线和特征工程地图结合。
+文字不是主体；标准术语保留英文，例如 NLP map、text preprocessing、normalization、Token、BoW、TF-IDF、model input。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-embeddings-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 表示学习章节学习顺序图",
+        "suggested_page": "docs/ch11-nlp/ch02-embeddings/00-roadmap.md",
+        "alt": "NLP 表示学习章节学习顺序图：文本表示、词向量、上下文表示和语言模型逐步连接。",
+        "prompt": """
+一张适合 NLP 表示学习导读页的章节学习顺序图，主题是“从词频特征走向上下文语义表示”。
+画面表现 text representation、word embedding、semantic space、contextual embedding、language model、LLM foundation。
+风格像向量空间和文本上下文窗口结合，清楚展示表示升级。
+文字不是主体；标准术语保留英文，例如 word embedding、semantic space、contextual embedding、language model、LLM。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-classification-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "文本分类章节学习顺序图",
+        "suggested_page": "docs/ch11-nlp/ch03-classification/00-roadmap.md",
+        "alt": "文本分类章节学习顺序图：传统方法、深度学习方法和分类实战逐步连接。",
+        "prompt": """
+一张适合文本分类导读页的章节学习顺序图，主题是“把文本映射到清晰标签”。
+画面表现 label definition、traditional methods、deep learning methods、train/evaluate、confusion matrix、error analysis。
+风格像文本分类实验看板，突出标签边界和错例。
+文字不是主体；标准术语保留英文，例如 label definition、traditional methods、deep learning、confusion matrix、error analysis。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-sequence-labeling-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "序列标注章节学习顺序图",
+        "suggested_page": "docs/ch11-nlp/ch04-sequence-labeling/00-roadmap.md",
+        "alt": "序列标注章节学习顺序图：HMM 历史背景、NER、BiLSTM-CRF 和序列标注实践逐步连接。",
+        "prompt": """
+一张适合序列标注导读页的章节学习顺序图，主题是“不是给整句打标签，而是给每个 token 打标签”。
+画面表现 HMM history、NER、BIO tags、BiLSTM-CRF、token-level labels、entity recovery、practice。
+风格像句子标注带和实体抽取流程图结合。
+文字不是主体；标准术语保留英文，例如 HMM、NER、BIO tags、BiLSTM-CRF、token-level labels、entity recovery。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-seq2seq-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Seq2Seq 与注意力章节学习顺序图",
+        "suggested_page": "docs/ch11-nlp/ch05-seq2seq/00-roadmap.md",
+        "alt": "Seq2Seq 与注意力章节学习顺序图：Encoder-Decoder、Attention、机器翻译和生成任务逐步连接。",
+        "prompt": """
+一张适合 Seq2Seq 导读页的章节学习顺序图，主题是“从输入序列生成输出序列”。
+画面表现 Encoder-Decoder、context vector、Attention alignment、machine translation、summarization/generation。
+风格像双序列对齐图和生成流水线结合，突出 Attention 解决信息瓶颈。
+文字不是主体；标准术语保留英文，例如 Encoder-Decoder、context vector、Attention alignment、machine translation、generation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-pretrained-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练语言模型章节学习顺序图",
+        "suggested_page": "docs/ch11-nlp/ch06-pretrained/00-roadmap.md",
+        "alt": "预训练语言模型章节学习顺序图：预训练范式、BERT、GPT、T5 和 Transformers 库逐步连接。",
+        "prompt": """
+一张适合预训练语言模型导读页的章节学习顺序图，主题是“把通用语言能力迁移到具体任务”。
+画面表现 pretraining paradigm、BERT、GPT、T5、Transformers library、fine-tuning/inference、task adaptation。
+风格像模型家族地图和工具链路线图结合。
+文字不是主体；标准术语保留英文，例如 pretraining、BERT、GPT、T5、Transformers、fine-tuning、inference、task adaptation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-projects-delivery-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 项目交付闭环图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/00-roadmap.md",
+        "alt": "NLP 项目交付闭环图：任务定义、标签或 schema、数据样例、模型或 Prompt、评估指标、错误文本、事实检查和项目 README 形成闭环。",
+        "prompt": """
+一张适合 NLP 综合项目导读页的项目交付闭环图，主题是“文本项目要讲清标签、字段、事实和评估”。
+画面表现 task definition、label/schema、data samples、model or Prompt、metrics、error texts、fact check、README/portfolio。
+风格像文本项目看板和评估闭环结合，强调任务边界。
+文字不是主体；标准术语保留英文，例如 label、schema、Prompt、metrics、error texts、fact check、README、portfolio。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态与 AIGC 学习闯关地图",
+        "suggested_page": "docs/ch12-multimodal/index.md",
+        "alt": "多模态与 AIGC 学习闯关地图：文本理解、图文对齐、图像生成、语音视频、多模态问答、内容审核和创意工作流逐步连接。",
+        "prompt": """
+一张适合多模态与 AIGC 首页的学习闯关地图，主题是“把 AI 从文字世界带到真实世界输入输出”。
+画面表现 text understanding、vision-language alignment、image generation、voice/video、multimodal QA、content safety、creative workflow。
+风格像创意产品路线图和多模态系统图结合，明亮、专业。
+文字不是主体；标准术语保留英文，例如 vision-language alignment、image generation、voice、video、multimodal QA、content safety。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-multimodal-system-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态系统主干图",
+        "suggested_page": "docs/ch12-multimodal/index.md",
+        "alt": "多模态系统主干图：文本、图像、语音和视频进入多模态系统，完成理解、生成、编辑和工作流自动化。",
+        "prompt": """
+一张适合解释多模态为什么重要的系统主干图，主题是“不同模态进入同一条理解和生成流程”。
+画面表现 text、image、audio、video 汇入 multimodal system，再分向 understanding、generation、editing、workflow automation。
+风格像多输入多输出的产品架构图，突出统一表示和工作流。
+文字不是主体；标准术语保留英文，例如 text、image、audio、video、multimodal system、understanding、generation、workflow automation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-study-guide-modal-workflow-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态学习指南工作流图",
+        "suggested_page": "docs/ch12-multimodal/study-guide.md",
+        "alt": "多模态学习指南工作流图：不同模态编码为统一表示，模型完成理解或生成，再进入编辑、审核和产品工作流。",
+        "prompt": """
+一张适合多模态学习指南的系统学习图，主题是“不要追所有 Demo，先看清多模态工作流”。
+画面表现 text/image/audio/video、unified representation、understanding、generation、editing、review、product workflow。
+风格像产品流程图和创作控制台结合，帮助新人抓住主线。
+文字不是主体；标准术语保留英文，例如 unified representation、understanding、generation、editing、review、product workflow。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-multimodal-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态基础章节学习顺序图",
+        "suggested_page": "docs/ch12-multimodal/ch01-multimodal/00-roadmap.md",
+        "alt": "多模态基础章节学习顺序图：多模态基础、视觉语言模型和多模态应用逐步连接。",
+        "prompt": """
+一张适合多模态基础导读页的章节学习顺序图，主题是“从图文对齐到视觉语言应用”。
+画面表现 multimodal basics、vision-language models、alignment/fusion、image QA、document understanding、multimodal apps。
+风格像图文对齐空间和应用地图结合。
+文字不是主体；标准术语保留英文，例如 multimodal basics、vision-language models、alignment、fusion、image QA、document understanding。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-image-gen-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像生成章节学习顺序图",
+        "suggested_page": "docs/ch12-multimodal/ch02-image-gen/00-roadmap.md",
+        "alt": "图像生成章节学习顺序图：扩散模型、Stable Diffusion、应用、微调和最新进展逐步连接。",
+        "prompt": """
+一张适合图像生成导读页的章节学习顺序图，主题是“从 Diffusion 原理到可控生成工作流”。
+画面表现 Diffusion、Stable Diffusion、prompt/control、applications、LoRA/DreamBooth、latest progress、workflow review。
+风格像生成模型组件图和创意流程图结合，突出可控、版本和审核。
+文字不是主体；标准术语保留英文，例如 Diffusion、Stable Diffusion、prompt、ControlNet、LoRA、DreamBooth、workflow。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-video-gen-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视频语音数字人章节学习顺序图",
+        "suggested_page": "docs/ch12-multimodal/ch03-video-gen/00-roadmap.md",
+        "alt": "视频语音数字人章节学习顺序图：视频生成、TTS、数字人和时序内容工作流逐步连接。",
+        "prompt": """
+一张适合视频生成与数字人导读页的章节学习顺序图，主题是“时序内容不是一张图，而是脚本、镜头、声音和审核流水线”。
+画面表现 video generation、storyboard、keyframes、TTS、digital human、subtitle、review/export。
+风格像视频制作时间线和生成工作流结合，突出连续性和资产管理。
+文字不是主体；标准术语保留英文，例如 video generation、storyboard、keyframes、TTS、digital human、subtitle、review、export。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-frontier-ethics-route-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AIGC 前沿伦理合规路线图",
+        "suggested_page": "docs/ch12-multimodal/ch04-frontier/00-roadmap.md",
+        "alt": "AIGC 前沿伦理合规路线图：前沿趋势、AI 伦理、AI 监管、版权肖像、偏见虚假内容和使用边界逐步连接。",
+        "prompt": """
+一张适合 AIGC 前沿与伦理导读页的路线图，主题是“前沿变化很快，但风险边界必须从一开始设计”。
+画面表现 frontier trends、AI ethics、AI regulations、copyright、portrait rights、bias、misinformation、usage boundary。
+风格像技术雷达和合规检查清单结合，专业、清晰。
+文字不是主体；标准术语保留英文，例如 frontier trends、AI ethics、AI regulations、copyright、bias、misinformation、usage boundary。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-multimodal-rag-agent-bridge.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态 RAG 与 Agent 桥接图",
+        "suggested_page": "docs/ch12-multimodal/index.md",
+        "alt": "多模态 RAG 与 Agent 桥接图：截图或 PDF 经过视觉文档解析、结构化文本和图像片段、检索引用、多模态回答、人工编辑、内容审核和导出交付。",
+        "prompt": """
+一张适合多模态主线的系统桥接图，主题是“多模态能力如何扩展 RAG 和 Agent”。
+用 6 个清晰大模块串联：screenshot/PDF、document parsing、retrieval、multimodal answer、Agent action、review/export。
+风格像端到端系统架构图，背景干净，连线清楚，模块之间层次分明。
+文字不是主体；标准术语保留英文，例如 screenshot、PDF、document parsing、retrieval、multimodal answer、Agent action、review/export。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-projects-delivery-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AIGC 创意平台项目交付闭环图",
+        "suggested_page": "docs/ch12-multimodal/ch05-projects/00-roadmap.md",
+        "alt": "AIGC 创意平台项目交付闭环图：主题输入、文案、配图提示词、分镜脚本、语音稿、生成结果、人工编辑、审核清单和导出交付形成闭环。",
+        "prompt": """
+一张适合 AIGC 综合项目导读页的项目交付闭环图，主题是“生成好看不等于可交付，创意平台需要编辑、审核和导出”。
+画面表现 topic input、copywriting、image prompt、storyboard、voice script、generation result、human edit、review checklist、export delivery。
+风格像创意产品看板和多模态工作流结合，明亮、专业。
+文字不是主体；标准术语保留英文，例如 image prompt、storyboard、voice script、generation result、human edit、review checklist、export。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "git-four-areas.png",
         "size": "1536x1024",
         "quality": "medium",

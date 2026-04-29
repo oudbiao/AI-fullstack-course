@@ -30,11 +30,7 @@ keywords: [序列标注导读, NER, BiLSTM-CRF]
 
 ## 这一章的主线
 
-```mermaid
-flowchart LR
-    A["NER 任务直觉"] --> B["BiLSTM-CRF"]
-    B --> C["NER 项目实践"]
-```
+![序列标注章节学习顺序图](/img/course/ch11-sequence-labeling-chapter-flow.png)
 
 ## 新人和进阶学习者怎么读
 
@@ -67,4 +63,3 @@ flowchart LR
 这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
 
 如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
-

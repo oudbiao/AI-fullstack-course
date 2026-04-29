@@ -15,26 +15,11 @@ keywords: [Seq2Seq导读, attention导读, 机器翻译]
 
 ## 这一章在 NLP 路线中的位置
 
-```mermaid
-flowchart LR
-  A[文本表示] --> B[文本分类]
-  B --> C[序列标注]
-  C --> D[Seq2Seq]
-  D --> E[Attention]
-  E --> F[Transformer / 预训练模型]
-```
+![Seq2Seq 与注意力章节学习顺序图](/img/course/ch11-seq2seq-chapter-flow.png)
 
 前面文本分类通常是“输入一段文本，输出一个标签”；序列标注是“输入一串 token，输出一串标签”；Seq2Seq 则进一步变成“输入一串 token，输出另一串 token”。这个变化会直接把你带到生成式模型的世界。
 
 ## 本章学习主线
-
-```mermaid
-flowchart TD
-  A[Encoder-Decoder] --> B[上下文向量瓶颈]
-  B --> C[Attention]
-  C --> D[机器翻译实践]
-  D --> E[连接 Transformer]
-```
 
 第一步理解 Encoder 把输入序列压缩成表示，Decoder 根据表示逐步生成输出。第二步理解为什么单个上下文向量会成为瓶颈：句子越长，信息越容易丢。第三步学习 Attention：Decoder 在每一步生成时，可以回看输入序列的不同位置。最后通过机器翻译实践，把输入、输出、teacher forcing、解码和评估串起来。
 

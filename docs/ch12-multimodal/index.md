@@ -17,15 +17,7 @@ keywords: [AIGC, 多模态, Stable Diffusion, 图像生成, 视频生成, 语音
 
 ## 学习闯关地图
 
-```mermaid
-flowchart LR
-  A[文本理解] --> B[图文对齐]
-  B --> C[图像生成]
-  C --> D[语音与视频]
-  D --> E[多模态问答]
-  E --> F[内容审核]
-  F --> G[创意工作流]
-```
+![多模态与 AIGC 学习闯关地图](/img/course/ch12-learning-quest-map.png)
 
 ## 互动练习：把一个创意拆成多模态流水线
 
@@ -56,23 +48,9 @@ flowchart LR
 
 真实世界不是纯文本的。人类通过文字、图像、声音、视频和动作理解世界。多模态模型试图把这些不同形式的信息放进统一系统里，让 AI 能看图、读文档、听语音、生成图片和辅助创作。
 
-```mermaid
-flowchart LR
-  A[文本] --> E[多模态系统]
-  B[图像] --> E
-  C[语音] --> E
-  D[视频] --> E
-```
+![多模态系统主干图](/img/course/ch12-multimodal-system-backbone.png)
 
 前半段先理解多模态输入和生成能力，后半段再把内容创作、审核、导出和产品原型串起来。
-
-```mermaid
-flowchart LR
-  E --> F[理解]
-  E --> G[生成]
-  E --> H[编辑]
-  E --> I[工作流自动化]
-```
 
 ## 新人先做什么，进阶再做什么
 
@@ -100,20 +78,7 @@ flowchart LR
 
 多模态不是课程主线之外的孤岛。第 8 站的 RAG 会扩展成多模态 RAG，第 9 站的 Agent 会扩展成能看截图、读文档、处理图表的多模态 Agent，第 12 站则把这些能力组织成完整创作或理解工作流。
 
-```mermaid
-flowchart LR
-  A[截图或 PDF] --> B[视觉与文档解析]
-  B --> C[结构化文本和图像片段]
-  C --> D[检索与引用]
-  D --> E[多模态回答]
-```
-
-```mermaid
-flowchart LR
-  E[多模态回答] --> F[人工编辑]
-  F --> G[内容审核]
-  G --> H[导出交付]
-```
+![多模态 RAG 与 Agent 桥接图](/img/course/ch12-multimodal-rag-agent-bridge.png)
 
 一个适合收官的项目是“多模态学习助手”：它能读取课程截图或 PDF 页面，提取关键概念，结合课程文档做 RAG 回答，再生成复盘卡或学习计划。这样能自然展示你对 RAG、Agent、多模态和工程化的综合理解。
 

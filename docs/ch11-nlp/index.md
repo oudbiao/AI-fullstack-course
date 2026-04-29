@@ -17,16 +17,7 @@ keywords: [NLP, 自然语言处理, Transformer, BERT, 词向量, 文本分类, 
 
 ## 学习闯关地图
 
-```mermaid
-flowchart LR
-  A[文本清洗] --> B[分词与 Token]
-  B --> C[词向量]
-  C --> D[文本分类]
-  D --> E[序列标注]
-  E --> F[Seq2Seq]
-  F --> G[预训练模型]
-  G --> H[LLM 理解基础]
-```
+![NLP 学习闯关地图](/img/course/ch11-learning-quest-map.png)
 
 ## 互动练习：同一句话拆出三层信息
 
@@ -57,16 +48,7 @@ flowchart LR
 
 NLP 是大模型的重要来源之一。Token、Embedding、语言模型、Seq2Seq、Attention、预训练模型，这些概念都在大模型里继续存在。学习 NLP 不是为了停留在旧方法，而是为了看懂大模型之前的技术积累。
 
-```mermaid
-flowchart LR
-  A[文本预处理] --> B[文本表示]
-  B --> C[词向量和语言模型]
-  C --> D[文本分类]
-  D --> E[序列标注]
-  E --> F[Seq2Seq 与注意力]
-  F --> G[预训练模型]
-  G --> H[LLM 理解基础]
-```
+![NLP 到大模型技术主线图](/img/course/ch11-nlp-to-llm-backbone.png)
 
 ## 新人先做什么，进阶再做什么
 

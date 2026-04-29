@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 347 / 347
+Generated with image2: 375 / 375
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -24,7 +24,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 第 9 章补充说明：目录 `docs/ch09-agent` 本轮新增 27 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、Agent 基础、推理规划、工具、记忆、MCP、框架、多 Agent、评估安全、部署运维和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
-第 10～12 章说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 下新增的 15 张视觉、NLP、多模态与 AIGC 流程图已经用 image2 生成，并插入到对应核心教程页面。
+第 10～12 章补充说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 本轮新增 28 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、CV/NLP/多模态各子章导读和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 选修模块说明：目录 `docs/electives` 下新增的 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。
 
@@ -108,7 +108,26 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch05-projects-portfolio-loop.png`
 - `ch06-deep-learning.png`
 - `ch10-computer-vision.png`
+- `ch10-learning-quest-map.png`
+- `ch10-visual-task-progression-map.png`
+- `ch10-study-guide-output-granularity-map.png`
+- `ch10-cv-basics-chapter-flow.png`
+- `ch10-classification-chapter-flow.png`
+- `ch10-detection-chapter-flow.png`
+- `ch10-segmentation-chapter-flow.png`
+- `ch10-advanced-vision-route-map.png`
+- `ch10-projects-delivery-loop.png`
 - `ch11-nlp.png`
+- `ch11-learning-quest-map.png`
+- `ch11-nlp-to-llm-backbone.png`
+- `ch11-study-guide-text-to-model-map.png`
+- `ch11-text-basics-chapter-flow.png`
+- `ch11-embeddings-chapter-flow.png`
+- `ch11-classification-chapter-flow.png`
+- `ch11-sequence-labeling-chapter-flow.png`
+- `ch11-seq2seq-chapter-flow.png`
+- `ch11-pretrained-chapter-flow.png`
+- `ch11-projects-delivery-loop.png`
 - `ch07-llm-principles.png`
 - `ch07-learning-quest-map.png`
 - `ch07-llm-capability-backbone.png`
@@ -175,6 +194,15 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch09-project-learning-order-map.png`
 - `ch09-project-delivery-loop.png`
 - `ch12-multimodal-aigc.png`
+- `ch12-learning-quest-map.png`
+- `ch12-multimodal-system-backbone.png`
+- `ch12-study-guide-modal-workflow-map.png`
+- `ch12-multimodal-chapter-flow.png`
+- `ch12-image-gen-chapter-flow.png`
+- `ch12-video-gen-chapter-flow.png`
+- `ch12-frontier-ethics-route-map.png`
+- `ch12-multimodal-rag-agent-bridge.png`
+- `ch12-projects-delivery-loop.png`
 - `git-four-areas.png`
 - `pandas-dataframe-structure.png`
 - `chart-selection-decision-tree.png`

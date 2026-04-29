@@ -223,6 +223,34 @@
 | `ch09-project-learning-order-map.png` | Agent 项目学习顺序图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 项目学习顺序图：先做研究助手，练习检索引用总结，再做数据分析 Agent 练习工具调用结果解释，最后做多 Agent 开发团队练习角色分工协调审查。 |
 | `ch09-project-delivery-loop.png` | Agent 项目交付闭环图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 项目交付闭环图：任务输入、计划列表、执行步骤、工具调用日志、观察中间结果、失败处理、最终输出、评估复盘和部署演示形成作品集闭环。 |
 | `ch12-multimodal-aigc.png` | AIGC 与多模态主视觉 | `docs/ch12-multimodal/index.md` | AIGC 与多模态主视觉：文字、图像、语音、视频和审核导出组成创意工作流。 |
+| `ch10-learning-quest-map.png` | 计算机视觉学习闯关地图 | `docs/ch10-computer-vision/index.md` | 计算机视觉学习闯关地图：像素颜色、OpenCV 预处理、图像分类、目标检测、图像分割、OCR 视频和视觉综合项目逐步连接。 |
+| `ch10-visual-task-progression-map.png` | 视觉任务输出粒度进阶图 | `docs/ch10-computer-vision/index.md` | 视觉任务输出粒度进阶图：图像基础、OpenCV、图像分类、目标检测、图像分割、OCR 视频 3D 和视觉综合项目由粗到细连接。 |
+| `ch10-study-guide-output-granularity-map.png` | 视觉输出粒度学习指南图 | `docs/ch10-computer-vision/study-guide.md` | 视觉输出粒度学习指南图：图像基础、分类、检测、分割、OCR 视频 3D 按输出粒度逐步升级。 |
+| `ch10-cv-basics-chapter-flow.png` | 视觉基础章节学习顺序图 | `docs/ch10-computer-vision/ch01-cv-basics/00-roadmap.md` | 视觉基础章节学习顺序图：图像是什么、OpenCV 读写查看图像、基础图像处理逐步连接。 |
+| `ch10-classification-chapter-flow.png` | 图像分类章节学习顺序图 | `docs/ch10-computer-vision/ch02-classification/00-roadmap.md` | 图像分类章节学习顺序图：数据增强、现代分类架构和训练技巧共同决定整图类别判断效果。 |
+| `ch10-detection-chapter-flow.png` | 目标检测章节学习顺序图 | `docs/ch10-computer-vision/ch03-detection/00-roadmap.md` | 目标检测章节学习顺序图：检测任务概览、经典检测器、YOLO 系列和检测项目实战逐步连接。 |
+| `ch10-segmentation-chapter-flow.png` | 图像分割章节学习顺序图 | `docs/ch10-computer-vision/ch04-segmentation/00-roadmap.md` | 图像分割章节学习顺序图：语义分割、实例分割和分割实战逐步连接，突出像素级 mask 输出。 |
+| `ch10-advanced-vision-route-map.png` | 高级视觉方向选择地图 | `docs/ch10-computer-vision/ch05-advanced/00-roadmap.md` | 高级视觉方向选择地图：OCR、人脸、视频、3D 视觉和多模态行业项目逐步连接，帮助学习者选择作品方向。 |
+| `ch10-projects-delivery-loop.png` | 视觉项目交付闭环图 | `docs/ch10-computer-vision/ch06-projects/00-roadmap.md` | 视觉项目交付闭环图：场景需求、任务定义、数据收集、标注规范、训练验证、指标评估、可视化结果、失败案例分析和项目交付形成闭环。 |
+| `ch11-learning-quest-map.png` | NLP 学习闯关地图 | `docs/ch11-nlp/index.md` | NLP 学习闯关地图：文本清洗、分词与 Token、词向量、文本分类、序列标注、Seq2Seq、预训练模型和 LLM 理解基础逐步连接。 |
+| `ch11-nlp-to-llm-backbone.png` | NLP 到大模型技术主线图 | `docs/ch11-nlp/index.md` | NLP 到大模型技术主线图：文本预处理、文本表示、词向量和语言模型、文本分类、序列标注、Seq2Seq 注意力、预训练模型和 LLM 理解基础逐步连接。 |
+| `ch11-study-guide-text-to-model-map.png` | NLP 文本到模型学习指南图 | `docs/ch11-nlp/study-guide.md` | NLP 文本到模型学习指南图：文本预处理、表示、分类、抽取、生成和预训练模型组成文本任务主线。 |
+| `ch11-text-basics-chapter-flow.png` | 文本基础章节学习顺序图 | `docs/ch11-nlp/ch01-text-basics/00-roadmap.md` | 文本基础章节学习顺序图：NLP 地图、文本预处理、文本表示逐步连接，帮助学习者理解文本如何变成特征。 |
+| `ch11-embeddings-chapter-flow.png` | NLP 表示学习章节学习顺序图 | `docs/ch11-nlp/ch02-embeddings/00-roadmap.md` | NLP 表示学习章节学习顺序图：文本表示、词向量、上下文表示和语言模型逐步连接。 |
+| `ch11-classification-chapter-flow.png` | 文本分类章节学习顺序图 | `docs/ch11-nlp/ch03-classification/00-roadmap.md` | 文本分类章节学习顺序图：传统方法、深度学习方法和分类实战逐步连接。 |
+| `ch11-sequence-labeling-chapter-flow.png` | 序列标注章节学习顺序图 | `docs/ch11-nlp/ch04-sequence-labeling/00-roadmap.md` | 序列标注章节学习顺序图：HMM 历史背景、NER、BiLSTM-CRF 和序列标注实践逐步连接。 |
+| `ch11-seq2seq-chapter-flow.png` | Seq2Seq 与注意力章节学习顺序图 | `docs/ch11-nlp/ch05-seq2seq/00-roadmap.md` | Seq2Seq 与注意力章节学习顺序图：Encoder-Decoder、Attention、机器翻译和生成任务逐步连接。 |
+| `ch11-pretrained-chapter-flow.png` | 预训练语言模型章节学习顺序图 | `docs/ch11-nlp/ch06-pretrained/00-roadmap.md` | 预训练语言模型章节学习顺序图：预训练范式、BERT、GPT、T5 和 Transformers 库逐步连接。 |
+| `ch11-projects-delivery-loop.png` | NLP 项目交付闭环图 | `docs/ch11-nlp/ch07-projects/00-roadmap.md` | NLP 项目交付闭环图：任务定义、标签或 schema、数据样例、模型或 Prompt、评估指标、错误文本、事实检查和项目 README 形成闭环。 |
+| `ch12-learning-quest-map.png` | 多模态与 AIGC 学习闯关地图 | `docs/ch12-multimodal/index.md` | 多模态与 AIGC 学习闯关地图：文本理解、图文对齐、图像生成、语音视频、多模态问答、内容审核和创意工作流逐步连接。 |
+| `ch12-multimodal-system-backbone.png` | 多模态系统主干图 | `docs/ch12-multimodal/index.md` | 多模态系统主干图：文本、图像、语音和视频进入多模态系统，完成理解、生成、编辑和工作流自动化。 |
+| `ch12-study-guide-modal-workflow-map.png` | 多模态学习指南工作流图 | `docs/ch12-multimodal/study-guide.md` | 多模态学习指南工作流图：不同模态编码为统一表示，模型完成理解或生成，再进入编辑、审核和产品工作流。 |
+| `ch12-multimodal-chapter-flow.png` | 多模态基础章节学习顺序图 | `docs/ch12-multimodal/ch01-multimodal/00-roadmap.md` | 多模态基础章节学习顺序图：多模态基础、视觉语言模型和多模态应用逐步连接。 |
+| `ch12-image-gen-chapter-flow.png` | 图像生成章节学习顺序图 | `docs/ch12-multimodal/ch02-image-gen/00-roadmap.md` | 图像生成章节学习顺序图：扩散模型、Stable Diffusion、应用、微调和最新进展逐步连接。 |
+| `ch12-video-gen-chapter-flow.png` | 视频语音数字人章节学习顺序图 | `docs/ch12-multimodal/ch03-video-gen/00-roadmap.md` | 视频语音数字人章节学习顺序图：视频生成、TTS、数字人和时序内容工作流逐步连接。 |
+| `ch12-frontier-ethics-route-map.png` | AIGC 前沿伦理合规路线图 | `docs/ch12-multimodal/ch04-frontier/00-roadmap.md` | AIGC 前沿伦理合规路线图：前沿趋势、AI 伦理、AI 监管、版权肖像、偏见虚假内容和使用边界逐步连接。 |
+| `ch12-multimodal-rag-agent-bridge.png` | 多模态 RAG 与 Agent 桥接图 | `docs/ch12-multimodal/index.md` | 多模态 RAG 与 Agent 桥接图：截图或 PDF 经过视觉文档解析、结构化文本和图像片段、检索引用、多模态回答、人工编辑、内容审核和导出交付。 |
+| `ch12-projects-delivery-loop.png` | AIGC 创意平台项目交付闭环图 | `docs/ch12-multimodal/ch05-projects/00-roadmap.md` | AIGC 创意平台项目交付闭环图：主题输入、文案、配图提示词、分镜脚本、语音稿、生成结果、人工编辑、审核清单和导出交付形成闭环。 |
 | `git-four-areas.png` | Git 四区工作流图 | `docs/ch01-tools/ch02-git/01-git-basics.md` | Git 四区工作流图：工作区、暂存区、本地仓库和远程仓库之间的 add、commit、push、pull 关系。 |
 | `pandas-dataframe-structure.png` | Pandas DataFrame 结构图 | `docs/ch03-data-analysis/ch03-pandas/01-core-structures.md` | Pandas DataFrame 结构图：行、列、索引、Series 和 DataFrame 的关系。 |
 | `chart-selection-decision-tree.png` | 图表选择决策树 | `docs/ch03-data-analysis/ch04-visualization/04-best-practices.md` | 图表选择决策树：比较大小、看趋势、看分布、看关系时选择不同图表。 |

@@ -17,14 +17,7 @@ keywords: [预训练导读, BERT, GPT, T5, transformers]
 
 ## 这一章在整门课里的位置
 
-```mermaid
-flowchart LR
-  A[词向量与语言模型] --> B[BERT]
-  B --> C[GPT]
-  C --> D[T5]
-  D --> E[transformers 实战]
-  E --> F[LLM / RAG / Agent]
-```
+![预训练语言模型章节学习顺序图](/img/course/ch11-pretrained-chapter-flow.png)
 
 这章既是第 11 站自然语言处理的收束，也是第 7～9 站大模型、RAG 和 Agent 的前置桥梁。你后面调用大模型 API、做文本检索、做微调或构建 RAG 时，都会反复遇到 tokenizer、embedding、上下文长度、生成方式和模型加载这些概念。
 
@@ -41,17 +34,6 @@ flowchart LR
 ## 本章学习顺序
 
 第一步先理解预训练范式：为什么一个模型先在大规模文本上学习，再在具体任务上迁移，比每个任务从零训练更有效。第二步看 BERT，重点理解 mask、双向上下文、CLS 表示和下游任务微调。第三步看 GPT，重点理解自回归生成、上下文窗口和 Prompt。第四步看 T5，理解把翻译、摘要、问答、分类都统一成 text-to-text 的思想。最后用 transformers 跑一个最小例子，把 tokenizer、model、pipeline、输入输出连起来。
-
-```mermaid
-flowchart TD
-  A[预训练范式] --> B[理解型模型 BERT]
-  A --> C[生成型模型 GPT]
-  A --> D[统一任务模型 T5]
-  B --> E[transformers 实战]
-  C --> E
-  D --> E
-  E --> F[写进项目 README]
-```
 
 ## 和大模型课程的连接
 
