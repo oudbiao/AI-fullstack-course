@@ -15,14 +15,7 @@ keywords: [LLM概览导读, 大模型发展, 大模型概念, GPT, BERT]
 
 这一章不是在讲某一个具体模型，而是在帮你建立一个判断框架：当你看到 GPT、Claude、Gemini、LLaMA、Qwen、DeepSeek 或其他模型时，你知道应该从训练方式、上下文能力、推理能力、工具能力、部署方式和应用生态去理解它，而不是只看名字和参数量。
 
-```mermaid
-flowchart LR
-  A[NLP 基础] --> B[Token 与 Embedding]
-  B --> C[Transformer]
-  C --> D[预训练语言模型]
-  D --> E[大语言模型 LLM]
-  E --> F[Prompt 微调 RAG Agent]
-```
+![LLM 概览章节关系图](/img/course/ch07-llm-overview-chapter-flow.png)
 
 ## 这一章真正要解决的问题
 
@@ -34,28 +27,11 @@ flowchart LR
 
 建议先看发展历史，理解大模型不是突然出现的，而是从统计 NLP、词向量、Transformer、预训练、指令微调和人类反馈对齐一步步演进出来的。然后看核心概念，把参数、token、上下文、embedding、推理、幻觉、对齐这些词放到正确位置。最后看产业格局，理解开源/闭源、云端/本地、通用/垂直模型之间的取舍。
 
-```mermaid
-flowchart TD
-  A[先看发展历史] --> B[理解为什么会出现 LLM]
-  B --> C[再看核心概念]
-  C --> D[建立 token 上下文 参数 能力边界]
-  D --> E[最后看产业格局]
-  E --> F[理解模型选择和应用路线]
-```
+![大模型能力栈与应用生态图](/img/course/ch07-llm-capability-stack.png)
 
 ## 学这一章时要抓住的主线
 
 这一章的主线可以概括为：大模型是把大规模数据、Transformer 结构、预训练目标、指令对齐和应用接口组合起来形成的新型能力底座。
-
-```mermaid
-flowchart LR
-  A[大规模数据] --> B[Transformer 架构]
-  B --> C[预训练]
-  C --> D[指令微调与对齐]
-  D --> E[对话和生成能力]
-  E --> F[API 与应用生态]
-  F --> G[RAG Agent 多模态]
-```
 
 这条线能帮助你分清“模型本身的能力”和“应用系统补上的能力”。例如，模型参数里有一部分通用知识，但最新企业文档通常需要 RAG；模型可以生成文本，但可靠执行任务通常需要工具调用和状态管理；模型会回答问题，但生产系统还需要评估、监控、权限和成本控制。
 

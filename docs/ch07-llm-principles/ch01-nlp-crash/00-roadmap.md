@@ -22,12 +22,7 @@ keywords: [NLP速成导读, tokenizer, embedding, HuggingFace]
 
 ## 这一章的主线
 
-```mermaid
-flowchart LR
-    A["Tokenizer"] --> B["Embedding"]
-    B --> C["预训练模型速览"]
-    C --> D["Hugging Face 快速上手"]
-```
+![NLP 速成章节关系图](/img/course/ch07-nlp-crash-chapter-flow.png)
 
 这一章学稳后，你再看大模型训练和调用，心里会更有抓手。
 
@@ -82,4 +77,3 @@ flowchart LR
 这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
 
 如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
-

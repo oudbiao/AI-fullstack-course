@@ -158,6 +158,24 @@
 | `ch10-computer-vision.png` | 计算机视觉主视觉 | `docs/ch10-computer-vision/index.md` | 计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。 |
 | `ch11-nlp.png` | 自然语言处理主视觉 | `docs/ch11-nlp/index.md` | 自然语言处理主视觉：文本经过分词、词向量、分类、序列标注和预训练模型处理。 |
 | `ch07-llm-principles.png` | 大模型原理主视觉 | `docs/ch07-llm-principles/index.md` | 大模型原理主视觉：Token、Embedding、Transformer、预训练、Prompt、微调和对齐组成能力链路。 |
+| `ch07-learning-quest-map.png` | 大模型学习闯关地图 | `docs/ch07-llm-principles/index.md` | 大模型学习闯关地图：Token、Embedding、Attention、Transformer、预训练、Prompt、微调和对齐逐步连接。 |
+| `ch07-llm-capability-backbone.png` | 大模型能力来源主线图 | `docs/ch07-llm-principles/index.md` | 大模型能力来源主线图：NLP 基础、Token 与 Embedding、Transformer、大规模预训练、Prompt、PEFT、RLHF 和可控应用逐步连接。 |
+| `ch07-study-guide-evolution-line.png` | 大模型学习指南演进线 | `docs/ch07-llm-principles/study-guide.md` | 大模型学习指南演进线：token、embedding、Transformer、预训练、Prompt、微调、对齐和可控应用组成第一遍学习主线。 |
+| `ch07-nlp-crash-chapter-flow.png` | NLP 速成章节关系图 | `docs/ch07-llm-principles/ch01-nlp-crash/00-roadmap.md` | NLP 速成章节关系图：Tokenizer、Embedding、预训练模型速览和 Hugging Face 快速上手组成大模型文本底座。 |
+| `ch07-llm-overview-chapter-flow.png` | LLM 概览章节关系图 | `docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md` | LLM 概览章节关系图：NLP 基础、Token、Embedding、Transformer、预训练语言模型、大语言模型、Prompt、微调、RAG 和 Agent 逐步连接。 |
+| `ch07-llm-capability-stack.png` | 大模型能力栈与应用生态图 | `docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md` | 大模型能力栈与应用生态图：大规模数据、Transformer、预训练、指令微调、对齐、API、RAG、Agent 和多模态组成能力底座。 |
+| `ch07-transformer-deep-chapter-flow.png` | Transformer 深入章节关系图 | `docs/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md` | Transformer 深入章节关系图：Attention、Transformer 架构、架构变体、高效注意力、规模计算、预训练、微调和部署逐步连接。 |
+| `ch07-transformer-cost-task-map.png` | Transformer 信息流计算成本任务适配图 | `docs/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md` | Transformer 信息流计算成本任务适配图：结构组件分别影响信息流、计算成本和任务适配，连接上下文长度、显存吞吐和 BERT/GPT/T5。 |
+| `ch07-pretraining-chapter-flow.png` | 预训练技术章节关系图 | `docs/ch07-llm-principles/ch04-pretraining/00-roadmap.md` | 预训练技术章节关系图：Transformer 结构、预训练数据、预训练目标、训练工程、Prompt、微调和 RAG 逐步连接。 |
+| `ch07-pretraining-data-objective-engineering-map.png` | 预训练数据目标工程三角图 | `docs/ch07-llm-principles/ch04-pretraining/00-roadmap.md` | 预训练数据目标工程三角图：数据来源、清洗去重、质量安全、语言建模、掩码预测、多任务目标、分布式训练、混合精度和监控共同决定模型能力。 |
+| `ch07-prompt-chapter-flow.png` | Prompt 工程章节关系图 | `docs/ch07-llm-principles/ch05-prompt/00-roadmap.md` | Prompt 工程章节关系图：大模型能力、任务目标、Prompt 组织、模型输出、结构化结果和应用功能逐步连接。 |
+| `ch07-prompt-iteration-loop.png` | Prompt 迭代测试闭环图 | `docs/ch07-llm-principles/ch05-prompt/00-roadmap.md` | Prompt 迭代测试闭环图：用户需求、任务定义、输入材料、约束条件、输出格式、示例检查、模型调用、结果验证和 Prompt 迭代组成可复用调用。 |
+| `ch07-finetuning-chapter-flow.png` | 大模型微调章节关系图 | `docs/ch07-llm-principles/ch06-finetuning/00-roadmap.md` | 大模型微调章节关系图：预训练、通用语言能力、Prompt、微调、数据调整行为、领域任务和稳定格式逐步连接。 |
+| `ch07-finetuning-decision-loop.png` | 微调决策与评估闭环图 | `docs/ch07-llm-principles/ch06-finetuning/00-roadmap.md` | 微调决策与评估闭环图：判断是否需要微调、定义任务和评估标准、准备样本、选择 LoRA/QLoRA/PEFT、训练验证、对比 Prompt/RAG 基线并决定上线。 |
+| `ch07-alignment-chapter-flow.png` | 大模型对齐章节关系图 | `docs/ch07-llm-principles/ch07-alignment/00-roadmap.md` | 大模型对齐章节关系图：预训练、指令微调、人类反馈、RLHF/DPO、安全边界和可靠应用逐步连接。 |
+| `ch07-alignment-app-safety-map.png` | 对齐与应用安全边界图 | `docs/ch07-llm-principles/ch07-alignment/00-roadmap.md` | 对齐与应用安全边界图：模型对齐让模型更愿意遵循指令、承认不确定和遵守安全边界，并连接 Prompt 应用、RAG 引用和 Agent 工具权限。 |
+| `ch07-projects-route-map.png` | 大模型综合项目路线图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型综合项目路线图：领域任务、Prompt baseline、失败分析、Prompt 优化、RAG、微调、评估对比和项目展示组成方案选择闭环。 |
+| `ch07-project-method-choice-loop.png` | 大模型项目方法选择闭环图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型项目方法选择闭环图：任务定义、数据样例、baseline、失败分析、方法选择、实现方案、评估对比、结论取舍和作品集输出组成项目闭环。 |
 | `ch08-rag-engineering.png` | LLM 应用与 RAG 主视觉 | `docs/ch08-rag/index.md` | LLM 应用与 RAG 主视觉：文档处理、向量库、检索、Prompt、API 和日志组成知识库系统。 |
 | `ch09-agent-systems.png` | AI Agent 系统主视觉 | `docs/ch09-agent/index.md` | AI Agent 系统主视觉：目标、计划、工具、记忆、观察和评估组成智能体执行闭环。 |
 | `ch12-multimodal-aigc.png` | AIGC 与多模态主视觉 | `docs/ch12-multimodal/index.md` | AIGC 与多模态主视觉：文字、图像、语音、视频和审核导出组成创意工作流。 |

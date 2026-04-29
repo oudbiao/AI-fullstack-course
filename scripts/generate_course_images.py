@@ -2170,6 +2170,258 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch07-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型学习闯关地图",
+        "suggested_page": "docs/ch07-llm-principles/index.md",
+        "alt": "大模型学习闯关地图：Token、Embedding、Attention、Transformer、预训练、Prompt、微调和对齐逐步连接。",
+        "prompt": """
+一张适合大模型课程首页的学习闯关地图，主题是“从文本进入可控的大模型能力”。
+画面表现文本先切成 Token，进入 Embedding 和 Attention，再进入 Transformer、预训练、Prompt、微调、对齐与安全，最后形成可控的大模型应用能力。
+风格视觉优先、路线清晰、新手友好，像把聊天机器人的魔法盒拆开。
+文字不是主体；如需标签，中英文自然混用，标准术语保留英文，例如 Token、Embedding、Attention、Transformer、Pretraining、Prompt、Fine-tuning、RLHF。不要整段英文说明、无意义英文、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-llm-capability-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型能力来源主线图",
+        "suggested_page": "docs/ch07-llm-principles/index.md",
+        "alt": "大模型能力来源主线图：NLP 基础、Token 与 Embedding、Transformer、大规模预训练、Prompt、PEFT、RLHF 和可控应用逐步连接。",
+        "prompt": """
+一张适合大模型课程首页的能力来源主线图，主题是“大模型不是魔法，而是结构、数据、训练和对齐共同作用”。
+画面从 NLP 基础和 Token/Embedding 出发，连接 Transformer、大规模预训练、Prompt Engineering、PEFT/LoRA、RLHF 与对齐，最终形成可控的大模型能力。
+风格像技术栈演进图和能力管线结合，清晰、有层次。
+文字不是主体；如需标签，中英文自然混用，标准术语保留英文，例如 NLP、Token、Embedding、Transformer、Prompt、PEFT、LoRA、RLHF。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-study-guide-evolution-line.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型学习指南演进线",
+        "suggested_page": "docs/ch07-llm-principles/study-guide.md",
+        "alt": "大模型学习指南演进线：token、embedding、Transformer、预训练、Prompt、微调、对齐和可控应用组成第一遍学习主线。",
+        "prompt": """
+一张适合大模型学习指南的演进线插图，主题是“第一遍大模型只抓能力从哪里来到如何被控制”。
+画面表现 token 变成 embedding，Transformer 建模上下文，预训练获得通用能力，Prompt、微调和对齐让能力更可用，最后进入可控应用。
+风格温暖、清晰、有陪伴感，帮助新人不要被模型榜单和术语吓住。
+文字不是主体；如需标签，中英文自然混用，标准术语保留英文，例如 token、embedding、Transformer、Prompt、fine-tuning、alignment。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-nlp-crash-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 速成章节关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/00-roadmap.md",
+        "alt": "NLP 速成章节关系图：Tokenizer、Embedding、预训练模型速览和 Hugging Face 快速上手组成大模型文本底座。",
+        "prompt": """
+一张适合 NLP 核心速成导读页的章节关系图，主题是“进入大模型前，先压实最小文本底座”。
+画面表现原始文本进入 Tokenizer，被切成 token 和 id，再进入 Embedding 变成向量，连接预训练模型速览和 Hugging Face 快速上手。
+风格像文本处理流水线和学习路线图结合，清晰、实用。
+文字不是主体；标准术语和库名保留英文，例如 Tokenizer、Embedding、token id、pretrained model、Hugging Face。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-llm-overview-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 概览章节关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+        "alt": "LLM 概览章节关系图：NLP 基础、Token、Embedding、Transformer、预训练语言模型、大语言模型、Prompt、微调、RAG 和 Agent 逐步连接。",
+        "prompt": """
+一张适合 LLM 概览导读页的章节关系图，主题是“先建立看大模型的坐标系”。
+画面表现 NLP 基础、Token/Embedding、Transformer、预训练语言模型逐步发展到 LLM，再连接 Prompt、微调、RAG 和 Agent 应用路线。
+风格像大模型时代地图，层次清楚，避免榜单式堆模型名。
+文字不是主体；标准术语保留英文，例如 NLP、Token、Embedding、Transformer、LLM、Prompt、RAG、Agent。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-llm-capability-stack.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型能力栈与应用生态图",
+        "suggested_page": "docs/ch07-llm-principles/ch02-llm-overview/00-roadmap.md",
+        "alt": "大模型能力栈与应用生态图：大规模数据、Transformer、预训练、指令微调、对齐、API、RAG、Agent 和多模态组成能力底座。",
+        "prompt": """
+一张适合 LLM 概览页的能力栈图，主题是“大模型能力由底座和应用系统共同组成”。
+画面从大规模数据和 Transformer 架构开始，经过预训练、指令微调与对齐，形成对话和生成能力，再通过 API、RAG、Agent、多模态和监控进入应用生态。
+风格像分层技术栈和生态地图结合，清楚、专业。
+文字不是主体；标准术语保留英文，例如 data scale、Transformer、pretraining、SFT、alignment、API、RAG、Agent、multimodal。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-transformer-deep-chapter-flow.png",
+        "size": "1024x1024",
+        "quality": "medium",
+        "title": "Transformer 深入章节关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+        "alt": "Transformer 深入章节关系图：Attention、Transformer 架构、架构变体、高效注意力、规模计算、预训练、微调和部署逐步连接。",
+        "prompt": """
+一张适合 Transformer 深入导读页的简洁章节关系图，主题是“从 Attention 到大模型工程”。
+画面用一条清楚的学习路径串起 Attention、Transformer block、架构变体、计算成本、预训练、微调和部署。
+风格像高质量课程插画，中心有简化的 Transformer block，周围用箭头连接关键概念，层级少、留白充足。
+文字不是主体；标准术语保留英文，例如 Attention、Transformer、KV Cache、pretraining、fine-tuning、deployment。其他说明只用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-transformer-cost-task-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Transformer 信息流计算成本任务适配图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/00-roadmap.md",
+        "alt": "Transformer 信息流计算成本任务适配图：结构组件分别影响信息流、计算成本和任务适配，连接上下文长度、显存吞吐和 BERT/GPT/T5。",
+        "prompt": """
+一张适合 Transformer 深入页的三轴概念图，主题是“结构、计算和任务适配要一起看”。
+画面中心是 Transformer block，向外分出三条线：information flow 解释 token 如何互相关注；compute cost 连接 context length、memory、throughput；task fit 连接 BERT、GPT、T5 和不同任务。
+风格像技术白板和系统架构图结合，帮助新人建立工程直觉。
+文字不是主体；标准术语保留英文，例如 information flow、compute cost、context length、memory、throughput、BERT、GPT、T5。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-pretraining-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练技术章节关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "alt": "预训练技术章节关系图：Transformer 结构、预训练数据、预训练目标、训练工程、Prompt、微调和 RAG 逐步连接。",
+        "prompt": """
+一张适合预训练技术导读页的章节关系图，主题是“模型通用能力从数据、目标和工程中来”。
+画面表现 Transformer 结构连接预训练数据、预训练目标和训练工程，训练出通用能力，再进入 Prompt、微调、RAG 和 Agent 应用。
+风格像大规模训练工厂和能力管线结合，清晰、专业。
+文字不是主体；标准术语保留英文，例如 Transformer、pretraining data、training objective、training engineering、Prompt、fine-tuning、RAG。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-pretraining-data-objective-engineering-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练数据目标工程三角图",
+        "suggested_page": "docs/ch07-llm-principles/ch04-pretraining/00-roadmap.md",
+        "alt": "预训练数据目标工程三角图：数据来源、清洗去重、质量安全、语言建模、掩码预测、多任务目标、分布式训练、混合精度和监控共同决定模型能力。",
+        "prompt": """
+一张适合预训练技术页的三角关系图，主题是“数据决定上限，目标决定学习方式，工程决定能不能训完”。
+画面分成三块：data 包含来源、清洗、去重、质量与安全；objective 包含 language modeling、masked prediction、多任务目标；engineering 包含 distributed training、mixed precision、checkpoint、monitoring。
+风格像训练控制中心和数据治理图结合，清晰、实用。
+文字不是主体；标准术语保留英文，例如 data quality、dedup、language modeling、masked prediction、distributed training、checkpoint。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-prompt-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Prompt 工程章节关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "alt": "Prompt 工程章节关系图：大模型能力、任务目标、Prompt 组织、模型输出、结构化结果和应用功能逐步连接。",
+        "prompt": """
+一张适合 Prompt 工程导读页的章节关系图，主题是“Prompt 是应用层和模型层之间的接口设计”。
+画面表现大模型能力进入任务目标、上下文组织、约束条件、输出格式、模型调用、结构化结果和应用功能。
+风格像产品接口设计图和模型调用流程结合，清爽、实用。
+文字不是主体；标准术语保留英文，例如 Prompt、context、constraints、JSON、Markdown、model call、structured output。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-prompt-iteration-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Prompt 迭代测试闭环图",
+        "suggested_page": "docs/ch07-llm-principles/ch05-prompt/00-roadmap.md",
+        "alt": "Prompt 迭代测试闭环图：用户需求、任务定义、输入材料、约束条件、输出格式、示例检查、模型调用、结果验证和 Prompt 迭代组成可复用调用。",
+        "prompt": """
+一张适合 Prompt 工程页的迭代闭环图，主题是“Prompt 不是问一句，而是设计一次可复用模型调用”。
+画面表现用户需求进入任务定义、输入材料、约束条件、输出格式、示例与检查，调用模型后做结果验证，再根据失败样例迭代 Prompt。
+风格像实验记录和产品测试流程结合，强调可测试、可解析、可维护。
+文字不是主体；标准术语保留英文，例如 Prompt version、test cases、structured output、JSON、validation、iteration。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-finetuning-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型微调章节关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/00-roadmap.md",
+        "alt": "大模型微调章节关系图：预训练、通用语言能力、Prompt、微调、数据调整行为、领域任务和稳定格式逐步连接。",
+        "prompt": """
+一张适合大模型微调导读页的章节关系图，主题是“微调不是万能按钮，而是用数据塑造行为”。
+画面表现预训练获得通用语言能力，Prompt 不改参数地调用能力，微调用任务数据调整行为，最后服务领域任务、稳定格式和固定任务模式。
+风格像模型行为调校台，清晰、克制、帮助新人判断边界。
+文字不是主体；标准术语保留英文，例如 pretraining、Prompt、fine-tuning、behavior、domain task、format stability。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-finetuning-decision-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "微调决策与评估闭环图",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/00-roadmap.md",
+        "alt": "微调决策与评估闭环图：判断是否需要微调、定义任务和评估标准、准备样本、选择 LoRA/QLoRA/PEFT、训练验证、对比 Prompt/RAG 基线并决定上线。",
+        "prompt": """
+一张适合大模型微调页的决策闭环图，主题是“先判断是否需要微调，再准备数据和评估”。
+画面表现先判断问题类型，定义任务和评估标准，准备高质量样本，选择 LoRA、QLoRA 或 PEFT，训练与验证，再和 Prompt/RAG baseline 对比，决定是否上线。
+风格像技术路线决策树和实验闭环结合，实用、清楚。
+文字不是主体；标准术语保留英文，例如 LoRA、QLoRA、PEFT、baseline、train/validation/test、Prompt、RAG。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-alignment-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型对齐章节关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch07-alignment/00-roadmap.md",
+        "alt": "大模型对齐章节关系图：预训练、指令微调、人类反馈、RLHF/DPO、安全边界和可靠应用逐步连接。",
+        "prompt": """
+一张适合大模型对齐导读页的章节关系图，主题是“有能力不等于好用、可靠和安全”。
+画面表现预训练和指令微调后，加入人类反馈、偏好比较、RLHF/DPO、安全边界和可靠应用评估，让模型更有帮助、更诚实、更安全。
+风格像模型行为校准仪和安全护栏结合，清晰、专业。
+文字不是主体；标准术语保留英文，例如 SFT、human feedback、RLHF、DPO、safety boundary、helpfulness、honesty。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-alignment-app-safety-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "对齐与应用安全边界图",
+        "suggested_page": "docs/ch07-llm-principles/ch07-alignment/00-roadmap.md",
+        "alt": "对齐与应用安全边界图：模型对齐让模型更愿意遵循指令、承认不确定和遵守安全边界，并连接 Prompt 应用、RAG 引用和 Agent 工具权限。",
+        "prompt": """
+一张适合大模型对齐页的应用安全图，主题是“对齐会影响 Prompt、RAG 和 Agent 的行为边界”。
+画面表现模型对齐带来三个倾向：follow instructions、admit uncertainty、respect safety boundaries；它们分别连接 Prompt 应用、RAG 引用、Agent 工具权限、人工确认和日志审计。
+风格像安全控制台和系统边界图结合，强调可靠应用。
+文字不是主体；标准术语保留英文，例如 Prompt、RAG、Agent、tool permission、human confirmation、audit log。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-projects-route-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型综合项目路线图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/00-roadmap.md",
+        "alt": "大模型综合项目路线图：领域任务、Prompt baseline、失败分析、Prompt 优化、RAG、微调、评估对比和项目展示组成方案选择闭环。",
+        "prompt": """
+一张适合大模型综合项目导读页的路线图，主题是“项目不是直接微调，而是先判断问题类型”。
+画面表现领域任务先建立 Prompt baseline，再分析失败类型：任务表达不清则优化 Prompt，知识不足则考虑 RAG，行为不稳则考虑微调，最后进入评估对比和项目展示。
+风格像项目看板和技术路线决策图结合，清晰、工程化。
+文字不是主体；标准术语保留英文，例如 domain task、Prompt baseline、failure analysis、RAG、fine-tuning、evaluation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-project-method-choice-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型项目方法选择闭环图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/00-roadmap.md",
+        "alt": "大模型项目方法选择闭环图：任务定义、数据样例、baseline、失败分析、方法选择、实现方案、评估对比、结论取舍和作品集输出组成项目闭环。",
+        "prompt": """
+一张适合大模型项目章的方法选择闭环图，主题是“围绕任务、数据、方法和评估做取舍”。
+画面表现任务定义进入数据和样例，建立 baseline，做失败分析，选择 Prompt、RAG 或 fine-tuning，完成实现方案、评估对比、结论取舍，最后输出 README、报告和作品集材料。
+风格像实验闭环、决策树和作品集交付看板结合，专业但新手友好。
+文字不是主体；标准术语保留英文，例如 baseline、Prompt、RAG、fine-tuning、evaluation set、README、portfolio。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch08-rag-engineering.png",
         "size": "1536x1024",
         "quality": "medium",

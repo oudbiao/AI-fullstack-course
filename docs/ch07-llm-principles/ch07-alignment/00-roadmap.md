@@ -15,14 +15,7 @@ keywords: [alignment导读, RLHF, DPO, 安全对齐, 人类反馈]
 
 ## 本章在大模型路线中的位置
 
-```mermaid
-flowchart LR
-  A[预训练] --> B[指令微调]
-  B --> C[人类反馈]
-  C --> D[RLHF / DPO]
-  D --> E[安全边界]
-  E --> F[可靠应用]
-```
+![大模型对齐章节关系图](/img/course/ch07-alignment-chapter-flow.png)
 
 对齐不是一个孤立技巧，而是连接模型能力、用户体验和安全治理的一组方法。后面做 RAG、Agent、工具调用时，你也会继续遇到对齐问题：模型什么时候应该拒绝，什么时候应该请求确认，什么时候不能编造来源或擅自执行动作。
 
@@ -40,15 +33,7 @@ flowchart LR
 
 很多应用问题不能只靠 Prompt 解决。例如客服机器人不能编造政策，医疗助手不能越权诊断，Agent 不能直接删除文件或付款。你可以通过系统提示、工具权限、RAG 引用和人工确认来约束行为，但底层模型是否倾向于遵守指令、承认不知道、避免危险输出，仍然和对齐有关。
 
-```mermaid
-flowchart TD
-  A[模型对齐] --> B[更愿意遵循指令]
-  A --> C[更愿意承认不确定]
-  A --> D[更能遵守安全边界]
-  B --> E[Prompt 应用]
-  C --> F[RAG 引用]
-  D --> G[Agent 工具权限]
-```
+![对齐与应用安全边界图](/img/course/ch07-alignment-app-safety-map.png)
 
 ## 本章小项目出口
 

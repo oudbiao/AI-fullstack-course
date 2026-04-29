@@ -17,16 +17,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 ## 学习闯关地图
 
-```mermaid
-flowchart LR
-  A[Token] --> B[Embedding]
-  B --> C[Attention]
-  C --> D[Transformer]
-  D --> E[预训练]
-  E --> F[Prompt]
-  F --> G[微调]
-  G --> H[对齐与安全]
-```
+![大模型学习闯关地图](/img/course/ch07-learning-quest-map.png)
 
 ## 互动练习：像做实验一样写 Prompt
 
@@ -57,16 +48,7 @@ flowchart LR
 
 大模型不是凭空出现的，它继承了深度学习、NLP、Transformer 和预训练范式。真正的变化在于：模型规模、数据规模和指令对齐让语言模型从“完成单个 NLP 任务”变成“通过语言接口完成大量任务”。
 
-```mermaid
-flowchart LR
-  A[NLP 基础] --> B[Token 与 Embedding]
-  B --> C[Transformer]
-  C --> D[大规模预训练]
-  D --> E[Prompt Engineering]
-  E --> F[微调与 PEFT]
-  F --> G[RLHF 与对齐]
-  G --> H[可控的大模型能力]
-```
+![大模型能力来源主线图](/img/course/ch07-llm-capability-backbone.png)
 
 ## 新人先做什么，进阶再做什么
 
