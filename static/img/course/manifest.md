@@ -195,6 +195,33 @@
 | `ch08-project-learning-order-map.png` | LLM 应用项目学习顺序图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目学习顺序图：知识库问答、文档到答案链路、来源引用评估、智能问答助手、会话状态工具调用、RAG 微调组合和课件生成应用逐步升级。 |
 | `ch08-project-delivery-loop.png` | LLM 应用项目交付闭环图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目交付闭环图：用户任务、意图判断、RAG 检索或直接模型调用、结构化输出、校验引用、日志反馈、评估迭代形成作品集闭环。 |
 | `ch09-agent-systems.png` | AI Agent 系统主视觉 | `docs/ch09-agent/index.md` | AI Agent 系统主视觉：目标、计划、工具、记忆、观察和评估组成智能体执行闭环。 |
+| `ch09-learning-quest-map.png` | Agent 学习闯关地图 | `docs/ch09-agent/index.md` | Agent 学习闯关地图：目标理解、任务拆解、计划生成、工具调用、观察结果、记忆更新、自我检查和完成任务逐步连接。 |
+| `ch09-agent-vs-workflow-backbone.png` | Agent 与普通应用执行主线图 | `docs/ch09-agent/index.md` | Agent 与普通应用执行主线图：目标、任务理解、计划、工具选择、执行动作、观察结果、重新规划和输出记录组成 Agent 执行闭环。 |
+| `ch09-agentops-control-loop.png` | AgentOps 可控执行闭环图 | `docs/ch09-agent/index.md` | AgentOps 可控执行闭环图：用户目标、任务边界、计划步骤、工具白名单、执行观察、日志成本、高风险判断、人工确认和继续完成组成可控闭环。 |
+| `ch09-study-guide-minimal-agent-loop.png` | 最小 Agent 学习闭环图 | `docs/ch09-agent/study-guide.md` | 最小 Agent 学习闭环图：目标、计划、工具调用、观察结果、更新状态、判断完成和输出结果形成单 Agent 闭环。 |
+| `ch09-basics-position-bridge.png` | Agent 基础位置桥接图 | `docs/ch09-agent/ch01-agent-basics/00-roadmap.md` | Agent 基础位置桥接图：LLM 应用、对话生成、RAG 接入知识、工具调用、Agent、目标驱动多步执行和可观察可恢复可评估逐步连接。 |
+| `ch09-basics-chapter-flow.png` | Agent 基础章节学习顺序图 | `docs/ch09-agent/ch01-agent-basics/00-roadmap.md` | Agent 基础章节学习顺序图：分清 Agent 边界、理解发展脉络、建立能力层级、拆解系统结构、跑通单 Agent 闭环再进入推理工具记忆 MCP 多 Agent。 |
+| `ch09-basics-execution-loop.png` | 单 Agent 执行闭环图 | `docs/ch09-agent/ch01-agent-basics/00-roadmap.md` | 单 Agent 执行闭环图：用户目标、任务理解、制定下一步计划、调用工具或生成回答、观察结果、更新状态、判断目标完成和输出过程记录。 |
+| `ch09-reasoning-chapter-flow.png` | Agent 推理与规划章节学习顺序图 | `docs/ch09-agent/ch02-reasoning/00-roadmap.md` | Agent 推理与规划章节学习顺序图：推理能力、链式推理、ReAct、Plan-and-Execute、更复杂规划和推理评估逐步连接。 |
+| `ch09-tools-chapter-flow.png` | Agent 工具使用章节学习顺序图 | `docs/ch09-agent/ch03-tools/00-roadmap.md` | Agent 工具使用章节学习顺序图：Function Calling、工具描述、参数 schema、工具返回、错误恢复、权限安全边界和多工具实战逐步连接。 |
+| `ch09-tools-action-layer-map.png` | Agent 工具行动层地图 | `docs/ch09-agent/ch03-tools/00-roadmap.md` | Agent 工具行动层地图：用户目标、Agent 规划、选择工具、生成参数、执行工具、观察结果和继续规划或输出组成行动层。 |
+| `ch09-tool-control-loop.png` | Agent 工具受控调用闭环图 | `docs/ch09-agent/ch03-tools/00-roadmap.md` | Agent 工具受控调用闭环图：计划下一步、判断是否需要工具、选择工具、生成结构化参数、参数校验、执行工具、解析观察结果、失败修正或更新状态。 |
+| `ch09-memory-chapter-flow.png` | Agent 记忆系统章节学习顺序图 | `docs/ch09-agent/ch04-memory/00-roadmap.md` | Agent 记忆系统章节学习顺序图：记忆类型、短期上下文、长期记忆、情景与程序性信息、检索更新机制、遗忘安全校验逐步连接。 |
+| `ch09-memory-write-retrieve-loop.png` | Agent 记忆写入检索闭环图 | `docs/ch09-agent/ch04-memory/00-roadmap.md` | Agent 记忆写入检索闭环图：新信息、是否值得记、当前上下文、结构化摘要、记忆存储、未来任务检索、有效性验证、用于计划回答、更新或遗忘。 |
+| `ch09-mcp-chapter-flow.png` | MCP 章节学习顺序图 | `docs/ch09-agent/ch05-mcp/00-roadmap.md` | MCP 章节学习顺序图：MCP 定位、Client 与 Server、工具资源提示词、最小 MCP Server、MCP Client 接入和真实工具生态逐步连接。 |
+| `ch09-mcp-capability-bridge.png` | MCP 能力接入桥接图 | `docs/ch09-agent/ch05-mcp/00-roadmap.md` | MCP 能力接入桥接图：外部能力封装为 MCP Server，声明工具和资源，MCP Client 连接，模型应用读取能力描述，按任务调用，返回观察结果，Agent 继续决策。 |
+| `ch09-frameworks-position-map.png` | Agent 框架位置地图 | `docs/ch09-agent/ch06-frameworks/00-roadmap.md` | Agent 框架位置地图：Agent 基础、推理规划、工具记忆、MCP、Agent 框架、多 Agent、部署和评估逐步连接。 |
+| `ch09-framework-selection-map.png` | Agent 框架选型地图 | `docs/ch09-agent/ch06-frameworks/00-roadmap.md` | Agent 框架选型地图：框架总览、LangGraph、LlamaIndex、CrewAI、AutoGen、框架选型和最小可控 Agent 项目逐步连接。 |
+| `ch09-multi-agent-chapter-flow.png` | 多 Agent 章节学习顺序图 | `docs/ch09-agent/ch07-multi-agent/00-roadmap.md` | 多 Agent 章节学习顺序图：判断是否需要多 Agent、选择协作架构、定义角色职责、设计通信协议、管理共享状态、汇总审查决策、评估成本质量逐步连接。 |
+| `ch09-multi-agent-coordination-map.png` | 多 Agent 协作协调图 | `docs/ch09-agent/ch07-multi-agent/00-roadmap.md` | 多 Agent 协作协调图：用户目标、总控 Agent、研究 Agent、执行 Agent、审查 Agent、中间结果、汇总冲突处理和最终答案或行动。 |
+| `ch09-eval-safety-chapter-flow.png` | Agent 评估安全章节学习顺序图 | `docs/ch09-agent/ch08-eval-safety/00-roadmap.md` | Agent 评估安全章节学习顺序图：任务成功标准、结果评估、过程评估、安全边界、Guardrails、日志调用轨迹和评估结果迭代系统逐步连接。 |
+| `ch09-agent-risk-debug-loop.png` | Agent 风险排障闭环图 | `docs/ch09-agent/ch08-eval-safety/00-roadmap.md` | Agent 风险排障闭环图：测试任务集、Agent 执行、记录轨迹、评估结果质量、检查工具调用、检查安全规则、发现失败模式、修复 Prompt 工具权限流程。 |
+| `ch09-deployment-chapter-flow.png` | Agent 部署运维章节学习顺序图 | `docs/ch09-agent/ch09-deployment/00-roadmap.md` | Agent 部署运维章节学习顺序图：服务架构、运行时任务队列、状态轨迹持久化、失败恢复、延迟成本错误监控、灰度发布和持续迭代逐步连接。 |
+| `ch09-production-runtime-map.png` | Agent 生产运行架构图 | `docs/ch09-agent/ch09-deployment/00-roadmap.md` | Agent 生产运行架构图：用户请求、任务创建、Agent 执行、模型工具调用、状态持久化、任务完成判断、返回结果、日志轨迹、监控告警评估组成运行闭环。 |
+| `ch09-deployment-observability-loop.png` | Agent 部署可观测恢复闭环图 | `docs/ch09-agent/ch09-deployment/00-roadmap.md` | Agent 部署可观测恢复闭环图：Agent 执行、模型工具调用、日志轨迹、监控告警评估、失败恢复、状态持久化和返回结果组成生产闭环。 |
+| `ch09-projects-route-map.png` | Agent 综合项目路线图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 综合项目路线图：用户目标、任务规划、工具调用、观察结果、状态记忆、评估安全检查、是否完成、结果交付和过程记录形成项目闭环。 |
+| `ch09-project-learning-order-map.png` | Agent 项目学习顺序图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 项目学习顺序图：先做研究助手，练习检索引用总结，再做数据分析 Agent 练习工具调用结果解释，最后做多 Agent 开发团队练习角色分工协调审查。 |
+| `ch09-project-delivery-loop.png` | Agent 项目交付闭环图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 项目交付闭环图：任务输入、计划列表、执行步骤、工具调用日志、观察中间结果、失败处理、最终输出、评估复盘和部署演示形成作品集闭环。 |
 | `ch12-multimodal-aigc.png` | AIGC 与多模态主视觉 | `docs/ch12-multimodal/index.md` | AIGC 与多模态主视觉：文字、图像、语音、视频和审核导出组成创意工作流。 |
 | `git-four-areas.png` | Git 四区工作流图 | `docs/ch01-tools/ch02-git/01-git-basics.md` | Git 四区工作流图：工作区、暂存区、本地仓库和远程仓库之间的 add、commit、push、pull 关系。 |
 | `pandas-dataframe-structure.png` | Pandas DataFrame 结构图 | `docs/ch03-data-analysis/ch03-pandas/01-core-structures.md` | Pandas DataFrame 结构图：行、列、索引、Series 和 DataFrame 的关系。 |

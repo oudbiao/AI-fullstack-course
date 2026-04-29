@@ -17,15 +17,7 @@ keywords: [多Agent导读, 协作系统, Agent通信, Agent协调, 多智能体]
 
 这一章的关键不是“创建很多角色”，而是理解协作系统的边界：谁负责什么，怎么通信，谁做最终决策，共享哪些状态，如何避免重复工作、互相误导和无限循环。
 
-```mermaid
-flowchart LR
-  A[复杂任务] --> B[任务拆分]
-  B --> C[角色 Agent]
-  C --> D[通信与协作]
-  D --> E[结果汇总]
-  E --> F[审查与决策]
-  F --> G[最终输出]
-```
+![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.png)
 
 ## 这一章真正要解决的问题
 
@@ -37,32 +29,13 @@ flowchart LR
 
 建议先学多 Agent 的适用边界，明确什么时候不该用。然后看常见架构模式，例如主管-执行者、辩论式、流水线式、专家委员会式。接着学习通信和协调，理解消息格式、共享状态、任务队列和汇总机制。最后看挑战与实战，重点关注成本控制、失败恢复、评估和安全。
 
-```mermaid
-flowchart TD
-  A[先判断是否需要多 Agent] --> B[选择协作架构]
-  B --> C[定义角色和职责]
-  C --> D[设计通信协议]
-  D --> E[管理共享状态]
-  E --> F[汇总 审查 决策]
-  F --> G[评估成本和质量]
-```
+![多 Agent 章节学习顺序图](/img/course/ch09-multi-agent-chapter-flow.png)
 
 ## 学这一章时要抓住的主线
 
 这一章的主线可以概括为：多 Agent 是任务分工和协作机制，不是简单复制多个聊天机器人。
 
-```mermaid
-flowchart LR
-  A[用户目标] --> B[总控 Agent]
-  B --> C[研究 Agent]
-  B --> D[执行 Agent]
-  B --> E[审查 Agent]
-  C --> F[中间结果]
-  D --> F
-  E --> F
-  F --> G[汇总与冲突处理]
-  G --> H[最终答案或行动]
-```
+![多 Agent 协作协调图](/img/course/ch09-multi-agent-coordination-map.png)
 
 看懂这条线后，你会知道多 Agent 的关键在于“协调成本是否小于分工收益”。如果多个 Agent 的沟通成本、错误传播和评估成本超过了收益，就应该回到单 Agent 或固定工作流。
 

@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 320 / 320
+Generated with image2: 347 / 347
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -21,6 +21,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 7 章补充说明：目录 `docs/ch07-llm-principles` 本轮新增 18 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、NLP 速成、LLM 概览、Transformer 深入、预训练、Prompt、微调、对齐和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 8 章补充说明：目录 `docs/ch08-rag` 本轮新增 17 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、RAG 核心、模型部署、应用开发、工程化和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
+
+第 9 章补充说明：目录 `docs/ch09-agent` 本轮新增 27 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、Agent 基础、推理规划、工具、记忆、MCP、框架、多 Agent、评估安全、部署运维和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 10～12 章说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 下新增的 15 张视觉、NLP、多模态与 AIGC 流程图已经用 image2 生成，并插入到对应核心教程页面。
 
@@ -145,6 +147,33 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch08-project-learning-order-map.png`
 - `ch08-project-delivery-loop.png`
 - `ch09-agent-systems.png`
+- `ch09-learning-quest-map.png`
+- `ch09-agent-vs-workflow-backbone.png`
+- `ch09-agentops-control-loop.png`
+- `ch09-study-guide-minimal-agent-loop.png`
+- `ch09-basics-position-bridge.png`
+- `ch09-basics-chapter-flow.png`
+- `ch09-basics-execution-loop.png`
+- `ch09-reasoning-chapter-flow.png`
+- `ch09-tools-chapter-flow.png`
+- `ch09-tools-action-layer-map.png`
+- `ch09-tool-control-loop.png`
+- `ch09-memory-chapter-flow.png`
+- `ch09-memory-write-retrieve-loop.png`
+- `ch09-mcp-chapter-flow.png`
+- `ch09-mcp-capability-bridge.png`
+- `ch09-frameworks-position-map.png`
+- `ch09-framework-selection-map.png`
+- `ch09-multi-agent-chapter-flow.png`
+- `ch09-multi-agent-coordination-map.png`
+- `ch09-eval-safety-chapter-flow.png`
+- `ch09-agent-risk-debug-loop.png`
+- `ch09-deployment-chapter-flow.png`
+- `ch09-production-runtime-map.png`
+- `ch09-deployment-observability-loop.png`
+- `ch09-projects-route-map.png`
+- `ch09-project-learning-order-map.png`
+- `ch09-project-delivery-loop.png`
 - `ch12-multimodal-aigc.png`
 - `git-four-areas.png`
 - `pandas-dataframe-structure.png`

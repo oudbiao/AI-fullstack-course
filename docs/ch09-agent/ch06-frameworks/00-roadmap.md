@@ -15,14 +15,7 @@ keywords: [Agent框架导读, LangGraph, LlamaIndex, CrewAI, AutoGen]
 
 ## 本章在 Agent 学习路线中的位置
 
-```mermaid
-flowchart LR
-  A[Agent 基础] --> B[推理与规划]
-  B --> C[工具与记忆]
-  C --> D[MCP]
-  D --> E[Agent 框架]
-  E --> F[多 Agent / 部署 / 评估]
-```
+![Agent 框架位置地图](/img/course/ch09-frameworks-position-map.png)
 
 如果你还不能解释工具 schema、执行轨迹、停止条件和人工确认，建议先不要急着使用复杂框架。框架会放大你的设计：边界清晰时它能提高效率，边界不清时它会让问题更难排查。
 
@@ -42,16 +35,7 @@ flowchart LR
 
 第一步先读框架总览，理解框架为什么出现：不是为了让 Agent 更“聪明”，而是为了让状态、工具、流程、记忆和日志更容易组织。第二步学习 LangChain/LangGraph，重点看状态图、节点、边、条件分支和可恢复执行。第三步看 LlamaIndex，理解它为什么更接近“数据应用框架”。第四步看 CrewAI 和 AutoGen，比较角色协作和多 Agent 对话的优缺点。最后再读框架选型，形成自己的决策表。
 
-```mermaid
-flowchart TD
-  A[框架总览] --> B[LangChain / LangGraph]
-  A --> C[LlamaIndex]
-  A --> D[CrewAI / AutoGen]
-  B --> E[框架选型]
-  C --> E
-  D --> E
-  E --> F[最小可控 Agent 项目]
-```
+![Agent 框架选型地图](/img/course/ch09-framework-selection-map.png)
 
 ## 什么时候不该用框架
 

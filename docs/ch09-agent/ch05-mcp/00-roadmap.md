@@ -17,17 +17,7 @@ keywords: [MCP导读, Model Context Protocol, Agent工具生态, MCP Server]
 
 可以把 MCP 理解成一种连接层。它不是替代 Agent，也不是替代工具本身，而是让不同工具和数据源用更标准的方式被发现、描述、调用和组合。
 
-```mermaid
-flowchart LR
-  A[Agent 或 LLM 应用] --> B[MCP Client]
-  B --> C[MCP 协议]
-  C --> D[MCP Server]
-  D --> E[工具]
-  D --> F[资源]
-  D --> G[提示词模板]
-  E --> H[外部系统]
-  F --> H
-```
+![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.png)
 
 ## 这一章真正要解决的问题
 
@@ -39,29 +29,13 @@ flowchart LR
 
 建议先学 MCP 的概念和定位，知道它解决的是连接和标准化问题。然后看架构，分清 MCP Client、MCP Server、工具、资源和协议消息的角色。接着学习 Server 开发，理解如何把一个外部能力包装成可被调用的服务。再看 Client 集成，理解模型应用如何发现和使用这些能力。最后看 MCP 生态，知道它为什么会和 Agent、IDE、知识库、浏览器、数据库等场景结合。
 
-```mermaid
-flowchart TD
-  A[先理解 MCP 定位] --> B[拆解 Client 和 Server]
-  B --> C[理解工具 资源 提示词]
-  C --> D[开发最小 MCP Server]
-  D --> E[接入 MCP Client]
-  E --> F[扩展到真实工具生态]
-```
+![MCP 章节学习顺序图](/img/course/ch09-mcp-chapter-flow.png)
 
 ## 学这一章时要抓住的主线
 
 这一章的主线可以概括为：MCP 把外部能力包装成模型应用可以统一发现和调用的上下文接口。
 
-```mermaid
-flowchart LR
-  A[外部能力] --> B[封装为 MCP Server]
-  B --> C[声明工具和资源]
-  C --> D[MCP Client 连接]
-  D --> E[模型应用读取能力描述]
-  E --> F[按任务调用]
-  F --> G[返回观察结果]
-  G --> H[Agent 继续决策]
-```
+![MCP 能力接入桥接图](/img/course/ch09-mcp-capability-bridge.png)
 
 看懂这条线后，你会知道 MCP 与 Function Calling 的关系：Function Calling 更关注模型如何发起结构化调用，MCP 更关注外部工具和上下文如何以统一协议接入应用。
 

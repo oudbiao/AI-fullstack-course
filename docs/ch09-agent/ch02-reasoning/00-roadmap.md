@@ -24,14 +24,7 @@ keywords: [Agent推理导读, ReAct, Plan-and-Execute, 规划]
 
 ## 这一章的主线
 
-```mermaid
-flowchart LR
-    A["推理能力"] --> B["链式推理"]
-    B --> C["ReAct"]
-    C --> D["Plan-and-Execute"]
-    D --> E["更复杂规划"]
-    E --> F["推理评估"]
-```
+![Agent 推理与规划章节学习顺序图](/img/course/ch09-reasoning-chapter-flow.png)
 
 ## 这一章更适合新人的学习顺序
 
@@ -84,4 +77,3 @@ flowchart LR
 这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
 
 如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
-
