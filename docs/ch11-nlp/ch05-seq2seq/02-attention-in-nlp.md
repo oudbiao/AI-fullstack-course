@@ -7,6 +7,8 @@ keywords: [attention, seq2seq, encoder decoder, alignment, NLP]
 
 # NLP 中的注意力机制
 
+![Seq2Seq 注意力对齐图](/img/course/seq2seq-attention-alignment.png)
+
 :::tip 本节定位
 上一节我们提到 Seq2Seq 的一个典型问题：
 

@@ -7,6 +7,8 @@ keywords: [YOLO, one-stage detector, object detection, NMS, realtime vision]
 
 # YOLO 系列
 
+![YOLO 网格检测流程图](/img/course/yolo-grid-detection-flow.png)
+
 :::tip 本节定位
 YOLO 之所以火，不只是因为它能检测目标，  
 而是因为它把目标检测做成了更偏工程可用的形式：

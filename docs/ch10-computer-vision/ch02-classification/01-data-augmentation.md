@@ -7,6 +7,8 @@ keywords: [data augmentation, flip, crop, color jitter, mixup, vision]
 
 # 数据增强策略
 
+![图像数据增强样例墙](/img/course/cv-data-augmentation-gallery.png)
+
 :::tip 本节定位
 图像分类里最常见也最容易被低估的技巧之一，就是数据增强。
 

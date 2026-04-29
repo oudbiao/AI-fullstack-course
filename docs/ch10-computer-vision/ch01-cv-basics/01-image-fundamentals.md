@@ -7,6 +7,8 @@ keywords: [图像, 像素, RGB, HSV, 通道, 图像格式, 计算机视觉]
 
 # 数字图像基础
 
+![像素网格与 RGB 通道图](/img/course/cv-pixel-rgb-grid.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

@@ -1693,6 +1693,216 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 不要出现真实品牌 logo，不要生成密集小字或乱码文字。
 """.strip(),
     },
+    {
+        "filename": "cv-pixel-rgb-grid.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "像素网格与 RGB 通道图",
+        "suggested_page": "docs/ch10-computer-vision/ch01-cv-basics/01-image-fundamentals.md",
+        "alt": "像素网格与 RGB 通道图：图像由像素矩阵组成，RGB 三个通道共同表示颜色。",
+        "prompt": """
+一张适合计算机视觉入门课程的教学图，主题是“图像其实是像素矩阵和 RGB 通道”。
+画面表现一张小图被放大成像素网格，再拆分为红、绿、蓝三个通道矩阵，并重新合成为彩色图像。
+重点突出 height、width、channel 这三个维度，风格清晰、像现代教学白板，帮助新手理解图片如何变成张量。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "cv-image-processing-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像处理流水线图",
+        "suggested_page": "docs/ch10-computer-vision/ch01-cv-basics/03-image-processing.md",
+        "alt": "图像处理流水线图：原图经过灰度化、滤波、边缘检测和形态学操作得到更适合模型使用的特征。",
+        "prompt": """
+一张适合 OpenCV 和图像处理课程的流程图，主题是“从原图到可分析特征的处理流水线”。
+画面表现原始图像依次经过灰度化、去噪滤波、阈值分割、边缘检测、形态学操作，最终得到轮廓或候选区域。
+风格清晰、工程感强，像一条视觉预处理流水线，适合新手理解图像处理不是魔法而是步骤组合。
+不要出现真实品牌 logo，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "cv-data-augmentation-gallery.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像数据增强样例墙",
+        "suggested_page": "docs/ch10-computer-vision/ch02-classification/01-data-augmentation.md",
+        "alt": "图像数据增强样例墙：翻转、裁剪、旋转、颜色扰动和噪声让模型看到更多变化。",
+        "prompt": """
+一张适合图像分类课程的教学图，主题是“数据增强如何让模型见过更多变化”。
+画面用样例墙展示同一张训练图片经过随机裁剪、水平翻转、旋转、颜色扰动、模糊、噪声等增强后的多个版本。
+重点突出增强应该保持标签不变，同时提升泛化能力，风格清晰、直观、适合新人理解。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "yolo-grid-detection-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "YOLO 网格检测流程图",
+        "suggested_page": "docs/ch10-computer-vision/ch03-detection/03-yolo-series.md",
+        "alt": "YOLO 网格检测流程图：图片被划分为网格，每个位置预测候选框、类别和置信度，再经过 NMS 得到结果。",
+        "prompt": """
+一张适合目标检测课程的教学图，主题是“YOLO 如何一次看完整张图并预测检测框”。
+画面表现输入图片被划分成网格，每个网格预测多个候选框、类别和置信度，最后通过 NMS 去掉重复框得到最终检测结果。
+重点突出 one-stage、grid、confidence、NMS 的直觉，风格清晰、现代、适合新手理解。
+不要出现真实品牌 logo，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ocr-layout-recognition-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "OCR 版面解析与文字识别流程图",
+        "suggested_page": "docs/ch10-computer-vision/ch05-advanced/03-ocr.md",
+        "alt": "OCR 版面解析与文字识别流程图：文档图像经过版面检测、文本框定位、识别和结构化输出。",
+        "prompt": """
+一张适合 OCR 课程的工程流程图，主题是“从文档图片到结构化文字”。
+画面表现扫描件或截图先经过版面分析，识别标题、段落、表格和图片区域，再做文本框检测、文字识别、阅读顺序恢复，最终输出结构化文本。
+风格清晰、像文档智能处理系统架构图，适合新手理解 OCR 不只是识字。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "text-preprocessing-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "文本预处理流水线图",
+        "suggested_page": "docs/ch11-nlp/ch01-text-basics/02-text-preprocessing.md",
+        "alt": "文本预处理流水线图：原始文本经过清洗、分词、标准化、去停用词和编码后进入模型。",
+        "prompt": """
+一张适合 NLP 入门课程的教学流程图，主题是“文本预处理从脏文本到模型输入”。
+画面表现原始文本包含噪声、HTML、标点、大小写或繁简差异，经过清洗、分词、标准化、过滤、编码，变成可训练的 token 或特征。
+重点突出不同任务不一定需要同样的清洗策略，风格清爽、适合新人建立流程感。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "bow-tfidf-representation.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "BoW 与 TF-IDF 文本表示图",
+        "suggested_page": "docs/ch11-nlp/ch01-text-basics/03-text-representation.md",
+        "alt": "BoW 与 TF-IDF 文本表示图：文本被转成词频向量，TF-IDF 会降低常见词权重并突出关键词。",
+        "prompt": """
+一张适合 NLP 文本表示课程的教学图，主题是“BoW 和 TF-IDF 如何把文本变成向量”。
+画面表现多篇短文本先形成词表，再变成词频表格；旁边展示 TF-IDF 把高频但无区分度的词降权，把关键词高亮。
+风格像数据表和向量空间结合的白板图，清晰、适合新手理解传统文本特征。
+不要出现真实品牌 logo，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "contextual-embedding-comparison.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "上下文词嵌入对比图",
+        "suggested_page": "docs/ch11-nlp/ch02-embeddings/02-contextual-embedding.md",
+        "alt": "上下文词嵌入对比图：同一个词在不同句子里会得到不同表示，帮助模型理解语境。",
+        "prompt": """
+一张适合 NLP 表示学习课程的教学图，主题是“上下文词嵌入为什么比静态词向量更灵活”。
+画面表现同一个词出现在两个不同句子中，静态词向量只有一个固定点，而上下文模型会根据前后文生成不同位置的表示。
+重点突出“一词多义”和“上下文决定表示”，风格清晰、现代、适合新手理解 BERT 类模型。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "text-classification-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "文本分类训练流程图",
+        "suggested_page": "docs/ch11-nlp/ch03-classification/03-classification-practice.md",
+        "alt": "文本分类训练流程图：文本经过清洗、编码、模型、概率输出和错误分析形成分类项目闭环。",
+        "prompt": """
+一张适合文本分类实战课程的项目流程图，主题是“从文本样本到分类模型”。
+画面表现文本数据经过标注、清洗、编码，进入传统模型或深度模型，输出类别概率，再通过混淆矩阵和错误样本分析改进。
+风格工程化、清晰、像 NLP 项目看板，帮助新手理解分类不只是调用模型。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "seq2seq-attention-alignment.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Seq2Seq 注意力对齐图",
+        "suggested_page": "docs/ch11-nlp/ch05-seq2seq/02-attention-in-nlp.md",
+        "alt": "Seq2Seq 注意力对齐图：解码器每生成一个词都会关注输入序列中不同位置。",
+        "prompt": """
+一张适合 Seq2Seq 与注意力课程的教学图，主题是“注意力如何在翻译中对齐输入和输出”。
+画面表现编码器读取源语言序列，解码器逐步生成目标语言，每一步通过注意力权重连接到源序列不同 token，并形成一张对齐热力图。
+重点突出 attention 让模型不用只依赖一个固定上下文向量，风格清晰、适合新手理解。
+不要出现真实品牌 logo，不要生成难以阅读的小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "multimodal-alignment-fusion.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态对齐与融合图",
+        "suggested_page": "docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md",
+        "alt": "多模态对齐与融合图：文本、图像、语音和视频被编码到可共同推理的表示空间。",
+        "prompt": """
+一张适合多模态入门课程的教学图，主题是“文本、图像、语音、视频如何被对齐到同一个理解空间”。
+画面表现四种输入模态分别经过编码器，映射到共享表示空间，再由融合模块完成问答、检索、生成或决策。
+重点突出对齐、融合、跨模态检索和联合推理，风格现代、清晰、适合新人建立整体框架。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "vision-language-model-architecture.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视觉语言模型架构图",
+        "suggested_page": "docs/ch12-multimodal/ch01-multimodal/02-vision-language.md",
+        "alt": "视觉语言模型架构图：图像编码器提取视觉特征，语言模型结合文本指令生成回答。",
+        "prompt": """
+一张适合视觉语言模型课程的系统结构图，主题是“图片如何进入语言模型并参与回答”。
+画面表现图像被切成 patch 或特征，进入视觉编码器，再通过投影层连接到语言模型，结合用户文本问题生成多模态回答。
+重点突出 image encoder、projector、LLM、text prompt 的连接关系，风格工程化、清晰。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "stable-diffusion-components.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Stable Diffusion 组件架构图",
+        "suggested_page": "docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md",
+        "alt": "Stable Diffusion 组件架构图：文本编码器、U-Net、VAE 和 Scheduler 协作完成图像生成。",
+        "prompt": """
+一张适合 Stable Diffusion 课程的组件架构图，主题是“文本到图像生成系统由哪些模块组成”。
+画面表现 prompt 进入文本编码器，噪声 latent 在 U-Net 和 Scheduler 的多步去噪中变化，最后由 VAE 解码成图像。
+重点突出 text encoder、latent、U-Net、scheduler、VAE 的分工，风格清晰、专业、适合新人拆解架构。
+不要出现真实品牌 logo，不要生成复杂公式或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "video-audio-generation-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视频与语音生成流水线图",
+        "suggested_page": "docs/ch12-multimodal/ch03-video-gen/01-video-generation.md",
+        "alt": "视频与语音生成流水线图：脚本、分镜、关键帧、视频生成、TTS 和后期合成组成内容生产流程。",
+        "prompt": """
+一张适合 AIGC 视频课程的生产流程图，主题是“从文案到视频和配音的生成流水线”。
+画面表现脚本生成、分镜设计、关键帧或参考图、视频生成、语音合成 TTS、字幕和后期合成，最终输出短视频。
+重点突出视频不是单次生成，而是多资产、多步骤协同的工作流，风格清晰、像创意生产看板。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "creative-platform-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 创意内容平台工作流图",
+        "suggested_page": "docs/ch12-multimodal/ch05-projects/01-creative-platform.md",
+        "alt": "AI 创意内容平台工作流图：用户需求经过素材管理、生成、审核、版本管理和导出形成完整产品闭环。",
+        "prompt": """
+一张适合 AIGC 综合项目课程的产品架构图，主题是“AI 创意内容平台的完整工作流”。
+画面表现用户输入创意需求，系统管理文本、图片、音频、视频素材，调用生成模型，经过人工审核、版权与安全检查、版本管理，最后导出作品包。
+重点突出从玩具 demo 到可交付产品需要资产管理、审核和导出闭环，风格专业、清晰、产品感强。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
 ]
 
 

@@ -7,6 +7,8 @@ keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NL
 
 # 文本预处理
 
+![文本预处理流水线图](/img/course/text-preprocessing-pipeline.png)
+
 :::tip 本节定位
 文本预处理最容易让新人误会成：
 

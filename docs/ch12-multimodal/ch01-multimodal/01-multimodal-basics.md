@@ -7,6 +7,8 @@ keywords: [多模态, multimodal, 图文, 语音, 视频, 融合]
 
 # 多模态学习基础
 
+![多模态对齐与融合图](/img/course/multimodal-alignment-fusion.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

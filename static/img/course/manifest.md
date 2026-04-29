@@ -127,3 +127,18 @@
 | `react-reason-act-observe-loop.png` | ReAct 推理行动观察循环图 | `docs/ch09-agent/ch02-reasoning/03-react.md` | ReAct 推理行动观察循环图：模型在思考、行动、观察之间循环，逐步接近任务答案。 |
 | `mcp-host-client-server.png` | MCP Host Client Server 架构图 | `docs/ch09-agent/ch05-mcp/02-mcp-architecture.md` | MCP Host Client Server 架构图：Host 通过 Client 连接多个 Server，统一发现资源、工具和提示能力。 |
 | `multi-agent-message-flow.png` | 多 Agent 协作消息流图 | `docs/ch09-agent/ch07-multi-agent/01-architecture-patterns.md` | 多 Agent 协作消息流图：规划者、研究者、执行者和评审者通过消息与共享状态协作完成任务。 |
+| `cv-pixel-rgb-grid.png` | 像素网格与 RGB 通道图 | `docs/ch10-computer-vision/ch01-cv-basics/01-image-fundamentals.md` | 像素网格与 RGB 通道图：图像由像素矩阵组成，RGB 三个通道共同表示颜色。 |
+| `cv-image-processing-pipeline.png` | 图像处理流水线图 | `docs/ch10-computer-vision/ch01-cv-basics/03-image-processing.md` | 图像处理流水线图：原图经过灰度化、滤波、边缘检测和形态学操作得到更适合模型使用的特征。 |
+| `cv-data-augmentation-gallery.png` | 图像数据增强样例墙 | `docs/ch10-computer-vision/ch02-classification/01-data-augmentation.md` | 图像数据增强样例墙：翻转、裁剪、旋转、颜色扰动和噪声让模型看到更多变化。 |
+| `yolo-grid-detection-flow.png` | YOLO 网格检测流程图 | `docs/ch10-computer-vision/ch03-detection/03-yolo-series.md` | YOLO 网格检测流程图：图片被划分为网格，每个位置预测候选框、类别和置信度，再经过 NMS 得到结果。 |
+| `ocr-layout-recognition-pipeline.png` | OCR 版面解析与文字识别流程图 | `docs/ch10-computer-vision/ch05-advanced/03-ocr.md` | OCR 版面解析与文字识别流程图：文档图像经过版面检测、文本框定位、识别和结构化输出。 |
+| `text-preprocessing-pipeline.png` | 文本预处理流水线图 | `docs/ch11-nlp/ch01-text-basics/02-text-preprocessing.md` | 文本预处理流水线图：原始文本经过清洗、分词、标准化、去停用词和编码后进入模型。 |
+| `bow-tfidf-representation.png` | BoW 与 TF-IDF 文本表示图 | `docs/ch11-nlp/ch01-text-basics/03-text-representation.md` | BoW 与 TF-IDF 文本表示图：文本被转成词频向量，TF-IDF 会降低常见词权重并突出关键词。 |
+| `contextual-embedding-comparison.png` | 上下文词嵌入对比图 | `docs/ch11-nlp/ch02-embeddings/02-contextual-embedding.md` | 上下文词嵌入对比图：同一个词在不同句子里会得到不同表示，帮助模型理解语境。 |
+| `text-classification-pipeline.png` | 文本分类训练流程图 | `docs/ch11-nlp/ch03-classification/03-classification-practice.md` | 文本分类训练流程图：文本经过清洗、编码、模型、概率输出和错误分析形成分类项目闭环。 |
+| `seq2seq-attention-alignment.png` | Seq2Seq 注意力对齐图 | `docs/ch11-nlp/ch05-seq2seq/02-attention-in-nlp.md` | Seq2Seq 注意力对齐图：解码器每生成一个词都会关注输入序列中不同位置。 |
+| `multimodal-alignment-fusion.png` | 多模态对齐与融合图 | `docs/ch12-multimodal/ch01-multimodal/01-multimodal-basics.md` | 多模态对齐与融合图：文本、图像、语音和视频被编码到可共同推理的表示空间。 |
+| `vision-language-model-architecture.png` | 视觉语言模型架构图 | `docs/ch12-multimodal/ch01-multimodal/02-vision-language.md` | 视觉语言模型架构图：图像编码器提取视觉特征，语言模型结合文本指令生成回答。 |
+| `stable-diffusion-components.png` | Stable Diffusion 组件架构图 | `docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md` | Stable Diffusion 组件架构图：文本编码器、U-Net、VAE 和 Scheduler 协作完成图像生成。 |
+| `video-audio-generation-pipeline.png` | 视频与语音生成流水线图 | `docs/ch12-multimodal/ch03-video-gen/01-video-generation.md` | 视频与语音生成流水线图：脚本、分镜、关键帧、视频生成、TTS 和后期合成组成内容生产流程。 |
+| `creative-platform-workflow.png` | AI 创意内容平台工作流图 | `docs/ch12-multimodal/ch05-projects/01-creative-platform.md` | AI 创意内容平台工作流图：用户需求经过素材管理、生成、审核、版本管理和导出形成完整产品闭环。 |

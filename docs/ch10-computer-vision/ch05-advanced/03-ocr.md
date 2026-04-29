@@ -7,6 +7,8 @@ keywords: [OCR, text detection, text recognition, document AI, layout analysis]
 
 # OCR 文字识别【选修】
 
+![OCR 版面解析与文字识别流程图](/img/course/ocr-layout-recognition-pipeline.png)
+
 :::tip 本节定位
 OCR 很容易被说成一句话：
 

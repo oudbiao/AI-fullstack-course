@@ -7,6 +7,8 @@ keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity
 
 # 文本表示方法
 
+![BoW 与 TF-IDF 文本表示图](/img/course/bow-tfidf-representation.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

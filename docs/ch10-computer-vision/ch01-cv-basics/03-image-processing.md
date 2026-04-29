@@ -7,6 +7,8 @@ keywords: [滤波, 边缘检测, 形态学, OpenCV, Canny, blur]
 
 # 图像处理技术
 
+![图像处理流水线图](/img/course/cv-image-processing-pipeline.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

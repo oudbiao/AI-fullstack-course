@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 121 / 121
+Generated with image2: 136 / 136
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -15,6 +15,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 5 章说明：目录 `docs/ch05-machine-learning` 下的 22 张机器学习补充图已经用 image2 生成，因此第 5 章每篇文章都有视觉入口。
 
 第 6～9 章说明：目录 `docs/ch06-deep-learning`、`docs/ch07-llm-principles`、`docs/ch08-rag`、`docs/ch09-agent` 下新增的 25 张机制图、流程图和系统图已经用 image2 生成，并插入到对应核心教程页面。
+
+第 10～12 章说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 下新增的 15 张视觉、NLP、多模态与 AIGC 流程图已经用 image2 生成，并插入到对应核心教程页面。
 
 ## Completed
 
@@ -139,6 +141,21 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `react-reason-act-observe-loop.png`
 - `mcp-host-client-server.png`
 - `multi-agent-message-flow.png`
+- `cv-pixel-rgb-grid.png`
+- `cv-image-processing-pipeline.png`
+- `cv-data-augmentation-gallery.png`
+- `yolo-grid-detection-flow.png`
+- `ocr-layout-recognition-pipeline.png`
+- `text-preprocessing-pipeline.png`
+- `bow-tfidf-representation.png`
+- `contextual-embedding-comparison.png`
+- `text-classification-pipeline.png`
+- `seq2seq-attention-alignment.png`
+- `multimodal-alignment-fusion.png`
+- `vision-language-model-architecture.png`
+- `stable-diffusion-components.png`
+- `video-audio-generation-pipeline.png`
+- `creative-platform-workflow.png`
 
 ## Remaining
 
