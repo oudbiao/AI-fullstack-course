@@ -6,6 +6,8 @@ description: "学习使用 Python 抓取和解析网页数据"
 
 # 项目：网络爬虫
 
+![网络爬虫数据采集流程图](/img/course/ch02-web-scraper-pipeline.png)
+
 ## 项目定位
 
 这个项目让你第一次用 Python 从互联网获取数据。你会把 HTTP 请求、HTML 解析、数据清洗和文件保存串起来，理解真实数据不是凭空出现的，而是需要采集、整理和结构化。
@@ -18,16 +20,6 @@ description: "学习使用 Python 抓取和解析网页数据"
 - 构建一个实用的网络数据采集工具
 
 ---
-
-## 一图读懂：爬虫最小流程
-
-```mermaid
-flowchart LR
-  A["发送 HTTP 请求"] --> B["拿到 HTML"]
-  B --> C["解析目标内容"]
-  C --> D["清洗成结构化数据"]
-  D --> E["保存到 CSV 或 JSON"]
-```
 
 ## 项目简介
 

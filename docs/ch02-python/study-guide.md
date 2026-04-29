@@ -13,14 +13,7 @@ keywords: [Python 学习指南, Python 入门顺序, 编程基础怎么学, Pyth
 
 Python 第一遍要抓住一条主线：输入进入程序，经过数据结构、条件、循环、函数处理，最后输出结果或保存文件。只要这条线稳住，后面学数据分析、机器学习、RAG 和 Agent 都会更顺。
 
-```mermaid
-flowchart LR
-  A[输入] --> B[变量与数据类型]
-  B --> C[条件和循环]
-  C --> D[数据结构]
-  D --> E[函数和模块]
-  E --> F[文件/API/项目输出]
-```
+![Python 学习指南最小闭环](/img/course/ch02-study-guide-program-loop.png)
 
 ## 推荐学习顺序
 

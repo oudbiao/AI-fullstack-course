@@ -6,6 +6,8 @@ description: "掌握 Python 模块和包的使用方法"
 
 # 模块与包
 
+![模块与包项目结构图](/img/course/ch02-modules-package-structure.png)
+
 ## 本节定位
 
 这一节学习如何把代码拆成多个文件，并复用别人写好的库。模块、包、import 和 pip 是 Python 生态的入口，理解它们后，你才能更自然地使用 NumPy、Pandas、FastAPI、PyTorch 等工具。
@@ -19,16 +21,6 @@ description: "掌握 Python 模块和包的使用方法"
 - 能创建和使用自己的模块
 
 ---
-
-## 一图读懂：代码怎么从一个文件变成项目
-
-```mermaid
-flowchart LR
-  A["一个 main.py"] --> B["拆出 utils.py"]
-  B --> C["用 import 复用函数"]
-  C --> D["用 pip 安装第三方库"]
-  D --> E["组织成 package"]
-```
 
 ## 什么是模块？
 

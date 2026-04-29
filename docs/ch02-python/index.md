@@ -17,16 +17,7 @@ keywords: [Python入门, Python基础, Python教程, 编程入门, AI API]
 
 ## 学习闯关地图
 
-```mermaid
-flowchart LR
-  A[写出第一段程序] --> B[组织数据]
-  B --> C[封装函数]
-  C --> D[读写文件]
-  D --> E[处理异常]
-  E --> F[调用 Web API]
-  F --> G[接入 AI API]
-  G --> H[完成 Python 小作品]
-```
+![Python 学习闯关地图](/img/course/ch02-learning-quest-map.png)
 
 ## 互动练习：每学一章就问自己一个问题
 
@@ -63,15 +54,7 @@ flowchart LR
 
 Python 不是因为语法最强大才成为 AI 主流，而是因为它同时连接了数据处理、机器学习、深度学习、Web API、自动化脚本和大模型生态。你后面会用它读数据、训练模型、调用 LLM、构建 RAG、封装工具和写 Agent。
 
-```mermaid
-flowchart LR
-  A[Python 语法] --> B[数据结构]
-  B --> C[函数与模块]
-  C --> D[文件与异常]
-  D --> E[第三方库]
-  E --> F[Web API]
-  F --> G[AI API 调用]
-```
+![Python AI 主线能力链](/img/course/ch02-python-ai-backbone.png)
 
 ## 本阶段学习路径
 

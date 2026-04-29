@@ -19,6 +19,21 @@
 | `ch01-git-remote-sync.png` | Git 本地远程同步图 | `docs/ch01-tools/ch02-git/03-remote-repos.md` | Git 本地远程同步图：本地仓库通过 push、pull、clone 和 GitHub 远程仓库同步。 |
 | `ch01-vscode-workspace-flow.png` | VS Code 项目工作流图 | `docs/ch01-tools/ch03-devenv/02-vscode.md` | VS Code 项目工作流图：打开项目文件夹、选择解释器、编辑代码、内置终端运行、调试并提交到 Git。 |
 | `ch02-python-foundation.png` | Python 编程基础主视觉 | `docs/ch02-python/index.md` | Python 编程基础主视觉：变量、函数、数据结构和小项目逐步组成程序。 |
+| `ch02-learning-quest-map.png` | Python 学习闯关地图 | `docs/ch02-python/index.md` | Python 学习闯关地图：第一段程序、数据组织、函数封装、文件保存、异常处理、API 调用和小作品逐步推进。 |
+| `ch02-python-ai-backbone.png` | Python AI 主线能力链 | `docs/ch02-python/index.md` | Python AI 主线能力链：语法、数据结构、函数模块、文件异常、第三方库、Web API 和 AI API 串成后续项目基础。 |
+| `ch02-study-guide-program-loop.png` | Python 学习指南最小闭环 | `docs/ch02-python/study-guide.md` | Python 学习指南最小闭环：输入进入程序，经过变量、条件循环、数据结构、函数模块，最后输出文件、API 或项目结果。 |
+| `ch02-task-list-workflow.png` | Python 阶段任务链 | `docs/ch02-python/task-list.md` | Python 阶段任务链：基础语法、数据结构、函数、文件保存、异常处理和阶段项目逐步串成编程能力。 |
+| `ch02-python-ai-workflow.png` | Python 到 AI 应用工作流 | `docs/ch02-python/ch01-basics/01-intro.md` | Python 到 AI 应用工作流：小脚本、文件数据、模型调用、API 封装、RAG 和 Agent 逐步连接。 |
+| `ch02-operators-decision-flow.png` | 运算符与条件判断流程图 | `docs/ch02-python/ch01-basics/03-operators.md` | 运算符与条件判断流程图：原始数据经过算术、比较和逻辑组合，进入条件分支。 |
+| `ch02-input-output-flow.png` | Python 输入处理输出流程图 | `docs/ch02-python/ch01-basics/04-io.md` | Python 输入处理输出流程图：input 接收用户输入，程序处理后用 f-string 和 print 展示结果。 |
+| `ch02-modules-package-structure.png` | 模块与包项目结构图 | `docs/ch02-python/ch01-basics/08-modules.md` | 模块与包项目结构图：一个 main.py 拆分为 utils、data、api 等模块，并通过 import 复用。 |
+| `ch02-file-io-serialization-flow.png` | 文件读写与序列化流程图 | `docs/ch02-python/ch02-advanced/03-file-io.md` | 文件读写与序列化流程图：内存中的 Python 数据被序列化写入文件，再读取并还原成对象。 |
+| `ch02-functional-pipeline.png` | 函数式数据流水线图 | `docs/ch02-python/ch02-advanced/04-functional.md` | 函数式数据流水线图：一组数据经过 map 转换、filter 筛选、sorted 排序得到结果。 |
+| `ch02-generator-streaming-data.png` | 生成器流式数据处理图 | `docs/ch02-python/ch02-advanced/05-iterators-generators.md` | 生成器流式数据处理图：生成器一次只产出一个元素，适合大文件、流式数据和训练数据加载。 |
+| `ch02-type-hints-quality-flow.png` | 类型注解与代码质量流程图 | `docs/ch02-python/ch02-advanced/06-type-hints.md` | 类型注解与代码质量流程图：函数输入输出通过类型注解、编辑器提示、格式化和检查工具变得更易维护。 |
+| `ch02-todo-cli-architecture.png` | 命令行任务管理器架构图 | `docs/ch02-python/ch03-projects/01-todo-cli.md` | 命令行任务管理器架构图：用户命令被解析后读取 tasks.json，修改任务列表并保存结果。 |
+| `ch02-web-scraper-pipeline.png` | 网络爬虫数据采集流程图 | `docs/ch02-python/ch03-projects/02-web-scraper.md` | 网络爬虫数据采集流程图：HTTP 请求获取网页，解析 HTML，清洗结构化数据并保存。 |
+| `ch02-web-api-request-response.png` | Web API 请求响应架构图 | `docs/ch02-python/ch03-projects/03-web-api.md` | Web API 请求响应架构图：客户端发送请求，FastAPI 路由接收，函数处理后返回 JSON 响应。 |
 | `ch03-data-visualization.png` | 数据分析与可视化主视觉 | `docs/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
 | `ch04-ai-math.png` | AI 数学基础主视觉 | `docs/ch04-ai-math/index.md` | AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。 |
 | `ch04-linear-algebra-roadmap.png` | 线性代数学习地图 | `docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 线性代数学习地图：向量、矩阵、特殊方向和 AI 场景串成学习顺序。 |

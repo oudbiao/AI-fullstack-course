@@ -235,6 +235,214 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch02-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 学习闯关地图",
+        "suggested_page": "docs/ch02-python/index.md",
+        "alt": "Python 学习闯关地图：第一段程序、数据组织、函数封装、文件保存、异常处理、API 调用和小作品逐步推进。",
+        "prompt": """
+一张适合 Python 入门首页的学习闯关地图，主题是“从第一段程序到 Python 小作品”。
+画面表现新手从写出第一段程序开始，逐步经过组织数据、封装函数、读写文件、处理异常、调用 Web API、接入 AI API，最后完成一个小作品。
+风格像清爽的编程冒险地图，用图标、路径和节点表达进阶关系；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-python-ai-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python AI 主线能力链",
+        "suggested_page": "docs/ch02-python/index.md",
+        "alt": "Python AI 主线能力链：语法、数据结构、函数模块、文件异常、第三方库、Web API 和 AI API 串成后续项目基础。",
+        "prompt": """
+一张适合 Python 编程基础首页的能力链路图，主题是“为什么 Python 是 AI 全栈主线语言”。
+画面表现 Python 语法连接数据结构、函数与模块、文件与异常、第三方库、Web API 和 AI API，最后延伸到数据分析、机器学习、RAG 和 Agent。
+重点让新手看到每个语法点后面都通向真实 AI 项目能力。
+风格现代、工程化、清晰友好；不要生成具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-study-guide-program-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 学习指南最小闭环",
+        "suggested_page": "docs/ch02-python/study-guide.md",
+        "alt": "Python 学习指南最小闭环：输入进入程序，经过变量、条件循环、数据结构、函数模块，最后输出文件、API 或项目结果。",
+        "prompt": """
+一张适合 Python 学习指南的教学图，主题是“新手第一遍只要抓住输入、处理、输出闭环”。
+画面表现输入进入程序，依次经过变量与数据类型、条件和循环、数据结构、函数和模块，最后输出到屏幕、文件、API 或项目作品。
+重点帮助初学者把零散语法看成一条稳定主线，而不是背知识点清单。
+风格温和、清晰、像老师手绘的现代流程图；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-task-list-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 阶段任务链",
+        "suggested_page": "docs/ch02-python/task-list.md",
+        "alt": "Python 阶段任务链：基础语法、数据结构、函数、文件保存、异常处理和阶段项目逐步串成编程能力。",
+        "prompt": """
+一张适合 Python 入门课程的任务路线图，主题是“从语法到项目的 Python 学习任务链”。
+画面表现基础语法、数据结构、函数拆分、文件保存、异常处理、阶段项目六个环节逐步连接，最后形成一个能运行的小工具。
+风格清爽、现代、适合新手学习，像一张编程闯关路线图；用图标和箭头表达，不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-python-ai-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 到 AI 应用工作流",
+        "suggested_page": "docs/ch02-python/ch01-basics/01-intro.md",
+        "alt": "Python 到 AI 应用工作流：小脚本、文件数据、模型调用、API 封装、RAG 和 Agent 逐步连接。",
+        "prompt": """
+一张适合 Python 简介页面的教学插图，主题是“Python 如何一路连接到 AI 应用”。
+画面表现一个 Python 小脚本逐步扩展为文件处理、数据分析、模型调用、Web API、RAG 知识库和 Agent 工具调用。
+重点让新手看到 Python 不是孤立语法，而是一条通向 AI 全栈项目的主线。
+风格明亮、友好、工程化插图；不要出现具体代码文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-operators-decision-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "运算符与条件判断流程图",
+        "suggested_page": "docs/ch02-python/ch01-basics/03-operators.md",
+        "alt": "运算符与条件判断流程图：原始数据经过算术、比较和逻辑组合，进入条件分支。",
+        "prompt": """
+一张适合 Python 运算符入门课程的教学图，主题是“运算符帮助程序计算和做判断”。
+画面表现原始数据经过算术运算、比较运算、逻辑组合，最终进入不同条件分支，像一个简单决策流水线。
+适合解释准确率、阈值、条件筛选、成员判断等编程场景。
+风格简洁、白板教学与科技插画结合；不要生成复杂公式，不要出现真实品牌 logo，不要出现乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-input-output-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 输入处理输出流程图",
+        "suggested_page": "docs/ch02-python/ch01-basics/04-io.md",
+        "alt": "Python 输入处理输出流程图：input 接收用户输入，程序处理后用 f-string 和 print 展示结果。",
+        "prompt": """
+一张适合 Python 输入输出入门课程的教学图，主题是“程序的最小闭环：输入、处理、输出”。
+画面表现用户在终端输入信息，Python 程序进行类型转换和计算，再用格式化文本输出清晰结果。
+重点让新手理解 CLI、API、RAG 和 Agent 后面都会重复这个输入到输出的模式。
+风格亲切、清晰、像交互式终端示意图；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-modules-package-structure.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模块与包项目结构图",
+        "suggested_page": "docs/ch02-python/ch01-basics/08-modules.md",
+        "alt": "模块与包项目结构图：一个 main.py 拆分为 utils、data、api 等模块，并通过 import 复用。",
+        "prompt": """
+一张适合 Python 模块与包课程的教学图，主题是“代码如何从一个文件拆成可维护项目”。
+画面表现一个拥挤的 main.py 文件被拆分成多个清晰模块：工具函数、数据处理、API 调用、配置文件和包目录，它们通过 import 连接。
+重点表达模块化让代码更清楚、更容易复用、更适合后续 AI 项目。
+风格像项目文件树和积木结构结合，清晰、现代；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-file-io-serialization-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "文件读写与序列化流程图",
+        "suggested_page": "docs/ch02-python/ch02-advanced/03-file-io.md",
+        "alt": "文件读写与序列化流程图：内存中的 Python 数据被序列化写入文件，再读取并还原成对象。",
+        "prompt": """
+一张适合 Python 文件操作课程的教学图，主题是“数据如何从内存保存到文件再读回来”。
+画面表现 Python 内存里的列表、字典或对象，通过序列化变成 JSON/CSV/文本文件，写入磁盘；下次程序启动时再读取并还原。
+适合新手理解持久化、配置文件、训练日志和任务数据保存。
+风格清晰、实用、像数据仓库和程序内存之间的桥梁；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-functional-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "函数式数据流水线图",
+        "suggested_page": "docs/ch02-python/ch02-advanced/04-functional.md",
+        "alt": "函数式数据流水线图：一组数据经过 map 转换、filter 筛选、sorted 排序得到结果。",
+        "prompt": """
+一张适合 Python 函数式编程入门课程的教学图，主题是“函数式写法像数据流水线”。
+画面表现一组数据卡片进入流水线，先被批量转换，再被筛选，再按规则排序，最后输出干净结果。
+重点让新手理解 map、filter、sorted key、lambda 的用途，而不是追求复杂技巧。
+风格清爽、数据流水线、现代教育插图；不要出现真实品牌 logo，不要生成具体文字或乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-generator-streaming-data.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "生成器流式数据处理图",
+        "suggested_page": "docs/ch02-python/ch02-advanced/05-iterators-generators.md",
+        "alt": "生成器流式数据处理图：生成器一次只产出一个元素，适合大文件、流式数据和训练数据加载。",
+        "prompt": """
+一张适合 Python 迭代器与生成器课程的教学图，主题是“生成器一次只产出一个元素，所以更省内存”。
+画面左右对比：一边是把巨大数据一次性塞进内存导致拥堵，另一边是生成器像水龙头一样一滴一滴输出数据，供循环逐个处理。
+连接到大文件读取、日志流、训练数据加载等 AI 场景。
+风格直观、有类比感、教学友好；不要出现真实品牌 logo，不要生成密集文字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch02-type-hints-quality-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "类型注解与代码质量流程图",
+        "suggested_page": "docs/ch02-python/ch02-advanced/06-type-hints.md",
+        "alt": "类型注解与代码质量流程图：函数输入输出通过类型注解、编辑器提示、格式化和检查工具变得更易维护。",
+        "prompt": """
+一张适合 Python 类型注解与代码质量课程的教学图，主题是“从能跑到好维护”。
+画面表现一个函数的输入输出被类型注解标清，编辑器提前提示错误，格式化工具整理代码，检查工具发现潜在问题，最后形成更可靠的项目代码。
+重点表达类型注解不是给机器看的负担，而是给未来自己和团队看的说明书。
+风格现代、清晰、像代码质量仪表盘；不要出现真实品牌 logo，不要生成具体代码文字或乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch02-todo-cli-architecture.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "命令行任务管理器架构图",
+        "suggested_page": "docs/ch02-python/ch03-projects/01-todo-cli.md",
+        "alt": "命令行任务管理器架构图：用户命令被解析后读取 tasks.json，修改任务列表并保存结果。",
+        "prompt": """
+一张适合 Python 命令行项目课程的架构图，主题是“任务管理器如何从用户命令到文件保存”。
+画面表现用户在终端输入新增、查看、完成、删除任务，程序解析命令，读取 tasks.json，修改任务列表，再保存回文件并输出结果。
+重点突出数据结构、函数拆分、文件持久化和异常处理如何组合成真正可用的小工具。
+风格像小型软件架构图，清晰、亲切；不要出现真实品牌 logo，不要生成具体文字或乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-web-scraper-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "网络爬虫数据采集流程图",
+        "suggested_page": "docs/ch02-python/ch03-projects/02-web-scraper.md",
+        "alt": "网络爬虫数据采集流程图：HTTP 请求获取网页，解析 HTML，清洗结构化数据并保存。",
+        "prompt": """
+一张适合 Python 爬虫项目课程的流程图，主题是“网络爬虫如何把网页变成结构化数据”。
+画面表现发送 HTTP 请求、拿到网页 HTML、解析目标内容、清洗成表格字段、保存到 CSV 或 JSON 的完整链路。
+适合新手理解数据不是凭空出现的，而是需要采集、解析、清洗和保存。
+风格清爽、网络数据流、教育插图；不要出现真实网站品牌，不要生成具体文字或乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-web-api-request-response.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Web API 请求响应架构图",
+        "suggested_page": "docs/ch02-python/ch03-projects/03-web-api.md",
+        "alt": "Web API 请求响应架构图：客户端发送请求，FastAPI 路由接收，函数处理后返回 JSON 响应。",
+        "prompt": """
+一张适合 FastAPI 入门项目课程的架构图，主题是“Web API 如何连接用户、程序和 AI 服务”。
+画面表现客户端请求进入后端 API，路由分发给 Python 函数，函数处理数据或调用模型，最后返回 JSON 响应给客户端。
+重点让新手理解 API 是把 Python 能力提供给其他程序调用的桥梁，为后续 AI 服务、RAG 和 Agent 打基础。
+风格现代后端架构图、清晰友好；不要出现真实品牌 logo，不要生成具体文字或乱码小字。
+""".strip(),
+    },
+    {
         "filename": "ch03-data-visualization.png",
         "size": "1536x1024",
         "quality": "medium",

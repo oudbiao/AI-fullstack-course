@@ -6,6 +6,8 @@ description: "了解 Python 语言的特点、应用领域和开发环境"
 
 # Python 简介
 
+![Python 到 AI 应用工作流](/img/course/ch02-python-ai-workflow.png)
+
 ## 本节定位
 
 这一节是 Python 学习的入口。你不需要马上掌握复杂语法，先理解 Python 为什么适合 AI、它能做哪些事情，并亲手运行第一个程序，建立“代码可以解决真实问题”的第一印象。
@@ -18,16 +20,6 @@ description: "了解 Python 语言的特点、应用领域和开发环境"
 - 理解 Python 代码的基本结构
 
 ---
-
-## 一图读懂：Python 会一路用在哪里
-
-```mermaid
-flowchart LR
-  A["写小脚本"] --> B["处理文件和数据"]
-  B --> C["训练或调用模型"]
-  C --> D["封装 API"]
-  D --> E["构建 RAG 和 Agent"]
-```
 
 ## 为什么学 Python？
 

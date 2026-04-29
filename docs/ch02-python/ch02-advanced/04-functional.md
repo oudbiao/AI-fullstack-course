@@ -6,6 +6,8 @@ description: "掌握 Python 函数式编程的核心工具"
 
 # 函数式编程基础
 
+![函数式数据流水线图](/img/course/ch02-functional-pipeline.png)
+
 ## 本节定位
 
 这一节补充 Python 中更灵活的函数用法。lambda、map、filter、sorted 的 key 参数和装饰器会经常出现在数据处理、框架源码和工具函数中，目标是能读懂并适度使用，而不是一开始就追求复杂技巧。
@@ -18,16 +20,6 @@ description: "掌握 Python 函数式编程的核心工具"
 - 理解闭包和装饰器的基本概念
 
 ---
-
-## 一图读懂：函数式写法像数据流水线
-
-```mermaid
-flowchart LR
-  A["一组数据"] --> B["map 转换"]
-  B --> C["filter 筛选"]
-  C --> D["sorted 排序"]
-  D --> E["得到结果"]
-```
 
 第一遍不必追求“函数式很优雅”。你只需要知道它常用于批量转换、筛选、排序和给框架传入自定义逻辑。
 

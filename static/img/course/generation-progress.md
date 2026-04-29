@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 187 / 187
+Generated with image2: 202 / 202
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -22,7 +22,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 附录说明：目录 `docs/appendix` 下新增的 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。
 
-第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 21 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。其中第 1 章本轮新增 6 张真实 PNG，用于替换任务单、命令行、包管理器、Git 核心操作、远程仓库和 VS Code 页面的文字流程入口。
+第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 36 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。其中第 1 章本轮新增 6 张真实 PNG，用于替换任务单、命令行、包管理器、Git 核心操作、远程仓库和 VS Code 页面的文字流程入口；第 2 章本轮新增 15 张真实 PNG，用于替换 Python 首页、学习指南、任务链、基础语法、文件处理、进阶机制和项目页的文字流程入口。
 
 学习地图说明：目录 `docs/intro` 下新增的 8 张能力地图、现代技术栈、学习路线、四条主线、卡点诊断、项目作品集、角色路线和毕业项目闭环图已经用 image2 生成，并插入到对应导览页面。
 
@@ -196,6 +196,9 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch01-python-env-stack.png`
 - `ch01-git-branch-collaboration.png`
 - `ch01-jupyter-kernel-state.png`
+- `ch02-learning-quest-map.png`
+- `ch02-python-ai-backbone.png`
+- `ch02-study-guide-program-loop.png`
 - `ch02-variable-object-reference.png`
 - `ch02-control-flow-paths.png`
 - `ch02-data-structures-comparison.png`
@@ -203,6 +206,18 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch02-oop-class-object-map.png`
 - `ch02-exception-flow.png`
 - `ch02-ai-api-request-response.png`
+- `ch02-task-list-workflow.png`
+- `ch02-python-ai-workflow.png`
+- `ch02-operators-decision-flow.png`
+- `ch02-input-output-flow.png`
+- `ch02-modules-package-structure.png`
+- `ch02-file-io-serialization-flow.png`
+- `ch02-functional-pipeline.png`
+- `ch02-generator-streaming-data.png`
+- `ch02-type-hints-quality-flow.png`
+- `ch02-todo-cli-architecture.png`
+- `ch02-web-scraper-pipeline.png`
+- `ch02-web-api-request-response.png`
 - `ch03-numpy-array-shape-axis.png`
 - `ch03-numpy-broadcasting-vectorization.png`
 - `ch03-pandas-groupby-split-apply-combine.png`

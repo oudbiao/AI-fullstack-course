@@ -6,6 +6,8 @@ description: "使用 FastAPI 构建你的第一个 Web API"
 
 # 项目：Web API 开发
 
+![Web API 请求响应架构图](/img/course/ch02-web-api-request-response.png)
+
 ## 项目定位
 
 这个项目把 Python 从脚本带到服务端。你会用 FastAPI 把功能包装成可被其他程序调用的接口，理解 API 如何连接模型、应用和用户，为后面的 AI 应用开发打基础。
@@ -18,16 +20,6 @@ description: "使用 FastAPI 构建你的第一个 Web API"
 - 构建一个可以被其他程序调用的 AI 服务接口
 
 ---
-
-## 一图读懂：Web API 的请求响应
-
-```mermaid
-flowchart LR
-  A["客户端发送请求"] --> B["FastAPI 路由接收"]
-  B --> C["函数处理业务逻辑"]
-  C --> D["返回 JSON 响应"]
-  D --> E["客户端展示或继续处理"]
-```
 
 ## 为什么 AI 工程师需要会写 API？
 
