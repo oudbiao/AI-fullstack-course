@@ -17,16 +17,7 @@ keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention
 
 ## 学习闯关地图
 
-```mermaid
-flowchart LR
-  A[张量与数据加载] --> B[前向传播]
-  B --> C[计算损失]
-  C --> D[反向传播]
-  D --> E[优化器更新]
-  E --> F[CNN 和序列模型]
-  F --> G[Attention]
-  G --> H[Transformer]
-```
+![深度学习学习闯关地图](/img/course/ch06-learning-quest-map.png)
 
 ## 互动练习：盯住训练循环的四个数字
 
@@ -57,15 +48,7 @@ flowchart LR
 
 深度学习让模型可以从数据中自动学习复杂表示。图像中的边缘、纹理和物体，文本中的词义和上下文，都可以通过多层网络逐步形成表示。Transformer 又进一步成为大语言模型和多模态模型的核心架构。
 
-```mermaid
-flowchart LR
-  A[神经网络基础] --> B[PyTorch 训练闭环]
-  B --> C[CNN 图像任务]
-  C --> D[RNN 序列任务]
-  D --> E[Attention]
-  E --> F[Transformer]
-  F --> G[大模型基础]
-```
+![深度学习训练闭环主线图](/img/course/ch06-training-loop-backbone.png)
 
 ## 新人先做什么，进阶再做什么
 

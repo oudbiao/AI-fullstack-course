@@ -1879,6 +1879,258 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch06-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "深度学习学习闯关地图",
+        "suggested_page": "docs/ch06-deep-learning/index.md",
+        "alt": "深度学习学习闯关地图：张量、前向传播、损失、反向传播、优化器、CNN、序列模型、Attention 和 Transformer 逐步连接。",
+        "prompt": """
+一张适合深度学习课程首页的学习闯关地图，主题是“从训练循环走向 Transformer”。
+画面表现张量和数据加载进入前向传播，计算 loss，反向传播得到 gradient，optimizer 更新参数，再进入 CNN、RNN、Attention 和 Transformer 结构。
+风格视觉优先、流程清晰、新手友好，像一张模型发动机舱路线图。
+文字不是主体；如需标签，中英文自然混用，公式、API、变量名和标准术语保留英文或数学形式，例如 Tensor、loss、gradient、optimizer、CNN、RNN、Attention、Transformer。不要整段英文说明、无意义英文、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-training-loop-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "深度学习训练闭环主线图",
+        "suggested_page": "docs/ch06-deep-learning/index.md",
+        "alt": "深度学习训练闭环主线图：神经网络基础、PyTorch 训练闭环、CNN、RNN、Attention、Transformer 和大模型基础逐步连接。",
+        "prompt": """
+一张适合深度学习课程首页的主线图，主题是“深度学习为什么是后续大模型的发动机”。
+画面从神经网络基础出发，经过 PyTorch 训练闭环、CNN 图像任务、RNN 序列任务、Attention，再进入 Transformer 和大模型基础。
+风格像课程技术栈演进图，层次清楚、结构感强。
+文字不是主体；如需标签，中英文自然混用，标准术语保留英文，例如 PyTorch、CNN、RNN、Attention、Transformer、LLM。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-study-guide-training-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "深度学习学习指南训练闭环",
+        "suggested_page": "docs/ch06-deep-learning/study-guide.md",
+        "alt": "深度学习学习指南训练闭环：数据、模型前向传播、损失、反向传播、优化器更新、评估和调参组成学习主线。",
+        "prompt": """
+一张适合深度学习学习指南的训练闭环图，主题是“第一遍深度学习只抓训练循环”。
+画面表现数据进入模型，forward 得到输出，loss 衡量差距，backward 计算梯度，optimizer step 更新参数，然后进入评估、调参和下一轮实验。
+风格温暖、清晰、有陪伴感，帮助新人不要被长代码和模型名吓住。
+文字不是主体；如需标签，中英文自然混用，API 和标准术语保留英文，例如 forward、loss、backward、optimizer.step、eval。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-nn-basics-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "神经网络基础章节关系图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/00-roadmap.md",
+        "alt": "神经网络基础章节关系图：神经元、激活函数、前向反向传播、优化器、正则化和初始化逐步连接。",
+        "prompt": """
+一张适合神经网络基础导读页的章节关系图，主题是“神经网络为什么能学起来”。
+画面表现第 5 章的模型、损失、评估进入第 6 章内部机制：神经元和激活函数、前向传播、反向传播、优化器、正则化、参数初始化。
+风格像把模型外壳打开，看见内部零件如何协作，清晰、具体。
+文字不是主体；如需标签，中英文自然混用，标准术语和公式保留英文或数学形式，例如 activation、forward、backward、optimizer、regularization、initialization。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-ml-to-dl-bridge-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "从机器学习到深度学习桥接图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge.md",
+        "alt": "从机器学习到深度学习桥接图：经典机器学习的任务、baseline 和评估，过渡到深度学习的自动表示学习和训练闭环。",
+        "prompt": """
+一张适合“从经典机器学习到深度学习”过渡页的桥接图，主题是“第 6 章不是推翻第 5 章，而是打开训练内部结构”。
+画面左侧是经典 ML：任务定义、baseline、metric、feature engineering；右侧是深度学习：representation learning、layers、loss、gradient、training loop，中间用桥梁连接。
+风格像两座学习岛之间的桥，帮助新人自然过渡。
+文字不是主体；如需标签，中英文自然混用，标准术语保留英文，例如 baseline、metric、feature engineering、representation、loss、gradient。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-weight-init-signal-stability-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "权重初始化信号稳定图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/05-weight-init.md",
+        "alt": "权重初始化信号稳定图：初始化太小导致信号衰减，初始化太大导致梯度爆炸或激活饱和，合适初始化让前向信号和反向梯度稳定。",
+        "prompt": """
+一张适合权重初始化课程的概念图，主题是“训练开始前，第一步棋要摆稳”。
+画面分三条路径：初始化太小导致信号逐层衰减；初始化太大导致激活饱和或梯度爆炸；合适初始化让 forward signal 和 backward gradient 稳定流过多层网络。
+风格像神经网络信号管道和仪表盘结合，直观、具体。
+文字不是主体；如需标签，中英文自然混用，公式和标准术语保留英文，例如 Xavier、He/Kaiming、vanishing gradient、exploding gradient。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-pytorch-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PyTorch 章节关系图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/00-roadmap.md",
+        "alt": "PyTorch 章节关系图：Tensor、Autograd、nn.Module、DataLoader、Training Loop 和实践技巧组成最小工程闭环。",
+        "prompt": """
+一张适合 PyTorch 导读页的章节关系图，主题是“把能学习的模型写成可训练代码”。
+画面表现 Tensor 作为数据容器，Autograd 计算梯度，nn.Module 组织模型，DataLoader 批量喂数据，Training Loop 串起 forward、loss、backward、step，最后进入实践技巧。
+风格像深度学习工程流水线，简洁、清楚。
+文字不是主体；API、类名和标准术语保留英文，例如 Tensor、Autograd、nn.Module、DataLoader、Training Loop、forward、backward。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-sklearn-to-pytorch-shift-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "sklearn 到 PyTorch 换挡图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/00-sklearn-to-pytorch-bridge.md",
+        "alt": "sklearn 到 PyTorch 换挡图：sklearn 的 fit 和 predict 被拆成 Tensor、模型、loss、backward、optimizer step 和评估。",
+        "prompt": """
+一张适合“从 sklearn 到 PyTorch”过渡页的对照图，主题是“从自动挡 fit 到手动挡训练循环”。
+画面左侧是 sklearn：X/y、model.fit、predict；右侧是 PyTorch：Tensor、model、loss_fn、optimizer、forward、loss、backward、step，强调细节被拆开但控制力更强。
+风格像驾驶换挡类比和训练流水线结合，新手友好。
+文字不是主体；API 和变量名保留英文，例如 sklearn.fit、predict、Tensor、loss_fn、optimizer.step。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-pytorch-tensor-lifecycle-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PyTorch Tensor 生命周期图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md",
+        "alt": "PyTorch Tensor 生命周期图：真实数据变成 Tensor，检查 shape 和 dtype，完成索引、变形和运算，再送进模型。",
+        "prompt": """
+一张适合 PyTorch 基础页的张量生命周期图，主题是“数据进入深度学习前，要先成为 Tensor”。
+画面表现真实数据先转换成 Tensor，检查 shape、dtype 和 device，再做 indexing、reshape、broadcasting 和矩阵运算，最后进入模型。
+风格像数据加工台和张量立方体结合，清晰、实用。
+文字不是主体；API、变量和标准术语保留英文，例如 Tensor、shape、dtype、device、reshape、broadcasting、GPU。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-nn-module-parameter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "nn.Module 参数组织流程图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/03-nn-module.md",
+        "alt": "nn.Module 参数组织流程图：Tensor 进入 Layer，Layer 被 Module 组织，forward 定义数据流，parameters 交给优化器更新。",
+        "prompt": """
+一张适合 nn.Module 课程的模型组织图，主题是“nn.Module 是可训练模型的容器”。
+画面表现 Tensor 输入到 Linear/ReLU 等 layer，多个 layer 被 nn.Module 或 nn.Sequential 组织起来，forward 定义数据流，parameters 交给 optimizer 更新。
+风格像乐高模型盒和训练管线结合，帮助新人理解模型对象。
+文字不是主体；API 和标准术语保留英文，例如 nn.Module、Linear、ReLU、forward、parameters、train、eval。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-cnn-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "CNN 章节关系图",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/00-roadmap.md",
+        "alt": "CNN 章节关系图：图像空间结构、卷积、CNN 结构、经典架构、迁移学习和图像分类项目逐步连接。",
+        "prompt": """
+一张适合 CNN 导读页的章节关系图，主题是“图片不是普通表格，网络结构要跟着数据变”。
+画面表现 MLP 擅长固定向量，但图像有空间结构；CNN 通过 local connection、parameter sharing、receptive field 看图，再进入卷积基础、CNN 结构、经典架构、迁移学习和图像分类项目。
+风格像图像网格、卷积核滑动和模型演进路线结合，直观、清晰。
+文字不是主体；标准术语保留英文，例如 MLP、CNN、kernel、feature map、ResNet、transfer learning。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-rnn-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RNN 序列模型章节关系图",
+        "suggested_page": "docs/ch06-deep-learning/ch04-rnn/00-roadmap.md",
+        "alt": "RNN 序列模型章节关系图：序列顺序、隐藏状态、RNN、LSTM/GRU 和序列建模实战逐步连接。",
+        "prompt": """
+一张适合 RNN 与序列模型导读页的章节关系图，主题是“顺序本身就是信息”。
+画面表现静态输入进入序列输入，时间步逐个展开，hidden state 边读边记，再连接到 RNN、LSTM/GRU、序列建模实战，并为 Attention 铺路。
+风格像时间轴、记忆流和模型结构结合，温和、清晰。
+文字不是主体；标准术语保留英文，例如 sequence、time step、hidden state、RNN、LSTM、GRU。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Transformer 章节关系图",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/00-roadmap.md",
+        "alt": "Transformer 章节关系图：RNN 痛点、Attention、Q/K/V、Self-Attention、Transformer 模块、BERT/GPT 和大模型逐步连接。",
+        "prompt": """
+一张适合 Transformer 导读页的章节关系图，主题是“序列建模从顺序传递走向全局关联”。
+画面表现 RNN 在长距离依赖和并行训练上遇到瓶颈，Attention 让每个位置直接关注相关位置，Q/K/V 拆解角色，Self-Attention 汇聚上下文，最后堆叠成 Transformer 并连接 BERT、GPT 和 LLM。
+风格像序列 token 星图和模块架构图结合，清楚、有历史过渡感。
+文字不是主体；标准术语保留英文，例如 RNN、Attention、Q/K/V、Self-Attention、Transformer、BERT、GPT、LLM。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-global-context-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Transformer 全局上下文建模图",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/00-roadmap.md",
+        "alt": "Transformer 全局上下文建模图：输入序列经过词向量和位置编码，Self-Attention 建立位置关系，前馈网络、残差和归一化稳定训练，堆叠成 Transformer。",
+        "prompt": """
+一张适合 Transformer 学习主线的全局上下文图，主题是“每个 token 都能看向相关 token”。
+画面表现输入序列变成 embedding 和 positional encoding，进入 Self-Attention 建立全局关系，再经过 feed-forward、residual、LayerNorm，多个 block 堆叠形成 Transformer，支撑预训练语言模型。
+风格像 token 网络和深度模块堆叠结合，强调关系、上下文和稳定训练。
+文字不是主体；标准术语和变量保留英文，例如 token、embedding、positional encoding、Self-Attention、FFN、residual、LayerNorm。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-generative-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "生成模型章节关系图",
+        "suggested_page": "docs/ch06-deep-learning/ch06-generative/00-roadmap.md",
+        "alt": "生成模型章节关系图：从分类预测转向生成新样本，GAN 对抗式生成和 VAE 潜空间生成组成两条经典路线。",
+        "prompt": """
+一张适合生成模型导读页的章节关系图，主题是“从判对走向生成得像”。
+画面表现前面模型主要做分类、回归和表示学习，随后转向学习数据分布并生成新样本；分成两条路线：VAE 的 latent space、sampling、decoder，GAN 的 generator 和 discriminator 对抗训练。
+风格像创作工作室和模型实验台结合，清晰、有探索感。
+文字不是主体；标准术语保留英文，例如 VAE、latent space、sampling、GAN、generator、discriminator。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-training-tips-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "深度学习训练技巧章节关系图",
+        "suggested_page": "docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md",
+        "alt": "深度学习训练技巧章节关系图：模型能跑起来后，通过超参数调优、训练监控诊断和模型压缩走向稳定训练与落地。",
+        "prompt": """
+一张适合训练技巧导读页的章节关系图，主题是“从能训练走到会排障、会迭代、会落地”。
+画面表现模型已经能跑起来后，进入 hyperparameter tuning、training monitoring、diagnosis、model compression 和部署准备，像一条深度学习工程排障路线。
+风格像训练控制台、曲线监控和工具箱结合，实用、清晰。
+文字不是主体；标准术语保留英文，例如 learning rate、batch size、loss curve、overfitting、compression、quantization。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-projects-portfolio-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "深度学习项目作品集路线图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/00-roadmap.md",
+        "alt": "深度学习项目作品集路线图：图像分类、文本情感分析和生成模型项目连接到训练曲线、错误分析和作品集输出。",
+        "prompt": """
+一张适合深度学习项目导读页的作品集路线图，主题是“项目不是代码跑完，而是训练过程可解释”。
+画面表现神经网络、PyTorch、CNN、RNN、Transformer 和生成模型汇入三个项目：图像分类、文本情感分析、生成模型实战；最后输出训练曲线、错误样例、模型报告和作品集材料。
+风格像项目看板和实验记录台结合，专业但新手友好。
+文字不是主体；标准术语保留英文，例如 PyTorch、CNN、Transformer、loss curve、report、portfolio。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-deep-learning-project-cycle.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "深度学习项目训练复盘闭环图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/00-roadmap.md",
+        "alt": "深度学习项目训练复盘闭环图：任务定义、数据集准备、DataLoader、模型结构、训练循环、验证评估、调整数据模型超参数、保存模型和作品集输出。",
+        "prompt": """
+一张适合深度学习项目章的训练复盘闭环图，主题是“数据、模型、训练、验证和错误分析循环”。
+画面表现任务定义进入数据集准备和 DataLoader，模型结构进入 training loop，验证评估后根据表现调整数据、模型和超参数；如果表现足够好，就保存模型、展示样例、输出 README 和作品集。
+风格像实验循环和发布流程结合，帮助新人形成可复现项目意识。
+文字不是主体；标准术语保留英文，例如 DataLoader、training loop、validation、checkpoint、README。其他说明可用少量中文短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch10-computer-vision.png",
         "size": "1536x1024",
         "quality": "medium",

@@ -20,13 +20,7 @@ keywords: [PyTorch, tensor, 张量, shape, broadcasting, numpy]
 
 这一节不要把它看成“PyTorch 语法表”，更适合的理解顺序是：
 
-```mermaid
-flowchart LR
-    A["真实数据"] --> B["变成 Tensor"]
-    B --> C["看 shape 和 dtype"]
-    C --> D["做索引、变形、运算"]
-    D --> E["后面送进模型"]
-```
+![PyTorch Tensor 生命周期图](/img/course/ch06-pytorch-tensor-lifecycle-map.png)
 
 也就是说，这一节真正要打稳的是：
 

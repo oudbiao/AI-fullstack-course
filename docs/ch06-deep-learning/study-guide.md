@@ -13,14 +13,7 @@ keywords: [深度学习学习指南, PyTorch 怎么学, CNN 怎么学, Transform
 
 深度学习要抓住一条主线：数据进入网络，前向传播得到输出，损失函数衡量差距，反向传播计算梯度，优化器更新参数。
 
-```mermaid
-flowchart LR
-  A[数据] --> B[模型前向传播]
-  B --> C[计算损失]
-  C --> D[反向传播]
-  D --> E[优化器更新]
-  E --> F[评估与调参]
-```
+![深度学习学习指南训练闭环](/img/course/ch06-study-guide-training-loop.png)
 
 ## 推荐学习顺序
 

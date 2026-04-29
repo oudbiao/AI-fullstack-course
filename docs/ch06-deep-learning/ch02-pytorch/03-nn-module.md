@@ -20,16 +20,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 
 这节最重要的不是记住多少类名，而是看清：
 
-```mermaid
-flowchart LR
-    A["Tensor"] --> B["Layer: Linear / ReLU"]
-    B --> C["Module: 把层组织起来"]
-    C --> D["forward(): 定义数据怎么流"]
-    D --> E["parameters(): 把参数交给优化器"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![nn.Module 参数组织流程图](/img/course/ch06-nn-module-parameter-flow.png)
 
 所以这一节真正解决的是：
 

@@ -137,6 +137,24 @@
 | `ml-study-loop.png` | 机器学习学习循环图 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习循环图：先跑 baseline，再解释结果、做错误分析、改特征和复盘。 |
 | `ml-task-checklist.png` | 机器学习通关任务清单图 | `docs/ch05-machine-learning/task-list.md` | 机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。 |
 | `ch06-deep-learning.png` | 深度学习与 Transformer 主视觉 | `docs/ch06-deep-learning/index.md` | 深度学习与 Transformer 主视觉：张量、训练循环、CNN、RNN、Attention 和 Transformer 串成学习路径。 |
+| `ch06-learning-quest-map.png` | 深度学习学习闯关地图 | `docs/ch06-deep-learning/index.md` | 深度学习学习闯关地图：张量、前向传播、损失、反向传播、优化器、CNN、序列模型、Attention 和 Transformer 逐步连接。 |
+| `ch06-training-loop-backbone.png` | 深度学习训练闭环主线图 | `docs/ch06-deep-learning/index.md` | 深度学习训练闭环主线图：神经网络基础、PyTorch 训练闭环、CNN、RNN、Attention、Transformer 和大模型基础逐步连接。 |
+| `ch06-study-guide-training-loop.png` | 深度学习学习指南训练闭环 | `docs/ch06-deep-learning/study-guide.md` | 深度学习学习指南训练闭环：数据、模型前向传播、损失、反向传播、优化器更新、评估和调参组成学习主线。 |
+| `ch06-nn-basics-chapter-flow.png` | 神经网络基础章节关系图 | `docs/ch06-deep-learning/ch01-nn-basics/00-roadmap.md` | 神经网络基础章节关系图：神经元、激活函数、前向反向传播、优化器、正则化和初始化逐步连接。 |
+| `ch06-ml-to-dl-bridge-map.png` | 从机器学习到深度学习桥接图 | `docs/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge.md` | 从机器学习到深度学习桥接图：经典机器学习的任务、baseline 和评估，过渡到深度学习的自动表示学习和训练闭环。 |
+| `ch06-weight-init-signal-stability-map.png` | 权重初始化信号稳定图 | `docs/ch06-deep-learning/ch01-nn-basics/05-weight-init.md` | 权重初始化信号稳定图：初始化太小导致信号衰减，初始化太大导致梯度爆炸或激活饱和，合适初始化让前向信号和反向梯度稳定。 |
+| `ch06-pytorch-chapter-flow.png` | PyTorch 章节关系图 | `docs/ch06-deep-learning/ch02-pytorch/00-roadmap.md` | PyTorch 章节关系图：Tensor、Autograd、nn.Module、DataLoader、Training Loop 和实践技巧组成最小工程闭环。 |
+| `ch06-sklearn-to-pytorch-shift-map.png` | sklearn 到 PyTorch 换挡图 | `docs/ch06-deep-learning/ch02-pytorch/00-sklearn-to-pytorch-bridge.md` | sklearn 到 PyTorch 换挡图：sklearn 的 fit 和 predict 被拆成 Tensor、模型、loss、backward、optimizer step 和评估。 |
+| `ch06-pytorch-tensor-lifecycle-map.png` | PyTorch Tensor 生命周期图 | `docs/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md` | PyTorch Tensor 生命周期图：真实数据变成 Tensor，检查 shape 和 dtype，完成索引、变形和运算，再送进模型。 |
+| `ch06-nn-module-parameter-flow.png` | nn.Module 参数组织流程图 | `docs/ch06-deep-learning/ch02-pytorch/03-nn-module.md` | nn.Module 参数组织流程图：Tensor 进入 Layer，Layer 被 Module 组织，forward 定义数据流，parameters 交给优化器更新。 |
+| `ch06-cnn-chapter-flow.png` | CNN 章节关系图 | `docs/ch06-deep-learning/ch03-cnn/00-roadmap.md` | CNN 章节关系图：图像空间结构、卷积、CNN 结构、经典架构、迁移学习和图像分类项目逐步连接。 |
+| `ch06-rnn-chapter-flow.png` | RNN 序列模型章节关系图 | `docs/ch06-deep-learning/ch04-rnn/00-roadmap.md` | RNN 序列模型章节关系图：序列顺序、隐藏状态、RNN、LSTM/GRU 和序列建模实战逐步连接。 |
+| `ch06-transformer-chapter-flow.png` | Transformer 章节关系图 | `docs/ch06-deep-learning/ch05-transformer/00-roadmap.md` | Transformer 章节关系图：RNN 痛点、Attention、Q/K/V、Self-Attention、Transformer 模块、BERT/GPT 和大模型逐步连接。 |
+| `ch06-transformer-global-context-map.png` | Transformer 全局上下文建模图 | `docs/ch06-deep-learning/ch05-transformer/00-roadmap.md` | Transformer 全局上下文建模图：输入序列经过词向量和位置编码，Self-Attention 建立位置关系，前馈网络、残差和归一化稳定训练，堆叠成 Transformer。 |
+| `ch06-generative-chapter-flow.png` | 生成模型章节关系图 | `docs/ch06-deep-learning/ch06-generative/00-roadmap.md` | 生成模型章节关系图：从分类预测转向生成新样本，GAN 对抗式生成和 VAE 潜空间生成组成两条经典路线。 |
+| `ch06-training-tips-chapter-flow.png` | 深度学习训练技巧章节关系图 | `docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md` | 深度学习训练技巧章节关系图：模型能跑起来后，通过超参数调优、训练监控诊断和模型压缩走向稳定训练与落地。 |
+| `ch06-projects-portfolio-loop.png` | 深度学习项目作品集路线图 | `docs/ch06-deep-learning/ch08-projects/00-roadmap.md` | 深度学习项目作品集路线图：图像分类、文本情感分析和生成模型项目连接到训练曲线、错误分析和作品集输出。 |
+| `ch06-deep-learning-project-cycle.png` | 深度学习项目训练复盘闭环图 | `docs/ch06-deep-learning/ch08-projects/00-roadmap.md` | 深度学习项目训练复盘闭环图：任务定义、数据集准备、DataLoader、模型结构、训练循环、验证评估、调整数据模型超参数、保存模型和作品集输出。 |
 | `ch10-computer-vision.png` | 计算机视觉主视觉 | `docs/ch10-computer-vision/index.md` | 计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。 |
 | `ch11-nlp.png` | 自然语言处理主视觉 | `docs/ch11-nlp/index.md` | 自然语言处理主视觉：文本经过分词、词向量、分类、序列标注和预训练模型处理。 |
 | `ch07-llm-principles.png` | 大模型原理主视觉 | `docs/ch07-llm-principles/index.md` | 大模型原理主视觉：Token、Embedding、Transformer、预训练、Prompt、微调和对齐组成能力链路。 |

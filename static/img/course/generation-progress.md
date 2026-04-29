@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 267 / 267
+Generated with image2: 285 / 285
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -15,6 +15,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 5 章说明：目录 `docs/ch05-machine-learning` 下原有 22 张机器学习补充图已经用 image2 生成；本轮新增 24 张真实 PNG，用于替换机器学习首页、学习指南、基础概念、监督学习、无监督学习、模型评估、特征工程和项目实战页面的入口学习地图。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 6～9 章说明：目录 `docs/ch06-deep-learning`、`docs/ch07-llm-principles`、`docs/ch08-rag`、`docs/ch09-agent` 下新增的 25 张机制图、流程图和系统图已经用 image2 生成，并插入到对应核心教程页面。
+
+第 6 章补充说明：目录 `docs/ch06-deep-learning` 本轮新增 18 张入口学习地图已经用 image2 覆盖临时 Preview PNG，并插入到首页、学习指南、神经网络基础、PyTorch、CNN、RNN、Transformer、生成模型、训练技巧和项目实战页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 10～12 章说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 下新增的 15 张视觉、NLP、多模态与 AIGC 流程图已经用 image2 生成，并插入到对应核心教程页面。
 
@@ -55,6 +57,24 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch04-gradient-parameter-knobs-map.png`
 - `ch04-gradient-descent-iteration-loop.png`
 - `ch04-backprop-chain-rule-training-bridge.png`
+- `ch06-learning-quest-map.png`
+- `ch06-training-loop-backbone.png`
+- `ch06-study-guide-training-loop.png`
+- `ch06-nn-basics-chapter-flow.png`
+- `ch06-ml-to-dl-bridge-map.png`
+- `ch06-weight-init-signal-stability-map.png`
+- `ch06-pytorch-chapter-flow.png`
+- `ch06-sklearn-to-pytorch-shift-map.png`
+- `ch06-pytorch-tensor-lifecycle-map.png`
+- `ch06-nn-module-parameter-flow.png`
+- `ch06-cnn-chapter-flow.png`
+- `ch06-rnn-chapter-flow.png`
+- `ch06-transformer-chapter-flow.png`
+- `ch06-transformer-global-context-map.png`
+- `ch06-generative-chapter-flow.png`
+- `ch06-training-tips-chapter-flow.png`
+- `ch06-projects-portfolio-loop.png`
+- `ch06-deep-learning-project-cycle.png`
 - `ch05-machine-learning.png`
 - `ch05-learning-quest-map.png`
 - `ch05-modeling-loop-backbone.png`

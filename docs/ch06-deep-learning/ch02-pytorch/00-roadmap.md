@@ -22,14 +22,7 @@ keywords: [PyTorch导读, tensor, autograd, nn.Module, DataLoader, training loop
 
 ## 这一章的主线
 
-```mermaid
-flowchart LR
-    A["Tensor"] --> B["Autograd"]
-    B --> C["nn.Module"]
-    C --> D["DataLoader"]
-    D --> E["Training Loop"]
-    E --> F["实践技巧"]
-```
+![PyTorch 章节关系图](/img/course/ch06-pytorch-chapter-flow.png)
 
 学完这一章后，你应该能自己把一个最小深度学习训练流程搭起来。
 
@@ -100,4 +93,3 @@ flowchart LR
 这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
 
 如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
-

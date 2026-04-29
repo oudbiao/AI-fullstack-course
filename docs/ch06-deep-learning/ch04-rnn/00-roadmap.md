@@ -20,27 +20,13 @@ keywords: [RNN导读, LSTM, GRU, 序列建模]
 
 更稳的理解方式是：
 
-```mermaid
-flowchart LR
-    A["MLP / CNN 更擅长静态输入"] --> B["序列里，顺序本身就是信息"]
-    B --> C["RNN 开始引入隐藏状态<br/>边读边记"]
-    C --> D["再进入 LSTM / GRU 和序列项目"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style C fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![RNN 序列模型章节关系图](/img/course/ch06-rnn-chapter-flow.png)
 
 所以这一章真正新增的核心，是：
 
 > **模型开始显式处理“过去的信息如何流到现在”。**
 
 ## 这一章的主线
-
-```mermaid
-flowchart LR
-    A["RNN 基础"] --> B["LSTM / GRU"]
-    B --> C["序列建模实战"]
-```
 
 ## 这一章更适合新人的学习顺序
 
@@ -101,4 +87,3 @@ flowchart LR
 这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
 
 如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
-

@@ -24,12 +24,7 @@ keywords: [权重初始化, Xavier, Glorot, He, Kaiming, 梯度消失, 梯度爆
 
 初始化这节最容易让新人觉得“像额外细节”，但它其实直接关系到模型能不能顺利开始学。
 
-```mermaid
-flowchart LR
-    A["初始化太小"] --> B["信号衰减"]
-    A2["初始化太大"] --> B2["梯度爆炸 / 激活饱和"]
-    C["合适初始化"] --> D["前向信号和反向梯度都更稳定"]
-```
+![权重初始化信号稳定图](/img/course/ch06-weight-init-signal-stability-map.png)
 
 这节真正想解决的是：
 

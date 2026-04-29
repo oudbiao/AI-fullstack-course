@@ -65,19 +65,7 @@ pred = model.predict(X_test)
 
 ## 二、把两者放在一张图里看
 
-```mermaid
-flowchart LR
-    A["数据 X, y"] --> B["模型"]
-    B --> C["预测值"]
-    C --> D["损失函数"]
-    D --> E["参数更新"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style D fill:#ffebee,stroke:#c62828,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
+![sklearn 到 PyTorch 换挡图](/img/course/ch06-sklearn-to-pytorch-shift-map.png)
 
 - 在 `sklearn` 里，这条链路大多被包进了 `fit()`
 - 在 `PyTorch` 里，这条链路会完整暴露出来
