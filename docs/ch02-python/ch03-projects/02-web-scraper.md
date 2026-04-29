@@ -19,6 +19,16 @@ description: "学习使用 Python 抓取和解析网页数据"
 
 ---
 
+## 一图读懂：爬虫最小流程
+
+```mermaid
+flowchart LR
+  A["发送 HTTP 请求"] --> B["拿到 HTML"]
+  B --> C["解析目标内容"]
+  C --> D["清洗成结构化数据"]
+  D --> E["保存到 CSV 或 JSON"]
+```
+
 ## 项目简介
 
 网络爬虫（Web Scraper）是一个**自动从网页上提取数据**的程序。比如：

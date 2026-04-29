@@ -12,6 +12,24 @@ keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型AP
 
 ---
 
+## 新人先装什么
+
+```mermaid
+flowchart LR
+  A["Python 3.11"] --> B["VS Code"]
+  B --> C["Git"]
+  C --> D["Miniconda"]
+  D --> E["Jupyter"]
+  E --> F["后续按章节补库"]
+```
+
+| 阶段 | 环境策略 |
+|---|---|
+| 1～5 站 | 普通电脑即可，先把 Python、VS Code、Git、Miniconda 配好 |
+| 6 站以后 | 需要深度学习时再考虑 Colab、云 GPU 或本地 GPU |
+| 8～9 站 | 重点补 API Key、向量库、日志和环境变量 |
+| 12 站 | 按多模态项目需要再补图像、音频、视频工具 |
+
 ## 硬件要求
 
 ### 1～5 学习站（工具 + Python + 数据分析 + 数学 + ML）

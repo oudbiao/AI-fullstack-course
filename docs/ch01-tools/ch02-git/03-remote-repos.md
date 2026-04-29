@@ -6,6 +6,8 @@ description: "将代码推送到 GitHub，学会远程协作"
 
 # 远程仓库
 
+![Git 本地远程同步图](/img/course/ch01-git-remote-sync.png)
+
 ## 本节定位
 
 这一节把本地 Git 仓库连接到 GitHub。你会理解远程仓库为什么同时承担备份、协作和作品集展示三种作用，并学会用 push、pull、clone 把代码同步到云端。

@@ -19,6 +19,16 @@ description: "了解 Python 语言的特点、应用领域和开发环境"
 
 ---
 
+## 一图读懂：Python 会一路用在哪里
+
+```mermaid
+flowchart LR
+  A["写小脚本"] --> B["处理文件和数据"]
+  B --> C["训练或调用模型"]
+  C --> D["封装 API"]
+  D --> E["构建 RAG 和 Agent"]
+```
+
 ## 为什么学 Python？
 
 如果编程语言是工具，那 Python 就是**瑞士军刀**——什么都能干，而且上手简单。

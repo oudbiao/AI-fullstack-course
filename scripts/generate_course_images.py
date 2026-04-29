@@ -139,6 +139,89 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch01-task-list-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "开发者工具阶段任务链",
+        "suggested_page": "docs/ch01-tools/task-list.md",
+        "alt": "开发者工具阶段任务链：终端、项目目录、Python 环境、编辑器、Git 和远程仓库串成完整工作流。",
+        "prompt": """
+一张适合开发者工具入门课程的教学插图，主题是“从空项目到可复现仓库的任务链”。
+画面表现六个清晰环节：打开终端、创建项目目录、配置 Python 环境、用编辑器写代码、用 Git 保存版本、推送到远程仓库。
+风格清爽、工程化、新手友好，像一张课程闯关路线图；用图标和箭头表达，不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-cli-automation-workflow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "命令行自动化工作流图",
+        "suggested_page": "docs/ch01-tools/ch01-terminal/01-why-cli.md",
+        "alt": "命令行自动化工作流图：命令行把文件操作、环境管理、脚本运行、远程服务器和 Git 自动化串起来。",
+        "prompt": """
+一张适合命令行入门课程的教学插图，主题是“命令行为什么是开发者的自动化控制台”。
+画面表现一个终端窗口连接到文件目录、Python 环境、脚本运行、远程服务器、Git 提交和批处理任务，形成一条可重复执行的自动化链路。
+重点让新手看懂：命令行不是黑盒，而是把重复操作变成可保存、可复制、可自动化的流程。
+风格现代开发者工作台，清晰、友好、科技感适中；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-package-manager-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "包管理器安装依赖流程图",
+        "suggested_page": "docs/ch01-tools/ch01-terminal/03-package-managers.md",
+        "alt": "包管理器安装依赖流程图：输入安装命令后，包管理器查找软件、下载依赖、安装并统一更新。",
+        "prompt": """
+一张适合包管理器入门课程的教学插图，主题是“包管理器是开发者版应用商店”。
+画面表现用户输入安装命令，包管理器从软件仓库查找工具，自动下载软件和依赖，安装到系统，并支持后续更新和卸载。
+可以用货架、包裹、下载箭头、依赖积木和终端窗口表达，但不要出现真实品牌 logo，不要生成具体文字，不要出现乱码小字。
+风格简洁、明亮、适合新人理解 Homebrew、apt、winget、pip、conda 的共同思想。
+""".strip(),
+    },
+    {
+        "filename": "ch01-git-daily-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Git 日常最小循环图",
+        "suggested_page": "docs/ch01-tools/ch02-git/02-core-operations.md",
+        "alt": "Git 日常最小循环图：修改文件、查看状态、查看差异、暂存、提交和回看历史。",
+        "prompt": """
+一张适合 Git 入门课程的教学图，主题是“Git 每天的最小工作循环”。
+画面表现开发者修改文件后，依次经过查看状态、查看差异、放入暂存区、提交版本、回看历史这几个步骤，形成一个循环。
+重点突出工作区、暂存区、版本历史之间的流动关系，新手一眼能看懂 add、commit、status、diff、log 的位置。
+风格清晰、工程图解、蓝绿色科技教育风；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-git-remote-sync.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Git 本地远程同步图",
+        "suggested_page": "docs/ch01-tools/ch02-git/03-remote-repos.md",
+        "alt": "Git 本地远程同步图：本地仓库通过 push、pull、clone 和 GitHub 远程仓库同步。",
+        "prompt": """
+一张适合 Git 远程仓库入门课程的教学图，主题是“本地仓库和远程仓库如何同步”。
+画面表现一台本地电脑上的代码仓库，与云端远程仓库之间通过上传、拉取、克隆三种方向箭头同步；另一台电脑可以从远程仓库克隆项目。
+重点表达远程仓库既是备份，也是协作和作品集展示位置。
+风格清晰、现代、适合新手理解 push、pull、clone 和 SSH key；不要出现真实品牌 logo，不要生成具体文字，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-vscode-workspace-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "VS Code 项目工作流图",
+        "suggested_page": "docs/ch01-tools/ch03-devenv/02-vscode.md",
+        "alt": "VS Code 项目工作流图：打开项目文件夹、选择解释器、编辑代码、内置终端运行、调试并提交到 Git。",
+        "prompt": """
+一张适合 VS Code 入门课程的教学插图，主题是“VS Code 是项目工作台，不只是文本编辑器”。
+画面表现 VS Code 工作区连接项目文件树、Python 解释器选择、代码编辑区、内置终端、调试面板和 Git 变更列表。
+重点让新手看懂：要打开整个项目文件夹、选择正确解释器、用内置终端运行代码、查看 Git 改动。
+风格像清爽的开发者桌面和界面示意结合，不要出现真实品牌 logo，不要生成具体文字，不要出现乱码小字。
+""".strip(),
+    },
+    {
         "filename": "ch02-python-foundation.png",
         "size": "1536x1024",
         "quality": "medium",

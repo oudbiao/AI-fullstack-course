@@ -6,6 +6,8 @@ description: "把 VS Code 配置成趁手的 AI 开发工具"
 
 # VS Code 配置
 
+![VS Code 项目工作流图](/img/course/ch01-vscode-workspace-flow.png)
+
 ## 本节定位
 
 这一节把 VS Code 配成适合 Python 和 AI 学习的开发工具。你会完成编辑器安装、扩展配置、内置终端和常用快捷键设置，让后面的代码练习有一个稳定、顺手的工作环境。

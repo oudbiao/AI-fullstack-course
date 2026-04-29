@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 181 / 181
+Generated with image2: 187 / 187
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -22,7 +22,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 附录说明：目录 `docs/appendix` 下新增的 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。
 
-第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 15 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。
+第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 21 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。其中第 1 章本轮新增 6 张真实 PNG，用于替换任务单、命令行、包管理器、Git 核心操作、远程仓库和 VS Code 页面的文字流程入口。
 
 学习地图说明：目录 `docs/intro` 下新增的 8 张能力地图、现代技术栈、学习路线、四条主线、卡点诊断、项目作品集、角色路线和毕业项目闭环图已经用 image2 生成，并插入到对应导览页面。
 
@@ -187,6 +187,12 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `appendix-course-numbering-map.png`
 - `appendix-visual-enhancement-kanban.png`
 - `ch01-terminal-path-command-map.png`
+- `ch01-task-list-workflow.png`
+- `ch01-cli-automation-workflow.png`
+- `ch01-package-manager-flow.png`
+- `ch01-git-daily-loop.png`
+- `ch01-git-remote-sync.png`
+- `ch01-vscode-workspace-flow.png`
 - `ch01-python-env-stack.png`
 - `ch01-git-branch-collaboration.png`
 - `ch01-jupyter-kernel-state.png`

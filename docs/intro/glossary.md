@@ -9,6 +9,24 @@ keywords: [AI术语表, AI全栈, RAG术语, Agent术语, 机器学习术语]
 
 这份术语表不是用来背诵的，而是在你阅读课程时遇到陌生词，可以快速查“它是什么意思、第一次应该在哪里理解、容易和什么混淆”。如果一个概念暂时看不懂，先知道它解决什么问题，再回到对应章节补细节。
 
+## 查词路径
+
+```mermaid
+flowchart LR
+  A["遇到陌生词"] --> B["先看所属类别"]
+  B --> C["读一句简明解释"]
+  C --> D["回到推荐章节"]
+  D --> E["在项目里用一次"]
+```
+
+| 你看到的词 | 先查哪一类 |
+|---|---|
+| 终端、Git、API、JSON | 开发基础 |
+| 特征、标签、baseline、过拟合 | 数据与机器学习 |
+| Loss、Embedding、Attention、Token | 深度学习与大模型基础 |
+| Prompt、RAG、Chunk、Citation | LLM、Prompt 与 RAG |
+| Agent、Tool、Trace、Guardrails | Agent 与工程化 |
+
 ## 开发基础
 
 | 术语 | 简明解释 | 第一次推荐理解位置 |

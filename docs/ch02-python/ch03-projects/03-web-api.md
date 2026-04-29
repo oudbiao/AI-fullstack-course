@@ -19,6 +19,16 @@ description: "使用 FastAPI 构建你的第一个 Web API"
 
 ---
 
+## 一图读懂：Web API 的请求响应
+
+```mermaid
+flowchart LR
+  A["客户端发送请求"] --> B["FastAPI 路由接收"]
+  B --> C["函数处理业务逻辑"]
+  C --> D["返回 JSON 响应"]
+  D --> E["客户端展示或继续处理"]
+```
+
 ## 为什么 AI 工程师需要会写 API？
 
 你训练了一个很棒的 AI 模型——然后呢？

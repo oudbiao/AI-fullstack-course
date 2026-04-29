@@ -12,6 +12,12 @@
 | `boss-challenge-map.png` | 课程 Boss 战挑战地图 | `docs/intro/boss-challenge-map.md` | 课程 Boss 战挑战地图：工作台守门人、JSON 地牢管理员、脏数据侦探、引用幻觉龙和无限循环魔王。 |
 | `debug-detective-missions.png` | Debug 侦探任务集 | `docs/intro/debug-detective-missions.md` | Debug 侦探任务集：学习者像侦探一样收集线索、定位错误并写下修复记录。 |
 | `ch01-tools-foundation.png` | 开发者工具基础主视觉 | `docs/ch01-tools/index.md` | 开发者工具基础主视觉：终端、Git、编辑器和 Python 环境组成稳定工作台。 |
+| `ch01-task-list-workflow.png` | 开发者工具阶段任务链 | `docs/ch01-tools/task-list.md` | 开发者工具阶段任务链：终端、项目目录、Python 环境、编辑器、Git 和远程仓库串成完整工作流。 |
+| `ch01-cli-automation-workflow.png` | 命令行自动化工作流图 | `docs/ch01-tools/ch01-terminal/01-why-cli.md` | 命令行自动化工作流图：命令行把文件操作、环境管理、脚本运行、远程服务器和 Git 自动化串起来。 |
+| `ch01-package-manager-flow.png` | 包管理器安装依赖流程图 | `docs/ch01-tools/ch01-terminal/03-package-managers.md` | 包管理器安装依赖流程图：输入安装命令后，包管理器查找软件、下载依赖、安装并统一更新。 |
+| `ch01-git-daily-loop.png` | Git 日常最小循环图 | `docs/ch01-tools/ch02-git/02-core-operations.md` | Git 日常最小循环图：修改文件、查看状态、查看差异、暂存、提交和回看历史。 |
+| `ch01-git-remote-sync.png` | Git 本地远程同步图 | `docs/ch01-tools/ch02-git/03-remote-repos.md` | Git 本地远程同步图：本地仓库通过 push、pull、clone 和 GitHub 远程仓库同步。 |
+| `ch01-vscode-workspace-flow.png` | VS Code 项目工作流图 | `docs/ch01-tools/ch03-devenv/02-vscode.md` | VS Code 项目工作流图：打开项目文件夹、选择解释器、编辑代码、内置终端运行、调试并提交到 Git。 |
 | `ch02-python-foundation.png` | Python 编程基础主视觉 | `docs/ch02-python/index.md` | Python 编程基础主视觉：变量、函数、数据结构和小项目逐步组成程序。 |
 | `ch03-data-visualization.png` | 数据分析与可视化主视觉 | `docs/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
 | `ch04-ai-math.png` | AI 数学基础主视觉 | `docs/ch04-ai-math/index.md` | AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。 |

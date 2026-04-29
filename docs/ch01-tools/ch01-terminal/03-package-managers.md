@@ -6,6 +6,8 @@ description: "用包管理器安装系统软件和开发工具"
 
 # 包管理器
 
+![包管理器安装依赖流程图](/img/course/ch01-package-manager-flow.png)
+
 ## 本节定位
 
 这一节解决的是“开发工具怎么安装和更新”。你会把包管理器理解成开发者版应用商店，学会根据自己的操作系统选择 Homebrew、winget、apt 等工具，为后续安装 Git、Python、数据库和部署工具打基础。
