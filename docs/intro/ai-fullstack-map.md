@@ -7,6 +7,8 @@ keywords: [AI全栈, 能力地图, AI学习路线, LLM应用, RAG, AI Agent]
 
 # AI 全栈能力地图
 
+![AI 全栈能力总地图](/img/course/intro-ai-fullstack-capability-map.png)
+
 学习 AI 最容易迷路的原因，是你会同时看到 Python、数学、机器学习、深度学习、Transformer、Prompt、RAG、Agent、MCP、向量数据库、微调、部署、安全等大量名词。它们不是平铺关系，而是一层一层叠起来的能力。
 
 这门课把 AI 全栈能力分成七层：开发基础、数据能力、模型基础、大模型理解、应用开发、Agent 系统、工程化与拓展方向。

@@ -2441,6 +2441,118 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 不要出现真实品牌 logo，不要生成密集小字或乱码文字。
 """.strip(),
     },
+    {
+        "filename": "intro-ai-fullstack-capability-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 全栈能力总地图",
+        "suggested_page": "docs/intro/ai-fullstack-map.md",
+        "alt": "AI 全栈能力总地图：开发基础、数据能力、模型基础、大模型理解、应用开发、Agent 系统和工程化方向逐层展开。",
+        "prompt": """
+一张适合 AI 全栈课程导览页的能力地图图，主题是“AI 全栈能力从基础到应用逐层叠加”。
+画面表现七层能力：开发基础、数据能力、数学与模型基础、深度学习与大模型理解、RAG 应用开发、Agent 系统、工程化与方向拓展。
+每层用清晰图标表达，像一张从地基到塔顶的学习结构图，强调能力之间不是平铺，而是逐层支撑。
+风格现代、清晰、适合新人建立全局方向感；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "intro-modern-ai-stack-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "现代 AI 应用技术栈全景图",
+        "suggested_page": "docs/intro/modern-ai-stack.md",
+        "alt": "现代 AI 应用技术栈全景图：模型、RAG、Agent、多模态、模型工程、评估、监控和部署组成真实 AI 系统。",
+        "prompt": """
+一张适合 2025-2026 AI 应用技术导览的全景图，主题是“现代 AI 应用不只是调用一个模型”。
+画面表现用户入口、模型 API、本地模型、RAG 知识库、Agent 工具调用、多模态输入输出、评估体系、监控日志、部署运维和安全护栏。
+重点突出 RAGOps、AgentOps、LLMOps 的系统化视角，让新人看到真实 AI 产品由多个层次组合。
+风格像现代技术架构地图，专业但不压迫；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "intro-learning-path-selection.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "推荐学习路线选择图",
+        "suggested_page": "docs/intro/learning-path.md",
+        "alt": "推荐学习路线选择图：根据应用开发、模型理解、作品集或时间投入选择不同学习深度。",
+        "prompt": """
+一张适合 AI 课程推荐学习路线页面的选择图，主题是“先选主线，再逐步补分支”。
+画面表现一个学习者站在路线选择牌前，三条主路线分别通向 AI 应用工程、模型原理理解、项目作品集交付；旁边有 4 周、8 周、12 周节奏选项。
+重点表达不需要第一次推平所有内容，而是先跑通闭环，再按目标补深度。
+风格温暖、清晰、像学习路线导航图；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "intro-four-main-routes-subway.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "四条主线学习路线地铁图",
+        "suggested_page": "docs/intro/main-learning-routes.md",
+        "alt": "四条主线学习路线地铁图：零基础全栈、已有开发经验、数据模型方向和作品集冲刺路线在关键章节交汇。",
+        "prompt": """
+一张适合“四条主线学习路线”页面的地铁线路图，主题是“同一套课程可以按目标走不同主线”。
+画面表现四条彩色路线：零基础全栈 AI 应用、已有开发经验转 AI、数据科学与模型理解、作品集冲刺；线路在 Python、数据分析、机器学习、RAG、Agent、毕业项目等站点交汇。
+重点表达路线可以不同，但关键能力站点会交叉汇合。
+风格像高质量地铁路线图和课程地图结合，清晰、有方向感；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "intro-blocker-diagnosis-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "学习卡点诊断分流图",
+        "suggested_page": "docs/intro/blocker-diagnosis-map.md",
+        "alt": "学习卡点诊断分流图：从环境、代码、数学、模型、RAG、Agent 和项目表达等卡点回流到对应课程章节。",
+        "prompt": """
+一张适合学习卡点诊断地图页面的分流图，主题是“卡住时先判断是哪一层能力缺口”。
+画面表现中心问题“我卡住了”分流到环境依赖、代码调试、数学概念、模型训练、RAG 检索、Agent 工具、项目表达七类卡点，每类连接到回看章节和最小复现实验。
+重点表达卡住不是失败，而是定位能力层并回流补课。
+风格像温和的故障诊断控制台，清晰、鼓励、新人友好；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "intro-project-portfolio-roadmap.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "项目作品集成长阶梯图",
+        "suggested_page": "docs/intro/project-roadmap.md",
+        "alt": "项目作品集成长阶梯图：从命令行小工具、数据分析、机器学习、RAG、Agent 到毕业项目逐步形成作品集。",
+        "prompt": """
+一张适合 AI 项目路线与作品集页面的成长阶梯图，主题是“每个阶段都留下一个可展示项目”。
+画面表现学习者沿着项目阶梯升级：命令行小工具、网页采集、数据分析报告、机器学习模型、RAG 知识库、Agent 工具流、毕业项目作品集。
+每一级都有输入、处理、输出和评估的小图标，强调项目不是炫技，而是可运行、可解释、可展示。
+风格明亮、行动感强、适合作品集导览页；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "intro-role-based-paths-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "角色路线选择地图",
+        "suggested_page": "docs/intro/role-based-paths.md",
+        "alt": "角色路线选择地图：AI 应用工程师、RAG 工程师、Agent 开发者、模型工程方向和作品集求职者对应不同学习重点。",
+        "prompt": """
+一张适合角色路线选择页面的职业导向地图，主题是“按目标角色调整精读和项目重点”。
+画面表现五个目标角色：AI 应用工程师、RAG 工程师、Agent 开发者、模型工程方向、作品集求职者；每个角色连接到不同能力模块和代表项目。
+重点表达不是跳过基础，而是围绕目标角色决定哪些章节精读、哪些快读、哪些项目重点打磨。
+风格专业、清爽、像职业路线咨询图；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "intro-graduation-project-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "毕业项目闭环设计图",
+        "suggested_page": "docs/intro/graduation-project-guide.md",
+        "alt": "毕业项目闭环设计图：需求、数据、模型、系统、评估、部署和复盘组成可展示的 AI 全栈毕业项目。",
+        "prompt": """
+一张适合 AI 全栈毕业项目设计指南的闭环图，主题是“毕业项目从需求到交付是一条完整闭环”。
+画面表现需求定义、数据与知识库、模型或 API、RAG/Agent 系统、前端或接口、评估与失败案例、部署与日志、作品集展示八个环节闭合。
+重点表达毕业项目不是更大的练习，而是能说明问题、方案、评估、失败和迭代的完整作品。
+风格像产品蓝图和工程交付看板结合，清晰、有完成感；不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
 ]
 
 

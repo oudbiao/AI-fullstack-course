@@ -179,3 +179,11 @@
 | `ch03-numpy-broadcasting-vectorization.png` | NumPy 广播与向量化运算图 | `docs/ch03-data-analysis/ch02-numpy/04-operations.md` | NumPy 广播与向量化运算图：小数组沿维度自动扩展，批量运算替代手写循环。 |
 | `ch03-pandas-groupby-split-apply-combine.png` | Pandas GroupBy 分组聚合流程图 | `docs/ch03-data-analysis/ch03-pandas/06-groupby.md` | Pandas GroupBy 分组聚合流程图：原始表先按字段拆分，再分别聚合，最后组合成结果表。 |
 | `ch03-multi-source-analysis-architecture.png` | 多数据源整合分析架构图 | `docs/ch03-data-analysis/ch06-projects/02-multi-source-analysis.md` | 多数据源整合分析架构图：CSV、Excel、数据库和 API 数据经过清洗、对齐、合并、分析和报告输出。 |
+| `intro-ai-fullstack-capability-map.png` | AI 全栈能力总地图 | `docs/intro/ai-fullstack-map.md` | AI 全栈能力总地图：开发基础、数据能力、模型基础、大模型理解、应用开发、Agent 系统和工程化方向逐层展开。 |
+| `intro-modern-ai-stack-map.png` | 现代 AI 应用技术栈全景图 | `docs/intro/modern-ai-stack.md` | 现代 AI 应用技术栈全景图：模型、RAG、Agent、多模态、模型工程、评估、监控和部署组成真实 AI 系统。 |
+| `intro-learning-path-selection.png` | 推荐学习路线选择图 | `docs/intro/learning-path.md` | 推荐学习路线选择图：根据应用开发、模型理解、作品集或时间投入选择不同学习深度。 |
+| `intro-four-main-routes-subway.png` | 四条主线学习路线地铁图 | `docs/intro/main-learning-routes.md` | 四条主线学习路线地铁图：零基础全栈、已有开发经验、数据模型方向和作品集冲刺路线在关键章节交汇。 |
+| `intro-blocker-diagnosis-flow.png` | 学习卡点诊断分流图 | `docs/intro/blocker-diagnosis-map.md` | 学习卡点诊断分流图：从环境、代码、数学、模型、RAG、Agent 和项目表达等卡点回流到对应课程章节。 |
+| `intro-project-portfolio-roadmap.png` | 项目作品集成长阶梯图 | `docs/intro/project-roadmap.md` | 项目作品集成长阶梯图：从命令行小工具、数据分析、机器学习、RAG、Agent 到毕业项目逐步形成作品集。 |
+| `intro-role-based-paths-map.png` | 角色路线选择地图 | `docs/intro/role-based-paths.md` | 角色路线选择地图：AI 应用工程师、RAG 工程师、Agent 开发者、模型工程方向和作品集求职者对应不同学习重点。 |
+| `intro-graduation-project-loop.png` | 毕业项目闭环设计图 | `docs/intro/graduation-project-guide.md` | 毕业项目闭环设计图：需求、数据、模型、系统、评估、部署和复盘组成可展示的 AI 全栈毕业项目。 |

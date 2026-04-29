@@ -7,6 +7,8 @@ keywords: [现代AI应用, RAGOps, AgentOps, MCP, LLMOps, 多模态AI, AI工程]
 
 # 2025-2026 AI 应用技术地图
 
+![现代 AI 应用技术栈全景图](/img/course/intro-modern-ai-stack-map.png)
+
 ## 本节定位
 
 这一页是整套课程后半段的“现代技术总览”。你会看到 2025～2026 年 AI 应用工程的主线已经从“会调用大模型”升级为“能构建可检索、可行动、可评估、可监控、可部署的 AI 系统”。

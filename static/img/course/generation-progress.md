@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 173 / 173
+Generated with image2: 181 / 181
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -23,6 +23,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 附录说明：目录 `docs/appendix` 下新增的 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。
 
 第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 15 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。
+
+学习地图说明：目录 `docs/intro` 下新增的 8 张能力地图、现代技术栈、学习路线、四条主线、卡点诊断、项目作品集、角色路线和毕业项目闭环图已经用 image2 生成，并插入到对应导览页面。
 
 ## Completed
 
@@ -199,6 +201,14 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch03-numpy-broadcasting-vectorization.png`
 - `ch03-pandas-groupby-split-apply-combine.png`
 - `ch03-multi-source-analysis-architecture.png`
+- `intro-ai-fullstack-capability-map.png`
+- `intro-modern-ai-stack-map.png`
+- `intro-learning-path-selection.png`
+- `intro-four-main-routes-subway.png`
+- `intro-blocker-diagnosis-flow.png`
+- `intro-project-portfolio-roadmap.png`
+- `intro-role-based-paths-map.png`
+- `intro-graduation-project-loop.png`
 
 ## Remaining
 
