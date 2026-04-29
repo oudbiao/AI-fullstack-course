@@ -7,6 +7,8 @@ keywords: [AI product design, product thinking, evaluation, cost, UX, product st
 
 # AI 产品设计思维
 
+![AI 产品决策四象限图](/img/course/elective-ai-product-decision-matrix.png)
+
 :::tip 本节定位
 AI 产品最容易犯的一个错误是：
 

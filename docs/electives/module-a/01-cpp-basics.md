@@ -7,6 +7,8 @@ keywords: [C++, basics, vector, reference, function, class, deployment]
 
 # C++ 编程基础
 
+![C++ 运行与内存模型图](/img/course/elective-cpp-runtime-memory.png)
+
 :::tip 本节定位
 很多做 AI 应用的同学平时更熟悉 Python。  
 但一旦进入模型部署、推理服务、边缘设备或高性能模块，就很容易碰到 C++。

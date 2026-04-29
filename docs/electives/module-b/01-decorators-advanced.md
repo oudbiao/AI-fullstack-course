@@ -7,6 +7,8 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 # 装饰器高级用法
 
+![Python 装饰器执行流程图](/img/course/elective-python-decorator-flow.png)
+
 :::tip 本节定位
 很多人第一次学装饰器时，印象停留在：
 

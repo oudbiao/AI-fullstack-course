@@ -7,6 +7,8 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 # 模型服务化
 
+![模型服务化架构图](/img/course/elective-model-serving-architecture.png)
+
 :::tip 本节定位
 “把模型跑起来”和“把模型服务化”是两件不同的事。
 

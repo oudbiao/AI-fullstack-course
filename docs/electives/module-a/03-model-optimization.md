@@ -7,6 +7,8 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 # 模型优化技术
 
+![模型优化路线图](/img/course/elective-model-optimization-map.png)
+
 :::tip 本节定位
 模型优化最容易被讲成一堆名词：
 

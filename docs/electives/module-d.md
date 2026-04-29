@@ -7,6 +7,8 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 # AI 安全与红队测试
 
+![AI 安全红队闭环图](/img/course/elective-ai-security-red-team-loop.png)
+
 :::tip 本节定位
 很多团队会把安全理解成：
 

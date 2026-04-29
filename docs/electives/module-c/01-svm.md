@@ -7,6 +7,8 @@ keywords: [SVM, support vector machine, max margin, kernel, classification, clas
 
 # 支持向量机
 
+![SVM 最大间隔与支持向量图](/img/course/elective-svm-margin-support-vectors.png)
+
 :::tip 本节定位
 SVM 不是“过时算法”。  
 在很多中小数据任务里，它仍然是很强的基线，特别是：

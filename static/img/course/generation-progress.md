@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 136 / 136
+Generated with image2: 148 / 148
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -17,6 +17,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 6～9 章说明：目录 `docs/ch06-deep-learning`、`docs/ch07-llm-principles`、`docs/ch08-rag`、`docs/ch09-agent` 下新增的 25 张机制图、流程图和系统图已经用 image2 生成，并插入到对应核心教程页面。
 
 第 10～12 章说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 下新增的 15 张视觉、NLP、多模态与 AIGC 流程图已经用 image2 生成，并插入到对应核心教程页面。
+
+选修模块说明：目录 `docs/electives` 下新增的 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。
 
 ## Completed
 
@@ -156,6 +158,18 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `stable-diffusion-components.png`
 - `video-audio-generation-pipeline.png`
 - `creative-platform-workflow.png`
+- `elective-cpp-runtime-memory.png`
+- `elective-model-optimization-map.png`
+- `elective-inference-engine-hardware.png`
+- `elective-model-serving-architecture.png`
+- `elective-python-decorator-flow.png`
+- `elective-asyncio-concurrency-control.png`
+- `elective-svm-margin-support-vectors.png`
+- `elective-knn-neighbor-voting.png`
+- `elective-naive-bayes-evidence.png`
+- `elective-ai-security-red-team-loop.png`
+- `elective-ai-frontend-stack.png`
+- `elective-ai-product-decision-matrix.png`
 
 ## Remaining
 

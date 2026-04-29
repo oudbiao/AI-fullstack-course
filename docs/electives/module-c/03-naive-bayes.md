@@ -7,6 +7,8 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 # 朴素贝叶斯
 
+![朴素贝叶斯证据累积图](/img/course/elective-naive-bayes-evidence.png)
+
 :::tip 本节定位
 朴素贝叶斯最容易被误解成：
 

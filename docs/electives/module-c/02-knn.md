@@ -7,6 +7,8 @@ keywords: [KNN, k-nearest neighbors, distance metric, lazy learning, classificat
 
 # K 近邻
 
+![KNN 邻居投票图](/img/course/elective-knn-neighbor-voting.png)
+
 :::tip 本节定位
 KNN 是特别适合建立直觉的一类算法。  
 它几乎没有复杂训练过程，核心想法非常直接：

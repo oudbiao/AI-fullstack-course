@@ -7,6 +7,8 @@ keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 
 # Web 前端基础速成
 
+![AI 前端交互栈图](/img/course/elective-ai-frontend-stack.png)
+
 :::tip 本节定位
 很多 AI 功能其实不是做不出来，而是“没有好界面承接”。  
 用户真正接触到的，通常不是模型本身，而是：

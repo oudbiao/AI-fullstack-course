@@ -142,3 +142,15 @@
 | `stable-diffusion-components.png` | Stable Diffusion 组件架构图 | `docs/ch12-multimodal/ch02-image-gen/02-stable-diffusion.md` | Stable Diffusion 组件架构图：文本编码器、U-Net、VAE 和 Scheduler 协作完成图像生成。 |
 | `video-audio-generation-pipeline.png` | 视频与语音生成流水线图 | `docs/ch12-multimodal/ch03-video-gen/01-video-generation.md` | 视频与语音生成流水线图：脚本、分镜、关键帧、视频生成、TTS 和后期合成组成内容生产流程。 |
 | `creative-platform-workflow.png` | AI 创意内容平台工作流图 | `docs/ch12-multimodal/ch05-projects/01-creative-platform.md` | AI 创意内容平台工作流图：用户需求经过素材管理、生成、审核、版本管理和导出形成完整产品闭环。 |
+| `elective-cpp-runtime-memory.png` | C++ 运行与内存模型图 | `docs/electives/module-a/01-cpp-basics.md` | C++ 运行与内存模型图：源码经过编译生成程序，栈、堆、对象、引用共同影响部署代码行为。 |
+| `elective-model-optimization-map.png` | 模型优化路线图 | `docs/electives/module-a/03-model-optimization.md` | 模型优化路线图：量化、剪枝、蒸馏、算子融合和批处理分别优化大小、速度、成本和稳定性。 |
+| `elective-inference-engine-hardware.png` | 推理引擎与硬件适配图 | `docs/electives/module-a/04-inference-engines.md` | 推理引擎与硬件适配图：模型通过推理引擎适配 CPU、GPU、NPU 和边缘设备，影响延迟与吞吐。 |
+| `elective-model-serving-architecture.png` | 模型服务化架构图 | `docs/electives/module-a/06-model-serving.md` | 模型服务化架构图：请求入口、队列、批处理、模型执行器、版本路由和监控组成线上推理系统。 |
+| `elective-python-decorator-flow.png` | Python 装饰器执行流程图 | `docs/electives/module-b/01-decorators-advanced.md` | Python 装饰器执行流程图：装饰器把日志、计时、重试等横切逻辑包裹在原函数外层。 |
+| `elective-asyncio-concurrency-control.png` | asyncio 并发控制流程图 | `docs/electives/module-b/03-concurrency.md` | asyncio 并发控制流程图：多个异步任务通过事件循环、并发上限、超时和取消机制稳定执行。 |
+| `elective-svm-margin-support-vectors.png` | SVM 最大间隔与支持向量图 | `docs/electives/module-c/01-svm.md` | SVM 最大间隔与支持向量图：支持向量决定分界线，最大间隔让分类边界更稳。 |
+| `elective-knn-neighbor-voting.png` | KNN 邻居投票图 | `docs/electives/module-c/02-knn.md` | KNN 邻居投票图：新样本根据距离找到最近 K 个邻居，用多数投票决定类别。 |
+| `elective-naive-bayes-evidence.png` | 朴素贝叶斯证据累积图 | `docs/electives/module-c/03-naive-bayes.md` | 朴素贝叶斯证据累积图：多个特征像证据一样累积，更新每个类别的后验概率。 |
+| `elective-ai-security-red-team-loop.png` | AI 安全红队闭环图 | `docs/electives/module-d.md` | AI 安全红队闭环图：威胁建模、攻击样本、评估统计、修复和回归测试形成持续安全闭环。 |
+| `elective-ai-frontend-stack.png` | AI 前端交互栈图 | `docs/electives/module-e.md` | AI 前端交互栈图：HTML、CSS、JavaScript、fetch、加载态和错误态共同把模型能力变成可体验产品。 |
+| `elective-ai-product-decision-matrix.png` | AI 产品决策四象限图 | `docs/electives/module-f.md` | AI 产品决策四象限图：用户价值、成本、风险和体验共同决定一个 AI 功能是否值得做。 |

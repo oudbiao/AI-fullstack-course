@@ -7,6 +7,8 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 # 并发编程（含 asyncio）
 
+![asyncio 并发控制流程图](/img/course/elective-asyncio-concurrency-control.png)
+
 :::tip 本节定位
 并发编程在 Python 里最容易被学成“API 记忆题”。  
 但对工程来说，更重要的问题其实是：

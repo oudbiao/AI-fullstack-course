@@ -1903,6 +1903,174 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 不要出现真实品牌 logo，不要生成密集小字或乱码文字。
 """.strip(),
     },
+    {
+        "filename": "elective-cpp-runtime-memory.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "C++ 运行与内存模型图",
+        "suggested_page": "docs/electives/module-a/01-cpp-basics.md",
+        "alt": "C++ 运行与内存模型图：源码经过编译生成程序，栈、堆、对象、引用共同影响部署代码行为。",
+        "prompt": """
+一张适合 C++ 与模型部署选修课的教学图，主题是“C++ 从源码到运行时内存”。
+画面表现 C++ 源码经过编译器生成可执行程序，运行时有栈、堆、对象、引用、vector 和函数调用之间的关系。
+重点突出 Python 背景学习者最容易卡住的编译、类型、对象生命周期和拷贝成本，风格清晰、工程化。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-model-optimization-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型优化路线图",
+        "suggested_page": "docs/electives/module-a/03-model-optimization.md",
+        "alt": "模型优化路线图：量化、剪枝、蒸馏、算子融合和批处理分别优化大小、速度、成本和稳定性。",
+        "prompt": """
+一张适合模型部署课程的教学路线图，主题是“模型优化不是只有压缩模型”。
+画面表现五条优化路线：量化、剪枝、蒸馏、算子融合、批处理与调度，并分别连接到模型大小、延迟、吞吐、成本和精度影响。
+重点突出优化需要看瓶颈、指标和业务约束，风格专业、清晰、像工程决策白板。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-inference-engine-hardware.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "推理引擎与硬件适配图",
+        "suggested_page": "docs/electives/module-a/04-inference-engines.md",
+        "alt": "推理引擎与硬件适配图：模型通过推理引擎适配 CPU、GPU、NPU 和边缘设备，影响延迟与吞吐。",
+        "prompt": """
+一张适合推理引擎课程的系统图，主题是“模型、推理引擎和硬件之间的适配关系”。
+画面表现训练好的模型经过格式转换和图优化，进入 ONNX Runtime、TensorRT、OpenVINO 等推理引擎，再适配 CPU、GPU、NPU 和边缘设备。
+重点突出没有绝对最强引擎，选择取决于硬件、延迟、吞吐、维护复杂度，风格工程化、清晰。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-model-serving-architecture.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型服务化架构图",
+        "suggested_page": "docs/electives/module-a/06-model-serving.md",
+        "alt": "模型服务化架构图：请求入口、队列、批处理、模型执行器、版本路由和监控组成线上推理系统。",
+        "prompt": """
+一张适合模型服务化课程的架构图，主题是“线上模型服务不只是包一层 API”。
+画面表现请求入口、鉴权限流、任务队列、动态批处理器、模型执行器、版本路由、健康检查、日志监控和指标看板。
+重点突出延迟、吞吐、错误率、批处理效率和模型版本管理，风格清晰、生产系统架构感。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-python-decorator-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 装饰器执行流程图",
+        "suggested_page": "docs/electives/module-b/01-decorators-advanced.md",
+        "alt": "Python 装饰器执行流程图：装饰器把日志、计时、重试等横切逻辑包裹在原函数外层。",
+        "prompt": """
+一张适合 Python 进阶课程的教学图，主题是“装饰器如何包裹函数执行”。
+画面表现原函数被日志、计时、重试、权限检查等装饰器逐层包裹，请求进入外层包装函数，再调用原函数并返回结果。
+重点突出 wraps、带参数装饰器、横切逻辑复用和过度嵌套风险，风格清爽、工程感强。
+不要出现真实品牌 logo，不要生成密集代码或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-asyncio-concurrency-control.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "asyncio 并发控制流程图",
+        "suggested_page": "docs/electives/module-b/03-concurrency.md",
+        "alt": "asyncio 并发控制流程图：多个异步任务通过事件循环、并发上限、超时和取消机制稳定执行。",
+        "prompt": """
+一张适合 Python asyncio 课程的教学图，主题是“异步并发不是越多越好”。
+画面表现事件循环调度多个 I/O 任务，使用 semaphore 控制并发上限，用 timeout 和 cancellation 处理慢任务，同时保护上游 API。
+重点突出等待、并发、限流、超时、取消和错误收集的关系，风格清晰、像工程运行时仪表盘。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-svm-margin-support-vectors.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "SVM 最大间隔与支持向量图",
+        "suggested_page": "docs/electives/module-c/01-svm.md",
+        "alt": "SVM 最大间隔与支持向量图：支持向量决定分界线，最大间隔让分类边界更稳。",
+        "prompt": """
+一张适合经典机器学习课程的教学图，主题是“SVM 找最大间隔分类边界”。
+画面表现两类样本点、分界超平面、两侧 margin 和贴在边界附近的支持向量；旁边用曲线投影暗示核技巧把非线性问题变得可分。
+重点突出支持向量、最大间隔、特征缩放和核方法直觉，风格清晰、数学直觉强。
+不要出现真实品牌 logo，不要生成复杂公式或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-knn-neighbor-voting.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "KNN 邻居投票图",
+        "suggested_page": "docs/electives/module-c/02-knn.md",
+        "alt": "KNN 邻居投票图：新样本根据距离找到最近 K 个邻居，用多数投票决定类别。",
+        "prompt": """
+一张适合 KNN 课程的教学图，主题是“邻居投票如何决定新样本类别”。
+画面表现一个新样本点周围有不同类别的邻居，K=3 和 K=9 两个圆圈展示不同 K 值会改变投票结果。
+重点突出距离度量、特征缩放、K 值大小和计算成本，风格直观、清晰、适合新人理解。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-naive-bayes-evidence.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "朴素贝叶斯证据累积图",
+        "suggested_page": "docs/electives/module-c/03-naive-bayes.md",
+        "alt": "朴素贝叶斯证据累积图：多个特征像证据一样累积，更新每个类别的后验概率。",
+        "prompt": """
+一张适合朴素贝叶斯课程的教学图，主题是“特征证据如何累积成分类概率”。
+画面表现一封文本或样本被拆成多个特征，每个特征像证据卡片一样给不同类别加权，最终形成后验概率柱状图。
+重点突出先验、似然、后验、条件独立假设和文本分类直觉，风格像侦探证据板但保持专业。
+不要出现真实品牌 logo，不要生成复杂公式或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-ai-security-red-team-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 安全红队闭环图",
+        "suggested_page": "docs/electives/module-d.md",
+        "alt": "AI 安全红队闭环图：威胁建模、攻击样本、评估统计、修复和回归测试形成持续安全闭环。",
+        "prompt": """
+一张适合 AI 安全课程的流程图，主题是“红队测试和安全修复闭环”。
+画面表现资产识别、攻击面分析、红队样本生成、模型和系统链路测试、失败模式统计、修复策略、回归测试集沉淀。
+重点突出安全不是一次规则检查，而是持续评估和修复，风格稳重、系统安全架构感。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-ai-frontend-stack.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 前端交互栈图",
+        "suggested_page": "docs/electives/module-e.md",
+        "alt": "AI 前端交互栈图：HTML、CSS、JavaScript、fetch、加载态和错误态共同把模型能力变成可体验产品。",
+        "prompt": """
+一张适合 AI 前端基础课程的教学图，主题是“AI 产品页面由哪些前端部分组成”。
+画面表现 HTML 负责结构、CSS 负责外观、JavaScript 负责交互，fetch 调用后端或 AI API，并展示加载态、错误态、结果区和用户反馈按钮。
+重点突出前端不只是装饰层，而是让模型能力可见、可控、可恢复的体验层，风格现代、清晰。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "elective-ai-product-decision-matrix.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 产品决策四象限图",
+        "suggested_page": "docs/electives/module-f.md",
+        "alt": "AI 产品决策四象限图：用户价值、成本、风险和体验共同决定一个 AI 功能是否值得做。",
+        "prompt": """
+一张适合 AI 产品设计课程的决策图，主题是“AI 产品功能值不值得做”。
+画面用四象限或雷达图表现用户价值、实现成本、风险、可体验性四个维度，多个候选功能被放到评估板上排序。
+重点突出不要从模型能力出发，而要从用户问题、成本、风险和体验闭环出发，风格产品策略感、清晰专业。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
 ]
 
 

@@ -7,6 +7,8 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 # 推理引擎
 
+![推理引擎与硬件适配图](/img/course/elective-inference-engine-hardware.png)
+
 :::tip 本节定位
 训练好的模型并不会自动变成高性能线上服务。  
 中间往往还隔着一层非常关键的系统组件：
