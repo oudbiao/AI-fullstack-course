@@ -154,3 +154,28 @@
 | `elective-ai-security-red-team-loop.png` | AI 安全红队闭环图 | `docs/electives/module-d.md` | AI 安全红队闭环图：威胁建模、攻击样本、评估统计、修复和回归测试形成持续安全闭环。 |
 | `elective-ai-frontend-stack.png` | AI 前端交互栈图 | `docs/electives/module-e.md` | AI 前端交互栈图：HTML、CSS、JavaScript、fetch、加载态和错误态共同把模型能力变成可体验产品。 |
 | `elective-ai-product-decision-matrix.png` | AI 产品决策四象限图 | `docs/electives/module-f.md` | AI 产品决策四象限图：用户价值、成本、风险和体验共同决定一个 AI 功能是否值得做。 |
+| `appendix-ai-milestones-timeline.png` | AI 历史接力赛时间线图 | `docs/appendix/ai-milestones.md` | AI 历史接力赛时间线图：概率推断、神经网络、经典机器学习、深度学习、大模型、Agent 和多模态依次接力。 |
+| `appendix-troubleshooting-rescue-map.png` | 学习卡点排障地图 | `docs/appendix/troubleshooting.md` | 学习卡点排障地图：环境、代码、训练、显存、项目拆解和学习焦虑对应不同排查路径。 |
+| `appendix-hardware-cloud-decision-tree.png` | 硬件与云资源决策树 | `docs/appendix/hardware.md` | 硬件与云资源决策树：先看学习阶段和任务，再决定本地电脑、云 GPU、API 或硬件升级。 |
+| `appendix-job-prep-funnel.png` | 求职准备漏斗图 | `docs/appendix/job-prep.md` | 求职准备漏斗图：岗位定位、项目选择、README 打磨、简历表达、面试复盘逐步收敛。 |
+| `appendix-continuous-learning-flywheel.png` | 持续学习三层飞轮图 | `docs/appendix/continuous-learning.md` | 持续学习三层飞轮图：基础学习、项目学习和前沿跟踪互相推动，形成长期学习节奏。 |
+| `appendix-resource-selection-funnel.png` | 资源选择漏斗图 | `docs/appendix/resources.md` | 资源选择漏斗图：先学主线课程，遇到卡点再补外部资源，最后回到项目验证。 |
+| `appendix-faq-decision-tree.png` | FAQ 新人问题分流树 | `docs/appendix/faq.md` | FAQ 新人问题分流树：数学、GPU、阶段选择、学习时间、项目、论文和求职问题各自分流。 |
+| `appendix-project-quick-reference-map.png` | AI 项目速查总览图 | `docs/appendix/resource-quick-ref.md` | AI 项目速查总览图：环境命令、baseline、评估指标、训练信号、RAG、Agent 和 Prompt 串成项目检查地图。 |
+| `appendix-course-numbering-map.png` | 展示章节号与源码目录对应地图 | `docs/appendix/course-numbering.md` | 展示章节号与源码目录对应地图：网页第 1 到第 12 章分别对应 docs/ch01 到 docs/ch12 源码目录。 |
+| `appendix-visual-enhancement-kanban.png` | 课程图片资产规划看板 | `docs/appendix/visual-enhancement-plan.md` | 课程图片资产规划看板：P0、P1、P2、P3 不同优先级图片分批规划和生成。 |
+| `ch01-terminal-path-command-map.png` | 终端路径与命令执行关系图 | `docs/ch01-tools/ch01-terminal/02-basic-operations.md` | 终端路径与命令执行关系图：当前目录、目录树、命令、参数和输出结果共同组成一次终端操作。 |
+| `ch01-python-env-stack.png` | Python 环境与依赖关系图 | `docs/ch01-tools/ch03-devenv/01-python-env.md` | Python 环境与依赖关系图：系统 Python、虚拟环境、pip、requirements 和项目代码需要保持一致。 |
+| `ch01-git-branch-collaboration.png` | Git 分支协作流程图 | `docs/ch01-tools/ch02-git/04-branches.md` | Git 分支协作流程图：从 main 分出 feature 分支，提交、合并、解决冲突并同步远程仓库。 |
+| `ch01-jupyter-kernel-state.png` | Jupyter Cell 与 Kernel 状态图 | `docs/ch01-tools/ch03-devenv/03-jupyter.md` | Jupyter Cell 与 Kernel 状态图：多个 Cell 共享同一个 Kernel，执行顺序会影响变量状态和图表输出。 |
+| `ch02-variable-object-reference.png` | 变量、对象与引用关系图 | `docs/ch02-python/ch01-basics/02-data-types.md` | 变量、对象与引用关系图：变量名像标签，指向内存中的对象，对象有类型和值。 |
+| `ch02-control-flow-paths.png` | Python 流程控制执行路径图 | `docs/ch02-python/ch01-basics/05-control-flow.md` | Python 流程控制执行路径图：if 负责分岔，for 负责遍历，while 负责条件循环，break 和 continue 改变循环路径。 |
+| `ch02-data-structures-comparison.png` | Python 数据结构对比图 | `docs/ch02-python/ch01-basics/06-data-structures.md` | Python 数据结构对比图：list、tuple、dict、set 分别适合顺序集合、不可变记录、键值映射和去重集合。 |
+| `ch02-function-call-scope.png` | 函数调用、参数与作用域图 | `docs/ch02-python/ch01-basics/07-functions.md` | 函数调用、参数与作用域图：调用函数时参数进入局部作用域，return 把结果交回调用者。 |
+| `ch02-oop-class-object-map.png` | 类、对象、属性与方法关系图 | `docs/ch02-python/ch02-advanced/01-oop.md` | 类、对象、属性与方法关系图：类像蓝图，对象是实例，属性保存状态，方法定义行为。 |
+| `ch02-exception-flow.png` | 异常处理执行流程图 | `docs/ch02-python/ch02-advanced/02-exceptions.md` | 异常处理执行流程图：try 中出错会进入 except，没有出错可进入 else，finally 总会执行清理。 |
+| `ch02-ai-api-request-response.png` | AI API 请求响应链路图 | `docs/ch02-python/ch03-projects/04-ai-api-experience.md` | AI API 请求响应链路图：用户输入经过 Python 客户端发出请求，模型返回结果，程序处理错误、重试和展示。 |
+| `ch03-numpy-array-shape-axis.png` | NumPy 数组 Shape 与 Axis 图 | `docs/ch03-data-analysis/ch02-numpy/02-array-basics.md` | NumPy 数组 Shape 与 Axis 图：一维、二维、三维数组通过 shape 和 axis 描述结构与运算方向。 |
+| `ch03-numpy-broadcasting-vectorization.png` | NumPy 广播与向量化运算图 | `docs/ch03-data-analysis/ch02-numpy/04-operations.md` | NumPy 广播与向量化运算图：小数组沿维度自动扩展，批量运算替代手写循环。 |
+| `ch03-pandas-groupby-split-apply-combine.png` | Pandas GroupBy 分组聚合流程图 | `docs/ch03-data-analysis/ch03-pandas/06-groupby.md` | Pandas GroupBy 分组聚合流程图：原始表先按字段拆分，再分别聚合，最后组合成结果表。 |
+| `ch03-multi-source-analysis-architecture.png` | 多数据源整合分析架构图 | `docs/ch03-data-analysis/ch06-projects/02-multi-source-analysis.md` | 多数据源整合分析架构图：CSV、Excel、数据库和 API 数据经过清洗、对齐、合并、分析和报告输出。 |

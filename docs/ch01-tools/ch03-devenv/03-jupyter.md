@@ -6,6 +6,8 @@ description: "掌握数据分析和 AI 实验的标配工具"
 
 # Jupyter Notebook
 
+![Jupyter Cell 与 Kernel 状态图](/img/course/ch01-jupyter-kernel-state.png)
+
 ## 本节定位
 
 这一节介绍数据分析和 AI 实验最常用的交互式环境。你会理解 Notebook 适合探索、实验和展示，`.py` 文件更适合正式项目代码，并学会创建 Cell、运行代码、写 Markdown 和画图。

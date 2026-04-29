@@ -6,6 +6,8 @@ description: "用分支安全地开发新功能，了解 Pull Request 流程"
 
 # 分支与协作
 
+![Git 分支协作流程图](/img/course/ch01-git-branch-collaboration.png)
+
 ## 本节定位
 
 这一节解释 Git 为什么能支持安全协作。你会理解分支如何让你在不破坏主线代码的情况下尝试新功能，并初步认识 Pull Request 和合并冲突，为以后参与团队项目和开源贡献做准备。

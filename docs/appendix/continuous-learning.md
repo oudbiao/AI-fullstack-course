@@ -5,6 +5,8 @@ sidebar_position: 4
 
 # AI 领域持续学习方法论
 
+![持续学习三层飞轮图](/img/course/appendix-continuous-learning-flywheel.png)
+
 AI 领域变化快，但“持续学习”不等于天天追新闻。真正有效的方法，是把基础、项目和前沿更新分层处理。
 
 ## 1. 先分清三类学习

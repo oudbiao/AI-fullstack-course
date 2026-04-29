@@ -7,6 +7,8 @@ keywords: [AI发展史, 重要论文, Transformer论文, BERT论文, GPT论文, 
 
 # AI 重要论文与算法时间线
 
+![AI 历史接力赛时间线图](/img/course/appendix-ai-milestones-timeline.png)
+
 这页不是为了让你背论文名，而是帮你建立一种更稳、更有画面感的历史感：
 
 - 这个概念是从哪里来的

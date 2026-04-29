@@ -5,6 +5,8 @@ sidebar_position: 2
 
 # 硬件与云资源指南
 
+![硬件与云资源决策树](/img/course/appendix-hardware-cloud-decision-tree.png)
+
 这页不是让你“堆配置”，而是帮你判断：在不同阶段，到底要不要买设备、什么时候租云更划算、什么配置是真的影响学习体验。
 
 ## 先看结论

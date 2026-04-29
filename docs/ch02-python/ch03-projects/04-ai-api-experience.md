@@ -6,6 +6,8 @@ description: "通过调用 AI API 体验人工智能的能力"
 
 # 项目：AI API 快速体验
 
+![AI API 请求响应链路图](/img/course/ch02-ai-api-request-response.png)
+
 ## 项目定位
 
 这个项目让你在 Python 基础阶段提前体验大模型能力。你会用 API Key 调用现成 AI 服务，理解“训练模型”和“调用模型服务”的区别，并做出一个简单的 AI 对话程序。

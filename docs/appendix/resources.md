@@ -5,6 +5,8 @@ sidebar_position: 1
 
 # 推荐学习资源
 
+![资源选择漏斗图](/img/course/appendix-resource-selection-funnel.png)
+
 这页不是“资源越多越好”，而是帮你在不同学习阶段知道：该补什么、为什么补、补到什么程度就够了。
 
 ## 1. 使用这页的正确方式

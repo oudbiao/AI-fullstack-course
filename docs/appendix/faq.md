@@ -5,6 +5,8 @@ sidebar_position: 3
 
 # 常见问题
 
+![FAQ 新人问题分流树](/img/course/appendix-faq-decision-tree.png)
+
 这一页不讲概念，而是集中回答新人最常碰到的实际问题。你可以把它当成“遇到犹豫时先翻一页”的附录。
 
 ## 1. 数学不好能学 AI 吗？

@@ -5,6 +5,8 @@ sidebar_position: 5
 
 # 学习卡点救援
 
+![学习卡点排障地图](/img/course/appendix-troubleshooting-rescue-map.png)
+
 这页的目标不是解释理论，而是帮你在“卡住的时候尽快恢复推进”。很多学习中断，不是因为太难，而是因为一个小问题拖了太久。
 
 ## 1. 先判断你卡在哪一类

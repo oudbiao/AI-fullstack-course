@@ -2071,6 +2071,376 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 不要出现真实品牌 logo，不要生成密集小字或乱码文字。
 """.strip(),
     },
+    {
+        "filename": "appendix-ai-milestones-timeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 历史接力赛时间线图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "AI 历史接力赛时间线图：概率推断、神经网络、经典机器学习、深度学习、大模型、Agent 和多模态依次接力。",
+        "prompt": """
+一张适合 AI 课程附录的历史主线图，主题是“AI 历史像一场接力赛”。
+画面从左到右表现概率推断、早期神经网络、经典机器学习、深度学习复兴、Transformer 与大模型、RAG 与 Agent、多模态与 AIGC 七个时代接力。
+每个时代用一个清晰图标表达：概率骰子、神经元、分界线、GPU 训练实验室、注意力模块、工具调用控制台、图文音视频融合。
+风格像高质量课程海报，层次清楚、适合新人建立历史感。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-troubleshooting-rescue-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "学习卡点排障地图",
+        "suggested_page": "docs/appendix/troubleshooting.md",
+        "alt": "学习卡点排障地图：环境、代码、训练、显存、项目拆解和学习焦虑对应不同排查路径。",
+        "prompt": """
+一张适合 AI 学习附录的排障地图，主题是“学习卡点救援”。
+画面表现一个学习者站在问题分叉路口，六条路径分别通向环境依赖、代码输入输出、训练不收敛、显存不足、项目无法落地、学习焦虑。
+每条路径都有对应的工具图标：终端、放大镜、loss 曲线、显存仪表、最小闭环积木、复盘笔记。
+风格温暖、鼓励、新手友好，像技术学习的救援地图。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-hardware-cloud-decision-tree.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "硬件与云资源决策树",
+        "suggested_page": "docs/appendix/hardware.md",
+        "alt": "硬件与云资源决策树：先看学习阶段和任务，再决定本地电脑、云 GPU、API 或硬件升级。",
+        "prompt": """
+一张适合 AI 入门课程的硬件决策树插图，主题是“先判断任务，再决定是否买 GPU”。
+画面表现从学习阶段和任务类型出发，分流到本地电脑、云 GPU、API 优先、本地硬件升级四种选择。
+突出内存、硬盘、稳定环境、GPU 的优先级差异，并表现“先小实验跑通，再上云训练”的理性路径。
+风格清晰、理性、科技感，不制造设备焦虑。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-job-prep-funnel.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "求职准备漏斗图",
+        "suggested_page": "docs/appendix/job-prep.md",
+        "alt": "求职准备漏斗图：岗位定位、项目选择、README 打磨、简历表达、面试复盘逐步收敛。",
+        "prompt": """
+一张适合 AI 学习者求职附录的规划图，主题是“把学习成果整理成可投递作品”。
+画面用漏斗或流水线表现：岗位定位、项目筛选、项目 README、效果截图、简历表达、面试复盘、持续改进。
+突出 2 到 3 个能讲清楚的项目比堆课程名更重要，画面专业、鼓励、行动感强。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-continuous-learning-flywheel.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "持续学习三层飞轮图",
+        "suggested_page": "docs/appendix/continuous-learning.md",
+        "alt": "持续学习三层飞轮图：基础学习、项目学习和前沿跟踪互相推动，形成长期学习节奏。",
+        "prompt": """
+一张适合 AI 持续学习方法论的飞轮图，主题是“基础、项目、前沿三层学习如何互相推动”。
+画面表现三个互相连接的环：基础能力、项目实践、前沿跟踪；周围有每日推进、每周复盘、每月总结和知识库沉淀。
+重点表达不要天天追热点，而是用项目和复盘把知识留下来。
+风格清爽、稳定、长期主义，适合课程附录。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-resource-selection-funnel.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "资源选择漏斗图",
+        "suggested_page": "docs/appendix/resources.md",
+        "alt": "资源选择漏斗图：先学主线课程，遇到卡点再补外部资源，最后回到项目验证。",
+        "prompt": """
+一张适合推荐学习资源附录的导航图，主题是“资源不是越多越好，而是服务当前卡点”。
+画面用漏斗表现：主线课程优先、识别具体卡点、选择一类外部资源、回到代码或项目验证、写一句复盘。
+可以用书本、视频、文档、代码编辑器和项目看板图标表达不同资源类型。
+风格干净、降低信息焦虑，适合新人学习路线页面。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-faq-decision-tree.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "FAQ 新人问题分流树",
+        "suggested_page": "docs/appendix/faq.md",
+        "alt": "FAQ 新人问题分流树：数学、GPU、阶段选择、学习时间、项目、论文和求职问题各自分流。",
+        "prompt": """
+一张适合 AI 新人常见问题页面的分流树插图，主题是“遇到犹豫时先判断问题类型”。
+画面表现一个中心问号分出数学基础、GPU 设备、学习阶段、每周时间、项目启动、代码报错、论文阅读、求职准备等分支。
+每个分支用直观图标表示，整体像友好的学习咨询台，帮助新人减少焦虑。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-project-quick-reference-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 项目速查总览图",
+        "suggested_page": "docs/appendix/resource-quick-ref.md",
+        "alt": "AI 项目速查总览图：环境命令、baseline、评估指标、训练信号、RAG、Agent 和 Prompt 串成项目检查地图。",
+        "prompt": """
+一张适合 AI 项目速查页的总览图，主题是“做项目时先查哪一块”。
+画面像一张项目控制台地图，包含环境命令、baseline 选择、评估指标、训练信号、RAG 检查、Agent 工具安全、Prompt 输出格式七个区域。
+强调快速定位、快速回查、回到正文深入学习，风格像专业工程看板，清晰但不拥挤。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-course-numbering-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "展示章节号与源码目录对应地图",
+        "suggested_page": "docs/appendix/course-numbering.md",
+        "alt": "展示章节号与源码目录对应地图：网页第 1 到第 12 章分别对应 docs/ch01 到 docs/ch12 源码目录。",
+        "prompt": """
+一张适合课程维护附录的编号对应关系图，主题是“网页展示章节号和源码目录如何对应”。
+画面表现左侧是学习者看到的第 1 到第 12 章课程地图，右侧是维护者看到的 docs/ch01 到 docs/ch12 目录树，中间用整齐连线对应。
+强调主线分组不是目录层级，源码目录和展示章节号已经对齐。
+风格清晰、文档工程感、适合课程维护者快速理解。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "appendix-visual-enhancement-kanban.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "课程图片资产规划看板",
+        "suggested_page": "docs/appendix/visual-enhancement-plan.md",
+        "alt": "课程图片资产规划看板：P0、P1、P2、P3 不同优先级图片分批规划和生成。",
+        "prompt": """
+一张适合课程视觉增强规划页的资产看板图，主题是“课程图片应该按理解成本优先生成”。
+画面表现一个图片资产规划看板，分为 P0 阶段首页、P1 核心概念和项目架构、P2 数学代码可视化和历史故事、P3 装饰型补充四列。
+旁边有生成脚本、manifest、页面引用和质量检查的流程线，强调图片服务理解而不是单纯装饰。
+风格专业、明亮、像课程内容生产控制台。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-terminal-path-command-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "终端路径与命令执行关系图",
+        "suggested_page": "docs/ch01-tools/ch01-terminal/02-basic-operations.md",
+        "alt": "终端路径与命令执行关系图：当前目录、目录树、命令、参数和输出结果共同组成一次终端操作。",
+        "prompt": """
+一张适合命令行入门课程的教学图，主题是“终端操作其实是在目录树里执行命令”。
+画面表现左侧是文件夹目录树，中间是终端窗口里的当前路径、命令、参数，右侧是命令执行后的文件变化或输出结果。
+重点突出 cwd 当前目录、相对路径、绝对路径、命令、参数、输出之间的关系，帮助新人理解为什么同一条命令在不同目录结果不同。
+风格清晰、友好、像开发者工作台，不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-python-env-stack.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 环境与依赖关系图",
+        "suggested_page": "docs/ch01-tools/ch03-devenv/01-python-env.md",
+        "alt": "Python 环境与依赖关系图：系统 Python、虚拟环境、pip、requirements 和项目代码需要保持一致。",
+        "prompt": """
+一张适合 Python 环境管理课程的教学图，主题是“项目、解释器、虚拟环境和依赖要对齐”。
+画面表现一个项目文件夹连接到虚拟环境，虚拟环境里有 Python 解释器和 pip 安装的依赖包，旁边有 requirements 文件作为依赖清单。
+对比一个错误场景：包安装到了别的环境，IDE 和终端使用的解释器不一致。
+风格像环境诊断仪表盘，清晰、实用、降低新人的环境焦虑。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-git-branch-collaboration.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Git 分支协作流程图",
+        "suggested_page": "docs/ch01-tools/ch02-git/04-branches.md",
+        "alt": "Git 分支协作流程图：从 main 分出 feature 分支，提交、合并、解决冲突并同步远程仓库。",
+        "prompt": """
+一张适合 Git 入门课程的分支协作图，主题是“分支让多人协作不互相干扰”。
+画面表现 main 主线、feature 分支、commit 节点、pull request 或合并点、冲突解决区和远程仓库同步。
+重点突出先拉最新、开分支、提交、合并、处理冲突、push/pull 的顺序关系。
+风格现代、清晰、适合新人理解 Git 分支不是抽象概念，而是协作安全通道。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-jupyter-kernel-state.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Jupyter Cell 与 Kernel 状态图",
+        "suggested_page": "docs/ch01-tools/ch03-devenv/03-jupyter.md",
+        "alt": "Jupyter Cell 与 Kernel 状态图：多个 Cell 共享同一个 Kernel，执行顺序会影响变量状态和图表输出。",
+        "prompt": """
+一张适合 Jupyter Notebook 入门课程的教学图，主题是“Cell 顺序和 Kernel 状态会影响运行结果”。
+画面表现多个 Notebook cell 依次或乱序执行，所有 cell 共享同一个 kernel 内存状态，变量、DataFrame、图表输出会随着执行顺序变化。
+加入重启 kernel、清空输出、重新运行全部 cell 的流程提示，用视觉方式解释为什么 Notebook 有时看起来很神秘。
+风格清爽、教育插图、像数据实验室工作台。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-variable-object-reference.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "变量、对象与引用关系图",
+        "suggested_page": "docs/ch02-python/ch01-basics/02-data-types.md",
+        "alt": "变量、对象与引用关系图：变量名像标签，指向内存中的对象，对象有类型和值。",
+        "prompt": """
+一张适合 Python 新手课程的教学图，主题是“变量名不是盒子，而是指向对象的标签”。
+画面表现变量名标签连接到内存中的对象卡片，对象卡片包含类型和值；同时展示两个变量指向同一个列表对象和重新赋值后指向新对象。
+重点突出变量名、对象、类型、值、引用、可变对象和不可变对象的直觉区别。
+风格温和、清晰、像白板课件，不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-control-flow-paths.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 流程控制执行路径图",
+        "suggested_page": "docs/ch02-python/ch01-basics/05-control-flow.md",
+        "alt": "Python 流程控制执行路径图：if 负责分岔，for 负责遍历，while 负责条件循环，break 和 continue 改变循环路径。",
+        "prompt": """
+一张适合 Python 流程控制课程的教学图，主题是“程序像沿着路径前进”。
+画面用路线图表现 if/elif/else 的分岔、for 循环遍历列表、while 根据条件重复执行，以及 break 和 continue 如何改变循环路径。
+重点让新人理解执行顺序、条件判断、循环体、退出条件和死循环风险。
+风格像程序流程游乐园地图，清晰、有趣但保持专业。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-data-structures-comparison.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 数据结构对比图",
+        "suggested_page": "docs/ch02-python/ch01-basics/06-data-structures.md",
+        "alt": "Python 数据结构对比图：list、tuple、dict、set 分别适合顺序集合、不可变记录、键值映射和去重集合。",
+        "prompt": """
+一张适合 Python 数据结构课程的对比图，主题是“list、tuple、dict、set 各自适合什么场景”。
+画面分成四个区域：list 像可增删的队列，tuple 像固定记录卡片，dict 像通过 key 查 value 的索引柜，set 像自动去重的集合圈。
+用输入数据到结构选择的方式表达：要保顺序、要不可变、要按名字查、要去重分别选什么。
+风格清晰、图标化、适合新人快速建立选择直觉。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-function-call-scope.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "函数调用、参数与作用域图",
+        "suggested_page": "docs/ch02-python/ch01-basics/07-functions.md",
+        "alt": "函数调用、参数与作用域图：调用函数时参数进入局部作用域，return 把结果交回调用者。",
+        "prompt": """
+一张适合 Python 函数基础课程的教学图，主题是“函数像一台有输入和输出的小机器”。
+画面表现调用者把参数传入函数，函数内部有局部作用域工作台，经过处理后用 return 把结果返回；旁边展示调用栈一层层进入和退出。
+重点突出参数、返回值、局部变量、全局变量、作用域、调用栈的关系。
+风格清晰、温和、像代码运行剖面图。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-oop-class-object-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "类、对象、属性与方法关系图",
+        "suggested_page": "docs/ch02-python/ch02-advanced/01-oop.md",
+        "alt": "类、对象、属性与方法关系图：类像蓝图，对象是实例，属性保存状态，方法定义行为。",
+        "prompt": """
+一张适合 Python 面向对象课程的教学图，主题是“类是蓝图，对象是按蓝图造出来的实例”。
+画面表现一个 Class 蓝图生成多个 Object 实例，每个对象有自己的属性状态，同时共享类定义的方法；可用任务、学生或机器人作为抽象示例。
+重点突出 class、instance、attribute、method、self 的直觉关系，避免复杂继承细节。
+风格像工程蓝图加教学白板，清楚、友好。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-exception-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "异常处理执行流程图",
+        "suggested_page": "docs/ch02-python/ch02-advanced/02-exceptions.md",
+        "alt": "异常处理执行流程图：try 中出错会进入 except，没有出错可进入 else，finally 总会执行清理。",
+        "prompt": """
+一张适合 Python 异常处理课程的流程图，主题是“错误发生后程序可以有控制地恢复”。
+画面表现 try 代码块正常执行或抛出异常，异常进入对应 except 分支，没有异常进入 else，最后 finally 负责关闭文件、释放资源等清理动作。
+重点突出不要吞掉错误、要保留错误信息、清理资源和用户友好提示之间的关系。
+风格像安全气囊和排障流程结合的技术图，清晰专业。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-ai-api-request-response.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI API 请求响应链路图",
+        "suggested_page": "docs/ch02-python/ch03-projects/04-ai-api-experience.md",
+        "alt": "AI API 请求响应链路图：用户输入经过 Python 客户端发出请求，模型返回结果，程序处理错误、重试和展示。",
+        "prompt": """
+一张适合 Python AI API 项目课的系统流程图，主题是“一次 AI API 调用从输入到输出发生了什么”。
+画面表现用户输入、Python 客户端、请求 payload、网络调用、AI 服务、响应结果、错误处理、重试、最终展示结果的链路。
+重点突出 API key 保护、请求参数、超时、错误处理、日志和成本意识。
+风格现代、产品工程感、适合新人第一次连接 AI 服务。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-numpy-array-shape-axis.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 数组 Shape 与 Axis 图",
+        "suggested_page": "docs/ch03-data-analysis/ch02-numpy/02-array-basics.md",
+        "alt": "NumPy 数组 Shape 与 Axis 图：一维、二维、三维数组通过 shape 和 axis 描述结构与运算方向。",
+        "prompt": """
+一张适合 NumPy 入门课程的教学图，主题是“ndarray 的 shape 和 axis 决定数据长什么样、沿哪个方向算”。
+画面表现一维数组、二维表格、三维数据块，旁边用箭头标出 axis 0、axis 1、axis 2，以及 shape 元组如何描述维度大小。
+重点突出数组不是普通列表，而是规则的多维数字容器。
+风格像数学积木和数据表结合，准确、清晰、适合新人理解。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-numpy-broadcasting-vectorization.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 广播与向量化运算图",
+        "suggested_page": "docs/ch03-data-analysis/ch02-numpy/04-operations.md",
+        "alt": "NumPy 广播与向量化运算图：小数组沿维度自动扩展，批量运算替代手写循环。",
+        "prompt": """
+一张适合 NumPy 数组运算课程的教学图，主题是“广播机制让小数组自动对齐大数组”。
+画面表现一个矩阵和一个行向量或列向量相加，小数组沿合适方向虚拟扩展后参与批量计算；旁边对比手写 for 循环和向量化运算。
+重点突出形状对齐、广播不是复制真实数据、向量化更简洁高效。
+风格清晰、数据工程感、帮助新人理解广播规则。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-pandas-groupby-split-apply-combine.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Pandas GroupBy 分组聚合流程图",
+        "suggested_page": "docs/ch03-data-analysis/ch03-pandas/06-groupby.md",
+        "alt": "Pandas GroupBy 分组聚合流程图：原始表先按字段拆分，再分别聚合，最后组合成结果表。",
+        "prompt": """
+一张适合 Pandas 分组聚合课程的教学图，主题是“GroupBy 的 split-apply-combine 三步”。
+画面表现一张原始表按类别或城市字段拆成多个小表，每组分别求和、均值或计数，最后组合成一张聚合结果表。
+重点突出分组键、聚合函数、多指标聚合和结果索引的关系。
+风格像数据加工流水线，表格清楚但不要生成密集小字。
+不要出现真实品牌 logo，不要出现乱码文字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-multi-source-analysis-architecture.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多数据源整合分析架构图",
+        "suggested_page": "docs/ch03-data-analysis/ch06-projects/02-multi-source-analysis.md",
+        "alt": "多数据源整合分析架构图：CSV、Excel、数据库和 API 数据经过清洗、对齐、合并、分析和报告输出。",
+        "prompt": """
+一张适合数据分析项目课的架构图，主题是“多数据源如何整合成一份分析报告”。
+画面表现 CSV、Excel、数据库、API 四类数据源进入数据管道，经过字段标准化、缺失值处理、主键对齐、表连接、指标计算、可视化和报告输出。
+重点突出真实项目不是只读一个文件，而是要处理来源、格式、口径和质量差异。
+风格专业、清晰、像数据项目蓝图，适合新人理解项目全貌。
+不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+""".strip(),
+    },
 ]
 
 

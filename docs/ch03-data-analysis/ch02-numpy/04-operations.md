@@ -6,6 +6,8 @@ description: "掌握向量化运算、广播机制和聚合函数"
 
 # 数组运算
 
+![NumPy 广播与向量化运算图](/img/course/ch03-numpy-broadcasting-vectorization.png)
+
 ## 学习目标
 
 - 理解向量化运算的概念和优势

@@ -5,6 +5,8 @@ sidebar_position: 7
 
 # 求职准备清单
 
+![求职准备漏斗图](/img/course/appendix-job-prep-funnel.png)
+
 这一页不是让你“学完再找工作”，而是帮你把学习过程逐步转换成能投递、能面试、能讲清楚的成果。
 
 ## 1. 先判断你想投什么岗位

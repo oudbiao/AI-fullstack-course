@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 148 / 148
+Generated with image2: 173 / 173
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -19,6 +19,10 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 10～12 章说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 下新增的 15 张视觉、NLP、多模态与 AIGC 流程图已经用 image2 生成，并插入到对应核心教程页面。
 
 选修模块说明：目录 `docs/electives` 下新增的 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。
+
+附录说明：目录 `docs/appendix` 下新增的 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。
+
+第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 15 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。
 
 ## Completed
 
@@ -170,6 +174,31 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `elective-ai-security-red-team-loop.png`
 - `elective-ai-frontend-stack.png`
 - `elective-ai-product-decision-matrix.png`
+- `appendix-ai-milestones-timeline.png`
+- `appendix-troubleshooting-rescue-map.png`
+- `appendix-hardware-cloud-decision-tree.png`
+- `appendix-job-prep-funnel.png`
+- `appendix-continuous-learning-flywheel.png`
+- `appendix-resource-selection-funnel.png`
+- `appendix-faq-decision-tree.png`
+- `appendix-project-quick-reference-map.png`
+- `appendix-course-numbering-map.png`
+- `appendix-visual-enhancement-kanban.png`
+- `ch01-terminal-path-command-map.png`
+- `ch01-python-env-stack.png`
+- `ch01-git-branch-collaboration.png`
+- `ch01-jupyter-kernel-state.png`
+- `ch02-variable-object-reference.png`
+- `ch02-control-flow-paths.png`
+- `ch02-data-structures-comparison.png`
+- `ch02-function-call-scope.png`
+- `ch02-oop-class-object-map.png`
+- `ch02-exception-flow.png`
+- `ch02-ai-api-request-response.png`
+- `ch03-numpy-array-shape-axis.png`
+- `ch03-numpy-broadcasting-vectorization.png`
+- `ch03-pandas-groupby-split-apply-combine.png`
+- `ch03-multi-source-analysis-architecture.png`
 
 ## Remaining
 

@@ -6,6 +6,8 @@ description: "掌握 groupby 分组聚合、透视表等核心操作"
 
 # 分组与聚合
 
+![Pandas GroupBy 分组聚合流程图](/img/course/ch03-pandas-groupby-split-apply-combine.png)
+
 :::tip 本节定位
 很多新人第一次学 `groupby` 时，常见感受是：
 
