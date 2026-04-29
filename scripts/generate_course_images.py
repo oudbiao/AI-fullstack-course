@@ -2435,6 +2435,244 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch08-learning-quest-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 学习闯关地图",
+        "suggested_page": "docs/ch08-rag/index.md",
+        "alt": "RAG 学习闯关地图：准备文档、切分、Embedding、向量库、检索、Prompt、生成带来源答案、评估和优化逐步连接。",
+        "prompt": """
+一张适合 LLM 应用与 RAG 首页的学习闯关地图，主题是“从资料到带来源答案”。
+画面表现准备文档、切分 Chunk、生成 Embedding、写入 vector database、retrieval、组织 Prompt、生成带来源答案、评估和优化逐步连接。
+风格像清晰的课程路线图和工程流水线结合，适合新人一眼看懂顺序。
+文字不是主体；标准术语保留英文，例如 Chunk、Embedding、vector database、retrieval、Prompt、evaluation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-system-backbone.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 应用系统主干图",
+        "suggested_page": "docs/ch08-rag/index.md",
+        "alt": "RAG 应用系统主干图：用户问题经过查询改写、向量检索、文档召回、重排、上下文拼接、LLM 生成、引用评估和日志记录。",
+        "prompt": """
+一张适合解释现代 RAG 应用的系统主干图，主题是“RAG 不是只接向量库，而是一条可调试链路”。
+画面表现用户问题进入 query rewrite，经过 vector search、document retrieval、rerank、context assembly、LLM answer，最后产生 citation、evaluation 和 logs。
+风格像产品架构图和调试链路图结合，突出每一步都可以检查。
+文字不是主体；标准术语保留英文，例如 query rewrite、vector search、rerank、context、LLM、citation、logs。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-ragops-improvement-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAGOps 持续改进闭环图",
+        "suggested_page": "docs/ch08-rag/index.md",
+        "alt": "RAGOps 持续改进闭环图：文档更新、重新解析、重建索引、固定问题评估、上线监控、失败样本、调整切分检索和效果对比形成循环。",
+        "prompt": """
+一张适合 RAGOps 章节的持续改进闭环图，主题是“知识库上线后还要持续维护质量”。
+画面表现文档更新、重新解析、重建索引、固定问题评估、上线监控、记录失败样本、调整 chunk/retrieval、比较优化效果，形成一个闭环。
+风格像运维控制台和学习反馈飞轮结合，强调版本、日志和评估。
+文字不是主体；标准术语保留英文，例如 RAGOps、index version、eval set、retrieval logs、chunk、monitoring。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-study-guide-four-layer-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 应用四层学习地图",
+        "suggested_page": "docs/ch08-rag/study-guide.md",
+        "alt": "LLM 应用四层学习地图：知识层、模型层、应用层和工程层逐步连接，形成可运行的 RAG 应用。",
+        "prompt": """
+一张适合第八章学习指南的四层学习地图，主题是“LLM 应用不是只调接口，而是四层系统”。
+画面用清晰分层表现知识层、模型层、应用层和工程层：文档与向量库、LLM 与 Embedding、对话与工具、API 日志部署评估。
+风格像课程分层地图，温和、清楚、对新人友好。
+文字不是主体；标准术语保留英文，例如 LLM、Embedding、RAG、API、logs、deployment、evaluation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-position-bridge.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 在大模型应用中的位置桥接图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/00-roadmap.md",
+        "alt": "RAG 位置桥接图：大模型原理、Prompt、微调、RAG、知识库问答、工具调用和 Agent 逐步连接。",
+        "prompt": """
+一张适合 RAG 学前导读的桥接图，主题是“从理解模型到组织应用系统”。
+画面表现 LLM 原理连接 Prompt，Prompt 连接 fine-tuning，fine-tuning 连接 RAG，RAG 连接知识库问答，再连接 tool calling 和 Agent。
+风格像学习阶段桥梁和路线图结合，帮助新人知道 RAG 在课程中的位置。
+文字不是主体；标准术语保留英文，例如 LLM、Prompt、fine-tuning、RAG、tool calling、Agent。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-core-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 核心章节学习顺序图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/00-roadmap.md",
+        "alt": "RAG 核心章节学习顺序图：最小闭环、文档解析清洗、Chunk 与元数据、Embedding 与向量库、召回过滤重排、上下文生成、评估优化逐步连接。",
+        "prompt": """
+一张适合 RAG 核心章节导读的学习顺序图，主题是“先跑通闭环，再优化每一层”。
+画面表现最小 RAG 闭环、文档解析清洗、Chunk 与 metadata、Embedding 与 vector database、召回过滤重排、context 组装与答案生成、evaluation 优化。
+风格像任务路线图和调试看板结合，帮助新人知道先学什么后学什么。
+文字不是主体；标准术语保留英文，例如 Chunk、metadata、Embedding、vector database、retrieval、rerank、context、evaluation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-data-to-answer-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 从资料到答案流水线图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/00-roadmap.md",
+        "alt": "RAG 从资料到答案流水线图：原始文档解析清洗切块向量化入库，用户问题向量化检索重排，拼接上下文后由 LLM 生成带来源答案。",
+        "prompt": """
+一张适合 RAG 导读页的完整流水线图，主题是“把资料变成可检索知识，再变成可引用答案”。
+画面分成上下两条流：上半部分是原始文档解析、清洗、chunk、embedding、index；下半部分是用户问题、query embedding、retrieval、rerank、context、LLM answer、citation。
+风格像双通道工程管线，重点突出资料端和问题端在哪里汇合。
+文字不是主体；标准术语保留英文，例如 chunk、embedding、index、query、retrieval、rerank、context、LLM answer、citation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-deployment-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型部署章节学习顺序图",
+        "suggested_page": "docs/ch08-rag/ch02-deployment/00-roadmap.md",
+        "alt": "模型部署章节学习顺序图：本地模型运行、推理服务、统一 API 入口逐步连接，让模型调用从实验变成稳定接口。",
+        "prompt": """
+一张适合模型部署导读页的章节学习顺序图，主题是“模型从实验运行到稳定服务入口”。
+画面表现本地模型运行进入 inference server，再进入 unified API，最后被 RAG、应用开发和工程监控调用。
+风格像服务化架构图，清楚表达从单机运行到可复用接口的递进关系。
+文字不是主体；标准术语保留英文，例如 local model、inference server、unified API、RAG、monitoring。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-model-serving-decision-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型服务选型决策图",
+        "suggested_page": "docs/ch08-rag/ch02-deployment/00-roadmap.md",
+        "alt": "模型服务选型决策图：效果、延迟、成本、隐私、显存、量化、路由和推理优化共同决定云端、本地或混合部署方式。",
+        "prompt": """
+一张适合模型工程精讲的选型决策图，主题是“不是永远调用最强模型，而是平衡效果、成本和约束”。
+画面中心是 model serving，周围连接 quality、latency、cost、privacy、GPU memory、quantization、routing、caching、streaming，最后分向 cloud API、local model 和 hybrid deployment。
+风格像决策罗盘和系统架构图结合，帮助新人理解部署取舍。
+文字不是主体；标准术语保留英文，例如 model serving、quality、latency、cost、privacy、quantization、routing、caching、streaming、hybrid deployment。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-app-dev-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 应用开发章节关系图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/00-roadmap.md",
+        "alt": "LLM 应用开发章节关系图：模型 API、RAG 知识库、工具函数、应用服务、对话系统、用户界面、反馈日志和评估逐步连接。",
+        "prompt": """
+一张适合 LLM 应用开发导读页的章节关系图，主题是“把一次模型调用升级成应用功能”。
+画面表现 model API、RAG knowledge base、tools/functions 汇入 application service，再连接 dialogue system、user interface、feedback、logs 和 evaluation。
+风格像产品架构图和学习路线图结合，强调模型只是应用的一层。
+文字不是主体；标准术语保留英文，例如 model API、RAG、tools、Function Calling、dialogue system、feedback、logs、evaluation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-app-dev-learning-order-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 应用开发学习顺序图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/00-roadmap.md",
+        "alt": "LLM 应用开发学习顺序图：LLM API 调用、错误处理日志、模型层 Prompt 层抽象、Function Calling、多轮对话状态、文档代码业务流程逐步连接。",
+        "prompt": """
+一张适合 LLM 应用开发章的新手学习顺序图，主题是“先把调用跑稳，再逐步接入工具和业务流程”。
+画面表现 LLM API 调用、error handling 和 logs、模型层和 Prompt 层抽象、Function Calling、多轮 dialogue state、文档处理、代码助手和业务流程逐步升级。
+风格像课程路径图和工程模块图结合，层级清楚，适合新人跟着学。
+文字不是主体；标准术语保留英文，例如 LLM API、error handling、logs、Prompt layer、Function Calling、dialogue state。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-llm-app-capability-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 应用能力闭环图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/00-roadmap.md",
+        "alt": "LLM 应用能力闭环图：用户输入、意图识别、RAG 检索、Function Calling、Prompt 组装、LLM 输出、解析校验、展示日志反馈形成闭环。",
+        "prompt": """
+一张适合应用开发主线的能力闭环图，主题是“可用的 LLM 应用必须处理输入、外部能力、输出和反馈”。
+画面表现用户输入进入 intent detection 和 context整理，分流到 RAG retrieval、Function Calling 或 direct generation，再进入 Prompt assembly、LLM output、parse/validate、display、logs、feedback。
+风格像应用状态机和调试闭环结合，清晰、工程化。
+文字不是主体；标准术语保留英文，例如 intent detection、RAG retrieval、Function Calling、Prompt assembly、LLM output、parse、validate、logs、feedback。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-engineering-chapter-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 工程化章节学习顺序图",
+        "suggested_page": "docs/ch08-rag/ch04-engineering/00-roadmap.md",
+        "alt": "LLM 工程化章节学习顺序图：异步并发、API 设计、日志监控、容器化部署逐步连接，让能跑的应用变成可维护系统。",
+        "prompt": """
+一张适合 LLM 工程化导读页的章节学习顺序图，主题是“从能跑到能上线、能排障、能维护”。
+画面表现 async/concurrency、API design、logging/monitoring、Docker deployment 逐步连接，并回到评估和告警。
+风格像工程升级路线和系统运行仪表盘结合，新手友好。
+文字不是主体；标准术语保留英文，例如 async、concurrency、API design、logging、monitoring、Docker、deployment、alert。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-llmops-trace-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLMOps Trace 复盘闭环图",
+        "suggested_page": "docs/ch08-rag/ch04-engineering/00-roadmap.md",
+        "alt": "LLMOps Trace 复盘闭环图：输入、检索、Prompt 版本、模型输出、工具结果、最终答案、耗时成本和失败样本支持排障复盘。",
+        "prompt": """
+一张适合 LLMOps 精讲的 Trace 复盘闭环图，主题是“系统答错时要能查清每一层发生了什么”。
+画面表现 user input、retrieval results、Prompt version、model output、tool result、final answer、latency、cost、failure sample 被记录成 trace，并进入 evaluation 和 rollback。
+风格像可观测性控制台和事故复盘白板结合，专业但不压迫。
+文字不是主体；标准术语保留英文，例如 trace、Prompt version、retrieval results、model output、tool result、latency、cost、evaluation、rollback。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-projects-route-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 应用综合项目路线图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/00-roadmap.md",
+        "alt": "LLM 应用综合项目路线图：文档资料、解析切分向量化、RAG 检索、LLM 调用、应用功能、日志评估错误处理、部署展示逐步连接。",
+        "prompt": """
+一张适合第八章综合项目导读页的项目路线图，主题是“把知识、模型、应用和工程做成系统”。
+画面表现文档资料进入解析切分向量化，经过 RAG retrieval 和 LLM call，形成应用功能，再补 logs、evaluation、error handling、deployment 和 demo。
+风格像作品集项目路线图和工程架构图结合，清楚、可讲解。
+文字不是主体；标准术语保留英文，例如 RAG retrieval、LLM call、logs、evaluation、error handling、deployment、demo、portfolio。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-project-learning-order-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 应用项目学习顺序图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/00-roadmap.md",
+        "alt": "LLM 应用项目学习顺序图：知识库问答、文档到答案链路、来源引用评估、智能问答助手、会话状态工具调用、RAG 微调组合和课件生成应用逐步升级。",
+        "prompt": """
+一张适合综合项目章的新手学习顺序图，主题是“先做知识库问答，再升级复杂应用”。
+画面表现先做知识库问答，跑通文档到答案链路，加入来源引用和评估样例，扩展为智能问答助手，加入 conversation state 和 tools，再尝试 RAG + fine-tuning，最后做课件生成等复杂应用。
+风格像项目升级阶梯和学习路线图结合，鼓励新人一步步完成。
+文字不是主体；标准术语保留英文，例如 conversation state、tools、RAG + fine-tuning、evaluation、courseware generation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-project-delivery-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM 应用项目交付闭环图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/00-roadmap.md",
+        "alt": "LLM 应用项目交付闭环图：用户任务、意图判断、RAG 检索或直接模型调用、结构化输出、校验引用、日志反馈、评估迭代形成作品集闭环。",
+        "prompt": """
+一张适合综合项目章的项目交付闭环图，主题是“项目不是一次生成，而是知识、模型、功能和工程的闭环”。
+画面表现用户问题或任务进入 intent 判断，需要知识时走 RAG retrieval，不需要时走 direct LLM call，再生成 structured output，进行 validation、citation、logs、feedback、evaluation iteration，最后沉淀 README 和作品集展示。
+风格像项目交付看板和系统闭环图结合，强调证据、日志和评估。
+文字不是主体；标准术语保留英文，例如 intent、RAG retrieval、direct LLM call、structured output、validation、citation、logs、feedback、evaluation、README、portfolio。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch09-agent-systems.png",
         "size": "1536x1024",
         "quality": "medium",

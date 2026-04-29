@@ -177,6 +177,23 @@
 | `ch07-projects-route-map.png` | 大模型综合项目路线图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型综合项目路线图：领域任务、Prompt baseline、失败分析、Prompt 优化、RAG、微调、评估对比和项目展示组成方案选择闭环。 |
 | `ch07-project-method-choice-loop.png` | 大模型项目方法选择闭环图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型项目方法选择闭环图：任务定义、数据样例、baseline、失败分析、方法选择、实现方案、评估对比、结论取舍和作品集输出组成项目闭环。 |
 | `ch08-rag-engineering.png` | LLM 应用与 RAG 主视觉 | `docs/ch08-rag/index.md` | LLM 应用与 RAG 主视觉：文档处理、向量库、检索、Prompt、API 和日志组成知识库系统。 |
+| `ch08-learning-quest-map.png` | RAG 学习闯关地图 | `docs/ch08-rag/index.md` | RAG 学习闯关地图：准备文档、切分、Embedding、向量库、检索、Prompt、生成带来源答案、评估和优化逐步连接。 |
+| `ch08-rag-system-backbone.png` | RAG 应用系统主干图 | `docs/ch08-rag/index.md` | RAG 应用系统主干图：用户问题经过查询改写、向量检索、文档召回、重排、上下文拼接、LLM 生成、引用评估和日志记录。 |
+| `ch08-ragops-improvement-loop.png` | RAGOps 持续改进闭环图 | `docs/ch08-rag/index.md` | RAGOps 持续改进闭环图：文档更新、重新解析、重建索引、固定问题评估、上线监控、失败样本、调整切分检索和效果对比形成循环。 |
+| `ch08-study-guide-four-layer-map.png` | LLM 应用四层学习地图 | `docs/ch08-rag/study-guide.md` | LLM 应用四层学习地图：知识层、模型层、应用层和工程层逐步连接，形成可运行的 RAG 应用。 |
+| `ch08-rag-position-bridge.png` | RAG 在大模型应用中的位置桥接图 | `docs/ch08-rag/ch01-rag/00-roadmap.md` | RAG 位置桥接图：大模型原理、Prompt、微调、RAG、知识库问答、工具调用和 Agent 逐步连接。 |
+| `ch08-rag-core-chapter-flow.png` | RAG 核心章节学习顺序图 | `docs/ch08-rag/ch01-rag/00-roadmap.md` | RAG 核心章节学习顺序图：最小闭环、文档解析清洗、Chunk 与元数据、Embedding 与向量库、召回过滤重排、上下文生成、评估优化逐步连接。 |
+| `ch08-rag-data-to-answer-pipeline.png` | RAG 从资料到答案流水线图 | `docs/ch08-rag/ch01-rag/00-roadmap.md` | RAG 从资料到答案流水线图：原始文档解析清洗切块向量化入库，用户问题向量化检索重排，拼接上下文后由 LLM 生成带来源答案。 |
+| `ch08-deployment-chapter-flow.png` | 模型部署章节学习顺序图 | `docs/ch08-rag/ch02-deployment/00-roadmap.md` | 模型部署章节学习顺序图：本地模型运行、推理服务、统一 API 入口逐步连接，让模型调用从实验变成稳定接口。 |
+| `ch08-model-serving-decision-map.png` | 模型服务选型决策图 | `docs/ch08-rag/ch02-deployment/00-roadmap.md` | 模型服务选型决策图：效果、延迟、成本、隐私、显存、量化、路由和推理优化共同决定云端、本地或混合部署方式。 |
+| `ch08-app-dev-chapter-flow.png` | LLM 应用开发章节关系图 | `docs/ch08-rag/ch03-app-dev/00-roadmap.md` | LLM 应用开发章节关系图：模型 API、RAG 知识库、工具函数、应用服务、对话系统、用户界面、反馈日志和评估逐步连接。 |
+| `ch08-app-dev-learning-order-map.png` | LLM 应用开发学习顺序图 | `docs/ch08-rag/ch03-app-dev/00-roadmap.md` | LLM 应用开发学习顺序图：LLM API 调用、错误处理日志、模型层 Prompt 层抽象、Function Calling、多轮对话状态、文档代码业务流程逐步连接。 |
+| `ch08-llm-app-capability-loop.png` | LLM 应用能力闭环图 | `docs/ch08-rag/ch03-app-dev/00-roadmap.md` | LLM 应用能力闭环图：用户输入、意图识别、RAG 检索、Function Calling、Prompt 组装、LLM 输出、解析校验、展示日志反馈形成闭环。 |
+| `ch08-engineering-chapter-flow.png` | LLM 工程化章节学习顺序图 | `docs/ch08-rag/ch04-engineering/00-roadmap.md` | LLM 工程化章节学习顺序图：异步并发、API 设计、日志监控、容器化部署逐步连接，让能跑的应用变成可维护系统。 |
+| `ch08-llmops-trace-loop.png` | LLMOps Trace 复盘闭环图 | `docs/ch08-rag/ch04-engineering/00-roadmap.md` | LLMOps Trace 复盘闭环图：输入、检索、Prompt 版本、模型输出、工具结果、最终答案、耗时成本和失败样本支持排障复盘。 |
+| `ch08-projects-route-map.png` | LLM 应用综合项目路线图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用综合项目路线图：文档资料、解析切分向量化、RAG 检索、LLM 调用、应用功能、日志评估错误处理、部署展示逐步连接。 |
+| `ch08-project-learning-order-map.png` | LLM 应用项目学习顺序图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目学习顺序图：知识库问答、文档到答案链路、来源引用评估、智能问答助手、会话状态工具调用、RAG 微调组合和课件生成应用逐步升级。 |
+| `ch08-project-delivery-loop.png` | LLM 应用项目交付闭环图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目交付闭环图：用户任务、意图判断、RAG 检索或直接模型调用、结构化输出、校验引用、日志反馈、评估迭代形成作品集闭环。 |
 | `ch09-agent-systems.png` | AI Agent 系统主视觉 | `docs/ch09-agent/index.md` | AI Agent 系统主视觉：目标、计划、工具、记忆、观察和评估组成智能体执行闭环。 |
 | `ch12-multimodal-aigc.png` | AIGC 与多模态主视觉 | `docs/ch12-multimodal/index.md` | AIGC 与多模态主视觉：文字、图像、语音、视频和审核导出组成创意工作流。 |
 | `git-four-areas.png` | Git 四区工作流图 | `docs/ch01-tools/ch02-git/01-git-basics.md` | Git 四区工作流图：工作区、暂存区、本地仓库和远程仓库之间的 add、commit、push、pull 关系。 |

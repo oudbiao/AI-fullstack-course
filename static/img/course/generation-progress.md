@@ -4,7 +4,7 @@ Last updated: 2026-04-29
 
 Status: completed.
 
-Generated with image2: 303 / 303
+Generated with image2: 320 / 320
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -19,6 +19,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 6 章补充说明：目录 `docs/ch06-deep-learning` 本轮新增 18 张入口学习地图已经用 image2 覆盖临时 Preview PNG，并插入到首页、学习指南、神经网络基础、PyTorch、CNN、RNN、Transformer、生成模型、训练技巧和项目实战页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 7 章补充说明：目录 `docs/ch07-llm-principles` 本轮新增 18 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、NLP 速成、LLM 概览、Transformer 深入、预训练、Prompt、微调、对齐和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
+
+第 8 章补充说明：目录 `docs/ch08-rag` 本轮新增 17 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、RAG 核心、模型部署、应用开发、工程化和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 10～12 章说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 下新增的 15 张视觉、NLP、多模态与 AIGC 流程图已经用 image2 生成，并插入到对应核心教程页面。
 
@@ -125,6 +127,23 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch07-projects-route-map.png`
 - `ch07-project-method-choice-loop.png`
 - `ch08-rag-engineering.png`
+- `ch08-learning-quest-map.png`
+- `ch08-rag-system-backbone.png`
+- `ch08-ragops-improvement-loop.png`
+- `ch08-study-guide-four-layer-map.png`
+- `ch08-rag-position-bridge.png`
+- `ch08-rag-core-chapter-flow.png`
+- `ch08-rag-data-to-answer-pipeline.png`
+- `ch08-deployment-chapter-flow.png`
+- `ch08-model-serving-decision-map.png`
+- `ch08-app-dev-chapter-flow.png`
+- `ch08-app-dev-learning-order-map.png`
+- `ch08-llm-app-capability-loop.png`
+- `ch08-engineering-chapter-flow.png`
+- `ch08-llmops-trace-loop.png`
+- `ch08-projects-route-map.png`
+- `ch08-project-learning-order-map.png`
+- `ch08-project-delivery-loop.png`
 - `ch09-agent-systems.png`
 - `ch12-multimodal-aigc.png`
 - `git-four-areas.png`
