@@ -52,6 +52,8 @@ load_local_env_file(PROJECT_ROOT / ".env")
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "static" / "img" / "course"
 DEFAULT_MODEL = os.environ.get("OPENAI_IMAGE_MODEL", "gpt-image-2")
 DEFAULT_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://cliproxy.airoads.org/v1")
+DEFAULT_REQUEST_TIMEOUT = int(os.environ.get("OPENAI_IMAGE_TIMEOUT", "180"))
+DEFAULT_IMAGE_RETRIES = int(os.environ.get("OPENAI_IMAGE_RETRIES", "2"))
 FALLBACK_PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAFgwJ/lLwVRwAAAABJRU5ErkJggg=="
 
 IMAGE_JOBS: list[dict[str, Any]] = [
@@ -67,6 +69,336 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 画面表现一个学习者从开发工具、Python、数据分析、机器学习、大模型应用、RAG、AI Agent 到毕业项目的成长路径。
 整体感觉温暖、新手友好、现代科技感，蓝紫渐变背景，轻微 3D 插画质感，清晰层次，适合放在课程首页顶部。
 画面右侧预留标题文字空间，但图片里不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-01-turing.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 01 图灵与 AI 梦想的起点",
+        "suggested_page": "docs/index.md",
+        "alt": "图灵与 AI 梦想的起点漫画：图灵机和图灵测试把机器智能变成可讨论、可测试的问题。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“图灵与 AI 梦想的起点 1936-1950”。
+像真正漫画书内页，不是海报；暖色旧纸张质感，半写实人物，竖向 6 格分镜，格子之间有漫画边框。
+
+第 1 格：1936，Alan Turing 在书桌前写论文，桌上有纸带和机械读写头。气泡：“机器能不能按规则思考？”
+第 2 格：小黑板解释图灵机：纸带、读写头、状态、规则箭头。短句：“一步一步执行规则。”
+第 3 格：图灵机纸带动起来，0 和 1 被读写头扫描。旁白：“复杂计算，可以拆成简单动作。”
+第 4 格：1950，图灵测试：评委隔着屏幕和人类、机器对话。气泡：“我分不清谁是机器。”
+第 5 格：成功点标签：“机器智能变成可测试问题。”问题标签：“会聊天不等于真理解。”
+第 6 格：远处出现未来机器人和问号，箭头写：“下一阶段：AI 正式成为研究领域。”
+
+底部历史意义：“AI 的核心问题被正式提出：机器能否表现出智能。”
+所有文字必须是简体中文，短句、清晰、融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-02-dartmouth.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 02 达特茅斯会议",
+        "suggested_page": "docs/index.md",
+        "alt": "达特茅斯会议 AI 正式诞生漫画：科学家围绕黑板提出 Artificial Intelligence，符号主义规则推理兴起。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“1956 达特茅斯会议：AI 正式诞生”。
+像真正漫画书内页，1950 年代学术会议氛围，暖色旧纸张质感，竖向 6 格分镜。
+
+第 1 格：科学家围在达特茅斯会议桌前，黑板写“人工智能”。姓名牌：约翰·麦卡锡、马文·明斯基、香农、纽厄尔、西蒙。
+第 2 格：麦卡锡指向黑板。气泡：“给这个梦想一个名字：人工智能。”
+第 3 格：机器用“如果 A 那么 B”的规则卡片证明数学题。旁白：“早期 AI 擅长逻辑推理。”
+第 4 格：流程图展示符号主义：规则 → 推理 → 结论。短句：“把知识写成规则。”
+第 5 格：成功点标签：“AI 成为正式研究领域。”问题标签：“人类智能很难全写成规则。”
+第 6 格：规则卡片堆成高塔，箭头写：“下一阶段：研究者开始寻找会学习的机器。”
+
+底部历史意义：“人类第一次把制造智能机器作为正式科学目标。”
+所有文字必须是简体中文，短句、清晰、融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-03-perceptron.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 03 感知机与第一次低谷",
+        "suggested_page": "docs/index.md",
+        "alt": "感知机兴奋与神经网络第一次低谷漫画：感知机通过权重分类，XOR 暴露单层网络无法线性分割。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“感知机的兴奋与低谷 1957-1969”。
+像真正漫画书内页，复古实验室风格，竖向 6 格分镜，人物和技术解释都要清楚。
+
+第 1 格：弗兰克·罗森布拉特展示感知机机器。气泡：“机器可以从数据里调权重！”
+第 2 格：小黑板画人工神经元：输入 x1、x2，乘权重 w1、w2，相加后输出。短句：“超过阈值就输出 1。”
+第 3 格：感知机把两类点用一条直线分开。旁白：“线性可分时很好用。”
+第 4 格：马文·明斯基和西摩尔·帕普特在黑板画 XOR 四点图。气泡：“一条直线分不开。”
+第 5 格：成功点标签：“机器能用数据调整权重。”问题标签：“单层网络表达能力太弱。”
+第 6 格：神经网络实验室灯光变暗，箭头写：“下一阶段：规则系统重新成为主角。”
+
+底部历史意义：“神经网络第一次出现希望，也第一次被现实打击。”
+所有文字必须是简体中文，短句、清晰、融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-04-expert-systems.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 04 专家系统时代",
+        "suggested_page": "docs/index.md",
+        "alt": "专家系统时代漫画：专家把 IF-THEN 规则写入知识库，窄领域有效但规则堆积导致难维护。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“专家系统时代：规则的辉煌与崩塌 1970s-1980s”。
+像真正漫画书内页，复古医院、实验室和企业机房氛围，竖向 6 格分镜。
+
+第 1 格：爱德华·费根鲍姆、布鲁斯·布坎南向医生和化学专家请教。旁白：“把专家经验搬进机器。”
+第 2 格：专家把规则卡片塞进知识库机器。卡片写：“如果 发烧+感染 → 考虑诊断。”
+第 3 格：推理机沿箭头查规则。小黑板：“知识库 + 推理机 = 专家系统。”
+第 4 格：机器在医学、化学、企业配置中给出建议。气泡：“窄领域真的有用！”
+第 5 格：成功点标签：“规则系统能解决专业任务。”问题标签：“规则太多、冲突、难维护。”
+第 6 格：规则卡片堆成山，机器冒烟，箭头写：“下一阶段：让机器自己从数据学习。”
+
+底部历史意义：“AI 证明了窄领域规则系统有价值，也证明了人工写规则难以扩展。”
+所有文字必须是简体中文，短句、清晰、融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-05-backprop.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 05 反向传播",
+        "suggested_page": "docs/index.md",
+        "alt": "反向传播重新点火漫画：错误信号从输出层传回前面每层，指导多层神经网络调整参数。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“反向传播：神经网络重新点火 1986”。
+像真正漫画书内页，黑板课堂加实验室氛围，竖向 6 格分镜。
+
+第 1 格：杰弗里·辛顿、鲁梅尔哈特、威廉姆斯站在多层网络黑板前。气泡：“多层网络该怎么训练？”
+第 2 格：前向传播：输入经过多层，输出答错。旁白：“先看预测错了多少。”
+第 3 格：错误信号像红色水流，从输出层往回流。短句：“把错误传回每一层。”
+第 4 格：每层旋钮轻轻调整权重。小黑板：“参数 = 参数 - 学习率 × 梯度。”
+第 5 格：成功点标签：“多层网络知道每层该怎么改。”问题标签：“当时数据少、算力弱。”
+第 6 格：网络重新亮起，但远处有更深网络大山。箭头：“下一阶段：视觉任务先取得实用突破。”
+
+底部历史意义：“反向传播为后来深度学习打下训练基础。”
+所有文字必须是简体中文，公式可以保留符号，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-06-lenet.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 06 LeNet 与 CNN 实用成功",
+        "suggested_page": "docs/index.md",
+        "alt": "LeNet 与 CNN 实用成功漫画：卷积滤镜扫描手写数字，逐层学习边缘、笔画和数字类别。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“LeNet 与 CNN 的实用成功 1989-1998”。
+像真正漫画书内页，1990 年代实验室和邮政/支票识别场景，竖向 6 格分镜。
+
+第 1 格：杨立昆和团队面对一堆手写数字、支票和邮政编码。气泡：“让机器认出手写数字。”
+第 2 格：小滤镜像放大镜在数字图片上滑动。旁白：“卷积：局部扫描。”
+第 3 格：网络逐层看到线条、笔画、数字形状。短句：“低层看边缘，高层看数字。”
+第 4 格：机器输出：“这是 8。”流水线开始自动识别。
+第 5 格：成功点标签：“神经网络第一次在工业场景证明价值。”问题标签：“任务仍较窄。”
+第 6 格：自然图片里的猫狗、街景出现，箭头：“下一阶段：更大的数据和更强算力。”
+
+底部历史意义：“CNN 展示了自动学习视觉特征的力量。”
+所有文字必须是简体中文，短句、清晰、融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-07-statistical-ml.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 07 统计机器学习时代",
+        "suggested_page": "docs/index.md",
+        "alt": "统计机器学习时代漫画：数据取代手写规则，工程师仍需提取特征卡片喂给分类器。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“统计机器学习时代：数据取代规则 1990s-2000s”。
+像真正漫画书内页，数据实验室和互联网早期业务场景，竖向 6 格分镜。
+
+第 1 格：瓦普尼克、布雷曼、弗里德曼站在算法白板旁。旁白：“不再只写规则，开始从数据学规律。”
+第 2 格：表格数据、用户点击、文本词频进入模型流水线。短句：“数据越多，规律越清楚。”
+第 3 格：工程师把“颜色、边缘、词频、点击次数”做成特征卡片。气泡：“先帮模型整理信息。”
+第 4 格：SVM、随机森林、Boosting 像分类器机器输出预测。
+第 5 格：成功点标签：“表格、搜索、广告、分类任务表现强。”问题标签：“太依赖人工特征工程。”
+第 6 格：图片、语音、语言堆成大山，箭头：“下一阶段：让神经网络自己学特征。”
+
+底部历史意义：“AI 从手写规则转向数据学习，但仍没摆脱人工特征设计。”
+所有文字必须是简体中文，术语 SVM、Boosting 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-08-imagenet-alexnet.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 08 ImageNet 与 AlexNet",
+        "suggested_page": "docs/index.md",
+        "alt": "ImageNet 与 AlexNet 深度学习爆发漫画：大数据、GPU 和 CNN 让模型从原始图片自动学习特征。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“ImageNet 与 AlexNet：深度学习爆发 2009-2012”。
+像真正漫画书内页，现代实验室和竞赛现场，竖向 6 格分镜。
+
+第 1 格：李飞飞建造巨大的图片图书馆。旁白：“ImageNet：给机器看海量图片。”
+第 2 格：Alex Krizhevsky、Ilya Sutskever、Geoffrey Hinton 在 GPU 机器旁训练 AlexNet。
+第 3 格：CNN 层级机器逐层学习：边缘 → 眼睛耳朵 → 猫狗类别。
+第 4 格：比赛排行榜上 AlexNet 大幅领先传统方法。气泡：“原始图片也能自动学特征！”
+第 5 格：成功点标签：“大数据 + GPU + CNN 引爆深度学习。”问题标签：“模型更大，算力需求更高。”
+第 6 格：更深网络像高楼延伸，箭头：“下一阶段：怎样训练非常深的网络？”
+
+底部历史意义：“2012 年成为深度学习真正爆发的转折点。”
+所有文字必须是简体中文，ImageNet、AlexNet、GPU、CNN 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-09-resnet.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 09 ResNet 残差连接",
+        "suggested_page": "docs/index.md",
+        "alt": "ResNet 残差连接漫画：信息高速公路把 X 直接送到后面，网络学习修正量 F(X)。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“ResNet：为什么要把 X 加回来 2015”。
+像真正漫画书内页，工程结构感强，竖向 6 格分镜。
+
+第 1 格：何恺明、张祥雨、任少卿、孙剑站在很深的神经网络高楼前。气泡：“网络越深，反而更难训练？”
+第 2 格：普通信号爬楼梯越爬越弱。旁白：“深层网络会退化，梯度也难传播。”
+第 3 格：一条信息高速公路绕过复杂层，把 X 直接送到后面。
+第 4 格：小黑板写：“输出 = X + F(X)”。短句：“先保留原信息，再学习修正量。”
+第 5 格：成功点标签：“50 层、101 层、152 层网络可训练。”问题标签：“模型更大，计算更贵。”
+第 6 格：残差桥连接到未来 Transformer，箭头：“下一阶段：序列和语言模型继续发展。”
+
+底部历史意义：“残差连接成为深度学习基础组件，也被 Transformer 继承。”
+所有文字必须是简体中文，公式可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-10-rnn-lstm.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 10 RNN 与 LSTM",
+        "suggested_page": "docs/index.md",
+        "alt": "RNN 与 LSTM 序列模型漫画：RNN 一个词一个词传递 hidden state，LSTM 用门控制记住和忘掉。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“RNN 与 LSTM：语言序列的早期主力 1997-2014”。
+像真正漫画书内页，语言序列和时间线清楚，竖向 6 格分镜。
+
+第 1 格：Hochreiter 和 Schmidhuber 展示 LSTM 记忆门。旁白：“文字、语音、时间序列都要按顺序理解。”
+第 2 格：RNN 像接力队，一个词一个词传递“记忆接力棒”。短句：“历史信息存在 hidden state。”
+第 3 格：长句子传到后面，接力棒变暗。气泡：“太远的信息容易忘。”
+第 4 格：LSTM 加上三个门：记住、忘掉、输出。小黑板：“门 = 信息开关。”
+第 5 格：成功点标签：“能处理文本、语音和翻译序列。”问题标签：“按顺序计算，难并行，长距离仍难。”
+第 6 格：一束聚光灯照向句子重点，箭头：“下一阶段：Attention 直接看重点。”
+
+底部历史意义：“RNN/LSTM 让机器能处理序列，也暴露了长距离依赖和并行瓶颈。”
+所有文字必须是简体中文，RNN、LSTM、hidden state 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-11-attention.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 11 Attention",
+        "suggested_page": "docs/index.md",
+        "alt": "Attention 机器翻译漫画：生成当前词时用聚光灯关注输入句子中最相关的位置。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“Attention：别死记，直接看重点 2014”。
+像真正漫画书内页，机器翻译课堂和聚光灯比喻，竖向 6 格分镜。
+
+第 1 格：Bahdanau、Cho、Bengio 在翻译黑板旁。气泡：“整句话压成一个向量，信息太挤。”
+第 2 格：旧 Seq2Seq 把长句塞进小瓶子，瓶子快爆。旁白：“信息瓶颈。”
+第 3 格：翻译机器人生成“人工”时，聚光灯照向英文 artificial。
+第 4 格：权重条像调光器：重点词 70%，次要词 20%。短句：“按权重看重点。”
+第 5 格：成功点标签：“生成每个词时能直接看相关位置。”问题标签：“早期仍常依赖 RNN，难并行。”
+第 6 格：RNN 链条被剪开，箭头：“下一阶段：只用 Attention 的 Transformer。”
+
+底部历史意义：“Attention 让模型从记忆整句转向按需查看重点。”
+所有文字必须是简体中文，Attention、Seq2Seq 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-12-transformer.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 12 Transformer",
+        "suggested_page": "docs/index.md",
+        "alt": "Transformer 自注意力漫画：所有 token 围坐会议桌，通过 Q/K/V 和 multi-head attention 直接交流。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“Transformer：Attention Is All You Need 2017”。
+像真正漫画书内页，现代科技感但保持漫画分镜，竖向 6 格分镜。
+
+第 1 格：Vaswani、Shazeer、Parmar、Uszkoreit、Jones、Gomez、Kaiser、Polosukhin 作为作者团队站在论文黑板前。
+第 2 格：所有 token 围成会议桌，每个词都能直接看其他词。气泡：“不用一个个排队传话。”
+第 3 格：Q/K/V 三张卡片：Q“我想找什么”，K“我有什么标签”，V“我提供的信息”。
+第 4 格：多个专家头像同时观察句子：语法、指代、语义。短句：“多头注意力 = 多个视角。”
+第 5 格：成功点标签：“并行训练，更好处理长距离依赖。”问题标签：“注意力计算量随长度变大。”
+第 6 格：Transformer 变成大语言模型地基，箭头：“下一阶段：预训练基础模型。”
+
+底部历史意义：“Transformer 成为现代大语言模型的基础架构。”
+所有文字必须是简体中文，Q/K/V、token、Transformer 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-13-bert-gpt.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 13 BERT 与 GPT",
+        "suggested_page": "docs/index.md",
+        "alt": "BERT 与 GPT 预训练漫画：BERT 遮词再猜，GPT 根据前文预测下一个 token，预训练基础模型时代开始。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“BERT 与 GPT：预训练时代开始 2018-2020”。
+像真正漫画书内页，左右路线对比清楚，竖向 6 格分镜。
+
+第 1 格：Jacob Devlin 和 Alec Radford 站在 Transformer 地基前。旁白：“先用海量文本训练通用模型。”
+第 2 格：BERT 像阅读理解学生，遮住一个词再猜。短句：“看左右上下文，做填空题。”
+第 3 格：GPT 像写作机器人，从左到右续写。短句：“根据前文预测下一个 token。”
+第 4 格：GPT-3 看到几个示例就模仿任务。气泡：“给我例子，我就接着做。”
+第 5 格：成功点标签：“理解和生成任务都能靠预训练迁移。”问题标签：“会幻觉，事实不可靠。”
+第 6 格：续写机器人走向对话教室，箭头：“下一阶段：让模型更听指令。”
+
+底部历史意义：“AI 从为每个任务训练模型，转向大规模预训练基础模型。”
+所有文字必须是简体中文，BERT、GPT、GPT-3、token 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-14-rlhf-chatgpt.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 14 SFT RLHF 与 ChatGPT",
+        "suggested_page": "docs/index.md",
+        "alt": "SFT RLHF 与 ChatGPT 漫画：续写模型经过指令训练和人类反馈，变成更会对话的助手。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“SFT、RLHF 与 ChatGPT：续写器变成助手 2022”。
+像真正漫画书内页，训练教室和对话产品场景，竖向 6 格分镜。
+
+第 1 格：只会续写的机器人不停写长文本。气泡：“我只会接着写。”
+第 2 格：人类教师给“用户问题-助手回答”示例。小黑板：“SFT：看标准答案练习。”
+第 3 格：人类评审比较多个回答，给出偏好排名。短句：“RLHF：学习人类更喜欢哪种回答。”
+第 4 格：机器人学会对话，开始听指令、分步骤回答。
+第 5 格：成功点标签：“普通用户第一次大规模体验 AI 对话。”问题标签：“仍会幻觉、过度自信。”
+第 6 格：助手旁边出现知识库、工具箱和安全警示，箭头：“下一阶段：连接资料和工具完成真实任务。”
+
+底部历史意义：“大语言模型从文本续写器变成大众可用的对话助手。”
+所有文字必须是简体中文，SFT、RLHF、ChatGPT 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "homepage-ai-history-comic-15-rag-agent.png",
+        "size": "1536x1024",
+        "quality": "high",
+        "title": "首页 AI 发展史漫画 15 RAG 工具调用与 Agent",
+        "suggested_page": "docs/index.md",
+        "alt": "RAG 工具调用与 Agent 漫画：AI 通过检索资料、调用工具、规划执行和检查结果走向真实任务。",
+        "prompt": """
+制作一页 9:16 竖版中文科普故事漫画，标题：“RAG、工具调用和 Agent：AI 走向真实任务 2023 至今”。
+像真正漫画书内页，现代 AI 工作台、知识库和工具箱场景，竖向 6 格分镜。
+
+第 1 格：用户提出真实任务：“帮我写一份课程课件。”AI 助手拿到目标。
+第 2 格：RAG 流程图：问题 → 检索资料 → 放进上下文 → 基于资料回答。旁白：“先查资料，再回答。”
+第 3 格：AI 调用工具：搜索、代码、计算器、文档生成器。短句：“不会的事，交给工具做。”
+第 4 格：Agent 任务面板：目标 → 计划 → 调工具 → 观察结果 → 继续行动。
+第 5 格：成功点标签：“AI 从回答问题走向完成任务。”问题标签：“检索错、工具错、提示注入、安全风险。”
+第 6 格：安全护栏、权限确认、人工复核保护流程，箭头：“下一阶段：更可靠的长期自治系统。”
+
+底部历史意义：“AI 从会说话，走向会查资料、会用工具、会执行任务。”
+所有文字必须是简体中文，RAG、Agent 可保留，短句清晰，融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
 """.strip(),
     },
     {
@@ -8295,6 +8627,33 @@ Backprop 示例连接多层网络训练困难到 gradient flow；Transformer 示
 ]
 
 
+HOMEPAGE_HISTORY_COMIC_FILENAMES = {
+    f"homepage-ai-history-comic-{index:02d}-{slug}.png"
+    for index, slug in [
+        (1, "turing"),
+        (2, "dartmouth"),
+        (3, "perceptron"),
+        (4, "expert-systems"),
+        (5, "backprop"),
+        (6, "lenet"),
+        (7, "statistical-ml"),
+        (8, "imagenet-alexnet"),
+        (9, "resnet"),
+        (10, "rnn-lstm"),
+        (11, "attention"),
+        (12, "transformer"),
+        (13, "bert-gpt"),
+        (14, "rlhf-chatgpt"),
+        (15, "rag-agent"),
+    ]
+}
+
+for job in IMAGE_JOBS:
+    if job["filename"] in HOMEPAGE_HISTORY_COMIC_FILENAMES:
+        job["size"] = "1024x1792"
+        job["quality"] = "high"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate course images and save them under static/img/course.")
     parser.add_argument("--dry-run", action="store_true", help="Print planned image jobs without calling the API.")
@@ -8302,6 +8661,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="Directory for generated images.")
     parser.add_argument("--model", default=DEFAULT_MODEL, help="Image model name.")
     parser.add_argument("--base-url", default=DEFAULT_BASE_URL, help="OpenAI-compatible base URL.")
+    parser.add_argument("--request-timeout", type=int, default=DEFAULT_REQUEST_TIMEOUT, help="HTTP request timeout in seconds.")
+    parser.add_argument("--retries", type=int, default=DEFAULT_IMAGE_RETRIES, help="Retry count for transient image API errors.")
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing valid PNG files.")
     parser.add_argument("--ensure-placeholders", action="store_true", help="Create local preview PNG files for all planned images.")
     return parser.parse_args()
@@ -8423,15 +8784,24 @@ def set_user_readable_permissions(output_path: Path) -> None:
     output_path.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IROTH)
 
 
-def generate_image_with_http(api_key: str, base_url: str, model: str, job: dict[str, Any], retries: int = 2) -> bytes:
+def generate_image_with_http(
+    api_key: str,
+    base_url: str,
+    model: str,
+    job: dict[str, Any],
+    retries: int,
+    request_timeout: int,
+) -> bytes:
     """Generate one image through an OpenAI-compatible HTTP endpoint."""
     endpoint = f"{base_url.rstrip('/')}/images/generations"
     payload = {
         "model": model,
         "prompt": job["prompt"],
-        "size": job["size"],
-        "quality": job["quality"],
     }
+    if job.get("size") != "default":
+        payload["size"] = job["size"]
+    if job.get("quality") != "default":
+        payload["quality"] = job["quality"]
     request = urllib.request.Request(
         endpoint,
         data=json.dumps(payload).encode("utf-8"),
@@ -8445,7 +8815,7 @@ def generate_image_with_http(api_key: str, base_url: str, model: str, job: dict[
     )
     for attempt in range(retries + 1):
         try:
-            with urllib.request.urlopen(request, timeout=180) as response:
+            with urllib.request.urlopen(request, timeout=request_timeout) as response:
                 response_data = json.loads(response.read().decode("utf-8"))
                 break
         except urllib.error.HTTPError as exc:
@@ -8486,6 +8856,8 @@ def main() -> None:
     print(f"model: {args.model}", flush=True)
     print(f"base_url: {args.base_url}", flush=True)
     print(f"output_dir: {output_dir}", flush=True)
+    print(f"request_timeout: {args.request_timeout}s", flush=True)
+    print(f"retries: {args.retries}", flush=True)
     print(f"jobs: {len(jobs)}", flush=True)
 
     if args.ensure_placeholders:
@@ -8523,8 +8895,8 @@ def main() -> None:
             result = client.images.generate(
                 model=args.model,
                 prompt=job["prompt"],
-                size=job["size"],
-                quality=job["quality"],
+                **({} if job.get("size") == "default" else {"size": job["size"]}),
+                **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
             )
             image_base64 = result.data[0].b64_json
             output_path.write_bytes(base64.b64decode(image_base64))
@@ -8535,6 +8907,8 @@ def main() -> None:
                     base_url=args.base_url,
                     model=args.model,
                     job=job,
+                    retries=args.retries,
+                    request_timeout=args.request_timeout,
                 )
             )
         set_user_readable_permissions(output_path)

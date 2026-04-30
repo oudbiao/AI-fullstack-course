@@ -7,6 +7,21 @@
 | 文件 | 用途 | 建议插入页面 | Alt 文案 |
 |---|---|---|---|
 | `ai-fullstack-hero.png` | AI 全栈学习教程主视觉 | `docs/index.md` | AI 全栈学习教程主视觉：学习者沿着编程、数据、模型、RAG 和 Agent 路线成长。 |
+| `homepage-ai-history-comic-01-turing.png` | 首页 AI 发展史漫画 01 图灵与 AI 梦想的起点 | `docs/index.md` | 图灵与 AI 梦想的起点漫画：图灵机和图灵测试把机器智能变成可讨论、可测试的问题。 |
+| `homepage-ai-history-comic-02-dartmouth.png` | 首页 AI 发展史漫画 02 达特茅斯会议 | `docs/index.md` | 达特茅斯会议 AI 正式诞生漫画：科学家围绕黑板提出 Artificial Intelligence，符号主义规则推理兴起。 |
+| `homepage-ai-history-comic-03-perceptron.png` | 首页 AI 发展史漫画 03 感知机与第一次低谷 | `docs/index.md` | 感知机兴奋与神经网络第一次低谷漫画：感知机通过权重分类，XOR 暴露单层网络无法线性分割。 |
+| `homepage-ai-history-comic-04-expert-systems.png` | 首页 AI 发展史漫画 04 专家系统时代 | `docs/index.md` | 专家系统时代漫画：专家把 IF-THEN 规则写入知识库，窄领域有效但规则堆积导致难维护。 |
+| `homepage-ai-history-comic-05-backprop.png` | 首页 AI 发展史漫画 05 反向传播 | `docs/index.md` | 反向传播重新点火漫画：错误信号从输出层传回前面每层，指导多层神经网络调整参数。 |
+| `homepage-ai-history-comic-06-lenet.png` | 首页 AI 发展史漫画 06 LeNet 与 CNN 实用成功 | `docs/index.md` | LeNet 与 CNN 实用成功漫画：卷积滤镜扫描手写数字，逐层学习边缘、笔画和数字类别。 |
+| `homepage-ai-history-comic-07-statistical-ml.png` | 首页 AI 发展史漫画 07 统计机器学习时代 | `docs/index.md` | 统计机器学习时代漫画：数据取代手写规则，工程师仍需提取特征卡片喂给分类器。 |
+| `homepage-ai-history-comic-08-imagenet-alexnet.png` | 首页 AI 发展史漫画 08 ImageNet 与 AlexNet | `docs/index.md` | ImageNet 与 AlexNet 深度学习爆发漫画：大数据、GPU 和 CNN 让模型从原始图片自动学习特征。 |
+| `homepage-ai-history-comic-09-resnet.png` | 首页 AI 发展史漫画 09 ResNet 残差连接 | `docs/index.md` | ResNet 残差连接漫画：信息高速公路把 X 直接送到后面，网络学习修正量 F(X)。 |
+| `homepage-ai-history-comic-10-rnn-lstm.png` | 首页 AI 发展史漫画 10 RNN 与 LSTM | `docs/index.md` | RNN 与 LSTM 序列模型漫画：RNN 一个词一个词传递 hidden state，LSTM 用门控制记住和忘掉。 |
+| `homepage-ai-history-comic-11-attention.png` | 首页 AI 发展史漫画 11 Attention | `docs/index.md` | Attention 机器翻译漫画：生成当前词时用聚光灯关注输入句子中最相关的位置。 |
+| `homepage-ai-history-comic-12-transformer.png` | 首页 AI 发展史漫画 12 Transformer | `docs/index.md` | Transformer 自注意力漫画：所有 token 围坐会议桌，通过 Q/K/V 和 multi-head attention 直接交流。 |
+| `homepage-ai-history-comic-13-bert-gpt.png` | 首页 AI 发展史漫画 13 BERT 与 GPT | `docs/index.md` | BERT 与 GPT 预训练漫画：BERT 遮词再猜，GPT 根据前文预测下一个 token，预训练基础模型时代开始。 |
+| `homepage-ai-history-comic-14-rlhf-chatgpt.png` | 首页 AI 发展史漫画 14 SFT RLHF 与 ChatGPT | `docs/index.md` | SFT RLHF 与 ChatGPT 漫画：续写模型经过指令训练和人类反馈，变成更会对话的助手。 |
+| `homepage-ai-history-comic-15-rag-agent.png` | 首页 AI 发展史漫画 15 RAG 工具调用与 Agent | `docs/index.md` | RAG 工具调用与 Agent 漫画：AI 通过检索资料、调用工具、规划执行和检查结果走向真实任务。 |
 | `ai-learning-assistant-roadmap.png` | AI 学习助手版本路线图 | `docs/intro/ai-learning-assistant-version-roadmap.md` | AI 学习助手从项目骨架逐步升级到 RAG 和 Agent 毕业作品的路线图。 |
 | `prompt-rag-agent-progression.png` | Prompt 到 RAG 到 Agent 能力进阶图 | `docs/index.md` | Prompt、RAG、Agent 三阶段能力进阶：表达、查资料和分步行动。 |
 | `boss-challenge-map.png` | 课程 Boss 战挑战地图 | `docs/intro/boss-challenge-map.md` | 课程 Boss 战挑战地图：工作台守门人、JSON 地牢管理员、脏数据侦探、引用幻觉龙和无限循环魔王。 |
