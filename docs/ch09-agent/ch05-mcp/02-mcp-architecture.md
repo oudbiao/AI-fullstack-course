@@ -230,6 +230,12 @@ print(call_response)
 
 这样 client 才不需要把所有工具细节都写死。
 
+![MCP 工具发现与调用消息流图](/img/course/ch09-mcp-host-client-server-message-flow-map.png)
+
+:::tip 读图提示
+这张图按消息顺序看：Host 里的 Client 先向 Server 请求 tools/list，拿到能力清单后再发起 tools/call。MCP 的价值在于让“发现能力”和“调用能力”有统一协议。
+:::
+
 ---
 
 ## 七、为什么说 MCP 是“解耦层”？

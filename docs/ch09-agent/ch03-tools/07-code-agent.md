@@ -202,6 +202,12 @@ if failures:
 
 这已经是一个最小的 agentic loop。
 
+![代码 Agent 沙箱、测试与 Review 闭环图](/img/course/ch09-code-agent-sandbox-review-map.png)
+
+:::tip 读图提示
+代码 Agent 的重点不是“会写代码”，而是能在沙箱里读上下文、生成 patch、跑测试、看失败、再修一轮。图中的 Verify 和 Review 是把想法拉回现实的关键。
+:::
+
 ---
 
 ## 四、真实代码 Agent 还会多出哪些关键环节？

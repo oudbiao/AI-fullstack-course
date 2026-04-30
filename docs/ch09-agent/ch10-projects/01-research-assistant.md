@@ -59,6 +59,12 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 只要这 6 步清楚，这个项目就很有作品集价值。
 
+![研究助手引用 Trace 图](/img/course/ch09-research-assistant-citation-trace-map.png)
+
+:::tip 读图提示
+研究助手最重要的不是“总结很流畅”，而是 claim 能回到 source。读图时按 retrieve、select、summarize、cite、verify 这条链路检查每条结论是否有证据。
+:::
+
 ## 三、推荐推进顺序
 
 对新人来说，更稳的顺序通常是：

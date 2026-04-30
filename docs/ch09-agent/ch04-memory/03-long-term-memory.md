@@ -199,6 +199,12 @@ flowchart LR
 
 - 到底什么值得进长期记忆
 
+![长期记忆写入、更新与置信度图](/img/course/ch09-long-term-memory-write-update-policy-map.png)
+
+:::tip 读图提示
+长期记忆不是“永久聊天记录”。看图时重点关注 write policy、confidence、version 和 retrieval：系统要先判断值不值得写，再处理新旧冲突，最后按当前任务取回相关事实。
+:::
+
 ---
 
 ## 四、先跑一个最小长期记忆存取器

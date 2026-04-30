@@ -153,6 +153,12 @@ flowchart LR
 - Agent 不是“更聪明的聊天框”
 - 而是系统控制方式变了
 
+![工作流、聊天机器人与 Agent 边界图](/img/course/ch09-agent-boundary-workflow-chatbot-map.png)
+
+:::tip 读图提示
+读这张图时，先不要看谁更“智能”，而要看控制权在哪里：工作流的路径由程序提前写死，聊天机器人主要负责回复，Agent 则会围绕目标反复决定下一步动作。
+:::
+
 ---
 
 ## 三、Agent 的最小组成部分
@@ -215,6 +221,12 @@ flowchart LR
 
 - Agent 的关键不是只输出一句话
 - 而是进入“目标 -> 行动 -> 观察”的闭环
+
+![Agent 行动闭环与 Trace 图](/img/course/ch09-agent-action-loop-trace-map.png)
+
+:::tip 读图提示
+这张图可以按时间线看：目标进入系统后，Agent 每一轮都会留下 action、observation 和 state 更新。以后调试 Agent，看的不是一句最终回答，而是这条可复盘的轨迹。
+:::
 
 ---
 

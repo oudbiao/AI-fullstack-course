@@ -152,6 +152,12 @@ Planner 最核心的价值不是“更聪明”，
 
 这个表很适合新人，因为它会把“该用哪种推理组织方式”变成一个能判断的问题。
 
+![Plan-and-Execute 监控重规划图](/img/course/ch09-plan-execute-monitor-replan-map.png)
+
+:::tip 读图提示
+读图时注意两层职责：Planner 负责全局路线，Executor 负责当前步骤；Monitor 一旦发现缺资料、工具失败或目标变化，就触发 replan，而不是让系统硬走原计划。
+:::
+
 ---
 
 ## 三、先跑一个真正的最小 Plan-and-Execute 示例

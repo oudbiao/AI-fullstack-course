@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 495 / 495
+Generated with image2: 526 / 526
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -31,6 +31,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 8 章深度图解说明：本轮新增 31 张机制型、决策型、工程型和项目闭环图，覆盖 RAG 分层故障定位、chunk size 与 overlap、课件知识块元数据、向量库记录与 metadata filter、精确搜索与 ANN、Hybrid Search 盲区、Query Rewrite 与 Rerank、RAG 优化排障、RAG 实验闭环、高级 RAG 架构选择、RAG 分层评估、Faithfulness 与 citation check、本地模型与云 API 决策、推理服务队列和 batch、统一 API 网关、LLM API 稳健客户端、LangChain 组件流水线、Function Calling 校验执行、HuggingFace 生态、多轮对话状态、AI 编程人工验证、PDF/Word/PPT 文档解析路由、模板渲染、异步并发控制、API 契约、可观测性、Docker 部署、企业知识库权限引用、RAG+微调职责拆分、智能助手 trace 和课件生成助手生产线。新增图用于把第 8 章从“能跑 RAG Demo”提升到“能理解、能调试、能交付 LLM 应用系统”。
 
 第 9 章补充说明：目录 `docs/ch09-agent` 本轮新增 27 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、Agent 基础、推理规划、工具、记忆、MCP、框架、多 Agent、评估安全、部署运维和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
+
+第 9 章深度图解说明：本轮新增 31 张机制型、工程型和项目型图解，覆盖工作流/聊天机器人/Agent 边界、Agent 行动 trace、系统架构数据流、链式推理自检、Plan-and-Execute 重规划、高级 DAG 规划、推理失败归因、Function Calling 校验、工具描述、工具安全、代码 Agent、记忆分层、长期记忆更新、记忆工程生命周期、MCP 消息流、MCP Server 契约、LangGraph 状态机、框架选型、多 Agent 模式、通信契约、协调成本、Agent 分层评估、Prompt Injection 安全隔离、Trace Span 可观测性、生产部署架构、Checkpoint/Event Log 恢复、成本路由缓存、生产 readiness、研究助手引用追踪、数据分析 Agent 可复核链路和多 Agent 开发团队交付闭环。新增图用于把第 9 章从“概念能读懂”推进到“系统怎么运行、怎么调试、怎么上线一眼能看懂”。
 
 第 10～12 章补充说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 本轮新增 28 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、CV/NLP/多模态各子章导读和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
@@ -308,6 +310,37 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch09-projects-route-map.png`
 - `ch09-project-learning-order-map.png`
 - `ch09-project-delivery-loop.png`
+- `ch09-agent-boundary-workflow-chatbot-map.png`
+- `ch09-agent-action-loop-trace-map.png`
+- `ch09-agent-system-architecture-dataflow-map.png`
+- `ch09-cot-self-check-structure-map.png`
+- `ch09-plan-execute-monitor-replan-map.png`
+- `ch09-advanced-planning-dag-critical-path-map.png`
+- `ch09-reasoning-eval-failure-taxonomy-map.png`
+- `ch09-tool-schema-validation-guardrail-map.png`
+- `ch09-tool-description-quality-map.png`
+- `ch09-tool-safety-permission-sandbox-map.png`
+- `ch09-code-agent-sandbox-review-map.png`
+- `ch09-memory-layer-selection-map.png`
+- `ch09-long-term-memory-write-update-policy-map.png`
+- `ch09-memory-engineering-lifecycle-map.png`
+- `ch09-mcp-host-client-server-message-flow-map.png`
+- `ch09-mcp-server-tool-contract-map.png`
+- `ch09-langgraph-state-machine-map.png`
+- `ch09-framework-selection-decision-map.png`
+- `ch09-multi-agent-pattern-selection-map.png`
+- `ch09-multi-agent-communication-contract-map.png`
+- `ch09-multi-agent-coordination-cost-map.png`
+- `ch09-agent-eval-layered-scorecard-map.png`
+- `ch09-agent-security-prompt-injection-risk-map.png`
+- `ch09-agent-observability-trace-span-map.png`
+- `ch09-agent-runtime-state-queue-map.png`
+- `ch09-agent-persistence-checkpoint-eventlog-map.png`
+- `ch09-agent-cost-routing-cache-budget-map.png`
+- `ch09-production-readiness-canary-rollback-map.png`
+- `ch09-research-assistant-citation-trace-map.png`
+- `ch09-data-analysis-agent-notebook-loop-map.png`
+- `ch09-multi-agent-dev-team-delivery-map.png`
 - `ch12-multimodal-aigc.png`
 - `ch12-learning-quest-map.png`
 - `ch12-multimodal-system-backbone.png`

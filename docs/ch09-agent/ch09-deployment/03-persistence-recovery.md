@@ -199,6 +199,12 @@ checkpoint 只能告诉你“现在是什么状态”，
 
 日志让你能做复盘和调试。
 
+![Agent Checkpoint、Event Log 与恢复图](/img/course/ch09-agent-persistence-checkpoint-eventlog-map.png)
+
+:::tip 读图提示
+这张图把恢复分成两条线：checkpoint 负责“现在恢复到哪”，event log 负责“之前发生了什么”。长任务上线时，两者最好配合，而不是只存最终结果。
+:::
+
 ---
 
 ## 四、幂等为什么是恢复链路的核心？

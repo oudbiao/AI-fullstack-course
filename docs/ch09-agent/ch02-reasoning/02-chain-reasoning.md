@@ -208,6 +208,12 @@ print("final answer:", answer)
 
 这样可以降低部分粗心错误。
 
+![链式推理与自检结构图](/img/course/ch09-cot-self-check-structure-map.png)
+
+:::tip 读图提示
+这张图强调的是“结构化中间状态”，不是让模型无限输出长篇思考。生产环境更常把推理压成 facts、subtasks、decision 和 next_action 这类可校验槽位。
+:::
+
 ---
 
 ## 四、什么时候 CoT 最有帮助？

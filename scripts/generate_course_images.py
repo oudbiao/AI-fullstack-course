@@ -4507,6 +4507,440 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch09-agent-boundary-workflow-chatbot-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "工作流、聊天机器人与 Agent 边界图",
+        "suggested_page": "docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md",
+        "alt": "工作流、聊天机器人与 Agent 边界图：固定步骤、对话回复和目标驱动的持续决策三种系统边界对比。",
+        "prompt": """
+一张适合 AI Agent 入门课程的系统边界图，主题是“workflow、chatbot、Agent 三者不是同一种控制方式”。
+画面左侧是固定地铁线路般的 workflow，中间是前台接待式 chatbot，右侧是带目标、状态、工具和反馈循环的 Agent 助理。
+风格像新人友好的产品架构对比图，层级清晰、留白充足、科技感但不花哨。
+文字不是主体；标准术语保留英文，例如 workflow、chatbot、Agent、goal、state、tool、feedback loop。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-action-loop-trace-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 行动闭环与 Trace 图",
+        "suggested_page": "docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md",
+        "alt": "Agent 行动闭环与 Trace 图：用户目标进入决策器，产生行动，工具返回观察，状态更新并留下可复盘 trace。",
+        "prompt": """
+一张适合 AI Agent 基础课的行动闭环图，主题是“Agent 的价值在于目标、行动、观察和状态更新的可复盘 trace”。
+画面表现 user goal、decision、action、tool call、observation、state update、final answer，同时旁边有一条 trace 时间线记录每轮步骤。
+风格像执行回路和调试日志结合，适合新人一眼理解 Agent 不是一次性回答。
+文字不是主体；标准术语保留英文，例如 user goal、decision、action、tool call、observation、state update、trace、final answer。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-system-architecture-dataflow-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 系统架构数据流图",
+        "suggested_page": "docs/ch09-agent/ch01-agent-basics/04-system-architecture.md",
+        "alt": "Agent 系统架构数据流图：Planner、Tool Layer、Memory、State、Guardrails、Observability 组成生产 Agent 数据流。",
+        "prompt": """
+一张适合 Agent 系统架构章节的生产级数据流图，主题是“Agent 不是一个模型，而是一组协作组件”。
+画面表现 Planner、Tool Layer、Memory、State Store、Guardrails、Observability、Model Runtime 之间的数据流，用户请求从入口进入，最终输出答案和 trace。
+风格像云架构图和课程手绘图结合，清楚展示组件职责。
+文字不是主体；标准术语保留英文，例如 Planner、Tool Layer、Memory、State Store、Guardrails、Observability、Model Runtime、trace。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-cot-self-check-structure-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "链式推理与自检结构图",
+        "suggested_page": "docs/ch09-agent/ch02-reasoning/02-chain-reasoning.md",
+        "alt": "链式推理与自检结构图：问题被拆成 facts、subtasks、decision、answer，并经过 self-check 降低错误。",
+        "prompt": """
+一张适合链式推理课程的小节图，主题是“CoT 的核心不是长文本，而是结构化中间状态和自检”。
+画面表现 question 被拆成 facts、subtasks、decision、answer，旁边有 self-check 检查关键变量、步骤顺序和最终结论。
+风格像草稿纸、结构化 JSON 卡片和质量检查清单结合，直观而克制。
+文字不是主体；标准术语保留英文，例如 CoT、facts、subtasks、decision、answer、self-check、scratchpad。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-plan-execute-monitor-replan-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Plan-and-Execute 监控重规划图",
+        "suggested_page": "docs/ch09-agent/ch02-reasoning/04-plan-and-execute.md",
+        "alt": "Plan-and-Execute 监控重规划图：Planner 制定计划，Executor 执行步骤，Monitor 根据观察决定继续或 replan。",
+        "prompt": """
+一张适合 Plan-and-Execute 小节的机制图，主题是“长任务需要计划、执行、监控和重规划分层”。
+画面表现 Planner 生成 plan list，Executor 逐步执行，Monitor 检查 observation、missing info、tool failure 和 goal change，必要时触发 replan。
+风格像项目施工清单和 Agent 控制台结合，突出全局规划与局部执行。
+文字不是主体；标准术语保留英文，例如 Planner、Executor、Monitor、plan list、observation、tool failure、goal change、replan。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-advanced-planning-dag-critical-path-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "高级规划 DAG、并行与关键路径图",
+        "suggested_page": "docs/ch09-agent/ch02-reasoning/05-advanced-planning.md",
+        "alt": "高级规划 DAG、并行与关键路径图：任务节点、依赖关系、并行 worker、关键路径和失败重规划组成复杂任务规划。",
+        "prompt": """
+一张适合 Agent 高级规划章节的 DAG 任务图，主题是“复杂任务不是长清单，而是带依赖、并行和关键路径的任务图”。
+画面表现 task nodes、dependencies、parallel workers、critical path、resource limit、failure and local replanning。
+风格像工程调度甘特图和 DAG 白板结合，关键路径用醒目线条表示。
+文字不是主体；标准术语保留英文，例如 DAG、task nodes、dependencies、parallel workers、critical path、resource limit、replanning。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-reasoning-eval-failure-taxonomy-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 推理失败类型诊断图",
+        "suggested_page": "docs/ch09-agent/ch02-reasoning/06-reasoning-evaluation.md",
+        "alt": "Agent 推理失败类型诊断图：intent、plan、tool、observation、stop condition 和 final answer 六层失败归因。",
+        "prompt": """
+一张适合 Agent 推理评估章节的失败归因图，主题是“答案错误背后可能是意图、计划、工具、观察、停止条件或最终表达出错”。
+画面表现 intent understanding、plan quality、tool choice、observation use、stop condition、final answer 六层诊断漏斗，并有 trace evidence 指向每层。
+风格像质量诊断仪表盘和排障流程图结合，适合新人做问题定位。
+文字不是主体；标准术语保留英文，例如 intent、plan quality、tool choice、observation、stop condition、final answer、trace evidence。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-tool-schema-validation-guardrail-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Function Calling Schema 校验与执行护栏图",
+        "suggested_page": "docs/ch09-agent/ch03-tools/01-function-calling-deep.md",
+        "alt": "Function Calling Schema 校验与执行护栏图：模型产出 tool call 后，程序做 schema 校验、权限检查、参数清洗、执行和错误恢复。",
+        "prompt": """
+一张适合 Function Calling 深入小节的工程链路图，主题是“模型提出调用，程序负责安全执行”。
+画面表现 model tool call、schema validation、permission check、argument sanitization、dispatcher、tool execution、structured error、retry or fallback。
+风格像后端调用链和安全网关结合，突出程序边界。
+文字不是主体；标准术语保留英文，例如 tool call、schema validation、permission check、arguments、dispatcher、structured error、retry、fallback。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-tool-description-quality-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "工具描述质量与发现流程图",
+        "suggested_page": "docs/ch09-agent/ch03-tools/02-tool-description.md",
+        "alt": "工具描述质量与发现流程图：name、description、arguments、returns、risk_level 帮助 Agent 发现并选择正确工具。",
+        "prompt": """
+一张适合 Agent 工具描述章节的工具卡片图，主题是“工具描述越清楚，模型越不容易拿错工具”。
+画面表现 tool registry 中的 name、description、when to use、when not to use、required args、returns、risk_level，并展示 user query 到 candidate tools 的发现流程。
+风格像工具箱标签和搜索推荐系统结合，清楚、现代、适合课程插图。
+文字不是主体；标准术语保留英文，例如 tool registry、name、description、when to use、required args、returns、risk_level、candidate tools。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-tool-safety-permission-sandbox-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "工具安全权限、沙箱与审计图",
+        "suggested_page": "docs/ch09-agent/ch03-tools/05-tool-safety.md",
+        "alt": "工具安全权限、沙箱与审计图：read_only、write_limited、destructive 三类工具经过权限、确认、沙箱和 audit log 防线。",
+        "prompt": """
+一张适合 Agent 工具安全章节的多层防线图，主题是“工具让 Agent 会行动，也让风险从语言层进入动作层”。
+画面表现 read_only、write_limited、destructive 工具风险分级，以及 permission check、sandbox、human approval、timeout、idempotency、audit log。
+风格像安全控制台和分层护城河，直观展示低风险到高风险的升级。
+文字不是主体；标准术语保留英文，例如 read_only、write_limited、destructive、permission check、sandbox、human approval、idempotency、audit log。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-code-agent-sandbox-review-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "代码 Agent 沙箱、测试与 Review 闭环图",
+        "suggested_page": "docs/ch09-agent/ch03-tools/07-code-agent.md",
+        "alt": "代码 Agent 沙箱、测试与 Review 闭环图：Read、Plan、Patch、Run Tests、Review、Repair、Accept 形成代码执行循环。",
+        "prompt": """
+一张适合代码 Agent 小节的工程闭环图，主题是“代码 Agent 不是代码补全，而是在真实仓库里读、改、跑、验、再修”。
+画面表现 Read context、Plan change、Generate patch、Sandbox run、Tests、Review、Repair、Accept，并用 diff 和 test report 作为中间工件。
+风格像 IDE、CI 流水线和 Agent trace 结合，专业但新人友好。
+文字不是主体；标准术语保留英文，例如 Read、Plan、Patch、Sandbox、Tests、Review、Repair、Accept、diff、test report。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-memory-layer-selection-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 记忆分层选择图",
+        "suggested_page": "docs/ch09-agent/ch04-memory/01-memory-overview.md",
+        "alt": "Agent 记忆分层选择图：short-term、long-term、episodic、procedural memory 分别保存当前任务、稳定偏好、具体经历和可复用流程。",
+        "prompt": """
+一张适合 Agent 记忆系统概述的小节图，主题是“不同信息应该进入不同记忆层，而不是全塞进上下文”。
+画面表现 short-term memory 像工作台，long-term memory 像档案库，episodic memory 像经历记录，procedural memory 像操作手册，并有信息流选择箭头。
+风格像四层资料柜和 Agent 工作台，温和、清晰、适合新人。
+文字不是主体；标准术语保留英文，例如 short-term memory、long-term memory、episodic memory、procedural memory、context、profile、workflow。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-long-term-memory-write-update-policy-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "长期记忆写入、更新与置信度图",
+        "suggested_page": "docs/ch09-agent/ch04-memory/03-long-term-memory.md",
+        "alt": "长期记忆写入、更新与置信度图：信息先经过写入判断，再带 confidence 和 version 更新，最后按任务检索。",
+        "prompt": """
+一张适合 Agent 长期记忆章节的策略流程图，主题是“长期记忆难点不是存，而是判断、更新和冲突处理”。
+画面表现 new information、write policy、stability check、confidence score、version update、conflict resolution、task-aware retrieval。
+风格像用户档案卡和数据治理流程结合，突出置信度和版本。
+文字不是主体；标准术语保留英文，例如 write policy、stability check、confidence、version、conflict resolution、retrieval、user profile。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-memory-engineering-lifecycle-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "记忆工程生命周期图",
+        "suggested_page": "docs/ch09-agent/ch04-memory/05-memory-engineering.md",
+        "alt": "记忆工程生命周期图：write、index、retrieve、cleanup、compress 和 privacy control 组成记忆工程闭环。",
+        "prompt": """
+一张适合 Agent 记忆工程章节的生命周期图，主题是“记忆系统更像图书馆，不是储物间”。
+画面表现 write、index、retrieve、cleanup、compress、privacy control、TTL、importance score，形成长期可维护闭环。
+风格像图书馆编目系统和数据管道结合，清楚展示每一段策略。
+文字不是主体；标准术语保留英文，例如 write、index、retrieve、cleanup、compress、privacy control、TTL、importance score。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-mcp-host-client-server-message-flow-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "MCP 工具发现与调用消息流图",
+        "suggested_page": "docs/ch09-agent/ch05-mcp/02-mcp-architecture.md",
+        "alt": "MCP 工具发现与调用消息流图：Host、Client、Transport、Server 之间先 tools/list，再 tools/call，返回结构化结果。",
+        "prompt": """
+一张适合 MCP 架构小节的消息流图，主题是“MCP 把工具发现和工具调用标准化”。
+画面表现 Host、Client、Transport、MCP Server、Tools/Resources/Prompts，消息顺序包括 tools/list、tools/call、result response。
+风格像协议时序图和架构图结合，清晰展示角色分工。
+文字不是主体；标准术语保留英文，例如 Host、Client、Transport、MCP Server、Tools、Resources、Prompts、tools/list、tools/call、result。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-mcp-server-tool-contract-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "MCP Server 工具契约图",
+        "suggested_page": "docs/ch09-agent/ch05-mcp/03-mcp-server-dev.md",
+        "alt": "MCP Server 工具契约图：list_tools、validate args、call_tool、execute logic、normalize result 和 error response 形成服务端契约。",
+        "prompt": """
+一张适合 MCP Server 开发小节的工具契约图，主题是“Server 是能力边界和工具契约的守门人”。
+画面表现 list_tools、tool schema、validate arguments、call_tool、execute logic、normalize result、error response、audit。
+风格像 API 契约卡片和服务端执行管线结合，适合工程课程。
+文字不是主体；标准术语保留英文，例如 list_tools、tool schema、validate arguments、call_tool、execute logic、normalize result、error response、audit。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-langgraph-state-machine-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LangGraph 状态机与条件边图",
+        "suggested_page": "docs/ch09-agent/ch06-frameworks/02-langchain-langgraph.md",
+        "alt": "LangGraph 状态机与条件边图：state 在节点间流动，conditional edges 根据状态决定 retrieve、answer、fallback 或 retry。",
+        "prompt": """
+一张适合 LangChain/LangGraph 小节的状态机图，主题是“当流程有分支、回路和状态时，图式抽象比链式抽象更自然”。
+画面表现 shared state、nodes、conditional edges、retrieve、answer、fallback、retry、checkpoint，旁边用一条简单 chain 对比固定步骤。
+风格像流程图编辑器和状态机控制台结合，结构清楚。
+文字不是主体；标准术语保留英文，例如 shared state、nodes、conditional edges、retrieve、answer、fallback、retry、checkpoint、chain。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-framework-selection-decision-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 框架选型决策图",
+        "suggested_page": "docs/ch09-agent/ch06-frameworks/08-framework-selection.md",
+        "alt": "Agent 框架选型决策图：根据 stateful flow、knowledge/RAG、role collaboration、prototype speed 和 long-term maintenance 选择框架。",
+        "prompt": """
+一张适合 Agent 框架选型指南的决策树图，主题是“按任务结构选框架，而不是按热度选框架”。
+画面表现 stateful flow、knowledge/RAG、role collaboration、prototype speed、long-term maintenance 五个分支，指向 graph workflow、retrieval framework、role framework、lightweight custom。
+风格像架构决策图和课程路线图结合，简洁、有判断感。
+文字不是主体；标准术语保留英文，例如 stateful flow、knowledge/RAG、role collaboration、prototype speed、long-term maintenance、graph workflow、lightweight custom。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-multi-agent-pattern-selection-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多 Agent 架构模式选择图",
+        "suggested_page": "docs/ch09-agent/ch07-multi-agent/01-architecture-patterns.md",
+        "alt": "多 Agent 架构模式选择图：supervisor-worker、pipeline、reviewer、peer/group 根据任务分工和控制需求选择。",
+        "prompt": """
+一张适合多 Agent 架构模式小节的模式选择图，主题是“多 Agent 的重点不是数量，而是分工和组织方式”。
+画面表现 supervisor-worker、pipeline、reviewer、peer/group 四种模式，用不同组织结构展示调度、流水线、生成评审和多方讨论。
+风格像团队组织图和系统架构图结合，突出适用场景。
+文字不是主体；标准术语保留英文，例如 supervisor-worker、pipeline、reviewer、peer/group、task split、coordination、review loop。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-multi-agent-communication-contract-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 间通信契约图",
+        "suggested_page": "docs/ch09-agent/ch07-multi-agent/02-communication.md",
+        "alt": "Agent 间通信契约图：sender、receiver、type、task_id、payload、status、retry 和 shared state 组成可靠通信。",
+        "prompt": """
+一张适合 Agent 间通信小节的消息契约图，主题是“多 Agent 不能只靠随意对话，必须有可追踪消息结构”。
+画面表现 sender、receiver、message type、task_id、payload、status、timestamp、retry_count，同时展示 message passing、shared state、event bus 三种通信方式。
+风格像消息队列控制台和团队协作白板结合，清晰有工程感。
+文字不是主体；标准术语保留英文，例如 sender、receiver、message type、task_id、payload、status、retry_count、event bus、shared state。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-multi-agent-coordination-cost-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多 Agent 协调、冲突与收敛图",
+        "suggested_page": "docs/ch09-agent/ch07-multi-agent/03-task-coordination.md",
+        "alt": "多 Agent 协调、冲突与收敛图：任务分配、依赖顺序、共享状态、重复劳动、结论冲突和 reviewer 裁决。",
+        "prompt": """
+一张适合多 Agent 任务协调小节的协调成本图，主题是“多 Agent 既能分工，也会带来通信、冲突和收敛成本”。
+画面表现 task assignment、dependency order、shared state、duplicate work、conflicting conclusions、reviewer arbitration、final convergence。
+风格像项目调度看板和分布式系统冲突解决图结合，提醒不要滥用多 Agent。
+文字不是主体；标准术语保留英文，例如 task assignment、dependency order、shared state、duplicate work、conflict、reviewer arbitration、convergence。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-eval-layered-scorecard-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 分层评估计分卡图",
+        "suggested_page": "docs/ch09-agent/ch08-eval-safety/01-evaluation-methods.md",
+        "alt": "Agent 分层评估计分卡图：结果层、过程层、工具层、安全层共同衡量任务成功、路径合理、工具正确和边界安全。",
+        "prompt": """
+一张适合 Agent 评估方法章节的分层 scorecard 图，主题是“评估 Agent 不能只看最终答案”。
+画面表现 result layer、process layer、tool layer、safety layer 四层评分卡，包括 task success、step quality、tool accuracy、permission safety、cost。
+风格像质量评估仪表盘和课程表格结合，适合新人复制到项目 README。
+文字不是主体；标准术语保留英文，例如 scorecard、result layer、process layer、tool layer、safety layer、task success、tool accuracy、cost。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-security-prompt-injection-risk-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Prompt Injection 与工具风险隔离图",
+        "suggested_page": "docs/ch09-agent/ch08-eval-safety/03-agent-security.md",
+        "alt": "Prompt Injection 与工具风险隔离图：不可信外部内容不能覆盖系统指令，高风险动作经过权限、确认、脱敏和审计。",
+        "prompt": """
+一张适合 Agent 安全章节的风险隔离图，主题是“外部文档可以是资料，但不能变成指令”。
+画面表现 untrusted content、prompt injection、system boundary、secret redaction、permission check、human approval、high-risk tool、audit log。
+风格像网络安全威胁模型和工具权限图结合，醒目但不恐吓。
+文字不是主体；标准术语保留英文，例如 untrusted content、prompt injection、system boundary、secret redaction、permission check、human approval、audit log。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-observability-trace-span-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 可观测 Trace Span 图",
+        "suggested_page": "docs/ch09-agent/ch08-eval-safety/05-observability.md",
+        "alt": "Agent 可观测 Trace Span 图：一个 request_id 串起 planner、retriever、tool call、LLM、safety 和 final answer 多个 span。",
+        "prompt": """
+一张适合 Agent 可观测性章节的 trace span 图，主题是“没有 request_id 和结构化 trace，Agent 排障只能靠猜”。
+画面表现 request_id 贯穿 planner span、retriever span、tool call span、LLM span、safety span、final answer，并有 metrics、logs、replay 汇聚到观测面板。
+风格像分布式追踪瀑布图和 AI 控制台结合，清楚展示跨层链路。
+文字不是主体；标准术语保留英文，例如 request_id、trace span、planner、retriever、tool call、LLM、safety、metrics、logs、replay。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-runtime-state-queue-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 部署架构分层数据流图",
+        "suggested_page": "docs/ch09-agent/ch09-deployment/01-deployment-architecture.md",
+        "alt": "Agent 部署架构分层数据流图：API Gateway、Orchestrator、Queue、Worker、Tool Executor、State Store、Trace Metrics 组成生产架构。",
+        "prompt": """
+一张适合 Agent 部署架构小节的生产分层数据流图，主题是“从脚本到服务，需要接入、编排、队列、执行、状态和观测分层”。
+画面表现 API Gateway、Agent Orchestrator、Queue、Worker、Model Service、Tool Executor、State Store、Trace/Metrics、Alerts。
+风格像云原生架构图和课程图解结合，路径清楚、组件边界明显。
+文字不是主体；标准术语保留英文，例如 API Gateway、Agent Orchestrator、Queue、Worker、Model Service、Tool Executor、State Store、Trace/Metrics、Alerts。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-persistence-checkpoint-eventlog-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent Checkpoint、Event Log 与恢复图",
+        "suggested_page": "docs/ch09-agent/ch09-deployment/03-persistence-recovery.md",
+        "alt": "Agent Checkpoint、Event Log 与恢复图：任务每步写 checkpoint 和 event log，崩溃后按 checkpoint 恢复并用幂等键避免重复副作用。",
+        "prompt": """
+一张适合 Agent 持久化与恢复章节的恢复机制图，主题是“长任务要能从失败处继续，而不是从零开始”。
+画面表现 task steps、checkpoint、event log、crash、resume、idempotency key、skip duplicate side effect、final state。
+风格像自动保存的 IDE、事件流水账和恢复时间线结合，强调可恢复和可复盘。
+文字不是主体；标准术语保留英文，例如 checkpoint、event log、crash、resume、idempotency key、side effect、final state。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-cost-routing-cache-budget-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 成本路由、缓存与预算控制图",
+        "suggested_page": "docs/ch09-agent/ch09-deployment/04-cost-optimization.md",
+        "alt": "Agent 成本路由、缓存与预算控制图：模型调用、工具调用、缓存命中、重试、上下文长度和预算上限共同决定链路成本。",
+        "prompt": """
+一张适合 Agent 成本优化章节的链路成本图，主题是“Agent 成本是任务链路账单，不是单次模型价格”。
+画面表现 model routing、small model filter、large model answer、context compression、cache hit、tool call cost、retry budget、cost cap。
+风格像成本仪表盘和任务链路图结合，帮助新人看到钱花在哪。
+文字不是主体；标准术语保留英文，例如 model routing、small model、large model、context compression、cache hit、tool cost、retry budget、cost cap。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-production-readiness-canary-rollback-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Agent 生产 Readiness、灰度与回滚图",
+        "suggested_page": "docs/ch09-agent/ch09-deployment/05-production-best-practices.md",
+        "alt": "Agent 生产 Readiness、灰度与回滚图：metrics、logs、timeout、rate limit、eval suite、canary、rollback、human override、audit log 组成上线检查。",
+        "prompt": """
+一张适合 Agent 生产最佳实践章节的上线检查图，主题是“能上线不等于可运维，必须可观测、可灰度、可回滚、可审计”。
+画面表现 readiness checklist、metrics、structured logs、timeout、rate limit、eval suite、canary rollout、rollback plan、human override、audit log。
+风格像发布控制台和安全 checklist 结合，稳定、专业、清晰。
+文字不是主体；标准术语保留英文，例如 readiness checklist、metrics、structured logs、timeout、rate limit、eval suite、canary rollout、rollback plan、human override、audit log。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-research-assistant-citation-trace-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "研究助手引用 Trace 图",
+        "suggested_page": "docs/ch09-agent/ch10-projects/01-research-assistant.md",
+        "alt": "研究助手引用 Trace 图：query、retrieve、select sources、summarize claims、attach citations、verify claims 形成可信研究助手。",
+        "prompt": """
+一张适合研究助手 Agent 项目的引用追踪图，主题是“可信研究助手的每条 claim 都要回到 source”。
+画面表现 query、retrieve documents、select sources、summarize claims、attach citations、verify claims、failure cases，并用线条连接 claim 和 source。
+风格像研究工作台、文献卡片和 trace 时间线结合，适合作品集项目展示。
+文字不是主体；标准术语保留英文，例如 query、retrieve、sources、claims、citations、verify、failure cases、trace。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-data-analysis-agent-notebook-loop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据分析 Agent 可复核工作流图",
+        "suggested_page": "docs/ch09-agent/ch10-projects/02-data-analysis-agent.md",
+        "alt": "数据分析 Agent 可复核工作流图：load data、profile schema、compute statistics、generate insight、suggest chart、write report 构成分析闭环。",
+        "prompt": """
+一张适合数据分析 Agent 项目的 notebook 式工作流图，主题是“数据分析 Agent 的价值在于可复核的计算链路”。
+画面表现 load data、profile schema、clean data、compute statistics、generate insight、suggest chart、write report、trace table。
+风格像数据分析 notebook、图表建议卡片和 Agent 工作流结合，清爽直观。
+文字不是主体；标准术语保留英文，例如 load data、profile schema、clean data、compute statistics、insight、suggest chart、write report、trace。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-multi-agent-dev-team-delivery-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多 Agent 开发团队交付闭环图",
+        "suggested_page": "docs/ch09-agent/ch10-projects/03-multi-agent-dev-team.md",
+        "alt": "多 Agent 开发团队交付闭环图：planner 产出 plan，coder 产出 patch，reviewer 产出 issues，tester 产出 test report，失败后回退修复。",
+        "prompt": """
+一张适合多 Agent 开发团队项目的交付闭环图，主题是“角色数量不是重点，工件交接和验证闭环才是重点”。
+画面表现 planner、TaskPlan、coder、Patch、reviewer、ReviewNote、tester、TestReport、repair loop、accepted delivery。
+风格像软件团队看板、CI 检查和多 Agent 消息流结合，强调工件交接。
+文字不是主体；标准术语保留英文，例如 planner、TaskPlan、coder、Patch、reviewer、ReviewNote、tester、TestReport、repair loop、accepted delivery。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch12-multimodal-aigc.png",
         "size": "1536x1024",
         "quality": "medium",

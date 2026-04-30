@@ -247,6 +247,12 @@ print("review:", review)
 - 容易跑题
 - 更难收敛
 
+![多 Agent 架构模式选择图](/img/course/ch09-multi-agent-pattern-selection-map.png)
+
+:::tip 读图提示
+读这张图时，先看任务有没有天然分工：需要中心调度就选 supervisor-worker，阶段固定就选 pipeline，需要质量检查就加 reviewer，需要多视角讨论才考虑 peer/group。
+:::
+
 ### 6.2 什么时候考虑它？
 
 比较适合：

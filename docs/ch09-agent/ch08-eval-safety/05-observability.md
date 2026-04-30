@@ -153,6 +153,12 @@ for step in trace:
 
 这张表可以作为所有 AI 项目的日志设计起点。不要等系统出问题后才想起补日志；没有 request_id 和结构化字段，后面很难把一次失败串起来。
 
+![Agent 可观测 Trace Span 图](/img/course/ch09-agent-observability-trace-span-map.png)
+
+:::tip 读图提示
+看这张图时，抓住 request_id 这根线：一次用户请求会穿过 planner、retriever、tool、LLM、safety 等多个 span。只有链路能串起来，排障才不会靠猜。
+:::
+
 ## 一次请求的跨层 trace 示例
 
 下面是一个“课程学习助手”的跨层 trace。它同时经过了 RAG、LLM 和 Agent 工具层。

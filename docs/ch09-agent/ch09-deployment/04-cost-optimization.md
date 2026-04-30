@@ -176,6 +176,12 @@ print("optimized_cost =", task_cost(optimized_task))
 因为外部 API 单价有时并不低，  
 而且它还会增加延迟和重试风险。
 
+![Agent 成本路由、缓存与预算控制图](/img/course/ch09-agent-cost-routing-cache-budget-map.png)
+
+:::tip 读图提示
+这张图把成本从“单次模型调用”扩展成“任务链路账单”：模型路由、上下文长度、工具调用、缓存命中、失败重试和预算上限都会影响最终成本。
+:::
+
 ---
 
 ## 四、成本优化最常见的五个方向

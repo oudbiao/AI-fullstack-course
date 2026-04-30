@@ -240,6 +240,12 @@ print(resolve_conflict(results))
 
 > 多 Agent 一定会有冲突，冲突不是异常，而是常态。 
 
+![多 Agent 协调、冲突与收敛图](/img/course/ch09-multi-agent-coordination-cost-map.png)
+
+:::tip 读图提示
+这张图把协调成本画出来：任务分配、依赖顺序、共享状态和冲突裁决都会增加复杂度。多 Agent 的收益必须大于这些通信和收敛成本，才值得上。
+:::
+
 ---
 
 ## 七、任务协调和通信有什么关系？

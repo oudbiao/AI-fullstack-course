@@ -235,6 +235,12 @@ while state["next"] is not None:
 
 这就是图工作流最本质的优势。
 
+![LangGraph 状态机与条件边图](/img/course/ch09-langgraph-state-machine-map.png)
+
+:::tip 读图提示
+这张图可以帮助你从“链式步骤”切换到“状态机”：节点负责处理 state，条件边决定下一站，checkpoint 让系统在复杂流程中可以恢复和调试。
+:::
+
 ---
 
 ## 五、什么时候你应该从 LangChain 思维切到 LangGraph 思维？

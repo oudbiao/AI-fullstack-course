@@ -148,6 +148,12 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 这个表很适合新人，因为它能把“工具描述”从抽象概念变成一个可检查的清单。
 
+![工具描述质量与发现流程图](/img/course/ch09-tool-description-quality-map.png)
+
+:::tip 读图提示
+把工具描述想成“给模型看的说明书”。图里每个字段都在减少歧义：什么时候用、什么时候不用、参数怎么填、返回什么、风险多高。
+:::
+
 ---
 
 ## 三、先跑一个真正像样的工具注册表示例

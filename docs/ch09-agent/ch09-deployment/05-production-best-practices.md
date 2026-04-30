@@ -169,6 +169,12 @@ print(readiness_check(deployment_config))
 - 生产 readiness 不是一种感觉
 - 而是一组可检查条件
 
+![Agent 生产 Readiness、灰度与回滚图](/img/course/ch09-production-readiness-canary-rollback-map.png)
+
+:::tip 读图提示
+这张图可以当上线前检查清单：metrics、logs、timeout、rate limit、eval suite、canary、rollback、human override 和 audit log，缺一个都要知道风险在哪里。
+:::
+
 ### 3.2 为什么把“缺失项”显式列出来很重要？
 
 因为这样团队讨论就会从：
