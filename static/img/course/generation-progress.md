@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 464 / 464
+Generated with image2: 495 / 495
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -27,6 +27,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 7 章深度图解说明：本轮新增 27 张机制型、决策型和工程闭环图，覆盖 Tokenizer 粒度取舍、input_ids/attention_mask、Embedding 语义空间、上下文化表示、Next-token 生成、Context Window 预算、HuggingFace 工作流、Transformer block 数据流、架构 mask 与任务适配、高效注意力瓶颈、KV cache 与 MQA/GQA、规模成本旋钮、训练/推理成本差异、预训练数据治理、预训练目标对比、预训练工程生产线、Prompt 任务规格、高级 Prompt 技巧选择、结构化输出校验、微调决策、LoRA/QLoRA、PEFT 放置位置、数据标注飞轮、HHH 对齐张力、RLHF 奖励与 KL、DPO 捷径和垂直微调项目评估看板。新增图用于把第 7 章大模型原理、工程约束和项目决策转成新人可扫读的学习支架。
 
 第 8 章补充说明：目录 `docs/ch08-rag` 本轮新增 17 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、RAG 核心、模型部署、应用开发、工程化和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
+
+第 8 章深度图解说明：本轮新增 31 张机制型、决策型、工程型和项目闭环图，覆盖 RAG 分层故障定位、chunk size 与 overlap、课件知识块元数据、向量库记录与 metadata filter、精确搜索与 ANN、Hybrid Search 盲区、Query Rewrite 与 Rerank、RAG 优化排障、RAG 实验闭环、高级 RAG 架构选择、RAG 分层评估、Faithfulness 与 citation check、本地模型与云 API 决策、推理服务队列和 batch、统一 API 网关、LLM API 稳健客户端、LangChain 组件流水线、Function Calling 校验执行、HuggingFace 生态、多轮对话状态、AI 编程人工验证、PDF/Word/PPT 文档解析路由、模板渲染、异步并发控制、API 契约、可观测性、Docker 部署、企业知识库权限引用、RAG+微调职责拆分、智能助手 trace 和课件生成助手生产线。新增图用于把第 8 章从“能跑 RAG Demo”提升到“能理解、能调试、能交付 LLM 应用系统”。
 
 第 9 章补充说明：目录 `docs/ch09-agent` 本轮新增 27 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、Agent 基础、推理规划、工具、记忆、MCP、框架、多 Agent、评估安全、部署运维和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
@@ -246,6 +248,37 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch08-projects-route-map.png`
 - `ch08-project-learning-order-map.png`
 - `ch08-project-delivery-loop.png`
+- `ch08-rag-layer-failure-debug-map.png`
+- `ch08-chunk-size-overlap-tradeoff-map.png`
+- `ch08-courseware-chunk-metadata-schema-map.png`
+- `ch08-vector-record-metadata-filter-map.png`
+- `ch08-ann-exact-search-tradeoff-map.png`
+- `ch08-hybrid-retrieval-blindspot-map.png`
+- `ch08-rerank-query-rewrite-funnel-map.png`
+- `ch08-rag-optimization-debug-funnel-map.png`
+- `ch08-rag-experiment-eval-loop-map.png`
+- `ch08-advanced-rag-architecture-selection-map.png`
+- `ch08-rag-evaluation-layered-dashboard-map.png`
+- `ch08-faithfulness-citation-check-map.png`
+- `ch08-local-model-api-decision-map.png`
+- `ch08-inference-serving-queue-batch-map.png`
+- `ch08-unified-api-provider-gateway-map.png`
+- `ch08-llm-api-robust-client-loop-map.png`
+- `ch08-langchain-component-pipeline-map.png`
+- `ch08-function-calling-validation-dispatch-map.png`
+- `ch08-huggingface-ecosystem-layers-map.png`
+- `ch08-dialog-state-slot-memory-map.png`
+- `ch08-ai-coding-human-review-loop-map.png`
+- `ch08-document-parsing-format-router-map.png`
+- `ch08-template-schema-to-render-map.png`
+- `ch08-async-concurrency-semaphore-timeout-map.png`
+- `ch08-api-contract-error-version-map.png`
+- `ch08-observability-logs-metrics-trace-map.png`
+- `ch08-docker-image-container-compose-map.png`
+- `ch08-enterprise-kb-permission-citation-map.png`
+- `ch08-rag-finetune-responsibility-split-map.png`
+- `ch08-assistant-session-tool-trace-map.png`
+- `ch08-courseware-assistant-production-line-map.png`
 - `ch09-agent-systems.png`
 - `ch09-learning-quest-map.png`
 - `ch09-agent-vs-workflow-backbone.png`

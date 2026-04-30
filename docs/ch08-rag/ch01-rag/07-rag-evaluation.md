@@ -86,6 +86,12 @@ Hit@k 的意思很简单：
 
 在业务里，不同维度的重要性不一样。
 
+![RAG 分层评估仪表盘图](/img/course/ch08-rag-evaluation-layered-dashboard-map.png)
+
+:::tip 读图提示
+不要只看最终答案分数。先看 retrieval 层有没有命中，再看 generation 层是否完整正确，最后看 citation 层是否真的支撑结论。
+:::
+
 ---
 
 ## 四、一个最小评估数据集
@@ -236,6 +242,12 @@ print("是否被证据支持:", faithful)
 真实系统里当然不会只用这种字符串判断，但思路是对的：
 
 > 回答应该尽量能在检索证据里找到支撑。
+
+![Faithfulness 与引用真实性检查图](/img/course/ch08-faithfulness-citation-check-map.png)
+
+:::tip 读图提示
+把答案拆成几个关键结论，再逐条连回 evidence。能连上的是 supported，连不上的是 unsupported，这比“答案听起来很顺”更可靠。
+:::
 
 ---
 

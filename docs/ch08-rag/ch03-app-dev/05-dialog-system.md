@@ -151,6 +151,12 @@ print(state)
 - 对话系统真正要保留的，不只是原话
 - 还包括结构化的状态
 
+![对话状态、槽位与记忆管理图](/img/course/ch08-dialog-state-slot-memory-map.png)
+
+:::tip 读图提示
+历史记录是原始材料，state 才是系统正在维护的“当前理解”。图里把 topic、slots、last_tool_result 和 summary 分开，是为了避免把所有上下文都粗暴塞进 prompt。
+:::
+
 ---
 
 ## 四、对话系统不是只会回答，还要会追问

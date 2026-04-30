@@ -344,6 +344,12 @@ print(retry_chat(client, [{"role": "user", "content": "你好"}]))
 
 这张表的重点是让 API 层成为“稳定接口”，而不是散落在代码里的若干次模型请求。后面的 RAG、结构化输出、Function Calling 和 Agent 都会依赖这一层。
 
+![LLM API 稳健客户端闭环图](/img/course/ch08-llm-api-robust-client-loop-map.png)
+
+:::tip 读图提示
+一次模型调用进入项目后，就不再只是 `client.chat()`。图里把配置、timeout、retry、统一响应、usage、日志和 raw output 放在同一圈，是为了提醒你 API 层要先变成稳定运行时。
+:::
+
 ## 一个更像真实项目的响应结构
 
 建议你从一开始就让模型调用返回统一结构，而不是有时返回字符串、有时返回字典、有时抛异常。

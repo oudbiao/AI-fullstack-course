@@ -246,6 +246,12 @@ print(payload)
 - 结构对象不一定等于模板对象
 - 中间往往还会有一层“字段整理”
 
+![结构化课件到模板渲染图](/img/course/ch08-template-schema-to-render-map.png)
+
+:::tip 读图提示
+不要让模型直接“写 Word”。先产出 courseware schema，再整理成 template payload，最后交给 docx/pptx 渲染层。这样格式错误和内容错误才容易分开排查。
+:::
+
 ## 九、为什么这一层和 Prompt / 结构化输出强相关？
 
 因为你通常会让模型先产出：

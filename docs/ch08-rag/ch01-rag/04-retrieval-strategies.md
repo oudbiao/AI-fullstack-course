@@ -86,6 +86,12 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 混合检索就是把这两种判断合起来。
 
+![关键词检索与向量检索盲区图](/img/course/ch08-hybrid-retrieval-blindspot-map.png)
+
+:::tip 读图提示
+左边看“字面命中”，右边看“语义接近”。Hybrid Search 的价值不是复杂，而是让报错码、专有名词和口语化问题各有通道，不把所有压力都丢给 embedding。
+:::
+
 ---
 
 ## 三、一个最小可运行的混合检索示例
@@ -207,6 +213,12 @@ for q in queries:
 ```
 
 真实系统里，query rewrite 可能由 LLM 来完成。
+
+![Query Rewrite 与 Rerank 双阶段漏斗图](/img/course/ch08-rerank-query-rewrite-funnel-map.png)
+
+:::tip 读图提示
+Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rerank 发生在粗召回后，负责把候选重新排准。它们一个改入口，一个改排序，不要混成同一件事。
+:::
 
 ---
 

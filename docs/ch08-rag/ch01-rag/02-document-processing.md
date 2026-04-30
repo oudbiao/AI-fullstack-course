@@ -87,6 +87,12 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 
 > 做开卷考试笔记时，你不会把整本书粘成一张超大海报，也不会把每个字都剪成一张纸条。
 
+![Chunk 大小与 overlap 取舍图](/img/course/ch08-chunk-size-overlap-tradeoff-map.png)
+
+:::tip 读图提示
+这张图要从中间的“证据完整度”看起：chunk 太大会让检索变钝，chunk 太小会切断证据，overlap 的价值是给边界处的信息多留一段缓冲。
+:::
+
 ---
 
 ## 四、一个最小可运行的切块示例
@@ -214,6 +220,12 @@ for item in chunks_with_meta:
 这张表很重要，因为它会帮新人意识到：
 
 > **切块不是固定的文本操作，它其实在服务后面的生成目标。**
+
+![课件知识块元数据 schema 图](/img/course/ch08-courseware-chunk-metadata-schema-map.png)
+
+:::tip 读图提示
+课件生成最怕“找到了文字却不知道该放哪”。看图时重点关注 `topic`、`content_type`、`source_origin`、`page_or_slide` 这几个字段，它们会决定后面能不能按知识点、例题和练习稳定组装。
+:::
 
 ## 八、一个更像课件生成项目的知识块示例
 

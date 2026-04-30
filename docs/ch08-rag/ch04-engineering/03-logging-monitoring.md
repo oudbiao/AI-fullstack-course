@@ -178,6 +178,12 @@ print("avg_tokens     =", avg_tokens)
 
 这个表很适合新人，因为它会把“指标很多”重新压回到几个能理解的问题上。
 
+![日志、指标与 Trace 可观测性图](/img/course/ch08-observability-logs-metrics-trace-map.png)
+
+:::tip 读图提示
+日志回答“发生了什么”，指标回答“整体趋势怎样”，trace 回答“单条请求走过哪里”。LLM 系统排障时三者要连起来看，不能只盯 500 和超时。
+:::
+
 ---
 
 ## 四、追踪（trace）：一条请求到底经历了什么？

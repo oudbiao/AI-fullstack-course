@@ -217,6 +217,12 @@ Agentic RAG 则可能会：
 
 可以考虑图式检索思路。
 
+![高级 RAG 架构选择图](/img/course/ch08-advanced-rag-architecture-selection-map.png)
+
+:::tip 读图提示
+先从问题形态选架构：多知识库干扰先考虑 Router RAG，多步问题考虑 Multi-hop RAG，需要自主决策再考虑 Agentic RAG，关系链明显时再考虑 Graph RAG。
+:::
+
 ---
 
 ## 七、什么时候该升级到高级 RAG？

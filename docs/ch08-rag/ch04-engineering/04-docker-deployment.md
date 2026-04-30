@@ -90,6 +90,12 @@ keywords: [Docker, containerization, deployment, Dockerfile, Compose, service de
 
 如果这个顺序没想清楚，后面看 Docker 命令会一直晕。
 
+![Docker 镜像、容器与 Compose 部署图](/img/course/ch08-docker-image-container-compose-map.png)
+
+:::tip 读图提示
+镜像是可复现的运行模板，容器是运行实例，Compose 负责把多个服务一起启动。对 LLM 应用来说，还要把环境变量、健康检查、向量库和日志纳入部署图。
+:::
+
 ---
 
 ## 三、一个最小 Dockerfile 到底长什么样？

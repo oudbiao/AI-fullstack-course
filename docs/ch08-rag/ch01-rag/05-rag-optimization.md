@@ -43,6 +43,12 @@ keywords: [RAG optimization, chunking, top-k, rerank, prompt, context packing]
 | 检索到了但答案还是偏 | prompt / context packing / 模型总结 |
 | 回答很慢很贵 | top-k 过大 / 上下文太长 / 重排过多 |
 
+![RAG 优化分层排障漏斗图](/img/course/ch08-rag-optimization-debug-funnel-map.png)
+
+:::tip 读图提示
+优化前先沿着漏斗定位：文档处理、召回、上下文拼装、生成约束。定位不到层级就同时改 chunk、top-k、rerank 和 prompt，通常只会把问题变得更难复现。
+:::
+
 ---
 
 ## 二、从文档处理开始优化
@@ -197,6 +203,12 @@ for cfg in configs:
 
 虽然这是玩具数据，但它表达了一个很重要的工程习惯：  
 **优化要靠对比实验，不靠感觉。**
+
+![RAG 优化实验闭环图](/img/course/ch08-rag-experiment-eval-loop-map.png)
+
+:::tip 读图提示
+这张图的重点是“一次只改一个变量”。每轮都要固定评估集、记录 baseline、观察修复失败和新增失败，最后再决定是否保留改动。
+:::
 
 ---
 

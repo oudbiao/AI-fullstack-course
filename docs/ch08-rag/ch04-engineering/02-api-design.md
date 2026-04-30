@@ -168,6 +168,12 @@ print(error_response)
 - 错误类别是什么
 - 是否值得重试
 
+![API 契约、错误结构与版本管理图](/img/course/ch08-api-contract-error-version-map.png)
+
+:::tip 读图提示
+API 是系统契约，不只是 JSON。看图时重点看 request schema、response schema、error object、trace_id 和 version，它们决定接口能不能长期稳定被前端、评估系统和其他服务消费。
+:::
+
 ---
 
 ## 五、一个最小可运行的服务化处理函数

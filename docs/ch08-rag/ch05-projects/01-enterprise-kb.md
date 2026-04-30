@@ -64,6 +64,12 @@ keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source c
 
 的组合。
 
+![企业知识库权限与引用闭环图](/img/course/ch08-enterprise-kb-permission-citation-map.png)
+
+:::tip 读图提示
+企业知识库不能只看“语义相关”。先按用户权限过滤候选，再检索和重排，最后答案必须带来源引用；否则系统可能答得很像，却泄露内部文档或无法追溯。
+:::
+
 ---
 
 ## 二、先把项目边界定清楚

@@ -444,6 +444,12 @@ flowchart LR
 
 这个闭环很重要，因为它提醒你：Function Calling 的难点不是“模型能不能说出函数名”，而是模型、schema、校验、执行器和错误处理能不能组成稳定系统。
 
+![Function Calling 校验与执行闭环图](/img/course/ch08-function-calling-validation-dispatch-map.png)
+
+:::tip 读图提示
+模型只负责提出 tool call，程序才负责校验、执行和兜底。看图时重点盯住 schema、arguments validation、dispatcher 和 retry/error handling 这几道闸门。
+:::
+
 ## 这一节的学习闭环
 
 | 层次 | 你应该能做到什么 |

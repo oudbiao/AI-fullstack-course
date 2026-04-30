@@ -264,6 +264,37 @@
 | `ch08-projects-route-map.png` | LLM 应用综合项目路线图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用综合项目路线图：文档资料、解析切分向量化、RAG 检索、LLM 调用、应用功能、日志评估错误处理、部署展示逐步连接。 |
 | `ch08-project-learning-order-map.png` | LLM 应用项目学习顺序图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目学习顺序图：知识库问答、文档到答案链路、来源引用评估、智能问答助手、会话状态工具调用、RAG 微调组合和课件生成应用逐步升级。 |
 | `ch08-project-delivery-loop.png` | LLM 应用项目交付闭环图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目交付闭环图：用户任务、意图判断、RAG 检索或直接模型调用、结构化输出、校验引用、日志反馈、评估迭代形成作品集闭环。 |
+| `ch08-rag-layer-failure-debug-map.png` | RAG 分层故障定位图 | `docs/ch08-rag/ch01-rag/01-rag-basics.md` | RAG 分层故障定位图：从文档切块、检索召回、上下文拼装到生成回答逐层定位问题。 |
+| `ch08-chunk-size-overlap-tradeoff-map.png` | Chunk 大小与 overlap 取舍图 | `docs/ch08-rag/ch01-rag/02-document-processing.md` | Chunk 大小与 overlap 取舍图：chunk 太大召回不精准，太小证据不完整，overlap 缓解边界信息被切断。 |
+| `ch08-courseware-chunk-metadata-schema-map.png` | 课件知识块元数据 schema 图 | `docs/ch08-rag/ch01-rag/02-document-processing.md` | 课件知识块元数据 schema 图：topic、content_type、source_origin、page_or_slide 等字段支撑概念、例题和练习的稳定组装。 |
+| `ch08-vector-record-metadata-filter-map.png` | 向量库记录与元数据过滤图 | `docs/ch08-rag/ch01-rag/03-vector-databases.md` | 向量库记录与元数据过滤图：一条记录由 id、vector、text、metadata 组成，metadata filter 支撑权限、来源和业务范围过滤。 |
+| `ch08-ann-exact-search-tradeoff-map.png` | 精确搜索与 ANN 取舍图 | `docs/ch08-rag/ch01-rag/03-vector-databases.md` | 精确搜索与 ANN 取舍图：精确搜索逐个比较更准但慢，ANN 先缩小候选范围更快但可能牺牲一点最优保证。 |
+| `ch08-hybrid-retrieval-blindspot-map.png` | 关键词检索与向量检索盲区图 | `docs/ch08-rag/ch01-rag/04-retrieval-strategies.md` | 关键词检索与向量检索盲区图：关键词适合精确术语，向量适合同义表达，Hybrid Search 结合两者减少漏召回。 |
+| `ch08-rerank-query-rewrite-funnel-map.png` | Query Rewrite 与 Rerank 双阶段漏斗图 | `docs/ch08-rag/ch01-rag/04-retrieval-strategies.md` | Query Rewrite 与 Rerank 双阶段漏斗图：query rewrite 在检索前改写问题，rerank 在粗召回后精排候选。 |
+| `ch08-rag-optimization-debug-funnel-map.png` | RAG 优化分层排障漏斗图 | `docs/ch08-rag/ch01-rag/05-rag-optimization.md` | RAG 优化分层排障漏斗图：按文档处理、召回、上下文拼装、生成约束和引用检查逐层定位瓶颈。 |
+| `ch08-rag-experiment-eval-loop-map.png` | RAG 优化实验闭环图 | `docs/ch08-rag/ch01-rag/05-rag-optimization.md` | RAG 优化实验闭环图：固定评估集、建立 baseline、一次改一个变量、比较指标和失败样本、决定是否保留。 |
+| `ch08-advanced-rag-architecture-selection-map.png` | 高级 RAG 架构选择图 | `docs/ch08-rag/ch01-rag/06-advanced-rag.md` | 高级 RAG 架构选择图：多知识库用 Router RAG，多步骤问题用 Multi-hop RAG，自主行动用 Agentic RAG，关系链明显时考虑 Graph RAG。 |
+| `ch08-rag-evaluation-layered-dashboard-map.png` | RAG 分层评估仪表盘图 | `docs/ch08-rag/ch01-rag/07-rag-evaluation.md` | RAG 分层评估仪表盘图：检索层、生成层、引用层和系统层分别监控命中率、正确性、faithfulness、延迟和成本。 |
+| `ch08-faithfulness-citation-check-map.png` | Faithfulness 与引用真实性检查图 | `docs/ch08-rag/ch01-rag/07-rag-evaluation.md` | Faithfulness 与引用真实性检查图：把答案拆成关键结论，逐条连接到 evidence，区分 supported 与 unsupported。 |
+| `ch08-local-model-api-decision-map.png` | 本地模型与云 API 部署决策图 | `docs/ch08-rag/ch02-deployment/01-local-models.md` | 本地模型与云 API 部署决策图：隐私、成本、延迟、离线、质量和运维能力共同决定部署路线。 |
+| `ch08-inference-serving-queue-batch-map.png` | 推理服务队列与批处理图 | `docs/ch08-rag/ch02-deployment/02-inference-servers.md` | 推理服务队列与批处理图：请求进入队列，按 batch 合并执行，在 latency 与 throughput 之间做权衡。 |
+| `ch08-unified-api-provider-gateway-map.png` | 统一 API Provider Gateway 图 | `docs/ch08-rag/ch02-deployment/03-unified-api.md` | 统一 API Provider Gateway 图：业务层发统一请求，网关内部处理 provider 适配、模型路由、fallback、日志和成本统计。 |
+| `ch08-llm-api-robust-client-loop-map.png` | LLM API 稳健客户端闭环图 | `docs/ch08-rag/ch03-app-dev/01-llm-api-practice.md` | LLM API 稳健客户端闭环图：配置、请求、timeout、retry、统一响应、usage、日志和 raw output 共同组成稳定调用层。 |
+| `ch08-langchain-component-pipeline-map.png` | LangChain 组件流水线图 | `docs/ch08-rag/ch03-app-dev/02-langchain-basics.md` | LangChain 组件流水线图：Prompt、Retriever、Model、Output Parser 等组件通过清晰输入输出串成应用链路。 |
+| `ch08-function-calling-validation-dispatch-map.png` | Function Calling 校验与执行闭环图 | `docs/ch08-rag/ch03-app-dev/03-function-calling.md` | Function Calling 校验与执行闭环图：模型产出 tool call，程序做 schema 校验、参数校验、dispatch 执行、错误处理和结果回填。 |
+| `ch08-huggingface-ecosystem-layers-map.png` | HuggingFace 生态层次图 | `docs/ch08-rag/ch03-app-dev/04-huggingface-deep.md` | HuggingFace 生态层次图：Datasets、Tokenizers、Models、Pipelines 和 Hub 组成从数据到模型使用的完整生态链。 |
+| `ch08-dialog-state-slot-memory-map.png` | 对话状态、槽位与记忆管理图 | `docs/ch08-rag/ch03-app-dev/05-dialog-system.md` | 对话状态、槽位与记忆管理图：history、topic、slots、last_tool_result 和 summary 共同支撑多轮对话状态。 |
+| `ch08-ai-coding-human-review-loop-map.png` | AI 辅助编程人工验证闭环图 | `docs/ch08-rag/ch03-app-dev/06-ai-assisted-coding.md` | AI 辅助编程人工验证闭环图：需求约束、AI 代码草稿、diff、测试、真实样例和人工 review 共同保证代码质量。 |
+| `ch08-document-parsing-format-router-map.png` | PDF Word PPT 文档解析路由图 | `docs/ch08-rag/ch03-app-dev/07-document-parsing.md` | PDF Word PPT 文档解析路由图：不同文件类型进入不同解析链，恢复文本、结构、页码、内容类型和来源信息。 |
+| `ch08-template-schema-to-render-map.png` | 结构化课件到模板渲染图 | `docs/ch08-rag/ch03-app-dev/08-template-doc-generation.md` | 结构化课件到模板渲染图：courseware schema 先整理成 template payload，再填入 Word/PPT 模板并导出文档。 |
+| `ch08-async-concurrency-semaphore-timeout-map.png` | 异步并发、Semaphore 与 timeout 控制图 | `docs/ch08-rag/ch04-engineering/01-async-programming.md` | 异步并发控制图：gather 并发等待，Semaphore 限制同时请求数，timeout 防止单个上游卡死。 |
+| `ch08-api-contract-error-version-map.png` | API 契约、错误结构与版本管理图 | `docs/ch08-rag/ch04-engineering/02-api-design.md` | API 契约图：request schema、response schema、error object、trace_id 和 version 共同组成稳定服务接口。 |
+| `ch08-observability-logs-metrics-trace-map.png` | 日志、指标与 Trace 可观测性图 | `docs/ch08-rag/ch04-engineering/03-logging-monitoring.md` | 日志指标 Trace 可观测性图：logs 记录事件，metrics 观察趋势，trace 还原单条请求链路。 |
+| `ch08-docker-image-container-compose-map.png` | Docker 镜像、容器与 Compose 部署图 | `docs/ch08-rag/ch04-engineering/04-docker-deployment.md` | Docker 部署图：Dockerfile 构建 image，image 启动 container，Compose 协调 app、vector db、redis 等多个服务。 |
+| `ch08-enterprise-kb-permission-citation-map.png` | 企业知识库权限与引用闭环图 | `docs/ch08-rag/ch05-projects/01-enterprise-kb.md` | 企业知识库权限与引用闭环图：用户权限先过滤候选文档，检索和生成后答案必须带来源引用并记录审计日志。 |
+| `ch08-rag-finetune-responsibility-split-map.png` | RAG 与微调职责拆分图 | `docs/ch08-rag/ch05-projects/02-domain-rag-finetuning.md` | RAG 与微调职责拆分图：RAG 负责知识更新和来源引用，fine-tuning 负责回答风格、格式稳定和业务口径。 |
+| `ch08-assistant-session-tool-trace-map.png` | 智能助手 session、检索与工具 Trace 图 | `docs/ch08-rag/ch05-projects/03-intelligent-assistant.md` | 智能助手 session、检索与工具 Trace 图：多轮对话中 session state、retrieval、tool call、answer 和 state update 共同形成持续协作闭环。 |
+| `ch08-courseware-assistant-production-line-map.png` | 课件生成助手生产线图 | `docs/ch08-rag/ch05-projects/04-courseware-assistant.md` | 课件生成助手生产线图：PDF/Word/PPT 资料入库，解析成知识块，检索主题和例题，生成 courseware schema，再导出 Word。 |
 | `ch09-agent-systems.png` | AI Agent 系统主视觉 | `docs/ch09-agent/index.md` | AI Agent 系统主视觉：目标、计划、工具、记忆、观察和评估组成智能体执行闭环。 |
 | `ch09-learning-quest-map.png` | Agent 学习闯关地图 | `docs/ch09-agent/index.md` | Agent 学习闯关地图：目标理解、任务拆解、计划生成、工具调用、观察结果、记忆更新、自我检查和完成任务逐步连接。 |
 | `ch09-agent-vs-workflow-backbone.png` | Agent 与普通应用执行主线图 | `docs/ch09-agent/index.md` | Agent 与普通应用执行主线图：目标、任务理解、计划、工具选择、执行动作、观察结果、重新规划和输出记录组成 Agent 执行闭环。 |

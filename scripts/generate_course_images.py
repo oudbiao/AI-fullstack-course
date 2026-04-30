@@ -3668,6 +3668,440 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch08-rag-layer-failure-debug-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 分层故障定位图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/01-rag-basics.md",
+        "alt": "RAG 分层故障定位图：从文档切块、检索召回、上下文拼装到生成回答逐层定位问题。",
+        "prompt": """
+一张适合 RAG 基础课程的分层故障定位图，主题是“RAG 出问题时不要先怪模型”。
+画面从 user query 到 document chunks、retrieval top-k、context packing、LLM answer、citation，逐层标出常见失败：chunk too coarse、missed retrieval、wrong ranking、context overflow、unsupported answer。
+风格像排障仪表盘和学习流程图结合，清晰、工程化。
+文字不是主体；标准术语保留英文，例如 RAG、chunk、top-k、context、LLM answer、citation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-chunk-size-overlap-tradeoff-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Chunk 大小与 overlap 取舍图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/02-document-processing.md",
+        "alt": "Chunk 大小与 overlap 取舍图：chunk 太大召回不精准，太小证据不完整，overlap 缓解边界信息被切断。",
+        "prompt": """
+一张适合文档切块教学的取舍图，主题是“chunk size 和 overlap 决定证据能不能被找准、用完整”。
+画面用同一段文档展示 large chunk、tiny chunk、balanced chunk with overlap 三种切法，旁边标出 precision、evidence completeness、context cost、boundary loss。
+风格像开卷考试笔记卡片和工程参数面板结合，适合新人理解。
+文字不是主体；标准术语保留英文，例如 chunk size、overlap、precision、evidence completeness、context cost。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-courseware-chunk-metadata-schema-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "课件知识块元数据 schema 图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/02-document-processing.md",
+        "alt": "课件知识块元数据 schema 图：topic、content_type、source_origin、page_or_slide 等字段支撑概念、例题和练习的稳定组装。",
+        "prompt": """
+一张适合课件生成项目的知识块 schema 信息图，主题是“知识块不是裸文本，而是带任务目的的卡片”。
+画面展示一个 courseware chunk card，包含 text、topic、content_type、source_origin、page_or_slide、grade、source_refs；右侧连接 concept block、example block、exercise block 和 Word template。
+风格像结构化数据卡片和模板映射图结合，清晰、新手友好。
+文字不是主体；标准术语保留英文，例如 topic、content_type、source_origin、page_or_slide、source_refs、Word template。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-vector-record-metadata-filter-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "向量库记录与元数据过滤图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/03-vector-databases.md",
+        "alt": "向量库记录与元数据过滤图：一条记录由 id、vector、text、metadata 组成，metadata filter 支撑权限、来源和业务范围过滤。",
+        "prompt": """
+一张适合解释向量数据库记录结构的教学图，主题是“vector database 存的不只是向量”。
+画面展示 record = id + vector + text + metadata，query vector 先经过 metadata filter，再做 similarity search，最终返回 text、score、source。
+强调 metadata 支撑权限、版本、来源引用和评估。
+文字不是主体；标准术语保留英文，例如 vector database、record、metadata filter、similarity search、score、source。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-ann-exact-search-tradeoff-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "精确搜索与 ANN 取舍图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/03-vector-databases.md",
+        "alt": "精确搜索与 ANN 取舍图：精确搜索逐个比较更准但慢，ANN 先缩小候选范围更快但可能牺牲一点最优保证。",
+        "prompt": """
+一张适合解释 exact search 和 ANN 的对比图，主题是“向量库为什么需要近似最近邻”。
+左侧 exact search 像全量逐个比对，右侧 ANN 像先按索引区域缩小候选再找近邻；用速度、规模、准确性三条指标对比。
+风格像地图索引和搜索雷达结合，直观但不堆公式。
+文字不是主体；标准术语保留英文，例如 exact search、ANN、nearest neighbor、index、candidate set、speed、recall。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-hybrid-retrieval-blindspot-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "关键词检索与向量检索盲区图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/04-retrieval-strategies.md",
+        "alt": "关键词检索与向量检索盲区图：关键词适合精确术语，向量适合同义表达，Hybrid Search 结合两者减少漏召回。",
+        "prompt": """
+一张适合 Hybrid Search 教学的盲区对比图，主题是“字面匹配和语义匹配各有短板”。
+画面左右对比 keyword search 和 vector search：keyword 擅长 error code、product name、policy id；vector 擅长 paraphrase、synonym、colloquial query；中间合并成 hybrid score。
+风格像双通道检索仪表和漏斗图结合。
+文字不是主体；标准术语保留英文，例如 keyword search、vector search、hybrid score、BM25、embedding、paraphrase。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rerank-query-rewrite-funnel-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Query Rewrite 与 Rerank 双阶段漏斗图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/04-retrieval-strategies.md",
+        "alt": "Query Rewrite 与 Rerank 双阶段漏斗图：query rewrite 在检索前改写问题，rerank 在粗召回后精排候选。",
+        "prompt": """
+一张适合解释 query rewrite 和 rerank 差异的双阶段漏斗图，主题是“一个改入口，一个改排序”。
+画面表现 user query 先经过 query rewrite 变成 retrieval-friendly query，进入 sparse/dense retrieval 得到 candidate set，再经过 reranker 输出 final context。
+风格像检索流水线和质量筛选漏斗结合，帮助新人分清前后位置。
+文字不是主体；标准术语保留英文，例如 query rewrite、retrieval-friendly query、candidate set、reranker、final context。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-optimization-debug-funnel-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 优化分层排障漏斗图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/05-rag-optimization.md",
+        "alt": "RAG 优化分层排障漏斗图：按文档处理、召回、上下文拼装、生成约束和引用检查逐层定位瓶颈。",
+        "prompt": """
+一张适合 RAG 优化章节的排障漏斗图，主题是“先找瓶颈，再调参数”。
+画面从 symptom 进入四层诊断：document processing、retrieval、context packing、generation/citation；每层列出该看的 logs 和该调的 knobs。
+风格像故障诊断看板和漏斗图结合，专业但新人友好。
+文字不是主体；标准术语保留英文，例如 symptom、logs、document processing、retrieval、context packing、generation、citation、knobs。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-experiment-eval-loop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 优化实验闭环图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/05-rag-optimization.md",
+        "alt": "RAG 优化实验闭环图：固定评估集、建立 baseline、一次改一个变量、比较指标和失败样本、决定是否保留。",
+        "prompt": """
+一张适合 RAG 优化实验的闭环图，主题是“优化要像做实验，不靠感觉”。
+画面表现 eval set、baseline、change one variable、run evaluation、compare metrics、inspect failures、keep or rollback 形成循环。
+突出 Hit@k、answer correctness、citation_ok、latency、cost 这些指标。
+文字不是主体；标准术语保留英文，例如 eval set、baseline、change one variable、Hit@k、citation_ok、latency、cost、rollback。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-advanced-rag-architecture-selection-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "高级 RAG 架构选择图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/06-advanced-rag.md",
+        "alt": "高级 RAG 架构选择图：多知识库用 Router RAG，多步骤问题用 Multi-hop RAG，自主行动用 Agentic RAG，关系链明显时考虑 Graph RAG。",
+        "prompt": """
+一张适合高级 RAG 架构章节的选择图，主题是“架构升级要对应问题形态”。
+画面用四个分支连接 symptoms 到 architecture：multi knowledge bases -> Router RAG；multi-step question -> Multi-hop RAG；dynamic actions -> Agentic RAG；entity relations -> Graph RAG。
+风格像决策树和系统架构图结合，强调不是组件越多越高级。
+文字不是主体；标准术语保留英文，例如 Router RAG、Multi-hop RAG、Agentic RAG、Graph RAG、structured retrieval。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-evaluation-layered-dashboard-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 分层评估仪表盘图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/07-rag-evaluation.md",
+        "alt": "RAG 分层评估仪表盘图：检索层、生成层、引用层和系统层分别监控命中率、正确性、faithfulness、延迟和成本。",
+        "prompt": """
+一张适合 RAG 评估章节的分层仪表盘图，主题是“RAG 评估不能只看最终答案”。
+画面分成 retrieval、generation、citation、system 四层，每层有代表指标：Recall@K、MRR、Correctness、Faithfulness、citation_ok、latency、cost、failure rate。
+风格像数据仪表盘和教学分层图结合。
+文字不是主体；标准术语保留英文，例如 Recall@K、MRR、Correctness、Faithfulness、citation_ok、latency、cost。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-faithfulness-citation-check-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Faithfulness 与引用真实性检查图",
+        "suggested_page": "docs/ch08-rag/ch01-rag/07-rag-evaluation.md",
+        "alt": "Faithfulness 与引用真实性检查图：把答案拆成关键结论，逐条连接到 evidence，区分 supported 与 unsupported。",
+        "prompt": """
+一张适合解释 faithfulness 和 citation check 的教学图，主题是“答案每个关键结论都要能回到证据”。
+画面展示 answer claims 被拆成 claim 1、claim 2、claim 3，每条线连接到 retrieved evidence；能连接的是 supported，无法连接的是 unsupported / hallucinated。
+风格像证据链白板和审计检查图结合。
+文字不是主体；标准术语保留英文，例如 Faithfulness、claim、evidence、supported、unsupported、citation check、hallucination。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-local-model-api-decision-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "本地模型与云 API 部署决策图",
+        "suggested_page": "docs/ch08-rag/ch02-deployment/01-local-models.md",
+        "alt": "本地模型与云 API 部署决策图：隐私、成本、延迟、离线、质量和运维能力共同决定部署路线。",
+        "prompt": """
+一张适合模型部署入门的决策图，主题是“本地模型和云 API 是业务约束取舍”。
+画面用天平或路线选择器展示 privacy、cost、latency、offline、quality、operations 六个因素，分别指向 cloud API、local model、hybrid route。
+风格像产品技术决策看板，清爽实用。
+文字不是主体；标准术语保留英文，例如 cloud API、local model、hybrid、privacy、latency、operations。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-inference-serving-queue-batch-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "推理服务队列与批处理图",
+        "suggested_page": "docs/ch08-rag/ch02-deployment/02-inference-servers.md",
+        "alt": "推理服务队列与批处理图：请求进入队列，按 batch 合并执行，在 latency 与 throughput 之间做权衡。",
+        "prompt": """
+一张适合高性能推理服务课程的系统图，主题是“能跑模型不等于能服务流量”。
+画面表现 requests 进入 queue，scheduler 合成 batch，model server 执行，responses 返回；旁边展示 latency、throughput、batch size、timeout、concurrency 的拉扯。
+风格像后厨出餐和服务调度面板结合。
+文字不是主体；标准术语保留英文，例如 queue、scheduler、batch、model server、latency、throughput、concurrency、timeout。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-unified-api-provider-gateway-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "统一 API Provider Gateway 图",
+        "suggested_page": "docs/ch08-rag/ch02-deployment/03-unified-api.md",
+        "alt": "统一 API Provider Gateway 图：业务层发统一请求，网关内部处理 provider 适配、模型路由、fallback、日志和成本统计。",
+        "prompt": """
+一张适合统一 API 章节的 provider gateway 架构图，主题是“把 provider 差异隔离在一层”。
+画面上方是 business code 发出 unified request，中间是 API gateway，内部有 adapter、routing、fallback、usage logging、error normalization，下方连接 provider A、provider B、local model。
+风格像系统网关架构图，清晰专业。
+文字不是主体；标准术语保留英文，例如 unified request、API gateway、adapter、routing、fallback、usage、error normalization、provider、local model。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-llm-api-robust-client-loop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LLM API 稳健客户端闭环图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/01-llm-api-practice.md",
+        "alt": "LLM API 稳健客户端闭环图：配置、请求、timeout、retry、统一响应、usage、日志和 raw output 共同组成稳定调用层。",
+        "prompt": """
+一张适合大模型 API 工程实践的闭环图，主题是“API 调用要从 demo 变成稳定运行时”。
+画面表现 config、request builder、timeout、retry policy、LLM call、response parser、usage tracking、structured log、raw output archive 组成 robust client。
+风格像运行时中间层和质量护栏结合，实用、清楚。
+文字不是主体；标准术语保留英文，例如 config、timeout、retry、response parser、usage tracking、structured log、raw output、robust client。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-langchain-component-pipeline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LangChain 组件流水线图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/02-langchain-basics.md",
+        "alt": "LangChain 组件流水线图：Prompt、Retriever、Model、Output Parser 等组件通过清晰输入输出串成应用链路。",
+        "prompt": """
+一张适合 LangChain 入门的组件流水线图，主题是“框架的价值是拆清组件边界”。
+画面展示 user query 依次经过 prompt template、retriever、context builder、model、output parser、app response，每个节点标注 input/output。
+风格像模块化积木和数据流图结合，新手友好。
+文字不是主体；标准术语保留英文，例如 Prompt Template、Retriever、Context Builder、Model、Output Parser、input/output、Chain。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-function-calling-validation-dispatch-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Function Calling 校验与执行闭环图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/03-function-calling.md",
+        "alt": "Function Calling 校验与执行闭环图：模型产出 tool call，程序做 schema 校验、参数校验、dispatch 执行、错误处理和结果回填。",
+        "prompt": """
+一张适合 Function Calling 章节的工程闭环图，主题是“模型提出调用意图，程序负责安全执行”。
+画面表现 user intent 进入 model，输出 structured tool call，经过 schema validation、argument validation、dispatcher、tool execution、error handling/retry，最后 tool result 回到 model 生成最终回答。
+风格像桥梁和安全闸门结合，强调边界。
+文字不是主体；标准术语保留英文，例如 tool call、schema validation、argument validation、dispatcher、tool execution、retry、tool result。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-huggingface-ecosystem-layers-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "HuggingFace 生态层次图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/04-huggingface-deep.md",
+        "alt": "HuggingFace 生态层次图：Datasets、Tokenizers、Models、Pipelines 和 Hub 组成从数据到模型使用的完整生态链。",
+        "prompt": """
+一张适合 HuggingFace 生态深入页的分层图，主题是“HuggingFace 不只是模型仓库”。
+画面从 Datasets 到 Tokenizers、Models、Pipelines、Hub 分层连接，表现数据处理、输入编码、模型计算、任务封装和共享协作。
+不要使用真实 logo，用抽象生态平台表现。
+文字不是主体；标准术语保留英文，例如 Datasets、Tokenizers、Models、Pipelines、Hub、model card、inference。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-dialog-state-slot-memory-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "对话状态、槽位与记忆管理图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/05-dialog-system.md",
+        "alt": "对话状态、槽位与记忆管理图：history、topic、slots、last_tool_result 和 summary 共同支撑多轮对话状态。",
+        "prompt": """
+一张适合多轮对话系统的状态管理图，主题是“有 history 不等于有 state”。
+画面展示 chat history 进入 state manager，提炼出 topic、slots、last retrieved doc、last_tool_result、summary，再决定 ask clarification、call tool 或 answer。
+风格像客服工作台和状态机结合，清晰直观。
+文字不是主体；标准术语保留英文，例如 history、state manager、topic、slots、summary、tool result、clarification。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-ai-coding-human-review-loop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 辅助编程人工验证闭环图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/06-ai-assisted-coding.md",
+        "alt": "AI 辅助编程人工验证闭环图：需求约束、AI 代码草稿、diff、测试、真实样例和人工 review 共同保证代码质量。",
+        "prompt": """
+一张适合 AI 辅助编程章节的协作闭环图，主题是“AI 生成草稿，人类负责验证和合并”。
+画面表现 requirements、AI draft、diff review、unit tests、real sample run、security check、human review、merge decision 形成循环。
+风格像开发工作流看板和质量门禁结合。
+文字不是主体；标准术语保留英文，例如 requirements、AI draft、diff review、unit tests、security check、human review、merge。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-document-parsing-format-router-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PDF Word PPT 文档解析路由图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/07-document-parsing.md",
+        "alt": "PDF Word PPT 文档解析路由图：不同文件类型进入不同解析链，恢复文本、结构、页码、内容类型和来源信息。",
+        "prompt": """
+一张适合文档解析与知识抽取章节的路由图，主题是“文档解析不是一个解析器走天下”。
+画面表现 PDF、scanned PDF/OCR、DOCX、PPTX 进入 parser router，再分别经过 text extraction、layout/order recovery、metadata、content_type detection，输出 structured chunks。
+风格像文件分拣流水线和知识抽取工厂结合。
+文字不是主体；标准术语保留英文，例如 PDF、DOCX、PPTX、OCR、parser router、metadata、content_type、structured chunks。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-template-schema-to-render-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "结构化课件到模板渲染图",
+        "suggested_page": "docs/ch08-rag/ch03-app-dev/08-template-doc-generation.md",
+        "alt": "结构化课件到模板渲染图：courseware schema 先整理成 template payload，再填入 Word/PPT 模板并导出文档。",
+        "prompt": """
+一张适合模板化文档生成章节的工程图，主题是“先结构化，再模板渲染，不直接自由写 Word”。
+画面展示 courseware schema 进入 template payload mapper，分成 title、concept_block、example_block、exercise_block、source_block，再填入 Word/PPT template，导出 docx/pptx。
+风格像文档生产线和字段映射图结合。
+文字不是主体；标准术语保留英文，例如 courseware schema、template payload、concept_block、example_block、source_block、Word template、docx、pptx。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-async-concurrency-semaphore-timeout-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "异步并发、Semaphore 与 timeout 控制图",
+        "suggested_page": "docs/ch08-rag/ch04-engineering/01-async-programming.md",
+        "alt": "异步并发控制图：gather 并发等待，Semaphore 限制同时请求数，timeout 防止单个上游卡死。",
+        "prompt": """
+一张适合异步编程章节的工程机制图，主题是“异步不是无限并发，而是聪明等待和受控并发”。
+画面表现 asyncio.gather 同时发起多个 I/O tasks，Semaphore gate 限制并发，timeout watchdog 处理慢任务，最后汇总结果。
+风格像厨房并行备菜和后端调度图结合，直观、轻松。
+文字不是主体；标准术语保留英文，例如 asyncio.gather、I/O tasks、Semaphore、timeout、rate limit、results。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-api-contract-error-version-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "API 契约、错误结构与版本管理图",
+        "suggested_page": "docs/ch08-rag/ch04-engineering/02-api-design.md",
+        "alt": "API 契约图：request schema、response schema、error object、trace_id 和 version 共同组成稳定服务接口。",
+        "prompt": """
+一张适合 API 设计章节的系统契约图，主题是“API 不是随便包个 JSON，而是长期稳定的契约”。
+画面展示 client 通过 /api/v1 调用 service，接口契约分成 request schema、response schema、error object、trace_id、version、idempotency。
+风格像合同文档和服务接口架构图结合，清晰专业。
+文字不是主体；标准术语保留英文，例如 request schema、response schema、error object、trace_id、version、idempotency、/api/v1。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-observability-logs-metrics-trace-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "日志、指标与 Trace 可观测性图",
+        "suggested_page": "docs/ch08-rag/ch04-engineering/03-logging-monitoring.md",
+        "alt": "日志指标 Trace 可观测性图：logs 记录事件，metrics 观察趋势，trace 还原单条请求链路。",
+        "prompt": """
+一张适合 LLM 日志与监控章节的可观测性图，主题是“系统坏了要能看见哪里坏”。
+画面分成 logs、metrics、trace 三块：logs 记录 stage events，metrics 汇总 latency/error/token/retrieval hit，trace 串起 api、retrieval、tool、LLM、response。
+风格像运维仪表盘和链路追踪图结合。
+文字不是主体；标准术语保留英文，例如 logs、metrics、trace、latency、error rate、tokens、retrieval hit、LLM。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-docker-image-container-compose-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Docker 镜像、容器与 Compose 部署图",
+        "suggested_page": "docs/ch08-rag/ch04-engineering/04-docker-deployment.md",
+        "alt": "Docker 部署图：Dockerfile 构建 image，image 启动 container，Compose 协调 app、vector db、redis 等多个服务。",
+        "prompt": """
+一张适合 Docker 部署章节的概念图，主题是“容器化把应用和运行环境标准化”。
+画面展示 Dockerfile -> image -> container 的关系，旁边用 Docker Compose 编排 app service、vector db、redis、logs，并标出 environment variables 和 health check。
+风格像部署蓝图和服务编排图结合。
+文字不是主体；标准术语保留英文，例如 Dockerfile、image、container、Docker Compose、environment variables、health check、vector db、redis。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-enterprise-kb-permission-citation-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "企业知识库权限与引用闭环图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/01-enterprise-kb.md",
+        "alt": "企业知识库权限与引用闭环图：用户权限先过滤候选文档，检索和生成后答案必须带来源引用并记录审计日志。",
+        "prompt": """
+一张适合企业知识库问答项目的系统图，主题是“企业 RAG 要同时正确、合规、可追溯”。
+画面表现 user role/permission 先过滤 public/internal docs，再 retrieval、rerank、answer with sources，最后进入 citation check 和 audit log。
+风格像企业权限系统和 RAG 流程图结合，可靠、清晰。
+文字不是主体；标准术语保留英文，例如 permission filter、public docs、internal docs、retrieval、rerank、sources、citation check、audit log。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-rag-finetune-responsibility-split-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RAG 与微调职责拆分图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/02-domain-rag-finetuning.md",
+        "alt": "RAG 与微调职责拆分图：RAG 负责知识更新和来源引用，fine-tuning 负责回答风格、格式稳定和业务口径。",
+        "prompt": """
+一张适合 RAG+微调综合项目的职责拆分图，主题是“RAG 补知识，fine-tuning 补行为”。
+画面左右分栏：RAG side 包含 documents、retrieval、citations、knowledge update；fine-tuning side 包含 style、format、domain tone、task behavior；中间合成 final answer。
+风格像系统职责边界图，强调两者互补不是替代。
+文字不是主体；标准术语保留英文，例如 RAG、fine-tuning、knowledge update、citations、style、format、domain behavior、final answer。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-assistant-session-tool-trace-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "智能助手 session、检索与工具 Trace 图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/03-intelligent-assistant.md",
+        "alt": "智能助手 session、检索与工具 Trace 图：多轮对话中 session state、retrieval、tool call、answer 和 state update 共同形成持续协作闭环。",
+        "prompt": """
+一张适合智能问答助手项目的多轮 trace 图，主题是“助手感来自状态、检索和工具协作”。
+画面表现 turn 1、turn 2、turn 3 的对话流，每轮更新 session state；需要知识时 retrieval，需要用户状态时 tool call，最后 answer 后写回 state。
+风格像产品对话轨迹和系统链路图结合。
+文字不是主体；标准术语保留英文，例如 session state、retrieval、tool call、answer、state update、trace、multi-turn。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-courseware-assistant-production-line-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "课件生成助手生产线图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/04-courseware-assistant.md",
+        "alt": "课件生成助手生产线图：PDF/Word/PPT 资料入库，解析成知识块，检索主题和例题，生成 courseware schema，再导出 Word。",
+        "prompt": """
+一张适合知识库驱动课件生成助手项目的生产线图，主题是“从资料库到 Word 课件的可调试链路”。
+画面表现 PDF/Word/PPT 进入 document parsing，变成 structured chunks，按 topic/content_type retrieval，内部资料优先、外部资料补充，生成 courseware schema，最后 Word template export。
+风格像教育内容工厂和系统架构图结合，适合新人一眼看懂项目闭环。
+文字不是主体；标准术语保留英文，例如 PDF、Word、PPT、document parsing、structured chunks、topic、content_type、courseware schema、Word template、export。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch09-agent-systems.png",
         "size": "1536x1024",
         "quality": "medium",

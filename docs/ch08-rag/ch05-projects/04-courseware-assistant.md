@@ -288,6 +288,12 @@ def generate_courseware(topic):
 4. 生成固定 schema
 5. 导出文档
 
+![课件生成助手生产线图](/img/course/ch08-courseware-assistant-production-line-map.png)
+
+:::tip 读图提示
+这张图要按生产线看：资料入库、解析成知识块、按主题和内容类型检索、生成 courseware schema、再渲染 Word。任何一层没有中间产物，后面就很难排查。
+:::
+
 ## 十、这个项目最该怎么评估？
 
 最值得先看的不是“写出来像不像”，而是：

@@ -160,6 +160,12 @@ flowchart LR
 
 - RAG 出问题时，不要默认都是模型的问题
 
+![RAG 分层故障定位图](/img/course/ch08-rag-layer-failure-debug-map.png)
+
+:::tip 读图提示
+先顺着图从左到右问三件事：正确资料有没有被切成可检索的块、有没有进入 top-k、有没有被放进最终 context。只有这三层都没问题时，才优先怀疑生成模型本身。
+:::
+
 ---
 
 ## 三、一个最小可运行的迷你 RAG
