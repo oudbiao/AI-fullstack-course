@@ -286,6 +286,12 @@ print(next_fix(prompt_checklist))
 
 - 一份可检查的任务规格
 
+![Prompt 三层任务规格图](/img/course/ch07-prompt-spec-three-layer-map.png)
+
+:::tip 读图提示
+这张图把 Prompt 拆成三层：任务目标、输出格式、约束边界。新人先别急着加角色设定或高级技巧，先确认这三层有没有写清楚；很多不稳定输出，其实只是任务规格缺了一层。
+:::
+
 ---
 
 ## 五、一个真正能看出差别的例子

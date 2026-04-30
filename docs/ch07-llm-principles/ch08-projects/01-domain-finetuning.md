@@ -173,6 +173,12 @@ print("sft_sample:", sft_dataset[0])
 
 这已经是一个很像真实微调项目的核心骨架。
 
+![垂直领域微调项目评估看板图](/img/course/ch07-domain-finetune-evaluation-board-map.png)
+
+:::tip 读图提示
+这张图建议按作品集视角读：任务边界先收窄，SFT 数据要能展示来源和格式，baseline 必须先跑，评估要有政策点覆盖、违规承诺、风格一致性和 before/after 对比。项目值钱的不是“我微调了”，而是你能证明为什么值得微调、提升在哪里。
+:::
+
 ### 4.2 为什么要先做两个 baseline？
 
 最少建议比较：

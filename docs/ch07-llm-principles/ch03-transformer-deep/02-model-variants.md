@@ -204,6 +204,12 @@ pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 
 结构是否合适，本质上就是信息流约束是否匹配任务。
 
+![架构 mask 与任务适配图](/img/course/ch07-architecture-mask-task-fit-map.png)
+
+:::tip 读图提示
+读这张图时先问“谁能看谁”：Encoder-only 适合理解，因为能双向看完整输入；Decoder-only 适合生成，因为只能看过去；Encoder-Decoder 适合翻译摘要，因为输入先被完整编码，输出再因果生成。
+:::
+
 ---
 
 ## 四、把三条路线和典型任务连起来

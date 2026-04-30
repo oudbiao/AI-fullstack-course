@@ -133,6 +133,12 @@ print("W_new shape :", W_new.shape)
 
 这就是它能省资源的根本原因。
 
+![LoRA 与 QLoRA 低秩增量和显存节省图](/img/course/ch07-lora-qlora-low-rank-memory-map.png)
+
+:::tip 读图提示
+读这张图时把原始权重 `W` 看成冻结的大底座，LoRA 只训练小矩阵 `A` 和 `B` 形成 `ΔW = A @ B`，QLoRA 再把基础模型量化以减少显存。核心不是缩写，而是“少改参数、少占显存”。
+:::
+
 ### 3.3 一个很适合初学者先记的对比表
 
 | 路线 | 最值得先记住的核心动作 |

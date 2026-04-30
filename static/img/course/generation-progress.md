@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 437 / 437
+Generated with image2: 464 / 464
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -23,6 +23,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 6 章深度图解说明：本轮新增 23 张机制型和诊断型图解，覆盖神经元线性打分、XOR 单层局限、反向传播责任分摊、NumPy 到 PyTorch 训练循环、优化器更新决策、正则化动作选择、Tensor shape 语义、Autograd 梯度生命周期、训练循环顺序、卷积 stride/padding、CNN 感受野、通道/空间权衡、迁移学习决策、RNN 滚动记忆、长依赖梯度衰减、LSTM 门控、Attention QKV 类比、Causal Mask、Transformer Block 职责、表示逐层精炼、GAN 对抗平衡、VAE 潜空间采样和训练诊断仪表盘。新增图用于把第 6 章抽象机制转成可扫读、可类比、可排障的学习支架，让新人更容易持续学下去。
 
 第 7 章补充说明：目录 `docs/ch07-llm-principles` 本轮新增 18 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、NLP 速成、LLM 概览、Transformer 深入、预训练、Prompt、微调、对齐和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
+
+第 7 章深度图解说明：本轮新增 27 张机制型、决策型和工程闭环图，覆盖 Tokenizer 粒度取舍、input_ids/attention_mask、Embedding 语义空间、上下文化表示、Next-token 生成、Context Window 预算、HuggingFace 工作流、Transformer block 数据流、架构 mask 与任务适配、高效注意力瓶颈、KV cache 与 MQA/GQA、规模成本旋钮、训练/推理成本差异、预训练数据治理、预训练目标对比、预训练工程生产线、Prompt 任务规格、高级 Prompt 技巧选择、结构化输出校验、微调决策、LoRA/QLoRA、PEFT 放置位置、数据标注飞轮、HHH 对齐张力、RLHF 奖励与 KL、DPO 捷径和垂直微调项目评估看板。新增图用于把第 7 章大模型原理、工程约束和项目决策转成新人可扫读的学习支架。
 
 第 8 章补充说明：目录 `docs/ch08-rag` 本轮新增 17 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、RAG 核心、模型部署、应用开发、工程化和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
@@ -199,6 +201,33 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch07-alignment-app-safety-map.png`
 - `ch07-projects-route-map.png`
 - `ch07-project-method-choice-loop.png`
+- `ch07-tokenizer-granularity-tradeoff-map.png`
+- `ch07-tokenizer-inputids-mask-length-map.png`
+- `ch07-embedding-onehot-dense-map.png`
+- `ch07-contextual-embedding-sense-map.png`
+- `ch07-next-token-generation-loop-map.png`
+- `ch07-context-window-budget-map.png`
+- `ch07-huggingface-workflow-object-map.png`
+- `ch07-transformer-block-dataflow-map.png`
+- `ch07-architecture-mask-task-fit-map.png`
+- `ch07-efficient-attention-bottleneck-map.png`
+- `ch07-kv-cache-mqa-gqa-map.png`
+- `ch07-scale-cost-knobs-map.png`
+- `ch07-train-inference-cost-split-map.png`
+- `ch07-pretraining-data-governance-funnel.png`
+- `ch07-pretraining-objective-comparison-map.png`
+- `ch07-pretraining-engineering-production-line.png`
+- `ch07-prompt-spec-three-layer-map.png`
+- `ch07-advanced-prompt-technique-decision-map.png`
+- `ch07-structured-output-contract-validation-map.png`
+- `ch07-finetune-decision-rag-prompt-peft-map.png`
+- `ch07-lora-qlora-low-rank-memory-map.png`
+- `ch07-peft-placement-family-map.png`
+- `ch07-data-labeling-flywheel-review-map.png`
+- `ch07-alignment-hhh-tension-guardrail-map.png`
+- `ch07-rlhf-reward-kl-loop-map.png`
+- `ch07-dpo-rlhf-shortcut-map.png`
+- `ch07-domain-finetune-evaluation-board-map.png`
 - `ch08-rag-engineering.png`
 - `ch08-learning-quest-map.png`
 - `ch08-rag-system-backbone.png`

@@ -64,6 +64,12 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 3. 把 batch 喂给 model
 4. 从输出里拿到 hidden states、logits 或生成结果
 
+![HuggingFace 标准工作流对象关系图](/img/course/ch07-huggingface-workflow-object-map.png)
+
+:::tip 读图提示
+读这张图时把 HuggingFace 看成一条标准实验台：`tokenizer` 负责把文本变成张量，`config` 描述模型结构，`model.forward` 执行计算，输出再变成 hidden states、logits 或生成结果。API 名字很多，但主线其实很稳定。
+:::
+
 如果这条链在脑子里顺了，  
 很多例子就不会再显得乱。
 

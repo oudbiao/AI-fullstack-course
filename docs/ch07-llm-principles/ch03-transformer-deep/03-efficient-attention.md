@@ -132,6 +132,12 @@ FlashAttention 很容易被误解成：
 
 而不是让模型突然能理解完全不同的关系。
 
+![高效注意力瓶颈分流图](/img/course/ch07-efficient-attention-bottleneck-map.png)
+
+:::tip 读图提示
+这张图不是让你背方法名，而是先分清瓶颈：上下文太长时看 sliding/local attention，KV cache 太大时看 MQA/GQA，显存读写太贵时看 FlashAttention。高效注意力是一组工程取舍，不是一种万能公式。
+:::
+
 ### 2.4 线性注意力：尝试从公式层面降复杂度
 
 还有一类方法更激进，  
@@ -292,6 +298,12 @@ print("MQA units =", kv_units(32, 1, head_dim, seq_len))
 
 - `num_kv_heads` 越少
 - KV cache 越小
+
+![KV cache 与 MHA/GQA/MQA 对比图](/img/course/ch07-kv-cache-mqa-gqa-map.png)
+
+:::tip 读图提示
+这张图建议从推理角度看：普通 MHA 每个 query head 往往各有 K/V，GQA 让一组 query heads 共享 K/V，MQA 则让更多 heads 共享同一组 K/V。共享越多，KV cache 越小，但也要接受一定表达能力取舍。
+:::
 
 ---
 

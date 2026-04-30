@@ -71,6 +71,12 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 只要任一环节不稳，  
 整体成本就会迅速放大。
 
+![预训练工程生产线图](/img/course/ch07-pretraining-engineering-production-line.png)
+
+:::tip 读图提示
+这张图把预训练看成一条生产线：shards 是原材料仓库，streaming dataloader 是传送带，checkpoint 是进度存档，resume 是停电后复工。预训练工程的关键不是“能跑一次”，而是能长期稳定地跑下去。
+:::
+
 ---
 
 ## 二、预训练工程里最关键的三个问题

@@ -145,6 +145,12 @@ tokenizer 要先决定：
 
 这也是为什么 BPE、WordPiece、SentencePiece 这类方法会这么重要。
 
+![Tokenizer 粒度取舍图](/img/course/ch07-tokenizer-granularity-tradeoff-map.png)
+
+:::tip 读图提示
+这张图建议从左到右看：字符级最稳但序列最长，词级语义直观但 OOV 风险高，子词级在词表大小、序列长度和新词覆盖之间折中。Tokenizer 不是“怎么切好看”，而是在做成本和表达能力的平衡。
+:::
+
 ---
 
 ## 三、先跑一个真正说明问题的 tokenizer 示例
@@ -272,6 +278,12 @@ for text in examples:
 
 - `1` 是真实 token
 - `0` 是 padding
+
+![Tokenizer 到 input_ids 与 attention_mask 图](/img/course/ch07-tokenizer-inputids-mask-length-map.png)
+
+:::tip 读图提示
+读这张图时把流程分成四步：原文先切成 tokens，再映射成 `input_ids`，短句用 `[PAD]` 补齐，最后用 `attention_mask` 告诉模型哪些位置是真内容。很多 batch 报错和效果异常，都和这条链没看清有关。
+:::
 
 ---
 

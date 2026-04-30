@@ -219,6 +219,33 @@
 | `ch07-alignment-app-safety-map.png` | 对齐与应用安全边界图 | `docs/ch07-llm-principles/ch07-alignment/00-roadmap.md` | 对齐与应用安全边界图：模型对齐让模型更愿意遵循指令、承认不确定和遵守安全边界，并连接 Prompt 应用、RAG 引用和 Agent 工具权限。 |
 | `ch07-projects-route-map.png` | 大模型综合项目路线图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型综合项目路线图：领域任务、Prompt baseline、失败分析、Prompt 优化、RAG、微调、评估对比和项目展示组成方案选择闭环。 |
 | `ch07-project-method-choice-loop.png` | 大模型项目方法选择闭环图 | `docs/ch07-llm-principles/ch08-projects/00-roadmap.md` | 大模型项目方法选择闭环图：任务定义、数据样例、baseline、失败分析、方法选择、实现方案、评估对比、结论取舍和作品集输出组成项目闭环。 |
+| `ch07-tokenizer-granularity-tradeoff-map.png` | Tokenizer 粒度取舍图 | `docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md` | Tokenizer 粒度取舍图：字符级、词级和子词级在序列长度、OOV 风险、词表大小和语义粒度之间做取舍。 |
+| `ch07-tokenizer-inputids-mask-length-map.png` | Tokenizer 到 input_ids 与 attention_mask 图 | `docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md` | Tokenizer 到张量图：原文经过 tokenization、special tokens、input_ids、padding、attention_mask 和 truncation 变成可批处理张量。 |
+| `ch07-embedding-onehot-dense-map.png` | One-hot 到 dense embedding 语义空间图 | `docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md` | One-hot 到 dense embedding 对比图：One-hot 只能区分身份，dense embedding 把语义相近词放到相近向量空间位置。 |
+| `ch07-contextual-embedding-sense-map.png` | 上下文化表示消解一词多义图 | `docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md` | 上下文化表示图：bank 在 bank account 与 river bank 两种上下文中形成不同上下文化向量。 |
+| `ch07-next-token-generation-loop-map.png` | Next-token 生成循环与采样图 | `docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md` | Next-token 生成循环图：上下文经过 embedding、Transformer、logits、softmax、temperature/top-p 采样得到下一个 token，再拼回上下文继续生成。 |
+| `ch07-context-window-budget-map.png` | Context window 信息预算图 | `docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md` | Context window 信息预算图：系统提示、历史对话、检索资料、用户问题和输出空间共同占用 token 预算。 |
+| `ch07-huggingface-workflow-object-map.png` | HuggingFace 标准工作流对象关系图 | `docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md` | HuggingFace 工作流图：文本经 tokenizer 变成 input_ids 与 attention_mask，config 定义结构，model.forward 输出 hidden states/logits。 |
+| `ch07-transformer-block-dataflow-map.png` | Transformer Block 数据流拆解图 | `docs/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md` | Transformer Block 数据流图：token 表示经过 Self-Attention、Residual、LayerNorm、FFN 和再次 Residual/LayerNorm 完成一层 block 更新。 |
+| `ch07-architecture-mask-task-fit-map.png` | 架构 mask 与任务适配图 | `docs/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md` | 架构 mask 与任务适配图：Encoder-only 双向理解，Decoder-only 因果生成，Encoder-Decoder 先读输入再生成输出，任务取决于信息流约束。 |
+| `ch07-efficient-attention-bottleneck-map.png` | 高效注意力瓶颈分流图 | `docs/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md` | 高效注意力瓶颈分流图：长上下文平方复杂度、KV cache 体积和显存读写效率分别对应 sliding/local attention、MQA/GQA、FlashAttention 等路线。 |
+| `ch07-kv-cache-mqa-gqa-map.png` | KV cache 与 MHA/GQA/MQA 对比图 | `docs/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md` | KV cache 对比图：MHA 每个 head 有独立 K/V，GQA 分组共享 K/V，MQA 多个 query heads 共享一组 K/V，从而减少 cache。 |
+| `ch07-scale-cost-knobs-map.png` | 大模型规模成本旋钮图 | `docs/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md` | 大模型规模成本旋钮图：layers、hidden size、context length、batch size、kv heads 等旋钮共同放大参数量、计算量和 KV cache。 |
+| `ch07-train-inference-cost-split-map.png` | 训练期与推理期成本结构对比图 | `docs/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md` | 训练期与推理期成本对比图：训练期关注参数、梯度、优化器状态和激活，推理期关注 KV cache、延迟、吞吐和并发显存。 |
+| `ch07-pretraining-data-governance-funnel.png` | 预训练数据治理漏斗图 | `docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md` | 预训练数据治理漏斗图：原始网页书籍代码论坛数据经过清洗、去重、风险过滤、污染控制和配比后形成训练语料版本。 |
+| `ch07-pretraining-objective-comparison-map.png` | 预训练目标样本改造对比图 | `docs/ch07-llm-principles/ch04-pretraining/02-pretraining-methods.md` | 预训练目标对比图：同一句文本分别构造成 Causal LM、Masked LM 和 Span Corruption 训练样本，对应续写、补空和恢复片段。 |
+| `ch07-pretraining-engineering-production-line.png` | 预训练工程生产线图 | `docs/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md` | 预训练工程生产线图：数据分片、流式读取、训练步骤、checkpoint、恢复训练、吞吐监控组成稳定预训练生产线。 |
+| `ch07-prompt-spec-three-layer-map.png` | Prompt 三层任务规格图 | `docs/ch07-llm-principles/ch05-prompt/01-prompt-basics.md` | Prompt 三层任务规格图：Prompt 基础由任务目标、输出格式和约束条件三层组成，先写清规格再谈技巧。 |
+| `ch07-advanced-prompt-technique-decision-map.png` | 高级 Prompt 技巧选择图 | `docs/ch07-llm-principles/ch05-prompt/02-advanced-prompting.md` | 高级 Prompt 技巧选择图：根据标签边界模糊、风格不一致、任务多步骤、漏条件或格式错误选择 few-shot、角色设定、分步约束、自检等技巧。 |
+| `ch07-structured-output-contract-validation-map.png` | 结构化输出合同与校验闭环图 | `docs/ch07-llm-principles/ch05-prompt/03-structured-output.md` | 结构化输出合同与校验图：Prompt 定义 JSON schema 合同，模型输出后由程序解析、字段校验、类型校验和值域校验，失败时重试或转人工。 |
+| `ch07-finetune-decision-rag-prompt-peft-map.png` | 微调前方案选择决策图 | `docs/ch07-llm-principles/ch06-finetuning/01-finetuning-overview.md` | 微调前方案选择图：知识问题优先 RAG，格式问题优先 Prompt/结构化输出，工具流程问题优先 Agent，稳定行为问题再考虑微调或 PEFT。 |
+| `ch07-lora-qlora-low-rank-memory-map.png` | LoRA 与 QLoRA 低秩增量和显存节省图 | `docs/ch07-llm-principles/ch06-finetuning/02-lora-qlora.md` | LoRA 与 QLoRA 图：冻结权重 W，加上低秩增量 ΔW=A@B；QLoRA 在此基础上量化基础模型以进一步节省显存。 |
+| `ch07-peft-placement-family-map.png` | PEFT 方法可训练参数放置位置图 | `docs/ch07-llm-principles/ch06-finetuning/03-other-peft.md` | PEFT 方法位置图：Prompt Tuning 放输入 embedding 前，Prefix Tuning 放每层 KV 前缀，Adapter 插层间瓶颈模块，IA3 学通道缩放。 |
+| `ch07-data-labeling-flywheel-review-map.png` | 数据标注质检与飞轮回流图 | `docs/ch07-llm-principles/ch06-finetuning/05-data-labeling.md` | 数据标注飞轮图：标注一致性、Cohen kappa、低置信度和线上失败样本进入复核队列，再回流训练集和评估集。 |
+| `ch07-alignment-hhh-tension-guardrail-map.png` | Helpful Honest Harmless 对齐张力图 | `docs/ch07-llm-principles/ch07-alignment/01-alignment-problem.md` | HHH 对齐张力图：Helpful、Honest、Harmless 三目标存在张力，需要评估、策略、护栏和人工复核共同落地。 |
+| `ch07-rlhf-reward-kl-loop-map.png` | RLHF 奖励模型与 KL 约束闭环图 | `docs/ch07-llm-principles/ch07-alignment/02-rlhf.md` | RLHF 奖励与 KL 图：偏好对训练 Reward Model，策略模型朝高奖励更新，同时 Reference Model 和 KL penalty 防止模型跑偏。 |
+| `ch07-dpo-rlhf-shortcut-map.png` | DPO 相比 RLHF 的偏好优化捷径图 | `docs/ch07-llm-principles/ch07-alignment/03-alternative-methods.md` | DPO 与 RLHF 对比图：RLHF 长链需要奖励模型和 PPO，DPO 直接用 chosen/rejected 偏好对优化策略边距。 |
+| `ch07-domain-finetune-evaluation-board-map.png` | 垂直领域微调项目评估看板图 | `docs/ch07-llm-principles/ch08-projects/01-domain-finetuning.md` | 垂直领域微调项目评估看板图：任务边界、SFT 数据、Prompt/RAG baseline、评估规则、before/after 和失败样例组成作品级微调项目看板。 |
 | `ch08-rag-engineering.png` | LLM 应用与 RAG 主视觉 | `docs/ch08-rag/index.md` | LLM 应用与 RAG 主视觉：文档处理、向量库、检索、Prompt、API 和日志组成知识库系统。 |
 | `ch08-learning-quest-map.png` | RAG 学习闯关地图 | `docs/ch08-rag/index.md` | RAG 学习闯关地图：准备文档、切分、Embedding、向量库、检索、Prompt、生成带来源答案、评估和优化逐步连接。 |
 | `ch08-rag-system-backbone.png` | RAG 应用系统主干图 | `docs/ch08-rag/index.md` | RAG 应用系统主干图：用户问题经过查询改写、向量检索、文档召回、重排、上下文拼接、LLM 生成、引用评估和日志记录。 |

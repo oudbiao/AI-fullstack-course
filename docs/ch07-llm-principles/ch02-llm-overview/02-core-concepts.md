@@ -49,6 +49,12 @@ flowchart LR
 
 这张图先帮你建立主线：大模型并不是直接“吐出答案”，而是不断重复一条生成链路。后面你看到 token、embedding、attention、temperature 时，都可以把它们放回这条链路里理解。
 
+![Next-token 生成循环与采样图](/img/course/ch07-next-token-generation-loop-map.png)
+
+:::tip 读图提示
+这张图建议按循环读：上下文变成向量，Transformer 输出 `logits`，`softmax` 变成概率，再由 temperature/top-p 等采样策略选出下一个 token。大模型生成不是一次写完整答案，而是把“预测下一个 token”重复很多次。
+:::
+
 比如你看到：
 
 > “北京是中国的”
@@ -138,6 +144,12 @@ print("token 数量:", len(tokens))
 类比一下：
 
 > 你在桌上做题，桌面越大，能摊开的参考资料越多。
+
+![Context window 信息预算图](/img/course/ch07-context-window-budget-map.png)
+
+:::tip 读图提示
+把 context window 想成固定大小的工作台：系统提示、用户问题、历史对话、检索资料和输出空间都要抢 token 预算。窗口变大只是桌子变大，不代表资料可以随便塞，真正关键是把最有用的信息放进去。
+:::
 
 ---
 

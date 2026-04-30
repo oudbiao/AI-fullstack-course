@@ -190,6 +190,12 @@ RLHF 则更像在继续教它：
 
 这个表很适合新人，因为它会把 RLHF 从“一个缩写”重新拆成几个明确角色。
 
+![RLHF 奖励模型与 KL 约束闭环图](/img/course/ch07-rlhf-reward-kl-loop-map.png)
+
+:::tip 读图提示
+这张图建议按角色读：SFT 先让模型会答，偏好对训练 Reward Model，策略模型朝高奖励方向更新，Reference Model 和 KL penalty 防止它为了刷分跑偏。RLHF 重，不是因为名字复杂，而是因为这条链里同时维护多个模型角色。
+:::
+
 ---
 
 ## 三、先跑一个真正有关的奖励模型示例

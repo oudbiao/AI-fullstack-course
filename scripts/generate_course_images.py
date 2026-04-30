@@ -3039,6 +3039,384 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch07-tokenizer-granularity-tradeoff-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Tokenizer 粒度取舍图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md",
+        "alt": "Tokenizer 粒度取舍图：字符级、词级和子词级在序列长度、OOV 风险、词表大小和语义粒度之间做取舍。",
+        "prompt": """
+一张适合大模型入门课程的科学教育信息图，主题是“Tokenizer 是粒度、成本和覆盖率的取舍”。
+画面分成三栏：char-level 字符级、word-level 词级、subword/BPE 子词级；用四个维度对比 sequence length、OOV risk、vocab size、semantic granularity。
+风格像高质量课程白板和清爽数据卡片结合，帮助新人理解为什么现代大模型多用子词切分。
+文字不是主体；标准术语保留英文，例如 char-level、word-level、subword、BPE、WordPiece、OOV、vocab size。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-tokenizer-inputids-mask-length-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Tokenizer 到 input_ids 与 attention_mask 图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/01-tokenizer.md",
+        "alt": "Tokenizer 到张量图：原文经过 tokenization、special tokens、input_ids、padding、attention_mask 和 truncation 变成可批处理张量。",
+        "prompt": """
+一张适合解释 tokenizer 输出对象的流程图，主题是“文字怎样变成模型能批处理的张量”。
+画面表现 raw text 进入 tokenization，加入 special tokens，例如 [CLS]、[SEP]，再转换为 input_ids；短句经过 padding，长句经过 truncation，同时生成 attention_mask。
+用两条样本句子展示同一个 batch 中长短不一的输入如何被对齐，最终进入 Transformer。
+文字不是主体；标准术语保留英文，例如 raw text、tokens、input_ids、padding、truncation、attention_mask、batch。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-embedding-onehot-dense-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "One-hot 到 dense embedding 语义空间图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
+        "alt": "One-hot 到 dense embedding 对比图：One-hot 只能区分身份，dense embedding 把语义相近词放到相近向量空间位置。",
+        "prompt": """
+一张适合解释 Embedding 的对比信息图，主题是“One-hot 只记身份，dense embedding 记录语义距离”。
+画面左侧展示稀疏 one-hot 编码，每个词只有一个位置为 1；右侧展示二维或三维语义空间，refund 和 return 靠近，password 和 reset 靠近，banana 离技术词较远。
+加入一条 cosine similarity 的距离提示，但不要堆公式，重点是空间直觉。
+文字不是主体；标准术语保留英文，例如 one-hot、dense embedding、semantic space、cosine similarity。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-contextual-embedding-sense-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "上下文化表示消解一词多义图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/02-embeddings.md",
+        "alt": "上下文化表示图：bank 在 bank account 与 river bank 两种上下文中形成不同上下文化向量。",
+        "prompt": """
+一张适合解释 contextual embedding 的课程图，主题是“同一个词会被上下文重新定位”。
+画面中央是同一个 token：bank；上方句子是 bank account，注意力线把它拉向 finance 语义簇；下方句子是 river bank，注意力线把它拉向 river/land 语义簇。
+用小对比展示 static embedding 位置固定，而 contextual embedding 会随上下文移动。
+文字不是主体；标准术语保留英文，例如 token、bank、static embedding、contextual embedding、attention、finance、river。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-next-token-generation-loop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Next-token 生成循环与采样图",
+        "suggested_page": "docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        "alt": "Next-token 生成循环图：上下文经过 embedding、Transformer、logits、softmax、temperature/top-p 采样得到下一个 token，再拼回上下文继续生成。",
+        "prompt": """
+一张适合大模型原理入门的循环图，主题是“生成文本就是不断预测下一个 token”。
+画面表现 context 进入 embedding 和 Transformer，输出 logits，经 softmax 形成概率条，再通过 temperature 和 top-p sampling 选出 next token，最后把新 token append 回 context，形成下一轮循环。
+风格像清晰的机制动画分镜，概率柱状条和 token 卡片要直观。
+文字不是主体；标准术语保留英文，例如 context、embedding、Transformer、logits、softmax、temperature、top-p、next token、append。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-context-window-budget-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Context window 信息预算图",
+        "suggested_page": "docs/ch07-llm-principles/ch02-llm-overview/02-core-concepts.md",
+        "alt": "Context window 信息预算图：系统提示、历史对话、检索资料、用户问题和输出空间共同占用 token 预算。",
+        "prompt": """
+一张适合解释 context window 的信息预算图，主题是“上下文窗口像一张有限大小的工作台”。
+画面用一个固定容量的工作台或行李箱表示 context window，内部被 system prompt、chat history、retrieved docs、user question、output budget 分段占用；边缘展示 overflow/truncation 风险。
+让新人一眼理解长上下文不是无限记忆，而是有限 token 预算。
+文字不是主体；标准术语保留英文，例如 context window、system prompt、chat history、retrieved docs、user question、output budget、truncation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-huggingface-workflow-object-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "HuggingFace 标准工作流对象关系图",
+        "suggested_page": "docs/ch07-llm-principles/ch01-nlp-crash/04-huggingface-quickstart.md",
+        "alt": "HuggingFace 工作流图：文本经 tokenizer 变成 input_ids 与 attention_mask，config 定义结构，model.forward 输出 hidden states/logits。",
+        "prompt": """
+一张适合 HuggingFace 入门的对象关系图，主题是“几个对象各负责什么”。
+画面像一个小实验台：raw text 进入 tokenizer，得到 input_ids 和 attention_mask；config 像模型蓝图；model.forward 像计算机器，输出 hidden states 或 logits。
+不要使用真实 HuggingFace logo，用抽象工具箱和模型模块表现。
+文字不是主体；标准术语保留英文，例如 tokenizer、config、model.forward、input_ids、attention_mask、hidden states、logits。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-transformer-block-dataflow-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Transformer Block 数据流拆解图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/01-architecture-review.md",
+        "alt": "Transformer Block 数据流图：token 表示经过 Self-Attention、Residual、LayerNorm、FFN 和再次 Residual/LayerNorm 完成一层 block 更新。",
+        "prompt": """
+一张适合解释 Transformer block 的数据流图，主题是“一层 block 如何更新 token 表示”。
+画面从 token representations 开始，依次经过 Self-Attention、Residual、LayerNorm、FFN、Residual、LayerNorm；每个模块旁用短标签说明作用：Attention 交流上下文，Residual 保留原信息，LayerNorm 稳定数值，FFN 单 token 深加工。
+风格像严谨但友好的课堂机制图，箭头清晰、层次分明。
+文字不是主体；标准术语保留英文，例如 Self-Attention、Residual、LayerNorm、FFN、token representations。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-architecture-mask-task-fit-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "架构 mask 与任务适配图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/02-model-variants.md",
+        "alt": "架构 mask 与任务适配图：Encoder-only 双向理解，Decoder-only 因果生成，Encoder-Decoder 先读输入再生成输出，任务取决于信息流约束。",
+        "prompt": """
+一张适合解释 Transformer 架构变体的三栏图，主题是“信息流约束决定任务适配”。
+三栏分别是 Encoder-only、Decoder-only、Encoder-Decoder；每栏展示 attention mask 矩阵：双向全可见、causal mask 只能看过去、encoder-decoder cross-attention 先读输入再生成输出。
+下方连接典型任务：classification、generation、translation/summarization。可以出现 BERT、GPT、T5 作为标准术语，但不要画真实 logo。
+文字不是主体；标准术语保留英文，例如 Encoder-only、Decoder-only、Encoder-Decoder、attention mask、causal mask、cross-attention、BERT、GPT、T5。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-efficient-attention-bottleneck-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "高效注意力瓶颈分流图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+        "alt": "高效注意力瓶颈分流图：长上下文平方复杂度、KV cache 体积和显存读写效率分别对应 sliding/local attention、MQA/GQA、FlashAttention 等路线。",
+        "prompt": """
+一张适合讲高效注意力路线的决策分流图，主题是“先找瓶颈，再选优化方法”。
+画面中央是 Attention bottleneck，分成三条问题线：long context 的 O(n^2) 计算、KV cache memory 变大、memory IO 读写慢；分别连接 sliding/local attention、MQA/GQA、FlashAttention 等方法。
+风格像工程诊断仪表盘和路线图结合，强调不是所有方法解决同一个问题。
+文字不是主体；标准术语保留英文，例如 Attention bottleneck、O(n^2)、KV cache、memory IO、FlashAttention、sliding attention、MQA、GQA。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-kv-cache-mqa-gqa-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "KV cache 与 MHA/GQA/MQA 对比图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/03-efficient-attention.md",
+        "alt": "KV cache 对比图：MHA 每个 head 有独立 K/V，GQA 分组共享 K/V，MQA 多个 query heads 共享一组 K/V，从而减少 cache。",
+        "prompt": """
+一张适合解释 MHA、GQA、MQA 的结构对比图，主题是“Query head 很多，K/V 可以更少”。
+画面三栏对比：MHA 每个 query head 对应独立 K/V；GQA 多个 query heads 分组共享 K/V；MQA 所有或大部分 query heads 共享一组 K/V。旁边用 memory bars 展示 KV cache 逐步变小。
+风格像模型结构剖面图，颜色区分 Q、K、V，清晰但不要过度复杂。
+文字不是主体；标准术语保留英文，例如 MHA、GQA、MQA、query heads、KV heads、KV cache、memory。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-scale-cost-knobs-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型规模成本旋钮图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+        "alt": "大模型规模成本旋钮图：layers、hidden size、context length、batch size、kv heads 等旋钮共同放大参数量、计算量和 KV cache。",
+        "prompt": """
+一张适合解释大模型规模成本的控制面板图，主题是“每个结构旋钮都会改变训练和推理成本”。
+画面有多个旋钮：layers、hidden size、context length、batch size、kv heads；这些旋钮连接到 params、FLOPs、activation memory、KV cache、latency 等指标。
+突出 hidden size 对参数和计算有平方级影响，用视觉上更粗的连线表现。
+文字不是主体；标准术语保留英文，例如 layers、hidden size、context length、batch size、kv heads、params、FLOPs、activation memory、KV cache、latency。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-train-inference-cost-split-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "训练期与推理期成本结构对比图",
+        "suggested_page": "docs/ch07-llm-principles/ch03-transformer-deep/04-scale-computation.md",
+        "alt": "训练期与推理期成本对比图：训练期关注参数、梯度、优化器状态和激活，推理期关注 KV cache、延迟、吞吐和并发显存。",
+        "prompt": """
+一张适合解释训练成本和推理成本差异的双栏图，主题是“训练和上线不是同一种成本结构”。
+左侧 training factory 展示 parameters、gradients、optimizer states、activations、checkpoint；右侧 inference serving dashboard 展示 KV cache、latency、throughput、concurrency、batching。
+风格像工程对比看板，帮助新人理解为什么会有训练显存和推理显存两个问题。
+文字不是主体；标准术语保留英文，例如 training、inference、parameters、gradients、optimizer states、activations、KV cache、latency、throughput、concurrency。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-pretraining-data-governance-funnel.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练数据治理漏斗图",
+        "suggested_page": "docs/ch07-llm-principles/ch04-pretraining/01-pretraining-data.md",
+        "alt": "预训练数据治理漏斗图：原始网页书籍代码论坛数据经过清洗、去重、风险过滤、污染控制和配比后形成训练语料版本。",
+        "prompt": """
+一张适合解释预训练数据治理的漏斗图，主题是“不是所有互联网文本都适合直接训练”。
+画面上方是 raw web、books、code、forum、docs 等来源，进入大漏斗：cleaning、dedup、quality filter、privacy/copyright risk、contamination control、mixture ratio，最后输出 corpus version 和 model base。
+风格像数据工厂和治理流程结合，强调质量、风险和版本。
+文字不是主体；标准术语保留英文，例如 raw web、code、cleaning、dedup、quality filter、privacy、copyright、contamination、mixture ratio、corpus version。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-pretraining-objective-comparison-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练目标样本改造对比图",
+        "suggested_page": "docs/ch07-llm-principles/ch04-pretraining/02-pretraining-methods.md",
+        "alt": "预训练目标对比图：同一句文本分别构造成 Causal LM、Masked LM 和 Span Corruption 训练样本，对应续写、补空和恢复片段。",
+        "prompt": """
+一张适合解释预训练目标的三栏对比图，主题是“同一段文本可以改造成不同练习题”。
+用同一句简短文本作为素材，三栏分别展示 Causal LM 预测下一个 token、Masked LM 填 [MASK]、Span Corruption 恢复被替换片段；每栏下方说明会训练出的能力倾向。
+风格像练习册和模型训练板结合，直观、轻量。
+文字不是主体；标准术语保留英文，例如 Causal LM、Masked LM、[MASK]、Span Corruption、next token、GPT、BERT、T5。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-pretraining-engineering-production-line.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练工程生产线图",
+        "suggested_page": "docs/ch07-llm-principles/ch04-pretraining/03-pretraining-engineering.md",
+        "alt": "预训练工程生产线图：数据分片、流式读取、训练步骤、checkpoint、恢复训练、吞吐监控组成稳定预训练生产线。",
+        "prompt": """
+一张适合解释预训练工程的生产线图，主题是“大模型预训练像一条不能随便停的生产线”。
+画面表现 data shards 仓库、streaming dataloader 传送带、GPU workers 训练区、checkpoint vault、resume switch、throughput monitor 和 loss curve 监控屏。
+突出稳定性、恢复训练、吞吐和监控，不要画真实品牌硬件 logo。
+文字不是主体；标准术语保留英文，例如 data shards、streaming dataloader、GPU workers、checkpoint、resume、throughput、loss curve。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-prompt-spec-three-layer-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Prompt 三层任务规格图",
+        "suggested_page": "docs/ch07-llm-principles/ch05-prompt/01-prompt-basics.md",
+        "alt": "Prompt 三层任务规格图：Prompt 基础由任务目标、输出格式和约束条件三层组成，先写清规格再谈技巧。",
+        "prompt": """
+一张适合 Prompt 工程入门的三层结构图，主题是“Prompt 先是任务规格，不是咒语”。
+画面展示一张规格卡片分成三层：task goal、output format、constraints；三层共同进入 model call，输出更稳定的 response。
+旁边用坏例子变好例子的视觉对比表现：模糊请求变成可执行规格。
+文字不是主体；标准术语保留英文，例如 Prompt、task goal、output format、constraints、model call、response。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-advanced-prompt-technique-decision-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "高级 Prompt 技巧选择图",
+        "suggested_page": "docs/ch07-llm-principles/ch05-prompt/02-advanced-prompting.md",
+        "alt": "高级 Prompt 技巧选择图：根据标签边界模糊、风格不一致、任务多步骤、漏条件或格式错误选择 few-shot、角色设定、分步约束、自检等技巧。",
+        "prompt": """
+一张适合解释高级 Prompt 技巧的决策树，主题是“先看失败症状，再选技巧”。
+画面从 failure symptom 开始分支：标签边界模糊选择 few-shot examples；风格不一致选择 role/style guide；多步骤任务选择 step-by-step plan；容易漏条件选择 checklist/self-check；格式错误选择 schema/validation。
+风格像排障树和工具箱结合，实用、清晰。
+文字不是主体；标准术语保留英文，例如 failure symptom、few-shot、role、style guide、step-by-step、checklist、self-check、schema、validation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-structured-output-contract-validation-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "结构化输出合同与校验闭环图",
+        "suggested_page": "docs/ch07-llm-principles/ch05-prompt/03-structured-output.md",
+        "alt": "结构化输出合同与校验图：Prompt 定义 JSON schema 合同，模型输出后由程序解析、字段校验、类型校验和值域校验，失败时重试或转人工。",
+        "prompt": """
+一张适合解释结构化输出可靠性的闭环图，主题是“模型输出要经过程序合同校验”。
+画面表现 Prompt 定义 JSON schema contract，model output 进入 JSON parser，再经过 field check、type check、range check；通过则进入 workflow，失败则 retry 或 human review。
+风格像 API 合同、质检流水线和调试面板结合，突出可解析、可校验、可回退。
+文字不是主体；标准术语保留英文，例如 JSON schema、model output、JSON parser、field check、type check、range check、retry、human review、workflow。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-finetune-decision-rag-prompt-peft-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "微调前方案选择决策图",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/01-finetuning-overview.md",
+        "alt": "微调前方案选择图：知识问题优先 RAG，格式问题优先 Prompt/结构化输出，工具流程问题优先 Agent，稳定行为问题再考虑微调或 PEFT。",
+        "prompt": """
+一张适合解释“什么时候需要微调”的决策图，主题是“不要把所有问题都丢给 fine-tuning”。
+画面从 problem diagnosis 开始：知识缺失走 RAG；格式不稳走 Prompt/structured output；工具流程走 Agent/tool use；少量固定风格走 Prompt examples；大量稳定行为和领域表达再走 fine-tuning/PEFT。
+风格像工程路线选择器，强调先用低成本方案验证。
+文字不是主体；标准术语保留英文，例如 problem diagnosis、RAG、Prompt、structured output、Agent、tool use、fine-tuning、PEFT、baseline。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-lora-qlora-low-rank-memory-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LoRA 与 QLoRA 低秩增量和显存节省图",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/02-lora-qlora.md",
+        "alt": "LoRA 与 QLoRA 图：冻结权重 W，加上低秩增量 ΔW=A@B；QLoRA 在此基础上量化基础模型以进一步节省显存。",
+        "prompt": """
+一张适合解释 LoRA 和 QLoRA 的结构图，主题是“冻结大权重，只训练小增量”。
+画面展示 frozen weight W 作为大矩阵不更新，旁边有两个小矩阵 A 和 B 组成 low-rank update ΔW=A@B；右侧展示 QLoRA 把 base model quantized to 4-bit，同时训练 LoRA adapters。
+用 memory bars 展示 full fine-tuning、LoRA、QLoRA 的显存占用逐步降低。
+文字不是主体；公式和标准术语保留英文，例如 W、ΔW=A@B、LoRA、QLoRA、frozen weights、low-rank update、4-bit、adapters、memory。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-peft-placement-family-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PEFT 方法可训练参数放置位置图",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/03-other-peft.md",
+        "alt": "PEFT 方法位置图：Prompt Tuning 放输入 embedding 前，Prefix Tuning 放每层 KV 前缀，Adapter 插层间瓶颈模块，IA3 学通道缩放。",
+        "prompt": """
+一张适合解释 PEFT 家族差异的 Transformer 剖面图，主题是“不同 PEFT 方法把可训练参数放在不同位置”。
+画面展示一个简化 Transformer layer，标出 Prompt Tuning 在 input embedding 前添加软提示，Prefix Tuning 在每层 KV 前缀添加参数，Adapter 插在层间 bottleneck 模块，IA3 学通道缩放向量。
+风格像模型结构地图，用颜色区分四种方法，帮助新人建立位置感。
+文字不是主体；标准术语保留英文，例如 PEFT、Prompt Tuning、Prefix Tuning、Adapter、IA3、input embedding、KV prefix、bottleneck、scaling。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-data-labeling-flywheel-review-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据标注质检与飞轮回流图",
+        "suggested_page": "docs/ch07-llm-principles/ch06-finetuning/05-data-labeling.md",
+        "alt": "数据标注飞轮图：标注一致性、Cohen kappa、低置信度和线上失败样本进入复核队列，再回流训练集和评估集。",
+        "prompt": """
+一张适合解释微调数据标注质量的飞轮图，主题是“好数据来自持续复核和回流”。
+画面形成循环：online failures、dedup、annotation guideline、double labeling、agreement check、Cohen kappa、review queue、hard examples，再回流 train set 和 eval set。
+突出低置信度样本和线上失败样本如何进入复核队列。
+文字不是主体；标准术语保留英文，例如 online failures、dedup、annotation guideline、double labeling、agreement check、Cohen kappa、review queue、hard examples、train set、eval set。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-alignment-hhh-tension-guardrail-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Helpful Honest Harmless 对齐张力图",
+        "suggested_page": "docs/ch07-llm-principles/ch07-alignment/01-alignment-problem.md",
+        "alt": "HHH 对齐张力图：Helpful、Honest、Harmless 三目标存在张力，需要评估、策略、护栏和人工复核共同落地。",
+        "prompt": """
+一张适合解释大模型对齐目标的三角张力图，主题是“Helpful、Honest、Harmless 需要同时权衡”。
+画面是一个三角形，三个顶点为 Helpful、Honest、Harmless；不同请求点落在三角内部，表示有时帮助性、诚实性和安全性会互相拉扯。
+外围加入 guardrails、evaluation rubric、policy、human review，表现应用落地需要机制而不是一句口号。
+文字不是主体；标准术语保留英文，例如 Helpful、Honest、Harmless、guardrails、evaluation rubric、policy、human review。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-rlhf-reward-kl-loop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RLHF 奖励模型与 KL 约束闭环图",
+        "suggested_page": "docs/ch07-llm-principles/ch07-alignment/02-rlhf.md",
+        "alt": "RLHF 奖励与 KL 图：偏好对训练 Reward Model，策略模型朝高奖励更新，同时 Reference Model 和 KL penalty 防止模型跑偏。",
+        "prompt": """
+一张适合解释 RLHF 核心机制的闭环图，主题是“奖励引导模型，KL 防止跑偏”。
+画面表现 SFT model 生成回答，人类 preference pairs 标记 chosen/rejected，用来训练 Reward Model；Policy Model 朝高 reward 更新，同时 Reference Model 通过 KL penalty 像安全绳一样约束变化。
+风格像训练闭环和安全绳隐喻结合，清晰展示角色关系。
+文字不是主体；标准术语保留英文，例如 SFT model、preference pairs、chosen、rejected、Reward Model、Policy Model、Reference Model、KL penalty、PPO。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-dpo-rlhf-shortcut-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "DPO 相比 RLHF 的偏好优化捷径图",
+        "suggested_page": "docs/ch07-llm-principles/ch07-alignment/03-alternative-methods.md",
+        "alt": "DPO 与 RLHF 对比图：RLHF 长链需要奖励模型和 PPO，DPO 直接用 chosen/rejected 偏好对优化策略边距。",
+        "prompt": """
+一张适合解释 DPO 和 RLHF 差异的双路线图，主题是“DPO 把偏好优化链路变短”。
+左侧 RLHF long path：SFT、Reward Model、PPO、Policy update；右侧 DPO shortcut：chosen/rejected preference pair 直接优化 policy margin。
+用道路或管线长度对比突出 DPO 更直接，但不要暗示它总是更好。
+文字不是主体；标准术语保留英文，例如 RLHF、SFT、Reward Model、PPO、Policy update、DPO、chosen、rejected、policy margin。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-domain-finetune-evaluation-board-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "垂直领域微调项目评估看板图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/01-domain-finetuning.md",
+        "alt": "垂直领域微调项目评估看板图：任务边界、SFT 数据、Prompt/RAG baseline、评估规则、before/after 和失败样例组成作品级微调项目看板。",
+        "prompt": """
+一张适合大模型垂直领域微调项目的评估看板图，主题是“作品级项目要能证明改进来自哪里”。
+画面像项目 dashboard，分区展示 task scope、SFT data、Prompt/RAG baseline、evaluation rubric、before/after comparison、failure cases、deployment notes。
+强调不仅训练模型，还要有 baseline、评估和失败样例复盘。
+文字不是主体；标准术语保留英文，例如 task scope、SFT data、Prompt/RAG baseline、evaluation rubric、before/after、failure cases、deployment notes。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch08-rag-engineering.png",
         "size": "1536x1024",
         "quality": "medium",

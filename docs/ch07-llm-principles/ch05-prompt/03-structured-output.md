@@ -252,6 +252,12 @@ print(data)
 - 多输出解释文字
 - JSON 格式不闭合
 
+![结构化输出合同与校验闭环图](/img/course/ch07-structured-output-contract-validation-map.png)
+
+:::tip 读图提示
+这张图建议按工程闭环读：Prompt 先定义 JSON 合同，模型输出结构化结果，程序解析并校验字段、类型和值域，失败时重试或转人工。结构化输出不是“看起来像 JSON”，而是后续程序真的能稳定接住。
+:::
+
 ### 7.2 一个最小校验示例
 
 ```python

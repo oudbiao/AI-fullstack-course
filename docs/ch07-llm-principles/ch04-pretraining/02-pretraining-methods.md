@@ -227,6 +227,12 @@ print("span target   :", span_target)
 
 - GPT、BERT、T5 最后能力画像不同
 
+![预训练目标样本改造对比图](/img/course/ch07-pretraining-objective-comparison-map.png)
+
+:::tip 读图提示
+读这张图时对比同一句话被改造成三种训练题：Causal LM 练“续写下一个 token”，Masked LM 练“根据左右文补空”，Span Corruption 练“恢复缺失片段”。模型每天刷什么题，长期就会长出什么能力倾向。
+:::
+
 ### 3.2 Causal LM 的标签为什么是右移一位？
 
 因为它在做的就是：

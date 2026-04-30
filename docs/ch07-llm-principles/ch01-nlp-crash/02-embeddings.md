@@ -96,6 +96,12 @@ embedding 想做的事情是：
 - 哪些词经常在类似上下文里出现
 - 哪些句子表达的是相近意思
 
+![One-hot 到 dense embedding 语义空间图](/img/course/ch07-embedding-onehot-dense-map.png)
+
+:::tip 读图提示
+这张图的重点是对比：one-hot 像身份证号，只能区分“是不是同一个词”；dense embedding 像地图坐标，能表达“谁和谁更近”。从这里开始，文本才真正进入了可计算的语义空间。
+:::
+
 ---
 
 ## 二、词向量为什么会有语义？
@@ -265,6 +271,12 @@ print("query_a vs query_c:", round(cosine(vec_a, vec_c), 3))
 可以不同。
 
 这就是上下文化表示最重要的进步之一。
+
+![上下文化表示消解一词多义图](/img/course/ch07-contextual-embedding-sense-map.png)
+
+:::tip 读图提示
+读这张图时只盯一个词 `bank`：在 `bank account` 里它靠近金融概念，在 `river bank` 里它靠近地理概念。Transformer 的上下文化表示让同一个 token 不再永远只有一个固定坐标。
+:::
 
 ### 4.3 一个简单的上下文模拟
 
