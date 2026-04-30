@@ -207,6 +207,12 @@ print("IoU =", round(iou(gt_box, pred_box), 4))
 
 所以检测项目会比分类更像一个完整系统，而不是单个模型输出。
 
+![目标检测输出、IoU 与错误类型图](/img/course/ch10-detection-output-iou-error-map.png)
+
+:::tip 读图提示
+这张图把检测输出拆成 class、box、score 三件事，再用 IoU 判断框是否够准。检测错误通常不是“一个错”，而是漏检、误检、定位偏差和重复框共同组成。
+:::
+
 ---
 
 ## 四、最容易踩的坑

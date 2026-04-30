@@ -5080,6 +5080,272 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch10-image-array-shape-channel-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像数组 Shape 与通道语义图",
+        "suggested_page": "docs/ch10-computer-vision/ch01-cv-basics/01-image-fundamentals.md",
+        "alt": "图像数组 Shape 与通道语义图：灰度图二维矩阵、RGB 图三维张量、height width channel、uint8 到 float normalization。",
+        "prompt": """
+一张适合计算机视觉入门的图像数组解释图，主题是“计算机看到的图像首先是数字网格和通道张量”。
+画面表现 grayscale image as 2D matrix、RGB image as H x W x C tensor、channel split、uint8 0-255、float normalization 0-1。
+风格像教学白板和像素网格可视化结合，清晰展示 shape 维度含义。
+文字不是主体；标准术语保留英文，例如 grayscale、RGB、H x W x C、channel、uint8、normalization。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-opencv-bgr-coordinate-crop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "OpenCV BGR、坐标与裁剪顺序图",
+        "suggested_page": "docs/ch10-computer-vision/ch01-cv-basics/02-opencv-basics.md",
+        "alt": "OpenCV BGR、坐标与裁剪顺序图：BGR 与 RGB 转换、图像数组先 y 后 x、crop 写作 y1:y2 x1:x2。",
+        "prompt": """
+一张适合 OpenCV 基础操作章节的坑点说明图，主题是“OpenCV 初学最容易混淆 BGR 和 y/x 裁剪顺序”。
+画面表现 BGR vs RGB color order、image coordinate grid、array indexing [y1:y2, x1:x2]、resize、crop、draw rectangle。
+风格像 OpenCV 工作台和坐标网格提示卡，直观、工程化。
+文字不是主体；标准术语保留英文，例如 OpenCV、BGR、RGB、array indexing、y1:y2、x1:x2、crop、resize。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-image-processing-operation-decision-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "经典图像处理操作选择图",
+        "suggested_page": "docs/ch10-computer-vision/ch01-cv-basics/03-image-processing.md",
+        "alt": "经典图像处理操作选择图：去噪用 blur，高斯滤波，边缘检测，阈值化，形态学开闭运算形成像素规则流水线。",
+        "prompt": """
+一张适合图像处理技术章节的操作选择图，主题是“经典图像处理是一组目的明确的像素规则”。
+画面表现 denoise -> blur/GaussianBlur、find changes -> Canny edges、separate foreground -> threshold、clean shapes -> morphology open/close、contour pipeline。
+风格像图像处理实验台，展示同一张简化灰度图经过不同操作后的变化。
+文字不是主体；标准术语保留英文，例如 GaussianBlur、Canny、threshold、morphology、open、close、contour pipeline。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-augmentation-invariance-risk-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数据增强不变性与语义风险图",
+        "suggested_page": "docs/ch10-computer-vision/ch02-classification/01-data-augmentation.md",
+        "alt": "数据增强不变性与语义风险图：合理变换保持标签，过度旋转裁剪可能破坏语义，检测和分割要同步 box mask。",
+        "prompt": """
+一张适合图像数据增强章节的风险边界图，主题是“增强要模拟合理变化，而不能破坏标签语义”。
+画面表现 original image、flip/crop/color jitter、label preserved、too strong rotation/crop、semantic risk、box/mask synchronized for detection and segmentation。
+风格像图片增强样例墙和风险仪表盘结合，帮助新人判断合理增强。
+文字不是主体；标准术语保留英文，例如 data augmentation、flip、crop、color jitter、label preserved、semantic risk、box、mask、Mixup。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-classification-architecture-evolution-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像分类架构演进与选择图",
+        "suggested_page": "docs/ch10-computer-vision/ch02-classification/02-modern-architectures.md",
+        "alt": "图像分类架构演进与选择图：VGG、ResNet、EfficientNet、ConvNeXt 分别解决深度、可训练性、效率和现代卷积路线。",
+        "prompt": """
+一张适合现代图像分类架构章节的演进图，主题是“架构名字背后是深度、稳定性和效率问题的演进”。
+画面表现 VGG: deeper regular stack、ResNet: residual connection、EfficientNet: accuracy/efficiency balance、ConvNeXt: modernized convolution。
+风格像模型家族时间线和工程选择图结合，突出为什么而不是只列名字。
+文字不是主体；标准术语保留英文，例如 VGG、ResNet、residual connection、EfficientNet、accuracy/efficiency、ConvNeXt、baseline。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-classification-training-diagnosis-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像分类训练诊断矩阵图",
+        "suggested_page": "docs/ch10-computer-vision/ch02-classification/03-training-tricks.md",
+        "alt": "图像分类训练诊断矩阵图：数据问题、训练问题和评估问题通过 loss 曲线、混淆矩阵、错误样本和泄漏检查定位。",
+        "prompt": """
+一张适合图像分类训练技巧章节的诊断矩阵图，主题是“效果不好时先诊断，不要立刻换模型”。
+画面表现 data issues、training issues、evaluation issues 三栏，以及 train/val loss curves、confusion matrix、class imbalance、data leakage、error samples。
+风格像训练实验仪表盘和排障表结合，清楚指向下一步动作。
+文字不是主体；标准术语保留英文，例如 train loss、val loss、confusion matrix、class imbalance、data leakage、error samples、learning rate。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-detection-output-iou-error-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "目标检测输出、IoU 与错误类型图",
+        "suggested_page": "docs/ch10-computer-vision/ch03-detection/01-detection-overview.md",
+        "alt": "目标检测输出、IoU 与错误类型图：class、box、score、IoU、false positive、false negative、localization error 和 duplicate boxes。",
+        "prompt": """
+一张适合目标检测概述章节的输出拆解图，主题是“检测同时回答是什么、在哪里和有多大把握”。
+画面表现 object detection output: class、bounding box、confidence score、IoU overlap with ground truth，并分出 false positive、false negative、localization error、duplicate boxes。
+风格像带标注框的街景教学图和评估表结合，适合新人理解检测质量。
+文字不是主体；标准术语保留英文，例如 class、bounding box、confidence score、IoU、false positive、false negative、localization error、duplicate boxes。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-classic-detectors-shared-feature-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "R-CNN 家族共享特征演进图",
+        "suggested_page": "docs/ch10-computer-vision/ch03-detection/02-classic-detectors.md",
+        "alt": "R-CNN 家族共享特征演进图：R-CNN 每个候选框单独提特征，Fast R-CNN 共享整图特征，Faster R-CNN 学习 proposal。",
+        "prompt": """
+一张适合经典检测架构章节的演进图，主题是“R-CNN 家族是在不断减少重复计算”。
+画面表现 R-CNN: proposal crops each run CNN、Fast R-CNN: shared feature map and ROI pooling、Faster R-CNN: Region Proposal Network + shared features。
+风格像检测架构对比图，左到右展示速度和共享计算逐步增强。
+文字不是主体；标准术语保留英文，例如 R-CNN、Fast R-CNN、Faster R-CNN、proposal、shared feature map、ROI pooling、RPN。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-yolo-threshold-nms-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "YOLO 候选框、阈值与 NMS 图",
+        "suggested_page": "docs/ch10-computer-vision/ch03-detection/03-yolo-series.md",
+        "alt": "YOLO 候选框、阈值与 NMS 图：模型输出多个候选框，经 score threshold 和 NMS 去重后得到最终检测框。",
+        "prompt": """
+一张适合 YOLO 系列章节的后处理流程图，主题是“YOLO 输出候选框，后处理决定最终画哪些框”。
+画面表现 raw predictions with many boxes、score threshold filtering、IoU overlap、NMS suppression、final detections。
+风格像实时检测控制台，展示同一目标周围多个重叠框被筛选。
+文字不是主体；标准术语保留英文，例如 YOLO、raw predictions、score threshold、IoU、NMS、suppression、final detections。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-detection-practice-eval-buckets-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "检测项目评估与误检漏检分桶图",
+        "suggested_page": "docs/ch10-computer-vision/ch03-detection/04-detection-practice.md",
+        "alt": "检测项目评估与误检漏检分桶图：标注规范、baseline、IoU mAP、false positive、false negative、localization error 和下一步优化。",
+        "prompt": """
+一张适合检测实战章节的项目评估闭环图，主题是“检测项目先定义什么算对，再分析为什么错”。
+画面表现 annotation rules、baseline model、IoU/mAP evaluation、false positive bucket、false negative bucket、localization error bucket、next action data/threshold/model。
+风格像视觉项目评估看板和错误样本墙结合，强调可复盘。
+文字不是主体；标准术语保留英文，例如 annotation rules、baseline、IoU、mAP、false positive、false negative、localization error、next action。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-semantic-segmentation-iou-boundary-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "语义分割 Mask、IoU 与边界误差图",
+        "suggested_page": "docs/ch10-computer-vision/ch04-segmentation/01-semantic-segmentation.md",
+        "alt": "语义分割 Mask、IoU 与边界误差图：原图、GT mask、prediction mask、per-class IoU、mIoU、boundary error 和 class imbalance。",
+        "prompt": """
+一张适合语义分割章节的像素级评估图，主题是“分割结果要看区域重叠和边界，不只是彩色 mask 好不好看”。
+画面表现 original image、GT mask、prediction mask、per-class IoU、mIoU、boundary error、small class imbalance。
+风格像原图/真值/预测三联图和指标卡片结合，突出边界细节。
+文字不是主体；标准术语保留英文，例如 semantic segmentation、GT mask、prediction mask、per-class IoU、mIoU、boundary error、class imbalance。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-instance-segmentation-count-mask-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "实例分割个体拆分、计数与面积图",
+        "suggested_page": "docs/ch10-computer-vision/ch04-segmentation/02-instance-segmentation.md",
+        "alt": "实例分割个体拆分、计数与面积图：同类目标被拆成不同 instance id，每个 mask 可用于计数、面积和跟踪。",
+        "prompt": """
+一张适合实例分割章节的个体拆分图，主题是“实例分割不仅知道类别，还要分清同类里的每个个体”。
+画面表现 semantic mask all persons same color vs instance masks with instance id 1/2/3，旁边展示 counting、area per instance、tracking handoff。
+风格像分割 mask 教学图和实例统计面板结合，清楚展示相邻目标粘连风险。
+文字不是主体；标准术语保留英文，例如 instance segmentation、instance id、mask、counting、area、tracking、semantic mask。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-segmentation-practice-failure-buckets-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "分割项目失败样本分桶图",
+        "suggested_page": "docs/ch10-computer-vision/ch04-segmentation/03-segmentation-practice.md",
+        "alt": "分割项目失败样本分桶图：边界错、小类别漏掉、类别混淆、mask 标注不一致和下一步优化动作。",
+        "prompt": """
+一张适合分割实战章节的失败样本分桶图，主题是“分割项目不能只看平均 IoU，要逐样本回看失败类型”。
+画面表现 original/GT/pred triplets，failure buckets: boundary error、small class missed、class confusion、mask annotation inconsistency，并连接 data/loss/resolution/model next action。
+风格像失败样本墙和项目复盘看板结合，务实清晰。
+文字不是主体；标准术语保留英文，例如 GT、prediction、boundary error、small class missed、class confusion、mask annotation、IoU、next action。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-face-recognition-threshold-pipeline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "人脸检测、对齐、Embedding 与阈值风险图",
+        "suggested_page": "docs/ch10-computer-vision/ch05-advanced/01-face-detection.md",
+        "alt": "人脸检测、对齐、Embedding 与阈值风险图：detect、align、embedding、cosine similarity、threshold、false accept 和 false reject。",
+        "prompt": """
+一张适合人脸检测与识别章节的系统流水线图，主题是“人脸识别是一条检测、对齐、表示和阈值决策流水线”。
+画面表现 face detection、alignment、embedding vector、cosine similarity、threshold decision、false accept、false reject、privacy boundary。
+风格像机场身份核验流程和向量相似度仪表盘结合，突出系统风险。
+文字不是主体；标准术语保留英文，例如 face detection、alignment、embedding、cosine similarity、threshold、false accept、false reject、privacy。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-video-frame-tracking-temporal-window-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "视频分析抽帧、跟踪与时序窗口图",
+        "suggested_page": "docs/ch10-computer-vision/ch05-advanced/02-video-analysis.md",
+        "alt": "视频分析抽帧、跟踪与时序窗口图：frame sampling、single-frame detection、tracking id、temporal window 和 action/event recognition。",
+        "prompt": """
+一张适合视频分析章节的时间维度图，主题是“视频分析不只是逐帧看图，还要把目标和事件跨时间串起来”。
+画面表现 frame sampling、single-frame detection、tracking id across frames、trajectory、temporal window、action/event recognition。
+风格像视频时间轴和目标轨迹可视化结合，突出时间窗口。
+文字不是主体；标准术语保留英文，例如 frame sampling、detection、tracking id、trajectory、temporal window、action recognition、event。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-ocr-layout-reading-order-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "OCR 检测、识别与阅读顺序恢复图",
+        "suggested_page": "docs/ch10-computer-vision/ch05-advanced/03-ocr.md",
+        "alt": "OCR 检测、识别与阅读顺序恢复图：text detection、text recognition、layout analysis、reading order、field extraction 和错误分桶。",
+        "prompt": """
+一张适合 OCR 文字识别章节的版面理解图，主题是“OCR 不只是识字，还要找区域、读文字、恢复结构和顺序”。
+画面表现 document image、text detection boxes、text recognition、layout analysis、reading order recovery、field extraction、error buckets。
+风格像票据/文档 AI 工作台，突出多栏、表格和字段结构。
+文字不是主体；标准术语保留英文，例如 OCR、text detection、text recognition、layout analysis、reading order、field extraction、error buckets。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-3d-depth-disparity-pointcloud-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "3D 视觉深度、视差与点云直觉图",
+        "suggested_page": "docs/ch10-computer-vision/ch05-advanced/04-3d-vision.md",
+        "alt": "3D 视觉深度、视差与点云直觉图：stereo cameras、disparity、depth、pixel to 3D point、point cloud 和 camera geometry。",
+        "prompt": """
+一张适合 3D 视觉入门章节的空间直觉图，主题是“3D 视觉把平面像素和真实空间距离联系起来”。
+画面表现 stereo cameras、disparity large means near、disparity small means far、depth map、pixel to 3D point、point cloud、camera geometry。
+风格像相机几何教学图和点云可视化结合，清晰展示空间关系。
+文字不是主体；标准术语保留英文，例如 stereo cameras、disparity、depth map、pixel to 3D point、point cloud、camera geometry。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-security-detection-alert-dedup-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "安防检测、规则、跟踪与告警去重图",
+        "suggested_page": "docs/ch10-computer-vision/ch06-projects/01-security-detection.md",
+        "alt": "安防检测、规则、跟踪与告警去重图：video stream、object detection、danger zone rule、track_id、alert dedup、human review 和 failure review。",
+        "prompt": """
+一张适合智能安防项目章节的系统闭环图，主题是“安防项目交付的是可信告警，不是单张图上的框”。
+画面表现 video stream、object detection、danger zone rule、tracking id、alert deduplication、human review、audit log、false alarm/missed alarm review。
+风格像监控系统控制台和项目交付闭环结合，强调告警体验。
+文字不是主体；标准术语保留英文，例如 video stream、object detection、danger zone、track_id、alert deduplication、human review、audit log、false alarm。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-medical-imaging-risk-review-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "医学影像风险指标与人工复核闭环图",
+        "suggested_page": "docs/ch10-computer-vision/ch06-projects/02-medical-imaging.md",
+        "alt": "医学影像风险指标与人工复核闭环图：task boundary、annotation protocol、prediction mask、sensitivity、false negative rate、human review 和 failure analysis。",
+        "prompt": """
+一张适合医学影像项目章节的高风险评估闭环图，主题是“医学影像项目要讲清任务边界、风险指标和人工复核”。
+画面表现 task boundary、annotation protocol、model prediction mask、Dice/IoU、sensitivity、false negative rate、human review、failure analysis、not replacing clinical judgment。
+风格像临床辅助系统流程图和风险评估卡片结合，专业、克制、可信。
+文字不是主体；标准术语保留英文，例如 task boundary、annotation protocol、Dice、IoU、sensitivity、false negative rate、human review、failure analysis。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch11-learning-quest-map.png",
         "size": "1536x1024",
         "quality": "medium",

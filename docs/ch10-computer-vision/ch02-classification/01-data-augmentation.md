@@ -225,6 +225,12 @@ for row in brightness_shift(image):
 
 - 是否还在尊重任务本身的语义边界
 
+![数据增强不变性与语义风险图](/img/course/ch10-augmentation-invariance-risk-map.png)
+
+:::tip 读图提示
+读这张图时抓住一句话：增强是在训练模型忽略“合理变化”，但不能破坏标签语义。分类、检测、分割的增强还要同步处理 label、box 和 mask。
+:::
+
 ---
 
 ## 四、Mixup 为什么值得单独记住？

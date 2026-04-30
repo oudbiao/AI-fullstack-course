@@ -133,6 +133,12 @@ print(rgb)
 
 这个习惯会直接帮你少掉很多视觉代码里的 shape 混乱。
 
+![图像数组 Shape 与通道语义图](/img/course/ch10-image-array-shape-channel-map.png)
+
+:::tip 读图提示
+这张图按 `height -> width -> channel` 读：灰度图通常是二维网格，RGB 图像多出颜色通道，模型训练前还会把 `uint8` 的 0-255 转成更稳定的浮点范围。
+:::
+
 ---
 
 ## 三、通道是什么？

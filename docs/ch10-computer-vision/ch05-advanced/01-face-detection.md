@@ -153,6 +153,12 @@ print(match_results(similarities, threshold))
 - 人脸识别很多时候不是“模型告诉你答案”
 - 而是“模型给分数，系统再根据阈值做决定”
 
+![人脸检测、对齐、Embedding 与阈值风险图](/img/course/ch10-face-recognition-threshold-pipeline-map.png)
+
+:::tip 读图提示
+人脸系统不是一个模型：检测先找脸，对齐让输入可比，embedding 做相似度表示，阈值决定 same / different。阈值太松会误识，太严会漏识。
+:::
+
 ---
 
 ## 三、最常见误区

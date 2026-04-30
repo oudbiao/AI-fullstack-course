@@ -218,6 +218,12 @@ cv2.imwrite("processing_closed.png", closed)
 print("已保存 processing_opened.png 和 processing_closed.png")
 ```
 
+![经典图像处理操作选择图](/img/course/ch10-image-processing-operation-decision-map.png)
+
+:::tip 读图提示
+经典图像处理不是一堆 API 清单，而是一组目的明确的像素规则：去噪先滤波，找变化看边缘，分前景用阈值，清理小噪点和孔洞用形态学。
+:::
+
 ---
 
 ## 七、把这些操作串起来

@@ -211,6 +211,12 @@ print(filter_by_score(predictions, threshold=0.5))
 - 检测系统通常不是直接拿全部候选去画框
 - 而是会先用分数和规则筛一轮
 
+![YOLO 候选框、阈值与 NMS 图](/img/course/ch10-yolo-threshold-nms-map.png)
+
+:::tip 读图提示
+YOLO 输出通常是一批候选框，不是最终结果。读图时按 score threshold 先过滤低分框，再用 NMS 合并重叠框，最后才得到页面上看到的检测结果。
+:::
+
 ---
 
 ## 四、为什么 YOLO 在工程上这么受欢迎？

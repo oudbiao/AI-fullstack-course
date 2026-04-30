@@ -118,6 +118,12 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 
 先讲清楚
 
+![视频分析抽帧、跟踪与时序窗口图](/img/course/ch10-video-frame-tracking-temporal-window-map.png)
+
+:::tip 读图提示
+视频不是“很多张图片堆起来”。读这张图时先看 frame sampling，再看 detection + tracking 如何把同一目标跨帧串起来，最后才看 temporal window 如何判断动作或事件。
+:::
+
 ---
 
 ## 三、先跑一个最小轨迹跟踪示例

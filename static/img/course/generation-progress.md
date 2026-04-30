@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 526 / 526
+Generated with image2: 545 / 545
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -35,6 +35,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 9 章深度图解说明：本轮新增 31 张机制型、工程型和项目型图解，覆盖工作流/聊天机器人/Agent 边界、Agent 行动 trace、系统架构数据流、链式推理自检、Plan-and-Execute 重规划、高级 DAG 规划、推理失败归因、Function Calling 校验、工具描述、工具安全、代码 Agent、记忆分层、长期记忆更新、记忆工程生命周期、MCP 消息流、MCP Server 契约、LangGraph 状态机、框架选型、多 Agent 模式、通信契约、协调成本、Agent 分层评估、Prompt Injection 安全隔离、Trace Span 可观测性、生产部署架构、Checkpoint/Event Log 恢复、成本路由缓存、生产 readiness、研究助手引用追踪、数据分析 Agent 可复核链路和多 Agent 开发团队交付闭环。新增图用于把第 9 章从“概念能读懂”推进到“系统怎么运行、怎么调试、怎么上线一眼能看懂”。
 
 第 10～12 章补充说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 本轮新增 28 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、CV/NLP/多模态各子章导读和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
+
+第 10 章深度图解说明：本轮新增 19 张机制型、诊断型和项目型图解，覆盖图像数组 shape 与通道、OpenCV BGR/坐标/裁剪、经典图像处理操作选择、数据增强不变性风险、分类架构演进、分类训练诊断、检测输出与 IoU、R-CNN 家族共享特征、YOLO 阈值与 NMS、检测项目误检漏检分桶、语义分割 IoU 与边界、实例分割个体拆分、分割失败样本分桶、人脸识别阈值风险、视频抽帧跟踪与时序窗口、OCR 阅读顺序、3D 深度/视差/点云、安防告警去重和医学影像风险复核。新增图用于把第 10 章从“视觉任务名词可读”推进到“输入如何表示、模型输出如何评估、项目如何复盘更直观”。
 
 选修模块说明：目录 `docs/electives` 下原有 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。本轮补充 9 张模块入口和缺口页图，覆盖 C++ 部署总览、RAII/所有权、边缘部署、部署综合项目、Python 进阶总览、生成器管道、元编程注册器、经典 ML 总览和 LDA 监督式投影。
 
@@ -172,6 +174,25 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch10-segmentation-chapter-flow.png`
 - `ch10-advanced-vision-route-map.png`
 - `ch10-projects-delivery-loop.png`
+- `ch10-image-array-shape-channel-map.png`
+- `ch10-opencv-bgr-coordinate-crop-map.png`
+- `ch10-image-processing-operation-decision-map.png`
+- `ch10-augmentation-invariance-risk-map.png`
+- `ch10-classification-architecture-evolution-map.png`
+- `ch10-classification-training-diagnosis-map.png`
+- `ch10-detection-output-iou-error-map.png`
+- `ch10-classic-detectors-shared-feature-map.png`
+- `ch10-yolo-threshold-nms-map.png`
+- `ch10-detection-practice-eval-buckets-map.png`
+- `ch10-semantic-segmentation-iou-boundary-map.png`
+- `ch10-instance-segmentation-count-mask-map.png`
+- `ch10-segmentation-practice-failure-buckets-map.png`
+- `ch10-face-recognition-threshold-pipeline-map.png`
+- `ch10-video-frame-tracking-temporal-window-map.png`
+- `ch10-ocr-layout-reading-order-map.png`
+- `ch10-3d-depth-disparity-pointcloud-map.png`
+- `ch10-security-detection-alert-dedup-map.png`
+- `ch10-medical-imaging-risk-review-map.png`
 - `ch11-nlp.png`
 - `ch11-learning-quest-map.png`
 - `ch11-nlp-to-llm-backbone.png`
