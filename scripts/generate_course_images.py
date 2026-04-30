@@ -4929,6 +4929,216 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "elective-cpp-deployment-module-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "C++ 与模型部署模块学习地图",
+        "suggested_page": "docs/electives/module-a/index.md",
+        "alt": "C++ 与模型部署模块学习地图：C++ 基础、进阶资源管理、模型优化、推理引擎、边缘部署、服务化和部署项目逐步连接。",
+        "prompt": """
+一张适合 C++ 与模型部署选修模块首页的学习地图，主题是“从能跑模型到稳定部署模型”。
+画面表现 C++ basics、RAII/ownership、model optimization、inference engine、edge deployment、model serving、deployment project 七个节点逐步连接。
+风格像工程学习路线图，突出部署不是单点技术，而是性能、资源、硬件、服务和交付共同组成的链路。
+文字不是主体；标准术语保留英文，例如 C++、RAII、ownership、ONNX、inference engine、edge、serving。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-cpp-raii-ownership-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "C++ RAII 与所有权地图",
+        "suggested_page": "docs/electives/module-a/02-cpp-advanced.md",
+        "alt": "C++ RAII 与所有权地图：资源获取、对象生命周期、智能指针、移动语义和抽象接口共同支撑部署工程。",
+        "prompt": """
+一张适合 C++ 进阶课程的教学图，主题是“RAII 和所有权如何让部署代码更稳”。
+用 5 个大模块串联：resource acquire、RAII guard、smart pointer、move semantics、inference backend。
+风格像清晰的工程白板，展示资源从创建到自动释放的生命周期。
+文字不是主体；标准术语保留英文，例如 RAII、unique_ptr、move semantics、backend。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-edge-deployment-constraint-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "边缘部署约束决策图",
+        "suggested_page": "docs/electives/module-a/05-edge-deployment.md",
+        "alt": "边缘部署约束决策图：内存、功耗、延迟、离线能力、散热和运维共同决定模型适配方案。",
+        "prompt": """
+一张适合边缘设备部署课程的决策图，主题是“边缘部署不是把云端服务搬到小机器上”。
+画面表现 memory budget、power budget、latency target、offline fallback、thermal limit、remote update 六个约束围绕一个 edge device。
+突出模型压缩、推理引擎、缓存、降级策略和运维监控如何一起选择，风格像硬件方案白板。
+文字不是主体；标准术语保留英文，例如 edge device、memory、power、latency、offline fallback、thermal、update。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-deployment-project-delivery-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "部署综合项目交付闭环图",
+        "suggested_page": "docs/electives/module-a/07-projects.md",
+        "alt": "部署综合项目交付闭环图：模型准备、推理执行、服务接口、指标统计、部署说明、监控和项目展示形成闭环。",
+        "prompt": """
+一张适合部署综合项目页的交付闭环图，主题是“部署项目展示的是稳定系统，而不是单次预测截图”。
+画面表现 model export、optimization、inference runtime、API/batch interface、metrics、monitoring、README demo 七个环节形成闭环。
+重点突出 latency、throughput、memory、version、rollback 和 failure cases 是作品集展示重点，风格专业、项目交付感强。
+文字不是主体；标准术语保留英文，例如 model export、runtime、API、batch、latency、throughput、monitoring、README。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-python-advanced-module-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 进阶专题模块地图",
+        "suggested_page": "docs/electives/module-b/index.md",
+        "alt": "Python 进阶专题模块地图：装饰器、生成器、asyncio 并发和元编程共同提升工程代码的复用性、流式处理和可维护性。",
+        "prompt": """
+一张适合 Python 进阶选修模块首页的学习地图，主题是“让工程代码更稳、更快、更好维护”。
+画面表现 decorators、generators、asyncio concurrency、metaprogramming 四个工具模块连接到 logging/retry、streaming data、I/O tasks、registry/config driven code。
+风格像 Python 工程工具箱，清爽、现代、适合新人理解专题用途。
+文字不是主体；标准术语保留英文，例如 decorator、generator、asyncio、event loop、registry、config。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-generator-stream-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "生成器流式管道图",
+        "suggested_page": "docs/electives/module-b/02-iterators-advanced.md",
+        "alt": "生成器流式管道图：数据按需产出，经过读取、过滤、规范化和消费，不必一次性全部进入内存。",
+        "prompt": """
+一张适合 Python 迭代器与生成器课程的教学图，主题是“数据一边产生，一边消费”。
+画面表现 source stream、yield、filter、normalize、batch、consumer 六个管道节点，旁边对比一次性 list loading 的内存压力。
+重点突出 lazy evaluation、streaming、yield from、memory saving 和 pipeline composition，风格直观、工程化。
+文字不是主体；标准术语保留英文，例如 generator、yield、yield from、lazy evaluation、streaming、pipeline。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-metaprogramming-registry-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Python 元编程注册器地图",
+        "suggested_page": "docs/electives/module-b/04-metaprogramming.md",
+        "alt": "Python 元编程注册器地图：动态类、注册器、描述符和配置驱动代码帮助减少重复样板，但需要控制复杂度。",
+        "prompt": """
+一张适合 Python 元编程课程的教学图，主题是“用代码组织代码结构，但不要把它变成魔法”。
+画面表现 dynamic class、registry、descriptor、config driven code 四个模块，中间连接到插件加载、模型加载器和字段校验。
+同时表现一条风险提示：overuse、hard to debug、hidden behavior，需要适度使用。
+文字不是主体；标准术语保留英文，例如 type、registry、descriptor、__set_name__、config、plugin。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-classic-ml-module-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "经典 ML 补充算法模块地图",
+        "suggested_page": "docs/electives/module-c/index.md",
+        "alt": "经典 ML 补充算法模块地图：SVM、KNN、朴素贝叶斯和 LDA 适合中小数据、可解释 baseline 和模型选择补充。",
+        "prompt": """
+一张适合经典机器学习补充模块首页的学习地图，主题是“经典算法是判断工具箱，不是过时清单”。
+画面表现 SVM、KNN、Naive Bayes、LDA 四个算法节点，分别连接到 margin boundary、neighbor voting、evidence update、supervised projection。
+突出中小数据、强 baseline、可解释性、特征缩放和模型选择，风格像算法工具箱地图。
+文字不是主体；标准术语保留英文，例如 SVM、KNN、Naive Bayes、LDA、baseline、scaling。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-lda-projection-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LDA 监督式投影直觉图",
+        "suggested_page": "docs/electives/module-c/04-lda.md",
+        "alt": "LDA 监督式投影直觉图：利用标签寻找投影方向，让类内更紧、类间更远，同时支持分类和降维。",
+        "prompt": """
+一张适合 LDA 课程的数学直觉图，主题是“类内更紧，类间更远的监督式投影”。
+画面表现二维散点按类别分布，LDA 找到一条投影轴，投影后同类点聚拢、不同类中心拉开；旁边用 PCA 对比只看总体方差。
+重点突出 within-class scatter、between-class scatter、supervised projection、classification and dimensionality reduction。
+文字不是主体；标准术语保留英文，例如 LDA、PCA、projection、within-class、between-class。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-ai-main-relay-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 主线接力总地图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "AI 主线接力总地图：概率信息论、早期神经网络、经典机器学习、深度学习复兴、Transformer 大模型、RAG Agent 和多模态 AIGC 接力演进。",
+        "prompt": """
+一张适合 AI 历史附录的主线总地图，主题是“AI 发展像一场接力赛”。
+用 6 个大节点从左到右串联：probability、classic ML、deep learning、Transformer/LLM、RAG/Agent、multimodal AIGC。
+风格像清晰的历史路线图，节点大、连线少、层次干净。
+文字不是主体；标准术语保留英文。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-ai-project-lens-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "从项目视角读 AI 时间线地图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "从项目视角读 AI 时间线地图：数学基础、机器学习、深度学习、Transformer、RAG、Agent 和多模态分别对应课程项目能力。",
+        "prompt": """
+一张适合 AI 历史附录的项目视角地图，主题是“把论文历史翻译成项目能力”。
+用 6 个大模块表现：math foundation、ML baseline、training loop、Transformer interface、RAG/Agent system、multimodal product。
+风格像课程项目路线图，清晰、少字、适合新人快速理解。
+文字不是主体；标准术语保留英文。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-classic-ml-branch-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "经典机器学习分支地图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "经典机器学习分支地图：贝叶斯、EM、SVM、树模型、集成学习和核方法共同建立稳定建模与评估主线。",
+        "prompt": """
+一张适合 AI 历史附录经典机器学习章节的分支地图，主题是“经典 ML 建立稳定建模习惯”。
+用 5 个大分支表现：Bayes、EM、SVM、decision tree、ensemble，最后汇入 baseline and evaluation。
+风格像算法谱系图，干净、专业、少字。
+文字不是主体；标准术语保留英文。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-nlp-llm-lineage-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 到大模型谱系地图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "NLP 到大模型谱系地图：HMM、Word2Vec、Seq2Seq、Attention、Transformer、BERT、GPT 和 GPT-3 逐步连接。",
+        "prompt": """
+一张适合 AI 历史附录现代 NLP 章节的谱系图，主题是“文本任务如何走向大模型”。
+用 6 个大节点串联：HMM、Word2Vec、Seq2Seq、Attention、Transformer、BERT/GPT。
+风格像简洁技术谱系图，突出 token、embedding、context 和 pretraining 的传承关系。
+文字不是主体；标准术语保留英文。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-agent-system-lineage-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "对齐 Agent 与系统化主线地图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "对齐 Agent 与系统化主线地图：RLHF、tool use、RAG、Agent planning、evaluation 和 safety 共同把大模型接入系统。",
+        "prompt": """
+一张适合 AI 历史附录 Agent 系统章节的主线图，主题是“大模型从生成走向系统执行”。
+用 5 个大模块组成闭环：alignment、tool use、RAG grounding、Agent planning、evaluation/safety。
+风格像系统控制环，清晰、专业、少字。
+文字不是主体；标准术语保留英文。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-multimodal-aigc-lineage-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态与 AIGC 谱系地图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "多模态与 AIGC 谱系地图：CNN、CLIP、Diffusion、Stable Diffusion、video generation 和 multimodal agents 共同扩展输入输出媒介。",
+        "prompt": """
+一张适合 AI 历史附录多模态章节的谱系地图，主题是“AI 从文字扩展到图像、语音、视频和创作工作流”。
+用 6 个大节点串联：CNN vision、CLIP、Diffusion、Stable Diffusion、video generation、multimodal workflow。
+风格像清晰的多模态路线图，强调理解、生成、编辑、审核和交付。
+文字不是主体；标准术语保留英文。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch01-terminal-path-command-map.png",
         "size": "1536x1024",
         "quality": "medium",

@@ -16,6 +16,8 @@ keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 这在数据处理、日志流、批量任务和服务端代码里非常常见。
 :::
 
+![生成器流式管道图](/img/course/elective-generator-stream-pipeline.png)
+
 ## 学习目标
 
 - 理解迭代器和生成器在工程中的核心价值

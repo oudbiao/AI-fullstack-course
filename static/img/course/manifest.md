@@ -358,6 +358,21 @@
 | `appendix-project-quick-reference-map.png` | AI 项目速查总览图 | `docs/appendix/resource-quick-ref.md` | AI 项目速查总览图：环境命令、baseline、评估指标、训练信号、RAG、Agent 和 Prompt 串成项目检查地图。 |
 | `appendix-course-numbering-map.png` | 展示章节号与源码目录对应地图 | `docs/appendix/course-numbering.md` | 展示章节号与源码目录对应地图：网页第 1 到第 12 章分别对应 docs/ch01 到 docs/ch12 源码目录。 |
 | `appendix-visual-enhancement-kanban.png` | 课程图片资产规划看板 | `docs/appendix/visual-enhancement-plan.md` | 课程图片资产规划看板：P0、P1、P2、P3 不同优先级图片分批规划和生成。 |
+| `elective-cpp-deployment-module-map.png` | C++ 与模型部署模块学习地图 | `docs/electives/module-a/index.md` | C++ 与模型部署模块学习地图：C++ 基础、进阶资源管理、模型优化、推理引擎、边缘部署、服务化和部署项目逐步连接。 |
+| `elective-cpp-raii-ownership-map.png` | C++ RAII 与所有权地图 | `docs/electives/module-a/02-cpp-advanced.md` | C++ RAII 与所有权地图：资源获取、对象生命周期、智能指针、移动语义和抽象接口共同支撑部署工程。 |
+| `elective-edge-deployment-constraint-map.png` | 边缘部署约束决策图 | `docs/electives/module-a/05-edge-deployment.md` | 边缘部署约束决策图：内存、功耗、延迟、离线能力、散热和运维共同决定模型适配方案。 |
+| `elective-deployment-project-delivery-loop.png` | 部署综合项目交付闭环图 | `docs/electives/module-a/07-projects.md` | 部署综合项目交付闭环图：模型准备、推理执行、服务接口、指标统计、部署说明、监控和项目展示形成闭环。 |
+| `elective-python-advanced-module-map.png` | Python 进阶专题模块地图 | `docs/electives/module-b/index.md` | Python 进阶专题模块地图：装饰器、生成器、asyncio 并发和元编程共同提升工程代码的复用性、流式处理和可维护性。 |
+| `elective-generator-stream-pipeline.png` | 生成器流式管道图 | `docs/electives/module-b/02-iterators-advanced.md` | 生成器流式管道图：数据按需产出，经过读取、过滤、规范化和消费，不必一次性全部进入内存。 |
+| `elective-metaprogramming-registry-map.png` | Python 元编程注册器地图 | `docs/electives/module-b/04-metaprogramming.md` | Python 元编程注册器地图：动态类、注册器、描述符和配置驱动代码帮助减少重复样板，但需要控制复杂度。 |
+| `elective-classic-ml-module-map.png` | 经典 ML 补充算法模块地图 | `docs/electives/module-c/index.md` | 经典 ML 补充算法模块地图：SVM、KNN、朴素贝叶斯和 LDA 适合中小数据、可解释 baseline 和模型选择补充。 |
+| `elective-lda-projection-map.png` | LDA 监督式投影直觉图 | `docs/electives/module-c/04-lda.md` | LDA 监督式投影直觉图：利用标签寻找投影方向，让类内更紧、类间更远，同时支持分类和降维。 |
+| `appendix-ai-main-relay-map.png` | AI 主线接力总地图 | `docs/appendix/ai-milestones.md` | AI 主线接力总地图：概率信息论、早期神经网络、经典机器学习、深度学习复兴、Transformer 大模型、RAG Agent 和多模态 AIGC 接力演进。 |
+| `appendix-ai-project-lens-map.png` | 从项目视角读 AI 时间线地图 | `docs/appendix/ai-milestones.md` | 从项目视角读 AI 时间线地图：数学基础、机器学习、深度学习、Transformer、RAG、Agent 和多模态分别对应课程项目能力。 |
+| `appendix-classic-ml-branch-map.png` | 经典机器学习分支地图 | `docs/appendix/ai-milestones.md` | 经典机器学习分支地图：贝叶斯、EM、SVM、树模型、集成学习和核方法共同建立稳定建模与评估主线。 |
+| `appendix-nlp-llm-lineage-map.png` | NLP 到大模型谱系地图 | `docs/appendix/ai-milestones.md` | NLP 到大模型谱系地图：HMM、Word2Vec、Seq2Seq、Attention、Transformer、BERT、GPT 和 GPT-3 逐步连接。 |
+| `appendix-agent-system-lineage-map.png` | 对齐 Agent 与系统化主线地图 | `docs/appendix/ai-milestones.md` | 对齐 Agent 与系统化主线地图：RLHF、tool use、RAG、Agent planning、evaluation 和 safety 共同把大模型接入系统。 |
+| `appendix-multimodal-aigc-lineage-map.png` | 多模态与 AIGC 谱系地图 | `docs/appendix/ai-milestones.md` | 多模态与 AIGC 谱系地图：CNN、CLIP、Diffusion、Stable Diffusion、video generation 和 multimodal agents 共同扩展输入输出媒介。 |
 | `ch01-terminal-path-command-map.png` | 终端路径与命令执行关系图 | `docs/ch01-tools/ch01-terminal/02-basic-operations.md` | 终端路径与命令执行关系图：当前目录、目录树、命令、参数和输出结果共同组成一次终端操作。 |
 | `ch01-python-env-stack.png` | Python 环境与依赖关系图 | `docs/ch01-tools/ch03-devenv/01-python-env.md` | Python 环境与依赖关系图：系统 Python、虚拟环境、pip、requirements 和项目代码需要保持一致。 |
 | `ch01-git-branch-collaboration.png` | Git 分支协作流程图 | `docs/ch01-tools/ch02-git/04-branches.md` | Git 分支协作流程图：从 main 分出 feature 分支，提交、合并、解决冲突并同步远程仓库。 |

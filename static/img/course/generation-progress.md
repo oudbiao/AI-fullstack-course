@@ -1,10 +1,10 @@
 # Course Image Generation Progress
 
-Last updated: 2026-04-29
+Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 375 / 375
+Generated with image2: 390 / 390
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -26,9 +26,9 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 第 10～12 章补充说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 本轮新增 28 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、CV/NLP/多模态各子章导读和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
-选修模块说明：目录 `docs/electives` 下新增的 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。
+选修模块说明：目录 `docs/electives` 下原有 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。本轮补充 9 张模块入口和缺口页图，覆盖 C++ 部署总览、RAII/所有权、边缘部署、部署综合项目、Python 进阶总览、生成器管道、元编程注册器、经典 ML 总览和 LDA 监督式投影。
 
-附录说明：目录 `docs/appendix` 下新增的 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。
+附录说明：目录 `docs/appendix` 下原有 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。本轮补充 6 张 AI 历史谱系图，替换 `docs/appendix/ai-milestones.md` 中残留的 Mermaid 主线图，让论文、算法和课程项目的关系更直观。
 
 第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 59 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。其中第 1 章本轮新增 6 张真实 PNG，用于替换任务单、命令行、包管理器、Git 核心操作、远程仓库和 VS Code 页面的文字流程入口；第 2 章本轮新增 15 张真实 PNG，用于替换 Python 首页、学习指南、任务链、基础语法、文件处理、进阶机制和项目页的文字流程入口；第 3 章本轮新增 23 张真实 PNG，用于替换数据分析首页、学习指南、任务链、NumPy、Pandas、可视化和数据库页面的文字流程入口。
 
@@ -334,6 +334,15 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `elective-ai-security-red-team-loop.png`
 - `elective-ai-frontend-stack.png`
 - `elective-ai-product-decision-matrix.png`
+- `elective-cpp-deployment-module-map.png`
+- `elective-cpp-raii-ownership-map.png`
+- `elective-edge-deployment-constraint-map.png`
+- `elective-deployment-project-delivery-loop.png`
+- `elective-python-advanced-module-map.png`
+- `elective-generator-stream-pipeline.png`
+- `elective-metaprogramming-registry-map.png`
+- `elective-classic-ml-module-map.png`
+- `elective-lda-projection-map.png`
 - `appendix-ai-milestones-timeline.png`
 - `appendix-troubleshooting-rescue-map.png`
 - `appendix-hardware-cloud-decision-tree.png`
@@ -344,6 +353,12 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `appendix-project-quick-reference-map.png`
 - `appendix-course-numbering-map.png`
 - `appendix-visual-enhancement-kanban.png`
+- `appendix-ai-main-relay-map.png`
+- `appendix-ai-project-lens-map.png`
+- `appendix-classic-ml-branch-map.png`
+- `appendix-nlp-llm-lineage-map.png`
+- `appendix-agent-system-lineage-map.png`
+- `appendix-multimodal-aigc-lineage-map.png`
 - `ch01-terminal-path-command-map.png`
 - `ch01-task-list-workflow.png`
 - `ch01-cli-automation-workflow.png`

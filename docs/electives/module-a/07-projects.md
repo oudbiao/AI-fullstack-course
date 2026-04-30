@@ -20,6 +20,8 @@ keywords: [deployment project, edge inference, model serving, optimization, port
 这一节要做的就是把这些零件装起来，形成一个能讲得清楚、也能展示得出来的项目。
 :::
 
+![部署综合项目交付闭环图](/img/course/elective-deployment-project-delivery-loop.png)
+
 ## 学习目标
 
 - 学会把“模型部署能力”组织成一个可展示项目

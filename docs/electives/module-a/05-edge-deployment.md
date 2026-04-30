@@ -24,6 +24,8 @@ keywords: [edge deployment, Jetson, Raspberry Pi, memory budget, latency, offlin
 > **在受限设备上做出“足够可用”的系统，而不是追求桌面机上的完美形态。**
 :::
 
+![边缘部署约束决策图](/img/course/elective-edge-deployment-constraint-map.png)
+
 ## 学习目标
 
 - 理解边缘部署和云端部署的核心差异

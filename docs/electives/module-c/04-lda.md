@@ -18,6 +18,8 @@ LDA 很容易和别的缩写混掉，
 所以它既能分类，也能作为一种监督式降维方法来看。
 :::
 
+![LDA 监督式投影直觉图](/img/course/elective-lda-projection-map.png)
+
 ## 学习目标
 
 - 理解 LDA 的核心目标：类内紧凑、类间分离

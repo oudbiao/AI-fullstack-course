@@ -20,6 +20,8 @@ keywords: [metaprogramming, type, registry, descriptor, dynamic class, Python]
 > **什么时候它真的值得用，什么时候会让代码更难懂。**
 :::
 
+![Python 元编程注册器地图](/img/course/elective-metaprogramming-registry-map.png)
+
 ## 学习目标
 
 - 理解元编程在 Python 里的常见工程用途

@@ -18,6 +18,8 @@ keywords: [C++, RAII, smart pointer, virtual, move semantics, threading, deploym
 这些恰恰是部署工程里最常见、也最容易卡住 Python 背景同学的地方。
 :::
 
+![C++ RAII 与所有权地图](/img/course/elective-cpp-raii-ownership-map.png)
+
 ## 学习目标
 
 - 理解 RAII 和智能指针为什么是部署代码高频概念
