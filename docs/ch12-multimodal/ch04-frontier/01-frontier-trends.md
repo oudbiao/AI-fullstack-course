@@ -7,6 +7,12 @@ keywords: [AIGC trends, multimodal, real-time generation, small models, agentic 
 
 # AIGC 前沿趋势
 
+![AIGC 前沿趋势系统判断图](/img/course/ch12-aigc-frontier-system-trend-map.png)
+
+:::tip 读图提示
+前沿趋势要从“模型能力、成本效率、产品形态、合规边界、工作流整合”一起判断。只看榜单容易焦虑，看系统变化才更容易知道下一步该学什么。
+:::
+
 :::tip 本节定位
 讲“趋势”最怕两种情况：
 

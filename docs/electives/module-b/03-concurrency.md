@@ -9,6 +9,12 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 ![asyncio 并发控制流程图](/img/course/elective-asyncio-concurrency-control.png)
 
+![异步任务超时取消与限流图](/img/course/elective-asyncio-timeout-cancel-rate-limit-map.png)
+
+:::tip 读图提示
+并发不是越多越好。读图时重点看 event loop、semaphore、timeout、cancellation、retry 和 rate limit 如何共同保护上游服务，尤其适合 LLM API、RAG 抓取和 Agent 工具调用。
+:::
+
 :::tip 本节定位
 并发编程在 Python 里最容易被学成“API 记忆题”。  
 但对工程来说，更重要的问题其实是：

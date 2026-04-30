@@ -9,6 +9,12 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 ![模型服务化架构图](/img/course/elective-model-serving-architecture.png)
 
+![模型服务指标与版本路由图](/img/course/elective-serving-metrics-version-routing-map.png)
+
+:::tip 读图提示
+模型服务上线后最该看的不是单次推理时间，而是队列等待、batch 效率、P95/P99 延迟、错误率、版本路由和回滚能力。读图时把它当成一个长期运行的系统。
+:::
+
 :::tip 本节定位
 “把模型跑起来”和“把模型服务化”是两件不同的事。
 

@@ -9,6 +9,12 @@ keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 
 ![AI 前端交互栈图](/img/course/elective-ai-frontend-stack.png)
 
+![AI 前端状态机与体验闭环图](/img/course/elective-ai-frontend-state-machine-map.png)
+
+:::tip 读图提示
+AI 前端不是结果展示页，而是要处理 idle、loading、streaming、success、error、retry、cancel 等状态。读图时把模型调用看成一次“不确定耗时”的交互流程。
+:::
+
 :::tip 本节定位
 很多 AI 功能其实不是做不出来，而是“没有好界面承接”。  
 用户真正接触到的，通常不是模型本身，而是：

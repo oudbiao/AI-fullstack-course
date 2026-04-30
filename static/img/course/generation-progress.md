@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 559 / 559
+Generated with image2: 577 / 577
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -40,7 +40,11 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 第 11 章深度图解说明：本轮新增 14 张机制型、范式型和项目型图解，覆盖 NLP 任务全景、语言模型 next token 预测、传统文本分类基线、神经文本分类 embedding/pooling、BiLSTM-CRF 标签路径、NER 实体级评估、Seq2Seq 信息瓶颈、机器翻译错误分析、预训练迁移微调、T5 text-to-text 统一接口、Transformers 库调用链、问答系统证据闭环、摘要抽取/生成评估和信息抽取 schema 流程。新增图用于把第 11 章从“概念名词很多”推进到“文本如何被表示、任务如何被评估、项目如何交付一眼能看懂”。
 
+第 12 章深度图解说明：本轮新增 9 张工程型、产品型和治理型图解，覆盖多模态应用工程链路、Stable Diffusion 应用模式选择、图像生成微调路线、图像生成趋势雷达、TTS 文本到语音链路、数字人多模块同步、AIGC 前沿趋势系统判断、伦理安全风险护栏和 AI 合规工程转译。新增图用于把第 12 章从“Demo 很炫”推进到“多模态系统如何设计、生成工作流如何交付、风险边界如何治理更直观”。
+
 选修模块说明：目录 `docs/electives` 下原有 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。本轮补充 9 张模块入口和缺口页图，覆盖 C++ 部署总览、RAII/所有权、边缘部署、部署综合项目、Python 进阶总览、生成器管道、元编程注册器、经典 ML 总览和 LDA 监督式投影。
+
+选修模块深度图解说明：本轮新增 9 张实战判断型图解，覆盖模型优化指标取舍、推理引擎选型矩阵、模型服务指标与版本路由、装饰器横切逻辑分层、asyncio 超时取消与限流、SVM 参数 C/kernel 决策、AI 安全威胁建模与回归集、AI 前端状态机和 AI 产品实验指标闭环。新增图用于把选修模块从“补充知识点”推进到“工程选型、上线运行、产品验证和安全治理怎么判断更直观”。
 
 附录说明：目录 `docs/appendix` 下原有 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。本轮补充 6 张 AI 历史谱系图，替换 `docs/appendix/ai-milestones.md` 中残留的 Mermaid 主线图，让论文、算法和课程项目的关系更直观。
 
@@ -388,6 +392,15 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch12-frontier-ethics-route-map.png`
 - `ch12-multimodal-rag-agent-bridge.png`
 - `ch12-projects-delivery-loop.png`
+- `ch12-multimodal-app-engineering-loop.png`
+- `ch12-sd-application-mode-selector-map.png`
+- `ch12-sd-finetuning-route-choice-map.png`
+- `ch12-image-generation-trend-radar-map.png`
+- `ch12-tts-text-to-speech-pipeline-map.png`
+- `ch12-digital-human-sync-pipeline-map.png`
+- `ch12-aigc-frontier-system-trend-map.png`
+- `ch12-ai-ethics-safety-guardrail-map.png`
+- `ch12-ai-regulation-engineering-translation-map.png`
 - `git-four-areas.png`
 - `pandas-dataframe-structure.png`
 - `chart-selection-decision-tree.png`
@@ -528,6 +541,15 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `elective-metaprogramming-registry-map.png`
 - `elective-classic-ml-module-map.png`
 - `elective-lda-projection-map.png`
+- `elective-optimization-tradeoff-dashboard.png`
+- `elective-inference-engine-selection-matrix.png`
+- `elective-serving-metrics-version-routing-map.png`
+- `elective-decorator-crosscutting-layers.png`
+- `elective-asyncio-timeout-cancel-rate-limit-map.png`
+- `elective-svm-c-kernel-decision-map.png`
+- `elective-ai-security-threat-regression-map.png`
+- `elective-ai-frontend-state-machine-map.png`
+- `elective-ai-product-experiment-metrics-loop.png`
 - `appendix-ai-milestones-timeline.png`
 - `appendix-troubleshooting-rescue-map.png`
 - `appendix-hardware-cloud-decision-tree.png`

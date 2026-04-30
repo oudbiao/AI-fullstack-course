@@ -7,6 +7,12 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 # 最新进展
 
+![图像生成前沿趋势雷达图](/img/course/ch12-image-generation-trend-radar-map.png)
+
+:::tip 读图提示
+追前沿不要只追模型名。读图时把“更快、更可控、更多模态、进入工作流、端侧化、成本效率”这些方向分开看，才能判断哪些趋势值得现在学习。
+:::
+
 :::tip 本节定位
 “最新进展”这类课最容易写空。  
 如果只是列模型名字，过一阵就过时；如果只是喊趋势，又很难让人真正学到东西。

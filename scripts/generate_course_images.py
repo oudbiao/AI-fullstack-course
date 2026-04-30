@@ -5850,6 +5850,132 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch12-multimodal-app-engineering-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "多模态应用工程链路图",
+        "suggested_page": "docs/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md",
+        "alt": "多模态应用工程链路图：image/text/audio input、OCR、VLM、retrieval/tool call、fallback、privacy check 和 user feedback 组成产品闭环。",
+        "prompt": """
+一张适合多模态应用开发章节的工程链路图，主题是“多模态应用是输入处理、模型理解、工具调用和失败兜底的产品系统”。
+画面表现 image/text/audio input、input quality check、OCR、VLM reasoning、retrieval/tool call、answer/action、fallback UI、privacy check、user feedback。
+风格像产品系统架构图和应用工作流看板结合，突出工程链路和边界感。
+文字不是主体；标准术语保留英文，例如 OCR、VLM、retrieval、tool call、fallback、privacy check、user feedback。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-sd-application-mode-selector-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Stable Diffusion 应用模式选择图",
+        "suggested_page": "docs/ch12-multimodal/ch02-image-gen/03-sd-applications.md",
+        "alt": "Stable Diffusion 应用模式选择图：text-to-image、img2img、inpainting、ControlNet、batch generation 和 human review 对应不同产品需求。",
+        "prompt": """
+一张适合 Stable Diffusion 应用章节的模式选择图，主题是“先判断用户需求，再选择生成或编辑模式”。
+画面表现 user goal 分流到 text-to-image、img2img、inpainting、ControlNet/style control、batch generation、human review/export，并展示每种模式的输入输出差异。
+风格像创意工具模式选择器和工作流地图结合，清晰、视觉化、适合新人做项目选型。
+文字不是主体；标准术语保留英文，例如 text-to-image、img2img、inpainting、ControlNet、batch generation、human review、export。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-sd-finetuning-route-choice-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像生成微调路线选择图",
+        "suggested_page": "docs/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md",
+        "alt": "图像生成微调路线选择图：Textual Inversion、LoRA、DreamBooth 分别适合概念触发词、可插拔风格和专属主体一致性。",
+        "prompt": """
+一张适合图像生成微调章节的路线选择图，主题是“不同微调方法在改不同层次的能力”。
+画面表现 base Stable Diffusion 旁边分三条路线：Textual Inversion 学 concept token，LoRA 学 adapter/style，DreamBooth 学 subject identity；下方对比 data size、training cost、editability、identity consistency、overfitting risk。
+风格像技术选型矩阵和模型插件示意图结合，专业但新人友好。
+文字不是主体；标准术语保留英文，例如 Textual Inversion、LoRA、DreamBooth、concept token、adapter、subject identity、overfitting。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-image-generation-trend-radar-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "图像生成前沿趋势雷达图",
+        "suggested_page": "docs/ch12-multimodal/ch02-image-gen/05-latest-progress.md",
+        "alt": "图像生成前沿趋势雷达图：speed、control、editing、multimodal input、workflow integration、edge deployment 和 cost efficiency 组成趋势判断。",
+        "prompt": """
+一张适合图像生成最新进展章节的趋势雷达图，主题是“按方向追前沿，而不是只背模型名”。
+画面表现 speed、quality、control、editing、multimodal input、workflow integration、edge deployment、cost efficiency 八个方向，中心是 image generation system，旁边有 trend priority / learning value 的判断卡。
+风格像技术雷达和产品趋势地图结合，清晰、现代、适合课程扫读。
+文字不是主体；标准术语保留英文，例如 speed、control、editing、multimodal input、workflow integration、edge deployment、cost efficiency。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-tts-text-to-speech-pipeline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "TTS 文本到语音生成链路图",
+        "suggested_page": "docs/ch12-multimodal/ch03-video-gen/02-tts.md",
+        "alt": "TTS 文本到语音生成链路图：text normalization、phoneme、prosody、acoustic model、mel spectrogram、vocoder、speaker style 和 waveform。",
+        "prompt": """
+一张适合语音合成章节的文本到语音生成链路图，主题是“TTS 不只是读字，而是生成带音色、节奏和情感的声音”。
+画面表现 raw text、text normalization、phoneme、prosody、speaker/style control、acoustic model、mel spectrogram、vocoder、waveform/audio，并标注 latency 和 quality tradeoff。
+风格像音频信号流程图和语音产品控制台结合，突出波形和频谱视觉。
+文字不是主体；标准术语保留英文，例如 text normalization、phoneme、prosody、mel spectrogram、vocoder、speaker style、waveform、latency。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-digital-human-sync-pipeline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "数字人多模块同步图",
+        "suggested_page": "docs/ch12-multimodal/ch03-video-gen/03-digital-human.md",
+        "alt": "数字人多模块同步图：script、TTS、lip sync、face identity、gesture、background、review 和 export 需要时间轴同步。",
+        "prompt": """
+一张适合数字人技术章节的多模块同步图，主题是“数字人项目难在脚本、声音、口型、表情和身份一致性同步”。
+画面表现 script、TTS voice、lip sync、face identity、expression/gesture、background scene、timeline alignment、quality review、export，并用时间轴展示误差累积。
+风格像视频制作时间线和数字人系统架构结合，专业、直观、适合新人理解多模块管线。
+文字不是主体；标准术语保留英文，例如 script、TTS、lip sync、face identity、gesture、timeline alignment、quality review、export。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-aigc-frontier-system-trend-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AIGC 前沿趋势系统判断图",
+        "suggested_page": "docs/ch12-multimodal/ch04-frontier/01-frontier-trends.md",
+        "alt": "AIGC 前沿趋势系统判断图：model capability、cost efficiency、workflow integration、real-time generation、edge/local、governance 共同决定趋势价值。",
+        "prompt": """
+一张适合 AIGC 前沿趋势章节的系统判断图，主题是“趋势不是热词，而是能力、成本、产品和治理同时变化”。
+画面表现 model capability、multimodal default、workflow generation、cost efficiency、real-time generation、edge/local deployment、system integration、governance boundary，中心是 product value。
+风格像战略雷达和技术产品地图结合，适合新人从系统角度看前沿。
+文字不是主体；标准术语保留英文，例如 model capability、workflow generation、cost efficiency、real-time generation、edge deployment、governance、product value。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-ai-ethics-safety-guardrail-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AIGC 伦理安全风险护栏图",
+        "suggested_page": "docs/ch12-multimodal/ch04-frontier/02-ai-ethics.md",
+        "alt": "AIGC 伦理安全风险护栏图：bias、privacy、misinformation、abuse、overtrust 通过 policy、filter、human review、audit log 和 appeal 形成护栏。",
+        "prompt": """
+一张适合 AI 伦理与安全章节的风险护栏图，主题是“伦理问题要落到工程护栏和复核机制”。
+画面表现 risk inputs：bias、privacy leakage、misinformation、abuse、overtrust；中间是 guardrails：policy, data minimization, output filter, human review, audit log, appeal mechanism；右侧是 safer product outcome。
+风格像安全控制台和风险地图结合，克制、可信、清晰。
+文字不是主体；标准术语保留英文，例如 bias、privacy leakage、misinformation、abuse、overtrust、policy、human review、audit log、appeal。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-ai-regulation-engineering-translation-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 合规工程转译图",
+        "suggested_page": "docs/ch12-multimodal/ch04-frontier/03-ai-regulations.md",
+        "alt": "AI 合规工程转译图：privacy、risk classification、traceability、human oversight、content labeling 和 audit 被转译为系统配置。",
+        "prompt": """
+一张适合 AI 法规与合规章节的工程转译图，主题是“把法规语言翻译成系统配置和产品流程”。
+画面左侧是 compliance requirements：privacy, risk classification, traceability, human oversight, content labeling, audit；中间是 engineering translation；右侧是 system controls：permission, logging, review queue, watermark/label, data retention, incident response。
+风格像合规矩阵和系统架构图结合，专业、清晰、非法律建议感。
+文字不是主体；标准术语保留英文，例如 privacy、risk classification、traceability、human oversight、content labeling、audit、logging、review queue、incident response。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "git-four-areas.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -7433,6 +7559,132 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 画面表现二维散点按类别分布，LDA 找到一条投影轴，投影后同类点聚拢、不同类中心拉开；旁边用 PCA 对比只看总体方差。
 重点突出 within-class scatter、between-class scatter、supervised projection、classification and dimensionality reduction。
 文字不是主体；标准术语保留英文，例如 LDA、PCA、projection、within-class、between-class。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-optimization-tradeoff-dashboard.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型优化取舍仪表盘",
+        "suggested_page": "docs/electives/module-a/03-model-optimization.md",
+        "alt": "模型优化取舍仪表盘：latency、throughput、memory、accuracy、hardware fit 和 maintenance cost 共同决定量化、蒸馏、剪枝、融合和 batching 的选择。",
+        "prompt": """
+一张适合模型优化选修课的取舍仪表盘图，主题是“优化不是白赚，而是在指标之间做工程取舍”。
+画面表现 latency、throughput、memory、accuracy、hardware fit、maintenance cost 六个仪表盘，中间连接 quantization、distillation、pruning、operator fusion、batching 五种优化手段。
+风格像部署性能控制台和技术选型白板结合，突出瓶颈定位、指标对比和回归测试。
+文字不是主体；标准术语保留英文，例如 latency、throughput、memory、accuracy、quantization、distillation、operator fusion、batching。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-inference-engine-selection-matrix.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "推理引擎选型矩阵图",
+        "suggested_page": "docs/electives/module-a/04-inference-engines.md",
+        "alt": "推理引擎选型矩阵图：model format、target hardware、latency、throughput、deployment environment 和 maintenance 决定 ONNX Runtime、TensorRT、OpenVINO 的选择。",
+        "prompt": """
+一张适合推理引擎课程的选型矩阵图，主题是“推理引擎要匹配模型格式、硬件和运行目标”。
+画面表现 ONNX Runtime、TensorRT、OpenVINO 三个候选工具与 model format、CPU/GPU/NPU、latency、throughput、deployment environment、maintenance complexity 的关系。
+风格像工程决策矩阵和硬件适配地图结合，清晰、专业、帮助新人不迷信单一引擎。
+文字不是主体；标准术语保留英文，例如 ONNX Runtime、TensorRT、OpenVINO、CPU、GPU、NPU、latency、throughput。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-serving-metrics-version-routing-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "模型服务指标与版本路由图",
+        "suggested_page": "docs/electives/module-a/06-model-serving.md",
+        "alt": "模型服务指标与版本路由图：request queue、dynamic batching、P95/P99 latency、error rate、version routing、canary 和 rollback 组成服务运维闭环。",
+        "prompt": """
+一张适合模型服务化课程的运行指标与版本路由图，主题是“模型服务是长期运行系统，不是单次推理脚本”。
+画面表现 request queue、dynamic batching、model executor、version routing、canary release、rollback、metrics dashboard，包括 P95/P99 latency、throughput、error rate、batch efficiency。
+风格像线上服务运维控制台和架构图结合，突出可观测性、灰度和回滚。
+文字不是主体；标准术语保留英文，例如 request queue、dynamic batching、P95、P99、version routing、canary、rollback、metrics。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-decorator-crosscutting-layers.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "装饰器横切逻辑分层图",
+        "suggested_page": "docs/electives/module-b/01-decorators-advanced.md",
+        "alt": "装饰器横切逻辑分层图：logging、timing、retry、auth wrappers 包裹 original function，并通过 functools.wraps 保留函数身份。",
+        "prompt": """
+一张适合 Python 装饰器进阶课程的横切逻辑分层图，主题是“装饰器把通用工程逻辑包在原函数外层”。
+画面表现 original function 被 logging wrapper、timing wrapper、retry wrapper、auth wrapper 逐层包裹，请求穿过 wrapper 后执行函数再返回；旁边强调 functools.wraps 保留 metadata。
+风格像函数调用剖面图和工程中间件栈结合，清晰、适合新人理解为什么装饰器常见。
+文字不是主体；标准术语保留英文，例如 wrapper、original function、logging、timing、retry、auth、functools.wraps、metadata。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-asyncio-timeout-cancel-rate-limit-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "异步任务超时取消与限流图",
+        "suggested_page": "docs/electives/module-b/03-concurrency.md",
+        "alt": "异步任务超时取消与限流图：event loop、semaphore、timeout、cancellation、retry 和 rate limit 共同保护 LLM API、RAG 抓取和 Agent 工具调用。",
+        "prompt": """
+一张适合 Python asyncio 并发课程的任务控制图，主题是“并发要配合超时、取消和限流才适合生产系统”。
+画面表现 event loop 调度多个 API tasks，通过 semaphore 控制并发上限，timeout 终止慢任务，cancellation 清理任务，retry 队列处理可恢复错误，rate limit 保护上游服务。
+风格像异步运行时仪表盘和任务队列图结合，适合 AI 工程场景。
+文字不是主体；标准术语保留英文，例如 event loop、semaphore、timeout、cancellation、retry、rate limit、LLM API、Agent tools。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-svm-c-kernel-decision-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "SVM 参数 C 与 kernel 选择图",
+        "suggested_page": "docs/electives/module-c/01-svm.md",
+        "alt": "SVM 参数 C 与 kernel 选择图：C 控制 margin 与容错，kernel 控制 linear/RBF 非线性边界，StandardScaler 是常见前置步骤。",
+        "prompt": """
+一张适合 SVM 选修课的参数直觉图，主题是“C 和 kernel 改变分类边界的行为”。
+画面左右对比 low C 与 high C 的 margin/容错差异，下方对比 linear kernel 和 RBF kernel 的边界形状；旁边标出 StandardScaler 前置步骤。
+风格像机器学习决策白板，散点图清楚，边界线和 margin 大而易懂。
+文字不是主体；标准术语保留英文，例如 C、margin、support vectors、linear kernel、RBF kernel、StandardScaler。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-ai-security-threat-regression-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 安全威胁建模与回归集图",
+        "suggested_page": "docs/electives/module-d.md",
+        "alt": "AI 安全威胁建模与回归集图：assets、attack surface、failure impact、red team cases、guardrail fix 和 regression suite 形成持续安全闭环。",
+        "prompt": """
+一张适合 AI 安全与红队课程的威胁建模图，主题是“红队测试要从资产和攻击面开始，并沉淀成回归集”。
+画面表现 assets、attack surface、failure impact、red team cases、risk scoring、guardrail fix、regression suite、continuous evaluation 的闭环。
+风格像安全作战室和评估看板结合，专业、清晰、强调系统链路而不是单个 jailbreak prompt。
+文字不是主体；标准术语保留英文，例如 assets、attack surface、red team cases、risk scoring、guardrail、regression suite、continuous evaluation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-ai-frontend-state-machine-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 前端状态机与体验闭环图",
+        "suggested_page": "docs/electives/module-e.md",
+        "alt": "AI 前端状态机与体验闭环图：idle、loading、streaming、success、error、retry、cancel 和 feedback 组成 AI 产品交互体验。",
+        "prompt": """
+一张适合 AI 前端基础课程的状态机图，主题是“AI 前端要处理不确定耗时和失败恢复”。
+画面表现用户输入后进入 idle、loading、streaming、success、error、retry、cancel、feedback 等状态，连接到 fetch/API、loading skeleton、error banner、result card、history。
+风格像前端交互状态图和产品界面流程图结合，清晰、现代、适合新人理解体验闭环。
+文字不是主体；标准术语保留英文，例如 idle、loading、streaming、success、error、retry、cancel、feedback、fetch API。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-ai-product-experiment-metrics-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 产品实验与指标闭环图",
+        "suggested_page": "docs/electives/module-f.md",
+        "alt": "AI 产品实验与指标闭环图：user problem、hypothesis、MVP、success metrics、risk boundary、feedback 和 iteration 决定 AI 功能是否继续投入。",
+        "prompt": """
+一张适合 AI 产品设计思维课程的实验闭环图，主题是“先验证用户问题和成功指标，再决定继续投入 AI 功能”。
+画面表现 user problem、hypothesis、MVP、success metrics、risk boundary、cost estimate、user feedback、iteration decision，形成产品实验循环。
+风格像产品策略看板和实验漏斗结合，专业、清晰、强调价值、成本、风险和体验。
+文字不是主体；标准术语保留英文，例如 user problem、hypothesis、MVP、success metrics、risk boundary、feedback、iteration。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {

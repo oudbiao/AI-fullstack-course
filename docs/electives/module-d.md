@@ -9,6 +9,12 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 ![AI 安全红队闭环图](/img/course/elective-ai-security-red-team-loop.png)
 
+![AI 安全威胁建模与回归集图](/img/course/elective-ai-security-threat-regression-map.png)
+
+:::tip 读图提示
+红队测试不是找几个极端 prompt 吓自己，而是从资产、攻击面、失败后果开始建模，再把失败样本沉淀成 regression suite。读图时重点看“发现问题之后如何防止它再次出现”。
+:::
+
 :::tip 本节定位
 很多团队会把安全理解成：
 

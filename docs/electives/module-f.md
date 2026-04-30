@@ -9,6 +9,12 @@ keywords: [AI product design, product thinking, evaluation, cost, UX, product st
 
 ![AI 产品决策四象限图](/img/course/elective-ai-product-decision-matrix.png)
 
+![AI 产品实验与指标闭环图](/img/course/elective-ai-product-experiment-metrics-loop.png)
+
+:::tip 读图提示
+产品判断不能停在“这个 AI 功能很酷”。读图时把用户问题、假设、MVP、成功指标、风险边界、实验反馈和迭代放在一起看，才能判断功能是否真的值得继续做。
+:::
+
 :::tip 本节定位
 AI 产品最容易犯的一个错误是：
 

@@ -420,6 +420,15 @@
 | `ch12-frontier-ethics-route-map.png` | AIGC 前沿伦理合规路线图 | `docs/ch12-multimodal/ch04-frontier/00-roadmap.md` | AIGC 前沿伦理合规路线图：前沿趋势、AI 伦理、AI 监管、版权肖像、偏见虚假内容和使用边界逐步连接。 |
 | `ch12-multimodal-rag-agent-bridge.png` | 多模态 RAG 与 Agent 桥接图 | `docs/ch12-multimodal/index.md` | 多模态 RAG 与 Agent 桥接图：截图或 PDF 经过视觉文档解析、结构化文本和图像片段、检索引用、多模态回答、人工编辑、内容审核和导出交付。 |
 | `ch12-projects-delivery-loop.png` | AIGC 创意平台项目交付闭环图 | `docs/ch12-multimodal/ch05-projects/00-roadmap.md` | AIGC 创意平台项目交付闭环图：主题输入、文案、配图提示词、分镜脚本、语音稿、生成结果、人工编辑、审核清单和导出交付形成闭环。 |
+| `ch12-multimodal-app-engineering-loop.png` | 多模态应用工程链路图 | `docs/ch12-multimodal/ch01-multimodal/03-multimodal-apps.md` | 多模态应用工程链路图：image/text/audio input、OCR、VLM、retrieval/tool call、fallback、privacy check 和 user feedback 组成产品闭环。 |
+| `ch12-sd-application-mode-selector-map.png` | Stable Diffusion 应用模式选择图 | `docs/ch12-multimodal/ch02-image-gen/03-sd-applications.md` | Stable Diffusion 应用模式选择图：text-to-image、img2img、inpainting、ControlNet、batch generation 和 human review 对应不同产品需求。 |
+| `ch12-sd-finetuning-route-choice-map.png` | 图像生成微调路线选择图 | `docs/ch12-multimodal/ch02-image-gen/04-sd-finetuning.md` | 图像生成微调路线选择图：Textual Inversion、LoRA、DreamBooth 分别适合概念触发词、可插拔风格和专属主体一致性。 |
+| `ch12-image-generation-trend-radar-map.png` | 图像生成前沿趋势雷达图 | `docs/ch12-multimodal/ch02-image-gen/05-latest-progress.md` | 图像生成前沿趋势雷达图：speed、control、editing、multimodal input、workflow integration、edge deployment 和 cost efficiency 组成趋势判断。 |
+| `ch12-tts-text-to-speech-pipeline-map.png` | TTS 文本到语音生成链路图 | `docs/ch12-multimodal/ch03-video-gen/02-tts.md` | TTS 文本到语音生成链路图：text normalization、phoneme、prosody、acoustic model、mel spectrogram、vocoder、speaker style 和 waveform。 |
+| `ch12-digital-human-sync-pipeline-map.png` | 数字人多模块同步图 | `docs/ch12-multimodal/ch03-video-gen/03-digital-human.md` | 数字人多模块同步图：script、TTS、lip sync、face identity、gesture、background、review 和 export 需要时间轴同步。 |
+| `ch12-aigc-frontier-system-trend-map.png` | AIGC 前沿趋势系统判断图 | `docs/ch12-multimodal/ch04-frontier/01-frontier-trends.md` | AIGC 前沿趋势系统判断图：model capability、cost efficiency、workflow integration、real-time generation、edge/local、governance 共同决定趋势价值。 |
+| `ch12-ai-ethics-safety-guardrail-map.png` | AIGC 伦理安全风险护栏图 | `docs/ch12-multimodal/ch04-frontier/02-ai-ethics.md` | AIGC 伦理安全风险护栏图：bias、privacy、misinformation、abuse、overtrust 通过 policy、filter、human review、audit log 和 appeal 形成护栏。 |
+| `ch12-ai-regulation-engineering-translation-map.png` | AI 合规工程转译图 | `docs/ch12-multimodal/ch04-frontier/03-ai-regulations.md` | AI 合规工程转译图：privacy、risk classification、traceability、human oversight、content labeling 和 audit 被转译为系统配置。 |
 | `git-four-areas.png` | Git 四区工作流图 | `docs/ch01-tools/ch02-git/01-git-basics.md` | Git 四区工作流图：工作区、暂存区、本地仓库和远程仓库之间的 add、commit、push、pull 关系。 |
 | `pandas-dataframe-structure.png` | Pandas DataFrame 结构图 | `docs/ch03-data-analysis/ch03-pandas/01-core-structures.md` | Pandas DataFrame 结构图：行、列、索引、Series 和 DataFrame 的关系。 |
 | `chart-selection-decision-tree.png` | 图表选择决策树 | `docs/ch03-data-analysis/ch04-visualization/04-best-practices.md` | 图表选择决策树：比较大小、看趋势、看分布、看关系时选择不同图表。 |
@@ -536,6 +545,15 @@
 | `elective-metaprogramming-registry-map.png` | Python 元编程注册器地图 | `docs/electives/module-b/04-metaprogramming.md` | Python 元编程注册器地图：动态类、注册器、描述符和配置驱动代码帮助减少重复样板，但需要控制复杂度。 |
 | `elective-classic-ml-module-map.png` | 经典 ML 补充算法模块地图 | `docs/electives/module-c/index.md` | 经典 ML 补充算法模块地图：SVM、KNN、朴素贝叶斯和 LDA 适合中小数据、可解释 baseline 和模型选择补充。 |
 | `elective-lda-projection-map.png` | LDA 监督式投影直觉图 | `docs/electives/module-c/04-lda.md` | LDA 监督式投影直觉图：利用标签寻找投影方向，让类内更紧、类间更远，同时支持分类和降维。 |
+| `elective-optimization-tradeoff-dashboard.png` | 模型优化取舍仪表盘 | `docs/electives/module-a/03-model-optimization.md` | 模型优化取舍仪表盘：latency、throughput、memory、accuracy、hardware fit 和 maintenance cost 共同决定量化、蒸馏、剪枝、融合和 batching 的选择。 |
+| `elective-inference-engine-selection-matrix.png` | 推理引擎选型矩阵图 | `docs/electives/module-a/04-inference-engines.md` | 推理引擎选型矩阵图：model format、target hardware、latency、throughput、deployment environment 和 maintenance 决定 ONNX Runtime、TensorRT、OpenVINO 的选择。 |
+| `elective-serving-metrics-version-routing-map.png` | 模型服务指标与版本路由图 | `docs/electives/module-a/06-model-serving.md` | 模型服务指标与版本路由图：request queue、dynamic batching、P95/P99 latency、error rate、version routing、canary 和 rollback 组成服务运维闭环。 |
+| `elective-decorator-crosscutting-layers.png` | 装饰器横切逻辑分层图 | `docs/electives/module-b/01-decorators-advanced.md` | 装饰器横切逻辑分层图：logging、timing、retry、auth wrappers 包裹 original function，并通过 functools.wraps 保留函数身份。 |
+| `elective-asyncio-timeout-cancel-rate-limit-map.png` | 异步任务超时取消与限流图 | `docs/electives/module-b/03-concurrency.md` | 异步任务超时取消与限流图：event loop、semaphore、timeout、cancellation、retry 和 rate limit 共同保护 LLM API、RAG 抓取和 Agent 工具调用。 |
+| `elective-svm-c-kernel-decision-map.png` | SVM 参数 C 与 kernel 选择图 | `docs/electives/module-c/01-svm.md` | SVM 参数 C 与 kernel 选择图：C 控制 margin 与容错，kernel 控制 linear/RBF 非线性边界，StandardScaler 是常见前置步骤。 |
+| `elective-ai-security-threat-regression-map.png` | AI 安全威胁建模与回归集图 | `docs/electives/module-d.md` | AI 安全威胁建模与回归集图：assets、attack surface、failure impact、red team cases、guardrail fix 和 regression suite 形成持续安全闭环。 |
+| `elective-ai-frontend-state-machine-map.png` | AI 前端状态机与体验闭环图 | `docs/electives/module-e.md` | AI 前端状态机与体验闭环图：idle、loading、streaming、success、error、retry、cancel 和 feedback 组成 AI 产品交互体验。 |
+| `elective-ai-product-experiment-metrics-loop.png` | AI 产品实验与指标闭环图 | `docs/electives/module-f.md` | AI 产品实验与指标闭环图：user problem、hypothesis、MVP、success metrics、risk boundary、feedback 和 iteration 决定 AI 功能是否继续投入。 |
 | `appendix-ai-main-relay-map.png` | AI 主线接力总地图 | `docs/appendix/ai-milestones.md` | AI 主线接力总地图：概率信息论、早期神经网络、经典机器学习、深度学习复兴、Transformer 大模型、RAG Agent 和多模态 AIGC 接力演进。 |
 | `appendix-ai-project-lens-map.png` | 从项目视角读 AI 时间线地图 | `docs/appendix/ai-milestones.md` | 从项目视角读 AI 时间线地图：数学基础、机器学习、深度学习、Transformer、RAG、Agent 和多模态分别对应课程项目能力。 |
 | `appendix-classic-ml-branch-map.png` | 经典机器学习分支地图 | `docs/appendix/ai-milestones.md` | 经典机器学习分支地图：贝叶斯、EM、SVM、树模型、集成学习和核方法共同建立稳定建模与评估主线。 |

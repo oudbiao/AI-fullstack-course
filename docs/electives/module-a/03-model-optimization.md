@@ -9,6 +9,12 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 ![模型优化路线图](/img/course/elective-model-optimization-map.png)
 
+![模型优化取舍仪表盘](/img/course/elective-optimization-tradeoff-dashboard.png)
+
+:::tip 读图提示
+优化前先判断瓶颈在哪里：显存、延迟、吞吐、精度、硬件适配和维护成本通常会互相牵制。读图时不要只问“能不能更快”，而要问“用什么代价换哪一个指标”。
+:::
+
 :::tip 本节定位
 模型优化最容易被讲成一堆名词：
 

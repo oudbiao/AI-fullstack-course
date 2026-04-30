@@ -7,6 +7,12 @@ keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workfl
 
 # SD 应用
 
+![Stable Diffusion 应用模式选择图](/img/course/ch12-sd-application-mode-selector-map.png)
+
+:::tip 读图提示
+SD 应用要先分清用户到底是在“从零生成”“参考图改造”“局部修复”还是“按条件控制”。先选对应用模式，再谈 prompt、参数和工作流，项目会稳很多。
+:::
+
 :::tip 本节定位
 前面两节已经把：
 

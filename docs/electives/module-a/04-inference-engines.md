@@ -9,6 +9,12 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 ![推理引擎与硬件适配图](/img/course/elective-inference-engine-hardware.png)
 
+![推理引擎选型矩阵图](/img/course/elective-inference-engine-selection-matrix.png)
+
+:::tip 读图提示
+推理引擎不是越快越好，而是要匹配模型格式、目标硬件、延迟/吞吐、部署环境和团队维护能力。读图时把 ONNX Runtime、TensorRT、OpenVINO 当成不同约束下的工具箱。
+:::
+
 :::tip 本节定位
 训练好的模型并不会自动变成高性能线上服务。  
 中间往往还隔着一层非常关键的系统组件：

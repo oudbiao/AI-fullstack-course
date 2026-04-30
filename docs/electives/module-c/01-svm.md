@@ -9,6 +9,12 @@ keywords: [SVM, support vector machine, max margin, kernel, classification, clas
 
 ![SVM 最大间隔与支持向量图](/img/course/elective-svm-margin-support-vectors.png)
 
+![SVM 参数 C 与 kernel 选择图](/img/course/elective-svm-c-kernel-decision-map.png)
+
+:::tip 读图提示
+SVM 的关键不是背公式，而是理解 `C` 控制“容错 vs 间隔”、`kernel` 控制“线性边界 vs 非线性边界”。读图时顺便记住：特征缩放几乎总是先做。
+:::
+
 :::tip 本节定位
 SVM 不是“过时算法”。  
 在很多中小数据任务里，它仍然是很强的基线，特别是：

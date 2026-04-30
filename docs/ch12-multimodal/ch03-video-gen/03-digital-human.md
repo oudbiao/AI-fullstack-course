@@ -7,6 +7,12 @@ keywords: [digital human, avatar, lip sync, talking head, virtual human, audio-d
 
 # 数字人技术【选修】
 
+![数字人多模块同步图](/img/course/ch12-digital-human-sync-pipeline-map.png)
+
+:::tip 读图提示
+数字人体验取决于多模块同步，而不是单独某个模型。读图时重点看脚本、TTS、口型同步、表情动作、身份一致性、审核和导出如何层层传递误差。
+:::
+
 :::tip 本节定位
 很多人看到数字人时，第一反应是：
 

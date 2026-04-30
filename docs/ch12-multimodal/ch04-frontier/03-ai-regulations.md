@@ -7,6 +7,12 @@ keywords: [AI regulation, compliance, risk classification, governance, audit, le
 
 # AI 法规与合规
 
+![AI 合规工程转译图](/img/course/ch12-ai-regulation-engineering-translation-map.png)
+
+:::tip 读图提示
+合规要求最终会变成系统设计要求：数据权限、日志审计、风险分级、人工监督、内容标记和可追溯性。读图时重点看“法规语言”如何被翻译成“工程配置”。
+:::
+
 :::tip 本节定位
 讲法规最容易让人觉得离技术很远。  
 但一旦系统真的进入：

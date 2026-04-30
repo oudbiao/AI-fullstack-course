@@ -9,6 +9,12 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 ![Python 装饰器执行流程图](/img/course/elective-python-decorator-flow.png)
 
+![装饰器横切逻辑分层图](/img/course/elective-decorator-crosscutting-layers.png)
+
+:::tip 读图提示
+装饰器最适合包日志、计时、重试、权限这类横切逻辑。读图时重点看 wrapper 如何包住原函数，以及为什么 `functools.wraps` 能保留函数身份，避免调试和框架识别出问题。
+:::
+
 :::tip 本节定位
 很多人第一次学装饰器时，印象停留在：
 

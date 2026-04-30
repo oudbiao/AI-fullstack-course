@@ -7,6 +7,12 @@ keywords: [multimodal app, OCR, screenshot assistant, image-text product, workfl
 
 # 多模态应用开发
 
+![多模态应用工程链路图](/img/course/ch12-multimodal-app-engineering-loop.png)
+
+:::tip 读图提示
+多模态应用不是“模型能看图”就结束。读图时重点看输入质量、OCR/VLM 分工、检索或工具调用、用户反馈、失败兜底和隐私合规如何组成真实产品链路。
+:::
+
 ## 学习目标
 
 完成本节后，你将能够：

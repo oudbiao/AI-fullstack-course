@@ -7,6 +7,12 @@ keywords: [TTS, text to speech, vocoder, speech synthesis, voice cloning, speake
 
 # 语音合成
 
+![TTS 文本到语音生成链路图](/img/course/ch12-tts-text-to-speech-pipeline-map.png)
+
+:::tip 读图提示
+TTS 不是把字逐个读出来。读图时重点看文本规范化、音素/韵律、声学特征、vocoder、音色和实时性如何共同决定“像不像人在说话”。
+:::
+
 :::tip 本节定位
 如果说视频生成在解决“连续视觉”，那语音合成在解决的是：
 
