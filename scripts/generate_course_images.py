@@ -7828,6 +7828,36 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "appendix-ai-history-comic-turning-points.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 历史转折多格漫画",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "AI 历史转折多格漫画：感知器希望、XOR 冷却、反向传播复兴、AlexNet 点火、Transformer 换轨和 Agent 工程化组成六格剧情。",
+        "prompt": """
+一张适合 AI 课程附录的六格漫画式历史图，主题是“AI 历史的六次转折”。
+画面用 2 行 3 列六个大面板展示：Perceptron、XOR、Backprop、AlexNet、Transformer、Agent。
+每格只放一个大图标和一个短标签：线性分界线、XOR 冰块、多层网络梯度箭头、GPU 训练火花、tokens 之间的 attention 光束、带工具和护栏的 Agent 控制台。
+风格像简洁科普漫画，留白充足，线条清楚，不画真实人物，不做复杂背景。
+文字不是主体；只保留少量大号英文标签 Perceptron、XOR、Backprop、AlexNet、Transformer、Agent。不要密集小字、不要乱码、不要真实品牌 logo、不要真实论文封面。
+""".strip(),
+    },
+    {
+        "filename": "appendix-ai-paper-problem-solution-impact-chain.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 论文问题方法影响因果链图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "AI 论文问题方法影响因果链图：old bottleneck、new method、new capability 和 project impact 帮新人读懂论文为什么重要。",
+        "prompt": """
+一张适合 AI 重要论文学习方法的因果链图，主题是“不要先背论文名，先读懂它接住了哪个老问题”。
+画面从左到右展示 old bottleneck、new method、new capability、project impact 四段链条，并用三条示例线贯穿：Backprop、Transformer、CLIP。
+Backprop 示例连接多层网络训练困难到 gradient flow；Transformer 示例连接 RNN 并行瓶颈到 self-attention；CLIP 示例连接图文割裂到 shared embedding space。
+风格像研究白板和课程路线图结合，箭头清楚，适合新人建立“问题驱动读论文”的方法。
+文字不是主体；标准术语保留英文，例如 old bottleneck、new method、new capability、project impact、Backprop、Transformer、CLIP。其他说明用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "appendix-ai-project-lens-map.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -7856,6 +7886,21 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "appendix-neural-network-waves-timeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "神经网络三次浪潮与两次低谷时间线",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "神经网络三次浪潮与两次低谷时间线：Perceptron、XOR、Backprop、vanishing gradient、LSTM、RBM、AlexNet、ResNet 和 Transformer 串起神经网络复兴。",
+        "prompt": """
+一张适合 AI 历史附录的神经网络三次浪潮时间线，主题是“神经网络为什么会兴起、低谷、再复兴”。
+画面从左到右分成三次浪潮和两次低谷：1958 Perceptron、1969 XOR limitation、1986 Backprop、1994 vanishing gradient、1997 LSTM、2006 RBM/DBN、2012 AlexNet/ImageNet、2015 ResNet、2017 Transformer。
+用海浪或山谷视觉隐喻表现热潮与低谷：上升是新能力，低谷是瓶颈，下一次上升是新方法加数据/算力/工程条件成熟。
+风格像技术史海报和学习地图结合，清晰、戏剧感适度、适合新人理解“不是一路顺风”。
+文字不是主体；标准术语保留英文，例如 Perceptron、XOR、Backprop、vanishing gradient、LSTM、RBM、AlexNet、ResNet、Transformer。其他说明用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "appendix-nlp-llm-lineage-map.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -7881,6 +7926,21 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 用 5 个大模块组成闭环：alignment、tool use、RAG grounding、Agent planning、evaluation/safety。
 风格像系统控制环，清晰、专业、少字。
 文字不是主体；标准术语保留英文。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-llm-to-agent-evolution-timeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "大模型到 Agent 工程化演化图",
+        "suggested_page": "docs/appendix/ai-milestones.md",
+        "alt": "大模型到 Agent 工程化演化图：pretraining、instruction tuning、RLHF、RAG、function calling、tool use、planning、evaluation 和 safety 逐步把模型接入系统。",
+        "prompt": """
+一张适合 AI 历史附录的大模型到 Agent 演化图，主题是“从会续写到能被约束地做事”。
+画面从左到右只展示四张大卡片：pretraining、instruction tuning、RAG/tools、Agent system。
+四张卡片分别用简单图标表示：token 训练流水线、偏好反馈、知识库加工具调用、带 trace 和 safety guardrail 的系统控制台。
+重点表达从模型能力到工程系统的升级，构图干净、箭头少、节点大、留白充足。
+文字不是主体；只保留少量大号英文标签 pretraining、instruction tuning、RAG/tools、Agent system、trace、safety。不要密集小字、不要乱码、不要真实品牌 logo。
 """.strip(),
     },
     {

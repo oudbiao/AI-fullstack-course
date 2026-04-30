@@ -564,10 +564,14 @@
 | `elective-ai-frontend-state-machine-map.png` | AI 前端状态机与体验闭环图 | `docs/electives/module-e.md` | AI 前端状态机与体验闭环图：idle、loading、streaming、success、error、retry、cancel 和 feedback 组成 AI 产品交互体验。 |
 | `elective-ai-product-experiment-metrics-loop.png` | AI 产品实验与指标闭环图 | `docs/electives/module-f.md` | AI 产品实验与指标闭环图：user problem、hypothesis、MVP、success metrics、risk boundary、feedback 和 iteration 决定 AI 功能是否继续投入。 |
 | `appendix-ai-main-relay-map.png` | AI 主线接力总地图 | `docs/appendix/ai-milestones.md` | AI 主线接力总地图：概率信息论、早期神经网络、经典机器学习、深度学习复兴、Transformer 大模型、RAG Agent 和多模态 AIGC 接力演进。 |
+| `appendix-ai-history-comic-turning-points.png` | AI 历史转折多格漫画 | `docs/appendix/ai-milestones.md` | AI 历史转折多格漫画：感知器希望、XOR 冷却、反向传播复兴、AlexNet 点火、Transformer 换轨和 Agent 工程化组成六格剧情。 |
+| `appendix-ai-paper-problem-solution-impact-chain.png` | AI 论文问题方法影响因果链图 | `docs/appendix/ai-milestones.md` | AI 论文问题方法影响因果链图：old bottleneck、new method、new capability 和 project impact 帮新人读懂论文为什么重要。 |
 | `appendix-ai-project-lens-map.png` | 从项目视角读 AI 时间线地图 | `docs/appendix/ai-milestones.md` | 从项目视角读 AI 时间线地图：数学基础、机器学习、深度学习、Transformer、RAG、Agent 和多模态分别对应课程项目能力。 |
 | `appendix-classic-ml-branch-map.png` | 经典机器学习分支地图 | `docs/appendix/ai-milestones.md` | 经典机器学习分支地图：贝叶斯、EM、SVM、树模型、集成学习和核方法共同建立稳定建模与评估主线。 |
+| `appendix-neural-network-waves-timeline.png` | 神经网络三次浪潮与两次低谷时间线 | `docs/appendix/ai-milestones.md` | 神经网络三次浪潮与两次低谷时间线：Perceptron、XOR、Backprop、vanishing gradient、LSTM、RBM、AlexNet、ResNet 和 Transformer 串起神经网络复兴。 |
 | `appendix-nlp-llm-lineage-map.png` | NLP 到大模型谱系地图 | `docs/appendix/ai-milestones.md` | NLP 到大模型谱系地图：HMM、Word2Vec、Seq2Seq、Attention、Transformer、BERT、GPT 和 GPT-3 逐步连接。 |
 | `appendix-agent-system-lineage-map.png` | 对齐 Agent 与系统化主线地图 | `docs/appendix/ai-milestones.md` | 对齐 Agent 与系统化主线地图：RLHF、tool use、RAG、Agent planning、evaluation 和 safety 共同把大模型接入系统。 |
+| `appendix-llm-to-agent-evolution-timeline.png` | 大模型到 Agent 工程化演化图 | `docs/appendix/ai-milestones.md` | 大模型到 Agent 工程化演化图：pretraining、instruction tuning、RLHF、RAG、function calling、tool use、planning、evaluation 和 safety 逐步把模型接入系统。 |
 | `appendix-multimodal-aigc-lineage-map.png` | 多模态与 AIGC 谱系地图 | `docs/appendix/ai-milestones.md` | 多模态与 AIGC 谱系地图：CNN、CLIP、Diffusion、Stable Diffusion、video generation 和 multimodal agents 共同扩展输入输出媒介。 |
 | `ch01-terminal-path-command-map.png` | 终端路径与命令执行关系图 | `docs/ch01-tools/ch01-terminal/02-basic-operations.md` | 终端路径与命令执行关系图：当前目录、目录树、命令、参数和输出结果共同组成一次终端操作。 |
 | `ch01-python-env-stack.png` | Python 环境与依赖关系图 | `docs/ch01-tools/ch03-devenv/01-python-env.md` | Python 环境与依赖关系图：系统 Python、虚拟环境、pip、requirements 和项目代码需要保持一致。 |
