@@ -190,6 +190,10 @@ plt.show()
 - 模型是欠拟合还是过拟合
 - 增加数据是否有帮助
 
+![学习曲线诊断图](/img/course/ch05-learning-curve-diagnosis-map.png)
+
+读学习曲线时，先看两条线的距离。如果训练分和验证分都低，通常先看欠拟合；如果训练分高、验证分低，而且两条线差很远，通常先看过拟合；如果验证分还在随数据量上涨，增加数据可能真的有帮助。
+
 ```python
 from sklearn.model_selection import learning_curve
 from sklearn.tree import DecisionTreeClassifier

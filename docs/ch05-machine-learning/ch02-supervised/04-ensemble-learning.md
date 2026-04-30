@@ -162,6 +162,10 @@ flowchart LR
 
 这会比一开始就陷进库名和参数更容易形成整体感觉。
 
+![集成学习纠错实验室图](/img/course/ch05-ensemble-error-correction-lab.png)
+
+读这张图时，先分清两种“变强方式”：随机森林靠很多棵树平均来降低波动，Boosting 靠后一轮修正前一轮错误来逐步提高表达能力。一个像多人投票，一个像连续订正，后面看到 XGBoost、LightGBM、CatBoost 时就不会只记名字。
+
 ---
 
 ## 二、Bagging 与随机森林

@@ -117,6 +117,22 @@
 | `ch05-feature-engineering-chapter-flow.png` | 特征工程章节关系图 | `docs/ch05-machine-learning/ch05-feature-engineering/00-roadmap.md` | 特征工程章节关系图：特征理解、预处理、构造、选择和 Pipeline 逐步把原始数据变成模型容易学习的输入。 |
 | `ch05-feature-understanding-workflow.png` | 特征理解与泄漏检查图 | `docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md` | 特征理解与泄漏检查图：原始表格先识别特征类型、查看缺失分布、分析与目标关系、检查冗余和目标泄漏。 |
 | `ch05-projects-portfolio-loop.png` | 机器学习项目作品集闭环图 | `docs/ch05-machine-learning/ch06-projects/00-roadmap.md` | 机器学习项目作品集闭环图：业务问题、任务定义、数据准备、baseline、评估指标、特征工程、错误分析、结论解释和作品集报告。 |
+| `ch05-data-split-leakage-guardrail.png` | 训练验证测试与数据泄漏护栏图 | `docs/ch05-machine-learning/ch01-ml-basics/01-what-is-ml.md` | 训练验证测试与数据泄漏护栏图：训练集学习、验证集选方案、测试集最终验收，预处理必须只在训练数据中 fit。 |
+| `ch05-sklearn-pipeline-anatomy.png` | sklearn Pipeline 组件拆解图 | `docs/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro.md` | sklearn Pipeline 组件拆解图：Transformer 负责 fit/transform，Estimator 负责 fit/predict，Pipeline 保证训练和预测流程一致。 |
+| `ch05-linear-regression-residual-diagnostics.png` | 线性回归残差诊断图 | `docs/ch05-machine-learning/ch02-supervised/01-linear-regression.md` | 线性回归残差诊断图：随机残差、弯曲模式、漏斗形误差和异常点分别提示模型、特征或指标需要调整。 |
+| `ch05-logistic-threshold-tradeoff.png` | 逻辑回归阈值权衡图 | `docs/ch05-machine-learning/ch02-supervised/02-logistic-regression.md` | 逻辑回归阈值权衡图：模型输出概率，阈值下降提高召回但增加误报，阈值上升提高精确率但增加漏报。 |
+| `ch05-tree-pruning-overfit-map.png` | 决策树过拟合与剪枝图 | `docs/ch05-machine-learning/ch02-supervised/03-decision-trees.md` | 决策树过拟合与剪枝图：过深的树把噪声切碎，预剪枝和后剪枝控制深度、叶子样本数和 ccp_alpha。 |
+| `ch05-ensemble-error-correction-lab.png` | 集成学习纠错实验室图 | `docs/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md` | 集成学习纠错实验室图：Bagging 通过并行投票降低方差，Boosting 通过串行纠错降低偏差。 |
+| `ch05-clustering-shape-selection-map.png` | 聚类数据形状与算法选择图 | `docs/ch05-machine-learning/ch03-unsupervised/01-clustering.md` | 聚类数据形状与算法选择图：圆团状簇适合 K-Means，弯曲和噪声适合 DBSCAN，层级结构适合层次聚类。 |
+| `ch05-pca-explained-variance-map.png` | PCA 方差解释比读图指南 | `docs/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction.md` | PCA 方差解释比读图指南：主成分越往后新增信息越少，累计方差曲线的拐点帮助选择 n_components。 |
+| `ch05-anomaly-method-comparison-map.png` | 异常检测方法对比图 | `docs/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md` | 异常检测方法对比图：Z-score 和 IQR 适合低维极端值，Isolation Forest 适合高维孤立点，LOF 适合局部密度异常。 |
+| `ch05-threshold-roc-pr-curve-map.png` | 阈值、ROC 与 PR 曲线读图指南 | `docs/ch05-machine-learning/ch04-evaluation/01-metrics.md` | 阈值、ROC 与 PR 曲线读图指南：混淆矩阵定位错误，阈值曲线展示 Precision/Recall 权衡，PR 曲线更适合不平衡任务。 |
+| `ch05-cv-leakage-safe-pipeline-map.png` | 交叉验证防泄漏 Pipeline 图 | `docs/ch05-machine-learning/ch04-evaluation/02-cross-validation.md` | 交叉验证防泄漏 Pipeline 图：每一折只在训练折 fit 预处理器，再 transform 验证折，避免全量预处理造成数据泄漏。 |
+| `ch05-learning-curve-diagnosis-map.png` | 学习曲线诊断图 | `docs/ch05-machine-learning/ch04-evaluation/03-bias-variance.md` | 学习曲线诊断图：训练和验证都低提示欠拟合，训练高验证低提示过拟合，验证曲线继续上升说明增加数据可能有帮助。 |
+| `ch05-search-space-budget-map.png` | 超参数搜索空间与预算图 | `docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md` | 超参数搜索空间与预算图：参数维度越多组合越爆炸，先从关键超参数和可控预算开始，再逐步扩大搜索范围。 |
+| `ch05-feature-leakage-red-flags-map.png` | 特征泄漏红旗检查图 | `docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md` | 特征泄漏红旗检查图：预测时刻之后才产生、由目标派生、与目标几乎完美相关或只在线下存在的字段都是高风险特征。 |
+| `ch05-columntransformer-real-table-pipeline.png` | 真实表格数据 ColumnTransformer Pipeline 图 | `docs/ch05-machine-learning/ch05-feature-engineering/05-pipeline.md` | 真实表格数据 ColumnTransformer Pipeline 图：数值、类别和自定义特征分流处理后合并，再和模型一起进入交叉验证或 GridSearch。 |
+| `ch05-project-report-storyboard.png` | 机器学习项目报告故事板 | `docs/ch05-machine-learning/ch06-projects/00-roadmap.md` | 机器学习项目报告故事板：问题定义、数据说明、baseline、指标、模型对比、错误分析、结论和下一步计划组成作品集报告。 |
 | `ml-basics-roadmap.png` | 机器学习基础学习地图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础学习地图：问题定义、数据、模型、训练、评估和复盘组成入门主线。 |
 | `math-to-ml-bridge.png` | 数学到机器学习桥梁图 | `docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md` | 数学到机器学习桥梁图：线性代数组织数据，概率统计定义不确定性，微积分指导参数更新。 |
 | `supervised-learning-roadmap.png` | 监督学习路线图 | `docs/ch05-machine-learning/ch02-supervised/00-roadmap.md` | 监督学习路线图：带标签数据进入回归、分类、决策树和集成模型。 |

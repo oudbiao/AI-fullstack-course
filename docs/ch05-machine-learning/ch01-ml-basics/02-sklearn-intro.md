@@ -166,6 +166,10 @@ flowchart LR
 | **Transformer** | `fit()`, `transform()` | 从数据中学参数，然后变换数据 | 标准化、PCA、独热编码 |
 | **Pipeline** | 串联以上两者 | 把多个步骤串成流水线 | 标准化 → PCA → 分类器 |
 
+![sklearn Pipeline 组件拆解图](/img/course/ch05-sklearn-pipeline-anatomy.png)
+
+这张图可以当作 sklearn 的“零件说明书”：Transformer 负责把数据整理好，Estimator 负责学习规律，Pipeline 负责保证训练和预测走同一条路。新人只要先把这三个角色分清，后面换模型、换预处理步骤时就不会乱。
+
 ### 2.3 怎么用一句话记住这三个角色？
 
 可以直接这样记：

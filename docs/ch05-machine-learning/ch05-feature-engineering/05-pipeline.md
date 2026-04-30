@@ -164,6 +164,10 @@ print(f"5 折 CV 准确率: {scores.mean():.4f} ± {scores.std():.4f}")
 
 这正是防止数据泄漏的关键。
 
+![真实表格数据 ColumnTransformer Pipeline 图](/img/course/ch05-columntransformer-real-table-pipeline.png)
+
+这张图把真实表格项目拆成三条线：数值列先补缺失再缩放，类别列先补缺失再编码，自定义特征也必须放进同一个 Pipeline。最后整体交给交叉验证或 GridSearch，这样每次训练、验证、预测都走同一套可复现流程。
+
 ---
 
 ## 三、自定义 Transformer

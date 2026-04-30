@@ -238,6 +238,10 @@ plt.show()
 - 你能先大致感受异常比例
 - 你能更早发现数据分布本身的问题
 
+![异常检测方法对比图](/img/course/ch05-anomaly-method-comparison-map.png)
+
+读这张图时，先问异常像什么：如果只是单列极端值，Z-score 或 IQR 就够快；如果是高维空间里的少数孤立点，Isolation Forest 更合适；如果异常依赖局部密度差异，可以看 LOF；如果你只想学正常边界，再考虑 One-Class SVM。
+
 ---
 
 ## 三、Isolation Forest

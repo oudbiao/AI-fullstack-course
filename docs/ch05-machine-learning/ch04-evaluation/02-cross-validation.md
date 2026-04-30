@@ -262,6 +262,10 @@ print(f"分层 5 折 F1: {scores.mean():.4f} ± {scores.std():.4f}")
 
 也就是说，切分方法错了，后面模型分数就可能从一开始就失真。
 
+![交叉验证防泄漏 Pipeline 图](/img/course/ch05-cv-leakage-safe-pipeline-map.png)
+
+这张图最重要的地方是：每一折都必须在训练折里 `fit` 预处理器，再把同样规则 `transform` 到验证折。不要先对全量数据标准化、PCA 或特征选择，再做交叉验证；那样验证折的信息已经提前泄漏进训练流程。
+
 ---
 
 ## 四、留一法（LOO）

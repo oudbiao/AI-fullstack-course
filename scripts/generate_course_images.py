@@ -1600,6 +1600,245 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch05-data-split-leakage-guardrail.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "训练验证测试与数据泄漏护栏图",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/01-what-is-ml.md",
+        "alt": "训练验证测试与数据泄漏护栏图：训练集学习、验证集选方案、测试集最终验收，预处理必须只在训练数据中 fit。",
+        "prompt": """
+一张适合机器学习新人课程的防泄漏流程图，主题是“训练集、验证集、测试集之间要有护栏”。
+画面表现完整数据被切成 train、validation、test 三块；train 用来 fit 模型和预处理器，validation 用来选模型和调参数，test 被锁在最后只验收一次。
+旁边用红色警示标出错误做法：先对全量数据标准化、先用全量数据选特征、反复看测试集调参。
+风格像数据安全闸门和课程白板结合，清晰、新手友好。
+文字不是主体；标准术语和 API 保留英文，例如 train、validation、test、fit、transform、leakage。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-sklearn-pipeline-anatomy.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "sklearn Pipeline 组件拆解图",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro.md",
+        "alt": "sklearn Pipeline 组件拆解图：Transformer 负责 fit/transform，Estimator 负责 fit/predict，Pipeline 保证训练和预测流程一致。",
+        "prompt": """
+一张适合 sklearn 入门页的组件拆解图，主题是“Estimator、Transformer、Pipeline 三个角色怎么配合”。
+画面像一台透明的机器学习装配线：左侧输入数据表 X/y，中间有 Transformer 零件负责 fit/transform，Estimator 零件负责 fit/predict，外层 Pipeline 把步骤锁成同一条可复现流程。
+加入一个小对比：训练时 fit + transform，预测时只 transform + predict，帮助新人理解为什么测试集不能重新 fit。
+风格工程化、模块清楚、温和教学感。
+文字不是主体；API 和变量名保留英文，例如 X、y、fit、transform、predict、score、Pipeline。中文写短标签。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-linear-regression-residual-diagnostics.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "线性回归残差诊断图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/01-linear-regression.md",
+        "alt": "线性回归残差诊断图：随机残差、弯曲模式、漏斗形误差和异常点分别提示模型、特征或指标需要调整。",
+        "prompt": """
+一张适合线性回归课程的残差诊断教学图，主题是“回归模型不要只看 R²，要看残差在说什么”。
+画面分成四个小面板：随机散开的残差表示较健康；残差呈弯曲模式提示欠拟合或缺少非线性特征；残差呈漏斗形提示方差不稳定；少数极端点提示异常值或特殊样本。
+每个面板旁边用小箭头连接到下一步动作：加特征、变换目标、检查异常、换指标。
+风格像统计诊断白板，清晰、直观、适合新人。
+文字不是主体；标准术语保留英文，例如 residual、R²、RMSE、MAE。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-logistic-threshold-tradeoff.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "逻辑回归阈值权衡图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/02-logistic-regression.md",
+        "alt": "逻辑回归阈值权衡图：模型输出概率，阈值下降提高召回但增加误报，阈值上升提高精确率但增加漏报。",
+        "prompt": """
+一张适合逻辑回归课程的阈值权衡图，主题是“概率输出如何变成业务决策”。
+画面表现模型输出一排从 0 到 1 的概率刻度，阈值线可以左右移动；阈值低时召回更多正例但误报增加，阈值高时预测更谨慎但漏报增加。
+旁边用一个小混淆矩阵和 Precision/Recall 天平辅助说明。
+风格像交互式仪表盘和机器学习白板结合，直观、新人友好。
+文字不是主体；标准术语保留英文，例如 probability、threshold、Precision、Recall、F1。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-tree-pruning-overfit-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "决策树过拟合与剪枝图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/03-decision-trees.md",
+        "alt": "决策树过拟合与剪枝图：过深的树把噪声切碎，预剪枝和后剪枝控制深度、叶子样本数和 ccp_alpha。",
+        "prompt": """
+一张适合决策树课程的过拟合与剪枝教学图，主题是“树越深越像记忆训练集，剪枝让它回到规律”。
+画面左侧是一棵过深的树和碎片化决策边界，孤立噪声点被切成小区域；右侧是一棵剪枝后的树，边界更平滑、叶子更稳。
+中间放剪刀或修枝工具，标出 max_depth、min_samples_leaf、ccp_alpha 三个关键控制点。
+风格像园艺修枝和 ML 白板结合，形象但专业。
+文字不是主体；标准术语保留英文，例如 max_depth、min_samples_leaf、ccp_alpha、overfit。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-ensemble-error-correction-lab.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "集成学习纠错实验室图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md",
+        "alt": "集成学习纠错实验室图：Bagging 通过并行投票降低方差，Boosting 通过串行纠错降低偏差。",
+        "prompt": """
+一张适合集成学习课程的双路线实验室图，主题是“Bagging 是多人投票，Boosting 是连续订正”。
+左侧表现 Bagging：多棵树并行、各自看到不同样本和特征，最后投票或平均，目标是降低 variance。
+右侧表现 Boosting：第 1 个弱模型后标出错误样本，后续模型逐轮关注残差或错例，目标是降低 bias。
+风格像数据科学实验室和流程白板结合，左右对比强。
+文字不是主体；标准术语保留英文，例如 Bagging、Boosting、Random Forest、GBDT、variance、bias。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-clustering-shape-selection-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "聚类数据形状与算法选择图",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/01-clustering.md",
+        "alt": "聚类数据形状与算法选择图：圆团状簇适合 K-Means，弯曲和噪声适合 DBSCAN，层级结构适合层次聚类。",
+        "prompt": """
+一张适合聚类课程的算法选择图，主题是“先看数据形状，再选聚类算法”。
+画面分成三类二维数据形状：圆团状且大小相近，箭头指向 K-Means；弯月形或不规则形状且带噪声，箭头指向 DBSCAN；有层级嵌套关系，箭头指向 Hierarchical clustering。
+旁边强调聚类没有唯一真相，需要结合 silhouette 和业务解释。
+风格像数据点地图和选择指南结合，清晰、新人友好。
+文字不是主体；标准术语保留英文，例如 K-Means、DBSCAN、Hierarchical、silhouette。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-pca-explained-variance-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PCA 方差解释比读图指南",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction.md",
+        "alt": "PCA 方差解释比读图指南：主成分越往后新增信息越少，累计方差曲线的拐点帮助选择 n_components。",
+        "prompt": """
+一张适合 PCA 降维课程的方差解释比图解，主题是“如何读累计方差曲线选择主成分数量”。
+画面左侧是高维数据云投影到 PC1、PC2、PC3；右侧是 scree plot 和 cumulative explained variance 曲线，标出 90%、95% 阈值和曲线拐点。
+底部用三枚小卡片提示：压缩率、信息保留、下游模型验证三者一起决定 n_components。
+风格像数学白板和数据可视化结合，干净、准确。
+文字不是主体；标准术语保留英文，例如 PCA、PC1、PC2、explained variance、n_components。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-anomaly-method-comparison-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "异常检测方法对比图",
+        "suggested_page": "docs/ch05-machine-learning/ch03-unsupervised/03-anomaly-detection.md",
+        "alt": "异常检测方法对比图：Z-score 和 IQR 适合低维极端值，Isolation Forest 适合高维孤立点，LOF 适合局部密度异常。",
+        "prompt": """
+一张适合异常检测课程的方法对比图，主题是“不同异常长相，对应不同检测方法”。
+画面分成四块：Z-score/IQR 检测一维极端值；Isolation Forest 用随机切分快速孤立异常点；LOF 发现局部密度很低的点；One-Class SVM 学习正常边界。
+每块都用简洁数据点小图表达异常形态，并用箭头连接到适用场景。
+风格像风险雷达和 ML 方法卡片结合，清晰、实用。
+文字不是主体；标准术语保留英文，例如 Z-score、IQR、Isolation Forest、LOF、One-Class SVM。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-threshold-roc-pr-curve-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "阈值、ROC 与 PR 曲线读图指南",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/01-metrics.md",
+        "alt": "阈值、ROC 与 PR 曲线读图指南：混淆矩阵定位错误，阈值曲线展示 Precision/Recall 权衡，PR 曲线更适合不平衡任务。",
+        "prompt": """
+一张适合模型评估课程的分类指标读图指南，主题是“从混淆矩阵到阈值，再到 ROC/PR 曲线”。
+画面从左到右：混淆矩阵标出 TP、FP、FN、TN；中间是可移动 threshold 影响 Precision 和 Recall 的曲线；右侧是 ROC 曲线和 PR 曲线对比，强调不平衡数据更重视 PR。
+风格像评估仪表盘和课程白板结合，层次清楚。
+文字不是主体；标准术语保留英文，例如 TP、FP、FN、TN、threshold、ROC、AUC、PR、Precision、Recall。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-cv-leakage-safe-pipeline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "交叉验证防泄漏 Pipeline 图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/02-cross-validation.md",
+        "alt": "交叉验证防泄漏 Pipeline 图：每一折只在训练折 fit 预处理器，再 transform 验证折，避免全量预处理造成数据泄漏。",
+        "prompt": """
+一张适合交叉验证课程的防泄漏流程图，主题是“K-fold 中预处理必须包在 Pipeline 里”。
+画面表现 5 折交叉验证，每一轮训练折内部 fit scaler/PCA/selector，验证折只 receive transform；外侧有 Pipeline 护栏保护流程。
+旁边用红色叉号展示错误做法：先对全量数据 fit 预处理器，再做 K-fold。
+风格像数据切分条带和安全护栏结合，直观、清晰。
+文字不是主体；标准术语和 API 保留英文，例如 K-fold、Pipeline、fit、transform、scaler、PCA、leakage。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-learning-curve-diagnosis-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "学习曲线诊断图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/03-bias-variance.md",
+        "alt": "学习曲线诊断图：训练和验证都低提示欠拟合，训练高验证低提示过拟合，验证曲线继续上升说明增加数据可能有帮助。",
+        "prompt": """
+一张适合偏差方差课程的学习曲线诊断图，主题是“看训练曲线和验证曲线决定下一步动作”。
+画面分成三个小面板：训练和验证分数都低表示 high bias/欠拟合；训练高验证低且间距大表示 high variance/过拟合；验证分数随样本量继续上升表示增加数据可能有效。
+每个面板下方连接动作建议：加特征或复杂度、加正则化或数据、继续收集数据。
+风格像医生诊断卡和 ML 曲线结合，简洁、直观。
+文字不是主体；标准术语保留英文，例如 learning curve、train score、validation score、bias、variance。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-search-space-budget-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "超参数搜索空间与预算图",
+        "suggested_page": "docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md",
+        "alt": "超参数搜索空间与预算图：参数维度越多组合越爆炸，先从关键超参数和可控预算开始，再逐步扩大搜索范围。",
+        "prompt": """
+一张适合超参数调优课程的搜索空间与预算图，主题是“调参不是乱搜，是在预算内设计实验”。
+画面表现一个二维或三维搜索空间，Grid Search 像规则棋盘，Random Search 像随机撒点，Bayesian Search 像逐步靠近高分区域；旁边有计算预算沙漏和组合爆炸警示。
+底部突出新人策略：先 baseline，先少数关键参数，先 cv，再最终 test。
+风格像实验控制台和参数地图结合，专业、新手友好。
+文字不是主体；标准术语保留英文，例如 baseline、Grid Search、Random Search、Bayesian、CV、test。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-feature-leakage-red-flags-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "特征泄漏红旗检查图",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md",
+        "alt": "特征泄漏红旗检查图：预测时刻之后才产生、由目标派生、与目标几乎完美相关或只在线下存在的字段都是高风险特征。",
+        "prompt": """
+一张适合特征工程课程的泄漏风险检查图，主题是“分数高得离谱时，先查特征泄漏”。
+画面像数据侦探红旗板：预测时刻之后产生的字段、由 target 后续结果派生的字段、和 target 几乎完美相关的字段、线上预测时拿不到的字段，都被贴上红旗。
+中间是一张数据表和时间线，强调预测时刻 cutoff。
+风格像侦探线索墙和数据表结合，清楚、有记忆点。
+文字不是主体；标准术语保留英文，例如 target、leakage、cutoff、baseline。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-columntransformer-real-table-pipeline.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "真实表格数据 ColumnTransformer Pipeline 图",
+        "suggested_page": "docs/ch05-machine-learning/ch05-feature-engineering/05-pipeline.md",
+        "alt": "真实表格数据 ColumnTransformer Pipeline 图：数值、类别和自定义特征分流处理后合并，再和模型一起进入交叉验证或 GridSearch。",
+        "prompt": """
+一张适合 sklearn Pipeline 课程的真实表格流水线图，主题是“不同列走不同处理线，最后合成一个可复现模型流程”。
+画面从一张 Titanic 风格的表格开始，数值列进入 imputer + scaler，类别列进入 imputer + one-hot，组合特征进入 custom transformer，最后由 ColumnTransformer 合并并交给 classifier。
+外层连接 cross-validation 和 GridSearch，强调完整 Pipeline 一起评估。
+风格像工程架构图和教学插图结合，模块清晰。
+文字不是主体；标准术语和 API 保留英文，例如 ColumnTransformer、Pipeline、imputer、scaler、one-hot、classifier、GridSearch。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-project-report-storyboard.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习项目报告故事板",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/00-roadmap.md",
+        "alt": "机器学习项目报告故事板：问题定义、数据说明、baseline、指标、模型对比、错误分析、结论和下一步计划组成作品集报告。",
+        "prompt": """
+一张适合机器学习项目实战章节的报告故事板，主题是“项目交付不是贴分数，而是讲清建模证据链”。
+画面像作品集页面草图，包含问题定义、数据说明、baseline、评估指标、模型对比、错误样本、结论解释、下一步计划八个卡片模块。
+中间用一条线串起“从业务问题到可复盘报告”的路径。
+风格专业、清晰、有作品集质感，帮助新人知道报告该放什么。
+文字不是主体；标准术语保留英文，例如 baseline、metric、error analysis、README、report。中文写短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ml-basics-roadmap.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -5752,7 +5991,7 @@ def generate_image_with_http(api_key: str, base_url: str, model: str, job: dict[
                 time.sleep(wait_seconds)
                 continue
             raise RuntimeError(f"Image API request failed with HTTP {exc.code} for {job['filename']}.") from exc
-        except (urllib.error.URLError, TimeoutError, http.client.HTTPException) as exc:
+        except (urllib.error.URLError, TimeoutError, ConnectionResetError, http.client.HTTPException) as exc:
             if attempt < retries:
                 wait_seconds = 8 * (attempt + 1)
                 print(

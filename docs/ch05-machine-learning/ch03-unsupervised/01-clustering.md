@@ -114,6 +114,10 @@ flowchart LR
 
 的分组方式。
 
+![聚类数据形状与算法选择图](/img/course/ch05-clustering-shape-selection-map.png)
+
+这张图要帮你避免一个常见误区：不是所有分群都适合 K-Means。圆团状、大小差不多的簇更适合 K-Means；形状弯曲、带噪声的数据可以先看 DBSCAN；想看层级关系时再考虑层次聚类。聚类先看数据形状，再选算法。
+
 ### 1.3 生成演示数据
 
 ```python
