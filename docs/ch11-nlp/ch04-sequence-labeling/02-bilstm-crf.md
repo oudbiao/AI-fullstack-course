@@ -7,6 +7,12 @@ keywords: [BiLSTM, CRF, 序列标注, NER, 命名实体识别]
 
 # BiLSTM + CRF
 
+![BiLSTM CRF 标签路径解码图](/img/course/ch11-bilstm-crf-label-path-map.png)
+
+:::tip 读图提示
+BiLSTM 负责给每个 token 做上下文表示，CRF 负责在所有可能标签路径里挑最合理的一条。读图时重点看“单点得分”和“标签转移约束”怎样一起决定最终 BIO 序列。
+:::
+
 :::tip 本节定位
 NER 不是给每个 token 独立分类那么简单。标签之间有约束，例如 `I-PER` 通常不能凭空出现在句首。BiLSTM + CRF 的价值，就是同时看上下文和标签序列是否合法。
 :::

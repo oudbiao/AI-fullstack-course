@@ -7,6 +7,12 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 
 # Transformers 库实战
 
+![Transformers 库调用链图](/img/course/ch11-transformers-library-call-chain-map.png)
+
+:::tip 读图提示
+第一次用 Transformers 库容易被 API 名字绕晕。先按 Tokenizer、Config、Model、Task Head、Pipeline 这条调用链看，理解每个对象负责什么，再去查具体类名会稳很多。
+:::
+
 :::tip 本节定位
 学预训练模型只停留在概念层很容易“会说不会用”。  
 这一节要解决的是另一个很现实的问题：

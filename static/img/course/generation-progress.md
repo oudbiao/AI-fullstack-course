@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 545 / 545
+Generated with image2: 559 / 559
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -37,6 +37,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 10～12 章补充说明：目录 `docs/ch10-computer-vision`、`docs/ch11-nlp`、`docs/ch12-multimodal` 本轮新增 28 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、CV/NLP/多模态各子章导读和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
 第 10 章深度图解说明：本轮新增 19 张机制型、诊断型和项目型图解，覆盖图像数组 shape 与通道、OpenCV BGR/坐标/裁剪、经典图像处理操作选择、数据增强不变性风险、分类架构演进、分类训练诊断、检测输出与 IoU、R-CNN 家族共享特征、YOLO 阈值与 NMS、检测项目误检漏检分桶、语义分割 IoU 与边界、实例分割个体拆分、分割失败样本分桶、人脸识别阈值风险、视频抽帧跟踪与时序窗口、OCR 阅读顺序、3D 深度/视差/点云、安防告警去重和医学影像风险复核。新增图用于把第 10 章从“视觉任务名词可读”推进到“输入如何表示、模型输出如何评估、项目如何复盘更直观”。
+
+第 11 章深度图解说明：本轮新增 14 张机制型、范式型和项目型图解，覆盖 NLP 任务全景、语言模型 next token 预测、传统文本分类基线、神经文本分类 embedding/pooling、BiLSTM-CRF 标签路径、NER 实体级评估、Seq2Seq 信息瓶颈、机器翻译错误分析、预训练迁移微调、T5 text-to-text 统一接口、Transformers 库调用链、问答系统证据闭环、摘要抽取/生成评估和信息抽取 schema 流程。新增图用于把第 11 章从“概念名词很多”推进到“文本如何被表示、任务如何被评估、项目如何交付一眼能看懂”。
 
 选修模块说明：目录 `docs/electives` 下原有 12 张 C++ 部署、Python 进阶、经典 ML、安全、前端和产品设计图已经用 image2 生成，并插入到对应选修页面。本轮补充 9 张模块入口和缺口页图，覆盖 C++ 部署总览、RAII/所有权、边缘部署、部署综合项目、Python 进阶总览、生成器管道、元编程注册器、经典 ML 总览和 LDA 监督式投影。
 
@@ -207,6 +209,20 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch11-pretrained-chapter-flow.png`
 - `ch11-projects-delivery-loop.png`
 - `ch11-amr-semantic-graph-map.png`
+- `ch11-nlp-task-landscape-map.png`
+- `ch11-language-model-next-token-stack.png`
+- `ch11-traditional-classification-baseline-map.png`
+- `ch11-neural-classification-embedding-pooling-map.png`
+- `ch11-bilstm-crf-label-path-map.png`
+- `ch11-ner-project-entity-eval-loop.png`
+- `ch11-seq2seq-encoder-decoder-bottleneck-map.png`
+- `ch11-machine-translation-error-analysis-map.png`
+- `ch11-pretraining-transfer-finetune-map.png`
+- `ch11-t5-text-to-text-task-unification-map.png`
+- `ch11-transformers-library-call-chain-map.png`
+- `ch11-qa-retrieval-answer-evaluation-map.png`
+- `ch11-summarization-extractive-generative-eval-map.png`
+- `ch11-information-extraction-schema-pipeline-map.png`
 - `ch07-llm-principles.png`
 - `ch07-learning-quest-map.png`
 - `ch07-llm-capability-backbone.png`

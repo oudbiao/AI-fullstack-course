@@ -7,6 +7,12 @@ keywords: [pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-fin
 
 # 预训练范式
 
+![预训练迁移微调关系图](/img/course/ch11-pretraining-transfer-finetune-map.png)
+
+:::tip 读图提示
+预训练范式最重要的不是某个模型名字，而是“通用语料学底座 -> 迁移到下游任务 -> 微调或提示适配”的流程。先看懂这条流，BERT、GPT、T5 才不会变成一堆孤立名词。
+:::
+
 :::tip 本节定位
 这一章的主线其实只有一句话：
 

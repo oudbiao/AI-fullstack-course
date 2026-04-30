@@ -7,6 +7,12 @@ keywords: [machine translation, seq2seq, translation project, alignment, error a
 
 # 机器翻译实战【选修】
 
+![机器翻译错误分析图](/img/course/ch11-machine-translation-error-analysis-map.png)
+
+:::tip 读图提示
+翻译项目不是只看一句结果顺不顺。读图时把平行语料、baseline、漏译、错译、词序问题、术语一致性和人工评估连起来看，才能真正知道系统哪里在进步。
+:::
+
 :::tip 本节定位
 翻译是 Seq2Seq 最经典的任务。  
 它很适合用来练习一整条“输入文本 -> 输出文本”的项目闭环。

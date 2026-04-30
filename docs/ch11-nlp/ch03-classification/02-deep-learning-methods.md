@@ -7,6 +7,12 @@ keywords: [deep text classification, embedding, pooling, neural classifier, NLP]
 
 # 深度学习文本分类
 
+![神经文本分类结构图](/img/course/ch11-neural-classification-embedding-pooling-map.png)
+
+:::tip 读图提示
+深度文本分类可以先看成一条很朴素的链路：token id 进入 embedding，句子经过 pooling 变成整体向量，再交给分类头输出概率。先抓住这条主线，再看 CNN、RNN、Transformer 会轻松很多。
+:::
+
 :::tip 本节定位
 传统文本分类已经能解决很多问题，  
 但一旦任务开始依赖：

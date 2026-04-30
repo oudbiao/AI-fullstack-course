@@ -7,6 +7,12 @@ keywords: [信息抽取, NER, 关系抽取, 结构化输出, NLP项目]
 
 # 项目：信息抽取
 
+![信息抽取 schema 流程图](/img/course/ch11-information-extraction-schema-pipeline-map.png)
+
+:::tip 读图提示
+信息抽取的关键是先定义 schema，再让文本稳定落到字段、实体和关系上。读图时重点看规则、NER、关系抽取、JSON 输出和人工复核如何连成可交付流程。
+:::
+
 :::tip 本节定位
 信息抽取项目的目标不是让模型“读懂所有文本”，而是把文本中的关键实体、关系或字段稳定地转成结构化数据。它是传统 NLP、RAG 文档处理和 LLM 结构化输出之间的重要桥梁。
 :::

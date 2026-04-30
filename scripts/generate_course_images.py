@@ -5528,6 +5528,202 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch11-nlp-task-landscape-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NLP 任务全景图",
+        "suggested_page": "docs/ch11-nlp/ch01-text-basics/01-nlp-overview.md",
+        "alt": "NLP 任务全景图：raw text 经过 preprocessing、representation 后分流到 classification、extraction、generation、retrieval QA 和 evaluation。",
+        "prompt": """
+一张适合 NLP 概述章节的任务全景教学图，主题是“文本进入模型后会走向不同任务”。
+画面表现 raw text 进入 preprocessing、tokenization、representation，再分流到 text classification、sequence labeling、information extraction、machine translation、summarization、retrieval QA，最后进入 evaluation 和 error analysis。
+风格像课程总览地图和文本处理流水线结合，层次清楚、适合新人第一眼理解 NLP 范围。
+文字不是主体；标准术语保留英文，例如 raw text、tokenization、representation、classification、extraction、generation、retrieval QA、evaluation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-language-model-next-token-stack.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "语言模型 next token 预测图",
+        "suggested_page": "docs/ch11-nlp/ch02-embeddings/03-language-models.md",
+        "alt": "语言模型 next token 预测图：context tokens 进入 language model，输出 next token probability distribution，再通过 sampling 或 greedy decoding 生成下一个 token。",
+        "prompt": """
+一张适合语言模型基础章节的概率预测图，主题是“给定上下文，预测下一个 token”。
+画面表现 context tokens、language model、next token probability distribution、top candidates、sampling/greedy decoding、generated token，并在旁边用很小区域对比 n-gram memory 和 neural generalization。
+风格像概率分布仪表盘和文本生成流程图结合，强调从简单 next token 目标走向生成能力。
+文字不是主体；标准术语保留英文，例如 context、next token、probability distribution、sampling、greedy decoding、n-gram、neural language model。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-traditional-classification-baseline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "传统文本分类基线图",
+        "suggested_page": "docs/ch11-nlp/ch03-classification/01-traditional-methods.md",
+        "alt": "传统文本分类基线图：text cleaning、BoW/TF-IDF、linear classifier、prediction、confusion matrix 和 error analysis 组成快速可解释基线。",
+        "prompt": """
+一张适合传统文本分类章节的基线流程图，主题是“传统方法是快速、便宜、可解释的第一条文本分类基线”。
+画面表现 text cleaning、BoW、TF-IDF、linear classifier、label probabilities、confusion matrix、error analysis、baseline report。
+风格像实验工作台和分类看板结合，突出可解释、快速迭代和小数据场景。
+文字不是主体；标准术语保留英文，例如 BoW、TF-IDF、linear classifier、baseline、confusion matrix、error analysis。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-neural-classification-embedding-pooling-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "神经文本分类结构图",
+        "suggested_page": "docs/ch11-nlp/ch03-classification/02-deep-learning-methods.md",
+        "alt": "神经文本分类结构图：token ids 进入 embedding，经过 pooling 得到 sentence vector，再由 classification head 输出 label probabilities。",
+        "prompt": """
+一张适合深度学习文本分类章节的结构图，主题是“从 token id 到句子向量，再到分类概率”。
+画面表现 token ids、embedding matrix、token vectors、pooling、sentence vector、classification head、label probabilities，并用旁注显示 CNN/RNN/Transformer 都可以替换中间编码器。
+风格像神经网络剖面图和文本序列流动图结合，适合新人理解 embedding 与 pooling 的作用。
+文字不是主体；标准术语保留英文，例如 token ids、embedding、pooling、sentence vector、classification head、CNN、RNN、Transformer。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-bilstm-crf-label-path-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "BiLSTM CRF 标签路径解码图",
+        "suggested_page": "docs/ch11-nlp/ch04-sequence-labeling/02-bilstm-crf.md",
+        "alt": "BiLSTM CRF 标签路径解码图：tokens 经过 BiLSTM 得到 emission scores，CRF 加入 transition scores，Viterbi 选出最优 BIO path。",
+        "prompt": """
+一张适合 BiLSTM + CRF 章节的序列标注解码图，主题是“上下文表示 + 标签转移约束共同决定 BIO 路径”。
+画面表现 tokens、embedding、BiLSTM、emission scores、transition scores、CRF layer、Viterbi decoding、best BIO path，并展示一个不合法路径被压低分数。
+风格像句子标签带和路径搜索图结合，突出标签连续性和实体边界。
+文字不是主体；标准术语保留英文，例如 BiLSTM、CRF、emission scores、transition scores、Viterbi、BIO path。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-ner-project-entity-eval-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NER 项目实体评估闭环图",
+        "suggested_page": "docs/ch11-nlp/ch04-sequence-labeling/03-ner-practice.md",
+        "alt": "NER 项目实体评估闭环图：label schema、annotation examples、BIO tags、entity recovery、entity-level precision recall F1 和 error buckets 组成闭环。",
+        "prompt": """
+一张适合 NER 实战章节的项目闭环图，主题是“NER 项目的关键是实体级评估和错例分桶”。
+画面表现 label schema、annotation examples、BIO tags、model prediction、entity recovery、entity-level precision/recall/F1、boundary error、type error、missed entity、iteration。
+风格像标注平台和项目评估看板结合，突出实体边界和类型。
+文字不是主体；标准术语保留英文，例如 label schema、BIO tags、entity recovery、precision、recall、F1、boundary error、type error。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-seq2seq-encoder-decoder-bottleneck-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Seq2Seq 编码器解码器瓶颈图",
+        "suggested_page": "docs/ch11-nlp/ch05-seq2seq/01-encoder-decoder.md",
+        "alt": "Seq2Seq 编码器解码器瓶颈图：input sequence 进入 encoder 压缩成 context vector，decoder 逐步生成 output sequence，并显示 information bottleneck。",
+        "prompt": """
+一张适合 Seq2Seq 模型章节的教学图，主题是“输入序列被编码，再由解码器一步步生成输出序列”。
+画面表现 input sequence、encoder、context vector、information bottleneck、decoder、output sequence、teacher forcing，并用一条支线提示 Attention 后续会缓解瓶颈。
+风格像双语序列流动图和模型剖面图结合，简洁、有箭头、有生成时间步。
+文字不是主体；标准术语保留英文，例如 Encoder、Decoder、context vector、information bottleneck、teacher forcing、Attention。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-machine-translation-error-analysis-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器翻译错误分析图",
+        "suggested_page": "docs/ch11-nlp/ch05-seq2seq/03-machine-translation.md",
+        "alt": "机器翻译错误分析图：parallel corpus、baseline output、omission、mistranslation、word order、terminology consistency 和 human evaluation。",
+        "prompt": """
+一张适合机器翻译实战章节的错误分析图，主题是“翻译项目要用错误类型驱动改进，而不是只看漂亮样例”。
+画面表现 parallel corpus、baseline translation、reference translation、omission、mistranslation、word order issue、terminology consistency、BLEU/chrF、human evaluation、improvement plan。
+风格像翻译对照表和质量评估仪表盘结合，突出错例分桶。
+文字不是主体；标准术语保留英文，例如 parallel corpus、baseline、reference、omission、mistranslation、word order、BLEU、human evaluation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-pretraining-transfer-finetune-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "预训练迁移微调关系图",
+        "suggested_page": "docs/ch11-nlp/ch06-pretrained/01-pretrain-paradigm.md",
+        "alt": "预训练迁移微调关系图：large unlabeled corpus 训练 foundation model，再迁移到 classification、NER、QA、summarization 等下游任务并 fine-tune 或 prompting。",
+        "prompt": """
+一张适合预训练范式章节的关系图，主题是“通用语言底座如何迁移到具体 NLP 任务”。
+画面表现 large unlabeled corpus、self-supervised pretraining、foundation model、transfer learning、fine-tuning、prompting、downstream tasks，包括 classification、NER、QA、summarization。
+风格像模型工厂和任务分发中心结合，突出共享底座和少量任务数据。
+文字不是主体；标准术语保留英文，例如 pretraining、self-supervised、foundation model、transfer learning、fine-tuning、prompting、downstream tasks。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-t5-text-to-text-task-unification-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "T5 text-to-text 任务统一图",
+        "suggested_page": "docs/ch11-nlp/ch06-pretrained/04-t5.md",
+        "alt": "T5 text-to-text 任务统一图：classification、translation、summarization 和 QA 都被改写成 task prefix + input text -> output text。",
+        "prompt": """
+一张适合 T5 章节的任务统一图，主题是“把不同 NLP 任务都改写成 text-to-text”。
+画面表现多个任务入口：classification、translation、summarization、QA，每个入口都变成 task prefix + input text，进入 T5 encoder-decoder，输出 output text。
+风格像统一接口转换器和任务卡片矩阵，强调 task prefix 和同一套输入输出格式。
+文字不是主体；标准术语保留英文，例如 T5、text-to-text、task prefix、input text、output text、classification、translation、summarization、QA。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-transformers-library-call-chain-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Transformers 库调用链图",
+        "suggested_page": "docs/ch11-nlp/ch06-pretrained/05-transformers-library.md",
+        "alt": "Transformers 库调用链图：Tokenizer、Config、Model、Task Head、Pipeline 和 outputs 组成从文本到预测结果的调用链。",
+        "prompt": """
+一张适合 Transformers 库实战章节的 API 调用链图，主题是“先分清对象职责，再使用具体模型类”。
+画面表现 raw text、Tokenizer、input_ids/attention_mask、Config、Model backbone、Task Head、Pipeline、outputs，并用旁注展示 AutoTokenizer、AutoModel、AutoModelForSequenceClassification 的关系。
+风格像工程调用链和模型模块剖面图结合，适合新人解除 API 混乱。
+文字不是主体；标准术语保留英文，例如 Tokenizer、Config、Model、Task Head、Pipeline、AutoTokenizer、AutoModel、input_ids、attention_mask。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-qa-retrieval-answer-evaluation-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "问答系统检索回答评估闭环图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/01-qa-system.md",
+        "alt": "问答系统检索回答评估闭环图：query、retrieval、evidence、answer、refusal、evaluation set 和 error log 组成 QA 项目闭环。",
+        "prompt": """
+一张适合智能问答系统项目章节的系统闭环图，主题是“问答系统要先找到可靠依据，再生成或返回答案”。
+画面表现 user query、retriever、knowledge base、top-k evidence、answer generation、refusal when no evidence、evaluation set、error log、iteration。
+风格像 RAG/QA 系统架构图和项目评估看板结合，突出证据和拒答。
+文字不是主体；标准术语保留英文，例如 query、retrieval、knowledge base、top-k evidence、answer、refusal、evaluation set、error log。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-summarization-extractive-generative-eval-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "文本摘要抽取生成评估图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/02-text-summarization.md",
+        "alt": "文本摘要抽取生成评估图：source document 分别走 extractive summary 和 generative summary，并用 coverage、faithfulness、length control、human review 评估。",
+        "prompt": """
+一张适合文本摘要系统项目章节的对比评估图，主题是“摘要项目要同时看压缩、覆盖和事实一致性”。
+画面表现 source document、extractive summary、generative summary、coverage、faithfulness、length control、readability、human review、failure cases。
+风格像文章压缩流程和人工评估表结合，突出事实不丢失。
+文字不是主体；标准术语保留英文，例如 source document、extractive summary、generative summary、coverage、faithfulness、length control、human review。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-information-extraction-schema-pipeline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "信息抽取 schema 流程图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/03-information-extraction.md",
+        "alt": "信息抽取 schema 流程图：raw text、schema design、rules、NER、relation extraction、JSON output、human review 和 downstream table。",
+        "prompt": """
+一张适合信息抽取项目章节的 schema 流程图，主题是“先定义字段和关系，再把文本稳定转成结构化数据”。
+画面表现 raw text、schema design、rules/regex、NER、relation extraction、JSON output、human review、downstream table/RAG index。
+风格像文档解析流水线和结构化数据表结合，强调字段边界、关系和复核。
+文字不是主体；标准术语保留英文，例如 schema、rules、regex、NER、relation extraction、JSON output、human review、RAG index。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch12-learning-quest-map.png",
         "size": "1536x1024",
         "quality": "medium",

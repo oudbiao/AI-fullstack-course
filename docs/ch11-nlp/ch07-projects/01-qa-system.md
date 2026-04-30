@@ -7,6 +7,12 @@ keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project
 
 # 项目：智能问答系统
 
+![问答系统检索回答评估闭环图](/img/course/ch11-qa-retrieval-answer-evaluation-map.png)
+
+:::tip 读图提示
+问答系统不是“生成一句像答案的话”就结束。读图时重点看 query、retrieval、evidence、answer、refusal、evaluation 和 error log 如何闭环，这也是后面 RAG 项目的核心骨架。
+:::
+
 :::tip 本节定位
 问答系统很适合作为 NLP 作品集项目，因为它天然能展示：
 

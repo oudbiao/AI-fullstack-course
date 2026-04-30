@@ -7,6 +7,12 @@ keywords: [text classification, bag of words, tf-idf, logistic regression, basel
 
 # 传统文本分类
 
+![传统文本分类基线图](/img/course/ch11-traditional-classification-baseline-map.png)
+
+:::tip 读图提示
+传统文本分类最适合先按“文本清洗 -> 特征表示 -> 线性分类器 -> 错误分析”理解。它不是过时内容，而是很多文本项目最稳、最快、最容易解释的第一条基线。
+:::
+
 :::tip 本节定位
 做文本分类时，很多人会本能地想：
 

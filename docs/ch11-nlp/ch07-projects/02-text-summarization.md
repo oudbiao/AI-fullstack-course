@@ -7,6 +7,12 @@ keywords: [text summarization, extractive summarization, TF-IDF, evaluation, NLP
 
 # 项目：文本摘要系统
 
+![文本摘要抽取生成评估图](/img/course/ch11-summarization-extractive-generative-eval-map.png)
+
+:::tip 读图提示
+摘要项目最容易忽略评估。读图时把 extractive summary、generative summary、coverage、faithfulness、length control 和人工评分放在一起看，先保证摘要不丢事实，再追求表达漂亮。
+:::
+
 :::tip 本节定位
 摘要项目很适合作为作品集，因为它逼着你回答几个非常真实的问题：
 
