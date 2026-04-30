@@ -7,6 +7,12 @@ sidebar_position: 4
 
 ![持续学习三层飞轮图](/img/course/appendix-continuous-learning-flywheel.png)
 
+![论文 项目 知识库复盘循环图](/img/course/appendix-learning-paper-project-notes-loop.png)
+
+:::tip 读图提示
+持续学习最怕只收藏不沉淀。读图时把论文、代码实验、项目复盘和知识库卡片连成循环：每看一个新东西，都要回到“它能改进哪个项目或判断”。
+:::
+
 AI 领域变化快，但“持续学习”不等于天天追新闻。真正有效的方法，是把基础、项目和前沿更新分层处理。
 
 ## 1. 先分清三类学习

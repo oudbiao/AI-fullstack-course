@@ -8,6 +8,12 @@ keywords: [课程配图, 教学设计, 可视化学习, AI课程图片, Mermaid,
 
 ![课程图片资产规划看板](/img/course/appendix-visual-enhancement-kanban.png)
 
+![课程图片从缺口到生成发布流程图](/img/course/appendix-image-production-pipeline-map.png)
+
+:::tip 读图提示
+图片不是越多越好，而是要解决理解成本。读图时按“发现缺口 -> 定义图意 -> 生成图片 -> 插入页面 -> manifest/进度记录 -> 构建校验”走闭环，避免图片资产失控。
+:::
+
 现在课程已经有阶段首页主视觉，也有大量 Mermaid 流程图。下一步不是给每页都塞图片，而是把图片放在最能降低理解成本的位置。
 
 :::info 章节编号约定

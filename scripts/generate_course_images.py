@@ -7436,6 +7436,132 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "appendix-debug-mre-help-flow.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "卡点最小复现与求助流程图",
+        "suggested_page": "docs/appendix/troubleshooting.md",
+        "alt": "卡点最小复现与求助流程图：reproduce、environment、minimal input、error log、expected vs actual 和 clear question 组成求助闭环。",
+        "prompt": """
+一张适合学习卡点救援附录的行动流程图，主题是“把卡住变成可复现、可求助、可解决的问题”。
+画面表现 reproduce problem、environment info、minimal input、error log、expected vs actual、clear question、helper feedback、fix and note，形成闭环。
+风格像技术救援流程图和温暖学习支持卡片结合，降低焦虑、强调行动步骤。
+文字不是主体；标准术语保留英文，例如 reproduce、environment、minimal input、error log、expected vs actual、clear question。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-hardware-local-cloud-api-cost-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "本地 云 API 三路线成本对比图",
+        "suggested_page": "docs/appendix/hardware.md",
+        "alt": "本地 云 API 三路线成本对比图：local laptop、cloud GPU 和 API-first 三条路线在 cost、setup、training、deployment 和 stability 上取舍不同。",
+        "prompt": """
+一张适合硬件与云资源附录的三路线对比图，主题是“先按任务选择本地、云 GPU 或 API 路线”。
+画面表现 local laptop、cloud GPU、API-first 三条路线，分别对比 cost、setup complexity、training ability、app development、stability、when to choose。
+风格像理性购买决策表和学习阶段路线图结合，明确表达“不要一开始就买显卡”的新人友好判断。
+文字不是主体；标准术语保留英文，例如 local laptop、cloud GPU、API-first、cost、training、deployment、stability。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-job-portfolio-storyline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 求职作品集故事线图",
+        "suggested_page": "docs/appendix/job-prep.md",
+        "alt": "AI 求职作品集故事线图：target role、user problem、technical solution、metrics、failure analysis、README 和 interview story 串成作品集表达。",
+        "prompt": """
+一张适合 AI 求职准备附录的作品集故事线图，主题是“项目要讲成能被面试官理解的能力证据”。
+画面表现 target role、user problem、technical solution、metrics/result、failure analysis、README/GitHub、interview story 七个节点，形成从项目到面试表达的故事线。
+风格像作品集路线图和简历打磨看板结合，专业、清晰、鼓励新人聚焦 2 到 3 个项目。
+文字不是主体；标准术语保留英文，例如 target role、user problem、technical solution、metrics、failure analysis、README、interview story。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-learning-paper-project-notes-loop.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "论文 项目 知识库复盘循环图",
+        "suggested_page": "docs/appendix/continuous-learning.md",
+        "alt": "论文 项目 知识库复盘循环图：paper reading、code experiment、project improvement、notes card 和 weekly review 形成持续学习闭环。",
+        "prompt": """
+一张适合持续学习方法论附录的学习闭环图，主题是“看过的内容要回到项目和知识库里沉淀”。
+画面表现 paper reading、code experiment、project improvement、notes card、weekly review、next question 六个节点循环，旁边提示 avoid collection-only learning。
+风格像长期学习飞轮和个人知识库工作流结合，稳定、温暖、有行动感。
+文字不是主体；标准术语保留英文，例如 paper reading、code experiment、project improvement、notes card、weekly review、next question。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-resource-bottleneck-priority-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "资源选择卡点优先级图",
+        "suggested_page": "docs/appendix/resources.md",
+        "alt": "资源选择卡点优先级图：concept、code、math、engineering、project 和 communication 卡点分别对应不同资源补充路径。",
+        "prompt": """
+一张适合推荐学习资源附录的卡点优先级图，主题是“先识别卡点，再选择资源，而不是囤资源”。
+画面表现 bottleneck diagnosis 分流到 concept、code、math、engineering、project、communication 六类卡点，每类连接一种资源类型：course note、docs、visual explanation、source code、case study、peer review，最后回到 project validation。
+风格像资源导航图和问题分诊台结合，清晰、降低信息焦虑。
+文字不是主体；标准术语保留英文，例如 bottleneck、concept、code、math、engineering、project validation、peer review。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-faq-confidence-reset-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "FAQ 焦虑重置与行动分流图",
+        "suggested_page": "docs/appendix/faq.md",
+        "alt": "FAQ 焦虑重置与行动分流图：math anxiety、GPU anxiety、time anxiety、project anxiety、paper anxiety 和 job anxiety 被拆成下一步行动。",
+        "prompt": """
+一张适合常见问题附录的新人焦虑重置图，主题是“把模糊焦虑拆成下一步行动”。
+画面表现 math anxiety、GPU anxiety、time anxiety、project anxiety、paper anxiety、job anxiety 六个气泡，经过 confidence reset 和 action routing，落到 review chapter、run minimal demo、ask for help、build portfolio 等行动卡片。
+风格温暖、明亮、支持感强，像学习咨询地图，不要说教。
+文字不是主体；标准术语保留英文，例如 math anxiety、GPU anxiety、project anxiety、confidence reset、action routing、minimal demo、portfolio。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-quick-ref-debug-index-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AI 项目速查排障索引图",
+        "suggested_page": "docs/appendix/resource-quick-ref.md",
+        "alt": "AI 项目速查排障索引图：environment、data、training、evaluation、RAG、Agent、Prompt 和 frontend 分流到不同速查检查项。",
+        "prompt": """
+一张适合学习资源速查附录的排障索引图，主题是“做项目时快速判断该查哪一块”。
+画面表现中心 project stuck，分流到 environment、data、training、evaluation、RAG、Agent、Prompt、frontend 八个区域，每个区域连接 2 到 3 个 check items。
+风格像工程速查地图和控制台索引，清晰、模块化、适合项目旁边快速查看。
+文字不是主体；标准术语保留英文，例如 environment、data、training、evaluation、RAG、Agent、Prompt、frontend、check items。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-course-numbering-maintenance-check.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "课程维护命名一致性检查图",
+        "suggested_page": "docs/appendix/course-numbering.md",
+        "alt": "课程维护命名一致性检查图：display chapter、source directory、sidebar label、image filename 和 manifest entry 需要保持一致。",
+        "prompt": """
+一张适合课程编号约定附录的维护检查图，主题是“展示编号、源码目录、侧边栏和图片命名要一致”。
+画面表现 display chapter number、source directory、sidebar label、image filename、manifest entry、build validation 六个检查点，形成 content maintenance checklist。
+风格像文档工程质检看板，清楚、克制、适合维护者避免 chxx 和中文章节号混用。
+文字不是主体；标准术语保留英文，例如 display chapter、source directory、sidebar label、image filename、manifest entry、build validation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "appendix-image-production-pipeline-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "课程图片从缺口到生成发布流程图",
+        "suggested_page": "docs/appendix/visual-enhancement-plan.md",
+        "alt": "课程图片从缺口到生成发布流程图：content gap、visual intent、image2 generation、markdown insertion、manifest progress、validation 和 build 组成图片生产闭环。",
+        "prompt": """
+一张适合课程视觉增强规划附录的图片生产流程图，主题是“图片资产要从理解缺口出发，经过生成、引用、记录和校验闭环”。
+画面表现 content gap scan、visual intent、image2 prompt、generate PNG、insert markdown、update manifest/progress、validate docs、build check、commit，形成课程图片生产流水线。
+风格像内容生产控制台和发布管线结合，强调图片服务理解而不是装饰。
+文字不是主体；标准术语保留英文，例如 content gap、visual intent、image2 prompt、manifest、progress、validate docs、build check、commit。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "elective-cpp-deployment-module-map.png",
         "size": "1536x1024",
         "quality": "medium",

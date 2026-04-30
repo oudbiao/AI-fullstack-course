@@ -536,6 +536,15 @@
 | `appendix-project-quick-reference-map.png` | AI 项目速查总览图 | `docs/appendix/resource-quick-ref.md` | AI 项目速查总览图：环境命令、baseline、评估指标、训练信号、RAG、Agent 和 Prompt 串成项目检查地图。 |
 | `appendix-course-numbering-map.png` | 展示章节号与源码目录对应地图 | `docs/appendix/course-numbering.md` | 展示章节号与源码目录对应地图：网页第 1 到第 12 章分别对应 docs/ch01 到 docs/ch12 源码目录。 |
 | `appendix-visual-enhancement-kanban.png` | 课程图片资产规划看板 | `docs/appendix/visual-enhancement-plan.md` | 课程图片资产规划看板：P0、P1、P2、P3 不同优先级图片分批规划和生成。 |
+| `appendix-debug-mre-help-flow.png` | 卡点最小复现与求助流程图 | `docs/appendix/troubleshooting.md` | 卡点最小复现与求助流程图：reproduce、environment、minimal input、error log、expected vs actual 和 clear question 组成求助闭环。 |
+| `appendix-hardware-local-cloud-api-cost-map.png` | 本地 云 API 三路线成本对比图 | `docs/appendix/hardware.md` | 本地 云 API 三路线成本对比图：local laptop、cloud GPU 和 API-first 三条路线在 cost、setup、training、deployment 和 stability 上取舍不同。 |
+| `appendix-job-portfolio-storyline-map.png` | AI 求职作品集故事线图 | `docs/appendix/job-prep.md` | AI 求职作品集故事线图：target role、user problem、technical solution、metrics、failure analysis、README 和 interview story 串成作品集表达。 |
+| `appendix-learning-paper-project-notes-loop.png` | 论文 项目 知识库复盘循环图 | `docs/appendix/continuous-learning.md` | 论文 项目 知识库复盘循环图：paper reading、code experiment、project improvement、notes card 和 weekly review 形成持续学习闭环。 |
+| `appendix-resource-bottleneck-priority-map.png` | 资源选择卡点优先级图 | `docs/appendix/resources.md` | 资源选择卡点优先级图：concept、code、math、engineering、project 和 communication 卡点分别对应不同资源补充路径。 |
+| `appendix-faq-confidence-reset-map.png` | FAQ 焦虑重置与行动分流图 | `docs/appendix/faq.md` | FAQ 焦虑重置与行动分流图：math anxiety、GPU anxiety、time anxiety、project anxiety、paper anxiety 和 job anxiety 被拆成下一步行动。 |
+| `appendix-quick-ref-debug-index-map.png` | AI 项目速查排障索引图 | `docs/appendix/resource-quick-ref.md` | AI 项目速查排障索引图：environment、data、training、evaluation、RAG、Agent、Prompt 和 frontend 分流到不同速查检查项。 |
+| `appendix-course-numbering-maintenance-check.png` | 课程维护命名一致性检查图 | `docs/appendix/course-numbering.md` | 课程维护命名一致性检查图：display chapter、source directory、sidebar label、image filename 和 manifest entry 需要保持一致。 |
+| `appendix-image-production-pipeline-map.png` | 课程图片从缺口到生成发布流程图 | `docs/appendix/visual-enhancement-plan.md` | 课程图片从缺口到生成发布流程图：content gap、visual intent、image2 generation、markdown insertion、manifest progress、validation 和 build 组成图片生产闭环。 |
 | `elective-cpp-deployment-module-map.png` | C++ 与模型部署模块学习地图 | `docs/electives/module-a/index.md` | C++ 与模型部署模块学习地图：C++ 基础、进阶资源管理、模型优化、推理引擎、边缘部署、服务化和部署项目逐步连接。 |
 | `elective-cpp-raii-ownership-map.png` | C++ RAII 与所有权地图 | `docs/electives/module-a/02-cpp-advanced.md` | C++ RAII 与所有权地图：资源获取、对象生命周期、智能指针、移动语义和抽象接口共同支撑部署工程。 |
 | `elective-edge-deployment-constraint-map.png` | 边缘部署约束决策图 | `docs/electives/module-a/05-edge-deployment.md` | 边缘部署约束决策图：内存、功耗、延迟、离线能力、散热和运维共同决定模型适配方案。 |

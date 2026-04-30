@@ -7,6 +7,12 @@ sidebar_position: 5
 
 ![学习卡点排障地图](/img/course/appendix-troubleshooting-rescue-map.png)
 
+![卡点最小复现与求助流程图](/img/course/appendix-debug-mre-help-flow.png)
+
+:::tip 读图提示
+遇到问题先不要急着换路线。按“复现问题 -> 收集环境 -> 缩小输入 -> 记录报错 -> 提出具体问题”走一遍，很多卡点会从情绪问题变成可定位的工程问题。
+:::
+
 这页的目标不是解释理论，而是帮你在“卡住的时候尽快恢复推进”。很多学习中断，不是因为太难，而是因为一个小问题拖了太久。
 
 ## 1. 先判断你卡在哪一类

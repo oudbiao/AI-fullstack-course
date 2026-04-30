@@ -7,6 +7,12 @@ sidebar_position: 1
 
 ![资源选择漏斗图](/img/course/appendix-resource-selection-funnel.png)
 
+![资源选择卡点优先级图](/img/course/appendix-resource-bottleneck-priority-map.png)
+
+:::tip 读图提示
+资源不是越多越好，而是要服务当前卡点。先判断你卡在概念、代码、数学、工程、项目还是表达，再选择一种资源补齐，最后必须回到项目验证。
+:::
+
 这页不是“资源越多越好”，而是帮你在不同学习阶段知道：该补什么、为什么补、补到什么程度就够了。
 
 ## 1. 使用这页的正确方式

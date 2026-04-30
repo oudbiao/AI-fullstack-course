@@ -7,6 +7,12 @@ sidebar_position: 2
 
 ![硬件与云资源决策树](/img/course/appendix-hardware-cloud-decision-tree.png)
 
+![本地 云 API 三路线成本对比图](/img/course/appendix-hardware-local-cloud-api-cost-map.png)
+
+:::tip 读图提示
+硬件选择先看任务：学习基础、跑 Demo、训练模型和做应用的资源需求完全不同。读图时把本地电脑、云 GPU 和 API 路线放在一起比较，不要一开始就被“必须买显卡”绑架。
+:::
+
 这页不是让你“堆配置”，而是帮你判断：在不同阶段，到底要不要买设备、什么时候租云更划算、什么配置是真的影响学习体验。
 
 ## 先看结论

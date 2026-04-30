@@ -7,6 +7,12 @@ sidebar_position: 3
 
 ![FAQ 新人问题分流树](/img/course/appendix-faq-decision-tree.png)
 
+![FAQ 焦虑重置与行动分流图](/img/course/appendix-faq-confidence-reset-map.png)
+
+:::tip 读图提示
+FAQ 的目的不是给你一个“唯一正确答案”，而是帮你把模糊焦虑拆成可行动问题。读图时先定位自己卡在数学、设备、时间、项目、论文还是求职，再回到对应章节补最小必要内容。
+:::
+
 这一页不讲概念，而是集中回答新人最常碰到的实际问题。你可以把它当成“遇到犹豫时先翻一页”的附录。
 
 ## 1. 数学不好能学 AI 吗？

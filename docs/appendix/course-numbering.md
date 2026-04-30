@@ -8,6 +8,12 @@ keywords: [课程编号, 章节目录, 章节编号, 课程维护]
 
 ![展示章节号与源码目录对应地图](/img/course/appendix-course-numbering-map.png)
 
+![课程维护命名一致性检查图](/img/course/appendix-course-numbering-maintenance-check.png)
+
+:::tip 读图提示
+维护课程时，网页标题、sidebar 顺序、源码目录和图片命名要互相对齐。读图时把“展示编号”和“文件路径”分开看，就不容易再出现 chxx 与中文章节号混用的问题。
+:::
+
 课程网页面向学习者时，统一使用第 1～12 章的展示编号。源码目录也已经和展示章节号对齐：`ch01-*` 对应第 1 章，`ch02-*` 对应第 2 章，依此类推。
 
 目录名后半段用于说明主题，例如 `ch05-machine-learning` 表示第 5 章机器学习，`ch09-agent` 表示第 9 章 AI Agent。侧边栏里的“主线 1～4”只是学习分组，不作为文件目录层级。

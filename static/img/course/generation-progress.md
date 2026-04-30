@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 577 / 577
+Generated with image2: 586 / 586
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -47,6 +47,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 选修模块深度图解说明：本轮新增 9 张实战判断型图解，覆盖模型优化指标取舍、推理引擎选型矩阵、模型服务指标与版本路由、装饰器横切逻辑分层、asyncio 超时取消与限流、SVM 参数 C/kernel 决策、AI 安全威胁建模与回归集、AI 前端状态机和 AI 产品实验指标闭环。新增图用于把选修模块从“补充知识点”推进到“工程选型、上线运行、产品验证和安全治理怎么判断更直观”。
 
 附录说明：目录 `docs/appendix` 下原有 10 张历史时间线、排障、硬件决策、求职、持续学习、资源、FAQ、速查、编号和视觉规划图已经用 image2 生成，并插入到对应附录页面。本轮补充 6 张 AI 历史谱系图，替换 `docs/appendix/ai-milestones.md` 中残留的 Mermaid 主线图，让论文、算法和课程项目的关系更直观。
+
+附录深度图解说明：本轮新增 9 张行动型和维护型图解，覆盖卡点最小复现与求助、本地/云/API 成本路线、求职作品集故事线、论文项目知识库复盘循环、资源选择卡点优先级、FAQ 焦虑重置、项目速查排障索引、课程编号维护一致性和图片生产发布流程。新增图用于把附录从“查资料”推进到“遇到问题知道下一步怎么行动、怎么维护课程资产更直观”。
 
 第 1～3 章说明：目录 `docs/ch01-tools`、`docs/ch02-python`、`docs/ch03-data-analysis` 下新增的 59 张终端、环境、Git、Jupyter、Python 基础和数据分析补充图已经用 image2 生成，并插入到对应教程页面。其中第 1 章本轮新增 6 张真实 PNG，用于替换任务单、命令行、包管理器、Git 核心操作、远程仓库和 VS Code 页面的文字流程入口；第 2 章本轮新增 15 张真实 PNG，用于替换 Python 首页、学习指南、任务链、基础语法、文件处理、进阶机制和项目页的文字流程入口；第 3 章本轮新增 23 张真实 PNG，用于替换数据分析首页、学习指南、任务链、NumPy、Pandas、可视化和数据库页面的文字流程入口。
 
@@ -560,6 +562,15 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `appendix-project-quick-reference-map.png`
 - `appendix-course-numbering-map.png`
 - `appendix-visual-enhancement-kanban.png`
+- `appendix-debug-mre-help-flow.png`
+- `appendix-hardware-local-cloud-api-cost-map.png`
+- `appendix-job-portfolio-storyline-map.png`
+- `appendix-learning-paper-project-notes-loop.png`
+- `appendix-resource-bottleneck-priority-map.png`
+- `appendix-faq-confidence-reset-map.png`
+- `appendix-quick-ref-debug-index-map.png`
+- `appendix-course-numbering-maintenance-check.png`
+- `appendix-image-production-pipeline-map.png`
 - `appendix-ai-main-relay-map.png`
 - `appendix-ai-project-lens-map.png`
 - `appendix-classic-ml-branch-map.png`

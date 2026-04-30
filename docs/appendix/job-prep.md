@@ -7,6 +7,12 @@ sidebar_position: 7
 
 ![求职准备漏斗图](/img/course/appendix-job-prep-funnel.png)
 
+![AI 求职作品集故事线图](/img/course/appendix-job-portfolio-storyline-map.png)
+
+:::tip 读图提示
+求职项目不要只堆技术名词。读图时按“岗位目标 -> 用户问题 -> 技术方案 -> 指标结果 -> 失败复盘 -> README/面试表达”串成故事线，面试官更容易看懂你的真实能力。
+:::
+
 这一页不是让你“学完再找工作”，而是帮你把学习过程逐步转换成能投递、能面试、能讲清楚的成果。
 
 ## 1. 先判断你想投什么岗位
