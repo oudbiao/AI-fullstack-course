@@ -1,5 +1,5 @@
 ---
-title: "4.3 BiLSTM + CRF"
+title: "4.4 BiLSTM + CRF"
 sidebar_position: 3
 description: "理解为什么序列标注任务常用 BiLSTM + CRF，以及它如何同时利用上下文表示和标签转移约束。"
 keywords: [BiLSTM, CRF, 序列标注, NER, 命名实体识别]

@@ -1,6 +1,6 @@
 ---
-title: "1.2 过渡：从经典机器学习到深度学习"
-sidebar_position: 0
+title: "1.3 过渡：从经典机器学习到深度学习"
+sidebar_position: 2
 description: "把第 5 站的线性模型、树模型、评估与特征工程，自然过渡到第 6 站的神经网络、PyTorch 和训练循环。"
 keywords: [机器学习到深度学习, 神经网络桥接, 从ML到DL, PyTorch桥接]
 ---
@@ -231,7 +231,7 @@ flowchart LR
 1. 先读 [1.1 学前导读：神经网络基础这一章到底在学什么](./00-roadmap.md)  
    先把神经元、前向、反向、优化器这些词的位置放对。
 
-2. 再读 [1.3 从神经元到多层感知机](./01-neurons-activation.md)  
+2. 再读 [1.4 从神经元到多层感知机](./01-neurons-activation.md)  
    先理解“一个神经元到底在做什么”。
 
 3. 然后进 [2.1 学前导读：PyTorch 这一章到底在学什么](../ch02-pytorch/00-roadmap.md)  

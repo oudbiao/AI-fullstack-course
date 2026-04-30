@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 390 / 390
+Generated with image2: 398 / 398
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -34,6 +34,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 
 学习地图说明：目录 `docs/intro` 下新增的 8 张能力地图、现代技术栈、学习路线、四条主线、卡点诊断、项目作品集、角色路线和毕业项目闭环图已经用 image2 生成，并插入到对应导览页面。
 
+历史节点补充说明：本轮新增 8 张 AI 历史与算法突破图，插入第 4 章概率统计历史、第 5 章机器学习历史与 SVM、第 6 章深度学习历史、第 9 章强化学习到 Agent、第 11 章 HMM/CRF、CTC/Deep Speech 和 AMR 语义图页面。新增图遵循“中文讲解为主，标准术语、论文名、公式和 API 保留英文”的规则。
+
 ## Completed
 
 - `ai-fullstack-hero.png`
@@ -55,6 +57,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch04-vector-space-high-level-map.png`
 - `ch04-probability-chapter-flow.png`
 - `ch04-probability-bayes-update-flow.png`
+- `ch04-probability-history-foundations-map.png`
 - `ch04-distribution-random-world-map.png`
 - `ch04-statistical-inference-data-to-parameter.png`
 - `ch04-information-theory-loss-map.png`
@@ -68,6 +71,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch06-study-guide-training-loop.png`
 - `ch06-nn-basics-chapter-flow.png`
 - `ch06-ml-to-dl-bridge-map.png`
+- `ch06-dl-history-breakthrough-map.png`
 - `ch06-weight-init-signal-stability-map.png`
 - `ch06-pytorch-chapter-flow.png`
 - `ch06-sklearn-to-pytorch-shift-map.png`
@@ -86,6 +90,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch05-modeling-loop-backbone.png`
 - `ch05-study-guide-project-loop.png`
 - `ch05-basics-chapter-flow.png`
+- `ch05-ml-history-breakthrough-map.png`
 - `ch05-task-type-decision-map.png`
 - `ch05-sklearn-fit-predict-loop.png`
 - `ch05-math-to-ml-training-map.png`
@@ -94,6 +99,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch05-logistic-classification-flow.png`
 - `ch05-decision-tree-learning-flow.png`
 - `ch05-ensemble-bagging-boosting-flow.png`
+- `ch05-svm-margin-map.png`
 - `ch05-unsupervised-chapter-flow.png`
 - `ch05-clustering-decision-flow.png`
 - `ch05-dimensionality-reduction-purpose-map.png`
@@ -125,9 +131,12 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch11-embeddings-chapter-flow.png`
 - `ch11-classification-chapter-flow.png`
 - `ch11-sequence-labeling-chapter-flow.png`
+- `ch11-hmm-crf-sequence-history-map.png`
 - `ch11-seq2seq-chapter-flow.png`
+- `ch11-ctc-deep-speech-asr-map.png`
 - `ch11-pretrained-chapter-flow.png`
 - `ch11-projects-delivery-loop.png`
+- `ch11-amr-semantic-graph-map.png`
 - `ch07-llm-principles.png`
 - `ch07-learning-quest-map.png`
 - `ch07-llm-capability-backbone.png`
@@ -173,6 +182,7 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch09-basics-position-bridge.png`
 - `ch09-basics-chapter-flow.png`
 - `ch09-basics-execution-loop.png`
+- `ch09-rl-agent-breakthroughs-map.png`
 - `ch09-reasoning-chapter-flow.png`
 - `ch09-tools-chapter-flow.png`
 - `ch09-tools-action-layer-map.png`

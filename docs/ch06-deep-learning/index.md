@@ -50,6 +50,8 @@ keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention
 
 ![深度学习训练闭环主线图](/img/course/ch06-training-loop-backbone.png)
 
+如果你想按历史进程理解每次技术突破，可以先读 [1.2 深度学习历史突破主线](./ch01-nn-basics/06-history-breakthroughs.md)。它会把感知器、XOR 挫折、反向传播、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Attention 和 Transformer 分配到本章对应小节，帮助你理解模型为什么会一代代演进。
+
 ## 新人先做什么，进阶再做什么
 
 新人第一次学这一阶段时，先理解神经网络训练的最小闭环：准备数据、定义模型、计算损失、反向传播、更新参数、观察曲线。不要一开始追求复杂架构。
@@ -58,7 +60,7 @@ keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention
 
 ## 本阶段学习路径
 
-第一章学习神经网络基础。你会理解神经元、激活函数、前向传播、反向传播、优化器、正则化和参数初始化。
+第一章学习神经网络基础和历史突破主线。你会理解感知器、XOR 局限、反向传播、神经元、激活函数、前向传播、反向传播、优化器、正则化和参数初始化。
 
 第二章学习 PyTorch。你会从张量、自动求导、`nn.Module`、数据加载和训练循环开始，真正搭出一个可训练模型。
 

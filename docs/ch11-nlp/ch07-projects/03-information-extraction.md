@@ -1,6 +1,6 @@
 ---
-title: "项目：信息抽取"
-sidebar_position: 4
+title: "7.4 项目：信息抽取"
+sidebar_position: 3
 description: "把 NER、关系抽取和结构化输出串成一个小型信息抽取项目，理解从文本到结构化数据的过程。"
 keywords: [信息抽取, NER, 关系抽取, 结构化输出, NLP项目]
 ---

@@ -21,7 +21,7 @@ keywords: [Seq2Seq导读, attention导读, 机器翻译]
 
 ## 本章学习主线
 
-第一步理解 Encoder 把输入序列压缩成表示，Decoder 根据表示逐步生成输出。第二步理解为什么单个上下文向量会成为瓶颈：句子越长，信息越容易丢。第三步学习 Attention：Decoder 在每一步生成时，可以回看输入序列的不同位置。最后通过机器翻译实践，把输入、输出、teacher forcing、解码和评估串起来。
+第一步理解 Encoder 把输入序列压缩成表示，Decoder 根据表示逐步生成输出。第二步理解为什么单个上下文向量会成为瓶颈：句子越长，信息越容易丢。第三步学习 Attention：Decoder 在每一步生成时，可以回看输入序列的不同位置。第四步通过机器翻译实践，把输入、输出、teacher forcing、解码和评估串起来。最后可以读 CTC 与 Deep Speech，理解语音识别里“输入输出没有逐帧对齐”时，序列模型怎样训练。
 
 ## Seq2Seq、Attention 和 Transformer 的关系
 

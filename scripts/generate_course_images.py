@@ -1209,6 +1209,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch04-probability-history-foundations-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "概率统计历史基础地图",
+        "suggested_page": "docs/ch04-ai-math/ch02-probability/05-history-foundations.md",
+        "alt": "概率统计历史基础地图：Bayes 更新证据，MLE 从数据反推参数，EM 处理隐藏变量，Shannon 信息论度量不确定性。",
+        "prompt": """
+一张适合 AI 数学概率统计历史小节的教学地图，主题是“从不确定性到可训练模型的统计基础”。
+画面分四个清晰节点：Bayes 用新证据更新判断，MLE 从数据反推最可能参数，EM 在隐藏变量下先猜再修，Shannon information theory 度量不确定性并连接 cross entropy。
+风格像历史接力地图和数学白板结合，帮助新人把老概念和现代 AI loss、probability、uncertainty 连接起来。
+文字不是主体；中文写概念提示，标准术语和公式保留英文或数学形式，例如 Bayes、MLE、EM、entropy、cross entropy。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch05-machine-learning.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -1278,6 +1292,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch05-ml-history-breakthrough-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "机器学习历史突破地图",
+        "suggested_page": "docs/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs.md",
+        "alt": "机器学习历史突破地图：Bayes、MLE、EM、线性模型、决策树、SVM、随机森林、Boosting、XGBoost 和 sklearn 工程化逐步连接。",
+        "prompt": """
+一张适合机器学习历史突破小节的技术演进地图，主题是“经典机器学习如何从统计推断走向可复盘工程流程”。
+画面从 Bayes、MLE、EM 开始，连接到 linear model、decision tree、SVM margin、Random Forest、Boosting/XGBoost，最后汇入 sklearn Pipeline 和模型评估闭环。
+风格像课程历史路线图和项目建模流程结合，层次清楚、新人友好。
+文字不是主体；中文写概念提示，标准术语保留英文，例如 Bayes、MLE、EM、SVM、Random Forest、Boosting、XGBoost、sklearn Pipeline。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch05-task-type-decision-map.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -1325,12 +1353,12 @@ IMAGE_JOBS: list[dict[str, Any]] = [
         "quality": "medium",
         "title": "监督学习章节关系图",
         "suggested_page": "docs/ch05-machine-learning/ch02-supervised/00-roadmap.md",
-        "alt": "监督学习章节关系图：线性回归、逻辑回归、决策树和集成学习由简单到复杂逐步连接。",
+        "alt": "监督学习章节关系图：线性回归、逻辑回归、决策树、集成学习和 SVM 最大间隔路线由简单到复杂逐步连接。",
         "prompt": """
 一张适合监督学习导读页的章节关系图，主题是“从最简单模型到更强模型的监督学习主线”。
-画面表现带标签数据进入模型学习路径：线性回归预测连续值，逻辑回归输出分类概率，决策树做规则分裂，集成学习把多个模型组合成更稳结果。
+画面表现带标签数据进入模型学习路径：线性回归预测连续值，逻辑回归输出分类概率，决策树做规则分裂，集成学习把多个模型组合成更稳结果，SVM 用最大间隔理解稳健分类边界。
 风格像课程路线图和模型进化图结合，清晰、有层次。
-文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准术语保留英文，例如 Regression、Classification、Bagging、Boosting。不要整张图全英文，不要乱码小字或真实品牌 logo。
+文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准术语保留英文，例如 Regression、Classification、Bagging、Boosting、SVM、margin。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -1387,6 +1415,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 画面左侧表现 Bagging：多棵树并行训练、投票或平均、降低方差；右侧表现 Boosting：模型按顺序训练，每一步关注上一步错的样本，逐步纠错。
 风格像双路线技术白板，图形清楚、对比强。
 文字不是主体；标准术语保留英文，例如 Bagging、Boosting、Random Forest、GBDT、XGBoost。其他说明可以用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-svm-margin-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "SVM 最大间隔直觉图",
+        "suggested_page": "docs/ch05-machine-learning/ch02-supervised/05-svm.md",
+        "alt": "SVM 最大间隔直觉图：支持向量决定分类边界，最大间隔让分界线离两类样本都更远，核方法帮助处理非线性边界。",
+        "prompt": """
+一张适合 SVM 教学页的最大间隔直觉图，主题是“分类边界不仅要分对，还要离样本足够远”。
+画面表现二维分类样本，两类点之间有一条清晰 decision boundary，两侧有 margin 安全带，最近的点被标成 support vectors；旁边用小插图表现 kernel trick 把非线性数据换到更容易分开的空间。
+风格像机器学习白板讲解图，边界、间隔和支持向量要一眼清楚。
+文字不是主体；中文写概念提示，标准术语保留英文，例如 SVM、margin、support vectors、kernel trick。不要整段英文说明、乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -1946,6 +1988,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 画面左侧是经典 ML：任务定义、baseline、metric、feature engineering；右侧是深度学习：representation learning、layers、loss、gradient、training loop，中间用桥梁连接。
 风格像两座学习岛之间的桥，帮助新人自然过渡。
 文字不是主体；如需标签，中英文自然混用，标准术语保留英文，例如 baseline、metric、feature engineering、representation、loss、gradient。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-dl-history-breakthrough-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "深度学习历史突破地图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs.md",
+        "alt": "深度学习历史突破地图：感知器、XOR、反向传播、新认知机、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Transformer 逐步连接。",
+        "prompt": """
+一张适合深度学习历史突破小节的技术演进地图，主题是“神经网络三次浪潮如何一步步走到 Transformer”。
+画面按时间线展示 Perceptron、XOR setback、Backpropagation、Neocognitron/CNN idea、vanishing gradient、LSTM、RBM/DBN revival、AlexNet/ImageNet、ResNet、Attention/Transformer。
+风格像历史接力赛和神经网络结构地图结合，突出每个节点解决上一代什么问题。
+文字不是主体；中文写概念提示，标准术语保留英文，例如 Perceptron、XOR、Backpropagation、LSTM、AlexNet、ResNet、Transformer。不要整段英文说明、乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -2784,6 +2840,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch09-rl-agent-breakthroughs-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "强化学习到 Agent 历史突破地图",
+        "suggested_page": "docs/ch09-agent/ch01-agent-basics/05-rl-to-agent-breakthroughs.md",
+        "alt": "强化学习到 Agent 历史突破地图：TD-Gammon、DQN Atari、AlphaGo、RLHF 和 ReAct 共同连接行动、反馈、搜索、规划与工具调用。",
+        "prompt": """
+一张适合 Agent 历史补充页的突破地图，主题是“从强化学习的行动反馈到现代 LLM Agent”。
+画面展示 TD-Gammon 自我对弈、DQN Atari 从画面到动作、AlphaGo 结合策略价值和搜索、RLHF 使用人类偏好、ReAct 让模型推理与行动交替，最后汇入可观察的 Agent execution loop。
+风格像游戏棋盘、环境交互和工程流程图结合，帮助新人理解 state、action、reward、planning、tool use 的关系。
+文字不是主体；中文写概念提示，标准术语保留英文，例如 TD-Gammon、DQN、Atari、AlphaGo、RLHF、ReAct、state、action、reward。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch09-reasoning-chapter-flow.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -3301,6 +3371,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch11-hmm-crf-sequence-history-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "HMM CRF 序列标注历史地图",
+        "suggested_page": "docs/ch11-nlp/ch04-sequence-labeling/04-hmm-crf-history.md",
+        "alt": "HMM CRF 序列标注历史地图：HMM、Viterbi、CRF、BiLSTM-CRF 和 BERT token classification 逐步连接。",
+        "prompt": """
+一张适合序列标注历史小节的简洁教学地图，主题是“HMM 到 BERT 的序列标注演进”。
+画面只保留一条横向路线：HMM -> CRF -> BiLSTM-CRF -> BERT token classification；下方用一条短句子展示 BIO tags。
+风格像清晰课程时间线和句子标签带结合，少元素、大图形、不要复杂背景。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 HMM、CRF、BiLSTM-CRF、BERT、BIO tags。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch11-seq2seq-chapter-flow.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -3312,6 +3396,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 画面表现 Encoder-Decoder、context vector、Attention alignment、machine translation、summarization/generation。
 风格像双序列对齐图和生成流水线结合，突出 Attention 解决信息瓶颈。
 文字不是主体；标准术语保留英文，例如 Encoder-Decoder、context vector、Attention alignment、machine translation、generation。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-ctc-deep-speech-asr-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "CTC Deep Speech 语音识别对齐图",
+        "suggested_page": "docs/ch11-nlp/ch05-seq2seq/04-ctc-deep-speech.md",
+        "alt": "CTC Deep Speech 语音识别对齐图：长音频帧经过模型输出带 blank 和重复的路径，再折叠成最终文字。",
+        "prompt": """
+一张适合 CTC 与 Deep Speech 教学页的简洁序列对齐图，主题是“长音频怎样折叠成短文本”。
+画面表现 audio waveform -> acoustic model -> CTC path with blank -> collapse -> transcript。
+风格像清晰时间轴和折叠流程图，少元素、大箭头、帮助新人直观看懂 alignment。
+文字不是主体；中文写概念提示，标准术语保留英文，例如 CTC、blank、collapse、audio frames、transcript、Deep Speech、ASR。不要整段英文说明、乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -3340,6 +3438,20 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 画面表现 task definition、label/schema、data samples、model or Prompt、metrics、error texts、fact check、README/portfolio。
 风格像文本项目看板和评估闭环结合，强调任务边界。
 文字不是主体；标准术语保留英文，例如 label、schema、Prompt、metrics、error texts、fact check、README、portfolio。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-amr-semantic-graph-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "AMR 语义图理解地图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/04-semantic-graphs-amr.md",
+        "alt": "AMR 语义图理解地图：句子被解析成事件、角色、实体和关系图，连接信息抽取、知识图谱、RAG 和课件生成。",
+        "prompt": """
+一张适合语义图与 AMR 教学页的概念图，主题是“把句子变成结构化含义图”。
+画面表现一句话进入 semantic parser，输出一个简洁 AMR-style graph：event、ARG0、ARG1、entity；再连接 information extraction、knowledge graph、RAG。
+风格像文本到图结构的教学流程，结构清楚、少元素、有教育科技感。
+文字不是主体；中文写概念提示，标准术语保留英文，例如 AMR、semantic graph、event、ARG0、ARG1、knowledge graph、RAG。不要整段英文说明、乱码小字或真实品牌 logo。
 """.strip(),
     },
     {

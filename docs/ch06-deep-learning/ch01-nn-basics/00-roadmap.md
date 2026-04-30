@@ -23,7 +23,10 @@ keywords: [神经网络导读, 反向传播, 优化器, 正则化, 初始化]
 ![神经网络基础章节关系图](/img/course/ch06-nn-basics-chapter-flow.png)
 
 如果你还没把这条桥接关系看顺，建议先读：
-[1.2 过渡：从经典机器学习到深度学习](./00-ml-to-dl-bridge.md)
+[1.3 过渡：从经典机器学习到深度学习](./00-ml-to-dl-bridge.md)
+
+如果你想先知道神经网络、反向传播、LSTM、AlexNet、ResNet 和 Transformer 为什么会依次出现，建议先读：
+[1.2 深度学习历史突破主线](./06-history-breakthroughs.md)
 
 ## 这一章的主线
 

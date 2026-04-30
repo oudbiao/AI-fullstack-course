@@ -89,19 +89,22 @@
 | `chain-rule-backprop-graph.png` | 链式法则计算图与反向传播示意图 | `docs/ch04-ai-math/ch03-calculus/04-chain-rule-backprop.md` | 链式法则计算图与反向传播示意图：前向计算损失，反向逐层传播梯度。 |
 | `math-study-loop.png` | AI 数学学习循环图 | `docs/ch04-ai-math/study-guide.md` | AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。 |
 | `math-task-checklist.png` | 数学最小通关任务单图 | `docs/ch04-ai-math/task-list.md` | 数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。 |
+| `ch04-probability-history-foundations-map.png` | 概率统计历史基础地图 | `docs/ch04-ai-math/ch02-probability/05-history-foundations.md` | 概率统计历史基础地图：Bayes 更新证据，MLE 从数据反推参数，EM 处理隐藏变量，Shannon 信息论度量不确定性。 |
 | `ch05-machine-learning.png` | 机器学习主视觉 | `docs/ch05-machine-learning/index.md` | 机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。 |
 | `ch05-learning-quest-map.png` | 机器学习学习闯关地图 | `docs/ch05-machine-learning/index.md` | 机器学习学习闯关地图：定义问题、准备数据、建立 baseline、选择指标、训练模型、错误分析和建模报告。 |
 | `ch05-modeling-loop-backbone.png` | 机器学习建模主线闭环 | `docs/ch05-machine-learning/index.md` | 机器学习建模主线闭环：业务问题、任务定义、数据准备、baseline、指标评估、特征工程、模型改进和误差分析。 |
 | `ch05-study-guide-project-loop.png` | 机器学习学习指南项目循环 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习指南项目循环：问题、任务定义、数据划分、baseline、指标评估、特征工程、模型改进和误差分析。 |
 | `ch05-basics-chapter-flow.png` | 机器学习基础章节关系图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础章节关系图：Python 数据分析、AI 数学、机器学习基础、sklearn、监督学习、无监督学习、评估与特征工程逐步连接。 |
+| `ch05-ml-history-breakthrough-map.png` | 机器学习历史突破地图 | `docs/ch05-machine-learning/ch01-ml-basics/04-history-breakthroughs.md` | 机器学习历史突破地图：Bayes、MLE、EM、线性模型、决策树、SVM、随机森林、Boosting、XGBoost 和 sklearn 工程化逐步连接。 |
 | `ch05-task-type-decision-map.png` | 机器学习任务类型判断图 | `docs/ch05-machine-learning/ch01-ml-basics/01-what-is-ml.md` | 机器学习任务类型判断图：先问有没有标签，再判断监督学习、无监督学习、分类、回归、聚类、降维和异常检测。 |
 | `ch05-sklearn-fit-predict-loop.png` | sklearn fit predict 统一流程图 | `docs/ch05-machine-learning/ch01-ml-basics/02-sklearn-intro.md` | sklearn fit predict 统一流程图：准备 X 和 y，创建模型，fit 学参数，predict 或 transform 用到新数据，score 或 metric 评估结果。 |
 | `ch05-math-to-ml-training-map.png` | 数学到机器学习训练地图 | `docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md` | 数学到机器学习训练地图：线性代数组织 X 和 w，概率统计描述不确定性和 loss，微积分提供梯度和参数更新方向。 |
-| `ch05-supervised-chapter-flow.png` | 监督学习章节关系图 | `docs/ch05-machine-learning/ch02-supervised/00-roadmap.md` | 监督学习章节关系图：线性回归、逻辑回归、决策树和集成学习由简单到复杂逐步连接。 |
+| `ch05-supervised-chapter-flow.png` | 监督学习章节关系图 | `docs/ch05-machine-learning/ch02-supervised/00-roadmap.md` | 监督学习章节关系图：线性回归、逻辑回归、决策树、集成学习和 SVM 最大间隔路线由简单到复杂逐步连接。 |
 | `ch05-linear-regression-learning-flow.png` | 线性回归学习主线图 | `docs/ch05-machine-learning/ch02-supervised/01-linear-regression.md` | 线性回归学习主线图：连续值预测、模型形式、误差目标、正规方程或梯度下降、残差分析、正则化和调参。 |
 | `ch05-logistic-classification-flow.png` | 逻辑回归分类主线图 | `docs/ch05-machine-learning/ch02-supervised/02-logistic-regression.md` | 逻辑回归分类主线图：分类任务、线性分数、Sigmoid 概率、交叉熵损失、决策边界和多分类扩展。 |
 | `ch05-decision-tree-learning-flow.png` | 决策树学习主线图 | `docs/ch05-machine-learning/ch02-supervised/03-decision-trees.md` | 决策树学习主线图：树是一串 if-else 规则，每次分裂让节点更纯，树越深越容易过拟合，通过剪枝控制复杂度。 |
 | `ch05-ensemble-bagging-boosting-flow.png` | 集成学习 Bagging Boosting 对比图 | `docs/ch05-machine-learning/ch02-supervised/04-ensemble-learning.md` | 集成学习 Bagging Boosting 对比图：Bagging 并行训练多棵树降低方差，Boosting 串行纠错逐步提升模型。 |
+| `ch05-svm-margin-map.png` | SVM 最大间隔直觉图 | `docs/ch05-machine-learning/ch02-supervised/05-svm.md` | SVM 最大间隔直觉图：支持向量决定分类边界，最大间隔让分界线离两类样本都更远，核方法帮助处理非线性边界。 |
 | `ch05-unsupervised-chapter-flow.png` | 无监督学习章节关系图 | `docs/ch05-machine-learning/ch03-unsupervised/00-roadmap.md` | 无监督学习章节关系图：没有标签的数据通过聚类、降维和异常检测发现结构。 |
 | `ch05-clustering-decision-flow.png` | 聚类算法选择流程图 | `docs/ch05-machine-learning/ch03-unsupervised/01-clustering.md` | 聚类算法选择流程图：先看目标和数据形状，再选择 K-Means、层次聚类或 DBSCAN，并用轮廓系数和业务解释评估。 |
 | `ch05-dimensionality-reduction-purpose-map.png` | 降维目的选择图 | `docs/ch05-machine-learning/ch03-unsupervised/02-dimensionality-reduction.md` | 降维目的选择图：建模预处理优先 PCA，可视化探索再考虑 t-SNE 或 UMAP，并关注主成分数量和解释方式。 |
@@ -142,6 +145,7 @@
 | `ch06-study-guide-training-loop.png` | 深度学习学习指南训练闭环 | `docs/ch06-deep-learning/study-guide.md` | 深度学习学习指南训练闭环：数据、模型前向传播、损失、反向传播、优化器更新、评估和调参组成学习主线。 |
 | `ch06-nn-basics-chapter-flow.png` | 神经网络基础章节关系图 | `docs/ch06-deep-learning/ch01-nn-basics/00-roadmap.md` | 神经网络基础章节关系图：神经元、激活函数、前向反向传播、优化器、正则化和初始化逐步连接。 |
 | `ch06-ml-to-dl-bridge-map.png` | 从机器学习到深度学习桥接图 | `docs/ch06-deep-learning/ch01-nn-basics/00-ml-to-dl-bridge.md` | 从机器学习到深度学习桥接图：经典机器学习的任务、baseline 和评估，过渡到深度学习的自动表示学习和训练闭环。 |
+| `ch06-dl-history-breakthrough-map.png` | 深度学习历史突破地图 | `docs/ch06-deep-learning/ch01-nn-basics/06-history-breakthroughs.md` | 深度学习历史突破地图：感知器、XOR、反向传播、新认知机、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Transformer 逐步连接。 |
 | `ch06-weight-init-signal-stability-map.png` | 权重初始化信号稳定图 | `docs/ch06-deep-learning/ch01-nn-basics/05-weight-init.md` | 权重初始化信号稳定图：初始化太小导致信号衰减，初始化太大导致梯度爆炸或激活饱和，合适初始化让前向信号和反向梯度稳定。 |
 | `ch06-pytorch-chapter-flow.png` | PyTorch 章节关系图 | `docs/ch06-deep-learning/ch02-pytorch/00-roadmap.md` | PyTorch 章节关系图：Tensor、Autograd、nn.Module、DataLoader、Training Loop 和实践技巧组成最小工程闭环。 |
 | `ch06-sklearn-to-pytorch-shift-map.png` | sklearn 到 PyTorch 换挡图 | `docs/ch06-deep-learning/ch02-pytorch/00-sklearn-to-pytorch-bridge.md` | sklearn 到 PyTorch 换挡图：sklearn 的 fit 和 predict 被拆成 Tensor、模型、loss、backward、optimizer step 和评估。 |
@@ -202,6 +206,7 @@
 | `ch09-basics-position-bridge.png` | Agent 基础位置桥接图 | `docs/ch09-agent/ch01-agent-basics/00-roadmap.md` | Agent 基础位置桥接图：LLM 应用、对话生成、RAG 接入知识、工具调用、Agent、目标驱动多步执行和可观察可恢复可评估逐步连接。 |
 | `ch09-basics-chapter-flow.png` | Agent 基础章节学习顺序图 | `docs/ch09-agent/ch01-agent-basics/00-roadmap.md` | Agent 基础章节学习顺序图：分清 Agent 边界、理解发展脉络、建立能力层级、拆解系统结构、跑通单 Agent 闭环再进入推理工具记忆 MCP 多 Agent。 |
 | `ch09-basics-execution-loop.png` | 单 Agent 执行闭环图 | `docs/ch09-agent/ch01-agent-basics/00-roadmap.md` | 单 Agent 执行闭环图：用户目标、任务理解、制定下一步计划、调用工具或生成回答、观察结果、更新状态、判断目标完成和输出过程记录。 |
+| `ch09-rl-agent-breakthroughs-map.png` | 强化学习到 Agent 历史突破地图 | `docs/ch09-agent/ch01-agent-basics/05-rl-to-agent-breakthroughs.md` | 强化学习到 Agent 历史突破地图：TD-Gammon、DQN Atari、AlphaGo、RLHF 和 ReAct 共同连接行动、反馈、搜索、规划与工具调用。 |
 | `ch09-reasoning-chapter-flow.png` | Agent 推理与规划章节学习顺序图 | `docs/ch09-agent/ch02-reasoning/00-roadmap.md` | Agent 推理与规划章节学习顺序图：推理能力、链式推理、ReAct、Plan-and-Execute、更复杂规划和推理评估逐步连接。 |
 | `ch09-tools-chapter-flow.png` | Agent 工具使用章节学习顺序图 | `docs/ch09-agent/ch03-tools/00-roadmap.md` | Agent 工具使用章节学习顺序图：Function Calling、工具描述、参数 schema、工具返回、错误恢复、权限安全边界和多工具实战逐步连接。 |
 | `ch09-tools-action-layer-map.png` | Agent 工具行动层地图 | `docs/ch09-agent/ch03-tools/00-roadmap.md` | Agent 工具行动层地图：用户目标、Agent 规划、选择工具、生成参数、执行工具、观察结果和继续规划或输出组成行动层。 |
@@ -239,9 +244,12 @@
 | `ch11-embeddings-chapter-flow.png` | NLP 表示学习章节学习顺序图 | `docs/ch11-nlp/ch02-embeddings/00-roadmap.md` | NLP 表示学习章节学习顺序图：文本表示、词向量、上下文表示和语言模型逐步连接。 |
 | `ch11-classification-chapter-flow.png` | 文本分类章节学习顺序图 | `docs/ch11-nlp/ch03-classification/00-roadmap.md` | 文本分类章节学习顺序图：传统方法、深度学习方法和分类实战逐步连接。 |
 | `ch11-sequence-labeling-chapter-flow.png` | 序列标注章节学习顺序图 | `docs/ch11-nlp/ch04-sequence-labeling/00-roadmap.md` | 序列标注章节学习顺序图：HMM 历史背景、NER、BiLSTM-CRF 和序列标注实践逐步连接。 |
+| `ch11-hmm-crf-sequence-history-map.png` | HMM CRF 序列标注历史地图 | `docs/ch11-nlp/ch04-sequence-labeling/04-hmm-crf-history.md` | HMM CRF 序列标注历史地图：HMM、Viterbi、CRF、BiLSTM-CRF 和 BERT token classification 逐步连接。 |
 | `ch11-seq2seq-chapter-flow.png` | Seq2Seq 与注意力章节学习顺序图 | `docs/ch11-nlp/ch05-seq2seq/00-roadmap.md` | Seq2Seq 与注意力章节学习顺序图：Encoder-Decoder、Attention、机器翻译和生成任务逐步连接。 |
+| `ch11-ctc-deep-speech-asr-map.png` | CTC Deep Speech 语音识别对齐图 | `docs/ch11-nlp/ch05-seq2seq/04-ctc-deep-speech.md` | CTC Deep Speech 语音识别对齐图：长音频帧经过模型输出带 blank 和重复的路径，再折叠成最终文字。 |
 | `ch11-pretrained-chapter-flow.png` | 预训练语言模型章节学习顺序图 | `docs/ch11-nlp/ch06-pretrained/00-roadmap.md` | 预训练语言模型章节学习顺序图：预训练范式、BERT、GPT、T5 和 Transformers 库逐步连接。 |
 | `ch11-projects-delivery-loop.png` | NLP 项目交付闭环图 | `docs/ch11-nlp/ch07-projects/00-roadmap.md` | NLP 项目交付闭环图：任务定义、标签或 schema、数据样例、模型或 Prompt、评估指标、错误文本、事实检查和项目 README 形成闭环。 |
+| `ch11-amr-semantic-graph-map.png` | AMR 语义图理解地图 | `docs/ch11-nlp/ch07-projects/04-semantic-graphs-amr.md` | AMR 语义图理解地图：句子被解析成事件、角色、实体和关系图，连接信息抽取、知识图谱、RAG 和课件生成。 |
 | `ch12-learning-quest-map.png` | 多模态与 AIGC 学习闯关地图 | `docs/ch12-multimodal/index.md` | 多模态与 AIGC 学习闯关地图：文本理解、图文对齐、图像生成、语音视频、多模态问答、内容审核和创意工作流逐步连接。 |
 | `ch12-multimodal-system-backbone.png` | 多模态系统主干图 | `docs/ch12-multimodal/index.md` | 多模态系统主干图：文本、图像、语音和视频进入多模态系统，完成理解、生成、编辑和工作流自动化。 |
 | `ch12-study-guide-modal-workflow-map.png` | 多模态学习指南工作流图 | `docs/ch12-multimodal/study-guide.md` | 多模态学习指南工作流图：不同模态编码为统一表示，模型完成理解或生成，再进入编辑、审核和产品工作流。 |

@@ -280,6 +280,7 @@ const sidebars = {
                 "ch04-ai-math/ch02-probability/distributions",
                 "ch04-ai-math/ch02-probability/statistical-inference",
                 "ch04-ai-math/ch02-probability/information-theory",
+                "ch04-ai-math/ch02-probability/history-foundations",
               ],
             },
             {
@@ -308,9 +309,10 @@ const sidebars = {
               label: "5.1 机器学习基础概念",
               items: [
                 "ch05-machine-learning/ch01-ml-basics/roadmap",
-                "ch05-machine-learning/ch01-ml-basics/math-to-ml-bridge",
+                "ch05-machine-learning/ch01-ml-basics/history-breakthroughs",
                 "ch05-machine-learning/ch01-ml-basics/what-is-ml",
                 "ch05-machine-learning/ch01-ml-basics/sklearn-intro",
+                "ch05-machine-learning/ch01-ml-basics/math-to-ml-bridge",
               ],
             },
             {
@@ -322,6 +324,7 @@ const sidebars = {
                 "ch05-machine-learning/ch02-supervised/logistic-regression",
                 "ch05-machine-learning/ch02-supervised/decision-trees",
                 "ch05-machine-learning/ch02-supervised/ensemble-learning",
+                "ch05-machine-learning/ch02-supervised/svm",
               ],
             },
             {
@@ -383,6 +386,7 @@ const sidebars = {
               label: "6.1 神经网络基础",
               items: [
                 "ch06-deep-learning/ch01-nn-basics/roadmap",
+                "ch06-deep-learning/ch01-nn-basics/history-breakthroughs",
                 "ch06-deep-learning/ch01-nn-basics/ml-to-dl-bridge",
                 "ch06-deep-learning/ch01-nn-basics/neurons-activation",
                 "ch06-deep-learning/ch01-nn-basics/forward-backward",
@@ -613,6 +617,7 @@ const sidebars = {
                 "ch09-agent/ch01-agent-basics/development-history",
                 "ch09-agent/ch01-agent-basics/capability-levels",
                 "ch09-agent/ch01-agent-basics/system-architecture",
+                "ch09-agent/ch01-agent-basics/rl-to-agent-breakthroughs",
                 "ch09-agent/ch02-reasoning/roadmap",
                 "ch09-agent/ch02-reasoning/llm-reasoning",
                 "ch09-agent/ch02-reasoning/chain-reasoning",
@@ -775,6 +780,7 @@ const sidebars = {
                 "ch11-nlp/ch03-classification/deep-learning-methods",
                 "ch11-nlp/ch03-classification/classification-practice",
                 "ch11-nlp/ch04-sequence-labeling/roadmap",
+                "ch11-nlp/ch04-sequence-labeling/hmm-crf-history",
                 "ch11-nlp/ch04-sequence-labeling/ner-overview",
                 "ch11-nlp/ch04-sequence-labeling/bilstm-crf",
                 "ch11-nlp/ch04-sequence-labeling/ner-practice",
@@ -782,6 +788,7 @@ const sidebars = {
                 "ch11-nlp/ch05-seq2seq/encoder-decoder",
                 "ch11-nlp/ch05-seq2seq/attention-in-nlp",
                 "ch11-nlp/ch05-seq2seq/machine-translation",
+                "ch11-nlp/ch05-seq2seq/ctc-deep-speech",
                 "ch11-nlp/ch06-pretrained/roadmap",
                 "ch11-nlp/ch06-pretrained/pretrain-paradigm",
                 "ch11-nlp/ch06-pretrained/bert",
@@ -798,6 +805,7 @@ const sidebars = {
                 "ch11-nlp/ch07-projects/qa-system",
                 "ch11-nlp/ch07-projects/text-summarization",
                 "ch11-nlp/ch07-projects/information-extraction",
+                "ch11-nlp/ch07-projects/semantic-graphs-amr",
               ],
             },
           ],

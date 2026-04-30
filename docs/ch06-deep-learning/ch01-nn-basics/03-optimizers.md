@@ -1,6 +1,6 @@
 ---
-title: "1.5 梯度下降与优化器"
-sidebar_position: 3
+title: "1.6 梯度下降与优化器"
+sidebar_position: 5
 description: "掌握 SGD、Mini-batch、Momentum、Adam、AdamW 等优化器和学习率调度策略"
 keywords: [优化器, SGD, Adam, AdamW, Momentum, 学习率, 学习率调度, CosineAnnealing]
 ---

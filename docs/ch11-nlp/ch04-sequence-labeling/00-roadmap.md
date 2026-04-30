@@ -28,6 +28,8 @@ keywords: [序列标注导读, NER, BiLSTM-CRF]
 
 不是突然出现的新东西，而是在更老的统计序列建模主线上继续升级。
 
+如果想把这条历史线看得更完整，建议先读 [4.2 HMM、CRF 与序列标注历史主线](./04-hmm-crf-history.md)，再进入 NER 和 BiLSTM-CRF。
+
 ## 这一章的主线
 
 ![序列标注章节学习顺序图](/img/course/ch11-sequence-labeling-chapter-flow.png)
