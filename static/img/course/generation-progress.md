@@ -4,7 +4,7 @@ Last updated: 2026-04-30
 
 Status: completed.
 
-Generated with image2: 414 / 414
+Generated with image2: 437 / 437
 
 Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
 
@@ -19,6 +19,8 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 第 6～9 章基础说明：目录 `docs/ch06-deep-learning`、`docs/ch07-llm-principles`、`docs/ch08-rag`、`docs/ch09-agent` 下此前新增的 25 张机制图、流程图和系统图已经用 image2 生成，并插入到对应核心教程页面。
 
 第 6 章补充说明：目录 `docs/ch06-deep-learning` 本轮新增 18 张入口学习地图已经用 image2 覆盖临时 Preview PNG，并插入到首页、学习指南、神经网络基础、PyTorch、CNN、RNN、Transformer、生成模型、训练技巧和项目实战页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
+
+第 6 章深度图解说明：本轮新增 23 张机制型和诊断型图解，覆盖神经元线性打分、XOR 单层局限、反向传播责任分摊、NumPy 到 PyTorch 训练循环、优化器更新决策、正则化动作选择、Tensor shape 语义、Autograd 梯度生命周期、训练循环顺序、卷积 stride/padding、CNN 感受野、通道/空间权衡、迁移学习决策、RNN 滚动记忆、长依赖梯度衰减、LSTM 门控、Attention QKV 类比、Causal Mask、Transformer Block 职责、表示逐层精炼、GAN 对抗平衡、VAE 潜空间采样和训练诊断仪表盘。新增图用于把第 6 章抽象机制转成可扫读、可类比、可排障的学习支架，让新人更容易持续学下去。
 
 第 7 章补充说明：目录 `docs/ch07-llm-principles` 本轮新增 18 张入口学习地图已经用 image2 生成，并插入到首页、学习指南、NLP 速成、LLM 概览、Transformer 深入、预训练、Prompt、微调、对齐和综合项目页面。新增图遵循“视觉优先、中英文自然混用”规则，公式、API、变量名和标准术语保留英文或数学形式。
 
@@ -87,6 +89,29 @@ Detection note: all generated image2 PNG files are currently larger than the loc
 - `ch06-training-tips-chapter-flow.png`
 - `ch06-projects-portfolio-loop.png`
 - `ch06-deep-learning-project-cycle.png`
+- `ch06-neuron-linear-activation-gate.png`
+- `ch06-xor-single-layer-limit-map.png`
+- `ch06-backprop-error-responsibility-map.png`
+- `ch06-numpy-to-pytorch-training-loop-map.png`
+- `ch06-optimizer-gradient-to-update-map.png`
+- `ch06-regularization-overfit-action-map.png`
+- `ch06-tensor-shape-meaning-map.png`
+- `ch06-autograd-gradient-lifecycle-map.png`
+- `ch06-training-loop-order-guardrail.png`
+- `ch06-conv-stride-padding-size-map.png`
+- `ch06-cnn-receptive-field-growth-map.png`
+- `ch06-cnn-channel-spatial-tradeoff-map.png`
+- `ch06-transfer-learning-freeze-finetune-map.png`
+- `ch06-rnn-hidden-state-rolling-memory-map.png`
+- `ch06-rnn-long-dependency-vanishing-map.png`
+- `ch06-lstm-gates-information-control-map.png`
+- `ch06-attention-qkv-library-analogy-map.png`
+- `ch06-causal-mask-no-peeking-map.png`
+- `ch06-transformer-block-role-map.png`
+- `ch06-transformer-representation-refinement-map.png`
+- `ch06-gan-adversarial-balance-map.png`
+- `ch06-vae-latent-continuity-sampling-map.png`
+- `ch06-training-diagnosis-dashboard-map.png`
 - `ch05-machine-learning.png`
 - `ch05-learning-quest-map.png`
 - `ch05-modeling-loop-backbone.png`

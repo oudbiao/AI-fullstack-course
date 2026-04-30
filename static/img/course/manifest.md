@@ -175,6 +175,29 @@
 | `ch06-training-tips-chapter-flow.png` | 深度学习训练技巧章节关系图 | `docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md` | 深度学习训练技巧章节关系图：模型能跑起来后，通过超参数调优、训练监控诊断和模型压缩走向稳定训练与落地。 |
 | `ch06-projects-portfolio-loop.png` | 深度学习项目作品集路线图 | `docs/ch06-deep-learning/ch08-projects/00-roadmap.md` | 深度学习项目作品集路线图：图像分类、文本情感分析和生成模型项目连接到训练曲线、错误分析和作品集输出。 |
 | `ch06-deep-learning-project-cycle.png` | 深度学习项目训练复盘闭环图 | `docs/ch06-deep-learning/ch08-projects/00-roadmap.md` | 深度学习项目训练复盘闭环图：任务定义、数据集准备、DataLoader、模型结构、训练循环、验证评估、调整数据模型超参数、保存模型和作品集输出。 |
+| `ch06-neuron-linear-activation-gate.png` | 神经元线性打分与激活门图 | `docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md` | 神经元线性打分与激活门图：输入特征先经过加权求和 z=x·w+b，再经过 ReLU、Sigmoid 等激活函数形成输出。 |
+| `ch06-xor-single-layer-limit-map.png` | XOR 单层感知机局限图 | `docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md` | XOR 单层感知机局限图：AND 可以被一条直线分开，XOR 四个点无法被单条线性边界分开，多层网络可以组合出非线性边界。 |
+| `ch06-backprop-error-responsibility-map.png` | 反向传播误差责任分摊图 | `docs/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md` | 反向传播误差责任分摊图：loss 从输出层向隐藏层回传，把误差责任分配给 W2、b2、W1、b1 等参数梯度。 |
+| `ch06-numpy-to-pytorch-training-loop-map.png` | NumPy 到 PyTorch 训练循环对照图 | `docs/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md` | NumPy 到 PyTorch 训练循环对照图：手写 forward、loss、gradient、update 对应 PyTorch 的 model(x)、loss.backward、optimizer.step 和 zero_grad。 |
+| `ch06-optimizer-gradient-to-update-map.png` | 梯度到参数更新的优化器决策图 | `docs/ch06-deep-learning/ch01-nn-basics/03-optimizers.md` | 梯度到参数更新的优化器决策图：梯度给出坡度方向，SGD、Momentum、Adam 以不同方式把梯度转换成参数更新。 |
+| `ch06-regularization-overfit-action-map.png` | 过拟合问题到正则化动作选择图 | `docs/ch06-deep-learning/ch01-nn-basics/04-regularization.md` | 过拟合问题到正则化动作选择图：先看训练验证曲线和数据划分，再选择数据增强、weight decay、early stopping、Dropout 等手段。 |
+| `ch06-tensor-shape-meaning-map.png` | PyTorch 张量 shape 语义速查图 | `docs/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md` | PyTorch 张量 shape 语义速查图：表格数据、图像数据和文本序列分别对应 batch/features、batch/channels/height/width、batch/seq_len/embedding_dim。 |
+| `ch06-autograd-gradient-lifecycle-map.png` | PyTorch 自动求导梯度生命周期图 | `docs/ch06-deep-learning/ch02-pytorch/02-autograd.md` | PyTorch 自动求导梯度生命周期图：forward 生成 loss，backward 把梯度写入 grad，optimizer.step 更新参数，zero_grad 清空旧梯度。 |
+| `ch06-training-loop-order-guardrail.png` | PyTorch 训练循环顺序护栏图 | `docs/ch06-deep-learning/ch02-pytorch/05-training-loop.md` | PyTorch 训练循环顺序护栏图：训练阶段按 model.train、batch、forward、loss、zero_grad、backward、step 执行，验证阶段用 eval 和 no_grad。 |
+| `ch06-conv-stride-padding-size-map.png` | 卷积 stride padding 与输出尺寸变化图 | `docs/ch06-deep-learning/ch03-cnn/01-convolution-basics.md` | 卷积 stride padding 与输出尺寸变化图：stride 控制滑动步长，padding 给边缘补框，二者共同影响输出特征图尺寸。 |
+| `ch06-cnn-receptive-field-growth-map.png` | CNN 感受野逐层变大的特征组合图 | `docs/ch06-deep-learning/ch03-cnn/01-convolution-basics.md` | CNN 感受野逐层变大的特征组合图：浅层看边缘纹理，中层组合局部形状，深层看到物体部件和整体语义。 |
+| `ch06-cnn-channel-spatial-tradeoff-map.png` | CNN 通道数与空间尺寸权衡图 | `docs/ch06-deep-learning/ch03-cnn/02-cnn-structure.md` | CNN 通道数与空间尺寸权衡图：网络越往后，高宽通常变小，通道数变多，空间细节减少但语义浓度上升。 |
+| `ch06-transfer-learning-freeze-finetune-map.png` | 迁移学习冻结 backbone 与逐步微调决策图 | `docs/ch06-deep-learning/ch03-cnn/04-transfer-learning.md` | 迁移学习冻结 backbone 与逐步微调决策图：根据数据量和任务相似度决定只训练 head、冻结 backbone 或逐步解冻 fine-tune。 |
+| `ch06-rnn-hidden-state-rolling-memory-map.png` | RNN 隐藏状态滚动记忆图 | `docs/ch06-deep-learning/ch04-rnn/01-rnn-basics.md` | RNN 隐藏状态滚动记忆图：每个时间步读取当前输入 x_t 和上一隐藏状态 h_{t-1}，生成新的隐藏状态 h_t。 |
+| `ch06-rnn-long-dependency-vanishing-map.png` | RNN 长依赖与梯度消失直觉图 | `docs/ch06-deep-learning/ch04-rnn/01-rnn-basics.md` | RNN 长依赖与梯度消失直觉图：早期信息沿 hidden state 传递越来越淡，反向传播梯度回到早期时间步也越来越弱。 |
+| `ch06-lstm-gates-information-control-map.png` | LSTM 门控信息流控制图 | `docs/ch06-deep-learning/ch04-rnn/02-lstm-gru.md` | LSTM 门控信息流控制图：Forget Gate 控制旧记忆保留，Input Gate 控制新信息写入，Output Gate 控制当前输出。 |
+| `ch06-attention-qkv-library-analogy-map.png` | 注意力 QKV 图书馆检索类比图 | `docs/ch06-deep-learning/ch05-transformer/01-attention-mechanism.md` | 注意力 QKV 图书馆检索类比图：Q 像当前问题，K 像资料索引标签，V 像真正要取出的内容，注意力按匹配分数混合 V。 |
+| `ch06-causal-mask-no-peeking-map.png` | Causal Mask 防止偷看未来图 | `docs/ch06-deep-learning/ch05-transformer/01-attention-mechanism.md` | Causal Mask 防止偷看未来图：生成任务中每个位置只能看自己和过去 token，不能看到未来答案。 |
+| `ch06-transformer-block-role-map.png` | Transformer Block 组件职责图 | `docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md` | Transformer Block 组件职责图：Attention 混合上下文，Residual 保留原信息，LayerNorm 稳定数值，FFN 对每个位置再加工。 |
+| `ch06-transformer-representation-refinement-map.png` | Transformer 层间表示逐步精炼图 | `docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md` | Transformer 层间表示逐步精炼图：每层 shape 可能不变，但 token 表示不断融入更多上下文，语义信息越来越丰富。 |
+| `ch06-gan-adversarial-balance-map.png` | GAN 对抗训练平衡与模式崩塌图 | `docs/ch06-deep-learning/ch06-generative/01-gan.md` | GAN 对抗训练平衡与模式崩塌图：Generator 生成假样本，Discriminator 区分真假，二者需要保持平衡，否则可能反馈不足或 mode collapse。 |
+| `ch06-vae-latent-continuity-sampling-map.png` | VAE 连续潜空间与采样区域图 | `docs/ch06-deep-learning/ch06-generative/02-vae.md` | VAE 连续潜空间与采样区域图：编码器输出 mu 和 sigma，把样本映射到可采样区域，潜空间连续时插值和生成更自然。 |
+| `ch06-training-diagnosis-dashboard-map.png` | 训练诊断仪表盘排查路线图 | `docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md` | 训练诊断仪表盘排查路线图：先看 train/val 曲线，再看学习率和 batch，继续检查预测分布、梯度、数据和标签。 |
 | `ch10-computer-vision.png` | 计算机视觉主视觉 | `docs/ch10-computer-vision/index.md` | 计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。 |
 | `ch11-nlp.png` | 自然语言处理主视觉 | `docs/ch11-nlp/index.md` | 自然语言处理主视觉：文本经过分词、词向量、分类、序列标注和预训练模型处理。 |
 | `ch07-llm-principles.png` | 大模型原理主视觉 | `docs/ch07-llm-principles/index.md` | 大模型原理主视觉：Token、Embedding、Transformer、预训练、Prompt、微调和对齐组成能力链路。 |

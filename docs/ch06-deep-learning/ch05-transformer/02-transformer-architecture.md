@@ -93,6 +93,12 @@ flowchart LR
 
 - 一堆神秘层叠在一起
 
+![Transformer Block 组件职责图](/img/course/ch06-transformer-block-role-map.png)
+
+:::tip 读图提示
+这张图建议按职责读：Attention 负责混合上下文，Residual 负责保留原信息，LayerNorm 负责稳定数值，FFN 负责对每个位置再加工。Transformer 不是只有注意力，而是一套让注意力可堆深、可训练的工程结构。
+:::
+
 ---
 
 ## 二、一个 Encoder Block 长什么样？
@@ -343,6 +349,12 @@ print("output shape:", y.shape)
 
 - 每个位置怎样融入全局上下文
 - 表示中携带的语义信息有多丰富
+
+![Transformer 层间表示逐步精炼图](/img/course/ch06-transformer-representation-refinement-map.png)
+
+:::tip 读图提示
+读这张图时不要只看 shape：`[batch, seq_len, d_model]` 可能每层都一样，但每个 token 表示已经混入更多上下文。Transformer 的“变强”常常发生在表示内容里，而不是外形尺寸上。
+:::
 
 ---
 

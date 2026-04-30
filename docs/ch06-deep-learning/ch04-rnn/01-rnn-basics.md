@@ -173,6 +173,12 @@ flowchart LR
 
 这就是为什么 RNN 既能处理变长序列，又不会每多一个位置就多一整套新参数。
 
+![RNN 隐藏状态滚动记忆图](/img/course/ch06-rnn-hidden-state-rolling-memory-map.png)
+
+:::tip 读图提示
+这张图可以从左往右读：每个时间步都拿当前输入 `x_t` 和旧记忆 `h_{t-1}` 生成新记忆 `h_t`。RNN 的核心不是“循环很复杂”，而是模型每读一步都会更新一份压缩摘要。
+:::
+
 ---
 
 ## 四、一个最小手工示例：一步步算隐藏状态
@@ -416,6 +422,12 @@ RNN 是一步一步往后算的：
 
 - LSTM / GRU 先补了一波
 - Transformer 后来从根上换了思路
+
+![RNN 长依赖与梯度消失直觉图](/img/course/ch06-rnn-long-dependency-vanishing-map.png)
+
+:::tip 读图提示
+读这张图时注意两条衰减线：一条是早期信息在隐藏状态里越传越淡，另一条是梯度反向传回早期时间步时越来越弱。LSTM/GRU 和 Transformer 都是在回应这两个痛点。
+:::
 
 但 RNN 依然值得学，因为它能帮你真正理解“序列建模”的底层直觉。
 

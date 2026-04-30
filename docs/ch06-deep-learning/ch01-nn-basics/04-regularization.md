@@ -207,6 +207,12 @@ plt.show()
 - 先判断问题大概发生在哪一层
 - 再决定是从数据、结构、参数还是训练过程去处理
 
+![过拟合问题到正则化动作选择图](/img/course/ch06-regularization-overfit-action-map.png)
+
+:::tip 读图提示
+这张图要帮你建立处理顺序：先确认数据划分和验证曲线，再考虑数据增强、weight decay、early stopping、Dropout。Dropout 很有用，但它不是所有过拟合问题的第一反应。
+:::
+
 ---
 
 ## 三、Batch Normalization（BN）

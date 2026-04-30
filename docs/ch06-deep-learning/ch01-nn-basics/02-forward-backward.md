@@ -253,6 +253,12 @@ flowchart RL
 
 这就是为什么反向传播看起来像“从后往前传消息”。
 
+![反向传播误差责任分摊图](/img/course/ch06-backprop-error-responsibility-map.png)
+
+:::tip 读图提示
+这张图建议从右往左读：先看 `loss` 发现错了多少，再沿着计算图把责任分摊给输出层、隐藏层和更早的参数。反向传播不是魔法公式，而是在回答“每个参数对这次错误贡献了多少，下一步该怎么改”。
+:::
+
 ### 3.3 完整推导（2 层网络）
 
 ```python
@@ -467,6 +473,12 @@ plt.show()
 - `optimizer.step()`
 
 时就不会觉得那是凭空发生的黑箱。
+
+![NumPy 到 PyTorch 训练循环对照图](/img/course/ch06-numpy-to-pytorch-training-loop-map.png)
+
+:::tip 读图提示
+读这张图时，把 NumPy 的四件事和 PyTorch API 一一对上：前向计算对应 `model(x)`，手算梯度对应 `loss.backward()`，手动更新参数对应 `optimizer.step()`，清掉旧梯度对应 `optimizer.zero_grad()`。
+:::
 
 ---
 

@@ -211,6 +211,12 @@ print("h_t         =", round(float(h_t), 4))
 
 > **它学会了控制信息流。**
 
+![LSTM 门控信息流控制图](/img/course/ch06-lstm-gates-information-control-map.png)
+
+:::tip 读图提示
+这张图建议你只先看三件事：Forget Gate 决定旧记忆留多少，Input Gate 决定新信息写多少，Output Gate 决定对外输出多少。LSTM 的重点不是门名，而是它终于开始“管理记忆”。
+:::
+
 ---
 
 ## 四、LSTM 的两个状态：`c_t` 和 `h_t`

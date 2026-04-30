@@ -129,6 +129,12 @@ for batch_x, batch_y in train_loader:
 
 所以训练循环不是“几个 API 凑一起”，而是一条有严格顺序的因果链。
 
+![PyTorch 训练循环顺序护栏图](/img/course/ch06-training-loop-order-guardrail.png)
+
+:::tip 读图提示
+这张图建议你每次写训练循环都对照一遍：`model.train()`、取 batch、forward、loss、`zero_grad()`、`backward()`、`step()`。验证阶段则切到 `model.eval()` 和 `torch.no_grad()`，不要让验证也记录梯度。
+:::
+
 ---
 
 ## 三、一个完整可运行例子

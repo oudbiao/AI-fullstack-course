@@ -142,6 +142,12 @@ nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3)
 
 > 空间分辨率下降，但语义浓度上升。
 
+![CNN 通道数与空间尺寸权衡图](/img/course/ch06-cnn-channel-spatial-tradeoff-map.png)
+
+:::tip 读图提示
+这张图要帮你看懂 CNN 常见形状变化：越往后，高宽通常变小，因为模型不再需要保留每个像素细节；通道数通常变多，因为模型要记录更多、更抽象的特征种类。
+:::
+
 ### 3.2 池化层在做什么？
 
 池化最常见的是 `MaxPool`，它会在一个小窗口里取最大值。

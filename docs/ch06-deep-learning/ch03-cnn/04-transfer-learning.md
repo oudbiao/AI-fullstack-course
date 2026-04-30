@@ -108,6 +108,12 @@ keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transf
 - 数据少：先倾向于固定特征提取器
 - 数据多 / 任务差异大：再考虑逐步微调
 
+![迁移学习冻结 backbone 与逐步微调决策图](/img/course/ch06-transfer-learning-freeze-finetune-map.png)
+
+:::tip 读图提示
+读这张图时先问两件事：你的数据多不多，新任务和预训练任务像不像。数据少且任务相近，先冻结 backbone 只训 head；数据更多或任务差异更大，再逐步解冻后面层，并用更小学习率微调。
+:::
+
 ---
 
 ## 三、一个“可直接运行”的迁移学习玩具示例

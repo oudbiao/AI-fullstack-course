@@ -2426,6 +2426,328 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch06-neuron-linear-activation-gate.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "神经元线性打分与激活门图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
+        "alt": "神经元线性打分与激活门图：输入特征先经过加权求和 z=x·w+b，再经过 ReLU、Sigmoid 等激活函数形成输出。",
+        "prompt": """
+一张面向深度学习新手的机制图，主题是“人工神经元 = 线性打分 + 非线性门”。
+画面左侧是输入特征 x1、x2、x3，经过不同权重 w 和偏置 b 汇入公式 z = x·w + b；中间是一个发光的 activation gate，展示 ReLU 截断负值、Sigmoid 压到 0~1、Tanh 压到 -1~1；右侧输出 a = f(z)，再进入下一层。
+风格像清晰的教学信息图，有线性打分区、激活门区、输出区三段结构，帮助新人一眼看出两步计算。
+文字不是主体；中文短标签为主，公式、变量和标准术语保留英文，例如 z = x·w + b、ReLU、Sigmoid、Tanh、activation。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-xor-single-layer-limit-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "XOR 单层感知机局限图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md",
+        "alt": "XOR 单层感知机局限图：AND 可以被一条直线分开，XOR 四个点无法被单条线性边界分开，多层网络可以组合出非线性边界。",
+        "prompt": """
+一张面向新手解释 XOR 问题的对比图，主题是“单层感知机只能画一条直线，XOR 需要非线性边界”。
+画面左侧展示 AND 四个点和一条清楚的 linear boundary；中间展示 XOR 四个点交叉分布，尝试画一条直线但失败；右侧展示多层网络先做特征变换，再组合出弯曲或折线形决策边界。
+整体像数学启蒙海报，用坐标点、分割线和小型网络结构说明表达能力边界。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 XOR、Perceptron、linear boundary、MLP。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-backprop-error-responsibility-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "反向传播误差责任分摊图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md",
+        "alt": "反向传播误差责任分摊图：loss 从输出层向隐藏层回传，把误差责任分配给 W2、b2、W1、b1 等参数梯度。",
+        "prompt": """
+一张解释反向传播的教学机制图，主题是“从 loss 往回分摊误差责任”。
+画面上半部是前向传播：input -> hidden layer -> output -> loss；下半部用反方向箭头从 loss 回传到 output、hidden、parameters，标出 dL/dW2、dL/db2、dL/dW1、dL/db1。
+视觉上像一条生产线出现误差后，责任沿计算图逐层追溯，强调 chain rule 和 gradient。
+文字不是主体；中文短标签为主，公式和标准术语保留英文，例如 loss、gradient、chain rule、backward、dL/dW。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-numpy-to-pytorch-training-loop-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "NumPy 到 PyTorch 训练循环对照图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md",
+        "alt": "NumPy 到 PyTorch 训练循环对照图：手写 forward、loss、gradient、update 对应 PyTorch 的 model(x)、loss.backward、optimizer.step 和 zero_grad。",
+        "prompt": """
+一张面向新手的 NumPy 到 PyTorch 对照图，主题是“手写训练循环怎样变成 PyTorch API”。
+画面左侧是 NumPy 手工流程：forward、compute loss、manual gradient、manual update；右侧是 PyTorch 流程：model(x)、loss_fn、loss.backward()、optimizer.step()、optimizer.zero_grad()；中间用桥梁连接每一对步骤。
+风格像迁移路线图，帮助学习者知道 PyTorch 不是黑箱，而是在自动化手工训练步骤。
+文字不是主体；中文短标签为主，API 和标准术语保留英文，例如 NumPy、PyTorch、model(x)、loss.backward()、optimizer.step()、zero_grad()。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-optimizer-gradient-to-update-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "梯度到参数更新的优化器决策图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/03-optimizers.md",
+        "alt": "梯度到参数更新的优化器决策图：梯度给出坡度方向，SGD、Momentum、Adam 以不同方式把梯度转换成参数更新。",
+        "prompt": """
+一张解释优化器的教学图，主题是“gradient 只是坡度，optimizer 决定怎么走”。
+画面左侧是 loss landscape 山谷和当前参数点，箭头表示 gradient；中间分成三条路线：SGD 直接走当前坡度、Momentum 带惯性减少左右摇摆、Adam 根据历史一阶和二阶信息自动调步长；右侧是参数更新后的更低 loss。
+风格像下山路线比较图，直观表现不同优化器的行为差异。
+文字不是主体；中文短标签为主，标准术语和公式保留英文，例如 gradient、SGD、Momentum、Adam、learning rate、update。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-regularization-overfit-action-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "过拟合问题到正则化动作选择图",
+        "suggested_page": "docs/ch06-deep-learning/ch01-nn-basics/04-regularization.md",
+        "alt": "过拟合问题到正则化动作选择图：先看训练验证曲线和数据划分，再选择数据增强、weight decay、early stopping、Dropout 等手段。",
+        "prompt": """
+一张深度学习过拟合排查与正则化选择图，主题是“不要一过拟合就只想到 Dropout”。
+画面左侧是 train loss 下降但 val loss 上升的曲线；中间是排查节点：数据划分、样本量、模型容量、训练轮数；右侧是动作工具箱：data augmentation、weight decay、early stopping、Dropout、BatchNorm/LayerNorm。
+风格像新手诊断流程卡片，清晰、轻松，突出先诊断再用工具。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 overfitting、val loss、weight decay、Dropout、early stopping、data augmentation。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-tensor-shape-meaning-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PyTorch 张量 shape 语义速查图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/01-pytorch-basics.md",
+        "alt": "PyTorch 张量 shape 语义速查图：表格数据、图像数据和文本序列分别对应 batch/features、batch/channels/height/width、batch/seq_len/embedding_dim。",
+        "prompt": """
+一张 PyTorch shape 语义速查图，主题是“shape 不只是数字，每一维都有含义”。
+画面分三栏：表格数据 [batch, features]，图像数据 [batch, channels, height, width]，文本序列 [batch, seq_len, embedding_dim]；每栏用小样本盒子和维度箭头标出每一维代表什么。
+风格像清爽的工程备忘卡，适合新人写模型前对照。
+文字不是主体；中文短标签为主，shape、API 和标准术语保留英文，例如 Tensor、shape、batch、features、channels、height、width、seq_len、embedding_dim。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-autograd-gradient-lifecycle-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PyTorch 自动求导梯度生命周期图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/02-autograd.md",
+        "alt": "PyTorch 自动求导梯度生命周期图：forward 生成 loss，backward 把梯度写入 grad，optimizer.step 更新参数，zero_grad 清空旧梯度。",
+        "prompt": """
+一张解释 PyTorch autograd 的循环机制图，主题是“梯度从产生、使用到清空的生命周期”。
+画面按一轮训练循环展示：forward 计算 loss，autograd 记录 graph，loss.backward() 把 gradient 写进 .grad，optimizer.step() 更新 parameter，optimizer.zero_grad() 清空旧梯度；旁边标出“PyTorch 默认累计梯度”这个警示。
+风格像透明训练机器剖面图，强调 .grad 存储和清零动作。
+文字不是主体；中文短标签为主，API 和标准术语保留英文，例如 autograd、loss.backward()、.grad、optimizer.step()、zero_grad()。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-training-loop-order-guardrail.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "PyTorch 训练循环顺序护栏图",
+        "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/05-training-loop.md",
+        "alt": "PyTorch 训练循环顺序护栏图：训练阶段按 model.train、batch、forward、loss、zero_grad、backward、step 执行，验证阶段用 eval 和 no_grad。",
+        "prompt": """
+一张 PyTorch 训练循环顺序护栏图，主题是“训练循环不能随便打乱顺序”。
+画面主线是一条有护栏的跑道：model.train()、取 batch、forward、loss、optimizer.zero_grad()、loss.backward()、optimizer.step()；旁边分出验证支线：model.eval()、torch.no_grad()、validation metrics。
+风格像工程流程图和检查清单结合，帮助新人一眼记住训练态与验证态。
+文字不是主体；中文短标签为主，API 和标准术语保留英文，例如 model.train()、forward、loss、zero_grad()、backward()、step()、model.eval()、torch.no_grad()。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-conv-stride-padding-size-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "卷积 stride padding 与输出尺寸变化图",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/01-convolution-basics.md",
+        "alt": "卷积 stride padding 与输出尺寸变化图：stride 控制滑动步长，padding 给边缘补框，二者共同影响输出特征图尺寸。",
+        "prompt": """
+一张解释卷积 stride、padding 和 output size 的教学图，主题是“滑多远、补几圈，决定输出有多大”。
+画面左侧是输入图像网格和 kernel 窗口；中间分别展示 stride=1 和 stride=2 的滑动步子差异，以及 padding=0 和 padding=1 的边缘补框；右侧用 feature map 尺寸变化展示 output size。
+风格像可视化卷积动画的关键帧，清晰标出滑动、补边和输出尺寸。
+文字不是主体；中文短标签为主，公式和标准术语保留英文，例如 kernel、stride、padding、feature map、output size。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-cnn-receptive-field-growth-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "CNN 感受野逐层变大的特征组合图",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/01-convolution-basics.md",
+        "alt": "CNN 感受野逐层变大的特征组合图：浅层看边缘纹理，中层组合局部形状，深层看到物体部件和整体语义。",
+        "prompt": """
+一张解释 CNN 感受野和层级特征的教学图，主题是“小局部特征逐层组合成大语义”。
+画面从左到右展示原图局部 patch，第一层 receptive field 看到边缘和纹理，第二层组合出角点和局部形状，第三层看到更大物体部件，最后形成整体语义判断。
+风格像图像理解逐层放大镜，突出 receptive field 逐层变大。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 receptive field、edge、texture、feature map、semantic feature。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-cnn-channel-spatial-tradeoff-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "CNN 通道数与空间尺寸权衡图",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/02-cnn-structure.md",
+        "alt": "CNN 通道数与空间尺寸权衡图：网络越往后，高宽通常变小，通道数变多，空间细节减少但语义浓度上升。",
+        "prompt": """
+一张解释 CNN shape 变化趋势的教学图，主题是“高宽变小，通道变多，语义更浓”。
+画面展示一组 feature maps 从浅层到深层：H×W 逐渐缩小，channels 从少到多，旁边用图标表现浅层保留像素细节、深层记录更多抽象特征种类。
+风格像三维方块堆叠的信息图，清晰标出 height、width、channels 的变化。
+文字不是主体；中文短标签为主，shape 和标准术语保留英文，例如 H、W、channels、feature map、spatial resolution、semantic feature。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-transfer-learning-freeze-finetune-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "迁移学习冻结 backbone 与逐步微调决策图",
+        "suggested_page": "docs/ch06-deep-learning/ch03-cnn/04-transfer-learning.md",
+        "alt": "迁移学习冻结 backbone 与逐步微调决策图：根据数据量和任务相似度决定只训练 head、冻结 backbone 或逐步解冻 fine-tune。",
+        "prompt": """
+一张迁移学习决策图，主题是“数据多少、任务像不像，决定 freeze 还是 fine-tune”。
+画面上方是两个判断旋钮：数据量少/多、任务相似/差异大；下方对应三种策略：冻结 backbone 只训练 head、解冻最后几层、小学习率全模型 fine-tune。配一个预训练 CNN backbone 和新任务 classifier head。
+风格像选择路线图，帮助新人理解迁移学习不是固定套路。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 transfer learning、backbone、head、freeze、fine-tune、learning rate。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-rnn-hidden-state-rolling-memory-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RNN 隐藏状态滚动记忆图",
+        "suggested_page": "docs/ch06-deep-learning/ch04-rnn/01-rnn-basics.md",
+        "alt": "RNN 隐藏状态滚动记忆图：每个时间步读取当前输入 x_t 和上一隐藏状态 h_{t-1}，生成新的隐藏状态 h_t。",
+        "prompt": """
+一张解释 RNN hidden state 的教学图，主题是“每读一步，就更新一份滚动记忆”。
+画面从左到右是 time step t1、t2、t3、t4，每一步都有输入 x_t 和上一份记忆 h_{t-1} 汇入同一个 RNN cell，输出新记忆 h_t；用滚动笔记本或记忆胶囊表现 hidden state。
+风格像序列阅读流程图，强调参数共享和逐步更新。
+文字不是主体；中文短标签为主，公式和标准术语保留英文，例如 x_t、h_{t-1}、h_t、RNN cell、hidden state、shared weights。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-rnn-long-dependency-vanishing-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "RNN 长依赖与梯度消失直觉图",
+        "suggested_page": "docs/ch06-deep-learning/ch04-rnn/01-rnn-basics.md",
+        "alt": "RNN 长依赖与梯度消失直觉图：早期信息沿 hidden state 传递越来越淡，反向传播梯度回到早期时间步也越来越弱。",
+        "prompt": """
+一张解释 RNN 长依赖困难和梯度消失的直觉图，主题是“信息和梯度在长序列里越传越淡”。
+画面展示一长串 time steps，早期 token 的信息用亮色信号向后传递但逐渐变淡；反向梯度从后往前传回时也逐渐变弱。右侧标出 LSTM/GRU 用门控补救，Transformer 用 attention 直接建立远距离连接。
+风格像时间隧道和信号衰减图结合，适合初学者理解痛点。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 long dependency、vanishing gradient、LSTM、GRU、Attention、Transformer。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-lstm-gates-information-control-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "LSTM 门控信息流控制图",
+        "suggested_page": "docs/ch06-deep-learning/ch04-rnn/02-lstm-gru.md",
+        "alt": "LSTM 门控信息流控制图：Forget Gate 控制旧记忆保留，Input Gate 控制新信息写入，Output Gate 控制当前输出。",
+        "prompt": """
+一张解释 LSTM gates 的教学图，主题是“LSTM 不是更复杂，而是学会管理记忆”。
+画面中心是一条 cell state 记忆高速路 c_t，三道可视化闸门依次控制信息：Forget Gate 决定旧记忆留多少，Input Gate 决定新信息写多少，Output Gate 决定对外暴露多少；旁边展示 hidden state h_t。
+风格像水闸或信息管道控制台，清晰、直观。
+文字不是主体；中文短标签为主，标准术语和变量保留英文，例如 Forget Gate、Input Gate、Output Gate、cell state c_t、hidden state h_t。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-attention-qkv-library-analogy-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "注意力 QKV 图书馆检索类比图",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/01-attention-mechanism.md",
+        "alt": "注意力 QKV 图书馆检索类比图：Q 像当前问题，K 像资料索引标签，V 像真正要取出的内容，注意力按匹配分数混合 V。",
+        "prompt": """
+一张用图书馆检索类比解释 attention Q/K/V 的教学图，主题是“Q 是问题，K 是索引，V 是内容”。
+画面中一个 token 拿着 Query 去查资料架，每本资料有 Key 标签和 Value 内容；Query 与所有 Key 打分得到 attention scores，再按权重混合 Value 形成 context vector。
+风格像现代图书馆和矩阵流结合，既形象又保留模型机制。
+文字不是主体；中文短标签为主，公式和标准术语保留英文，例如 Query Q、Key K、Value V、attention score、softmax、context。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-causal-mask-no-peeking-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Causal Mask 防止偷看未来图",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/01-attention-mechanism.md",
+        "alt": "Causal Mask 防止偷看未来图：生成任务中每个位置只能看自己和过去 token，不能看到未来答案。",
+        "prompt": """
+一张解释 causal mask 的教学图，主题是“生成模型训练时不能偷看未来”。
+画面左侧是一串 token 逐个生成，当前位置只能看左侧历史；右侧是 attention matrix，上三角区域被红色 mask 遮住，下三角区域允许关注。底部用考试类比：当前题不能提前看后面答案。
+风格像矩阵热力图和序列生成流程结合，清楚表现 no peeking。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 causal mask、attention matrix、token、no peeking、decoder。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-block-role-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Transformer Block 组件职责图",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md",
+        "alt": "Transformer Block 组件职责图：Attention 混合上下文，Residual 保留原信息，LayerNorm 稳定数值，FFN 对每个位置再加工。",
+        "prompt": """
+一张解释 Transformer Block 组件职责的教学图，主题是“Transformer 不只有 attention，而是一套可堆深的结构”。
+画面中心是一个 Encoder Block，被拆成四个职责模块：Self-Attention 负责上下文交流，Residual 负责保留原信息和梯度通道，LayerNorm 负责稳定数值，FFN 负责逐位置再加工；箭头展示数据流。
+风格像透明机器结构图，每个模块像不同功能的齿轮或工位。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 Self-Attention、Residual、LayerNorm、FFN、Encoder Block。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-transformer-representation-refinement-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "Transformer 层间表示逐步精炼图",
+        "suggested_page": "docs/ch06-deep-learning/ch05-transformer/02-transformer-architecture.md",
+        "alt": "Transformer 层间表示逐步精炼图：每层 shape 可能不变，但 token 表示不断融入更多上下文，语义信息越来越丰富。",
+        "prompt": """
+一张解释 Transformer 多层表示精炼的教学图，主题是“shape 不变，但表示内容在变强”。
+画面展示同一串 token 经过 Block 1、Block 2、Block 3，外形尺寸始终标为 [batch, seq_len, d_model]，但每个 token 内部颜色和连接越来越丰富，表示它融入更多上下文和语义关系。
+风格像逐层精炼的宝石或信号处理流水线，强调 representation 而不是尺寸变化。
+文字不是主体；中文短标签为主，shape 和标准术语保留英文，例如 [batch, seq_len, d_model]、token representation、context、semantic refinement。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-gan-adversarial-balance-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "GAN 对抗训练平衡与模式崩塌图",
+        "suggested_page": "docs/ch06-deep-learning/ch06-generative/01-gan.md",
+        "alt": "GAN 对抗训练平衡与模式崩塌图：Generator 生成假样本，Discriminator 区分真假，二者需要保持平衡，否则可能反馈不足或 mode collapse。",
+        "prompt": """
+一张解释 GAN 对抗训练的教学图，主题是“生成器和判别器像两个同时进步的对手”。
+画面左侧 Generator 从 noise 生成 fake samples，右侧 Discriminator 同时看 real samples 和 fake samples 并给出反馈；中间有平衡秤表示二者不能一边倒。角落展示 mode collapse：生成器只重复少数样本。
+风格像训练擂台和实验台结合，直观但不夸张。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 GAN、Generator、Discriminator、real/fake、feedback、mode collapse。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-vae-latent-continuity-sampling-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "VAE 连续潜空间与采样区域图",
+        "suggested_page": "docs/ch06-deep-learning/ch06-generative/02-vae.md",
+        "alt": "VAE 连续潜空间与采样区域图：编码器输出 mu 和 sigma，把样本映射到可采样区域，潜空间连续时插值和生成更自然。",
+        "prompt": """
+一张解释 VAE latent space 的教学图，主题是“VAE 学的是可采样区域，不只是一个固定点”。
+画面左侧输入样本经过 Encoder 输出 mu 和 sigma，中间是二维 latent space，每个样本不是单点而是一个柔和的概率云区域；从区域采样 z 后进入 Decoder，生成连续变化的输出。展示两个样本之间平滑插值。
+风格像星图和概率云结合，清楚表现连续潜空间。
+文字不是主体；中文短标签为主，标准术语和变量保留英文，例如 VAE、Encoder、Decoder、mu、sigma、z、latent space、sampling。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-training-diagnosis-dashboard-map.png",
+        "size": "1536x1024",
+        "quality": "medium",
+        "title": "训练诊断仪表盘排查路线图",
+        "suggested_page": "docs/ch06-deep-learning/ch07-training-tips/02-training-diagnosis.md",
+        "alt": "训练诊断仪表盘排查路线图：先看 train/val 曲线，再看学习率和 batch，继续检查预测分布、梯度、数据和标签。",
+        "prompt": """
+一张深度学习训练诊断仪表盘图，主题是“loss 不对时，先排查流程和数据，不要马上换大模型”。
+画面像一个 training dashboard，从上到下依次是 train/val loss 曲线、learning rate 与 batch size 控件、prediction distribution、gradient health、data/label check；右侧是排查路线箭头，最后才到 model architecture。
+风格像清晰的工程监控台和排障路线图，帮助新人训练时不慌。
+文字不是主体；中文短标签为主，标准术语保留英文，例如 train loss、val loss、learning rate、batch size、gradient、data label、model architecture。不要整张图全英文，不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch10-computer-vision.png",
         "size": "1536x1024",
         "quality": "medium",

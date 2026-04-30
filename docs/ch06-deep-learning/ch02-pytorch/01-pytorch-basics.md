@@ -178,6 +178,12 @@ print("shape:", X.shape, "| meaning: [batch, features]")
 
 把“形状”和“语义”一起写出来，会比单看 `torch.Size(...)` 清楚很多。
 
+![PyTorch 张量 shape 语义速查图](/img/course/ch06-tensor-shape-meaning-map.png)
+
+:::tip 读图提示
+这张图可以当作 shape 速查：表格数据常见 `[batch, features]`，图像常见 `[batch, channels, height, width]`，文本序列常见 `[batch, seq_len, embedding_dim]`。先说清每一维含义，再写模型，报错会少很多。
+:::
+
 ---
 
 ## 四、索引、切片、变形

@@ -220,6 +220,12 @@ tensor.grad.zero_()
 
 - 每轮更新前，先清零梯度
 
+![PyTorch 自动求导梯度生命周期图](/img/course/ch06-autograd-gradient-lifecycle-map.png)
+
+:::tip 读图提示
+这张图按一轮训练读：先前向计算 loss，`backward()` 把梯度写进 `.grad`，`optimizer.step()` 用梯度更新参数，最后必须 `zero_grad()` 清空旧梯度。PyTorch 默认累计梯度，所以“忘记清零”是新人最常见的隐形 bug。
+:::
+
 ---
 
 ## 五、`requires_grad=True` 到底控制了什么？

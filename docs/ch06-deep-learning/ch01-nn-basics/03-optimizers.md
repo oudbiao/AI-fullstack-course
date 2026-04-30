@@ -81,6 +81,12 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
+![梯度到参数更新的优化器决策图](/img/course/ch06-optimizer-gradient-to-update-map.png)
+
+:::tip 读图提示
+这张图的读法很简单：梯度只告诉你“坡往哪边陡”，优化器负责把它变成具体走法。SGD 只按当前坡度走，Momentum 带一点惯性，Adam 会根据历史梯度自动调节每个方向的步子大小。
+:::
+
 ## 一、三种梯度下降
 
 ### 1.1 对比
