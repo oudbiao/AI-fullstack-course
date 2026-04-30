@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           timeout: 60s
-          command_timeout: 10m
+          command_timeout: 25m
           script: |
             set -e
             
@@ -31,6 +31,12 @@ jobs:
             
             # 进入项目目录
             cd /opt/ai-course || mkdir -p /opt/ai-course && cd /opt/ai-course
+
+            if docker compose version >/dev/null 2>&1; then
+              COMPOSE="docker compose"
+            else
+              COMPOSE="docker-compose"
+            fi
             
             # 初始化 git 仓库（如果不存在）
             if [ ! -d .git ]; then
@@ -43,19 +49,38 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             
-            # 2. 先构建新镜像（旧容器继续运行，服务保持可用）
+            # 2. 先构建新镜像，旧容器继续服务。不要使用 --no-cache，否则文档/图片更新会导致每次都全量重装依赖
             echo "🧹 清理本地构建产物..."
             rm -rf node_modules build
             echo "🔨 构建 Docker 镜像（构建期间旧容器仍在服务）..."
-            docker-compose build --no-cache
+            $COMPOSE build ai-course
+
+            # 3. 预热验证新镜像。验证失败时不替换线上容器，旧容器继续服务
+            echo "🧪 预热验证新镜像..."
+            docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+            docker run -d --name ai-fullstack-course-preflight --network proxy-net ai-fullstack-course:latest
+            PREFLIGHT_READY=0
+            for i in $(seq 1 18); do
+              if docker run --rm --network proxy-net curlimages/curl:latest -sf --connect-timeout 5 http://ai-fullstack-course-preflight:3000/ >/dev/null 2>&1; then
+                echo "✅ 新镜像预热通过"
+                PREFLIGHT_READY=1
+                break
+              fi
+              sleep 5
+            done
+            if [ "$PREFLIGHT_READY" -eq 0 ]; then
+              echo "❌ 新镜像预热失败，保留旧容器继续服务"
+              docker logs --tail=50 ai-fullstack-course-preflight || true
+              docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+              exit 1
+            fi
+            docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
             
-            # 3. 构建成功后再停旧容器、启新容器（短暂切换）
-            echo "🛑 停止旧容器..."
-            docker-compose down 2>/dev/null || true
-            echo "▶️  启动新容器..."
-            docker-compose up -d
+            # 4. 构建和预热都成功后再替换容器，降低线上不可用时间
+            echo "🔁 替换线上容器..."
+            $COMPOSE up -d --no-deps --force-recreate ai-course
             
-            # 4. 等待应用就绪（在 proxy-net 内用服务名检测，与 nginx 访问方式一致；不依赖宿主机 3000 端口）
+            # 5. 等待应用就绪（在 proxy-net 内用服务名检测，与 nginx 访问方式一致；不依赖宿主机 3000 端口）
             echo "⏳ 等待应用启动（15s 后开始检测）..."
             sleep 15
             READY=0
@@ -69,12 +94,13 @@ jobs:
             done
             if [ "$READY" -eq 0 ]; then
               echo "⚠️  应用启动超时，请检查日志"
-              docker-compose logs --tail=30 ai-course
+              $COMPOSE logs --tail=30 ai-course
+              exit 1
             fi
             
-            # 5. 检查容器状态并清理悬空镜像
+            # 6. 检查容器状态并清理悬空镜像
             echo "📊 检查容器状态..."
-            docker-compose ps
+            $COMPOSE ps
             echo "🧹 清理悬空镜像..."
             docker image prune -f
             
@@ -84,4 +110,4 @@ jobs:
             echo "========================================="
             echo "🌐 访问地址: https://your-domain.com"
             echo "📊 容器状态:"
-            docker-compose ps
+            $COMPOSE ps
