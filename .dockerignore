@@ -9,5 +9,5 @@ README.md
 GITHUB-ACTIONS-DEPLOY.md
 .dockerignore
 Dockerfile
-scripts
-
+scripts/__pycache__/
+scripts/**/*.pyc
