@@ -29,3 +29,27 @@
 {"at": "2026-05-01T13:09:32.678260+00:00", "filename": "homepage-ai-history-comic-ja-03-perceptron.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T13:12:30.963368+00:00", "filename": "homepage-ai-history-comic-ja-04-expert-systems.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T13:16:02.703945+00:00", "filename": "homepage-ai-history-comic-ja-05-backprop.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:30:19.028158+00:00", "filename": "homepage-ai-history-comic-ja-06-lenet.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for homepage-ai-history-comic-ja-06-lenet.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T13:34:02.409827+00:00", "filename": "homepage-ai-history-comic-ja-07-statistical-ml.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:37:36.709706+00:00", "filename": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:38:57.045077+00:00", "filename": "homepage-ai-history-comic-ja-09-resnet.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for homepage-ai-history-comic-ja-09-resnet.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T13:43:34.765657+00:00", "filename": "homepage-ai-history-comic-ja-09-resnet.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:47:03.460654+00:00", "filename": "homepage-ai-history-comic-ja-10-rnn-lstm.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:50:22.803318+00:00", "filename": "homepage-ai-history-comic-ja-11-attention.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:53:52.858891+00:00", "filename": "homepage-ai-history-comic-ja-12-transformer.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:57:31.989267+00:00", "filename": "homepage-ai-history-comic-ja-13-bert-gpt.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:58:47.881489+00:00", "filename": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for homepage-ai-history-comic-ja-14-rlhf-chatgpt.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T14:02:17.628852+00:00", "filename": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:05:30.134682+00:00", "filename": "homepage-ai-history-comic-ja-15-rag-agent.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:09:26.076674+00:00", "filename": "homepage-ai-history-comic-ja-06-lenet.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:11:04.126217+00:00", "filename": "appendix-ai-project-lens-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for appendix-ai-project-lens-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T14:13:08.913729+00:00", "filename": "appendix-ai-project-lens-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:16:55.965702+00:00", "filename": "appendix-classic-ml-branch-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:19:12.413081+00:00", "filename": "appendix-continuous-learning-flywheel-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:20:50.783726+00:00", "filename": "appendix-course-numbering-maintenance-check-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:22:21.487280+00:00", "filename": "appendix-course-numbering-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:24:44.430880+00:00", "filename": "appendix-debug-mre-help-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:26:04.664472+00:00", "filename": "appendix-faq-confidence-reset-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:28:08.121630+00:00", "filename": "appendix-faq-decision-tree-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:29:32.738716+00:00", "filename": "appendix-hardware-cloud-decision-tree-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:31:01.062696+00:00", "filename": "appendix-hardware-local-cloud-api-cost-map-ja.png", "locale": "ja", "status": "generated"}
