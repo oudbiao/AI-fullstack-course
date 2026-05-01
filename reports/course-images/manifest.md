@@ -626,3 +626,18 @@
 | `homepage-ai-history-comic-en-13-bert-gpt.png` | English homepage AI history comic 13 BERT and GPT | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about BERT, GPT, masked language modeling, next-token prediction, and pretraining. |
 | `homepage-ai-history-comic-en-14-rlhf-chatgpt.png` | English homepage AI history comic 14 SFT RLHF and ChatGPT | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about SFT, RLHF, ChatGPT, and turning a text completer into an assistant. |
 | `homepage-ai-history-comic-en-15-rag-agent.png` | English homepage AI history comic 15 RAG tools and Agents | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about RAG, tool calling, AI Agents, planning, execution, safety, and real tasks. |
+| `homepage-ai-history-comic-ja-01-turing.png` | 日本語ホーム AI 史マンガ 01 チューリングと AI の夢 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | チューリング機械とチューリングテストが AI の出発点になったことを説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-02-dartmouth.png` | 日本語ホーム AI 史マンガ 02 ダートマス会議 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | 1956年のダートマス会議で人工知能が正式な研究分野になったことを説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-03-perceptron.png` | 日本語ホーム AI 史マンガ 03 パーセプトロンと最初の冬 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | パーセプトロン、XOR問題、ニューラルネットワーク最初の低迷を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-04-expert-systems.png` | 日本語ホーム AI 史マンガ 04 エキスパートシステム | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | エキスパートシステム、知識ベース、規則推論、保守限界を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-05-backprop.png` | 日本語ホーム AI 史マンガ 05 誤差逆伝播 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | 誤差逆伝播で多層ニューラルネットの重みを調整する仕組みを説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-06-lenet.png` | 日本語ホーム AI 史マンガ 06 LeNet と CNN | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | LeNet、畳み込み、手書き数字認識、CNNの実用成功を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-07-statistical-ml.png` | 日本語ホーム AI 史マンガ 07 統計的機械学習 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | 統計的機械学習、SVM、ランダムフォレスト、Boosting、特徴量設計を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-08-imagenet-alexnet.png` | 日本語ホーム AI 史マンガ 08 ImageNet と AlexNet | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | ImageNet、AlexNet、GPU、CNN、大規模画像認識による深層学習の爆発を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-09-resnet.png` | 日本語ホーム AI 史マンガ 09 ResNet | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | ResNetの残差接続と X を足し戻す意味を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-10-rnn-lstm.png` | 日本語ホーム AI 史マンガ 10 RNN と LSTM | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | RNN、LSTM、hidden state、記憶ゲート、長距離依存の限界を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-11-attention.png` | 日本語ホーム AI 史マンガ 11 Attention | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | Attention、翻訳、情報ボトルネック、重み付き注目を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-12-transformer.png` | 日本語ホーム AI 史マンガ 12 Transformer | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | Transformer、self-attention、QKV、multi-head attention、並列訓練を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-13-bert-gpt.png` | 日本語ホーム AI 史マンガ 13 BERT と GPT | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | BERT、GPT、穴埋め学習、次トークン予測、事前学習時代を説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-14-rlhf-chatgpt.png` | 日本語ホーム AI 史マンガ 14 SFT RLHF と ChatGPT | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | SFT、RLHF、ChatGPT、文章補完モデルが対話助手になる流れを説明する日本語マンガ。 |
+| `homepage-ai-history-comic-ja-15-rag-agent.png` | 日本語ホーム AI 史マンガ 15 RAG と Agent | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | RAG、ツール呼び出し、AI Agent、計画、実行、安全性を説明する日本語マンガ。 |

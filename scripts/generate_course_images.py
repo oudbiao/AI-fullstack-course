@@ -25,6 +25,7 @@ import textwrap
 import time
 import urllib.error
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -9337,6 +9338,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--request-timeout", type=int, default=DEFAULT_REQUEST_TIMEOUT, help="HTTP request timeout in seconds.")
     parser.add_argument("--retries", type=int, default=DEFAULT_IMAGE_RETRIES, help="Retry count for transient image API errors.")
     parser.add_argument("--overwrite", action="store_true", help="Overwrite existing valid PNG files.")
+    parser.add_argument("--continue-on-error", action="store_true", help="Keep generating remaining images and write an error report.")
     parser.add_argument("--ensure-placeholders", action="store_true", help="Create local preview PNG files for all planned images.")
     return parser.parse_args()
 
@@ -9372,9 +9374,20 @@ def ensure_output_dir(output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
 
-def write_placeholder(output_dir: Path, job: dict[str, Any]) -> None:
+def job_dimensions(job: dict[str, Any]) -> tuple[int, int]:
+    size = str(job.get("size", "1536x1024"))
+    if size == "default":
+        return 1536, 1024
+    try:
+        width_text, height_text = size.lower().split("x", 1)
+        return int(width_text), int(height_text)
+    except (AttributeError, TypeError, ValueError):
+        return 1536, 1024
+
+
+def write_placeholder(output_dir: Path, job: dict[str, Any], overwrite: bool = False) -> None:
     output_path = output_dir / job["filename"]
-    if output_path.exists():
+    if output_path.exists() and not overwrite:
         try:
             if output_path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n"):
                 return
@@ -9387,7 +9400,7 @@ def write_placeholder(output_dir: Path, job: dict[str, Any]) -> None:
         output_path.write_bytes(base64.b64decode(FALLBACK_PNG))
         return
 
-    width, height = 1536, 1024
+    width, height = job_dimensions(job)
     image = Image.new("RGB", (width, height), "#111827")
     draw = ImageDraw.Draw(image)
 
@@ -9406,15 +9419,48 @@ def write_placeholder(output_dir: Path, job: dict[str, Any]) -> None:
     for index in range(0, height, 96):
         draw.line([(0, index), (width, index + 320)], fill="#1e293b", width=2)
 
-    draw.rounded_rectangle([(110, 120), (1426, 904)], radius=48, outline=accent, width=6)
-    draw.rounded_rectangle([(160, 170), (700, 360)], radius=36, fill="#0f172a", outline="#334155", width=3)
-    draw.rounded_rectangle([(820, 190), (1320, 360)], radius=36, fill="#0f172a", outline="#334155", width=3)
-    draw.rounded_rectangle([(210, 560), (1320, 730)], radius=44, fill="#020617", outline=warm, width=5)
+    margin_x = max(56, width // 14)
+    margin_y = max(72, height // 14)
+    card = (margin_x, margin_y, width - margin_x, height - margin_y)
+    draw.rounded_rectangle(card, radius=max(36, width // 32), outline=accent, width=6)
 
-    for x, y, r, color in [(300, 265, 54, accent), (455, 265, 54, warm), (610, 265, 54, "#60a5fa")]:
+    panel_gap = max(24, width // 28)
+    panel_w = (card[2] - card[0] - panel_gap * 3) // 2
+    panel_h = max(150, (card[3] - card[1] - panel_gap * 5) // 4)
+    top_panel_y = card[1] + panel_gap
+    left_panel = (card[0] + panel_gap, top_panel_y, card[0] + panel_gap + panel_w, top_panel_y + panel_h)
+    right_panel = (left_panel[2] + panel_gap, top_panel_y, left_panel[2] + panel_gap + panel_w, top_panel_y + panel_h)
+    draw.rounded_rectangle(left_panel, radius=28, fill="#0f172a", outline="#334155", width=3)
+    draw.rounded_rectangle(right_panel, radius=28, fill="#0f172a", outline="#334155", width=3)
+
+    text_box_y = card[1] + panel_gap * 2 + panel_h
+    text_box = (
+        card[0] + panel_gap,
+        text_box_y,
+        card[2] - panel_gap,
+        min(card[3] - panel_gap * 2, text_box_y + max(190, height // 6)),
+    )
+    draw.rounded_rectangle(text_box, radius=36, fill="#020617", outline=warm, width=5)
+
+    icon_y = (left_panel[1] + left_panel[3]) // 2
+    icon_r = max(28, min(panel_w, panel_h) // 5)
+    icon_positions = [
+        (left_panel[0] + panel_w // 4, icon_y, icon_r, accent),
+        (left_panel[0] + panel_w // 2, icon_y, icon_r, warm),
+        (left_panel[0] + panel_w * 3 // 4, icon_y, icon_r, "#60a5fa"),
+    ]
+    for x, y, r, color in icon_positions:
         draw.ellipse([(x - r, y - r), (x + r, y + r)], fill=color)
-    draw.line([(700, 265), (820, 265)], fill="#e5e7eb", width=8)
-    draw.polygon([(820, 265), (790, 245), (790, 285)], fill="#e5e7eb")
+    arrow_y = icon_y
+    draw.line([(left_panel[2] + panel_gap // 4, arrow_y), (right_panel[0] - panel_gap // 4, arrow_y)], fill="#e5e7eb", width=8)
+    draw.polygon(
+        [
+            (right_panel[0] - panel_gap // 4, arrow_y),
+            (right_panel[0] - panel_gap // 4 - 30, arrow_y - 20),
+            (right_panel[0] - panel_gap // 4 - 30, arrow_y + 20),
+        ],
+        fill="#e5e7eb",
+    )
 
     font_paths = [
         "/System/Library/Fonts/PingFang.ttc",
@@ -9431,19 +9477,19 @@ def write_placeholder(output_dir: Path, job: dict[str, Any]) -> None:
                     continue
         return ImageFont.load_default()
 
-    title_font = load_font(66)
-    body_font = load_font(34)
-    label_font = load_font(26)
+    title_font = load_font(max(34, width // 23))
+    body_font = load_font(max(24, width // 38))
+    label_font = load_font(max(20, width // 48))
 
-    draw.text((210, 595), job["title"], font=title_font, fill="#f8fafc")
+    draw.text((text_box[0] + 28, text_box[1] + 28), job["title"], font=title_font, fill="#f8fafc")
 
-    alt_lines = textwrap.wrap(job["alt"], width=30)
-    y = 760
-    for line in alt_lines[:2]:
-        draw.text((220, y), line, font=body_font, fill="#cbd5e1")
-        y += 48
+    alt_lines = textwrap.wrap(job["alt"], width=max(24, width // 34))
+    y = text_box[1] + 92
+    for line in alt_lines[:3]:
+        draw.text((text_box[0] + 32, y), line, font=body_font, fill="#cbd5e1")
+        y += max(34, width // 28)
 
-    draw.text((1160, 850), "Preview Asset", font=label_font, fill="#94a3b8")
+    draw.text((card[2] - max(260, width // 4), card[3] - max(48, height // 36)), "Preview Asset", font=label_font, fill="#94a3b8")
     image.save(output_path, format="PNG")
     set_user_readable_permissions(output_path)
 
@@ -9454,8 +9500,28 @@ def ensure_placeholders(output_dir: Path) -> None:
         write_placeholder(output_dir, job)
 
 
+def ensure_selected_placeholders(output_dir: Path, jobs: list[dict[str, Any]], overwrite: bool = False) -> None:
+    ensure_output_dir(output_dir)
+    for job in jobs:
+        write_placeholder(output_dir, job, overwrite=overwrite)
+
+
 def set_user_readable_permissions(output_path: Path) -> None:
     output_path.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IROTH)
+
+
+def write_generation_errors(report_dir: Path, errors: list[dict[str, str]]) -> None:
+    if not errors:
+        return
+    report_dir.mkdir(parents=True, exist_ok=True)
+    error_report = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "errors": errors,
+    }
+    (report_dir / "generation-errors.json").write_text(
+        json.dumps(error_report, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
 
 def generate_image_with_http(
@@ -9537,7 +9603,7 @@ def main() -> None:
     print(f"jobs: {len(jobs)}", flush=True)
 
     if args.ensure_placeholders:
-        ensure_placeholders(output_dir)
+        ensure_selected_placeholders(output_dir, jobs, overwrite=args.overwrite)
         write_manifest(report_dir, IMAGE_JOBS)
         print(f"Placeholders ensured under {output_dir}", flush=True)
         return
@@ -9561,34 +9627,47 @@ def main() -> None:
     else:
         client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, timeout=args.request_timeout)
 
+    errors: list[dict[str, str]] = []
     for job in jobs:
         output_path = output_dir / job["filename"]
         if output_path.exists() and output_path.read_bytes().startswith(b"\x89PNG\r\n\x1a\n") and not args.overwrite:
             print(f"Skipping existing valid PNG: {job['filename']} (use --overwrite to regenerate)", flush=True)
             continue
         print(f"Generating {job['filename']}...", flush=True)
-        if client:
-            result = client.images.generate(
-                model=args.model,
-                prompt=job["prompt"],
-                **({} if job.get("size") == "default" else {"size": job["size"]}),
-                **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
-            )
-            image_base64 = result.data[0].b64_json
-            output_path.write_bytes(base64.b64decode(image_base64))
-        else:
-            output_path.write_bytes(
-                generate_image_with_http(
-                    api_key=os.environ["OPENAI_API_KEY"],
-                    base_url=args.base_url,
+        try:
+            if client:
+                result = client.images.generate(
                     model=args.model,
-                    job=job,
-                    retries=args.retries,
-                    request_timeout=args.request_timeout,
+                    prompt=job["prompt"],
+                    **({} if job.get("size") == "default" else {"size": job["size"]}),
+                    **({} if job.get("quality") == "default" else {"quality": job["quality"]}),
                 )
-            )
-        set_user_readable_permissions(output_path)
-        print(f"Saved {output_path}", flush=True)
+                image_base64 = result.data[0].b64_json
+                output_path.write_bytes(base64.b64decode(image_base64))
+            else:
+                output_path.write_bytes(
+                    generate_image_with_http(
+                        api_key=os.environ["OPENAI_API_KEY"],
+                        base_url=args.base_url,
+                        model=args.model,
+                        job=job,
+                        retries=args.retries,
+                        request_timeout=args.request_timeout,
+                    )
+                )
+            set_user_readable_permissions(output_path)
+            print(f"Saved {output_path}", flush=True)
+        except Exception as exc:
+            errors.append({"filename": job["filename"], "error": str(exc)})
+            write_generation_errors(report_dir, errors)
+            if args.continue_on_error:
+                print(f"Failed {job['filename']}: {exc}", flush=True)
+                continue
+            raise
+
+    write_generation_errors(report_dir, errors)
+    if errors:
+        raise SystemExit(f"Image generation finished with {len(errors)} error(s). See {report_dir / 'generation-errors.json'}.")
 
 
 if __name__ == "__main__":

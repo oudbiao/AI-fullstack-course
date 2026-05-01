@@ -26,7 +26,7 @@ COURSE_IMG_ROOT = PROJECT_ROOT / "static" / "img" / "course"
 REPORT_DIR = PROJECT_ROOT / "reports" / "course-images"
 IMAGE_RE = re.compile(r"!\[[^\]]*]\((/img/course/[^)\s]+)[^)]*\)")
 HOMEPAGE_BASE_RE = re.compile(r"^homepage-ai-history-comic-(\d{2}-.+\.png)$")
-HOMEPAGE_LOCALIZED_RE = re.compile(r"^homepage-ai-history-comic-(en|ja)-\d{2}-.+\.png$")
+HOMEPAGE_LOCALIZED_RE = re.compile(r"^homepage-ai-history-comic-(en|ja)-(\d{2}-.+\.png)$")
 
 
 def iter_markdown_files() -> list[Path]:
@@ -60,6 +60,9 @@ def referenced_images() -> dict[str, set[str]]:
 
 def variant_name(filename: str, locale: str) -> str:
     path = Path(filename)
+    localized_homepage_match = HOMEPAGE_LOCALIZED_RE.match(path.name)
+    if localized_homepage_match:
+        return str(path.with_name(f"homepage-ai-history-comic-{locale}-{localized_homepage_match.group(2)}"))
     homepage_match = HOMEPAGE_BASE_RE.match(path.name)
     if homepage_match:
         return str(path.with_name(f"homepage-ai-history-comic-{locale}-{homepage_match.group(1)}"))
@@ -181,7 +184,7 @@ def main() -> int:
         "english_ocr_sample",
     ]
     with csv_path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow({key: row.get(key, "") for key in fieldnames})

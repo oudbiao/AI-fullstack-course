@@ -8207,9 +8207,9 @@
     "english_variant": "homepage-ai-history-comic-en-01-turing.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-01-turing.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8221,9 +8221,9 @@
     "english_variant": "homepage-ai-history-comic-en-02-dartmouth.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-02-dartmouth.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8235,9 +8235,9 @@
     "english_variant": "homepage-ai-history-comic-en-03-perceptron.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-03-perceptron.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8249,9 +8249,9 @@
     "english_variant": "homepage-ai-history-comic-en-04-expert-systems.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-04-expert-systems.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8263,9 +8263,9 @@
     "english_variant": "homepage-ai-history-comic-en-05-backprop.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-05-backprop.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8277,9 +8277,9 @@
     "english_variant": "homepage-ai-history-comic-en-06-lenet.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-06-lenet.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8291,9 +8291,9 @@
     "english_variant": "homepage-ai-history-comic-en-07-statistical-ml.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-07-statistical-ml.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8305,9 +8305,9 @@
     "english_variant": "homepage-ai-history-comic-en-08-imagenet-alexnet.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8319,9 +8319,9 @@
     "english_variant": "homepage-ai-history-comic-en-09-resnet.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-09-resnet.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8333,9 +8333,9 @@
     "english_variant": "homepage-ai-history-comic-en-10-rnn-lstm.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-10-rnn-lstm.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8347,9 +8347,9 @@
     "english_variant": "homepage-ai-history-comic-en-11-attention.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-11-attention.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8361,9 +8361,9 @@
     "english_variant": "homepage-ai-history-comic-en-12-transformer.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-12-transformer.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8375,9 +8375,9 @@
     "english_variant": "homepage-ai-history-comic-en-13-bert-gpt.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-13-bert-gpt.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8389,9 +8389,9 @@
     "english_variant": "homepage-ai-history-comic-en-14-rlhf-chatgpt.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8403,9 +8403,9 @@
     "english_variant": "homepage-ai-history-comic-en-15-rag-agent.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-15-rag-agent.png",
-    "japanese_variant_exists": false,
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
-    "status": "needs_visual_review",
+    "status": "localized_variants_exist",
     "references": [
       "docs/index.md"
     ]
@@ -8414,10 +8414,10 @@
     "filename": "homepage-ai-history-comic-en-01-turing.png",
     "exists": true,
     "size_bytes": 4107424,
-    "english_variant": "homepage-ai-history-comic-en-01-turing-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-01-turing-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-01-turing.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-01-turing.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8428,10 +8428,10 @@
     "filename": "homepage-ai-history-comic-en-02-dartmouth.png",
     "exists": true,
     "size_bytes": 4086841,
-    "english_variant": "homepage-ai-history-comic-en-02-dartmouth-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-02-dartmouth-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-02-dartmouth.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-02-dartmouth.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8442,10 +8442,10 @@
     "filename": "homepage-ai-history-comic-en-03-perceptron.png",
     "exists": true,
     "size_bytes": 3593228,
-    "english_variant": "homepage-ai-history-comic-en-03-perceptron-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-03-perceptron-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-03-perceptron.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-03-perceptron.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8456,10 +8456,10 @@
     "filename": "homepage-ai-history-comic-en-04-expert-systems.png",
     "exists": true,
     "size_bytes": 4503483,
-    "english_variant": "homepage-ai-history-comic-en-04-expert-systems-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-04-expert-systems-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-04-expert-systems.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-04-expert-systems.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8470,10 +8470,10 @@
     "filename": "homepage-ai-history-comic-en-05-backprop.png",
     "exists": true,
     "size_bytes": 3612766,
-    "english_variant": "homepage-ai-history-comic-en-05-backprop-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-05-backprop-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-05-backprop.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-05-backprop.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8484,10 +8484,10 @@
     "filename": "homepage-ai-history-comic-en-06-lenet.png",
     "exists": true,
     "size_bytes": 4229047,
-    "english_variant": "homepage-ai-history-comic-en-06-lenet-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-06-lenet-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-06-lenet.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-06-lenet.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8498,10 +8498,10 @@
     "filename": "homepage-ai-history-comic-en-07-statistical-ml.png",
     "exists": true,
     "size_bytes": 3844857,
-    "english_variant": "homepage-ai-history-comic-en-07-statistical-ml-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-07-statistical-ml-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-07-statistical-ml.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-07-statistical-ml.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8512,10 +8512,10 @@
     "filename": "homepage-ai-history-comic-en-08-imagenet-alexnet.png",
     "exists": true,
     "size_bytes": 3692597,
-    "english_variant": "homepage-ai-history-comic-en-08-imagenet-alexnet-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-08-imagenet-alexnet-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-08-imagenet-alexnet.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8526,10 +8526,10 @@
     "filename": "homepage-ai-history-comic-en-09-resnet.png",
     "exists": true,
     "size_bytes": 2697825,
-    "english_variant": "homepage-ai-history-comic-en-09-resnet-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-09-resnet-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-09-resnet.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-09-resnet.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8540,10 +8540,10 @@
     "filename": "homepage-ai-history-comic-en-10-rnn-lstm.png",
     "exists": true,
     "size_bytes": 3313208,
-    "english_variant": "homepage-ai-history-comic-en-10-rnn-lstm-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-10-rnn-lstm-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-10-rnn-lstm.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-10-rnn-lstm.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8554,10 +8554,10 @@
     "filename": "homepage-ai-history-comic-en-11-attention.png",
     "exists": true,
     "size_bytes": 3873130,
-    "english_variant": "homepage-ai-history-comic-en-11-attention-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-11-attention-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-11-attention.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-11-attention.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8568,10 +8568,10 @@
     "filename": "homepage-ai-history-comic-en-12-transformer.png",
     "exists": true,
     "size_bytes": 3250841,
-    "english_variant": "homepage-ai-history-comic-en-12-transformer-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-12-transformer-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-12-transformer.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-12-transformer.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8582,10 +8582,10 @@
     "filename": "homepage-ai-history-comic-en-13-bert-gpt.png",
     "exists": true,
     "size_bytes": 3608360,
-    "english_variant": "homepage-ai-history-comic-en-13-bert-gpt-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-13-bert-gpt-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-13-bert-gpt.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-13-bert-gpt.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8596,10 +8596,10 @@
     "filename": "homepage-ai-history-comic-en-14-rlhf-chatgpt.png",
     "exists": true,
     "size_bytes": 3327714,
-    "english_variant": "homepage-ai-history-comic-en-14-rlhf-chatgpt-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-14-rlhf-chatgpt-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-14-rlhf-chatgpt.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8610,10 +8610,10 @@
     "filename": "homepage-ai-history-comic-en-15-rag-agent.png",
     "exists": true,
     "size_bytes": 2905936,
-    "english_variant": "homepage-ai-history-comic-en-15-rag-agent-en.png",
-    "english_variant_exists": false,
-    "japanese_variant": "homepage-ai-history-comic-en-15-rag-agent-ja.png",
-    "japanese_variant_exists": false,
+    "english_variant": "homepage-ai-history-comic-en-15-rag-agent.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-15-rag-agent.png",
+    "japanese_variant_exists": true,
     "english_ocr_sample": "",
     "status": "localized_variant",
     "references": [
@@ -8622,120 +8622,210 @@
   },
   {
     "filename": "homepage-ai-history-comic-ja-01-turing.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 74771,
+    "english_variant": "homepage-ai-history-comic-en-01-turing.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-01-turing.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-02-dartmouth.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 82550,
+    "english_variant": "homepage-ai-history-comic-en-02-dartmouth.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-02-dartmouth.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-03-perceptron.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 74650,
+    "english_variant": "homepage-ai-history-comic-en-03-perceptron.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-03-perceptron.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-04-expert-systems.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 72682,
+    "english_variant": "homepage-ai-history-comic-en-04-expert-systems.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-04-expert-systems.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-05-backprop.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 79567,
+    "english_variant": "homepage-ai-history-comic-en-05-backprop.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-05-backprop.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-06-lenet.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 74720,
+    "english_variant": "homepage-ai-history-comic-en-06-lenet.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-06-lenet.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-07-statistical-ml.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 86240,
+    "english_variant": "homepage-ai-history-comic-en-07-statistical-ml.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-07-statistical-ml.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 81712,
+    "english_variant": "homepage-ai-history-comic-en-08-imagenet-alexnet.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-09-resnet.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 70658,
+    "english_variant": "homepage-ai-history-comic-en-09-resnet.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-09-resnet.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-10-rnn-lstm.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 74246,
+    "english_variant": "homepage-ai-history-comic-en-10-rnn-lstm.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-10-rnn-lstm.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-11-attention.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 69923,
+    "english_variant": "homepage-ai-history-comic-en-11-attention.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-11-attention.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-12-transformer.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 74225,
+    "english_variant": "homepage-ai-history-comic-en-12-transformer.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-12-transformer.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-13-bert-gpt.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 71981,
+    "english_variant": "homepage-ai-history-comic-en-13-bert-gpt.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-13-bert-gpt.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 74687,
+    "english_variant": "homepage-ai-history-comic-en-14-rlhf-chatgpt.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]
   },
   {
     "filename": "homepage-ai-history-comic-ja-15-rag-agent.png",
-    "exists": false,
-    "status": "missing_source_image",
+    "exists": true,
+    "size_bytes": 73607,
+    "english_variant": "homepage-ai-history-comic-en-15-rag-agent.png",
+    "english_variant_exists": true,
+    "japanese_variant": "homepage-ai-history-comic-ja-15-rag-agent.png",
+    "japanese_variant_exists": true,
+    "english_ocr_sample": "",
+    "status": "localized_variant",
     "references": [
       "i18n/ja/docusaurus-plugin-content-docs/current/index.md"
     ]

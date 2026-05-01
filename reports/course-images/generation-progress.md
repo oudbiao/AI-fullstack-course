@@ -1,14 +1,16 @@
 # Course Image Generation Progress
 
-Last updated: 2026-04-30
+Last updated: 2026-05-01
 
-Status: completed.
+Status: website-safe, Japanese homepage comics pending image2 replacement.
 
-Generated with image2: 620 / 620
+Generated with image2: 635 / 650
 
-Local fallback comics: 0 / 15
+Local placeholder comics: 15 / 15
 
-Detection note: all generated image2 PNG files are currently larger than the local preview placeholders.
+Detection note: the Japanese homepage now references 15 local vertical placeholder PNGs so the site can build and render safely. These files should be replaced by image2 outputs when `https://codex.ciii.club/v1` has available compatible image accounts again.
+
+日文首页占位说明：`homepage-ai-history-comic-ja-01-turing.png` 到 `homepage-ai-history-comic-ja-15-rag-agent.png` 已先写入 `1024x1792` 竖版占位图，避免日文首页缺图或构建后出现破图。正式 image2 生成仍需后续覆盖；当前 codex 网关返回 `503 No available compatible accounts`。
 
 编号说明：课程源码目录已经和网页展示章节号对齐；例如 `docs/ch01-tools` 对应第 1 章“开发者工具基础”，`docs/ch05-machine-learning` 对应第 5 章“机器学习入门到实战”。
 
@@ -674,11 +676,24 @@ AI 历史时间线强化说明：本轮新增 4 张重要论文与算法历史�
 
 ## Remaining
 
-- None.
+- `homepage-ai-history-comic-ja-01-turing.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-02-dartmouth.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-03-perceptron.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-04-expert-systems.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-05-backprop.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-06-lenet.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-07-statistical-ml.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-08-imagenet-alexnet.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-09-resnet.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-10-rnn-lstm.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-11-attention.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-12-transformer.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-13-bert-gpt.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-14-rlhf-chatgpt.png` (replace placeholder with image2)
+- `homepage-ai-history-comic-ja-15-rag-agent.png` (replace placeholder with image2)
 
 ## Resume Command
 
 ```bash
-# No remaining images. To regenerate everything intentionally:
-npm run images:generate -- --overwrite
+python3 scripts/generate_course_images.py --base-url https://codex.ciii.club/v1 --request-timeout 900 --retries 3 --continue-on-error --overwrite --only homepage-ai-history-comic-ja-01-turing.png homepage-ai-history-comic-ja-02-dartmouth.png homepage-ai-history-comic-ja-03-perceptron.png homepage-ai-history-comic-ja-04-expert-systems.png homepage-ai-history-comic-ja-05-backprop.png homepage-ai-history-comic-ja-06-lenet.png homepage-ai-history-comic-ja-07-statistical-ml.png homepage-ai-history-comic-ja-08-imagenet-alexnet.png homepage-ai-history-comic-ja-09-resnet.png homepage-ai-history-comic-ja-10-rnn-lstm.png homepage-ai-history-comic-ja-11-attention.png homepage-ai-history-comic-ja-12-transformer.png homepage-ai-history-comic-ja-13-bert-gpt.png homepage-ai-history-comic-ja-14-rlhf-chatgpt.png homepage-ai-history-comic-ja-15-rag-agent.png
 ```
