@@ -1,0 +1,31 @@
+{"at": "2026-05-01T10:42:48.239026+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-guardrails-layers-ja.png."}
+{"at": "2026-05-01T10:43:12.764167+00:00", "filename": "agent-memory-system-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-memory-system-ja.png."}
+{"at": "2026-05-01T10:43:37.309435+00:00", "filename": "agent-system-architecture-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-system-architecture-ja.png."}
+{"at": "2026-05-01T10:56:08.795120+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-guardrails-layers-ja.png."}
+{"at": "2026-05-01T10:56:35.009757+00:00", "filename": "agent-memory-system-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-memory-system-ja.png."}
+{"at": "2026-05-01T10:57:01.303800+00:00", "filename": "agent-system-architecture-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 429 for agent-system-architecture-ja.png."}
+{"at": "2026-05-01T10:58:08.332459+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-guardrails-layers-ja.png."}
+{"at": "2026-05-01T11:03:16.642044+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-guardrails-layers-ja.png."}
+{"at": "2026-05-01T11:03:42.710690+00:00", "filename": "agent-memory-system-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-memory-system-ja.png."}
+{"at": "2026-05-01T11:04:08.719588+00:00", "filename": "agent-system-architecture-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-system-architecture-ja.png."}
+{"at": "2026-05-01T11:05:35.413523+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-guardrails-layers-ja.png."}
+{"at": "2026-05-01T11:06:19.778429+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-guardrails-layers-ja.png: {\"error\":{\"message\":\"No available compatible accounts\",\"type\":\"api_error\"}}"}
+{"at": "2026-05-01T11:11:44.337245+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 503 for agent-guardrails-layers-ja.png: {\"error\":{\"message\":\"No available compatible accounts\",\"type\":\"api_error\"}}"}
+{"at": "2026-05-01T12:32:57.622214+00:00", "filename": "agent-guardrails-layers-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:36:51.534045+00:00", "filename": "agent-memory-system-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:38:16.589780+00:00", "filename": "agent-system-architecture-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:39:57.979053+00:00", "filename": "agent-tool-trace-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for agent-tool-trace-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T12:43:01.974932+00:00", "filename": "agent-tool-trace-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:44:08.920384+00:00", "filename": "agent-vs-chatbot-comparison-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:47:45.627445+00:00", "filename": "ai-learning-assistant-roadmap-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:49:41.840088+00:00", "filename": "anomaly-detection-outliers-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:50:57.740233+00:00", "filename": "appendix-agent-system-lineage-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:52:27.145663+00:00", "filename": "appendix-ai-history-comic-turning-points-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:53:42.002416+00:00", "filename": "appendix-ai-main-relay-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:57:29.750586+00:00", "filename": "appendix-ai-milestones-timeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T12:59:30.662713+00:00", "filename": "appendix-ai-paper-problem-solution-impact-chain-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:03:09.077361+00:00", "filename": "homepage-ai-history-comic-ja-01-turing.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:06:00.058006+00:00", "filename": "homepage-ai-history-comic-ja-02-dartmouth.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:09:32.678260+00:00", "filename": "homepage-ai-history-comic-ja-03-perceptron.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:12:30.963368+00:00", "filename": "homepage-ai-history-comic-ja-04-expert-systems.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T13:16:02.703945+00:00", "filename": "homepage-ai-history-comic-ja-05-backprop.png", "locale": "ja", "status": "generated"}

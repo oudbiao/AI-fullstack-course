@@ -9560,16 +9560,20 @@ def generate_image_with_http(
                 response_data = json.loads(response.read().decode("utf-8"))
                 break
         except urllib.error.HTTPError as exc:
+            error_body = exc.read().decode("utf-8", errors="replace").strip()
+            error_detail = f": {error_body[:500]}" if error_body else ""
             if exc.code in {408, 429, 500, 502, 503, 504, 524} and attempt < retries:
                 wait_seconds = 8 * (attempt + 1)
                 print(
                     f"Image API returned HTTP {exc.code} for {job['filename']}; "
-                    f"retrying in {wait_seconds}s...",
+                    f"retrying in {wait_seconds}s...{error_detail}",
                     flush=True,
                 )
                 time.sleep(wait_seconds)
                 continue
-            raise RuntimeError(f"Image API request failed with HTTP {exc.code} for {job['filename']}.") from exc
+            raise RuntimeError(
+                f"Image API request failed with HTTP {exc.code} for {job['filename']}{error_detail}"
+            ) from exc
         except (urllib.error.URLError, TimeoutError, ConnectionResetError, http.client.HTTPException) as exc:
             if attempt < retries:
                 wait_seconds = 8 * (attempt + 1)
