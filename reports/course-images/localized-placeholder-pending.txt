@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch02-ai-api-request-response-ja.png
-ch02-control-flow-paths-ja.png
-ch02-data-structures-comparison-ja.png
-ch02-exception-flow-ja.png
-ch02-file-io-serialization-flow-ja.png
-ch02-function-call-scope-ja.png
-ch02-functional-pipeline-ja.png
-ch02-generator-streaming-data-ja.png
 ch02-input-output-flow-ja.png
 ch02-learning-quest-map-ja.png
 ch02-modules-package-structure-ja.png

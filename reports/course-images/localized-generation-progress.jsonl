@@ -86,3 +86,11 @@
 {"at": "2026-05-01T15:40:37.523202+00:00", "filename": "ch01-terminal-path-command-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T15:43:00.606193+00:00", "filename": "ch01-tools-foundation-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T15:46:17.843599+00:00", "filename": "ch01-vscode-workspace-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:48:44.304194+00:00", "filename": "ch02-ai-api-request-response-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:52:25.391900+00:00", "filename": "ch02-control-flow-paths-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:53:55.036897+00:00", "filename": "ch02-data-structures-comparison-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:55:01.851538+00:00", "filename": "ch02-exception-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:56:34.202223+00:00", "filename": "ch02-file-io-serialization-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:58:10.516198+00:00", "filename": "ch02-function-call-scope-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:59:57.674791+00:00", "filename": "ch02-functional-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T16:02:18.394520+00:00", "filename": "ch02-generator-streaming-data-ja.png", "locale": "ja", "status": "generated"}
