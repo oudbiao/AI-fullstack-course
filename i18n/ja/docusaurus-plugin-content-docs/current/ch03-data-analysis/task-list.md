@@ -10,7 +10,7 @@ keywords: [データ分析, Pandas, NumPy, 可視化, 学習タスクリスト]
 
 ## 一目でわかる：この段階のタスクの流れ
 
-![データ分析段階のタスクフロー](/img/course/ch03-task-list-workflow.png)
+![データ分析段階のタスクフロー](/img/course/ch03-task-list-workflow-ja.png)
 
 ## この段階で必ず完了するタスク
 

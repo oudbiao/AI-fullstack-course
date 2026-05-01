@@ -7,7 +7,7 @@ keywords: [OCR, text detection, text recognition, document AI, layout analysis]
 
 # OCR 文字認識【選択】
 
-![OCR レイアウト解析と文字認識のフローチャート](/img/course/ocr-layout-recognition-pipeline.png)
+![OCR レイアウト解析と文字認識のフローチャート](/img/course/ocr-layout-recognition-pipeline-ja.png)
 
 :::tip この節の位置づけ
 OCR は一言で説明されがちです。
@@ -192,7 +192,7 @@ print(restore_reading_order(lines))
 - OCR は認識が終わったら終わりではない
 - 文字の順番や構造の復元も、同じくらい重要なことが多い
 
-![OCR の検出、認識、読み順復元の図](/img/course/ch10-ocr-layout-reading-order-map.png)
+![OCR の検出、認識、読み順復元の図](/img/course/ch10-ocr-layout-reading-order-map-ja.png)
 
 :::tip 図の読み方
 OCR プロジェクトは3段階で確認すると整理しやすいです。テキスト検出で枠が合っているか、テキスト認識で正しく読めているか、レイアウト構造で順番を復元できているかを見ます。票票、表、2カラム文書では、3段階目で失敗することがよくあります。

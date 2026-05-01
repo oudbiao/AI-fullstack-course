@@ -7,7 +7,7 @@ keywords: [guardrails, safety policy, input filter, output filter, tool guard, a
 
 # Guardrails ガードレール機構
 
-![Agent ガードレールの層構造図](/img/course/agent-guardrails-layers.png)
+![Agent ガードレールの層構造図](/img/course/agent-guardrails-layers-ja.png)
 
 :::tip この節の位置づけ
 多くのチームはこう言います：

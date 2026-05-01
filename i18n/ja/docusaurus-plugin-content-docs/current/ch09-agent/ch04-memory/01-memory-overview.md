@@ -7,7 +7,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 # メモリシステムの概要
 
-![Agent メモリシステムの階層図](/img/course/agent-memory-system.png)
+![Agent メモリシステムの階層図](/img/course/agent-memory-system-ja.png)
 
 :::tip この節の位置づけ
 多くの Agent システムは、最初はとても賢く見えます。けれど、タスクが長くなったり、やり取りの回数が増えたりすると、ある本質的な問題が見えてきます。
@@ -116,7 +116,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 この 4 つは、いつも全部必要というわけではありませんが、とても実用的な考え方の枠組みになります。
 
-![Agent の記憶階層選択図](/img/course/ch09-memory-layer-selection-map.png)
+![Agent の記憶階層選択図](/img/course/ch09-memory-layer-selection-map-ja.png)
 
 :::tip 図の見方
 この図は、4 種類すべての記憶を一度に作れという意味ではありません。むしろ「この情報はどこに置くべきか」を判断するためのものです。現在のタスクは short-term、安定した好みは long-term、1 回きりの経験は episodic、再利用できる手順は procedural に置きます。

@@ -7,7 +7,7 @@ keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 
 # Attention Mechanism
 
-![Self-Attention QKV structure diagram](/img/course/self-attention-qkv.png)
+![Self-Attention QKV structure diagram](/img/course/self-attention-qkv-en.png)
 
 :::tip Section overview
 If RNN is “reading and remembering step by step in order,” then attention is another way of thinking:
@@ -151,7 +151,7 @@ A more stable way to understand it is:
 
 Once you understand this role division, the matrix form will be much easier to read later.
 
-![Library retrieval analogy diagram for attention QKV](/img/course/ch06-attention-qkv-library-analogy-map.png)
+![Library retrieval analogy diagram for attention QKV](/img/course/ch06-attention-qkv-library-analogy-map-en.png)
 
 :::tip Reading guide
 Read this image as a search-and-retrieval story: `Q` is the question you are asking now, `K` is the index tag attached to each document, and `V` is the actual content to retrieve. Attention first scores `Q` against all `K`, then mixes `V` according to the weights.
@@ -360,7 +360,7 @@ Because once you enter generation tasks, if you do not understand masks, you wil
 
 So mask is not a side concept; it directly affects whether the generation task is being trained according to the rules.
 
-![Causal Mask prevents peeking into the future diagram](/img/course/ch06-causal-mask-no-peeking-map.png)
+![Causal Mask prevents peeking into the future diagram](/img/course/ch06-causal-mask-no-peeking-map-en.png)
 
 :::tip Reading guide
 When reading this image, look at the lower-triangular matrix: the 1st position can only see itself, the 2nd position can only see itself and the past, and so on. If generation tasks do not use a causal mask, it is like seeing the answers to later questions before the exam.

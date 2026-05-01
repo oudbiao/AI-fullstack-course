@@ -176,7 +176,7 @@ A common pattern is:
 Because external API unit prices can sometimes be high,  
 and they also increase latency and retry risk.
 
-![Agent cost routing, caching, and budget control diagram](/img/course/ch09-agent-cost-routing-cache-budget-map.png)
+![Agent cost routing, caching, and budget control diagram](/img/course/ch09-agent-cost-routing-cache-budget-map-en.png)
 
 :::tip Reading Tip
 This diagram expands cost from a “single model call” to a “task-chain bill”: model routing, context length, tool calls, cache hits, failed retries, and budget limits all affect the final cost.

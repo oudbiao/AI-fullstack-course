@@ -205,7 +205,7 @@ flowchart LR
 
 この表は、最初にしっかり覚える価値があります。後で出てくる RLHF、ルールベースのガードレール、評価 rubric などは、結局この3種類の問題を中心に考えることになるからです。
 
-![Helpful Honest Harmless 対立図](/img/course/ch07-alignment-hhh-tension-guardrail-map.png)
+![Helpful Honest Harmless 対立図](/img/course/ch07-alignment-hhh-tension-guardrail-map-ja.png)
 
 :::tip 図の読み方
 この図では、3つの力が引っ張り合っていることに注目してください。Helpful は役に立つこと、Honest は境界を認めること、Harmless はリスクを止めることです。アライメントは、ただ拒否することでも、何でも助けることでもありません。異なる依頼ごとに、この3つのバランスを取り、評価・戦略・ガードレールで実装していくことです。

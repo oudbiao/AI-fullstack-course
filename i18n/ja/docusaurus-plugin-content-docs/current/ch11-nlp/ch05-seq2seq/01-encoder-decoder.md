@@ -7,7 +7,7 @@ keywords: [seq2seq, encoder decoder, translation, summarization, text generation
 
 # Seq2Seq モデル
 
-![Seq2Seq エンコーダー・デコーダーのボトルネック図](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.png)
+![Seq2Seq エンコーダー・デコーダーのボトルネック図](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map-ja.png)
 
 :::tip 図の読み方
 Seq2Seq の核心的な難しさは、「入力系列を表現に圧縮してから、出力系列を少しずつ生成する」ことです。図を見るときは、context vector がなぜ情報のボトルネックになるのか、そしてその後に Attention がなぜ必要になるのかに注目してください。

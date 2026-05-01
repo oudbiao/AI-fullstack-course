@@ -7,9 +7,9 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 # モデル最適化技術
 
-![モデル最適化ロードマップ](/img/course/elective-model-optimization-map.png)
+![モデル最適化ロードマップ](/img/course/elective-model-optimization-map-ja.png)
 
-![モデル最適化のトレードオフダッシュボード](/img/course/elective-optimization-tradeoff-dashboard.png)
+![モデル最適化のトレードオフダッシュボード](/img/course/elective-optimization-tradeoff-dashboard-ja.png)
 
 :::tip 図の読み方
 最適化の前に、まずボトルネックがどこにあるかを見極めましょう。VRAM、レイテンシ、スループット、精度、ハードウェア適合性、保守コストは、たいてい互いに影響し合います。図を見るときは、単に「もっと速くできるか」ではなく、「どの指標を、どんな代償で改善するのか」を考えてください。

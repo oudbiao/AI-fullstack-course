@@ -6,7 +6,7 @@ description: "Master the core tools of Python functional programming"
 
 # Basics of Functional Programming
 
-![Functional data pipeline diagram](/img/course/ch02-functional-pipeline.png)
+![Functional data pipeline diagram](/img/course/ch02-functional-pipeline-en.png)
 
 ## Section Overview
 

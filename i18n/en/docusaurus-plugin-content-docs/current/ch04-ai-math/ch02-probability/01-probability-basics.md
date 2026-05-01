@@ -7,7 +7,7 @@ keywords: [probability, conditional probability, Bayes' theorem, joint probabili
 
 # Probability Basics: Measuring Uncertainty
 
-![Probability distribution and Bayes update diagram](/img/course/probability-distribution-map.png)
+![Probability distribution and Bayes update diagram](/img/course/probability-distribution-map-en.png)
 
 :::tip Why learn probability?
 AI is essentially about making decisions in "uncertainty." A model does not output "this image is definitely a cat," but rather "this image has a 95% probability of being a cat." Probability theory is the mathematical tool for handling uncertainty.
@@ -98,7 +98,7 @@ These three things.
 
 It is best to place this section back into the chapter as a whole:
 
-![Probability and Bayes update flowchart](/img/course/ch04-probability-bayes-update-flow.png)
+![Probability and Bayes update flowchart](/img/course/ch04-probability-bayes-update-flow-en.png)
 
 What you really need to learn here is not just a few formulas, but:
 

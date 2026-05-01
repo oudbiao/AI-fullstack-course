@@ -7,7 +7,7 @@ keywords: [多モダリティ, multimodal, 画像とテキスト, 音声, 動画
 
 # マルチモーダル学習の基礎
 
-![マルチモーダルのアラインメントと融合の図](/img/course/multimodal-alignment-fusion.png)
+![マルチモーダルのアラインメントと融合の図](/img/course/multimodal-alignment-fusion-ja.png)
 
 ## 学習目標
 

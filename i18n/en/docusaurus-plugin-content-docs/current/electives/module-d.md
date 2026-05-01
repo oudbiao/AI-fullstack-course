@@ -7,9 +7,9 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 # AI Safety and Red Team Testing
 
-![AI Security Red Team Loop Diagram](/img/course/elective-ai-security-red-team-loop.png)
+![AI Security Red Team Loop Diagram](/img/course/elective-ai-security-red-team-loop-en.png)
 
-![AI Security Threat Modeling and Regression Set Diagram](/img/course/elective-ai-security-threat-regression-map.png)
+![AI Security Threat Modeling and Regression Set Diagram](/img/course/elective-ai-security-threat-regression-map-en.png)
 
 :::tip Reading guide
 Red team testing is not about writing a few extreme prompts to scare yourself. Instead, you start by modeling assets, attack surfaces, and failure consequences, then turn failure samples into a regression suite. When reading the diagram, focus on “how do we prevent the same problem from happening again after we find it?”

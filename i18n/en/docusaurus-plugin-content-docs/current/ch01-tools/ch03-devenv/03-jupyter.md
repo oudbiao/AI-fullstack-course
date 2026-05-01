@@ -6,7 +6,7 @@ description: "A standard tool for data analysis and AI experiments"
 
 # Jupyter Notebook
 
-![Jupyter Cell and Kernel State Diagram](/img/course/ch01-jupyter-kernel-state.png)
+![Jupyter Cell and Kernel State Diagram](/img/course/ch01-jupyter-kernel-state-en.png)
 
 ## What This Section Covers
 

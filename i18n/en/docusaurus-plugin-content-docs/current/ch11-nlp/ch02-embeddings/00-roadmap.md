@@ -24,7 +24,7 @@ So the real new core of this chapter is not “more advanced vectors,” but:
 
 ## The Main Thread of This Chapter
 
-![NLP representation learning chapter learning sequence diagram](/img/course/ch11-embeddings-chapter-flow.png)
+![NLP representation learning chapter learning sequence diagram](/img/course/ch11-embeddings-chapter-flow-en.png)
 
 ## A Beginner-Friendly Learning Order for This Chapter
 

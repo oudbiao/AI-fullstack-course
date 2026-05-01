@@ -17,7 +17,7 @@ You have already studied computer vision, NLP, LLM applications, and Agent. The 
 
 Multimodal is not as simple as “images plus text.” Its core questions are: how different modalities are encoded into representations, how they are aligned with each other, how they are fused into the same task, and how they ultimately serve Q&A, retrieval, creation, review, and automation workflows.
 
-![Multimodal foundations chapter learning flow diagram](/img/course/ch12-multimodal-chapter-flow.png)
+![Multimodal foundations chapter learning flow diagram](/img/course/ch12-multimodal-chapter-flow-en.png)
 
 These different inputs are first converted into representations that the model can process, and then they move into alignment, fusion, and task layers.
 

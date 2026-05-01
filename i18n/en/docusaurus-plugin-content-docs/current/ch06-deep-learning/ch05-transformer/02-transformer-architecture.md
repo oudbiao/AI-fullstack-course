@@ -7,7 +7,7 @@ keywords: [Transformer, Encoder, Decoder, Residual, LayerNorm, FFN, Positional E
 
 # Transformer Architecture
 
-![Transformer Block architecture diagram](/img/course/transformer-block-architecture.png)
+![Transformer Block architecture diagram](/img/course/transformer-block-architecture-en.png)
 
 :::tip Where this section fits
 In the previous section, you learned that the attention mechanism is the heart of the Transformer.  
@@ -93,7 +93,7 @@ With this mental model, it no longer feels like:
 
 - a pile of mysterious layers stacked together
 
-![Transformer Block component responsibility diagram](/img/course/ch06-transformer-block-role-map.png)
+![Transformer Block component responsibility diagram](/img/course/ch06-transformer-block-role-map-en.png)
 
 :::tip Reading the Diagram
 It is helpful to read this diagram by responsibility: Attention mixes context, Residual preserves the original information, LayerNorm stabilizes the values, and FFN further processes each position. A Transformer is not just attention; it is an engineering structure that makes attention deep and trainable.
@@ -350,7 +350,7 @@ what really changes is:
 - how each position incorporates global context
 - how rich the semantic information in the representation becomes
 
-![Progressive refinement of representations across Transformer layers](/img/course/ch06-transformer-representation-refinement-map.png)
+![Progressive refinement of representations across Transformer layers](/img/course/ch06-transformer-representation-refinement-map-en.png)
 
 :::tip Reading the Diagram
 When reading this diagram, do not focus only on shape: `[batch, seq_len, d_model]` may stay the same across layers, but each token representation has already absorbed more context. In a Transformer, the real “improvement” often happens inside the representation content, not in the outer dimensions.

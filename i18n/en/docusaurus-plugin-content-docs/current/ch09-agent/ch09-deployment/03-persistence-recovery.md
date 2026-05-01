@@ -199,7 +199,7 @@ but it cannot fully explain:
 
 Logs help with postmortems and debugging.
 
-![Agent Checkpoint, Event Log, and Recovery Diagram](/img/course/ch09-agent-persistence-checkpoint-eventlog-map.png)
+![Agent Checkpoint, Event Log, and Recovery Diagram](/img/course/ch09-agent-persistence-checkpoint-eventlog-map-en.png)
 
 :::tip Reading the diagram
 This diagram splits recovery into two paths: checkpoint handles “where to recover to now,” while event log handles “what happened before.” When long tasks go live, it is best to use both together rather than storing only the final result.

@@ -36,7 +36,7 @@ So the most important thing in this section is not memorizing parameters, but fi
 
 Data read/write is easier to understand as “first read it in, then confirm whether it was read correctly”:
 
-![First look at the Pandas data read/write workflow](/img/course/ch03-pandas-read-write-first-look.png)
+![First look at the Pandas data read/write workflow](/img/course/ch03-pandas-read-write-first-look-en.png)
 
 So what this section really aims to solve is:
 

@@ -5,9 +5,9 @@ sidebar_position: 4
 
 # AI 分野における継続学習の方法論
 
-![継続学習の三層フライホイール図](/img/course/appendix-continuous-learning-flywheel.png)
+![継続学習の三層フライホイール図](/img/course/appendix-continuous-learning-flywheel-ja.png)
 
-![論文・プロジェクト・知識ベース振り返りの循環図](/img/course/appendix-learning-paper-project-notes-loop.png)
+![論文・プロジェクト・知識ベース振り返りの循環図](/img/course/appendix-learning-paper-project-notes-loop-ja.png)
 
 :::tip 図の読み方
 継続学習でいちばん怖いのは、集めるだけで定着しないことです。図を見るときは、論文、コード実験、プロジェクトの振り返り、知識ベースのカードを循環としてつなげましょう。新しいものを見るたびに、「これはどのプロジェクトや判断を改善できるか？」に立ち返るのが大切です。

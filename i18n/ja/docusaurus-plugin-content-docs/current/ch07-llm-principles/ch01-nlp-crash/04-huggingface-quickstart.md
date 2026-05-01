@@ -64,7 +64,7 @@ keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
 3. batch を model に渡す
 4. 出力から hidden states、logits、または生成結果を取り出す
 
-![HuggingFace 標準ワークフローのオブジェクト関係図](/img/course/ch07-huggingface-workflow-object-map.png)
+![HuggingFace 標準ワークフローのオブジェクト関係図](/img/course/ch07-huggingface-workflow-object-map-ja.png)
 
 :::tip 図の見方
 この図を見るときは、HuggingFace を標準化された実験台だと考えてください。`tokenizer` はテキストをテンソルに変換し、`config` はモデル構造を表し、`model.forward` が計算を実行します。その後、出力は hidden states、logits、または生成結果になります。API 名はたくさんありますが、主線は実はとても安定しています。

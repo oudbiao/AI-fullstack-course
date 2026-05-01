@@ -7,7 +7,7 @@ keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 
 # 訓練フロー
 
-![PyTorch 訓練ループ図](/img/course/pytorch-training-loop.png)
+![PyTorch 訓練ループ図](/img/course/pytorch-training-loop-ja.png)
 
 ## 学習目標
 
@@ -129,7 +129,7 @@ for batch_x, batch_y in train_loader:
 
 つまり訓練ループは、「いくつかの API を並べただけ」ではなく、厳密な順番を持つ因果の流れです。
 
-![PyTorch 訓練ループの順番ガードレール図](/img/course/ch06-training-loop-order-guardrail.png)
+![PyTorch 訓練ループの順番ガードレール図](/img/course/ch06-training-loop-order-guardrail-ja.png)
 
 :::tip 読み方のヒント
 この図は、訓練ループを書くたびに照らし合わせるのがおすすめです。`model.train()`、batch を取る、forward、loss、`zero_grad()`、`backward()`、`step()` の順番を確認してください。検証フェーズでは `model.eval()` と `torch.no_grad()` に切り替えて、検証で勾配を記録しないようにします。

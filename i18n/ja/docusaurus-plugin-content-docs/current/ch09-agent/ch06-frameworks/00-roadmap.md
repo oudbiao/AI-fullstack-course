@@ -15,7 +15,7 @@ keywords: [Agentフレームワーク入門, LangGraph, LlamaIndex, CrewAI, Auto
 
 ## 本章が Agent 学習ロードマップのどこにあるか
 
-![Agent フレームワークの位置マップ](/img/course/ch09-frameworks-position-map.png)
+![Agent フレームワークの位置マップ](/img/course/ch09-frameworks-position-map-ja.png)
 
 もしまだ、ツール schema、実行トレース、停止条件、そして人による確認を説明できないなら、いきなり複雑なフレームワークを使うのは急がないほうがよいです。フレームワークは設計をそのまま増幅します。境界がはっきりしていれば効率を上げてくれますが、境界が曖昧だと、問題の切り分けがむしろ難しくなります。
 
@@ -35,7 +35,7 @@ keywords: [Agentフレームワーク入門, LangGraph, LlamaIndex, CrewAI, Auto
 
 まず最初にフレームワークの全体像を読み、なぜフレームワークが生まれたのかを理解します。目的は Agent をより「賢く」することではなく、状態、ツール、フロー、記憶、ログを整理しやすくすることです。次に LangChain/LangGraph を学び、状態グラフ、ノード、エッジ、条件分岐、そして再開可能な実行に注目します。続いて LlamaIndex を見て、なぜこれが「データアプリケーション向けのフレームワーク」に近いのかを理解します。その後で CrewAI と AutoGen を取り上げ、役割分担による協働と複数 Agent の対話の違いを比較します。最後にフレームワーク選定を読み、自分なりの判断表を作れるようにします。
 
-![Agent フレームワーク選定マップ](/img/course/ch09-framework-selection-map.png)
+![Agent フレームワーク選定マップ](/img/course/ch09-framework-selection-map-ja.png)
 
 ## どんなときにフレームワークを使うべきではないか
 

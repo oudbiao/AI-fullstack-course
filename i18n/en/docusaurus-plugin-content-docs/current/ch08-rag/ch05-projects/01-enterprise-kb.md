@@ -62,7 +62,7 @@ So enterprise knowledge base Q&A is more like a combination of:
 - A citation system
 - A permission system
 
-![Enterprise knowledge base permission and citation loop diagram](/img/course/ch08-enterprise-kb-permission-citation-map.png)
+![Enterprise knowledge base permission and citation loop diagram](/img/course/ch08-enterprise-kb-permission-citation-map-en.png)
 
 :::tip Reading guide
 An enterprise knowledge base cannot rely only on “semantic relevance.” First filter candidates by user permissions, then retrieve and rerank, and finally make sure the answer includes source citations; otherwise, the system may sound correct while leaking internal documents or becoming impossible to trace.

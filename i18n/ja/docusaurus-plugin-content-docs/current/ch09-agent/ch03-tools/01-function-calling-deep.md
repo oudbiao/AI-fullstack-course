@@ -85,7 +85,7 @@ flowchart LR
 
 > **モデルは「判断」し、プログラムは「安全かつ安定して実行する」ことを保証します。**
 
-![Function Calling Schema の検証と実行のガードレール図](/img/course/ch09-tool-schema-validation-guardrail-map.png)
+![Function Calling Schema の検証と実行のガードレール図](/img/course/ch09-tool-schema-validation-guardrail-map-ja.png)
 
 :::tip 図の読み方
 この図は「モデルの出力 = プログラムの実行」ではない、という前提で読みます。モデルは tool call を提案するだけで、プログラムはまず schema 検証、権限チェック、パラメータの整形、エラーの正規化を行い、そのあとで初めて実際のツールを実行します。

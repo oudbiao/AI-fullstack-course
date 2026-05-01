@@ -7,7 +7,7 @@ keywords: [vector spaces, linear independence, basis, dimension, SVD, singular v
 
 # Vector Spaces and Linear Transformations [Elective]
 
-![Schematic of vector space basis vectors spanning a space](/img/course/vector-space-basis-span.png)
+![Schematic of vector space basis vectors spanning a space](/img/course/vector-space-basis-span-en.png)
 
 :::info Elective Chapter
 This section is here to help you **build deeper understanding**. If you just want to get started quickly with AI projects, you can skip it for now and come back later when you encounter these concepts again.
@@ -38,7 +38,7 @@ In other words, this section is more like:
 
 If the previous three sections were about “how vectors are represented, how matrices transform, and how eigenvalues find special directions,” then this section raises the viewpoint and looks at all of that again from a broader angle.
 
-![High-level view of vector spaces](/img/course/ch04-vector-space-high-level-map.png)
+![High-level view of vector spaces](/img/course/ch04-vector-space-high-level-map-en.png)
 
 So this lesson is more like a “deeper understanding and organization” lesson. You do not need to fully master it right away, but once you do understand it, you will better see why the earlier concepts make sense.
 

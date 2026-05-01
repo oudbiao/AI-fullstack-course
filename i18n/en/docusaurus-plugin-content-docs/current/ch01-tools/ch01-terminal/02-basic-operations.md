@@ -6,7 +6,7 @@ description: "Master core commands, path concepts, pipes, and environment variab
 
 # Basic Terminal Operations
 
-![Diagram of the relationship between terminal paths and command execution](/img/course/ch01-terminal-path-command-map.png)
+![Diagram of the relationship between terminal paths and command execution](/img/course/ch01-terminal-path-command-map-en.png)
 
 ## Where this section fits
 

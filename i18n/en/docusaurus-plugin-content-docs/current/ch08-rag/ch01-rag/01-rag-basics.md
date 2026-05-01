@@ -7,7 +7,7 @@ keywords: [RAG, retrieval augmented generation, retrieval-augmented generation, 
 
 # RAG Basics
 
-![RAG document-to-answer loop](/img/course/rag-document-answer-loop.png)
+![RAG document-to-answer loop](/img/course/rag-document-answer-loop-en.png)
 
 :::tip Section focus
 RAG is most often misunderstood as:
@@ -160,7 +160,7 @@ This table is important because it helps beginners avoid many detours:
 
 - When RAG goes wrong, do not assume it is always the model's fault
 
-![RAG layered failure debug map](/img/course/ch08-rag-layer-failure-debug-map.png)
+![RAG layered failure debug map](/img/course/ch08-rag-layer-failure-debug-map-en.png)
 
 :::tip Reading tip
 Follow the diagram from left to right and ask three questions: Was the right information split into retrievable chunks? Did it enter top-k? Was it included in the final context? Only when all three layers are fine should you primarily suspect the generation model itself.

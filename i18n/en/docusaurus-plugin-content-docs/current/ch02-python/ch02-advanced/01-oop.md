@@ -6,7 +6,7 @@ description: "Master the core concepts of Python object-oriented programming"
 
 # Object-Oriented Programming
 
-![Diagram of the relationship between classes, objects, attributes, and methods](/img/course/ch02-oop-class-object-map.png)
+![Diagram of the relationship between classes, objects, attributes, and methods](/img/course/ch02-oop-class-object-map-en.png)
 
 ## Section Overview
 

@@ -7,7 +7,7 @@ keywords: [multimodal, multimodal, image-text, speech, video, fusion]
 
 # Fundamentals of Multimodal Learning
 
-![Diagram of multimodal alignment and fusion](/img/course/multimodal-alignment-fusion.png)
+![Diagram of multimodal alignment and fusion](/img/course/multimodal-alignment-fusion-en.png)
 
 ## Learning Objectives
 

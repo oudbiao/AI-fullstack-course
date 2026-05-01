@@ -7,7 +7,7 @@ keywords: [AI application engineer, RAG engineer, Agent development, model engin
 
 # Choosing a Role-Based Path: Learn the AI Full-Stack by Your Goal
 
-![Role-based path selection map](/img/course/intro-role-based-paths-map.png)
+![Role-based path selection map](/img/course/intro-role-based-paths-map-en.png)
 
 ## What This Section Is About
 

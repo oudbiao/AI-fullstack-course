@@ -7,7 +7,7 @@ keywords: [事前学習ガイド, BERT, GPT, T5, transformers]
 
 # 学習ガイド：事前学習モデルのこの章では何を学ぶのか
 
-![BERT GPT T5 比較図](/img/course/bert-gpt-t5-comparison.png)
+![BERT GPT T5 比較図](/img/course/bert-gpt-t5-comparison-ja.png)
 
 ## 本章の位置づけ
 
@@ -17,7 +17,7 @@ keywords: [事前学習ガイド, BERT, GPT, T5, transformers]
 
 ## この章がコース全体の中でどこにあるか
 
-![事前学習言語モデル章の学習順序図](/img/course/ch11-pretrained-chapter-flow.png)
+![事前学習言語モデル章の学習順序図](/img/course/ch11-pretrained-chapter-flow-ja.png)
 
 この章は、第11章の自然言語処理を締めくくると同時に、第7〜9章の大規模モデル、RAG、Agent への前置きにもなります。今後、大規模モデル API の呼び出し、テキスト検索、微調整、RAG の構築をするとき、tokenizer、embedding、コンテキスト長、生成方法、モデルの読み込みといった概念に何度も出会うことになります。
 

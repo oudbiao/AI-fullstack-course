@@ -6,7 +6,7 @@ description: "Master the four major data structures in Python: lists, tuples, di
 
 # Data Structures
 
-![Python Data Structures Comparison](/img/course/ch02-data-structures-comparison.png)
+![Python Data Structures Comparison](/img/course/ch02-data-structures-comparison-en.png)
 
 ## Section Overview
 

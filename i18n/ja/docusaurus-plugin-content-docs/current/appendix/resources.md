@@ -5,9 +5,9 @@ sidebar_position: 1
 
 # おすすめ学習リソース
 
-![リソース選択ファネル図](/img/course/appendix-resource-selection-funnel.png)
+![リソース選択ファネル図](/img/course/appendix-resource-selection-funnel-ja.png)
 
-![リソース選択のボトルネック優先度マップ](/img/course/appendix-resource-bottleneck-priority-map.png)
+![リソース選択のボトルネック優先度マップ](/img/course/appendix-resource-bottleneck-priority-map-ja.png)
 
 :::tip 図の見方
 リソースは多ければ多いほどよいわけではなく、今つまずいているポイントに役立つものを選ぶのが大切です。まず、概念・コード・数学・エンジニアリング・プロジェクト・説明のどこで止まっているかを見極め、それに合うリソースを1つ選んで補い、最後は必ずプロジェクトで確認しましょう。

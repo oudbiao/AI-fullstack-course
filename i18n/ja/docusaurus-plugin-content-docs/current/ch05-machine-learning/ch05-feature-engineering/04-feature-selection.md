@@ -7,7 +7,7 @@ keywords: [特徴選択, feature selection, フィルタ法, wrapper, embedded, 
 
 # 特徴選択
 
-![特徴選択方法の比較図](/img/course/feature-selection-methods.png)
+![特徴選択方法の比較図](/img/course/feature-selection-methods-ja.png)
 
 :::tip この節の位置づけ
 特徴選択の目的は、特徴をできるだけ削ることではなく、性能・安定性・説明しやすさ・コストのバランスを取ることです。本当の目標は、タスクに有用で、本番で取得できて、情報漏えいを起こさない特徴を残すことです。

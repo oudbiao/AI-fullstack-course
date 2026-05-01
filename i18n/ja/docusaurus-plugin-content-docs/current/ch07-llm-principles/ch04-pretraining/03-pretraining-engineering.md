@@ -71,7 +71,7 @@ keywords: [pretraining engineering, sharding, streaming, checkpoint, resume, thr
 どこか1つでも不安定だと、  
 全体のコストがすぐに大きくなります。
 
-![事前学習エンジニアリングの生産ライン図](/img/course/ch07-pretraining-engineering-production-line.png)
+![事前学習エンジニアリングの生産ライン図](/img/course/ch07-pretraining-engineering-production-line-ja.png)
 
 :::tip 図の見方
 この図では、事前学習を1本の生産ラインとして見ています。shards は原材料倉庫、streaming dataloader はベルトコンベア、checkpoint は進捗の保存、resume は停電後の再稼働です。事前学習エンジニアリングの要点は、「1回動けばよい」ではなく、長時間安定して動かし続けられることです。

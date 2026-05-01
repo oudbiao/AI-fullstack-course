@@ -13,13 +13,13 @@ keywords: [LLMエンジニアリングガイド, 非同期プログラミング,
 
 ## この章の主な流れ
 
-![LLM エンジニアリング章の学習順序図](/img/course/ch08-engineering-chapter-flow.png)
+![LLM エンジニアリング章の学習順序図](/img/course/ch08-engineering-chapter-flow-ja.png)
 
 ## LLMOps 詳説：大規模モデルアプリを長く動くソフトウェアとして扱う
 
 LLM アプリを公開したあとで一番大きいリスクは、「ある 1 回の呼び出しが失敗すること」だけではありません。Prompt が変わる、モデルのバージョンが変わる、文書が更新される、ユーザーの質問が変わる、コストが急に上がる——なのに、どの層に問題があるのか誰も分からないことです。LLMOps が解決したいのは、評価できること、観測できること、ロールバックできること、継続的に改善できることです。
 
-![LLMOps Trace ふりかえり閉ループ図](/img/course/ch08-llmops-trace-loop.png)
+![LLMOps Trace ふりかえり閉ループ図](/img/course/ch08-llmops-trace-loop-ja.png)
 
 | 方向 | 解決する問題 | この章の注目点 |
 |---|---|---|

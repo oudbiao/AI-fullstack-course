@@ -80,7 +80,7 @@ This diagram is important because it reminds you:
 - What a security system really delivers is the alert experience
 - Not the box on a single image
 
-![Security detection, rule checking, tracking, and alert deduplication diagram](/img/course/ch10-security-detection-alert-dedup-map.png)
+![Security detection, rule checking, tracking, and alert deduplication diagram](/img/course/ch10-security-detection-alert-dedup-map-en.png)
 
 :::tip Reading guide
 The output of a security project is not “drawing boxes,” but reliable alerts. When reading the diagram, focus on how detection results enter rule checking, how `track_id` avoids repeated alarms, and how the results finally flow into manual review, logs, and failure review.

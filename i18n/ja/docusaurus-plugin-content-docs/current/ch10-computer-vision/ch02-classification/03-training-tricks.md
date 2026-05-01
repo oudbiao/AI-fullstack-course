@@ -69,7 +69,7 @@ train_tfms = transforms.Compose([
 | 学習が大きく揺れる | batch が小さすぎる、学習率が大きい | 学習率を下げる、batch を増やす、データを確認する |
 | 検証スコアが異常に高い | データリーク | 重複画像や、同じ対象が両方の集合に入っていないか確認する |
 
-![画像分類の学習診断マトリクス](/img/course/ch10-classification-training-diagnosis-map.png)
+![画像分類の学習診断マトリクス](/img/course/ch10-classification-training-diagnosis-map-ja.png)
 
 :::tip 図の見方
 この図は、学習の問題を「データ」「学習」「評価」の3つに分けています。分類結果がよくないときは、すぐにモデルを変えるのではなく、まず loss 曲線、検証データのリーク、クラス不均衡、エラーサンプルを確認しましょう。

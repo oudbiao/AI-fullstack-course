@@ -27,7 +27,7 @@ Because it will help you first build an understanding of:
 
 ## The main thread of this chapter
 
-![Image classification chapter learning flowchart](/img/course/ch10-classification-chapter-flow.png)
+![Image classification chapter learning flowchart](/img/course/ch10-classification-chapter-flow-en.png)
 
 This chapter is best for helping newcomers build their first real sense of “how a vision model learns stable features from an entire image.”
 

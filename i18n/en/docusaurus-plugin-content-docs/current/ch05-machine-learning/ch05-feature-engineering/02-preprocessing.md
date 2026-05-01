@@ -7,7 +7,7 @@ keywords: [feature preprocessing, missing values, standardization, one-hot, data
 
 # Feature Preprocessing
 
-![Feature preprocessing pipeline](/img/course/feature-preprocessing-pipeline.png)
+![Feature preprocessing pipeline](/img/course/feature-preprocessing-pipeline-en.png)
 
 :::tip Section Focus
 Feature preprocessing is not about “applying every possible method,” but about making choices based on the model, the data, and the task. What really matters is knowing why each step is done, when it should not be done, and how to avoid data leakage.

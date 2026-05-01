@@ -7,7 +7,7 @@ keywords: [MCP architecture, client, server, transport, tools, protocol flow]
 
 # MCP Architecture and Core Concepts
 
-![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server.png)
+![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.png)
 
 :::tip Section overview
 In the previous section, we learned that MCP is "a unified protocol for the tool access layer."  
@@ -230,7 +230,7 @@ They show that MCP is not just “calling a function.” Instead, it has:
 
 This way, the client does not need to hard-code all tool details.
 
-![MCP tool discovery and invocation message flow diagram](/img/course/ch09-mcp-host-client-server-message-flow-map.png)
+![MCP tool discovery and invocation message flow diagram](/img/course/ch09-mcp-host-client-server-message-flow-map-en.png)
 
 :::tip Reading guide
 Read this diagram in message order: the Client in the Host first requests `tools/list` from the Server, then sends `tools/call` after getting the capability list. The value of MCP is that “discovering capabilities” and “calling capabilities” share one unified protocol.

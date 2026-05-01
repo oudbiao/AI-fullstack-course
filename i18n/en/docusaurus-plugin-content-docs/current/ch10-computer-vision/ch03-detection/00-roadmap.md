@@ -26,7 +26,7 @@ So detection is not just a simple upgrade from classification. It adds an extra 
 
 ## The main storyline of this chapter
 
-![Learning flowchart for the object detection chapter](/img/course/ch10-detection-chapter-flow.png)
+![Learning flowchart for the object detection chapter](/img/course/ch10-detection-chapter-flow-en.png)
 
 When studying this chapter, the most important thing is not to memorize model names first, but to understand boxes, IoU, mAP, and multi-object scenarios.
 

@@ -200,7 +200,7 @@ flowchart LR
 
 - 何を長期記憶に入れるべきか
 
-![長期記憶の書き込み、更新、信頼度の図](/img/course/ch09-long-term-memory-write-update-policy-map.png)
+![長期記憶の書き込み、更新、信頼度の図](/img/course/ch09-long-term-memory-write-update-policy-map-ja.png)
 
 :::tip 図の見方
 長期記憶は「永久保存のチャットログ」ではありません。図を見るときは write policy、confidence、version、retrieval に注目してください。先に保存する価値があるかを判断し、それから新旧の衝突を処理し、最後に現在のタスクに関連する事実を取り出します。

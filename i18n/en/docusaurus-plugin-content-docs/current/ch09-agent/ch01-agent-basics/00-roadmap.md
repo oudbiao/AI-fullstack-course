@@ -17,7 +17,7 @@ You have already learned LLM application development and RAG, and you know that 
 
 The key change here is: a normal LLM application usually works as one user question, one system answer; an Agent places more emphasis on goal-driven behavior, state maintenance, tool calling, result observation, and multi-step execution.
 
-![Agent basics position bridging diagram](/img/course/ch09-basics-position-bridge.png)
+![Agent basics position bridging diagram](/img/course/ch09-basics-position-bridge-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,13 +29,13 @@ The mistake beginners make most often is jumping straight into LangGraph, CrewAI
 
 It is recommended to first look at “What is an Agent” and clearly distinguish the boundaries between Agents, chatbots, RAG applications, tool-calling systems, and fixed workflows. Then study the development path to understand why Agent regained attention after LLMs. Next, look at the capability levels and place “can answer, can retrieve, can call tools, can plan, can use memory, can collaborate” on the same capability line. After that, study the system architecture to understand how goals, state, tools, memory, planners, and executors work together. Finally, read “From TD-Gammon to AlphaGo” to connect action, feedback, and planning in reinforcement learning with modern Agents.
 
-![Agent basics chapter learning order diagram](/img/course/ch09-basics-chapter-flow.png)
+![Agent basics chapter learning order diagram](/img/course/ch09-basics-chapter-flow-en.png)
 
 ## The Main Thread to Focus on While Studying This Chapter
 
 The main thread of this chapter can be summarized as: Agent is not a model name, but a system approach that organizes models, tools, state, and feedback around a goal.
 
-![Single-Agent execution loop diagram](/img/course/ch09-basics-execution-loop.png)
+![Single-Agent execution loop diagram](/img/course/ch09-basics-execution-loop-en.png)
 
 This loop helps you judge whether a system is an Agent. If the system only calls a model once in a fixed way, it is more like a normal LLM application. If the system can break a goal into steps, call tools, observe results, revise the plan, and continue execution when needed, it starts to resemble an Agent.
 

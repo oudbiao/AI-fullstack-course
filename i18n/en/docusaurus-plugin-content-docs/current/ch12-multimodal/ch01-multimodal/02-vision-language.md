@@ -7,7 +7,7 @@ keywords: [vision-language model, VLM, image-text retrieval, visual question ans
 
 # Vision-Language Models
 
-![Vision-Language Model Architecture](/img/course/vision-language-model-architecture.png)
+![Vision-Language Model Architecture](/img/course/vision-language-model-architecture-en.png)
 
 :::tip Section focus
 Beginners often understand vision-language models as:

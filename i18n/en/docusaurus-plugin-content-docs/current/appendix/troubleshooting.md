@@ -5,9 +5,9 @@ sidebar_position: 5
 
 # Learning Rescue for Stuck Points
 
-![Troubleshooting map for learning stuck points](/img/course/appendix-troubleshooting-rescue-map.png)
+![Troubleshooting map for learning stuck points](/img/course/appendix-troubleshooting-rescue-map-en.png)
 
-![Flowchart for minimal reproduction and asking for help](/img/course/appendix-debug-mre-help-flow.png)
+![Flowchart for minimal reproduction and asking for help](/img/course/appendix-debug-mre-help-flow-en.png)
 
 :::tip Reading guide
 When you run into a problem, don’t rush to change direction. Follow the steps “reproduce the problem -> collect the environment -> narrow the input -> record the error -> ask a specific question.” Many stuck points can shift from an emotional problem into an engineering problem that can be located and fixed.

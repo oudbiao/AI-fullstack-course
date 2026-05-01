@@ -6,7 +6,7 @@ description: "Learn how to design a sensible database structure and master norma
 
 # Database Design
 
-![Database Design and Normalization Diagram](/img/course/ch03-database-design-erd-normalization.png)
+![Database Design and Normalization Diagram](/img/course/ch03-database-design-erd-normalization-en.png)
 
 :::tip Section Focus
 When many beginners first learn database design, they often focus entirely on:

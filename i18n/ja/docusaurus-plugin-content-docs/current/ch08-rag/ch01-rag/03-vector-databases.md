@@ -7,7 +7,7 @@ keywords: [ベクトルデータベース, embedding, similarity search, metadat
 
 # ベクトルデータベース
 
-![ベクトルデータベースの類似度検索図](/img/course/vector-database-similarity-search.png)
+![ベクトルデータベースの類似度検索図](/img/course/vector-database-similarity-search-ja.png)
 
 ## 学習目標
 
@@ -92,7 +92,7 @@ print(record)
 
 つまり、ベクトルデータベースは「ベクトルだけ」を扱うのではなく、「ベクトル + テキスト + メタデータ」を組み合わせて管理します。
 
-![ベクトルストアのレコードとメタデータフィルタの図](/img/course/ch08-vector-record-metadata-filter-map.png)
+![ベクトルストアのレコードとメタデータフィルタの図](/img/course/ch08-vector-record-metadata-filter-map-ja.png)
 
 :::tip 図の読み方
 vector の列だけを見ないようにしましょう。実際の RAG では、`text` がモデルへの根拠になり、`metadata` がフィルタ、権限、引用、評価を支えます。どれか 1 つでも欠けると、システムのデバッグが難しくなります。
@@ -278,7 +278,7 @@ print(record)
 
 - 絶対に最適とは限らないが、たいていは十分良い
 
-![厳密検索と ANN のトレードオフ図](/img/course/ch08-ann-exact-search-tradeoff-map.png)
+![厳密検索と ANN のトレードオフ図](/img/course/ch08-ann-exact-search-tradeoff-map-ja.png)
 
 :::tip 図の読み方
 厳密検索はクラス全員を 1 人ずつ比べるようなもの、ANN はまずエリアで候補を絞ってから近所を探すようなものです。初心者はまず 1 つ覚えましょう。ANN は「絶対最適の保証」を少し犠牲にして、大規模検索の速度を得ます。

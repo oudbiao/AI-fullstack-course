@@ -17,7 +17,7 @@ keywords: [画像生成ガイド, 拡散モデル, Stable Diffusion, ControlNet,
 
 画像生成は「プロンプトを書いて、あとは画像が出るのを待つ」だけではありません。実際のワークフローには、要件分解、プロンプト設計、参考素材、制御条件、生成の反復、部分修復、スタイル統一、著作権と安全性のチェックが含まれます。
 
-![画像生成章の学習順序図](/img/course/ch12-image-gen-chapter-flow.png)
+![画像生成章の学習順序図](/img/course/ch12-image-gen-chapter-flow-ja.png)
 
 ## この章で本当に解決したい問題
 

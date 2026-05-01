@@ -7,7 +7,7 @@ keywords: [次元削減, PCA, t-SNE, UMAP, 主成分分析, 高次元可視化, 
 
 # 次元削減アルゴリズム
 
-![PCA 次元削減の投影図](/img/course/pca-dimensionality-reduction.png)
+![PCA 次元削減の投影図](/img/course/pca-dimensionality-reduction-ja.png)
 
 :::tip この節の位置づけ
 実データには、数十個、場合によっては数千個の特徴量があることがよくあります。次元削減は**特徴量の数を減らしつつ、重要な情報を保つ**方法です。学習を速くできるだけでなく、可視化にも役立ちます。この節では、第 4 章の PCA の基礎を踏まえて、実践的な活用まで深めます。
@@ -47,7 +47,7 @@ keywords: [次元削減, PCA, t-SNE, UMAP, 主成分分析, 高次元可視化, 
 
 学び方としては、次の順番が安定しています。
 
-![次元削減の目的選択図](/img/course/ch05-dimensionality-reduction-purpose-map.png)
+![次元削減の目的選択図](/img/course/ch05-dimensionality-reduction-purpose-map-ja.png)
 
 「モデル用」と「可視化用」を分けて考えること。これがこの節でいちばん大事な最初の一歩です。
 
@@ -232,7 +232,7 @@ print(f"95% の分散を保持するには {n_95} 個の主成分が必要です
 
 なぜなら、「どれだけ分散を保ったか」と「下流タスクで最も良いか」は同じではないからです。
 
-![PCA 分散説明率の読み方ガイド](/img/course/ch05-pca-explained-variance-map.png)
+![PCA 分散説明率の読み方ガイド](/img/course/ch05-pca-explained-variance-map-ja.png)
 
 PCA の図を見るときは、まず「累積分散曲線」の折れ曲がり点を見ます。折れ曲がり点より前は主成分を 1 つ増やす価値が高く、後ろでは効果が小さくなります。90% や 95% はあくまで目安で、最後は下流モデルのスコア、学習速度、説明しやすさをまとめて判断します。
 

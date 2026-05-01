@@ -6,9 +6,9 @@ keywords: [コース画像, 教学設計, 視覚学習, AIコース画像, Merma
 
 # コースのビジュアル強化計画
 
-![コース画像アセット計画カンバン](/img/course/appendix-visual-enhancement-kanban.png)
+![コース画像アセット計画カンバン](/img/course/appendix-visual-enhancement-kanban-ja.png)
 
-![コース画像の不足から生成・公開までのフローチャート](/img/course/appendix-image-production-pipeline-map.png)
+![コース画像の不足から生成・公開までのフローチャート](/img/course/appendix-image-production-pipeline-map-ja.png)
 
 :::tip 画像の見方のヒント
 画像は多ければ多いほどよいわけではなく、理解コストを下げることが大切です。読むときは「不足を見つける -> 図の意味を決める -> 画像を生成する -> ページに挿入する -> manifest/進捗を記録する -> ビルドで確認する」という流れで、一連のサイクルとして進めると、画像アセットが増えすぎるのを防げます。

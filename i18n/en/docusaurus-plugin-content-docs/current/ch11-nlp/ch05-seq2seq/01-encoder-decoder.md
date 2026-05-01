@@ -7,7 +7,7 @@ keywords: [seq2seq, encoder decoder, translation, summarization, text generation
 
 # Seq2Seq Models
 
-![Seq2Seq Encoder-Decoder Bottleneck Diagram](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.png)
+![Seq2Seq Encoder-Decoder Bottleneck Diagram](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map-en.png)
 
 :::tip Reading Guide
 The core challenge of Seq2Seq is “compress the input sequence into a representation, then generate the output sequence step by step.” When reading the diagram, focus on why the context vector creates an information bottleneck and why Attention appears later.

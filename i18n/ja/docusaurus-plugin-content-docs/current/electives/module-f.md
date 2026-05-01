@@ -7,9 +7,9 @@ keywords: [AI product design, product thinking, evaluation, cost, UX, product st
 
 # AIプロダクト設計の考え方
 
-![AI 製品の意思決定 4象限図](/img/course/elective-ai-product-decision-matrix.png)
+![AI 製品の意思決定 4象限図](/img/course/elective-ai-product-decision-matrix-ja.png)
 
-![AI 製品の実験と指標のループ図](/img/course/elective-ai-product-experiment-metrics-loop.png)
+![AI 製品の実験と指標のループ図](/img/course/elective-ai-product-experiment-metrics-loop-ja.png)
 
 :::tip 図の見方
 プロダクトの判断は、「このAI機能はすごい」で止まってはいけません。図を見るときは、ユーザーの問題、仮説、MVP、成功指標、リスクの境界、実験のフィードバック、反復をまとめて見ることで、その機能を本当に続ける価値があるかを判断できます。

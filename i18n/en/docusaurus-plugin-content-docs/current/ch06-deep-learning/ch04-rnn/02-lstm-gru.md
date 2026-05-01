@@ -7,7 +7,7 @@ keywords: [LSTM, GRU, gated mechanism, cell state, update gate, forget gate]
 
 # LSTM and GRU
 
-![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow.png)
+![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow-en.png)
 
 :::tip Section Overview
 In the previous section, you saw that an RNN can “read while remembering.”
@@ -212,7 +212,7 @@ In other words, what makes LSTM powerful is not that it is “more complicated,�
 
 > **It has learned to control information flow.**
 
-![LSTM gated information flow control diagram](/img/course/ch06-lstm-gates-information-control-map.png)
+![LSTM gated information flow control diagram](/img/course/ch06-lstm-gates-information-control-map-en.png)
 
 :::tip Reading Tip
 When reading this diagram, focus on just three things first: the Forget Gate decides how much old memory to keep, the Input Gate decides how much new information to write, and the Output Gate decides how much to output externally. The key point of LSTM is not the gate names, but that it finally starts “managing memory.”

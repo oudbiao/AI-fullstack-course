@@ -17,7 +17,7 @@ The deep learning project chapter is the exit of Station 6. It should prove that
 
 From the course roadmap, this chapter is also an important bridge to the large model stage. The training loop, data splitting, loss curves, validation set, error analysis, and experiment records you learn here will keep helping you later when you study pretraining, fine-tuning, and large model evaluation.
 
-![Deep Learning Project Portfolio Roadmap](/img/course/ch06-projects-portfolio-loop.png)
+![Deep Learning Project Portfolio Roadmap](/img/course/ch06-projects-portfolio-loop-en.png)
 
 In the first half, you determine the task, data, and training plan. In the second half, you complete the project review around metrics, curves, failure samples, and reports.
 
@@ -44,7 +44,7 @@ flowchart TD
 
 The main thread of this chapter can be summarized as: a deep learning project is a loop of data, model, training, validation, and error analysis.
 
-![Deep Learning Project Training Review Loop](/img/course/ch06-deep-learning-project-cycle.png)
+![Deep Learning Project Training Review Loop](/img/course/ch06-deep-learning-project-cycle-en.png)
 
 In the first half, you determine the task, data, and training plan. In the second half, you complete the project review around metrics, curves, failure samples, and reports.
 

@@ -31,7 +31,7 @@ description: "日付時刻の処理、リサンプリング、ローリングウ
 
 時系列は、「まず日付を操作可能なオブジェクトに変えてから、時間の軸で分析する」と考えると理解しやすいです：
 
-![Pandas 時系列分析図](/img/course/ch03-pandas-time-series-analysis.png)
+![Pandas 時系列分析図](/img/course/ch03-pandas-time-series-analysis-ja.png)
 
 この節で本当に解決したいのは、次の2つです。
 

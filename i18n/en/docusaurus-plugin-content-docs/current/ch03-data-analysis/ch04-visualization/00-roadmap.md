@@ -17,7 +17,7 @@ You have already learned Pandas, so you know how to read, clean, filter, and agg
 
 In later machine learning and project stages, visualization will also be used for EDA, feature distribution analysis, model result presentation, error analysis, and project reporting. So this chapter is not an “extra” about making charts look nicer. It is a core part of data analysis communication.
 
-![Data Visualization Roadmap](/img/course/ch03-visualization-roadmap.png)
+![Data Visualization Roadmap](/img/course/ch03-visualization-roadmap-en.png)
 
 ## The Real Problems This Chapter Solves
 

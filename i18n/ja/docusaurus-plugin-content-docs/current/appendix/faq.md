@@ -5,9 +5,9 @@ sidebar_position: 3
 
 # よくある質問
 
-![FAQ 新人向けの問題切り分けツリー](/img/course/appendix-faq-decision-tree.png)
+![FAQ 新人向けの問題切り分けツリー](/img/course/appendix-faq-decision-tree-ja.png)
 
-![FAQ 不安のリセットと行動の分岐図](/img/course/appendix-faq-confidence-reset-map.png)
+![FAQ 不安のリセットと行動の分岐図](/img/course/appendix-faq-confidence-reset-map-ja.png)
 
 :::tip 画像の読み方のヒント
 FAQ の目的は、あなたに「唯一の正解」を与えることではなく、あいまいな不安を実行できる問題に分解することです。図を見るときは、まず自分が数学、環境、時間、プロジェクト、論文、就職のどこで止まっているかを確認し、対応する章に戻って必要最小限の内容を補いましょう。

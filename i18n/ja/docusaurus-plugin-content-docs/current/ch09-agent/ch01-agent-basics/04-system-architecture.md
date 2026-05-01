@@ -7,7 +7,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 # Agent システムアーキテクチャ
 
-![Agent システムアーキテクチャ図](/img/course/agent-system-architecture.png)
+![Agent システムアーキテクチャ図](/img/course/agent-system-architecture-ja.png)
 
 ## 学習目標
 
@@ -135,7 +135,7 @@ Agent の本質は、「1回だけ回答する」ことではありません。
 
 これが、普通のチャットボットとの根本的な違いの1つです。
 
-![Agent システムアーキテクチャ データフロー図](/img/course/ch09-agent-system-architecture-dataflow-map.png)
+![Agent システムアーキテクチャ データフロー図](/img/course/ch09-agent-system-architecture-dataflow-map-ja.png)
 
 :::tip 読み方のヒント
 この図は「Agent を作るときの解剖図」だと思って見てください。Planner が次の一手を決め、Tool Layer が行動を担当し、Memory と State が文脈を記録し、Guardrails が何をしてよいかを決め、Observability が各ステップを追跡できるようにします。

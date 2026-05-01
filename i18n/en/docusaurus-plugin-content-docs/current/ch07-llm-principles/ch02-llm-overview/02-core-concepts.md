@@ -49,7 +49,7 @@ flowchart LR
 
 This diagram helps you see the main thread first: a large model does not directly “spit out an answer”; instead, it repeatedly follows a generation loop. Later, when you see token, embedding, attention, and temperature, you can place them back into this loop for understanding.
 
-![Next-token generation loop and sampling diagram](/img/course/ch07-next-token-generation-loop-map.png)
+![Next-token generation loop and sampling diagram](/img/course/ch07-next-token-generation-loop-map-en.png)
 
 :::tip Reading tip
 It is best to read this diagram as a loop: context becomes vectors, the Transformer outputs `logits`, `softmax` turns them into probabilities, and then sampling strategies such as temperature/top-p choose the next token. Generation by a large model is not writing the full answer at once; it repeats “predict the next token” many times.
@@ -145,7 +145,7 @@ Think of it like this:
 
 > You are solving problems on a desk. The larger the desk, the more reference materials you can spread out.
 
-![Context window information budget diagram](/img/course/ch07-context-window-budget-map.png)
+![Context window information budget diagram](/img/course/ch07-context-window-budget-map-en.png)
 
 :::tip Reading tip
 Think of the context window as a fixed-size workbench: system prompt, user question, chat history, retrieved materials, and output space all compete for the token budget. A larger window only means a bigger desk; it does not mean you can stuff in information arbitrarily. The key is to place the most useful information inside it.

@@ -18,7 +18,7 @@ keywords: [C++, RAII, smart pointer, virtual, move semantics, threading, deploym
 ここは、デプロイ工程で最もよく出てきて、しかも Python 出身の人がつまずきやすいポイントです。
 :::
 
-![C++ RAII と所有権マップ](/img/course/elective-cpp-raii-ownership-map.png)
+![C++ RAII と所有権マップ](/img/course/elective-cpp-raii-ownership-map-ja.png)
 
 ## 学習目標
 

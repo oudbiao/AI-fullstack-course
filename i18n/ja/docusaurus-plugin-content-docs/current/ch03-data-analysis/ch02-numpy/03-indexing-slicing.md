@@ -6,7 +6,7 @@ description: "NumPy 配列のさまざまなアクセス方法を身につける
 
 # 配列のインデックスとスライス
 
-![NumPy のインデックスとスライスの図](/img/course/ch03-numpy-indexing-slicing-map.png)
+![NumPy のインデックスとスライスの図](/img/course/ch03-numpy-indexing-slicing-map-ja.png)
 
 ## 学習目標
 

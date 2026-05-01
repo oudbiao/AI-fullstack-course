@@ -7,7 +7,7 @@ keywords: [large language models, LLM, Transformer, Prompt Engineering, LoRA, fi
 
 # 7 LLM Principles, Prompt, and Fine-tuning
 
-![Main visual for LLM principles](/img/course/ch07-llm-principles.png)
+![Main visual for LLM principles](/img/course/ch07-llm-principles-en.png)
 
 This stage is about answering: “Where do LLM capabilities come from, and how are they controlled and adapted?” You are not just learning a few model names; you are understanding the relationships among Token, Embedding, Transformer, pretraining, Prompt, fine-tuning, and alignment.
 
@@ -17,7 +17,7 @@ An LLM looks like magic: you type a sentence, and it can write code, summarize d
 
 ## Learning quest map
 
-![LLM learning quest map](/img/course/ch07-learning-quest-map.png)
+![LLM learning quest map](/img/course/ch07-learning-quest-map-en.png)
 
 ## Interactive exercise: Write Prompts like doing experiments
 
@@ -48,7 +48,7 @@ Experienced learners can go deeper into Transformer variants, pretraining data, 
 
 LLMs did not appear out of nowhere; they build on deep learning, NLP, Transformer, and the pretraining paradigm. The real change is this: model scale, data scale, and instruction alignment turned language models from “solving a single NLP task” into “using a language interface to complete many tasks.”
 
-![Main backbone of LLM capability sources](/img/course/ch07-llm-capability-backbone.png)
+![Main backbone of LLM capability sources](/img/course/ch07-llm-capability-backbone-en.png)
 
 ## What beginners should do first, and what advanced learners should do later
 

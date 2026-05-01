@@ -13,7 +13,7 @@ If you reach `Chapter 12: AIGC and Multimodal` and feel that images, speech, vid
 
 Multimodal and AIGC learning should follow one system-level thread: different modalities are encoded into representations, the model performs understanding or generation, and the result is connected to creative, editing, review, and delivery workflows.
 
-![Multimodal study guide workflow diagram](/img/course/ch12-study-guide-modal-workflow-map.png)
+![Multimodal study guide workflow diagram](/img/course/ch12-study-guide-modal-workflow-map-en.png)
 
 ## Recommended learning order
 

@@ -6,7 +6,7 @@ description: "Understand the importance of the command line in AI development"
 
 # Why Learn the Command Line
 
-![Command-line automation workflow diagram](/img/course/ch01-cli-automation-workflow.png)
+![Command-line automation workflow diagram](/img/course/ch01-cli-automation-workflow-en.png)
 
 ## What This Section Is About
 

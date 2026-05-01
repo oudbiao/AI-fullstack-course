@@ -7,7 +7,7 @@ keywords: [LSTM, GRU, ゲート機構, cell state, update gate, forget gate]
 
 # LSTM と GRU
 
-![LSTM ゲート記憶フロー図](/img/course/lstm-gate-memory-flow.png)
+![LSTM ゲート記憶フロー図](/img/course/lstm-gate-memory-flow-ja.png)
 
 :::tip この節の位置づけ
 前の節で、RNN が「読みながら覚える」ことを見ました。  
@@ -212,7 +212,7 @@ print("h_t         =", round(float(h_t), 4))
 
 にあります。
 
-![LSTM ゲートによる情報流制御図](/img/course/ch06-lstm-gates-information-control-map.png)
+![LSTM ゲートによる情報流制御図](/img/course/ch06-lstm-gates-information-control-map-ja.png)
 
 :::tip 図の見方
 この図では、まず 3 つだけ注目してください。Forget Gate は古い記憶をどれだけ残すか、Input Gate は新しい情報をどれだけ書くか、Output Gate は外にどれだけ出すかを決めます。LSTM の本質はゲート名ではなく、「記憶を管理する」ことです。

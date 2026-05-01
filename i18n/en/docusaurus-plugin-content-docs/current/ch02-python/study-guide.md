@@ -13,7 +13,7 @@ If you have already reached `01 Python Programming Basics`, the most important g
 
 For the first pass through Python, focus on one main line: input enters the program, goes through data structures, conditionals, loops, and functions, and finally produces output or saves a file. As long as this line is solid, later learning in data analysis, machine learning, RAG, and Agent development will go much more smoothly.
 
-![Python Learning Guide Minimal Closed Loop](/img/course/ch02-study-guide-program-loop.png)
+![Python Learning Guide Minimal Closed Loop](/img/course/ch02-study-guide-program-loop-en.png)
 
 ## Recommended Learning Sequence
 

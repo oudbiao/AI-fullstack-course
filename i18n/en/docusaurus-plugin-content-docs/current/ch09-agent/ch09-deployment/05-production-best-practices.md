@@ -169,7 +169,7 @@ It reminds you that:
 - Production readiness is not a feeling
 - It is a set of checkable conditions
 
-![Agent Production Readiness, Canary Rollout, and Rollback Diagram](/img/course/ch09-production-readiness-canary-rollback-map.png)
+![Agent Production Readiness, Canary Rollout, and Rollback Diagram](/img/course/ch09-production-readiness-canary-rollback-map-en.png)
 
 :::tip Reading the Diagram
 You can use this diagram as a pre-launch checklist: metrics, logs, timeout, rate limit, eval suite, canary, rollback, human override, and audit log. If one is missing, you should know what risk it creates.

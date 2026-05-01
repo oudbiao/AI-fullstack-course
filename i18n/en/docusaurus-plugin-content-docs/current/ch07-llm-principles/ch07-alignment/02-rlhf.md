@@ -7,7 +7,7 @@ keywords: [RLHF, reward model, preference data, PPO, alignment]
 
 # RLHF Workflow
 
-![Three-stage RLHF workflow diagram](/img/course/rlhf-three-stage-loop.png)
+![Three-stage RLHF workflow diagram](/img/course/rlhf-three-stage-loop-en.png)
 
 :::tip Section Overview
 When many people first hear RLHF, they interpret it as a vague phrase:
@@ -188,7 +188,7 @@ So one very common engineering intuition in RLHF is:
 
 This table is especially useful for beginners, because it breaks RLHF back down from a single acronym into several clear roles.
 
-![RLHF reward model and KL constraint loop diagram](/img/course/ch07-rlhf-reward-kl-loop-map.png)
+![RLHF reward model and KL constraint loop diagram](/img/course/ch07-rlhf-reward-kl-loop-map-en.png)
 
 :::tip Reading the diagram
 It is best to read this diagram by role: SFT first teaches the model how to answer, preference pairs train the Reward Model, the policy model updates toward higher reward, and the Reference Model plus KL penalty prevent it from drifting while chasing scores. RLHF is heavy not because the name is complicated, but because this chain maintains multiple model roles at once.

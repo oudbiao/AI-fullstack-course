@@ -7,7 +7,7 @@ keywords: [computer vision, OpenCV, image classification, object detection, YOLO
 
 # 10 Computer Vision (Elective Track)
 
-![Computer Vision main visual](/img/course/ch10-computer-vision.png)
+![Computer Vision main visual](/img/course/ch10-computer-vision-en.png)
 
 This stage is about “how to make models understand images.” It is an elective track: if your main goal is LLM applications and Agent development, you can come back to it later; if you want to work on vision, multimodal systems, industrial inspection, OCR, or medical imaging, it is recommended to study this systematically.
 
@@ -17,7 +17,7 @@ When humans look at an image, we naturally recognize objects, positions, boundar
 
 ## Learning quest map
 
-![Computer vision learning quest map](/img/course/ch10-learning-quest-map.png)
+![Computer vision learning quest map](/img/course/ch10-learning-quest-map-en.png)
 
 ## Interactive exercise: ask three levels of questions about the same image
 
@@ -48,7 +48,7 @@ Experienced learners can go deeper into data annotation, augmentation strategies
 
 Computer vision is not a single task. It usually becomes more complex in stages by output granularity: first determine what the whole image is, then locate the objects, then determine which region each pixel belongs to.
 
-![Progression map of vision task output granularity](/img/course/ch10-visual-task-progression-map.png)
+![Progression map of vision task output granularity](/img/course/ch10-visual-task-progression-map-en.png)
 
 ## What beginners should do first, and what advanced learners should do later
 

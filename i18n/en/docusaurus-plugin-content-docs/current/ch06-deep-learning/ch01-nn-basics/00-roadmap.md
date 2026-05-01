@@ -20,7 +20,7 @@ If you have just come over from Station 5, the first thing you should confirm is
 
 A more solid way to think about the transition is:
 
-![Neural network basics chapter relationship diagram](/img/course/ch06-nn-basics-chapter-flow.png)
+![Neural network basics chapter relationship diagram](/img/course/ch06-nn-basics-chapter-flow-en.png)
 
 If you still do not fully understand this bridge relationship, it is recommended to first read:
 [1.3 Transition: From Classical Machine Learning to Deep Learning](./ml-to-dl-bridge)

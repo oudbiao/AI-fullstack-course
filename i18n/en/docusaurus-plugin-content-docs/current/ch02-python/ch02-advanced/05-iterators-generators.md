@@ -6,7 +6,7 @@ description: "Understand Python's iteration protocol and the efficient data proc
 
 # Iterators and Generators
 
-![Generator streaming data processing diagram](/img/course/ch02-generator-streaming-data.png)
+![Generator streaming data processing diagram](/img/course/ch02-generator-streaming-data-en.png)
 
 ## Where this section fits
 

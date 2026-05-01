@@ -6,9 +6,9 @@ keywords: [course numbering, chapter directory, chapter numbering, course mainte
 
 # Course Numbering Convention
 
-![Map showing the correspondence between chapter numbers and source directories](/img/course/appendix-course-numbering-map.png)
+![Map showing the correspondence between chapter numbers and source directories](/img/course/appendix-course-numbering-map-en.png)
 
-![Naming consistency check diagram for course maintenance](/img/course/appendix-course-numbering-maintenance-check.png)
+![Naming consistency check diagram for course maintenance](/img/course/appendix-course-numbering-maintenance-check-en.png)
 
 :::tip Reading tip
 When maintaining the course, keep the page title, sidebar order, source directories, and image names aligned with one another. When reading the diagram, separate the “display number” from the “file path” to avoid mixing up chxx with Chinese chapter numbers.

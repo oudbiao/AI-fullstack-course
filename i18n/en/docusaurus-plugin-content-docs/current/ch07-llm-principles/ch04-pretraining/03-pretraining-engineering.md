@@ -71,7 +71,7 @@ Pretraining is more like a factory production line:
 If any link is unstable,  
 the overall cost will grow quickly.
 
-![Pretraining engineering production line diagram](/img/course/ch07-pretraining-engineering-production-line.png)
+![Pretraining engineering production line diagram](/img/course/ch07-pretraining-engineering-production-line-en.png)
 
 :::tip Reading guide
 This diagram treats pretraining as a production line: shards are the raw material warehouse, the streaming dataloader is the conveyor belt, checkpoint is the progress save point, and resume is restarting after a power outage. The key to pretraining engineering is not “can it run once,” but “can it run stably for a long time.”

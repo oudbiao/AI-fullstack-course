@@ -7,7 +7,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 # Retrieval Strategies
 
-![Hybrid Search and Rerank Flowchart](/img/course/hybrid-search-rerank-flow.png)
+![Hybrid Search and Rerank Flowchart](/img/course/hybrid-search-rerank-flow-en.png)
 
 ## Learning Objectives
 
@@ -86,7 +86,7 @@ Humans do the same thing when searching for materials:
 
 Hybrid retrieval combines these two judgments.
 
-![Blind Spot Map for Keyword Retrieval and Vector Retrieval](/img/course/ch08-hybrid-retrieval-blindspot-map.png)
+![Blind Spot Map for Keyword Retrieval and Vector Retrieval](/img/course/ch08-hybrid-retrieval-blindspot-map-en.png)
 
 :::tip Reading Tip
 The left side looks for “literal matches,” while the right side looks for “semantic similarity.” The value of Hybrid Search is not complexity, but giving error codes, proper nouns, and casual questions each their own path, instead of putting all the pressure on embeddings.
@@ -214,7 +214,7 @@ for q in queries:
 
 In real systems, query rewrite may be done by an LLM.
 
-![Two-Stage Funnel Diagram for Query Rewrite and Rerank](/img/course/ch08-rerank-query-rewrite-funnel-map.png)
+![Two-Stage Funnel Diagram for Query Rewrite and Rerank](/img/course/ch08-rerank-query-rewrite-funnel-map-en.png)
 
 :::tip Reading Tip
 Query Rewrite happens before retrieval and makes the user question easier to search. Rerank happens after rough recall and makes the candidates more accurately ordered. One changes the input, the other changes the ranking. Do not mix them up as the same thing.

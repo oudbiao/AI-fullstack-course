@@ -7,7 +7,7 @@ keywords: [filtering, edge detection, morphology, OpenCV, Canny, blur]
 
 # Image Processing Techniques
 
-![Image processing pipeline diagram](/img/course/cv-image-processing-pipeline.png)
+![Image processing pipeline diagram](/img/course/cv-image-processing-pipeline-en.png)
 
 ## Learning Objectives
 
@@ -218,7 +218,7 @@ cv2.imwrite("processing_closed.png", closed)
 print("Saved processing_opened.png and processing_closed.png")
 ```
 
-![Classic image processing operation decision map](/img/course/ch10-image-processing-operation-decision-map.png)
+![Classic image processing operation decision map](/img/course/ch10-image-processing-operation-decision-map-en.png)
 
 :::tip Reading guide
 Classic image processing is not just a list of APIs, but a set of pixel rules with clear goals: use filtering for denoising, use edges to find changes, use thresholding to separate foreground and background, and use morphology to clean up small noise and holes.

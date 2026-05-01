@@ -7,7 +7,7 @@ keywords: [Pipeline, ColumnTransformer, Transformer, 特徴量エンジニアリ
 
 # Pipeline とワークフロー
 
-![ColumnTransformer と Pipeline のワークフロー図](/img/course/column-transformer-pipeline.png)
+![ColumnTransformer と Pipeline のワークフロー図](/img/course/column-transformer-pipeline-ja.png)
 
 :::tip この節の位置づけ
 実際のプロジェクトでは、数値特徴量とカテゴリ特徴量で**異なる前処理**が必要です。この節では `ColumnTransformer` + `Pipeline` を使って**完全な特徴量エンジニアリングのパイプライン**を作る方法を学びます。1つのオブジェクトで全部まとめて扱えます。
@@ -168,7 +168,7 @@ print(f"5分割CVの正解率: {scores.mean():.4f} ± {scores.std():.4f}")
 
 これが、データ漏洩を防ぐための重要なポイントです。
 
-![実際の表形式データの ColumnTransformer Pipeline 図](/img/course/ch05-columntransformer-real-table-pipeline.png)
+![実際の表形式データの ColumnTransformer Pipeline 図](/img/course/ch05-columntransformer-real-table-pipeline-ja.png)
 
 この図では、実際の表形式プロジェクトを3本の流れに分けています。数値列はまず欠損値を補完してから標準化し、カテゴリ列はまず欠損値を補完してからエンコードし、自作特徴量も同じ Pipeline に入れます。最後に全体を交差検証や GridSearch に渡すことで、学習・検証・予測のすべてが同じ再現可能な流れになります。
 

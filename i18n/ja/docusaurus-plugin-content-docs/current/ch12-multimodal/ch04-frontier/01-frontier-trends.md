@@ -7,7 +7,7 @@ keywords: [AIGC trends, multimodal, real-time generation, small models, agentic 
 
 # AIGC フロンティアのトレンド
 
-![AIGC フロンティアのシステム判断図](/img/course/ch12-aigc-frontier-system-trend-map.png)
+![AIGC フロンティアのシステム判断図](/img/course/ch12-aigc-frontier-system-trend-map-ja.png)
 
 :::tip 図の見方
 フロンティアのトレンドは、「モデル能力、コスト効率、プロダクト形態、コンプライアンスの境界、ワークフロー統合」をまとめて判断します。ランキングだけを見ると不安になりやすいですが、システム全体の変化を見ると、次に何を学ぶべきかが分かりやすくなります。

@@ -27,7 +27,7 @@ So the real new core of segmentation is not “a more complex model,” but:
 
 ## The Main Thread of This Chapter
 
-![Image segmentation chapter learning order diagram](/img/course/ch10-segmentation-chapter-flow.png)
+![Image segmentation chapter learning order diagram](/img/course/ch10-segmentation-chapter-flow-en.png)
 
 This chapter is especially helpful for beginners to distinguish between:
 

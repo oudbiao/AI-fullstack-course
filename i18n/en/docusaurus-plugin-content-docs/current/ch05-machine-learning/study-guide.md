@@ -7,7 +7,7 @@ keywords: [machine learning study guide, how to learn sklearn, machine learning 
 
 # Study Guide: How to Learn Machine Learning Without Getting Lost
 
-![Machine learning study loop diagram](/img/course/ml-study-loop.png)
+![Machine learning study loop diagram](/img/course/ml-study-loop-en.png)
 
 If you reach `Chapter 5: Introduction to Machine Learning and Practical Applications` and feel like there are too many model names, don’t rush to memorize algorithms one by one. On your first pass through machine learning, the most important thing is understanding the complete modeling workflow.
 
@@ -15,7 +15,7 @@ If you reach `Chapter 5: Introduction to Machine Learning and Practical Applicat
 
 In machine learning, you need to follow one main project line: translate the problem into a task, prepare the data, build a baseline, evaluate with metrics, and then improve the results through features and models.
 
-![Machine learning study guide project loop](/img/course/ch05-study-guide-project-loop.png)
+![Machine learning study guide project loop](/img/course/ch05-study-guide-project-loop-en.png)
 
 ## Recommended Learning Order
 

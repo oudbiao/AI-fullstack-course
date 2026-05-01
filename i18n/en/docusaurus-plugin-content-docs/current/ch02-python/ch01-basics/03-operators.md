@@ -6,7 +6,7 @@ description: "Master various operators and expressions in Python"
 
 # Operators and Expressions
 
-![Operators and conditional decision flowchart](/img/course/ch02-operators-decision-flow.png)
+![Operators and conditional decision flowchart](/img/course/ch02-operators-decision-flow-en.png)
 
 ## What this section is about
 

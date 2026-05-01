@@ -101,7 +101,7 @@ This example is not meant to give you a “standard answer.” It is here to tea
 
 > First spread out the task dimensions, then make the judgment. 
 
-![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map.png)
+![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-en.png)
 
 :::tip Reading the diagram
 When choosing a framework, do not first ask “which one is the hottest?” Instead, ask which category the task is closer to: complex state flow, knowledge retrieval, role collaboration, rapid demo building, or a long-term maintainable system. The branches in the diagram are the basis for selection.

@@ -7,7 +7,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 # Hands-on: Multi-Tool Collaborative Agent
 
-![Agent Tool Call Trace Diagram](/img/course/agent-tool-trace.png)
+![Agent Tool Call Trace Diagram](/img/course/agent-tool-trace-en.png)
 
 :::tip Section Overview
 In the previous sections, we covered:

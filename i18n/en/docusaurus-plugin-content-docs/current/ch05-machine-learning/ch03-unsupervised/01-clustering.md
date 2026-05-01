@@ -7,7 +7,7 @@ keywords: [clustering, K-Means, DBSCAN, hierarchical clustering, elbow method, s
 
 # Clustering Algorithms
 
-![K-Means clustering centroid iteration diagram](/img/course/clustering-kmeans-centroids.png)
+![K-Means clustering centroid iteration diagram](/img/course/clustering-kmeans-centroids-en.png)
 
 :::tip Section Overview
 Clustering is one of the most common tasks in unsupervised learning—**automatically grouping similar data together without labels**. It is essential in scenarios such as customer segmentation, document classification, and image segmentation.
@@ -47,7 +47,7 @@ The trickiest part of this section for beginners is usually:
 
 A more stable learning order is:
 
-![Clustering algorithm selection flowchart](/img/course/ch05-clustering-decision-flow.png)
+![Clustering algorithm selection flowchart](/img/course/ch05-clustering-decision-flow-en.png)
 
 So clustering is not just “letting the machine group things automatically.”  
 At its core, it is about:  
@@ -113,7 +113,7 @@ but for a grouping method that is:
 - useful for follow-up actions
 - verifiable
 
-![Clustering data shape and algorithm selection guide](/img/course/ch05-clustering-shape-selection-map.png)
+![Clustering data shape and algorithm selection guide](/img/course/ch05-clustering-shape-selection-map-en.png)
 
 This diagram helps you avoid a common mistake: not every segmentation task is suited to K-Means. Round, similarly sized clusters are better for K-Means; curved shapes or noisy data are better candidates for DBSCAN; if you want to inspect hierarchical relationships, consider hierarchical clustering. First look at the data shape, then choose the algorithm.
 

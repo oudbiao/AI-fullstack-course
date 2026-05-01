@@ -17,7 +17,7 @@ You have already learned Agent fundamentals, reasoning and planning, and tool ca
 
 Tools let an Agent act. Memory lets an Agent continue. Without memory, an Agent feels like it is seeing the task for the first time every time. If memory is poorly designed, the Agent may remember things incorrectly, remember too much, or remember them in a messy way, and may even treat outdated information as fact.
 
-![Layered diagram of the Agent memory system](/img/course/agent-memory-system.png)
+![Layered diagram of the Agent memory system](/img/course/agent-memory-system-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,13 +29,13 @@ The most common misconception for beginners is that the more you remember, the s
 
 It is recommended to first study the memory overview and distinguish between context windows, short-term memory, long-term memory, and external storage. Then study short-term memory to understand how multi-turn conversations and task state are preserved. Next, study long-term memory to understand how preferences, project background, stable facts, and reusable experience are stored. After that, look at episodic memory and procedural memory to see that “what happened” and “how to do it next time” are two different kinds of information. Finally, learn memory engineering practices, focusing on write rules, retrieval strategies, update mechanisms, and safety boundaries.
 
-![Learning order diagram for the Agent memory systems chapter](/img/course/ch09-memory-chapter-flow.png)
+![Learning order diagram for the Agent memory systems chapter](/img/course/ch09-memory-chapter-flow-en.png)
 
 ## The Main Thread to Follow in This Chapter
 
 The main thread of this chapter can be summarized as: a memory system is not a storage warehouse, but a task-oriented context management mechanism.
 
-![Closed loop diagram of Agent memory writing and retrieval](/img/course/ch09-memory-write-retrieve-loop.png)
+![Closed loop diagram of Agent memory writing and retrieval](/img/course/ch09-memory-write-retrieve-loop-en.png)
 
 Once you understand this thread, you will know that the key to memory is not “saving it,” but “when to save it, what to save it as, when to retrieve it, whether what you retrieve is trustworthy, and how to handle it when it expires.”
 

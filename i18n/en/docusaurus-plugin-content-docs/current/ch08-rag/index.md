@@ -7,7 +7,7 @@ keywords: [LLM applications, RAG, Prompt Engineering, LangChain, vector database
 
 # 8 LLM Application Development and RAG
 
-![Main visual for LLM applications and RAG](/img/course/ch08-rag-engineering.png)
+![Main visual for LLM applications and RAG](/img/course/ch08-rag-engineering-en.png)
 
 This stage is about “how to connect a large model to a real system.” You will move from model calls to document processing, knowledge bases, RAG, tool calling, dialogue systems, deployment, logs, and engineering practices.
 
@@ -17,7 +17,7 @@ If you only chat with a general-purpose large model, it knows public knowledge l
 
 ## Learning quest map
 
-![RAG learning quest map](/img/course/ch08-learning-quest-map.png)
+![RAG learning quest map](/img/course/ch08-learning-quest-map-en.png)
 
 ## Interactive exercise: start by improving a “bad answer”
 
@@ -54,7 +54,7 @@ Experienced learners can focus on engineering quality: how to degrade gracefully
 
 A large model itself cannot naturally access your private documents, and it cannot guarantee that its knowledge is always up to date. RAG puts external knowledge retrieval results into the model context so the model can answer based on the materials. Application engineering is responsible for connecting model capabilities to a product: handling user input, calling the model, organizing state, recording logs, controlling costs, and evaluating results.
 
-![Main backbone diagram of a RAG application system](/img/course/ch08-rag-system-backbone.png)
+![Main backbone diagram of a RAG application system](/img/course/ch08-rag-system-backbone-en.png)
 
 ## Modern RAG deep dive: from can answer to maintainable
 
@@ -76,7 +76,7 @@ When learning these techniques, don’t treat them as components you must all st
 
 RAGOps focuses on quality maintenance after a RAG system is online. A qualified RAG project should be able to see at least: document sources, chunking method, index version, recalled chunks, reranking scores, answer citations, no-answer handling, user feedback, token cost, response latency, and failure logs.
 
-![RAGOps continuous improvement loop](/img/course/ch08-ragops-improvement-loop.png)
+![RAGOps continuous improvement loop](/img/course/ch08-ragops-improvement-loop-en.png)
 
 Minimal RAGOps does not need to be complicated at the start, but it must have a fixed evaluation set. For example, prepare 20–50 course questions, annotate the expected document, ideal answer, and boundaries for what must not be fabricated. Every time you change the Prompt, chunking strategy, Embedding model, or reranking approach, compare results using the same question set instead of guessing by feeling.
 

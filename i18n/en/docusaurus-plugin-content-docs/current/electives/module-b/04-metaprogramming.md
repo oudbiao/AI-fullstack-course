@@ -20,7 +20,7 @@ So in this section, we won’t treat metaprogramming like magic. Instead, we’l
 > **When it is actually worth using, and when it makes code harder to understand.**
 :::
 
-![Python Metaprogramming Registry Map](/img/course/elective-metaprogramming-registry-map.png)
+![Python Metaprogramming Registry Map](/img/course/elective-metaprogramming-registry-map-en.png)
 
 ## Learning Objectives
 

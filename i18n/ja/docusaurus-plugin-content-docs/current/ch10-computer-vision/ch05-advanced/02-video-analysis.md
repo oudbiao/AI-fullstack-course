@@ -116,7 +116,7 @@ keywords: [video analysis, temporal modeling, frame sampling, tracking, action r
 - トラッキングのロジック
 - イベントの定義
 
-![動画分析のフレーム抽出、トラッキング、時系列ウィンドウ図](/img/course/ch10-video-frame-tracking-temporal-window-map.png)
+![動画分析のフレーム抽出、トラッキング、時系列ウィンドウ図](/img/course/ch10-video-frame-tracking-temporal-window-map-ja.png)
 
 :::tip 図の見方
 動画は「たくさんの画像を積み重ねたもの」ではありません。この図を見るときは、まず frame sampling を見て、次に detection + tracking がどのように同じ対象をフレームをまたいでつなぐかを確認し、最後に temporal window がどう動作やイベントを判断するかを見てください。

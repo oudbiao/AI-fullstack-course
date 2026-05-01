@@ -5,9 +5,9 @@ sidebar_position: 7
 
 # Job Search Preparation Checklist
 
-![Job search preparation funnel diagram](/img/course/appendix-job-prep-funnel.png)
+![Job search preparation funnel diagram](/img/course/appendix-job-prep-funnel-en.png)
 
-![AI job portfolio storyline map](/img/course/appendix-job-portfolio-storyline-map.png)
+![AI job portfolio storyline map](/img/course/appendix-job-portfolio-storyline-map-en.png)
 
 :::tip Reading Guide
 When reviewing job-search projects, do not just pile up technical buzzwords. Read them as a storyline in this order: “job target -> user problem -> technical solution -> metric results -> failure review -> README/interview explanation.” This makes it easier for interviewers to understand your real abilities.

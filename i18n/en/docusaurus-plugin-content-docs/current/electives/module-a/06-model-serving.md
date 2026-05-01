@@ -7,9 +7,9 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 # Model Serving
 
-![Model serving architecture](/img/course/elective-model-serving-architecture.png)
+![Model serving architecture](/img/course/elective-model-serving-architecture-en.png)
 
-![Model serving metrics and version routing diagram](/img/course/elective-serving-metrics-version-routing-map.png)
+![Model serving metrics and version routing diagram](/img/course/elective-serving-metrics-version-routing-map-en.png)
 
 :::tip Reading guide
 After a model goes live, the most important things to watch are not just single inference time, but queue wait time, batch efficiency, P95/P99 latency, error rate, version routing, and rollback capability. When you read the diagram, think of it as a system that runs continuously over time.

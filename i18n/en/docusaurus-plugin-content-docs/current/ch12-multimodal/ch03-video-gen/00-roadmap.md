@@ -17,7 +17,7 @@ You have already learned multimodal fundamentals and image generation. In the vi
 
 This is much closer to a real creative workflow: the script defines the content first, storyboards decide the visuals, image or video models generate visual assets, TTS generates speech, and digital human or editing workflows align audio, visuals, subtitles, and actions before review and export.
 
-![Video, speech, and digital human chapter learning sequence diagram](/img/course/ch12-video-gen-chapter-flow.png)
+![Video, speech, and digital human chapter learning sequence diagram](/img/course/ch12-video-gen-chapter-flow-en.png)
 
 ## The Real Problems This Chapter Solves
 

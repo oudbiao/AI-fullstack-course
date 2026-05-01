@@ -13,7 +13,7 @@ If you reach `Chapter 9: AI Agents and Agent Systems` and feel that tools, memor
 
 For your first Agent, do not rush into multi-Agent, and do not pile on frameworks right away. First make a single Agent solid: it can understand the goal, decide the next step, call tools, observe the result, and then decide whether to continue.
 
-![Minimal Agent learning loop diagram](/img/course/ch09-study-guide-minimal-agent-loop.png)
+![Minimal Agent learning loop diagram](/img/course/ch09-study-guide-minimal-agent-loop-en.png)
 
 ## Recommended learning order
 

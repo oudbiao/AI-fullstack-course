@@ -7,7 +7,7 @@ keywords: [Debug, トラブルシューティング課題, 事件捜査ミッシ
 
 # Debug 事件捜査ミッション集
 
-![Debug 事件捜査ミッション集](/img/course/debug-detective-missions.png)
+![Debug 事件捜査ミッション集](/img/course/debug-detective-missions-ja.png)
 
 Debug は学習の失敗ではなく、エンジニアリング学習が本当に始まる場所です。多くの初心者が退屈だと感じるのは、チュートリアルが成功する道しか見せないからです。でも実際のプロジェクトで最も価値のある力は、たいてい「なぜ期待どおりに動かなかったのか」から生まれます。
 

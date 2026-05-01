@@ -7,7 +7,7 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 # 分詞とTokenizer
 
-![Tokenizer サブワード分割フロー図](/img/course/tokenizer-subword-flow.png)
+![Tokenizer サブワード分割フロー図](/img/course/tokenizer-subword-flow-ja.png)
 
 :::tip この節の位置づけ
 多くの人は、初めて大規模言語モデルを学ぶとき、モデルの構造ばかりに注目しがちです。  
@@ -154,7 +154,7 @@ tokenizer はまず、次のことを決めます。
 
 だからこそ、BPE、WordPiece、SentencePiece のような方法がとても重要になります。
 
-![Tokenizer 粒度のトレードオフ図](/img/course/ch07-tokenizer-granularity-tradeoff-map.png)
+![Tokenizer 粒度のトレードオフ図](/img/course/ch07-tokenizer-granularity-tradeoff-map-ja.png)
 
 :::tip 図の見方
 この図は左から右へ見るのがおすすめです。文字単位は安定していますが列が最も長く、単語単位は意味が直感的ですが OOV のリスクが高く、サブワード単位は語彙サイズ・列の長さ・未知語への対応の間でバランスを取ります。Tokenizer は「どう切ると見た目がきれいか」ではなく、コストと表現力のバランスを取る仕組みです。
@@ -288,7 +288,7 @@ batch に入る文の長さは、普通はそろっていません。
 - `1` は本物の token
 - `0` は padding
 
-![Tokenizer から input_ids と attention_mask への対応図](/img/course/ch07-tokenizer-inputids-mask-length-map.png)
+![Tokenizer から input_ids と attention_mask への対応図](/img/course/ch07-tokenizer-inputids-mask-length-map-ja.png)
 
 :::tip 図の見方
 この図は4段階に分けて見ると分かりやすいです。まず元の文を tokens に分け、次に `input_ids` に変換し、短い文は `[PAD]` でそろえ、最後に `attention_mask` でどこが本物の内容かをモデルに伝えます。batch のエラーや結果の不自然さは、この流れを理解できていないことが原因のことが多いです。

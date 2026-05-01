@@ -7,7 +7,7 @@ keywords: [クラスタリング, K-Means, DBSCAN, 階層クラスタリング, 
 
 # クラスタリングアルゴリズム
 
-![K-Means クラスタ中心の反復図](/img/course/clustering-kmeans-centroids.png)
+![K-Means クラスタ中心の反復図](/img/course/clustering-kmeans-centroids-ja.png)
 
 :::tip この節の位置づけ
 クラスタリングは、教師なし学習で最もよく使われるタスクのひとつです。**ラベルがない状態で、似ているデータを自動的に同じグループに分ける**ことが目的です。顧客セグメンテーション、文書分類、画像分割など、さまざまな場面で使われます。
@@ -49,7 +49,7 @@ keywords: [クラスタリング, K-Means, DBSCAN, 階層クラスタリング, 
 
 理解の順番としては、次の流れが安定です。
 
-![クラスタリングアルゴリズム選択フロー図](/img/course/ch05-clustering-decision-flow.png)
+![クラスタリングアルゴリズム選択フロー図](/img/course/ch05-clustering-decision-flow-ja.png)
 
 つまり、クラスタリングは単に「機械にグループ分けさせる」ことではなく、  
 **ラベルがないときに、データの構造をどう見つけるか**を考える作業です。
@@ -115,7 +115,7 @@ flowchart LR
 
 ような分け方です。
 
-![クラスタリングのデータ形状とアルゴリズム選択図](/img/course/ch05-clustering-shape-selection-map.png)
+![クラスタリングのデータ形状とアルゴリズム選択図](/img/course/ch05-clustering-shape-selection-map-ja.png)
 
 この図は、よくある誤解を避けるためのものです。すべてのセグメント化に K-Means が向いているわけではありません。丸い塊で大きさがだいたい同じクラスタには K-Means が向いています。曲がった形やノイズがあるデータには DBSCAN を先に試すとよいです。階層関係を見たいなら階層クラスタリングを考えます。まずデータの形を見て、それからアルゴリズムを選びましょう。
 

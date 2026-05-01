@@ -6,9 +6,9 @@ description: "よく使う環境コマンド、モデルの進め方、評価指
 
 # 学習リソース早見表
 
-![AI プロジェクト早見マップ総覧](/img/course/appendix-project-quick-reference-map.png)
+![AI プロジェクト早見マップ総覧](/img/course/appendix-project-quick-reference-map-ja.png)
 
-![AI プロジェクト早見トラブル対応索引マップ](/img/course/appendix-quick-ref-debug-index-map.png)
+![AI プロジェクト早見トラブル対応索引マップ](/img/course/appendix-quick-ref-debug-index-map-ja.png)
 
 :::tip 画像の見方
 早見ページは「今まさにプロジェクトを進めていて、すぐ確認したい」ときに便利です。まず問題が環境、データ、学習、評価、RAG、Agent、Prompt、フロントエンドのどれに当たるかを判断してから、対応する確認項目へ進みましょう。最初から本全体を読み直す必要はありません。

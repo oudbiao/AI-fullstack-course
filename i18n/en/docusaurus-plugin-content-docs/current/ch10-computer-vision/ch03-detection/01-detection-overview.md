@@ -7,7 +7,7 @@ keywords: [object detection, bounding box, detection, localization, computer vis
 
 # Object Detection Overview
 
-![Object detection output breakdown](/img/course/object-detection-output.png)
+![Object detection output breakdown](/img/course/object-detection-output-en.png)
 
 :::tip Where this section fits
 Image classification can only answer:
@@ -207,7 +207,7 @@ Usually not the classifier itself, but:
 
 So detection projects are more like complete systems than a single model output.
 
-![Object detection output, IoU, and error types](/img/course/ch10-detection-output-iou-error-map.png)
+![Object detection output, IoU, and error types](/img/course/ch10-detection-output-iou-error-map-en.png)
 
 :::tip Reading guide
 This diagram breaks detection output into three parts — class, box, and score — and then uses IoU to judge whether the box is accurate enough. Detection errors are usually not “just one mistake,” but a combination of missed detections, false detections, localization errors, and duplicate boxes.

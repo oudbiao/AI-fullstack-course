@@ -6,7 +6,7 @@ description: "Python を使って Web ページのデータを取得し、解析
 
 # プロジェクト：Webスクレイパー
 
-![Webスクレイパーのデータ収集フロー図](/img/course/ch02-web-scraper-pipeline.png)
+![Webスクレイパーのデータ収集フロー図](/img/course/ch02-web-scraper-pipeline-ja.png)
 
 ## プロジェクトの位置づけ
 

@@ -7,7 +7,7 @@ keywords: [AI learning path, AI full-stack path, LLM learning path, Agent learni
 
 # Recommended Learning Path
 
-![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection.png)
+![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection-en.png)
 
 This course contains a lot of material, but you do not need to flatten every branch the first time through. A better approach is to choose one main path first, complete the full loop from fundamentals to project work, and then fill in additional direction-specific content based on your interests.
 

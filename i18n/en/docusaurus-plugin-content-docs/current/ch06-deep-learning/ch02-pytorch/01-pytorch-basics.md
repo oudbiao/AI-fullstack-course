@@ -20,7 +20,7 @@ keywords: [PyTorch, tensor, tensor, shape, broadcasting, numpy]
 
 Don’t treat this section as a “PyTorch syntax table.” A better way to think about it is:
 
-![PyTorch Tensor lifecycle map](/img/course/ch06-pytorch-tensor-lifecycle-map.png)
+![PyTorch Tensor lifecycle map](/img/course/ch06-pytorch-tensor-lifecycle-map-en.png)
 
 In other words, what you really need to solidify here is:
 
@@ -178,7 +178,7 @@ print("shape:", X.shape, "| meaning: [batch, features]")
 
 Writing the “shape” and the “meaning” together is much clearer than looking at `torch.Size(...)` alone.
 
-![Quick reference map for PyTorch tensor shapes and meanings](/img/course/ch06-tensor-shape-meaning-map.png)
+![Quick reference map for PyTorch tensor shapes and meanings](/img/course/ch06-tensor-shape-meaning-map-en.png)
 
 :::tip Reading Tip
 You can use this diagram as a quick shape reference: tabular data commonly uses `[batch, features]`, images commonly use `[batch, channels, height, width]`, and text sequences commonly use `[batch, seq_len, embedding_dim]`. First clarify the meaning of each dimension, then write the model, and you’ll get far fewer errors.

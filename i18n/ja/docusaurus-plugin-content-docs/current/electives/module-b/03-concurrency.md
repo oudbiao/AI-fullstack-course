@@ -7,9 +7,9 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 # 並行プログラミング（asyncio を含む）
 
-![asyncio 並行制御フローチャート](/img/course/elective-asyncio-concurrency-control.png)
+![asyncio 並行制御フローチャート](/img/course/elective-asyncio-concurrency-control-ja.png)
 
-![非同期タスクのタイムアウト・キャンセルとレート制限図](/img/course/elective-asyncio-timeout-cancel-rate-limit-map.png)
+![非同期タスクのタイムアウト・キャンセルとレート制限図](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-ja.png)
 
 :::tip 図の読み方
 並行処理は、多ければ多いほど良いわけではありません。図を見るときは、event loop、semaphore、timeout、cancellation、retry、rate limit がどのように協力して上流サービスを守っているかに注目してください。特に LLM API、RAG のクロール、Agent のツール呼び出しに向いています。

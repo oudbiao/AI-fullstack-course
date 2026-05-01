@@ -7,7 +7,7 @@ keywords: [DreamBooth, LoRA, Textual Inversion, Stable Diffusion finetuning, per
 
 # Image Generation Fine-tuning
 
-![Image generation fine-tuning route selection chart](/img/course/ch12-sd-finetuning-route-choice-map.png)
+![Image generation fine-tuning route selection chart](/img/course/ch12-sd-finetuning-route-choice-map-en.png)
 
 :::tip Reading guide
 When fine-tuning image generation models, do not start by thinking about “full training.” First decide whether you want a new concept trigger word, a plug-and-play style adapter, or consistency for a dedicated subject, then choose Textual Inversion, LoRA, or DreamBooth.

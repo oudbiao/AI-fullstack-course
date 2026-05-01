@@ -90,7 +90,7 @@ Because during deployment, you usually:
 
 If you do not clearly understand this order, Docker commands will feel confusing for a long time.
 
-![Docker image, container, and Compose deployment diagram](/img/course/ch08-docker-image-container-compose-map.png)
+![Docker image, container, and Compose deployment diagram](/img/course/ch08-docker-image-container-compose-map-en.png)
 
 :::tip Reading the Diagram
 An image is a reproducible runtime template, a container is a running instance, and Compose is responsible for starting multiple services together. For LLM applications, you also need to include environment variables, health checks, vector databases, and logs in the deployment diagram.

@@ -7,7 +7,7 @@ keywords: [VAE, latent space, encoder, decoder, reparameterization, generation]
 
 # VAE Basics [Optional]
 
-![VAE latent space generation flowchart](/img/course/vae-latent-space-flow.png)
+![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-en.png)
 
 :::tip Section overview
 If GAN learns distributions through “real vs. fake” confrontation,  
@@ -134,7 +134,7 @@ But what matters more is actually:
 
 This is exactly where VAE differs a lot from a standard encoder.
 
-![VAE continuous latent space and sampling region diagram](/img/course/ch06-vae-latent-continuity-sampling-map.png)
+![VAE continuous latent space and sampling region diagram](/img/course/ch06-vae-latent-continuity-sampling-map-en.png)
 
 :::tip Reading guide
 Read this image as “regions,” not “points”: a standard autoencoder is more like compressing samples into fixed positions, while VAE learns `mu` and `sigma` so that each sample corresponds to a samplable small region. The more continuous the latent space is, the more natural interpolation and generation become.

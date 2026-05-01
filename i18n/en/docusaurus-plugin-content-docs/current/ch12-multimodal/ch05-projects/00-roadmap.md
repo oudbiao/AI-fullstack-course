@@ -17,7 +17,7 @@ Chapter 12, AIGC and Multimodal, is the stage for direction expansion and gradua
 
 An AIGC product does not end when the user enters a sentence and the model returns an image. Real products need to understand the user’s goal, break down generation tasks, manage multimodal assets, save versions, support manual editing, perform content review, and finally export a deliverable result.
 
-![AIGC creative platform project delivery loop diagram](/img/course/ch12-projects-delivery-loop.png)
+![AIGC creative platform project delivery loop diagram](/img/course/ch12-projects-delivery-loop-en.png)
 
 Generation is not the end. The integrated project also needs to bring different outputs back into the editing, review, and delivery process.
 

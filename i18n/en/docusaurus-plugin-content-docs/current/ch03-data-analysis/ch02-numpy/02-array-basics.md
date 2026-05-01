@@ -6,7 +6,7 @@ description: "Master NumPy array creation methods, attributes, and data types"
 
 # Array Basics
 
-![NumPy Array Shape and Axis Diagram](/img/course/ch03-numpy-array-shape-axis.png)
+![NumPy Array Shape and Axis Diagram](/img/course/ch03-numpy-array-shape-axis-en.png)
 
 ## Learning Objectives
 

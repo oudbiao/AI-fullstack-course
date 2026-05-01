@@ -7,7 +7,7 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 # 事前学習データ
 
-![事前学習データのパイプライン図](/img/course/pretraining-data-pipeline.png)
+![事前学習データのパイプライン図](/img/course/pretraining-data-pipeline-ja.png)
 
 :::tip この節の位置づけ
 多くの人は、大規模モデルというと、まず次のような点を思い浮かべます。
@@ -139,7 +139,7 @@ flowchart LR
 
 このパイプラインは、「データが大事」という話を具体化してくれます。どの段階も、モデルが最終的に何を学べるか、何に偏るか、どんなミスをしやすいかを変えます。
 
-![事前学習データガバナンスのファネル図](/img/course/ch07-pretraining-data-governance-funnel.png)
+![事前学習データガバナンスのファネル図](/img/course/ch07-pretraining-data-governance-funnel-ja.png)
 
 :::tip 図の見方
 この図は「生データがたくさんある」状態から、「学習可能なコーパスはずっと少ない」状態へと読んでください。クリーニング、重複排除、リスクフィルタリング、汚染対策、配分は飾りではなく、モデルに対して「どのパターンを学ぶ価値があるか」「どのノイズを訓練前に止めるべきか」を決める工程です。

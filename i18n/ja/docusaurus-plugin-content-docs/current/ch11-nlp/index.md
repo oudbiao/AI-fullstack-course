@@ -7,7 +7,7 @@ keywords: [NLP, 自然言語処理, Transformer, BERT, 词向量, 文本分类, 
 
 # 11 自然言語処理（方向別選択）
 
-![自然言語処理のメインビジュアル](/img/course/ch11-nlp.png)
+![自然言語処理のメインビジュアル](/img/course/ch11-nlp-ja.png)
 
 この段階で扱うのは、「モデルにテキストをどう扱わせるか」です。大規模モデルの時代では、多くの NLP の基礎はすでに LLM に組み込まれていますが、大規模モデル、テキストタスク、情報抽出、検索、QA システムをより深く理解したいなら、NLP は今でも非常に重要です。
 
@@ -17,7 +17,7 @@ keywords: [NLP, 自然言語処理, Transformer, BERT, 词向量, 文本分类, 
 
 ## 学習の突破マップ
 
-![NLP 学習突破マップ](/img/course/ch11-learning-quest-map.png)
+![NLP 学習突破マップ](/img/course/ch11-learning-quest-map-ja.png)
 
 ## インタラクティブ演習：1つの文から3層の情報を切り出す
 
@@ -48,7 +48,7 @@ keywords: [NLP, 自然言語処理, Transformer, BERT, 词向量, 文本分类, 
 
 NLP は大規模モデルの重要な出発点の1つです。Token、Embedding、言語モデル、Seq2Seq、Attention、事前学習モデルといった概念は、大規模モデルの中でも引き続き使われています。NLP を学ぶのは古い方法にとどまるためではなく、大規模モデルの前に積み上げられた技術を理解するためです。
 
-![NLP から大規模モデルへの技術主線図](/img/course/ch11-nlp-to-llm-backbone.png)
+![NLP から大規模モデルへの技術主線図](/img/course/ch11-nlp-to-llm-backbone-ja.png)
 
 ## 初心者はまず何をし、上級者は何をするか
 

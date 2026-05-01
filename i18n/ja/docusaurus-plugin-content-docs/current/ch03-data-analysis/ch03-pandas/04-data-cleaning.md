@@ -31,7 +31,7 @@ description: "欠損値、重複値、外れ値の処理と文字列クレンジ
 
 データクレンジングは、「まず確認して、次にどう処理するか決める」という流れで考えると理解しやすいです。
 
-![Pandas データクレンジングのワークフロー](/img/course/ch03-pandas-cleaning-workflow.png)
+![Pandas データクレンジングのワークフロー](/img/course/ch03-pandas-cleaning-workflow-ja.png)
 
 この節で本当に解決したいのは、次の2つです。
 

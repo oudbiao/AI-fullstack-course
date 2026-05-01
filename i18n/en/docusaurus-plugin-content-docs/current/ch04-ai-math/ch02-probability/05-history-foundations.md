@@ -7,7 +7,7 @@ keywords: [Bayes' rule, maximum likelihood estimation, EM algorithm, Shannon inf
 
 # Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory
 
-![Historical foundation map of probability and statistics](/img/course/ch04-probability-history-foundations-map.png)
+![Historical foundation map of probability and statistics](/img/course/ch04-probability-history-foundations-map-en.png)
 
 :::tip Section overview
 This section is not about memorizing extra history. It is here to help you connect the probability and statistics ideas that are easiest to lose track of.

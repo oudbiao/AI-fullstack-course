@@ -7,7 +7,7 @@ keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity
 
 # Text Representation Methods
 
-![BoW and TF-IDF text representation diagram](/img/course/bow-tfidf-representation.png)
+![BoW and TF-IDF text representation diagram](/img/course/bow-tfidf-representation-en.png)
 
 ## Learning Objectives
 

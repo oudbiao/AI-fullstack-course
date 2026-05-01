@@ -261,7 +261,7 @@ It is more about “can continue execution” than just “has happened.”
 
 This table is great for beginners because it compresses “there are many architecture layers” back into five very clear roles.
 
-![Layered data flow diagram of Agent deployment architecture](/img/course/ch09-agent-runtime-state-queue-map.png)
+![Layered data flow diagram of Agent deployment architecture](/img/course/ch09-agent-runtime-state-queue-map-en.png)
 
 :::tip Reading the diagram
 This diagram is best read as a request flow: the access layer receives the request, the orchestration layer decides the process, the task queue smooths spikes, the execution layer calls models and tools, the state layer saves checkpoints, and the observability layer records traces and alerts.

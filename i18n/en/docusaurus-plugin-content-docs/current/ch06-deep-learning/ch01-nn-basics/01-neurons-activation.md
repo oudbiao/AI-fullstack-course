@@ -7,7 +7,7 @@ keywords: [neuron, perceptron, activation function, ReLU, Sigmoid, Tanh, MLP, mu
 
 # From Neurons to Multilayer Perceptrons
 
-![Diagram from neurons to MLP](/img/course/mlp-neuron-activation.png)
+![Diagram from neurons to MLP](/img/course/mlp-neuron-activation-en.png)
 
 :::tip Section Overview
 Everything in deep learning starts with the **artificial neuron**. In this section, we begin with the simplest perceptron, learn about different activation functions, and then combine them into a multilayer perceptron (MLP) — the foundation of all neural networks.
@@ -124,7 +124,7 @@ So the real core ideas added in this section are only two things:
 - Activation functions
 - Layer stacking
 
-![Diagram of neuron linear scoring and activation gate](/img/course/ch06-neuron-linear-activation-gate.png)
+![Diagram of neuron linear scoring and activation gate](/img/course/ch06-neuron-linear-activation-gate-en.png)
 
 :::tip Reading the diagram
 When reading this diagram, first split the neuron into two steps: the first step is the linear score `z = x·w + b`, and the second step is how the activation function decides whether the signal passes through. Once you do that, you will see that a neuron is not mysterious at all — it is just a “linear model + nonlinear gate.”
@@ -293,7 +293,7 @@ That is exactly why we later need:
 
 So the most important teaching value of the perceptron is that it lets you see for the first time why a single layer is not enough.
 
-![XOR single-layer perceptron limitation diagram](/img/course/ch06-xor-single-layer-limit-map.png)
+![XOR single-layer perceptron limitation diagram](/img/course/ch06-xor-single-layer-limit-map-en.png)
 
 :::tip Reading the diagram
 The most important thing to notice in the XOR diagram is that the four points cannot be separated by a single straight line. A single-layer perceptron can only draw a linear boundary, while a multilayer network can first bend and combine the space, and then complete nonlinear classification.

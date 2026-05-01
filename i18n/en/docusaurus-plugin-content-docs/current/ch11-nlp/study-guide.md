@@ -13,7 +13,7 @@ If you reach `Chapter 11 Natural Language Processing (elective track)` and feel 
 
 For NLP, the first pass is to follow one development path: text is first cleaned and split, then turned into vector representations, then fed into tasks such as classification, extraction, and generation, and finally moves toward pre-trained language models.
 
-![NLP text-to-model study guide map](/img/course/ch11-study-guide-text-to-model-map.png)
+![NLP text-to-model study guide map](/img/course/ch11-study-guide-text-to-model-map-en.png)
 
 ## Recommended learning order
 

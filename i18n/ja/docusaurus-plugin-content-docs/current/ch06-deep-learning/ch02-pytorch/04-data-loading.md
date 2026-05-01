@@ -7,7 +7,7 @@ keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 
 # データ読み込み
 
-![Dataset DataLoader Batch の流れ図](/img/course/dataset-dataloader-batch-flow.png)
+![Dataset DataLoader Batch の流れ図](/img/course/dataset-dataloader-batch-flow-ja.png)
 
 ## 学習目標
 

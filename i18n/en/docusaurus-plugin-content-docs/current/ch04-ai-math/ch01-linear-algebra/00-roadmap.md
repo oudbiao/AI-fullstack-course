@@ -7,7 +7,7 @@ keywords: [Linear Algebra Guide, AI Math Guide, Vectors, Matrices, Eigenvalues, 
 
 # Pre-class Guide: What Is This Linear Algebra Chapter Actually About?
 
-![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap.png)
+![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-en.png)
 
 :::tip Don’t rush to memorize formulas
 For beginners, the most important thing in this chapter is not proving theorems, but first building a map:
@@ -63,7 +63,7 @@ So you can think of this chapter as:
 
 ## 2. What is the relationship between the four sections of this chapter?
 
-![Linear Algebra Chapter Flow](/img/course/ch04-linear-algebra-chapter-flow.png)
+![Linear Algebra Chapter Flow](/img/course/ch04-linear-algebra-chapter-flow-en.png)
 
 You can compress the whole chapter into one sentence:
 

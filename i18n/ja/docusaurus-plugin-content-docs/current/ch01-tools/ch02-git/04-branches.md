@@ -6,7 +6,7 @@ description: "ブランチを使って新機能を安全に開発し、Pull Requ
 
 # ブランチと協働
 
-![Git ブランチ協働フローチャート](/img/course/ch01-git-branch-collaboration.png)
+![Git ブランチ協働フローチャート](/img/course/ch01-git-branch-collaboration-ja.png)
 
 ## この節の位置づけ
 

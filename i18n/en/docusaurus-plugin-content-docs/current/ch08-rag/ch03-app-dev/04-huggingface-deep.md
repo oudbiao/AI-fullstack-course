@@ -82,7 +82,7 @@ One sentence to remember:
 
 > HuggingFace is not a single-point tool, but an ecosystem covering the entire model usage chain. 
 
-![HuggingFace Ecosystem Layer Diagram](/img/course/ch08-huggingface-ecosystem-layers-map.png)
+![HuggingFace Ecosystem Layer Diagram](/img/course/ch08-huggingface-ecosystem-layers-map-en.png)
 
 :::tip Reading Guide
 Read from bottom to top: Datasets provide data, Tokenizers define the input, Models do the computation, Pipelines provide task-level shortcuts, and the Hub supports sharing and collaboration. Do not think of HuggingFace as only “a website for downloading models.”

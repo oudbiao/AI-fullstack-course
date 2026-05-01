@@ -195,7 +195,7 @@ Once you separate these three types, it becomes much easier to decide:
 - whether to change the loss function
 - or whether to change the model input resolution
 
-![Failure sample bucket diagram for a segmentation project](/img/course/ch10-segmentation-practice-failure-buckets-map.png)
+![Failure sample bucket diagram for a segmentation project](/img/course/ch10-segmentation-practice-failure-buckets-map-en.png)
 
 :::tip Reading Tip
 The biggest danger in a segmentation project is only looking at the average score. This diagram breaks failure samples into boundary errors, missing small classes, and class confusion, so you can match the next optimization step to the specific problem.

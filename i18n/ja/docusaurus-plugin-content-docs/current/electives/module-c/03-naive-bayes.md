@@ -7,7 +7,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 # ナイーブベイズ
 
-![ナイーブベイズの証拠累積図](/img/course/elective-naive-bayes-evidence.png)
+![ナイーブベイズの証拠累積図](/img/course/elective-naive-bayes-evidence-ja.png)
 
 :::tip この節の位置づけ
 ナイーブベイズは、次のように誤解されやすいです。

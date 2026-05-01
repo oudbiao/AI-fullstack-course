@@ -232,7 +232,7 @@ but rather:
 
 This directly slows the system down and increases cost.
 
-![Agent reasoning failure taxonomy diagram](/img/course/ch09-reasoning-eval-failure-taxonomy-map.png)
+![Agent reasoning failure taxonomy diagram](/img/course/ch09-reasoning-eval-failure-taxonomy-map-en.png)
 
 :::tip Reading guide
 When evaluating, do not only ask “Was the answer wrong?” This diagram breaks failures down into intent, plan, tool, observation, stop condition, and final answer, making it easier to locate which layer went wrong.

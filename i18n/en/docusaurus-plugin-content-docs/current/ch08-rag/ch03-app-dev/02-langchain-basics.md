@@ -170,7 +170,7 @@ are all just different nodes in the chain.
 
 This is also why LangChain feels like a “component assembly framework.”
 
-![LangChain component pipeline map](/img/course/ch08-langchain-component-pipeline-map.png)
+![LangChain component pipeline map](/img/course/ch08-langchain-component-pipeline-map-en.png)
 
 :::tip Reading Tip
 LangChain is not trying to make your code look fancy. It is about making the input-output boundaries of nodes like Prompt, Retriever, Model, and Output Parser clearer. As a beginner, first look at “how data flows from one node to the next.”

@@ -24,7 +24,7 @@ So what you really need to learn is:
 > **Build a system that is “good enough” on constrained devices, rather than chasing the perfect form on a desktop machine.**
 :::
 
-![Edge deployment constraint decision map](/img/course/elective-edge-deployment-constraint-map.png)
+![Edge deployment constraint decision map](/img/course/elective-edge-deployment-constraint-map-en.png)
 
 ## Learning Objectives
 

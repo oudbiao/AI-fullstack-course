@@ -142,7 +142,7 @@ Because an image is essentially a 2D array, and array indexing follows this orde
 1. Rows first (height direction, `y`)
 2. Then columns (width direction, `x`)
 
-![OpenCV BGR, coordinates, and crop order diagram](/img/course/ch10-opencv-bgr-coordinate-crop-map.png)
+![OpenCV BGR, coordinates, and crop order diagram](/img/course/ch10-opencv-bgr-coordinate-crop-map-en.png)
 
 :::tip Reading Tip
 Two of the most common beginner mistakes in OpenCV are: the default color order is BGR, not RGB; and array cropping uses `y` before `x`. When reading this diagram, think of the image as a “row-column array” rather than a flat coordinate plane.

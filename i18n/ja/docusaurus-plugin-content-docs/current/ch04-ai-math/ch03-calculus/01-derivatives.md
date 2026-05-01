@@ -7,7 +7,7 @@ keywords: [導関数, 微積分, 変化率, 接線の傾き, Python, AI数学]
 
 # 導関数：変化率の直感
 
-![導関数の接線の傾きのイメージ図](/img/course/derivative-tangent-slope.png)
+![導関数の接線の傾きのイメージ図](/img/course/derivative-tangent-slope-ja.png)
 
 :::tip 公式を丸暗記しなくてOK
 この節では、導出の仕方をあなたに試しません。大事なのは、**導関数 = 変化の速さ** という直感を理解して、Python で導関数を計算できるようになることです。あとで勾配降下法を学ぶとき、導関数は「どの方向にパラメータを調整すれば損失を小さくできるか」を教えてくれるものだと分かります。
@@ -40,7 +40,7 @@ keywords: [導関数, 微積分, 変化率, 接線の傾き, Python, AI数学]
 
 この節は、先に章全体の中でどこにあるかを意識すると理解しやすくなります。
 
-![導関数と変化率の橋渡し図](/img/course/ch04-derivative-change-rate-bridge.png)
+![導関数と変化率の橋渡し図](/img/course/ch04-derivative-change-rate-bridge-ja.png)
 
 つまりこの節は、単独の数学知識ではなく、後の最適化の流れ全体の土台をつくる部分です。
 

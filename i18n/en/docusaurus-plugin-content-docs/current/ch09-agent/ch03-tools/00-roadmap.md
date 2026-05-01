@@ -17,7 +17,7 @@ You have already learned the basics of Agent and reasoning/planning, and you kno
 
 Tools are the interface that connects an Agent to the outside world. Without tools, an Agent can only stay at the language layer. With tools, an Agent can enter real workflows.
 
-![Agent tool action layer map](/img/course/ch09-tools-action-layer-map.png)
+![Agent tool action layer map](/img/course/ch09-tools-action-layer-map-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,13 +29,13 @@ Beginners often misunderstand this: if you connect more tools to an Agent, it wi
 
 It is recommended to first learn the smallest Function Calling flow and understand how the model outputs a function name and parameters. Then learn tool descriptions and know how to clearly write the tool’s purpose, input fields, limitations, and examples. Next, learn scheduling strategies to understand when to call which tool and how to avoid meaningless loops. Finally, learn tool safety and multi-tool practice to add permissions, validation, timeouts, auditing, and failure recovery.
 
-![Agent tools chapter learning sequence diagram](/img/course/ch09-tools-chapter-flow.png)
+![Agent tools chapter learning sequence diagram](/img/course/ch09-tools-chapter-flow-en.png)
 
 ## The Main Thread to Focus on in This Chapter
 
 The main thread of this chapter can be summarized as: tool calling is not “the model calls whenever it wants,” but “turning a plan into actions within a controlled boundary.”
 
-![Agent controlled tool-calling closed loop diagram](/img/course/ch09-tool-control-loop.png)
+![Agent controlled tool-calling closed loop diagram](/img/course/ch09-tool-control-loop-en.png)
 
 In the first half, we define what the tools can do, what the parameters are, and where the boundaries are. In the second half, we handle call results, error recovery, permission control, and execution logs.
 

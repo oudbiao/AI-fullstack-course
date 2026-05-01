@@ -7,7 +7,7 @@ keywords: [AI Learning Assistant, end-to-end project, version roadmap, AI portfo
 
 # AI Learning Assistant Version Roadmap
 
-![AI Learning Assistant version roadmap](/img/course/ai-learning-assistant-roadmap.png)
+![AI Learning Assistant version roadmap](/img/course/ai-learning-assistant-roadmap-en.png)
 
 The AI Learning Assistant is the most recommended end-to-end project in this course. Its value is not in becoming a huge all-in-one product from the start, but in turning what you learn at each stage into a small version release: first it can run, then it can save data, then it can analyze, then it can connect to LLM, RAG, Agent, and multimodal capabilities.
 

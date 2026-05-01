@@ -7,7 +7,7 @@ keywords: [LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning]
 
 # LoRA and QLoRA
 
-![LoRA parameter update comparison](/img/course/lora-parameter-update.png)
+![LoRA parameter update comparison](/img/course/lora-parameter-update-en.png)
 
 :::tip Section Overview
 In the previous section, we already explained why not every task should use full fine-tuning.  
@@ -133,7 +133,7 @@ It teaches you that:
 
 That is the fundamental reason it saves resources.
 
-![LoRA and QLoRA low-rank increment and memory-saving diagram](/img/course/ch07-lora-qlora-low-rank-memory-map.png)
+![LoRA and QLoRA low-rank increment and memory-saving diagram](/img/course/ch07-lora-qlora-low-rank-memory-map-en.png)
 
 :::tip Reading Tip
 When reading this diagram, think of the original weight `W` as a frozen large base. LoRA trains only the small matrices `A` and `B` to form `ΔW = A @ B`, while QLoRA further quantizes the base model to reduce VRAM usage. The key idea is not the acronym, but “fewer parameters changed, less VRAM used.”

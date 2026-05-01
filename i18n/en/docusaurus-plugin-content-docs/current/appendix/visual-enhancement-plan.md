@@ -6,9 +6,9 @@ keywords: [course illustrations, instructional design, visual learning, AI cours
 
 # Course Visual Enhancement Plan
 
-![Course image asset planning board](/img/course/appendix-visual-enhancement-kanban.png)
+![Course image asset planning board](/img/course/appendix-visual-enhancement-kanban-en.png)
 
-![Flowchart from image gap detection to generation and release](/img/course/appendix-image-production-pipeline-map.png)
+![Flowchart from image gap detection to generation and release](/img/course/appendix-image-production-pipeline-map-en.png)
 
 :::tip Reading guide
 More images are not always better. The real goal is to reduce understanding cost. When reviewing images, follow the closed loop of "find the gap -> define the image intent -> generate the image -> insert it into the page -> record manifest/progress -> verify the build" to avoid losing control of image assets.

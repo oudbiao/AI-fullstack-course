@@ -7,7 +7,7 @@ keywords: [prompt, instruction, task framing, output format, constraints, prompt
 
 # Prompt Basics
 
-![Prompt before-and-after comparison](/img/course/prompt-before-after.png)
+![Prompt before-and-after comparison](/img/course/prompt-before-after-en.png)
 
 :::tip Section Overview
 When many people first learn Prompt, they think of it as:
@@ -286,7 +286,7 @@ This example is especially suitable for beginners because it turns Prompt from â
 
 - a task specification that can be checked
 
-![Prompt three-layer task specification diagram](/img/course/ch07-prompt-spec-three-layer-map.png)
+![Prompt three-layer task specification diagram](/img/course/ch07-prompt-spec-three-layer-map-en.png)
 
 :::tip Reading Guide
 This diagram breaks Prompt into three layers: task goal, output format, and constraint boundaries. Beginners should not rush to add role setting or advanced tricks yet. First confirm whether these three layers are written clearly; many unstable outputs are actually just missing one layer of the task specification.

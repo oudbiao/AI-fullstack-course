@@ -24,7 +24,7 @@ keywords: [表現学習ガイド, 単語埋め込み, 文脈依存表現, 言語
 
 ## この章のメインの流れ
 
-![NLP 表現学習の章の学習順序図](/img/course/ch11-embeddings-chapter-flow.png)
+![NLP 表現学習の章の学習順序図](/img/course/ch11-embeddings-chapter-flow-ja.png)
 
 ## 初学者におすすめの学び方
 

@@ -108,7 +108,7 @@ keywords: [転移学習, fine-tuning, feature extractor, freeze backbone, transf
 - データが少ない：まずは固定された特徴抽出器を優先
 - データが多い / タスク差が大きい：段階的な微調整を検討
 
-![転移学習で backbone を凍結するか、段階的に微調整するかの判断図](/img/course/ch06-transfer-learning-freeze-finetune-map.png)
+![転移学習で backbone を凍結するか、段階的に微調整するかの判断図](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.png)
 
 :::tip 図の読み方
 この図を見るときは、まず2つを確認します。データ量がどれくらいあるか、そして新しいタスクが事前学習タスクとどれくらい似ているかです。データが少なく、タスクが近いなら、まず backbone を凍結して head だけを学習します。データが多い、またはタスクの違いが大きいなら、後ろの層を少しずつ解凍して、より小さい学習率で微調整します。

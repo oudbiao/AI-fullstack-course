@@ -7,7 +7,7 @@ keywords: [ReAct, thought action observation, tool use, agent loop, reasoning an
 
 # ReAct フレームワーク
 
-![ReAct 推理・行動・観察の循環図](/img/course/react-reason-act-observe-loop.png)
+![ReAct 推理・行動・観察の循環図](/img/course/react-reason-act-observe-loop-ja.png)
 
 :::tip この節の位置づけ
 CoT が解決するのは：

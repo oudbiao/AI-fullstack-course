@@ -17,7 +17,7 @@ You have already learned visual fundamentals, multimodal basics, and large model
 
 Image generation is not just “write a prompt and wait for an image.” Real workflows usually include requirement breakdown, prompt design, reference materials, control conditions, generation iteration, local editing, style consistency, copyright checks, and safety review.
 
-![Image generation chapter learning flowchart](/img/course/ch12-image-gen-chapter-flow.png)
+![Image generation chapter learning flowchart](/img/course/ch12-image-gen-chapter-flow-en.png)
 
 ## The Real Problems This Chapter Solves
 

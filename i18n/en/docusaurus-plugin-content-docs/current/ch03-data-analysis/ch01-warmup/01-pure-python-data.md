@@ -31,7 +31,7 @@ It’s like riding a bicycle for 20 kilometers before learning to drive a car �
 
 Before we start coding, let’s look at the typical data analysis workflow:
 
-![Pain points of pure Python data processing](/img/course/ch03-pure-python-data-flow.png)
+![Pain points of pure Python data processing](/img/course/ch03-pure-python-data-flow-en.png)
 
 Today we’ll use **pure Python** to complete the first four steps. After we learn NumPy and Pandas, you’ll see that the same tasks can take **5–10x less code**.
 

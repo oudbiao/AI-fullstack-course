@@ -20,7 +20,7 @@ keywords: [metaprogramming, type, registry, descriptor, dynamic class, Python]
 > **いつ本当に使う価値があるのか、いつコードをかえって分かりにくくしてしまうのか。**
 :::
 
-![Python メタプログラミング レジストリ マップ](/img/course/elective-metaprogramming-registry-map.png)
+![Python メタプログラミング レジストリ マップ](/img/course/elective-metaprogramming-registry-map-ja.png)
 
 ## 学習目標
 

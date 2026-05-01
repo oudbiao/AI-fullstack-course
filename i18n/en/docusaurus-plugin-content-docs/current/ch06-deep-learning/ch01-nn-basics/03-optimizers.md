@@ -7,7 +7,7 @@ keywords: [optimizer, SGD, Adam, AdamW, Momentum, learning rate, learning rate s
 
 # Gradient Descent and Optimizers
 
-![Optimizer path comparison](/img/course/optimizer-comparison.png)
+![Optimizer path comparison](/img/course/optimizer-comparison-en.png)
 
 :::tip Where this section fits
 In Station 4, we learned basic gradient descent. Now let’s take a deeper look at the optimizers used in deep learning—**Adam is the one you’ll use most often**, but it’s important to understand how it evolved.
@@ -81,7 +81,7 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-![Optimizer decision map from gradients to parameter updates](/img/course/ch06-optimizer-gradient-to-update-map.png)
+![Optimizer decision map from gradients to parameter updates](/img/course/ch06-optimizer-gradient-to-update-map-en.png)
 
 :::tip How to read this diagram
 The reading is simple: gradients only tell you “which way is steepest,” and the optimizer turns that into a concrete way to move. SGD moves only according to the current slope, Momentum adds some inertia, and Adam automatically adjusts the step size in each direction based on historical gradients.

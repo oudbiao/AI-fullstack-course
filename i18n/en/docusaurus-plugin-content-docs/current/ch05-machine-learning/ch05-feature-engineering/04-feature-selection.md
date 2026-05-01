@@ -7,7 +7,7 @@ keywords: [feature selection, feature selection, filter methods, wrapper, embedd
 
 # Feature Selection
 
-![Feature selection method comparison](/img/course/feature-selection-methods.png)
+![Feature selection method comparison](/img/course/feature-selection-methods-en.png)
 
 :::tip This section’s focus
 Feature selection is not about removing as many features as possible. It is about balancing performance, stability, interpretability, and cost. The real goal is to keep features that are useful for the task, available in production, and free of leakage.

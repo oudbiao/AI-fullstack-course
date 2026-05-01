@@ -20,7 +20,7 @@ If you have already finished the earlier structure and training sections, the mo
 
 A clearer way to understand it is:
 
-![Deep learning training tips chapter relationship diagram](/img/course/ch06-training-tips-chapter-flow.png)
+![Deep learning training tips chapter relationship diagram](/img/course/ch06-training-tips-chapter-flow-en.png)
 
 So this chapter is not just a collection of scattered tricks, but a way to fill in this gap:
 

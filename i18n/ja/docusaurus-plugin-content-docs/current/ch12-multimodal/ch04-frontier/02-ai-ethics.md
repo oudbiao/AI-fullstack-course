@@ -7,7 +7,7 @@ keywords: [AI ethics, AI safety, bias, privacy, misuse, human oversight, AIGC]
 
 # AI 倫理と安全
 
-![AIGC 倫理安全リスクのガードレール図](/img/course/ch12-ai-ethics-safety-guardrail-map.png)
+![AIGC 倫理安全リスクのガードレール図](/img/course/ch12-ai-ethics-safety-guardrail-map-ja.png)
 
 :::tip 画像の読み方
 倫理と安全は抽象的なスローガンではなく、データ、モデル、プロンプト、出力審査、人手による確認、異議申し立ての仕組みまで落とし込めるエンジニアリング上のガードレールです。図を見るときは、まずリスクがどのように発見、遮断、追跡されるかを見てください。

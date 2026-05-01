@@ -197,7 +197,7 @@ A more practical way to remember them is:
 
 This table is useful for beginners because it turns “model names” back into “when should I think of this first?”
 
-![Diagram of image classification architecture evolution and selection](/img/course/ch10-classification-architecture-evolution-map.png)
+![Diagram of image classification architecture evolution and selection](/img/course/ch10-classification-architecture-evolution-map-en.png)
 
 :::tip Reading tip
 Do not read this diagram as a model leaderboard. Read it as a “problem evolution map”: VGG first proved that depth works, ResNet solved trainability for deep networks, EfficientNet focused on efficiency, and ConvNeXt represents a modernized organization of the convolutional path.

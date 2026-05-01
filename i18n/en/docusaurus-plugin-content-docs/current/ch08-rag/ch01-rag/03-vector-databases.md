@@ -7,7 +7,7 @@ keywords: [vector database, embedding, similarity search, metadata filter, RAG]
 
 # Vector Databases
 
-![Vector database similarity search diagram](/img/course/vector-database-similarity-search.png)
+![Vector database similarity search diagram](/img/course/vector-database-similarity-search-en.png)
 
 ## Learning Objectives
 
@@ -92,7 +92,7 @@ For example:
 
 So a vector database is not “vectors only”, but a combined management system for “vectors + text + metadata”.
 
-![Vector record and metadata filtering diagram](/img/course/ch08-vector-record-metadata-filter-map.png)
+![Vector record and metadata filtering diagram](/img/course/ch08-vector-record-metadata-filter-map-en.png)
 
 :::tip Reading tip
 Do not just look at the `vector` column. In real RAG systems, `text` gives the model evidence, and `metadata` supports filtering, permissions, citations, and evaluation. Missing any one of these makes the system much harder to debug.
@@ -278,7 +278,7 @@ Trade-off:
 
 - It may not be the absolute best result, but it is usually good enough
 
-![Trade-off diagram between exact search and ANN](/img/course/ch08-ann-exact-search-tradeoff-map.png)
+![Trade-off diagram between exact search and ANN](/img/course/ch08-ann-exact-search-tradeoff-map-en.png)
 
 :::tip Reading tip
 Exact search is like comparing everyone in a class one by one, while ANN is like narrowing the candidate set by area first and then finding the neighbors. Beginners can remember this one sentence: ANN sacrifices a little “absolute optimality guarantee” in exchange for faster large-scale retrieval.

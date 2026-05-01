@@ -17,7 +17,7 @@ keywords: [データ可視化, 図表の選択, matplotlib, seaborn, plotly, vis
 
 この後の機械学習やプロジェクトの段階でも、可視化は EDA、特徴量分布の分析、モデル結果の表示、エラー分析、プロジェクト発表に使います。つまりこの章は「図をきれいにする」ためのおまけではなく、データ分析の表現力の中核です。
 
-![データ可視化の学習ロードマップ](/img/course/ch03-visualization-roadmap.png)
+![データ可視化の学習ロードマップ](/img/course/ch03-visualization-roadmap-ja.png)
 
 ## この章で本当に解決したいこと
 

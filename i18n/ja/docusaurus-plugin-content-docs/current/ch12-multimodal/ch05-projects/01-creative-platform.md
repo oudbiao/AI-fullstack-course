@@ -7,7 +7,7 @@ keywords: [creative platform, multimodal project, image generation, editing, voi
 
 # プロジェクト：AI クリエイティブコンテンツプラットフォーム
 
-![AI クリエイティブコンテンツプラットフォームのワークフロー図](/img/course/creative-platform-workflow.png)
+![AI クリエイティブコンテンツプラットフォームのワークフロー図](/img/course/creative-platform-workflow-ja.png)
 
 :::tip この節の位置づけ
 AI クリエイティブプラットフォームは、とても簡単に「機能を並べただけのページ」になりがちです。

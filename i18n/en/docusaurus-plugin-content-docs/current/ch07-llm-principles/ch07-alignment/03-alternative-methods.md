@@ -276,7 +276,7 @@ Because we manually made:
 This matches the direction DPO is trying to optimize.  
 A lower loss means the policy fits the preference data better.
 
-![Preference optimization shortcut of DPO compared with RLHF](/img/course/ch07-dpo-rlhf-shortcut-map.png)
+![Preference optimization shortcut of DPO compared with RLHF](/img/course/ch07-dpo-rlhf-shortcut-map-en.png)
 
 :::tip Reading the figure
 When reading this figure, first look at the long RLHF chain: preference pairs -> reward model -> PPO / policy optimization. Then look at the short DPO chain: directly optimize the policy margin using chosen / rejected preference pairs. The appeal of DPO is that it keeps the preference learning goal while removing a large amount of engineering complexity from the reward model and reinforcement learning steps.

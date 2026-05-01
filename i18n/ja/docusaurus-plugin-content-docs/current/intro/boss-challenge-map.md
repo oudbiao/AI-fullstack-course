@@ -7,7 +7,7 @@ keywords: [Boss戦, AI学習チャレンジ, ステージ確認, 楽しく学ぶ
 
 # コース Boss 戦チャレンジマップ
 
-![コース Boss 戦チャレンジマップ](/img/course/boss-challenge-map.png)
+![コース Boss 戦チャレンジマップ](/img/course/boss-challenge-map-ja.png)
 
 Boss 戦はプレッシャーを増やすためではなく、学習者に「このステージでいったい何をできるようになればいいのか」を分かってもらうためのものです。各 Boss は小さな総合チャレンジで、そのステージで最も重要な力をつなぎ合わせ、見せられる証拠を残します。
 

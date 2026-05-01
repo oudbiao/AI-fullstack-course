@@ -34,7 +34,7 @@ So the most important thing in this section is not memorizing more functions, bu
 
 Data transformation is easier to understand by asking: “What do I want this column to become?”
 
-![Pandas data transformation pipeline](/img/course/ch03-pandas-transform-pipeline.png)
+![Pandas data transformation pipeline](/img/course/ch03-pandas-transform-pipeline-en.png)
 
 So what this section really aims to solve is:
 

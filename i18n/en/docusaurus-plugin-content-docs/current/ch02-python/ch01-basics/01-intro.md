@@ -6,7 +6,7 @@ description: "Understand the features of Python, its application areas, and deve
 
 # Python Introduction
 
-![Python to AI Application Workflow](/img/course/ch02-python-ai-workflow.png)
+![Python to AI Application Workflow](/img/course/ch02-python-ai-workflow-en.png)
 
 ## What This Section Is About
 

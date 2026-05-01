@@ -7,7 +7,7 @@ keywords: [Terminal, command line, Git, VS Code, development environment, Python
 
 # 1 Developer Tools Fundamentals
 
-![Main visual for Developer Tools Fundamentals](/img/course/ch01-tools-foundation.png)
+![Main visual for Developer Tools Fundamentals](/img/course/ch01-tools-foundation-en.png)
 
 This stage is about whether you can write code, run code, and save code reliably. Many beginners get stuck later in AI learning not because the models are too hard, but because they do not know how to use the command line, their environments are messy, dependencies are installed incorrectly, and their code has no version management.
 

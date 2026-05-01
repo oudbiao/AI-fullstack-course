@@ -7,7 +7,7 @@ keywords: [decision tree, information gain, Gini index, pruning, regression tree
 
 # Decision Trees
 
-![Decision tree split path diagram](/img/course/decision-tree-split-path.png)
+![Decision tree split path diagram](/img/course/decision-tree-split-path-en.png)
 
 :::tip Section Overview
 Decision trees are the **most intuitive and easiest-to-interpret** ML algorithm. They are like a "20 questions" game: classify data through a series of yes/no decisions. Even more importantly, decision trees are the foundation of later ensemble learning methods (Random Forest, XGBoost).
@@ -47,7 +47,7 @@ But in real projects, the most common confusion is actually:
 
 A more stable order of understanding is:
 
-![Decision tree learning main flow chart](/img/course/ch05-decision-tree-learning-flow.png)
+![Decision tree learning main flow chart](/img/course/ch05-decision-tree-learning-flow-en.png)
 
 If you first grasp this thread, the later parts about entropy, Gini, pruning, and ensemble learning will all connect more smoothly.
 
@@ -347,7 +347,7 @@ This is a very important machine learning diagnostic idea:
 - don’t just ask, "Can the model learn?"
 - ask, "Is the model learning patterns, or just sample noise?"
 
-![Decision tree overfitting and pruning diagram](/img/course/ch05-tree-pruning-overfit-map.png)
+![Decision tree overfitting and pruning diagram](/img/course/ch05-tree-pruning-overfit-map-en.png)
 
 This diagram should be read together with the boundary plot above: the deeper the tree, the more likely it is to carve isolated noise into tiny separate regions; pruning is not about "making the model weaker," but about removing overly fragmented splits that only serve the training samples, so the model learns something closer to the real pattern.
 

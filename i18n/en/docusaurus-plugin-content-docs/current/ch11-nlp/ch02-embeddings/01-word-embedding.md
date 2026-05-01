@@ -7,7 +7,7 @@ keywords: [word embedding, vector space, cosine similarity, one-hot, semantic re
 
 # Word Embeddings
 
-![Word vector semantic neighborhood diagram](/img/course/word2vec-embedding-neighborhood.png)
+![Word vector semantic neighborhood diagram](/img/course/word2vec-embedding-neighborhood-en.png)
 
 :::tip Section overview
 When doing NLP, the model does not directly understand the words “refund,” “certificate,” or “password” themselves.  

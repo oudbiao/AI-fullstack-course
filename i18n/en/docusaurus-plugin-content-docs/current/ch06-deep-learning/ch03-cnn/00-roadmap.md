@@ -20,7 +20,7 @@ If you are coming from the earlier MLP section, the most important thing to unde
 
 A clearer way to understand it is:
 
-![CNN chapter relationship diagram](/img/course/ch06-cnn-chapter-flow.png)
+![CNN chapter relationship diagram](/img/course/ch06-cnn-chapter-flow-en.png)
 
 So this chapter is not denying fully connected networks. Instead, it is answering:
 

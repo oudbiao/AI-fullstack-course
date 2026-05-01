@@ -233,7 +233,7 @@ print("span target   :", span_target)
 ここがわかると、  
 なぜ GPT、BERT、T5 で最終的な能力の特徴が違うのかも理解しやすくなります。
 
-![事前学習目標のサンプル変換比較図](/img/course/ch07-pretraining-objective-comparison-map.png)
+![事前学習目標のサンプル変換比較図](/img/course/ch07-pretraining-objective-comparison-map-ja.png)
 
 :::tip 図の見方
 この図では、同じ文が3種類の学習問題に変わる様子を比べています。Causal LM は「次の token を続けて予測する練習」、Masked LM は「左右の文脈から空欄を埋める練習」、Span Corruption は「欠けた部分を復元する練習」です。モデルが毎日どんな問題を解くかで、長期的に身につく能力の傾向が変わります。

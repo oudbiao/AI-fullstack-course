@@ -27,13 +27,13 @@ A common mistake for beginners is focusing only on model architecture and ignori
 
 It is recommended to start with an image classification project, because it is the easiest way to get through data preparation, training, evaluation, and result presentation. Then move on to an object detection project to practice box annotation, IoU, mAP, and false-positive/false-negative analysis. Finally, choose an image segmentation, OCR, industrial inspection, or medical imaging project based on your interests to further understand pixel-level outputs and the evaluation requirements of high-risk scenarios.
 
-![Progression map of output granularity in vision tasks](/img/course/ch10-visual-task-progression-map.png)
+![Progression map of output granularity in vision tasks](/img/course/ch10-visual-task-progression-map-en.png)
 
 ## The Main Thread to Focus on in This Chapter
 
 The main thread of this chapter can be summarized as: a vision project is a closed loop of “data annotation + model training + metric evaluation + failure case presentation.”
 
-![Closed-loop delivery diagram for vision projects](/img/course/ch10-projects-delivery-loop.png)
+![Closed-loop delivery diagram for vision projects](/img/course/ch10-projects-delivery-loop-en.png)
 
 Once you understand this thread, you will know that a vision project presentation should not only include one prediction image. You should also present data samples, annotation rules, metrics, confusion matrices or detection visualizations, failure cases, and improvement directions.
 

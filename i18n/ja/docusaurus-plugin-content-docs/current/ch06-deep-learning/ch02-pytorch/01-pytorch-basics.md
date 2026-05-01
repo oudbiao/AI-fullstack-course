@@ -20,7 +20,7 @@ keywords: [PyTorch, tensor, 张量, shape, broadcasting, numpy]
 
 この節は「PyTorch の文法一覧」として覚えるより、次の順番で理解するのが向いています。
 
-![PyTorch Tensor ライフサイクル図](/img/course/ch06-pytorch-tensor-lifecycle-map.png)
+![PyTorch Tensor ライフサイクル図](/img/course/ch06-pytorch-tensor-lifecycle-map-ja.png)
 
 つまり、この節で本当に固めたいのは次の3つです。
 
@@ -180,7 +180,7 @@ print("shape:", X.shape, "| meaning: [batch, features]")
 
 `torch.Size(...)` だけを見るより、「形状」と「意味」を一緒に書いたほうがずっと分かりやすくなります。
 
-![PyTorch テンソル shape と意味の速習図](/img/course/ch06-tensor-shape-meaning-map.png)
+![PyTorch テンソル shape と意味の速習図](/img/course/ch06-tensor-shape-meaning-map-ja.png)
 
 :::tip 読み方のヒント
 この図は shape の早見表として使えます。表形式のデータはよく `[batch, features]`、画像は `[batch, channels, height, width]`、テキスト列は `[batch, seq_len, embedding_dim]` になります。まず各次元の意味を言葉で説明してからモデルを書くと、エラーがかなり減ります。

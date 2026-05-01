@@ -202,7 +202,7 @@ if failures:
 
 これはもう、最小構成の agentic loop です。
 
-![コード Agent サンドボックス、テスト、Review の閉ループ図](/img/course/ch09-code-agent-sandbox-review-map.png)
+![コード Agent サンドボックス、テスト、Review の閉ループ図](/img/course/ch09-code-agent-sandbox-review-map-ja.png)
 
 :::tip 図の読み方
 コード Agent のポイントは「コードが書けること」ではなく、サンドボックスの中で文脈を読み、patch を生成し、テストを回し、失敗を見て、もう一度修正できることです。図の Verify と Review は、アイデアを現実に引き戻すための重要な部分です。

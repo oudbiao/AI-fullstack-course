@@ -17,7 +17,7 @@ You have already learned the basics of neural networks, PyTorch, CNNs, and RNNs.
 
 The intuition behind RNN is “read and remember as you go.” It is a good way to explain the basic idea of sequence processing, but it hits clear bottlenecks in long texts, parallel training, and long-range dependencies. The key change brought by Transformer is this: instead of passing information only in sequence, each position can directly attend to other positions based on relevance.
 
-![Transformer chapter relationship diagram](/img/course/ch06-transformer-chapter-flow.png)
+![Transformer chapter relationship diagram](/img/course/ch06-transformer-chapter-flow-en.png)
 
 ## The Real Problem This Chapter Solves
 
@@ -31,7 +31,7 @@ It is recommended that you start by looking at the pain points of RNN instead of
 
 Then focus on the intuition behind Q/K/V. You can think of Query as “what I want to find,” Key as “what features I have that can be matched,” and Value as “the information that will actually be passed along.” Finally, when you look at the overall Transformer structure, it will be easier to understand why it stacks modules instead of relying on just one attention layer.
 
-![Transformer global context modeling diagram](/img/course/ch06-transformer-global-context-map.png)
+![Transformer global context modeling diagram](/img/course/ch06-transformer-global-context-map-en.png)
 
 ## The Main Thread to Grasp in This Chapter
 

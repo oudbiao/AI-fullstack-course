@@ -31,7 +31,7 @@ So the most important thing in this section is not memorizing `resample()` and `
 
 Time series is easier to understand as: “first turn dates into objects you can work with, then analyze along the time dimension”:
 
-![Pandas Time Series Analysis Diagram](/img/course/ch03-pandas-time-series-analysis.png)
+![Pandas Time Series Analysis Diagram](/img/course/ch03-pandas-time-series-analysis-en.png)
 
 So what this section really aims to solve is:
 

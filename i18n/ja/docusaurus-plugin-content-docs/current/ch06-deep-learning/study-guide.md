@@ -13,7 +13,7 @@ keywords: [深層学習学習ガイド, PyTorch の学び方, CNN の学び方, 
 
 深層学習では、1 本の流れをつかむことが大切です。データがネットワークに入り、順伝播で出力を得て、損失関数で差を測り、逆伝播で勾配を計算し、最適化器がパラメータを更新します。
 
-![深層学習学習ガイドのトレーニングループ](/img/course/ch06-study-guide-training-loop.png)
+![深層学習学習ガイドのトレーニングループ](/img/course/ch06-study-guide-training-loop-ja.png)
 
 ## おすすめの学習順序
 

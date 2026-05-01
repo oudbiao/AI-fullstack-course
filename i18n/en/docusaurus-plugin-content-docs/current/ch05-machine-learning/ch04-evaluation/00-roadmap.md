@@ -7,7 +7,7 @@ keywords: [model evaluation guide, cross-validation, bias-variance, hyperparamet
 
 # Pre-study Guide: What Is This Evaluation Chapter Really About?
 
-![Model Evaluation Learning Map](/img/course/ml-evaluation-roadmap.png)
+![Model Evaluation Learning Map](/img/course/ml-evaluation-roadmap-en.png)
 
 Many beginners focus all their attention on the model itself when learning machine learning, but what really makes a project stable in practice is evaluation.
 
@@ -17,7 +17,7 @@ This chapter answers two questions:
 
 ## How the Four Sections of This Chapter Relate to Each Other
 
-![Chapter Flow for Model Evaluation](/img/course/ch05-evaluation-chapter-flow.png)
+![Chapter Flow for Model Evaluation](/img/course/ch05-evaluation-chapter-flow-en.png)
 
 - Metrics: first learn which scores to look at
 - Cross-validation: then learn how to estimate scores more reliably

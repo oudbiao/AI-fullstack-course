@@ -7,7 +7,7 @@ keywords: [AMR, semantic graph, semantic parsing, information extraction, knowle
 
 # Semantic Graphs and AMR: Turning Sentences into Structured Meaning
 
-![AMR semantic graph understanding map](/img/course/ch11-amr-semantic-graph-map.png)
+![AMR semantic graph understanding map](/img/course/ch11-amr-semantic-graph-map-en.png)
 
 :::tip Where this section fits
 Text is not just a sequence of words. Often, what we really want is the structured meaning behind a sentence.

@@ -199,7 +199,7 @@ checkpoint だけでは「今どんな状態か」は分かりますが、
 
 ログがあると、振り返りやデバッグがしやすくなります。
 
-![Agent Checkpoint、Event Log と復元の図](/img/course/ch09-agent-persistence-checkpoint-eventlog-map.png)
+![Agent Checkpoint、Event Log と復元の図](/img/course/ch09-agent-persistence-checkpoint-eventlog-map-ja.png)
 
 :::tip 図の見方
 この図では、復元を2つの流れに分けています。checkpoint は「どこまで戻るか」を担当し、event log は「以前に何が起きたか」を担当します。長いタスクを本番運用するなら、この2つをセットで使うのが基本で、最終結果だけを保存するのはおすすめできません。

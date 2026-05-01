@@ -7,7 +7,7 @@ keywords: [pretraining data, deduplication, data mixture, contamination, corpus 
 
 # Pretraining Data
 
-![Pretraining data pipeline diagram](/img/course/pretraining-data-pipeline.png)
+![Pretraining data pipeline diagram](/img/course/pretraining-data-pipeline-en.png)
 
 :::tip Section overview
 When many people talk about large models, they first think about:
@@ -140,7 +140,7 @@ flowchart LR
 
 This pipeline helps make “data matters” concrete: every step changes what the model can learn, what it leans toward, and what mistakes it is likely to make.
 
-![Pretraining data governance funnel diagram](/img/course/ch07-pretraining-data-governance-funnel.png)
+![Pretraining data governance funnel diagram](/img/course/ch07-pretraining-data-governance-funnel-en.png)
 
 :::tip Reading guide
 Read this diagram from “there is a lot of raw data” to “there is only a small amount of trainable corpus”: cleaning, deduplication, risk filtering, contamination control, and mixing are not decorative steps. They are how we decide which patterns are worth learning and which noise must be kept out before training starts.

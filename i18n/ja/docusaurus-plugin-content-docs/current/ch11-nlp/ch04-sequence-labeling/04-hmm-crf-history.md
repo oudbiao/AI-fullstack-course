@@ -7,7 +7,7 @@ keywords: [HMM, CRF, 品詞タグ付け, 系列ラベリング, NER, BiLSTM-CRF]
 
 # HMM、CRF と系列ラベリングの歴史の主線
 
-![HMM CRF 系列ラベリング歴史マップ](/img/course/ch11-hmm-crf-sequence-history-map.png)
+![HMM CRF 系列ラベリング歴史マップ](/img/course/ch11-hmm-crf-sequence-history-map-ja.png)
 
 :::tip この節の位置づけ
 現代の BERT token classification だけを見ると、系列ラベリングは「各 token を分類するだけ」と感じやすいです。

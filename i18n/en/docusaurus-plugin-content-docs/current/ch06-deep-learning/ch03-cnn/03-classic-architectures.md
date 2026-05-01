@@ -7,7 +7,7 @@ keywords: [LeNet, AlexNet, VGG, ResNet, CNN, residual connection, classic archit
 
 # Classic CNN Architectures
 
-![Classic CNN architecture evolution](/img/course/imagenet-cnn-evolution.png)
+![Classic CNN architecture evolution](/img/course/imagenet-cnn-evolution-en.png)
 
 :::tip Section overview
 Learning classic architectures is not about memorizing model names. It is about seeing a very important evolution line clearly:

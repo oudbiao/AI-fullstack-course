@@ -7,7 +7,7 @@ keywords: [異常検知, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, 外
 
 # 異常検知
 
-![異常検知の外れ値イメージ図](/img/course/anomaly-detection-outliers.png)
+![異常検知の外れ値イメージ図](/img/course/anomaly-detection-outliers-ja.png)
 
 :::tip この節の位置づけ
 異常検知は、データの中から**「いつもと違う」サンプル**を見つけるために使います。たとえば、クレジットカードの不正利用、ネットワーク侵入、機器の故障などです。分類と違って、異常はまれで、十分なラベルがないことが多いため、特別なアルゴリズムが必要になります。
@@ -43,7 +43,7 @@ keywords: [異常検知, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, 外
 
 より安定した理解の順番は次の通りです。
 
-![異常検知の意思決定フローチャート](/img/course/ch05-anomaly-detection-decision-flow.png)
+![異常検知の意思決定フローチャート](/img/course/ch05-anomaly-detection-decision-flow-ja.png)
 
 つまり、異常検知でいちばん大事なのは、まずモデル名を覚えることではなく、「自分にとっての異常とは何か」をはっきりさせることです。
 
@@ -244,7 +244,7 @@ plt.show()
 - 異常の割合をざっくりつかめる
 - データ分布そのものの問題を早めに見つけられる
 
-![異常検知手法の比較図](/img/course/ch05-anomaly-method-comparison-map.png)
+![異常検知手法の比較図](/img/course/ch05-anomaly-method-comparison-map-ja.png)
 
 この図を見るときは、まず異常がどんな形かを考えましょう。単純な1列の極端値なら Z-score や IQR で十分速いです。高次元空間で少数の孤立点を見つけたいなら Isolation Forest が向いています。局所的な密度差に依存するなら LOF を見ます。正常な境界を学ばせたいなら One-Class SVM を試します。
 

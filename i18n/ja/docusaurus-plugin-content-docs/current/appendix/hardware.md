@@ -5,9 +5,9 @@ sidebar_position: 2
 
 # ハードウェアとクラウドリソースのガイド
 
-![ハードウェアとクラウドリソースの意思決定ツリー](/img/course/appendix-hardware-cloud-decision-tree.png)
+![ハードウェアとクラウドリソースの意思決定ツリー](/img/course/appendix-hardware-cloud-decision-tree-ja.png)
 
-![ローカル・クラウド・API の3ルートにおけるコスト比較図](/img/course/appendix-hardware-local-cloud-api-cost-map.png)
+![ローカル・クラウド・API の3ルートにおけるコスト比較図](/img/course/appendix-hardware-local-cloud-api-cost-map-ja.png)
 
 :::tip 画像の見方
 ハードウェア選びは、まずやることから考えます。基礎学習、Demo の実行、モデルの学習、アプリ開発では、必要なリソースがまったく違います。図を見るときは、ローカルPC、クラウドGPU、API の3つのルートを並べて比較してください。最初から「必ずグラボを買わないと」と思い込む必要はありません。

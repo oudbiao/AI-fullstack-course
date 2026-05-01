@@ -7,7 +7,7 @@ keywords: [AI history, key papers, Transformer paper, BERT paper, GPT paper, RLH
 
 # Timeline of Key AI Papers and Algorithms
 
-![AI History Relay Race Timeline](/img/course/appendix-ai-milestones-timeline.png)
+![AI History Relay Race Timeline](/img/course/appendix-ai-milestones-timeline-en.png)
 
 This page is not meant to make you memorize paper names. It is here to help you build a more stable, more vivid sense of history:
 
@@ -23,7 +23,7 @@ You can think of this page as an “AI tech adventure map”: each node is not j
 
 If we compress AI development into a single picture, you can think of it like this:
 
-![AI Main Line Relay Map](/img/course/appendix-ai-main-relay-map.png)
+![AI Main Line Relay Map](/img/course/appendix-ai-main-relay-map-en.png)
 
 The first half can be understood this way: AI started with “how to make judgments,” and gradually moved toward “can machines learn from data on their own?” Classic machine learning stabilized engineering habits such as training, evaluation, and generalization, while deep learning surged again after data, GPUs, and multi-layer networks matured.
 
@@ -128,7 +128,7 @@ So the AutoGPT boom is also a very good historical reminder:
 
 ### 2.1 Read these turning points like a comic strip
 
-![AI History Turning Points Comic Strip](/img/course/appendix-ai-history-comic-turning-points.png)
+![AI History Turning Points Comic Strip](/img/course/appendix-ai-history-comic-turning-points-en.png)
 
 This image is best read as a six-panel comic:
 
@@ -236,7 +236,7 @@ This way of reading feels more like a technology evolution story, not like memor
 
 ### 3.4 Go one step further: read papers as “old problem -> new method -> new capability”
 
-![AI Paper Problem-Solution-Impact Chain](/img/course/appendix-ai-paper-problem-solution-impact-chain.png)
+![AI Paper Problem-Solution-Impact Chain](/img/course/appendix-ai-paper-problem-solution-impact-chain-en.png)
 
 Many paper titles look intimidating, but behind them there is usually a simple chain:
 
@@ -255,7 +255,7 @@ This reading style is very friendly for beginners because it does not require yo
 
 ### 3.5 From the perspective of course projects, the timeline can be read like this
 
-![AI Timeline Map from the Project Perspective](/img/course/appendix-ai-project-lens-map.png)
+![AI Timeline Map from the Project Perspective](/img/course/appendix-ai-project-lens-map-en.png)
 
 In other words, this page is not an isolated appendix. It can help you understand why machine learning projects care about evaluation, why deep learning moved toward Transformer, why RAG and Agent are not suddenly invented new words, and why multimodal AI and AIGC naturally follow large models.
 
@@ -287,7 +287,7 @@ have always stood on this older probabilistic inference main line.
 
 ## 3. Key nodes in the three waves of neural networks
 
-![Timeline of Three Neural Network Waves and Two Valleys](/img/course/appendix-neural-network-waves-timeline.png)
+![Timeline of Three Neural Network Waves and Two Valleys](/img/course/appendix-neural-network-waves-timeline-en.png)
 
 When reading this figure, think of neural network history as a process of “believing in it again” three times:
 
@@ -326,7 +326,7 @@ This line is not as flashy as large models, but it is very much like the process
 
 For beginners, the key idea to remember is: what classic machine learning is most worth learning is not the algorithm names, but the whole modeling habit of training, validation, evaluation, tuning, and error analysis.
 
-![Classic Machine Learning Branch Map](/img/course/appendix-classic-ml-branch-map.png)
+![Classic Machine Learning Branch Map](/img/course/appendix-classic-ml-branch-map-en.png)
 
 | Year | Paper / Algorithm | Key author(s) | What it most importantly solved | Where it maps in the course |
 |---|---|---|---|---|
@@ -380,7 +380,7 @@ but also that they first made many ordinary people truly feel:
 
 This line is very much like a story of an evolving language interface: at first we wanted machines to understand words and sentences, then we wanted translation and generation, and later we realized that the same text interface can summarize, write code, reason, call tools, and organize tasks.
 
-![NLP to LLM Lineage Map](/img/course/appendix-nlp-llm-lineage-map.png)
+![NLP to LLM Lineage Map](/img/course/appendix-nlp-llm-lineage-map-en.png)
 
 When beginners look at this line, they can first grasp two changes: first, words moved from discrete symbols to points in a vector space; second, language models moved from “doing one NLP task” to “accomplishing many tasks through natural language.” This is also the foundation that later made Prompt, RAG, and Agent possible.
 
@@ -411,9 +411,9 @@ What makes this part of history so exciting is that it feels like a route where 
 
 If the previous main line solves “can the model generate,” this line cares more about “can the model do things according to human intent, safely, and in a traceable way?” This is also a necessary step when moving from model capability to real products.
 
-![Alignment, Agent, and Systems Main Line Map](/img/course/appendix-agent-system-lineage-map.png)
+![Alignment, Agent, and Systems Main Line Map](/img/course/appendix-agent-system-lineage-map-en.png)
 
-![LLM to Agent Engineering Evolution Timeline](/img/course/appendix-llm-to-agent-evolution-timeline.png)
+![LLM to Agent Engineering Evolution Timeline](/img/course/appendix-llm-to-agent-evolution-timeline-en.png)
 
 The relationship between this line and projects is very direct: if you are building a knowledge-base assistant, you need to care about citations and no-answer handling; if you are building an Agent, you need to care about tool schemas, call logs, failure recovery, permission boundaries, and stop conditions.
 
@@ -441,7 +441,7 @@ So when beginners learn Agent, do not only ask whether it can do things on its o
 
 The story of multimodal AI and AIGC can be understood as AI moving from “reading text” to “understanding and generating multiple media types.” CLIP aligns images and text, diffusion models make high-quality generation more stable, Latent Diffusion reduces generation cost, Whisper makes speech recognition more general-purpose, and SAM pushes visual segmentation toward a foundation-model form.
 
-![Multimodal and AIGC Lineage Map](/img/course/appendix-multimodal-aigc-lineage-map.png)
+![Multimodal and AIGC Lineage Map](/img/course/appendix-multimodal-aigc-lineage-map-en.png)
 
 Beginners can first remember this: this line is not only about “generating nice pictures,” but about turning text, images, speech, and video into objects that models can understand, generate, and combine. When you later build lecture material generation, creative platforms, digital humans, or multimodal assistants, this line will show up again.
 

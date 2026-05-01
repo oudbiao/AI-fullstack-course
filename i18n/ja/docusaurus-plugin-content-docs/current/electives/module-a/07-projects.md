@@ -20,7 +20,7 @@ keywords: [deployment project, edge inference, model serving, optimization, port
 この節でやるのは、これらの要素を組み合わせて、きちんと説明できて、かつ見せられるプロジェクトにすることです。
 :::
 
-![デプロイ統合プロジェクトの納品クローズドループ図](/img/course/elective-deployment-project-delivery-loop.png)
+![デプロイ統合プロジェクトの納品クローズドループ図](/img/course/elective-deployment-project-delivery-loop-ja.png)
 
 ## 学習目標
 

@@ -17,7 +17,7 @@ You have already learned the LLM overview, Transformer, and pretraining, and you
 
 Prompt sits between “model capability” and “product functionality.” It does not change model parameters, but it can significantly affect how the model understands tasks, organizes reasoning, uses context, outputs structure, and handles edge cases.
 
-![Prompt engineering chapter relationship diagram](/img/course/ch07-prompt-chapter-flow.png)
+![Prompt engineering chapter relationship diagram](/img/course/ch07-prompt-chapter-flow-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,7 +29,7 @@ The easiest thing for beginners to overlook is that a Prompt is not something yo
 
 It is recommended to first learn basic Prompting: clearly describe the task, context, constraints, and output format. Then learn advanced techniques such as few-shot examples, step-by-step decomposition, role setting, reflection checks, and boundary explanations. Next, focus on structured output, because most product features cannot accept only a paragraph of natural language; they need stable fields, formats, and parseable results. Finally, practice Prompting with real examples, test, record failures, and iterate.
 
-![Prompt iteration test closed loop diagram](/img/course/ch07-prompt-iteration-loop.png)
+![Prompt iteration test closed loop diagram](/img/course/ch07-prompt-iteration-loop-en.png)
 
 ## The Main Thread to Focus on While Studying This Chapter
 

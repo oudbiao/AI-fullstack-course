@@ -31,7 +31,7 @@ It is recommended to start with an information extraction or text classification
 
 The main thread of this chapter can be summarized as: an NLP project should first clarify the task boundary, then decide the data, model, and evaluation method.
 
-![NLP project delivery loop](/img/course/ch11-projects-delivery-loop.png)
+![NLP project delivery loop](/img/course/ch11-projects-delivery-loop-en.png)
 
 Once you understand this line of thinking, you will know why unclear task definitions are the biggest danger in NLP projects. If the labels are unclear, the fields are unclear, or the knowledge scope is unclear, even a very strong model will struggle to produce stable results.
 

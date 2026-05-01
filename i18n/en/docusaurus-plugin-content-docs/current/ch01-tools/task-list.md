@@ -8,7 +8,7 @@ keywords: [developer tools, learning task sheet, Git, command line, development 
 
 The goal of this stage is not to memorize every command, but to give you the basic development workflow needed for later AI project learning. After finishing this stage, you should be able to create projects, manage files, install dependencies, use Git to save versions, and record execution results.
 
-![Developer Tools Stage Task Chain](/img/course/ch01-task-list-workflow.png)
+![Developer Tools Stage Task Chain](/img/course/ch01-task-list-workflow-en.png)
 
 ## Tasks you must complete in this stage
 

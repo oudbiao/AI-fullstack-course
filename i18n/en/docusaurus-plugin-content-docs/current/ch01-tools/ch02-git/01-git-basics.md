@@ -6,7 +6,7 @@ description: "Understand why version control is necessary and learn Git’s core
 
 # Git Basics
 
-![Git four-area workflow diagram](/img/course/git-four-areas.png)
+![Git four-area workflow diagram](/img/course/git-four-areas-en.png)
 
 ## Where This Lesson Fits
 

@@ -217,7 +217,7 @@ When your questions often require:
 
 you can consider graph-style retrieval.
 
-![Advanced RAG architecture selection map](/img/course/ch08-advanced-rag-architecture-selection-map.png)
+![Advanced RAG architecture selection map](/img/course/ch08-advanced-rag-architecture-selection-map-en.png)
 
 :::tip Reading guide
 Start by choosing an architecture based on the question type: if multiple knowledge bases interfere with one another, consider Router RAG first; if the question needs multiple steps, consider Multi-hop RAG; if you need autonomous decision-making, consider Agentic RAG; if relationship chains are obvious, then consider Graph RAG.

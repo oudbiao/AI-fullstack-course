@@ -7,7 +7,7 @@ keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 
 # Training Workflow
 
-![PyTorch training loop diagram](/img/course/pytorch-training-loop.png)
+![PyTorch training loop diagram](/img/course/pytorch-training-loop-en.png)
 
 ## Learning Goals
 
@@ -129,7 +129,7 @@ Because each step depends on the result of the previous one:
 
 So the training loop is not just “a few APIs put together,” but a causal chain with a strict order.
 
-![PyTorch training loop order guardrail diagram](/img/course/ch06-training-loop-order-guardrail.png)
+![PyTorch training loop order guardrail diagram](/img/course/ch06-training-loop-order-guardrail-en.png)
 
 :::tip Reading hint
 It’s a good idea to compare this diagram every time you write a training loop: `model.train()`, get batch, forward, loss, `zero_grad()`, `backward()`, `step()`. In the validation stage, switch to `model.eval()` and `torch.no_grad()` so validation does not record gradients.

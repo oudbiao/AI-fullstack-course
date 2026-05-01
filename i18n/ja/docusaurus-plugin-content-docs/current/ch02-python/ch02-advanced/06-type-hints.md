@@ -6,7 +6,7 @@ description: "Python の型注釈とコード品質ツールを身につける"
 
 # 型注釈とコード品質
 
-![型注釈とコード品質のフローチャート](/img/course/ch02-type-hints-quality-flow.png)
+![型注釈とコード品質のフローチャート](/img/course/ch02-type-hints-quality-flow-ja.png)
 
 ## この節の位置づけ
 

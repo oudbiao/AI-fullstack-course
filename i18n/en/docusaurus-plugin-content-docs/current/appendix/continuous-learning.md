@@ -5,9 +5,9 @@ sidebar_position: 4
 
 # Continuous Learning Methodology in AI
 
-![Three-layer continuous learning flywheel diagram](/img/course/appendix-continuous-learning-flywheel.png)
+![Three-layer continuous learning flywheel diagram](/img/course/appendix-continuous-learning-flywheel-en.png)
 
-![Paper, project, knowledge base review loop diagram](/img/course/appendix-learning-paper-project-notes-loop.png)
+![Paper, project, knowledge base review loop diagram](/img/course/appendix-learning-paper-project-notes-loop-en.png)
 
 :::tip Reading the diagram
 The biggest trap in continuous learning is collecting without consolidating. When reading the diagram, connect papers, code experiments, project retrospectives, and knowledge base cards into a loop: every time you see something new, ask yourself, “Which project or decision can this improve?”

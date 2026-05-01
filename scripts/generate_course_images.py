@@ -9489,7 +9489,8 @@ def write_placeholder(output_dir: Path, job: dict[str, Any], overwrite: bool = F
         draw.text((text_box[0] + 32, y), line, font=body_font, fill="#cbd5e1")
         y += max(34, width // 28)
 
-    draw.text((card[2] - max(260, width // 4), card[3] - max(48, height // 36)), "Preview Asset", font=label_font, fill="#94a3b8")
+    preview_label = str(job.get("preview_label", "Preview Asset"))
+    draw.text((card[2] - max(260, width // 4), card[3] - max(48, height // 36)), preview_label, font=label_font, fill="#94a3b8")
     image.save(output_path, format="PNG")
     set_user_readable_permissions(output_path)
 

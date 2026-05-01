@@ -6,7 +6,7 @@ description: "Miniconda で Python のバージョンと仮想環境を管理し
 
 # Python環境管理
 
-![Python 環境と依存関係の図](/img/course/ch01-python-env-stack.png)
+![Python 環境と依存関係の図](/img/course/ch01-python-env-stack-ja.png)
 
 ## この節の位置づけ
 

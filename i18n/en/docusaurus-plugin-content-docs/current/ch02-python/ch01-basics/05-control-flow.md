@@ -6,7 +6,7 @@ description: "Master conditional logic and loop structures"
 
 # Flow Control
 
-![Python flow control execution path diagram](/img/course/ch02-control-flow-paths.png)
+![Python flow control execution path diagram](/img/course/ch02-control-flow-paths-en.png)
 
 ## Where This Section Fits
 

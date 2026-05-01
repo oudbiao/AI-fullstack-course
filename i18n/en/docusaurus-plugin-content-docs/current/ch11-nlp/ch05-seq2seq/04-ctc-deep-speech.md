@@ -7,7 +7,7 @@ keywords: [CTC, Deep Speech, ASR, speech recognition, sequence alignment, NLP]
 
 # CTC and Deep Speech: Sequence Alignment in Speech Recognition
 
-![CTC Deep Speech speech recognition alignment diagram](/img/course/ch11-ctc-deep-speech-asr-map.png)
+![CTC Deep Speech speech recognition alignment diagram](/img/course/ch11-ctc-deep-speech-asr-map-en.png)
 
 :::tip Where this section fits
 This section is an extension of Seq2Seq: it helps you understand why speech recognition cannot be trained by simply using “one audio frame corresponds to one character.”

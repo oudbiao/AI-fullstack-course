@@ -7,7 +7,7 @@ keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict
 
 # Introduction to the Scikit-learn Framework
 
-![Scikit-learn Estimator and Pipeline diagram](/img/course/sklearn-estimator-pipeline.png)
+![Scikit-learn Estimator and Pipeline diagram](/img/course/sklearn-estimator-pipeline-en.png)
 
 :::tip Section focus
 Scikit-learn is the **de facto standard library** for Python machine learning. Almost all classic ML tasks can be done with it. Once you master sklearn’s API pattern, learning any later algorithm will feel much smoother.
@@ -42,7 +42,7 @@ For beginners, the most valuable thing about `scikit-learn` is:
 
 A better mental model is:
 
-![Unified sklearn fit-predict workflow](/img/course/ch05-sklearn-fit-predict-loop.png)
+![Unified sklearn fit-predict workflow](/img/course/ch05-sklearn-fit-predict-loop-en.png)
 
 If you keep this line in your head, you won’t feel especially lost later when you switch to any classic ML model.
 
@@ -166,7 +166,7 @@ flowchart LR
 | **Transformer** | `fit()`, `transform()` | Learns parameters from data, then transforms the data | Standardization, PCA, one-hot encoding |
 | **Pipeline** | Chains the above steps | Connects multiple steps into a workflow | Standardization → PCA → classifier |
 
-![sklearn Pipeline component breakdown](/img/course/ch05-sklearn-pipeline-anatomy.png)
+![sklearn Pipeline component breakdown](/img/course/ch05-sklearn-pipeline-anatomy-en.png)
 
 You can treat this diagram as sklearn’s “parts manual”: the Transformer organizes the data, the Estimator learns the pattern, and the Pipeline makes sure training and prediction follow the same path. Once beginners separate these three roles clearly, they won’t get confused later when they switch models or preprocessing steps.
 

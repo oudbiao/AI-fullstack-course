@@ -13,7 +13,7 @@ keywords: [LLM アプリ学習ガイド, RAG の学び方, ベクトルデータ
 
 LLM アプリを最初に学ぶときは、4つの層をつかむことが大事です。知識層は資料をシステムに入れる役割、モデル層は生成と理解を担当、アプリ層は機能をまとめる役割、エンジニアリング層は安定して動かす役割です。
 
-![LLM アプリ四層学習マップ](/img/course/ch08-study-guide-four-layer-map.png)
+![LLM アプリ四層学習マップ](/img/course/ch08-study-guide-four-layer-map-ja.png)
 
 ## おすすめの学習順序
 

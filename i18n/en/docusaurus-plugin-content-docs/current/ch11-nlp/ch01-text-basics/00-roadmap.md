@@ -22,7 +22,7 @@ So this chapter is not a detour from the model-focused main line. Instead, it fi
 
 ## The Main Thread of This Chapter
 
-![Text basics chapter learning flowchart](/img/course/ch11-text-basics-chapter-flow.png)
+![Text basics chapter learning flowchart](/img/course/ch11-text-basics-chapter-flow-en.png)
 
 If you do not build a solid foundation here, later topics like word embeddings, classification, and BERT can easily turn into nothing but terminology.
 

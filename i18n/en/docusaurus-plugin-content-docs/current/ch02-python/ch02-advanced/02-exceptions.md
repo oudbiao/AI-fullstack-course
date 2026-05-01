@@ -6,7 +6,7 @@ description: "Master Python's exception handling mechanism to make your programs
 
 # Exception Handling
 
-![Exception handling flowchart](/img/course/ch02-exception-flow.png)
+![Exception handling flowchart](/img/course/ch02-exception-flow-en.png)
 
 ## Where this section fits
 

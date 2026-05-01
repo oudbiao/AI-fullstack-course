@@ -238,7 +238,7 @@ print(validate_search_docs({"query_text": "返金ポリシー"}))
 server は、能力の境界を守る門番だからです。  
 server が検証しないと、ツール全体の安定性を保つのが難しくなります。
 
-![MCP Server ツール契約図](/img/course/ch09-mcp-server-tool-contract-map.png)
+![MCP Server ツール契約図](/img/course/ch09-mcp-server-tool-contract-map-ja.png)
 
 :::tip 図の見方
 MCP Server は、ツール契約の門番だと考えてください。list_tools を公開するだけでなく、call_tool のパラメータを検証し、実際のロジックを実行し、結果を統一して返し、エラーを client が理解できる形に変える役割もあります。

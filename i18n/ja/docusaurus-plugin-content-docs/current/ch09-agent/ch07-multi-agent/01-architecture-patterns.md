@@ -7,7 +7,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 # マルチ Agent のアーキテクチャパターン
 
-![マルチ Agent の協力メッセージフロー図](/img/course/multi-agent-message-flow.png)
+![マルチ Agent の協力メッセージフロー図](/img/course/multi-agent-message-flow-ja.png)
 
 :::tip この節の位置づけ
 多くの人が初めてマルチ Agent を作るとき、いちばんやりがちなミスは次のようなものです。
@@ -247,7 +247,7 @@ print("review:", review)
 - 話がそれやすい
 - 収束しにくい
 
-![マルチ Agent のアーキテクチャパターン選択図](/img/course/ch09-multi-agent-pattern-selection-map.png)
+![マルチ Agent のアーキテクチャパターン選択図](/img/course/ch09-multi-agent-pattern-selection-map-ja.png)
 
 :::tip 図の読み方
 この図を見るときは、まずタスクに自然な分担があるかを確認しましょう。中心的な調整が必要なら supervisor-worker、段階が固定なら pipeline、品質チェックが必要なら reviewer、多視点の議論が必要なときだけ peer/group を考えます。

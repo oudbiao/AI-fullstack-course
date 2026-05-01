@@ -7,7 +7,7 @@ keywords: [Python入門, Python基礎, Pythonチュートリアル, プログラ
 
 # 2 Python プログラミング基礎
 
-![Python プログラミング基礎メインビジュアル](/img/course/ch02-python-foundation.png)
+![Python プログラミング基礎メインビジュアル](/img/course/ch02-python-foundation-ja.png)
 
 この段階で解決したいのは、「コードで問題を表現できるか、データを処理できるか、サービスを呼び出せるか」です。今後のデータ分析、機械学習、RAG、Agent は何度も Python に頼ることになるので、ここでの目標は文法を暗記することではなく、プログラミングの考え方とデバッグの習慣を身につけることです。
 
@@ -17,7 +17,7 @@ keywords: [Python入門, Python基礎, Pythonチュートリアル, プログラ
 
 ## 学習チャレンジマップ
 
-![Python 学習チャレンジマップ](/img/course/ch02-learning-quest-map.png)
+![Python 学習チャレンジマップ](/img/course/ch02-learning-quest-map-ja.png)
 
 ## 参加型練習：1 章学ぶごとに自分に 1 つ質問する
 
@@ -54,7 +54,7 @@ keywords: [Python入門, Python基礎, Pythonチュートリアル, プログラ
 
 Python が AI の主流になったのは、文法が最強だからではありません。データ処理、機械学習、深層学習、Web API、自動化スクリプト、大規模言語モデルのエコシステムを、1 つの言語でつなげるからです。今後は Python でデータを読み、モデルを学習させ、LLM を呼び出し、RAG を構築し、ツールを封装し、Agent を作ることになります。
 
-![Python AI 主力能力チェーン](/img/course/ch02-python-ai-backbone.png)
+![Python AI 主力能力チェーン](/img/course/ch02-python-ai-backbone-ja.png)
 
 ## この段階の学習ルート
 

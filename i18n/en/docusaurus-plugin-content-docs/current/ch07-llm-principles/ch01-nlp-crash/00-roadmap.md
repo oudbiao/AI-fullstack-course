@@ -22,7 +22,7 @@ So the real position of this chapter is:
 
 ## The Main Thread of This Chapter
 
-![NLP crash course chapter flowchart](/img/course/ch07-nlp-crash-chapter-flow.png)
+![NLP crash course chapter flowchart](/img/course/ch07-nlp-crash-chapter-flow-en.png)
 
 Once you learn this chapter solidly, it will be much easier to understand LLM training and usage.
 

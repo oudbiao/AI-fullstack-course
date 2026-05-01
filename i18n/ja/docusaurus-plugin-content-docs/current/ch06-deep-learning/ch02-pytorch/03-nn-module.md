@@ -20,7 +20,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 
 この節でいちばん大事なのは、クラス名をたくさん覚えることではなく、次の点をはっきり理解することです。
 
-![nn.Module パラメータ整理フロー図](/img/course/ch06-nn-module-parameter-flow.png)
+![nn.Module パラメータ整理フロー図](/img/course/ch06-nn-module-parameter-flow-ja.png)
 
 つまり、この節で本当に解決するのは：
 

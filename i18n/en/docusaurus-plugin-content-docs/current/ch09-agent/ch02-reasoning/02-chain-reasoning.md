@@ -208,7 +208,7 @@ A very common enhancement is:
 
 This can reduce some careless mistakes.
 
-![Chain-of-Thought and self-check structure diagram](/img/course/ch09-cot-self-check-structure-map.png)
+![Chain-of-Thought and self-check structure diagram](/img/course/ch09-cot-self-check-structure-map-en.png)
 
 :::tip Reading note
 This diagram emphasizes “structured intermediate states,” not letting the model output endless long-form thinking. In production, reasoning is more often compressed into verifiable slots such as facts, subtasks, decision, and next_action.

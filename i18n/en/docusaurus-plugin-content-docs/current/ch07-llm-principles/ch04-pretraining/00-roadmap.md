@@ -15,13 +15,13 @@ Pretraining is the key to answering this question. It connects massive data, tra
 
 ## Where This Chapter Fits in the Whole Course
 
-![Diagram of pretraining chapter relationships](/img/course/ch07-pretraining-chapter-flow.png)
+![Diagram of pretraining chapter relationships](/img/course/ch07-pretraining-chapter-flow-en.png)
 
 This chapter builds on the earlier deep dive into Transformer and also lays the groundwork for the later sections on Prompt, fine-tuning, alignment, and LLM applications. You do not need to actually train a large model from scratch, but you should be able to explain: how data affects capability boundaries, how the objective function shapes model behavior, and why training engineering determines cost, stability, and reproducibility.
 
 ## Main Learning Path for This Chapter
 
-![Triangle diagram of pretraining data, objective, and engineering](/img/course/ch07-pretraining-data-objective-engineering-map.png)
+![Triangle diagram of pretraining data, objective, and engineering](/img/course/ch07-pretraining-data-objective-engineering-map-en.png)
 
 When studying, do not treat these topics as a list of paper terms. Keep asking: what failure does this design solve? For example, deduplication reduces memorization and data leakage, quality filtering improves useful learning signals, mixed precision lowers training cost, and checkpoints prevent long training runs from becoming unrecoverable after a failure.
 

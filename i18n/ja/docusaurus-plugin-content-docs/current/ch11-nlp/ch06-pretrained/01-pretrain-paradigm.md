@@ -7,7 +7,7 @@ keywords: [pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-fin
 
 # 事前学習パラダイム
 
-![事前学習・転移・微調整の関係図](/img/course/ch11-pretraining-transfer-finetune-map.png)
+![事前学習・転移・微調整の関係図](/img/course/ch11-pretraining-transfer-finetune-map-ja.png)
 
 :::tip 図の読み方
 事前学習パラダイムで最も大事なのは、個々のモデル名ではなく、「汎用コーパスで土台を学ぶ -> 下流タスクへ転移する -> 微調整または Prompt で適応する」という流れです。まずこの流れをつかめば、BERT、GPT、T5 がばらばらな専門用語に見えなくなります。

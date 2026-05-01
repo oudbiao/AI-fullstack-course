@@ -13,7 +13,7 @@ This chapter on text classification solves this problem:
 
 ## The main thread of this chapter
 
-![Text classification chapter learning sequence diagram](/img/course/ch11-classification-chapter-flow.png)
+![Text classification chapter learning sequence diagram](/img/course/ch11-classification-chapter-flow-en.png)
 
 ## How beginners and advanced learners should read this chapter
 

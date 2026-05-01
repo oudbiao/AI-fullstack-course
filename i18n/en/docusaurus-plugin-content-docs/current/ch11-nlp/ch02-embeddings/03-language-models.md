@@ -7,7 +7,7 @@ keywords: [language model, next token prediction, n-gram, autoregressive, probab
 
 # Fundamentals of Language Models
 
-![Language model next token prediction diagram](/img/course/ch11-language-model-next-token-stack.png)
+![Language model next token prediction diagram](/img/course/ch11-language-model-next-token-stack-en.png)
 
 :::tip Reading the diagram
 Don’t understand language models as just “word chaining.” When reading the diagram, focus on the relationship between the previous context, the candidate token probability distribution, and sampling/selection: many generation abilities in large models grow out of this training objective.

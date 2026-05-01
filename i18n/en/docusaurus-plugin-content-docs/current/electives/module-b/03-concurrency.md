@@ -7,9 +7,9 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 # Concurrent Programming (Including asyncio)
 
-![asyncio concurrency control flowchart](/img/course/elective-asyncio-concurrency-control.png)
+![asyncio concurrency control flowchart](/img/course/elective-asyncio-concurrency-control-en.png)
 
-![async task timeout cancellation and rate limiting diagram](/img/course/elective-asyncio-timeout-cancel-rate-limit-map.png)
+![async task timeout cancellation and rate limiting diagram](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-en.png)
 
 :::tip Reading the Diagram
 More concurrency is not always better. When reading the diagram, focus on how the event loop, semaphore, timeout, cancellation, retry, and rate limit work together to protect upstream services, especially for LLM API calls, RAG scraping, and Agent tool invocations.

@@ -7,7 +7,7 @@ keywords: [EDA, Exploratory Data Analysis, Pandas, Matplotlib, Seaborn, data vis
 
 # Hands-on Project: Exploratory Data Analysis (EDA)
 
-![EDA exploratory data analysis workflow](/img/course/eda-analysis-workflow.png)
+![EDA exploratory data analysis workflow](/img/course/eda-analysis-workflow-en.png)
 
 :::tip Project focus
 This is a **comprehensive hands-on project** for Data Analysis and Visualization. You will use the NumPy, Pandas, and Matplotlib/Seaborn knowledge you learned earlier to perform a complete exploratory data analysis on a real dataset.

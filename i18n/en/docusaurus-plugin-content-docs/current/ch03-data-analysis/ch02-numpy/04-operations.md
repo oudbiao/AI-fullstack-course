@@ -6,7 +6,7 @@ description: "Master vectorized operations, broadcasting, and aggregation functi
 
 # Array Operations
 
-![NumPy Broadcasting and Vectorization Diagram](/img/course/ch03-numpy-broadcasting-vectorization.png)
+![NumPy Broadcasting and Vectorization Diagram](/img/course/ch03-numpy-broadcasting-vectorization-en.png)
 
 ## Learning Objectives
 

@@ -7,9 +7,9 @@ keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, 
 
 # Inference Engines
 
-![Inference engine and hardware adaptation diagram](/img/course/elective-inference-engine-hardware.png)
+![Inference engine and hardware adaptation diagram](/img/course/elective-inference-engine-hardware-en.png)
 
-![Inference engine selection matrix diagram](/img/course/elective-inference-engine-selection-matrix.png)
+![Inference engine selection matrix diagram](/img/course/elective-inference-engine-selection-matrix-en.png)
 
 :::tip Reading guide
 Inference engines are not about being as fast as possible in isolation; they need to match the model format, target hardware, latency/throughput requirements, deployment environment, and the team’s maintenance capability. When reading the diagram, think of ONNX Runtime, TensorRT, and OpenVINO as toolboxes under different constraints.

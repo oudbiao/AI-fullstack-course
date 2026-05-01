@@ -108,7 +108,7 @@ Disadvantages:
 - Small dataset: prefer a fixed feature extractor first
 - Large dataset / big task difference: consider progressive fine-tuning
 
-![Decision diagram for freezing the backbone and progressive fine-tuning in transfer learning](/img/course/ch06-transfer-learning-freeze-finetune-map.png)
+![Decision diagram for freezing the backbone and progressive fine-tuning in transfer learning](/img/course/ch06-transfer-learning-freeze-finetune-map-en.png)
 
 :::tip Reading hint
 When reading this diagram, first ask two questions: how much data do you have, and how similar is the new task to the pretrained task. If the data is small and the tasks are similar, freeze the backbone and train only the head first; if you have more data or the task is more different, gradually unfreeze later layers and fine-tune with a smaller learning rate.

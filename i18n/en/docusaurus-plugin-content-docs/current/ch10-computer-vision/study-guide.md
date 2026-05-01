@@ -13,7 +13,7 @@ If you come to `Chapter 10 Computer Vision (elective track)` and feel like there
 
 On your first pass through computer vision, focus on one task-granularity line: first understand the image itself, then determine the category of the whole image, then locate object positions, and finally understand pixel-level regions.
 
-![Visual output granularity learning guide map](/img/course/ch10-study-guide-output-granularity-map.png)
+![Visual output granularity learning guide map](/img/course/ch10-study-guide-output-granularity-map-en.png)
 
 ## Recommended learning order
 

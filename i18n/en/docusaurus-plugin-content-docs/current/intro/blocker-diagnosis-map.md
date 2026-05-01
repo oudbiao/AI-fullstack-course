@@ -7,7 +7,7 @@ keywords: [learning blockers, Debug map, AI learning diagnosis, RAG troubleshoot
 
 # Learning Blocker Diagnosis Map
 
-![Learning blocker diagnosis flowchart](/img/course/intro-blocker-diagnosis-flow.png)
+![Learning blocker diagnosis flowchart](/img/course/intro-blocker-diagnosis-flow-en.png)
 
 When learning AI full-stack, getting stuck does not mean you are not suited for it. It usually means the current project has exposed a gap in some layer of your skills. The most effective response is not to keep forcing your way through later chapters, but to first identify which layer the blocker belongs to, then go back to the corresponding content and run a minimal reproduction experiment.
 

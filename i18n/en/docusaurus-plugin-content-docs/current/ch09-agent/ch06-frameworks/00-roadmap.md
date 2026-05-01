@@ -15,7 +15,7 @@ A framework is not magic. It simply abstracts away some repetitive engineering w
 
 ## Where This Chapter Fits in the Agent Learning Path
 
-![Agent framework position map](/img/course/ch09-frameworks-position-map.png)
+![Agent framework position map](/img/course/ch09-frameworks-position-map-en.png)
 
 If you still cannot explain tool schemas, execution traces, stop conditions, and human confirmation, it is recommended that you do not rush into complex frameworks yet. A framework amplifies your design: when the boundaries are clear, it improves efficiency; when the boundaries are unclear, it makes problems harder to debug.
 
@@ -35,7 +35,7 @@ This table is not a ranking; it is a selection map. In real projects, you can al
 
 First, read the framework overview to understand why frameworks exist: not to make Agent “smarter,” but to make state, tools, workflows, memory, and logs easier to organize. Second, study LangChain/LangGraph, focusing on state graphs, nodes, edges, conditional branches, and resumable execution. Third, look at LlamaIndex and understand why it is closer to a “data application framework.” Fourth, study CrewAI and AutoGen to compare the strengths and weaknesses of role-based collaboration and multi-Agent conversations. Finally, read about framework selection and build your own decision table.
 
-![Agent framework selection map](/img/course/ch09-framework-selection-map.png)
+![Agent framework selection map](/img/course/ch09-framework-selection-map-en.png)
 
 ## When You Should Not Use a Framework
 

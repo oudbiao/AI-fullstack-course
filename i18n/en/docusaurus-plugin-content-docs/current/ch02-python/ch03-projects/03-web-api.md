@@ -6,7 +6,7 @@ description: "Build your first Web API with FastAPI"
 
 # Project: Web API Development
 
-![Web API request-response architecture diagram](/img/course/ch02-web-api-request-response.png)
+![Web API request-response architecture diagram](/img/course/ch02-web-api-request-response-en.png)
 
 ## Project Overview
 

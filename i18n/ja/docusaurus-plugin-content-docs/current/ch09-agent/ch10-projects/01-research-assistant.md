@@ -60,7 +60,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 この6ステップがはっきりしていれば、このプロジェクトには作品集として十分な価値があります。
 
-![研究アシスタント引用 Trace 図](/img/course/ch09-research-assistant-citation-trace-map.png)
+![研究アシスタント引用 Trace 図](/img/course/ch09-research-assistant-citation-trace-map-ja.png)
 
 :::tip 図の見方
 研究アシスタントで最も大切なのは「要約が滑らかであること」ではなく、claim が source に戻れることです。  

@@ -67,7 +67,7 @@ RAG の強み：
 
 これが組み合わせ型システムの核となる考え方です。
 
-![RAG と微調整の役割分担図](/img/course/ch08-rag-finetune-responsibility-split-map.png)
+![RAG と微調整の役割分担図](/img/course/ch08-rag-finetune-responsibility-split-map-ja.png)
 
 :::tip 図の見方
 左側は RAG：知識更新、出典引用、外部文書。右側は fine-tuning：回答スタイル、形式の安定、業務ルール。役割を分けることで、システムは評価しやすく、保守もしやすくなります。

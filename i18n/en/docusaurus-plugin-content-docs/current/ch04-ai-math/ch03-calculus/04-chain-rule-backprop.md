@@ -7,7 +7,7 @@ keywords: [chain rule, backpropagation, computation graph, automatic differentia
 
 # Chain Rule and Backpropagation Preview
 
-![Diagram of chain rule computation graph and backpropagation](/img/course/chain-rule-backprop-graph.png)
+![Diagram of chain rule computation graph and backpropagation](/img/course/chain-rule-backprop-graph-en.png)
 
 :::tip This section is the bridge between mathematics and deep learning
 The chain rule explains a core question: **For a neural network with hundreds of layers, how do we compute the derivative of the loss function with respect to each parameter?** The answer is backpropagation — in essence, it is the systematic application of the chain rule.
@@ -35,7 +35,7 @@ So what you should focus on first in this section is not every formula, but:
 
 This lesson is the bridge from Station 4 to deep learning in Station 6.
 
-![Bridge diagram of backpropagation and the chain rule](/img/course/ch04-backprop-chain-rule-training-bridge.png)
+![Bridge diagram of backpropagation and the chain rule](/img/course/ch04-backprop-chain-rule-training-bridge-en.png)
 
 If what you learned before was:
 

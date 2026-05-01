@@ -217,7 +217,7 @@ for q in queries:
 - 関係の連鎖をたどる
 - 構造化された推論をする
 
-![高度な RAG アーキテクチャ選択図](/img/course/ch08-advanced-rag-architecture-selection-map.png)
+![高度な RAG アーキテクチャ選択図](/img/course/ch08-advanced-rag-architecture-selection-map-ja.png)
 
 :::tip 読み方のヒント
 まず問題の形からアーキテクチャを選びましょう。複数ナレッジベースの干渉があるならまず Router RAG、複数ステップの問題なら Multi-hop RAG、自律的な判断が必要なら Agentic RAG、関係の連鎖がはっきりしているなら Graph RAG を考えます。

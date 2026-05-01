@@ -15,7 +15,7 @@ Finetuning is not a magic button that “makes the model stronger in every way.�
 
 You have already learned the overview of large models, pretraining, and Prompt engineering. Pretraining explains where a model’s general capabilities come from, and Prompt explains how to invoke those capabilities without changing parameters. Finetuning takes a different path: based on an existing model, continue training with task data so that the model’s behavior better matches your goals.
 
-![Relationship diagram of the large model finetuning chapter](/img/course/ch07-finetuning-chapter-flow.png)
+![Relationship diagram of the large model finetuning chapter](/img/course/ch07-finetuning-chapter-flow-en.png)
 
 ## The Real Problems This Chapter Needs to Solve
 
@@ -27,7 +27,7 @@ The most common misunderstanding for beginners is this: when the model gets doma
 
 It is recommended to first read the finetuning overview to build boundaries around “why finetune” and “when not to finetune.” Then learn LoRA/QLoRA, because they are currently the most common and lower-cost entry paths for finetuning. Next, learn other PEFT methods so you know there are multiple parameter-efficient options besides full finetuning. Finally, look at finetuning practice and data annotation to connect data preparation, training configuration, validation sets, evaluation examples, and deployment risks.
 
-![Finetuning decision and evaluation loop diagram](/img/course/ch07-finetuning-decision-loop.png)
+![Finetuning decision and evaluation loop diagram](/img/course/ch07-finetuning-decision-loop-en.png)
 
 ## The Main Thread to Grasp While Studying This Chapter
 

@@ -22,7 +22,7 @@ So this chapter is really answering:
 
 ## The Main Thread of This Chapter
 
-![PyTorch chapter flowchart](/img/course/ch06-pytorch-chapter-flow.png)
+![PyTorch chapter flowchart](/img/course/ch06-pytorch-chapter-flow-en.png)
 
 After finishing this chapter, you should be able to build a minimal deep learning training workflow on your own.
 

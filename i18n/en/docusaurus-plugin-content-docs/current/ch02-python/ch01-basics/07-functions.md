@@ -6,7 +6,7 @@ description: "Master function definitions, parameters, return values, and scope"
 
 # Function Basics
 
-![Function call, parameters, and scope diagram](/img/course/ch02-function-call-scope.png)
+![Function call, parameters, and scope diagram](/img/course/ch02-function-call-scope-en.png)
 
 ## Where This Section Fits
 

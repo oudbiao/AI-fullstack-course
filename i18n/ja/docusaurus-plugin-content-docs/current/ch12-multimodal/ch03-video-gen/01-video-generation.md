@@ -7,7 +7,7 @@ keywords: [video generation, temporal consistency, motion modeling, video diffus
 
 # ビデオ生成技術
 
-![動画と音声生成のパイプライン図](/img/course/video-audio-generation-pipeline.png)
+![動画と音声生成のパイプライン図](/img/course/video-audio-generation-pipeline-ja.png)
 
 :::tip この節の位置づけ
 もし画像生成が次のような問いに答えるものだとしたら：

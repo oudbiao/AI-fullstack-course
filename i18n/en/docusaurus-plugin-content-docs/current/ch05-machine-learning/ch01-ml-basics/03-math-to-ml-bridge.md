@@ -7,7 +7,7 @@ keywords: [math to machine learning, linear algebra, probability and statistics,
 
 # How Mathematics Really Flows into Machine Learning
 
-![Bridge diagram from math to machine learning](/img/course/math-to-ml-bridge.png)
+![Bridge diagram from math to machine learning](/img/course/math-to-ml-bridge-en.png)
 
 :::tip Section focus
 This is not a new math lesson, and it is not a concrete algorithm lesson either. It has only one job: to connect the math you learned in Station 4 to the machine learning modeling process in Station 5.
@@ -43,7 +43,7 @@ The usual reason is not that they did not learn the math, but that they never ma
 
 A more stable way to understand it is to remember this diagram first:
 
-![Math to machine learning training map](/img/course/ch05-math-to-ml-training-map.png)
+![Math to machine learning training map](/img/course/ch05-math-to-ml-training-map-en.png)
 
 If you grasp this diagram first, you will not panic when you see formulas later, because you will know:
 

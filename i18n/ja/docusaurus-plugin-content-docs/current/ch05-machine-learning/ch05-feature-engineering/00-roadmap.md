@@ -7,7 +7,7 @@ keywords: [特徴エンジニアリングガイド, 前処理, 特徴作成, 特
 
 # 学習ガイド：特徴エンジニアリングという章で何を学ぶのか
 
-![特徴エンジニアリングのロードマップ](/img/course/feature-engineering-roadmap.png)
+![特徴エンジニアリングのロードマップ](/img/course/feature-engineering-roadmap-ja.png)
 
 もしモデルが「規則を学ぶ」ものだとしたら、特徴エンジニアリングが解決するのは次のことです：
 
@@ -17,7 +17,7 @@ keywords: [特徴エンジニアリングガイド, 前処理, 特徴作成, 特
 
 ## この章の5つの節の関係
 
-![特徴エンジニアリング章の関係図](/img/course/ch05-feature-engineering-chapter-flow.png)
+![特徴エンジニアリング章の関係図](/img/course/ch05-feature-engineering-chapter-flow-ja.png)
 
 この流れは、初心者にとても合っています。
 

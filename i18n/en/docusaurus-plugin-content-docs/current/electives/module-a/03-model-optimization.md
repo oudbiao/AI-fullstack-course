@@ -7,9 +7,9 @@ keywords: [model optimization, quantization, pruning, distillation, fusion, batc
 
 # Model Optimization Techniques
 
-![Model Optimization Roadmap](/img/course/elective-model-optimization-map.png)
+![Model Optimization Roadmap](/img/course/elective-model-optimization-map-en.png)
 
-![Model Optimization Trade-off Dashboard](/img/course/elective-optimization-tradeoff-dashboard.png)
+![Model Optimization Trade-off Dashboard](/img/course/elective-optimization-tradeoff-dashboard-en.png)
 
 :::tip Reading guide
 Before optimizing, first identify where the bottleneck is: memory, latency, throughput, accuracy, hardware compatibility, and maintenance cost often constrain one another. When reading this diagram, do not only ask “Can it be faster?”, but ask “What cost am I paying to improve which metric?”

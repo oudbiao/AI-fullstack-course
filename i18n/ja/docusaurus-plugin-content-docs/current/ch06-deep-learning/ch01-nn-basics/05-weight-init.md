@@ -24,7 +24,7 @@ keywords: [重みの初期化, Xavier, Glorot, He, Kaiming, 勾配消失, 勾配
 
 初期化の節は、新しく学ぶ人にとって「おまけの細かい話」に見えやすいですが、実はモデルがスムーズに学習を始められるかに直結しています。
 
-![重み初期化の信号安定図](/img/course/ch06-weight-init-signal-stability-map.png)
+![重み初期化の信号安定図](/img/course/ch06-weight-init-signal-stability-map-ja.png)
 
 この節で本当に解決したいのは、次のようなことです。
 

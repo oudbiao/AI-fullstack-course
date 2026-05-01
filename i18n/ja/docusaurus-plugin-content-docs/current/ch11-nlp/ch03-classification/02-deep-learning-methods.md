@@ -7,7 +7,7 @@ keywords: [deep text classification, embedding, pooling, neural classifier, NLP]
 
 # 深層学習によるテキスト分類
 
-![ニューラルテキスト分類の構造図](/img/course/ch11-neural-classification-embedding-pooling-map.png)
+![ニューラルテキスト分類の構造図](/img/course/ch11-neural-classification-embedding-pooling-map-ja.png)
 
 :::tip 図を見るときのポイント
 深層テキスト分類は、まずとてもシンプルな流れとして考えられます。token id が embedding に入り、文は pooling を通して全体ベクトルになり、最後に分類ヘッドへ渡されて確率を出します。まずこの主線をつかんでから、CNN、RNN、Transformer を見るとずっと理解しやすくなります。

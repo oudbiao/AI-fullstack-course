@@ -7,7 +7,7 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 # Naive Bayes
 
-![Naive Bayes evidence accumulation diagram](/img/course/elective-naive-bayes-evidence.png)
+![Naive Bayes evidence accumulation diagram](/img/course/elective-naive-bayes-evidence-en.png)
 
 :::tip Where this section fits
 Naive Bayes is most often misunderstood as:

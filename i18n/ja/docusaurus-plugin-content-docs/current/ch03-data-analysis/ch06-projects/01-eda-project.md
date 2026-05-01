@@ -7,7 +7,7 @@ keywords: [EDA, 探索的データ分析, Pandas, Matplotlib, Seaborn, データ
 
 # 実戦プロジェクト：探索的データ分析（EDA）
 
-![EDA 探索的データ分析フローチャート](/img/course/eda-analysis-workflow.png)
+![EDA 探索的データ分析フローチャート](/img/course/eda-analysis-workflow-ja.png)
 
 :::tip プロジェクトの位置づけ
 これは 3 データ分析と可視化の**総合実戦プロジェクト**です。前の章で学んだ NumPy、Pandas、Matplotlib/Seaborn の知識を使って、実際のデータセットに対して探索的データ分析を一通り行います。

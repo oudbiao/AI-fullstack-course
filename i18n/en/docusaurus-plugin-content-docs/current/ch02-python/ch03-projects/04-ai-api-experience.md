@@ -6,7 +6,7 @@ description: "Experience the power of AI by calling AI APIs"
 
 # Project: Quick AI API Experience
 
-![AI API Request-Response Flow Diagram](/img/course/ch02-ai-api-request-response.png)
+![AI API Request-Response Flow Diagram](/img/course/ch02-ai-api-request-response-en.png)
 
 ## Project Overview
 

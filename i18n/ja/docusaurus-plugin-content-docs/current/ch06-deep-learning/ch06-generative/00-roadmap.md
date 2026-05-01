@@ -20,7 +20,7 @@ keywords: [生成モデルガイド, GAN, VAE, 潜空間]
 
 より安定した理解のしかたは、次の図のイメージです。
 
-![生成モデル章の関係図](/img/course/ch06-generative-chapter-flow.png)
+![生成モデル章の関係図](/img/course/ch06-generative-chapter-flow-ja.png)
 
 つまり、この章で本当に新しく入ってくる核心は「モデルがもっとかっこよくなること」ではなく、次の点です。
 

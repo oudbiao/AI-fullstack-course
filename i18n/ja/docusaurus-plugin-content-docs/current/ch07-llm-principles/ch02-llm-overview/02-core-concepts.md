@@ -58,7 +58,7 @@ flowchart LR
 大モデルは一度で「答えを出す」のではなく、この生成の流れを何度も繰り返しています。  
 後で token、embedding、attention、temperature が出てきたときも、この流れに戻して考えると理解しやすくなります。
 
-![Next-token 生成ループとサンプリング図](/img/course/ch07-next-token-generation-loop-map.png)
+![Next-token 生成ループとサンプリング図](/img/course/ch07-next-token-generation-loop-map-ja.png)
 
 :::tip 図の見方
 この図はループとして読むのがおすすめです。コンテキストがベクトルになり、Transformer が `logits` を出し、`softmax` で確率にしてから、temperature/top-p などのサンプリング戦略で次の token を選びます。大モデルの生成は一度で全文を書くのではなく、「次の token を予測する」を何度も繰り返す仕組みです。
@@ -157,7 +157,7 @@ print("token 数:", len(tokens))
 
 > あなたが机の上で問題を解くとき、机が広いほど参考資料をたくさん広げられる。
 
-![Context window 情報予算図](/img/course/ch07-context-window-budget-map.png)
+![Context window 情報予算図](/img/course/ch07-context-window-budget-map-ja.png)
 
 :::tip 図の見方
 context window は「固定サイズの作業台」だと考えてください。システムプロンプト、ユーザーの質問、会話履歴、検索した資料、出力スペースが、すべて token の予算を取り合います。ウィンドウが大きくなるのは机が大きくなるのと同じで、何でも無制限に入れられるわけではありません。本当に大事なのは、いちばん役に立つ情報を入れることです。

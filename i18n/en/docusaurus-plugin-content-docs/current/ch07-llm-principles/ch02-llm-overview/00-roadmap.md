@@ -15,7 +15,7 @@ You have already learned crash-course NLP and the basics of Transformer in the e
 
 This chapter is not about a single specific model. It is here to help you build a framework for judgment: when you see GPT, Claude, Gemini, LLaMA, Qwen, DeepSeek, or any other model, you know to understand it through training method, context capability, reasoning ability, tool use ability, deployment method, and application ecosystem—not just by name or parameter count.
 
-![LLM overview chapter relationship diagram](/img/course/ch07-llm-overview-chapter-flow.png)
+![LLM overview chapter relationship diagram](/img/course/ch07-llm-overview-chapter-flow-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -27,7 +27,7 @@ For beginners, the most important thing in this chapter is not memorizing the re
 
 It is recommended that you first look at the development history and understand that large models did not appear out of nowhere—they evolved step by step from statistical NLP, word embeddings, Transformer, pre-training, instruction fine-tuning, and human-feedback alignment. Then study the core concepts and place terms like parameters, token, context, embedding, reasoning, hallucination, and alignment in the right positions. Finally, look at the industry landscape to understand the trade-offs among open-source vs. closed-source, cloud vs. local, and general-purpose vs. vertical-domain models.
 
-![Large model capability stack and application ecosystem diagram](/img/course/ch07-llm-capability-stack.png)
+![Large model capability stack and application ecosystem diagram](/img/course/ch07-llm-capability-stack-en.png)
 
 ## The Main Thread to Grasp When Studying This Chapter
 

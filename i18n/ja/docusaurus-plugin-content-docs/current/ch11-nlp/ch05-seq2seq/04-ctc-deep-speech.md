@@ -7,7 +7,7 @@ keywords: [CTC, Deep Speech, ASR, 音声認識, 系列アラインメント, NLP
 
 # CTC と Deep Speech：音声認識における系列アラインメント
 
-![CTC Deep Speech 音声認識アラインメント図](/img/course/ch11-ctc-deep-speech-asr-map.png)
+![CTC Deep Speech 音声認識アラインメント図](/img/course/ch11-ctc-deep-speech-asr-map-ja.png)
 
 :::tip この節の位置づけ
 この節は Seq2Seq の拡張です。音声認識が、なぜ「1フレームの音声 = 1文字」のように単純には学習できないのかを理解する助けになります。

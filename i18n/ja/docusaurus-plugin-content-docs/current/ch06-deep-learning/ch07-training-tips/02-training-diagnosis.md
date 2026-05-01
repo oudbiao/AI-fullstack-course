@@ -7,7 +7,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 
 # 訓練モニタリングと診断
 
-![訓練カーブ診断図](/img/course/training-curve-diagnosis.png)
+![訓練カーブ診断図](/img/course/training-curve-diagnosis-ja.png)
 
 :::tip この節の位置づけ
 多くの訓練失敗は「モデルの力が足りない」からではなく、次のような理由で起こります。
@@ -155,7 +155,7 @@ for row in history:
 この表は、初心者にとても役立ちます。  
 「カーブを見ても何をすればいいかわからない」という状態を、実行しやすいチェックの入口に変えてくれるからです。
 
-![訓練診断ダッシュボードの切り分け図](/img/course/ch06-training-diagnosis-dashboard-map.png)
+![訓練診断ダッシュボードの切り分け図](/img/course/ch06-training-diagnosis-dashboard-map-ja.png)
 
 :::tip 図の読み方
 この図は、上から下へ順番に確認するのがおすすめです。まず train / val のカーブを見て、次に学習率と batch を見て、それから予測分布と勾配を見て、最後にデータとラベルに戻ります。`loss` が変だからといって、すぐ大きなモデルに変えないようにしましょう。原因は訓練フローやデータ側にあることが多いです。

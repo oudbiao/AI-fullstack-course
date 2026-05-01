@@ -43,7 +43,7 @@ keywords: [RAG optimization, chunking, top-k, rerank, prompt, context packing]
 | 検索はできたのに、答えがずれる | prompt / context packing / モデルの要約 |
 | 回答が遅い・高い | top-k が大きすぎる / コンテキストが長すぎる / rerank が多すぎる |
 
-![RAG 最適化の階層的な切り分け漏斗図](/img/course/ch08-rag-optimization-debug-funnel-map.png)
+![RAG 最適化の階層的な切り分け漏斗図](/img/course/ch08-rag-optimization-debug-funnel-map-ja.png)
 
 :::tip 画像の見方
 最適化の前に、まず漏斗に沿って段階を特定します。文書処理、召回、コンテキストの組み立て、生成制約のどこに問題があるかを見ます。段階を特定できないまま chunk、top-k、rerank、prompt をまとめて変えると、問題はむしろ再現しにくくなります。
@@ -204,7 +204,7 @@ for cfg in configs:
 これはおもちゃのデータですが、とても大事な考え方を表しています。  
 **最適化は、感覚ではなく比較実験で行うものです。**
 
-![RAG 最適化の実験と評価のクローズドループ図](/img/course/ch08-rag-experiment-eval-loop-map.png)
+![RAG 最適化の実験と評価のクローズドループ図](/img/course/ch08-rag-experiment-eval-loop-map-ja.png)
 
 :::tip 画像の見方
 この図で大事なのは、「1 回に変える変数は 1 つだけ」という点です。毎回、評価用データを固定し、baseline を記録し、修復できなかった失敗と新しく出た失敗を確認してから、変更を残すかどうかを決めます。

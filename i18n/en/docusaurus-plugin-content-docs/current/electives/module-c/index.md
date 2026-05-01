@@ -10,7 +10,7 @@ description: "Overview of the supplementary classic machine learning module, hel
 These algorithms are still very valuable in many small- to medium-sized data tasks. Studying them helps complete your toolbox for making judgments.
 :::
 
-![Module map for supplementary classic ML algorithms](/img/course/elective-classic-ml-module-map.png)
+![Module map for supplementary classic ML algorithms](/img/course/elective-classic-ml-module-map-en.png)
 
 ## Learning Objectives
 

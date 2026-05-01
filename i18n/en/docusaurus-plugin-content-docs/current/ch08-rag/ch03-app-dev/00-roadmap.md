@@ -17,7 +17,7 @@ The main thread of Chapter 8 is to move large models from “able to answer” t
 
 The key change here is that you are no longer writing a one-time model call. Instead, you need to design a complete interaction flow. Where does user input come from? How does the system understand intent? Does it need to call a tool? How is multi-turn context saved? How is the output used by the frontend or backend? These are all problems that application-layer development must handle.
 
-![LLM application development chapter relationship diagram](/img/course/ch08-app-dev-chapter-flow.png)
+![LLM application development chapter relationship diagram](/img/course/ch08-app-dev-chapter-flow-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,13 +29,13 @@ The most common misunderstanding for beginners is that LLM application developme
 
 It is recommended to first look at API calling practice and build the minimal calling flow, parameters, error handling, and cost awareness. Then study framework abstractions to understand why, as features become more complex, prompt, model, tool, retrieval, memory, and output parsing need to be split into components. Next, learn Function Calling, because this is the key step from “generating text” to “triggering actions.” Finally, study dialogue systems and complex application scenarios to connect multi-turn state, document processing, and template generation.
 
-![LLM application development learning order diagram](/img/course/ch08-app-dev-learning-order-map.png)
+![LLM application development learning order diagram](/img/course/ch08-app-dev-learning-order-map-en.png)
 
 ## The Main Line to Focus on When Studying This Chapter
 
 The main line of this chapter can be summarized as: upgrade one model call into a maintainable application loop.
 
-![LLM application capability loop diagram](/img/course/ch08-llm-app-capability-loop.png)
+![LLM application capability loop diagram](/img/course/ch08-llm-app-capability-loop-en.png)
 
 In the first half, model capabilities are packaged into interfaces and functional modules; in the second half, dialogue state, tool calling, document processing, and engineering delivery are added.
 

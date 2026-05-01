@@ -6,7 +6,7 @@ description: "図の選び方、配色、落とし穴を学んで、プロっぽ
 
 # 可視化のベストプラクティス
 
-![グラフ選択の決定木](/img/course/chart-selection-decision-tree.png)
+![グラフ選択の決定木](/img/course/chart-selection-decision-tree-ja.png)
 
 :::tip この節の位置づけ
 可視化を学び始めたばかりの人は、つい次の点に意識が向きがちです。

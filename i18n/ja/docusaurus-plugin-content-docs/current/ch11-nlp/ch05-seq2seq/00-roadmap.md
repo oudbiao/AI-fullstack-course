@@ -15,7 +15,7 @@ keywords: [Seq2Seqガイド, attentionガイド, 機械翻訳]
 
 ## この章が NLP の学習ルートの中でどこにあるか
 
-![Seq2Seq と注意力の章の学習順序図](/img/course/ch11-seq2seq-chapter-flow.png)
+![Seq2Seq と注意力の章の学習順序図](/img/course/ch11-seq2seq-chapter-flow-ja.png)
 
 前のテキスト分類では、たいてい「文章を入力して、ラベルを1つ出す」形でした。系列ラベリングでは「token の列を入力して、ラベルの列を出す」形でした。Seq2Seq ではさらに進んで、「token の列を入力して、別の token の列を出す」形になります。この変化によって、あなたは自然に生成モデルの世界へ入っていきます。
 

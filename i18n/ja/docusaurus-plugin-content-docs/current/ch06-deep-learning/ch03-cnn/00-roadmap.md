@@ -20,7 +20,7 @@ keywords: [CNN導入, 畳み込み, ResNet, 転移学習, 画像分類]
 
 より安定した理解のしかたは、次の図のようなイメージです。
 
-![CNNの章の関係図](/img/course/ch06-cnn-chapter-flow.png)
+![CNNの章の関係図](/img/course/ch06-cnn-chapter-flow-ja.png)
 
 つまり、この章は全結合ネットワークを否定するのではなく、次の問いに答えています。
 

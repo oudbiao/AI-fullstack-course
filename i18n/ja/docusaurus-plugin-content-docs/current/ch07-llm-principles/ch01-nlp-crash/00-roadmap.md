@@ -22,7 +22,7 @@ keywords: [NLP速習ガイド, tokenizer, embedding, HuggingFace]
 
 ## この章の本筋
 
-![NLP 速習章の関係図](/img/course/ch07-nlp-crash-chapter-flow.png)
+![NLP 速習章の関係図](/img/course/ch07-nlp-crash-chapter-flow-ja.png)
 
 この章をしっかり学べば、その後の大規模モデルの学習や利用を読むときに、ずっとつかみやすくなります。
 

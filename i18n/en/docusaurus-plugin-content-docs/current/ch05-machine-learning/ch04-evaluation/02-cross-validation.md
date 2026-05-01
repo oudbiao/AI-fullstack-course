@@ -7,7 +7,7 @@ keywords: [cross-validation, KFold, stratified KFold, leave-one-out, time series
 
 # Cross-Validation
 
-![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold.png)
+![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold-en.png)
 
 :::tip Section Overview
 If you evaluate a model with only one train/test split, the result can be heavily affected by the **random split**. Cross-validation gives each data point a chance to be used for both training and testing, producing more **stable and reliable** evaluation results.
@@ -43,7 +43,7 @@ In other words, the key point of this section is not to memorize how many split 
 
 For beginners, the best way to understand this section is not to “memorize different split class names,” but to first see what problem cross-validation is actually solving:
 
-![Cross-validation stable evaluation flowchart](/img/course/ch05-cross-validation-stability-flow.png)
+![Cross-validation stable evaluation flowchart](/img/course/ch05-cross-validation-stability-flow-en.png)
 
 What this section is really trying to solve is:
 
@@ -262,7 +262,7 @@ print(f"Stratified 5-Fold F1: {scores.mean():.4f} ± {scores.std():.4f}")
 
 In other words, if the split method is wrong, the model scores later on may already be distorted from the start.
 
-![Cross-validation leakage-safe pipeline diagram](/img/course/ch05-cv-leakage-safe-pipeline-map.png)
+![Cross-validation leakage-safe pipeline diagram](/img/course/ch05-cv-leakage-safe-pipeline-map-en.png)
 
 The most important part of this figure is: for each fold, you must `fit` the preprocessor on the training fold, then `transform` the validation fold using the same rules. Do not standardize, apply PCA, or perform feature selection on the full dataset first and then do cross-validation; otherwise, information from the validation fold has already leaked into the training process.
 

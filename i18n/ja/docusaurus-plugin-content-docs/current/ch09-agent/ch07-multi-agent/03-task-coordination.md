@@ -238,7 +238,7 @@ print(resolve_conflict(results))
 
 > 多 Agent では必ず競合が起こります。競合は異常ではなく、むしろ通常のことです。 
 
-![多 Agent の協調、競合、収束の図](/img/course/ch09-multi-agent-coordination-cost-map.png)
+![多 Agent の協調、競合、収束の図](/img/course/ch09-multi-agent-coordination-cost-map-ja.png)
 
 :::tip 図の読み方
 この図は協調コストを表しています。タスク分配、依存順序、共有状態、競合の裁定はすべて複雑さを増やします。多 Agent の利点が、こうした通信コストや収束コストを上回る場合にだけ、導入する価値があります。

@@ -7,7 +7,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 # 検索戦略
 
-![Hybrid Search と Rerank のフローチャート](/img/course/hybrid-search-rerank-flow.png)
+![Hybrid Search と Rerank のフローチャート](/img/course/hybrid-search-rerank-flow-ja.png)
 
 ## 学習目標
 
@@ -86,7 +86,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 ハイブリッド検索は、この 2 つの判断を合わせたものです。
 
-![キーワード検索とベクトル検索の盲点図](/img/course/ch08-hybrid-retrieval-blindspot-map.png)
+![キーワード検索とベクトル検索の盲点図](/img/course/ch08-hybrid-retrieval-blindspot-map-ja.png)
 
 :::tip 図の読み方
 左は「文字が一致するか」、右は「意味が近いか」を見ています。Hybrid Search の価値は複雑さではなく、エラーコード、専門用語、口語的な質問にそれぞれ通り道を作り、すべての負担を embedding に押しつけないことです。
@@ -214,7 +214,7 @@ for q in queries:
 
 実際のシステムでは、query rewrite を LLM が担当することもあります。
 
-![Query Rewrite と Rerank の二段階ファネル図](/img/course/ch08-rerank-query-rewrite-funnel-map.png)
+![Query Rewrite と Rerank の二段階ファネル図](/img/course/ch08-rerank-query-rewrite-funnel-map-ja.png)
 
 :::tip 図の読み方
 Query Rewrite は検索の前に行い、ユーザーの質問を探しやすくします。Rerank は広く集めた後に行い、候補の並びを整えます。役割は別なので、同じものとして考えないでください。

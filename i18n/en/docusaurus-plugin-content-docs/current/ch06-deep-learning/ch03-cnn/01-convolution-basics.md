@@ -7,7 +7,7 @@ keywords: [convolution, convolution kernel, CNN, stride, padding, receptive fiel
 
 # Principles of Convolution Operations
 
-![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel.png)
+![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel-en.png)
 
 :::tip Where this section fits
 If the earlier neurons and MLP sections taught you “what a neural network can compute,” then this convolution section answers an even more important question:
@@ -295,7 +295,7 @@ So fundamentally, both affect two things:
 - How much information is preserved
 - How computation and output size change
 
-![Convolution stride padding and output size change diagram](/img/course/ch06-conv-stride-padding-size-map.png)
+![Convolution stride padding and output size change diagram](/img/course/ch06-conv-stride-padding-size-map-en.png)
 
 :::tip Reading hint
 When reading this diagram, think of `stride` as the sliding step and `padding` as the border you add around the image. The larger the step, the smaller the output; the more padding, the more edge information is preserved. The output size formula is just the result of these two actions.
@@ -435,7 +435,7 @@ The reason CNNs are powerful is not that “convolution itself is magical,” bu
 
 > **Small local features can be combined layer by layer into more abstract, larger patterns.**
 
-![CNN receptive field grows layer by layer feature combination diagram](/img/course/ch06-cnn-receptive-field-growth-map.png)
+![CNN receptive field grows layer by layer feature combination diagram](/img/course/ch06-cnn-receptive-field-growth-map-en.png)
 
 :::tip Reading hint
 Read this diagram from shallow to deep: the first layer sees only small edges, the second layer combines them into local shapes, and later layers gradually see larger object parts. The strength of CNNs is not a single convolution kernel, but that local patterns can be combined layer by layer into higher-level semantics.

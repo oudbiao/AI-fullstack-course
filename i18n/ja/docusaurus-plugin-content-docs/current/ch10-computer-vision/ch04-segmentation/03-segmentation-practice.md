@@ -194,7 +194,7 @@ print("mean_iou:", round(mean_iou, 4))
 - 損失関数を変えるべきか
 - それとも入力解像度を変えるべきか
 
-![分割プロジェクトの失敗サンプル分類図](/img/course/ch10-segmentation-practice-failure-buckets-map.png)
+![分割プロジェクトの失敗サンプル分類図](/img/course/ch10-segmentation-practice-failure-buckets-map-ja.png)
 
 :::tip 読み方のヒント
 分割プロジェクトでは、平均スコアだけを見るのが最も危険です。この図では、失敗サンプルを境界ミス・小さいクラスの見落とし・クラス混同に分けているので、次にどの改善をすべきかを具体的な問題に結びつけられます。

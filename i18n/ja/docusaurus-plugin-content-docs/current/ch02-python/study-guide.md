@@ -13,7 +13,7 @@ keywords: [Python 学習ガイド, Python 入門順, プログラミング基礎
 
 Python を最初に学ぶときは、一本の流れをつかむことが大切です。つまり、入力がプログラムに入り、データ構造、条件分岐、ループ、関数で処理され、最後に結果を出力するか、ファイルに保存する、という流れです。この流れが安定していれば、あとでデータ分析、機械学習、RAG、Agent を学ぶときもずっとスムーズになります。
 
-![Python 学習ガイド最小閉ループ](/img/course/ch02-study-guide-program-loop.png)
+![Python 学習ガイド最小閉ループ](/img/course/ch02-study-guide-program-loop-ja.png)
 
 ## おすすめの学習順序
 

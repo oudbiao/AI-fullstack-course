@@ -7,7 +7,7 @@ keywords: [Function Calling, Tool Calling, schema, parameter validation, LLM too
 
 # Introduction to Function Calling
 
-![Function Calling workflow diagram](/img/course/function-calling-workflow.png)
+![Function Calling workflow diagram](/img/course/function-calling-workflow-en.png)
 
 :::tip Where this section fits
 When many beginners first build LLM applications, they treat the model like a “universal text generator.”  
@@ -444,7 +444,7 @@ flowchart LR
 
 This loop matters because it reminds you: the hard part of Function Calling is not “can the model say the function name,” but whether the model, schema, validation, executor, and error handling can form a stable system.
 
-![Function Calling validation and execution loop](/img/course/ch08-function-calling-validation-dispatch-map.png)
+![Function Calling validation and execution loop](/img/course/ch08-function-calling-validation-dispatch-map-en.png)
 
 :::tip Reading guide
 The model is only responsible for proposing the tool call. The program is responsible for validation, execution, and fallback. When reading the diagram, focus on the gates of schema, arguments validation, dispatcher, and retry/error handling.

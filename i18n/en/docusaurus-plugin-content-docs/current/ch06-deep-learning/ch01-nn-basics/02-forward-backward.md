@@ -7,7 +7,7 @@ keywords: [forward propagation, backpropagation, loss function, MSE, cross-entro
 
 # Forward and Backward Propagation
 
-![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward.png)
+![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward-en.png)
 
 :::tip 🔧 Core Skill
 Backpropagation is the **core algorithm** of deep learning. You must be able to manually derive the backpropagation process for a 2-layer network. Based on the "Chain Rule and Backpropagation Preview" at Station 4, this section gives you the complete derivation and implementation.
@@ -253,7 +253,7 @@ If "gradient" still feels abstract, you can first understand backpropagation as:
 
 This is why backpropagation looks like it is "sending messages from back to front."
 
-![Backpropagation error responsibility allocation diagram](/img/course/ch06-backprop-error-responsibility-map.png)
+![Backpropagation error responsibility allocation diagram](/img/course/ch06-backprop-error-responsibility-map-en.png)
 
 :::tip Reading Guide
 This diagram is best read from right to left: first look at `loss` to see how wrong the prediction is, then distribute the responsibility along the computational graph to the output layer, hidden layer, and earlier parameters. Backpropagation is not magic; it answers, "How much did each parameter contribute to this error, and how should it change next?"
@@ -474,7 +474,7 @@ So once you understand this part, when you later see:
 
 you will not feel like they are a black box that happens out of nowhere.
 
-![NumPy to PyTorch training loop comparison diagram](/img/course/ch06-numpy-to-pytorch-training-loop-map.png)
+![NumPy to PyTorch training loop comparison diagram](/img/course/ch06-numpy-to-pytorch-training-loop-map-en.png)
 
 :::tip Reading Guide
 When reading this diagram, match the four NumPy steps with the PyTorch API one by one: forward computation corresponds to `model(x)`, manual gradient calculation corresponds to `loss.backward()`, manual parameter update corresponds to `optimizer.step()`, and clearing old gradients corresponds to `optimizer.zero_grad()`.

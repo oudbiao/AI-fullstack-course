@@ -7,7 +7,7 @@ keywords: [AI math learning guide, how to learn linear algebra, how to learn pro
 
 # Study Guide: The Most Sustainable Way to Learn the Math Foundations for AI
 
-![AI math learning loop diagram](/img/course/math-study-loop.png)
+![AI math learning loop diagram](/img/course/math-study-loop-en.png)
 
 If you reach `03 Minimum Essential Math for AI` and start worrying that there are too many formulas, lower your goal a bit first: on the first pass, you are not trying to learn the entire math system, but to build model intuition.
 
@@ -15,7 +15,7 @@ If you reach `03 Minimum Essential Math for AI` and start worrying that there ar
 
 On the first pass through AI math, focus on just three things: linear algebra explains how data and parameters are represented, probability and statistics explain uncertainty and evaluation, and calculus explains how models update through loss and gradients.
 
-![Minimum closed loop for AI math study guide](/img/course/ch04-study-guide-math-minimum-loop.png)
+![Minimum closed loop for AI math study guide](/img/course/ch04-study-guide-math-minimum-loop-en.png)
 
 ## Recommended learning order
 

@@ -202,7 +202,7 @@ A typical approach is:
 - First generate an execution plan
 - Then ask the user or administrator to confirm
 
-![Tool safety permission, sandbox, and audit diagram](/img/course/ch09-tool-safety-permission-sandbox-map.png)
+![Tool safety permission, sandbox, and audit diagram](/img/course/ch09-tool-safety-permission-sandbox-map-en.png)
 
 :::tip Reading Tip
 When reading this diagram, think of “tool call” as a real action: low-risk actions can be logged directly, while high-risk actions must go through permission checks, a sandbox, human confirmation, and an audit log. The more an Agent can act, the more important the guardrails become.

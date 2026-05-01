@@ -7,7 +7,7 @@ keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, de
 
 # Training Monitoring and Diagnosis
 
-![Training curve diagnosis chart](/img/course/training-curve-diagnosis.png)
+![Training curve diagnosis chart](/img/course/training-curve-diagnosis-en.png)
 
 :::tip Section overview
 Many training failures are not caused by “the model not being powerful enough,” but by:
@@ -150,7 +150,7 @@ If you focus on these three things first, many problems can be classified in the
 
 This table is great for beginners because it turns “I have no idea what to do after seeing the curve” into a set of actionable starting points.
 
-![Training diagnosis dashboard troubleshooting map](/img/course/ch06-training-diagnosis-dashboard-map.png)
+![Training diagnosis dashboard troubleshooting map](/img/course/ch06-training-diagnosis-dashboard-map-en.png)
 
 :::tip Reading guide
 It is recommended to troubleshoot this diagram from top to bottom: first check the train/val curves, then the learning rate and batch size, then the prediction distribution and gradients, and finally go back to the data and labels. Do not switch to a larger model the moment the loss looks wrong — in many cases, the root cause is in the training pipeline or the data.

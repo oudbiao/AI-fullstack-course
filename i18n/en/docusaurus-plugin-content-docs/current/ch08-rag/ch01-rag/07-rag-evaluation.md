@@ -7,7 +7,7 @@ keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluatio
 
 # RAG Evaluation
 
-![RAG evaluation triangle diagram](/img/course/rag-evaluation-triangle.png)
+![RAG evaluation triangle diagram](/img/course/rag-evaluation-triangle-en.png)
 
 ## Learning Objectives
 
@@ -86,7 +86,7 @@ Answer evaluation should at least consider:
 
 In real business scenarios, different dimensions matter differently.
 
-![Layered RAG evaluation dashboard diagram](/img/course/ch08-rag-evaluation-layered-dashboard-map.png)
+![Layered RAG evaluation dashboard diagram](/img/course/ch08-rag-evaluation-layered-dashboard-map-en.png)
 
 :::tip Reading tip
 Do not look only at the final answer score. First check whether the retrieval layer hit the right material, then whether the generation layer is complete and correct, and finally whether the citation layer truly supports the conclusion.
@@ -243,7 +243,7 @@ Real systems of course do not rely only on string matching, but the idea is corr
 
 > The answer should be supported by the retrieval evidence as much as possible.
 
-![Faithfulness and citation authenticity check diagram](/img/course/ch08-faithfulness-citation-check-map.png)
+![Faithfulness and citation authenticity check diagram](/img/course/ch08-faithfulness-citation-check-map-en.png)
 
 :::tip Reading tip
 Split the answer into a few key conclusions, then link each one back to the evidence. What can be linked is supported; what cannot be linked is unsupported. This is more reliable than “the answer sounds fluent.”

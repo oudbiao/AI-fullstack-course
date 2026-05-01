@@ -143,7 +143,7 @@ cv2.imwrite("opencv_flip.png", flip_horizontal)
 1. 先に行（高さ方向、`y`）
 2. 次に列（幅方向、`x`）
 
-![OpenCV BGR、座標と切り抜き順序の図](/img/course/ch10-opencv-bgr-coordinate-crop-map.png)
+![OpenCV BGR、座標と切り抜き順序の図](/img/course/ch10-opencv-bgr-coordinate-crop-map-ja.png)
 
 :::tip 読み方のヒント
 OpenCV 入門でよくある 2 つのつまずきは、色のデフォルトが RGB ではなく BGR であること、そして配列の切り抜きが `y` を先に、`x` を後に書くことです。この図を見るときは、画像を「行と列の配列」として捉え、平面の座標用紙として見ないようにしましょう。

@@ -6,7 +6,7 @@ description: "ベクトル化演算、ブロードキャスト機構、集約関
 
 # 配列演算
 
-![NumPy のブロードキャストとベクトル化演算の図](/img/course/ch03-numpy-broadcasting-vectorization.png)
+![NumPy のブロードキャストとベクトル化演算の図](/img/course/ch03-numpy-broadcasting-vectorization-ja.png)
 
 ## 学習目標
 

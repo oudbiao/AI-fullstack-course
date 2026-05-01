@@ -17,7 +17,7 @@ You have already learned about Agent goals, planning, tools, memory, MCP, and mu
 
 The risks of an Agent are higher than those of a normal chat system because it not only generates content, but may also call tools, read data, modify files, execute code, or trigger external workflows. That is why evaluation and safety should not be added at the end as an afterthought; they must be part of the Agent system design.
 
-![Agent guardrails layer diagram](/img/course/agent-guardrails-layers.png)
+![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-en.png)
 
 The first half of the chapter identifies task risks, failure modes, and evaluation dimensions. The second half designs test sets, safety boundaries, human handoff, and launch checks.
 
@@ -31,13 +31,13 @@ What beginners most often miss is this: an Agent’s mistake may not appear in t
 
 It is recommended to start with evaluation methods and distinguish result evaluation, process evaluation, human evaluation, and automated evaluation. Then look at benchmarks to understand that public benchmarks can provide references, but real projects still need their own task sets. Next, learn safety and alignment to understand the risks of privilege escalation, prompt injection, tool misuse, data leakage, and hallucination. Then learn Guardrails to master input filtering, output validation, permission boundaries, and human confirmation. Finally, learn observability to record logs, call traces, errors, latency, and cost.
 
-![Agent evaluation and safety chapter learning flow](/img/course/ch09-eval-safety-chapter-flow.png)
+![Agent evaluation and safety chapter learning flow](/img/course/ch09-eval-safety-chapter-flow-en.png)
 
 ## The Main Thread to Focus on in This Chapter
 
 The main thread of this chapter can be summarized as: evaluation tells you whether the system is effective, safety tells you what the system is allowed to do, and observability tells you where problems happen.
 
-![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop.png)
+![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-en.png)
 
 The first half of the chapter identifies task risks, failure modes, and evaluation dimensions. The second half designs test sets, safety boundaries, human handoff, and launch checks.
 

@@ -13,7 +13,7 @@ keywords: [テキスト分類ガイド, 感情分析, TF-IDF, テキスト分類
 
 ## この章の全体の流れ
 
-![テキスト分類章の学習順序図](/img/course/ch11-classification-chapter-flow.png)
+![テキスト分類章の学習順序図](/img/course/ch11-classification-chapter-flow-ja.png)
 
 ## 初心者と応用学習者はどう読むか
 

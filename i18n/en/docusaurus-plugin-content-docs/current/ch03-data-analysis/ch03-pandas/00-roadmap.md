@@ -17,7 +17,7 @@ The second stage is data analysis and visualization, and `Pandas` is the backbon
 
 If you get comfortable with Pandas, the later parts of visualization, EDA, machine learning feature preparation, and project analysis will all go much more smoothly. In real projects, there is usually a lot of table preparation work before models and charts.
 
-![Pandas data processing roadmap](/img/course/ch03-pandas-roadmap.png)
+![Pandas data processing roadmap](/img/course/ch03-pandas-roadmap-en.png)
 
 ## The Real Problems This Chapter Solves
 

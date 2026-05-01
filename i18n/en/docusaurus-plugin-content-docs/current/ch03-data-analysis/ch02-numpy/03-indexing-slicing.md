@@ -6,7 +6,7 @@ description: "Master the various ways to access NumPy arrays: basic indexing, bo
 
 # Array Indexing and Slicing
 
-![NumPy Indexing and Slicing Map](/img/course/ch03-numpy-indexing-slicing-map.png)
+![NumPy Indexing and Slicing Map](/img/course/ch03-numpy-indexing-slicing-map-en.png)
 
 ## Learning Objectives
 

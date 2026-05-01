@@ -19,7 +19,7 @@ description: "Get to know NumPy — the foundation of scientific computing in Py
 
 **NumPy** (Numerical Python) is the core library in Python for **scientific computing**. If Python is a car, then NumPy is its engine — almost every data science and AI-related library is built on top of NumPy.
 
-![NumPy scientific computing engine diagram](/img/course/ch03-numpy-overview-array-engine.png)
+![NumPy scientific computing engine diagram](/img/course/ch03-numpy-overview-array-engine-en.png)
 
 In simple terms: **if you want to learn data analysis and AI, NumPy is the first stop you can’t avoid.**
 

@@ -7,7 +7,7 @@ keywords: [contextual embedding, contextual representation, polysemy, BERT, dyna
 
 # コンテキスト付き埋め込み
 
-![コンテキスト付き埋め込みの比較図](/img/course/contextual-embedding-comparison.png)
+![コンテキスト付き埋め込みの比較図](/img/course/contextual-embedding-comparison-ja.png)
 
 :::tip この節の位置づけ
 前の節では、単語埋め込みによって単語を意味空間に写せることを学びました。  

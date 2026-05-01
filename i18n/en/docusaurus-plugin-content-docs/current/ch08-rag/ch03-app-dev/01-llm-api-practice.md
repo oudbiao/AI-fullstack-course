@@ -344,7 +344,7 @@ When you start connecting API calls into a real project, you can use the table b
 
 The key point of this table is to make the API layer a “stable interface” rather than a collection of scattered model requests in the codebase. The later topics of RAG, structured output, Function Calling, and Agent all depend on this layer.
 
-![LLM API robust client closed-loop diagram](/img/course/ch08-llm-api-robust-client-loop-map.png)
+![LLM API robust client closed-loop diagram](/img/course/ch08-llm-api-robust-client-loop-map-en.png)
 
 :::tip Reading guide
 Once a model call enters the project, it is no longer just `client.chat()`. In the diagram, configuration, timeout, retry, unified response, usage, logging, and raw output are placed in the same loop to remind you that the API layer should first become a stable runtime.

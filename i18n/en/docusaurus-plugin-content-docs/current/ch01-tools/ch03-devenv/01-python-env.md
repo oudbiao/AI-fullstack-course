@@ -6,7 +6,7 @@ description: "Use Miniconda to manage Python versions and virtual environments, 
 
 # Python Environment Management
 
-![Python Environment and Dependency Diagram](/img/course/ch01-python-env-stack.png)
+![Python Environment and Dependency Diagram](/img/course/ch01-python-env-stack-en.png)
 
 ## What this section covers
 

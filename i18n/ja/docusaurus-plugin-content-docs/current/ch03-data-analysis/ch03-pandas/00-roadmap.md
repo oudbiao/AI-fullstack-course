@@ -17,7 +17,7 @@ keywords: [Pandas入門, DataFrame, データ処理, データクリーニング
 
 Pandas をしっかり身につけると、その後の可視化、EDA、機械学習の特徴量準備、プロジェクト分析がかなり楽になります。実際のプロジェクトでは、モデルやグラフの前に、大量の表データ整理が必要になることが多いからです。
 
-![Pandas データ処理ロードマップ](/img/course/ch03-pandas-roadmap.png)
+![Pandas データ処理ロードマップ](/img/course/ch03-pandas-roadmap-ja.png)
 
 ## この章で本当に解決したいこと
 

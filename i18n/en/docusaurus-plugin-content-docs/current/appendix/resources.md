@@ -5,9 +5,9 @@ sidebar_position: 1
 
 # Recommended Learning Resources
 
-![Resource Selection Funnel](/img/course/appendix-resource-selection-funnel.png)
+![Resource Selection Funnel](/img/course/appendix-resource-selection-funnel-en.png)
 
-![Resource Bottleneck Priority Map](/img/course/appendix-resource-bottleneck-priority-map.png)
+![Resource Bottleneck Priority Map](/img/course/appendix-resource-bottleneck-priority-map-en.png)
 
 :::tip Reading Guide
 More resources are not always better. What matters is whether they solve your current bottleneck. First figure out whether you are stuck on concepts, code, math, engineering, projects, or communication. Then choose one resource to fill that gap, and finally return to a project to verify what you learned.

@@ -13,7 +13,7 @@ If you reach `Chapter 6 Deep Learning and Transformer Basics` and feel that the 
 
 Deep learning follows one main thread: data enters the network, forward propagation produces outputs, the loss function measures the gap, backpropagation computes gradients, and the optimizer updates parameters.
 
-![Deep learning study guide training loop](/img/course/ch06-study-guide-training-loop.png)
+![Deep learning study guide training loop](/img/course/ch06-study-guide-training-loop-en.png)
 
 ## Recommended learning order
 

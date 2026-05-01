@@ -8,7 +8,7 @@ keywords: [Python, learning task list, programming fundamentals, AI full-stack]
 
 The goal of this stage is to help you clearly express the input, processing, and output of a small program using Python. Later data analysis, machine learning, RAG, and Agent work will all depend on Python, so the most important thing here is to write code that is readable, runnable, and debuggable.
 
-![Python Stage Task Workflow](/img/course/ch02-task-list-workflow.png)
+![Python Stage Task Workflow](/img/course/ch02-task-list-workflow-en.png)
 
 ## Tasks that must be completed in this stage
 

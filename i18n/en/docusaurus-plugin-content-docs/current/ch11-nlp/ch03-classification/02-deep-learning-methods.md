@@ -7,7 +7,7 @@ keywords: [deep text classification, embedding, pooling, neural classifier, NLP]
 
 # Deep Learning Text Classification
 
-![Neural text classification structure](/img/course/ch11-neural-classification-embedding-pooling-map.png)
+![Neural text classification structure](/img/course/ch11-neural-classification-embedding-pooling-map-en.png)
 
 :::tip Reading guide
 You can first think of deep text classification as a very straightforward pipeline: token ids go into an embedding, the sentence is turned into an overall vector through pooling, and then a classification head outputs probabilities. If you first grasp this main path, it will be much easier to understand CNNs, RNNs, and Transformers later.

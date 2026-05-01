@@ -153,7 +153,7 @@ It is teaching you:
 
 This table is useful for beginners because it breaks “slow inference serving” into several more concrete directions for investigation.
 
-![Inference serving queue and batching diagram](/img/course/ch08-inference-serving-queue-batch-map.png)
+![Inference serving queue and batching diagram](/img/course/ch08-inference-serving-queue-batch-map-en.png)
 
 :::tip Reading Guide
 Requests do not go straight into the model. They first queue up, then get batched, and then are executed. Batching can improve throughput, but it also increases waiting time, so serving optimization is always about balancing latency and throughput.

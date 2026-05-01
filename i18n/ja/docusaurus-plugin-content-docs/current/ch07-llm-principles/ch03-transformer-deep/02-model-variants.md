@@ -208,7 +208,7 @@ mask は、学習中にモデルが何を知ってよいかを決めるからで
 
 構造が合っているかどうかは、本質的には情報の流れの制約がタスクに合っているかどうかです。
 
-![アーキテクチャの mask とタスク適合図](/img/course/ch07-architecture-mask-task-fit-map.png)
+![アーキテクチャの mask とタスク適合図](/img/course/ch07-architecture-mask-task-fit-map-ja.png)
 
 :::tip 図の読み方
 この図を見るときは、まず「誰が誰を見られるのか」を考えます。Encoder-only は入力全体を双方向に見られるので理解に向いています。Decoder-only は過去しか見られないので生成に向いています。Encoder-Decoder は入力を先に完全にエンコードし、その後に出力を因果的に生成するので、翻訳や要約に向いています。

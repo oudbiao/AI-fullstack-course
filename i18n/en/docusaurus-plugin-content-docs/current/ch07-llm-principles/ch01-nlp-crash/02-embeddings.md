@@ -7,7 +7,7 @@ keywords: [embedding, semantic representation, cosine similarity, sentence embed
 
 # Word Embeddings and Semantic Representation
 
-![Embedding semantic space diagram](/img/course/embedding-semantic-space.png)
+![Embedding semantic space diagram](/img/course/embedding-semantic-space-en.png)
 
 :::tip Section focus
 Tokenizer solves:
@@ -96,7 +96,7 @@ the model can more easily discover:
 - Which words often appear in similar contexts
 - Which sentences express similar meanings
 
-![Semantic space map from one-hot to dense embedding](/img/course/ch07-embedding-onehot-dense-map.png)
+![Semantic space map from one-hot to dense embedding](/img/course/ch07-embedding-onehot-dense-map-en.png)
 
 :::tip Reading tip
 The key point of this diagram is the contrast: one-hot is like an ID number, which can only tell whether two words are the same; dense embedding is like map coordinates, which can express who is closer to whom. From here on, text truly enters a computable semantic space.
@@ -272,7 +272,7 @@ can be different.
 
 This is one of the most important advances of contextual representations.
 
-![Contextual representation disambiguates polysemy diagram](/img/course/ch07-contextual-embedding-sense-map.png)
+![Contextual representation disambiguates polysemy diagram](/img/course/ch07-contextual-embedding-sense-map-en.png)
 
 :::tip Reading tip
 When reading this diagram, focus only on the word `bank`: in `bank account` it moves closer to financial concepts, while in `river bank` it moves closer to geographic concepts. Transformer contextual representations let the same token no longer have only one fixed coordinate.

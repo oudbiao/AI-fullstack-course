@@ -7,7 +7,7 @@ keywords: [TD-Gammon, DQN, Atari, AlphaGo, reinforcement learning, Agent history
 
 # From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents
 
-![Historical breakthroughs map from reinforcement learning to Agent](/img/course/ch09-rl-agent-breakthroughs-map.png)
+![Historical breakthroughs map from reinforcement learning to Agent](/img/course/ch09-rl-agent-breakthroughs-map-en.png)
 
 :::tip Section overview
 Modern LLM Agents are not the same as reinforcement learning, but the concept of an Agent is deeply connected to the history of reinforcement learning.

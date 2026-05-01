@@ -7,7 +7,7 @@ keywords: [KNN, k-nearest neighbors, distance metric, lazy learning, classificat
 
 # K-Nearest Neighbors
 
-![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting.png)
+![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting-en.png)
 
 :::tip Section overview
 KNN is a type of algorithm that is especially good for building intuition.  

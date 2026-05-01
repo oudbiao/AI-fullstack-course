@@ -6,7 +6,7 @@ description: "NumPy の乱数生成、確率分布、統計演算を身につけ
 
 # ランダム数と統計
 
-![NumPy ランダム数と統計マップ](/img/course/ch03-numpy-random-statistics-map.png)
+![NumPy ランダム数と統計マップ](/img/course/ch03-numpy-random-statistics-map-ja.png)
 
 ## 学習目標
 

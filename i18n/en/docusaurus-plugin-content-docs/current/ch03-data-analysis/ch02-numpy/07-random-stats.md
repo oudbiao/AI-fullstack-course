@@ -6,7 +6,7 @@ description: "Master NumPy random number generation, probability distributions, 
 
 # Random Numbers and Statistics
 
-![NumPy Random Numbers and Statistics Map](/img/course/ch03-numpy-random-statistics-map.png)
+![NumPy Random Numbers and Statistics Map](/img/course/ch03-numpy-random-statistics-map-en.png)
 
 ## Learning Objectives
 

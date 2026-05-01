@@ -6,7 +6,7 @@ description: "Master SQL, the common language of databases, and learn how to cre
 
 # SQL Basics
 
-![SQL Table Join Relationship Diagram](/img/course/sql-table-join-map.png)
+![SQL Table Join Relationship Diagram](/img/course/sql-table-join-map-en.png)
 
 :::tip Section Overview
 When many beginners first learn SQL, what trips them up most is not that the syntax is too much, but that they don’t know:

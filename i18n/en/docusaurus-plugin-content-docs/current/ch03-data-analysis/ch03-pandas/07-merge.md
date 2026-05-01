@@ -33,7 +33,7 @@ So the most important thing in this section is not memorizing the names, but bui
 
 Data merging is easier to understand by asking whether there is a “common key”:
 
-![Pandas merge, concat, and join diagram](/img/course/ch03-pandas-merge-concat-join.png)
+![Pandas merge, concat, and join diagram](/img/course/ch03-pandas-merge-concat-join-en.png)
 
 So what this section really wants to solve is:
 

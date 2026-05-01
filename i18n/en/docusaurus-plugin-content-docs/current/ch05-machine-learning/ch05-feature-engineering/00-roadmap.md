@@ -7,7 +7,7 @@ keywords: [feature engineering guide, preprocessing, feature construction, featu
 
 # Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?
 
-![Feature engineering roadmap](/img/course/feature-engineering-roadmap.png)
+![Feature engineering roadmap](/img/course/feature-engineering-roadmap-en.png)
 
 If a model is “learning patterns,” then feature engineering is about:
 
@@ -17,7 +17,7 @@ Many times, poor model performance is not because the algorithm is not advanced 
 
 ## The relationship between the five sections in this chapter
 
-![Feature engineering chapter flow diagram](/img/course/ch05-feature-engineering-chapter-flow.png)
+![Feature engineering chapter flow diagram](/img/course/ch05-feature-engineering-chapter-flow-en.png)
 
 This progression is especially suitable for beginners:
 

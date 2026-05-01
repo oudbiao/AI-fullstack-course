@@ -152,7 +152,7 @@ This table is not an absolute rule, but it is very useful for beginners to build
 
 - The deployment path is first a business decision, not just a technical preference
 
-![Local model vs. cloud API deployment decision map](/img/course/ch08-local-model-api-decision-map.png)
+![Local model vs. cloud API deployment decision map](/img/course/ch08-local-model-api-decision-map-en.png)
 
 :::tip Reading the diagram
 When looking at the diagram, do not start by asking “which model is stronger.” Instead, first look at privacy, cost, latency, offline needs, and operational capability. Many deployment choices are essentially about ordering business constraints, not simply comparing model capability.

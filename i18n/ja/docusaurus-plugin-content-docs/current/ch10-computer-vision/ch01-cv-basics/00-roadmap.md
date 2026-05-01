@@ -22,7 +22,7 @@ keywords: [ビジョン基礎ガイド, OpenCVガイド, 画像処理ガイド]
 
 ## この章のメインの流れ
 
-![ビジョン基礎章の学習順序図](/img/course/ch10-cv-basics-chapter-flow.png)
+![ビジョン基礎章の学習順序図](/img/course/ch10-cv-basics-chapter-flow-ja.png)
 
 この章がしっかり身についていないと、後の分類・検出・セグメンテーションでは、モデル名だけ覚えていて入力のイメージがつかめない、という状態になりやすいです。
 

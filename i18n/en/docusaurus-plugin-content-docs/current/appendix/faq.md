@@ -5,9 +5,9 @@ sidebar_position: 3
 
 # Frequently Asked Questions
 
-![FAQ Newcomer Question Decision Tree](/img/course/appendix-faq-decision-tree.png)
+![FAQ Newcomer Question Decision Tree](/img/course/appendix-faq-decision-tree-en.png)
 
-![FAQ Anxiety Reset and Action Mapping Diagram](/img/course/appendix-faq-confidence-reset-map.png)
+![FAQ Anxiety Reset and Action Mapping Diagram](/img/course/appendix-faq-confidence-reset-map-en.png)
 
 :::tip Reading Guide
 The goal of the FAQ is not to give you one “single correct answer,” but to help you turn vague anxiety into actionable questions. When reading the diagrams, first locate whether you are stuck on math, hardware, time, projects, papers, or job hunting, then go back to the corresponding section and fill in only the minimum necessary content.

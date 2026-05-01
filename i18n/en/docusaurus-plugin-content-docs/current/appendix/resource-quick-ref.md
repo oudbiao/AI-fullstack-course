@@ -6,9 +6,9 @@ description: "A quick reference page for common environment commands, model appr
 
 # Learning Resources Quick Reference
 
-![AI Project Quick Reference Overview](/img/course/appendix-project-quick-reference-map.png)
+![AI Project Quick Reference Overview](/img/course/appendix-project-quick-reference-map-en.png)
 
-![AI Project Quick Reference Troubleshooting Index](/img/course/appendix-quick-ref-debug-index-map.png)
+![AI Project Quick Reference Troubleshooting Index](/img/course/appendix-quick-ref-debug-index-map-en.png)
 
 :::tip Reading Guide
 This quick reference is best for “locating things quickly while working on a project.” When reading it, first determine whether the problem is about the environment, data, training, evaluation, RAG, Agent, Prompt, or frontend, then jump to the relevant checklist. Don’t start from the beginning and reread the whole book.

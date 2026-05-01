@@ -7,7 +7,7 @@ keywords: [evaluation metrics, accuracy, precision, recall, F1, ROC, AUC, confus
 
 # Evaluation Metrics
 
-![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost.png)
+![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost-en.png)
 
 :::tip Where this section fits
 After training a model, **how do you know whether it is good or not**? Is 95% accuracy always good? Not necessarily! If you choose the wrong metric, you may make a completely wrong decision. This section helps you understand which metrics to focus on in different scenarios.
@@ -45,7 +45,7 @@ When beginners learn evaluation metrics for the first time, the most common prob
 
 A more stable learning order should be:
 
-![Evaluation metric selection flowchart](/img/course/ch05-metrics-selection-flow.png)
+![Evaluation metric selection flowchart](/img/course/ch05-metrics-selection-flow-en.png)
 
 In other words, metrics are not “scores you casually check after training”; they are part of model design.
 
@@ -231,7 +231,7 @@ plt.show()
 - **Both matter** → look at **F1-Score**
 :::
 
-![Guide to reading thresholds, ROC, and PR curves](/img/course/ch05-threshold-roc-pr-curve-map.png)
+![Guide to reading thresholds, ROC, and PR curves](/img/course/ch05-threshold-roc-pr-curve-map-en.png)
 
 You can use this diagram as a reading order for classification evaluation: first use the confusion matrix to see where the errors are, then use the threshold curve to see how precision and recall trade off, and finally look at the ROC or PR curve. The more imbalanced the classes are, the more important the PR curve usually becomes.
 

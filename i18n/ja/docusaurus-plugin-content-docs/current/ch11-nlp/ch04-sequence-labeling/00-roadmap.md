@@ -32,7 +32,7 @@ keywords: [シーケンスラベリングガイド, NER, BiLSTM-CRF]
 
 ## この章の主な流れ
 
-![シーケンスラベリング章の学習順序図](/img/course/ch11-sequence-labeling-chapter-flow.png)
+![シーケンスラベリング章の学習順序図](/img/course/ch11-sequence-labeling-chapter-flow-ja.png)
 
 ## 初心者と上級学習者はどう読むか
 

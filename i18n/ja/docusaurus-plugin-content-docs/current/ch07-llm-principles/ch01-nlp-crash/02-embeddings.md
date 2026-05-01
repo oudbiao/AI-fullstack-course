@@ -7,7 +7,7 @@ keywords: [embedding, semantic representation, cosine similarity, sentence embed
 
 # 埋め込みと意味表現
 
-![Embedding の意味空間図](/img/course/embedding-semantic-space.png)
+![Embedding の意味空間図](/img/course/embedding-semantic-space-ja.png)
 
 :::tip この節の位置づけ
 Tokenizer が解決するのは：
@@ -96,7 +96,7 @@ embedding は地図の座標のように考えられます。
 - 似た文脈で出る単語はどれか
 - 似た意味を表す文はどれか
 
-![One-hot から dense embedding への意味空間図](/img/course/ch07-embedding-onehot-dense-map.png)
+![One-hot から dense embedding への意味空間図](/img/course/ch07-embedding-onehot-dense-map-ja.png)
 
 :::tip 図の見方
 この図のポイントは比較です。one-hot は身分証番号のように「同じ単語かどうか」しか区別できません。一方、dense embedding は地図の座標のように「どちらが近いか」を表せます。ここから、テキストは初めて計算できる意味空間に入ります。
@@ -269,7 +269,7 @@ Transformer の時代になると、
 
 これが文脈依存表現の大きな進歩の1つです。
 
-![文脈依存表現で多義語を解消する図](/img/course/ch07-contextual-embedding-sense-map.png)
+![文脈依存表現で多義語を解消する図](/img/course/ch07-contextual-embedding-sense-map-ja.png)
 
 :::tip 図の見方
 この図では `bank` だけに注目してください。`bank account` では金融の概念に近くなり、`river bank` では地理の概念に近くなります。Transformer の文脈依存表現により、同じ token が常に同じ座標を持つわけではなくなります。

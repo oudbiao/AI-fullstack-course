@@ -22,7 +22,7 @@ So this chapter is not drifting away from the deep learning main track. Instead,
 
 ## The main line of this chapter
 
-![Vision basics chapter learning flow](/img/course/ch10-cv-basics-chapter-flow.png)
+![Vision basics chapter learning flow](/img/course/ch10-cv-basics-chapter-flow-en.png)
 
 If you do not build a solid foundation in this chapter, then later classification, detection, and segmentation will easily become just model names with no real sense of the input.
 

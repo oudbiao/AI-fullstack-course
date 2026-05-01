@@ -6,7 +6,7 @@ description: "Master Python type hints and code quality tools"
 
 # Type Hints and Code Quality
 
-![Type Hints and Code Quality Flowchart](/img/course/ch02-type-hints-quality-flow.png)
+![Type Hints and Code Quality Flowchart](/img/course/ch02-type-hints-quality-flow-en.png)
 
 ## Where This Section Fits
 

@@ -7,9 +7,9 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 # 装飾器の応用
 
-![Python 装飾器実行フローチャート](/img/course/elective-python-decorator-flow.png)
+![Python 装飾器実行フローチャート](/img/course/elective-python-decorator-flow-ja.png)
 
-![装飾器の横断ロジック分層図](/img/course/elective-decorator-crosscutting-layers.png)
+![装飾器の横断ロジック分層図](/img/course/elective-decorator-crosscutting-layers-ja.png)
 
 :::tip 図の見方
 装飾器は、ログ、計測、リトライ、権限のような横断ロジックをまとめるのに最適です。図を見るときは、wrapper が元の関数をどう包んでいるか、そしてなぜ `functools.wraps` が関数の身元情報を保って、デバッグやフレームワークの認識エラーを防げるのかに注目してください。

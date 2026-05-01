@@ -153,7 +153,7 @@ print(good_message)
 
 This is much closer to a message that can enter a system pipeline.
 
-![Agent communication contract diagram](/img/course/ch09-multi-agent-communication-contract-map.png)
+![Agent communication contract diagram](/img/course/ch09-multi-agent-communication-contract-map-en.png)
 
 :::tip Reading the Diagram
 Do not send only one sentence of natural language in multi-Agent communication. In the diagram, every message should include sender, receiver, type, task_id, payload, and status, so the system can trace, retry, and assign responsibility.

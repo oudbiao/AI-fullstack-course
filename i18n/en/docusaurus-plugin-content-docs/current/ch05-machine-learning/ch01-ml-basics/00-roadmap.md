@@ -7,7 +7,7 @@ keywords: [machine learning guide, ML introduction, sklearn guide, supervised le
 
 # Pre-study Guide: What Is This Chapter on Machine Learning Basics Really About?
 
-![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap.png)
+![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap-en.png)
 
 This chapter is not about memorizing algorithm names. Instead, it helps you first build a “sense of the map” for machine learning projects. If you master this chapter well, the later topics—supervised learning, unsupervised learning, model evaluation, feature engineering, and project practice—will no longer feel like scattered concepts.
 
@@ -19,7 +19,7 @@ The key change in this step is: in traditional programming, humans mainly write 
 
 The first half focuses on getting “data” and “math” ready: you first learn to read and process data, and then understand vectors, probability, and optimization—the concepts machine learning will use again and again.
 
-![Machine Learning Basics Chapter Flow](/img/course/ch05-basics-chapter-flow.png)
+![Machine Learning Basics Chapter Flow](/img/course/ch05-basics-chapter-flow-en.png)
 
 ## The Real Problems This Chapter Solves
 

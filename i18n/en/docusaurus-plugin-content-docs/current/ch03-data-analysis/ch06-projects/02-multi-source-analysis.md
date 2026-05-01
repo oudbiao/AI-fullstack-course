@@ -7,7 +7,7 @@ keywords: [multi-source data, data integration, Pandas, data analysis, pivot ana
 
 # Hands-on Project: Multi-Source Data Integration Analysis
 
-![Multi-source data integration analysis architecture diagram](/img/course/ch03-multi-source-analysis-architecture.png)
+![Multi-source data integration analysis architecture diagram](/img/course/ch03-multi-source-analysis-architecture-en.png)
 
 :::tip Project Positioning
 This is the **capstone project** for 3 Data Analysis and Visualization. Compared with Project 1 (single-dataset EDA), this project adds **multi-source data integration** and **time-dimension analysis**, which is closer to real-world data analysis work.

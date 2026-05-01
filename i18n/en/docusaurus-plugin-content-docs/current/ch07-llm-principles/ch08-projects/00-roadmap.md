@@ -17,7 +17,7 @@ The theme of Phase 8A is understanding where LLM capabilities come from, and how
 
 You need to prove that you can center a project around a clear domain task, design a baseline, compare Prompt, RAG, or fine-tuning approaches, prepare samples, record results, and explain why you chose a certain path.
 
-![LLM capstone project roadmap](/img/course/ch07-projects-route-map.png)
+![LLM capstone project roadmap](/img/course/ch07-projects-route-map-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,7 +29,7 @@ A common mistake for beginners is to interpret “the model performs poorly” a
 
 It is recommended that you first choose a small and clear domain task, such as course Q&A classification, chapter summary structuring, customer intent recognition, contract clause classification, or learning advice generation. Then write a Prompt baseline, collect a set of test examples, and record both successes and failures. Next, identify the failure type: if supporting context is missing, consider RAG; if fixed-format or style output is unstable, consider fine-tuning; if the task itself is vague, first rewrite the task definition and evaluation criteria.
 
-![LLM project method-selection loop](/img/course/ch07-project-method-choice-loop.png)
+![LLM project method-selection loop](/img/course/ch07-project-method-choice-loop-en.png)
 
 ## The Main Thread to Focus on While Studying This Chapter
 

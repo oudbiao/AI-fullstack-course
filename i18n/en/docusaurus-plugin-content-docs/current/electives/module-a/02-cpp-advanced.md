@@ -18,7 +18,7 @@ this section solves:
 These are exactly the most common and most likely pain points for students with a Python background in deployment engineering.
 :::
 
-![C++ RAII and Ownership Map](/img/course/elective-cpp-raii-ownership-map.png)
+![C++ RAII and Ownership Map](/img/course/elective-cpp-raii-ownership-map-en.png)
 
 ## Learning Objectives
 

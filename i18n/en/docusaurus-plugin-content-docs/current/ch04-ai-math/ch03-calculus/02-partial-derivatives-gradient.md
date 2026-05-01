@@ -7,7 +7,7 @@ keywords: [partial derivatives, gradient, multivariable calculus, gradient direc
 
 # Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions
 
-![Gradient contour direction field](/img/course/gradient-contour-field.png)
+![Gradient contour direction field](/img/course/gradient-contour-field-en.png)
 
 ## Learning Objectives
 
@@ -46,7 +46,7 @@ In the previous section, you saw "how one variable changes." In this section, we
 
 > **If a function is affected by many variables at the same time, how do we know which direction to adjust it?**
 
-![Partial derivative and gradient tuning knob map](/img/course/ch04-gradient-parameter-knobs-map.png)
+![Partial derivative and gradient tuning knob map](/img/course/ch04-gradient-parameter-knobs-map-en.png)
 
 The most important thing in this lesson is not memorizing symbols first, but understanding first:
 

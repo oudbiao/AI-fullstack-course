@@ -7,7 +7,7 @@ keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
 
 # 自動微分
 
-![PyTorch Autograd 計算グラフ](/img/course/pytorch-autograd-graph.png)
+![PyTorch Autograd 計算グラフ](/img/course/pytorch-autograd-graph-ja.png)
 
 ## 学習目標
 
@@ -225,7 +225,7 @@ tensor.grad.zero_()
 
 - 各更新の前に、必ず勾配をクリアする
 
-![PyTorch 自動微分の勾配ライフサイクル図](/img/course/ch06-autograd-gradient-lifecycle-map.png)
+![PyTorch 自動微分の勾配ライフサイクル図](/img/course/ch06-autograd-gradient-lifecycle-map-ja.png)
 
 :::tip 図の読み方
 この図は 1 回の学習ステップとして読みます。まず順伝播で loss を計算し、`backward()` が勾配を `.grad` に書き込み、`optimizer.step()` がその勾配でパラメータを更新します。最後に必ず `zero_grad()` で古い勾配を消します。PyTorch はデフォルトで勾配を累積するので、「消し忘れ」は初心者に最も多い見えにくいバグです。

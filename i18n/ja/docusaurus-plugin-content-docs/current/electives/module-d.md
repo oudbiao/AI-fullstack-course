@@ -7,9 +7,9 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 # AI セキュリティとレッドチームテスト
 
-![AI 安全レッドチーム閉ループ図](/img/course/elective-ai-security-red-team-loop.png)
+![AI 安全レッドチーム閉ループ図](/img/course/elective-ai-security-red-team-loop-ja.png)
 
-![AI 安全脅威モデリングと回帰集図](/img/course/elective-ai-security-threat-regression-map.png)
+![AI 安全脅威モデリングと回帰集図](/img/course/elective-ai-security-threat-regression-map-ja.png)
 
 :::tip 図の見方
 レッドチームテストは、いくつか極端な prompt を投げて自分を怖がらせるものではありません。まず資産、攻撃面、失敗したときの結果からモデリングし、その失敗サンプルを regression suite として蓄積します。図を見るときは、「問題を見つけたあと、どうやって再発を防ぐか」に注目してください。

@@ -13,7 +13,7 @@ keywords: [データ分析 学習ガイド, NumPy の学び方, Pandas の学び
 
 データ分析の最初の1周は、1本の主線だけを追います。データを読み込んだら、まず項目を理解し、次に整えて整理し、そのあと統計的に分析し、最後に図表で結論を表現します。
 
-![データ分析学習ガイドの最小ループ](/img/course/ch03-study-guide-data-loop.png)
+![データ分析学習ガイドの最小ループ](/img/course/ch03-study-guide-data-loop-ja.png)
 
 ## おすすめの学習順序
 

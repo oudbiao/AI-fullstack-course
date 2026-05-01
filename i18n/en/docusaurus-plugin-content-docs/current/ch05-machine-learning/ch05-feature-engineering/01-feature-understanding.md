@@ -7,7 +7,7 @@ keywords: [feature engineering, feature types, feature distribution, correlation
 
 # Feature Understanding and Exploration
 
-![Feature Type and Target Relationship Diagram](/img/course/feature-type-target-map.png)
+![Feature Type and Target Relationship Diagram](/img/course/feature-type-target-map-en.png)
 
 :::tip Section Overview
 Feature engineering is one of the highest-ROI steps in a machine learning project, but it does not start with “creating new columns” right away. The real first step is understanding the data: what each column means, whether the distribution is unusual, whether it relates to the target, and whether it leaks future information.
@@ -24,7 +24,7 @@ Feature engineering is one of the highest-ROI steps in a machine learning projec
 
 ## First, Build a Map
 
-![Feature Understanding and Leakage Check Workflow](/img/course/ch05-feature-understanding-workflow.png)
+![Feature Understanding and Leakage Check Workflow](/img/course/ch05-feature-understanding-workflow-en.png)
 
 The more solid this step is, the less likely you are to blindly try models later. Poor model performance is often not because the algorithm is not advanced enough, but because the data meaning, outliers, target leakage, or train-test distribution differences were not understood clearly.
 
@@ -126,7 +126,7 @@ Target leakage is one of the most dangerous problems in feature engineering. It 
 
 When checking for target leakage, ask three questions: Does this feature already exist at prediction time? Is it a downstream result of the target outcome? Is the relationship with the target too perfect to be trustworthy? If the answer is uncertain, it is better to remove it from the baseline first and then compare through experiments.
 
-![Feature Leakage Red Flag Checklist](/img/course/ch05-feature-leakage-red-flags-map.png)
+![Feature Leakage Red Flag Checklist](/img/course/ch05-feature-leakage-red-flags-map-en.png)
 
 This diagram is worth reviewing before every modeling task: fields that occur after the prediction time, fields derived from the target outcome, fields that are almost perfectly correlated with the target, and fields that only exist in offline data should all be treated as high-risk features first. The more outrageous the score, the more you should suspect leakage first.
 

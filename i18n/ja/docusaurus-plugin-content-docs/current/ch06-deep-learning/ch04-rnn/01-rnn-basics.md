@@ -7,7 +7,7 @@ keywords: [RNN, 系列モデリング, hidden state, 循環ニューラルネッ
 
 # RNNの基礎
 
-![RNN 時間展開と隠れ状態の図](/img/course/rnn-unrolled-hidden-state.png)
+![RNN 時間展開と隠れ状態の図](/img/course/rnn-unrolled-hidden-state-ja.png)
 
 :::tip この節の位置づけ
 前の MLP や CNN は「静的な入力」を扱うのが得意でしたが、RNN が解決したいのは別の種類の問題です。
@@ -175,7 +175,7 @@ flowchart LR
 
 これが、RNN が変長系列を扱えるのに、位置が増えるたびに新しいパラメータセットを増やさなくてよい理由です。
 
-![RNN の隠れ状態が転がるように記憶する図](/img/course/ch06-rnn-hidden-state-rolling-memory-map.png)
+![RNN の隠れ状態が転がるように記憶する図](/img/course/ch06-rnn-hidden-state-rolling-memory-map-ja.png)
 
 :::tip 図の読み方
 この図は左から右へ読めます。各時間ステップで、現在の入力 `x_t` と古い記憶 `h_{t-1}` から新しい記憶 `h_t` を作ります。RNN の本質は「循環が複雑」なのではなく、1歩読むたびに圧縮要約を更新していることです。
@@ -426,7 +426,7 @@ RNN は順番に計算する必要があります。
 - まず LSTM / GRU が改良として登場し
 - その後 Transformer が根本的に別の考え方を持ち込みました
 
-![RNN の長距離依存と勾配消失の直感図](/img/course/ch06-rnn-long-dependency-vanishing-map.png)
+![RNN の長距離依存と勾配消失の直感図](/img/course/ch06-rnn-long-dependency-vanishing-map-ja.png)
 
 :::tip 図の読み方
 この図では、2本の減衰線に注目してください。1本は、早い時点の情報が隠れ状態の中でだんだん薄くなることを表し、もう1本は、逆伝播した勾配が早い時間ステップに届くほど弱くなることを表しています。LSTM/GRU と Transformer は、どちらもこの2つの問題に応えるための方法です。

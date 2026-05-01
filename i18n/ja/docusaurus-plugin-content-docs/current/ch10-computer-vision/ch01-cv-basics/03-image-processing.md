@@ -7,7 +7,7 @@ keywords: [フィルタリング, エッジ検出, 形態学, OpenCV, Canny, blu
 
 # 画像処理技術
 
-![画像処理パイプライン図](/img/course/cv-image-processing-pipeline.png)
+![画像処理パイプライン図](/img/course/cv-image-processing-pipeline-ja.png)
 
 ## 学習目標
 
@@ -218,7 +218,7 @@ cv2.imwrite("processing_closed.png", closed)
 print("processing_opened.png と processing_closed.png を保存しました")
 ```
 
-![古典的な画像処理操作の選択図](/img/course/ch10-image-processing-operation-decision-map.png)
+![古典的な画像処理操作の選択図](/img/course/ch10-image-processing-operation-decision-map-ja.png)
 
 :::tip 読み方のヒント
 古典的な画像処理は、ただの API 一覧ではありません。目的がはっきりしたピクセルルールの集まりです。ノイズ除去にはフィルタリング、変化を見つけるにはエッジ、前景と背景を分けるには閾値処理、小さなノイズや穴の処理には形態学的処理を使います。

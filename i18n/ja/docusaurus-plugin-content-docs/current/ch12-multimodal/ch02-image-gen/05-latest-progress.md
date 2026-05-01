@@ -7,7 +7,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 # 最新の進展
 
-![画像生成の最前線トレンドレーダー図](/img/course/ch12-image-generation-trend-radar-map.png)
+![画像生成の最前線トレンドレーダー図](/img/course/ch12-image-generation-trend-radar-map-ja.png)
 
 :::tip 図の読み方
 最前線を追うときは、モデル名だけを追わないようにしましょう。図を見るときは、「より高速、より制御しやすい、より多くのモダリティ、ワークフローへの組み込み、エッジ側への対応、コスト効率」といった方向を分けて見ると、今学ぶ価値のあるトレンドを判断しやすくなります。

@@ -6,7 +6,7 @@ description: "コアコマンド、パスの考え方、パイプ、環境変数
 
 # ターミナルの基本操作
 
-![ターミナルのパスとコマンド実行の関係図](/img/course/ch01-terminal-path-command-map.png)
+![ターミナルのパスとコマンド実行の関係図](/img/course/ch01-terminal-path-command-map-ja.png)
 
 ## この節の位置づけ
 

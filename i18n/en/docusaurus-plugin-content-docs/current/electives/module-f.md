@@ -7,9 +7,9 @@ keywords: [AI product design, product thinking, evaluation, cost, UX, product st
 
 # AI Product Design Thinking
 
-![AI Product Decision Matrix](/img/course/elective-ai-product-decision-matrix.png)
+![AI Product Decision Matrix](/img/course/elective-ai-product-decision-matrix-en.png)
 
-![AI Product Experiment and Metrics Loop](/img/course/elective-ai-product-experiment-metrics-loop.png)
+![AI Product Experiment and Metrics Loop](/img/course/elective-ai-product-experiment-metrics-loop-en.png)
 
 :::tip Reading guide
 Product decisions should not stop at “this AI feature is cool.” When reading the diagram, look at the user problem, hypothesis, MVP, success metrics, risk boundaries, experiment feedback, and iteration together to judge whether the feature is truly worth continuing.

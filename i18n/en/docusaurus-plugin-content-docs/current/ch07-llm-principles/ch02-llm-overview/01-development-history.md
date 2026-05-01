@@ -7,7 +7,7 @@ keywords: [LLM history, language model, n-gram, RNN, Transformer, GPT]
 
 # Development History of Large Models
 
-![Large Model Development Timeline](/img/course/llm-history-timeline.png)
+![Large Model Development Timeline](/img/course/llm-history-timeline-en.png)
 
 ## Learning Objectives
 

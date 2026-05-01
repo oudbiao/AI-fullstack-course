@@ -10,7 +10,7 @@ The goal of this stage is to help you turn raw data into understandable conclusi
 
 ## Understand the whole stage at a glance: task chain
 
-![Data analysis stage task chain](/img/course/ch03-task-list-workflow.png)
+![Data analysis stage task chain](/img/course/ch03-task-list-workflow-en.png)
 
 ## Tasks you must complete in this stage
 

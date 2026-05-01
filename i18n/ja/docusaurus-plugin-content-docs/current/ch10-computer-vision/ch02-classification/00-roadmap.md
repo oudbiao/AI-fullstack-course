@@ -27,7 +27,7 @@ keywords: [画像分類の導入, データ拡張, ResNet, 学習テクニック
 
 ## この章の中心の流れ
 
-![画像分類章の学習順序図](/img/course/ch10-classification-chapter-flow.png)
+![画像分類章の学習順序図](/img/course/ch10-classification-chapter-flow-ja.png)
 
 この章は、ビジュアルモデルが「1枚の画像から安定した特徴をどう学ぶのか」を、初心者が初めてちゃんとつかむのにとても向いています。
 

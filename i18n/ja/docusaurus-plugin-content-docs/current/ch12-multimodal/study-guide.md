@@ -13,7 +13,7 @@ keywords: [AIGC 学習ガイド, マルチモーダルの学び方, 拡散モデ
 
 マルチモーダルと AIGC は、1 本のシステムの流れとして捉えましょう。つまり、異なるモダリティを表現にエンコードし、モデルが理解または生成を行い、最後に制作、編集、審査、納品のワークフローにつなげます。
 
-![多モーダル学習ガイドのワークフロー図](/img/course/ch12-study-guide-modal-workflow-map.png)
+![多モーダル学習ガイドのワークフロー図](/img/course/ch12-study-guide-modal-workflow-map-ja.png)
 
 ## おすすめの学習順序
 

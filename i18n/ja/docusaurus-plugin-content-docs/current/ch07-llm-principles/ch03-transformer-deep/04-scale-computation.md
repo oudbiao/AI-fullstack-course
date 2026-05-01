@@ -219,7 +219,7 @@ for cfg in configs:
 
 そしてこれは、KV cache の式の中でも重要な項目です。
 
-![大規模モデルのコスト調整ノブ図](/img/course/ch07-scale-cost-knobs-map.png)
+![大規模モデルのコスト調整ノブ図](/img/course/ch07-scale-cost-knobs-map-ja.png)
 
 :::tip 図の読み方
 この図では、コストをいくつかのノブに分けています。layers、hidden size、context length、batch size、kv heads です。初心者が見落としやすいのは、これらのノブが足し算ではなく、掛け算のように効いて一気に増えることです。特に hidden size は、パラメータ数と計算量の両方に二乗で効くことが多いです。
@@ -280,7 +280,7 @@ for cfg in configs:
 だから、学習では問題なかった設計でも、  
 デプロイすると非常に苦しくなることがあります。
 
-![学習時と推論時のコスト構造の比較図](/img/course/ch07-train-inference-cost-split-map.png)
+![学習時と推論時のコスト構造の比較図](/img/course/ch07-train-inference-cost-split-map-ja.png)
 
 :::tip 図の読み方
 学習時は「継続的な生産」に近く、パラメータ、勾配、オプティマイザ状態、中間 activation を見るのが重要です。推論時は「リアルタイムサービス」に近く、KV cache、レイテンシ、スループット、同時実行時のメモリが重要です。学習できることと、うまくデプロイできることは別で、両者の詰まりどころはまったく違います。

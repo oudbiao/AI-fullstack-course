@@ -13,7 +13,7 @@ If you arrive at `06 LLM Principles, Prompt, and Fine-Tuning` and feel overwhelm
 
 On the first pass, focus on one evolution path: text is split into tokens, tokens become embeddings, Transformer models context, pretraining gives general capabilities, and Prompt, fine-tuning, and alignment make those capabilities more usable.
 
-![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line.png)
+![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.png)
 
 ## Recommended learning order
 

@@ -7,7 +7,7 @@ keywords: [sequence labeling, token classification, NER, BIO, span extraction, N
 
 # Sequence Labeling Tasks
 
-![BIO label to entity recovery diagram](/img/course/bio-ner-recovery.png)
+![BIO label to entity recovery diagram](/img/course/bio-ner-recovery-en.png)
 
 :::tip Section Overview
 The output of text classification is usually:

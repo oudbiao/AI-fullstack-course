@@ -7,9 +7,9 @@ keywords: [model serving, batching, request queue, version routing, health check
 
 # モデルのサービス化
 
-![モデルのサービス化アーキテクチャ図](/img/course/elective-model-serving-architecture.png)
+![モデルのサービス化アーキテクチャ図](/img/course/elective-model-serving-architecture-ja.png)
 
-![モデルサービスの指標とバージョンルーティング図](/img/course/elective-serving-metrics-version-routing-map.png)
+![モデルサービスの指標とバージョンルーティング図](/img/course/elective-serving-metrics-version-routing-map-ja.png)
 
 :::tip 読み方のヒント
 モデルを本番に出したあとで一番大事に見るべきなのは、単発の推論時間ではなく、キューの待ち時間、batch 効率、P95/P99 レイテンシー、エラー率、バージョンルーティング、そしてロールバックできるかどうかです。図は「長く動き続けるシステム」として読むようにしてください。

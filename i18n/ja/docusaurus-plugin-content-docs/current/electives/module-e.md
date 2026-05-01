@@ -7,9 +7,9 @@ keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 
 # Web フロントエンド基礎速習
 
-![AI フロントエンドのインタラクションスタック図](/img/course/elective-ai-frontend-stack.png)
+![AI フロントエンドのインタラクションスタック図](/img/course/elective-ai-frontend-stack-ja.png)
 
-![AI フロントエンドの状態マシンと体験の閉ループ図](/img/course/elective-ai-frontend-state-machine-map.png)
+![AI フロントエンドの状態マシンと体験の閉ループ図](/img/course/elective-ai-frontend-state-machine-map-ja.png)
 
 :::tip 図の見方
 AI フロントエンドは結果を表示するだけのページではなく、idle、loading、streaming、success、error、retry、cancel などの状態を扱います。図を見るときは、モデル呼び出しを「所要時間が不確定な」インタラクションの流れとして捉えましょう。

@@ -6,7 +6,7 @@ description: "Master how to use Python modules and packages"
 
 # Modules and Packages
 
-![Module and package project structure diagram](/img/course/ch02-modules-package-structure.png)
+![Module and package project structure diagram](/img/course/ch02-modules-package-structure-en.png)
 
 ## Where This Section Fits
 

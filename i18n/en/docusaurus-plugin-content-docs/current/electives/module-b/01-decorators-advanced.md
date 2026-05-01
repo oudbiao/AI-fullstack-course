@@ -7,9 +7,9 @@ keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 
 # Advanced Decorator Usage
 
-![Python decorator execution flow](/img/course/elective-python-decorator-flow.png)
+![Python decorator execution flow](/img/course/elective-python-decorator-flow-en.png)
 
-![Decorator cross-cutting logic layering diagram](/img/course/elective-decorator-crosscutting-layers.png)
+![Decorator cross-cutting logic layering diagram](/img/course/elective-decorator-crosscutting-layers-en.png)
 
 :::tip Reading the diagram
 Decorators are best suited for cross-cutting logic such as logging, timing, retries, and permissions. When reading the diagram, focus on how the wrapper surrounds the original function, and why `functools.wraps` can preserve function identity and avoid debugging and framework recognition issues.

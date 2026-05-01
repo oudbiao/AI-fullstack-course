@@ -20,7 +20,7 @@ keywords: [訓練テクニックガイド, チューニング, 診断, モデル
 
 よりイメージしやすく言うと、こうなります。
 
-![深度学習訓練テクニック章の関係図](/img/course/ch06-training-tips-chapter-flow.png)
+![深度学習訓練テクニック章の関係図](/img/course/ch06-training-tips-chapter-flow-ja.png)
 
 つまり、この章はバラバラの小技集ではありません。補っているのは、次の力です。
 

@@ -7,7 +7,7 @@ keywords: [modern AI applications, RAGOps, AgentOps, MCP, LLMOps, multimodal AI,
 
 # 2025-2026 AI Application Technology Map
 
-![Modern AI application technology stack overview](/img/course/intro-modern-ai-stack-map.png)
+![Modern AI application technology stack overview](/img/course/intro-modern-ai-stack-map-en.png)
 
 ## What this section is about
 

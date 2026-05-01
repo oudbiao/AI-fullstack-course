@@ -7,7 +7,7 @@ keywords: [C++, basics, vector, reference, function, class, deployment]
 
 # C++ プログラミング基礎
 
-![C++ の実行とメモリモデル図](/img/course/elective-cpp-runtime-memory.png)
+![C++ の実行とメモリモデル図](/img/course/elective-cpp-runtime-memory-ja.png)
 
 :::tip この節の位置づけ
 AI アプリを作る同学の多くは、ふだん Python に慣れています。  

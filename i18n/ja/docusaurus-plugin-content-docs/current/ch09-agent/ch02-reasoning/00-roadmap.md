@@ -24,7 +24,7 @@ keywords: [Agent推理ガイド, ReAct, Plan-and-Execute, 計画]
 
 ## この章の主な流れ
 
-![Agent 推理と計画の章の学習順序図](/img/course/ch09-reasoning-chapter-flow.png)
+![Agent 推理と計画の章の学習順序図](/img/course/ch09-reasoning-chapter-flow-ja.png)
 
 ## この章は、初心者におすすめの順番で読むと理解しやすい
 

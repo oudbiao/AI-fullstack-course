@@ -6,7 +6,7 @@ description: "Master the basic data types in Python and how to use variables"
 
 # Data Types and Variables
 
-![Diagram of the relationship between variables, objects, and references](/img/course/ch02-variable-object-reference.png)
+![Diagram of the relationship between variables, objects, and references](/img/course/ch02-variable-object-reference-en.png)
 
 ## Where This Section Fits
 

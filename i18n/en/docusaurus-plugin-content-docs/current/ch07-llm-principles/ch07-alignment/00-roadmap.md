@@ -15,7 +15,7 @@ If pretraining answers “what the model knows,” and fine-tuning answers “wh
 
 ## Where This Chapter Fits in the LLM Roadmap
 
-![LLM alignment chapter relationship diagram](/img/course/ch07-alignment-chapter-flow.png)
+![LLM alignment chapter relationship diagram](/img/course/ch07-alignment-chapter-flow-en.png)
 
 Alignment is not an isolated technique, but a set of methods that connect model capability, user experience, and safety governance. Later, when you work on RAG, Agent, or tool calling, you will continue to encounter alignment questions: when should the model refuse, when should it ask for confirmation, and when should it avoid fabricating sources or executing actions on its own.
 
@@ -33,7 +33,7 @@ While learning, do not get stuck in formula details. Instead, focus on how human
 
 Many application problems cannot be solved by Prompt alone. For example, a customer service bot cannot fabricate policies, a medical assistant cannot diagnose beyond its authority, and an Agent cannot directly delete files or make payments. You can constrain behavior through system prompts, tool permissions, RAG citations, and human confirmation, but whether the underlying model tends to follow instructions, admit when it does not know, and avoid dangerous outputs is still related to alignment.
 
-![Alignment and application safety boundary map](/img/course/ch07-alignment-app-safety-map.png)
+![Alignment and application safety boundary map](/img/course/ch07-alignment-app-safety-map-en.png)
 
 ## What You Will Build in This Chapter
 

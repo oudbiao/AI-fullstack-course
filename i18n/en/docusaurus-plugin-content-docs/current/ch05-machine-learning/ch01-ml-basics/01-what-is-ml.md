@@ -7,7 +7,7 @@ keywords: [machine learning, supervised learning, unsupervised learning, reinfor
 
 # What Is Machine Learning
 
-![Machine learning modeling loop diagram](/img/course/ml-modeling-loop.png)
+![Machine learning modeling loop diagram](/img/course/ml-modeling-loop-en.png)
 
 ## Where This Section Fits
 
@@ -30,7 +30,7 @@ In the first three stages, you learned Python, data analysis, and math fundament
 
 The most important task in this article is not memorizing the definition, but first building a decision framework:
 
-![Machine learning task type decision map](/img/course/ch05-task-type-decision-map.png)
+![Machine learning task type decision map](/img/course/ch05-task-type-decision-map-en.png)
 
 If you understand this diagram, many chapters later in Stage 5 will suddenly start making sense.
 
@@ -301,7 +301,7 @@ flowchart LR
 If you train and evaluate on the same data, the model may get a perfect score by "memorizing" the data—but perform poorly on new data. This is called **overfitting**. It is like memorizing the answers before an exam and then failing when given a different set of questions.
 :::
 
-![Training/validation/test and data leakage guardrail diagram](/img/course/ch05-data-split-leakage-guardrail.png)
+![Training/validation/test and data leakage guardrail diagram](/img/course/ch05-data-split-leakage-guardrail-en.png)
 
 When reading this diagram, first look at the three boundaries: the training set is used for learning, the validation set is used to choose a solution, and the test set is only used for final verification. If any preprocessing step sees test-set information too early—for example, standardizing on the full dataset first or selecting features using the full dataset—the model score may look artificially high.
 

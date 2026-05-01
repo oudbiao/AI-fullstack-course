@@ -94,7 +94,7 @@ flowchart LR
 
 - 文書処理は「1つのパーサーですべて解決」ではない
 
-![PDF Word PPT 文書解析ルーティング図](/img/course/ch08-document-parsing-format-router-map.png)
+![PDF Word PPT 文書解析ルーティング図](/img/course/ch08-document-parsing-format-router-map-ja.png)
 
 :::tip 図の見方
 ファイルがシステムに入ったら、まずルーティングします。テキスト PDF、スキャン PDF、DOCX、PPTX では問題が違うからです。実際に保存する前に、本文順、見出し階層、ページ番号、内容タイプを復元する必要があります。単に長いプレーンテキストを抜き出すだけではありません。

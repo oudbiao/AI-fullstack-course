@@ -22,7 +22,7 @@ keywords: [PyTorch入門, tensor, autograd, nn.Module, DataLoader, training loop
 
 ## この章のメインテーマ
 
-![PyTorch 章の関係図](/img/course/ch06-pytorch-chapter-flow.png)
+![PyTorch 章の関係図](/img/course/ch06-pytorch-chapter-flow-ja.png)
 
 この章を学び終えると、最小限の深層学習の学習フローを自分で組み立てられるようになります。
 

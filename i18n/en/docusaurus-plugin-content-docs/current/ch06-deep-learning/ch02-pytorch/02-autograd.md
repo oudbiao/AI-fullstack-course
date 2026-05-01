@@ -7,7 +7,7 @@ keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
 
 # Autograd
 
-![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph.png)
+![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph-en.png)
 
 ## Learning Objectives
 
@@ -220,7 +220,7 @@ But as a beginner, you should first form a stable default habit:
 
 - Before each update step, clear the gradients
 
-![PyTorch autograd gradient lifecycle diagram](/img/course/ch06-autograd-gradient-lifecycle-map.png)
+![PyTorch autograd gradient lifecycle diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.png)
 
 :::tip Reading tip
 Read this diagram as one training cycle: first the forward pass computes the loss, then `backward()` writes gradients into `.grad`, `optimizer.step()` updates the parameters using those gradients, and finally you must call `zero_grad()` to clear old gradients. PyTorch accumulates gradients by default, so “forgetting to clear them” is one of the most common invisible bugs for beginners.

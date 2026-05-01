@@ -6,7 +6,7 @@ description: "Connect to databases with Python to perform CRUD operations and wo
 
 # Python Database Operations
 
-![Python and database collaboration bridge diagram](/img/course/ch03-python-database-bridge.png)
+![Python and database collaboration bridge diagram](/img/course/ch03-python-database-bridge-en.png)
 
 :::tip Section overview
 Many beginners start to feel a little confused here:

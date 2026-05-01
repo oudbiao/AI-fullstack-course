@@ -24,7 +24,7 @@ keywords: [edge deployment, Jetson, Raspberry Pi, memory budget, latency, offlin
 > **制約のあるデバイス上で「十分に使える」システムを作ることであって、デスクトップ機のような完璧な形を目指すことではありません。**
 :::
 
-![エッジデプロイの制約と判断フロー](/img/course/elective-edge-deployment-constraint-map.png)
+![エッジデプロイの制約と判断フロー](/img/course/elective-edge-deployment-constraint-map-ja.png)
 
 ## 学習目標
 

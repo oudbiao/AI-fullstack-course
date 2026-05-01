@@ -7,7 +7,7 @@ keywords: [machine learning history, ML breakthroughs, Bayes, maximum likelihood
 
 # Main Thread of Major Breakthroughs in Machine Learning History
 
-![Map of major breakthroughs in machine learning history](/img/course/ch05-ml-history-breakthrough-map.png)
+![Map of major breakthroughs in machine learning history](/img/course/ch05-ml-history-breakthrough-map-en.png)
 
 :::tip Section focus
 This section is not about memorizing years. Instead, it helps you understand:

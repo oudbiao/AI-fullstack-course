@@ -78,7 +78,7 @@ flowchart LR
 - アシスタントは1回答えるだけではない
 - 1ターンずつ対話しながら、状態と行動を更新し続ける
 
-![スマートアシスタントの session、検索、ツールの Trace 図](/img/course/ch08-assistant-session-tool-trace-map.png)
+![スマートアシスタントの session、検索、ツールの Trace 図](/img/course/ch08-assistant-session-tool-trace-map-ja.png)
 
 :::tip 図の読み方
 マルチターンアシスタントの trace では、少なくとも4つを見るとよいです。session に何が残っているか、検索で何がヒットしたか、ツールが呼ばれたか、回答後に状態がどう更新されたか、です。これで、ただの FAQ ではないことを示せます。

@@ -20,7 +20,7 @@ If you are coming from the earlier MLP and CNN chapters, the most important chan
 
 A more stable way to understand this is:
 
-![RNN sequence model chapter relationship diagram](/img/course/ch06-rnn-chapter-flow.png)
+![RNN sequence model chapter relationship diagram](/img/course/ch06-rnn-chapter-flow-en.png)
 
 So the real core added in this chapter is:
 

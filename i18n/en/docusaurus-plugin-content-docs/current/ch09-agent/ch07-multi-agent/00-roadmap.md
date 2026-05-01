@@ -17,7 +17,7 @@ You have already learned about single-Agent goals, planning, tools, memory, and 
 
 The key of this chapter is not “creating lots of roles,” but understanding the boundaries of a collaborative system: who is responsible for what, how to communicate, who makes the final decision, what state is shared, and how to avoid duplicate work, misleading each other, and infinite loops.
 
-![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow.png)
+![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,13 +29,13 @@ The most common beginner misunderstanding is that multiple Agents automatically 
 
 It is recommended to first learn the applicability boundaries of Multi-Agent, so you know when not to use it. Then look at common architecture patterns, such as supervisor-executor, debate-style, pipeline-style, and expert-committee-style. Next, study communication and coordination to understand message formats, shared state, task queues, and aggregation mechanisms. Finally, focus on challenges and practical implementation, especially cost control, failure recovery, evaluation, and safety.
 
-![Multi-Agent chapter learning order diagram](/img/course/ch09-multi-agent-chapter-flow.png)
+![Multi-Agent chapter learning order diagram](/img/course/ch09-multi-agent-chapter-flow-en.png)
 
 ## The Main Thread to Keep in Mind While Studying This Chapter
 
 The main thread of this chapter can be summarized as: Multi-Agent is a task division and collaboration mechanism, not simply duplicating several chatbots.
 
-![Multi-Agent collaboration and coordination map](/img/course/ch09-multi-agent-coordination-map.png)
+![Multi-Agent collaboration and coordination map](/img/course/ch09-multi-agent-coordination-map-en.png)
 
 Once you understand this line, you will know that the key question in Multi-Agent is: “Is the coordination cost lower than the benefit of division of labor?” If the communication cost, error propagation, and evaluation cost of multiple Agents exceed the benefits, you should go back to a single Agent or a fixed workflow.
 

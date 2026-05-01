@@ -15,7 +15,7 @@ If this is your first time learning CV, you do not need to go deep into every di
 
 ## Where This Chapter Fits in the CV Roadmap
 
-![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map.png)
+![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-en.png)
 
 The previous chapters are more like the basic capabilities of vision models: recognizing image categories, finding object locations, and separating pixel regions. This chapter is more like choosing application directions: OCR is for documents and receipts, face is for identity and interaction, video is for time series, and 3D vision is for spatial structure.
 

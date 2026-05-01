@@ -7,7 +7,7 @@ keywords: [AI learning path, AI full-stack path, portfolio path, data science pa
 
 # Four Main Learning Routes
 
-![Four Main Learning Routes subway map](/img/course/intro-four-main-routes-subway.png)
+![Four Main Learning Routes subway map](/img/course/intro-four-main-routes-subway-en.png)
 
 You can study this course in full, step by step, or choose a main route based on your goal. The purpose of a route is not to cut content out of the course, but to tell you which parts to read deeply on the first pass, which parts you only need to know where they fit, and which parts you should come back to later when a project needs them.
 

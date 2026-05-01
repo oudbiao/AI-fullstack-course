@@ -7,7 +7,7 @@ keywords: [AIGC, multimodal, Stable Diffusion, image generation, video generatio
 
 # 12 AIGC and Multimodal
 
-![Main visual for AIGC and Multimodal](/img/course/ch12-multimodal-aigc.png)
+![Main visual for AIGC and Multimodal](/img/course/ch12-multimodal-aigc-en.png)
 
 This stage is about what happens when input and output are no longer just text. It belongs to the direction-expansion track, and it is a good next step after you already understand LLM applications, RAG, and Agent, before moving into images, audio, video, and cross-modal generation.
 
@@ -17,7 +17,7 @@ When AI can only process text, it is like an assistant who is very good at writi
 
 ## Learning quest map
 
-![Learning quest map for multimodal and AIGC](/img/course/ch12-learning-quest-map.png)
+![Learning quest map for multimodal and AIGC](/img/course/ch12-learning-quest-map-en.png)
 
 ## Interactive exercise: break one creative idea into a multimodal pipeline
 
@@ -48,7 +48,7 @@ Experienced learners can go deeper into diffusion models, image-text alignment, 
 
 The real world is not pure text. Humans understand the world through text, images, audio, video, and actions. Multimodal models try to put these different forms of information into one unified system, so AI can look at images, read documents, listen to speech, generate pictures, and assist with creation.
 
-![Main architecture diagram for multimodal systems](/img/course/ch12-multimodal-system-backbone.png)
+![Main architecture diagram for multimodal systems](/img/course/ch12-multimodal-system-backbone-en.png)
 
 In the first half, we focus on multimodal input and generation capabilities. In the second half, we connect content creation, review, export, and product prototypes into one flow.
 
@@ -78,7 +78,7 @@ When learning multimodal, translate “model capability” into “product workf
 
 Multimodal is not an island outside the course main line. RAG in Stage 8 expands into multimodal RAG, Agent in Stage 9 expands into a multimodal Agent that can read screenshots, documents, and charts, and Stage 12 organizes these capabilities into a complete creation or understanding workflow.
 
-![Bridge diagram for multimodal RAG and Agent](/img/course/ch12-multimodal-rag-agent-bridge.png)
+![Bridge diagram for multimodal RAG and Agent](/img/course/ch12-multimodal-rag-agent-bridge-en.png)
 
 A good capstone project is a “multimodal learning assistant”: it can read course screenshots or PDF pages, extract key concepts, answer questions with course documents via RAG, and then generate review cards or a study plan. This naturally demonstrates your combined understanding of RAG, Agent, multimodal, and engineering.
 

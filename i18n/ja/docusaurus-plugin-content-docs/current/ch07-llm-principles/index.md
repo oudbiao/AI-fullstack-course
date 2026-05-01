@@ -7,7 +7,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 # 7 大モデル原理、Prompt と微調整
 
-![大モデル原理メインビジュアル](/img/course/ch07-llm-principles.png)
+![大モデル原理メインビジュアル](/img/course/ch07-llm-principles-ja.png)
 
 このステージで解決するのは、「大モデルの能力はどこから来るのか、どうやって制御し、適応させるのか」です。単にいくつかのモデル名を学ぶのではなく、Token、Embedding、Transformer、事前学習、Prompt、微調整、整合の関係を理解します。
 
@@ -17,7 +17,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 ## 学習チャレンジマップ
 
-![大モデル学習チャレンジマップ](/img/course/ch07-learning-quest-map.png)
+![大モデル学習チャレンジマップ](/img/course/ch07-learning-quest-map-ja.png)
 
 ## 体験練習：実験するように Prompt を書く
 
@@ -48,7 +48,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 大モデルは突然現れたわけではありません。深層学習、NLP、Transformer、事前学習という流れを受け継いでいます。本当の変化は、モデル規模、データ規模、指示への整合によって、言語モデルが「単一の NLP タスクをこなすもの」から「言語インターフェースを通じて大量のタスクをこなすもの」へ変わったことです。
 
-![大モデル能力の源流図](/img/course/ch07-llm-capability-backbone.png)
+![大モデル能力の源流図](/img/course/ch07-llm-capability-backbone-ja.png)
 
 ## 初学者は何を先にやるか、上級者は何をやるか
 

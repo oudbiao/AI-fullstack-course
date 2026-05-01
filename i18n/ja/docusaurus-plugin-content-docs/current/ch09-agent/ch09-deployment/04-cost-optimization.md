@@ -177,7 +177,7 @@ print("optimized_cost =", task_cost(optimized_task))
 外部 API は、単価が低くないことがあります。  
 それに加えて、遅延やリトライのリスクも増えます。
 
-![Agent コストのルーティング、キャッシュ、予算制御の図](/img/course/ch09-agent-cost-routing-cache-budget-map.png)
+![Agent コストのルーティング、キャッシュ、予算制御の図](/img/course/ch09-agent-cost-routing-cache-budget-map-ja.png)
 
 :::tip 図の見方
 この図は、コストを「1回のモデル呼び出し」から「タスク全体の請求」に広げて見ています。モデルルーティング、コンテキスト長、ツール呼び出し、キャッシュヒット、失敗時のリトライ、予算上限のすべてが、最終的なコストに影響します。

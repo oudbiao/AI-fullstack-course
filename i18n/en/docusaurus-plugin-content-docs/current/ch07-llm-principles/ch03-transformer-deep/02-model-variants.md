@@ -204,7 +204,7 @@ Because tasks themselves correspond to different information flows:
 
 Whether a structure is suitable is, in essence, whether its information-flow constraints match the task.
 
-![Architecture mask and task-fit map](/img/course/ch07-architecture-mask-task-fit-map.png)
+![Architecture mask and task-fit map](/img/course/ch07-architecture-mask-task-fit-map-en.png)
 
 :::tip Reading Guide
 When reading this diagram, first ask “who can see whom”: Encoder-only is suitable for understanding because it can look at the full input bidirectionally; Decoder-only is suitable for generation because it can only see the past; Encoder-Decoder is suitable for translation and summarization because the input is fully encoded first, and then the output is generated causally.

@@ -7,7 +7,7 @@ keywords: [data augmentation, flip, crop, color jitter, mixup, vision]
 
 # データ拡張の戦略
 
-![画像データ拡張のサンプル一覧](/img/course/cv-data-augmentation-gallery.png)
+![画像データ拡張のサンプル一覧](/img/course/cv-data-augmentation-gallery-ja.png)
 
 :::tip この節の位置づけ
 画像分類で最もよく使われ、しかも見落とされやすいテクニックの1つが、データ拡張です。
@@ -227,7 +227,7 @@ for row in brightness_shift(image):
 
 が大切です。
 
-![データ拡張の不変性と意味的リスクの図](/img/course/ch10-augmentation-invariance-risk-map.png)
+![データ拡張の不変性と意味的リスクの図](/img/course/ch10-augmentation-invariance-risk-map-ja.png)
 
 :::tip 画像の読み方
 この図で押さえるべきことは1つです。拡張は、モデルに「合理的な変化」を無視させるためのものですが、ラベルの意味まで壊してはいけません。分類・検出・セグメンテーションでは、label、box、mask をそれぞれ連動して扱う必要があります。

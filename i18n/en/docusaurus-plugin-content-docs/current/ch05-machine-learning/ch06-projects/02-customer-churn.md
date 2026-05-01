@@ -7,7 +7,7 @@ keywords: [customer churn, classification, imbalanced data, SMOTE, feature impor
 
 # Project 2: Customer Churn Prediction (Classification Problem)
 
-![Customer Churn Prediction Project Flowchart](/img/course/customer-churn-project-flow.png)
+![Customer Churn Prediction Project Flowchart](/img/course/customer-churn-project-flow-en.png)
 
 :::tip Project Positioning
 Customer churn prediction is one of the **most classic business ML applications**. This project focuses on practicing: handling imbalanced data, understanding business metrics, and extracting business insights from model results.

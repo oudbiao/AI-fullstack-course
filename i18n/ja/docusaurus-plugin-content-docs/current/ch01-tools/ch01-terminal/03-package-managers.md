@@ -6,7 +6,7 @@ description: "パッケージマネージャーでシステムソフトウェア
 
 # パッケージマネージャー
 
-![パッケージマネージャーの依存関係インストールフロー図](/img/course/ch01-package-manager-flow.png)
+![パッケージマネージャーの依存関係インストールフロー図](/img/course/ch01-package-manager-flow-ja.png)
 
 ## この節の位置づけ
 

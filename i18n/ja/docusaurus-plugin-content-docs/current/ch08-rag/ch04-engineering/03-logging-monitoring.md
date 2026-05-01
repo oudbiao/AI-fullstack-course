@@ -179,7 +179,7 @@ print("avg_tokens     =", avg_tokens)
 この表は、初心者にとても向いています。  
 「指標はたくさんある」という話を、理解しやすい問いに戻してくれるからです。
 
-![ログ、指標、Trace の可観測性図](/img/course/ch08-observability-logs-metrics-trace-map.png)
+![ログ、指標、Trace の可観測性図](/img/course/ch08-observability-logs-metrics-trace-map-ja.png)
 
 :::tip 図の読み方
 ログは「何が起きたか」、指標は「全体の傾向はどうか」、trace は「1件のリクエストがどこを通ったか」を答えます。LLM システムの障害対応では、この3つをつなげて見る必要があります。500 とタイムアウトだけを見ていても足りません。

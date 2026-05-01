@@ -6,7 +6,7 @@ description: "Develop new features safely with branches, and understand the Pull
 
 # Branches and Collaboration
 
-![Git branch collaboration flowchart](/img/course/ch01-git-branch-collaboration.png)
+![Git branch collaboration flowchart](/img/course/ch01-git-branch-collaboration-en.png)
 
 ## Where This Lesson Fits
 

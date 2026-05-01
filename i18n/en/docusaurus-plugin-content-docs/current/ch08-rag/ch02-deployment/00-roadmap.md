@@ -24,7 +24,7 @@ So what really matters in the deployment chapter is not “can you run a service
 
 ## The Main Line of This Chapter
 
-![Model deployment chapter learning flowchart](/img/course/ch08-deployment-chapter-flow.png)
+![Model deployment chapter learning flowchart](/img/course/ch08-deployment-chapter-flow-en.png)
 
 ## The Most Beginner-Friendly Reading Order for This Chapter
 
@@ -47,7 +47,7 @@ So what really matters in the deployment chapter is not “can you run a service
 
 Modern LLM applications often need to balance quality, latency, cost, privacy, and deployment complexity. A real system may use a small model to handle simple tasks such as classification, rewriting, and formatting; a powerful model for complex reasoning; a local model for private data; and a vision model for images. Then it combines these capabilities through a unified API or model routing.
 
-![Model serving selection decision map](/img/course/ch08-model-serving-decision-map.png)
+![Model serving selection decision map](/img/course/ch08-model-serving-decision-map-en.png)
 
 | Direction | Problem It Solves | Focus in This Chapter |
 |---|---|---|

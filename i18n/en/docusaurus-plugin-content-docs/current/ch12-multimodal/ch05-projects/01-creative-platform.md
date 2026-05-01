@@ -7,7 +7,7 @@ keywords: [creative platform, multimodal project, image generation, editing, voi
 
 # Project: AI Creative Content Platform
 
-![AI Creative Content Platform Workflow](/img/course/creative-platform-workflow.png)
+![AI Creative Content Platform Workflow](/img/course/creative-platform-workflow-en.png)
 
 :::tip Section Focus
 AI creative platforms are especially easy to turn into a “feature stack page”:

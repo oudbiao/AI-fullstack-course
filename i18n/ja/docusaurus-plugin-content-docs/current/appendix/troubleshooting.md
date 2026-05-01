@@ -5,9 +5,9 @@ sidebar_position: 5
 
 # 学習のつまずき救援
 
-![学習のつまずき排障マップ](/img/course/appendix-troubleshooting-rescue-map.png)
+![学習のつまずき排障マップ](/img/course/appendix-troubleshooting-rescue-map-ja.png)
 
-![つまずきの最小再現と相談のフローチャート](/img/course/appendix-debug-mre-help-flow.png)
+![つまずきの最小再現と相談のフローチャート](/img/course/appendix-debug-mre-help-flow-ja.png)
 
 :::tip 図の見方
 問題が起きたら、まず慌てて別のやり方に変えないでください。「問題を再現する -> 環境を集める -> 入力を小さくする -> エラーを記録する -> 具体的な質問をする」という順で進めると、多くのつまずきは感情的な問題から、原因を特定できる工学的な問題に変わります。

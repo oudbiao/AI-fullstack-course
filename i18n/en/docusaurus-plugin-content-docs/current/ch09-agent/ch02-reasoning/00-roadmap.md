@@ -24,7 +24,7 @@ So what really matters in this chapter is not “more reasoning terms,” but:
 
 ## The Main Thread of This Chapter
 
-![Agent reasoning and planning chapter learning sequence diagram](/img/course/ch09-reasoning-chapter-flow.png)
+![Agent reasoning and planning chapter learning sequence diagram](/img/course/ch09-reasoning-chapter-flow-en.png)
 
 ## A Learning Order That Suits Beginners Better
 

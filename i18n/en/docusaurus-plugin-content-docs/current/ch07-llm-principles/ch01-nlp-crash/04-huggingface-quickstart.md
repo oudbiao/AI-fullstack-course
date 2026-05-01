@@ -64,7 +64,7 @@ the most important call path usually looks like this:
 3. Feed the batch into the model
 4. Get hidden states, logits, or generated results from the output
 
-![HuggingFace standard workflow object relationship diagram](/img/course/ch07-huggingface-workflow-object-map.png)
+![HuggingFace standard workflow object relationship diagram](/img/course/ch07-huggingface-workflow-object-map-en.png)
 
 :::tip Reading the diagram
 When reading this diagram, think of HuggingFace as a standard lab bench: `tokenizer` turns text into tensors, `config` describes the model structure, `model.forward` performs the computation, and the output is then turned into hidden states, logits, or generation results. There are many API names, but the main line is actually very stable.

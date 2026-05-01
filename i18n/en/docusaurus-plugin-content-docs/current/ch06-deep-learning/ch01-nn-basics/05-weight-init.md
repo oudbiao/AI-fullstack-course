@@ -24,7 +24,7 @@ One of the key factors in whether a deep network trains successfully is **weight
 
 The easiest way for beginners to view initialization is as “an extra detail,” but it actually directly affects whether a model can start learning smoothly.
 
-![Weight initialization signal stability map](/img/course/ch06-weight-init-signal-stability-map.png)
+![Weight initialization signal stability map](/img/course/ch06-weight-init-signal-stability-map-en.png)
 
 What this section really aims to solve is:
 

@@ -16,7 +16,7 @@ keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 これはデータ処理、ログのストリーム、バッチ処理、サーバーサイドのコードでとてもよく使われます。
 :::
 
-![ジェネレータのストリーミングパイプライン図](/img/course/elective-generator-stream-pipeline.png)
+![ジェネレータのストリーミングパイプライン図](/img/course/elective-generator-stream-pipeline-ja.png)
 
 ## 学習目標
 

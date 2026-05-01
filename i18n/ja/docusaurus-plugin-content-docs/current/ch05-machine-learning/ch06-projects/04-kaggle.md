@@ -7,7 +7,7 @@ keywords: [Kaggle, コンペ, Titanic, データサイエンスコンペ, Notebo
 
 # Kaggle コンペ実戦（選修）
 
-![Kaggle コンペ提出のクローズドループ図](/img/course/kaggle-submission-loop.png)
+![Kaggle コンペ提出のクローズドループ図](/img/course/kaggle-submission-loop-ja.png)
 
 :::tip この節の位置づけ
 Kaggle は世界最大のデータサイエンスコンペプラットフォームです。入門コンペに参加することで、これまでに学んだすべてのスキルを**つなぎ合わせて**、実際の採点システムで確かめることができます。

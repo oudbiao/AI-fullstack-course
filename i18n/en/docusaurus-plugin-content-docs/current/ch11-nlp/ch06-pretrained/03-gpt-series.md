@@ -7,7 +7,7 @@ keywords: [GPT, autoregressive, causal language model, decoder-only, in-context 
 
 # GPT Series
 
-![GPT autoregressive generation diagram](/img/course/gpt-autoregressive-generation.png)
+![GPT autoregressive generation diagram](/img/course/gpt-autoregressive-generation-en.png)
 
 :::tip Where this section fits
 If BERT is more like a “text comprehension expert,” then the GPT path is more like:

@@ -7,7 +7,7 @@ keywords: [text summarization, extractive summarization, TF-IDF, evaluation, NLP
 
 # プロジェクト：テキスト要約システム
 
-![テキスト要約の抽出・生成・評価図](/img/course/ch11-summarization-extractive-generative-eval-map.png)
+![テキスト要約の抽出・生成・評価図](/img/course/ch11-summarization-extractive-generative-eval-map-ja.png)
 
 :::tip 図の見方
 要約プロジェクトでは、評価を見落としやすいです。図を見るときは extractive summary、generative summary、coverage、faithfulness、length control、そして手動評価をまとめて見て、まずは事実を落とさない要約を優先し、そのあとで表現の自然さを高めましょう。

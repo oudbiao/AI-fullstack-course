@@ -7,7 +7,7 @@ keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict
 
 # Scikit-learn フレームワーク入門
 
-![Scikit-learn Estimator と Pipeline 図](/img/course/sklearn-estimator-pipeline.png)
+![Scikit-learn Estimator と Pipeline 図](/img/course/sklearn-estimator-pipeline-ja.png)
 
 :::tip この節の位置づけ
 Scikit-learn は Python の機械学習における**事実上の標準ライブラリ**です。ほとんどすべての典型的な ML タスクはこれで実行できます。sklearn の API パターンを身につけると、あとでどんなアルゴリズムを学んでもとてもスムーズです。
@@ -42,7 +42,7 @@ Scikit-learn は Python の機械学習における**事実上の標準ライブ
 
 より安定した心のモデルは次の図です。
 
-![sklearn fit predict 統一フロー図](/img/course/ch05-sklearn-fit-predict-loop.png)
+![sklearn fit predict 統一フロー図](/img/course/ch05-sklearn-fit-predict-loop-ja.png)
 
 この流れを頭に入れておけば、あとでどの定番 ML モデルに切り替えても、あまり不安になりません。
 
@@ -166,7 +166,7 @@ flowchart LR
 | **Transformer** | `fit()`, `transform()` | データからパラメータを学び、データを変換する | 標準化、PCA、One-Hot Encoding |
 | **Pipeline** | 上の両方をつなぐ | 複数の手順をパイプラインとしてまとめる | 標準化 → PCA → 分類器 |
 
-![sklearn Pipeline コンポーネント分解図](/img/course/ch05-sklearn-pipeline-anatomy.png)
+![sklearn Pipeline コンポーネント分解図](/img/course/ch05-sklearn-pipeline-anatomy-ja.png)
 
 この図は sklearn の「部品説明書」のように使えます。Transformer はデータを整え、Estimator は規則を学び、Pipeline は学習と予測が同じ流れになるようにします。初心者はまずこの 3 つの役割を分けて理解すると、あとでモデルや前処理を切り替えるときに混乱しません。
 

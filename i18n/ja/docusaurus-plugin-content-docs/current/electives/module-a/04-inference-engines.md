@@ -7,9 +7,9 @@ keywords: [推論エンジン, ONNX Runtime, TensorRT, OpenVINO, 実行グラフ
 
 # 推論エンジン
 
-![推論エンジンとハードウェア適合図](/img/course/elective-inference-engine-hardware.png)
+![推論エンジンとハードウェア適合図](/img/course/elective-inference-engine-hardware-ja.png)
 
-![推論エンジン選定マトリクス図](/img/course/elective-inference-engine-selection-matrix.png)
+![推論エンジン選定マトリクス図](/img/course/elective-inference-engine-selection-matrix-ja.png)
 
 :::tip 図の読み方
 推論エンジンは、速ければ速いほどよいわけではありません。モデル形式、対象ハードウェア、レイテンシ/スループット、デプロイ環境、チームの保守力に合っていることが大切です。図を見るときは、ONNX Runtime、TensorRT、OpenVINO を、それぞれ異なる制約下で使うツール箱だと考えてください。

@@ -205,7 +205,7 @@ but a multi-objective balancing problem.
 
 This table is very worth remembering, because many later RLHF methods, rule-based guardrails, and evaluation rubrics are all built around these three questions.
 
-![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map.png)
+![Helpful Honest Harmless alignment tension map](/img/course/ch07-alignment-hhh-tension-guardrail-map-en.png)
 
 :::tip Reading guide
 When reading this diagram, pay attention to the triangular tension: Helpful means useful, Honest means admitting boundaries, and Harmless means blocking risk. Alignment is not just refusing everything, nor is it helping at all costs. It is about finding balance among the three for different requests, and implementing that balance through evaluation, policy, and guardrails.

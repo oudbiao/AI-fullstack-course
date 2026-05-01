@@ -7,7 +7,7 @@ keywords: [KNN, k-nearest neighbors, distance metric, lazy learning, classificat
 
 # K近傍
 
-![KNN 近傍投票図](/img/course/elective-knn-neighbor-voting.png)
+![KNN 近傍投票図](/img/course/elective-knn-neighbor-voting-ja.png)
 
 :::tip この節の位置づけ
 KNN は、直感をつかむのにとても向いているアルゴリズムの一つです。  

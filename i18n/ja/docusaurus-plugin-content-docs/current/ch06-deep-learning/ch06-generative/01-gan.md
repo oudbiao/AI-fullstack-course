@@ -7,7 +7,7 @@ keywords: [GAN, generator, discriminator, adversarial training, mode collapse]
 
 # GAN 基礎【選択】
 
-![GAN 生成器判別器対抗圖](/img/course/gan-adversarial-loop.png)
+![GAN 生成器判別器対抗圖](/img/course/gan-adversarial-loop-ja.png)
 
 :::tip 本節の位置づけ
 GAN のいちばんおもしろいところは、次の2点です。
@@ -113,7 +113,7 @@ GAN は、偽札工場と偽札判定機の戦いに似ています。
 - なぜ判別器が強すぎるといけないのか
 - なぜ生成サンプルは「それっぽく」なっても、途中で崩れることがあるのか
 
-![GAN 対抗学習のバランスとモード崩壊の図](/img/course/ch06-gan-adversarial-balance-map.png)
+![GAN 対抗学習のバランスとモード崩壊の図](/img/course/ch06-gan-adversarial-balance-map-ja.png)
 
 :::tip 図の読み方
 この図を読むときは、GAN を2人が同時に学んでいる状態として考えてください。生成器は「より本物らしくなる」ことを学び、判別器は「偽物を見破る」ことを学びます。判別器が強すぎると、生成器は有効なフィードバックを得られません。生成器が1つのだまし方しか覚えないと、mode collapse が起こりやすくなります。

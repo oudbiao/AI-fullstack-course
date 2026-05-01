@@ -7,7 +7,7 @@ keywords: [SVM, Support Vector Machine, maximum margin, kernel methods, supervis
 
 # SVM: Maximum Margin and Kernel Methods
 
-![SVM maximum margin intuition diagram](/img/course/ch05-svm-margin-map.png)
+![SVM maximum margin intuition diagram](/img/course/ch05-svm-margin-map-en.png)
 
 :::tip Section position
 SVM may not be the first-choice model for every project today, but it is a very important stop in classic machine learning.

@@ -10,7 +10,7 @@ description: "Overview of the C++ and Model Deployment module, helping you under
 To truly move a trained model into inference and deployment environments, you need a systematic understanding of performance, inference, and serviceization.
 :::
 
-![C++ and Model Deployment module learning map](/img/course/elective-cpp-deployment-module-map.png)
+![C++ and Model Deployment module learning map](/img/course/elective-cpp-deployment-module-map-en.png)
 
 ## Learning Goals
 

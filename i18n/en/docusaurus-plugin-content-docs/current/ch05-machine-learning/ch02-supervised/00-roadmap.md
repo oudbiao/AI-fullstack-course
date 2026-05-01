@@ -7,7 +7,7 @@ keywords: [supervised learning guide, linear regression, logistic regression, de
 
 # Pre-Class Guide: What Exactly Are We Learning in the Supervised Learning Chapter?
 
-![Supervised Learning Roadmap](/img/course/supervised-learning-roadmap.png)
+![Supervised Learning Roadmap](/img/course/supervised-learning-roadmap-en.png)
 
 The supervised learning chapter is the main thread of Chapter 5, Machine Learning from Basics to Practice. It addresses this question:
 
@@ -18,7 +18,7 @@ The supervised learning chapter is the main thread of Chapter 5, Machine Learnin
 This chapter is easy to learn as “one model after another.”  
 But a more stable way to understand it is to see it as a progressive main line:
 
-![Supervised Learning Chapter Flow](/img/course/ch05-supervised-chapter-flow.png)
+![Supervised Learning Chapter Flow](/img/course/ch05-supervised-chapter-flow-en.png)
 
 If you first grasp the line of “from simple to complex, from single models to multiple models,” this chapter will become much smoother to learn.
 

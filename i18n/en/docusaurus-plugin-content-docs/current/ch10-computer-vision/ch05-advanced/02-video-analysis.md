@@ -116,7 +116,7 @@ Instead, they first clarify:
 - Tracking logic
 - Event definition
 
-![Diagram of frame sampling, tracking, and temporal windows in video analysis](/img/course/ch10-video-frame-tracking-temporal-window-map.png)
+![Diagram of frame sampling, tracking, and temporal windows in video analysis](/img/course/ch10-video-frame-tracking-temporal-window-map-en.png)
 
 :::tip Reading guide
 Video is not “many images stacked together.” When reading this diagram, first look at frame sampling, then how detection + tracking link the same target across frames, and only then look at how the temporal window judges an action or event.

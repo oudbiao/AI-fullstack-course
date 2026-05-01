@@ -7,7 +7,7 @@ keywords: [data augmentation, flip, crop, color jitter, mixup, vision]
 
 # Data Augmentation Strategies
 
-![Example wall of image data augmentation](/img/course/cv-data-augmentation-gallery.png)
+![Example wall of image data augmentation](/img/course/cv-data-augmentation-gallery-en.png)
 
 :::tip Section focus
 One of the most common and easiest-to-underestimate techniques in image classification is data augmentation.
@@ -225,7 +225,7 @@ So augmentation is not “the more you add, the more advanced it is,” but rath
 
 - whether you are still respecting the semantic boundaries of the task itself
 
-![Diagram of augmentation invariance and semantic risk](/img/course/ch10-augmentation-invariance-risk-map.png)
+![Diagram of augmentation invariance and semantic risk](/img/course/ch10-augmentation-invariance-risk-map-en.png)
 
 :::tip Reading hint
 When reading this diagram, focus on one sentence: augmentation trains the model to ignore “reasonable changes,” but it must not break label semantics. For classification, detection, and segmentation, labels, boxes, and masks must be handled together.

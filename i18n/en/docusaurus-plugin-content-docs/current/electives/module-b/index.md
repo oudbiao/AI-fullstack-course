@@ -10,7 +10,7 @@ description: "An overview of the Advanced Python module to help you understand t
 These topics are not here to show off. They are here to help your future engineering code become more stable, faster, and easier to maintain.
 :::
 
-![Advanced Python Topics Module Map](/img/course/elective-python-advanced-module-map.png)
+![Advanced Python Topics Module Map](/img/course/elective-python-advanced-module-map-en.png)
 
 ## Learning Objectives
 

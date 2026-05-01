@@ -7,7 +7,7 @@ keywords: [機械学習の歴史, MLブレークスルー, ベイズ, 最尤法,
 
 # 機械学習の歴史的ブレークスルーの流れ
 
-![機械学習歴史ブレークスルーマップ](/img/course/ch05-ml-history-breakthrough-map.png)
+![機械学習歴史ブレークスルーマップ](/img/course/ch05-ml-history-breakthrough-map-ja.png)
 
 :::tip この節の位置づけ
 この節は、年号を暗記するためのものではありません。次のことを理解する助けにするためのものです。

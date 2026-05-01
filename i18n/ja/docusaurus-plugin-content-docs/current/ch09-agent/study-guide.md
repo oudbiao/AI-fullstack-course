@@ -13,7 +13,7 @@ keywords: [Agent 学習ガイド, AI Agent の学び方, ReAct の学び方, MCP
 
 Agent の最初の段階では、急いでマルチAgent に進んだり、いきなりフレームワークを積み重ねたりしないでください。まずは単体の Agent を安定させましょう。つまり、目標を理解し、次の一手を決め、ツールを呼び出し、結果を観察し、続けるかどうかを判断できるようにします。
 
-![最小 Agent 学習ループ図](/img/course/ch09-study-guide-minimal-agent-loop.png)
+![最小 Agent 学習ループ図](/img/course/ch09-study-guide-minimal-agent-loop-ja.png)
 
 ## 推奨学習順序
 

@@ -7,7 +7,7 @@ keywords: [LLM の歴史, 言語モデル, n-gram, RNN, Transformer, GPT]
 
 # 大規模モデルの発展の歴史
 
-![大規模モデル発展のタイムライン図](/img/course/llm-history-timeline.png)
+![大規模モデル発展のタイムライン図](/img/course/llm-history-timeline-ja.png)
 
 ## 学習目標
 

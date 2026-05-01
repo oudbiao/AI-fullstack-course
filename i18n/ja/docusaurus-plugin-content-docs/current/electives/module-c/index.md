@@ -10,7 +10,7 @@ description: "古典的機械学習の補足モジュール全体の概要。学
 これらのアルゴリズムは、多くの中小規模データのタスクで今でもとても役立ちます。学ぶ目的は、判断のための道具箱を補うことです。
 :::
 
-![古典的 ML 補足アルゴリズムモジュールマップ](/img/course/elective-classic-ml-module-map.png)
+![古典的 ML 補足アルゴリズムモジュールマップ](/img/course/elective-classic-ml-module-map-ja.png)
 
 ## 学習目標
 

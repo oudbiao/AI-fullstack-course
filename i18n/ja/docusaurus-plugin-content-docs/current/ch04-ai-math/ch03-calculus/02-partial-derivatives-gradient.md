@@ -7,7 +7,7 @@ keywords: [偏導数, 勾配, 多変数微積分, 勾配方向, Python, AI数学
 
 # 偏導数と勾配：多変数の変化する向き
 
-![勾配等高線方向場図](/img/course/gradient-contour-field.png)
+![勾配等高線方向場図](/img/course/gradient-contour-field-ja.png)
 
 ## 学習目標
 
@@ -45,7 +45,7 @@ keywords: [偏導数, 勾配, 多変数微積分, 勾配方向, Python, AI数学
 
 > **ある関数がたくさんの変数に影響されるとき、どの方向に調整すればよいのでしょうか？**
 
-![偏導数と勾配のつまみ調整図](/img/course/ch04-gradient-parameter-knobs-map.png)
+![偏導数と勾配のつまみ調整図](/img/course/ch04-gradient-parameter-knobs-map-ja.png)
 
 この節でいちばん大切なのは、まず記号を覚えることではなく、次を理解することです。
 

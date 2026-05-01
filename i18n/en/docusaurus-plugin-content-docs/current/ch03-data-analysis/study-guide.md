@@ -13,7 +13,7 @@ If you arrive at `02 Data Analysis and Visualization` and feel like there are to
 
 The first time you learn data analysis, focus on one main flow: read the data in, understand the fields first, then clean and organize it, then do statistical analysis, and finally use charts to present conclusions.
 
-![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop.png)
+![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-en.png)
 
 ## Recommended learning order
 

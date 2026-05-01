@@ -7,7 +7,7 @@ keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 
 # Attention機構
 
-![Self-Attention QKV 仕組み図](/img/course/self-attention-qkv.png)
+![Self-Attention QKV 仕組み図](/img/course/self-attention-qkv-ja.png)
 
 :::tip この節の位置づけ
 RNN が「順番に読みながら覚える」ものだとしたら、Attention機構は別の考え方です：
@@ -153,7 +153,7 @@ Attention の流れはこう理解できます。
 
 まずこの役割分担を理解してから、あとで行列形式を見るとずっと楽になります。
 
-![Attention QKV 図書館検索の比喩図](/img/course/ch06-attention-qkv-library-analogy-map.png)
+![Attention QKV 図書館検索の比喩図](/img/course/ch06-attention-qkv-library-analogy-map-ja.png)
 
 :::tip 図の読み方
 この図は資料検索として読むと分かりやすいです。`Q` は今あなたが尋ねたい質問、`K` は各資料に貼られた索引ラベル、`V` は実際に取り出す内容です。Attention はまず `Q` とすべての `K` を使ってスコアを出し、その重みで `V` を混ぜます。
@@ -365,7 +365,7 @@ print("masked weights =\n", np.round(weights, 3))
 
 つまり mask は細かい話ではなく、**生成タスクがルール通りに学習されているか** に直結します。
 
-![未来を見ないための Causal Mask 図](/img/course/ch06-causal-mask-no-peeking-map.png)
+![未来を見ないための Causal Mask 図](/img/course/ch06-causal-mask-no-peeking-map-ja.png)
 
 :::tip 図の読み方
 この図では下三角行列に注目してください。1 番目の位置は自分だけを見られ、2 番目の位置は自分と過去だけを見られ、以降も同じです。生成タスクで causal mask を付けないと、試験中に後ろの答えを先に見てしまうのと同じです。

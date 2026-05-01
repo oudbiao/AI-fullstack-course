@@ -7,7 +7,7 @@ keywords: [C++, basics, vector, reference, function, class, deployment]
 
 # C++ Programming Basics
 
-![C++ runtime and memory model diagram](/img/course/elective-cpp-runtime-memory.png)
+![C++ runtime and memory model diagram](/img/course/elective-cpp-runtime-memory-en.png)
 
 :::tip Where this section fits
 Many students working on AI applications are more familiar with Python.  

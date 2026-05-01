@@ -7,7 +7,7 @@ keywords: [object detection, bounding box, detection, localization, computer vis
 
 # 物体検出の概要
 
-![物体検出出力の分解図](/img/course/object-detection-output.png)
+![物体検出出力の分解図](/img/course/object-detection-output-ja.png)
 
 :::tip 本節の位置づけ
 画像分類では次のことしか答えられません：
@@ -207,7 +207,7 @@ print("IoU =", round(iou(gt_box, pred_box), 4))
 
 そのため、検出プロジェクトは単なるモデル出力というより、完成したシステムに近いものになります。
 
-![物体検出出力、IoU とエラータイプの図](/img/course/ch10-detection-output-iou-error-map.png)
+![物体検出出力、IoU とエラータイプの図](/img/course/ch10-detection-output-iou-error-map-ja.png)
 
 :::tip 図の見方
 この図では、検出の出力を class、box、score の3つに分け、さらに IoU を使って枠がどれくらい正確かを判断しています。検出エラーは単なる「1つのミス」ではなく、見逃し、誤検出、位置のずれ、重複枠が組み合わさって起こります。

@@ -7,7 +7,7 @@ keywords: [prompt, instruction, task framing, output format, constraints, prompt
 
 # Prompt 基礎
 
-![Prompt の改善前後比較カード](/img/course/prompt-before-after.png)
+![Prompt の改善前後比較カード](/img/course/prompt-before-after-ja.png)
 
 :::tip この節の位置づけ
 多くの人は Prompt を初めて学ぶと、次のように捉えがちです。
@@ -294,7 +294,7 @@ print(next_fix(prompt_checklist))
 
 - チェック可能なタスク仕様
 
-![Prompt 三層タスク仕様図](/img/course/ch07-prompt-spec-three-layer-map.png)
+![Prompt 三層タスク仕様図](/img/course/ch07-prompt-spec-three-layer-map-ja.png)
 
 :::tip 図の見方
 この図では Prompt を 3 層に分けています。タスク目標、出力形式、制約境界です。初学者は、まずロール設定や高度なテクニックを足す前に、この 3 つがちゃんと書かれているかを確認してください。安定しない出力の多くは、実はタスク仕様のどこか 1 層が抜けているだけです。

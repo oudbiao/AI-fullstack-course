@@ -252,7 +252,7 @@ Even if your prompt is written very well, the model may still:
 - output extra explanatory text
 - produce invalid JSON syntax
 
-![Structured output contract and validation loop](/img/course/ch07-structured-output-contract-validation-map.png)
+![Structured output contract and validation loop](/img/course/ch07-structured-output-contract-validation-map-en.png)
 
 :::tip Reading Guide
 It is best to read this diagram as an engineering loop: the Prompt first defines the JSON contract, the model outputs a structured result, the program parses and validates fields, types, and value ranges, and on failure it retries or routes to a human. Structured output is not “something that looks like JSON”; it is about the downstream program being able to reliably receive it.

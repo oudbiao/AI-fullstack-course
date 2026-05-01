@@ -7,7 +7,7 @@ keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation
 
 # Tokenization and Tokenizer
 
-![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow.png)
+![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow-en.png)
 
 :::tip Where This Section Fits
 When many people first learn about large models, they put all their attention on model architecture.  
@@ -143,7 +143,7 @@ The benefits of this approach are:
 
 This is also why methods like BPE, WordPiece, and SentencePiece are so important.
 
-![Tokenizer Granularity Trade-off Diagram](/img/course/ch07-tokenizer-granularity-tradeoff-map.png)
+![Tokenizer Granularity Trade-off Diagram](/img/course/ch07-tokenizer-granularity-tradeoff-map-en.png)
 
 :::tip Reading Tip
 It is best to read this diagram from left to right: character-level is the safest but produces the longest sequences, word-level has intuitive meaning but high OOV risk, and subword-level strikes a balance among vocabulary size, sequence length, and coverage of new words. A tokenizer is not about “what looks neat”; it is about balancing cost and expressiveness.
@@ -277,7 +277,7 @@ so `attention_mask` tells it:
 - `1` means a real token
 - `0` means padding
 
-![Tokenizer to input_ids and attention_mask Diagram](/img/course/ch07-tokenizer-inputids-mask-length-map.png)
+![Tokenizer to input_ids and attention_mask Diagram](/img/course/ch07-tokenizer-inputids-mask-length-map-en.png)
 
 :::tip Reading Tip
 When reading this diagram, break the process into four steps: the original text is first split into tokens, then mapped to `input_ids`, shorter sequences are padded with `[PAD]`, and finally `attention_mask` tells the model which positions are real content. Many batch errors and strange results come from not understanding this chain clearly.

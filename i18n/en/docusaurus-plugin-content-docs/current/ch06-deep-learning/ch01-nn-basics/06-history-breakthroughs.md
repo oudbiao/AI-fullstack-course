@@ -7,7 +7,7 @@ keywords: [deep learning history, three waves of neural networks, perceptron, XO
 
 # The Main Line of Breakthroughs in Deep Learning History
 
-![Deep Learning History Breakthrough Map](/img/course/ch06-dl-history-breakthrough-map.png)
+![Deep Learning History Breakthrough Map](/img/course/ch06-dl-history-breakthrough-map-en.png)
 
 :::tip Section Overview
 This section helps you place the model names in Chapter 6 back into their historical context.

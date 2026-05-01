@@ -6,7 +6,7 @@ description: "Master reshape, concatenation, splitting, and transpose operations
 
 # Array Reshaping and Operations
 
-![NumPy Reshaping and Axis Operations Diagram](/img/course/ch03-numpy-reshape-axis-flow.png)
+![NumPy Reshaping and Axis Operations Diagram](/img/course/ch03-numpy-reshape-axis-flow-en.png)
 
 ## Learning Objectives
 

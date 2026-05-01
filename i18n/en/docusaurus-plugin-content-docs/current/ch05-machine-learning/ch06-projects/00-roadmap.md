@@ -7,7 +7,7 @@ keywords: [machine learning project guide, house price prediction, customer chur
 
 # Pre-class Guide: How Should You Study This Project-Practice Chapter?
 
-![Machine Learning Project Practice Roadmap](/img/course/ml-projects-roadmap.png)
+![Machine Learning Project Practice Roadmap](/img/course/ml-projects-roadmap-en.png)
 
 This chapter is not a new algorithm lesson. Instead, it ties together the previous five chapters into a real project loop. In the earlier chapters, you learned task types, supervised learning, unsupervised learning, model evaluation, and feature engineering. In this project chapter, you will train yourself to turn a problem into a machine learning work product that can be modeled, evaluated, explained, and delivered.
 
@@ -17,7 +17,7 @@ The machine learning project chapter is the exit point of Station 5. It is meant
 
 From the course roadmap, this chapter also lays the foundation for later deep learning, LLM applications, and Agent work. Because no matter how complex the model is, the project mindset is similar: define the problem first, then build a baseline, then evaluate, improve, explain, and deliver.
 
-![Machine Learning Project Portfolio Loop](/img/course/ch05-projects-portfolio-loop.png)
+![Machine Learning Project Portfolio Loop](/img/course/ch05-projects-portfolio-loop-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -126,7 +126,7 @@ For each comprehensive project, it is recommended to deliver it according to the
 
 The most important thing when doing a project is not piling on lots of features, but clearly explaining: what problem you solved, how the system works, how performance is judged, how to locate failures, and how the next version will be improved.
 
-![Machine Learning Project Report Storyboard](/img/course/ch05-project-report-storyboard.png)
+![Machine Learning Project Report Storyboard](/img/course/ch05-project-report-storyboard-en.png)
 
 This diagram can serve as a project report template: first explain the problem and data, then show the baseline, metrics, model comparison, error samples, and next-step plan. What impresses people most in a portfolio is not “I ran many models,” but “I know why the model made these mistakes, and how I will improve it in the next round.”
 

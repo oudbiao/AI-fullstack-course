@@ -151,7 +151,7 @@ This example is very suitable for beginners because it helps you see:
 - what a dialog system really needs to keep is not just the raw words
 - it also includes structured state
 
-![Diagram of dialog state, slots, and memory management](/img/course/ch08-dialog-state-slot-memory-map.png)
+![Diagram of dialog state, slots, and memory management](/img/course/ch08-dialog-state-slot-memory-map-en.png)
 
 :::tip Reading the Diagram
 History is the raw material, while state is the system’s current understanding. In the diagram, topic, slots, last_tool_result, and summary are separated to avoid blindly stuffing all context into the prompt.

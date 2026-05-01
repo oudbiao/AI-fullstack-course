@@ -17,7 +17,7 @@ You have already learned the basics of multimodality, image generation, video an
 
 This chapter is not here to stop you from using AIGC. Instead, it helps you build product judgment: which materials can be used, which people cannot be generated casually, which content needs labeling, which outputs need review, and which scenarios require human confirmation and compliance workflows.
 
-![AIGC frontier ethics and compliance roadmap](/img/course/ch12-frontier-ethics-route-map.png)
+![AIGC frontier ethics and compliance roadmap](/img/course/ch12-frontier-ethics-route-map-en.png)
 
 The first half focuses on frontier technologies, real risks, and governance boundaries; the second half applies those judgments to product design, review processes, and release standards.
 

@@ -6,7 +6,7 @@ description: "Master file reading and writing, and data serialization"
 
 # File Operations and Serialization
 
-![File reading/writing and serialization flowchart](/img/course/ch02-file-io-serialization-flow.png)
+![File reading/writing and serialization flowchart](/img/course/ch02-file-io-serialization-flow-en.png)
 
 ## Where this section fits
 

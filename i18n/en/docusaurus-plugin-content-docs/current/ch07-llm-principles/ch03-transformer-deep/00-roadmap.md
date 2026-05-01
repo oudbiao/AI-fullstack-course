@@ -15,7 +15,7 @@ If you only know how to recite “multi-head attention + FFN + residual + LayerN
 
 ## Where this chapter fits in the large-model storyline
 
-![Transformer deep-dive chapter relationship diagram](/img/course/ch07-transformer-deep-chapter-flow.png)
+![Transformer deep-dive chapter relationship diagram](/img/course/ch07-transformer-deep-chapter-flow-en.png)
 
 The Transformer deep dive is the backbone of the large-model theory section. Later, when you see concepts like context windows, KV Cache, memory usage, inference latency, LoRA insertion points, and RAG context concatenation limits, you will come back to the ideas in this chapter.
 
@@ -32,7 +32,7 @@ The Transformer deep dive is the backbone of the large-model theory section. Lat
 
 First, how does information flow: how do tokens use Attention to see other tokens, and how do layers gradually build representations? Second, where is the computation expensive: why is Attention strongly tied to sequence length, and why does memory become a bottleneck? Third, how does the architecture serve the task: why do understanding tasks, generation tasks, and text-to-text tasks prefer different structures?
 
-![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map.png)
+![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map-en.png)
 
 ## How this connects to later chapters
 

@@ -7,7 +7,7 @@ keywords: [GAN, generator, discriminator, adversarial training, mode collapse]
 
 # GAN Basics [Optional]
 
-![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop.png)
+![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop-en.png)
 
 :::tip Section overview
 What makes GAN especially appealing is:
@@ -113,7 +113,7 @@ Once this idea is stable in your mind, many later phenomena become easier to und
 - Why the discriminator should not become too strong
 - Why generated samples may look realistic but still collapse
 
-![GAN adversarial training balance and mode collapse diagram](/img/course/ch06-gan-adversarial-balance-map.png)
+![GAN adversarial training balance and mode collapse diagram](/img/course/ch06-gan-adversarial-balance-map-en.png)
 
 :::tip Reading hint
 When reading this diagram, think of GAN as two people learning at the same time: the generator is learning to become “more real,” and the discriminator is learning to “spot the fake.” If the discriminator is too strong, the generator cannot get useful feedback; if the generator only knows one trick, mode collapse becomes likely.

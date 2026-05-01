@@ -18,7 +18,7 @@ LDA は、ほかの略語と混同しやすく、
 そのため、分類にも使えますし、教師あり次元削減法として見ることもできます。
 :::
 
-![LDA 教師あり投影の直感図](/img/course/elective-lda-projection-map.png)
+![LDA 教師あり投影の直感図](/img/course/elective-lda-projection-map-ja.png)
 
 ## 学習目標
 

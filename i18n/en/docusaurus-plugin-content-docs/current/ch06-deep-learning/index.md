@@ -7,7 +7,7 @@ keywords: [deep learning, PyTorch, neural network, CNN, RNN, Transformer, Attent
 
 # 6 Deep Learning and Transformer Basics
 
-![Main visual for Deep Learning and Transformer](/img/course/ch06-deep-learning.png)
+![Main visual for Deep Learning and Transformer](/img/course/ch06-deep-learning-en.png)
 
 This stage is about answering the question: “How does the model actually learn internally?” In the machine learning stage, you mostly use ready-made model interfaces. In the deep learning stage, you will truly see parameters, gradients, training loops, network structures, and representation learning.
 
@@ -17,7 +17,7 @@ If the machine learning stage is like driving a car, the deep learning stage is 
 
 ## Learning Quest Map
 
-![Deep learning learning quest map](/img/course/ch06-learning-quest-map.png)
+![Deep learning learning quest map](/img/course/ch06-learning-quest-map-en.png)
 
 ## Interactive Exercise: Watch the Four Numbers in the Training Loop
 
@@ -48,7 +48,7 @@ Experienced learners can go deeper into CNN, RNN, Attention, Transformer, regula
 
 Deep learning allows models to automatically learn complex representations from data. Edges, textures, and objects in images, as well as word meaning and context in text, can all be represented through multi-layer networks step by step. Transformer has further become the core architecture of large language models and multimodal models.
 
-![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone.png)
+![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone-en.png)
 
 If you want to understand each technical breakthrough in historical order, you can first read [1.2 Main Thread of Deep Learning Historical Breakthroughs](./ch01-nn-basics/06-history-breakthroughs.md). It will map the perceptron, XOR setbacks, backpropagation, vanishing gradients, LSTM, RBM/DBN, AlexNet, ResNet, Attention, and Transformer to the corresponding subsections in this chapter, helping you understand why models keep evolving generation after generation.
 

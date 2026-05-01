@@ -7,7 +7,7 @@ keywords: [finetuning, PEFT, full finetune, task adaptation, model customization
 
 # 微調整の概要
 
-![微調整とアラインメントの全体フロー図](/img/course/finetuning-alignment-pipeline.png)
+![微調整とアラインメントの全体フロー図](/img/course/finetuning-alignment-pipeline-ja.png)
 
 :::tip この節の位置づけ
 モデルのカスタマイズというと、多くの人が最初に思いつくのは：
@@ -154,7 +154,7 @@ flowchart TD
 
 この表はとても重要です。なぜなら、性能が悪いとすぐに微調整したくなる、というよくある失敗を防げるからです。実際のプロジェクトでは、パラメータを変えることで解決する問題ばかりではありません。
 
-![微調整前の方針選択の判断図](/img/course/ch07-finetune-decision-rag-prompt-peft-map.png)
+![微調整前の方針選択の判断図](/img/course/ch07-finetune-decision-rag-prompt-peft-map-ja.png)
 
 :::tip 図の読み方
 この図は、原因から順に読むのがおすすめです。知識不足ならまず RAG、形式の不安定さならまず Prompt/構造化出力、ツールの流れの問題ならまず Agent/ワークフローを見ます。長期的な振る舞いやスタイルが安定しないときに、ようやく微調整や PEFT が候補になります。微調整は最初の反応ではなく、判断したあとに選ぶ手段です。

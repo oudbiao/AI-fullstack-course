@@ -17,7 +17,7 @@ You have already learned the core capabilities of Agents, as well as evaluation 
 
 Deployment is not finished just because you put code on a server. For an Agent, deployment also includes the model calling layer, tool service layer, task queue, state storage, log tracing, error recovery, cost monitoring, permission management, and version iteration.
 
-![Agent production runtime architecture diagram](/img/course/ch09-production-runtime-map.png)
+![Agent production runtime architecture diagram](/img/course/ch09-production-runtime-map-en.png)
 
 The first half sets up the service, configuration, and runtime environment; the second half adds monitoring, cost control, fault recovery, and production operations.
 
@@ -31,13 +31,13 @@ The most common misunderstanding for beginners is: once the Agent logic is writt
 
 It is recommended to first learn deployment architecture and understand the relationships among the frontend, backend, model service, tool service, and storage. Then look at runtime management, focusing on synchronous tasks, asynchronous tasks, long-running tasks, and queues. Next, learn persistence and recovery to understand why task state, memory, logs, and intermediate results cannot be kept only in memory. After that, study cost optimization to understand how tokens, model choice, caching, batching, and the number of tool calls affect cost. Finally, learn production best practices and add monitoring, alerts, permissions, canary releases, and rollbacks.
 
-![Agent deployment and operations chapter learning flow diagram](/img/course/ch09-deployment-chapter-flow.png)
+![Agent deployment and operations chapter learning flow diagram](/img/course/ch09-deployment-chapter-flow-en.png)
 
 ## The Main Thread to Focus on in This Chapter
 
 The main thread of this chapter can be summarized as: deploying an Agent means putting the model, tools, state, and evaluation into an engineering system that can run, be observed, and recover.
 
-![Agent deployment observability and recovery loop](/img/course/ch09-deployment-observability-loop.png)
+![Agent deployment observability and recovery loop](/img/course/ch09-deployment-observability-loop-en.png)
 
 The first half sets up the service, configuration, and runtime environment; the second half adds monitoring, cost control, fault recovery, and production operations.
 

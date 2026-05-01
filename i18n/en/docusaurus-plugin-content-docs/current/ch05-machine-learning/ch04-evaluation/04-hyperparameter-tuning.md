@@ -7,7 +7,7 @@ keywords: [hyperparameter tuning, GridSearchCV, RandomizedSearchCV, Optuna, Baye
 
 # Hyperparameter Tuning
 
-![Comparison of hyperparameter search methods](/img/course/hyperparameter-tuning-search.png)
+![Comparison of hyperparameter search methods](/img/course/hyperparameter-tuning-search-en.png)
 
 :::tip Section overview
 Model **hyperparameters** (such as tree depth, learning rate, and regularization strength) must be set manually, and they have a huge impact on model performance. This section teaches you how to search for the best hyperparameters **systematically**, instead of guessing and trying blindly.
@@ -42,7 +42,7 @@ So the most important first layer in this section is not how many search tools y
 
 For beginners, the best way to understand hyperparameter tuning is not “learn a few search tools first,” but to see where it fits in the machine learning workflow:
 
-![Hyperparameter tuning validation workflow diagram](/img/course/ch05-hyperparameter-tuning-workflow.png)
+![Hyperparameter tuning validation workflow diagram](/img/course/ch05-hyperparameter-tuning-workflow-en.png)
 
 What this section really wants to solve is:
 
@@ -64,7 +64,7 @@ But what really matters is not how often you turn the knobs, but:
 
 So tuning is more like experimental design, not just parameter search.
 
-![Hyperparameter search space and budget diagram](/img/course/ch05-search-space-budget-map.png)
+![Hyperparameter search space and budget diagram](/img/course/ch05-search-space-budget-map-en.png)
 
 When reading this diagram, first look at the “budget” line: the more parameters and the larger the ranges, the more the number of combinations explodes. For your first tuning attempt, do not twist every knob at once. Start with the parameters that most affect complexity, such as `max_depth` and `min_samples_leaf` in tree models, and then gradually expand the search space.
 

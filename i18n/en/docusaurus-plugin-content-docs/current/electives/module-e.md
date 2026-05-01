@@ -7,9 +7,9 @@ keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 
 # Web Front-End Basics in Fast Track
 
-![AI front-end interaction stack diagram](/img/course/elective-ai-frontend-stack.png)
+![AI front-end interaction stack diagram](/img/course/elective-ai-frontend-stack-en.png)
 
-![AI front-end state machine and experience loop diagram](/img/course/elective-ai-frontend-state-machine-map.png)
+![AI front-end state machine and experience loop diagram](/img/course/elective-ai-frontend-state-machine-map-en.png)
 
 :::tip Reading the diagram
 An AI front end is not just a results display page. It needs to handle states such as idle, loading, streaming, success, error, retry, and cancel. When reading the diagram, think of model calls as an interaction flow with “uncertain latency.”

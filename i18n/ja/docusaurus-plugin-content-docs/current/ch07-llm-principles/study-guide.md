@@ -13,7 +13,7 @@ keywords: [LLM 学習ガイド, Transformer はどう学ぶ, Prompt はどう学
 
 大規模モデルを最初に学ぶときは、1 本の進化の流れをつかむことが大切です。テキストが token に分かれ、token が embedding になり、Transformer が文脈をモデリングし、事前学習で汎用能力を獲得し、Prompt・ファインチューニング・アラインメントによって能力がより使いやすくなります。
 
-![大規模モデル学習ガイドの進化の流れ](/img/course/ch07-study-guide-evolution-line.png)
+![大規模モデル学習ガイドの進化の流れ](/img/course/ch07-study-guide-evolution-line-ja.png)
 
 ## おすすめの学習順序
 

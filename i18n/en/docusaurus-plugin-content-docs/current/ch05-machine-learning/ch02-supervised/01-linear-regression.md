@@ -7,7 +7,7 @@ keywords: [linear regression, least squares, gradient descent, regularization, R
 
 # Linear Regression
 
-![Linear regression fitting and loss landscape](/img/course/linear-regression-loss-landscape.png)
+![Linear regression fitting and loss landscape](/img/course/linear-regression-loss-landscape-en.png)
 
 :::tip Section Focus
 Linear regression is the **simplest and most important** machine learning algorithm. It is the foundation for understanding all later algorithms—logistic regression, neural networks, and even the core ideas behind GPT all show traces of it.
@@ -49,7 +49,7 @@ When learning linear regression for the first time, two situations are most comm
 
 A more stable learning order is:
 
-![Linear regression learning flowchart](/img/course/ch05-linear-regression-learning-flow.png)
+![Linear regression learning flowchart](/img/course/ch05-linear-regression-learning-flow-en.png)
 
 If you first grasp this line, all the formulas later will be easier to connect to a clear problem.
 
@@ -746,7 +746,7 @@ If you have just learned linear regression, the most stable next step is not to 
 
 This chain is actually the prototype of the entire machine learning project workflow.
 
-![Linear regression residual diagnostics](/img/course/ch05-linear-regression-residual-diagnostics.png)
+![Linear regression residual diagnostics](/img/course/ch05-linear-regression-residual-diagnostics-en.png)
 
 When reading this chart, do not stare only at `R²`. First check whether the residuals are randomly scattered; if the residuals show a curved pattern, the model may be underfitting; if a few points have very large errors, check for outliers first; if the error grows as the prediction grows, you may need to transform the target or use a different metric.
 

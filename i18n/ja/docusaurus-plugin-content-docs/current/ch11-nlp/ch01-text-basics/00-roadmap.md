@@ -22,7 +22,7 @@ keywords: [テキスト基礎ガイド, NLPガイド, テキスト表現]
 
 ## この章の主線
 
-![テキスト基礎章の学習順序図](/img/course/ch11-text-basics-chapter-flow.png)
+![テキスト基礎章の学習順序図](/img/course/ch11-text-basics-chapter-flow-ja.png)
 
 この章をしっかり理解できないと、後ろの word embedding、分類、BERT などは、用語だけが残ってしまいやすくなります。
 

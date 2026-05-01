@@ -13,7 +13,7 @@ If you reach `8 LLM Application Development and RAG` and feel that frameworks, d
 
 For LLM applications, the first thing to understand is the four layers: the knowledge layer is responsible for bringing data into the system, the model layer is responsible for generation and understanding, the application layer is responsible for organizing features, and the engineering layer is responsible for stable operation.
 
-![LLM application four-layer learning map](/img/course/ch08-study-guide-four-layer-map.png)
+![LLM application four-layer learning map](/img/course/ch08-study-guide-four-layer-map-en.png)
 
 ## Recommended Learning Order
 

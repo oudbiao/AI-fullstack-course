@@ -26,7 +26,7 @@ keywords: [物体検出ガイド, YOLO, IoU, mAP]
 
 ## この章のメインの流れ
 
-![物体検出章の学習順序図](/img/course/ch10-detection-chapter-flow.png)
+![物体検出章の学習順序図](/img/course/ch10-detection-chapter-flow-ja.png)
 
 この章を学ぶときに大事なのは、まずモデル名を暗記することではなく、まず बॉक्स、IoU、mAP、そして複数対象の場面を理解することです。
 

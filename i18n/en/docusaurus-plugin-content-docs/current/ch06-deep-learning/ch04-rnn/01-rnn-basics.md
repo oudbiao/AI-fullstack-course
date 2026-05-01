@@ -7,7 +7,7 @@ keywords: [RNN, sequence modeling, hidden state, recurrent neural network, time 
 
 # RNN Basics
 
-![RNN time-unrolled hidden state diagram](/img/course/rnn-unrolled-hidden-state.png)
+![RNN time-unrolled hidden state diagram](/img/course/rnn-unrolled-hidden-state-en.png)
 
 :::tip Section Focus
 The earlier MLP and CNN are better at handling “static inputs,” while RNNs are designed to solve a different kind of problem:
@@ -171,7 +171,7 @@ Just understand this one point first:
 
 That is why RNNs can handle variable-length sequences without adding an entirely new set of parameters for every new position.
 
-![RNN hidden-state rolling memory diagram](/img/course/ch06-rnn-hidden-state-rolling-memory-map.png)
+![RNN hidden-state rolling memory diagram](/img/course/ch06-rnn-hidden-state-rolling-memory-map-en.png)
 
 :::tip Reading Tip
 You can read this diagram from left to right: at each time step, the current input `x_t` and the old memory `h_{t-1}` are used to produce a new memory `h_t`. The core of an RNN is not that “the recurrence is complicated,” but that the model updates a compressed summary every time it reads a step.
@@ -421,7 +421,7 @@ That is also why:
 - LSTM / GRU improved the situation first
 - Transformer later changed the approach at a deeper level
 
-![RNN long-dependency and vanishing-gradient intuition diagram](/img/course/ch06-rnn-long-dependency-vanishing-map.png)
+![RNN long-dependency and vanishing-gradient intuition diagram](/img/course/ch06-rnn-long-dependency-vanishing-map-en.png)
 
 :::tip Reading Tip
 When reading this diagram, pay attention to the two decay lines: one shows early information becoming weaker as it passes through the hidden state, and the other shows gradients becoming weaker as they backpropagate to early time steps. LSTM / GRU and Transformer are both responses to these two pain points.

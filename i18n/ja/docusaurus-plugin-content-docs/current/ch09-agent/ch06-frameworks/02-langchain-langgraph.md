@@ -237,7 +237,7 @@ while state["next"] is not None:
 
 これが、グラフ型ワークフローの本質的な強みです。
 
-![LangGraph 状態機械と条件付きエッジの図](/img/course/ch09-langgraph-state-machine-map.png)
+![LangGraph 状態機械と条件付きエッジの図](/img/course/ch09-langgraph-state-machine-map-ja.png)
 
 :::tip 図の読み方
 この図は、「チェーン型の手順」から「状態機械」へ切り替える助けになります。ノードは state を処理し、条件付きエッジが次の行き先を決め、checkpoint により複雑なフローでも復元やデバッグがしやすくなります。

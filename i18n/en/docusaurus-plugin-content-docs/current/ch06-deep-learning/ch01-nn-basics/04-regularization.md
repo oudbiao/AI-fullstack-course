@@ -7,7 +7,7 @@ keywords: [regularization, Dropout, Batch Normalization, Layer Normalization, da
 
 # Regularization in Deep Learning
 
-![Regularization controls overfitting](/img/course/regularization-overfitting-controls.png)
+![Regularization controls overfitting](/img/course/regularization-overfitting-controls-en.png)
 
 :::tip Section overview
 Deep networks have a huge number of parameters, so they can overfit very easily. This section introduces regularization techniques specific to deep learning—**Dropout and BatchNorm are the two you must master.**
@@ -207,7 +207,7 @@ So a more stable habit is:
 - First judge roughly which layer the problem is coming from
 - Then decide whether to handle it through data, structure, parameters, or the training process
 
-![Map from overfitting issues to regularization actions](/img/course/ch06-regularization-overfit-action-map.png)
+![Map from overfitting issues to regularization actions](/img/course/ch06-regularization-overfit-action-map-en.png)
 
 :::tip Reading guide
 This diagram is meant to help you build an order of operations: first check the data split and validation curve, then consider data augmentation, weight decay, early stopping, and Dropout. Dropout is useful, but it should not be your first reaction to every overfitting problem.

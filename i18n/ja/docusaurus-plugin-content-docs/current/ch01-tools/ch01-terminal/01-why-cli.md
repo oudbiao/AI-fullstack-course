@@ -6,7 +6,7 @@ description: "AI 開発におけるコマンドラインの重要性を理解す
 
 # なぜコマンドラインを学ぶのか
 
-![コマンドライン自動化ワークフロー図](/img/course/ch01-cli-automation-workflow.png)
+![コマンドライン自動化ワークフロー図](/img/course/ch01-cli-automation-workflow-ja.png)
 
 ## この節の位置づけ
 

@@ -7,7 +7,7 @@ keywords: [アンサンブル学習, ランダムフォレスト, Bagging, Boost
 
 # アンサンブル学習
 
-![集約学習の投票と森林の図](/img/course/ensemble-learning-voting-forest.png)
+![集約学習の投票と森林の図](/img/course/ensemble-learning-voting-forest-ja.png)
 
 :::tip この節の位置づけ
 アンサンブル学習は、ML コンペや実務で**最もよく使われる**技術のひとつです。考え方はとてもシンプルです。**三人寄れば文殊の知恵**——複数の弱いモデルを組み合わせると、1つの強いモデルより良い結果になります。XGBoost と LightGBM は、今でも表形式データの「まず試す定番」です。
@@ -54,7 +54,7 @@ keywords: [アンサンブル学習, ランダムフォレスト, Bagging, Boost
 
 いきなり道具名で覚えると、知識がバラバラになりやすいです。より安定した理解順は次の通りです。
 
-![Bagging と Boosting の対比図](/img/course/ch05-ensemble-bagging-boosting-flow.png)
+![Bagging と Boosting の対比図](/img/course/ch05-ensemble-bagging-boosting-flow-ja.png)
 
 「並列投票」と「順番に誤りを修正する」の2本の流れを先に分けておけば、あとからモデル名が混ざりにくくなります。
 
@@ -162,7 +162,7 @@ flowchart LR
 
 最初からライブラリ名やパラメータに入るより、この全体像を持っておいた方が理解しやすいです。
 
-![集約学習の誤り修正ラボの図](/img/course/ch05-ensemble-error-correction-lab.png)
+![集約学習の誤り修正ラボの図](/img/course/ch05-ensemble-error-correction-lab-ja.png)
 
 この図を見るときは、まず「強くなる2つの方法」を分けて考えましょう。ランダムフォレストはたくさんの木の平均でブレを小さくし、Boosting は後ろのラウンドで前のラウンドの誤りを直しながら表現力を上げていきます。前者は多数決、後者は連続添削です。これを押さえておくと、XGBoost、LightGBM、CatBoost を見たときに、名前だけを覚える状態になりにくいです。
 

@@ -7,7 +7,7 @@ keywords: [NLP, Natural Language Processing, Transformer, BERT, word vectors, te
 
 # 11 Natural Language Processing (Elective Track)
 
-![Natural Language Processing hero visual](/img/course/ch11-nlp.png)
+![Natural Language Processing hero visual](/img/course/ch11-nlp-en.png)
 
 This stage is about “how to get a model to handle text.” In the era of LLMs, many NLP basics are wrapped into LLMs, but if you want a deeper understanding of large models, text tasks, information extraction, search, and question-answering systems, NLP is still very important.
 
@@ -17,7 +17,7 @@ Text is neither as neat as tables nor as fixed as images made of pixels. A word 
 
 ## Learning quest map
 
-![NLP learning quest map](/img/course/ch11-learning-quest-map.png)
+![NLP learning quest map](/img/course/ch11-learning-quest-map-en.png)
 
 ## Interactive exercise: Break one sentence into three layers of information
 
@@ -48,7 +48,7 @@ More experienced learners can go deeper into contextual representations, sequenc
 
 NLP is one of the important sources of large models. Concepts such as tokens, embeddings, language models, Seq2Seq, attention, and pretrained models all continue to exist in large models. Learning NLP is not about staying with old methods; it is about understanding the technical foundation that came before large models.
 
-![NLP to LLM technical backbone diagram](/img/course/ch11-nlp-to-llm-backbone.png)
+![NLP to LLM technical backbone diagram](/img/course/ch11-nlp-to-llm-backbone-en.png)
 
 ## What should beginners do first, and what should advanced learners do later?
 

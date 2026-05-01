@@ -7,7 +7,7 @@ keywords: [AIGC trends, multimodal, real-time generation, small models, agentic 
 
 # AIGC Frontier Trends
 
-![AIGC Frontier Trend System Map](/img/course/ch12-aigc-frontier-system-trend-map.png)
+![AIGC Frontier Trend System Map](/img/course/ch12-aigc-frontier-system-trend-map-en.png)
 
 :::tip Reading guide
 Frontier trends should be judged by looking at “model capability, cost efficiency, product form, compliance boundaries, and workflow integration” together. Looking only at leaderboards can easily make you anxious; understanding system changes makes it easier to know what to learn next.

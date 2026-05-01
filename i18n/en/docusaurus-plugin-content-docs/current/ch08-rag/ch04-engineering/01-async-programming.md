@@ -267,7 +267,7 @@ This example means:
 
 This table is useful for beginners because it turns “when should I use async, and when should I rate-limit?” into specific decisions.
 
-![Async concurrency, Semaphore, and timeout control diagram](/img/course/ch08-async-concurrency-semaphore-timeout-map.png)
+![Async concurrency, Semaphore, and timeout control diagram](/img/course/ch08-async-concurrency-semaphore-timeout-map-en.png)
 
 :::tip Reading guide
 Asynchrony is not unlimited concurrency. In the diagram, `gather` handles concurrent waiting, `Semaphore` handles rate limiting, and `timeout` prevents requests from getting stuck. Together, these three are much closer to real-world engineering.

@@ -134,7 +134,7 @@ FlashAttention は、よく次のように誤解されます。
 
 モデルが突然、まったく別の関係を理解できるようになるわけではありません。
 
-![高効率注意力のボトルネック分解図](/img/course/ch07-efficient-attention-bottleneck-map.png)
+![高効率注意力のボトルネック分解図](/img/course/ch07-efficient-attention-bottleneck-map-ja.png)
 
 :::tip 図の見方
 この図は方法名を丸暗記するためのものではありません。まずボトルネックを分けて考えます。コンテキストが長すぎるなら sliding/local attention、KV cache が大きすぎるなら MQA/GQA、VRAM の読み書きが重いなら FlashAttention を見ます。効率的な注意力は万能の公式ではなく、いくつかのエンジニアリング上のトレードオフです。
@@ -301,7 +301,7 @@ print("MQA units =", kv_units(32, 1, head_dim, seq_len))
 - `num_kv_heads` が少ないほど
 - KV cache は小さくなる
 
-![KV cache と MHA/GQA/MQA の比較図](/img/course/ch07-kv-cache-mqa-gqa-map.png)
+![KV cache と MHA/GQA/MQA の比較図](/img/course/ch07-kv-cache-mqa-gqa-map-ja.png)
 
 :::tip 図の見方
 この図は推論の観点で見るのがおすすめです。通常の MHA では各 query head が K/V を持つことが多く、GQA では query head のグループごとに K/V を共有し、MQA ではさらに多くの head が同じ K/V を共有します。共有が増えるほど KV cache は小さくなりますが、その分、表現力の一部をトレードオフとして受け入れる必要があります。

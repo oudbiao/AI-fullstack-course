@@ -6,7 +6,7 @@ description: "Master core operations such as groupby aggregation and pivot table
 
 # Grouping and Aggregation
 
-![Pandas GroupBy grouping and aggregation flowchart](/img/course/ch03-pandas-groupby-split-apply-combine.png)
+![Pandas GroupBy grouping and aggregation flowchart](/img/course/ch03-pandas-groupby-split-apply-combine-en.png)
 
 :::tip Section focus
 When many beginners first learn `groupby`, they often feel:

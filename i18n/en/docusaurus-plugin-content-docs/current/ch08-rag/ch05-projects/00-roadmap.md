@@ -15,7 +15,7 @@ Chapter 8, LLM Application Development and RAG, is different from Chapter 7, whi
 
 You have already learned RAG, model deployment, application development, and engineering practices. The capstone projects are the exit point of this stage—they prove that you can do more than write a single model call; you can organize documents, retrieval, dialogue, tools, structured output, citations, evaluation, and deployment instructions into one system.
 
-![LLM application capstone project roadmap](/img/course/ch08-projects-route-map.png)
+![LLM application capstone project roadmap](/img/course/ch08-projects-route-map-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -27,13 +27,13 @@ The mistake beginners make most often is treating a project as “just connect a
 
 It is recommended to start with an enterprise knowledge base Q&A system or a course knowledge base Q&A system, because it trains the main RAG pipeline best. Then build an intelligent Q&A assistant, connecting retrieval, session state, and tool calling into product features. Next, build a combined RAG + fine-tuning system to understand how knowledge enhancement and behavior adaptation can work together. Finally, you can build a knowledge-base-driven courseware generation assistant, putting document parsing, example extraction, structured output, and template-based generation into a more complete application scenario.
 
-![LLM application project learning order diagram](/img/course/ch08-project-learning-order-map.png)
+![LLM application project learning order diagram](/img/course/ch08-project-learning-order-map-en.png)
 
 ## The Main Thread to Focus on in This Chapter
 
 The main thread of this chapter can be summarized as: an LLM application project is not a one-time generation task, but a closed loop of knowledge, model, features, and engineering.
 
-![LLM application project delivery loop diagram](/img/course/ch08-project-delivery-loop.png)
+![LLM application project delivery loop diagram](/img/course/ch08-project-delivery-loop-en.png)
 
 Once you understand this line, you will know that project demos should not only show the final answer. You should also show retrieved passages, source citations, failure handling, log examples, evaluation questions, and next-step improvements.
 

@@ -40,7 +40,7 @@ then databases will show up again very quickly.
 
 For beginners, the best way to understand this database chapter is not to "memorize SQL syntax first," but to first see clearly:
 
-![Database elective learning roadmap](/img/course/ch03-database-roadmap.png)
+![Database elective learning roadmap](/img/course/ch03-database-roadmap-en.png)
 
 So what this chapter really wants to solve is:
 

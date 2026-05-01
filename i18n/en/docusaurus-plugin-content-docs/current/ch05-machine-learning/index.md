@@ -7,7 +7,7 @@ keywords: [machine learning, Scikit-learn, supervised learning, unsupervised lea
 
 # 5 Introduction to Machine Learning: From Basics to Practice
 
-![Main visual for machine learning](/img/course/ch05-machine-learning.png)
+![Main visual for machine learning](/img/course/ch05-machine-learning-en.png)
 
 This stage is about solving the question: “Can a problem be turned into a trainable, evaluable, and improvable model project?” You will start from data and complete task definition, baseline creation, training, evaluation, feature engineering, and review.
 
@@ -17,7 +17,7 @@ You can think of machine learning as training an intern: first, you give it some
 
 ## Learning quest map
 
-![Machine learning learning quest map](/img/course/ch05-learning-quest-map.png)
+![Machine learning learning quest map](/img/course/ch05-learning-quest-map-en.png)
 
 ## Interactive exercise: Guess first, then train, then review
 
@@ -48,7 +48,7 @@ Experienced learners can focus on feature engineering, cross-validation, bias an
 
 Machine learning moved AI from “human-written rules” to “machines learning patterns from data.” The era of expert systems relied on large numbers of manual rules, while machine learning started to let models fit patterns automatically from data. Today’s large models are very powerful, but machine learning ideas such as data splits, evaluation metrics, overfitting, generalization, features, and error analysis are still the foundation of AI engineering.
 
-![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone.png)
+![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone-en.png)
 
 If you want to understand each technical breakthrough in historical order, you can first read [1.2 Main line of machine learning historical breakthroughs](./ch01-ml-basics/04-history-breakthroughs.md). It maps Bayes, MLE, EM, linear models, decision trees, SVM, random forests, boosting, XGBoost, and sklearn to the corresponding sections in this chapter, so you can understand why each algorithm appeared.
 

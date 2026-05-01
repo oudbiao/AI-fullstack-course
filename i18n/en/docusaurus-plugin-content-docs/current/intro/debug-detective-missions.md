@@ -7,7 +7,7 @@ keywords: [Debug, troubleshooting tasks, detective missions, AI engineering erro
 
 # Debug Detective Mission Set
 
-![Debug Detective Mission Set](/img/course/debug-detective-missions.png)
+![Debug Detective Mission Set](/img/course/debug-detective-missions-en.png)
 
 Debug is not where learning fails; it is where engineering learning truly begins. Many beginners find it boring because tutorials only show the success path. But in real projects, the most valuable skill often comes from asking, “Why didn’t it work as expected?”
 

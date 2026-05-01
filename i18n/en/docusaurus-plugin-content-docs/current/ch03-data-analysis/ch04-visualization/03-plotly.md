@@ -38,7 +38,7 @@ This section is optional. If you are short on time, you can skip it for now and 
 
 `Plotly` is best understood through the question: “When do I want users to explore the chart themselves?”
 
-![Plotly interactive dashboard diagram](/img/course/ch03-plotly-interactive-dashboard.png)
+![Plotly interactive dashboard diagram](/img/course/ch03-plotly-interactive-dashboard-en.png)
 
 So what this section really tries to answer is:
 

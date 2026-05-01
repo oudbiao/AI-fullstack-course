@@ -7,7 +7,7 @@ keywords: [information extraction, NER, relation extraction, structured output, 
 
 # Project: Information Extraction
 
-![Information Extraction schema flowchart](/img/course/ch11-information-extraction-schema-pipeline-map.png)
+![Information Extraction schema flowchart](/img/course/ch11-information-extraction-schema-pipeline-map-en.png)
 
 :::tip Reading Guide
 The key to information extraction is to define the schema first, then let the text reliably map to fields, entities, and relationships. When reading the diagram, focus on how rules, NER, relation extraction, JSON output, and human review connect into a deliverable workflow.

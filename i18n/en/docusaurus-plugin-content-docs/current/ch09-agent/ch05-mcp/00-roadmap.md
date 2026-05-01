@@ -17,7 +17,7 @@ You have already learned Agent tool calling and memory systems. Tool calling let
 
 You can think of MCP as a connection layer. It does not replace Agent, and it does not replace the tools themselves. Instead, it lets different tools and data sources be discovered, described, called, and combined in a more standard way.
 
-![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server.png)
+![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,13 +29,13 @@ The most common misunderstanding for beginners is thinking MCP is a specific too
 
 It is recommended to first learn MCP’s concept and positioning, so you understand that it solves connection and standardization problems. Then look at the architecture and clarify the roles of MCP Client, MCP Server, tools, resources, and protocol messages. Next, learn Server development and understand how to package an external capability into a service that can be called. After that, study Client integration and understand how model applications discover and use these capabilities. Finally, look at the MCP ecosystem and learn why it combines with Agent, IDEs, knowledge bases, browsers, databases, and other scenarios.
 
-![MCP chapter learning order diagram](/img/course/ch09-mcp-chapter-flow.png)
+![MCP chapter learning order diagram](/img/course/ch09-mcp-chapter-flow-en.png)
 
 ## The Main Thread to Hold Onto in This Chapter
 
 The main thread of this chapter can be summarized as: MCP packages external capabilities into context interfaces that model applications can discover and call in a unified way.
 
-![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge.png)
+![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-en.png)
 
 Once you understand this thread, you will know the relationship between MCP and Function Calling: Function Calling focuses more on how the model initiates structured calls, while MCP focuses more on how external tools and context are connected to applications through a unified protocol.
 

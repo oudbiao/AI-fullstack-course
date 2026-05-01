@@ -202,7 +202,7 @@ for call in calls:
 - まず実行計画を作る
 - その後、ユーザーまたは管理者の確認を求める
 
-![ツールの安全性、権限、サンドボックス、監査の図](/img/course/ch09-tool-safety-permission-sandbox-map.png)
+![ツールの安全性、権限、サンドボックス、監査の図](/img/course/ch09-tool-safety-permission-sandbox-map-ja.png)
 
 :::tip 図の読み方
 この図を読むときは、「ツール呼び出し」を実際の操作だと思ってください。低リスクならすぐ記録できますが、高リスクなら権限、サンドボックス、手動確認、そして audit log を通す必要があります。Agent が行動できるほど、システムのガードは省略できません。

@@ -7,7 +7,7 @@ keywords: [TTS, text to speech, vocoder, speech synthesis, voice cloning, speake
 
 # Speech Synthesis
 
-![TTS text-to-speech generation pipeline diagram](/img/course/ch12-tts-text-to-speech-pipeline-map.png)
+![TTS text-to-speech generation pipeline diagram](/img/course/ch12-tts-text-to-speech-pipeline-map-en.png)
 
 :::tip Reading tip
 TTS is not about reading characters one by one. When reading this diagram, focus on how text normalization, phonemes/prosody, acoustic features, the vocoder, voice timbre, and real-time performance work together to determine how “human-like” the speech sounds.

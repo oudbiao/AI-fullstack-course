@@ -16,7 +16,7 @@ But in real-world engineering, their most important value is actually this:
 This is very common in data processing, log streams, batch jobs, and server-side code.
 :::
 
-![Generator streaming pipeline diagram](/img/course/elective-generator-stream-pipeline.png)
+![Generator streaming pipeline diagram](/img/course/elective-generator-stream-pipeline-en.png)
 
 ## Learning Objectives
 

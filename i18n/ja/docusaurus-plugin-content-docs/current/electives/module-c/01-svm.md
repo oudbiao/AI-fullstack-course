@@ -7,9 +7,9 @@ keywords: [SVM, support vector machine, max margin, kernel, classification, clas
 
 # サポートベクターマシン
 
-![SVM 最大マージンとサポートベクターの図](/img/course/elective-svm-margin-support-vectors.png)
+![SVM 最大マージンとサポートベクターの図](/img/course/elective-svm-margin-support-vectors-ja.png)
 
-![SVM のパラメータ C と kernel 選択図](/img/course/elective-svm-c-kernel-decision-map.png)
+![SVM のパラメータ C と kernel 選択図](/img/course/elective-svm-c-kernel-decision-map-ja.png)
 
 :::tip 図の読み方
 SVM のポイントは公式を暗記することではなく、`C` が「許容誤差 vs マージン」を、`kernel` が「線形境界 vs 非線形境界」をどう決めるかを理解することです。図を見るときは、特徴量のスケーリングをほぼ必ず最初に行うことも一緒に覚えましょう。

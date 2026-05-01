@@ -7,7 +7,7 @@ keywords: [AI projects, AI portfolio, RAG projects, Agent projects, AI full-stac
 
 # Project Roadmap and Portfolio
 
-![Project portfolio growth ladder](/img/course/intro-project-portfolio-roadmap.png)
+![Project portfolio growth ladder](/img/course/intro-project-portfolio-roadmap-en.png)
 
 The most effective way to learn AI is not to keep watching tutorials, but to keep building small projects that can run, be explained, and be shown to others. Projects force you to face real problems: where the data comes from, what the inputs and outputs are, how the model is integrated, how the results are evaluated, and how to troubleshoot when things fail.
 

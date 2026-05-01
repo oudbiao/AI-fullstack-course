@@ -252,7 +252,7 @@ print(risk_summary(metrics))
 この表は初心者にとても向いています。  
 医用画像の評価を「指標名が増えるだけの話」ではなく、「その指標は誰のためのものか」という視点に戻してくれるからです。
 
-![医用画像のリスク指標と人手再確認の閉ループ図](/img/course/ch10-medical-imaging-risk-review-map.png)
+![医用画像のリスク指標と人手再確認の閉ループ図](/img/course/ch10-medical-imaging-risk-review-map-ja.png)
 
 :::tip 読み方のヒント
 医用画像プロジェクトでは、きれいな mask を見せるだけでは不十分です。この図を見るときは、タスク境界、アノテーション方針、sensitivity、false negative rate、人手再確認、失敗サンプルのフィードバックという順で、そのプロジェクトが信頼できるかを判断してください。

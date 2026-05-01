@@ -7,7 +7,7 @@ keywords: [線形回帰, 最小二乗法, 勾配降下法, 正則化, Ridge, Las
 
 # 線形回帰
 
-![線形回帰のフィッティングと損失ランドスケープ図](/img/course/linear-regression-loss-landscape.png)
+![線形回帰のフィッティングと損失ランドスケープ図](/img/course/linear-regression-loss-landscape-ja.png)
 
 :::tip この節の位置づけ
 線形回帰は**最もシンプルで、かつ最も重要**な機械学習アルゴリズムです。後続のすべてのアルゴリズムを理解するための土台であり、ロジスティック回帰、ニューラルネットワーク、さらには GPT の内部にもその考え方が見えます。
@@ -49,7 +49,7 @@ keywords: [線形回帰, 最小二乗法, 勾配降下法, 正則化, Ridge, Las
 
 より安定した理解の順番は次のとおりです。
 
-![線形回帰の学習主線図](/img/course/ch05-linear-regression-learning-flow.png)
+![線形回帰の学習主線図](/img/course/ch05-linear-regression-learning-flow-ja.png)
 
 この線を先につかめば、以後の数式も「何のための式か」が見えやすくなります。
 
@@ -743,7 +743,7 @@ plt.show()
 
 この流れは、後で扱う機械学習プロジェクト全体の原型です。
 
-![線形回帰の残差診断図](/img/course/ch05-linear-regression-residual-diagnostics.png)
+![線形回帰の残差診断図](/img/course/ch05-linear-regression-residual-diagnostics-ja.png)
 
 この図を読むときは、`R²` だけを見ないでください。まず残差がランダムに散らばっているかを確認します。残差が曲線状なら、モデルがアンダーフィットしている可能性があります。少数の点だけ誤差がとても大きいなら、まず外れ値を疑います。誤差が予測値とともに大きくなるなら、目的変数の変換や評価指標の変更を考える必要があります。
 

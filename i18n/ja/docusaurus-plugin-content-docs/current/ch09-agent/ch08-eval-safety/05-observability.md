@@ -153,7 +153,7 @@ Agent の出力品質が低いとき、すぐに Prompt を直さないでくだ
 
 この表は、すべての AI プロジェクトのログ設計の出発点として使えます。あとで問題が起きてからログを足そうとしないでください。request_id と構造化フィールドがないと、後から1回の失敗をつなぎ直すのがとても難しくなります。
 
-![Agent の可観測 Trace Span 図](/img/course/ch09-agent-observability-trace-span-map.png)
+![Agent の可観測 Trace Span 図](/img/course/ch09-agent-observability-trace-span-map-ja.png)
 
 :::tip 図の読み方
 この図を見るときは、request_id を1本の線として捉えてください。1回のユーザーリクエストは、planner、retriever、tool、LLM、safety など複数の span を通ります。流れをつなげて見られて初めて、推測ではなく実際の流れで問題を特定できます。

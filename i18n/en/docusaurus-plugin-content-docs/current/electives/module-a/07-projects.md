@@ -20,7 +20,7 @@ This earlier set of elective lessons covered quite a few building blocks:
 What we want to do in this section is assemble these pieces into a project that is easy to explain and easy to present.
 :::
 
-![Deployment integrated project delivery loop](/img/course/elective-deployment-project-delivery-loop.png)
+![Deployment integrated project delivery loop](/img/course/elective-deployment-project-delivery-loop-en.png)
 
 ## Learning Objectives
 

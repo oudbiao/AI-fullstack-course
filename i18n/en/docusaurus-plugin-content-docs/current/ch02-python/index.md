@@ -7,7 +7,7 @@ keywords: [Python Basics, Python Fundamentals, Python Tutorial, Programming Basi
 
 # 2 Python Programming Fundamentals
 
-![Main visual for Python programming fundamentals](/img/course/ch02-python-foundation.png)
+![Main visual for Python programming fundamentals](/img/course/ch02-python-foundation-en.png)
 
 This stage focuses on whether you can “describe problems with code, process data, and call services.” Data analysis, machine learning, RAG, and Agent work later will all rely on Python again and again, so the goal here is not to memorize syntax, but to build programming thinking and debugging habits.
 
@@ -17,7 +17,7 @@ Imagine you are running a small “AI studio”: every day you need to organize 
 
 ## Learning Quest Map
 
-![Python learning quest map](/img/course/ch02-learning-quest-map.png)
+![Python learning quest map](/img/course/ch02-learning-quest-map-en.png)
 
 ## Interactive Practice: Ask Yourself One Question After Each Chapter
 
@@ -54,7 +54,7 @@ Experienced learners can focus more on engineering: how to split one feature int
 
 Python became mainstream in AI not because its syntax is the most powerful, but because it connects data processing, machine learning, deep learning, Web APIs, automation scripts, and the LLM ecosystem at the same time. Later you will use it to read data, train models, call LLMs, build RAG, wrap tools, and write Agents.
 
-![Python AI backbone capability chain](/img/course/ch02-python-ai-backbone.png)
+![Python AI backbone capability chain](/img/course/ch02-python-ai-backbone-en.png)
 
 ## Learning Path for This Stage
 

@@ -7,7 +7,7 @@ keywords: [anomaly detection, Isolation Forest, One-Class SVM, LOF, Z-score, IQR
 
 # Anomaly Detection
 
-![Anomaly detection outlier illustration](/img/course/anomaly-detection-outliers.png)
+![Anomaly detection outlier illustration](/img/course/anomaly-detection-outliers-en.png)
 
 :::tip Section Overview
 Anomaly detection is used to find **"abnormal"** samples in data—credit card fraud, network intrusions, equipment failures, and more. Unlike classification, anomalies are usually rare and there are not enough labels, so special algorithms are needed.
@@ -42,7 +42,7 @@ The hardest part of anomaly detection for beginners is that it is not like ordin
 
 A more stable order of understanding is:
 
-![Anomaly detection decision flowchart](/img/course/ch05-anomaly-detection-decision-flow.png)
+![Anomaly detection decision flowchart](/img/course/ch05-anomaly-detection-decision-flow-en.png)
 
 So the most important thing in anomaly detection is not memorizing model names first, but understanding what “anomaly” actually means in your case.
 
@@ -237,7 +237,7 @@ Their value is not just that they are “simple,” but also that:
 - You can get a rough sense of the anomaly rate
 - You can discover problems in the data distribution earlier
 
-![Anomaly detection method comparison map](/img/course/ch05-anomaly-method-comparison-map.png)
+![Anomaly detection method comparison map](/img/course/ch05-anomaly-method-comparison-map-en.png)
 
 When reading this chart, first ask what the anomaly looks like: if it is just extreme values in a single column, Z-score or IQR is fast enough; if it is a few isolated points in high-dimensional space, Isolation Forest is more suitable; if anomalies depend on local density differences, look at LOF; if you just want to learn the normal boundary, then consider One-Class SVM.
 

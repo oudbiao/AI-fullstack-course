@@ -7,9 +7,9 @@ keywords: [SVM, support vector machine, max margin, kernel, classification, clas
 
 # Support Vector Machine
 
-![SVM max-margin and support vector diagram](/img/course/elective-svm-margin-support-vectors.png)
+![SVM max-margin and support vector diagram](/img/course/elective-svm-margin-support-vectors-en.png)
 
-![SVM parameter C and kernel selection diagram](/img/course/elective-svm-c-kernel-decision-map.png)
+![SVM parameter C and kernel selection diagram](/img/course/elective-svm-c-kernel-decision-map-en.png)
 
 :::tip Reading the diagram
 The key to SVM is not memorizing formulas, but understanding that `C` controls “tolerance vs. margin” and `kernel` controls “linear boundary vs. nonlinear boundary.” While reading the diagram, also remember: feature scaling is almost always the first step.

@@ -7,7 +7,7 @@ keywords: [無监督学習ガイド, クラスタリング, 次元削減, 異常
 
 # 学習前ガイド：この無监督学習の章で何を学ぶのか
 
-![無监督学習のロードマップ](/img/course/unsupervised-learning-roadmap.png)
+![無监督学習のロードマップ](/img/course/unsupervised-learning-roadmap-ja.png)
 
 無监督学習と监督学習の最大の違いは、**ラベルがない**ことです。
 
@@ -33,7 +33,7 @@ keywords: [無监督学習ガイド, クラスタリング, 次元削減, 異常
 
 ## この章の3つの節はどうつながっているか
 
-![無监督学習の章の関係図](/img/course/ch05-unsupervised-chapter-flow.png)
+![無监督学習の章の関係図](/img/course/ch05-unsupervised-chapter-flow-ja.png)
 
 - クラスタリング：ラベルがないときに、まずデータを自動でグループ分けできるかを見る
 - 次元削減：次に、高次元データをもっと見やすく、計算しやすく圧縮できるかを見る

@@ -7,7 +7,7 @@ keywords: [NumPy, Pandas, Matplotlib, Seaborn, data analysis, data visualization
 
 # 3 Data Analysis and Visualization
 
-![Main visual for data analysis and visualization](/img/course/ch03-data-visualization.png)
+![Main visual for data analysis and visualization](/img/course/ch03-data-visualization-en.png)
 
 This stage is about answering: “Can I understand data, organize data, discover patterns, and explain conclusions?” Whether you later work on machine learning, RAG, Agents, or product analytics, data skills are a foundational capability.
 
@@ -17,7 +17,7 @@ As you enter this stage, imagine yourself as a data detective. CSV files, Excel 
 
 ## Learning quest map
 
-![Data analysis learning quest map](/img/course/ch03-learning-quest-map.png)
+![Data analysis learning quest map](/img/course/ch03-learning-quest-map-en.png)
 
 ## Interactive practice: ask every dataset three questions
 
@@ -54,7 +54,7 @@ Experienced learners can focus more on the reliability of the analysis: Is the d
 
 Models do not learn from thin air. Data quality, structure, distribution, and labeling methods directly affect model results. Even if you mainly work on large model applications in the future, you will still encounter document cleaning, log analysis, evaluation set construction, user feedback statistics, and retrieval quality analysis.
 
-![Main workflow loop of data analysis](/img/course/ch03-data-analysis-backbone.png)
+![Main workflow loop of data analysis](/img/course/ch03-data-analysis-backbone-en.png)
 
 ## Learning path for this stage
 

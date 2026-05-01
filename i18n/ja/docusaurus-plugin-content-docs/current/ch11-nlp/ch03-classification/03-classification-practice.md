@@ -7,7 +7,7 @@ keywords: [text classification practice, intent classification, baseline, error 
 
 # テキスト分類実践
 
-![テキスト分類トレーニングフローチャート](/img/course/text-classification-pipeline.png)
+![テキスト分類トレーニングフローチャート](/img/course/text-classification-pipeline-ja.png)
 
 :::tip この節の位置づけ
 前の2節では、それぞれ次の内容を学びました。

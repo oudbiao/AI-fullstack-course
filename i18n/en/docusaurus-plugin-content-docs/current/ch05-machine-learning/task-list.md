@@ -6,7 +6,7 @@ keywords: [machine learning, sklearn, feature engineering, model evaluation, lea
 
 # Stage Learning Task Sheet: Machine Learning from Basics to Practice
 
-![Machine Learning Completion Checklist Diagram](/img/course/ml-task-checklist.png)
+![Machine Learning Completion Checklist Diagram](/img/course/ml-task-checklist-en.png)
 
 The goal of this stage is to help you understand the full machine learning project loop: define the problem, prepare the data, build features, train the model, evaluate the results, and analyze errors. Do not focus on memorizing algorithm formulas; instead, place each algorithm back into the context of “what problem it is good at solving and how to judge whether it works well.”
 

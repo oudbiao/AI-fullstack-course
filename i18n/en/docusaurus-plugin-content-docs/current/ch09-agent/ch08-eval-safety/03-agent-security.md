@@ -52,7 +52,7 @@ Prompt injection means external text tries to change the Agent’s behavior. For
 
 Defense ideas include: clearly marking external content as untrusted; stating in the system prompt that external content cannot override tool permissions; requiring permission checks for high-risk actions; masking sensitive information; and logging the context before a tool is triggered.
 
-![Prompt Injection and Tool Risk Isolation Diagram](/img/course/ch09-agent-security-prompt-injection-risk-map.png)
+![Prompt Injection and Tool Risk Isolation Diagram](/img/course/ch09-agent-security-prompt-injection-risk-map-en.png)
 
 :::tip Reading Tip
 Read this diagram starting from “untrusted external content”: web pages, documents, and emails are only reference material, not system instructions. Anything that can actually perform high-risk actions must go through permission checks, confirmation, masking, and auditing.

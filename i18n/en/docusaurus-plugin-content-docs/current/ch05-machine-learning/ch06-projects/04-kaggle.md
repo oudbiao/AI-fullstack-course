@@ -7,7 +7,7 @@ keywords: [Kaggle, competition, Titanic, data science competition, Notebook, lea
 
 # Kaggle Competition Practice (Elective)
 
-![Kaggle competition submission loop diagram](/img/course/kaggle-submission-loop.png)
+![Kaggle competition submission loop diagram](/img/course/kaggle-submission-loop-en.png)
 
 :::tip Section focus
 Kaggle is the world’s largest data science competition platform. By joining a beginner competition, you can **connect** all the skills you learned earlier and verify them against a real scoring system.

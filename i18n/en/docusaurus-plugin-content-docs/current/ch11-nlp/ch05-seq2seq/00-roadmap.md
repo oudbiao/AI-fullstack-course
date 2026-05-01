@@ -15,7 +15,7 @@ It is also the key bridge from the RNN era to Transformer. You do not need to tr
 
 ## Where This Chapter Fits in the NLP Roadmap
 
-![Seq2Seq and Attention chapter learning order diagram](/img/course/ch11-seq2seq-chapter-flow.png)
+![Seq2Seq and Attention chapter learning order diagram](/img/course/ch11-seq2seq-chapter-flow-en.png)
 
 In earlier text classification tasks, the model usually takes “a piece of text in and a label out”; sequence labeling is “a sequence of tokens in and a sequence of labels out”; Seq2Seq goes one step further: “a sequence of tokens in and another sequence of tokens out.” This shift takes you directly into the world of generative models.
 

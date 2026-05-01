@@ -7,7 +7,7 @@ keywords: [courseware assistant, knowledge base, word generation, ppt parsing, d
 
 # プロジェクト：知識ベース駆動の課件生成アシスタント
 
-![課件生成アシスタントのワークフロー図](/img/course/courseware-assistant-workflow.png)
+![課件生成アシスタントのワークフロー図](/img/course/courseware-assistant-workflow-ja.png)
 
 :::tip この節の位置づけ
 このプロジェクトは、普通の知識ベースQAより一歩進んだ内容です。  
@@ -288,7 +288,7 @@ def generate_courseware(topic):
 4. 固定 schema を作る
 5. 文書を出力する
 
-![課件生成アシスタントの生産ライン図](/img/course/ch08-courseware-assistant-production-line-map.png)
+![課件生成アシスタントの生産ライン図](/img/course/ch08-courseware-assistant-production-line-map-ja.png)
 
 :::tip 図の読み方
 この図は生産ラインとして読むのがポイントです。資料の投入、知識ブロックへの解析、テーマと内容タイプによる検索、courseware schema の生成、そして Word の描画までつながっています。途中の産物が残っていない層があると、その後の原因追跡がとても難しくなります。

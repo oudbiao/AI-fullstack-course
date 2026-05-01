@@ -7,7 +7,7 @@ keywords: [final project, AI full-stack project, portfolio, project design, AI l
 
 # Final Project Design Guide
 
-![Final project closed-loop design diagram](/img/course/intro-graduation-project-loop.png)
+![Final project closed-loop design diagram](/img/course/intro-graduation-project-loop-en.png)
 
 A final project is not about building a bigger exercise. It is about turning everything you learned across the course—development tools, Python, data processing, machine learning, deep learning, LLM applications, RAG, Agent, deployment, and evaluation—into one complete work. Its goal is not to prove that you “read many chapters,” but to prove that you can independently break a real problem into requirements, data, models, systems, evaluation, and iteration plans.
 

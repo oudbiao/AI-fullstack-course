@@ -7,7 +7,7 @@ keywords: [ハイパーパラメータチューニング, GridSearchCV, Randomiz
 
 # ハイパーパラメータチューニング
 
-![ハイパーパラメータ探索手法の比較図](/img/course/hyperparameter-tuning-search.png)
+![ハイパーパラメータ探索手法の比較図](/img/course/hyperparameter-tuning-search-ja.png)
 
 :::tip この節の位置づけ
 モデルの**ハイパーパラメータ**（たとえば木の深さ、学習率、正則化の強さ）は手動で設定する必要があり、モデル性能に大きな影響を与えます。この節では、感覚で試すのではなく、**体系的に**最適なハイパーパラメータを探す方法を学びます。
@@ -42,7 +42,7 @@ keywords: [ハイパーパラメータチューニング, GridSearchCV, Randomiz
 
 ハイパーパラメータチューニングを学ぶとき、新人にとって理解しやすい順番は「検索ツールをいくつか覚える」ことではなく、機械学習ワークフローの中でどこにあるかを把握することです。
 
-![ハイパーパラメータチューニングの検証フロー図](/img/course/ch05-hyperparameter-tuning-workflow.png)
+![ハイパーパラメータチューニングの検証フロー図](/img/course/ch05-hyperparameter-tuning-workflow-ja.png)
 
 この節で本当に解決したいのは、次のような疑問です。
 
@@ -64,7 +64,7 @@ keywords: [ハイパーパラメータチューニング, GridSearchCV, Randomiz
 
 つまり、調整は単なるパラメータ探索ではなく、実験設計に近いものです。
 
-![ハイパーパラメータ探索空間と予算の図](/img/course/ch05-search-space-budget-map.png)
+![ハイパーパラメータ探索空間と予算の図](/img/course/ch05-search-space-budget-map-ja.png)
 
 この図を見るときは、まず「予算」の線に注目してください。パラメータが多く、範囲が広いほど、組み合わせは爆発的に増えます。新人が最初に調整するときは、すべてのツマミを一度に回さないで、まずは複雑さに最も影響するパラメータから始めましょう。たとえば木モデルなら `max_depth`、`min_samples_leaf` です。その後で、少しずつ探索空間を広げていきます。
 

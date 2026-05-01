@@ -20,7 +20,7 @@ keywords: [RNNガイド, LSTM, GRU, 系列モデリング]
 
 より安定した理解のしかたは、こちらです。
 
-![RNN 系列モデル章の関係図](/img/course/ch06-rnn-chapter-flow.png)
+![RNN 系列モデル章の関係図](/img/course/ch06-rnn-chapter-flow-ja.png)
 
 つまり、この章で本当に新しく出てくる中心は、次のことです。
 

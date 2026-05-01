@@ -7,7 +7,7 @@ keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RA
 
 # AI Full-Stack Capability Map
 
-![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map.png)
+![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.png)
 
 The easiest way to get lost when learning AI is that you will see many terms at the same time: Python, math, machine learning, deep learning, Transformer, Prompt, RAG, Agent, MCP, vector databases, fine-tuning, deployment, security, and more. These are not side-by-side topics; they are layers of capability stacked on top of one another.
 

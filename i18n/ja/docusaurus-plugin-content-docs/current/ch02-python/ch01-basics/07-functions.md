@@ -6,7 +6,7 @@ description: "関数の定義、引数、戻り値、スコープを理解する
 
 # 関数の基礎
 
-![関数の呼び出し、引数、スコープの図](/img/course/ch02-function-call-scope.png)
+![関数の呼び出し、引数、スコープの図](/img/course/ch02-function-call-scope-ja.png)
 
 ## この節の位置づけ
 

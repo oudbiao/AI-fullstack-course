@@ -200,7 +200,7 @@ Transformer が強くなったあと、
 
 この表は、モデル名を「いつ思い出すべきか」という実感に変えてくれるので、初学者にとても向いています。
 
-![画像分類アーキテクチャの進化と選択図](/img/course/ch10-classification-architecture-evolution-map.png)
+![画像分類アーキテクチャの進化と選択図](/img/course/ch10-classification-architecture-evolution-map-ja.png)
 
 :::tip 図の見方
 この図はモデルランキングとして見るのではなく、「問題の進化」として見てください。VGG はまず深さの有効性を示し、ResNet は深層の学習可能性を解決し、EfficientNet は効率に注目し、ConvNeXt は畳み込み路線の現代化を表しています。

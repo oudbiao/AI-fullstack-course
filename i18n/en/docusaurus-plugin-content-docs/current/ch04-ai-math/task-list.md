@@ -6,7 +6,7 @@ keywords: [AI mathematics, linear algebra, probability and statistics, gradient 
 
 # Phase Learning Task Sheet: Minimum Necessary Foundation for AI Mathematics
 
-![Minimal math checkpoint task sheet diagram](/img/course/math-task-checklist.png)
+![Minimal math checkpoint task sheet diagram](/img/course/math-task-checklist-en.png)
 
 The goal of this stage is not to turn math into an exam subject, but to help you understand the core intuitions behind AI models. You need to understand how vectors represent samples, how matrices represent transformations, how probability expresses uncertainty, and how gradients guide model updates.
 

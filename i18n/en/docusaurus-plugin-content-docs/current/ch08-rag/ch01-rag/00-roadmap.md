@@ -17,7 +17,7 @@ You have already learned LLM principles, Prompting, fine-tuning, and alignment i
 
 If Prompt helps the model understand tasks better, and fine-tuning adjusts the model’s behavior, then RAG is more like connecting the model to a knowledge base that can be updated, traced, and managed.
 
-![Bridge diagram showing RAG’s position in LLM applications](/img/course/ch08-rag-position-bridge.png)
+![Bridge diagram showing RAG’s position in LLM applications](/img/course/ch08-rag-position-bridge-en.png)
 
 ## The Real Problems This Chapter Solves
 
@@ -29,13 +29,13 @@ The easiest mistake beginners make with RAG is thinking that “if it can retrie
 
 It is recommended to first understand the smallest RAG loop: after the user asks a question, the system retrieves relevant materials, then sends the materials and the question to the model for answering. Then learn document processing and chunking, so you understand that before knowledge enters the system, it needs to be cleaned, split into chunks, and given metadata. Next, learn Embedding and vector databases to understand why similarity search can find relevant passages. Finally, look at retrieval optimization, reranking, and evaluation, because these determine whether the system can move from a demo to a usable product.
 
-![Flow diagram of the core chapter learning order for RAG](/img/course/ch08-rag-core-chapter-flow.png)
+![Flow diagram of the core chapter learning order for RAG](/img/course/ch08-rag-core-chapter-flow-en.png)
 
 ## The Main Thread to Focus on in This Chapter
 
 The main thread of this chapter can be summarized as: turn “materials” into “retrievable knowledge,” then turn “retrieval results” into “answerable responses.”
 
-![Pipeline diagram from materials to answers in RAG](/img/course/ch08-rag-data-to-answer-pipeline.png)
+![Pipeline diagram from materials to answers in RAG](/img/course/ch08-rag-data-to-answer-pipeline-en.png)
 
 The first half focuses on turning raw materials into a retrievable knowledge index; the second half focuses on retrieval, reranking, answering, and citation based on the user’s question.
 

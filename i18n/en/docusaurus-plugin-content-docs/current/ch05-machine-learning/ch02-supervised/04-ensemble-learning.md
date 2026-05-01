@@ -7,7 +7,7 @@ keywords: [Ensemble Learning, Random Forest, Bagging, Boosting, GBDT, XGBoost, L
 
 # Ensemble Learning
 
-![Ensemble Learning Voting and Forest Diagram](/img/course/ensemble-learning-voting-forest.png)
+![Ensemble Learning Voting and Forest Diagram](/img/course/ensemble-learning-voting-forest-en.png)
 
 :::tip Section Overview
 Ensemble learning is the **most commonly used** technique in ML competitions and industry. The core idea is simple: **many hands make light work**—combining multiple weak models can perform better than a single strong model. XGBoost and LightGBM are still the "default first choice" for tabular data.
@@ -54,7 +54,7 @@ What most easily confuses beginners about ensemble learning is not that there ar
 
 If you try to remember them by tool name from the start, it becomes very fragmented. A more stable learning order is:
 
-![Ensemble Learning Bagging vs Boosting Comparison](/img/course/ch05-ensemble-bagging-boosting-flow.png)
+![Ensemble Learning Bagging vs Boosting Comparison](/img/course/ch05-ensemble-bagging-boosting-flow-en.png)
 
 As long as you first separate the two main lines—“parallel voting” and “sequential error correction”—the model names later on won’t get mixed up so easily.
 
@@ -162,7 +162,7 @@ If you want to remember these two main paths more firmly, you can use this analo
 
 This is easier to build an overall sense of the method than diving into library names and parameters too early.
 
-![Ensemble Learning Error-Correction Lab Diagram](/img/course/ch05-ensemble-error-correction-lab.png)
+![Ensemble Learning Error-Correction Lab Diagram](/img/course/ch05-ensemble-error-correction-lab-en.png)
 
 When reading this diagram, first distinguish the two ways of “getting stronger”: Random Forest reduces fluctuations by averaging many trees, while Boosting gradually improves expressiveness by having later rounds correct earlier mistakes. One is like group voting, the other like continuous correction. After that, when you see XGBoost, LightGBM, and CatBoost, you won’t just remember the names.
 

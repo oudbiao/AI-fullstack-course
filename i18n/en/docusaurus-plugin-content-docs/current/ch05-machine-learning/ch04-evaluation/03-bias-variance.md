@@ -7,7 +7,7 @@ keywords: [bias, variance, overfitting, underfitting, learning curve, validation
 
 # Bias-Variance Tradeoff
 
-![Three-panel bias-variance tradeoff diagram](/img/course/bias-variance-tradeoff.png)
+![Three-panel bias-variance tradeoff diagram](/img/course/bias-variance-tradeoff-en.png)
 
 :::tip Section overview
 **Bias-Variance Tradeoff** is one of the most important theoretical frameworks in machine learning. It explains why models underfit or overfit, and how to find the best balance between the two.
@@ -39,7 +39,7 @@ So on your first pass, the most valuable thing is not memorizing the error decom
 
 For beginners, the best way to understand bias-variance is not to start with term definitions, but to first see its role in machine learning decisions:
 
-![Bias-variance action diagnosis map](/img/course/ch05-bias-variance-action-map.png)
+![Bias-variance action diagnosis map](/img/course/ch05-bias-variance-action-map-en.png)
 
 So what this section is really trying to solve is:
 
@@ -190,7 +190,7 @@ A learning curve shows how **training set size** affects model performance. It c
 - Whether the model is underfitting or overfitting
 - Whether adding more data will help
 
-![Learning curve diagnosis map](/img/course/ch05-learning-curve-diagnosis-map.png)
+![Learning curve diagnosis map](/img/course/ch05-learning-curve-diagnosis-map-en.png)
 
 When reading a learning curve, first look at the gap between the two lines. If both training and validation scores are low, usually start by checking underfitting; if training is high, validation is low, and the two lines are far apart, usually start by checking overfitting; if validation keeps improving as more data is added, then more data may really help.
 

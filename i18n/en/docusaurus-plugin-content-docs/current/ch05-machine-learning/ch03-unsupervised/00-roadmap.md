@@ -7,7 +7,7 @@ keywords: [Unsupervised Learning Guide, Clustering, Dimensionality Reduction, An
 
 # Pre-class Guide: What Is This Chapter on Unsupervised Learning Really About?
 
-![Unsupervised Learning Roadmap](/img/course/unsupervised-learning-roadmap.png)
+![Unsupervised Learning Roadmap](/img/course/unsupervised-learning-roadmap-en.png)
 
 The biggest difference between unsupervised learning and supervised learning is: **there are no labels**.
 
@@ -33,7 +33,7 @@ So this chapter is more like “exploration and hypothesis generation” than th
 
 ## How the three sections in this chapter connect
 
-![Unsupervised learning chapter flow](/img/course/ch05-unsupervised-chapter-flow.png)
+![Unsupervised learning chapter flow](/img/course/ch05-unsupervised-chapter-flow-en.png)
 
 - Clustering: when there are no labels, first see whether the data can automatically form groups
 - Dimensionality reduction: then see whether high-dimensional data can be compressed so it is easier to view and easier to compute

@@ -20,7 +20,7 @@ If you are coming from the earlier main lines of classification, sequence models
 
 A more stable way to understand it is:
 
-![Generative models chapter relationship diagram](/img/course/ch06-generative-chapter-flow.png)
+![Generative models chapter relationship diagram](/img/course/ch06-generative-chapter-flow-en.png)
 
 So the real new core in this chapter is not “the model is cooler,” but:
 

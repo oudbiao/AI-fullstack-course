@@ -6,7 +6,7 @@ description: "Push code to GitHub and learn remote collaboration"
 
 # Remote Repositories
 
-![Git local-remote sync diagram](/img/course/ch01-git-remote-sync.png)
+![Git local-remote sync diagram](/img/course/ch01-git-remote-sync-en.png)
 
 ## Where this lesson fits
 

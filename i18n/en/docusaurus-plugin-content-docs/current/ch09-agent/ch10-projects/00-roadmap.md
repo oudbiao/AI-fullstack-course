@@ -15,7 +15,7 @@ The core of an Agent project is not “whether the model can answer,” but whet
 
 Chapter 9, the comprehensive projects for AI Agents and intelligent agent systems, is the exit point of the Agent main line. Earlier chapters covered the Agent’s goals, planning, tools, memory, MCP, multi-Agent systems, evaluation and safety, and deployment and operations. The project chapter brings these capabilities together into an intelligent agent system that can be demonstrated, reviewed, and extended.
 
-![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map.png)
+![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-en.png)
 
 ## The real problems this chapter solves
 
@@ -27,13 +27,13 @@ A mistake beginners often make is showing only the final result of an Agent succ
 
 It is recommended to start with an intelligent research assistant, because it is best for practicing retrieval, citation, summarization, and trustworthy outputs. Then build a data analysis Agent to practice Python tool calling, table analysis, chart generation, and result interpretation. Finally, build a multi-Agent development team to practice role division, task coordination, code generation, review, and documentation collaboration.
 
-![Agent project learning order diagram](/img/course/ch09-project-learning-order-map.png)
+![Agent project learning order diagram](/img/course/ch09-project-learning-order-map-en.png)
 
 ## What to focus on in this chapter
 
 The main thread of this chapter can be summarized as: an Agent project portfolio shows a “traceable execution loop,” not just one model output.
 
-![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop.png)
+![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-en.png)
 
 Once you understand this line, you will know that the deliverables of an Agent project should include: a system architecture diagram, a task flow diagram, a tool list, sample call logs, failure cases, safety rules, evaluation examples, and the final output.
 

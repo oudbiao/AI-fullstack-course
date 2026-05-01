@@ -7,7 +7,7 @@ keywords: [pretraining guide, BERT, GPT, T5, transformers]
 
 # Pre-reading Guide: What Exactly Is This Chapter About Pretrained Models?
 
-![BERT GPT T5 comparison chart](/img/course/bert-gpt-t5-comparison.png)
+![BERT GPT T5 comparison chart](/img/course/bert-gpt-t5-comparison-en.png)
 
 ## Chapter Positioning
 
@@ -17,7 +17,7 @@ The goal of studying this chapter is not to memorize the names BERT, GPT, and T5
 
 ## Where This Chapter Fits in the Whole Course
 
-![Learning order diagram for the pretrained language models chapter](/img/course/ch11-pretrained-chapter-flow.png)
+![Learning order diagram for the pretrained language models chapter](/img/course/ch11-pretrained-chapter-flow-en.png)
 
 This chapter is both the conclusion of natural language processing at Station 11 and the bridge leading into the large-model, RAG, and Agent sections at Stations 7–9. Later, when you call large-model APIs, do text retrieval, perform fine-tuning, or build RAG systems, you will repeatedly encounter concepts such as tokenizer, embedding, context length, generation methods, and model loading.
 

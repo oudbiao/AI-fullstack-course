@@ -7,7 +7,7 @@ keywords: [CNN, convolution block, pooling, feature map, classification head, fu
 
 # Basic CNN Architecture
 
-![CNN feature map pipeline](/img/course/cnn-feature-map-pipeline.png)
+![CNN feature map pipeline](/img/course/cnn-feature-map-pipeline-en.png)
 
 :::tip Where this section fits
 In the previous section, we learned that convolution kernels “slide across the image to find local patterns.”  
@@ -142,7 +142,7 @@ You can think of it like this:
 
 > Spatial resolution goes down, but semantic richness goes up.
 
-![CNN channel count vs spatial size trade-off](/img/course/ch06-cnn-channel-spatial-tradeoff-map.png)
+![CNN channel count vs spatial size trade-off](/img/course/ch06-cnn-channel-spatial-tradeoff-map-en.png)
 
 :::tip Reading guide
 This figure helps you understand a common shape change in CNNs: as you go deeper, height and width usually get smaller because the model no longer needs to preserve every pixel detail; channels usually get larger because the model needs to store more and more abstract kinds of features.

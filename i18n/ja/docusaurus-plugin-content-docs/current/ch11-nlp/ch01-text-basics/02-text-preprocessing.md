@@ -7,7 +7,7 @@ keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NL
 
 # テキスト前処理
 
-![テキスト前処理パイプライン図](/img/course/text-preprocessing-pipeline.png)
+![テキスト前処理パイプライン図](/img/course/text-preprocessing-pipeline-ja.png)
 
 :::tip この節の位置づけ
 テキスト前処理は、初心者が次のように誤解しやすいです。

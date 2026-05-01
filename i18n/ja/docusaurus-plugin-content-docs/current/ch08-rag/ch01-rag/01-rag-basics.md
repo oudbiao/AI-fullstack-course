@@ -7,7 +7,7 @@ keywords: [RAG, retrieval augmented generation, 検索拡張生成, chunk, retri
 
 # RAG 基礎
 
-![RAG 文書から回答までの閉ループ図](/img/course/rag-document-answer-loop.png)
+![RAG 文書から回答までの閉ループ図](/img/course/rag-document-answer-loop-ja.png)
 
 :::tip この節の位置づけ
 RAG は次のように誤解されやすいです：
@@ -162,7 +162,7 @@ flowchart LR
 
 - RAG に問題が起きたとき、すぐに「全部モデルのせい」と決めつけないこと
 
-![RAG のレイヤー別不具合切り分け図](/img/course/ch08-rag-layer-failure-debug-map.png)
+![RAG のレイヤー別不具合切り分け図](/img/course/ch08-rag-layer-failure-debug-map-ja.png)
 
 :::tip 図の見方
 図を左から順に見て、次の3点を確認してください。正しい資料が検索可能なチャンクになっているか、top-k に入っているか、最終的な context に入っているか。この3層すべてに問題がないときに初めて、生成モデル自体を疑います。

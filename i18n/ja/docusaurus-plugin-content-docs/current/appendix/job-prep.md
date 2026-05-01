@@ -5,9 +5,9 @@ sidebar_position: 7
 
 # 就職準備チェックリスト
 
-![就職準備ファネル図](/img/course/appendix-job-prep-funnel.png)
+![就職準備ファネル図](/img/course/appendix-job-prep-funnel-ja.png)
 
-![AI 就職ポートフォリオのストーリーライン図](/img/course/appendix-job-portfolio-storyline-map.png)
+![AI 就職ポートフォリオのストーリーライン図](/img/course/appendix-job-portfolio-storyline-map-ja.png)
 
 :::tip 図の読み方
 就職用のプロジェクトは、技術用語をただ並べるだけではいけません。図を見るときは「職種目標 -> ユーザーの課題 -> 技術解決策 -> 指標結果 -> 失敗の振り返り -> README / 面接での説明」とつなげてストーリーとして捉えると、面接官に本当の実力が伝わりやすくなります。

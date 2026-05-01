@@ -32,7 +32,7 @@ If you want to understand this history more completely, it is recommended that y
 
 ## The main thread of this chapter
 
-![Sequence labeling chapter learning flowchart](/img/course/ch11-sequence-labeling-chapter-flow.png)
+![Sequence labeling chapter learning flowchart](/img/course/ch11-sequence-labeling-chapter-flow-en.png)
 
 ## How beginners and advanced learners should read this chapter
 

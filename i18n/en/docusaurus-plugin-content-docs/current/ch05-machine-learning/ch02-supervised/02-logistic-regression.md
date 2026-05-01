@@ -7,7 +7,7 @@ keywords: [logistic regression, Sigmoid, cross-entropy, decision boundary, Softm
 
 # Logistic Regression
 
-![Logistic Regression Decision Boundary Diagram](/img/course/logistic-regression-boundary.png)
+![Logistic Regression Decision Boundary Diagram](/img/course/logistic-regression-boundary-en.png)
 
 :::tip Section Positioning
 Although the name includes "regression," logistic regression is actually a **classification** algorithm. It adds a Sigmoid function on top of linear regression so continuous values can be mapped to probabilities. This is one of the most classic classification algorithms, and it is also key to understanding neural networks.
@@ -41,7 +41,7 @@ As long as this thread is established first, cross-entropy, thresholds, and Soft
 
 For beginners, the best way to understand this section is not “linear regression + Sigmoid and that’s it,” but to first see its place in the classification pipeline:
 
-![Logistic Regression Classification Flow Diagram](/img/course/ch05-logistic-classification-flow.png)
+![Logistic Regression Classification Flow Diagram](/img/course/ch05-logistic-classification-flow-en.png)
 
 What this section really needs to explain is:
 
@@ -582,7 +582,7 @@ plt.show()
 The decision boundary of logistic regression is **linear** (a line or a hyperplane). For non-linear data (moons, circles), its performance is worse. Later models such as decision trees and SVM can handle non-linear data.
 :::
 
-![Logistic Regression Threshold Trade-off Diagram](/img/course/ch05-logistic-threshold-tradeoff.png)
+![Logistic Regression Threshold Trade-off Diagram](/img/course/ch05-logistic-threshold-tradeoff-en.png)
 
 The output of logistic regression is not a “natural class,” but a probability. If you lower the threshold from 0.5, you usually catch more positive cases, but false alarms also increase; if you raise the threshold, predictions become more cautious, but you may miss more positive cases. In classification projects, the threshold is part of the business decision.
 

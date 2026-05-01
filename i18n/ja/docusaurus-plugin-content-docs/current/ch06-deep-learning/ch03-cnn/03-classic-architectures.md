@@ -7,7 +7,7 @@ keywords: [LeNet, AlexNet, VGG, ResNet, CNN, 残差接続, 古典的アーキテ
 
 # 古典的な CNN アーキテクチャ
 
-![古典的な CNN アーキテクチャの進化図](/img/course/imagenet-cnn-evolution.png)
+![古典的な CNN アーキテクチャの進化図](/img/course/imagenet-cnn-evolution-ja.png)
 
 :::tip 本節の位置づけ
 古典的なアーキテクチャを学ぶ目的は、モデル名を暗記することではありません。とても重要な進化の流れを見抜くためです。

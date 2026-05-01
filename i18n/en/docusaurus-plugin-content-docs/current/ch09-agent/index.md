@@ -7,7 +7,7 @@ keywords: [AI Agent, agent, Function Calling, ReAct, MCP, Multi-Agent, tool call
 
 # 9 AI Agent and Intelligent Agent Systems
 
-![Main visual of the AI Agent system](/img/course/ch09-agent-systems.png)
+![Main visual of the AI Agent system](/img/course/ch09-agent-systems-en.png)
 
 This stage is about answering: “How do we make AI do more than answer questions, and actually carry out tasks toward a goal?” An Agent combines a large model, tools, memory, planning, evaluation, and systems engineering into an AI system that can keep acting over time.
 
@@ -17,7 +17,7 @@ A regular chatbot is like a person sitting at a table answering questions, while
 
 ## Learning quest map
 
-![Agent learning quest map](/img/course/ch09-learning-quest-map.png)
+![Agent learning quest map](/img/course/ch09-learning-quest-map-en.png)
 
 ## Interactive exercise: first decide whether you really need an Agent
 
@@ -54,7 +54,7 @@ Experienced learners can focus on boundaries and reliability: when not to use an
 
 A normal LLM application usually follows a fixed process: the user inputs something, the system organizes context, and the model outputs an answer. An Agent emphasizes goals, state, and action: it must decide what to do next, choose tools, read results, update context, and replan when needed.
 
-![Main execution line diagram of Agent vs. normal application](/img/course/ch09-agent-vs-workflow-backbone.png)
+![Main execution line diagram of Agent vs. normal application](/img/course/ch09-agent-vs-workflow-backbone-en.png)
 
 The first half of the journey is about turning “what to do” into “what to do next.” If the goal, plan, or tool choice is unclear, the Agent can easily drift off course later.
 
@@ -76,7 +76,7 @@ In 2025–2026, the focus of Agent learning has shifted from “making the model
 
 The core of an Agent is not “letting the model do whatever it wants,” but putting freedom inside boundaries. A minimal controllable Agent can first be limited to: only calling whitelisted tools, only reading specified directories or materials, only outputting drafts rather than publishing directly, requiring user confirmation for high-risk actions, and writing every step into an execution trace.
 
-![Controllable AgentOps execution loop](/img/course/ch09-agentops-control-loop.png)
+![Controllable AgentOps execution loop](/img/course/ch09-agentops-control-loop-en.png)
 
 When building a project, you can start with a “research assistant Agent”: it can break down questions, retrieve materials, generate summaries, and record traces, but it does not automatically send emails, delete files, or modify databases. This both demonstrates Agent capabilities and reflects engineering boundaries.
 

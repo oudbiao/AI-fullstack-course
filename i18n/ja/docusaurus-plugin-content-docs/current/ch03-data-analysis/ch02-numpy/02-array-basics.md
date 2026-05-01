@@ -6,7 +6,7 @@ description: "NumPy 配列の作成方法、属性、データ型を身につけ
 
 # 配列の基礎
 
-![NumPy の形状と軸の図](/img/course/ch03-numpy-array-shape-axis.png)
+![NumPy の形状と軸の図](/img/course/ch03-numpy-array-shape-axis-ja.png)
 
 ## 学習目標
 

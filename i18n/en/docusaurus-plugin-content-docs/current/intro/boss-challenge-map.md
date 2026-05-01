@@ -7,7 +7,7 @@ keywords: [Boss Battle, AI learning challenge, stage checkpoint, fun learning, p
 
 # Course Boss Battle Challenge Map
 
-![Course Boss Battle Challenge Map](/img/course/boss-challenge-map.png)
+![Course Boss Battle Challenge Map](/img/course/boss-challenge-map-en.png)
 
 Boss battles are not meant to add pressure. They are meant to help learners understand “what exactly do I need to master in this stage?” Each Boss is a small, integrated challenge that requires you to connect the most important abilities from that stage and leave behind evidence you can show.
 

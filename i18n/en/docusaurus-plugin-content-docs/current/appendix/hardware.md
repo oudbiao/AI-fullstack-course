@@ -5,9 +5,9 @@ sidebar_position: 2
 
 # Hardware and Cloud Resource Guide
 
-![Hardware and Cloud Resource Decision Tree](/img/course/appendix-hardware-cloud-decision-tree.png)
+![Hardware and Cloud Resource Decision Tree](/img/course/appendix-hardware-cloud-decision-tree-en.png)
 
-![Cost comparison chart for local, cloud, and API approaches](/img/course/appendix-hardware-local-cloud-api-cost-map.png)
+![Cost comparison chart for local, cloud, and API approaches](/img/course/appendix-hardware-local-cloud-api-cost-map-en.png)
 
 :::tip Reading the charts
 When choosing hardware, start with the task: learning fundamentals, running demos, training models, and building applications all have very different resource needs. When reading the chart, compare your local computer, cloud GPU, and API options side by side, and don’t get trapped from the start by the idea that you “must buy a graphics card.”

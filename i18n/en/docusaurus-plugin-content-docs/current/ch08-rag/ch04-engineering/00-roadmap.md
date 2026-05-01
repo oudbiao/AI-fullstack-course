@@ -13,13 +13,13 @@ This chapter answers the question:
 
 ## The Main Thread of This Chapter
 
-![LLM engineering chapter learning sequence diagram](/img/course/ch08-engineering-chapter-flow.png)
+![LLM engineering chapter learning sequence diagram](/img/course/ch08-engineering-chapter-flow-en.png)
 
 ## LLMOps Deep Dive: Treating Large Model Applications as Long-Running Software
 
 After an LLM application goes live, the biggest risk is not “one failed call.” It is that the Prompt changes, the model version changes, the documents are updated, user questions change, or costs suddenly rise — and no one knows which layer caused the problem. LLMOps is about making systems evaluable, observable, rollback-friendly, and continuously improvable.
 
-![LLMOps trace review closed-loop diagram](/img/course/ch08-llmops-trace-loop.png)
+![LLMOps trace review closed-loop diagram](/img/course/ch08-llmops-trace-loop-en.png)
 
 | Direction | Problem It Solves | Focus of This Chapter |
 |---|---|---|

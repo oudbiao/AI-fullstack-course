@@ -7,7 +7,7 @@ keywords: [image generation, latest progress, diffusion, controllable generation
 
 # Latest Progress
 
-![Radar chart of frontier trends in image generation](/img/course/ch12-image-generation-trend-radar-map.png)
+![Radar chart of frontier trends in image generation](/img/course/ch12-image-generation-trend-radar-map-en.png)
 
 :::tip Reading tip
 When following the frontier, don’t just chase model names. As you read the chart, separate the directions of “faster,” “more controllable,” “more modalities,” “moving into workflows,” “on-device,” and “cost efficiency” so you can tell which trends are worth learning right now.

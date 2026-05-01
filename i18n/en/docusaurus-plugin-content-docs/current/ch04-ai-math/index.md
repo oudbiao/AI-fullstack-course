@@ -7,7 +7,7 @@ keywords: [AI math, linear algebra, probability and statistics, calculus, machin
 
 # 4 AI Math: the Minimum Necessary Foundation
 
-![AI Math Foundations Main Visual](/img/course/ch04-ai-math.png)
+![AI Math Foundations Main Visual](/img/course/ch04-ai-math-en.png)
 
 At this stage, the goal is to stop feeling scared when you see the math inside models. This is not about training you to become a math major. It is about helping you understand the most common mathematical objects in models: vectors, matrices, probability, loss, gradients, and optimization.
 
@@ -17,7 +17,7 @@ Many beginners fear AI math because formulas look like a wall. Let’s change th
 
 ## Learning Quest Map
 
-![AI Math Learning Quest Map](/img/course/ch04-learning-quest-map.png)
+![AI Math Learning Quest Map](/img/course/ch04-learning-quest-map-en.png)
 
 ## Interactive Practice: Turning Formulas into Pictures with Code
 
@@ -54,7 +54,7 @@ Experienced learners can focus on model interpretation: why matrix multiplicatio
 
 Linear algebra, probability theory, and calculus can each be studied for a long time on their own. But the first pass into AI should not pursue a complete mathematical system. Instead, it should focus first on the most useful, most frequent, and easiest-to-connect-to-model concepts.
 
-![AI Math Minimum Necessary Backbone](/img/course/ch04-ai-math-backbone.png)
+![AI Math Minimum Necessary Backbone](/img/course/ch04-ai-math-backbone-en.png)
 
 ## Learning Path for This Stage
 

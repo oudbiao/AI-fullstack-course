@@ -20,7 +20,7 @@ keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 
 The most important thing in this section is not memorizing class names, but seeing clearly:
 
-![nn.Module parameter organization flowchart](/img/course/ch06-nn-module-parameter-flow.png)
+![nn.Module parameter organization flowchart](/img/course/ch06-nn-module-parameter-flow-en.png)
 
 So what this section really solves is:
 

@@ -18,7 +18,7 @@ A more accurate understanding is:
 So it can be used for classification, and it can also be viewed as a supervised dimensionality reduction method.
 :::
 
-![LDA supervised projection intuition diagram](/img/course/elective-lda-projection-map.png)
+![LDA supervised projection intuition diagram](/img/course/elective-lda-projection-map-en.png)
 
 ## Learning Objectives
 

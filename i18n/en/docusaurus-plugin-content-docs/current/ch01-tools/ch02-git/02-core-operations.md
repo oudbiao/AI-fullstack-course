@@ -6,7 +6,7 @@ description: "Master the most commonly used Git operations in day-to-day develop
 
 # Git Core Operations
 
-![Git daily minimal loop diagram](/img/course/ch01-git-daily-loop.png)
+![Git daily minimal loop diagram](/img/course/ch01-git-daily-loop-en.png)
 
 ## Where This Section Fits
 

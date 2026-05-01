@@ -7,7 +7,7 @@ keywords: [probability distribution, normal distribution, binomial distribution,
 
 # Probability Distributions: Patterns Behind the Data
 
-![Probability distribution family comparison chart](/img/course/distribution-family-comparison.png)
+![Probability distribution family comparison chart](/img/course/distribution-family-comparison-en.png)
 
 ## Learning Objectives
 
@@ -33,7 +33,7 @@ If the previous section was about "the probability of a single event," then this
 
 > **What does an entire random phenomenon look like?**
 
-![Map of random phenomena for probability distributions](/img/course/ch04-distribution-random-world-map.png)
+![Map of random phenomena for probability distributions](/img/course/ch04-distribution-random-world-map-en.png)
 
 The key point of this lesson is not to memorize every distribution, but to first know:
 

@@ -7,7 +7,7 @@ keywords: [guardrails, safety policy, input filter, output filter, tool guard, a
 
 # Guardrails Protection Mechanism
 
-![Agent Layered Guardrails Diagram](/img/course/agent-guardrails-layers.png)
+![Agent Layered Guardrails Diagram](/img/course/agent-guardrails-layers-en.png)
 
 :::tip Section Overview
 Many teams say:

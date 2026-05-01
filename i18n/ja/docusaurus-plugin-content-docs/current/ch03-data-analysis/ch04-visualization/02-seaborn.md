@@ -6,7 +6,7 @@ description: "より少ないコードで、より見やすい統計グラフを
 
 # Seaborn 統計可視化
 
-![Seaborn 統計グラフ選択図](/img/course/seaborn-statistical-plots.png)
+![Seaborn 統計グラフ選択図](/img/course/seaborn-statistical-plots-ja.png)
 
 :::tip この節の位置づけ
 多くの初心者が `Matplotlib` と `Seaborn` で最も混同しやすいのは、次の点です。

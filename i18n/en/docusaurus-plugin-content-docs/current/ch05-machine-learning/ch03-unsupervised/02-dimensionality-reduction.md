@@ -7,7 +7,7 @@ keywords: [dimensionality reduction, PCA, t-SNE, UMAP, principal component analy
 
 # Dimensionality Reduction Algorithms
 
-![PCA dimensionality reduction projection](/img/course/pca-dimensionality-reduction.png)
+![PCA dimensionality reduction projection](/img/course/pca-dimensionality-reduction-en.png)
 
 :::tip Section Overview
 Real-world data often has dozens or even thousands of features. Dimensionality reduction can **reduce the number of features while preserving important information**—it can both speed up training and help with visualization. This section builds on PCA from Station 4 and takes it into deeper practical use.
@@ -47,7 +47,7 @@ Because when you do dimensionality reduction, you may actually be solving very d
 
 A more stable learning sequence is:
 
-![Dimensionality reduction purpose selection map](/img/course/ch05-dimensionality-reduction-purpose-map.png)
+![Dimensionality reduction purpose selection map](/img/course/ch05-dimensionality-reduction-purpose-map-en.png)
 
 Separating “for modeling” from “for visualization” is the most important first step in this section.
 
@@ -229,7 +229,7 @@ There is no fixed answer that always works, but for your first project, you can 
 
 Because “how much variance is retained” is not the same as “what works best for the downstream task.”
 
-![PCA explained variance ratio reading guide](/img/course/ch05-pca-explained-variance-map.png)
+![PCA explained variance ratio reading guide](/img/course/ch05-pca-explained-variance-map-en.png)
 
 When reading a PCA plot, first look at the inflection point of the cumulative variance curve: before the inflection point, each extra principal component is very valuable; after that, the gain becomes smaller. 90% or 95% are just practical thresholds, and you still need to judge together with downstream model scores, training speed, and interpretability.
 
