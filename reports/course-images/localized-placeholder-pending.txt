@@ -586,12 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch01-package-manager-flow-ja.png
-ch01-python-env-stack-ja.png
-ch01-task-list-workflow-ja.png
-ch01-terminal-path-command-map-ja.png
-ch01-tools-foundation-ja.png
-ch01-vscode-workspace-flow-ja.png
 ch02-ai-api-request-response-ja.png
 ch02-control-flow-paths-ja.png
 ch02-data-structures-comparison-ja.png

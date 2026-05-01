@@ -17,7 +17,7 @@
   {
     "filename": "agent-guardrails-layers-ja.png",
     "exists": true,
-    "size_bytes": 79188,
+    "size_bytes": 1641378,
     "english_variant": "agent-guardrails-layers-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "agent-guardrails-layers-ja.png",
@@ -62,7 +62,7 @@
   {
     "filename": "agent-memory-system-ja.png",
     "exists": true,
-    "size_bytes": 78573,
+    "size_bytes": 2081851,
     "english_variant": "agent-memory-system-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "agent-memory-system-ja.png",
@@ -106,7 +106,7 @@
   {
     "filename": "agent-system-architecture-ja.png",
     "exists": true,
-    "size_bytes": 79151,
+    "size_bytes": 1824602,
     "english_variant": "agent-system-architecture-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "agent-system-architecture-ja.png",
@@ -148,7 +148,7 @@
   {
     "filename": "agent-tool-trace-ja.png",
     "exists": true,
-    "size_bytes": 69118,
+    "size_bytes": 1685210,
     "english_variant": "agent-tool-trace-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "agent-tool-trace-ja.png",
@@ -190,7 +190,7 @@
   {
     "filename": "agent-vs-chatbot-comparison-ja.png",
     "exists": true,
-    "size_bytes": 87003,
+    "size_bytes": 1426324,
     "english_variant": "agent-vs-chatbot-comparison-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "agent-vs-chatbot-comparison-ja.png",
@@ -232,7 +232,7 @@
   {
     "filename": "ai-learning-assistant-roadmap-ja.png",
     "exists": true,
-    "size_bytes": 83325,
+    "size_bytes": 1908767,
     "english_variant": "ai-learning-assistant-roadmap-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ai-learning-assistant-roadmap-ja.png",
@@ -274,7 +274,7 @@
   {
     "filename": "anomaly-detection-outliers-ja.png",
     "exists": true,
-    "size_bytes": 84245,
+    "size_bytes": 1568518,
     "english_variant": "anomaly-detection-outliers-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "anomaly-detection-outliers-ja.png",
@@ -316,7 +316,7 @@
   {
     "filename": "appendix-agent-system-lineage-map-ja.png",
     "exists": true,
-    "size_bytes": 91067,
+    "size_bytes": 1685193,
     "english_variant": "appendix-agent-system-lineage-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-agent-system-lineage-map-ja.png",
@@ -358,7 +358,7 @@
   {
     "filename": "appendix-ai-history-comic-turning-points-ja.png",
     "exists": true,
-    "size_bytes": 90236,
+    "size_bytes": 1488399,
     "english_variant": "appendix-ai-history-comic-turning-points-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-ai-history-comic-turning-points-ja.png",
@@ -400,7 +400,7 @@
   {
     "filename": "appendix-ai-main-relay-map-ja.png",
     "exists": true,
-    "size_bytes": 79826,
+    "size_bytes": 1468448,
     "english_variant": "appendix-ai-main-relay-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-ai-main-relay-map-ja.png",
@@ -442,7 +442,7 @@
   {
     "filename": "appendix-ai-milestones-timeline-ja.png",
     "exists": true,
-    "size_bytes": 77400,
+    "size_bytes": 1921891,
     "english_variant": "appendix-ai-milestones-timeline-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-ai-milestones-timeline-ja.png",
@@ -484,7 +484,7 @@
   {
     "filename": "appendix-ai-paper-problem-solution-impact-chain-ja.png",
     "exists": true,
-    "size_bytes": 94980,
+    "size_bytes": 1776702,
     "english_variant": "appendix-ai-paper-problem-solution-impact-chain-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-ai-paper-problem-solution-impact-chain-ja.png",
@@ -526,7 +526,7 @@
   {
     "filename": "appendix-ai-project-lens-map-ja.png",
     "exists": true,
-    "size_bytes": 91099,
+    "size_bytes": 1631983,
     "english_variant": "appendix-ai-project-lens-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-ai-project-lens-map-ja.png",
@@ -568,7 +568,7 @@
   {
     "filename": "appendix-classic-ml-branch-map-ja.png",
     "exists": true,
-    "size_bytes": 85445,
+    "size_bytes": 1474753,
     "english_variant": "appendix-classic-ml-branch-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-classic-ml-branch-map-ja.png",
@@ -610,7 +610,7 @@
   {
     "filename": "appendix-continuous-learning-flywheel-ja.png",
     "exists": true,
-    "size_bytes": 85744,
+    "size_bytes": 1644248,
     "english_variant": "appendix-continuous-learning-flywheel-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-continuous-learning-flywheel-ja.png",
@@ -652,7 +652,7 @@
   {
     "filename": "appendix-course-numbering-maintenance-check-ja.png",
     "exists": true,
-    "size_bytes": 85659,
+    "size_bytes": 1366535,
     "english_variant": "appendix-course-numbering-maintenance-check-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-course-numbering-maintenance-check-ja.png",
@@ -694,7 +694,7 @@
   {
     "filename": "appendix-course-numbering-map-ja.png",
     "exists": true,
-    "size_bytes": 91769,
+    "size_bytes": 1421074,
     "english_variant": "appendix-course-numbering-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-course-numbering-map-ja.png",
@@ -736,7 +736,7 @@
   {
     "filename": "appendix-debug-mre-help-flow-ja.png",
     "exists": true,
-    "size_bytes": 88860,
+    "size_bytes": 1657898,
     "english_variant": "appendix-debug-mre-help-flow-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-debug-mre-help-flow-ja.png",
@@ -778,7 +778,7 @@
   {
     "filename": "appendix-faq-confidence-reset-map-ja.png",
     "exists": true,
-    "size_bytes": 90512,
+    "size_bytes": 1676155,
     "english_variant": "appendix-faq-confidence-reset-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-faq-confidence-reset-map-ja.png",
@@ -820,7 +820,7 @@
   {
     "filename": "appendix-faq-decision-tree-ja.png",
     "exists": true,
-    "size_bytes": 85360,
+    "size_bytes": 1723162,
     "english_variant": "appendix-faq-decision-tree-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-faq-decision-tree-ja.png",
@@ -862,7 +862,7 @@
   {
     "filename": "appendix-hardware-cloud-decision-tree-ja.png",
     "exists": true,
-    "size_bytes": 89365,
+    "size_bytes": 1537002,
     "english_variant": "appendix-hardware-cloud-decision-tree-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-hardware-cloud-decision-tree-ja.png",
@@ -904,7 +904,7 @@
   {
     "filename": "appendix-hardware-local-cloud-api-cost-map-ja.png",
     "exists": true,
-    "size_bytes": 86826,
+    "size_bytes": 1542988,
     "english_variant": "appendix-hardware-local-cloud-api-cost-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-hardware-local-cloud-api-cost-map-ja.png",
@@ -946,7 +946,7 @@
   {
     "filename": "appendix-image-production-pipeline-map-ja.png",
     "exists": true,
-    "size_bytes": 93880,
+    "size_bytes": 1537022,
     "english_variant": "appendix-image-production-pipeline-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-image-production-pipeline-map-ja.png",
@@ -988,7 +988,7 @@
   {
     "filename": "appendix-job-portfolio-storyline-map-ja.png",
     "exists": true,
-    "size_bytes": 87981,
+    "size_bytes": 1528378,
     "english_variant": "appendix-job-portfolio-storyline-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-job-portfolio-storyline-map-ja.png",
@@ -1030,7 +1030,7 @@
   {
     "filename": "appendix-job-prep-funnel-ja.png",
     "exists": true,
-    "size_bytes": 77497,
+    "size_bytes": 1708512,
     "english_variant": "appendix-job-prep-funnel-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-job-prep-funnel-ja.png",
@@ -1072,7 +1072,7 @@
   {
     "filename": "appendix-learning-paper-project-notes-loop-ja.png",
     "exists": true,
-    "size_bytes": 94982,
+    "size_bytes": 1662667,
     "english_variant": "appendix-learning-paper-project-notes-loop-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-learning-paper-project-notes-loop-ja.png",
@@ -1114,7 +1114,7 @@
   {
     "filename": "appendix-llm-to-agent-evolution-timeline-ja.png",
     "exists": true,
-    "size_bytes": 91590,
+    "size_bytes": 1353245,
     "english_variant": "appendix-llm-to-agent-evolution-timeline-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-llm-to-agent-evolution-timeline-ja.png",
@@ -1156,7 +1156,7 @@
   {
     "filename": "appendix-multimodal-aigc-lineage-map-ja.png",
     "exists": true,
-    "size_bytes": 83598,
+    "size_bytes": 1676601,
     "english_variant": "appendix-multimodal-aigc-lineage-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-multimodal-aigc-lineage-map-ja.png",
@@ -1198,7 +1198,7 @@
   {
     "filename": "appendix-neural-network-waves-timeline-ja.png",
     "exists": true,
-    "size_bytes": 89919,
+    "size_bytes": 2211688,
     "english_variant": "appendix-neural-network-waves-timeline-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-neural-network-waves-timeline-ja.png",
@@ -1240,7 +1240,7 @@
   {
     "filename": "appendix-nlp-llm-lineage-map-ja.png",
     "exists": true,
-    "size_bytes": 91392,
+    "size_bytes": 1717484,
     "english_variant": "appendix-nlp-llm-lineage-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-nlp-llm-lineage-map-ja.png",
@@ -1282,7 +1282,7 @@
   {
     "filename": "appendix-project-quick-reference-map-ja.png",
     "exists": true,
-    "size_bytes": 82850,
+    "size_bytes": 1855473,
     "english_variant": "appendix-project-quick-reference-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-project-quick-reference-map-ja.png",
@@ -1324,7 +1324,7 @@
   {
     "filename": "appendix-quick-ref-debug-index-map-ja.png",
     "exists": true,
-    "size_bytes": 90294,
+    "size_bytes": 1625756,
     "english_variant": "appendix-quick-ref-debug-index-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-quick-ref-debug-index-map-ja.png",
@@ -1366,7 +1366,7 @@
   {
     "filename": "appendix-resource-bottleneck-priority-map-ja.png",
     "exists": true,
-    "size_bytes": 94780,
+    "size_bytes": 1462437,
     "english_variant": "appendix-resource-bottleneck-priority-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-resource-bottleneck-priority-map-ja.png",
@@ -1408,7 +1408,7 @@
   {
     "filename": "appendix-resource-selection-funnel-ja.png",
     "exists": true,
-    "size_bytes": 79718,
+    "size_bytes": 1447932,
     "english_variant": "appendix-resource-selection-funnel-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-resource-selection-funnel-ja.png",
@@ -1450,7 +1450,7 @@
   {
     "filename": "appendix-troubleshooting-rescue-map-ja.png",
     "exists": true,
-    "size_bytes": 87064,
+    "size_bytes": 2567273,
     "english_variant": "appendix-troubleshooting-rescue-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-troubleshooting-rescue-map-ja.png",
@@ -1492,7 +1492,7 @@
   {
     "filename": "appendix-visual-enhancement-kanban-ja.png",
     "exists": true,
-    "size_bytes": 79897,
+    "size_bytes": 1685867,
     "english_variant": "appendix-visual-enhancement-kanban-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "appendix-visual-enhancement-kanban-ja.png",
@@ -1534,7 +1534,7 @@
   {
     "filename": "bert-gpt-t5-comparison-ja.png",
     "exists": true,
-    "size_bytes": 73831,
+    "size_bytes": 1563022,
     "english_variant": "bert-gpt-t5-comparison-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "bert-gpt-t5-comparison-ja.png",
@@ -1576,7 +1576,7 @@
   {
     "filename": "bert-masked-language-model-ja.png",
     "exists": true,
-    "size_bytes": 77764,
+    "size_bytes": 1445945,
     "english_variant": "bert-masked-language-model-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "bert-masked-language-model-ja.png",
@@ -1618,7 +1618,7 @@
   {
     "filename": "bias-variance-tradeoff-ja.png",
     "exists": true,
-    "size_bytes": 76899,
+    "size_bytes": 1437197,
     "english_variant": "bias-variance-tradeoff-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "bias-variance-tradeoff-ja.png",
@@ -1660,7 +1660,7 @@
   {
     "filename": "bio-ner-recovery-ja.png",
     "exists": true,
-    "size_bytes": 84652,
+    "size_bytes": 1374283,
     "english_variant": "bio-ner-recovery-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "bio-ner-recovery-ja.png",
@@ -1702,7 +1702,7 @@
   {
     "filename": "boss-challenge-map-ja.png",
     "exists": true,
-    "size_bytes": 75125,
+    "size_bytes": 2831535,
     "english_variant": "boss-challenge-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "boss-challenge-map-ja.png",
@@ -1744,7 +1744,7 @@
   {
     "filename": "bow-tfidf-representation-ja.png",
     "exists": true,
-    "size_bytes": 81116,
+    "size_bytes": 1468505,
     "english_variant": "bow-tfidf-representation-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "bow-tfidf-representation-ja.png",
@@ -1786,7 +1786,7 @@
   {
     "filename": "ch01-cli-automation-workflow-ja.png",
     "exists": true,
-    "size_bytes": 77333,
+    "size_bytes": 2067070,
     "english_variant": "ch01-cli-automation-workflow-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-cli-automation-workflow-ja.png",
@@ -1828,7 +1828,7 @@
   {
     "filename": "ch01-git-branch-collaboration-ja.png",
     "exists": true,
-    "size_bytes": 77379,
+    "size_bytes": 1599406,
     "english_variant": "ch01-git-branch-collaboration-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-git-branch-collaboration-ja.png",
@@ -1870,7 +1870,7 @@
   {
     "filename": "ch01-git-daily-loop-ja.png",
     "exists": true,
-    "size_bytes": 72052,
+    "size_bytes": 1582384,
     "english_variant": "ch01-git-daily-loop-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-git-daily-loop-ja.png",
@@ -1912,7 +1912,7 @@
   {
     "filename": "ch01-git-remote-sync-ja.png",
     "exists": true,
-    "size_bytes": 71718,
+    "size_bytes": 1506690,
     "english_variant": "ch01-git-remote-sync-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-git-remote-sync-ja.png",
@@ -1954,7 +1954,7 @@
   {
     "filename": "ch01-jupyter-kernel-state-ja.png",
     "exists": true,
-    "size_bytes": 83043,
+    "size_bytes": 1588845,
     "english_variant": "ch01-jupyter-kernel-state-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-jupyter-kernel-state-ja.png",
@@ -1996,7 +1996,7 @@
   {
     "filename": "ch01-package-manager-flow-ja.png",
     "exists": true,
-    "size_bytes": 88179,
+    "size_bytes": 1679583,
     "english_variant": "ch01-package-manager-flow-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-package-manager-flow-ja.png",
@@ -2038,7 +2038,7 @@
   {
     "filename": "ch01-python-env-stack-ja.png",
     "exists": true,
-    "size_bytes": 85903,
+    "size_bytes": 1616828,
     "english_variant": "ch01-python-env-stack-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-python-env-stack-ja.png",
@@ -2080,7 +2080,7 @@
   {
     "filename": "ch01-task-list-workflow-ja.png",
     "exists": true,
-    "size_bytes": 82315,
+    "size_bytes": 1611084,
     "english_variant": "ch01-task-list-workflow-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-task-list-workflow-ja.png",
@@ -2122,7 +2122,7 @@
   {
     "filename": "ch01-terminal-path-command-map-ja.png",
     "exists": true,
-    "size_bytes": 91648,
+    "size_bytes": 1599641,
     "english_variant": "ch01-terminal-path-command-map-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-terminal-path-command-map-ja.png",
@@ -2164,7 +2164,7 @@
   {
     "filename": "ch01-tools-foundation-ja.png",
     "exists": true,
-    "size_bytes": 86869,
+    "size_bytes": 1779331,
     "english_variant": "ch01-tools-foundation-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-tools-foundation-ja.png",
@@ -2206,7 +2206,7 @@
   {
     "filename": "ch01-vscode-workspace-flow-ja.png",
     "exists": true,
-    "size_bytes": 84774,
+    "size_bytes": 1673807,
     "english_variant": "ch01-vscode-workspace-flow-ja-en.png",
     "english_variant_exists": false,
     "japanese_variant": "ch01-vscode-workspace-flow-ja.png",
@@ -21935,7 +21935,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-01-turing.png",
     "exists": true,
-    "size_bytes": 74771,
+    "size_bytes": 3937361,
     "english_variant": "homepage-ai-history-comic-en-01-turing.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-01-turing.png",
@@ -21949,7 +21949,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-02-dartmouth.png",
     "exists": true,
-    "size_bytes": 82550,
+    "size_bytes": 3964920,
     "english_variant": "homepage-ai-history-comic-en-02-dartmouth.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-02-dartmouth.png",
@@ -21963,7 +21963,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-03-perceptron.png",
     "exists": true,
-    "size_bytes": 74650,
+    "size_bytes": 2833618,
     "english_variant": "homepage-ai-history-comic-en-03-perceptron.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-03-perceptron.png",
@@ -21977,7 +21977,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-04-expert-systems.png",
     "exists": true,
-    "size_bytes": 72682,
+    "size_bytes": 4486492,
     "english_variant": "homepage-ai-history-comic-en-04-expert-systems.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-04-expert-systems.png",
@@ -21991,7 +21991,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-05-backprop.png",
     "exists": true,
-    "size_bytes": 79567,
+    "size_bytes": 2898001,
     "english_variant": "homepage-ai-history-comic-en-05-backprop.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-05-backprop.png",
@@ -22005,7 +22005,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-06-lenet.png",
     "exists": true,
-    "size_bytes": 74720,
+    "size_bytes": 3286026,
     "english_variant": "homepage-ai-history-comic-en-06-lenet.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-06-lenet.png",
@@ -22019,7 +22019,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-07-statistical-ml.png",
     "exists": true,
-    "size_bytes": 86240,
+    "size_bytes": 2999836,
     "english_variant": "homepage-ai-history-comic-en-07-statistical-ml.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-07-statistical-ml.png",
@@ -22033,7 +22033,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png",
     "exists": true,
-    "size_bytes": 81712,
+    "size_bytes": 3006768,
     "english_variant": "homepage-ai-history-comic-en-08-imagenet-alexnet.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png",
@@ -22047,7 +22047,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-09-resnet.png",
     "exists": true,
-    "size_bytes": 70658,
+    "size_bytes": 2357250,
     "english_variant": "homepage-ai-history-comic-en-09-resnet.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-09-resnet.png",
@@ -22061,7 +22061,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-10-rnn-lstm.png",
     "exists": true,
-    "size_bytes": 74246,
+    "size_bytes": 2437642,
     "english_variant": "homepage-ai-history-comic-en-10-rnn-lstm.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-10-rnn-lstm.png",
@@ -22075,7 +22075,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-11-attention.png",
     "exists": true,
-    "size_bytes": 69923,
+    "size_bytes": 2185140,
     "english_variant": "homepage-ai-history-comic-en-11-attention.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-11-attention.png",
@@ -22089,7 +22089,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-12-transformer.png",
     "exists": true,
-    "size_bytes": 74225,
+    "size_bytes": 2928385,
     "english_variant": "homepage-ai-history-comic-en-12-transformer.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-12-transformer.png",
@@ -22103,7 +22103,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-13-bert-gpt.png",
     "exists": true,
-    "size_bytes": 71981,
+    "size_bytes": 2741068,
     "english_variant": "homepage-ai-history-comic-en-13-bert-gpt.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-13-bert-gpt.png",
@@ -22117,7 +22117,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png",
     "exists": true,
-    "size_bytes": 74687,
+    "size_bytes": 2652281,
     "english_variant": "homepage-ai-history-comic-en-14-rlhf-chatgpt.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png",
@@ -22131,7 +22131,7 @@
   {
     "filename": "homepage-ai-history-comic-ja-15-rag-agent.png",
     "exists": true,
-    "size_bytes": 73607,
+    "size_bytes": 2662847,
     "english_variant": "homepage-ai-history-comic-en-15-rag-agent.png",
     "english_variant_exists": true,
     "japanese_variant": "homepage-ai-history-comic-ja-15-rag-agent.png",
