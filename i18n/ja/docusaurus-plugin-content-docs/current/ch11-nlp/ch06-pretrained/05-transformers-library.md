@@ -1,0 +1,366 @@
+---
+title: "6.6 Transformers ライブラリ実践"
+sidebar_position: 20
+description: "tokenizer、config、model から最小の pipeline まで、HuggingFace Transformers の核心インターフェースをオフラインでどう使うかをしっかり身につけます。"
+keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
+---
+
+# Transformers ライブラリ実践
+
+![Transformers ライブラリの呼び出しチェーン図](/img/course/ch11-transformers-library-call-chain-map.png)
+
+:::tip 画像の見方
+初めて Transformers ライブラリを使うと、API 名に少し混乱しやすいです。まずは Tokenizer、Config、Model、Task Head、Pipeline の呼び出しチェーンに沿って見て、それぞれの役割を理解してから具体的なクラス名を調べると、ずっと分かりやすくなります。
+:::
+
+:::tip この節の位置づけ
+事前学習済みモデルは、概念だけにとどまると「説明はできるけど使えない」状態になりがちです。  
+この節で解決したいのは、もっと実践的な次の疑問です。
+
+> **`transformers` というライブラリに対して、私はどこから手をつければいいのか？**
+
+できるだけ外部ネットワークからのダウンロードに頼らず、最重要のインターフェースを通していきます。
+:::
+
+## 学習目標
+
+- `transformers` ライブラリでよく使う主要オブジェクトの役割を理解する
+- tokenizer、config、model、pipeline の違いを区別できるようになる
+- オフラインで tokenizer + model の最小サンプルを動かす
+- 実際のプロジェクトで「動く」から「保守しやすい」へ進む考え方を理解する
+
+---
+
+## 一、まずはライブラリの主役たちを整理しよう
+
+### 1.1 `Tokenizer`
+
+テキストを、モデルが扱える数値列に変換する役割です。
+
+### 1.2 `Config`
+
+モデルの構造パラメータを記述します。たとえば：
+
+- hidden size
+- 層数
+- ヘッド数
+
+### 1.3 `Model`
+
+実際に前向き計算を行う本体です。
+
+### 1.4 `Pipeline`
+
+より高レベルのラッパーで、次の処理をひとまとめにしてくれます。
+
+- 分かち書き
+- 前向き計算
+- 後処理
+
+より簡単に呼び出せるインターフェースにしてくれます。
+
+一言で覚えるなら：
+
+> tokenizer は入口を担当し、model は計算を担当し、pipeline は全体をつなげる役割です。 
+
+---
+
+## 二、なぜ多くの人は最初に `transformers` を使うと混乱するのか？
+
+理由は、このライブラリに二つの見方があるからです。
+
+### 2.1 概念の世界
+
+たとえば、あなたは次のようなことを知っています。
+
+- BERT は encoder-only
+- GPT は decoder-only
+
+### 2.2 ツールの世界
+
+一方で、次のようなものにも出会います。
+
+- `AutoTokenizer`
+- `AutoModel`
+- `AutoModelForSequenceClassification`
+- `pipeline`
+- `from_pretrained`
+
+初学者がよくつまずくのは、
+
+> 名前はたくさんあるのに、それぞれが何を解決するのか分からない。
+
+という点です。 
+
+なので、この節の核心はインターフェースを暗記することではなく、呼び出し順序の地図を作ることです。
+
+---
+
+## 三、まずはオフラインで最小の tokenizer を作る
+
+### 3.1 なぜ既製モデルをそのままダウンロードしないのか？
+
+教材では、外部ネットワークがなくても動くようにしておくことが大切だからです。  
+そこでここでは、手作業でとても小さな `vocab.txt` を用意して、tokenizer が何をしているのかを本当に理解できるようにします。
+
+### 3.2 実行可能なサンプル
+
+```python
+from pathlib import Path
+from transformers import BertTokenizer
+
+vocab_tokens = [
+    "[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]",
+    "我", "愛", "自", "然", "語", "言", "処", "理", "北", "京"
+]
+
+vocab_path = Path("mini_vocab.txt")
+vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+
+tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+
+encoded = tokenizer("我愛自然言語処理", return_tensors="pt")
+
+print(encoded)
+print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
+```
+
+### 3.3 このコードで学ぶこと
+
+このコードが教えているのは、次のことです。
+
+- tokenizer は魔法のブラックボックスではない
+- 本質は「語彙 + 分割ルール + エンコードルール」
+- 出力で特に重要なのは `input_ids` と `attention_mask`
+
+---
+
+## 四、次に最小の BERT モデルをオフラインで作る
+
+### 4.1 なぜランダム初期化のモデルを使うのか？
+
+今の目的は精度を追うことではなく、
+
+> `transformers` ライブラリの model オブジェクトが、入力をどう受け取り、出力をどう返すのかをきちんと理解すること
+
+だからです。 
+
+### 4.2 実行可能なサンプル
+
+```python
+import torch
+from transformers import BertConfig, BertModel
+
+config = BertConfig(
+    vocab_size=15,
+    hidden_size=32,
+    num_hidden_layers=2,
+    num_attention_heads=4,
+    intermediate_size=64
+)
+
+model = BertModel(config)
+
+input_ids = torch.tensor([[2, 5, 6, 7, 8, 9, 10, 11, 12, 3]])
+attention_mask = torch.ones_like(input_ids)
+
+outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+
+print("last_hidden_state shape:", outputs.last_hidden_state.shape)
+print("pooler_output shape    :", outputs.pooler_output.shape)
+```
+
+### 4.3 本当に理解すべきポイント
+
+- `input_ids` は token の番号
+- `attention_mask` はどの位置が有効かをモデルに伝える
+- `last_hidden_state` は各位置の文脈化された表現
+- `pooler_output` は文全体の表現の一種に近いもの
+
+このあたりを理解しておくと、後で分類 head、マッチング head、生成 head をつなぐときにぐっと楽になります。
+
+---
+
+## 五、tokenizer と model をつないでみる
+
+### 5.1 実行可能なサンプル
+
+```python
+from pathlib import Path
+import torch
+from transformers import BertTokenizer, BertConfig, BertModel
+
+vocab_tokens = [
+    "[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]",
+    "我", "愛", "自", "然", "語", "言", "処", "理"
+]
+
+vocab_path = Path("mini_vocab_2.txt")
+vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
+
+tokenizer = BertTokenizer(vocab_file=str(vocab_path))
+
+config = BertConfig(
+    vocab_size=len(vocab_tokens),
+    hidden_size=32,
+    num_hidden_layers=2,
+    num_attention_heads=4,
+    intermediate_size=64
+)
+model = BertModel(config)
+
+batch = tokenizer(["我愛自然言語処理", "我愛言語"], padding=True, return_tensors="pt")
+outputs = model(**batch)
+
+print("input_ids shape        :", batch["input_ids"].shape)
+print("attention_mask shape   :", batch["attention_mask"].shape)
+print("last_hidden_state shape:", outputs.last_hidden_state.shape)
+```
+
+### 5.2 これが基本の本当の呼び出しチェーン
+
+実際のプロジェクトで最もよくある基本フローは、だいたい次の通りです。
+
+1. テキスト -> tokenizer
+2. tokenizer -> tensor
+3. tensor -> model
+4. model の出力 -> 後処理または task head
+
+ここまでで、このチェーンはすでに自分で動かせるようになりました。
+
+---
+
+## 六、`Auto*` 系インターフェースは何のためにあるのか？
+
+### 6.1 なぜライブラリには `AutoModel` がたくさんあるのか？
+
+`transformers` は、あなたがたくさんのモデル型を手書きで判定しなくて済むように設計されています。
+
+たとえば：
+
+- `AutoTokenizer`
+- `AutoModel`
+- `AutoModelForSequenceClassification`
+- `AutoModelForCausalLM`
+
+これらの設計目標は、
+
+> モデル名や config を与えれば、適切なクラスを自動で選ぶ
+
+ということです。 
+
+### 6.2 オフラインの `AutoModel.from_config` の例
+
+```python
+from transformers import AutoModel, BertConfig
+
+config = BertConfig(
+    vocab_size=20,
+    hidden_size=16,
+    num_hidden_layers=1,
+    num_attention_heads=4,
+    intermediate_size=32
+)
+
+model = AutoModel.from_config(config)
+print(type(model))
+```
+
+これが示しているのは次の点です。
+
+- `AutoModel` は必ずしもネットワークからのダウンロードが必要ではない
+- 本質は「config に基づいて正しいモデルを自動生成する」こと
+
+---
+
+## 七、`pipeline` は学ぶ価値があるのか？
+
+### 7.1 価値はある。ただし、使いどころを知ることが大事
+
+`pipeline` の良い点：
+
+- すぐに使える
+- デモを素早く作れる
+- 定型コードを減らせる
+
+特に向いているのは：
+
+- 学習
+- すばやい検証
+- 小さな実験
+
+### 7.2 ただし、実務では pipeline だけに頼れない
+
+実際のプロジェクトでは、次のような制御も必要になることが多いです。
+
+- batch
+- device
+- 出力形式
+- ログ
+- エラー処理
+
+だから、成熟したやり方としては通常、
+
+- まず `pipeline` を使えるようになる
+- 同時に、下層の tokenizer + model の呼び出しチェーンも理解する
+
+という流れになります。
+
+---
+
+## 八、Transformers ライブラリでよく使う task head
+
+よく使うものをざっくり覚えておきましょう。
+
+| インターフェース | 向いている用途 |
+|---|---|
+| `AutoModel` | 基本表現だけ取り出す |
+| `AutoModelForSequenceClassification` | テキスト分類 |
+| `AutoModelForTokenClassification` | シーケンスラベリング |
+| `AutoModelForQuestionAnswering` | 抽出型質問応答 |
+| `AutoModelForCausalLM` | 生成タスク |
+
+裏側の考え方はとてもシンプルです。
+
+> 同じ backbone モデル + 異なる task head。 
+
+---
+
+## 九、初学者がよくハマる落とし穴
+
+### 9.1 `pipeline` しか使えず、下層の呼び出しが分からない
+
+これだと、実務の場面で止まりやすくなります。
+
+### 9.2 tokenizer の出力フィールドを理解していない
+
+最低でも次は読めるようにしておきましょう。
+
+- `input_ids`
+- `attention_mask`
+
+### 9.3 「モデルの概念」と「ライブラリのインターフェース」を混同する
+
+次の違いを分けて考えられるようにしましょう。
+
+- BERT / GPT はモデルの系統
+- `AutoModel` / `pipeline` はライブラリのインターフェース
+
+---
+
+## まとめ
+
+この節で最も大切なのは、API を暗記できるかどうかではありません。大事なのは、次のことをはっきりさせることです。
+
+> **Transformers ライブラリの核心的な呼び出しチェーンは、tokenizer がテキストを tensor にエンコードし、model が tensor に対して前向き計算を行い、最後に task head または後処理で結果を得る、という流れである。**
+
+この流れが分かれば、その後に分類、抽出、生成、あるいは fine-tuning を行うときも、考え方がかなり安定します。
+
+---
+
+## 練習
+
+1. この節の mini vocab を変更して、自分の単語をいくつか追加し、tokenizer の出力がどう変わるか見てみましょう。
+2. `BertConfig` の `hidden_size` を 64 に変えて、出力 shape がどう変わるか確認してみましょう。
+3. 自分の言葉で説明してみましょう：なぜ `transformers` ライブラリを学ぶとき、`pipeline` だけでは不十分なのでしょうか？
+4. 考えてみましょう：テキスト分類をしたい場合、まず探すべきなのは `AutoModel` でしょうか、それとも `AutoModelForSequenceClassification` でしょうか？

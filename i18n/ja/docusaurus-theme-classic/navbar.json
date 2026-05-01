@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "AI フルスタック学習コース",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "AI フルスタック学習コースのロゴ",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.📚 课程内容": {
+    "message": "📚 コース内容",
+    "description": "Navbar item with label 📚 课程内容"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

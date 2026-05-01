@@ -50,6 +50,7 @@ load_local_env_file(PROJECT_ROOT / ".env.local")
 load_local_env_file(PROJECT_ROOT / ".env")
 
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "static" / "img" / "course"
+DEFAULT_REPORT_DIR = PROJECT_ROOT / "reports" / "course-images"
 DEFAULT_MODEL = os.environ.get("OPENAI_IMAGE_MODEL", "gpt-image-2")
 DEFAULT_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://cliproxy.airoads.org/v1")
 DEFAULT_REQUEST_TIMEOUT = int(os.environ.get("OPENAI_IMAGE_TIMEOUT", "180"))
@@ -8626,6 +8627,677 @@ Backprop 示例连接多层网络训练困难到 gradient flow；Transformer 示
     },
 ]
 
+IMAGE_JOBS.extend(
+    [
+        {
+            "filename": "homepage-ai-history-comic-en-01-turing.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 01 Turing and the AI dream",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about Turing, the Turing machine, and the Turing Test as the starting point of the AI dream.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "Turing and the AI Dream 1936-1950".
+Make it feel like a real comic-book page, not a poster: warm vintage paper, semi-realistic historical characters, six clear panels with comic borders.
+
+Panel 1: 1936, Alan Turing writes a paper at his desk, with a paper tape and mechanical read/write head nearby. Speech bubble: "Can a machine follow rules to think?"
+Panel 2: Blackboard explains a Turing machine: tape, read/write head, state, rule arrows. Short caption: "Step by step rule execution."
+Panel 3: The machine scans 0s and 1s on a moving tape. Narration: "Complex computation can be broken into simple actions."
+Panel 4: 1950 Turing Test: a judge chats through screens with a human and a machine. Speech bubble: "I cannot tell which one is the machine."
+Panel 5: Tags: "Breakthrough: machine intelligence became testable." and "Limitation: conversation is not the same as understanding."
+Panel 6: A future robot appears with a question mark. Arrow label: "Next: AI becomes a formal research field."
+
+Bottom historical meaning: "AI's central question was formally raised: can machines behave intelligently?"
+All text must be clear English, short, and integrated into speech bubbles, blackboards, captions, and labels. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-02-dartmouth.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 02 Dartmouth Conference",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about the 1956 Dartmouth Conference and the birth of artificial intelligence as a research field.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "The Dartmouth Conference: AI Is Born 1956".
+Make it a real comic-book page with a 1950s academic meeting atmosphere, warm vintage paper, and six clear panels.
+
+Panel 1: Scientists gather around a Dartmouth meeting table. Name cards: John McCarthy, Marvin Minsky, Claude Shannon, Allen Newell, Herbert Simon.
+Panel 2: McCarthy points at a blackboard. Speech bubble: "Let's give this dream a name: Artificial Intelligence."
+Panel 3: A machine proves a small math theorem using "IF A THEN B" rule cards. Narration: "Early AI was strong at logical reasoning."
+Panel 4: Flowchart: rules -> reasoning -> conclusion. Caption: "Write knowledge as rules."
+Panel 5: Tags: "Breakthrough: AI became a formal research field." and "Limitation: human intelligence is hard to write as rules."
+Panel 6: Rule cards pile into a tower. Arrow: "Next: researchers look for machines that can learn."
+
+Bottom historical meaning: "For the first time, building intelligent machines became a formal scientific goal."
+All text must be clear English, short, and integrated into bubbles, blackboards, captions, and labels. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-03-perceptron.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 03 Perceptron and first neural winter",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about the perceptron boom, XOR limitation, and the first neural network downturn.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "Perceptron Boom and First Winter 1957-1969".
+Use a real comic-book layout: retro lab style, six panels, clear technical visuals.
+
+Panel 1: Frank Rosenblatt presents an early perceptron machine. Speech bubble: "A machine can adjust weights from data!"
+Panel 2: Blackboard shows an artificial neuron: inputs x1, x2, weights w1, w2, sum, threshold, output. Caption: "If the score passes the threshold, output 1."
+Panel 3: A perceptron separates two classes with one straight line. Narration: "Works well when data is linearly separable."
+Panel 4: Marvin Minsky and Seymour Papert draw the XOR four-point problem on a blackboard. Speech bubble: "One line cannot separate this."
+Panel 5: Tags: "Breakthrough: learning from data by changing weights." and "Limitation: a single layer is too weak."
+Panel 6: Neural network lab lights dim. Arrow: "Next: rule-based expert systems take the spotlight."
+
+Bottom historical meaning: "Neural networks showed promise, then met their first hard reality check."
+All text must be clear English, short, and integrated into bubbles, blackboards, captions, and labels. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-04-expert-systems.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 04 Expert systems",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about expert systems, knowledge bases, rule engines, and maintenance limits.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "Expert Systems: Rules Shine and Crack 1970s-1980s".
+Use a real comic-book page style with vintage hospitals, laboratories, and office machines, six panels.
+
+Panel 1: Edward Feigenbaum and Bruce Buchanan interview doctors and chemists. Narration: "Move expert knowledge into machines."
+Panel 2: Experts feed rule cards into a knowledge-base machine. Rule card: "IF fever + infection THEN consider diagnosis."
+Panel 3: Inference engine follows arrows through a rule cabinet. Blackboard: "Knowledge base + inference engine = expert system."
+Panel 4: The system gives useful advice in medicine, chemistry, and business configuration. Speech bubble: "It works in narrow domains!"
+Panel 5: Tags: "Breakthrough: rule systems solved specialist tasks." and "Limitation: rules conflict, pile up, and become hard to maintain."
+Panel 6: Rule cards become a mountain; the machine smokes. Arrow: "Next: let machines learn from data."
+
+Bottom historical meaning: "AI proved narrow-domain rule systems were useful, but hand-written rules could not scale to the real world."
+All text must be clear English, short, and integrated into bubbles, blackboards, captions, and labels. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-05-backprop.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 05 Backpropagation",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about backpropagation sending error signals backward through a multilayer neural network.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "Backpropagation Reignites Neural Networks 1986".
+Use a real comic-book layout with classroom blackboards and lab equipment, six panels.
+
+Panel 1: Geoffrey Hinton, David Rumelhart, and Ronald Williams stand beside a multilayer network blackboard. Speech bubble: "How do we train many layers?"
+Panel 2: Forward pass: input flows through layers and produces a wrong answer. Narration: "First measure how wrong the prediction is."
+Panel 3: Red error signal flows backward from output to earlier layers. Caption: "Send the error back."
+Panel 4: Each layer adjusts small weight knobs. Blackboard formula: "parameter = parameter - learning rate x gradient."
+Panel 5: Tags: "Breakthrough: each layer knows how to change." and "Limitation: data and compute were still too small."
+Panel 6: The network lights up, but a mountain of deeper networks waits ahead. Arrow: "Next: vision tasks show practical success."
+
+Bottom historical meaning: "Backpropagation became the training foundation for later deep learning."
+All text must be clear English, with formulas allowed, integrated into bubbles, blackboards, captions, and labels. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-06-lenet.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 06 LeNet and CNN",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about LeNet, convolution filters, handwritten digit recognition, and practical CNN success.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "LeNet and the First Practical CNN Success 1989-1998".
+Use a real comic-book page style with a 1990s lab and postal/check recognition scenes, six panels.
+
+Panel 1: Yann LeCun and teammates examine handwritten digits, checks, and postal codes. Speech bubble: "Can a machine read handwriting?"
+Panel 2: A small filter slides like a magnifying glass over a digit image. Caption: "Convolution: scan locally."
+Panel 3: Layers reveal edges, strokes, and digit shapes. Caption: "Low layers see edges; high layers see numbers."
+Panel 4: The machine outputs: "This is 8." An industrial workflow starts using it.
+Panel 5: Tags: "Breakthrough: neural networks worked in real industry." and "Limitation: tasks were still narrow."
+Panel 6: Cats, dogs, and street scenes appear ahead. Arrow: "Next: larger data and stronger compute."
+
+Bottom historical meaning: "CNNs showed the power of automatically learning visual features."
+All text must be clear English, short, and integrated into bubbles, blackboards, captions, and labels. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-07-statistical-ml.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 07 Statistical machine learning",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about statistical machine learning, feature engineering, SVM, random forests, and boosting.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "Statistical Machine Learning: Data Replaces Rules 1990s-2000s".
+Use a real comic-book page style with data labs and early internet business scenes, six panels.
+
+Panel 1: Vladimir Vapnik, Leo Breiman, and Jerome Friedman stand beside an algorithm whiteboard. Narration: "Instead of writing rules, learn patterns from data."
+Panel 2: Tables, clicks, text counts, and labels flow into a model pipeline. Caption: "More data reveals patterns."
+Panel 3: Engineers create feature cards: color, edge, word count, click count. Speech bubble: "First, organize information for the model."
+Panel 4: SVM, random forest, and boosting machines output predictions.
+Panel 5: Tags: "Breakthrough: strong results for tables, search, ads, and classification." and "Limitation: too much manual feature engineering."
+Panel 6: Images, speech, and language become a mountain. Arrow: "Next: neural networks learn features themselves."
+
+Bottom historical meaning: "AI shifted from hand-written rules to data learning, but still depended on human-designed features."
+All text must be clear English; SVM and Boosting may remain as terms. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-08-imagenet-alexnet.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 08 ImageNet and AlexNet",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about ImageNet, AlexNet, GPU training, CNN feature learning, and the deep learning explosion.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "ImageNet and AlexNet: Deep Learning Explodes 2009-2012".
+Use a real comic-book page style with a modern lab, image library, and competition scene, six panels.
+
+Panel 1: Fei-Fei Li builds a huge image library labeled ImageNet. Narration: "Let machines see millions of images."
+Panel 2: Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton train AlexNet beside glowing GPU machines.
+Panel 3: CNN layers learn features: edge -> parts -> cats and dogs.
+Panel 4: A competition leaderboard shows AlexNet far ahead of older methods. Speech bubble: "Raw images can teach features!"
+Panel 5: Tags: "Breakthrough: big data + GPU + CNN launched deep learning." and "Limitation: bigger models need much more compute."
+Panel 6: A deeper neural network tower rises. Arrow: "Next: how do we train very deep networks?"
+
+Bottom historical meaning: "2012 became the turning point when deep learning truly broke out."
+All text must be clear English; ImageNet, AlexNet, GPU, and CNN may remain. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-09-resnet.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 09 ResNet",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about ResNet residual connections and why adding X back helps train deep networks.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "ResNet: Why Add X Back? 2015".
+Use a real comic-book page style with strong engineering structure, six panels.
+
+Panel 1: Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun stand before a very deep neural-network tower. Speech bubble: "Why does a deeper network become harder to train?"
+Panel 2: A normal signal climbs stairs and becomes weak. Narration: "Deep networks can degrade; gradients struggle to travel."
+Panel 3: An information highway bypasses complex layers and carries X forward.
+Panel 4: Blackboard: "output = X + F(X)". Caption: "Keep the original signal; learn the correction."
+Panel 5: Tags: "Breakthrough: 50, 101, and 152 layers became trainable." and "Limitation: larger models cost more compute."
+Panel 6: A residual bridge connects to a future Transformer. Arrow: "Next: sequence and language models evolve."
+
+Bottom historical meaning: "Residual connections became a core deep learning component and later influenced Transformer design."
+All text must be clear English, formulas allowed. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-10-rnn-lstm.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 10 RNN and LSTM",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about RNNs, LSTMs, hidden state, memory gates, and long-distance dependency limits.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "RNN and LSTM: Early Workhorses for Sequences 1997-2014".
+Use a real comic-book page style with language sequences and timelines, six panels.
+
+Panel 1: Hochreiter and Schmidhuber present LSTM memory gates. Narration: "Text, speech, and time series need order."
+Panel 2: RNN is drawn as a relay team passing a memory baton word by word. Caption: "History lives in the hidden state."
+Panel 3: In a long sentence, the baton fades. Speech bubble: "Faraway information gets weak."
+Panel 4: LSTM adds three gates: remember, forget, output. Blackboard: "Gates are information switches."
+Panel 5: Tags: "Breakthrough: sequences for text, speech, and translation." and "Limitation: sequential, slow, and still hard for long dependencies."
+Panel 6: A spotlight shines on important words. Arrow: "Next: Attention looks directly at what matters."
+
+Bottom historical meaning: "RNN/LSTM made sequence modeling practical, while exposing the bottlenecks of long memory and parallel training."
+All text must be clear English; RNN, LSTM, hidden state may remain. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-11-attention.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 11 Attention",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about attention for machine translation, information bottlenecks, and weighted focus.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "Attention: Look at What Matters 2014".
+Use a real comic-book page style with a machine translation classroom and spotlight metaphor, six panels.
+
+Panel 1: Bahdanau, Cho, and Bengio stand beside a translation blackboard. Speech bubble: "One vector for a whole sentence is too crowded."
+Panel 2: Old Seq2Seq squeezes a long sentence into a tiny bottle that is about to burst. Narration: "Information bottleneck."
+Panel 3: A translation robot generates a word while a spotlight shines on the matching source word.
+Panel 4: Weight bars act like dimmer switches: important word 70%, other word 20%. Caption: "Focus by weight."
+Panel 5: Tags: "Breakthrough: each output word can look at relevant input positions." and "Limitation: early attention still often used RNNs, so parallelism was limited."
+Panel 6: An RNN chain is cut away. Arrow: "Next: Transformer uses only Attention."
+
+Bottom historical meaning: "Attention moved models from memorizing a whole sentence to looking up what matters when needed."
+All text must be clear English; Attention and Seq2Seq may remain. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-12-transformer.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 12 Transformer",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about Transformer self-attention, QKV, multi-head attention, parallel training, and LLM foundations.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "Transformer: Attention Is All You Need 2017".
+Use a real comic-book page style with modern tech visuals and six clear panels.
+
+Panel 1: The Transformer author team stands before a paper blackboard. Name tags: Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, Polosukhin.
+Panel 2: Tokens sit around a meeting table and connect directly to each other. Speech bubble: "No need to pass messages one by one."
+Panel 3: Q/K/V cards: Q = "what I am looking for", K = "what label I have", V = "the information I provide".
+Panel 4: Multiple expert heads observe a sentence: grammar, reference, meaning. Caption: "Multi-head attention = many viewpoints."
+Panel 5: Tags: "Breakthrough: parallel training and better long-range dependencies." and "Limitation: attention cost grows with sequence length."
+Panel 6: Transformer becomes the foundation under a city of large language models. Arrow: "Next: pretrained foundation models."
+
+Bottom historical meaning: "Transformer became the core architecture behind modern large language models."
+All text must be clear English; Q/K/V, token, Transformer may remain. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-13-bert-gpt.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 13 BERT and GPT",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about BERT, GPT, masked language modeling, next-token prediction, and pretraining.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "BERT and GPT: The Pretraining Era Begins 2018-2020".
+Use a real comic-book page style with two model routes side by side, six panels.
+
+Panel 1: Jacob Devlin and Alec Radford stand before a Transformer foundation. Narration: "Train a general model on massive text first."
+Panel 2: BERT is a reading-comprehension student filling a masked word. Caption: "Look both left and right; solve a fill-in-the-blank."
+Panel 3: GPT is a writing robot continuing text from left to right. Caption: "Predict the next token from previous context."
+Panel 4: GPT-3 sees a few examples and imitates the task. Speech bubble: "Give me examples, and I continue the pattern."
+Panel 5: Tags: "Breakthrough: pretraining transfers to many tasks." and "Limitation: hallucinations and unreliable facts."
+Panel 6: A text-completing robot walks into an instruction classroom. Arrow: "Next: make models follow instructions."
+
+Bottom historical meaning: "AI moved from training one model per task to large pretrained foundation models."
+All text must be clear English; BERT, GPT, GPT-3, token may remain. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-14-rlhf-chatgpt.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 14 SFT RLHF and ChatGPT",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about SFT, RLHF, ChatGPT, and turning a text completer into an assistant.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "SFT, RLHF, and ChatGPT: From Completer to Assistant 2022".
+Use a real comic-book page style with a training classroom and chat product scene, six panels.
+
+Panel 1: A text-completing robot writes endless messy text. Speech bubble: "I only continue text."
+Panel 2: A human teacher gives user-question and assistant-answer examples. Blackboard: "SFT: practice with good examples."
+Panel 3: Human reviewers compare several answers and rank preferences. Caption: "RLHF: learn what humans prefer."
+Panel 4: The robot becomes a conversational assistant that follows instructions and answers step by step.
+Panel 5: Tags: "Breakthrough: everyday users experience AI conversation." and "Limitation: still hallucinates and can sound overconfident."
+Panel 6: Knowledge base, tool box, and safety warning appear beside the assistant. Arrow: "Next: connect tools and knowledge to finish real tasks."
+
+Bottom historical meaning: "Large language models moved from text completion to usable conversational assistants."
+All text must be clear English; SFT, RLHF, ChatGPT may remain. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-en-15-rag-agent.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "English homepage AI history comic 15 RAG tools and Agents",
+            "suggested_page": "i18n/en/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Comic about RAG, tool calling, AI Agents, planning, execution, safety, and real tasks.",
+            "prompt": """
+Create a 9:16 vertical English science comic page titled: "RAG, Tool Calling, and Agents: AI Tackles Real Tasks 2023-Present".
+Use a real comic-book page style with a modern AI workspace, knowledge base, and tool box, six panels.
+
+Panel 1: A user asks: "Help me create a course handout." The AI assistant receives the goal.
+Panel 2: RAG flow diagram: question -> retrieve documents -> put into context -> answer from sources. Narration: "First retrieve, then answer."
+Panel 3: The AI calls tools: search, code, calculator, document generator. Caption: "If the model cannot do it, use a tool."
+Panel 4: Agent task board: goal -> plan -> call tools -> observe result -> continue.
+Panel 5: Tags: "Breakthrough: AI moves from answering questions to completing tasks." and "Risks: bad retrieval, tool errors, prompt injection, permissions."
+Panel 6: Safety guardrails, permission checks, and human review protect the workflow. Arrow: "Next: more reliable long-running autonomous systems."
+
+Bottom historical meaning: "AI is moving from talking to retrieving, using tools, and executing real work."
+All text must be clear English; RAG and Agent may remain. No gibberish, no watermark, no real logo.
+""".strip(),
+        },
+    ]
+)
+
+
+IMAGE_JOBS.extend(
+    [
+        {
+            "filename": "homepage-ai-history-comic-ja-01-turing.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 01 チューリングと AI の夢",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "チューリング機械とチューリングテストが AI の出発点になったことを説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「チューリングと AI の夢 1936-1950」。
+本物の漫画本の 1 ページのように、温かい古い紙の質感、半写実の歴史人物、読みやすい 6 コマ構成、漫画枠を明確にする。
+
+1コマ目：1936年、Alan Turing が机で論文を書き、紙テープと読み書きヘッドがある。吹き出し：「機械は規則で考えられる？」
+2コマ目：小黒板で Turing machine を説明：テープ、ヘッド、状態、規則の矢印。短い説明：「一歩ずつ規則を実行」。
+3コマ目：0 と 1 の紙テープを機械が読み書きする。ナレーション：「複雑な計算も小さな動作に分けられる」。
+4コマ目：1950年の Turing Test。審査員が画面越しに人間と機械へ質問。吹き出し：「どちらが機械か分からない」。
+5コマ目：ラベル「成功した点：機械の知能をテスト可能にした」。ラベル「課題：会話できても理解とは限らない」。
+6コマ目：未来のロボットと疑問符。矢印：「次へ：AI が正式な研究分野になる」。
+
+下部に一文：「この段階の歴史的意義：AI の核心問題『機械は知的に振る舞えるか』が正式に問われた」。
+文字はすべて自然な日本語。短文で、吹き出し、小黒板、キャプション、ラベルに自然に入れる。文字を一か所に詰めない。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-02-dartmouth.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 02 ダートマス会議",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "1956年のダートマス会議で人工知能が正式な研究分野になったことを説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「ダートマス会議：AI 誕生 1956」。
+1950年代の学術会議の空気、温かい紙質、半写実人物、6コマの本格マンガ構成。
+
+1コマ目：科学者が会議机を囲む。名札：John McCarthy、Marvin Minsky、Claude Shannon、Allen Newell、Herbert Simon。
+2コマ目：McCarthy が黒板を指し、黒板に「Artificial Intelligence」。吹き出し：「この夢に名前を付けよう」。
+3コマ目：機械が「IF A THEN B」の規則カードで数学定理を証明。説明：「初期 AI は論理推論が得意」。
+4コマ目：フローチャート「規則 → 推論 → 結論」。小黒板：「知識を規則として書く」。
+5コマ目：ラベル「成功した点：AI が正式な研究分野になった」。ラベル「課題：人間の知能を全部規則にするのは難しい」。
+6コマ目：規則カードが高く積み上がる。矢印：「次へ：学習する機械を探す」。
+
+下部に一文：「この段階の歴史的意義：知的な機械を作ることが科学の正式な目標になった」。
+文字は自然な日本語で短く、吹き出し、黒板、ラベルに分散。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-03-perceptron.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 03 パーセプトロンと最初の冬",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "パーセプトロン、XOR問題、ニューラルネットワーク最初の低迷を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「パーセプトロンの熱狂と最初の冬 1957-1969」。
+レトロな研究所、半写実人物、6コマの本格マンガページ。
+
+1コマ目：Frank Rosenblatt が Perceptron 機械を紹介。吹き出し：「データから重みを変えられる！」
+2コマ目：小黒板に人工ニューロン：x1、x2、w1、w2、合計、しきい値、出力。説明：「点数がしきい値を超えたら 1」。
+3コマ目：1本の直線で2種類の点を分ける図。説明：「線形に分けられる問題は得意」。
+4コマ目：Marvin Minsky と Seymour Papert が XOR の4点を黒板に描く。吹き出し：「1本の線では分けられない」。
+5コマ目：ラベル「成功した点：データで重みを学習」。ラベル「課題：単層では表現力が弱い」。
+6コマ目：研究所のニューラルネットの明かりが暗くなる。矢印：「次へ：ルール型 AI が主役へ」。
+
+下部に一文：「この段階の歴史的意義：ニューラルネットは希望を見せ、同時に限界も見せた」。
+文字は自然な日本語で短く、技術図と会話に分散。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-04-expert-systems.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 04 エキスパートシステム",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "エキスパートシステム、知識ベース、規則推論、保守限界を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「エキスパートシステム：規則の栄光と限界 1970s-1980s」。
+病院、化学研究室、企業システムが出るレトロな 6コマ漫画。
+
+1コマ目：Edward Feigenbaum と Bruce Buchanan が医師や化学者から知識を聞く。説明：「専門家の知識を機械へ」。
+2コマ目：医師が規則カードを機械へ入れる。カード：「IF 発熱 + 感染 THEN 診断候補」。
+3コマ目：知識ベースと推論エンジンの図。黒板：「知識ベース + 推論 = Expert System」。
+4コマ目：医学、化学、企業設定で役立つ場面。吹き出し：「狭い分野なら強い！」。
+5コマ目：ラベル「成功した点：専門領域で実用化」。ラベル「課題：規則が衝突し、保守が大変」。
+6コマ目：規則カードが山になり機械が煙を出す。矢印：「次へ：データから学ぶ方法へ」。
+
+下部に一文：「この段階の歴史的意義：狭い領域では AI が役立つ一方、手書き規則は世界全体に広がらなかった」。
+文字は自然な日本語で短く、分散配置。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-05-backprop.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 05 誤差逆伝播",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "誤差逆伝播で多層ニューラルネットの重みを調整する仕組みを説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「誤差逆伝播：神経ネットが再点火 1986」。
+教室の黒板と研究所を組み合わせた 6コマの本格科学マンガ。
+
+1コマ目：Geoffrey Hinton、David Rumelhart、Ronald Williams が多層ネットの黒板前に立つ。吹き出し：「多層をどう訓練する？」
+2コマ目：入力が前へ流れ、間違った予測を出す。説明：「まず誤差を測る」。
+3コマ目：赤い誤差信号が出力層から左へ戻る。キャプション：「誤差を後ろへ伝える」。
+4コマ目：各層が重みのつまみを少し回す。黒板：「パラメータ = パラメータ - 学習率 x 勾配」。
+5コマ目：ラベル「成功した点：各層の直し方が分かった」。ラベル「課題：当時はデータも計算力も不足」。
+6コマ目：ネットは光るが、遠くに深いネットの山。矢印：「次へ：画像認識で実用成功へ」。
+
+下部に一文：「この段階の歴史的意義：誤差逆伝播は後の深層学習の訓練基盤になった」。
+文字は自然な日本語。式は読みやすく、文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-06-lenet.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 06 LeNet と CNN",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "LeNet、畳み込み、手書き数字認識、CNNの実用成功を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「LeNet と CNN の実用成功 1989-1998」。
+1990年代の研究室、郵便番号と小切手認識、6コマの本格マンガ。
+
+1コマ目：Yann LeCun、Léon Bottou、Yoshua Bengio、Patrick Haffner が手書き数字を見る。吹き出し：「機械に手書きを読ませたい」。
+2コマ目：小さなフィルタが虫眼鏡のように数字画像を滑る。説明：「畳み込み：近くを少しずつ見る」。
+3コマ目：層ごとに「線 → 筆画 → 数字の形」が見える。キャプション：「低層は線、高層は数字」。
+4コマ目：機械が出力：「これは 8」。郵便や小切手処理に使われる。
+5コマ目：ラベル「成功した点：実産業でニューラルネットが働いた」。ラベル「課題：まだ狭いタスク中心」。
+6コマ目：猫、犬、街の写真が遠くに見える。矢印：「次へ：大規模データと GPU へ」。
+
+下部に一文：「この段階の歴史的意義：CNN は画像特徴を自動で学ぶ力を示した」。
+文字は自然な日本語。CNN、LeNet は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-07-statistical-ml.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 07 統計的機械学習",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "統計的機械学習、SVM、ランダムフォレスト、Boosting、特徴量設計を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「統計的機械学習：データが規則に代わる 1990s-2000s」。
+データ研究室と初期インターネット企業の雰囲気、6コマ漫画。
+
+1コマ目：Vladimir Vapnik、Leo Breiman、Jerome Friedman がアルゴリズム黒板の前に立つ。説明：「規則を書く代わりに、データからパターンを学ぶ」。
+2コマ目：表データ、クリック、文章の単語数、ラベルがモデルへ流れる。キャプション：「データが多いほど規則性が見える」。
+3コマ目：エンジニアが特徴量カードを作る：「色」「エッジ」「単語数」「クリック数」。吹き出し：「まず情報を整理する」。
+4コマ目：SVM、Random Forest、Boosting の小型マシンが予測を出す。
+5コマ目：ラベル「成功した点：表データ、検索、広告、分類に強い」。ラベル「課題：人手の特徴量設計に依存」。
+6コマ目：画像、音声、言語の山。矢印：「次へ：特徴もモデルが学ぶ」。
+
+下部に一文：「この段階の歴史的意義：AI は手書き規則からデータ学習へ移ったが、人手の特徴設計は残った」。
+文字は自然な日本語。SVM、Boosting は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-08-imagenet-alexnet.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 08 ImageNet と AlexNet",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "ImageNet、AlexNet、GPU、CNN、大規模画像認識による深層学習の爆発を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「ImageNet と AlexNet：深層学習の爆発 2009-2012」。
+現代的な研究室、巨大画像図書館、コンペ会場を含む 6コマ漫画。
+
+1コマ目：Fei-Fei Li が巨大な画像図書館 ImageNet を作る。説明：「機械に大量の画像を見せる」。
+2コマ目：Alex Krizhevsky、Ilya Sutskever、Geoffrey Hinton が GPU マシンで AlexNet を訓練。
+3コマ目：CNN の層が「エッジ → 部品 → 猫や犬」を学ぶ図。
+4コマ目：コンペ順位表で AlexNet が古い方法を大きく上回る。吹き出し：「生画像から特徴を学べる！」。
+5コマ目：ラベル「成功した点：大データ + GPU + CNN が深層学習を加速」。ラベル「課題：計算資源が大量に必要」。
+6コマ目：さらに深いネットの塔。矢印：「次へ：深すぎるネットをどう訓練する？」。
+
+下部に一文：「この段階の歴史的意義：2012年は深層学習が本格的に爆発した転換点になった」。
+文字は自然な日本語。ImageNet、AlexNet、GPU、CNN は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-09-resnet.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 09 ResNet",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "ResNetの残差接続と X を足し戻す意味を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「ResNet：なぜ X を足し戻すのか 2015」。
+工学的で見やすい 6コマの科学マンガ。
+
+1コマ目：Kaiming He、Xiangyu Zhang、Shaoqing Ren、Jian Sun が深いネットの塔を見上げる。吹き出し：「深くすると逆に訓練しにくい？」。
+2コマ目：普通の信号が階段を登るうちに弱くなる。説明：「深い層では劣化や勾配の問題が起きる」。
+3コマ目：情報高速道路が複雑な層をまたいで X を先へ運ぶ。
+4コマ目：黒板：「出力 = X + F(X)」。説明：「元の情報を残し、修正量だけ学ぶ」。
+5コマ目：ラベル「成功した点：50層、101層、152層が訓練可能に」。ラベル「課題：大きなモデルは計算コストが高い」。
+6コマ目：残差の橋が未来の Transformer へつながる。矢印：「次へ：系列と言語モデルへ」。
+
+下部に一文：「この段階の歴史的意義：残差接続は深層学習の基本部品となり、Transformer にも受け継がれた」。
+文字は自然な日本語。式は明確に。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-10-rnn-lstm.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 10 RNN と LSTM",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "RNN、LSTM、hidden state、記憶ゲート、長距離依存の限界を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「RNN と LSTM：系列モデルの主役 1997-2014」。
+言語の流れと時間軸を見せる 6コマ漫画。
+
+1コマ目：Sepp Hochreiter と Jürgen Schmidhuber が LSTM の記憶ゲートを示す。説明：「文章、音声、時系列には順番がある」。
+2コマ目：RNN をリレー隊として描く。単語ごとに記憶バトンを渡す。キャプション：「履歴は hidden state に入る」。
+3コマ目：長い文ではバトンが薄くなる。吹き出し：「遠い情報が弱くなる」。
+4コマ目：LSTM が 3つの門「覚える」「忘れる」「出す」を持つ。黒板：「ゲートは情報のスイッチ」。
+5コマ目：ラベル「成功した点：文章、音声、翻訳を扱えた」。ラベル「課題：順番処理で遅く、長距離依存が難しい」。
+6コマ目：重要語にスポットライトが当たる。矢印：「次へ：Attention が必要な場所を見る」。
+
+下部に一文：「この段階の歴史的意義：RNN/LSTM は系列処理を実用化し、長い記憶と並列化の壁も明らかにした」。
+文字は自然な日本語。RNN、LSTM、hidden state は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-11-attention.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 11 Attention",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Attention、翻訳、情報ボトルネック、重み付き注目を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「Attention：丸暗記せず重点を見る 2014」。
+翻訳教室とスポットライトの比喩を使う 6コマ漫画。
+
+1コマ目：Dzmitry Bahdanau、Kyunghyun Cho、Yoshua Bengio が翻訳黒板の横に立つ。吹き出し：「1つのベクトルに全文を詰めるのは苦しい」。
+2コマ目：古い Seq2Seq が長文を小さな瓶に押し込む。説明：「情報ボトルネック」。
+3コマ目：翻訳ロボットが日本語単語を出す時、元の英単語へスポットライト。
+4コマ目：重みバー：「重要語 70%」「別の語 20%」。説明：「重みで見る場所を決める」。
+5コマ目：ラベル「成功した点：出力ごとに関連する入力位置を見られる」。ラベル「課題：初期 Attention は RNN 併用が多く、並列化が弱い」。
+6コマ目：RNN の鎖が外れ始める。矢印：「次へ：Transformer は Attention だけで進む」。
+
+下部に一文：「この段階の歴史的意義：モデルは全文を丸暗記するのではなく、必要な時に重点を見るようになった」。
+文字は自然な日本語。Attention、Seq2Seq は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-12-transformer.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 12 Transformer",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "Transformer、self-attention、QKV、multi-head attention、並列訓練を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「Transformer：Attention Is All You Need 2017」。
+現代的な技術感のある 6コマ漫画。文字は短く、図で説明する。
+
+1コマ目：著者チームが論文黒板の前に立つ。名札：Vaswani、Shazeer、Parmar、Uszkoreit、Jones、Gomez、Kaiser、Polosukhin。
+2コマ目：単語 token が会議テーブルを囲み、全員が直接つながる。吹き出し：「順番に伝言しなくていい」。
+3コマ目：Q/K/V カード。Q「何を探す？」 K「どんな札を持つ？」 V「渡す情報」。
+4コマ目：複数の専門家ヘッドが文を見る：「文法」「指示語」「意味」。説明：「Multi-Head = 複数の見方」。
+5コマ目：ラベル「成功した点：並列訓練と長距離依存に強い」。ラベル「課題：長い文では計算量が増える」。
+6コマ目：Transformer が大規模言語モデルの街の土台になる。矢印：「次へ：大規模事前学習モデルへ」。
+
+下部に一文：「この段階の歴史的意義：Transformer は現代の大規模言語モデルの中核構造になった」。
+文字は自然な日本語。Q/K/V、token、Transformer は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-13-bert-gpt.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 13 BERT と GPT",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "BERT、GPT、穴埋め学習、次トークン予測、事前学習時代を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「BERT と GPT：事前学習時代の始まり 2018-2020」。
+2つのモデルの違いを横並びで見せる 6コマ漫画。
+
+1コマ目：Jacob Devlin と Alec Radford が Transformer の土台の前に立つ。説明：「まず巨大な文章で汎用モデルを訓練」。
+2コマ目：BERT は読解学生。穴あき単語を左右の文脈から当てる。キャプション：「両側を見て穴埋め」。
+3コマ目：GPT は文章を書くロボット。左から右へ続きを書く。キャプション：「前文から次の token を予測」。
+4コマ目：GPT-3 が少数例を見てタスクをまねる。吹き出し：「例を見れば型を続けられる」。
+5コマ目：ラベル「成功した点：事前学習が多くのタスクへ転移」。ラベル「課題：幻覚と事実の不安定さ」。
+6コマ目：文章補完ロボットが指示訓練の教室へ入る。矢印：「次へ：指示に従うモデルへ」。
+
+下部に一文：「この段階の歴史的意義：AI はタスクごとの個別モデルから、大規模な基盤モデルへ移った」。
+文字は自然な日本語。BERT、GPT、GPT-3、token は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-14-rlhf-chatgpt.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 14 SFT RLHF と ChatGPT",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "SFT、RLHF、ChatGPT、文章補完モデルが対話助手になる流れを説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「SFT、RLHF、ChatGPT：補完器から助手へ 2022」。
+訓練教室とチャット画面を組み合わせた 6コマ漫画。
+
+1コマ目：文章補完ロボットが長い文章を勝手に続ける。吹き出し：「私は続きを書くだけ」。
+2コマ目：人間教師が「ユーザー質問 → 助手回答」の例を渡す。黒板：「SFT：良い回答例で練習」。
+3コマ目：人間評価者が複数回答を比べて順位をつける。説明：「RLHF：人が好む回答を学ぶ」。
+4コマ目：ロボットが対話助手になり、指示に沿って段階的に答える。
+5コマ目：ラベル「成功した点：一般ユーザーが AI 対話を体験」。ラベル「課題：幻覚、過信、事実誤り」。
+6コマ目：知識ベース、道具箱、安全標識が助手の横に出る。矢印：「次へ：知識と道具につなぐ」。
+
+下部に一文：「この段階の歴史的意義：大規模言語モデルは文章補完から、使える会話助手へ近づいた」。
+文字は自然な日本語。SFT、RLHF、ChatGPT は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+        {
+            "filename": "homepage-ai-history-comic-ja-15-rag-agent.png",
+            "size": "1024x1792",
+            "quality": "high",
+            "title": "日本語ホーム AI 史マンガ 15 RAG と Agent",
+            "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/index.md",
+            "alt": "RAG、ツール呼び出し、AI Agent、計画、実行、安全性を説明する日本語マンガ。",
+            "prompt": """
+9:16 縦長の日本語科学マンガページを作成。タイトル：「RAG、ツール呼び出し、Agent：実タスクへ 2023-現在」。
+現代的な AI 作業場、知識ベース、道具箱、タスクボードを描く 6コマ漫画。
+
+1コマ目：ユーザーが AI 助手へ依頼：「講義資料を作って」。AI が目標を受け取る。
+2コマ目：RAG の流れを図解：「質問 → 資料検索 → 文脈に入れる → 根拠つき回答」。説明：「先に探し、資料に基づいて答える」。
+3コマ目：AI が道具を呼ぶ：検索、コード、計算機、文書生成。キャプション：「できないことは道具を使う」。
+4コマ目：Agent のタスクボード：「目標 → 計画 → 道具実行 → 観察 → 続行」。
+5コマ目：ラベル「成功した点：質問回答から作業完了へ」。ラベル「課題：検索ミス、道具エラー、プロンプト注入、権限リスク」。
+6コマ目：安全ガード、権限チェック、人間レビューがワークフローを守る。矢印：「次へ：より信頼できる長時間自律システムへ」。
+
+下部に一文：「この段階の歴史的意義：AI は話すだけでなく、検索し、道具を使い、実際の仕事を進め始めた」。
+文字は自然な日本語。RAG、Agent は用語として残す。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+        },
+    ]
+)
+
 
 HOMEPAGE_HISTORY_COMIC_FILENAMES = {
     f"homepage-ai-history-comic-{index:02d}-{slug}.png"
@@ -8659,6 +9331,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true", help="Print planned image jobs without calling the API.")
     parser.add_argument("--only", nargs="*", help="Generate only selected filenames, such as ai-fullstack-hero.png.")
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="Directory for generated images.")
+    parser.add_argument("--report-dir", default=str(DEFAULT_REPORT_DIR), help="Directory for generated image reports.")
     parser.add_argument("--model", default=DEFAULT_MODEL, help="Image model name.")
     parser.add_argument("--base-url", default=DEFAULT_BASE_URL, help="OpenAI-compatible base URL.")
     parser.add_argument("--request-timeout", type=int, default=DEFAULT_REQUEST_TIMEOUT, help="HTTP request timeout in seconds.")
@@ -8679,8 +9352,9 @@ def selected_jobs(only: list[str] | None) -> list[dict[str, Any]]:
     return jobs
 
 
-def write_manifest(output_dir: Path, jobs: list[dict[str, Any]]) -> None:
-    manifest = output_dir / "manifest.md"
+def write_manifest(report_dir: Path, jobs: list[dict[str, Any]]) -> None:
+    report_dir.mkdir(parents=True, exist_ok=True)
+    manifest = report_dir / "manifest.md"
     lines = ["# AI 全栈课程配图清单", ""]
     lines.append("这些图片由 `scripts/generate_course_images.py` 生成，Markdown 页面使用 `/img/course/...` 引用。")
     lines.append("")
@@ -8851,18 +9525,20 @@ def generate_image_with_http(
 def main() -> None:
     args = parse_args()
     output_dir = Path(args.output_dir)
+    report_dir = Path(args.report_dir)
     jobs = selected_jobs(args.only)
 
     print(f"model: {args.model}", flush=True)
     print(f"base_url: {args.base_url}", flush=True)
     print(f"output_dir: {output_dir}", flush=True)
+    print(f"report_dir: {report_dir}", flush=True)
     print(f"request_timeout: {args.request_timeout}s", flush=True)
     print(f"retries: {args.retries}", flush=True)
     print(f"jobs: {len(jobs)}", flush=True)
 
     if args.ensure_placeholders:
         ensure_placeholders(output_dir)
-        write_manifest(output_dir, IMAGE_JOBS)
+        write_manifest(report_dir, IMAGE_JOBS)
         print(f"Placeholders ensured under {output_dir}", flush=True)
         return
 
@@ -8875,7 +9551,7 @@ def main() -> None:
         raise SystemExit("OPENAI_API_KEY is not set. Set it in your local shell before generating images.")
 
     ensure_output_dir(output_dir)
-    write_manifest(output_dir, jobs)
+    write_manifest(report_dir, jobs)
 
     client = None
     try:
@@ -8883,7 +9559,7 @@ def main() -> None:
     except ImportError as exc:
         print("The Python package `openai` is not installed; using the built-in HTTP fallback.", flush=True)
     else:
-        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url)
+        client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, timeout=args.request_timeout)
 
     for job in jobs:
         output_path = output_dir / job["filename"]

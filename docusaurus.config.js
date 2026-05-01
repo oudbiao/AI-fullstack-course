@@ -3,8 +3,8 @@ const { themes: prismThemes } = require("prism-react-renderer");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "AI 全栈学习教程",
-  tagline: "从零基础到 AI Agent 开发的完整学习路径",
+  title: "AI Full-Stack Learning Course",
+  tagline: "A complete learning path from AI fundamentals to AI Agent development",
   favicon: "img/favicon.ico",
   url: "https://learning.airoads.org",
   baseUrl: "/",
@@ -44,14 +44,14 @@ const config = {
       attributes: {
         name: "keywords",
         content:
-          "AI全栈学习教程,人工智能学习,Python教程,机器学习入门,深度学习,数据分析,PyTorch,LLM,大语言模型,AI Agent,自学课程,零基础学AI",
+          "AI full-stack course,learn AI,Python tutorial,machine learning for beginners,deep learning,data analysis,PyTorch,LLM,large language models,RAG,AI agents,AI フルスタック学習,人工知能 入門,Python チュートリアル,機械学習 初心者,深層学習,データ分析,大規模言語モデル,AI Agent",
       },
     },
     {
       tagName: "meta",
       attributes: {
         name: "author",
-        content: "AI 全栈学习教程",
+        content: "AI Full-Stack Learning Course",
       },
     },
     // 结构化数据 JSON-LD（帮助搜索引擎理解网站类型）
@@ -63,10 +63,11 @@ const config = {
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "AI 全栈学习教程",
+        name: "AI Full-Stack Learning Course / AI フルスタック学習コース",
         url: "https://learning.airoads.org",
-        description: "从零基础到 AI Agent 开发的完整学习路径，涵盖 Python、数据分析、机器学习、深度学习、LLM 等技术栈",
-        inLanguage: "zh-Hans",
+        description:
+          "A complete learning path from AI fundamentals to AI Agent development. AI の基礎から AI Agent 開発まで学べる学習コース。",
+        inLanguage: ["zh-Hans", "en-US", "ja-JP"],
       }),
     },
     {
@@ -77,24 +78,30 @@ const config = {
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Course",
-        name: "AI 全栈学习教程",
+        name: "AI Full-Stack Learning Course / AI フルスタック学習コース",
         description:
-          "从零基础到 AI Agent 开发的完整免费学习路径，涵盖 Python 编程、数据分析与可视化、数学基础、机器学习、深度学习、计算机视觉、自然语言处理、大语言模型等",
+          "A free AI full-stack course covering Python, data analysis, math, machine learning, deep learning, LLMs, RAG, and AI Agents. AI 入門から RAG・Agent 開発まで学べる無料コース。",
         provider: {
           "@type": "Organization",
-          name: "AI 全栈学习教程",
+          name: "AI Full-Stack Learning Course / AI フルスタック学習コース",
           sameAs: "https://github.com/oudbiao/AI-fullstack-course",
         },
         educationalLevel: "Beginner",
         isAccessibleForFree: true,
-        inLanguage: "zh-Hans",
+        inLanguage: ["zh-Hans", "en-US", "ja-JP"],
         teaches: [
-          "Python 编程",
-          "数据分析",
-          "机器学习",
-          "深度学习",
-          "大语言模型",
-          "AI Agent 开发",
+          "Python programming",
+          "Data analysis",
+          "Machine learning",
+          "Deep learning",
+          "Large language models",
+          "AI Agent development",
+          "Python プログラミング",
+          "データ分析",
+          "機械学習",
+          "深層学習",
+          "大規模言語モデル",
+          "AI Agent 開発",
         ],
       }),
     },
@@ -109,7 +116,21 @@ const config = {
   themes: ["@docusaurus/theme-mermaid"],
   i18n: {
     defaultLocale: "zh-Hans",
-    locales: ["zh-Hans"],
+    locales: ["zh-Hans", "en", "ja"],
+    localeConfigs: {
+      "zh-Hans": {
+        label: "简体中文",
+        htmlLang: "zh-Hans",
+      },
+      en: {
+        label: "English",
+        htmlLang: "en-US",
+      },
+      ja: {
+        label: "日本語",
+        htmlLang: "ja-JP",
+      },
+    },
   },
   presets: [
     [
@@ -140,17 +161,17 @@ const config = {
     ({
       // SEO：全局 meta 标签（会注入到每个页面的 <head> 中）
       metadata: [
-        { name: "description", content: "AI 全栈学习教程 —— 从零基础到 AI Agent 开发的完整免费学习路径，涵盖 Python、数据分析、机器学习、深度学习、LLM 大语言模型等技术栈。" },
+        { name: "description", content: "AI Full-Stack Learning Course / AI フルスタック学習コース — a complete free learning path from AI fundamentals to AI Agent development, covering Python, data analysis, machine learning, deep learning, LLMs, RAG, and AI Agents." },
         { property: "og:type", content: "website" },
         { property: "og:locale", content: "zh_CN" },
-        { property: "og:site_name", content: "AI 全栈学习教程" },
+        { property: "og:site_name", content: "AI Full-Stack Learning Course" },
         { name: "twitter:card", content: "summary_large_image" },
       ],
       image: "img/social-card.png",
       navbar: {
-        title: "AI 全栈学习教程",
+        title: "AI Full-Stack Learning Course",
         logo: {
-          alt: "AI 全栈学习教程 Logo",
+          alt: "AI Full-Stack Learning Course Logo",
           src: "img/logo.svg",
         },
         items: [
@@ -164,6 +185,13 @@ const config = {
             href: "https://github.com/oudbiao/AI-fullstack-course",
             label: "GitHub",
             position: "right",
+          },
+          {
+            type: "html",
+            position: "right",
+            className: "navbar-language-switch",
+            value:
+              '<a class="navbar__link" href="/">中文</a><span class="navbar-language-switch__sep">/</span><a class="navbar__link" href="/en/">EN</a><span class="navbar-language-switch__sep">/</span><a class="navbar__link" href="/ja/">日本語</a>',
           },
         ],
       },
@@ -195,7 +223,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} AI 全栈学习教程`,
+        copyright: `Copyright © ${new Date().getFullYear()} AI Full-Stack Learning Course`,
       },
       prism: {
         theme: prismThemes.github,

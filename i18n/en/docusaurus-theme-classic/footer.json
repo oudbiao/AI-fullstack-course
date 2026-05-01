@@ -1,0 +1,54 @@
+{
+  "link.title.课程": {
+    "message": "Course",
+    "description": "The title of the footer links column with title=课程 in the footer"
+  },
+  "link.title.社区": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=社区 in the footer"
+  },
+  "link.title.资源": {
+    "message": "Resources",
+    "description": "The title of the footer links column with title=资源 in the footer"
+  },
+  "link.item.label.课程总览": {
+    "message": "Course Overview",
+    "description": "The label of footer link with label=课程总览 linking to /"
+  },
+  "link.item.label.学习路线": {
+    "message": "Learning Path",
+    "description": "The label of footer link with label=学习路线 linking to /intro/learning-path"
+  },
+  "link.item.label.职业方向": {
+    "message": "Career Paths",
+    "description": "The label of footer link with label=职业方向 linking to /intro/career-guide"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/oudbiao/AI-fullstack-course"
+  },
+  "link.item.label.Kaggle": {
+    "message": "Kaggle",
+    "description": "The label of footer link with label=Kaggle linking to https://www.kaggle.com/"
+  },
+  "link.item.label.HuggingFace": {
+    "message": "Hugging Face",
+    "description": "The label of footer link with label=HuggingFace linking to https://huggingface.co/"
+  },
+  "link.item.label.学习资源": {
+    "message": "Learning Resources",
+    "description": "The label of footer link with label=学习资源 linking to /appendix/resources"
+  },
+  "link.item.label.硬件指南": {
+    "message": "Hardware Guide",
+    "description": "The label of footer link with label=硬件指南 linking to /appendix/hardware"
+  },
+  "link.item.label.求职准备": {
+    "message": "Job Preparation",
+    "description": "The label of footer link with label=求职准备 linking to /appendix/job-prep"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 AI Full-Stack Learning Course",
+    "description": "The footer copyright"
+  }
+}
