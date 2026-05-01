@@ -53,3 +53,30 @@
 {"at": "2026-05-01T14:28:08.121630+00:00", "filename": "appendix-faq-decision-tree-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T14:29:32.738716+00:00", "filename": "appendix-hardware-cloud-decision-tree-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T14:31:01.062696+00:00", "filename": "appendix-hardware-local-cloud-api-cost-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:34:23.938190+00:00", "filename": "appendix-image-production-pipeline-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for appendix-image-production-pipeline-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T14:36:10.492804+00:00", "filename": "appendix-image-production-pipeline-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:37:49.022997+00:00", "filename": "appendix-job-portfolio-storyline-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:39:30.153889+00:00", "filename": "appendix-job-prep-funnel-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:41:10.698588+00:00", "filename": "appendix-learning-paper-project-notes-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:42:59.258103+00:00", "filename": "appendix-llm-to-agent-evolution-timeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:44:52.458742+00:00", "filename": "appendix-multimodal-aigc-lineage-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:47:39.149997+00:00", "filename": "appendix-neural-network-waves-timeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:50:47.593071+00:00", "filename": "appendix-nlp-llm-lineage-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:52:16.894971+00:00", "filename": "appendix-project-quick-reference-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for appendix-project-quick-reference-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T14:55:29.762579+00:00", "filename": "appendix-project-quick-reference-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:57:58.045327+00:00", "filename": "appendix-quick-ref-debug-index-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T14:59:17.492616+00:00", "filename": "appendix-resource-bottleneck-priority-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:00:37.433517+00:00", "filename": "appendix-resource-selection-funnel-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:04:01.731039+00:00", "filename": "appendix-troubleshooting-rescue-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:07:44.860284+00:00", "filename": "appendix-visual-enhancement-kanban-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:09:27.242532+00:00", "filename": "bert-gpt-t5-comparison-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:11:24.153315+00:00", "filename": "bert-masked-language-model-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:12:40.672833+00:00", "filename": "bias-variance-tradeoff-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:14:01.337637+00:00", "filename": "bio-ner-recovery-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:17:11.462250+00:00", "filename": "boss-challenge-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:19:13.767605+00:00", "filename": "bow-tfidf-representation-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:22:52.985163+00:00", "filename": "ch01-cli-automation-workflow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:26:20.432899+00:00", "filename": "ch01-git-branch-collaboration-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:27:52.469932+00:00", "filename": "ch01-git-daily-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:29:16.264308+00:00", "filename": "ch01-git-remote-sync-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T15:30:38.957146+00:00", "filename": "ch01-jupyter-kernel-state-ja.png", "locale": "ja", "status": "generated"}
