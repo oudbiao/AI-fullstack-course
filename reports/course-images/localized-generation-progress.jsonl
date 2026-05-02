@@ -94,3 +94,8 @@
 {"at": "2026-05-01T15:58:10.516198+00:00", "filename": "ch02-function-call-scope-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T15:59:57.674791+00:00", "filename": "ch02-functional-pipeline-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T16:02:18.394520+00:00", "filename": "ch02-generator-streaming-data-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T16:05:15.763220+00:00", "filename": "ch02-input-output-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T16:06:35.494567+00:00", "filename": "ch02-learning-quest-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for ch02-learning-quest-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-01T16:09:46.600346+00:00", "filename": "ch02-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T16:11:20.454738+00:00", "filename": "ch02-modules-package-structure-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-01T16:15:12.849437+00:00", "filename": "ch02-oop-class-object-map-ja.png", "locale": "ja", "status": "generated"}

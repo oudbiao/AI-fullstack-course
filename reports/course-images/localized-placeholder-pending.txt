@@ -586,10 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch02-input-output-flow-ja.png
-ch02-learning-quest-map-ja.png
-ch02-modules-package-structure-ja.png
-ch02-oop-class-object-map-ja.png
 ch02-operators-decision-flow-ja.png
 ch02-python-ai-backbone-ja.png
 ch02-python-ai-workflow-ja.png
