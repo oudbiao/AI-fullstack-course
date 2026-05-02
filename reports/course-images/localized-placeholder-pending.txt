@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch08-advanced-rag-architecture-selection-map-ja.png
-ch08-ai-coding-human-review-loop-map-ja.png
-ch08-ann-exact-search-tradeoff-map-ja.png
-ch08-api-contract-error-version-map-ja.png
-ch08-app-dev-chapter-flow-ja.png
-ch08-app-dev-learning-order-map-ja.png
-ch08-assistant-session-tool-trace-map-ja.png
-ch08-async-concurrency-semaphore-timeout-map-ja.png
 ch08-chunk-size-overlap-tradeoff-map-ja.png
 ch08-courseware-assistant-production-line-map-ja.png
 ch08-courseware-chunk-metadata-schema-map-ja.png

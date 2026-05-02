@@ -296,3 +296,11 @@
 {"at": "2026-05-02T07:30:15.949574+00:00", "filename": "ch07-transformer-block-dataflow-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T07:32:52.719664+00:00", "filename": "ch07-transformer-cost-task-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T07:35:19.595907+00:00", "filename": "ch07-transformer-deep-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:37:45.536745+00:00", "filename": "ch08-advanced-rag-architecture-selection-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:39:40.946039+00:00", "filename": "ch08-ai-coding-human-review-loop-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:41:17.078069+00:00", "filename": "ch08-ann-exact-search-tradeoff-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:42:55.460331+00:00", "filename": "ch08-api-contract-error-version-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:44:23.482856+00:00", "filename": "ch08-app-dev-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:45:55.691892+00:00", "filename": "ch08-app-dev-learning-order-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:48:50.842722+00:00", "filename": "ch08-assistant-session-tool-trace-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:51:56.625478+00:00", "filename": "ch08-async-concurrency-semaphore-timeout-map-ja.png", "locale": "ja", "status": "generated"}
