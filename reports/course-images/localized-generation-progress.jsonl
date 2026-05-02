@@ -509,3 +509,12 @@
 {"at": "2026-05-02T16:49:23.993219+00:00", "filename": "eigenvalue-special-directions-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T16:50:58.970956+00:00", "filename": "elective-ai-frontend-stack-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T16:53:51.711101+00:00", "filename": "elective-ai-frontend-state-machine-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T16:56:08.901739+00:00", "filename": "elective-ai-product-decision-matrix-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T16:58:53.526029+00:00", "filename": "elective-ai-product-experiment-metrics-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:02:22.650045+00:00", "filename": "elective-ai-security-red-team-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:04:04.490900+00:00", "filename": "elective-ai-security-threat-regression-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for elective-ai-security-threat-regression-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-02T17:05:37.860396+00:00", "filename": "elective-asyncio-concurrency-control-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:07:39.600028+00:00", "filename": "elective-asyncio-timeout-cancel-rate-limit-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:09:09.428610+00:00", "filename": "elective-classic-ml-module-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:10:38.618360+00:00", "filename": "elective-cpp-deployment-module-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:13:54.392375+00:00", "filename": "elective-ai-security-threat-regression-map-ja.png", "locale": "ja", "status": "generated"}

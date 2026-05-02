@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-elective-ai-product-decision-matrix-ja.png
-elective-ai-product-experiment-metrics-loop-ja.png
-elective-ai-security-red-team-loop-ja.png
-elective-ai-security-threat-regression-map-ja.png
-elective-asyncio-concurrency-control-ja.png
-elective-asyncio-timeout-cancel-rate-limit-map-ja.png
-elective-classic-ml-module-map-ja.png
-elective-cpp-deployment-module-map-ja.png
 elective-cpp-raii-ownership-map-ja.png
 elective-cpp-runtime-memory-ja.png
 elective-decorator-crosscutting-layers-ja.png
