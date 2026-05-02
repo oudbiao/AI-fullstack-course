@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch06-neuron-linear-activation-gate-ja.png
-ch06-nn-basics-chapter-flow-ja.png
-ch06-nn-module-parameter-flow-ja.png
-ch06-numpy-to-pytorch-training-loop-map-ja.png
-ch06-optimizer-gradient-to-update-map-ja.png
-ch06-projects-portfolio-loop-ja.png
-ch06-pytorch-chapter-flow-ja.png
-ch06-pytorch-tensor-lifecycle-map-ja.png
 ch06-regularization-overfit-action-map-ja.png
 ch06-rnn-chapter-flow-ja.png
 ch06-rnn-hidden-state-rolling-memory-map-ja.png

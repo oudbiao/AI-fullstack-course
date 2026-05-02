@@ -223,3 +223,11 @@
 {"at": "2026-05-02T04:55:41.743344+00:00", "filename": "ch06-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T04:57:02.699622+00:00", "filename": "ch06-lstm-gates-information-control-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T04:58:20.171943+00:00", "filename": "ch06-ml-to-dl-bridge-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:00:27.295671+00:00", "filename": "ch06-neuron-linear-activation-gate-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:02:02.022697+00:00", "filename": "ch06-nn-basics-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:03:15.954906+00:00", "filename": "ch06-nn-module-parameter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:04:37.379140+00:00", "filename": "ch06-numpy-to-pytorch-training-loop-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:05:55.728680+00:00", "filename": "ch06-optimizer-gradient-to-update-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:09:00.546507+00:00", "filename": "ch06-projects-portfolio-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:10:22.733008+00:00", "filename": "ch06-pytorch-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:11:49.351058+00:00", "filename": "ch06-pytorch-tensor-lifecycle-map-ja.png", "locale": "ja", "status": "generated"}
