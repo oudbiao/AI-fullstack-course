@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch11-pretraining-transfer-finetune-map-ja.png
-ch11-projects-delivery-loop-ja.png
-ch11-qa-retrieval-answer-evaluation-map-ja.png
-ch11-seq2seq-chapter-flow-ja.png
-ch11-seq2seq-encoder-decoder-bottleneck-map-ja.png
-ch11-sequence-labeling-chapter-flow-ja.png
-ch11-study-guide-text-to-model-map-ja.png
-ch11-summarization-extractive-generative-eval-map-ja.png
 ch11-t5-text-to-text-task-unification-map-ja.png
 ch11-text-basics-chapter-flow-ja.png
 ch11-traditional-classification-baseline-map-ja.png
