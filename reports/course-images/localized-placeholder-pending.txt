@@ -1,11 +1,3 @@
-boss-challenge-map-en.png
-bow-tfidf-representation-en.png
-ch01-cli-automation-workflow-en.png
-ch01-git-branch-collaboration-en.png
-ch01-git-daily-loop-en.png
-ch01-git-remote-sync-en.png
-ch01-jupyter-kernel-state-en.png
-ch01-package-manager-flow-en.png
 ch01-python-env-stack-en.png
 ch01-task-list-workflow-en.png
 ch01-terminal-path-command-map-en.png
