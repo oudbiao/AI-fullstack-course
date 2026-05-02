@@ -1,11 +1,3 @@
-ch02-type-hints-quality-flow-en.png
-ch02-variable-object-reference-en.png
-ch02-web-api-request-response-en.png
-ch02-web-scraper-pipeline-en.png
-ch03-data-analysis-backbone-en.png
-ch03-data-visualization-en.png
-ch03-database-design-erd-normalization-en.png
-ch03-database-roadmap-en.png
 ch03-learning-quest-map-en.png
 ch03-multi-source-analysis-architecture-en.png
 ch03-numpy-array-shape-axis-en.png
