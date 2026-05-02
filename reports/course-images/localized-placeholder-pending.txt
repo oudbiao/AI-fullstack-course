@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch08-llm-api-robust-client-loop-map-ja.png
-ch08-llm-app-capability-loop-ja.png
-ch08-llmops-trace-loop-ja.png
-ch08-local-model-api-decision-map-ja.png
-ch08-model-serving-decision-map-ja.png
-ch08-observability-logs-metrics-trace-map-ja.png
-ch08-project-delivery-loop-ja.png
-ch08-project-learning-order-map-ja.png
 ch08-projects-route-map-ja.png
 ch08-rag-core-chapter-flow-ja.png
 ch08-rag-data-to-answer-pipeline-ja.png
