@@ -586,13 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch09-agent-security-prompt-injection-risk-map-ja.png
-ch09-agent-system-architecture-dataflow-map-ja.png
-ch09-agent-systems-ja.png
-ch09-agent-vs-workflow-backbone-ja.png
-ch09-agentops-control-loop-ja.png
-ch09-basics-chapter-flow-ja.png
-ch09-basics-execution-loop-ja.png
 ch09-basics-position-bridge-ja.png
 ch09-code-agent-sandbox-review-map-ja.png
 ch09-cot-self-check-structure-map-ja.png
