@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch09-framework-selection-map-ja.png
-ch09-frameworks-position-map-ja.png
-ch09-langgraph-state-machine-map-ja.png
-ch09-learning-quest-map-ja.png
-ch09-long-term-memory-write-update-policy-map-ja.png
-ch09-mcp-capability-bridge-ja.png
-ch09-mcp-chapter-flow-ja.png
-ch09-mcp-host-client-server-message-flow-map-ja.png
 ch09-mcp-server-tool-contract-map-ja.png
 ch09-memory-chapter-flow-ja.png
 ch09-memory-engineering-lifecycle-map-ja.png
