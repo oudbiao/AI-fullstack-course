@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch12-ai-ethics-safety-guardrail-map-ja.png
-ch12-ai-regulation-engineering-translation-map-ja.png
-ch12-aigc-frontier-system-trend-map-ja.png
-ch12-digital-human-sync-pipeline-map-ja.png
-ch12-frontier-ethics-route-map-ja.png
-ch12-image-gen-chapter-flow-ja.png
-ch12-image-generation-trend-radar-map-ja.png
-ch12-learning-quest-map-ja.png
 ch12-multimodal-aigc-ja.png
 ch12-multimodal-app-engineering-loop-ja.png
 ch12-multimodal-chapter-flow-ja.png
