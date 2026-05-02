@@ -11,3 +11,4 @@ GITHUB-ACTIONS-DEPLOY.md
 Dockerfile
 scripts/__pycache__/
 scripts/**/*.pyc
+reports

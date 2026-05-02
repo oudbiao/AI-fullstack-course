@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -21,7 +21,11 @@ COPY static ./static
 # 构建应用
 RUN npm run build
 
+FROM nginx:1.27-alpine
+
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html
+
 EXPOSE 3000
 
-# 启动应用
-CMD ["sh", "-c", "HOST=0.0.0.0 PORT=3000 npm run serve"]
+CMD ["nginx", "-g", "daemon off;"]
