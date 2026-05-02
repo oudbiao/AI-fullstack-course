@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-mle-likelihood-curve-ja.png
-mlp-neuron-activation-ja.png
-multi-agent-message-flow-ja.png
-multimodal-alignment-fusion-ja.png
-neural-network-forward-backward-ja.png
-object-detection-output-ja.png
-ocr-layout-recognition-pipeline-ja.png
-optimizer-comparison-ja.png
 pandas-dataframe-structure-ja.png
 pca-dimensionality-reduction-ja.png
 pretraining-data-pipeline-ja.png
