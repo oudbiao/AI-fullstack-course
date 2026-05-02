@@ -274,3 +274,12 @@
 {"at": "2026-05-02T06:40:18.268063+00:00", "filename": "ch07-llm-principles-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T06:41:42.076421+00:00", "filename": "ch07-lora-qlora-low-rank-memory-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T06:43:39.708007+00:00", "filename": "ch07-next-token-generation-loop-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:47:27.764476+00:00", "filename": "ch07-nlp-crash-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:50:38.228678+00:00", "filename": "ch07-peft-placement-family-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:52:07.489976+00:00", "filename": "ch07-pretraining-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:55:24.884421+00:00", "filename": "ch07-pretraining-data-governance-funnel-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:57:01.902218+00:00", "filename": "ch07-pretraining-data-objective-engineering-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:59:55.289261+00:00", "filename": "ch07-pretraining-engineering-production-line-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:01:36.113591+00:00", "filename": "ch07-pretraining-objective-comparison-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:04:41.217235+00:00", "filename": "ch07-project-method-choice-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:06:05.394271+00:00", "filename": "ch07-projects-route-map-ja.png", "locale": "ja", "status": "generated"}
