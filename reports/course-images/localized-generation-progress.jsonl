@@ -345,3 +345,11 @@
 {"at": "2026-05-02T09:18:01.711091+00:00", "filename": "ch08-template-schema-to-render-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T09:19:28.067831+00:00", "filename": "ch08-unified-api-provider-gateway-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T09:21:08.391974+00:00", "filename": "ch08-vector-record-metadata-filter-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:25:54.097198+00:00", "filename": "ch09-advanced-planning-dag-critical-path-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:27:01.193097+00:00", "filename": "ch09-agent-action-loop-trace-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:28:36.711024+00:00", "filename": "ch09-agent-boundary-workflow-chatbot-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:31:02.995424+00:00", "filename": "ch09-agent-cost-routing-cache-budget-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:32:24.729659+00:00", "filename": "ch09-agent-eval-layered-scorecard-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:33:58.220226+00:00", "filename": "ch09-agent-observability-trace-span-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:35:45.581478+00:00", "filename": "ch09-agent-persistence-checkpoint-eventlog-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:37:14.082238+00:00", "filename": "ch09-agent-risk-debug-loop-ja.png", "locale": "ja", "status": "generated"}
