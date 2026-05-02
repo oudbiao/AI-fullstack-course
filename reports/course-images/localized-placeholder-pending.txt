@@ -586,10 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch11-t5-text-to-text-task-unification-map-ja.png
-ch11-text-basics-chapter-flow-ja.png
-ch11-traditional-classification-baseline-map-ja.png
-ch11-transformers-library-call-chain-map-ja.png
 ch12-ai-ethics-safety-guardrail-map-ja.png
 ch12-ai-regulation-engineering-translation-map-ja.png
 ch12-aigc-frontier-system-trend-map-ja.png
