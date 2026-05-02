@@ -518,3 +518,11 @@
 {"at": "2026-05-02T17:09:09.428610+00:00", "filename": "elective-classic-ml-module-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T17:10:38.618360+00:00", "filename": "elective-cpp-deployment-module-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T17:13:54.392375+00:00", "filename": "elective-ai-security-threat-regression-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:17:10.050973+00:00", "filename": "elective-cpp-raii-ownership-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:20:34.365995+00:00", "filename": "elective-cpp-runtime-memory-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:21:58.824159+00:00", "filename": "elective-decorator-crosscutting-layers-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:23:39.695271+00:00", "filename": "elective-deployment-project-delivery-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:25:20.081543+00:00", "filename": "elective-edge-deployment-constraint-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:28:22.571425+00:00", "filename": "elective-generator-stream-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:30:34.753146+00:00", "filename": "elective-inference-engine-hardware-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T17:32:24.027551+00:00", "filename": "elective-inference-engine-selection-matrix-ja.png", "locale": "ja", "status": "generated"}

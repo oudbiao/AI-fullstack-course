@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-elective-cpp-raii-ownership-map-ja.png
-elective-cpp-runtime-memory-ja.png
-elective-decorator-crosscutting-layers-ja.png
-elective-deployment-project-delivery-loop-ja.png
-elective-edge-deployment-constraint-map-ja.png
-elective-generator-stream-pipeline-ja.png
-elective-inference-engine-hardware-ja.png
-elective-inference-engine-selection-matrix-ja.png
 elective-knn-neighbor-voting-ja.png
 elective-lda-projection-map-ja.png
 elective-metaprogramming-registry-map-ja.png
