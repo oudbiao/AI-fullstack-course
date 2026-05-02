@@ -586,13 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch04-derivative-change-rate-bridge-ja.png
-ch04-distribution-random-world-map-ja.png
-ch04-eigen-pca-direction-map-ja.png
-ch04-gradient-descent-iteration-loop-ja.png
-ch04-gradient-parameter-knobs-map-ja.png
-ch04-information-theory-loss-map-ja.png
-ch04-learning-quest-map-ja.png
 ch04-linear-algebra-chapter-flow-ja.png
 ch04-linear-algebra-roadmap-ja.png
 ch04-matrix-batch-transform-flow-ja.png
