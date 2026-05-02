@@ -443,3 +443,12 @@
 {"at": "2026-05-02T14:32:21.052724+00:00", "filename": "ch11-hmm-crf-sequence-history-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T14:36:16.620125+00:00", "filename": "ch11-information-extraction-schema-pipeline-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T14:38:08.904212+00:00", "filename": "ch11-language-model-next-token-stack-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:42:28.902675+00:00", "filename": "ch11-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:42:34.512011+00:00", "filename": "ch11-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:44:22.204619+00:00", "filename": "ch11-machine-translation-error-analysis-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:45:54.345870+00:00", "filename": "ch11-ner-project-entity-eval-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:47:29.206125+00:00", "filename": "ch11-neural-classification-embedding-pooling-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:48:53.835798+00:00", "filename": "ch11-nlp-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:51:37.251042+00:00", "filename": "ch11-nlp-task-landscape-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:54:47.777547+00:00", "filename": "ch11-nlp-to-llm-backbone-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T14:56:14.554246+00:00", "filename": "ch11-pretrained-chapter-flow-ja.png", "locale": "ja", "status": "generated"}

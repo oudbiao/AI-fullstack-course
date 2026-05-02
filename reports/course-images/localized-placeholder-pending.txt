@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch11-learning-quest-map-ja.png
-ch11-machine-translation-error-analysis-map-ja.png
-ch11-ner-project-entity-eval-loop-ja.png
-ch11-neural-classification-embedding-pooling-map-ja.png
-ch11-nlp-ja.png
-ch11-nlp-task-landscape-map-ja.png
-ch11-nlp-to-llm-backbone-ja.png
-ch11-pretrained-chapter-flow-ja.png
 ch11-pretraining-transfer-finetune-map-ja.png
 ch11-projects-delivery-loop-ja.png
 ch11-qa-retrieval-answer-evaluation-map-ja.png
