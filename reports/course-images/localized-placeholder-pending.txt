@@ -586,15 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-chain-rule-backprop-graph-ja.png
-chart-selection-decision-tree-ja.png
-clustering-kmeans-centroids-ja.png
-cnn-convolution-kernel-ja.png
-cnn-feature-map-pipeline-ja.png
-column-transformer-pipeline-ja.png
-confusion-matrix-error-cost-ja.png
-contextual-embedding-comparison-ja.png
-courseware-assistant-workflow-ja.png
 creative-platform-workflow-ja.png
 cross-validation-kfold-ja.png
 customer-churn-project-flow-ja.png
