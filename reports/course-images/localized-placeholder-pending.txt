@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch08-enterprise-kb-permission-citation-map-ja.png
-ch08-faithfulness-citation-check-map-ja.png
-ch08-function-calling-validation-dispatch-map-ja.png
-ch08-huggingface-ecosystem-layers-map-ja.png
-ch08-hybrid-retrieval-blindspot-map-ja.png
-ch08-inference-serving-queue-batch-map-ja.png
-ch08-langchain-component-pipeline-map-ja.png
-ch08-learning-quest-map-ja.png
 ch08-llm-api-robust-client-loop-map-ja.png
 ch08-llm-app-capability-loop-ja.png
 ch08-llmops-trace-loop-ja.png
