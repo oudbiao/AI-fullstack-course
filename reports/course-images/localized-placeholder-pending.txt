@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-feature-preprocessing-pipeline-ja.png
-feature-selection-methods-ja.png
-feature-type-target-map-ja.png
-finetuning-alignment-pipeline-ja.png
-function-calling-workflow-ja.png
-gan-adversarial-loop-ja.png
-git-four-areas-ja.png
-gpt-autoregressive-generation-ja.png
 gradient-contour-field-ja.png
 gradient-descent-path-ja.png
 house-price-project-flow-ja.png
