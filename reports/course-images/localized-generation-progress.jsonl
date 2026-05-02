@@ -708,3 +708,11 @@
 {"at": "2026-05-02T22:51:41.016535+00:00", "filename": "ch03-data-visualization-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T22:52:59.642246+00:00", "filename": "ch03-database-design-erd-normalization-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T22:54:37.529436+00:00", "filename": "ch03-database-roadmap-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:56:46.651981+00:00", "filename": "ch03-learning-quest-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:58:20.026221+00:00", "filename": "ch03-multi-source-analysis-architecture-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:59:32.660341+00:00", "filename": "ch03-numpy-array-shape-axis-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:00:48.933363+00:00", "filename": "ch03-numpy-broadcasting-vectorization-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:02:15.600764+00:00", "filename": "ch03-numpy-indexing-slicing-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:03:29.311291+00:00", "filename": "ch03-numpy-linear-algebra-toolkit-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:04:52.506471+00:00", "filename": "ch03-numpy-overview-array-engine-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:06:21.203010+00:00", "filename": "ch03-numpy-random-statistics-map-en.png", "locale": "en", "status": "generated"}

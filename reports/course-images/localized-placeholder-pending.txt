@@ -1,11 +1,3 @@
-ch03-learning-quest-map-en.png
-ch03-multi-source-analysis-architecture-en.png
-ch03-numpy-array-shape-axis-en.png
-ch03-numpy-broadcasting-vectorization-en.png
-ch03-numpy-indexing-slicing-map-en.png
-ch03-numpy-linear-algebra-toolkit-en.png
-ch03-numpy-overview-array-engine-en.png
-ch03-numpy-random-statistics-map-en.png
 ch03-numpy-reshape-axis-flow-en.png
 ch03-pandas-cleaning-workflow-en.png
 ch03-pandas-groupby-split-apply-combine-en.png
