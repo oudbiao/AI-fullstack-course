@@ -716,3 +716,11 @@
 {"at": "2026-05-02T23:03:29.311291+00:00", "filename": "ch03-numpy-linear-algebra-toolkit-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T23:04:52.506471+00:00", "filename": "ch03-numpy-overview-array-engine-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T23:06:21.203010+00:00", "filename": "ch03-numpy-random-statistics-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:08:28.540887+00:00", "filename": "ch03-numpy-reshape-axis-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:10:05.407567+00:00", "filename": "ch03-pandas-cleaning-workflow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:11:36.898661+00:00", "filename": "ch03-pandas-groupby-split-apply-combine-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:13:19.541922+00:00", "filename": "ch03-pandas-merge-concat-join-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:14:46.266888+00:00", "filename": "ch03-pandas-read-write-first-look-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:16:22.979583+00:00", "filename": "ch03-pandas-roadmap-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:18:10.601186+00:00", "filename": "ch03-pandas-selection-filter-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:21:46.824970+00:00", "filename": "ch03-pandas-time-series-analysis-en.png", "locale": "en", "status": "generated"}

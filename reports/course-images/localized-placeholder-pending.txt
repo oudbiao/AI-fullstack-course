@@ -1,11 +1,3 @@
-ch03-numpy-reshape-axis-flow-en.png
-ch03-pandas-cleaning-workflow-en.png
-ch03-pandas-groupby-split-apply-combine-en.png
-ch03-pandas-merge-concat-join-en.png
-ch03-pandas-read-write-first-look-en.png
-ch03-pandas-roadmap-en.png
-ch03-pandas-selection-filter-map-en.png
-ch03-pandas-time-series-analysis-en.png
 ch03-pandas-transform-pipeline-en.png
 ch03-plotly-interactive-dashboard-en.png
 ch03-pure-python-data-flow-en.png
