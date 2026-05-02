@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch05-project-report-storyboard-ja.png
-ch05-projects-portfolio-loop-ja.png
-ch05-search-space-budget-map-ja.png
-ch05-sklearn-fit-predict-loop-ja.png
-ch05-sklearn-pipeline-anatomy-ja.png
-ch05-study-guide-project-loop-ja.png
-ch05-supervised-chapter-flow-ja.png
-ch05-svm-margin-map-ja.png
 ch05-task-type-decision-map-ja.png
 ch05-threshold-roc-pr-curve-map-ja.png
 ch05-tree-pruning-overfit-map-ja.png
