@@ -586,11 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch10-semantic-segmentation-iou-boundary-map-ja.png
-ch10-study-guide-output-granularity-map-ja.png
-ch10-video-frame-tracking-temporal-window-map-ja.png
-ch10-visual-task-progression-map-ja.png
-ch10-yolo-threshold-nms-map-ja.png
 ch11-amr-semantic-graph-map-ja.png
 ch11-bilstm-crf-label-path-map-ja.png
 ch11-classification-chapter-flow-ja.png
