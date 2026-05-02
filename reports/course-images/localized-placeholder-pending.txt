@@ -1,11 +1,3 @@
-ch02-oop-class-object-map-en.png
-ch02-operators-decision-flow-en.png
-ch02-python-ai-backbone-en.png
-ch02-python-ai-workflow-en.png
-ch02-python-foundation-en.png
-ch02-study-guide-program-loop-en.png
-ch02-task-list-workflow-en.png
-ch02-todo-cli-architecture-en.png
 ch02-type-hints-quality-flow-en.png
 ch02-variable-object-reference-en.png
 ch02-web-api-request-response-en.png
