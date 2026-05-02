@@ -586,10 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch05-task-type-decision-map-ja.png
-ch05-threshold-roc-pr-curve-map-ja.png
-ch05-tree-pruning-overfit-map-ja.png
-ch05-unsupervised-chapter-flow-ja.png
 ch06-attention-qkv-library-analogy-map-ja.png
 ch06-autograd-gradient-lifecycle-map-ja.png
 ch06-backprop-error-responsibility-map-ja.png
