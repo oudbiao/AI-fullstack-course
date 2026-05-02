@@ -624,3 +624,7 @@
 {"at": "2026-05-02T20:41:48.273869+00:00", "filename": "vector-database-similarity-search-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T20:43:14.506559+00:00", "filename": "vector-dot-cosine-geometry-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T20:44:32.504333+00:00", "filename": "vector-space-basis-span-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:46:42.686171+00:00", "filename": "video-audio-generation-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:48:04.198465+00:00", "filename": "vision-language-model-architecture-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:49:31.416187+00:00", "filename": "word2vec-embedding-neighborhood-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:52:46.508884+00:00", "filename": "yolo-grid-detection-flow-ja.png", "locale": "ja", "status": "generated"}

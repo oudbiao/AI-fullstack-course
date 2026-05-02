@@ -586,7 +586,3 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-video-audio-generation-pipeline-ja.png
-vision-language-model-architecture-ja.png
-word2vec-embedding-neighborhood-ja.png
-yolo-grid-detection-flow-ja.png
