@@ -291,3 +291,8 @@
 {"at": "2026-05-02T07:18:28.899855+00:00", "filename": "ch07-structured-output-contract-validation-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T07:19:45.287929+00:00", "filename": "ch07-study-guide-evolution-line-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T07:22:40.007212+00:00", "filename": "ch07-tokenizer-granularity-tradeoff-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:26:07.941024+00:00", "filename": "ch07-tokenizer-inputids-mask-length-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:29:00.838663+00:00", "filename": "ch07-train-inference-cost-split-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:30:15.949574+00:00", "filename": "ch07-transformer-block-dataflow-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:32:52.719664+00:00", "filename": "ch07-transformer-cost-task-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:35:19.595907+00:00", "filename": "ch07-transformer-deep-chapter-flow-ja.png", "locale": "ja", "status": "generated"}

@@ -586,11 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch07-tokenizer-inputids-mask-length-map-ja.png
-ch07-train-inference-cost-split-map-ja.png
-ch07-transformer-block-dataflow-map-ja.png
-ch07-transformer-cost-task-map-ja.png
-ch07-transformer-deep-chapter-flow-ja.png
 ch08-advanced-rag-architecture-selection-map-ja.png
 ch08-ai-coding-human-review-loop-map-ja.png
 ch08-ann-exact-search-tradeoff-map-ja.png
