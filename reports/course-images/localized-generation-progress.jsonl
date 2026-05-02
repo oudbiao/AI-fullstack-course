@@ -336,3 +336,8 @@
 {"at": "2026-05-02T08:51:14.476509+00:00", "filename": "ch08-rag-experiment-eval-loop-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T08:52:47.451127+00:00", "filename": "ch08-rag-finetune-responsibility-split-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T08:55:45.815813+00:00", "filename": "ch08-rag-layer-failure-debug-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T08:59:07.168193+00:00", "filename": "ch08-rag-optimization-debug-funnel-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:00:58.576279+00:00", "filename": "ch08-rag-position-bridge-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:02:48.659891+00:00", "filename": "ch08-rag-system-backbone-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:04:20.547396+00:00", "filename": "ch08-ragops-improvement-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:05:53.370164+00:00", "filename": "ch08-rerank-query-rewrite-funnel-map-ja.png", "locale": "ja", "status": "generated"}
