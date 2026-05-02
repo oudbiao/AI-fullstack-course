@@ -586,15 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-creative-platform-workflow-ja.png
-cross-validation-kfold-ja.png
-customer-churn-project-flow-ja.png
-cv-data-augmentation-gallery-ja.png
-cv-image-processing-pipeline-ja.png
-cv-pixel-rgb-grid-ja.png
-dataset-dataloader-batch-flow-ja.png
-debug-detective-missions-ja.png
-decision-tree-split-path-ja.png
 derivative-tangent-slope-ja.png
 diffusion-noise-denoise-ja.png
 distribution-family-comparison-ja.png
