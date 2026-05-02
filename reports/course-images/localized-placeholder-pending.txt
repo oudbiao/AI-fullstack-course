@@ -586,15 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-matplotlib-figure-axes-ja.png
-matrix-linear-transform-grid-ja.png
-mcp-host-client-server-ja.png
-ml-basics-roadmap-ja.png
-ml-evaluation-roadmap-ja.png
-ml-modeling-loop-ja.png
-ml-projects-roadmap-ja.png
-ml-study-loop-ja.png
-ml-task-checklist-ja.png
 mle-likelihood-curve-ja.png
 mlp-neuron-activation-ja.png
 multi-agent-message-flow-ja.png
