@@ -615,3 +615,12 @@
 {"at": "2026-05-02T20:24:27.439321+00:00", "filename": "template-doc-generation-pipeline-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T20:26:20.037821+00:00", "filename": "text-classification-pipeline-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T20:27:56.604664+00:00", "filename": "text-preprocessing-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:31:30.782090+00:00", "filename": "tokenizer-subword-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:32:50.548002+00:00", "filename": "training-curve-diagnosis-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:34:26.668594+00:00", "filename": "transformer-block-architecture-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:35:50.984775+00:00", "filename": "unsupervised-learning-roadmap-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:37:25.671114+00:00", "filename": "user-segmentation-rfm-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:39:01.348528+00:00", "filename": "vae-latent-space-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:41:48.273869+00:00", "filename": "vector-database-similarity-search-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:43:14.506559+00:00", "filename": "vector-dot-cosine-geometry-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:44:32.504333+00:00", "filename": "vector-space-basis-span-ja.png", "locale": "ja", "status": "generated"}
