@@ -171,3 +171,11 @@
 {"at": "2026-05-02T03:04:13.061735+00:00", "filename": "ch05-clustering-decision-flow-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T03:05:35.320077+00:00", "filename": "ch05-clustering-shape-selection-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T03:07:15.464255+00:00", "filename": "ch05-columntransformer-real-table-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:09:50.646412+00:00", "filename": "ch05-cross-validation-stability-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:12:34.297430+00:00", "filename": "ch05-cv-leakage-safe-pipeline-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:14:31.350634+00:00", "filename": "ch05-data-split-leakage-guardrail-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:18:10.313979+00:00", "filename": "ch05-decision-tree-learning-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:19:40.663194+00:00", "filename": "ch05-dimensionality-reduction-purpose-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:21:08.985134+00:00", "filename": "ch05-ensemble-bagging-boosting-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:24:17.494176+00:00", "filename": "ch05-ensemble-error-correction-lab-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:25:47.917564+00:00", "filename": "ch05-evaluation-chapter-flow-ja.png", "locale": "ja", "status": "generated"}

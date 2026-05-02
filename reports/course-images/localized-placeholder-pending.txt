@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch05-cross-validation-stability-flow-ja.png
-ch05-cv-leakage-safe-pipeline-map-ja.png
-ch05-data-split-leakage-guardrail-ja.png
-ch05-decision-tree-learning-flow-ja.png
-ch05-dimensionality-reduction-purpose-map-ja.png
-ch05-ensemble-bagging-boosting-flow-ja.png
-ch05-ensemble-error-correction-lab-ja.png
-ch05-evaluation-chapter-flow-ja.png
 ch05-feature-engineering-chapter-flow-ja.png
 ch05-feature-leakage-red-flags-map-ja.png
 ch05-feature-understanding-workflow-ja.png
