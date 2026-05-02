@@ -1,11 +1,3 @@
-appendix-course-numbering-map-en.png
-appendix-debug-mre-help-flow-en.png
-appendix-faq-confidence-reset-map-en.png
-appendix-faq-decision-tree-en.png
-appendix-hardware-cloud-decision-tree-en.png
-appendix-hardware-local-cloud-api-cost-map-en.png
-appendix-image-production-pipeline-map-en.png
-appendix-job-portfolio-storyline-map-en.png
 appendix-job-prep-funnel-en.png
 appendix-learning-paper-project-notes-loop-en.png
 appendix-llm-to-agent-evolution-timeline-en.png
