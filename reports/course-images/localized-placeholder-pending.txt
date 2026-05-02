@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch06-deep-learning-ja.png
-ch06-deep-learning-project-cycle-ja.png
-ch06-dl-history-breakthrough-map-ja.png
-ch06-gan-adversarial-balance-map-ja.png
-ch06-generative-chapter-flow-ja.png
-ch06-learning-quest-map-ja.png
-ch06-lstm-gates-information-control-map-ja.png
-ch06-ml-to-dl-bridge-map-ja.png
 ch06-neuron-linear-activation-gate-ja.png
 ch06-nn-basics-chapter-flow-ja.png
 ch06-nn-module-parameter-flow-ja.png
