@@ -591,3 +591,11 @@
 {"at": "2026-05-02T19:42:53.160975+00:00", "filename": "object-detection-output-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T19:44:32.923103+00:00", "filename": "ocr-layout-recognition-pipeline-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T19:45:45.393818+00:00", "filename": "optimizer-comparison-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T19:47:40.151573+00:00", "filename": "pandas-dataframe-structure-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T19:49:21.360136+00:00", "filename": "pca-dimensionality-reduction-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T19:50:44.625638+00:00", "filename": "pretraining-data-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T19:51:56.629951+00:00", "filename": "probability-distribution-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T19:53:21.801237+00:00", "filename": "prompt-before-after-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T19:56:07.147341+00:00", "filename": "pytorch-autograd-graph-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T19:57:20.457083+00:00", "filename": "pytorch-training-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:00:15.203797+00:00", "filename": "rag-document-answer-loop-ja.png", "locale": "ja", "status": "generated"}
