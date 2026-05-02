@@ -480,3 +480,6 @@
 {"at": "2026-05-02T15:56:45.010724+00:00", "filename": "ch12-projects-delivery-loop-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T15:59:43.530840+00:00", "filename": "ch12-sd-application-mode-selector-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T16:01:12.243078+00:00", "filename": "ch12-sd-finetuning-route-choice-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T16:04:52.826309+00:00", "filename": "ch12-study-guide-modal-workflow-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T16:06:30.075147+00:00", "filename": "ch12-tts-text-to-speech-pipeline-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T16:08:02.095559+00:00", "filename": "ch12-video-gen-chapter-flow-ja.png", "locale": "ja", "status": "generated"}

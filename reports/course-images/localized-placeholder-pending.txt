@@ -586,9 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch12-study-guide-modal-workflow-map-ja.png
-ch12-tts-text-to-speech-pipeline-map-ja.png
-ch12-video-gen-chapter-flow-ja.png
 chain-rule-backprop-graph-ja.png
 chart-selection-decision-tree-ja.png
 clustering-kmeans-centroids-ja.png
