@@ -1,9 +1,3 @@
-ch03-pandas-transform-pipeline-en.png
-ch03-python-database-bridge-en.png
-ch03-relational-database-foundation-en.png
-ch03-study-guide-data-loop-en.png
-ch03-task-list-workflow-en.png
-ch03-visualization-roadmap-en.png
 ch04-ai-math-backbone-en.png
 ch04-ai-math-en.png
 ch04-backprop-chain-rule-training-bridge-en.png

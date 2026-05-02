@@ -727,3 +727,9 @@
 {"at": "2026-05-02T23:23:50.201405+00:00", "filename": "ch03-pandas-transform-pipeline-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch03-pandas-transform-pipeline-en.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
 {"at": "2026-05-02T23:25:12.315005+00:00", "filename": "ch03-plotly-interactive-dashboard-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T23:26:50.703315+00:00", "filename": "ch03-pure-python-data-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:28:15.111968+00:00", "filename": "ch03-python-database-bridge-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:29:39.337425+00:00", "filename": "ch03-relational-database-foundation-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:31:14.259693+00:00", "filename": "ch03-study-guide-data-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:32:53.664776+00:00", "filename": "ch03-task-list-workflow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:34:24.665762+00:00", "filename": "ch03-visualization-roadmap-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:35:49.251166+00:00", "filename": "ch03-pandas-transform-pipeline-en.png", "locale": "en", "status": "generated"}
