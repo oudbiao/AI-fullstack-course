@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch07-domain-finetune-evaluation-board-map-ja.png
-ch07-dpo-rlhf-shortcut-map-ja.png
-ch07-efficient-attention-bottleneck-map-ja.png
-ch07-embedding-onehot-dense-map-ja.png
-ch07-finetune-decision-rag-prompt-peft-map-ja.png
-ch07-finetuning-chapter-flow-ja.png
-ch07-finetuning-decision-loop-ja.png
-ch07-huggingface-workflow-object-map-ja.png
 ch07-kv-cache-mqa-gqa-map-ja.png
 ch07-learning-quest-map-ja.png
 ch07-llm-capability-backbone-ja.png
