@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch07-prompt-chapter-flow-ja.png
-ch07-prompt-iteration-loop-ja.png
-ch07-prompt-spec-three-layer-map-ja.png
-ch07-rlhf-reward-kl-loop-map-ja.png
-ch07-scale-cost-knobs-map-ja.png
-ch07-structured-output-contract-validation-map-ja.png
-ch07-study-guide-evolution-line-ja.png
-ch07-tokenizer-granularity-tradeoff-map-ja.png
 ch07-tokenizer-inputids-mask-length-map-ja.png
 ch07-train-inference-cost-split-map-ja.png
 ch07-transformer-block-dataflow-map-ja.png
