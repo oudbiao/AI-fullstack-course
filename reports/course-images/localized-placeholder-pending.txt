@@ -1,11 +1,3 @@
-appendix-ai-history-comic-turning-points-en.png
-appendix-ai-main-relay-map-en.png
-appendix-ai-milestones-timeline-en.png
-appendix-ai-paper-problem-solution-impact-chain-en.png
-appendix-ai-project-lens-map-en.png
-appendix-classic-ml-branch-map-en.png
-appendix-continuous-learning-flywheel-en.png
-appendix-course-numbering-maintenance-check-en.png
 appendix-course-numbering-map-en.png
 appendix-debug-mre-help-flow-en.png
 appendix-faq-confidence-reset-map-en.png
