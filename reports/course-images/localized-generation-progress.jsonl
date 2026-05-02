@@ -266,3 +266,11 @@
 {"at": "2026-05-02T06:20:26.192295+00:00", "filename": "ch07-finetuning-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T06:23:22.873652+00:00", "filename": "ch07-finetuning-decision-loop-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T06:24:41.109322+00:00", "filename": "ch07-huggingface-workflow-object-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:26:48.515737+00:00", "filename": "ch07-kv-cache-mqa-gqa-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:29:39.863034+00:00", "filename": "ch07-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:32:37.403484+00:00", "filename": "ch07-llm-capability-backbone-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:35:42.495524+00:00", "filename": "ch07-llm-capability-stack-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:37:04.960995+00:00", "filename": "ch07-llm-overview-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:40:18.268063+00:00", "filename": "ch07-llm-principles-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:41:42.076421+00:00", "filename": "ch07-lora-qlora-low-rank-memory-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T06:43:39.708007+00:00", "filename": "ch07-next-token-generation-loop-map-ja.png", "locale": "ja", "status": "generated"}

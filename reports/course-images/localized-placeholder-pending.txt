@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch07-kv-cache-mqa-gqa-map-ja.png
-ch07-learning-quest-map-ja.png
-ch07-llm-capability-backbone-ja.png
-ch07-llm-capability-stack-ja.png
-ch07-llm-overview-chapter-flow-ja.png
-ch07-llm-principles-ja.png
-ch07-lora-qlora-low-rank-memory-map-ja.png
-ch07-next-token-generation-loop-map-ja.png
 ch07-nlp-crash-chapter-flow-ja.png
 ch07-peft-placement-family-map-ja.png
 ch07-pretraining-chapter-flow-ja.png
