@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-elective-knn-neighbor-voting-ja.png
-elective-lda-projection-map-ja.png
-elective-metaprogramming-registry-map-ja.png
-elective-model-optimization-map-ja.png
-elective-model-serving-architecture-ja.png
-elective-naive-bayes-evidence-ja.png
-elective-optimization-tradeoff-dashboard-ja.png
-elective-python-advanced-module-map-ja.png
 elective-python-decorator-flow-ja.png
 elective-serving-metrics-version-routing-map-ja.png
 elective-svm-c-kernel-decision-map-ja.png
