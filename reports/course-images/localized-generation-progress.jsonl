@@ -660,3 +660,11 @@
 {"at": "2026-05-02T21:36:02.919054+00:00", "filename": "appendix-nlp-llm-lineage-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T21:37:33.454756+00:00", "filename": "appendix-project-quick-reference-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T21:39:16.228237+00:00", "filename": "appendix-quick-ref-debug-index-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:41:02.769887+00:00", "filename": "appendix-resource-bottleneck-priority-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:42:19.872909+00:00", "filename": "appendix-resource-selection-funnel-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:43:38.500870+00:00", "filename": "appendix-troubleshooting-rescue-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:44:59.860444+00:00", "filename": "appendix-visual-enhancement-kanban-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:46:06.859256+00:00", "filename": "bert-gpt-t5-comparison-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:47:36.522628+00:00", "filename": "bert-masked-language-model-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:48:55.717178+00:00", "filename": "bias-variance-tradeoff-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:50:05.719181+00:00", "filename": "bio-ner-recovery-en.png", "locale": "en", "status": "generated"}

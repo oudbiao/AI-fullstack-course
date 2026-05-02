@@ -1,11 +1,3 @@
-appendix-resource-bottleneck-priority-map-en.png
-appendix-resource-selection-funnel-en.png
-appendix-troubleshooting-rescue-map-en.png
-appendix-visual-enhancement-kanban-en.png
-bert-gpt-t5-comparison-en.png
-bert-masked-language-model-en.png
-bias-variance-tradeoff-en.png
-bio-ner-recovery-en.png
 boss-challenge-map-en.png
 bow-tfidf-representation-en.png
 ch01-cli-automation-workflow-en.png
