@@ -586,9 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch06-vae-latent-continuity-sampling-map-ja.png
-ch06-weight-init-signal-stability-map-ja.png
-ch06-xor-single-layer-limit-map-ja.png
 ch07-advanced-prompt-technique-decision-map-ja.png
 ch07-alignment-app-safety-map-ja.png
 ch07-alignment-chapter-flow-ja.png

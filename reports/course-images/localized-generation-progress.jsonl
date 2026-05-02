@@ -247,3 +247,6 @@
 {"at": "2026-05-02T05:39:26.380926+00:00", "filename": "ch06-transformer-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T05:40:49.889123+00:00", "filename": "ch06-transformer-global-context-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T05:42:16.245281+00:00", "filename": "ch06-transformer-representation-refinement-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:45:38.932010+00:00", "filename": "ch06-vae-latent-continuity-sampling-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:48:31.807961+00:00", "filename": "ch06-weight-init-signal-stability-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:49:56.636939+00:00", "filename": "ch06-xor-single-layer-limit-map-ja.png", "locale": "ja", "status": "generated"}
