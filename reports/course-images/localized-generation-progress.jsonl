@@ -125,3 +125,17 @@
 {"at": "2026-05-02T01:16:48.757127+00:00", "filename": "ch03-numpy-random-statistics-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for ch03-numpy-random-statistics-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
 {"at": "2026-05-02T01:19:03.311136+00:00", "filename": "ch03-numpy-random-statistics-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for ch03-numpy-random-statistics-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
 {"at": "2026-05-02T01:22:01.197616+00:00", "filename": "ch03-numpy-reshape-axis-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:26:26.210898+00:00", "filename": "ch03-numpy-random-statistics-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:29:32.516832+00:00", "filename": "ch03-pandas-cleaning-workflow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:31:04.397345+00:00", "filename": "ch03-pandas-groupby-split-apply-combine-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:33:26.647446+00:00", "filename": "ch03-pandas-merge-concat-join-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:35:14.950165+00:00", "filename": "ch03-pandas-read-write-first-look-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:38:10.348961+00:00", "filename": "ch03-pandas-roadmap-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:40:25.378520+00:00", "filename": "ch03-pandas-selection-filter-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:43:23.382861+00:00", "filename": "ch03-pandas-time-series-analysis-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:44:51.867216+00:00", "filename": "ch03-pandas-transform-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:48:38.893714+00:00", "filename": "ch03-plotly-interactive-dashboard-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:50:29.367748+00:00", "filename": "ch03-pure-python-data-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:51:51.412696+00:00", "filename": "ch03-python-database-bridge-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:53:16.480873+00:00", "filename": "ch03-relational-database-foundation-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:54:48.367891+00:00", "filename": "ch03-study-guide-data-loop-ja.png", "locale": "ja", "status": "generated"}
