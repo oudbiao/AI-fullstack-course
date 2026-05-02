@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-linear-regression-loss-landscape-ja.png
-llm-history-timeline-ja.png
-logistic-regression-boundary-ja.png
-lora-parameter-update-ja.png
-lstm-gate-memory-flow-ja.png
-math-study-loop-ja.png
-math-task-checklist-ja.png
-math-to-ml-bridge-ja.png
 matplotlib-figure-axes-ja.png
 matrix-linear-transform-grid-ja.png
 mcp-host-client-server-ja.png
