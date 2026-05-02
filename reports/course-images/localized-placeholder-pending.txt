@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch12-multimodal-aigc-ja.png
-ch12-multimodal-app-engineering-loop-ja.png
-ch12-multimodal-chapter-flow-ja.png
-ch12-multimodal-rag-agent-bridge-ja.png
-ch12-multimodal-system-backbone-ja.png
-ch12-projects-delivery-loop-ja.png
-ch12-sd-application-mode-selector-map-ja.png
-ch12-sd-finetuning-route-choice-map-ja.png
 ch12-study-guide-modal-workflow-map-ja.png
 ch12-tts-text-to-speech-pipeline-map-ja.png
 ch12-video-gen-chapter-flow-ja.png
