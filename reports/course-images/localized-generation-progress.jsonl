@@ -628,3 +628,11 @@
 {"at": "2026-05-02T20:48:04.198465+00:00", "filename": "vision-language-model-architecture-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T20:49:31.416187+00:00", "filename": "word2vec-embedding-neighborhood-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T20:52:46.508884+00:00", "filename": "yolo-grid-detection-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:54:39.078086+00:00", "filename": "agent-guardrails-layers-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T20:55:58.367700+00:00", "filename": "agent-memory-system-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T20:57:29.738232+00:00", "filename": "agent-system-architecture-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T20:58:44.492878+00:00", "filename": "agent-tool-trace-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:00:08.573340+00:00", "filename": "agent-vs-chatbot-comparison-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:01:35.488918+00:00", "filename": "ai-learning-assistant-roadmap-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:02:48.632368+00:00", "filename": "anomaly-detection-outliers-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T21:03:57.424673+00:00", "filename": "appendix-agent-system-lineage-map-en.png", "locale": "en", "status": "generated"}
