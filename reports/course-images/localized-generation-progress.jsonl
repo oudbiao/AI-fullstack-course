@@ -207,3 +207,11 @@
 {"at": "2026-05-02T04:19:53.472227+00:00", "filename": "ch05-threshold-roc-pr-curve-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T04:21:12.116371+00:00", "filename": "ch05-tree-pruning-overfit-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T04:22:35.110474+00:00", "filename": "ch05-unsupervised-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:26:12.011650+00:00", "filename": "ch06-attention-qkv-library-analogy-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:29:09.396113+00:00", "filename": "ch06-autograd-gradient-lifecycle-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:30:29.560848+00:00", "filename": "ch06-backprop-error-responsibility-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:31:53.131327+00:00", "filename": "ch06-causal-mask-no-peeking-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:33:43.008842+00:00", "filename": "ch06-cnn-channel-spatial-tradeoff-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:37:36.103770+00:00", "filename": "ch06-cnn-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:40:34.219828+00:00", "filename": "ch06-cnn-receptive-field-growth-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T04:41:54.325514+00:00", "filename": "ch06-conv-stride-padding-size-map-ja.png", "locale": "ja", "status": "generated"}

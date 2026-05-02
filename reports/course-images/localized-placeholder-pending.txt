@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch06-attention-qkv-library-analogy-map-ja.png
-ch06-autograd-gradient-lifecycle-map-ja.png
-ch06-backprop-error-responsibility-map-ja.png
-ch06-causal-mask-no-peeking-map-ja.png
-ch06-cnn-channel-spatial-tradeoff-map-ja.png
-ch06-cnn-chapter-flow-ja.png
-ch06-cnn-receptive-field-growth-map-ja.png
-ch06-conv-stride-padding-size-map-ja.png
 ch06-deep-learning-ja.png
 ch06-deep-learning-project-cycle-ja.png
 ch06-dl-history-breakthrough-map-ja.png
