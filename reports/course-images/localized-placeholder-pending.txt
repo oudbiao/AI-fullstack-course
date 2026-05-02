@@ -586,13 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch05-anomaly-detection-decision-flow-ja.png
-ch05-anomaly-method-comparison-map-ja.png
-ch05-basics-chapter-flow-ja.png
-ch05-bias-variance-action-map-ja.png
-ch05-clustering-decision-flow-ja.png
-ch05-clustering-shape-selection-map-ja.png
-ch05-columntransformer-real-table-pipeline-ja.png
 ch05-cross-validation-stability-flow-ja.png
 ch05-cv-leakage-safe-pipeline-map-ja.png
 ch05-data-split-leakage-guardrail-ja.png
