@@ -586,17 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch04-linear-algebra-chapter-flow-ja.png
-ch04-linear-algebra-roadmap-ja.png
-ch04-matrix-batch-transform-flow-ja.png
-ch04-probability-bayes-update-flow-ja.png
-ch04-probability-chapter-flow-ja.png
-ch04-probability-history-foundations-map-ja.png
-ch04-probability-roadmap-ja.png
-ch04-statistical-inference-data-to-parameter-ja.png
-ch04-study-guide-math-minimum-loop-ja.png
-ch04-vector-ai-meaning-map-ja.png
-ch04-vector-space-high-level-map-ja.png
 ch05-anomaly-detection-decision-flow-ja.png
 ch05-anomaly-method-comparison-map-ja.png
 ch05-basics-chapter-flow-ja.png
