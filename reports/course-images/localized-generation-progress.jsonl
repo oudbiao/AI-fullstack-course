@@ -353,3 +353,4 @@
 {"at": "2026-05-02T09:33:58.220226+00:00", "filename": "ch09-agent-observability-trace-span-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T09:35:45.581478+00:00", "filename": "ch09-agent-persistence-checkpoint-eventlog-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T09:37:14.082238+00:00", "filename": "ch09-agent-risk-debug-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:41:26.284528+00:00", "filename": "ch09-agent-runtime-state-queue-map-ja.png", "locale": "ja", "status": "generated"}

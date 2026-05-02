@@ -103,7 +103,10 @@ jobs:
             $COMPOSE ps
             echo "🧹 清理悬空镜像..."
             docker image prune -f
-            
+            echo "🧹 清理 1 小时前未使用的 Docker 构建缓存..."
+            docker builder prune -a -f --filter "until=1h"
+            echo "📦 Docker 磁盘占用:"
+            docker system df
             echo ""
             echo "========================================="
             echo "✅ 部署完成！"
