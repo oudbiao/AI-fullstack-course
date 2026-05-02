@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-gradient-contour-field-ja.png
-gradient-descent-path-ja.png
-house-price-project-flow-ja.png
-hybrid-search-rerank-flow-ja.png
-hyperparameter-tuning-search-ja.png
-imagenet-cnn-evolution-ja.png
-information-entropy-uncertainty-ja.png
-intro-ai-fullstack-capability-map-ja.png
 intro-blocker-diagnosis-flow-ja.png
 intro-four-main-routes-subway-ja.png
 intro-graduation-project-loop-ja.png
