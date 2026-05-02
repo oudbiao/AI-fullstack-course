@@ -304,3 +304,11 @@
 {"at": "2026-05-02T07:45:55.691892+00:00", "filename": "ch08-app-dev-learning-order-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T07:48:50.842722+00:00", "filename": "ch08-assistant-session-tool-trace-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T07:51:56.625478+00:00", "filename": "ch08-async-concurrency-semaphore-timeout-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:54:45.850919+00:00", "filename": "ch08-chunk-size-overlap-tradeoff-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:56:22.962325+00:00", "filename": "ch08-courseware-assistant-production-line-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:57:49.831195+00:00", "filename": "ch08-courseware-chunk-metadata-schema-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T07:59:16.806265+00:00", "filename": "ch08-deployment-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T08:02:09.835562+00:00", "filename": "ch08-dialog-state-slot-memory-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T08:04:59.804047+00:00", "filename": "ch08-docker-image-container-compose-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T08:06:30.218831+00:00", "filename": "ch08-document-parsing-format-router-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T08:07:58.899419+00:00", "filename": "ch08-engineering-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
