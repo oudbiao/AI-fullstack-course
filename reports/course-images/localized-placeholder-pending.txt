@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch09-multi-agent-coordination-map-ja.png
-ch09-multi-agent-dev-team-delivery-map-ja.png
-ch09-multi-agent-pattern-selection-map-ja.png
-ch09-plan-execute-monitor-replan-map-ja.png
-ch09-production-readiness-canary-rollback-map-ja.png
-ch09-production-runtime-map-ja.png
-ch09-project-delivery-loop-ja.png
-ch09-project-learning-order-map-ja.png
 ch09-projects-route-map-ja.png
 ch09-reasoning-chapter-flow-ja.png
 ch09-reasoning-eval-failure-taxonomy-map-ja.png
