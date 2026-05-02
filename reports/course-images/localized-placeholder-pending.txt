@@ -1,11 +1,3 @@
-ch04-ai-math-backbone-en.png
-ch04-ai-math-en.png
-ch04-backprop-chain-rule-training-bridge-en.png
-ch04-calculus-roadmap-en.png
-ch04-calculus-training-flow-en.png
-ch04-derivative-change-rate-bridge-en.png
-ch04-distribution-random-world-map-en.png
-ch04-eigen-pca-direction-map-en.png
 ch04-gradient-descent-iteration-loop-en.png
 ch04-gradient-parameter-knobs-map-en.png
 ch04-information-theory-loss-map-en.png
