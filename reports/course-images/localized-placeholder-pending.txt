@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch08-projects-route-map-ja.png
-ch08-rag-core-chapter-flow-ja.png
-ch08-rag-data-to-answer-pipeline-ja.png
-ch08-rag-engineering-ja.png
-ch08-rag-evaluation-layered-dashboard-map-ja.png
-ch08-rag-experiment-eval-loop-map-ja.png
-ch08-rag-finetune-responsibility-split-map-ja.png
-ch08-rag-layer-failure-debug-map-ja.png
 ch08-rag-optimization-debug-funnel-map-ja.png
 ch08-rag-position-bridge-ja.png
 ch08-rag-system-backbone-ja.png
