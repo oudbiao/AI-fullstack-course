@@ -99,3 +99,14 @@
 {"at": "2026-05-01T16:09:46.600346+00:00", "filename": "ch02-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T16:11:20.454738+00:00", "filename": "ch02-modules-package-structure-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-01T16:15:12.849437+00:00", "filename": "ch02-oop-class-object-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:30:14.268930+00:00", "filename": "ch02-operators-decision-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:33:13.301906+00:00", "filename": "ch02-python-ai-backbone-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:34:32.026195+00:00", "filename": "ch02-python-ai-workflow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:35:54.299669+00:00", "filename": "ch02-python-foundation-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for ch02-python-foundation-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-02T00:37:24.283224+00:00", "filename": "ch02-python-foundation-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:38:51.885465+00:00", "filename": "ch02-study-guide-program-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:40:20.128606+00:00", "filename": "ch02-task-list-workflow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:41:37.507886+00:00", "filename": "ch02-todo-cli-architecture-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:42:58.406818+00:00", "filename": "ch02-type-hints-quality-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:44:25.964474+00:00", "filename": "ch02-variable-object-reference-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:45:48.261471+00:00", "filename": "ch02-web-api-request-response-ja.png", "locale": "ja", "status": "generated"}
