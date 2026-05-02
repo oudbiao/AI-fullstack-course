@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-derivative-tangent-slope-ja.png
-diffusion-noise-denoise-ja.png
-distribution-family-comparison-ja.png
-document-processing-vectorization-ja.png
-eda-analysis-workflow-ja.png
-eigenvalue-special-directions-ja.png
-elective-ai-frontend-stack-ja.png
-elective-ai-frontend-state-machine-map-ja.png
 elective-ai-product-decision-matrix-ja.png
 elective-ai-product-experiment-metrics-loop-ja.png
 elective-ai-security-red-team-loop-ja.png
