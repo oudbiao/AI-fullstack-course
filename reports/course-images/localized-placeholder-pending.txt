@@ -1,11 +1,3 @@
-appendix-job-prep-funnel-en.png
-appendix-learning-paper-project-notes-loop-en.png
-appendix-llm-to-agent-evolution-timeline-en.png
-appendix-multimodal-aigc-lineage-map-en.png
-appendix-neural-network-waves-timeline-en.png
-appendix-nlp-llm-lineage-map-en.png
-appendix-project-quick-reference-map-en.png
-appendix-quick-ref-debug-index-map-en.png
 appendix-resource-bottleneck-priority-map-en.png
 appendix-resource-selection-funnel-en.png
 appendix-troubleshooting-rescue-map-en.png
