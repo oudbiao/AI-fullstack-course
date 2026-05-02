@@ -1,11 +1,3 @@
-ch01-python-env-stack-en.png
-ch01-task-list-workflow-en.png
-ch01-terminal-path-command-map-en.png
-ch01-tools-foundation-en.png
-ch01-vscode-workspace-flow-en.png
-ch02-ai-api-request-response-en.png
-ch02-control-flow-paths-en.png
-ch02-data-structures-comparison-en.png
 ch02-exception-flow-en.png
 ch02-file-io-serialization-flow-en.png
 ch02-function-call-scope-en.png
