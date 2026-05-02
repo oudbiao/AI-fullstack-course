@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch05-feature-engineering-chapter-flow-ja.png
-ch05-feature-leakage-red-flags-map-ja.png
-ch05-feature-understanding-workflow-ja.png
-ch05-hyperparameter-tuning-workflow-ja.png
-ch05-learning-curve-diagnosis-map-ja.png
-ch05-learning-quest-map-ja.png
-ch05-linear-regression-learning-flow-ja.png
-ch05-linear-regression-residual-diagnostics-ja.png
 ch05-logistic-classification-flow-ja.png
 ch05-logistic-threshold-tradeoff-ja.png
 ch05-machine-learning-ja.png

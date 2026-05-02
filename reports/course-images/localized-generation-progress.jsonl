@@ -179,3 +179,11 @@
 {"at": "2026-05-02T03:21:08.985134+00:00", "filename": "ch05-ensemble-bagging-boosting-flow-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T03:24:17.494176+00:00", "filename": "ch05-ensemble-error-correction-lab-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T03:25:47.917564+00:00", "filename": "ch05-evaluation-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:31:04.823478+00:00", "filename": "ch05-feature-engineering-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:32:25.431780+00:00", "filename": "ch05-feature-leakage-red-flags-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:34:08.773107+00:00", "filename": "ch05-feature-understanding-workflow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:35:40.295077+00:00", "filename": "ch05-hyperparameter-tuning-workflow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:38:10.340576+00:00", "filename": "ch05-learning-curve-diagnosis-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:41:09.071588+00:00", "filename": "ch05-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:43:52.992523+00:00", "filename": "ch05-linear-regression-learning-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T03:45:03.189098+00:00", "filename": "ch05-linear-regression-residual-diagnostics-ja.png", "locale": "ja", "status": "generated"}
