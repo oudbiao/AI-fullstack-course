@@ -599,3 +599,11 @@
 {"at": "2026-05-02T19:56:07.147341+00:00", "filename": "pytorch-autograd-graph-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T19:57:20.457083+00:00", "filename": "pytorch-training-loop-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T20:00:15.203797+00:00", "filename": "rag-document-answer-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:02:19.731660+00:00", "filename": "rag-evaluation-triangle-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:04:06.337705+00:00", "filename": "react-reason-act-observe-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:05:54.076221+00:00", "filename": "regularization-overfitting-controls-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:07:22.064891+00:00", "filename": "rlhf-three-stage-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:08:38.390608+00:00", "filename": "rnn-unrolled-hidden-state-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:10:06.064063+00:00", "filename": "seaborn-statistical-plots-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:11:48.466763+00:00", "filename": "self-attention-qkv-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T20:13:20.518373+00:00", "filename": "semantic-segmentation-mask-ja.png", "locale": "ja", "status": "generated"}

@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-rag-evaluation-triangle-ja.png
-react-reason-act-observe-loop-ja.png
-regularization-overfitting-controls-ja.png
-rlhf-three-stage-loop-ja.png
-rnn-unrolled-hidden-state-ja.png
-seaborn-statistical-plots-ja.png
-self-attention-qkv-ja.png
-semantic-segmentation-mask-ja.png
 seq2seq-attention-alignment-ja.png
 sklearn-estimator-pipeline-ja.png
 sql-table-join-map-ja.png
