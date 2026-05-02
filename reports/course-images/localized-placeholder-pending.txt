@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch07-advanced-prompt-technique-decision-map-ja.png
-ch07-alignment-app-safety-map-ja.png
-ch07-alignment-chapter-flow-ja.png
-ch07-alignment-hhh-tension-guardrail-map-ja.png
-ch07-architecture-mask-task-fit-map-ja.png
-ch07-context-window-budget-map-ja.png
-ch07-contextual-embedding-sense-map-ja.png
-ch07-data-labeling-flywheel-review-map-ja.png
 ch07-domain-finetune-evaluation-board-map-ja.png
 ch07-dpo-rlhf-shortcut-map-ja.png
 ch07-efficient-attention-bottleneck-map-ja.png
