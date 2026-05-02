@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch10-cv-basics-chapter-flow-ja.png
-ch10-detection-chapter-flow-ja.png
-ch10-detection-output-iou-error-map-ja.png
-ch10-detection-practice-eval-buckets-map-ja.png
-ch10-face-recognition-threshold-pipeline-map-ja.png
-ch10-image-array-shape-channel-map-ja.png
-ch10-image-processing-operation-decision-map-ja.png
-ch10-instance-segmentation-count-mask-map-ja.png
 ch10-learning-quest-map-ja.png
 ch10-medical-imaging-risk-review-map-ja.png
 ch10-ocr-layout-reading-order-map-ja.png
