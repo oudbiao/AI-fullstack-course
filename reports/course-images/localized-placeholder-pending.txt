@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch09-mcp-server-tool-contract-map-ja.png
-ch09-memory-chapter-flow-ja.png
-ch09-memory-engineering-lifecycle-map-ja.png
-ch09-memory-layer-selection-map-ja.png
-ch09-memory-write-retrieve-loop-ja.png
-ch09-multi-agent-chapter-flow-ja.png
-ch09-multi-agent-communication-contract-map-ja.png
-ch09-multi-agent-coordination-cost-map-ja.png
 ch09-multi-agent-coordination-map-ja.png
 ch09-multi-agent-dev-team-delivery-map-ja.png
 ch09-multi-agent-pattern-selection-map-ja.png
