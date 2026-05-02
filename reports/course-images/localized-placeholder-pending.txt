@@ -1,11 +1,3 @@
-ch02-exception-flow-en.png
-ch02-file-io-serialization-flow-en.png
-ch02-function-call-scope-en.png
-ch02-functional-pipeline-en.png
-ch02-generator-streaming-data-en.png
-ch02-input-output-flow-en.png
-ch02-learning-quest-map-en.png
-ch02-modules-package-structure-en.png
 ch02-oop-class-object-map-en.png
 ch02-operators-decision-flow-en.png
 ch02-python-ai-backbone-en.png

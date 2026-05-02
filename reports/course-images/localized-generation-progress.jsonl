@@ -684,3 +684,11 @@
 {"at": "2026-05-02T22:14:32.642288+00:00", "filename": "ch02-ai-api-request-response-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T22:16:09.764089+00:00", "filename": "ch02-control-flow-paths-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T22:17:55.952321+00:00", "filename": "ch02-data-structures-comparison-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:19:43.792045+00:00", "filename": "ch02-exception-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:21:15.352107+00:00", "filename": "ch02-file-io-serialization-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:22:49.700430+00:00", "filename": "ch02-function-call-scope-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:24:08.314905+00:00", "filename": "ch02-functional-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:25:30.257714+00:00", "filename": "ch02-generator-streaming-data-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:26:52.732019+00:00", "filename": "ch02-input-output-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:28:26.537082+00:00", "filename": "ch02-learning-quest-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T22:30:17.975555+00:00", "filename": "ch02-modules-package-structure-en.png", "locale": "en", "status": "generated"}
