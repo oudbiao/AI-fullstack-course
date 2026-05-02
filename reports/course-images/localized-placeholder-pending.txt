@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-intro-blocker-diagnosis-flow-ja.png
-intro-four-main-routes-subway-ja.png
-intro-graduation-project-loop-ja.png
-intro-learning-path-selection-ja.png
-intro-modern-ai-stack-map-ja.png
-intro-project-portfolio-roadmap-ja.png
-intro-role-based-paths-map-ja.png
-kaggle-submission-loop-ja.png
 linear-regression-loss-landscape-ja.png
 llm-history-timeline-ja.png
 logistic-regression-boundary-ja.png
