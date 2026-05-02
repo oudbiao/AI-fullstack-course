@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch05-logistic-classification-flow-ja.png
-ch05-logistic-threshold-tradeoff-ja.png
-ch05-machine-learning-ja.png
-ch05-math-to-ml-training-map-ja.png
-ch05-metrics-selection-flow-ja.png
-ch05-ml-history-breakthrough-map-ja.png
-ch05-modeling-loop-backbone-ja.png
-ch05-pca-explained-variance-map-ja.png
 ch05-project-report-storyboard-ja.png
 ch05-projects-portfolio-loop-ja.png
 ch05-search-space-budget-map-ja.png
