@@ -1,6 +1,4 @@
 ch03-pandas-transform-pipeline-en.png
-ch03-plotly-interactive-dashboard-en.png
-ch03-pure-python-data-flow-en.png
 ch03-python-database-bridge-en.png
 ch03-relational-database-foundation-en.png
 ch03-study-guide-data-loop-en.png

@@ -724,3 +724,6 @@
 {"at": "2026-05-02T23:16:22.979583+00:00", "filename": "ch03-pandas-roadmap-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T23:18:10.601186+00:00", "filename": "ch03-pandas-selection-filter-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T23:21:46.824970+00:00", "filename": "ch03-pandas-time-series-analysis-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:23:50.201405+00:00", "filename": "ch03-pandas-transform-pipeline-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch03-pandas-transform-pipeline-en.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-02T23:25:12.315005+00:00", "filename": "ch03-plotly-interactive-dashboard-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:26:50.703315+00:00", "filename": "ch03-pure-python-data-flow-en.png", "locale": "en", "status": "generated"}
