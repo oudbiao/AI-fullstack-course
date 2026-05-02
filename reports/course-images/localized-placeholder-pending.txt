@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch06-training-loop-backbone-ja.png
-ch06-training-loop-order-guardrail-ja.png
-ch06-training-tips-chapter-flow-ja.png
-ch06-transfer-learning-freeze-finetune-map-ja.png
-ch06-transformer-block-role-map-ja.png
-ch06-transformer-chapter-flow-ja.png
-ch06-transformer-global-context-map-ja.png
-ch06-transformer-representation-refinement-map-ja.png
 ch06-vae-latent-continuity-sampling-map-ja.png
 ch06-weight-init-signal-stability-map-ja.png
 ch06-xor-single-layer-limit-map-ja.png

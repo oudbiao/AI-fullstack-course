@@ -239,3 +239,11 @@
 {"at": "2026-05-02T05:22:01.843311+00:00", "filename": "ch06-study-guide-training-loop-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T05:24:00.413346+00:00", "filename": "ch06-tensor-shape-meaning-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T05:25:34.560034+00:00", "filename": "ch06-training-diagnosis-dashboard-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:29:24.961048+00:00", "filename": "ch06-training-loop-backbone-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:32:07.418940+00:00", "filename": "ch06-training-loop-order-guardrail-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:33:43.496387+00:00", "filename": "ch06-training-tips-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:35:03.972003+00:00", "filename": "ch06-transfer-learning-freeze-finetune-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:36:24.998802+00:00", "filename": "ch06-transformer-block-role-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:39:26.380926+00:00", "filename": "ch06-transformer-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:40:49.889123+00:00", "filename": "ch06-transformer-global-context-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T05:42:16.245281+00:00", "filename": "ch06-transformer-representation-refinement-map-ja.png", "locale": "ja", "status": "generated"}
