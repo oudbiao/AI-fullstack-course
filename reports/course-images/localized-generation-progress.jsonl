@@ -393,3 +393,16 @@
 {"at": "2026-05-02T11:05:11.364630+00:00", "filename": "ch09-production-runtime-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T11:08:32.874070+00:00", "filename": "ch09-project-delivery-loop-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T11:10:03.448508+00:00", "filename": "ch09-project-learning-order-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:14:03.405423+00:00", "filename": "ch09-projects-route-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:16:26.657229+00:00", "filename": "ch09-reasoning-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:19:22.685633+00:00", "filename": "ch09-reasoning-eval-failure-taxonomy-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for ch09-reasoning-eval-failure-taxonomy-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-02T11:21:47.588522+00:00", "filename": "ch09-research-assistant-citation-trace-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:25:18.840808+00:00", "filename": "ch09-rl-agent-breakthroughs-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:27:06.552226+00:00", "filename": "ch09-study-guide-minimal-agent-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:30:25.507178+00:00", "filename": "ch09-tool-control-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:31:59.871120+00:00", "filename": "ch09-tool-description-quality-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:34:40.463967+00:00", "filename": "ch09-tool-safety-permission-sandbox-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:37:04.140440+00:00", "filename": "ch09-reasoning-eval-failure-taxonomy-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:38:34.711222+00:00", "filename": "ch09-tool-schema-validation-guardrail-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:40:02.269019+00:00", "filename": "ch09-tools-action-layer-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T11:41:39.778073+00:00", "filename": "ch09-tools-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
