@@ -361,3 +361,11 @@
 {"at": "2026-05-02T09:50:12.916887+00:00", "filename": "ch09-agentops-control-loop-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T09:52:53.868016+00:00", "filename": "ch09-basics-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T09:54:24.082791+00:00", "filename": "ch09-basics-execution-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T09:56:52.266429+00:00", "filename": "ch09-basics-position-bridge-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T10:00:39.083064+00:00", "filename": "ch09-code-agent-sandbox-review-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T10:02:09.629980+00:00", "filename": "ch09-cot-self-check-structure-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T10:04:44.195680+00:00", "filename": "ch09-data-analysis-agent-notebook-loop-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T10:06:51.253760+00:00", "filename": "ch09-deployment-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T10:08:30.432107+00:00", "filename": "ch09-deployment-observability-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T10:10:23.901796+00:00", "filename": "ch09-eval-safety-chapter-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T10:12:19.786688+00:00", "filename": "ch09-framework-selection-decision-map-ja.png", "locale": "ja", "status": "generated"}
