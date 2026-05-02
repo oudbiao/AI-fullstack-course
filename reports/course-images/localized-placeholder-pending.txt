@@ -586,14 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-elective-python-decorator-flow-ja.png
-elective-serving-metrics-version-routing-map-ja.png
-elective-svm-c-kernel-decision-map-ja.png
-elective-svm-margin-support-vectors-ja.png
-embedding-semantic-space-ja.png
-ensemble-learning-voting-forest-ja.png
-feature-construction-workshop-ja.png
-feature-engineering-roadmap-ja.png
 feature-preprocessing-pipeline-ja.png
 feature-selection-methods-ja.png
 feature-type-target-map-ja.png
