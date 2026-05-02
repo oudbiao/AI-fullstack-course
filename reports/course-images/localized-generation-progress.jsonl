@@ -110,3 +110,18 @@
 {"at": "2026-05-02T00:42:58.406818+00:00", "filename": "ch02-type-hints-quality-flow-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T00:44:25.964474+00:00", "filename": "ch02-variable-object-reference-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-02T00:45:48.261471+00:00", "filename": "ch02-web-api-request-response-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:48:21.210486+00:00", "filename": "ch02-web-scraper-pipeline-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:49:57.295951+00:00", "filename": "ch03-data-analysis-backbone-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:52:46.093601+00:00", "filename": "ch03-data-visualization-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:56:30.147924+00:00", "filename": "ch03-database-design-erd-normalization-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:57:49.671419+00:00", "filename": "ch03-database-roadmap-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T00:59:29.505896+00:00", "filename": "ch03-learning-quest-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:01:01.923494+00:00", "filename": "ch03-multi-source-analysis-architecture-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:02:32.075765+00:00", "filename": "ch03-numpy-array-shape-axis-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:04:41.976193+00:00", "filename": "ch03-numpy-broadcasting-vectorization-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:07:43.331560+00:00", "filename": "ch03-numpy-indexing-slicing-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:10:22.010713+00:00", "filename": "ch03-numpy-linear-algebra-toolkit-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:14:04.438004+00:00", "filename": "ch03-numpy-overview-array-engine-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-02T01:16:48.757127+00:00", "filename": "ch03-numpy-random-statistics-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for ch03-numpy-random-statistics-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-02T01:19:03.311136+00:00", "filename": "ch03-numpy-random-statistics-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 502 for ch03-numpy-random-statistics-map-ja.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-02T01:22:01.197616+00:00", "filename": "ch03-numpy-reshape-axis-flow-ja.png", "locale": "ja", "status": "generated"}

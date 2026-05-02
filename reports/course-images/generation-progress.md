@@ -10,6 +10,8 @@ Local localized placeholders: 1191 / 1191
 
 Detection note: English and Japanese docs now reference locale-specific image filenames instead of the Chinese source images. The localized placeholder PNGs keep `/en` and `/ja` visually safe until final image2 assets are generated later.
 
+Localized layout QA pending: after all localized images are generated, run a dedicated visual QA pass for English/Japanese long-text overflow. This must cover both image2 assets with embedded text and non-image diagrams rendered by the site, especially Mermaid timelines such as `i18n/ja/docusaurus-plugin-content-docs/current/intro/ai-history-map.md`, where Japanese labels can overflow timeline cards. Fixes should prefer shorter localized labels, explicit line breaks, larger cards, or replacing fragile Mermaid diagrams with image assets when needed.
+
 英日图片占位说明：普通课程图片已生成 `*-en.png` 588 张、`*-ja.png` 588 张；日文首页 `homepage-ai-history-comic-ja-01-turing.png` 到 `homepage-ai-history-comic-ja-15-rag-agent.png` 已写入 `1024x1792` 竖版占位图。英文首页 `homepage-ai-history-comic-en-*.png` 15 张已经是真实 image2 竖版漫画。正式 image2 批量覆盖仍需后续执行；当前 codex 网关此前返回 `503 No available compatible accounts`。
 
 编号说明：课程源码目录已经和网页展示章节号对齐；例如 `docs/ch01-tools` 对应第 1 章“开发者工具基础”，`docs/ch05-machine-learning` 对应第 5 章“机器学习入门到实战”。
