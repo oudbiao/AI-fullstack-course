@@ -586,10 +586,6 @@ video-audio-generation-pipeline-en.png
 vision-language-model-architecture-en.png
 word2vec-embedding-neighborhood-en.png
 yolo-grid-detection-flow-en.png
-ch08-study-guide-four-layer-map-ja.png
-ch08-template-schema-to-render-map-ja.png
-ch08-unified-api-provider-gateway-map-ja.png
-ch08-vector-record-metadata-filter-map-ja.png
 ch09-advanced-planning-dag-critical-path-map-ja.png
 ch09-agent-action-loop-trace-map-ja.png
 ch09-agent-boundary-workflow-chatbot-map-ja.png
