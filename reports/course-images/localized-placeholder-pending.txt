@@ -1,11 +1,3 @@
-debug-detective-missions-en.png
-decision-tree-split-path-en.png
-derivative-tangent-slope-en.png
-diffusion-noise-denoise-en.png
-distribution-family-comparison-en.png
-document-processing-vectorization-en.png
-eda-analysis-workflow-en.png
-eigenvalue-special-directions-en.png
 elective-ai-frontend-stack-en.png
 elective-ai-frontend-state-machine-map-en.png
 elective-ai-product-decision-matrix-en.png
