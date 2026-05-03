@@ -1,11 +1,3 @@
-ch08-advanced-rag-architecture-selection-map-en.png
-ch08-ai-coding-human-review-loop-map-en.png
-ch08-ann-exact-search-tradeoff-map-en.png
-ch08-api-contract-error-version-map-en.png
-ch08-app-dev-chapter-flow-en.png
-ch08-app-dev-learning-order-map-en.png
-ch08-assistant-session-tool-trace-map-en.png
-ch08-async-concurrency-semaphore-timeout-map-en.png
 ch08-chunk-size-overlap-tradeoff-map-en.png
 ch08-courseware-assistant-production-line-map-en.png
 ch08-courseware-chunk-metadata-schema-map-en.png
