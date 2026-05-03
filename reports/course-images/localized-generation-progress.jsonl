@@ -1038,3 +1038,12 @@
 {"at": "2026-05-03T08:21:25.500200+00:00", "filename": "ch11-hmm-crf-sequence-history-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:23:07.542684+00:00", "filename": "ch11-information-extraction-schema-pipeline-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:24:31.616666+00:00", "filename": "ch11-language-model-next-token-stack-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:26:41.466139+00:00", "filename": "ch11-learning-quest-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:29:36.015673+00:00", "filename": "ch11-machine-translation-error-analysis-map-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch11-machine-translation-error-analysis-map-en.png: {\"error\":{\"message\":\"Upstream access forbidden, please contact administrator\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-03T08:31:47.786580+00:00", "filename": "ch11-machine-translation-error-analysis-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:33:31.940951+00:00", "filename": "ch11-ner-project-entity-eval-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:35:02.689559+00:00", "filename": "ch11-neural-classification-embedding-pooling-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:36:55.254437+00:00", "filename": "ch11-nlp-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:38:31.921929+00:00", "filename": "ch11-nlp-task-landscape-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:40:09.340378+00:00", "filename": "ch11-nlp-to-llm-backbone-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:41:48.917592+00:00", "filename": "ch11-pretrained-chapter-flow-en.png", "locale": "en", "status": "generated"}
