@@ -1,11 +1,3 @@
-courseware-assistant-workflow-en.png
-creative-platform-workflow-en.png
-cross-validation-kfold-en.png
-customer-churn-project-flow-en.png
-cv-data-augmentation-gallery-en.png
-cv-image-processing-pipeline-en.png
-cv-pixel-rgb-grid-en.png
-dataset-dataloader-batch-flow-en.png
 debug-detective-missions-en.png
 decision-tree-split-path-en.png
 derivative-tangent-slope-en.png
