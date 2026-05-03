@@ -797,3 +797,6 @@
 {"at": "2026-05-03T01:31:41.014477+00:00", "filename": "ch05-supervised-chapter-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T01:33:10.612684+00:00", "filename": "ch05-svm-margin-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T01:34:30.301576+00:00", "filename": "ch05-task-type-decision-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:36:39.085599+00:00", "filename": "ch05-threshold-roc-pr-curve-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:38:28.682532+00:00", "filename": "ch05-tree-pruning-overfit-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:39:51.410722+00:00", "filename": "ch05-unsupervised-chapter-flow-en.png", "locale": "en", "status": "generated"}

@@ -1,6 +1,3 @@
-ch05-threshold-roc-pr-curve-map-en.png
-ch05-tree-pruning-overfit-map-en.png
-ch05-unsupervised-chapter-flow-en.png
 ch06-attention-qkv-library-analogy-map-en.png
 ch06-autograd-gradient-lifecycle-map-en.png
 ch06-backprop-error-responsibility-map-en.png
