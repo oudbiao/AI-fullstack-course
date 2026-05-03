@@ -1055,3 +1055,7 @@
 {"at": "2026-05-03T08:53:49.953863+00:00", "filename": "ch11-sequence-labeling-chapter-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:55:27.199192+00:00", "filename": "ch11-study-guide-text-to-model-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:57:14.488809+00:00", "filename": "ch11-summarization-extractive-generative-eval-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:59:21.704237+00:00", "filename": "ch11-t5-text-to-text-task-unification-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:00:50.032298+00:00", "filename": "ch11-text-basics-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:02:53.371430+00:00", "filename": "ch11-traditional-classification-baseline-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:04:16.580222+00:00", "filename": "ch11-transformers-library-call-chain-map-en.png", "locale": "en", "status": "generated"}

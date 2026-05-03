@@ -1,7 +1,3 @@
-ch11-t5-text-to-text-task-unification-map-en.png
-ch11-text-basics-chapter-flow-en.png
-ch11-traditional-classification-baseline-map-en.png
-ch11-transformers-library-call-chain-map-en.png
 ch12-ai-ethics-safety-guardrail-map-en.png
 ch12-ai-regulation-engineering-translation-map-en.png
 ch12-aigc-frontier-system-trend-map-en.png
