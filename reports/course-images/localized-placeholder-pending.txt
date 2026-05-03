@@ -1,11 +1,3 @@
-ch09-multi-agent-coordination-map-en.png
-ch09-multi-agent-dev-team-delivery-map-en.png
-ch09-multi-agent-pattern-selection-map-en.png
-ch09-plan-execute-monitor-replan-map-en.png
-ch09-production-readiness-canary-rollback-map-en.png
-ch09-production-runtime-map-en.png
-ch09-project-delivery-loop-en.png
-ch09-project-learning-order-map-en.png
 ch09-projects-route-map-en.png
 ch09-reasoning-chapter-flow-en.png
 ch09-reasoning-eval-failure-taxonomy-map-en.png
