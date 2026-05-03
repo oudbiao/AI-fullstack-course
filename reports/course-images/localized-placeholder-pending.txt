@@ -1,11 +1,3 @@
-kaggle-submission-loop-en.png
-linear-regression-loss-landscape-en.png
-llm-history-timeline-en.png
-logistic-regression-boundary-en.png
-lora-parameter-update-en.png
-lstm-gate-memory-flow-en.png
-math-study-loop-en.png
-math-task-checklist-en.png
 math-to-ml-bridge-en.png
 matplotlib-figure-axes-en.png
 matrix-linear-transform-grid-en.png
