@@ -1,12 +1,3 @@
-git-four-areas-en.png
-gpt-autoregressive-generation-en.png
-gradient-contour-field-en.png
-gradient-descent-path-en.png
-house-price-project-flow-en.png
-hybrid-search-rerank-flow-en.png
-hyperparameter-tuning-search-en.png
-imagenet-cnn-evolution-en.png
-information-entropy-uncertainty-en.png
 intro-ai-fullstack-capability-map-en.png
 intro-blocker-diagnosis-flow-en.png
 intro-four-main-routes-subway-en.png
