@@ -741,3 +741,11 @@
 {"at": "2026-05-02T23:46:58.202921+00:00", "filename": "ch04-derivative-change-rate-bridge-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T23:48:42.333662+00:00", "filename": "ch04-distribution-random-world-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-02T23:50:21.280492+00:00", "filename": "ch04-eigen-pca-direction-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:52:44.509892+00:00", "filename": "ch04-gradient-descent-iteration-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:54:13.594983+00:00", "filename": "ch04-gradient-parameter-knobs-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:55:33.217091+00:00", "filename": "ch04-information-theory-loss-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:56:55.445413+00:00", "filename": "ch04-learning-quest-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-02T23:59:39.139992+00:00", "filename": "ch04-linear-algebra-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T00:01:03.778992+00:00", "filename": "ch04-linear-algebra-roadmap-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T00:02:27.595392+00:00", "filename": "ch04-matrix-batch-transform-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T00:04:12.479897+00:00", "filename": "ch04-probability-bayes-update-flow-en.png", "locale": "en", "status": "generated"}

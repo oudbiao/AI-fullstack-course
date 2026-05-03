@@ -1,11 +1,3 @@
-ch04-gradient-descent-iteration-loop-en.png
-ch04-gradient-parameter-knobs-map-en.png
-ch04-information-theory-loss-map-en.png
-ch04-learning-quest-map-en.png
-ch04-linear-algebra-chapter-flow-en.png
-ch04-linear-algebra-roadmap-en.png
-ch04-matrix-batch-transform-flow-en.png
-ch04-probability-bayes-update-flow-en.png
 ch04-probability-chapter-flow-en.png
 ch04-probability-history-foundations-map-en.png
 ch04-probability-roadmap-en.png
