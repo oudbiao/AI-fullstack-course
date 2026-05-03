@@ -809,3 +809,11 @@
 {"at": "2026-05-03T01:51:05.078276+00:00", "filename": "ch06-cnn-receptive-field-growth-map-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch06-cnn-receptive-field-growth-map-en.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
 {"at": "2026-05-03T01:52:52.025696+00:00", "filename": "ch06-conv-stride-padding-size-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T01:54:14.981240+00:00", "filename": "ch06-cnn-receptive-field-growth-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:57:15.488905+00:00", "filename": "ch06-deep-learning-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:58:39.815545+00:00", "filename": "ch06-deep-learning-project-cycle-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:00:23.723472+00:00", "filename": "ch06-dl-history-breakthrough-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:02:12.631434+00:00", "filename": "ch06-gan-adversarial-balance-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:05:19.117168+00:00", "filename": "ch06-generative-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:08:26.804333+00:00", "filename": "ch06-learning-quest-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:10:06.736660+00:00", "filename": "ch06-lstm-gates-information-control-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:11:31.803598+00:00", "filename": "ch06-ml-to-dl-bridge-map-en.png", "locale": "en", "status": "generated"}
