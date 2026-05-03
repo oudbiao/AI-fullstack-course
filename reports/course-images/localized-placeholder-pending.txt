@@ -1,11 +1,3 @@
-ch09-framework-selection-map-en.png
-ch09-frameworks-position-map-en.png
-ch09-langgraph-state-machine-map-en.png
-ch09-learning-quest-map-en.png
-ch09-long-term-memory-write-update-policy-map-en.png
-ch09-mcp-capability-bridge-en.png
-ch09-mcp-chapter-flow-en.png
-ch09-mcp-host-client-server-message-flow-map-en.png
 ch09-mcp-server-tool-contract-map-en.png
 ch09-memory-chapter-flow-en.png
 ch09-memory-engineering-lifecycle-map-en.png
