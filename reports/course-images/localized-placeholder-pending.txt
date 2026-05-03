@@ -1,11 +1,3 @@
-elective-optimization-tradeoff-dashboard-en.png
-elective-python-advanced-module-map-en.png
-elective-python-decorator-flow-en.png
-elective-serving-metrics-version-routing-map-en.png
-elective-svm-c-kernel-decision-map-en.png
-elective-svm-margin-support-vectors-en.png
-embedding-semantic-space-en.png
-ensemble-learning-voting-forest-en.png
 feature-construction-workshop-en.png
 feature-engineering-roadmap-en.png
 feature-preprocessing-pipeline-en.png

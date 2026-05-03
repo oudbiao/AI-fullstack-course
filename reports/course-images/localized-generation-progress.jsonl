@@ -1126,3 +1126,11 @@
 {"at": "2026-05-03T10:57:43.126830+00:00", "filename": "elective-model-optimization-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T10:59:10.763961+00:00", "filename": "elective-model-serving-architecture-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T11:00:56.962151+00:00", "filename": "elective-naive-bayes-evidence-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:05:26.829785+00:00", "filename": "elective-optimization-tradeoff-dashboard-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:07:01.666373+00:00", "filename": "elective-python-advanced-module-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:08:24.765678+00:00", "filename": "elective-python-decorator-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:12:12.659595+00:00", "filename": "elective-serving-metrics-version-routing-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:13:36.691803+00:00", "filename": "elective-svm-c-kernel-decision-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:15:06.335504+00:00", "filename": "elective-svm-margin-support-vectors-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:16:34.987664+00:00", "filename": "embedding-semantic-space-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:18:36.007377+00:00", "filename": "ensemble-learning-voting-forest-en.png", "locale": "en", "status": "generated"}
