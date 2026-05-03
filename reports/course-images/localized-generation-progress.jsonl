@@ -949,3 +949,11 @@
 {"at": "2026-05-03T05:33:54.871953+00:00", "filename": "ch09-agent-observability-trace-span-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T05:35:14.744460+00:00", "filename": "ch09-agent-persistence-checkpoint-eventlog-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T05:36:54.694519+00:00", "filename": "ch09-agent-risk-debug-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:38:55.323364+00:00", "filename": "ch09-agent-runtime-state-queue-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:42:20.803907+00:00", "filename": "ch09-agent-security-prompt-injection-risk-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:43:54.723416+00:00", "filename": "ch09-agent-system-architecture-dataflow-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:45:53.902689+00:00", "filename": "ch09-agent-systems-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:47:03.297341+00:00", "filename": "ch09-agent-vs-workflow-backbone-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:48:24.526204+00:00", "filename": "ch09-agentops-control-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:49:51.196043+00:00", "filename": "ch09-basics-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:51:28.386760+00:00", "filename": "ch09-basics-execution-loop-en.png", "locale": "en", "status": "generated"}

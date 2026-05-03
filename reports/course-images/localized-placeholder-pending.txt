@@ -1,11 +1,3 @@
-ch09-agent-runtime-state-queue-map-en.png
-ch09-agent-security-prompt-injection-risk-map-en.png
-ch09-agent-system-architecture-dataflow-map-en.png
-ch09-agent-systems-en.png
-ch09-agent-vs-workflow-backbone-en.png
-ch09-agentops-control-loop-en.png
-ch09-basics-chapter-flow-en.png
-ch09-basics-execution-loop-en.png
 ch09-basics-position-bridge-en.png
 ch09-code-agent-sandbox-review-map-en.png
 ch09-cot-self-check-structure-map-en.png
