@@ -1,11 +1,3 @@
-ch08-enterprise-kb-permission-citation-map-en.png
-ch08-faithfulness-citation-check-map-en.png
-ch08-function-calling-validation-dispatch-map-en.png
-ch08-huggingface-ecosystem-layers-map-en.png
-ch08-hybrid-retrieval-blindspot-map-en.png
-ch08-inference-serving-queue-batch-map-en.png
-ch08-langchain-component-pipeline-map-en.png
-ch08-learning-quest-map-en.png
 ch08-llm-api-robust-client-loop-map-en.png
 ch08-llm-app-capability-loop-en.png
 ch08-llmops-trace-loop-en.png
