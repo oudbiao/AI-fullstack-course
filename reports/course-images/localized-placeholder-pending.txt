@@ -1,11 +1,3 @@
-intro-ai-fullstack-capability-map-en.png
-intro-blocker-diagnosis-flow-en.png
-intro-four-main-routes-subway-en.png
-intro-graduation-project-loop-en.png
-intro-learning-path-selection-en.png
-intro-modern-ai-stack-map-en.png
-intro-project-portfolio-roadmap-en.png
-intro-role-based-paths-map-en.png
 kaggle-submission-loop-en.png
 linear-regression-loss-landscape-en.png
 llm-history-timeline-en.png
