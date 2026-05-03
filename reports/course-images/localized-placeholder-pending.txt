@@ -1,11 +1,3 @@
-elective-ai-frontend-stack-en.png
-elective-ai-frontend-state-machine-map-en.png
-elective-ai-product-decision-matrix-en.png
-elective-ai-product-experiment-metrics-loop-en.png
-elective-ai-security-red-team-loop-en.png
-elective-ai-security-threat-regression-map-en.png
-elective-asyncio-concurrency-control-en.png
-elective-asyncio-timeout-cancel-rate-limit-map-en.png
 elective-classic-ml-module-map-en.png
 elective-cpp-deployment-module-map-en.png
 elective-cpp-raii-ownership-map-en.png
