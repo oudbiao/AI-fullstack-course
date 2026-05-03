@@ -1047,3 +1047,11 @@
 {"at": "2026-05-03T08:38:31.921929+00:00", "filename": "ch11-nlp-task-landscape-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:40:09.340378+00:00", "filename": "ch11-nlp-to-llm-backbone-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:41:48.917592+00:00", "filename": "ch11-pretrained-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:45:54.857918+00:00", "filename": "ch11-pretraining-transfer-finetune-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:47:32.357649+00:00", "filename": "ch11-projects-delivery-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:49:05.916288+00:00", "filename": "ch11-qa-retrieval-answer-evaluation-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:50:38.835292+00:00", "filename": "ch11-seq2seq-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:52:07.019055+00:00", "filename": "ch11-seq2seq-encoder-decoder-bottleneck-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:53:49.953863+00:00", "filename": "ch11-sequence-labeling-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:55:27.199192+00:00", "filename": "ch11-study-guide-text-to-model-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:57:14.488809+00:00", "filename": "ch11-summarization-extractive-generative-eval-map-en.png", "locale": "en", "status": "generated"}
