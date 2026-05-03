@@ -1,11 +1,3 @@
-ch08-projects-route-map-en.png
-ch08-rag-core-chapter-flow-en.png
-ch08-rag-data-to-answer-pipeline-en.png
-ch08-rag-engineering-en.png
-ch08-rag-evaluation-layered-dashboard-map-en.png
-ch08-rag-experiment-eval-loop-map-en.png
-ch08-rag-finetune-responsibility-split-map-en.png
-ch08-rag-layer-failure-debug-map-en.png
 ch08-rag-optimization-debug-funnel-map-en.png
 ch08-rag-position-bridge-en.png
 ch08-rag-system-backbone-en.png

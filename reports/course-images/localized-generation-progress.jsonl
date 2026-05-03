@@ -923,3 +923,12 @@
 {"at": "2026-05-03T04:54:10.850036+00:00", "filename": "ch08-observability-logs-metrics-trace-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:55:30.580796+00:00", "filename": "ch08-project-delivery-loop-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:56:56.972625+00:00", "filename": "ch08-project-learning-order-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:58:28.642124+00:00", "filename": "ch08-projects-route-map-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch08-projects-route-map-en.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-03T04:59:48.740550+00:00", "filename": "ch08-projects-route-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:01:17.298232+00:00", "filename": "ch08-rag-core-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:02:35.337760+00:00", "filename": "ch08-rag-data-to-answer-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:03:54.900025+00:00", "filename": "ch08-rag-engineering-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:05:39.528242+00:00", "filename": "ch08-rag-evaluation-layered-dashboard-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:07:01.258089+00:00", "filename": "ch08-rag-experiment-eval-loop-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:08:16.113575+00:00", "filename": "ch08-rag-finetune-responsibility-split-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T05:11:16.579975+00:00", "filename": "ch08-rag-layer-failure-debug-map-en.png", "locale": "en", "status": "generated"}
