@@ -1075,3 +1075,6 @@
 {"at": "2026-05-03T09:30:45.599523+00:00", "filename": "ch12-projects-delivery-loop-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T09:32:21.145305+00:00", "filename": "ch12-sd-application-mode-selector-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T09:34:01.013299+00:00", "filename": "ch12-sd-finetuning-route-choice-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:38:20.926918+00:00", "filename": "ch12-study-guide-modal-workflow-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:40:02.934971+00:00", "filename": "ch12-tts-text-to-speech-pipeline-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:41:55.029516+00:00", "filename": "ch12-video-gen-chapter-flow-en.png", "locale": "en", "status": "generated"}

@@ -1,6 +1,3 @@
-ch12-study-guide-modal-workflow-map-en.png
-ch12-tts-text-to-speech-pipeline-map-en.png
-ch12-video-gen-chapter-flow-en.png
 chain-rule-backprop-graph-en.png
 chart-selection-decision-tree-en.png
 clustering-kmeans-centroids-en.png
