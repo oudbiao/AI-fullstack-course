@@ -1118,3 +1118,11 @@
 {"at": "2026-05-03T10:44:24.145919+00:00", "filename": "elective-deployment-project-delivery-loop-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T10:45:49.137008+00:00", "filename": "elective-edge-deployment-constraint-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T10:47:22.027760+00:00", "filename": "elective-generator-stream-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:49:46.883000+00:00", "filename": "elective-inference-engine-hardware-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:51:19.327813+00:00", "filename": "elective-inference-engine-selection-matrix-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:52:53.094052+00:00", "filename": "elective-knn-neighbor-voting-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:54:24.940332+00:00", "filename": "elective-lda-projection-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:56:08.743889+00:00", "filename": "elective-metaprogramming-registry-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:57:43.126830+00:00", "filename": "elective-model-optimization-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:59:10.763961+00:00", "filename": "elective-model-serving-architecture-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T11:00:56.962151+00:00", "filename": "elective-naive-bayes-evidence-en.png", "locale": "en", "status": "generated"}

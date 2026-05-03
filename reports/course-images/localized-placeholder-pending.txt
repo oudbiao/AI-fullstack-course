@@ -1,11 +1,3 @@
-elective-inference-engine-hardware-en.png
-elective-inference-engine-selection-matrix-en.png
-elective-knn-neighbor-voting-en.png
-elective-lda-projection-map-en.png
-elective-metaprogramming-registry-map-en.png
-elective-model-optimization-map-en.png
-elective-model-serving-architecture-en.png
-elective-naive-bayes-evidence-en.png
 elective-optimization-tradeoff-dashboard-en.png
 elective-python-advanced-module-map-en.png
 elective-python-decorator-flow-en.png
