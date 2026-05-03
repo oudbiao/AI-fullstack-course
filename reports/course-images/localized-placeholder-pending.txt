@@ -1,11 +1,3 @@
-ocr-layout-recognition-pipeline-en.png
-optimizer-comparison-en.png
-pandas-dataframe-structure-en.png
-pca-dimensionality-reduction-en.png
-pretraining-data-pipeline-en.png
-probability-distribution-map-en.png
-prompt-before-after-en.png
-pytorch-autograd-graph-en.png
 pytorch-training-loop-en.png
 rag-document-answer-loop-en.png
 rag-evaluation-triangle-en.png

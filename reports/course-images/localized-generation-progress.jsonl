@@ -1183,3 +1183,11 @@
 {"at": "2026-05-03T13:03:02.810703+00:00", "filename": "multimodal-alignment-fusion-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T13:04:38.608832+00:00", "filename": "neural-network-forward-backward-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T13:06:05.799304+00:00", "filename": "object-detection-output-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:08:50.517646+00:00", "filename": "ocr-layout-recognition-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:10:27.575450+00:00", "filename": "optimizer-comparison-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:11:56.763047+00:00", "filename": "pandas-dataframe-structure-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:13:15.050337+00:00", "filename": "pca-dimensionality-reduction-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:15:05.322774+00:00", "filename": "pretraining-data-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:16:23.744221+00:00", "filename": "probability-distribution-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:17:48.738246+00:00", "filename": "prompt-before-after-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:19:37.040080+00:00", "filename": "pytorch-autograd-graph-en.png", "locale": "en", "status": "generated"}
