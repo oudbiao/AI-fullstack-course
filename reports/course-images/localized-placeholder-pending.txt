@@ -1,11 +1,3 @@
-ch09-basics-position-bridge-en.png
-ch09-code-agent-sandbox-review-map-en.png
-ch09-cot-self-check-structure-map-en.png
-ch09-data-analysis-agent-notebook-loop-map-en.png
-ch09-deployment-chapter-flow-en.png
-ch09-deployment-observability-loop-en.png
-ch09-eval-safety-chapter-flow-en.png
-ch09-framework-selection-decision-map-en.png
 ch09-framework-selection-map-en.png
 ch09-frameworks-position-map-en.png
 ch09-langgraph-state-machine-map-en.png
