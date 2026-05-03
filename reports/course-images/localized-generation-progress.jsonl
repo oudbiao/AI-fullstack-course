@@ -898,3 +898,12 @@
 {"at": "2026-05-03T04:16:56.740934+00:00", "filename": "ch08-app-dev-learning-order-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:18:28.033013+00:00", "filename": "ch08-assistant-session-tool-trace-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:19:52.514986+00:00", "filename": "ch08-async-concurrency-semaphore-timeout-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:21:34.318892+00:00", "filename": "ch08-chunk-size-overlap-tradeoff-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:23:05.122158+00:00", "filename": "ch08-courseware-assistant-production-line-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:24:08.899356+00:00", "filename": "ch08-courseware-chunk-metadata-schema-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:24:19.206149+00:00", "filename": "ch08-deployment-chapter-flow-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch08-deployment-chapter-flow-en.png: {\"error\":{\"message\":\"Upstream service temporarily unavailable\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-03T04:25:33.126103+00:00", "filename": "ch08-deployment-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:26:47.273090+00:00", "filename": "ch08-dialog-state-slot-memory-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:28:03.232734+00:00", "filename": "ch08-docker-image-container-compose-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:29:16.399629+00:00", "filename": "ch08-document-parsing-format-router-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:30:40.725363+00:00", "filename": "ch08-engineering-chapter-flow-en.png", "locale": "en", "status": "generated"}
