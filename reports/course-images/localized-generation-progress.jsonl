@@ -781,3 +781,11 @@
 {"at": "2026-05-03T01:02:46.585017+00:00", "filename": "ch05-linear-regression-residual-diagnostics-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T01:04:31.130776+00:00", "filename": "ch05-logistic-classification-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T01:05:59.802783+00:00", "filename": "ch05-feature-understanding-workflow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:08:16.894012+00:00", "filename": "ch05-logistic-threshold-tradeoff-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:09:49.165410+00:00", "filename": "ch05-machine-learning-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:12:36.932560+00:00", "filename": "ch05-math-to-ml-training-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:14:21.125774+00:00", "filename": "ch05-metrics-selection-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:15:53.786509+00:00", "filename": "ch05-ml-history-breakthrough-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:17:51.662005+00:00", "filename": "ch05-modeling-loop-backbone-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:19:33.223646+00:00", "filename": "ch05-pca-explained-variance-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:21:14.395193+00:00", "filename": "ch05-project-report-storyboard-en.png", "locale": "en", "status": "generated"}

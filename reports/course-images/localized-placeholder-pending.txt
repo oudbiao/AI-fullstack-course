@@ -1,11 +1,3 @@
-ch05-logistic-threshold-tradeoff-en.png
-ch05-machine-learning-en.png
-ch05-math-to-ml-training-map-en.png
-ch05-metrics-selection-flow-en.png
-ch05-ml-history-breakthrough-map-en.png
-ch05-modeling-loop-backbone-en.png
-ch05-pca-explained-variance-map-en.png
-ch05-project-report-storyboard-en.png
 ch05-projects-portfolio-loop-en.png
 ch05-search-space-budget-map-en.png
 ch05-sklearn-fit-predict-loop-en.png
