@@ -888,3 +888,5 @@
 {"at": "2026-05-03T04:02:21.699580+00:00", "filename": "ch07-tokenizer-inputids-mask-length-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:03:54.578559+00:00", "filename": "ch07-train-inference-cost-split-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:05:17.497488+00:00", "filename": "ch07-transformer-block-dataflow-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:07:09.557624+00:00", "filename": "ch07-transformer-cost-task-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:08:50.426775+00:00", "filename": "ch07-transformer-deep-chapter-flow-en.png", "locale": "en", "status": "generated"}

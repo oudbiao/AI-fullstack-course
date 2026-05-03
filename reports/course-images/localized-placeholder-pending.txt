@@ -1,5 +1,3 @@
-ch07-transformer-cost-task-map-en.png
-ch07-transformer-deep-chapter-flow-en.png
 ch08-advanced-rag-architecture-selection-map-en.png
 ch08-ai-coding-human-review-loop-map-en.png
 ch08-ann-exact-search-tradeoff-map-en.png
