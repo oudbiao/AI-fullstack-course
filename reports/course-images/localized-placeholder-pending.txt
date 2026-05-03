@@ -1,7 +1,3 @@
-ch09-tool-safety-permission-sandbox-map-en.png
-ch09-tool-schema-validation-guardrail-map-en.png
-ch09-tools-action-layer-map-en.png
-ch09-tools-chapter-flow-en.png
 ch10-3d-depth-disparity-pointcloud-map-en.png
 ch10-advanced-vision-route-map-en.png
 ch10-augmentation-invariance-risk-map-en.png
