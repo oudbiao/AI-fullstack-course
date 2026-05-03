@@ -1,11 +1,3 @@
-ch07-advanced-prompt-technique-decision-map-en.png
-ch07-alignment-app-safety-map-en.png
-ch07-alignment-chapter-flow-en.png
-ch07-alignment-hhh-tension-guardrail-map-en.png
-ch07-architecture-mask-task-fit-map-en.png
-ch07-context-window-budget-map-en.png
-ch07-contextual-embedding-sense-map-en.png
-ch07-data-labeling-flywheel-review-map-en.png
 ch07-domain-finetune-evaluation-board-map-en.png
 ch07-dpo-rlhf-shortcut-map-en.png
 ch07-efficient-attention-bottleneck-map-en.png

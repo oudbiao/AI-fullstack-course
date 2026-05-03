@@ -844,3 +844,11 @@
 {"at": "2026-05-03T02:57:13.759205+00:00", "filename": "ch06-vae-latent-continuity-sampling-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T03:00:36.857594+00:00", "filename": "ch06-weight-init-signal-stability-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T03:02:31.309749+00:00", "filename": "ch06-xor-single-layer-limit-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:05:28.596106+00:00", "filename": "ch07-advanced-prompt-technique-decision-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:06:38.967607+00:00", "filename": "ch07-alignment-app-safety-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:07:42.117709+00:00", "filename": "ch07-alignment-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:08:51.721820+00:00", "filename": "ch07-alignment-hhh-tension-guardrail-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:10:03.951530+00:00", "filename": "ch07-architecture-mask-task-fit-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:11:22.174326+00:00", "filename": "ch07-context-window-budget-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:12:42.883013+00:00", "filename": "ch07-contextual-embedding-sense-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:13:55.600817+00:00", "filename": "ch07-data-labeling-flywheel-review-map-en.png", "locale": "en", "status": "generated"}
