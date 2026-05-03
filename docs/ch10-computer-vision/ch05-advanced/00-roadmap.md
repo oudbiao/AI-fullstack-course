@@ -1,55 +1,55 @@
 ---
-title: "5.1 学前导读：高级视觉这一章到底在学什么"
+title: "5.1 Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?"
 sidebar_position: 0
-description: "先建立高级视觉章的学习地图：人脸、视频、OCR 和 3D 视觉为什么都可以看成视觉主线的专项扩展。"
-keywords: [高级视觉导读, OCR, 视频分析, 人脸识别, 3D视觉]
+description: "First build a learning map for the Advanced Vision chapter: why face recognition, video, OCR, and 3D vision can all be seen as specialized extensions of the main vision line."
+keywords: [Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Vision]
 ---
 
-# 学前导读：高级视觉这一章到底在学什么
+# Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?
 
-## 本章定位
+## What This Chapter Is About
 
-这一章不是新的必修主干，而是把计算机视觉从“图像分类、检测、分割”扩展到更贴近真实应用的几个方向：人脸、视频、OCR 和 3D 视觉。它们看起来差异很大，但背后都在回答同一个问题：当输入不再只是一张干净图片时，视觉系统怎样理解更复杂的场景。
+This chapter is not a new required core track. Instead, it expands computer vision from "image classification, detection, and segmentation" into several directions that are closer to real-world applications: face, video, OCR, and 3D vision. They may look very different, but they are all answering the same question: when the input is no longer just a clean image, how can a vision system understand more complex scenes?
 
-如果你是第一次学 CV，不需要把这一章所有方向都深入做完。更合理的方式是先建立地图，知道每个方向解决什么问题、输入输出是什么、最小项目怎么跑；然后根据自己的作品集方向选择一个深入。
+If this is your first time learning CV, you do not need to go deep into every direction in this chapter. A more reasonable approach is to first build a map, understand what problem each direction solves, what its inputs and outputs are, and how the smallest project runs; then choose one to explore deeply based on your portfolio goals.
 
-## 这一章在 CV 路线中的位置
+## Where This Chapter Fits in the CV Roadmap
 
-![高级视觉方向选择地图](/img/course/ch10-advanced-vision-route-map.png)
+![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-en.png)
 
-前面几章更像视觉模型的基础能力：识别图片类别、找出物体位置、分出像素区域。本章更像应用方向选择：OCR 面向文档和票据，人脸面向身份和交互，视频面向时间序列，3D 视觉面向空间结构。
+The previous chapters are more like the basic capabilities of vision models: recognizing image categories, finding object locations, and separating pixel regions. This chapter is more like choosing application directions: OCR is for documents and receipts, face is for identity and interaction, video is for time series, and 3D vision is for spatial structure.
 
-## 四个方向分别解决什么问题
+## What Problems the Four Directions Solve
 
-| 方向 | 输入 | 输出 | 适合做成什么项目 |
+| Direction | Input | Output | Good Project Ideas |
 |---|---|---|---|
-| 人脸检测与识别 | 图片、摄像头帧 | 人脸框、身份、关键点 | 门禁演示、人脸打卡、表情分析原型 |
-| 视频分析 | 视频流、连续帧 | 动作、事件、轨迹 | 安防检测、运动分析、课堂行为分析 |
-| OCR | 图片、截图、扫描件 | 文本、版面结构、字段 | 票据识别、课件文字提取、文档数字化 |
-| 3D 视觉 | 双目、点云、深度图 | 空间结构、位置、形状 | 机器人感知、AR、三维重建入门 |
+| Face detection and recognition | Images, camera frames | Face boxes, identity, keypoints | Access control demo, face check-in, expression analysis prototype |
+| Video analysis | Video streams, consecutive frames | Actions, events, trajectories | Security detection, sports analysis, classroom behavior analysis |
+| OCR | Images, screenshots, scanned documents | Text, layout structure, fields | Receipt recognition, slide text extraction, document digitization |
+| 3D vision | Stereo images, point clouds, depth maps | Spatial structure, position, shape | Robotics perception, AR, introductory 3D reconstruction |
 
-这张表的重点不是让你一次学完四个方向，而是帮你判断：你的项目更像图像理解、文档理解、视频理解，还是空间理解。
+The key point of this table is not to make you master all four directions at once, but to help you judge: is your project more like image understanding, document understanding, video understanding, or spatial understanding?
 
-## 学习顺序建议
+## Recommended Learning Order
 
-第一遍建议按“最容易跑通到最难工程化”的顺序看：先 OCR，再人脸，再视频，最后 3D 视觉。OCR 很适合和后面的 RAG、多模态课件助手连接；人脸和视频更容易涉及隐私、实时性和场景边界；3D 视觉概念跨度较大，适合有明确兴趣时深入。
+For your first pass, it is recommended to follow the order from "easiest to get running" to "hardest to productionize": OCR first, then face, then video, and finally 3D vision. OCR is very easy to connect with the later RAG and multimodal courseware assistant; face and video are more likely to involve privacy, real-time performance, and scenario boundaries; 3D vision spans a wider conceptual range and is better for deeper study when you have a clear interest.
 
-## 和后续多模态课程的连接
+## Connection to Later Multimodal Courses
 
-这一章会为后面的多模态应用打基础。比如 OCR 可以帮助多模态助手理解截图和课件；视频分析会连接视频生成、视频理解和数字人；人脸方向会引出隐私、合规和偏见问题；3D 视觉会连接机器人、AR 和空间智能。
+This chapter will lay the foundation for later multimodal applications. For example, OCR can help a multimodal assistant understand screenshots and courseware; video analysis connects to video generation, video understanding, and digital humans; the face direction leads to privacy, compliance, and bias issues; 3D vision connects to robotics, AR, and spatial intelligence.
 
-所以学习这一章时，不要只问“模型叫什么”，更要问：这个方向的数据从哪里来，输出怎么验证，错误会造成什么影响，能不能接入一个完整工作流。
+So when studying this chapter, do not just ask "What is the model called?" Ask instead: where does the data for this direction come from, how do we validate the output, what impact will errors have, and can it be integrated into a complete workflow?
 
-## 本章小项目出口
+## Small Project Exit for This Chapter
 
-建议选择一个最小作品，而不是四个方向都浅尝辄止。基础版可以做“课件截图 OCR 提取器”：输入一张课程截图，输出识别文字和清洗后的 Markdown。标准版可以加入版面区域、置信度和错误样本记录。挑战版可以把 OCR 结果接入 RAG，让学习助手基于截图内容回答问题。
+It is recommended to choose one minimum viable project instead of trying all four directions superficially. The basic version can be a "courseware screenshot OCR extractor": input a course screenshot and output the recognized text and cleaned Markdown. The standard version can add layout regions, confidence scores, and error sample logging. The challenge version can connect the OCR results to RAG, allowing the learning assistant to answer questions based on screenshot content.
 
-如果你更偏视觉项目，也可以选择“视频事件检测小实验”或“人脸关键点可视化”。无论选哪个，README 至少写清楚输入、输出、模型或工具、失败案例、隐私和使用边界。
+If you prefer vision projects, you can also choose a "video event detection mini experiment" or a "face keypoint visualization" project. No matter which one you choose, the README should clearly explain the input, output, model or tool, failure cases, privacy, and usage boundaries.
 
-## 常见误区
+## Common Misconceptions
 
-第一个误区是把高级视觉当成“模型名合集”。真实项目里更重要的是数据质量、场景约束、评估方式和错误代价。第二个误区是忽略隐私和合规，尤其是人脸、监控、身份识别类项目。第三个误区是只展示成功截图，不记录失败样本；但视觉系统最有价值的经验往往来自光照、遮挡、模糊、角度和版面复杂时的失败。
+The first misconception is treating advanced vision as a "collection of model names." In real projects, data quality, scenario constraints, evaluation methods, and the cost of errors matter more. The second misconception is ignoring privacy and compliance, especially in face, surveillance, and identity recognition projects. The third misconception is showing only successful screenshots and not recording failure samples; in fact, the most valuable experience in vision systems often comes from failures under poor lighting, occlusion, blur, angle changes, and complex layouts.
 
-## 过关标准
+## Passing Criteria
 
-学完这一章后，你应该能解释 OCR、人脸、视频、3D 视觉分别解决什么问题，能判断一个视觉需求属于哪个方向，能完成一个最小方向项目，并能在 README 中写清楚输入输出、评估方法、失败案例和使用边界。
+After finishing this chapter, you should be able to explain what OCR, face, video, and 3D vision each solve, judge which direction a vision requirement belongs to, complete a minimum directional project, and clearly describe the input and output, evaluation method, failure cases, and usage boundaries in the README.

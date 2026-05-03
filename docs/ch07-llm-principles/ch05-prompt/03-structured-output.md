@@ -1,49 +1,49 @@
 ---
-title: "5.4 结构化输出"
+title: "5.4 Structured Output"
 sidebar_position: 17
-description: "从为什么自然语言输出不够稳，到 JSON 约束、字段设计和校验，真正理解结构化输出在 LLM 工程里的价值。"
+description: "From why natural-language output is not stable enough, to JSON constraints, field design, and validation, truly understand the value of structured output in LLM engineering."
 keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 ---
 
-# 结构化输出
+# Structured Output
 
-:::tip 本节定位
-很多人第一次用大模型时，默认让它输出一段自然语言。  
-但一旦你要把模型接进程序系统，很快就会碰到一个现实问题：
+:::tip Section Overview
+When many people use large models for the first time, they naturally let the model output a piece of natural language.
+But once you want to connect the model into a program system, you quickly run into a real problem:
 
-> **自然语言虽然灵活，但不稳定。**
+> **Natural language is flexible, but not stable.**
 
-结构化输出就是在解决“让模型的回答更像程序接口”这件事。
+Structured output is about solving the problem of “making the model’s answer look more like a program interface.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么结构化输出对 LLM 应用非常重要
-- 学会设计一个简单但清晰的 JSON 输出格式
-- 理解字段设计、约束说明和校验逻辑
-- 看懂一个从 Prompt 到 JSON 解析的最小闭环
-- 分清“结构化输出”和“Function Calling”的区别与联系
+- Understand why structured output is very important for LLM applications
+- Learn how to design a simple but clear JSON output format
+- Understand field design, constraint instructions, and validation logic
+- Read a minimal closed loop from Prompt to JSON parsing
+- Distinguish the differences and relationship between “structured output” and “Function Calling”
 
 ---
 
-## 一、为什么光有自然语言不够？
+## 1. Why Isn’t Natural Language Enough?
 
-### 1.1 一个很常见的脆弱场景
+### 1.1 A Very Common Fragile Scenario
 
-假设你想让模型识别用户意图：
+Suppose you want the model to identify user intent:
 
-用户输入：
+User input:
 
-> “我想了解退款政策”
+> “I want to learn about the refund policy”
 
-如果模型返回：
+If the model returns:
 
-> “这个用户大概率是想问退款相关内容，建议转到退款模块。”
+> “This user is probably asking about refunds; suggest routing to the refund module.”
 
-人当然能看懂。  
-但程序会很难稳定使用这段话。
+A human can understand it.
+But it is hard for a program to use this text stably.
 
-因为程序更希望拿到的是：
+Because what the program really wants is:
 
 ```json
 {
@@ -52,62 +52,62 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 }
 ```
 
-### 1.2 真正的问题是什么？
+### 1.2 What Is the Real Problem?
 
-问题不在于模型不会回答，而在于：
+The problem is not that the model cannot answer, but that:
 
-> **自然语言输出太自由，程序很难稳定消费。**
+> **Natural-language output is too free-form, so programs have a hard time consuming it reliably.**
 
-所以当模型输出要继续传给：
+So when the model’s output needs to be passed to:
 
-- 前端
-- 后端
-- 工作流
-- 数据库
+- the frontend
+- the backend
+- a workflow
+- a database
 
-时，结构化输出几乎就变成刚需。
+structured output almost becomes a must-have.
 
 ---
 
-## 二、结构化输出到底是什么？
+## 2. What Exactly Is Structured Output?
 
-### 2.1 一句话理解
+### 2.1 A Simple Definition
 
-> **结构化输出 = 让模型按预先约定的字段和格式输出结果。**
+> **Structured output = making the model output results according to pre-agreed fields and format.**
 
-最常见格式包括：
+The most common formats include:
 
 - JSON
-- 列表
-- 表格
-- 固定字段对象
+- lists
+- tables
+- fixed-field objects
 
-### 2.2 为什么 JSON 最常见？
+### 2.2 Why Is JSON the Most Common?
 
-因为它同时满足：
+Because it satisfies all of these at the same time:
 
-- 人能读
-- 程序能解析
-- 结构清楚
+- humans can read it
+- programs can parse it
+- the structure is clear
 
-所以在 LLM 应用里，JSON 通常是结构化输出的第一选择。
+So in LLM applications, JSON is usually the first choice for structured output.
 
 ---
 
-## 三、结构化输出最核心的设计点是什么？
+## 3. What Is the Most Core Design Point of Structured Output?
 
-### 3.1 字段要少而清楚
+### 3.1 Keep Fields Few and Clear
 
-初学者很容易犯的错是：
+A mistake beginners often make is:
 
-- 一上来设计 20 个字段
-- 但每个字段含义都不稳定
+- designing 20 fields at the start
+- but each field has unstable meaning
 
-更好的原则是：
+A better principle is:
 
-> **先用最少字段表达最关键结果。**
+> **First use the fewest fields to express the most important result.**
 
-例如意图识别：
+For example, for intent recognition:
 
 ```json
 {
@@ -116,33 +116,33 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 }
 ```
 
-就已经够用了。
+is already enough.
 
-### 3.2 字段命名要稳定
+### 3.2 Field Names Must Be Stable
 
-如果今天叫：
+If today it is called:
 
 - `intent`
 
-明天又叫：
+tomorrow:
 
 - `user_intent`
 
-后天又叫：
+and the day after:
 
 - `task_type`
 
-那程序端会越来越混乱。
+then the program side will become more and more confused.
 
-所以结构化输出的第一原则之一是：
+So one of the first principles of structured output is:
 
-> 字段名要稳定。 
+> Field names must be stable.
 
 ---
 
-## 四、一个最小可运行示例：从字符串 JSON 到程序解析
+## 4. A Minimal Runnable Example: From String JSON to Program Parsing
 
-### 4.1 先看最小解析
+### 4.1 First Look at Minimal Parsing
 
 ```python
 import json
@@ -155,22 +155,22 @@ print("intent =", data["intent"])
 print("confidence =", data["confidence"])
 ```
 
-### 4.2 这段代码虽然简单，但意义很大
+### 4.2 This Code Is Simple, but Very Meaningful
 
-它在教你：
+It teaches you:
 
-1. 结构化输出不是“看起来像 JSON”，而是要能被真正解析
-2. 解析后，程序就可以稳定取字段
+1. Structured output is not just “looking like JSON”; it must be truly parseable
+2. After parsing, the program can stably retrieve fields
 
-也就是说，结构化输出的价值不在“更好看”，而在：
+In other words, the value of structured output is not “better looking,” but:
 
-> **后续程序真的能用。**
+> **The downstream program can actually use it.**
 
 ---
 
-## 五、一个更贴近真实任务的小例子：用户意图识别
+## 5. A Smaller Example Closer to a Real Task: User Intent Recognition
 
-### 5.1 假设你要求模型输出这个结构
+### 5.1 Suppose You Ask the Model to Output This Structure
 
 ```json
 {
@@ -180,7 +180,7 @@ print("confidence =", data["confidence"])
 }
 ```
 
-### 5.2 模拟模型输出 + 程序解析
+### 5.2 Simulated Model Output + Program Parsing
 
 ```python
 import json
@@ -196,69 +196,69 @@ mock_model_output = """
 data = json.loads(mock_model_output)
 
 if data["intent"] == "refund_policy" and not data["needs_human"]:
-    print("进入退款政策自动处理流程")
+    print("Enter the automatic refund policy processing flow")
 else:
-    print("转人工或进入其他流程")
+    print("Route to a human or another flow")
 
 print(data)
 ```
 
-这就已经是结构化输出在真实工作流里的典型使用方式了。
+This is already a typical use case of structured output in a real workflow.
 
 ---
 
-## 六、Prompt 要怎么写，结构化输出才更稳？
+## 6. How Should the Prompt Be Written So Structured Output Is More Stable?
 
-### 6.1 不要只说“请输出 JSON”
+### 6.1 Don’t Just Say “Please Output JSON”
 
-更稳妥的写法通常包括：
+A more stable way usually includes:
 
-- 明确字段名
-- 明确字段类型
-- 明确只能输出 JSON
-- 明确不要附加解释
+- explicit field names
+- explicit field types
+- explicit instruction to output only JSON
+- explicit instruction not to add explanations
 
-例如：
+For example:
 
 ```text
-请根据用户输入进行意图识别，并严格输出 JSON。
+Please perform intent recognition based on the user input and strictly output JSON.
 
-字段要求：
-- intent: string，可选值为 refund_policy / certificate / other
+Field requirements:
+- intent: string, possible values are refund_policy / certificate / other
 - needs_human: boolean
-- confidence: float，范围 0 到 1
+- confidence: float, range 0 to 1
 
-不要输出任何额外解释，只输出 JSON。
+Do not output any extra explanation. Only output JSON.
 ```
 
-### 6.2 为什么这会更稳？
+### 6.2 Why Is This More Stable?
 
-因为你不是只在“提需求”，而是在：
+Because you are not just “stating a request,” but:
 
-> **给模型定义输出合同。**
+> **Defining an output contract for the model.**
 
-合同越清楚，结果越稳。
+The clearer the contract, the more stable the result.
 
 ---
 
-## 七、为什么结构化输出仍然需要校验？
+## 7. Why Do Structured Outputs Still Need Validation?
 
-### 7.1 因为模型不是编译器
+### 7.1 Because the Model Is Not a Compiler
 
-即使你 prompt 写得很好，模型也可能：
+Even if your prompt is written very well, the model may still:
 
-- 漏字段
-- 写错类型
-- 多输出解释文字
-- JSON 格式不闭合
+- miss fields
+- use the wrong type
+- output extra explanatory text
+- produce invalid JSON syntax
 
-![结构化输出合同与校验闭环图](/img/course/ch07-structured-output-contract-validation-map.png)
+![Structured output contract and validation loop](/img/course/ch07-structured-output-contract-validation-map-en.png)
 
-:::tip 读图提示
-这张图建议按工程闭环读：Prompt 先定义 JSON 合同，模型输出结构化结果，程序解析并校验字段、类型和值域，失败时重试或转人工。结构化输出不是“看起来像 JSON”，而是后续程序真的能稳定接住。
+:::tip Reading Guide
+It is best to read this diagram as an engineering loop: the Prompt first defines the JSON contract, the model outputs a structured result, the program parses and validates fields, types, and value ranges, and on failure it retries or routes to a human. Structured output is not “something that looks like JSON”; it is about the downstream program being able to reliably receive it.
 :::
 
-### 7.2 一个最小校验示例
+### 7.2 A Minimal Validation Example
 
 ```python
 import json
@@ -290,162 +290,162 @@ print(validate_output(good))
 print(validate_output(bad))
 ```
 
-这一步特别重要，因为它让你的系统从：
+This step is especially important because it changes your system from:
 
-- “模型大概会这么输出”
+- “the model will probably output something like this”
 
-变成：
+to:
 
-- “程序明确知道输出是否合格”
-
----
-
-## 八、结构化输出和 Function Calling 有什么关系？
-
-### 8.1 相同点
-
-它们都在做一件事：
-
-> 把模型输出从自由文本，变成程序更容易接住的格式。 
-
-### 8.2 不同点
-
-粗略地说：
-
-- **结构化输出**：更广泛，重点是“结果格式稳定”
-- **Function Calling**：更进一步，重点是“输出的是工具调用意图”
-
-例如：
-
-- 结构化输出：输出分类结果 JSON
-- Function Calling：输出 `{name, arguments}` 去调工具
-
-所以可以理解成：
-
-> Function Calling 是结构化输出的一种更偏执行型形态。 
+- “the program clearly knows whether the output is valid”
 
 ---
 
-## 九、如果你的目标是生成固定格式 Word / PPT，schema 应该怎么设计？
+## 8. What Is the Relationship Between Structured Output and Function Calling?
 
-如果你的目标是：
+### 8.1 Similarity
 
-- 生成课件
-- 生成报告
-- 生成固定栏目文档
+They are both doing the same thing:
 
-那结构化输出最重要的一步往往不是“叫模型输出 JSON”，  
-而是先把 schema 设计清楚。
+> turning model output from free text into a format that programs can more easily receive.
 
-一个更适合课件生成的最小 schema 往往会长这样：
+### 8.2 Difference
+
+Roughly speaking:
+
+- **Structured output**: broader, focused on “stable result format”
+- **Function Calling**: one step further, focused on “the output is a tool-calling intent”
+
+For example:
+
+- Structured output: output a classification result JSON
+- Function Calling: output `{name, arguments}` to call a tool
+
+So you can understand it like this:
+
+> Function Calling is a more execution-oriented form of structured output.
+
+---
+
+## 9. If Your Goal Is to Generate Fixed-Format Word / PPT, How Should the Schema Be Designed?
+
+If your goal is to:
+
+- generate courseware
+- generate reports
+- generate documents with fixed sections
+
+then the most important step in structured output is often not “telling the model to output JSON,”
+but first designing the schema clearly.
+
+A minimal schema more suitable for courseware generation often looks like this:
 
 ```json
 {
-  "title": "折扣应用题讲解",
-  "audience": "小学高年级",
-  "teaching_goal": ["理解折扣的基本计算方法"],
+  "title": "Explanation of Discount Word Problems",
+  "audience": "Upper elementary students",
+  "teaching_goal": ["Understand the basic calculation method for discounts"],
   "sections": [
-    {"type": "concept", "heading": "知识点回顾", "items": ["折扣 = 原价 × 折扣率"]},
-    {"type": "example", "heading": "例题讲解", "items": ["商品原价 100 元，打 8 折后是多少元？"]},
-    {"type": "exercise", "heading": "课堂练习", "items": ["一件衣服原价 80 元，打 7 折后是多少元？"]}
+    {"type": "concept", "heading": "Knowledge Review", "items": ["Discount = original price × discount rate"]},
+    {"type": "example", "heading": "Worked Example", "items": ["If a product costs 100 yuan and is 20% off, how much is it?"]},
+    {"type": "exercise", "heading": "Class Practice", "items": ["If a coat costs 80 yuan and is 30% off, how much is it?"]}
   ],
   "source_refs": [{"doc_id": "word_001", "page_or_slide": 3}]
 }
 ```
 
-这个 schema 最值得新人注意的地方是：
+The most important thing for beginners to notice about this schema is:
 
-- 字段并不是越多越好
-- 而是要刚好能驱动后面的模板渲染和来源回溯
+- More fields are not always better
+- Instead, the fields should be just enough to drive later template rendering and source tracing
 
-## 十、真实项目里最常见的坑
+## 10. The Most Common Pitfalls in Real Projects
 
-### 10.1 字段设计过多
+### 10.1 Too Many Fields
 
-字段越多，模型越容易错，后处理也越复杂。
+The more fields you have, the easier it is for the model to make mistakes, and the more complex post-processing becomes.
 
-### 10.2 字段含义不稳定
+### 10.2 Unstable Field Meaning
 
-比如 `confidence` 有时写 0~1，有时写百分比，这种设计很危险。
+For example, if `confidence` sometimes means 0 to 1 and sometimes means a percentage, that design is very dangerous.
 
-### 10.3 不做解析与校验
+### 10.3 No Parsing or Validation
 
-很多 demo 看起来能跑，但一接程序就崩，问题通常出在这里。
+Many demos seem to work, but once connected to a program they break. The problem is usually here.
 
-### 10.4 输出结构和业务流程脱节
+### 10.4 The Output Structure Is Detached from the Business Flow
 
-如果 JSON 虽然完整，但不能直接驱动后续流程，那结构化输出就没有真正服务业务。
+If the JSON is complete but cannot directly drive the downstream flow, then structured output is not really serving the business.
 
 ---
 
-## 结构化输出验收表
+## Structured Output Acceptance Checklist
 
-结构化输出不是“看起来像 JSON”就算成功，而是要能被程序稳定消费。每次设计 schema 后，都可以用下面这张表验收。
+Structured output is not successful just because it “looks like JSON”; it must be stably consumable by the program. After designing a schema, you can use the checklist below to verify it.
 
-| 检查项 | 合格表现 | 常见问题 |
+| Check Item | Passing Behavior | Common Problem |
 |---|---|---|
-| 可解析 | `json.loads()` 能直接解析 | 前后夹杂解释文字，JSON 不闭合 |
-| 字段完整 | 必填字段全部存在 | 漏字段、字段名变体太多 |
-| 类型正确 | string、boolean、number、array 等类型稳定 | `confidence` 有时是数字，有时是“高” |
-| 枚举受控 | 分类字段只落在允许值内 | `intent` 输出一堆相近但不一致的词 |
-| 业务可用 | 输出能直接驱动后续流程 | JSON 很完整，但后端不知道怎么用 |
-| 失败可识别 | 程序能判断 invalid_json、missing_field、type_error | 所有失败都只显示“解析失败” |
+| Parseable | `json.loads()` can parse it directly | Explanatory text appears before or after, JSON is not closed properly |
+| Complete fields | All required fields are present | Missing fields, too many field-name variants |
+| Correct types | Stable types such as string, boolean, number, array | `confidence` is sometimes a number and sometimes “high” |
+| Controlled enum | Classification fields stay within allowed values | `intent` outputs many similar but inconsistent terms |
+| Business usable | Output can directly drive the next process | JSON is complete, but the backend doesn’t know how to use it |
+| Failure identifiable | The program can detect `invalid_json`, `missing_field`, `type_error` | All failures are only shown as “parse failed” |
 
-如果这张表没过，优先修 schema 和校验逻辑，不要只反复改 Prompt 文案。
+If this table is not passed, prioritize fixing the schema and validation logic, rather than repeatedly changing the Prompt wording.
 
-## Prompt 版本管理为什么重要
+## Why Prompt Version Management Matters
 
-当你开始优化结构化输出时，Prompt 本身也应该像代码一样有版本。否则你很难回答：到底是哪次修改让输出变好了，哪次修改引入了新问题。
+When you start optimizing structured output, the Prompt itself should also have versions like code. Otherwise, it becomes hard to answer: which change improved the output, and which change introduced a new problem?
 
-| 字段 | 示例 | 作用 |
+| Field | Example | Purpose |
 |---|---|---|
-| `prompt_version` | `intent_schema_v2` | 标记当前提示词版本 |
-| `change_reason` | 增加 `needs_human` 字段 | 说明为什么改 |
-| `test_inputs` | 20 条固定输入 | 用同一批样本比较稳定性 |
-| `pass_rate` | 18/20 | 记录结构化输出通过率 |
-| `failure_cases` | 2 条缺字段 | 留下下一轮优化依据 |
+| `prompt_version` | `intent_schema_v2` | Marks the current Prompt version |
+| `change_reason` | Add `needs_human` field | Explains why it was changed |
+| `test_inputs` | 20 fixed inputs | Compare stability with the same sample set |
+| `pass_rate` | 18/20 | Record the structured output pass rate |
+| `failure_cases` | 2 missing-field cases | Keep evidence for the next optimization round |
 
-一个简单记录可以写成：
+A simple record can look like this:
 
 ```text
-版本：intent_schema_v2
-改动：增加 needs_human 字段，并要求 confidence 必须是 0 到 1 的数字
-评估：20 条测试输入，18 条通过解析与校验
-失败：2 条输出了 confidence="高"
-结论：保留字段，但需要在 prompt 中强调 confidence 类型
+Version: intent_schema_v2
+Change: Added the needs_human field, and required confidence to be a number from 0 to 1
+Evaluation: 18 out of 20 test inputs passed parsing and validation
+Failures: 2 outputs used confidence="high"
+Conclusion: Keep the field, but emphasize the confidence type in the prompt
 ```
 
-这个习惯会让 Prompt 工程从“试试看”变成“有记录地迭代”。
+This habit will turn Prompt engineering from “let’s try it” into “iterate with records.”
 
-## 结构化输出失败样本怎么记录
+## How to Record Structured Output Failure Samples
 
-建议把失败样本按类型记录，而不是只说“模型没按格式输出”。
+It is recommended to record failure samples by type, rather than only saying “the model did not follow the format.”
 
-| 失败类型 | 示例 | 修复方向 |
+| Failure Type | Example | Fix Direction |
 |---|---|---|
-| `invalid_json` | 少了右括号 | 要求只输出 JSON，并增加解析失败重试 |
-| `missing_field` | 少了 `needs_human` | 在字段要求里标注必填项 |
-| `type_error` | `confidence` 输出成字符串 | 明确类型和范围 |
-| `enum_error` | `intent` 输出 `refund` 而不是 `refund_policy` | 给出可选值并禁止自造分类 |
-| `extra_text` | JSON 前后加解释 | 明确不要输出任何额外说明 |
+| `invalid_json` | Missing the right brace | Require outputting only JSON and add retry on parse failure |
+| `missing_field` | Missing `needs_human` | Mark required fields in the field requirements |
+| `type_error` | `confidence` is output as a string | Clarify the type and range |
+| `enum_error` | `intent` outputs `refund` instead of `refund_policy` | Provide allowed values and forbid inventing categories |
+| `extra_text` | Explanations are added before and after JSON | Explicitly forbid any extra explanation |
 
-失败样本越清楚，后续做回归测试就越容易。真实项目里，结构化输出的稳定性往往不是靠一次完美 Prompt，而是靠 schema、校验、失败记录和回归样本一起保证。
-
----
-
-## 小结
-
-这一节最重要的不是记住 JSON 语法，而是理解：
-
-> **结构化输出的本质，是把模型回答变成程序可以稳定消费的中间结果。**
-
-当你开始把模型接进真实系统时，这往往比“回答写得更漂亮”更重要。
+The clearer the failure samples, the easier regression testing becomes later. In real projects, the stability of structured output is often not guaranteed by one perfect Prompt, but by schema, validation, failure logging, and regression samples working together.
 
 ---
 
-## 练习
+## Summary
 
-1. 设计一个“课程问答路由”的 JSON 输出格式，至少包含 `intent`、`confidence`、`needs_human` 三个字段。
-2. 故意构造一个缺字段的 JSON，看看校验器是否能拦住。
-3. 想一想：什么时候应该用结构化输出，什么时候直接自然语言就够了？
-4. 用自己的话解释：为什么说结构化输出是 Prompt 工程走向工程化的关键一步？
+The most important thing in this section is not memorizing JSON syntax, but understanding:
+
+> **The essence of structured output is turning the model’s answer into an intermediate result that programs can consume reliably.**
+
+When you start connecting models into real systems, this is often more important than “making the answer prettier.”
+
+---
+
+## Exercises
+
+1. Design a JSON output format for a “course Q&A routing” task, and include at least `intent`, `confidence`, and `needs_human`.
+2. Intentionally construct a JSON object with a missing field and see whether the validator can catch it.
+3. Think about it: when should you use structured output, and when is plain natural language enough?
+4. Explain in your own words: why is structured output a key step in the engineering transformation of Prompt engineering?

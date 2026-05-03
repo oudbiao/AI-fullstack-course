@@ -1,136 +1,136 @@
 ---
-title: "1.4 预训练语言模型速览"
+title: "1.4 Pretrained Language Models at a Glance"
 sidebar_position: 3
-description: "从“先在大语料上学通用模式，再迁移到具体任务”讲起，理解预训练模型为什么会成为现代 NLP 和大模型的共同底座。"
+description: "Start from the idea of “learn general patterns on large-scale corpora first, then transfer to specific tasks,” and understand why pretrained models have become the shared foundation of modern NLP and large models."
 keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models]
 ---
 
-# 预训练语言模型速览
+# Pretrained Language Models at a Glance
 
-:::tip 本节定位
-在大模型时代，“预训练”这个词几乎无处不在。  
-但很多新人第一次听到时，会把它理解成一句很空的话：
+:::tip Section Overview
+In the era of large models, the word “pretraining” appears almost everywhere.
+But when many beginners hear it for the first time, they understand it as a very vague idea:
 
-- 先在大数据上学一遍
+- First learn once on big data
 
-这当然没错，但还不够。
+That is of course correct, but not enough.
 
-真正该建立的判断是：
+The real judgment to build is:
 
-> **为什么大家不再从零开始做每个 NLP 任务，而是先训练一个通用底座，再在上面做迁移。**
+> **Why do people no longer start from scratch for every NLP task, but instead first train a general-purpose foundation and then transfer from it?**
 
-这节课就是这层直觉的速成入口。
+This lesson is a quick entry into that intuition.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解什么叫预训练、什么叫迁移和下游适配
-- 理解预训练模型为什么能“一模多用”
-- 区分 encoder-only、decoder-only、encoder-decoder 的大方向
-- 通过一个可运行示例理解“共享底座 + 不同任务头”的思路
-
----
-
-## 一、为什么预训练模型会成为现代 NLP 的主流？
-
-### 1.1 因为很多任务本质上共享语言能力
-
-无论是做：
-
-- 情感分类
-- 问答
-- 摘要
-- 对话
-- 检索
-
-它们都离不开一些通用基础：
-
-- 词义理解
-- 句法关系
-- 上下文建模
-- 常识和语言模式
-
-如果每个任务都从零学这些能力，  
-成本会非常高。
-
-### 1.2 预训练的核心思想
-
-于是大家开始先做一件事：
-
-- 用海量通用语料训练一个基础模型
-
-让它先学会：
-
-- 一般语言规律
-- 通用表示
-- 基础知识分布
-
-然后再把它迁移到具体任务上。
-
-这就像：
-
-- 先读完大部分通识教材
-- 再去做具体科目的专项训练
-
-### 1.3 为什么这比“每个任务从头训练”好很多？
-
-因为你不必每次都重新学习语言本身。  
-下游任务只需要在已有底座上做：
-
-- 任务头训练
-- 微调
-- Prompt 适配
-- 检索增强
-
-这大幅降低了门槛。
+- Understand what pretraining means, and what transfer and downstream adaptation mean
+- Understand why pretrained models can be used for “many tasks with one model”
+- Distinguish the broad directions of encoder-only, decoder-only, and encoder-decoder models
+- Understand the idea of “shared foundation + different task heads” through a runnable example
 
 ---
 
-## 二、预训练模型到底给了我们什么？
+## 1. Why Have Pretrained Models Become the Mainstream in Modern NLP?
 
-### 2.1 给了一个“已经懂一点语言”的底座
+### 1.1 Because Many Tasks Essentially Share Language Ability
 
-从零随机初始化的模型，最开始什么都不会。  
-而预训练模型至少已经学会了一些：
+Whether you are doing:
 
-- 语法模式
-- 搭配关系
-- 高频事实
-- 常见任务格式
+- sentiment classification
+- question answering
+- summarization
+- dialogue
+- retrieval
 
-这意味着下游任务不再是从完全空白开始。
+they all rely on some common fundamentals:
 
-### 2.2 给了可复用的表示
+- word meaning understanding
+- syntactic relationships
+- context modeling
+- common sense and language patterns
 
-很多预训练模型最宝贵的地方，不只是“会回答”，  
-还在于它能输出一组比较好的隐藏表示。
+If every task had to learn these abilities from scratch,
+the cost would be very high.
 
-这些表示可以被下游任务拿去做：
+### 1.2 The Core Idea of Pretraining
 
-- 分类
-- 检索
-- 匹配
-- 排序
+So people began by doing one thing first:
 
-### 2.3 给了迁移学习的可能
+- train a base model on massive general-purpose corpora
 
-迁移学习的核心就是：
+Let it first learn:
 
-> **在大任务上学通用能力，在小任务上少量适配。**
+- general language regularities
+- general representations
+- basic knowledge distribution
 
-这也是为什么预训练模型一出来，  
-整个 NLP 流程都被改写了。
+Then transfer it to specific tasks.
+
+It is like:
+
+- first reading most general education textbooks
+- then doing specialized training for specific subjects
+
+### 1.3 Why Is This Much Better Than “Training Each Task from Scratch”?
+
+Because you do not need to relearn language itself every time.
+Downstream tasks only need to do the following on top of an existing foundation:
+
+- task head training
+- fine-tuning
+- Prompt adaptation
+- retrieval augmentation
+
+This greatly lowers the barrier.
 
 ---
 
-## 三、先跑一个“共享底座 + 两个任务头”的示例
+## 2. What Do Pretrained Models Actually Give Us?
 
-下面这段代码不会训练真正的大模型，  
-但它会抓住预训练模型最核心的结构直觉：
+### 2.1 A Foundation That “Already Knows a Bit of Language”
 
-- 有一个共享编码器
-- 编码器学到通用表示
-- 不同任务只在上面挂不同 head
+A model initialized from random weights knows nothing at the beginning.
+A pretrained model, however, has at least learned some of the following:
+
+- grammar patterns
+- collocation relationships
+- high-frequency facts
+- common task formats
+
+This means downstream tasks are no longer starting from complete zero.
+
+### 2.2 Reusable Representations
+
+What makes many pretrained models so valuable is not just that they “can answer,”
+but that they can output a set of relatively good hidden representations.
+
+These representations can be used by downstream tasks for:
+
+- classification
+- retrieval
+- matching
+- ranking
+
+### 2.3 The Possibility of Transfer Learning
+
+The core of transfer learning is:
+
+> **Learn general abilities on large tasks, and adapt with little effort on smaller tasks.**
+
+This is also why, once pretrained models appeared,
+the entire NLP workflow was rewritten.
+
+---
+
+## 3. First Run a “Shared Foundation + Two Task Heads” Example
+
+The code below does not train a real large model,
+but it captures the most important structural intuition of pretrained models:
+
+- there is a shared encoder
+- the encoder learns general representations
+- different tasks attach different heads on top of it
 
 ```python
 from math import sqrt
@@ -162,7 +162,7 @@ def softmax(scores):
     return [x / total for x in exps]
 
 
-# 同一个底座，挂两个不同任务头
+# Same foundation, two different task heads
 intent_head = {
     "refund_intent": [1.0, 0.9, 0.1],
     "password_intent": [0.1, 0.2, 1.0],
@@ -198,175 +198,173 @@ for text in [text_c, text_d]:
     print("sentiment:", text, "->", best, probs)
 ```
 
-### 3.1 这段代码到底对应什么真实思路？
+### 3.1 What Real Idea Does This Code Correspond To?
 
-它对应的是预训练时代最重要的工作流之一：
+It corresponds to one of the most important workflows in the pretraining era:
 
-1. 先有一个共享语言底座
-2. 不同任务复用这个底座
-3. 只在上面换一个 head 或做少量适配
+1. first have a shared language foundation
+2. reuse this foundation across different tasks
+3. replace only the head on top, or do a small amount of adaptation
 
-这就是为什么一个预训练模型能被拿来做很多任务。
+This is why one pretrained model can be used for many tasks.
 
-### 3.2 为什么这比“每个任务都重新学一遍词向量”强？
+### 3.2 Why Is This Better Than “Relearning Word Vectors for Every Task”?
 
-因为底座已经学到很多通用信息。  
-下游任务不需要从零开始理解：
+Because the foundation has already learned a lot of general information.
+Downstream tasks do not need to start from scratch to understand:
 
-- `refund` 大概和售后有关
-- `reset password` 大概和登录问题有关
+- `refund` is probably related to after-sales service
+- `reset password` is probably related to login problems
 
-它只需要在底座之上再做定向映射。
+They only need to perform a directed mapping on top of the foundation.
 
-### 3.3 真实世界里“head”会是什么？
+### 3.3 What Would a “Head” Be in the Real World?
 
-在真实模型里，它可能是：
+In a real model, it might be:
 
-- 一个分类层
-- 一个生成头
-- 一个检索投影层
-- 一个 token-level 预测头
+- a classification layer
+- a generation head
+- a retrieval projection layer
+- a token-level prediction head
 
-思路都是一样的：
+The idea is always the same:
 
-- 底座共享
-- 任务头分化
+- shared foundation
+- specialized task heads
 
 ---
 
-## 四、预训练模型大致有哪些路线？
+## 4. What Are the Main Pretrained Model Directions?
 
-### 4.1 Encoder-only：更偏理解和表示
+### 4.1 Encoder-only: More Focused on Understanding and Representation
 
-代表：
+Representative models:
 
 - BERT
 
-这类模型通常更适合：
+These models are usually more suitable for:
 
-- 分类
-- 抽取
-- 匹配
-- 检索编码
+- classification
+- extraction
+- matching
+- retrieval encoding
 
-### 4.2 Decoder-only：更偏生成
+### 4.2 Decoder-only: More Focused on Generation
 
-代表：
+Representative models:
 
 - GPT
 - LLaMA
 - Qwen
 
-这类模型通常更适合：
+These models are usually more suitable for:
 
-- 对话
-- 写作
-- 代码生成
-- 开放式补全
+- dialogue
+- writing
+- code generation
+- open-ended completion
 
-### 4.3 Encoder-Decoder：更适合“输入到输出”任务
+### 4.3 Encoder-Decoder: Better for Input-to-Output Tasks
 
-代表：
+Representative models:
 
 - T5
 - BART
 
-这类模型天然适合：
+These models are naturally suitable for:
 
-- 摘要
-- 翻译
-- 改写
-- 问答生成
+- summarization
+- translation
+- paraphrasing
+- answer generation
 
 ---
 
-## 五、预训练模型之后，还能怎么适配任务？
+## 5. After Pretraining, How Else Can We Adapt to Tasks?
 
-### 5.1 线性探针 / 任务头微调
+### 5.1 Linear Probing / Task-Head Fine-Tuning
 
-最轻的一种方式是：
+The lightest approach is:
 
-- 冻结底座
-- 只训练顶层 head
+- freeze the foundation
+- train only the top head
 
-这在小任务里很常见。
+This is very common for small tasks.
 
-### 5.2 全量微调
+### 5.2 Full Fine-Tuning
 
-让整个模型一起更新。  
-优点是灵活，缺点是成本高。
+Let the entire model update together.
+The advantage is flexibility, but the disadvantage is high cost.
 
-### 5.3 参数高效微调
+### 5.3 Parameter-Efficient Fine-Tuning
 
-例如：
+For example:
 
 - LoRA
 - Adapter
 
-这是大模型时代非常重要的路线，  
-因为它让“在大底座上适配任务”的门槛下降了很多。
+This is a very important direction in the large-model era,
+because it greatly lowers the barrier to adapting a task on a large foundation.
 
-### 5.4 Prompt 和 RAG
+### 5.4 Prompt and RAG
 
-并不是所有任务都要真的改模型参数。  
-很多问题也可以通过：
+Not every task needs the model parameters to be changed.
+Many problems can also be solved through:
 
 - Prompt
 - RAG
-- 工具调用
+- tool calling
 
-来解决。
-
-所以预训练模型的价值，不只是“给你一个可微调模型”，  
-还是“给你一个可复用底座”。
+So the value of pretrained models is not just “giving you a model that can be fine-tuned,”
+but also “giving you a reusable foundation.”
 
 ---
 
-## 六、最容易踩的误区
+## 6. The Most Common Misunderstandings
 
-### 6.1 误区一：预训练模型什么都会
+### 6.1 Misunderstanding 1: Pretrained Models Know Everything
 
-它有强底座，但不代表：
+They have a strong foundation, but that does not mean:
 
-- 知识永远最新
-- 行为一定稳定
-- 一上来就完美适配你的业务
+- their knowledge is always up to date
+- their behavior is always stable
+- they are perfectly adapted to your business right away
 
-### 6.2 误区二：用了预训练模型，就不用关心数据了
+### 6.2 Misunderstanding 2: Once You Use a Pretrained Model, You No Longer Need to Care About Data
 
-不对。  
-无论是微调还是评估，数据质量仍然决定最后效果。
+That is not true.
+Whether you are fine-tuning or evaluating, data quality still determines the final result.
 
-### 6.3 误区三：只要模型大，就一定比小模型更适合当前任务
+### 6.3 Misunderstanding 3: As Long as the Model Is Bigger, It Must Be Better Than a Smaller Model for the Current Task
 
-有时任务很简单，  
-或者成本非常敏感，  
-大模型未必是最优解。
+Sometimes the task is very simple,
+or the cost is highly sensitive,
+and a large model is not necessarily the best solution.
 
 ---
 
-## 小结
+## Summary
 
-这节最重要的不是记住多少模型名，  
-而是建立一个现代 NLP 的核心判断：
+The most important thing in this lesson is not to memorize how many model names there are,
+but to build a core modern NLP judgment:
 
-> **预训练模型的价值，在于先用大语料学到通用语言底座，再把这个底座迁移到很多不同任务上。**
+> **The value of pretrained models lies in first learning a general language foundation from large corpora, and then transferring that foundation to many different tasks.**
 
-一旦这条主线建立起来，  
-你后面再学：
+Once this main line is established,
+when you later learn:
 
-- 微调
+- fine-tuning
 - Prompt
 - RAG
 - Agent
 
-都会更知道自己是在“利用已有底座”，而不是每次从零开始。
+you will better understand that you are “using an existing foundation,” rather than starting from scratch every time.
 
 ---
 
-## 练习
+## Exercises
 
-1. 用自己的话解释：为什么预训练模型能被多个不同任务复用？
-2. 参考示例，再给共享底座加一个新的任务头，例如“主题分类”。
-3. 为什么说预训练模型给的是底座，不是自动解决所有任务的万能按钮？
-4. 想一想：如果你的任务数据很少，预训练模型相比从零训练最大的优势是什么？
+1. Explain in your own words: why can a pretrained model be reused for multiple different tasks?
+2. Referring to the example, add a new task head to the shared foundation, such as “topic classification.”
+3. Why do we say a pretrained model provides a foundation, not a magic button that automatically solves every task?
+4. Think about it: if your task data is very limited, what is the biggest advantage of a pretrained model compared with training from scratch?

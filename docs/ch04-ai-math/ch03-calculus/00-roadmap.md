@@ -1,197 +1,197 @@
 ---
-title: "3.1 学前导读：微积分与优化这章到底在学什么"
+title: "3.1 Pre-study Guide: What Is This Chapter on Calculus and Optimization Really About?"
 sidebar_position: 8
-description: "先建立微积分与优化的学习地图：导数、梯度、梯度下降、反向传播分别在 AI 里做什么。"
-keywords: [微积分导读, 优化导读, 导数, 梯度, 梯度下降, 反向传播]
+description: "First build a learning map for calculus and optimization: what do derivatives, gradients, gradient descent, and backpropagation do in AI?"
+keywords: [calculus guide, optimization guide, derivatives, gradients, gradient descent, backpropagation]
 ---
 
-# 学前导读：微积分与优化这章到底在学什么
+# Pre-study Guide: What Is This Chapter on Calculus and Optimization Really About?
 
-![微积分与优化学习地图](/img/course/ch04-calculus-roadmap.png)
+![Calculus and Optimization Learning Map](/img/course/ch04-calculus-roadmap-en.png)
 
-如果说线性代数告诉你“数据和变换怎样表示”，那这一章要回答的是：
+If linear algebra tells you “how data and transformations are represented,” then this chapter answers:
 
-> **模型到底是怎么学起来的？**
+> **How does a model actually learn?**
 
-它的核心主线其实很简单：
+Its core storyline is actually very simple:
 
-- 导数：告诉你一个量变化得有多快
-- 梯度：告诉你多变量函数朝哪个方向变化最快
-- 梯度下降：告诉你怎样一步步把损失降下来
-- 反向传播：告诉你神经网络里那么多参数的梯度怎么高效算出来
+- Derivative: tells you how fast a quantity changes
+- Gradient: tells you which direction a multivariable function changes fastest
+- Gradient descent: tells you how to reduce loss step by step
+- Backpropagation: tells you how to efficiently compute gradients for so many parameters in a neural network
 
-## 学习目标
+## Learning Objectives
 
-- 建立“导数 -> 梯度 -> 梯度下降 -> 反向传播”的整章地图
-- 知道微积分在 AI 训练里的实际作用
-- 知道新人该抓哪些核心直觉，避免一开始掉进推导细节
+- Build a full-chapter map of “derivative -> gradient -> gradient descent -> backpropagation”
+- Understand the practical role calculus plays in AI training
+- Know which core intuitions beginners should focus on to avoid getting stuck in derivations too early
 
-## 先说一个很重要的学习预期
+## First, set a very important learning expectation
 
-微积分这章最容易让新人害怕，因为一看到“导数、梯度、链式法则”就会觉得：
+This chapter on calculus is easy to fear at first, because once you see “derivative, gradient, chain rule,” it can feel like:
 
-- 这是不是要开始背一大堆推导了？
+- Am I about to start memorizing a huge number of derivations?
 
-其实这章更现实的目标不是把推导做熟，而是先让你知道：
+In reality, the goal of this chapter is not to master derivations right away, but to first understand:
 
-- 导数为什么是在描述变化率
-- 梯度为什么能告诉模型“往哪边改”
-- 反向传播为什么只是把这件事高效做出来
+- Why a derivative describes a rate of change
+- Why a gradient can tell the model “which way to adjust”
+- Why backpropagation is just an efficient way to do this
 
-也就是说，这章最重要的是先把**训练为什么能发生**这件事讲顺。
-
----
-
-## 一、这一章四节之间是什么关系？
-
-![微积分优化章节关系图](/img/course/ch04-calculus-training-flow.png)
-
-你可以把这章压缩成一句话：
-
-> **先学会衡量变化，再学会利用变化去更新参数，最后学会在深层网络里高效传播这些变化。**
+In other words, the most important thing here is to first clearly understand **why training can happen**.
 
 ---
 
-## 二、这一章和 AI 的关系
+## 1. What is the relationship between the four sections in this chapter?
 
-| 章节 | 在 AI 里最直接的作用 |
+![Relationship diagram of calculus and optimization sections](/img/course/ch04-calculus-training-flow-en.png)
+
+You can summarize this chapter in one sentence:
+
+> **First learn how to measure change, then learn how to use change to update parameters, and finally learn how to efficiently propagate those changes through deep networks.**
+
+---
+
+## 2. How this chapter relates to AI
+
+| Section | Most direct role in AI |
 |---|---|
-| 导数 | 理解“一个参数变一点，损失会怎样变” |
-| 梯度 | 理解多参数模型该往哪个方向更新 |
-| 梯度下降 | 理解模型训练为什么是一轮轮迭代优化 |
-| 反向传播 | 理解神经网络为什么能在很多层里算梯度 |
+| Derivative | Understand how loss changes when one parameter changes a little |
+| Gradient | Understand which direction a multi-parameter model should update in |
+| Gradient descent | Understand why model training is an iterative optimization process |
+| Backpropagation | Understand why neural networks can compute gradients across many layers |
 
-当你以后在 PyTorch 里看到：
+When you later see this in PyTorch:
 
 ```python
 loss.backward()
 optimizer.step()
 ```
 
-背后其实就是这整章在工作。
+what is happening behind the scenes is this whole chapter at work.
 
-## 三、为什么 AI 特别依赖这一章？
+## 3. Why does AI depend so heavily on this chapter?
 
-因为训练模型本质上就在不断重复一件事：
+Because training a model is essentially repeating one thing over and over:
 
-1. 看当前结果错了多少
-2. 判断参数该往哪里改
-3. 改一点
-4. 再看有没有更好
+1. See how wrong the current result is
+2. Decide how the parameters should change
+3. Change them a little
+4. Check whether it gets better
 
-而这整套动作背后的数学语言，就是：
+And the mathematical language behind all of this is:
 
-- 导数
-- 梯度
-- 梯度下降
-- 反向传播
+- Derivative
+- Gradient
+- Gradient descent
+- Backpropagation
 
-所以这一章可以先压成一句话：
+So you can summarize this chapter in one sentence:
 
-> **它是在解释“模型为什么能学起来”。**
-
----
-
-## 新人最应该怎么学这一章？
-
-### 4.1 先抓“变化率”这个核心直觉
-
-不要一开始就被复杂公式带走。先记住：
-
-- 导数是变化率
-- 梯度是多变量版本的变化率
-- 负梯度方向通常是下降最快的方向
-
-### 4.2 每节都要和“训练模型”连起来
-
-如果你学导数时没有想到“损失怎么变”，学梯度时没有想到“参数怎么调”，那很容易觉得这些内容只是数学题。
-
-### 4.3 先会看图、会看代码，再补推导
-
-对自学 AI 的新人来说，优先级更应该是：
-
-1. 看懂图像直觉
-2. 看懂最小代码
-3. 理解公式是什么意思
-4. 最后再看更严格的推导
-
-### 4.4 一个更适合新人的顺序
-
-建议你每节都按这个顺序来：
-
-1. 先看生活类比
-2. 再看图
-3. 再跑最小代码
-4. 最后再回头看公式
-
-这样会比一开始直接扑到链式法则和推导上更稳。
-
-## 五、这一章建议怎么分配时间？
-
-一个适合新人的参考节奏通常是：
-
-1. 导数：2~3 小时  
-   先把“变化率”这个词真的变成你的直觉。
-
-2. 偏导数与梯度：2~4 小时  
-   先把“一个变量怎么变”升级成“很多变量一起怎么变”。
-
-3. 梯度下降：2~4 小时  
-   先把“模型为什么是一轮轮学出来的”看懂。
-
-4. 链式法则与反向传播：3~5 小时  
-   这节最容易发虚，建议单独留更完整的一段时间。
-
-如果你觉得这里学得慢，不代表你差，通常只是因为这章本来就更抽象。
+> **It explains why a model can learn.**
 
 ---
 
-## 六、学完这章后，你至少应该会什么？
+## 4. How should beginners study this chapter?
 
-- 看到导数时，知道它表示变化率
-- 看到梯度时，知道它表示多变量函数上升最快的方向
-- 看到梯度下降时，知道模型是在一点点往损失更小的地方走
-- 看到反向传播时，知道它本质上是在应用链式法则
+### 4.1 Start with the core intuition of “rate of change”
 
-## 如果你读这章时觉得“还是太抽象”，先抓哪几件事最值？
+Don’t get pulled away by complicated formulas at the beginning. First remember:
 
-最值得先抓的是：
+- A derivative is a rate of change
+- A gradient is the multivariable version of a rate of change
+- The negative gradient direction is usually the direction of steepest descent
 
-1. 导数 = 某个量变得有多快
-2. 梯度 = 多个量一起变时，哪边变得最快
-3. 梯度下降 = 往损失更小的方向一点点走
-4. 反向传播 = 把很多层里的梯度高效算出来
+### 4.2 Connect every section back to “training a model”
 
-只要这四条稳了，第 6 站再看到 `loss.backward()` 时，你就不会只剩黑箱感。
+If you study derivatives without thinking about “how loss changes,” or study gradients without thinking about “how parameters are adjusted,” then it is easy to feel like this is just math homework.
 
-## 新人和进阶学习者怎么读
+### 4.3 Learn to read the diagram and code first, then fill in the derivation
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+For beginners learning AI on their own, the priority should be:
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+1. Understand the visual intuition
+2. Understand the smallest code example
+3. Understand what the formula means
+4. Finally, look at the more rigorous derivation
 
-## 学习时间与难度建议
+### 4.4 A sequence that is more beginner-friendly
 
-| 学习方式 | 建议投入 | 目标 |
+It is recommended that you go through each section in this order:
+
+1. First look at the everyday analogy
+2. Then look at the diagram
+3. Then run the smallest code example
+4. Finally, go back and read the formula
+
+This is much steadier than jumping straight into the chain rule and derivations at the beginning.
+
+## 5. How should you allocate time for this chapter?
+
+A reference pace suitable for beginners is usually:
+
+1. Derivative: 2–3 hours
+   First make the idea of “rate of change” truly become your intuition.
+
+2. Partial derivatives and gradients: 2–4 hours
+   Upgrade from “how one variable changes” to “how many variables change together.”
+
+3. Gradient descent: 2–4 hours
+   First understand why a model learns through repeated iterations.
+
+4. Chain rule and backpropagation: 3–5 hours
+   This section is the easiest to feel unsure about, so it is worth setting aside a longer, focused block of time.
+
+If you feel slow here, it does not mean you are bad at this. Usually it just means this chapter is inherently more abstract.
+
+---
+
+## 6. After finishing this chapter, what should you at least be able to do?
+
+- When you see a derivative, know that it represents a rate of change
+- When you see a gradient, know that it represents the direction of fastest increase for a multivariable function
+- When you see gradient descent, know that the model is moving little by little toward a smaller loss
+- When you see backpropagation, know that its essence is applying the chain rule
+
+## If this chapter still feels “too abstract,” what should you focus on first?
+
+The most valuable things to focus on first are:
+
+1. Derivative = how fast something changes
+2. Gradient = when multiple things change together, which direction changes fastest
+3. Gradient descent = moving little by little toward a smaller loss
+4. Backpropagation = efficiently computing gradients across many layers
+
+As long as these four points are solid, when you later see `loss.backward()` in Station 6, it will no longer feel like a black box.
+
+## How beginners and advanced learners should read this chapter
+
+When beginners study this chapter for the first time, focus on the main storyline and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
+
+Experienced learners can treat this chapter as a chance to fill gaps and do engineering practice: focus on edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to distill the chapter into your own project README or experiment notes.
+
+## Recommended study time and difficulty
+
+| Learning approach | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run through a minimal example and complete the chapter’s smallest project outcome |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its place in the course in one sentence |
+| What are the minimum inputs and outputs? | Can clearly describe what inputs the example needs and what result it produces |
+| Where are the common failure points? | Can list at least one reason for an error, poor result, or misunderstanding |
+| What can you leave behind after learning it? | Can write the output of this chapter into a project README, experiment log, or portfolio |
+## The chapter project exit
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended to complete a minimal exercise: choose the most core concept or tool in this chapter, and create a small result that can run, can be screenshot, and can be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stages before and after it, and you should be able to complete the minimum version of the chapter project exit.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, that means you are no longer just “looking at the content” — you are turning this chapter into your own project experience.

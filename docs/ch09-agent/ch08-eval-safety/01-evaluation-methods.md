@@ -1,99 +1,99 @@
 ---
-title: "8.2 Agent 评估方法"
+title: "8.2 Agent Evaluation Methods"
 sidebar_position: 44
-description: "从任务成功率、过程评估、工具调用、人工评分和回放样本出发，建立可落地的 Agent 评估方法。"
+description: "Build practical Agent evaluation methods from task success rate, process evaluation, tool calling, human scoring, and replay samples."
 keywords: [agent evaluation, task success, tool evaluation, human review, replay]
 ---
 
-# Agent 评估方法
+# Agent Evaluation Methods
 
-:::tip 本节定位
-Agent 评估不能只看最终回答像不像。Agent 是一个会规划、调用工具、改变状态的系统，所以评估必须同时看结果、过程、安全和成本。
+:::tip Section Overview
+Agent evaluation cannot rely only on whether the final answer looks right. An Agent is a system that plans, calls tools, and changes state, so evaluation must consider results, process, safety, and cost at the same time.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Agent 评估和普通 LLM 评估的区别
-- 能设计任务成功率、工具调用和过程质量指标
-- 知道如何构建可回放评估样本
-- 能把评估结果用于下一轮 Prompt、工具和流程改进
+- Understand the difference between Agent evaluation and ordinary LLM evaluation
+- Learn how to design metrics for task success, tool calling, and process quality
+- Know how to build replayable evaluation samples
+- Be able to use evaluation results to improve the next round of Prompts, tools, and workflows
 
 ---
 
-## 一、Agent 评估为什么更复杂
+## 1. Why Agent Evaluation Is More Complex
 
-普通问答系统主要看答案是否正确；Agent 还要看它为了得到答案做了什么。一个 Agent 最终答对了，但中间调用了不该调用的工具、绕过了确认、成本过高，仍然不是好系统。
+A normal question-answering system mainly checks whether the answer is correct. An Agent also needs to be judged by what it did to get there. An Agent may end up with the right answer, but if it called the wrong tool, skipped confirmation, or cost too much, it is still not a good system.
 
 ```mermaid
 flowchart LR
-  A[用户任务] --> B[计划]
-  B --> C[工具调用]
-  C --> D[状态更新]
-  D --> E[最终结果]
-  B --> F[过程质量]
-  C --> G[安全和权限]
-  E --> H[任务成功]
+  A[User Task] --> B[Planning]
+  B --> C[Tool Calling]
+  C --> D[State Update]
+  D --> E[Final Result]
+  B --> F[Process Quality]
+  C --> G[Safety and Permissions]
+  E --> H[Task Success]
 ```
 
-## 二、四层评估框架
+## 2. The Four-Layer Evaluation Framework
 
-| 层级 | 核心问题 | 指标示例 |
+| Level | Core Question | Example Metrics |
 |---|---|---|
-| 结果层 | 用户目标是否达成 | 任务成功率、人工评分、完成度 |
-| 过程层 | 执行路径是否合理 | 步数、重试次数、循环率、计划质量 |
-| 工具层 | 工具是否用对 | 工具选择准确率、参数错误率、工具失败率 |
-| 安全层 | 是否越权或失控 | 高风险确认率、拒绝准确率、回滚覆盖率 |
+| Result layer | Was the user goal achieved? | Task success rate, human score, completion level |
+| Process layer | Was the execution path reasonable? | Number of steps, retry count, loop rate, plan quality |
+| Tool layer | Were the tools used correctly? | Tool selection accuracy, parameter error rate, tool failure rate |
+| Safety layer | Did it exceed permissions or go out of control? | High-risk confirmation rate, refusal accuracy, rollback coverage |
 
-真实项目里不要试图一次把所有指标做满。先从任务成功率、工具失败率、人工接管率和平均成本开始，就能发现很多问题。
+In real projects, do not try to perfect every metric at once. Start with task success rate, tool failure rate, human takeover rate, and average cost. That already reveals many problems.
 
-![Agent 分层评估计分卡图](/img/course/ch09-agent-eval-layered-scorecard-map.png)
+![Agent layered evaluation scorecard diagram](/img/course/ch09-agent-eval-layered-scorecard-map-en.png)
 
-:::tip 读图提示
-这张图把 Agent 评估拆成四层：结果、过程、工具和安全。新人可以先用它做最小 scorecard，避免只看“最终答案像不像”。
+:::tip Reading Guide
+This diagram breaks Agent evaluation into four layers: result, process, tool, and safety. Beginners can use it to build a minimum scorecard first, instead of only checking whether the “final answer looks right.”
 :::
 
-## 三、构建评估任务集
+## 3. Building an Evaluation Task Set
 
-Agent 评估集应该来自真实任务，而不是只写几个理想例子。每条样本建议包含：用户请求、期望结果、允许工具、禁止动作、成功标准、风险等级。
+An Agent evaluation set should come from real tasks, not from a few idealized examples. Each sample should include: user request, expected result, allowed tools, forbidden actions, success criteria, and risk level.
 
 ```json
 {
   "task_id": "rag_review_001",
-  "user_request": "帮我准备 RAG 阶段复习",
+  "user_request": "Help me prepare for RAG stage review",
   "allowed_tools": ["search_docs", "write_plan"],
   "forbidden_actions": ["delete_file", "send_message"],
-  "success_criteria": ["覆盖 RAG 基础", "包含评估方法", "引用课程文档"],
+  "success_criteria": ["Cover RAG fundamentals", "Include evaluation methods", "Cite course documentation"],
   "risk_level": "low"
 }
 ```
 
-## 四、人工评分表
+## 4. Human Scoring Rubric
 
-早期最实用的方法是人工评分。可以用 1～5 分评价任务完成度、过程合理性、工具使用、安全边界和表达清晰度。
+The most practical method early on is human scoring. You can use a 1–5 scale to evaluate task completion, process reasonableness, tool usage, safety boundaries, and clarity of expression.
 
-| 维度 | 1 分 | 5 分 |
+| Dimension | 1 point | 5 points |
 |---|---|---|
-| 任务完成 | 偏离目标 | 完整满足目标 |
-| 工具使用 | 选错或漏用 | 工具选择和参数都合理 |
-| 过程控制 | 循环、冗余、不可解释 | 步骤清晰、可追踪 |
-| 安全边界 | 越权或未确认 | 高风险动作有确认和降级 |
-| 成本效率 | 明显浪费 | 步数和 token 合理 |
+| Task completion | Off target | Fully meets the goal |
+| Tool usage | Wrong tool or missing tool | Tool choice and parameters are both reasonable |
+| Process control | Loops, redundancy, hard to explain | Clear, traceable steps |
+| Safety boundary | Overreach or no confirmation | High-risk actions have confirmation and fallback |
+| Cost efficiency | Obvious waste | Reasonable number of steps and tokens |
 
-## 五、用评估结果改系统
+## 5. Using Evaluation Results to Improve the System
 
-评估的目的不是打分，而是指导改进。如果工具选择错误多，优先改工具描述和路由策略；如果计划经常不完整，优先改规划 Prompt 或状态表示；如果成本过高，检查是否循环调用或上下文过长；如果安全问题多，补权限、确认和拒绝策略。
+The purpose of evaluation is not scoring itself, but guiding improvement. If tool selection mistakes are common, improve tool descriptions and routing strategy first. If plans are often incomplete, improve the planning Prompt or state representation first. If costs are too high, check for repeated tool calls or overly long context. If safety issues are common, add permission checks, confirmation steps, and refusal policies.
 
-## 常见误区
+## Common Misconceptions
 
-第一个误区是只测成功样例。第二个误区是只看最终答案，不看执行轨迹。第三个误区是没有固定评估集，每次凭感觉判断。第四个误区是把模型评估和系统评估混在一起，忽略工具、状态、权限和成本。
+The first mistake is testing only successful cases. The second is looking only at the final answer and ignoring the execution trace. The third is not having a fixed evaluation set and judging by intuition every time. The fourth is mixing model evaluation with system evaluation and ignoring tools, state, permissions, and cost.
 
-## 练习
+## Exercises
 
-1. 为“学习规划 Agent”设计 10 条评估任务。
-2. 给每条任务写 allowed_tools、forbidden_actions 和 success_criteria。
-3. 用 1～5 分评分表评估一次 Agent 输出。
-4. 根据评分结果写出 3 条系统改进建议。
+1. Design 10 evaluation tasks for a “learning planning Agent.”
+2. Write `allowed_tools`, `forbidden_actions`, and `success_criteria` for each task.
+3. Use the 1–5 scoring rubric to evaluate one Agent output.
+4. Based on the scoring results, write 3 system improvement suggestions.
 
-## 过关标准
+## Passing Criteria
 
-学完本节后，你应该能设计一个最小 Agent 评估集，能区分结果层、过程层、工具层和安全层指标，并能把评估发现转化为 Prompt、工具、流程或权限设计的改进。
+After finishing this section, you should be able to design a minimal Agent evaluation set, distinguish between result-layer, process-layer, tool-layer, and safety-layer metrics, and turn evaluation findings into improvements in Prompt design, tools, workflows, or permissions.

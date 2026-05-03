@@ -1,67 +1,67 @@
 ---
-title: "1.4 元编程"
+title: "1.4 Metaprogramming"
 sidebar_position: 11
-description: "从动态创建类、注册器、描述符和配置驱动代码出发，理解元编程在 Python 工程里什么时候真有价值。"
+description: "Starting from dynamic class creation, registries, descriptors, and configuration-driven code, understand when metaprogramming is truly valuable in Python engineering."
 keywords: [metaprogramming, type, registry, descriptor, dynamic class, Python]
 ---
 
-# 元编程
+# Metaprogramming
 
-:::tip 本节定位
-元编程是很容易被讲成“炫技”的主题。  
-但在工程里，它真正有价值的时候通常非常具体：
+:::tip Section Focus
+Metaprogramming is a topic that is very easy to present as “showy” or “clever.”
+But in real engineering, when it has true value, the cases are usually very specific:
 
-- 你想减少重复样板
-- 你想把注册逻辑自动化
-- 你想让代码根据配置生成结构
+- You want to reduce repetitive boilerplate
+- You want to automate registration logic
+- You want code to generate structure from configuration
 
-所以这一节不会把元编程讲成魔法，而是讲：
+So in this section, we won’t treat metaprogramming like magic. Instead, we’ll focus on:
 
-> **什么时候它真的值得用，什么时候会让代码更难懂。**
+> **When it is actually worth using, and when it makes code harder to understand.**
 :::
 
-![Python 元编程注册器地图](/img/course/elective-metaprogramming-registry-map.png)
+![Python Metaprogramming Registry Map](/img/course/elective-metaprogramming-registry-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解元编程在 Python 里的常见工程用途
-- 学会读懂动态创建类和注册器模式
-- 理解描述符和 `__set_name__` 的第一层直觉
-- 建立“适度使用元编程”的判断
-
----
-
-## 一、元编程到底是什么？
-
-### 1.1 一句话理解
-
-可以先粗略理解成：
-
-> **用代码去生成、修改或组织代码结构本身。**
-
-例如：
-
-- 动态创建类
-- 自动注册子类
-- 根据字段声明生成行为
-
-### 1.2 为什么工程里会需要它？
-
-因为有些样板重复得太多。  
-如果每次都手写，代码会变得：
-
-- 长
-- 难维护
-- 容易漏
-
-### 1.3 一个类比
-
-普通编程像手工做家具。  
-元编程更像先做一个模具，再批量做类似家具。
+- Understand the common engineering uses of metaprogramming in Python
+- Learn to read dynamic class creation and registry patterns
+- Build an initial intuition for descriptors and `__set_name__`
+- Develop judgment for using metaprogramming in a moderate, appropriate way
 
 ---
 
-## 二、动态创建类：最直接的元编程入口
+## 1. What Exactly Is Metaprogramming?
+
+### 1.1 A One-Sentence Understanding
+
+You can roughly think of it as:
+
+> **Using code to generate, modify, or organize code structure itself.**
+
+For example:
+
+- Dynamically creating classes
+- Automatically registering subclasses
+- Generating behavior from field declarations
+
+### 1.2 Why Is It Needed in Engineering?
+
+Because some boilerplate is repeated too many times.
+If you write everything manually every time, the code can become:
+
+- Long
+- Hard to maintain
+- Easy to forget parts of
+
+### 1.3 An Analogy
+
+Regular programming is like handcrafting furniture.
+Metaprogramming is more like making a mold first, then mass-producing similar furniture.
+
+---
+
+## 2. Dynamic Class Creation: The Most Direct Entry Point to Metaprogramming
 
 ```python
 def build_model_class(name, fields):
@@ -75,33 +75,31 @@ print(user.role, user.active)
 print(User.__name__)
 ```
 
-### 2.1 这段代码真正说明什么？
+### 2.1 What Does This Code Really Show?
 
-它说明：
+It shows that:
 
-- 类本身也是对象
-- 类可以在运行时被创建
+- A class itself is also an object
+- A class can be created at runtime
 
-### 2.2 为什么这不是日常默认写法？
+### 2.2 Why Isn’t This the Default Way to Write Code?
 
-因为直接写 `class User:` 通常更清晰。  
-动态创建类只有在：
+Because writing `class User:` directly is usually clearer.
+Dynamic class creation is more valuable only when:
 
-- 结构高度重复
-- 字段来自配置
-- 或框架层需要自动生成
-
-时才更有价值。
+- The structure is highly repetitive
+- Fields come from configuration
+- Or framework-level code needs to generate classes automatically
 
 ---
 
-## 三、注册器模式：元编程在工程里的高频用法
+## 3. Registry Pattern: A High-Frequency Use of Metaprogramming in Engineering
 
-注册器是非常实用的一类模式。  
-它能让系统自动记住：
+A registry is a very practical kind of pattern.
+It lets the system automatically remember:
 
-- 有哪些实现
-- 某个名字对应哪个类
+- Which implementations exist
+- Which class corresponds to a given name
 
 ```python
 REGISTRY = {}
@@ -131,32 +129,32 @@ print(loader.load())
 print(REGISTRY)
 ```
 
-### 3.1 为什么注册器这么常见？
+### 3.1 Why Is the Registry Pattern So Common?
 
-因为它特别适合：
+Because it is especially well-suited for:
 
-- 插件系统
-- 数据加载器
-- 模型后端
-- 工具注册
+- Plugin systems
+- Data loaders
+- Model backends
+- Tool registration
 
-### 3.2 为什么说这是“实用元编程”？
+### 3.2 Why Is This Called “Practical Metaprogramming”?
 
-因为它没有为了花哨而动态，  
-而是明确减少了：
+Because it is not dynamic just for flashiness.
+Instead, it clearly reduces:
 
-- 手动维护映射表
+- Manually maintained mapping tables
 
 ---
 
-## 四、描述符：把字段行为包起来
+## 4. Descriptors: Wrapping Field Behavior
 
-描述符一开始看会有点抽象，  
-但它的工程直觉可以先记成：
+Descriptors can feel abstract at first,
+but the engineering intuition can be remembered simply as:
 
-- 给属性访问加规则
+- Adding rules to attribute access
 
-下面是一个最小验证器示例。
+Here is a minimal validation example.
 
 ```python
 class PositiveNumber:
@@ -183,78 +181,78 @@ cfg.timeout = 3
 print(cfg.timeout)
 ```
 
-### 4.1 这个例子最该学什么？
+### 4.1 What Is the Most Important Thing to Learn from This Example?
 
-不是细节协议本身，  
-而是理解：
+Not the protocol details themselves,
+but the idea that:
 
-- 属性也可以有自定义读写逻辑
+- Attributes can also have custom read/write logic
 
-这在配置系统、ORM、验证框架里很常见。
-
----
-
-## 五、元编程什么时候真的值得用？
-
-### 5.1 重复模式非常多
-
-例如：
-
-- 大量相似 loader
-- 大量插件
-- 大量字段验证逻辑
-
-### 5.2 框架层代码
-
-如果你在写：
-
-- 插件框架
-- 配置框架
-- 注册与发现系统
-
-元编程会很有价值。
-
-### 5.3 不适合的情况
-
-如果只是一个普通业务模块，  
-强行上元编程往往会：
-
-- 读起来更难
-- 调试更难
+This is very common in configuration systems, ORMs, and validation frameworks.
 
 ---
 
-## 六、最常见误区
+## 5. When Is Metaprogramming Actually Worth Using?
 
-### 6.1 误区一：动态就一定更高级
+### 5.1 There Are Lots of Repeated Patterns
 
-动态只是手段，不是价值本身。
+For example:
 
-### 6.2 误区二：所有重复都要用元编程消灭
+- Many similar loaders
+- Many plugins
+- Lots of field validation logic
 
-有时显式写几次，反而更清晰。
+### 5.2 Framework-Level Code
 
-### 6.3 误区三：元编程只适合框架作者
+If you are building:
 
-虽然它在框架里特别常见，  
-但工程项目里像注册器这种模式也很常用。
+- A plugin framework
+- A configuration framework
+- A registration and discovery system
+
+metaprogramming can be very valuable.
+
+### 5.3 Cases Where It Is Not Suitable
+
+If it is just a normal business module,
+forcing metaprogramming in often makes things:
+
+- Harder to read
+- Harder to debug
 
 ---
 
-## 小结
+## 6. The Most Common Misconceptions
 
-这节最重要的，不是把元编程学成黑魔法，  
-而是建立一个判断：
+### 6.1 Misconception 1: Dynamic Always Means More Advanced
 
-> **元编程最有价值的地方，是在高重复、强结构化的场景里减少样板并统一行为；如果不能明显降低复杂度，就不值得用。**
+Dynamic is just a means, not the value itself.
 
-只要抓住这一点，后面你再读框架源码时就会更容易看懂它为什么那样设计。
+### 6.2 Misconception 2: All Repetition Must Be Eliminated with Metaprogramming
+
+Sometimes writing things explicitly a few times is actually clearer.
+
+### 6.3 Misconception 3: Metaprogramming Is Only for Framework Authors
+
+Although it is especially common in frameworks,
+patterns like registries are also very common in engineering projects.
 
 ---
 
-## 练习
+## Summary
 
-1. 给注册器再加一个 `yaml` loader，体会自动注册的好处。
-2. 把 `PositiveNumber` 改成能校验字符串非空的描述符。
-3. 想一想：什么时候直接写普通类，比动态生成类更好？
-4. 用自己的话解释：为什么注册器是一种非常实用的元编程模式？
+The most important thing in this section is not to learn metaprogramming as some kind of black magic,
+but to develop a judgment:
+
+> **The most valuable use of metaprogramming is in highly repetitive, strongly structured scenarios where it reduces boilerplate and unifies behavior; if it does not clearly reduce complexity, it is not worth using.**
+
+Once you grasp this, it becomes much easier to understand why framework source code is designed the way it is.
+
+---
+
+## Exercises
+
+1. Add a `yaml` loader to the registry and experience the benefit of automatic registration.
+2. Modify `PositiveNumber` into a descriptor that validates that a string is non-empty.
+3. Think about it: when is writing a normal class directly better than dynamically generating one?
+4. Explain in your own words: why is a registry such a practical metaprogramming pattern?

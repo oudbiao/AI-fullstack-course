@@ -8,7 +8,7 @@
     "dev": "docusaurus start --host 0.0.0.0 --no-open",
     "dev:en": "docusaurus start --host 0.0.0.0 --no-open --locale en",
     "dev:ja": "docusaurus start --host 0.0.0.0 --no-open --locale ja",
-    "build": "docusaurus build && node scripts/strip_build_null_bytes.js build",
+    "build": "docusaurus build && node scripts/strip_build_null_bytes.js build && node scripts/merge_localized_sitemaps.js build",
     "build:en": "docusaurus build --locale en && node scripts/strip_build_null_bytes.js build",
     "build:ja": "docusaurus build --locale ja && node scripts/strip_build_null_bytes.js build",
     "swizzle": "docusaurus swizzle",

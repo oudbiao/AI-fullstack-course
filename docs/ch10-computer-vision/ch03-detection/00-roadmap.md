@@ -1,83 +1,83 @@
 ---
-title: "3.1 学前导读：目标检测这一章到底在学什么"
+title: "3.1 Pre-study guide: What exactly are we learning in this object detection chapter?"
 sidebar_position: 0
-description: "先建立目标检测章的学习地图：检测任务、经典检测器、YOLO 系列和检测实战是怎么衔接的。"
-keywords: [目标检测导读, YOLO, IoU, mAP]
+description: "First build a learning map for the object detection chapter: how detection tasks, classic detectors, the YOLO series, and hands-on detection practice connect with each other."
+keywords: [object detection guide, YOLO, IoU, mAP]
 ---
 
-# 学前导读：目标检测这一章到底在学什么
+# Pre-study guide: What exactly are we learning in this object detection chapter?
 
-目标检测这一章解决的是：
+This object detection chapter is about solving this problem:
 
-> **图里不仅有什么，还要知道它在哪里。**
+> **Not only what is in the image, but also where it is.**
 
-## 先建立一张桥接线
+## First build a bridge map
 
-如果你已经学过图像分类，这一章最值得先看清的一件事是：
+If you have already studied image classification, the most important thing to understand in this chapter is:
 
-- 分类只回答“这张图是什么”
-- 检测开始同时回答“它在哪”
+- Classification only answers “What is this image?”
+- Detection also answers “Where is it?”
 
-所以检测不是分类的简单升级版，而是多加了一层：
+So detection is not just a simple upgrade from classification. It adds an extra layer:
 
-- 位置理解
-- 多目标处理
-- 框级评估
+- Location understanding
+- Multi-object handling
+- Box-level evaluation
 
-## 这一章的主线
+## The main storyline of this chapter
 
-![目标检测章节学习顺序图](/img/course/ch10-detection-chapter-flow.png)
+![Learning flowchart for the object detection chapter](/img/course/ch10-detection-chapter-flow-en.png)
 
-学这一章时，最重要的不是先背模型名字，而是先把框、IoU、mAP 和多目标场景看懂。
+When studying this chapter, the most important thing is not to memorize model names first, but to understand boxes, IoU, mAP, and multi-object scenarios.
 
-## 这一章更适合新人的学习顺序
+## A more beginner-friendly study order for this chapter
 
-1. 先看检测任务概览  
-   先把框、类别、IoU、mAP 这些最核心对象立住。
+1. First look at the overview of the detection task
+   Start by understanding the most important concepts: boxes, categories, IoU, and mAP.
 
-2. 再看经典检测器  
-   先理解两阶段和一阶段主线是怎么长出来的。
+2. Then look at classic detectors
+   Understand how the main two-stage and one-stage ideas came into being.
 
-3. 再看 YOLO  
-   这时你更容易看懂为什么它会成为常见工程起点。
+3. Then look at YOLO
+   At this point, it becomes easier to understand why it has become a common engineering starting point.
 
-4. 最后做项目实战  
-   把框、阈值、误检漏检分析真正串起来。
+4. Finally, do hands-on projects
+   Really connect boxes, thresholds, false positives, and missed detections.
 
-## 这一章最该先抓住什么
+## What you should focus on first in this chapter
 
-- 检测比分类多的核心难度是“定位”
-- 多目标场景会让任务和评估都更复杂
-- 这一章真正重要的是框和指标，不只是模型名
+- The core difficulty detection adds on top of classification is “localization”
+- Multi-object scenes make both the task and evaluation more complex
+- What really matters in this chapter is boxes and metrics, not just model names
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first grasp the main storyline and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how to run the smallest project, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+More experienced learners can use this chapter as a way to fill in gaps and practice engineering skills: focus on edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the chapters before and after it. After finishing, it is best to turn the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study style | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run a smallest example and complete the chapter’s mini project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly state what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one cause of an error, poor results, or misunderstanding |
+| What can you leave behind after learning it? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Mini project exit task for this chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the most core concept or tool in this chapter and create a small result that can run, can be screenshotted, and can be written into a README. It does not need to be complicated, but it should clearly show what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects to the chapters before and after it, and complete the smallest version of the chapter’s mini project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one improvement in results, that means you are no longer just “reading the content” — you are turning this chapter into your own project experience.

@@ -1,124 +1,124 @@
 ---
 sidebar_position: 15
-title: "常见错误与排障索引"
-description: "用错误定位树整理环境、Python、数据、模型、RAG、Agent 和部署中的常见问题，帮助学习者按现象快速排查。"
-keywords: [排障, 常见错误, Debug, AI学习卡点, RAG错误, Agent错误]
+title: "Common Errors and Troubleshooting Index"
+description: "Use an error-location tree to organize common issues in environments, Python, data, models, RAG, Agent, and deployment, helping learners quickly diagnose problems by symptom."
+keywords: [troubleshooting, common errors, Debug, AI learning blockers, RAG errors, Agent errors]
 ---
 
-# 常见错误与排障索引
+# Common Errors and Troubleshooting Index
 
-学习 AI 最常卡住的地方往往不是概念，而是环境、依赖、数据格式、接口、模型输入输出和工程边界。排障时先不要急着复制报错去搜索，而是先判断问题属于哪一层：环境、代码、数据、模型、检索、工具调用、部署还是缓存。
+When learning AI, the things that most often cause learners to get stuck are usually not the concepts, but the environment, dependencies, data formats, APIs, model inputs and outputs, and engineering boundaries. When troubleshooting, don’t rush to copy the error message into a search engine. First identify which layer the problem belongs to: environment, code, data, model, retrieval, tool calling, deployment, or cache.
 
-## 一图读懂：排障不要跳步
+## One diagram to understand it: don’t skip steps when troubleshooting
 
 ```mermaid
 flowchart LR
-  A["保存完整报错"] --> B["确认目录和环境"]
-  B --> C["最小输入复现"]
-  C --> D["判断失败层级"]
-  D --> E["修复并写回 README"]
+  A["Save the full error message"] --> B["Check the directory and environment"]
+  B --> C["Reproduce with minimal input"]
+  C --> D["Identify the failing layer"]
+  D --> E["Fix it and write it back to the README"]
 ```
 
-| 如果只能先做一件事 | 做什么 |
+| If you can only do one thing first | What to do |
 |---|---|
-| 命令报错 | 先确认当前目录和运行命令 |
-| Python 报错 | 先确认解释器和依赖环境 |
-| RAG 答错 | 先打印检索结果，不急着改 Prompt |
-| Agent 失控 | 先限制步数并保存 trace |
+| Command error | First confirm the current directory and the command being run |
+| Python error | First confirm the interpreter and dependency environment |
+| RAG gives the wrong answer | First print the retrieval results; don’t rush to change the Prompt |
+| Agent goes out of control | First limit the number of steps and save the trace |
 
-## 排障总流程
+## Overall troubleshooting flow
 
-遇到错误时，按这个顺序检查：先保存完整报错和执行命令，再确认当前目录和运行环境，然后用最小输入复现问题，接着定位是依赖、路径、数据、参数还是业务逻辑，最后把解决方法写回学习日志或项目 README。
+When you encounter an error, check in this order: first save the full error message and the command you ran, then confirm the current directory and runtime environment, then reproduce the issue with minimal input, then locate whether the problem is in dependencies, paths, data, parameters, or business logic, and finally write the solution back into your learning notes or project README.
 
-不要只看最后一行错误。很多 Python、Node、Docusaurus、RAG 或 Agent 错误的关键线索在报错中间，例如实际读取的路径、使用的 Python 解释器、请求的模型名、工具参数 schema 或命中的文档片段。
+Don’t look only at the last line of the error. Many Python, Node, Docusaurus, RAG, or Agent errors have key clues in the middle of the message, such as the actual path being read, the Python interpreter being used, the model name being requested, the tool parameter schema, or the retrieved document chunk.
 
-## 环境与工具错误定位树
+## Environment and tool error-location tree
 
-| 看到的现象 | 先检查什么 | 最小复现方式 | 推荐回看 |
+| Symptom you see | What to check first | Minimal reproduction | Recommended review |
 | --- | --- | --- | --- |
-| `command not found` 或命令找不到 | 当前终端、PATH、依赖是否安装、是否在项目根目录 | 运行 `pwd`、`which 命令名`、查看 package.json 或 requirements | 开发者工具基础、环境准备 |
-| `ModuleNotFoundError` / `ImportError` | 是否激活了正确 Python 环境，pip 是否装到同一个解释器 | 运行 `python -c "import 包名"` 和 `python -m pip show 包名` | Python 环境、包管理器 |
-| `docusaurus: command not found` | 是否执行过 `npm install`，是否在项目根目录运行 npm scripts | 运行 `npm run start` 而不是直接运行 `docusaurus` | 环境准备、课程维护流程 |
-| Docusaurus 页面还是旧内容 | `.docusaurus`、`build`、浏览器缓存、启动目录 | 运行 `npm run clean` 后重新启动 | 本页、课程维护流程 |
-| Git push 失败 | 远程地址、权限、网络代理、分支名、登录状态 | 运行 `git remote -v` 和 `git branch --show-current` | Git 与版本管理 |
+| `command not found` or command cannot be found | Current terminal, PATH, whether dependencies are installed, whether you are in the project root | Run `pwd`, `which command-name`, and check package.json or requirements | Developer tools basics, environment setup |
+| `ModuleNotFoundError` / `ImportError` | Whether the correct Python environment is activated, and whether pip installed into the same interpreter | Run `python -c "import package_name"` and `python -m pip show package_name` | Python environment, package management |
+| `docusaurus: command not found` | Whether `npm install` was run, and whether npm scripts are being run from the project root | Run `npm run start` instead of running `docusaurus` directly | Environment setup, course maintenance process |
+| Docusaurus page still shows old content | `.docusaurus`, `build`, browser cache, startup directory | Run `npm run clean` and then restart | This page, course maintenance process |
+| Git push failed | Remote URL, permissions, network proxy, branch name, login status | Run `git remote -v` and `git branch --show-current` | Git and version control |
 
-## Python 与数据错误定位树
+## Python and data error-location tree
 
-| 看到的现象 | 先检查什么 | 最小复现方式 | 推荐回看 |
+| Symptom you see | What to check first | Minimal reproduction | Recommended review |
 | --- | --- | --- | --- |
-| 文件读不到 | 当前工作目录、相对路径、文件名大小写、编码 | 运行 `pwd`，再用最小脚本 `open("路径")` 测试 | Python 文件读写 |
-| JSON 解析失败 | 文件是否是合法 JSON，是否一行一个 JSONL，是否有中文编码问题 | 复制一小段数据单独 `json.loads` | Python 文件与数据结构 |
-| DataFrame 列不存在 | 列名空格、大小写、header 行、读取分隔符 | 打印 `df.columns.tolist()` | Pandas 数据读取与清洗 |
-| 图表中文乱码 | 字体配置、保存格式、运行环境 | 用最小中文标题图测试 | 数据可视化 |
-| SQL 查询为空 | 表名、过滤条件、连接库、事务是否提交 | 先查询前 5 行，再逐步加条件 | 数据库基础 |
+| File cannot be read | Current working directory, relative path, filename case, encoding | Run `pwd`, then test with a minimal script `open("path")` | Python file reading and writing |
+| JSON parsing failed | Whether the file is valid JSON, whether it is JSONL with one JSON object per line, whether there are Chinese encoding issues | Copy a small piece of data and test `json.loads` separately | Python files and data structures |
+| DataFrame column does not exist | Column name spaces, case, header row, read delimiter | Print `df.columns.tolist()` | Pandas data loading and cleaning |
+| Garbled Chinese characters in charts | Font configuration, save format, runtime environment | Test with a minimal chart with a Chinese title | Data visualization |
+| SQL query returns empty | Table name, filter conditions, connected database, whether the transaction was committed | Query the first 5 rows first, then add conditions step by step | Database basics |
 
-## 机器学习与深度学习错误定位树
+## Machine learning and deep learning error-location tree
 
-| 看到的现象 | 先检查什么 | 最小复现方式 | 推荐回看 |
+| Symptom you see | What to check first | Minimal reproduction | Recommended review |
 | --- | --- | --- | --- |
-| 模型分数异常高 | 是否数据泄漏，训练集和测试集是否重复，特征是否包含答案 | 只保留少量特征重新训练 baseline | 特征工程、模型评估 |
-| 训练分数高但验证差 | 过拟合、数据量、正则化、数据增强、划分方式 | 固定随机种子，对比训练/验证曲线 | 深度学习训练技巧 |
-| 模型不收敛 | 学习率、数据归一化、标签格式、loss 是否匹配任务 | 用小数据集过拟合测试 | PyTorch 训练循环 |
-| PyTorch shape mismatch | batch 维、通道维、序列长度、loss 输入格式 | 每层打印 tensor shape | PyTorch 基础、CNN/Transformer |
-| GPU 不工作 | 驱动、CUDA、PyTorch 版本、device 设置 | 运行 `torch.cuda.is_available()` | 深度学习环境 |
+| Model score is unusually high | Whether there is data leakage, whether training and test sets overlap, whether features include the answer | Retrain a baseline with only a small number of features | Feature engineering, model evaluation |
+| Training score is high but validation is poor | Overfitting, data size, regularization, data augmentation, split strategy | Fix the random seed and compare training/validation curves | Deep learning training techniques |
+| Model does not converge | Learning rate, data normalization, label format, whether loss matches the task | Overfit on a small dataset as a test | PyTorch training loops |
+| PyTorch shape mismatch | Batch dimension, channel dimension, sequence length, loss input format | Print tensor shapes at each layer | PyTorch basics, CNN/Transformer |
+| GPU does not work | Driver, CUDA, PyTorch version, device settings | Run `torch.cuda.is_available()` | Deep learning environment |
 
-## LLM 与 RAG 错误定位树
+## LLM and RAG error-location tree
 
-| 看到的现象 | 先检查什么 | 最小复现方式 | 推荐回看 |
+| Symptom you see | What to check first | Minimal reproduction | Recommended review |
 | --- | --- | --- | --- |
-| API 调用失败 | API Key、模型名、额度、网络、请求格式、超时 | 用一个最短 prompt 单独请求 | LLM API 实践 |
-| 输出格式不稳定 | Prompt 是否明确 schema，是否有校验和重试 | 让模型只返回一个最小 JSON | 结构化输出 |
-| RAG 答非所问 | query、chunk、embedding、top-k、rerank、文档范围 | 只打印检索结果，不调用模型 | RAG 基础与检索策略 |
-| 检索不到相关文档 | 文档是否导入、metadata 是否保留、chunk 是否太大或太小 | 用原文关键词直接检索 | 文档处理与向量数据库 |
-| 引用不可信 | 答案是否真的由命中文档支持，引用路径是否记录 | 对比答案句子和引用片段 | RAG 评估 |
-| 成本突然升高 | 上下文过长、重试过多、循环调用、模型选择 | 记录 token、请求次数和每步耗时 | LLM 工程化 |
+| API call failed | API Key, model name, quota, network, request format, timeout | Send one shortest Prompt request by itself | LLM API practice |
+| Output format is unstable | Whether the Prompt clearly defines the schema, and whether there is validation and retry logic | Make the model return only one minimal JSON object | Structured output |
+| RAG answers the wrong question | query, chunk, embedding, top-k, rerank, document scope | Only print retrieval results; do not call the model | RAG basics and retrieval strategies |
+| Cannot retrieve relevant documents | Whether documents were imported, whether metadata was preserved, whether chunks are too large or too small | Search directly with keywords from the original text | Document processing and vector databases |
+| Citations are unreliable | Whether the answer is truly supported by the matched documents, whether citation paths are recorded | Compare answer sentences with the cited snippets | RAG evaluation |
+| Cost suddenly increases | Context too long, too many retries, looping calls, model choice | Record tokens, request count, and time spent at each step | LLM engineering |
 
-## Agent 错误定位树
+## Agent error-location tree
 
-| 看到的现象 | 先检查什么 | 最小复现方式 | 推荐回看 |
+| Symptom you see | What to check first | Minimal reproduction | Recommended review |
 | --- | --- | --- | --- |
-| Agent 无限循环 | 停止条件、最大步数、工具返回是否清晰、目标是否过宽 | 限制 3 步并打印每步计划 | Agent 推理与规划 |
-| 工具参数错误 | schema 字段名、类型、必填项、示例是否清楚 | 直接手写一次工具参数调用 | 工具调用与 Function Calling |
-| 工具调用成功但结果不可用 | 工具返回格式、错误码、空结果处理 | 用固定输入调用工具并打印原始返回 | Agent 工具策略 |
-| 记忆污染 | 是否把错误信息或临时上下文长期保存 | 清空记忆后重跑同一任务 | Agent 记忆工程 |
-| 高风险操作失控 | 是否有人类确认、权限限制、审计日志 | 把工具改成 dry-run 模式测试 | Agent 安全与 Guardrails |
-| 无法复盘失败 | 是否记录 trace、工具输入输出、状态和错误 | 对一次失败任务做 replay | Agent 可观测性 |
+| Agent loops forever | Stop conditions, maximum steps, whether tool outputs are clear, whether the goal is too broad | Limit it to 3 steps and print the plan at each step | Agent reasoning and planning |
+| Tool parameter error | schema field names, types, required fields, whether examples are clear | Manually write one tool parameter call | Tool calling and Function Calling |
+| Tool call succeeded but the result is unusable | Tool return format, error codes, empty-result handling | Call the tool with fixed input and print the raw return value | Agent tool strategy |
+| Memory pollution | Whether error messages or temporary context are being saved long term | Clear memory and rerun the same task | Agent memory engineering |
+| Risky operations go out of control | Whether there is human confirmation, permission limits, audit logs | Change the tool to dry-run mode for testing | Agent safety and Guardrails |
+| Failure cannot be reproduced | Whether trace, tool input/output, state, and errors are recorded | Do a replay of one failed task | Agent observability |
 
-## 部署与工程化错误定位树
+## Deployment and engineering error-location tree
 
-| 看到的现象 | 先检查什么 | 最小复现方式 | 推荐回看 |
+| Symptom you see | What to check first | Minimal reproduction | Recommended review |
 | --- | --- | --- | --- |
-| 本地能跑，部署不能跑 | 环境变量、文件路径、依赖版本、启动命令 | 在干净环境按 README 重跑 | Docker 与部署 |
-| 端口访问失败 | 服务是否启动、端口映射、防火墙、host 配置 | 本机 curl 健康检查接口 | API 设计与部署 |
-| 日志看不到关键错误 | 日志级别、异常捕获、请求 ID | 人为触发一个错误并检查日志 | 日志与监控 |
-| 线上结果和本地不同 | 模型版本、配置、数据索引、缓存 | 打印关键配置和版本 | 工程化最佳实践 |
+| Works locally but not after deployment | Environment variables, file paths, dependency versions, startup command | Rerun in a clean environment according to the README | Docker and deployment |
+| Port access failed | Whether the service has started, port mapping, firewall, host configuration | Curl the health-check endpoint locally | API design and deployment |
+| Logs do not show the key error | Log level, exception handling, request ID | Manually trigger an error and inspect the logs | Logging and monitoring |
+| Online results differ from local results | Model version, configuration, data index, cache | Print the key configuration and versions | Engineering best practices |
 
-## 排障记录模板
+## Troubleshooting record template
 
-每次遇到问题，建议记录下面这些内容。长期积累后，它会变成你自己的工程经验库。
+Each time you encounter a problem, it is recommended to record the following items. Over time, this will become your own engineering experience library.
 
 ```md
-## 问题标题
+## Issue title
 
-### 错误现象
-我执行了什么命令，看到什么错误。
+### Error symptom
+What command I ran and what error I saw.
 
-### 完整报错
-粘贴关键报错，不只贴最后一行。
+### Full error message
+Paste the key error message; do not paste only the last line.
 
-### 复现步骤
-1. 进入哪个目录
-2. 执行什么命令
-3. 使用什么输入或配置
+### Reproduction steps
+1. Which directory to enter
+2. Which command to run
+3. Which input or configuration to use
 
-### 排查过程
-我检查了环境、路径、依赖、数据、参数或日志中的哪些内容。
+### Troubleshooting process
+What environment, paths, dependencies, data, parameters, or logs I checked.
 
-### 最终解决方法
-具体改了什么，为什么有效。
+### Final solution
+What exactly was changed, and why it worked.
 
-### 下次如何避免
-README、脚本、验证命令或测试样例需要补什么。
+### How to avoid it next time
+What should be added to the README, scripts, validation commands, or test cases.
 ```
 
-排障的目标不是“尽快把这次错误压下去”，而是让下一次同类错误更容易定位。每解决一个真实错误，都应该把它沉淀为项目文档、验证脚本、日志字段或测试样例。
+The goal of troubleshooting is not “to suppress this error as quickly as possible,” but to make the next similar error easier to locate. Every time you solve a real error, you should turn it into project documentation, validation scripts, log fields, or test cases.

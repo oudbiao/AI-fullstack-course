@@ -1,73 +1,73 @@
 ---
-title: "5.1 学前导读：特征工程这一章到底在学什么"
+title: "5.1 Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?"
 sidebar_position: 13
-description: "先建立特征工程章的学习地图：理解特征、预处理、构造、选择、Pipeline 为什么在 ML 项目里这么关键。"
-keywords: [特征工程导读, 预处理, 特征构造, 特征选择, Pipeline]
+description: "First build a learning map for the Feature Engineering chapter: understand features, preprocessing, feature construction, feature selection, and why Pipelines are so important in ML projects."
+keywords: [feature engineering guide, preprocessing, feature construction, feature selection, Pipeline]
 ---
 
-# 学前导读：特征工程这一章到底在学什么
+# Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?
 
-![特征工程路线图](/img/course/feature-engineering-roadmap.png)
+![Feature engineering roadmap](/img/course/feature-engineering-roadmap-en.png)
 
-如果说模型是在“学规律”，那特征工程解决的是：
+If a model is “learning patterns,” then feature engineering is about:
 
-> **你给模型看的数据，到底是不是它容易学、值得学、学得稳的数据。**
+> **Whether the data you show the model is actually easy to learn from, worth learning from, and stable to learn from.**
 
-很多时候，模型效果差并不是因为算法不够高级，而是因为输入给模型的特征质量不够好。
+Many times, poor model performance is not because the algorithm is not advanced enough, but because the features fed into the model are not high-quality enough.
 
-## 这一章五节之间的关系
+## The relationship between the five sections in this chapter
 
-![特征工程章节关系图](/img/course/ch05-feature-engineering-chapter-flow.png)
+![Feature engineering chapter flow diagram](/img/course/ch05-feature-engineering-chapter-flow-en.png)
 
-这条线很适合新人：
+This progression is especially suitable for beginners:
 
-- 先看懂手里有什么特征
-- 再把脏数据处理干净
-- 再尝试造出更有信息量的新特征
-- 再删掉冗余或无用特征
-- 最后把整条流程固化成可复用流水线
+- First, understand what features you have
+- Then clean up dirty data
+- Then try to create new features with more information
+- Then remove redundant or useless features
+- Finally, turn the whole process into a reusable pipeline
 
-## 这一章应该和哪几章交叉学
+## Which chapters should be studied together with this one
 
-这一章最适合和下面两章来回穿插：
+This chapter is best studied by alternating with the following two chapters:
 
-- 和第二章监督学习一起学：边建模边体会特征影响
-- 和第四章模型评估一起学：看特征处理到底有没有真的提升效果
+- Study it together with Chapter 2 on supervised learning: build models while feeling how features affect them
+- Study it together with Chapter 4 on model evaluation: see whether feature processing really improves performance
 
-## 新人这一章最该带走什么
+## What beginners should take away from this chapter
 
-- 知道“特征比模型更重要”不是口号，而是实战规律
-- 知道不同类型特征要用不同的处理方式
-- 知道真实项目里为什么必须用 Pipeline 固化流程
+- Understand that “features matter more than models” is not a slogan, but a practical rule
+- Understand that different types of features require different processing methods
+- Understand why real projects must use Pipelines to standardize workflows
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main storyline and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+More experienced learners can treat this chapter as a chance to fill gaps and practice engineering skills: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects with the stages before and after it. After reading, it is best to consolidate the chapter’s content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Recommended study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study mode | Recommended time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick browse | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s small project outcome |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its role in the course in one sentence |
+| What are the minimum input and output? | Can clearly describe what the example needs as input and what result it produces |
+| Where are the common failure points? | Can list at least one cause of errors, poor results, or misunderstandings |
+| What can you document after finishing? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Chapter mini-project outcome
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended to complete a minimal practice task: choose the most core concept or tool in this chapter, and create a small result that can run, be screenshot, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing criteria
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the chapters before and after it, and complete the minimum version of the chapter mini-project outcome.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, that means you have not just “read the content,” but have started turning this chapter into your own project experience.

@@ -1,57 +1,57 @@
 ---
-title: "3.5 链式法则与反向传播预览"
+title: "3.5 Chain Rule and Backpropagation Preview"
 sidebar_position: 12
-description: "理解链式法则如何计算复合函数的导数，用简单的两层网络手动推导反向传播，理解计算图"
-keywords: [链式法则, 反向传播, 计算图, 自动微分, PyTorch, AI数学]
+description: "Understand how the chain rule computes the derivative of composite functions, manually derive backpropagation for a simple two-layer network, and understand computation graphs"
+keywords: [chain rule, backpropagation, computation graph, automatic differentiation, PyTorch, AI math]
 ---
 
-# 链式法则与反向传播预览
+# Chain Rule and Backpropagation Preview
 
-![链式法则计算图与反向传播示意图](/img/course/chain-rule-backprop-graph.png)
+![Diagram of chain rule computation graph and backpropagation](/img/course/chain-rule-backprop-graph-en.png)
 
-:::tip 本节是数学与深度学习的桥梁
-链式法则解释了一个核心问题：**对于一个有几百层的神经网络，怎么算出损失函数对每个参数的导数？** 答案就是反向传播——它本质上就是链式法则的系统化应用。
+:::tip This section is the bridge between mathematics and deep learning
+The chain rule explains a core question: **For a neural network with hundreds of layers, how do we compute the derivative of the loss function with respect to each parameter?** The answer is backpropagation — in essence, it is the systematic application of the chain rule.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解链式法则——复合函数怎么求导
-- 用简单的两层网络手动推导反向传播
-- 理解计算图——为什么 PyTorch 需要它
-- 为第 6 站的深度学习做好准备
+- Understand the chain rule — how to differentiate composite functions
+- Manually derive backpropagation for a simple two-layer network
+- Understand computation graphs — why PyTorch needs them
+- Get ready for deep learning in Station 6
 
-## 先说一个很重要的学习预期
+## First, set a very important learning expectation
 
-这一节是第 4 站里最容易一下子让新人发虚的地方。  
-所以你这一节最先要抓住的，不是每条公式，而是：
+This section is one of the easiest places in Station 4 to make newcomers feel overwhelmed.
+So what you should focus on first in this section is not every formula, but:
 
-- 复杂网络也只是很多简单步骤串起来
-- 反向传播不是神秘算法，而是在一层层应用链式法则
-- PyTorch 的 `backward()` 本质上只是在帮你自动做这件事
+- A complex network is still just many simple steps linked together
+- Backpropagation is not a mysterious algorithm; it is the chain rule applied layer by layer
+- PyTorch’s `backward()` is essentially helping you do this automatically
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-这节课是第 4 站通向第 6 站深度学习的桥。
+This lesson is the bridge from Station 4 to deep learning in Station 6.
 
-![反向传播链式法则桥梁图](/img/course/ch04-backprop-chain-rule-training-bridge.png)
+![Bridge diagram of backpropagation and the chain rule](/img/course/ch04-backprop-chain-rule-training-bridge-en.png)
 
-如果前面你学的是：
+If what you learned before was:
 
-- 导数：一个量怎么变
-- 梯度：很多量一起怎么变
-- 梯度下降：怎样更新参数
+- Derivatives: how one quantity changes
+- Gradients: how many quantities change together
+- Gradient descent: how to update parameters
 
-那这节课要补上的就是：
+Then what this lesson adds is:
 
-- 在一个很多层的网络里，梯度到底怎么一层层算回来
+- In a many-layer network, how the gradient is actually computed layer by layer
 
-## 一、链式法则——"洋葱剥皮法"
+## 1. The Chain Rule — the "Peel the Onion" Method
 
-### 1.1 直觉
+### 1.1 Intuition
 
-如果一个函数是"套娃"结构——外面套外面，那它的导数就是**一层一层剥开，每层的导数乘起来**。
+If a function has a nested structure — one function wrapped inside another — then its derivative is **found by peeling it layer by layer and multiplying the derivatives at each layer**.
 
 ```mermaid
 flowchart LR
@@ -63,56 +63,55 @@ flowchart LR
     style Y fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-**链式法则：dy/dx = (dy/du) × (du/dx)**
+**Chain rule: dy/dx = (dy/du) × (du/dx)**
 
-"y 对 x 的变化率 = y 对 u 的变化率 × u 对 x 的变化率"
+"The rate of change of y with respect to x = the rate of change of y with respect to u × the rate of change of u with respect to x"
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A more beginner-friendly analogy
 
-你可以把链式法则先想成一排齿轮：
+You can first think of the chain rule as a row of gears:
 
-- 第一个齿轮动一点
-- 会带着第二个齿轮动
-- 第二个又带着第三个动
+- The first gear turns a little
+- It causes the second gear to turn
+- The second gear then drives the third
 
-所以最后一个量怎么变，  
-取决于中间每一层“传递变化”的倍率。
+So how the last quantity changes depends on the multiplier for “passing along change” at each intermediate layer.
 
-这就是为什么链式法则的核心动作是：
+That is why the core action of the chain rule is:
 
-- 一层一层往里拆
-- 一层一层把变化率乘起来
+- Break the function apart layer by layer
+- Multiply the rates of change layer by layer
 
-### 1.2 生活直觉
+### 1.2 Everyday intuition
 
-你的工资涨了 10%，物价涨了 5%，你的实际购买力变了多少？
+If your salary increases by 10% and prices increase by 5%, how does your real purchasing power change?
 
-- 工资变化 → 影响钱包 → 影响购买力
-- 总变化 = 工资变化率 × 转换率
+- Salary change → affects your wallet → affects purchasing power
+- Total change = salary change rate × conversion rate
 
-每一环节的变化率相乘 = 总的变化率。
+Multiply the change rates of each step = the overall change rate.
 
-### 1.3 计算示例
+### 1.3 Calculation Example
 
 ```python
 import numpy as np
 
-# 例子：y = (3x + 2)²
-# 分解：u = 3x + 2, y = u²
+# Example: y = (3x + 2)²
+# Decomposition: u = 3x + 2, y = u²
 # dy/dx = dy/du × du/dx = 2u × 3 = 6(3x + 2)
 
-# 方法 1：链式法则
+# Method 1: Chain rule
 def chain_rule_example(x):
-    u = 3 * x + 2        # 内函数
-    y = u ** 2            # 外函数
-    
-    du_dx = 3             # 内函数的导数
-    dy_du = 2 * u         # 外函数的导数
-    dy_dx = dy_du * du_dx # 链式法则
-    
+    u = 3 * x + 2        # inner function
+    y = u ** 2            # outer function
+
+    du_dx = 3             # derivative of inner function
+    dy_du = 2 * u         # derivative of outer function
+    dy_dx = dy_du * du_dx # chain rule
+
     return y, dy_dx
 
-# 方法 2：数值验证
+# Method 2: numerical check
 def numerical_derivative(f, x, h=1e-7):
     return (f(x + h) - f(x - h)) / (2 * h)
 
@@ -123,17 +122,17 @@ y, dy_dx_chain = chain_rule_example(x0)
 dy_dx_numerical = numerical_derivative(f, x0)
 
 print(f"x = {x0}")
-print(f"  链式法则: dy/dx = {dy_dx_chain}")
-print(f"  数值验证: dy/dx = {dy_dx_numerical:.4f}")
+print(f"  Chain rule: dy/dx = {dy_dx_chain}")
+print(f"  Numerical check: dy/dx = {dy_dx_numerical:.4f}")
 ```
 
-### 1.4 多层链式法则
+### 1.4 Multi-layer chain rule
 
-如果有更多层嵌套呢？照样一层层剥：
+What if there are even more nested layers? The same idea still works, layer by layer:
 
 ```python
 # y = sin(exp(x²))
-# 分解：a = x², b = exp(a), y = sin(b)
+# Decomposition: a = x², b = exp(a), y = sin(b)
 # dy/dx = dy/db × db/da × da/dx
 #       = cos(b) × exp(a) × 2x
 
@@ -148,25 +147,25 @@ dy_db = np.cos(b)
 
 dy_dx = dy_db * db_da * da_dx
 
-# 数值验证
+# Numerical check
 f = lambda x: np.sin(np.exp(x**2))
 dy_dx_num = numerical_derivative(f, x0)
 
-print(f"链式法则: {dy_dx:.6f}")
-print(f"数值验证: {dy_dx_num:.6f}")
+print(f"Chain rule: {dy_dx:.6f}")
+print(f"Numerical check: {dy_dx_num:.6f}")
 ```
 
 ---
 
-## 二、反向传播——链式法则的系统化
+## 2. Backpropagation — a Systematic Use of the Chain Rule
 
-### 2.1 一个两层神经网络
+### 2.1 A Two-Layer Neural Network
 
 ```mermaid
 flowchart LR
-    X["输入 x"] --> H["隐藏层<br/>h = relu(w1·x + b1)"]
-    H --> O["输出层<br/>y = w2·h + b2"]
-    O --> L["损失<br/>L = (y - target)²"]
+    X["Input x"] --> H["Hidden layer<br/>h = relu(w1·x + b1)"]
+    H --> O["Output layer<br/>y = w2·h + b2"]
+    O --> L["Loss<br/>L = (y - target)²"]
 
     style X fill:#e3f2fd,stroke:#1565c0,color:#333
     style H fill:#fff3e0,stroke:#e65100,color:#333
@@ -174,66 +173,66 @@ flowchart LR
     style L fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 前向传播（Forward Pass）
+### 2.2 Forward Pass
 
 ```python
-# 简单的两层网络
+# A simple two-layer network
 np.random.seed(42)
 
-# 输入和目标
+# Input and target
 x = 2.0
 target = 1.0
 
-# 参数
+# Parameters
 w1 = 0.5
 b1 = 0.1
 w2 = -0.3
 b2 = 0.2
 
-# --- 前向传播 ---
-# 第 1 层：线性 + ReLU
+# --- Forward pass ---
+# Layer 1: linear + ReLU
 z1 = w1 * x + b1
 h = max(0, z1)       # ReLU
 
-# 第 2 层：线性
+# Layer 2: linear
 y = w2 * h + b2
 
-# 损失
+# Loss
 loss = (y - target) ** 2
 
-print("=== 前向传播 ===")
+print("=== Forward Pass ===")
 print(f"z1 = w1*x + b1 = {w1}*{x} + {b1} = {z1}")
 print(f"h  = ReLU(z1) = {h}")
 print(f"y  = w2*h + b2 = {w2}*{h} + {b2} = {y}")
 print(f"loss = (y - target)² = ({y} - {target})² = {loss:.4f}")
 ```
 
-### 2.2.1 为什么一定要先算前向，再谈反向？
+### 2.2.1 Why must we always compute the forward pass before the backward pass?
 
-因为反向传播不是凭空发生的。  
-它必须建立在前向传播已经把这些中间量算出来的基础上：
+Because backpropagation does not happen out of thin air.
+It must be based on the intermediate values already computed during the forward pass:
 
 - `z1`
 - `h`
 - `y`
 - `loss`
 
-所以一个很稳的理解方式是：
+So a very stable way to understand it is:
 
-- 前向是在把路径铺出来
-- 反向是在沿着这条路径把梯度一层层传回来
+- The forward pass lays out the path
+- The backward pass follows this path and sends gradients back layer by layer
 
-### 2.3 反向传播（Backward Pass）
+### 2.3 Backward Pass
 
-**从损失开始，逐层往回算每个参数的梯度：**
+**Starting from the loss, compute the gradient of each parameter layer by layer:**
 
 ```python
-# --- 反向传播 ---
-# 从最后一层开始，用链式法则一层层往回算
+# --- Backward pass ---
+# Start from the last layer and work backward using the chain rule
 
 # dL/dy
 dL_dy = 2 * (y - target)
-print(f"\n=== 反向传播 ===")
+print(f"\n=== Backward Pass ===")
 print(f"dL/dy = 2*(y-target) = {dL_dy:.4f}")
 
 # dL/dw2 = dL/dy × dy/dw2 = dL/dy × h
@@ -248,7 +247,7 @@ print(f"dL/db2 = dL/dy × 1 = {dL_db2:.4f}")
 dL_dh = dL_dy * w2
 print(f"dL/dh  = dL/dy × w2 = {dL_dy:.4f} × {w2} = {dL_dh:.4f}")
 
-# dL/dz1 = dL/dh × dh/dz1（ReLU 的导数：z1>0 时为 1，否则为 0）
+# dL/dz1 = dL/dh × dh/dz1 (ReLU derivative: 1 when z1 > 0, otherwise 0)
 relu_grad = 1.0 if z1 > 0 else 0.0
 dL_dz1 = dL_dh * relu_grad
 print(f"dL/dz1 = dL/dh × relu'(z1) = {dL_dh:.4f} × {relu_grad} = {dL_dz1:.4f}")
@@ -262,39 +261,39 @@ dL_db1 = dL_dz1 * 1
 print(f"dL/db1 = dL/dz1 × 1 = {dL_db1:.4f}")
 ```
 
-### 2.4 用梯度更新参数
+### 2.4 Update Parameters with the Gradients
 
 ```python
 lr = 0.1
 
-print(f"\n=== 参数更新 (lr={lr}) ===")
+print(f"\n=== Parameter Update (lr={lr}) ===")
 print(f"w1: {w1:.4f} → {w1 - lr * dL_dw1:.4f}")
 print(f"b1: {b1:.4f} → {b1 - lr * dL_db1:.4f}")
 print(f"w2: {w2:.4f} → {w2 - lr * dL_dw2:.4f}")
 print(f"b2: {b2:.4f} → {b2 - lr * dL_db2:.4f}")
 
-# 更新
+# Update
 w1 -= lr * dL_dw1
 b1 -= lr * dL_db1
 w2 -= lr * dL_dw2
 b2 -= lr * dL_db2
 
-# 验证损失减小了
+# Check whether the loss decreased
 z1_new = w1 * x + b1
 h_new = max(0, z1_new)
 y_new = w2 * h_new + b2
 loss_new = (y_new - target) ** 2
 
-print(f"\n损失变化: {loss:.4f} → {loss_new:.4f} ({'↓ 减小了！' if loss_new < loss else '↑ 增大了'})")
+print(f"\nLoss change: {loss:.4f} → {loss_new:.4f} ({'↓ decreased!' if loss_new < loss else '↑ increased'})")
 ```
 
 ---
 
-## 三、计算图——反向传播的数据结构
+## 3. Computation Graphs — the Data Structure Behind Backpropagation
 
-### 3.1 什么是计算图？
+### 3.1 What Is a Computation Graph?
 
-**计算图 = 把每一步运算画成一个节点的有向图。**
+**Computation graph = a directed graph that represents each operation as a node.**
 
 ```mermaid
 flowchart LR
@@ -315,71 +314,71 @@ flowchart LR
     style L fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-**前向传播**：沿箭头方向计算，从输入算到损失。
+**Forward pass**: compute in the direction of the arrows, from input to loss.
 
-**反向传播**：逆着箭头方向，从损失算回每个参数的梯度。
+**Backward pass**: go against the arrows, from the loss back to each parameter’s gradient.
 
-### 3.1.1 为什么计算图会让这件事突然变清楚？
+### 3.1.1 Why does a computation graph suddenly make everything clear?
 
-因为它把“复杂网络”还原成了很多个小节点：
+Because it reduces a “complex network” into many small nodes:
 
-- 乘法
-- 加法
-- 激活
-- 损失
+- Multiplication
+- Addition
+- Activation
+- Loss
 
-一旦你把网络看成这些节点串起来的图，  
-反向传播就不再像魔法，而更像：
+Once you see the network as a graph made of these connected nodes,
+backpropagation no longer feels like magic, but more like:
 
-- 沿着图把梯度一层层传回去
+- Sending gradients back along the graph layer by layer
 
-### 3.2 为什么 PyTorch 需要计算图？
+### 3.2 Why Does PyTorch Need a Computation Graph?
 
 ```python
-# 在 PyTorch 中（第 6 站会详细学）
+# In PyTorch (we will study this in detail in Station 6)
 # import torch
-# 
+#
 # x = torch.tensor(2.0)
 # w1 = torch.tensor(0.5, requires_grad=True)
 # b1 = torch.tensor(0.1, requires_grad=True)
 # w2 = torch.tensor(-0.3, requires_grad=True)
 # b2 = torch.tensor(0.2, requires_grad=True)
-# 
-# # 前向传播（PyTorch 自动构建计算图）
+#
+# # Forward pass (PyTorch automatically builds the computation graph)
 # h = torch.relu(w1 * x + b1)
 # y = w2 * h + b2
 # loss = (y - 1.0) ** 2
-# 
-# # 反向传播（一行代码，自动算所有梯度！）
+#
+# # Backward pass (one line of code, all gradients computed automatically!)
 # loss.backward()
-# 
+#
 # print(w1.grad)  # dL/dw1
 # print(b1.grad)  # dL/db1
 # print(w2.grad)  # dL/dw2
 # print(b2.grad)  # dL/db2
 ```
 
-PyTorch 在前向传播时自动记录每一步操作（构建计算图），然后 `loss.backward()` 沿着图反向传播，用链式法则自动计算每个参数的梯度。
+During the forward pass, PyTorch automatically records each operation it performs (building the computation graph), and then `loss.backward()` propagates backward along the graph, using the chain rule to compute the gradient of each parameter automatically.
 
-:::info 为什么这么厉害？
-手动算 4 个参数的梯度已经很麻烦了。GPT-3 有 1750 亿个参数——不可能手算。PyTorch 的自动微分引擎（autograd）让你只需要写前向传播代码，梯度计算完全自动化。
+:::info Why is this so powerful?
+Manually computing the gradients of 4 parameters is already tedious. GPT-3 has 175 billion parameters — manual calculation would be impossible. PyTorch’s automatic differentiation engine (`autograd`) lets you write only the forward pass code, while gradient computation is fully automated.
 :::
 
 ---
 
-## 四、完整示例：训练一个小网络
+## 4. Full Example: Training a Small Network
 
-把前向传播 + 反向传播 + 参数更新放在一起，训练一个两层网络：
+Put the forward pass + backward pass + parameter update together to train a two-layer network:
 
 ```python
 import matplotlib.pyplot as plt
 
-# 数据
+# Data
 np.random.seed(42)
 X_data = np.random.uniform(-2, 2, 50)
-y_data = X_data ** 2 + np.random.randn(50) * 0.3  # y = x² + 噪声
+y_data = X_data ** 2 + np.random.randn(50) * 0.3  # y = x² + noise
 
-# 两层网络参数
+# Two-layer network parameters
 w1 = np.random.randn()
 b1 = 0.0
 w2 = np.random.randn()
@@ -390,16 +389,16 @@ losses = []
 
 for epoch in range(500):
     total_loss = 0
-    
+
     for x, target in zip(X_data, y_data):
-        # === 前向传播 ===
+        # === Forward pass ===
         z1 = w1 * x + b1
         h = max(0, z1)
         y_pred = w2 * h + b2
         loss = (y_pred - target) ** 2
         total_loss += loss
-        
-        # === 反向传播 ===
+
+        # === Backward pass ===
         dL_dy = 2 * (y_pred - target)
         dL_dw2 = dL_dy * h
         dL_db2 = dL_dy
@@ -407,24 +406,24 @@ for epoch in range(500):
         dL_dz1 = dL_dh * (1.0 if z1 > 0 else 0.0)
         dL_dw1 = dL_dz1 * x
         dL_db1 = dL_dz1
-        
-        # === 更新参数 ===
+
+        # === Update parameters ===
         w1 -= lr * dL_dw1
         b1 -= lr * dL_db1
         w2 -= lr * dL_dw2
         b2 -= lr * dL_db2
-    
+
     losses.append(total_loss / len(X_data))
     if epoch % 100 == 0:
         print(f"Epoch {epoch}: loss = {losses[-1]:.4f}")
 
-# 可视化
+# Visualization
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 axes[0].plot(losses, color='coral', linewidth=2)
 axes[0].set_xlabel('Epoch')
 axes[0].set_ylabel('Loss')
-axes[0].set_title('训练损失')
+axes[0].set_title('Training Loss')
 axes[0].grid(True, alpha=0.3)
 
 x_test = np.linspace(-2, 2, 200)
@@ -434,10 +433,10 @@ for x in x_test:
     h = max(0, z1)
     y_pred_test.append(w2 * h + b2)
 
-axes[1].scatter(X_data, y_data, alpha=0.4, s=20, color='gray', label='数据')
-axes[1].plot(x_test, x_test**2, 'g--', linewidth=2, label='y = x²（真实）')
-axes[1].plot(x_test, y_pred_test, 'r-', linewidth=2, label='网络预测')
-axes[1].set_title('拟合结果（两层网络，1 个隐藏神经元）')
+axes[1].scatter(X_data, y_data, alpha=0.4, s=20, color='gray', label='Data')
+axes[1].plot(x_test, x_test**2, 'g--', linewidth=2, label='y = x² (true)')
+axes[1].plot(x_test, y_pred_test, 'r-', linewidth=2, label='Network prediction')
+axes[1].set_title('Fit result (two-layer network, 1 hidden neuron)')
 axes[1].legend()
 axes[1].grid(True, alpha=0.3)
 
@@ -445,32 +444,32 @@ plt.tight_layout()
 plt.show()
 ```
 
-:::tip 只有 1 个神经元的局限
-这个网络只有 1 个隐藏神经元（本质上是一个分段线性函数），不足以完美拟合 x²。增加更多神经元就能更好地拟合——这就是第 6 站要学的内容。
+:::tip Limitation of using only 1 neuron
+This network has only 1 hidden neuron (essentially a piecewise linear function), so it is not enough to perfectly fit x². Adding more neurons can fit it better — this is what you will learn in Station 6.
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 |
+| Concept | Intuition |
 |------|------|
-| 链式法则 | 复合函数的导数 = 每层导数相乘 |
-| 前向传播 | 从输入到损失，逐步计算 |
-| 反向传播 | 从损失到参数，逐步算梯度 |
-| 计算图 | 记录运算步骤，支持自动求导 |
-| 自动微分 | PyTorch 帮你自动算所有梯度 |
+| Chain rule | The derivative of a composite function = the product of derivatives at each layer |
+| Forward pass | Compute step by step from input to loss |
+| Backward pass | Compute gradients step by step from loss back to parameters |
+| Computation graph | Records the operations and supports automatic differentiation |
+| Automatic differentiation | PyTorch automatically computes all gradients for you |
 
-## 这节最该带走什么
+## What should you take away from this lesson?
 
-- 链式法则最重要的直觉是“变化会沿着多层结构一层层传下去”
-- 反向传播最重要的直觉是“从损失开始，把梯度一层层传回来”
-- 计算图最重要的价值是把这件事变成可记录、可自动化的过程
+- The most important intuition of the chain rule is that “changes pass through multiple layers step by step”
+- The most important intuition of backpropagation is that “starting from the loss, gradients are passed back layer by layer”
+- The most important value of a computation graph is that it turns this into a process that can be recorded and automated
 
 ```mermaid
 flowchart LR
-    FW["前向传播<br/>输入 → 损失"] --> BW["反向传播<br/>损失 → 梯度"]
-    BW --> UP["参数更新<br/>梯度下降"]
+    FW["Forward pass<br/>Input → Loss"] --> BW["Backward pass<br/>Loss → Gradients"]
+    BW --> UP["Parameter update<br/>Gradient descent"]
     UP --> FW
 
     style FW fill:#e3f2fd,stroke:#1565c0,color:#333
@@ -478,46 +477,46 @@ flowchart LR
     style UP fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-:::info 本章回顾 & 阶段总结
-微积分三节课 + 本节，你学到了：
-1. **导数**：变化的速度，优化的方向
-2. **偏导数与梯度**：多变量时的方向，指向上升最快处
-3. **梯度下降**：AI 训练的核心——沿负梯度方向一步步走
-4. **链式法则与反向传播**：高效计算每个参数的梯度
+:::info Chapter Review & Stage Summary
+In the three calculus lessons + this lesson, you learned:
+1. **Derivatives**: the speed of change, and the direction for optimization
+2. **Partial derivatives and gradients**: the direction in a multivariable setting, pointing toward the steepest ascent
+3. **Gradient descent**: the core of AI training — taking steps along the negative gradient
+4. **Chain rule and backpropagation**: efficiently computing the gradient of each parameter
 
-**🔖 第 4 站完成！**
+**🔖 Station 4 complete!**
 
-你现在已经掌握了 AI 所需的三大数学基础：
-- **线性代数**：向量、矩阵、特征值——数据表示和变换
-- **概率统计**：概率分布、贝叶斯、MLE——不确定性和损失函数
-- **微积分**：导数、梯度、梯度下降——模型如何学习
+You now have mastered the three major mathematical foundations needed for AI:
+- **Linear algebra**: vectors, matrices, eigenvalues — data representation and transformation
+- **Probability and statistics**: probability distributions, Bayes, MLE — uncertainty and loss functions
+- **Calculus**: derivatives, gradients, gradient descent — how models learn
 
-**🔀 下一步**：进入**第 5 站·机器学习**，把这些数学工具用在实际的机器学习算法上。
+**🔀 Next step**: move on to **Station 5 · Machine Learning** and apply these mathematical tools to practical machine learning algorithms.
 :::
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：链式法则手算
+### Exercise 1: Manual Chain Rule
 
-对 y = (2x + 1)³，用链式法则求 dy/dx，在 x=1 处验证。
+For y = (2x + 1)³, use the chain rule to find dy/dx, and verify it at x = 1.
 
-### 练习 2：扩展网络
+### Exercise 2: Extend the Network
 
-把第四节的两层网络改为有 3 个隐藏神经元（w1 变成 3 个权重），手动写出前向传播和反向传播代码。
+Change the two-layer network in Section 4 to have 3 hidden neurons (w1 becomes 3 weights), and manually write out the forward pass and backward pass code.
 
-### 练习 3：对比手动 vs 自动
+### Exercise 3: Compare Manual vs. Automatic
 
-如果你已经安装了 PyTorch，用 `torch.autograd` 计算第二节中所有参数的梯度，和手算结果对比。
+If you have PyTorch installed, use `torch.autograd` to compute the gradients of all parameters in Section 2, and compare them with your manual results.
 
 ```python
-# 提示
+# Hint
 import torch
 
 x = torch.tensor(2.0)
 w1 = torch.tensor(0.5, requires_grad=True)
-# ... 补充代码 ...
+# ... add code here ...
 # loss.backward()
 # print(w1.grad)
 ```

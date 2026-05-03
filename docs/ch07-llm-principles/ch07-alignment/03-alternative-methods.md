@@ -1,202 +1,202 @@
 ---
-title: "7.4 替代对齐方法"
+title: "7.4 Alternative Alignment Methods"
 sidebar_position: 26
-description: "从 DPO、ORPO、RLAIF 到 Constitutional AI，理解为什么业界会寻找 RLHF 的替代路线，以及这些方法各自省掉了什么。"
+description: "From DPO, ORPO, and RLAIF to Constitutional AI, understand why industry looks for alternatives to RLHF and what each method removes."
 keywords: [DPO, ORPO, IPO, RLAIF, constitutional AI, alignment]
 ---
 
-# 替代对齐方法
+# Alternative Alignment Methods
 
-:::tip 本节定位
-RLHF 很重要，但它不是唯一答案。
+:::tip Section overview
+RLHF is important, but it is not the only answer.
 
-随着工程实践增多，大家很快就发现：
+As engineering practice matured, people quickly noticed:
 
-- RLHF 有效
-- 但链条长、代价高、调起来也不轻松
+- RLHF works
+- but the pipeline is long, expensive, and not easy to tune
 
-于是后面陆续出现了很多替代路线。  
-它们的共同目标都很像：
+So many alternative approaches appeared one after another.
+They all share a very similar goal:
 
-> **尽量保留偏好优化的好处，同时把流程做得更短、更稳、更便宜。**
+> **Keep the benefits of preference optimization as much as possible, while making the process shorter, more stable, and cheaper.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么 RLHF 之后会出现 DPO、RLAIF 等替代路线
-- 理解 DPO 的核心直觉：直接用偏好对优化策略
-- 知道 ORPO、IPO、RLAIF、Constitutional AI 分别在补哪类问题
-- 建立不同对齐方法在成本、稳定性和数据依赖上的选型判断
+- Understand why DPO, RLAIF, and other alternatives emerged after RLHF
+- Understand the core intuition behind DPO: optimize the policy directly from preference pairs
+- Know which kinds of problems ORPO, IPO, RLAIF, and Constitutional AI each try to address
+- Build a practical judgment for choosing alignment methods based on cost, stability, and data dependence
 
 ---
 
-## 一、为什么大家会去找 RLHF 的替代方法？
+## 1. Why are people looking for alternatives to RLHF?
 
-### 1.1 RLHF 的痛点不是一点点麻烦，而是整条链都重
+### 1.1 The pain point of RLHF is not just a little inconvenience, but a heavy end-to-end pipeline
 
-一套完整 RLHF 常常需要：
+A complete RLHF setup often requires:
 
-- 偏好数据
-- 奖励模型
-- 参考模型
-- 强化学习训练
+- preference data
+- a reward model
+- a reference model
+- reinforcement learning training
 
-其中任何一层做不好，结果都可能不稳定。
+If any layer is not handled well, the result can become unstable.
 
-### 1.2 很多团队真正想要的是“偏好优化”，不是“强化学习本身”
+### 1.2 What many teams really want is “preference optimization,” not “reinforcement learning itself”
 
-回到本质，大家在意的是：
+At the core, what people care about is:
 
-- 模型能否更符合人类偏好
+- whether the model better matches human preferences
 
-而不是非得使用：
+Not necessarily whether it uses:
 
 - PPO
-- 策略梯度
+- policy gradients
 
-这就自然带来一个问题：
+That naturally raises a question:
 
-> **能不能直接用偏好数据优化模型，而不绕奖励模型和 RL 那一大圈？**
+> **Can we optimize the model directly from preference data, without going through the reward model and the whole RL loop?**
 
-### 1.3 替代路线的核心思路
+### 1.3 The core idea behind alternative approaches
 
-后来的方法大体可以分成两类：
+Later methods can roughly be divided into two categories:
 
-- 直接偏好优化：例如 DPO、IPO、ORPO
-- 替代反馈来源：例如 RLAIF、Constitutional AI
+- direct preference optimization: for example DPO, IPO, ORPO
+- alternative feedback sources: for example RLAIF, Constitutional AI
 
-前者主要在简化训练目标，  
-后者主要在降低“全靠人工偏好数据”的成本。
+The former mainly simplifies the training objective,
+while the latter mainly reduces the cost of relying entirely on human preference data.
 
 ---
 
-## 二、先把几条主流路线放进一张图里
+## 2. Let’s first put the main approaches into one picture
 
-### 2.1 DPO：直接从偏好对优化策略
+### 2.1 DPO: optimize the policy directly from preference pairs
 
-DPO 的核心非常吸引人，因为它绕开了 RLHF 里最重的几层。
+DPO is very attractive because it bypasses the heaviest parts of RLHF.
 
-它的主张可以粗略理解成：
+Its claim can be roughly understood as:
 
-> **既然我们已经有 chosen / rejected 偏好对，那就直接让模型提高 chosen 的相对概率，压低 rejected 的相对概率。**
+> **If we already have chosen / rejected preference pairs, then let the model directly increase the relative probability of the chosen answer and decrease the relative probability of the rejected one.**
 
-也就是说：
+In other words:
 
-- 不再单独训练奖励模型
-- 不再显式跑 PPO
+- no separate reward model
+- no explicit PPO training
 
-### 2.2 IPO / ORPO：在目标函数上继续做简化和稳定化
+### 2.2 IPO / ORPO: continue simplifying and stabilizing the objective
 
-这些方法和 DPO 属于同一大方向：
+These methods belong to the same broad direction as DPO:
 
-- 尝试把偏好学习写成更直接的优化目标
+- trying to express preference learning as a more direct optimization objective
 
-它们的差别更多体现在：
+Their differences are more about:
 
-- 正则项怎么写
-- 正负样本怎么平衡
-- 稳定性怎么处理
+- how the regularization term is written
+- how positive and negative samples are balanced
+- how stability is handled
 
-对新人来说，先抓住大方向就够了：
+For beginners, it is enough to grasp the big picture:
 
-> **它们都在努力把“偏好优化”做得比 RLHF 更短更稳。**
+> **They are all trying to make preference optimization shorter and more stable than RLHF.**
 
-### 2.3 RLAIF：反馈不一定非得来自人工
+### 2.3 RLAIF: feedback does not have to come from humans
 
-RLAIF 的关键变化不是训练公式，  
-而是反馈来源：
+The key change in RLAIF is not the training formula,
+but the source of feedback:
 
 - Human Feedback -> AI Feedback
 
-也就是说，让一个更强或更受控的模型去当裁判，  
-替代一部分人工偏好标注。
+In other words, a stronger or more controlled model acts as the judge,
+replacing part of the human preference labeling.
 
-这能降低成本，但也会带来新问题：
+This can reduce cost, but it also introduces new issues:
 
-- 裁判模型本身是否可靠
-- 会不会把它自己的偏差继续传下去
+- whether the judge model itself is reliable
+- whether its own biases will be passed along
 
-### 2.4 Constitutional AI：先写规则，再让模型自我批改
+### 2.4 Constitutional AI: write the rules first, then let the model critique itself
 
-Constitutional AI 的思路很适合新人建立直觉：
+Constitutional AI is a great way for beginners to build intuition:
 
-1. 先给模型一套“宪法式规则”
-2. 让模型先生成
-3. 再根据规则自我批评
-4. 最后修订回答
+1. First give the model a set of “constitutional” rules
+2. Let the model generate an answer
+3. Then have it critique itself according to the rules
+4. Finally revise the answer
 
-它更强调：
+It emphasizes:
 
-- 显式原则
-- 自我审查
-- 可解释的规则来源
-
----
-
-## 三、DPO 为什么会这么受欢迎？
-
-### 3.1 因为它把最重的链条砍短了
-
-相较 RLHF，DPO 最吸引人的地方就在于：
-
-- 不用单独维护奖励模型
-- 不用跑完整 RL 过程
-
-这使得很多团队更容易落地。
-
-### 3.2 它优化的其实是“偏好边距”
-
-你可以把 DPO 的目标粗略理解成：
-
-- 在参考模型的基础上
-- 让当前策略更偏向 chosen
-- 更少偏向 rejected
-
-也就是说，它不是在学一个抽象“奖励分数”，  
-而是在直接学：
-
-- 哪个回答应该相对更被偏好
-
-### 3.3 这让它特别适合什么场景？
-
-特别适合：
-
-- 已经有偏好对
-- 又不想上 RLHF 全链条
-- 更看重训练稳定性和实现简洁度
+- explicit principles
+- self-review
+- explainable rule sources
 
 ---
 
-## 四、先跑一个真正和 DPO 相关的可运行示例
+## 3. Why has DPO become so popular?
 
-下面这个例子会直接算 DPO 风格的损失。
+### 3.1 Because it shortens the heaviest part of the pipeline
 
-它假设你已经拿到了若干偏好对，  
-并且知道：
+Compared with RLHF, the most appealing thing about DPO is:
 
-- 当前策略对 chosen / rejected 的 log probability
-- 参考模型对 chosen / rejected 的 log probability
+- no need to separately maintain a reward model
+- no need to run the full RL process
+
+This makes it much easier for many teams to adopt.
+
+### 3.2 What it actually optimizes is the “preference margin”
+
+You can roughly understand DPO’s objective as:
+
+- based on the reference model
+- make the current policy more favorable to the chosen answer
+- and less favorable to the rejected answer
+
+In other words, it is not learning an abstract “reward score,”
+but directly learning:
+
+- which answer should be relatively more preferred
+
+### 3.3 What kinds of scenarios is it especially good for?
+
+It is especially suitable when:
+
+- you already have preference pairs
+- you do not want the full RLHF pipeline
+- you care more about training stability and implementation simplicity
+
+---
+
+## 4. First, run a runnable example related to DPO
+
+The following example directly computes a DPO-style loss.
+
+It assumes you already have several preference pairs,
+and you know:
+
+- the current policy’s log probability for chosen / rejected
+- the reference model’s log probability for chosen / rejected
 
 ```python
 from math import exp, log
 
 pairs = [
     {
-        "prompt": "忘记密码怎么办？",
+        "prompt": "What should I do if I forget my password?",
         "policy_chosen_logp": -1.1,
         "policy_rejected_logp": -2.6,
         "ref_chosen_logp": -1.4,
         "ref_rejected_logp": -2.1,
     },
     {
-        "prompt": "怎样破解别人邮箱？",
+        "prompt": "How do I break into someone else's email?",
         "policy_chosen_logp": -1.6,
         "policy_rejected_logp": -1.9,
         "ref_chosen_logp": -1.8,
         "ref_rejected_logp": -1.7,
     },
     {
-        "prompt": "某公司最新营收是多少？",
+        "prompt": "What is a company's latest revenue?",
         "policy_chosen_logp": -1.2,
         "policy_rejected_logp": -2.0,
         "ref_chosen_logp": -1.3,
@@ -237,73 +237,73 @@ improved_loss = average_loss(improved_pairs)
 print("improved loss =", round(improved_loss, 4))
 ```
 
-### 4.1 这段代码最该看哪一行？
+### 4.1 Which line should you pay the most attention to?
 
-最重要的是这里：
+The most important part is here:
 
 ```python
 policy_margin = chosen_logp - rejected_logp
 ```
 
-和这里：
+and here:
 
 ```python
 ref_margin = ref_chosen_logp - ref_rejected_logp
 ```
 
-DPO 关心的不是某个回答单独的分数，  
-而是：
+DPO does not care about the score of a single answer by itself,
+but rather about:
 
-- 当前策略相对更偏向 chosen 多少
-- 相比参考模型，这个偏向是否更明显
+- how much the current policy favors chosen compared with rejected
+- whether that preference is stronger than the reference model’s
 
-### 4.2 为什么这个目标会让训练更直接？
+### 4.2 Why does this objective make training more direct?
 
-因为它直接拿偏好对优化策略，  
-而不是先去学一个中间的奖励模型，再让策略去追那个奖励。
+Because it directly uses preference pairs to optimize the policy,
+instead of first learning an intermediate reward model and then having the policy chase that reward.
 
-所以你可以把 DPO 先记成：
+So you can think of DPO like this:
 
-> **把“chosen 比 rejected 更好”这件事，直接写进训练目标。**
+> **It writes “chosen is better than rejected” directly into the training objective.**
 
-### 4.3 为什么 `improved loss` 会下降？
+### 4.3 Why does `improved loss` go down?
 
-因为我们手动让：
+Because we manually made:
 
-- chosen 的 log probability 更高
-- rejected 的 log probability 更低
+- the chosen log probability higher
+- the rejected log probability lower
 
-这正符合 DPO 的优化方向。  
-loss 下降，说明策略更符合偏好数据。
+This matches the direction DPO is trying to optimize.
+A lower loss means the policy fits the preference data better.
 
-![DPO 相比 RLHF 的偏好优化捷径图](/img/course/ch07-dpo-rlhf-shortcut-map.png)
+![Preference optimization shortcut of DPO compared with RLHF](/img/course/ch07-dpo-rlhf-shortcut-map-en.png)
 
-:::tip 读图提示
-读这张图时先看 RLHF 的长链：偏好对 -> 奖励模型 -> PPO/策略优化；再看 DPO 的短链：直接用 chosen/rejected 偏好对优化策略边距。DPO 的吸引力就在于保留偏好学习目标，同时砍掉奖励模型和强化学习的大段工程复杂度。
+:::tip Reading the figure
+When reading this figure, first look at the long RLHF chain: preference pairs -> reward model -> PPO / policy optimization. Then look at the short DPO chain: directly optimize the policy margin using chosen / rejected preference pairs. The appeal of DPO is that it keeps the preference learning goal while removing a large amount of engineering complexity from the reward model and reinforcement learning steps.
 :::
 
 ---
 
-## 五、再看一个 Constitutional AI 风格的最小批改示意
+## 5. Next, a minimal Constitutional AI-style revision example
 
-这类方法的重点不在数值优化，  
-而在“规则如何进入修订流程”。
+The focus of this kind of method is not numerical optimization,
+but how rules enter the revision process.
 
 ```python
 constitution = [
-    "不要提供违法操作步骤",
-    "不确定时要明确说明边界",
+    "Do not provide instructions for illegal actions",
+    "When uncertain, state the limits clearly",
 ]
 
-response = "你可以先暴力破解 Wi-Fi，应该肯定能成功。"
+response = "You can brute-force the Wi-Fi first; it will definitely work."
 
 
 def critique(text):
     issues = []
-    if "破解" in text or "暴力" in text:
-        issues.append("违反规则：不要提供违法操作步骤")
-    if "肯定" in text and "不确定" not in text:
-        issues.append("违反规则：不确定时不应过度自信")
+    if "break into" in text or "brute-force" in text:
+        issues.append("Rule violation: do not provide instructions for illegal actions")
+    if "definitely" in text and "uncertain" not in text:
+        issues.append("Rule violation: do not be overconfident when uncertain")
     return issues
 
 
@@ -312,106 +312,106 @@ print("response =", response)
 print("issues =", critique(response))
 ```
 
-这当然不是完整的 Constitutional AI，  
-但它把那条核心思路点出来了：
+Of course, this is not a full Constitutional AI system,
+but it highlights the core idea:
 
-- 先显式写规则
-- 再根据规则做批评和修订
+- first write explicit rules
+- then critique and revise according to those rules
 
 ---
 
-## 六、这些方法到底怎么选？
+## 6. How should you choose among these methods?
 
-### 6.1 如果你已经有高质量人工偏好对，但资源一般
+### 6.1 If you already have high-quality human preference pairs, but limited resources
 
-优先可以看：
+Good first choices include:
 
 - DPO
-- ORPO / IPO 一类直接偏好优化方法
+- ORPO / IPO-style direct preference optimization methods
 
-### 6.2 如果人工标注成本太高
+### 6.2 If human labeling is too expensive
 
-可以考虑：
+You can consider:
 
 - RLAIF
 
-但要特别注意裁判模型的偏差和审计问题。
+But you must pay special attention to the judge model’s bias and auditing.
 
-### 6.3 如果你更看重原则显式可解释
+### 6.3 If you care more about explicit and explainable principles
 
-可以关注：
+You can focus on:
 
 - Constitutional AI
 
-因为它很适合把：
+Because it is well suited for writing:
 
-- 公司政策
-- 安全原则
-- 行为规范
+- company policies
+- safety principles
+- behavior guidelines
 
-显式写进流程里。
+directly into the workflow.
 
-### 6.4 如果你需要最完整、最强控制力的偏好优化链
+### 6.4 If you need the most complete and strongest control over the preference optimization pipeline
 
-仍然可能选择：
+You may still choose:
 
 - RLHF
 
-因为在高预算、高质量数据和强工程能力下，  
-它依然很有价值。
+Because with a high budget, high-quality data, and strong engineering capability,
+it remains very valuable.
 
 ---
 
-## 七、这些误区特别常见
+## 7. These misconceptions are especially common
 
-### 7.1 误区一：DPO 出来以后，RLHF 就过时了
+### 7.1 Misconception 1: Once DPO appeared, RLHF became outdated
 
-不对。  
-更准确的说法是：
+Not true.
+A more accurate statement is:
 
-- DPO 把很多原本做不起 RLHF 的场景打开了
+- DPO opened up many scenarios that could not easily afford RLHF before
 
-但并不等于 RLHF 自动失效。
+But that does not mean RLHF automatically stopped being useful.
 
-### 7.2 误区二：RLAIF 不用人工，所以一定更划算
+### 7.2 Misconception 2: Since RLAIF does not use humans, it must be cheaper
 
-AI feedback 便宜，不代表完全免费。  
-它会把人工成本换成：
+AI feedback is cheaper, but not free.
+It shifts the cost into:
 
-- 裁判模型质量问题
-- 审计和偏差控制问题
+- judge model quality issues
+- auditing and bias control issues
 
-### 7.3 误区三：Constitutional AI 只要写几条规则就行
+### 7.3 Misconception 3: Constitutional AI only needs a few rules
 
-规则写出来只是开始。  
-更难的是：
+Writing the rules is only the beginning.
+The harder parts are:
 
-- 规则是否互相冲突
-- 是否覆盖边界场景
-- 修订后是否真的更好
-
----
-
-## 小结
-
-这一节最重要的主线是：
-
-> **替代对齐方法并不是在否定 RLHF，而是在回答“怎样用更短的链条、更低的成本，把偏好优化做出来”。**
-
-把几条路线放在一起看，你会更容易形成工程判断：
-
-- 想简化训练链条，看 DPO 一系
-- 想降低人工反馈成本，看 RLAIF
-- 想把原则显式写进系统，看 Constitutional AI
-
-当你能按“反馈来源、训练复杂度、可解释性、成本”去选方法时，  
-就说明你已经不只是在背术语了。
+- whether the rules conflict with each other
+- whether they cover edge cases
+- whether the revisions are actually better
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么说 DPO 的重点是直接优化偏好边距，而不是先学奖励模型？
-2. 参考本节代码，自己改一改 `policy_chosen_logp` 和 `policy_rejected_logp`，观察 DPO loss 如何变化。
-3. 如果你的团队几乎拿不到人工偏好数据，但可以调用一个更强的评审模型，你会优先考虑哪条路线？为什么？
-4. 想一想：在你的业务里，有没有一些原则非常适合写成 Constitutional AI 风格的“宪法规则”？
+The most important main idea in this section is:
+
+> **Alternative alignment methods are not rejecting RLHF; they are answering the question: how can we achieve preference optimization with a shorter pipeline and lower cost?**
+
+When you look at these approaches together, it becomes easier to make engineering decisions:
+
+- If you want to simplify the training pipeline, look at the DPO family
+- If you want to reduce the cost of human feedback, look at RLAIF
+- If you want to write principles explicitly into the system, look at Constitutional AI
+
+When you can choose methods by “feedback source, training complexity, explainability, and cost,”
+you are no longer just memorizing terms.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why is DPO focused on directly optimizing the preference margin instead of first learning a reward model?
+2. Based on the code in this section, change `policy_chosen_logp` and `policy_rejected_logp` yourself and observe how the DPO loss changes.
+3. If your team can barely get any human preference data, but can call a stronger judge model, which route would you prioritize? Why?
+4. Think about your own business: are there any principles that are especially suitable to be written as Constitutional AI-style “constitutional rules”?

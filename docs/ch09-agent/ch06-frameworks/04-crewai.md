@@ -1,159 +1,159 @@
 ---
 title: "6.5 CrewAI"
 sidebar_position: 33
-description: "从角色、任务、crew 组织方式到团队协作工作流，理解 CrewAI 为什么特别适合用“团队模型”表达多 Agent 系统。"
+description: "From roles and tasks to crew organization and team collaboration workflows, understand why CrewAI is especially well suited to expressing multi-Agent systems with a 'team model.'"
 keywords: [CrewAI, multi-agent, roles, tasks, crew, team abstraction]
 ---
 
 # CrewAI
 
-:::tip 本节定位
-如果说有些框架更像“状态流引擎”，那 CrewAI 的第一感觉通常是：
+:::tip Section focus
+If some frameworks feel more like a “state-flow engine,” then CrewAI usually gives this first impression:
 
-> **像在搭一个有分工的小团队。**
+> **It feels like building a small team with clear responsibilities.**
 
-它特别强调：
+It especially emphasizes:
 
-- 角色
-- 目标
-- 任务
-- 协作顺序
+- roles
+- goals
+- tasks
+- collaboration order
 
-所以它很适合那些天然就像“多人协作”的任务。
+So it is a great fit for tasks that naturally look like “multiple people working together.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 CrewAI 最核心的抽象对象
-- 理解为什么它特别适合团队式多 Agent 场景
-- 看懂一个最小 crew 工作流
-- 理解它的优势与局限分别在哪
-
----
-
-## 一、CrewAI 最本质的抽象是什么？
-
-### 1.1 不是先画状态图，而是先定义角色
-
-CrewAI 的思维入口很像现实团队管理：
-
-- 谁负责调研
-- 谁负责写作
-- 谁负责审查
-
-也就是说，它不是先问：
-
-- 节点怎么连
-
-而是先问：
-
-- 这支团队由谁组成
-
-### 1.2 一个很直观的类比
-
-CrewAI 更像：
-
-> “先组建团队，再把任务派下去”。 
-
-这和 LangGraph 那种“先定义状态和边”的思路非常不一样。
+- Understand CrewAI’s most important core abstractions
+- Understand why it is especially suitable for team-style multi-Agent scenarios
+- Read a minimal crew workflow
+- Understand its strengths and limitations
 
 ---
 
-## 二、三个最重要的概念
+## 1. What Is CrewAI’s Most Fundamental Abstraction?
+
+### 1.1 Start by Defining Roles, Not a State Diagram
+
+CrewAI’s way of thinking is very similar to real-world team management:
+
+- Who is responsible for research
+- Who is responsible for writing
+- Who is responsible for review
+
+In other words, it does not first ask:
+
+- How are the nodes connected?
+
+Instead, it first asks:
+
+- Who is on this team?
+
+### 1.2 A Very Intuitive Analogy
+
+CrewAI is more like:
+
+> “Build the team first, then assign tasks.”
+
+This is very different from LangGraph’s approach of “define the state and edges first.”
+
+---
+
+## 2. The Three Most Important Concepts
 
 ### 2.1 Agent
 
-一个成员。  
-它通常有：
+A member.
+It usually has:
 
-- 角色
-- 目标
-- 能力倾向
+- a role
+- a goal
+- a capability tendency
 
 ### 2.2 Task
 
-一项具体工作。  
-它通常有：
+A specific piece of work.
+It usually has:
 
-- 任务内容
-- 负责人
-- 输出预期
+- task content
+- an owner
+- expected output
 
 ### 2.3 Crew
 
-一个围绕共同目标协作的小团队。
+A small team collaborating around a common goal.
 
-一句话先记：
+Remember this one-sentence summary:
 
-> Agent 是人，Task 是活，Crew 是团队。 
+> Agent is the person, Task is the work, Crew is the team.
 
 ---
 
-## 三、一个最小 crew 示例
+## 3. A Minimal Crew Example
 
 ```python
 crew = [
-    {"role": "researcher", "goal": "检索退款政策"},
-    {"role": "writer", "goal": "整理成总结"},
-    {"role": "reviewer", "goal": "检查是否遗漏条件"}
+    {"role": "researcher", "goal": "retrieve refund policy"},
+    {"role": "writer", "goal": "organize it into a summary"},
+    {"role": "reviewer", "goal": "check whether any conditions are missing"}
 ]
 
 tasks = [
-    {"owner": "researcher", "task": "查找退款政策"},
-    {"owner": "writer", "task": "撰写总结"},
-    {"owner": "reviewer", "task": "检查总结"}
+    {"owner": "researcher", "task": "find the refund policy"},
+    {"owner": "writer", "task": "write the summary"},
+    {"owner": "reviewer", "task": "check the summary"}
 ]
 
 print(crew)
 print(tasks)
 ```
 
-### 3.2 这个例子真正表达了什么？
+### 3.2 What Does This Example Really Express?
 
-它表达的是：
+It expresses this:
 
-> 多 Agent 系统可以先按“角色和任务”来组织，而不一定先按底层状态流组织。 
+> A multi-Agent system can be organized first by “roles and tasks,” rather than by a low-level state flow.
 
-这正是 CrewAI 最容易让人上手的原因。
-
----
-
-## 四、为什么这种抽象特别适合内容型协作任务？
-
-很多任务天然就长得像一个小团队在干活：
-
-- 先收集材料
-- 再写草稿
-- 再做审查
-
-例如：
-
-- 研究报告
-- 政策总结
-- 内容生产
-- 代码文档
-
-CrewAI 的抽象和这类任务非常贴合，所以它常常会让人感觉：
-
-> “这比底层图工作流更像真实协作过程。” 
+That is exactly why CrewAI is so easy to get started with.
 
 ---
 
-## 五、一个更完整的小型 Crew 工作流
+## 4. Why Is This Abstraction Especially Suitable for Content Collaboration Tasks?
+
+Many tasks naturally look like a small team getting work done:
+
+- collect materials first
+- then write a draft
+- then review it
+
+For example:
+
+- research reports
+- policy summaries
+- content creation
+- code documentation
+
+CrewAI’s abstraction fits these tasks very well, so it often gives people the feeling that:
+
+> “This feels more like real collaboration than a low-level graph workflow.”
+
+---
+
+## 5. A More Complete Small Crew Workflow
 
 ```python
 def researcher_agent(topic):
-    return f"资料：{topic} 的关键条件包括 7 天内和学习进度限制。"
+    return f"Material: The key conditions for {topic} include a 7-day limit and learning progress restrictions."
 
 def writer_agent(material):
-    return f"总结稿：{material}"
+    return f"Draft: {material}"
 
 def reviewer_agent(draft):
-    if "学习进度限制" in draft:
-        return {"approved": True, "comment": "关键信息较完整"}
-    return {"approved": False, "comment": "缺少学习进度信息"}
+    if "learning progress restrictions" in draft:
+        return {"approved": True, "comment": "The key information is fairly complete"}
+    return {"approved": False, "comment": "Missing learning progress information"}
 
-topic = "退款政策"
+topic = "refund policy"
 material = researcher_agent(topic)
 draft = writer_agent(material)
 review = reviewer_agent(draft)
@@ -163,123 +163,123 @@ print("draft   :", draft)
 print("review  :", review)
 ```
 
-这个例子说明：
+This example shows:
 
-- 角色分工清楚
-- 输入输出清晰
-- 协作链也很自然
-
----
-
-## 六、CrewAI 的优势在哪里？
-
-### 6.1 易理解
-
-比起复杂状态图，“团队角色”更贴近很多人的直觉。
-
-### 6.2 易展示
-
-做 demo、讲架构、讲协作时，非常好解释。
-
-### 6.3 适合角色分工明确的任务
-
-尤其适合：
-
-- 调研
-- 写作
-- 审核
-- 汇总
-
-这种“谁做什么”特别清楚的场景。
+- clear role division
+- clear inputs and outputs
+- a very natural collaboration chain
 
 ---
 
-## 七、CrewAI 的局限也要看清
+## 6. Where Does CrewAI Shine?
 
-### 7.1 它不自动替你解决复杂状态流
+### 6.1 Easy to Understand
 
-如果你的系统有：
+Compared with complex state graphs, “team roles” match many people’s intuition better.
 
-- 分支很多
-- 回路很多
-- 中间状态复杂
+### 6.2 Easy to Present
 
-那单纯靠“角色抽象”可能不够。
+It is very easy to explain in demos, architecture discussions, and collaboration examples.
 
-### 7.2 角色抽象有时会掩盖底层工程复杂度
+### 6.3 Well Suited for Tasks with Clear Role Division
 
-看起来像：
+Especially suitable for:
+
+- research
+- writing
+- review
+- summarization
+
+These are scenarios where “who does what” is very clear.
+
+---
+
+## 7. CrewAI’s Limitations Are Also Important to Understand
+
+### 7.1 It Does Not Automatically Solve Complex State Flows
+
+If your system has:
+
+- many branches
+- many loops
+- complex intermediate states
+
+Then relying only on “role abstraction” may not be enough.
+
+### 7.2 Role Abstraction Can Sometimes Hide Underlying Engineering Complexity
+
+It may look like:
 
 - researcher
 - writer
 - reviewer
 
-很清楚，但真正上线时你仍然要处理：
+Very clear, but in a real production system you still need to handle:
 
-- 超时
-- 重试
-- 日志
+- timeouts
+- retries
+- logs
 - trace
-- 权限
+- permissions
 
-所以它更像一种“表达方式”和“组织方式”，而不是万能解法。
-
----
-
-## 八、什么时候更适合选 CrewAI？
-
-如果你的任务非常像：
-
-- 团队协作
-- 角色分工
-- 内容生产链
-
-那 CrewAI 往往很自然。
-
-例如：
-
-- “一人找资料，一人写，一人审”
-
-这种任务你用 CrewAI 思维通常会很顺。
-
-但如果任务更像：
-
-- 复杂状态图
-- 精细控制回路
-
-那图式框架可能会更稳。
+So it is more like a “way of expressing” and “way of organizing” systems, rather than a universal solution.
 
 ---
 
-## 九、初学者最常踩的坑
+## 8. When Is CrewAI a Better Choice?
 
-### 9.1 角色很多，但职责不清
+If your task feels very much like:
 
-看起来像一支团队，实际只是很多模糊角色堆在一起。
+- team collaboration
+- role division
+- a content production pipeline
 
-### 9.2 以为角色抽象就等于系统就稳了
+then CrewAI often feels very natural.
 
-角色只是组织形式，不会替你自动补齐工程能力。
+For example:
 
-### 9.3 为了“像团队”而强行上多 Agent
+- “one person gathers materials, one writes, one reviews”
 
-如果任务本身不需要分工，多 Agent 反而是负担。
+For this kind of task, a CrewAI mindset usually works very smoothly.
+
+But if the task feels more like:
+
+- a complex state graph
+- fine-grained control loops
+
+then a graph-based framework may be more stable.
 
 ---
 
-## 小结
+## 9. Common Pitfalls for Beginners
 
-这一节最重要的不是学会某个框架的类名，而是理解：
+### 9.1 Too Many Roles, but No Clear Responsibilities
 
-> **CrewAI 的核心价值，在于它把多 Agent 问题优先表达成“角色 + 任务 + 团队”的协作结构。**
+It looks like a team, but in reality it is just many vague roles thrown together.
 
-这在角色清晰的内容型任务里特别有吸引力，但也不是所有系统的最佳抽象。
+### 9.2 Thinking Role Abstraction Means the System Is Automatically Stable
+
+Roles are only an organizational form. They will not automatically fill in engineering capabilities for you.
+
+### 9.3 Forcing Multi-Agent Just to “Look Like a Team”
+
+If the task itself does not need division of labor, multi-Agent can become a burden instead.
 
 ---
 
-## 练习
+## Summary
 
-1. 用你自己的一个任务，设计一个 3 角色 crew。
-2. 想一想：为什么“角色数量变多”不代表系统质量就会更高？
-3. 用自己的话解释：CrewAI 和 LangGraph 的抽象入口有什么不同？
-4. 如果你的任务里有很多回路和条件分支，你还会优先选 CrewAI 吗？为什么？
+The most important thing in this section is not memorizing a class name from some framework, but understanding:
+
+> **CrewAI’s core value is that it expresses multi-Agent problems first as a collaboration structure of “roles + tasks + team.”**
+
+This is especially attractive for content-oriented tasks with clear roles, but it is not the best abstraction for every system.
+
+---
+
+## Exercises
+
+1. Design a 3-role crew for one of your own tasks.
+2. Think about why “more roles” does not mean better system quality.
+3. Explain in your own words: What is the difference between CrewAI and LangGraph in terms of abstraction entry point?
+4. If your task has many loops and conditional branches, would you still choose CrewAI first? Why?

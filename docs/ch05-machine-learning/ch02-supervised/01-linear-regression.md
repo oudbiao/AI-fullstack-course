@@ -1,150 +1,150 @@
 ---
-title: "2.2 线性回归"
+title: "2.2 Linear Regression"
 sidebar_position: 3
-description: "从简单线性回归到多元线性回归，理解最小二乘法、梯度下降求解、多项式回归、正则化（Ridge / Lasso / Elastic Net）"
-keywords: [线性回归, 最小二乘法, 梯度下降, 正则化, Ridge, Lasso, Elastic Net, 多项式回归]
+description: "From simple linear regression to multivariate linear regression, understand the least squares method, gradient descent solution, polynomial regression, and regularization (Ridge / Lasso / Elastic Net)"
+keywords: [linear regression, least squares, gradient descent, regularization, Ridge, Lasso, Elastic Net, polynomial regression]
 ---
 
-# 线性回归
+# Linear Regression
 
-![线性回归拟合与损失曲面图](/img/course/linear-regression-loss-landscape.png)
+![Linear regression fitting and loss landscape](/img/course/linear-regression-loss-landscape-en.png)
 
-:::tip 本节定位
-线性回归是**最简单也最重要**的机器学习算法。它是理解所有后续算法的基石——逻辑回归、神经网络、甚至 GPT 的底层都能看到它的影子。
+:::tip Section Focus
+Linear regression is the **simplest and most important** machine learning algorithm. It is the foundation for understanding all later algorithms—logistic regression, neural networks, and even the core ideas behind GPT all show traces of it.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解简单线性回归与多元线性回归
-- 掌握最小二乘法与正规方程
-- 理解梯度下降法求解（与第 4 站衔接）
-- 掌握多项式回归与过拟合
-- 理解正则化（Ridge、Lasso、Elastic Net）
+- Understand simple linear regression and multivariate linear regression
+- Master the least squares method and the normal equation
+- Understand gradient descent as a solution method (connected to Station 4)
+- Master polynomial regression and overfitting
+- Understand regularization (Ridge, Lasso, Elastic Net)
 
-## 先说一个很重要的学习预期
+## First, set a very important learning expectation
 
-这一节很长，也很容易让新人误以为自己要一次学会很多事：
+This section is long, and it is easy for beginners to think they must learn many things at once:
 
-- 回归任务
-- 损失函数
-- 正规方程
-- 梯度下降
-- 多项式回归
-- 正则化
+- regression tasks
+- loss functions
+- normal equation
+- gradient descent
+- polynomial regression
+- regularization
 
-但更适合新人的第一目标其实只有一个：
+But the most appropriate first goal for beginners is actually only one:
 
-> **先把“一个机器学习模型到底是怎么从任务定义，走到损失、求解、评估和改进”的主线看顺。**
+> **First, make the main line clear: “How does a machine learning model go from task definition to loss, optimization, evaluation, and improvement?”**
 
-如果这条主线立住了，后面逻辑回归、神经网络和很多更复杂的模型都会顺很多。
-
----
-
-## 先建立一张地图
-
-第一次学线性回归，最容易出现两种情况：
-
-- 会把公式写出来，但不知道每一步到底在解决什么问题
-- 会调用 `LinearRegression()`，但不知道为什么要先做 baseline、为什么要看残差、为什么正则化能防过拟合
-
-更稳的理解顺序是：
-
-![线性回归学习主线图](/img/course/ch05-linear-regression-learning-flow.png)
-
-如果你先抓住这条线，后面所有公式都会更容易落到一个明确的问题上。
+If you understand that main line, logistic regression, neural networks, and many more complex models will make much more sense later.
 
 ---
 
-## 一、简单线性回归
+## Build a map first
 
-### 1.1 直觉：找一条"最佳拟合线"
+When learning linear regression for the first time, two situations are most common:
 
-**问题**：已知房屋面积和价格的数据，能否预测一个新面积对应的价格？
+- You can write the formulas, but you do not know what problem each step is solving
+- You can call `LinearRegression()`, but you do not know why you should start with a baseline, why residuals matter, or why regularization can prevent overfitting
+
+A more stable learning order is:
+
+![Linear regression learning flowchart](/img/course/ch05-linear-regression-learning-flow-en.png)
+
+If you first grasp this line, all the formulas later will be easier to connect to a clear problem.
+
+---
+
+## 1. Simple Linear Regression
+
+### 1.1 Intuition: Find the "best fit line"
+
+**Problem**: Given data about house area and price, can we predict the price for a new area?
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 模拟数据：面积 → 价格
+# Simulated data: area → price
 np.random.seed(42)
-X = np.random.uniform(50, 200, 30)    # 面积（平方米）
-y = 2.5 * X + 50 + np.random.randn(30) * 30  # 价格（万元）
+X = np.random.uniform(50, 200, 30)    # Area (square meters)
+y = 2.5 * X + 50 + np.random.randn(30) * 30  # Price (10,000 yuan)
 
 plt.figure(figsize=(8, 5))
 plt.scatter(X, y, color='steelblue', s=50, alpha=0.7)
-plt.xlabel('面积（平方米）')
-plt.ylabel('价格（万元）')
-plt.title('房屋面积 vs 价格')
+plt.xlabel('Area (square meters)')
+plt.ylabel('Price (10,000 yuan)')
+plt.title('House Area vs Price')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-**目标**：找一条直线 `y = wx + b`，让这条线尽可能"贴近"所有的数据点。
+**Goal**: Find a straight line `y = wx + b` that gets as close as possible to all the data points.
 
-- **w**（weight）= 斜率 = 面积每增加 1 平方米，价格增加多少
-- **b**（bias）= 截距 = 面积为 0 时的基础价格
+- **w** (weight) = slope = how much the price increases when area increases by 1 square meter
+- **b** (bias) = intercept = the base price when area is 0
 
-### 1.1.1 这两个参数到底在控制什么？
+### 1.1.1 What exactly do these two parameters control?
 
-可以把这条直线想成一根可以拖动和旋转的木棍：
+You can think of the line as a stick that can be rotated and moved up and down:
 
-- `w` 决定木棍的倾斜程度
-- `b` 决定木棍整体向上还是向下平移
+- `w` controls how steep the stick is
+- `b` controls whether the whole stick shifts up or down
 
-所以线性回归训练的本质，其实就是不断调整这两个量，让整条线尽量贴近数据点。
+So the essence of linear regression training is to keep adjusting these two values until the line fits the data points as well as possible.
 
-### 1.1.2 一个更适合新人的类比
+### 1.1.2 A more beginner-friendly analogy
 
-你可以先把线性回归想成：
+You can think of linear regression like this:
 
-- 你手里拿着一把可以旋转、也可以上下平移的尺子
-- 你想让这把尺子尽量贴近眼前这堆点
+- You are holding a ruler that can rotate and move up and down
+- You want this ruler to fit the points in front of you as closely as possible
 
-这里最值得先记住的不是公式，而是：
+The most important thing to remember first is not the formula, but this:
 
-- `w` 决定尺子斜不斜
-- `b` 决定尺子整体往上还是往下
-- 训练过程就是在反复微调这两个旋钮
+- `w` decides how slanted the ruler is
+- `b` decides whether the ruler shifts upward or downward overall
+- Training is the repeated fine-tuning of these two knobs
 
-:::info 先记一句最重要的话
-线性回归不是在“背公式”，而是在做一件很朴素的事：**找一条规则，让输入变化和输出变化之间的关系尽量稳定地被描述出来。**
+:::info The most important sentence to remember
+Linear regression is not about “memorizing formulas”; it is doing something very simple: **finding a rule that can describe, as stably as possible, how the input changes relate to how the output changes.**
 :::
 
-### 1.2 什么是"最佳"？——损失函数
+### 1.2 What is "best"? — The loss function
 
-"贴近"需要数学定义。我们用**均方误差（MSE）**来衡量：
+"Fits closely" needs a mathematical definition. We use **Mean Squared Error (MSE)**:
 
 > **MSE = (1/n) × Σ(yi - ŷi)²**
 
-其中 `ŷi = w×xi + b` 是模型的预测值。
+where `ŷi = w×xi + b` is the model prediction.
 
-**直觉**：每个数据点的预测误差取平方，然后求平均。MSE 越小，拟合越好。
+**Intuition**: Square each prediction error, then take the average. The smaller the MSE, the better the fit.
 
-### 1.3 为什么误差通常先平方？
+### 1.3 Why do we usually square the error first?
 
-这一步很重要，因为它决定了我们到底在惩罚什么。
+This step is very important because it determines what we are actually penalizing.
 
-- 平方后永远是正数，正负误差不会互相抵消
-- 大误差会被放大，所以模型会更努力修正那些偏得很离谱的点
-- 平方形式求导后很干净，方便得到解析解和梯度下降公式
+- After squaring, the value is always positive, so positive and negative errors do not cancel out
+- Large errors are amplified, so the model works harder to correct points that are far off
+- The squared form is easy to differentiate, which helps us get analytical solutions and gradient descent formulas
 
-但它也带来一个副作用：
+But it also has one side effect:
 
-- 如果数据里有极端异常值，MSE 会被它们强烈主导
+- If the data contains extreme outliers, MSE will be strongly dominated by them
 
-所以新人第一次做回归项目时，可以先这样记：
+So when beginners do regression projects for the first time, it is good to remember:
 
-- 默认先用 `MSE / RMSE`
-- 如果你怀疑异常值很多，再去看 `MAE`
+- Use `MSE / RMSE` by default
+- If you suspect many outliers, then consider `MAE`
 
 ```python
 def mse_loss(y_true, y_pred):
-    """均方误差"""
+    """Mean squared error"""
     return np.mean((y_true - y_pred) ** 2)
 
-# 试几条不同的线
+# Try several different lines
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-params = [(1.0, 100, '斜率太小'), (2.5, 50, '刚刚好'), (4.0, -50, '斜率太大')]
+params = [(1.0, 100, 'Slope too small'), (2.5, 50, 'Just right'), (4.0, -50, 'Slope too large')]
 
 for ax, (w, b, title) in zip(axes, params):
     y_pred = w * X + b
@@ -153,8 +153,8 @@ for ax, (w, b, title) in zip(axes, params):
     x_line = np.linspace(40, 210, 100)
     ax.plot(x_line, w * x_line + b, 'r-', linewidth=2)
     ax.set_title(f'{title}\nw={w}, b={b}, MSE={loss:.0f}')
-    ax.set_xlabel('面积')
-    ax.set_ylabel('价格')
+    ax.set_xlabel('Area')
+    ax.set_ylabel('Price')
     ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
@@ -163,139 +163,139 @@ plt.show()
 
 ---
 
-## 二、求解方法一：正规方程（解析解）
+## 2. Solution Method 1: Normal Equation (Analytical Solution)
 
-### 2.1 公式
+### 2.1 Formula
 
-对于线性回归，MSE 有**闭合公式解**：
+For linear regression, MSE has a **closed-form solution**:
 
 > **w = (Xᵀ X)⁻¹ Xᵀ y**
 
-这就是**正规方程（Normal Equation）**。
+This is the **Normal Equation**.
 
-### 2.2 手动实现
+### 2.2 Manual implementation
 
 ```python
-# 准备数据（增加截距列）
-X_b = np.c_[np.ones(len(X)), X]  # 在 X 前面加一列 1（对应截距 b）
-print(f"X_b 形状: {X_b.shape}")  # (30, 2)
+# Prepare the data (add an intercept column)
+X_b = np.c_[np.ones(len(X)), X]  # Add a column of 1s before X (for intercept b)
+print(f"X_b shape: {X_b.shape}")  # (30, 2)
 
-# 正规方程求解
+# Solve using the normal equation
 w = np.linalg.inv(X_b.T @ X_b) @ X_b.T @ y
 b_fit, w_fit = w[0], w[1]
-print(f"截距 b = {b_fit:.2f}")
-print(f"斜率 w = {w_fit:.2f}")
+print(f"Intercept b = {b_fit:.2f}")
+print(f"Slope w = {w_fit:.2f}")
 
-# 可视化
+# Visualization
 plt.figure(figsize=(8, 5))
-plt.scatter(X, y, color='steelblue', s=50, alpha=0.7, label='数据点')
+plt.scatter(X, y, color='steelblue', s=50, alpha=0.7, label='Data points')
 x_line = np.linspace(40, 210, 100)
 plt.plot(x_line, w_fit * x_line + b_fit, 'r-', linewidth=2,
-         label=f'拟合线: y = {w_fit:.2f}x + {b_fit:.2f}')
-plt.xlabel('面积（平方米）')
-plt.ylabel('价格（万元）')
-plt.title('正规方程求解线性回归')
+         label=f'Fit line: y = {w_fit:.2f}x + {b_fit:.2f}')
+plt.xlabel('Area (square meters)')
+plt.ylabel('Price (10,000 yuan)')
+plt.title('Solving Linear Regression with the Normal Equation')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 2.3 正规方程的优缺点
+### 2.3 Pros and cons of the normal equation
 
-| 优点 | 缺点 |
+| Pros | Cons |
 |------|------|
-| 直接算出结果，不需要迭代 | 需要计算矩阵逆，复杂度 O(n³) |
-| 不需要调学习率 | 特征数量大时非常慢 |
-| 一定能找到全局最优 | 特征数 > 样本数时无法使用 |
+| Computes the result directly, no iteration needed | Requires matrix inversion, complexity is O(n³) |
+| No need to tune a learning rate | Very slow when the number of features is large |
+| Always finds the global optimum | Cannot be used when features > samples |
 
-### 2.4 什么时候优先想到正规方程？
+### 2.4 When should you think of the normal equation first?
 
-可以把正规方程理解成“直接算答案”的路线。它最适合：
+You can think of the normal equation as the “compute the answer directly” approach. It is best when:
 
-- 特征数不多
-- 数据规模不大
-- 你想先快速验证线性关系是否存在
+- the number of features is small
+- the dataset is not large
+- you want to quickly verify whether a linear relationship exists
 
-第一次做一个小型回归 baseline 时，正规方程或者 `sklearn` 的线性回归通常都很合适。  
-但如果你进入下面这些场景，就要开始更自然地切到梯度下降思维：
+When you first build a small regression baseline, the normal equation or `sklearn` linear regression is usually a good fit.
+But if you move into these scenarios, it becomes more natural to switch to gradient descent thinking:
 
-- 特征维度很多
-- 数据规模明显变大
-- 后面还要接神经网络训练
-- 你已经不只是想“算一个答案”，而是想“进入一套统一训练框架”
+- high-dimensional features
+- a noticeably larger dataset
+- you need to connect it to neural network training later
+- you are no longer trying to “calculate one answer,” but instead want to “enter a unified training framework”
 
 ---
 
-## 三、求解方法二：梯度下降
+## 3. Solution Method 2: Gradient Descent
 
-### 3.1 与第 4 站的衔接
+### 3.1 Connection to Station 4
 
-在第 4 站微积分章节，你已经学过梯度下降的原理。现在把它应用到线性回归：
+In the calculus chapter of Station 4, you already learned the principle of gradient descent. Now apply it to linear regression:
 
 ```mermaid
 flowchart LR
-    A["随机初始化 w, b"] --> B["计算预测值 ŷ = wX + b"]
-    B --> C["计算损失 MSE"]
-    C --> D["计算梯度 ∂MSE/∂w, ∂MSE/∂b"]
-    D --> E["更新参数<br/>w = w - lr × ∂MSE/∂w<br/>b = b - lr × ∂MSE/∂b"]
-    E --> F{"收敛了？"}
-    F -->|"否"| B
-    F -->|"是"| G["输出 w, b"]
+    A["Randomly initialize w, b"] --> B["Compute predictions ŷ = wX + b"]
+    B --> C["Compute loss MSE"]
+    C --> D["Compute gradients ∂MSE/∂w, ∂MSE/∂b"]
+    D --> E["Update parameters<br/>w = w - lr × ∂MSE/∂w<br/>b = b - lr × ∂MSE/∂b"]
+    E --> F{"Converged?"}
+    F -->|"No"| B
+    F -->|"Yes"| G["Output w, b"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style G fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.1.1 先别急着背梯度公式，先看它在表达什么
+### 3.1.1 Don’t rush to memorize the gradient formulas; first see what they mean
 
-梯度下降最核心的意思不是“公式很多”，而是：
+The core meaning of gradient descent is not “there are many formulas,” but this:
 
-- 先用当前参数做一次预测
-- 看看预测和真实值差多少
-- 判断参数应该往哪个方向调
-- 每次调一点点
-- 重复很多次
+- Use the current parameters to make a prediction
+- See how far the prediction is from the true value
+- Decide which direction the parameters should move
+- Adjust a little each time
+- Repeat many times
 
-如果你把这五步想明白，后面的 `dw`、`db` 就不再只是符号，而是在表达：
+If you understand these five steps, then `dw` and `db` are no longer just symbols. They mean:
 
-- `dw` 告诉我们“斜率该往哪边调”
-- `db` 告诉我们“整条线该往上还是往下移”
+- `dw` tells us which direction the slope should move
+- `db` tells us whether the whole line should move up or down
 
-### 3.2 梯度推导
+### 3.2 Gradient derivation
 
-MSE 对 w 和 b 的梯度：
+The gradients of MSE with respect to w and b are:
 
 > **∂MSE/∂w = -(2/n) × Σ xi(yi - ŷi)**
 >
 > **∂MSE/∂b = -(2/n) × Σ (yi - ŷi)**
 
-### 3.3 从零实现
+### 3.3 Implement from scratch
 
 ```python
-# 梯度下降求解线性回归
+# Solve linear regression with gradient descent
 np.random.seed(42)
 
-# 参数初始化
+# Parameter initialization
 w_gd = 0.0
 b_gd = 0.0
-lr = 0.00005   # 学习率（注意：特征值较大时学习率要小）
+lr = 0.00005   # Learning rate (note: when feature values are large, the learning rate should be small)
 epochs = 500
 
-# 记录训练过程
+# Track training process
 history = {'loss': [], 'w': [], 'b': []}
 
 for epoch in range(epochs):
-    # 前向：预测
+    # Forward: prediction
     y_pred = w_gd * X + b_gd
 
-    # 计算损失
+    # Compute loss
     loss = mse_loss(y, y_pred)
 
-    # 计算梯度
+    # Compute gradients
     dw = -2 * np.mean(X * (y - y_pred))
     db = -2 * np.mean(y - y_pred)
 
-    # 更新参数
+    # Update parameters
     w_gd -= lr * dw
     b_gd -= lr * db
 
@@ -303,26 +303,26 @@ for epoch in range(epochs):
     history['w'].append(w_gd)
     history['b'].append(b_gd)
 
-print(f"梯度下降结果: w = {w_gd:.2f}, b = {b_gd:.2f}")
-print(f"正规方程结果: w = {w_fit:.2f}, b = {b_fit:.2f}")
+print(f"Gradient descent result: w = {w_gd:.2f}, b = {b_gd:.2f}")
+print(f"Normal equation result: w = {w_fit:.2f}, b = {b_fit:.2f}")
 
-# 可视化训练过程
+# Visualize training process
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 
 axes[0].plot(history['loss'])
-axes[0].set_title('损失曲线')
+axes[0].set_title('Loss curve')
 axes[0].set_xlabel('Epoch')
 axes[0].set_ylabel('MSE')
 axes[0].set_yscale('log')
 
 axes[1].plot(history['w'], label='w')
-axes[1].axhline(y=w_fit, color='r', linestyle='--', label=f'最优 w={w_fit:.2f}')
-axes[1].set_title('w 的收敛过程')
+axes[1].axhline(y=w_fit, color='r', linestyle='--', label=f'Optimal w={w_fit:.2f}')
+axes[1].set_title('Convergence of w')
 axes[1].legend()
 
 axes[2].plot(history['b'], label='b')
-axes[2].axhline(y=b_fit, color='r', linestyle='--', label=f'最优 b={b_fit:.2f}')
-axes[2].set_title('b 的收敛过程')
+axes[2].axhline(y=b_fit, color='r', linestyle='--', label=f'Optimal b={b_fit:.2f}')
+axes[2].set_title('Convergence of b')
 axes[2].legend()
 
 for ax in axes:
@@ -334,33 +334,33 @@ plt.show()
 
 ---
 
-## 四、多元线性回归
+## 4. Multivariate Linear Regression
 
-### 4.1 从一个特征到多个特征
+### 4.1 From one feature to multiple features
 
-实际问题中，房价不只取决于面积，还取决于房间数、楼层、距地铁距离等。
+In real problems, house price depends not only on area, but also on number of rooms, floor, distance to the subway, and so on.
 
 > **ŷ = w₁x₁ + w₂x₂ + ... + wpxp + b = wᵀx + b**
 
-### 4.1.1 多元线性回归这里真正升级了什么？
+### 4.1.1 What is the real upgrade in multivariate linear regression?
 
-很多新人第一次看到多元线性回归，会误以为“模型突然变复杂了很多”。  
-其实它本质上没有换问题，只是把：
+When beginners first see multivariate linear regression, they often think the model suddenly became much more complex.
+In fact, the core problem has not changed. We just moved from:
 
-- “一个输入决定输出”
+- “one input determines the output”
 
-变成了：
+to:
 
-- “多个输入一起对输出做线性贡献”
+- “multiple inputs contribute linearly to the output together”
 
-真正升级的地方只有两点：
+The real upgrade is only two things:
 
-- 参数从一个 `w` 变成一组 `w1, w2, ..., wp`
-- 我们开始必须认真处理特征尺度、共线性和特征解释
+- the parameter changes from one `w` to a group of `w1, w2, ..., wp`
+- we must now carefully handle feature scaling, multicollinearity, and feature interpretation
 
-所以多元线性回归不是另一种算法，而是线性回归进入真实数据场景后的自然形态。
+So multivariate linear regression is not a different algorithm; it is the natural form of linear regression in real data scenarios.
 
-### 4.2 用 Scikit-learn 实现
+### 4.2 Implement with Scikit-learn
 
 ```python
 from sklearn.linear_model import LinearRegression
@@ -368,71 +368,71 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd
 
-# 模拟多特征房价数据
+# Simulated multi-feature house price data
 np.random.seed(42)
 n = 200
 data = pd.DataFrame({
-    '面积': np.random.uniform(50, 200, n),
-    '房间数': np.random.randint(1, 6, n),
-    '楼层': np.random.randint(1, 30, n),
-    '距地铁(km)': np.random.uniform(0.1, 5, n),
+    'Area': np.random.uniform(50, 200, n),
+    'Rooms': np.random.randint(1, 6, n),
+    'Floor': np.random.randint(1, 30, n),
+    'DistanceToSubway(km)': np.random.uniform(0.1, 5, n),
 })
-# 真实关系 + 噪声
-data['价格'] = (2.5 * data['面积']
-               + 30 * data['房间数']
-               + 2 * data['楼层']
-               - 20 * data['距地铁(km)']
+# True relationship + noise
+data['Price'] = (2.5 * data['Area']
+               + 30 * data['Rooms']
+               + 2 * data['Floor']
+               - 20 * data['DistanceToSubway(km)']
                + 50
                + np.random.randn(n) * 30)
 
 print(data.head())
-print(f"\n数据形状: {data.shape}")
+print(f"\nData shape: {data.shape}")
 
-# 准备数据
-X = data[['面积', '房间数', '楼层', '距地铁(km)']].values
-y = data['价格'].values
+# Prepare data
+X = data[['Area', 'Rooms', 'Floor', 'DistanceToSubway(km)']].values
+y = data['Price'].values
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 训练模型
+# Train the model
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-# 查看学到的参数
-print("\n模型参数:")
-for name, coef in zip(['面积', '房间数', '楼层', '距地铁(km)'], model.coef_):
+# Inspect learned parameters
+print("\nModel parameters:")
+for name, coef in zip(['Area', 'Rooms', 'Floor', 'DistanceToSubway(km)'], model.coef_):
     print(f"  {name}: {coef:.2f}")
-print(f"  截距: {model.intercept_:.2f}")
+print(f"  Intercept: {model.intercept_:.2f}")
 
-# 评估
+# Evaluate
 y_pred = model.predict(X_test)
 print(f"\nMSE: {mean_squared_error(y_test, y_pred):.2f}")
 print(f"R² Score: {r2_score(y_test, y_pred):.4f}")
 ```
 
-### 4.3 R² 分数
+### 4.3 R² score
 
-R² 是回归模型最常用的评估指标：
+R² is one of the most commonly used evaluation metrics for regression models:
 
 > **R² = 1 - Σ(yi - ŷi)² / Σ(yi - ȳ)²**
 
-| R² 值 | 含义 |
+| R² value | Meaning |
 |-------|------|
-| 1.0 | 完美拟合 |
-| 0.8~1.0 | 模型很好 |
-| 0.5~0.8 | 模型一般 |
-| < 0.5 | 模型较差 |
-| < 0 | 还不如直接用平均值预测 |
+| 1.0 | Perfect fit |
+| 0.8~1.0 | Very good model |
+| 0.5~0.8 | Average model |
+| < 0.5 | Poor model |
+| < 0 | Worse than predicting the mean directly |
 
 ```python
-# 可视化预测 vs 实际
+# Visualize prediction vs actual
 plt.figure(figsize=(6, 6))
 plt.scatter(y_test, y_pred, alpha=0.6, s=30, color='steelblue')
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()],
-         'r--', linewidth=2, label='完美预测线')
-plt.xlabel('实际价格')
-plt.ylabel('预测价格')
-plt.title(f'预测 vs 实际 (R² = {r2_score(y_test, y_pred):.4f})')
+         'r--', linewidth=2, label='Perfect prediction line')
+plt.xlabel('Actual price')
+plt.ylabel('Predicted price')
+plt.title(f'Prediction vs Actual (R² = {r2_score(y_test, y_pred):.4f})')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.axis('equal')
@@ -442,59 +442,59 @@ plt.show()
 
 ---
 
-## 五、多项式回归——当数据不是直线
+## 5. Polynomial Regression — When the Data Is Not a Straight Line
 
-### 5.1 问题：直线不够用
+### 5.1 Problem: a straight line is not enough
 
 ```python
-# 生成非线性数据
+# Generate nonlinear data
 np.random.seed(42)
 X_nl = np.linspace(-3, 3, 50)
 y_nl = 0.5 * X_nl**2 - X_nl + 2 + np.random.randn(50) * 0.8
 
-# 线性回归强行拟合
+# Force a linear regression fit
 lr = LinearRegression()
 lr.fit(X_nl.reshape(-1, 1), y_nl)
 y_pred_linear = lr.predict(X_nl.reshape(-1, 1))
 
 plt.figure(figsize=(8, 5))
 plt.scatter(X_nl, y_nl, color='steelblue', s=30, alpha=0.7)
-plt.plot(X_nl, y_pred_linear, 'r-', linewidth=2, label='线性回归（欠拟合）')
-plt.title('直线无法拟合曲线数据')
+plt.plot(X_nl, y_pred_linear, 'r-', linewidth=2, label='Linear regression (underfitting)')
+plt.title('A straight line cannot fit curved data')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 5.2 多项式回归
+### 5.2 Polynomial regression
 
-**思路**：把原始特征 `x` 扩展为 `[x, x², x³, ...]`，然后依然用线性回归。
+**Idea**: Expand the original feature `x` into `[x, x², x³, ...]`, then still use linear regression.
 
 ```python
 from sklearn.preprocessing import PolynomialFeatures
 
-# 创建多项式特征
+# Create polynomial features
 poly = PolynomialFeatures(degree=2, include_bias=False)
 X_poly = poly.fit_transform(X_nl.reshape(-1, 1))
-print(f"原始特征: {X_nl[:3]}")
-print(f"多项式特征:\n{X_poly[:3]}")  # [x, x²]
+print(f"Original features: {X_nl[:3]}")
+print(f"Polynomial features:\n{X_poly[:3]}")  # [x, x²]
 
-# 用线性回归拟合多项式特征
+# Fit polynomial features with linear regression
 lr_poly = LinearRegression()
 lr_poly.fit(X_poly, y_nl)
 y_pred_poly = lr_poly.predict(X_poly)
 
 plt.figure(figsize=(8, 5))
 plt.scatter(X_nl, y_nl, color='steelblue', s=30, alpha=0.7)
-plt.plot(X_nl, y_pred_linear, 'r--', linewidth=2, label='线性回归')
-plt.plot(X_nl, y_pred_poly, 'g-', linewidth=2, label='多项式回归 (degree=2)')
-plt.title('多项式回归可以拟合曲线')
+plt.plot(X_nl, y_pred_linear, 'r--', linewidth=2, label='Linear regression')
+plt.plot(X_nl, y_pred_poly, 'g-', linewidth=2, label='Polynomial regression (degree=2)')
+plt.title('Polynomial regression can fit curves')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 5.3 多项式阶数与过拟合
+### 5.3 Polynomial degree and overfitting
 
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
@@ -511,7 +511,7 @@ for ax, deg in zip(axes.ravel(), degrees):
     lr.fit(X_p, y_nl)
 
     y_s = lr.predict(X_s)
-    y_s = np.clip(y_s, -10, 20)  # 防止极端值
+    y_s = np.clip(y_s, -10, 20)  # Prevent extreme values
 
     train_score = lr.score(X_p, y_nl)
 
@@ -521,74 +521,74 @@ for ax, deg in zip(axes.ravel(), degrees):
     ax.set_ylim(-5, 15)
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('多项式阶数与过拟合', fontsize=14, y=1.02)
+plt.suptitle('Polynomial degree and overfitting', fontsize=14, y=1.02)
 plt.tight_layout()
 plt.show()
 ```
 
-:::warning 过拟合警告
-degree 越高，训练集 R² 越接近 1，但模型在新数据上可能表现很差。这就是**过拟合**。解决方案：正则化。
+:::warning Overfitting Warning
+The higher the degree, the closer the training-set R² may get to 1, but the model may perform very poorly on new data. This is **overfitting**. Solution: regularization.
 :::
 
-### 5.4 多项式回归最容易学偏的点
+### 5.4 The easiest place to get confused when learning polynomial regression
 
-新人第一次学到这里，最容易误会成：
+When beginners first reach this part, they often mistakenly think:
 
-- “只要曲线拟合得更漂亮，模型就更好”
+- “If the curve looks prettier, the model must be better”
 
-但真正该问的是：
+But the real question should be:
 
-- 训练集变好后，测试集有没有一起变好？
-- 模型复杂度升高后，泛化能力有没有下降？
+- After the training set gets better, does the test set also improve?
+- As model complexity increases, does generalization get worse?
 
-所以多项式回归最有教学价值的地方，不是“它能画出更弯的线”，而是它第一次非常直观地让你看到：
+So the most valuable teaching point of polynomial regression is not “it can draw a more curved line,” but that it shows very intuitively:
 
-- 模型太简单会欠拟合
-- 模型太复杂会过拟合
-- 模型效果不是只看训练集
+- too simple a model underfits
+- too complex a model overfits
+- model performance is not judged by the training set alone
 
 ---
 
-## 六、正则化——防止过拟合
+## 6. Regularization — Preventing Overfitting
 
-### 6.1 正则化的思想
+### 6.1 The idea behind regularization
 
-正则化 = 在损失函数中加一个**惩罚项**，惩罚过大的参数值。
+Regularization = add a **penalty term** to the loss function to penalize overly large parameter values.
 
 ```mermaid
 flowchart LR
-    A["原始损失<br/>MSE"] --> C["总损失"]
-    B["惩罚项<br/>参数大小"] --> C
-    C --> D["优化目标：<br/>既拟合数据，<br/>又不让参数太大"]
+    A["Original loss<br/>MSE"] --> C["Total loss"]
+    B["Penalty term<br/>parameter size"] --> C
+    C --> D["Optimization goal:<br/>fit the data,<br/>but keep parameters small"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-**直觉**：惩罚大的参数 → 模型更简单 → 减少过拟合。
+**Intuition**: Penalize large parameters → simpler model → reduced overfitting.
 
-### 6.2 三种正则化
+### 6.2 Three types of regularization
 
-| 方法 | 惩罚项 | 效果 |
+| Method | Penalty term | Effect |
 |------|--------|------|
-| **Ridge（L2）** | `α × Σ(wi²)` | 参数缩小但不为零 |
-| **Lasso（L1）** | `α × Σ|wi|` | 部分参数变为零（特征选择） |
-| **Elastic Net** | L1 + L2 混合 | 兼具两者优点 |
+| **Ridge (L2)** | `α × Σ(wi²)` | Parameters shrink but do not become zero |
+| **Lasso (L1)** | `α × Σ|wi|` | Some parameters become zero (feature selection) |
+| **Elastic Net** | A mix of L1 and L2 | Combines the strengths of both |
 
-### 6.3 Ridge 回归（L2 正则化）
+### 6.3 Ridge regression (L2 regularization)
 
 ```python
 from sklearn.linear_model import Ridge
 
-# 用高阶多项式 + Ridge 对比
+# Compare high-degree polynomial + Ridge
 poly = PolynomialFeatures(degree=10, include_bias=False)
 X_p = poly.fit_transform(X_nl.reshape(-1, 1))
 X_s = poly.transform(x_smooth.reshape(-1, 1))
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 alphas = [0, 0.1, 10]
-titles = ['无正则化 (α=0)', 'Ridge α=0.1', 'Ridge α=10']
+titles = ['No regularization (α=0)', 'Ridge α=0.1', 'Ridge α=10']
 
 for ax, alpha, title in zip(axes, alphas, titles):
     if alpha == 0:
@@ -605,39 +605,39 @@ for ax, alpha, title in zip(axes, alphas, titles):
     ax.set_ylim(-5, 15)
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('Ridge 正则化的效果（degree=10）', fontsize=13)
+plt.suptitle('Effect of Ridge regularization (degree=10)', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-### 6.4 Lasso 回归（L1 正则化）——自动特征选择
+### 6.4 Lasso regression (L1 regularization) — automatic feature selection
 
 ```python
 from sklearn.linear_model import Lasso
 
-# Lasso 能让部分参数变为零 → 自动特征选择
+# Lasso can make some parameters zero → automatic feature selection
 poly = PolynomialFeatures(degree=10, include_bias=False)
 X_p = poly.fit_transform(X_nl.reshape(-1, 1))
 
-# 对比 Ridge 和 Lasso 的参数
+# Compare Ridge and Lasso parameters
 ridge = Ridge(alpha=1.0)
 ridge.fit(X_p, y_nl)
 
 lasso = Lasso(alpha=0.1, max_iter=10000)
 lasso.fit(X_p, y_nl)
 
-# 可视化参数
+# Visualize parameters
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
 axes[0].bar(range(len(ridge.coef_)), np.abs(ridge.coef_), color='steelblue')
-axes[0].set_title('Ridge 参数（全部非零）')
-axes[0].set_xlabel('特征序号')
-axes[0].set_ylabel('|参数值|')
+axes[0].set_title('Ridge parameters (all non-zero)')
+axes[0].set_xlabel('Feature index')
+axes[0].set_ylabel('|parameter value|')
 
 axes[1].bar(range(len(lasso.coef_)), np.abs(lasso.coef_), color='coral')
-axes[1].set_title('Lasso 参数（部分为零 → 特征选择）')
-axes[1].set_xlabel('特征序号')
-axes[1].set_ylabel('|参数值|')
+axes[1].set_title('Lasso parameters (some are zero → feature selection)')
+axes[1].set_xlabel('Feature index')
+axes[1].set_ylabel('|parameter value|')
 
 for ax in axes:
     ax.grid(axis='y', alpha=0.3)
@@ -645,9 +645,9 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 
-# 看看 Lasso 保留了哪些特征
-print("Lasso 参数:", np.round(lasso.coef_, 4))
-print(f"非零参数个数: {np.sum(lasso.coef_ != 0)} / {len(lasso.coef_)}")
+# See which features Lasso kept
+print("Lasso coefficients:", np.round(lasso.coef_, 4))
+print(f"Number of non-zero coefficients: {np.sum(lasso.coef_ != 0)} / {len(lasso.coef_)}")
 ```
 
 ### 6.5 Elastic Net
@@ -655,27 +655,27 @@ print(f"非零参数个数: {np.sum(lasso.coef_ != 0)} / {len(lasso.coef_)}")
 ```python
 from sklearn.linear_model import ElasticNet
 
-# Elastic Net = L1 + L2 的混合
-# l1_ratio 控制 L1 和 L2 的比例（1.0 = 纯 Lasso，0.0 = 纯 Ridge）
+# Elastic Net = a mix of L1 and L2
+# l1_ratio controls the ratio of L1 and L2 (1.0 = pure Lasso, 0.0 = pure Ridge)
 en = ElasticNet(alpha=0.1, l1_ratio=0.5, max_iter=10000)
 en.fit(X_p, y_nl)
 
-print("Elastic Net 参数:", np.round(en.coef_, 4))
-print(f"非零参数个数: {np.sum(en.coef_ != 0)} / {len(en.coef_)}")
+print("Elastic Net coefficients:", np.round(en.coef_, 4))
+print(f"Number of non-zero coefficients: {np.sum(en.coef_ != 0)} / {len(en.coef_)}")
 ```
 
-### 6.6 正则化对比总结
+### 6.6 Summary of regularization comparison
 
-| | Ridge（L2） | Lasso（L1） | Elastic Net |
+| | Ridge (L2) | Lasso (L1) | Elastic Net |
 |---|-----------|-----------|-------------|
-| 惩罚项 | `α × Σ(wi²)` | `α × Σ\|wi\|` | 两者的加权和 |
-| 参数效果 | 缩小但不为零 | 部分为零 | 部分为零 |
-| 适用场景 | 所有特征都有用 | 有很多无用特征 | 特征多且有相关性 |
-| sklearn 类 | `Ridge` | `Lasso` | `ElasticNet` |
+| Penalty term | `α × Σ(wi²)` | `α × Σ\|wi\|` | Weighted combination of both |
+| Parameter effect | Shrinks but not to zero | Some become zero | Some become zero |
+| Use cases | All features are useful | Many useless features | Many features with correlations |
+| sklearn class | `Ridge` | `Lasso` | `ElasticNet` |
 
 ---
 
-## 七、完整实战：糖尿病数据集
+## 7. Full Practice: Diabetes Dataset
 
 ```python
 from sklearn.datasets import load_diabetes
@@ -686,18 +686,18 @@ from sklearn.pipeline import make_pipeline
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 
-# 加载数据
+# Load data
 diabetes = load_diabetes()
 X, y = diabetes.data, diabetes.target
-print(f"数据集: {X.shape[0]} 样本, {X.shape[1]} 特征")
-print(f"特征名: {diabetes.feature_names}")
+print(f"Dataset: {X.shape[0]} samples, {X.shape[1]} features")
+print(f"Feature names: {diabetes.feature_names}")
 
-# 划分数据
+# Split data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 对比多个模型
+# Compare multiple models
 models = {
-    "线性回归": make_pipeline(StandardScaler(), LinearRegression()),
+    "Linear Regression": make_pipeline(StandardScaler(), LinearRegression()),
     "Ridge α=1": make_pipeline(StandardScaler(), Ridge(alpha=1.0)),
     "Ridge α=10": make_pipeline(StandardScaler(), Ridge(alpha=10.0)),
     "Lasso α=0.1": make_pipeline(StandardScaler(), Lasso(alpha=0.1, max_iter=10000)),
@@ -713,7 +713,7 @@ for name, model in models.items():
     results[name] = {'MSE': mse, 'R²': r2}
     print(f"{name:15s} | MSE: {mse:.1f} | R²: {r2:.4f}")
 
-# 可视化 R² 对比
+# Visualize R² comparison
 fig, ax = plt.subplots(figsize=(10, 5))
 names = list(results.keys())
 r2_scores = [v['R²'] for v in results.values()]
@@ -725,7 +725,7 @@ for bar, score in zip(bars, r2_scores):
             f'{score:.4f}', ha='center', fontsize=10)
 
 ax.set_ylabel('R² Score')
-ax.set_title('不同正则化方法对比（糖尿病数据集）')
+ax.set_title('Comparison of Different Regularization Methods (Diabetes Dataset)')
 ax.set_ylim(0, 0.6)
 ax.grid(axis='y', alpha=0.3)
 plt.xticks(rotation=15)
@@ -733,100 +733,100 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 7.1 做完这节，下一步该怎么走？
+### 7.1 After finishing this section, what should you do next?
 
-如果你刚学完线性回归，最稳的下一步不是立刻追更复杂的模型，而是先把下面这条最小建模链练熟：
+If you have just learned linear regression, the most stable next step is not to rush into more complex models, but to first practice this minimal modeling chain:
 
-1. 明确目标是不是连续值预测
-2. 先做一个线性回归 baseline
-3. 看训练集和测试集误差
-4. 看残差图和 `R²`
-5. 如果欠拟合，再考虑特征构造或更复杂模型
-6. 如果过拟合，再考虑正则化、交叉验证和调参
+1. Confirm whether the target is continuous
+2. Build a linear regression baseline first
+3. Check training and test errors
+4. Check the residual plot and `R²`
+5. If underfitting happens, consider feature engineering or a more complex model
+6. If overfitting happens, consider regularization, cross-validation, and tuning
 
-这条链，其实就是后面整套机器学习项目的雏形。
+This chain is actually the prototype of the entire machine learning project workflow.
 
-![线性回归残差诊断图](/img/course/ch05-linear-regression-residual-diagnostics.png)
+![Linear regression residual diagnostics](/img/course/ch05-linear-regression-residual-diagnostics-en.png)
 
-读这张图时，不要只盯 `R²`。先看残差是不是随机散开；如果残差呈弯曲形状，说明模型可能欠拟合；如果少数点误差特别大，先检查异常值；如果误差随预测值变大而变大，可能要考虑变换目标或换指标。
+When reading this chart, do not stare only at `R²`. First check whether the residuals are randomly scattered; if the residuals show a curved pattern, the model may be underfitting; if a few points have very large errors, check for outliers first; if the error grows as the prediction grows, you may need to transform the target or use a different metric.
 
-### 7.2 如果你第一次做回归题，最稳的默认顺序
+### 7.2 If this is your first regression problem, what is the safest default order?
 
-第一次做回归题时，不建议一上来就比较很多模型。  
-更稳的顺序通常是：
+When solving a regression problem for the first time, do not rush to compare many models.
+A more stable order is usually:
 
-1. 先确认目标是不是连续值
-2. 先做线性回归 baseline
-3. 先看 `RMSE / MAE / R²`
-4. 再看残差图有没有明显模式
-5. 再决定下一步是改特征，还是加正则化，还是换更复杂模型
+1. First confirm the target is continuous
+2. Build a linear regression baseline first
+3. Check `RMSE / MAE / R²`
+4. Then see whether the residual plot has a clear pattern
+5. Then decide whether to improve features, add regularization, or switch to a more complex model
 
-如果你把这 5 步先练熟，线性回归这一节就真的学进去了。
+If you practice these 5 steps well, then you have truly learned this linear regression section.
 
 ---
 
-## 小结
+## Summary
 
 ```mermaid
 mindmap
-  root((线性回归))
-    简单线性回归
+  root((Linear Regression))
+    Simple Linear Regression
       y = wx + b
-      一个特征
-    多元线性回归
+      one feature
+    Multivariate Linear Regression
       y = w1x1 + w2x2 + ... + b
-      多个特征
-    求解方法
-      正规方程（解析解）
-      梯度下降（迭代）
-    多项式回归
-      特征扩展
-      容易过拟合
-    正则化
-      Ridge（L2）
-      Lasso（L1）
+      multiple features
+    Solution Methods
+      Normal Equation (analytical solution)
+      Gradient Descent (iterative)
+    Polynomial Regression
+      feature expansion
+      easy to overfit
+    Regularization
+      Ridge (L2)
+      Lasso (L1)
       Elastic Net
 ```
 
-| 要点 | 说明 |
+| Key Point | Explanation |
 |------|------|
-| 核心思想 | 找一个线性函数拟合数据，最小化 MSE |
-| 正规方程 | 直接求解，小数据快，大数据慢 |
-| 梯度下降 | 迭代求解，大数据友好 |
-| 多项式回归 | 用高次特征拟合非线性数据 |
-| 正则化 | 惩罚大参数，防止过拟合 |
+| Core idea | Find a linear function to fit the data and minimize MSE |
+| Normal equation | Solve directly; fast for small data, slow for large data |
+| Gradient descent | Iterative solution; friendly for large data |
+| Polynomial regression | Use higher-order features to fit nonlinear data |
+| Regularization | Penalize large parameters to prevent overfitting |
 
-## 这节最该带走什么
+## What should you take away most from this section?
 
-如果只带走一句话，我希望你记住：
+If you only remember one sentence, I hope it is this:
 
-> **线性回归最重要的不是那条直线，而是它第一次把“建模、损失、求解、诊断、泛化”这一整套机器学习思路串了起来。**
+> **The most important thing about linear regression is not the line itself, but that it is the first time you connect the entire machine learning thinking chain: modeling, loss, optimization, diagnosis, and generalization.**
 
-所以学完这节，真正的收获应该是：
+So after finishing this section, the real gains should be:
 
-- 知道什么叫 baseline
-- 知道为什么要先定义损失
-- 知道正规方程和梯度下降是在解同一个问题
-- 知道模型不是越复杂越好
-- 知道评估和诊断会决定下一步怎么做
+- know what a baseline is
+- know why we define the loss first
+- know that the normal equation and gradient descent solve the same problem
+- know that more complex is not always better
+- know that evaluation and diagnosis determine what you do next
 
-:::info 连接后续
-- **下一节**：逻辑回归——从回归到分类，只需加一个 Sigmoid
-- **第 4 站回顾**：梯度下降（3.3 节）、交叉熵（2.4 节）
+:::info Connection to later sections
+- **Next section**: Logistic regression — from regression to classification, just add a Sigmoid
+- **Review Station 4**: Gradient descent (Section 3.3), cross-entropy (Section 2.4)
 :::
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：手动实现梯度下降
+### Exercise 1: Implement gradient descent manually
 
-用上面的多特征房价数据，手动实现多元线性回归的梯度下降（提示：先对特征做标准化）。
+Use the multi-feature house price data above, and manually implement gradient descent for multivariate linear regression (hint: standardize the features first).
 
-### 练习 2：正则化调参
+### Exercise 2: Regularization tuning
 
-用 `load_diabetes()` 数据集，尝试不同的 Ridge alpha 值（0.01, 0.1, 1, 10, 100），画出 alpha 与测试集 R² 的关系图，找到最优 alpha。
+Using the `load_diabetes()` dataset, try different Ridge alpha values (0.01, 0.1, 1, 10, 100), plot the relationship between alpha and test-set R², and find the best alpha.
 
-### 练习 3：多项式阶数选择
+### Exercise 3: Polynomial degree selection
 
-生成非线性数据，用不同阶数的多项式回归拟合，分别计算训练集和测试集的 R²。画出"阶数 vs R²"图，观察过拟合的拐点。
+Generate nonlinear data, fit polynomial regression with different degrees, compute training-set and test-set R² separately, and plot a “degree vs R²” chart to observe where overfitting begins.

@@ -1,43 +1,43 @@
 ---
-title: "2.6 线性代数基础操作"
+title: "2.6 Basic Linear Algebra Operations"
 sidebar_position: 7
-description: "用 NumPy 进行矩阵乘法、求逆、求特征值等线性代数运算"
+description: "Use NumPy for linear algebra operations such as matrix multiplication, inversion, and eigenvalues"
 ---
 
-# 线性代数基础操作
+# Basic Linear Algebra Operations
 
-![NumPy 线性代数工具箱](/img/course/ch03-numpy-linear-algebra-toolkit.png)
+![NumPy Linear Algebra Toolkit](/img/course/ch03-numpy-linear-algebra-toolkit-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 掌握矩阵乘法的三种写法（dot、matmul、@）
-- 了解逆矩阵、行列式、特征值的含义和计算
-- 学会用 `numpy.linalg` 模块进行线性代数运算
-- 理解线性代数在 AI 中的重要性
-
----
-
-## 为什么要学线性代数？
-
-你可能觉得"线性代数"听起来很数学、很抽象。但在 AI 领域，它是**最核心**的数学基础：
-
-| AI 场景 | 线性代数的角色 |
-|---------|--------------|
-| 神经网络 | 每一层的运算就是矩阵乘法 |
-| 推荐系统 | 用户-商品矩阵分解 |
-| 图像处理 | 一张图片就是一个矩阵 |
-| 词向量 | 每个词是一个向量，相似度 = 点积 |
-| 降维 | PCA 就是求特征值和特征向量 |
-
-现在先用 NumPy 操作一下这些概念，建立直觉。4 AI 数学最小必要基础会更深入地讲解原理。
+- Master three ways to write matrix multiplication (`dot`, `matmul`, `@`)
+- Understand the meaning and computation of inverse matrices, determinants, and eigenvalues
+- Learn to use the `numpy.linalg` module for linear algebra operations
+- Understand why linear algebra matters in AI
 
 ---
 
-## 矩阵乘法
+## Why learn linear algebra?
 
-### 元素乘法 vs 矩阵乘法
+You may feel that “linear algebra” sounds very mathematical and abstract. But in AI, it is one of the **most essential** mathematical foundations:
 
-这是新手最容易搞混的地方：
+| AI Scenario | Role of Linear Algebra |
+|-------------|------------------------|
+| Neural networks | The computation in each layer is matrix multiplication |
+| Recommender systems | User-item matrix factorization |
+| Image processing | An image is a matrix |
+| Word vectors | Each word is a vector; similarity = dot product |
+| Dimensionality reduction | PCA is about finding eigenvalues and eigenvectors |
+
+For now, let’s use NumPy to work with these concepts and build intuition. Chapter 4, *The Minimum Necessary Math Foundation for AI*, will explain the principles in more depth.
+
+---
+
+## Matrix multiplication
+
+### Element-wise multiplication vs. matrix multiplication
+
+This is one of the most common points of confusion for beginners:
 
 ```python
 import numpy as np
@@ -45,48 +45,48 @@ import numpy as np
 A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
 
-# 元素乘法（逐位相乘）
+# Element-wise multiplication
 print(A * B)
 # [[ 5 12]
 #  [21 32]]
-# 计算过程：1×5=5, 2×6=12, 3×7=21, 4×8=32
+# Calculation: 1×5=5, 2×6=12, 3×7=21, 4×8=32
 
-# 矩阵乘法
+# Matrix multiplication
 print(A @ B)
 # [[19 22]
 #  [43 50]]
-# 计算过程：
+# Calculation:
 # [1×5+2×7, 1×6+2×8]   = [19, 22]
 # [3×5+4×7, 3×6+4×8]   = [43, 50]
 ```
 
-### 矩阵乘法的三种写法
+### Three ways to write matrix multiplication
 
 ```python
 A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
 
-# 方法 1：@ 运算符（推荐，最简洁）
+# Method 1: @ operator (recommended, most concise)
 C1 = A @ B
 
-# 方法 2：np.matmul
+# Method 2: np.matmul
 C2 = np.matmul(A, B)
 
-# 方法 3：np.dot
+# Method 3: np.dot
 C3 = np.dot(A, B)
 
-# 三种方法结果完全一样
+# All three methods give exactly the same result
 print(np.array_equal(C1, C2))  # True
 print(np.array_equal(C2, C3))  # True
 ```
 
-:::tip 推荐使用 @
-在 Python 3.5+ 中，`@` 运算符是最推荐的矩阵乘法写法，简洁直观。
+:::tip Use @
+In Python 3.5+, the `@` operator is the most recommended way to write matrix multiplication because it is concise and intuitive.
 :::
 
-### 矩阵乘法的规则
+### Rules for matrix multiplication
 
-两个矩阵能相乘的条件：**前面的列数 = 后面的行数**。
+Two matrices can be multiplied only when: **the number of columns in the first matrix = the number of rows in the second matrix**.
 
 ```python
 # (2, 3) @ (3, 4) → (2, 4)  ✅ 3 == 3
@@ -95,263 +95,263 @@ B = np.ones((3, 4))
 C = A @ B
 print(C.shape)   # (2, 4)
 
-# (2, 3) @ (2, 4) → ❌ 报错！3 ≠ 2
+# (2, 3) @ (2, 4) → ❌ error! 3 ≠ 2
 # A = np.ones((2, 3))
 # B = np.ones((2, 4))
 # C = A @ B  # ValueError!
 ```
 
-记忆口诀：`(m, n) @ (n, p) → (m, p)`
+Memory trick: `(m, n) @ (n, p) → (m, p)`
 
-### 向量点积
+### Vector dot product
 
-一维数组的 `@` 或 `np.dot` 计算的是**点积**（内积）：
+For one-dimensional arrays, `@` or `np.dot` computes the **dot product**:
 
 ```python
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 
-# 点积 = 1×4 + 2×5 + 3×6 = 32
+# Dot product = 1×4 + 2×5 + 3×6 = 32
 print(a @ b)        # 32
 print(np.dot(a, b)) # 32
 ```
 
-点积在 AI 中非常重要——后面学到**余弦相似度**和**注意力机制**时都会用到。
+The dot product is very important in AI—you will use it later when learning **cosine similarity** and the **attention mechanism**.
 
 ---
 
-## numpy.linalg 模块
+## The `numpy.linalg` module
 
-NumPy 的 `linalg` 子模块提供了完整的线性代数功能：
+NumPy’s `linalg` submodule provides a full set of linear algebra functions:
 
-### 逆矩阵
+### Inverse matrix
 
-矩阵的逆满足 `A × A⁻¹ = 单位矩阵`：
+The inverse of a matrix satisfies `A × A⁻¹ = identity matrix`:
 
 ```python
 A = np.array([[1, 2], [3, 4]])
 
-# 求逆矩阵
+# Compute the inverse matrix
 A_inv = np.linalg.inv(A)
 print(A_inv)
 # [[-2.   1. ]
 #  [ 1.5 -0.5]]
 
-# 验证：A × A_inv ≈ 单位矩阵
+# Verify: A × A_inv ≈ identity matrix
 print(A @ A_inv)
 # [[1.0000000e+00 0.0000000e+00]
 #  [8.8817842e-16 1.0000000e+00]]
-# 对角线是 1，其余接近 0（浮点精度误差）
+# The diagonal is 1, and the other values are close to 0 (floating-point precision error)
 ```
 
-:::caution 不是所有矩阵都有逆
-只有**方阵**（行数=列数）且**行列式不为 0** 的矩阵才有逆。
+:::caution Not every matrix has an inverse
+Only **square matrices** (same number of rows and columns) with **non-zero determinant** have an inverse.
 
 ```python
-# 奇异矩阵（行列式为 0）没有逆
-singular = np.array([[1, 2], [2, 4]])  # 第二行是第一行的 2 倍
+# A singular matrix (determinant = 0) has no inverse
+singular = np.array([[1, 2], [2, 4]])  # The second row is 2 times the first row
 # np.linalg.inv(singular)  # LinAlgError: Singular matrix
 ```
 :::
 
-### 行列式
+### Determinant
 
-行列式是一个标量值，表示矩阵的"缩放因子"：
+The determinant is a scalar value that represents the matrix’s “scaling factor”:
 
 ```python
 A = np.array([[1, 2], [3, 4]])
 det = np.linalg.det(A)
-print(f"行列式: {det:.1f}")   # -2.0
+print(f"Determinant: {det:.1f}")   # -2.0
 
-# 2×2 矩阵的行列式 = ad - bc
+# Determinant of a 2×2 matrix = ad - bc
 # [[a, b], [c, d]] → 1×4 - 2×3 = -2
 ```
 
-### 特征值和特征向量
+### Eigenvalues and eigenvectors
 
-特征值和特征向量是矩阵的"DNA"——揭示矩阵的内在性质：
+Eigenvalues and eigenvectors are the “DNA” of a matrix—they reveal its internal properties:
 
 ```python
 A = np.array([[4, 2], [1, 3]])
 
-# 求特征值和特征向量
+# Compute eigenvalues and eigenvectors
 eigenvalues, eigenvectors = np.linalg.eig(A)
-print(f"特征值: {eigenvalues}")      # [5. 2.]
-print(f"特征向量:\n{eigenvectors}")
+print(f"Eigenvalues: {eigenvalues}")      # [5. 2.]
+print(f"Eigenvectors:\n{eigenvectors}")
 # [[ 0.894 -0.707]
 #  [ 0.447  0.707]]
 ```
 
-:::info 特征值的直觉
-如果把矩阵想象成一种"变换"（比如旋转、拉伸），那么：
-- **特征向量** = 变换后**方向不变**的向量
-- **特征值** = 该方向上被**拉伸的倍数**
+:::info Intuition for eigenvalues
+If you think of a matrix as a kind of “transformation” (such as rotation or stretching), then:
+- **Eigenvectors** = vectors whose **direction does not change** after the transformation
+- **Eigenvalues** = the **amount of stretching** along that direction
 
-这个概念在后面学 PCA 降维时会非常有用——PCA 本质上就是找到数据"变化最大"的方向（最大特征值对应的特征向量）。
+This concept will be very useful later when we learn PCA for dimensionality reduction—PCA is essentially about finding the directions where the data changes the most (the eigenvectors corresponding to the largest eigenvalues).
 :::
 
-### 解线性方程组
+### Solving systems of linear equations
 
 ```
-解方程：
+Solve the equations:
 2x + y = 5
 x + 3y = 7
 ```
 
-用矩阵形式：`Ax = b`
+Write them in matrix form: `Ax = b`
 
 ```python
 A = np.array([[2, 1], [1, 3]])
 b = np.array([5, 7])
 
-# 解方程
+# Solve the system
 x = np.linalg.solve(A, b)
 print(f"x = {x[0]:.2f}, y = {x[1]:.2f}")  # x = 1.60, y = 1.80
 
-# 验证
-print(A @ x)   # [5. 7.]  ← 等于 b，说明解正确
+# Verify
+print(A @ x)   # [5. 7.]  ← equals b, so the solution is correct
 ```
 
 ---
 
-## 其他实用操作
+## Other useful operations
 
-### 范数（向量的长度）
+### Norms (vector length)
 
 ```python
 v = np.array([3, 4])
 
-# L2 范数（欧几里得距离）
+# L2 norm (Euclidean distance)
 l2 = np.linalg.norm(v)
-print(f"L2 范数: {l2}")   # 5.0  (3² + 4² = 25, √25 = 5)
+print(f"L2 norm: {l2}")   # 5.0  (3² + 4² = 25, √25 = 5)
 
-# L1 范数（绝对值之和）
+# L1 norm (sum of absolute values)
 l1 = np.linalg.norm(v, ord=1)
-print(f"L1 范数: {l1}")   # 7.0  (|3| + |4| = 7)
+print(f"L1 norm: {l1}")   # 7.0  (|3| + |4| = 7)
 
-# 矩阵的范数
+# Matrix norm
 M = np.array([[1, 2], [3, 4]])
-print(f"矩阵 Frobenius 范数: {np.linalg.norm(M):.2f}")  # 5.48
+print(f"Matrix Frobenius norm: {np.linalg.norm(M):.2f}")  # 5.48
 ```
 
-### 矩阵的秩
+### Matrix rank
 
 ```python
 A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 rank = np.linalg.matrix_rank(A)
-print(f"矩阵的秩: {rank}")  # 2（不是满秩，因为第三行 = 第一行×(-1) + 第二行×2）
+print(f"Matrix rank: {rank}")  # 2 (not full rank, because the third row = first row×(-1) + second row×2)
 ```
 
-### 常用函数速查
+### Quick reference for common functions
 
-| 函数 | 作用 | 示例 |
+| Function | Purpose | Example |
 |------|------|------|
-| `A @ B` | 矩阵乘法 | `np.array([[1,2],[3,4]]) @ np.eye(2)` |
-| `np.linalg.inv(A)` | 逆矩阵 | |
-| `np.linalg.det(A)` | 行列式 | |
-| `np.linalg.eig(A)` | 特征值和特征向量 | |
-| `np.linalg.solve(A, b)` | 解方程 Ax=b | |
-| `np.linalg.norm(v)` | 范数 | |
-| `np.linalg.matrix_rank(A)` | 矩阵的秩 | |
-| `A.T` | 转置 | |
-| `np.trace(A)` | 迹（对角线之和） | |
+| `A @ B` | Matrix multiplication | `np.array([[1,2],[3,4]]) @ np.eye(2)` |
+| `np.linalg.inv(A)` | Inverse matrix | |
+| `np.linalg.det(A)` | Determinant | |
+| `np.linalg.eig(A)` | Eigenvalues and eigenvectors | |
+| `np.linalg.solve(A, b)` | Solve `Ax=b` | |
+| `np.linalg.norm(v)` | Norm | |
+| `np.linalg.matrix_rank(A)` | Matrix rank | |
+| `A.T` | Transpose | |
+| `np.trace(A)` | Trace (sum of diagonal elements) | |
 
 ---
 
-## 实战：计算余弦相似度
+## Practice: Calculate cosine similarity
 
-余弦相似度是 AI 中衡量两个向量"相似程度"的常用方法。后面在词向量、推荐系统、RAG 中都会反复使用。
+Cosine similarity is a common way in AI to measure how “similar” two vectors are. It will be used repeatedly later in word vectors, recommender systems, and RAG.
 
-公式：`cos(θ) = (a · b) / (||a|| × ||b||)`
+Formula: `cos(θ) = (a · b) / (||a|| × ||b||)`
 
 ```python
 import numpy as np
 
 def cosine_similarity(a, b):
-    """计算两个向量的余弦相似度"""
-    dot_product = a @ b                         # 点积
-    norm_a = np.linalg.norm(a)                  # a 的长度
-    norm_b = np.linalg.norm(b)                  # b 的长度
+    """Calculate the cosine similarity between two vectors"""
+    dot_product = a @ b                         # Dot product
+    norm_a = np.linalg.norm(a)                  # Length of a
+    norm_b = np.linalg.norm(b)                  # Length of b
     return dot_product / (norm_a * norm_b)
 
-# 示例：比较用户兴趣
-# 维度代表：[科技, 体育, 音乐, 电影, 美食]
-user_a = np.array([5, 1, 3, 4, 2])   # 喜欢科技和电影
-user_b = np.array([4, 2, 3, 5, 1])   # 也喜欢科技和电影
-user_c = np.array([1, 5, 2, 1, 4])   # 喜欢体育和美食
+# Example: compare user interests
+# Dimensions represent: [technology, sports, music, movies, food]
+user_a = np.array([5, 1, 3, 4, 2])   # Likes technology and movies
+user_b = np.array([4, 2, 3, 5, 1])   # Also likes technology and movies
+user_c = np.array([1, 5, 2, 1, 4])   # Likes sports and food
 
-print(f"A 和 B 的相似度: {cosine_similarity(user_a, user_b):.4f}")  # 0.9631 很相似
-print(f"A 和 C 的相似度: {cosine_similarity(user_a, user_c):.4f}")  # 0.5528 不太像
-print(f"B 和 C 的相似度: {cosine_similarity(user_b, user_c):.4f}")  # 0.5025 不太像
+print(f"Similarity between A and B: {cosine_similarity(user_a, user_b):.4f}")  # 0.9631 very similar
+print(f"Similarity between A and C: {cosine_similarity(user_a, user_c):.4f}")  # 0.5528 not very similar
+print(f"Similarity between B and C: {cosine_similarity(user_b, user_c):.4f}")  # 0.5025 not very similar
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 说明 | NumPy 函数 |
+| Concept | Description | NumPy function |
 |------|------|-----------|
-| 矩阵乘法 | `(m,n) @ (n,p) → (m,p)` | `A @ B` 或 `np.matmul` |
-| 逆矩阵 | `A × A⁻¹ = I` | `np.linalg.inv()` |
-| 行列式 | 矩阵的缩放因子 | `np.linalg.det()` |
-| 特征值/向量 | 矩阵的"DNA" | `np.linalg.eig()` |
-| 解方程 | 解 Ax = b | `np.linalg.solve()` |
-| 范数 | 向量的长度 | `np.linalg.norm()` |
+| Matrix multiplication | `(m,n) @ (n,p) → (m,p)` | `A @ B` or `np.matmul` |
+| Inverse matrix | `A × A⁻¹ = I` | `np.linalg.inv()` |
+| Determinant | Matrix scaling factor | `np.linalg.det()` |
+| Eigenvalues/vectors | The “DNA” of a matrix | `np.linalg.eig()` |
+| Solving equations | Solve `Ax = b` | `np.linalg.solve()` |
+| Norm | Vector length | `np.linalg.norm()` |
 
-:::tip 学到什么程度就够？
-在本阶段，你只需要：
-1. **会用** NumPy 的线性代数函数
-2. **知道**矩阵乘法、逆矩阵、特征值大概是什么意思
-3. **能算**余弦相似度
+:::tip How much do you need to learn?
+At this stage, you only need to:
+1. **Be able to use** NumPy’s linear algebra functions
+2. **Know** roughly what matrix multiplication, inverse matrices, and eigenvalues mean
+3. **Be able to calculate** cosine similarity
 
-深入的数学理解会在 4 AI 数学最小必要基础中系统学习。现在先建立代码直觉就好。
+You will learn the deeper mathematical understanding systematically in Chapter 4, *The Minimum Necessary Math Foundation for AI*. For now, just build intuition through code.
 :::
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：矩阵乘法
+### Exercise 1: Matrix multiplication
 
 ```python
-# 某商店 3 种商品的单价
-prices = np.array([10, 25, 8])   # [苹果, 牛排, 面包]
+# Unit prices for 3 products in a store
+prices = np.array([10, 25, 8])   # [apples, steak, bread]
 
-# 3 位顾客的购买数量
+# Purchase quantities for 3 customers
 quantities = np.array([
-    [3, 1, 2],    # 顾客 1: 3苹果 + 1牛排 + 2面包
-    [0, 2, 5],    # 顾客 2
-    [5, 0, 3]     # 顾客 3
+    [3, 1, 2],    # Customer 1: 3 apples + 1 steak + 2 bread
+    [0, 2, 5],    # Customer 2
+    [5, 0, 3]     # Customer 3
 ])
 
-# 用矩阵乘法计算每位顾客的消费总额
+# Use matrix multiplication to calculate the total spending of each customer
 # totals = ?
 ```
 
-### 练习 2：解方程
+### Exercise 2: Solve equations
 
 ```python
-# 解方程组：
+# Solve the system:
 # 3x + 2y - z = 1
 # x - y + 2z = 5
 # 2x + 3y - z = 0
 #
-# 提示：写成 Ax = b 的形式
+# Hint: write it in the form Ax = b
 ```
 
-### 练习 3：余弦相似度应用
+### Exercise 3: Cosine similarity application
 
 ```python
-# 假设有 5 部电影的特征向量
-# 维度代表：[动作, 喜剧, 爱情, 科幻, 恐怖]
+# Suppose we have feature vectors for 5 movies
+# Dimensions represent: [action, comedy, romance, sci-fi, horror]
 movies = {
-    "复仇者联盟": np.array([5, 2, 1, 4, 0]),
-    "泰囧":       np.array([1, 5, 2, 0, 0]),
-    "泰坦尼克号": np.array([1, 0, 5, 0, 1]),
-    "星际穿越":   np.array([3, 0, 2, 5, 0]),
-    "釜山行":     np.array([4, 0, 1, 1, 5]),
+    "Avengers": np.array([5, 2, 1, 4, 0]),
+    "Lost in Thailand": np.array([1, 5, 2, 0, 0]),
+    "Titanic": np.array([1, 0, 5, 0, 1]),
+    "Interstellar": np.array([3, 0, 2, 5, 0]),
+    "Train to Busan": np.array([4, 0, 1, 1, 5]),
 }
 
-# 用余弦相似度找出和"复仇者联盟"最相似的电影
-# 提示：计算"复仇者联盟"和其他每部电影的余弦相似度
+# Use cosine similarity to find the movie most similar to "Avengers"
+# Hint: calculate the cosine similarity between "Avengers" and each of the other movies
 ```

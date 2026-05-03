@@ -1,76 +1,76 @@
 ---
-title: "选修模块：C++ 与模型部署"
+title: "Elective Module: C++ and Model Deployment"
 sidebar_position: 0
-description: "C++ 与模型部署 模块总览，帮助你理解学习顺序、适用场景和每节课之间的关系。"
+description: "Overview of the C++ and Model Deployment module, helping you understand the learning sequence, applicable scenarios, and the relationship between lessons."
 ---
 
-# 选修模块：C++ 与模型部署
+# Elective Module: C++ and Model Deployment
 
-:::tip 模块定位
-把训练好的模型真正推到推理与部署环境里，需要系统理解性能、推理和服务化。
+:::tip Module Positioning
+To truly move a trained model into inference and deployment environments, you need a systematic understanding of performance, inference, and serviceization.
 :::
 
-![C++ 与模型部署模块学习地图](/img/course/elective-cpp-deployment-module-map.png)
+![C++ and Model Deployment module learning map](/img/course/elective-cpp-deployment-module-map-en.png)
 
-## 学习目标
+## Learning Goals
 
-- 理解 C++ 与模型部署 模块在整条学习路径里的定位
-- 知道本模块每一节课分别解决什么问题
-- 明确适合先学哪些、后学哪些
-- 用一个最小示例快速建立直觉
-
----
-
-## 一、这个模块在解决什么问题？
-
-### 1.1 模块定位
-
-C++ 与模型部署 不是为了“多学一点内容”，而是为了补上某类经常决定工程上限的能力。
-
-你可以先把它理解成一组专题工具箱：
-
-- 遇到相关项目时再回来看
-- 不必一次学完
-- 但一旦进入对应场景，它们会非常有价值
-
-### 1.2 建议学习顺序
-
-比较稳妥的学习方式通常是：
-
-1. 先看总览，知道每节课大概做什么
-2. 先做最基础、最能马上派上用场的主题
-3. 再进入更偏工程或更偏项目的内容
+- Understand where the C++ and Model Deployment module fits in the overall learning path
+- Know what problem each lesson in this module solves
+- Clarify which parts to learn first and which to learn later
+- Build intuition quickly with a minimal example
 
 ---
 
-## 二、本模块包含哪些主题？
+## 1. What problem is this module solving?
 
-### 2.1 章节清单
+### 1.1 Module Positioning
 
-| 章节 | 主题 |
+C++ and model deployment are not here to “learn a bit more content,” but to fill in a kind of capability that often determines how far an engineering solution can go.
+
+You can first think of it as a toolbox of specialized topics:
+
+- Come back to it when you encounter relevant projects
+- You do not have to learn it all at once
+- But once you enter the corresponding scenario, it becomes very valuable
+
+### 1.2 Recommended Learning Order
+
+A more reliable way to learn is usually:
+
+1. Read the overview first and understand what each lesson is roughly about
+2. Start with the most basic topics that can be used right away
+3. Then move into more engineering-focused or project-focused content
+
+---
+
+## 2. What topics are included in this module?
+
+### 2.1 Chapter List
+
+| Chapter | Topic |
 |---|---|
-| 第一讲 | C++ 编程基础 |
-| 第二讲 | C++ 进阶 |
-| 第三讲 | 模型优化技术 |
-| 第四讲 | 推理引擎 |
-| 第五讲 | 边缘设备部署 |
-| 第六讲 | 模型服务化 |
-| 第七讲 | 部署综合项目 |
+| Lesson 1 | C++ Programming Basics |
+| Lesson 2 | Advanced C++ |
+| Lesson 3 | Model Optimization Techniques |
+| Lesson 4 | Inference Engine |
+| Lesson 5 | Edge Device Deployment |
+| Lesson 6 | Model Serviceization |
+| Lesson 7 | Comprehensive Deployment Project |
 
-### 2.2 应该怎么使用这份模块？
+### 2.2 How should you use this module?
 
-一个很实用的策略是：
+A very practical strategy is:
 
-- 先用主线课程把整体跑通
-- 遇到专项需求时，再回到选修模块精修
+- First use the main course to get the whole workflow running
+- Then return to the elective module to refine specific skills when needed
 
-这样不会因为专题太多而丢掉主线节奏。
+This way, you avoid losing the rhythm of the main learning path because there are too many specialized topics.
 
 ---
 
-## 三、一个最小可运行示例
+## 3. A minimal runnable example
 
-:::info 运行提示
+:::info Run Tip
 ```bash
 # macOS / Linux
 c++ -std=c++17 demo.cpp -o demo
@@ -96,49 +96,49 @@ return 0;
 }
 ```
 
-### 3.2 这个示例想让你抓住什么？
+### 3.2 What should you take away from this example?
 
-这一小段代码不是为了覆盖整个模块，而是为了帮你迅速建立一个“这个模块到底在做什么”的感觉。
+This small piece of code is not meant to cover the whole module. Instead, it helps you quickly build a sense of “what exactly this module is doing.”
 
-阅读时优先看三件事：
+When reading it, focus on these three things first:
 
-- 输入是什么
-- 中间过程发生了什么
-- 输出如何对应到实际项目
-
----
-
-## 四、学习建议
-
-### 4.1 如果时间有限，优先学什么？
-
-优先学那些会在后续项目里高频出现、能立刻帮你降成本或提效率的主题。
-
-### 4.2 常见误区
-
-- 看到是选修就完全不学
-- 一上来想把所有选修全刷完
-- 只看概念，不跑最小示例
+- What is the input?
+- What happens in the middle?
+- How does the output correspond to a real project?
 
 ---
 
-## 五、什么时候最适合回学这个模块？
+## 4. Learning advice
 
-下面这些信号出现时，说明你很适合回来补这一组内容：
+### 4.1 If time is limited, what should you learn first?
 
-- 你已经会训练模型，但部署后性能很差
-- 你开始关心推理延迟、吞吐、显存和成本
-- 你需要把模型放到边缘设备或服务化环境里
-- 你发现 Python 原型跑得通，但离生产还很远
+Prioritize the topics that will appear frequently in later projects and can immediately help reduce cost or improve efficiency.
 
-## 六、学完这个模块后能做什么？
+### 4.2 Common mistakes
 
-- 能理解训练和推理是两套不同问题
-- 能读懂常见部署链路里的优化与服务化概念
-- 能更从容地进入模型上线、边缘部署和推理工程场景
+- Seeing it as elective and not learning it at all
+- Trying to finish all electives at once from the start
+- Only reading concepts and never running the minimal example
 
 ---
 
-## 小结
+## 5. When is the best time to come back and study this module?
 
-这份总览页的作用是给你一张地图。真正学模块时，不必追求“全都懂”，而是要知道什么时候该回来、先补哪一块。
+When you see the following signals, it means you are a good fit to come back and fill in this set of topics:
+
+- You already know how to train a model, but performance is poor after deployment
+- You start caring about inference latency, throughput, memory usage, and cost
+- You need to put the model on edge devices or in a service-based environment
+- You find that the Python prototype works, but it is still far from production
+
+## 6. What can you do after finishing this module?
+
+- Understand that training and inference are two different problems
+- Read and understand common optimization and serviceization concepts in deployment pipelines
+- Enter model release, edge deployment, and inference engineering scenarios with more confidence
+
+---
+
+## Summary
+
+The purpose of this overview page is to give you a map. When actually learning the module, you do not need to aim for “understanding everything.” Instead, know when to come back and which part to fill in first.

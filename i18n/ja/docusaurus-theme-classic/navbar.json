@@ -7,9 +7,9 @@
     "message": "AI フルスタック学習コースのロゴ",
     "description": "The alt text of navbar logo"
   },
-  "item.label.📚 课程内容": {
+  "item.label.📚 Course Content": {
     "message": "📚 コース内容",
-    "description": "Navbar item with label 📚 课程内容"
+    "description": "Navbar item with label 📚 Course Content"
   },
   "item.label.GitHub": {
     "message": "GitHub",

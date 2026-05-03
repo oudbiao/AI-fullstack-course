@@ -1,109 +1,109 @@
 ---
-title: "4.5 超参数调优"
+title: "4.5 Hyperparameter Tuning"
 sidebar_position: 13
-description: "掌握网格搜索、随机搜索和贝叶斯优化（Optuna）等超参数调优方法"
-keywords: [超参数调优, GridSearchCV, RandomizedSearchCV, Optuna, 贝叶斯优化, 调参]
+description: "Master hyperparameter tuning methods such as grid search, random search, and Bayesian optimization (Optuna)"
+keywords: [hyperparameter tuning, GridSearchCV, RandomizedSearchCV, Optuna, Bayesian optimization, parameter tuning]
 ---
 
-# 超参数调优
+# Hyperparameter Tuning
 
-![超参数搜索方法对比图](/img/course/hyperparameter-tuning-search.png)
+![Comparison of hyperparameter search methods](/img/course/hyperparameter-tuning-search-en.png)
 
-:::tip 本节定位
-模型的**超参数**（如树的深度、学习率、正则化强度）需要手动设定，它们对模型性能影响巨大。本节教你**系统化**地搜索最优超参数，而不是靠感觉瞎试。
+:::tip Section overview
+Model **hyperparameters** (such as tree depth, learning rate, and regularization strength) must be set manually, and they have a huge impact on model performance. This section teaches you how to search for the best hyperparameters **systematically**, instead of guessing and trying blindly.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 区分参数和超参数
-- 掌握网格搜索（GridSearchCV）
-- 掌握随机搜索（RandomizedSearchCV）
-- 了解贝叶斯优化（Optuna）
-- 掌握超参数调优的最佳实践
+- Distinguish between parameters and hyperparameters
+- Master grid search (GridSearchCV)
+- Master random search (RandomizedSearchCV)
+- Understand Bayesian optimization (Optuna)
+- Master best practices for hyperparameter tuning
 
-## 先说一个很重要的学习预期
+## First, an important learning expectation
 
-这一节最容易让新人走偏的地方，不是工具不会用，而是太容易把调参理解成：
+The easiest place for beginners to go off track in this section is not that the tools are hard to use, but that it is too easy to think of tuning as:
 
-- “模型不够好，就继续搜更多参数”
+- “The model is not good enough, so just search more parameters”
 
-但更适合第一遍先建立的认知是：
+A better first understanding is:
 
-> **调参是在 baseline、评估方式和搜索空间都已经合理之后，才有意义的优化动作。**
+> **Tuning only makes sense after the baseline, evaluation method, and search space are all reasonable.**
 
-所以这节最重要的第一层，不是先会多少搜索工具，而是先学会：
+So the most important first layer in this section is not how many search tools you can use, but rather learning:
 
-- 什么情况下该调
-- 什么情况下其实不该急着调
+- When you should tune
+- When you should not rush to tune
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-超参数调优这节最适合新人的理解顺序不是“先学几个搜索工具”，而是先看清它在机器学习工作流里的位置：
+For beginners, the best way to understand hyperparameter tuning is not “learn a few search tools first,” but to see where it fits in the machine learning workflow:
 
-![超参数调优验证流程图](/img/course/ch05-hyperparameter-tuning-workflow.png)
+![Hyperparameter tuning validation workflow diagram](/img/course/ch05-hyperparameter-tuning-workflow-en.png)
 
-这节真正想解决的是：
+What this section really wants to solve is:
 
-- 调参为什么不能脱离评估来谈
-- 为什么测试集不能被拿来反复试参数
-- 为什么搜索空间本身就是设计问题
+- Why tuning cannot be discussed separately from evaluation
+- Why the test set should not be used to try parameters repeatedly
+- Why the search space itself is a design problem
 
-### 0.1 一个更适合新人的类比
+### 0.1 A more beginner-friendly analogy
 
-你可以先把调参想成：
+You can first think of tuning as:
 
-- 做实验时在调旋钮
+- Adjusting knobs while doing an experiment
 
-但真正重要的不是旋钮拧得多勤，而是：
+But what really matters is not how often you turn the knobs, but:
 
-- 你有没有先把实验台搭稳
-- 你到底在优化哪个目标
-- 你有没有记录每次改动带来的变化
+- Whether you first set up the experiment properly
+- What exact goal you are optimizing
+- Whether you record the changes caused by each adjustment
 
-所以调参更像实验设计，不只是参数搜索。
+So tuning is more like experimental design, not just parameter search.
 
-![超参数搜索空间与预算图](/img/course/ch05-search-space-budget-map.png)
+![Hyperparameter search space and budget diagram](/img/course/ch05-search-space-budget-map-en.png)
 
-读这张图时，先看“预算”这条线：参数越多、范围越大，组合数会爆炸。新人第一次调参不要把所有旋钮一起拧，先从最影响复杂度的参数开始，比如树模型的 `max_depth`、`min_samples_leaf`，再逐步扩大搜索空间。
+When reading this diagram, first look at the “budget” line: the more parameters and the larger the ranges, the more the number of combinations explodes. For your first tuning attempt, do not twist every knob at once. Start with the parameters that most affect complexity, such as `max_depth` and `min_samples_leaf` in tree models, and then gradually expand the search space.
 
-## 一、参数 vs 超参数
+## 1. Parameters vs. hyperparameters
 
-| | 参数（Parameter） | 超参数（Hyperparameter） |
+| | Parameters | Hyperparameters |
 |---|-------------------|------------------------|
-| 由谁决定 | 模型自动从数据中学习 | 人为手动设定 |
-| 什么时候确定 | 训练过程中 | 训练之前 |
-| 例子 | 线性回归的 w, b | 树的 max_depth, 学习率 |
-| 存储位置 | `model.coef_` | `model.get_params()` |
+| Who determines them | The model learns them automatically from data | They are set manually by humans |
+| When they are determined | During training | Before training |
+| Examples | `w`, `b` in linear regression | `max_depth` in trees, learning rate |
+| Storage location | `model.coef_` | `model.get_params()` |
 
 ```python
 from sklearn.tree import DecisionTreeClassifier
 
 model = DecisionTreeClassifier(max_depth=5, min_samples_split=10)
-print("超参数（训练前设定）:")
+print("Hyperparameters (set before training):")
 print(model.get_params())
 ```
 
 ---
 
-## 二、网格搜索（Grid Search）
+## 2. Grid search
 
-### 2.1 原理
+### 2.1 How it works
 
-穷举所有超参数组合，用交叉验证评估每一种，选最好的。
+Exhaustively try every hyperparameter combination, evaluate each one with cross-validation, and choose the best.
 
 ```mermaid
 flowchart TD
-    P["定义参数网格"] --> CV["对每种组合做 K 折 CV"]
-    CV --> S["记录所有组合的分数"]
-    S --> B["选分数最高的组合"]
+    P["Define parameter grid"] --> CV["Run K-fold CV for each combination"]
+    CV --> S["Record scores for all combinations"]
+    S --> B["Select the highest-scoring combination"]
 
     style P fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 GridSearchCV 实战
+### 2.2 GridSearchCV in action
 
 ```python
 from sklearn.model_selection import GridSearchCV
@@ -117,17 +117,17 @@ X_train, X_test, y_train, y_test = train_test_split(
     wine.data, wine.target, test_size=0.2, random_state=42
 )
 
-# 定义参数网格
+# Define parameter grid
 param_grid = {
     'n_estimators': [50, 100, 200],
     'max_depth': [3, 5, 10, None],
     'min_samples_split': [2, 5, 10],
 }
 
-# 总共 3 × 4 × 3 = 36 种组合 × 5 折 = 180 次训练
-print(f"总组合数: {3*4*3}")
+# Total of 3 × 4 × 3 = 36 combinations × 5 folds = 180 training runs
+print(f"Total combinations: {3*4*3}")
 
-# 网格搜索
+# Grid search
 grid = GridSearchCV(
     RandomForestClassifier(random_state=42),
     param_grid,
@@ -139,22 +139,22 @@ grid = GridSearchCV(
 
 grid.fit(X_train, y_train)
 
-print(f"\n最佳参数: {grid.best_params_}")
-print(f"最佳 CV 分数: {grid.best_score_:.4f}")
-print(f"测试集分数: {grid.best_estimator_.score(X_test, y_test):.4f}")
+print(f"\nBest parameters: {grid.best_params_}")
+print(f"Best CV score: {grid.best_score_:.4f}")
+print(f"Test set score: {grid.best_estimator_.score(X_test, y_test):.4f}")
 ```
 
-### 2.3 查看所有结果
+### 2.3 View all results
 
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 结果转为 DataFrame
+# Convert results to a DataFrame
 results = pd.DataFrame(grid.cv_results_)
 print(results[['params', 'mean_test_score', 'rank_test_score']].head(10))
 
-# 可视化：不同 n_estimators 和 max_depth 的效果
+# Visualization: the effect of different n_estimators and max_depth values
 fig, ax = plt.subplots(figsize=(8, 5))
 
 for depth in [3, 5, 10, None]:
@@ -164,47 +164,47 @@ for depth in [3, 5, 10, None]:
     ax.plot(subset['param_n_estimators'], subset['mean_test_score'], 'o-', label=label)
 
 ax.set_xlabel('n_estimators')
-ax.set_ylabel('CV 准确率')
-ax.set_title('GridSearch 结果可视化')
+ax.set_ylabel('CV accuracy')
+ax.set_title('Grid Search results visualization')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
 
-### 2.4 网格搜索的优缺点
+### 2.4 Pros and cons of grid search
 
-| 优点 | 缺点 |
+| Pros | Cons |
 |------|------|
-| 保证找到网格中的最优 | 组合爆炸（维度多时极慢） |
-| 实现简单 | 网格粒度粗会错过最优值 |
-| 结果可复现 | 浪费计算在差的区域 |
+| Guarantees the best result within the grid | Combination explosion (very slow with many dimensions) |
+| Simple to implement | Coarse grid spacing may miss the best value |
+| Reproducible results | Wastes computation on poor regions |
 
-### 2.5 什么时候网格搜索仍然很值得用？
+### 2.5 When is grid search still worth using?
 
-一个更稳的判断是：
+A more reliable rule of thumb is:
 
-- 参数少
-- 范围你已经大致知道
-- 你就是想要一个清楚、可复现实验
+- The number of parameters is small
+- You already have a rough idea of the range
+- You want a clear, reproducible experiment
 
-这时 Grid Search 反而很好，因为它非常透明。
+In that case, Grid Search is actually a very good choice because it is extremely transparent.
 
 ---
 
-## 三、随机搜索（Random Search）
+## 3. Random search
 
-### 3.1 原理
+### 3.1 How it works
 
-不穷举所有组合，而是**随机采样** N 种组合。在相同计算预算下，随机搜索往往更高效。
+Instead of trying every combination, it **randomly samples** N combinations. Under the same compute budget, random search is often more efficient.
 
-### 3.2 RandomizedSearchCV 实战
+### 3.2 RandomizedSearchCV in action
 
 ```python
 from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import randint, uniform
 
-# 定义参数分布（不是固定值，而是范围）
+# Define parameter distributions (ranges instead of fixed values)
 param_dist = {
     'n_estimators': randint(50, 500),
     'max_depth': [3, 5, 10, 15, 20, None],
@@ -213,11 +213,11 @@ param_dist = {
     'max_features': ['sqrt', 'log2', None],
 }
 
-# 随机搜索 50 种组合
+# Randomly search 50 combinations
 random_search = RandomizedSearchCV(
     RandomForestClassifier(random_state=42),
     param_dist,
-    n_iter=50,       # 只尝试 50 种组合
+    n_iter=50,       # Try only 50 combinations
     cv=5,
     scoring='accuracy',
     random_state=42,
@@ -227,18 +227,18 @@ random_search = RandomizedSearchCV(
 
 random_search.fit(X_train, y_train)
 
-print(f"\n最佳参数: {random_search.best_params_}")
-print(f"最佳 CV 分数: {random_search.best_score_:.4f}")
-print(f"测试集分数: {random_search.best_estimator_.score(X_test, y_test):.4f}")
+print(f"\nBest parameters: {random_search.best_params_}")
+print(f"Best CV score: {random_search.best_score_:.4f}")
+print(f"Test set score: {random_search.best_estimator_.score(X_test, y_test):.4f}")
 ```
 
-### 3.3 Grid vs Random 对比
+### 3.3 Grid vs. Random comparison
 
 ```python
-# 可视化对比
+# Visual comparison
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# Grid Search 搜索空间
+# Grid Search search space
 grid_n = [50, 100, 200]
 grid_d = [3, 5, 10]
 grid_points = [(n, d) for n in grid_n for d in grid_d]
@@ -246,17 +246,17 @@ axes[0].scatter([p[0] for p in grid_points], [p[1] for p in grid_points],
                 s=100, color='steelblue', zorder=5)
 axes[0].set_xlabel('n_estimators')
 axes[0].set_ylabel('max_depth')
-axes[0].set_title(f'Grid Search（{len(grid_points)} 个点）\n只搜索网格交叉点')
+axes[0].set_title(f'Grid Search ({len(grid_points)} points)\nOnly searches grid intersections')
 axes[0].grid(True, alpha=0.3)
 
-# Random Search 搜索空间
+# Random Search search space
 np.random.seed(42)
 rand_n = np.random.randint(50, 500, 20)
 rand_d = np.random.choice([3, 5, 10, 15, 20], 20)
 axes[1].scatter(rand_n, rand_d, s=100, color='coral', zorder=5)
 axes[1].set_xlabel('n_estimators')
 axes[1].set_ylabel('max_depth')
-axes[1].set_title(f'Random Search（20 个点）\n覆盖更广的搜索空间')
+axes[1].set_title(f'Random Search (20 points)\nCovers a broader search space')
 axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
@@ -265,45 +265,45 @@ plt.show()
 
 | | Grid Search | Random Search |
 |---|------------|---------------|
-| 搜索方式 | 穷举所有组合 | 随机采样 |
-| 计算量 | 组合数 × K 折 | n_iter × K 折 |
-| 覆盖范围 | 网格交叉点 | 更广 |
-| 适用 | 少量参数，范围已知 | 参数多，范围不确定 |
-| 推荐 | 参数少于 3 个 | 参数多于 3 个 |
+| Search method | Exhaustive search of all combinations | Random sampling |
+| Computation | Number of combinations × K folds | `n_iter` × K folds |
+| Coverage | Grid intersection points | Broader |
+| Best for | Fewer parameters, known ranges | More parameters, uncertain ranges |
+| Recommended when | Fewer than 3 parameters | More than 3 parameters |
 
-### 3.4 为什么“随机搜”很多时候已经比“细网格搜”更合理？
+### 3.4 Why is “random search” often more reasonable than “fine grid search”?
 
-因为真正浪费时间的，往往不是模型不够强，  
-而是：
+Because what often wastes time is not that the model is too weak,
+but that:
 
-- 你在错误的参数空间里花了太多算力
+- You spend too much compute in the wrong parameter space
 
-所以调参最关键的不只是搜索方法，  
-而是：
+So the most important part of tuning is not only the search method,
+but also:
 
-- 先定义合理搜索范围
-- 先知道自己真正想优化什么
+- First define a reasonable search range
+- First know what you really want to optimize
 
 ---
 
-## 四、贝叶斯优化（Optuna）
+## 4. Bayesian optimization (Optuna)
 
-### 4.1 原理
+### 4.1 How it works
 
-贝叶斯优化比随机搜索更"聪明"——它**根据之前的试验结果来指导下一次搜索**。
+Bayesian optimization is smarter than random search—it **uses previous trial results to guide the next search**.
 
 ```mermaid
 flowchart LR
-    A["尝试一组参数"] --> B["得到分数"]
-    B --> C["建立代理模型<br/>（预测哪些参数可能更好）"]
-    C --> D["选择最有可能好的参数"]
+    A["Try one set of parameters"] --> B["Get a score"]
+    B --> C["Build a surrogate model<br/>(predict which parameters may be better)"]
+    C --> D["Choose the parameters most likely to be good"]
     D --> A
 
     style C fill:#fff3e0,stroke:#e65100,color:#333
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.2 Optuna 实战
+### 4.2 Optuna in action
 
 ```bash
 pip install optuna
@@ -314,7 +314,7 @@ try:
     import optuna
     from sklearn.model_selection import cross_val_score
 
-    # 定义优化目标
+    # Define the optimization objective
     def objective(trial):
         params = {
             'n_estimators': trial.suggest_int('n_estimators', 50, 500),
@@ -328,105 +328,105 @@ try:
         score = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy').mean()
         return score
 
-    # 运行优化
+    # Run optimization
     study = optuna.create_study(direction='maximize')
     study.optimize(objective, n_trials=50, show_progress_bar=True)
 
-    print(f"\n最佳参数: {study.best_params}")
-    print(f"最佳 CV 分数: {study.best_value:.4f}")
+    print(f"\nBest parameters: {study.best_params}")
+    print(f"Best CV score: {study.best_value:.4f}")
 
-    # 用最佳参数训练
+    # Train with the best parameters
     best_model = RandomForestClassifier(**study.best_params, random_state=42)
     best_model.fit(X_train, y_train)
-    print(f"测试集分数: {best_model.score(X_test, y_test):.4f}")
+    print(f"Test set score: {best_model.score(X_test, y_test):.4f}")
 
 except ImportError:
-    print("请先安装 optuna: pip install optuna")
+    print("Please install optuna first: pip install optuna")
 ```
 
-### 4.3 贝叶斯优化什么时候更值得上？
+### 4.3 When is Bayesian optimization worth using?
 
-比较典型的是：
+Typical cases include:
 
-- 参数空间已经开始变大
-- 训练一次成本不低
-- 你不想把预算浪费在大量明显差的组合上
+- The parameter space is getting larger
+- Training one model is not cheap
+- You do not want to waste budget on many obviously bad combinations
 
-这时“更聪明地试”就会越来越重要。
+At that point, “trying more intelligently” becomes increasingly important.
 
-### 4.4 Optuna 可视化
+### 4.4 Optuna visualization
 
 ```python
 try:
     import optuna
     from optuna.visualization import plot_optimization_history, plot_param_importances
 
-    # 优化历史（需要先运行上面的代码）
+    # Optimization history (requires the code above to have been run first)
     fig = optuna.visualization.plot_optimization_history(study)
     fig.show()
 
-    # 参数重要性
+    # Parameter importance
     fig = optuna.visualization.plot_param_importances(study)
     fig.show()
 
 except (ImportError, NameError):
-    print("需要先安装 optuna 并运行优化")
+    print("You need to install optuna first and run the optimization")
 ```
 
-### 4.5 三种方法对比
+### 4.5 Comparison of the three methods
 
-| | Grid Search | Random Search | 贝叶斯优化 |
+| | Grid Search | Random Search | Bayesian Optimization |
 |---|------------|--------------|-----------|
-| 智能程度 | 无（穷举） | 低（随机） | 高（学习历史） |
-| 效率 | 低 | 中 | 高 |
-| 实现 | `GridSearchCV` | `RandomizedSearchCV` | `optuna` |
-| 适用 | 参数少，范围小 | 通用 | 参数多，计算贵 |
+| Intelligence level | None (exhaustive) | Low (random) | High (learns from history) |
+| Efficiency | Low | Medium | High |
+| Implementation | `GridSearchCV` | `RandomizedSearchCV` | `optuna` |
+| Best for | Few parameters, small ranges | General use | Many parameters, expensive computation |
 
 ---
 
-## 五、超参数调优最佳实践
+## 5. Best practices for hyperparameter tuning
 
-### 5.1 调参策略
+### 5.1 Tuning strategy
 
 ```mermaid
 flowchart TD
-    A["1. 先用默认参数建 baseline"] --> B["2. 粗调：Random Search<br/>大范围，少次数"]
-    B --> C["3. 细调：Grid Search<br/>缩小范围，精细搜索"]
-    C --> D["4. 最终验证<br/>用测试集评估"]
+    A["1. First build a baseline with default parameters"] --> B["2. Coarse tuning: Random Search<br/>large range, few trials"]
+    B --> C["3. Fine tuning: Grid Search<br/>narrow range, detailed search"]
+    C --> D["4. Final validation<br/>evaluate on the test set"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 5.2 常见模型调参优先级
+### 5.2 Common model tuning priorities
 
-**随机森林 / GBDT**：
+**Random Forest / GBDT**:
 
-| 优先级 | 参数 | 搜索范围 |
+| Priority | Parameter | Search range |
 |--------|------|---------|
 | 1 | `n_estimators` | 100~1000 |
 | 2 | `max_depth` | 3~20 |
-| 3 | `learning_rate`（GBDT） | 0.01~0.3 |
+| 3 | `learning_rate` (GBDT) | 0.01~0.3 |
 | 4 | `min_samples_split` | 2~20 |
-| 5 | `subsample`（GBDT） | 0.6~1.0 |
+| 5 | `subsample` (GBDT) | 0.6~1.0 |
 
-**XGBoost / LightGBM**：
+**XGBoost / LightGBM**:
 
-| 优先级 | 参数 | 搜索范围 |
+| Priority | Parameter | Search range |
 |--------|------|---------|
-| 1 | `n_estimators` + `learning_rate` | 联合调 |
+| 1 | `n_estimators` + `learning_rate` | Tune together |
 | 2 | `max_depth` | 3~10 |
 | 3 | `subsample` / `colsample_bytree` | 0.6~1.0 |
 | 4 | `reg_alpha` / `reg_lambda` | 0~5 |
 
-### 5.3 注意事项
+### 5.3 Important notes
 
-:::warning 调参陷阱
-1. **不要在测试集上调参**——测试集只用一次，做最终评估
-2. **使用交叉验证**——用 CV 分数选参数，而不是单次划分
-3. **固定 random_state**——保证结果可复现
-4. **先粗后细**——别一开始就用细粒度网格
-5. **关注重要参数**——不是所有参数都值得调
+:::warning Tuning pitfalls
+1. **Do not tune on the test set** — use the test set only once for final evaluation
+2. **Use cross-validation** — choose parameters based on CV scores, not a single train/validation split
+3. **Fix `random_state`** — make results reproducible
+4. **Coarse first, fine later** — do not start with a very fine grid
+5. **Focus on important parameters** — not every parameter is worth tuning
 :::
 
 ### 5.4 Pipeline + GridSearch
@@ -437,13 +437,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
 
-# 在 Pipeline 中调参
+# Tune parameters inside a Pipeline
 pipe = Pipeline([
     ('scaler', StandardScaler()),
     ('svm', SVC(random_state=42)),
 ])
 
-# 参数名格式：步骤名__参数名
+# Parameter name format: step_name__parameter_name
 param_grid = {
     'svm__C': [0.1, 1, 10, 100],
     'svm__kernel': ['rbf', 'poly'],
@@ -453,14 +453,14 @@ param_grid = {
 grid = GridSearchCV(pipe, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
 grid.fit(X_train, y_train)
 
-print(f"最佳参数: {grid.best_params_}")
-print(f"最佳 CV 分数: {grid.best_score_:.4f}")
-print(f"测试集分数: {grid.score(X_test, y_test):.4f}")
+print(f"Best parameters: {grid.best_params_}")
+print(f"Best CV score: {grid.best_score_:.4f}")
+print(f"Test set score: {grid.score(X_test, y_test):.4f}")
 ```
 
 ---
 
-## 六、完整调参实战
+## 6. Complete tuning example
 
 ```python
 from sklearn.datasets import load_digits
@@ -477,9 +477,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Step 1: Baseline
 baseline = GradientBoostingClassifier(random_state=42)
 baseline.fit(X_train, y_train)
-print(f"Baseline 测试准确率: {baseline.score(X_test, y_test):.4f}")
+print(f"Baseline test accuracy: {baseline.score(X_test, y_test):.4f}")
 
-# Step 2: 随机搜索
+# Step 2: Random search
 param_dist = {
     'n_estimators': randint(50, 300),
     'max_depth': randint(2, 10),
@@ -501,85 +501,85 @@ rs = RandomizedSearchCV(
 rs.fit(X_train, y_train)
 elapsed = time.time() - start
 
-print(f"\nRandomSearch 最佳参数: {rs.best_params_}")
-print(f"RandomSearch CV 分数: {rs.best_score_:.4f}")
-print(f"RandomSearch 测试分数: {rs.score(X_test, y_test):.4f}")
-print(f"耗时: {elapsed:.1f}s")
+print(f"\nRandomSearch best parameters: {rs.best_params_}")
+print(f"RandomSearch CV score: {rs.best_score_:.4f}")
+print(f"RandomSearch test score: {rs.score(X_test, y_test):.4f}")
+print(f"Time elapsed: {elapsed:.1f}s")
 
-# Step 3: 对比
-print(f"\n提升: {rs.score(X_test, y_test) - baseline.score(X_test, y_test):+.4f}")
+# Step 3: Compare
+print(f"\nImprovement: {rs.score(X_test, y_test) - baseline.score(X_test, y_test):+.4f}")
 ```
 
 ---
 
-## 第一次做调参实验，最容易忽略什么？
+## What is the easiest thing to overlook when doing tuning for the first time?
 
-最常被忽略的通常是：
+What is most often overlooked is:
 
-- **不要一边看测试集，一边改参数**
+- **Do not keep looking at the test set while changing parameters**
 
-因为一旦你开始用测试集指导调参，  
-测试集就不再是“最终未知数据”了，  
-你的评估也会开始乐观偏差。
+Because once you start using the test set to guide tuning,
+the test set is no longer “final unknown data,”
+and your evaluation will start to become optimistically biased.
 
-## 八点五、第一次做调参实验时，最稳的默认顺序
+## 8.5 For your first tuning experiment, what is the safest default order?
 
-如果你第一次真的开始调参，建议先按这个顺序：
+If you are tuning for the first time, it is recommended to follow this order:
 
-1. 先把 baseline 固定住
-2. 先把主指标固定住
-3. 先只调 1~2 个最关键参数
-4. 先用比较粗的范围
-5. 有方向以后，再缩小范围细调
+1. First lock in the baseline
+2. First lock in the main metric
+3. First tune only 1–2 key parameters
+4. First use a relatively coarse range
+5. After you have direction, narrow the range and fine-tune
 
-这个顺序会比一上来就铺很大的搜索空间更稳，也更容易知道提升到底从哪里来。
+This order is more stable than opening a huge search space right away, and it also makes it easier to know where the improvement came from.
 
-## 如果你学完这节还容易乱，最该先抓什么
+## If you still feel confused after learning this section, what should you focus on first?
 
-如果你现在还是觉得调参很容易学乱，最值得先抓住的不是所有工具差异，而是这三句：
+If tuning still feels easy to get lost in, what is most worth focusing on is not all the differences between tools, but these three sentences:
 
-1. 没有 baseline，就不要急着调参
-2. 没有稳定评估，就不要相信调参结果
-3. 没有合理搜索范围，再高级的搜索方法也帮不了你太多
+1. No baseline, no rushing to tune
+2. No stable evaluation, no trusting the tuning result
+3. No reasonable search range, and even the most advanced search method will not help much
 
-只要这三句开始立住，这一节就已经真正帮到你了。
+Once these three ideas start to hold, this section is already helping you in a real way.
 
 ---
 
-## 小结
+## Summary
 
-| 方法 | 说明 | 推荐场景 |
+| Method | Description | Recommended scenario |
 |------|------|---------|
-| **Grid Search** | 穷举所有组合 | 参数少（≤3），范围已知 |
-| **Random Search** | 随机采样组合 | 参数多，首选探索 |
-| **Optuna** | 贝叶斯优化 | 计算昂贵，参数多 |
-| **Pipeline + Search** | 预处理和模型一起调 | 生产环境 |
+| **Grid Search** | Exhaustively tries all combinations | Few parameters (≤3), known ranges |
+| **Random Search** | Randomly samples combinations | Many parameters, first choice for exploration |
+| **Optuna** | Bayesian optimization | Expensive computation, many parameters |
+| **Pipeline + Search** | Tune preprocessing and model together | Production environments |
 
-:::info 连接后续
-- **第 5 章**：特征工程——用更好的特征提升模型（比调参更有效）
-- **第 6 章**：实战项目——综合应用所有调参技巧
+:::info What comes next
+- **Chapter 5**: Feature engineering — improve the model with better features (often more effective than tuning)
+- **Chapter 6**: Practical project — combine all tuning techniques
 :::
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-- 调参不是“把几个参数试一遍”，而是模型选择流程的一部分
-- 搜索方法、搜索空间、评估协议必须一起设计
-- 真正成熟的调参，重点不只是“找到更高分”，而是“知道这个分为什么可信”
+- Tuning is not just “trying a few parameters”; it is part of the model selection process
+- The search method, search space, and evaluation protocol must be designed together
+- Mature tuning is not only about “getting a higher score,” but also about “knowing why that score is trustworthy”
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：Grid vs Random
+### Exercise 1: Grid vs. Random
 
-在 Wine 数据集上，对比 GridSearchCV 和 RandomizedSearchCV 在相同时间内找到的最优分数。谁更高效？
+On the Wine dataset, compare the best score found by GridSearchCV and RandomizedSearchCV under the same time budget. Which one is more efficient?
 
-### 练习 2：XGBoost 调参
+### Exercise 2: XGBoost tuning
 
-用 XGBoost 在 `load_digits()` 上调参。先用 RandomizedSearchCV 找到大致范围，再用 GridSearchCV 精调。记录每步的提升。
+Use XGBoost to tune on `load_digits()`. First use RandomizedSearchCV to find a rough range, then use GridSearchCV for fine-tuning. Record the improvement at each step.
 
-### 练习 3：Optuna 实战
+### Exercise 3: Optuna practice
 
-用 Optuna 优化一个 LightGBM 分类器。用 `optuna.visualization` 画出优化历史和参数重要性图。
+Use Optuna to optimize a LightGBM classifier. Use `optuna.visualization` to draw the optimization history and parameter importance charts.
 
-### 练习 4：Pipeline 调参
+### Exercise 4: Pipeline tuning
 
-创建 `StandardScaler → PCA → RandomForest` 的 Pipeline，用 GridSearchCV 同时调优 PCA 的 `n_components` 和 RandomForest 的参数。
+Create a `StandardScaler → PCA → RandomForest` Pipeline, and use GridSearchCV to tune PCA’s `n_components` and the RandomForest parameters at the same time.

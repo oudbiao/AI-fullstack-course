@@ -1,73 +1,73 @@
 ---
-title: "选修模块：Python 进阶专题"
+title: "Elective Module: Advanced Python Topics"
 sidebar_position: 0
-description: "Python 进阶 模块总览，帮助你理解学习顺序、适用场景和每节课之间的关系。"
+description: "An overview of the Advanced Python module to help you understand the learning order, use cases, and how each lesson connects."
 ---
 
-# 选修模块：Python 进阶专题
+# Elective Module: Advanced Python Topics
 
-:::tip 模块定位
-这些主题不是为了炫技，而是为了让你后面的工程代码更稳、更快、更好维护。
+:::tip Module Positioning
+These topics are not here to show off. They are here to help your future engineering code become more stable, faster, and easier to maintain.
 :::
 
-![Python 进阶专题模块地图](/img/course/elective-python-advanced-module-map.png)
+![Advanced Python Topics Module Map](/img/course/elective-python-advanced-module-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Python 进阶 模块在整条学习路径里的定位
-- 知道本模块每一节课分别解决什么问题
-- 明确适合先学哪些、后学哪些
-- 用一个最小示例快速建立直觉
-
----
-
-## 一、这个模块在解决什么问题？
-
-### 1.1 模块定位
-
-Python 进阶 不是为了“多学一点内容”，而是为了补上某类经常决定工程上限的能力。
-
-你可以先把它理解成一组专题工具箱：
-
-- 遇到相关项目时再回来看
-- 不必一次学完
-- 但一旦进入对应场景，它们会非常有价值
-
-### 1.2 建议学习顺序
-
-比较稳妥的学习方式通常是：
-
-1. 先看总览，知道每节课大概做什么
-2. 先做最基础、最能马上派上用场的主题
-3. 再进入更偏工程或更偏项目的内容
+- Understand where the Advanced Python module fits in the overall learning path
+- Know what problem each lesson in this module solves
+- Be clear about what to learn first and what to learn later
+- Build intuition quickly with a minimal example
 
 ---
 
-## 二、本模块包含哪些主题？
+## 1. What Problems Does This Module Solve?
 
-### 2.1 章节清单
+### 1.1 Module Positioning
 
-| 章节 | 主题 |
+Advanced Python is not about “learning a little more.” It is about filling in certain capabilities that often determine the upper limit of engineering work.
+
+You can think of it as a set of topic-based toolboxes:
+
+- Come back to them when you encounter related projects
+- You do not need to learn everything at once
+- But once you enter the matching scenario, they become very valuable
+
+### 1.2 Recommended Learning Order
+
+A more stable learning approach is usually:
+
+1. First read the overview so you know what each lesson does
+2. Start with the most basic topics that you can use immediately
+3. Then move into more engineering-oriented or project-oriented content
+
+---
+
+## 2. What Topics Are Included in This Module?
+
+### 2.1 Chapter List
+
+| Chapter | Topic |
 |---|---|
-| 第一讲 | 装饰器高级用法 |
-| 第二讲 | 迭代器与生成器进阶 |
-| 第三讲 | 并发编程（含 asyncio） |
-| 第四讲 | 元编程 |
+| Lesson 1 | Advanced Use of Decorators |
+| Lesson 2 | Advanced Iterators and Generators |
+| Lesson 3 | Concurrent Programming (including asyncio) |
+| Lesson 4 | Metaprogramming |
 
-### 2.2 应该怎么使用这份模块？
+### 2.2 How Should You Use This Module?
 
-一个很实用的策略是：
+A very practical strategy is:
 
-- 先用主线课程把整体跑通
-- 遇到专项需求时，再回到选修模块精修
+- First, use the main course to get the overall workflow running
+- Then, when you have a specific need, come back to the elective module to refine your skills
 
-这样不会因为专题太多而丢掉主线节奏。
+This way, you will not lose the rhythm of the main learning path because there are too many special topics.
 
 ---
 
-## 三、一个最小可运行示例
+## 3. A Minimal Runnable Example
 
-:::info 运行提示
+:::info Run Tip
 ```bash
 pip install numpy
 ```
@@ -90,49 +90,49 @@ async def main():
 asyncio.run(main())
 ```
 
-### 3.2 这个示例想让你抓住什么？
+### 3.2 What Should You Learn from This Example?
 
-这一小段代码不是为了覆盖整个模块，而是为了帮你迅速建立一个“这个模块到底在做什么”的感觉。
+This small piece of code is not meant to cover the whole module. It is meant to help you quickly build a sense of what this module is really about.
 
-阅读时优先看三件事：
+When reading it, focus on three things first:
 
-- 输入是什么
-- 中间过程发生了什么
-- 输出如何对应到实际项目
-
----
-
-## 四、学习建议
-
-### 4.1 如果时间有限，优先学什么？
-
-优先学那些会在后续项目里高频出现、能立刻帮你降成本或提效率的主题。
-
-### 4.2 常见误区
-
-- 看到是选修就完全不学
-- 一上来想把所有选修全刷完
-- 只看概念，不跑最小示例
+- What is the input?
+- What happens in the middle?
+- How does the output map to a real project?
 
 ---
 
-## 五、什么时候最适合回学这个模块？
+## 4. Learning Suggestions
 
-下面这些信号出现时，说明你很适合回来补这一组内容：
+### 4.1 If You Have Limited Time, What Should You Learn First?
 
-- 你开始写工程代码，却发现代码越来越乱
-- 你需要做并发请求、异步调用或流式处理
-- 你读别人的 Python 项目时经常看不懂装饰器和生成器
-- 你想把工具注册、插件机制、动态扩展写得更稳
+Prioritize topics that will appear frequently in later projects and can immediately help you reduce cost or improve efficiency.
 
-## 六、学完这个模块后能做什么？
+### 4.2 Common Mistakes
 
-- 能看懂更多真实工程代码里的 Python 高级写法
-- 能更稳地写异步、流式和可扩展代码
-- 能为后面的 RAG、Agent 和服务系统打好工程语言基础
+- Seeing it as an elective and not learning it at all
+- Trying to finish every elective topic all at once
+- Only reading the concepts without running the minimal example
 
 ---
 
-## 小结
+## 5. When Is the Best Time to Come Back and Study This Module?
 
-这份总览页的作用是给你一张地图。真正学模块时，不必追求“全都懂”，而是要知道什么时候该回来、先补哪一块。
+If you see any of the following signs, it means you are a good candidate to revisit this set of topics:
+
+- You start writing engineering code and find that it is getting messy
+- You need concurrent requests, async calls, or streaming processing
+- You often cannot understand decorators and generators when reading other people’s Python projects
+- You want to make tool registration, plugin mechanisms, and dynamic extension more robust
+
+## 6. What Can You Do After Finishing This Module?
+
+- Understand more advanced Python styles in real engineering code
+- Write async, streaming, and extensible code more reliably
+- Build a stronger engineering foundation for later RAG, Agent, and service systems
+
+---
+
+## Summary
+
+This overview page is meant to give you a map. When actually learning the module, do not aim to “understand everything.” Instead, know when to come back and which part to fill in first.

@@ -1,104 +1,104 @@
 ---
-title: "4.2 评估指标"
+title: "4.2 Evaluation Metrics"
 sidebar_position: 10
-description: "掌握分类指标（准确率、精确率、召回率、F1、ROC/AUC）和回归指标（MSE、RMSE、MAE、R²），理解多分类评估"
-keywords: [评估指标, 准确率, 精确率, 召回率, F1, ROC, AUC, 混淆矩阵, MSE, R²]
+description: "Master classification metrics (accuracy, precision, recall, F1, ROC/AUC) and regression metrics (MSE, RMSE, MAE, R²), and understand multi-class evaluation"
+keywords: [evaluation metrics, accuracy, precision, recall, F1, ROC, AUC, confusion matrix, MSE, R²]
 ---
 
-# 评估指标
+# Evaluation Metrics
 
-![混淆矩阵与错误代价图](/img/course/confusion-matrix-error-cost.png)
+![Confusion matrix and error cost diagram](/img/course/confusion-matrix-error-cost-en.png)
 
-:::tip 本节定位
-训练完模型后，**怎么判断模型好不好**？准确率 95% 一定好吗？不一定！选错了指标，可能做出完全错误的决策。本节帮你掌握各种场景下应该关注什么指标。
+:::tip Where this section fits
+After training a model, **how do you know whether it is good or not**? Is 95% accuracy always good? Not necessarily! If you choose the wrong metric, you may make a completely wrong decision. This section helps you understand which metrics to focus on in different scenarios.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握分类指标：准确率、精确率、召回率、F1-score、混淆矩阵
-- 理解 ROC 曲线与 AUC
-- 掌握回归指标：MSE、RMSE、MAE、R²
-- 理解多分类评估（macro、micro、weighted）
+- Master classification metrics: accuracy, precision, recall, F1-score, confusion matrix
+- Understand the ROC curve and AUC
+- Master regression metrics: MSE, RMSE, MAE, R²
+- Understand multi-class evaluation (macro, micro, weighted)
 
-## 先说一个很重要的学习预期
+## First, a very important learning expectation
 
-这一节最容易让新人学乱的地方，不是公式本身，而是：
+The easiest part of this section to get confused by is not the formulas themselves, but:
 
-- 指标很多
-- 每个看起来都有道理
-- 但第一次做项目时根本不知道先看哪个
+- There are many metrics
+- Each one seems to make sense
+- But the first time you work on a project, you have no idea which one to check first
 
-所以这节更适合新人的第一目标不是“把所有指标背全”，而是先建立一个判断框架：
+So for beginners, the first goal here is not to “memorize every metric,” but to build a decision framework:
 
-> **先问任务类型，再问错误代价，再选主指标。**
+> **First ask what type of task it is, then ask how costly the errors are, then choose the main metric.**
 
-只要这条线立住了，后面的 Accuracy、Recall、AUC、RMSE 才不会变成一堆散碎名词。
-
----
-
-## 先建立一张地图
-
-新人第一次学评估指标，最常见的问题不是“公式不会写”，而是：
-
-- 知道很多指标名，但不知道什么时候该看哪个
-- 知道模型分数高低，但不知道这和业务风险有什么关系
-
-更稳的学习顺序应该是：
-
-![评估指标选择流程图](/img/course/ch05-metrics-selection-flow.png)
-
-也就是说，指标不是“训练结束后顺手看的分数”，而是模型设计的一部分。
+Once this line is clear, Accuracy, Recall, AUC, and RMSE will no longer feel like a pile of unrelated terms.
 
 ---
 
-## 一、为什么准确率不够？
+## Build a map first
 
-### 1.1 不平衡数据的陷阱
+When beginners learn evaluation metrics for the first time, the most common problem is not “I don’t know the formula,” but:
+
+- They know many metric names, but don’t know when to use which one
+- They know whether the model score is high or low, but don’t know what that means for business risk
+
+A more stable learning order should be:
+
+![Evaluation metric selection flowchart](/img/course/ch05-metrics-selection-flow-en.png)
+
+In other words, metrics are not “scores you casually check after training”; they are part of model design.
+
+---
+
+## 1. Why isn’t accuracy enough?
+
+### 1.1 The trap of imbalanced data
 
 ```python
 import numpy as np
 
-# 假设：1000 封邮件中有 10 封是垃圾邮件
+# Suppose: among 1000 emails, 10 are spam
 y_true = np.array([0] * 990 + [1] * 10)
 
-# "聪明"的模型：全部预测为正常
+# "Smart" model: predict everything as normal
 y_pred = np.zeros(1000)
 
 accuracy = np.mean(y_true == y_pred)
-print(f"准确率: {accuracy:.1%}")
-# 准确率 99%！但一封垃圾邮件都没抓到！
+print(f"Accuracy: {accuracy:.1%}")
+# 99% accuracy! But it fails to catch a single spam email!
 ```
 
-:::warning 准确率的陷阱
-在不平衡数据中，**永远预测多数类**就能获得很高的准确率。但这样的模型毫无用处。我们需要更精细的指标。
+:::warning The trap of accuracy
+With imbalanced data, **always predicting the majority class** can still give you very high accuracy. But such a model is useless. We need more detailed metrics.
 :::
 
-### 1.2 先别急着背指标，先问错判代价
+### 1.2 Don’t rush to memorize metrics—first ask about error cost
 
-Andrew Ng 那种机器学习课最值得借鉴的一点是：  
-**先问错误会造成什么后果，再决定怎么评估模型。**
+One of the most valuable ideas from Andrew Ng–style machine learning courses is:
+**First ask what consequences errors will cause, then decide how to evaluate the model.**
 
-比如：
+For example:
 
-- 癌症筛查里，漏掉病人通常比误报更危险，所以先看召回率
-- 垃圾邮件过滤里，把正常邮件错判成垃圾邮件很烦，所以要盯精确率
-- 欺诈检测里，两种代价都高，就要同时看召回率、精确率和阈值曲线
+- In cancer screening, missing a patient is usually more dangerous than a false alarm, so you should look at recall first
+- In spam filtering, wrongly marking normal email as spam is annoying, so precision matters more
+- In fraud detection, both kinds of errors are costly, so you should look at recall, precision, and threshold curves together
 
-所以评估指标不是抽象数学题，而是在帮你回答：
+So evaluation metrics are not abstract math exercises. They help you answer:
 
-- 模型到底错在哪
-- 这种错法我能不能接受
+- What exactly is the model getting wrong?
+- Can I accept this kind of mistake?
 
 ---
 
-## 二、混淆矩阵——一切分类指标的基础
+## 2. Confusion matrix — the foundation of all classification metrics
 
-### 2.1 四个基本量
+### 2.1 Four basic quantities
 
-| | 预测为正（Positive） | 预测为负（Negative） |
+| | Predicted Positive | Predicted Negative |
 |---|---------------------|---------------------|
-| **实际为正** | TP（真正例） | FN（假负例/漏报） |
-| **实际为负** | FP（假正例/误报） | TN（真负例） |
+| **Actually Positive** | TP (True Positive) | FN (False Negative / Miss) |
+| **Actually Negative** | FP (False Positive / False Alarm) | TN (True Negative) |
 
 ```python
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -107,7 +107,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 
-# 乳腺癌数据集
+# Breast cancer dataset
 cancer = load_breast_cancer()
 X_train, X_test, y_train, y_test = train_test_split(
     cancer.data, cancer.target, test_size=0.2, random_state=42
@@ -117,26 +117,26 @@ model = LogisticRegression(max_iter=10000, random_state=42)
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
-# 混淆矩阵
+# Confusion matrix
 cm = confusion_matrix(y_test, y_pred)
-print("混淆矩阵:")
+print("Confusion matrix:")
 print(cm)
 
 fig, ax = plt.subplots(figsize=(6, 5))
-disp = ConfusionMatrixDisplay(cm, display_labels=['恶性', '良性'])
+disp = ConfusionMatrixDisplay(cm, display_labels=['Malignant', 'Benign'])
 disp.plot(ax=ax, cmap='Blues')
-ax.set_title('乳腺癌分类混淆矩阵')
+ax.set_title('Confusion Matrix for Breast Cancer Classification')
 plt.tight_layout()
 plt.show()
 ```
 
-### 2.2 从混淆矩阵推导指标
+### 2.2 Deriving metrics from the confusion matrix
 
 ```mermaid
 flowchart TD
-    CM["混淆矩阵<br/>TP, FP, FN, TN"] --> ACC["准确率 Accuracy<br/>(TP+TN) / 总数"]
-    CM --> PRE["精确率 Precision<br/>TP / (TP+FP)"]
-    CM --> REC["召回率 Recall<br/>TP / (TP+FN)"]
+    CM["Confusion Matrix<br/>TP, FP, FN, TN"] --> ACC["Accuracy<br/>(TP+TN) / Total"]
+    CM --> PRE["Precision<br/>TP / (TP+FP)"]
+    CM --> REC["Recall<br/>TP / (TP+FN)"]
     PRE --> F1["F1-Score<br/>2×P×R / (P+R)"]
     REC --> F1
 
@@ -144,80 +144,80 @@ flowchart TD
     style F1 fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.3 一个更适合新人的读法
+### 2.3 A more beginner-friendly way to read it
 
-很多人第一次看混淆矩阵，会把它当成一个要死记的表。  
-其实更简单的读法是：
+Many people see a confusion matrix for the first time and treat it as a table they must memorize.
+In fact, there is a simpler way to read it:
 
-- 先只看“真实为正”的那一行或那一列
-- 再问模型到底漏掉了多少
-- 然后再看“模型判为正”的那一行或那一列
-- 再问这些正例里有多少是误报
+- First look only at the row or column for “actually positive”
+- Then ask how many the model missed
+- Next look at the row or column for “predicted positive”
+- Then ask how many of those positives are false alarms
 
-这样你会自然得到两种最重要的问题：
+This naturally leads you to the two most important questions:
 
-- 漏掉了多少？这对应召回率
-- 抓到的这些里有多少是真的？这对应精确率
+- How many did it miss? That corresponds to recall
+- Among the ones it caught, how many are truly positive? That corresponds to precision
 
 ---
 
-## 三、分类指标详解
+## 3. Classification metrics in detail
 
-### 3.1 精确率（Precision）
+### 3.1 Precision
 
 > **Precision = TP / (TP + FP)**
 >
-> "模型说是正例的里面，有多少真的是正例？"
+> “Among the examples the model says are positive, how many are actually positive?”
 
-**关注场景**：**误报代价高**——如推荐系统（推错了用户体验差）、垃圾邮件检测（误判正常邮件很烦）。
+**Use when**: **false positives are costly** — for example, recommendation systems (bad suggestions hurt user experience), spam detection (marking normal mail as spam is annoying).
 
-### 3.2 召回率（Recall / Sensitivity）
+### 3.2 Recall
 
 > **Recall = TP / (TP + FN)**
 >
-> "真正的正例里面，模型抓到了多少？"
+> “Among the actual positives, how many did the model catch?”
 
-**关注场景**：**漏报代价高**——如疾病筛查（漏诊很危险）、欺诈检测（漏过欺诈损失大）。
+**Use when**: **false negatives are costly** — for example, disease screening (missing a disease is dangerous), fraud detection (missing fraud causes loss).
 
 ### 3.3 F1-Score
 
 > **F1 = 2 × Precision × Recall / (Precision + Recall)**
 >
-> 精确率和召回率的调和平均。
+> The harmonic mean of precision and recall.
 
 ```python
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-print(f"准确率 (Accuracy):  {accuracy_score(y_test, y_pred):.4f}")
-print(f"精确率 (Precision): {precision_score(y_test, y_pred):.4f}")
-print(f"召回率 (Recall):    {recall_score(y_test, y_pred):.4f}")
-print(f"F1-Score:           {f1_score(y_test, y_pred):.4f}")
+print(f"Accuracy:   {accuracy_score(y_test, y_pred):.4f}")
+print(f"Precision:  {precision_score(y_test, y_pred):.4f}")
+print(f"Recall:     {recall_score(y_test, y_pred):.4f}")
+print(f"F1-Score:   {f1_score(y_test, y_pred):.4f}")
 ```
 
-### 3.4 精确率 vs 召回率的权衡
+### 3.4 Precision vs. recall trade-off
 
 ```python
 from sklearn.metrics import precision_recall_curve
 
-# 获取不同阈值下的精确率和召回率
+# Get precision and recall at different thresholds
 y_proba = model.predict_proba(X_test)[:, 1]
 precisions, recalls, thresholds = precision_recall_curve(y_test, y_proba)
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# PR 曲线
+# PR curve
 axes[0].plot(recalls, precisions, 'b-', linewidth=2)
-axes[0].set_xlabel('召回率 (Recall)')
-axes[0].set_ylabel('精确率 (Precision)')
-axes[0].set_title('Precision-Recall 曲线')
+axes[0].set_xlabel('Recall')
+axes[0].set_ylabel('Precision')
+axes[0].set_title('Precision-Recall Curve')
 axes[0].grid(True, alpha=0.3)
 
-# 阈值的影响
-axes[1].plot(thresholds, precisions[:-1], 'b-', label='精确率')
-axes[1].plot(thresholds, recalls[:-1], 'r-', label='召回率')
-axes[1].set_xlabel('分类阈值')
-axes[1].set_ylabel('分数')
-axes[1].set_title('阈值对精确率/召回率的影响')
+# Effect of threshold
+axes[1].plot(thresholds, precisions[:-1], 'b-', label='Precision')
+axes[1].plot(thresholds, recalls[:-1], 'r-', label='Recall')
+axes[1].set_xlabel('Classification threshold')
+axes[1].set_ylabel('Score')
+axes[1].set_title('How threshold affects precision/recall')
 axes[1].legend()
 axes[1].grid(True, alpha=0.3)
 
@@ -225,45 +225,45 @@ plt.tight_layout()
 plt.show()
 ```
 
-:::info 如何选择？
-- **宁可误报也不漏报**（如疾病筛查）→ 优先**召回率**，降低阈值
-- **宁可漏报也不误报**（如垃圾邮件）→ 优先**精确率**，提高阈值
-- **两者都重要** → 看 **F1-Score**
+:::info How to choose?
+- **Prefer false alarms over misses** (for example, disease screening) → prioritize **recall**, lower the threshold
+- **Prefer misses over false alarms** (for example, spam filtering) → prioritize **precision**, raise the threshold
+- **Both matter** → look at **F1-Score**
 :::
 
-![阈值、ROC 与 PR 曲线读图指南](/img/course/ch05-threshold-roc-pr-curve-map.png)
+![Guide to reading thresholds, ROC, and PR curves](/img/course/ch05-threshold-roc-pr-curve-map-en.png)
 
-这张图可以当作分类评估的读图顺序：先从混淆矩阵知道错在哪里，再用阈值曲线看 Precision 和 Recall 怎么交换，最后再看 ROC 或 PR 曲线。类别越不平衡，PR 曲线通常越值得认真看。
+You can use this diagram as a reading order for classification evaluation: first use the confusion matrix to see where the errors are, then use the threshold curve to see how precision and recall trade off, and finally look at the ROC or PR curve. The more imbalanced the classes are, the more important the PR curve usually becomes.
 
-### 3.5 第一次做分类项目时，指标怎么选最稳？
+### 3.5 When you build your first classification project, how should you choose metrics?
 
-如果你还不熟，先用下面这套默认顺序：
+If you are still a beginner, use this default order:
 
-1. 先看混淆矩阵
-2. 如果类别平衡，再看 Accuracy + F1
-3. 如果类别不平衡，再重点看 Precision / Recall / F1
-4. 如果模型输出概率，再补看 ROC-AUC 或 PR-AUC
-5. 最后再决定是否要调阈值
+1. First look at the confusion matrix
+2. If the classes are balanced, look at Accuracy + F1
+3. If the classes are imbalanced, focus on Precision / Recall / F1
+4. If the model outputs probabilities, also check ROC-AUC or PR-AUC
+5. Finally decide whether threshold tuning is needed
 
-这比一上来堆很多指标更稳，因为它先帮你看清“模型错在哪里”。
+This is more stable than piling on many metrics from the beginning, because it first helps you see where the model is wrong.
 
-### 3.6 一个更适合新人的口令版顺序
+### 3.6 A beginner-friendly mnemonic
 
-如果你还没有形成指标选择习惯，可以先记这句口令：
+If you haven’t formed a habit for choosing metrics yet, you can remember this:
 
-> **先看错哪类，再看错得贵不贵，最后再定主指标。**
+> **First see what kind of errors there are, then see how costly they are, and finally choose the main metric.**
 
-这句话比死记很多定义更重要，因为它会逼你先把问题想清楚。
+This sentence matters more than memorizing many definitions, because it forces you to think about the problem first.
 
 ---
 
-## 四、ROC 曲线与 AUC
+## 4. ROC curve and AUC
 
-### 4.1 ROC 曲线
+### 4.1 ROC curve
 
-ROC（Receiver Operating Characteristic）曲线展示不同阈值下的 **True Positive Rate vs False Positive Rate**。
+The ROC (Receiver Operating Characteristic) curve shows **True Positive Rate vs False Positive Rate** under different thresholds.
 
-- **TPR（召回率）= TP / (TP + FN)**
+- **TPR (Recall) = TP / (TP + FN)**
 - **FPR = FP / (FP + TN)**
 
 ```python
@@ -273,31 +273,31 @@ fpr, tpr, thresholds_roc = roc_curve(y_test, y_proba)
 auc = roc_auc_score(y_test, y_proba)
 
 plt.figure(figsize=(7, 6))
-plt.plot(fpr, tpr, 'b-', linewidth=2, label=f'逻辑回归 (AUC = {auc:.4f})')
-plt.plot([0, 1], [0, 1], 'k--', alpha=0.5, label='随机猜测 (AUC = 0.5)')
+plt.plot(fpr, tpr, 'b-', linewidth=2, label=f'Logistic Regression (AUC = {auc:.4f})')
+plt.plot([0, 1], [0, 1], 'k--', alpha=0.5, label='Random guess (AUC = 0.5)')
 plt.fill_between(fpr, tpr, alpha=0.1, color='blue')
 plt.xlabel('False Positive Rate (FPR)')
 plt.ylabel('True Positive Rate (TPR)')
-plt.title('ROC 曲线')
+plt.title('ROC Curve')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.2 AUC 含义
+### 4.2 What AUC means
 
-**AUC（Area Under Curve）= ROC 曲线下方的面积。**
+**AUC (Area Under Curve) = the area under the ROC curve.**
 
-| AUC 值 | 含义 |
+| AUC value | Meaning |
 |--------|------|
-| 1.0 | 完美分类 |
-| 0.9~1.0 | 优秀 |
-| 0.8~0.9 | 好 |
-| 0.7~0.8 | 一般 |
-| 0.5 | 等于随机猜测 |
-| < 0.5 | 比随机还差（模型有问题） |
+| 1.0 | Perfect classification |
+| 0.9~1.0 | Excellent |
+| 0.8~0.9 | Good |
+| 0.7~0.8 | Fair |
+| 0.5 | Same as random guessing |
+| < 0.5 | Worse than random (there is a problem with the model) |
 
-### 4.3 多模型 ROC 对比
+### 4.3 ROC comparison across multiple models
 
 ```python
 from sklearn.tree import DecisionTreeClassifier
@@ -305,9 +305,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 
 models = {
-    '逻辑回归': LogisticRegression(max_iter=10000, random_state=42),
-    '决策树': DecisionTreeClassifier(max_depth=5, random_state=42),
-    '随机森林': RandomForestClassifier(n_estimators=100, random_state=42),
+    'Logistic Regression': LogisticRegression(max_iter=10000, random_state=42),
+    'Decision Tree': DecisionTreeClassifier(max_depth=5, random_state=42),
+    'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
 }
 
 plt.figure(figsize=(8, 6))
@@ -324,7 +324,7 @@ for name, m in models.items():
 plt.plot([0, 1], [0, 1], 'k--', alpha=0.5)
 plt.xlabel('FPR')
 plt.ylabel('TPR')
-plt.title('多模型 ROC 曲线对比')
+plt.title('ROC Curve Comparison Across Multiple Models')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
@@ -332,16 +332,16 @@ plt.show()
 
 ---
 
-## 五、回归指标
+## 5. Regression metrics
 
-### 5.1 常用指标
+### 5.1 Common metrics
 
-| 指标 | 公式 | 说明 |
+| Metric | Formula | Description |
 |------|------|------|
-| **MSE** | `mean((y - ŷ)²)` | 均方误差，惩罚大误差 |
-| **RMSE** | `sqrt(MSE)` | 与 y 同单位，更直觉 |
-| **MAE** | `mean(\|y - ŷ\|)` | 平均绝对误差，对异常值更鲁棒 |
-| **R²** | `1 - SS_res/SS_tot` | 可解释方差比，越接近 1 越好 |
+| **MSE** | `mean((y - ŷ)²)` | Mean squared error, penalizes large errors |
+| **RMSE** | `sqrt(MSE)` | Same unit as y, more intuitive |
+| **MAE** | `mean(\|y - ŷ\|)` | Mean absolute error, more robust to outliers |
+| **R²** | `1 - SS_res/SS_tot` | Explained variance ratio, closer to 1 is better |
 
 ```python
 from sklearn.datasets import load_diabetes
@@ -350,18 +350,18 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import numpy as np
 
-# 加载数据
+# Load data
 diabetes = load_diabetes()
 X_train, X_test, y_train, y_test = train_test_split(
     diabetes.data, diabetes.target, test_size=0.2, random_state=42
 )
 
-# 训练模型
+# Train model
 model = LinearRegression()
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
-# 计算指标
+# Calculate metrics
 mse = mean_squared_error(y_test, y_pred)
 rmse = np.sqrt(mse)
 mae = mean_absolute_error(y_test, y_pred)
@@ -373,48 +373,48 @@ print(f"MAE:  {mae:.2f}")
 print(f"R²:   {r2:.4f}")
 ```
 
-### 5.2 为什么回归问题别只盯着 R²？
+### 5.2 Why shouldn’t you rely only on R² in regression?
 
-`R²` 很常用，但它不是万能分数。  
-第一次做回归项目时，更稳的做法是把它和误差类指标一起看：
+`R²` is very common, but it is not a universal score.
+When you do a regression project for the first time, a more stable approach is to check it together with error-based metrics:
 
-- `RMSE` 告诉你平均会偏多少，单位和目标值一致，更直觉
-- `MAE` 对异常值更稳
-- `R²` 告诉你模型相对“只预测平均值”到底提升了多少
+- `RMSE` tells you how far off you are on average, in the same unit as the target, so it feels more intuitive
+- `MAE` is more robust to outliers
+- `R²` tells you how much better the model is compared with “always predict the mean”
 
-所以回归里一个更成熟的习惯是：
+So in regression, a more mature habit is:
 
-- 不只问“R² 有多高”
-- 还要问“平均会错多少”
-- 再问“错得有没有系统性偏差”
+- Don’t only ask “how high is R²?”
+- Also ask “how much does it miss on average?”
+- Then ask “is there any systematic bias in the errors?”
 
-### 5.3 可视化：残差分析
+### 5.3 Visualization: residual analysis
 
 ```python
 residuals = y_test - y_pred
 
 fig, axes = plt.subplots(1, 3, figsize=(16, 4))
 
-# 预测 vs 实际
+# Predicted vs actual
 axes[0].scatter(y_test, y_pred, alpha=0.6, s=20, color='steelblue')
 axes[0].plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', linewidth=2)
-axes[0].set_xlabel('实际值')
-axes[0].set_ylabel('预测值')
-axes[0].set_title(f'预测 vs 实际 (R²={r2:.3f})')
+axes[0].set_xlabel('Actual value')
+axes[0].set_ylabel('Predicted value')
+axes[0].set_title(f'Predicted vs Actual (R²={r2:.3f})')
 
-# 残差分布
+# Residual distribution
 axes[1].hist(residuals, bins=20, color='steelblue', edgecolor='white', alpha=0.7)
 axes[1].axvline(x=0, color='red', linestyle='--')
-axes[1].set_xlabel('残差')
-axes[1].set_ylabel('频数')
-axes[1].set_title('残差分布（应接近正态）')
+axes[1].set_xlabel('Residual')
+axes[1].set_ylabel('Frequency')
+axes[1].set_title('Residual Distribution (should be close to normal)')
 
-# 残差 vs 预测值
+# Residuals vs predictions
 axes[2].scatter(y_pred, residuals, alpha=0.6, s=20, color='steelblue')
 axes[2].axhline(y=0, color='red', linestyle='--')
-axes[2].set_xlabel('预测值')
-axes[2].set_ylabel('残差')
-axes[2].set_title('残差 vs 预测值（应随机分布）')
+axes[2].set_xlabel('Predicted value')
+axes[2].set_ylabel('Residual')
+axes[2].set_title('Residuals vs Predicted Values (should be randomly distributed)')
 
 for ax in axes:
     ax.grid(True, alpha=0.3)
@@ -425,17 +425,17 @@ plt.show()
 
 ---
 
-## 六、多分类评估
+## 6. Multi-class evaluation
 
-### 6.1 三种平均方式
+### 6.1 Three averaging methods
 
-对于多分类问题，精确率/召回率/F1 有三种计算方式：
+For multi-class problems, precision/recall/F1 can be calculated in three ways:
 
-| 方式 | 说明 | 适用场景 |
+| Method | Description | Use case |
 |------|------|---------|
-| **macro** | 每个类别算一次，取平均 | 各类同等重要 |
-| **micro** | 全局 TP/FP/FN，算一次 | 关注整体表现 |
-| **weighted** | 按类别样本数加权平均 | 类别不平衡时 |
+| **macro** | Compute for each class, then average | All classes are equally important |
+| **micro** | Compute once using global TP/FP/FN | Focus on overall performance |
+| **weighted** | Weighted average by class sample count | For imbalanced classes |
 
 ```python
 from sklearn.datasets import load_iris
@@ -455,7 +455,7 @@ y_pred = model.predict(X_test)
 print(classification_report(y_test, y_pred, target_names=iris.target_names))
 ```
 
-### 6.2 多分类混淆矩阵
+### 6.2 Multi-class confusion matrix
 
 ```python
 from sklearn.metrics import confusion_matrix
@@ -468,9 +468,9 @@ ax.set_xticks(range(3))
 ax.set_yticks(range(3))
 ax.set_xticklabels(iris.target_names, rotation=45)
 ax.set_yticklabels(iris.target_names)
-ax.set_xlabel('预测')
-ax.set_ylabel('真实')
-ax.set_title('多分类混淆矩阵（Iris）')
+ax.set_xlabel('Prediction')
+ax.set_ylabel('Ground Truth')
+ax.set_title('Multi-class Confusion Matrix (Iris)')
 
 for i in range(3):
     for j in range(3):
@@ -484,18 +484,18 @@ plt.show()
 
 ---
 
-## 七、指标选择指南
+## 7. Metric selection guide
 
 ```mermaid
 flowchart TD
-    Q["选择评估指标"] --> T{"任务类型？"}
-    T -->|"分类"| C{"数据平衡？"}
-    T -->|"回归"| R["MSE / RMSE / R²"]
-    C -->|"平衡"| ACC["准确率 + F1"]
-    C -->|"不平衡"| IM{"关注什么？"}
-    IM -->|"漏报代价高"| REC["召回率"]
-    IM -->|"误报代价高"| PRE["精确率"]
-    IM -->|"综合"| AUC["AUC + F1"]
+    Q["Choose evaluation metric"] --> T{"Task type?"}
+    T -->|"Classification"| C{"Is the data balanced?"}
+    T -->|"Regression"| R["MSE / RMSE / R²"]
+    C -->|"Balanced"| ACC["Accuracy + F1"]
+    C -->|"Imbalanced"| IM{"What matters most?"}
+    IM -->|"False negatives are costly"| REC["Recall"]
+    IM -->|"False positives are costly"| PRE["Precision"]
+    IM -->|"Overall balance"| AUC["AUC + F1"]
 
     style ACC fill:#e3f2fd,stroke:#1565c0,color:#333
     style REC fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -503,86 +503,86 @@ flowchart TD
     style AUC fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-| 场景 | 推荐指标 |
+| Scenario | Recommended metrics |
 |------|---------|
-| 数据平衡的分类 | Accuracy, F1 |
-| 不平衡的分类 | F1, AUC, PR-AUC |
-| 疾病筛查 | Recall（不漏诊） |
-| 垃圾邮件过滤 | Precision（不误判） |
-| 回归问题 | RMSE, R² |
-| 模型对比 | AUC（不受阈值影响） |
+| Balanced classification | Accuracy, F1 |
+| Imbalanced classification | F1, AUC, PR-AUC |
+| Disease screening | Recall (do not miss cases) |
+| Spam filtering | Precision (do not misclassify) |
+| Regression | RMSE, R² |
+| Model comparison | AUC (threshold-independent) |
 
-### 7.1 一个更像真实项目的指标选择顺序
+### 7.1 A metric selection order that feels more like a real project
 
-把这节真正用到项目里时，可以按这个顺序做：
+When you actually apply this section to a project, you can follow this order:
 
-1. 明确任务是分类还是回归
-2. 明确最不能接受的错误是什么
-3. 先定一个主指标
-4. 再配 1~2 个辅助指标
-5. 如果是分类，再决定是否调阈值
-6. 如果是回归，再看残差图判断模型错法
+1. Clearly identify whether the task is classification or regression
+2. Clearly identify the error you can least afford
+3. Choose one main metric first
+4. Add 1–2 auxiliary metrics
+5. If it is classification, decide whether threshold tuning is needed
+6. If it is regression, check the residual plot to understand the error pattern
 
-这个顺序比“把所有指标都算一遍”更有用，因为它会逼你先把问题定义清楚。
+This order is more useful than “calculate all the metrics,” because it forces you to define the problem clearly first.
 
 ---
 
-## 如果你第一次做评估，最稳的默认顺序
+## If this is your first time evaluating a model, use this default order
 
-第一次做模型评估时，建议先这样做：
+When you evaluate a model for the first time, it is recommended to do this:
 
-1. 先看任务是分类还是回归
-2. 先定一个主指标
-3. 再配 1~2 个辅助指标
-4. 分类任务先看混淆矩阵，再看阈值问题
-5. 回归任务先看误差量级，再看残差图
+1. First decide whether the task is classification or regression
+2. First choose one main metric
+3. Then add 1–2 auxiliary metrics
+4. For classification, first check the confusion matrix, then the threshold issue
+5. For regression, first check the error magnitude, then the residual plot
 
-这会比“所有指标都算一遍”更像真实项目的工作方式。
+This is much closer to how evaluation works in real projects than “calculate every metric.”
 
-:::info 连接后续
-- **下一节**：交叉验证——更可靠地估计模型表现
-- **4.3 节**：偏差-方差权衡——理解过拟合和欠拟合的本质
+:::info Coming up next
+- **Next section**: Cross-validation — estimating model performance more reliably
+- **Section 4.3**: Bias-variance tradeoff — understanding the essence of overfitting and underfitting
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key point | Description |
 |------|------|
-| 混淆矩阵 | TP/FP/FN/TN，一切分类指标的基础 |
-| 精确率 | 预测为正的里面，真正为正的比例 |
-| 召回率 | 真正为正的里面，被预测为正的比例 |
-| F1-Score | 精确率和召回率的调和平均 |
-| ROC/AUC | 不受阈值影响的综合评估指标 |
-| 回归指标 | MSE、RMSE、MAE、R² |
+| Confusion matrix | TP/FP/FN/TN, the foundation of all classification metrics |
+| Precision | Among predicted positives, the proportion that are truly positive |
+| Recall | Among actual positives, the proportion predicted as positive |
+| F1-Score | Harmonic mean of precision and recall |
+| ROC/AUC | A comprehensive metric not affected by the threshold |
+| Regression metrics | MSE, RMSE, MAE, R² |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-如果只记一句话，我希望你记住：
+If you only remember one sentence, I hope you remember this:
 
-> **评估指标不是在给模型打分，而是在决定你如何理解模型的错误。**
+> **Evaluation metrics are not for grading the model; they are for deciding how you interpret the model’s errors.**
 
-所以真正重要的不是背下多少公式，而是形成这三个习惯：
+So what really matters is not memorizing as many formulas as possible, but forming these three habits:
 
-- 先问任务和错误代价
-- 再选主指标
-- 最后把指标放回业务和项目上下文里解释
+- First ask about the task and the cost of errors
+- Then choose the main metric
+- Finally explain the metric in the context of the business and project
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：不平衡数据实验
+### Exercise 1: Imbalanced data experiment
 
-用 `make_classification(weights=[0.95, 0.05])` 生成不平衡数据，训练逻辑回归。对比准确率和 F1 哪个更能反映真实性能。
+Use `make_classification(weights=[0.95, 0.05])` to generate imbalanced data, then train logistic regression. Compare accuracy and F1 to see which one reflects real performance better.
 
-### 练习 2：ROC 曲线对比
+### Exercise 2: ROC curve comparison
 
-用 Wine 数据集（二分类：取前两个类别），对比逻辑回归、决策树、随机森林、SVM 的 ROC 曲线和 AUC。
+Use the Wine dataset (binary classification: take the first two classes), and compare the ROC curves and AUC of logistic regression, decision tree, random forest, and SVM.
 
-### 练习 3：阈值调优
+### Exercise 3: Threshold tuning
 
-在乳腺癌数据集上训练逻辑回归，手动调整分类阈值（0.1~0.9），画出"阈值 vs 精确率/召回率/F1"曲线，找到 F1 最大的阈值。
+Train logistic regression on the breast cancer dataset, manually adjust the classification threshold (0.1~0.9), plot the “threshold vs precision/recall/F1” curves, and find the threshold that maximizes F1.
 
-### 练习 4：回归指标对比
+### Exercise 4: Regression metric comparison
 
-用 `load_diabetes()` 对比线性回归和 Ridge 的 MSE、RMSE、MAE、R²，画出残差分布对比图。
+Use `load_diabetes()` to compare the MSE, RMSE, MAE, and R² of linear regression and Ridge, and plot a residual distribution comparison.

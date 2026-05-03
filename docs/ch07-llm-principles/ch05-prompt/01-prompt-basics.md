@@ -1,265 +1,265 @@
 ---
-title: "5.2 Prompt 基础"
+title: "5.2 Prompt Basics"
 sidebar_position: 15
-description: "从 Prompt 到底是什么、为什么模糊指令会把模型带偏开始，建立 Prompt 工程最基础也最关键的直觉。"
+description: "Start by understanding what Prompt really is and why vague instructions can throw the model off, building the most fundamental and important intuition for Prompt engineering."
 keywords: [prompt, instruction, task framing, output format, constraints, prompt engineering]
 ---
 
-# Prompt 基础
+# Prompt Basics
 
-![Prompt 改写前后对比卡](/img/course/prompt-before-after.png)
+![Prompt before-and-after comparison](/img/course/prompt-before-after-en.png)
 
-:::tip 本节定位
-很多人第一次学 Prompt，会把它理解成：
+:::tip Section Overview
+When many people first learn Prompt, they think of it as:
 
-- 会不会写漂亮话
-- 会不会用一些神奇措辞
+- being good at writing fancy wording
+- using some kind of magical phrasing
 
-但真正更重要的问题其实是：
+But the real, more important question is:
 
-> **你有没有把任务说明清楚。**
+> **Have you explained the task clearly?**
 
-Prompt 工程的基础，不是修辞，而是任务表达。
+The foundation of Prompt engineering is not rhetoric, but task expression.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Prompt 真正控制的是什么
-- 理解为什么模糊 Prompt 会让模型输出飘
-- 学会从任务目标、输出格式、约束条件三层去写更稳的 Prompt
-- 建立 Prompt 调试的最基本直觉
-
----
-
-## 新人先掌握 / 进阶再理解
-
-如果你是新人，这一节先抓住一句话：Prompt 不是“咒语”，而是任务说明书。先把“做什么、输出成什么样、不能做什么”三件事写清楚，比背很多技巧更重要。
-
-如果你已经有经验，可以进一步关注：Prompt 是否能被程序稳定解析，是否能约束模型不要越界，是否能和结构化输出、Function Calling、RAG、Agent 的执行链路接起来。
+- Understand what Prompt really controls
+- Understand why vague Prompts make model output drift
+- Learn how to write more stable Prompts from three layers: task goal, output format, and constraints
+- Build the most basic intuition for Prompt debugging
 
 ---
 
-## 先建立一张地图
+## Start with the Basics / Understand the Advanced Later
 
-如果你已经学过大模型概览和预训练主线，这一节最自然的续接就是：
+If you are a beginner, the first thing to hold on to in this section is: Prompt is not a “spell,” but a task brief. It is more important to clearly write “what to do, what to output, and what not to do” than to memorize many tricks.
 
-- 前面你已经知道模型能力从哪里来
-- 这一节开始回答：不改模型参数时，我们怎样更稳定地调动这些能力
+If you already have experience, you can go one step further and focus on whether a Prompt can be parsed reliably by a program, whether it can constrain the model from going out of bounds, and whether it can connect to structured output, Function Calling, RAG, and Agent execution pipelines.
 
-所以 Prompt 基础不是“小技巧”，而是在回答：
+---
 
-- 如何通过更清楚的任务表达，把已有模型能力更稳地释放出来
+## Build a Map First
 
-Prompt 基础这节最适合新人的理解顺序不是“先学几个技巧”，而是先看清：
+If you have already learned the overview of large models and the pretraining main line, then the most natural continuation in this section is:
+
+- You already know where model capabilities come from
+- This section begins to answer: without changing model parameters, how can we more stably activate those capabilities?
+
+So Prompt basics are not a “small trick,” but an answer to:
+
+- How do we release existing model capabilities more reliably through clearer task expression?
+
+The best way for beginners to understand this section is not to “learn a few tricks first,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["任务目标"] --> B["输出格式"]
-    B --> C["约束条件"]
-    C --> D["更稳定的模型输出"]
+    A["Task Goal"] --> B["Output Format"]
+    B --> C["Constraints"]
+    C --> D["More Stable Model Output"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 任务到底有没有说清楚
-- 模型到底知不知道要交付成什么样
-- 哪些边界必须提前写死
+- Was the task stated clearly?
+- Does the model know what it should deliver?
+- Which boundaries must be fixed in advance?
 
-## 一、Prompt 到底是什么？
+## 1. What Exactly Is a Prompt?
 
-### 1.1 不只是“输入一段文字”
+### 1.1 Not Just “Typing in Some Text”
 
-从最表面看，Prompt 当然是你输入给模型的一段文本。  
-但从工程视角看，它更像：
+On the most surface level, a Prompt is of course a piece of text you input to the model.
+But from an engineering perspective, it is more like:
 
-> **你写给模型的任务说明书。**
+> **A task brief you write for the model.**
 
-你真正通过 Prompt 在告诉模型的是：
+What you are really telling the model through the Prompt is:
 
-- 这次任务是什么
-- 要输出成什么形式
-- 需要遵守哪些边界
+- What the task is
+- What format the output should take
+- What boundaries must be followed
 
-### 1.2 一个很直观的类比
+### 1.2 A Very Intuitive Analogy
 
-Prompt 很像你给新同事下任务：
+A Prompt is like giving a new teammate an assignment:
 
-- 目标写清楚没有？
-- 交付格式写清楚没有？
-- 有没有说明哪些事不能做？
+- Is the goal clear?
+- Is the deliverable format clear?
+- Have you explained what not to do?
 
-如果这些都含糊，结果就很容易跑偏。  
-模型也是一样。
+If all of these are vague, the result can easily go off track.
+The model is the same.
 
-### 1.2.1 一个更适合新人的总类比
+### 1.2.1 A More Beginner-Friendly Overall Analogy
 
-你也可以把 Prompt 理解成：
+You can also think of a Prompt as:
 
-- 给一个很能干、但不会读心术的实习生下任务
+- giving a task to a very capable intern who cannot read minds
 
-这个实习生本身能力不错，  
-但如果你只说：
+This intern is competent,
+but if you only say:
 
-- “你帮我弄一下”
+- “Please handle this for me”
 
-那结果大概率会飘。  
-问题不在于他不聪明，  
-而在于：
+then the result will very likely drift.
+The problem is not that the intern is not smart,
+but that:
 
-- 你没把目标、格式和边界交代清楚
+- you did not clearly explain the goal, format, and boundaries
 
-### 1.3 第一次学 Prompt，最该先抓住什么？
+### 1.3 When You First Learn Prompt, What Should You Focus on First?
 
-最该先抓住的不是几个流行套路，而是这句：
+What you should focus on first is not a few popular patterns, but this sentence:
 
-> **Prompt 的本质，是把任务规格翻译成模型能执行的说明。**
+> **The essence of a Prompt is translating task specifications into instructions the model can execute.**
 
-一旦这句稳住了，后面你再看：
+Once this idea is stable, when you later look at:
 
 - few-shot
-- 角色设定
-- 结构化输出
+- role setting
+- structured output
 
-就会更自然地先问：它到底是在补任务目标、输出格式，还是行为边界。
+it becomes more natural to ask first: is it adding task goals, output format, or behavioral boundaries?
 
 ---
 
-## 二、为什么“模糊 Prompt”特别危险？
+## 2. Why Are “Vague Prompts” So Dangerous?
 
-### 2.1 一个典型坏例子
-
-```text
-帮我处理一下这段内容。
-```
-
-这句话的问题不是礼貌不礼貌，而是：
-
-- 到底要总结？
-- 还是改写？
-- 还是分类？
-- 输出要多长？
-
-### 2.2 一个稍微清楚一点的版本
+### 2.1 A Typical Bad Example
 
 ```text
-请把下面内容总结成 3 条中文要点，每条不超过 20 个字。
+Please handle this content for me.
 ```
 
-一下子就明确了：
+The problem with this sentence is not whether it sounds polite, but:
 
-- 做什么：总结
-- 输出形式：3 条要点
-- 输出长度：每条不超过 20 个字
+- Should it summarize?
+- Or rewrite?
+- Or classify?
+- How long should the output be?
 
-这就是 Prompt 最基础的价值：
+### 2.2 A Slightly Clearer Version
 
-> **把模糊任务变成明确任务。**
+```text
+Please summarize the following content into 3 English bullet points, with no more than 20 characters per point.
+```
 
-### 2.3 再看一个“坏 Prompt -> 好 Prompt”的最小对比表
+Now it is clear at once:
 
-| 版本 | Prompt | 问题或优点 |
+- What to do: summarize
+- Output form: 3 bullet points
+- Output length: no more than 20 characters per point
+
+This is the most basic value of a Prompt:
+
+> **Turning a vague task into a clear task.**
+
+### 2.3 A Minimal “Bad Prompt -> Good Prompt” Comparison Table
+
+| Version | Prompt | Problem or Advantage |
 |---|---|---|
-| 坏版本 | 帮我处理一下这段内容。 | 任务、格式、边界都不清楚 |
-| 好一点 | 请总结这段内容。 | 知道要总结，但格式还不清楚 |
-| 更稳版本 | 请把下面内容总结成 3 条中文要点，每条不超过 20 个字，不要补充原文之外的信息。 | 任务、格式、约束都清楚 |
+| Bad version | Please handle this content for me. | The task, format, and boundaries are all unclear |
+| Slightly better | Please summarize this content. | The task is clear, but the format is still unclear |
+| More stable version | Please summarize the following content into 3 English bullet points, with no more than 20 characters per point, and do not add information beyond the original text. | The task, format, and constraints are all clear |
 
-这个表特别适合新人，因为它会让你看见：
+This table is especially useful for beginners, because it lets you see:
 
-- Prompt 变稳，不是靠神秘词汇
-- 而是靠规格越来越清楚
+- A more stable Prompt does not come from mysterious words
+- It comes from increasingly clear specifications
 
 ---
 
-## 三、写 Prompt 时最基础的三层结构
+## 3. The Three Basic Layers of Prompt Writing
 
-### 3.1 第一层：任务目标
+### 3.1 Layer 1: Task Goal
 
-先回答：
+First answer:
 
-- 模型到底要做什么？
+- What exactly should the model do?
 
-例如：
+For example:
 
-- 总结
-- 分类
-- 抽取
-- 改写
+- Summarize
+- Classify
+- Extract
+- Rewrite
 
-### 3.2 第二层：输出格式
+### 3.2 Layer 2: Output Format
 
-再回答：
+Then answer:
 
-- 输出应该长什么样？
+- What should the output look like?
 
-例如：
+For example:
 
-- 一句话
-- 三条 bullet
+- One sentence
+- Three bullet points
 - JSON
-- 表格
+- A table
 
-### 3.3 第三层：约束条件
+### 3.3 Layer 3: Constraints
 
-最后回答：
+Finally answer:
 
-- 哪些边界不能碰？
+- What boundaries must not be crossed?
 
-例如：
+For example:
 
-- 不要编造
-- 不要输出解释
-- 只能根据给定资料回答
+- Do not make things up
+- Do not output explanations
+- Answer only based on the given materials
 
-这三层就是 Prompt 工程最基础也最重要的骨架。
+These three layers are the most basic and important skeleton of Prompt engineering.
 
-### 3.4 为什么这三层结构特别值得先记？
+### 3.4 Why Is This Three-Layer Structure Especially Worth Remembering First?
 
-因为很多看起来“写得不错”的 Prompt，最后不稳定，往往就卡在：
+Because many Prompts that look “well written” still end up unstable because:
 
-- 任务目标含糊
-- 输出格式没写清
-- 约束条件漏掉了
+- the task goal is vague
+- the output format is not clearly written
+- the constraints were left out
 
-所以新人第 1 站最稳的做法不是堆技巧，而是把这三层先写完整。
+So for beginners, the most stable first step is not to pile on tricks, but to complete these three layers first.
 
-### 3.5 第一次写 Prompt 时，最稳的默认顺序
+### 3.5 The Most Stable Default Order for Your First Prompt
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先写“要做什么”
-2. 再写“输出长什么样”
-3. 再写“不能做什么”
-4. 最后才去调整语气、风格和角色
+1. First write “what to do”
+2. Then write “what the output should look like”
+3. Then write “what not to do”
+4. Only after that adjust tone, style, and role
 
-这样会比一开始就写：
+This is more stable than starting with something like:
 
-- 你是一位资深专家...
+- You are a senior expert...
 
-这类角色设定更稳，因为最基础的任务规格先站住了。
+because the most basic task specification has already been established.
 
 ---
 
-## 四、一个最小 Prompt 规格示例
+## 4. A Minimal Prompt Specification Example
 
 ```python
 prompt_spec = {
     "task": "summary",
-    "output_format": "3 个中文要点",
-    "constraints": ["每条不超过 20 个字", "不要补充原文之外的信息"]
+    "output_format": "3 English bullet points",
+    "constraints": ["No more than 20 characters per point", "Do not add information beyond the original text"]
 }
 
 print(prompt_spec)
 ```
 
-### 4.2 这个例子在教什么？
+### 4.2 What Is This Example Teaching?
 
-它在提醒你：
+It is reminding you:
 
-> 很多看起来不错的 Prompt，其实背后都有一份更清楚的任务规格。 
+> Many Prompts that look good actually have a clearer task specification behind them.
 
-也就是说，Prompt 不是纯靠灵感写出来的，而更像“把任务规格翻译成模型能理解的语言”。
+In other words, a Prompt is not written purely from inspiration, but is more like “translating task specifications into language the model can understand.”
 
-### 4.3 再看一个最小“Prompt 检查表”示例
+### 4.3 A Minimal “Prompt Checklist” Example
 
 ```python
 prompt_checklist = {
@@ -271,166 +271,166 @@ prompt_checklist = {
 
 def next_fix(checklist):
     if not checklist["task_defined"]:
-        return "先把任务目标写清楚。"
+        return "First make the task goal clear."
     if not checklist["output_format_defined"]:
-        return "先把输出格式写清楚。"
+        return "First make the output format clear."
     if not checklist["constraints_defined"]:
-        return "先补上边界和限制条件。"
-    return "基础 Prompt 规格已经比较完整。"
+        return "First add boundaries and constraints."
+    return "The basic Prompt specification is already fairly complete."
 
 
 print(next_fix(prompt_checklist))
 ```
 
-这个示例很适合初学者，因为它把 Prompt 从“写一句话”变成了：
+This example is especially suitable for beginners because it turns Prompt from “writing one sentence” into:
 
-- 一份可检查的任务规格
+- a task specification that can be checked
 
-![Prompt 三层任务规格图](/img/course/ch07-prompt-spec-three-layer-map.png)
+![Prompt three-layer task specification diagram](/img/course/ch07-prompt-spec-three-layer-map-en.png)
 
-:::tip 读图提示
-这张图把 Prompt 拆成三层：任务目标、输出格式、约束边界。新人先别急着加角色设定或高级技巧，先确认这三层有没有写清楚；很多不稳定输出，其实只是任务规格缺了一层。
+:::tip Reading Guide
+This diagram breaks Prompt into three layers: task goal, output format, and constraint boundaries. Beginners should not rush to add role setting or advanced tricks yet. First confirm whether these three layers are written clearly; many unstable outputs are actually just missing one layer of the task specification.
 :::
 
 ---
 
-## 五、一个真正能看出差别的例子
+## 5. A Example That Really Shows the Difference
 
-### 5.1 模糊版
-
-```text
-请分析下面这段文本。
-```
-
-### 5.2 清晰版
+### 5.1 Vague Version
 
 ```text
-请阅读下面文本，并完成情感分类。
-只输出 positive 或 negative，不要输出其他解释。
+Please analyze the following text.
 ```
 
-### 5.3 为什么后者更稳？
+### 5.2 Clear Version
 
-因为它同时明确了：
+```text
+Please read the following text and perform sentiment classification.
+Only output positive or negative. Do not output any other explanation.
+```
 
-- 任务目标：情感分类
-- 输出集合：positive / negative
-- 输出约束：不要额外解释
+### 5.3 Why Is the Latter More Stable?
 
-所以 Prompt 真正的基础，不是“说得花”，而是：
+Because it clearly defines all of the following at the same time:
 
-> **说得准。**
+- Task goal: sentiment classification
+- Output set: positive / negative
+- Output constraint: no extra explanation
+
+So the real foundation of Prompt is not “sounding fancy,” but:
+
+> **being precise.**
 
 ---
 
-## 六、Prompt 基础为什么会影响后面所有章节？
+## 6. Why Does Prompt Basics Affect Every Later Chapter?
 
-因为后面你会继续遇到：
+Because later you will keep encountering:
 
-- 结构化输出
+- Structured output
 - Function Calling
 - Agent
 - RAG
 
-这些能力虽然更复杂，但都离不开同一个前提：
+Although these capabilities are more complex, they all depend on the same premise:
 
-- 任务边界要清楚
-- 输出形式要清楚
-- 行为约束要清楚
+- The task boundaries must be clear
+- The output format must be clear
+- The behavioral constraints must be clear
 
-所以 Prompt 基础不是一个孤立章节，而是后面很多系统能力的地基。
-
----
-
-## 七、最常见的初学者误区
-
-### 7.1 以为 Prompt 只是措辞优化
-
-其实更重要的是任务结构。
-
-### 7.2 只说任务，不说输出格式
-
-这会让模型输出更不稳定，也让后处理更痛苦。
-
-### 7.3 不写约束
-
-模型一旦有发挥空间，就容易在不该发挥的地方发挥。
-
-## 如果把它做成项目或笔记，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我会写 Prompt”
-
-而是：
-
-1. 一个坏 Prompt
-2. 一个改良版 Prompt
-3. 你具体补了哪层规格
-4. 输出为什么因此变稳
-
-这样别人会更容易感觉到：
-
-- 你理解的是任务表达
-- 不只是背了几个 Prompt 技巧名词
-
-## 八、第一次写 Prompt 时最稳的顺序
-
-可以直接按这个顺序来：
-
-1. 先写任务目标
-2. 再写输出格式
-3. 再写限制条件
-4. 最后才去改措辞和风格
-
-这样会比一开始就堆角色设定和技巧稳定很多。
-
-## 九、核心提醒
-
-- Prompt 的核心不是修辞，而是任务表达
-- 基础 Prompt 先把“做什么、怎么交付、不能做什么”讲清楚
-- 后面所有高级 Prompt、结构化输出、Agent，其实都建立在这层基础上
+So Prompt basics are not an isolated chapter, but the foundation for many system capabilities that come later.
 
 ---
 
-## 十、一个很实用的写 Prompt 习惯
+## 7. The Most Common Beginner Mistakes
 
-每次写 Prompt 前，先在脑子里问自己：
+### 7.1 Thinking Prompt Is Just About Wordsmithing
 
-1. 我到底让模型做什么？
-2. 我想让它输出成什么样？
-3. 我最怕它在哪些地方做偏？
+In fact, task structure matters more.
 
-把这三个问题答清楚，Prompt 通常就已经比大多数“拍脑袋写”的版本稳很多了。
+### 7.2 Only Stating the Task, but Not the Output Format
+
+This makes model output less stable and makes post-processing more painful.
+
+### 7.3 Not Writing Constraints
+
+Once the model has room to improvise, it may improvise in places where it should not.
+
+## If You Turn This into a Project or Notes, What Is Most Worth Showing?
+
+What is usually most worth showing is not:
+
+- “I know how to write Prompts”
+
+but rather:
+
+1. A bad Prompt
+2. An improved Prompt
+3. Which layer of the specification you actually added
+4. Why the output became more stable as a result
+
+This makes it easier for others to feel that:
+
+- you understand task expression
+- not just a few Prompt technique terms
+
+## 8. The Most Stable Order for Writing a Prompt for the First Time
+
+You can follow this order directly:
+
+1. First write the task goal
+2. Then write the output format
+3. Then write the constraints
+4. Only at the end adjust wording and style
+
+This will be much more stable than piling on role setting and tricks right from the start.
+
+## 9. Key Takeaways
+
+- The core of a Prompt is not rhetoric, but task expression
+- A basic Prompt should clearly explain “what to do, how to deliver it, and what not to do”
+- All later advanced Prompt techniques, structured output, and Agent systems are built on this foundation
 
 ---
 
-## 这一节的学习闭环
+## 10. A Very Practical Prompt-Writing Habit
 
-学完这一节后，可以用下面这张表检查自己：
+Before writing a Prompt each time, ask yourself in your head:
 
-| 层次 | 你应该能做到什么 |
+1. What exactly am I asking the model to do?
+2. What do I want it to output?
+3. Where am I most afraid it will go off track?
+
+If you can answer these three questions clearly, your Prompt is usually already much more stable than most “written on a whim” versions.
+
+---
+
+## Learning Loop for This Section
+
+After finishing this section, you can use the following table to check yourself:
+
+| Level | What You Should Be Able to Do |
 |---|---|
-| 直觉 | 能解释为什么 Prompt 更像任务说明书，而不是神奇咒语 |
-| 写法 | 能把一个模糊请求拆成任务目标、输出格式和约束条件 |
-| 调试 | 能判断一次输出不稳定，是目标不清、格式不清，还是边界没写清 |
-| 后续连接 | 能说明 Prompt 为什么会影响结构化输出、Function Calling、RAG 和 Agent |
+| Intuition | Explain why a Prompt is more like a task brief than a magical spell |
+| Writing | Break a vague request into task goal, output format, and constraints |
+| Debugging | Judge whether unstable output is caused by an unclear goal, unclear format, or unclear boundaries |
+| Later Connection | Explain why Prompt affects structured output, Function Calling, RAG, and Agents |
 
 ---
 
-## 小结
+## Summary
 
-这一节最重要的不是记住“Prompt”这个词，而是理解：
+The most important thing in this section is not to memorize the word “Prompt,” but to understand:
 
-> **Prompt 的本质，是把任务目标、输出形式和边界条件表达清楚。**
+> **The essence of a Prompt is to clearly express the task goal, output form, and boundary conditions.**
 
-这就是后面所有 Prompt 工程能力的第一层基础。
+This is the first layer of foundation for all later Prompt engineering capabilities.
 
 ---
 
-## 练习
+## Exercises
 
-1. 把“帮我处理一下这段内容”改写成一个更清楚的 Prompt。
-2. 想一个你自己的任务，并分别写出任务目标、输出格式和约束条件。
-3. 用自己的话解释：为什么说 Prompt 更像“任务说明书”？
-4. 为什么一个 Prompt 只写目标、不写输出格式，通常会让系统更不稳？
+1. Rewrite “Please handle this content for me” into a clearer Prompt.
+2. Think of a task of your own, and separately write the task goal, output format, and constraints.
+3. Explain in your own words: why is a Prompt more like a “task brief”?
+4. Why does a Prompt that only states the goal, but not the output format, usually make the system less stable?

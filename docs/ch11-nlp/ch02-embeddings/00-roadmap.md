@@ -1,76 +1,77 @@
 ---
-title: "2.1 学前导读：表示学习这一章到底在学什么"
+title: "2.1 Pre-study Guide: What Is This Chapter on Representation Learning Really About?"
 sidebar_position: 0
-description: "先建立表示学习章的学习地图：词嵌入、上下文化表示和语言模型是怎样一步步演进的。"
-keywords: [表示学习导读, 词嵌入, 上下文化表示, 语言模型]
+description: "First build a learning map for the representation learning chapter: how word embeddings, contextualized representations, and language models evolve step by step."
+keywords: [representation learning guide, word embeddings, contextualized representations, language models]
 ---
 
-# 学前导读：表示学习这一章到底在学什么
+# Pre-study Guide: What Is This Chapter on Representation Learning Really About?
 
-这一章解决的是：
+This chapter addresses one question:
 
-> **文本到底应该怎样表示，模型才更容易学到语义。**
+> **How should text be represented so that models can learn semantics more easily?**
 
-## 先建立一张桥接线
+## First, Build a Bridge
 
-如果你是从文本表示基础那一章过来的，这一章最值得先看清的一件事是：
+If you are coming from the chapter on text representation basics, the most important thing to understand in this chapter is:
 
-- 前面你已经知道文本必须先数值化
-- 这一章开始回答“表示不只是编码，怎样才能开始带上语义”
+- In the previous chapter, you already learned that text must first be converted into numbers
+- This chapter begins to answer: “Representation is not just encoding—how can it start carrying meaning?”
 
-所以这一章真正新增的核心，不是“更高级的向量”，而是：
+So the real new core of this chapter is not “more advanced vectors,” but:
 
-- 表示开始从“区分词”走向“表达词义、上下文和语言规律”
+- Representation starts moving from “distinguishing words” toward “expressing word meaning, context, and language patterns”
 
-## 这一章的主线
+## The Main Thread of This Chapter
 
-![NLP 表示学习章节学习顺序图](/img/course/ch11-embeddings-chapter-flow.png)
+![NLP representation learning chapter learning sequence diagram](/img/course/ch11-embeddings-chapter-flow-en.png)
 
-## 这一章更适合新人的学习顺序
+## A Beginner-Friendly Learning Order for This Chapter
 
-1. 先看词嵌入  
-   先把“语义近 = 向量近”这件事立住。
+1. Start with word embeddings
+   First establish the idea that “semantically close = vector close.”
 
-2. 再看上下文化表示  
-   这时你更容易理解为什么固定词向量会卡在多义词上。
+2. Then look at contextualized representations
+   At this point, it becomes easier to understand why fixed word vectors struggle with polysemous words.
 
-3. 最后看语言模型  
-   这时你会更容易感受到“为什么模型开始不只是表示词，而是在学语言规律”。
+3. Finally, look at language models
+   At this stage, you will more clearly feel why models are no longer just representing words, but learning language patterns.
 
-## 这一章最该先抓住什么
+## What You Should Focus on First in This Chapter
 
-- 词向量是表示学习的起点，不是终点
-- 上下文化表示是在补固定词向量的短板
-- 语言模型是后面预训练范式真正抬起来的底座
+- Word vectors are the starting point of representation learning, not the end
+- Contextualized representations make up for the shortcomings of fixed word vectors
+- Language models are the foundation that later made the pretraining paradigm truly take off
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a way to fill gaps and do engineering practice: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after it. After reading, it is best to distill the chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run a minimal example and complete the chapter’s small project deliverable |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what the example needs as input and what result it will produce |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you build from this chapter? | You can write the chapter output into a project README, experiment notes, or portfolio |
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+## Small Project Deliverable for This Chapter
 
-## 过关标准
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the most important concept or tool in this chapter and create a small result that can run, can be screenshotted, and can be written into a README. It does not need to be complicated, but it should clearly show what the input is, what the processing step is, and what the output result is.
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+## Passing Criteria
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the chapters before and after it, and complete the minimum version of the chapter’s small project deliverable.
+
+If you can also record one common mistake, one debugging process, or one improvement in results, that means you are no longer just “reading the content”—you are turning this chapter into your own project experience.

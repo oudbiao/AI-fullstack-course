@@ -1,124 +1,124 @@
 ---
-title: "分支与协作"
+title: "Branches and Collaboration"
 sidebar_position: 4
-description: "用分支安全地开发新功能，了解 Pull Request 流程"
+description: "Develop new features safely with branches, and understand the Pull Request workflow"
 ---
 
-# 分支与协作
+# Branches and Collaboration
 
-![Git 分支协作流程图](/img/course/ch01-git-branch-collaboration.png)
+![Git branch collaboration flowchart](/img/course/ch01-git-branch-collaboration-en.png)
 
-## 本节定位
+## Where This Lesson Fits
 
-这一节解释 Git 为什么能支持安全协作。你会理解分支如何让你在不破坏主线代码的情况下尝试新功能，并初步认识 Pull Request 和合并冲突，为以后参与团队项目和开源贡献做准备。
+This lesson explains why Git supports safe collaboration. You’ll understand how branches let you try new ideas without breaking the main codebase, and you’ll get a first look at Pull Requests and merge conflicts, preparing you for team projects and open-source contributions later.
 
-## 学习目标
+## Learning Objectives
 
-- 理解分支的概念和使用场景
-- 掌握创建、切换、合并分支的操作
-- 了解 Pull Request 的协作流程
-- 学会解决简单的合并冲突
+- Understand the concept of branches and when to use them
+- Master creating, switching, and merging branches
+- Learn the collaboration workflow of Pull Requests
+- Learn how to resolve simple merge conflicts
 
 ---
 
-## 什么是分支？
+## What Is a Branch?
 
-### 用装修来类比
+### An Analogy: Renovating an Apartment
 
-想象你住在一间公寓里（`main` 分支 = 你正在住的家）。你想尝试一种新的装修风格，但不确定效果好不好。
+Imagine you live in an apartment (`main` branch = the home you are currently living in). You want to try a new interior design style, but you’re not sure whether it will turn out well.
 
-你有两个选择：
+You have two choices:
 
-1. **直接在家里改**——如果改坏了，你就没得住了
-2. **先租一间一模一样的公寓（新分支），在那边尝试**——如果好看就搬过来，不好看就退租
+1. **Make changes directly in your home** — if you mess it up, you can’t really live there anymore
+2. **Rent an identical apartment first (a new branch) and try things there** — if it looks good, move the changes back; if not, just end the lease
 
-分支就是选项 2。你在新分支上随便改，改好了合并回 `main`，改坏了直接删掉，`main` 完全不受影响。
+A branch is option 2. You can make changes freely on a new branch. If it works, merge it back into `main`. If it doesn’t, delete the branch, and `main` stays completely unaffected.
 
-### 在代码中的实际场景
+### Real-World Scenarios in Code
 
 ```
-你正在做一个 AI 图像分类项目，main 分支上是能正常运行的代码。
+You are working on an AI image classification project, and the code on the main branch is running normally.
 
-现在你想尝试：
-  - 把模型从 CNN 换成 Vision Transformer
-  - 不确定效果会不会更好
-  - 改动很大，可能需要好几天
+Now you want to try:
+  - Replacing the model from CNN to Vision Transformer
+  - You’re not sure whether the result will be better
+  - The changes are large and may take several days
 
-如果直接在 main 上改：
-  ❌ 改到一半代码跑不了了
-  ❌ 老板突然让你修个 bug，但 main 已经被你改乱了
-  ❌ 最后发现 ViT 效果不好，想回去——已经改了 50 个文件
+If you change main directly:
+  ❌ If you’re halfway done, the code may stop running
+  ❌ Your boss suddenly asks you to fix a bug, but main is already messed up by your changes
+  ❌ In the end, you realize ViT is not good, but you have already changed 50 files
 
-如果用分支：
-  ✅ 在 feature/vit 分支上慢慢改
-  ✅ 老板让修 bug？切回 main，修完推上去，再切回来继续
-  ✅ 发现 ViT 不行？删掉分支，main 毫发无损
+If you use a branch:
+  ✅ Work slowly on the feature/vit branch
+  ✅ Boss asks for a bug fix? Switch back to main, fix it, push it, then switch back and continue
+  ✅ Find out ViT is not working? Delete the branch, and main remains untouched
 ```
 
 ---
 
-## 分支基本操作
+## Basic Branch Operations
 
-### 查看分支
+### View Branches
 
 ```bash
-# 查看本地分支（当前分支前面有 * 号）
+# View local branches (the current branch has a * in front)
 git branch
-# 输出:
+# Output:
 # * main
 
-# 查看所有分支（包括远程）
+# View all branches (including remote branches)
 git branch -a
 ```
 
-### 创建并切换分支
+### Create and Switch Branches
 
 ```bash
-# 创建一个新分支
+# Create a new branch
 git branch feature/data-augmentation
 
-# 切换到新分支
+# Switch to the new branch
 git checkout feature/data-augmentation
 
-# 或者一步到位：创建并切换（更常用）
+# Or do it in one step: create and switch (more common)
 git checkout -b feature/data-augmentation
 ```
 
-:::tip 分支命名惯例
-常见的命名方式：
-- `feature/xxx` — 新功能（如 `feature/add-resnet`）
-- `fix/xxx` — 修复 bug（如 `fix/training-crash`）
-- `experiment/xxx` — 实验性尝试（如 `experiment/try-vit`）
+:::tip Branch Naming Conventions
+Common naming patterns:
+- `feature/xxx` — new feature (for example `feature/add-resnet`)
+- `fix/xxx` — bug fix (for example `fix/training-crash`)
+- `experiment/xxx` — experimental attempt (for example `experiment/try-vit`)
 :::
 
-### 案例：在分支上开发新功能
+### Example: Developing a New Feature on a Branch
 
-让我们实际操作一下。继续使用之前的 `ai-image-classifier` 项目：
+Let’s do a real example. Continue using the previous `ai-image-classifier` project:
 
 ```bash
 cd ai-image-classifier
 
-# 确认当前在 main 分支
+# Confirm that we are on the main branch
 git branch
 # * main
 
-# 创建并切换到新分支：添加数据增强功能
+# Create and switch to a new branch: add data augmentation
 git checkout -b feature/data-augmentation
 ```
 
-现在你在新分支上了。开始写代码：
+Now you are on the new branch. Start writing code:
 
 ```bash
-# 创建数据增强模块
+# Create the data augmentation module
 cat > src/augmentation.py << 'EOF'
 import torchvision.transforms as T
 
 def get_train_transforms():
-    """训练数据的增强策略"""
+    """Augmentation strategy for training data"""
     return T.Compose([
-        T.RandomHorizontalFlip(p=0.5),        # 50% 概率水平翻转
-        T.RandomRotation(degrees=15),          # 随机旋转 ±15 度
-        T.ColorJitter(                         # 颜色抖动
+        T.RandomHorizontalFlip(p=0.5),        # 50% chance of horizontal flip
+        T.RandomRotation(degrees=15),          # Random rotation of ±15 degrees
+        T.ColorJitter(                         # Color jitter
             brightness=0.2,
             contrast=0.2,
             saturation=0.2
@@ -131,7 +131,7 @@ def get_train_transforms():
     ])
 
 def get_test_transforms():
-    """测试数据只做标准化，不做增强"""
+    """Test data only gets normalized, no augmentation"""
     return T.Compose([
         T.ToTensor(),
         T.Normalize(
@@ -141,61 +141,61 @@ def get_test_transforms():
     ])
 EOF
 
-# 更新 train.py，使用数据增强
+# Update train.py to use data augmentation
 cat >> src/train.py << 'EOF'
 
-# 新增：使用数据增强
+# Added: use data augmentation
 from augmentation import get_train_transforms, get_test_transforms
 train_transform = get_train_transforms()
 test_transform = get_test_transforms()
-print("数据增强策略已加载")
+print("Data augmentation strategy loaded")
 EOF
 
-# 提交到当前分支
+# Commit to the current branch
 git add .
-git commit -m "feat: 添加数据增强模块（随机翻转、旋转、颜色抖动）"
+git commit -m "feat: add data augmentation module (random flip, rotation, color jitter)"
 ```
 
-现在查看两个分支的状态：
+Now check the status of the two branches:
 
 ```bash
-# 查看当前分支的历史
+# View the history of the current branch
 git log --oneline -3
-# 输出:
-# aaa1111 feat: 添加数据增强模块（随机翻转、旋转、颜色抖动）
-# bbb2222 完善 README：添加项目说明和使用方法
-# ccc3333 添加 .gitignore
+# Output:
+# aaa1111 feat: add data augmentation module (random flip, rotation, color jitter)
+# bbb2222 Improve README: add project overview and usage
+# ccc3333 Add .gitignore
 
-# 切回 main 看看
+# Switch back to main and take a look
 git checkout main
 
-# main 上没有 augmentation.py！
+# main does not have augmentation.py!
 ls src/
-# model.py  train.py  utils.py  （没有 augmentation.py）
+# model.py  train.py  utils.py  (no augmentation.py)
 
-# 切回 feature 分支
+# Switch back to the feature branch
 git checkout feature/data-augmentation
 ls src/
-# augmentation.py  model.py  train.py  utils.py  （有了！）
+# augmentation.py  model.py  train.py  utils.py  (it’s there!)
 ```
 
-这就是分支的魔力——两条时间线互不影响。
+That’s the power of branches—two timelines that do not affect each other.
 
 ---
 
-## 合并分支
+## Merging Branches
 
-当你在分支上的功能开发完成、测试通过后，就可以把它合并回 `main`。
+When the feature on your branch is finished and passes tests, you can merge it back into `main`.
 
 ```bash
-# 第一步：切回 main 分支
+# Step 1: switch back to the main branch
 git checkout main
 
-# 第二步：把 feature 分支合并到 main
+# Step 2: merge the feature branch into main
 git merge feature/data-augmentation
 ```
 
-输出：
+Output:
 
 ```
 Updating bbb2222..aaa1111
@@ -206,36 +206,36 @@ Fast-forward
  create mode 100644 src/augmentation.py
 ```
 
-现在 `main` 分支也有数据增强代码了：
+Now the `main` branch also has the data augmentation code:
 
 ```bash
 ls src/
 # augmentation.py  model.py  train.py  utils.py  ✅
 ```
 
-### 合并后的清理
+### Cleaning Up After the Merge
 
 ```bash
-# 功能分支已经合并，可以删掉了（保持仓库整洁）
+# The feature branch has been merged, so you can delete it (to keep the repo tidy)
 git branch -d feature/data-augmentation
 
-# 查看分支——只剩 main
+# View branches — only main remains
 git branch
 # * main
 ```
 
 ---
 
-## 合并冲突
+## Merge Conflicts
 
-### 什么时候会冲突？
+### When Do Conflicts Happen?
 
-当两个分支修改了**同一个文件的同一个位置**，Git 不知道该保留哪个版本，就会产生冲突。
+When two branches modify the **same location in the same file**, Git does not know which version to keep, so a conflict occurs.
 
-### 案例：制造一个冲突并解决它
+### Example: Create a Conflict and Resolve It
 
 ```bash
-# 从 main 创建两个分支，模拟两个人同时工作
+# Create two branches from main to simulate two people working at the same time
 git checkout -b alice/update-model
 cat > src/model.py << 'EOF'
 import torch
@@ -244,7 +244,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: 改成 32 个滤波器
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: change to 32 filters
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
 
@@ -253,9 +253,9 @@ class SimpleCNN(nn.Module):
         x = x.view(-1, 32 * 16 * 16)
         return self.fc1(x)
 EOF
-git add . && git commit -m "alice: 增加滤波器数量到 32"
+git add . && git commit -m "alice: increase filter count to 32"
 
-# 切回 main，创建 bob 的分支
+# Switch back to main and create Bob's branch
 git checkout main
 git checkout -b bob/update-model
 cat > src/model.py << 'EOF'
@@ -265,7 +265,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: 改成 64 个滤波器，5x5 卷积核
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: change to 64 filters, 5x5 kernel
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -274,30 +274,30 @@ class SimpleCNN(nn.Module):
         x = x.view(-1, 64 * 16 * 16)
         return self.fc1(x)
 EOF
-git add . && git commit -m "bob: 改用 64 个滤波器和 5x5 卷积核"
+git add . && git commit -m "bob: switch to 64 filters and a 5x5 kernel"
 ```
 
-现在合并 Alice 的修改：
+Now merge Alice’s changes:
 
 ```bash
 git checkout main
-git merge alice/update-model    # ✅ 成功，无冲突
+git merge alice/update-model    # ✅ Success, no conflict
 ```
 
-再合并 Bob 的修改：
+Then merge Bob’s changes:
 
 ```bash
 git merge bob/update-model
-# 输出:
+# Output:
 # CONFLICT (content): Merge conflict in src/model.py
 # Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-**冲突了！** 因为 Alice 和 Bob 都修改了 `model.py` 的同一行。
+**A conflict occurred!** Because Alice and Bob both modified the same line in `model.py`.
 
-### 解决冲突
+### Resolving the Conflict
 
-打开 `src/model.py`，你会看到 Git 标记出了冲突的位置：
+Open `src/model.py`, and you will see Git marking the conflict like this:
 
 ```python
 import torch
@@ -306,21 +306,21 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-<<<<<<< HEAD
-        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: 改成 32 个滤波器
+CONFLICT_MARKER_START HEAD
+        self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: change to 32 filters
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
-=======
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: 改成 64 个滤波器，5x5 卷积核
+CONFLICT_MARKER_SEPARATOR
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: change to 64 filters, 5x5 kernel
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
->>>>>>> bob/update-model
+CONFLICT_MARKER_END bob/update-model
 ```
 
-- `<<<<<<< HEAD` 到 `=======` 之间是**当前分支**（main，包含了 Alice 的修改）的版本
-- `=======` 到 `>>>>>>> bob/update-model` 之间是**要合并进来的分支**（Bob）的版本
+- In a real conflict, Git shows `<<<<<<< HEAD`, then the current branch version, then `=======`, then the incoming branch version, and finally `>>>>>>> branch-name`.
+- The example above uses `CONFLICT_MARKER_*` placeholders so repository checks do not mistake this teaching sample for an unresolved merge conflict.
 
-**你需要手动决定最终要保留什么。** 比如我们决定采用 Bob 的方案：
+**You need to manually decide what to keep.** For example, let’s choose Bob’s version:
 
 ```python
 import torch
@@ -329,7 +329,7 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # 采用 Bob 的方案
+        self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Use Bob's version
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
 
@@ -339,83 +339,83 @@ class SimpleCNN(nn.Module):
         return self.fc1(x)
 ```
 
-把 `<<<<<<<`、`=======`、`>>>>>>>` 标记全部删掉，只留下你想要的代码。然后：
+Delete all the `<<<<<<<`, `=======`, and `>>>>>>>` markers, and keep only the code you want. Then:
 
 ```bash
 git add src/model.py
-git commit -m "merge: 合并 Alice 和 Bob 的修改，采用 Bob 的 64 滤波器方案"
+git commit -m "merge: merge Alice and Bob's changes, using Bob's 64-filter design"
 ```
 
-冲突解决了。
+The conflict is resolved.
 
-:::tip VS Code 的冲突解决
-VS Code 遇到冲突时会高亮显示，并给你几个按钮：
-- **Accept Current Change**（保留当前分支的版本）
-- **Accept Incoming Change**（保留要合并进来的版本）
-- **Accept Both Changes**（两个都保留）
+:::tip Resolving Conflicts in VS Code
+When VS Code encounters a conflict, it highlights the conflict and gives you several buttons:
+- **Accept Current Change** (keep the current branch version)
+- **Accept Incoming Change** (keep the version from the branch being merged in)
+- **Accept Both Changes** (keep both)
 
-点一下就行，比手动编辑方便得多。
+Just click one — it’s much easier than editing manually.
 :::
 
 ```bash
-# 清理分支
+# Clean up branches
 git branch -d alice/update-model
 git branch -d bob/update-model
 ```
 
 ---
 
-## Pull Request（了解即可）
+## Pull Request (Good to Know)
 
-在团队协作中，你通常不会直接往 `main` 分支合并。而是通过 **Pull Request（PR）** 让别人先审查你的代码，确认没问题后再合并。
+In team collaboration, you usually do not merge directly into `main`. Instead, you use a **Pull Request (PR)** so someone else can review your code first and merge it only after confirming it looks good.
 
-### Pull Request 的流程
+### Pull Request Workflow
 
 ```
-1. 你创建一个 feature 分支，写代码
-2. push 到 GitHub
-3. 在 GitHub 上创建 Pull Request
-4. 同事审查你的代码，提出修改建议
-5. 你根据建议修改，push 新的提交
-6. 同事点击 "Approve"（通过）
-7. 代码被合并到 main 分支
+1. You create a feature branch and write code
+2. Push it to GitHub
+3. Create a Pull Request on GitHub
+4. A teammate reviews your code and gives feedback
+5. You make changes based on the feedback and push new commits
+6. The teammate clicks "Approve"
+7. The code gets merged into the main branch
 ```
 
-### 实际操作
+### Practical Steps
 
 ```bash
-# 1. 创建分支并写代码
+# 1. Create a branch and write code
 git checkout -b feature/add-evaluation
 echo "def evaluate(model, dataloader): pass" > src/evaluate.py
-git add . && git commit -m "添加模型评估模块"
+git add . && git commit -m "Add model evaluation module"
 
-# 2. 推送分支到 GitHub
+# 2. Push the branch to GitHub
 git push -u origin feature/add-evaluation
 ```
 
-然后打开 GitHub，你会看到一个提示：
+Then open GitHub, and you’ll see a prompt:
 
 > feature/add-evaluation had recent pushes — **Compare & pull request**
 
-点击这个按钮，填写 PR 的标题和描述，点击 **Create pull request** 就完成了。
+Click that button, fill in the PR title and description, and click **Create pull request** to finish.
 
-对于个人项目，你可以自己审查后直接在 GitHub 页面上点 **Merge pull request** 合并。
+For a personal project, you can review it yourself and then click **Merge pull request** on the GitHub page to merge it directly.
 
 ---
 
-## 本章自检
+## Chapter Self-Check
 
-完成以下检查，确认你掌握了 Git 基础：
+Complete the following checks to confirm you understand Git basics:
 
-- [ ] 能从头创建一个 Git 仓库
-- [ ] 能用 `add` → `commit` 提交代码
-- [ ] 能用 `git diff` 查看修改了什么
-- [ ] 会写 `.gitignore` 文件
-- [ ] 能把代码推送到 GitHub
-- [ ] 能用 `git clone` 下载别人的项目
-- [ ] 理解分支的概念，能创建和合并分支
-- [ ] 遇到合并冲突不慌，知道怎么解决
+- [ ] Can create a Git repository from scratch
+- [ ] Can use `add` → `commit` to save code changes
+- [ ] Can use `git diff` to see what changed
+- [ ] Know how to write a `.gitignore` file
+- [ ] Can push code to GitHub
+- [ ] Can use `git clone` to download someone else’s project
+- [ ] Understand branches, and can create and merge them
+- [ ] Stay calm when merge conflicts happen, and know how to solve them
 
-:::tip 全部打勾了？
-恭喜你完成了 Git 的学习！这些技能会贯穿你整个 AI 学习之旅。接下来我们来配置 Python 开发环境。
+:::tip Checked everything off?
+Congratulations, you’ve finished learning Git! These skills will stay with you throughout your entire AI learning journey. Next, we’ll set up a Python development environment.
 :::

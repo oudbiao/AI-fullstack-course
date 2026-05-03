@@ -1,91 +1,91 @@
 ---
-title: "5.1 学前导读：Transformer 这一章到底在学什么"
+title: "5.1 Pre-study Guide: What Is This Transformer Chapter Really About?"
 sidebar_position: 0
-description: "先建立 Transformer 章节的学习地图：注意力机制、Self-Attention、Encoder/Decoder 和大模型主线之间是什么关系。"
-keywords: [Transformer导读, 注意力机制, 自注意力, Attention, 大模型基础]
+description: "First build a learning map for the Transformer chapter: what is the relationship between the attention mechanism, Self-Attention, Encoder/Decoder, and the main line of large models?"
+keywords: [Transformer guide, attention mechanism, self-attention, Attention, large model basics]
 ---
 
-# 学前导读：Transformer 这一章到底在学什么
+# Pre-study Guide: What Is This Transformer Chapter Really About?
 
-这一章解决的是一个非常关键的问题：为什么现代 NLP、大模型和很多多模态系统，都绕不开 Transformer。
+This chapter addresses a very important question: why do modern NLP, large models, and many multimodal systems all rely on Transformer?
 
-如果前面神经网络、CNN、RNN 让你知道了“深度学习模型可以处理不同类型的数据”，那么这一章要帮你看懂的是：当数据是文本这样的序列时，模型为什么需要一种更适合捕捉全局关系的结构。
+If the earlier chapters on neural networks, CNNs, and RNNs helped you understand that “deep learning models can process different types of data,” then this chapter will help you understand this: when the data is a sequence like text, why does the model need a structure that is better at capturing global relationships?
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-你已经学过神经网络基础、PyTorch、CNN 和 RNN。到 Transformer 这一章，课程开始从传统深度学习模型进入大模型时代的核心结构。
+You have already learned the basics of neural networks, PyTorch, CNNs, and RNNs. In the Transformer chapter, the course begins its transition from traditional deep learning models to the core structure of the large model era.
 
-RNN 的直觉是“边读边记”，它适合解释序列处理的基本想法，但在长文本、并行训练和长距离依赖上会遇到明显瓶颈。Transformer 的关键变化是：不再只按顺序传递信息，而是让每个位置可以根据相关性直接关注其他位置。
+The intuition behind RNN is “read and remember as you go.” It is a good way to explain the basic idea of sequence processing, but it hits clear bottlenecks in long texts, parallel training, and long-range dependencies. The key change brought by Transformer is this: instead of passing information only in sequence, each position can directly attend to other positions based on relevance.
 
-![Transformer 章节关系图](/img/course/ch06-transformer-chapter-flow.png)
+![Transformer chapter relationship diagram](/img/course/ch06-transformer-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problem This Chapter Solves
 
-这一章不是让你一上来推公式，而是先建立结构直觉。你要理解 RNN 为什么不够，注意力机制为什么能让当前位置“看向”其他位置，Q/K/V 分别扮演什么角色，Self-Attention 为什么适合文本，Transformer 为什么要由多头注意力、前馈网络、残差连接、LayerNorm、位置编码等模块组合起来。
+This chapter is not about jumping straight into formulas. It is about building structural intuition first. You need to understand why RNN is not enough, why the attention mechanism lets the current position “look at” other positions, what roles Q/K/V play, why Self-Attention is suitable for text, and why Transformer is composed of modules such as multi-head attention, feed-forward networks, residual connections, LayerNorm, and positional encoding.
 
-这些概念第一次看会觉得多，但它们都在服务同一件事：让模型在处理序列时，既能看到局部信息，也能建立全局关联，并且可以更高效地并行训练。
+The first time you see these concepts, they may feel like a lot. But they are all serving the same purpose: helping the model see both local information and global relationships when processing sequences, while also making training more efficient in parallel.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先从 RNN 的痛点开始看，不要直接跳进 Transformer 结构图。先问：如果句子很长，前面的词如何影响后面的词？如果每一步都必须等上一步算完，训练会不会很慢？这些问题理解后，再看 Attention 就会自然很多。
+It is recommended that you start by looking at the pain points of RNN instead of jumping directly into the Transformer architecture diagram. First ask: if a sentence is very long, how do earlier words affect later words? If each step must wait for the previous one to finish, will training become slow? Once you understand these questions, Attention will make much more sense.
 
-然后重点理解 Q/K/V 的直觉。Query 可以理解成“我想找什么”，Key 可以理解成“我有什么特征可被匹配”，Value 可以理解成“真正要传过去的信息”。最后再看 Transformer 的整体结构，你会更容易理解为什么它要堆叠模块，而不是只靠一个注意力层。
+Then focus on the intuition behind Q/K/V. You can think of Query as “what I want to find,” Key as “what features I have that can be matched,” and Value as “the information that will actually be passed along.” Finally, when you look at the overall Transformer structure, it will be easier to understand why it stacks modules instead of relying on just one attention layer.
 
-![Transformer 全局上下文建模图](/img/course/ch06-transformer-global-context-map.png)
+![Transformer global context modeling diagram](/img/course/ch06-transformer-global-context-map-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Grasp in This Chapter
 
-这一章的主线可以压缩成一句话：序列建模从“顺序传递”走向“全局关联”。
+The main thread of this chapter can be summarized in one sentence: sequence modeling moves from “sequential passing” to “global relationships.”
 
 ```mermaid
 flowchart LR
-  A[输入序列] --> B[词向量和位置编码]
-  B --> C[Self-Attention 建立位置关系]
-  C --> D[前馈网络处理表示]
-  D --> E[残差和归一化稳定训练]
-  E --> F[堆叠成 Transformer]
-  F --> G[支撑预训练语言模型]
+  A[Input sequence] --> B[Word embeddings and positional encoding]
+  B --> C[Self-Attention builds positional relationships]
+  C --> D[Feed-forward network processes representations]
+  D --> E[Residual connections and normalization stabilize training]
+  E --> F[Stack into Transformer]
+  F --> G[Support pre-trained language models]
 ```
 
-这条线看懂后，后面学 BERT、GPT、预训练、Prompt、微调、RAG 和 Agent 时，你会知道底层模型能力不是凭空来的，而是建立在 Transformer 对表示和上下文关系的建模能力之上。
+Once you understand this line, when you later study BERT, GPT, pre-training, Prompt, fine-tuning, RAG, and Agent, you will know that the underlying model capability does not come out of nowhere. It is built on Transformer’s ability to model representations and contextual relationships.
 
-## 这一章和后面章节的关系
+## Relationship Between This Chapter and Later Chapters
 
-Transformer 是第 6 站和第 7 站之间的桥。在第 6 站里，它是深度学习结构；到第 7 站，它会变成大模型原理的底座。后面讲预训练语言模型时，BERT 和 GPT 的差异，本质上也会回到 Transformer Encoder、Decoder、训练目标和使用方式的差异。
+Transformer is the bridge between Station 6 and Station 7. At Station 6, it is a deep learning architecture; at Station 7, it becomes the foundation of large model principles. When we later talk about pre-trained language models, the differences between BERT and GPT also ultimately come back to the differences between Transformer Encoder, Decoder, training objectives, and usage patterns.
 
-如果这一章没学稳，后面常见的问题是：知道 GPT 很强，但不知道上下文是怎样被建模的；知道 Attention 这个词，但不知道它为什么解决 RNN 的限制；会调用模型 API，但很难理解 token、上下文长度、Embedding 和推理成本之间的关系。
+If you do not learn this chapter solidly, common problems later will be: knowing GPT is powerful, but not knowing how context is modeled; knowing the word Attention, but not knowing why it solves the limitations of RNN; being able to call model APIs, but struggling to understand the relationship between tokens, context length, Embedding, and inference cost.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+For beginners, start by grasping the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+For learners with more experience, this chapter can be used for gap-filling and engineering practice: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after it. After reading, it is best to consolidate what you learned into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study approach | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and complete the chapter’s project exit task |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparative experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | Can explain its role in the entire course in one sentence |
+| What are the minimal input and output? | Can clearly explain what input the example needs and what result it produces |
+| Where are the common failure points? | Can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you consolidate after learning? | Can write the chapter output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Project Exit Task
 
-学完这一章后，建议做一个“手写注意力直觉演示”或“小型文本分类实验”。前者可以用简单矩阵展示一个词如何给其他词分配注意力权重；后者可以用现成框架跑一个 Transformer/BERT 文本分类样例，重点记录输入 token、attention mask、模型输出和评估结果。
+After finishing this chapter, it is recommended that you do a “handwritten attention intuition demo” or a “small text classification experiment.” The former can use simple matrices to show how one word assigns attention weights to other words; the latter can use an existing framework to run a Transformer/BERT text classification example, focusing on recording input tokens, attention mask, model output, and evaluation results.
 
-项目目标不是从零训练大模型，而是能把 Transformer 的核心信息流讲清楚。
+The goal of the project is not to train a large model from scratch, but to clearly explain the core information flow of Transformer.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能解释 RNN 和 Transformer 的主要区别，能用通俗语言说明 Attention 和 Self-Attention 在做什么，能说清楚 Q/K/V 的角色分工，并能把 Transformer 和后面的 BERT、GPT、大模型主线连接起来。
+By the end of this chapter, you should be able to explain the main differences between RNN and Transformer, describe in plain language what Attention and Self-Attention do, clearly explain the division of roles among Q/K/V, and connect Transformer to the later main line of BERT, GPT, and large models.
 
-如果你能画出“输入 token → embedding → attention → transformer block → 输出表示”的流程，并说明每一步大致在解决什么问题，就达到了进入大模型原理阶段的基础要求。
+If you can draw the flow of “input token → embedding → attention → transformer block → output representation” and explain roughly what problem each step is solving, then you have reached the basic requirement for entering the large model principles stage.

@@ -1,103 +1,103 @@
 ---
-title: "4.1 Matplotlib 基础"
+title: "4.1 Matplotlib Basics"
 sidebar_position: 17
-description: "掌握 Python 最核心的绑图库，学会用代码讲故事"
+description: "Master Python’s most essential plotting library and learn to tell stories with code"
 ---
 
-# Matplotlib 基础
+# Matplotlib Basics
 
-![Matplotlib Figure 与 Axes 结构图](/img/course/matplotlib-figure-axes.png)
+![Matplotlib Figure and Axes structure diagram](/img/course/matplotlib-figure-axes-en.png)
 
-:::tip 本节定位
-很多新人第一次学 `Matplotlib` 最容易卡在：
+:::tip Section focus
+For many beginners learning `Matplotlib` for the first time, the hardest parts are:
 
-- 参数太多
-- 代码太长
-- 图画出来了，但不知道自己到底为什么画这张图
+- too many parameters
+- code that feels too long
+- the chart is drawn, but you do not really know why you made that chart
 
-所以这节最重要的不是先背 API，而是先建立一个最稳的工作流：
+So the most important thing in this section is not memorizing the API first, but building the most stable workflow:
 
-> **先想清楚要表达什么，再决定画什么图，最后再写代码。**
+> **First clarify what you want to express, then decide what chart to draw, and finally write the code.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 Figure 和 Axes 的对象模型
-- 掌握 5 种基本图表的绑制
-- 学会定制图表元素（标题、图例、网格等）
-- 掌握子图布局
+- Understand the object model of Figure and Axes
+- Master 5 basic chart types
+- Learn how to customize chart elements (title, legend, grid, etc.)
+- Master subplot layouts
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-第一次学 `Matplotlib`，最稳的顺序不是“先记所有函数”，而是先看清一张图通常怎么长出来：
+When learning `Matplotlib` for the first time, the safest order is not “memorize all the functions first,” but to first see how a chart usually comes together:
 
 ```mermaid
 flowchart LR
-    A["先问想表达什么"] --> B["选图表类型"]
-    B --> C["创建 Figure / Axes"]
-    C --> D["把数据画上去"]
-    D --> E["加标题、标签、图例"]
-    E --> F["再做样式和保存"]
+    A["First ask what you want to express"] --> B["Choose a chart type"]
+    B --> C["Create Figure / Axes"]
+    C --> D["Plot the data"]
+    D --> E["Add title, labels, legend"]
+    E --> F["Then style and save"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 最基础的画图动作是什么
-- 为什么 `Figure / Axes` 模型会成为后面所有图的底座
-
----
-
-## 为什么要学可视化？
-
-> "一图胜千言。"
-
-同样的数据——
-
-- 用表格展示：`平均薪资: 技术部 18667, 市场部 19000, 管理部 32500`
-- 用图表展示：一眼就能看出管理部薪资远高于其他部门
-
-数据可视化的目的是**让数据说话**，让人在几秒内理解背后的规律和故事。
-
-### 一个更适合新人的总类比
-
-你可以把 `Matplotlib` 理解成：
-
-- 一套最基础的画图工具箱
-
-它不像 `Seaborn` 那样已经帮你配好很多默认样式，  
-但它的好处是：
-
-- 你真正能看见一张图是怎样一步步被搭起来的
-
-所以学 `Matplotlib` 的价值，不只是会画图，  
-更是为了建立：
-
-- 图到底是怎么由数据、画布和坐标轴组成的
+- What is the most basic plotting action?
+- Why does the `Figure / Axes` model become the foundation for all later charts?
 
 ---
 
-## 安装与导入
+## Why learn visualization?
+
+> "A picture is worth a thousand words."
+
+For the same data—
+
+- In a table: `Average salary: Technical Dept 18667, Marketing Dept 19000, Management Dept 32500`
+- In a chart: you can immediately see that the Management Dept salary is much higher than the others
+
+The purpose of data visualization is to **let data speak**, so people can understand the patterns and story behind it within seconds.
+
+### A better beginner-friendly analogy
+
+You can think of `Matplotlib` as:
+
+- a basic toolbox for drawing charts
+
+It is not like `Seaborn`, which already gives you many default styles,
+but its advantage is:
+
+- you can truly see how a chart is built step by step
+
+So the value of learning `Matplotlib` is not only to be able to draw charts,
+but also to build an intuition for:
+
+- how a chart is made up of data, canvas, and axes
+
+---
+
+## Installation and import
 
 ```python
-# 安装（通常已预装）
+# Install (usually already included)
 # pip install matplotlib
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 在 Jupyter Notebook 中显示图表
+# Show charts in Jupyter Notebook
 # %matplotlib inline
 ```
 
-:::tip 导入约定
-`import matplotlib.pyplot as plt` 是固定写法，整个数据科学社区都这么用。
+:::tip Import convention
+`import matplotlib.pyplot as plt` is the standard way to write it, and the entire data science community uses it.
 :::
 
 ---
 
-## 第一张图：5 行代码
+## Your first chart: 5 lines of code
 
 ```python
 import matplotlib.pyplot as plt
@@ -105,41 +105,41 @@ import matplotlib.pyplot as plt
 x = [1, 2, 3, 4, 5]
 y = [2, 4, 6, 8, 10]
 
-plt.plot(x, y)        # 绘制折线图
-plt.title("我的第一张图")  # 标题
-plt.show()             # 显示图表
+plt.plot(x, y)        # Draw a line chart
+plt.title("My First Chart")  # Title
+plt.show()             # Display the chart
 ```
 
-就这么简单！你会看到一条从左下到右上的直线。
+That’s it! You will see a straight line rising from the lower left to the upper right.
 
-### 第一次画图时，最值得先记的顺序
+### The most important order to remember when plotting for the first time
 
-第一次画任何图时，更稳的顺序通常是：
+When drawing any chart for the first time, a safer order is usually:
 
-1. 先准备 `x` 和 `y`
-2. 先画出最朴素版本
-3. 再补标题和标签
-4. 最后再补图例、颜色和美化
+1. Prepare `x` and `y` first
+2. Draw the most basic version first
+3. Add the title and labels next
+4. Finally add the legend, colors, and styling
 
-这样会比一开始就研究配色和样式更容易稳住。
+This is usually much easier than trying to study color schemes and styles from the very beginning.
 
 ---
 
-## 核心概念：Figure 和 Axes
+## Core concepts: Figure and Axes
 
-Matplotlib 的图表由两个核心对象组成：
+Matplotlib charts are built from two core objects:
 
 ```mermaid
 flowchart TD
-    F["Figure（画布）<br/>整张图的容器"] --> A1["Axes（子图 1）<br/>实际的绘图区域"]
-    F --> A2["Axes（子图 2）"]
-    F --> A3["Axes（子图 3）"]
+    F["Figure (canvas)<br/>Container for the whole chart"] --> A1["Axes (subplot 1)<br/>The actual plotting area"]
+    F --> A2["Axes (subplot 2)"]
+    F --> A3["Axes (subplot 3)"]
 
-    A1 --> T1["标题 Title"]
-    A1 --> X1["X 轴 xlabel"]
-    A1 --> Y1["Y 轴 ylabel"]
-    A1 --> L1["图例 Legend"]
-    A1 --> D1["数据线/点/柱"]
+    A1 --> T1["Title"]
+    A1 --> X1["X-axis label"]
+    A1 --> Y1["Y-axis label"]
+    A1 --> L1["Legend"]
+    A1 --> D1["Data line/points/bars"]
 
     style F fill:#e3f2fd,stroke:#1565c0,color:#333
     style A1 fill:#fff3e0,stroke:#e65100,color:#333
@@ -147,126 +147,126 @@ flowchart TD
     style A3 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-- **Figure**：整张画布，可以包含多个子图
-- **Axes**：一个具体的图表区域（注意不是"轴"，而是"子图"）
+- **Figure**: the whole canvas, which can contain multiple subplots
+- **Axes**: one specific chart area (note: not “axis,” but “subplot”)
 
-### 两种绑图风格
+### Two plotting styles
 
 ```python
-# 风格 1：plt 快速绘图（简单场景用这个）
+# Style 1: quick plotting with plt (good for simple cases)
 plt.plot([1, 2, 3], [4, 5, 6])
-plt.title("快速绘图")
+plt.title("Quick Plotting")
 plt.show()
 
-# 风格 2：面向对象（推荐，更灵活）
-fig, ax = plt.subplots()         # 创建画布和子图
-ax.plot([1, 2, 3], [4, 5, 6])   # 在子图上绑制
-ax.set_title("面向对象绘图")      # 设置标题
+# Style 2: object-oriented style (recommended, more flexible)
+fig, ax = plt.subplots()         # Create the canvas and subplot
+ax.plot([1, 2, 3], [4, 5, 6])   # Plot on the subplot
+ax.set_title("Object-Oriented Plotting")      # Set the title
 plt.show()
 ```
 
-:::tip 推荐使用面向对象风格
-虽然 `plt.plot()` 更简单，但面向对象风格（`fig, ax = plt.subplots()`）在需要多个子图或精细控制时更方便。建议从一开始就养成这个习惯。
+:::tip Recommended: use the object-oriented style
+Although `plt.plot()` is simpler, the object-oriented style (`fig, ax = plt.subplots()`) is more convenient when you need multiple subplots or fine-grained control. It is a good habit to develop from the start.
 :::
 
 ---
 
-## 5 种基本图表
+## 5 basic chart types
 
-### 先别死记函数，先记“它们各自最适合说什么”
+### First, do not memorize functions blindly—first remember what each one is best for
 
-| 图表 | 最值得先记住的用途 |
+| Chart | What it is best for |
 |------|----------------|
-| 折线图 | 看趋势 |
-| 柱状图 | 看类别对比 |
-| 散点图 | 看关系 |
-| 直方图 | 看分布 |
-| 饼图 | 看占比（且类别要少） |
+| Line chart | Showing trends |
+| Bar chart | Comparing categories |
+| Scatter plot | Showing relationships |
+| Histogram | Showing distribution |
+| Pie chart | Showing proportions (with only a few categories) |
 
-这张表对新人特别重要，因为它会把“函数名”重新变回“表达任务”。
+This table is especially important for beginners because it turns “function names” back into “communication tasks.”
 
-### 1. 折线图（Line Plot）
+### 1. Line Plot
 
-**适合场景：** 展示数据随时间或连续变量的变化趋势
+**Best for:** showing how data changes over time or another continuous variable
 
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 模拟 12 个月的销售数据
+# Simulate sales data for 12 months
 months = np.arange(1, 13)
 sales_2023 = [120, 135, 150, 180, 200, 210, 195, 188, 220, 250, 280, 310]
 sales_2024 = [140, 155, 170, 195, 230, 245, 225, 210, 260, 290, 320, 350]
 
-fig, ax = plt.subplots(figsize=(10, 6))  # 设置画布大小
+fig, ax = plt.subplots(figsize=(10, 6))  # Set canvas size
 
-ax.plot(months, sales_2023, marker="o", label="2023年", color="#2196F3", linewidth=2)
-ax.plot(months, sales_2024, marker="s", label="2024年", color="#FF5722", linewidth=2)
+ax.plot(months, sales_2023, marker="o", label="2023", color="#2196F3", linewidth=2)
+ax.plot(months, sales_2024, marker="s", label="2024", color="#FF5722", linewidth=2)
 
-ax.set_title("月度销售额趋势", fontsize=16, fontweight="bold")
-ax.set_xlabel("月份", fontsize=12)
-ax.set_ylabel("销售额（万元）", fontsize=12)
+ax.set_title("Monthly Sales Trend", fontsize=16, fontweight="bold")
+ax.set_xlabel("Month", fontsize=12)
+ax.set_ylabel("Sales (10k yuan)", fontsize=12)
 ax.set_xticks(months)
-ax.set_xticklabels([f"{m}月" for m in months])
-ax.legend(fontsize=12)     # 显示图例
-ax.grid(True, alpha=0.3)   # 显示网格线
+ax.set_xticklabels([f"{m}" for m in months])
+ax.legend(fontsize=12)     # Show legend
+ax.grid(True, alpha=0.3)   # Show grid lines
 
-plt.tight_layout()  # 自动调整边距
+plt.tight_layout()  # Automatically adjust margins
 plt.show()
 ```
 
-**关键参数：**
+**Key parameters:**
 
-| 参数 | 作用 | 示例 |
+| Parameter | Purpose | Example |
 |------|------|------|
-| `marker` | 数据点标记 | `"o"` 圆点, `"s"` 方块, `"^"` 三角 |
-| `linestyle` | 线型 | `"-"` 实线, `"--"` 虚线, `":"` 点线 |
-| `linewidth` | 线宽 | `2` |
-| `color` | 颜色 | `"red"`, `"#FF5722"`, `"C0"` |
-| `label` | 图例标签 | `"2023年"` |
-| `alpha` | 透明度 | `0.7`（0 全透明, 1 不透明） |
+| `marker` | Data point marker | `"o"` circle, `"s"` square, `"^"` triangle |
+| `linestyle` | Line style | `"-"` solid, `"--"` dashed, `":"` dotted |
+| `linewidth` | Line width | `2` |
+| `color` | Color | `"red"`, `"#FF5722"`, `"C0"` |
+| `label` | Legend label | `"2023"` |
+| `alpha` | Transparency | `0.7` (0 fully transparent, 1 fully opaque) |
 
-### 2. 柱状图（Bar Chart）
+### 2. Bar Chart
 
-**适合场景：** 比较不同类别的数据大小
+**Best for:** comparing values across different categories
 
 ```python
-# 各部门薪资对比
-departments = ["技术部", "市场部", "管理部", "财务部", "人事部"]
+# Salary comparison across departments
+departments = ["Technical Dept", "Marketing Dept", "Management Dept", "Finance Dept", "HR Dept"]
 avg_salary = [18500, 16200, 28000, 15800, 14500]
 
 fig, ax = plt.subplots(figsize=(8, 5))
 
 bars = ax.bar(departments, avg_salary, color=["#4CAF50", "#2196F3", "#FF9800", "#9C27B0", "#607D8B"])
 
-# 在柱子上方显示数值
+# Show values above each bar
 for bar, val in zip(bars, avg_salary):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 300,
             f"¥{val:,}", ha="center", fontsize=10)
 
-ax.set_title("各部门平均薪资", fontsize=14)
-ax.set_ylabel("薪资（元）")
-ax.set_ylim(0, max(avg_salary) * 1.15)  # Y 轴留出数值标签的空间
+ax.set_title("Average Salary by Department", fontsize=14)
+ax.set_ylabel("Salary (yuan)")
+ax.set_ylim(0, max(avg_salary) * 1.15)  # Leave space for value labels on the Y-axis
 
 plt.tight_layout()
 plt.show()
 ```
 
-**水平柱状图**（数据标签较长时更好看）：
+**Horizontal bar chart** (better when labels are long):
 
 ```python
 fig, ax = plt.subplots(figsize=(8, 5))
 ax.barh(departments, avg_salary, color="#4CAF50")
-ax.set_xlabel("薪资（元）")
-ax.set_title("各部门平均薪资")
+ax.set_xlabel("Salary (yuan)")
+ax.set_title("Average Salary by Department")
 plt.tight_layout()
 plt.show()
 ```
 
-**分组柱状图：**
+**Grouped bar chart:**
 
 ```python
-# 两年对比
+# Two-year comparison
 x = np.arange(len(departments))
 width = 0.35
 
@@ -277,19 +277,19 @@ ax.bar(x + width/2, avg_salary, width, label="2024", color="#1565C0")
 ax.set_xticks(x)
 ax.set_xticklabels(departments)
 ax.legend()
-ax.set_title("各部门薪资对比（2023 vs 2024）")
+ax.set_title("Department Salary Comparison (2023 vs 2024)")
 plt.tight_layout()
 plt.show()
 ```
 
-### 3. 散点图（Scatter Plot）
+### 3. Scatter Plot
 
-**适合场景：** 观察两个变量之间的关系
+**Best for:** observing the relationship between two variables
 
 ```python
 np.random.seed(42)
 
-# 模拟身高和体重数据
+# Simulate height and weight data
 height = np.random.normal(170, 8, 100)
 weight = height * 0.65 - 40 + np.random.normal(0, 5, 100)
 
@@ -298,60 +298,60 @@ fig, ax = plt.subplots(figsize=(8, 6))
 scatter = ax.scatter(height, weight, c=weight, cmap="RdYlGn_r",
                      s=50, alpha=0.7, edgecolors="white", linewidth=0.5)
 
-ax.set_title("身高与体重的关系", fontsize=14)
-ax.set_xlabel("身高（cm）")
-ax.set_ylabel("体重（kg）")
+ax.set_title("Relationship Between Height and Weight", fontsize=14)
+ax.set_xlabel("Height (cm)")
+ax.set_ylabel("Weight (kg)")
 
-plt.colorbar(scatter, label="体重")  # 颜色条
+plt.colorbar(scatter, label="Weight")  # Color bar
 plt.tight_layout()
 plt.show()
 ```
 
-**关键参数：**
+**Key parameters:**
 
-| 参数 | 作用 | 示例 |
+| Parameter | Purpose | Example |
 |------|------|------|
-| `s` | 点的大小 | `50`, 或传入数组让大小不同 |
-| `c` | 点的颜色 | `"red"`, 或传入数组做颜色映射 |
-| `cmap` | 颜色映射 | `"viridis"`, `"RdYlGn"`, `"Blues"` |
-| `alpha` | 透明度 | `0.7` |
+| `s` | Point size | `50`, or pass an array for varying sizes |
+| `c` | Point color | `"red"`, or pass an array for color mapping |
+| `cmap` | Colormap | `"viridis"`, `"RdYlGn"`, `"Blues"` |
+| `alpha` | Transparency | `0.7` |
 
-### 4. 直方图（Histogram）
+### 4. Histogram
 
-**适合场景：** 查看数据的分布情况
+**Best for:** viewing the distribution of data
 
 ```python
 np.random.seed(42)
-scores = np.random.normal(75, 12, 500)  # 500 个学生的成绩
+scores = np.random.normal(75, 12, 500)  # Scores of 500 students
 
 fig, ax = plt.subplots(figsize=(8, 5))
 
-# 绘制直方图
+# Draw histogram
 n, bins, patches = ax.hist(scores, bins=20, color="#42A5F5", edgecolor="white",
                             alpha=0.8)
 
-# 添加均值线
+# Add mean line
 mean_val = scores.mean()
-ax.axvline(mean_val, color="red", linestyle="--", linewidth=2, label=f"均值: {mean_val:.1f}")
+ax.axvline(mean_val, color="red", linestyle="--", linewidth=2, label=f"Mean: {mean_val:.1f}")
 
-ax.set_title("学生成绩分布", fontsize=14)
-ax.set_xlabel("分数")
-ax.set_ylabel("人数")
+ax.set_title("Student Score Distribution", fontsize=14)
+ax.set_xlabel("Score")
+ax.set_ylabel("Number of students")
 ax.legend()
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 5. 饼图（Pie Chart）
+### 5. Pie Chart
 
-**适合场景：** 展示各部分占整体的比例（类别不超过 5-6 个）
+**Best for:** showing parts of a whole (categories should not exceed 5–6)
 
 ```python
-labels = ["Python", "JavaScript", "Java", "C++", "其他"]
+labels = ["Python", "JavaScript", "Java", "C++", "Others"]
 sizes = [35, 25, 20, 10, 10]
 colors = ["#4CAF50", "#FFC107", "#2196F3", "#FF5722", "#9E9E9E"]
-explode = (0.05, 0, 0, 0, 0)  # 突出 Python
+explode = (0.05, 0, 0, 0, 0)  # Highlight Python
 
 fig, ax = plt.subplots(figsize=(7, 7))
 
@@ -359,113 +359,113 @@ ax.pie(sizes, explode=explode, labels=labels, colors=colors,
        autopct="%1.1f%%", startangle=90, shadow=False,
        textprops={"fontsize": 12})
 
-ax.set_title("AI 领域编程语言使用占比", fontsize=14)
+ax.set_title("Programming Language Usage in AI", fontsize=14)
 
 plt.tight_layout()
 plt.show()
 ```
 
-:::caution 饼图慎用
-饼图在类别多（大于 6 个）或比例接近时**很难看清差异**。大多数情况下，柱状图比饼图更好。只有在强调"部分占总体"的关系时才用饼图。
+:::caution Use pie charts carefully
+When there are many categories (more than 6) or the proportions are close together, pie charts are **hard to read clearly**. In most cases, a bar chart is better. Use a pie chart only when you want to emphasize the relationship of “part to whole.”
 :::
 
 ---
 
-## 图表选择指南
+## Chart selection guide
 
 ```mermaid
 flowchart TD
-    A["我要展示什么？"] --> B{"数据类型"}
-    B -->|"趋势变化"| C["折线图 📈"]
-    B -->|"类别对比"| D["柱状图 📊"]
-    B -->|"两变量关系"| E["散点图 🔵"]
-    B -->|"数据分布"| F["直方图 📉"]
-    B -->|"占比构成"| G["饼图 🥧"]
+    A["What do I want to show?"] --> B{"Data type"}
+    B -->|"Trend changes"| C["Line chart 📈"]
+    B -->|"Category comparison"| D["Bar chart 📊"]
+    B -->|"Relationship between two variables"| E["Scatter plot 🔵"]
+    B -->|"Data distribution"| F["Histogram 📉"]
+    B -->|"Proportion structure"| G["Pie chart 🥧"]
 
-    C --> C1["时间序列<br/>股票走势<br/>销售趋势"]
-    D --> D1["部门对比<br/>产品对比<br/>排行榜"]
-    E --> E1["身高vs体重<br/>价格vs销量<br/>相关性分析"]
-    F --> F1["成绩分布<br/>年龄分布<br/>收入分布"]
-    G --> G1["市场份额<br/>支出占比<br/>（类别不超过6个）"]
+    C --> C1["Time series<br/>Stock trends<br/>Sales trends"]
+    D --> D1["Department comparison<br/>Product comparison<br/>Rankings"]
+    E --> E1["Height vs weight<br/>Price vs sales<br/>Correlation analysis"]
+    F --> F1["Score distribution<br/>Age distribution<br/>Income distribution"]
+    G --> G1["Market share<br/>Expense share<br/>(no more than 6 categories)"]
 ```
 
 ---
 
-## 图表定制
+## Chart customization
 
-### 一个很适合初学者先记的最小检查表
+### A minimal checklist that beginners should remember first
 
-在开始美化之前，先问自己：
+Before you start styling, ask yourself:
 
-1. 标题有没有说清楚这张图想表达什么？
-2. X 轴和 Y 轴有没有标签和单位？
-3. 图例是不是必要？
-4. 颜色是不是在帮助理解，而不是制造干扰？
+1. Does the title clearly explain what this chart is trying to show?
+2. Do the X-axis and Y-axis have labels and units?
+3. Is a legend really necessary?
+4. Is the color helping understanding, or just adding noise?
 
-只要这 4 件事先做到，图通常就已经比大多数“能跑但不好看”的版本更清楚。
+If you get these 4 things right first, your chart is usually already clearer than most versions that “run but look bad.”
 
-### 中文显示
+### Displaying Chinese text
 
-Matplotlib 默认不支持中文，需要配置：
+Matplotlib does not support Chinese by default, so you need to configure it:
 
 ```python
 import matplotlib.pyplot as plt
 
-# 方法 1：全局设置（推荐）
+# Method 1: global settings (recommended)
 plt.rcParams["font.sans-serif"] = ["SimHei", "Arial Unicode MS", "DejaVu Sans"]
-plt.rcParams["axes.unicode_minus"] = False  # 解决负号显示问题
+plt.rcParams["axes.unicode_minus"] = False  # Fix minus sign display issues
 
-# macOS 用户可以用
+# macOS users can use
 # plt.rcParams["font.sans-serif"] = ["Arial Unicode MS"]
 
-# Linux 用户可以用
+# Linux users can use
 # plt.rcParams["font.sans-serif"] = ["WenQuanYi Micro Hei"]
 ```
 
-:::tip 一劳永逸的方法
-把这两行加到你所有绑图代码的开头，就不用每次都设置了。在 Jupyter 中，放在第一个 Cell 即可。
+:::tip A once-and-for-all method
+Put these two lines at the start of all your plotting code, and you won’t need to set them every time. In Jupyter, put them in the first cell.
 :::
 
-### 标题和标签
+### Title and labels
 
 ```python
 fig, ax = plt.subplots()
 ax.plot([1, 2, 3], [4, 5, 6])
 
-ax.set_title("主标题", fontsize=16, fontweight="bold", color="#333")
-ax.set_xlabel("X 轴标签", fontsize=12)
-ax.set_ylabel("Y 轴标签", fontsize=12)
+ax.set_title("Main Title", fontsize=16, fontweight="bold", color="#333")
+ax.set_xlabel("X-axis Label", fontsize=12)
+ax.set_ylabel("Y-axis Label", fontsize=12)
 ```
 
-### 图例
+### Legend
 
 ```python
-ax.plot(x, y1, label="数据 A")
-ax.plot(x, y2, label="数据 B")
+ax.plot(x, y1, label="Data A")
+ax.plot(x, y2, label="Data B")
 ax.legend(loc="upper left", fontsize=10, frameon=True, shadow=True)
 
-# loc 常用值：
-# "best" (自动), "upper left", "upper right", "lower left", "lower right", "center"
+# Common loc values:
+# "best" (automatic), "upper left", "upper right", "lower left", "lower right", "center"
 ```
 
-### 网格和样式
+### Grid and styles
 
 ```python
-ax.grid(True, alpha=0.3, linestyle="--")  # 半透明虚线网格
+ax.grid(True, alpha=0.3, linestyle="--")  # Semi-transparent dashed grid
 
-# 使用预设样式（全局设置）
-plt.style.use("seaborn-v0_8-whitegrid")  # 清爽白色网格
-# 其他好看的样式：
+# Use a preset style (global setting)
+plt.style.use("seaborn-v0_8-whitegrid")  # Clean white grid
+# Other nice styles:
 # "ggplot", "seaborn-v0_8", "fivethirtyeight", "bmh"
 ```
 
-查看所有可用样式：
+View all available styles:
 
 ```python
 print(plt.style.available)
 ```
 
-### 注释和标注
+### Annotations and callouts
 
 ```python
 fig, ax = plt.subplots(figsize=(8, 5))
@@ -473,11 +473,11 @@ x = np.arange(1, 13)
 y = [120, 135, 150, 180, 200, 210, 195, 188, 220, 250, 280, 310]
 ax.plot(x, y, marker="o")
 
-# 标注最大值
+# Mark the maximum value
 max_idx = np.argmax(y)
-ax.annotate(f"最高点: {y[max_idx]}",
-            xy=(x[max_idx], y[max_idx]),       # 箭头指向
-            xytext=(x[max_idx]-2, y[max_idx]+20),  # 文字位置
+ax.annotate(f"Highest point: {y[max_idx]}",
+            xy=(x[max_idx], y[max_idx]),       # Arrow target
+            xytext=(x[max_idx]-2, y[max_idx]+20),  # Text position
             arrowprops=dict(arrowstyle="->", color="red"),
             fontsize=12, color="red")
 
@@ -486,131 +486,131 @@ plt.show()
 
 ---
 
-## 子图布局
+## Subplot layout
 
-### subplots：创建多个子图
+### subplots: create multiple subplots
 
 ```python
-# 2 行 2 列 = 4 个子图
+# 2 rows × 2 columns = 4 subplots
 fig, axes = plt.subplots(2, 2, figsize=(12, 8))
 
-# axes 是一个 2×2 的数组
+# axes is a 2×2 array
 axes[0, 0].plot([1, 2, 3], [1, 4, 9])
-axes[0, 0].set_title("折线图")
+axes[0, 0].set_title("Line Chart")
 
 axes[0, 1].bar(["A", "B", "C"], [3, 7, 5])
-axes[0, 1].set_title("柱状图")
+axes[0, 1].set_title("Bar Chart")
 
 axes[1, 0].scatter(np.random.rand(50), np.random.rand(50))
-axes[1, 0].set_title("散点图")
+axes[1, 0].set_title("Scatter Plot")
 
 axes[1, 1].hist(np.random.randn(200), bins=15)
-axes[1, 1].set_title("直方图")
+axes[1, 1].set_title("Histogram")
 
-fig.suptitle("四种基本图表", fontsize=16, fontweight="bold")
+fig.suptitle("Four Basic Chart Types", fontsize=16, fontweight="bold")
 plt.tight_layout()
 plt.show()
 ```
 
-### 不等分子图
+### Uneven subplots
 
 ```python
 fig = plt.figure(figsize=(12, 5))
 
-# 左边占 2/3 宽度
+# Left takes up 2/3 of the width
 ax1 = fig.add_axes([0.05, 0.1, 0.6, 0.8])   # [left, bottom, width, height]
 ax1.plot([1, 2, 3, 4], [10, 20, 25, 30])
-ax1.set_title("主图")
+ax1.set_title("Main Chart")
 
-# 右边占 1/3 宽度
+# Right takes up 1/3 of the width
 ax2 = fig.add_axes([0.72, 0.1, 0.25, 0.8])
 ax2.bar(["A", "B"], [15, 25])
-ax2.set_title("辅图")
+ax2.set_title("Secondary Chart")
 
 plt.show()
 ```
 
 ---
 
-## 保存图表
+## Saving charts
 
 ```python
 fig, ax = plt.subplots()
 ax.plot([1, 2, 3], [4, 5, 6])
-ax.set_title("保存示例")
+ax.set_title("Save Example")
 
-# 保存为 PNG（最常用）
+# Save as PNG (most common)
 fig.savefig("my_chart.png", dpi=150, bbox_inches="tight")
 
-# 保存为 SVG（矢量图，放大不模糊）
+# Save as SVG (vector graphic, does not blur when enlarged)
 fig.savefig("my_chart.svg", bbox_inches="tight")
 
-# 保存为 PDF
+# Save as PDF
 fig.savefig("my_chart.pdf", bbox_inches="tight")
 ```
 
-| 参数 | 作用 | 推荐值 |
+| Parameter | Purpose | Recommended value |
 |------|------|--------|
-| `dpi` | 分辨率 | 150（普通）, 300（印刷） |
-| `bbox_inches` | 裁剪边距 | `"tight"` 自动裁剪 |
-| `transparent` | 透明背景 | `True`（PPT 用） |
+| `dpi` | Resolution | 150 (normal), 300 (print) |
+| `bbox_inches` | Crop margins | `"tight"` for automatic cropping |
+| `transparent` | Transparent background | `True` (for PowerPoint) |
 
 ---
 
-## 小结
+## Summary
 
-| 图表 | 函数 | 适用场景 |
+| Chart | Function | Use case |
 |------|------|---------|
-| 折线图 | `ax.plot()` | 趋势、时间序列 |
-| 柱状图 | `ax.bar()` / `ax.barh()` | 类别对比 |
-| 散点图 | `ax.scatter()` | 两变量关系 |
-| 直方图 | `ax.hist()` | 数据分布 |
-| 饼图 | `ax.pie()` | 占比（慎用） |
+| Line chart | `ax.plot()` | Trends, time series |
+| Bar chart | `ax.bar()` / `ax.barh()` | Category comparison |
+| Scatter plot | `ax.scatter()` | Relationship between two variables |
+| Histogram | `ax.hist()` | Data distribution |
+| Pie chart | `ax.pie()` | Proportions (use carefully) |
 
-核心工作流：
+Core workflow:
 
 ```python
-fig, ax = plt.subplots(figsize=(8, 5))   # 1. 创建画布
-ax.plot(x, y)                             # 2. 绑制数据
-ax.set_title("标题")                       # 3. 设置标题/标签
-ax.legend()                               # 4. 添加图例
-plt.tight_layout()                        # 5. 调整布局
-plt.show()                                # 6. 显示
+fig, ax = plt.subplots(figsize=(8, 5))   # 1. Create the canvas
+ax.plot(x, y)                             # 2. Plot the data
+ax.set_title("Title")                     # 3. Set title/labels
+ax.legend()                               # 4. Add legend
+plt.tight_layout()                        # 5. Adjust layout
+plt.show()                                # 6. Display
 ```
 
-## 这节最该带走什么
+## What you should take away from this section
 
-- `Matplotlib` 最重要的不是函数多，而是它让你真正理解图是怎么搭起来的
-- 先想表达什么，再选图，再写代码，会比先背 API 更稳
-- `Figure / Axes` 是后面几乎所有 Python 可视化库都绕不开的底层直觉
+- The most important thing about `Matplotlib` is not the number of functions, but that it helps you truly understand how a chart is built
+- First clarify what you want to express, then choose the chart, then write the code — this is more stable than memorizing the API first
+- `Figure / Axes` is the underlying intuition behind almost all Python visualization libraries later on
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：折线图
+### Exercise 1: Line chart
 
 ```python
-# 绘制 sin(x) 和 cos(x) 的曲线图
-# x 从 0 到 2π，取 100 个点
-# 要求：不同颜色和线型、有图例、有网格、有标题
+# Plot curves for sin(x) and cos(x)
+# Let x range from 0 to 2π with 100 points
+# Requirements: different colors and line styles, legend, grid, and title
 ```
 
-### 练习 2：柱状图
+### Exercise 2: Bar chart
 
 ```python
-# 有 6 个城市的房价数据和人均收入数据
-# 绘制分组柱状图进行对比
-# 要求：在柱子上方标注数值
+# You have housing price data and per-capita income data for 6 cities
+# Draw a grouped bar chart for comparison
+# Requirements: label the values above each bar
 ```
 
-### 练习 3：综合子图
+### Exercise 3: Combined subplots
 
 ```python
-# 生成 1000 个正态分布随机数
-# 在 2×2 的子图中分别展示：
-# 1. 折线图（前 100 个数据的走势）
-# 2. 直方图（分布）
-# 3. 散点图（相邻两个数据点的关系）
-# 4. 柱状图（按区间统计频次）
+# Generate 1000 random numbers from a normal distribution
+# Show the following in a 2×2 subplot layout:
+# 1. Line chart (trend of the first 100 data points)
+# 2. Histogram (distribution)
+# 3. Scatter plot (relationship between adjacent data points)
+# 4. Bar chart (frequency by interval)
 ```

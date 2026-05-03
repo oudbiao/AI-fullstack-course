@@ -1,163 +1,163 @@
 ---
-title: "6.2 预训练范式"
+title: "6.2 Pretraining Paradigm"
 sidebar_position: 16
-description: "从“先学通用语言能力，再迁移到具体任务”讲起，理解预训练为什么会成为现代 NLP 的主线。"
+description: "Start from the idea of “learn general language ability first, then transfer it to specific tasks,” and understand why pretraining became the main thread of modern NLP."
 keywords: [pretraining paradigm, transfer learning, BERT, GPT, NLP, pretrain-finetune]
 ---
 
-# 预训练范式
+# Pretraining Paradigm
 
-![预训练迁移微调关系图](/img/course/ch11-pretraining-transfer-finetune-map.png)
+![Diagram of the relationship between pretraining, transfer, and fine-tuning](/img/course/ch11-pretraining-transfer-finetune-map-en.png)
 
-:::tip 读图提示
-预训练范式最重要的不是某个模型名字，而是“通用语料学底座 -> 迁移到下游任务 -> 微调或提示适配”的流程。先看懂这条流，BERT、GPT、T5 才不会变成一堆孤立名词。
+:::tip Reading Guide
+The most important thing about the pretraining paradigm is not any specific model name, but the flow of “general corpus → downstream tasks → fine-tuning or prompt adaptation.” Once you understand this flow, BERT, GPT, and T5 will no longer feel like a pile of isolated terms.
 :::
 
-:::tip 本节定位
-这一章的主线其实只有一句话：
+:::tip Section Overview
+The main thread of this chapter is actually just one sentence:
 
-> **先在大语料上学通用能力，再把这些能力迁移到具体任务。**
+> **First learn general capabilities on large corpora, then transfer those capabilities to specific tasks.**
 
-这就是现代 NLP 的预训练范式。
+This is the pretraining paradigm of modern NLP.
 
-如果前面只把它看成“先训一下再微调”，后面会很容易只剩术语。  
-所以这一节要把它为什么重要、为什么改变整个 NLP 讲清楚。
+If you only think of it as “train first, then fine-tune,” it is easy to end up with only terminology.
+So in this section, we will explain why it matters and why it changed the whole field of NLP.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解预训练范式和“每个任务从零训练”的差别
-- 理解预训练 -> 迁移 -> 微调的主线
-- 通过可运行示例建立“共享底座”的直觉
-- 理解为什么现代 NLP 主线几乎都围绕它展开
+- Understand the difference between the pretraining paradigm and “training each task from scratch”
+- Understand the main flow of pretraining -> transfer -> fine-tuning
+- Build intuition for a “shared foundation” through a runnable example
+- Understand why modern NLP is almost entirely organized around this paradigm
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-如果你已经学过词向量、上下文化表示和语言模型，这一节最自然的续接就是：
+If you have already studied word embeddings, contextual representations, and language models, the most natural continuation for this section is:
 
-- 前面你已经看到文本表示越来越强
-- 这一节开始回答“为什么后来整个 NLP 都开始围绕一个共享底座来组织”
+- You have already seen text representations become stronger
+- Now we ask: “Why did the entire field of NLP later start organizing itself around a shared foundation?”
 
-所以预训练范式不是“又多训一步”，而是：
+So the pretraining paradigm is not “just one more training step,” but rather:
 
-- 任务组织方式本身变了
+- The way tasks are organized has changed
 
-预训练范式这节最适合新人的理解顺序不是“先记模型名”，而是先看清：
+The best order for beginners to understand this section is not “memorize model names first,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["海量通用语料"] --> B["先学共享语言能力"]
-    B --> C["形成预训练底座"]
-    C --> D["再迁移到具体任务"]
-    D --> E["微调 / 特征抽取 / Prompt"]
+    A["Massive general corpora"] --> B["First learn shared language ability"]
+    B --> C["Form a pretrained foundation"]
+    C --> D["Then transfer to specific tasks"]
+    D --> E["Fine-tuning / feature extraction / Prompt"]
 ```
 
-所以这节真正想讲清的是：
+So what this section really wants to explain is:
 
-- 为什么“每个任务从零训练”会浪费
-- 为什么“先学底座，再迁移”会改变整个 NLP 主线
+- Why “training each task from scratch” is wasteful
+- Why “learn the foundation first, then transfer” changed the main direction of NLP
 
-## 一、为什么预训练会改变整个 NLP？
+## 1. Why Does Pretraining Change NLP So Much?
 
-### 1.1 因为很多任务共享底层语言能力
+### 1.1 Because many tasks share basic language abilities
 
-无论是：
+Whether it is:
 
-- 分类
+- classification
 - NER
-- 问答
-- 翻译
+- question answering
+- translation
 
-它们都需要一些共同底层能力，例如：
+they all require some common underlying abilities, such as:
 
-- 词义理解
-- 语法结构
-- 上下文建模
+- understanding word meaning
+- modeling syntactic structure
+- modeling context
 
-### 1.2 如果每个任务都从零学，会很浪费
+### 1.2 Training each task from scratch is wasteful
 
-这就像：
+It is like:
 
-- 每次做新题，都从头学语言本身
+- learning the language itself from zero every time you do a new problem
 
-显然成本很高。
+Obviously, the cost is high.
 
-### 1.3 预训练范式的核心
+### 1.3 The core idea of the pretraining paradigm
 
-于是更合理的做法就变成：
+So a more reasonable approach becomes:
 
-1. 先在海量通用文本上学基础能力
-2. 再把这份能力迁移到具体任务
+1. First learn basic capabilities on massive general text
+2. Then transfer those capabilities to specific tasks
 
-这就是现代 NLP 的主线。
+This is the main thread of modern NLP.
 
-### 1.4 第一次学预训练范式，最该先抓住什么？
+### 1.4 When you first learn the pretraining paradigm, what should you focus on?
 
-最该先抓住的不是模型名，而是这句：
+What you should focus on first is not model names, but this sentence:
 
-> **预训练的核心价值，是把很多任务都共享的语言能力先集中学出来。**
+> **The core value of pretraining is to learn the language abilities shared by many tasks all at once.**
 
-这句话一旦稳住，后面你再看：
+Once this idea is stable, when you later look at:
 
 - BERT
 - GPT
 - T5
 
-就会更自然地先问：
+you will naturally ask:
 
-- 它在这条共享底座主线里扮演什么角色？
-
----
-
-## 二、预训练、迁移、微调三者关系是什么？
-
-### 2.1 预训练
-
-目标是：
-
-- 学通用语言表示和模式
-
-### 2.2 迁移
-
-目标是：
-
-- 把已有能力带到新任务上
-
-### 2.3 微调
-
-目标是：
-
-- 在具体任务上做进一步适配
-
-### 2.4 一个类比
-
-预训练像先读通识教材。  
-迁移像把这套基础搬去新科目。  
-微调像针对考试题型做专项训练。
-
-### 2.5 为什么这个类比特别值得先记？
-
-因为很多新人第一次接触预训练，会误以为：
-
-- 预训练 = 再多训练一会儿
-
-但这个类比会帮你更稳地看到：
-
-- 预训练在学通用能力
-- 迁移在复用能力
-- 微调在做任务适配
+- What role does it play in this shared-foundation main thread?
 
 ---
 
-## 三、先跑一个“共享底座”示例
+## 2. What Is the Relationship Between Pretraining, Transfer, and Fine-Tuning?
+
+### 2.1 Pretraining
+
+The goal is:
+
+- learn general language representations and patterns
+
+### 2.2 Transfer
+
+The goal is:
+
+- bring existing capabilities to a new task
+
+### 2.3 Fine-tuning
+
+The goal is:
+
+- further adapt to a specific task
+
+### 2.4 An Analogy
+
+Pretraining is like reading a general education textbook first.
+Transfer is like moving that foundation to a new subject.
+Fine-tuning is like doing targeted practice for a specific exam format.
+
+### 2.5 Why Is This Analogy Worth Remembering First?
+
+Because many beginners, when they first encounter pretraining, think:
+
+- pretraining = just train a little longer
+
+But this analogy helps you see more clearly:
+
+- Pretraining learns general capabilities
+- Transfer reuses those capabilities
+- Fine-tuning adapts them to the task
+
+---
+
+## 3. Let’s Run a “Shared Foundation” Example First
 
 ```python
 shared_representation = {
-    "退款": [1.0, 0.2, 0.1],
-    "发票": [0.3, 1.0, 0.1],
-    "密码": [0.1, 0.2, 1.0],
+    "refund": [1.0, 0.2, 0.1],
+    "invoice": [0.3, 1.0, 0.1],
+    "password": [0.1, 0.2, 1.0],
 }
 
 
@@ -177,119 +177,119 @@ def classify_intent(tokens):
     return max(scores, key=scores.get), scores
 
 
-for tokens in [["退款"], ["发票"], ["密码"]]:
+for tokens in [["refund"], ["invoice"], ["password"]]:
     print(tokens, "->", classify_intent(tokens))
 ```
 
-### 3.1 这个例子在说明什么？
+### 3.1 What Is This Example Trying to Show?
 
-它想表达的不是一个真实强模型，  
-而是最核心的范式感觉：
+It is not meant to be a real strong model,
+but to express the most important paradigm:
 
-- 先有共享表示底座
-- 再在其上完成具体任务
+- first there is a shared representation foundation
+- then specific tasks are completed on top of it
 
-### 3.2 为什么这很像预训练时代的思路？
+### 3.2 Why Is This Similar to the pretraining era?
 
-因为你不再是：
+Because you are no longer:
 
-- 每个任务单独从零学所有表示
+- learning all representations separately from scratch for every task
 
-而是：
+Instead:
 
-- 复用一套已有语言表示
+- you reuse an existing set of language representations
 
-### 3.3 新人第一次学预训练范式，最该先记什么？
+### 3.3 When Beginners First Learn the Pretraining Paradigm, What Should They Remember Most?
 
-最值得先记的其实是：
+What is most worth remembering is actually:
 
-1. 预训练不是“多训一步”，而是在换任务组织方式
-2. 共享底座能力是现代 NLP 的核心资产
-3. 下游任务的门槛因此大幅下降
+1. Pretraining is not “just training a bit more,” but a change in task organization
+2. Shared foundation capabilities are the core asset of modern NLP
+3. This greatly lowers the barrier for downstream tasks
 
-### 3.4 为什么“共享底座”这个视角特别重要？
+### 3.4 Why Is the “Shared Foundation” Perspective So Important?
 
-因为它会直接改变你后面看问题的方式。
+Because it will directly change how you think later.
 
-你不再只是问：
+You will no longer only ask:
 
-- 这个任务要不要单独做一个模型？
+- Does this task need its own separate model?
 
-而会开始更自然地问：
+You will more naturally ask:
 
-- 这个任务能不能建立在已有底座之上？
-- 我到底需要微调、特征抽取，还是 Prompt？
-
----
-
-## 四、为什么这条路后面会走向 BERT / GPT / T5？
-
-### 4.1 因为它能规模化
-
-一旦预训练成立，  
-更大的数据、更多的计算通常会继续提升底座能力。
-
-### 4.2 因为它更通用
-
-同一底座可以迁移到很多任务。
-
-### 4.3 因为它降低了下游门槛
-
-很多任务不再需要从零训练一个大模型，  
-而是：
-
-- 直接拿预训练模型适配
+- Can this task be built on an existing foundation?
+- Do I need fine-tuning, feature extraction, or Prompt?
 
 ---
 
-## 五、最容易踩的坑
+## 4. Why Does This Path Eventually Lead to BERT / GPT / T5?
 
-### 5.1 误区一：预训练范式只是“先训练一下”
+### 4.1 Because It Scales
 
-不对。  
-它改变的是整个任务组织方式。
+Once pretraining is established,
+more data and more compute usually continue to improve the foundation’s capability.
 
-### 5.2 误区二：所有任务都一定要微调
+### 4.2 Because It Is More General
 
-有些任务只要：
+The same foundation can be transferred to many tasks.
 
-- 特征抽取
+### 4.3 Because It Lowers the Barrier for Downstream Tasks
+
+Many tasks no longer need to train a large model from scratch,
+but instead:
+
+- directly adapt a pretrained model
+
+---
+
+## 5. Common Pitfalls
+
+### 5.1 Mistake 1: Thinking the pretraining paradigm is just “train first for a while”
+
+That is not right.
+It changes the whole way tasks are organized.
+
+### 5.2 Mistake 2: Thinking every task must be fine-tuned
+
+Some tasks only need:
+
+- feature extraction
 - Prompt
-- 检索
+- retrieval
 
-就够了。
+That may be enough.
 
-### 5.3 误区三：只记模型名字，不理解范式
+### 5.3 Mistake 3: Memorizing model names without understanding the paradigm
 
-真正重要的是：
+What really matters is:
 
-- 为什么先学通用能力再迁移有效
+- Why does learning general capabilities first and then transferring them work?
 
-## 小结
+## Summary
 
-这节最重要的是建立一个时代判断：
+The most important thing in this section is to establish a sense of the era:
 
-> **现代 NLP 的核心变化，不只是模型变大了，而是训练范式从“每个任务单独做”转向了“先学通用底座，再迁移适配”。**
+> **The core change in modern NLP is not just that models became larger, but that the training paradigm shifted from “each task handled separately” to “learn a shared foundation first, then transfer and adapt.”**
 
-只要这层判断立住，后面学 BERT、GPT、T5 就不会只剩流行词。
-
----
-
-## 这节最该带走什么
-
-- 现代 NLP 的关键变化，不只是模型更大，而是范式变了
-- 预训练、迁移、微调必须放在同一条主线里理解
-- 后面学 BERT / GPT / T5 时，先想它们各自在这条主线里的角色
-
-如果再压成一句话，那就是：
-
-> **预训练范式真正改变的，不只是训练顺序，而是整个 NLP 从“任务各做各的”转向了“共享一个更强的语言底座”。**
+Once this idea is in place, learning BERT, GPT, and T5 will no longer feel like learning only buzzwords.
 
 ---
 
-## 练习
+## What You Should Take Away from This Section
 
-1. 用自己的话解释：为什么预训练范式会显著降低很多 NLP 任务的门槛？
-2. 想一想：哪些任务可能只需要预训练特征，不一定要全量微调？
-3. 这个“共享底座”例子在真实系统里分别对应什么？
-4. 为什么说预训练范式改变的不只是模型，而是整个任务组织方式？
+- The key change in modern NLP is not only larger models, but a changed paradigm
+- Pretraining, transfer, and fine-tuning must be understood as one main thread
+- When learning BERT / GPT / T5 later, first think about the role each one plays in this main thread
+
+If we compress it into one sentence, it would be:
+
+> **What the pretraining paradigm truly changed was not just the training order, but the entire field of NLP, shifting it from “each task done separately” to “sharing a stronger language foundation.”**
+
+---
+
+## Exercises
+
+1. Explain in your own words: Why does the pretraining paradigm significantly lower the barrier for many NLP tasks?
+2. Think about it: Which tasks might only need pretrained features and not full fine-tuning?
+3. What does this “shared foundation” example correspond to in a real system?
+4. Why do we say that the pretraining paradigm changes not just the model, but the entire way tasks are organized?

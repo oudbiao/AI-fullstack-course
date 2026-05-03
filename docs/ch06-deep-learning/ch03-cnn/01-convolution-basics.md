@@ -1,133 +1,133 @@
 ---
-title: "3.2 卷积操作原理 🔧"
+title: "3.2 Principles of Convolution Operations 🔧"
 sidebar_position: 1
-description: "从图像局部模式、卷积核、步长、填充到感受野，真正理解 CNN 的第一步到底在做什么。"
-keywords: [卷积, 卷积核, CNN, stride, padding, 感受野, 图像特征]
+description: "From local image patterns, convolution kernels, stride, and padding to receptive fields — the first real step toward understanding what CNNs actually do."
+keywords: [convolution, convolution kernel, CNN, stride, padding, receptive field, image features]
 ---
 
-# 卷积操作原理
+# Principles of Convolution Operations
 
-![CNN 卷积核滑动示意图](/img/course/cnn-convolution-kernel.png)
+![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel-en.png)
 
-:::tip 本节定位
-如果说前面的神经元、MLP 让你学会了“神经网络会算什么”，那卷积这节就是在回答另一个更关键的问题：
+:::tip Where this section fits
+If the earlier neurons and MLP sections taught you “what a neural network can compute,” then this convolution section answers an even more important question:
 
-> **神经网络怎样高效地看图？**
+> **How do neural networks look at images efficiently?**
 
-这一节是整条 CV 主线的起点。后面你学分类、检测、分割，都会反复用到这里的直觉。
+This section is the starting point of the entire CV storyline. Later, when you study classification, detection, and segmentation, you’ll keep coming back to the intuition here.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么图像任务不能直接粗暴地用全连接层解决
-- 直觉理解卷积核、局部连接、参数共享
-- 手算一个最小卷积示例，真正看懂每个输出值怎么来的
-- 掌握 `stride`、`padding` 和输出尺寸计算
-- 理解多通道卷积和感受野
-- 能看懂 PyTorch 中最基础的 `Conv2d`
-
----
-
-## 这节和前面 MLP 主线是怎么接上的
-
-如果你刚学完 MLP，可以先把这节理解成：
-
-- MLP 已经告诉你“网络会算什么”
-- 卷积这一节开始回答“网络怎样更合适地看图”
-
-也就是说，这一节不是在推翻“线性层 + 激活函数”，而是在改进输入组织方式：
-
-- 不再把图片粗暴拉平成长向量
-- 而是让网络按局部窗口、带着空间结构去看
-
-这正是视觉任务里最重要的结构变化。
-
-## 一、为什么图像任务需要卷积？
-
-### 1.1 先看一个“直接展平”的问题
-
-假设你有一张 `32 x 32` 的灰度图。
-
-如果把它直接展平成一个向量，再送进全连接层：
-
-- 输入维度是 `32 * 32 = 1024`
-- 如果下一层有 512 个神经元，就需要 `1024 * 512 = 524288` 个权重
-
-如果图片再大一点，比如 `224 x 224 x 3`：
-
-- 输入维度变成 `150528`
-- 参数量会瞬间爆炸
-
-更糟糕的是，展平以后，图像原本最重要的东西被破坏了：
-
-- 邻近像素之间的关系
-- 边缘、纹理、局部图案
-- 空间结构
-
-也就是说：
-
-> **图片不是普通表格数据。**
-
-它最值钱的不是“有多少数字”，而是“这些数字怎样在空间上挨在一起”。
-
-### 1.3 这一节最该先盯住的，不是卷积核长什么样
-
-而是先盯住这两个“为什么”：
-
-1. 为什么不能直接展平
-2. 为什么局部邻近关系必须保住
-
-只要这两个点稳了，后面卷积核、步长、填充这些概念才不会变成纯记忆题。
-
-### 1.2 卷积到底解决了什么？
-
-卷积做了两件特别重要的事：
-
-1. 只看局部区域，而不是一次看整张图
-2. 同一组参数在整张图上滑动复用
-
-这两个设计分别对应：
-
-- **局部连接**
-- **参数共享**
-
-你可以把卷积理解成：
-
-> **拿一个小模板，在图片上滑来滑去，专门找某种局部模式。**
-
-比如：
-
-- 竖线
-- 横线
-- 边缘
-- 角点
-- 纹理
+- Understand why image tasks cannot be solved directly with a fully connected layer in a naive way
+- Build an intuitive understanding of convolution kernels, local connections, and parameter sharing
+- Manually compute a minimal convolution example and truly see where each output value comes from
+- Master `stride`, `padding`, and output size calculation
+- Understand multi-channel convolution and receptive fields
+- Be able to read the most basic `Conv2d` in PyTorch
 
 ---
 
-## 二、卷积核是什么？
+## How this connects to the earlier MLP storyline
 
-### 2.1 一个最容易理解的类比
+If you just finished learning MLPs, you can think of this section as:
 
-卷积核（kernel / filter）就像一张很小的“透明模板”。
+- MLP already taught you “what the network can compute”
+- This convolution section starts answering “how the network should look at images more appropriately”
 
-你把它盖在图片的一小块区域上：
+In other words, this section is not overthrowing “linear layer + activation function.” It is improving how the input is organized:
 
-- 对应位置相乘
-- 再把结果加起来
+- No longer flattening the image into a long vector in a rough, naive way
+- Instead, letting the network look through local windows while preserving spatial structure
 
-得到一个分数。
+That is the most important structural change in vision tasks.
 
-这个分数可以理解成：
+## 1. Why do image tasks need convolution?
 
-> 这块区域有多像卷积核正在寻找的模式。
+### 1.1 First, let’s look at the problem with “just flattening”
 
-### 2.2 最小可运行示例：手工做一次卷积
+Suppose you have a `32 x 32` grayscale image.
+
+If you directly flatten it into a vector and feed it into a fully connected layer:
+
+- The input dimension is `32 * 32 = 1024`
+- If the next layer has 512 neurons, you need `1024 * 512 = 524288` weights
+
+If the image is a bit larger, for example `224 x 224 x 3`:
+
+- The input dimension becomes `150528`
+- The number of parameters explodes instantly
+
+Even worse, after flattening, the most important structure in the image gets destroyed:
+
+- Relationships between nearby pixels
+- Edges, textures, and local patterns
+- Spatial structure
+
+So:
+
+> **An image is not ordinary tabular data.**
+
+What matters most is not “how many numbers it has,” but “how those numbers sit next to each other in space.”
+
+### 1.3 What you should focus on first in this section is not the kernel itself
+
+Focus first on these two “whys”:
+
+1. Why can’t we just flatten the image directly?
+2. Why must local neighborhood relationships be preserved?
+
+Once these two points are clear, concepts like convolution kernels, stride, and padding will no longer feel like pure memorization.
+
+### 1.2 What exactly does convolution solve?
+
+Convolution does two especially important things:
+
+1. It looks only at local regions instead of the whole image at once
+2. It reuses the same set of parameters as it slides across the whole image
+
+These two design choices correspond to:
+
+- **Local connection**
+- **Parameter sharing**
+
+You can think of convolution as:
+
+> **Taking a small template and sliding it across the image to look for a certain local pattern.**
+
+For example:
+
+- Vertical lines
+- Horizontal lines
+- Edges
+- Corner points
+- Textures
+
+---
+
+## 2. What is a convolution kernel?
+
+### 2.1 The easiest analogy to understand
+
+A convolution kernel (kernel / filter) is like a tiny “transparent template.”
+
+You place it over a small region of the image:
+
+- Multiply corresponding values
+- Then add them up
+
+You get a score.
+
+You can think of that score as:
+
+> How much this region matches the pattern the kernel is looking for.
+
+### 2.2 Minimal runnable example: doing a convolution by hand
 
 ```python
 import numpy as np
 
-# 4x4 图像
+# 4x4 image
 image = np.array([
     [1, 2, 0, 0],
     [5, 3, 0, 4],
@@ -135,7 +135,7 @@ image = np.array([
     [0, 2, 1, 2]
 ], dtype=np.float32)
 
-# 2x2 卷积核
+# 2x2 convolution kernel
 kernel = np.array([
     [1, 0],
     [0, -1]
@@ -153,77 +153,77 @@ print("kernel =\n", kernel)
 print("output =\n", out)
 ```
 
-### 2.3 第一个输出值是怎么来的？
+### 2.3 How is the first output value computed?
 
-左上角的 `2x2` patch 是：
+The top-left `2x2` patch is:
 
 ```text
 [[1, 2],
  [5, 3]]
 ```
 
-卷积核是：
+The convolution kernel is:
 
 ```text
 [[ 1, 0],
  [ 0,-1]]
 ```
 
-逐元素相乘：
+Element-wise multiplication:
 
 ```text
 [[ 1*1, 2*0],
  [ 5*0, 3*(-1)]]
 ```
 
-求和：
+Summing them:
 
 ```text
 1 + 0 + 0 - 3 = -2
 ```
 
-所以输出左上角就是 `-2`。
+So the top-left output value is `-2`.
 
-这就是卷积最核心的计算。
+That is the core computation of convolution.
 
-### 2.4 卷积核最值得先记的，不是“它会滑”，而是“它在找模式”
+### 2.4 The most important thing to remember about convolution kernels is not “they slide,” but “they search for patterns”
 
-一个更适合新人的说法是：
+A better beginner-friendly way to say it is:
 
-- 一个卷积核就是一个小模式探测器
+- A convolution kernel is a small pattern detector
 
-不同卷积核可能更容易对这些模式有反应：
+Different kernels may respond more strongly to these patterns:
 
-- 边缘
-- 方向变化
-- 小纹理
-- 局部角点
+- Edges
+- Direction changes
+- Small textures
+- Local corners
 
-所以卷积层真正做的不是“把图像乘来乘去”，而是：
+So what a convolution layer really does is not “multiply the image around,” but:
 
-> **一层层把低级局部模式提出来，交给后面的层继续组合。**
+> **Extract low-level local patterns layer by layer, and hand them to later layers for further combination.**
 
 ---
 
-## 三、卷积为什么能检测边缘？
+## 3. Why can convolution detect edges?
 
-### 3.1 因为它本质上在比较局部差异
+### 3.1 Because it is essentially comparing local differences
 
-如果一个卷积核专门设计成“左边减右边”或“上边减下边”，它就会对边界特别敏感。
+If a convolution kernel is designed to do “left minus right” or “top minus bottom,” it becomes especially sensitive to boundaries.
 
-例如下面这个核：
+For example, this kernel:
 
 ```text
 [[ 1,  0],
  [ 0, -1]]
 ```
 
-它会对“左上亮、右下暗”这类局部结构有反应。
+responds to local structures like “bright in the upper-left, dark in the lower-right.”
 
-如果图像某块区域很平滑、像素差不多，卷积结果往往接近 0。  
-如果局部变化很剧烈，卷积结果就会比较大。
+If a region of the image is smooth and the pixel values are similar, the convolution result is often close to 0.
+If the local change is sharp, the convolution result becomes larger.
 
-### 3.2 再看一个边缘核
+### 3.2 Let’s look at another edge kernel
 
 ```python
 import numpy as np
@@ -249,76 +249,76 @@ for i in range(5):
 print("output =\n", out)
 ```
 
-你会看到在“0 变 1”的边界附近，输出最明显。
+You’ll see that the output is most obvious near the boundary where the values change from `0` to `1`.
 
 ---
 
-## 四、Stride 和 Padding 到底是什么？
+## 4. What exactly are stride and padding?
 
-### 4.1 Stride：每次滑几步
+### 4.1 Stride: how far to move each time
 
-`stride` 可以理解成卷积核在图片上移动的步长。
+`stride` can be understood as how many steps the convolution kernel moves each time.
 
-- `stride = 1`：每次挪 1 格
-- `stride = 2`：每次挪 2 格
+- `stride = 1`: move 1 step each time
+- `stride = 2`: move 2 steps each time
 
-步长越大：
+The larger the stride:
 
-- 输出更小
-- 计算更快
-- 细节丢失更多
+- The smaller the output
+- The faster the computation
+- The more detail is lost
 
-### 4.2 Padding：先在图像边缘补一圈
+### 4.2 Padding: add a border around the image first
 
-如果不做 padding，卷积核滑到边缘时就会停下来，输出尺寸会变小。
+If you do not use padding, the convolution kernel stops when it reaches the edge, and the output size becomes smaller.
 
-padding 的作用是：
+Padding is used to:
 
-- 保留边缘信息
-- 控制输出尺寸
+- Preserve edge information
+- Control the output size
 
-最常见的是补 0，也叫 zero padding。
+The most common approach is to pad with 0, also called zero padding.
 
-### 4.3 第一次学 stride 和 padding，最容易乱在哪？
+### 4.3 When you first learn stride and padding, where do people usually get confused?
 
-最容易乱的点通常不是公式本身，而是：
+The most confusing part is usually not the formula itself, but:
 
-- 不知道它们是在控制“看得多细”和“输出有多大”
+- Not understanding that they control “how finely you look” and “how big the output is”
 
-一个更稳的记法是：
+A more stable way to remember them is:
 
-- `stride` 更像“每次滑多远”
-- `padding` 更像“边缘要不要先补一圈”
+- `stride` is more like “how far to move each time”
+- `padding` is more like “whether to add a border first”
 
-所以它们本质上都在影响两件事：
+So fundamentally, both affect two things:
 
-- 信息保留多少
-- 计算量和输出尺寸怎么变
+- How much information is preserved
+- How computation and output size change
 
-![卷积 stride padding 与输出尺寸变化图](/img/course/ch06-conv-stride-padding-size-map.png)
+![Convolution stride padding and output size change diagram](/img/course/ch06-conv-stride-padding-size-map-en.png)
 
-:::tip 读图提示
-读这张图时，把 `stride` 看成滑动步子，把 `padding` 看成边缘补框。步子越大，输出越小；padding 越多，边缘信息保留越多。输出尺寸公式只是这两个动作的结果。
+:::tip Reading hint
+When reading this diagram, think of `stride` as the sliding step and `padding` as the border you add around the image. The larger the step, the smaller the output; the more padding, the more edge information is preserved. The output size formula is just the result of these two actions.
 :::
 
-### 4.4 输出尺寸公式
+### 4.4 Output size formula
 
-对于二维卷积：
+For 2D convolution:
 
 > `output = floor((input + 2*padding - kernel_size) / stride) + 1`
 
-例如：
+For example:
 
-- 输入宽高：`6`
-- 卷积核：`3`
-- padding：`1`
-- stride：`2`
+- Input width/height: `6`
+- Kernel size: `3`
+- padding: `1`
+- stride: `2`
 
-则输出尺寸：
+Then the output size is:
 
 > `floor((6 + 2*1 - 3) / 2) + 1 = floor(5/2) + 1 = 2 + 1 = 3`
 
-### 4.5 可运行示例：验证输出尺寸
+### 4.5 Runnable example: verify the output size
 
 ```python
 import torch
@@ -340,45 +340,45 @@ print("input shape :", x.shape)
 print("output shape:", y.shape)
 ```
 
-输出里你会看到高宽都变成 `3`。
+In the output, you’ll see that both height and width become `3`.
 
 ---
 
-## 五、多通道卷积：彩色图片怎么处理？
+## 5. Multi-channel convolution: how do color images work?
 
-### 5.1 灰度图和 RGB 图的区别
+### 5.1 The difference between grayscale and RGB images
 
-灰度图 shape 往往是：
+A grayscale image usually has the shape:
 
 - `H x W`
 
-RGB 图在深度学习里常写成：
+An RGB image is often written in deep learning as:
 
 - `C x H x W`
 
-其中：
+where:
 
 - `C = 3`
-- 分别对应 R/G/B 三个通道
+- corresponding to the R/G/B channels
 
-### 5.2 卷积核也会“长出通道”
+### 5.2 A convolution kernel also “grows channels”
 
-如果输入是 RGB 图，那么一个卷积核不再只是 `3 x 3`，而是：
+If the input is an RGB image, then a convolution kernel is no longer just `3 x 3`, but:
 
 > `3 x 3 x 3`
 
-也就是：
+That means:
 
-- 对红通道看一个 `3x3`
-- 对绿通道看一个 `3x3`
-- 对蓝通道看一个 `3x3`
+- Look at a `3x3` area in the red channel
+- Look at a `3x3` area in the green channel
+- Look at a `3x3` area in the blue channel
 
-最后把三个通道的结果加起来，再加偏置，得到一个输出值。
+Then add the results from the three channels together, plus a bias, to get one output value.
 
-### 5.3 多个卷积核 = 多个输出通道
+### 5.3 Multiple convolution kernels = multiple output channels
 
-如果你有 16 个卷积核，就会得到 16 张特征图。  
-这就是为什么 `Conv2d` 里会写：
+If you have 16 convolution kernels, you will get 16 feature maps.
+That is why `Conv2d` uses:
 
 - `in_channels`
 - `out_channels`
@@ -387,7 +387,7 @@ RGB 图在深度学习里常写成：
 import torch
 from torch import nn
 
-x = torch.randn(2, 3, 32, 32)  # batch=2, RGB 图像
+x = torch.randn(2, 3, 32, 32)  # batch=2, RGB images
 conv = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=3, padding=1)
 y = conv(x)
 
@@ -395,57 +395,57 @@ print("input shape :", x.shape)
 print("output shape:", y.shape)
 ```
 
-这里输出 shape 会是：
+Here the output shape will be:
 
 - `[2, 8, 32, 32]`
 
-也就是：
+That means:
 
-- 2 张图片
-- 每张图片提取出 8 个通道的特征图
+- 2 images
+- Each image is transformed into 8-channel feature maps
 
 ---
 
-## 六、感受野：为什么深层网络能看到更大范围？
+## 6. Receptive field: why can deep networks see a larger area?
 
-### 6.1 感受野的直觉
+### 6.1 The intuition behind receptive field
 
-感受野（receptive field）指的是：
+The receptive field refers to:
 
-> 输出中的一个位置，能“看到”原图多大范围。
+> How large a region of the original image one position in the output can “see.”
 
-一个 `3x3` 卷积层，看见的只是局部 `3x3`。
+A single `3x3` convolution layer can only see a local `3x3` region.
 
-但如果连续堆叠多层：
+But if you stack multiple layers:
 
-- 第一层看 `3x3`
-- 第二层基于第一层结果再看 `3x3`
+- The first layer sees `3x3`
+- The second layer looks at the first layer’s output with another `3x3`
 
-那么第二层实际就间接看到了更大的原图范围。
+Then the second layer indirectly sees a larger area of the original image.
 
-### 6.2 为什么这很重要？
+### 6.2 Why is this important?
 
-因为图像理解通常有层级：
+Because image understanding is usually hierarchical:
 
-- 浅层：边缘、纹理
-- 中层：角点、局部形状
-- 深层：物体部件、整体语义
+- Early layers: edges, textures
+- Middle layers: corners, local shapes
+- Deep layers: object parts, overall semantics
 
-卷积网络之所以强，不是因为“卷积这个动作神奇”，而是因为：
+The reason CNNs are powerful is not that “convolution itself is magical,” but that:
 
-> **小局部特征可以一层层组合成更抽象的大模式。**
+> **Small local features can be combined layer by layer into more abstract, larger patterns.**
 
-![CNN 感受野逐层变大的特征组合图](/img/course/ch06-cnn-receptive-field-growth-map.png)
+![CNN receptive field grows layer by layer feature combination diagram](/img/course/ch06-cnn-receptive-field-growth-map-en.png)
 
-:::tip 读图提示
-这张图从浅到深看：第一层只看小边缘，第二层组合成局部形状，后面层逐渐看到更大的物体部件。CNN 的强点不是单个卷积核，而是局部模式能一层层组合成更高级语义。
+:::tip Reading hint
+Read this diagram from shallow to deep: the first layer sees only small edges, the second layer combines them into local shapes, and later layers gradually see larger object parts. The strength of CNNs is not a single convolution kernel, but that local patterns can be combined layer by layer into higher-level semantics.
 :::
 
 ---
 
-## 七、PyTorch 里的卷积层到底在做什么？
+## 7. What exactly does a convolution layer do in PyTorch?
 
-### 7.1 最基础的 `Conv2d`
+### 7.1 The most basic `Conv2d`
 
 ```python
 import torch
@@ -463,28 +463,28 @@ conv = nn.Conv2d(
 
 y = conv(x)
 
-print("输入 shape :", x.shape)
-print("输出 shape :", y.shape)
-print("权重 shape :", conv.weight.shape)
-print("偏置 shape :", conv.bias.shape)
+print("input shape :", x.shape)
+print("output shape :", y.shape)
+print("weight shape :", conv.weight.shape)
+print("bias shape :", conv.bias.shape)
 ```
 
-这里：
+Here:
 
-- `out_channels=4` 表示有 4 个卷积核
+- `out_channels=4` means there are 4 convolution kernels
 - `conv.weight.shape = [4, 1, 3, 3]`
-  - 4 个输出通道
-  - 每个核看 1 个输入通道
-  - 核大小 `3x3`
+  - 4 output channels
+  - each kernel looks at 1 input channel
+  - kernel size `3x3`
 
-### 7.2 卷积层后面为什么常接激活函数？
+### 7.2 Why is an activation function often added after a convolution layer?
 
-和 MLP 一样：
+Just like in MLPs:
 
-- 卷积先做线性变换
-- 激活函数再引入非线性
+- The convolution first performs a linear transformation
+- Then the activation function introduces nonlinearity
 
-典型写法：
+A typical pattern is:
 
 ```python
 nn.Conv2d(...)
@@ -493,50 +493,50 @@ nn.ReLU()
 
 ---
 
-## 八、初学者最常见的坑
+## 8. Common beginner mistakes
 
-### 8.1 把卷积当成“魔法特征提取器”
+### 8.1 Treating convolution as a “magic feature extractor”
 
-卷积不是魔法，本质上就是：
+Convolution is not magic. In essence, it is just:
 
-- 小窗口
-- 逐元素乘法
-- 求和
-- 滑动
+- A small window
+- Element-wise multiplication
+- Summation
+- Sliding
 
-### 8.2 搞混 shape
+### 8.2 Mixing up shapes
 
-最常见错误之一就是搞混：
+One of the most common mistakes is confusing:
 
 - `H x W x C`
 - `C x H x W`
 
-在 PyTorch 里，通常是：
+In PyTorch, the usual format is:
 
 - `N x C x H x W`
 
-### 8.3 不知道输出尺寸怎么算
+### 8.3 Not knowing how to calculate output size
 
-很多报错不是模型不会，而是尺寸不匹配。  
-所以 `kernel_size / stride / padding` 的尺寸计算一定要会。
-
----
-
-## 小结
-
-这一节最重要的不是记住“卷积”两个字，而是建立三个稳定直觉：
-
-1. 图像任务需要保留空间结构，所以不能简单展平后暴力全连接
-2. 卷积核是在整张图上重复寻找局部模式
-3. 多层卷积让模型从局部特征逐步组合出更高级的视觉理解
-
-理解了这三点，你后面学 CNN 结构、经典架构、目标检测时，就不会把卷积层当黑盒。
+Many errors are not because the model cannot learn, but because the dimensions do not match.
+So you must be able to calculate the sizes for `kernel_size / stride / padding`.
 
 ---
 
-## 练习
+## Summary
 
-1. 把本节的 `2x2` 卷积核改成别的数值，观察输出怎样变化。
-2. 自己手算一个输出位置，再和代码结果对比。
-3. 用 PyTorch 改写一个 `kernel_size=5`、`stride=2` 的卷积层，验证输出尺寸。
-4. 想一想：如果图片中的物体整体平移一点点，卷积为什么通常比全连接更稳？
+The most important thing in this section is not memorizing the word “convolution,” but building three stable intuitions:
+
+1. Image tasks need to preserve spatial structure, so we cannot simply flatten and use a fully connected layer in a brute-force way
+2. A convolution kernel repeatedly searches for local patterns across the whole image
+3. Stacking multiple convolution layers allows the model to combine local features step by step into higher-level visual understanding
+
+Once you understand these three points, you won’t treat convolution layers as a black box when you later study CNN architectures, classic models, and object detection.
+
+---
+
+## Exercises
+
+1. Change the `2x2` convolution kernel in this section to other values and observe how the output changes.
+2. Manually compute one output position, then compare it with the code result.
+3. Rewrite a convolution layer with `kernel_size=5` and `stride=2` in PyTorch and verify the output size.
+4. Think about this: if an object in an image shifts slightly as a whole, why is convolution usually more robust than a fully connected layer?

@@ -1,81 +1,81 @@
 ---
-title: "阶段学习任务单"
-description: "把 AIGC 与多模态阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [AIGC, 多模态, 图像生成, 视频生成, 多模态应用, 学习任务单]
+title: "Stage Learning Task Sheet"
+description: "Break the AIGC and multimodal stage into actionable learning tasks, practice deliverables, and passing criteria."
+keywords: [AIGC, multimodal, image generation, video generation, multimodal applications, learning task sheet]
 ---
 
-# 阶段学习任务单：AIGC 与多模态
+# Stage Learning Task Sheet: AIGC and Multimodal
 
-这个阶段的目标是让你把文本、图像、语音、视频和文档等多种输入输出组织成一个可交付的 AI 应用。重点不是单次生成效果多惊艳，而是输入质量、版本记录、人工审核、版权边界和最终交付流程是否清楚。
+The goal of this stage is to help you organize text, images, speech, video, and documents into a deliverable AI application. The focus is not on how amazing a single generation result looks, but on whether the input quality, version tracking, human review, copyright boundaries, and final delivery process are clear.
 
-## 本阶段必须完成的任务
+## Required tasks for this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Passing criteria |
 | --- | --- | --- |
-| 理解多模态输入输出 | 一张多模态链路图 | 能说明文本、图片、音频、视频和文档如何进入系统 |
-| 跑通图像理解或生成 | 一个最小 Demo | 能记录输入、Prompt、输出和人工筛选结果 |
-| 完成文档或截图理解 | 一个多模态解析样例 | 能保留来源页码、区域或截图证据 |
-| 加入审核与交付流程 | 一份审核清单 | 能检查版权、肖像、敏感内容和事实风险 |
-| 完成阶段项目 | 一个多模态作品或创意工作台 | 有输入输出、版本记录、审核、导出和 README |
+| Understand multimodal inputs and outputs | A multimodal pipeline diagram | Can explain how text, images, audio, video, and documents enter the system |
+| Get image understanding or generation working | A minimal Demo | Can record the input, Prompt, output, and human screening results |
+| Complete document or screenshot understanding | A multimodal parsing example | Can preserve source page numbers, regions, or screenshot evidence |
+| Add a review and delivery workflow | A review checklist | Can check copyright, portrait rights, sensitive content, and factual risks |
+| Complete a stage project | A multimodal work or creative workspace | Includes input/output, version tracking, review, export, and README |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先理解多模态系统的输入输出边界，再学习图片理解、图片生成、视频/语音生成和多模态应用。不要把生成结果只当成审美问题，要记录需求、素材、Prompt、版本、人工筛选和交付格式。
+First understand the input/output boundaries of a multimodal system, then study image understanding, image generation, video/speech generation, and multimodal applications. Do not treat generation results as only an aesthetic issue; record the requirements, source materials, Prompt, versions, human screening, and delivery format.
 
-多模态项目要特别注意来源和权限。外部图片、人物肖像、音乐、视频片段、PDF 内容都可能涉及版权、隐私或安全边界，作品集里要说明使用范围和审核方式。
+Multimodal projects must pay special attention to source and permissions. External images, people’s portraits, music, video clips, and PDF content may all involve copyright, privacy, or safety boundaries. In your portfolio, explain the usage scope and review method.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI learning assistant project
 
-本阶段可以对应 AI 学习助手 v1.0：理解课件截图、PDF、语音笔记和图文资料，并生成复习卡片、图文总结或演示材料。它也可以作为毕业项目的展示层。
+This stage can correspond to AI Learning Assistant v1.0: understanding course slide screenshots, PDFs, voice notes, and text-image materials, and generating review cards, text-image summaries, or presentation materials. It can also serve as the demo layer for the capstone project.
 
-建议最小功能包括：输入一张课程截图或 PDF 页面，提取关键信息，生成结构化摘要，并保留来源引用和人工确认记录。
+The recommended minimum features are: input a course screenshot or PDF page, extract the key information, generate a structured summary, and preserve source citations and human confirmation records.
 
-## 常见卡点
+## Common sticking points
 
-常见问题包括图片太糊导致理解错误，PDF 表格解析混乱，生成图片不符合用途，视频分镜不连贯，素材来源不清，生成结果无法导出或复用。排查时先看原始输入质量、Prompt 版本、生成参数、人工筛选和审核记录。
+Common issues include blurry images causing understanding errors, messy PDF table parsing, image generation that does not fit the use case, video storyboards that are not coherent, unclear source materials, and generated results that cannot be exported or reused. When troubleshooting, first check the quality of the original input, Prompt versions, generation parameters, human screening, and review records.
 
 
-## 轻松版 / 标准版 / 挑战版任务
+## Easy version / Standard version / Challenge version tasks
 
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Suitable for |
 |---|---|---|
-| 轻松版 | 完成一个素材到输出案例 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 记录素材来源、生成过程和人工审核 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 比较成功、失败、边界样例并写导出限制 | 已有基础、想做更强项目证据的学习者 |
+| Easy version | Complete one material-to-output example | First-time learners, learners with little time, or beginners |
+| Standard version | Record the source of materials, the generation process, and human review | Learners who want to include this stage in their portfolio |
+| Challenge version | Compare successful, failed, and boundary cases, and write export limitations | Learners with a foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Badges and boss fight for this stage
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | 多模态混沌体 |
-| 可解锁徽章 | 多模态审核员、素材管理员 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss fight | Multimodal chaos entity |
+| Unlockable badges | Multimodal reviewer, material curator |
+| Minimum pass slogan | Get it working first, then explain it, then record the failures |
+| Evidence storage suggestion | Save screenshots, logs, failure samples, or evaluation sheets to `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+Once you complete the easy version, you can move on; only recommend putting it in your portfolio after completing the standard version; do the challenge version only when you have extra capacity.
 
-## 阶段作品集交付物
+## Portfolio deliverables for this stage
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to preserve the results of this stage in your portfolio, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `multimodal_pipeline.md` | 输入、解析、生成、审核、导出的系统链路 |
-| `prompts/` | 多模态 Prompt、参考图、负面提示和版本记录 |
-| `outputs/` | 生成结果、候选版本、人工筛选理由和最终交付文件 |
-| `safety_review.md` | 版权、肖像、敏感内容、事实性和使用边界检查 |
-| `README.md` | 项目目标、运行方式、素材来源、示例输出和限制说明 |
+| `multimodal_pipeline.md` | The system pipeline for input, parsing, generation, review, and export |
+| `prompts/` | Multimodal Prompt, reference images, negative prompts, and version records |
+| `outputs/` | Generated results, candidate versions, reasons for manual selection, and final deliverables |
+| `safety_review.md` | Checks for copyright, portrait rights, sensitive content, factuality, and usage boundaries |
+| `README.md` | Project goals, how to run it, source materials, sample outputs, and limitations |
 
-这些材料会让多模态项目从“生成一个好看的结果”升级成“能解释需求、来源、版本、审核和交付边界的完整作品”。
+These materials will upgrade a multimodal project from “generate a pretty result” to “a complete work that can explain requirements, sources, versions, review, and delivery boundaries.”
 
-## 阶段通关问题
+## Stage pass questions
 
-学完后，你应该能回答这些问题：多模态输入为什么需要保留来源，图片生成为什么要记录 Prompt 和版本，PDF/截图理解为什么要检查证据，内容生成为什么需要人工审核，什么时候多模态能力适合接入 RAG 或 Agent。
+After finishing this stage, you should be able to answer these questions: why multimodal inputs need source preservation, why image generation needs Prompt and version records, why PDF/screenshot understanding needs evidence checks, why content generation needs human review, and when multimodal capabilities are suitable for integration with RAG or an Agent.
 
-## 完成状态 Checklist
+## Completion status Checklist
 
-- [ ] 我能解释一个多模态应用的输入、处理、输出和审核链路。
-- [ ] 我能跑通图像理解、图像生成或文档理解 Demo。
-- [ ] 我能记录 Prompt、素材、候选输出和筛选理由。
-- [ ] 我完成了版权、肖像、敏感内容和事实风险检查。
-- [ ] 我已经把多模态能力接入一个可展示项目或毕业作品。
+- [ ] I can explain the input, processing, output, and review pipeline of a multimodal application.
+- [ ] I can get an image understanding, image generation, or document understanding Demo working.
+- [ ] I can record the Prompt, materials, candidate outputs, and selection reasons.
+- [ ] I have completed copyright, portrait rights, sensitive content, and factual risk checks.
+- [ ] I have integrated multimodal capabilities into a showcase project or capstone project.

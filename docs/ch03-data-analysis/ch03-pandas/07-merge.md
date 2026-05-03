@@ -1,186 +1,186 @@
 ---
-title: "3.7 数据合并"
+title: "3.7 Data Merging"
 sidebar_position: 15
-description: "掌握 merge、join、concat 等数据合并方法"
+description: "Master data merging methods such as merge, join, and concat"
 ---
 
-# 数据合并
+# Data Merging
 
-:::tip 本节定位
-很多新人第一次学数据合并时，最容易乱在这里：
+:::tip Section Focus
+When many beginners first learn data merging, this is the easiest place to get confused:
 
 - `merge`
 - `concat`
 - `join`
 
-这些名字都见过，但题目一来还是不知道先用哪个。
+You may have seen all of these names before, but when a problem appears, you still may not know which one to use first.
 
-所以这节最重要的不是把名字背熟，而是先建立一个判断：
+So the most important thing in this section is not memorizing the names, but building this judgment first:
 
-> **我现在是在“按共同键对齐”，还是在“把表上下左右拼起来”。**
+> **Am I “aligning by a common key,” or am I “stitching tables together vertically or horizontally”?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 `merge`（SQL 风格连接）
-- 了解 `join`（基于索引的连接）
-- 掌握 `concat`（拼接操作）
-- 理解不同合并策略的选择
+- Master `merge` (SQL-style joins)
+- Understand `join` (index-based joins)
+- Master `concat` (concatenation)
+- Understand how to choose between different merging strategies
 
 ---
 
-## 先建立一张地图
+## First Build a Map
 
-数据合并更适合按“有没有共同键”来理解：
+Data merging is easier to understand by asking whether there is a “common key”:
 
-![Pandas 合并拼接连接图](/img/course/ch03-pandas-merge-concat-join.png)
+![Pandas merge, concat, and join diagram](/img/course/ch03-pandas-merge-concat-join-en.png)
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 你脑子里什么时候该先想到 `merge`
-- 什么时候只是普通拼接
+- When should you think of `merge` first?
+- When is it just a simple concatenation?
 
-## 为什么需要合并数据？
+## Why Do We Need Data Merging?
 
-真实的数据往往分散在多张表中。比如一个电商系统可能有：
-- **用户表**：用户ID、姓名、注册时间
-- **订单表**：订单ID、用户ID、商品、金额
-- **商品表**：商品ID、名称、类别、价格
+Real-world data is often spread across multiple tables. For example, an e-commerce system may have:
+- **User table**: user ID, name, registration time
+- **Order table**: order ID, user ID, product, amount
+- **Product table**: product ID, name, category, price
 
-要分析"每个用户买了什么商品"，就需要把这些表**合并**起来。
+To analyze “what products each user bought,” you need to **merge** these tables together.
 
 ```mermaid
 flowchart LR
-    A["用户表"] --> D["合并后的完整数据"]
-    B["订单表"] --> D
-    C["商品表"] --> D
+    A["User table"] --> D["Merged complete data"]
+    B["Order table"] --> D
+    C["Product table"] --> D
 
     style D fill:#4caf50,color:#fff
 ```
 
-### 一个更适合新人的总类比
+### A Better Beginner-Friendly Analogy
 
-你可以把数据合并理解成：
+You can think of data merging as:
 
-- 把来自不同表格的线索对到同一个人或同一笔记录身上
+- Matching clues from different tables to the same person or the same record
 
-也就是说：
+In other words:
 
-- `merge` 更像按身份证号把两份档案对齐
-- `concat` 更像把两张表上下或左右拼起来
+- `merge` is more like aligning two records by ID number
+- `concat` is more like stacking two tables together vertically or horizontally
 
-这个类比很重要，因为它会帮你先分清：
+This analogy is important because it helps you separate these two ideas first:
 
-- “对齐”
-- 和“拼接”
+- “alignment”
+- and “concatenation”
 
-这两件事其实不是一回事。
+These are not the same thing.
 
 ---
 
-## merge：SQL 风格连接
+## merge: SQL-Style Join
 
-`merge` 是最强大的合并方式，类似 SQL 的 JOIN。
+`merge` is the most powerful merging method, similar to SQL JOIN.
 
-### 准备示例数据
+### Prepare Sample Data
 
 ```python
 import pandas as pd
 
-# 用户表
+# User table
 users = pd.DataFrame({
-    "用户ID": [1, 2, 3, 4],
-    "姓名": ["张三", "李四", "王五", "赵六"],
-    "城市": ["北京", "上海", "广州", "深圳"]
+    "User ID": [1, 2, 3, 4],
+    "Name": ["John", "Mary", "Alice", "Bob"],
+    "City": ["Beijing", "Shanghai", "Guangzhou", "Shenzhen"]
 })
 
-# 订单表
+# Order table
 orders = pd.DataFrame({
-    "订单ID": [101, 102, 103, 104, 105],
-    "用户ID": [1, 2, 1, 3, 5],       # 注意：用户5不在用户表中
-    "商品": ["手机", "电脑", "耳机", "平板", "键盘"],
-    "金额": [5999, 8999, 299, 3999, 199]
+    "Order ID": [101, 102, 103, 104, 105],
+    "User ID": [1, 2, 1, 3, 5],       # Note: user 5 is not in the user table
+    "Product": ["Phone", "Computer", "Headphones", "Tablet", "Keyboard"],
+    "Amount": [5999, 8999, 299, 3999, 199]
 })
 ```
 
-### 内连接（inner join）
+### Inner Join
 
-只保留两边都有的：
-
-```python
-result = pd.merge(users, orders, on="用户ID", how="inner")
-print(result)
-#    用户ID  姓名  城市  订单ID  商品    金额
-# 0      1  张三  北京    101  手机   5999
-# 1      1  张三  北京    103  耳机    299
-# 2      2  李四  上海    102  电脑   8999
-# 3      3  王五  广州    104  平板   3999
-# 用户4（赵六）没有订单 → 不出现
-# 用户5 不在用户表 → 不出现
-```
-
-### 左连接（left join）
-
-保留左表所有行：
+Keep only the rows that exist on both sides:
 
 ```python
-result = pd.merge(users, orders, on="用户ID", how="left")
+result = pd.merge(users, orders, on="User ID", how="inner")
 print(result)
-#    用户ID  姓名  城市  订单ID   商品     金额
-# 0      1  张三  北京  101.0  手机   5999.0
-# 1      1  张三  北京  103.0  耳机    299.0
-# 2      2  李四  上海  102.0  电脑   8999.0
-# 3      3  王五  广州  104.0  平板   3999.0
-# 4      4  赵六  深圳    NaN   NaN      NaN   ← 赵六没有订单，用 NaN 填充
+#    User ID   Name       City  Order ID     Product  Amount
+# 0        1   John    Beijing       101       Phone    5999
+# 1        1   John    Beijing       103  Headphones     299
+# 2        2   Mary   Shanghai       102    Computer    8999
+# 3        3  Alice  Guangzhou       104      Tablet    3999
+# User 4 (Bob) has no orders → does not appear
+# User 5 is not in the user table → does not appear
 ```
 
-### 右连接（right join）
+### Left Join
 
-保留右表所有行：
+Keep all rows from the left table:
 
 ```python
-result = pd.merge(users, orders, on="用户ID", how="right")
+result = pd.merge(users, orders, on="User ID", how="left")
 print(result)
-# 用户5 出现了（姓名和城市为 NaN）
+#    User ID   Name       City  Order ID     Product   Amount
+# 0        1   John    Beijing     101.0       Phone   5999.0
+# 1        1   John    Beijing     103.0  Headphones    299.0
+# 2        2   Mary   Shanghai     102.0    Computer   8999.0
+# 3        3  Alice  Guangzhou     104.0      Tablet   3999.0
+# 4        4    Bob   Shenzhen       NaN         NaN      NaN   ← Bob has no orders, so NaN is used
 ```
 
-### 外连接（outer join）
+### Right Join
 
-保留两边所有行：
+Keep all rows from the right table:
 
 ```python
-result = pd.merge(users, orders, on="用户ID", how="outer")
+result = pd.merge(users, orders, on="User ID", how="right")
 print(result)
-# 所有用户和所有订单都出现，缺失的用 NaN 填充
+# User 5 appears (name and city are NaN)
 ```
 
-### 四种连接方式对比
+### Outer Join
+
+Keep all rows from both sides:
+
+```python
+result = pd.merge(users, orders, on="User ID", how="outer")
+print(result)
+# All users and all orders appear, and missing values are filled with NaN
+```
+
+### Comparison of the Four Join Types
 
 ```
-用户表: {1,2,3,4}    订单表: {1,2,3,5}
+User table: {1,2,3,4}    Order table: {1,2,3,5}
 
-inner:  {1,2,3}       两边都有的
-left:   {1,2,3,4}     左表全部 + 右表匹配的
-right:  {1,2,3,5}     右表全部 + 左表匹配的
-outer:  {1,2,3,4,5}   全部保留
+inner:  {1,2,3}       rows that exist on both sides
+left:   {1,2,3,4}     all rows from the left + matches from the right
+right:  {1,2,3,5}     all rows from the right + matches from the left
+outer:  {1,2,3,4,5}   keep everything
 ```
 
-### 一个很适合初学者先记的选择表
+### A Beginner-Friendly Selection Table
 
-| 你的目的 | 更稳的第一反应 |
+| Your goal | Safer first choice |
 |---|---|
-| 只保留两边都对得上的记录 | `inner merge` |
-| 以左表为主，把右表信息补进来 | `left merge` |
-| 两边都想保留，缺的补 NaN | `outer merge` |
-| 只是把几张表上下接起来 | `concat(axis=0)` |
-| 只是把几列左右拼起来 | `concat(axis=1)` |
+| Keep only records that match on both sides | `inner merge` |
+| Use the left table as the base and bring in right-table info | `left merge` |
+| Keep both sides and fill missing values with NaN | `outer merge` |
+| Just stack several tables vertically | `concat(axis=0)` |
+| Just place several columns side by side | `concat(axis=1)` |
 
-这张表很适合新人，因为它会把“连接方式很多”重新压回几个最常见的业务目的。
+This table is great for beginners because it reduces “many join types” back down to a few common business goals.
 
-### 不同列名的合并
+### Merging with Different Column Names
 
 ```python
-# 如果两表的连接列名不同
+# If the join key names are different in the two tables
 df1 = pd.DataFrame({"user_id": [1, 2], "name": ["A", "B"]})
 df2 = pd.DataFrame({"uid": [1, 2], "score": [90, 85]})
 
@@ -188,200 +188,200 @@ result = pd.merge(df1, df2, left_on="user_id", right_on="uid")
 print(result)
 ```
 
-### 多列连接
+### Multi-Column Join
 
 ```python
-# 按多个列匹配
+# Match on multiple columns
 result = pd.merge(df1, df2, on=["col1", "col2"])
 ```
 
 ---
 
-## concat：拼接操作
+## concat: Concatenation
 
-`concat` 用于将多个 DataFrame 纵向或横向拼接（不需要共同的 key）：
+`concat` is used to concatenate multiple DataFrames vertically or horizontally (no common key required):
 
-### 第一次学 `concat`，最该先记什么？
+### What Should You Remember First When Learning `concat`?
 
-最值得先记的是：
+The most important thing to remember first is:
 
-> **`concat` 不是在“对齐键”，而是在“拼接表”。**
+> **`concat` is not about “aligning keys,” but about “stitching tables together.”**
 
-所以如果你脑子里想的是：
+So if what you are thinking about is:
 
-- 用户ID 对不对得上
+- Whether user IDs match
 
-那通常更该先想到的是：
+then the method you should usually think of first is:
 
 - `merge`
 
-### 纵向拼接（上下叠加）
+### Vertical Concatenation (Stacking Top to Bottom)
 
 ```python
-# 1 月和 2 月的销售数据
+# Sales data for January and February
 jan = pd.DataFrame({
-    "商品": ["苹果", "牛奶"],
-    "销量": [100, 80],
-    "月份": ["1月", "1月"]
+    "Product": ["Apple", "Milk"],
+    "Sales": [100, 80],
+    "Month": ["January", "January"]
 })
 
 feb = pd.DataFrame({
-    "商品": ["苹果", "面包"],
-    "销量": [120, 90],
-    "月份": ["2月", "2月"]
+    "Product": ["Apple", "Bread"],
+    "Sales": [120, 90],
+    "Month": ["February", "February"]
 })
 
-# 上下拼接
+# Stack vertically
 all_sales = pd.concat([jan, feb], ignore_index=True)
 print(all_sales)
-#    商品  销量  月份
-# 0  苹果  100  1月
-# 1  牛奶   80  1月
-# 2  苹果  120  2月
-# 3  面包   90  2月
+#    Product  Sales      Month
+# 0    Apple    100    January
+# 1     Milk     80    January
+# 2    Apple    120   February
+# 3    Bread     90   February
 ```
 
 :::tip ignore_index=True
-`ignore_index=True` 会重新生成 0, 1, 2... 的索引。如果不加，可能会有重复索引。
+`ignore_index=True` regenerates the index as 0, 1, 2... If you do not add it, you may get duplicate indexes.
 :::
 
-### 横向拼接
+### Horizontal Concatenation
 
 ```python
-info = pd.DataFrame({"姓名": ["张三", "李四"], "年龄": [22, 25]})
-scores = pd.DataFrame({"数学": [90, 85], "英语": [88, 92]})
+info = pd.DataFrame({"Name": ["John", "Mary"], "Age": [22, 25]})
+scores = pd.DataFrame({"Math": [90, 85], "English": [88, 92]})
 
-# 左右拼接
+# Concatenate side by side
 combined = pd.concat([info, scores], axis=1)
 print(combined)
-#    姓名  年龄  数学  英语
-# 0  张三   22   90   88
-# 1  李四   25   85   92
+#    Name  Age  Math  English
+# 0  John   22    90       88
+# 1  Mary   25    85       92
 ```
 
 ---
 
 ## merge vs concat vs join
 
-| 方法 | 适用场景 | 类比 |
+| Method | Use Case | Analogy |
 |------|---------|------|
-| `merge` | 按共同列连接两表 | SQL JOIN |
-| `concat` | 简单的上下/左右拼接 | 胶水粘合 |
-| `join` | 按索引连接 | 特殊的 merge |
+| `merge` | Join two tables by a common column | SQL JOIN |
+| `concat` | Simple vertical/horizontal stacking | Gluing together |
+| `join` | Join by index | A special kind of merge |
 
 ```mermaid
 flowchart TD
-    A["我要合并数据"] --> B{"有共同的 key 列吗？"}
-    B -->|"有"| C["用 merge"]
-    B -->|"没有，只是简单叠加"| D{"上下叠加还是左右？"}
-    D -->|"上下"| E["concat(axis=0)"]
-    D -->|"左右"| F["concat(axis=1)"]
+    A["I want to merge data"] --> B{"Is there a common key column?"}
+    B -->|"Yes"| C["Use merge"]
+    B -->|"No, just simple stacking"| D{"Stack vertically or horizontally?"}
+    D -->|"Vertically"| E["concat(axis=0)"]
+    D -->|"Horizontally"| F["concat(axis=1)"]
 ```
 
-## 一个新人可直接照抄的数据合并检查表
+## A Data-Merging Checklist Beginners Can Copy Directly
 
-第一次做多表题时，最稳的检查表通常是：
+When solving multi-table problems for the first time, the safest checklist is usually:
 
-1. 我有没有共同键？
-2. 键的类型和取值范围一致吗？
-3. 合并后行数为什么会变多或变少？
-4. 现在更像“对齐”，还是更像“拼接”？
+1. Do I have a common key?
+2. Are the key types and value ranges consistent?
+3. Why did the number of rows change after merging?
+4. Is this more like “alignment” or more like “concatenation”?
 
-只要这 4 个问题先想清楚，很多 `merge / concat` 题就不会再像黑魔法。
+As long as you think through these 4 questions first, many `merge / concat` problems will no longer feel like black magic.
 
 ---
 
-## 实战：多表合并分析
+## Practice: Multi-Table Merge Analysis
 
 ```python
 import pandas as pd
 import numpy as np
 
-# 创建三张表
+# Create three tables
 np.random.seed(42)
 
-# 学生表
+# Student table
 students = pd.DataFrame({
-    "学号": [1, 2, 3, 4, 5],
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七"],
-    "班级": ["A班", "B班", "A班", "B班", "A班"]
+    "Student ID": [1, 2, 3, 4, 5],
+    "Name": ["John", "Mary", "Alice", "Bob", "Charlie"],
+    "Class": ["Class A", "Class B", "Class A", "Class B", "Class A"]
 })
 
-# 成绩表（某些学生可能有多科成绩）
+# Score table (some students may have multiple subject scores)
 scores = pd.DataFrame({
-    "学号": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
-    "科目": ["数学", "英语", "数学", "英语", "数学", "英语", "数学", "英语", "数学", "英语"],
-    "分数": [90, 85, 78, 92, 88, 75, 95, 88, 72, 80]
+    "Student ID": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5],
+    "Subject": ["Math", "English", "Math", "English", "Math", "English", "Math", "English", "Math", "English"],
+    "Score": [90, 85, 78, 92, 88, 75, 95, 88, 72, 80]
 })
 
-# 班级信息表
+# Class info table
 classes = pd.DataFrame({
-    "班级": ["A班", "B班"],
-    "班主任": ["王老师", "李老师"],
-    "教室": ["101", "102"]
+    "Class": ["Class A", "Class B"],
+    "Homeroom Teacher": ["Mr. Wang", "Ms. Li"],
+    "Classroom": ["101", "102"]
 })
 
-# 合并 1：学生 + 成绩
-student_scores = pd.merge(students, scores, on="学号")
+# Merge 1: students + scores
+student_scores = pd.merge(students, scores, on="Student ID")
 print(student_scores.head())
 
-# 合并 2：再加上班级信息
-full = pd.merge(student_scores, classes, on="班级")
+# Merge 2: add class info
+full = pd.merge(student_scores, classes, on="Class")
 print(full.head())
 
-# 分析：每个班级的平均分
-print(full.groupby(["班级", "班主任"])["分数"].mean())
+# Analysis: average score by class
+print(full.groupby(["Class", "Homeroom Teacher"])["Score"].mean())
 
-# 分析：每个学生的总分排名
-total_scores = full.groupby(["学号", "姓名"])["分数"].sum().reset_index()
-total_scores["排名"] = total_scores["分数"].rank(ascending=False, method="dense")
-print(total_scores.sort_values("排名"))
+# Analysis: total score ranking for each student
+total_scores = full.groupby(["Student ID", "Name"])["Score"].sum().reset_index()
+total_scores["Rank"] = total_scores["Score"].rank(ascending=False, method="dense")
+print(total_scores.sort_values("Rank"))
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 操作 | 函数 | 关键参数 |
+| Operation | Function | Key Parameters |
 |------|------|---------|
-| SQL 风格连接 | `pd.merge()` | `on`, `how` (inner/left/right/outer) |
-| 纵向拼接 | `pd.concat(axis=0)` | `ignore_index=True` |
-| 横向拼接 | `pd.concat(axis=1)` | |
-| 索引连接 | `df.join()` | `how` |
+| SQL-style join | `pd.merge()` | `on`, `how` (`inner`/`left`/`right`/`outer`) |
+| Vertical concatenation | `pd.concat(axis=0)` | `ignore_index=True` |
+| Horizontal concatenation | `pd.concat(axis=1)` | |
+| Index-based join | `df.join()` | `how` |
 
-## 这节最该带走什么
+## What You Should Take Away from This Section
 
-- `merge` 是按共同键对齐，`concat` 是把表拼起来
-- 先问“有没有共同键”，通常就知道该先用哪种方法
-- 多表分析里，很多问题不是后面的统计错，而是一开始就没对齐好
+- `merge` aligns by a common key, while `concat` stitches tables together
+- First ask “Is there a common key?” — that usually tells you which method to use first
+- In multi-table analysis, many problems are not caused by later statistics, but by failing to align the data correctly at the start
 
 ---
 
-## 动手练习
+## Hands-On Practice
 
-### 练习 1：基本 merge
+### Exercise 1: Basic merge
 
 ```python
-# 有两张表：员工表和部门表
-# 1. 用 inner join 合并
-# 2. 用 left join 找出没有分配部门的员工
-# 3. 用 outer join 找出没有员工的部门
+# There are two tables: an employee table and a department table
+# 1. Merge them with an inner join
+# 2. Use a left join to find employees without a department
+# 3. Use an outer join to find departments without employees
 ```
 
-### 练习 2：多表合并分析
+### Exercise 2: Multi-Table Merge Analysis
 
 ```python
-# 创建：商品表、订单表、客户表
-# 1. 三表合并成一张完整的表
-# 2. 分析每个客户购买了哪些类别的商品
-# 3. 找出购买金额最高的 Top 3 客户
+# Create: product table, order table, customer table
+# 1. Merge the three tables into one complete table
+# 2. Analyze which product categories each customer bought
+# 3. Find the top 3 customers with the highest purchase amount
 ```
 
-### 练习 3：concat 拼接
+### Exercise 3: concat Concatenation
 
 ```python
-# 有 4 个季度的销售数据（4 个独立的 DataFrame）
-# 1. 纵向拼接成全年数据
-# 2. 添加"季度"列标识数据来源
-# 3. 统计全年各季度的销售趋势
+# There are sales data for 4 quarters (4 separate DataFrames)
+# 1. Stack them vertically into full-year data
+# 2. Add a "quarter" column to indicate the data source
+# 3. Analyze the sales trend across the four quarters
 ```

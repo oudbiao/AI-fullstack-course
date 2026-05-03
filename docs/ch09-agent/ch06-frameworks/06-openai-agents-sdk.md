@@ -1,100 +1,100 @@
 ---
-title: "6.7 OpenAI Agents SDK【选修】"
+title: "6.7 OpenAI Agents SDK【Elective】"
 sidebar_position: 35
-description: "从 Agent、Tool、Runner 这些高层抽象出发，理解 OpenAI Agents SDK 为什么更像一个统一 Agent 编程模型。"
+description: "Starting from high-level abstractions such as Agent, Tool, and Runner, understand why the OpenAI Agents SDK feels more like a unified Agent programming model."
 keywords: [OpenAI Agents SDK, agent runtime, tools, runner, sdk, agent abstraction]
 ---
 
-# OpenAI Agents SDK【选修】
+# OpenAI Agents SDK【Elective】
 
-:::tip 本节定位
-很多框架是在帮你组织：
+:::tip Section Overview
+Many frameworks are helping you organize:
 
-- 图
-- 链
-- 角色
+- graphs
+- chains
+- roles
 
-而 OpenAI Agents SDK 这类高层 SDK 更像是在说：
+But a high-level SDK like the OpenAI Agents SDK is more like saying:
 
-> **我们把 Agent、Tool 和运行时统一成一套更标准化的开发接口。**
+> **We unify Agent, Tool, and the runtime into a more standardized development interface.**
 
-它的重点不一定是“最灵活”，而是“更统一的 Agent 编程体验”。
+Its focus is not necessarily on being “the most flexible,” but on providing a “more unified Agent programming experience.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解这类 Agents SDK 想抽象的核心对象是什么
-- 理解为什么“Runner / Runtime”常常是这种 SDK 的关键价值
-- 看懂一个最小高层抽象示例
-- 建立什么时候适合这种 SDK、什么时候不一定适合的判断
+- Understand the core objects that this kind of Agents SDK tries to abstract
+- Understand why “Runner / Runtime” is often the key value of this kind of SDK
+- Read a minimal example of a high-level abstraction
+- Build judgment about when this kind of SDK is suitable, and when it may not be
 
 ---
 
-## 一、为什么会出现“Agents SDK”这种层？
+## 1. Why does a layer like “Agents SDK” appear?
 
-### 1.1 因为直接手写 Agent 很快会有大量重复样板
+### 1.1 Because writing an Agent by hand quickly leads to a lot of repeated boilerplate
 
-一个稍微像样的 Agent 系统通常都会涉及：
+A reasonably complete Agent system usually involves:
 
-- 工具注册
-- 参数校验
-- 运行循环
-- 结果包装
+- tool registration
+- parameter validation
+- execution loop
+- result wrapping
 - trace
-- 状态推进
+- state progression
 
-如果每个项目都手写一遍，很快就会出现：
+If every project implements this by hand, you will quickly run into:
 
-- 结构不一致
-- 可维护性差
-- 团队风格不统一
+- inconsistent structure
+- poor maintainability
+- an unaligned team style
 
-### 1.2 SDK 真正想做什么？
+### 1.2 What does the SDK actually want to do?
 
-它不是替你做产品逻辑，而是在替你统一：
+It is not there to implement your product logic for you, but to standardize:
 
-- Agent 这个对象怎么表达
-- Tool 怎么挂上去
-- 一次执行过程怎么跑
+- how the Agent object is represented
+- how a Tool is attached
+- how a single execution process runs
 
-可以先记一句：
+You can first remember this sentence:
 
-> **SDK 的价值不是“更强”，而是“更统一”。**
+> **The value of an SDK is not “being more powerful,” but “being more unified.”**
 
 ---
 
-## 二、几个最关键的抽象对象
+## 2. Several key abstraction objects
 
 ### 2.1 Agent
 
-一个带着目标和工具集合的智能体单元。
+An intelligent unit with a goal and a set of tools.
 
 ### 2.2 Tool
 
-Agent 可以调用的外部能力，例如：
+An external capability that the Agent can call, such as:
 
-- 搜索
-- 计算
-- 文件访问
+- search
+- computation
+- file access
 
 ### 2.3 Runner / Runtime
 
-这个特别重要。  
-它通常负责：
+This part is especially important.
+It is usually responsible for:
 
-- 真正运行 agent
-- 管理执行过程
-- 收集结果
+- actually running the agent
+- managing the execution process
+- collecting results
 
-很多时候，这类 SDK 最大的工程价值恰恰就在：
+In many cases, the biggest engineering value of this kind of SDK is exactly this:
 
-> **它把“如何跑 Agent”统一起来了。**
+> **It standardizes “how to run an Agent.”**
 
 ---
 
-## 三、一个最小高层抽象示例
+## 3. A minimal high-level abstraction example
 
-下面我们用纯 Python 模拟这种 SDK 风格。
+Below, we use pure Python to simulate this SDK style.
 
 ```python
 class Tool:
@@ -115,194 +115,194 @@ class Runner:
         return {"agent": agent.name, "tool": tool_name, "result": result}
 
 def get_weather(city):
-    return f"{city} 当前晴天 22 度"
+    return f"{city} is sunny and 22 degrees right now"
 
 weather_tool = Tool("get_weather", get_weather)
 assistant = Agent("weather_assistant", [weather_tool])
 runner = Runner()
 
-print(runner.run(assistant, "get_weather", city="北京"))
+print(runner.run(assistant, "get_weather", city="Beijing"))
 ```
 
-### 3.2 这段代码为什么很有“SDK 感”？
+### 3.2 Why does this code feel very “SDK-like”?
 
-因为它已经把三件事明确拆开了：
+Because it clearly separates three things:
 
-- Agent 本身
-- Tool 本身
-- 执行层 Runner
+- the Agent itself
+- the Tool itself
+- the execution layer Runner
 
-这正是很多高层 SDK 最想统一的结构。
-
----
-
-## 四、这种抽象到底帮你省掉了什么？
-
-### 4.1 统一工具接入方式
-
-你不需要每个项目都重新定义：
-
-- 工具怎么挂
-- 工具怎么调
-
-### 4.2 统一执行入口
-
-当系统越来越复杂时，“谁来跑 Agent”其实会变成很重要的问题。  
-Runner / Runtime 让这件事更统一。
-
-### 4.3 更容易形成团队一致风格
-
-因为：
-
-- Agent 怎么定义
-- Tool 怎么挂
-- 结果怎么返回
-
-这些地方都不会每次乱写。
+This is exactly the structure many high-level SDKs want to standardize.
 
 ---
 
-## 五、为什么说 Runner / Runtime 特别关键？
+## 4. What does this abstraction actually save you?
 
-### 5.1 因为 Agent 不是普通函数
+### 4.1 A unified way to connect tools
 
-一个 Agent 不只是：
+You do not need to redefine for every project:
 
-- 输入 -> 输出
+- how tools are attached
+- how tools are invoked
 
-它通常还可能包含：
+### 4.2 A unified execution entry point
 
-- 工具选择
-- 执行过程
-- 中间状态
-- 错误返回
+As systems become more complex, “who runs the Agent” becomes a very important question.
+Runner / Runtime makes this more standardized.
 
-所以“怎么跑它”本身就是一个独立层。
+### 4.3 Easier to form a consistent team style
 
-### 5.2 一个直觉类比
+Because:
 
-你可以把 Runner 想成：
+- how the Agent is defined
+- how the Tool is attached
+- how results are returned
 
-> Agent 的执行调度器。 
-
-Agent 是参与者，Runner 是负责把它真正跑起来并管理过程的人。
-
----
-
-## 六、这种高层 SDK 什么时候会特别顺手？
-
-### 6.1 当你想要的是统一开发体验
-
-例如：
-
-- 多个 Agent 项目都想用同一种结构
-- 团队想少写重复运行逻辑
-- 希望工具和 Agent 的表达更统一
-
-### 6.2 特别适合
-
-- 中小型 Agent 应用
-- 原型到产品的中间阶段
-- 需要一致运行体验的团队项目
-
-在这些场景里，高层抽象往往很省力。
+these parts will not be written randomly each time.
 
 ---
 
-## 七、它的局限也必须看清
+## 5. Why are Runner / Runtime especially important?
 
-### 7.1 高层抽象意味着更多约束
+### 5.1 Because an Agent is not a normal function
 
-你得到的是：
+An Agent is not just:
 
-- 统一
-- 清晰
-- 省样板代码
+- input -> output
 
-你失去的可能是：
+It may also include:
 
-- 很细的底层控制自由
+- tool selection
+- execution process
+- intermediate state
+- error returns
 
-### 7.2 如果你的系统特别特殊
+So “how to run it” is itself an independent layer.
 
-例如：
+### 5.2 An intuitive analogy
 
-- 自己有非常复杂的状态图
-- 有非常定制的执行策略
+You can think of Runner as:
 
-这时高层 SDK 可能就不是最舒服的表达方式。
+> the execution scheduler for the Agent.
 
-所以它的关键判断不是“强不强”，而是：
-
-> **它的抽象是不是贴合你的系统。**
+The Agent is the participant, and the Runner is the one responsible for actually running it and managing the process.
 
 ---
 
-## 八、和别的框架怎么区分？
+## 6. When does this kind of high-level SDK feel especially convenient?
 
-### 8.1 和 LangGraph
+### 6.1 When what you want is a unified development experience
 
-LangGraph 更偏：
+For example:
 
-- 图
-- 状态流
-- 条件边
+- multiple Agent projects want to use the same structure
+- the team wants to write less repeated runtime logic
+- you want a more unified expression for tools and agents
 
-Agents SDK 更偏：
+### 6.2 Especially suitable for
+
+- small to medium Agent applications
+- the stage between prototype and product
+- team projects that need a consistent runtime experience
+
+In these scenarios, high-level abstractions often save a lot of effort.
+
+---
+
+## 7. Its limitations must also be understood clearly
+
+### 7.1 High-level abstractions mean more constraints
+
+What you get is:
+
+- consistency
+- clarity
+- less boilerplate
+
+What you may lose is:
+
+- very fine-grained low-level control
+
+### 7.2 If your system is very special
+
+For example:
+
+- you already have a very complex state graph
+- you have highly customized execution strategies
+
+In that case, a high-level SDK may not be the most comfortable way to express it.
+
+So the key question is not “Is it powerful?”, but:
+
+> **Does its abstraction fit your system?**
+
+---
+
+## 8. How is it different from other frameworks?
+
+### 8.1 Compared with LangGraph
+
+LangGraph is more focused on:
+
+- graphs
+- state flows
+- conditional edges
+
+Agents SDK is more focused on:
 
 - Agent
 - Tool
 - Runner
 
-### 8.2 和 CrewAI
+### 8.2 Compared with CrewAI
 
-CrewAI 更偏：
+CrewAI is more focused on:
 
-- 团队角色和协作表达
+- team roles and collaboration expression
 
-Agents SDK 更偏：
+Agents SDK is more focused on:
 
-- 统一 Agent 运行模型
+- a unified Agent execution model
 
-所以它不是在和所有框架正面竞争同一层，而是：
+So it is not directly competing with all frameworks on the same layer, but is more like:
 
-> 更像一种高层开发接口风格。 
-
----
-
-## 九、初学者最常踩的坑
-
-### 9.1 只看 SDK 名字，不看抽象边界
-
-结果就是：
-
-- 用着用着觉得“不顺”
-
-### 9.2 觉得“高层抽象 = 更高级”
-
-不是。  
-高层只是意味着更省样板代码，不代表总更适合。
-
-### 9.3 还没理解 Agent 本身，就先背 SDK API
-
-这样很容易会写调用，但不会做架构判断。
+> a high-level development interface style.
 
 ---
 
-## 小结
+## 9. Common mistakes beginners make
 
-这一节最重要的不是记住类名，而是理解：
+### 9.1 Only looking at the SDK name and not its abstraction boundaries
 
-> **OpenAI Agents SDK 这类框架的价值，在于把 Agent、Tool 和运行过程统一成一套更稳定的编程模型。**
+The result is:
 
-当你需要的是“一致的 Agent 开发体验”时，它会非常有帮助；  
-当你需要极细的底层控制时，它未必是第一选择。
+- as you use it, it starts to feel “not smooth”
+
+### 9.2 Thinking “high-level abstraction = more advanced”
+
+That is not true.
+High-level only means less boilerplate; it does not always mean more suitable.
+
+### 9.3 Memorizing SDK APIs before understanding the Agent itself
+
+This makes it easy to write calls, but hard to make architectural judgments.
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么说 Runner / Runtime 往往是这类 SDK 的关键价值？
-2. 想一想：这种高层 SDK 和 CrewAI 的“团队协作抽象”有什么不同？
-3. 如果你的系统已经有一套复杂状态机，你还会优先选这种高层 SDK 吗？为什么？
-4. 用自己的话说明：SDK 真正帮你省掉的是哪类高频样板工作？
+The most important thing in this section is not memorizing class names, but understanding this:
+
+> **The value of frameworks like the OpenAI Agents SDK lies in unifying Agent, Tool, and the execution process into a more stable programming model.**
+
+When what you need is a consistent Agent development experience, it can be very helpful;
+when you need extremely fine-grained low-level control, it may not be your first choice.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why is Runner / Runtime often the key value of this kind of SDK?
+2. Think about it: what is the difference between this kind of high-level SDK and CrewAI’s “team collaboration abstraction”?
+3. If your system already has a complex state machine, would you still prioritize this kind of high-level SDK? Why?
+4. Explain in your own words: what kind of high-frequency boilerplate work does the SDK actually save you from?

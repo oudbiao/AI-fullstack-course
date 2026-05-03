@@ -1,98 +1,98 @@
 ---
-title: "4.2 异步编程与并发调用"
+title: "4.2 Asynchronous Programming and Concurrent Calls"
 sidebar_position: 17
-description: "从为什么 LLM 工程常常慢在等待，到 asyncio、gather、Semaphore 和超时控制，理解并发调用的工程主线。"
+description: "From why LLM engineering is often slow because it is waiting, to asyncio, gather, Semaphore, and timeout control, understand the engineering main line of concurrent calls."
 keywords: [asyncio, concurrency, gather, semaphore, timeout, async programming, LLM engineering]
 ---
 
-# 异步编程与并发调用
+# Asynchronous Programming and Concurrent Calls
 
-:::tip 本节定位
-做 LLM 应用时，很多人第一次的性能瓶颈不是模型不够强，而是：
+:::tip Section overview
+When building LLM applications, many people’s first performance bottleneck is not that the model is too weak, but that:
 
-> **系统大部分时间都在等。**
+> **The system spends most of its time waiting.**
 
-等接口、等检索、等工具、等数据库。  
-异步编程就是在解决这种“CPU 没在忙，但任务还卡着”的问题。
+Waiting for APIs, waiting for retrieval, waiting for tools, waiting for databases.
+Asynchronous programming is about solving this problem of “the CPU is not busy, but the task is still stuck.”
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么 LLM 应用天然适合异步并发
-- 分清同步调用和异步调用的区别
-- 学会 `async` / `await` / `gather` 的基本用法
-- 理解并发限制和超时控制为什么重要
-- 看懂一个更贴近真实场景的异步调用示例
+- Understand why LLM applications are naturally suitable for asynchronous concurrency
+- Distinguish between synchronous calls and asynchronous calls
+- Learn the basic usage of `async` / `await` / `gather`
+- Understand why concurrency limits and timeout control are important
+- Read an asynchronous call example that is closer to a real-world scenario
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-异步编程更适合按“哪里在等、能不能并发、哪里要限流”来理解：
+It is easier to understand asynchronous programming by focusing on “where we are waiting, whether we can run concurrently, and where we need rate limiting”:
 
 ```mermaid
 flowchart LR
-    A["多个外部调用"] --> B["等待时间堆积"]
-    B --> C["并发调用"]
-    C --> D["并发限制和超时控制"]
+    A["Multiple external calls"] --> B["Accumulated waiting time"]
+    B --> C["Concurrent calls"]
+    C --> D["Concurrency limits and timeout control"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么 LLM 工程的性能问题常常不是算力，而是等待
-- 为什么异步不是魔法提速，而是更聪明地利用等待时间
-
----
-
-## 一、为什么 LLM 工程特别容易遇到“等待”？
-
-### 1.1 一个真实得不能再真实的场景
-
-你做一个问答助手，一次请求可能要：
-
-1. 查知识库
-2. 调模型
-3. 再调一个工具
-
-如果每一步都顺序等完再做下一步，整体延迟很容易拉长。
-
-### 1.2 关键点：很多步骤不是“计算慢”，而是“等待慢”
-
-例如：
-
-- 网络请求
-- 数据库查询
-- 第三方 API
-
-这些阶段，CPU 很多时候并没有真正忙满。  
-这就意味着：
-
-> 可以在等待一个任务的时候，先去做别的任务。 
-
-这正是异步编程最有价值的地方。
-
-### 1.3 一个更适合新人的总类比
-
-你可以把异步编程理解成：
-
-- 一边烧水，一边切菜
-
-如果你烧水时只是站在锅边发呆，  
-那很多时间其实被浪费了。  
-而异步就是在说：
-
-- 等待期间，先去推进别的任务
-
-这个类比很适合新人，因为它会帮助你先抓住：
-
-- 异步不是让单个请求“更强”
-- 而是让整体等待“更聪明”
+- Why performance problems in LLM engineering are often not about compute, but about waiting
+- Why asynchronous programming is not magic speed-up, but a smarter use of waiting time
 
 ---
 
-## 二、同步和异步到底差在哪？
+## 1. Why is LLM engineering especially prone to “waiting”?
 
-### 2.1 同步：一个任务做完再做下一个
+### 1.1 A very real-world scenario
+
+You build a question-answering assistant, and one request may need to:
+
+1. Query the knowledge base
+2. Call the model
+3. Call a tool again
+
+If each step is waited on sequentially before starting the next one, overall latency can easily grow.
+
+### 1.2 Key point: many steps are not “slow computation” but “slow waiting”
+
+For example:
+
+- Network requests
+- Database queries
+- Third-party APIs
+
+During these stages, the CPU is often not actually fully occupied.
+That means:
+
+> While waiting for one task, you can move on to other tasks.
+
+This is exactly where asynchronous programming is most valuable.
+
+### 1.3 A beginner-friendly analogy
+
+You can think of asynchronous programming as:
+
+- Boiling water while chopping vegetables
+
+If you just stand by the pot and wait while the water is heating,
+a lot of time is wasted.
+Asynchrony is saying:
+
+- During the waiting period, keep advancing other tasks
+
+This analogy is great for beginners because it helps you first grasp that:
+
+- Asynchrony does not make a single request “stronger”
+- It makes overall waiting “smarter”
+
+---
+
+## 2. What is the difference between synchronous and asynchronous?
+
+### 2.1 Synchronous: finish one task before starting the next
 
 ```python
 import time
@@ -107,9 +107,9 @@ print(task("B", 1))
 print("elapsed =", round(time.time() - start, 2))
 ```
 
-这段代码会大约花 2 秒。
+This code will take about 2 seconds.
 
-### 2.2 异步：发出去后先别傻等
+### 2.2 Asynchronous: send it off and do not wait idly
 
 ```python
 import asyncio
@@ -131,70 +131,70 @@ async def main():
 asyncio.run(main())
 ```
 
-这一版通常只要大约 1 秒。
+This version usually takes about 1 second.
 
-### 2.3 真正的差别是什么？
+### 2.3 What is the real difference?
 
-不是“异步更神秘”，而是：
+It is not that “asynchrony is mysterious,” but that:
 
-> 等待期间，调度器不会傻站着，而会去推进别的协程。 
+> During waiting, the scheduler does not just sit there; it keeps advancing other coroutines.
 
 ---
 
-## 三、`async` 和 `await` 到底在表达什么？
+## 3. What exactly do `async` and `await` express?
 
 ### 3.1 `async def`
 
-表示：
+It means:
 
-> 这是一个协程函数。 
+> This is a coroutine function.
 
-它不会立刻像普通函数那样直接完成，而是可以被调度执行。
+It will not finish immediately like a normal function; it can be scheduled for execution.
 
 ### 3.2 `await`
 
-表示：
+It means:
 
-> 这里需要等一个异步结果回来。 
+> We need to wait here for an asynchronous result to come back.
 
-但等的这段时间，调度器可以去处理别的协程。
+But while waiting, the scheduler can process other coroutines.
 
-### 3.3 一个最容易理解的类比
+### 3.3 A very easy-to-understand analogy
 
-同步像：
+Synchronous is like:
 
-- 做饭时站在锅前傻等水烧开
+- Standing by the pot and foolishly waiting for the water to boil while cooking
 
-异步像：
+Asynchronous is like:
 
-- 水在烧时，你先去切菜
+- While the water is boiling, you go chop vegetables first
 
 ---
 
-## 四、`gather` 为什么这么常见？
+## 4. Why is `gather` so commonly used?
 
-### 4.1 因为很多 LLM 场景天然就是“并发查几路”
+### 4.1 Because many LLM scenarios are naturally “concurrently query multiple sources”
 
-例如：
+For example:
 
-- 同时调 3 个检索器
-- 同时请求多个模型候选
-- 同时查几个数据源
+- Query 3 retrievers at the same time
+- Request multiple model candidates at the same time
+- Query several data sources at the same time
 
-这时 `asyncio.gather()` 很自然。
+At that point, `asyncio.gather()` feels very natural.
 
-### 4.2 一个更贴近 LLM 场景的示例
+### 4.2 A more LLM-like example
 
 ```python
 import asyncio
 
 async def retrieve_docs():
     await asyncio.sleep(0.3)
-    return ["退款政策", "证书说明"]
+    return ["refund policy", "certificate instructions"]
 
 async def call_model():
     await asyncio.sleep(0.5)
-    return "模型初步回复"
+    return "initial model response"
 
 async def fetch_user_profile():
     await asyncio.sleep(0.2)
@@ -213,26 +213,26 @@ async def main():
 asyncio.run(main())
 ```
 
-这就已经非常像真实应用里“并行查几层信息”的写法了。
+This is already very similar to “query several layers of information in parallel” in a real application.
 
 ---
 
-## 五、为什么不能无限并发？
+## 5. Why can’t we run infinitely many tasks concurrently?
 
-### 5.1 因为外部系统不是无限扛得住
+### 5.1 Because external systems cannot handle unlimited load
 
-如果你一口气并发 1000 个请求，可能会遇到：
+If you launch 1000 requests at once, you may run into:
 
-- API 限流
-- 数据库被打爆
-- 文件句柄耗尽
-- 上游服务超时
+- API rate limiting
+- Database overload
+- File descriptor exhaustion
+- Upstream service timeouts
 
-所以异步编程不是“并发越多越好”，而是：
+So asynchronous programming is not “the more concurrency, the better,” but rather:
 
-> **要在吞吐和稳定性之间找平衡。**
+> **Find a balance between throughput and stability.**
 
-### 5.2 用 `Semaphore` 做并发限制
+### 5.2 Use `Semaphore` to limit concurrency
 
 ```python
 import asyncio
@@ -251,37 +251,37 @@ async def main():
 asyncio.run(main())
 ```
 
-这个例子表示：
+This example means:
 
-- 虽然一共发起了 10 个任务
-- 但同一时刻最多只允许 3 个一起跑
+- Although 10 tasks are started in total
+- At any given moment, only 3 are allowed to run at the same time
 
-### 5.3 一个很适合初学者先记的判断表
+### 5.3 A beginner-friendly judgment table
 
-| 现象 | 更值得先怎么处理 |
+| Phenomenon | What to try first |
 |---|---|
-| 请求很多但主要卡在 I/O | 先考虑并发 |
-| 外部服务开始报限流 | 先加 Semaphore |
-| 某些请求一直挂住 | 先加 timeout |
-| 单个任务本身就算得很重 | 异步不一定是第一解 |
+| Many requests, but mostly stuck on I/O | Consider concurrency first |
+| External service starts returning rate-limit errors | Add a Semaphore first |
+| Some requests keep hanging | Add a timeout first |
+| A single task itself is computationally heavy | Asynchrony may not be the first solution |
 
-这个表很适合新人，因为它会把“什么时候该上异步、什么时候该限流”重新变成几个具体判断。
+This table is useful for beginners because it turns “when should I use async, and when should I rate-limit?” into specific decisions.
 
-![异步并发、Semaphore 与 timeout 控制图](/img/course/ch08-async-concurrency-semaphore-timeout-map.png)
+![Async concurrency, Semaphore, and timeout control diagram](/img/course/ch08-async-concurrency-semaphore-timeout-map-en.png)
 
-:::tip 读图提示
-异步不是无限并发。图里 `gather` 负责并发等待，`Semaphore` 负责限流，`timeout` 负责不让请求卡死，这三者合在一起才更像真实工程。
+:::tip Reading guide
+Asynchrony is not unlimited concurrency. In the diagram, `gather` handles concurrent waiting, `Semaphore` handles rate limiting, and `timeout` prevents requests from getting stuck. Together, these three are much closer to real-world engineering.
 :::
 
 ---
 
-## 六、超时控制为什么特别重要？
+## 6. Why is timeout control especially important?
 
-### 6.1 因为有些请求会“卡死”
+### 6.1 Because some requests can “hang”
 
-真实系统里，如果一个上游服务慢到离谱，而你又没有超时控制，整个请求就可能一直挂住。
+In real systems, if an upstream service is extremely slow and you do not have timeout control, the whole request may hang forever.
 
-### 6.2 一个最小超时示例
+### 6.2 A minimal timeout example
 
 ```python
 import asyncio
@@ -300,76 +300,76 @@ async def main():
 asyncio.run(main())
 ```
 
-这在工程里非常关键，因为“无限等待”通常比“明确失败”更糟。
+This is extremely important in engineering, because “waiting forever” is usually worse than “failing clearly.”
 
 ---
 
-## 七、异步编程在 LLM 工程里的典型使用点
+## 7. Typical places where asynchronous programming is used in LLM engineering
 
-### 7.1 检索并发
+### 7.1 Concurrent retrieval
 
-同时查：
+Query at the same time:
 
 - FAQ
-- 向量库
-- 数据库
+- Vector database
+- Database
 
-### 7.2 多模型并发
+### 7.2 Multi-model concurrency
 
-例如：
+For example:
 
-- 主模型 + 备用模型
-- 多候选答案并发生成
+- Main model + fallback model
+- Generate multiple candidate answers concurrently
 
-### 7.3 工具并发
+### 7.3 Tool concurrency
 
-比如一个 Agent 要同时：
+For example, when an Agent needs to simultaneously:
 
-- 查天气
-- 查用户状态
-- 查订单记录
+- Check the weather
+- Check user status
+- Check order records
 
-### 7.4 日志与监控链路
+### 7.4 Logging and monitoring pipelines
 
-有些日志和上报也适合异步做，避免堵住主请求。
+Some logs and reporting are also suitable for asynchronous handling, so they do not block the main request.
 
-### 7.5 第一次把异步放进项目里，最稳的默认顺序
+### 7.5 The safest default order for introducing async into a project
 
-更稳的顺序通常是：
+A safer sequence is usually:
 
-1. 先找出哪些步骤主要在等 I/O
-2. 先把这些步骤并发起来
-3. 再加 Semaphore 控制并发数
-4. 最后补超时和异常处理
+1. Find which steps are mainly waiting on I/O
+2. Make those steps concurrent first
+3. Add Semaphore to control concurrency
+4. Finally add timeout and exception handling
 
-这样会比一上来就把整个项目全改成异步更稳。
+This is more stable than converting the entire project to async all at once.
 
 ---
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，哪些步骤最值得并发？
+## 8. If your goal is a “courseware generation assistant driven by a knowledge base,” which steps are most worth running concurrently?
 
-这类项目里，最容易并发起来的通常不是“最终生成课件”这一步，  
-而是生成前的几个外部等待动作。
+In this kind of project, the easiest steps to parallelize are usually not the “final courseware generation” step,
+but the external waiting actions before generation.
 
-更值得优先考虑并发的通常是：
+The steps that are more worth prioritizing for concurrency are usually:
 
-- 查内部知识库
-- 补外部资料
-- 读用户画像或配置
-- 预取模板信息
+- Querying the internal knowledge base
+- Fetching external materials
+- Reading user profiles or configuration
+- Prefetching template information
 
-你可以先把它理解成：
+You can first understand it as:
 
-> **并发最值钱的地方，往往是在“收集上下文”阶段。**
+> **The most valuable place for concurrency is often the “context gathering” stage.**
 
-## 九、一个更像真实系统的小例子
+## 9. A small example that looks more like a real system
 
 ```python
 import asyncio
 
 async def search_kb(query):
     await asyncio.sleep(0.3)
-    return f"知识库结果: {query}"
+    return f"knowledge base result: {query}"
 
 async def get_user_status(user_id):
     await asyncio.sleep(0.2)
@@ -377,7 +377,7 @@ async def get_user_status(user_id):
 
 async def call_llm(prompt):
     await asyncio.sleep(0.4)
-    return f"LLM 回复: {prompt}"
+    return f"LLM response: {prompt}"
 
 async def handle_request(query, user_id):
     kb_result, user_status = await asyncio.gather(
@@ -385,67 +385,67 @@ async def handle_request(query, user_id):
         get_user_status(user_id)
     )
 
-    prompt = f"请根据以下信息回答：{kb_result}，用户状态：{user_status}"
+    prompt = f"Please answer based on the following information: {kb_result}, user status: {user_status}"
     answer = await call_llm(prompt)
     return answer
 
-print(asyncio.run(handle_request("退款政策是什么", 1)))
+print(asyncio.run(handle_request("What is the refund policy?", 1)))
 ```
 
-这个例子已经很像真实后端：
+This example already looks very much like a real backend:
 
-- 前半段并发取上下文
-- 后半段再统一送给模型
-
----
-
-## 十、初学者最常踩的坑
-
-### 10.1 把异步理解成“更快的同步”
-
-异步不是加速魔法，它更像是更聪明的等待方式。
-
-### 10.2 一上来就无限并发
-
-这很容易把系统压坏。
-
-### 10.3 没有超时和异常处理
-
-一旦某个任务卡死，整个请求链路就可能拖垮。
-
-## 如果把它做成项目或系统设计，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我用了 asyncio”
-
-而是：
-
-1. 哪些步骤被并发了
-2. 为什么这里值得并发
-3. 限流和超时是怎么设计的
-4. 整体延迟是怎么降下来的
-
-这样别人会更容易看出：
-
-- 你理解的是异步并发的工程价值
-- 不只是会写语法
+- The first half gathers context concurrently
+- The second half sends everything to the model together
 
 ---
 
-## 小结
+## 10. Common mistakes beginners make
 
-这一节最重要的不是背 `async` / `await` 语法，而是理解：
+### 10.1 Thinking of async as “faster synchronous code”
 
-> **异步编程的核心，是把“等待时间”利用起来，让系统在 I/O 密集型场景下更高效、更稳定。**
+Asynchrony is not a speed-up magic trick; it is more like a smarter way of waiting.
 
-这在 LLM 工程里几乎是绕不开的基本功。
+### 10.2 Starting with unlimited concurrency
+
+This can easily overload your system.
+
+### 10.3 Not handling timeouts and exceptions
+
+Once a task gets stuck, the entire request pipeline may be dragged down.
+
+## If you turn this into a project or system design, what is most worth showing?
+
+What is usually most worth showing is not:
+
+- “I used asyncio”
+
+But rather:
+
+1. Which steps were made concurrent
+2. Why concurrency was useful here
+3. How rate limiting and timeout were designed
+4. How the overall latency was reduced
+
+This makes it easier for others to see that:
+
+- You understand the engineering value of asynchronous concurrency
+- You are not just able to write the syntax
 
 ---
 
-## 练习
+## Summary
 
-1. 把本节的并发示例里任务数从 10 增加到 30，并调整 `Semaphore` 的大小。
-2. 在 `handle_request()` 里再加一个并发工具调用。
-3. 想一想：为什么异步编程特别适合“多外部依赖”的 LLM 应用？
-4. 用自己的话解释：异步编程为什么不是“让单个任务更快”，而是“让整体等待更聪明”？
+The most important thing in this section is not memorizing `async` / `await` syntax, but understanding that:
+
+> **The core of asynchronous programming is to make use of waiting time, so the system is more efficient and more stable in I/O-bound scenarios.**
+
+This is almost unavoidable foundational knowledge in LLM engineering.
+
+---
+
+## Exercises
+
+1. Increase the number of tasks in the concurrency example in this section from 10 to 30, and adjust the size of `Semaphore`.
+2. Add one more concurrent tool call in `handle_request()`.
+3. Think about why asynchronous programming is especially suitable for LLM applications with “many external dependencies.”
+4. Explain in your own words: why is asynchronous programming not “making a single task faster,” but “making overall waiting smarter”?

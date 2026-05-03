@@ -1,247 +1,247 @@
 ---
-title: "1.1 学前导读：线性代数这章到底在学什么"
+title: "1.1 Pre-class Guide: What Is This Linear Algebra Chapter Actually About?"
 sidebar_position: 0
-description: "在线性代数正式开始前，先建立一张地图：为什么 AI 离不开向量、矩阵、特征值和线性变换。"
-keywords: [线性代数导读, AI数学导读, 向量, 矩阵, 特征值, PCA]
+description: "Before formally starting linear algebra, build a map: why AI cannot do without vectors, matrices, eigenvalues, and linear transformations."
+keywords: [Linear Algebra Guide, AI Math Guide, Vectors, Matrices, Eigenvalues, PCA]
 ---
 
-# 学前导读：线性代数这章到底在学什么
+# Pre-class Guide: What Is This Linear Algebra Chapter Actually About?
 
-![线性代数学习地图](/img/course/ch04-linear-algebra-roadmap.png)
+![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-en.png)
 
-:::tip 先别急着背公式
-对新人来说，这一章最重要的不是证明定理，而是先建立一张地图：
+:::tip Don’t rush to memorize formulas
+For beginners, the most important thing in this chapter is not proving theorems, but first building a map:
 
-1. 为什么 AI 里到处都是向量和矩阵
-2. 这四节课之间是什么关系
-3. 学到什么程度就足够支撑后面的机器学习和深度学习
+1. Why AI is full of vectors and matrices
+2. How these four lessons relate to each other
+3. How far you need to go to support later machine learning and deep learning
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 知道线性代数这章在整套课里的位置
-- 看懂“向量 -> 矩阵 -> 特征值 -> 线性变换”的关系
-- 知道新人该重点掌握什么、哪些内容先求直觉就够
-- 在正式进入公式前，先建立 AI 场景里的使用感
+- Understand where the linear algebra chapter fits in the whole course
+- Understand the relationship of “vector -> matrix -> eigenvalue -> linear transformation”
+- Know what beginners should focus on and which parts can be left at the level of intuition for now
+- Before formally entering formulas, build a practical feel for how linear algebra is used in AI
 
-## 先说一个很重要的心理预期
+## First, an important expectation
 
-线性代数本来就是可以单独学很久的一门课。  
-所以这一章的目标，不是把所有证明、定理和推广都讲完，而是先让你：
+Linear algebra is a course you could study on its own for a very long time.
+So the goal of this chapter is not to cover every proof, theorem, and extension, but to help you first:
 
-- 不怕向量和矩阵
-- 看懂最常见的运算到底在做什么
-- 能把这些对象和 AI 里的数据、权重、相似度、PCA 连起来
+- Not fear vectors and matrices
+- Understand what the most common operations are really doing
+- Connect these objects to data, weights, similarity, and PCA in AI
 
-如果你现在读完一遍还不能“熟练做题”，这完全正常。  
-更重要的标准是：
+If you finish one read-through and still can’t “do problems fluently,” that is completely normal.
+A more important standard is:
 
-- 你有没有开始把“向量 / 矩阵”当成 AI 的语言，而不是一堆陌生符号
+- Have you started treating “vectors / matrices” as the language of AI, instead of a bunch of unfamiliar symbols?
 
 ---
 
-## 一、为什么 AI 里到处都是线性代数？
+## 1. Why is linear algebra everywhere in AI?
 
-因为 AI 的很多对象，本质上都可以表示成“数字数组”，而线性代数就是研究这些数字数组如何表示、如何变换、如何比较的一套语言。
+Because many objects in AI can essentially be represented as “arrays of numbers,” and linear algebra is the language for describing how these number arrays are represented, transformed, and compared.
 
-| AI 场景 | 你看到的对象 | 在线性代数里怎么看 |
+| AI scenario | What you see | How to view it in linear algebra |
 |---|---|---|
-| 一条用户数据 | 年龄、收入、城市等级、活跃度 | 一个向量 |
-| 一批样本 | 很多条用户数据堆在一起 | 一个矩阵 |
-| 文本向量检索 | 查询和文档谁更像 | 向量相似度 |
-| 神经网络一层 | 输入乘权重再加偏置 | 矩阵乘法 |
-| PCA 降维 | 压缩特征又尽量少丢信息 | 特征值和特征向量 |
+| One user record | Age, income, city tier, activity level | A vector |
+| A batch of samples | Many user records stacked together | A matrix |
+| Text vector retrieval | Which is more similar: the query or the document? | Vector similarity |
+| One layer of a neural network | Input multiplied by weights, then add bias | Matrix multiplication |
+| PCA dimensionality reduction | Compress features while losing as little information as possible | Eigenvalues and eigenvectors |
 
-所以你可以把这一章理解成：
+So you can think of this chapter as:
 
-- 向量：学会描述一个对象
-- 矩阵：学会同时处理一批对象，或者对对象做变换
-- 特征值：学会找到“最重要的方向”
-- 向量空间：学会从更高视角理解维度、基和变换
-
----
-
-## 二、这一章四节之间是什么关系？
-
-![线性代数章节关系图](/img/course/ch04-linear-algebra-chapter-flow.png)
-
-你可以把整章压缩成一句话：
-
-> **先学会把数据写成向量，再学会用矩阵批量处理向量，最后学会从这些变换里找出最重要的结构。**
-
-## 三、为什么这章对 AI 特别关键？
-
-因为后面你会反复看到这些东西：
-
-- 一条样本是向量
-- 一批样本是矩阵
-- 一层神经网络是矩阵乘法
-- 相似度检索要用点积或余弦相似度
-- PCA 要找最重要的方向
-
-也就是说，线性代数在 AI 里不是“背景知识”，而是：
-
-> **你看模型和数据时最常用的一种观察语言。**
+- Vectors: learning how to describe an object
+- Matrices: learning how to process a batch of objects, or transform objects
+- Eigenvalues: learning how to find the “most important directions”
+- Vector spaces: learning to understand dimensions, bases, and transformations from a higher-level perspective
 
 ---
 
-## 新人最应该怎么学这一章？
+## 2. What is the relationship between the four sections of this chapter?
 
-### 4.1 第一步：先把向量学明白
+![Linear Algebra Chapter Flow](/img/course/ch04-linear-algebra-chapter-flow-en.png)
 
-你最少要弄懂这些事：
+You can compress the whole chapter into one sentence:
 
-- 向量就是一串有序数字
-- 向量长度、点积、余弦相似度分别在衡量什么
-- 为什么 RAG、推荐系统、词向量都会用到相似度
+> **First learn to write data as vectors, then learn to use matrices to process vectors in batches, and finally learn to find the most important structures from these transformations.**
 
-### 4.2 第二步：再把矩阵当成“批量处理机器”
+## 3. Why is this chapter especially important for AI?
 
-你最少要弄懂这些事：
+Because later you will keep seeing these things:
 
-- 一批样本堆起来就是矩阵
-- 矩阵乘法其实就是“行和列做点积”
-- 为什么神经网络一层可以写成 `X @ W + b`
+- One sample is a vector
+- A batch of samples is a matrix
+- One layer of a neural network is matrix multiplication
+- Similarity retrieval uses dot products or cosine similarity
+- PCA looks for the most important directions
 
-### 4.3 第三步：把特征值当成“特殊方向”
+In other words, linear algebra in AI is not just “background knowledge,” but:
 
-你最少要弄懂这些事：
-
-- 大多数向量被矩阵作用后，方向会变
-- 但有些特殊方向只会被拉长或缩短
-- PCA 就是在找数据变化最大的那些方向
-
-### 4.4 第四步：把向量空间当成加深理解的选修
-
-这一节更像“把前面学过的内容抬高一个视角”。
-
-如果你当前目标是尽快学机器学习和深度学习，可以先把：
-
-- 线性无关
-- 基
-- 维度
-- 线性变换
-
-理解到“会解释、会用代码验证”的程度，再继续往后走。
-
-### 4.5 一个更适合新人的阅读顺序
-
-建议你每节都按下面顺序看：
-
-1. 先看类比和图
-2. 再看最小代码
-3. 最后再看公式和定义
-
-尤其在线性代数里，这样会比一开始就盯着符号看，舒服很多。
-
-## 五、这一章建议怎么分配时间？
-
-如果你想把这一章学得更稳，一个很适合新人的参考节奏是：
-
-1. 向量：2~4 小时  
-   重点不是做题，而是把“对象 -> 向量 -> 相似度”真正讲顺。
-
-2. 矩阵：3~5 小时  
-   重点把“批量处理”和 `X @ W` 这条主线看懂。
-
-3. 特征值：3~5 小时  
-   重点先建立“特殊方向”和 PCA 直觉，不急着求很会算。
-
-4. 向量空间：2~4 小时  
-   这节更像加深理解，适合在前面三节稳住后再读。
-
-如果你一天只啃 1 节，通常会比连续硬刷 4 节更稳。
+> **One of the most common languages you use to observe models and data.**
 
 ---
 
-## 六、学这一章最常见的误解
+## How should beginners study this chapter?
 
-- 误以为线性代数就是一堆公式，其实它首先是描述数据和变换的语言
-- 误以为看不懂证明就学不会 AI，其实先看懂图和代码已经很有价值
-- 误以为数学和代码可以分开学，其实一分开就很容易越来越虚
-- 误以为高维向量画不出来就无法理解，其实二维图只是帮助建立直觉
+### 4.1 First: really understand vectors
+
+At minimum, you should understand:
+
+- A vector is an ordered list of numbers
+- What vector length, dot product, and cosine similarity each measure
+- Why RAG, recommendation systems, and word vectors all use similarity
+
+### 4.2 Second: treat matrices as “batch processing machines”
+
+At minimum, you should understand:
+
+- A batch of samples stacked together forms a matrix
+- Matrix multiplication is really “dot products between rows and columns”
+- Why one layer of a neural network can be written as `X @ W + b`
+
+### 4.3 Third: treat eigenvalues as “special directions”
+
+At minimum, you should understand:
+
+- When a matrix acts on most vectors, the direction changes
+- But some special directions are only stretched or shrunk
+- PCA is about finding the directions along which the data varies the most
+
+### 4.4 Fourth: treat vector spaces as an optional deepening step
+
+This section is more like “elevating the previous content to a higher perspective.”
+
+If your current goal is to quickly learn machine learning and deep learning, you can first understand:
+
+- Linear independence
+- Basis
+- Dimension
+- Linear transformation
+
+to the level where you can explain them and verify them with code, and then keep moving forward.
+
+### 4.5 A more beginner-friendly reading order
+
+It is recommended that you read each section in this order:
+
+1. First look at the analogy and the diagram
+2. Then look at the smallest code example
+3. Finally look at the formulas and definitions
+
+Especially in linear algebra, this will feel much more comfortable than staring at symbols from the very beginning.
+
+## 5. How should you allocate your time for this chapter?
+
+If you want to learn this chapter more solidly, a very beginner-friendly reference pace is:
+
+1. Vectors: 2–4 hours
+   The focus is not on problem-solving, but on truly understanding “object -> vector -> similarity.”
+
+2. Matrices: 3–5 hours
+   Focus on understanding the main line of “batch processing” and `X @ W`.
+
+3. Eigenvalues: 3–5 hours
+   Focus first on building intuition for “special directions” and PCA, and don’t rush to become highly skilled at calculations.
+
+4. Vector spaces: 2–4 hours
+   This section is more like deepening understanding, and is suitable to read after the first three sections are stable.
+
+If you only study 1 section per day, that is usually more stable than grinding through all 4 sections in a row.
 
 ---
 
-## 七、先跑一个贯穿整章的最小例子
+## 6. Common misunderstandings about this chapter
 
-下面这段小代码，几乎把这一章的主线都串起来了：
+- Thinking linear algebra is just a bunch of formulas; in fact, it is first a language for describing data and transformations
+- Thinking that if you cannot understand proofs, you cannot learn AI; in fact, understanding diagrams and code already has great value
+- Thinking that math and code can be learned separately; in fact, separating them often makes understanding more and more vague
+- Thinking that high-dimensional vectors can’t be drawn, so they can’t be understood; in fact, 2D pictures are just a tool for building intuition
 
-- 一条样本是向量
-- 多条样本堆起来是矩阵
-- 和权重做点积可以得到打分
-- 一批样本和权重矩阵相乘可以一次算出多组结果
+---
+
+## 7. Run a minimum example that runs through the whole chapter
+
+The small code below connects almost all the main ideas of this chapter:
+
+- One sample is a vector
+- Many samples stacked together are a matrix
+- Doing a dot product with weights gives a score
+- Multiplying a batch of samples by a weight matrix can produce multiple results at once
 
 ```python
 import numpy as np
 
 student = np.array([90, 85, 92])
-print("单个学生向量:", student)
+print("Single student vector:", student)
 
 students = np.array([
     [90, 85, 92],
     [70, 88, 75],
     [95, 91, 89],
 ])
-print("样本矩阵形状:", students.shape)  # (3, 3)
+print("Sample matrix shape:", students.shape)  # (3, 3)
 
 weights = np.array([0.4, 0.2, 0.4])
 
 single_score = student @ weights
-print("单个学生综合分:", round(single_score, 2))
+print("Single student's overall score:", round(single_score, 2))
 
 all_scores = students @ weights
-print("所有学生综合分:", all_scores.round(2))
+print("All students' overall scores:", all_scores.round(2))
 ```
 
 ---
 
-## 八、学完这章后，你至少应该会什么？
+## 8. After finishing this chapter, what should you at least be able to do?
 
-- 看到一条数据，知道它可以写成向量
-- 看到一批数据，知道它可以写成矩阵
-- 看到点积，知道它在衡量什么
-- 看到矩阵乘法，知道它是在做批量变换
-- 看到特征值，知道它和 PCA、主方向有关
+- When you see one data point, know that it can be written as a vector
+- When you see a batch of data, know that it can be written as a matrix
+- When you see a dot product, know what it is measuring
+- When you see matrix multiplication, know that it is performing batch transformations
+- When you see eigenvalues, know that they are related to PCA and principal directions
 
-## 如果你还觉得这章“太抽象”，最该先回头看什么？
+## If this chapter still feels “too abstract,” what should you review first?
 
-最值得回看的通常不是最后面的特征值，而是最前面的：
+Usually, the most worthwhile things to review are not the eigenvalues at the end, but the very beginning:
 
-- 向量怎么表示一个对象
-- 矩阵怎么一次处理一批对象
-- 点积到底在比较什么
+- How a vector represents an object
+- How a matrix processes a batch of objects at once
+- What exactly a dot product is comparing
 
-因为这三件事一旦稳了，后面更抽象的内容会好很多。
+Because once these three things are stable, the more abstract content later will become much easier.
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, first grasp the main line and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimum project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and do engineering practice: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects with the previous and next stages. After reading, it is best to solidify the chapter content in your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study method | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves, and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimum example and complete the chapter’s smallest project deliverable |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly state what the example needs as input and what result it produces |
+| Where are the common failure points? | Can list at least one cause of an error, poor results, or misunderstanding |
+| What can be preserved after learning it? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Chapter mini-project deliverable
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended to complete a minimum exercise: choose the most core concept or tool from this chapter, and produce a small result that can run, be screenshotted, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing is, and what the output is.
 
-## 过关标准
+## Passing standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stations before and after it, and complete the minimum version of the chapter mini-project deliverable.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common error, one debugging process, or one result improvement, then it shows that you are not just “reading the content,” but are turning this chapter into your own project experience.

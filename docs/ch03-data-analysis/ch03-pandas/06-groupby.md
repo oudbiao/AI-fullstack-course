@@ -1,94 +1,94 @@
 ---
-title: "3.6 分组与聚合"
+title: "3.6 Grouping and Aggregation"
 sidebar_position: 14
-description: "掌握 groupby 分组聚合、透视表等核心操作"
+description: "Master core operations such as groupby aggregation and pivot tables"
 ---
 
-# 分组与聚合
+# Grouping and Aggregation
 
-![Pandas GroupBy 分组聚合流程图](/img/course/ch03-pandas-groupby-split-apply-combine.png)
+![Pandas GroupBy grouping and aggregation flowchart](/img/course/ch03-pandas-groupby-split-apply-combine-en.png)
 
-:::tip 本节定位
-很多新人第一次学 `groupby` 时，常见感受是：
+:::tip Section focus
+When many beginners first learn `groupby`, they often feel:
 
-- 语法好像不难
-- 但一到真实题目就不知道该怎么想
+- The syntax does not seem too hard
+- But when they face a real problem, they do not know how to think about it
 
-最稳的理解方式是：
+The safest way to understand it is:
 
-> **先想“我要按什么分组、每组里想算什么”，再写代码。**
+> **First think: “What do I want to group by, and what do I want to calculate for each group?” Then write the code.**
 
-所以这节最重要的不是多记几个聚合函数，而是先建立“拆分 -> 统计 -> 合并”的工作流意识。
+So the most important thing in this section is not memorizing a few more aggregation functions, but building a workflow mindset around “split -> summarize -> combine”.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 groupby 的"拆分—应用—合并"机制
-- 掌握常用聚合函数和 `agg` 方法
-- 学会分组转换（transform）和分组过滤（filter）
-- 掌握数据透视表（pivot_table）
+- Understand the "split-apply-combine" mechanism of groupby
+- Master common aggregation functions and the `agg` method
+- Learn group-wise transformation (`transform`) and group-wise filtering (`filter`)
+- Master pivot tables (`pivot_table`)
 
 ---
 
-## 先建立一张地图
+## First build a mental map
 
-`groupby` 更适合按“拆分 -> 应用 -> 合并”来理解：
+`groupby` is easier to understand as “split -> apply -> combine”:
 
 ```mermaid
 flowchart LR
-    A["原始表"] --> B["按某个字段拆成多组"]
-    B --> C["每组单独做统计"]
-    C --> D["把结果重新合起来"]
+    A["Raw table"] --> B["Split into multiple groups by a field"]
+    B --> C["Perform statistics separately for each group"]
+    C --> D["Combine the results again"]
 ```
 
-所以这节真正想解决的是：
+So what this section is really trying to solve is:
 
-- 为什么 `groupby` 能把很多“按部门 / 按类别 / 按月份统计”的题一把抓住
-- `agg / transform / filter / pivot_table` 各自到底在补什么
+- Why `groupby` can handle so many problems like “by department / by category / by month”
+- What `agg / transform / filter / pivot_table` each actually adds
 
-## 为什么 groupby 这么重要？
+## Why is groupby so important?
 
-回想第 1 章——用纯 Python 做"按性别统计生存率"，需要手写字典和循环。用 Pandas 的 groupby **一行搞定**：
+Think back to Chapter 1 — when using pure Python to calculate the survival rate by sex, you had to write dictionaries and loops by hand. With Pandas groupby, you can do it in **one line**:
 
 ```python
-# 纯 Python：15 行代码
-# Pandas：1 行
+# Pure Python: 15 lines of code
+# Pandas: 1 line
 df.groupby("Sex")["Survived"].mean()
 ```
 
-`groupby` 就像 SQL 的 `GROUP BY`——按某个字段分组，然后对每组分别计算。
+`groupby` is like SQL `GROUP BY` — group by a field, then calculate separately for each group.
 
-### 一个更适合新人的总类比
+### A more beginner-friendly overall analogy
 
-你可以把 `groupby` 理解成：
+You can think of `groupby` as:
 
-- 先把同类东西分成几堆，再分别数、算、比较
+- First split similar things into piles, then count, calculate, and compare each pile separately
 
-比如：
+For example:
 
-- 按部门分
-- 按城市分
-- 按月份分
+- Group by department
+- Group by city
+- Group by month
 
-这会比你脑子里一直想着“Pandas 语法”更容易抓住本质。
+This is much easier than keeping “Pandas syntax” in your head all the time, and it helps you grasp the essence.
 
 ---
 
-## groupby 基础
+## groupby basics
 
-### 分组机制
+### Grouping mechanism
 
 ```mermaid
 flowchart LR
-    A["原始数据"] --> B["拆分<br/>Split"]
-    B --> C1["组1"]
-    B --> C2["组2"]
-    B --> C3["组3"]
-    C1 --> D["应用<br/>Apply"]
+    A["Raw data"] --> B["Split"]
+    B --> C1["Group 1"]
+    B --> C2["Group 2"]
+    B --> C3["Group 3"]
+    C1 --> D["Apply"]
     C2 --> D
     C3 --> D
-    D --> E["合并<br/>Combine"]
-    E --> F["结果"]
+    D --> E["Combine"]
+    E --> F["Result"]
 ```
 
 ```python
@@ -96,252 +96,250 @@ import pandas as pd
 import numpy as np
 
 df = pd.DataFrame({
-    "部门": ["技术", "市场", "技术", "管理", "市场", "技术", "管理"],
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七", "孙八", "周九"],
-    "薪资": [15000, 18000, 22000, 35000, 20000, 19000, 30000],
-    "年龄": [22, 28, 25, 35, 30, 24, 40]
+    "Department": ["Engineering", "Marketing", "Engineering", "Management", "Marketing", "Engineering", "Management"],
+    "Name": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu", "Qian Qi", "Sun Ba", "Zhou Jiu"],
+    "Salary": [15000, 18000, 22000, 35000, 20000, 19000, 30000],
+    "Age": [22, 28, 25, 35, 30, 24, 40]
 })
 
-# 按部门分组，计算平均薪资
-result = df.groupby("部门")["薪资"].mean()
+# Group by department and calculate average salary
+result = df.groupby("Department")["Salary"].mean()
 print(result)
-# 部门
-# 市场    19000.0
-# 技术    18666.7
-# 管理    32500.0
+# Department
+# Marketing    19000.0
+# Engineering  18666.7
+# Management   32500.0
 ```
 
-### 基本聚合
+### Basic aggregation
 
 ```python
-grouped = df.groupby("部门")
+grouped = df.groupby("Department")
 
-# 常用聚合函数
-print(grouped["薪资"].sum())       # 总薪资
-print(grouped["薪资"].mean())      # 平均薪资
-print(grouped["薪资"].median())    # 中位数
-print(grouped["薪资"].min())       # 最低薪资
-print(grouped["薪资"].max())       # 最高薪资
-print(grouped["薪资"].std())       # 标准差
-print(grouped["薪资"].count())     # 人数
+# Common aggregation functions
+print(grouped["Salary"].sum())       # Total salary
+print(grouped["Salary"].mean())      # Average salary
+print(grouped["Salary"].median())    # Median
+print(grouped["Salary"].min())       # Lowest salary
+print(grouped["Salary"].max())       # Highest salary
+print(grouped["Salary"].std())       # Standard deviation
+print(grouped["Salary"].count())     # Headcount
 ```
 
-### 多列聚合
+### Aggregating multiple columns
 
 ```python
-# 对多列聚合
-print(df.groupby("部门")[["薪资", "年龄"]].mean())
-#        薪资       年龄
-# 部门
-# 市场  19000.0  29.000000
-# 技术  18666.7  23.666667
-# 管理  32500.0  37.500000
+# Aggregate multiple columns
+print(df.groupby("Department")[["Salary", "Age"]].mean())
+#                Salary       Age
+# Department
+# Marketing    19000.0  29.000000
+# Engineering  18666.7  23.666667
+# Management   32500.0  37.500000
 ```
 
-### 多级分组
+### Multi-level grouping
 
 ```python
 df2 = pd.DataFrame({
-    "部门": ["技术", "技术", "市场", "市场", "技术", "市场"],
-    "级别": ["初级", "高级", "初级", "高级", "初级", "初级"],
-    "薪资": [15000, 25000, 12000, 22000, 18000, 14000]
+    "Department": ["Engineering", "Engineering", "Marketing", "Marketing", "Engineering", "Marketing"],
+    "Level": ["Junior", "Senior", "Junior", "Senior", "Junior", "Junior"],
+    "Salary": [15000, 25000, 12000, 22000, 18000, 14000]
 })
 
-# 按部门和级别分组
-result = df2.groupby(["部门", "级别"])["薪资"].mean()
+# Group by department and level
+result = df2.groupby(["Department", "Level"])["Salary"].mean()
 print(result)
-# 部门  级别
-# 市场  初级    13000.0
-#       高级    22000.0
-# 技术  初级    16500.0
-#       高级    25000.0
+# Department  Level
+# Marketing   Junior    13000.0
+#             Senior    22000.0
+# Engineering Junior    16500.0
+#             Senior    25000.0
 ```
 
-### 第一次做分组题时，最稳的默认顺序
+### The safest default order when you solve grouping problems for the first time
 
-更稳的顺序通常是：
+A safer order is usually:
 
-1. 先问自己按谁分
-2. 再问每组里要算什么
-3. 最后再决定返回的是汇总表，还是要写回原表
+1. First ask yourself what to group by
+2. Then ask what to calculate for each group
+3. Finally decide whether you want a summary table or whether you need to write the result back to the original table
 
-这一步很关键，因为它会直接决定你后面该用：
+This step is very important because it directly determines whether you should use:
 
 - `agg`
 - `transform`
 - `filter`
 
-哪一种。
-
 ---
 
-## agg：多种聚合一起做
+## `agg`: do multiple aggregations at once
 
-`agg` 让你对同一列或不同列应用不同的聚合函数：
+`agg` lets you apply different aggregation functions to the same column or different columns:
 
 ```python
-# 对薪资列同时计算多个统计量
-result = df.groupby("部门")["薪资"].agg(["mean", "min", "max", "count"])
+# Calculate multiple statistics for the salary column at once
+result = df.groupby("Department")["Salary"].agg(["mean", "min", "max", "count"])
 print(result)
 #            mean    min    max  count
-# 部门
-# 市场  19000.0  18000  20000      2
-# 技术  18666.7  15000  22000      3
-# 管理  32500.0  30000  35000      2
+# Department
+# Marketing  19000.0  18000  20000      2
+# Engineering 18666.7  15000  22000      3
+# Management  32500.0  30000  35000      2
 ```
 
 ```python
-# 对不同列用不同的聚合函数
-result = df.groupby("部门").agg({
-    "薪资": ["mean", "max"],
-    "年龄": ["mean", "min"],
-    "姓名": "count"           # 人数
+# Use different aggregation functions for different columns
+result = df.groupby("Department").agg({
+    "Salary": ["mean", "max"],
+    "Age": ["mean", "min"],
+    "Name": "count"           # Headcount
 })
 print(result)
 
-# 自定义聚合函数
-result = df.groupby("部门")["薪资"].agg(
-    平均薪资="mean",
-    最高薪资="max",
-    薪资差距=lambda x: x.max() - x.min()
+# Custom aggregation function
+result = df.groupby("Department")["Salary"].agg(
+    AverageSalary="mean",
+    HighestSalary="max",
+    SalaryGap=lambda x: x.max() - x.min()
 )
 print(result)
 ```
 
-### 什么时候最适合先想到 `agg`？
+### When should you think of `agg` first?
 
-当你脑子里的问题长得像：
+When your question sounds like:
 
-- “每个部门的平均值、最大值、人数分别是多少？”
+- “What are the average, maximum, and count for each department?”
 
-这时通常就该先想到：
+At that point, you should usually think first of:
 
 - `groupby(...).agg(...)`
 
-也就是说，`agg` 最适合：
+In other words, `agg` is best for:
 
-- 一次性做多种汇总统计
+- Doing multiple summary statistics in one go
 
 ---
 
-## transform：分组转换
+## `transform`: group-wise transformation
 
-`transform` 对每组应用函数，但**返回和原数据同样长度的结果**——非常适合生成新列。
+`transform` applies a function to each group, but it **returns a result with the same length as the original data** — perfect for creating new columns.
 
 ```python
-# 场景：给每个人标注"与部门平均薪资的差距"
-df["部门平均薪资"] = df.groupby("部门")["薪资"].transform("mean")
-df["薪资差距"] = df["薪资"] - df["部门平均薪资"]
-print(df[["姓名", "部门", "薪资", "部门平均薪资", "薪资差距"]])
+# Scenario: label each person with "difference from department average salary"
+df["DepartmentMeanSalary"] = df.groupby("Department")["Salary"].transform("mean")
+df["SalaryGap"] = df["Salary"] - df["DepartmentMeanSalary"]
+print(df[["Name", "Department", "Salary", "DepartmentMeanSalary", "SalaryGap"]])
 
-# 场景：组内标准化（每组减去均值除以标准差）
-df["薪资_标准化"] = df.groupby("部门")["薪资"].transform(
+# Scenario: within-group standardization (subtract mean and divide by std for each group)
+df["Salary_Standardized"] = df.groupby("Department")["Salary"].transform(
     lambda x: (x - x.mean()) / x.std() if x.std() > 0 else 0
 )
 ```
 
-:::tip transform vs agg 的区别
-- `agg`：每组返回**一个值**（汇总），结果行数 = 组数
-- `transform`：每组返回**和原来一样多的值**，结果行数 = 原始行数
+:::tip The difference between `transform` and `agg`
+- `agg`: returns **one value per group** (summary), so the number of rows equals the number of groups
+- `transform`: returns **the same number of values as the original data**, so the number of rows equals the original number of rows
 
 ```python
-# agg: 3 个部门 → 3 行
-df.groupby("部门")["薪资"].agg("mean")
+# agg: 3 departments → 3 rows
+df.groupby("Department")["Salary"].agg("mean")
 
-# transform: 7 个人 → 7 行（每人对应其部门的均值）
-df.groupby("部门")["薪资"].transform("mean")
+# transform: 7 people → 7 rows (each person gets their department mean)
+df.groupby("Department")["Salary"].transform("mean")
 ```
 :::
 
-### 一个很适合初学者先记的对比表
+### A comparison table that is very useful for beginners to remember first
 
-| 方法 | 最值得先记住的返回结果 |
+| Method | The most important result to remember |
 |---|---|
-| `agg` | 每组一条汇总结果 |
-| `transform` | 行数不变，只是补一列“组内统计” |
-| `filter` | 把整组留下或删掉 |
-| `pivot_table` | 把结果整理成交叉表 |
+| `agg` | One summary result per group |
+| `transform` | Same number of rows, just add a “group statistic” column |
+| `filter` | Keep or remove entire groups |
+| `pivot_table` | Organize results into a cross table |
 
-这个表特别适合新人，因为它能把最容易混的几种方式重新拉开。
+This table is especially useful for beginners because it helps separate several easily confused methods again.
 
 ---
 
-## filter：分组过滤
+## `filter`: group-wise filtering
 
-`filter` 根据条件保留或排除整个组：
+`filter` keeps or removes whole groups based on a condition:
 
 ```python
-# 只保留平均薪资 > 20000 的部门
-result = df.groupby("部门").filter(lambda x: x["薪资"].mean() > 20000)
+# Keep only departments with average salary > 20000
+result = df.groupby("Department").filter(lambda x: x["Salary"].mean() > 20000)
 print(result)
-# 只有"管理"部门的平均薪资 > 20000，所以只保留管理部门的人
+# Only the "Management" department has an average salary > 20000, so only people in Management are kept
 
-# 只保留人数 >= 3 的部门
-result = df.groupby("部门").filter(lambda x: len(x) >= 3)
+# Keep only departments with at least 3 people
+result = df.groupby("Department").filter(lambda x: len(x) >= 3)
 print(result)
 ```
 
 ---
 
-## 数据透视表（pivot_table）
+## Pivot tables (`pivot_table`)
 
-透视表是 Excel 用户最熟悉的功能——Pandas 也完美支持。
+Pivot tables are a very familiar feature for Excel users — and Pandas supports them perfectly.
 
 ```python
-# 准备销售数据
+# Prepare sales data
 sales = pd.DataFrame({
-    "日期": ["1月", "1月", "2月", "2月", "1月", "2月"],
-    "商品": ["苹果", "牛奶", "苹果", "牛奶", "面包", "面包"],
-    "销量": [50, 30, 60, 25, 40, 45],
-    "金额": [250, 240, 300, 200, 120, 135]
+    "Month": ["Jan", "Jan", "Feb", "Feb", "Jan", "Feb"],
+    "Product": ["Apple", "Milk", "Apple", "Milk", "Bread", "Bread"],
+    "SalesVolume": [50, 30, 60, 25, 40, 45],
+    "Amount": [250, 240, 300, 200, 120, 135]
 })
 
-# 透视表：每月每种商品的总销量
+# Pivot table: total sales volume of each product by month
 pivot = pd.pivot_table(
     sales,
-    values="销量",        # 聚合的值
-    index="商品",         # 行
-    columns="日期",       # 列
-    aggfunc="sum"         # 聚合方式
+    values="SalesVolume",        # Value to aggregate
+    index="Product",             # Rows
+    columns="Month",             # Columns
+    aggfunc="sum"                # Aggregation method
 )
 print(pivot)
-# 日期   1月   2月
-# 商品
-# 牛奶   30   25
-# 苹果   50   60
-# 面包   40   45
+# Month   Jan   Feb
+# Product
+# Milk     30   25
+# Apple    50   60
+# Bread    40   45
 
-# 多个聚合
+# Multiple aggregations
 pivot2 = pd.pivot_table(
     sales,
-    values="金额",
-    index="商品",
-    columns="日期",
+    values="Amount",
+    index="Product",
+    columns="Month",
     aggfunc=["sum", "mean"],
-    margins=True              # 添加合计行和列
+    margins=True              # Add total rows and columns
 )
 print(pivot2)
 ```
 
-### 交叉表（crosstab）
+### Crosstab
 
 ```python
-# 统计部门和级别的人数分布
-ct = pd.crosstab(df2["部门"], df2["级别"])
+# Count the distribution of people across departments and levels
+ct = pd.crosstab(df2["Department"], df2["Level"])
 print(ct)
-# 级别  初级  高级
-# 部门
-# 市场    2    1
-# 技术    2    1
+# Level  Junior  Senior
+# Department
+# Marketing    2    1
+# Engineering  2    1
 
-# 加上合计和占比
-ct2 = pd.crosstab(df2["部门"], df2["级别"], margins=True, normalize="index")
-print(ct2)  # 每行占比（各部门中初级/高级的比例）
+# Add totals and proportions
+ct2 = pd.crosstab(df2["Department"], df2["Level"], margins=True, normalize="index")
+print(ct2)  # Row-wise proportions (the share of Junior/Senior within each department)
 ```
 
 ---
 
-## 实战：销售数据分组分析
+## Practice: sales data grouping analysis
 
 ```python
 import pandas as pd
@@ -351,70 +349,70 @@ np.random.seed(42)
 n = 200
 
 orders = pd.DataFrame({
-    "月份": np.random.choice(["1月", "2月", "3月", "4月"], n),
-    "区域": np.random.choice(["华东", "华南", "华北", "西南"], n),
-    "商品": np.random.choice(["手机", "电脑", "耳机", "平板"], n),
-    "销量": np.random.randint(1, 50, n),
-    "单价": np.random.choice([99, 299, 999, 2999, 5999], n)
+    "Month": np.random.choice(["Jan", "Feb", "Mar", "Apr"], n),
+    "Region": np.random.choice(["East China", "South China", "North China", "Southwest"], n),
+    "Product": np.random.choice(["Phone", "Computer", "Headphones", "Tablet"], n),
+    "SalesVolume": np.random.randint(1, 50, n),
+    "UnitPrice": np.random.choice([99, 299, 999, 2999, 5999], n)
 })
-orders["金额"] = orders["销量"] * orders["单价"]
+orders["Amount"] = orders["SalesVolume"] * orders["UnitPrice"]
 
-# 1. 每个区域的总销售额
-print(orders.groupby("区域")["金额"].sum().sort_values(ascending=False))
+# 1. Total sales amount for each region
+print(orders.groupby("Region")["Amount"].sum().sort_values(ascending=False))
 
-# 2. 每种商品的平均销量和总金额
-print(orders.groupby("商品").agg(
-    平均销量=("销量", "mean"),
-    总金额=("金额", "sum"),
-    订单数=("金额", "count")
+# 2. Average sales volume and total amount for each product
+print(orders.groupby("Product").agg(
+    AverageSalesVolume=("SalesVolume", "mean"),
+    TotalAmount=("Amount", "sum"),
+    OrderCount=("Amount", "count")
 ))
 
-# 3. 透视表：区域 × 商品的总金额
-print(pd.pivot_table(orders, values="金额", index="区域", columns="商品", aggfunc="sum"))
+# 3. Pivot table: total amount by region × product
+print(pd.pivot_table(orders, values="Amount", index="Region", columns="Product", aggfunc="sum"))
 
-# 4. 每个月销售额最高的区域
-monthly_top = orders.groupby(["月份", "区域"])["金额"].sum().reset_index()
-idx = monthly_top.groupby("月份")["金额"].idxmax()
+# 4. The region with the highest sales amount in each month
+monthly_top = orders.groupby(["Month", "Region"])["Amount"].sum().reset_index()
+idx = monthly_top.groupby("Month")["Amount"].idxmax()
 print(monthly_top.loc[idx])
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 操作 | 方法 | 返回行数 | 用途 |
+| Operation | Method | Number of rows returned | Use case |
 |------|------|---------|------|
-| 基本聚合 | `groupby().mean()` 等 | 组数 | 汇总统计 |
-| 多重聚合 | `groupby().agg()` | 组数 | 多种统计量 |
-| 分组转换 | `groupby().transform()` | 原始行数 | 生成新列 |
-| 分组过滤 | `groupby().filter()` | ≤ 原始行数 | 按条件保留组 |
-| 透视表 | `pivot_table()` | 行值种数 | 交叉统计 |
-| 交叉表 | `crosstab()` | 行值种数 | 频次统计 |
+| Basic aggregation | `groupby().mean()` etc. | Number of groups | Summary statistics |
+| Multiple aggregations | `groupby().agg()` | Number of groups | Multiple statistics |
+| Group-wise transformation | `groupby().transform()` | Original number of rows | Create new columns |
+| Group-wise filtering | `groupby().filter()` | ≤ original number of rows | Keep groups by condition |
+| Pivot table | `pivot_table()` | Number of unique row values | Cross-tabulation |
+| Crosstab | `crosstab()` | Number of unique row values | Frequency statistics |
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：基本分组
+### Exercise 1: basic grouping
 
 ```python
-# 用上面的 orders 数据
-# 1. 按月份统计平均客单价（金额/销量）
-# 2. 哪个月份哪种商品的销量最高？
-# 3. 每个区域卖得最好的商品是什么？
+# Use the orders data above
+# 1. Calculate the average order value by month (amount / volume)
+# 2. Which month and product had the highest sales volume?
+# 3. Which product sold best in each region?
 ```
 
-### 练习 2：transform 应用
+### Exercise 2: `transform` practice
 
 ```python
-# 1. 给每个订单添加"区域平均金额"列
-# 2. 标记每个订单的金额是否高于其所在区域的平均水平
-# 3. 计算每个订单金额占其区域总金额的百分比
+# 1. Add a "region average amount" column to each order
+# 2. Mark whether each order amount is above the average of its region
+# 3. Calculate what percentage each order amount contributes to the total amount of its region
 ```
 
-### 练习 3：透视表
+### Exercise 3: pivot tables
 
 ```python
-# 1. 创建一个透视表：行=区域，列=月份，值=总金额，带合计
-# 2. 哪个区域在哪个月份的销售额最高？
+# 1. Create a pivot table: rows = region, columns = month, values = total amount, with totals
+# 2. In which month did each region have the highest sales amount?
 ```

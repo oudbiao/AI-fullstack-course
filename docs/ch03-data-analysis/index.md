@@ -1,95 +1,95 @@
 ---
-title: "3 数据分析与可视化"
+title: "3 Data Analysis and Visualization"
 sidebar_position: 0
-description: "学习 NumPy、Pandas、数据清洗、统计分析和可视化，建立进入机器学习、RAG 评估和 AI 应用分析所需的数据能力。"
-keywords: [NumPy, Pandas, Matplotlib, Seaborn, 数据分析, 数据可视化, Python数据分析]
+description: "Learn NumPy, Pandas, data cleaning, statistical analysis, and visualization to build the data skills needed for machine learning, RAG evaluation, and AI application analytics."
+keywords: [NumPy, Pandas, Matplotlib, Seaborn, data analysis, data visualization, Python data analysis]
 ---
 
-# 3 数据分析与可视化
+# 3 Data Analysis and Visualization
 
-![数据分析与可视化主视觉](/img/course/ch03-data-visualization.png)
+![Main visual for data analysis and visualization](/img/course/ch03-data-visualization-en.png)
 
-这一阶段解决的是“能不能理解数据、整理数据、发现规律并表达结论”。无论你后面做机器学习、RAG、Agent 还是产品数据分析，数据能力都是底层能力。
+This stage is about answering: “Can I understand data, organize data, discover patterns, and explain conclusions?” Whether you later work on machine learning, RAG, Agents, or product analytics, data skills are a foundational capability.
 
-## 故事化导入：像数据侦探一样办案
+## Story-based introduction: investigate like a data detective
 
-进入这一阶段，你可以把自己想象成一名数据侦探。CSV、Excel、日志和数据库表就像一堆线索：有些线索缺失，有些线索重复，有些线索看起来正常但其实是异常值。你的任务不是立刻套模型，而是先把线索整理干净，再用统计和图表找出规律，最后讲出一个可信的结论。
+As you enter this stage, imagine yourself as a data detective. CSV files, Excel sheets, logs, and database tables are like a pile of clues: some clues are missing, some are duplicated, and some look normal but are actually outliers. Your job is not to jump straight into a model. First, clean up the clues, then use statistics and charts to find patterns, and finally tell a trustworthy conclusion.
 
-## 学习闯关地图
+## Learning quest map
 
-![数据分析学习闯关地图](/img/course/ch03-learning-quest-map.png)
+![Data analysis learning quest map](/img/course/ch03-learning-quest-map-en.png)
 
-## 互动练习：每个数据集都做三次提问
+## Interactive practice: ask every dataset three questions
 
-第一次提问看“它是什么”：有多少行、多少列、每列代表什么。第二次提问看“它干不干净”：缺失值在哪里、异常值在哪里、类型是否正确。第三次提问看“它说明什么”：哪个变量最高、哪个趋势最明显、哪个分组差异值得继续研究。
+The first question asks “What is it?”: How many rows, how many columns, and what does each column mean? The second question asks “Is it clean?”: Where are the missing values, where are the outliers, and are the data types correct? The third question asks “What does it tell us?”: Which variable is highest, which trend is most obvious, and which group differences are worth further study?
 
-## 项目彩蛋
+## Project bonus
 
-本阶段的彩蛋作品是一份真正可展示的数据分析报告。你可以把它做成 Notebook，也可以整理成图文报告：开头提出问题，中间展示清洗和分析过程，最后给出结论和下一步建模建议。后面学机器学习时，这份报告可以直接升级成“从数据分析到预测模型”的完整项目。
+The bonus project for this stage is a truly presentable data analysis report. You can build it as a Notebook, or organize it as a visual report: start with the question, show the cleaning and analysis process in the middle, and end with conclusions and next-step modeling suggestions. When you later learn machine learning, this report can be upgraded directly into a complete “from data analysis to prediction model” project.
 
-## 阶段定位
+## Stage overview
 
-| 信息 | 说明 |
+| Information | Description |
 |---|---|
-| 适合对象 | 已经能写基础 Python，希望进入数据和 AI 项目的学习者 |
-| 预估学时 | 80～120 小时 |
-| 前置要求 | 完成 Python 编程基础 |
-| 阶段产出 | 一个完整的数据分析报告，一个多来源数据整理项目 |
+| Suitable for | Learners who can already write basic Python and want to move into data and AI projects |
+| Estimated time | 80–120 hours |
+| Prerequisites | Completed Python programming basics |
+| Stage output | A complete data analysis report, and a multi-source data organization project |
 
-## 新手最小通关路线
+## Minimum path for beginners
 
-新手先学会读取数据、查看字段、处理缺失值、做基础筛选和分组统计，再用 Matplotlib 或 Seaborn 画出能解释问题的图。只要能完成一份从数据读取到结论总结的 Notebook 报告，就算完成最小通关。
+Beginners should first learn how to read data, inspect fields, handle missing values, do basic filtering and grouping statistics, and then use Matplotlib or Seaborn to draw charts that explain the problem. As long as you can complete a Notebook report from reading data to summarizing conclusions, you have passed the minimum path.
 
-## 进阶深入路线
+## Advanced path
 
-有经验的学习者可以深入多来源数据合并、时间序列、数据库读取、可视化叙事和分析报告结构。进一步尝试把数据清洗过程写成可复用函数，并为后续机器学习项目输出干净的数据集。
+Experienced learners can go deeper into multi-source data merging, time series, database access, visualization storytelling, and analysis report structure. You can further try turning the data cleaning process into reusable functions and output a clean dataset for future machine learning projects.
 
-## 新人先做什么，进阶再做什么
+## What beginners should do first, and what advanced learners should do later
 
-新人第一次学这一阶段时，先把数据当成“需要清理的表格”。能读入数据、看懂列含义、处理缺失值、画出关键图表、写出三条结论，就已经抓住主线。
+When beginners study this stage for the first time, treat data as “tables that need cleaning.” If you can load data, understand column meanings, handle missing values, draw key charts, and write three conclusions, you have already grasped the main thread.
 
-有经验的学习者可以把重点放在分析可信度上：数据来源是否可靠，清洗规则是否可解释，图表是否误导，结论有没有边界。你的目标不是画更多图，而是做出能支撑后续建模和业务判断的数据分析。
+Experienced learners can focus more on the reliability of the analysis: Is the data source trustworthy? Are the cleaning rules explainable? Do the charts mislead? Do the conclusions have boundaries? Your goal is not to draw more charts, but to produce data analysis that can support later modeling and business decisions.
 
-## 为什么 AI 离不开数据
+## Why AI cannot do without data
 
-模型并不是从空气中学习。数据的质量、结构、分布和标注方式会直接影响模型结果。即使你未来主要做大模型应用，也会遇到文档清洗、日志分析、评估集构造、用户反馈统计和检索质量分析。
+Models do not learn from thin air. Data quality, structure, distribution, and labeling methods directly affect model results. Even if you mainly work on large model applications in the future, you will still encounter document cleaning, log analysis, evaluation set construction, user feedback statistics, and retrieval quality analysis.
 
-![数据分析主线闭环](/img/course/ch03-data-analysis-backbone.png)
+![Main workflow loop of data analysis](/img/course/ch03-data-analysis-backbone-en.png)
 
-## 本阶段学习路径
+## Learning path for this stage
 
-第一章用纯 Python 处理数据，让你体会为什么需要 NumPy 和 Pandas。
+Chapter 1 uses pure Python to process data, helping you feel why NumPy and Pandas are needed.
 
-第二章学习 NumPy。你会理解数组、向量化、广播、矩阵运算和随机统计，这些概念会在机器学习和深度学习里反复出现。
+Chapter 2 teaches NumPy. You will understand arrays, vectorization, broadcasting, matrix operations, and random statistics. These concepts will appear again and again in machine learning and deep learning.
 
-第三章学习 Pandas。你会处理表格数据、读写文件、筛选过滤、清洗缺失值、分组聚合、合并数据和处理时间序列。
+Chapter 3 teaches Pandas. You will work with tabular data, read and write files, filter and select, clean missing values, group and aggregate, merge data, and handle time series.
 
-第四章学习可视化。你会用图表表达分布、趋势、关系和异常，而不是只把结果打印成表格。
+Chapter 4 teaches visualization. You will use charts to express distributions, trends, relationships, and anomalies, rather than just printing results as tables.
 
-第五章数据库是选修，但如果你想做真实应用或企业数据项目，建议至少理解关系型数据库和 SQL 基础。
+Chapter 5 databases are optional, but if you want to work on real applications or enterprise data projects, it is recommended that you at least understand relational databases and the basics of SQL.
 
-## 学完后你应该能做到
+## What you should be able to do after finishing this stage
 
-- 能读取 CSV、Excel、JSON 等常见数据文件
-- 能用 Pandas 完成筛选、清洗、转换、聚合和合并
-- 能用 NumPy 理解数组计算和基础统计
-- 能选择合适图表表达数据结论
-- 能把数据分析过程整理成 Notebook 或报告
-- 能为后续机器学习项目准备干净的数据集
+- Read common data files such as CSV, Excel, and JSON
+- Use Pandas to filter, clean, transform, aggregate, and merge data
+- Use NumPy to understand array computation and basic statistics
+- Choose appropriate charts to present data conclusions
+- Organize the data analysis process into a Notebook or report
+- Prepare clean datasets for future machine learning projects
 
-## 常见误区
+## Common mistakes
 
-不要把数据分析学成“背 API”。Pandas 方法很多，第一遍不需要全部记住。你更应该理解数据处理的流程：先看数据长什么样，再查缺失和异常，再做转换和统计，最后用图表验证判断。
+Do not turn data analysis into “memorizing APIs.” Pandas has many methods, and you do not need to remember them all the first time. You should understand the workflow of data processing: first inspect what the data looks like, then check missing values and anomalies, then perform transformations and statistics, and finally use charts to verify your judgment.
 
-也不要只画漂亮图。图表的目的不是装饰，而是回答问题。每张图都应该对应一个明确问题，比如“哪个特征和目标最相关”“是否存在明显异常”“不同类别之间有什么差异”。
+Also, do not just make pretty charts. The purpose of a chart is not decoration, but answering questions. Each chart should correspond to a clear question, such as “Which feature is most related to the target?”, “Is there a clear anomaly?”, or “What differences exist between groups?”
 
-## 数据错误剧场：图表和结论为什么会骗人
+## Data failure theater: why charts and conclusions can mislead
 
-如果图表看起来很漂亮但结论奇怪，先检查数据是否有缺失、重复、异常值和单位混乱；如果分组结果不符合直觉，检查分类字段是否有空格、大小写或编码问题；如果相关性很高，先问是否只是共同受时间、规模或采样方式影响。
+If a chart looks beautiful but the conclusion is strange, first check whether the data has missing values, duplicates, outliers, or inconsistent units. If grouped results do not match intuition, check whether the category fields contain spaces, case differences, or encoding issues. If the correlation looks very high, first ask whether it is only influenced by time, scale, or the sampling method.
 
-## 最小可运行实验：从脏数据到一张可信图表
+## Minimum runnable experiment: from dirty data to one trustworthy chart
 
-本阶段最小实验是准备一个包含缺失值、重复行和异常值的小 CSV，完成读取、检查、清洗、统计和可视化。你要证明自己不是只会调用 Pandas API，而是能解释每一步为什么这样处理。
+The minimum experiment for this stage is to prepare a small CSV with missing values, duplicate rows, and outliers, then complete reading, inspection, cleaning, statistics, and visualization. You need to prove that you are not just calling the Pandas API, but can explain why each step is handled that way.
 
 ```python
 import pandas as pd
@@ -103,63 +103,61 @@ summary = clean_df.groupby("topic")["minutes"].sum().sort_values(ascending=False
 print(summary)
 ```
 
-真正的通过标准不是代码能跑，而是你能说明：哪些数据被改了，为什么改，对结论有什么影响。
+The real pass criterion is not whether the code runs, but whether you can explain: which data was changed, why it was changed, and what impact it had on the conclusion.
 
-## 数据失败案例库：先查字段、单位和样本来源
+## Data failure case library: check fields, units, and sample sources first
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Phenomenon | Common cause | How to locate it | Fix direction |
 |---|---|---|---|
-| 图表好看但结论不可信 | 缺失、重复、异常值未处理 | 查看 `info()`、缺失统计和分布 | 记录清洗规则和影响范围 |
-| 分组统计结果异常 | 类别字段有空格、大小写或别名 | 打印唯一值和频次 | 统一字段命名和类别映射 |
-| 相关性看起来很高 | 共同受时间、规模或采样方式影响 | 分层对比、画散点图 | 加入业务解释和局限说明 |
-| Notebook 无法复现 | 数据路径、依赖或执行顺序混乱 | 从头重启运行 | 固定数据路径、依赖和执行顺序 |
+| Charts look nice but the conclusion is untrustworthy | Missing values, duplicates, or outliers were not handled | Check `info()`, missing-value statistics, and distributions | Record cleaning rules and the scope of impact |
+| Grouped statistics look abnormal | Category fields contain spaces, case differences, or aliases | Print unique values and frequencies | Normalize field names and category mappings |
+| Correlation looks very high | Influenced by time, scale, or sampling method | Compare by strata, draw scatter plots | Add business explanation and limitation notes |
+| Notebook cannot be reproduced | Data path, dependencies, or execution order is messy | Restart and run from the beginning | Fix the data path, dependencies, and execution order |
 
-## 阶段验收 Rubric
+## Stage evaluation rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Evaluation standard | Portfolio evidence |
 |---|---|---|
-| 最低通关 | 能读取、清洗、统计并画出关键图表 | Notebook、CSV、图表输出 |
-| 推荐通关 | 能围绕问题写出数据分析报告 | 数据字典、清洗记录、结论说明 |
-| 作品集通关 | 能解释数据限制和后续建模风险 | 失败样本、局限性、可复现运行说明 |
+| Minimum pass | Can read, clean, summarize, and draw key charts | Notebook, CSV, chart outputs |
+| Recommended pass | Can write a data analysis report around a question | Data dictionary, cleaning log, conclusion notes |
+| Portfolio pass | Can explain data limitations and future modeling risks | Failure samples, limitations, reproducible run notes |
 
-## 阶段项目
+## Stage project
 
-基础版是选择一个公开 CSV 数据集，完成字段理解、缺失值检查、基础统计和 3～5 张关键图表。标准版需要把分析过程整理成结构完整的 Notebook 或报告，包含问题、清洗、分析、结论和下一步建议。挑战版可以整合多个数据源，加入数据库或网页数据，并形成一个更接近真实业务的数据分析流程。
+The basic version is to choose a public CSV dataset and complete field understanding, missing-value checks, basic statistics, and 3–5 key charts. The standard version requires organizing the analysis process into a complete Notebook or report, including the question, cleaning, analysis, conclusions, and next-step suggestions. The challenge version can integrate multiple data sources, add database or web data, and form a data analysis workflow closer to real business scenarios.
 
+## Fun task cards for this stage
 
-## 本阶段趣味任务卡
-
-| 玩法 | 本阶段任务 |
+| Play style | Task for this stage |
 |---|---|
-| 剧情任务 | 让助手看懂学习记录：发现缺失、重复、异常值，并把结论画成可信图表。 |
-| Boss 战 | **脏数据侦探** |
-| 可解锁徽章 | 脏数据侦探、图表讲述者 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | 数据质量检查表和一张有解释的图 |
+| Story mission | Let the assistant understand learning records: find missing values, duplicates, and outliers, and turn the conclusions into trustworthy charts. |
+| Boss fight | **Dirty Data Detective** |
+| Unlockable badges | Dirty Data Detective, Chart Storyteller |
+| Beginner easy mode | Complete only one minimum input-to-output loop, and keep a run screenshot or command output |
+| Portfolio evidence | Data quality checklist and one chart with explanation |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If this stage feels like a lot, treat this task card as your minimum target first. Once you can complete beginner easy mode, you can keep going; later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| 数据分析 Notebook | 完成读取、清洗、统计和图表 | 有问题定义、清洗规则、关键发现和局限 |
-| 数据质量记录 | 标出缺失、重复和异常值 | 说明处理理由、影响范围和保留/删除依据 |
-| 可视化结果 | 画出 3～5 张关键图表 | 每张图都有问题、结论和误导风险说明 |
-| 分析报告 | 写出 3 条结论 | 能连接业务问题、后续建模和数据限制 |
-| 可复现说明 | 写清数据来源和运行方式 | 有数据字典、依赖、随机种子或版本记录 |
+| Data analysis Notebook | Complete reading, cleaning, statistics, and charts | Includes problem definition, cleaning rules, key findings, and limitations |
+| Data quality record | Mark missing values, duplicates, and outliers | Explains the reason for handling, impact scope, and basis for keeping/deleting |
+| Visualization results | Draw 3–5 key charts | Each chart includes the question, conclusion, and misleading-risk notes |
+| Analysis report | Write 3 conclusions | Can connect business questions, future modeling, and data limitations |
+| Reproducibility notes | Clearly state data source and how to run | Includes data dictionary, dependencies, random seed, or version records |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship with the AI learning assistant throughout the project
 
-本阶段可以对应 AI 学习助手 v0.3：分析学习记录，统计学习时长、完成率和拖延主题，并生成图表。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can correspond to AI Learning Assistant v0.3: analyze learning records, count study time, completion rate, and procrastination topics, and generate charts. If you are following the end-to-end project path, it is recommended that by the end of this stage you submit at least one version record: what capabilities were added, how to run it, what the sample inputs and outputs are, what problems were encountered, and what you plan to improve next.
 
+## Stage completion criteria
 
-## 阶段通关标准
-
-| 通关层级 | 你需要做到什么 |
+| Pass level | What you need to do |
 |---|---|
-| 最低通关 | 能用 NumPy、Pandas、SQL 和可视化工具完成一份数据分析报告。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum pass | Can use NumPy, Pandas, SQL, and visualization tools to complete a data analysis report. |
+| Recommended pass | Complete at least one runnable mini project for this stage, and record the run method, sample inputs and outputs, and problems encountered in the README. |
+| Portfolio pass | Connect the output of this stage to the “AI Learning Assistant” end-to-end project, leaving screenshots, logs, evaluation examples, and a next-step plan. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。下一阶段会用这些数据直觉理解概率、向量、梯度和模型评估。
+After finishing this stage, you do not need to memorize every detail. What matters more is that you can clearly explain: what problem this stage solves, how it relates to the previous stage, and how it supports future learning. The next stage will use this data intuition to understand probability, vectors, gradients, and model evaluation.

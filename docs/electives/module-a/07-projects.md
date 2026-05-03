@@ -1,99 +1,99 @@
 ---
-title: "1.7 部署综合项目"
+title: "1.7 Deployment Integrated Project"
 sidebar_position: 7
-description: "把 C++、优化、推理引擎、服务化和边缘部署串成一个完整作品，做一个可展示的轻量模型部署项目。"
+description: "Combine C++, optimization, inference engines, service deployment, and edge deployment into one complete project, and build a lightweight model deployment project that can be shown in a portfolio."
 keywords: [deployment project, edge inference, model serving, optimization, portfolio project]
 ---
 
-# 部署综合项目
+# Deployment Integrated Project
 
-:::tip 本节定位
-前面这一组选修课讲了不少零件：
+:::tip Section Positioning
+This earlier set of elective lessons covered quite a few building blocks:
 
-- C++ 基础
-- 资源管理
-- 模型优化
-- 推理引擎
-- 边缘部署
-- 模型服务化
+- C++ basics
+- Resource management
+- Model optimization
+- Inference engines
+- Edge deployment
+- Model serving
 
-这一节要做的就是把这些零件装起来，形成一个能讲得清楚、也能展示得出来的项目。
+What we want to do in this section is assemble these pieces into a project that is easy to explain and easy to present.
 :::
 
-![部署综合项目交付闭环图](/img/course/elective-deployment-project-delivery-loop.png)
+![Deployment integrated project delivery loop](/img/course/elective-deployment-project-delivery-loop-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 学会把“模型部署能力”组织成一个可展示项目
-- 理解部署类项目和训练类项目在展示重点上的差异
-- 通过一个可运行示例建立项目骨架
-- 知道该如何展示性能、资源占用和稳定性
-
----
-
-## 一、部署类项目最该展示什么？
-
-### 1.1 不是“模型多强”，而是“系统多稳”
-
-部署项目最有说服力的通常不是：
-
-- 单次样例多惊艳
-
-而是：
-
-- 延迟如何
-- 吞吐如何
-- 内存占用如何
-- 部署环境如何
-- 回滚和监控是否考虑到
-
-### 1.2 一个适合新手的项目题目
-
-很适合做成作品集的题目例如：
-
-> **轻量图像分类服务：支持本地推理、批量处理和边缘设备适配。**
-
-这个题目好在：
-
-- 输入明确
-- 输出明确
-- 可以比较不同部署方案
-- 可以展示优化与服务化
-
-### 1.3 为什么这个题目比“做个超大通用系统”更好？
-
-因为部署类项目最怕范围太大。  
-清晰、可测、可展示，比功能铺得太散更重要。
+- Learn how to organize “model deployment capabilities” into a presentable project
+- Understand the difference in presentation focus between deployment projects and training projects
+- Build a project skeleton through a runnable example
+- Know how to present performance, resource usage, and stability
 
 ---
 
-## 二、一个部署综合项目最小应包含哪些模块？
+## 1. What should a deployment project highlight most?
 
-建议至少包含：
+### 1.1 Not “how strong the model is,” but “how stable the system is”
 
-1. 模型准备  
-   例如导出、量化或格式转换
-2. 推理执行  
-   例如选定一个推理引擎
-3. 服务接口  
-   例如 HTTP 或本地批处理接口
-4. 指标统计  
-   延迟、吞吐、内存
-5. 部署说明  
-   环境、硬件、启动方式
+The most convincing things in a deployment project are usually not:
 
-如果时间允许，再补：
+- how impressive a single example looks
 
-- 边缘设备版本
-- 灰度或版本切换
-- 更完整监控
+Instead, they are:
+
+- What is the latency?
+- What is the throughput?
+- How much memory does it use?
+- What does the deployment environment look like?
+- Are rollback and monitoring considered?
+
+### 1.2 A project topic suitable for beginners
+
+A good portfolio project topic could be:
+
+> **Lightweight image classification service: supports local inference, batch processing, and edge device adaptation.**
+
+This topic is good because:
+
+- the input is clear
+- the output is clear
+- different deployment solutions can be compared
+- optimization and service deployment can be shown
+
+### 1.3 Why is this topic better than “building a huge general-purpose system”?
+
+Because deployment projects are most afraid of being too broad.
+Clear, testable, and presentable is more important than spreading features too thin.
 
 ---
 
-## 三、先跑一个项目骨架示例
+## 2. What modules should a deployment integrated project minimally include?
 
-这个示例不会真的起服务，  
-但会把一个部署项目最关键的规划结构直接表达出来：
+At minimum, it should include:
+
+1. Model preparation
+   For example, exporting, quantization, or format conversion
+2. Inference execution
+   For example, choosing an inference engine
+3. Service interface
+   For example, an HTTP interface or a local batch-processing interface
+4. Metric collection
+   Latency, throughput, memory
+5. Deployment documentation
+   Environment, hardware, startup method
+
+If time allows, add:
+
+- an edge device version
+- canary release or version switching
+- more complete monitoring
+
+---
+
+## 3. First run a project skeleton example
+
+This example will not actually start a service,
+but it directly expresses the most important planning structure of a deployment project:
 
 ```python
 from dataclasses import dataclass, field
@@ -138,130 +138,130 @@ project = DeploymentProject(
 print(project)
 ```
 
-### 3.1 这个示例为什么有用？
+### 3.1 Why is this example useful?
 
-因为部署项目最怕只剩：
+Because in a deployment project, the biggest risk is ending up with only:
 
-- “我做了很多优化”
+- “I did a lot of optimization”
 
-却说不清：
+but not being able to explain clearly:
 
-- 部署对象是什么
-- 跑在什么设备上
-- 核心模块有哪些
-- 用什么指标证明成果
+- What is the deployment target?
+- What device is it running on?
+- What are the core modules?
+- What metrics prove the result?
 
-这个结构化骨架恰好逼你把这些说清楚。
+This structured skeleton forces you to make those points clear.
 
-### 3.2 为什么部署项目一定要带指标？
+### 3.2 Why must a deployment project include metrics?
 
-因为没有指标，  
-别人很难判断你的优化是否真的有价值。
+Because without metrics,
+it is hard for others to judge whether your optimization is truly valuable.
 
-至少建议明确：
+At a minimum, it is recommended to clearly state:
 
-- 延迟
-- 吞吐
-- 内存或显存
-
----
-
-## 四、部署项目推荐的展示方式
-
-### 4.1 先讲问题和目标
-
-例如：
-
-- 想把一个轻量分类模型部署到边缘设备上
-- 要求离线推理
-- 目标延迟小于 100ms
-
-### 4.2 再讲系统结构
-
-例如：
-
-- 模型格式
-- 推理引擎
-- 服务架构
-- 目标硬件
-
-### 4.3 最后讲结果和取舍
-
-例如：
-
-- 为什么选 ONNX Runtime 而不是 TensorRT
-- 为什么 batch 没有继续调大
-- 为什么暂时没有做更激进量化
-
-这部分往往最能体现工程判断。
+- latency
+- throughput
+- memory or VRAM usage
 
 ---
 
-## 五、项目里最容易忽略的三件事
+## 4. Recommended presentation style for deployment projects
 
-### 5.1 环境复现
+### 4.1 Start with the problem and goals
 
-如果别人无法快速重现：
+For example:
 
-- 依赖版本
-- 启动命令
-- 输入样例
+- deploy a lightweight classification model to an edge device
+- offline inference is required
+- target latency is under 100ms
 
-项目说服力会下降很多。
+### 4.2 Then explain the system architecture
 
-### 5.2 基线对比
+For example:
 
-最好说明：
+- model format
+- inference engine
+- service architecture
+- target hardware
 
-- 优化前是什么样
-- 优化后改善了什么
+### 4.3 Finally, present the results and trade-offs
 
-### 5.3 失败案例
+For example:
 
-例如：
+- why choose ONNX Runtime instead of TensorRT
+- why the batch size was not increased further
+- why more aggressive quantization was not done yet
 
-- 某些设备上功耗太高
-- 大 batch 导致尾延迟太差
-
-把这些写出来，往往更说明你真的做过工程权衡。
-
----
-
-## 六、常见误区
-
-### 6.1 误区一：部署项目只要能跑通就行
-
-部署项目更该强调：
-
-- 性能
-- 稳定性
-- 可复现
-
-### 6.2 误区二：只展示界面，不展示指标
-
-对这类项目来说，指标比界面更重要。
-
-### 6.3 误区三：一上来就想覆盖云端、边缘、移动端全部场景
-
-更好的做法通常是：
-
-- 先选一个目标设备做透
+This part often shows engineering judgment best.
 
 ---
 
-## 小结
+## 5. Three things that are easiest to overlook in a project
 
-这节最重要的是建立一个部署项目观：
+### 5.1 Environment reproducibility
 
-> **部署综合项目最有价值的地方，不是模型本身多复杂，而是你能否把目标设备、引擎选择、服务结构、性能指标和工程取舍讲成一个完整闭环。**
+If others cannot quickly reproduce:
 
-只要这个闭环清楚，这类项目就很适合作为作品集展示。
+- dependency versions
+- startup commands
+- input examples
+
+the project’s credibility will drop a lot.
+
+### 5.2 Baseline comparison
+
+It is best to explain:
+
+- what it looked like before optimization
+- what improved after optimization
+
+### 5.3 Failure cases
+
+For example:
+
+- power consumption is too high on some devices
+- large batch sizes lead to poor tail latency
+
+Writing these down often better proves that you really made engineering trade-offs.
 
 ---
 
-## 练习
+## 6. Common misunderstandings
 
-1. 把示例里的目标设备从 `raspberry_pi_5` 改成别的设备，重新思考引擎和指标目标。
-2. 为你的项目再补一组“优化前 vs 优化后”的对比字段。
-3. 想一想：如果只能展示 3 个指标，你会优先展示哪 3 个？为什么？
-4. 你会如何把这个项目讲给面试官听，重点放在哪三部分？
+### 6.1 Misunderstanding 1: A deployment project only needs to run
+
+Deployment projects should emphasize more:
+
+- performance
+- stability
+- reproducibility
+
+### 6.2 Misunderstanding 2: Only show the interface, not the metrics
+
+For this kind of project, metrics matter more than the UI.
+
+### 6.3 Misunderstanding 3: Trying to cover cloud, edge, and mobile scenarios all at once
+
+A better approach is usually:
+
+- first choose one target device and go deep
+
+---
+
+## Summary
+
+The most important thing in this section is to build a deployment-project mindset:
+
+> **The most valuable part of a deployment integrated project is not how complex the model itself is, but whether you can turn the target device, engine choice, service structure, performance metrics, and engineering trade-offs into a complete closed loop.**
+
+As long as this loop is clear, this kind of project is very suitable for portfolio presentation.
+
+---
+
+## Exercises
+
+1. Change the target device in the example from `raspberry_pi_5` to another device, and rethink the engine and metric targets.
+2. Add another set of “before optimization vs. after optimization” comparison fields for your project.
+3. Think about this: if you can only show 3 metrics, which 3 would you prioritize? Why?
+4. How would you present this project to an interviewer, and what three parts would you focus on?

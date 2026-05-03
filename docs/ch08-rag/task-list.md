@@ -1,82 +1,82 @@
 ---
-title: "阶段学习任务单"
-description: "把 LLM 应用开发与 RAG 阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [RAG, LLM应用, 向量数据库, 学习任务单, AI应用工程]
+title: "Phase Learning Task Sheet"
+description: "Break the LLM application development and RAG phase into actionable learning tasks, practice deliverables, and completion criteria."
+keywords: [RAG, LLM applications, vector database, learning task sheet, AI application engineering]
 ---
 
-# 阶段学习任务单：LLM 应用开发与 RAG
+# Phase Learning Task Sheet: LLM Application Development and RAG
 
-这个阶段的目标是让你能把大模型接入真实应用，而不是只会在聊天框里提问。你需要掌握 API 调用、提示词、文档处理、向量检索、答案引用、评估和工程化部署。
+The goal of this phase is to help you integrate a large model into a real application, rather than only asking questions in a chat box. You need to master API calls, prompts, document processing, vector retrieval, answer citations, evaluation, and engineering deployment.
 
-## 本阶段必须完成的任务
+## Required Tasks for This Phase
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Passing Criteria |
 | --- | --- | --- |
-| 跑通 LLM API 调用 | 一个最小调用脚本 | 能处理 key、请求、响应、异常和重试 |
-| 完成文档处理 | 一份切分与清洗记录 | 能说明 chunk 大小、重叠、元数据和来源 |
-| 建立向量检索 | 一个最小检索 Demo | 能从问题检索到相关文档片段 |
-| 完成 RAG 问答 | 一个课程问答原型 | 回答包含来源引用，并能说明检索依据 |
-| 完成 RAG 评估 | 一份测试集与评估表 | 能记录命中率、答案质量、引用质量和失败样本 |
+| Get an LLM API call working | A minimal calling script | Can handle key, requests, responses, exceptions, and retries |
+| Complete document processing | A chunking and cleaning record | Can explain chunk size, overlap, metadata, and source |
+| Build vector retrieval | A minimal retrieval demo | Can retrieve relevant document fragments from a question |
+| Complete RAG Q&A | A course Q&A prototype | Answers include source citations and can explain the retrieval basis |
+| Complete RAG evaluation | A test set and evaluation table | Can record hit rate, answer quality, citation quality, and failure samples |
 
-## 推荐学习顺序
+## Recommended Learning Order
 
-先跑通模型 API，再处理文档和 embedding，然后建立向量检索，最后把检索结果和生成模型连接起来。不要一开始就引入复杂框架，先用最小代码理解 RAG 的输入输出边界。
+First get the model API working, then process documents and embeddings, then build vector retrieval, and finally connect the retrieval results to the generation model. Don’t introduce complex frameworks at the beginning; first use minimal code to understand the input/output boundaries of RAG.
 
-RAG 的关键不是“接了向量数据库”，而是能解释为什么这段文档被检索出来、答案是否真的由来源支持、哪些问题检索不到、哪些答案可能幻觉。
+The key to RAG is not “connecting a vector database,” but being able to explain why a document fragment was retrieved, whether the answer is truly supported by the source, which questions cannot be retrieved, and which answers may hallucinate.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI Learning Assistant Project
 
-本阶段对应 AI 学习助手的 v0.8 课程问答助手。它应该能读取课程 Markdown，建立索引，回答学习者问题，并给出引用来源。这个版本是贯穿项目从“学习记录工具”升级为“AI 助手”的关键节点。
+This phase corresponds to the v0.8 course Q&A assistant in the AI Learning Assistant project. It should be able to read course Markdown, build an index, answer learner questions, and provide citation sources. This version is the key milestone that upgrades the project from a “study log tool” to an “AI assistant.”
 
-建议最小功能包括：导入课程文档、按标题和正文切分、保存元数据、检索相关片段、生成回答、展示引用路径、记录问题和答案。标准版本再加入评估集、失败样本分析和配置化参数。
+Recommended minimum features include: importing course documents, chunking by headings and body text, saving metadata, retrieving relevant fragments, generating answers, displaying citation paths, and recording questions and answers. The standard version then adds an evaluation set, failure sample analysis, and configurable parameters.
 
-## 常见卡点
+## Common Sticking Points
 
-常见问题包括文档切分太碎或太大、metadata 丢失、embedding 模型和语言不匹配、检索命中但答案不用来源、答案看似正确但引用不支持、上下文太长导致成本和延迟过高。排查时要把检索结果和生成答案分开看。
+Common issues include document chunks that are too small or too large, lost metadata, mismatches between the embedding model and the language, retrieval hits where the answer does not use the source, answers that look correct but are not supported by citations, and context windows that are too long, causing excessive cost and latency. When debugging, separate the retrieval results from the generated answer and inspect them independently.
 
 
-## 轻松版 / 标准版 / 挑战版任务
+## Easy / Standard / Challenge Tasks
 
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Who it is for |
 |---|---|---|
-| 轻松版 | 完成 5 个带来源回答 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 完成 10 个评估问题和 citation_ok 检查 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 比较 chunk、top-k 或 rerank 策略的失败类型 | 已有基础、想做更强项目证据的学习者 |
+| Easy | Finish 5 answers with sources | First-time learners, those with limited time, or beginners |
+| Standard | Complete 10 evaluation questions and citation_ok checks | Learners who want to include this phase in their portfolio |
+| Challenge | Compare failure types across chunk, top-k, or rerank strategies | Learners with some foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## This Phase’s Badge and Boss Fight
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | 引用幻觉龙 |
-| 可解锁徽章 | RAG 引用警察、检索考古学家 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss Fight | Citation Hallucination Dragon |
+| Unlockable Badges | RAG Citation Police, Retrieval Archaeologist |
+| Minimum Completion Slogan | Get it working first, then explain it, then record failures |
+| Evidence Saving Suggestion | Save screenshots, logs, failure samples, or evaluation tables to `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+Once you complete the Easy version, you can move on. Only after completing the Standard version is it recommended to include it in your portfolio. Do the Challenge version only if you have extra capacity.
 
-## 阶段作品集交付物
+## Phase Portfolio Deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to turn this phase’s results into portfolio material, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `chunks.jsonl` | 文档切块结果，包含 text、source、section、page、content_type 等字段 |
-| `retrieval_logs.jsonl` | 每次 query 的 top-k、score、source 和命中文本摘要 |
-| `eval_questions.csv` | 固定评估问题、标准答案、应命中文档和关键引用 |
-| `failure_cases.md` | 检索失败、生成失败、引用失败、metadata 失败等样本 |
-| `rag_config.md` | chunk_size、overlap、top-k、rerank、prompt_version 等配置记录 |
-| `README.md` | 运行命令、示例输入输出、评估结果和改进计划 |
+| `chunks.jsonl` | Document chunking results, including fields such as text, source, section, page, and content_type |
+| `retrieval_logs.jsonl` | top-k, score, source, and retrieved text summaries for each query |
+| `eval_questions.csv` | Fixed evaluation questions, ground-truth answers, expected documents to hit, and key citations |
+| `failure_cases.md` | Samples of retrieval failures, generation failures, citation failures, metadata failures, etc. |
+| `rag_config.md` | Configuration records such as chunk_size, overlap, top-k, rerank, and prompt_version |
+| `README.md` | Run commands, example inputs and outputs, evaluation results, and improvement plans |
 
-这些文件不一定一开始就很完整，但它们会让你的 RAG 项目从“能回答”变成“能解释、能评估、能复盘”。
+These files do not need to be complete at the very beginning, but they will help turn your RAG project from “can answer” into “can explain, can evaluate, and can review.”
 
-## 阶段通关问题
+## Phase Completion Questions
 
-学完后，你应该能回答这些问题：RAG 解决了大模型的什么限制，chunk 大小会影响什么，embedding 和关键词检索有什么区别，为什么答案必须有引用，如何判断一次 RAG 失败是检索问题还是生成问题。
+After learning this phase, you should be able to answer these questions: what limitations of large models does RAG solve, what does chunk size affect, what is the difference between embedding and keyword retrieval, why must answers have citations, and how to determine whether a RAG failure is a retrieval problem or a generation problem.
 
-## 完成状态 Checklist
+## Completion Status Checklist
 
-- [ ] 我能独立完成一次 LLM API 调用，并处理异常和重试。
-- [ ] 我能说明文档切分、embedding、向量检索和生成回答之间的关系。
-- [ ] 我能查看检索到的原文片段，而不是只看最终答案。
-- [ ] 我已经完成一个带来源引用的 RAG 问答原型。
-- [ ] 我有一组固定评估问题，并记录了检索失败、引用失败或生成失败样本。
+- [ ] I can independently complete an LLM API call and handle exceptions and retries.
+- [ ] I can explain the relationship between document chunking, embedding, vector retrieval, and answer generation.
+- [ ] I can inspect the retrieved original text fragments, rather than only the final answer.
+- [ ] I have completed a RAG Q&A prototype with source citations.
+- [ ] I have a fixed set of evaluation questions and have recorded samples of retrieval failures, citation failures, or generation failures.

@@ -1,73 +1,73 @@
 ---
-title: "选修模块：经典 ML 补充算法"
+title: "Elective Module: Supplementary Classic ML Algorithms"
 sidebar_position: 0
-description: "经典机器学习补充 模块总览，帮助你理解学习顺序、适用场景和每节课之间的关系。"
+description: "Overview of the supplementary classic machine learning module, helping you understand the learning order, applicable scenarios, and the relationships between lessons."
 ---
 
-# 选修模块：经典 ML 补充算法
+# Elective Module: Supplementary Classic ML Algorithms
 
-:::tip 模块定位
-这些算法在很多中小数据任务里仍然很有价值，学它们是为了补全判断工具箱。
+:::tip Module Positioning
+These algorithms are still very valuable in many small- to medium-sized data tasks. Studying them helps complete your toolbox for making judgments.
 :::
 
-![经典 ML 补充算法模块地图](/img/course/elective-classic-ml-module-map.png)
+![Module map for supplementary classic ML algorithms](/img/course/elective-classic-ml-module-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解 经典机器学习补充 模块在整条学习路径里的定位
-- 知道本模块每一节课分别解决什么问题
-- 明确适合先学哪些、后学哪些
-- 用一个最小示例快速建立直觉
-
----
-
-## 一、这个模块在解决什么问题？
-
-### 1.1 模块定位
-
-经典机器学习补充 不是为了“多学一点内容”，而是为了补上某类经常决定工程上限的能力。
-
-你可以先把它理解成一组专题工具箱：
-
-- 遇到相关项目时再回来看
-- 不必一次学完
-- 但一旦进入对应场景，它们会非常有价值
-
-### 1.2 建议学习顺序
-
-比较稳妥的学习方式通常是：
-
-1. 先看总览，知道每节课大概做什么
-2. 先做最基础、最能马上派上用场的主题
-3. 再进入更偏工程或更偏项目的内容
+- Understand the role of the supplementary classic machine learning module in the overall learning path
+- Know what problem each lesson in this module solves
+- Be clear about which topics to learn first and which to learn later
+- Build intuition quickly with a minimal example
 
 ---
 
-## 二、本模块包含哪些主题？
+## 1. What problem does this module solve?
 
-### 2.1 章节清单
+### 1.1 Module Positioning
 
-| 章节 | 主题 |
+The purpose of the supplementary classic machine learning module is not to “learn a little more,” but to fill in capabilities that often determine the upper limit of engineering performance.
+
+You can first think of it as a set of topic-based toolboxes:
+
+- Come back to them when you encounter relevant projects
+- No need to finish everything at once
+- But once you enter the corresponding scenario, they become very valuable
+
+### 1.2 Recommended learning order
+
+A relatively safe learning approach is usually:
+
+1. First look at the overview to understand what each lesson is roughly about
+2. Start with the most basic topics that can be applied immediately
+3. Then move on to content that is more engineering-focused or project-oriented
+
+---
+
+## 2. What topics are included in this module?
+
+### 2.1 Chapter list
+
+| Chapter | Topic |
 |---|---|
-| 第一讲 | 支持向量机 |
-| 第二讲 | K 近邻 |
-| 第三讲 | 朴素贝叶斯 |
-| 第四讲 | 线性判别分析 |
+| Lesson 1 | Support Vector Machine |
+| Lesson 2 | K-Nearest Neighbors |
+| Lesson 3 | Naive Bayes |
+| Lesson 4 | Linear Discriminant Analysis |
 
-### 2.2 应该怎么使用这份模块？
+### 2.2 How should you use this module?
 
-一个很实用的策略是：
+A very practical strategy is:
 
-- 先用主线课程把整体跑通
-- 遇到专项需求时，再回到选修模块精修
+- First use the main course to get the overall workflow running
+- When you have a specific need, come back to the elective module for focused improvement
 
-这样不会因为专题太多而丢掉主线节奏。
+This way, you won’t lose the rhythm of the main learning path because there are too many specialized topics.
 
 ---
 
-## 三、一个最小可运行示例
+## 3. A minimal runnable example
 
-:::info 运行提示
+:::info Run Tip
 ```bash
 pip install numpy scikit-learn
 ```
@@ -85,49 +85,49 @@ clf.fit(X, y)
 print(clf.predict([[0.8, 0.9]]))
 ```
 
-### 3.2 这个示例想让你抓住什么？
+### 3.2 What should you take away from this example?
 
-这一小段代码不是为了覆盖整个模块，而是为了帮你迅速建立一个“这个模块到底在做什么”的感觉。
+This small piece of code is not meant to cover the whole module. Instead, it is meant to help you quickly build a sense of “what exactly does this module do?”
 
-阅读时优先看三件事：
+When reading it, focus on these three things first:
 
-- 输入是什么
-- 中间过程发生了什么
-- 输出如何对应到实际项目
-
----
-
-## 四、学习建议
-
-### 4.1 如果时间有限，优先学什么？
-
-优先学那些会在后续项目里高频出现、能立刻帮你降成本或提效率的主题。
-
-### 4.2 常见误区
-
-- 看到是选修就完全不学
-- 一上来想把所有选修全刷完
-- 只看概念，不跑最小示例
+- What the input is
+- What happens in the middle
+- How the output corresponds to a real project
 
 ---
 
-## 五、什么时候最适合回学这个模块？
+## 4. Learning recommendations
 
-下面这些信号出现时，说明你很适合回来补这一组内容：
+### 4.1 If time is limited, what should you learn first?
 
-- 你手头是中小数据任务，深度学习并不一定最合适
-- 你需要一个强 baseline，但不知道从哪开始
-- 你想提高自己对“为什么选这个模型”的判断力
-- 你想补足经典 ML 工具箱，而不是只会树模型和线性模型
+Prioritize topics that will appear frequently in later projects and can immediately help you reduce cost or improve efficiency.
 
-## 六、学完这个模块后能做什么？
+### 4.2 Common mistakes
 
-- 能在中小数据任务里更灵活地选模型
-- 能理解 SVM、KNN、朴素贝叶斯、LDA 的适用边界
-- 能给主线项目补出更扎实的经典 baseline
+- Seeing it as elective and skipping it completely
+- Trying to finish all elective topics at once
+- Only reading concepts without running the minimal example
 
 ---
 
-## 小结
+## 5. When is the best time to come back and study this module?
 
-这份总览页的作用是给你一张地图。真正学模块时，不必追求“全都懂”，而是要知道什么时候该回来、先补哪一块。
+When the following signs appear, it means you are a good fit to return and fill in this set of topics:
+
+- Your current task uses small- to medium-sized data, and deep learning is not necessarily the best choice
+- You need a strong baseline but don’t know where to start
+- You want to improve your judgment about “why choose this model”
+- You want to complete your classic ML toolbox instead of only knowing tree models and linear models
+
+## 6. What can you do after finishing this module?
+
+- Select models more flexibly in small- to medium-sized data tasks
+- Understand the applicable boundaries of SVM, KNN, Naive Bayes, and LDA
+- Add a more solid classic baseline to mainline projects
+
+---
+
+## Summary
+
+This overview page is meant to give you a map. When you actually study the module, you do not need to aim for “understanding everything.” Instead, you should know when to come back and which part to fill in first.

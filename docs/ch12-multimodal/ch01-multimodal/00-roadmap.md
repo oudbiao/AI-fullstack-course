@@ -1,105 +1,105 @@
 ---
-title: "1.1 学前导读：多模态基础这一章到底在学什么"
+title: "1.1 Pre-reading guide: What exactly do you learn in the multimodal foundations chapter?"
 sidebar_position: 0
-description: "先建立多模态基础章的学习地图：模态、表示、对齐、融合、视觉语言模型和多模态应用怎样串成一条系统主线。"
-keywords: [多模态导读, 对齐, 融合, 视觉语言模型, 多模态应用]
+description: "Build a learning map for the multimodal foundations chapter first: how modalities, representations, alignment, fusion, visual-language models, and multimodal applications connect into one systematic thread."
+keywords: [multimodal introduction, alignment, fusion, visual-language models, multimodal applications]
 ---
 
-# 学前导读：多模态基础这一章到底在学什么
+# Pre-reading guide: What exactly do you learn in the multimodal foundations chapter?
 
-这一章解决的是：真实世界不是单模态的，AI 系统怎样把文本、图像、语音和视频放进同一套理解链路里。
+This chapter answers a real-world question: the world is not single-modal, so how do AI systems put text, images, speech, and video into one shared understanding pipeline?
 
-前面的大模型主线大多围绕文本展开。到多模态阶段，课程开始把“语言模型应用”扩展到更接近真实世界的输入输出：一张图、一段音频、一段视频、一个截图、一个文档页面，都可能成为模型理解和生成的对象。
+The earlier main line of the course mostly centers on text. When we reach the multimodal stage, the course expands “LLM applications” toward inputs and outputs closer to the real world: a picture, an audio clip, a video, a screenshot, or a document page can all become objects for the model to understand and generate.
 
-## 这一章在整个课程里的位置
+## Where this chapter sits in the course
 
-你已经学过计算机视觉、NLP、大模型应用和 Agent。多模态基础章会把这些方向重新连接起来：视觉提供图像理解能力，NLP 提供文本理解和生成能力，大模型提供统一交互入口，Agent 和应用开发负责把多模态能力接入工作流。
+You have already studied computer vision, NLP, LLM applications, and Agent. The multimodal foundations chapter reconnects these directions: vision provides image understanding, NLP provides text understanding and generation, LLMs provide a unified interaction entry point, and Agent plus application development connect multimodal capabilities into workflows.
 
-多模态不是“图片加文字”这么简单。它的核心问题是：不同模态如何被编码成表示，如何互相对齐，如何融合到同一个任务里，最后如何服务问答、检索、创作、审核和自动化流程。
+Multimodal is not as simple as “images plus text.” Its core questions are: how different modalities are encoded into representations, how they are aligned with each other, how they are fused into the same task, and how they ultimately serve Q&A, retrieval, creation, review, and automation workflows.
 
-![多模态基础章节学习顺序图](/img/course/ch12-multimodal-chapter-flow.png)
+![Multimodal foundations chapter learning flow diagram](/img/course/ch12-multimodal-chapter-flow-en.png)
 
-这些不同输入会先被转成模型能处理的表示，再进入对齐、融合和任务层。
+These different inputs are first converted into representations that the model can process, and then they move into alignment, fusion, and task layers.
 
-## 这一章真正要解决的问题
+## The real problems this chapter solves
 
-这一章要回答五个问题：什么是模态，为什么文本、图像、音频、视频不能简单拼接；表示学习如何把不同模态变成模型可处理的向量；图文对齐为什么是视觉语言模型的关键；融合方式如何影响任务效果；多模态能力如何落到图文问答、图片检索、截图理解、文档理解和创意生成场景。
+This chapter answers five questions: what is a modality, and why can’t text, images, audio, and video simply be concatenated; how representation learning turns different modalities into vectors the model can process; why text-image alignment is the key to visual-language models; how fusion methods affect task performance; and how multimodal capabilities are applied to visual Q&A, image retrieval, screenshot understanding, document understanding, and creative generation.
 
-新人最容易误解的是：多模态就是把图片传给模型，让模型说几句话。真正的多模态系统还要考虑输入质量、模态对齐、引用定位、编辑控制、审核风险和产品工作流。
+Beginners most often misunderstand multimodal systems as simply sending an image to a model and getting a few sentences back. A real multimodal system also has to consider input quality, modality alignment, reference localization, editing control, review risk, and the product workflow.
 
-## 新人推荐学习顺序
+## Recommended learning order for beginners
 
-建议先学模态和表示，理解文本、图像、语音、视频进入模型前都需要被编码。然后学对齐和融合，知道为什么图文匹配、跨模态检索和统一表示是多模态模型的基础。接着看视觉语言模型，理解模型如何围绕图像和文本共同完成问答、描述和推理。最后看多模态应用，把能力放回真实产品场景。
+It is recommended that you start with modality and representation, so you understand that text, images, speech, and video all need to be encoded before entering the model. Then study alignment and fusion to understand why image-text matching, cross-modal retrieval, and unified representations are the foundation of multimodal models. Next, look at visual-language models to understand how models jointly complete Q&A, description, and reasoning around images and text. Finally, study multimodal applications and bring the capability back into real product scenarios.
 
-## 学这一章时要抓住的主线
+## The main thread to keep in mind while studying this chapter
 
-这一章的主线可以概括为：多模态系统先把不同形式的信息转成可比较、可组合的表示，再围绕任务完成理解或生成。
+The main thread of this chapter can be summarized as: a multimodal system first converts information in different forms into representations that can be compared and combined, and then uses those representations to complete understanding or generation for a task.
 
-到这里，系统已经把不同模态的信息放到同一个任务空间里，后面才进入理解、生成和产品流程。
+At this stage, the system has already placed information from different modalities into the same task space, and only then does it move on to understanding, generation, and product workflows.
 
-看懂这条线后，你会知道多模态能力并不是孤立 Demo，而是可以接入课程问答、内容创作、文档处理、截图分析、设计辅助和 Agent 工具链。
+Once you understand this line, you will know that multimodal capability is not an isolated demo, but something that can be integrated into course Q&A, content creation, document processing, screenshot analysis, design assistance, and Agent toolchains.
 
-## 这一章和后面章节的关系
+## The relationship between this chapter and later chapters
 
-多模态基础是图像生成、视频语音生成、数字人和 AIGC 综合项目的入口。图像生成会进一步讨论如何从文本和控制条件生成图像；视频语音生成会处理时间维度；前沿伦理章节会讨论版权、肖像、伪造和内容安全；综合项目会把多模态能力组织成可交付产品。
+The multimodal foundations chapter is the entry point for image generation, video and speech generation, digital humans, and the comprehensive AIGC project. The image generation chapter will further discuss how to generate images from text and control conditions; the video and speech generation chapter will handle the time dimension; the frontier ethics chapter will discuss copyright, portrait rights, forgery, and content safety; and the comprehensive project will organize multimodal capabilities into a deliverable product.
 
-如果这一章没学稳，后面常见的问题是：只追新模型 Demo，不知道输入输出链路；把多模态理解成“上传图片聊天”；忽略引用、定位、编辑和审核；很难把模型能力组织成真正可用的工作流。
+If you do not learn this chapter solidly, common problems later include: chasing new model demos without understanding the input-output pipeline; treating multimodal as “upload an image and chat”; ignoring citation, localization, editing, and review; and having difficulty organizing model capabilities into a truly usable workflow.
 
-## 文档与视觉理解精讲
+## In-depth study of documents and visual understanding
 
-多模态基础最容易落地的方向不是炫酷视频，而是文档和截图理解。真实知识库里常见 PDF、课件截图、网页截图、表格、流程图和扫描件，这些资料不能只按纯文本处理。
+The easiest direction for multimodal foundations to apply in practice is not flashy video, but document and screenshot understanding. Real-world knowledge bases commonly contain PDFs, courseware screenshots, webpage screenshots, tables, flowcharts, and scanned documents, and these materials cannot be handled as plain text alone.
 
-| 场景 | 需要关注什么 | 作品集做法 |
+| Scenario | What to focus on | Portfolio approach |
 |---|---|---|
-| PDF 页面 | 版面、标题、段落、页码、脚注和表格 | 输出结构化 Markdown，并保留页码来源 |
-| 截图理解 | UI 区域、按钮、错误提示和上下文 | 生成问题定位说明或操作建议 |
-| 图表解释 | 坐标轴、趋势、异常点和图例 | 输出结论，同时标出不确定之处 |
-| 多模态 RAG | 文本片段和图片片段如何一起引用 | 把图片描述、OCR 文本和来源页统一进检索结果 |
+| PDF pages | Layout, headings, paragraphs, page numbers, footnotes, and tables | Output structured Markdown and preserve page-number sources |
+| Screenshot understanding | UI regions, buttons, error messages, and context | Generate issue-location explanations or operation suggestions |
+| Chart interpretation | Axes, trends, outliers, and legends | Output conclusions while marking uncertainties |
+| Multimodal RAG | How text snippets and image snippets are cited together | Merge image descriptions, OCR text, and source pages into retrieval results |
 
-学这一章时，可以提前把多模态能力和第 8 站 RAG 连接起来：先把图片或 PDF 转成可检索的结构化内容，再让系统回答问题并给出来源。这样多模态就不只是一个 Demo，而是知识库系统的一部分。
+When studying this chapter, you can connect multimodal capabilities to Station 8, RAG, in advance: first convert images or PDFs into structured content that can be retrieved, then let the system answer questions and provide sources. In this way, multimodal is not just a demo, but part of a knowledge base system.
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering: focus on edge cases, failure examples, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to condense the chapter’s content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study method | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimal input and output? | You can clearly state what inputs the example needs and what results it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you retain after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small project exit for this chapter
 
-学完这一章后，建议做一个“图片理解小助手”。用户上传一张课程截图、产品截图或海报，系统输出图片内容描述、关键信息提取、可能的问题和下一步建议。
+After finishing this chapter, it is recommended to build a “picture understanding assistant.” The user uploads a course screenshot, product screenshot, or poster, and the system outputs an image description, key information extraction, possible questions, and next-step suggestions.
 
-最小交付物建议包含：3 张输入图片或截图，1 份结构化 JSON 输出模板，1 个不确定性字段，1 张“图片 → 提取内容 → 可用性判断”的检查表。如果暂时没有接入视觉模型，也可以先人工模拟模型输出，把数据结构设计清楚。
+The minimum deliverables should include: 3 input images or screenshots, 1 structured JSON output template, 1 uncertainty field, and 1 checklist for “image → extracted content → usability judgment.” If you have not connected a vision model yet, you can first manually simulate the model output and make the data structure clear.
 
 ```json
 {
   "source": "rag-slide.png",
   "visible_text": ["RAG", "Embedding", "Vector DB"],
-  "uncertainty": ["右下角脚注不清晰"],
-  "next_step": "写入课程问答索引"
+  "uncertainty": ["The footnote in the lower-right corner is unclear"],
+  "next_step": "Write into the course Q&A index"
 }
 ```
 
-项目重点是说明模型看到了什么、如何把图像信息转成文字说明、哪些地方不确定，以及结果如何进入后续编辑或审核流程。
+The key point of the project is to explain what the model saw, how image information is turned into a textual description, which parts are uncertain, and how the result enters the next editing or review process.
 
-## 过关标准
+## Passing criteria
 
-这一章结束时，你应该能解释文本、图像、语音和视频为什么需要不同编码方式，能说明对齐和融合在多模态系统中的作用，能区分多模态理解和多模态生成，能画出一个简单多模态应用的信息流。
+By the end of this chapter, you should be able to explain why text, images, speech, and video need different encoding methods, describe the role of alignment and fusion in multimodal systems, distinguish multimodal understanding from multimodal generation, and draw a simple information flow for a multimodal application.
 
-如果你能把一个图文问答或截图理解功能拆成输入、编码、对齐、推理、输出和审核几个步骤，就达到了进入 AIGC 生成章节的基础要求。
+If you can break down a visual Q&A or screenshot understanding feature into steps such as input, encoding, alignment, reasoning, output, and review, then you have reached the basic requirement for entering the AIGC generation chapters.

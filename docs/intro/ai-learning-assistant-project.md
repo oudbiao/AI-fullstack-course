@@ -1,168 +1,168 @@
 ---
 sidebar_position: 8
-title: "贯穿项目：AI 学习助手成长路线"
-description: "用一个贯穿全课的 AI 学习助手项目，把开发基础、数据分析、机器学习、RAG、Agent、多模态和工程化串成连续作品线。"
-keywords: [AI学习助手, AI项目主线, 作品集, RAG项目, Agent项目, 多模态项目]
+title: "End-to-End Project: The Growth Path of an AI Learning Assistant"
+description: "Use one AI learning assistant project that runs through the entire course to connect the fundamentals of development, data analysis, machine learning, RAG, Agent, multimodal, and engineering into a continuous portfolio."
+keywords: [AI learning assistant, AI project main line, portfolio, RAG project, Agent project, multimodal project]
 ---
 
-# 贯穿项目：AI 学习助手成长路线
+# End-to-End Project: The Growth Path of an AI Learning Assistant
 
-## 本节定位
+## Where This Section Fits
 
-这一页把整门课串成一个持续升级的产品项目：AI 学习助手。你可以把每个阶段的小项目都看成这个产品的一次迭代，最后得到一个从命令行工具逐步成长为 RAG、Agent 和多模态助手的完整作品集。
+This page ties the whole course together into one continuously upgraded product project: an AI learning assistant. You can think of the small projects in each stage as one iteration of this product. In the end, you will have a complete portfolio that grows step by step from a command-line tool into a RAG, Agent, and multimodal assistant.
 
-如果你觉得每个阶段都从零开始很割裂，可以按这条主线学习。它会让课程更像“做一个产品”，而不是“看一堆章节”。如果你准备真正开仓库做这个项目，可以直接参考 [贯穿项目仓库模板：AI 学习助手](/intro/ai-learning-assistant-template)。
+If you feel that starting from scratch in every stage is too fragmented, you can follow this main project line. It will make the course feel more like “building a product” rather than “reading a stack of chapters.” If you are ready to actually create the repository for this project, you can directly refer to [End-to-End Project Repository Template: AI Learning Assistant](/intro/ai-learning-assistant-template).
 
-## 先看图：一个项目贯穿全课
+## First, See the Big Picture: One Project Across the Whole Course
 
 ```mermaid
 flowchart LR
-  A["记录任务"] --> B["分析数据"]
-  B --> C["预测和分类"]
-  C --> D["生成计划"]
-  D --> E["检索课程资料"]
-  E --> F["执行学习任务"]
-  F --> G["理解多模态资料"]
+  A["Record tasks"] --> B["Analyze data"]
+  B --> C["Predict and classify"]
+  C --> D["Generate plans"]
+  D --> E["Retrieve course materials"]
+  E --> F["Execute learning tasks"]
+  F --> G["Understand multimodal materials"]
 ```
 
-| 学到哪里 | 给助手新增什么 | 留下什么证据 |
+| Where You Are in the Course | What to Add to the Assistant | What Evidence to Keep |
 |---|---|---|
-| 1～3 站 | 记录、保存、分析学习数据 | JSON、图表、README |
-| 4～6 站 | 用模型辅助判断学习风险 | baseline、指标、失败样本 |
-| 7～9 站 | Prompt、RAG、Agent 能力 | Prompt 版本、引用、trace |
-| 10～12 站 | 视觉、文本、多模态扩展 | 输入素材、输出结果、审核记录 |
+| Stages 1–3 | Record, save, and analyze learning data | JSON, charts, README |
+| Stages 4–6 | Use models to help judge learning risk | baseline, metrics, failure samples |
+| Stages 7–9 | Prompt, RAG, Agent capabilities | Prompt versions, citations, trace |
+| Stages 10–12 | Vision, text, multimodal extensions | input materials, outputs, review records |
 
-## 产品故事
+## The Product Story
 
-想象你正在做一个陪自己学习 AI 的助手。最开始，它只是一个能运行的 Python 项目；后来它能记录学习任务、分析学习数据、预测学习进度、回答课程问题、调用工具整理资料，最后还能理解截图、课件和多模态内容。
+Imagine you are building an assistant that helps you learn AI. At first, it is only a Python project that can run; later, it can record learning tasks, analyze learning data, predict study progress, answer course questions, call tools to organize materials, and finally understand screenshots, slide decks, and multimodal content.
 
-这条路线的目标不是一开始做大系统，而是每学完一站，就给同一个产品补一个能力。
+The goal of this path is not to build a huge system from the start, but to add one capability to the same product after each stage you finish.
 
 ```mermaid
 flowchart LR
-  A[项目仓库] --> B[命令行助手]
-  B --> C[学习数据分析]
-  C --> D[学习预测模型]
-  D --> E[Prompt 助手]
+  A[Project repository] --> B[Command-line assistant]
+  B --> C[Learning data analysis]
+  C --> D[Learning prediction model]
+  D --> E[Prompt assistant]
 ```
 
 ```mermaid
 flowchart LR
-  E[Prompt 助手] --> F[RAG 课程问答]
-  F --> G[Agent 学习规划]
-  G --> H[多模态课件理解]
-  H --> I[可部署 AI 产品]
+  E[Prompt assistant] --> F[RAG course Q&A]
+  F --> G[Agent learning planning]
+  G --> H[Multimodal course material understanding]
+  H --> I[Deployable AI product]
 ```
 
-## 1～3 站：先做一个能记录学习的工具
+## Stages 1–3: First Build a Tool That Can Record Learning
 
-第 1 站负责搭好开发环境、Git 仓库和项目目录。第 2 站用 Python 做一个命令行学习助手，支持添加任务、查看任务、标记完成、保存到 JSON。第 3 站开始分析学习记录，例如每天学习时长、完成率、最容易拖延的主题，并用图表展示。
+Stage 1 sets up the development environment, Git repository, and project structure. Stage 2 uses Python to build a command-line learning assistant that supports adding tasks, viewing tasks, marking them done, and saving them to JSON. Stage 3 starts analyzing learning records, such as daily study time, completion rate, the most procrastinated topics, and then visualizes them with charts.
 
-这一段的作品重点是“能运行、能保存、能分析”。你不需要 AI 模型，但要开始形成项目习惯：写 README、保存数据、记录错误、截图展示结果。
+The key point in this part is: “it runs, it saves, it analyzes.” You do not need an AI model yet, but you should start building project habits: write a README, save data, record errors, and take screenshots to show results.
 
-## 4～6 站：让助手开始理解数据和模型
+## Stages 4–6: Let the Assistant Start Understanding Data and Models
 
-第 4 站把数学概念接入项目，例如用向量表示学习主题，用概率理解完成率，用梯度直觉理解模型训练。第 5 站可以做一个学习进度预测或任务分类模型：根据历史记录预测某类任务是否容易延期，或者把学习问题分成环境、语法、数据、模型、RAG、Agent 等类别。第 6 站可以做一个简单文本或图像分类实验，理解深度学习训练曲线和失败样本。
+Stage 4 connects mathematical concepts to the project, such as using vectors to represent learning topics, using probability to understand completion rates, and using gradient intuition to understand model training. Stage 5 can build a learning progress prediction or task classification model: based on historical records, predict whether a certain type of task is likely to be delayed, or classify learning questions into categories such as environment, syntax, data, model, RAG, and Agent. Stage 6 can include a simple text or image classification experiment to understand deep learning training curves and failure samples.
 
-这一段的作品重点是“能评估”。模型分数不是装饰，你要能解释训练集、测试集、baseline、指标和错误样本。
+The key point in this part is: “it can be evaluated.” Model scores are not decoration. You need to explain the training set, test set, baseline, metrics, and error samples.
 
-## 第 7 站：升级成 Prompt 学习助手
+## Stage 7: Upgrade into a Prompt Learning Assistant
 
-进入大模型阶段后，学习助手可以开始接入 LLM API。它可以根据学习目标生成学习计划，帮你把模糊问题改写成清晰 Prompt，把学习笔记整理成结构化摘要，或者根据固定格式生成复盘卡。
+After entering the large-model stage, the learning assistant can begin connecting to an LLM API. It can generate study plans based on learning goals, help rewrite vague questions into clear Prompts, organize study notes into structured summaries, or generate review cards in a fixed format.
 
-这一站的重点不是炫技，而是比较不同 Prompt 的稳定性。你需要记录输入、输出、失败样本和改进过程。
+The focus of this stage is not flashy tricks, but comparing the stability of different Prompts. You need to record inputs, outputs, failure samples, and the improvement process.
 
-## 第 8 站：升级成 RAG 课程问答助手
+## Stage 8: Upgrade into a RAG Course Q&A Assistant
 
-第 8 站是项目的一次关键升级：让助手能读取课程文档、笔记和项目 README，并基于资料回答问题。最小版本只需要支持 Markdown 文档读取、切分、向量化、检索、回答和来源引用。
+Stage 8 is a key upgrade for the project: let the assistant read course documents, notes, and project READMEs, and answer questions based on those materials. The minimum version only needs to support reading Markdown documents, chunking, vectorization, retrieval, answering, and source citations.
 
-标准版本继续加入 Hybrid Search、Reranking、Query Rewrite、评估问题集、引用检查和日志。挑战版本可以尝试 GraphRAG、Agentic RAG 或 Multimodal RAG，让系统能处理跨文档关系、主动补查资料或读取截图和 PDF。
+The standard version can further add Hybrid Search, Reranking, Query Rewrite, an evaluation question set, citation checks, and logging. The challenge version can try GraphRAG, Agentic RAG, or Multimodal RAG, so the system can handle cross-document relationships, proactively look up additional materials, or read screenshots and PDFs.
 
-## 第 9 站：升级成 Agent 学习规划助手
+## Stage 9: Upgrade into an Agent Learning Planning Assistant
 
-第 9 站让助手从“回答问题”升级成“执行学习任务”。例如用户说“帮我准备 RAG 阶段复习”，Agent 可以拆解任务、查找相关课程文档、生成复习计划、列出练习题、检查完成情况，并记录执行轨迹。
+Stage 9 upgrades the assistant from “answering questions” to “executing learning tasks.” For example, when the user says “help me prepare for the RAG stage review,” the Agent can break down the task, find related course documents, generate a review plan, list practice questions, check completion, and record the execution trace.
 
-这一站最重要的是边界：哪些步骤可以自动执行，哪些需要人工确认；工具调用失败时如何降级；如何记录每一步计划、工具、结果、成本和错误。
+The most important thing in this stage is boundaries: which steps can be automated, and which require human confirmation; how to degrade gracefully when tool calls fail; and how to record every plan, tool, result, cost, and error.
 
-## 第 12 站：升级成多模态学习助手
+## Stage 12: Upgrade into a Multimodal Learning Assistant
 
-进入多模态后，学习助手可以处理截图、课件图片、PDF 页面、图表和语音笔记。它可以解释一张模型结构图，提取课件截图里的关键概念，给学习视频生成提纲，或者把学习内容整理成图文复盘卡。
+After moving into multimodal, the learning assistant can process screenshots, slide images, PDF pages, charts, and voice notes. It can explain a model architecture diagram, extract key concepts from a slide screenshot, generate an outline for a study video, or turn learning content into a text-and-image review card.
 
-这一站的重点不是只生成漂亮内容，而是把多模态理解、生成、编辑、审核和导出接成工作流。
+The focus of this stage is not just producing nice-looking content, but connecting multimodal understanding, generation, editing, review, and export into a workflow.
 
-## 版本迭代路线图
+## Version Iteration Roadmap
 
-如果你希望这个贯穿项目真正形成作品集，建议把每个版本都当成一次“小发布”，而不是一次随手练习。每个版本都应该保留 README、运行命令、示例输入输出、变更记录和一个失败样本。这样到毕业项目阶段，你可以清楚展示项目是如何从脚本逐步成长为 AI 产品的。
+If you want this end-to-end project to truly become a portfolio, it is recommended that you treat each version as a “small release” rather than a casual exercise. Each version should keep a README, run commands, sample inputs and outputs, change notes, and one failure sample. In this way, when you reach the capstone project stage, you can clearly show how the project grew from a script into an AI product.
 
-| 版本 | 核心问题 | 最小功能 | 标准功能 | 验收证据 |
+| Version | Core Question | Minimum Features | Standard Features | Acceptance Evidence |
 |---|---|---|---|---|
-| v0.1 项目骨架 | 项目能否稳定运行和保存版本 | 创建仓库、README、Python 入口、依赖文件 | 加入命令行参数、日志目录和学习记录目录 | Git commit、运行截图、README |
-| v0.2 命令行学习助手 | 能否记录学习任务 | 新增、查看、完成任务，保存到 JSON | 支持分类、截止时间、简单搜索和错误处理 | 示例 JSON、命令输出、错误处理记录 |
-| v0.3 学习数据分析 | 能否从记录中发现问题 | 统计学习时长、完成率、高频主题 | 生成图表、周报和学习建议 | EDA Notebook、图表、分析结论 |
-| v0.4 学习主题分类 | 能否用规则或 ML 辅助推荐章节 | 用关键词或 baseline 分类学习问题 | 训练简单模型，比较规则与模型效果 | 测试集、指标表、失败样本 |
-| v0.5 表示学习实验 | 能否理解文本向量和相似度 | 比较简单文本表示方法 | 做文本相似度或分类实验，记录训练曲线 | 实验日志、训练结果、复盘 |
-| v0.7 Prompt 学习助手 | 能否稳定生成学习计划和复盘 | 调用 LLM API，输出结构化计划 | 维护 Prompt 版本，比较不同模板效果 | Prompt 记录、输入输出样例、失败样本 |
-| v0.8 RAG 课程问答 | 能否基于课程资料回答并引用来源 | 读取 Markdown、切分、检索、回答、引用 | 加入评估集、Hybrid Search、Rerank、日志 | 问题集、引用检查、检索日志 |
-| v0.9 Agent 学习规划 | 能否拆解任务并调用工具 | 生成学习计划，调用课程检索工具 | 加入 trace、人工确认、失败恢复和成本记录 | 执行轨迹、工具调用日志、安全边界说明 |
-| v1.0 毕业作品 | 能否作为完整 AI 产品展示 | 可运行 Demo、README、示例和评估 | 部署、权限、监控、复盘和未来路线 | 演示视频/截图、部署说明、评估报告 |
+| v0.1 Project skeleton | Can the project run stably and save versions? | Create repository, README, Python entry point, dependency files | Add command-line arguments, log directory, and learning record directory | Git commit, run screenshots, README |
+| v0.2 Command-line learning assistant | Can it record learning tasks? | Add, view, complete tasks, save to JSON | Support categories, due dates, simple search, and error handling | Example JSON, command output, error handling records |
+| v0.3 Learning data analysis | Can it find problems from records? | Count study time, completion rate, high-frequency topics | Generate charts, weekly reports, and learning suggestions | EDA Notebook, charts, analysis conclusions |
+| v0.4 Learning topic classification | Can rules or ML help recommend chapters? | Classify learning questions using keywords or a baseline | Train a simple model, compare rules vs. model performance | Test set, metric table, failure samples |
+| v0.5 Representation learning experiment | Can it understand text vectors and similarity? | Compare simple text representation methods | Run a text similarity or classification experiment, record training curves | Experiment logs, training results, review |
+| v0.7 Prompt learning assistant | Can it reliably generate study plans and reviews? | Call an LLM API, output structured plans | Maintain Prompt versions, compare different template effects | Prompt records, input/output examples, failure samples |
+| v0.8 RAG course Q&A | Can it answer based on course materials and cite sources? | Read Markdown, chunk, retrieve, answer, cite | Add evaluation sets, Hybrid Search, Rerank, logging | Question set, citation checks, retrieval logs |
+| v0.9 Agent learning planning | Can it break down tasks and call tools? | Generate study plans, call course retrieval tools | Add trace, human confirmation, failure recovery, and cost records | Execution traces, tool call logs, safety boundary notes |
+| v1.0 Capstone project | Can it be presented as a complete AI product? | Runnable demo, README, examples, and evaluation | Deployment, permissions, monitoring, review, and future roadmap | Demo video/screenshots, deployment notes, evaluation report |
 
-版本号可以按你的实际进度调整，但不要跳过验收证据。作品集项目最有说服力的部分，往往不是最终界面，而是每个阶段留下的运行记录、失败样本和改进过程。
+You can adjust the version numbers based on your actual progress, but do not skip the acceptance evidence. The most persuasive part of a portfolio project is often not the final UI, but the run records, failure samples, and improvement process left behind at each stage.
 
-## 每个版本的固定交付格式
+## Fixed Delivery Format for Each Version
 
-建议每完成一个版本，都在仓库里保留一段版本记录。格式可以很简单：本版本目标是什么，新增了哪些功能，如何运行，示例输入输出是什么，本版本失败过哪些情况，下一版准备改什么。
+It is recommended that after finishing each version, you keep a version record in the repository. The format can be very simple: what this version aimed to do, what features were added, how to run it, what the sample input/output is, what situations failed in this version, and what the next version plans to change.
 
 ````md
-## v0.8 RAG 课程问答助手
+## v0.8 RAG Course Q&A Assistant
 
-### 本版本目标
-让学习助手能够基于课程 Markdown 回答问题，并给出来源引用。
+### Goal of this version
+Let the learning assistant answer questions based on course Markdown and provide source citations.
 
-### 运行方式
+### How to run
 ```bash
-python -m src.rag_qa --question "RAG 和微调有什么区别？"
+python -m src.rag_qa --question "What is the difference between RAG and fine-tuning?"
 ```
 
-### 示例输出
-问题：RAG 和微调有什么区别？
-回答：RAG 主要通过检索外部知识补充上下文，微调主要通过训练改变模型参数……
-来源：docs/ch08-rag/ch01-rag/01-rag-basics.md
+### Sample output
+Question: What is the difference between RAG and fine-tuning?
+Answer: RAG mainly supplements context by retrieving external knowledge, while fine-tuning mainly changes model parameters through training...
+Source: docs/ch08-rag/ch01-rag/01-rag-basics.md
 
-### 失败样本
-问题：如何选择 Agent 框架？
-失败原因：当前索引只导入了 RAG 章节，没有导入 Agent 章节。
-下一步：扩展文档导入范围，并在 metadata 中保存阶段信息。
+### Failure sample
+Question: How should I choose an Agent framework?
+Reason for failure: The current index only imports the RAG chapters and does not import the Agent chapters.
+Next step: Expand the document import scope and save stage information in metadata.
 ````
 
-这个固定格式能帮助你避免“项目做了但讲不清”。当你回头准备简历、面试或作品集时，每个版本都已经有可复用材料。
+This fixed format can help you avoid “I built the project but can’t explain it clearly.” When you later prepare your resume, interview materials, or portfolio, each version will already have reusable material.
 
-## 阶段落地清单
+## Stage Implementation Checklist
 
-如果你真的按这条贯穿项目路线走，可以把每个学习站都当成一次版本迭代。下面这张表不是额外作业，而是帮助你把分散章节收束到同一个作品里。
+If you really follow this end-to-end project path, you can treat each learning stage as one version iteration. The table below is not extra homework; it helps you consolidate scattered chapters into one project.
 
-| 学习站 | 项目版本 | 建议产出 | 对应课程入口 |
+| Learning Stage | Project Version | Suggested Output | Corresponding Course Entry |
 |---|---|---|---|
-| 1 开发者工具基础 | v0.1 项目骨架 | 建 Git 仓库、写 README、配置 Python 环境、记录运行截图 | [开发者工具基础](/ch01-tools) |
-| 2 Python 编程基础 | v0.2 命令行学习助手 | 用 JSON 保存任务，支持新增、查看、完成、删除学习任务 | [Python 编程基础](/ch02-python) |
-| 3 数据分析与可视化 | v0.3 学习数据分析 | 统计学习时长、完成率、拖延主题，用图表展示结果 | [数据分析与可视化](/ch03-data-analysis) |
-| 4 AI 数学基础 | v0.4 学习指标解释 | 用向量、概率、梯度等概念解释学习数据和模型直觉 | [AI 数学最小必要基础](/ch04-ai-math) |
-| 5 机器学习 | v0.5 学习预测模型 | 预测任务延期风险或对学习问题做分类，并写明 baseline 和指标 | [机器学习入门到实战](/ch05-machine-learning) |
-| 6 深度学习与 Transformer | v0.6 简单深度学习实验 | 做文本或图像分类小实验，记录训练曲线和失败样本 | [深度学习与 Transformer 基础](/ch06-deep-learning) |
-| 7 大模型原理与 Prompt | v0.7 Prompt 学习助手 | 生成学习计划、复盘卡、问题改写模板，并记录 Prompt 版本 | [大模型原理、Prompt 与微调](/ch07-llm-principles) |
-| 8 LLM 应用与 RAG | v0.8 课程问答助手 | 读取课程 Markdown，支持检索、回答、来源引用和评估问题集 | [LLM 应用开发与 RAG](/ch08-rag) |
-| 9 AI Agent | v0.9 学习规划 Agent | 拆解复习任务、调用工具查资料、生成计划并记录执行轨迹 | [AI Agent 与智能体系统](/ch09-agent) |
-| 10～12 方向拓展 | v1.0 多模态学习助手 | 处理截图、课件图表或语音笔记，形成可展示毕业作品 | [AIGC 与多模态](/ch12-multimodal) |
+| 1 Developer tools basics | v0.1 Project skeleton | Build a Git repository, write a README, configure the Python environment, record run screenshots | [Developer Tools Basics](/ch01-tools) |
+| 2 Python programming basics | v0.2 Command-line learning assistant | Save tasks with JSON; support adding, viewing, completing, and deleting learning tasks | [Python Programming Basics](/ch02-python) |
+| 3 Data analysis and visualization | v0.3 Learning data analysis | Count study time, completion rate, procrastinated topics, and display results with charts | [Data Analysis and Visualization](/ch03-data-analysis) |
+| 4 AI math fundamentals | v0.4 Learning metric explanation | Use concepts such as vectors, probability, and gradients to explain learning data and model intuition | [Minimal Necessary Foundations of AI Math](/ch04-ai-math) |
+| 5 Machine learning | v0.5 Learning prediction model | Predict task delay risk or classify learning questions, and clearly document the baseline and metrics | [Machine Learning: From Basics to Practice](/ch05-machine-learning) |
+| 6 Deep learning and Transformer | v0.6 Simple deep learning experiment | Run a small text or image classification experiment and record training curves and failure samples | [Deep Learning and Transformer Basics](/ch06-deep-learning) |
+| 7 LLM principles and Prompt | v0.7 Prompt learning assistant | Generate study plans, review cards, question rewrite templates, and record Prompt versions | [LLM Principles, Prompt, and Fine-Tuning](/ch07-llm-principles) |
+| 8 LLM applications and RAG | v0.8 Course Q&A assistant | Read course Markdown, support retrieval, answering, source citations, and evaluation question sets | [LLM Application Development and RAG](/ch08-rag) |
+| 9 AI Agent | v0.9 Learning planning Agent | Break down review tasks, call tools to look up materials, generate plans, and record execution traces | [AI Agent and Intelligent Agent Systems](/ch09-agent) |
+| 10–12 Direction expansion | v1.0 Multimodal learning assistant | Process screenshots, slide charts, or voice notes to form a showcase-ready capstone project | [AIGC and Multimodal](/ch12-multimodal) |
 
-每完成一个版本，至少在 README 里留下三样东西：怎么运行、一次示例输入输出、这次迭代遇到的问题和下一步计划。这样你最后得到的不是“我看过很多教程”，而是一个能讲清楚成长过程的 AI 项目。
+After completing each version, keep at least three things in the README: how to run it, one sample input/output, and what problems you encountered in this iteration plus what you plan to do next. In this way, when you finish the whole course, you will not just have a pile of scattered notes, but a portfolio project that clearly explains its own growth.
 
-## 最终作品标准
+## Final Project Standard
 
-最终的 AI 学习助手不一定要功能很多，但应该有清晰闭环：用户输入学习目标或资料，系统能读取上下文，必要时检索课程内容，调用工具或模型生成结果，给出来源、日志、评估样例和改进记录。
+The final AI learning assistant does not need to have many features, but it should have a clear closed loop: the user inputs a learning goal or materials, the system can read the context, retrieve course content when needed, call tools or models to generate results, and provide sources, logs, evaluation examples, and improvement records.
 
-你可以把这个项目作为毕业作品。它能展示你从编程、数据、模型、大模型应用、RAG、Agent、多模态到工程化的完整能力。
+You can use this project as your capstone work. It can demonstrate your full capabilities from programming, data, models, large-model applications, RAG, Agent, multimodal, to engineering.
 
-## README 应该怎么写
+## How the README Should Be Written
 
-这个贯穿项目的 README 建议持续更新。每完成一个阶段，就新增一个版本记录：本阶段新增了什么能力，怎么运行，示例输入输出是什么，遇到什么问题，下一步准备怎么改。
+The README for this end-to-end project should be updated continuously. Each time you finish a stage, add a new version record: what new capability this stage added, how to run it, what the sample input/output is, what problems you encountered, and what you plan to improve next.
 
-这样学完整门课后，你不会只拥有一堆零散笔记，而会拥有一个能讲清楚成长过程的作品集项目。
+In this way, after finishing the whole course, you will not just have a bunch of scattered notes. You will have a portfolio project that clearly tells the story of your growth.

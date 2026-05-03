@@ -1,79 +1,79 @@
 ---
-title: "5.1 学前导读：Prompt 工程这一章到底在学什么"
+title: "5.1 Pre-study Guide: What Is This Prompt Engineering Chapter Really About?"
 sidebar_position: 0
-description: "先建立 Prompt 工程章的学习地图：任务表达、上下文组织、结构化输出、提示策略和评估迭代怎样衔接。"
-keywords: [Prompt导读, Prompt Engineering, 结构化输出, 提示词工程]
+description: "First build a learning map for the Prompt Engineering chapter: how task expression, context organization, structured output, prompting strategies, and evaluation iterations connect."
+keywords: [Prompt Guide, Prompt Engineering, Structured Output, Prompt Engineering]
 ---
 
-# 学前导读：Prompt 工程这一章到底在学什么
+# Pre-study Guide: What Is This Prompt Engineering Chapter Really About?
 
-这一章解决的是：在不改模型参数的前提下，怎样让模型更稳定地理解任务、遵守约束，并输出符合产品要求的结果。
+This chapter answers the question: without changing the model parameters, how can we make the model understand tasks more reliably, follow constraints, and produce results that meet product requirements?
 
-很多新人第一次学 Prompt 时，会把它理解成“写得更玄一点的提问技巧”。但在真实的大模型应用里，Prompt 更像是应用层和模型层之间的接口设计：你要告诉模型任务目标、输入材料、输出格式、约束条件、示例和失败边界。
+When many beginners first learn Prompt, they think of it as “asking questions in a fancier way.” But in real-world LLM applications, Prompt is more like interface design between the application layer and the model layer: you need to tell the model the task goal, input materials, output format, constraints, examples, and failure boundaries.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-你已经学过大模型概览、Transformer 和预训练，知道模型能力大致从哪里来。到 Prompt 工程这一章，课程开始回答一个更贴近应用的问题：既然模型已经有能力，怎样把能力稳定调出来。
+You have already learned the LLM overview, Transformer, and pretraining, and you know roughly where model capabilities come from. In this Prompt Engineering chapter, the course starts answering a more application-oriented question: since the model already has capabilities, how do we reliably bring those capabilities out?
 
-Prompt 位于“模型能力”和“产品功能”之间。它不改变模型参数，但会显著影响模型如何理解任务、组织推理、引用上下文、输出结构和处理边界情况。
+Prompt sits between “model capability” and “product functionality.” It does not change model parameters, but it can significantly affect how the model understands tasks, organizes reasoning, uses context, outputs structure, and handles edge cases.
 
-![Prompt 工程章节关系图](/img/course/ch07-prompt-chapter-flow.png)
+![Prompt engineering chapter relationship diagram](/img/course/ch07-prompt-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：怎样把模糊需求改写成清晰任务；怎样组织背景资料、角色、步骤和约束；怎样让模型输出 JSON、表格、Markdown 等稳定格式；怎样用示例、分步提示和自检降低错误；怎样评估和迭代一个 Prompt，而不是凭感觉改来改去。
+This chapter answers five questions: how to rewrite vague requirements into clear tasks; how to organize background information, roles, steps, and constraints; how to make the model output stable formats such as JSON, tables, and Markdown; how to use examples, step-by-step prompting, and self-checking to reduce errors; and how to evaluate and iterate on a Prompt instead of changing it based on gut feeling.
 
-新人最容易忽略的是：Prompt 不是一次写完就结束。真实应用里的 Prompt 需要测试集、错误样例、版本管理和迭代记录。否则你很难知道一次修改到底让系统变好了，还是只是刚好让某个例子变好了。
+The easiest thing for beginners to overlook is that a Prompt is not something you write once and then you are done. Prompts in real applications need test sets, error examples, version management, and iteration records. Otherwise, it is hard to know whether a change actually improved the system, or just happened to improve one example.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学基础 Prompt，把任务、上下文、约束和输出格式讲清楚。然后学高级技巧，例如 few-shot 示例、分步拆解、角色设定、反思检查和边界说明。接着重点学结构化输出，因为大多数产品功能不能只接收一段自然语言，而是需要稳定字段、格式和可解析结果。最后做 Prompt 实践，用真实样例测试、记录失败并迭代。
+It is recommended to first learn basic Prompting: clearly describe the task, context, constraints, and output format. Then learn advanced techniques such as few-shot examples, step-by-step decomposition, role setting, reflection checks, and boundary explanations. Next, focus on structured output, because most product features cannot accept only a paragraph of natural language; they need stable fields, formats, and parseable results. Finally, practice Prompting with real examples, test, record failures, and iterate.
 
-![Prompt 迭代测试闭环图](/img/course/ch07-prompt-iteration-loop.png)
+![Prompt iteration test closed loop diagram](/img/course/ch07-prompt-iteration-loop-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on While Studying This Chapter
 
-这一章的主线可以概括为：Prompt 不是“问一句”，而是“设计一次可复用的模型调用”。
+The main thread of this chapter can be summarized as: Prompt is not “asking a question,” but “designing a reusable model invocation.”
 
-这条线能帮助你区分“聊天时随口问模型”和“产品里稳定调用模型”。前者只要当下能回答就行，后者需要可预测、可解析、可测试、可维护。
+This line helps you distinguish between “casually asking the model in chat” and “stably calling the model in a product.” The former only needs to answer right now; the latter needs to be predictable, parseable, testable, and maintainable.
 
-## 这一章和后面章节的关系
+## Relationship Between This Chapter and Later Chapters
 
-Prompt 是微调、RAG 和 Agent 的前置能力。微调之前，你需要先确认是不是 Prompt 已经无法满足需求；RAG 里，Prompt 决定检索片段如何进入上下文，以及模型如何基于来源回答；Agent 里，Prompt 会影响任务规划、工具选择、观察总结和最终输出。
+Prompt is a prerequisite capability for fine-tuning, RAG, and Agent development. Before fine-tuning, you need to confirm whether Prompting already cannot meet the requirement. In RAG, Prompt determines how retrieved passages enter the context and how the model answers based on the sources. In Agent systems, Prompt affects task planning, tool selection, observation summarization, and the final output.
 
-如果这一章没学稳，后面常见的问题是：RAG 明明检索到了资料但回答仍然发散；Function Calling 的参数不稳定；结构化输出经常解析失败；以为所有问题都要微调，却没有先把任务表达和测试样例做好。
+If this chapter is not learned solidly, common later problems include: RAG retrieves the materials but the answer is still unfocused; Function Calling parameters are unstable; structured output frequently fails to parse; and assuming that every problem needs fine-tuning without first doing a good job on task expression and test examples.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first grasp the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the input and output are, and how to get the minimum project running, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering skills: pay attention to edge cases, failure examples, evaluation methods, code reproducibility, and how it connects with the stages before and after it. After reading, it is best to distill the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick scan | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor results, or misunderstanding |
+| What can you document after learning it? | You can write the chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Mini Project Exit Task
 
-学完这一章后，建议做一个“课程内容结构化提取 Prompt”。输入一段课程文档，让模型输出章节主题、学习目标、前置知识、关键概念、练习建议和风险提醒，并要求输出为 JSON 或 Markdown 表格。
+After finishing this chapter, it is recommended to build a “course content structured extraction Prompt.” Input a piece of course documentation, and let the model output the chapter topic, learning objectives, prerequisite knowledge, key concepts, practice suggestions, and risk reminders, with the output required to be in JSON or a Markdown table.
 
-项目重点不是让模型回答得漂亮，而是测试输出是否稳定：字段是否齐全，格式是否可解析，遇到缺失信息时是否会诚实标注，换几篇文档后是否还能保持一致。
+The focus of the project is not to make the model answer beautifully, but to test whether the output is stable: are all fields complete, is the format parseable, will it honestly mark missing information, and can it stay consistent after several different documents?
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能把一个模糊需求拆成任务目标、输入材料、约束条件和输出格式，能设计基础 Prompt、示例 Prompt 和结构化输出 Prompt，能用一组测试样例判断 Prompt 是否稳定。
+By the end of this chapter, you should be able to break a vague requirement into task goals, input materials, constraints, and output format; design basic Prompts, example Prompts, and structured output Prompts; and use a set of test examples to judge whether a Prompt is stable.
 
-如果你能根据失败案例有方向地修改 Prompt，而不是凭感觉反复试，就达到了进入微调、RAG 和 Agent 应用开发的基础要求。
+If you can modify a Prompt in a targeted way based on failure cases instead of repeatedly trying by feel, you have reached the foundational requirement for moving into fine-tuning, RAG, and Agent application development.

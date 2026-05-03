@@ -1,209 +1,207 @@
 ---
-title: "2.2 词嵌入"
+title: "2.2 Word Embeddings"
 sidebar_position: 4
-description: "从 one-hot 的局限讲起，理解词嵌入为什么能把“语义相近”变成向量空间里的距离关系。"
+description: "Starting from the limitations of one-hot, understand why word embeddings can turn “semantic similarity” into distance relationships in vector space."
 keywords: [word embedding, vector space, cosine similarity, one-hot, semantic representation]
 ---
 
-# 词嵌入
+# Word Embeddings
 
-![词向量语义邻域图](/img/course/word2vec-embedding-neighborhood.png)
+![Word vector semantic neighborhood diagram](/img/course/word2vec-embedding-neighborhood-en.png)
 
-:::tip 本节定位
-做 NLP 时，模型并不直接理解“退款”“证书”“密码”这些词本身。  
-它首先看到的是：
+:::tip Section overview
+When doing NLP, the model does not directly understand the words “refund,” “certificate,” or “password” themselves.
+It first sees:
 
-- 一串编号
-- 再变成一串向量
+- a sequence of IDs
+- then a sequence of vectors
 
-词嵌入的价值就在这里：
+That is where word embeddings are valuable:
 
-> **让词不只是有编号，还能在向量空间里表现出语义关系。**
+> **They do not just give words IDs; they let words express semantic relationships in vector space.**
 
-如果这层没真正理解清楚，后面学上下文表示、BERT 和检索向量时都会发虚。
+If this layer is not truly understood, it will be hard to feel confident later when learning contextual representations, BERT, and retrieval vectors.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 one-hot 表示为什么不够
-- 理解词嵌入为什么能表达相似性
-- 掌握余弦相似度这类最常见的相似度直觉
-- 通过可运行示例建立“词向量空间”第一层感觉
+- Understand why one-hot representations are not enough
+- Understand why word embeddings can express similarity
+- Master the most common intuition behind similarity measures such as cosine similarity
+- Build a first sense of “word vector space” through runnable examples
 
-## 历史背景：Word2Vec 为什么会变成 NLP 的关键节点？
+## Historical Background: Why Did Word2Vec Become a Key Milestone in NLP?
 
-这一节最值得知道的历史节点是：
+The most important historical milestone to know in this section is:
 
-| 年份 | 论文 / 方法 | 关键作者 | 它最重要地解决了什么 |
+| Year | Paper / Method | Key Author(s) | What Did It Most Important Solve? |
 |---|---|---|---|
-| 2013 | Word2Vec | Mikolov 等 | 让词开始有分布式语义表示，推动 NLP 从“词是否出现”走向“词之间的关系也可计算” |
+| 2013 | Word2Vec | Mikolov et al. | It gave words distributed semantic representations, pushing NLP from “whether a word appears” toward “relationships between words can also be computed” |
 
-对新人来说，最值得先记的是：
+For beginners, the most important takeaway is:
 
-> **Word2Vec 的意义，不只是“词向量更酷”，而是它让“语义相近”第一次在向量空间里变成可计算的关系。**
+> **The significance of Word2Vec is not just that “word vectors are cooler,” but that it made “semantic similarity” a computable relationship in vector space for the first time.**
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-如果你刚学完 one-hot、BoW、TF-IDF，这一节最自然的续接就是：
+If you have just finished one-hot, BoW, and TF-IDF, the most natural next step is:
 
-- 前面的方法已经能把文本变成数字
-- 这一节开始解决“这些数字怎么开始带上语义关系”
+- the previous methods already turned text into numbers
+- this section starts solving how those numbers can begin to carry semantic relationships
 
-所以这节真正重要的不是“又一种表示法”，而是：
+So what really matters here is not “another representation method,” but:
 
-- 表示开始从“能算”升级成“更像有语义结构”
+- representation evolving from “can be computed” to “more like it has semantic structure”
 
-词嵌入这节最适合新人的理解顺序不是“直接记住几个向量方法”，而是先看清：
+For beginners, the best way to understand word embeddings is not to memorize vector methods directly, but first to see clearly:
 
 ```mermaid
 flowchart LR
-    A["离散词"] --> B["one-hot 只能区分身份"]
-    B --> C["词嵌入把词放进连续空间"]
-    C --> D["相近词在空间里更近"]
-    D --> E["分类 / 检索 / 语言模型都能利用它"]
+    A["Discrete words"] --> B["one-hot only distinguishes identity"]
+    B --> C["Word embeddings place words in a continuous space"]
+    C --> D["Similar words are closer in space"]
+    D --> E["Classification / retrieval / language models can use this"]
 ```
 
-所以这节真正想解决的是：
+So what this section is really trying to solve is:
 
-- 为什么 one-hot 不够
-- 为什么“词和词的关系”要变成可计算的距离
+- Why one-hot is not enough
+- Why the relationship between words should become a computable distance
 
-### 一个更适合新人的总类比
+### A Better Analogy for Beginners
 
-你可以把这些表示方法理解成：
+You can think of representation methods like this:
 
-- one-hot 像给每个词发一个工号
-- 词嵌入像把每个词放进一张“语义地图”
+- one-hot is like giving each word an employee ID
+- word embeddings are like putting each word on a “semantic map”
 
-工号当然能区分谁是谁，  
-但你看不出：
+An employee ID can distinguish who is who,
+but it does not tell you:
 
-- 哪些词彼此更像
-- 哪些词经常在同一类场景里出现
+- which words are more alike
+- which words often appear in similar situations
 
-而一旦变成地图坐标，“近”这件事就第一次能被算出来。
+Once words become map coordinates, “closeness” becomes something you can compute for the first time.
 
-## 一、为什么我们需要词嵌入？
+## 1. Why Do We Need Word Embeddings?
 
-### 1.1 one-hot 只能区分身份，不能表达关系
+### 1.1 one-hot Can Only Distinguish Identity, Not Relationships
 
-假设词表里有：
+Suppose the vocabulary contains:
 
-- `退款`
-- `退货`
-- `密码`
+- `refund`
+- `return`
+- `password`
 
-如果用 one-hot：
+If we use one-hot:
 
-- `退款` 可能是 `[1, 0, 0]`
-- `退货` 可能是 `[0, 1, 0]`
-- `密码` 可能是 `[0, 0, 1]`
+- `refund` might be `[1, 0, 0]`
+- `return` might be `[0, 1, 0]`
+- `password` might be `[0, 0, 1]`
 
-问题在于：
+The problem is:
 
-- `退款` 和 `退货` 语义明明更近
-- 但在 one-hot 里，它们彼此同样“远”
+- `refund` and `return` are clearly semantically closer
+- but in one-hot, they are equally “far” from each other
 
-### 1.2 词嵌入在做什么？
+### 1.2 What Is Word Embedding Doing?
 
-词嵌入要做的是：
+What word embeddings do is:
 
-- 把词映射成低维向量
-- 让语义相近的词在向量空间里更靠近
+- map words into low-dimensional vectors
+- make semantically similar words closer in vector space
 
-也就是说，它不只是“编码”，更是在做：
+In other words, it is not just “encoding,” but also:
 
-- 语义表示
+- semantic representation
 
-### 1.3 一个类比
+### 1.3 An Analogy
 
-你可以把词嵌入理解成地图坐标。
+You can think of word embeddings as map coordinates.
 
-- one-hot 更像身份证号
-- 词嵌入更像地图位置
+- one-hot is more like an ID number
+- word embeddings are more like positions on a map
 
-身份证号能区分人，但看不出谁和谁住得近；  
-地图坐标则能让“近”这件事变得可计算。
+An ID number can distinguish people, but it does not show who lives closer together;
+map coordinates, however, make “closeness” computable.
 
-### 1.4 第一次学词嵌入，最该先抓住什么？
+### 1.4 When Learning Word Embeddings for the First Time, What Should You Focus on Most?
 
-最该先抓住的不是训练方法，而是这句：
+What matters most is not the training method, but this sentence:
 
-> **词嵌入最重要的价值，是把“词和词之间的关系”也带进表示里。**
+> **The most important value of word embeddings is that they bring relationships between words into the representation itself.**
 
-这句话一旦稳住，后面：
+Once this idea is stable, the following will become much easier to understand:
 
-- 余弦相似度
-- 邻近词
-- 上下文化表示
-
-都会更容易理解。
+- cosine similarity
+- neighboring words
+- contextual representations
 
 ---
 
-## 二、词嵌入是怎么学出语义的？
+## 2. How Do Word Embeddings Learn Semantics?
 
-### 2.1 核心假设：上下文相似，词义常常也相近
+### 2.1 Core Assumption: Similar Contexts Often Mean Similar Word Meaning
 
-如果两个词经常出现在相似上下文里，  
-模型就会倾向把它们学成相近向量。
+If two words often appear in similar contexts,
+the model will tend to learn them as nearby vectors.
 
-例如：
+For example:
 
-- `退款`
-- `退货`
+- `refund`
+- `return`
 
-可能都常出现在：
+may often appear in contexts like:
 
-- 售后
-- 订单
-- 申请
+- after-sales
+- order
+- application
 
-这就会推动它们在空间里更靠近。
+This will push them closer together in space.
 
-### 2.2 向量“靠近”不等于完全同义
+### 2.2 Being “Close” in Vector Space Does Not Mean Exactly the Same Meaning
 
-它更常表示：
+It more often means:
 
-- 用法接近
-- 上下文分布接近
+- similar usage
+- similar context distribution
 
-所以词嵌入里的“近”，很多时候是分布意义上的近，不一定是严格词典意义上的同义。
+So in word embeddings, “close” often means distributionally close, not necessarily strictly synonymous in dictionary terms.
 
-### 2.3 为什么这已经很有价值？
+### 2.3 Why Is This Already Very Useful?
 
-因为一旦有了这种空间关系，  
-很多任务就能利用它：
+Because once you have this spatial relationship,
+many tasks can take advantage of it:
 
-- 相似词查找
-- 文本分类
-- 检索
-- 聚类
+- similar word lookup
+- text classification
+- retrieval
+- clustering
 
-### 2.4 为什么说“分布相似”这件事会改变 NLP 主线？
+### 2.4 Why Does “Distributional Similarity” Change the Main NLP Storyline?
 
-因为从这里开始，模型不再只会问：
+Because from this point on, the model no longer only asks:
 
-- 这个词是不是出现了
+- Did this word appear?
 
-它开始更容易问：
+It starts to more easily ask:
 
-- 这个词通常和哪些上下文一起出现
-- 它在语义空间里更像哪一类词
+- Which contexts does this word usually appear with?
+- Which type of words does it resemble in semantic space?
 
-这正是后面表示学习一路往深处走的开端。
+This is exactly the starting point of representation learning as it moves deeper later on.
 
 ---
 
-## 三、先跑一个词向量相似度示例
+## 3. Run a Word Vector Similarity Example First
 
-下面这个例子会做三件事：
+The example below does three things:
 
-1. 给几个词定义一个小型嵌入
-2. 计算它们的余弦相似度
-3. 比较哪些词更接近
+1. Defines a small embedding for a few words
+2. Computes cosine similarity between them
+3. Compares which words are closer
 
 ```python
 from math import sqrt
@@ -228,35 +226,35 @@ print("refund vs invoice :", round(cosine(embeddings["refund"], embeddings["invo
 print("refund vs password:", round(cosine(embeddings["refund"], embeddings["password"]), 4))
 ```
 
-### 3.1 这个例子最重要的直觉是什么？
+### 3.1 What Is the Most Important Intuition Here?
 
-你会看到：
+You will see that:
 
-- `refund` 和 `return` 更近
-- 和 `password` 更远
+- `refund` and `return` are closer
+- they are farther from `password`
 
-这正是词嵌入最关键的直觉：
+This is the key intuition behind word embeddings:
 
-> **“语义近”可以转化为“向量近”。**
+> **“Semantic closeness” can be turned into “vector closeness.”**
 
-### 3.2 为什么这里用余弦相似度？
+### 3.2 Why Use Cosine Similarity Here?
 
-因为我们常常更关心：
+Because we often care more about:
 
-- 方向是否接近
+- whether the directions are similar
 
-而不是绝对长度。  
-余弦相似度正好适合这种比较。
+rather than the absolute length.
+Cosine similarity is a natural fit for this kind of comparison.
 
-### 3.3 新人第一次学词嵌入，最该先记什么？
+### 3.3 What Should Beginners Remember First When Learning Word Embeddings?
 
-最值得先记住的是：
+The most important things to remember are:
 
-1. one-hot 更像编号，不像语义表示
-2. 词嵌入的价值是把“语义近”转成“向量近”
-3. 后面很多 NLP 模型第一步，本质上还是在用 embedding
+1. one-hot is more like an ID than a semantic representation
+2. the value of word embeddings is turning “semantically close” into “vector close”
+3. the first step in many NLP models is, in essence, still using embeddings
 
-### 3.4 再看一个最小“找邻近词”示例
+### 3.4 Another Minimal “Find Nearest Neighbors” Example
 
 ```python
 from math import sqrt
@@ -287,99 +285,99 @@ neighbors.sort(key=lambda x: x[1], reverse=True)
 print(neighbors)
 ```
 
-这个示例很适合初学者，因为它能马上把一个抽象概念变得具体：
+This example is especially good for beginners because it quickly turns an abstract concept into something concrete:
 
-- 如果向量真的带了语义关系
-- 那你就应该能从空间里把“更像的词”找出来
+- if vectors really carry semantic relationships
+- then you should be able to find “more similar words” from the space
 
 ---
 
-## 四、词嵌入为什么对后续任务有帮助？
+## 4. Why Are Word Embeddings Helpful for Later Tasks?
 
-### 4.1 文本分类
+### 4.1 Text Classification
 
-如果“退款”和“退货”向量接近，  
-模型更容易把它们一起学进“售后类”。
+If `refund` and `return` are close in vector space,
+the model can more easily learn to group them into a “after-sales” category.
 
-### 4.2 相似文本检索
+### 4.2 Similar Text Retrieval
 
-如果一段文本由很多相似词组成，  
-它在向量空间里通常也更接近同主题内容。
+If a piece of text contains many similar words,
+it is usually also closer in vector space to content on the same topic.
 
-### 4.3 下游深度模型输入
+### 4.3 Input to Downstream Deep Learning Models
 
-很多模型第一层本质上还是：
+For many models, the first layer is essentially:
 
 - token id -> embedding vector
 
-所以词嵌入不是旧知识，而是后面更复杂模型的入口。
+So word embeddings are not old knowledge; they are the entry point for more complex models later.
 
-### 4.4 这一节为什么会直接连到后面的预训练主线？
+### 4.4 Why Does This Section Connect Directly to the Pretraining Storyline Later?
 
-因为你后面看到的大多数 NLP 模型，第一步仍然会做类似的事：
+Because most NLP models you will see later still do something similar at the beginning:
 
-- 先把 token 变成向量表示
+- first turn tokens into vector representations
 
-区别只是：
+The difference is:
 
-- 固定 embedding 更静态
-- 上下文化表示更动态
-- 预训练模型会把这套表示能力规模化地学得更强
+- fixed embeddings are more static
+- contextual representations are more dynamic
+- pretrained models learn this representation power at much larger scale
 
-### 4.5 如果你第一次把 embedding 放进项目里，最稳的默认用法
+### 4.5 If You Use Embeddings in a Project for the First Time, the Safest Default Workflow
 
-更稳的用法通常是：
+A safer workflow is usually:
 
-1. 先把词变成向量
-2. 先看相似词和相似句子是否合理
-3. 再把 embedding 接到分类、检索或聚类里
+1. first turn words into vectors
+2. first check whether similar words and similar sentences make sense
+3. then connect embeddings to classification, retrieval, or clustering
 
-这样会比一开始就直接上复杂模型更容易建立手感。
-
----
-
-## 五、词嵌入最容易踩的坑
-
-### 5.1 误区一：词嵌入等于词典释义
-
-不是。  
-它更像统计语义空间，不是词典定义表。
-
-### 5.2 误区二：词向量一旦学好就什么都能解决
-
-词嵌入只能表达基础语义关系。  
-遇到多义词和复杂上下文时，很快就不够了。
-
-### 5.3 误区三：只看单个词，不看任务
-
-词嵌入的价值最终还是要放回具体任务里判断。
-
-## 小结
-
-这节最重要的，是把词嵌入理解成：
-
-> **一种把离散词汇映射到连续语义空间的方式，让“相近词”在向量上也更接近。**
-
-一旦这个直觉建立起来，  
-你后面再看上下文表示、句向量和语言模型时就会顺很多。
+This is easier to build intuition with than starting directly with a complex model.
 
 ---
 
-## 这节最该带走什么
+## 5. Common Pitfalls with Word Embeddings
 
-- 词嵌入不是给词换个编号，而是在给词建立语义空间位置
-- 余弦相似度是理解这层语义空间最重要的第一把钥匙
-- 后面上下文化表示和预训练模型，其实都是在这条路上继续往前走
+### 5.1 Mistake 1: Word Embeddings Are the Same as Dictionary Definitions
 
-如果再压成一句话，那就是：
+No.
+They are more like a statistical semantic space, not a dictionary definition table.
 
-> **词嵌入的意义，不在于把词变短，而在于让词和词之间终于开始有了可计算的语义距离。**
+### 5.2 Mistake 2: Once Word Vectors Are Well Trained, They Can Solve Everything
+
+Word embeddings can only express basic semantic relationships.
+When facing polysemy and complex context, they quickly become insufficient.
+
+### 5.3 Mistake 3: Only Look at Individual Words, Not the Task
+
+The value of word embeddings still has to be judged in the context of the specific task.
+
+## Summary
+
+The most important takeaway from this section is to understand word embeddings as:
+
+> **A way to map discrete vocabulary into a continuous semantic space, so that “similar words” are also closer in vector space.**
+
+Once this intuition is established,
+it becomes much easier to understand contextual representations, sentence vectors, and language models later.
 
 ---
 
-## 练习
+## What You Should Take Away from This Section
 
-1. 给示例再加一个词 `delivery`，自己决定它的向量，并观察它和其他词的相似度。
-2. 为什么说 one-hot 能区分词，但不能表达词和词之间的关系？
-3. 用自己的话解释：余弦相似度为什么适合比较词向量？
-4. 想一想：如果一个词经常出现在多个不同语境里，仅靠固定词向量会遇到什么问题？
+- Word embeddings are not just new IDs for words; they give words positions in a semantic space
+- Cosine similarity is the most important first key to understanding this semantic space
+- Contextual representations and pretrained models later are, in fact, continuing along the same path
+
+If this is compressed into one sentence, it is:
+
+> **The meaning of word embeddings is not to make words shorter, but to finally give words a computable semantic distance from one another.**
+
+---
+
+## Exercises
+
+1. Add a new word `delivery` to the example, decide its vector yourself, and observe its similarity to the other words.
+2. Why can one-hot distinguish words but cannot express relationships between words?
+3. Explain in your own words why cosine similarity is suitable for comparing word vectors.
+4. Think about this: if a word often appears in multiple different contexts, what problems will fixed word vectors run into?

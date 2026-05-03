@@ -1,121 +1,121 @@
 ---
-title: "8.1 学前导读：综合项目这一章到底该怎么学"
+title: "8.1 Pre-Class Guide: How Should You Actually Study This Capstone Project Chapter?"
 sidebar_position: 0
-description: "先建立第八 A 阶段项目章的学习地图：领域任务如何在 Prompt、RAG、微调之间做选择，并通过数据、训练、评估和展示形成大模型项目闭环。"
-keywords: [大模型项目导读, 领域微调, Prompt, RAG, LLM评估]
+description: "First, build the learning map for Chapter 8A: how domain tasks choose between Prompt, RAG, and fine-tuning, and how data, training, evaluation, and presentation form a complete LLM project loop."
+keywords: [LLM project guide, domain fine-tuning, Prompt, RAG, LLM evaluation]
 ---
 
-# 学前导读：综合项目这一章到底该怎么学
+# Pre-Class Guide: How Should You Actually Study This Capstone Project Chapter?
 
-这一章不是继续堆术语，而是把前面学过的大模型概览、预训练、Prompt、微调、对齐和评估真正放进一个具体项目。
+This chapter is not about piling on more terminology. Instead, it takes the overview of LLMs, pre-training, Prompt, fine-tuning, alignment, and evaluation that you learned earlier and places them into a concrete project.
 
-大模型项目最重要的能力，不是看到问题就直接微调，也不是所有任务都靠 Prompt 硬写，而是能判断：这个问题到底是任务表达不清、领域知识不足、行为风格不稳定，还是评估标准缺失。不同问题对应不同方案。
+The most important skill in an LLM project is not blindly fine-tuning when you see a problem, nor forcing every task into a Prompt. It is being able to judge whether the problem is unclear task expression, insufficient domain knowledge, unstable style, or missing evaluation criteria. Different problems require different solutions.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-第八 A 阶段的主题是理解大模型能力从哪里来，以及如何通过 Prompt、微调和对齐影响模型行为。综合项目是这一阶段的出口，要让你把这些概念变成可验证的工程判断。
+The theme of Phase 8A is understanding where LLM capabilities come from, and how Prompt, fine-tuning, and alignment affect model behavior. The capstone project is the exit point of this phase, and it should help you turn these concepts into verifiable engineering decisions.
 
-你需要证明自己能围绕一个明确领域任务，设计 baseline，比较 Prompt、RAG 或微调方案，准备样本，记录效果，并说明为什么选择某条路线。
+You need to prove that you can center a project around a clear domain task, design a baseline, compare Prompt, RAG, or fine-tuning approaches, prepare samples, record results, and explain why you chose a certain path.
 
-![大模型综合项目路线图](/img/course/ch07-projects-route-map.png)
+![LLM capstone project roadmap](/img/course/ch07-projects-route-map-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：如何把一个大模型项目收窄成明确领域和任务；如何先做 Prompt baseline，而不是直接上复杂方案；如何判断该用 Prompt、RAG 还是微调；如何准备数据和评估集；如何展示模型效果、失败案例和方案取舍。
+This chapter answers five questions: how to narrow an LLM project down to a clear domain and task; how to start with a Prompt baseline instead of jumping straight to a complex solution; how to decide whether to use Prompt, RAG, or fine-tuning; how to prepare data and an evaluation set; and how to present model performance, failure cases, and trade-offs.
 
-新人最容易犯的错误，是把“模型答得不好”直接理解成“需要微调”。真实项目里，很多问题是资料缺失、Prompt 表达不清、输出格式没约束、评估样例不足或应用流程设计不合理。
+A common mistake for beginners is to interpret “the model performs poorly” as “we need fine-tuning.” In real projects, many issues come from missing materials, unclear Prompt wording, unconstrained output format, insufficient evaluation examples, or a poorly designed application workflow.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先选一个小而明确的领域任务，例如课程问答分类、章节摘要结构化、客服意图识别、合同条款分类或学习建议生成。然后写 Prompt baseline，收集一组测试样例，记录成功和失败。接着判断失败类型：如果是上下文资料不足，考虑 RAG；如果是固定格式和风格不稳定，考虑微调；如果是任务本身模糊，先重写任务定义和评估标准。
+It is recommended that you first choose a small and clear domain task, such as course Q&A classification, chapter summary structuring, customer intent recognition, contract clause classification, or learning advice generation. Then write a Prompt baseline, collect a set of test examples, and record both successes and failures. Next, identify the failure type: if supporting context is missing, consider RAG; if fixed-format or style output is unstable, consider fine-tuning; if the task itself is vague, first rewrite the task definition and evaluation criteria.
 
-![大模型项目方法选择闭环图](/img/course/ch07-project-method-choice-loop.png)
+![LLM project method-selection loop](/img/course/ch07-project-method-choice-loop-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on While Studying This Chapter
 
-这一章的主线可以概括为：大模型项目不是“选最强模型”，而是围绕任务、数据、方法和评估做取舍。
+The core idea of this chapter can be summarized as: an LLM project is not about “choosing the strongest model,” but about making trade-offs around task, data, method, and evaluation.
 
-看懂这条线后，你会知道为什么项目报告里要写“为什么不用另一种方案”。这类取舍说明会比单纯展示效果更能体现你的大模型工程能力。
+Once you understand this line, you will know why project reports need to explain “why not use another solution.” This kind of trade-off explanation shows your LLM engineering ability more clearly than simply demonstrating results.
 
-## 这个项目真正要练什么
+## What This Project Is Really Training
 
-这个项目真正训练四件事：把任务收窄成明确领域，先建立 Prompt baseline，判断是该继续优化 Prompt、接 RAG 还是做微调，最后用评估集和失败案例证明方案有效。
+This project is really training four things: narrowing a task into a clear domain, first building a Prompt baseline, deciding whether to keep optimizing the Prompt, connect RAG, or do fine-tuning, and finally using an evaluation set and failure cases to prove the solution works.
 
-如果选择领域微调项目，需要特别关注数据质量、训练/验证切分、格式稳定性和与 baseline 的对比。如果选择 RAG 方案，需要关注资料来源、切分、检索、引用和无答案处理。如果选择 Prompt 方案，需要关注结构化输出、示例设计和版本迭代。
+If you choose a domain fine-tuning project, pay special attention to data quality, the training/validation split, format stability, and comparison with the baseline. If you choose a RAG solution, focus on the source of knowledge, chunking, retrieval, citations, and how to handle “no answer” cases. If you choose a Prompt-based solution, focus on structured output, example design, and version iteration.
 
-## 这一章和后面阶段的关系
+## How This Chapter Connects to Later Stages
 
-这一章会直接连接第八 B 阶段的 LLM 应用开发与 RAG。你在这里建立的方案选择能力，会在后面扩展成知识库问答、智能助手、工具调用和 Agent 系统。
+This chapter directly leads into Phase 8B on LLM application development and RAG. The solution-selection ability you build here will later expand into knowledge-base Q&A, intelligent assistants, tool calling, and Agent systems.
 
-如果这一章没学稳，后面常见的问题是：看到问题就堆框架；把微调、RAG 和 Prompt 混成一类；没有评估集；无法解释方案为什么有效；项目展示只有最终答案，没有失败分析和取舍过程。
+If you do not learn this chapter solidly, common problems later will be: adding frameworks whenever you see a problem; mixing fine-tuning, RAG, and Prompt into one category; having no evaluation set; being unable to explain why a solution works; and presenting only the final answer without failure analysis or trade-off reasoning.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can move on.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+More experienced learners can treat this chapter as a chance to fill gaps and practice engineering: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the earlier and later stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study mode | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s project exit |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | Can explain its role in the whole course in one sentence |
+| What are the minimum inputs and outputs? | Can clearly state what the example needs as input and what it will produce |
+| Where are the common failure points? | Can list at least one cause of an error, poor result, or misunderstanding |
+| What can you retain after finishing? | Can write the output of this chapter into a project README, experiment log, or portfolio |
 
-## 本章小项目出口
+## Chapter Project Exit
 
-学完这一章后，建议完成一个“领域任务大模型方案对比项目”。项目至少包含任务定义、样例数据、Prompt baseline、失败分析、改进方案、评估结果和结论说明。
+After finishing this chapter, it is recommended to complete a “domain task LLM solution comparison project.” The project should include at least task definition, sample data, Prompt baseline, failure analysis, improvement plan, evaluation results, and a conclusion.
 
-最小版本可以只比较两个 Prompt 版本；进阶版本可以比较 Prompt、RAG 和小规模微调；作品集版本需要把方法取舍、评估指标、失败案例和下一步计划写清楚。
+The minimum version can compare just two Prompt versions; the advanced version can compare Prompt, RAG, and a small-scale fine-tuning run; the portfolio version should clearly explain method trade-offs, evaluation metrics, failure cases, and next steps.
 
 
-## Debug 侦探案件
+## Debug Detective Case
 
-| 案件 | 内容 |
+| Case | Content |
 |---|---|
-| 案件名 | JSON 漂移事件 |
-| 案发现场 | LLM 输出有时少字段、有时多解释，结构化结果无法稳定解析。 |
-| 侦查步骤 | 固定 10 个输入，保存原始输出，用 schema 校验并比较 Prompt 版本。 |
-| 结案证据 | prompt_eval_cases.csv、Prompt 版本表、schema 通过率。 |
+| Case name | JSON drift incident |
+| Scene | The LLM output sometimes misses fields and sometimes adds extra explanations, making structured results impossible to parse reliably. |
+| Investigation steps | Fix 10 inputs, save the raw outputs, validate with a schema, and compare Prompt versions. |
+| Closing evidence | `prompt_eval_cases.csv`, Prompt version table, schema pass rate. |
 
-项目练习不要只保留成功截图。至少挑一个真实失败样本，按“现象、线索、嫌疑原因、侦查步骤、修复动作、回归检查”写进 `reports/failure_cases.md`，这样项目会更像真实工程作品。
+When practicing the project, do not keep only success screenshots. At minimum, pick one real failure sample and write it into `reports/failure_cases.md` in the format “phenomenon, clues, suspected cause, investigation steps, fix action, regression check.” This will make the project feel much more like a real engineering work.
 
-## 项目交付物标准
+## Project Deliverable Standards
 
-每个大模型综合项目都建议按同一套作品集标准交付，而不是只展示一次模型回答。最小交付物应该包括：一份 README、一条可复现运行命令、一组示例输入输出、Prompt 版本记录、一次失败样本分析，以及下一步改进计划。
+For each LLM capstone project, it is recommended to deliver it according to the same portfolio standard rather than only showing one model response. The minimum deliverables should include: a README, one reproducible run command, a set of example inputs and outputs, Prompt version records, one failure sample analysis, and a next-step improvement plan.
 
-| 交付物 | 最低要求 | 进阶要求 |
+| Deliverable | Minimum requirement | Advanced requirement |
 |---|---|---|
-| README | 写清项目目标、运行方式、模型和示例 | 增加方案取舍、成本估算、评估和复盘 |
-| 示例输入输出 | 至少保留 1 个固定测试样本 | 保留 Prompt、RAG、微调或规则方案对比样本 |
-| 评估记录 | 写清用什么标准判断输出好坏 | 加入固定评估集、人工评分和失败类型统计 |
-| Prompt/数据记录 | 保存 Prompt 版本或训练样本格式 | 增加 schema、校验、数据质量和安全边界说明 |
-| 展示材料 | 截图或短 GIF 证明能运行 | 做成可讲解的大模型方案选择案例 |
+| README | Clearly state the project goal, how to run it, the model, and examples | Add solution trade-offs, cost estimate, evaluation, and retrospective |
+| Example inputs and outputs | Keep at least 1 fixed test sample | Keep comparison samples for Prompt, RAG, fine-tuning, or rule-based solutions |
+| Evaluation record | Clearly state the standard used to judge output quality | Add a fixed evaluation set, human scoring, and failure-type statistics |
+| Prompt/data record | Save Prompt versions or training sample format | Add schema, validation, data quality, and safety boundary notes |
+| Presentation material | Screenshots or short GIFs to prove it runs | Turn it into a teachable case of LLM solution selection |
 
-做大模型项目时最重要的不是“模型答得像不像”，而是能讲清楚：问题到底来自任务表达、知识缺口、格式稳定性还是评估缺失，以及为什么选择当前技术路线。
+The most important thing in LLM projects is not “does the model answer convincingly,” but being able to clearly explain whether the problem comes from task expression, knowledge gaps, format stability, or missing evaluation, and why you chose the current technical path.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能围绕一个领域任务建立 baseline，能判断 Prompt、RAG 和微调各自适合解决什么问题，能准备小型评估集，能用失败案例解释模型局限，能把技术方案取舍写成项目报告。
+By the end of this chapter, you should be able to build a baseline around a domain task, judge what problems Prompt, RAG, and fine-tuning are each best at solving, prepare a small evaluation set, explain model limitations with failure cases, and write the technical trade-offs into a project report.
 
-如果你能清楚说明“为什么这里不直接微调”“为什么这里需要 RAG”“为什么这个 Prompt 改动有效”，就达到了大模型原理与微调阶段的作品集出口标准。
+If you can clearly explain “why not fine-tune here,” “why RAG is needed here,” and “why this Prompt change works,” then you have reached the portfolio exit standard for the LLM principles and fine-tuning phase.
 
-## 版本路线建议
+## Version Roadmap Suggestions
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Deliverable focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic | Run the minimum loop | Can take input, process it, output it, and keep one set of examples |
+| Standard | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not aim for something huge and complete right away. Each time you level up, make sure to write “what new capability was added, how it was validated, and what problems remain” into the README.

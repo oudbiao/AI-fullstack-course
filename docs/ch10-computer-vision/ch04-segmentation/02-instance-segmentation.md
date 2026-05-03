@@ -1,88 +1,88 @@
 ---
-title: "4.3 实例分割"
+title: "4.3 Instance Segmentation"
 sidebar_position: 12
-description: "从语义分割继续往前，理解实例分割为什么不仅要分出类别，还要区分同类物体的不同个体。"
+description: "Continuing from semantic segmentation, understand why instance segmentation must not only separate categories, but also distinguish different individual objects within the same category."
 keywords: [instance segmentation, mask, object instance, vision]
 ---
 
-# 实例分割
+# Instance Segmentation
 
-:::tip 本节定位
-语义分割已经能回答：
+:::tip Section focus
+Semantic segmentation can already answer:
 
-- 哪些像素属于“人”
+- Which pixels belong to "person"
 
-但如果图里有三个人，它还不够。  
-实例分割更进一步：
+But if there are three people in the image, that is still not enough.
+Instance segmentation goes one step further:
 
-> **不仅知道像素属于哪个类别，还要知道它属于哪一个具体实例。**
+> **It not only knows which category a pixel belongs to, but also which specific instance it belongs to.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解实例分割和语义分割的差别
-- 理解“类别”与“实例”为什么是两个层次
-- 通过可运行示例建立实例 mask 直觉
-- 理解实例分割为什么更接近真实视觉场景
+- Understand the difference between instance segmentation and semantic segmentation
+- Understand why "category" and "instance" are two different levels
+- Build intuition for instance masks through runnable examples
+- Understand why instance segmentation is closer to real-world visual scenes
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-实例分割最适合新人的理解顺序不是“又多了一个分割任务”，而是先看清：
+For beginners, the best way to understand instance segmentation is not "it's just one more segmentation task," but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["语义分割"] --> B["只区分类别"]
-    C["实例分割"] --> D["还要拆开同类个体"]
-    D --> E["更适合计数、跟踪、交互场景"]
+    A["Semantic segmentation"] --> B["Only separates categories"]
+    C["Instance segmentation"] --> D["Also separates individual objects of the same category"]
+    D --> E["Better for counting, tracking, and interaction scenarios"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么“类别对了”还不够
-- 为什么“同类个体拆开”会显著增加任务难度
+- Why "the category is correct" is still not enough
+- Why "separating same-category individuals" significantly increases the difficulty
 
-## 一、实例分割比语义分割多了什么？
+## 1. What does instance segmentation add beyond semantic segmentation?
 
-语义分割：
+Semantic segmentation:
 
-- 只区分类别
+- Only separates categories
 
-实例分割：
+Instance segmentation:
 
-- 类别 + 个体区分
+- Category + individual distinction
 
-也就是说，图里两个“person”不该混成一个整体。
+In other words, two "person" objects in the image should not be merged into one whole.
 
-### 1.1 一个新人最该先分清的三件事
+### 1.1 Three things beginners should distinguish first
 
-第一次学实例分割时，最值得先记住的是：
+When learning instance segmentation for the first time, the most important things to remember are:
 
-1. 语义分割回答“这是什么类别”
-2. 实例分割还要回答“这是第几个个体”
-3. 所以后者天然更接近真实多目标场景
+1. Semantic segmentation answers "what category is this"
+2. Instance segmentation also answers "which individual is this"
+3. So the latter is naturally closer to real multi-object scenarios
 
-### 1.2 一个更适合新人的总对比表
+### 1.2 A comparison table that is easier for beginners
 
-很多新人第一次学到这里，最容易把分类、检测、语义分割、实例分割搅在一起。  
-最稳的办法是先把它们放在同一张表里看：
+When many beginners first learn this topic, it is easy to mix up classification, detection, semantic segmentation, and instance segmentation.
+The safest way is to place them in the same table and compare them:
 
-| 任务 | 输出什么 | 最核心的问题 |
+| Task | What it outputs | Core question |
 |---|---|---|
-| 分类 | 一张图一个类别 | 这张图整体是什么 |
-| 检测 | 类别 + 框 | 目标在哪 |
-| 语义分割 | 类别 mask | 哪些像素属于什么类别 |
-| 实例分割 | 类别 mask + 个体区分 | 同类目标怎么一个个拆开 |
+| Classification | One category for the whole image | What is this image overall |
+| Detection | Category + box | Where is the object |
+| Semantic segmentation | Category mask | Which pixels belong to which category |
+| Instance segmentation | Category mask + individual distinction | How do we separate same-category objects one by one |
 
-这张表特别值钱，因为它会让你一下子看清：
+This table is especially valuable because it helps you immediately see:
 
-- 实例分割不是“更细一点的语义分割”
-- 它其实是把“像素级理解”和“个体级区分”同时扛起来
+- Instance segmentation is not just "more detailed semantic segmentation"
+- It actually handles pixel-level understanding and instance-level distinction at the same time
 
 ---
 
-## 二、先看一个最小实例 mask 示例
+## 2. Start with a minimal instance mask example
 
 ```python
 instance_map = [
@@ -105,41 +105,41 @@ print("instance 1:", pixels_of_instance(instance_map, 1))
 print("instance 2:", pixels_of_instance(instance_map, 2))
 ```
 
-### 2.1 这个例子最关键的地方是什么？
+### 2.1 What is the most important thing in this example?
 
-它说明实例分割不只是输出类别编号，  
-还会区分：
+It shows that instance segmentation does not just output a category ID,
+it also distinguishes:
 
-- 第 1 个实例
-- 第 2 个实例
+- the 1st instance
+- the 2nd instance
 
-这在计数、跟踪和交互场景里非常重要。
+This is very important in counting, tracking, and interaction scenarios.
 
-### 2.2 为什么实例分割会特别适合安防和自动驾驶？
+### 2.2 Why is instance segmentation especially suitable for security and autonomous driving?
 
-因为这些场景里，系统往往不只关心：
+Because in these scenarios, the system often does not only care about:
 
-- 画面里有没有人
+- whether there is a person in the scene
 
-更关心：
+It cares more about:
 
-- 到底有几个人
-- 哪几个目标彼此挨得很近
-- 后续能不能继续跟踪这些个体
+- how many people there are
+- which targets are very close to each other
+- whether these individuals can be tracked afterward
 
-也就是说，实例分割天然更像“面向后续决策的视觉表示”。
+In other words, instance segmentation is naturally closer to a visual representation for downstream decision-making.
 
-### 2.3 再看一个最小“计数 + 面积”示例
+### 2.3 Look at another minimal "count + area" example
 
-实例分割之所以在真实系统里特别值钱，  
-是因为它不仅能告诉你“有几个目标”，  
-还更容易继续往下算：
+One reason instance segmentation is so valuable in real systems is that
+it can not only tell you "how many targets there are,"
+but also make it easy to compute:
 
-- 每个目标面积多大
-- 哪个目标离边界更近
-- 哪些目标彼此重叠
+- how large each target is
+- which target is closer to the boundary
+- which targets overlap with each other
 
-下面这个例子先用最小方式体会这种“个体级统计”：
+The example below gives you a minimal way to feel this "instance-level statistics":
 
 ```python
 instance_map = [
@@ -162,81 +162,84 @@ for target_id in [1, 2]:
     print(target_id, "area =", instance_area(instance_map, target_id))
 ```
 
-这个例子最值得先抓住的不是代码本身，  
-而是：
+The most important thing to grasp here is not the code itself,
+but that:
 
-- 一旦个体被拆开
-- 后面很多统计和决策都会自然多出来
+- once individuals are separated
+- many statistics and decisions naturally become available afterward
 
-![实例分割个体拆分、计数与面积图](/img/course/ch10-instance-segmentation-count-mask-map.png)
+![Instance separation, counting, and area diagram](/img/course/ch10-instance-segmentation-count-mask-map-en.png)
 
-:::tip 读图提示
-语义分割只关心“哪些像素是人”，实例分割还要分清“第 1 个人、第 2 个人”。读图时重点看相邻同类目标为什么容易粘连，以及个体拆开后如何继续做计数和面积统计。
+:::tip Reading hint
+Semantic segmentation only cares about "which pixels are people," while instance segmentation also needs to distinguish "person 1" and "person 2." When reading the figure, focus on why neighboring same-category objects easily stick together, and how separating instances enables counting and area statistics afterward.
 :::
 
 ---
 
-## 三、最容易踩的坑
+## 3. The most common pitfalls
 
-### 3.1 相邻同类实例容易粘在一起
+### 3.1 Adjacent same-category instances easily stick together
 
-这是实例分割特别常见的错误。
+This is a very common error in instance segmentation.
 
-### 3.2 小实例更难
+### 3.2 Small instances are harder
 
-个体越小、越拥挤，越难分清。
+The smaller and denser the objects are, the harder they are to separate.
 
-### 3.3 评估比语义分割更复杂
+### 3.3 Evaluation is more complex than semantic segmentation
 
-因为现在不仅要看 mask 质量，  
-还要看实例是否正确拆开。
+Because now you not only need to check mask quality,
+you also need to check whether the instances are correctly separated.
 
-## 四、第一次做实例分割项目时，最稳的默认顺序
+## 4. The safest default workflow for your first instance segmentation project
 
-第一次把实例分割放进项目里，  
-更建议按这个顺序推进：
+When you first bring instance segmentation into a project,
+it is better to move forward in this order:
 
-1. 先确认任务真的需要“拆开同类个体”
-2. 先拿少量样本人工看实例边界是否明确
-3. 先做一个可视化 baseline，看实例有没有被粘连
-4. 再看 mask 质量和个体拆分是否同时成立
-5. 最后再考虑更复杂模型和更细评估
+1. First confirm that the task really needs same-category objects to be separated
+2. First inspect a small number of samples manually to see whether instance boundaries are clear
+3. First build a visualization baseline to see whether instances are being merged
+4. Then check whether mask quality and instance separation both hold
+5. Finally consider more complex models and finer-grained evaluation
 
-这会比一开始就追复杂网络更稳，  
-因为实例分割最怕的往往不是“模型不够复杂”，  
-而是：
+This is safer than chasing a complex network from the start,
+because the biggest problems in instance segmentation are often not:
 
-- 标注边界本身不清
-- 任务需求没定义清楚
+- the model is not complex enough
 
-## 五、第一次学这节时最正确的预期
+but rather:
 
-这一节最重要的不是今天就学会复杂实例分割网络，  
-而是先真正看清：
+- the annotation boundaries themselves are unclear
+- the task requirements are not defined clearly
 
-- 为什么语义分割和实例分割不是一个东西
-- 为什么相邻同类目标会成为真正难点
-- 为什么这个任务一旦做好，会对计数、交互和跟踪特别有价值
+## 5. The right expectation when learning this section for the first time
 
----
+The most important thing in this section is not to master a complex instance segmentation network today,
+but to clearly understand:
 
-## 小结
-
-这节最重要的是建立一个判断：
-
-> **实例分割比语义分割多解决了一层“同类目标之间怎么区分”的问题，因此更接近真实多目标视觉场景。**
-
-## 这节最该带走什么
-
-- 实例分割是在语义分割之上再补“个体拆分”
-- 难点往往不在类别，而在相邻同类目标的边界
-- 如果后续任务需要计数、跟踪或交互，实例分割往往特别有价值
+- Why semantic segmentation and instance segmentation are not the same thing
+- Why neighboring same-category objects become the real difficulty
+- Why, once this task is done well, it becomes especially valuable for counting, interaction, and tracking
 
 ---
 
-## 练习
+## Summary
 
-1. 自己构造一个更大的 `instance_map`，再标出 3 个实例。
-2. 为什么实例分割比语义分割更难？
-3. 如果两个相邻目标总被粘成一个实例，你会首先怀疑什么？
-4. 想一想：实例分割在自动驾驶或安防里为什么特别有价值？
+The most important idea in this section is to build one judgment:
+
+> **Instance segmentation solves one more layer of the problem than semantic segmentation: how to distinguish among objects of the same category, so it is closer to real multi-object visual scenarios.**
+
+## What you should take away from this section
+
+- Instance segmentation adds "individual separation" on top of semantic segmentation
+- The difficulty is often not the category, but the boundary between neighboring same-category objects
+- If downstream tasks need counting, tracking, or interaction, instance segmentation is often especially valuable
+
+---
+
+## Exercises
+
+1. Create a larger `instance_map` by yourself and mark 3 instances.
+2. Why is instance segmentation harder than semantic segmentation?
+3. If two adjacent objects are always merged into one instance, what would you suspect first?
+4. Think about it: why is instance segmentation especially valuable in autonomous driving or security scenarios?

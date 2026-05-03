@@ -1,51 +1,51 @@
 ---
-title: "2.4 图像分类训练技巧"
+title: "2.4 Image Classification Training Tricks"
 sidebar_position: 4
-description: "理解图像分类训练中最常见的学习率、数据增强、正则化、类别不平衡和错误分析技巧。"
-keywords: [图像分类, 训练技巧, 数据增强, 学习率, 过拟合, 类别不平衡]
+description: "Understand the most common training tricks for image classification, including learning rate, data augmentation, regularization, class imbalance, and error analysis."
+keywords: [image classification, training tricks, data augmentation, learning rate, overfitting, class imbalance]
 ---
 
-# 图像分类训练技巧
+# Image Classification Training Tricks
 
-:::tip 本节定位
-图像分类项目不是模型一换就好。很多时候，真正决定效果的是训练细节：数据增强是否合理、学习率是否稳定、验证集是否可信、错误样本有没有被分析。
+:::tip Section Overview
+An image classification project is not something you can fix just by switching models. In many cases, the real factors that determine performance are training details: whether data augmentation is reasonable, whether the learning rate is stable, whether the validation set is trustworthy, and whether error samples have been analyzed.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 能判断训练不收敛、过拟合、欠拟合的常见原因
-- 理解学习率、batch size、数据增强和正则化的作用
-- 知道类别不平衡和数据泄漏会怎样影响分类结果
-- 能用错误样本分析指导下一轮改进
+- Be able to identify common causes of non-converging training, overfitting, and underfitting
+- Understand the roles of learning rate, batch size, data augmentation, and regularization
+- Know how class imbalance and data leakage affect classification results
+- Use error sample analysis to guide the next round of improvements
 
 ---
 
-## 先看训练问题地图
+## First, Look at the Training Problem Map
 
 ```mermaid
 flowchart TD
-  A[分类效果不好] --> B[数据问题]
-  A --> C[训练问题]
-  A --> D[评估问题]
-  B --> B1[样本少 / 标注错 / 类别不平衡]
-  C --> C1[学习率不合适 / 过拟合 / 欠拟合]
-  D --> D1[验证集泄漏 / 指标单一]
+  A[Poor classification performance] --> B[Data issues]
+  A --> C[Training issues]
+  A --> D[Evaluation issues]
+  B --> B1[Too few samples / Wrong labels / Class imbalance]
+  C --> C1[Unfit learning rate / Overfitting / Underfitting]
+  D --> D1[Validation leakage / Single metric]
 ```
 
-## 一、学习率是最先检查的旋钮
+## 1. Learning Rate Is the First Knob to Check
 
-学习率太大，loss 可能震荡甚至发散；学习率太小，训练会非常慢，模型看起来像没学到东西。初学时可以先从一个常见默认值开始，再观察训练曲线。
+If the learning rate is too large, the loss may oscillate or even diverge; if it is too small, training will be very slow, and the model may look like it is not learning anything. When you are starting out, begin with a common default value and then observe the training curve.
 
 ```python
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)
 ```
 
-如果训练 loss 和验证 loss 都很高，可能是欠拟合或学习率不合适。如果训练 loss 很低但验证 loss 很高，通常是过拟合或数据划分有问题。
+If both the training loss and validation loss are high, the model may be underfitting or the learning rate may be inappropriate. If the training loss is very low but the validation loss is very high, it is usually overfitting or a problem with the data split.
 
-## 二、数据增强要符合真实场景
+## 2. Data Augmentation Should Match Real-World Scenarios
 
-数据增强不是越多越好，而是模拟真实世界可能出现的变化。猫狗分类可以水平翻转，但数字识别随便旋转 180 度可能改变语义；医学影像也不能随意做不符合成像逻辑的增强。
+Data augmentation is not about doing as much as possible, but about simulating changes that may occur in the real world. For cat-and-dog classification, horizontal flipping is fine; but for digit recognition, rotating an image by 180 degrees at random may change the meaning. Medical images also cannot be augmented arbitrarily in ways that break imaging logic.
 
 ```python
 from torchvision import transforms
@@ -58,26 +58,26 @@ train_tfms = transforms.Compose([
 ])
 ```
 
-增强的原则是：训练集做增强，验证集不做随机增强；增强应该保留标签语义；增强后最好人工抽查几张图。
+The principle for augmentation is: apply augmentation to the training set, not to the validation set with random transforms; augmentation should preserve the label semantics; and after augmentation, it is best to manually inspect a few images.
 
-## 三、过拟合和欠拟合怎么区分
+## 3. How to Tell Overfitting from Underfitting
 
-| 现象 | 可能原因 | 优先处理 |
+| Phenomenon | Possible Cause | First Step to Take |
 |---|---|---|
-| 训练和验证都差 | 模型太弱、训练不够、学习率问题 | 增加训练轮数、调学习率、换 backbone |
-| 训练好验证差 | 过拟合、数据少、增强不足 | 加强增强、正则化、早停、更多数据 |
-| 训练波动大 | batch 太小、学习率偏大 | 降学习率、增大 batch、检查数据 |
-| 验证分数异常高 | 数据泄漏 | 检查重复图片、同一主体是否跨集合 |
+| Both training and validation are poor | Model too weak, not enough training, learning rate issue | Train more epochs, adjust learning rate, switch backbone |
+| Training is good but validation is poor | Overfitting, too little data, insufficient augmentation | Stronger augmentation, regularization, early stopping, more data |
+| Training fluctuates a lot | Batch too small, learning rate too large | Lower the learning rate, increase batch size, check data |
+| Validation score is unusually high | Data leakage | Check for duplicate images and whether the same subject appears across splits |
 
-![图像分类训练诊断矩阵图](/img/course/ch10-classification-training-diagnosis-map.png)
+![Image classification training diagnosis matrix](/img/course/ch10-classification-training-diagnosis-map-en.png)
 
-:::tip 读图提示
-这张图把训练问题拆成数据、训练、评估三条线。看到分类效果不好时，先别急着换模型，先看 loss 曲线、验证集泄漏、类别不平衡和错误样本。
+:::tip Reading Guide
+This diagram breaks training problems into three lines: data, training, and evaluation. When you see poor classification performance, do not rush to change the model. First look at the loss curves, validation leakage, class imbalance, and error samples.
 :::
 
-## 四、类别不平衡要看混淆矩阵
+## 4. For Class Imbalance, Check the Confusion Matrix
 
-准确率在类别不平衡时很容易骗人。比如 95% 图片都是正常样本，模型全预测正常也有 95% 准确率，但它完全不会识别异常。
+Accuracy can be very misleading when classes are imbalanced. For example, if 95% of images are normal samples, a model that always predicts normal can still get 95% accuracy, but it completely fails to recognize abnormal cases.
 
 ```python
 from sklearn.metrics import classification_report, confusion_matrix
@@ -86,27 +86,27 @@ print(classification_report(y_true, y_pred))
 print(confusion_matrix(y_true, y_pred))
 ```
 
-类别不平衡可以考虑重采样、class weight、focal loss 或补充少数类数据。选择哪种方法，要看少数类样本是否足够可靠。
+For class imbalance, you can consider resampling, class weights, focal loss, or adding more data for minority classes. Which method to choose depends on whether the minority-class samples are reliable enough.
 
-## 五、错误样本分析
+## 5. Error Sample Analysis
 
-每次训练后至少抽查 20 个错误样本。把它们分成几类：标注错误、图像质量差、类别边界模糊、模型关注错区域、训练集中类似样本太少。错误样本分析比盲目换模型更能指导下一步。
+After each training run, manually inspect at least 20 error samples. Group them into categories: wrong labels, poor image quality, blurry class boundaries, the model focusing on the wrong area, or too few similar samples in the training set. Error sample analysis is often more useful for the next step than blindly switching models.
 
-## 六、最小训练记录模板
+## 6. Minimal Training Log Template
 
-README 或实验记录里建议保留：数据集版本、训练/验证划分方式、模型结构、输入尺寸、增强策略、学习率、batch size、epoch、最佳指标、混淆矩阵、错误样本截图和下一步计划。
+In your README or experiment notes, it is recommended to keep: dataset version, training/validation split method, model architecture, input size, augmentation strategy, learning rate, batch size, number of epochs, best metric, confusion matrix, screenshots of error samples, and the next action plan.
 
-## 常见误区
+## Common Mistakes
 
-第一个误区是只看 accuracy，不看类别级指标。第二个误区是验证集也用了随机增强。第三个误区是同一对象或同一视频帧同时出现在训练和验证，造成泄漏。第四个误区是一遇到效果差就换模型，而不先检查数据和训练曲线。
+The first mistake is looking only at accuracy and not class-level metrics. The second mistake is using random augmentation on the validation set. The third mistake is having the same object or the same video frames appear in both training and validation, causing leakage. The fourth mistake is switching models as soon as performance looks poor, without first checking the data and training curves.
 
-## 练习
+## Exercises
 
-1. 训练一个小型分类模型，画出 train loss 和 val loss 曲线。
-2. 对同一模型分别使用弱增强和强增强，比较验证集效果。
-3. 输出混淆矩阵，找出最容易混淆的两个类别。
-4. 整理 10 张错误样本，给每张写一句可能原因。
+1. Train a small classification model and plot the train loss and val loss curves.
+2. Use weak augmentation and strong augmentation on the same model, and compare validation results.
+3. Output the confusion matrix and identify the two most easily confused classes.
+4. Organize 10 error samples and write one possible reason for each.
 
-## 过关标准
+## Passing Standard
 
-学完本节后，你应该能根据训练曲线判断常见问题，能设计合理的数据增强，能用混淆矩阵分析类别问题，并能把错误样本分析写进图像分类项目 README。
+After finishing this section, you should be able to identify common problems from training curves, design reasonable data augmentation, use the confusion matrix to analyze class issues, and write error sample analysis into the README of an image classification project.

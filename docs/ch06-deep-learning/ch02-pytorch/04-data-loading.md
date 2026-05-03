@@ -1,116 +1,116 @@
 ---
-title: "2.6 数据加载"
+title: "2.6 Data Loading"
 sidebar_position: 4
-description: "理解 Dataset、DataLoader、batch、shuffle 和训练集划分，让模型能稳定地一批批吃数据。"
+description: "Understand Dataset, DataLoader, batch, shuffle, and train/validation splitting so the model can steadily consume data batch by batch."
 keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 ---
 
-# 数据加载
+# Data Loading
 
-![Dataset DataLoader Batch 流程图](/img/course/dataset-dataloader-batch-flow.png)
+![Dataset DataLoader Batch Flow Diagram](/img/course/dataset-dataloader-batch-flow-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么训练时几乎不会一次性把所有数据直接塞进模型
-- 掌握 `Dataset` 和 `DataLoader` 的分工
-- 能自己写一个最简单的自定义数据集
-- 理解 `batch_size`、`shuffle`、训练集 / 验证集划分
+- Understand why, during training, we almost never feed all data into the model at once
+- Master the roles of `Dataset` and `DataLoader`
+- Be able to write the simplest custom dataset on your own
+- Understand `batch_size`, `shuffle`, and train/validation splitting
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-这一节最值得先看清的是：
+The most important thing to see in this section is:
 
 ```mermaid
 flowchart LR
-    A["原始样本"] --> B["Dataset: 定义单条样本怎么取"]
-    B --> C["DataLoader: 凑 batch、打乱、迭代"]
-    C --> D["训练循环一批批读取"]
+    A["Raw samples"] --> B["Dataset: define how to get one sample"]
+    B --> C["DataLoader: form batches, shuffle, iterate"]
+    C --> D["Training loop reads batch by batch"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-所以这一节真正解决的不是“背两个类名”，而是：
+So what this section is really solving is not “memorize two class names,” but:
 
-- 数据到底怎么稳定地流进训练循环
+- How data flows into the training loop in a stable way
 
-## 这节和前后内容是怎么接上的
+## How This Section Connects to What Came Before and After
 
-- 前面几节已经有了张量、梯度、模型
-- 这一节开始解决“训练时数据怎么按批流进来”
-- 下一节训练循环才会把“模型 + 数据”真正串在一起
+- In the previous sections, we already covered tensors, gradients, and models
+- This section starts solving how data flows into training in batches
+- The next section on the training loop will connect “model + data” together for real
 
-所以这节其实是在给训练闭环补“数据这一半”。
+So this section is really filling in the “data half” of the training loop.
 
-## 一、为什么需要数据加载器？
+## 1. Why Do We Need a Data Loader?
 
-想象你在喂模型吃饭。
+Imagine you are feeding a model a meal.
 
-- 一次把全部数据倒进去：太撑，内存可能扛不住
-- 一口一口喂：更稳定，也更适合反复训练
+- Pouring in all the data at once: too much, and memory may not handle it
+- Feeding it bite by bite: more stable, and better for repeated training
 
-在深度学习里，这“一口”就叫一个 **batch**。
+In deep learning, one “bite” is called a **batch**.
 
-所以我们通常不会这样做：
+So we usually do not write this:
 
 ```python
 pred = model(all_data_once)
 ```
 
-而是会这样做：
+Instead, we write this:
 
 ```python
 for batch_x, batch_y in dataloader:
     pred = model(batch_x)
 ```
 
-### 1.1 第一次看 `batch`，最值得先记什么？
+### 1.1 When You First See `batch`, What Is Most Worth Remembering?
 
-可以先只记一句话：
+You can start by remembering just one sentence:
 
-> **batch = 一次参数更新时，模型看到的一小批样本。**
+> **A batch is a small group of samples the model sees for one parameter update.**
 
-这句很关键，因为后面你看到：
+This sentence matters because later, when you see:
 
 - `batch_size`
 - `shuffle`
 - `steps per epoch`
 
-其实都在围绕这句话打转。
+they are all revolving around this idea.
 
 ---
 
-## 二、`Dataset` 和 `DataLoader` 各负责什么？
+## 2. What Do `Dataset` and `DataLoader` Each Do?
 
-可以把它们理解成：
+You can think of them like this:
 
-| 组件 | 类比 | 作用 |
+| Component | Analogy | Role |
 |---|---|---|
-| `Dataset` | 仓库 | 告诉 PyTorch “第 i 条数据是什么” |
-| `DataLoader` | 搬运车 | 负责分批、打乱、并行加载 |
+| `Dataset` | Warehouse | Tells PyTorch “what the i-th data item is” |
+| `DataLoader` | Delivery truck | Handles batching, shuffling, and parallel loading |
 
-一句话记忆：
+A simple way to remember it:
 
-- `Dataset` 负责“单条数据怎么取”
-- `DataLoader` 负责“怎么把单条数据凑成一批”
+- `Dataset` handles “how to get one sample”
+- `DataLoader` handles “how to turn samples into a batch”
 
-### 2.1 为什么这两个对象要分开？
+### 2.1 Why Separate These Two Objects?
 
-因为它们解决的是两个不同层面的问题：
+Because they solve two different levels of problems:
 
-- `Dataset` 更像“数据描述层”
-- `DataLoader` 更像“训练喂数层”
+- `Dataset` is more like the “data definition layer”
+- `DataLoader` is more like the “training data feeding layer”
 
-这样分开以后，好处很大：
+This separation brings big benefits:
 
-- 同一个数据集可以配不同的 batch 策略
-- 同样的 DataLoader 思路可以复用到不同数据集
+- The same dataset can use different batch strategies
+- The same `DataLoader` idea can be reused across different datasets
 
 ---
 
-## 三、先看一个最小 `Dataset`
+## 3. Start with the Smallest `Dataset`
 
 ```python
 import torch
@@ -118,7 +118,7 @@ from torch.utils.data import Dataset
 
 class StudentDataset(Dataset):
     def __init__(self):
-        # 两个特征：学习时长、完成练习数
+        # Two features: study time, number of exercises completed
         self.features = torch.tensor([
             [2.0, 1.0],
             [3.0, 2.0],
@@ -145,31 +145,31 @@ class StudentDataset(Dataset):
 
 dataset = StudentDataset()
 
-print("数据集大小:", len(dataset))
-print("第 0 条样本:", dataset[0])
-print("第 3 条样本:", dataset[3])
+print("Dataset size:", len(dataset))
+print("Sample 0:", dataset[0])
+print("Sample 3:", dataset[3])
 ```
 
-### 自定义数据集必须实现什么？
+### What Must a Custom Dataset Implement?
 
-通常最基本只需要两个方法：
+Usually, the most basic requirement is just two methods:
 
-- `__len__()`：返回总样本数
-- `__getitem__(idx)`：返回第 `idx` 条数据
+- `__len__()`: returns the total number of samples
+- `__getitem__(idx)`: returns the data at index `idx`
 
-### 3.1 第一次自己写 `Dataset` 时，最该先检查什么？
+### 3.1 When You Write a `Dataset` for the First Time, What Should You Check First?
 
-最值得先检查这三件事：
+The three most important things to check are:
 
-1. `len(dataset)` 对不对
-2. `dataset[i]` 返回的是不是 `(x, y)` 这种你预期的结构
-3. 每条样本的 shape 和 dtype 对不对
+1. Whether `len(dataset)` is correct
+2. Whether `dataset[i]` returns the structure you expect, like `(x, y)`
+3. Whether each sample’s shape and dtype are correct
 
-因为如果这一层就没写稳，后面 DataLoader 和训练循环里问题会越来越难找。
+Because if this layer is not written correctly, problems later in `DataLoader` and the training loop become much harder to debug.
 
 ---
 
-## 四、把数据集交给 `DataLoader`
+## 4. Hand the Dataset to `DataLoader`
 
 ```python
 import torch
@@ -209,17 +209,17 @@ for batch_idx, (batch_x, batch_y) in enumerate(loader):
     print("batch_y:\n", batch_y)
 ```
 
-### 这里最关键的两个参数
+### The Two Most Important Parameters Here
 
-| 参数 | 作用 |
+| Parameter | Role |
 |---|---|
-| `batch_size=2` | 每次取 2 条样本 |
-| `shuffle=True` | 每个 epoch 开头打乱顺序 |
+| `batch_size=2` | Take 2 samples each time |
+| `shuffle=True` | Shuffle the order at the start of each epoch |
 
-### 4.1 为什么 DataLoader 这一层特别适合先打印 shape？
+### 4.1 Why Is It Especially Good to Print Shapes at the `DataLoader` Layer?
 
-因为这是训练前最后一个最容易排查数据问题的位置。  
-建议第一次写完 DataLoader 时都先做这件事：
+Because this is the last easy place to catch data problems before training starts.
+When you finish writing a `DataLoader` for the first time, it is a good idea to do this:
 
 ```python
 for batch_x, batch_y in loader:
@@ -227,25 +227,25 @@ for batch_x, batch_y in loader:
     break
 ```
 
-这样你会很快知道：
+This quickly tells you:
 
-- batch 是否凑对了
-- 标签 shape 是否合理
-- 数据是不是已经到了训练循环能直接吃的形式
+- Whether the batches are formed correctly
+- Whether the label shapes are reasonable
+- Whether the data is already in a form the training loop can use directly
 
 ---
 
-## 五、为什么要打乱数据？
+## 5. Why Shuffle the Data?
 
-如果你的数据原本是按某种顺序排好的，比如：
+If your data is originally sorted in some order, for example:
 
-- 前 100 条都是低分样本
-- 后 100 条都是高分样本
+- The first 100 samples are low-score samples
+- The last 100 samples are high-score samples
 
-那模型前期会连续看到一大段同类样本，训练容易偏。  
-所以训练集一般都建议 `shuffle=True`。
+Then the model will keep seeing a long run of similar samples early in training, which can bias learning.
+So for training data, `shuffle=True` is usually recommended.
 
-但验证集 / 测试集通常不需要打乱：
+But validation/test data usually does not need shuffling:
 
 ```python
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
@@ -254,9 +254,9 @@ val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
 ---
 
-## 六、训练集和验证集怎么拆？
+## 6. How Do We Split Train and Validation Sets?
 
-PyTorch 提供了 `random_split`：
+PyTorch provides `random_split`:
 
 ```python
 import torch
@@ -295,18 +295,18 @@ train_dataset, val_dataset = random_split(
     generator=torch.Generator().manual_seed(42)
 )
 
-print("训练集大小:", len(train_dataset))
-print("验证集大小:", len(val_dataset))
+print("Train set size:", len(train_dataset))
+print("Validation set size:", len(val_dataset))
 ```
 
-### 为什么这里要设随机种子？
+### Why Set a Random Seed Here?
 
-因为不设的话，每次切分结果都可能不同。  
-学习和调试阶段，固定随机种子更方便复现。
+Because without it, the split result may be different each time.
+During learning and debugging, fixing the random seed makes reproduction easier.
 
 ---
 
-## 七、一个完整可运行的小流程
+## 7. A Complete Runnable Mini Workflow
 
 ```python
 import torch
@@ -352,87 +352,85 @@ train_dataset, val_dataset = random_split(
 train_loader = DataLoader(train_dataset, batch_size=3, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=2, shuffle=False)
 
-print("训练集批次:")
+print("Training set batches:")
 for x, y in train_loader:
     print(x.shape, y.shape)
 
-print("\n验证集批次:")
+print("\nValidation set batches:")
 for x, y in val_loader:
     print(x.shape, y.shape)
 ```
 
 ---
 
-## 八、`batch_size` 应该怎么选？
+## 8. How Should You Choose `batch_size`?
 
-初学时先记住直觉版：
+For beginners, keep this intuitive idea in mind:
 
-- 小 batch：更新更频繁，噪声更大
-- 大 batch：更稳定，但更吃显存
+- Small batch: updates happen more often, but the noise is larger
+- Large batch: more stable, but uses more memory
 
-如果你现在只是跑教学示例，通常选：
+If you are just running a teaching example, usually these are enough:
 
 - `8`
 - `16`
 - `32`
 
-就够用了。
+When you start training larger models, then consider balancing memory and throughput.
 
-等你开始训练更大的模型，再考虑显存和吞吐量平衡。
+### 8.1 A More Stable Default Mindset
 
-### 8.1 一个更稳的默认思路
+At the beginner stage, think like this:
 
-初学阶段可以先这样想：
+- First choose a `batch_size` your machine can easily handle
+- Then check whether the loss is stable and whether the speed is acceptable
+- Don’t rush to assume “a larger batch is always more advanced”
 
-- 先选一个你机器能轻松跑动的 batch_size
-- 再看 loss 是否稳定、速度是否能接受
-- 不要一上来就追“大 batch 一定更高级”
+Because in the learning stage, the most important things are not peak throughput, but:
 
-因为教学阶段最重要的不是吞吐极限，而是：
-
-- 训练流程先顺
-- shape 先稳
-- loss 先正常下降
+- The training flow works smoothly
+- The shapes are stable
+- The loss decreases normally
 
 ---
 
-## 九、初学者常见误区
+## 9. Common Beginner Mistakes
 
-### 1. 以为 `Dataset` 就是把所有数据都读进内存
+### 1. Thinking `Dataset` Means Loading All Data into Memory
 
-不一定。  
-教学示例里我们确实这样写，但真实工程里，`__getitem__()` 常常会在访问时再去读磁盘文件。
+Not necessarily.
+In teaching examples, we do write it that way, but in real projects, `__getitem__()` often reads from disk when accessed.
 
-### 2. 训练集也不打乱
+### 2. Not Shuffling the Training Set
 
-可能能跑，但通常不是好习惯。
+It may still run, but it is usually not a good habit.
 
-### 3. 只会写数组，不会写数据集类
+### 3. Only Knowing How to Write Arrays, Not Dataset Classes
 
-小实验可以偷懒，稍微正规一点的项目都建议写成 `Dataset`。
-
----
-
-## 小结
-
-这节课最重要的不是背类名，而是建立“数据流”意识：
-
-1. 数据先按样本组织在 `Dataset`
-2. 再由 `DataLoader` 凑成 batch
-3. 然后一批一批送进模型
-
-下一节我们就把模型、损失、优化器和数据加载器连起来，写出完整训练流程。
-
-## 这节最该带走什么
-
-如果再压成一句话，那就是：
-
-> **`Dataset` 决定“单条数据长什么样”，`DataLoader` 决定“这些数据怎样被一批批送进训练”。**
+For small experiments, you can be lazy. For slightly more formal projects, it is recommended to write a `Dataset`.
 
 ---
 
-## 练习
+## Summary
 
-1. 把 `StudentDataset` 里的样本量扩展到 12 条，重新划分训练集和验证集。
-2. 把 `batch_size` 改成 `1`、`2`、`4`，观察每轮迭代的 batch 数量。
-3. 打印 `shuffle=True` 时连续两轮加载的第一批数据，看看顺序是否变化。
+The most important thing in this lesson is not memorizing class names, but building an awareness of the data flow:
+
+1. Data is first organized by sample in `Dataset`
+2. Then `DataLoader` forms it into batches
+3. Then the batches are fed into the model one by one
+
+In the next section, we will connect the model, loss, optimizer, and data loader to write a complete training workflow.
+
+## What Should You Take Away from This Lesson?
+
+If we compress it into one sentence, it is this:
+
+> **`Dataset` decides what one piece of data looks like, and `DataLoader` decides how those data items are fed into training batch by batch.**
+
+---
+
+## Exercises
+
+1. Expand the sample size in `StudentDataset` to 12 items, and split the train and validation sets again.
+2. Change `batch_size` to `1`, `2`, and `4`, and observe the number of batches in each epoch.
+3. Print the first batch loaded across two consecutive epochs when `shuffle=True`, and see whether the order changes.

@@ -1,154 +1,154 @@
 ---
-title: "6.3 项目：客户流失预测"
+title: "6.3 Project: Customer Churn Prediction"
 sidebar_position: 20
-description: "完整的分类项目实战：不平衡数据处理、SMOTE、特征重要性分析、业务洞察"
-keywords: [客户流失, 分类, 不平衡数据, SMOTE, 特征重要性, 业务洞察]
+description: "A complete hands-on classification project: imbalanced data handling, SMOTE, feature importance analysis, business insights"
+keywords: [customer churn, classification, imbalanced data, SMOTE, feature importance, business insights]
 ---
 
-# 项目二：客户流失预测（分类问题）
+# Project 2: Customer Churn Prediction (Classification Problem)
 
-![客户流失预测项目流程图](/img/course/customer-churn-project-flow.png)
+![Customer Churn Prediction Project Flowchart](/img/course/customer-churn-project-flow-en.png)
 
-:::tip 项目定位
-客户流失预测是**最经典的商业 ML 应用**之一。本项目重点练习：不平衡数据处理、业务指标理解、从模型结果中提取业务洞察。
+:::tip Project Positioning
+Customer churn prediction is one of the **most classic business ML applications**. This project focuses on practicing: handling imbalanced data, understanding business metrics, and extracting business insights from model results.
 :::
 
-## 项目概览
+## Project Overview
 
-| 信息 | 说明 |
+| Information | Description |
 |------|------|
-| 任务类型 | 二分类（流失/留存） |
-| 核心挑战 | 数据不平衡（流失客户远少于留存） |
-| 评估指标 | F1、AUC、召回率 |
-| 涉及技能 | 不平衡处理、Pipeline、业务分析 |
+| Task type | Binary classification (churn / retain) |
+| Core challenge | Imbalanced data (far fewer churn customers than retained customers) |
+| Evaluation metrics | F1, AUC, recall |
+| Skills involved | Imbalance handling, Pipeline, business analysis |
 
-## 先说一个很重要的学习预期
+## First, let’s set an important learning expectation
 
-这题很容易让新人一上来就掉进“模型比较”里：
+This problem is very easy for beginners to fall into “model comparison” right away:
 
-- 逻辑回归
-- 随机森林
+- Logistic Regression
+- Random Forest
 - SMOTE
 - AUC
 
-但更适合第一遍先练会的，其实不是谁分数更高，而是：
+But for the first round, what is actually more worth practicing is not who gets the highest score, but:
 
-> **面对不平衡分类问题时，怎样把业务代价、指标选择、阈值决策和模型结果真正串起来。**
+> **How do you truly connect business cost, metric selection, threshold decisions, and model results when facing an imbalanced classification problem?**
 
-只要这条线先立住，这题才会像真实项目，而不是“再做一道分类题”。
+As long as this line is clear first, this exercise will feel like a real project instead of “just another classification problem.”
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-这题最有价值的地方，不是“做一个二分类器”，而是第一次真正面对：
+The most valuable part of this problem is not “build a binary classifier,” but facing these for the first time:
 
-- 数据不平衡
-- 阈值选择
-- 业务代价不同
+- Imbalanced data
+- Threshold selection
+- Different business costs
 
 ```mermaid
 flowchart LR
-    A["先看类别分布"] --> B["先做 baseline"]
-    B --> C["再做 class_weight / SMOTE"]
-    C --> D["再看 ROC / F1 / Recall"]
-    D --> E["最后结合业务代价调阈值"]
+    A["First check class distribution"] --> B["Build a baseline first"]
+    B --> C["Then try class_weight / SMOTE"]
+    C --> D["Then inspect ROC / F1 / Recall"]
+    D --> E["Finally tune the threshold based on business cost"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-所以这题真正练的是“怎么做分类决策”，不是单纯“怎么跑分类模型”。
+So what this problem really trains is “how to make classification decisions,” not simply “how to run a classification model.”
 
-## 这题你真正要练什么
+## What you really need to practice in this problem
 
-这个项目的核心不是“把分类器跑起来”，而是练习：
+The core of this project is not “make the classifier run,” but to practice:
 
-1. 不平衡数据时为什么不能只看准确率
-2. 怎样在召回率、精确率和业务代价之间取舍
-3. 怎样把模型结果翻译成业务洞察
+1. Why you cannot rely on accuracy alone for imbalanced data
+2. How to balance recall, precision, and business cost
+3. How to translate model results into business insights
 
-## 这题第一版最该先讲清什么
+## What should be explained first in this problem
 
-第一次做这题时，最该先说明的不是模型名字，而是：
+When doing this problem for the first time, what should be explained first is not the model names, but:
 
-- 流失客户占比多少
-- 为什么不能只看准确率
-- 如果业务更怕漏掉将流失客户，应该偏向哪个指标
+- What proportion of customers churn
+- Why accuracy alone is not enough
+- If the business is more afraid of missing churn customers, which metric should be prioritized
 
-把这三件事说清楚，后面所有模型和阈值选择才有意义。
+Once these three things are clear, the later model choices and threshold decisions will make sense.
 
-## 一个更适合新人的类比
+## A more beginner-friendly analogy
 
-你可以先把这题想成：
+You can think of this problem as:
 
-- 在客户真的离开之前，尽早拉一张“高风险名单”
+- Creating a “high-risk list” before customers actually leave
 
-这张名单的价值不在于：
+The value of this list is not:
 
-- 每个人都判断得绝对完美
+- Judging every single person perfectly
 
-而在于：
+But:
 
-- 你能不能在可接受的误报成本下，尽量少漏掉真正会流失的人
+- Whether you can miss as few truly churn-prone customers as possible while keeping false alarms at an acceptable cost
 
-这就是为什么这题从一开始就不能只盯着准确率。
+That is why, from the very beginning, this problem cannot just focus on accuracy.
 
-## 推荐推进顺序
+## Recommended progression
 
-1. 先做一个不处理不平衡的 baseline
-2. 再做类别权重
-3. 再尝试 SMOTE 等方法
-4. 最后再比较 ROC、AUC、F1 和业务解释
+1. First build a baseline without handling imbalance
+2. Then try class weights
+3. Then try methods like SMOTE
+4. Finally compare ROC, AUC, F1, and business interpretation
 
-这样你才知道“提升”到底来自哪里。
+This way, you can tell where the “improvement” really comes from.
 
-## 第一次做这题时，最稳的默认顺序
+## The safest default sequence for your first attempt
 
-如果你第一次做客户流失预测，建议按这个顺序：
+If this is your first time doing customer churn prediction, it is recommended to follow this order:
 
-1. 先把业务目标说清楚
-2. 先看类别分布
-3. 先做原始 baseline
-4. 再做 `class_weight`
-5. 最后再试 SMOTE
-6. 再决定阈值应该往召回率还是精确率偏
+1. Clarify the business goal first
+2. Check the class distribution first
+3. Build the raw baseline first
+4. Then try `class_weight`
+5. Finally try SMOTE
+6. Then decide whether the threshold should lean more toward recall or precision
 
-这样你会更清楚每一步提升到底来自：
+This will help you understand whether each improvement comes from:
 
-- 模型
-- 采样
-- 还是阈值策略
+- The model
+- Sampling
+- Or the threshold strategy
 
-## Step 1：模拟数据
+## Step 1: Simulate data
 
 ```python
 import pandas as pd
 import numpy as np
 from sklearn.datasets import make_classification
 
-# 生成不平衡的客户数据
+# Generate imbalanced customer data
 X, y = make_classification(
     n_samples=5000, n_features=15, n_informative=8,
-    n_redundant=3, weights=[0.85, 0.15],  # 85% 留存, 15% 流失
+    n_redundant=3, weights=[0.85, 0.15],  # 85% retained, 15% churn
     random_state=42
 )
 
-feature_names = ['月消费', '通话时长', '流量使用', '客服通话次数', '合同时长',
-                 '账单争议', '套餐等级', '家庭成员数', '在网时长', '上月投诉',
-                 '流量超限次数', '国际漫游', '增值服务数', '账户余额', '设备更换']
+feature_names = ['Monthly Spending', 'Call Duration', 'Data Usage', 'Customer Service Calls', 'Contract Length',
+                 'Billing Disputes', 'Plan Tier', 'Household Size', 'Tenure', 'Complaints Last Month',
+                 'Data Overages', 'International Roaming', 'Number of Value-added Services', 'Account Balance', 'Device Changes']
 
 df = pd.DataFrame(X, columns=feature_names)
-df['流失'] = y
+df['Churn'] = y
 
-print(f"数据形状: {df.shape}")
-print(f"流失比例: {df['流失'].mean():.1%}")
-print(f"流失客户: {df['流失'].sum()}, 留存客户: {(1-df['流失']).sum():.0f}")
+print(f"Data shape: {df.shape}")
+print(f"Churn rate: {df['Churn'].mean():.1%}")
+print(f"Churn customers: {df['Churn'].sum()}, Retained customers: {(1-df['Churn']).sum():.0f}")
 ```
 
 ---
 
-## Step 2：不平衡数据处理
+## Step 2: Handle imbalanced data
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -156,35 +156,35 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, roc_auc_score
 import matplotlib.pyplot as plt
 
-X = df.drop('流失', axis=1)
-y = df['流失']
+X = df.drop('Churn', axis=1)
+y = df['Churn']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
-# 方法1: 类别权重
+# Method 1: class weights
 rf_weighted = RandomForestClassifier(n_estimators=100, class_weight='balanced', random_state=42)
 rf_weighted.fit(X_train, y_train)
 y_pred = rf_weighted.predict(X_test)
 
-print("带类别权重的随机森林:")
-print(classification_report(y_test, y_pred, target_names=['留存', '流失']))
+print("Random Forest with class weights:")
+print(classification_report(y_test, y_pred, target_names=['Retained', 'Churn']))
 print(f"AUC: {roc_auc_score(y_test, rf_weighted.predict_proba(X_test)[:,1]):.4f}")
 ```
 
-### Step 2.1 为什么不要一开始就上 SMOTE
+### Step 2.1 Why you should not jump straight to SMOTE
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先做原始 baseline
-2. 再试 `class_weight`
-3. 最后再试 `SMOTE`
+1. Build the raw baseline first
+2. Then try `class_weight`
+3. Finally try `SMOTE`
 
-因为这样你才能分清：
+Because only then can you tell the difference between:
 
-- 提升是来自模型本身
-- 还是来自采样策略
-- 还是来自阈值调整
+- Improvement from the model itself
+- Improvement from the sampling strategy
+- Improvement from threshold adjustment
 
-### SMOTE 过采样
+### SMOTE oversampling
 
 ```python
 # pip install imbalanced-learn
@@ -199,40 +199,40 @@ try:
     smote_pipe.fit(X_train, y_train)
     y_pred_smote = smote_pipe.predict(X_test)
 
-    print("\nSMOTE + 随机森林:")
-    print(classification_report(y_test, y_pred_smote, target_names=['留存', '流失']))
+    print("\nSMOTE + Random Forest:")
+    print(classification_report(y_test, y_pred_smote, target_names=['Retained', 'Churn']))
 except ImportError:
-    print("请安装 imbalanced-learn: pip install imbalanced-learn")
+    print("Please install imbalanced-learn: pip install imbalanced-learn")
 ```
 
 ---
 
-## Step 3：特征重要性与业务洞察
+## Step 3: Feature importance and business insights
 
 ```python
-# 特征重要性
+# Feature importance
 importance = rf_weighted.feature_importances_
 sorted_idx = np.argsort(importance)
 
 plt.figure(figsize=(8, 8))
 plt.barh(range(len(sorted_idx)), importance[sorted_idx], color='coral')
 plt.yticks(range(len(sorted_idx)), np.array(feature_names)[sorted_idx])
-plt.xlabel('特征重要性')
-plt.title('客户流失预测——特征重要性')
+plt.xlabel('Feature Importance')
+plt.title('Customer Churn Prediction — Feature Importance')
 plt.grid(axis='x', alpha=0.3)
 plt.tight_layout()
 plt.show()
 
-# 业务建议
-print("\n业务洞察:")
+# Business suggestions
+print("\nBusiness insights:")
 top3 = np.array(feature_names)[np.argsort(importance)[-3:]]
 for i, feat in enumerate(reversed(top3), 1):
-    print(f"  {i}. {feat} 对流失预测最重要")
+    print(f"  {i}. {feat} is most important for churn prediction")
 ```
 
 ---
 
-## Step 4：ROC 对比
+## Step 4: ROC comparison
 
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -241,8 +241,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 
 models = {
-    '逻辑回归': make_pipeline(StandardScaler(), LogisticRegression(class_weight='balanced', max_iter=1000)),
-    '随机森林': RandomForestClassifier(n_estimators=100, class_weight='balanced', random_state=42),
+    'Logistic Regression': make_pipeline(StandardScaler(), LogisticRegression(class_weight='balanced', max_iter=1000)),
+    'Random Forest': RandomForestClassifier(n_estimators=100, class_weight='balanced', random_state=42),
 }
 
 plt.figure(figsize=(8, 6))
@@ -256,78 +256,78 @@ for name, model in models.items():
 plt.plot([0, 1], [0, 1], 'k--', alpha=0.5)
 plt.xlabel('FPR')
 plt.ylabel('TPR')
-plt.title('客户流失预测 ROC 对比')
+plt.title('Customer Churn Prediction ROC Comparison')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### Step 4.1 这一步最值得再补什么
+### Step 4.1 What is most worth adding here
 
-如果想把这题做得更像真实业务项目，最值得补的是：
+If you want this project to feel more like a real business project, the most valuable additions are:
 
-- 一张混淆矩阵
-- 一张阈值 vs Precision / Recall / F1 曲线
-- 一段“如果召回率优先，我会把阈值调到哪里”的解释
+- A confusion matrix
+- A threshold vs. Precision / Recall / F1 curve
+- An explanation of “if recall is the priority, where would I move the threshold”
 
-因为很多真实留存项目，重点不是默认阈值 0.5 下谁分数高，而是：
+Because in many real retention projects, the key is not who scores higher under the default threshold of 0.5, but:
 
-- 在可接受的误报成本内，尽量多抓高风险客户
-
----
-
-## 项目交付时最好补上的内容
-
-- 一张类别分布图
-- 一张混淆矩阵
-- 一张 ROC 曲线
-- 一段“如果目标是尽量召回流失客户，我会怎么调阈值”的说明
-
-## 一个更像真实项目的复盘顺序
-
-你可以用下面这个顺序来写项目复盘：
-
-1. 数据分布和业务目标
-2. baseline 模型结果
-3. 不平衡处理后的变化
-4. 指标权衡和阈值调整
-5. 特征重要性和业务建议
-6. 下一步如果上线，应该怎么监控
-
-## 如果继续把这个项目往上做，最值得补什么
-
-更值得优先补的通常是：
-
-1. 阈值调优页
-2. 误判客户案例分析
-3. 不同业务目标下的指标切换说明
-
-这样项目会从“一个分类任务”变成“一个更像真实业务决策系统”的作品。
-
-## 做成作品集时，最值得展示什么
-
-- 类别分布和任务目标
-- baseline 与改进版的对比
-- ROC 或 PR 曲线
-- 一张阈值解释图
-- 一段可执行的客户运营建议
+- Catching as many high-risk customers as possible while keeping false alarm cost acceptable
 
 ---
 
-## 项目检查清单
+## What you should include in the final project deliverable
 
-- [ ] 分析数据不平衡程度
-- [ ] 尝试至少 2 种不平衡处理方法（类别权重、SMOTE）
-- [ ] 用 F1 和 AUC 评估（不只看准确率）
-- [ ] 分析特征重要性，给出业务建议
-- [ ] ROC 曲线多模型对比
+- A class distribution chart
+- A confusion matrix
+- An ROC curve
+- An explanation of “if the goal is to recall as many churn customers as possible, how would I tune the threshold”
 
-## 版本路线建议
+## A more realistic project review order
 
-| 版本 | 目标 | 交付重点 |
+You can write the project review in this order:
+
+1. Data distribution and business goal
+2. Baseline model results
+3. Changes after handling imbalance
+4. Metric trade-offs and threshold adjustment
+5. Feature importance and business recommendations
+6. How to monitor it after deployment
+
+## If you keep improving this project, what is most worth adding
+
+The following are usually worth prioritizing:
+
+1. Threshold tuning page
+2. Misclassified customer case analysis
+3. Metric-switching explanations under different business goals
+
+This will turn the project from “a classification task” into “a work that feels more like a real business decision system.”
+
+## What is most worth showing in a portfolio
+
+- Class distribution and task goal
+- Comparison between baseline and improved versions
+- ROC or PR curve
+- A threshold explanation chart
+- A set of actionable customer retention recommendations
+
+---
+
+## Project checklist
+
+- [ ] Analyze the degree of class imbalance
+- [ ] Try at least 2 imbalance-handling methods (class weights, SMOTE)
+- [ ] Evaluate with F1 and AUC (not accuracy alone)
+- [ ] Analyze feature importance and provide business recommendations
+- [ ] Compare multiple models with ROC curves
+
+## Version roadmap suggestion
+
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Complete the minimum working loop | Can input, process, and output, with a sample set retained |
+| Standard version | Build a project ready to showcase | Add configuration, logging, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failed-case analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not chase a large and all-inclusive solution from the beginning. Each time you upgrade a version, make sure to write in the README what new capability was added, how it was validated, and what problems still remain.

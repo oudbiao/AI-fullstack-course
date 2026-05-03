@@ -1,58 +1,58 @@
 ---
-title: "6.1 学前导读：Agent 框架这一章到底在学什么"
+title: "6.1 Pre-Class Guide: What Exactly Will We Learn in the Agent Frameworks Chapter?"
 sidebar_position: 0
-description: "先建立 Agent 框架章的学习地图：框架总览、不同框架风格和选型逻辑怎样共同支撑实际开发判断。"
-keywords: [Agent框架导读, LangGraph, LlamaIndex, CrewAI, AutoGen]
+description: "First build a learning map for the Agent frameworks chapter: how the framework overview, different framework styles, and selection logic work together to support real development decisions."
+keywords: [Agent Framework Guide, LangGraph, LlamaIndex, CrewAI, AutoGen]
 ---
 
-# 学前导读：Agent 框架这一章到底在学什么
+# Pre-Class Guide: What Exactly Will We Learn in the Agent Frameworks Chapter?
 
-## 本章定位
+## Chapter Focus
 
-这一章解决的是：市面上那么多 Agent 框架，到底分别在抽象什么，应该怎么选。前面你已经学过 Agent 的目标、计划、工具、记忆、MCP 和安全边界；如果直接跳到框架，很容易陷入“哪个最火就学哪个”的误区。
+This chapter answers a simple question: with so many Agent frameworks on the market, what exactly does each one abstract, and how should you choose among them? Earlier, you have already learned about Agent goals, planning, tools, memory, MCP, and safety boundaries. If you jump straight into frameworks, it is very easy to fall into the trap of “learn whichever one is hottest.”
 
-框架不是魔法，它只是把某些重复工程抽象出来。LangGraph 更强调可控状态图和工作流，LlamaIndex 更强调数据和知识库应用，CrewAI 更强调角色协作，AutoGen 更强调多 Agent 对话式协作。选框架之前，先要知道自己的任务到底是固定流程、RAG 应用、开放探索，还是多角色协作。
+A framework is not magic. It simply abstracts away some repetitive engineering work. LangGraph emphasizes controllable state graphs and workflows, LlamaIndex emphasizes data and knowledge base applications, CrewAI emphasizes role-based collaboration, and AutoGen emphasizes multi-Agent conversational collaboration. Before choosing a framework, you first need to know whether your task is a fixed flow, a RAG application, open-ended exploration, or multi-role collaboration.
 
-## 本章在 Agent 学习路线中的位置
+## Where This Chapter Fits in the Agent Learning Path
 
-![Agent 框架位置地图](/img/course/ch09-frameworks-position-map.png)
+![Agent framework position map](/img/course/ch09-frameworks-position-map-en.png)
 
-如果你还不能解释工具 schema、执行轨迹、停止条件和人工确认，建议先不要急着使用复杂框架。框架会放大你的设计：边界清晰时它能提高效率，边界不清时它会让问题更难排查。
+If you still cannot explain tool schemas, execution traces, stop conditions, and human confirmation, it is recommended that you do not rush into complex frameworks yet. A framework amplifies your design: when the boundaries are clear, it improves efficiency; when the boundaries are unclear, it makes problems harder to debug.
 
-## 不同框架在抽象什么
+## What Different Frameworks Abstract
 
-| 框架/方向 | 更适合的任务 | 你应该重点观察什么 |
+| Framework / Direction | Best-Suited Tasks | What You Should Focus On |
 |---|---|---|
-| LangGraph | 有状态、多步骤、需要可控分支和回退的 Agent 工作流 | 状态如何定义，节点如何转移，失败后如何恢复 |
-| LlamaIndex | 文档、知识库、RAG、数据连接型应用 | 数据如何接入，索引如何构建，检索和生成如何评估 |
-| CrewAI | 多角色协作、内容生产、研究分析、流程分工 | 角色是否清晰，任务交接是否可控，最终负责人是谁 |
-| AutoGen | 多 Agent 对话、代码协作、实验型自动化 | 对话何时停止，工具权限如何限制，循环如何避免 |
-| 低代码/平台化工具 | 快速原型、业务流程演示、非工程团队协作 | 可观测性、可移植性、版本管理和上线边界 |
+| LangGraph | Stateful, multi-step Agent workflows that need controllable branching and rollback | How state is defined, how nodes transition, and how recovery works after failures |
+| LlamaIndex | Documents, knowledge bases, RAG, and data-connected applications | How data is connected, how indexes are built, and how retrieval and generation are evaluated |
+| CrewAI | Multi-role collaboration, content production, research analysis, and workflow division | Whether roles are clear, whether task handoff is controllable, and who the final owner is |
+| AutoGen | Multi-Agent conversations, code collaboration, and experimental automation | When the conversation stops, how tool permissions are constrained, and how loops are avoided |
+| Low-code / platform tools | Rapid prototyping, business process demos, and collaboration with non-engineering teams | Observability, portability, version management, and deployment boundaries |
 
-这张表不是排名，而是选型地图。真实项目里也可以混合使用，例如用 LlamaIndex 管知识库，用 LangGraph 编排流程，用 MCP 接工具，用自己的日志系统做评估和追踪。
+This table is not a ranking; it is a selection map. In real projects, you can also combine them. For example, you can use LlamaIndex to manage the knowledge base, LangGraph to orchestrate the workflow, MCP to connect tools, and your own logging system for evaluation and tracking.
 
-## 本章学习顺序
+## Learning Order for This Chapter
 
-第一步先读框架总览，理解框架为什么出现：不是为了让 Agent 更“聪明”，而是为了让状态、工具、流程、记忆和日志更容易组织。第二步学习 LangChain/LangGraph，重点看状态图、节点、边、条件分支和可恢复执行。第三步看 LlamaIndex，理解它为什么更接近“数据应用框架”。第四步看 CrewAI 和 AutoGen，比较角色协作和多 Agent 对话的优缺点。最后再读框架选型，形成自己的决策表。
+First, read the framework overview to understand why frameworks exist: not to make Agent “smarter,” but to make state, tools, workflows, memory, and logs easier to organize. Second, study LangChain/LangGraph, focusing on state graphs, nodes, edges, conditional branches, and resumable execution. Third, look at LlamaIndex and understand why it is closer to a “data application framework.” Fourth, study CrewAI and AutoGen to compare the strengths and weaknesses of role-based collaboration and multi-Agent conversations. Finally, read about framework selection and build your own decision table.
 
-![Agent 框架选型地图](/img/course/ch09-framework-selection-map.png)
+![Agent framework selection map](/img/course/ch09-framework-selection-map-en.png)
 
-## 什么时候不该用框架
+## When You Should Not Use a Framework
 
-如果任务只有固定三步，普通函数和工作流可能比 Agent 框架更稳。如果只是课程问答，基础 RAG 加评估集可能比多 Agent 更容易上线。如果任务涉及删除文件、发消息、改数据库或付款，应该先设计权限、确认和回滚，而不是先选框架。
+If the task only has three fixed steps, a regular function or workflow may be more stable than an Agent framework. If it is just a course Q&A system, basic RAG plus an evaluation set may be easier to ship than a multi-Agent system. If the task involves deleting files, sending messages, modifying databases, or making payments, you should first design permissions, confirmations, and rollback mechanisms rather than choosing a framework first.
 
-框架适合在复杂度已经出现时引入：状态越来越多、工具越来越多、流程需要分支、失败需要恢复、执行轨迹需要保存、多角色协作需要约束。不要为了使用框架而制造复杂度。
+A framework is suitable when complexity has already appeared: more and more state, more and more tools, workflows that need branching, failures that need recovery, execution traces that need to be saved, and multi-role collaboration that needs constraints. Do not create complexity just for the sake of using a framework.
 
-## 本章小项目出口
+## Small Project Exit for This Chapter
 
-建议做一个“同一任务两种实现”的小实验。任务可以是“根据课程资料生成一周复习计划”。基础版用普通 Python 函数实现固定流程：读取目标、查资料、生成计划、输出清单。标准版用 LangGraph 或类似框架实现同样流程，并记录状态、节点和执行轨迹。挑战版再加入一个知识库检索节点或人工确认节点。
+It is recommended that you do a small experiment: “two implementations of the same task.” The task can be “generate a one-week review plan based on course materials.” The basic version uses ordinary Python functions to implement a fixed flow: read the goal, look up materials, generate the plan, and output a checklist. The standard version uses LangGraph or a similar framework to implement the same flow, while recording state, nodes, and execution traces. For the challenge version, add a knowledge base retrieval node or a human confirmation node.
 
-项目 README 要回答：为什么这个任务需要或不需要框架，状态里保存了什么，工具有哪些权限，失败时如何停止，和不用框架的版本相比，复杂度增加是否值得。
+The project README should answer: why this task does or does not need a framework, what is stored in the state, what permissions the tools have, how to stop on failure, and whether the added complexity is worth it compared with the version without a framework.
 
-## 框架选型自查清单
+## Framework Selection Self-Check List
 
-选框架前先问五个问题：任务是否真的需要多步骤状态；是否需要访问外部数据或知识库；是否需要多角色协作；是否需要可恢复执行和日志；是否有高风险动作需要人工确认。答案越多为“是”，越值得引入框架；答案越多为“否”，越应该保持简单。
+Before choosing a framework, ask these five questions: does the task truly require multi-step state; does it need access to external data or a knowledge base; does it need multi-role collaboration; does it need resumable execution and logging; and are there high-risk actions that require human confirmation? The more answers are “yes,” the more worthwhile it is to introduce a framework. The more answers are “no,” the more you should keep things simple.
 
-## 过关标准
+## Passing Criteria
 
-学完这一章后，你应该能解释 LangGraph、LlamaIndex、CrewAI、AutoGen 的侧重点，能判断一个任务是否值得引入框架，能做出一个最小可控 Agent 工作流，并能在 README 里写清楚框架带来的收益、代价和风险边界。
+After finishing this chapter, you should be able to explain the focus of LangGraph, LlamaIndex, CrewAI, and AutoGen; judge whether a task is worth introducing a framework for; build a minimal controllable Agent workflow; and clearly describe in the README the benefits, costs, and risk boundaries brought by the framework.

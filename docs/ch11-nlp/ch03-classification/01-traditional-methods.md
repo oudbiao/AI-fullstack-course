@@ -1,158 +1,158 @@
 ---
-title: "3.2 传统文本分类"
+title: "3.2 Traditional Text Classification"
 sidebar_position: 7
-description: "从词袋模型、TF-IDF 和线性分类器讲起，理解为什么传统文本分类在很多真实任务里依然是很强的基线。"
+description: "Starting from bag-of-words, TF-IDF, and linear classifiers, understand why traditional text classification is still a very strong baseline in many real-world tasks."
 keywords: [text classification, bag of words, tf-idf, logistic regression, baseline, NLP]
 ---
 
-# 传统文本分类
+# Traditional Text Classification
 
-![传统文本分类基线图](/img/course/ch11-traditional-classification-baseline-map.png)
+![Traditional text classification baseline map](/img/course/ch11-traditional-classification-baseline-map-en.png)
 
-:::tip 读图提示
-传统文本分类最适合先按“文本清洗 -> 特征表示 -> 线性分类器 -> 错误分析”理解。它不是过时内容，而是很多文本项目最稳、最快、最容易解释的第一条基线。
+:::tip Reading guide
+Traditional text classification is easiest to understand as: “text cleaning -> feature representation -> linear classifier -> error analysis.” It is not outdated content; in many text projects, it is still the most stable, fastest, and easiest-to-explain first baseline.
 :::
 
-:::tip 本节定位
-做文本分类时，很多人会本能地想：
+:::tip Section overview
+When doing text classification, many people instinctively think:
 
-- 直接上大模型
+- Just use a large model directly
 
-但在大量真实业务里，传统方法仍然有非常高的实用价值，尤其是：
+But in many real-world business scenarios, traditional methods still have very high practical value, especially when:
 
-- 数据量不大
-- 标签较清楚
-- 需要快速、便宜、可解释基线
+- the dataset is not large
+- the labels are clear
+- you need a fast, cheap, and interpretable baseline
 
-所以这节课的重点不是怀旧，而是建立一个很实用的判断：
+So the focus of this lesson is not nostalgia, but building a very practical judgment:
 
-> **什么时候传统文本分类已经够好，甚至是更好的第一步。**
+> **When traditional text classification is already good enough, and even the better first step.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解词袋与 TF-IDF 的基本直觉
-- 理解线性分类器在文本任务里为什么经常表现不错
-- 通过可运行示例掌握传统文本分类最小流程
-- 建立“传统方法是强基线而不是过时方案”的判断
+- Understand the basic intuition behind bag-of-words and TF-IDF
+- Understand why linear classifiers often perform well in text tasks
+- Use a runnable example to master the minimal workflow of traditional text classification
+- Develop the judgment that “traditional methods are strong baselines, not outdated solutions”
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-传统文本分类更适合按“文本怎么变成特征，再怎么进入分类器”来理解：
+Traditional text classification is easier to understand as: “how text becomes features, and then how those features enter the classifier”:
 
 ```mermaid
 flowchart LR
-    A["原始文本"] --> B["预处理"]
-    B --> C["BoW / TF-IDF 向量化"]
-    C --> D["线性分类器 / 朴素贝叶斯"]
-    D --> E["类别结果"]
+    A["Raw text"] --> B["Preprocessing"]
+    B --> C["BoW / TF-IDF vectorization"]
+    C --> D["Linear classifier / Naive Bayes"]
+    D --> E["Class label"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么这条路线在很多真实任务里已经够强
-- 为什么它很适合作为第一版 baseline
-
----
-
-## 一、传统文本分类在做什么？
-
-### 1.1 先把文本变成特征，再把特征喂给分类器
-
-典型流程是：
-
-1. 文本预处理
-2. 词袋 / TF-IDF 向量化
-3. 线性模型或朴素贝叶斯分类
-
-也就是说，它不是端到端深度模型，  
-而是显式的“特征工程 + 分类器”。
-
-### 1.2 为什么这条路能工作？
-
-因为在很多文本任务里，  
-单词和短语本身就已经有很强区分度。
-
-例如：
-
-- “退款”
-- “证书”
-- “密码”
-
-这些词本来就能强烈暗示类别。
-
-### 1.3 一个类比
-
-传统文本分类很像人工整理线索卡片。  
-你先把关键词线索提出来，再让分类器根据这些线索判断。
-
-### 1.4 一个更适合新人的总类比
-
-你也可以把它理解成：
-
-- 先给每条文本做一张“关键词清单”，再让分类器按清单打分
-
-这就是为什么它在这些任务里会特别顺手：
-
-- 类别边界清楚
-- 关键词本身就很有区分度
+- Why this approach is already strong enough for many real tasks
+- Why it is a very suitable first baseline
 
 ---
 
-## 二、词袋和 TF-IDF 分别在做什么？
+## 1. What does traditional text classification do?
 
-### 2.1 词袋模型
+### 1.1 First convert text into features, then feed the features into a classifier
 
-最简单的想法是：
+A typical workflow is:
 
-- 统计每个词出现了多少次
+1. Text preprocessing
+2. Bag-of-words / TF-IDF vectorization
+3. Linear model or Naive Bayes classification
 
-它不太关心词序，  
-更关心：
+In other words, it is not an end-to-end deep learning model,
+but an explicit “feature engineering + classifier” approach.
 
-- 这个词有没有出现
-- 出现得多不多
+### 1.2 Why can this work?
+
+Because in many text tasks,
+individual words and short phrases already carry strong discriminative power.
+
+For example:
+
+- “refund”
+- “certificate”
+- “password”
+
+These words can strongly hint at the category.
+
+### 1.3 An analogy
+
+Traditional text classification is like manually organizing clue cards.
+You first extract keyword clues, then let the classifier make a judgment based on those clues.
+
+### 1.4 A more beginner-friendly overall analogy
+
+You can also think of it as:
+
+- First make a “keyword checklist” for each piece of text, then let the classifier score it based on the checklist
+
+That is why it works especially well in these tasks:
+
+- The category boundaries are clear
+- The keywords themselves are highly discriminative
+
+---
+
+## 2. What do bag-of-words and TF-IDF do?
+
+### 2.1 Bag-of-words
+
+The simplest idea is:
+
+- Count how many times each word appears
+
+It does not care much about word order,
+and cares more about:
+
+- whether the word appears
+- how often it appears
 
 ### 2.2 TF-IDF
 
-它在词袋基础上更进一步：
+It goes one step further on top of bag-of-words:
 
-- 在当前文本里常出现的词更重要
-- 但如果某词在所有文本里都很常见，它的重要性会下降
+- Words that appear frequently in the current text are more important
+- But if a word is very common across all texts, its importance decreases
 
-这有助于减少：
+This helps reduce the influence of:
 
-- “的”“是”这类高频但区分度弱的词
+- high-frequency but low-discriminative words such as “the” or “is”
 
-### 2.3 为什么它在文本分类里常常有效？
+### 2.3 Why is it often effective in text classification?
 
-因为很多类别区分，本来就依赖：
+Because many category distinctions depend on:
 
-- 哪些词更有代表性
+- which words are more representative
 
-### 2.4 一个很适合初学者先记的选择表
+### 2.4 A selection table that beginners should remember first
 
-| 现象 | 更稳的第一反应 |
+| Phenomenon | Safer first reaction |
 |---|---|
-| 文本短、关键词很明显 | 先试传统方法 |
-| 数据不大 | 先试传统方法 |
-| 很在意可解释性和成本 | 先试传统方法 |
-| 很依赖上下文和否定关系 | 再考虑深度模型 |
+| Short text, very obvious keywords | Try traditional methods first |
+| Small dataset | Try traditional methods first |
+| You care a lot about interpretability and cost | Try traditional methods first |
+| Heavy dependence on context and negation | Then consider deep learning models |
 
-这个表很适合新人，因为它会把“什么时候传统方法够好”直接变成可判断的问题。
+This table is especially useful for beginners because it turns “when traditional methods are good enough” into something you can actually judge.
 
 ---
 
-## 三、先跑一个传统文本分类最小示例
+## 3. Run a minimal traditional text classification example first
 
-下面这个例子会用：
+The example below uses:
 
 - `CountVectorizer`
 - `LogisticRegression`
 
-做一个客服意图分类最小系统。
+to build a minimal customer service intent classification system.
 
 ```python
 from sklearn.feature_extraction.text import CountVectorizer
@@ -160,12 +160,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 
 texts = [
-    "退款多久到账",
-    "怎么申请退款",
-    "发票什么时候可以开",
-    "电子发票发到哪里",
-    "忘记密码怎么办",
-    "密码重置入口在哪",
+    "When will I get my refund?",
+    "How do I apply for a refund?",
+    "When can I issue an invoice?",
+    "Where do I send the e-invoice?",
+    "What should I do if I forgot my password?",
+    "Where is the password reset entry?",
 ]
 
 labels = [
@@ -183,29 +183,29 @@ clf = make_pipeline(
 )
 
 clf.fit(texts, labels)
-pred = clf.predict(["退款怎么处理", "电子发票什么时候开"])
+pred = clf.predict(["How do I handle a refund?", "When will the e-invoice be issued?"])
 print(pred.tolist())
 ```
 
-### 3.1 这段代码最关键的地方在哪？
+### 3.1 What is the most important part of this code?
 
-有两处：
+There are two key pieces:
 
-1. `CountVectorizer`  
-   文本先变成可计算特征
-2. `LogisticRegression`  
-   再根据这些特征做分类
+1. `CountVectorizer`
+   First convert text into computable features
+2. `LogisticRegression`
+   Then classify based on those features
 
-### 3.2 为什么这已经是很像真实系统的最小骨架？
+### 3.2 Why is this already very similar to a real system skeleton?
 
-因为很多线上轻量分类器本质上就是：
+Because many lightweight online classifiers are essentially:
 
-- 一个向量化器
-- 一个轻量分类器
+- a vectorizer
+- a lightweight classifier
 
-它们的部署和维护成本都相对很低。
+Their deployment and maintenance costs are relatively low.
 
-### 3.3 再看一个最小“换 TF-IDF”示例
+### 3.3 Another minimal example: switching to TF-IDF
 
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -218,122 +218,122 @@ clf_tfidf = make_pipeline(
 )
 
 clf_tfidf.fit(texts, labels)
-print(clf_tfidf.predict(["密码找回入口在哪"]).tolist())
+print(clf_tfidf.predict(["Where is the password reset entry?"]).tolist())
 ```
 
-这个例子很适合初学者，因为它会提醒你：
+This example is great for beginners because it reminds you:
 
-- 传统方法里也有不同特征表示
-- baseline 不是只能有一种写法
-
----
-
-## 四、为什么传统方法常常是好基线？
-
-### 4.1 训练快
-
-你可以很快得到第一版结果。
-
-### 4.2 调试容易
-
-如果分类错了，你更容易追：
-
-- 是哪些词触发了判断
-- 特征是不是提错了
-
-### 4.3 小数据时常常并不差
-
-特别在标签定义清楚、文本较短的任务里，  
-传统方法经常比大家预想得更强。
-
-### 4.4 第一次做文本分类项目时，最稳的默认顺序
-
-更稳的顺序通常是：
-
-1. 先做词袋或 TF-IDF baseline
-2. 先看最容易错的类别
-3. 再决定是否真的需要上深度模型
-
-这样会比一开始就直接上更重的模型更容易看清问题。
+- Traditional methods also have different feature representations
+- A baseline does not have to be written in only one way
 
 ---
 
-## 五、什么时候传统方法开始不够？
+## 4. Why are traditional methods often good baselines?
 
-### 5.1 需要更复杂语义理解时
+### 4.1 Fast training
 
-例如：
+You can get the first version very quickly.
 
-- 否定关系
-- 长距离依赖
-- 语境细微差异
+### 4.2 Easy to debug
 
-### 5.2 词序特别重要时
+If the classifier makes mistakes, it is easier to trace:
 
-因为词袋类方法对顺序不敏感。
+- which words triggered the decision
+- whether the features were extracted correctly
 
-### 5.3 多义表达和隐含语义较多时
+### 4.3 Often not bad at all on small data
 
-这时通常更需要：
+Especially for tasks with clear label definitions and short texts,
+traditional methods often perform better than people expect.
 
-- 上下文化表示
-- 深度模型
+### 4.4 The safest default order when doing a text classification project for the first time
 
----
+A more reliable order is usually:
 
-## 六、最常见误区
+1. First build a bag-of-words or TF-IDF baseline
+2. Inspect the categories that are easiest to get wrong
+3. Then decide whether you really need a deep learning model
 
-### 6.1 误区一：传统文本分类已经没必要学
-
-不对。  
-它在很多业务里仍然是非常实用的起点。
-
-### 6.2 误区二：准确率不如最强模型就没价值
-
-真实工程里还要看：
-
-- 成本
-- 延迟
-- 可解释性
-
-### 6.3 误区三：词袋方法什么都不懂
-
-虽然它不懂深语义，  
-但很多任务本来就不需要那么复杂。
-
-## 如果把它做成项目或笔记，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我用了 CountVectorizer”
-
-而是：
-
-1. baseline 是什么
-2. 为什么这个任务适合先用传统方法
-3. 错误主要集中在哪类文本
-4. 什么时候你判断该升级到更复杂模型
-
-这样别人会更容易看出：
-
-- 你理解的是 baseline 选择逻辑
-- 不只是会调用 sklearn
+This makes it easier to see the problem than starting with a heavier model right away.
 
 ---
 
-## 小结
+## 5. When do traditional methods start to fall short?
 
-这节最重要的是建立一个工程判断：
+### 5.1 When more complex semantic understanding is needed
 
-> **传统文本分类并不是“老办法”，而是很多中小数据任务里训练快、成本低、可解释性强的强基线。**
+For example:
 
-只要这层判断在，你以后做文本分类项目时就不会一上来只剩“大模型”这一条路。
+- negation
+- long-range dependencies
+- subtle contextual differences
+
+### 5.2 When word order matters a lot
+
+Because bag-of-words methods are not sensitive to order.
+
+### 5.3 When there are many ambiguous expressions and implicit meanings
+
+At that point, you usually need more:
+
+- contextual representations
+- deep learning models
 
 ---
 
-## 练习
+## 6. Common misconceptions
 
-1. 把示例里的 `CountVectorizer` 换成 `TfidfVectorizer`，看看效果有什么可能变化。
-2. 自己加一个新类别，例如 `shipping`，扩展训练集再试。
-3. 为什么说传统文本分类在一些任务里是“更好的第一步”？
-4. 如果任务里大量依赖词序和上下文，你还会优先用词袋方法吗？为什么？
+### 6.1 Misconception 1: Traditional text classification is no longer worth learning
+
+Not true.
+It is still a very practical starting point in many business scenarios.
+
+### 6.2 Misconception 2: If accuracy is worse than the strongest model, it has no value
+
+In real engineering, you also need to consider:
+
+- cost
+- latency
+- interpretability
+
+### 6.3 Misconception 3: Bag-of-words methods understand nothing
+
+Although they do not understand deep semantics,
+many tasks simply do not require that much complexity.
+
+## If you turn this into a project or note, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- “I used CountVectorizer”
+
+but:
+
+1. what the baseline is
+2. why this task is suitable for traditional methods first
+3. which kinds of text contain most of the errors
+4. when you judge that it is time to upgrade to a more complex model
+
+That way, others can more easily see:
+
+- that you understand the logic behind baseline selection
+- not just how to call sklearn
+
+---
+
+## Summary
+
+The most important thing in this lesson is to build an engineering judgment:
+
+> **Traditional text classification is not an “old method”; it is a strong baseline for many medium- and small-data tasks, with fast training, low cost, and strong interpretability.**
+
+Once you have that judgment, you will no longer be limited to “just use a large model” when doing text classification projects.
+
+---
+
+## Exercises
+
+1. Replace `CountVectorizer` in the example with `TfidfVectorizer` and see what changes in performance might happen.
+2. Add a new class yourself, such as `shipping`, expand the training set, and try again.
+3. Why can traditional text classification be “the better first step” in some tasks?
+4. If a task heavily depends on word order and context, would you still prioritize bag-of-words methods? Why?

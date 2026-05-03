@@ -1,169 +1,167 @@
 ---
-title: "2.2 扩散模型原理"
+title: "2.2 Principles of Diffusion Models"
 sidebar_position: 4
-description: "从为什么图像生成难，到正向加噪、反向去噪和训练目标，真正理解扩散模型为什么能生成图像。"
+description: "From why image generation is hard, to forward noise addition, reverse denoising, and the training objective—truly understand why diffusion models can generate images."
 keywords: [diffusion model, denoising, forward process, reverse process, generative model, image generation]
 ---
 
-# 扩散模型原理
+# Principles of Diffusion Models
 
-![扩散模型加噪去噪图](/img/course/diffusion-noise-denoise.png)
+![Diffusion model noise addition and denoising diagram](/img/course/diffusion-noise-denoise-en.png)
 
-:::tip 本节定位
-生成模型有很多路线：
+:::tip Section overview
+There are many paths for generative models:
 
-- GAN 想一次性生成
-- VAE 想学潜空间分布
+- GANs try to generate in one shot
+- VAEs try to learn the latent-space distribution
 
-扩散模型则换了一个非常特别的思路：
+Diffusion models, however, take a very different approach:
 
-> **先把真实样本一步步弄脏，再学会把它一步步洗干净。**
+> **First corrupt the real sample step by step, then learn how to clean it step by step.**
 
-这条思路后来成为图像生成里非常重要的一条主线。
+This idea later became a very important main thread in image generation.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么图像生成是高难问题
-- 理解扩散模型里“加噪”和“去噪”这两个方向
-- 看懂一个最小正向加噪示例
-- 理解模型训练时真正学的是什么
-- 建立对扩散模型整体流程的稳定直觉
+- Understand why image generation is such a hard problem
+- Understand the two directions in diffusion models: “adding noise” and “removing noise”
+- Understand a minimal example of forward noise addition
+- Understand what the model is really learning during training
+- Build a stable intuition for the overall diffusion pipeline
 
-## 历史背景：扩散模型是怎么变成主线的？
+## Historical background: How did diffusion models become a main thread?
 
-扩散模型不是一夜之间变成主流的。对新人来说，最值得知道的是这两个节点：
+Diffusion models did not become mainstream overnight. For beginners, the two most important milestones to know are:
 
-| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+| Year | Paper | Key authors | What it mainly solved |
 |---|---|---|---|
-| 2020 | *Denoising Diffusion Probabilistic Models (DDPM)* | Ho 等 | 把扩散模型做成高质量、稳定的生成路线 |
-| 2022 | *High-Resolution Image Synthesis with Latent Diffusion Models* | Rombach 等 | 把扩散从像素空间搬到潜空间，大幅降低成本，成为 Stable Diffusion 主线 |
+| 2020 | *Denoising Diffusion Probabilistic Models (DDPM)* | Ho et al. | Turned diffusion models into a high-quality, stable generative approach |
+| 2022 | *High-Resolution Image Synthesis with Latent Diffusion Models* | Rombach et al. | Moved diffusion from pixel space to latent space, greatly reducing cost and becoming the main line behind Stable Diffusion |
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember first is:
 
-> **扩散模型之所以重要，不只是“图更好看”，而是它提供了一条比很多 GAN 路线更稳定、可控的生成主线。**
+> **The reason diffusion models matter is not just that “the images look better,” but that they provide a generation path that is more stable and controllable than many GAN approaches.**
 
-而 Latent Diffusion 则进一步解决了：
+Latent Diffusion then further solved this problem:
 
-- 图像空间太大、直接扩散成本太高
+- The image space is too large, and direct diffusion is too expensive
 
-所以今天你看到的很多文生图系统，本质上都站在这条历史线上。
+So many text-to-image systems you see today are, in essence, built on this historical line.
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-如果你已经接受了“图像生成不是分类”的前提，这一节最自然的续接就是：
+If you already accept the premise that “image generation is not classification,” then the most natural continuation of the previous section is:
 
-- 前面你知道系统开始从“理解输入”走向“构造输出”
-- 这一节开始回答：扩散模型为什么会成为图像生成里特别重要的一条主线
+- You already know the system is moving from “understanding input” toward “constructing output”
+- This section explains why diffusion models became such an important main line in image generation
 
-所以这节真正重要的不是一堆公式，而是：
+So what matters most here is not a pile of formulas, but:
 
-- 先把“加噪 -> 学去噪 -> 从噪声采样”这条生成链路立起来
+- First establish the generation chain of “noise addition -> learning denoising -> sampling from noise”
 
-扩散模型这节最适合新人的理解顺序不是“先背公式”，而是先看清：
+For beginners, the best way to understand diffusion models is not to “memorize formulas first,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["真实图像"] --> B["正向加噪"]
-    B --> C["逐步变成噪声"]
-    C --> D["模型学习预测噪声"]
-    D --> E["推理时从噪声一步步去噪"]
+    A["Real image"] --> B["Forward noise addition"]
+    B --> C["Gradually becomes noise"]
+    C --> D["Model learns to predict noise"]
+    D --> E["During inference, denoise step by step from noise"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么扩散模型要先“弄脏”数据
-- 训练时模型到底在学什么
-- 为什么推理时要从噪声开始
+- Why diffusion models first “dirty” the data
+- What the model is actually learning during training
+- Why inference starts from noise
 
-## 一、为什么图像生成这么难？
+## 1. Why is image generation so hard?
 
-### 1.1 先看分类和生成的差别
+### 1.1 First look at the difference between classification and generation
 
-做分类时，你是在问：
+In classification, you are asking:
 
-- 这张图是不是猫？
+- Is this image a cat?
 
-做生成时，你是在问：
+In generation, you are asking:
 
-- 生成一张像猫的图。
+- Generate an image that looks like a cat.
 
-这两个任务看起来只差一点，但难度完全不在一个量级。
+These two tasks sound similar, but their difficulty is not on the same level.
 
-### 1.2 真正难在哪？
+### 1.2 What is the real difficulty?
 
-因为图像空间太大了。  
-随便生成一堆像素，绝大多数都会看起来像噪声，而不是“合理图片”。
+Because the image space is huge.
+If you randomly generate pixels, most results will look like noise rather than a “reasonable image.”
 
-所以生成模型真正要学的是：
+So what the generative model really needs to learn is:
 
-> **怎样从几乎无限的像素组合里，落到那些“像真实图像”的区域。**
+> **How to land in the regions that look like real images out of an almost infinite number of pixel combinations.**
 
-扩散模型的厉害之处就在于，它没有试图一步到位，而是把问题拆成了很多个更小的去噪步骤。
+The power of diffusion models is that they do not try to do this in one leap. Instead, they break the problem into many smaller denoising steps.
 
-### 1.3 第一次学扩散模型，最该先抓住什么？
+### 1.3 When learning diffusion models for the first time, what should you focus on first?
 
-最该先抓住的不是公式，而是这句：
+What you should focus on first is not the formula, but this sentence:
 
-> **扩散模型不是直接学“怎么画图”，而是在学“怎样一步步把噪声变回结构”。**
+> **A diffusion model does not directly learn “how to draw.” It learns “how to turn noise back into structure step by step.”**
 
-这句话一旦稳住，后面：
+Once this idea becomes solid, the following will all fall naturally into the same main thread:
 
-- 正向过程
-- 反向过程
-- 噪声预测
-- 采样
-
-都会更自然地落到同一条主线上。
+- Forward process
+- Reverse process
+- Noise prediction
+- Sampling
 
 ---
 
-## 二、扩散模型最核心的直觉
+## 2. The core intuition of diffusion models
 
-### 2.1 正向过程：把图像一步步加噪
+### 2.1 Forward process: add noise to the image step by step
 
-如果你有一张真实图像，只要不断往里面加噪：
+If you have a real image, and you keep adding noise to it:
 
-- 一开始还能看出结构
-- 后来越来越模糊
-- 最后几乎变成纯噪声
+- At first, you can still see the structure
+- Then it becomes more and more blurred
+- Eventually it almost turns into pure noise
 
-这个过程非常容易定义。
+This process is very easy to define.
 
-### 2.2 反向过程：学会一步步去噪
+### 2.2 Reverse process: learn to denoise step by step
 
-难的部分在反向：
+The hard part is the reverse direction:
 
-- 给你一张带噪图
-- 你要猜怎样把噪声去掉一点
+- Given a noisy image
+- You need to guess how to remove a bit of noise
 
-如果这个动作做很多步，最后就有机会从噪声里恢复出有结构的图像。
+If you do this many times, you may eventually recover a structured image from noise.
 
-### 2.3 一个很好记的类比
+### 2.3 A memorable analogy
 
-可以把它想成：
+You can think of it like this:
 
-- 正向：把一张干净照片不断抹上墨
-- 反向：学会怎样一点点把墨去掉
+- Forward: keep smearing ink over a clean photo
+- Reverse: learn how to remove the ink little by little
 
-真正难的不是抹脏，而是洗回去。
+The hard part is not dirtying the image, but cleaning it back up.
 
-### 2.4 为什么这种拆法对生成任务特别有价值？
+### 2.4 Why is this decomposition especially valuable for generation tasks?
 
-因为它把原本非常难的一步生成问题，拆成了很多更小的局部问题：
+Because it turns a very difficult one-shot generation problem into many smaller local problems:
 
-- 当前这一步该去掉多少噪声
-- 现在这张图还保留了多少结构
+- How much noise should be removed at this step
+- How much structure is still preserved in the current image
 
-这也是扩散模型后来会显得“更稳但更慢”的根源之一。
+This is also one of the reasons diffusion models later felt “more stable but slower.”
 
 ---
 
-## 三、一个最小可运行的正向加噪示例
+## 3. A minimal runnable example of forward noise addition
 
-先不用图片，先看一维向量，方便把“逐步加噪”的过程看清。
+Let’s not use images first. Instead, let’s look at a 1D vector so the “step-by-step noise addition” process is easier to see.
 
 ```python
 import numpy as np
@@ -180,75 +178,75 @@ for step in range(1, 6):
     print(f"step {step}: {np.round(x, 3)}")
 ```
 
-### 3.2 这段代码到底在教什么？
+### 3.2 What is this code teaching?
 
-它在教你两个非常关键的事实：
+It teaches you two very important facts:
 
-1. 每一步都保留一部分原始结构
-2. 每一步都混入一部分新的噪声
+1. Each step preserves part of the original structure
+2. Each step also mixes in some new noise
 
-随着步数越来越多，结构会越来越不清晰。
+As the number of steps increases, the structure becomes less and less clear.
 
-这就是正向扩散的直觉版本。
-
----
-
-## 四、为什么正向过程容易，反向过程难？
-
-### 4.1 因为正向过程是你自己定义的
-
-你完全知道：
-
-- 这一步加了多少噪声
-- 原信号衰减了多少
-
-所以正向过程几乎是“人为可控”的。
-
-### 4.2 反向过程为什么难？
-
-因为当你只看到一个带噪样本时，你并不知道：
-
-- 哪部分是原来的结构
-- 哪部分是后面混进去的噪声
-
-这就像你拿到一张被涂脏的纸，但不知道原来图案长什么样。
-
-所以模型真正要学的是：
-
-> **如何从带噪状态里预测噪声成分。**
+This is the intuitive version of forward diffusion.
 
 ---
 
-## 五、训练时模型到底在学什么？
+## 4. Why is the forward process easy, but the reverse process hard?
 
-### 5.1 一个非常关键的点
+### 4.1 Because the forward process is defined by you
 
-扩散模型训练时，通常不是直接让模型“学画图”，而是让它学：
+You completely know:
 
-> 给定带噪样本，预测里面的噪声。
+- How much noise was added in this step
+- How much the original signal was attenuated
 
-### 5.2 为什么这很聪明？
+So the forward process is almost “human-controlled.”
 
-因为训练时噪声是你自己加进去的，所以监督信号天然就有：
+### 4.2 Why is the reverse process hard?
 
-- 原样本你知道
-- 噪声你也知道
+Because when you only see a noisy sample, you do not know:
 
-因此问题就变成了一个比较明确的监督学习任务。
+- Which part is the original structure
+- Which part is the noise added later
 
-### 5.4 这一点为什么是理解扩散模型的关键转折？
+It is like receiving a paper that has been smeared, but not knowing what the original drawing looked like.
 
-因为很多新人第一次学扩散模型时，会误以为：
+So what the model really needs to learn is:
 
-- 模型是在直接学“整张图的正确样子”
+> **How to predict the noise component from a noisy state.**
 
-但更准确的理解是：
+---
 
-- 训练时它更像在学一个条件去噪器
+## 5. What is the model really learning during training?
 
-这个视角一旦稳住，后面再看 Stable Diffusion、条件生成、图像编辑就会顺很多。
+### 5.1 A very important point
 
-### 5.3 一个最小“学习目标”示意
+During diffusion training, the model is usually not directly taught to “learn to draw,” but instead to learn:
+
+> Given a noisy sample, predict the noise inside it.
+
+### 5.2 Why is this smart?
+
+Because the noise is added by you during training, the supervision signal comes for free:
+
+- You know the original sample
+- You also know the noise
+
+So the problem becomes a fairly clear supervised learning task.
+
+### 5.4 Why is this the key turning point for understanding diffusion models?
+
+Because many beginners, when first learning diffusion models, mistakenly think:
+
+- The model is directly learning the “correct appearance” of the whole image
+
+But a more accurate understanding is:
+
+- During training, it is more like learning a conditional denoiser
+
+Once this view is stable, it becomes much easier to understand Stable Diffusion, conditional generation, and image editing later on.
+
+### 5.3 A minimal “learning objective” example
 
 ```python
 import numpy as np
@@ -262,119 +260,119 @@ print("noise =", noise)
 print("noisy =", x_noisy)
 ```
 
-如果模型学会了从 `x_noisy` 预测 `noise`，  
-它就能在推理时一步步把噪声剥离掉。
+If the model learns to predict `noise` from `x_noisy`,
+it can strip noise away step by step during inference.
 
 ---
 
-## 六、采样时为什么要从纯噪声开始？
+## 6. Why do we start sampling from pure noise?
 
-### 6.1 因为推理时没有原图可用
+### 6.1 Because there is no original image during inference
 
-生成时并没有 `x0`，只有噪声。
+When generating, there is no `x0`; there is only noise.
 
-所以系统通常从：
+So the system usually starts from:
 
-- 一团随机噪声
+- A blob of random noise
 
-开始，然后反复做：
+Then it repeatedly does:
 
-1. 预测当前噪声
-2. 去掉一点噪声
-3. 得到更干净一点的状态
+1. Predict the current noise
+2. Remove a little bit of noise
+3. Get a slightly cleaner state
 
-### 6.2 一步步去噪和一步生成的差别
+### 6.2 The difference between step-by-step denoising and one-shot generation
 
-GAN 更像：
+GANs are more like:
 
-- 一步直接生成
+- Generate directly in one step
 
-扩散模型更像：
+Diffusion models are more like:
 
-- 逐步雕刻
+- Sculpt gradually
 
-这也是为什么扩散模型常常给人一种“更稳但更慢”的感觉。
-
----
-
-## 七、为什么这种路线后来很强？
-
-### 7.1 训练通常更稳
-
-相比很多 GAN 训练里的对抗不稳定，扩散模型的训练往往更稳定一些。
-
-### 7.2 条件化能力很自然
-
-一旦你能在去噪过程中加入条件信息，就可以做：
-
-- 文生图
-- 图像编辑
-- 局部修复
-
-这也是它后来迅速变强的重要原因。
-
-### 7.3 初学者第一次学扩散模型时最该先记什么
-
-最值得先记住的是：
-
-1. 正向过程很容易定义
-2. 训练时模型主要在学“预测噪声”
-3. 推理时系统是在一步步把噪声擦掉
-
-### 7.4 为什么它会直接连到后面的 Stable Diffusion 主线？
-
-因为后面很多具体系统虽然结构更复杂，但底层直觉并没有变：
-
-- 还是有噪声过程
-- 还是有去噪网络
-- 还是在做条件化生成
-
-所以这一节真正重要的是把“扩散式生成”的骨架立住。
+This is also why diffusion models often feel “more stable but slower.”
 
 ---
 
-## 八、扩散模型的代价是什么？
+## 7. Why did this route become so powerful later?
 
-### 8.1 采样慢
+### 7.1 Training is usually more stable
 
-因为不是一步生成，而是很多步去噪。
+Compared with the adversarial instability in many GAN trainings, diffusion model training is often more stable.
 
-### 8.2 计算重
+### 7.2 Conditioning is very natural
 
-尤其是在高分辨率图像上，成本会比较高。
+Once you can inject condition information into the denoising process, you can do:
 
-### 8.3 所以后来大家都在做什么？
+- Text-to-image
+- Image editing
+- Local inpainting
 
-主要就是两件事：
+This is one of the key reasons it became powerful so quickly.
 
-- 提高采样效率
-- 降低扩散操作的空间成本
+### 7.3 What should beginners remember first when learning diffusion models?
 
-这也正好引出下一节：
+The most important things to remember first are:
 
-> Stable Diffusion 为什么要把扩散放进 latent space。 
+1. The forward process is easy to define
+2. During training, the model mainly learns to “predict noise”
+3. During inference, the system is gradually wiping the noise away
 
----
+### 7.4 Why does this connect directly to the later Stable Diffusion main line?
 
-## 小结
+Because although later systems become more complex in structure, the underlying intuition does not change:
 
-这一节最重要的不是背公式，而是抓住这条主线：
+- There is still a noise process
+- There is still a denoising network
+- It is still conditional generation
 
-> **扩散模型不是直接学会“画图”，而是学会“怎么把带噪样本一步步去噪回有结构的样子”。**
-
-只要这个直觉稳了，后面看 Stable Diffusion 的结构就会自然很多。
-
-## 这节最该带走什么
-
-- 扩散模型不是一次性生成，而是逐步去噪
-- 它的训练目标比很多人想象中更像监督学习
-- 这也是它后来能在图像生成里成为主线的重要原因
+So what matters most in this section is establishing the skeleton of “diffusion-based generation.”
 
 ---
 
-## 练习
+## 8. What is the cost of diffusion models?
 
-1. 改一下本节示例里的衰减系数 `0.8`，观察结构消失速度变化。
-2. 用自己的话解释：为什么说扩散模型训练更像“学去噪”，而不是“直接学画图”？
-3. 想一想：为什么扩散模型通常会比一步生成的方法更慢？
-4. 如果你要向别人解释扩散模型，怎么用“先弄脏再洗干净”的类比去讲？
+### 8.1 Sampling is slow
+
+Because generation is not done in one step, but through many denoising steps.
+
+### 8.2 Computation is heavy
+
+Especially for high-resolution images, the cost can be relatively high.
+
+### 8.3 So what did people later focus on?
+
+Mainly two things:
+
+- Improving sampling efficiency
+- Reducing the spatial cost of diffusion operations
+
+This also leads directly to the next section:
+
+> Why Stable Diffusion moves diffusion into latent space.
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing formulas, but grasping this main thread:
+
+> **A diffusion model does not directly learn to “draw images.” It learns how to denoise a noisy sample step by step back into something structured.**
+
+As long as this intuition is stable, the structure of Stable Diffusion will feel much more natural later on.
+
+## What you should take away from this section
+
+- Diffusion models do not generate in one shot; they denoise step by step
+- Their training objective is closer to supervised learning than many people expect
+- This is one of the main reasons they became a major path in image generation
+
+---
+
+## Exercises
+
+1. Change the decay coefficient `0.8` in the example in this section and observe how the structure disappears at different speeds.
+2. Explain in your own words: why is diffusion model training more like “learning denoising” rather than “learning to draw directly”?
+3. Think about why diffusion models are usually slower than one-shot generation methods.
+4. If you were explaining diffusion models to someone else, how would you use the analogy of “first dirty it, then clean it” to describe them?

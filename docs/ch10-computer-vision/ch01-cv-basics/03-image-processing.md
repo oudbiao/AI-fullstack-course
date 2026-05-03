@@ -1,43 +1,43 @@
 ---
-title: "1.4 图像处理技术"
+title: "1.4 Image Processing Techniques"
 sidebar_position: 3
-description: "从滤波、边缘检测到形态学操作，用可运行的 OpenCV 示例理解经典图像处理的工作方式。"
-keywords: [滤波, 边缘检测, 形态学, OpenCV, Canny, blur]
+description: "From filtering and edge detection to morphological operations, understand how classic image processing works with runnable OpenCV examples."
+keywords: [filtering, edge detection, morphology, OpenCV, Canny, blur]
 ---
 
-# 图像处理技术
+# Image Processing Techniques
 
-![图像处理流水线图](/img/course/cv-image-processing-pipeline.png)
+![Image processing pipeline diagram](/img/course/cv-image-processing-pipeline-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解图像滤波在做什么
-- 使用 OpenCV 进行平滑、边缘检测和二值化
-- 理解膨胀、腐蚀等形态学操作的直觉
-- 看懂经典图像处理任务的基础代码
+- Understand what image filtering does
+- Use OpenCV for smoothing, edge detection, and binarization
+- Understand the intuition behind morphological operations such as dilation and erosion
+- Read the basic code for classic image processing tasks
 
 ---
 
-## 一、图像处理在处理什么？
+## 1. What does image processing work on?
 
-经典图像处理可以理解成：
+Classic image processing can be understood as:
 
-> **用一套规则，重新调整像素。**
+> **Using a set of rules to adjust pixels.**
 
-和深度学习不同，它不是“从数据中学规则”，而是我们先写好规则。
+Unlike deep learning, it does not "learn rules from data"; instead, we write the rules first.
 
-典型任务包括：
+Typical tasks include:
 
-- 去噪
-- 模糊
-- 边缘提取
-- 二值化
-- 轮廓增强
+- Noise reduction
+- Blurring
+- Edge extraction
+- Binarization
+- Contour enhancement
 
-:::info 安装依赖
-下面代码可以直接运行：
+:::info Install dependencies
+The following code can be run directly:
 
 ```bash
 pip install opencv-python numpy
@@ -46,9 +46,9 @@ pip install opencv-python numpy
 
 ---
 
-## 二、先造一张测试图
+## 2. First, generate a test image
 
-为了让示例不依赖外部图片，我们先自己生成一张简单图像。
+To keep the example independent of external images, we will generate a simple image ourselves.
 
 ```python
 import cv2
@@ -56,25 +56,25 @@ import numpy as np
 
 img = np.zeros((240, 320), dtype=np.uint8)
 
-# 画一个白色矩形和一个灰色圆
+# Draw a white rectangle and a gray circle
 cv2.rectangle(img, (30, 40), (140, 180), 255, -1)
 cv2.circle(img, (230, 120), 45, 180, -1)
 
 cv2.imwrite("processing_original.png", img)
-print("已保存 processing_original.png")
+print("Saved processing_original.png")
 ```
 
-这里我们直接用灰度图，后面做边缘和阈值会更方便。
+Here we use a grayscale image directly, which will make edge detection and thresholding more convenient later.
 
 ---
 
-## 三、滤波：把图像“揉平一点”
+## 3. Filtering: make the image a little smoother
 
-滤波的直觉很像：
+The intuition of filtering is very similar to this:
 
-> 把一个像素周围邻居的值也考虑进来，让图像更平滑。
+> Consider the values of the neighboring pixels around a pixel to make the image smoother.
 
-### 3.1 均值滤波
+### 3.1 Mean filtering
 
 ```python
 import cv2
@@ -84,12 +84,12 @@ img = cv2.imread("processing_original.png", cv2.IMREAD_GRAYSCALE)
 blurred = cv2.blur(img, (7, 7))
 
 cv2.imwrite("processing_blur.png", blurred)
-print("已保存 processing_blur.png")
+print("Saved processing_blur.png")
 ```
 
-均值滤波会让边缘变软，但也可能让细节损失。
+Mean filtering softens edges, but it can also lose details.
 
-### 3.2 高斯滤波
+### 3.2 Gaussian filtering
 
 ```python
 import cv2
@@ -98,22 +98,22 @@ img = cv2.imread("processing_original.png", cv2.IMREAD_GRAYSCALE)
 gaussian = cv2.GaussianBlur(img, (7, 7), 0)
 
 cv2.imwrite("processing_gaussian.png", gaussian)
-print("已保存 processing_gaussian.png")
+print("Saved processing_gaussian.png")
 ```
 
-高斯滤波比简单均值滤波更常用，因为它更自然一些。
+Gaussian filtering is used more often than simple mean filtering because it feels more natural.
 
 ---
 
-## 四、边缘检测：找出“变化最明显的地方”
+## 4. Edge detection: find where the changes are most obvious
 
-边缘可以理解成：
+An edge can be understood as:
 
-> 亮度变化很突然的位置
+> A place where the brightness changes very abruptly
 
-比如黑底上的白色矩形边界，就是典型边缘。
+For example, the boundary of a white rectangle on a black background is a typical edge.
 
-### 4.1 Canny 边缘检测
+### 4.1 Canny edge detection
 
 ```python
 import cv2
@@ -122,25 +122,25 @@ img = cv2.imread("processing_original.png", cv2.IMREAD_GRAYSCALE)
 edges = cv2.Canny(img, threshold1=50, threshold2=150)
 
 cv2.imwrite("processing_edges.png", edges)
-print("已保存 processing_edges.png")
+print("Saved processing_edges.png")
 ```
 
-### 两个阈值怎么理解？
+### How should we understand the two thresholds?
 
-可以粗略记成：
+You can roughly remember it like this:
 
-- 小于低阈值：基本不是边缘
-- 大于高阈值：大概率是边缘
-- 中间区域：结合邻域再判断
+- Below the low threshold: basically not an edge
+- Above the high threshold: very likely an edge
+- Middle range: judge again based on the neighborhood
 
 ---
 
-## 五、阈值化：把灰度图变成黑白图
+## 5. Thresholding: convert a grayscale image into a black-and-white image
 
-阈值化就是设一条线：
+Thresholding means setting a line:
 
-- 大于这个值的变白
-- 小于这个值的变黑
+- Values greater than this become white
+- Values less than this become black
 
 ```python
 import cv2
@@ -149,26 +149,26 @@ img = cv2.imread("processing_original.png", cv2.IMREAD_GRAYSCALE)
 _, binary = cv2.threshold(img, 100, 255, cv2.THRESH_BINARY)
 
 cv2.imwrite("processing_binary.png", binary)
-print("已保存 processing_binary.png")
+print("Saved processing_binary.png")
 ```
 
-这种操作常用于：
+This operation is commonly used for:
 
-- 文档扫描
-- 前景 / 背景分离
-- 轮廓提取前处理
+- Document scanning
+- Foreground/background separation
+- Preprocessing for contour extraction
 
 ---
 
-## 六、形态学操作：对形状做加工
+## 6. Morphological operations: editing shapes
 
-形态学操作特别适合处理二值图像。
+Morphological operations are especially suitable for binary images.
 
-可以把它理解成“对白色区域做揉一揉、扩一扩、缩一缩”。
+You can think of them as "kneading, expanding, or shrinking the white areas."
 
-### 6.1 腐蚀（Erosion）
+### 6.1 Erosion
 
-白色区域会变小。
+The white areas become smaller.
 
 ```python
 import cv2
@@ -179,12 +179,12 @@ kernel = np.ones((5, 5), np.uint8)
 eroded = cv2.erode(img, kernel, iterations=1)
 
 cv2.imwrite("processing_eroded.png", eroded)
-print("已保存 processing_eroded.png")
+print("Saved processing_eroded.png")
 ```
 
-### 6.2 膨胀（Dilation）
+### 6.2 Dilation
 
-白色区域会变大。
+The white areas become larger.
 
 ```python
 import cv2
@@ -195,13 +195,13 @@ kernel = np.ones((5, 5), np.uint8)
 dilated = cv2.dilate(img, kernel, iterations=1)
 
 cv2.imwrite("processing_dilated.png", dilated)
-print("已保存 processing_dilated.png")
+print("Saved processing_dilated.png")
 ```
 
-### 6.3 开运算和闭运算
+### 6.3 Opening and closing
 
-- 开运算 = 先腐蚀再膨胀，适合去小噪点
-- 闭运算 = 先膨胀再腐蚀，适合补小孔洞
+- Opening = erosion followed by dilation, suitable for removing small noise
+- Closing = dilation followed by erosion, suitable for filling small holes
 
 ```python
 import cv2
@@ -215,30 +215,30 @@ closed = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
 
 cv2.imwrite("processing_opened.png", opened)
 cv2.imwrite("processing_closed.png", closed)
-print("已保存 processing_opened.png 和 processing_closed.png")
+print("Saved processing_opened.png and processing_closed.png")
 ```
 
-![经典图像处理操作选择图](/img/course/ch10-image-processing-operation-decision-map.png)
+![Classic image processing operation decision map](/img/course/ch10-image-processing-operation-decision-map-en.png)
 
-:::tip 读图提示
-经典图像处理不是一堆 API 清单，而是一组目的明确的像素规则：去噪先滤波，找变化看边缘，分前景用阈值，清理小噪点和孔洞用形态学。
+:::tip Reading guide
+Classic image processing is not just a list of APIs, but a set of pixel rules with clear goals: use filtering for denoising, use edges to find changes, use thresholding to separate foreground and background, and use morphology to clean up small noise and holes.
 :::
 
 ---
 
-## 七、把这些操作串起来
+## 7. Combine these operations into a pipeline
 
-真实任务里，这些操作经常是连起来用的。
+In real tasks, these operations are often used together.
 
-比如你想提取一个目标轮廓，可能会这样：
+For example, if you want to extract a target contour, you might do this:
 
-1. 转灰度
-2. 滤波去噪
-3. 二值化
-4. 形态学清理
-5. 再做边缘检测或轮廓分析
+1. Convert to grayscale
+2. Filter to reduce noise
+3. Threshold
+4. Clean up with morphology
+5. Then perform edge detection or contour analysis
 
-下面给一个完整小流程：
+Here is a complete mini pipeline:
 
 ```python
 import cv2
@@ -246,74 +246,74 @@ import numpy as np
 
 img = cv2.imread("processing_original.png", cv2.IMREAD_GRAYSCALE)
 
-# 去噪
+# Reduce noise
 smoothed = cv2.GaussianBlur(img, (5, 5), 0)
 
-# 二值化
+# Threshold
 _, binary = cv2.threshold(smoothed, 100, 255, cv2.THRESH_BINARY)
 
-# 闭运算填补小空隙
+# Fill small gaps with closing
 kernel = np.ones((5, 5), np.uint8)
 cleaned = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
 
-# 边缘提取
+# Edge extraction
 edges = cv2.Canny(cleaned, 50, 150)
 
 cv2.imwrite("processing_pipeline_smoothed.png", smoothed)
 cv2.imwrite("processing_pipeline_binary.png", binary)
 cv2.imwrite("processing_pipeline_cleaned.png", cleaned)
 cv2.imwrite("processing_pipeline_edges.png", edges)
-print("完整处理流程结果已保存")
+print("The full processing pipeline results have been saved")
 ```
 
 ---
 
-## 八、这些经典方法为什么今天还要学？
+## 8. Why do we still learn these classic methods today?
 
-因为它们依然非常有用：
+Because they are still very useful:
 
-- 作为深度学习前处理
-- 在小项目里快速出效果
-- 在工业场景里做规则补充
-- 帮你建立“图像是怎么被处理的”直觉
+- As preprocessing for deep learning
+- For getting quick results in small projects
+- To add rule-based support in industrial scenarios
+- To help you build intuition about "how images are processed"
 
-很多新手上来只想学 CNN，但如果连灰度、边缘、阈值都没概念，后面对视觉模型的理解会发虚。
-
----
-
-## 九、初学者常见误区
-
-### 1. 以为滤波就是“让图更好看”
-
-不只是。  
-滤波常常是为了让后面的算法更稳定。
-
-### 2. 以为阈值可以固定不变
-
-真实图像里光照变化大，阈值常常要结合场景调。
-
-### 3. 只学 API，不理解目的
-
-你要始终问自己：
-
-- 这一步是在去噪？
-- 还是在增强边界？
-- 还是在清理形状？
+Many beginners only want to learn CNNs at first, but if you do not even understand grayscale, edges, and thresholds, your understanding of vision models will feel shaky later.
 
 ---
 
-## 小结
+## 9. Common beginner mistakes
 
-这节课你要抓住的核心是：
+### 1. Thinking filtering is just about "making the image look better"
 
-> **经典图像处理，本质上是在用规则重新排列和筛选像素。**
+Not only that.
+Filtering is often used to make later algorithms more stable.
 
-它不等于深度学习，但它是理解视觉任务的重要台阶。
+### 2. Thinking thresholds can stay fixed forever
+
+In real images, lighting changes a lot, so thresholds often need to be adjusted based on the scenario.
+
+### 3. Learning only the API without understanding the purpose
+
+You should always ask yourself:
+
+- Is this step reducing noise?
+- Or enhancing boundaries?
+- Or cleaning up shapes?
 
 ---
 
-## 练习
+## Summary
 
-1. 修改 `threshold()` 的阈值为 `60`、`120`、`180`，观察二值图变化。
-2. 修改腐蚀和膨胀的核大小，从 `(3, 3)` 改到 `(7, 7)`，观察形状变化。
-3. 在原始图像里再加一个小白点，试试开运算能不能把它去掉。
+The core idea you should take away from this lesson is:
+
+> **Classic image processing is essentially about using rules to rearrange and select pixels.**
+
+It is not the same as deep learning, but it is an important stepping stone for understanding vision tasks.
+
+---
+
+## Exercises
+
+1. Change the threshold in `threshold()` to `60`, `120`, and `180`, and observe how the binary image changes.
+2. Change the kernel size for erosion and dilation from `(3, 3)` to `(7, 7)`, and observe the shape changes.
+3. Add a small white dot to the original image and see whether opening can remove it.

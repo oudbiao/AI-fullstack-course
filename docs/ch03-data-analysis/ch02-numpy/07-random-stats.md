@@ -1,315 +1,315 @@
 ---
-title: "2.7 随机数与统计"
+title: "2.7 Random Numbers and Statistics"
 sidebar_position: 8
-description: "掌握 NumPy 的随机数生成、概率分布和统计运算"
+description: "Master NumPy random number generation, probability distributions, and statistical operations"
 ---
 
-# 随机数与统计
+# Random Numbers and Statistics
 
-![NumPy 随机数与统计地图](/img/course/ch03-numpy-random-statistics-map.png)
+![NumPy Random Numbers and Statistics Map](/img/course/ch03-numpy-random-statistics-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 `numpy.random` 模块的常用函数
-- 了解常用概率分布（均匀分布、正态分布、二项分布）
-- 理解随机种子（seed）的作用
-- 学会用 NumPy 进行基本统计运算
+- Master the common functions in the `numpy.random` module
+- Understand common probability distributions (uniform, normal, binomial)
+- Understand the role of the random seed
+- Learn to use NumPy for basic statistical operations
 
 ---
 
-## 为什么需要随机数？
+## Why Do We Need Random Numbers?
 
-在数据科学和 AI 中，随机数无处不在：
+In data science and AI, random numbers are everywhere:
 
-| 场景 | 为什么需要随机数 |
+| Scenario | Why random numbers are needed |
 |------|----------------|
-| 数据集拆分 | 随机拆分训练集和测试集 |
-| 模型初始化 | 神经网络权重需要随机初始化 |
-| 数据增强 | 随机裁剪、旋转、翻转图片 |
-| 蒙特卡洛模拟 | 用随机采样估计复杂问题 |
-| A/B 测试 | 随机分配用户到对照组和实验组 |
+| Dataset splitting | Randomly split the training set and test set |
+| Model initialization | Neural network weights need random initialization |
+| Data augmentation | Randomly crop, rotate, and flip images |
+| Monte Carlo simulation | Use random sampling to estimate complex problems |
+| A/B testing | Randomly assign users to the control group and the experiment group |
 
 ---
 
-## numpy.random 基础
+## numpy.random Basics
 
-### 新版 API（推荐）
+### New API (Recommended)
 
-NumPy 推荐使用新版的 `Generator` API：
+NumPy recommends using the newer `Generator` API:
 
 ```python
 import numpy as np
 
-# 创建随机数生成器
+# Create a random number generator
 rng = np.random.default_rng(seed=42)
 
-# 均匀分布随机数 [0, 1)
+# Uniform random numbers in [0, 1)
 print(rng.random(5))
 # [0.773... 0.438... 0.858... 0.697... 0.094...]
 
-# 指定范围的随机整数
+# Random integers in a specified range
 print(rng.integers(1, 100, size=5))
-# [67 82 42 91 23]（示例值）
+# [67 82 42 91 23] (example values)
 
-# 正态分布随机数
+# Normal random numbers
 print(rng.standard_normal(5))
 # [-0.15... 0.74... -0.27... ...]
 ```
 
-### 旧版 API（仍然常用）
+### Old API (Still Commonly Used)
 
-很多教程和代码中还在用旧版 API，你也需要认识：
+You will still see the old API in many tutorials and code examples, so you need to recognize it too:
 
 ```python
-# 旧版写法（仍然有效）
-np.random.seed(42)  # 设置全局种子
+# Old-style usage (still valid)
+np.random.seed(42)  # Set the global seed
 
-# 均匀随机数 [0, 1)
+# Uniform random numbers in [0, 1)
 print(np.random.rand(3))
 
-# 标准正态分布
+# Standard normal distribution
 print(np.random.randn(3))
 
-# 随机整数
+# Random integers
 print(np.random.randint(1, 100, size=5))
 ```
 
-:::tip 新版 vs 旧版
-- **新版** `default_rng()`：更灵活，支持独立的随机状态，推荐在新代码中使用
-- **旧版** `np.random.xxx()`：全局状态，简单直接，旧代码中很常见
+:::tip New vs. Old
+- **New** `default_rng()`: more flexible, supports independent random states, and is recommended for new code
+- **Old** `np.random.xxx()`: uses global state, simple and direct, and very common in older code
 
-两种都要认识，本教程兼顾两种写法。
+You should recognize both styles. This tutorial covers both.
 :::
 
 ---
 
-## 随机种子：让"随机"可重复
+## Random Seed: Making "Random" Reproducible
 
-在科学研究和调试中，我们经常需要"可重复的随机"——每次运行代码得到相同的结果。
+In scientific research and debugging, we often need "reproducible randomness" — getting the same results every time we run the code.
 
 ```python
-# 不设种子：每次结果不同
-print(np.random.rand(3))  # 每次都不一样
+# No seed: different results every time
+print(np.random.rand(3))  # Different each time
 
-# 设置种子：每次结果相同
+# Set a seed: same results every time
 np.random.seed(42)
 print(np.random.rand(3))  # [0.374... 0.950... 0.731...]
 
-np.random.seed(42)        # 重新设置相同的种子
-print(np.random.rand(3))  # [0.374... 0.950... 0.731...]  一模一样！
+np.random.seed(42)        # Reset the same seed
+print(np.random.rand(3))  # [0.374... 0.950... 0.731...]  Exactly the same!
 ```
 
 ```python
-# 新版 API 的种子设置
+# Seed setting with the new API
 rng = np.random.default_rng(seed=42)
 print(rng.random(3))
 
-rng2 = np.random.default_rng(seed=42)  # 相同的种子
-print(rng2.random(3))                    # 相同的结果
+rng2 = np.random.default_rng(seed=42)  # Same seed
+print(rng2.random(3))                    # Same result
 ```
 
-:::info 种子的作用
-随机种子就像一本"随机数菜谱"——相同的种子总是产生相同序列的随机数。在以下场景中一定要设置种子：
+:::info What a Seed Does
+A random seed is like a "recipe for random numbers" — the same seed always produces the same sequence of random numbers. Be sure to set a seed in the following situations:
 
-- **学习/教程中**：方便验证结果
-- **科学实验中**：确保结果可重复
-- **调试代码时**：排除随机性干扰
-- **机器学习训练时**：确保对比实验的公平性
+- **During learning/tutorials**: to make results easier to verify
+- **In scientific experiments**: to ensure results are reproducible
+- **When debugging code**: to remove interference from randomness
+- **When training machine learning models**: to ensure fair comparison experiments
 :::
 
 ---
 
-## 常用概率分布
+## Common Probability Distributions
 
-### 均匀分布
+### Uniform Distribution
 
-每个值出现的概率相同：
+Each value has the same probability of appearing:
 
 ```python
 rng = np.random.default_rng(42)
 
-# [0, 1) 之间的均匀分布
+# Uniform distribution between [0, 1)
 uniform_01 = rng.random(10000)
-print(f"均值: {uniform_01.mean():.4f}")  # ≈ 0.5
-print(f"最小: {uniform_01.min():.4f}")   # ≈ 0
-print(f"最大: {uniform_01.max():.4f}")   # ≈ 1
+print(f"Mean: {uniform_01.mean():.4f}")  # ≈ 0.5
+print(f"Min: {uniform_01.min():.4f}")   # ≈ 0
+print(f"Max: {uniform_01.max():.4f}")   # ≈ 1
 
-# [low, high) 之间的均匀分布
+# Uniform distribution between [low, high)
 uniform_custom = rng.uniform(low=10, high=50, size=1000)
-print(f"均值: {uniform_custom.mean():.1f}")  # ≈ 30
+print(f"Mean: {uniform_custom.mean():.1f}")  # ≈ 30
 ```
 
-### 正态分布（高斯分布）
+### Normal Distribution (Gaussian Distribution)
 
-这是最重要的分布——在自然界和数据中无处不在：
+This is one of the most important distributions — it appears everywhere in nature and data:
 
 ```python
 rng = np.random.default_rng(42)
 
-# 标准正态分布：均值=0, 标准差=1
+# Standard normal distribution: mean = 0, standard deviation = 1
 standard = rng.standard_normal(10000)
-print(f"均值: {standard.mean():.4f}")  # ≈ 0
-print(f"标准差: {standard.std():.4f}")  # ≈ 1
+print(f"Mean: {standard.mean():.4f}")  # ≈ 0
+print(f"Standard deviation: {standard.std():.4f}")  # ≈ 1
 
-# 指定均值和标准差的正态分布
-# 例如：中国成年男性身高约 170cm，标准差约 6cm
+# Normal distribution with a specified mean and standard deviation
+# For example: the height of adult men in China is about 170 cm, with a standard deviation of about 6 cm
 heights = rng.normal(loc=170, scale=6, size=10000)
-print(f"平均身高: {heights.mean():.1f} cm")
-print(f"标准差: {heights.std():.1f} cm")
-print(f"最矮: {heights.min():.1f} cm")
-print(f"最高: {heights.max():.1f} cm")
+print(f"Average height: {heights.mean():.1f} cm")
+print(f"Standard deviation: {heights.std():.1f} cm")
+print(f"Shortest: {heights.min():.1f} cm")
+print(f"Tallest: {heights.max():.1f} cm")
 ```
 
-### 二项分布
+### Binomial Distribution
 
-n 次独立实验中成功的次数（比如掷硬币）：
+The number of successes in `n` independent trials (for example, flipping a coin):
 
 ```python
 rng = np.random.default_rng(42)
 
-# 模拟掷 10 次硬币（正面概率 0.5），重复 10000 次
+# Simulate flipping a coin 10 times (probability of heads = 0.5), repeated 10000 times
 results = rng.binomial(n=10, p=0.5, size=10000)
-print(f"平均正面次数: {results.mean():.2f}")  # ≈ 5
-print(f"最少: {results.min()}")
-print(f"最多: {results.max()}")
+print(f"Average number of heads: {results.mean():.2f}")  # ≈ 5
+print(f"Minimum: {results.min()}")
+print(f"Maximum: {results.max()}")
 ```
 
-### 其他常用分布
+### Other Common Distributions
 
 ```python
 rng = np.random.default_rng(42)
 
-# 泊松分布（事件发生次数）
-# 比如：平均每小时来 5 个客人
+# Poisson distribution (number of events)
+# For example: 5 customers arrive per hour on average
 visitors = rng.poisson(lam=5, size=1000)
-print(f"泊松分布 - 均值: {visitors.mean():.2f}")
+print(f"Poisson distribution - Mean: {visitors.mean():.2f}")
 
-# 指数分布（事件间隔时间）
+# Exponential distribution (time between events)
 wait_times = rng.exponential(scale=2.0, size=1000)
-print(f"指数分布 - 均值: {wait_times.mean():.2f}")
+print(f"Exponential distribution - Mean: {wait_times.mean():.2f}")
 
-# 选择：从数组中随机选取
+# choice: randomly select from an array
 names = np.array(["Alice", "Bob", "Charlie", "Diana", "Eve"])
-chosen = rng.choice(names, size=3, replace=False)  # 不放回抽样
-print(f"随机选取: {chosen}")
+chosen = rng.choice(names, size=3, replace=False)  # Sampling without replacement
+print(f"Random selection: {chosen}")
 ```
 
 ---
 
-## 随机操作
+## Random Operations
 
-### 随机打乱
+### Random Shuffling
 
 ```python
 rng = np.random.default_rng(42)
 
 arr = np.arange(10)    # [0 1 2 3 4 5 6 7 8 9]
 
-# 打乱（原地修改）
+# Shuffle in place
 rng.shuffle(arr)
-print(arr)              # [8 1 5 0 7 2 9 4 3 6]（随机顺序）
+print(arr)              # [8 1 5 0 7 2 9 4 3 6] (random order)
 
-# 打乱并返回新数组（不修改原数组）
+# Shuffle and return a new array (do not modify the original)
 arr2 = np.arange(10)
 shuffled = rng.permutation(arr2)
-print(arr2)       # [0 1 2 3 4 5 6 7 8 9]  原数组不变
-print(shuffled)   # 打乱后的新数组
+print(arr2)       # [0 1 2 3 4 5 6 7 8 9]  original array unchanged
+print(shuffled)   # New shuffled array
 ```
 
-### 随机抽样
+### Random Sampling
 
 ```python
 rng = np.random.default_rng(42)
 
 data = np.arange(100)
 
-# 有放回抽样（可能重复）
+# Sampling with replacement (duplicates possible)
 sample1 = rng.choice(data, size=10, replace=True)
-print(f"有放回: {sample1}")
+print(f"With replacement: {sample1}")
 
-# 无放回抽样（不重复）
+# Sampling without replacement (no duplicates)
 sample2 = rng.choice(data, size=10, replace=False)
-print(f"无放回: {sample2}")
+print(f"Without replacement: {sample2}")
 
-# 加权随机抽样
-items = np.array(["常见", "一般", "稀有", "传说"])
-weights = np.array([0.6, 0.25, 0.1, 0.05])  # 概率
+# Weighted random sampling
+items = np.array(["Common", "Uncommon", "Rare", "Legendary"])
+weights = np.array([0.6, 0.25, 0.1, 0.05])  # probabilities
 drops = rng.choice(items, size=20, p=weights)
 unique, counts = np.unique(drops, return_counts=True)
 for item, count in zip(unique, counts):
-    print(f"  {item}: {count} 次")
+    print(f"  {item}: {count} times")
 ```
 
 ---
 
-## 统计运算
+## Statistical Operations
 
-NumPy 提供了丰富的统计函数：
+NumPy provides a rich set of statistical functions:
 
-### 描述性统计
+### Descriptive Statistics
 
 ```python
 np.random.seed(42)
-data = np.random.normal(loc=75, scale=10, size=100)  # 100 个学生的成绩
+data = np.random.normal(loc=75, scale=10, size=100)  # Scores of 100 students
 
-print("=== 描述性统计 ===")
-print(f"均值 (mean):     {np.mean(data):.2f}")
-print(f"中位数 (median): {np.median(data):.2f}")
-print(f"标准差 (std):    {np.std(data):.2f}")
-print(f"方差 (var):      {np.var(data):.2f}")
-print(f"最小值 (min):    {np.min(data):.2f}")
-print(f"最大值 (max):    {np.max(data):.2f}")
-print(f"极差 (ptp):      {np.ptp(data):.2f}")   # max - min
+print("=== Descriptive Statistics ===")
+print(f"Mean (mean):     {np.mean(data):.2f}")
+print(f"Median (median): {np.median(data):.2f}")
+print(f"Standard deviation (std):    {np.std(data):.2f}")
+print(f"Variance (var):      {np.var(data):.2f}")
+print(f"Minimum (min):    {np.min(data):.2f}")
+print(f"Maximum (max):    {np.max(data):.2f}")
+print(f"Range (ptp):      {np.ptp(data):.2f}")   # max - min
 ```
 
-### 百分位数
+### Percentiles
 
 ```python
 data = np.random.normal(loc=75, scale=10, size=1000)
 
-# 百分位数
-print(f"25th 百分位: {np.percentile(data, 25):.2f}")
-print(f"50th 百分位: {np.percentile(data, 50):.2f}")  # = 中位数
-print(f"75th 百分位: {np.percentile(data, 75):.2f}")
-print(f"90th 百分位: {np.percentile(data, 90):.2f}")
+# Percentiles
+print(f"25th percentile: {np.percentile(data, 25):.2f}")
+print(f"50th percentile: {np.percentile(data, 50):.2f}")  # = median
+print(f"75th percentile: {np.percentile(data, 75):.2f}")
+print(f"90th percentile: {np.percentile(data, 90):.2f}")
 
-# 四分位距 (IQR)
+# Interquartile range (IQR)
 q1 = np.percentile(data, 25)
 q3 = np.percentile(data, 75)
 iqr = q3 - q1
-print(f"四分位距 (IQR): {iqr:.2f}")
+print(f"Interquartile range (IQR): {iqr:.2f}")
 ```
 
-### 相关系数
+### Correlation Coefficient
 
 ```python
 np.random.seed(42)
 
-# 身高和体重通常正相关
+# Height and weight are usually positively correlated
 height = np.random.normal(170, 8, 100)
-weight = height * 0.6 - 30 + np.random.normal(0, 5, 100)  # 近似线性关系 + 噪声
+weight = height * 0.6 - 30 + np.random.normal(0, 5, 100)  # Approximate linear relationship + noise
 
-# 计算相关系数矩阵
+# Compute the correlation coefficient matrix
 corr_matrix = np.corrcoef(height, weight)
-print(f"相关系数: {corr_matrix[0, 1]:.4f}")  # ≈ 0.7~0.9（正相关）
+print(f"Correlation coefficient: {corr_matrix[0, 1]:.4f}")  # ≈ 0.7~0.9 (positive correlation)
 
-# 解读：
-# 1.0  = 完全正相关
-# 0.0  = 无关
-# -1.0 = 完全负相关
+# Interpretation:
+# 1.0  = perfect positive correlation
+# 0.0  = no correlation
+# -1.0 = perfect negative correlation
 ```
 
-### 直方图统计
+### Histogram Statistics
 
 ```python
 scores = np.random.normal(75, 10, 200)
 
-# 统计各分数段人数
+# Count how many scores fall into each range
 bins = [0, 60, 70, 80, 90, 100]
 counts, bin_edges = np.histogram(scores, bins=bins)
-labels = ["不及格", "及格", "中等", "良好", "优秀"]
+labels = ["Failing", "Passing", "Average", "Good", "Excellent"]
 
-print("=== 成绩分布 ===")
+print("=== Score Distribution ===")
 for label, count, left, right in zip(labels, counts, bin_edges[:-1], bin_edges[1:]):
     bar = "█" * count
     print(f"  {label} [{left:.0f}-{right:.0f}): {count:3d} {bar}")
@@ -317,158 +317,158 @@ for label, count, left, right in zip(labels, counts, bin_edges[:-1], bin_edges[1
 
 ---
 
-## 实战：模拟蒙特卡洛
+## Hands-On: Simulating Monte Carlo
 
-蒙特卡洛方法是用随机数估计复杂问题的经典方法。下面用它来估计圆周率 π：
+The Monte Carlo method is a classic way to use random numbers to estimate complex problems. Below, we use it to estimate π:
 
 ```python
 import numpy as np
 
 def estimate_pi(n_points):
     """
-    通过在正方形中随机撒点估计 π
-    落在四分之一圆内的点的比例 ≈ π/4
+    Estimate π by randomly scattering points inside a square
+    The proportion of points that fall inside the quarter circle is approximately π/4
     """
     rng = np.random.default_rng(42)
 
-    # 在 [0, 1] × [0, 1] 的正方形中随机撒点
+    # Randomly scatter points in the square [0, 1] × [0, 1]
     x = rng.random(n_points)
     y = rng.random(n_points)
 
-    # 计算到原点的距离
+    # Compute the distance to the origin
     distance = np.sqrt(x**2 + y**2)
 
-    # 落在四分之一圆内（距离 <= 1）的点的数量
+    # Number of points inside the quarter circle (distance <= 1)
     inside = np.sum(distance <= 1)
 
-    # π ≈ 4 × (圆内点数 / 总点数)
+    # π ≈ 4 × (number of points inside the circle / total number of points)
     pi_estimate = 4 * inside / n_points
     return pi_estimate
 
-# 不同点数的估计精度
+# Estimation accuracy with different numbers of points
 for n in [100, 1000, 10000, 100000, 1000000]:
     pi_est = estimate_pi(n)
     error = abs(pi_est - np.pi)
-    print(f"  {n:>10,} 个点 → π ≈ {pi_est:.6f}  误差: {error:.6f}")
+    print(f"  {n:>10,} points → π ≈ {pi_est:.6f}  Error: {error:.6f}")
 ```
 
-输出：
+Output:
 
 ```
-       100 个点 → π ≈ 3.120000  误差: 0.021593
-     1,000 个点 → π ≈ 3.156000  误差: 0.014407
-    10,000 个点 → π ≈ 3.153200  误差: 0.011607
-   100,000 个点 → π ≈ 3.140480  误差: 0.001113
- 1,000,000 个点 → π ≈ 3.142484  误差: 0.000891
+       100 points → π ≈ 3.120000  Error: 0.021593
+     1,000 points → π ≈ 3.156000  Error: 0.014407
+    10,000 points → π ≈ 3.153200  Error: 0.011607
+   100,000 points → π ≈ 3.140480  Error: 0.001113
+ 1,000,000 points → π ≈ 3.142484  Error: 0.000891
 ```
 
-点越多，估计越精确！这就是蒙特卡洛方法的魅力。
+The more points you use, the more accurate the estimate becomes! That is the charm of the Monte Carlo method.
 
 ---
 
-## 小结
+## Summary
 
 ```mermaid
 mindmap
-  root((随机数与统计))
-    随机数生成
-      random / rand 均匀分布
-      normal / randn 正态分布
-      integers / randint 随机整数
-      choice 随机选取
-      shuffle / permutation 打乱
-    随机种子
-      seed 保证可重复
-      default_rng 新版 API
-    概率分布
-      均匀分布 uniform
-      正态分布 normal
-      二项分布 binomial
-      泊松分布 poisson
-    统计函数
+  root((Random Numbers and Statistics))
+    Random Number Generation
+      random / rand Uniform distribution
+      normal / randn Normal distribution
+      integers / randint Random integers
+      choice Random selection
+      shuffle / permutation Shuffle
+    Random Seed
+      seed Ensures reproducibility
+      default_rng New API
+    Probability Distributions
+      Uniform distribution uniform
+      Normal distribution normal
+      Binomial distribution binomial
+      Poisson distribution poisson
+    Statistical Functions
       mean / median / std / var
       min / max / argmin / argmax
-      percentile 百分位
-      corrcoef 相关系数
-      histogram 直方图
+      percentile Percentile
+      corrcoef Correlation coefficient
+      histogram Histogram
 ```
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：模拟掷骰子
+### Exercise 1: Simulate Rolling Dice
 
 ```python
 rng = np.random.default_rng(42)
 
-# 模拟掷 2 个骰子 10000 次
-# 1. 生成 10000×2 的随机整数数组（每行是一次投掷的两个骰子）
-# 2. 计算每次投掷的点数之和
-# 3. 统计每种点数和（2~12）出现的次数
-# 4. 找出出现最多的点数和（应该是 7）
+# Simulate rolling 2 dice 10000 times
+# 1. Generate a 10000×2 array of random integers (each row is one roll of two dice)
+# 2. Compute the sum of the two dice for each roll
+# 3. Count how many times each sum (2~12) appears
+# 4. Find the most frequent sum (should be 7)
 ```
 
-### 练习 2：模拟股票价格
+### Exercise 2: Simulate Stock Prices
 
 ```python
 rng = np.random.default_rng(42)
 
-# 模拟一只股票 250 个交易日的价格变化
-# 初始价格 100 元
-# 每天的收益率服从正态分布：均值 0.05%，标准差 2%
+# Simulate price changes for one stock over 250 trading days
+# Initial price: 100
+# Daily returns follow a normal distribution: mean 0.05%, standard deviation 2%
 initial_price = 100
 n_days = 250
 
-# 1. 生成 250 天的日收益率
+# 1. Generate 250 daily returns
 # daily_returns = rng.normal(loc=?, scale=?, size=?)
 
-# 2. 计算每天的价格（提示：用 np.cumprod）
+# 2. Compute the price for each day (hint: use np.cumprod)
 # prices = initial_price * np.cumprod(1 + daily_returns)
 
-# 3. 计算最终价格、最高价、最低价
-# 4. 计算年化收益率
+# 3. Compute the final price, highest price, and lowest price
+# 4. Compute the annualized return
 ```
 
-### 练习 3：成绩分析
+### Exercise 3: Score Analysis
 
 ```python
 np.random.seed(42)
 
-# 生成 200 个学生的成绩
-math_scores = np.random.normal(75, 12, 200).clip(0, 100)    # 数学
-english_scores = np.random.normal(78, 10, 200).clip(0, 100)  # 英语
+# Generate scores for 200 students
+math_scores = np.random.normal(75, 12, 200).clip(0, 100)    # Math
+english_scores = np.random.normal(78, 10, 200).clip(0, 100)  # English
 
-# 1. 分别计算两科的均值、标准差、中位数
-# 2. 计算两科的相关系数
-# 3. 统计数学不及格但英语及格的人数
-# 4. 用 histogram 统计两科的分数段分布
-# 5. 计算两科总分的 Top 10 学生的平均分
+# 1. Compute the mean, standard deviation, and median for each subject
+# 2. Compute the correlation coefficient between the two subjects
+# 3. Count how many students failed math but passed English
+# 4. Use histogram to analyze the score distribution for both subjects
+# 5. Compute the average score of the Top 10 students by total score
 ```
 
 ---
 
-## 章节总结：NumPy 知识全景
+## Chapter Summary: A Complete View of NumPy Knowledge
 
-恭喜你完成了 NumPy 的全部内容！来回顾一下这一章学了什么：
+Congratulations on finishing all the NumPy content! Let's review what you learned in this chapter:
 
 ```mermaid
 flowchart TB
-    subgraph "第1章 NumPy 科学计算"
-        A["1.1 概述<br/>为什么用 NumPy"] --> B["1.2 数组基础<br/>创建 + 属性 + dtype"]
-        B --> C["1.3 索引与切片<br/>基本/布尔/花式索引"]
-        C --> D["1.4 数组运算<br/>向量化 + 广播 + 聚合"]
-        D --> E["1.5 变形操作<br/>reshape + 拼接 + 分割"]
-        E --> F["1.6 线性代数<br/>矩阵乘法 + 求逆 + 特征值"]
-        F --> G["1.7 随机数与统计<br/>分布 + 采样 + 统计量"]
+    subgraph "Chapter 1 NumPy Scientific Computing"
+        A["1.1 Overview<br/>Why use NumPy"] --> B["1.2 Array Basics<br/>Creation + Attributes + dtype"]
+        B --> C["1.3 Indexing and Slicing<br/>Basic / Boolean / Fancy Indexing"]
+        C --> D["1.4 Array Operations<br/>Vectorization + Broadcasting + Aggregation"]
+        D --> E["1.5 Reshaping Operations<br/>reshape + Concatenation + Splitting"]
+        E --> F["1.6 Linear Algebra<br/>Matrix Multiplication + Inverse + Eigenvalues"]
+        F --> G["1.7 Random Numbers and Statistics<br/>Distributions + Sampling + Statistics"]
     end
 
-    G --> H["✅ 你已掌握 NumPy 核心！<br/>准备进入 Pandas →"]
+    G --> H["✅ You now master the core of NumPy!<br/>Ready to move on to Pandas →"]
 
     style H fill:#4caf50,color:#fff
 ```
 
-> **✅ 自检：** 你能用 NumPy 创建一个 100×3 的随机矩阵，计算每列的均值和标准差，并找出每行最大值所在的列索引吗？
+> **✅ Self-check:** Can you use NumPy to create a 100×3 random matrix, compute the mean and standard deviation of each column, and find the column index of the maximum value in each row?
 
 ```python
 import numpy as np
@@ -476,14 +476,14 @@ import numpy as np
 rng = np.random.default_rng(42)
 matrix = rng.normal(loc=50, scale=15, size=(100, 3))
 
-# 每列均值
-print("每列均值:", np.mean(matrix, axis=0))
+# Column means
+print("Column means:", np.mean(matrix, axis=0))
 
-# 每列标准差
-print("每列标准差:", np.std(matrix, axis=0))
+# Column standard deviations
+print("Column standard deviations:", np.std(matrix, axis=0))
 
-# 每行最大值所在的列索引
-print("每行最大值列索引:", np.argmax(matrix, axis=1))
+# Column index of the maximum value in each row
+print("Column indices of row maxima:", np.argmax(matrix, axis=1))
 ```
 
-如果这些都不在话下——恭喜，准备好进入 Pandas 的世界了！
+If all of this feels easy — congratulations, you are ready to step into the world of Pandas!

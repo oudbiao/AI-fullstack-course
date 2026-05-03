@@ -1,315 +1,315 @@
 ---
-title: "3.4 数据清洗"
+title: "3.4 Data Cleaning"
 sidebar_position: 12
-description: "掌握缺失值、重复值、异常值处理和字符串清洗"
+description: "Master missing values, duplicate values, outlier handling, and string cleaning"
 ---
 
-# 数据清洗
+# Data Cleaning
 
-:::tip 本节定位
-很多新人第一次学数据清洗时，最容易把它理解成：
+:::tip Section Positioning
+When many beginners first learn data cleaning, the easiest misunderstanding is:
 
-- 哪个函数能把脏数据处理掉
+- Which function can get rid of dirty data
 
-但更稳的理解应该是：
+But a more solid understanding should be:
 
-> **先判断问题类型，再决定删、补、改还是保留。**
+> **First identify the type of problem, then decide whether to delete, fill, modify, or keep it.**
 
-所以这节最重要的不是背函数，而是建立一个清洗顺序和判断习惯。
+So the most important thing in this section is not memorizing functions, but building a cleaning sequence and a habit of judgment.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握缺失值的检测、删除和填充策略
-- 学会处理重复值
-- 了解异常值检测方法
-- 掌握数据类型转换和字符串处理
+- Master strategies for detecting, deleting, and filling missing values
+- Learn how to handle duplicate values
+- Understand methods for outlier detection
+- Master data type conversion and string processing
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-数据清洗更适合按“先检查，再决定怎么处理”来理解：
+Data cleaning is better understood as “check first, then decide how to handle it”:
 
-![Pandas 数据清洗工作流](/img/course/ch03-pandas-cleaning-workflow.png)
+![Pandas Data Cleaning Workflow](/img/course/ch03-pandas-cleaning-workflow-en.png)
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 真实数据最常见的问题有哪些
-- 你第一次拿到脏数据时，最稳的排查顺序是什么
+- What are the most common problems in real data?
+- When you first get dirty data, what is the safest order for checking it?
 
-## 为什么需要数据清洗？
+## Why Do We Need Data Cleaning?
 
-真实世界的数据**很脏**——缺失值、重复行、格式不统一、异常值……如果不清洗就直接分析，结果一定不靠谱。
+Real-world data is **very dirty** — missing values, duplicate rows, inconsistent formats, outliers... If you analyze it directly without cleaning, the results will definitely be unreliable.
 
-> "数据科学家 80% 的时间花在数据清洗上，20% 花在抱怨数据清洗上。" —— 业界名言
+> "Data scientists spend 80% of their time cleaning data and 20% of their time complaining about cleaning data." — an industry saying
 
 ```mermaid
 flowchart LR
-    A["原始数据<br/>（脏）"] --> B["数据清洗"]
-    B --> C["干净数据"]
-    C --> D["分析 / 建模"]
+    A["Raw Data<br/>（Dirty）"] --> B["Data Cleaning"]
+    B --> C["Clean Data"]
+    C --> D["Analysis / Modeling"]
 
-    B --> B1["处理缺失值"]
-    B --> B2["去除重复值"]
-    B --> B3["处理异常值"]
-    B --> B4["统一格式"]
+    B --> B1["Handle Missing Values"]
+    B --> B2["Remove Duplicate Values"]
+    B --> B3["Handle Outliers"]
+    B --> B4["Standardize Format"]
 
     style A fill:#f44336,color:#fff
     style C fill:#4caf50,color:#fff
 ```
 
-### 一个更适合新人的总类比
+### A Better Analogy for Beginners
 
-你可以把数据清洗理解成：
+You can think of data cleaning as:
 
-- 做饭前的洗菜、择菜和备料
+- Washing, sorting, and preparing ingredients before cooking
 
-你不是为了“看起来更整齐”才做这些动作，  
-而是为了：
+You are not doing these steps just to make things “look neater”;
+you are doing them so that:
 
-- 后面真正开始分析时，不会被坏掉、重复或格式混乱的数据带偏
+- when the real analysis starts later, you won’t be misled by broken, duplicated, or inconsistently formatted data
 
 ---
 
-## 缺失值处理
+## Handling Missing Values
 
-### 创建含缺失值的数据
+### Create Data with Missing Values
 
 ```python
 import pandas as pd
 import numpy as np
 
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七"],
-    "年龄": [22, np.nan, 25, 28, np.nan],
-    "城市": ["北京", "上海", None, "深圳", "杭州"],
-    "薪资": [15000, 22000, np.nan, 35000, 12000]
+    "Name": ["Alice", "Bob", "Carol", "David", "Eve"],
+    "Age": [22, np.nan, 25, 28, np.nan],
+    "City": ["Beijing", "Shanghai", None, "Shenzhen", "Hangzhou"],
+    "Salary": [15000, 22000, np.nan, 35000, 12000]
 })
 print(df)
 ```
 
-### 检测缺失值
+### Detect Missing Values
 
 ```python
-# 检测每个位置是否缺失
-print(df.isna())        # True = 缺失（isnull() 也一样）
-print(df.notna())       # True = 非缺失
+# Check whether each position is missing
+print(df.isna())        # True = missing (isnull() works the same)
+print(df.notna())       # True = not missing
 
-# 每列的缺失数量
+# Number of missing values in each column
 print(df.isna().sum())
-# 姓名    0
-# 年龄    2
-# 城市    1
-# 薪资    1
+# Name      0
+# Age       2
+# City      1
+# Salary    1
 
-# 缺失比例
+# Missing value ratio
 print(df.isna().mean())
-# 年龄    0.4
-# 城市    0.2
-# 薪资    0.2
+# Age       0.4
+# City      0.2
+# Salary    0.2
 
-# 有缺失值的行
+# Rows with missing values
 print(df[df.isna().any(axis=1)])
 ```
 
-### 删除缺失值
+### Delete Missing Values
 
 ```python
-# 删除任何含缺失值的行
+# Delete any row that contains missing values
 df_cleaned = df.dropna()
-print(df_cleaned)  # 只剩 2 行（张三、赵六）
+print(df_cleaned)  # Only 2 rows remain (Alice, David)
 
-# 删除全部为缺失值的行
+# Delete rows where all values are missing
 df.dropna(how="all")
 
-# 只看特定列
-df.dropna(subset=["年龄"])         # 年龄缺失的行删除
-df.dropna(subset=["年龄", "薪资"]) # 年龄或薪资缺失的行删除
+# Look at specific columns only
+df.dropna(subset=["Age"])         # Delete rows where Age is missing
+df.dropna(subset=["Age", "Salary"]) # Delete rows where Age or Salary is missing
 
-# 保留至少 N 个非缺失值的行
-df.dropna(thresh=3)  # 至少 3 个列有值才保留
+# Keep rows with at least N non-missing values
+df.dropna(thresh=3)  # Keep only rows with at least 3 filled columns
 ```
 
-### 填充缺失值
+### Fill Missing Values
 
 ```python
-# 用固定值填充
-df["城市"].fillna("未知")
+# Fill with a fixed value
+df["City"].fillna("Unknown")
 
-# 用均值填充（数值列常用）
-df["年龄"].fillna(df["年龄"].mean())
+# Fill with mean (commonly used for numeric columns)
+df["Age"].fillna(df["Age"].mean())
 
-# 用中位数填充
-df["薪资"].fillna(df["薪资"].median())
+# Fill with median
+df["Salary"].fillna(df["Salary"].median())
 
-# 用前一个值填充（时间序列常用）
-df["年龄"].ffill()    # forward fill
+# Fill with the previous value (commonly used for time series)
+df["Age"].ffill()    # forward fill
 
-# 用后一个值填充
-df["年龄"].bfill()    # backward fill
+# Fill with the next value
+df["Age"].bfill()    # backward fill
 
-# 对不同列用不同策略
+# Use different strategies for different columns
 df_filled = df.fillna({
-    "年龄": df["年龄"].median(),
-    "城市": "未知",
-    "薪资": 0
+    "Age": df["Age"].median(),
+    "City": "Unknown",
+    "Salary": 0
 })
 print(df_filled)
 ```
 
-### 缺失值处理策略
+### Missing Value Handling Strategies
 
-| 策略 | 适用场景 | 方法 |
+| Strategy | Use Case | Method |
 |------|---------|------|
-| 删除行 | 缺失比例小（低于 5%）、数据量大 | `dropna()` |
-| 均值/中位数填充 | 数值型、分布对称 | `fillna(mean/median)` |
-| 众数填充 | 分类变量 | `fillna(mode()[0])` |
-| 前/后值填充 | 时间序列数据 | `ffill() / bfill()` |
-| 固定值填充 | 业务逻辑明确 | `fillna(0)` 或 `fillna("未知")` |
-| 插值 | 连续数据 | `interpolate()` |
+| Delete rows | Missing ratio is small (below 5%), data volume is large | `dropna()` |
+| Fill with mean/median | Numeric data, symmetric distribution | `fillna(mean/median)` |
+| Fill with mode | Categorical variables | `fillna(mode()[0])` |
+| Forward/backward fill | Time series data | `ffill() / bfill()` |
+| Fill with fixed value | Business rule is clear | `fillna(0)` or `fillna("Unknown")` |
+| Interpolation | Continuous data | `interpolate()` |
 
-### 第一次处理缺失值时，最稳的默认顺序
+### The Safest Default Order When Handling Missing Values for the First Time
 
-更稳的顺序通常是：
+A more reliable order is usually:
 
-1. 先统计缺失比例
-2. 再判断这列重不重要
-3. 缺得很少再考虑删行
-4. 缺得较多再考虑填充策略
+1. First check the missing-value ratio
+2. Then decide whether the column is important
+3. If only a little is missing, consider deleting rows
+4. If a lot is missing, consider filling it
 
-这样会比一上来就直接 `dropna()` 更不容易把数据删坏。
+This is less likely to damage your data than calling `dropna()` immediately.
 
 ---
 
-## 重复值处理
+## Handling Duplicate Values
 
 ```python
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "张三", "王五", "李四"],
-    "部门": ["技术", "市场", "技术", "技术", "市场"],
-    "薪资": [15000, 18000, 15000, 22000, 18000]
+    "Name": ["Alice", "Bob", "Alice", "Carol", "Bob"],
+    "Department": ["Tech", "Marketing", "Tech", "Tech", "Marketing"],
+    "Salary": [15000, 18000, 15000, 22000, 18000]
 })
 
-# 检测重复行
+# Detect duplicate rows
 print(df.duplicated())
 # 0    False
 # 1    False
-# 2     True   ← 和第 0 行完全相同
+# 2     True   ← Exactly the same as row 0
 # 3    False
-# 4     True   ← 和第 1 行完全相同
+# 4     True   ← Exactly the same as row 1
 
-# 重复行数量
-print(f"重复行数: {df.duplicated().sum()}")  # 2
+# Number of duplicate rows
+print(f"Number of duplicate rows: {df.duplicated().sum()}")  # 2
 
-# 删除重复行
+# Remove duplicate rows
 df_unique = df.drop_duplicates()
-print(df_unique)  # 3 行
+print(df_unique)  # 3 rows
 
-# 按特定列判断重复
-df.drop_duplicates(subset=["姓名"])        # 同姓名只保留第一条
-df.drop_duplicates(subset=["姓名"], keep="last")  # 保留最后一条
+# Detect duplicates based on specific columns
+df.drop_duplicates(subset=["Name"])        # Keep the first record for each name
+df.drop_duplicates(subset=["Name"], keep="last")  # Keep the last record
 ```
 
-### 重复值最容易被误解成什么？
+### What Are Duplicate Values Most Easily Misunderstood As?
 
-很多新人会以为“重复值 = 一定删掉”。  
-但更稳妥的想法是：
+Many beginners think “duplicate values = always delete them.”
+But a more careful way to think about it is:
 
-- 先确认它是不是真重复
-- 还是业务上合理的多次记录
+- First confirm whether they are truly duplicates
+- Or whether they are reasonable repeated records in the business context
 
-例如：
+For example:
 
-- 同一个用户多次下单，并不是脏数据
-- 同一条订单被导入两次，才是真正要清理的重复
+- The same user placing multiple orders is not dirty data
+- The same order being imported twice is the kind of duplicate that really needs cleaning
 
 ---
 
-## 异常值处理
+## Handling Outliers
 
-### Z-score 方法
+### Z-score Method
 
 ```python
 np.random.seed(42)
 df = pd.DataFrame({
-    "薪资": np.concatenate([
-        np.random.normal(20000, 5000, 97),  # 正常数据
-        np.array([100000, 150000, 200000])    # 异常值
+    "Salary": np.concatenate([
+        np.random.normal(20000, 5000, 97),  # normal data
+        np.array([100000, 150000, 200000])    # outliers
     ])
 })
 
-# 计算 Z-score
-z_scores = (df["薪资"] - df["薪资"].mean()) / df["薪资"].std()
+# Calculate Z-score
+z_scores = (df["Salary"] - df["Salary"].mean()) / df["Salary"].std()
 
-# |Z| > 3 视为异常
+# |Z| > 3 is treated as an outlier
 outliers = df[z_scores.abs() > 3]
-print(f"检测到 {len(outliers)} 个异常值")
+print(f"Detected {len(outliers)} outliers")
 print(outliers)
 
-# 去除异常值
+# Remove outliers
 df_clean = df[z_scores.abs() <= 3]
 ```
 
-### IQR 方法（更稳健）
+### IQR Method (More Robust)
 
 ```python
-Q1 = df["薪资"].quantile(0.25)
-Q3 = df["薪资"].quantile(0.75)
+Q1 = df["Salary"].quantile(0.25)
+Q3 = df["Salary"].quantile(0.75)
 IQR = Q3 - Q1
 
 lower = Q1 - 1.5 * IQR
 upper = Q3 + 1.5 * IQR
 
-print(f"正常范围: [{lower:.0f}, {upper:.0f}]")
+print(f"Normal range: [{lower:.0f}, {upper:.0f}]")
 
-# 去除范围外的数据
-df_clean = df[(df["薪资"] >= lower) & (df["薪资"] <= upper)]
+# Remove data outside the range
+df_clean = df[(df["Salary"] >= lower) & (df["Salary"] <= upper)]
 
-# 或者将异常值截断到边界
-df["薪资_clipped"] = df["薪资"].clip(lower, upper)
+# Or clip outliers to the boundary
+df["Salary_clipped"] = df["Salary"].clip(lower, upper)
 ```
 
-### 一个很适合初学者先记的判断表
+### A Simple Judgment Table for Beginners
 
-| 现象 | 更稳的第一反应 |
+| Phenomenon | Safer First Reaction |
 |---|---|
-| 缺失值很多 | 先判断这列还能不能保留 |
-| 数值特别离谱 | 先检查是不是录入错误 |
-| 同一行出现多次 | 先确认是不是导入重复 |
-| 一列明明是数字却是字符串 | 先做类型转换 |
+| Many missing values | First check whether the column can still be kept |
+| Extremely unreasonable numeric values | First check whether it is a data entry error |
+| The same row appears multiple times | First confirm whether it was imported twice |
+| A column should be numeric but is a string | First perform type conversion |
 
-这个表很适合新人，因为它会把“数据很脏”重新拆成几类可处理的问题。
+This table is especially useful for beginners because it breaks “dirty data” back down into several kinds of problems that can be handled separately.
 
 ---
 
-## 数据类型转换
+## Data Type Conversion
 
 ```python
 df = pd.DataFrame({
     "ID": ["001", "002", "003"],
-    "价格": ["12.5", "23.8", "15.0"],
-    "数量": ["3", "5", "2"],
-    "日期": ["2024-01-15", "2024-02-20", "2024-03-10"]
+    "Price": ["12.5", "23.8", "15.0"],
+    "Quantity": ["3", "5", "2"],
+    "Date": ["2024-01-15", "2024-02-20", "2024-03-10"]
 })
-print(df.dtypes)  # 全是 object（字符串）
+print(df.dtypes)  # All object (strings)
 
-# 转换数据类型
-df["价格"] = df["价格"].astype(float)
-df["数量"] = df["数量"].astype(int)
-df["日期"] = pd.to_datetime(df["日期"])
+# Convert data types
+df["Price"] = df["Price"].astype(float)
+df["Quantity"] = df["Quantity"].astype(int)
+df["Date"] = pd.to_datetime(df["Date"])
 print(df.dtypes)
-# ID       object
-# 价格    float64
-# 数量      int64
-# 日期    datetime64[ns]
+# ID         object
+# Price    float64
+# Quantity    int64
+# Date    datetime64[ns]
 
-# 处理转换错误
+# Handle conversion errors
 dirty = pd.Series(["10", "20", "abc", "40"])
-# dirty.astype(int)  # ❌ 报错
+# dirty.astype(int)  # ❌ Error
 
-# 用 to_numeric 优雅处理
-clean = pd.to_numeric(dirty, errors="coerce")  # 无法转换的变成 NaN
+# Use to_numeric to handle it gracefully
+clean = pd.to_numeric(dirty, errors="coerce")  # Values that cannot be converted become NaN
 print(clean)
 # 0    10.0
 # 1    20.0
@@ -319,150 +319,150 @@ print(clean)
 
 ---
 
-## 字符串处理（str 访问器）
+## String Processing (`str` Accessor)
 
-Pandas 的 `.str` 访问器让你对整列字符串进行批量操作：
+Pandas `.str` accessor lets you perform batch operations on an entire string column:
 
 ```python
 df = pd.DataFrame({
-    "姓名": ["  张三 ", "李四", " 王五  "],
-    "邮箱": ["Zhang@Email.COM", "li4@email.com", "WANG5@EMAIL.COM"],
-    "手机": ["138-0000-1111", "139-2222-3333", "137-4444-5555"]
+    "Name": ["  Alice ", "Bob", "  Carol  "],
+    "Email": ["Alice@Email.COM", "bob@email.com", "CAROL@EMAIL.COM"],
+    "Phone": ["138-0000-1111", "139-2222-3333", "137-4444-5555"]
 })
 
-# 去除空格
-df["姓名"] = df["姓名"].str.strip()
+# Remove spaces
+df["Name"] = df["Name"].str.strip()
 
-# 转小写
-df["邮箱"] = df["邮箱"].str.lower()
+# Convert to lowercase
+df["Email"] = df["Email"].str.lower()
 
-# 替换
-df["手机_clean"] = df["手机"].str.replace("-", "")
+# Replace
+df["Phone_clean"] = df["Phone"].str.replace("-", "")
 
-# 包含判断
-print(df["邮箱"].str.contains("email"))  # 全是 True
+# Contains check
+print(df["Email"].str.contains("email"))  # All True
 
-# 提取
-df["手机前3位"] = df["手机"].str[:3]
+# Extract
+df["Phone_prefix"] = df["Phone"].str[:3]
 
-# 分割
-df["邮箱用户名"] = df["邮箱"].str.split("@").str[0]
+# Split
+df["Email_username"] = df["Email"].str.split("@").str[0]
 
 print(df)
 ```
 
-### 常用 str 方法
+### Common `str` Methods
 
-| 方法 | 作用 | 示例 |
+| Method | Purpose | Example |
 |------|------|------|
-| `.str.strip()` | 去除前后空格 | `" hello " → "hello"` |
-| `.str.lower()` | 转小写 | `"ABC" → "abc"` |
-| `.str.upper()` | 转大写 | `"abc" → "ABC"` |
-| `.str.replace()` | 替换 | `"a-b".replace("-","")` |
-| `.str.contains()` | 包含判断 | 返回布尔 Series |
-| `.str.startswith()` | 开头判断 | 返回布尔 Series |
-| `.str.len()` | 字符串长度 | `"hello" → 5` |
-| `.str.split()` | 分割 | `"a,b".split(",")` |
-| `.str.extract()` | 正则提取 | 提取匹配的部分 |
+| `.str.strip()` | Remove leading and trailing spaces | `" hello " → "hello"` |
+| `.str.lower()` | Convert to lowercase | `"ABC" → "abc"` |
+| `.str.upper()` | Convert to uppercase | `"abc" → "ABC"` |
+| `.str.replace()` | Replace text | `"a-b".replace("-","")` |
+| `.str.contains()` | Check whether it contains a pattern | Returns a boolean Series |
+| `.str.startswith()` | Check whether it starts with something | Returns a boolean Series |
+| `.str.len()` | String length | `"hello" → 5` |
+| `.str.split()` | Split | `"a,b".split(",")` |
+| `.str.extract()` | Regex extraction | Extract the matched part |
 
 ---
 
-## 实战：清洗一份脏数据
+## Practice: Clean a Dirty Dataset
 
 ```python
 import pandas as pd
 import numpy as np
 
-# 创建一份"脏"数据
+# Create a "dirty" dataset
 dirty_data = pd.DataFrame({
-    "姓名": ["  张三", "李四 ", "王五", "张三", " 赵六", "钱七", "李四"],
-    "年龄": [22, 28, np.nan, 22, "未知", 150, 28],       # 有缺失、非数字、异常值
-    "城市": ["北京", "上海 ", None, "北京", " 广州", "深圳", "上海"],
-    "薪资": [15000, 22000, 18000, 15000, 20000, -5000, 22000]  # 有负数
+    "Name": ["  Zhang San", "Li Si ", "Wang Wu", "Zhang San", " Zhao Liu", "Qian Qi", "Li Si"],
+    "Age": [22, 28, np.nan, 22, "unknown", 150, 28],       # Missing, non-numeric, outlier
+    "City": ["Beijing", "Shanghai ", None, "Beijing", " Guangzhou", "Shenzhen", "Shanghai"],
+    "Salary": [15000, 22000, 18000, 15000, 20000, -5000, 22000]  # Negative value
 })
 
-print("=== 原始数据 ===")
+print("=== Original Data ===")
 print(dirty_data)
-print(f"\n行数: {len(dirty_data)}")
+print(f"\nNumber of rows: {len(dirty_data)}")
 
-# 第1步：去除字符串空格
-dirty_data["姓名"] = dirty_data["姓名"].str.strip()
-dirty_data["城市"] = dirty_data["城市"].str.strip()
+# Step 1: Remove spaces from strings
+dirty_data["Name"] = dirty_data["Name"].str.strip()
+dirty_data["City"] = dirty_data["City"].str.strip()
 
-# 第2步：转换数据类型
-dirty_data["年龄"] = pd.to_numeric(dirty_data["年龄"], errors="coerce")
+# Step 2: Convert data types
+dirty_data["Age"] = pd.to_numeric(dirty_data["Age"], errors="coerce")
 
-# 第3步：处理异常值
-dirty_data.loc[dirty_data["年龄"] > 120, "年龄"] = np.nan    # 年龄>120 不合理
-dirty_data.loc[dirty_data["薪资"] < 0, "薪资"] = np.nan      # 薪资<0 不合理
+# Step 3: Handle outliers
+dirty_data.loc[dirty_data["Age"] > 120, "Age"] = np.nan    # Age > 120 is unreasonable
+dirty_data.loc[dirty_data["Salary"] < 0, "Salary"] = np.nan      # Salary < 0 is unreasonable
 
-# 第4步：填充缺失值
-dirty_data["年龄"] = dirty_data["年龄"].fillna(dirty_data["年龄"].median())
-dirty_data["城市"] = dirty_data["城市"].fillna("未知")
-dirty_data["薪资"] = dirty_data["薪资"].fillna(dirty_data["薪资"].median())
+# Step 4: Fill missing values
+dirty_data["Age"] = dirty_data["Age"].fillna(dirty_data["Age"].median())
+dirty_data["City"] = dirty_data["City"].fillna("Unknown")
+dirty_data["Salary"] = dirty_data["Salary"].fillna(dirty_data["Salary"].median())
 
-# 第5步：删除重复行
+# Step 5: Remove duplicate rows
 dirty_data = dirty_data.drop_duplicates()
 
-print("\n=== 清洗后 ===")
+print("\n=== After Cleaning ===")
 print(dirty_data)
-print(f"\n行数: {len(dirty_data)}")
+print(f"\nNumber of rows: {len(dirty_data)}")
 ```
 
-### 这个小实战最值得先学到什么？
+### What Is the Most Important Thing to Learn from This Mini Practice?
 
-最值得先学到的不是某一个函数名，  
-而是清洗动作通常有一条比较稳的顺序：
+The most important thing is not the name of any single function,
+but the fact that cleaning usually follows a fairly reliable order:
 
-1. 先统一格式
-2. 再转类型
-3. 再处理异常
-4. 最后再补缺失和去重
+1. Standardize the format first
+2. Then convert types
+3. Then handle outliers
+4. Finally fill missing values and remove duplicates
 
-顺序理清后，很多脏数据问题都会好拆很多。
+Once the order is clear, many dirty-data problems become much easier to untangle.
 
-## 一个新人可直接照抄的数据清洗检查表
+## A Data Cleaning Checklist Beginners Can Copy Directly
 
-第一次做数据清洗时，最稳的检查表通常是：
+When you clean data for the first time, the safest checklist is usually:
 
-1. 每列类型对不对？
-2. 缺失值比例高不高？
-3. 有没有明显异常值？
-4. 有没有重复记录？
-5. 清洗规则能不能解释给别人听？
+1. Are the data types in each column correct?
+2. Is the missing-value ratio high?
+3. Are there obvious outliers?
+4. Are there duplicate records?
+5. Can the cleaning rules be explained to others?
 
-最后这一条特别重要，因为清洗本质上也是决策。  
-如果你自己都说不清为什么这样删、这样补，后面的分析就很难让人信服。
+The last point is especially important, because cleaning is also a kind of decision-making.
+If you can’t clearly explain why you deleted something or filled something in a certain way, it will be hard to make your analysis convincing.
 
 ---
 
-## 小结
+## Summary
 
-| 类型 | 检测 | 处理方法 |
+| Type | Detection | Handling Method |
 |------|------|---------|
-| 缺失值 | `isna()`, `info()` | `dropna()`, `fillna()` |
-| 重复值 | `duplicated()` | `drop_duplicates()` |
-| 异常值 | Z-score, IQR | `clip()`, 删除, 替换为 NaN |
-| 类型错误 | `dtypes` | `astype()`, `pd.to_numeric()` |
-| 字符串脏数据 | 目测, `str.contains()` | `str.strip()`, `str.replace()` |
+| Missing values | `isna()`, `info()` | `dropna()`, `fillna()` |
+| Duplicate values | `duplicated()` | `drop_duplicates()` |
+| Outliers | Z-score, IQR | `clip()`, delete, replace with NaN |
+| Type errors | `dtypes` | `astype()`, `pd.to_numeric()` |
+| Dirty string data | Visual inspection, `str.contains()` | `str.strip()`, `str.replace()` |
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：缺失值处理
+### Exercise 1: Missing Value Handling
 
 ```python
-# 创建一个包含缺失值的 DataFrame（至少 20 行 5 列）
-# 1. 统计每列的缺失比例
-# 2. 对数值列用中位数填充
-# 3. 对类别列用众数填充
-# 4. 删除缺失值超过 50% 的列（如果有的话）
+# Create a DataFrame with missing values (at least 20 rows and 5 columns)
+# 1. Calculate the missing-value ratio for each column
+# 2. Fill numeric columns with the median
+# 3. Fill categorical columns with the mode
+# 4. Delete columns with more than 50% missing values (if any)
 ```
 
-### 练习 2：完整清洗流程
+### Exercise 2: Complete Cleaning Workflow
 
 ```python
-# 创建一份包含各种问题的数据，然后完成完整的清洗流程：
-# 字符串空格 → 类型转换 → 异常值处理 → 缺失值填充 → 去重
+# Create a dataset with various problems, then complete the full cleaning workflow:
+# string spaces → type conversion → outlier handling → missing value filling → deduplication
 ```

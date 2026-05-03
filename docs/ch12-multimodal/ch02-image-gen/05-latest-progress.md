@@ -1,230 +1,230 @@
 ---
-title: "2.6 最新进展"
+title: "2.6 Latest Progress"
 sidebar_position: 8
-description: "从更快采样、更强可控生成、统一多模态和内容生产工作流四条主线，理解图像生成领域近几年的稳定进展方向。"
+description: "Understand the stable progress directions in image generation over the past few years from four main threads: faster sampling, stronger controllable generation, unified multimodality, and content production workflows."
 keywords: [image generation, latest progress, diffusion, controllable generation, multimodal, image editing]
 ---
 
-# 最新进展
+# Latest Progress
 
-![图像生成前沿趋势雷达图](/img/course/ch12-image-generation-trend-radar-map.png)
+![Radar chart of frontier trends in image generation](/img/course/ch12-image-generation-trend-radar-map-en.png)
 
-:::tip 读图提示
-追前沿不要只追模型名。读图时把“更快、更可控、更多模态、进入工作流、端侧化、成本效率”这些方向分开看，才能判断哪些趋势值得现在学习。
+:::tip Reading tip
+When following the frontier, don’t just chase model names. As you read the chart, separate the directions of “faster,” “more controllable,” “more modalities,” “moving into workflows,” “on-device,” and “cost efficiency” so you can tell which trends are worth learning right now.
 :::
 
-:::tip 本节定位
-“最新进展”这类课最容易写空。  
-如果只是列模型名字，过一阵就过时；如果只是喊趋势，又很难让人真正学到东西。
+:::tip Section focus
+A “latest progress” lesson is easy to write in a shallow way.
+If you only list model names, they’ll be outdated before long; if you only talk about trends, it’s hard for learners to actually gain something concrete.
 
-更有价值的方式，是抓住那些近几年持续成立、并且很可能继续延伸的主线：
+A more valuable approach is to focus on the main threads that have remained valid over the past few years and are very likely to continue:
 
-1. 生成更快
-2. 控制更强
-3. 输入更多模态
-4. 从单张图走向完整工作流
+1. Faster generation
+2. Stronger control
+3. More modalities as input
+4. From single images to complete workflows
 
-这节课就按这四条主线来读图像生成的演进。
+This lesson reads the evolution of image generation along these four threads.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解图像生成近几年的几条稳定技术主线
-- 学会区分“模型名字变化”和“底层方向变化”
-- 通过一个可运行示例理解多目标趋势排序思路
-- 建立继续追踪这一领域时的阅读框架
-
----
-
-## 一、为什么“最新进展”不能只靠背模型名？
-
-### 1.1 因为名字换得快，底层方向变得慢一些
-
-图像生成领域变化很快。  
-如果只记：
-
-- 哪个模型最近很火
-- 哪家公司更新了哪一版
-
-你会很快失去抓手。
-
-更稳的方式是看：
-
-- 速度在往哪走
-- 可控性在往哪走
-- 交互方式在往哪走
-- 工作流整合在往哪走
-
-### 1.2 一个类比
-
-看“最新进展”更像看城市道路规划，而不是只记今天哪辆车跑得最快。
-
-- 车会换
-- 路线会升级
-- 但主干道的方向往往更值得记
+- Understand several stable technical threads in image generation over the past few years
+- Learn to distinguish “changes in model names” from “changes in underlying direction”
+- Use a runnable example to understand the idea of multi-objective trend ranking
+- Build a reading framework for continuing to track this field
 
 ---
 
-## 二、主线一：生成越来越快
+## 1. Why can’t “latest progress” rely only on memorizing model names?
 
-### 2.1 早期痛点：好看，但慢
+### 1.1 Because names change fast, while underlying directions change more slowly
 
-扩散模型最早让人惊艳的地方是：
+The image generation field changes quickly.
+If you only remember:
 
-- 画质高
-- 语义对齐强
+- which model is hot right now
+- which company released which version
 
-但痛点也很明显：
+you’ll quickly lose your footing.
 
-- 采样步数多
-- 推理时间长
+A more stable approach is to look at:
 
-### 2.2 后续演进方向
+- where speed is heading
+- where controllability is heading
+- where the interaction style is heading
+- where workflow integration is heading
 
-这几年的一条明显主线就是：
+### 1.2 An analogy
 
-- 更少步数
-- 更高质量蒸馏
-- 更快的采样路径
+Reading “latest progress” is more like looking at city road planning, not just remembering which car is fastest today.
 
-这意味着图像生成不再只是“离线慢慢画”，  
-而越来越接近：
-
-- 交互式生成
-- 实时编辑
-
-### 2.3 为什么这条线特别重要？
-
-因为速度不是锦上添花，它直接决定：
-
-- 用户愿不愿意迭代 prompt
-- 产品能不能做实时交互
-- 成本会不会失控
+- Cars change
+- Routes get upgraded
+- But the direction of the main roads is often more worth remembering
 
 ---
 
-## 三、主线二：可控生成越来越强
+## 2. Main thread 1: Generation is getting faster and faster
 
-### 3.1 从“给一句 prompt”到“给更多条件”
+### 2.1 Early pain point: beautiful, but slow
 
-早期文生图常见体验是：
+What first amazed people about diffusion models was:
 
-- 能生成大致意思
-- 但细节不稳定
+- high image quality
+- strong semantic alignment
 
-后来的明显方向是往更多控制条件走，例如：
+But the pain points were also obvious:
 
-- 姿态
-- 深度
-- 边缘
-- 区域遮罩
-- 参考图
-- 风格参考
+- many sampling steps
+- long inference time
 
-### 3.2 图像编辑成为重点
+### 2.2 Later evolution direction
 
-现在一个非常稳定的趋势是：
+One obvious thread over the past few years is:
 
-- 不只是生成新图
-- 更要能改已有图
+- fewer steps
+- higher-quality distillation
+- faster sampling paths
 
-因为真实内容生产场景里，用户更常做的是：
+This means image generation is no longer just “drawing offline at a leisurely pace,”
+and is increasingly moving toward:
 
-- 微调构图
-- 换背景
-- 修局部
-- 保留人物一致性
+- interactive generation
+- real-time editing
 
-### 3.3 为什么“可控”比“更会画”更像产品能力？
+### 2.3 Why is this thread especially important?
 
-因为内容生产不只是看单次样张。  
-真正重要的是：
+Because speed is not just a nice bonus; it directly determines:
 
-- 可重复
-- 可修改
-- 可预测
-
-这也是图像生成技术越来越产品化的标志。
+- whether users are willing to iterate on prompts
+- whether a product can support real-time interaction
+- whether costs will spiral out of control
 
 ---
 
-## 四、主线三：从单模态到统一多模态
+## 3. Main thread 2: Controllable generation is getting stronger
 
-### 4.1 输入不再只有文本
+### 3.1 From “give a prompt” to “give more conditions”
 
-现在越来越多系统接受的输入是组合式的：
+Early text-to-image experiences often were:
 
-- 文本
-- 图像
-- 草图
-- 布局
-- 区域提示
+- able to generate the general idea
+- but unstable in details
 
-也就是说，生成模型越来越像一个视觉交互系统，而不只是“文本到图像”。
+A clear later direction has been to move toward more control conditions, such as:
 
-### 4.2 输出也不再只有单张图
+- pose
+- depth
+- edges
+- region masks
+- reference images
+- style references
 
-图像生成的边界正在往外扩：
+### 3.2 Image editing has become a focus
 
-- 视频
-- 3D / 多视角
-- 分层素材
-- UI / 商品图 / 设计稿辅助
+A very stable trend now is:
 
-所以图像生成逐渐不是一个孤立赛道，  
-而是在向更大的“多模态内容生成”汇合。
+- not just generating new images
+- but also modifying existing ones
 
-### 4.3 为什么这条线值得注意？
+Because in real content production scenarios, users more often need to:
 
-因为它会影响你后面怎么学：
+- tweak composition
+- change the background
+- fix local details
+- preserve character consistency
 
-- 不是只盯 diffusion 公式
-- 还要开始关注交互接口和内容管线
+### 3.3 Why does “controllable” feel more like a product capability than “draws better”?
 
----
+Because content production is not just about a single output sample.
+What really matters is:
 
-## 五、主线四：从模型展示走向内容工作流
+- repeatability
+- editability
+- predictability
 
-### 5.1 早期常见目标：生成一张漂亮图
-
-这当然重要，但对生产环境来说还不够。
-
-### 5.2 现在更真实的目标
-
-常见真实需求其实是：
-
-- 批量生成多个候选
-- 保持角色或商品一致性
-- 自动做尺寸适配
-- 与审查、素材库、发布系统串起来
-
-### 5.3 这意味着什么？
-
-意味着图像生成系统越来越像一个工作流节点，而不是独立玩具。
-
-这也是为什么你会看到越来越多关注：
-
-- 人机协作
-- 可编辑中间结果
-- 资产复用
-- 安全审查
+This is also a sign that image generation technology is becoming more productized.
 
 ---
 
-## 六、先跑一个“趋势优先级”小示例
+## 4. Main thread 3: From single modality to unified multimodality
 
-下面这个示例不是在模拟真实论文评价，  
-而是帮助你建立一个很实用的习惯：
+### 4.1 Inputs are no longer only text
 
-- 不要只看“听起来最酷”的方向
-- 还要看它对产品、成本和工作流的综合价值
+More and more systems now accept combined inputs:
+
+- text
+- images
+- sketches
+- layouts
+- region prompts
+
+In other words, generation models are becoming more like visual interaction systems, not just “text to image.”
+
+### 4.2 Outputs are no longer only a single image
+
+The boundary of image generation is expanding outward:
+
+- video
+- 3D / multi-view
+- layered assets
+- UI / product image / design draft assistance
+
+So image generation is gradually becoming less of an isolated track,
+and more of a convergence point for broader “multimodal content generation.”
+
+### 4.3 Why is this thread worth paying attention to?
+
+Because it will affect how you learn later:
+
+- don’t just focus on diffusion formulas
+- start paying attention to interaction interfaces and content pipelines
+
+---
+
+## 5. Main thread 4: From model demos to content workflows
+
+### 5.1 The early common goal: generate one beautiful image
+
+That is of course important, but it is not enough for production environments.
+
+### 5.2 The more realistic goal now
+
+Common real-world needs are actually:
+
+- batch-generate multiple candidates
+- keep characters or products consistent
+- automatically adapt sizes
+- connect with review, asset libraries, and publishing systems
+
+### 5.3 What does this mean?
+
+It means image generation systems are increasingly becoming workflow nodes, not standalone toys.
+
+That is also why you see more and more focus on:
+
+- human-AI collaboration
+- editable intermediate results
+- asset reuse
+- safety review
+
+---
+
+## 6. First run a small “trend priority” example
+
+The example below is not meant to simulate a real paper benchmark,
+but to help you build a very practical habit:
+
+- don’t just look at the direction that sounds the coolest
+- also look at its combined value for product, cost, and workflow
 
 ```python
 trends = [
-    {"name": "更快采样", "product_value": 9, "engineering_cost": 6, "stability": 8},
-    {"name": "更强可控编辑", "product_value": 10, "engineering_cost": 7, "stability": 8},
-    {"name": "统一多模态输入", "product_value": 8, "engineering_cost": 8, "stability": 6},
-    {"name": "从单图走向视频与3D", "product_value": 8, "engineering_cost": 9, "stability": 5},
+    {"name": "faster sampling", "product_value": 9, "engineering_cost": 6, "stability": 8},
+    {"name": "stronger controllable editing", "product_value": 10, "engineering_cost": 7, "stability": 8},
+    {"name": "unified multimodal input", "product_value": 8, "engineering_cost": 8, "stability": 6},
+    {"name": "from single images to video and 3D", "product_value": 8, "engineering_cost": 9, "stability": 5},
 ]
 
 
@@ -242,91 +242,91 @@ for item in ranked:
     print(item)
 ```
 
-### 6.1 这段代码想传达什么？
+### 6.1 What is this code trying to convey?
 
-真正读“最新进展”时，不要只看技术炫不炫，  
-还要问：
+When you truly read “latest progress,” don’t just ask whether a technique is flashy,
+also ask:
 
-- 它对产品价值大不大
-- 工程门槛高不高
-- 稳定性是否已经足够
+- is its product value large?
+- is the engineering barrier high?
+- is the stability already good enough?
 
-### 6.2 为什么这比单纯列清单更有用？
+### 6.2 Why is this more useful than simply listing items?
 
-因为你以后不只是读论文，  
-还很可能要做判断：
+Because later you won’t just be reading papers,
+you’ll very likely need to make judgments:
 
-- 哪个方向值得先学
-- 哪个方向值得先落地
-
----
-
-## 七、怎么继续跟这个领域？
-
-### 7.1 先按“方向”追，而不是按“名字”追
-
-优先追：
-
-- 加速采样
-- 可控编辑
-- 多模态统一
-- 工作流集成
-
-### 7.2 读论文时建议问四个问题
-
-1. 它解决的是速度、质量、可控性还是工作流问题？
-2. 它靠的是新训练目标、新架构，还是新系统设计？
-3. 它更适合研究演示，还是已经接近产品可用？
-4. 它会不会明显改变生产流程？
-
-### 7.3 对新人最有帮助的阅读顺序
-
-建议先把：
-
-- 速度
-- 可控编辑
-- 工作流整合
-
-这三条看明白，再去追更前沿的统一多模态和 3D / 视频扩展。
+- which direction is worth learning first
+- which direction is worth putting into practice first
 
 ---
 
-## 八、常见误区
+## 7. How should you keep following this field?
 
-### 8.1 误区一：最新进展就是最新模型名
+### 7.1 Follow “directions” first, not “names” first
 
-模型名会变，主线更值得追。
+Prioritize tracking:
 
-### 8.2 误区二：越前沿就越适合马上学
+- sampling acceleration
+- controllable editing
+- multimodal unification
+- workflow integration
 
-不一定。  
-有些方向很前沿，但离产品和工程落地还比较远。
+### 7.2 When reading papers, it helps to ask four questions
 
-### 8.3 误区三：图像生成只看画质
+1. Does it solve a speed, quality, controllability, or workflow problem?
+2. Does it rely on a new training objective, a new architecture, or a new system design?
+3. Is it better suited to research demos, or is it already close to being product-ready?
+4. Will it noticeably change the production process?
 
-现在越来越重要的是：
+### 7.3 The most helpful reading order for beginners
 
-- 控制
-- 速度
-- 工作流整合
+It is recommended to first understand:
 
----
+- speed
+- controllable editing
+- workflow integration
 
-## 小结
-
-这节最重要的，不是给你一串会过时的模型名单，  
-而是建立一个更稳的框架：
-
-> **图像生成近几年的稳定演进方向，是更快采样、更强可控编辑、更统一的多模态输入，以及从单张图走向完整内容工作流。**
-
-只要这四条主线清楚，  
-你以后继续追这个领域就不会只剩“谁又发了个新模型”的碎片印象。
+Once you understand these three clearly, then go after more frontier areas such as unified multimodality and 3D / video extensions.
 
 ---
 
-## 练习
+## 8. Common misunderstandings
 
-1. 用你自己的理解给这四条主线重新排个优先级，并说明原因。
-2. 想一想：如果你做的是电商商品图系统，哪条主线最重要？为什么？
-3. 为什么说“可控编辑”往往比“再提高一点画质”更像产品能力？
-4. 下次读图像生成新论文时，你会先问哪两个问题？
+### 8.1 Misunderstanding 1: Latest progress means the latest model name
+
+Model names change; the main threads are more worth following.
+
+### 8.2 Misunderstanding 2: The more frontier a direction is, the more suitable it is to learn right away
+
+Not necessarily.
+Some directions are very frontier, but still quite far from product and engineering deployment.
+
+### 8.3 Misunderstanding 3: Image generation is only about image quality
+
+What matters more and more now is:
+
+- control
+- speed
+- workflow integration
+
+---
+
+## Summary
+
+The most important thing in this lesson is not to give you a list of model names that will soon become outdated,
+but to build a more stable framework:
+
+> **The stable evolution directions of image generation over the past few years are faster sampling, stronger controllable editing, more unified multimodal input, and the shift from single images to complete content workflows.**
+
+As long as these four main threads are clear,
+you won’t be left with only fragmented impressions like “who released another new model” when you continue following this field.
+
+---
+
+## Exercises
+
+1. Re-rank these four main threads based on your own understanding, and explain why.
+2. Think about this: if you were building an e-commerce product image system, which thread would matter most? Why?
+3. Why is “controllable editing” often more like a product capability than “improving image quality a little more”?
+4. When you read a new image generation paper next time, which two questions will you ask first?

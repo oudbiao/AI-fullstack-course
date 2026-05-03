@@ -1,77 +1,77 @@
 ---
-title: "6.1 学前导读：微调这一章到底在学什么"
+title: "6.1 Pre-study Guide: What Is This Finetuning Chapter Actually About?"
 sidebar_position: 0
-description: "先建立微调章的学习地图：什么时候需要微调、数据如何准备、LoRA/QLoRA/PEFT 怎样降低成本，以及如何评估微调是否有效。"
-keywords: [微调导读, LoRA, QLoRA, PEFT, 大模型微调]
+description: "First build a learning map for the finetuning chapter: when finetuning is needed, how data should be prepared, how LoRA/QLoRA/PEFT reduce cost, and how to evaluate whether finetuning is effective."
+keywords: [finetuning guide, LoRA, QLoRA, PEFT, LLM finetuning]
 ---
 
-# 学前导读：微调这一章到底在学什么
+# Pre-study Guide: What Is This Finetuning Chapter Actually About?
 
-这一章解决的是：当 Prompt 已经不足以稳定改变模型行为时，怎样通过训练让模型更适合某类任务、格式或领域。
+This chapter solves this problem: when Prompt is no longer enough to reliably change model behavior, how can you use training to make the model better suited to a certain task, format, or domain?
 
-微调不是“让模型什么都变强”的魔法按钮。它更适合解决风格、格式、领域表达、固定任务模式和特定行为习惯的问题。很多知识更新类问题，其实更适合 RAG；很多一次性任务，其实更适合 Prompt；只有当你有稳定任务、足够样本和明确评估标准时，微调才值得认真考虑。
+Finetuning is not a magic button that “makes the model stronger in every way.” It is more suitable for problems involving style, format, domain-specific expression, fixed task patterns, and specific behavioral habits. Many knowledge-update problems are actually better handled by RAG; many one-off tasks are better handled by Prompt; only when you have a stable task, enough samples, and clear evaluation criteria is finetuning worth serious consideration.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Overall Course
 
-你已经学过大模型概览、预训练和 Prompt 工程。预训练解释模型通用能力从哪里来，Prompt 解释如何在不改参数的情况下调用能力。微调则进入另一条路线：在已有模型基础上，用任务数据继续训练，让模型行为更贴近你的目标。
+You have already learned the overview of large models, pretraining, and Prompt engineering. Pretraining explains where a model’s general capabilities come from, and Prompt explains how to invoke those capabilities without changing parameters. Finetuning takes a different path: based on an existing model, continue training with task data so that the model’s behavior better matches your goals.
 
-![大模型微调章节关系图](/img/course/ch07-finetuning-chapter-flow.png)
+![Relationship diagram of the large model finetuning chapter](/img/course/ch07-finetuning-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Needs to Solve
 
-这一章要回答五个问题：什么情况下应该微调，什么情况下不该微调；微调数据应该怎样收集、清洗、标注和切分；LoRA、QLoRA 和其他 PEFT 方法为什么能降低训练成本；微调训练大致包含哪些步骤；怎样通过评估判断微调是真的有效，而不是只在训练样例上看起来更好。
+This chapter answers five questions: when should you finetune, and when should you not; how should finetuning data be collected, cleaned, labeled, and split; why can LoRA, QLoRA, and other PEFT methods reduce training cost; what are the general steps in finetuning training; and how can evaluation tell you whether finetuning is truly effective, rather than just looking better on the training samples.
 
-新人最容易误解的是：模型答错领域知识，就立刻想微调。事实上，如果问题是“资料太新、知识太私有、需要可引用来源”，RAG 往往更合适；如果问题是“输出格式、语气、任务套路长期不稳定”，微调才更可能发挥价值。
+The most common misunderstanding for beginners is this: when the model gets domain knowledge wrong, they immediately think of finetuning. In fact, if the issue is “the information is too new, the knowledge is private, or you need citable sources,” RAG is often more suitable; if the issue is “output format, tone, or task procedure is unstable over time,” finetuning is more likely to be valuable.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先看微调概述，建立“为什么微调”和“什么时候不微调”的边界。然后学 LoRA/QLoRA，因为它们是当前入门微调最常见、成本较低的路径。接着了解其他 PEFT 方法，知道全量微调之外还有多种参数高效方案。最后看微调实践和数据标注，把数据准备、训练配置、验证集、评估样例和上线风险串起来。
+It is recommended to first read the finetuning overview to build boundaries around “why finetune” and “when not to finetune.” Then learn LoRA/QLoRA, because they are currently the most common and lower-cost entry paths for finetuning. Next, learn other PEFT methods so you know there are multiple parameter-efficient options besides full finetuning. Finally, look at finetuning practice and data annotation to connect data preparation, training configuration, validation sets, evaluation examples, and deployment risks.
 
-![微调决策与评估闭环图](/img/course/ch07-finetuning-decision-loop.png)
+![Finetuning decision and evaluation loop diagram](/img/course/ch07-finetuning-decision-loop-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Grasp While Studying This Chapter
 
-这一章的主线可以概括为：微调不是从零造模型，而是在已有模型上用高质量样本塑造行为。
+The main thread of this chapter can be summarized as: finetuning is not building a model from scratch, but shaping behavior on top of an existing model using high-quality samples.
 
-看懂这条线后，你会知道微调项目最贵的部分不一定是 GPU，而是数据和评估。没有好数据，微调会把错误学得更稳定；没有评估，你无法判断模型是泛化了，还是只是记住了样本。
+Once you understand this, you will know that the most expensive part of a finetuning project is not necessarily the GPU, but the data and evaluation. Without good data, finetuning will make mistakes more stable; without evaluation, you cannot tell whether the model has generalized or merely memorized the samples.
 
-## 这一章和后面章节的关系
+## The Relationship Between This Chapter and Later Chapters
 
-微调会和 RAG、Prompt、对齐以及模型部署一起构成大模型应用的技术选择框架。Prompt 解决调用方式，RAG 解决外部知识，微调解决稳定行为，对齐解决人类偏好和安全边界，部署解决成本、延迟和可用性。
+Finetuning, together with RAG, Prompt, alignment, and model deployment, forms the technical decision framework for LLM applications. Prompt solves how to invoke the model, RAG solves external knowledge, finetuning solves stable behavior, alignment solves human preferences and safety boundaries, and deployment solves cost, latency, and availability.
 
-如果这一章没学稳，后面常见的问题是：把微调当成万能方案；没有验证集就判断效果；训练数据混乱导致模型格式更不稳定；用微调解决本该由 RAG 解决的私有知识更新问题；只看训练 loss，不看真实任务表现。
+If you do not learn this chapter solidly, common problems later include: treating finetuning as a universal solution; judging results without a validation set; messy training data causing the model’s format to become even less stable; using finetuning to solve private knowledge update problems that should have been handled by RAG; and looking only at training loss instead of real task performance.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main thread and a minimal runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter to fill gaps and practice engineering: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to earlier and later stages. After reading, it is best to turn the content of this chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | Can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly describe what the example needs as input and what result it produces |
+| Where are the common failure points? | Can list at least one cause of an error, poor results, or misunderstanding |
+| What can be retained after learning? | Can write the chapter output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议做一个小型指令微调实验。选择一个明确任务，例如“把课程章节摘要改写成固定 JSON 结构”或“把用户问题分类为学习路径、概念解释、项目建议、环境问题”。准备几十到几百条样本，先做 Prompt baseline，再用 LoRA/QLoRA 做小规模微调，最后比较格式稳定性、准确率或人工评分。
+After finishing this chapter, it is recommended to do a small instruction finetuning experiment. Choose a clear task, such as “rewrite course chapter summaries into a fixed JSON structure” or “classify user questions into learning path, concept explanation, project suggestion, or environment issue.” Prepare dozens to hundreds of samples, first build a Prompt baseline, then use LoRA/QLoRA for a small-scale finetuning run, and finally compare format stability, accuracy, or human ratings.
 
-这个项目的重点是完整闭环：定义任务、准备数据、训练、评估、对比 baseline 和记录失败案例，而不是追求训练出一个很大的模型。
+The key point of this project is a complete closed loop: define the task, prepare data, train, evaluate, compare against the baseline, and record failure cases, rather than aiming to train a very large model.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能判断一个问题是否适合微调，能解释 LoRA、QLoRA 和 PEFT 的基本作用，能说清楚微调数据为什么比训练脚本更关键，能设计一个最小微调评估方案。
+By the end of this chapter, you should be able to judge whether a problem is suitable for finetuning, explain the basic roles of LoRA, QLoRA, and PEFT, clearly state why finetuning data is more critical than the training script, and design a minimal finetuning evaluation plan.
 
-如果你能把 Prompt、RAG 和微调放在同一张决策图里，并说明不同场景下该优先选哪条路线，就说明你已经建立了比较成熟的大模型工程判断。
+If you can place Prompt, RAG, and finetuning on the same decision map and explain which path should be chosen first in different scenarios, that means you have already built fairly mature judgment for LLM engineering.

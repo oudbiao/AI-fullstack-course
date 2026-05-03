@@ -1,100 +1,100 @@
 ---
-title: "4.2 Seaborn 统计可视化"
+title: "4.2 Seaborn Statistical Visualization"
 sidebar_position: 18
-description: "用更少的代码画出更美观的统计图表"
+description: "Create prettier statistical charts with less code"
 ---
 
-# Seaborn 统计可视化
+# Seaborn Statistical Visualization
 
-![Seaborn 统计图选择图](/img/course/seaborn-statistical-plots.png)
+![Seaborn Statistical Plot Selection Guide](/img/course/seaborn-statistical-plots-en.png)
 
-:::tip 本节定位
-很多新人在 `Matplotlib` 和 `Seaborn` 之间最容易混的一点是：
+:::tip Where this section fits
+One of the easiest things for beginners to mix up between `Matplotlib` and `Seaborn` is:
 
-- 这两个库到底谁负责什么
+- Which library is responsible for what
 
-最稳的理解方式是：
+The safest way to understand it is:
 
-- `Matplotlib` 更像基础画图工具箱
-- `Seaborn` 更像已经帮你配好默认样式和统计图模板的高级工具
+- `Matplotlib` is more like a basic plotting toolbox
+- `Seaborn` is more like an advanced tool with preset styles and statistical plot templates
 
-所以这节最重要的不是再学一个新库，而是学会：
+So the most important goal of this section is not to learn yet another library, but to learn:
 
-> **怎样更快地把探索性分析图画清楚。**
+> **How to make exploratory analysis plots clear more quickly.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Seaborn 与 Matplotlib 的关系
-- 掌握分布图、关系图、分类图
-- 学会绘制热力图与相关性矩阵
-- 使用 FacetGrid 进行分面绑图
+- Understand the relationship between Seaborn and Matplotlib
+- Master distribution plots, relational plots, and categorical plots
+- Learn to draw heatmaps and correlation matrices
+- Use FacetGrid for faceting plots
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-`Seaborn` 最适合新人的理解顺序不是“函数表”，而是先看清它最擅长的 4 类问题：
+For beginners, the best way to understand `Seaborn` is not by memorizing its function list, but by first seeing the 4 problem types it handles best:
 
 ```mermaid
 flowchart LR
-    A["分布"] --> B["histplot / kdeplot"]
-    C["关系"] --> D["scatterplot / lineplot / pairplot"]
-    E["分类比较"] --> F["boxplot / violinplot / barplot / countplot"]
-    G["矩阵关系"] --> H["heatmap"]
+    A["Distribution"] --> B["histplot / kdeplot"]
+    C["Relationship"] --> D["scatterplot / lineplot / pairplot"]
+    E["Categorical comparison"] --> F["boxplot / violinplot / barplot / countplot"]
+    G["Matrix relationships"] --> H["heatmap"]
 ```
 
-所以这节真正想解决的是：
+So what this section really aims to solve is:
 
-- 当你在做 EDA 时，哪种图最适合先拿出来
-- 为什么 `Seaborn` 会比纯 `Matplotlib` 更适合快速探索
+- When you are doing EDA, which plot should you use first?
+- Why is `Seaborn` more suitable than plain `Matplotlib` for quick exploration?
 
 ---
 
-## Seaborn 是什么？
+## What Is Seaborn?
 
-如果把 Matplotlib 比作**画笔和颜料**，那 Seaborn 就是**画笔套装 + 调色板 + 模板**。
+If you think of Matplotlib as **brushes and paint**, then Seaborn is **a brush set + palette + templates**.
 
 ```mermaid
 flowchart LR
-    A["Matplotlib<br/>基础画笔"] -->|"Seaborn 封装"| B["Seaborn<br/>美观统计图表"]
-    B -->|"底层仍是"| A
-    C["Pandas<br/>DataFrame"] -->|"直接传入"| B
+    A["Matplotlib<br/>Basic plotting tools"] -->|"Seaborn wraps it"| B["Seaborn<br/>Beautiful statistical charts"]
+    B -->|"Under the hood, still based on"| A
+    C["Pandas<br/>DataFrame"] -->|"Pass directly"| B
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
     style C fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-| 对比 | Matplotlib | Seaborn |
+| Comparison | Matplotlib | Seaborn |
 |------|-----------|---------|
-| 定位 | 底层绑图库 | 高级统计绘图库 |
-| 代码量 | 多，需要手动设置 | 少，开箱即用 |
-| 默认美观度 | 一般 | 非常美观 |
-| 数据格式 | 数组、列表 | 直接用 DataFrame |
-| 统计功能 | 需要手动计算 | 自动计算均值、置信区间等 |
-| 定制能力 | 极强 | 中等（可借助 Matplotlib 补充） |
+| Positioning | Low-level plotting library | High-level statistical plotting library |
+| Amount of code | More, requires manual setup | Less, ready to use out of the box |
+| Default aesthetics | Average | Very polished |
+| Data format | Arrays, lists | Directly uses DataFrame |
+| Statistical features | Must compute manually | Automatically computes means, confidence intervals, etc. |
+| Customization | Extremely strong | Moderate (can be extended with Matplotlib) |
 
-**一句话总结：** Seaborn 让你用 1 行代码画出 Matplotlib 需要 10 行才能完成的美观统计图。
+**One-line summary:** Seaborn lets you create a beautiful statistical plot in 1 line of code that might take 10 lines with Matplotlib.
 
-### 一个更适合新人的总类比
+### A Beginner-Friendly Analogy
 
-你可以把 `Seaborn` 理解成：
+You can think of `Seaborn` as:
 
-- 已经帮你摆好盘的数据可视化工具
+- A data visualization tool where the table is already set for you
 
-`Matplotlib` 像你自己从锅碗瓢盆开始摆，  
-`Seaborn` 则像已经帮你配好餐具和默认风格，  
-你更容易把注意力放在：
+`Matplotlib` is like setting everything up from scratch, pots and pans included,
+while `Seaborn` is like having the tableware and default style already prepared.
+This makes it easier to focus on:
 
-- 这张图到底想看什么统计现象
+- What statistical phenomenon this chart is meant to show
 
 ---
 
-## 安装与导入
+## Installation and Import
 
 ```python
-# 安装
+# Install
 # pip install seaborn
 
 import seaborn as sns
@@ -102,250 +102,250 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-# Seaborn 自带的示例数据集
-tips = sns.load_dataset("tips")      # 餐厅小费数据
-iris = sns.load_dataset("iris")      # 鸢尾花数据
-titanic = sns.load_dataset("titanic")  # 泰坦尼克号数据
+# Seaborn's built-in example datasets
+tips = sns.load_dataset("tips")      # restaurant tip data
+iris = sns.load_dataset("iris")      # iris flower data
+titanic = sns.load_dataset("titanic")  # Titanic data
 
-# 设置全局风格
-sns.set_theme(style="whitegrid")     # 白底网格，清爽好看
+# Set global style
+sns.set_theme(style="whitegrid")     # white background + grid, clean and nice
 ```
 
-### 常用风格一览
+### Common Styles at a Glance
 
-| 风格 | 说明 | 适合场景 |
+| Style | Description | Best use case |
 |------|------|----------|
-| `"whitegrid"` | 白底 + 网格 | 数值对比（推荐默认） |
-| `"darkgrid"` | 灰底 + 网格 | 强调数据点 |
-| `"white"` | 纯白底 | 论文、报告 |
-| `"dark"` | 灰底 | 艺术风格 |
-| `"ticks"` | 白底 + 刻度线 | 简洁专业 |
+| `"whitegrid"` | White background + grid | Numerical comparison (recommended default) |
+| `"darkgrid"` | Gray background + grid | Highlight data points |
+| `"white"` | Plain white background | Papers, reports |
+| `"dark"` | Gray background | Artistic style |
+| `"ticks"` | White background + tick marks | Clean and professional |
 
 ---
 
-## 分布图：数据长什么样？
+## Distribution Plots: What Does the Data Look Like?
 
-分布图帮你回答：**这组数据的值集中在哪里？分散程度如何？是否有偏斜？**
+Distribution plots help answer: **Where are the values concentrated? How spread out are they? Is the distribution skewed?**
 
-### 第一次做 EDA 时，最稳的默认顺序
+### The Most Reliable Default Order for Your First EDA
 
-更稳的顺序通常是：
+A safer workflow is usually:
 
-1. 先看分布图  
-   先知道数据集中在哪、偏不偏。
-2. 再看关系图  
-   看变量之间有没有明显关系。
-3. 再看分类图  
-   看不同组之间差别大不大。
-4. 最后再看热力图  
-   把整体相关性快速扫一遍。
+1. Start with distribution plots
+   First see where the data is concentrated and whether it is skewed.
+2. Then look at relational plots
+   Check whether there is a clear relationship between variables.
+3. Then look at categorical plots
+   Compare differences across groups.
+4. Finally, check heatmaps
+   Quickly scan the overall correlation structure.
 
-这个顺序特别适合新人，因为它会让探索过程更有主线。
+This order is especially good for beginners because it gives the exploration process a clear main thread.
 
-### histplot：直方图
+### histplot: Histogram
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 
-# 基本直方图
+# Basic histogram
 sns.histplot(data=tips, x="total_bill", ax=axes[0])
-axes[0].set_title("基本直方图")
+axes[0].set_title("Basic Histogram")
 
-# 添加密度曲线
+# Add density curve
 sns.histplot(data=tips, x="total_bill", kde=True, ax=axes[1])
-axes[1].set_title("直方图 + 密度曲线")
+axes[1].set_title("Histogram + Density Curve")
 
-# 按类别分颜色
+# Color by category
 sns.histplot(data=tips, x="total_bill", hue="time", kde=True, ax=axes[2])
-axes[2].set_title("按用餐时间分组")
+axes[2].set_title("Grouped by Meal Time")
 
 plt.tight_layout()
 plt.show()
 ```
 
-### kdeplot：核密度估计
+### kdeplot: Kernel Density Estimation
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-# 一维密度
+# One-dimensional density
 sns.kdeplot(data=tips, x="total_bill", hue="sex", fill=True, ax=axes[0])
-axes[0].set_title("消费金额密度分布")
+axes[0].set_title("Distribution of Total Bill Density")
 
-# 二维密度（等高线）
+# Two-dimensional density (contours)
 sns.kdeplot(data=tips, x="total_bill", y="tip", fill=True, cmap="Blues", ax=axes[1])
-axes[1].set_title("消费 vs 小费 联合密度")
+axes[1].set_title("Joint Density of Total Bill vs Tip")
 
 plt.tight_layout()
 plt.show()
 ```
 
-:::tip 什么是 KDE？
-KDE（核密度估计）可以理解为"平滑版的直方图"。它用一条连续的曲线来估计数据的概率密度，比直方图更平滑、更容易对比。
+:::tip What is KDE?
+KDE (Kernel Density Estimation) can be understood as a "smoothed histogram." It uses a continuous curve to estimate the probability density of the data, making it smoother and easier to compare than a histogram.
 :::
 
-### rugplot：地毯图
+### rugplot: Rug Plot
 
 ```python
 fig, ax = plt.subplots(figsize=(8, 4))
 sns.kdeplot(data=tips, x="total_bill", fill=True, ax=ax)
 sns.rugplot(data=tips, x="total_bill", ax=ax, alpha=0.5)
-ax.set_title("密度曲线 + 地毯图（每条线代表一个数据点）")
+ax.set_title("Density Curve + Rug Plot (Each line represents one data point)")
 plt.show()
 ```
 
 ---
 
-## 关系图：变量之间有什么关系？
+## Relational Plots: What Is the Relationship Between Variables?
 
-### scatterplot：散点图
+### scatterplot: Scatter Plot
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 基本散点图，用颜色区分类别
+# Basic scatter plot, use color to distinguish categories
 sns.scatterplot(data=tips, x="total_bill", y="tip", hue="time", ax=axes[0])
-axes[0].set_title("消费 vs 小费")
+axes[0].set_title("Total Bill vs Tip")
 
-# 用大小和颜色同时表示信息
+# Use size and color to show information at the same time
 sns.scatterplot(data=tips, x="total_bill", y="tip",
                 hue="day", size="size", sizes=(20, 200), ax=axes[1])
-axes[1].set_title("多维度散点图")
+axes[1].set_title("Multidimensional Scatter Plot")
 
 plt.tight_layout()
 plt.show()
 ```
 
-### lineplot：折线图（带置信区间）
+### lineplot: Line Plot (with Confidence Interval)
 
 ```python
-# 模拟实验数据：每个 x 有多个 y 值
+# Simulated experimental data: each x has multiple y values
 np.random.seed(42)
 data = pd.DataFrame({
     "step": np.tile(np.arange(1, 51), 10),
     "accuracy": np.tile(np.linspace(0.5, 0.95, 50), 10) + np.random.normal(0, 0.03, 500),
-    "model": np.repeat(["模型 A", "模型 B"], 250)
+    "model": np.repeat(["Model A", "Model B"], 250)
 })
 
 fig, ax = plt.subplots(figsize=(10, 5))
 sns.lineplot(data=data, x="step", y="accuracy", hue="model", ax=ax)
-ax.set_title("模型训练准确率变化（阴影 = 95% 置信区间）")
+ax.set_title("Training Accuracy Over Time (Shaded area = 95% confidence interval)")
 plt.show()
 ```
 
-:::info Seaborn 的自动统计
-当同一个 x 值对应多个 y 值时，`lineplot` 会自动计算均值和 95% 置信区间。这在展示实验结果时非常有用！
+:::info Seaborn's automatic statistics
+When multiple `y` values correspond to the same `x` value, `lineplot` automatically computes the mean and the 95% confidence interval. This is very useful when presenting experimental results!
 :::
 
-### pairplot：变量两两关系一览
+### pairplot: A Quick Look at Pairwise Relationships
 
 ```python
-# 鸢尾花数据集的所有变量关系
+# Relationships among all variables in the iris dataset
 sns.pairplot(iris, hue="species", diag_kind="kde", corner=True)
-plt.suptitle("鸢尾花数据集特征关系", y=1.02)
+plt.suptitle("Feature Relationships in the Iris Dataset", y=1.02)
 plt.show()
 ```
 
-`pairplot` 一行代码就能展示所有变量之间的关系，是**数据探索阶段的利器**。
+`pairplot` can show relationships among all variables with just one line of code, making it a **powerful tool in the data exploration stage**.
 
 ---
 
-## 分类图：不同组有何差异？
+## Categorical Plots: How Do Different Groups Compare?
 
-分类图是 Seaborn 的强项，帮你比较不同类别之间的数据分布和统计量。
+Categorical plots are one of Seaborn's strengths. They help you compare distributions and statistics across categories.
 
-### 一个很适合初学者先记的选图表
+### A Handy Plot Selection Guide for Beginners
 
-| 你最想回答的问题 | 更稳的第一选择 |
+| What you want to know most | Safer first choice |
 |---|---|
-| 这一列值大概怎么分布？ | `histplot` |
-| 两个变量有没有关系？ | `scatterplot` |
-| 两组或多组分布差很多吗？ | `boxplot` / `violinplot` |
-| 哪个类别样本更多？ | `countplot` |
-| 多个数值变量相关吗？ | `heatmap` |
+| What does the distribution of this column look like? | `histplot` |
+| Is there a relationship between two variables? | `scatterplot` |
+| Do the distributions of two or more groups differ a lot? | `boxplot` / `violinplot` |
+| Which category has more samples? | `countplot` |
+| Are multiple numerical variables correlated? | `heatmap` |
 
-这张表会让新人少走很多弯路，因为你不用一开始就被函数名压住。
+This table can save beginners a lot of detours because you do not have to be overwhelmed by function names at the start.
 
-### boxplot：箱线图
+### boxplot: Box Plot
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 基本箱线图
+# Basic box plot
 sns.boxplot(data=tips, x="day", y="total_bill", ax=axes[0])
-axes[0].set_title("各日消费分布")
+axes[0].set_title("Total Bill Distribution by Day")
 
-# 用颜色区分子类
+# Use color to distinguish subgroups
 sns.boxplot(data=tips, x="day", y="total_bill", hue="sex", ax=axes[1])
-axes[1].set_title("各日消费分布（按性别）")
+axes[1].set_title("Total Bill Distribution by Day (by Sex)")
 
 plt.tight_layout()
 plt.show()
 ```
 
-:::tip 如何看箱线图
+:::tip How to read a box plot
 
 ```
-          最大值（上须）
+          Maximum (upper whisker)
             │
     ┌───────┤
-    │  上四分位(Q3) ─── 75% 的数据在此以下
+    │  Upper quartile (Q3) ─── 75% of data is below this
     │       │
-    │  中位数(Q2) ──── 50% 分位
+    │  Median (Q2) ──── 50th percentile
     │       │
-    │  下四分位(Q1) ─── 25% 的数据在此以下
+    │  Lower quartile (Q1) ─── 25% of data is below this
     └───────┤
             │
-          最小值（下须）
+          Minimum (lower whisker)
 
-    ●       异常值（超出须线的点）
+    ●       Outliers (points beyond the whiskers)
 ```
 
-箱体越高，数据越分散；中线越靠上，数据整体越大。
+The taller the box, the more spread out the data is; the higher the median line, the larger the overall values are.
 :::
 
-### violinplot：小提琴图
+### violinplot: Violin Plot
 
 ```python
 fig, ax = plt.subplots(figsize=(10, 5))
 
 sns.violinplot(data=tips, x="day", y="total_bill", hue="sex",
                split=True, inner="quart", ax=ax)
-ax.set_title("各日消费分布（小提琴图，左女右男）")
+ax.set_title("Total Bill Distribution by Day (Violin Plot, female left, male right)")
 
 plt.show()
 ```
 
-小提琴图 = 箱线图 + 密度分布，比箱线图能看到更多分布形状。
+A violin plot = box plot + density distribution, so it shows more of the distribution shape than a box plot.
 
-### barplot：均值柱状图（带误差线）
+### barplot: Mean Bar Plot (with Error Bars)
 
 ```python
 fig, ax = plt.subplots(figsize=(8, 5))
 
 sns.barplot(data=tips, x="day", y="total_bill", hue="sex",
-            ci=95, ax=ax)  # ci=95 表示 95% 置信区间
-ax.set_title("各日平均消费（误差线 = 95% 置信区间）")
+            ci=95, ax=ax)  # ci=95 means a 95% confidence interval
+ax.set_title("Average Total Bill by Day (error bars = 95% confidence interval)")
 
 plt.show()
 ```
 
-:::caution barplot 的误差线
-Seaborn 的 `barplot` 默认会在每个柱子上加误差线（bootstrap 置信区间）。这不是标准差！如果想用标准差，设置 `ci="sd"`。
+:::caution Error bars in barplot
+By default, Seaborn's `barplot` adds error bars to each bar using bootstrap confidence intervals. These are not standard deviations! If you want standard deviation instead, set `ci="sd"`.
 :::
 
-### countplot：计数图
+### countplot: Count Plot
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-# 简单计数
+# Simple counts
 sns.countplot(data=tips, x="day", order=["Thur", "Fri", "Sat", "Sun"], ax=axes[0])
-axes[0].set_title("各天就餐人次")
+axes[0].set_title("Number of Diners by Day")
 
-# 分组计数
+# Grouped counts
 sns.countplot(data=titanic, x="class", hue="survived", ax=axes[1])
-axes[1].set_title("各舱位生存情况")
+axes[1].set_title("Survival by Class")
 
 plt.tight_layout()
 plt.show()
@@ -353,15 +353,15 @@ plt.show()
 
 ---
 
-## 热力图（Heatmap）
+## Heatmap
 
-热力图用颜色深浅表示数值大小，最常用于**相关性矩阵**。
+A heatmap uses color intensity to represent values and is most commonly used for **correlation matrices**.
 
-### 绘制相关性矩阵
+### Draw a Correlation Matrix
 
 ```python
-# 计算数值列的相关系数
-# 选取 tips 中的数值列
+# Compute correlations for numeric columns
+# Select the numeric columns in tips
 numeric_cols = tips.select_dtypes(include="number")
 corr = numeric_cols.corr()
 
@@ -369,166 +369,164 @@ fig, ax = plt.subplots(figsize=(8, 6))
 sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r",
             center=0, vmin=-1, vmax=1,
             square=True, linewidths=0.5, ax=ax)
-ax.set_title("小费数据集相关性矩阵")
+ax.set_title("Correlation Matrix of the Tips Dataset")
 plt.tight_layout()
 plt.show()
 ```
 
-**关键参数：**
+**Key parameters:**
 
-| 参数 | 作用 | 常用值 |
+| Parameter | Purpose | Common value |
 |------|------|--------|
-| `annot` | 显示数值 | `True` |
-| `fmt` | 数值格式 | `".2f"` 两位小数 |
-| `cmap` | 颜色映射 | `"RdBu_r"` 红蓝反转 |
-| `center` | 颜色中心值 | `0`（相关系数） |
-| `square` | 正方形格子 | `True` |
+| `annot` | Show values | `True` |
+| `fmt` | Number format | `".2f"` for two decimals |
+| `cmap` | Color map | `"RdBu_r"` inverted red-blue |
+| `center` | Center value for colors | `0` (correlation coefficient) |
+| `square` | Square cells | `True` |
 
-### 自定义热力图
+### Custom Heatmap
 
 ```python
-# 交叉表热力图（比如各天各时段的平均消费）
+# Pivot-table heatmap (for example, average total bill by day and time)
 pivot = tips.pivot_table(values="total_bill", index="day", columns="time", aggfunc="mean")
 
 fig, ax = plt.subplots(figsize=(6, 4))
 sns.heatmap(pivot, annot=True, fmt=".1f", cmap="YlOrRd",
             linewidths=1, ax=ax)
-ax.set_title("各天各时段平均消费")
+ax.set_title("Average Total Bill by Day and Time")
 plt.show()
 ```
 
 ---
 
-## FacetGrid：分面绑图
+## FacetGrid: Faceting Plots
 
-当你想**按某个变量把图表拆成多个子图**时，用 FacetGrid。
+Use FacetGrid when you want to **split a chart into multiple subplots based on a variable**.
 
 ```python
-# 按用餐时间分面，展示消费与小费的关系
+# Facet by meal time to show the relationship between total bill and tip
 g = sns.FacetGrid(tips, col="time", row="sex", hue="smoker",
                   height=4, aspect=1.2)
 g.map_dataframe(sns.scatterplot, x="total_bill", y="tip")
 g.add_legend()
-g.fig.suptitle("按时间和性别分面的消费-小费关系", y=1.02)
+g.fig.suptitle("Total Bill vs Tip Faceted by Time and Sex", y=1.02)
 plt.show()
 ```
 
-### 更多分面示例
+### More Faceting Examples
 
 ```python
-# 按星期分面的直方图
+# Histogram faceted by day
 g = sns.FacetGrid(tips, col="day", col_wrap=2, height=3)
 g.map_dataframe(sns.histplot, x="total_bill", kde=True)
-g.set_titles("星期: {col_name}")
-g.fig.suptitle("各日消费分布", y=1.02)
+g.set_titles("Day: {col_name}")
+g.fig.suptitle("Total Bill Distribution by Day", y=1.02)
 plt.show()
 ```
 
-| 参数 | 作用 |
+| Parameter | Purpose |
 |------|------|
-| `col` | 按此变量分列 |
-| `row` | 按此变量分行 |
-| `hue` | 按此变量分颜色 |
-| `col_wrap` | 每行最多几列（自动换行） |
-| `height` | 每个子图高度 |
-| `aspect` | 宽高比 |
+| `col` | Split into columns by this variable |
+| `row` | Split into rows by this variable |
+| `hue` | Use this variable for color |
+| `col_wrap` | Maximum number of columns per row (wrap automatically) |
+| `height` | Height of each subplot |
+| `aspect` | Width-to-height ratio |
 
-### 为什么分面特别适合做探索？
+### Why is faceting especially good for exploration?
 
-因为它能帮你把：
+Because it helps you turn:
 
-- “整体看起来还行”
+- “The overall picture looks fine”
 
-拆成：
+into:
 
-- 在不同类别、不同分组下到底哪里不一样
+- What is actually different across categories and groups?
 
-这对新人很重要，因为很多数据问题并不是整体分布能看出来的，而是：
-
-- 一旦分组，就会暴露得很明显
+This is very important for beginners, because many data issues do not show up in the overall distribution. Instead, they become obvious once you split the data into groups.
 
 ---
 
-## Seaborn 常用图表速查
+## Seaborn Plot Type Cheat Sheet
 
 ```mermaid
 mindmap
-  root(("Seaborn<br/>图表类型"))
-    分布图
-      histplot 直方图
-      kdeplot 密度曲线
-      rugplot 地毯图
-    关系图
-      scatterplot 散点图
-      lineplot 折线图
-      pairplot 变量矩阵
-    分类图
-      boxplot 箱线图
-      violinplot 小提琴图
-      barplot 均值柱状图
-      countplot 计数图
-    矩阵图
-      heatmap 热力图
-    多面板
-      FacetGrid 分面
-      pairplot 配对
+  root(("Seaborn<br/>Plot Types"))
+    Distribution plots
+      histplot Histogram
+      kdeplot Density curve
+      rugplot Rug plot
+    Relational plots
+      scatterplot Scatter plot
+      lineplot Line plot
+      pairplot Matrix of variables
+    Categorical plots
+      boxplot Box plot
+      violinplot Violin plot
+      barplot Mean bar plot
+      countplot Count plot
+    Matrix plots
+      heatmap Heatmap
+    Multi-panel
+      FacetGrid Faceting
+      pairplot Pairwise
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 需求 | 函数 | 说明 |
+| Need | Function | Description |
 |------|------|------|
-| 查看分布 | `histplot` / `kdeplot` | 直方图 / 密度曲线 |
-| 两变量关系 | `scatterplot` / `lineplot` | 散点图 / 折线图 |
-| 所有变量关系 | `pairplot` | 一键矩阵图 |
-| 类别间对比 | `boxplot` / `violinplot` / `barplot` | 分布 / 均值 |
-| 类别计数 | `countplot` | 柱状图 |
-| 数值矩阵 | `heatmap` | 热力图 |
-| 分面展示 | `FacetGrid` | 多子图 |
+| Check distribution | `histplot` / `kdeplot` | Histogram / density curve |
+| Relationship between two variables | `scatterplot` / `lineplot` | Scatter plot / line plot |
+| Relationships among all variables | `pairplot` | One-line matrix plot |
+| Compare categories | `boxplot` / `violinplot` / `barplot` | Distribution / mean |
+| Count categories | `countplot` | Bar chart |
+| Numerical matrix | `heatmap` | Heatmap |
+| Faceted display | `FacetGrid` | Multiple subplots |
 
-**核心优势：** 一行代码就能画出美观且含统计信息的图表，直接传入 DataFrame 即可。
+**Core advantage:** You can draw beautiful charts with statistical information in one line of code, and pass a DataFrame directly.
 
-## 这节最该带走什么
+## What You Should Take Away from This Section
 
-- `Seaborn` 最重要的价值，不是更花哨，而是更适合快速做统计探索
-- 第一次做 EDA，先看分布，再看关系，再看分类比较，通常最稳
-- 选图时先问“我想看什么统计现象”，比先背函数更重要
+- The most important value of `Seaborn` is not that it is more flashy, but that it is better for quick statistical exploration
+- For your first EDA, start with distribution, then relationships, then categorical comparisons — this is usually the safest path
+- When choosing a plot, it is more important to ask “What statistical phenomenon do I want to see?” than to memorize function names first
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：探索数据分布
+### Exercise 1: Explore Data Distribution
 
 ```python
-# 加载 tips 数据集
-# 1. 用 histplot 画出 tip（小费）的分布，按 time 分颜色
-# 2. 用 kdeplot 画出 total_bill 的密度曲线，按 sex 分组
+# Load the tips dataset
+# 1. Use histplot to draw the distribution of tip, colored by time
+# 2. Use kdeplot to draw the density curve of total_bill, grouped by sex
 ```
 
-### 练习 2：分类比较
+### Exercise 2: Categorical Comparison
 
 ```python
-# 加载 titanic 数据集
-# 1. 用 boxplot 比较各舱位 (class) 的年龄 (age) 分布
-# 2. 用 countplot 展示各舱位的生存人数
+# Load the titanic dataset
+# 1. Use boxplot to compare the age distribution across classes
+# 2. Use countplot to show the number of survivors in each class
 ```
 
-### 练习 3：相关性分析
+### Exercise 3: Correlation Analysis
 
 ```python
-# 加载 iris 数据集
-# 1. 计算数值列的相关系数矩阵
-# 2. 用 heatmap 可视化，添加数值标注
-# 3. 用 pairplot 查看所有变量关系
+# Load the iris dataset
+# 1. Compute the correlation matrix for numeric columns
+# 2. Visualize it with heatmap and add value annotations
+# 3. Use pairplot to inspect relationships among all variables
 ```
 
-### 练习 4：分面绑图
+### Exercise 4: Faceting Plots
 
 ```python
-# 使用 tips 数据集
-# 用 FacetGrid 按 day 分面，画出 total_bill 和 tip 的散点图
-# 用颜色区分 sex
+# Use the tips dataset
+# Use FacetGrid to facet by day and draw a scatter plot of total_bill and tip
+# Use color to distinguish sex
 ```

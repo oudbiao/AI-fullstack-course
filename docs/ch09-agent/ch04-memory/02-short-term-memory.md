@@ -1,142 +1,142 @@
 ---
-title: "4.3 短期记忆"
+title: "4.3 Short-Term Memory"
 sidebar_position: 20
-description: "从上下文窗口、对话窗口、运行态状态到摘要压缩，理解 Agent 的短期记忆到底是什么、该怎么设计。"
+description: "From context windows and conversation windows to runtime state and summary compression, understand what an Agent’s short-term memory really is and how to design it."
 keywords: [short-term memory, context window, conversation memory, state, summary memory, Agent]
 ---
 
-# 短期记忆
+# Short-Term Memory
 
-:::tip 本节定位
-很多人一提“Agent 记忆”，脑子里先想到“长期存档”。  
-但真实系统里，最先决定体验的，往往反而是短期记忆：
+:::tip Section Overview
+When many people hear “Agent memory,” they first think of “long-term storage.”
+But in real systems, what most directly determines the experience is often short-term memory:
 
-> **系统能不能稳稳记住“这次任务正在发生什么”。**
+> **Can the system steadily remember “what is happening in this task right now”?**
 
-这一节讲的就是这层“工作记忆”。
+This section is about that layer of “working memory.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解短期记忆和长期记忆的区别
-- 理解为什么不能把整段历史无限塞给模型
-- 掌握对话窗口、运行态状态、摘要记忆三种常见短期记忆方式
-- 看懂一个简单的短期记忆管理器
-- 知道短期记忆最常见的失效方式
+- Understand the difference between short-term memory and long-term memory
+- Understand why you cannot keep stuffing the entire history into the model forever
+- Master three common short-term memory approaches: conversation windows, runtime state, and summary memory
+- Read a simple short-term memory manager
+- Know the most common ways short-term memory fails
 
 ---
 
-## 一、短期记忆到底是什么？
+## 1. What Exactly Is Short-Term Memory?
 
-### 1.1 一句话理解
+### 1.1 A One-Sentence Definition
 
-短期记忆可以先理解成：
+You can first think of short-term memory as:
 
-> **系统为了完成当前这轮任务，暂时保留的上下文和中间状态。**
+> **The context and intermediate state that a system temporarily keeps in order to complete the current task.**
 
-它通常包括：
+It usually includes:
 
-- 最近几轮对话
-- 当前任务目标
-- 已执行步骤
-- 临时中间结果
+- The most recent few turns of conversation
+- The current task goal
+- The steps already executed
+- Temporary intermediate results
 
-### 1.2 和长期记忆有什么不同？
+### 1.2 How Is It Different from Long-Term Memory?
 
-| 类型 | 关注什么 |
+| Type | What it focuses on |
 |---|---|
-| 短期记忆 | 当前这次任务要用的信息 |
-| 长期记忆 | 跨任务、跨会话仍然有价值的信息 |
+| Short-term memory | Information needed for the current task |
+| Long-term memory | Information that remains valuable across tasks and sessions |
 
-例如：
+For example:
 
-- “用户上一句说想查退款政策” -> 短期记忆
-- “这个用户喜欢简洁回答” -> 更像长期记忆
-
----
-
-## 二、为什么不能把所有历史都一直塞给模型？
-
-### 2.1 因为上下文窗口不是无限的
-
-模型能看的上下文长度有限。  
-如果你把所有历史都不断塞进去，会遇到：
-
-- token 成本越来越高
-- 响应越来越慢
-- 重要信息被淹没
-
-### 2.2 信息越多，不一定越好
-
-很多新人会觉得：
-
-> “多给模型一点历史，总不会错吧？”
-
-其实不一定。
-
-因为如果上下文里混了太多无关内容，模型反而更容易：
-
-- 抓错重点
-- 复读旧信息
-- 忘掉当前真正要做的事
-
-所以短期记忆真正要解决的不是“记得越多越好”，而是：
-
-> **在有限预算里，保留当前最有用的信息。**
+- “The user said they want to check the refund policy” -> short-term memory
+- “This user likes concise answers” -> more like long-term memory
 
 ---
 
-## 三、短期记忆最常见的三种形态
+## 2. Why Can’t We Just Keep Feeding the Model All the History?
 
-### 3.1 对话窗口（sliding window）
+### 2.1 Because the Context Window Is Not Infinite
 
-最简单的方式：
+The model can only see a limited amount of context.
+If you keep stuffing all the history into it, you will run into:
 
-- 只保留最近 N 轮消息
+- Higher and higher token cost
+- Slower and slower responses
+- Important information getting buried
 
-优点：
+### 2.2 More Information Is Not Always Better
 
-- 简单
-- 实现成本低
+Many beginners think:
 
-缺点：
+> “If we give the model a bit more history, that should never hurt, right?”
 
-- 太久之前的重要信息会被挤掉
+Not necessarily.
 
-### 3.2 运行态状态（task state）
+If the context contains too much unrelated content, the model is more likely to:
 
-不是只记聊天文本，而是明确记：
+- Focus on the wrong thing
+- Repeat old information
+- Forget what it is actually supposed to do right now
 
-- 当前任务目标
-- 已经查过什么
-- 下一步该做什么
+So the real job of short-term memory is not “the more the better,” but:
 
-这类状态对 Agent 特别重要。
-
-### 3.3 摘要记忆（summary memory）
-
-当历史太长时，不是全丢掉，而是先压缩成摘要。
-
-例如：
-
-- 保留最近 4 轮原文
-- 更早的内容压成一段总结
-
-这是一种很常见的折中方式。
+> **Keep the most useful information within a limited budget.**
 
 ---
 
-## 四、一个最简单的短期记忆：滑动窗口
+## 3. The Three Most Common Forms of Short-Term Memory
 
-### 4.1 可运行示例
+### 3.1 Conversation Window (Sliding Window)
+
+The simplest approach is:
+
+- Keep only the most recent N turns of messages
+
+Advantages:
+
+- Simple
+- Low implementation cost
+
+Disadvantages:
+
+- Important information from too long ago gets pushed out
+
+### 3.2 Runtime State (Task State)
+
+Instead of only remembering chat text, explicitly keep track of:
+
+- The current task goal
+- What has already been checked
+- What the next step should be
+
+This kind of state is especially important for Agents.
+
+### 3.3 Summary Memory
+
+When the history gets too long, don’t discard it entirely—compress it into a summary first.
+
+For example:
+
+- Keep the most recent 4 turns in full
+- Compress older content into a short summary
+
+This is a very common trade-off.
+
+---
+
+## 4. The Simplest Short-Term Memory: A Sliding Window
+
+### 4.1 Runnable Example
 
 ```python
 messages = [
-    {"role": "user", "content": "你好"},
-    {"role": "assistant", "content": "你好，我可以帮你做什么？"},
-    {"role": "user", "content": "我想了解退款政策"},
-    {"role": "assistant", "content": "你是想了解时间范围，还是具体条件？"},
-    {"role": "user", "content": "主要看时间范围"},
+    {"role": "user", "content": "Hello"},
+    {"role": "assistant", "content": "Hello, what can I help you with?"},
+    {"role": "user", "content": "I want to understand the refund policy"},
+    {"role": "assistant", "content": "Are you asking about the time limit or the specific conditions?"},
+    {"role": "user", "content": "Mainly the time limit"},
 ]
 
 window_size = 3
@@ -146,56 +146,56 @@ for msg in short_term_memory:
     print(msg)
 ```
 
-### 4.2 这段代码虽然简单，但已经很重要
+### 4.2 This Code Is Simple, but Still Very Important
 
-它教你一件最本质的事：
+It teaches you something essential:
 
-> 短期记忆最先是一个“保留哪些消息”的选择问题。 
+> Short-term memory is first and foremost a question of “which messages should be kept.”
 
-不是所有历史都值得继续带着走。
+Not every piece of history is worth carrying forward.
 
 ---
 
-## 五、但仅靠消息窗口还不够
+## 5. But a Message Window Alone Is Not Enough
 
-### 5.1 为什么不够？
+### 5.1 Why Not?
 
-看这组对话：
+Look at this conversation:
 
-1. 用户说“我想查退款政策”
-2. 后面又连续问了几轮别的细节
-3. 到第 10 轮又问“那我这种情况能退吗？”
+1. The user says, “I want to check the refund policy”
+2. Then they ask several other details in a row
+3. On the 10th turn, they ask, “Can I get a refund in my situation?”
 
-如果你只保留最近 3 轮，系统可能已经忘了：
+If you only keep the most recent 3 turns, the system may have already forgotten:
 
-- 当前任务其实一直围绕“退款”
+- That the whole task was actually about “refunds”
 
-### 5.2 所以 Agent 还要有结构化状态
+### 5.2 So an Agent Also Needs Structured State
 
-例如：
+For example:
 
 ```python
 task_state = {
-    "goal": "帮助用户判断退款条件",
+    "goal": "Help the user determine refund eligibility",
     "last_tool": "search_policy",
-    "latest_policy_result": "购买后 7 天内且学习进度低于 20% 可退款"
+    "latest_policy_result": "Refunds are available within 7 days of purchase and if learning progress is below 20%"
 }
 
 print(task_state)
 ```
 
-这类状态和原始聊天记录不同，它更像：
+This kind of state is different from raw chat logs. It is more like:
 
-> 系统正在干什么的工作区。 
+> The workspace for what the system is currently doing.
 
 ---
 
-## 六、一个更有教学意义的短期记忆管理器
+## 6. A More Teaching-Friendly Short-Term Memory Manager
 
-下面这个例子同时管理：
+The example below manages both:
 
-- 最近几轮消息
-- 当前任务状态
+- The most recent few messages
+- The current task state
 
 ```python
 class ShortTermMemory:
@@ -218,47 +218,47 @@ class ShortTermMemory:
         }
 
 memory = ShortTermMemory(max_messages=3)
-memory.add_message("user", "我想查退款政策")
-memory.add_message("assistant", "你更关心时间范围还是条件？")
-memory.add_message("user", "先看时间范围")
-memory.update_state(goal="判断退款资格", topic="退款政策")
+memory.add_message("user", "I want to check the refund policy")
+memory.add_message("assistant", "Are you more concerned about the time limit or the conditions?")
+memory.add_message("user", "First, let’s look at the time limit")
+memory.update_state(goal="Determine refund eligibility", topic="refund policy")
 
 print(memory.snapshot())
 ```
 
-### 6.2 这个例子真正比“只存历史消息”强在哪里？
+### 6.2 What Makes This Example Better Than “Just Storing Message History”?
 
-因为它把短期记忆拆成了两层：
+Because it splits short-term memory into two layers:
 
-- 文本上下文
-- 结构化状态
+- Text context
+- Structured state
 
-这在 Agent 系统里非常重要。
+This is very important in Agent systems.
 
 ---
 
-## 七、摘要记忆：当消息越来越长怎么办？
+## 7. Summary Memory: What Should We Do When Messages Keep Growing?
 
-### 7.1 一种常见策略
+### 7.1 A Common Strategy
 
-真实系统很常见这种做法：
+In real systems, this is a very common approach:
 
-- 最近几轮消息原样保留
-- 更早历史压缩成摘要
+- Keep the most recent few turns as-is
+- Compress older history into a summary
 
-### 7.2 一个简化版示例
+### 7.2 A Simplified Example
 
 ```python
 old_messages = [
-    "用户先问了退款政策",
-    "之后问了证书要求",
-    "最后又回到退款条件"
+    "The user first asked about the refund policy",
+    "Then they asked about certificate requirements",
+    "Finally they returned to the refund conditions"
 ]
 
-summary = "用户本轮主要目标是判断自己是否满足退款条件，中间顺带问过证书。"
+summary = "The user’s main goal in this session is to determine whether they meet the refund conditions, and they also asked about certificates along the way."
 
 recent_messages = [
-    {"role": "user", "content": "那我学习进度 30% 还能退吗？"}
+    {"role": "user", "content": "Can I still get a refund if my learning progress is 30%?"}
 ]
 
 memory_package = {
@@ -269,99 +269,99 @@ memory_package = {
 print(memory_package)
 ```
 
-这就是最基本的“摘要 + 最近窗口”的思路。
+This is the most basic “summary + recent window” idea.
 
 ---
 
-## 八、短期记忆在 Agent 里到底解决什么？
+## 8. What Does Short-Term Memory Actually Solve in an Agent?
 
-它主要解决三件事：
+It mainly solves three things:
 
-### 8.1 保持当前任务连贯性
+### 8.1 Keeping the Current Task Coherent
 
-系统不能每一步都像第一次见到用户那样重新开始。
+The system should not restart from scratch at every step as if it were seeing the user for the first time.
 
-### 8.2 让多步执行不丢状态
+### 8.2 Preserving State Across Multi-Step Execution
 
-例如：
+For example:
 
-- 已经调用了哪个工具
-- 已经查到了什么
-- 还差哪一步
+- Which tool has already been called
+- What has already been found
+- What step is still missing
 
-### 8.3 控制上下文成本
+### 8.3 Controlling Context Cost
 
-短期记忆不是只为“记住”，也是为了：
+Short-term memory is not only about “remembering.” It is also about:
 
-- 少塞无关内容
-- 降低 token 成本
-- 提高响应稳定性
-
----
-
-## 九、短期记忆最常见的失效方式
-
-### 9.1 记得太少
-
-表现：
-
-- 系统突然忘了刚才正在说什么
-
-### 9.2 记得太多
-
-表现：
-
-- 上下文又长又乱
-- 回答跑偏
-- 成本变高
-
-### 9.3 只存消息，不存状态
-
-表现：
-
-- 多步任务容易掉链子
-- 工具调用前后状态衔接差
-
-### 9.4 只存状态，不存对话原文
-
-表现：
-
-- 容易丢掉用户原始表达
-- 语气、约束和细节缺失
-
-所以短期记忆通常不是“只选一种”，而是组合设计。
+- Avoiding unnecessary content
+- Reducing token cost
+- Improving response stability
 
 ---
 
-## 十、初学者最常踩的坑
+## 9. The Most Common Ways Short-Term Memory Fails
 
-### 10.1 把短期记忆和长期记忆混在一起
+### 9.1 Remembering Too Little
 
-短期记忆解决的是当前任务，不是用户画像全集。
+Symptoms:
 
-### 10.2 以为消息窗口越大越稳
+- The system suddenly forgets what it was just talking about
 
-窗口太大也会带来噪声和成本。
+### 9.2 Remembering Too Much
 
-### 10.3 忽略结构化状态
+Symptoms:
 
-这会让 Agent 一到多步任务就开始发飘。
+- The context becomes long and messy
+- Answers drift off track
+- Cost goes up
+
+### 9.3 Storing Only Messages, Not State
+
+Symptoms:
+
+- Multi-step tasks easily break down
+- The connection between tool calls before and after becomes weak
+
+### 9.4 Storing Only State, Not the Original Dialogue
+
+Symptoms:
+
+- The user’s original wording gets lost easily
+- Tone, constraints, and details disappear
+
+So short-term memory is usually not “choose just one,” but rather a combined design.
 
 ---
 
-## 小结
+## 10. Common Pitfalls for Beginners
 
-这一节最重要的不是记住“窗口”“摘要”这些词，而是抓住这条主线：
+### 10.1 Mixing Up Short-Term Memory and Long-Term Memory
 
-> **短期记忆的目标，不是无限保留历史，而是在有限上下文里维持当前任务的连贯性。**
+Short-term memory is for the current task, not for a complete user profile.
 
-真正设计得好的短期记忆，通常既包含最近消息，也包含任务状态，有时还会加一层摘要压缩。
+### 10.2 Thinking a Bigger Message Window Is Always Better
+
+A window that is too large also brings noise and cost.
+
+### 10.3 Ignoring Structured State
+
+This can make an Agent start drifting as soon as the task becomes multi-step.
 
 ---
 
-## 练习
+## Summary
 
-1. 把本节的 `ShortTermMemory` 扩展成支持 `summary` 字段。
-2. 把最大消息窗口从 3 改成 5，观察 `snapshot()` 输出怎样变化。
-3. 想一想：如果一个 Agent 经常忘掉“当前已经调过哪个工具”，你会优先补消息窗口，还是补结构化状态？
-4. 用自己的话解释：为什么说短期记忆解决的是“当前任务连贯性”，而不是“长期用户画像”？
+The most important thing in this section is not to memorize the words “window” or “summary,” but to grasp this main idea:
+
+> **The goal of short-term memory is not to preserve history forever, but to maintain coherence for the current task within a limited context.**
+
+Well-designed short-term memory usually includes both recent messages and task state, and sometimes an additional layer of summary compression.
+
+---
+
+## Exercises
+
+1. Extend the `ShortTermMemory` example in this section to support a `summary` field.
+2. Change the maximum message window from 3 to 5 and observe how the `snapshot()` output changes.
+3. Think about this: if an Agent often forgets “which tool it has already called,” would you first expand the message window or add structured state?
+4. Explain in your own words: why do we say short-term memory solves “current task coherence” rather than “long-term user profiling”?

@@ -1,77 +1,77 @@
 ---
-title: "3.1 学前导读：视频与语音生成这一章到底在学什么"
+title: "3.1 Pre-class Guide: What Is This Chapter About in Video and Speech Generation?"
 sidebar_position: 0
-description: "先建立视频与语音生成章的学习地图：时序生成、镜头一致性、TTS、语音克隆、数字人和多模态资产流转怎样组合。"
-keywords: [视频生成导读, 语音合成导读, 数字人导读, TTS, 时序生成]
+description: "First build a learning map for the video and speech generation chapter: how temporal generation, shot consistency, TTS, voice cloning, digital humans, and multimodal asset flow work together."
+keywords: [video generation guide, speech synthesis guide, digital human guide, TTS, temporal generation]
 ---
 
-# 学前导读：视频与语音生成这一章到底在学什么
+# Pre-class Guide: What Is This Chapter About in Video and Speech Generation?
 
-这一章解决的是：当内容从静态图像变成带时间展开的媒体时，生成为什么会一下子复杂很多。
+This chapter answers a key question: when content changes from a static image to media that unfolds over time, why does generation suddenly become much more complicated?
 
-图像生成只需要处理单张画面，视频和语音生成却要处理连续变化。视频要保持主体、场景、动作和镜头的一致性；语音要保持音色、语速、情绪和文本对齐；数字人还要把图像、语音、口型、动作和身份一致性组合起来。
+Image generation only needs to handle a single frame, but video and speech generation must deal with continuous change. Video needs to preserve the consistency of the subject, scene, action, and camera work; speech needs to preserve voice quality, speaking speed, emotion, and alignment with text; digital humans must combine image, speech, lip movement, action, and identity consistency.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-你已经学过多模态基础和图像生成。到视频与语音生成这一章，AIGC 从“生成一张图”推进到“生成一段可播放、可叙事、可交付的时序内容”。
+You have already learned multimodal fundamentals and image generation. In the video and speech generation chapter, AIGC moves from “generating one image” to “generating a playable, narrative, deliverable temporal piece of content.”
 
-这一步更接近真实创作工作流：脚本先定义内容，分镜决定画面，图像或视频模型生成视觉资产，TTS 生成语音，数字人或剪辑流程把声音、画面、字幕和动作对齐，最后进入审核和导出。
+This is much closer to a real creative workflow: the script defines the content first, storyboards decide the visuals, image or video models generate visual assets, TTS generates speech, and digital human or editing workflows align audio, visuals, subtitles, and actions before review and export.
 
-![视频语音数字人章节学习顺序图](/img/course/ch12-video-gen-chapter-flow.png)
+![Video, speech, and digital human chapter learning sequence diagram](/img/course/ch12-video-gen-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：视频生成为什么比图像生成更难；时间一致性、主体一致性和镜头控制分别是什么问题；TTS 和语音克隆如何把文本变成可听内容；数字人为什么需要图像、音频、口型和动作对齐；视频语音生成产品为什么必须考虑版权、肖像、声音授权和虚假内容风险。
+This chapter answers five questions: why video generation is harder than image generation; what temporal consistency, subject consistency, and shot control are; how TTS and voice cloning turn text into something you can hear; why digital humans need alignment across image, audio, lip movement, and action; and why video/speech generation products must consider copyright, portrait rights, voice authorization, and the risk of synthetic misinformation.
 
-新人最容易误解的是：视频生成只是连续生成很多张图片。真实视频生成要解决帧与帧之间的连续性、运动规律、场景稳定、镜头语言和音画同步，这些都会让系统复杂度显著上升。
+The most common misconception for beginners is that video generation is just generating many images in sequence. Real video generation must solve continuity between frames, motion rules, scene stability, camera language, and audio-visual sync, all of which greatly increase system complexity.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先理解时序内容的复杂性，把视频和语音都看成随时间展开的生成任务。然后学习视频生成的基本入口，例如文生视频、图生视频和视频编辑。接着学习 TTS，理解文本、音色、情绪、语速和停顿如何影响声音质量。最后看数字人，理解它是图像、语音、口型、动作和身份一致性的组合系统。
+It is recommended to first understand the complexity of temporal content and think of both video and speech as generation tasks that unfold over time. Then learn the basic entry points for video generation, such as text-to-video, image-to-video, and video editing. Next, learn TTS and understand how text, voice quality, emotion, speaking speed, and pauses affect speech quality. Finally, look at digital humans and understand that they are systems that combine image, speech, lip movement, action, and identity consistency.
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：视频与语音生成不是单点模型能力，而是多种媒体资产在时间轴上的组织。
+The main thread of this chapter can be summarized as: video and speech generation is not about the capability of a single model, but about organizing multiple media assets along a timeline.
 
-看懂这条线后，你会知道为什么 AIGC 视频产品不只是调用一个视频模型，还需要脚本、分镜、素材管理、音频处理、字幕、剪辑、审核和导出。
+Once you understand this, you will know why an AIGC video product is not just about calling a video model. It also needs scripts, storyboards, asset management, audio processing, subtitles, editing, review, and export.
 
-## 这一章和后面章节的关系
+## How This Chapter Connects to Later Chapters
 
-视频与语音生成会直接连接前沿趋势与伦理，以及最终的 AIGC 综合项目。前沿章节会讨论真实感生成带来的版权、肖像、声音克隆和虚假内容问题；综合项目会把文案、图像、语音、视频脚本和审核流程组织成可演示产品。
+Video and speech generation connects directly to frontier trends, ethics, and the final AIGC capstone project. The frontier chapter will discuss the copyright, portrait, voice cloning, and synthetic content issues brought by realistic generation; the capstone project will organize copywriting, images, speech, video scripts, and review workflows into a product that can be demonstrated.
 
-如果这一章没学稳，后面常见的问题是：只看视频模型 Demo，不知道生产流程；忽略镜头和脚本设计；语音听起来可以但和画面不同步；数字人只关注形象，不考虑授权和内容安全；输出结果无法稳定复现和交付。
+If you do not build a solid foundation in this chapter, common problems later are: only watching video model demos without understanding the production workflow; ignoring shot design and script design; speech that sounds acceptable but is out of sync with the visuals; focusing only on the appearance of digital humans without considering authorization and content safety; and outputs that cannot be stably reproduced or delivered.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first grasp the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the minimal project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+More experienced learners can use this chapter to fill gaps and practice engineering: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how this chapter connects with earlier and later stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Learning Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick scan | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its role in the course in one sentence |
+| What are the minimum inputs and outputs? | You can clearly state what the example needs as input and what result it produces |
+| Where are the common failure points? | You can list at least one cause of errors, poor results, or misunderstanding |
+| What can you keep after learning it? | You can write the chapter outcome into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议做一个“30 秒课程宣传短视频脚本与资产流转 Demo”。输入课程主题，系统生成短视频脚本、分镜表、旁白文案、画面提示词和 TTS 文本，并说明每个资产如何进入后续生成和剪辑流程。
+After finishing this chapter, it is recommended to build a “30-second course promo video script and asset flow demo.” Given a course topic, the system generates a short video script, storyboard, narration copy, visual prompts, and TTS text, and explains how each asset enters the later generation and editing workflow.
 
-如果暂时不接真实视频模型，也可以先完成脚本、分镜、语音文本、画面提示词和审核清单，这已经能训练视频生成产品最重要的工作流思维。
+If you are not yet connecting to a real video model, you can first complete the script, storyboard, speech text, visual prompts, and review checklist. This already trains the most important workflow thinking for video generation products.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能解释视频生成为什么比图像生成更复杂，能说明 TTS、语音克隆、数字人和音画同步的大致关系，能把一个短视频生成任务拆成脚本、分镜、画面、语音、字幕、剪辑和审核几个步骤。
+By the end of this chapter, you should be able to explain why video generation is more complex than image generation, describe the basic relationship between TTS, voice cloning, digital humans, and audio-visual synchronization, and break a short video generation task into script, storyboard, visuals, speech, subtitles, editing, and review.
 
-如果你能设计一个从主题到短视频资产包的生成流程，并标注每一步的输入、输出和风险点，就达到了视频语音生成方向的入门标准。
+If you can design a generation workflow from a topic to a short video asset package, and label the input, output, and risk points for each step, then you have reached the beginner level for video and speech generation.

@@ -1,198 +1,196 @@
 ---
-title: "12 AIGC 与多模态"
+title: "12 AIGC and Multimodal"
 sidebar_position: 0
-description: "探索 AIGC 与多模态技术，包括多模态大模型、图像生成、视频生成、语音合成、数字人、前沿趋势和伦理合规。"
-keywords: [AIGC, 多模态, Stable Diffusion, 图像生成, 视频生成, 语音合成, 多模态大模型]
+description: "Explore AIGC and multimodal technologies, including multimodal large models, image generation, video generation, speech synthesis, digital humans, frontier trends, and ethical compliance."
+keywords: [AIGC, multimodal, Stable Diffusion, image generation, video generation, speech synthesis, multimodal large models]
 ---
 
-# 12 AIGC 与多模态
+# 12 AIGC and Multimodal
 
-![AIGC 与多模态主视觉](/img/course/ch12-multimodal-aigc.png)
+![Main visual for AIGC and Multimodal](/img/course/ch12-multimodal-aigc-en.png)
 
-这一阶段解决的是“当输入输出不再只是文字时，AI 系统会怎样扩展”。它属于方向拓展，适合在你已经理解 LLM 应用、RAG 和 Agent 后，再进入图像、语音、视频和跨模态生成。
+This stage is about what happens when input and output are no longer just text. It belongs to the direction-expansion track, and it is a good next step after you already understand LLM applications, RAG, and Agent, before moving into images, audio, video, and cross-modal generation.
 
-## 故事化导入：把 AI 从文字世界带到真实世界
+## Story-based introduction: bringing AI from the text world into the real world
 
-当 AI 只能处理文字时，它像一个很会写作和推理的助手；当 AI 能同时理解图像、声音、视频和文本时，它就开始接近真实世界的复杂输入输出。AIGC 与多模态不是单纯“生成好看的内容”，而是把理解、生成、编辑和工作流连接成新的创作系统。
+When AI can only process text, it is like an assistant who is very good at writing and reasoning. When AI can understand images, audio, video, and text at the same time, it begins to approach the complexity of real-world input and output. AIGC and multimodal are not just about “generating pretty content”; they connect understanding, generation, editing, and workflows into a new creative system.
 
-## 学习闯关地图
+## Learning quest map
 
-![多模态与 AIGC 学习闯关地图](/img/course/ch12-learning-quest-map.png)
+![Learning quest map for multimodal and AIGC](/img/course/ch12-learning-quest-map-en.png)
 
-## 互动练习：把一个创意拆成多模态流水线
+## Interactive exercise: break one creative idea into a multimodal pipeline
 
-选择一个主题，比如“为一门 AI 课程做宣传短片”。先写文案，再生成配图，再设计旁白，再规划视频分镜，最后加入审核和导出。你会发现多模态项目的重点不是某个模型，而是把多个生成步骤组织成可控流程。
+Choose a topic, such as “making a promotional short video for an AI course.” First write the copy, then generate visuals, then design the narration, then plan the video storyboard, and finally add review and export steps. You will find that the key to multimodal projects is not a single model, but organizing multiple generation steps into a controllable workflow.
 
-## 项目彩蛋
+## Project bonus
 
-本阶段的彩蛋作品可以是一个“AI 创意工作台”：输入主题后自动生成标题、文案、配图提示词、分镜脚本和语音稿，并提供人工修改和审核环节。它非常适合作为整门课程的收官展示项目。
+The bonus project for this stage can be an “AI creative workspace”: after entering a topic, it automatically generates the title, copy, image prompts, storyboard script, and voice script, and provides manual editing and review steps. It is a great final showcase project for the whole course.
 
-## 阶段定位
+## Stage positioning
 
-| 信息 | 说明 |
+| Item | Description |
 |---|---|
-| 适合对象 | 已完成大模型应用主线，希望进入多模态、生成式内容或创意工具方向的学习者 |
-| 预估学时 | 80～120 小时 |
-| 前置要求 | 完成 LLM 应用开发与 RAG，建议了解 Agent 基础 |
-| 阶段产出 | 多模态问答、图像生成工作流、视频/语音生成 Demo 或创意平台原型 |
+| Suitable for | Learners who have completed the main LLM application track and want to move into multimodal, generative content, or creative tools |
+| Estimated time | 80–120 hours |
+| Prerequisites | Completed LLM application development and RAG; basic Agent knowledge is recommended |
+| Stage deliverables | Multimodal Q&A, image generation workflow, video/voice generation demo, or a prototype of a creative platform |
 
-## 新手最小通关路线
+## Beginner minimum completion path
 
-新手先理解文本、图像、语音、视频如何进入同一个 AI 工作流，以及图像生成和多模态问答的基本流程。只要能完成一个简单图像生成或多模态问答 Demo，并说明提示词、模型和后处理各自作用，就算完成最小通关。
+Beginners should first understand how text, images, audio, and video enter the same AI workflow, and how image generation and multimodal Q&A work at a basic level. As long as you can complete a simple image generation or multimodal Q&A demo and explain the roles of prompts, models, and post-processing, you have completed the minimum path.
 
-## 进阶深入路线
+## Advanced deep-dive path
 
-有经验的学习者可以深入扩散模型、图文对齐、视频生成、语音合成、数字人、版权合规和内容安全。进一步尝试把多个生成步骤组织成可审核、可编辑、可导出的创意产品工作流。
+Experienced learners can go deeper into diffusion models, image-text alignment, video generation, speech synthesis, digital humans, copyright compliance, and content safety. You can further try organizing multiple generation steps into a creative product workflow that is reviewable, editable, and exportable.
 
-## 多模态为什么重要
+## Why multimodal matters
 
-真实世界不是纯文本的。人类通过文字、图像、声音、视频和动作理解世界。多模态模型试图把这些不同形式的信息放进统一系统里，让 AI 能看图、读文档、听语音、生成图片和辅助创作。
+The real world is not pure text. Humans understand the world through text, images, audio, video, and actions. Multimodal models try to put these different forms of information into one unified system, so AI can look at images, read documents, listen to speech, generate pictures, and assist with creation.
 
-![多模态系统主干图](/img/course/ch12-multimodal-system-backbone.png)
+![Main architecture diagram for multimodal systems](/img/course/ch12-multimodal-system-backbone-en.png)
 
-前半段先理解多模态输入和生成能力，后半段再把内容创作、审核、导出和产品原型串起来。
+In the first half, we focus on multimodal input and generation capabilities. In the second half, we connect content creation, review, export, and product prototypes into one flow.
 
-## 新人先做什么，进阶再做什么
+## What beginners should do first, and what advanced learners should do later
 
-新人第一次学这一阶段时，先把多模态理解成“不同输入输出形式进入同一条产品流程”。先做图片理解、提示词生成或内容包导出的小项目，不要一开始追完整视频生成链路。
+When you study this stage for the first time, think of multimodal as “different input and output forms entering the same product workflow.” Start with small projects such as image understanding, prompt generation, or content package export. Do not try to tackle the full video generation chain right away.
 
-有经验的学习者可以把重点放在产品化和风险控制上：素材来源、版本管理、人工编辑、版权肖像、审核清单和导出格式。你的目标是把生成能力组织成可交付的创作工具。
+Experienced learners can focus on productization and risk control: asset sources, version management, human editing, copyright and portrait rights, review checklists, and export formats. Your goal is to organize generation capabilities into a deliverable creative tool.
 
-## 多模态应用精讲：从图文能力到真实工作流
+## Multimodal application deep dive: from image-text ability to real workflows
 
-2025～2026 年的多模态应用不只是“看图说话”或“生成图片”。更常见的工程问题是：如何读取截图、PDF、表格和图表，如何把视觉理解接入 RAG，如何让 Agent 根据图片或文档行动，如何把文案、图片、语音和视频生成串成可编辑、可审核、可导出的流程。
+Multimodal applications in 2025–2026 are not just “looking at images and talking about them” or “generating pictures.” More common engineering problems are: how to read screenshots, PDFs, tables, and charts; how to connect visual understanding to RAG; how to let an Agent act based on images or documents; and how to chain copy, images, audio, and video generation into an editable, reviewable, exportable workflow.
 
-| 精讲主题 | 解决的问题 | 学习重点 |
+| Deep-dive topic | Problem it solves | Learning focus |
 |---|---|---|
-| Vision-Language Models | 模型同时理解图像和文字 | 图片问答、图表解释、截图理解、视觉推理 |
-| Document AI | PDF、表格、扫描件和课件难以直接进入文本流程 | 版面解析、OCR、表格抽取、结构化输出 |
-| Multimodal RAG | 知识库不只有 Markdown 和纯文本 | 把图片、PDF 页面、图表和文本片段统一检索与引用 |
-| Multimodal Agent | Agent 需要根据截图、页面或文档采取行动 | 观察视觉输入、选择工具、生成可复盘轨迹 |
-| Video Generation Workflow | 视频生成不是一次 Prompt 就完成 | 文案、分镜、角色、镜头、旁白、字幕和审核流水线 |
-| Realtime Voice | 语音交互强调延迟、打断和连续上下文 | 语音输入、实时响应、转写、合成和对话状态 |
-| Content Safety | 生成内容可能涉及版权、肖像、事实和敏感风险 | 素材授权、人工审核、风险标注和导出限制 |
+| Vision-Language Models | The model understands images and text at the same time | Image Q&A, chart explanation, screenshot understanding, visual reasoning |
+| Document AI | PDFs, tables, scanned documents, and course materials are hard to feed directly into text workflows | Layout parsing, OCR, table extraction, structured output |
+| Multimodal RAG | Knowledge bases are not only Markdown and plain text | Unified retrieval and citation across images, PDF pages, charts, and text snippets |
+| Multimodal Agent | An Agent needs to take action based on screenshots, pages, or documents | Observe visual input, choose tools, generate traceable actions |
+| Video Generation Workflow | Video generation is not completed with one Prompt | Copy, storyboard, characters, shots, narration, subtitles, and review pipeline |
+| Realtime Voice | Voice interaction emphasizes latency, interruption, and continuous context | Speech input, real-time response, transcription, synthesis, and dialogue state |
+| Content Safety | Generated content may involve copyright, portrait rights, factual risks, and sensitive risks | Asset authorization, human review, risk labeling, and export restrictions |
 
-学习多模态时，要把“模型能力”翻译成“产品流程”。例如课程资料助手不只要读 Markdown，也可能要读课件截图、PDF 表格和图示；创意工作台不只要生成一张图，还要让用户修改文案、选择版本、审核风险并导出最终文件。
+When learning multimodal, translate “model capability” into “product workflow.” For example, a course materials assistant should not only read Markdown, but may also need to read course slide screenshots, PDF tables, and diagrams. A creative workspace should not only generate one image, but also let users edit copy, choose versions, review risks, and export the final file.
 
-## 多模态 RAG 和多模态 Agent 怎么接到主线
+## How multimodal RAG and multimodal Agent connect to the main track
 
-多模态不是课程主线之外的孤岛。第 8 站的 RAG 会扩展成多模态 RAG，第 9 站的 Agent 会扩展成能看截图、读文档、处理图表的多模态 Agent，第 12 站则把这些能力组织成完整创作或理解工作流。
+Multimodal is not an island outside the course main line. RAG in Stage 8 expands into multimodal RAG, Agent in Stage 9 expands into a multimodal Agent that can read screenshots, documents, and charts, and Stage 12 organizes these capabilities into a complete creation or understanding workflow.
 
-![多模态 RAG 与 Agent 桥接图](/img/course/ch12-multimodal-rag-agent-bridge.png)
+![Bridge diagram for multimodal RAG and Agent](/img/course/ch12-multimodal-rag-agent-bridge-en.png)
 
-一个适合收官的项目是“多模态学习助手”：它能读取课程截图或 PDF 页面，提取关键概念，结合课程文档做 RAG 回答，再生成复盘卡或学习计划。这样能自然展示你对 RAG、Agent、多模态和工程化的综合理解。
+A good capstone project is a “multimodal learning assistant”: it can read course screenshots or PDF pages, extract key concepts, answer questions with course documents via RAG, and then generate review cards or a study plan. This naturally demonstrates your combined understanding of RAG, Agent, multimodal, and engineering.
 
-## 本阶段学习路径
+## Learning path for this stage
 
-第一章学习多模态大模型，理解图文对齐、视觉语言模型和多模态应用。
+Chapter 1 covers multimodal large models and explains image-text alignment, vision-language models, and multimodal applications.
 
-第二章学习图像生成，理解扩散模型、Stable Diffusion、常见应用、微调和最新进展。
+Chapter 2 covers image generation and explains diffusion models, Stable Diffusion, common applications, fine-tuning, and the latest progress.
 
-第三章学习视频生成与数字人，理解视频生成、语音合成、TTS 和数字人系统。
+Chapter 3 covers video generation and digital humans, including video generation, speech synthesis, TTS, and digital human systems.
 
-第四章学习 AIGC 前沿与伦理，包括趋势、版权、偏见、合规和安全边界。
+Chapter 4 covers AIGC frontiers and ethics, including trends, copyright, bias, compliance, and safety boundaries.
 
-第五章完成综合项目，把生成能力组织成一个产品工作流。
+Chapter 5 completes a comprehensive project and organizes generation capabilities into a product workflow.
 
-## 学完后你应该能做到
+## What you should be able to do after finishing
 
-- 能解释文本、图像、语音、视频在多模态系统中的角色
-- 能理解扩散模型和 Stable Diffusion 的基本工作流
-- 能搭建一个简单图像生成或多模态问答 Demo
-- 能分析 AIGC 产品中的素材、提示词、模型、后处理和交付流程
-- 能意识到版权、肖像、偏见和内容安全等风险
+- Explain the roles of text, images, audio, and video in a multimodal system
+- Understand the basic workflow of diffusion models and Stable Diffusion
+- Build a simple image generation or multimodal Q&A demo
+- Analyze the workflow of assets, prompts, models, post-processing, and delivery in an AIGC product
+- Recognize risks such as copyright, portrait rights, bias, and content safety
 
-## 常见误区
+## Common misconceptions
 
-不要只把 AIGC 当成“好玩的图片工具”。真正的多模态产品会涉及资产管理、提示词工程、模型选择、后处理、用户工作流和合规边界。
+Do not think of AIGC only as a “fun image tool.” Real multimodal products involve asset management, prompt engineering, model selection, post-processing, user workflows, and compliance boundaries.
 
-也不要追逐每一个新模型。前沿变化很快，更重要的是抓住稳定主线：表示、对齐、生成、编辑、评估和工作流。
+Also do not chase every new model. Frontier changes quickly. What matters more is the stable main line: representation, alignment, generation, editing, evaluation, and workflow.
 
-## AIGC 错误剧场：生成好看不等于可交付
+## AIGC error theater: looking good does not mean deliverable
 
-如果生成结果不符合需求，先检查输入约束、风格参考和负面要求是否清楚；如果多次生成难以比较，说明缺少版本记录；如果作品要对外使用，还要检查版权、肖像、敏感内容、来源说明和导出格式。
+If the generated result does not meet requirements, first check whether the input constraints, style references, and negative requirements are clear. If repeated generations are hard to compare, it means version tracking is missing. If the work will be used externally, also check copyright, portrait rights, sensitive content, source attribution, and export format.
 
-## 多模态可运行小实验：先把图片或 PDF 变成结构化记录
+## Small runnable multimodal experiment: first turn an image or PDF into a structured record
 
-多模态项目的最小实验可以不从视频生成开始，而是从“把一张截图变成结构化信息”开始。学习者可以选一张课程截图、报错截图或 PDF 页面，手动模拟模型输出，先设计数据结构：图片里有什么、关键信息是什么、不确定点在哪里、能否进入 RAG 或 Agent 下一步。
+A minimum multimodal experiment does not need to start with video generation. It can start with “turning a screenshot into structured information.” Learners can choose a course screenshot, an error screenshot, or a PDF page, manually simulate the model output, and first design a data structure: what is in the image, what the key information is, where the uncertainties are, and whether it can enter the next step of RAG or Agent.
 
 ```python
 visual_record = {
     "source": "course-slide-01.png",
-    "content_type": "课程截图",
-    "visible_text": ["RAGOps", "评估集", "Trace", "成本监控"],
-    "objects": ["流程图", "表格"],
-    "uncertainty": ["右下角小字不清晰"],
-    "next_step": "写入多模态 RAG 索引，供课程问答助手引用",
+    "content_type": "course screenshot",
+    "visible_text": ["RAGOps", "evaluation set", "Trace", "cost monitoring"],
+    "objects": ["flowchart", "table"],
+    "uncertainty": ["small text in the lower-right corner is unclear"],
+    "next_step": "write into the multimodal RAG index for the course Q&A assistant to cite",
 }
 
 print(visual_record)
 ```
 
-这个实验的重点是建立多模态工程意识：模型看图之后，结果要能被检查、引用、编辑和进入后续流程。等结构化记录设计清楚后，再替换成真实视觉模型、OCR、PDF 解析或多模态 API。
+The key point of this experiment is to build multimodal engineering awareness: after the model sees the image, the result should be checkable, citable, editable, and able to enter the next workflow step. Once the structured record is clear, you can replace it with a real vision model, OCR, PDF parsing, or a multimodal API.
 
-## 多模态失败案例库：生成之前先管输入和交付
+## Multimodal failure case library: control input and delivery before generation
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Symptom | Common cause | How to locate | Fix direction |
 |---|---|---|---|
-| 图片理解漏掉关键信息 | 截图分辨率低、文字太小、版面复杂 | 检查原图清晰度和 OCR 结果 | 提高输入质量，裁剪区域，保留不确定标记 |
-| PDF 表格解析混乱 | 版面结构复杂或跨页 | 对比原 PDF、解析文本和结构化结果 | 分页处理，单独抽表，保留页码来源 |
-| 生成图片好看但不符合需求 | 风格、尺寸、用途和负面要求不清楚 | 对照需求清单检查输出 | 增加提示词模板、参考图和人工筛选 |
-| 视频生成不连贯 | 没有分镜和角色一致性设计 | 检查每个镜头的文案、画面和转场 | 先写分镜脚本，再逐段生成和审核 |
-| 作品不能对外使用 | 版权、肖像、敏感内容或事实风险未检查 | 用审核清单逐项确认 | 增加素材来源、人工确认和导出限制 |
+| Image understanding misses key information | Low screenshot resolution, text too small, complex layout | Check the original image clarity and OCR result | Improve input quality, crop regions, keep uncertainty markers |
+| PDF table parsing is messy | Complex layout or content across pages | Compare the original PDF, parsed text, and structured result | Process page by page, extract tables separately, keep page-source references |
+| Generated images look good but do not meet requirements | Style, size, usage, and negative requirements are unclear | Check the output against the requirement list | Add prompt templates, reference images, and manual filtering |
+| Video generation is not coherent | No storyboard or character consistency design | Check the copy, visuals, and transitions for each shot | Write the storyboard script first, then generate and review shot by shot |
+| The work cannot be used externally | Copyright, portrait rights, sensitive content, or factual risks were not checked | Confirm each item using a review checklist | Add asset source tracking, human confirmation, and export restrictions |
 
-## 阶段验收 Rubric
+## Stage assessment rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Assessment criteria | Portfolio evidence |
 |---|---|---|
-| 基础通过 | 能完成一个图像理解、图像生成或多模态问答 Demo | 输入样例、输出结果、提示词或解析记录 |
-| 标准通过 | 能把生成或理解结果接入可编辑、可审核、可导出的流程 | 版本记录、人工编辑截图、审核清单 |
-| 优秀作品 | 能把多模态能力接入 RAG 或 Agent，并说明来源、风险和交付边界 | 多模态 RAG 引用、多模态 Agent trace、内容安全记录 |
+| Basic pass | Can complete an image understanding, image generation, or multimodal Q&A demo | Input examples, output results, prompts, or parsing records |
+| Standard pass | Can connect generation or understanding results to an editable, reviewable, exportable workflow | Version records, screenshots of human edits, review checklist |
+| Excellent work | Can connect multimodal capabilities to RAG or Agent and explain sources, risks, and delivery boundaries | Multimodal RAG citations, multimodal Agent trace, content safety records |
 
-面试或作品集展示时，不要只展示“生成得很好看”。更好的讲法是：我把多模态输入解析成结构化记录，再接入检索、生成、人工编辑、审核和导出流程，重点解决输入质量、版本比较、版权肖像和交付格式问题。
+When presenting in an interview or portfolio, do not only show that “the result looks good.” A better way to explain it is: I turned multimodal input into structured records, then connected retrieval, generation, human editing, review, and export, focusing on input quality, version comparison, copyright and portrait rights, and delivery format.
 
-## 阶段项目
+## Stage project
 
-基础版是完成一个图像生成或多模态问答 Demo，能输入主题并得到可展示结果。标准版需要加入提示词模板、生成结果筛选、人工编辑和导出流程。挑战版可以做 AI 创意工作台，串联文案、配图、分镜、语音稿、审核和交付，形成整门课程的收官作品。
+The basic version is to complete an image generation or multimodal Q&A demo that can take a topic and produce a displayable result. The standard version needs prompt templates, result filtering, manual editing, and export workflows. The challenge version can be an AI creative workspace that chains copywriting, visuals, storyboards, voice scripts, review, and delivery into the final capstone of the whole course.
 
-如果你想看更细的学习节奏，可以阅读 [学习指南：多模态与 AIGC 怎么学最不容易学乱](./study-guide.md)。
-
-
+If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Multimodal and AIGC Without Getting Confused](./study-guide.md).
 
 
-## 本阶段趣味任务卡
 
-| 玩法 | 本阶段任务 |
+## Fun task card for this stage
+
+| Play style | Task for this stage |
 |---|---|
-| 剧情任务 | 让助手处理文字以外的资料：图片、截图、语音或生成内容都要有素材、审核和导出记录。 |
-| Boss 战 | **多模态混沌体** |
-| 可解锁徽章 | 多模态审核员、素材管理员 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | 素材来源、生成记录和人工审核表 |
+| Story mission | Let the assistant handle materials beyond text: images, screenshots, audio, or generated content must all have asset, review, and export records. |
+| Boss fight | **Multimodal Chaos Entity** |
+| Unlockable badges | Multimodal Reviewer, Asset Manager |
+| Beginner easy mode | Complete only one minimal input-to-output loop, and keep a run screenshot or command output first |
+| Portfolio evidence | Asset sources, generation records, and human review form |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If you feel there is a lot of content in this stage, first treat this task card as the minimum goal. Once you can complete the beginner easy mode, you can keep moving forward. Later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| 多模态 Demo | 完成图像理解、图像生成或图文问答 | 能接入截图、PDF、语音或视频片段并输出结构化结果 |
-| Prompt/素材记录 | 保存输入提示词和素材来源 | 有版本对比、参考图、负面提示和审核记录 |
-| 生成/理解结果 | 展示一次成功输出 | 有失败样本、人工筛选、编辑记录和质量标准 |
-| 安全审核清单 | 检查版权、肖像和敏感内容 | 说明使用边界、人工确认和导出限制 |
-| 毕业展示材料 | 写清运行方式和示例 | 有架构图、演示脚本、评估结果和复盘报告 |
+| Multimodal Demo | Complete image understanding, image generation, or image-text Q&A | Can connect screenshots, PDFs, audio, or video clips and output structured results |
+| Prompt/asset record | Save input prompts and asset sources | Includes version comparison, reference images, negative prompts, and review records |
+| Generation/understanding result | Show one successful output | Includes failed samples, manual selection, editing records, and quality standards |
+| Safety review checklist | Check copyright, portrait rights, and sensitive content | Explain usage boundaries, human confirmation, and export restrictions |
+| Graduation showcase materials | Clearly document how to run and show examples | Includes architecture diagram, demo script, evaluation results, and retrospective report |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship to the AI learning assistant across the project
 
-本阶段可以对应 AI 学习助手 v1.0：理解截图、课件图表、语音笔记和多模态资料，形成毕业作品。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can correspond to AI Learning Assistant v1.0: understand screenshots, course charts, voice notes, and multimodal materials, and form a graduation project. If you are following the across-the-project route, it is recommended that by the end of this stage you submit at least one version record: what new capability was added, how to run it, what the example input and output are, what problems were encountered, and what the next improvement plan is.
 
+## Stage completion criteria
 
-## 阶段通关标准
-
-| 通关层级 | 你需要做到什么 |
+| Completion level | What you need to do |
 |---|---|
-| 最低通关 | 能把图像、语音、视频、文档和大模型能力组织成多模态作品。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum completion | Can organize images, audio, video, documents, and large model capabilities into a multimodal project. |
+| Recommended completion | Complete at least one runnable small project in this stage, and record the run method, sample input/output, and encountered problems in the README. |
+| Portfolio completion | Connect the stage output to the across-the-project “AI Learning Assistant” project, leaving screenshots, logs, evaluation samples, and next-step plans. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。这一阶段适合作为课程毕业作品和作品集展示。
+After finishing this stage, you do not need to memorize every detail. More important is being able to clearly explain what problem this stage solves, how it relates to the previous stage, and how it will support later learning. This stage is well suited to become your course graduation project and portfolio showcase.

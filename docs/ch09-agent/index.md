@@ -1,148 +1,148 @@
 ---
-title: "9 AI Agent 与智能体系统"
+title: "9 AI Agent and Intelligent Agent Systems"
 sidebar_position: 0
-description: "学习 AI Agent 的任务规划、推理、工具调用、记忆系统、MCP、多 Agent 协作、评估安全和部署运维。"
-keywords: [AI Agent, 智能体, Function Calling, ReAct, MCP, Multi-Agent, 工具调用]
+description: "Learn AI Agent task planning, reasoning, tool calling, memory systems, MCP, multi-Agent collaboration, evaluation, safety, and deployment operations."
+keywords: [AI Agent, agent, Function Calling, ReAct, MCP, Multi-Agent, tool calling]
 ---
 
-# 9 AI Agent 与智能体系统
+# 9 AI Agent and Intelligent Agent Systems
 
-![AI Agent 系统主视觉](/img/course/ch09-agent-systems.png)
+![Main visual of the AI Agent system](/img/course/ch09-agent-systems-en.png)
 
-这一阶段解决的是“怎样让 AI 不只是回答问题，而是围绕目标执行任务”。Agent 会把大模型、工具、记忆、规划、评估和系统工程组合起来，形成能持续行动的 AI 系统。
+This stage is about answering: “How do we make AI do more than answer questions, and actually carry out tasks toward a goal?” An Agent combines a large model, tools, memory, planning, evaluation, and systems engineering into an AI system that can keep acting over time.
 
-## 故事化导入：从聊天助手升级成任务队友
+## Story-based introduction: upgrading from chat assistant to task teammate
 
-普通聊天机器人像一个坐在桌边回答问题的人，而 Agent 更像一个可以拿起工具、查看资料、拆解任务、执行步骤并回头检查结果的队友。它不只是“说”，还要“做”；不只是一次回答，还要围绕目标持续推进。
+A regular chatbot is like a person sitting at a table answering questions, while an Agent is more like a teammate who can pick up tools, look up materials, break down tasks, execute steps, and then come back to check the results. It does not just “say” things; it also has to “do” things. It does not just give one answer; it keeps moving toward the goal.
 
-## 学习闯关地图
+## Learning quest map
 
-![Agent 学习闯关地图](/img/course/ch09-learning-quest-map.png)
+![Agent learning quest map](/img/course/ch09-learning-quest-map-en.png)
 
-## 互动练习：先判断“需不需要 Agent”
+## Interactive exercise: first decide whether you really need an Agent
 
-每遇到一个 AI 应用想法，先问三个问题：它是不是多步骤任务，是否需要根据中间结果调整路线，是否需要调用外部工具或长期记忆。如果三个答案都是否，普通工作流或 RAG 可能更稳定；如果答案多为是，再考虑 Agent 架构。
+Whenever you come up with an AI application idea, ask three questions first: Is it a multi-step task? Does it need to adjust the route based on intermediate results? Does it need external tools or long-term memory? If the answer to all three is no, a normal workflow or RAG may be more stable. If most answers are yes, then consider an Agent architecture.
 
-## 项目彩蛋
+## Project bonus content
 
-本阶段的彩蛋作品是一名“研究助理 Agent”：它能把一个主题拆成问题，调用搜索或知识库工具，整理证据，生成报告，并记录哪些步骤成功、哪些步骤失败。这个项目会把前面学过的 Prompt、RAG、工具调用、日志和评估串成一个完整系统。
+The bonus project for this stage is a “research assistant Agent”: it can break a topic into questions, call search or knowledge-base tools, organize evidence, generate a report, and record which steps succeeded and which failed. This project connects everything you learned before—Prompt, RAG, tool calling, logs, and evaluation—into one complete system.
 
-## 阶段定位
+## Stage positioning
 
-| 信息 | 说明 |
+| Information | Description |
 |---|---|
-| 适合对象 | 已完成 LLM 应用与 RAG，希望构建自动化助手、研究助手、数据分析 Agent 或多 Agent 系统的学习者 |
-| 预估学时 | 150～200 小时 |
-| 前置要求 | 完成大模型原理和 LLM 应用开发主线 |
-| 阶段产出 | 研究助手、数据分析 Agent、多 Agent 开发小组或自动化办公 Agent |
+| Suitable for | Learners who have finished LLM applications and RAG, and want to build automation assistants, research assistants, data analysis Agents, or multi-Agent systems |
+| Estimated time | 150–200 hours |
+| Prerequisites | Completed the main track on large model principles and LLM application development |
+| Stage output | Research assistant, data analysis Agent, multi-Agent development team, or office automation Agent |
 
-## 新手最小通关路线
+## Minimal path for beginners to clear the stage
 
-新手先理解 Agent 的目标、状态、计划、工具、观察和记忆，不要急着堆复杂框架。只要能做出一个会拆解任务、调用一两个工具、记录执行过程并输出结果的最小 Agent，就算完成最小通关。
+Beginners should first understand the Agent’s goals, state, plan, tools, observations, and memory. Do not rush into complex frameworks. As long as you can build a minimal Agent that breaks down tasks, calls one or two tools, records the execution process, and outputs results, you have completed the minimum path.
 
-## 进阶深入路线
+## Advanced deep-dive path
 
-有经验的学习者可以深入 ReAct、Plan-and-Execute、记忆工程、MCP、多 Agent 协作、评估安全和生产化部署。进一步尝试比较固定工作流、RAG 和 Agent 在同一任务上的可靠性、成本和失败模式。
+Experienced learners can go deeper into ReAct, Plan-and-Execute, memory engineering, MCP, multi-Agent collaboration, evaluation safety, and production deployment. You can also compare fixed workflows, RAG, and Agents on the same task to see their reliability, cost, and failure modes.
 
-## 这一阶段的两种读法
+## Two ways to read this stage
 
-新人读这一阶段时，先不要急着追框架名或复杂论文。第一遍只抓住“目标 → 计划 → 工具 → 观察 → 调整 → 记录”这条执行闭环，先做一个能完成小任务、能看到每一步轨迹、失败时能停下来的最小 Agent。
+When newcomers read this stage, they should not rush to framework names or complex papers. On the first pass, focus only on the execution loop: “goal → plan → tool → observation → adjustment → record.” First build a minimal Agent that can finish small tasks, show each step in a trace, and stop when something goes wrong.
 
-有经验的学习者可以把重点放在边界和可靠性上：什么时候不用 Agent，工具权限怎样限制，多步任务怎样评估，记忆怎样避免污染，失败时怎样恢复。你可以用同一个任务分别实现成固定工作流、RAG 和 Agent，对比它们的稳定性、成本、可解释性和维护难度。
+Experienced learners can focus on boundaries and reliability: when not to use an Agent, how to limit tool permissions, how to evaluate multi-step tasks, how to prevent memory contamination, and how to recover from failures. You can implement the same task as a fixed workflow, RAG, and Agent, then compare stability, cost, interpretability, and maintenance difficulty.
 
-## Agent 和普通 LLM 应用有什么不同
+## How is an Agent different from a normal LLM application?
 
-普通 LLM 应用通常是固定流程：用户输入，系统组织上下文，模型输出答案。Agent 则更强调目标、状态和行动：它需要判断下一步做什么，选择工具，读取结果，更新上下文，必要时重新规划。
+A normal LLM application usually follows a fixed process: the user inputs something, the system organizes context, and the model outputs an answer. An Agent emphasizes goals, state, and action: it must decide what to do next, choose tools, read results, update context, and replan when needed.
 
-![Agent 与普通应用执行主线图](/img/course/ch09-agent-vs-workflow-backbone.png)
+![Main execution line diagram of Agent vs. normal application](/img/course/ch09-agent-vs-workflow-backbone-en.png)
 
-前半段重点是把“想做什么”变成“下一步怎么做”。如果目标、计划或工具选择不清楚，Agent 后面很容易跑偏。
+The first half of the journey is about turning “what to do” into “what to do next.” If the goal, plan, or tool choice is unclear, the Agent can easily drift off course later.
 
-## AgentOps 精讲：让 Agent 可追踪、可控制、可恢复
+## AgentOps deep dive: making Agents traceable, controllable, and recoverable
 
-2025～2026 年的 Agent 学习重点，已经从“让模型会调用工具”转向“让智能体系统可追踪、可控制、可评估”。一个可靠 Agent 不应该只展示成功结果，还要能说明目标是什么、为什么选择某个工具、传了哪些参数、观察到了什么、花了多少成本、失败时如何恢复、什么时候需要人工确认。
+In 2025–2026, the focus of Agent learning has shifted from “making the model call tools” to “making the intelligent agent system traceable, controllable, and evaluable.” A reliable Agent should not only show successful results; it should also explain what the goal was, why a certain tool was chosen, what parameters were passed, what was observed, how much it cost, how it recovered from failure, and when human confirmation was needed.
 
-| 精讲主题 | 解决的问题 | 学习重点 |
+| Deep-dive topic | Problem it solves | Learning focus |
 |---|---|---|
-| MCP | 工具、文件、数据库和业务系统接入方式不统一 | 理解模型与外部工具的标准连接方式 |
-| Tool Schema | 模型不知道工具参数、约束和错误含义 | 设计清晰参数、返回值、错误信息和校验规则 |
-| Agentic Workflow | 完全开放的 Agent 不稳定，固定流程又不够灵活 | 把确定步骤和模型决策结合起来 |
-| Human-in-the-loop | 高风险动作不能默认自动执行 | 删除、发送、下单、改库、发布等步骤需要人工确认 |
-| Agent Observability | 多步执行失败后无法复盘 | 记录计划、动作、观察、成本、错误和最终结果 |
-| Agent Evaluation | 不能只看一次成功演示 | 用固定任务集评估完成率、步骤数、工具错误和越权行为 |
-| Multi-agent Orchestration | 多角色协作容易互相等待或重复工作 | 明确角色、通信方式、停止条件和最终负责人 |
+| MCP | Tool, file, database, and business system access is not unified | Understand the standard connection method between models and external tools |
+| Tool Schema | The model does not know tool parameters, constraints, or error meanings | Design clear parameters, return values, error messages, and validation rules |
+| Agentic Workflow | Fully open-ended Agents are unstable, but fixed workflows are not flexible enough | Combine deterministic steps with model decisions |
+| Human-in-the-loop | High-risk actions should not run automatically by default | Steps like delete, send, order, database writes, and publish require human confirmation |
+| Agent Observability | Multi-step failures cannot be reviewed afterward | Record plans, actions, observations, costs, errors, and final results |
+| Agent Evaluation | You cannot judge based on one successful demo | Use a fixed task set to measure completion rate, step count, tool errors, and unauthorized behavior |
+| Multi-agent Orchestration | Multiple roles can easily wait on each other or duplicate work | Define roles, communication methods, stopping conditions, and the final owner |
 
-## 可控 Agent 的最小工程闭环
+## The minimal engineering loop for a controllable Agent
 
-Agent 的核心不是“让模型自由发挥”，而是把自由度关进边界里。一个最小可控 Agent 可以先限制为：只允许调用白名单工具，只能读指定目录或资料，只能输出草稿而不能直接发布，高风险动作必须请求用户确认，每一步都写入执行轨迹。
+The core of an Agent is not “letting the model do whatever it wants,” but putting freedom inside boundaries. A minimal controllable Agent can first be limited to: only calling whitelisted tools, only reading specified directories or materials, only outputting drafts rather than publishing directly, requiring user confirmation for high-risk actions, and writing every step into an execution trace.
 
-![AgentOps 可控执行闭环图](/img/course/ch09-agentops-control-loop.png)
+![Controllable AgentOps execution loop](/img/course/ch09-agentops-control-loop-en.png)
 
-做项目时，可以从“研究助理 Agent”开始：它能拆解问题、检索资料、生成摘要和记录轨迹，但不自动发送邮件、不删除文件、不修改数据库。这样既能展示 Agent 能力，也能体现工程边界。
+When building a project, you can start with a “research assistant Agent”: it can break down questions, retrieve materials, generate summaries, and record traces, but it does not automatically send emails, delete files, or modify databases. This both demonstrates Agent capabilities and reflects engineering boundaries.
 
-## 本阶段学习路径
+## Learning path for this stage
 
-第一章学习 Agent 基础概念，理解 Agent 和聊天机器人的区别、发展历史、能力层级和系统架构。
+Chapter 1 covers Agent fundamentals, including the difference between Agents and chatbots, their development history, capability levels, and system architecture.
 
-第二章学习推理与规划，包括 Chain-of-Thought、ReAct、Plan-and-Execute 和推理评估。
+Chapter 2 covers reasoning and planning, including Chain-of-Thought, ReAct, Plan-and-Execute, and reasoning evaluation.
 
-第三章学习工具使用与 Function Calling。你会理解工具描述、参数设计、调用策略、安全边界和代码执行型 Agent。
+Chapter 3 covers tool use and Function Calling. You will learn tool descriptions, parameter design, calling strategies, safety boundaries, and code-execution Agents.
 
-第四章学习记忆系统，包括短期记忆、长期记忆、情景记忆、程序性记忆和记忆工程。
+Chapter 4 covers memory systems, including short-term memory, long-term memory, episodic memory, procedural memory, and memory engineering.
 
-第五章学习 MCP，理解模型和外部工具生态如何通过协议连接。
+Chapter 5 covers MCP and how model and external tool ecosystems connect through a protocol.
 
-第六和第七章学习 Agent 框架与多 Agent 系统，包括 LangGraph、LlamaIndex、CrewAI、AutoGen 等。
+Chapters 6 and 7 cover Agent frameworks and multi-Agent systems, including LangGraph, LlamaIndex, CrewAI, and AutoGen.
 
-第八到第十章学习评估、安全、部署和综合项目。
+Chapters 8 to 10 cover evaluation, safety, deployment, and integrated projects.
 
-## 学完后你应该能做到
+## What you should be able to do after finishing
 
-- 能解释 Agent 的目标、状态、工具、记忆和规划结构
-- 能设计一个 ReAct 或 Plan-and-Execute 风格的执行流程
-- 能为工具调用设计清晰参数和安全边界
-- 能判断任务是否真的需要 Agent，而不是普通工作流或 RAG
-- 能构建一个最小可用的研究助手或数据分析 Agent
-- 能考虑 Agent 的评估、成本、权限和失败恢复
+- Explain the structure of an Agent’s goals, state, tools, memory, and planning
+- Design an execution flow in a ReAct or Plan-and-Execute style
+- Design clear parameters and safety boundaries for tool calling
+- Judge whether a task really needs an Agent rather than a normal workflow or RAG
+- Build a minimal usable research assistant or data analysis Agent
+- Consider evaluation, cost, permissions, and failure recovery for an Agent
 
-## 常见误区
+## Common misconceptions
 
-不要把 Agent 理解成“给模型加工具”这么简单。工具只是其中一层，真正困难的是任务边界、上下文管理、错误恢复、权限控制和结果评估。
+Do not think of an Agent as simply “adding tools to the model.” Tools are only one layer. The real difficulty lies in task boundaries, context management, error recovery, permission control, and result evaluation.
 
-也不要所有任务都用 Agent。固定流程、规则明确、风险较高的任务，有时更适合传统工作流。Agent 更适合开放问题、多步骤探索、需要动态调用工具的场景。
+Also, do not use an Agent for every task. Fixed workflows and clearly defined, high-risk tasks are sometimes better suited to traditional workflows. Agents are more appropriate for open-ended problems, multi-step exploration, and scenarios that require dynamic tool use.
 
-## Agent 错误剧场：会行动不等于可靠
+## Agent failure theater: being able to act does not mean being reliable
 
-如果 Agent 卡住循环，先检查停止条件是否清楚；如果工具调用错，先检查 schema、参数校验和权限边界；如果结果看似成功但不可复盘，说明缺少执行轨迹和日志；如果任务风险高，应该增加人工确认，而不是让 Agent 自动完成所有步骤。
+If an Agent gets stuck in a loop, first check whether the stopping conditions are clear. If tool calls are wrong, first check the schema, parameter validation, and permission boundaries. If the result seems successful but cannot be reviewed later, then execution traces and logs are missing. If the task is high risk, add human confirmation instead of letting the Agent complete everything automatically.
 
-## 第一遍怎么读：必读、项目查阅和选修深入
+## How to read this stage the first time: required, project reference, and optional deep dive
 
-| 阅读标签 | 建议章节 | 学习目标 |
+| Reading tag | Suggested chapters | Learning goal |
 |---|---|---|
-| 必读 | Agent 基础、ReAct、Plan-and-Execute、工具描述、工具安全 | 先理解 Agent 为什么会行动，以及如何控制边界 |
-| 项目查阅 | Function Calling 深入、常用工具、记忆工程、MCP、评估安全 | 做研究助手、数据分析 Agent 或工具型 Agent 时重点查看 |
-| 选修深入 | Agent 框架、多 Agent、低代码平台、部署架构和成本优化 | 需要做复杂系统、团队协作或生产化时再深入 |
+| Required | Agent fundamentals, ReAct, Plan-and-Execute, tool descriptions, tool safety | First understand why Agents act and how to control the boundaries |
+| Project reference | Function Calling deep dive, common tools, memory engineering, MCP, evaluation safety | Check these sections when building a research assistant, data analysis Agent, or tool-based Agent |
+| Optional deep dive | Agent frameworks, multi-Agent, low-code platforms, deployment architecture, and cost optimization | Go deeper only when building complex systems, team collaboration, or production deployments |
 
-第一遍不要把所有框架都学一遍。先做一个能打印 trace 的最小 Agent，再判断是否需要 LangGraph、CrewAI、AutoGen、MCP 或多 Agent 架构。
+On the first pass, do not try to learn every framework. First build a minimal Agent that prints traces, then decide whether you need LangGraph, CrewAI, AutoGen, MCP, or a multi-Agent architecture.
 
-## Agent 可运行小实验：先把轨迹打印出来
+## Small runnable Agent experiment: print the trace first
 
-Agent 学习最小实验不一定需要复杂框架。可以先写一个只有两个工具的脚本：一个工具负责搜索课程资料，一个工具负责生成待办清单。每次工具调用都记录 `thought`、`action`、`input`、`observation` 和 `cost_estimate`。这样学习者能看到 Agent 不是魔法，而是一串可检查的步骤。
+The smallest Agent experiment does not necessarily need a complex framework. You can first write a script with only two tools: one tool for searching course materials, and one tool for generating a to-do list. Record `thought`, `action`, `input`, `observation`, and `cost_estimate` for every tool call. This helps learners see that an Agent is not magic, but a chain of checkable steps.
 
 ```python
 trace = []
 
 def call_tool(name, tool_input):
     if name == "search_docs":
-        return "找到 RAGOps、AgentOps、评估集相关资料"
+        return "Found materials related to RAGOps, AgentOps, and evaluation sets"
     if name == "make_todo":
-        return "生成 3 个复习任务"
-    return "工具不存在"
+        return "Generated 3 review tasks"
+    return "Tool does not exist"
 
 step = {
-    "thought": "用户要准备 RAG 复习，先查课程资料",
+    "thought": "The user wants to prepare for RAG review, so first search the course materials",
     "action": "search_docs",
-    "input": {"query": "RAGOps 评估 日志"},
+    "input": {"query": "RAGOps evaluation logs"},
 }
 step["observation"] = call_tool(step["action"], step["input"])
 trace.append(step)
@@ -151,81 +151,80 @@ for item in trace:
     print(item)
 ```
 
-这个实验的验收标准是：即使结果不完美，也能复盘每一步为什么发生。后面再把工具 schema、权限确认、失败重试、MCP 和多 Agent 加进来。
+The acceptance criterion for this experiment is: even if the result is not perfect, you can still review why each step happened. Later, you can add tool schema, permission checks, failure retries, MCP, and multi-Agent support.
 
-## Agent 失败案例库：先控制边界，再追求智能
+## Agent failure case library: control boundaries first, then pursue intelligence
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Phenomenon | Common cause | Debugging method | Fix direction |
 |---|---|---|---|
-| Agent 一直循环 | 目标和停止条件不清楚 | 查看每一步 thought 和 observation 是否重复 | 限制最大步数，增加完成条件和停止条件 |
-| 工具参数经常错 | schema 太模糊，缺少参数校验 | 记录模型生成的原始参数和工具报错 | 明确字段类型、示例、默认值和错误信息 |
-| 看似完成但不可复盘 | 没有执行轨迹 | 要求每一步记录计划、动作、观察和结果 | 加 trace 日志和任务摘要 |
-| 调用了不该调用的工具 | 权限边界不清楚 | 检查工具白名单和风险等级 | 高风险工具人工确认，敏感工具默认关闭 |
-| 多 Agent 互相等待 | 角色职责和最终负责人不清楚 | 查看消息流和任务交接点 | 明确角色、交付物、超时和仲裁者 |
+| Agent keeps looping | Goal and stopping conditions are unclear | Check whether the thought and observation of each step repeat | Limit the maximum number of steps, add completion conditions and stopping conditions |
+| Tool parameters are often wrong | Schema is too vague, and parameter validation is missing | Record the raw parameters generated by the model and the tool error messages | Define field types, examples, default values, and error messages clearly |
+| Looks finished but cannot be reviewed | No execution trace | Require every step to record plan, action, observation, and result | Add trace logs and task summaries |
+| Called a tool that should not have been called | Permission boundaries are unclear | Check the tool whitelist and risk levels | Require human confirmation for high-risk tools, and keep sensitive tools disabled by default |
+| Multiple Agents wait on each other | Roles and the final owner are unclear | Review the message flow and task handoff points | Define roles, deliverables, timeouts, and an arbitrator |
 
 
 
-| 复盘问题 | 你应该能回答什么 |
+| Review question | What you should be able to answer |
 |---|---|
-| 目标边界 | Agent 要完成什么，不负责什么，什么时候停止？ |
-| 计划执行 | 它如何拆解任务、选择下一步、根据结果调整路线？ |
-| 工具调用 | 工具 schema、参数校验、失败重试和权限边界是否清楚？ |
-| 记忆状态 | 当前状态、长期偏好和历史经验是否分层管理？ |
-| 失败恢复 | 工具失败、检索不到、结果不可信时系统怎么降级？ |
-| 评估安全 | 有没有固定任务集、成本估算、安全边界和人工接管方式？ |
+| Goal boundary | What should the Agent complete, what is it not responsible for, and when should it stop? |
+| Plan execution | How does it break down tasks, choose the next step, and adjust based on results? |
+| Tool calling | Are the tool schema, parameter validation, failure retry, and permission boundaries clear? |
+| Memory state | Are current state, long-term preferences, and historical experience managed in layers? |
+| Failure recovery | How does the system degrade when tools fail, retrieval returns nothing, or results are untrustworthy? |
+| Evaluation and safety | Is there a fixed task set, cost estimation, safety boundaries, and a way for humans to take over? |
 
-这一阶段真正的出口，是做出一个可追踪、可复盘、可评估的 Agent 项目，而不是只展示一次成功对话。
+The real outcome of this stage is building a traceable, reviewable, and evaluable Agent project, not just showing one successful conversation.
 
+## Fun task card for this stage
 
-## 本阶段趣味任务卡
-
-| 玩法 | 本阶段任务 |
+| Mode | Task for this stage |
 |---|---|
-| 剧情任务 | 让助手从回答升级为行动：拆解任务、调用工具、保存 trace，并限制越权行为。 |
-| Boss 战 | **无限循环魔王** |
-| 可解锁徽章 | Trace 记录员、Agent 安全官 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | agent_traces、tool_calls 和安全边界说明 |
+| Story mission | Upgrade the assistant from answering to acting: break down tasks, call tools, save traces, and prevent unauthorized actions. |
+| Boss battle | **The Infinite Loop Demon King** |
+| Unlockable badges | Trace Recorder, Agent Safety Officer |
+| Beginner easy mode | Complete only one minimal input-to-output loop first, and keep a runtime screenshot or command output |
+| Portfolio evidence | `agent_traces`, `tool_calls`, and safety boundary documentation |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If you feel there is a lot of content in this stage, first treat this task card as the minimum goal. If you can finish the beginner easy mode, you can continue learning. Later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| 工具 schema | 至少定义 1～2 个工具 | 写清名称、用途、参数、返回值、错误和边界 |
-| Agent trace | 打印一次执行步骤 | 保存 `agent_traces.jsonl`，能回放目标、动作、观察和决策 |
-| 安全边界 | 设置最大步数 | 加工具白名单、风险分级、人工确认和审计日志 |
-| 失败样本 | 记录一次工具失败 | 覆盖工具选错、参数错误、循环、越权和引用不支持 |
-| 评估任务集 | 3～5 个固定任务 | 统计完成率、平均步数、工具错误率和成本 |
-| README | 说明运行命令和示例输出 | 展示架构、trace 示例、权限边界、评估和限制 |
+| Tool schema | Define at least 1–2 tools | Clearly describe name, purpose, parameters, return values, errors, and boundaries |
+| Agent trace | Print one execution step | Save `agent_traces.jsonl` and be able to replay goals, actions, observations, and decisions |
+| Safety boundary | Set a maximum number of steps | Add a tool whitelist, risk levels, human confirmation, and audit logs |
+| Failure samples | Record one tool failure | Cover wrong tool choice, parameter errors, loops, unauthorized access, and unsupported references |
+| Evaluation task set | 3–5 fixed tasks | Track completion rate, average steps, tool error rate, and cost |
+| README | Explain run commands and example output | Show architecture, trace examples, permission boundaries, evaluation, and limitations |
 
-## 阶段验收 Rubric
+## Stage evaluation rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Acceptance criteria | Portfolio evidence |
 |---|---|---|
-| 基础通过 | Agent 能拆解任务、调用至少一个工具，并输出结构化结果 | 执行截图、工具 schema、最小 trace |
-| 标准通过 | Agent 有失败重试、权限边界、日志记录和停止条件 | 失败恢复样例、人工确认截图、轨迹日志 |
-| 优秀作品 | 能比较固定工作流、RAG 和 Agent 的适用边界，并评估成本和完成率 | 固定任务集、完成率表、成本估算、多方案对比 |
+| Basic pass | The Agent can break down a task, call at least one tool, and output structured results | Execution screenshot, tool schema, minimal trace |
+| Standard pass | The Agent has failure retries, permission boundaries, logs, and stopping conditions | Failure recovery example, human confirmation screenshot, trace logs |
+| Excellent project | Can compare the suitability boundaries of fixed workflows, RAG, and Agents, and evaluate cost and completion rate | Fixed task set, completion-rate table, cost estimate, multi-solution comparison |
 
-面试或作品集展示时，不要只展示一次成功对话。更好的讲法是：我把任务拆成目标、计划、工具、观察和停止条件，限制了工具权限，记录每一步 trace，并用固定任务集检查 Agent 是否会循环、越权或错误调用工具。
+When presenting in an interview or portfolio, do not show only one successful conversation. A better explanation is: I broke the task into goals, plans, tools, observations, and stopping conditions, restricted tool permissions, recorded a trace for every step, and used a fixed task set to check whether the Agent would loop, overstep permissions, or call tools incorrectly.
 
-## 阶段项目
+## Stage project
 
-基础版是实现一个研究助手，能把主题拆成问题、调用资料工具并生成结构化摘要。标准版需要加入执行日志、失败重试、结果自检和简单记忆。挑战版可以做数据分析 Agent 或多 Agent 开发小组，加入权限边界、成本控制、评估样例和恢复机制。
+The basic version is to implement a research assistant that can break a topic into questions, call material tools, and generate structured summaries. The standard version should add execution logs, failure retries, result self-checks, and simple memory. The challenge version can be a data analysis Agent or a multi-Agent development team, with permission boundaries, cost control, evaluation samples, and recovery mechanisms.
 
-如果你想看更细的学习节奏，可以阅读 [学习指南：Agent 系统怎么学最不容易学乱](./study-guide.md)。
+If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Agent Systems Without Getting Confused](./study-guide.md).
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship to the end-to-end AI learning assistant project
 
-本阶段可以对应 AI 学习助手 v0.9：从问答升级为学习规划 Agent，能拆任务、查资料、调用工具并记录执行轨迹。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can map to AI Learning Assistant v0.9: upgrading from Q&A to a learning-planning Agent that can break down tasks, search materials, call tools, and record execution traces. If you are following the end-to-end project path, it is recommended that by the end of this stage you submit at least one version note: what capabilities were added, how to run it, what the example inputs and outputs are, what problems were encountered, and what the next improvements will be.
 
-## 阶段通关标准
+## Stage completion standards
 
-| 通关层级 | 你需要做到什么 |
+| Completion level | What you need to do |
 |---|---|
-| 最低通关 | 能设计工具、记忆、规划、MCP、框架、评估和安全边界。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum completion | Be able to design tool, memory, planning, MCP, framework, evaluation, and safety boundaries |
+| Recommended completion | Finish at least one runnable mini-project for this stage and document the run steps, example inputs/outputs, and problems encountered in the README |
+| Portfolio completion | Connect the stage output to the end-to-end “AI Learning Assistant” project, leaving screenshots, logs, evaluation samples, and next-step plans |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。后续可以继续做多模态 Agent、部署和毕业作品。
+After finishing this stage, you do not need to memorize every detail. What matters more is being able to explain clearly: what problem this stage solves, how it relates to the previous stage, and how it supports later learning. After that, you can continue with multimodal Agents, deployment, and your graduation project.

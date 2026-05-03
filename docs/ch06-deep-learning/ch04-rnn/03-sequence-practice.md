@@ -1,74 +1,74 @@
 ---
-title: "4.4 序列建模实战"
+title: "4.4 Sequence Modeling in Practice"
 sidebar_position: 3
-description: "用一个真正能训练的小型时间序列任务，把窗口构造、RNN/LSTM 训练、验证和预测串起来。"
+description: "Use a real, trainable small time-series task to connect window construction, RNN/LSTM training, validation, and prediction."
 keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 ---
 
-# 序列建模实战
+# Sequence Modeling in Practice
 
-:::tip 本节定位
-前两节你已经理解了：
+:::tip Section Overview
+In the previous two sections, you already learned:
 
-- RNN 在“边读边记”
-- LSTM / GRU 在“更聪明地控制记忆”
+- RNNs “read while remembering”
+- LSTM / GRU “control memory more intelligently”
 
-这一节要把这些概念真正落到一个小项目上：
+In this section, we will turn those ideas into a small project:
 
-> **给一段序列，预测后面的值。**
+> **Given a sequence, predict the next value.**
 :::
 
-## 学习目标
+## Learning Goals
 
-- 学会把连续序列切成训练样本
-- 用 LSTM 搭一个最小时间序列预测器
-- 理解训练集、验证集和预测流程
-- 学会判断模型是在学规律还是在瞎记
-- 知道序列实战里最常见的坑是什么
-
----
-
-## 一、为什么选“时间序列预测”来做实战？
-
-### 1.1 因为它最适合练序列建模的基本功
-
-很多序列任务都可以抽象成：
-
-- 前面一段输入
-- 后面一个输出
-
-时间序列预测就是最典型的例子。
-
-比如：
-
-- 根据过去 7 天销量，预测第 8 天销量
-- 根据过去 12 个温度值，预测下一个温度
-
-### 1.2 一个非常重要的直觉
-
-做这类任务时，模型不是在记单个数字，而是在学：
-
-> **变化模式。**
-
-例如：
-
-- 周期
-- 趋势
-- 波动
-
-这和普通分类任务很不一样。
+- Learn how to split a continuous sequence into training samples
+- Build a minimal time-series predictor with LSTM
+- Understand the training set, validation set, and prediction workflow
+- Learn how to tell whether a model is learning patterns or just memorizing blindly
+- Know the most common pitfalls in sequence practice
 
 ---
 
-## 二、先造一份可以直接运行的数据
+## 1. Why choose “time-series forecasting” as a practical exercise?
 
-### 2.1 用正弦波 + 噪声造一个最小序列
+### 1.1 Because it is ideal for practicing the basics of sequence modeling
 
-这样做的好处是：
+Many sequence tasks can be abstracted as:
 
-- 不依赖外部数据集
-- 模式清晰
-- 非常适合教学
+- A preceding input segment
+- A following output
+
+Time-series forecasting is the most typical example.
+
+For example:
+
+- Predict the sales on day 8 based on the previous 7 days of sales
+- Predict the next temperature based on the previous 12 temperature values
+
+### 1.2 A very important intuition
+
+When doing this kind of task, the model is not memorizing individual numbers. It is learning:
+
+> **change patterns.**
+
+For example:
+
+- Periodicity
+- Trend
+- Fluctuation
+
+This is very different from a normal classification task.
+
+---
+
+## 2. First, generate a dataset we can run directly
+
+### 2.1 Use a sine wave + noise to create a minimal sequence
+
+The benefits are:
+
+- No external dataset needed
+- Clear patterns
+- Very suitable for teaching
 
 ```python
 import numpy as np
@@ -86,30 +86,30 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 2.2 这串数据长什么样？
+### 2.2 What does this data look like?
 
-它有两个特征：
+It has two characteristics:
 
-- 整体是波动的
-- 带一点随机噪声
+- It fluctuates overall
+- It includes a bit of random noise
 
-这就比完全规则的序列更接近真实任务一点。
+That makes it a little closer to a real task than a perfectly regular sequence.
 
 ---
 
-## 三、滑动窗口：怎么把一整段序列切成样本？
+## 3. Sliding window: how do we turn a whole sequence into samples?
 
-### 3.1 核心思想
+### 3.1 Core idea
 
-模型不能直接吃“一整条无限序列”。  
-我们通常会把它切成很多小片段：
+A model cannot directly consume “an entire infinite sequence.”
+We usually cut it into many small segments:
 
-- 前 `window_size` 个点作为输入
-- 第 `window_size + 1` 个点作为标签
+- The first `window_size` points are used as input
+- The point at `window_size + 1` is used as the label
 
-这就叫滑动窗口。
+This is called a sliding window.
 
-### 3.2 可运行示例
+### 3.2 Runnable example
 
 ```python
 import numpy as np
@@ -129,16 +129,16 @@ print("X =\n", X)
 print("y =", y)
 ```
 
-### 3.3 这一步为什么这么关键？
+### 3.3 Why is this step so important?
 
-因为它决定了序列任务的样本定义。  
-如果窗口构造错了，后面的训练、验证和预测都会跟着错。
+Because it determines how sequence-task samples are defined.
+If the window construction is wrong, training, validation, and prediction will all be wrong too.
 
 ---
 
-## 四、把数据整理成 PyTorch 可训练格式
+## 4. Organize the data into a PyTorch-trainable format
 
-### 4.1 完整数据准备
+### 4.1 Complete data preparation
 
 ```python
 import numpy as np
@@ -161,7 +161,7 @@ for i in range(len(series) - window_size):
 X = np.array(X)
 y = np.array(y)
 
-# 转成 [batch, seq_len, input_size]
+# Convert to [batch, seq_len, input_size]
 X = torch.tensor(X).unsqueeze(-1)
 y = torch.tensor(y).unsqueeze(-1)
 
@@ -169,21 +169,21 @@ print("X shape:", X.shape)
 print("y shape:", y.shape)
 ```
 
-### 4.2 为什么要 `unsqueeze(-1)`？
+### 4.2 Why use `unsqueeze(-1)`?
 
-因为 LSTM 期望的输入通常是：
+Because LSTM usually expects input in the form:
 
 - `[batch, seq_len, input_size]`
 
-这里每个时间步只有 1 个特征值，所以：
+Here each time step has only one feature value, so:
 
 - `input_size = 1`
 
 ---
 
-## 五、一个真正能训练的小型 LSTM 预测器
+## 5. A small LSTM predictor that can really be trained
 
-### 5.1 定义模型
+### 5.1 Define the model
 
 ```python
 import torch
@@ -205,19 +205,19 @@ class LSTMForecaster(nn.Module):
         return self.fc(last_hidden)
 ```
 
-### 5.2 为什么只取最后一个时间步？
+### 5.2 Why do we take only the last time step?
 
-因为当前这个任务是：
+Because the current task is:
 
-> 用前一段窗口，预测“下一个值”
+> Use the previous window to predict the “next value”
 
-所以最自然的做法是拿序列最后时刻的表示，作为整段窗口的摘要。
+So the most natural approach is to use the representation at the last time step as a summary of the whole window.
 
 ---
 
-## 六、完整训练流程
+## 6. Complete training workflow
 
-### 6.1 训练 + 验证
+### 6.1 Training + validation
 
 ```python
 import numpy as np
@@ -274,32 +274,32 @@ for epoch in range(200):
         print(f"epoch={epoch:3d}, train_loss={loss.item():.4f}, val_loss={val_loss.item():.4f}")
 ```
 
-### 6.2 这段训练代码真正值得你盯住什么？
+### 6.2 What should you pay closest attention to in this training code?
 
-最关键的是：
+The most important things are:
 
-- 输入 shape 对不对
-- 最后只取 `out[:, -1, :]`
-- 损失是否确实在下降
+- Whether the input shape is correct
+- Whether only `out[:, -1, :]` is used at the end
+- Whether the loss really decreases
 
-这三点一旦搞明白，你就已经真正迈进序列建模实战了。
+Once you understand these three points, you have truly stepped into sequence modeling practice.
 
 ---
 
-## 七、做一次真实预测
+## 7. Make a real prediction
 
-### 7.1 单窗口预测
+### 7.1 Single-window prediction
 
 ```python
 model.eval()
 with torch.no_grad():
     sample_x = X_val[0:1]
     pred = model(sample_x)
-    print("预测值:", float(pred.item()))
-    print("真实值:", float(y_val[0].item()))
+    print("Predicted value:", float(pred.item()))
+    print("True value:", float(y_val[0].item()))
 ```
 
-### 7.2 画出预测和真实值
+### 7.2 Plot the prediction against the true value
 
 ```python
 import matplotlib.pyplot as plt
@@ -318,67 +318,67 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-真正做序列任务时，图往往比单个指标更能帮你发现问题：
+When working on sequence tasks in practice, plots are often more helpful than a single metric for finding problems:
 
-- 模型是不是跟不上波峰波谷
-- 是不是有整体滞后
-- 是不是学成了一条平线
-
----
-
-## 八、序列建模实战里最常见的坑
-
-### 8.1 数据泄漏
-
-如果你切训练集 / 验证集方式不对，很可能会把未来信息泄露给模型。
-
-时间序列任务里，最稳妥的原则通常是：
-
-> 按时间顺序切，不要乱打乱。 
-
-### 8.2 窗口太短或太长
-
-- 太短：模型看不到足够历史
-- 太长：训练更难，噪声也更多
-
-### 8.3 只看 loss，不看曲线
-
-序列预测里，画图常常非常重要。  
-因为两个 loss 相近的模型，走势可能完全不同。
-
-### 8.4 以为学到了“因果”，其实只是学到了短期模式
-
-这是所有序列预测都要小心的地方。  
-模型会预测，不代表它真的理解机制。
+- Is the model failing to follow peaks and valleys?
+- Is there an overall lag?
+- Has the model learned a flat line?
 
 ---
 
-## 九、一个很重要的工程直觉
+## 8. The most common pitfalls in sequence modeling practice
 
-实际项目里，序列任务不一定都用 RNN / LSTM。  
-今天很多任务也会用：
+### 8.1 Data leakage
+
+If you split the training set / validation set incorrectly, you may leak future information to the model.
+
+For time-series tasks, the safest principle is usually:
+
+> Split in time order; do not shuffle randomly.
+
+### 8.2 Window too short or too long
+
+- Too short: the model cannot see enough history
+- Too long: training becomes harder, and there is more noise
+
+### 8.3 Only looking at loss, not the curve
+
+In sequence prediction, plotting is often very important.
+Because two models with similar loss can have completely different trends.
+
+### 8.4 Thinking the model learned “causality” when it actually learned only short-term patterns
+
+This is something you must be careful about in all sequence prediction tasks.
+A model can predict something without truly understanding the mechanism.
+
+---
+
+## 9. A very important engineering intuition
+
+In real projects, sequence tasks do not always use RNN / LSTM.
+Today, many tasks also use:
 
 - Transformer
 - Temporal Convolution
-- 传统统计模型
+- Traditional statistical models
 
-但不管你以后用什么模型，这一节教你的窗口构造、时序切分、验证方式，依然是基础。
-
----
-
-## 小结
-
-这一节最重要的不是“把 LSTM 跑起来”，而是理解：
-
-> **序列实战的关键，在于怎样把连续数据切成训练样本，并让模型在不泄漏未来信息的前提下学到变化规律。**
-
-当你能把数据构造、训练流程、验证和预测画图这几步串起来时，序列建模才算真正落地。
+But no matter what model you use in the future, the window construction, time-based splitting, and validation methods taught in this section are still foundational.
 
 ---
 
-## 练习
+## Summary
 
-1. 把 `window_size` 从 12 改成 6 和 24，比较预测效果。
-2. 把模型从 LSTM 改成 GRU，看看训练曲线是否不同。
-3. 故意把训练集和验证集随机打乱，再思考为什么这对时间序列是危险的。
-4. 想一想：如果你的序列有明显周周期，窗口长度应该怎样设计？
+The most important thing in this section is not “getting the LSTM to run,” but understanding:
+
+> **The key to practical sequence work is how to split continuous data into training samples, and how to let the model learn change patterns without leaking future information.**
+
+When you can connect data construction, the training workflow, validation, and prediction plotting, then sequence modeling is truly taking shape.
+
+---
+
+## Exercises
+
+1. Change `window_size` from 12 to 6 and 24, and compare the prediction results.
+2. Replace the model with a GRU and see whether the training curves are different.
+3. Randomly shuffle the training set and validation set on purpose, then think about why this is dangerous for time-series data.
+4. Think about this: if your sequence has a clear weekly cycle, how should you design the window length?

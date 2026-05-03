@@ -27,21 +27,17 @@
   font-size: 0.9rem;
 }
 
-.navbar-language-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.navbar-language-switch__sep {
-  color: var(--ifm-navbar-link-color);
-  opacity: 0.45;
-}
-
 /* Table styling */
 table {
   display: table;
   width: 100%;
+}
+
+.theme-doc-markdown img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 table th {

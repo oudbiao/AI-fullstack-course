@@ -1,116 +1,116 @@
 ---
 sidebar_position: 21
-title: "作品集验收清单"
-description: "用于检查 AI 全栈项目是否达到可展示、可复现、可解释和可继续迭代的作品集标准。"
-keywords: [作品集验收, AI项目, README, 项目复盘, 毕业项目]
+title: "Portfolio Acceptance Checklist"
+description: "A checklist for verifying whether an AI full-stack project meets portfolio standards that are demo-ready, reproducible, explainable, and ready for further iteration."
+keywords: [portfolio acceptance, AI project, README, project retrospective, capstone project]
 ---
 
-# 作品集验收清单
+# Portfolio Acceptance Checklist
 
-这份清单用于检查你的阶段项目或毕业项目是否已经从“练习代码”升级为“可以展示的作品”。作品集项目不一定要功能很多，但必须能运行、能解释、能评估、能复盘。
+This checklist is used to check whether your phase project or capstone project has been upgraded from “practice code” to “a project you can showcase.” A portfolio project does not need a lot of features, but it must be runnable, explainable, evaluable, and reviewable.
 
-## 一图读懂：作品集验收等级
+## Portfolio Acceptance Levels at a Glance
 
 ```mermaid
 flowchart LR
-  A["练习级：本地能跑"] --> B["项目级：别人能复现"]
-  B --> C["作品集级：能评估和展示"]
-  C --> D["面试级：能解释取舍和边界"]
+  A["Practice level: runs locally"] --> B["Project level: others can reproduce it"]
+  B --> C["Portfolio level: can be evaluated and demonstrated"]
+  C --> D["Interview level: can explain trade-offs and boundaries"]
 ```
 
-| 等级 | 重点证据 |
+| Level | Key evidence |
 |---|---|
-| 练习级 | 代码和基本输出 |
-| 项目级 | README、运行命令、示例输入输出 |
-| 作品集级 | 评估、日志、失败样本、截图或演示 |
-| 面试级 | 架构、指标、限制、成本、安全和替代方案 |
+| Practice level | Code and basic output |
+| Project level | README, run commands, sample inputs/outputs |
+| Portfolio level | Evaluation, logs, failure cases, screenshots or demos |
+| Interview level | Architecture, metrics, limitations, cost, security, and alternatives |
 
-## 一分钟快速检查
+## One-Minute Quick Check
 
-如果时间很少，先检查这 8 项：项目有没有 README，README 里有没有运行命令，别人能不能按命令跑起来，有没有示例输入输出，有没有截图或演示，有没有评估方式，有没有失败样本，有没有下一步计划。
+If you are short on time, first check these 8 items: does the project have a README, does the README include run commands, can others run it following the commands, are there sample inputs/outputs, are there screenshots or a demo, is there an evaluation method, are there failure cases, and is there a next-step plan.
 
-只要这 8 项缺了 3 项以上，项目通常还不适合放进作品集。它可能是一个有用练习，但还没有形成可展示成果。
+If 3 or more of these 8 items are missing, the project is usually not ready for a portfolio yet. It may be a useful exercise, but it has not yet become a showcaseable result.
 
-## README 检查
+## README Check
 
-| 检查项 | 合格标准 |
+| Check item | Passing standard |
 | --- | --- |
-| 项目背景 | 能说明用户是谁、问题是什么、为什么需要 AI |
-| 功能清单 | 能列出已经完成的功能，而不是只写计划 |
-| 运行方式 | 有明确命令、依赖安装方式和环境说明 |
-| 示例输入输出 | 至少给出 1 到 3 个真实样例 |
-| 项目结构 | 能解释主要目录和文件的作用 |
-| 技术选择 | 能说明为什么使用当前模型、框架、数据库或工具 |
-| 已知限制 | 主动说明系统不擅长什么、哪些场景还没覆盖 |
-| 下一步计划 | 有具体迭代方向，而不是泛泛写“继续优化” |
+| Project background | Can explain who the user is, what the problem is, and why AI is needed |
+| Feature list | Can list the features that are already done, instead of only writing a plan |
+| How to run | Has clear commands, dependency installation steps, and environment notes |
+| Sample inputs/outputs | Provides at least 1 to 3 real examples |
+| Project structure | Can explain the purpose of the main folders and files |
+| Technology choices | Can explain why the current model, framework, database, or tool was chosen |
+| Known limitations | Proactively states what the system is not good at and which scenarios are not yet covered |
+| Next-step plan | Has specific iteration directions instead of vaguely saying “keep optimizing” |
 
-README 的目标不是写得很长，而是让别人不用问你也能理解项目。尤其是运行方式和示例输入输出，必须具体到可以复现。
+The goal of the README is not to be very long, but to let others understand the project without asking you. In particular, the run instructions and sample inputs/outputs must be specific enough to reproduce.
 
-## 可复现性检查
+## Reproducibility Check
 
-| 检查项 | 合格标准 |
+| Check item | Passing standard |
 | --- | --- |
-| 依赖记录 | Python 项目有 requirements 或 pyproject，前端项目有 package.json |
-| 配置说明 | API Key、模型名称、路径、端口等配置有说明 |
-| 数据说明 | 示例数据来源、格式和字段含义清楚 |
-| 最小运行命令 | 有一条命令能跑通最小闭环 |
-| 错误处理 | 常见缺依赖、缺 key、缺文件错误有提示 |
-| 环境隔离 | 不依赖个人电脑上的隐藏路径或临时文件 |
+| Dependency records | Python projects have requirements or pyproject, frontend projects have package.json |
+| Configuration notes | API Key, model name, path, port, and other configurations are documented |
+| Data notes | The source, format, and field meanings of sample data are clear |
+| Minimum run command | There is one command that can run the smallest end-to-end flow |
+| Error handling | Common errors such as missing dependencies, missing keys, and missing files have prompts |
+| Environment isolation | Does not depend on hidden paths or temporary files on a personal computer |
 
-如果项目只能在你自己的电脑上运行，就还不算作品集项目。作品集项目至少应该让别人能根据 README 复现最小版本。
+If the project can only run on your own computer, it is not yet a portfolio project. A portfolio project should at least allow others to reproduce the minimal version from the README.
 
-## AI 能力检查
+## AI Capability Check
 
-| 项目类型 | 需要检查什么 |
+| Project type | What to check |
 | --- | --- |
-| 机器学习项目 | 是否有 baseline、训练/测试划分、指标、错误样本分析 |
-| 深度学习项目 | 是否有训练日志、验证指标、训练曲线、过拟合分析 |
-| Prompt 项目 | 是否记录 Prompt 版本、输入输出样例、失败案例和改进过程 |
-| RAG 项目 | 是否有文档来源、切分策略、检索结果、引用检查和评估问题集 |
-| Agent 项目 | 是否有工具定义、执行轨迹、停止条件、权限边界和失败恢复 |
-| 多模态项目 | 是否说明输入格式、生成/理解流程、人工审核和质量标准 |
+| Machine learning project | Whether there is a baseline, train/test split, metrics, and error analysis |
+| Deep learning project | Whether there are training logs, validation metrics, training curves, and overfitting analysis |
+| Prompt project | Whether Prompt versions, input/output examples, failure cases, and improvement process are recorded |
+| RAG project | Whether there are document sources, chunking strategy, retrieval results, citation checks, and an evaluation question set |
+| Agent project | Whether there are tool definitions, execution traces, stopping conditions, permission boundaries, and failure recovery |
+| Multimodal project | Whether the input format, generation/understanding flow, human review, and quality standards are explained |
 
-不同类型项目的验收重点不同。不要用同一套标准检查所有项目。RAG 项目的核心不是界面漂亮，而是检索和引用可靠；Agent 项目的核心不是步骤很多，而是执行可追踪、权限可控制。
+Acceptance priorities differ by project type. Do not use the same standard to evaluate every project. The core of a RAG project is not a pretty interface, but reliable retrieval and citations; the core of an Agent project is not having many steps, but traceable execution and controllable permissions.
 
-## 工程化检查
+## Engineering Check
 
-| 检查项 | 合格标准 |
+| Check item | Passing standard |
 | --- | --- |
-| 日志 | 能看到关键请求、模型输出、工具调用或错误信息 |
-| 参数配置 | 模型、路径、阈值、检索数量等关键参数可配置 |
-| 模块拆分 | 数据处理、模型调用、业务逻辑、评估代码不要全部混在一起 |
-| 测试样例 | 至少有固定样例用于回归检查 |
-| 成本意识 | 对 token、延迟、调用次数或资源消耗有基本记录 |
-| 安全边界 | 高风险工具调用、文件写入、外部请求等有控制 |
+| Logs | Can see key requests, model outputs, tool calls, or error messages |
+| Parameter configuration | Key parameters such as model, path, threshold, and retrieval count are configurable |
+| Modular structure | Data processing, model calls, business logic, and evaluation code should not all be mixed together |
+| Test cases | There is at least one fixed sample for regression checks |
+| Cost awareness | There is basic tracking of tokens, latency, call count, or resource usage |
+| Security boundaries | High-risk tool calls, file writes, external requests, and similar actions are controlled |
 
-工程化不等于把项目做复杂，而是让项目更稳定、更容易排查、更容易继续迭代。一个结构清晰的小项目，比一个难以复现的大项目更适合作品集。
+Engineering does not mean making the project complicated. It means making it more stable, easier to debug, and easier to continue iterating. A small project with a clear structure is better suited for a portfolio than a large project that is hard to reproduce.
 
-## 评估与复盘检查
+## Evaluation and Retrospective Check
 
-| 检查项 | 合格标准 |
+| Check item | Passing standard |
 | --- | --- |
-| 测试集 | 有固定问题、样本或任务列表 |
-| 指标 | 至少有一种能衡量效果的方式 |
-| 成功样本 | 展示系统在哪些场景表现好 |
-| 失败样本 | 展示系统在哪些场景失败，并说明原因 |
-| 边界样本 | 展示系统在模糊、长输入、缺信息或异常输入下的表现 |
-| 改进计划 | 根据失败原因提出具体下一步 |
+| Test set | There is a fixed list of questions, samples, or tasks |
+| Metrics | There is at least one way to measure performance |
+| Success cases | Shows where the system performs well |
+| Failure cases | Shows where the system fails and explains why |
+| Boundary cases | Shows how the system behaves with ambiguous, long, missing-information, or abnormal inputs |
+| Improvement plan | Specific next steps are proposed based on the failure reasons |
 
-不要害怕写失败样本。作品集项目里，失败样本和复盘经常比成功截图更有价值，因为它们能证明你真的理解系统边界。
+Do not be afraid to write failure cases. In a portfolio project, failure cases and retrospectives are often more valuable than successful screenshots, because they prove that you truly understand the system boundaries.
 
-## 三分钟演示检查
+## Three-Minute Demo Check
 
-准备展示项目时，可以按这个顺序讲：这个项目解决什么问题，用户如何使用，系统如何处理输入，AI 在哪里发挥作用，如何验证效果，失败过什么，下一步怎么改。
+When preparing to present the project, you can explain it in this order: what problem the project solves, how users use it, how the system processes input, where AI plays a role, how the results are validated, what failed before, and how to improve it next.
 
-如果你不能在 3 分钟内讲清楚这些内容，说明项目表达还需要整理。可以先回到 README，把背景、架构、示例和评估压缩成一条清晰故事线。
+If you cannot explain these points clearly within 3 minutes, the project presentation still needs organization. You can go back to the README first and compress the background, architecture, examples, and evaluation into one clear storyline.
 
-## 最终通关标准
+## Final Pass Standard
 
-| 等级 | 标准 |
+| Level | Standard |
 | --- | --- |
-| 练习级 | 能在本地跑通，有基本代码和简单输出 |
-| 项目级 | 有 README、运行命令、示例输入输出和基本错误处理 |
-| 作品集级 | 有评估、日志、失败样本、截图或演示、清晰技术取舍 |
-| 面试级 | 能解释架构、指标、限制、成本、安全和替代方案 |
+| Practice level | Can run locally, with basic code and simple output |
+| Project level | Has a README, run commands, sample inputs/outputs, and basic error handling |
+| Portfolio level | Has evaluation, logs, failure cases, screenshots or a demo, and clear technical trade-offs |
+| Interview level | Can explain architecture, metrics, limitations, cost, security, and alternatives |
 
-课程中的每个阶段项目至少做到“项目级”。毕业项目建议做到“作品集级”，如果你准备拿它面试，就要尽量达到“面试级”。
+Each phase project in the course should at least reach “project level.” Capstone projects are recommended to reach “portfolio level.” If you plan to use it in interviews, try your best to reach “interview level.”

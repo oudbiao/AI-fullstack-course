@@ -1,108 +1,108 @@
 ---
-title: "1.4 推理引擎"
+title: "1.4 Inference Engines"
 sidebar_position: 4
-description: "从 ONNX Runtime、TensorRT、OpenVINO 这类推理引擎的角色和差异讲起，理解为什么部署不只是“导出模型”这么简单。"
+description: "Starting from the roles and differences of inference engines such as ONNX Runtime, TensorRT, and OpenVINO, understand why deployment is not as simple as just “exporting the model.”"
 keywords: [inference engine, ONNX Runtime, TensorRT, OpenVINO, execution graph, deployment]
 ---
 
-# 推理引擎
+# Inference Engines
 
-![推理引擎与硬件适配图](/img/course/elective-inference-engine-hardware.png)
+![Inference engine and hardware adaptation diagram](/img/course/elective-inference-engine-hardware-en.png)
 
-![推理引擎选型矩阵图](/img/course/elective-inference-engine-selection-matrix.png)
+![Inference engine selection matrix diagram](/img/course/elective-inference-engine-selection-matrix-en.png)
 
-:::tip 读图提示
-推理引擎不是越快越好，而是要匹配模型格式、目标硬件、延迟/吞吐、部署环境和团队维护能力。读图时把 ONNX Runtime、TensorRT、OpenVINO 当成不同约束下的工具箱。
+:::tip Reading guide
+Inference engines are not about being as fast as possible in isolation; they need to match the model format, target hardware, latency/throughput requirements, deployment environment, and the team’s maintenance capability. When reading the diagram, think of ONNX Runtime, TensorRT, and OpenVINO as toolboxes under different constraints.
 :::
 
-:::tip 本节定位
-训练好的模型并不会自动变成高性能线上服务。  
-中间往往还隔着一层非常关键的系统组件：
+:::tip Section overview
+A trained model does not automatically become a high-performance online service.
+There is usually a very important system component in between:
 
-- 推理引擎
+- Inference engine
 
-它负责把模型图真正高效地跑在某类硬件上。
+It is responsible for running the model graph efficiently on a specific kind of hardware.
 
-所以这节课要回答的是：
+So the question this lesson answers is:
 
-> **为什么部署里经常不是“直接加载模型权重就推理”，而是要先过一层推理引擎。**
+> **Why in deployment do we often not “just load the model weights and infer,” but instead go through an inference engine first?**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解推理引擎在部署链路中的角色
-- 区分不同推理引擎大致适合什么硬件和场景
-- 通过可运行示例理解“延迟、吞吐、适配性”这三类指标
-- 建立选引擎时的第一层判断
+- Understand the role of an inference engine in the deployment pipeline
+- Distinguish what different inference engines are generally suitable for in terms of hardware and scenarios
+- Use runnable examples to understand the three metrics of latency, throughput, and adaptability
+- Build a first-level judgment for choosing an engine
 
 ---
 
-## 一、推理引擎到底在做什么？
+## 1. What exactly does an inference engine do?
 
-### 1.1 它不是模型本身
+### 1.1 It is not the model itself
 
-模型回答的是：
+The model answers:
 
-- 网络结构和参数是什么
+- What are the network structure and parameters?
 
-推理引擎回答的是：
+The inference engine answers:
 
-- 这套结构怎样在目标设备上更高效地执行
+- How can this structure be executed more efficiently on the target device?
 
-### 1.2 它通常会做哪些事？
+### 1.2 What does it usually do?
 
-常见包括：
+Common tasks include:
 
-- 图优化
-- 算子融合
-- 内存规划
-- 后端 kernel 选择
+- Graph optimization
+- Operator fusion
+- Memory planning
+- Backend kernel selection
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-模型像菜谱。  
-推理引擎像厨房调度系统。
+A model is like a recipe.
+An inference engine is like a kitchen scheduling system.
 
-同一个菜谱，  
-在不同厨房用不同流程做，速度和质量都会不同。
+With the same recipe,
+using different workflows in different kitchens will lead to different speed and quality.
 
 ---
 
-## 二、为什么推理引擎会有那么多种？
+## 2. Why are there so many inference engines?
 
-### 2.1 因为硬件不一样
+### 2.1 Because the hardware is different
 
-常见目标环境包括：
+Common target environments include:
 
-- 通用 CPU
+- General-purpose CPU
 - NVIDIA GPU
 - Intel CPU / NPU
-- 边缘设备
+- Edge devices
 
-### 2.2 因为优化目标不一样
+### 2.2 Because the optimization goals are different
 
-有的更看重：
+Some care more about:
 
-- 易用性
+- Ease of use
 
-有的更看重：
+Others care more about:
 
-- 极致性能
+- Extreme performance
 
-### 2.3 所以没有“绝对最强引擎”
+### 2.3 So there is no “absolutely best engine”
 
-更合理的问法是：
+A more reasonable question is:
 
-- 这类模型、这类硬件、这类目标下，哪个引擎更合适？
+- Under this kind of model, this kind of hardware, and this kind of goal, which engine is more suitable?
 
 ---
 
-## 三、先用一个小示例理解“引擎选择”
+## 3. Understand “engine selection” with a small example first
 
-这个例子不会真的跑 ONNX Runtime 或 TensorRT，  
-但会很直接地模拟：
+This example does not actually run ONNX Runtime or TensorRT,
+but it very directly simulates:
 
-- 不同引擎在不同场景下的延迟、吞吐和适配分
+- Latency, throughput, and adaptability scores of different engines in different scenarios
 
 ```python
 engines = [
@@ -143,146 +143,146 @@ for item in throughput_first:
     print(item)
 ```
 
-### 3.1 这段代码在教什么？
+### 3.1 What does this code teach?
 
-它在提醒你：
+It reminds you that:
 
-- 引擎选择不是单一指标排序
+- Engine selection is not about sorting by a single metric
 
-如果你更看重：
+If you care more about:
 
-- 低延迟
+- Low latency
 
-和更看重：
+and you care more about:
 
-- 高吞吐
+- High throughput
 
-最后排名可能不同。
+the final ranking may be different.
 
-### 3.2 为什么这比只记“TensorRT 更快”有用？
+### 3.2 Why is this more useful than just remembering “TensorRT is faster”?
 
-因为真实决策从来不只是：
+Because real decisions are never only about:
 
-- 谁理论最快
+- Who is theoretically the fastest
 
-还包括：
+They also include:
 
-- 能不能接进当前链路
-- 是否支持目标模型
-- 是否值得为了这点性能增加复杂度
+- Can it be integrated into the current pipeline?
+- Does it support the target model?
+- Is it worth adding complexity for this amount of performance gain?
 
 ---
 
-## 四、几个常见引擎的大方向区别
+## 4. Broad differences among several common engines
 
 ### 4.1 ONNX Runtime
 
-更像通用型选手。  
-优点通常是：
+It is more like a general-purpose player.
+Its strengths are usually:
 
-- 生态广
-- 兼容性强
-- 上手相对平衡
+- Broad ecosystem
+- Strong compatibility
+- Relatively balanced ease of use
 
 ### 4.2 TensorRT
 
-更像 NVIDIA 生态下的高性能路线。  
-常见特点：
+It is more like a high-performance path in the NVIDIA ecosystem.
+Common characteristics:
 
-- GPU 场景强
-- 调优空间大
-- 工程门槛相对更高
+- Strong in GPU scenarios
+- Large optimization potential
+- Relatively higher engineering barrier
 
 ### 4.3 OpenVINO
 
-更偏 Intel 生态和特定硬件适配。  
-常见特点：
+It is more focused on the Intel ecosystem and adaptation to specific hardware.
+Common characteristics:
 
-- 某些 CPU / Intel 设备上表现不错
-- 适合特定部署环境
+- Good performance on certain CPUs / Intel devices
+- Suitable for specific deployment environments
 
-### 4.4 这三者怎么选？
+### 4.4 How should you choose among these three?
 
-不要先问“谁更火”，  
-而要先问：
+Do not ask first, “Which one is the most popular?”
+Instead ask:
 
-- 我的硬件是什么
-- 我的模型格式是什么
-- 我更看重延迟还是易维护
-
----
-
-## 五、推理引擎会直接影响哪些部署结果？
-
-### 5.1 延迟
-
-用户最先感知到的就是：
-
-- 快不快
-
-### 5.2 吞吐
-
-服务侧更关心：
-
-- 同一时间能扛多少请求
-
-### 5.3 资源利用率
-
-例如：
-
-- 显存是不是更省
-- CPU 利用率是不是更合理
-
-### 5.4 维护复杂度
-
-性能更高的路线，  
-有时也意味着：
-
-- 导出更复杂
-- 调试更难
-- 平台绑定更重
+- What hardware do I have?
+- What is my model format?
+- Do I care more about latency or maintainability?
 
 ---
 
-## 六、最常见误区
+## 5. What deployment outcomes can inference engines directly affect?
 
-### 6.1 误区一：推理引擎只是“换个库跑”
+### 5.1 Latency
 
-不是。  
-它往往会改变：
+What users notice first is:
 
-- 图执行方式
-- 优化策略
-- 硬件利用率
+- Is it fast or not?
 
-### 6.2 误区二：最快的引擎就是最好的引擎
+### 5.2 Throughput
 
-如果兼容性差、调试复杂、部署门槛太高，  
-“最快”未必就是最优。
+The service side cares more about:
 
-### 6.3 误区三：先选引擎，再看硬件
+- How many requests can it handle at the same time?
 
-更合理的顺序通常是反过来：
+### 5.3 Resource utilization
 
-- 先看硬件和目标约束
-- 再选引擎
+For example:
 
----
+- Is it more memory-efficient?
+- Is CPU usage more reasonable?
 
-## 小结
+### 5.4 Maintenance complexity
 
-这节最重要的，不是记下几个引擎名字，  
-而是建立一个部署判断：
+A route with higher performance
+sometimes also means:
 
-> **推理引擎是在模型和硬件之间做高效执行适配的系统层，它的价值不只是“跑起来”，而是“更快、更省、更适配”。**
-
-只要这层理解清楚了，后面学服务化和边缘部署时就会更自然。
+- More complex export
+- Harder debugging
+- Stronger platform lock-in
 
 ---
 
-## 练习
+## 6. The most common misconceptions
 
-1. 调整示例里的打分权重，看看“更看重硬件适配”时排序怎么变。
-2. 为什么说选推理引擎本质上是“硬件 + 模型 + 目标”的联合决策？
-3. 如果你部署在 NVIDIA GPU 上，为什么 TensorRT 往往更值得优先考虑？
-4. 想一想：如果团队维护能力一般，但项目需要尽快上线，你会更偏向通用型还是极致优化型引擎？
+### 6.1 Misconception 1: An inference engine is just “running the model with a different library”
+
+Not really.
+It often changes:
+
+- The graph execution method
+- Optimization strategy
+- Hardware utilization
+
+### 6.2 Misconception 2: The fastest engine is the best engine
+
+If compatibility is poor, debugging is complicated, or deployment is too difficult,
+“fastest” may not be the best choice.
+
+### 6.3 Misconception 3: Choose the engine first, then look at the hardware
+
+A more reasonable order is usually the opposite:
+
+- First look at the hardware and target constraints
+- Then choose the engine
+
+---
+
+## Summary
+
+The most important thing in this lesson is not memorizing a few engine names,
+but building a deployment judgment:
+
+> **An inference engine is a system layer that adapts efficient execution between the model and the hardware. Its value is not only “making it run,” but “making it faster, leaner, and more compatible.”**
+
+Once you understand this layer clearly, learning service deployment and edge deployment later will feel much more natural.
+
+---
+
+## Exercises
+
+1. Adjust the scoring weights in the example and see how the ranking changes when you “care more about hardware fit.”
+2. Why is choosing an inference engine essentially a joint decision of “hardware + model + goal”?
+3. If you deploy on an NVIDIA GPU, why is TensorRT often worth considering first?
+4. Think about this: if the team’s maintenance capability is average, but the project needs to go online quickly, would you prefer a general-purpose engine or an extreme-optimization engine?

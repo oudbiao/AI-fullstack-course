@@ -1,69 +1,69 @@
 ---
-title: "8.6 Agent 可观测性"
+title: "8.6 Agent Observability"
 sidebar_position: 48
-description: "从日志、trace、指标和回放讲起，理解没有可观测性就几乎不可能稳定迭代 Agent 系统。"
+description: "Starting from logs, traces, metrics, and replay, understand why it is almost impossible to iterate on Agent systems reliably without observability."
 keywords: [observability, trace, metrics, logs, replay, agent]
 ---
 
-# Agent 可观测性
+# Agent Observability
 
-:::tip 本节定位
-Agent 系统如果没有可观测性，很多问题会变成“看起来怪怪的，但不知道哪一步怪”。这节的核心是让系统内部过程可以被看见、被定位、被回放。
+:::tip Section Positioning
+If an Agent system has no observability, many problems become “something looks weird, but we don’t know which step is weird.” The core of this section is to make the system’s internal process visible, traceable, and replayable.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解日志、指标、trace 和回放分别解决什么问题
-- 知道为什么 Agent 比普通接口更需要轨迹级观测
-- 能设计一个最小 Agent trace schema
-- 能用观测数据定位工具调用、检索、规划和成本问题
+- Understand what problems logs, metrics, traces, and replay each solve
+- Know why Agents need trace-level observability more than normal APIs
+- Be able to design a minimal Agent trace schema
+- Be able to use observability data to locate tool-calling, retrieval, planning, and cost issues
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
 ```mermaid
 flowchart LR
-  A[日志 Logs] --> B[发生了什么事件]
-  C[指标 Metrics] --> D[整体趋势怎样]
-  E[Trace] --> F[这次请求完整怎么走]
-  G[Replay] --> H[能否复现失败]
+  A[Logs] --> B[What happened]
+  C[Metrics] --> D[How the overall trend looks]
+  E[Trace] --> F[How this request flowed end to end]
+  G[Replay] --> H[Can the failure be reproduced]
 ```
 
-普通接口通常只要知道请求成功还是失败、耗时多少、错误码是什么。Agent 不一样，一次请求可能包含多轮推理、多次检索、多个工具、状态变更和人工确认。如果只保存最终回答，你几乎无法解释它为什么答错、为什么调用错工具、为什么成本突然升高。
+A normal API usually only needs to know whether a request succeeded or failed, how long it took, and what the error code was. Agents are different: one request may involve multiple rounds of reasoning, multiple retrievals, multiple tools, state changes, and human confirmation. If you only save the final answer, it is almost impossible to explain why it answered incorrectly, why it called the wrong tool, or why the cost suddenly increased.
 
-## 一、Agent 为什么特别需要可观测性
+## 1. Why Agents especially need observability
 
-Agent 的失败经常不是单点失败，而是链路失败。比如用户问“帮我整理 RAG 复习资料”，系统可能先拆任务，再查课程文档，再生成计划，再调用文件工具。如果最后结果不好，原因可能是任务拆错、检索错、工具参数错、上下文丢失，也可能是模型在最后生成时忽略了来源。
+Agent failures are often not single-point failures, but chain failures. For example, if a user asks, “Help me organize RAG review materials,” the system may first split the task, then look up course docs, then generate a plan, and then call a file tool. If the final result is bad, the reason might be that the task was split incorrectly, retrieval was wrong, the tool parameters were wrong, context was lost, or the model ignored the sources during final generation.
 
 ```mermaid
 flowchart TD
-  A[用户请求] --> B[任务规划]
-  B --> C[工具选择]
-  C --> D[工具执行]
-  D --> E[状态更新]
-  E --> F[最终回答]
-  B -.可能失败.-> X[计划不完整]
-  C -.可能失败.-> Y[选错工具]
-  D -.可能失败.-> Z[参数或权限错误]
+  A[User request] --> B[Task planning]
+  B --> C[Tool selection]
+  C --> D[Tool execution]
+  D --> E[State update]
+  E --> F[Final answer]
+  B -.may fail.-> X[Incomplete plan]
+  C -.may fail.-> Y[Wrong tool selected]
+  D -.may fail.-> Z[Parameter or permission error]
 ```
 
-所以 Agent 可观测性的目标不是“多打印几行日志”，而是能重建一次任务的执行轨迹。
+So the goal of Agent observability is not “print a few more lines of logs,” but to reconstruct the execution trace of a task.
 
-## 二、四类最重要的观测对象
+## 2. The four most important observability targets
 
-日志回答“发生了什么事件”，例如开始检索、调用工具、工具报错。指标回答“整体趋势怎样”，例如平均耗时、成功率、token 成本、工具失败率。Trace 回答“这次请求完整链路怎么走”，例如每一步输入、输出、状态变化。Replay 回答“能不能复现失败”，也就是保留足够上下文让你重新运行或人工分析。
+Logs answer “what happened,” such as starting retrieval, calling a tool, or a tool error. Metrics answer “what the overall trend looks like,” such as average latency, success rate, token cost, and tool failure rate. Traces answer “how this request flowed end to end,” such as each step’s input, output, and state changes. Replay answers “whether the failure can be reproduced,” meaning enough context is preserved so you can rerun it or analyze it manually.
 
-| 类型 | 关注点 | 典型字段 |
+| Type | Focus | Typical fields |
 |---|---|---|
-| Logs | 单个事件 | timestamp、level、event、message |
-| Metrics | 聚合趋势 | success_rate、latency_ms、cost、tool_error_rate |
-| Trace | 请求链路 | request_id、step_id、node、input、output、status |
-| Replay | 复现失败 | 原始输入、检索结果、工具返回、模型参数、最终输出 |
+| Logs | Single event | timestamp, level, event, message |
+| Metrics | Aggregated trends | success_rate, latency_ms, cost, tool_error_rate |
+| Trace | Request path | request_id, step_id, node, input, output, status |
+| Replay | Failure reproduction | raw input, retrieval results, tool outputs, model parameters, final output |
 
-## 三、一个最小 trace schema
+## 3. A minimal trace schema
 
-第一次做 Agent 可观测性时，不需要马上接复杂平台。先让每次请求留下结构化轨迹即可。
+When you first build Agent observability, you do not need a complex platform right away. First, make sure every request leaves a structured trace.
 
 ```python
 from dataclasses import dataclass, asdict
@@ -88,87 +88,87 @@ def run_agent(query):
     trace = []
 
     start = time()
-    plan = "先检索课程文档，再生成复习计划"
+    plan = "First retrieve course docs, then generate a review plan"
     trace.append(TraceStep(request_id, 1, "planner", query, plan, "ok", int((time() - start) * 1000)))
 
     start = time()
-    docs = ["RAG 包含切分、向量化、检索、生成和引用检查"]
-    trace.append(TraceStep(request_id, 2, "retriever", "RAG 复习", str(docs), "ok", int((time() - start) * 1000)))
+    docs = ["RAG includes chunking, vectorization, retrieval, generation, and citation checks"]
+    trace.append(TraceStep(request_id, 2, "retriever", "RAG review", str(docs), "ok", int((time() - start) * 1000)))
 
     start = time()
-    answer = "建议按：基础概念 -> 检索优化 -> 评估集 -> 项目复盘来复习。"
+    answer = "I suggest reviewing in this order: fundamentals -> retrieval optimization -> evaluation set -> project retrospective."
     trace.append(TraceStep(request_id, 3, "generator", str(docs), answer, "ok", int((time() - start) * 1000), cost_tokens=120))
 
     return answer, [asdict(step) for step in trace]
 
 
-answer, trace = run_agent("帮我准备 RAG 阶段复习")
+answer, trace = run_agent("Help me prepare for the RAG phase review")
 print(answer)
 for step in trace:
     print(step)
 ```
 
-这个例子最重要的不是代码复杂度，而是它把每一步都变成可检查对象。后面无论你用 LangGraph、LlamaIndex、CrewAI，还是自己写函数，底层都应该保留类似轨迹。
+The most important thing in this example is not the code complexity, but that it turns every step into an inspectable object. Later, whether you use LangGraph, LlamaIndex, CrewAI, or write functions yourself, the underlying system should preserve a similar trace.
 
-## 四、排查问题时怎么看 trace
+## 4. How to inspect traces when debugging problems
 
-当 Agent 输出质量差时，不要先改 Prompt。更稳的排查顺序是：先看计划是否正确，再看检索或工具结果是否正确，再看模型是否正确使用了这些结果，最后才看最终表达。
+When Agent output quality is poor, do not start by changing the Prompt. A more stable debugging order is: first check whether planning is correct, then whether retrieval or tool results are correct, then whether the model used those results correctly, and only then look at the final wording.
 
-| 现象 | 优先看哪里 | 可能原因 |
+| Symptom | First thing to check | Possible cause |
 |---|---|---|
-| 回答跑题 | planner / retriever | 任务理解错、检索 query 错 |
-| 编造来源 | retriever / generator | 没有命中文档、生成时未引用检索结果 |
-| 工具没执行 | tool_select / tool_call | 工具描述不清、权限不足、参数 schema 错 |
-| 成本突然升高 | metrics / trace | 循环调用、上下文过长、重试过多 |
-| 偶发失败 | replay 样本 | 输入边界、外部服务波动、状态未持久化 |
+| Off-topic answer | planner / retriever | Wrong task understanding, wrong retrieval query |
+| Hallucinated source | retriever / generator | No relevant docs found, or generation did not cite retrieved results |
+| Tool not executed | tool_select / tool_call | Tool description unclear, insufficient permission, wrong parameter schema |
+| Cost suddenly increased | metrics / trace | Looping calls, overly long context, too many retries |
+| Intermittent failure | replay samples | Input edge cases, external service instability, state not persisted |
 
-## 五、最值得先记录的字段
+## 5. The fields most worth recording first
 
-如果只能先做最小版本，建议至少保留：request_id、user_query、plan、selected_tools、tool_inputs、tool_outputs、retrieved_docs、final_answer、latency_ms、token_usage、status、error_message。这些字段能覆盖大多数调试需求。
+If you can only build the minimum version first, it is recommended to keep at least: request_id, user_query, plan, selected_tools, tool_inputs, tool_outputs, retrieved_docs, final_answer, latency_ms, token_usage, status, error_message. These fields cover most debugging needs.
 
-对于高风险 Agent，还应该记录 human_approval、permission_scope、rollback_action 和 audit_log。凡是涉及发消息、改文件、删数据、付款、发邮件的动作，都不能只留最终结果。
+For high-risk Agents, you should also record human_approval, permission_scope, rollback_action, and audit_log. Any action involving sending messages, modifying files, deleting data, making payments, or sending emails cannot rely only on the final result.
 
-## 六、和现有工具的关系
+## 6. Relationship with existing tools
 
-真实项目里可以使用 LangSmith、OpenTelemetry、Arize Phoenix、Helicone 或云厂商日志系统来承载观测数据。课程里不要求你绑定某个工具，但要理解这些工具共同解决的是同一件事：把模型调用、检索、工具、状态和成本串成可查询的执行轨迹。
+In real projects, you can use LangSmith, OpenTelemetry, Arize Phoenix, Helicone, or cloud logging systems to host observability data. The course does not require you to bind to a specific tool, but you should understand that these tools are all solving the same problem: linking model calls, retrieval, tools, state, and cost into a queryable execution trace.
 
-更重要的是，不要把工具当成可观测性的全部。即使用了平台，如果你的事件命名混乱、字段缺失、request_id 没有贯穿全链路，排障仍然会很困难。
+More importantly, do not treat the tool as the whole of observability. Even if you use a platform, if your event naming is messy, fields are missing, or request_id does not run through the whole chain, troubleshooting will still be difficult.
 
-## 七、常见误区
+## 7. Common misconceptions
 
-第一个误区是只记录最终答案。最终答案只能说明结果，不说明过程。第二个误区是只打自然语言日志，不保留结构化字段；这样后续很难统计和筛选。第三个误区是只在报错时记录，成功样本同样重要，因为你需要对比成功和失败链路的差异。第四个误区是没有成本指标，导致系统能跑但不可持续。
+The first misconception is recording only the final answer. The final answer only shows the result, not the process. The second misconception is writing only natural-language logs and not keeping structured fields; later, it becomes hard to aggregate and filter. The third misconception is recording only when errors happen; successful samples are equally important because you need to compare the differences between successful and failed paths. The fourth misconception is having no cost metrics, which makes the system runnable but not sustainable.
 
-## AI 应用统一观测字段
+## Unified observability fields for AI applications
 
-虽然这一节重点是 Agent，但前面的 LLM API、Prompt、RAG 和工具调用也都需要观测。更好的做法是让所有 AI 应用共享一个 request_id，然后分层记录。
+Although this section focuses on Agents, the earlier LLM APIs, Prompts, RAG, and tool calls also need observability. A better approach is to have all AI applications share one request_id and then record data in layers.
 
-| 层级 | 必记字段 | 用来排查什么 |
+| Layer | Required fields | What it helps debug |
 |---|---|---|
-| LLM 调用层 | model、prompt_version、input_preview、output_preview、tokens、latency、error | 模型输出、成本、延迟、格式漂移 |
-| Prompt 层 | prompt_version、schema_version、parse_status、validation_error | 结构化输出是否稳定 |
-| RAG 层 | query、rewritten_query、top_k、scores、source_ids、context_length | 是否找到了正确资料，context 是否合理 |
-| Agent 层 | goal、step、action、arguments、observation、next_decision | 为什么选择这个动作，为什么继续或停止 |
-| 工具层 | tool_name、permission_scope、arguments、result_status、retry_count | 工具是否选对、参数是否正确、是否失败 |
-| 安全层 | risk_level、human_approval、blocked_reason、rollback_action | 高风险动作是否被确认和审计 |
+| LLM call layer | model, prompt_version, input_preview, output_preview, tokens, latency, error | Model output, cost, latency, format drift |
+| Prompt layer | prompt_version, schema_version, parse_status, validation_error | Whether structured output is stable |
+| RAG layer | query, rewritten_query, top_k, scores, source_ids, context_length | Whether the right materials were found, whether context is reasonable |
+| Agent layer | goal, step, action, arguments, observation, next_decision | Why this action was chosen, why it continued or stopped |
+| Tool layer | tool_name, permission_scope, arguments, result_status, retry_count | Whether the right tool was chosen, whether parameters were correct, whether it failed |
+| Safety layer | risk_level, human_approval, blocked_reason, rollback_action | Whether high-risk actions were confirmed and audited |
 
-这张表可以作为所有 AI 项目的日志设计起点。不要等系统出问题后才想起补日志；没有 request_id 和结构化字段，后面很难把一次失败串起来。
+This table can serve as the starting point for logging design in all AI projects. Do not wait until the system breaks before thinking about adding logs; without request_id and structured fields, it will be very hard to connect a failure end to end later.
 
-![Agent 可观测 Trace Span 图](/img/course/ch09-agent-observability-trace-span-map.png)
+![Agent Observability Trace Span Diagram](/img/course/ch09-agent-observability-trace-span-map-en.png)
 
-:::tip 读图提示
-看这张图时，抓住 request_id 这根线：一次用户请求会穿过 planner、retriever、tool、LLM、safety 等多个 span。只有链路能串起来，排障才不会靠猜。
+:::tip Reading Guide
+When reading this diagram, focus on the request_id thread: one user request passes through multiple spans such as planner, retriever, tool, LLM, and safety. Only when the chain can be connected can troubleshooting stop relying on guesswork.
 :::
 
-## 一次请求的跨层 trace 示例
+## An example of cross-layer trace for one request
 
-下面是一个“课程学习助手”的跨层 trace。它同时经过了 RAG、LLM 和 Agent 工具层。
+Below is a cross-layer trace for a “course learning assistant.” It goes through RAG, LLM, and the Agent tool layer.
 
 ```json
 {
   "request_id": "req_001",
-  "user_query": "帮我制定 RAG 三天复习计划",
+  "user_query": "Help me create a 3-day RAG review plan",
   "rag": {
-    "query": "RAG 三天复习计划",
+    "query": "RAG 3-day review plan",
     "top_k": 3,
     "source_ids": ["rag-basics", "retrieval-strategies", "rag-evaluation"],
     "context_length": 820
@@ -191,25 +191,25 @@ for step in trace:
 }
 ```
 
-这个例子最值得注意的是：它不是把所有日志混成一段文字，而是分层记录。这样当答案不好时，你可以先判断是 RAG 没找对、Prompt 没约束好、LLM 输出不稳定，还是 Agent 工具步骤出了问题。
+The most important thing in this example is that it does not mix all logs into a single block of text, but records them in layers. In this way, when the answer is poor, you can first determine whether RAG failed to find the right information, whether the Prompt did not constrain the output well enough, whether the LLM output was unstable, or whether the Agent tool step had a problem.
 
-## 观测数据怎么进入作品集
+## How observability data enters a portfolio
 
-作品集不需要展示所有原始日志，但应该展示你如何使用日志改进系统。
+A portfolio does not need to show all raw logs, but it should show how you used logs to improve the system.
 
-| README 模块 | 可以展示什么 |
+| README module | What you can show |
 |---|---|
-| 调试日志样例 | 一次成功请求和一次失败请求的 trace 摘要 |
-| 指标面板 | 平均延迟、失败率、token 成本、检索命中率 |
-| 失败归因 | 失败样本对应到 LLM、RAG、Agent、工具或安全层 |
-| 改进记录 | 改动前后指标变化和代价 |
-| 安全审计 | 高风险动作如何确认、拒绝和记录 |
+| Debug log samples | Trace summaries for one successful request and one failed request |
+| Metrics dashboard | Average latency, failure rate, token cost, retrieval hit rate |
+| Failure attribution | Failed samples mapped to the LLM, RAG, Agent, tools, or safety layer |
+| Improvement record | Metric changes and trade-offs before and after the change |
+| Safety audit | How high-risk actions are confirmed, rejected, and recorded |
 
-这会让项目显得更成熟：你不仅能做出功能，还能观察它、评估它、解释它，并持续改进它。
+This makes the project feel more mature: you can not only build the functionality, but also observe it, evaluate it, explain it, and keep improving it.
 
-## 最小日志文件设计
+## Minimal log file design
 
-如果暂时没有接入专业观测平台，可以先用 JSONL 文件记录。每一行是一条事件或一次 trace。
+If you have not yet connected a professional observability platform, you can start by logging with JSONL files. Each line is one event or one trace.
 
 ```text
 logs/
@@ -220,17 +220,17 @@ logs/
 └── safety_audit.jsonl
 ```
 
-每个文件都应该带 request_id。这样你可以用同一个 request_id 把一次用户请求从模型调用、检索、工具执行、安全确认一路串起来。
+Each file should include request_id. In this way, you can use the same request_id to connect one user request all the way from model calls, retrieval, tool execution, and safety confirmation.
 
 ---
 
-## 练习
+## Exercises
 
-1. 给上面的 trace 示例补充 `error_message` 和 `retry_count` 字段。
-2. 设计一个 RAG Agent 的 trace schema，至少包含检索 query、命中文档、引用检查结果。
-3. 找一个你之前写过的 LLM 示例，补上 request_id 和 latency_ms。
-4. 思考：如果一个 Agent 可以删除文件，trace 中必须额外记录哪些安全字段？
+1. Add `error_message` and `retry_count` fields to the trace example above.
+2. Design a trace schema for a RAG Agent, including at least retrieval query, matched documents, and citation check results.
+3. Take an LLM example you wrote before and add request_id and latency_ms.
+4. Think: if an Agent can delete files, what additional safety fields must be recorded in the trace?
 
-## 过关标准
+## Passing criteria
 
-学完这一节后，你应该能解释日志、指标、trace、replay 的区别，能写出一个最小 Agent trace schema，能根据 trace 判断错误发生在规划、检索、工具还是生成阶段，并能把可观测性写进自己的 Agent 项目 README。
+After finishing this section, you should be able to explain the differences between logs, metrics, traces, and replay; write a minimal Agent trace schema; determine from a trace whether an error happened during planning, retrieval, tool use, or generation; and include observability in your own Agent project README.

@@ -1,110 +1,110 @@
 ---
-title: "包管理器"
+title: "Package Managers"
 sidebar_position: 3
-description: "用包管理器安装系统软件和开发工具"
+description: "Install system software and development tools with package managers"
 ---
 
-# 包管理器
+# Package Managers
 
-![包管理器安装依赖流程图](/img/course/ch01-package-manager-flow.png)
+![Package manager dependency installation flowchart](/img/course/ch01-package-manager-flow-en.png)
 
-## 本节定位
+## Where This Section Fits
 
-这一节解决的是“开发工具怎么安装和更新”。你会把包管理器理解成开发者版应用商店，学会根据自己的操作系统选择 Homebrew、winget、apt 等工具，为后续安装 Git、Python、数据库和部署工具打基础。
+This section answers the question: “How do you install and update development tools?” You’ll come to think of package managers as a developer’s app store, learn how to choose Homebrew, winget, apt, and other tools based on your operating system, and build a foundation for installing Git, Python, databases, and deployment tools later.
 
-## 学习目标
+## Learning Objectives
 
-- 理解什么是包管理器，为什么需要它
-- 根据你的操作系统，学会使用对应的包管理器
-- 用包管理器安装几个 AI 开发需要的基础工具
-
----
-
-## 什么是包管理器？
-
-你用手机的时候，想装一个 App，会打开 App Store 或应用商店，搜索、点击安装。
-
-**包管理器就是电脑上的"应用商店"，不过用命令行操作。** 它帮你做三件事：
-
-1. **安装软件**——一行命令搞定，不需要去网站下载安装包
-2. **更新软件**——一行命令更新所有软件到最新版
-3. **管理依赖**——自动处理"装 A 必须先有 B"的依赖关系
-
-不同操作系统有不同的包管理器。找到你的系统，跟着做就行。
+- Understand what a package manager is and why you need one
+- Learn to use the package manager that matches your operating system
+- Install several basic tools needed for AI development with a package manager
 
 ---
 
-## macOS：Homebrew
+## What Is a Package Manager?
 
-[Homebrew](https://brew.sh) 是 macOS 上最流行的包管理器，几乎每个开发者都会装。
+When you use your phone and want to install an app, you open the App Store or another app store, search for it, and tap install.
 
-### 安装 Homebrew
+**A package manager is the computer equivalent of an app store, but you use it from the command line.** It helps you do three things:
 
-打开终端，粘贴运行：
+1. **Install software** — one command is enough; no need to go to a website and download an installer
+2. **Update software** — one command updates all your software to the latest version
+3. **Manage dependencies** — automatically handles dependency relationships like “to install A, you must first have B”
+
+Different operating systems have different package managers. Find your system and follow the matching instructions.
+
+---
+
+## macOS: Homebrew
+
+[Homebrew](https://brew.sh) is the most popular package manager on macOS, and almost every developer installs it.
+
+### Install Homebrew
+
+Open Terminal and paste this command:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-安装过程可能需要几分钟。如果提示需要密码，输入你的电脑开机密码（输入时不会显示字符，正常现象）。
+The installation may take a few minutes. If you’re prompted for a password, enter your computer login password (characters won’t appear as you type; that’s normal).
 
-安装完成后，验证一下：
+After the installation finishes, verify it:
 
 ```bash
 brew --version
-# 输出类似: Homebrew 4.x.x
+# Output looks like: Homebrew 4.x.x
 ```
 
-:::info 国内用户
-如果下载很慢，可以搜索 "Homebrew 清华镜像" 或 "Homebrew 中科大镜像" 使用国内加速源。
+:::info Users in China
+If downloads are very slow, you can search for “Homebrew Tsinghua mirror” or “Homebrew USTC mirror” and use a domestic mirror for faster downloads.
 :::
 
-### Homebrew 常用命令
+### Common Homebrew Commands
 
 ```bash
-# 搜索软件
+# Search for software
 brew search git
 
-# 安装软件
+# Install software
 brew install git
 brew install wget
 brew install tree
 
-# 查看已安装的软件
+# View installed software
 brew list
 
-# 更新所有软件
-brew update      # 更新 Homebrew 自身
-brew upgrade     # 更新所有已安装的软件
+# Update all software
+brew update      # Update Homebrew itself
+brew upgrade     # Update all installed software
 
-# 卸载软件
+# Uninstall software
 brew uninstall wget
 
-# 查看软件信息
+# View software details
 brew info git
 ```
 
-### Homebrew 安装 AI 开发基础工具
+### Install Basic Tools for AI Development with Homebrew
 
 ```bash
-# Git（版本管理，下一章会详细学）
+# Git (version control, covered in detail in the next chapter)
 brew install git
 
-# tree（以树状结构显示目录，看项目结构很方便）
+# tree (shows directories in a tree structure; very useful for understanding project layout)
 brew install tree
 
-# wget（下载文件的工具）
+# wget (a tool for downloading files)
 brew install wget
 ```
 
-安装完 tree 之后试一下：
+After installing `tree`, try this:
 
 ```bash
 cd ~/ai-study
 tree
 ```
 
-输出类似：
+The output will look something like:
 
 ```
 .
@@ -116,202 +116,202 @@ tree
         └── notes_backup.txt
 ```
 
-比 `ls` 更直观地看到整个目录结构。
+This makes the entire directory structure easier to see than `ls`.
 
 ---
 
-## Ubuntu/Debian Linux：apt
+## Ubuntu/Debian Linux: apt
 
-`apt` 是 Ubuntu 和 Debian 系列 Linux 自带的包管理器，不需要额外安装。
+`apt` is the package manager built into Ubuntu and Debian-based Linux systems, so you don’t need to install it separately.
 
-### apt 常用命令
+### Common apt Commands
 
 ```bash
-# 更新软件源信息（安装前建议先执行）
+# Update package source information (recommended before installing)
 sudo apt update
 
-# 安装软件
+# Install software
 sudo apt install git
 sudo apt install tree
 sudo apt install wget
 sudo apt install curl
 
-# 搜索软件
+# Search for software
 apt search nodejs
 
-# 查看已安装的软件
+# View installed software
 apt list --installed
 
-# 更新所有软件
+# Update all software
 sudo apt update && sudo apt upgrade
 
-# 卸载软件
+# Uninstall software
 sudo apt remove wget
 ```
 
-:::info 关于 sudo
-`sudo` 的意思是"用管理员权限执行"。安装系统级软件需要管理员权限，所以 `apt install` 前面要加 `sudo`，会要求你输入密码。
+:::info About sudo
+`sudo` means “run with administrator privileges.” Installing system-level software requires administrator privileges, so you need to add `sudo` before `apt install`, and you’ll be asked to enter your password.
 :::
 
-### apt 安装 AI 开发基础工具
+### Install Basic Tools for AI Development with apt
 
 ```bash
 sudo apt update
 sudo apt install -y git tree wget curl build-essential
 ```
 
-`-y` 表示自动确认，不需要手动输入 "Y"。`build-essential` 包含了编译工具，有些 Python 库安装时需要用到。
+`-y` means auto-confirm, so you don’t need to type `Y` manually. `build-essential` includes compiler tools, which some Python libraries need during installation.
 
 ---
 
-## Windows：winget 和 Scoop
+## Windows: winget and Scoop
 
-Windows 有两个主要的命令行包管理器。
+Windows has two main command-line package managers.
 
-### 方案一：winget（推荐，Windows 自带）
+### Option 1: winget (recommended, built into Windows)
 
-Windows 10 (1709+) 和 Windows 11 自带 `winget`。打开 PowerShell 试试：
+Windows 10 (1709+) and Windows 11 include `winget`. Open PowerShell and try:
 
 ```powershell
 winget --version
 ```
 
-如果有输出，说明已经可以用了。
+If you see output, it means it’s ready to use.
 
 ```powershell
-# 搜索软件
+# Search for software
 winget search vscode
 
-# 安装软件
+# Install software
 winget install Git.Git
 winget install Microsoft.VisualStudioCode
 winget install Python.Python.3.11
 
-# 更新所有软件
+# Update all software
 winget upgrade --all
 
-# 查看已安装的软件
+# View installed software
 winget list
 ```
 
-### 方案二：Scoop（更贴近 Linux 的体验）
+### Option 2: Scoop (more Linux-like experience)
 
-如果你喜欢更"开发者友好"的工具，可以安装 [Scoop](https://scoop.sh)：
+If you prefer a more “developer-friendly” tool, you can install [Scoop](https://scoop.sh):
 
 ```powershell
-# 安装 Scoop（在 PowerShell 中运行）
+# Install Scoop (run in PowerShell)
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 irm get.scoop.sh | iex
 ```
 
 ```powershell
-# 使用方式
+# How to use it
 scoop install git
 scoop install python
 scoop install tree
 
-# 更新
+# Update
 scoop update *
 ```
 
-### 安装 AI 开发基础工具（winget）
+### Install Basic Tools for AI Development with winget
 
 ```powershell
 winget install Git.Git
 winget install Python.Python.3.11
 ```
 
-:::tip Windows 用户的额外建议
-强烈推荐安装 **Windows Terminal**（微软商店搜索即可），它比自带的 PowerShell 窗口好用很多——支持多标签页、更好的字体渲染、更方便的复制粘贴。
+:::tip Extra advice for Windows users
+We strongly recommend installing **Windows Terminal** (search for it in the Microsoft Store). It’s much better to use than the built-in PowerShell window — it supports multiple tabs, better font rendering, and easier copy/paste.
 :::
 
 ---
 
-## 包管理器 vs pip/conda
+## Package Managers vs pip/conda
 
-你可能会困惑：后面还会学到 `pip` 和 `conda`，它们不也是包管理器吗？有什么区别？
+You might be wondering: we’ll also learn about `pip` and `conda` later. Aren’t they package managers too? What’s the difference?
 
-| 工具 | 管理什么 | 类比 |
-|------|---------|------|
-| **brew / apt / winget** | 操作系统级的软件（Git、Python、Node.js、Docker） | 手机应用商店 |
-| **pip** | Python 库（numpy、pandas、torch） | Python 专属的应用商店 |
-| **conda** | Python 环境 + Python 库 + 部分系统库 | 更强大的 Python 应用商店 |
+| Tool | What it manages | Analogy |
+|------|-----------------|------|
+| **brew / apt / winget** | Operating-system-level software (Git, Python, Node.js, Docker) | Mobile app store |
+| **pip** | Python libraries (numpy, pandas, torch) | A Python-only app store |
+| **conda** | Python environments + Python libraries + some system libraries | A more powerful Python app store |
 
-简单说：
+In short:
 
-- 装 Git、Docker、系统工具 → 用 **brew / apt / winget**
-- 装 Python 库 → 用 **pip** 或 **conda**
-- 管理 Python 版本和虚拟环境 → 用 **conda**
+- To install Git, Docker, or system tools → use **brew / apt / winget**
+- To install Python libraries → use **pip** or **conda**
+- To manage Python versions and virtual environments → use **conda**
 
-这三者各司其职，不冲突。
+These tools each have their own role and do not conflict with each other.
 
 ---
 
-## 实操练习
+## Hands-On Practice
 
-根据你的操作系统，完成以下练习：
+Complete the following exercises based on your operating system:
 
-### macOS 用户
+### macOS Users
 
 ```bash
-# 1. 安装 Homebrew（如果还没装）
+# 1. Install Homebrew (if you haven’t already)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# 2. 安装 tree 和 wget
+# 2. Install tree and wget
 brew install tree wget
 
-# 3. 用 tree 查看你之前创建的 ai-study 目录结构
+# 3. Use tree to view the ai-study directory structure you created earlier
 tree ~/ai-study
 
-# 4. 用 wget 下载一个文件试试
+# 4. Try downloading a file with wget
 wget https://raw.githubusercontent.com/plotly/datasets/master/iris.csv
 cat iris.csv | head -5
 ```
 
-### Ubuntu 用户
+### Ubuntu Users
 
 ```bash
-# 1. 更新软件源
+# 1. Update package sources
 sudo apt update
 
-# 2. 安装 tree 和 wget
+# 2. Install tree and wget
 sudo apt install -y tree wget
 
-# 3. 用 tree 查看目录
+# 3. Use tree to view the directory
 tree ~/ai-study
 
-# 4. 下载测试文件
+# 4. Download a test file
 wget https://raw.githubusercontent.com/plotly/datasets/master/iris.csv
 head -5 iris.csv
 ```
 
-### Windows 用户
+### Windows Users
 
 ```powershell
-# 1. 确认 winget 可用
+# 1. Confirm that winget is available
 winget --version
 
-# 2. 安装 Git（后续章节需要）
+# 2. Install Git (needed in later chapters)
 winget install Git.Git
 
-# 3. 验证安装
+# 3. Verify the installation
 git --version
 ```
 
 ---
 
-## 本章自检
+## Chapter Self-Check
 
-完成以下检查，确认你掌握了终端基础：
+Complete the following checks to confirm you understand terminal basics:
 
-- [ ] 能打开终端并知道自己在哪个目录
-- [ ] 能用 `cd`、`ls`、`mkdir`、`touch`、`cp`、`mv`、`rm` 完成基本文件操作
-- [ ] 理解绝对路径和相对路径的区别
-- [ ] 能用管道 `|` 组合两个命令
-- [ ] 能用 `>` 或 `>>` 把输出保存到文件
-- [ ] 能用你的包管理器安装一个软件
-- [ ] 知道 `echo $PATH` 是什么意思
+- [ ] Can open the terminal and know which directory you are in
+- [ ] Can use `cd`, `ls`, `mkdir`, `touch`, `cp`, `mv`, and `rm` to perform basic file operations
+- [ ] Understand the difference between absolute paths and relative paths
+- [ ] Can use a pipe `|` to combine two commands
+- [ ] Can use `>` or `>>` to save output to a file
+- [ ] Can use your package manager to install a piece of software
+- [ ] Know what `echo $PATH` means
 
-:::tip 全部打勾了？
-你已经掌握了终端和命令行的核心技能。接下来我们学 Git——开发者的另一个必备工具。
+:::tip All checked off?
+You’ve now mastered the core skills of the terminal and command line. Next, we’ll learn Git — another essential tool for developers.
 :::

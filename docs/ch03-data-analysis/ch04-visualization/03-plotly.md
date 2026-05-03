@@ -1,106 +1,106 @@
 ---
-title: "4.3 交互式可视化（选修）"
+title: "4.3 Interactive Visualization (Optional)"
 sidebar_position: 19
-description: "用 Plotly 制作可交互的动态图表"
+description: "Use Plotly to create interactive animated charts"
 ---
 
-# 交互式可视化
+# Interactive Visualization
 
-:::info 本节定位
-很多新人第一次看到 `Plotly` 时会觉得：
+:::info Section overview
+Many beginners, when they first see `Plotly`, tend to think:
 
-- 图更酷
-- 鼠标还能动
+- The charts look cooler
+- You can move the mouse around
 
-但真正更重要的问题是：
+But the really important question is:
 
-> **什么时候你真的需要交互，而不是一张静态图就够了。**
+> **When do you actually need interactivity, and when is a static chart enough?**
 
-所以这节最重要的不是“做出炫图”，而是学会判断：
+So the most important thing in this section is not “making flashy charts,” but learning to decide:
 
-- 什么场景值得上交互图
-- 什么场景继续用静态图更清楚
+- Which scenarios are worth using interactive charts for
+- Which scenarios are clearer with static charts
 :::
 
-:::info 选修内容
-本节为选修内容。如果你时间有限，可以先跳过，需要时再回来学。但建议至少浏览一遍，了解交互式图表的能力。
+:::info Optional content
+This section is optional. If you are short on time, you can skip it for now and come back later when you need it. But we recommend at least skimming it once to understand what interactive charts can do.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解静态图 vs 交互图的区别
-- 掌握 Plotly Express 快速绑图
-- 了解交互式仪表盘的概念
-
----
-
-## 先建立一张地图
-
-`Plotly` 最适合按“什么时候要让用户自己探索图表”来理解：
-
-![Plotly 交互式仪表盘图](/img/course/ch03-plotly-interactive-dashboard.png)
-
-所以这节真正想解决的是：
-
-- 交互图到底在补静态图的哪一层能力
-- 什么时候它是加分，什么时候反而会显得多余
+- Understand the difference between static charts and interactive charts
+- Learn to use Plotly Express for quick charting
+- Understand the concept of interactive dashboards
 
 ---
 
-## 为什么需要交互式图表？
+## First, build a mental map
 
-| 对比 | 静态图（Matplotlib/Seaborn） | 交互图（Plotly） |
+`Plotly` is best understood through the question: “When do I want users to explore the chart themselves?”
+
+![Plotly interactive dashboard diagram](/img/course/ch03-plotly-interactive-dashboard-en.png)
+
+So what this section really tries to answer is:
+
+- What extra capability do interactive charts provide beyond static charts?
+- When are they a plus, and when do they feel unnecessary?
+
+---
+
+## Why do we need interactive charts?
+
+| Comparison | Static charts (Matplotlib/Seaborn) | Interactive charts (Plotly) |
 |------|--------------------------|-----------------|
-| 鼠标悬停 | 不支持 | 显示详细数据 |
-| 缩放拖动 | 不支持 | 自由缩放和平移 |
-| 数据筛选 | 不支持 | 可点击图例隐藏/显示 |
-| 导出 | 保存为图片 | 图片 + HTML 网页 |
-| 使用场景 | 论文、报告 | 数据探索、网页展示 |
+| Mouse hover | Not supported | Shows detailed data |
+| Zoom and drag | Not supported | Freely zoom and pan |
+| Data filtering | Not supported | Click legends to hide/show |
+| Export | Save as image | Image + HTML page |
+| Use cases | Papers, reports | Data exploration, web display |
 
 ```mermaid
 flowchart LR
-    A["我的图表需要<br/>交互吗？"] --> B{"使用场景"}
-    B -->|"论文/报告/PPT"| C["Matplotlib / Seaborn<br/>静态图足够"]
-    B -->|"数据探索/演示"| D["Plotly<br/>交互更方便"]
-    B -->|"网站/仪表盘"| E["Plotly + Dash<br/>交互式应用"]
+    A["Does my chart need<br/>interactivity?"] --> B{"Use case"}
+    B -->|"Paper / report / PPT"| C["Matplotlib / Seaborn<br/>Static charts are enough"]
+    B -->|"Data exploration / demo"| D["Plotly<br/>Interactive is more convenient"]
+    B -->|"Website / dashboard"| E["Plotly + Dash<br/>Interactive app"]
 
     style C fill:#e3f2fd,stroke:#1565c0,color:#333
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
     style E fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 一个更适合新人的总类比
+### A better analogy for beginners
 
-你可以把 `Plotly` 理解成：
+You can think of `Plotly` as:
 
-- 一张可以拿在手里自己翻看、放大和筛选的图
+- A chart you can hold in your hands and inspect, zoom into, and filter yourself
 
-静态图更像：
+A static chart is more like:
 
-- 已经印好的海报
+- A printed poster
 
-交互图更像：
+An interactive chart is more like:
 
-- 带放大镜和筛选按钮的电子地图
+- A digital map with zoom and filter buttons
 
-所以它最适合：
+So it is best for:
 
-- 读者自己继续探索
+- Readers who want to keep exploring
 
-而不是所有场景都强行加交互。
+Not for forcing interactivity into every single scenario.
 
 ---
 
-## 安装与导入
+## Installation and imports
 
 ```python
-# 安装
+# Install
 # pip install plotly
 
-# Plotly Express：快速绑图（推荐）
+# Plotly Express: quick charting (recommended)
 import plotly.express as px
 
-# Plotly Graph Objects：更底层的控制
+# Plotly Graph Objects: lower-level control
 import plotly.graph_objects as go
 
 import pandas as pd
@@ -109,127 +109,127 @@ import numpy as np
 
 ---
 
-## Plotly Express 快速入门
+## Quick start with Plotly Express
 
-Plotly Express 是 Plotly 的高级接口，**一行代码**就能创建漂亮的交互式图表。
+Plotly Express is Plotly’s high-level interface. You can create beautiful interactive charts with just **one line of code**.
 
-### 第一次学 Plotly 时，最稳的顺序
+### The safest learning order for Plotly beginners
 
-更稳的顺序通常是：
+A good order is usually:
 
-1. 先用 `px.scatter()`、`px.line()`、`px.bar()` 熟悉基本交互
-2. 再看热力图、3D 和动画图
-3. 最后再看仪表盘和网页展示
+1. Start with `px.scatter()`, `px.line()`, and `px.bar()` to get familiar with basic interactions
+2. Then look at heatmaps, 3D charts, and animated charts
+3. Finally, study dashboards and web display
 
-这样会比一开始就扑到 Dash 上更不容易乱。
+This is much less confusing than jumping straight into Dash at the beginning.
 
-### 散点图
+### Scatter plot
 
 ```python
-# 使用内置数据集
+# Use a built-in dataset
 df = px.data.iris()
 
 fig = px.scatter(df, x="sepal_width", y="sepal_length",
-                 color="species",        # 按物种分颜色
-                 size="petal_length",     # 用花瓣长度控制点大小
-                 hover_data=["petal_width"],  # 悬停显示花瓣宽度
-                 title="鸢尾花数据集 - 交互式散点图")
+                 color="species",        # Color by species
+                 size="petal_length",     # Control point size by petal length
+                 hover_data=["petal_width"],  # Show petal width on hover
+                 title="Iris Dataset - Interactive Scatter Plot")
 fig.show()
 ```
 
-运行后，你会看到一个可以悬停、缩放、拖动的图表！
+After running this, you will see a chart that supports hovering, zooming, and dragging!
 
-### 折线图
+### Line chart
 
 ```python
 df = px.data.gapminder()
-# 筛选中国、美国、日本的数据
+# Filter data for China, the United States, and Japan
 countries = df[df["country"].isin(["China", "United States", "Japan"])]
 
 fig = px.line(countries, x="year", y="gdpPercap",
               color="country",
-              title="中美日人均 GDP 变化",
-              labels={"gdpPercap": "人均 GDP（美元）", "year": "年份", "country": "国家"})
+              title="Changes in GDP per Capita for China, the US, and Japan",
+              labels={"gdpPercap": "GDP per Capita (USD)", "year": "Year", "country": "Country"})
 fig.show()
 ```
 
-### 柱状图
+### Bar chart
 
 ```python
 df = px.data.tips()
 
 fig = px.bar(df, x="day", y="total_bill", color="sex",
-             barmode="group",          # "group" 分组, "stack" 堆叠
-             title="各日消费（按性别分组）",
-             labels={"total_bill": "消费金额", "day": "星期", "sex": "性别"})
+             barmode="group",          # "group" for grouped, "stack" for stacked
+             title="Daily Spending (Grouped by Sex)",
+             labels={"total_bill": "Bill Amount", "day": "Day", "sex": "Sex"})
 fig.show()
 ```
 
-### 直方图
+### Histogram
 
 ```python
 df = px.data.tips()
 
 fig = px.histogram(df, x="total_bill", color="time",
                    nbins=20,
-                   marginal="box",    # 边际图："box", "violin", "rug"
-                   title="消费金额分布（带边际箱线图）")
+                   marginal="box",    # Marginal plot: "box", "violin", "rug"
+                   title="Distribution of Bill Amounts (with Marginal Box Plot)")
 fig.show()
 ```
 
-### 箱线图
+### Box plot
 
 ```python
 df = px.data.tips()
 
 fig = px.box(df, x="day", y="total_bill", color="smoker",
-             notched=True,             # 带缺口的箱线图
-             title="各日消费分布（按是否吸烟）")
+             notched=True,             # Notched box plot
+             title="Distribution of Daily Spending (by Smoking Status)")
 fig.show()
 ```
 
-### 饼图 / 甜甜圈图
+### Pie / donut chart
 
 ```python
-# 饼图
+# Pie chart
 fig = px.pie(df, names="day", values="total_bill",
-             title="各日消费占比",
-             hole=0.3)  # hole > 0 变成甜甜圈图
+             title="Proportion of Spending by Day",
+             hole=0.3)  # hole > 0 turns it into a donut chart
 fig.show()
 ```
 
 ---
 
-## 进阶图表
+## Advanced charts
 
-### 热力图
+### Heatmap
 
 ```python
-# 计算相关系数
+# Compute correlation coefficients
 df = px.data.iris()
 numeric_cols = df.select_dtypes(include="number")
 corr = numeric_cols.corr()
 
 fig = px.imshow(corr, text_auto=".2f",
                 color_continuous_scale="RdBu_r",
-                title="鸢尾花特征相关性热力图")
+                title="Correlation Heatmap of Iris Features")
 fig.show()
 ```
 
-### 3D 散点图
+### 3D scatter plot
 
 ```python
 df = px.data.iris()
 
 fig = px.scatter_3d(df, x="sepal_length", y="sepal_width", z="petal_length",
                     color="species",
-                    title="鸢尾花 3D 散点图（可旋转！）")
+                    title="Iris 3D Scatter Plot (rotatable!)")
 fig.show()
 ```
 
-你可以用鼠标拖动旋转这个 3D 图，从不同角度观察数据。
+You can drag the mouse to rotate this 3D chart and view the data from different angles.
 
-### 动画图表
+### Animated chart
 
 ```python
 df = px.data.gapminder()
@@ -237,68 +237,68 @@ df = px.data.gapminder()
 fig = px.scatter(df, x="gdpPercap", y="lifeExp",
                  size="pop", color="continent",
                  hover_name="country",
-                 animation_frame="year",      # 按年份播放动画
+                 animation_frame="year",      # Play animation by year
                  animation_group="country",
                  log_x=True,
                  range_x=[100, 100000],
                  range_y=[25, 90],
-                 title="各国发展轨迹（1952-2007）")
+                 title="Development Trajectories by Country (1952-2007)")
 fig.show()
 ```
 
-点击播放按钮，可以看到各国在不同年份的变化。这就是著名的 **Hans Rosling 气泡图**。
+Click the play button to see how each country changes over time. This is the famous **Hans Rosling bubble chart**.
 
 ---
 
-## 图表定制
+## Chart customization
 
-### 更新布局
+### Update layout
 
 ```python
 fig = px.scatter(px.data.iris(), x="sepal_width", y="sepal_length",
                  color="species")
 
 fig.update_layout(
-    title=dict(text="自定义标题", font=dict(size=20)),
-    xaxis_title="萼片宽度 (cm)",
-    yaxis_title="萼片长度 (cm)",
-    template="plotly_white",      # 模板主题
+    title=dict(text="Custom Title", font=dict(size=20)),
+    xaxis_title="Sepal Width (cm)",
+    yaxis_title="Sepal Length (cm)",
+    template="plotly_white",      # Theme template
     width=800,
     height=500,
-    legend_title="品种"
+    legend_title="Species"
 )
 
 fig.show()
 ```
 
-### 常用模板
+### Common templates
 
-| 模板名 | 风格 |
+| Template name | Style |
 |--------|------|
-| `"plotly"` | 默认蓝色背景 |
-| `"plotly_white"` | 白底（推荐） |
-| `"plotly_dark"` | 深色背景 |
-| `"ggplot2"` | R ggplot 风格 |
-| `"simple_white"` | 极简白底 |
+| `"plotly"` | Default blue background |
+| `"plotly_white"` | White background (recommended) |
+| `"plotly_dark"` | Dark background |
+| `"ggplot2"` | R ggplot style |
+| `"simple_white"` | Minimal white background |
 
-### 一个很适合初学者先记的判断表
+### A simple decision table worth remembering first
 
-| 你的目标 | 更稳的第一反应 |
+| Your goal | Safer first choice |
 |---|---|
-| 给论文或报告出图 | 静态图优先 |
-| 自己探索数据细节 | Plotly 很合适 |
-| 给别人做网页演示 | Plotly 很合适 |
-| 只是想“更炫” | 先停一下，想清楚有没有必要 |
+| Make charts for a paper or report | Prefer static charts |
+| Explore data details yourself | Plotly is a good fit |
+| Build a web demo for others | Plotly is a good fit |
+| Just want it to “look cooler” | Pause and think whether it is really necessary |
 
-这个表特别适合新人，因为它会把“交互图很酷”重新拉回成一个使用场景判断。
+This table is especially useful for beginners because it brings “interactive charts are cool” back to a question of use case.
 
-### 保存图表
+### Saving charts
 
 ```python
-# 保存为交互式 HTML
+# Save as interactive HTML
 fig.write_html("my_chart.html")
 
-# 保存为静态图片（需安装 kaleido）
+# Save as a static image (requires kaleido)
 # pip install kaleido
 fig.write_image("my_chart.png", scale=2)
 fig.write_image("my_chart.svg")
@@ -308,31 +308,31 @@ fig.write_image("my_chart.svg")
 
 ## Plotly vs Matplotlib vs Seaborn
 
-| 特性 | Matplotlib | Seaborn | Plotly |
+| Feature | Matplotlib | Seaborn | Plotly |
 |------|-----------|---------|--------|
-| 交互性 | 无 | 无 | 强 |
-| 美观度 | 一般 | 好 | 好 |
-| 学习难度 | 中 | 低 | 低 |
-| 定制能力 | 极强 | 中 | 强 |
-| 输出格式 | 图片/PDF | 图片/PDF | HTML/图片 |
-| 适合场景 | 论文/精细控制 | 快速统计图 | 数据探索/展示 |
+| Interactivity | No | No | Strong |
+| Visual appeal | Moderate | Good | Good |
+| Learning curve | Medium | Low | Low |
+| Customization | Very strong | Medium | Strong |
+| Output formats | Image/PDF | Image/PDF | HTML/Image |
+| Best for | Papers / fine control | Fast statistical charts | Data exploration / presentation |
 
 ---
 
-## 交互式仪表盘简介
+## Introduction to interactive dashboards
 
-在实际工作中，你可能需要将多个交互式图表组合成一个**仪表盘**（Dashboard）。
+In real-world work, you may need to combine multiple interactive charts into a single **dashboard**.
 
-常用工具：
+Common tools:
 
-| 工具 | 特点 |
+| Tool | Features |
 |------|------|
-| **Plotly Dash** | Python 代码构建，功能强大 |
-| **Streamlit** | 最简单，几行代码就能做应用 |
-| **Gradio** | AI 模型演示专用 |
-| **Panel** | Jupyter 生态集成好 |
+| **Plotly Dash** | Built with Python code, very powerful |
+| **Streamlit** | Easiest to use; you can build an app with just a few lines of code |
+| **Gradio** | Designed for AI model demos |
+| **Panel** | Good integration with the Jupyter ecosystem |
 
-一个简单的 Dash 示例（了解即可）：
+A simple Dash example (just for awareness):
 
 ```python
 # pip install dash
@@ -346,67 +346,67 @@ fig = px.scatter(df, x="gdpPercap", y="lifeExp", size="pop",
                  color="continent", hover_name="country", log_x=True)
 
 app.layout = html.Div([
-    html.H1("世界发展指标仪表盘"),
+    html.H1("World Development Indicators Dashboard"),
     dcc.Graph(figure=fig)
 ])
 
-# 运行：python app.py，然后打开 http://127.0.0.1:8050
+# Run: python app.py, then open http://127.0.0.1:8050
 # app.run(debug=True)
 ```
 
-:::tip 后续课程
-仪表盘的详细开发不在本阶段范围。后续项目阶段会有实战练习。
+:::tip Follow-up courses
+Detailed dashboard development is outside the scope of this stage. There will be hands-on exercises in the project stage later.
 :::
 
 ---
 
-## 小结
+## Summary
 
-| Plotly Express 函数 | 图表类型 |
+| Plotly Express function | Chart type |
 |---------------------|---------|
-| `px.scatter()` | 散点图 |
-| `px.line()` | 折线图 |
-| `px.bar()` | 柱状图 |
-| `px.histogram()` | 直方图 |
-| `px.box()` | 箱线图 |
-| `px.pie()` | 饼图 |
-| `px.imshow()` | 热力图 |
-| `px.scatter_3d()` | 3D 散点图 |
+| `px.scatter()` | Scatter plot |
+| `px.line()` | Line chart |
+| `px.bar()` | Bar chart |
+| `px.histogram()` | Histogram |
+| `px.box()` | Box plot |
+| `px.pie()` | Pie chart |
+| `px.imshow()` | Heatmap |
+| `px.scatter_3d()` | 3D scatter plot |
 
-Plotly 的核心优势就是**交互**——鼠标悬停查看数据、缩放细看局部、动画展示变化。在数据探索和结果展示时非常好用。
+The core advantage of Plotly is **interactivity**—hover to inspect data, zoom to look at details, and use animation to show changes over time. It is very useful for data exploration and presenting results.
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-- `Plotly` 的核心价值不是炫，而是让读者能继续探索数据
-- 交互图最适合数据探索、网页展示和演示场景
-- 第一次学时先掌握 `px.scatter / px.line / px.bar` 这几类就够用了
+- The core value of `Plotly` is not being flashy, but letting readers continue exploring the data
+- Interactive charts are best for data exploration, web display, and presentations
+- When learning for the first time, mastering `px.scatter / px.line / px.bar` is enough
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：交互式探索
+### Exercise 1: Interactive exploration
 
 ```python
-# 加载 gapminder 数据集
-# 1. 用 px.scatter 画出 2007 年各国 gdpPercap vs lifeExp 的关系
-#    - 用 pop 控制点大小，continent 控制颜色
-#    - 悬停显示 country
-# 2. 用 px.line 画出中国 1952-2007 年的 lifeExp 变化
+# Load the gapminder dataset
+# 1. Use px.scatter to plot the relationship between gdpPercap and lifeExp for each country in 2007
+#    - Use pop for point size, continent for color
+#    - Show country on hover
+# 2. Use px.line to plot China's lifeExp changes from 1952 to 2007
 ```
 
-### 练习 2：数据分布
+### Exercise 2: Data distribution
 
 ```python
-# 加载 tips 数据集
-# 1. 用 px.histogram 画消费金额分布，用 marginal="violin" 添加边际图
-# 2. 用 px.box 按星期比较消费金额
+# Load the tips dataset
+# 1. Use px.histogram to plot the distribution of bill amounts, and add a marginal plot with marginal="violin"
+# 2. Use px.box to compare bill amounts by day
 ```
 
-### 练习 3：动画图
+### Exercise 3: Animated chart
 
 ```python
-# 用 gapminder 数据集制作动画散点图
-# 展示 1952-2007 年各国 gdpPercap vs lifeExp 的变化
-# 用 animation_frame="year"
+# Use the gapminder dataset to create an animated scatter plot
+# Show changes in gdpPercap vs lifeExp across countries from 1952 to 2007
+# Use animation_frame="year"
 ```

@@ -1,406 +1,406 @@
 ---
-title: "1.2 什么是 AI Agent"
+title: "1.2 What Is an AI Agent"
 sidebar_position: 1
-description: "从工作流、聊天机器人和智能体的区别讲起，用一个可运行小例子理解 Agent 的最小闭环。"
-keywords: [AI Agent, 智能体, tools, planning, workflow, function calling]
+description: "Start with the differences between workflows, chatbots, and agents, and use a runnable mini example to understand the minimal closed loop of an Agent."
+keywords: [AI Agent, agent, tools, planning, workflow, function calling]
 ---
 
-# 什么是 AI Agent
+# What Is an AI Agent
 
-![Agent 与普通 Chatbot 对比图](/img/course/agent-vs-chatbot-comparison.png)
+![Comparison diagram of Agent vs. a regular Chatbot](/img/course/agent-vs-chatbot-comparison-en.png)
 
-:::tip 本节定位
-Agent 最容易被新人误会成：
+:::tip Section Overview
+Beginners often misunderstand an Agent as:
 
-- 一个更会聊天的模型
+- a model that is simply better at chatting
 
-但真实一点的理解应该是：
+A more accurate understanding is:
 
-- 一个围绕目标不断做“判断 -> 行动 -> 观察 -> 再判断”的系统
+- a system that repeatedly performs “judge -> act -> observe -> judge again” around a goal
 
-所以这节最重要的不是先神化 Agent，而是先把它和：
+So the most important thing in this section is not to idealize the Agent first, but to distinguish it from:
 
-- 工作流
-- 聊天机器人
-- 单次函数调用
+- workflows
+- chatbots
+- one-time function calls
 
-这几种系统边界分清楚。
+Make these system boundaries clear first.
 :::
 
-## 学习目标
+## Learning Goals
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 说清楚工作流、聊天机器人和 Agent 的区别
-- 理解 Agent 的最小组成部分
-- 跑通一个带工具调用的迷你 Agent 示例
-- 明白 Agent 为什么不只是“套个 prompt”
-
----
-
-## 这节和前面大模型应用主线是怎么接上的
-
-如果你刚学完第八 B 阶段，可以先把这节理解成：
-
-- 前面你已经会做“模型 + 知识 + 工具 + 应用”的系统
-- 这一节开始回答：什么时候这些系统会跨进 Agent，而不再只是固定工作流
-
-所以这节真正重要的不是一个定义句，而是：
-
-- 先把 Agent 和工作流、聊天系统、函数调用系统分开
-
-### 一个更适合新人的总类比
-
-你可以先把这三类系统想成：
-
-- 工作流：固定地铁线路
-- 聊天机器人：前台接待
-- Agent：会自己决定下一步怎么做的助理
-
-这个助理当然也会说话，  
-但它真正关键的地方不是“会聊天”，而是：
-
-- 会不会为了目标组织一串动作
-
-## 一、先别急着神化 Agent
-
-很多人第一次听到 Agent，会觉得它像“能自主思考并执行任务的 AI 员工”。
-
-这个说法不算错，但容易太飘。
-
-更稳妥的理解是：
-
-> **Agent = 能根据目标、状态和工具，分步完成任务的系统。**
-
-它通常具备这几种能力：
-
-- 接收目标
-- 拆解步骤
-- 调用工具
-- 根据结果继续行动
-- 在必要时结束任务
-
-### 1.1 第一次学 Agent，最该先抓住什么？
-
-最该先抓住的不是“自主”两个字，而是这句：
-
-> **Agent 的关键不是会说，而是会围绕目标组织一串动作。**
-
-这句话一旦稳住，后面你再看：
-
-- 规划
-- 工具
-- 记忆
-- 多 Agent
-
-都会更自然地知道它们为什么会出现。
+- clearly explain the differences between workflows, chatbots, and Agents
+- understand the minimal components of an Agent
+- run a mini Agent example with tool calling
+- understand why an Agent is more than “just wrapping a prompt”
 
 ---
 
-## 二、工作流、聊天机器人、Agent 有什么区别？
+## How This Section Connects to the Earlier Main Thread of LLM Applications
 
-### 工作流（Workflow）
+If you just finished Stage 8B, you can understand this section as follows:
 
-每一步都是提前写好的：
+- earlier, you already learned to build systems with “model + knowledge + tools + application”
+- this section starts answering: when do these systems step into Agent territory instead of remaining fixed workflows?
 
-1. 用户提问
-2. 查数据库
-3. 拼提示词
-4. 返回答案
+So the real importance of this section is not a single definition, but:
 
-这更像固定流水线。
+- first separate Agent from workflows, chat systems, and function-call systems
 
-### 聊天机器人（Chatbot）
+### A Better Overall Analogy for Beginners
 
-重点是“对话”。  
-它未必会主动拆任务或使用外部工具。
+You can think of these three system types like this:
 
-### Agent 作为系统角色
+- workflow: a fixed subway line
+- chatbot: a front desk receptionist
+- Agent: an assistant that decides for itself what to do next
 
-重点是“为了完成目标，动态选择动作”。
+Of course, this assistant can talk,
+but its real key point is not “being able to chat” — it is:
 
-比如一个 Agent 可能会：
+- whether it can organize a chain of actions toward a goal
 
-1. 先判断用户要什么
-2. 再决定是去查天气、查文档，还是计算
-3. 拿到结果后再组织输出
+## 1. Don’t Rush to Put Agent on a Pedestal
 
-### 2.1 为什么这三个概念一定要先分开？
+When many people first hear about Agents, they imagine them as “AI employees that can think and execute tasks autonomously.”
 
-因为很多系统看起来都像“接了个模型”，但工程形态完全不同：
+That description is not entirely wrong, but it can be too abstract.
 
-- 工作流更像固定线路
-- 聊天机器人更像对话界面
-- Agent 更像有目标驱动的执行系统
+A more stable understanding is:
 
-如果一开始不把这三个边界分清，后面很容易：
+> **Agent = a system that completes tasks step by step based on goals, state, and tools.**
 
-- 工具一多就叫 Agent
-- 有状态就以为是 Agent
-- 会聊天就误当成 Agent
+It usually has these abilities:
 
-### 2.2 一个很适合初学者先记的系统边界图
+- receive a goal
+- break down steps
+- call tools
+- continue acting based on results
+- stop when appropriate
+
+### 1.1 When Learning Agent for the First Time, What Should You Focus on First?
+
+The first thing to focus on is not the word “autonomous,” but this sentence:
+
+> **The key of an Agent is not that it can talk, but that it can organize a chain of actions around a goal.**
+
+Once this idea is stable, when you later look at:
+
+- planning
+- tools
+- memory
+- multi-Agent systems
+
+you will more naturally understand why they exist.
+
+---
+
+## 2. What Is the Difference Between Workflows, Chatbots, and Agents?
+
+### Workflow
+
+Every step is written in advance:
+
+1. user asks a question
+2. query the database
+3. assemble the prompt
+4. return the answer
+
+This is more like a fixed pipeline.
+
+### Chatbot
+
+The focus is on “conversation.”
+It may not proactively break down tasks or use external tools.
+
+### Agent as a System Role
+
+The focus is on “dynamically choosing actions to achieve the goal.”
+
+For example, an Agent may:
+
+1. first judge what the user wants
+2. then decide whether to check the weather, search docs, or calculate
+3. after getting the result, organize the output
+
+### 2.1 Why Must These Three Concepts Be Separated First?
+
+Because many systems look like they “just connect a model,” but their engineering forms are completely different:
+
+- workflow is more like a fixed route
+- chatbot is more like a conversation interface
+- Agent is more like a goal-driven execution system
+
+If you don’t separate these boundaries at the beginning, later it becomes easy to:
+
+- call anything with many tools an Agent
+- think something is an Agent just because it has state
+- mistake a chatting system for an Agent
+
+### 2.2 A System Boundary Diagram That Beginners Can Remember First
 
 ```mermaid
 flowchart LR
-    A["固定步骤"] --> B["工作流"]
-    C["以对话为主"] --> D["聊天机器人"]
-    E["围绕目标持续决策"] --> F["Agent"]
+    A["Fixed steps"] --> B["Workflow"]
+    C["Conversation-focused"] --> D["Chatbot"]
+    E["Continuous goal-based decision-making"] --> F["Agent"]
 ```
 
-这张图很重要，因为它会帮新人先抓住：
+This diagram is very important because it helps beginners first see:
 
-- Agent 不是“更聪明的聊天框”
-- 而是系统控制方式变了
+- an Agent is not “a smarter chat box”
+- instead, the way the system is controlled changes
 
-![工作流、聊天机器人与 Agent 边界图](/img/course/ch09-agent-boundary-workflow-chatbot-map.png)
+![Boundary diagram of workflow, chatbot, and Agent](/img/course/ch09-agent-boundary-workflow-chatbot-map-en.png)
 
-:::tip 读图提示
-读这张图时，先不要看谁更“智能”，而要看控制权在哪里：工作流的路径由程序提前写死，聊天机器人主要负责回复，Agent 则会围绕目标反复决定下一步动作。
+:::tip Reading Tip
+When reading this diagram, don’t first ask who is more “intelligent.” Instead, look at where the control lies: the workflow path is predefined by the program, the chatbot mainly handles replies, and the Agent repeatedly decides the next action around a goal.
 :::
 
 ---
 
-## 三、Agent 的最小组成部分
+## 3. The Minimal Components of an Agent
 
-你可以先把 Agent 拆成 4 块：
+You can first break an Agent into 4 parts:
 
-| 组件 | 作用 |
+| Component | Role |
 |---|---|
-| 目标 | 这次要完成什么 |
-| 模型 / 决策器 | 下一步该做什么 |
-| 工具 | 能调用哪些外部能力 |
-| 状态 / 记忆 | 当前任务进行到哪了 |
+| Goal | What needs to be accomplished this time |
+| Model / decision-maker | What to do next |
+| Tools | What external capabilities can be called |
+| State / memory | Where the current task has progressed to |
 
-### 3.1 第一次看这四块，最值得先记哪一句？
+### 3.1 When You See These Four Parts for the First Time, What Is the Most Worth Remembering Sentence?
 
-可以先记：
+You can remember this first:
 
-> **Agent = 目标 + 决策 + 工具 + 状态。**
+> **Agent = goal + decision + tools + state.**
 
-后面 9 AI Agent 与智能体系统的很多章节，其实都只是在把这四块展开。
+Later, many chapters in 9 AI Agent and Intelligent Agent Systems are essentially expanding these four parts.
 
-类比一下：
+An analogy:
 
-> Agent 很像一个会做事的实习生：有任务目标，有工具箱，有工作记录，还要自己决定下一步。
+> An Agent is like an intern who can get things done: there is a task goal, a toolbox, work records, and they still need to decide the next step on their own.
 
-### 3.2 再看一个最小“候选动作”示例
+### 3.2 Look at Another Minimal “Candidate Action” Example
 
 ```python
 def choose_action(query):
-    if "天气" in query:
+    if "weather" in query:
         return "use_weather_tool"
-    if "退款" in query or "证书" in query:
+    if "refund" in query or "certificate" in query:
         return "use_docs_tool"
-    if "计算" in query:
+    if "calculate" in query:
         return "use_calculator"
     return "reply_directly"
 
 
-for query in ["北京天气怎么样", "退款规则是什么", "计算 7 * 8"]:
+for query in ["What's the weather in Beijing", "What is the refund policy", "calculate 7 * 8"]:
     print(query, "->", choose_action(query))
 ```
 
-这个示例很适合初学者，因为它会帮助你先抓住一个核心动作：
+This example is very suitable for beginners because it helps you grasp one core action first:
 
-- Agent 不是先答
-- 而是先决定下一步该做什么
+- an Agent does not answer first
+- it first decides what to do next
 
-### 3.3 一个很适合初学者先记的系统边界图
+### 3.3 A System Boundary Diagram That Beginners Can Remember First
 
 ```mermaid
 flowchart LR
-    A["用户目标"] --> B["决策器"]
-    B --> C["工具"]
-    C --> D["结果观察"]
+    A["User goal"] --> B["Decision maker"]
+    B --> C["Tools"]
+    C --> D["Result observation"]
     D --> B
-    B --> E["最终回答"]
+    B --> E["Final answer"]
 ```
 
-这张图特别重要，因为它会提醒你：
+This diagram is especially important because it reminds you:
 
-- Agent 的关键不是只输出一句话
-- 而是进入“目标 -> 行动 -> 观察”的闭环
+- the key of an Agent is not just outputting one sentence
+- instead, it enters a closed loop of “goal -> action -> observation”
 
-![Agent 行动闭环与 Trace 图](/img/course/ch09-agent-action-loop-trace-map.png)
+![Agent action loop and trace diagram](/img/course/ch09-agent-action-loop-trace-map-en.png)
 
-:::tip 读图提示
-这张图可以按时间线看：目标进入系统后，Agent 每一轮都会留下 action、observation 和 state 更新。以后调试 Agent，看的不是一句最终回答，而是这条可复盘的轨迹。
+:::tip Reading Tip
+You can read this diagram as a timeline: after the goal enters the system, the Agent leaves behind action, observation, and state updates in each round. When debugging an Agent later, you don’t just look at the final answer — you look at this trace that can be reviewed afterward.
 :::
 
 ---
 
-## 四、一个不依赖大模型的迷你 Agent
+## 4. A Mini Agent That Does Not Depend on a Large Model
 
-为了让原理更清楚，我们先不用真正的大模型，先写一个“规则版 Agent”。
+To make the principle clearer, let’s not use a real large model yet. Instead, we’ll write a “rule-based Agent.”
 
 ```python
 def tool_weather(city):
     fake_weather = {
-        "北京": "晴，22 度",
-        "上海": "多云，25 度",
-        "深圳": "小雨，28 度"
+        "Beijing": "Sunny, 22°C",
+        "Shanghai": "Cloudy, 25°C",
+        "Shenzhen": "Light rain, 28°C"
     }
-    return fake_weather.get(city, "暂无该城市天气数据")
+    return fake_weather.get(city, "No weather data available for this city")
 
 def tool_calculate(expression):
     return str(eval(expression, {"__builtins__": {}}))
 
 def tool_search_docs(keyword):
     docs = {
-        "退款": "课程购买后 7 天内且学习进度低于 20% 可申请退款。",
-        "证书": "完成所有必修项目并通过结课测试后可获得证书。"
+        "refund": "You can apply for a refund within 7 days of purchase and if your learning progress is below 20%.",
+        "certificate": "You can receive a certificate after completing all required items and passing the final assessment."
     }
     for k, v in docs.items():
         if k in keyword:
             return v
-    return "未找到相关文档。"
+    return "No relevant document found."
 
 def simple_agent(user_query):
     steps = []
 
-    if "天气" in user_query:
-        city = "北京" if "北京" in user_query else "上海" if "上海" in user_query else "深圳"
-        steps.append(f"识别到天气查询，准备调用 weather 工具，城市={city}")
+    if "weather" in user_query:
+        city = "Beijing" if "Beijing" in user_query else "Shanghai" if "Shanghai" in user_query else "Shenzhen"
+        steps.append(f"Detected a weather query, preparing to call the weather tool, city={city}")
         result = tool_weather(city)
-        steps.append(f"工具返回：{result}")
-        final_answer = f"{city}当前天气：{result}"
+        steps.append(f"Tool returned: {result}")
+        final_answer = f"Current weather in {city}: {result}"
 
-    elif "退款" in user_query or "证书" in user_query:
-        steps.append("识别到知识查询，准备调用 docs 工具")
+    elif "refund" in user_query or "certificate" in user_query:
+        steps.append("Detected a knowledge query, preparing to call the docs tool")
         result = tool_search_docs(user_query)
-        steps.append(f"工具返回：{result}")
+        steps.append(f"Tool returned: {result}")
         final_answer = result
 
-    elif "计算" in user_query:
-        expression = user_query.replace("计算", "").strip()
-        steps.append(f"识别到计算任务，准备调用 calculator 工具，表达式={expression}")
+    elif "calculate" in user_query:
+        expression = user_query.replace("calculate", "").strip()
+        steps.append(f"Detected a calculation task, preparing to call the calculator tool, expression={expression}")
         result = tool_calculate(expression)
-        steps.append(f"工具返回：{result}")
-        final_answer = f"计算结果是：{result}"
+        steps.append(f"Tool returned: {result}")
+        final_answer = f"The calculation result is: {result}"
 
     else:
-        steps.append("无法匹配工具，直接回复默认答案")
-        final_answer = "我暂时还不知道该调用哪个工具。"
+        steps.append("No tool matched, replying with the default answer directly")
+        final_answer = "I don’t yet know which tool to call."
 
     return steps, final_answer
 
-query = "计算 23 * 7"
+query = "calculate 23 * 7"
 steps, answer = simple_agent(query)
 
-print("用户问题:", query)
-print("执行步骤:")
+print("User question:", query)
+print("Execution steps:")
 for step in steps:
     print("-", step)
-print("最终回答:", answer)
+print("Final answer:", answer)
 ```
 
-这个例子虽然简单，但已经包含了 Agent 的核心味道：
+This example is simple, but it already contains the core flavor of an Agent:
 
-- 识别任务
-- 选择工具
-- 拿到结果
-- 组织输出
+- recognize the task
+- choose a tool
+- get the result
+- organize the output
 
 ---
 
-## 五、Agent 和“函数调用”是什么关系？
+## 5. What Is the Relationship Between an Agent and “Function Calling”?
 
-Agent 经常会用到函数调用（Function Calling / Tool Calling），但两者不完全等价。
+Agents often use function calling (Function Calling / Tool Calling), but the two are not exactly the same.
 
-### 函数调用
+### Function Calling
 
-重点是：模型能不能产出结构化参数，正确调用工具。
+The focus is on whether the model can produce structured parameters and correctly call a tool.
 
-### Agent 和函数调用的边界
+### The Boundary of Agent and Function Calling
 
-重点是：模型或系统能不能围绕目标，动态决定：
+The focus is on whether the model or system can dynamically decide around a goal:
 
-- 何时调用工具
-- 调哪个工具
-- 调几次
-- 调完之后下一步做什么
+- when to call a tool
+- which tool to call
+- how many times to call it
+- what to do next after the call
 
-所以可以记成：
+So you can remember it like this:
 
-> 工具调用是 Agent 的常见能力，但 Agent 不只等于工具调用。
+> Tool calling is a common capability of an Agent, but an Agent is not just tool calling.
 
-### 5.1 为什么这一步特别容易被新人混掉？
+### 5.1 Why Is This Step So Easy for Beginners to Mix Up?
 
-因为很多早期 Demo 看起来都是：
+Because many early demos all look like:
 
-- 识别意图
-- 调一个工具
-- 回答结果
+- identify intent
+- call one tool
+- answer with the result
 
-但真正的 Agent 会更进一步关心：
+But a real Agent goes further and cares about:
 
-- 什么时候调
-- 调哪个
-- 调完下一步干什么
-- 是否需要继续迭代
+- when to call
+- which tool to call
+- what to do next after the call
+- whether it needs to iterate further
 
-### 5.2 再看一个最小“候选动作”示例
+### 5.2 Look at Another Minimal “Candidate Action” Example
 
 ```python
 def choose_action(query):
-    if "天气" in query:
+    if "weather" in query:
         return "use_weather_tool"
-    if "退款" in query or "证书" in query:
+    if "refund" in query or "certificate" in query:
         return "use_docs_tool"
-    if "计算" in query:
+    if "calculate" in query:
         return "use_calculator"
     return "reply_directly"
 
 
-for query in ["北京天气怎么样", "退款规则是什么", "计算 7 * 8"]:
+for query in ["What's the weather in Beijing", "What is the refund policy", "calculate 7 * 8"]:
     print(query, "->", choose_action(query))
 ```
 
-这个示例很适合初学者，因为它会帮助你先抓住一个核心动作：
+This example is very suitable for beginners because it helps you grasp one core action first:
 
-- Agent 不是先答
-- 而是先决定下一步该做什么
-
----
-
-## 六、为什么 Agent 比普通问答系统更难？
-
-因为它多了“行动”这一层。
-
-普通问答系统更像：
-
-- 看输入
-- 生成答案
-
-Agent 更像：
-
-- 看输入
-- 规划
-- 试着做事
-- 观察结果
-- 再决定下一步
-
-这就带来更多挑战：
-
-- 错误会在多步过程中累积
-- 工具调用可能失败
-- 成本和时延更高
-- 安全风险也更大
+- an Agent does not answer first
+- it first decides what to do next
 
 ---
 
-## 七、一个更像 Agent 的循环思路
+## 6. Why Is an Agent Harder Than a Normal Q&A System?
 
-真实 Agent 系统经常长这样：
+Because it adds an extra layer of “action.”
+
+A normal Q&A system is more like:
+
+- look at the input
+- generate an answer
+
+An Agent is more like:
+
+- look at the input
+- plan
+- try to act
+- observe the result
+- then decide the next step
+
+This brings more challenges:
+
+- errors accumulate over multiple steps
+- tool calls may fail
+- cost and latency are higher
+- safety risks are also greater
+
+---
+
+## 7. A Looping Idea That Feels More Like an Agent
+
+A real Agent system often looks like this:
 
 ```mermaid
 flowchart LR
-    A["用户目标"] --> B["决定下一步动作"]
-    B --> C["调用工具 / 推理"]
-    C --> D["观察结果"]
+    A["User goal"] --> B["Decide next action"]
+    B --> C["Call tools / reason"]
+    C --> D["Observe result"]
     D --> B
-    D --> E["任务完成，输出答案"]
+    D --> E["Task completed, output answer"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -409,189 +409,189 @@ flowchart LR
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-这就是为什么 Agent 特别强调：
+This is why Agents emphasize:
 
-- 规划
-- 观察
-- 反馈
-- 迭代
+- planning
+- observation
+- feedback
+- iteration
 
-### 7.1 这条循环最值得先看懂的，不是图，而是“闭环”
+### 7.1 What Is Most Worth Understanding in This Loop Is Not the Diagram, But the “Closed Loop”
 
-也就是说，Agent 的关键不是单次输出，而是：
+In other words, the key of an Agent is not a one-time output, but:
 
-- 看目标
-- 采取动作
-- 观察结果
-- 再决定下一步
+- look at the goal
+- take an action
+- observe the result
+- then decide the next step
 
-这正是它和普通问答系统最本质的差别之一。
+This is one of the most fundamental differences between it and a normal Q&A system.
 
-### 7.2 第一次做 Agent 项目时，最稳的默认顺序
+### 7.2 The Safest Default Order When Building Your First Agent Project
 
-更稳的顺序通常是：
+A more stable sequence is usually:
 
-1. 先做单步工具调用
-2. 先让系统会选动作
-3. 再补观察结果后的下一步判断
-4. 最后再引入更复杂的规划和记忆
+1. first implement single-step tool calling
+2. then make the system able to choose actions
+3. then add next-step judgment after observing results
+4. finally introduce more complex planning and memory
 
-这样会比一开始就追“完全自主 Agent”更容易做出一个真正可控的系统。
+This is easier than trying to build a “fully autonomous Agent” from the start, and it is much more likely to produce a truly controllable system.
 
-## 如果把它做成项目或笔记，最值得展示什么
+## If You Turn This Into a Project or Notes, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- 一段“它会调用工具”的演示视频
+- a demo video that simply shows “it can call tools”
 
-而是：
+But rather:
 
-1. 用户目标
-2. Agent 选择了什么动作
-3. 为什么选这个动作
-4. 工具返回了什么
-5. Agent 如何根据结果继续下一步
+1. the user goal
+2. what action the Agent chose
+3. why it chose that action
+4. what the tool returned
+5. how the Agent continued to the next step based on the result
 
-这样别人会更容易看出：
+This makes it easier for others to see:
 
-- 你理解的是行动闭环
-- 不只是把模型和工具绑在一起
-
----
-
-## 八、什么任务适合做 Agent？
-
-### 比较适合
-
-- 多步任务
-- 需要外部工具
-- 需要根据中间结果调整策略
-
-例如：
-
-- 研究助理
-- 自动报表
-- 数据分析助手
-- 代码修复助手
-
-### 不太适合
-
-- 一步就能答完的简单 FAQ
-- 完全固定流程的任务
-- 对稳定性要求极高、不能容忍自由发挥的场景
-
-很多场景里，**工作流反而比 Agent 更合适**。
+- you understand the action loop
+- you are not just wiring a model and tools together
 
 ---
 
-## 九、初学者常见误区
+## 8. What Tasks Are Suitable for Agents?
 
-### 1. 以为“能聊天”就叫 Agent
+### More Suitable
 
-不对。  
-聊天机器人不一定会自主分步行动。
+- multi-step tasks
+- tasks that need external tools
+- tasks that need strategy adjustments based on intermediate results
 
-### 2. 以为 Agent 一定比工作流高级
+For example:
 
-不一定。  
-简单稳定的任务，工作流可能更便宜、更可靠。
+- research assistant
+- automated reports
+- data analysis assistant
+- code fixing assistant
 
-### 3. 以为加上工具调用就万事大吉
+### Less Suitable
 
-工具越多、步骤越多，调试和安全难度也会更高。
+- simple FAQs that can be answered in one step
+- tasks with completely fixed workflows
+- scenarios that require extremely high stability and cannot tolerate free-form behavior
+
+In many cases, **a workflow is actually more suitable than an Agent**.
 
 ---
 
-## 判断一个系统是不是 Agent 的检查表
+## 9. Common Beginner Mistakes
 
-很多新人会把“聊天机器人、RAG 应用、工具调用应用”都叫 Agent。更稳的做法是先用下面这张表检查。
+### 1. Thinking “able to chat” means Agent
 
-| 问题 | 如果答案是“是” | 更像什么 |
+Wrong.
+A chatbot does not necessarily act autonomously in steps.
+
+### 2. Thinking an Agent is definitely more advanced than a workflow
+
+Not necessarily.
+For simple and stable tasks, a workflow may be cheaper and more reliable.
+
+### 3. Thinking that adding tool calling solves everything
+
+The more tools and steps you add, the harder debugging and safety become.
+
+---
+
+## Checklist: How to Tell Whether a System Is an Agent
+
+Many beginners call “chatbots, RAG applications, and tool-calling applications” Agents. A safer way is to check with the table below first.
+
+| Question | If the answer is “yes” | More like |
 |---|---|---|
-| 步骤是否完全固定？ | 每次都按同一条流程走 | 工作流 |
-| 主要目标是不是连续对话？ | 重点是理解上下文并回复 | 聊天机器人 |
-| 是否只是调用一次工具？ | 用户问什么就调用一个对应函数 | 工具调用应用 |
-| 是否会根据中间结果决定下一步？ | 工具结果会影响后续动作 | Agent |
-| 是否有明确停止条件和执行记录？ | 能知道为什么继续、为什么结束 | 更接近可控 Agent |
+| Are the steps completely fixed? | It follows the same process every time | Workflow |
+| Is the main goal continuous conversation? | The focus is on understanding context and replying | Chatbot |
+| Is it only calling one tool once? | The user asks something and it calls one corresponding function | Tool-calling application |
+| Does it decide the next step based on intermediate results? | Tool results affect later actions | Agent |
+| Does it have clear stop conditions and execution records? | You can tell why it continued or stopped | Closer to a controllable Agent |
 
-可以先记住一个判断：如果系统没有“观察结果后再决定下一步”，它通常还只是工作流或工具调用应用，不必急着叫 Agent。
+You can remember one rule first: if a system does not “observe the result and then decide the next step,” it is usually still just a workflow or a tool-calling application, and there is no need to rush into calling it an Agent.
 
-## 第一个 Agent 项目应该怎么做才稳
+## How Should Your First Agent Project Be Built to Stay Stable?
 
-第一次做 Agent，不建议一上来就做“全自动复杂助理”。更稳的版本路线是：
+For your first Agent project, it is not recommended to start with a “fully automatic complex assistant.” A more stable version path is:
 
-| 版本 | 目标 | 验收标准 |
+| Version | Goal | Acceptance Criteria |
 |---|---|---|
-| v0.1 单步工具 | 能根据用户问题选择一个工具 | 打印 tool_call、参数和工具结果 |
-| v0.2 多步执行 | 能完成 2～3 步任务 | 每一步都有 trace，不会无限循环 |
-| v0.3 失败恢复 | 工具失败时能解释并尝试替代方案 | 有错误日志和兜底回答 |
-| v0.4 人工确认 | 高风险动作执行前需要确认 | 能区分只读工具和写入工具 |
-| v0.5 项目展示 | 有 README、示例、失败样本和安全边界 | 能解释 Agent 为什么这样行动 |
+| v0.1 Single-step tools | Can choose one tool based on the user question | Print tool_call, parameters, and tool result |
+| v0.2 Multi-step execution | Can complete a 2–3 step task | Each step has a trace, and it never loops forever |
+| v0.3 Failure recovery | Can explain and try an alternative when a tool fails | Has error logs and fallback answers |
+| v0.4 Human confirmation | Requires confirmation before high-risk actions | Can distinguish read-only tools from write tools |
+| v0.5 Project showcase | Has README, examples, failure cases, and safety boundaries | Can explain why the Agent acted this way |
 
-这条路线会帮助你把重点放在“可控行动闭环”，而不是追求看起来很炫的自主性。
+This path helps you focus on the “controllable action loop” instead of chasing flashy autonomy.
 
-## Agent 执行 Trace 模板
+## Agent Execution Trace Template
 
-Agent 项目最值得展示的是执行过程。建议每次运行至少记录这些字段：
+The most valuable thing to show in an Agent project is the execution process. It is recommended to record at least these fields for each run:
 
-| 字段 | 示例 | 作用 |
+| Field | Example | Purpose |
 |---|---|---|
-| `goal` | 帮我制定本周学习计划 | 用户目标 |
-| `step` | 1 | 第几步 |
-| `thought_type` | plan / tool / observe / final | 当前阶段类型 |
-| `action` | search_course_docs | 采取的动作 |
-| `arguments` | `{topic: "RAG"}` | 工具参数 |
-| `observation` | 找到 3 条相关章节 | 工具或环境返回 |
-| `next_decision` | 继续生成计划 | 为什么继续或停止 |
+| `goal` | Help me make a study plan for this week | User goal |
+| `step` | 1 | Which step it is |
+| `thought_type` | plan / tool / observe / final | Current stage type |
+| `action` | search_course_docs | Action taken |
+| `arguments` | `{topic: "RAG"}` | Tool parameters |
+| `observation` | Found 3 relevant chapters | Return from the tool or environment |
+| `next_decision` | Continue generating the plan | Why continue or stop |
 
-一个最小 trace 可以长这样：
+A minimal trace might look like this:
 
 ```text
-goal: 制定 RAG 学习计划
+goal: Create a RAG study plan
 step 1: action=search_course_docs, arguments={topic: RAG}
-observation: 找到 RAG 基础、文档处理、检索策略 3 个章节
+observation: Found 3 chapters on RAG basics, document processing, and retrieval strategies
 step 2: action=build_plan, arguments={days: 3}
-observation: 已生成 3 天计划
-final: 返回学习计划，并说明引用了哪些章节
+observation: A 3-day plan has been generated
+final: Return the study plan and explain which chapters were referenced
 ```
 
-如果没有 trace，Agent 出错时很难定位：到底是目标理解错、工具选错、参数错、工具返回异常，还是停止条件没写好。
+Without a trace, when an Agent goes wrong, it is hard to locate the problem: did it misunderstand the goal, choose the wrong tool, pass the wrong parameters, get an abnormal tool return, or forget to define a stop condition?
 
-## Agent 不应该做什么
+## What an Agent Should Not Do
 
-Agent 的能力越强，越需要边界。初学阶段尤其要记住：不是所有事情都适合交给 Agent 自主执行。
+The stronger an Agent becomes, the more boundaries it needs. Especially in the beginner stage, remember: not everything is suitable to be executed autonomously by an Agent.
 
-| 不建议让 Agent 自主做的事 | 更稳的做法 |
+| Things an Agent should not do autonomously | More stable approach |
 |---|---|
-| 删除文件、提交代码、发送消息、下单付款 | 必须人工确认 |
-| 执行没有白名单限制的任意代码 | 限制工具权限和运行环境 |
-| 无限尝试直到成功 | 设置最大步数、最大成本和超时 |
-| 在证据不足时编造结论 | 明确允许说“不知道” |
-| 靠记忆覆盖当前事实 | 先读取当前状态，再行动 |
+| Delete files, submit code, send messages, place orders or payments | Require human confirmation |
+| Execute arbitrary code without whitelist restrictions | Restrict tool permissions and runtime environment |
+| Keep trying forever until success | Set a maximum number of steps, maximum cost, and timeout |
+| Make up conclusions when evidence is insufficient | Clearly allow “I don’t know” |
+| Rely on memory to overwrite current facts | Read the current state first, then act |
 
-这张表不是为了削弱 Agent，而是为了让 Agent 更像一个可靠系统。真正工程化的 Agent，重点不是“它能不能自己做很多事”，而是“它是否知道什么时候该停、什么时候该问人、什么时候不能做”。
-
----
-
-## 小结
-
-这一节最重要的一句话是：
-
-> **Agent 不是“会说话的模型”，而是“能围绕目标采取行动的系统”。**
-
-它的价值不只是回答，而是完成任务。  
-后面几章我们会继续展开：推理、工具、记忆、多 Agent、部署与安全。
-
-## 这节最该带走什么
-
-- Agent 的关键不是对话，而是行动闭环
-- 工作流、聊天系统、函数调用和 Agent 需要先分清边界
-- 9 AI Agent 与智能体系统后面所有模块，其实都在展开“目标 + 决策 + 工具 + 状态”这四块
+This table is not meant to weaken the Agent, but to make it more like a reliable system. A truly engineered Agent is not mainly about “whether it can do many things by itself,” but about “whether it knows when to stop, when to ask a human, and when it should not act.”
 
 ---
 
-## 练习
+## Summary
 
-1. 给 `simple_agent()` 再加一个工具，比如“查课程安排”。
-2. 让 Agent 支持“先查文档，再计算”的两步任务。
-3. 思考：如果工具返回错误信息，Agent 应该怎么处理才更稳妥？
+The most important sentence in this section is:
+
+> **An Agent is not a “talking model,” but a “system that can take actions around a goal.”**
+
+Its value is not only in answering, but in completing tasks.
+In the next chapters, we will continue to expand on reasoning, tools, memory, multi-Agent systems, deployment, and safety.
+
+## What You Should Take Away From This Section
+
+- The key of an Agent is not conversation, but the action loop
+- Workflows, chat systems, function calling, and Agents must first be clearly separated
+- In 9 AI Agent and Intelligent Agent Systems, all later modules are essentially expansions of these four parts: “goal + decision + tools + state”
+
+---
+
+## Exercises
+
+1. Add another tool to `simple_agent()`, such as “check course schedule.”
+2. Make the Agent support a two-step task like “first check the docs, then calculate.”
+3. Think about this: if a tool returns an error message, how should the Agent handle it more safely?

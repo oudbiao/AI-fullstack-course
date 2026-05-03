@@ -1,313 +1,313 @@
 ---
-title: "4.2 AIGC 前沿趋势"
+title: "4.2 AIGC Frontier Trends"
 sidebar_position: 12
-description: "从多模态、实时生成、小模型化、Agent 化到端侧落地，建立一个更实用的 AIGC 趋势判断框架。"
+description: "From multimodality, real-time generation, smaller models, and agentification to edge deployment, build a more practical framework for judging AIGC trends."
 keywords: [AIGC trends, multimodal, real-time generation, small models, agentic systems, edge deployment]
 ---
 
-# AIGC 前沿趋势
+# AIGC Frontier Trends
 
-![AIGC 前沿趋势系统判断图](/img/course/ch12-aigc-frontier-system-trend-map.png)
+![AIGC Frontier Trend System Map](/img/course/ch12-aigc-frontier-system-trend-map-en.png)
 
-:::tip 读图提示
-前沿趋势要从“模型能力、成本效率、产品形态、合规边界、工作流整合”一起判断。只看榜单容易焦虑，看系统变化才更容易知道下一步该学什么。
+:::tip Reading guide
+Frontier trends should be judged by looking at “model capability, cost efficiency, product form, compliance boundaries, and workflow integration” together. Looking only at leaderboards can easily make you anxious; understanding system changes makes it easier to know what to learn next.
 :::
 
-:::tip 本节定位
-讲“趋势”最怕两种情况：
+:::tip Section positioning
+There are two things that are especially easy to get wrong when talking about “trends”:
 
-- 只列名词
-- 只追热点
+- listing only buzzwords
+- chasing only the hottest topics
 
-这一节更想做的是另一件事：
+What this section wants to do instead is this:
 
-> **给你一套看趋势的框架。**
+> **Give you a framework for reading trends.**
 
-这样你以后即使面对新的模型名、新的产品形态，也更容易判断它到底是在延续哪条主线。
+That way, even when you face a new model name or a new product form in the future, it will be easier to judge which main line it belongs to.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 AIGC 当前几个最重要的演进方向
-- 学会用“能力、成本、产品形态、部署方式”几个维度看趋势
-- 建立一种不只追热点、而是判断长期主线的习惯
+- Understand several of the most important current evolution directions in AIGC
+- Learn to view trends through dimensions such as “capability, cost, product form, and deployment method”
+- Build the habit of not just chasing hot topics, but judging long-term main lines
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-### 先看一个场景：为什么同一个模型能力会变成不同产品？
+### Start with a scenario: why does the same model capability become different products?
 
-想象三家公司都拿到了同样强的多模态模型。
+Imagine three companies all got access to the same powerful multimodal model.
 
-第一家公司把它做成截图问答助手，用户上传界面截图就能问“这个按钮是什么意思”。第二家公司把它做成视频剪辑工具，用户说一句话就能生成粗剪版本。第三家公司把它塞进手机端，让用户离线处理私人相册。
+The first company turns it into a screenshot Q&A assistant, where users upload an interface screenshot and ask, “What does this button mean?” The second company turns it into a video editing tool, where users say one sentence and get a rough cut version. The third company puts it on a mobile device so users can process private photo albums offline.
 
-模型底座可能相似，但产品方向完全不同。原因不在于“谁的模型名字更潮”，而在于它们分别抓住了不同变化：输入入口变了，工作流变了，成本结构变了，部署位置也变了。
+The model base may be similar, but the product directions are completely different. The reason is not “whose model name is trendier,” but that they each capture different changes: the input entry changed, the workflow changed, the cost structure changed, and the deployment location changed too.
 
-所以看 AIGC 趋势，不能只追模型榜单，而要问：这个变化到底改变了哪一层。
+So when looking at AIGC trends, you cannot just follow model leaderboards. You have to ask: what layer did this change actually affect?
 
-前沿趋势这节最适合新人的理解顺序不是“记住今年最火的名字”，而是先看清：
+For beginners, the best order to understand frontier trends is not “memorize this year’s hottest names,” but first clearly see:
 
 ```mermaid
 flowchart LR
-    A["能力变化"] --> B["成本变化"]
-    B --> C["交互变化"]
-    C --> D["部署变化"]
-    D --> E["产品可能性变化"]
+    A["Capability change"] --> B["Cost change"]
+    B --> C["Interaction change"]
+    C --> D["Deployment change"]
+    D --> E["Product possibility change"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 趋势应该怎么判断
-- 为什么前沿不等于只看模型榜单
+- how to judge trends
+- why frontier does not mean only looking at model leaderboards
 
-### 一个更适合新人的总类比
+### A more beginner-friendly overall analogy
 
-你可以把“看趋势”理解成：
+You can think of “reading trends” as:
 
-- 看城市到底在修什么路，而不是只看今天哪辆车跑得最快
+- looking at what roads a city is actually building, instead of only looking at which car is fastest today
 
-模型榜单更像：
+A model leaderboard is more like:
 
-- 今天哪辆车快了一点
+- which car is a little faster today
 
-趋势判断更像：
+Trend judgment is more like:
 
-- 这座城市接下来会更偏高铁、地铁，还是更多高速公路
+- whether this city is moving toward high-speed rail, subways, or more highways
 
-这个类比很适合新人，因为它会帮助你先抓住：
+This analogy is very useful for beginners because it helps you first grasp:
 
-- 趋势真正重要的是长期主线
-- 不是短期热词
+- what really matters about trends is the long-term main line
+- not short-term buzzwords
 
-## 一、为什么 AIGC 趋势不能只看模型榜单？
+## 1. Why can’t AIGC trends be judged only by model leaderboards?
 
-因为真正决定行业变化的，往往不只是：
+Because what really drives industry change is often not just:
 
-- 模型参数变大了多少
-- 某个榜单又刷新了多少分
+- how much the model parameter count increased
+- how much a leaderboard score improved
 
-而是这些更底层的变化：
+It is these deeper changes:
 
-- 能力边界有没有变
-- 交互形态有没有变
-- 成本结构有没有变
-- 部署方式有没有变
+- whether the capability boundary changed
+- whether the interaction form changed
+- whether the cost structure changed
+- whether the deployment method changed
 
-所以你看趋势时，真正要问的是：
+So when you look at trends, the real question is:
 
-> **这个变化，到底改变了什么样的应用可能性？**
+> **What kind of application possibilities did this change create?**
 
 ---
 
-## 二、六条趋势放在一张图里
+## 2. Putting six trends into one picture
 
-在进入具体趋势之前，可以先把它们放进同一个框架：
+Before going into specific trends, you can first place them in the same framework:
 
 ```mermaid
 mindmap
-  root((AIGC 前沿趋势))
-    能力边界
-      多模态
-      更强理解与生成
-    工作流形态
-      生成内容
-      生成工作流
-      Agent 化
-    成本效率
-      小模型
-      蒸馏
-      更低延迟
-    交互速度
-      实时生成
-      流式输出
-    部署位置
-      云端
-      端侧
-      本地化
-    系统组织
-      模型
-      检索
-      工具
-      安全护栏
+  root((AIGC Frontier Trends))
+    Capability boundaries
+      Multimodal
+      Stronger understanding and generation
+    Workflow form
+      Content generation
+      Workflow generation
+      Agentification
+    Cost efficiency
+      Small models
+      Distillation
+      Lower latency
+    Interaction speed
+      Real-time generation
+      Streaming output
+    Deployment location
+      Cloud
+      Edge
+      Localization
+    System organization
+      Model
+      Retrieval
+      Tools
+      Safety guardrails
 ```
 
-这张图的作用不是让你背名词，而是帮你判断：一个新热点到底落在哪条长期主线上。
+The purpose of this map is not to make you memorize terms, but to help you judge: which long-term main line does a new hot topic actually belong to?
 
 ---
 
-## 三、第一条大趋势：多模态越来越成为默认能力
+## 3. The first major trend: multimodality is becoming the default capability
 
-过去很多系统主要处理：
+In the past, many systems mainly handled:
 
-- 纯文本
+- pure text
 
-但现在越来越多系统开始同时处理：
+But now more and more systems handle:
 
-- 文本
-- 图像
-- 音频
-- 视频
+- text
+- images
+- audio
+- video
 
-这不是小变化，而是输入世界本身被打开了。
+This is not a small change. It means the input world itself has been opened up.
 
-### 3.1 为什么这很重要？
+### 3.1 Why is this important?
 
-因为真实世界天然就是多模态的。  
-一旦模型能吃进去更多种输入，应用形态就会大幅扩展：
+Because the real world is naturally multimodal.
+Once a model can take in more kinds of input, application forms expand dramatically:
 
-- 截图助手
-- 看图问答
-- 视频总结
-- 语音驱动助手
+- screenshot assistants
+- image-based Q&A
+- video summarization
+- voice-driven assistants
 
-所以：
+So:
 
-> 多模态不是“锦上添花”，而是在重新定义交互入口。 
+> Multimodality is not “icing on the cake”; it is redefining the interaction entry point.
 
-### 3.2 一个很适合初学者先记的判断
+### 3.2 A very useful early rule for beginners
 
-如果一个方向打开了新的输入入口，  
-那它往往就不只是“模型能力增加一点点”，而是在改：
+If a direction opens up a new input entry point,
+then it is often not just “the model got a little better,” but rather it is changing:
 
-- 用户怎样把问题交给系统
-
----
-
-## 四、第二条趋势：从“生成内容”走向“生成工作流”
-
-早期 AIGC 更多是：
-
-- 生成一张图
-- 生成一段文案
-
-而现在越来越多系统在做的是：
-
-- 生成 + 检索
-- 生成 + 工具调用
-- 生成 + 评审
-- 生成 + 多轮交互
-
-这意味着：
-
-> AIGC 正在从“单次输出”走向“持续工作流系统”。 
-
-这也是为什么 Agent 和 AIGC 之间越来越紧密。
+- how users hand their problems to the system
 
 ---
 
-## 五、第三条趋势：从大模型竞赛走向成本效率竞赛
+## 4. The second trend: from “generating content” to “generating workflows”
 
-### 5.1 只堆大模型不再是唯一方向
+Early AIGC was more about:
 
-行业在继续追大模型能力的同时，也越来越重视：
+- generating an image
+- generating a piece of copy
 
-- 推理成本
-- 延迟
-- 端侧可运行性
-- 小模型能力
+But now more and more systems are doing:
 
-### 5.2 为什么这会成为趋势？
+- generation + retrieval
+- generation + tool calling
+- generation + evaluation
+- generation + multi-turn interaction
 
-因为真正做产品时，你必须面对：
+This means:
 
-- 用户量
-- 预算
-- 部署环境
+> AIGC is moving from “single output” to “continuous workflow systems.”
 
-一个更强但贵十倍的模型，不一定更适合业务。
-
-所以未来很重要的一条线是：
-
-> **更强不再只等于更大，也越来越等于更高效。**
+This is also why Agent and AIGC are becoming increasingly tightly connected.
 
 ---
 
-## 六、第四条趋势：实时生成越来越重要
+## 5. The third trend: from model-size competition to cost-efficiency competition
 
-用户对 AIGC 的期待正在从：
+### 5.1 Simply stacking bigger models is no longer the only direction
 
-- “能生成”
+While the industry continues to pursue stronger model capabilities, it is also paying more and more attention to:
 
-变成：
+- inference cost
+- latency
+- whether it can run on-device
+- small-model capability
 
-- “能不能尽快生成”
+### 5.2 Why has this become a trend?
 
-尤其在：
+Because when building real products, you must face:
 
-- 对话
-- 语音
-- 视频
-- 交互创作
+- user scale
+- budget
+- deployment environment
 
-这些场景里，实时性会越来越关键。
+A model that is stronger but ten times more expensive is not necessarily better for the business.
 
-这会推动整个领域继续关注：
+So an important future line is:
 
-- 更快采样
-- 更轻量推理
-- 更流式生成
-
----
-
-## 七、第五条趋势：端侧和本地化能力越来越重要
-
-过去很多生成和推理都默认在云端。  
-但现在越来越多人关注：
-
-- 本地运行
-- 边缘部署
-- 隐私友好
-- 离线能力
-
-这尤其会在这些场景变得重要：
-
-- 企业内部系统
-- 隐私敏感数据
-- 移动端助手
-- 低网络依赖场景
-
-所以未来一个非常重要的问题会是：
-
-> **哪些能力应该在云端，哪些能力应该往端侧走？**
+> **Stronger no longer means only bigger; it increasingly means more efficient.**
 
 ---
 
-## 八、第六条趋势：从单模型能力走向系统能力
+## 6. The fourth trend: real-time generation is becoming more important
 
-很多年前，竞争重点更像：
+User expectations for AIGC are shifting from:
 
-- 单个模型谁更强
+- “It can generate”
 
-而现在越来越像：
+to:
 
-- 模型 + 检索
-- 模型 + 工具
-- 模型 + 工作流
-- 模型 + 安全护栏
+- “Can it generate quickly enough?”
 
-这意味着真正的竞争点正在从：
+Especially in:
 
-- 模型本身
+- dialogue
+- voice
+- video
+- interactive creation
 
-扩展到：
+In these scenarios, real-time performance will become increasingly critical.
 
-- 整个系统怎样组织起来
+This will continue to push the field toward:
 
-所以你以后做 AIGC 项目时，不能只盯着模型。
+- faster sampling
+- lighter inference
+- more streaming generation
 
 ---
 
-## 九、一个很实用的趋势判断框架
+## 7. The fifth trend: on-device and localized capabilities are becoming more important
 
-看一个新方向时，可以先问四个问题：
+In the past, a lot of generation and inference was assumed to happen in the cloud.
+But now more and more people are paying attention to:
 
-1. 它是让能力更强了，还是只是换了包装？
-2. 它是让成本更低了，还是让部署更灵活了？
-3. 它打开了新的交互入口吗？
-4. 它会影响产品工作流吗？
+- local execution
+- edge deployment
+- privacy friendliness
+- offline capability
 
-一个非常简单的示意：
+This will be especially important in scenarios such as:
+
+- internal enterprise systems
+- privacy-sensitive data
+- mobile assistants
+- scenarios with low network dependence
+
+So in the future, one very important question will be:
+
+> **Which capabilities should stay in the cloud, and which should move to the edge?**
+
+---
+
+## 8. The sixth trend: from single-model capability to system capability
+
+Many years ago, the competition focus was more like:
+
+- which single model is stronger
+
+Now it is increasingly like:
+
+- model + retrieval
+- model + tools
+- model + workflow
+- model + safety guardrails
+
+This means the real competition point is shifting from:
+
+- the model itself
+
+to:
+
+- how the whole system is organized
+
+So when you build AIGC projects in the future, you cannot focus only on the model.
+
+---
+
+## 9. A very practical trend-judging framework
+
+When looking at a new direction, you can first ask four questions:
+
+1. Does it make capability stronger, or is it just a new package?
+2. Does it reduce cost, or does it only make deployment more flexible?
+3. Does it open a new interaction entry point?
+4. Does it affect the product workflow?
+
+A very simple illustration:
 
 ```python
 trend_check = {
@@ -322,16 +322,16 @@ for trend, scores in trend_check.items():
     print(f"{trend}: total={total}, strongest_change={strongest}")
 ```
 
-这个例子不是在算一个客观排名，而是在训练一种判断习惯：每次看到新趋势，都把它拆到具体维度里看。
+This example is not calculating an objective ranking. It is training a way of thinking: every time you see a new trend, break it down into concrete dimensions.
 
-如果你想让这个小工具更实用，可以继续加上：
+If you want this little tool to be more practical, you can add:
 
 ```python
 advice = {
-    "ability": "优先看它能做什么新任务",
-    "cost_impact": "优先看它是否降低大规模使用成本",
-    "new_interaction": "优先看它是否改变用户入口",
-    "workflow_change": "优先看它是否重组产品流程"
+    "ability": "First look at what new tasks it can do",
+    "cost_impact": "First look at whether it lowers large-scale usage cost",
+    "new_interaction": "First look at whether it changes the user entry point",
+    "workflow_change": "First look at whether it reorganizes the product flow"
 }
 
 for trend, scores in trend_check.items():
@@ -339,94 +339,94 @@ for trend, scores in trend_check.items():
     print(trend, "->", advice[strongest])
 ```
 
-这个例子不是在算分，而是在提醒你：
+This example is not about scoring. It is a reminder:
 
-> 不要只看“新不新”，要看“改变了哪一层”。 
+> Don’t just look at whether something is “new”; look at which layer it changes.
 
-### 9.1 一个更适合初学者先记的趋势判断表
+### 9.1 A trend-judging table that is easier for beginners to remember
 
-| 维度 | 你最该先问什么 |
+| Dimension | What should you ask first? |
 |---|---|
-| 能力 | 它到底多做了什么以前做不到的事？ |
-| 成本 | 它让什么变便宜了，还是反而更贵了？ |
-| 交互 | 用户和系统的交互入口变了吗？ |
-| 工作流 | 它会让产品流程变短、变快，还是更复杂？ |
+| Capability | What can it do now that it couldn’t do before? |
+| Cost | What became cheaper, or did it become more expensive instead? |
+| Interaction | Has the user-system interaction entry point changed? |
+| Workflow | Does it make the product flow shorter, faster, or more complex? |
 
-这个表很适合新人，因为它会把“趋势”从抽象判断重新压回几个可以落地的问题。
-
----
-
-## 十、第一次看前沿趋势时，最稳的顺序
-
-更建议这样看：
-
-1. 先看它改变了哪种能力
-2. 再看它改变了多少成本结构
-3. 再看它是否打开了新交互或新工作流
-4. 最后才看它是不是短期热点
-
-这样更容易区分“真正主线”和“短期噪声”。
-
-## 十一、如果把它做成笔记或项目判断，最值得展示什么
-
-最值得展示的通常不是：
-
-- 一串热门方向列表
-
-而是：
-
-1. 你用哪四个维度在看趋势
-2. 某个方向具体改变了哪一层
-3. 它会怎样影响未来的产品形态
-
-这样别人会更容易看出：
-
-- 你理解的是趋势判断框架
-- 不只是跟着热点记名词
+This table is great for beginners because it brings “trends” down from abstract judgment to a few practical questions.
 
 ---
 
-## 十二、初学者最常踩的坑
+## 10. The safest order when looking at frontier trends for the first time
 
-### 12.1 把“趋势”理解成“最近热词”
+It is better to look at them in this order:
 
-这样很容易跟着新闻跑，而不是跟着主线走。
+1. First see which capability it changes
+2. Then see how much it changes the cost structure
+3. Then see whether it opens up new interactions or workflows
+4. Only then ask whether it is a short-term hot topic
 
-### 12.2 只看模型能力，不看成本和产品形态
+This makes it easier to tell the difference between “the real main line” and “short-term noise.”
 
-这会让判断失真。
+## 11. If you turn this into notes or a project judgment, what is most worth showing?
 
-### 12.3 以为趋势就是线性单向发展
+What is most worth showing is usually not:
 
-现实里很多趋势会并行存在：
+- a list of popular directions
 
-- 大模型继续变强
-- 小模型继续变便宜
-- 云端继续发展
-- 端侧也继续起势
+But rather:
 
----
+1. Which four dimensions you use to judge trends
+2. Which layer a certain direction changes
+3. How it will affect future product forms
 
-## 小结
+Then others will more easily see:
 
-这一节最重要的不是记住某几个方向，而是建立一个判断趋势的方式：
-
-> **AIGC 的前沿变化，真正有意义的部分通常发生在能力边界、成本结构、交互入口和系统组织方式这四层。**
-
-当你开始用这几个维度去看新趋势时，就不会只是在追热点了。
-
-## 这节最该带走什么
-
-- 趋势判断的核心是框架，不是追名词
-- 你真正要问的是“它改变了什么可能性”
-- 多模态、系统化、效率化、端侧化这些才更像长期主线
+- that you understand a trend-judging framework
+- not just that you are following hot topics and memorizing terms
 
 ---
 
-## 十三、练习
+## 12. Common mistakes beginners make
 
-1. 选一个你最近看到的 AIGC 新方向，用“能力 / 成本 / 交互 / 工作流”四个维度分析它。
-2. 想一想：为什么说多模态是“交互入口变化”，而不只是“模型能力变化”？
-3. 用自己的话解释：为什么未来 AIGC 的竞争越来越像“系统竞争”，而不只是“模型竞争”？
-4. 如果你要判断一个趋势是否值得长期跟，最先会问哪两个问题？
-5. 找一个具体产品，判断它主要押注的是多模态、实时生成、端侧化，还是工作流化。
+### 12.1 Treating “trend” as “recent buzzwords”
+
+This makes it easy to follow news around, instead of following the main line.
+
+### 12.2 Looking only at model capability, not cost and product form
+
+This can distort your judgment.
+
+### 12.3 Thinking trends develop in a purely linear, one-way way
+
+In reality, many trends exist in parallel:
+
+- large models keep getting stronger
+- small models keep getting cheaper
+- the cloud keeps developing
+- edge deployment is also gaining momentum
+
+---
+
+## Summary
+
+What matters most in this section is not memorizing a few directions, but building a way to judge trends:
+
+> **The truly meaningful part of AIGC frontier changes usually happens across four layers: capability boundaries, cost structure, interaction entry points, and system organization methods.**
+
+Once you start looking at new trends through these dimensions, you will no longer just be chasing hot topics.
+
+## What you should take away from this section
+
+- The core of trend judgment is a framework, not chasing buzzwords
+- The real question you should ask is “What possibility did it change?”
+- Multimodality, systemization, efficiency, and edge deployment are more like long-term main lines
+
+---
+
+## 13. Exercises
+
+1. Pick a new AIGC direction you recently saw and analyze it using the four dimensions of “capability / cost / interaction / workflow.”
+2. Think about why multimodality is said to be a change in the “interaction entry point,” not just a change in “model capability.”
+3. In your own words, explain why future AIGC competition is increasingly like “system competition,” not just “model competition.”
+4. If you want to judge whether a trend is worth following in the long term, what are the first two questions you would ask?
+5. Find a specific product and judge whether it is mainly betting on multimodality, real-time generation, on-device deployment, or workflow-ization.

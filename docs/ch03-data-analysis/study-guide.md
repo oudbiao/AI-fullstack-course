@@ -1,57 +1,57 @@
 ---
-title: "学习指南：数据分析与可视化怎么学最不容易学乱"
+title: "Study Guide: How to Learn Data Analysis and Visualization Without Getting Confused"
 sidebar_position: 1
-description: "给 AI 全栈新人的数据分析学习指南：NumPy、Pandas、可视化、最小分析闭环、项目路线和验收标准。"
-keywords: [数据分析学习指南, NumPy 怎么学, Pandas 怎么学, 可视化怎么学]
+description: "A data analysis learning guide for AI full-stack beginners: NumPy, Pandas, visualization, the minimal analysis loop, project roadmap, and acceptance criteria."
+keywords: [Data analysis learning guide, How to learn NumPy, How to learn Pandas, How to learn visualization]
 ---
 
-# 学习指南：数据分析与可视化怎么学最不容易学乱
+# Study Guide: How to Learn Data Analysis and Visualization Without Getting Confused
 
-如果你来到 `02 数据分析与可视化` 后觉得库很多、API 很碎，先不要急着背方法名。这一阶段真正要建立的是数据流意识。
+If you arrive at `02 Data Analysis and Visualization` and feel like there are too many libraries and the APIs are too fragmented, don’t rush to memorize method names. What you really need to build at this stage is data-flow awareness.
 
-## 本阶段总原则
+## Overall principle for this stage
 
-数据分析第一遍只抓一条主线：数据读进来，先理解字段，再清洗整理，然后统计分析，最后用图表表达结论。
+The first time you learn data analysis, focus on one main flow: read the data in, understand the fields first, then clean and organize it, then do statistical analysis, and finally use charts to present conclusions.
 
-![数据分析学习指南最小闭环](/img/course/ch03-study-guide-data-loop.png)
+![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先做纯 Python 数据处理预热，体会为什么需要专业工具。
+In the first round, do some pure Python data processing warm-up to feel why specialized tools are needed.
 
-第二轮学 NumPy，重点放在数组、shape、索引、广播、向量化、矩阵运算和基础统计。不要一开始追求所有函数都记住。
+In the second round, learn NumPy, focusing on arrays, shape, indexing, broadcasting, vectorization, matrix operations, and basic statistics. Don’t try to memorize every function from the start.
 
-第三轮学 Pandas，重点放在 DataFrame、读写文件、选择过滤、缺失值、分组聚合、合并和时间序列。
+In the third round, learn Pandas, focusing on DataFrame, reading and writing files, selecting and filtering, missing values, grouping and aggregation, merging, and time series.
 
-第四轮学可视化，先学如何选图，再学美化。图表应该服务于问题，不是为了好看而画。
+In the fourth round, learn visualization. First learn how to choose the right chart, then learn how to polish it. Charts should serve the question, not be drawn just to look nice.
 
-第五轮做 EDA 项目，把读取、清洗、分析、可视化和结论写作串成完整报告。
+In the fifth round, do an EDA project and connect reading, cleaning, analysis, visualization, and conclusion writing into a complete report.
 
-## 建议学习节奏
+## Suggested learning pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| NumPy 基础 | 1～2 小时 | 理解数组、shape 和向量化 |
-| Pandas 处理页 | 2～4 小时 | 能筛选、清洗、聚合和合并 |
-| 可视化页 | 1～3 小时 | 能选对图并解释图表 |
-| 项目页 | 6～12 小时 | 完成一份可读的数据分析报告 |
+| NumPy basics | 1–2 hours | Understand arrays, shape, and vectorization |
+| Pandas processing page | 2–4 hours | Be able to filter, clean, aggregate, and merge |
+| Visualization page | 1–3 hours | Be able to choose the right chart and explain it |
+| Project page | 6–12 hours | Complete a readable data analysis report |
 
-## 阶段项目路线
+## Stage project roadmap
 
-第一个项目建议做单数据集 EDA，例如 Titanic、房价、电影评分、电商订单或公开运营数据。你需要完成字段理解、缺失值处理、统计摘要、关键图表和结论。
+For your first project, it is recommended to do an EDA on a single dataset, such as Titanic, housing prices, movie ratings, e-commerce orders, or public operations data. You need to complete field understanding, missing value handling, statistical summaries, key charts, and conclusions.
 
-第二个项目可以做多来源数据分析，把多个 CSV、网页数据或数据库表合并起来，练习真实工作中更常见的数据整理过程。
+For your second project, you can do multi-source data analysis by combining multiple CSV files, web data, or database tables, and practice the data organization process that is more common in real work.
 
-## 常见卡点
+## Common stumbling blocks
 
-最常见的卡点是“API 太多记不住”。这很正常。你只需要先记住常用动作：读、看、选、筛、改、分组、合并、画图。其他方法可以随用随查。
+The most common stumbling block is “there are too many APIs to remember.” That’s completely normal. You only need to first remember the common actions: read, inspect, select, filter, modify, group, merge, and plot. You can look up the other methods when you need them.
 
-第二个卡点是“不知道图表说明什么”。每画一张图之前，先写下它要回答的问题，比如“哪个类别最多”“价格和面积是否相关”“异常值在哪里”。
+The second stumbling block is “I don’t know what the chart is saying.” Before drawing each chart, write down the question it is meant to answer, such as “which category is the largest,” “are price and area correlated,” or “where are the outliers?”
 
-第三个卡点是清洗数据时没有记录。建议你在 Notebook 中保留每一步处理原因，否则后面很难复盘。
+The third stumbling block is not recording your cleaning steps. It’s recommended that you keep the reason for each step in your Notebook; otherwise, it will be hard to review and trace back later.
 
-## 过关标准
+## Passing criteria
 
-学完本阶段后，你应该能拿到一个 CSV 文件，独立完成读取、清洗、探索、可视化和结论整理。
+After you finish this stage, you should be able to take a CSV file and independently complete reading, cleaning, exploration, visualization, and conclusion summarization.
 
-如果你能写出一份包含至少三张关键图表、一个数据清洗过程和三条明确结论的数据分析报告，就可以进入 AI 数学和机器学习阶段。
+If you can write a data analysis report that includes at least three key charts, one data cleaning process, and three clear conclusions, then you are ready to move on to the AI math and machine learning stage.

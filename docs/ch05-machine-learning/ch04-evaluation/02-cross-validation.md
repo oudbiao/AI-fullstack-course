@@ -1,58 +1,58 @@
 ---
-title: "4.3 交叉验证"
+title: "4.3 Cross-Validation"
 sidebar_position: 11
-description: "掌握留出法、K 折交叉验证、分层 K 折、留一法和时间序列交叉验证"
-keywords: [交叉验证, K折, 分层K折, 留一法, 时间序列, Hold-out, cross_val_score]
+description: "Master hold-out validation, K-Fold cross-validation, stratified K-Fold, leave-one-out, and time series cross-validation"
+keywords: [cross-validation, KFold, stratified KFold, leave-one-out, time series, Hold-out, cross_val_score]
 ---
 
-# 交叉验证
+# Cross-Validation
 
-![K 折交叉验证切分图](/img/course/cross-validation-kfold.png)
+![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold-en.png)
 
-:::tip 本节定位
-只用一次 train/test 分割来评估模型，结果可能受**随机划分**的影响很大。交叉验证让每个数据都有机会被用作训练和测试，给出更**稳定、可靠**的评估结果。
+:::tip Section Overview
+If you evaluate a model with only one train/test split, the result can be heavily affected by the **random split**. Cross-validation gives each data point a chance to be used for both training and testing, producing more **stable and reliable** evaluation results.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解留出法的局限性
-- 掌握 K 折交叉验证
-- 掌握分层 K 折交叉验证
-- 了解留一法和时间序列交叉验证
-- 会用 `cross_val_score` 和 `cross_validate`
+- Understand the limitations of hold-out validation
+- Master K-Fold cross-validation
+- Master stratified K-Fold cross-validation
+- Learn about leave-one-out and time series cross-validation
+- Use `cross_val_score` and `cross_validate`
 
-## 先说一个很重要的学习预期
+## First, set a very important learning expectation
 
-这一节最容易让新人误会的地方，是把交叉验证理解成：
+The easiest place for beginners to misunderstand this section is to think of cross-validation as:
 
-- “多跑几次平均一下”
+- “Run it a few more times and average it out”
 
-但更值得第一遍先学会的其实是：
+But what is even more worth learning first is:
 
-> **交叉验证是在更稳地估计模型的泛化能力。**
+> **Cross-validation is a way to estimate a model’s generalization ability more reliably.**
 
-也就是说，这节的重点不是先记住多少 split 类名，而是先知道：
+In other words, the key point of this section is not to memorize how many split class names there are, but to first understand:
 
-- 为什么一次划分不够
-- 为什么不同任务要配不同切法
-- 为什么评估设计本身也是建模的一部分
+- Why one split is not enough
+- Why different tasks need different splitting strategies
+- Why evaluation design is also part of modeling
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-交叉验证这节最适合新人的理解顺序不是“记不同 split 类名”，而是先看清它到底在解决什么问题：
+For beginners, the best way to understand this section is not to “memorize different split class names,” but to first see what problem cross-validation is actually solving:
 
-![交叉验证稳定评估流程图](/img/course/ch05-cross-validation-stability-flow.png)
+![Cross-validation stable evaluation flowchart](/img/course/ch05-cross-validation-stability-flow-en.png)
 
-这节真正想解决的是：
+What this section is really trying to solve is:
 
-- 为什么一次随机划分不够可信
-- 为什么评估方法本身也要匹配任务类型
+- Why one random split is not trustworthy enough
+- Why the evaluation method must match the task type
 
-## 一、留出法的问题
+## 1. Problems with hold-out validation
 
-### 1.1 一次划分够吗？
+### 1.1 Is one split enough?
 
 ```python
 from sklearn.datasets import load_iris
@@ -63,7 +63,7 @@ import numpy as np
 iris = load_iris()
 X, y = iris.data, iris.target
 
-# 不同 random_state 导致不同结果
+# Different random_state values lead to different results
 scores = []
 for seed in range(50):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
@@ -75,62 +75,62 @@ import matplotlib.pyplot as plt
 
 plt.figure(figsize=(10, 4))
 plt.bar(range(50), scores, color='steelblue', alpha=0.7)
-plt.axhline(y=np.mean(scores), color='red', linestyle='--', label=f'平均: {np.mean(scores):.3f}')
-plt.xlabel('随机种子')
-plt.ylabel('准确率')
-plt.title(f'50 次不同划分的准确率（标准差: {np.std(scores):.3f}）')
+plt.axhline(y=np.mean(scores), color='red', linestyle='--', label=f'Average: {np.mean(scores):.3f}')
+plt.xlabel('Random seed')
+plt.ylabel('Accuracy')
+plt.title(f'Accuracy across 50 different splits (std: {np.std(scores):.3f})')
 plt.legend()
 plt.grid(axis='y', alpha=0.3)
 plt.show()
 
-print(f"最低: {min(scores):.3f}, 最高: {max(scores):.3f}, 差距: {max(scores)-min(scores):.3f}")
+print(f"Min: {min(scores):.3f}, Max: {max(scores):.3f}, Gap: {max(scores)-min(scores):.3f}")
 ```
 
-:::warning 问题
-一次划分的结果**不稳定**——不同的随机种子可能差异很大。我们需要更可靠的评估方式。
+:::warning Problem
+The result of one split is **unstable** — different random seeds can lead to very different results. We need a more reliable evaluation method.
 :::
 
-### 1.2 一个更适合新人的判断标准
+### 1.2 A better rule of thumb for beginners
 
-如果你现在还在想：
+If you are still thinking:
 
-- “我这次随机划分分数不错，应该就可以了吧？”
+- “This random split gave me a good score, so it should be fine, right?”
 
-那这节要帮你建立的就是：
+Then what this section wants to help you build is this idea:
 
-- **一次分数不重要，稳定分数才重要**
+- **One score is not important; a stable score is.**
 
-### 1.3 一个更适合新人的类比
+### 1.3 A beginner-friendly analogy
 
-你可以先把交叉验证想成：
+You can think of cross-validation like this:
 
-- 不要只考一次就定水平
-- 而是换几套题、多考几轮，再看平均发挥
+- Don’t judge someone based on just one exam
+- Instead, give several different exams and then look at the average performance
 
-这样你得到的就不是：
+What you get is not:
 
-- “这次刚好考得不错”
+- “They happened to do well this time”
 
-而是：
+but rather:
 
-- “整体水平大概就在这里”
+- “Their overall level is probably around here”
 
 ---
 
-## 二、K 折交叉验证
+## 2. K-Fold cross-validation
 
-### 2.1 原理
+### 2.1 Principle
 
-把数据分成 K 份，每次用 1 份做测试、其余 K-1 份做训练。重复 K 次，取平均。
+Split the data into K parts. Each time, use 1 part for testing and the remaining K-1 parts for training. Repeat K times and take the average.
 
 ```mermaid
 flowchart TD
-    D["全部数据分成 5 份"] --> R1["第1轮: fold1 测试, fold2-5 训练"]
-    D --> R2["第2轮: fold2 测试, fold1,3-5 训练"]
-    D --> R3["第3轮: fold3 测试, fold1-2,4-5 训练"]
-    D --> R4["第4轮: fold4 测试, fold1-3,5 训练"]
-    D --> R5["第5轮: fold5 测试, fold1-4 训练"]
-    R1 --> AVG["取 5 轮分数的平均 ± 标准差"]
+    D["Split all data into 5 parts"] --> R1["Round 1: fold1 for testing, fold2-5 for training"]
+    D --> R2["Round 2: fold2 for testing, fold1,3-5 for training"]
+    D --> R3["Round 3: fold3 for testing, fold1-2,4-5 for training"]
+    D --> R4["Round 4: fold4 for testing, fold1-3,5 for training"]
+    D --> R5["Round 5: fold5 for testing, fold1-4 for training"]
+    R1 --> AVG["Take the average ± std of the 5 scores"]
     R2 --> AVG
     R3 --> AVG
     R4 --> AVG
@@ -140,7 +140,7 @@ flowchart TD
     style AVG fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 sklearn 实现
+### 2.2 sklearn implementation
 
 ```python
 from sklearn.model_selection import cross_val_score, KFold
@@ -148,97 +148,97 @@ from sklearn.tree import DecisionTreeClassifier
 
 model = DecisionTreeClassifier(max_depth=3, random_state=42)
 
-# 最简单的用法
+# The simplest usage
 scores = cross_val_score(model, X, y, cv=5, scoring='accuracy')
-print(f"5 折交叉验证:")
-print(f"  每折分数: {scores}")
-print(f"  平均: {scores.mean():.4f} ± {scores.std():.4f}")
+print(f"5-Fold cross-validation:")
+print(f"  Scores per fold: {scores}")
+print(f"  Mean: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.3 手动控制 KFold
+### 2.3 Manually controlling KFold
 
 ```python
 from sklearn.model_selection import KFold
 
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
-# 可视化每折的划分
+# Visualize the split for each fold
 fig, axes = plt.subplots(5, 1, figsize=(12, 6), sharex=True)
 
 for fold, (train_idx, test_idx) in enumerate(kf.split(X)):
     ax = axes[fold]
-    ax.scatter(train_idx, [0]*len(train_idx), c='steelblue', s=3, label='训练')
-    ax.scatter(test_idx, [0]*len(test_idx), c='red', s=10, label='测试')
-    ax.set_ylabel(f'折 {fold+1}')
+    ax.scatter(train_idx, [0]*len(train_idx), c='steelblue', s=3, label='Training')
+    ax.scatter(test_idx, [0]*len(test_idx), c='red', s=10, label='Testing')
+    ax.set_ylabel(f'Fold {fold+1}')
     ax.set_yticks([])
     if fold == 0:
         ax.legend(loc='upper right', ncol=2)
 
-axes[-1].set_xlabel('样本索引')
-plt.suptitle('5 折交叉验证的数据划分', fontsize=13)
+axes[-1].set_xlabel('Sample index')
+plt.suptitle('5-Fold cross-validation data split', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-### 2.4 K 值怎么选？
+### 2.4 How should you choose K?
 
-| K 值 | 优点 | 缺点 |
+| K value | Advantage | Disadvantage |
 |------|------|------|
-| K=3 | 速度快 | 方差大，不够稳定 |
-| **K=5** | **常用默认值** | **平衡了速度和稳定性** |
-| **K=10** | **更稳定** | **速度稍慢** |
-| K=n（留一法） | 最稳定 | 非常慢 |
+| K=3 | Fast | High variance, not stable enough |
+| **K=5** | **Common default** | **Balances speed and stability** |
+| **K=10** | **More stable** | **Slightly slower** |
+| K=n (leave-one-out) | Most stable | Very slow |
 
-### 2.5 第一次做项目时怎么选最稳？
+### 2.5 What is the safest choice for your first project?
 
-一个够稳的顺序通常是：
+A reasonably stable sequence is usually:
 
-- 入门项目：先用 `cv=5`
-- 想更稳一点：再看 `cv=10`
-- 样本很少：再考虑 LOO
+- Beginner project: start with `cv=5`
+- Want something a bit more stable: try `cv=10`
+- Very small sample size: consider LOO
 
-所以很多时候不是值越大越好，而是：
+So in many cases, bigger is not better. Instead:
 
-- 先用一个够稳、计算也能接受的值
+- Start with a value that is stable enough and still computationally acceptable
 
 ---
 
-## 三、分层 K 折交叉验证
+## 3. Stratified K-Fold cross-validation
 
-### 3.1 为什么需要分层？
+### 3.1 Why do we need stratification?
 
-普通 KFold 随机划分，可能导致某一折的类别比例与整体不同（尤其不平衡数据）。
+Standard KFold splits data randomly, which may cause the class ratio in one fold to differ from the overall dataset, especially with imbalanced data.
 
-**分层 KFold 保证每折的类别比例与整体一致。**
+**Stratified KFold ensures that the class ratio in each fold matches the overall ratio.**
 
 ```python
 from sklearn.model_selection import StratifiedKFold
 
-# 模拟不平衡数据
+# Simulate imbalanced data
 from sklearn.datasets import make_classification
 X_imb, y_imb = make_classification(n_samples=100, n_features=5,
                                      weights=[0.9, 0.1], random_state=42)
 
-print(f"正类比例: {y_imb.mean():.1%}")
+print(f"Positive class ratio: {y_imb.mean():.1%}")
 
-# 对比 KFold 和 StratifiedKFold
+# Compare KFold and StratifiedKFold
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
-print("\n普通 KFold 每折正类比例:")
+print("\nPositive class ratio in each fold with standard KFold:")
 for fold, (_, test_idx) in enumerate(kf.split(X_imb)):
-    print(f"  折 {fold+1}: {y_imb[test_idx].mean():.1%}")
+    print(f"  Fold {fold+1}: {y_imb[test_idx].mean():.1%}")
 
-print("\n分层 StratifiedKFold 每折正类比例:")
+print("\nPositive class ratio in each fold with StratifiedKFold:")
 for fold, (_, test_idx) in enumerate(skf.split(X_imb, y_imb)):
-    print(f"  折 {fold+1}: {y_imb[test_idx].mean():.1%}")
+    print(f"  Fold {fold+1}: {y_imb[test_idx].mean():.1%}")
 ```
 
-### 3.2 sklearn 中的默认行为
+### 3.2 Default behavior in sklearn
 
 ```python
-# cross_val_score 对分类任务默认使用 StratifiedKFold
-# 你可以显式指定
+# cross_val_score uses StratifiedKFold by default for classification tasks
+# You can also specify it explicitly
 from sklearn.model_selection import cross_val_score
 
 scores = cross_val_score(
@@ -247,35 +247,35 @@ scores = cross_val_score(
     cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
     scoring='f1'
 )
-print(f"分层 5 折 F1: {scores.mean():.4f} ± {scores.std():.4f}")
+print(f"Stratified 5-Fold F1: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-:::info 最佳实践
-- **分类任务**：始终使用 `StratifiedKFold`（`cross_val_score` 默认就是）
-- **回归任务**：使用普通 `KFold`
-- **时间序列**：使用 `TimeSeriesSplit`
+:::info Best practice
+- **Classification tasks**: always use `StratifiedKFold` (`cross_val_score` does this by default)
+- **Regression tasks**: use standard `KFold`
+- **Time series**: use `TimeSeriesSplit`
 :::
 
-### 3.3 这节最该先记住的一句话
+### 3.3 The one sentence you should remember most from this section
 
-> **评估切法也属于建模设计的一部分。**
+> **The evaluation split strategy is also part of model design.**
 
-也就是说，切分方法错了，后面模型分数就可能从一开始就失真。
+In other words, if the split method is wrong, the model scores later on may already be distorted from the start.
 
-![交叉验证防泄漏 Pipeline 图](/img/course/ch05-cv-leakage-safe-pipeline-map.png)
+![Cross-validation leakage-safe pipeline diagram](/img/course/ch05-cv-leakage-safe-pipeline-map-en.png)
 
-这张图最重要的地方是：每一折都必须在训练折里 `fit` 预处理器，再把同样规则 `transform` 到验证折。不要先对全量数据标准化、PCA 或特征选择，再做交叉验证；那样验证折的信息已经提前泄漏进训练流程。
+The most important part of this figure is: for each fold, you must `fit` the preprocessor on the training fold, then `transform` the validation fold using the same rules. Do not standardize, apply PCA, or perform feature selection on the full dataset first and then do cross-validation; otherwise, information from the validation fold has already leaked into the training process.
 
 ---
 
-## 四、留一法（LOO）
+## 4. Leave-One-Out (LOO)
 
-**Leave-One-Out**：每次只留 1 个样本做测试，其余 n-1 个做训练。重复 n 次。
+**Leave-One-Out**: each time, leave 1 sample for testing and use the other n-1 samples for training. Repeat n times.
 
 ```python
 from sklearn.model_selection import LeaveOneOut, cross_val_score
 
-# 用小数据集演示（LOO 在大数据集上太慢）
+# Use a small dataset for demonstration (LOO is too slow on large datasets)
 from sklearn.datasets import load_iris
 X_small, y_small = load_iris(return_X_y=True)
 
@@ -283,24 +283,24 @@ loo = LeaveOneOut()
 model = DecisionTreeClassifier(max_depth=3, random_state=42)
 
 scores = cross_val_score(model, X_small, y_small, cv=loo)
-print(f"LOO 交叉验证:")
-print(f"  总轮数: {len(scores)}")
-print(f"  平均准确率: {scores.mean():.4f}")
+print(f"LOO cross-validation:")
+print(f"  Total rounds: {len(scores)}")
+print(f"  Mean accuracy: {scores.mean():.4f}")
 ```
 
-| 优点 | 缺点 |
+| Advantage | Disadvantage |
 |------|------|
-| 训练数据量最大化 | 计算开销大（n 次训练） |
-| 评估偏差最小 | 方差可能较大 |
-| | 大数据集上不实用 |
+| Maximizes training data | High computational cost (n training runs) |
+| Lowest evaluation bias | Variance may be high |
+| | Not practical for large datasets |
 
 ---
 
-## 五、时间序列交叉验证
+## 5. Time series cross-validation
 
-### 5.1 为什么不能随机划分？
+### 5.1 Why can’t we split randomly?
 
-时间序列数据有**时间顺序**——用未来数据训练去预测过去，是"数据泄漏"。
+Time series data has **temporal order** — training on future data to predict the past is “data leakage.”
 
 ### 5.2 TimeSeriesSplit
 
@@ -308,7 +308,7 @@ print(f"  平均准确率: {scores.mean():.4f}")
 from sklearn.model_selection import TimeSeriesSplit
 import numpy as np
 
-# 模拟时间序列数据
+# Simulate time series data
 n = 100
 X_ts = np.arange(n).reshape(-1, 1)
 y_ts = np.sin(X_ts.ravel() / 10) + np.random.randn(n) * 0.1
@@ -319,21 +319,21 @@ fig, axes = plt.subplots(5, 1, figsize=(12, 8), sharex=True)
 
 for fold, (train_idx, test_idx) in enumerate(tscv.split(X_ts)):
     ax = axes[fold]
-    ax.scatter(train_idx, y_ts[train_idx], c='steelblue', s=10, label='训练')
-    ax.scatter(test_idx, y_ts[test_idx], c='red', s=20, label='测试')
-    ax.set_ylabel(f'折 {fold+1}')
+    ax.scatter(train_idx, y_ts[train_idx], c='steelblue', s=10, label='Training')
+    ax.scatter(test_idx, y_ts[test_idx], c='red', s=20, label='Testing')
+    ax.set_ylabel(f'Fold {fold+1}')
     if fold == 0:
         ax.legend(loc='upper left', ncol=2)
 
-axes[-1].set_xlabel('时间步')
-plt.suptitle('时间序列交叉验证（训练集逐步扩大）', fontsize=13)
+axes[-1].set_xlabel('Time step')
+plt.suptitle('Time series cross-validation (training set grows step by step)', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## 六、cross_validate——更丰富的输出
+## 6. `cross_validate` — richer output
 
 ```python
 from sklearn.model_selection import cross_validate
@@ -341,37 +341,37 @@ from sklearn.ensemble import RandomForestClassifier
 
 model = RandomForestClassifier(n_estimators=50, random_state=42)
 
-# cross_validate 比 cross_val_score 返回更多信息
+# cross_validate returns more information than cross_val_score
 results = cross_validate(
     model, X, y, cv=5,
     scoring=['accuracy', 'f1_macro'],
     return_train_score=True
 )
 
-print("5 折交叉验证详细结果:")
-print(f"  训练准确率: {results['train_accuracy'].mean():.4f} ± {results['train_accuracy'].std():.4f}")
-print(f"  测试准确率: {results['test_accuracy'].mean():.4f} ± {results['test_accuracy'].std():.4f}")
-print(f"  测试 F1:    {results['test_f1_macro'].mean():.4f} ± {results['test_f1_macro'].std():.4f}")
-print(f"  每折耗时:   {results['fit_time'].mean():.3f}s")
+print("Detailed results for 5-Fold cross-validation:")
+print(f"  Training accuracy: {results['train_accuracy'].mean():.4f} ± {results['train_accuracy'].std():.4f}")
+print(f"  Testing accuracy:  {results['test_accuracy'].mean():.4f} ± {results['test_accuracy'].std():.4f}")
+print(f"  Testing F1:        {results['test_f1_macro'].mean():.4f} ± {results['test_f1_macro'].std():.4f}")
+print(f"  Time per fold:     {results['fit_time'].mean():.3f}s")
 ```
 
-### 6.1 为什么 `cross_validate` 比 `cross_val_score` 更适合项目？
+### 6.1 Why is `cross_validate` more suitable for projects than `cross_val_score`?
 
-因为项目里你经常不只关心：
+Because in real projects, you often care about more than just:
 
-- 一个平均分
+- one average score
 
-你还会关心：
+You may also care about:
 
-- 训练集和验证集差距
-- 多个指标一起看
-- 每折耗时
+- the gap between training and validation sets
+- multiple metrics at the same time
+- the time cost of each fold
 
-这会让你的实验更像真正的模型评估，而不只是跑个数字。
+This makes your experiment feel more like real model evaluation, not just number crunching.
 
 ---
 
-## 七、综合对比
+## 7. Comprehensive comparison
 
 ```python
 from sklearn.model_selection import cross_val_score
@@ -381,9 +381,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 
 models = {
-    '决策树': DecisionTreeClassifier(max_depth=5, random_state=42),
-    '逻辑回归': LogisticRegression(max_iter=1000, random_state=42),
-    '随机森林': RandomForestClassifier(n_estimators=100, random_state=42),
+    'Decision Tree': DecisionTreeClassifier(max_depth=5, random_state=42),
+    'Logistic Regression': LogisticRegression(max_iter=1000, random_state=42),
+    'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
     'SVM': SVC(random_state=42),
 }
 
@@ -393,7 +393,7 @@ for name, model in models.items():
     results[name] = scores
     print(f"{name:10s} | {scores.mean():.4f} ± {scores.std():.4f}")
 
-# 箱线图对比
+# Boxplot comparison
 fig, ax = plt.subplots(figsize=(8, 5))
 data = [results[name] for name in models]
 bp = ax.boxplot(data, labels=models.keys(), patch_artist=True)
@@ -403,8 +403,8 @@ for patch, color in zip(bp['boxes'], colors):
     patch.set_facecolor(color)
     patch.set_alpha(0.7)
 
-ax.set_ylabel('准确率')
-ax.set_title('10 折交叉验证对比（箱线图）')
+ax.set_ylabel('Accuracy')
+ax.set_title('10-Fold cross-validation comparison (boxplot)')
 ax.grid(axis='y', alpha=0.3)
 plt.tight_layout()
 plt.show()
@@ -412,58 +412,56 @@ plt.show()
 
 ---
 
-## 十、第一次把交叉验证放进项目里，最稳的默认顺序
+## 10. The safest default sequence for the first time you add cross-validation to a project
 
-第一次把交叉验证真正放进项目流程时，可以先按这个顺序：
+When you first add cross-validation into a project workflow, you can follow this sequence:
 
-1. 先做一次最小 baseline
-2. 再用 `cv=5` 看一个平均分和标准差
-3. 如果是分类任务，默认优先 `StratifiedKFold`
-4. 如果是时间序列，立即切到 `TimeSeriesSplit`
-5. 最后再把交叉验证接进调参流程
+1. Start with a minimal baseline
+2. Use `cv=5` to get an average score and standard deviation
+3. For classification tasks, prioritize `StratifiedKFold` by default
+4. For time series, switch to `TimeSeriesSplit` immediately
+5. Finally, connect cross-validation to the hyperparameter tuning workflow
 
-这样你就不会把交叉验证学成一个孤立 API，  
-而会更自然地把它放进：
+In this way, you will not learn cross-validation as an isolated API,
+but will more naturally place it into the full evaluation pipeline of:
 
 - baseline
-- 模型比较
-- 调参
-
-这整条评估主线里。
+- model comparison
+- hyperparameter tuning
 
 ---
 
-## 小结
+## Summary
 
-| 方法 | 说明 | 适用 |
+| Method | Description | Use case |
 |------|------|------|
-| **Hold-out** | 一次 train/test 划分 | 快速实验 |
-| **K-Fold** | K 次划分取平均 | 通用（K=5 或 10） |
-| **Stratified K-Fold** | 保持类别比例的 K-Fold | 分类（默认） |
-| **LOO** | 每次留 1 个样本 | 小数据集 |
-| **TimeSeriesSplit** | 按时间顺序划分 | 时间序列 |
+| **Hold-out** | One train/test split | Quick experiments |
+| **K-Fold** | Average over K splits | General-purpose (K=5 or 10) |
+| **Stratified K-Fold** | K-Fold that preserves class ratios | Classification (default) |
+| **LOO** | Leave 1 sample out each time | Small datasets |
+| **TimeSeriesSplit** | Split in chronological order | Time series |
 
-:::info 连接后续
-- **下一节**：偏差-方差权衡——为什么交叉验证和单次评估结果不同
-- **4.4 节**：超参数调优——用交叉验证来选最优参数
+:::info What comes next
+- **Next section**: Bias-variance tradeoff — why cross-validation and single-split evaluation can give different results
+- **Section 4.4**: Hyperparameter tuning — using cross-validation to choose the best parameters
 :::
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-- 交叉验证的核心不是“多跑几次”，而是“更稳地估计模型泛化能力”
-- 切分方法必须和任务类型匹配
-- 如果评估没设计好，后面很多模型比较都会失去意义
+- The core of cross-validation is not “running it more times,” but “estimating model generalization more reliably”
+- The splitting strategy must match the task type
+- If evaluation is not designed well, many later model comparisons lose their meaning
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：K 值对比
+### Exercise 1: Compare different K values
 
-用 Iris 数据集和决策树，对比 K=3, 5, 10, 20 的交叉验证结果（平均准确率和标准差）。K 越大，标准差越小吗？
+Use the Iris dataset and a decision tree to compare cross-validation results for K=3, 5, 10, and 20 (mean accuracy and standard deviation). Does the standard deviation get smaller as K increases?
 
-### 练习 2：多指标评估
+### Exercise 2: Multi-metric evaluation
 
-用 `cross_validate` 在乳腺癌数据集上同时评估 accuracy、precision、recall、f1，返回训练集和测试集分数。哪个模型过拟合最严重？
+Use `cross_validate` on the breast cancer dataset to evaluate accuracy, precision, recall, and f1 at the same time, returning both training and testing scores. Which model shows the most severe overfitting?
 
-### 练习 3：分层 vs 非分层
+### Exercise 3: Stratified vs non-stratified
 
-创建一个严重不平衡的数据集（正负比 9:1），对比 `KFold` 和 `StratifiedKFold` 的评估结果差异。
+Create a severely imbalanced dataset (positive:negative = 9:1) and compare the evaluation results of `KFold` and `StratifiedKFold`.

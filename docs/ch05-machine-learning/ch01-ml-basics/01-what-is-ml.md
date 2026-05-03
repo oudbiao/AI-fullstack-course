@@ -1,322 +1,322 @@
 ---
-title: "1.3 什么是机器学习"
+title: "1.3 What Is Machine Learning"
 sidebar_position: 2
-description: "理解机器学习的定义与分类，区分监督学习、无监督学习与强化学习，掌握 ML 工作流程"
-keywords: [机器学习, 监督学习, 无监督学习, 强化学习, AI, 工作流程]
+description: "Understand the definition and categories of machine learning, distinguish supervised learning, unsupervised learning, and reinforcement learning, and master the ML workflow"
+keywords: [machine learning, supervised learning, unsupervised learning, reinforcement learning, AI, workflow]
 ---
 
-# 什么是机器学习
+# What Is Machine Learning
 
-![机器学习建模闭环图](/img/course/ml-modeling-loop.png)
+![Machine learning modeling loop diagram](/img/course/ml-modeling-loop-en.png)
 
-## 本节定位
+## Where This Section Fits
 
-这一节是你正式进入机器学习的第一站。重点不是背定义，而是理解机器学习和传统编程的区别，建立“问题类型 → 数据形式 → 学习方法”的判断框架，为后面的监督学习、无监督学习和模型评估打底。
+This is your first stop as you officially enter machine learning. The key is not memorizing definitions, but understanding the difference between machine learning and traditional programming, and building a framework for deciding “problem type → data format → learning method.” This will lay the foundation for supervised learning, unsupervised learning, and model evaluation later on.
 
-:::tip 欢迎来到机器学习阶段
-前三个阶段你学了 Python、数据分析和数学基础。现在，你终于要开始让计算机**自己"学"东西**了。这是整个 AI 旅程中最激动人心的阶段之一。
+:::tip Welcome to the Machine Learning Stage
+In the first three stages, you learned Python, data analysis, and math fundamentals. Now, you’re finally going to let the computer **learn things by itself**. This is one of the most exciting stages in the entire AI journey.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解什么是机器学习以及它与传统编程的区别
-- 掌握机器学习的三大分类（监督学习、无监督学习、强化学习）
-- 理解机器学习的完整工作流程
-- 建立正确的 ML 思维框架
-
----
-
-## 先建立一张地图
-
-这篇最重要的任务，不是把定义背下来，而是先帮你建立一个判断框架：
-
-![机器学习任务类型判断图](/img/course/ch05-task-type-decision-map.png)
-
-如果这张图你看懂了，后面第 5 站很多章节都会突然顺起来。
+- Understand what machine learning is and how it differs from traditional programming
+- Master the three major categories of machine learning (supervised learning, unsupervised learning, reinforcement learning)
+- Understand the complete machine learning workflow
+- Build the right ML thinking framework
 
 ---
 
-## 一、机器学习到底是什么？
+## First, Build a Map
 
-### 1.1 一句话定义
+The most important task in this article is not memorizing the definition, but first building a decision framework:
 
-**机器学习 = 让计算机从数据中自动发现规律，而不是由人类手写规则。**
+![Machine learning task type decision map](/img/course/ch05-task-type-decision-map-en.png)
 
-### 1.2 传统编程 vs 机器学习
+If you understand this diagram, many chapters later in Stage 5 will suddenly start making sense.
+
+---
+
+## 1. What Exactly Is Machine Learning?
+
+### 1.1 One-Sentence Definition
+
+**Machine learning = letting a computer automatically discover patterns from data instead of having humans hand-code rules.**
+
+### 1.2 Traditional Programming vs. Machine Learning
 
 ```mermaid
 flowchart LR
-    subgraph 传统编程
-        R1["人类写规则"] --> P1["程序"]
-        D1["数据"] --> P1
-        P1 --> O1["输出"]
+    subgraph Traditional Programming
+        R1["Humans write rules"] --> P1["Program"]
+        D1["Data"] --> P1
+        P1 --> O1["Output"]
     end
 
-    subgraph 机器学习
-        D2["数据"] --> ML["机器学习算法"]
-        O2["期望输出"] --> ML
-        ML --> R2["自动学到的规则（模型）"]
+    subgraph Machine Learning
+        D2["Data"] --> ML["Machine learning algorithm"]
+        O2["Expected output"] --> ML
+        ML --> R2["Automatically learned rules (model)"]
     end
 
     style R1 fill:#fff3e0,stroke:#e65100,color:#333
     style R2 fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-| | 传统编程 | 机器学习 |
+| | Traditional Programming | Machine Learning |
 |---|---------|---------|
-| 输入 | 规则 + 数据 | 数据 + 期望输出 |
-| 输出 | 结果 | 规则（模型） |
-| 适用场景 | 规则明确（如计算税额） | 规则难以描述（如识别猫） |
-| 编写方式 | 人工编写 if-else 逻辑 | 算法自动从数据中学习 |
+| Input | Rules + data | Data + expected output |
+| Output | Result | Rules (model) |
+| Suitable for | Clear rules (such as calculating taxes) | Rules that are hard to describe (such as recognizing cats) |
+| How it is built | Humans write if-else logic | Algorithms learn automatically from data |
 
-### 1.3 为什么需要机器学习？
+### 1.3 Why Do We Need Machine Learning?
 
-有些任务，人类**说不清规则**：
+For some tasks, humans **cannot clearly describe the rules**:
 
 ```python
-# 传统编程：判断邮件是否是垃圾邮件
+# Traditional programming: determine whether an email is spam
 def is_spam_traditional(email):
-    if "免费" in email:
+    if "free" in email:
         return True
-    if "中奖" in email:
+    if "winner" in email:
         return True
-    if "点击领取" in email:
+    if "click to claim" in email:
         return True
-    # ... 还有多少规则？永远写不完！
+    # ... how many more rules are there? You can never finish writing them!
     return False
 
-# 机器学习：给模型 10 万封已标注的邮件，让它自己学
+# Machine learning: give the model 100,000 labeled emails and let it learn by itself
 # model.fit(emails, labels)
-# model.predict(new_email)  → 自动判断
+# model.predict(new_email)  → make an automatic decision
 ```
 
-机器学习适用的场景：
-- 规则复杂或未知（图像识别、语音识别）
-- 规则会变化（推荐系统、欺诈检测）
-- 数据量大到人类无法手动分析
-- 需要个性化的结果
+Machine learning is suitable for scenarios such as:
+- Complex or unknown rules (image recognition, speech recognition)
+- Rules that change over time (recommendation systems, fraud detection)
+- Very large datasets that humans cannot analyze manually
+- Situations where personalized results are needed
 
-### 1.4 第一次学机器学习，最该先抓住什么？
+### 1.4 When Learning Machine Learning for the First Time, What Should You Focus on Most?
 
-最该先抓住的不是“模型有多少种”，而是这一句：
+The first thing to grasp is not “how many kinds of models there are,” but this sentence:
 
-> **机器学习是在用数据替代手写规则。**
+> **Machine learning replaces hand-written rules with data.**
 
-一旦你抓住这句，后面很多问题都会更好判断：
+Once you understand that, many questions become easier to judge:
 
-- 什么时候适合传统编程
-- 什么时候应该交给模型去学
-- 为什么数据质量会直接决定模型上限
+- When traditional programming is suitable
+- When to let a model learn
+- Why data quality directly determines the upper limit of a model’s performance
 
 ---
 
-## 二、机器学习的三大分类
+## 2. The Three Major Categories of Machine Learning
 
 ```mermaid
 flowchart TD
-    ML["机器学习"]
-    ML --> SL["监督学习<br/>Supervised Learning"]
-    ML --> UL["无监督学习<br/>Unsupervised Learning"]
-    ML --> RL["强化学习<br/>Reinforcement Learning"]
+    ML["Machine Learning"]
+    ML --> SL["Supervised Learning"]
+    ML --> UL["Unsupervised Learning"]
+    ML --> RL["Reinforcement Learning"]
 
-    SL --> CL["分类<br/>（邮件→垃圾/正常）"]
-    SL --> RG["回归<br/>（特征→房价预测）"]
+    SL --> CL["Classification<br/>(email → spam/normal)"]
+    SL --> RG["Regression<br/>(features → house price prediction)"]
 
-    UL --> CLU["聚类<br/>（客户分群）"]
-    UL --> DR["降维<br/>（数据压缩）"]
+    UL --> CLU["Clustering<br/>(customer segmentation)"]
+    UL --> DR["Dimensionality reduction<br/>(data compression)"]
 
-    RL --> G["游戏AI"]
-    RL --> RO["机器人控制"]
+    RL --> G["Game AI"]
+    RL --> RO["Robot control"]
 
     style SL fill:#e3f2fd,stroke:#1565c0,color:#333
     style UL fill:#fff3e0,stroke:#e65100,color:#333
     style RL fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.1 监督学习——有"标准答案"
+### 2.1 Supervised Learning — With a "Correct Answer"
 
-**核心**：给模型大量"输入-输出"配对数据，让它学习映射关系。
+**Core idea**: Give the model lots of input-output pairs and let it learn the mapping relationship.
 
-| 类型 | 输出 | 例子 |
+| Type | Output | Example |
 |------|------|------|
-| **分类** | 离散类别 | 邮件→垃圾/正常，图片→猫/狗 |
-| **回归** | 连续数值 | 面积→房价，特征→温度 |
+| **Classification** | Discrete categories | Email → spam/normal, image → cat/dog |
+| **Regression** | Continuous values | Area → house price, features → temperature |
 
 ```python
-# 监督学习的数据格式
-# X（特征/输入）       y（标签/输出）
-# [面积, 房间数, 楼层]   → 房价
-# [120,  3,    15]      → 350万
-# [80,   2,    8]       → 220万
-# [200,  4,    20]      → 580万
+# Data format for supervised learning
+# X (features/input)      y (label/output)
+# [area, rooms, floor]    → house price
+# [120,  3,    15]        → 3.5 million
+# [80,   2,    8]         → 2.2 million
+# [200,  4,    20]        → 5.8 million
 ```
 
-**关键**：训练数据必须有**标签**（标准答案）。模型的目标是学会从 X 预测 y。
+**Key point**: Training data must have **labels** (correct answers). The model’s goal is to learn to predict y from X.
 
-### 2.1.1 怎么最快判断一个问题是不是监督学习？
+### 2.1.1 How Can You Quickly Tell Whether a Problem Is Supervised Learning?
 
-可以直接问自己：
+Ask yourself directly:
 
-- 我手里有没有“输入 -> 正确输出”这样的配对数据？
+- Do I have paired data in the form of “input → correct output”?
 
-如果有，通常就是监督学习。  
-然后再继续问：
+If yes, it is usually supervised learning.
+Then ask:
 
-- 输出是类别，还是连续数值？
+- Is the output a category or a continuous value?
 
-这就会自然分出：
+That will naturally split it into:
 
-- 分类
-- 回归
+- Classification
+- Regression
 
-### 2.2 无监督学习——没有"标准答案"
+### 2.2 Unsupervised Learning — No "Correct Answer"
 
-**核心**：只有输入数据，没有标签。让模型自己发现数据中的结构和模式。
+**Core idea**: There are only input data, no labels. The model discovers the structure and patterns in the data by itself.
 
-| 类型 | 做什么 | 例子 |
+| Type | What it does | Example |
 |------|--------|------|
-| **聚类** | 把相似的数据分组 | 客户分群、新闻归类 |
-| **降维** | 减少特征数量 | PCA（第 4 站学过） |
-| **异常检测** | 找出不正常的数据 | 信用卡欺诈检测 |
+| **Clustering** | Groups similar data together | Customer segmentation, news categorization |
+| **Dimensionality reduction** | Reduces the number of features | PCA (learned in Stage 4) |
+| **Anomaly detection** | Finds abnormal data | Credit card fraud detection |
 
 ```python
-# 无监督学习的数据：没有标签
-# X（特征）
-# [消费金额, 消费频次, 最近消费]
-# [500,      10,      3天前]
-# [50,       2,       30天前]
-# [1000,     20,      1天前]
-# → 模型自动分成 "高价值客户"、"低频客户" 等群组
+# Data for unsupervised learning: no labels
+# X (features)
+# [spending amount, purchase frequency, recent purchase]
+# [500,             10,               3 days ago]
+# [50,              2,                30 days ago]
+# [1000,            20,               1 day ago]
+# → The model automatically splits them into groups like "high-value customers" and "low-frequency customers"
 ```
 
-### 2.2.1 无监督学习最容易被误解的地方
+### 2.2.1 The Most Easily Misunderstood Part of Unsupervised Learning
 
-很多新人会把无监督学习理解成“机器自己就能找到真正答案”。  
-其实更准确的说法是：
+Many beginners think unsupervised learning means “the machine can find the true answer by itself.”
+A more accurate way to say it is:
 
-- 模型会帮你发现一种可能的结构
-- 但这个结构有没有业务价值，最后还得靠你解释
+- The model helps you discover a possible structure
+- But whether that structure has business value still depends on your interpretation
 
-所以无监督学习里，“解释结果”往往和“跑出结果”同样重要。
+So in unsupervised learning, “explaining the result” is often just as important as “getting the result.”
 
-### 2.3 强化学习——通过"试错"学习
+### 2.3 Reinforcement Learning — Learning Through Trial and Error
 
-**核心**：智能体（Agent）在环境中采取行动，根据奖励/惩罚调整策略。
+**Core idea**: An agent takes actions in an environment and adjusts its strategy based on rewards and penalties.
 
-| 要素 | 说明 |
+| Element | Explanation |
 |------|------|
-| 智能体 | 做决策的 AI |
-| 环境 | 智能体所在的世界 |
-| 状态 | 当前环境的信息 |
-| 行动 | 智能体能做的选择 |
-| 奖励 | 行动后得到的反馈 |
+| Agent | The AI making decisions |
+| Environment | The world the agent lives in |
+| State | Information about the current environment |
+| Action | A choice the agent can make |
+| Reward | Feedback received after an action |
 
 ```python
-# 强化学习的直觉：训练小狗
-# 状态：小狗看到的环境
-# 行动：坐下 / 站起 / 握手
-# 奖励：做对了 → 给零食（+1），做错了 → 不给（0）
-# 经过多次试错，小狗学会了正确的行为
+# Intuition for reinforcement learning: training a puppy
+# State: the environment the puppy sees
+# Action: sit / stand / shake hands
+# Reward: does it correctly → give a treat (+1), does it incorrectly → no treat (0)
+# After repeated trial and error, the puppy learns the right behavior
 ```
 
-:::info 本课程的重点
-本阶段主要学习**监督学习**和**无监督学习**。强化学习会在后面的智能体系统内容中涉及。
+:::info Focus of This Course
+At this stage, we mainly learn **supervised learning** and **unsupervised learning**. Reinforcement learning will appear later in the agent systems section.
 :::
 
-### 2.4 三种学习方式对比
+### 2.4 Comparison of the Three Learning Types
 
-| | 监督学习 | 无监督学习 | 强化学习 |
+| | Supervised Learning | Unsupervised Learning | Reinforcement Learning |
 |---|---------|----------|---------|
-| 数据有标签？ | 有 | 没有 | 有奖励信号 |
-| 目标 | 预测标签 | 发现结构 | 最大化奖励 |
-| 典型算法 | 线性回归、决策树 | K-Means、PCA | Q-Learning、PPO |
-| AI 应用 | 图像分类、翻译 | 客户分群、推荐 | 游戏 AI、机器人 |
+| Labeled data? | Yes | No | Reward signal |
+| Goal | Predict labels | Discover structure | Maximize reward |
+| Typical algorithms | Linear regression, decision trees | K-Means, PCA | Q-Learning, PPO |
+| AI applications | Image classification, translation | Customer segmentation, recommendation | Game AI, robots |
 
 ---
 
-## 三、机器学习的工作流程
+## 3. The Machine Learning Workflow
 
-### 3.1 完整流程
+### 3.1 Complete Workflow
 
 ```mermaid
 flowchart TD
-    A["1. 问题定义<br/>要解决什么问题？"] --> B["2. 数据收集<br/>获取相关数据"]
-    B --> C["3. 数据预处理<br/>清洗、特征工程"]
-    C --> D["4. 选择模型<br/>线性回归？决策树？"]
-    D --> E["5. 训练模型<br/>用训练数据拟合"]
-    E --> F["6. 评估模型<br/>用测试数据验证"]
-    F --> G{"效果好吗？"}
-    G -->|"不够好"| H["7. 调优<br/>调参数、换模型"]
+    A["1. Problem definition<br/>What problem are we solving?"] --> B["2. Data collection<br/>Gather relevant data"]
+    B --> C["3. Data preprocessing<br/>Cleaning, feature engineering"]
+    C --> D["4. Choose a model<br/>Linear regression? Decision tree?"]
+    D --> E["5. Train the model<br/>Fit using training data"]
+    E --> F["6. Evaluate the model<br/>Validate using test data"]
+    F --> G{"Is the result good?"}
+    G -->|"Not good enough"| H["7. Tuning<br/>Adjust parameters, switch models"]
     H --> D
-    G -->|"足够好"| I["8. 部署上线<br/>用于实际预测"]
+    G -->|"Good enough"| I["8. Deploy to production<br/>Use for real predictions"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#fff3e0,stroke:#e65100,color:#333
     style I fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.1.1 先把流程读成一句人话
+### 3.1.1 Read the Workflow as Plain English First
 
-这条流程可以先翻译成一句更适合新人的话：
+This workflow can be translated into a simpler sentence for beginners:
 
-> **先定义问题，再准备数据，先做一个能跑的版本，再看结果，最后一点点改进。**
+> **First define the problem, then prepare the data, build a version that works, check the results, and finally improve it step by step.**
 
-这句话其实就是第 5 站整条主线的底层逻辑。
+This sentence is actually the underlying logic of the entire main line in Stage 5.
 
-### 3.2 训练集 vs 测试集
+### 3.2 Training Set vs. Test Set
 
-这是 ML 中最重要的概念之一：**不能用训练数据来评估模型。**
+This is one of the most important concepts in ML: **you cannot evaluate a model using the training data.**
 
 ```python
 import numpy as np
 
-# 模拟数据集
+# Simulated dataset
 np.random.seed(42)
 n = 100
 X = np.random.randn(n, 3)
 y = np.random.randint(0, 2, n)
 
-# 通常 80% 训练，20% 测试
+# Usually 80% training, 20% testing
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-print(f"训练集: {X_train.shape[0]} 个样本")
-print(f"测试集: {X_test.shape[0]} 个样本")
+print(f"Training set: {X_train.shape[0]} samples")
+print(f"Test set: {X_test.shape[0]} samples")
 ```
 
 ```mermaid
 flowchart LR
-    D["全部数据<br/>100 个样本"]
-    D -->|"80%"| TR["训练集<br/>80 个样本<br/>用来训练模型"]
-    D -->|"20%"| TE["测试集<br/>20 个样本<br/>用来评估模型"]
+    D["All data<br/>100 samples"]
+    D -->|"80%"| TR["Training set<br/>80 samples<br/>Used to train the model"]
+    D -->|"20%"| TE["Test set<br/>20 samples<br/>Used to evaluate the model"]
 
     style TR fill:#e3f2fd,stroke:#1565c0,color:#333
     style TE fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-:::warning 为什么要分开？
-如果你用同一份数据训练和评估，模型可以通过"记住"数据来获得满分——但面对新数据时表现很差。这叫**过拟合**（overfit）。就像考试前把答案背下来，换一套题就不会了。
+:::warning Why Separate Them?
+If you train and evaluate on the same data, the model may get a perfect score by "memorizing" the data—but perform poorly on new data. This is called **overfitting**. It is like memorizing the answers before an exam and then failing when given a different set of questions.
 :::
 
-![训练验证测试与数据泄漏护栏图](/img/course/ch05-data-split-leakage-guardrail.png)
+![Training/validation/test and data leakage guardrail diagram](/img/course/ch05-data-split-leakage-guardrail-en.png)
 
-读这张图时，先看三条边界：训练集用来学，验证集用来选方案，测试集只在最后验收。只要某个处理步骤提前看到了测试集信息，比如先对全量数据标准化、先用全量数据选特征，模型分数就可能变得“虚高”。
+When reading this diagram, first look at the three boundaries: the training set is used for learning, the validation set is used to choose a solution, and the test set is only used for final verification. If any preprocessing step sees test-set information too early—for example, standardizing on the full dataset first or selecting features using the full dataset—the model score may look artificially high.
 
-### 3.2.1 新人最容易踩的坑：把“学会”误当成“记住”
+### 3.2.1 A Common Beginner Mistake: Confusing "Learning" with "Memorizing"
 
-机器学习里一个特别重要的分界点就是：
+One especially important boundary in machine learning is:
 
-- 模型在训练集上做得好，不等于它真的学会了规律
-- 它也可能只是把训练数据记住了
+- Doing well on the training set does not mean the model has truly learned the pattern
+- It may just have memorized the training data
 
-所以从这一节开始，你就应该养成一个习惯：
+So from this section onward, you should build a habit:
 
-- 看到高分，先问这是训练集分数还是测试集分数
+- When you see a high score, first ask whether it is a training-set score or a test-set score
 
-### 3.3 一个最小的完整例子
+### 3.3 A Minimal Complete Example
 
 ```python
 from sklearn.datasets import load_iris
@@ -324,49 +324,49 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
-# 1. 加载数据
+# 1. Load data
 iris = load_iris()
 X, y = iris.data, iris.target
-print(f"数据集: {X.shape[0]} 个样本, {X.shape[1]} 个特征, {len(set(y))} 个类别")
+print(f"Dataset: {X.shape[0]} samples, {X.shape[1]} features, {len(set(y))} classes")
 
-# 2. 划分训练集和测试集
+# 2. Split into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 3. 选择模型并训练
+# 3. Choose a model and train it
 model = DecisionTreeClassifier(random_state=42)
-model.fit(X_train, y_train)  # 训练！
+model.fit(X_train, y_train)  # Train!
 
-# 4. 预测和评估
+# 4. Predict and evaluate
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
-print(f"测试集准确率: {accuracy:.1%}")
+print(f"Test set accuracy: {accuracy:.1%}")
 ```
 
-**只用几行代码就完成了一个完整的 ML 项目！** 接下来的章节会逐步深入每个环节。
+**You can complete a full ML project with just a few lines of code!** The next chapters will gradually dive into each part.
 
 ---
 
-## 四、关键术语速查
+## 4. Key Terms Quick Reference
 
-| 术语 | 英文 | 含义 |
+| Term | English | Meaning |
 |------|------|------|
-| 样本 | Sample | 一条数据 |
-| 特征 | Feature | 描述样本的属性（输入的每一列） |
-| 标签 | Label / Target | 样本的"答案"（要预测的值） |
-| 训练集 | Training Set | 用来训练模型的数据 |
-| 测试集 | Test Set | 用来评估模型的数据 |
-| 过拟合 | Overfitting | 模型"死记硬背"训练数据，泛化能力差 |
-| 欠拟合 | Underfitting | 模型太简单，连训练数据都学不好 |
-| 泛化 | Generalization | 模型在新数据上表现好的能力 |
-| 超参数 | Hyperparameter | 需要人为设定的参数（如学习率、树深度） |
+| Sample | Sample | One data point |
+| Feature | Feature | A property describing the sample (each input column) |
+| Label | Label / Target | The sample’s “answer” (the value to predict) |
+| Training set | Training Set | Data used to train the model |
+| Test set | Test Set | Data used to evaluate the model |
+| Overfitting | Overfitting | The model “memorizes” the training data and generalizes poorly |
+| Underfitting | Underfitting | The model is too simple and cannot even learn the training data well |
+| Generalization | Generalization | The ability of a model to perform well on new data |
+| Hyperparameter | Hyperparameter | A parameter set by humans, such as learning rate or tree depth |
 
-### 过拟合 vs 欠拟合
+### Overfitting vs. Underfitting
 
 ```mermaid
 flowchart LR
-    A["欠拟合<br/>模型太简单<br/>用直线拟合曲线数据"]
-    B["刚好<br/>模型复杂度合适<br/>很好地拟合了规律"]
-    C["过拟合<br/>模型太复杂<br/>连噪声都拟合了"]
+    A["Underfitting<br/>Model is too simple<br/>Fitting curve data with a straight line"]
+    B["Just right<br/>Model complexity is appropriate<br/>Fits the pattern well"]
+    C["Overfitting<br/>Model is too complex<br/>Even fits the noise"]
 
     style A fill:#ffebee,stroke:#c62828,color:#333
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -383,25 +383,25 @@ y = np.sin(2 * np.pi * x) + np.random.randn(20) * 0.3
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 x_smooth = np.linspace(0, 1, 200)
 
-# 欠拟合：1 次多项式（直线）
+# Underfitting: 1st-degree polynomial (straight line)
 coeffs = np.polyfit(x, y, 1)
 axes[0].scatter(x, y, color='steelblue', s=40)
 axes[0].plot(x_smooth, np.polyval(coeffs, x_smooth), 'r-', linewidth=2)
-axes[0].set_title('欠拟合（直线）\n太简单，无法捕捉规律')
+axes[0].set_title('Underfitting (straight line)\nToo simple to capture the pattern')
 
-# 刚好：3 次多项式
+# Just right: 3rd-degree polynomial
 coeffs = np.polyfit(x, y, 3)
 axes[1].scatter(x, y, color='steelblue', s=40)
 axes[1].plot(x_smooth, np.polyval(coeffs, x_smooth), 'r-', linewidth=2)
-axes[1].set_title('刚好（3 次多项式）\n较好地拟合了规律')
+axes[1].set_title('Just right (3rd-degree polynomial)\nFits the pattern well')
 
-# 过拟合：18 次多项式
+# Overfitting: 18th-degree polynomial
 coeffs = np.polyfit(x, y, 18)
 axes[2].scatter(x, y, color='steelblue', s=40)
 y_overfit = np.polyval(coeffs, x_smooth)
 y_overfit = np.clip(y_overfit, -3, 3)
 axes[2].plot(x_smooth, y_overfit, 'r-', linewidth=2)
-axes[2].set_title('过拟合（18 次多项式）\n连噪声都拟合了')
+axes[2].set_title('Overfitting (18th-degree polynomial)\nEven fits the noise')
 axes[2].set_ylim(-3, 3)
 
 for ax in axes:
@@ -413,58 +413,58 @@ plt.show()
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key point | Explanation |
 |------|------|
-| 机器学习 | 让计算机从数据中学习规律 |
-| 监督学习 | 有标签，学预测（分类/回归） |
-| 无监督学习 | 无标签，发现结构（聚类/降维） |
-| 强化学习 | 通过试错学策略（奖励驱动） |
-| 核心流程 | 数据 → 预处理 → 训练 → 评估 → 部署 |
-| 训练/测试分割 | 必须分开，防止过拟合 |
+| Machine learning | Letting computers learn patterns from data |
+| Supervised learning | Has labels and learns prediction (classification/regression) |
+| Unsupervised learning | No labels and discovers structure (clustering/dimensionality reduction) |
+| Reinforcement learning | Learns strategies through trial and error (reward-driven) |
+| Core workflow | Data → preprocessing → training → evaluation → deployment |
+| Training/test split | Must be separated to prevent overfitting |
 
-## 这节最该带走什么
+## What Should You Take Away from This Section?
 
-如果只带走一句话，我希望你记住：
+If you only take away one sentence, I hope you remember this:
 
-> **机器学习阶段真正的起点，不是学某个模型，而是先学会把问题、数据和评估方式对上。**
+> **The real starting point of the machine learning stage is not learning a specific model, but first learning how to match the problem, the data, and the evaluation method.**
 
-所以这一节最重要的收获应该是：
+So the most important gains from this section should be:
 
-- 能分清监督学习和无监督学习
-- 能分清分类和回归
-- 知道为什么一定要分训练集和测试集
-- 知道第 5 站后面所有算法其实都在这张地图里
+- Be able to distinguish supervised learning from unsupervised learning
+- Be able to distinguish classification from regression
+- Know why training and test sets must be separated
+- Know that all the algorithms later in Stage 5 are actually part of this map
 
-:::info 连接后续
-- **下一节**：Scikit-learn 框架入门——ML 实战的标准工具
-- **第 2 章**：学习具体的算法（线性回归、逻辑回归、决策树等）
-- **第 4 章**：深入模型评估——如何科学判断模型好不好
+:::info Connect to What Comes Next
+- **Next section**: Introduction to the Scikit-learn framework — the standard tool for ML practice
+- **Chapter 2**: Learn specific algorithms (linear regression, logistic regression, decision trees, etc.)
+- **Chapter 4**: Deep dive into model evaluation — how to scientifically judge whether a model is good
 :::
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：分类 vs 回归
+### Exercise 1: Classification vs. Regression
 
-判断以下任务属于分类还是回归：
-1. 预测明天的气温
-2. 判断一张照片中是否有人脸
-3. 预测一只股票明天的收盘价
-4. 将新闻分为体育/科技/娱乐/财经
-5. 预测一个用户会不会流失
+Determine whether each task is classification or regression:
+1. Predict tomorrow’s temperature
+2. Determine whether a photo contains a face
+3. Predict tomorrow’s closing price of a stock
+4. Classify news into sports/technology/entertainment/finance
+5. Predict whether a user will churn
 
-### 练习 2：第一个 ML 模型
+### Exercise 2: Your First ML Model
 
-用 scikit-learn 的 `load_wine()` 数据集，训练一个决策树分类器，输出测试集的准确率。
+Use scikit-learn’s `load_wine()` dataset to train a decision tree classifier and output the test-set accuracy.
 
 ```python
 from sklearn.datasets import load_wine
-# 你的代码...
+# Your code...
 ```
 
-### 练习 3：观察过拟合
+### Exercise 3: Observe Overfitting
 
-修改 4.3 节的过拟合示例，用不同次数的多项式（1, 3, 5, 10, 18）拟合数据，画出 5 张子图，观察复杂度对拟合效果的影响。
+Modify the overfitting example in section 4.3, use polynomials of different degrees (1, 3, 5, 10, 18) to fit the data, plot 5 subplots, and observe how complexity affects the fitting result.

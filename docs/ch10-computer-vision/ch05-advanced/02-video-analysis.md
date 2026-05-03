@@ -1,132 +1,130 @@
 ---
-title: "5.3 视频分析【选修】"
+title: "5.3 Video Analysis [Elective]"
 sidebar_position: 15
-description: "从逐帧处理到时序建模，理解视频分析为什么比单张图更难，以及它为什么天然需要时间维度。"
+description: "From frame-by-frame processing to temporal modeling, understand why video analysis is harder than single images and why it naturally requires a time dimension."
 keywords: [video analysis, temporal modeling, frame sampling, tracking, action recognition]
 ---
 
-# 视频分析【选修】
+# Video Analysis [Elective]
 
-:::tip 本节定位
-视频分析最容易被误解成：
+:::tip Section overview
+Video analysis is most easily misunderstood as:
 
-- 把很多图片一帧一帧跑一遍
+- Running a bunch of images one frame at a time
 
-这当然是起点，但不是全部。  
-视频真正带来的新问题在于：
+That is of course the starting point, but not the whole story.
+The real new problem video brings is:
 
-> **同一个目标会随着时间连续变化，而时间本身也带着信息。**
+> **The same target changes continuously over time, and time itself carries information.**
 
-所以这节重点是把“时间维度”这件事讲清楚。
+So this section focuses on making the “time dimension” clear.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解视频任务和单帧图像任务的根本区别
-- 理解抽帧、跟踪、时序建模各自解决什么问题
-- 通过可运行示例建立视频分析最小直觉
-- 理解为什么很多视频系统其实是“图像模型 + 时间逻辑”的组合
-
----
-
-## 一、视频为什么比单张图更复杂？
-
-### 1.1 因为同一目标会跨帧出现
-
-一张图里，你只需要回答当前画面。  
-视频里还要考虑：
-
-- 它刚刚在哪
-- 接下来会去哪
-
-### 1.2 因为“变化”本身就是信息
-
-很多视频任务里，真正重要的不是某一帧长什么样，  
-而是：
-
-- 动作怎么发生
-- 轨迹怎么移动
-
-### 1.3 一个类比
-
-单张图像分析像看照片。  
-视频分析更像看监控回放，你会自然关心：
-
-- 前后关系
-- 事件过程
+- Understand the fundamental difference between video tasks and single-image tasks
+- Understand what frame sampling, tracking, and temporal modeling each solve
+- Build a minimum intuition for video analysis through runnable examples
+- Understand why many video systems are actually a combination of “image models + temporal logic”
 
 ---
 
-## 二、视频分析里最常见的几种处理方式
+## 1. Why is video more complex than a single image?
 
-### 2.1 抽帧 + 单帧模型
+### 1.1 Because the same target appears across frames
 
-最简单的方法：
+In a single image, you only need to answer what is in the current scene.
+In video, you also need to consider:
 
-- 定期抽帧
-- 每帧单独分析
+- Where it was just now
+- Where it will go next
 
-优点：
+### 1.2 Because “change” itself is information
 
-- 简单
+In many video tasks, what matters most is not what a single frame looks like,
+but:
 
-缺点：
+- How an action happens
+- How a trajectory moves
 
-- 容易丢掉时间信息
+### 1.3 An analogy
 
-### 2.2 检测 + 跟踪
+Single-image analysis is like looking at a photo.
+Video analysis is more like watching a security camera replay, where you naturally care about:
 
-适合：
+- Cause and effect over time
+- The process of an event
 
-- 行人轨迹
-- 车辆轨迹
+---
 
-它的核心是：
+## 2. The most common ways to process video
 
-- 每一帧先检测
-- 再在时间上关联同一目标
+### 2.1 Frame sampling + single-frame model
 
-### 2.3 时序建模
+The simplest method:
 
-例如：
+- Sample frames at intervals
+- Analyze each frame separately
 
-- 动作识别
-- 事件识别
+Advantages:
 
-这类任务更依赖：
+- Simple
 
-- 多帧共同表达一个模式
+Disadvantages:
 
-### 2.4 第一次做视频分析时，最稳的选择顺序
+- Easy to lose temporal information
 
-新人第一次做视频任务时，  
-最容易一上来就觉得“我要不要直接上时序网络”。  
-但更稳的顺序通常是：
+### 2.2 Detection + tracking
 
-1. 先确认任务是不是单帧就够
-2. 如果单帧不够，再做抽帧 + 汇总
-3. 如果还不够，再做检测 + 跟踪
-4. 最后才上真正的时序建模
+Suitable for:
 
-这个顺序很值，  
-因为很多真实视频系统并不是一上来就重模型，  
-而是先把：
+- Pedestrian trajectories
+- Vehicle trajectories
 
-- 抽帧策略
-- 跟踪逻辑
-- 事件定义
+Its core idea is:
 
-先讲清楚
+- Detect objects in each frame first
+- Then associate the same object across time
 
-![视频分析抽帧、跟踪与时序窗口图](/img/course/ch10-video-frame-tracking-temporal-window-map.png)
+### 2.3 Temporal modeling
 
-:::tip 读图提示
-视频不是“很多张图片堆起来”。读这张图时先看 frame sampling，再看 detection + tracking 如何把同一目标跨帧串起来，最后才看 temporal window 如何判断动作或事件。
+For example:
+
+- Action recognition
+- Event recognition
+
+These tasks depend more on:
+
+- Multiple frames jointly expressing one pattern
+
+### 2.4 The safest order when you first do video analysis
+
+When beginners first work on video tasks,
+it is easy to immediately think, “Should I go straight to a temporal network?”
+But a more reliable order is usually:
+
+1. First confirm whether a single frame is enough for the task
+2. If not, do frame sampling + aggregation
+3. If that is still not enough, do detection + tracking
+4. Only then move on to true temporal modeling
+
+This order is very valuable,
+because many real video systems are not heavy models from the start.
+Instead, they first clarify:
+
+- Frame sampling strategy
+- Tracking logic
+- Event definition
+
+![Diagram of frame sampling, tracking, and temporal windows in video analysis](/img/course/ch10-video-frame-tracking-temporal-window-map-en.png)
+
+:::tip Reading guide
+Video is not “many images stacked together.” When reading this diagram, first look at frame sampling, then how detection + tracking link the same target across frames, and only then look at how the temporal window judges an action or event.
 :::
 
 ---
 
-## 三、先跑一个最小轨迹跟踪示例
+## 3. First, run a minimal trajectory tracking example
 
 ```python
 frames = [
@@ -165,36 +163,36 @@ for frame in tracked:
     print(frame)
 ```
 
-### 3.1 这个例子最想表达什么？
+### 3.1 What is this example mainly trying to show?
 
-视频分析里很多系统的第一步不是复杂时序网络，  
-而是：
+In video analysis, the first step in many systems is not a complex temporal network,
+but rather:
 
-- 把跨帧的同一目标串起来
+- Linking the same target across frames
 
-### 3.2 为什么这对业务很重要？
+### 3.2 Why is this important for business use cases?
 
-如果不能把同一目标在不同帧里关联起来，  
-很多任务根本做不下去：
+If you cannot associate the same target across different frames,
+many tasks simply cannot be done:
 
-- 计数
-- 行为分析
-- 越界告警
+- Counting
+- Behavior analysis
+- Boundary-crossing alerts
 
-### 3.3 再补一个“滑动窗口看动作”的最小示例
+### 3.3 One more minimal example: using a sliding window to observe action
 
-跟踪能解决“同一个目标是不是同一个”的问题，  
-但很多视频任务还会关心：
+Tracking solves the problem of whether the same target is still the same target,
+but many video tasks also care about:
 
-- 一小段时间里到底发生了什么动作
+- What exactly happened over a short time period
 
-下面这个最小例子先让你体会：
+The small example below helps you feel that:
 
-- 视频分析很多时候不是看一帧
-- 而是看一小段时间窗口
+- Video analysis often does not look at just one frame
+- It looks at a short time window
 
 ```python
-sequence = [0, 0, 1, 1, 1, 0, 0]  # 0=静止, 1=运动
+sequence = [0, 0, 1, 1, 1, 0, 0]  # 0=stationary, 1=moving
 window_size = 3
 
 windows = []
@@ -208,70 +206,70 @@ for idx, window in enumerate(windows):
     print(idx, window, label)
 ```
 
-这个例子最关键的地方是：
+The key point in this example is:
 
-- 视频任务常常天然要看一小段时间
-- 单帧判断对，未必就能说明整个事件判断对
-
----
-
-## 四、最容易踩的坑
-
-### 4.1 把视频当作独立图片集合
-
-这样很容易丢掉：
-
-- 轨迹
-- 动作
-- 事件顺序
-
-### 4.2 抽帧策略过粗
-
-抽帧太稀，会漏掉关键瞬间。
-
-### 4.3 只看单帧精度，不看时序稳定性
-
-真实视频系统更该关注：
-
-- 抖动
-- 漏跟踪
-- ID 切换
-
-## 五、如果把视频分析做成项目，最值得展示什么
-
-如果你想把这类题做成作品集页，  
-最值得展示的通常不是一串模型名，  
-而是下面这 4 样：
-
-1. 抽帧或时序建模的整体流程图
-2. 一条目标轨迹或事件窗口示意
-3. 一组典型失败案例
-4. 你为什么最后选“抽帧 / 跟踪 / 时序模型”这条路线
-
-这样别人会更容易看出：
-
-- 你在做的是视频系统
-- 而不只是把很多图片堆在一起
+- Video tasks often naturally need a short time span
+- A correct single-frame judgment does not necessarily mean the whole event judgment is correct
 
 ---
 
-## 小结
+## 4. The easiest pitfalls to fall into
 
-这节最重要的是建立一个判断：
+### 4.1 Treating video as a collection of independent images
 
-> **视频分析的难点不只是“帧更多”，而是必须把时间维度纳入建模，理解目标和事件是如何跨帧连续发生的。**
+This easily loses:
 
-## 这节最该带走什么
+- Trajectory
+- Motion
+- Event order
 
-- 视频任务最关键的新维度不是像素，而是时间
-- 很多视频系统其实是“单帧模型 + 时间逻辑”组合出来的
-- 第一次做视频项目时，先把任务的时间需求分清楚，比直接追复杂模型更值
+### 4.2 Sampling frames too coarsely
+
+If you sample too sparsely, you may miss critical moments.
+
+### 4.3 Only looking at single-frame accuracy, not temporal stability
+
+Real video systems should care more about:
+
+- Jitter
+- Missed tracking
+- ID switches
+
+## 5. If you turn video analysis into a project, what is most worth showing?
+
+If you want to turn this kind of topic into a portfolio page,
+what is most worth showing usually is not a list of model names,
+but these 4 things:
+
+1. An overall flowchart of frame sampling or temporal modeling
+2. A sample target trajectory or event window illustration
+3. A set of typical failure cases
+4. Why you finally chose the route of “frame sampling / tracking / temporal model”
+
+This makes it easier for others to see:
+
+- That you are building a video system
+- Not just stacking many images together
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例改成两个目标同时移动，看看简单跟踪逻辑是否会混乱。
-2. 为什么说很多视频系统其实是“单帧模型 + 时间逻辑”的组合？
-3. 抽帧太稀可能带来什么风险？
-4. 想一想：哪些视频任务必须显式建模时间，而不能只看单帧？
+The most important thing in this section is to build one judgment:
+
+> **The difficulty of video analysis is not just “more frames,” but the need to incorporate the time dimension into modeling and understand how targets and events happen continuously across frames.**
+
+## What you should take away from this section
+
+- The most important new dimension in video tasks is not pixels, but time
+- Many video systems are actually built as a combination of “single-frame models + temporal logic”
+- When you first do a video project, clarifying the task’s time requirements is more valuable than immediately chasing complex models
+
+---
+
+## Exercises
+
+1. Modify the example to let two targets move at the same time, and see whether the simple tracking logic becomes confused.
+2. Why do we say many video systems are actually a combination of “single-frame models + temporal logic”?
+3. What risks can arise if frame sampling is too sparse?
+4. Think about this: which video tasks must explicitly model time rather than only looking at single frames?

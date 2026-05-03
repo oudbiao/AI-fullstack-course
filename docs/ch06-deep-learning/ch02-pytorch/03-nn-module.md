@@ -1,81 +1,81 @@
 ---
-title: "2.5 nn 模块"
+title: "2.5 nn Module"
 sidebar_position: 3
-description: "学会用 nn.Module、nn.Linear、nn.Sequential 组织模型，理解 forward 和参数管理。"
+description: "Learn to organize models with nn.Module, nn.Linear, and nn.Sequential, and understand forward and parameter management."
 keywords: [nn.Module, nn.Linear, nn.Sequential, forward, parameters, PyTorch]
 ---
 
-# nn 模块
+# nn Module
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么 PyTorch 要用 `nn.Module` 组织模型
-- 掌握 `nn.Linear`、`nn.ReLU`、`nn.Sequential`
-- 能自己写一个最简单的自定义网络
-- 明白 `forward()`、`parameters()`、`train()`、`eval()` 的作用
+- Understand why PyTorch uses `nn.Module` to organize models
+- Master `nn.Linear`, `nn.ReLU`, and `nn.Sequential`
+- Be able to write the simplest custom network yourself
+- Understand the roles of `forward()`, `parameters()`, `train()`, and `eval()`
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-这节最重要的不是记住多少类名，而是看清：
+The most important thing in this section is not memorizing class names, but seeing clearly:
 
-![nn.Module 参数组织流程图](/img/course/ch06-nn-module-parameter-flow.png)
+![nn.Module parameter organization flowchart](/img/course/ch06-nn-module-parameter-flow-en.png)
 
-所以这一节真正解决的是：
+So what this section really solves is:
 
-- 模型结构怎么被组织成一个“可训练对象”
+- How a model structure is organized into a "trainable object"
 
-## 这节和前后内容是怎么接上的
+## How This Section Connects to the Previous and Next Ones
 
-- 前一节 `autograd` 已经解决“梯度怎么来”
-- 这一节开始解决“这些参数到底被装在哪、怎么统一管理”
-- 下一节 `DataLoader` 会解决“数据怎么一批批送进来”
+- The previous section, `autograd`, already solved "where gradients come from"
+- This section starts solving "where these parameters are stored and how they are managed together"
+- The next section, `DataLoader`, will solve "how data is fed in batch by batch"
 
-所以这一节其实是在给训练循环准备“模型这一半”。
+So this section is really preparing the "model half" of the training loop.
 
-## 一、为什么需要 `nn.Module`？
+## 1. Why Do We Need `nn.Module`?
 
-如果说张量是“数据盒子”，那 `nn.Module` 就是“模型盒子”。
+If a tensor is a "data box," then `nn.Module` is a "model box."
 
-它帮你把一堆东西组织起来：
+It helps you organize a bunch of things:
 
-- 网络层
-- 参数
-- 前向计算逻辑
-- 训练 / 评估模式切换
+- Network layers
+- Parameters
+- Forward computation logic
+- Train / evaluation mode switching
 
-类比一下：
+As an analogy:
 
-| 组件 | 类比 |
+| Component | Analogy |
 |---|---|
-| `Tensor` | 一块砖 |
-| `nn.Linear` | 一个标准零件 |
-| `nn.Module` | 一个可组合的机器 |
+| `Tensor` | A brick |
+| `nn.Linear` | A standard part |
+| `nn.Module` | A composable machine |
 
-如果没有 `nn.Module`，你也可以手写网络，但会非常乱。  
-有了它，模型就像乐高积木，可以一层层拼起来。
+Without `nn.Module`, you could still write networks by hand, but it would be very messy.
+With it, a model is like LEGO blocks that can be stacked layer by layer.
 
-### 1.1 一个更适合新人的直觉：`nn.Module` 就是“模型容器”
+### 1.1 A More Beginner-Friendly Intuition: `nn.Module` Is a "Model Container"
 
-你可以先把它理解成一个统一的模型盒子，里面会装：
+You can first think of it as a unified model box that holds:
 
-- 网络层
-- 参数
-- 前向逻辑
-- 训练 / 评估模式
+- Network layers
+- Parameters
+- Forward logic
+- Train / evaluation mode
 
-这就是为什么后面很多地方都只传一个 `model` 对象，就能完成：
+This is why many later places only need to pass in a `model` object to complete:
 
-- 前向计算
-- 参数更新
-- 保存和加载
+- Forward computation
+- Parameter updates
+- Saving and loading
 
 ---
 
-## 二、最常见的层：`nn.Linear`
+## 2. The Most Common Layer: `nn.Linear`
 
-线性层做的事情就是：
+A linear layer does this:
 
 > `y = xW + b`
 
@@ -88,32 +88,32 @@ layer = nn.Linear(in_features=3, out_features=2)
 x = torch.tensor([[1.0, 2.0, 3.0]])
 y = layer(x)
 
-print("输出:", y)
+print("Output:", y)
 print("weight shape:", layer.weight.shape)
 print("bias shape:", layer.bias.shape)
 ```
 
-这里的形状要读懂：
+You need to understand the shapes here:
 
-- 输入是 `[1, 3]`，表示 1 个样本、每个样本 3 个特征
-- 输出是 `[1, 2]`，表示映射到 2 个输出值
+- The input is `[1, 3]`, meaning 1 sample, and each sample has 3 features
+- The output is `[1, 2]`, meaning it is mapped to 2 output values
 
-### 2.1 看到 `nn.Linear(in, out)` 时，脑子里最该立刻跳出什么？
+### 2.1 When You See `nn.Linear(in, out)`, What Should Immediately Come to Mind?
 
-最值得先跳出来的是：
+The most important thing to think is:
 
-- 这不是在“神秘变换”
-- 而是在把每个样本从 `in` 维表示映射到 `out` 维表示
+- This is not some "mysterious transformation"
+- It maps each sample from an `in`-dimensional representation to an `out`-dimensional representation
 
-所以一个线性层最实用的理解方式通常是：
+So the most practical way to understand a linear layer is usually:
 
-- 输入空间被重新编码成了新的特征空间
+- The input space is re-encoded into a new feature space
 
 ---
 
-## 三、用 `nn.Sequential` 快速搭网络
+## 3. Build a Network Quickly with `nn.Sequential`
 
-如果模型比较简单，可以直接把层按顺序串起来：
+If the model is relatively simple, you can connect layers in order directly:
 
 ```python
 import torch
@@ -131,20 +131,20 @@ pred = model(x)
 print(pred)
 ```
 
-这段代码表示：
+This code means:
 
-1. 输入 2 个特征
-2. 先映射到 4 维隐藏层
-3. 经过 `ReLU` 激活
-4. 再输出 1 个值
+1. Input 2 features
+2. First map them to a 4-dimensional hidden layer
+3. Pass through `ReLU` activation
+4. Then output 1 value
 
-这就已经是一个最小版多层感知机了。
+This is already a minimal multilayer perceptron.
 
 ---
 
-## 四、自己定义一个模型类
+## 4. Define a Model Class Yourself
 
-当模型稍微复杂一点，推荐继承 `nn.Module`。
+When the model gets a little more complex, it is recommended to inherit from `nn.Module`.
 
 ```python
 import torch
@@ -165,48 +165,48 @@ class ScorePredictor(nn.Module):
 model = ScorePredictor()
 
 x = torch.tensor([
-    [3.0, 4.0],   # 学习时长、作业完成数
+    [3.0, 4.0],   # Study time, number of assignments completed
     [5.0, 8.0]
 ])
 
 print(model(x))
 ```
 
-### `__init__()` 和 `forward()` 分别做什么？
+### What Do `__init__()` and `forward()` Do Respectively?
 
-| 方法 | 职责 |
+| Method | Responsibility |
 |---|---|
-| `__init__()` | 定义层和子模块 |
-| `forward()` | 定义“数据怎么流过去” |
+| `__init__()` | Define layers and submodules |
+| `forward()` | Define how data flows through the model |
 
-一句话记忆：
+A simple way to remember it:
 
-- `__init__` 负责“搭机器”
-- `forward` 负责“机器怎么工作”
+- `__init__` is responsible for "building the machine"
+- `forward` is responsible for "how the machine works"
 
-### 4.1 为什么 `forward()` 里只写数据流，不写训练逻辑？
+### 4.1 Why Does `forward()` Only Contain Data Flow and Not Training Logic?
 
-因为训练逻辑属于另一个层面。  
-`forward()` 的职责非常纯粹：
+Because training logic belongs to another level.
+The responsibility of `forward()` is very pure:
 
-- 给定输入
-- 返回输出
+- Given an input
+- Return an output
 
-而像这些东西：
+And things like:
 
 - loss
 - backward
 - optimizer.step
 
-都不属于 `forward()`。  
-把这层职责分清，对后面读大模型代码非常重要。
+do not belong in `forward()`.
+Being clear about this separation is very important when you read large model code later.
 
 ---
 
-## 五、模型参数是怎么被管理起来的？
+## 5. How Are Model Parameters Managed?
 
-`nn.Module` 的一个大好处是：  
-你定义的层会自动被框架登记，参数也会自动出现在 `model.parameters()` 里。
+One big advantage of `nn.Module` is that:
+the layers you define are automatically registered by the framework, and the parameters also automatically appear in `model.parameters()`.
 
 ```python
 import torch
@@ -228,73 +228,73 @@ for name, param in model.named_parameters():
     print(name, param.shape)
 ```
 
-这正是为什么优化器能直接写：
+This is why an optimizer can be written directly as:
 
 ```python
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 ```
 
-### 5.1 为什么 `model.parameters()` 这么关键？
+### 5.1 Why Is `model.parameters()` So Important?
 
-因为它把“模型是很多参数的集合”这件事统一起来了。
+Because it unifies the idea that "a model is a collection of many parameters."
 
-也就是说，优化器其实根本不关心你写了几层、用了什么结构，它最关心的是：
+In other words, the optimizer does not really care how many layers you wrote or what structure you used. What it cares about most is:
 
-- 我到底要更新哪些参数
+- Which parameters do I need to update?
 
-而 `nn.Module` 就是在自动替你把这件事整理好。
+And `nn.Module` is automatically organizing this for you.
 
-因为模型已经把所有需要学习的参数打包好了。
+Because the model has already packaged all the parameters that need to be learned.
 
 ---
 
-## 六、`train()` 和 `eval()` 是什么？
+## 6. What Are `train()` and `eval()`?
 
-很多初学者以为：
+Many beginners think:
 
-- `model.train()` 是开始训练
-- `model.eval()` 是开始评估
+- `model.train()` starts training
+- `model.eval()` starts evaluation
 
-其实不完全对。  
-它们真正的作用是：**切换模型内部某些层的行为模式**。
+That is not completely correct.
+Their real role is to **switch the behavior mode of certain internal layers**.
 
-最典型的两种层是：
+The two most typical layers are:
 
 - `Dropout`
 - `BatchNorm`
 
-虽然我们现在还没重点讲它们，但你要先记住这个习惯：
+Although we have not focused on them yet, you should first remember this habit:
 
 ```python
-model.train()   # 训练前
-model.eval()    # 验证 / 测试前
+model.train()   # Before training
+model.eval()    # Before validation / testing
 ```
 
-### 6.1 初学阶段先把这一点记死，非常值
+### 6.1 At the Beginner Stage, Fix This in Your Memory — It Is Very Worth It
 
-你现在甚至可以先不完全理解：
+You may not fully understand:
 
 - Dropout
 - BatchNorm
 
-但这两个动作最好先养成条件反射：
+right now, but you should still build this reflex:
 
-- 训练前 `model.train()`
-- 验证前 `model.eval()`
+- `model.train()` before training
+- `model.eval()` before validation
 
-后面网络越复杂，这个习惯越能救你。
+The more complex the network becomes later, the more this habit will save you.
 
 ---
 
-## 七、一个完整的小例子：预测成绩
+## 7. A Complete Small Example: Predicting Scores
 
-下面是一个可以直接运行的小网络。  
-输入两个特征：
+Below is a small network that you can run directly.
+It takes two features as input:
 
-- 每周学习时长
-- 每周完成练习数
+- Study hours per week
+- Number of practice problems completed per week
 
-输出预测分数。
+It outputs a predicted score.
 
 ```python
 import torch
@@ -348,71 +348,71 @@ for epoch in range(500):
         print(f"epoch={epoch:3d}, loss={loss.item():.4f}")
 
 test = torch.tensor([[6.5, 7.0]])
-print("预测分数:", round(model(test).item(), 2))
+print("Predicted score:", round(model(test).item(), 2))
 ```
 
 ---
 
-## 八、什么时候用 `Sequential`，什么时候自定义 `Module`？
+## 8. When Should You Use `Sequential`, and When Should You Define a Custom `Module`?
 
-### 用 `nn.Sequential`
+### Use `nn.Sequential`
 
-适合：
+Suitable when:
 
-- 层是严格顺序堆叠的
-- 没有分支结构
-- 没有特殊控制逻辑
+- Layers are stacked in a strict order
+- There is no branching structure
+- There is no special control logic
 
-### 用自定义 `nn.Module`
+### Use a Custom `nn.Module`
 
-适合：
+Suitable when:
 
-- 有多路输入 / 输出
-- 有跳连、分支、条件逻辑
-- 你想让结构更清晰、更可维护
+- There are multiple inputs / outputs
+- There are skip connections, branches, or conditional logic
+- You want the structure to be clearer and easier to maintain
 
-工程上，自定义 `Module` 更常见。
-
----
-
-## 九、初学者常见误区
-
-### 1. 在 `forward()` 里临时创建新层
-
-不推荐。  
-层最好在 `__init__()` 里定义，这样参数才能被正确注册。
-
-### 2. 只会写 `Sequential`，不会写类
-
-`Sequential` 很方便，但你迟早要会写自定义 `Module`。  
-后面的 CNN、Transformer 都离不开它。
-
-### 3. 不知道模型里有哪些参数
-
-养成使用 `named_parameters()` 的习惯，调试时非常有用。
+In practice, custom `Module`s are more common.
 
 ---
 
-## 小结
+## 9. Common Beginner Mistakes
 
-这一节你要带走的核心是：
+### 1. Creating New Layers Temporarily Inside `forward()`
 
-1. `nn.Module` 是组织模型的标准方式
-2. `forward()` 描述的是数据流，不是训练流程
-3. 模型参数会被自动收集，优化器才能统一更新
+Not recommended.
+Layers should be defined in `__init__()` so that parameters can be registered correctly.
 
-有了模型盒子，下一步就是把数据一批一批喂进去。
+### 2. Only Knowing How to Write `Sequential`, but Not a Class
 
-## 这节最该带走什么
+`Sequential` is convenient, but you will eventually need to know how to write a custom `Module`.
+The CNNs and Transformer later on both depend on it.
 
-如果再压成一句话，那就是：
+### 3. Not Knowing What Parameters Exist in the Model
 
-> **`nn.Module` 的核心价值，不是让代码更像面向对象，而是让“层、参数、前向逻辑、训练模式”都能被统一管理。**
+Develop the habit of using `named_parameters()`. It is very useful for debugging.
 
 ---
 
-## 练习
+## Summary
 
-1. 把 `ScorePredictor` 的隐藏层从 `8` 改成 `16`，观察损失变化。
-2. 把 `ReLU()` 去掉，看看模型还能不能学到规律。
-3. 用 `named_parameters()` 打印每层参数名称和形状，确认你读懂了每一层。
+The core ideas you should take away from this section are:
+
+1. `nn.Module` is the standard way to organize models
+2. `forward()` describes data flow, not the training process
+3. Model parameters are automatically collected so the optimizer can update them together
+
+Once you have the model container, the next step is to feed data in batch by batch.
+
+## What Should You Take Away Most from This Section?
+
+If we compress it into one sentence, it is:
+
+> **The core value of `nn.Module` is not making code look more object-oriented, but allowing layers, parameters, forward logic, and training mode to be managed together.**
+
+---
+
+## Exercises
+
+1. Change the hidden layer in `ScorePredictor` from `8` to `16`, and observe how the loss changes.
+2. Remove `ReLU()`, and see whether the model can still learn the pattern.
+3. Use `named_parameters()` to print each layer’s parameter names and shapes, and make sure you understand every layer.

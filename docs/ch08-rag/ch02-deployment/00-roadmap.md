@@ -1,93 +1,95 @@
 ---
-title: "2.1 学前导读：模型部署这一章到底在学什么"
+title: "2.1 Pre-Reading Guide: What Is This Chapter on Model Deployment Really About?"
 sidebar_position: 0
-description: "先建立模型部署章节的学习地图：本地模型、推理服务和统一 API 入口怎样共同决定模型调用方式。"
-keywords: [模型部署导读, 本地模型, 推理服务, 统一 API]
+description: "First build a learning map for the model deployment chapter: how local models, inference services, and a unified API entry point together determine how models are called."
+keywords: [model deployment guide, local models, inference services, unified API]
 ---
 
-# 学前导读：模型部署这一章到底在学什么
+# Pre-Reading Guide: What Is This Chapter on Model Deployment Really About?
 
-这一章解决的是：
+This chapter addresses:
 
-> **模型不只是“存在”，还必须被稳定地加载、调用和服务化。**
+> **Models are not just something that “exists”; they must also be loaded, called, and served reliably.**
 
-## 先建立一张桥接线
+## First Build a Bridge Line
 
-如果你刚学完 RAG 主线，这一章最值得先看清的一件事是：
+If you just finished the main RAG track, the most important thing to understand in this chapter is:
 
-- 前面你已经知道知识怎样进系统
-- 这一章开始回答：模型怎样真的被调用出去，成为一个稳定能力入口
+- In the earlier chapters, you already learned how knowledge enters the system
+- Starting with this chapter, we answer: how is a model actually called and turned into a stable capability entry point?
 
-所以部署这一章真正重要的不是“会不会跑个服务”，而是：
+So what really matters in the deployment chapter is not “can you run a service,” but:
 
-> **模型调用怎样从一次实验，变成一个可复用、可替换、可维护的接口能力。**
+> **How does model invocation go from a one-time experiment to a reusable, replaceable, and maintainable interface capability?**
 
-## 这一章的主线
+## The Main Line of This Chapter
 
-![模型部署章节学习顺序图](/img/course/ch08-deployment-chapter-flow.png)
+![Model deployment chapter learning flowchart](/img/course/ch08-deployment-chapter-flow-en.png)
 
-## 这一章更适合新人的学习顺序
+## The Most Beginner-Friendly Reading Order for This Chapter
 
-1. 先看本地模型运行  
-   先理解模型到底怎样被加载和推理。
+1. Start with local model execution
+   First understand how the model is loaded and inferred.
 
-2. 再看推理服务  
-   先把“本地推理”升级成“系统能调用的服务”。
+2. Then move to inference services
+   Upgrade “local inference” into a “service the system can call.”
 
-3. 最后看统一 API  
-   这时你更容易理解为什么多模型系统会自然长出一层统一入口。
+3. Finally look at the unified API
+   At that point, it becomes easier to understand why multi-model systems naturally grow a unified entry layer.
 
-## 这一章最该先抓住什么
+## What You Should Focus on First
 
-- 部署不是最后补一层外壳，而是模型进入系统的正式入口
-- 本地运行、服务化和统一接口是递进关系
-- 这一章会直接影响后面应用开发和工程化的稳定性
+- Deployment is not a final outer shell added at the end, but the formal entry point for a model into the system
+- Local execution, service exposure, and unified interfaces are a progressive sequence
+- This chapter directly affects the stability of later application development and engineering work
 
-## 模型工程精讲：不是永远调用最强模型
+## Deep Dive into Model Engineering: It’s Not Always the Strongest Model That Gets Called
 
-现代 LLM 应用常常需要在效果、延迟、成本、隐私和部署复杂度之间取平衡。一个真实系统可能会用小模型处理分类、改写、格式化等简单任务，用强模型处理复杂推理，用本地模型处理隐私数据，用视觉模型处理图片，再通过统一 API 或模型路由把这些能力组合起来。
+Modern LLM applications often need to balance quality, latency, cost, privacy, and deployment complexity. A real system may use a small model to handle simple tasks such as classification, rewriting, and formatting; a powerful model for complex reasoning; a local model for private data; and a vision model for images. Then it combines these capabilities through a unified API or model routing.
 
-![模型服务选型决策图](/img/course/ch08-model-serving-decision-map.png)
+![Model serving selection decision map](/img/course/ch08-model-serving-decision-map-en.png)
 
-| 方向 | 解决的问题 | 本章关注点 |
+| Direction | Problem It Solves | Focus in This Chapter |
 |---|---|---|
-| Small Language Models | 大模型成本高、延迟高 | 识别哪些任务可以交给小模型 |
-| 模型路由 | 不同任务需要不同模型 | 按任务难度、成本和隐私选择模型 |
-| 量化 | 本地部署资源有限 | 理解精度、速度和显存之间的取舍 |
-| LoRA / QLoRA | 需要低成本适配领域任务 | 知道微调和 RAG、Prompt 的边界 |
-| 蒸馏 | 想把大模型能力迁移到小模型 | 理解教师模型、学生模型和评估集 |
-| 推理优化 | 请求量上来后延迟和成本失控 | 缓存、批处理、并发、流式输出和限流 |
-| 混合部署 | 云端、本地和边缘环境都有需求 | 设计可替换、可监控的模型服务入口 |
+| Small Language Models | Large models are expensive and slow | Identify which tasks can be handed to small models |
+| Model Routing | Different tasks need different models | Choose models based on task difficulty, cost, and privacy |
+| Quantization | Local deployment has limited resources | Understand the trade-offs among accuracy, speed, and VRAM usage |
+| LoRA / QLoRA | Need low-cost adaptation to domain tasks | Understand the boundary between fine-tuning, RAG, and Prompt |
+| Distillation | Want to transfer large-model capabilities to small models | Understand teacher models, student models, and evaluation sets |
+| Inference Optimization | Latency and cost become uncontrollable as traffic grows | Caching, batching, concurrency, streaming output, and rate limiting |
+| Hybrid Deployment | Cloud, local, and edge environments all have needs | Design replaceable and observable model service entry points |
 
-本章的项目出口不只是“模型跑起来”，而是能说明：为什么选这个模型，单次调用大约花多少钱，延迟是否可接受，失败时怎么降级，未来换模型时应用层是否需要大改。
-## 新人和进阶学习者怎么读
+The project outcome of this chapter is not just “the model runs,” but rather being able to explain: why this model was chosen, about how much each call costs, whether the latency is acceptable, how to degrade gracefully when failures happen, and whether the application layer needs major changes when the model is replaced in the future.
 
-新人第一次学这一章时，先抓住本地运行、推理服务和统一 API 这条主线。你不需要一次理解所有部署细节，只要能说清楚模型怎样被加载、怎样被服务化、应用怎样通过接口调用它，就可以继续往后走。
+## How Beginners and Advanced Learners Should Read This Chapter
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+When beginners study this chapter for the first time, focus on the main line of local execution, inference services, and unified API. You do not need to understand every deployment detail at once. As long as you can clearly explain how the model is loaded, how it is served, and how the application calls it through an interface, you can keep moving forward.
 
-## 学习时间与难度建议
+More experienced learners can treat this chapter as a chance to fill gaps and practice engineering: pay attention to edge cases, failure examples, evaluation methods, code reproducibility, and how it connects to earlier and later stages. After reading, it is best to solidify this chapter’s content in your own project README or experiment notes.
 
-| 学习方式 | 建议投入 | 目标 |
+## Recommended Study Time and Difficulty
+
+| Study Mode | Recommended Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick Browse | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal Completion | 1–2 hours | Run a minimal example and finish the chapter’s small project outcome |
+| In-Depth Practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-Check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly say what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one cause of an error, poor performance, or misunderstanding |
+| What can be preserved after learning it? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+## Small Project Outcome for This Chapter
 
-## 过关标准
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the most core concept or tool in this chapter and create a small result that can run, be screenshotted, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing flow is, and what the output result is.
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+## Passing Criteria
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects to the previous and next learning stops, and complete the minimal version of the chapter’s small project outcome.
+
+If you can also record one common error, one debugging process, or one improvement in results, that means you are not just “reading the content” anymore—you are turning this chapter into your own project experience.

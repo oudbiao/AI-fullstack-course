@@ -1,111 +1,111 @@
 ---
-title: "5.5 项目：知识库驱动的课件生成助手"
+title: "5.5 Project: Knowledge Base-Driven Courseware Generation Assistant"
 sidebar_position: 24
-description: "围绕 PDF/Word/PPT 资料库、RAG 检索、外部资料补充、例题抽取和模板化 Word 生成，建立一个真正像产品的课件助手项目闭环。"
+description: "Build a truly product-like courseware assistant project loop around PDF/Word/PPT document libraries, RAG retrieval, external material supplementation, example extraction, and template-based Word generation."
 keywords: [courseware assistant, knowledge base, word generation, ppt parsing, document parsing, rag project]
 ---
 
-# 项目：知识库驱动的课件生成助手
+# Project: Knowledge Base-Driven Courseware Generation Assistant
 
-![课件生成助手工作流图](/img/course/courseware-assistant-workflow.png)
+![Courseware generation assistant workflow diagram](/img/course/courseware-assistant-workflow-en.png)
 
-:::tip 本节定位
-这个项目比普通知识库问答更进一步。  
-它不是只回答问题，而是要真正产出：
+:::tip Section Positioning
+This project goes one step further than a typical knowledge base Q&A system.
+It is not just about answering questions — it actually produces:
 
-- 一份符合格式要求的 Word 课件
+- A Word courseware document that meets formatting requirements
 
-所以它特别适合训练这些系统能力一起工作：
+So it is especially suitable for training these system capabilities to work together:
 
-- 文档解析
-- 知识检索
-- 例题抽取
-- 结构化输出
-- 模板化文档生成
+- Document parsing
+- Knowledge retrieval
+- Example extraction
+- Structured output
+- Template-based document generation
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会把“主题 -> 查资料 -> 抽例题 -> 生成课件”组织成完整流程
-- 学会定义一个知识库驱动课件系统的最小项目边界
-- 学会把内部知识库和外部资料补充分开设计
-- 学会把这个项目做成一个有产品感的作品级系统
+- Learn how to organize “topic -> research -> extract examples -> generate courseware” into a complete workflow
+- Learn how to define the minimum project boundary for a knowledge base-driven courseware system
+- Learn how to design internal knowledge base and external material supplementation separately
+- Learn how to turn this project into a portfolio-quality system with a product feel
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-这个项目最适合按“知识入库 -> 检索 -> 结构化生成 -> 模板导出”来理解：
+This project is best understood as “knowledge ingestion -> retrieval -> structured generation -> template export”:
 
 ```mermaid
 flowchart LR
-    A["PDF / Word / PPT 资料"] --> B["文档解析与知识抽取"]
-    B --> C["知识库 / 检索"]
-    D["外部资料检索"] --> C
-    C --> E["生成课件结构"]
-    E --> F["套 Word 模板导出"]
+    A["PDF / Word / PPT materials"] --> B["Document parsing and knowledge extraction"]
+    B --> C["Knowledge base / retrieval"]
+    D["External material retrieval"] --> C
+    C --> E["Generate courseware structure"]
+    E --> F["Export with Word template"]
 ```
 
-所以这个项目真正想解决的是：
+So what this project really wants to solve is:
 
-- 用户只给一个主题时，系统怎样自动去找资料、找例题、再按模板写出来
+- When the user only provides a topic, how does the system automatically find materials, extract examples, and then write them out according to a template?
 
-## 一、项目题目怎么收窄？
+## 1. How Should We Narrow the Project Scope?
 
-一个最稳的起点通常是：
+A very solid starting point is usually:
 
-> **做一个“知识库驱动的数学课件助手”，用户输入主题，系统自动生成一份包含知识点、例题和练习的 Word 初稿。**
+> **Build a “knowledge base-driven math courseware assistant” that takes a topic as input and automatically generates a Word draft containing key concepts, examples, and exercises.**
 
-为什么这个范围合适？
+Why is this scope a good fit?
 
-- 主题清楚
-- 资料形态清楚
-- 例题和知识点都能从文档里抽
-- Word 输出目标明确
+- The topic is clear
+- The material format is clear
+- Both examples and key concepts can be extracted from documents
+- The Word output target is explicit
 
-不建议一开始就做成：
+It is not recommended to start with:
 
-- 所有学科通用
-- 自动生成 PPT + Word + 讲稿 + 配音
+- All subjects
+- Automatically generating PPT + Word + lecture notes + voiceover
 
-这样很容易把项目主线冲散。
+That will easily distract from the main project line.
 
-## 二、一个更适合新人的总类比
+## 2. A Better Analogy for Beginners
 
-你可以把这个系统理解成：
+You can think of this system as:
 
-- 一个会先翻资料、再整理提纲、最后替你起草课件的备课助理
+- A lesson-prep assistant that first reads materials, then organizes an outline, and finally drafts the courseware for you
 
-它不是直接凭空写，而是：
+It does not write blindly out of thin air. Instead, it:
 
-1. 先查内部资料
-2. 必要时再补外部资料
-3. 再从资料里挑知识点和例题
-4. 最后按固定格式写成课件
+1. First checks internal materials
+2. Then supplements with external materials when needed
+3. Then selects key concepts and examples from the materials
+4. Finally writes them into courseware in a fixed format
 
-这个类比很重要，因为它会帮新人避免把项目想成：
+This analogy matters, because it helps beginners avoid thinking of the project as:
 
-- “直接让模型写一篇 Word”
+- “Just ask the model to write a Word document directly”
 
-## 三、最小系统闭环长什么样？
+## 3. What Does the Minimum System Loop Look Like?
 
-1. 文档入库
-2. 解析正文、标题和例题
-3. 用户输入主题
-4. 系统检索内部知识块
-5. 必要时补外部资料
-6. 生成结构化课件对象
-7. 套模板导出 Word
+1. Ingest documents
+2. Parse body text, headings, and examples
+3. User enters a topic
+4. The system retrieves internal knowledge chunks
+5. Supplement with external materials if needed
+6. Generate a structured courseware object
+7. Export Word via a template
 
-只要这 7 步跑顺，这个项目就已经非常像真正产品了。
+As long as these 7 steps run smoothly, the project already feels very close to a real product.
 
-## 四、先跑一个最小工作流示例
+## 4. Let’s First Run a Minimal Workflow Example
 
 ```python
 knowledge_base = [
-    {"topic": "折扣应用题", "content_type": "concept", "text": "折扣 = 原价 × 折扣率"},
-    {"topic": "折扣应用题", "content_type": "example", "text": "商品原价 100 元，打 8 折后价格是多少？"},
-    {"topic": "折扣应用题", "content_type": "exercise", "text": "一件衣服原价 80 元，打 7 折后是多少元？"},
+    {"topic": "Discount word problems", "content_type": "concept", "text": "Discount = original price × discount rate"},
+    {"topic": "Discount word problems", "content_type": "example", "text": "A product originally costs 100 yuan. What is the price after a 20% discount?"},
+    {"topic": "Discount word problems", "content_type": "exercise", "text": "A coat originally costs 80 yuan. What is the price after a 30% discount?"},
 ]
 
 
@@ -114,8 +114,8 @@ def retrieve_internal(topic):
 
 
 def retrieve_external(topic):
-    # 这里只做一个最小模拟
-    return [{"topic": topic, "content_type": "note", "text": f"外部资料补充：{topic} 的常见教学误区。"}]
+    # Minimal simulation only
+    return [{"topic": topic, "content_type": "note", "text": f"External supplement: common teaching pitfalls for {topic}."}]
 
 
 def build_courseware(topic):
@@ -131,107 +131,107 @@ def build_courseware(topic):
     }
 
 
-print(build_courseware("折扣应用题"))
+print(build_courseware("Discount word problems"))
 ```
 
-### 4.1 这个例子最关键的价值是什么？
+### 4.1 What Is the Most Important Value of This Example?
 
-它说明这个系统真正有价值的地方，不是只会：
+It shows that the real value of this system is not just that it can:
 
-- 查
+- Retrieve
 
-而是能把查到的内容重新组织成：
+But that it can reorganize what it retrieved into:
 
-- 课件需要的栏目结构
+- The section structure needed by courseware
 
-## 五、一个更像真实项目的系统分层图
+## 5. A System Layering Diagram That Looks More Like a Real Project
 
-很多新人做这类项目时，最容易把“知识库、检索、生成、导出”混在一起。
+When beginners build this kind of project, the easiest mistake is mixing “knowledge base, retrieval, generation, and export” together.
 
-更稳的做法是先分层：
+A safer approach is to separate the layers first:
 
 ```mermaid
 flowchart TD
-    A["文档入库层"] --> B["知识处理层"]
-    B --> C["检索层"]
-    C --> D["课件结构生成层"]
-    D --> E["模板导出层"]
+    A["Document ingestion layer"] --> B["Knowledge processing layer"]
+    B --> C["Retrieval layer"]
+    C --> D["Courseware structure generation layer"]
+    D --> E["Template export layer"]
 ```
 
-你可以简单把它理解成：
+You can simply understand it as:
 
-- 入库层：把资料读进来
-- 处理层：把资料变成知识块
-- 检索层：把相关材料找出来
-- 生成层：把材料重组为课件结构
-- 导出层：把结构变成 Word
+- Ingestion layer: read materials in
+- Processing layer: turn materials into knowledge chunks
+- Retrieval layer: find relevant materials
+- Generation layer: reorganize materials into a courseware structure
+- Export layer: turn the structure into Word
 
-## 六、这个项目最需要哪些能力？
+## 6. What Capabilities Does This Project Need Most?
 
-按系统分层看，核心能力是：
+Viewed by system layers, the core capabilities are:
 
-### 6.1 文档解析
+### 6.1 Document Parsing
 
-- PDF / DOCX / PPTX 读取
-- 扫描件 OCR
-- 标题层级和例题识别
+- PDF / DOCX / PPTX reading
+- OCR for scanned documents
+- Heading hierarchy and example recognition
 
-对应课程：
-- [文档解析与知识抽取](../ch03-app-dev/07-document-parsing.md)
-- [文档处理](../ch01-rag/02-document-processing.md)
-- [OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+Related courses:
+- [Document Parsing and Knowledge Extraction](../ch03-app-dev/07-document-parsing.md)
+- [Document Processing](../ch01-rag/02-document-processing.md)
+- [OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-### 6.2 知识库与检索
+### 6.2 Knowledge Base and Retrieval
 
-- 切块
-- 元数据
-- 主题检索
-- 例题召回
+- Chunking
+- Metadata
+- Topic retrieval
+- Example recall
 
-对应课程：
-- [RAG 基础](../ch01-rag/01-rag-basics.md)
-- [向量数据库](../ch01-rag/03-vector-databases.md)
-- [检索策略](../ch01-rag/04-retrieval-strategies.md)
+Related courses:
+- [RAG Basics](../ch01-rag/01-rag-basics.md)
+- [Vector Databases](../ch01-rag/03-vector-databases.md)
+- [Retrieval Strategies](../ch01-rag/04-retrieval-strategies.md)
 
-### 6.3 结构化输出与模板生成
+### 6.3 Structured Output and Template Generation
 
-- 先生成大纲
-- 再生成知识点 / 例题 / 练习
-- 再套模板导出 Word
+- Generate an outline first
+- Then generate key concepts / examples / exercises
+- Then export Word using a template
 
-对应课程：
-- [Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
-- [模板化文档生成（Word / PPT）](../ch03-app-dev/08-template-doc-generation.md)
+Related courses:
+- [Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+- [Template-Based Document Generation (Word / PPT)](../ch03-app-dev/08-template-doc-generation.md)
 
-### 6.4 工具调用与工作流
+### 6.4 Tool Calling and Workflows
 
-- 内部知识库检索
-- 外部资料补充
-- 模板渲染
-- 导出文件
+- Internal knowledge base retrieval
+- External material supplementation
+- Template rendering
+- File export
 
-对应课程：
-- [函数调用实践](../ch03-app-dev/03-function-calling.md)
-- [对话系统与多轮管理](../ch03-app-dev/05-dialog-system.md)
+Related courses:
+- [Function Calling Practice](../ch03-app-dev/03-function-calling.md)
+- [Dialogue Systems and Multi-Turn Management](../ch03-app-dev/05-dialog-system.md)
 - [Plan-and-Execute](../../ch09-agent/ch02-reasoning/04-plan-and-execute.md)
 
-## 七、固定格式课件最小 schema 应该长什么样？
+## 7. What Should the Minimal Fixed-Format Courseware Schema Look Like?
 
-对这个项目来说，最值得先定清楚的，不是模型名，  
-而是“课件长什么样”。
+For this project, what is most worth defining first is not the model name,
+but rather “what the courseware should look like.”
 
-一个最小 schema 至少可以先定成：
+A minimal schema can at least be defined as:
 
 ```python
 courseware_schema = {
-    "title": "主题名称",
-    "audience": "适用对象",
-    "teaching_goal": ["目标1", "目标2"],
+    "title": "Topic Name",
+    "audience": "Target Learners",
+    "teaching_goal": ["Goal 1", "Goal 2"],
     "sections": [
-        {"type": "concept", "heading": "知识点回顾", "items": []},
-        {"type": "example", "heading": "例题讲解", "items": []},
-        {"type": "exercise", "heading": "课堂练习", "items": []},
+        {"type": "concept", "heading": "Key Concept Review", "items": []},
+        {"type": "example", "heading": "Worked Examples", "items": []},
+        {"type": "exercise", "heading": "In-Class Practice", "items": []},
     ],
     "source_refs": [
         {"doc_id": "word_001", "page_or_slide": 3}
@@ -239,35 +239,35 @@ courseware_schema = {
 }
 ```
 
-这个 schema 特别重要，因为它会把：
+This schema is especially important because it binds:
 
-- 检索
-- 生成
-- 模板导出
+- Retrieval
+- Generation
+- Template export
 
-三层都绑到同一个稳定对象上。
+To the same stable object across all three layers.
 
-## 八、内部资料和外部资料，谁优先？
+## 8. Which Comes First: Internal Materials or External Materials?
 
-你的项目有一个非常关键的现实问题：
+Your project has a very important real-world question:
 
-- 内部知识库里可能已经有成熟资料
-- 外部资料只是补充，不应该反客为主
+- The internal knowledge base may already contain mature materials
+- External materials are only supplements and should not take over the main role
 
-所以更适合新人的默认策略通常是：
+So the default strategy that is more suitable for beginners is usually:
 
-| 场景 | 默认优先级 |
+| Scenario | Default Priority |
 |---|---|
-| 主题知识点 | 先内部资料 |
-| 经典例题 | 先内部资料 |
-| 最新政策/新闻/新题型 | 再补外部资料 |
-| 内部资料缺口明显 | 外部资料做补充说明 |
+| Topic key concepts | Internal materials first |
+| Classic examples | Internal materials first |
+| Latest policies/news/new question types | External materials as a supplement |
+| Obvious gaps in internal materials | Use external materials to fill in |
 
-你可以先把这条规则记成一句话：
+You can remember this rule as one sentence:
 
-> **内部资料决定主骨架，外部资料负责补空白。**
+> **Internal materials determine the main skeleton, and external materials fill in the blanks.**
 
-## 九、一个更像真实产品的最小工作流骨架
+## 9. A Workflow Skeleton That Looks More Like a Real Product
 
 ```python
 def generate_courseware(topic):
@@ -279,106 +279,106 @@ def generate_courseware(topic):
     return export_word(structured)
 ```
 
-这个骨架的价值不是“代码多高级”，  
-而是让你先脑子里有这 5 个动作：
+The value of this skeleton is not that “the code is fancy,”
+but that it helps you keep these 5 actions in mind:
 
-1. 读内部知识
-2. 查外部补充
-3. 合并与排序
-4. 生成固定 schema
-5. 导出文档
+1. Read internal knowledge
+2. Look up external supplements
+3. Merge and rank
+4. Generate a fixed schema
+5. Export the document
 
-![课件生成助手生产线图](/img/course/ch08-courseware-assistant-production-line-map.png)
+![Courseware generation assistant production line diagram](/img/course/ch08-courseware-assistant-production-line-map-en.png)
 
-:::tip 读图提示
-这张图要按生产线看：资料入库、解析成知识块、按主题和内容类型检索、生成 courseware schema、再渲染 Word。任何一层没有中间产物，后面就很难排查。
+:::tip Reading Guide
+Read this diagram like a production line: materials are ingested, parsed into knowledge chunks, retrieved by topic and content type, converted into a courseware schema, and then rendered into Word. If any layer has no intermediate output, debugging the next layer becomes very difficult.
 :::
 
-## 十、这个项目最该怎么评估？
+## 10. How Should This Project Be Evaluated?
 
-最值得先看的不是“写出来像不像”，而是：
+What is worth checking first is not “does it look nice when written,” but rather:
 
-1. 检索内容对不对
-2. 例题抽得对不对
-3. 结构有没有符合模板
-4. 引用和来源能不能回溯
+1. Is the retrieval correct?
+2. Are the examples extracted correctly?
+3. Does the structure match the template?
+4. Can references and sources be traced back?
 
-你可以先把评估拆成：
+You can first break evaluation into:
 
-| 维度 | 更像在看什么 |
+| Dimension | What It Checks |
 |---|---|
-| 检索质量 | 主题资料和例题有没有找对 |
-| 结构正确性 | 标题、知识点、例题、练习有没有放对位置 |
-| 来源可追溯性 | 每一段内容能不能回溯到文档来源 |
-| 模板符合度 | 最终 Word 是否符合格式规范 |
+| Retrieval quality | Whether the topic materials and examples were found correctly |
+| Structural correctness | Whether headings, key concepts, examples, and exercises are placed in the right spots |
+| Source traceability | Whether each piece of content can be traced back to its document source |
+| Template compliance | Whether the final Word document matches the formatting rules |
 
-## 十一、一个新人可直接照抄的推进顺序
+## 11. A Beginner-Friendly Progression Order You Can Copy Directly
 
-第一次做这个项目时，更稳的顺序通常是：
+When building this project for the first time, a safer order is usually:
 
-1. 先只做内部知识库
-2. 先不加外部资料
-3. 先生成结构化 JSON
-4. 再把 JSON 套到 Word 模板里
-5. 最后再补外部检索、工具编排和更复杂的 Agent 逻辑
+1. Build the internal knowledge base first
+2. Do not add external materials yet
+3. Generate structured JSON first
+4. Then map the JSON into a Word template
+5. Finally add external retrieval, tool orchestration, and more complex Agent logic
 
-这样会比一上来就做“全自动备课 Agent”更容易把系统做稳。
+This is easier than trying to build a “fully automated lesson-prep Agent” from the start.
 
-## 十二、第一次做时最容易踩的坑
+## 12. The Most Common Pitfalls on the First Attempt
 
-第一次做这类项目，最容易踩的坑通常是：
+The most common mistakes when building this kind of project for the first time are:
 
-1. 一上来就让模型自由写完整文档
-2. 不区分内部资料和外部资料的优先级
-3. 没有保存来源，后面没法追溯
-4. 没有固定 schema，导致模板渲染层很脆
-5. 生成效果不好时，不知道是检索错了还是模板错了
+1. Letting the model freely write the entire document right away
+2. Not separating the priority of internal and external materials
+3. Not saving sources, which makes tracing impossible later
+4. Not using a fixed schema, which makes the template rendering layer fragile
+5. When the output is poor, not knowing whether retrieval or the template is the problem
 
-所以真正更稳的开发思路是：
+So the more stable development approach is:
 
-- 先把链路拆开
-- 每一层单独验证
-- 最后再把它们串起来
+- First split the pipeline apart
+- Validate each layer independently
+- Then connect them together
 
-## 十三、如果把它做成作品集，最值得展示什么？
+## 13. If You Turn It Into a Portfolio Project, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “我能生成 Word”
+- “I can generate Word”
 
-而是：
+But rather:
 
-1. 原始资料长什么样
-2. 解析后的知识块长什么样
-3. 用户输入主题后检索到了哪些内容
-4. 最终课件结构是怎么长出来的
-5. Word 模板导出后的结果长什么样
+1. What the raw materials look like
+2. What the parsed knowledge chunks look like
+3. What content was retrieved after the user entered a topic
+4. How the final courseware structure was formed
+5. What the result looks like after Word template export
 
-这样别人会更容易看出：
+This makes it easier for others to see that:
 
-- 你做的是一个知识驱动内容生成系统
-- 不只是让模型写了一篇文章
+- You built a knowledge-driven content generation system
+- You did not just ask the model to write an article
 
 
 
-## 版本路线建议
+## Suggested Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run through the minimum loop | Accept input, process it, output it, and keep a set of examples |
+| Standard version | Become a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failure case analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to complete the basic version first. Do not pursue a large, all-in-one solution from the beginning. With each version upgrade, be sure to write into the README what new capability was added, how it was verified, and what problems still remain.
 
-## 小结
+## Summary
 
-- 这个项目最核心的是“文档知识 -> 结构化课件 -> 模板导出”的完整链路
-- schema 和来源策略，往往比一开始选哪家模型更重要
-- 第一次做时，先把内部资料版工作流做稳，再补外部资料和 Agent 化会更现实
+- The core of this project is the complete pipeline of “document knowledge -> structured courseware -> template export”
+- The schema and source strategy are often more important than which model you choose at the beginning
+- When doing this for the first time, it is more realistic to first make the internal-material workflow stable, and then add external materials and Agent-style orchestration
 
-## 这节最该带走什么
+## What Should You Take Away from This Section?
 
-- 这个项目最核心的不是“文档输出”，而是“文档知识 -> 结构化课件”的整条链
-- 文档解析、RAG、结构化输出、模板渲染缺一块，系统都不稳
-- 如果你想做这类系统，先把工作流版做稳，再考虑 Agent 化会更现实
+- The core of this project is not “document output,” but the entire chain of “document knowledge -> structured courseware”
+- Document parsing, RAG, structured output, and template rendering are all indispensable; if one piece is missing, the system is not stable
+- If you want to build this kind of system, it is more realistic to first make the workflow version stable, and then consider Agent-ifying it

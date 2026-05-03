@@ -1,85 +1,85 @@
 ---
-title: "9.1 学前导读：部署与运维这一章到底在学什么"
+title: "9.1 Pre-study Guide: What Is This Chapter on Deployment and Operations Really About?"
 sidebar_position: 0
-description: "先建立 Agent 部署与运维章的学习地图：服务架构、运行时管理、持久化恢复、成本优化、监控告警和生产实践怎样支撑长期运行。"
-keywords: [Agent部署导读, Agent运维, 成本优化, 运行时, 可观测性]
+description: "First build the learning map for the Agent deployment and operations chapter: how service architecture, runtime management, persistence and recovery, cost optimization, monitoring and alerting, and production practices support long-term operation."
+keywords: [Agent deployment guide, Agent operations, cost optimization, runtime, observability]
 ---
 
-# 学前导读：部署与运维这一章到底在学什么
+# Pre-study Guide: What Is This Chapter on Deployment and Operations Really About?
 
-这一章解决的是：Agent 原型怎样真正变成一个能长期运行、能恢复、能控制成本、能被维护的系统。
+This chapter is about one thing: how an Agent prototype can truly become a system that can run for a long time, recover from failures, control costs, and be maintained.
 
-很多 Agent 在本地 Demo 里看起来很好，但一到真实环境就会遇到新的问题：请求并发、模型超时、工具失败、状态丢失、任务中断、成本飙升、日志不全、权限配置复杂、用户反馈无法回流。部署与运维章要训练的就是这些生产系统思维。
+Many Agents look great in local demos, but once they move into a real environment, new problems appear: request concurrency, model timeouts, tool failures, state loss, interrupted tasks, skyrocketing costs, incomplete logs, complex permission settings, and no way to feed user feedback back into the system. The deployment and operations chapter is designed to train exactly this kind of production thinking.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-你已经学过 Agent 的核心能力，也学过评估与安全。到部署运维阶段，课程开始从“这个 Agent 能不能完成一次任务”转向“它能不能持续为用户提供服务”。
+You have already learned the core capabilities of Agents, as well as evaluation and safety. When you reach the deployment and operations stage, the course shifts from “Can this Agent complete one task?” to “Can it keep providing services to users over time?”
 
-部署不是把代码放到服务器上就结束。对于 Agent 来说，部署还包含模型调用层、工具服务层、任务队列、状态存储、日志追踪、错误恢复、成本监控、权限管理和版本迭代。
+Deployment is not finished just because you put code on a server. For an Agent, deployment also includes the model calling layer, tool service layer, task queue, state storage, log tracing, error recovery, cost monitoring, permission management, and version iteration.
 
-![Agent 生产运行架构图](/img/course/ch09-production-runtime-map.png)
+![Agent production runtime architecture diagram](/img/course/ch09-production-runtime-map-en.png)
 
-前半段先搭好服务、配置和运行环境，后半段再补监控、成本、故障恢复和生产运维。
+The first half sets up the service, configuration, and runtime environment; the second half adds monitoring, cost control, fault recovery, and production operations.
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：Agent 服务应该如何拆分架构；长任务、异步任务和中断恢复如何处理；状态、记忆、工具结果和执行轨迹应该怎样持久化；如何控制模型调用、工具调用和多 Agent 协作带来的成本；上线后如何通过日志、监控、告警和用户反馈持续改进。
+This chapter answers five questions: how an Agent service should be split into an architecture; how to handle long-running tasks, asynchronous tasks, and interruption recovery; how state, memory, tool results, and execution traces should be persisted; how to control costs caused by model calls, tool calls, and multi-Agent collaboration; and how to continuously improve after launch through logs, monitoring, alerts, and user feedback.
 
-新人最容易误解的是：只要 Agent 逻辑写出来，就可以上线。真实生产环境里，最难的往往不是让它成功跑一次，而是让它在失败、超时、并发、重试、权限变化和模型波动时仍然可控。
+The most common misunderstanding for beginners is: once the Agent logic is written, it can go live. In real production environments, the hardest part is often not making it succeed once, but keeping it controllable when failures, timeouts, concurrency, retries, permission changes, and model fluctuations happen.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学部署架构，理解前端、后端、模型服务、工具服务和存储之间的关系。然后看运行时管理，重点理解同步任务、异步任务、长任务和队列。接着学持久化与恢复，知道任务状态、记忆、日志和中间结果为什么不能只放在内存里。再看成本优化，理解 token、模型选择、缓存、批处理和工具调用次数如何影响成本。最后学习生产最佳实践，把监控、告警、权限、灰度和回滚补上。
+It is recommended to first learn deployment architecture and understand the relationships among the frontend, backend, model service, tool service, and storage. Then look at runtime management, focusing on synchronous tasks, asynchronous tasks, long-running tasks, and queues. Next, learn persistence and recovery to understand why task state, memory, logs, and intermediate results cannot be kept only in memory. After that, study cost optimization to understand how tokens, model choice, caching, batching, and the number of tool calls affect cost. Finally, learn production best practices and add monitoring, alerts, permissions, canary releases, and rollbacks.
 
-![Agent 部署运维章节学习顺序图](/img/course/ch09-deployment-chapter-flow.png)
+![Agent deployment and operations chapter learning flow diagram](/img/course/ch09-deployment-chapter-flow-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：部署 Agent，就是把模型、工具、状态和评估放进一个可运行、可观察、可恢复的工程系统。
+The main thread of this chapter can be summarized as: deploying an Agent means putting the model, tools, state, and evaluation into an engineering system that can run, be observed, and recover.
 
-![Agent 部署可观测恢复闭环图](/img/course/ch09-deployment-observability-loop.png)
+![Agent deployment observability and recovery loop](/img/course/ch09-deployment-observability-loop-en.png)
 
-前半段先搭好服务、配置和运行环境，后半段再补监控、成本、故障恢复和生产运维。
+The first half sets up the service, configuration, and runtime environment; the second half adds monitoring, cost control, fault recovery, and production operations.
 
-看懂这条线后，你会知道生产 Agent 的关键不是“看起来智能”，而是每一步都能被记录、恢复、限制和优化。
+Once you understand this thread, you will know that the key to a production Agent is not “looking intelligent,” but ensuring that every step can be recorded, recovered, limited, and optimized.
 
-## 这一章和后面章节的关系
+## Relationship Between This Chapter and Later Chapters
 
-部署运维是第 9 章 AI Agent 与智能体系统走向真实项目的出口。它会连接最终综合项目，也会连接前面的评估、安全、工具和记忆设计。一个能上线的 Agent 项目，必须同时有功能闭环、错误处理、日志追踪、安全边界、成本意识和部署说明。
+Deployment and operations are Chapter 9, the exit point for AI Agents and intelligent agent systems as they move into real projects. It connects to the final integrated project, and it also connects to earlier topics such as evaluation, safety, tools, and memory design. An Agent project that can go live must have a functional closed loop, error handling, log tracing, security boundaries, cost awareness, and deployment instructions.
 
-如果这一章没学稳，后面常见的问题是：本地能跑，上线就超时；任务中断后无法恢复；多轮状态丢失；日志只记录最终答案，无法定位失败；模型调用成本不可控；没有灰度和回滚策略。
+If this chapter is not learned well, common problems later include: it runs locally but times out after deployment; tasks cannot be recovered after interruption; multi-turn state is lost; logs only record the final answer and cannot help locate failures; model call costs are uncontrollable; and there are no canary release or rollback strategies.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can continue forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Learners with more experience can treat this chapter as a chance to fill gaps and practice engineering: focus on edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after it. After reading, it is best to distill the chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick browse | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | Can explain its place in the whole course in one sentence |
+| What is the minimum input and output? | Can clearly say what input the example needs and what result it produces |
+| Where are the common failure points? | Can list at least one reason for an error, poor results, or misunderstanding |
+| What can be accumulated after learning it? | Can write the chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Project Exit Task
 
-学完这一章后，建议把前面的学习助手或研究助手 Agent 做成一个最小可部署版本。它应该有一个 API 入口，能创建任务、执行模型和工具调用、保存任务状态、记录调用轨迹，并在失败时返回可理解的错误信息。
+After finishing this chapter, it is recommended to turn the earlier learning assistant or research assistant Agent into a minimal deployable version. It should have an API entry point, be able to create tasks, execute model and tool calls, save task state, record call traces, and return understandable error messages when failures occur.
 
-项目可以不追求复杂界面，但必须包含部署说明、环境变量配置、日志记录、基础成本估算和至少一种失败恢复策略。
+The project does not need a complex interface, but it must include deployment instructions, environment variable configuration, logging, a basic cost estimate, and at least one failure recovery strategy.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能画出一个 Agent 应用的部署架构，能说明运行时管理、状态持久化、失败恢复、日志监控和成本优化分别解决什么问题，能把本地 Demo 改造成可重复启动、可观察、可配置的小型服务。
+By the end of this chapter, you should be able to draw the deployment architecture of an Agent application, explain what runtime management, state persistence, failure recovery, log monitoring, and cost optimization each solve, and turn a local demo into a small service that can be started repeatedly, observed, and configured.
 
-如果你能让一个 Agent 项目具备 API 入口、任务状态、调用日志、错误处理、成本记录和部署文档，就达到了 Agent 阶段的工程化出口标准。
+If you can give an Agent project an API entry point, task state, call logs, error handling, cost records, and deployment documentation, then you have reached the engineering exit standard for the Agent stage.

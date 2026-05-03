@@ -1,57 +1,57 @@
 ---
-title: "学习指南：Python 编程基础怎么学最不容易学乱"
+title: "Study Guide: How to Learn Python Programming Basics Without Getting Lost"
 sidebar_position: 1
-description: "给 AI 全栈新人的 Python 学习指南：学习顺序、练习节奏、项目路线、验收标准和常见卡点。"
-keywords: [Python 学习指南, Python 入门顺序, 编程基础怎么学, Python 阶段学习建议]
+description: "A Python learning guide for AI full-stack beginners: learning sequence, practice rhythm, project roadmap, evaluation criteria, and common stumbling blocks."
+keywords: [Python learning guide, Python beginner sequence, how to learn programming basics, Python stage learning advice]
 ---
 
-# 学习指南：Python 编程基础怎么学最不容易学乱
+# Study Guide: How to Learn Python Programming Basics Without Getting Lost
 
-如果你已经来到 `01 Python 编程基础`，最重要的目标不是背完所有语法，而是能用 Python 写出一个能运行、能修改、能解释的小程序。
+If you have already reached `01 Python Programming Basics`, the most important goal is not to memorize every syntax rule, but to be able to write a small Python program that runs, can be modified, and can be explained.
 
-## 本阶段总原则
+## The Core Principle for This Stage
 
-Python 第一遍要抓住一条主线：输入进入程序，经过数据结构、条件、循环、函数处理，最后输出结果或保存文件。只要这条线稳住，后面学数据分析、机器学习、RAG 和 Agent 都会更顺。
+For the first pass through Python, focus on one main line: input enters the program, goes through data structures, conditionals, loops, and functions, and finally produces output or saves a file. As long as this line is solid, later learning in data analysis, machine learning, RAG, and Agent development will go much more smoothly.
 
-![Python 学习指南最小闭环](/img/course/ch02-study-guide-program-loop.png)
+![Python Learning Guide Minimal Closed Loop](/img/course/ch02-study-guide-program-loop-en.png)
 
-## 推荐学习顺序
+## Recommended Learning Sequence
 
-第一轮先学最小编程闭环：Python 简介、数据类型、运算符、输入输出、流程控制、列表、字典、函数和模块。目标是能写一个小脚本，而不是记住所有细节。
+In the first round, learn the smallest programming closed loop first: Python introduction, data types, operators, input/output, control flow, lists, dictionaries, functions, and modules. The goal is to be able to write a small script, not to memorize every detail.
 
-第二轮再补代码组织能力：面向对象、异常处理、文件读写、函数式编程、迭代器生成器、类型注解和代码质量。目标是让代码更清晰、更稳定、更容易扩展。
+In the second round, build code organization skills: object-oriented programming, exception handling, file read/write, functional programming, iterators and generators, type annotations, and code quality. The goal is to make code clearer, more stable, and easier to extend.
 
-第三轮进入项目：命令行任务管理器、网页爬虫、Web API、AI API 快速体验。项目会逼你把语法、文件、异常、第三方库和调试能力串起来。
+In the third round, move into projects: a command-line task manager, a web crawler, a Web API, and a quick AI API experiment. Projects will force you to connect syntax, files, exceptions, third-party libraries, and debugging skills.
 
-## 建议学习节奏
+## Suggested Learning Rhythm
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content Type | Suggested Time | Learning Goal |
 |---|---|---|
-| 基础语法页 | 1～2 小时 | 能手敲示例，并改出新结果 |
-| 数据结构和函数 | 2～4 小时 | 能把重复逻辑拆成函数 |
-| 进阶组织页 | 2～4 小时 | 能读懂文件、类、异常和模块关系 |
-| 项目页 | 4～8 小时 | 能独立跑通并做小改造 |
+| Basic syntax pages | 1–2 hours | Be able to type the examples by hand and change them to get new results |
+| Data structures and functions | 2–4 hours | Be able to break repeated logic into functions |
+| Advanced organization pages | 2–4 hours | Be able to understand files, classes, exceptions, and module relationships |
+| Project pages | 4–8 hours | Be able to run them independently and make small changes |
 
-## 阶段项目路线
+## Stage Project Roadmap
 
-第一个项目建议做命令行任务管理器，练习输入输出、列表/字典、文件保存和异常处理。
+The first project should be a command-line task manager to practice input/output, lists/dictionaries, file saving, and exception handling.
 
-第二个项目建议做网页数据采集，练习 HTTP 请求、HTML 解析、数据清洗和文件存储。
+The second project should be a web data collection tool to practice HTTP requests, HTML parsing, data cleaning, and file storage.
 
-第三个项目建议做 Web API，理解请求、响应、路由、参数校验和服务启动。
+The third project should be a Web API to understand requests, responses, routing, parameter validation, and service startup.
 
-第四个项目建议做 AI API 快速体验，把大模型能力接入自己的 Python 程序，为后面的 LLM 应用主线做铺垫。
+The fourth project should be a quick AI API experiment, connecting large model capabilities into your own Python program and laying the foundation for the LLM application track that follows.
 
-## 常见卡点
+## Common Stumbling Blocks
 
-最常见的卡点是“看懂示例，但自己写不出来”。解决方式不是继续看更多教程，而是把示例关掉，只保留需求，用最笨的方法先写出第一版。
+The most common stumbling block is: “I can understand the example, but I can’t write it myself.” The solution is not to keep reading more tutorials, but to close the example, keep only the requirement, and use the simplest possible method to write the first version.
 
-第二个卡点是函数和模块。你可以先用一个文件写完，等代码超过几十行后，再把重复逻辑抽成函数，把相关函数整理到模块里。
+The second stumbling block is functions and modules. You can start by writing everything in one file, and once the code grows beyond a few dozen lines, extract repeated logic into functions and organize related functions into modules.
 
-第三个卡点是报错。不要害怕报错，先看最后一行错误信息，再看文件名和行号，最后用最小代码复现问题。
+The third stumbling block is errors. Don’t be afraid of them. First look at the last line of the error message, then check the file name and line number, and finally reproduce the problem with the smallest possible code.
 
-## 过关标准
+## Passing Criteria
 
-学完本阶段后，你应该能独立完成一个小型 Python 项目，能解释每个文件的作用，能处理常见报错，能读写文件，能安装第三方库，能调用一个简单 API。
+After finishing this stage, you should be able to complete a small Python project independently, explain the purpose of each file, handle common errors, read and write files, install third-party libraries, and call a simple API.
 
-如果你能把“命令行任务管理器”从零写出来，并能加入一个新功能，比如搜索、排序、分类或导出，就可以进入下一阶段。
+If you can write a “command-line task manager” from scratch and add a new feature such as search, sorting, categorization, or export, then you are ready to move on to the next stage.

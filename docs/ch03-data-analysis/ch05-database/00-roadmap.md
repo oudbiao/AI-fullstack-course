@@ -1,164 +1,164 @@
 ---
-title: "数据库导读：为什么数据分析后面还要补数据库"
+title: "Database Overview: Why You Still Need Databases After Data Analysis"
 sidebar_position: 20
-description: "给第一次学数据库的新手一张总地图：为什么 CSV 和 DataFrame 之外还会需要数据库，这一章该怎么学最不容易学乱。"
-keywords: [数据库导读, 关系型数据库, SQL, sqlite, Pandas和数据库]
+description: "A road map for beginners learning databases for the first time: why you still need databases beyond CSVs and DataFrames, and how to study this chapter without getting confused."
+keywords: [database overview, relational database, SQL, sqlite, Pandas and databases]
 ---
 
-# 数据库导读：为什么数据分析后面还要补数据库
+# Database Overview: Why You Still Need Databases After Data Analysis
 
-:::tip 先说一个很重要的学习预期
-3 数据分析与可视化的主线仍然是：
+:::tip A very important learning expectation upfront
+The main thread of Chapter 3, Data Analysis and Visualization, is still:
 
 - `NumPy`
 - `Pandas`
-- 可视化
-- 数据分析项目
+- Visualization
+- Data analysis projects
 
-数据库这一章是选修，  
-所以你不用把它当成“现在必须全部吃透”的主战场。  
-但如果你以后要继续往这些方向走：
+The database chapter is optional,
+so you do not need to treat it as the main battlefield where everything must be mastered right now.
+But if you want to keep going in these directions later:
 
-- 企业数据分析
+- enterprise data analysis
 - RAG
 - AI Agent
-- 后端数据系统
+- backend data systems
 
-那数据库会非常快地重新出现。
+then databases will show up again very quickly.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 知道数据库这一章在 3 数据分析与可视化里的位置
-- 理解为什么 `CSV / Excel / DataFrame` 之外还会需要数据库
-- 看懂这一章 4 节课分别在补什么
-- 知道第一次学数据库时最稳的顺序是什么
+- Know where this chapter fits within Chapter 3, Data Analysis and Visualization
+- Understand why databases are still needed beyond `CSV / Excel / DataFrame`
+- Understand what the 4 lessons in this chapter are each helping you learn
+- Know the safest order to follow when learning databases for the first time
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-数据库这一章最适合新人的理解顺序不是“先背 SQL 语法”，而是先看清：
+For beginners, the best way to understand this database chapter is not to "memorize SQL syntax first," but to first see clearly:
 
-![数据库选修学习路线图](/img/course/ch03-database-roadmap.png)
+![Database elective learning roadmap](/img/course/ch03-database-roadmap-en.png)
 
-所以这一章真正想解决的是：
+So what this chapter really wants to solve is:
 
-- 数据为什么不会永远安安静静躺在 CSV 里
-- 当数据开始长期保存、多人使用、需要查询和权限时，系统为什么会自然长出数据库
+- Why data does not always stay quietly in a CSV file
+- When data needs to be stored long-term, used by multiple people, and queried with permissions, why the system naturally grows into a database
 
-## 为什么 3 数据分析与可视化会在后面补数据库？
+## Why does Chapter 3, Data Analysis and Visualization, add databases later?
 
-因为对新人来说，更稳的顺序通常是：
+Because for beginners, the more stable order is usually:
 
-1. 先会处理一张表
-2. 再会处理多张表
-3. 最后再理解这些表为什么会被长期存进数据库
+1. First learn how to handle one table
+2. Then learn how to handle multiple tables
+3. Finally understand why those tables are stored long-term in a database
 
-也就是说，数据库这章不是来替代 `Pandas` 的，  
-而是在告诉你：
+In other words, this database chapter is not here to replace `Pandas`,
+but to tell you:
 
-- 现实里的表格数据，常常从数据库来
+- In the real world, table data often comes from databases
 
-## 一个更适合新人的总类比
+## A more beginner-friendly overall analogy
 
-你可以把前面学过的内容理解成：
+You can think of what you learned earlier as:
 
-- 把数据搬到自己桌上分析
+- moving data onto your own desk for analysis
 
-而数据库更像：
+A database is more like:
 
-- 公司统一的数据档案室
+- a company-wide data archive room
 
-桌上的表当然方便，  
-但当数据开始：
+A table on your desk is certainly convenient,
+but when data starts to:
 
-- 变多
-- 多人一起用
-- 需要长期保存
-- 需要快速查
+- grow larger
+- be used by multiple people
+- need long-term storage
+- need fast querying
 
-那你就不能只靠零散文件了。
+then you can no longer rely only on scattered files.
 
-## 这一章 4 节课分别在补什么？
+## What does each of the 4 lessons in this chapter cover?
 
-| 章节 | 它最该帮你解决什么问题 |
+| Chapter | What problem should it help you solve most? |
 |---|---|
-| [5.1 关系型数据库基础](./01-relational-db.md) | 先搞懂数据库、表、主键、外键到底是什么 |
-| [5.2 SQL 基础](./02-sql-basics.md) | 学会用 SQL 把数据查出来、筛出来、按组统计 |
-| [5.3 Python 数据库操作](./03-python-db.md) | 让 Python、Pandas 和数据库真正接起来 |
-| [5.4 数据库设计](./04-db-design.md) | 理解表为什么要那样拆、字段为什么要那样设计 |
+| [5.1 Basics of Relational Databases](./01-relational-db.md) | First understand what databases, tables, primary keys, and foreign keys actually are |
+| [5.2 SQL Basics](./02-sql-basics.md) | Learn how to use SQL to query, filter, and aggregate data |
+| [5.3 Python Database Operations](./03-python-db.md) | Connect Python, Pandas, and databases for real |
+| [5.4 Database Design](./04-db-design.md) | Understand why tables are split up that way and why fields are designed that way |
 
-## 第一次学这一章，最稳的顺序
+## The safest order for learning databases for the first time
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先学 [关系型数据库基础](./01-relational-db.md)  
-   先把数据库和表的概念立起来。
-2. 再学 [SQL 基础](./02-sql-basics.md)  
-   先会查、会筛、会分组。
-3. 再学 [Python 数据库操作](./03-python-db.md)  
-   让代码和数据库接起来。
-4. 最后再看 [数据库设计](./04-db-design.md)  
-   让你知道为什么表要那样组织。
+1. Start with [Basics of Relational Databases](./01-relational-db.md)
+   First build the concepts of databases and tables.
+2. Then learn [SQL Basics](./02-sql-basics.md)
+   First learn how to query, filter, and group.
+3. Then learn [Python Database Operations](./03-python-db.md)
+   Connect code with the database.
+4. Finally read [Database Design](./04-db-design.md)
+   Learn why tables are organized that way.
 
-## 第一次学数据库时，最值得先记住什么？
+## What is most worth remembering the first time you learn databases?
 
-最值得先记住的其实只有这几句：
+What is most worth remembering is actually just these few sentences:
 
-1. 数据库是长期存表的地方
-2. 关系型数据库最核心的是“表和表之间能通过键关联”
-3. SQL 是和数据库对话的语言
-4. `Pandas` 和 SQL 并不是竞争关系，而是经常一起用
+1. A database is a place for storing tables long-term
+2. The core idea of relational databases is that tables can be linked through keys
+3. SQL is the language used to talk to databases
+4. `Pandas` and SQL are not competing tools; they are often used together
 
-## 新人最常踩的坑
+## Common mistakes beginners make
 
-- 一上来就背 SQL 全语法，不先理解表结构
-- 只会用数据库“存东西”，不会按业务问题去查询
-- 以为学数据库就和 `Pandas` 没关系了
-- 看到 `JOIN` 就害怕，其实它本质上和 `merge` 很像
+- Jumping straight into memorizing all SQL syntax without first understanding table structure
+- Only knowing how to use a database to "store things," but not how to query based on business questions
+- Thinking that learning databases means having nothing to do with `Pandas` anymore
+- Getting scared when seeing `JOIN`, when in essence it is very similar to `merge`
 
-## 学完这一章后，至少应该能做到什么？
+## What should you be able to do after finishing this chapter?
 
-- 知道数据库和 CSV 各自适合什么场景
-- 能看懂一张简单表的主键、外键关系
-- 会写最基础的 `SELECT / WHERE / JOIN / GROUP BY`
-- 能用 Python 连上 SQLite 读写简单数据
+- Know what scenarios are suitable for databases vs. CSV
+- Understand the primary key and foreign key relationships in a simple table
+- Write the most basic `SELECT / WHERE / JOIN / GROUP BY`
+- Use Python to connect to SQLite and read/write simple data
 
-## 这一章最该带走什么
+## What you should take away from this chapter
 
-- 数据库不是“另一个完全无关的话题”，而是现实数据系统的自然延伸
-- 先理解表、键和关系，再学 SQL，会稳很多
-- 这一章的目标不是变成 DBA，而是让你以后看到数据库不再发虚
+- A database is not "another completely unrelated topic"; it is a natural extension of real data systems
+- Understanding tables, keys, and relationships first will make learning SQL much more stable
+- The goal of this chapter is not to become a DBA, but to help you stop feeling uneasy when you see a database
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main line and the smallest runnable examples. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter for gap-filling and engineering practice: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the earlier and later stages. After reading, it is best to distill the chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study mode | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter's small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Chapter self-check questions
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly explain what the example needs as input and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
+| What can you distill after learning it? | You can write the chapter outcome into a project README, experiment notes, or portfolio |
+## Chapter mini-project exit task
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimum practice task: choose one of the core concepts or tools in this chapter and create a small result that can run, can be screenshotted, and can be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output is.
 
-## 过关标准
+## Pass criteria
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stops before and after it, and complete the minimum version of the chapter mini-project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, then it means you are no longer just "reading the content"—you are turning this chapter into your own project experience.

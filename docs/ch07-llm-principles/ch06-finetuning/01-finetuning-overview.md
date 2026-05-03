@@ -1,227 +1,227 @@
 ---
-title: "6.2 微调概述"
+title: "6.2 Finetuning Overview"
 sidebar_position: 19
-description: "从为什么不总是该微调、什么时候更适合微调，到全量微调与 PEFT 的差别，建立微调的第一层工程判断。"
+description: "Build your first engineering judgment for finetuning: from why you should not always finetune, to when finetuning is more appropriate, and the difference between full finetuning and PEFT."
 keywords: [finetuning, PEFT, full finetune, task adaptation, model customization]
 ---
 
-# 微调概述
+# Finetuning Overview
 
-![微调与对齐总流程图](/img/course/finetuning-alignment-pipeline.png)
+![Overall finetuning and alignment flowchart](/img/course/finetuning-alignment-pipeline-en.png)
 
-:::tip 本节定位
-很多人一提模型定制，第一反应就是：
+:::tip Section focus
+When many people think about model customization, their first reaction is:
 
-- 去微调它
+- Finetune it
 
-但真实工程里，更重要的问题其实是：
+But in real engineering work, the more important question is actually:
 
-> **现在这个问题，到底值不值得通过微调来解决？**
+> **For this problem right now, is finetuning really worth it?**
 
-这一节的核心，不是把“微调”神化成万能按钮，而是把判断逻辑讲清楚。
+The core of this section is not to turn “finetuning” into a magic button, but to make the decision logic clear.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解微调真正适合解决哪类问题
-- 理解为什么不是所有任务都应该先微调
-- 分清全量微调和参数高效微调（PEFT）的基本思路
-- 建立更实用的微调决策直觉
+- Understand which kinds of problems finetuning is truly good at solving
+- Understand why not every task should start with finetuning
+- Distinguish the basic ideas behind full finetuning and parameter-efficient fine-tuning (PEFT)
+- Build a more practical intuition for finetuning decisions
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-### 先看一个真实感更强的场景
+### Start with a more realistic scenario
 
-假设你在做一个课程答疑助手。上线后发现它有三类问题：
+Suppose you are building a course Q&A assistant. After launch, you find three kinds of problems:
 
-- 有些问题答错，是因为它不知道最新课程规则
-- 有些问题答得对，但格式总是不稳定
-- 有些问题每次都偏离你的客服语气，长期不符合品牌风格
+- Some answers are wrong because it does not know the latest course rules
+- Some answers are correct, but the format is always unstable
+- Some responses always drift away from your customer service tone and do not fit the brand style over time
 
-这三类问题看起来都像“模型效果不好”，但解决方案并不一样。第一类更像知识问题，通常先考虑 RAG；第二类更像输出约束问题，通常先改 Prompt 或结构化输出；第三类才更像长期行为塑形问题，微调才开始变得有价值。
+These three kinds of problems all look like “the model is not performing well,” but the solutions are not the same. The first is more like a knowledge problem, and you would usually consider RAG first; the second is more like an output constraint problem, and you would usually start with Prompt or structured output; the third is more like a long-term behavior shaping problem, where finetuning starts to become valuable.
 
-所以学微调之前，先别急着训练，先学会判断：到底是哪一类问题。
+So before learning finetuning, do not rush to train. First learn how to judge: what kind of problem is this exactly?
 
-如果你已经学过预训练和 Prompt，这一节最自然的续接就是：
+If you have already learned pretraining and Prompt, then the most natural continuation here is:
 
-- 前面你已经知道模型能力怎么来，也知道不改参数时怎样更稳地调用
-- 这一节开始回答：什么时候仅靠 Prompt 不够，真的需要动参数
+- Earlier, you learned where model capability comes from, and how to use the model more stably without changing parameters
+- Now, this section answers: when is Prompt not enough, and when do you really need to update parameters?
 
-所以微调概述真正重要的不是“会不会训练”，而是：
+So what really matters in the finetuning overview is not “whether you can train,” but:
 
-- 什么时候该动参数
-- 动参数到底值不值
+- When should you change parameters?
+- Is changing parameters really worth it?
 
-微调概述这节最适合新人的理解顺序不是“先去训练”，而是先看清决策树：
+For beginners, the best way to understand this section is not “start training first,” but to first see the decision tree clearly:
 
 ```mermaid
 flowchart TD
-    A["模型效果不理想"] --> B{"是知识问题？"}
-    B -->|是| C["先考虑 RAG / 检索"]
-    B -->|否| D{"是格式问题？"}
-    D -->|是| E["先考虑 Prompt / 结构化输出"]
-    D -->|否| F{"是稳定行为问题？"}
-    F -->|是| G["再考虑微调"]
+    A["Model performance is not good"] --> B{"Is it a knowledge problem?"}
+    B -->|Yes| C["Consider RAG / retrieval first"]
+    B -->|No| D{"Is it a format problem?"}
+    D -->|Yes| E["Consider Prompt / structured output first"]
+    D -->|No| F{"Is it a stable behavior problem?"}
+    F -->|Yes| G["Then consider finetuning"]
 ```
 
-这节真正想解决的是：
+What this section really wants to solve is:
 
-- 到底什么时候才该微调
-- 微调解决的是哪类问题，不解决哪类问题
+- When should you finetune?
+- What kinds of problems does finetuning solve, and what does it not solve?
 
-## 一、微调到底在解决什么问题？
+## 1. What Problem Does Finetuning Actually Solve?
 
-可以先把它粗略理解成：
+You can roughly think of it as:
 
-> **让基础模型在某个更具体的任务、风格或领域上表现得更稳定。**
+> **Making a foundation model perform more stably on a more specific task, style, or domain.**
 
-例如：
+For example:
 
-- 更会某种固定输出格式
-- 更适应某类业务回复风格
-- 更懂某个垂直领域的任务形式
+- Better at a fixed output format
+- Better adapted to a certain business response style
+- Better at the task patterns of a vertical domain
 
-这说明微调更像是在做：
+This means finetuning is more like:
 
-- 能力塑形
+- Shaping capabilities
 
-而不只是：
+rather than just:
 
-- 知识补充
+- Adding knowledge
 
-### 1.1 第一次学微调，最该先抓住什么？
+### 1.1 When you first learn finetuning, what should you focus on first?
 
-最该先抓住的不是 LoRA 或全量微调这些方法名，而是这句：
+What you should focus on first is not method names like LoRA or full finetuning, but this sentence:
 
-> **微调更像在塑造模型行为，而不只是往模型里“塞知识”。**
+> **Finetuning is more like shaping model behavior, not simply “stuffing knowledge” into the model.**
 
-这句话一旦稳住，后面很多判断会更顺：
+Once this idea is stable, many later judgments become easier:
 
-- 为什么知识更新很多时候更适合 RAG
-- 为什么格式稳定问题有时先该靠 Prompt
-- 为什么行为长期不稳时才更值得考虑微调
+- Why knowledge updates are often better handled by RAG
+- Why format stability problems should sometimes be handled by Prompt first
+- Why finetuning is worth considering when behavior is unstable over the long term
 
 ---
 
-## 二、为什么不是所有问题都该先微调？
+## 2. Why Should Not Every Problem Start with Finetuning?
 
-很多问题其实更适合先考虑：
+Many problems are better handled first by considering:
 
 - Prompt
 - RAG
-- 工具调用
+- Tool calling
 
-### 2.1 如果问题是“知识不够新”
+### 2.1 If the problem is “the knowledge is not up to date”
 
-更自然的第一选择往往是：
+The more natural first choice is often:
 
-- 检索
+- Retrieval
 
-### 2.2 如果问题是“输出格式不稳”
+### 2.2 If the problem is “the output format is unstable”
 
-更自然的第一选择往往是：
+The more natural first choice is often:
 
-- Prompt 优化
-- 结构化输出
+- Prompt optimization
+- Structured output
 
-### 2.3 什么时候微调才更值得优先考虑？
+### 2.3 When is finetuning more worth prioritizing?
 
-当你发现问题更像：
+When you find the problem is more like:
 
-- 模型行为长期不稳
-- 风格要求固定
-- 某类任务反复出现且模式稳定
+- Model behavior is unstable over the long term
+- Style requirements are fixed
+- A certain task appears repeatedly and the pattern is stable
 
-这时微调就更有价值。
+At that point, finetuning becomes more valuable.
 
-一句话先记：
+Remember this one sentence first:
 
-> **先分清这是知识问题、格式问题，还是行为问题。**
+> **First determine whether this is a knowledge problem, a format problem, or a behavior problem.**
 
-### 2.4 三类问题的判断表
+### 2.4 Judgment table for the three types of problems
 
-| 问题表现 | 更像哪类问题 | 更优先考虑什么 |
+| Problem symptom | What kind of problem is it more like? | What should you prioritize? |
 |---|---|---|
-| 模型不知道公司最新退款规则 | 知识问题 | RAG / 检索 / 知识库更新 |
-| 模型答案内容对，但 JSON 格式经常错 | 格式问题 | Prompt / 结构化输出 / 校验重试 |
-| 模型长期不符合固定话术和任务风格 | 行为问题 | 微调 / PEFT |
-| 用户问题需要查工具再回答 | 行动问题 | 工具调用 / Agent / 工作流 |
+| The model does not know the company’s latest refund policy | Knowledge problem | RAG / retrieval / knowledge base updates |
+| The answer content is correct, but the JSON format is often wrong | Format problem | Prompt / structured output / validation retries |
+| The model does not consistently follow fixed phrasing and task style | Behavior problem | Finetuning / PEFT |
+| The user’s question needs a tool lookup before answering | Action problem | Tool calling / Agent / workflow |
 
-这个表很重要，因为它能帮你避免一个常见错误：只要效果不好就想微调。真实项目里，很多问题并不是靠动参数解决的。
+This table is very important because it helps you avoid a common mistake: thinking finetuning is the answer whenever performance is poor. In real projects, many problems are not solved by changing parameters.
 
-![微调前方案选择决策图](/img/course/ch07-finetune-decision-rag-prompt-peft-map.png)
+![Decision map for choosing a solution before finetuning](/img/course/ch07-finetune-decision-rag-prompt-peft-map-en.png)
 
-:::tip 读图提示
-这张图建议从问题根因读起：知识缺失先看 RAG，格式不稳先看 Prompt/结构化输出，工具流程问题先看 Agent/工作流，只有长期行为和风格不稳定时，微调或 PEFT 才更值得进入候选。微调不是第一反应，而是判断后的动作。
+:::tip Reading guide
+It is recommended to read this diagram from the root cause of the problem: if knowledge is missing, look at RAG first; if the format is unstable, look at Prompt/structured output first; if the issue is a tool-based process, look at Agent/workflow first. Only when long-term behavior and style are unstable does finetuning or PEFT become a more valuable candidate. Finetuning is not the first reaction; it is an action you take after making a judgment.
 :::
 
 ---
 
-## 三、全量微调和参数高效微调的差别
+## 3. The Difference Between Full Finetuning and Parameter-Efficient Finetuning
 
-### 3.1 全量微调
+### 3.1 Full Finetuning
 
-直觉上就是：
+Intuitively, this means:
 
-- 模型大部分参数都允许更新
+- Most of the model’s parameters are allowed to be updated
 
-优点：
+Advantages:
 
-- 灵活
+- Flexible
 
-缺点：
+Disadvantages:
 
-- 显存高
-- 成本高
-- 更难训
+- High memory usage
+- High cost
+- Harder to train
 
-### 3.2 参数高效微调（PEFT）
+### 3.2 Parameter-Efficient Finetuning (PEFT)
 
-直觉上就是：
+Intuitively, this means:
 
-- 不去大改整个模型
-- 只训练少量增量参数
+- You do not heavily modify the whole model
+- You only train a small number of additional parameters
 
-优点：
+Advantages:
 
-- 更省资源
-- 更容易复用
+- More resource-efficient
+- Easier to reuse
 
-这也是为什么现在实际项目里 PEFT 越来越常见。
+That is why PEFT is becoming more and more common in real projects.
 
-### 3.3 第一次看 PEFT，最值得先记什么？
+### 3.3 When you first look at PEFT, what is most worth remembering?
 
-最值得先记的不是具体算法细节，而是：
+What is most worth remembering is not the details of specific algorithms, but this:
 
-- 它在解决“资源和维护成本”这个现实问题
+- It solves the real-world problem of “resources and maintenance cost”
 
-也就是说，PEFT 不是单纯更潮，而是：
+In other words, PEFT is not just trendy. It is:
 
-- 当你不想大改整个模型时，一个更现实的适配路线
+- A more practical adaptation path when you do not want to heavily modify the whole model
 
 ---
 
-## 四、适配方式的成本地图
+## 4. A Cost Map for Adaptation Approaches
 
 ```mermaid
 flowchart LR
-    A["基础模型"] --> B{"怎么适配任务？"}
-    B --> C["Prompt / RAG<br/>不改参数"]
-    B --> D["PEFT<br/>只训练少量增量参数"]
-    B --> E["全量微调<br/>大量参数都更新"]
+    A["Foundation model"] --> B{"How do you adapt to the task?"}
+    B --> C["Prompt / RAG<br/>No parameter updates"]
+    B --> D["PEFT<br/>Train only a small number of extra parameters"]
+    B --> E["Full finetuning<br/>Update many parameters"]
 
-    C --> C1["成本低<br/>适合先做 baseline"]
-    D --> D1["成本中等<br/>适合稳定任务适配"]
-    E --> E1["成本高<br/>适合强定制但更难维护"]
+    C --> C1["Low cost<br/>Good for starting with a baseline"]
+    D --> D1["Moderate cost<br/>Suitable for stable task adaptation"]
+    E --> E1["High cost<br/>Suitable for strong customization but harder to maintain"]
 ```
 
-这张图可以作为第一次做方案选型时的提醒：越往右，改动越深、成本越高，也越需要稳定数据和清晰收益。
+This diagram can serve as a reminder when choosing a solution for the first time: the further to the right you go, the deeper the changes, the higher the cost, and the more you need stable data and clear benefits.
 
 ---
 
-## 五、一个最小参数规模示意
+## 5. A Minimal Parameter-Scale Example
 
 ```python
 params = {
@@ -233,113 +233,113 @@ for name, count in params.items():
     print(name, "trainable_params =", count)
 ```
 
-### 5.1 这段代码在提醒什么？
+### 5.1 What is this code reminding us of?
 
-它不是在告诉你某个精确数字，而是在提醒：
+It is not telling you a precise number. It is reminding you of this:
 
-> 微调方法差别的第一层现实问题，往往是“到底要改多少参数”。 
+> The first real-world question in finetuning methods is often: “How many parameters do we actually need to change?”
 
-这直接决定：
+This directly determines:
 
-- 显存
-- 训练速度
-- 存储成本
-
----
-
-## 六、什么时候微调真的很有价值？
-
-### 6.1 当你想让模型形成稳定行为
-
-例如：
-
-- 特定回复风格
-- 特定任务格式
-- 特定领域习惯
-
-### 6.2 当你有稳定、可持续的数据
-
-如果你的任务数据：
-
-- 量足够
-- 质量够好
-- 模式比较稳定
-
-那微调通常更有意义。
-
-### 6.3 什么时候不值得？
-
-如果需求经常变化，或者知识频繁更新，  
-那很多时候微调并不是第一选择。
+- Memory usage
+- Training speed
+- Storage cost
 
 ---
 
-## 七、微调最容易被高估的地方
+## 6. When Is Finetuning Really Valuable?
 
-### 7.1 误区一：以为微调能解决所有问题
+### 6.1 When you want the model to form stable behavior
 
-不会。  
-很多问题更适合用：
+For example:
 
-- 检索
-- 工作流
+- A specific response style
+- A specific task format
+- Specific domain habits
+
+### 6.2 When you have stable, sustainable data
+
+If your task data:
+
+- Is large enough
+- Has good quality
+- Follows relatively stable patterns
+
+then finetuning is usually more meaningful.
+
+### 6.3 When is it not worth it?
+
+If the requirements change frequently, or the knowledge updates often,
+then in many cases finetuning is not the first choice.
+
+---
+
+## 7. The Easiest Place to Overestimate Finetuning
+
+### 7.1 Misconception 1: Thinking finetuning can solve everything
+
+It cannot.
+Many problems are better solved with:
+
+- Retrieval
+- Workflows
 - Prompt
 
-### 7.2 误区二：以为微调后模型就会“背住知识库”
+### 7.2 Misconception 2: Thinking finetuning will make the model “memorize the knowledge base”
 
-微调更适合塑造行为，不总适合承载快速更新的知识。
+Finetuning is better for shaping behavior, and is not always suitable for carrying rapidly changing knowledge.
 
-### 7.3 误区三：只要训了就一定更强
+### 7.3 Misconception 3: Thinking that training it means it will definitely get better
 
-如果数据差，微调反而可能把模型训坏。
-
----
-
-## 八、一个很实用的判断问题
-
-在决定要不要微调之前，可以先问：
-
-1. 这是知识问题，还是行为问题？
-2. 这个任务形态会不会长期稳定存在？
-3. 我有没有干净、稳定的数据？
-4. 我是否真的有资源承担训练和维护？
-
-如果这些问题答得清楚，微调决策通常就会稳很多。
-
-### 8.1 第一次做项目时最稳的顺序
-
-如果你想真的落地一个任务，建议先这样走：
-
-1. 先用 Prompt 做 baseline
-2. 再用检索或工作流做第二层 baseline
-3. 只有在行为仍然长期不稳时，再考虑微调
-
-这样你最后才更容易说明：
-
-- 微调到底解决了什么
-- 它值不值得
+If the data is poor, finetuning may actually make the model worse.
 
 ---
 
-## 小结
+## 8. A Very Practical Question
 
-这一节最重要的不是把微调理解成一个默认动作，而是理解：
+Before deciding whether to finetune, ask:
 
-> **微调更适合解决“模型行为和任务适配”问题，而不是所有问题。**
+1. Is this a knowledge problem or a behavior problem?
+2. Will this task shape remain stable for a long time?
+3. Do I have clean and stable data?
+4. Do I really have the resources to handle training and maintenance?
 
-一旦这个判断建立起来，后面再学 LoRA、QLoRA 和工程实践时，你就不会盲目上手。
+If these questions are answered clearly, the finetuning decision will usually be much more solid.
 
-## 这节最该带走什么
+### 8.1 The safest order when doing a project for the first time
 
-- 微调不是默认动作，而是一种代价更高的适配手段
-- 先分清知识问题、格式问题、行为问题
-- 只有当任务长期稳定、数据可靠、收益明确时，微调才更值得优先考虑
+If you want to truly ship a task, it is recommended to go in this order:
+
+1. First use Prompt to build a baseline
+2. Then use retrieval or a workflow to build a second-layer baseline
+3. Only when behavior is still unstable for the long term should you consider finetuning
+
+In this way, it will be easier later to explain:
+
+- What finetuning actually solved
+- Whether it was worth it
 
 ---
 
-## 九、练习
+## Summary
 
-1. 想一个你的真实项目，判断它的问题更像知识问题还是行为问题。
-2. 用自己的话解释：为什么不是所有任务都应该优先微调？
-3. 如果需求经常变，为什么微调未必是第一选择？
-4. 为什么说“数据质量”往往比“方法名”更影响微调结果？
+The most important thing in this section is not to treat finetuning as the default action, but to understand:
+
+> **Finetuning is better suited for solving “model behavior and task adaptation” problems, not every problem.**
+
+Once this judgment is established, when you later learn LoRA, QLoRA, and engineering practice, you will not rush in blindly.
+
+## What You Should Take Away from This Section
+
+- Finetuning is not the default action, but a more expensive adaptation method
+- First distinguish knowledge problems, format problems, and behavior problems
+- Only when the task is long-term stable, the data is reliable, and the benefits are clear does finetuning become a more worthy priority
+
+---
+
+## 9. Exercises
+
+1. Think of a real project of yours and judge whether its problem is more like a knowledge problem or a behavior problem.
+2. Explain in your own words: why should not all tasks prioritize finetuning?
+3. If requirements change frequently, why is finetuning not necessarily the first choice?
+4. Why do people say that “data quality” often affects finetuning results more than the “method name”?

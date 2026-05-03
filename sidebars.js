@@ -4,7 +4,7 @@ const sidebars = {
     "index",
     {
       type: "category",
-      label: "🚀 先看这里：学习地图",
+      label: "🚀 Start Here: Learning Map",
       collapsed: false,
       items: [
         "intro/quick-experience",
@@ -12,7 +12,7 @@ const sidebars = {
         "intro/learning-path",
         {
           type: "category",
-          label: "轻松有趣地学",
+          label: "Learn in a Friendly Way",
           collapsed: true,
           items: [
             "intro/beginner-friendly-guide",
@@ -24,7 +24,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "路线与节奏",
+          label: "Routes and Pace",
           collapsed: true,
           items: [
             "intro/learning-path-layers",
@@ -40,7 +40,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "项目与作品集",
+          label: "Projects and Portfolio",
           collapsed: true,
           items: [
             "intro/project-roadmap",
@@ -59,7 +59,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "概念与工程视角",
+          label: "Concepts and Engineering View",
           collapsed: true,
           items: [
             "intro/concept-comparison",
@@ -71,7 +71,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "使用与准备",
+          label: "Usage and Preparation",
           collapsed: true,
           items: [
             "intro/teaching-guide",
@@ -86,19 +86,19 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "主线 1：打基础（1-3）",
+      label: "Main Track 1: Foundations (1-3)",
       collapsed: false,
       items: [
         {
           type: "category",
-          label: "1 开发者工具基础",
+          label: "1 Developer Tools Foundations",
           collapsed: true,
           link: { type: "doc", id: "ch01-tools/index" },
           items: [
             "ch01-tools/task-list",
             {
               type: "category",
-              label: "1.1 终端与命令行",
+              label: "1.1 Terminal and Command Line",
               items: [
                 "ch01-tools/ch01-terminal/why-cli",
                 "ch01-tools/ch01-terminal/basic-operations",
@@ -107,7 +107,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "1.2 Git 与版本管理",
+              label: "1.2 Git and Version Control",
               items: [
                 "ch01-tools/ch02-git/git-basics",
                 "ch01-tools/ch02-git/core-operations",
@@ -117,7 +117,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "1.3 开发环境配置",
+              label: "1.3 Development Environment Setup",
               items: [
                 "ch01-tools/ch03-devenv/python-env",
                 "ch01-tools/ch03-devenv/vscode",
@@ -128,7 +128,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "2 Python 编程基础",
+          label: "2 Python Programming Foundations",
           collapsed: true,
           link: { type: "doc", id: "ch02-python/index" },
           items: [
@@ -136,7 +136,7 @@ const sidebars = {
             "ch02-python/task-list",
             {
               type: "category",
-              label: "2.1 Python 语言入门",
+              label: "2.1 Python Language Basics",
               items: [
                 "ch02-python/ch01-basics/intro",
                 "ch02-python/ch01-basics/data-types",
@@ -150,7 +150,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "2.2 Python 进阶",
+              label: "2.2 Intermediate Python",
               items: [
                 "ch02-python/ch02-advanced/oop",
                 "ch02-python/ch02-advanced/exceptions",
@@ -162,7 +162,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "2.3 阶段项目",
+              label: "2.3 Stage Projects",
               items: [
                 "ch02-python/ch03-projects/todo-cli",
                 "ch02-python/ch03-projects/web-scraper",
@@ -174,7 +174,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "3 数据分析与可视化",
+          label: "3 Data Analysis and Visualization",
           collapsed: true,
           link: { type: "doc", id: "ch03-data-analysis/index" },
           items: [
@@ -182,12 +182,12 @@ const sidebars = {
             "ch03-data-analysis/task-list",
             {
               type: "category",
-              label: "3.1 从 Python 到数据分析",
+              label: "3.1 From Python to Data Analysis",
               items: ["ch03-data-analysis/ch01-warmup/pure-python-data"],
             },
             {
               type: "category",
-              label: "3.2 NumPy 科学计算",
+              label: "3.2 NumPy Scientific Computing",
               items: [
                 "ch03-data-analysis/ch02-numpy/overview",
                 "ch03-data-analysis/ch02-numpy/array-basics",
@@ -200,7 +200,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "3.3 Pandas 数据处理",
+              label: "3.3 Pandas Data Processing",
               items: [
                 "ch03-data-analysis/ch03-pandas/roadmap",
                 "ch03-data-analysis/ch03-pandas/core-structures",
@@ -215,7 +215,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "3.4 数据可视化",
+              label: "3.4 Data Visualization",
               items: [
                 "ch03-data-analysis/ch04-visualization/roadmap",
                 "ch03-data-analysis/ch04-visualization/matplotlib",
@@ -226,7 +226,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "3.5 数据库基础（选修）",
+              label: "3.5 Database Basics (Elective)",
               items: [
                 "ch03-data-analysis/ch05-database/roadmap",
                 "ch03-data-analysis/ch05-database/relational-db",
@@ -237,7 +237,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "3.6 阶段项目",
+              label: "3.6 Stage Projects",
               items: [
                 "ch03-data-analysis/ch06-projects/eda-project",
                 "ch03-data-analysis/ch06-projects/multi-source-analysis",
@@ -249,12 +249,12 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "主线 2：理解模型（4-6）",
+      label: "Main Track 2: Understand Models (4-6)",
       collapsed: false,
       items: [
         {
           type: "category",
-          label: "4 AI 数学最小必要基础",
+          label: "4 Minimal Math Foundations for AI",
           collapsed: true,
           link: { type: "doc", id: "ch04-ai-math/index" },
           items: [
@@ -262,7 +262,7 @@ const sidebars = {
             "ch04-ai-math/task-list",
             {
               type: "category",
-              label: "4.1 线性代数实战",
+              label: "4.1 Linear Algebra in Practice",
               items: [
                 "ch04-ai-math/ch01-linear-algebra/roadmap",
                 "ch04-ai-math/ch01-linear-algebra/vectors",
@@ -273,7 +273,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "4.2 概率与统计实战",
+              label: "4.2 Probability and Statistics in Practice",
               items: [
                 "ch04-ai-math/ch02-probability/roadmap",
                 "ch04-ai-math/ch02-probability/probability-basics",
@@ -285,7 +285,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "4.3 微积分与优化实战",
+              label: "4.3 Calculus and Optimization in Practice",
               items: [
                 "ch04-ai-math/ch03-calculus/roadmap",
                 "ch04-ai-math/ch03-calculus/derivatives",
@@ -298,7 +298,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "5 机器学习入门到实战",
+          label: "5 Machine Learning from Basics to Practice",
           collapsed: true,
           link: { type: "doc", id: "ch05-machine-learning/index" },
           items: [
@@ -306,7 +306,7 @@ const sidebars = {
             "ch05-machine-learning/task-list",
             {
               type: "category",
-              label: "5.1 机器学习基础概念",
+              label: "5.1 Core Machine Learning Concepts",
               items: [
                 "ch05-machine-learning/ch01-ml-basics/roadmap",
                 "ch05-machine-learning/ch01-ml-basics/history-breakthroughs",
@@ -317,7 +317,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "5.2 监督学习核心算法",
+              label: "5.2 Core Supervised Learning Algorithms",
               items: [
                 "ch05-machine-learning/ch02-supervised/roadmap",
                 "ch05-machine-learning/ch02-supervised/linear-regression",
@@ -329,7 +329,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "5.3 无监督学习算法",
+              label: "5.3 Unsupervised Learning Algorithms",
               items: [
                 "ch05-machine-learning/ch03-unsupervised/roadmap",
                 "ch05-machine-learning/ch03-unsupervised/clustering",
@@ -339,7 +339,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "5.4 模型评估与选择",
+              label: "5.4 Model Evaluation and Selection",
               items: [
                 "ch05-machine-learning/ch04-evaluation/roadmap",
                 "ch05-machine-learning/ch04-evaluation/metrics",
@@ -350,7 +350,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "5.5 特征工程",
+              label: "5.5 Feature Engineering",
               items: [
                 "ch05-machine-learning/ch05-feature-engineering/roadmap",
                 "ch05-machine-learning/ch05-feature-engineering/feature-understanding",
@@ -362,7 +362,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "5.6 阶段项目",
+              label: "5.6 Stage Projects",
               items: [
                 "ch05-machine-learning/ch06-projects/roadmap",
                 "ch05-machine-learning/ch06-projects/house-price",
@@ -375,7 +375,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "6 深度学习与 Transformer 基础",
+          label: "6 Deep Learning and Transformer Foundations",
           collapsed: true,
           link: { type: "doc", id: "ch06-deep-learning/index" },
           items: [
@@ -383,7 +383,7 @@ const sidebars = {
             "ch06-deep-learning/task-list",
             {
               type: "category",
-              label: "6.1 神经网络基础",
+              label: "6.1 Neural Network Foundations",
               items: [
                 "ch06-deep-learning/ch01-nn-basics/roadmap",
                 "ch06-deep-learning/ch01-nn-basics/history-breakthroughs",
@@ -397,7 +397,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.2 PyTorch 框架",
+              label: "6.2 PyTorch Framework",
               items: [
                 "ch06-deep-learning/ch02-pytorch/roadmap",
                 "ch06-deep-learning/ch02-pytorch/sklearn-to-pytorch-bridge",
@@ -411,7 +411,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.3-6.4 CNN、RNN 与序列模型",
+              label: "6.3-6.4 CNN, RNN, and Sequence Models",
               items: [
                 "ch06-deep-learning/ch03-cnn/roadmap",
                 "ch06-deep-learning/ch03-cnn/convolution-basics",
@@ -427,7 +427,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.5 注意力与 Transformer",
+              label: "6.5 Attention and Transformer",
               items: [
                 "ch06-deep-learning/ch05-transformer/roadmap",
                 "ch06-deep-learning/ch05-transformer/attention-mechanism",
@@ -436,7 +436,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.6-6.7 生成模型与训练技巧（选修）",
+              label: "6.6-6.7 Generative Models and Training Tips (Elective)",
               items: [
                 "ch06-deep-learning/ch06-generative/roadmap",
                 "ch06-deep-learning/ch06-generative/gan",
@@ -449,7 +449,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "6.8 阶段项目",
+              label: "6.8 Stage Projects",
               items: [
                 "ch06-deep-learning/ch08-projects/roadmap",
                 "ch06-deep-learning/ch08-projects/image-classification",
@@ -463,12 +463,12 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "主线 3：做大模型应用（7-9）",
+      label: "Main Track 3: Build LLM Applications (7-9)",
       collapsed: false,
       items: [
         {
           type: "category",
-          label: "7 大模型原理、Prompt 与微调",
+          label: "7 LLM Principles, Prompting, and Fine-Tuning",
           collapsed: true,
           link: { type: "doc", id: "ch07-llm-principles/index" },
           items: [
@@ -476,7 +476,7 @@ const sidebars = {
             "ch07-llm-principles/task-list",
             {
               type: "category",
-              label: "7.1-7.2 NLP 与 LLM 核心速成",
+              label: "7.1-7.2 NLP and LLM Crash Course",
               items: [
                 "ch07-llm-principles/ch01-nlp-crash/roadmap",
                 "ch07-llm-principles/ch01-nlp-crash/tokenizer",
@@ -491,7 +491,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.3-7.4 Transformer 与预训练",
+              label: "7.3-7.4 Transformer and Pretraining",
               items: [
                 "ch07-llm-principles/ch03-transformer-deep/roadmap",
                 "ch07-llm-principles/ch03-transformer-deep/architecture-review",
@@ -506,7 +506,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.5-7.7 Prompt、微调与对齐",
+              label: "7.5-7.7 Prompting, Fine-Tuning, and Alignment",
               items: [
                 "ch07-llm-principles/ch05-prompt/roadmap",
                 "ch07-llm-principles/ch05-prompt/prompt-basics",
@@ -527,7 +527,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "7.8 阶段项目",
+              label: "7.8 Stage Project",
               items: [
                 "ch07-llm-principles/ch08-projects/roadmap",
                 "ch07-llm-principles/ch08-projects/domain-finetuning",
@@ -537,7 +537,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "8 LLM 应用开发与 RAG",
+          label: "8 LLM Application Development and RAG",
           collapsed: true,
           link: { type: "doc", id: "ch08-rag/index" },
           items: [
@@ -545,7 +545,7 @@ const sidebars = {
             "ch08-rag/task-list",
             {
               type: "category",
-              label: "8.1 RAG 检索增强生成",
+              label: "8.1 RAG: Retrieval-Augmented Generation",
               items: [
                 "ch08-rag/ch01-rag/roadmap",
                 "ch08-rag/ch01-rag/rag-basics",
@@ -559,7 +559,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.2 模型部署与统一接口",
+              label: "8.2 Model Deployment and Unified APIs",
               items: [
                 "ch08-rag/ch02-deployment/roadmap",
                 "ch08-rag/ch02-deployment/local-models",
@@ -569,7 +569,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.3 大模型应用开发",
+              label: "8.3 LLM Application Development",
               items: [
                 "ch08-rag/ch03-app-dev/roadmap",
                 "ch08-rag/ch03-app-dev/llm-api-practice",
@@ -584,7 +584,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "8.4-8.5 工程化与阶段项目",
+              label: "8.4-8.5 Engineering and Stage Project",
               items: [
                 "ch08-rag/ch04-engineering/roadmap",
                 "ch08-rag/ch04-engineering/async-programming",
@@ -602,7 +602,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "9 AI Agent 与智能体系统",
+          label: "9 AI Agents and Agentic Systems",
           collapsed: true,
           link: { type: "doc", id: "ch09-agent/index" },
           items: [
@@ -610,7 +610,7 @@ const sidebars = {
             "ch09-agent/task-list",
             {
               type: "category",
-              label: "9.1-9.2 Agent 基础、推理与规划",
+              label: "9.1-9.2 Agent Basics, Reasoning, and Planning",
               items: [
                 "ch09-agent/ch01-agent-basics/roadmap",
                 "ch09-agent/ch01-agent-basics/what-is-agent",
@@ -629,7 +629,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.3-9.5 工具、记忆与 MCP",
+              label: "9.3-9.5 Tools, Memory, and MCP",
               items: [
                 "ch09-agent/ch03-tools/roadmap",
                 "ch09-agent/ch03-tools/function-calling-deep",
@@ -657,7 +657,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.6-9.9 框架、多 Agent 与生产化",
+              label: "9.6-9.9 Frameworks, Multi-Agent, and Production",
               items: [
                 "ch09-agent/ch06-frameworks/roadmap",
                 "ch09-agent/ch06-frameworks/framework-overview",
@@ -691,7 +691,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "9.10 阶段项目",
+              label: "9.10 Stage Project",
               items: [
                 "ch09-agent/ch10-projects/roadmap",
                 "ch09-agent/ch10-projects/research-assistant",
@@ -705,12 +705,12 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "主线 4：方向拓展与毕业项目（10-12）",
+      label: "Main Track 4: Specializations and Capstone (10-12)",
       collapsed: true,
       items: [
         {
           type: "category",
-          label: "10 计算机视觉（方向选修）",
+          label: "10 Computer Vision (Specialization Elective)",
           collapsed: true,
           link: { type: "doc", id: "ch10-computer-vision/index" },
           items: [
@@ -718,7 +718,7 @@ const sidebars = {
             "ch10-computer-vision/task-list",
             {
               type: "category",
-              label: "10.1-10.2 CV 基础与图像分类",
+              label: "10.1-10.2 CV Basics and Image Classification",
               items: [
                 "ch10-computer-vision/ch01-cv-basics/roadmap",
                 "ch10-computer-vision/ch01-cv-basics/image-fundamentals",
@@ -732,7 +732,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "10.3-10.6 检测、分割与进阶项目",
+              label: "10.3-10.6 Detection, Segmentation, and Advanced Projects",
               items: [
                 "ch10-computer-vision/ch03-detection/roadmap",
                 "ch10-computer-vision/ch03-detection/detection-overview",
@@ -757,7 +757,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "11 自然语言处理（方向选修）",
+          label: "11 Natural Language Processing (Specialization Elective)",
           collapsed: true,
           link: { type: "doc", id: "ch11-nlp/index" },
           items: [
@@ -765,7 +765,7 @@ const sidebars = {
             "ch11-nlp/task-list",
             {
               type: "category",
-              label: "11.1-11.6 NLP 基础到预训练模型",
+              label: "11.1-11.6 NLP Basics to Pretrained Models",
               items: [
                 "ch11-nlp/ch01-text-basics/roadmap",
                 "ch11-nlp/ch01-text-basics/nlp-overview",
@@ -799,7 +799,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "11.7 NLP 综合项目",
+              label: "11.7 NLP Capstone Project",
               items: [
                 "ch11-nlp/ch07-projects/roadmap",
                 "ch11-nlp/ch07-projects/qa-system",
@@ -812,7 +812,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "12 AIGC 与多模态",
+          label: "12 AIGC and Multimodal AI",
           collapsed: true,
           link: { type: "doc", id: "ch12-multimodal/index" },
           items: [
@@ -820,7 +820,7 @@ const sidebars = {
             "ch12-multimodal/task-list",
             {
               type: "category",
-              label: "12.1-12.3 多模态、图像与视频生成",
+              label: "12.1-12.3 Multimodal, Image, and Video Generation",
               items: [
                 "ch12-multimodal/ch01-multimodal/roadmap",
                 "ch12-multimodal/ch01-multimodal/multimodal-basics",
@@ -840,7 +840,7 @@ const sidebars = {
             },
             {
               type: "category",
-              label: "12.4-12.5 前沿、伦理与项目",
+              label: "12.4-12.5 Frontiers, Ethics, and Projects",
               items: [
                 "ch12-multimodal/ch04-frontier/roadmap",
                 "ch12-multimodal/ch04-frontier/frontier-trends",
@@ -856,12 +856,12 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "📦 选修模块",
+      label: "📦 Elective Modules",
       collapsed: true,
       items: [
         {
           type: "category",
-          label: "模块A：C++ 与模型部署",
+          label: "Module A: C++ and Model Deployment",
           link: { type: "doc", id: "electives/module-a/index" },
           items: [
             "electives/module-a/cpp-basics",
@@ -875,7 +875,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "模块B：Python 进阶专题",
+          label: "Module B: Advanced Python Topics",
           link: { type: "doc", id: "electives/module-b/index" },
           items: [
             "electives/module-b/decorators-advanced",
@@ -886,7 +886,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "模块C：经典ML补充算法",
+          label: "Module C: Classic ML Supplementary Algorithms",
           link: { type: "doc", id: "electives/module-c/index" },
           items: [
             "electives/module-c/svm",
@@ -902,7 +902,7 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "📎 附录",
+      label: "📎 Appendix",
       collapsed: true,
       items: [
         "appendix/resources",

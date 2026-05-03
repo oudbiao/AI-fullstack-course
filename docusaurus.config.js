@@ -12,9 +12,9 @@ const config = {
   projectName: "ai-fullstack-course",
   onBrokenLinks: "warn",
 
-  // ===== SEO 全局 meta 标签 =====
+  // ===== Global SEO meta tags =====
   headTags: [
-    // ----- 搜索引擎站长验证（在对应平台获取验证码后，取消注释并填入 content）-----
+    // ----- Search engine webmaster verification. Uncomment after copying each platform token. -----
     // Google Search Console: https://search.google.com/search-console
     // {
     //   tagName: "meta",
@@ -54,7 +54,7 @@ const config = {
         content: "AI Full-Stack Learning Course",
       },
     },
-    // 结构化数据 JSON-LD（帮助搜索引擎理解网站类型）
+    // JSON-LD structured data helps search engines understand the site.
     {
       tagName: "script",
       attributes: {
@@ -67,7 +67,7 @@ const config = {
         url: "https://learning.airoads.org",
         description:
           "A complete learning path from AI fundamentals to AI Agent development. AI の基礎から AI Agent 開発まで学べる学習コース。",
-        inLanguage: ["zh-Hans", "en-US", "ja-JP"],
+        inLanguage: ["en-US", "zh-Hans", "ja-JP"],
       }),
     },
     {
@@ -88,7 +88,7 @@ const config = {
         },
         educationalLevel: "Beginner",
         isAccessibleForFree: true,
-        inLanguage: ["zh-Hans", "en-US", "ja-JP"],
+        inLanguage: ["en-US", "zh-Hans", "ja-JP"],
         teaches: [
           "Python programming",
           "Data analysis",
@@ -115,16 +115,16 @@ const config = {
   },
   themes: ["@docusaurus/theme-mermaid"],
   i18n: {
-    defaultLocale: "zh-Hans",
-    locales: ["zh-Hans", "en", "ja"],
+    defaultLocale: "en",
+    locales: ["en", "zh-Hans", "ja"],
     localeConfigs: {
-      "zh-Hans": {
-        label: "简体中文",
-        htmlLang: "zh-Hans",
-      },
       en: {
         label: "English",
         htmlLang: "en-US",
+      },
+      "zh-Hans": {
+        label: "简体中文",
+        htmlLang: "zh-Hans",
       },
       ja: {
         label: "日本語",
@@ -146,7 +146,7 @@ const config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
-        // Sitemap 配置（搜索引擎自动发现页面）
+        // Sitemap configuration for search engine discovery.
         sitemap: {
           lastmod: "date",
           changefreq: "weekly",
@@ -159,11 +159,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // SEO：全局 meta 标签（会注入到每个页面的 <head> 中）
+      // Global metadata injected into each page.
       metadata: [
         { name: "description", content: "AI Full-Stack Learning Course / AI フルスタック学習コース — a complete free learning path from AI fundamentals to AI Agent development, covering Python, data analysis, machine learning, deep learning, LLMs, RAG, and AI Agents." },
         { property: "og:type", content: "website" },
-        { property: "og:locale", content: "zh_CN" },
+        { property: "og:locale", content: "en_US" },
         { property: "og:site_name", content: "AI Full-Stack Learning Course" },
         { name: "twitter:card", content: "summary_large_image" },
       ],
@@ -179,7 +179,7 @@ const config = {
             type: "docSidebar",
             sidebarId: "courseSidebar",
             position: "left",
-            label: "📚 课程内容",
+            label: "📚 Course Content",
           },
           {
             href: "https://github.com/oudbiao/AI-fullstack-course",
@@ -187,11 +187,8 @@ const config = {
             position: "right",
           },
           {
-            type: "html",
+            type: "localeDropdown",
             position: "right",
-            className: "navbar-language-switch",
-            value:
-              '<a class="navbar__link" href="/">中文</a><span class="navbar-language-switch__sep">/</span><a class="navbar__link" href="/en/">EN</a><span class="navbar-language-switch__sep">/</span><a class="navbar__link" href="/ja/">日本語</a>',
           },
         ],
       },
@@ -199,27 +196,27 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "课程",
+            title: "Course",
             items: [
-              { label: "课程总览", to: "/" },
-              { label: "学习路线", to: "/intro/learning-path" },
-              { label: "职业方向", to: "/intro/career-guide" },
+              { label: "Course Overview", to: "/" },
+              { label: "Learning Path", to: "/intro/learning-path" },
+              { label: "Career Paths", to: "/intro/career-guide" },
             ],
           },
           {
-            title: "社区",
+            title: "Community",
             items: [
               { label: "GitHub", href: "https://github.com/oudbiao/AI-fullstack-course" },
               { label: "Kaggle", href: "https://www.kaggle.com/" },
-              { label: "HuggingFace", href: "https://huggingface.co/" },
+              { label: "Hugging Face", href: "https://huggingface.co/" },
             ],
           },
           {
-            title: "资源",
+            title: "Resources",
             items: [
-              { label: "学习资源", to: "/appendix/resources" },
-              { label: "硬件指南", to: "/appendix/hardware" },
-              { label: "求职准备", to: "/appendix/job-prep" },
+              { label: "Learning Resources", to: "/appendix/resources" },
+              { label: "Hardware Guide", to: "/appendix/hardware" },
+              { label: "Job Preparation", to: "/appendix/job-prep" },
             ],
           },
         ],

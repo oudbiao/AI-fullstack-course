@@ -1,83 +1,82 @@
 ---
-title: "阶段学习任务单"
-description: "把机器学习入门到实战阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [机器学习, sklearn, 特征工程, 模型评估, 学习任务单]
+title: "Stage Learning Task Sheet"
+description: "Break the machine learning journey from beginner to hands-on practice into executable learning tasks, practice deliverables, and completion criteria."
+keywords: [machine learning, sklearn, feature engineering, model evaluation, learning task sheet]
 ---
 
-# 阶段学习任务单：机器学习入门到实战
+# Stage Learning Task Sheet: Machine Learning from Basics to Practice
 
-![机器学习通关任务清单图](/img/course/ml-task-checklist.png)
+![Machine Learning Completion Checklist Diagram](/img/course/ml-task-checklist-en.png)
 
-这个阶段的目标是让你理解机器学习项目的完整闭环：定义问题、准备数据、构造特征、训练模型、评估效果、分析错误。不要把重点放在背算法公式上，而要把每个算法放回“它适合解决什么问题、如何判断效果好坏”的场景里。
+The goal of this stage is to help you understand the full machine learning project loop: define the problem, prepare the data, build features, train the model, evaluate the results, and analyze errors. Do not focus on memorizing algorithm formulas; instead, place each algorithm back into the context of “what problem it is good at solving and how to judge whether it works well.”
 
-## 本阶段必须完成的任务
+## Tasks you must complete in this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Passing Criteria |
 | --- | --- | --- |
-| 建立 ML 问题意识 | 一份问题定义说明 | 能区分分类、回归、聚类和异常检测 |
-| 跑通 sklearn baseline | 一个最小训练脚本 | 能完成 train/test split、fit、predict、score |
-| 完成特征工程 | 一份特征处理记录 | 能说明缺失值、类别变量、标准化和泄漏风险 |
-| 完成模型评估 | 一份指标对比表 | 能解释准确率、召回率、F1、AUC 或 RMSE 的适用场景 |
-| 完成阶段项目 | 一个可复现实验项目 | 有 README、数据说明、指标、失败样本和改进计划 |
+| Build ML problem awareness | A problem definition note | Can distinguish classification, regression, clustering, and anomaly detection |
+| Run an sklearn baseline end to end | A minimal training script | Can complete train/test split, fit, predict, and score |
+| Complete feature engineering | A feature processing log | Can explain missing values, categorical variables, standardization, and leakage risks |
+| Complete model evaluation | A metric comparison table | Can explain the use cases of accuracy, recall, F1, AUC, or RMSE |
+| Complete the stage project | A reproducible experiment project | Includes README, data description, metrics, failure cases, and improvement plan |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先学习机器学习基本概念和 sklearn 工作流，再学习监督学习、无监督学习、评估方法和特征工程。特征工程不要放到最后才看，因为真实项目里模型效果往往首先取决于数据和特征。
+First learn the basic machine learning concepts and the sklearn workflow, then learn supervised learning, unsupervised learning, evaluation methods, and feature engineering. Do not leave feature engineering until the very end, because in real projects model performance often depends first on the data and features.
 
-每学一个算法，都要同时问三个问题：它的输入是什么，它输出什么，什么情况下它可能失败。这样比单独记住算法名称更有用。
+For every algorithm you learn, always ask three questions at the same time: what is its input, what does it output, and in what situations might it fail. This is more useful than remembering the algorithm name by itself.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI Learning Assistant project
 
-本阶段对应 AI 学习助手的 v0.4 学习建议 baseline。你可以用历史学习问题和阶段标签训练一个简单分类器，预测新问题属于哪个阶段或哪个主题。这个模型不一定很强，但能帮助你理解“从规则到模型”的变化。
+This stage corresponds to the v0.4 learning recommendation baseline of the AI Learning Assistant. You can train a simple classifier using historical learning questions and stage labels to predict which stage or topic a new question belongs to. This model does not need to be very powerful, but it can help you understand the shift “from rules to models.”
 
-建议实现一个简单版本：手工准备几十条学习问题样本，使用 TF-IDF 或简单文本特征，训练一个分类模型，输出推荐章节。然后和规则匹配方法对比，记录各自优缺点。
+A simple implementation is recommended: manually prepare dozens of learning question samples, use TF-IDF or simple text features, train a classification model, and output recommended chapters. Then compare it with a rule-matching approach and record the strengths and weaknesses of each.
 
-## 常见卡点
+## Common sticking points
 
-常见问题包括训练集测试集混用、用测试集调参数、只看准确率、忽略类别不平衡、特征处理在切分前完成导致数据泄漏、模型结果无法复现。机器学习项目里，评估流程是否正确通常比模型是否高级更重要。
+Common issues include mixing up the training set and test set, tuning parameters on the test set, looking only at accuracy, ignoring class imbalance, completing feature processing before splitting the data and causing data leakage, and being unable to reproduce model results. In machine learning projects, whether the evaluation process is correct is usually more important than how advanced the model is.
 
+## Easy / Standard / Challenge Tasks
 
-## 轻松版 / 标准版 / 挑战版任务
-
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What You Need to Do | Suitable For |
 |---|---|---|
-| 轻松版 | 训练 Dummy baseline 并输出指标 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 训练真实模型并和 baseline 对比 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 检查一次数据泄漏、类别不平衡或错误样本 | 已有基础、想做更强项目证据的学习者 |
+| Easy | Train a Dummy baseline and output metrics | First-time learners, learners with little time, or beginners |
+| Standard | Train a real model and compare it with the baseline | Learners who want to include this stage in their portfolio |
+| Challenge | Check for data leakage, class imbalance, or error samples | Learners with some experience who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Stage badges and boss fight
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | Baseline 守门员 |
-| 可解锁徽章 | Baseline 守门员、泄漏侦查员 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss Fight | Baseline Guardian |
+| Unlockable Badges | Baseline Guardian, Leakage Detective |
+| Minimum Clear Slogan | Get it running first, then explain it, then record the failures |
+| Evidence-saving suggestion | Save screenshots, logs, failure samples, or evaluation tables to `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+You can move on after completing the easy version; you are recommended to add it to your portfolio only after completing the standard version; do the challenge version only when you have extra time.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to turn the results of this stage into a portfolio item, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `train.py` 或 Notebook | 可复现的 baseline 训练流程，包含数据切分、训练和评估 |
-| `feature_report.md` | 特征含义、缺失值处理、编码、标准化和泄漏风险检查 |
-| `metrics.md` | 记录 accuracy、F1、AUC、RMSE 等指标及选择理由 |
-| `error_analysis.md` | 保存预测错误样本，分析数据、特征、模型或指标问题 |
-| `README.md` | 问题定义、运行命令、模型结果、限制和下一步计划 |
+| `train.py` or Notebook | A reproducible baseline training flow, including data splitting, training, and evaluation |
+| `feature_report.md` | Feature meanings, missing-value handling, encoding, standardization, and leakage risk checks |
+| `metrics.md` | Records metrics such as accuracy, F1, AUC, and RMSE, along with the reasons for choosing them |
+| `error_analysis.md` | Saves incorrectly predicted samples and analyzes issues in the data, features, model, or metrics |
+| `README.md` | Problem definition, run commands, model results, limitations, and next-step plan |
 
-这些材料会让机器学习项目不只是“跑出一个分数”，而是具备可复现、可解释、可改进的建模闭环。
+These materials will make the machine learning project more than “just getting a score”; they create a modeling loop that is reproducible, explainable, and improvable.
 
-## 阶段通关问题
+## Stage completion questions
 
-学完后，你应该能回答这些问题：为什么要划分训练集和测试集，什么是数据泄漏，什么时候准确率不可靠，Pipeline 解决什么问题，为什么一个简单 baseline 是所有 ML 项目的起点。
+After learning this stage, you should be able to answer these questions: why do we split the training set and test set, what is data leakage, when is accuracy unreliable, what problem does Pipeline solve, and why is a simple baseline the starting point of all ML projects.
 
-## 完成状态 Checklist
+## Completion Status Checklist
 
-- [ ] 我能把一个问题判断为分类、回归、聚类或异常检测。
-- [ ] 我能用 sklearn 跑通一个 baseline，并保存评估结果。
-- [ ] 我能区分训练集、验证集和测试集的职责。
-- [ ] 我能识别至少一种数据泄漏风险，并用 Pipeline 降低风险。
-- [ ] 我已经完成一个机器学习项目，并记录指标、错误样本和改进计划。
+- [ ] I can determine whether a problem is classification, regression, clustering, or anomaly detection.
+- [ ] I can run a baseline with sklearn and save the evaluation results.
+- [ ] I can distinguish the responsibilities of the training set, validation set, and test set.
+- [ ] I can identify at least one data leakage risk and reduce the risk with a Pipeline.
+- [ ] I have completed a machine learning project and recorded metrics, failure samples, and an improvement plan.

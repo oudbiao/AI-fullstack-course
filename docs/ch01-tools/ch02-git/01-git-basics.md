@@ -1,197 +1,197 @@
 ---
-title: "Git 基础概念"
+title: "Git Basics"
 sidebar_position: 1
-description: "理解版本管理的必要性和 Git 的核心概念"
+description: "Understand why version control is necessary and learn Git’s core concepts"
 ---
 
-# Git 基础概念
+# Git Basics
 
-![Git 四区工作流图](/img/course/git-four-areas.png)
+![Git four-area workflow diagram](/img/course/git-four-areas-en.png)
 
-## 本节定位
+## Where This Lesson Fits
 
-这一节先帮你理解为什么代码需要版本管理。你会从“文件命名地狱”“改坏了回不去”“多人协作困难”这些真实痛点出发，建立对仓库、暂存区、提交和分支的基本认识。
+This lesson first helps you understand why code needs version control. You will start from real pain points like “file-naming hell,” “I broke it and can’t go back,” and “team collaboration is difficult,” and build a basic understanding of repositories, the staging area, commits, and branches.
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么需要版本管理（通过真实的痛点场景）
-- 掌握 Git 的四个核心概念：仓库、暂存区、提交、分支
-- 完成 Git 的安装和初始配置
+- Understand why version control is needed (through real pain-point scenarios)
+- Master Git’s four core concepts: repository, staging area, commit, and branch
+- Complete Git installation and initial configuration
 
 ---
 
-## 没有 Git 的世界
+## A World Without Git
 
-在学 Git 之前，先看看没有 Git 的时候，开发者是怎么管理代码的：
+Before learning Git, let’s look at how developers managed code without it:
 
-### 痛点一：文件命名地狱
+### Pain Point 1: File-Naming Hell
 
-你写了一个 AI 模型训练脚本，不断修改、不断保存：
+You write an AI model training script and keep modifying and saving it:
 
 ```
 train.py
 train_v2.py
 train_v2_final.py
-train_v2_final_真的最终版.py
-train_v2_final_真的最终版_改了bug.py
-train_v2_final_真的最终版_改了bug_老板说再改改.py
+train_v2_final_really_final.py
+train_v2_final_really_final_fixed_bug.py
+train_v2_final_really_final_fixed_bug_boss_said_change_it_again.py
 ```
 
-一周后你想回到"第一次改 bug 之前"的版本——到底是哪个文件？
+A week later, you want to go back to the version “before the first bug fix” — which file was it?
 
-### 痛点二：改坏了回不去
+### Pain Point 2: You Broke It and Can’t Go Back
 
-你兴冲冲地重构了 `model.py`，改了 200 行代码。运行——报错了。再改——更多错误。你想恢复到改之前的样子，但你已经 `Ctrl+S` 保存了无数次，回不去了。
+You enthusiastically refactor `model.py` and change 200 lines of code. You run it — error. You change it again — even more errors. You want to restore the previous version, but you’ve already hit `Ctrl+S` countless times, and now you can’t go back.
 
-### 痛点三：多人协作是灾难
+### Pain Point 3: Team Collaboration Is a Disaster
 
-你和同事同时在改同一个文件。你改了前半部分，他改了后半部分。你们各自保存，然后用微信互传文件。谁来合并？怎么合并？万一覆盖了对方的修改怎么办？
+You and a coworker are editing the same file at the same time. You change the first half; they change the second half. You each save your version, then send files back and forth through WeChat. Who merges them? How do you merge them? What if you overwrite each other’s changes?
 
-**Git 解决的就是这三个问题：**
+**Git solves these three problems:**
 
-| 痛点 | Git 怎么解决 |
+| Pain point | How Git solves it |
 |------|------------|
-| 文件命名地狱 | 每次修改自动记录版本，不需要手动重命名 |
-| 改坏了回不去 | 任何时候都可以回退到之前的任意版本 |
-| 多人协作困难 | 每个人在自己的分支上工作，最后自动合并 |
+| File-naming hell | Automatically records versions for each change, so you don’t need to rename files manually |
+| You broke it and can’t go back | You can roll back to any previous version at any time |
+| Team collaboration is difficult | Everyone works on their own branch, then merges automatically at the end |
 
 ---
 
-## Git 是什么？
+## What Is Git?
 
-一句话：**Git 是一个代码版本管理工具。** 它帮你记录代码的每一次修改，让你可以随时查看历史、回退版本、与他人协作。
+In one sentence: **Git is a code version control tool.** It records every change to your code, so you can view history, roll back versions, and collaborate with others at any time.
 
-几个关键点：
+A few key points:
 
-- Git 是**免费开源**的
-- Git 是**本地工具**——不联网也能用（GitHub 是 Git 的在线托管服务，不是 Git 本身）
-- Git 是**行业标准**——几乎所有软件公司、所有开源项目都用 Git
-- Git 由 Linux 之父 Linus Torvalds 在 2005 年创造
+- Git is **free and open source**
+- Git is a **local tool** — it works without an internet connection (GitHub is Git’s online hosting service, not Git itself)
+- Git is an **industry standard** — almost all software companies and open-source projects use Git
+- Git was created in 2005 by Linus Torvalds, the father of Linux
 
 ---
 
-## Git 的四个核心概念
+## Git’s Four Core Concepts
 
-把 Git 想象成一个**智能存档系统**。你在玩一个大型游戏（写代码），Git 帮你随时存档、读档。
+Think of Git as an **intelligent archive system**. When you’re playing a big game (writing code), Git helps you save and load at any time.
 
-### 概念一：仓库（Repository）
+### Concept 1: Repository
 
-**仓库 = 一个被 Git 管理的项目文件夹。**
+**Repository = a project folder managed by Git.**
 
-普通文件夹和 Git 仓库的区别，就像普通笔记本和一个带有"所有修改记录"的魔法笔记本。
+The difference between a normal folder and a Git repository is like the difference between an ordinary notebook and a magic notebook with a record of “all changes.”
 
 ```bash
-# 把一个普通文件夹变成 Git 仓库
+# Turn a normal folder into a Git repository
 cd my-project
 git init
 ```
 
-执行 `git init` 之后，文件夹里会多出一个隐藏的 `.git` 目录，这就是 Git 存放所有版本记录的地方。你不需要打开它，知道它在就行。
+After running `git init`, a hidden `.git` directory appears in the folder. This is where Git stores all version records. You don’t need to open it; just know it’s there.
 
-### 概念二：暂存区（Staging Area）
+### Concept 2: Staging Area
 
-这是 Git 最独特的设计。**暂存区是一个"准备提交"的中间地带。**
+This is one of Git’s most unique designs. **The staging area is an intermediate place for “preparing to commit.”**
 
-用搬家来类比：
+Use moving house as an analogy:
 
-1. 你房间里有很多东西（**工作目录** —— 你正在修改的文件）
-2. 你选了一些要搬走的东西放到门口（**暂存区** —— 你选好的、准备记录的文件）
-3. 搬家公司来了，把门口的东西装车运走（**提交** —— 正式记录这次修改）
+1. You have lots of things in your room (**working directory** — the files you are editing)
+2. You choose some things to place by the door (**staging area** — the files you selected and are preparing to record)
+3. The moving company arrives and loads the items at the door onto the truck (**commit** — formally recording this change)
 
 ```bash
-# 你修改了 3 个文件：model.py、train.py、notes.txt
+# You modified 3 files: model.py, train.py, notes.txt
 
-# 只把 model.py 和 train.py 放到"门口"（暂存区）
+# Put only model.py and train.py at the "door" (staging area)
 git add model.py train.py
 
-# notes.txt 还留在"房间里"，这次不提交它
+# notes.txt stays in the "room" and will not be committed this time
 ```
 
-为什么需要暂存区？因为你可能同时改了 5 个文件，但这次只想记录其中 2 个文件的修改。暂存区让你能**精确控制每次提交包含哪些变更**。
+Why do we need a staging area? Because you may have changed 5 files, but only want to record changes to 2 of them this time. The staging area lets you **precisely control which changes are included in each commit**.
 
-### 概念三：提交（Commit）
+### Concept 3: Commit
 
-**提交 = 一次正式的版本记录。** 就像游戏里的存档点。
+**Commit = one formal version record.** It’s like a save point in a game.
 
-每次提交包含：
-- 哪些文件被修改了
-- 具体改了什么（哪一行加了什么、删了什么）
-- 什么时候提交的
-- 谁提交的
-- 一段描述信息（说明这次改了什么）
+Each commit includes:
+- Which files were changed
+- What changed specifically (what was added or deleted on each line)
+- When it was committed
+- Who committed it
+- A description message (explaining what this change did)
 
 ```bash
-git commit -m "修复了模型训练时学习率过大的 bug"
+git commit -m "Fix the bug where the learning rate was too high during model training"
 ```
 
-`-m` 后面的引号里是**提交信息**，用来说明这次修改做了什么。好的提交信息应该让别人（包括未来的你）一看就知道这次改了什么。
+The text in quotes after `-m` is the **commit message**, which explains what this change did. A good commit message should let other people (including your future self) know immediately what changed.
 
-一个项目的提交历史看起来像这样：
-
-```
-提交 #5: "添加数据增强功能"               ← 最新
-提交 #4: "修复了模型训练时学习率过大的 bug"
-提交 #3: "添加了 CNN 模型定义"
-提交 #2: "完成数据加载模块"
-提交 #1: "项目初始化，添加 README"          ← 最早
-```
-
-你可以随时回到任何一个提交点，就像游戏读档一样。
-
-### 概念四：分支（Branch）
-
-**分支 = 独立的开发线路。** 就像平行宇宙。
-
-想象你的项目是一条主路（`main` 分支）。你想试一个新功能（比如换一个模型架构），但不确定能不能成功。你不想在主路上动刀——万一改坏了呢？
-
-这时你可以从主路上"岔出"一条新路（新分支），在新路上随便改。如果成功了，把新路合并回主路；如果失败了，直接删掉新路，主路完全不受影响。
+A project’s commit history might look like this:
 
 ```
-main分支:      ● ─── ● ─── ● ─── ● ─── ●  (稳定的代码)
+Commit #5: "Add data augmentation"               ← latest
+Commit #4: "Fix the bug where the learning rate was too high during model training"
+Commit #3: "Add CNN model definition"
+Commit #2: "Complete data loading module"
+Commit #1: "Project initialization, add README"  ← earliest
+```
+
+You can return to any commit point at any time, just like loading a game save.
+
+### Concept 4: Branch
+
+**Branch = an independent development line.** It’s like a parallel universe.
+
+Imagine your project is a main road (`main` branch). You want to try a new feature (for example, changing the model architecture), but you’re not sure it will work. You don’t want to make changes directly on the main road — what if you break it?
+
+At this point, you can “branch off” into a new road (a new branch) and make any changes you want there. If it works, merge the new road back into the main road; if it fails, just delete the new road, and the main road stays completely unaffected.
+
+```
+main branch:    ● ─── ● ─── ● ─── ● ─── ●  (stable code)
                               \         ↗
-feature分支:                    ● ─── ●    (尝试新功能)
+feature branch:                 ● ─── ●    (trying a new feature)
 ```
 
-分支在后面的章节会详细讲，现在只需要知道它的存在。
+Branches will be explained in detail in later chapters. For now, you only need to know that they exist.
 
 ---
 
-## 完整工作流程（先看全貌）
+## Complete Workflow (See the Big Picture First)
 
-用 Git 管理代码的完整流程是这样的：
+The full Git workflow for managing code is:
 
 ```
-你修改了文件  →  选择要记录的文件（add）  →  正式记录（commit）  →  推送到云端（push）
-  工作目录          暂存区                   本地仓库             远程仓库(GitHub)
+You modify files  →  Select files to record (add)  →  Record formally (commit)  →  Push to the cloud (push)
+  Working directory     Staging area                  Local repository         Remote repository (GitHub)
 ```
 
-用一个具体的例子：
+A concrete example:
 
 ```bash
-# 1. 你写了一个新的模型文件
-#    （这时候文件在"工作目录"，Git 知道你改了东西，但还没记录）
+# 1. You write a new model file
+#    (At this point, the file is in the "working directory"; Git knows you changed something, but it hasn’t been recorded yet.)
 
-# 2. 把它放入暂存区
+# 2. Put it into the staging area
 git add model.py
 
-# 3. 正式提交（记录这次修改）
-git commit -m "添加 ResNet 模型定义"
+# 3. Commit formally (record this change)
+git commit -m "Add ResNet model definition"
 
-# 4. 推送到 GitHub（让云端也有这份记录）
+# 4. Push to GitHub (so the cloud also has this record)
 git push
 ```
 
 ---
 
-## 安装 Git
+## Install Git
 
 ### macOS
 
 ```bash
-# 方法1：用 Homebrew（推荐）
+# Method 1: Use Homebrew (recommended)
 brew install git
 
-# 方法2：直接在终端输入 git，macOS 会提示你安装 Xcode Command Line Tools
+# Method 2: Type git directly in the terminal; macOS will prompt you to install Xcode Command Line Tools
 git --version
 ```
 
@@ -205,124 +205,124 @@ sudo apt install git
 ### Windows
 
 ```powershell
-# 用 winget
+# Using winget
 winget install Git.Git
 
-# 安装后重启终端，然后验证
+# After installation, restart the terminal, then verify
 git --version
 ```
 
-也可以从 [git-scm.com](https://git-scm.com/download/win) 下载安装包。安装时一路默认即可。
+You can also download the installer from [git-scm.com](https://git-scm.com/download/win). During installation, you can keep the default options.
 
-### 验证安装
+### Verify the Installation
 
 ```bash
 git --version
-# 输出类似: git version 2.43.0
+# Output looks like: git version 2.43.0
 ```
 
-看到版本号就说明安装成功了。
+If you see a version number, the installation was successful.
 
 ---
 
-## 初始配置
+## Initial Configuration
 
-安装完 Git 后，需要告诉它你是谁。这些信息会出现在每次提交的记录里。
+After installing Git, you need to tell it who you are. This information will appear in every commit record.
 
 ```bash
-# 设置你的名字（用英文，这会显示在 GitHub 上）
+# Set your name (use English; this will be shown on GitHub)
 git config --global user.name "Zhang San"
 
-# 设置你的邮箱（建议用 GitHub 注册的同一个邮箱）
+# Set your email (recommended to use the same email you registered with GitHub)
 git config --global user.email "zhangsan@example.com"
 
-# 设置默认分支名为 main（新版 Git 的标准）
+# Set the default branch name to main (the standard in newer Git versions)
 git config --global init.defaultBranch main
 
-# 查看配置，确认设置成功
+# View the configuration to confirm it worked
 git config --list
 ```
 
-:::info 关于 --global
-`--global` 表示这是全局配置，对你电脑上所有 Git 仓库生效。如果某个项目需要不同的配置（比如公司项目用公司邮箱），可以在那个项目里不加 `--global` 单独设置。
+:::info About --global
+`--global` means this is a global configuration that applies to all Git repositories on your computer. If a specific project needs a different configuration (for example, a company project using a company email), you can set it separately in that project without `--global`.
 :::
 
 ---
 
-## 小试一下
+## Try It Out
 
-现在我们来创建你的第一个 Git 仓库，感受一下完整流程：
+Now let’s create your first Git repository and experience the full workflow:
 
 ```bash
-# 创建一个新项目
+# Create a new project
 mkdir my-first-repo
 cd my-first-repo
 
-# 初始化 Git 仓库
+# Initialize the Git repository
 git init
-# 输出: Initialized empty Git repository in .../my-first-repo/.git/
+# Output: Initialized empty Git repository in .../my-first-repo/.git/
 
-# 创建一个文件
-echo "# 我的第一个 Git 仓库" > README.md
+# Create a file
+echo "# My First Git Repository" > README.md
 echo "print('Hello Git!')" > hello.py
 
-# 查看状态——Git 会告诉你哪些文件有变化
+# Check status — Git will tell you which files have changed
 git status
-# 会看到 README.md 和 hello.py 显示为红色（未跟踪的文件）
+# You will see README.md and hello.py shown in red (untracked files)
 
-# 把文件添加到暂存区
+# Add the files to the staging area
 git add .
-# "." 表示当前目录下所有文件
+# "." means all files in the current directory
 
-# 再看状态——文件变成了绿色（已暂存，准备提交）
+# Check status again — the files turn green (staged, ready to commit)
 git status
 
-# 提交！
-git commit -m "项目初始化：添加 README 和 hello.py"
-# 输出: [main (root-commit) abc1234] 项目初始化：添加 README 和 hello.py
+# Commit!
+git commit -m "Project initialization: add README and hello.py"
+# Output: [main (root-commit) abc1234] Project initialization: add README and hello.py
 
-# 查看提交历史
+# View commit history
 git log --oneline
-# 输出: abc1234 项目初始化：添加 README 和 hello.py
+# Output: abc1234 Project initialization: add README and hello.py
 ```
 
-恭喜你，你的第一次 Git 提交完成了！
+Congratulations, you’ve completed your first Git commit!
 
-现在试着修改一下文件，再提交一次：
+Now try modifying a file and committing again:
 
 ```bash
-# 修改 hello.py
+# Modify hello.py
 echo "print('Hello Git! I am learning AI.')" > hello.py
 
-# 查看改了什么
+# See what changed
 git diff
-# 会用红色/绿色高亮显示你的修改
+# Your changes will be highlighted in red/green
 
-# 添加并提交
+# Add and commit
 git add hello.py
-git commit -m "更新问候语"
+git commit -m "Update greeting"
 
-# 查看历史——现在有两条记录了
+# View history — now there are two records
 git log --oneline
-# 输出:
-# def5678 更新问候语
-# abc1234 项目初始化：添加 README 和 hello.py
+# Output:
+# def5678 Update greeting
+# abc1234 Project initialization: add README and hello.py
 ```
 
-两次提交，两个存档点。随时可以回到任何一个。
+Two commits, two save points. You can return to either one at any time.
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 一句话解释 | 类比 |
+| Concept | One-sentence explanation | Analogy |
 |------|----------|------|
-| **仓库** | 被 Git 管理的项目文件夹 | 一个有"撤销历史"的魔法笔记本 |
-| **暂存区** | 准备提交的中间地带 | 搬家时放在门口待装车的东西 |
-| **提交** | 一次正式的版本记录 | 游戏存档 |
-| **分支** | 独立的开发线路 | 平行宇宙 |
-| **工作目录** | 你正在编辑的文件 | 你正在写的草稿 |
+| **Repository** | A project folder managed by Git | A magic notebook with “undo history” |
+| **Staging area** | The intermediate place for preparing a commit | Things placed at the door during a move, waiting to be loaded |
+| **Commit** | One formal version record | A game save |
+| **Branch** | An independent development line | A parallel universe |
+| **Working directory** | The files you are currently editing | The draft you are writing |
 
-:::tip 核心理解
-Git 的工作流程就三步：**改文件 → add（暂存）→ commit（提交）**。后面所有 Git 操作都是在这个基础上展开的。
+:::tip Core Understanding
+Git’s workflow is only three steps: **modify files → add (stage) → commit**. All later Git operations are built on top of this foundation.
 :::

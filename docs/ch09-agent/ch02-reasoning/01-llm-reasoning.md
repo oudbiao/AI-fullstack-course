@@ -1,168 +1,168 @@
 ---
-title: "2.2 LLM 推理能力"
+title: "2.2 LLM Reasoning Capability"
 sidebar_position: 5
-description: "从“知道答案”和“推出来答案”的差别讲起，理解 LLM 在多步推理、约束满足和中间状态维护上的优势与局限。"
+description: "Starting from the difference between “knowing the answer” and “deriving the answer,” understand the strengths and limitations of LLMs in multi-step reasoning, constraint satisfaction, and intermediate state maintenance."
 keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, agent]
 ---
 
-# LLM 推理能力
+# LLM Reasoning Capability
 
-:::tip 本节定位
-很多人第一次接触 Agent 时，会自然地把大模型理解成：
+:::tip Section Overview
+When many people first encounter Agents, they naturally think of large models as:
 
-- 会聊天
-- 会写作
-- 会调用工具
+- able to chat
+- able to write
+- able to call tools
 
-但真正让 Agent 有“脑子”的，不只是会不会说，而是：
+But what really gives an Agent a “brain” is not just whether it can talk, but:
 
-> **碰到复杂问题时，能不能把问题拆开、保持中间状态、逐步推到结论。**
+> **When faced with a complex problem, can it break the problem apart, keep track of intermediate states, and gradually reach a conclusion?**
 
-这就是推理能力要解决的事。
+That is what reasoning capability is meant to solve.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解“知识检索”和“推理求解”不是一回事
-- 理解 LLM 推理常见的三种任务形态
-- 通过可运行示例理解“中间状态”为什么重要
-- 理解 Agent 为什么不能只靠工具，还需要推理层
+- Understand that “knowledge retrieval” and “reasoning-based problem solving” are not the same thing
+- Understand the three common task patterns of LLM reasoning
+- Learn through a runnable example why “intermediate state” matters
+- Understand why Agents cannot rely on tools alone and still need a reasoning layer
 
 ---
 
-## 这节和前面 Agent 基础是怎么接上的
+## How This Section Connects to the Previous Agent Basics
 
-如果你刚学完“什么是 Agent”，可以先把这节理解成：
+If you just finished learning “What is an Agent?”, you can think of this section as:
 
-- 前面已经知道 Agent 需要围绕目标采取行动
-- 这一节开始回答：它到底靠什么把复杂问题拆开，并把中间状态维持住
+- You already know that an Agent needs to take actions around a goal
+- This section starts answering: what does it actually rely on to break down complex problems and maintain intermediate states?
 
-所以这节真正重要的不是“推理听起来很高级”，而是：
+So what matters most in this section is not “reasoning sounds advanced,” but:
 
-- 推理层在 Agent 系统里到底负责什么
+- What exactly does the reasoning layer do in an Agent system?
 
-## 一、什么叫“推理”，它和“记住答案”有什么区别？
+## 1. What Is “Reasoning,” and How Is It Different from “Remembering Answers”?
 
-### 1.1 记住答案：像查脑内词典
+### 1.1 Remembering answers: like looking up an internal dictionary
 
-如果我问：
+If I ask:
 
-- 法国首都是哪里？
+- What is the capital of France?
 
-模型更像是在调用已经学到的知识模式。  
-这类问题更接近：
+The model is more like it is using a knowledge pattern it has already learned.
+This kind of question is closer to:
 
-- 记忆
-- 检索
-- 模式匹配
+- memory
+- retrieval
+- pattern matching
 
-### 1.2 推理：答案不直接放在题面里
+### 1.2 Reasoning: the answer is not directly written in the question
 
-如果我问：
+If I ask:
 
-- `3 * (4 + 2) - 5` 等于多少？
+- What is `3 * (4 + 2) - 5`?
 
-模型不能只靠“背过这个式子”。  
-它需要做：
+The model cannot rely only on “having memorized this formula.”
+It needs to do:
 
-1. 先算括号
-2. 再做乘法
-3. 最后做减法
+1. Calculate the expression inside the parentheses first
+2. Then do multiplication
+3. Finally do subtraction
 
-也就是说：
+In other words:
 
-> **推理问题的关键，不是有没有见过原题，而是能不能维持一条正确的中间状态链。**
+> **The key to a reasoning problem is not whether the model has seen the exact question before, but whether it can maintain a correct chain of intermediate states.**
 
-### 1.3 第一次学推理，最该先抓住什么？
+### 1.3 When learning reasoning for the first time, what should you focus on most?
 
-最该先抓住的不是术语，而是这句：
+What you should focus on first is not terminology, but this sentence:
 
-> **推理真正难的不是最后那一下回答，而是中间步骤能不能持续对。**
+> **The hardest part of reasoning is not the final answer, but whether each intermediate step stays correct all the way through.**
 
-这句话一旦稳住，后面你再看：
+Once this idea is solid, later when you see:
 
 - Chain-of-Thought
 - ReAct
 - Plan-and-Execute
 
-就会更自然地把它们理解成“在帮模型守住中间状态链”。
+you can naturally understand them as ways of helping the model preserve the chain of intermediate states.
 
-### 1.4 一个类比：推理像做菜，不是念菜名
+### 1.4 An analogy: reasoning is like cooking, not just naming a dish
 
-“知道宫保鸡丁是什么”更像知识。  
-“把鸡肉腌一下，再爆香，再调汁，再收汁”更像推理。
+“Knowing what Kung Pao Chicken is” is more like knowledge.
+“Marinate the chicken, then stir-fry the aromatics, then add the sauce, then reduce it” is more like reasoning.
 
-它要求系统：
+It requires the system to:
 
-- 知道顺序
-- 记住中间结果
-- 不要跳步
-
----
-
-## 二、LLM 推理常见会遇到哪三类问题？
-
-### 2.1 算术和符号推理
-
-例如：
-
-- 多步四则运算
-- 日期和时间推算
-- 单位换算
-
-这类问题的特点是：
-
-- 结论由步骤决定
-- 步骤一错，后面全错
-
-### 2.2 约束满足与比较决策
-
-例如：
-
-- 在预算、时间、库存约束下选方案
-- 排班
-- 路线规划
-
-这类问题不一定只是算数，  
-它更强调：
-
-- 多条件同时成立
-- 中间判断不能互相矛盾
-
-### 2.3 工具调用前后的状态整合
-
-这是 Agent 场景里最常见的一类。
-
-例如：
-
-1. 先查天气
-2. 再查航班
-3. 最后决定是否改签
-
-工具会给你外部信息，  
-但把这些信息合成结论，仍然需要推理。
-
-### 2.4 为什么这三类问题特别适合当 Agent 入口来学？
-
-因为它们都不是“查到就完”的问题，而是：
-
-- 要先拆步骤
-- 要保存中间结果
-- 要把外部观察再整合回来
-
-这正好就是 Agent 推理层最核心的工作。
+- know the order
+- remember intermediate results
+- avoid skipping steps
 
 ---
 
-## 三、先跑一个真正体现“中间状态”的示例
+## 2. What Three Types of Problems Do LLM Reasoning Commonly Face?
 
-下面这段代码会把一个算式解析成语法树，  
-然后递归求值，并把每一步计算过程记录下来。
+### 2.1 Arithmetic and symbolic reasoning
 
-它不是在模拟 LLM 本身，  
-而是在帮助你建立一层非常关键的直觉：
+For example:
 
-> **多步问题的核心，不是最后那一个答案，而是中间状态怎么正确传递。**
+- multi-step arithmetic
+- date and time calculation
+- unit conversion
+
+The characteristics of these problems are:
+
+- the conclusion depends on the steps
+- if one step is wrong, everything that follows is wrong
+
+### 2.2 Constraint satisfaction and comparative decision-making
+
+For example:
+
+- choosing a plan under budget, time, and inventory constraints
+- scheduling
+- route planning
+
+These problems are not necessarily just arithmetic.
+They emphasize:
+
+- multiple conditions must hold at the same time
+- intermediate judgments must not contradict each other
+
+### 2.3 State integration before and after tool use
+
+This is the most common type in Agent scenarios.
+
+For example:
+
+1. Check the weather first
+2. Then check the flight
+3. Finally decide whether to reschedule
+
+The tool gives you external information,
+but turning that information into a conclusion still requires reasoning.
+
+### 2.4 Why are these three types especially suitable as an entry point for learning Agents?
+
+Because they are not “look it up and you’re done” problems. Instead, they require:
+
+- breaking the task into steps
+- saving intermediate results
+- integrating external observations back in
+
+That is exactly the core work of the reasoning layer in an Agent.
+
+---
+
+## 3. Let’s First Run a Real Example That Clearly Shows “Intermediate State”
+
+The code below parses an expression into an abstract syntax tree,
+then evaluates it recursively while recording each step of the calculation.
+
+It is not simulating the LLM itself,
+but it helps you build a very important intuition:
+
+> **The core of a multi-step problem is not the final answer, but how intermediate states are passed along correctly.**
 
 ```python
 import ast
@@ -204,203 +204,203 @@ for step in steps:
 print("answer:", answer)
 ```
 
-### 3.1 这段代码最值得学的不是 `ast`
+### 3.1 What is most worth learning from this code is not `ast`
 
-真正值得带走的是：
+What is truly worth taking away is:
 
-- 每一步都会生成一个明确中间结果
-- 后一步依赖前一步
-- 最终答案只是最后一层状态
+- each step produces a clear intermediate result
+- the next step depends on the previous one
+- the final answer is only the last layer of state
 
-这和 LLM 做复杂推理时非常像。
+This is very similar to how LLMs handle complex reasoning.
 
-### 3.2 为什么中间状态比“最终答案”更关键？
+### 3.2 Why is intermediate state more important than the “final answer”?
 
-因为如果中间某步算错了，  
-你就算最后碰巧答对，也很难稳定复现。
+Because if one intermediate step is wrong,
+even if you happen to get the final answer right, it is hard to reproduce the result reliably.
 
-推理系统真正要追求的是：
+What a reasoning system should really pursue is:
 
-- 过程可依赖
-- 错误可定位
+- a dependable process
+- errors that can be traced
 
-而不是偶然命中一个答案。
+not accidentally hitting the right answer once.
 
-### 3.3 为什么 Agent 特别依赖这种能力？
+### 3.3 Why do Agents especially depend on this ability?
 
-因为 Agent 处理的问题通常不是单步完成的。  
-它可能要：
+Because the problems Agents handle are usually not completed in one step.
+They may need to:
 
-- 先读需求
-- 再查数据
-- 再比较约束
-- 最后再选动作
+- read the requirement first
+- then query data
+- then compare constraints
+- and finally choose an action
 
-这本质上就是在维护一条更长的中间状态链。
+This is essentially maintaining a longer chain of intermediate states.
 
-### 3.4 这段代码为什么比“最后答案对了”更有教学价值？
+### 3.4 Why is this code more educational than just “getting the final answer right”?
 
-因为它让你清楚看到：
+Because it clearly shows you:
 
-- 每一步是怎么来的
-- 下一步依赖什么
-- 错误到底会从哪一步开始传下去
+- how each step comes about
+- what the next step depends on
+- exactly where an error starts to propagate
 
-而 Agent 系统最需要的，恰恰就是这种：
+And that is precisely what an Agent system needs most:
 
-- 过程可读
-- 中间状态可查
-- 错误可定位
-
----
-
-## 四、LLM 推理为什么有时会强，有时又会突然失常？
-
-### 4.1 它擅长模式化的逐步结构
-
-如果任务可以被组织成比较清晰的步骤，  
-LLM 往往能表现不错，例如：
-
-- 分解问题
-- 解释理由
-- 生成候选方案
-
-### 4.2 它容易在长链条上漂移
-
-常见问题包括：
-
-- 漏步骤
-- 重复步骤
-- 中间数字算错
-- 前后约束自相矛盾
-
-也就是说，  
-LLM 的推理能力不是“稳定逻辑引擎”，  
-而更像：
-
-- 善于生成步骤草稿的语言推理器
-
-### 4.3 所以很多复杂任务要配合外部工具
-
-例如：
-
-- 用计算器做精确数值
-- 用数据库查真实状态
-- 用规则引擎检查约束冲突
-
-Agent 里的推理层，常常不是独立工作，  
-而是和工具协作。
-
-### 4.4 为什么“会推理”和“会聊天”完全不是一回事？
-
-因为聊天更像：
-
-- 语言流畅
-- 风格自然
-
-而推理更像：
-
-- 步骤要对
-- 约束不能冲突
-- 中间状态要稳
-
-这也是为什么一个看起来“很会说”的模型，在复杂多步任务里仍然可能失常。
+- a readable process
+- checkable intermediate states
+- traceable errors
 
 ---
 
-## 五、什么时候该启用“更强的推理模式”？
+## 4. Why Is LLM Reasoning Sometimes Strong, but Sometimes Suddenly Unstable?
 
-### 5.1 当答案需要多步推导
+### 4.1 It is good at patterned step-by-step structure
 
-如果问题本身明显需要：
+If the task can be organized into fairly clear steps,
+LLMs often perform well, for example:
 
-- 分步计算
-- 先后判断
-- 条件筛选
+- decomposing a problem
+- explaining reasons
+- generating candidate solutions
 
-那就值得启用更显式的推理策略。
+### 4.2 It can drift on long chains
 
-### 5.2 当错误代价高
+Common issues include:
 
-例如：
+- missing steps
+- repeating steps
+- making mistakes in intermediate numbers
+- conflicting constraints from beginning to end
 
-- 财务计算
-- 配置修改
-- 医疗建议辅助
+In other words,
+LLM reasoning is not a “stable logic engine,”
+but more like:
 
-这类问题里，  
-“看起来合理”不够，  
-更需要：
+- a language-based reasoner that is good at drafting steps
 
-- 过程可核验
+### 4.3 That is why many complex tasks need external tools
 
-### 5.3 当问题依赖外部观察结果
+For example:
 
-例如：
+- use a calculator for precise numeric calculations
+- use a database to check the real state
+- use a rules engine to detect constraint conflicts
 
-- 先查库存，再做下单建议
-- 先看航班，再做改签判断
+In an Agent, the reasoning layer often does not work alone,
+but cooperates with tools.
 
-这时推理必须和工具观察结合。
+### 4.4 Why are “can reason” and “can chat” completely different things?
 
----
+Because chatting is more like:
 
-## 六、最常见的误区
+- fluent language
+- natural style
 
-### 6.1 误区一：只要模型大，就天然会推理
+while reasoning is more like:
 
-模型更大通常会带来更好的上限，  
-但不代表所有复杂推理都会稳定。
+- steps must be correct
+- constraints must not conflict
+- intermediate states must remain stable
 
-### 6.2 误区二：推理就是把步骤写长一点
-
-不是。  
-真正有效的推理，是：
-
-- 步骤彼此有依赖
-- 中间状态可复用
-- 最终答案由过程支撑
-
-### 6.3 误区三：有工具就不需要推理
-
-工具只提供外部能力。  
-决定：
-
-- 什么时候调用
-- 调什么
-- 结果怎么整合
-
-仍然要靠推理。
+This is why a model that seems “very good at talking” can still fail in complex multi-step tasks.
 
 ---
 
-## 小结
+## 5. When Should You Turn on a “Stronger Reasoning Mode”?
 
-这节课最重要的，不是把“推理”神秘化，  
-而是先建立一个清楚判断：
+### 5.1 When the answer requires multiple steps of derivation
 
-> **LLM 推理能力的本质，是在多步问题里维护正确的中间状态，并把外部信息、约束条件和局部结果整合成最终结论。**
+If the problem clearly requires:
 
-只要这层判断立住了，  
-后面你再学：
+- step-by-step calculation
+- sequential judgment
+- condition filtering
+
+then it is worth using a more explicit reasoning strategy.
+
+### 5.2 When the cost of errors is high
+
+For example:
+
+- financial calculations
+- configuration changes
+- assisted medical advice
+
+In these problems,
+“looks reasonable” is not enough.
+What is needed more is:
+
+- a process that can be verified
+
+### 5.3 When the problem depends on external observations
+
+For example:
+
+- check inventory first, then make a purchasing suggestion
+- check flights first, then decide whether to reschedule
+
+At this point, reasoning must be combined with tool-based observations.
+
+---
+
+## 6. The Most Common Misconceptions
+
+### 6.1 Misconception 1: If the model is big enough, it will naturally reason well
+
+Larger models usually bring a higher ceiling,
+but that does not mean all complex reasoning will be stable.
+
+### 6.2 Misconception 2: Reasoning just means writing out more steps
+
+No.
+Truly effective reasoning means:
+
+- the steps depend on one another
+- intermediate states can be reused
+- the final answer is supported by the process
+
+### 6.3 Misconception 3: If you have tools, you do not need reasoning
+
+Tools only provide external capabilities.
+Deciding:
+
+- when to call them
+- which one to call
+- how to integrate the results
+
+still depends on reasoning.
+
+---
+
+## Summary
+
+The most important thing in this lesson is not to mystify “reasoning,”
+but to first build a clear judgment:
+
+> **The essence of LLM reasoning capability is to maintain correct intermediate states in multi-step problems, and integrate external information, constraint conditions, and local results into a final conclusion.**
+
+Once you establish this understanding,
+when you later learn:
 
 - CoT
 - ReAct
 - Plan-and-Execute
 
-就会知道它们其实都是在帮助模型更稳定地完成这件事。
+you will see that they are all helping the model complete this task more stably.
 
-## 这节最该带走什么
+## What You Should Take Away from This Lesson
 
-- 推理不是“把答案写长一点”，而是维持一条正确中间状态链
-- Agent 之所以需要推理，是因为很多任务不是单步完成
-- 工具提供能力，推理负责组织这些能力和结果
+- Reasoning is not “writing the answer longer,” but maintaining a correct chain of intermediate states
+- Agents need reasoning because many tasks are not completed in a single step
+- Tools provide capabilities, while reasoning organizes those capabilities and results
 
 ---
 
-## 练习
+## Exercises
 
-1. 把示例里的算式换成 `12 / (3 + 1) + 7`，看看步骤输出是否符合你的预期。
-2. 用自己的话解释：为什么说推理问题的关键在“中间状态”而不只在“最终答案”？
-3. 想一个你做过的 Agent 任务，找出其中至少两步明确依赖前一步结果的地方。
-4. 为什么说“有工具”不等于“会推理”？
+1. Replace the expression in the example with `12 / (3 + 1) + 7` and see whether the step output matches your expectations.
+2. Explain in your own words: why is the key to a reasoning problem in the “intermediate state” and not only the “final answer”?
+3. Think of an Agent task you have done, and identify at least two places where one step clearly depends on the result of the previous step.
+4. Why does “having tools” not mean “being able to reason”?

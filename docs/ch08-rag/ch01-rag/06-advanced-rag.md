@@ -1,92 +1,92 @@
 ---
-title: "1.7 高级 RAG 架构"
+title: "1.7 Advanced RAG Architectures"
 sidebar_position: 6
-description: "从路由、多跳检索、Agentic RAG 到结构化检索，理解当基础 RAG 不够用时，系统如何继续进化。"
+description: "Understand how systems keep evolving when basic RAG is no longer enough, from routing and multi-hop retrieval to Agentic RAG and structured retrieval."
 keywords: [advanced RAG, router, multi-hop, agentic rag, graph rag, structured retrieval]
 ---
 
-# 高级 RAG 架构
+# Advanced RAG Architectures
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 理解基础 RAG 在复杂场景下为什么会不够用
-- 认识路由式、多跳式、Agentic RAG 等常见架构
-- 跑通一个“多知识库路由”的玩具示例
-- 知道什么时候该升级 RAG 架构，什么时候不该
-
----
-
-## 一、为什么基础 RAG 迟早会遇到上限？
-
-### 1.1 基础 RAG 适合“单次问题 -> 单次检索 -> 单次回答”
-
-这对很多 FAQ 和简单问答已经够用。  
-但当问题变复杂时，就会出现瓶颈。
-
-例如：
-
-- 需要跨多个知识库
-- 需要先查制度，再查具体产品文档
-- 需要拆成多个子问题
-
-### 1.2 常见复杂场景
-
-比如用户问：
-
-> “这个学员能不能退款？如果不能，还有没有延期方案？”
-
-这其实隐含了多个动作：
-
-1. 查退款政策
-2. 判断当前条件是否满足
-3. 再查延期方案
-
-这时“只检索一次”往往不够。
+- Understand why basic RAG is not enough in complex scenarios
+- Recognize common architectures such as routing-based, multi-hop, and Agentic RAG
+- Run a toy example of “multi-knowledge-base routing”
+- Know when to upgrade a RAG architecture, and when not to
 
 ---
 
-## 二、路由式 RAG：先决定去哪里查
+## 1. Why Does Basic RAG Eventually Hit Its Limits?
 
-### 2.1 一个知识库不够时，先做路由
+### 1.1 Basic RAG Is Suitable for “One Question -> One Retrieval -> One Answer”
 
-很多系统不是只有一个文档库，而是有：
+This is already enough for many FAQs and simple Q&A tasks.
+But when the problem gets more complex, bottlenecks start to appear.
 
-- 政策库
-- 产品库
-- 技术文档库
-- FAQ 库
+For example:
 
-如果所有查询都进同一个库，噪声会很大。  
-这时更好的做法是：
+- Need to search across multiple knowledge bases
+- Need to check policies first, then product docs
+- Need to break the task into multiple sub-questions
 
-> 先判断问题属于哪个库，再去查。
+### 1.2 Common Complex Scenarios
 
-### 2.2 一个可运行的多库路由示例
+For example, a user asks:
+
+> “Can this learner get a refund? If not, is there an extension option?”
+
+This actually implies multiple actions:
+
+1. Check the refund policy
+2. Determine whether the current conditions are met
+3. Then check the extension option
+
+At this point, “retrieving only once” is often not enough.
+
+---
+
+## 2. Routing-Based RAG: Decide Where to Search First
+
+### 2.1 When One Knowledge Base Is Not Enough, Route First
+
+Many systems do not have just one document store. They may have:
+
+- Policy knowledge base
+- Product knowledge base
+- Technical documentation knowledge base
+- FAQ knowledge base
+
+If all queries go into the same store, the noise can be very high.
+A better approach is:
+
+> First determine which knowledge base the question belongs to, then retrieve from there.
+
+### 2.2 A Runnable Multi-Store Routing Example
 
 ```python
 policy_docs = [
-    "退款政策：课程购买后 7 天内可申请退款。",
-    "证书政策：通过测试后可获得证书。"
+    "Refund policy: You can apply for a refund within 7 days after purchasing the course.",
+    "Certificate policy: You can get a certificate after passing the test."
 ]
 
 tech_docs = [
-    "登录失败时请先检查账号密码和网络连接。",
-    "API 调用报 401 通常表示鉴权失败。"
+    "If login fails, first check your account password and network connection.",
+    "A 401 error from API calls usually indicates authentication failure."
 ]
 
 def route_query(query):
-    if "退款" in query or "证书" in query:
+    if "refund" in query or "certificate" in query:
         return "policy"
-    if "登录" in query or "API" in query or "401" in query:
+    if "login" in query or "API" in query or "401" in query:
         return "tech"
     return "default"
 
 def retrieve_simple(query, docs):
     return [doc for doc in docs if any(word in doc for word in query)]
 
-queries = ["怎么退款", "401 报错怎么处理"]
+queries = ["how to get a refund", "how to handle a 401 error"]
 
 for q in queries:
     route = route_query(q)
@@ -96,188 +96,188 @@ for q in queries:
         hits = retrieve_simple(q, tech_docs)
     else:
         hits = []
-    print(q, "-> 路由到", route, "->", hits)
+    print(q, "-> routed to", route, "->", hits)
 ```
 
-这就是最简版的“Router RAG”。
+This is the simplest version of “Router RAG.”
 
 ---
 
-## 三、多跳 RAG：问题要分解成多步
+## 3. Multi-hop RAG: Break the Problem into Multiple Steps
 
-### 3.1 有些问题本来就不是一步能答完
+### 3.1 Some Questions Cannot Be Answered in One Step
 
-例如：
+For example:
 
-> “这个人完成了哪些条件，还差什么才能拿证？”
+> “What conditions has this person completed, and what is still missing for them to get certified?”
 
-这类问题往往需要：
+This kind of question usually requires:
 
-1. 查拿证规则
-2. 查用户完成情况
-3. 再做对比
+1. Check the certification rules
+2. Check the user’s completion status
+3. Compare the two
 
-### 3.2 多跳 RAG 更像“做题”
+### 3.2 Multi-hop RAG Is More Like Solving a Problem Step by Step
 
-不是一次把资料全找出来，而是：
+Instead of finding all the materials at once, it works like this:
 
-- 先解决第一个子问题
-- 再根据中间结果继续查
+- Solve the first sub-question first
+- Then continue retrieving based on the intermediate result
 
-这会更接近 Agent 的味道。
-
----
-
-## 四、Agentic RAG：让检索不再是固定流水线
-
-### 4.1 它和普通 RAG 的区别是什么？
-
-普通 RAG 更像固定流程：
-
-1. 检索
-2. 拼上下文
-3. 回答
-
-Agentic RAG 则可能会：
-
-1. 判断需不需要检索
-2. 决定检索几次
-3. 决定改写查询还是切换数据源
-4. 再决定是否继续行动
-
-### 4.2 优势与代价
-
-优势：
-
-- 更灵活
-- 能处理复杂任务
-
-代价：
-
-- 更难调试
-- 更慢
-- 成本更高
-
-所以不是所有 RAG 都应该 agent 化。
+This feels closer to an Agent.
 
 ---
 
-## 五、结构化检索：不是所有知识都应该放进纯文本库
+## 4. Agentic RAG: Retrieval Is No Longer a Fixed Pipeline
 
-### 5.1 当数据本身有结构时
+### 4.1 What Is the Difference from Normal RAG?
 
-例如：
+Normal RAG is more like a fixed flow:
 
-- 订单表
-- 用户状态
-- 工单系统
-- 成绩表
+1. Retrieve
+2. Assemble context
+3. Answer
 
-这类数据很多时候更适合：
+Agentic RAG, on the other hand, may:
 
-- SQL 查询
-- API 查询
-- 图数据库
+1. Decide whether retrieval is needed
+2. Decide how many times to retrieve
+3. Decide whether to rewrite the query or switch data sources
+4. Then decide whether to continue acting
 
-而不是先把它们硬转成纯文本再检索。
+### 4.2 Advantages and Trade-offs
 
-### 5.2 一个常见的升级思路
+Advantages:
 
-真实系统可能会混用：
+- More flexible
+- Can handle complex tasks
 
-- 非结构化文档 RAG
-- 结构化数据库查询
-- 工具调用
+Trade-offs:
 
-这也是“高级 RAG”常常会和 Agent 融在一起的原因。
+- Harder to debug
+- Slower
+- Higher cost
+
+So not every RAG system should be made agentic.
 
 ---
 
-## 六、Graph RAG 和知识图谱类思路
+## 5. Structured Retrieval: Not All Knowledge Should Go into a Pure Text Store
 
-### 6.1 它解决什么问题？
+### 5.1 When the Data Itself Has Structure
 
-当知识点之间存在明显关系时，纯文本切块可能不够。
+For example:
 
-比如：
+- Order table
+- User status
+- Ticketing system
+- Grade table
 
-- 人物关系
-- 公司组织结构
-- 产品依赖关系
+These kinds of data are often better handled by:
 
-这时图结构更容易表达“节点之间的连接”。
+- SQL queries
+- API queries
+- Graph databases
 
-### 6.2 什么时候值得考虑？
+rather than forcing them into plain text and then retrieving from that.
 
-当你的问题经常需要：
+### 5.2 A Common Upgrade Path
 
-- 跨多实体跳转
-- 查关系链
-- 做结构化推理
+Real systems may combine:
 
-可以考虑图式检索思路。
+- Unstructured document RAG
+- Structured database queries
+- Tool calling
 
-![高级 RAG 架构选择图](/img/course/ch08-advanced-rag-architecture-selection-map.png)
+This is also why “advanced RAG” is often closely tied to Agents.
 
-:::tip 读图提示
-先从问题形态选架构：多知识库干扰先考虑 Router RAG，多步问题考虑 Multi-hop RAG，需要自主决策再考虑 Agentic RAG，关系链明显时再考虑 Graph RAG。
+---
+
+## 6. Graph RAG and Knowledge Graph Thinking
+
+### 6.1 What Problem Does It Solve?
+
+When knowledge points have obvious relationships, plain text chunking may not be enough.
+
+For example:
+
+- Person relationships
+- Company organizational structure
+- Product dependency relationships
+
+In these cases, a graph structure makes it easier to express the connections between nodes.
+
+### 6.2 When Is It Worth Considering?
+
+When your questions often require:
+
+- Jumping across multiple entities
+- Following relationship chains
+- Structured reasoning
+
+you can consider graph-style retrieval.
+
+![Advanced RAG architecture selection map](/img/course/ch08-advanced-rag-architecture-selection-map-en.png)
+
+:::tip Reading guide
+Start by choosing an architecture based on the question type: if multiple knowledge bases interfere with one another, consider Router RAG first; if the question needs multiple steps, consider Multi-hop RAG; if you need autonomous decision-making, consider Agentic RAG; if relationship chains are obvious, then consider Graph RAG.
 :::
 
 ---
 
-## 七、什么时候该升级到高级 RAG？
+## 7. When Should You Upgrade to Advanced RAG?
 
-### 7.1 值得升级的信号
+### 7.1 Signs That It Is Worth Upgrading
 
-如果你已经遇到这些问题：
+If you are already facing these problems:
 
-- 多知识库互相干扰
-- 单次检索经常不够
-- 需要结构化数据协同
-- 问题明显要分步骤才能答
+- Multiple knowledge bases interfere with each other
+- One retrieval is often not enough
+- Structured data needs to work together with retrieval
+- The question clearly needs step-by-step reasoning
 
-说明可以考虑升级架构。
+then it may be time to upgrade the architecture.
 
-### 7.2 不值得升级的信号
+### 7.2 Signs That It Is Not Worth Upgrading
 
-如果你现在连基础 RAG 都还没打稳：
+If you have not even stabilized basic RAG yet:
 
-- chunk 不合理
-- 评估集没有
-- top-k 都没调过
+- Chunking is unreasonable
+- There is no evaluation set
+- You have not tuned top-k
 
-那先别急着上高级架构。
-
----
-
-## 八、初学者常见误区
-
-### 8.1 一看到复杂任务就想上 Agentic RAG
-
-很多时候，先把路由和检索策略做好，已经能解决大半问题。
-
-### 8.2 把“高级”理解成“组件越多越高级”
-
-组件变多不等于系统更好，可能只是更难维护。
-
-### 8.3 不做评估就盲目升级架构
-
-没有评估，你无法知道升级是真优化还是“看起来更复杂”。
+then do not rush into advanced architectures.
 
 ---
 
-## 小结
+## 8. Common Beginner Mistakes
 
-这一节最重要的认识是：
+### 8.1 Wanting to Use Agentic RAG as Soon as a Task Looks Complex
 
-> 高级 RAG 不是为了炫技，而是在基础 RAG 无法覆盖复杂问题时，给系统增加更聪明的检索组织方式。
+In many cases, getting routing and retrieval strategies right already solves most of the problem.
 
-先把简单架构打磨稳，再决定要不要升级，通常是更成熟的工程路线。
+### 8.2 Thinking “More Components” Means “More Advanced”
+
+More components do not necessarily mean a better system; they may just make maintenance harder.
+
+### 8.3 Upgrading Architectures Without Evaluation
+
+Without evaluation, you cannot tell whether the upgrade is a real improvement or just “something that looks more complicated.”
 
 ---
 
-## 练习
+## Summary
 
-1. 给路由示例再增加一个“课程内容库”，扩展 `route_query()` 规则。
-2. 想一想：你自己的项目里，有没有哪些数据其实更适合 SQL / API 查询，而不是纯文本检索？
-3. 试着举一个必须多跳检索才能回答的问题。
+The most important takeaway from this section is:
+
+> Advanced RAG is not about showing off. It is about giving the system a smarter way to organize retrieval when basic RAG cannot cover complex questions.
+
+Polishing a simple architecture first, and then deciding whether to upgrade, is usually the more mature engineering path.
+
+---
+
+## Exercises
+
+1. Add a “course content knowledge base” to the routing example and extend the `route_query()` rules.
+2. Think about your own project: is there any data that would actually be better suited to SQL / API queries rather than pure text retrieval?
+3. Try to come up with a question that can only be answered with multi-hop retrieval.

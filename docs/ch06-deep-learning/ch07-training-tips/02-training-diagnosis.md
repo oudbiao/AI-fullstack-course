@@ -1,109 +1,109 @@
 ---
-title: "7.3 训练监控与诊断"
+title: "7.3 Training Monitoring and Diagnosis"
 sidebar_position: 2
-description: "从 loss 曲线、过拟合、梯度异常和数据问题出发，建立训练诊断的基础方法。"
+description: "Build a basic framework for diagnosing training issues from loss curves, overfitting, gradient anomalies, and data problems."
 keywords: [training diagnosis, monitoring, loss curve, overfitting, gradient, debugging]
 ---
 
-# 训练监控与诊断
+# Training Monitoring and Diagnosis
 
-![训练曲线诊断图](/img/course/training-curve-diagnosis.png)
+![Training curve diagnosis chart](/img/course/training-curve-diagnosis-en.png)
 
-:::tip 本节定位
-很多训练失败并不是“模型不够强”，而是：
+:::tip Section overview
+Many training failures are not caused by “the model not being powerful enough,” but by:
 
-- 数据有问题
-- 学习率不对
-- 训练过程在悄悄崩
+- Problems with the data
+- An incorrect learning rate
+- The training process quietly breaking down
 
-所以训练时最关键的能力之一不是“会开训”，而是：
+So one of the most important skills in training is not “knowing how to start training,” but:
 
-> **看得懂训练过程到底出了什么问题。**
+> **Being able to tell what exactly went wrong during training.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解训练监控应该看哪些关键信号
-- 学会区分过拟合、欠拟合、学习率异常等常见问题
-- 通过可运行示例建立训练曲线诊断直觉
-- 学会把问题定位到数据、优化器或模型结构层
+- Understand which key signals to watch during training
+- Learn to distinguish common issues such as overfitting, underfitting, and abnormal learning rates
+- Build intuition for diagnosing training curves through runnable examples
+- Learn how to locate problems at the data, optimizer, or model-structure level
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-如果你已经学过训练循环和调参，这一节最自然的续接就是：
+If you have already learned about training loops and hyperparameter tuning, the most natural continuation in this section is:
 
-- 训练循环告诉你“怎么训”
-- 调参告诉你“先调什么”
-- 这一节开始回答“训坏了时到底先查什么”
+- The training loop tells you “how to train”
+- Hyperparameter tuning tells you “what to tune first”
+- This section starts answering “what should you check first when training goes wrong”
 
-所以训练诊断不是补充阅读，而是训练工程里最核心的排障能力之一。
+So training diagnosis is not optional reading — it is one of the most essential debugging skills in training engineering.
 
-训练诊断最适合新人的方式不是“靠经验猜”，而是先把问题拆成几层：
+The best way for beginners to approach training diagnosis is not to “guess from experience,” but to break the problem into layers first:
 
 ```mermaid
 flowchart LR
-    A["训练现象"] --> B["先看曲线"]
-    B --> C["再看预测和梯度"]
-    C --> D["再回到数据和标签"]
-    D --> E["最后再怀疑模型结构"]
+    A["Training symptoms"] --> B["Check the curves first"]
+    B --> C["Then check predictions and gradients"]
+    C --> D["Then go back to the data and labels"]
+    D --> E["Only then suspect the model architecture"]
 ```
 
-这个顺序会让你少走很多弯路。
+This order will save you a lot of detours.
 
-### 一个更适合新人的总类比
+### A better overall analogy for beginners
 
-你可以把训练诊断理解成：
+You can think of training diagnosis like this:
 
-- 医生先看体征，再判断病因
+- A doctor checks vital signs first, then determines the cause
 
-如果你一看到 loss 不对就立刻换模型，  
-就很像：
+If you see an abnormal loss and immediately switch models,
+it is like:
 
-- 还没量体温就先换整套治疗方案
+- Changing the whole treatment plan before even measuring the temperature
 
-更稳的方式通常是：
+A more stable approach is usually:
 
-- 先看现象
-- 再做初步归类
-- 最后再定位真正根因
+- Observe the symptoms first
+- Make a preliminary classification
+- Then locate the real root cause
 
-## 一、为什么训练诊断这么重要？
+## 1. Why is training diagnosis so important?
 
-### 1.1 因为训练失败很少会直接报“真正原因”
+### 1.1 Because training failures rarely report the “real reason” directly
 
-你更常看到的是：
+What you more often see is:
 
-- loss 不降
-- 验证集突然变差
-- 准确率卡住
+- Loss does not decrease
+- Validation suddenly gets worse
+- Accuracy gets stuck
 
-但这些只是现象，不是根因。
+But these are only symptoms, not root causes.
 
-### 1.2 真正的诊断要回答
+### 1.2 Real diagnosis needs to answer
 
-- 是学习率问题？
-- 是数据问题？
-- 是过拟合？
-- 还是模型容量不够？
+- Is it a learning rate problem?
+- Is it a data problem?
+- Is it overfitting?
+- Or is the model capacity not enough?
 
-### 1.3 这节最值得先记的，不是故障名称，而是什么？
+### 1.3 The most important thing to remember first is not the failure name, but what?
 
-最值得先记的是：
+The most important thing to remember is:
 
-> **训练现象和根因不是同一个东西。**
+> **Training symptoms and root causes are not the same thing.**
 
-比如：
+For example:
 
-- `loss 不降` 只是现象
-- 真正根因可能是学习率、标签、梯度、数据分布、模型容量
+- `loss does not decrease` is only a symptom
+- The real root cause may be the learning rate, labels, gradients, data distribution, or model capacity
 
-一旦你把“现象”和“根因”分开，排障会理性很多。
+Once you separate “symptoms” from “root causes,” debugging becomes much more rational.
 
 ---
 
-## 二、先看一个最常见的诊断入口：训练曲线
+## 2. Start with the most common diagnostic entry point: the training curve
 
 ```python
 history = [
@@ -117,140 +117,140 @@ for row in history:
     print(row)
 ```
 
-### 2.1 这个例子里最明显的信号是什么？
+### 2.1 What is the most obvious signal in this example?
 
-- `train_loss` 一直下降
-- `val_loss` 先降后升
+- `train_loss` keeps going down
+- `val_loss` first decreases, then increases
 
-这通常非常像：
+This usually looks a lot like:
 
-- 过拟合
+- Overfitting
 
-### 2.2 为什么训练曲线是第一入口？
+### 2.2 Why is the training curve the first entry point?
 
-因为它是最早暴露问题的地方，  
-而且很多问题都能先从曲线形状看出端倪。
+Because it is the first place where problems show up,
+and many issues can be inferred from the curve shape early on.
 
-### 2.3 第一次看曲线时，最值得先盯哪三件事？
+### 2.3 When looking at the curve for the first time, what three things should you focus on?
 
-1. 训练集有没有在学
-2. 验证集有没有同步变好
-3. 两条曲线是不是开始明显分叉
+1. Whether the training set is actually being learned
+2. Whether the validation set is improving at the same time
+3. Whether the two curves are clearly starting to diverge
 
-只要先盯这三件事，很多问题都能先做第一轮归类。
+If you focus on these three things first, many problems can be classified in the first round.
 
-### 2.4 一个很适合初学者先记的故障定位表
+### 2.4 A fault-location table that beginners can use directly
 
-| 现象 | 更可能先查什么 |
+| Symptom | What to check first |
 |------|------|
-| train / val 都很差 | 欠拟合、模型容量、特征不足 |
-| train 很好，val 变差 | 过拟合、数据量不足、正则化不够 |
-| loss 大幅震荡 | 学习率过大、batch 太小、梯度不稳 |
-| 模型总预测同一类 | 标签问题、类别不平衡、实现 bug |
+| Both train / val are bad | Underfitting, model capacity, insufficient features |
+| Train is good, val gets worse | Overfitting, too little data, insufficient regularization |
+| Loss fluctuates a lot | Learning rate too high, batch too small, unstable gradients |
+| The model always predicts the same class | Label issues, class imbalance, implementation bug |
 
-这个表很适合新人，因为它能把“看到曲线后完全不知道怎么办”，先变成一组可执行的排查起点。
+This table is great for beginners because it turns “I have no idea what to do after seeing the curve” into a set of actionable starting points.
 
-![训练诊断仪表盘排查路线图](/img/course/ch06-training-diagnosis-dashboard-map.png)
+![Training diagnosis dashboard troubleshooting map](/img/course/ch06-training-diagnosis-dashboard-map-en.png)
 
-:::tip 读图提示
-这张图建议按从上到下排查：先看 train/val 曲线，再看学习率和 batch，再看预测分布和梯度，最后回到数据与标签。不要一看到 loss 不对就换大模型，很多问题根因在训练流程或数据。
+:::tip Reading guide
+It is recommended to troubleshoot this diagram from top to bottom: first check the train/val curves, then the learning rate and batch size, then the prediction distribution and gradients, and finally go back to the data and labels. Do not switch to a larger model the moment the loss looks wrong — in many cases, the root cause is in the training pipeline or the data.
 :::
 
 ---
 
-## 三、几种常见问题长什么样？
+## 3. What do common problems look like?
 
-### 3.1 欠拟合
+### 3.1 Underfitting
 
-典型表现：
+Typical signs:
 
-- train_loss 高
-- val_loss 也高
-- 两边都下不去
+- High train_loss
+- High val_loss as well
+- Both fail to go down
 
-### 3.2 过拟合
+### 3.2 Overfitting
 
-典型表现：
+Typical signs:
 
-- train_loss 继续下降
-- val_loss 开始变差
+- train_loss keeps decreasing
+- val_loss starts getting worse
 
-### 3.3 学习率太大
+### 3.3 Learning rate too large
 
-典型表现：
+Typical signs:
 
-- loss 抖动
-- 甚至突然爆炸
+- Loss oscillates
+- Or even suddenly blows up
 
-### 3.4 学习率太小
+### 3.4 Learning rate too small
 
-典型表现：
+Typical signs:
 
-- loss 在降，但极慢
-- 很久没有明显进展
-
----
-
-## 四、除了 loss，还该看什么？
-
-### 4.1 梯度是否异常
-
-例如：
-
-- 梯度爆炸
-- 梯度消失
-
-### 4.2 预测分布是否异常
-
-例如：
-
-- 模型总预测同一类
-- 置信度极端偏斜
-
-### 4.3 数据本身是否有问题
-
-例如：
-
-- 标签错误
-- 类别不平衡
-- 训练/验证分布差异大
-
-### 4.4 一个新人可直接照抄的排查顺序
-
-当训练出问题时，可以优先按这个顺序看：
-
-1. 训练和验证曲线
-2. 学习率设置
-3. 输入和标签是否对齐
-4. 模型预测是不是塌到同一类
-5. 梯度和参数更新是否异常
-
-这样通常比一上来换模型更有效。
-
-### 4.5 为什么这套顺序比“先换模型”更稳？
-
-因为很多训练问题的根因并不在模型结构，而在更前面：
-
-- 数据
-- 标签
-- 学习率
-- 训练流程
-
-如果这些没先排清，就算换更复杂模型，问题常常还在。
+- Loss is decreasing, but very slowly
+- No obvious progress for a long time
 
 ---
 
-## 五、一个最小诊断规则示例
+## 4. What should you look at besides loss?
+
+### 4.1 Whether the gradients are abnormal
+
+For example:
+
+- Gradient explosion
+- Vanishing gradients
+
+### 4.2 Whether the prediction distribution is abnormal
+
+For example:
+
+- The model always predicts the same class
+- Confidence is extremely skewed
+
+### 4.3 Whether the data itself has problems
+
+For example:
+
+- Incorrect labels
+- Class imbalance
+- Large differences between training and validation distributions
+
+### 4.4 A troubleshooting order that beginners can follow directly
+
+When training goes wrong, you can prioritize this order:
+
+1. Training and validation curves
+2. Learning rate settings
+3. Whether inputs and labels are aligned
+4. Whether predictions collapse to the same class
+5. Whether gradients and parameter updates are abnormal
+
+This is usually more effective than changing the model right away.
+
+### 4.5 Why is this order more stable than “just switch models first”?
+
+Because the root cause of many training problems is not in the model architecture, but earlier in the pipeline:
+
+- Data
+- Labels
+- Learning rate
+- Training process
+
+If these are not checked first, the problem often remains even after switching to a more complex model.
+
+---
+
+## 5. A minimal diagnosis rule example
 
 ```python
 def diagnose(train_losses, val_losses):
     if train_losses[-1] > 0.8 and val_losses[-1] > 0.8:
-        return "可能欠拟合"
+        return "Possible underfitting"
     if train_losses[-1] < train_losses[0] and val_losses[-1] > min(val_losses):
-        return "可能过拟合"
+        return "Possible overfitting"
     if max(train_losses) - min(train_losses) > 1.5:
-        return "可能学习率过大或训练不稳定"
-    return "需要结合更多信号判断"
+        return "Possible learning rate too large or unstable training"
+    return "Need more signals to make a judgment"
 
 
 train_losses = [0.95, 0.72, 0.51, 0.35]
@@ -259,14 +259,14 @@ val_losses = [0.98, 0.81, 0.79, 0.92]
 print(diagnose(train_losses, val_losses))
 ```
 
-### 5.1 这个例子不是要替代人工判断
+### 5.1 This example is not meant to replace human judgment
 
-它主要是在帮你建立一种很重要的诊断习惯：
+It is mainly helping you build an important diagnostic habit:
 
-- 先从现象归类
-- 再去找可能原因
+- First classify by symptoms
+- Then look for possible causes
 
-### 5.2 再看一个最小“训练日志检查表”示例
+### 5.2 Let’s look at another minimal “training log checklist” example
 
 ```python
 training_log = {
@@ -278,105 +278,103 @@ training_log = {
 
 def first_check(log):
     if log["prediction_pattern"] == "mostly_one_class":
-        return "先检查标签分布、类别不平衡和输出层实现。"
+        return "First check the label distribution, class imbalance, and output-layer implementation."
     if log["val_loss"][-1] > min(log["val_loss"]):
-        return "先按过拟合方向排查。"
-    return "先继续看学习率和梯度。"
+        return "First troubleshoot in the direction of overfitting."
+    return "First keep looking at the learning rate and gradients."
 
 
 print(first_check(training_log))
 ```
 
-这个示例很适合新人，因为它会帮助你把训练诊断从：
+This example is very suitable for beginners because it helps you turn training diagnosis from:
 
-- 模糊感觉
+- a vague feeling
 
-变成：
+into:
 
-- 有顺序的排查动作
-
----
-
-## 六、最容易踩的坑
-
-### 6.1 误区一：只看最终准确率
-
-这样你很难理解训练过程中发生了什么。
-
-### 6.2 误区二：一看 loss 不降就立刻换模型
-
-很多时候问题根本不在模型结构。
-
-### 6.3 误区三：觉得训练问题只能靠经验猜
-
-其实很多问题都能通过：
-
-- 曲线
-- 统计
-- 样本检查
-
-有系统地定位。
-
-## 七、训练时最值得固定保存哪些东西
-
-- 每个 epoch 的 train / val loss
-- 关键指标
-- 最好和最坏的样本预测
-- 一份当前超参数配置
-
-## 如果把它做成项目或实验记录，最值得展示什么
-
-最值得展示的通常不是：
-
-- 最后一个准确率
-
-而是：
-
-1. train / val 曲线
-2. 你对问题的第一轮诊断
-3. 你先改了什么
-4. 改完后曲线和指标怎么变
-
-这样别人会更容易看出：
-
-- 你理解的是训练排障
-- 不只是会按下开始训练按钮
-
-这些记录会让你后面复盘时非常轻松。
-
-### 7.1 为什么“最坏样本”常常比平均分更有价值？
-
-因为平均分只能告诉你“整体大概怎样”，  
-但最坏样本更能暴露：
-
-- 模型最怕哪类输入
-- 标签是不是有问题
-- 数据分布是否存在边角案例
-
-所以很多真正有效的改进，往往不是从总指标里看出来的，而是从最差样本里看出来的。
+- an orderly troubleshooting process
 
 ---
 
-## 小结
+## 6. The most common pitfalls
 
-这节最重要的是建立一个训练诊断直觉：
+### 6.1 Mistake 1: Only looking at final accuracy
 
-> **先从 loss 曲线和验证表现识别问题类型，再把根因逐步定位到学习率、数据、泛化或模型容量。**
+This makes it hard to understand what happened during training.
 
-只要这个习惯建立起来，训练就不会再只是“开盲盒”。
+### 6.2 Mistake 2: Immediately switching models when the loss does not go down
 
-## 这节最该带走什么
+Very often, the problem is not in the model architecture at all.
 
-- 曲线是入口，不是结论
-- 现象和根因要分开看
-- 先排数据和训练流程，再大改模型
-- 训练诊断能力本身就是深度学习工程能力
+### 6.3 Mistake 3: Thinking training problems can only be guessed from experience
+
+In fact, many problems can be systematically located through:
+
+- Curves
+- Statistics
+- Sample inspection
+
+## 7. What is worth saving during training
+
+- Train / val loss for each epoch
+- Key metrics
+- Predictions for the best and worst samples
+- A copy of the current hyperparameter configuration
+
+## If you turn this into a project or experiment record, what is most worth showing?
+
+What is usually most worth showing is not:
+
+- The final accuracy value
+
+but:
+
+1. The train / val curves
+2. Your first-round diagnosis of the problem
+3. What you changed first
+4. How the curves and metrics changed after the fix
+
+This makes it much easier for others to see:
+
+- You understand training debugging
+- You are not just able to press the “start training” button
+
+These records will also make later retrospectives much easier.
+
+### 7.1 Why are the “worst samples” often more valuable than the average score?
+
+Because the average score can only tell you “what the overall situation is like,”
+but the worst samples are better at exposing:
+
+- Which kinds of inputs the model fears most
+- Whether the labels may be wrong
+- Whether there are edge cases in the data distribution
+
+So many truly effective improvements are not discovered from the overall metric, but from the worst samples.
 
 ---
 
-## 练习
+## Summary
 
-1. 自己构造一组“欠拟合”曲线，看看 `diagnose` 会不会变化。
-2. 为什么说训练集和验证集的差距，是诊断里非常关键的信号？
-3. 如果模型总预测同一类，你会优先怀疑哪些问题？
-4. 想一想：为什么训练诊断能力本身就是工程能力？
+The most important thing in this section is to build training diagnosis intuition:
+
+> **First identify the problem type from the loss curve and validation performance, then gradually locate the root cause in the learning rate, data, generalization, or model capacity.**
+
+Once this habit is built, training will no longer feel like “opening a blind box.”
+
+## What you should take away from this section
+
+- Curves are the entry point, not the conclusion
+- Symptoms and root causes must be viewed separately
+- Check the data and training pipeline first, then make big model changes
+- Training diagnosis skill itself is a core deep learning engineering skill
+
+---
+
+## Exercises
+
+1. Create your own “underfitting” curve and see whether `diagnose` changes.
+2. Why is the gap between the training set and validation set such a critical signal in diagnosis?
+3. If the model always predicts the same class, which problems would you suspect first?
+4. Think about this: why is training diagnosis skill itself an engineering skill?

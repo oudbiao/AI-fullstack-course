@@ -1,178 +1,176 @@
 ---
-title: "3.2 Transformer 架构回顾与深入"
+title: "3.2 Transformer Architecture Review and Deep Dive"
 sidebar_position: 8
-description: "从一个 Transformer block 的数据流出发，重新看懂 token embedding、位置编码、自注意力、残差连接和前馈网络是怎样串起来工作的。"
+description: "Starting from the data flow of a Transformer block, revisit how token embedding, positional encoding, self-attention, residual connections, and feed-forward networks work together."
 keywords: [Transformer, self-attention, residual, layer norm, feed forward, decoder]
 ---
 
-# Transformer 架构回顾与深入
+# Transformer Architecture Review and Deep Dive
 
-:::tip 本节定位
-如果你学过注意力机制，可能已经知道 `Q / K / V` 这些名词。  
-但真正到了大模型阶段，很多人还是会卡住：
+:::tip Section Overview
+If you have studied attention mechanisms, you may already know terms like `Q / K / V`.
+But when you really get to the large model stage, many people still get stuck:
 
-- 为什么一个 block 里要先注意力、再前馈网络？
-- 为什么残差和 LayerNorm 总是反复出现？
-- 为什么同样是 Transformer，GPT 和 BERT 最后能走出不同路线？
+- Why does a block use attention first and then a feed-forward network?
+- Why do residual connections and LayerNorm keep showing up again and again?
+- Why can the same Transformer lead GPT and BERT down different paths in the end?
 
-这节课的目标不是再背一遍结构图，而是把一个 Transformer block 真的拆开，让你能顺着数据流把它讲清楚。
+The goal of this lesson is not to memorize the structure diagram again, but to break down a Transformer block so you can explain it clearly by following the data flow.
 :::
 
-## 学习目标
+## Learning Goals
 
-- 理解 Transformer block 内部每个模块分别负责什么
-- 理解 token embedding、位置信息、自注意力、FFN 是怎样串联的
-- 通过一个可运行的最小 block 示例建立“数据是怎么流动的”直觉
-- 理解为什么残差连接和归一化对深层网络很重要
+- Understand what each module inside a Transformer block is responsible for
+- Understand how token embedding, positional information, self-attention, and FFN are connected
+- Build intuition for “how data flows” through a runnable minimal block example
+- Understand why residual connections and normalization are important for deep networks
 
 ---
 
-## 一、为什么 Transformer 会成为大模型的底座？
+## 1. Why Did Transformer Become the Backbone of Large Models?
 
-### 1.1 它解决的是“序列里谁该看谁”的问题
+### 1.1 It solves the problem of “who should look at whom” in a sequence
 
-语言天然是序列。  
-当模型处理一句话时，它需要知道：
+Language is naturally a sequence.
+When a model processes a sentence, it needs to know:
 
-- 当前词和前面哪些词有关
-- 哪些位置更重要
-- 长距离依赖该怎么保留
+- Which previous words are related to the current word
+- Which positions are more important
+- How to preserve long-range dependencies
 
-RNN 的思路是顺序读，  
-CNN 的思路是局部卷积，  
-Transformer 的思路则是：
+The RNN idea is to read sequentially,
+the CNN idea is local convolution,
+and the Transformer idea is:
 
-> **让每个位置都主动去“看”其他位置，并为它们分配权重。**
+> **Let each position actively “look at” other positions and assign them weights.**
 
-这就是自注意力的核心。
+That is the core of self-attention.
 
-### 1.2 Transformer 真正强的地方不只是注意力
+### 1.2 The real strength of Transformer is not just attention
 
-很多人会把 Transformer 简化成：
+Many people simplify Transformer as:
 
-- 有 attention 的网络
+- A network with attention
 
-但真正让它适合大规模训练的，其实是一整套配合：
+But what really makes it suitable for large-scale training is a whole set of components working together:
 
 - token embedding
-- 位置表示
-- 多头自注意力
-- 残差连接
+- positional representation
+- multi-head self-attention
+- residual connections
 - LayerNorm
-- 前馈网络
-- 可堆叠的 block 结构
+- feed-forward network
+- stackable block structure
 
-这套组合让它既能建模序列关系，又能做深、做大、做并行。
+This combination allows it to model sequence relationships, scale deep, scale large, and parallelize well.
 
-### 1.3 一个类比：每层 block 都像一次“讨论 + 整理”
+### 1.3 An analogy: each block is like one round of “discussion + organization”
 
-你可以把一个 Transformer block 想成开会：
+You can think of a Transformer block as a meeting:
 
-- 自注意力像“每个 token 去听别的 token 在说什么”
-- 前馈网络像“每个 token 在吸收完上下文后，再单独做一轮内部加工”
-- 残差连接像“保留原始发言，不要被新一轮加工完全覆盖”
+- Self-attention is like “each token listening to what other tokens are saying”
+- The feed-forward network is like “after absorbing the context, each token does one more round of internal processing on its own”
+- Residual connection is like “keep the original message; don’t let the new processing completely overwrite it”
 
-一个 block 处理一轮，  
-多层 block 叠起来，就像一群人反复讨论和整理信息。
+One block processes one round,
+and many blocks stacked together are like a group repeatedly discussing and organizing information.
 
 ---
 
-## 二、一个 Transformer block 里到底有什么？
+## 2. What Is Inside a Transformer Block?
 
-### 2.1 输入先变成向量
+### 2.1 The input is first turned into vectors
 
-模型看到的不是文字本身，而是 token id。  
-这些 token id 会先查 embedding 表，变成向量。
+What the model sees is not text itself, but token ids.
+These token ids are looked up in the embedding table and turned into vectors.
 
-例如：
+For example:
 
-- `我` -> `[0.2, -0.1, 0.8, ...]`
-- `喜欢` -> `[0.7, 0.3, -0.2, ...]`
+- `I` -> `[0.2, -0.1, 0.8, ...]`
+- `like` -> `[0.7, 0.3, -0.2, ...]`
 
-这一步做的是：
+This step does:
 
-> **把离散符号变成连续空间里的表示。**
+> **Convert discrete symbols into representations in a continuous space.**
 
-### 2.2 然后补上位置信息
+### 2.2 Then positional information is added
 
-注意力本身只关心“集合里的关系”，  
-它并不知道 token 原本处在第几个位置。
+Attention itself only cares about relationships inside a set,
+and it does not know which position a token originally occupied.
 
-所以我们必须告诉模型：
+So we must tell the model:
 
-- 第 1 个 token
-- 第 2 个 token
-- 第 3 个 token
+- the 1st token
+- the 2nd token
+- the 3rd token
 
-这些位置信息可以通过：
+This positional information can be injected through:
 
-- 正弦位置编码
-- 可学习位置向量
-- RoPE 等相对位置方法
+- sinusoidal positional encoding
+- learnable position vectors
+- relative position methods such as RoPE
 
-注入进去。
+### 2.3 Self-attention handles “cross-token communication”
 
-### 2.3 自注意力负责“跨 token 交流”
+In self-attention, each token generates three representations:
 
-自注意力里每个 token 都会生成三份表示：
+- Query: what I want to find
+- Key: what I can offer
+- Value: what you get if you attend to me
 
-- Query：我想找什么
-- Key：我能提供什么
-- Value：如果你关注我，你最终拿到什么
+Then each token does two steps:
 
-然后每个 token 会做两步：
+1. Use its own `Query` and other tokens’ `Key` to compute similarity
+2. Use those similarities to weight other tokens’ `Value`
 
-1. 用自己的 `Query` 和其他 token 的 `Key` 算相似度
-2. 用这些相似度去加权别人的 `Value`
+The result is:
 
-得到的结果就是：
+- a new representation that combines context
 
-- “结合了上下文后的新表示”
+### 2.4 The feed-forward network handles “per-token deep processing”
 
-### 2.4 前馈网络负责“单 token 深加工”
+When beginners learn Transformer, they often treat attention as the only core part.
+But in fact, FFN is also very important.
 
-很多新人学 Transformer 时，会把注意力看成唯一核心。  
-但实际上，FFN 也非常重要。
+Its characteristics are:
 
-它的特点是：
+- Each token passes through a small MLP independently
+- No cross-token communication
+- But it enhances nonlinear expressive power
 
-- 每个 token 单独经过一小段 MLP
-- 不做跨 token 交流
-- 但会增强非线性表达能力
+You can understand it as:
 
-可以把它理解成：
+> Attention exchanges information, FFN digests information.
 
-> 注意力负责交换信息，FFN 负责消化信息。 
+### 2.5 Why do residuals and normalization keep appearing?
 
-### 2.5 残差和归一化为什么总出现？
+Because deep networks are easy to train unstably.
+The role of residual connections and LayerNorm can be roughly remembered as:
 
-因为深层网络很容易训练不稳。  
-残差连接和 LayerNorm 的作用，可以先粗略记成：
+- Residual: preserve old information, so new information becomes an “incremental update”
+- LayerNorm: bring each layer’s output back into a more stable numeric range
 
-- 残差：保留旧信息，让新信息是“增量更新”
-- LayerNorm：把每层输出拉回更稳定的数值范围
+Without them,
+deep Transformers can become hard to train very easily.
 
-如果没有它们，  
-深层 Transformer 很容易训练困难。
+![Transformer Block Data Flow Breakdown](/img/course/ch07-transformer-block-dataflow-map-en.png)
 
-![Transformer Block 数据流拆解图](/img/course/ch07-transformer-block-dataflow-map.png)
-
-:::tip 读图提示
-这张图建议按一层 block 的数据流读：token 表示先通过 Self-Attention 和上下文交流，再经 Residual/LayerNorm 稳住信息，随后进入 FFN 做逐 token 深加工。Transformer 不是只有 attention，而是“交流、保留、稳定、加工”的组合。
+:::tip Reading Guide
+It is recommended to read this diagram according to the data flow of one block: token representations first communicate with context through Self-Attention, then LayerNorm/Residual keep the information stable, and then FFN performs token-by-token deep processing. Transformer is not just attention, but a combination of “communication, preservation, stability, and processing.”
 :::
 
 ---
 
-## 三、先跑一个真正的最小 Transformer block
+## 3. Let’s Run a Real Minimal Transformer Block First
 
-下面这段代码会用纯 Python 做一件事：
+The code below uses pure Python to do one thing:
 
-- 输入三个 token 向量
-- 计算一个单头自注意力
-- 做残差连接
-- 再经过一个小前馈网络
+- Take three token vectors as input
+- Compute single-head self-attention
+- Apply a residual connection
+- Then pass through a small feed-forward network
 
-它不是完整工业实现，但每一步都对应真实 block 的核心结构。
+It is not a complete production implementation, but each step corresponds to the core structure of a real block.
 
 ```python
 from math import exp, sqrt
@@ -270,172 +268,172 @@ for row in block_output:
     print([round(x, 3) for x in row])
 ```
 
-### 3.1 读这段代码时，先盯住四个位置
+### 3.1 When reading this code, focus on four places first
 
-最关键的地方只有四处：
+There are only four key parts:
 
-1. `Q / K / V` 的生成
-2. `scores` 的计算
-3. `softmax` 后的加权求和
-4. 残差 + FFN
+1. Generation of `Q / K / V`
+2. Computation of `scores`
+3. Weighted sum after `softmax`
+4. Residual connection + FFN
 
-如果这四处看懂了，  
-你对 Transformer block 的理解就已经越过“只会背图”的阶段了。
+If you understand these four parts,
+your understanding of the Transformer block has already moved beyond “just memorizing the diagram.”
 
-### 3.2 为什么这里要加 causal mask？
+### 3.2 Why do we add a causal mask here?
 
-你会看到这句：
+You will see this line:
 
 ```python
 row.append(dot(q, k) / scale if j <= i else -10**9)
 ```
 
-它表示：
+It means:
 
-- 当前 token 只能看自己和前面的 token
-- 不能偷看未来
+- The current token can only see itself and previous tokens
+- It cannot peek into the future
 
-这正是 GPT 这类 decoder-only 模型训练时的关键约束。
+This is exactly the key constraint during training for decoder-only models like GPT.
 
-如果你把 `j <= i` 去掉，  
-它就更像 encoder 里的双向注意力。
+If you remove `j <= i`,
+it becomes more like bidirectional attention in an encoder.
 
-### 3.3 为什么注意力后面还要再过 FFN？
+### 3.3 Why does attention still need an FFN afterward?
 
-因为注意力只是在“汇总上下文”。  
-它告诉当前 token：
+Because attention is only for “aggregating context.”
+It tells the current token:
 
-- 我该关注谁
+- Who should I pay attention to?
 
-但它不擅长做充分的非线性变换。  
-FFN 的作用就是：
+But it is not good at sufficiently nonlinear transformation.
+The FFN’s job is:
 
-- 把上下文融合后的表示再加工一轮
+- Process the context-fused representation once more
 
-所以二者分工不同，缺一不可。
-
----
-
-## 四、把 block 放回整张结构图里
-
-### 4.1 多层堆叠意味着逐层抽象
-
-第一层注意力看到的可能更多是：
-
-- 词法关系
-- 邻近模式
-
-更高层可能逐渐形成：
-
-- 句法关系
-- 语义角色
-- 长距离依赖
-- 任务相关特征
-
-这也是为什么 Transformer 不只是“一层 attention”，  
-而是很多层 block 叠起来。
-
-### 4.2 Encoder 和 Decoder 的差别主要在 mask 和交互方式
-
-如果只看 block，本质上它们很像。  
-差别主要在：
-
-- encoder：通常是双向自注意力
-- decoder：通常是因果 mask
-- encoder-decoder：decoder 里还会多一层 cross-attention
-
-所以很多架构差异，最后都能追溯到：
-
-- 谁能看谁
-
-### 4.3 GPT 为什么只保留 decoder？
-
-因为生成任务最核心的结构约束是：
-
-- 只能根据过去预测未来
-
-decoder-only 更贴这个目标，结构也更直接。  
-这就是后来 GPT 系列一路做大的原因之一。
+So they have different responsibilities, and both are necessary.
 
 ---
 
-## 五、工程上最容易忽略的点
+## 4. Putting the Block Back Into the Whole Architecture
 
-### 5.1 注意力不是免费午餐
+### 4.1 Stacking multiple layers means abstraction layer by layer
 
-每个 token 都要和其他 token 比较，  
-长度一长，成本会迅速上升。
+The first layer of attention may mostly see:
 
-这也是后面为什么会出现：
+- lexical relationships
+- nearby patterns
 
-- 高效注意力
+Higher layers may gradually form:
+
+- syntactic relationships
+- semantic roles
+- long-range dependencies
+- task-related features
+
+That is why Transformer is not just “one layer of attention,”
+but many block layers stacked together.
+
+### 4.2 The main difference between Encoder and Decoder lies in mask and interaction style
+
+If you only look at the block, they are essentially very similar.
+The main differences are:
+
+- encoder: usually bidirectional self-attention
+- decoder: usually causal mask
+- encoder-decoder: the decoder also has an extra cross-attention layer
+
+So many architectural differences can eventually be traced back to:
+
+- who can see whom
+
+### 4.3 Why did GPT keep only the decoder?
+
+Because the most important structural constraint for generation tasks is:
+
+- predict the future based only on the past
+
+decoder-only fits this goal better, and the structure is more direct.
+This is one of the reasons why the GPT series could keep scaling up.
+
+---
+
+## 5. Engineering Details That Are Easy to Overlook
+
+### 5.1 Attention is not free
+
+Each token has to compare with all other tokens,
+and as the sequence gets longer, the cost rises quickly.
+
+That is why later on people introduced:
+
+- efficient attention
 - KV cache
 - GQA / MQA
 - FlashAttention
 
-这些改造。
+and other improvements.
 
-### 5.2 block 结构看起来重复，但训练时并不轻松
+### 5.2 The block structure looks repetitive, but training is not easy
 
-当层数和 hidden size 提高后，你很快就会碰到：
+When the number of layers and hidden size increases, you will quickly run into:
 
-- 显存压力
-- 梯度稳定性
-- 吞吐与延迟权衡
+- memory pressure
+- gradient stability
+- trade-offs between throughput and latency
 
-所以 Transformer 真正能成为大模型底座，不只是因为“结构优雅”，  
-也因为大量工程细节逐步成熟了。
+So the reason Transformer became the backbone of large models is not only because the structure is elegant,
+but also because many engineering details gradually matured.
 
-### 5.3 看懂 block，后面很多章节都会轻松很多
+### 5.3 Once you understand the block, many later chapters become much easier
 
-后面你学：
+Later when you learn:
 
-- 架构变体
-- 高效注意力
-- 预训练方法
-- 微调
+- architectural variants
+- efficient attention
+- pretraining methods
+- fine-tuning
 
-本质上都在围绕这个 block 做改造或利用。
-
----
-
-## 六、常见误区
-
-### 6.1 误区一：Transformer = 注意力
-
-不完整。  
-Transformer 是一套 block 设计，不是一个孤立公式。
-
-### 6.2 误区二：FFN 只是配角
-
-错。  
-它承担的是非常重要的非线性特征变换。
-
-### 6.3 误区三：只要知道 QKV 就算理解了 Transformer
-
-真正理解还包括：
-
-- 残差为什么重要
-- mask 为什么决定行为
-- 多层堆叠为什么能形成抽象
+they are all essentially modifications or applications built around this block.
 
 ---
 
-## 小结
+## 6. Common Misunderstandings
 
-这节最重要的不是再记一遍结构图，  
-而是把一个 Transformer block 的数据流串起来：
+### 6.1 Misunderstanding 1: Transformer = attention
 
-> **token 向量先通过注意力和上下文交流，再经过前馈网络深加工，并依靠残差和归一化在多层堆叠中保持训练稳定。**
+Not complete.
+Transformer is a block design, not an isolated formula.
 
-只要这一条链在脑子里顺了，  
-后面很多“大模型看起来很复杂”的结构，其实都只是围绕这个 block 在做变化。
+### 6.2 Misunderstanding 2: FFN is just a supporting role
+
+Wrong.
+It handles very important nonlinear feature transformation.
+
+### 6.3 Misunderstanding 3: Knowing QKV means you understand Transformer
+
+True understanding also includes:
+
+- why residuals matter
+- why masks determine behavior
+- why stacking multiple layers can form abstractions
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例里的 `j <= i` 改成始终允许，观察注意力权重会怎么变。
-2. 试着去掉残差连接，看看 `block_output` 和原始输入的关系还稳不稳。
-3. 用自己的话解释：为什么说注意力负责交流信息，FFN 负责消化信息？
-4. 想一想：如果要把这个 block 叠 48 层，你最担心的工程问题会是什么？
+The most important thing in this lesson is not to memorize the diagram again,
+but to connect the data flow of a Transformer block:
+
+> **Token vectors first communicate with context through attention, then undergo deep processing in the feed-forward network, and rely on residual connections and normalization to maintain training stability across stacked layers.**
+
+Once this chain is clear in your mind,
+many seemingly “very complex” large-model structures are actually just variations built around this block.
+
+---
+
+## Exercises
+
+1. Change `j <= i` in the example to always allow attention, and observe how the attention weights change.
+2. Try removing the residual connection and see whether the relationship between `block_output` and the original input is still stable.
+3. Explain in your own words: why do we say attention exchanges information while FFN digests information?
+4. Think about this: if you stack this block 48 layers deep, what engineering problem would worry you the most?

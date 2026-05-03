@@ -1,95 +1,95 @@
 ---
-title: "1.1 装饰器高级用法"
+title: "1.1 Advanced Decorator Usage"
 sidebar_position: 8
-description: "从日志、计时、重试和权限控制这些真实工程需求出发，理解装饰器为什么是 Python 服务代码里的高频模式。"
+description: "Starting from real engineering needs such as logging, timing, retries, and permission control, understand why decorators are such a common pattern in Python service code."
 keywords: [decorators, Python, wraps, retry, logging, timing, authorization]
 ---
 
-# 装饰器高级用法
+# Advanced Decorator Usage
 
-![Python 装饰器执行流程图](/img/course/elective-python-decorator-flow.png)
+![Python decorator execution flow](/img/course/elective-python-decorator-flow-en.png)
 
-![装饰器横切逻辑分层图](/img/course/elective-decorator-crosscutting-layers.png)
+![Decorator cross-cutting logic layering diagram](/img/course/elective-decorator-crosscutting-layers-en.png)
 
-:::tip 读图提示
-装饰器最适合包日志、计时、重试、权限这类横切逻辑。读图时重点看 wrapper 如何包住原函数，以及为什么 `functools.wraps` 能保留函数身份，避免调试和框架识别出问题。
+:::tip Reading the diagram
+Decorators are best suited for cross-cutting logic such as logging, timing, retries, and permissions. When reading the diagram, focus on how the wrapper surrounds the original function, and why `functools.wraps` can preserve function identity and avoid debugging and framework recognition issues.
 :::
 
-:::tip 本节定位
-很多人第一次学装饰器时，印象停留在：
+:::tip Lesson focus
+When many people first learn decorators, they tend to remember only that:
 
-- 语法看起来有点绕
-- 好像很高级
+- the syntax looks a bit tricky
+- it seems very advanced
 
-但在真实工程里，装饰器最重要的价值其实非常朴素：
+But in real engineering, the most important value of decorators is actually very practical:
 
-> **把“横切逻辑”统一包起来，而不是在每个函数里重复写。**
+> **They wrap “cross-cutting logic” in one place instead of repeating it inside every function.**
 
-这些横切逻辑常见包括：
+Common examples of this cross-cutting logic include:
 
-- 日志
-- 计时
-- 重试
-- 权限校验
+- logging
+- timing
+- retries
+- permission checks
 
-所以这节课不会把装饰器讲成“花式语法”，而会把它放回工程问题里看。
+So in this lesson, we will not treat decorators as “fancy syntax.” Instead, we will look at them through real engineering problems.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解装饰器在工程中最常见的用途
-- 学会写带参数和保留元信息的装饰器
-- 理解 `functools.wraps` 为什么重要
-- 通过可运行示例掌握日志、计时、重试三类常见模式
+- Understand the most common uses of decorators in engineering
+- Learn how to write decorators with parameters and preserve metadata
+- Understand why `functools.wraps` is important
+- Master common logging, timing, and retry patterns through runnable examples
 
 ---
 
-## 一、为什么装饰器在工程里这么常见？
+## 1. Why are decorators so common in engineering?
 
-### 1.1 因为很多逻辑会反复附着在不同函数外层
+### 1.1 Because many pieces of logic repeatedly attach to the outside of different functions
 
-例如你有很多函数都需要：
+For example, many of your functions may need to:
 
-- 打日志
-- 统计耗时
-- 捕获异常
-- 做权限检查
+- print logs
+- measure execution time
+- catch exceptions
+- perform permission checks
 
-如果每个函数都手写一遍，代码会很快变成重复模板。
+If you write all of that by hand in every function, the code will quickly turn into repetitive boilerplate.
 
-### 1.2 装饰器的核心价值
+### 1.2 The core value of decorators
 
-它不是“神奇修改函数”，  
-而是：
+They do not “magically modify functions,”
+instead they:
 
-- 接收一个函数
-- 在外面包一层通用逻辑
-- 再返回新的函数
+- receive a function
+- wrap it with a layer of common logic
+- return a new function
 
-也就是说：
+In other words:
 
-> **装饰器是在复用“函数外层行为”。**
+> **Decorators reuse the “outer behavior” of functions.**
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-函数像真正做事的人。  
-装饰器像给所有人统一加上的：
+A function is like a person doing real work.
+A decorator is like adding the same things to everyone:
 
-- 工牌
-- 打卡
-- 安检
-- 计时器
+- an ID badge
+- clock-in records
+- security checks
+- a timer
 
-人没变，但工作流程更统一了。
+The person does not change, but the workflow becomes more consistent.
 
 ---
 
-## 二、先从最常见的日志装饰器开始
+## 2. Start with the most common logging decorator
 
-下面这段代码会演示：
+The code below demonstrates:
 
-- 调用前后打印日志
-- 保留原函数元信息
+- printing logs before and after a call
+- preserving the original function metadata
 
 ```python
 from functools import wraps
@@ -115,37 +115,37 @@ print(add(3, 5))
 print(add.__name__)
 ```
 
-### 2.1 为什么 `wraps` 很重要？
+### 2.1 Why is `wraps` so important?
 
-如果没有 `@wraps(fn)`，  
-被装饰后的函数元信息可能会丢失，例如：
+Without `@wraps(fn)`,
+the metadata of the decorated function may be lost, such as:
 
 - `__name__`
 - `__doc__`
 
-这会影响：
+This can affect:
 
-- 调试
-- 日志
-- 文档生成
-- 某些框架行为
+- debugging
+- logging
+- documentation generation
+- the behavior of some frameworks
 
-### 2.2 为什么日志装饰器很常见？
+### 2.2 Why are logging decorators so common?
 
-因为它是一种非常典型的“横切逻辑”：
+Because logging is a very typical form of cross-cutting logic:
 
-- 跟业务本身无关
-- 却需要很多函数都做
+- it is not part of the business logic itself
+- yet many functions need it
 
 ---
 
-## 三、计时装饰器：性能问题先可见
+## 3. Timing decorators: make performance issues visible first
 
-很多工程问题不是“功能错”，而是：
+Many engineering problems are not “the function is wrong,” but rather:
 
-- 太慢
+- it is too slow
 
-计时装饰器可以帮助你快速定位热点。
+A timing decorator can help you quickly find hotspots.
 
 ```python
 import time
@@ -173,28 +173,28 @@ def fake_inference():
 print(fake_inference())
 ```
 
-### 3.1 这类装饰器在 AI 工程里很实用
+### 3.1 This kind of decorator is very useful in AI engineering
 
-例如你想快速看：
+For example, you may want to quickly see:
 
-- tokenizer 花了多久
-- 检索花了多久
-- 模型推理花了多久
+- how long the tokenizer takes
+- how long retrieval takes
+- how long model inference takes
 
-不用每个函数都手写计时逻辑。
+There is no need to write timing logic by hand in every function.
 
 ---
 
-## 四、带参数的装饰器：为什么它更接近真实工程？
+## 4. Decorators with parameters: why are they closer to real engineering?
 
-很多时候你不只是想“是否启用某逻辑”，  
-还想指定：
+Often, you do not just want to know whether a piece of logic is enabled,
+you also want to specify:
 
-- 重试几次
-- 权限级别是什么
-- 超时阈值是多少
+- how many retries to allow
+- what permission level is required
+- what the timeout threshold is
 
-这就需要带参数装饰器。
+This is where parameterized decorators come in.
 
 ```python
 from functools import wraps
@@ -228,23 +228,23 @@ except PermissionError as e:
     print("error:", e)
 ```
 
-### 4.1 为什么这里是两层函数？
+### 4.1 Why are there two layers of functions here?
 
-因为：
+Because:
 
-- 第一层接收装饰器参数
-- 第二层接收被装饰函数
-- 第三层才是真正执行时的包装逻辑
+- the first layer receives the decorator arguments
+- the second layer receives the function to be decorated
+- the third layer is the actual wrapper logic used at runtime
 
-一开始会觉得绕，  
-但只要记住三层分工就不容易乱。
+At first this may feel confusing,
+but once you remember the three layers of responsibility, it becomes much easier to follow.
 
 ---
 
-## 五、重试装饰器：非常典型的生产代码模式
+## 5. Retry decorators: a very typical production code pattern
 
-下面这个例子会模拟一个不稳定函数，  
-并用装饰器统一重试逻辑。
+The example below simulates an unstable function
+and uses a decorator to centralize retry logic.
 
 ```python
 from functools import wraps
@@ -282,61 +282,61 @@ def flaky_call():
 print(flaky_call())
 ```
 
-### 5.1 这段代码的工程意义是什么？
+### 5.1 What is the engineering meaning of this code?
 
-它说明装饰器非常适合收纳：
+It shows that decorators are very suitable for packaging:
 
-- 重试
-- 限流
-- 熔断
+- retries
+- rate limiting
+- circuit breaking
 
-这类外围控制逻辑。
+These kinds of outer control logic.
 
-### 5.2 为什么重试装饰器要慎用？
+### 5.2 Why should retry decorators be used carefully?
 
-因为不是所有错误都适合重试。  
-例如：
+Because not all errors are suitable for retrying.
+For example:
 
-- 参数错误
-- 权限错误
+- parameter errors
+- permission errors
 
-重试只会浪费资源。
-
----
-
-## 六、装饰器最容易踩的坑
-
-### 6.1 误区一：一看到装饰器就觉得“高级”
-
-装饰器不是为了炫技，  
-而是为了减少重复逻辑。
-
-### 6.2 误区二：装饰器套太多层
-
-如果一个函数上挂了太多装饰器，  
-调试和理解都会变难。
-
-### 6.3 误区三：不用 `wraps`
-
-这会让元信息丢失，后期排查问题很痛苦。
+Retrying those only wastes resources.
 
 ---
 
-## 小结
+## 6. Common pitfalls with decorators
 
-这节最重要的，不是把装饰器背成语法谜题，  
-而是建立一个工程判断：
+### 6.1 Mistake 1: thinking “decorator” means “advanced” as soon as you see it
 
-> **装饰器最适合封装日志、计时、重试、权限这种横切逻辑，让业务函数本身保持更干净。**
+Decorators are not for showing off,
+but for reducing repeated logic.
 
-只要这个判断立住了，  
-你后面读框架代码、服务中间件和库源码时就会顺很多。
+### 6.2 Mistake 2: stacking too many decorators
+
+If a function has too many decorators,
+debugging and understanding it both become harder.
+
+### 6.3 Mistake 3: not using `wraps`
+
+This causes metadata loss, which makes later troubleshooting painful.
 
 ---
 
-## 练习
+## Summary
 
-1. 给 `measure_time` 再加一个参数 `label`，练习带参数装饰器。
-2. 想一想：什么错误适合放进 `retry` 装饰器，什么错误不适合？
-3. 把日志、计时和重试三个装饰器叠在一个函数上，观察执行顺序。
-4. 用自己的话解释：为什么装饰器特别适合“横切逻辑”？
+The most important thing in this lesson is not memorizing decorators as a syntax puzzle,
+but building an engineering judgment:
+
+> **Decorators are best for packaging cross-cutting logic like logging, timing, retries, and permissions, so the business function itself stays cleaner.**
+
+Once you establish this judgment,
+you will find it much easier to read framework code, service middleware, and library source code later.
+
+---
+
+## Exercises
+
+1. Add a `label` parameter to `measure_time` and practice a parameterized decorator.
+2. Think about it: what kinds of errors are suitable for a `retry` decorator, and what kinds are not?
+3. Stack the logging, timing, and retry decorators on the same function and observe the execution order.
+4. Explain in your own words: why are decorators especially suitable for “cross-cutting logic”?

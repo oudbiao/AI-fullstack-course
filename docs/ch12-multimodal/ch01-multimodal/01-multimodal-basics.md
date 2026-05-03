@@ -1,262 +1,261 @@
 ---
-title: "1.2 多模态学习基础"
+title: "1.2 Fundamentals of Multimodal Learning"
 sidebar_position: 1
-description: "从模态、融合、对齐和常见任务讲起，理解为什么未来很多 AI 系统都不会只处理一种输入。"
-keywords: [多模态, multimodal, 图文, 语音, 视频, 融合]
+description: "Starting from modalities, fusion, alignment, and common tasks, understand why many future AI systems will not process only one type of input."
+keywords: [multimodal, multimodal, image-text, speech, video, fusion]
 ---
 
-# 多模态学习基础
+# Fundamentals of Multimodal Learning
 
-![多模态对齐与融合图](/img/course/multimodal-alignment-fusion.png)
+![Diagram of multimodal alignment and fusion](/img/course/multimodal-alignment-fusion-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 理解什么是“模态”
-- 说清楚多模态系统为什么更接近真实世界
-- 理解融合（fusion）和对齐（alignment）的直觉
-- 跑通一个极简的图文匹配小例子
+- Understand what a “modality” is
+- Explain why multimodal systems are closer to the real world
+- Understand the intuition behind fusion and alignment
+- Run a tiny image-text matching example
 
-## 历史背景：多模态为什么会突然变成主线？
+## Historical Background: Why Did Multimodal Suddenly Become a Mainstream Direction?
 
-这一节最值得知道的历史节点是：
+The most important historical milestone in this section is:
 
-| 年份 | 论文 / 方法 | 关键作者 | 它最重要地解决了什么 |
+| Year | Paper / Method | Key Author(s) | What it most importantly solved |
 |---|---|---|---|
-| 2021 | CLIP | Radford 等 | 把图像和文本对齐到同一语义空间，显著推进了图文检索、视觉语言理解和多模态基础模型路线 |
+| 2021 | CLIP | Radford et al. | Aligned images and text into the same semantic space, significantly advancing image-text retrieval, vision-language understanding, and the path toward multimodal foundation models |
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember first is:
 
-> **CLIP 的意义，不只是“图文检索更强了”，而是它让“不同模态先对齐、再做任务”这条路线真正站稳了。**
+> **The significance of CLIP is not just that “image-text retrieval got better,” but that it made the route of “align different modalities first, then solve tasks” truly take hold.**
 
-所以你在这节看到的“对齐”和“共享语义空间”，不是抽象概念，  
-而是后来很多多模态系统真正能工作的基础。
+So the “alignment” and “shared semantic space” you see in this section are not abstract concepts.
+They are the foundation that made many later multimodal systems actually work.
 
-### 为什么 CLIP 这类工作会让很多人第一次觉得“多模态真的成了”？
+### Why Did Work Like CLIP Make Many People Feel, for the First Time, That “Multimodal Is Really Here”?
 
-因为在更早的时候，很多图文系统更像：
+Because earlier image-text systems often felt more like:
 
-- 为单个任务单独搭一个模型
-- 每换一个任务，就重新做一套
+- Building a separate model for a single task
+- Rebuilding everything whenever the task changed
 
-而 CLIP 带来的那种感觉很不一样：
+What CLIP brought was very different:
 
-- 图像和文本也许可以先学到一个共同空间
-- 一旦这层对齐站稳，很多任务都能在上面继续长
+- Images and text might first learn a shared space
+- Once that alignment is stable, many tasks can grow on top of it
 
-这和很多人第一次接触 BERT / GPT 时的感觉有一点像：
+This feels a bit like many people’s first experience with BERT / GPT:
 
-- 不再只是“某个任务做得更好”
-- 而像是“底座本身变强了”
+- It is no longer just “one task performs better”
+- It feels more like “the foundation itself has become stronger”
 
-所以 CLIP 让人兴奋的地方，  
-往往不只是图文检索成绩，  
-而是它让“多模态基础模型”第一次显得特别像一条真正会继续长大的主线。
+So what made CLIP exciting was not only the image-text retrieval results,
+but also the fact that it made “multimodal foundation models” feel, for the first time, like a real direction that could continue to grow.
 
-### 为什么 CLIP 这类工作会让多模态突然变得“很像一个时代”？
+### Why Did Work Like CLIP Make Multimodal Suddenly Feel “Like an Era”?
 
-因为在此之前，很多图文任务更像：
+Because before that, many image-text tasks felt more like:
 
-- 为单个任务单独造系统
+- Building a separate system for each task
 
-而 CLIP 让很多人第一次强烈感觉到：
+But CLIP gave many people a strong first impression that:
 
-- 也许图像和文本可以先学到同一个共享语义空间
-- 然后很多任务都能从这个底座继续长出来
+- Maybe images and text can first learn the same shared semantic space
+- Then many tasks can grow out of that foundation
 
-这件事非常像 NLP 里预训练模型带来的那种感觉：
+This is very similar to the feeling that pretraining models brought to NLP:
 
-- 不再只是“做一个任务”
-- 而是在搭一个更通用的底座
+- It is no longer just “doing a task”
+- It is about building a more general foundation
 
-所以 CLIP 对很多初学者最有吸引力的地方在于：
+So the most attractive part of CLIP for many beginners is:
 
-> **它让“图文真的能互相理解”这件事，第一次显得不只是 Demo，而像一条稳定技术路线。**
+> **It made the idea that “images and text can truly understand each other” feel, for the first time, not just like a demo, but like a stable technical path.**
 
 ---
 
-## 先建立一张地图
+## First Build a Mental Map
 
-如果你刚学完前面的文本系统和 Agent 主线，可以先把这节理解成：
+If you just finished the earlier text systems and Agent main line, you can think of this section as follows:
 
-- 前面很多系统主要只处理文本
-- 这一节开始回答：如果系统还要看图、听音频、理解视频，它该怎样把这些信息放进同一条链路里
+- Earlier systems mostly handled text only
+- This section starts answering: if a system also needs to see images, hear audio, and understand video, how should it put all that information into the same pipeline?
 
-所以这节真正重要的不是概念堆叠，而是：
+So what matters most here is not piling up concepts, but:
 
-- 给后面多模态理解和多模态生成铺一层最小系统直觉
+- Building the smallest possible intuition for multimodal understanding and multimodal generation
 
-多模态基础这节最适合新人的理解顺序不是“先记概念名词”，而是先看清：
+For beginners, the best order for understanding multimodal basics is not “memorize the terms first,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["文本"] --> B["不同模态各自编码"]
-    C["图像"] --> B
-    D["音频"] --> B
-    B --> E["对齐"]
-    E --> F["融合"]
-    F --> G["多模态任务"]
+    A["Text"] --> B["Each modality encoded separately"]
+    C["Image"] --> B
+    D["Audio"] --> B
+    B --> E["Alignment"]
+    E --> F["Fusion"]
+    F --> G["Multimodal tasks"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 什么叫“模态”
-- 为什么对齐和融合是多模态的两个核心动作
+- What does “modality” mean?
+- Why are alignment and fusion the two core actions in multimodal systems?
 
-## 一、什么叫模态？
+## 1. What Is a Modality?
 
-模态（modality）可以简单理解成“信息的表现形式”。
+A modality can be understood simply as a “form of information.”
 
-常见模态包括：
+Common modalities include:
 
-- 文本
-- 图像
-- 音频
-- 视频
-- 结构化表格
+- Text
+- Images
+- Audio
+- Video
+- Structured tables
 
-所以多模态系统，就是同时处理两种或更多种信息形式的系统。
+So a multimodal system is a system that handles two or more forms of information at the same time.
 
-类比一下：
+As an analogy:
 
-> 人类理解世界不是只靠文字，而是会同时看、听、读、说。多模态 AI 也是在往这个方向走。
+> Humans do not understand the world by reading text only; we also look, listen, read, and speak. Multimodal AI is moving in that direction too.
 
-### 1.1 第一次学多模态，最该先抓住什么？
+### 1.1 When Learning Multimodal for the First Time, What Should You Focus on Most?
 
-最该先抓住的不是模态种类列表，而是这句：
+What you should focus on first is not the list of modality types, but this sentence:
 
-> **多模态真正想解决的，是把不同来源的信息放进同一条理解链路里。**
+> **What multimodal learning really wants to solve is how to put information from different sources into the same understanding pipeline.**
 
-这句话一旦稳住，后面你看：
+Once this idea is stable, when you look at:
 
-- 图文检索
-- 视觉问答
-- 多模态对话
+- Image-text retrieval
+- Visual question answering
+- Multimodal chat
 
-就会更自然地先问：这些系统到底是怎么把不同信号对起来的。
-
----
-
-## 二、为什么真实世界天然是多模态的？
-
-想几个日常场景：
-
-- 看商品图 + 读商品描述
-- 看病历文字 + 看医学影像
-- 看监控视频 + 听报警音
-- 上传截图 + 问“这是什么错误”
-
-如果 AI 只能看文字，它就像“闭着眼工作”；  
-如果只能看图片，它又像“不会读说明书”。
-
-所以多模态系统的重要性在于：
-
-> **它能把不同来源的信息拼在一起理解。**
+it becomes more natural to first ask: how are these systems actually aligning different signals?
 
 ---
 
-## 三、多模态任务有哪些？
+## 2. Why Is the Real World Naturally Multimodal?
 
-| 任务 | 例子 |
+Think about everyday situations:
+
+- View a product image + read the product description
+- Read medical notes + look at medical images
+- Watch surveillance video + hear an alarm sound
+- Upload a screenshot + ask “What error is this?”
+
+If AI can only read text, it is like “working with its eyes closed.”
+If it can only see images, it is like “not knowing how to read instructions.”
+
+So the importance of multimodal systems is that:
+
+> **They can combine information from different sources to understand things together.**
+
+---
+
+## 3. What Multimodal Tasks Are There?
+
+| Task | Example |
 |---|---|
-| 图像描述 | 给图片生成一句话说明 |
-| 图文检索 | 用文字找图、用图找文字 |
-| 视觉问答 | 看图回答问题 |
-| OCR + 理解 | 读图中文字并理解内容 |
-| 视频理解 | 总结视频内容 |
-| 语音助手 | 听懂语音并回答 |
+| Image captioning | Generate a sentence description for an image |
+| Image-text retrieval | Find images using text, or find text using an image |
+| Visual question answering | Answer questions based on an image |
+| OCR + understanding | Read the text in an image and understand it |
+| Video understanding | Summarize video content |
+| Voice assistants | Understand spoken input and respond |
 
 ---
 
-## 四、融合（Fusion）是什么意思？
+## 4. What Does Fusion Mean?
 
-融合可以理解成：
+Fusion can be understood as:
 
-> 把不同模态的信息合在一起，形成更完整的理解。
+> Combining information from different modalities to form a more complete understanding.
 
-比如做商品推荐时：
+For example, when doing product recommendation:
 
-- 只看图片，可能知道风格
-- 只看文字，可能知道用途
-- 图文一起看，理解才更完整
+- Looking only at the image may reveal style
+- Looking only at the text may reveal purpose
+- Looking at image and text together gives a more complete understanding
 
-### 一个极简例子
+### A Tiny Example
 
-假设我们把商品图片和文案都提取成特征，再合并：
+Suppose we extract features from both the product image and the text, then combine them:
 
 ```python
 import numpy as np
 
-# 图片特征：亮度、红色程度、圆形程度
+# Image features: brightness, redness, roundness
 image_feature = np.array([0.8, 0.7, 0.2])
 
-# 文本特征：时尚感、运动感、商务感
+# Text features: fashion sense, sporty feel, business feel
 text_feature = np.array([0.6, 0.2, 0.1])
 
-# 最简单的融合：拼接
+# Simplest fusion: concatenation
 fused_feature = np.concatenate([image_feature, text_feature])
 
-print("图像特征:", image_feature)
-print("文本特征:", text_feature)
-print("融合后特征:", fused_feature)
-print("融合后维度:", fused_feature.shape)
+print("Image features:", image_feature)
+print("Text features:", text_feature)
+print("Fused features:", fused_feature)
+print("Fused feature shape:", fused_feature.shape)
 ```
 
-真实模型里当然比这复杂得多，但“多源信息合并”的思路就是这样。
+Real models are of course much more complex than this, but the idea of “combining information from multiple sources” is exactly this.
 
-### 4.1 融合这件事最值得先记住的，不是方式，而是目的
+### 4.1 What Should You Remember Most About Fusion: the Method or the Goal?
 
-最值得先记的是：
+What you should remember most is:
 
-- 单模态看不全
-- 多模态是为了让系统判断得更完整
+- A single modality does not tell the whole story
+- Multimodal learning exists so the system can make more complete judgments
 
-所以融合不只是把向量拼起来，而是在回答：
+So fusion is not just about concatenating vectors; it is about answering:
 
-- 哪些信息源应该被一起看
-- 哪些信息是互补的
-
----
-
-## 五、对齐（Alignment）是什么意思？
-
-对齐是多模态里另一个关键概念。
-
-你可以把它理解成：
-
-> **让不同模态里的“同一个意思”，在表示空间里彼此靠近。**
-
-比如：
-
-- 一张猫的图片
-- 文本 “a cute cat”
-
-如果模型学得好，它们的向量表示应该比较接近。
-
-### 5.1 为什么“对齐”会成为多模态里最核心的词之一？
-
-因为如果不同模态的表示根本对不上，后面几乎什么都做不了：
-
-- 文本找图
-- 图文问答
-- 图像描述
-
-这些能力的前提，都是：
-
-- 不同模态得先在某种共享空间里“知道彼此在说同一件事”
+- Which information sources should be viewed together?
+- Which pieces of information complement each other?
 
 ---
 
-## 六、一个可运行的图文匹配玩具例子
+## 5. What Does Alignment Mean?
+
+Alignment is another key concept in multimodal learning.
+
+You can understand it as:
+
+> **Making representations of the same meaning from different modalities move closer together in the embedding space.**
+
+For example:
+
+- An image of a cat
+- The text “a cute cat”
+
+If the model learns well, their vector representations should be close to each other.
+
+### 5.1 Why Has “Alignment” Become One of the Most Core Words in Multimodal Learning?
+
+Because if representations from different modalities do not match at all, then almost nothing can be done later:
+
+- Text-to-image search
+- Image-text question answering
+- Image captioning
+
+All of these abilities depend on one prerequisite:
+
+- Different modalities must first “know they are talking about the same thing” in some shared space
+
+---
+
+## 6. A Runnable Toy Example for Image-Text Matching
 
 ```python
 import numpy as np
 
 images = {
-    "red_apple.jpg": np.array([0.9, 0.1, 0.0]),   # 红色、圆形、不是交通工具
-    "blue_car.jpg": np.array([0.1, 0.2, 1.0]),    # 非红、略圆、是交通工具
-    "orange_ball.jpg": np.array([0.8, 0.9, 0.0])  # 偏暖色、很圆、不是交通工具
+    "red_apple.jpg": np.array([0.9, 0.1, 0.0]),   # Red, round, not a vehicle
+    "blue_car.jpg": np.array([0.1, 0.2, 1.0]),    # Not red, slightly round, is a vehicle
+    "orange_ball.jpg": np.array([0.8, 0.9, 0.0])  # Warm color, very round, not a vehicle
 }
 
 texts = {
@@ -269,7 +268,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text_name, text_vec in texts.items():
-    print(f"\\n查询文本: {text_name}")
+    print(f"\\nQuery text: {text_name}")
     scores = []
     for image_name, image_vec in images.items():
         scores.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -278,100 +277,100 @@ for text_name, text_vec in texts.items():
         print(f"  {image_name}: {score:.4f}")
 ```
 
-这就是“跨模态检索”的最小原理版：
+This is the most minimal version of cross-modal retrieval:
 
-- 文本和图像都变成向量
-- 再比较相似度
-
----
-
-## 七、多模态为什么更难？
-
-因为它同时要解决两类问题：
-
-1. 每种模态内部怎么建模
-2. 不同模态之间怎么对齐和融合
-
-比如图像有图像自己的难点：
-
-- 空间结构
-- 光照变化
-- 视角变化
-
-而文本又有文本自己的难点：
-
-- 歧义
-- 上下文
-- 长文本结构
-
-两边一合起来，复杂度自然更高。
+- Convert both text and images into vectors
+- Then compare similarity
 
 ---
 
-## 八、今天常见的多模态路线
+## 7. Why Is Multimodal Harder?
 
-### 1. 双塔检索路线
+Because it has to solve two kinds of problems at the same time:
 
-图像一套编码器，文本一套编码器，最后比向量相似度。
+1. How to model each modality internally
+2. How to align and fuse different modalities
 
-### 2. 统一 Transformer 路线
+For example, images have their own challenges:
 
-把图像、文本都映射到统一序列空间，再统一建模。
+- Spatial structure
+- Lighting changes
+- Viewpoint changes
 
-### 3. 大模型扩展路线
+And text has its own challenges:
 
-在语言模型前面接上图像编码器、音频编码器等模块。
+- Ambiguity
+- Context
+- Long-text structure
 
-这就是为什么今天很多系统都能做到：
-
-- 看图问答
-- 图文对话
-- OCR 理解
-
----
-
-## 九、初学者常见误区
-
-### 1. 以为多模态就是“图片 + 文本”
-
-不止。  
-语音、视频、传感器信号也都属于模态。
-
-### 2. 以为多模态一定比单模态强
-
-不一定。  
-如果额外模态质量差，反而可能引入噪声。
-
-### 3. 只看酷炫 Demo，不看对齐问题
-
-多模态真正难的地方，往往就在对齐和融合。
+Once the two are combined, the complexity naturally becomes higher.
 
 ---
 
-## 小结
+## 8. Common Multimodal Paths Today
 
-这节课最重要的一句话是：
+### 1. Dual-tower retrieval path
 
-> **多模态的价值，在于把不同信息来源拼起来，形成更完整的理解。**
+One encoder for images, one encoder for text, and then compare vector similarity.
 
-后面继续学视觉语言模型时，你会看到这种“图文对齐”是如何被真正用到模型里的。
+### 2. Unified Transformer path
+
+Map images and text into a unified sequence space, then model them together.
+
+### 3. Large model extension path
+
+Attach modules such as image encoders and audio encoders in front of a language model.
+
+This is why many systems today can do:
+
+- Image question answering
+- Image-text chat
+- OCR understanding
 
 ---
 
-## 这节最该带走什么
+## 9. Common Beginner Mistakes
 
-- 多模态系统的本质是把不同形式的信息放进同一条理解链路
-- “对齐”和“融合”是最该先记住的两个核心动作
-- 先把输入和任务想清楚，比一上来追模型名更重要
+### 1. Thinking multimodal means only “images + text”
 
-如果再压成一句话，那就是：
+Not true.
+Speech, video, and sensor signals are also modalities.
 
-> **多模态的关键，不是模态更多，而是系统终于开始把不同信息来源放到同一个判断框架里。**
+### 2. Thinking multimodal is always better than unimodal
+
+Not necessarily.
+If the extra modality is low quality, it may instead introduce noise.
+
+### 3. Only looking at flashy demos and ignoring alignment
+
+The real difficulty in multimodal learning is often alignment and fusion.
 
 ---
 
-## 练习
+## Summary
 
-1. 修改上面的图像和文本向量，观察匹配排序怎么变化。
-2. 自己设计一个“食物 / 交通工具 / 动物”的玩具向量空间。
-3. 想一想：为什么“截图报错 + 提问文字”比只给报错文字，更适合用多模态系统？
+The most important sentence in this lesson is:
+
+> **The value of multimodal learning lies in combining different information sources to form a more complete understanding.**
+
+When you continue learning vision-language models later, you will see how this “image-text alignment” is truly used inside models.
+
+---
+
+## What You Should Take Away
+
+- The essence of multimodal systems is putting different forms of information into the same understanding pipeline
+- “Alignment” and “fusion” are the two core actions you should remember first
+- Thinking clearly about inputs and tasks is more important than chasing model names right away
+
+If we compress it into one sentence, it is:
+
+> **The key to multimodal learning is not having more modalities, but that systems finally begin to place different information sources within the same decision-making framework.**
+
+---
+
+## Exercises
+
+1. Modify the image and text vectors above and observe how the matching ranking changes.
+2. Design your own toy vector space for “food / vehicles / animals.”
+3. Think about why a “screenshot of an error + a question in text” is more suitable for a multimodal system than error text alone.

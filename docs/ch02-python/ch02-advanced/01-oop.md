@@ -1,56 +1,56 @@
 ---
-title: "1.1 面向对象编程"
+title: "1.1 Object-Oriented Programming"
 sidebar_position: 1
-description: "掌握 Python 面向对象编程的核心概念"
+description: "Master the core concepts of Python object-oriented programming"
 ---
 
-# 面向对象编程
+# Object-Oriented Programming
 
-![类、对象、属性与方法关系图](/img/course/ch02-oop-class-object-map.png)
+![Diagram of the relationship between classes, objects, attributes, and methods](/img/course/ch02-oop-class-object-map-en.png)
 
-## 本节定位
+## Section Overview
 
-这一节介绍 Python 中组织复杂代码的一种重要方式。面向对象不是一开始就必须精通，但理解类、对象、属性和方法，能帮助你读懂后面的模型类、数据集类、API 服务类和第三方库源码。
+This section introduces an important way to organize complex code in Python. You do not need to master object-oriented programming right away, but understanding classes, objects, attributes, and methods will help you read later code for model classes, dataset classes, API service classes, and third-party library source code.
 
-## 学习目标
+## Learning Objectives
 
-- 理解面向对象编程（OOP）的基本思想
-- 掌握类和对象的定义与使用
-- 理解属性和方法
-- 掌握继承、封装的基本用法
-- 了解常用的魔术方法
+- Understand the basic idea of object-oriented programming (OOP)
+- Master how to define and use classes and objects
+- Understand attributes and methods
+- Learn the basic use of inheritance and encapsulation
+- Get to know commonly used magic methods
 
 ---
 
-## 为什么需要面向对象？
+## Why do we need object-oriented programming?
 
-假设你在开发一个学生管理系统，需要记录每个学生的信息：
+Suppose you are developing a student management system and need to record information about each student:
 
 ```python
-# 用变量和字典的方式
-student1_name = "张三"
+# Using variables and dictionaries
+student1_name = "Zhang San"
 student1_age = 20
 student1_scores = [85, 92, 78]
 
-student2_name = "李四"
+student2_name = "Li Si"
 student2_age = 21
 student2_scores = [90, 88, 95]
 
-# 或者用字典
-student1 = {"name": "张三", "age": 20, "scores": [85, 92, 78]}
-student2 = {"name": "李四", "age": 21, "scores": [90, 88, 95]}
+# Or using dictionaries
+student1 = {"name": "Zhang San", "age": 20, "scores": [85, 92, 78]}
+student2 = {"name": "Li Si", "age": 21, "scores": [90, 88, 95]}
 
-# 计算平均分的函数
+# Function to calculate average score
 def get_average(student):
     return sum(student["scores"]) / len(student["scores"])
 ```
 
-这样写有几个问题：
-- 数据和操作是**分离的**（学生数据在字典里，计算函数在外面）
-- 没有**约束**（谁都可以往字典里加奇怪的键，或者删掉必要的键）
-- 当学生的属性越来越多时，代码会**越来越乱**
+This approach has several problems:
+- Data and operations are **separated** (student data is in dictionaries, while the calculation function is outside)
+- There is no **constraint** (anyone can add strange keys to the dictionary or remove required keys)
+- As students have more and more attributes, the code becomes **messier and messier**
 
-面向对象编程的思路是：**把数据和操作打包在一起，形成一个"对象"。**
+The idea behind object-oriented programming is: **bundle data and operations together to form an "object".**
 
 ```python
 class Student:
@@ -62,134 +62,134 @@ class Student:
     def get_average(self):
         return sum(self.scores) / len(self.scores)
 
-# 创建学生对象
-student1 = Student("张三", 20, [85, 92, 78])
-student2 = Student("李四", 21, [90, 88, 95])
+# Create student objects
+student1 = Student("Zhang San", 20, [85, 92, 78])
+student2 = Student("Li Si", 21, [90, 88, 95])
 
-# 数据和操作绑在一起，使用起来更自然
-print(f"{student1.name} 的平均分: {student1.get_average():.1f}")
-print(f"{student2.name} 的平均分: {student2.get_average():.1f}")
+# Data and operations are tied together, which feels more natural to use
+print(f"{student1.name}'s average score: {student1.get_average():.1f}")
+print(f"{student2.name}'s average score: {student2.get_average():.1f}")
 ```
 
 ---
 
-## 类和对象的基本概念
+## Basic concepts of classes and objects
 
-用一个生活中的类比：
+A simple real-world analogy:
 
-- **类（Class）** = 蓝图/模板。比如"手机"是一个概念/类别
-- **对象（Object/Instance）** = 用蓝图造出来的实体。比如"你手里的那台 iPhone 15"
+- **Class** = blueprint/template. For example, "phone" is a concept/category
+- **Object/Instance** = the real thing built from the blueprint. For example, "the iPhone 15 in your hand"
 
 ```
-类：Student（学生的模板）
-    └── 属性：name, age, scores
-    └── 方法：get_average(), is_passed()
+Class: Student (a template for students)
+    └── Attributes: name, age, scores
+    └── Methods: get_average(), is_passed()
 
-对象（实例）：
-    └── student1 = Student("张三", 20, [85, 92, 78])
-    └── student2 = Student("李四", 21, [90, 88, 95])
+Objects (instances):
+    └── student1 = Student("Zhang San", 20, [85, 92, 78])
+    └── student2 = Student("Li Si", 21, [90, 88, 95])
 ```
 
 ---
 
-## 定义类
+## Defining a class
 
-### 最简单的类
+### The simplest class
 
 ```python
 class Dog:
-    """一只狗"""
+    """A dog"""
 
     def __init__(self, name, breed):
-        """初始化方法，创建对象时自动调用"""
-        self.name = name      # 实例属性
-        self.breed = breed    # 实例属性
+        """Initialization method, called automatically when an object is created"""
+        self.name = name      # instance attribute
+        self.breed = breed    # instance attribute
 
     def bark(self):
-        """方法：狗叫"""
-        print(f"{self.name} 说: 汪汪汪！")
+        """Method: dog barks"""
+        print(f"{self.name} says: Woof woof woof!")
 
     def info(self):
-        """方法：显示信息"""
-        print(f"名字: {self.name}, 品种: {self.breed}")
+        """Method: display information"""
+        print(f"Name: {self.name}, Breed: {self.breed}")
 
-# 创建对象（实例化）
-my_dog = Dog("旺财", "金毛")
-your_dog = Dog("小黑", "拉布拉多")
+# Create objects (instantiation)
+my_dog = Dog("Wangcai", "Golden Retriever")
+your_dog = Dog("Xiaohei", "Labrador")
 
-# 访问属性
-print(my_dog.name)     # 旺财
-print(your_dog.breed)  # 拉布拉多
+# Access attributes
+print(my_dog.name)     # Wangcai
+print(your_dog.breed)  # Labrador
 
-# 调用方法
-my_dog.bark()      # 旺财 说: 汪汪汪！
-your_dog.info()    # 名字: 小黑, 品种: 拉布拉多
+# Call methods
+my_dog.bark()      # Wangcai says: Woof woof woof!
+your_dog.info()    # Name: Xiaohei, Breed: Labrador
 ```
 
-### 关键点解读
+### Key points explained
 
-**1. `__init__` 方法（构造方法）**
+**1. `__init__` method (constructor)**
 
-`__init__` 在你创建对象时**自动调用**，用来初始化对象的属性。
+`__init__` is called **automatically** when you create an object, and it is used to initialize the object's attributes.
 
 ```python
-my_dog = Dog("旺财", "金毛")
-# Python 自动做了这些事：
-# 1. 创建一个新的 Dog 对象
-# 2. 调用 __init__(self, "旺财", "金毛")
-# 3. self.name = "旺财"
-# 4. self.breed = "金毛"
-# 5. 返回这个对象给 my_dog
+my_dog = Dog("Wangcai", "Golden Retriever")
+# Python automatically does the following:
+# 1. Create a new Dog object
+# 2. Call __init__(self, "Wangcai", "Golden Retriever")
+# 3. self.name = "Wangcai"
+# 4. self.breed = "Golden Retriever"
+# 5. Return this object to my_dog
 ```
 
-**2. `self` 是什么？**
+**2. What is `self`?**
 
-`self` 代表**对象自己**。当你调用 `my_dog.bark()` 时，Python 会自动把 `my_dog` 作为 `self` 传给 `bark` 方法。
+`self` represents **the object itself**. When you call `my_dog.bark()`, Python automatically passes `my_dog` as `self` to the `bark` method.
 
 ```python
 my_dog.bark()
-# 等价于
+# Equivalent to
 Dog.bark(my_dog)
 ```
 
-所以 `self.name` 就是"这个对象的 name"。
+So `self.name` means "the name of this object."
 
-:::tip self 的命名
-`self` 只是一个惯例（convention），你可以叫它 `this` 或任何名字，但**强烈建议**用 `self`——这是所有 Python 程序员的约定。
+:::tip Naming `self`
+`self` is just a convention. You can call it `this` or any other name, but it is **strongly recommended** to use `self`—this is the convention followed by all Python programmers.
 :::
 
 ---
 
-## 属性和方法
+## Attributes and methods
 
-### 实例属性 vs 类属性
+### Instance attributes vs class attributes
 
 ```python
 class Student:
-    # 类属性：所有实例共享
-    school = "Python 大学"
+    # Class attributes: shared by all instances
+    school = "Python University"
     student_count = 0
 
     def __init__(self, name, age):
-        # 实例属性：每个实例独有
+        # Instance attributes: unique to each instance
         self.name = name
         self.age = age
-        Student.student_count += 1  # 每创建一个学生，计数加 1
+        Student.student_count += 1  # Add 1 for each student created
 
-s1 = Student("张三", 20)
-s2 = Student("李四", 21)
+s1 = Student("Zhang San", 20)
+s2 = Student("Li Si", 21)
 
-# 类属性通过类名或实例都能访问
-print(Student.school)       # Python 大学
-print(s1.school)            # Python 大学
+# Class attributes can be accessed through the class name or an instance
+print(Student.school)       # Python University
+print(s1.school)            # Python University
 print(Student.student_count)  # 2
 
-# 实例属性只属于各自的实例
-print(s1.name)  # 张三
-print(s2.name)  # 李四
+# Instance attributes belong only to their own instances
+print(s1.name)  # Zhang San
+print(s2.name)  # Li Si
 ```
 
-### 方法
+### Methods
 
 ```python
 class Circle:
@@ -197,32 +197,32 @@ class Circle:
         self.radius = radius
 
     def area(self):
-        """计算面积"""
+        """Calculate area"""
         return 3.14159 * self.radius ** 2
 
     def perimeter(self):
-        """计算周长"""
+        """Calculate perimeter"""
         return 2 * 3.14159 * self.radius
 
     def scale(self, factor):
-        """缩放半径"""
-        self.radius *= factor  # 修改属性
+        """Scale the radius"""
+        self.radius *= factor  # Modify attribute
 
 c = Circle(5)
-print(f"面积: {c.area():.2f}")       # 78.54
-print(f"周长: {c.perimeter():.2f}")   # 31.42
+print(f"Area: {c.area():.2f}")       # 78.54
+print(f"Perimeter: {c.perimeter():.2f}")   # 31.42
 
-c.scale(2)  # 半径变为 10
-print(f"缩放后面积: {c.area():.2f}") # 314.16
+c.scale(2)  # Radius becomes 10
+print(f"Area after scaling: {c.area():.2f}") # 314.16
 ```
 
 ---
 
-## 魔术方法（双下划线方法）
+## Magic methods (double-underscore methods)
 
-Python 中以 `__` 开头和结尾的方法叫魔术方法（Magic Methods），它们让你的类可以像内置类型一样使用。
+In Python, methods that start and end with `__` are called magic methods. They allow your class to behave like built-in types.
 
-### `__str__`：定义 print 的输出
+### `__str__`: define the output of `print`
 
 ```python
 class Student:
@@ -231,14 +231,14 @@ class Student:
         self.age = age
 
     def __str__(self):
-        return f"Student({self.name}, {self.age}岁)"
+        return f"Student({self.name}, {self.age} years old)"
 
-s = Student("张三", 20)
-print(s)  # Student(张三, 20岁)
-# 如果没有 __str__，print 会输出 <__main__.Student object at 0x...>
+s = Student("Zhang San", 20)
+print(s)  # Student(Zhang San, 20 years old)
+# If there is no `__str__`, print will output <__main__.Student object at 0x...>
 ```
 
-### `__repr__`：定义开发者看到的表示
+### `__repr__`: define the representation developers see
 
 ```python
 class Student:
@@ -249,12 +249,12 @@ class Student:
     def __repr__(self):
         return f"Student('{self.name}', {self.age})"
 
-s = Student("张三", 20)
-print(repr(s))   # Student('张三', 20)
-# 在交互模式中直接输入 s 也会显示这个
+s = Student("Zhang San", 20)
+print(repr(s))   # Student('Zhang San', 20)
+# In interactive mode, typing s directly will also show this
 ```
 
-### `__len__`：定义 len() 的行为
+### `__len__`: define the behavior of `len()`
 
 ```python
 class Playlist:
@@ -265,11 +265,11 @@ class Playlist:
     def __len__(self):
         return len(self.songs)
 
-my_playlist = Playlist("学习音乐", ["歌曲A", "歌曲B", "歌曲C"])
+my_playlist = Playlist("Study Music", ["Song A", "Song B", "Song C"])
 print(len(my_playlist))  # 3
 ```
 
-### `__eq__`：定义 == 的行为
+### `__eq__`: define the behavior of `==`
 
 ```python
 class Point:
@@ -290,56 +290,56 @@ print(p1 == p3)  # False
 
 ---
 
-## 继承
+## Inheritance
 
-继承让你可以基于已有的类创建新类，**复用代码**。
+Inheritance lets you create a new class based on an existing class, so you can **reuse code**.
 
-### 基本继承
+### Basic inheritance
 
 ```python
-# 父类（基类）
+# Parent class (base class)
 class Animal:
     def __init__(self, name, age):
         self.name = name
         self.age = age
 
     def speak(self):
-        print(f"{self.name} 发出了声音")
+        print(f"{self.name} made a sound")
 
     def info(self):
-        print(f"{self.name}, {self.age}岁")
+        print(f"{self.name}, {self.age} years old")
 
-# 子类（派生类）
+# Child class (derived class)
 class Dog(Animal):
     def __init__(self, name, age, breed):
-        super().__init__(name, age)  # 调用父类的 __init__
+        super().__init__(name, age)  # Call the parent class's __init__
         self.breed = breed
 
-    def speak(self):  # 重写父类的方法
-        print(f"{self.name} 说: 汪汪汪！")
+    def speak(self):  # Override the parent class method
+        print(f"{self.name} says: Woof woof woof!")
 
-    def fetch(self):  # 子类独有的方法
-        print(f"{self.name} 把球捡回来了！")
+    def fetch(self):  # Method unique to the child class
+        print(f"{self.name} brought the ball back!")
 
 class Cat(Animal):
-    def speak(self):  # 重写父类的方法
-        print(f"{self.name} 说: 喵喵喵～")
+    def speak(self):  # Override the parent class method
+        print(f"{self.name} says: Meow meow meow~")
 
-# 使用
-dog = Dog("旺财", 3, "金毛")
-cat = Cat("咪咪", 2)
+# Use
+dog = Dog("Wangcai", 3, "Golden Retriever")
+cat = Cat("Mimi", 2)
 
-dog.info()     # 旺财, 3岁（继承自 Animal）
-dog.speak()    # 旺财 说: 汪汪汪！（Dog 自己的实现）
-dog.fetch()    # 旺财 把球捡回来了！（Dog 独有的）
+dog.info()     # Wangcai, 3 years old (inherited from Animal)
+dog.speak()    # Wangcai says: Woof woof woof! (Dog's own implementation)
+dog.fetch()    # Wangcai brought the ball back! (unique to Dog)
 
-cat.info()     # 咪咪, 2岁
-cat.speak()    # 咪咪 说: 喵喵喵～
+cat.info()     # Mimi, 2 years old
+cat.speak()    # Mimi says: Meow meow meow~
 ```
 
-### super() 的作用
+### What `super()` does
 
-`super()` 用来调用父类的方法，最常见的用法是在 `__init__` 中：
+`super()` is used to call a parent class method. The most common use is in `__init__`:
 
 ```python
 class Animal:
@@ -348,73 +348,73 @@ class Animal:
 
 class Dog(Animal):
     def __init__(self, name, breed):
-        super().__init__(name)   # 让父类帮我初始化 name
-        self.breed = breed       # 自己初始化 breed
+        super().__init__(name)   # Let the parent class initialize name for me
+        self.breed = breed       # Initialize breed myself
 ```
 
-### isinstance() 检查类型
+### Using `isinstance()` to check types
 
 ```python
-dog = Dog("旺财", 3, "金毛")
+dog = Dog("Wangcai", 3, "Golden Retriever")
 
-print(isinstance(dog, Dog))     # True —— 是 Dog
-print(isinstance(dog, Animal))  # True —— 也是 Animal（因为继承）
-print(isinstance(dog, Cat))     # False —— 不是 Cat
+print(isinstance(dog, Dog))     # True —— is a Dog
+print(isinstance(dog, Animal))  # True —— also an Animal (because of inheritance)
+print(isinstance(dog, Cat))     # False —— not a Cat
 ```
 
 ---
 
-## 封装
+## Encapsulation
 
-封装的思想是：**隐藏内部细节，只暴露必要的接口。**
+The idea of encapsulation is: **hide internal details and expose only the necessary interface.**
 
-### 私有属性（约定）
+### Private attributes (by convention)
 
-Python 没有真正的私有属性，但有**命名约定**：
+Python does not have truly private attributes, but it has **naming conventions**:
 
 ```python
 class BankAccount:
     def __init__(self, owner, balance=0):
         self.owner = owner
-        self._balance = balance  # 单下划线：约定为"内部使用"
+        self._balance = balance  # Single underscore: conventionally "internal use"
 
     def deposit(self, amount):
         if amount > 0:
             self._balance += amount
-            print(f"存入 {amount} 元，余额: {self._balance}")
+            print(f"Deposited {amount} yuan, balance: {self._balance}")
 
     def withdraw(self, amount):
         if 0 < amount <= self._balance:
             self._balance -= amount
-            print(f"取出 {amount} 元，余额: {self._balance}")
+            print(f"Withdrew {amount} yuan, balance: {self._balance}")
         else:
-            print("余额不足！")
+            print("Insufficient balance!")
 
     def get_balance(self):
         return self._balance
 
-account = BankAccount("张三", 1000)
-account.deposit(500)     # 存入 500 元，余额: 1500
-account.withdraw(200)    # 取出 200 元，余额: 1300
+account = BankAccount("Zhang San", 1000)
+account.deposit(500)     # Deposited 500 yuan, balance: 1500
+account.withdraw(200)    # Withdrew 200 yuan, balance: 1300
 print(account.get_balance())  # 1300
 
-# 虽然技术上可以直接访问 _balance，但这不是推荐的做法
-# print(account._balance)  # 能用，但不应该这么做
+# Although you can technically access _balance directly, this is not recommended
+# print(account._balance)  # It works, but you should not do this
 ```
 
-| 命名约定 | 含义 | 示例 |
+| Naming convention | Meaning | Example |
 |---------|------|------|
-| `name` | 公开属性 | `self.name` |
-| `_name` | 内部使用（约定） | `self._balance` |
-| `__name` | 名称改写（强制隐藏） | `self.__secret` |
+| `name` | Public attribute | `self.name` |
+| `_name` | Internal use (by convention) | `self._balance` |
+| `__name` | Name mangling (strongly hidden) | `self.__secret` |
 
 ---
 
-## 综合案例：AI 模型管理器
+## Comprehensive example: AI model manager
 
 ```python
 class AIModel:
-    """AI 模型基类"""
+    """Base class for AI models"""
     model_count = 0
 
     def __init__(self, name, version="1.0"):
@@ -426,9 +426,9 @@ class AIModel:
         AIModel.model_count += 1
 
     def train(self, epochs=10):
-        """训练模型（模拟）"""
+        """Train the model (simulation)"""
         import random
-        print(f"开始训练 {self.name} v{self.version}...")
+        print(f"Starting training {self.name} v{self.version}...")
         for epoch in range(1, epochs + 1):
             acc = min(0.5 + epoch * 0.05 + random.uniform(-0.02, 0.02), 1.0)
             self._history.append(acc)
@@ -436,72 +436,72 @@ class AIModel:
                 print(f"  Epoch {epoch}/{epochs} - Accuracy: {acc:.2%}")
         self._accuracy = self._history[-1]
         self.is_trained = True
-        print(f"训练完成！最终准确率: {self._accuracy:.2%}")
+        print(f"Training complete! Final accuracy: {self._accuracy:.2%}")
 
     def predict(self, data):
-        """预测"""
+        """Predict"""
         if not self.is_trained:
-            print("错误：模型还没有训练！")
+            print("Error: the model has not been trained yet!")
             return None
-        print(f"{self.name} 正在预测 {len(data)} 条数据...")
-        return [f"预测结果_{i}" for i in range(len(data))]
+        print(f"{self.name} is predicting {len(data)} samples...")
+        return [f"prediction_{i}" for i in range(len(data))]
 
     def __str__(self):
-        status = "已训练" if self.is_trained else "未训练"
+        status = "trained" if self.is_trained else "untrained"
         return f"Model({self.name} v{self.version}, {status}, acc={self._accuracy:.2%})"
 
 
 class ImageClassifier(AIModel):
-    """图像分类模型"""
+    """Image classification model"""
     def __init__(self, name, version="1.0", num_classes=10):
         super().__init__(name, version)
         self.num_classes = num_classes
 
     def predict(self, images):
         if not self.is_trained:
-            print("错误：模型还没有训练！")
+            print("Error: the model has not been trained yet!")
             return None
-        print(f"正在对 {len(images)} 张图片进行分类（{self.num_classes} 个类别）...")
+        print(f"Classifying {len(images)} images ({self.num_classes} classes)...")
         import random
         return [random.randint(0, self.num_classes - 1) for _ in images]
 
 
-# 使用
+# Use
 model = ImageClassifier("ResNet-50", "2.0", num_classes=100)
-print(model)  # Model(ResNet-50 v2.0, 未训练, acc=0.00%)
+print(model)  # Model(ResNet-50 v2.0, untrained, acc=0.00%)
 
 model.train(epochs=10)
 predictions = model.predict(["img1.jpg", "img2.jpg", "img3.jpg"])
-print(f"预测类别: {predictions}")
+print(f"Predicted classes: {predictions}")
 print(model)
-print(f"当前模型总数: {AIModel.model_count}")
+print(f"Current total number of models: {AIModel.model_count}")
 ```
 
 ---
 
-## 动手练习
+## Hands-on practice
 
-### 练习 1：图书管理
+### Exercise 1: Book management
 
-创建一个 `Book` 类：
+Create a `Book` class:
 
 ```python
 class Book:
-    # 属性：title（书名）、author（作者）、pages（页数）、current_page（当前页，默认0）
-    # 方法：
-    #   read(pages) —— 读 n 页，更新当前页
-    #   progress() —— 返回阅读进度百分比
-    #   __str__() —— 返回书的信息
+    # Attributes: title, author, pages, current_page (default 0)
+    # Methods:
+    #   read(pages) —— read n pages and update current_page
+    #   progress() —— return reading progress as a percentage
+    #   __str__() —— return book information
     pass
 
-# 测试
-book = Book("Python 入门", "张三", 300)
+# Test
+book = Book("Python Basics", "Zhang San", 300)
 book.read(50)
-print(book.progress())  # 应该显示 16.7%
+print(book.progress())  # Should display 16.7%
 print(book)
 ```
 
-### 练习 2：简单的购物车
+### Exercise 2: A simple shopping cart
 
 ```python
 class Product:
@@ -510,48 +510,48 @@ class Product:
         self.price = price
 
 class ShoppingCart:
-    # 方法：
-    #   add(product, quantity) —— 添加商品
-    #   remove(product_name) —— 删除商品
-    #   total() —— 计算总价
-    #   __str__() —— 打印购物车内容
+    # Methods:
+    #   add(product, quantity) —— add a product
+    #   remove(product_name) —— remove a product
+    #   total() —— calculate the total price
+    #   __str__() —— print cart contents
     pass
 ```
 
-### 练习 3：动物园
+### Exercise 3: Zoo
 
-用继承实现：
+Implement this using inheritance:
 
 ```python
 class Animal:
-    # 基类：name, age, speak()
+    # Base class: name, age, speak()
 
 class Dog(Animal):
-    # speak() → "汪汪"
+    # speak() → "Woof woof"
 
 class Cat(Animal):
-    # speak() → "喵喵"
+    # speak() → "Meow meow"
 
 class Duck(Animal):
-    # speak() → "嘎嘎"
+    # speak() → "Quack quack"
 
-# 创建一个动物列表，用循环让它们都 speak()
+# Create a list of animals and use a loop to make them all speak()
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 说明 | 语法 |
+| Concept | Description | Syntax |
 |------|------|------|
-| **类** | 对象的模板/蓝图 | `class MyClass:` |
-| **对象** | 类的实例 | `obj = MyClass()` |
-| **`__init__`** | 构造方法，初始化属性 | `def __init__(self):` |
-| **self** | 指向当前对象自身 | `self.name = name` |
-| **继承** | 子类复用父类的代码 | `class Dog(Animal):` |
-| **super()** | 调用父类的方法 | `super().__init__()` |
-| **魔术方法** | 自定义对象行为 | `__str__`, `__len__`, `__eq__` |
+| **Class** | Template/blueprint for objects | `class MyClass:` |
+| **Object** | An instance of a class | `obj = MyClass()` |
+| **`__init__`** | Constructor method, initializes attributes | `def __init__(self):` |
+| **self** | Points to the current object itself | `self.name = name` |
+| **Inheritance** | Child class reuses parent class code | `class Dog(Animal):` |
+| **super()** | Call a parent class method | `super().__init__()` |
+| **Magic methods** | Customize object behavior | `__str__`, `__len__`, `__eq__` |
 
-:::tip 核心理解
-面向对象的核心思想是**把数据和行为绑在一起**。类是模板，对象是实例。继承让你复用代码，封装让你隐藏细节。在 AI 开发中，你会经常看到类的使用——PyTorch 的模型定义就是一个类继承 `nn.Module`，训练循环中操作的都是对象。
+:::tip Core idea
+The core idea of object-oriented programming is to **bind data and behavior together**. A class is a template, and an object is an instance. Inheritance lets you reuse code, and encapsulation lets you hide details. In AI development, you will see classes very often—PyTorch model definitions are classes that inherit from `nn.Module`, and the objects manipulated in the training loop are all instances.
 :::

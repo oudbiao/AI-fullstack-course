@@ -1,100 +1,100 @@
 ---
-title: "1.7 函数基础"
+title: "1.7 Function Basics"
 sidebar_position: 7
-description: "掌握函数的定义、参数、返回值和作用域"
+description: "Master function definitions, parameters, return values, and scope"
 ---
 
-# 函数基础
+# Function Basics
 
-![函数调用、参数与作用域图](/img/course/ch02-function-call-scope.png)
+![Function call, parameters, and scope diagram](/img/course/ch02-function-call-scope-en.png)
 
-## 本节定位
+## Where This Section Fits
 
-这一节让你学会把重复逻辑封装起来。函数是从“写脚本”走向“写可维护程序”的关键，也是后面组织数据处理流程、模型训练流程和 Web API 逻辑的基础。
+This section teaches you how to package repeated logic into functions. Functions are the key step from “writing scripts” to “writing maintainable programs,” and they are also the foundation for organizing data processing pipelines, model training workflows, and Web API logic later on.
 
-## 学习目标
+## Learning Objectives
 
-- 理解函数是什么，为什么需要函数
-- 掌握函数的定义和调用
-- 理解参数（位置参数、默认参数、关键字参数）
-- 掌握返回值的使用
-- 理解变量作用域
+- Understand what functions are and why we need them
+- Master function definition and calling
+- Understand parameters (positional parameters, default parameters, keyword parameters)
+- Master the use of return values
+- Understand variable scope
 
 ---
 
-## 为什么需要函数？
+## Why Do We Need Functions?
 
-假设你在写一个数据处理脚本，需要多次计算平均值：
+Suppose you are writing a data processing script and need to calculate averages multiple times:
 
 ```python
-# 第一次计算
+# First calculation
 scores1 = [85, 92, 78, 95, 88]
 total1 = sum(scores1)
 avg1 = total1 / len(scores1)
-print(f"平均分: {avg1:.1f}")
+print(f"Average score: {avg1:.1f}")
 
-# 第二次计算（又写一遍一模一样的逻辑）
+# Second calculation (writing the exact same logic again)
 scores2 = [90, 85, 92, 88, 95, 87]
 total2 = sum(scores2)
 avg2 = total2 / len(scores2)
-print(f"平均分: {avg2:.1f}")
+print(f"Average score: {avg2:.1f}")
 
-# 第三次计算（再写一遍……）
+# Third calculation (writing it again...)
 scores3 = [75, 80, 68, 72, 88]
 total3 = sum(scores3)
 avg3 = total3 / len(scores3)
-print(f"平均分: {avg3:.1f}")
+print(f"Average score: {avg3:.1f}")
 ```
 
-同样的逻辑写了 3 遍——如果以后要改计算方式（比如去掉最高最低分），你得改 3 个地方。
+The same logic is written 3 times. If you later need to change the calculation method (for example, remove the highest and lowest scores), you would have to change it in 3 places.
 
-用函数解决：
+Use a function instead:
 
 ```python
 def calculate_average(scores):
-    """计算平均分"""
+    """Calculate the average score"""
     return sum(scores) / len(scores)
 
-# 现在一行搞定
-print(f"平均分: {calculate_average([85, 92, 78, 95, 88]):.1f}")
-print(f"平均分: {calculate_average([90, 85, 92, 88, 95, 87]):.1f}")
-print(f"平均分: {calculate_average([75, 80, 68, 72, 88]):.1f}")
+# Now it can be done in one line
+print(f"Average score: {calculate_average([85, 92, 78, 95, 88]):.1f}")
+print(f"Average score: {calculate_average([90, 85, 92, 88, 95, 87]):.1f}")
+print(f"Average score: {calculate_average([75, 80, 68, 72, 88]):.1f}")
 ```
 
-**函数的核心价值：**
+**The core value of functions:**
 
-| 好处 | 说明 |
+| Benefit | Description |
 |------|------|
-| **复用** | 写一次，用多次 |
-| **抽象** | 把复杂逻辑藏在函数名后面，调用时只需要知道"做什么"，不用管"怎么做" |
-| **维护** | 要改逻辑只改一个地方 |
-| **可读** | 函数名就是注释，`calculate_average(scores)` 一目了然 |
+| **Reuse** | Write once, use many times |
+| **Abstraction** | Hide complex logic behind a function name; when calling it, you only need to know “what it does,” not “how it does it” |
+| **Maintainability** | Change the logic in one place only |
+| **Readability** | The function name acts like a comment; `calculate_average(scores)` is immediately clear |
 
 ---
 
-## 定义和调用函数
+## Defining and Calling Functions
 
-### 基本语法
+### Basic Syntax
 
 ```python
 def greet(name):
-    """向某人打招呼"""  # 文档字符串（docstring），描述函数做什么
-    print(f"你好，{name}！欢迎学习 Python！")
+    """Greet someone"""  # Docstring, describes what the function does
+    print(f"Hello, {name}! Welcome to learning Python!")
 
-# 调用函数
-greet("小明")     # 你好，小明！欢迎学习 Python！
-greet("小红")     # 你好，小红！欢迎学习 Python！
+# Call the function
+greet("Xiao Ming")     # Hello, Xiao Ming! Welcome to learning Python!
+greet("Xiao Hong")     # Hello, Xiao Hong! Welcome to learning Python!
 ```
 
-语法解读：
-- `def` 关键字表示"定义一个函数"
-- `greet` 是函数名（命名规则和变量一样，小写加下划线）
-- `(name)` 是参数列表
-- `:` 冒号不能忘
-- 函数体需要缩进
-- `"""..."""` 是文档字符串，描述函数的功能
+Syntax breakdown:
+- The `def` keyword means “define a function”
+- `greet` is the function name (naming rules are the same as variables: lowercase with underscores)
+- `(name)` is the parameter list
+- Don’t forget the `:` colon
+- The function body must be indented
+- `"""..."""` is a docstring, used to describe the function’s purpose
 
-### 没有参数的函数
+### Functions with No Parameters
 
 ```python
 def say_hello():
@@ -103,7 +103,7 @@ def say_hello():
 say_hello()  # Hello, World!
 ```
 
-### 多个参数的函数
+### Functions with Multiple Parameters
 
 ```python
 def add(a, b):
@@ -116,127 +116,127 @@ add(10, 20)  # 10 + 20 = 30
 
 ---
 
-## 返回值
+## Return Values
 
-函数可以用 `return` 把结果返回给调用者：
+A function can use `return` to send a result back to the caller:
 
 ```python
 def add(a, b):
     return a + b
 
-# 函数的返回值可以赋给变量
+# The function's return value can be assigned to a variable
 result = add(3, 5)
 print(result)       # 8
 
-# 也可以直接使用返回值
+# You can also use the return value directly
 print(add(10, 20))  # 30
 
-# 在表达式中使用
+# Use it inside an expression
 total = add(1, 2) + add(3, 4)
 print(total)  # 10
 ```
 
-### 返回多个值
+### Returning Multiple Values
 
 ```python
 def get_min_max(numbers):
-    """返回列表中的最小值和最大值"""
+    """Return the minimum and maximum values in a list"""
     return min(numbers), max(numbers)
 
-# 用元组解包接收
+# Receive them with tuple unpacking
 smallest, largest = get_min_max([3, 1, 4, 1, 5, 9])
-print(f"最小值: {smallest}, 最大值: {largest}")
-# 最小值: 1, 最大值: 9
+print(f"Minimum: {smallest}, Maximum: {largest}")
+# Minimum: 1, Maximum: 9
 ```
 
-### 没有 return 的函数
+### Functions Without `return`
 
-如果函数没有 `return` 语句，或者 `return` 后面没有值，函数返回 `None`：
+If a function has no `return` statement, or `return` has no value after it, the function returns `None`:
 
 ```python
 def greet(name):
-    print(f"你好，{name}！")
-    # 没有 return
+    print(f"Hello, {name}!")
+    # No return
 
-result = greet("小明")   # 打印: 你好，小明！
-print(result)            # None
+result = greet("Xiao Ming")   # Prints: Hello, Xiao Ming!
+print(result)                 # None
 ```
 
-### return 的另一个用途：提前结束函数
+### Another Use of `return`: Exiting Early
 
 ```python
 def divide(a, b):
     if b == 0:
-        print("错误：除数不能为 0！")
-        return None   # 提前结束函数
+        print("Error: The divisor cannot be 0!")
+        return None   # Exit the function early
     return a / b
 
 print(divide(10, 3))   # 3.333...
-print(divide(10, 0))   # 错误：除数不能为 0！ 然后返回 None
+print(divide(10, 0))   # Error: The divisor cannot be 0! Then returns None
 ```
 
 ---
 
-## 参数详解
+## Parameter Details
 
-### 位置参数
+### Positional Parameters
 
-按照顺序传入的参数：
-
-```python
-def describe_pet(animal, name):
-    print(f"我有一只{animal}，名叫{name}")
-
-describe_pet("猫", "咪咪")   # 我有一只猫，名叫咪咪
-describe_pet("咪咪", "猫")   # 我有一只咪咪，名叫猫 —— 顺序错了！
-```
-
-### 关键字参数
-
-通过参数名传值，不用在乎顺序：
+Parameters passed in order:
 
 ```python
 def describe_pet(animal, name):
-    print(f"我有一只{animal}，名叫{name}")
+    print(f"I have a {animal} named {name}")
 
-# 用关键字参数，顺序无所谓
-describe_pet(name="咪咪", animal="猫")   # 我有一只猫，名叫咪咪
-describe_pet(animal="狗", name="旺财")   # 我有一只狗，名叫旺财
+describe_pet("cat", "Mimi")   # I have a cat named Mimi
+describe_pet("Mimi", "cat")   # I have a Mimi named cat — the order is wrong!
 ```
 
-### 默认参数
+### Keyword Parameters
 
-给参数一个默认值，调用时可以不传：
+Pass values using parameter names, so order does not matter:
+
+```python
+def describe_pet(animal, name):
+    print(f"I have a {animal} named {name}")
+
+# With keyword parameters, order does not matter
+describe_pet(name="Mimi", animal="cat")   # I have a cat named Mimi
+describe_pet(animal="dog", name="Wangcai")   # I have a dog named Wangcai
+```
+
+### Default Parameters
+
+Give a parameter a default value so it can be omitted when calling the function:
 
 ```python
 def train_model(epochs=10, lr=0.001, batch_size=32):
-    print(f"训练参数: epochs={epochs}, lr={lr}, batch_size={batch_size}")
+    print(f"Training parameters: epochs={epochs}, lr={lr}, batch_size={batch_size}")
 
-# 使用全部默认值
+# Use all default values
 train_model()
-# 训练参数: epochs=10, lr=0.001, batch_size=32
+# Training parameters: epochs=10, lr=0.001, batch_size=32
 
-# 只修改部分参数
+# Change only some parameters
 train_model(epochs=50)
-# 训练参数: epochs=50, lr=0.001, batch_size=32
+# Training parameters: epochs=50, lr=0.001, batch_size=32
 
 train_model(epochs=100, lr=0.01)
-# 训练参数: epochs=100, lr=0.01, batch_size=32
+# Training parameters: epochs=100, lr=0.01, batch_size=32
 ```
 
-:::caution 默认参数的陷阱
-默认参数的值在函数定义时就确定了。不要用可变对象（如列表、字典）作为默认值：
+:::caution The Default Parameter Trap
+Default parameter values are determined when the function is defined. Do not use mutable objects (such as lists or dictionaries) as default values:
 
 ```python
-# 错误做法 ❌
+# Wrong ❌
 def add_item(item, items=[]):
     items.append(item)
     return items
 
 print(add_item("a"))  # ['a']
-print(add_item("b"))  # ['a', 'b'] —— 出bug了！上次的 'a' 还在
+print(add_item("b"))  # ['a', 'b'] — bug! The previous 'a' is still there
 
-# 正确做法 ✅
+# Correct ✅
 def add_item(item, items=None):
     if items is None:
         items = []
@@ -245,11 +245,11 @@ def add_item(item, items=None):
 ```
 :::
 
-### *args：接收任意数量的位置参数
+### `*args`: Accept Any Number of Positional Arguments
 
 ```python
 def calculate_sum(*numbers):
-    """计算任意数量数字的和"""
+    """Calculate the sum of any number of values"""
     total = 0
     for num in numbers:
         total += num
@@ -260,23 +260,23 @@ print(calculate_sum(1, 2, 3, 4, 5))  # 15
 print(calculate_sum(10))             # 10
 ```
 
-### **kwargs：接收任意数量的关键字参数
+### `**kwargs`: Accept Any Number of Keyword Arguments
 
 ```python
 def print_info(**info):
-    """打印任意数量的信息"""
+    """Print any number of pieces of information"""
     for key, value in info.items():
         print(f"{key}: {value}")
 
-print_info(name="小明", age=20, city="北京")
-# name: 小明
+print_info(name="Xiao Ming", age=20, city="Beijing")
+# name: Xiao Ming
 # age: 20
-# city: 北京
+# city: Beijing
 ```
 
-### 参数顺序规则
+### Parameter Order Rules
 
-当多种参数混合使用时，顺序是：
+When mixing different kinds of parameters, the order is:
 
 ```python
 def func(pos_arg, default_arg=10, *args, **kwargs):
@@ -294,49 +294,49 @@ func(1, 2, 3, 4, name="test")
 
 ---
 
-## 变量作用域
+## Variable Scope
 
-变量的"作用域"就是它的**生效范围**。
+A variable’s “scope” is its **range of validity**.
 
-### 局部变量 vs 全局变量
-
-```python
-# 全局变量：定义在函数外面
-message = "我是全局变量"
-
-def my_function():
-    # 局部变量：定义在函数里面
-    local_var = "我是局部变量"
-    print(message)      # 可以读取全局变量
-    print(local_var)    # 可以读取局部变量
-
-my_function()
-print(message)          # 可以访问全局变量
-# print(local_var)      # 报错！局部变量在函数外不存在
-```
-
-### 同名变量
+### Local Variables vs Global Variables
 
 ```python
-x = 10  # 全局变量
+# Global variable: defined outside the function
+message = "I am a global variable"
 
 def my_function():
-    x = 20  # 这是一个新的局部变量，不是修改全局变量
-    print(f"函数内的 x: {x}")  # 20
+    # Local variable: defined inside the function
+    local_var = "I am a local variable"
+    print(message)      # Can read the global variable
+    print(local_var)    # Can read the local variable
 
 my_function()
-print(f"函数外的 x: {x}")    # 10（全局变量没有被修改）
+print(message)          # Can access the global variable
+# print(local_var)      # Error! The local variable does not exist outside the function
 ```
 
-### global 关键字
+### Variables with the Same Name
 
-如果你确实需要在函数内修改全局变量（一般不推荐）：
+```python
+x = 10  # Global variable
+
+def my_function():
+    x = 20  # This is a new local variable, not a modification of the global variable
+    print(f"x inside the function: {x}")  # 20
+
+my_function()
+print(f"x outside the function: {x}")    # 10 (the global variable was not modified)
+```
+
+### The `global` Keyword
+
+If you really need to modify a global variable inside a function (generally not recommended):
 
 ```python
 count = 0
 
 def increment():
-    global count   # 声明要使用全局变量 count
+    global count   # Declare that we want to use the global variable count
     count += 1
 
 increment()
@@ -345,57 +345,57 @@ increment()
 print(count)  # 3
 ```
 
-:::tip 最佳实践
-尽量**不要使用全局变量**。函数应该通过参数接收数据，通过返回值传出结果。这样的函数更容易测试、更容易理解。
+:::tip Best Practice
+Try **not** to use global variables. Functions should receive data through parameters and output results through return values. Such functions are easier to test and easier to understand.
 :::
 
 ---
 
-## 文档字符串（docstring）
+## Docstrings
 
-好的函数应该有清晰的文档说明：
+Good functions should have clear documentation:
 
 ```python
 def calculate_bmi(weight, height):
     """
-    计算身体质量指数（BMI）。
+    Calculate Body Mass Index (BMI).
 
-    参数:
-        weight (float): 体重，单位千克
-        height (float): 身高，单位米
+    Parameters:
+        weight (float): weight in kilograms
+        height (float): height in meters
 
-    返回:
-        float: BMI 值
+    Returns:
+        float: BMI value
 
-    示例:
+    Example:
         >>> calculate_bmi(70, 1.75)
         22.857142857142858
     """
     return weight / (height ** 2)
 
-# 查看函数的文档
+# View the function's documentation
 help(calculate_bmi)
 ```
 
 ---
 
-## 综合案例
+## Comprehensive Examples
 
-### 案例 1：成绩分析工具
+### Example 1: Score Analysis Tool
 
 ```python
-def analyze_scores(scores, subject="未知科目"):
+def analyze_scores(scores, subject="Unknown Subject"):
     """
-    分析一组成绩，返回统计信息。
+    Analyze a list of scores and return statistics.
 
-    参数:
-        scores: 成绩列表
-        subject: 科目名称
-    返回:
-        字典，包含统计信息
+    Parameters:
+        scores: list of scores
+        subject: subject name
+    Returns:
+        A dictionary containing statistics
     """
     if not scores:
-        return {"error": "成绩列表为空"}
+        return {"error": "The score list is empty"}
 
     avg = sum(scores) / len(scores)
     passed = [s for s in scores if s >= 60]
@@ -413,31 +413,31 @@ def analyze_scores(scores, subject="未知科目"):
     }
 
 def print_report(stats):
-    """打印格式化的成绩报告"""
+    """Print a formatted score report"""
     print(f"\n{'='*30}")
-    print(f"  {stats['subject']} 成绩分析报告")
+    print(f"  {stats['subject']} Score Analysis Report")
     print(f"{'='*30}")
-    print(f"  参加人数: {stats['count']}")
-    print(f"  平均分:   {stats['average']}")
-    print(f"  最高分:   {stats['max']}")
-    print(f"  最低分:   {stats['min']}")
-    print(f"  及格率:   {stats['pass_rate']}")
-    print(f"  及格人数: {stats['passed']}")
-    print(f"  不及格:   {stats['failed']}")
+    print(f"  Number of students: {stats['count']}")
+    print(f"  Average score:      {stats['average']}")
+    print(f"  Highest score:      {stats['max']}")
+    print(f"  Lowest score:       {stats['min']}")
+    print(f"  Pass rate:          {stats['pass_rate']}")
+    print(f"  Passed:             {stats['passed']}")
+    print(f"  Failed:             {stats['failed']}")
     print(f"{'='*30}")
 
-# 使用
+# Use it
 math_scores = [85, 92, 45, 78, 95, 55, 88, 72, 60, 98]
 english_scores = [70, 55, 88, 45, 92, 78, 65, 82, 90, 58]
 
-math_stats = analyze_scores(math_scores, "数学")
-english_stats = analyze_scores(english_scores, "英语")
+math_stats = analyze_scores(math_scores, "Mathematics")
+english_stats = analyze_scores(english_scores, "English")
 
 print_report(math_stats)
 print_report(english_stats)
 ```
 
-### 案例 2：简单的密码生成器
+### Example 2: A Simple Password Generator
 
 ```python
 import random
@@ -445,15 +445,15 @@ import string
 
 def generate_password(length=12, use_upper=True, use_digits=True, use_special=True):
     """
-    生成随机密码。
+    Generate a random password.
 
-    参数:
-        length: 密码长度，默认 12
-        use_upper: 是否包含大写字母
-        use_digits: 是否包含数字
-        use_special: 是否包含特殊字符
+    Parameters:
+        length: password length, default 12
+        use_upper: whether to include uppercase letters
+        use_digits: whether to include digits
+        use_special: whether to include special characters
     """
-    chars = string.ascii_lowercase  # 小写字母
+    chars = string.ascii_lowercase  # Lowercase letters
 
     if use_upper:
         chars += string.ascii_uppercase
@@ -465,80 +465,80 @@ def generate_password(length=12, use_upper=True, use_digits=True, use_special=Tr
     password = ''.join(random.choice(chars) for _ in range(length))
     return password
 
-# 生成不同类型的密码
-print(f"默认密码: {generate_password()}")
-print(f"纯字母:   {generate_password(length=8, use_digits=False, use_special=False)}")
-print(f"超强密码: {generate_password(length=20)}")
+# Generate different kinds of passwords
+print(f"Default password: {generate_password()}")
+print(f"Letters only:   {generate_password(length=8, use_digits=False, use_special=False)}")
+print(f"Strong password: {generate_password(length=20)}")
 ```
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：温度转换函数
+### Exercise 1: Temperature Conversion Functions
 
-写两个函数，实现摄氏度和华氏度的互相转换：
+Write two functions to convert between Celsius and Fahrenheit:
 
 ```python
 def celsius_to_fahrenheit(celsius):
-    """摄氏度 → 华氏度: F = C × 9/5 + 32"""
-    pass  # 补充代码
+    """Celsius → Fahrenheit: F = C × 9/5 + 32"""
+    pass  # Fill in the code
 
 def fahrenheit_to_celsius(fahrenheit):
-    """华氏度 → 摄氏度: C = (F - 32) × 5/9"""
-    pass  # 补充代码
+    """Fahrenheit → Celsius: C = (F - 32) × 5/9"""
+    pass  # Fill in the code
 
-# 测试
-print(celsius_to_fahrenheit(100))  # 应该输出 212.0
-print(fahrenheit_to_celsius(32))   # 应该输出 0.0
+# Test
+print(celsius_to_fahrenheit(100))  # Should output 212.0
+print(fahrenheit_to_celsius(32))   # Should output 0.0
 ```
 
-### 练习 2：列表统计函数
+### Exercise 2: List Statistics Function
 
-写一个函数，接收一个数字列表，返回最大值、最小值、平均值、中位数：
+Write a function that accepts a list of numbers and returns the maximum value, minimum value, average, and median:
 
 ```python
 def list_stats(numbers):
     """
-    返回列表的统计信息。
-    不要使用 max()、min()、sum() 内置函数，自己实现！
+    Return statistics for a list.
+    Do not use the built-in functions max(), min(), sum(); implement them yourself!
     """
-    pass  # 补充代码
+    pass  # Fill in the code
 
-# 测试
+# Test
 stats = list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])
 print(stats)
 ```
 
-### 练习 3：猜数字游戏（函数版）
+### Exercise 3: Number Guessing Game (Function Version)
 
-把之前的猜数字游戏改写成函数版本：
+Rewrite the previous number guessing game as a function-based version:
 
 ```python
 def guess_number_game(min_val=1, max_val=100, max_attempts=7):
-    """猜数字游戏"""
-    pass  # 补充代码
+    """Number guessing game"""
+    pass  # Fill in the code
 
-# 运行游戏
+# Run the game
 guess_number_game()
-guess_number_game(1, 50, 5)  # 范围更小，次数更少
+guess_number_game(1, 50, 5)  # Smaller range, fewer attempts
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 说明 | 示例 |
+| Concept | Description | Example |
 |------|------|------|
-| **定义函数** | `def 函数名(参数):` | `def add(a, b):` |
-| **返回值** | `return 值` | `return a + b` |
-| **默认参数** | 参数有默认值 | `def f(x=10):` |
-| **关键字参数** | 按名字传参 | `f(x=5, y=10)` |
-| **`*args`** | 接收任意位置参数 | `def f(*args):` |
-| **`**kwargs`** | 接收任意关键字参数 | `def f(**kwargs):` |
-| **局部变量** | 函数内定义，函数外不可用 | — |
-| **全局变量** | 函数外定义，函数内可读 | — |
+| **Define a function** | `def function_name(parameters):` | `def add(a, b):` |
+| **Return value** | `return value` | `return a + b` |
+| **Default parameters** | Parameters with default values | `def f(x=10):` |
+| **Keyword arguments** | Pass arguments by name | `f(x=5, y=10)` |
+| **`*args`** | Accept any number of positional arguments | `def f(*args):` |
+| **`**kwargs`** | Accept any number of keyword arguments | `def f(**kwargs):` |
+| **Local variables** | Defined inside a function, not available outside | — |
+| **Global variables** | Defined outside a function, readable inside | — |
 
-:::tip 核心理解
-函数是编程中的**基本积木**。好的代码应该由一个个小函数组成，每个函数只做一件事，做好一件事。如果你的函数超过 20 行，考虑把它拆成更小的函数。
+:::tip Core Idea
+Functions are the **basic building blocks** of programming. Good code should be made up of small functions, and each function should do one thing and do it well. If your function is longer than 20 lines, consider splitting it into smaller functions.
 :::

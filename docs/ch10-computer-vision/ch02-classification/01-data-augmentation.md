@@ -1,162 +1,162 @@
 ---
-title: "2.2 数据增强策略"
+title: "2.2 Data Augmentation Strategies"
 sidebar_position: 4
-description: "从翻转、裁剪、颜色扰动到 mixup，理解数据增强为什么是视觉任务里最便宜也最有效的泛化手段之一。"
+description: "From flipping and cropping to color jitter and Mixup, understand why data augmentation is one of the cheapest and most effective ways to improve generalization in vision tasks."
 keywords: [data augmentation, flip, crop, color jitter, mixup, vision]
 ---
 
-# 数据增强策略
+# Data Augmentation Strategies
 
-![图像数据增强样例墙](/img/course/cv-data-augmentation-gallery.png)
+![Example wall of image data augmentation](/img/course/cv-data-augmentation-gallery-en.png)
 
-:::tip 本节定位
-图像分类里最常见也最容易被低估的技巧之一，就是数据增强。
+:::tip Section focus
+One of the most common and easiest-to-underestimate techniques in image classification is data augmentation.
 
-它解决的不是“模型不会学”，而是：
+It does not solve “the model can’t learn”; instead, it addresses this problem:
 
-> **模型太容易把训练集里的偶然细节当真。**
+> **The model is too easy to fool into treating accidental details in the training set as real patterns.**
 
-通过合理增强，我们能让模型看到更多“合理变化后的同一张图”，从而学得更稳。
+With proper augmentation, we let the model see more “reasonable variations of the same image,” so it learns more robustly.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解数据增强为什么能提升泛化能力
-- 区分几种常见增强方式适合处理什么问题
-- 理解“标签保持不变”这个增强前提
-- 通过可运行示例建立增强链路的直觉
+- Understand why data augmentation can improve generalization
+- Distinguish what kinds of problems different common augmentation methods are suited for
+- Understand the augmentation assumption that “the label stays the same”
+- Build intuition for the augmentation pipeline through runnable examples
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-如果你是从第 6 站过来的，可以先把这节理解成：
+If you are coming from Station 6, you can think of this section as:
 
-- 前面你已经知道卷积网络会从图像里学特征
-- 这一节开始解决“怎样让它别只记住训练集里的表面样子”
+- You already know that convolutional networks learn features from images
+- This section starts solving the problem of “how to keep them from only memorizing the surface appearance of the training set”
 
-所以数据增强不是视觉里的小技巧，而是在补：
+So data augmentation is not a small trick in vision; it helps with:
 
-- 模型如何面对真实世界中的视角、亮度、裁剪、遮挡变化
+- How the model handles changes in viewpoint, brightness, cropping, and occlusion in the real world
 
-数据增强这节最适合新人的理解顺序不是“记住多少变换名”，而是先看清：
+For beginners, the best way to understand this section is not to “memorize how many transform names there are,” but first to see clearly:
 
 ```mermaid
 flowchart LR
-    A["原始图像"] --> B["做合理变换"]
-    B --> C["标签尽量不变"]
-    C --> D["模型看到更多变化形式"]
-    D --> E["泛化更稳"]
+    A["Original image"] --> B["Apply reasonable transforms"]
+    B --> C["Label stays mostly unchanged"]
+    C --> D["Model sees more variation"]
+    D --> E["Better generalization"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to answer is:
 
-- 为什么图像分类特别需要增强
-- 增强什么时候是在帮忙，什么时候会伤害语义
+- Why image classification especially needs augmentation
+- When augmentation helps, and when it starts hurting semantics
 
-## 一、为什么图像任务特别需要数据增强？
+## 1. Why Do Vision Tasks Need Data Augmentation So Much?
 
-### 1.1 真实世界本来就在变化
+### 1.1 The Real World Is Always Changing
 
-同一只猫在不同图片里会有：
+The same cat can appear in different images with:
 
-- 角度变化
-- 光照变化
-- 背景变化
-- 局部遮挡
+- changes in angle
+- changes in lighting
+- changes in background
+- partial occlusion
 
-如果训练集覆盖不够，模型就很容易把偶然背景当成真正特征。
+If the training set does not cover enough of this, the model can easily mistake incidental background details for real features.
 
-### 1.2 增强不是“造更多数据”，而是“模拟合理变化”
+### 1.2 Augmentation Is Not “Creating More Data,” but “Simulating Reasonable Variation”
 
-一张图片经过合理变换后，  
-语义通常还没变。
+After a proper transform,
+the meaning of the image usually stays the same.
 
-例如：
+For example:
 
-- 左右翻转后的猫还是猫
-- 轻微裁剪后的狗还是狗
+- A cat after a horizontal flip is still a cat
+- A dog after a slight crop is still a dog
 
-这就是为什么增强能帮助模型学得更稳。
+That is why augmentation helps the model learn more robustly.
 
-### 1.4 第一次学数据增强，最该先抓住什么？
+### 1.4 When You First Learn Data Augmentation, What Should You Focus on Most?
 
-最该先抓住的不是一串 API，而是这一句：
+The most important thing is not a list of APIs, but this sentence:
 
-> **增强是在模拟“同一个目标可能以不同合理样子出现”。**
+> **Augmentation simulates the fact that the same object can appear in different reasonable forms.**
 
-只要这句话稳住了，后面你看到：
+Once that idea is clear, when you later see:
 
-- 翻转
-- 裁剪
-- 颜色扰动
+- flipping
+- cropping
+- color jitter
 - Mixup / CutMix
 
-都会更容易判断它们到底是在帮忙，还是已经开始伤语义了。
+it becomes much easier to judge whether they are helping or whether they are already hurting semantics.
 
-### 1.3 一个类比
+### 1.3 An Analogy
 
-数据增强像考前练变式题。  
-不是换知识点，而是让你别死记某一道题的表面样子。
+Data augmentation is like practicing variation questions before an exam.
+You are not changing the subject; you are preventing yourself from memorizing only the surface form of one problem.
 
 ---
 
-## 二、最常见的几类增强
+## 2. The Most Common Types of Augmentation
 
-### 2.1 几何增强
+### 2.1 Geometric Augmentation
 
-例如：
+For example:
 
-- 翻转
-- 平移
-- 裁剪
-- 旋转
+- flipping
+- translation
+- cropping
+- rotation
 
-它主要帮助模型应对：
+It mainly helps the model handle:
 
-- 视角和位置变化
+- viewpoint and position changes
 
-### 2.2 颜色增强
+### 2.2 Color Augmentation
 
-例如：
+For example:
 
-- 亮度
-- 对比度
-- 饱和度
+- brightness
+- contrast
+- saturation
 
-它主要帮助模型应对：
+It mainly helps the model handle:
 
-- 光照和拍摄条件变化
+- lighting and shooting-condition changes
 
-### 2.3 组合与混合增强
+### 2.3 Combined and Mixed Augmentation
 
-例如：
+For example:
 
 - Cutout
 - Mixup
 - CutMix
 
-它们更激进，但也往往更有效。
+They are more aggressive, but often more effective too.
 
-### 2.4 第一次做图像分类时，最值得先从哪类增强开始？
+### 2.4 When You First Do Image Classification, Which Type of Augmentation Should You Start With?
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先从几何增强开始  
-   因为它最直观，也最容易和“真实视角变化”对应起来。
+1. Start with geometric augmentation
+   Because it is the most intuitive and easiest to connect with “real viewpoint changes.”
 
-2. 再加轻量颜色增强  
-   用来应对光照和拍摄条件变化。
+2. Then add light color augmentation
+   To handle lighting and capture-condition changes.
 
-3. 最后再试更激进的混合增强  
-   因为这时你已经有 baseline，比较容易判断到底有没有真的收益。
+3. Finally try more aggressive mixed augmentation
+   Because by then you already have a baseline, so it is easier to tell whether there is real benefit.
 
 ---
 
-## 三、先跑一个最小增强流水线示例
+## 3. First Run a Minimal Augmentation Pipeline Example
 
-下面这个例子不依赖图像库，  
-而是用二维列表模拟一张灰度图，帮助你抓住增强的核心思想。
+The example below does not rely on an image library.
+Instead, it uses a 2D list to simulate a grayscale image, helping you grasp the core idea of augmentation.
 
 ```python
 image = [
@@ -195,54 +195,54 @@ for row in brightness_shift(image):
     print(row)
 ```
 
-### 3.1 这个例子最该抓住什么？
+### 3.1 What Should You Focus on Most in This Example?
 
-增强的本质不是图像库 API，  
-而是：
+The essence of augmentation is not the image-library API,
+but:
 
-- 对输入做合理变换
-- 同时尽量不改变标签语义
+- applying reasonable transforms to the input
+- while trying not to change the label semantics
 
-### 3.2 为什么“合理”很重要？
+### 3.2 Why Is “Reasonable” So Important?
 
-如果你把“6”和“9”这类数字图像乱旋转，  
-标签可能就真的变了。
+If you randomly rotate digit images like “6” and “9,”
+the label may really change.
 
-所以增强不是无脑越强越好，  
-而要考虑任务语义。
+So augmentation is not about blindly making it stronger and stronger.
+It must also respect the task semantics.
 
-### 3.3 这一点为什么对视觉任务特别重要？
+### 3.3 Why Is This Especially Important for Vision Tasks?
 
-因为视觉里的很多标签，其实依赖几何和方向。
+Because in vision, many labels actually depend on geometry and orientation.
 
-比如：
+For example:
 
-- 普通自然图像左右翻转可能没问题
-- 数字识别里随便旋转就可能把类别语义改掉
-- 检测和分割里增强还会连着框和 mask 一起变
+- For ordinary natural images, horizontal flipping may be fine
+- For digit recognition, arbitrary rotation may change the class meaning
+- In detection and segmentation, augmentation must also update boxes and masks together
 
-所以增强不是“加得越多越先进”，而是：
+So augmentation is not “the more you add, the more advanced it is,” but rather:
 
-- 是否还在尊重任务本身的语义边界
+- whether you are still respecting the semantic boundaries of the task itself
 
-![数据增强不变性与语义风险图](/img/course/ch10-augmentation-invariance-risk-map.png)
+![Diagram of augmentation invariance and semantic risk](/img/course/ch10-augmentation-invariance-risk-map-en.png)
 
-:::tip 读图提示
-读这张图时抓住一句话：增强是在训练模型忽略“合理变化”，但不能破坏标签语义。分类、检测、分割的增强还要同步处理 label、box 和 mask。
+:::tip Reading hint
+When reading this diagram, focus on one sentence: augmentation trains the model to ignore “reasonable changes,” but it must not break label semantics. For classification, detection, and segmentation, labels, boxes, and masks must be handled together.
 :::
 
 ---
 
-## 四、Mixup 为什么值得单独记住？
+## 4. Why Is Mixup Worth Remembering Separately?
 
-### 4.1 它不是简单改图，而是连标签也一起混
+### 4.1 It Does Not Just Modify the Image — It Mixes the Labels Too
 
-Mixup 的核心思想是：
+The core idea of Mixup is:
 
-- 两张图按比例混合
-- 标签也按比例混合
+- mix two images by a ratio
+- mix the labels by the same ratio
 
-### 4.2 一个纯数字直觉示例
+### 4.2 A Purely Numeric Intuition Example
 
 ```python
 img_a = [1.0, 2.0, 3.0]
@@ -258,75 +258,75 @@ print("mixed_img:", mixed_img)
 print("mixed_label:", mixed_label)
 ```
 
-### 4.3 为什么这种方法会有效？
+### 4.3 Why Can This Work Well?
 
-它会让模型更少学到极端边界，  
-更倾向于形成平滑决策面。
-
----
-
-## 五、增强最容易踩的坑
-
-### 5.1 误区一：增强越重越好
-
-增强过头可能会把有效特征破坏掉。
-
-### 5.2 误区二：所有任务共用同一套增强
-
-分类、检测、分割对增强的敏感点并不完全一样。
-
-### 5.3 误区三：只加增强，不做验证
-
-增强是手段，不是目标。  
-最终还是要看验证集是否真的受益。
-
-## 新人第一次做图像分类时，最稳的增强顺序
-
-如果你刚开始做视觉分类，建议先按这个顺序来：
-
-1. 先用水平翻转
-2. 再加轻量裁剪
-3. 再加轻量颜色扰动
-4. 确认 baseline 稳定后，再尝试 Mixup / CutMix
-
-这样更容易知道到底是哪类增强在起作用。
-
-### 6.1 验证增强是否真的有效，最值得先看什么？
-
-不要只看训练集 loss。  
-更稳的判断是：
-
-- 验证集指标有没有提升
-- 错例类型有没有变得更合理
-- 模型是不是不再特别依赖背景或拍摄姿态
-
-也就是说，增强真正的价值不只是“分数高一点”，而是让模型学到更稳定的视觉特征。
+It encourages the model to learn fewer extreme boundaries
+and to form a smoother decision surface.
 
 ---
 
-## 小结
+## 5. Common Pitfalls in Augmentation
 
-这节最重要的是建立一个判断：
+### 5.1 Mistake 1: More Augmentation Is Always Better
 
-> **数据增强的核心，是通过模拟合理变化，让模型学会抓住更稳定的视觉特征，而不是死记训练集里的偶然细节。**
+Too much augmentation can damage useful features.
 
-只要这层直觉在，后面你看更复杂增强策略就不会迷路。
+### 5.2 Mistake 2: Use the Same Augmentation Set for All Tasks
 
-## 这节最该带走什么
+Classification, detection, and segmentation are not equally sensitive to the same augmentations.
 
-- 增强不是越猛越好，而是要和任务语义匹配
-- 第一次做项目时，先从最稳的几类增强开始
-- 验证集是否变好，才是增强值不值得保留的真正标准
+### 5.3 Mistake 3: Add Augmentation Without Validation
 
-如果再压成一句话，那就是：
+Augmentation is a means, not the goal.
+In the end, you still need to check whether the validation set really benefits.
 
-> **数据增强的本质不是“把图改花”，而是在不改语义的前提下，让模型见过更多合理变化。**
+## The Safest Augmentation Order for Beginners Doing Image Classification for the First Time
+
+If you are just starting with vision classification, it is recommended to follow this order:
+
+1. Start with horizontal flipping
+2. Then add light cropping
+3. Then add light color jitter
+4. After confirming that the baseline is stable, try Mixup / CutMix
+
+This makes it easier to tell which type of augmentation is actually helping.
+
+### 6.1 What Should You Look At First to Verify Whether Augmentation Is Really Effective?
+
+Do not only look at training loss.
+A more stable judgment is:
+
+- Did the validation metrics improve?
+- Did the types of mistakes become more reasonable?
+- Is the model no longer overly dependent on background or shooting pose?
+
+In other words, the real value of augmentation is not just “a slightly higher score,” but helping the model learn more stable visual features.
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例再写一个 `vertical_flip` 函数。
-2. 想一想：为什么某些任务里旋转增强可能是有害的？
-3. 用自己的话解释：Mixup 和普通增强最大的不同是什么？
-4. 如果验证集效果下降，你会先怀疑增强太弱还是太强？
+The most important thing in this section is to build one judgment:
+
+> **The core of data augmentation is to simulate reasonable variation so the model learns to capture more stable visual features, instead of memorizing accidental details from the training set.**
+
+Once you have this intuition, you will not get lost when you see more complex augmentation strategies later.
+
+## What You Should Take Away from This Section
+
+- Augmentation is not better just because it is stronger; it must match the task semantics
+- When you start a project, begin with the most stable types of augmentation first
+- Whether the validation set gets better is the real standard for deciding if an augmentation should be kept
+
+If we compress it into one sentence, it is:
+
+> **The essence of data augmentation is not to “mess up the image,” but to let the model see more reasonable variations without changing the semantics.**
+
+---
+
+## Exercises
+
+1. Write a `vertical_flip` function for the example.
+2. Think about this: why can rotation augmentation be harmful in some tasks?
+3. Explain in your own words: what is the biggest difference between Mixup and ordinary augmentation?
+4. If the validation performance drops, would you first suspect that the augmentation is too weak or too strong?

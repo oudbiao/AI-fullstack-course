@@ -1,183 +1,183 @@
 ---
-title: "2.4 大模型产业格局"
+title: "2.4 LLM Industry Landscape"
 sidebar_position: 7
-description: "从模型层、平台层、应用层和开闭源生态出发，建立理解大模型产业格局的基础框架。"
-keywords: [LLM 产业, 开源模型, 闭源模型, API, 推理, 应用层]
+description: "Build a foundational framework for understanding the LLM industry landscape from the model layer, platform layer, application layer, and open-source vs. closed-source ecosystem."
+keywords: [LLM industry, open-source models, closed-source models, API, inference, application layer]
 ---
 
-# 大模型产业格局
+# LLM Industry Landscape
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 从产业链视角理解大模型生态
-- 分清模型层、平台层、应用层分别在做什么
-- 理解开源与闭源路线的不同优势
-- 用一个小例子练习模型选型思路
-
----
-
-## 一、先把产业链拆开看
-
-### 1.1 模型层：谁在造“发动机”？
-
-模型层主要负责训练基础模型和通用模型。  
-你可以把它理解成“造发动机的人”。
-
-这层通常关注：
-
-- 模型架构
-- 训练数据
-- 训练算力
-- 模型能力
-
-常见形态包括：
-
-- 闭源 API 模型
-- 开源可下载模型
-- 行业专用模型
-
-### 1.2 平台层：谁在让模型更容易被用？
-
-平台层像“修路和供电的人”。
-
-它们常做的事包括：
-
-- 模型托管
-- 推理服务
-- 向量数据库
-- 监控与评估
-- 微调平台
-- Agent / workflow 开发框架
-
-如果没有平台层，很多团队即使拿到模型，也很难稳定落地。
+- Understand the LLM ecosystem from an industry-chain perspective
+- Distinguish what the model layer, platform layer, and application layer each do
+- Understand the different strengths of open-source and closed-source approaches
+- Practice model selection thinking with a small example
 
 ---
 
-## 二、应用层：真正离用户最近
+## 1. First, break the industry chain down
 
-### 2.1 应用层卖的不是模型，而是结果
+### 1.1 Model layer: who is building the "engine"?
 
-应用层更像“开餐厅的人”。
+The model layer is mainly responsible for training foundation models and general-purpose models.
+You can think of it as "the people who build the engine."
 
-用户通常不关心你用的是哪种注意力机制，用户关心的是：
+This layer usually focuses on:
 
-- 能不能帮我完成任务
-- 回答是否可靠
-- 速度够不够快
-- 成本能不能接受
+- Model architecture
+- Training data
+- Training compute
+- Model capabilities
 
-典型应用包括：
+Common forms include:
 
-- AI 搜索
-- AI 客服
-- AI 编程助手
-- AI 办公工具
-- AI 教学助手
+- Closed-source API models
+- Open-source downloadable models
+- Industry-specific models
 
-### 2.2 同一个模型，可以长出很多不同产品
+### 1.2 Platform layer: who makes models easier to use?
 
-同一个基础模型，在不同团队手里可能会变成完全不同的产品：
+The platform layer is like "the people who build roads and supply electricity."
 
-- 法务助手
-- 销售助手
-- 教育助教
-- 代码评审工具
+What they usually do includes:
 
-这说明产业竞争并不只发生在“谁模型更大”，也发生在：
+- Model hosting
+- Inference services
+- Vector databases
+- Monitoring and evaluation
+- Fine-tuning platforms
+- Agent / workflow development frameworks
 
-- 工作流设计
-- 数据积累
-- 产品体验
-- 行业 know-how
+Without the platform layer, many teams would struggle to put models into production reliably, even if they already had the model.
 
 ---
 
-## 三、开源路线和闭源路线怎么选？
+## 2. Application layer: the layer closest to users
 
-### 3.1 闭源模型更像“即插即用的成熟发动机”
+### 2.1 The application layer sells results, not models
 
-优势通常是：
+The application layer is more like "the people who run a restaurant."
 
-- 开箱效果强
-- 模型维护工作少
-- 上线速度快
+Users usually do not care which attention mechanism you use. They care about:
 
-代价通常是：
+- Whether it can help me complete the task
+- Whether the answer is reliable
+- Whether it is fast enough
+- Whether the cost is acceptable
 
-- 成本按调用计费
-- 可控性较弱
-- 私有部署受限
+Typical applications include:
 
-### 3.2 开源模型更像“可自己改装的发动机”
+- AI search
+- AI customer service
+- AI coding assistants
+- AI office tools
+- AI teaching assistants
 
-优势通常是：
+### 2.2 The same model can become many different products
 
-- 可自部署
-- 可微调
-- 数据和推理链路更可控
+The same foundation model may turn into completely different products in different teams:
 
-代价通常是：
+- Legal assistant
+- Sales assistant
+- Education assistant
+- Code review tool
 
-- 部署和维护更复杂
-- 效果不一定天然最强
-- 需要更多工程能力
+This shows that industry competition is not only about "whose model is bigger." It also happens in:
 
-一句话记忆：
-
-> 闭源偏省心，开源偏可控。
+- Workflow design
+- Data accumulation
+- Product experience
+- Industry know-how
 
 ---
 
-## 四、很多团队真正比拼的是“系统能力”
+## 3. How should you choose between open-source and closed-source approaches?
 
-### 4.1 模型只是系统中的一个零件
+### 3.1 Closed-source models are more like "plug-and-play mature engines"
 
-现实中的大模型产品，往往不是“模型单打独斗”，而是整套系统协作：
+Their advantages are usually:
+
+- Strong out-of-the-box performance
+- Less model maintenance work
+- Faster time to launch
+
+Their trade-offs are usually:
+
+- Cost is charged per API call
+- Less controllable
+- Private deployment is more limited
+
+### 3.2 Open-source models are more like "engines you can modify yourself"
+
+Their advantages are usually:
+
+- Can be self-hosted
+- Can be fine-tuned
+- More control over data and inference pipeline
+
+Their trade-offs are usually:
+
+- Deployment and maintenance are more complex
+- Performance is not always naturally the strongest
+- Requires more engineering capability
+
+One-sentence memory aid:
+
+> Closed-source is easier to use, open-source is more controllable.
+
+---
+
+## 4. What many teams really compete on is "system capability"
+
+### 4.1 The model is only one component in the system
+
+In real-world LLM products, it is usually not "the model acting alone," but the collaboration of an entire system:
 
 - Prompt
 - RAG
-- 工具调用
-- 评估体系
-- 安全策略
-- 成本控制
+- Tool calling
+- Evaluation framework
+- Safety strategy
+- Cost control
 
-也就是说：
+In other words:
 
-> 用户体验 = 模型能力 × 系统设计 × 数据质量
+> User experience = model capability × system design × data quality
 
-### 4.2 为什么同一个模型，不同产品体验差很多？
+### 4.2 Why can the same model feel very different in different products?
 
-因为真正决定体验的，往往还包括：
+Because what really determines the experience often also includes:
 
-- 知识库好不好
-- 工具准不准
-- 失败时有没有兜底
-- 延迟控制得好不好
+- How good the knowledge base is
+- How accurate the tools are
+- Whether there is a fallback when things fail
+- How well latency is controlled
 
-这也是为什么“会调 API”不等于“会做 AI 产品”。
+This is also why "being able to call an API" is not the same as "being able to build an AI product."
 
 ---
 
-## 五、一个实用的模型选型框架
+## 5. A practical framework for model selection
 
-### 5.1 不要先问“谁最强”，先问“我需要什么”
+### 5.1 Do not ask first, "Which one is the strongest?" Ask first, "What do I need?"
 
-常见选型维度有：
+Common selection dimensions include:
 
-| 维度 | 你要问的问题 |
+| Dimension | Question to ask |
 |---|---|
-| 质量 | 任务效果够不够好？ |
-| 成本 | 每次调用贵不贵？ |
-| 延迟 | 用户能不能接受响应速度？ |
-| 可控性 | 能不能私有部署、微调、审计？ |
-| 多模态 | 是否需要看图、听音频？ |
-| 工具能力 | 是否要 function calling / agent？ |
+| Quality | Is the task performance good enough? |
+| Cost | Is each call expensive? |
+| Latency | Can users accept the response speed? |
+| Controllability | Can it be privately deployed, fine-tuned, and audited? |
+| Multimodal | Do you need image understanding or audio? |
+| Tool capability | Do you need function calling / agent support? |
 
-### 5.2 一个小型评分脚本
+### 5.2 A small scoring script
 
-下面这个例子不是在选真实最新模型，而是在练习“怎么按需求评分”。
+This example is not about choosing a real latest model. It is for practicing how to score based on requirements.
 
 ```python
 models = {
@@ -219,64 +219,64 @@ for score, name in sorted(scores, reverse=True):
     print(name, "->", round(score, 2))
 ```
 
-你可以把 `weights` 改掉，模拟不同公司的不同偏好。
+You can change `weights` to simulate different preferences in different companies.
 
 ---
 
-## 六、为什么“产业格局”对工程师也重要？
+## 6. Why does the "industry landscape" matter to engineers too?
 
-### 6.1 因为你每天都在做技术选型
+### 6.1 Because you make technical choices every day
 
-你会不断遇到这些问题：
+You will keep running into questions like:
 
-- 用 API 还是自部署？
-- 先做 RAG 还是先做微调？
-- 用通用模型还是垂直模型？
-- 用单模型还是多模型路由？
+- Use an API or self-host it?
+- Start with RAG or start with fine-tuning?
+- Use a general-purpose model or a vertical model?
+- Use a single model or multi-model routing?
 
-这些问题本质上都和产业结构有关。
+At their core, these questions are all related to industry structure.
 
-### 6.2 因为技术路线会影响职业路径
+### 6.2 Because technology choices affect your career path
 
-不同岗位更偏向不同能力：
+Different roles tend to emphasize different skills:
 
-- 基础模型：更偏训练和算法
-- 平台工程：更偏推理、部署、优化
-- 应用工程：更偏产品、工作流、评估
+- Foundation models: more focused on training and algorithms
+- Platform engineering: more focused on inference, deployment, and optimization
+- Application engineering: more focused on product, workflows, and evaluation
 
-知道产业格局，能帮你更清楚自己想往哪类岗位走。
-
----
-
-## 七、初学者常见误区
-
-### 7.1 只盯着排行榜
-
-排行榜有价值，但它不是全部。  
-真实项目里，成本、时延、稳定性同样关键。
-
-### 7.2 以为“开源一定便宜”
-
-模型本身开源，不代表训练、部署、维护都便宜。
-
-### 7.3 以为“有最好模型”这件事总成立
-
-很多时候没有“绝对最好”，只有“当前场景下最合适”。
+Understanding the industry landscape can help you more clearly see which kind of role you want to move toward.
 
 ---
 
-## 小结
+## 7. Common beginner mistakes
 
-这一节最重要的认识是：
+### 7.1 Only looking at leaderboards
 
-> 大模型产业不是只比模型参数，而是在比模型、平台、数据、产品和工程能力的组合。
+Leaderboards are useful, but they are not everything.
+In real projects, cost, latency, and stability are equally important.
 
-做应用的人理解产业格局，不是为了追热点，而是为了做出更稳的技术和产品决策。
+### 7.2 Thinking open-source is always cheaper
+
+A model being open-source does not mean training, deployment, and maintenance are all cheap.
+
+### 7.3 Thinking there is always a "best model"
+
+Many times there is no "absolute best," only "the most suitable for the current scenario."
 
 ---
 
-## 练习
+## Summary
 
-1. 修改评分脚本里的权重，分别模拟“创业团队”和“金融企业”的选型偏好。
-2. 想一想：如果你的项目要求私有部署，开源和闭源路线的优先级会怎么变？
-3. 用自己的话解释：为什么很多时候真正的竞争优势不只是模型本身？
+The most important idea in this section is:
+
+> The LLM industry is not just a competition of model parameters. It is a competition of the combination of models, platforms, data, products, and engineering capability.
+
+For application builders, understanding the industry landscape is not about following trends. It is about making more stable technical and product decisions.
+
+---
+
+## Exercises
+
+1. Change the weights in the scoring script to simulate the model-selection preferences of a "startup team" and a "financial enterprise."
+2. Think about this: if your project requires private deployment, how would the priority between open-source and closed-source approaches change?
+3. Explain in your own words: why is the real competitive advantage often not just the model itself?

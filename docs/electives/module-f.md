@@ -1,118 +1,118 @@
 ---
-title: "1.1 AI 产品设计思维"
+title: "1.1 AI Product Design Thinking"
 sidebar_position: 6
-description: "从用户问题、任务成功标准、成本和风险约束出发，理解 AI 产品设计为什么首先是一个取舍问题。"
+description: "Starting from user problems, task success criteria, cost, and risk constraints, understand why AI product design is first and foremost a trade-off problem."
 keywords: [AI product design, product thinking, evaluation, cost, UX, product strategy]
 ---
 
-# AI 产品设计思维
+# AI Product Design Thinking
 
-![AI 产品决策四象限图](/img/course/elective-ai-product-decision-matrix.png)
+![AI Product Decision Matrix](/img/course/elective-ai-product-decision-matrix-en.png)
 
-![AI 产品实验与指标闭环图](/img/course/elective-ai-product-experiment-metrics-loop.png)
+![AI Product Experiment and Metrics Loop](/img/course/elective-ai-product-experiment-metrics-loop-en.png)
 
-:::tip 读图提示
-产品判断不能停在“这个 AI 功能很酷”。读图时把用户问题、假设、MVP、成功指标、风险边界、实验反馈和迭代放在一起看，才能判断功能是否真的值得继续做。
+:::tip Reading guide
+Product decisions should not stop at “this AI feature is cool.” When reading the diagram, look at the user problem, hypothesis, MVP, success metrics, risk boundaries, experiment feedback, and iteration together to judge whether the feature is truly worth continuing.
 :::
 
-:::tip 本节定位
-AI 产品最容易犯的一个错误是：
+:::tip Section focus
+One of the easiest mistakes in AI product work is:
 
-- 先想模型能做什么
+- thinking first about what the model can do
 
-而不是：
+instead of:
 
-- 用户真正需要解决什么
+- what problem the user actually needs solved
 
-这会导致很多项目虽然技术上很花，但产品上很虚。
+This often leads to projects that are technically impressive but product-wise hollow.
 
-所以这节课要解决的是：
+So this lesson aims to answer:
 
-> **如何把 AI 功能从“炫技点子”变成“可验证的产品价值”。**
+> **How do we turn an AI feature from a “cool demo idea” into “verifiable product value”?**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 AI 产品设计和纯技术实现的差别
-- 学会从用户问题、成功标准、成本和风险四个维度判断方案
-- 通过可运行示例建立最小产品排序思路
-- 建立“先做判断，再做功能”的产品思维
-
----
-
-## 一、AI 产品设计最核心的问题是什么？
-
-### 1.1 不是“能不能做”，而是“值不值得做”
-
-很多 AI 功能理论上都能做，  
-但产品上更重要的是：
-
-- 用户是否真的痛
-- 成本是否可接受
-- 风险是否可控
-- 体验是否可持续
-
-### 1.2 一个类比
-
-技术实现像会做很多菜。  
-产品设计像决定：
-
-- 今天该做哪道菜
-- 给谁吃
-- 成本能不能回收
-
-### 1.3 所以 AI 产品设计不是“弱化技术”
-
-而是让技术服从：
-
-- 用户问题
-- 商业约束
-- 风险边界
+- Understand the difference between AI product design and pure technical implementation
+- Learn to evaluate a solution from four dimensions: user problem, success criteria, cost, and risk
+- Build a minimal product prioritization mindset through a runnable example
+- Develop a product mindset of “judge first, build later”
 
 ---
 
-## 二、设计 AI 产品时最常看的四个维度
+## 1. What is the core question in AI product design?
 
-### 2.1 用户价值
+### 1.1 Not “Can we build it?”, but “Is it worth building?”
 
-它是不是真的解决了一个用户高频、清晰的问题？
+Many AI features are technically possible,
+but from a product perspective, what matters more is:
 
-### 2.2 成本
+- Does the user really feel the pain?
+- Is the cost acceptable?
+- Is the risk manageable?
+- Is the experience sustainable?
 
-包括：
+### 1.2 An analogy
 
-- 模型调用成本
-- 工程维护成本
-- 人工审核成本
+Technical implementation is like being able to cook many dishes.
+Product design is deciding:
 
-### 2.3 风险
+- Which dish to make today
+- Who it is for
+- Whether the cost can be recovered
 
-包括：
+### 1.3 So AI product design is not about “weakening technology”
 
-- 错答风险
-- 合规风险
-- 品牌风险
+It is about making technology serve:
 
-### 2.4 可体验性
-
-包括：
-
-- 等待时间
-- 可解释性
-- 输出是否稳定
+- user problems
+- business constraints
+- risk boundaries
 
 ---
 
-## 三、先跑一个产品方案排序示例
+## 2. Four dimensions commonly used when designing AI products
 
-下面这个例子会用一个非常简单的方式，  
-帮你把几个 AI 产品方向做第一轮排序。
+### 2.1 User value
+
+Does it really solve a frequent and clear user problem?
+
+### 2.2 Cost
+
+Includes:
+
+- model usage cost
+- engineering maintenance cost
+- human review cost
+
+### 2.3 Risk
+
+Includes:
+
+- incorrect-answer risk
+- compliance risk
+- brand risk
+
+### 2.4 Experience quality
+
+Includes:
+
+- waiting time
+- explainability
+- output stability
+
+---
+
+## 3. First, let’s run a simple product prioritization example
+
+The following example uses a very simple approach
+to help you rank several AI product directions in the first round.
 
 ```python
 ideas = [
-    {"name": "AI 助教", "value": 9, "cost": 6, "risk": 4, "ux": 8},
-    {"name": "AI 客服", "value": 8, "cost": 5, "risk": 5, "ux": 7},
-    {"name": "AI 代码审查", "value": 7, "cost": 4, "risk": 6, "ux": 6},
+    {"name": "AI Tutor", "value": 9, "cost": 6, "risk": 4, "ux": 8},
+    {"name": "AI Customer Service", "value": 8, "cost": 5, "risk": 5, "ux": 7},
+    {"name": "AI Code Review", "value": 7, "cost": 4, "risk": 6, "ux": 6},
 ]
 
 
@@ -135,118 +135,118 @@ for item in ranked:
     print(item)
 ```
 
-### 3.1 这个例子想让你抓住什么？
+### 3.1 What should you take away from this example?
 
-产品判断通常不是单维度的。  
-一个想法“很有价值”，并不自动意味着它最值得做。
+Product judgment is usually not one-dimensional.
+An idea being “high value” does not automatically mean it is the most worth doing.
 
-因为你还要一起看：
+Because you also need to consider:
 
-- 成本
-- 风险
-- 体验
+- cost
+- risk
+- experience
 
-### 3.2 为什么这比“我觉得这个方向很酷”更有用？
+### 3.2 Why is this more useful than “I think this direction is cool”?
 
-因为它迫使你明确：
+Because it forces you to make your decision criteria explicit:
 
-- 你到底在用什么标准做决策
+- What exactly are you using to make the decision?
 
-而不是靠感觉。
-
----
-
-## 四、AI 产品设计最容易踩的三个坑
-
-### 4.1 误区一：从模型能力出发，而不是从用户问题出发
-
-例如：
-
-- “我有个大模型，所以我想找个场景塞进去”
-
-这通常会做出不痛不痒的产品。
-
-### 4.2 误区二：只看功能，不看风险和成本
-
-某些功能 demo 很亮眼，  
-但如果：
-
-- 单次调用太贵
-- 风险太高
-- 人工兜底太重
-
-就很难真正做成产品。
-
-### 4.3 误区三：把体验问题全归为前端问题
-
-AI 产品体验很大程度上取决于：
-
-- 输出稳定性
-- 等待时间
-- 是否可解释
-
-这不是纯 UI 问题，而是产品整体设计问题。
+instead of relying on intuition.
 
 ---
 
-## 五、一个实用的产品判断顺序
+## 4. Three common traps in AI product design
 
-### 5.1 先问用户到底在哪卡住
+### 4.1 Mistake 1: Starting from model capability instead of user problems
 
-别先问模型能写什么，  
-先问用户哪一步最费劲。
+For example:
 
-### 5.2 再问 AI 真的比规则或传统流程更好吗？
+- “I have a large model, so I want to find a scenario to plug it into”
 
-并不是所有问题都该上 AI。  
-有些问题：
+This usually leads to products that are neither painful nor truly useful.
 
-- 规则就够
-- 数据库检索就够
-- 表单工作流就够
+### 4.2 Mistake 2: Looking only at features and ignoring risk and cost
 
-### 5.3 最后才问“用哪个模型”
+Some features have dazzling demos,
+but if:
 
-模型选择通常不是第一层问题，  
-而是方案确定后的实现问题。
+- each call is too expensive
+- the risk is too high
+- the human fallback is too heavy
 
----
+then it is hard to turn them into real products.
 
-## 六、产品设计里很重要的两个输出
+### 4.3 Mistake 3: Attributing all experience issues to the frontend
 
-### 6.1 成功标准
+The experience of an AI product depends heavily on:
 
-例如：
+- output stability
+- waiting time
+- explainability
 
-- 用户完成任务率提高
-- 平均等待时间下降
-- 人工处理量下降
-
-### 6.2 失败边界
-
-例如：
-
-- 哪些场景必须转人工
-- 哪些输出不能自动放行
-- 哪些功能先不上线
-
-这能让产品更稳，也更真实。
+This is not just a UI problem, but a product design problem as a whole.
 
 ---
 
-## 七、小结
+## 5. A practical product judgment sequence
 
-这节最重要的是建立一个产品视角：
+### 5.1 First ask where the user is getting stuck
 
-> **AI 产品设计首先是问题定义和取舍判断，其次才是模型选择和功能实现。**
+Don’t ask first what the model can write,
+ask first which step is most painful for the user.
 
-只要这层判断稳住了，你做产品时就不容易陷入“功能很炫但价值很虚”的状态。
+### 5.2 Then ask whether AI is really better than rules or a traditional workflow
+
+Not every problem should use AI.
+For some problems:
+
+- rules are enough
+- database retrieval is enough
+- a form-based workflow is enough
+
+### 5.3 Only then ask “Which model should we use?”
+
+Model selection is usually not the first-layer problem,
+but an implementation question after the solution direction is decided.
 
 ---
 
-## 练习
+## 6. Two very important outputs in product design
 
-1. 用示例里的四个维度，给你自己的一个 AI 想法打分。
-2. 想一想：一个看起来很酷的 AI 功能，为什么可能并不值得优先做？
-3. 如果某功能用户价值很高，但风险也很高，你会怎么处理？
-4. 你会怎样向团队解释“先定义成功标准，再做功能”这件事？
+### 6.1 Success criteria
+
+For example:
+
+- higher task completion rate
+- lower average waiting time
+- reduced manual workload
+
+### 6.2 Failure boundaries
+
+For example:
+
+- which scenarios must be handed off to humans
+- which outputs must not be released automatically
+- which features should not be launched yet
+
+This makes the product more stable and more realistic.
+
+---
+
+## 7. Summary
+
+The most important thing in this lesson is to build a product perspective:
+
+> **AI product design is first about problem definition and trade-off judgment, and only then about model selection and feature implementation.**
+
+Once this layer of judgment is solid, you are less likely to fall into the trap of building something that looks flashy but offers vague value.
+
+---
+
+## Exercises
+
+1. Use the four dimensions in the example to score one of your own AI ideas.
+2. Think about why a seemingly cool AI feature may not be worth prioritizing.
+3. If a feature has very high user value but also high risk, how would you handle it?
+4. How would you explain to your team the idea of “defining success criteria first, then building the feature”?

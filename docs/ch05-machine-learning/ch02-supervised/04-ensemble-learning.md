@@ -1,210 +1,210 @@
 ---
-title: "2.5 集成学习"
+title: "2.5 Ensemble Learning"
 sidebar_position: 6
-description: "理解 Bagging 与 Boosting 原理，掌握随机森林、GBDT、XGBoost、LightGBM 等集成方法"
-keywords: [集成学习, 随机森林, Bagging, Boosting, GBDT, XGBoost, LightGBM, CatBoost, Stacking]
+description: "Understand the principles of Bagging and Boosting, and master ensemble methods such as Random Forest, GBDT, XGBoost, and LightGBM"
+keywords: [Ensemble Learning, Random Forest, Bagging, Boosting, GBDT, XGBoost, LightGBM, CatBoost, Stacking]
 ---
 
-# 集成学习
+# Ensemble Learning
 
-![集成学习投票与森林图](/img/course/ensemble-learning-voting-forest.png)
+![Ensemble Learning Voting and Forest Diagram](/img/course/ensemble-learning-voting-forest-en.png)
 
-:::tip 本节定位
-集成学习是 ML 竞赛和工业界中**最常用**的技术。核心思想很简单：**三个臭皮匠，顶个诸葛亮**——多个弱模型组合起来，比一个强模型更好。XGBoost 和 LightGBM 至今仍是表格数据的"默认首选"。
+:::tip Section Overview
+Ensemble learning is the **most commonly used** technique in ML competitions and industry. The core idea is simple: **many hands make light work**—combining multiple weak models can perform better than a single strong model. XGBoost and LightGBM are still the "default first choice" for tabular data.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Bagging 原理与随机森林
-- 理解 Boosting 原理与 AdaBoost
-- 掌握 GBDT 和 XGBoost
-- 了解 LightGBM 和 CatBoost
-- 了解 Stacking 策略
+- Understand the principles of Bagging and Random Forest
+- Understand the principles of Boosting and AdaBoost
+- Master GBDT and XGBoost
+- Learn about LightGBM and CatBoost
+- Learn the Stacking strategy
 
-## 先说一个很重要的学习预期
+## First, let’s set a very important learning expectation
 
-这一节对新人最容易造成压力的地方，不是原理太难，而是名字一下子太多：
+The part of this section that most easily creates pressure for beginners is not that the ideas are too hard, but that there are suddenly too many names:
 
-- 随机森林
+- Random Forest
 - AdaBoost
 - GBDT
 - XGBoost
 - LightGBM
 - CatBoost
 
-更适合第一遍先学会的不是把这些全背熟，而是先分清：
+What you should focus on first is not memorizing all of them, but distinguishing between:
 
-> **集成学习其实主要只有两条主线：并行投票的 Bagging，和串行纠错的 Boosting。**
+> **In essence, ensemble learning mainly has two paths: Bagging, which votes in parallel, and Boosting, which corrects errors in sequence.**
 
-只要这两条线先立住，后面的模型名就不会再像散点知识。
+Once these two paths are clear, the model names later on won’t feel like scattered facts.
 
 ---
 
-## 先建立一张地图
+## Let’s build a map first
 
-集成学习最容易让新人晕的地方不是概念少，而是名字太多：
+What most easily confuses beginners about ensemble learning is not that there are too few concepts, but that there are too many names:
 
 - Bagging
-- 随机森林
+- Random Forest
 - AdaBoost
 - GBDT
 - XGBoost
 - LightGBM
 - CatBoost
 
-如果一上来按工具名记，很容易碎。更稳的理解顺序是：
+If you try to remember them by tool name from the start, it becomes very fragmented. A more stable learning order is:
 
-![集成学习 Bagging Boosting 对比图](/img/course/ch05-ensemble-bagging-boosting-flow.png)
+![Ensemble Learning Bagging vs Boosting Comparison](/img/course/ch05-ensemble-bagging-boosting-flow-en.png)
 
-只要你先把“并行投票”和“串行纠错”这两条主线分清，后面的模型名字就不容易乱。
+As long as you first separate the two main lines—“parallel voting” and “sequential error correction”—the model names later on won’t get mixed up so easily.
 
 ---
 
-## 一、集成学习的核心思想
+## 1. The Core Idea of Ensemble Learning
 
-### 1.1 一张图理解集成学习
+### 1.1 Understand Ensemble Learning with a Diagram
 
 ```mermaid
 flowchart TD
-    D["训练数据"] --> M1["模型 1"]
-    D --> M2["模型 2"]
-    D --> M3["模型 3"]
-    D --> Mn["模型 n"]
-    M1 --> V["组合策略<br/>投票 / 平均 / 加权"]
+    D["Training Data"] --> M1["Model 1"]
+    D --> M2["Model 2"]
+    D --> M3["Model 3"]
+    D --> Mn["Model n"]
+    M1 --> V["Combination Strategy<br/>Voting / Averaging / Weighted"]
     M2 --> V
     M3 --> V
     Mn --> V
-    V --> R["最终预测<br/>（比单个模型更准）"]
+    V --> R["Final Prediction<br/>(More accurate than a single model)"]
 
     style D fill:#e3f2fd,stroke:#1565c0,color:#333
     style V fill:#fff3e0,stroke:#e65100,color:#333
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.2 为什么有效？
+### 1.2 Why does it work?
 
-每个模型都会犯错，但**不同模型犯的错往往不同**。多个模型"投票"可以互相纠正。
+Every model makes mistakes, but **different models often make different mistakes**. Multiple models “vote” and can correct one another.
 
 ```python
 import numpy as np
 
-# 模拟：3 个准确率 70% 的独立模型
+# Simulation: 3 independent models with 70% accuracy
 np.random.seed(42)
 n = 10000
 true_labels = np.random.randint(0, 2, n)
 
-# 每个模型独立预测
+# Each model predicts independently
 accs = []
 for _ in range(3):
-    # 70% 概率正确
+    # 70% chance of being correct
     correct = np.random.random(n) < 0.7
     pred = np.where(correct, true_labels, 1 - true_labels)
     accs.append(pred)
 
 accs = np.array(accs)
 
-# 多数投票
+# Majority vote
 ensemble_pred = (accs.sum(axis=0) >= 2).astype(int)
 
-print(f"模型 1 准确率: {np.mean(accs[0] == true_labels):.1%}")
-print(f"模型 2 准确率: {np.mean(accs[1] == true_labels):.1%}")
-print(f"模型 3 准确率: {np.mean(accs[2] == true_labels):.1%}")
-print(f"投票集成准确率: {np.mean(ensemble_pred == true_labels):.1%}")
+print(f"Model 1 accuracy: {np.mean(accs[0] == true_labels):.1%}")
+print(f"Model 2 accuracy: {np.mean(accs[1] == true_labels):.1%}")
+print(f"Model 3 accuracy: {np.mean(accs[2] == true_labels):.1%}")
+print(f"Ensemble voting accuracy: {np.mean(ensemble_pred == true_labels):.1%}")
 ```
 
-### 1.3 两大流派
+### 1.3 Two major schools
 
 | | Bagging | Boosting |
 |---|---------|---------|
-| 思路 | 并行训练，投票 | 串行训练，纠错 |
-| 多样性来源 | 随机采样数据和特征 | 关注前一轮的错误 |
-| 减少什么 | 方差（variance） | 偏差（bias） |
-| 代表算法 | 随机森林 | AdaBoost、GBDT、XGBoost |
-| 过拟合倾向 | 不容易 | 容易（需要早停） |
+| Idea | Train in parallel, then vote | Train sequentially, correct errors |
+| Source of diversity | Random sampling of data and features | Focus on the errors from the previous round |
+| What it reduces | Variance | Bias |
+| Representative algorithms | Random Forest | AdaBoost, GBDT, XGBoost |
+| Tendency to overfit | Less likely | More likely (needs early stopping) |
 
 ```mermaid
 flowchart LR
     subgraph Bagging
-        D1["数据 → 随机采样"] --> M1a["树 1"]
-        D1 --> M1b["树 2"]
-        D1 --> M1c["树 n"]
-        M1a --> V1["投票/平均"]
+        D1["Data → Random Sampling"] --> M1a["Tree 1"]
+        D1 --> M1b["Tree 2"]
+        D1 --> M1c["Tree n"]
+        M1a --> V1["Vote/Average"]
         M1b --> V1
         M1c --> V1
     end
 
     subgraph Boosting
-        D2["数据"] --> M2a["树 1"]
-        M2a -->|"关注错误"| M2b["树 2"]
-        M2b -->|"关注错误"| M2c["树 n"]
-        M2c --> V2["加权求和"]
+        D2["Data"] --> M2a["Tree 1"]
+        M2a -->|"Focus on errors"| M2b["Tree 2"]
+        M2b -->|"Focus on errors"| M2c["Tree n"]
+        M2c --> V2["Weighted sum"]
     end
 
     style V1 fill:#e3f2fd,stroke:#1565c0,color:#333
     style V2 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 1.4 先别急着记模型名，先记两件事
+### 1.4 Don’t rush to memorize model names yet—first remember two things
 
-这节最该先记的不是库名，而是下面两句话：
+What you should remember first in this section is not the library names, but these two sentences:
 
-- **Bagging** 更像“多找几个人独立判断，再投票”
-- **Boosting** 更像“每一轮专门补前一轮犯的错”
+- **Bagging** is like “asking several people to make independent judgments, then voting”
+- **Boosting** is like “a teacher correcting homework: whatever was wrong in the previous round gets special attention in the next round”
 
-这两句话几乎能解释后面大多数模型的家族关系。
+These two sentences can explain the family relationships of most later models.
 
-### 1.5 一个更适合新人的类比
+### 1.5 A more beginner-friendly analogy
 
-如果你想把这两条主线记得更稳，可以直接用这个类比：
+If you want to remember these two main paths more firmly, you can use this analogy directly:
 
-- **Bagging** 像开会投票：找很多人各自独立判断，再综合意见
-- **Boosting** 像老师订正：上一轮哪里错了，下一轮就专门盯着那里补
+- **Bagging** is like a meeting vote: find many people to judge independently, then combine the opinions
+- **Boosting** is like teacher correction: wherever the previous round went wrong, the next round focuses on fixing that part
 
-这会比一开始就陷进库名和参数更容易形成整体感觉。
+This is easier to build an overall sense of the method than diving into library names and parameters too early.
 
-![集成学习纠错实验室图](/img/course/ch05-ensemble-error-correction-lab.png)
+![Ensemble Learning Error-Correction Lab Diagram](/img/course/ch05-ensemble-error-correction-lab-en.png)
 
-读这张图时，先分清两种“变强方式”：随机森林靠很多棵树平均来降低波动，Boosting 靠后一轮修正前一轮错误来逐步提高表达能力。一个像多人投票，一个像连续订正，后面看到 XGBoost、LightGBM、CatBoost 时就不会只记名字。
+When reading this diagram, first distinguish the two ways of “getting stronger”: Random Forest reduces fluctuations by averaging many trees, while Boosting gradually improves expressiveness by having later rounds correct earlier mistakes. One is like group voting, the other like continuous correction. After that, when you see XGBoost, LightGBM, and CatBoost, you won’t just remember the names.
 
 ---
 
-## 二、Bagging 与随机森林
+## 2. Bagging and Random Forest
 
-### 2.1 Bagging 原理
+### 2.1 The Principle of Bagging
 
-**Bootstrap Aggregating = 自助采样 + 聚合**
+**Bootstrap Aggregating = bootstrap sampling + aggregation**
 
-1. 从训练集中**有放回地随机采样**多份数据
-2. 用每份数据训练一棵决策树
-3. 分类：多数投票；回归：取平均
+1. Randomly sample multiple datasets from the training set **with replacement**
+2. Train one decision tree on each sampled dataset
+3. For classification: majority vote; for regression: average the outputs
 
 ```python
-# 自助采样（Bootstrap）的直觉
+# Intuition for bootstrap sampling
 np.random.seed(42)
-data = np.arange(1, 11)  # 原始数据: [1, 2, ..., 10]
+data = np.arange(1, 11)  # Original data: [1, 2, ..., 10]
 
-print("原始数据:", data)
+print("Original data:", data)
 for i in range(3):
     sample = np.random.choice(data, size=len(data), replace=True)
-    print(f"自助样本 {i+1}: {sorted(sample)}")
-    # 注意：有些数据重复了，有些没被选中
+    print(f"Bootstrap sample {i+1}: {sorted(sample)}")
+    # Note: some values are repeated, and some are not selected
 ```
 
-### 2.2 随机森林（Random Forest）
+### 2.2 Random Forest
 
-随机森林 = Bagging + **特征随机选择**
+Random Forest = Bagging + **random feature selection**
 
-在每次分裂时，只从**随机选取的一部分特征**中选最优分裂点。这增加了树之间的多样性。
+At each split, the tree only chooses the best split from a **random subset of features**. This increases diversity among trees.
 
-### 2.2.1 为什么随机森林通常比单棵树稳？
+### 2.2.1 Why is Random Forest usually more stable than a single tree?
 
-因为它做了两件单棵树做不到的事：
+Because it does two things that a single tree cannot do:
 
-- 对数据做随机采样
-- 对特征也做随机选择
+- Randomly samples the data
+- Randomly selects features as well
 
-这样每棵树都会有一点不同。  
-单棵树很容易对某几个样本或某几个特征过度敏感，而随机森林通过“平均很多棵不完全一样的树”，把这种不稳定性压下来了。
+This makes each tree a little different.
+A single tree can easily become overly sensitive to certain samples or certain features, while Random Forest reduces that instability by “averaging many trees that are not exactly the same.”
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -213,11 +213,11 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 生成数据
+# Generate data
 X, y = make_moons(n_samples=500, noise=0.3, random_state=42)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 对比单棵树 vs 随机森林
+# Compare single tree vs Random Forest
 from sklearn.tree import DecisionTreeClassifier
 
 dt = DecisionTreeClassifier(random_state=42)
@@ -226,13 +226,13 @@ dt.fit(X_train, y_train)
 rf = RandomForestClassifier(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 
-print(f"单棵决策树 | 训练: {dt.score(X_train, y_train):.1%} | 测试: {dt.score(X_test, y_test):.1%}")
-print(f"随机森林   | 训练: {rf.score(X_train, y_train):.1%} | 测试: {rf.score(X_test, y_test):.1%}")
+print(f"Single Decision Tree | Train: {dt.score(X_train, y_train):.1%} | Test: {dt.score(X_test, y_test):.1%}")
+print(f"Random Forest        | Train: {rf.score(X_train, y_train):.1%} | Test: {rf.score(X_test, y_test):.1%}")
 
-# 可视化决策边界对比
+# Visualize decision boundary comparison
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-for ax, model, name in zip(axes, [dt, rf], ['单棵决策树', '随机森林 (100 棵)']):
+for ax, model, name in zip(axes, [dt, rf], ['Single Decision Tree', 'Random Forest (100 trees)']):
     x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
     y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
     xx, yy = np.meshgrid(np.linspace(x_min, x_max, 200),
@@ -241,56 +241,56 @@ for ax, model, name in zip(axes, [dt, rf], ['单棵决策树', '随机森林 (10
     ax.contourf(xx, yy, Z, alpha=0.3, cmap='coolwarm')
     ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap='coolwarm', s=20, edgecolors='w', linewidth=0.5)
     test_acc = model.score(X_test, y_test)
-    ax.set_title(f'{name}\n测试准确率: {test_acc:.1%}')
+    ax.set_title(f'{name}\nTest accuracy: {test_acc:.1%}')
     ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 2.3 随机森林的关键超参数
+### 2.3 Key hyperparameters of Random Forest
 
-| 参数 | 说明 | 推荐 |
+| Parameter | Description | Recommendation |
 |------|------|------|
-| `n_estimators` | 树的数量 | 100~500 |
-| `max_depth` | 单棵树最大深度 | None 或 10~20 |
-| `max_features` | 每次分裂考虑的特征数 | 'sqrt'（分类）, 'log2' |
-| `min_samples_split` | 节点分裂最小样本数 | 2~10 |
-| `min_samples_leaf` | 叶节点最小样本数 | 1~5 |
+| `n_estimators` | Number of trees | 100~500 |
+| `max_depth` | Maximum depth of each tree | None or 10~20 |
+| `max_features` | Number of features considered at each split | 'sqrt' (classification), 'log2' |
+| `min_samples_split` | Minimum samples required to split a node | 2~10 |
+| `min_samples_leaf` | Minimum samples required at a leaf node | 1~5 |
 
-### 2.4 第一次调随机森林时，更稳的顺序是什么？
+### 2.4 What is the more stable order for tuning Random Forest for the first time?
 
-建议先按下面顺序来：
+It is recommended to follow this order:
 
-1. 先把 `n_estimators` 拉到足够大，比如 `100~300`
-2. 再看 `max_depth`
-3. 再看 `min_samples_leaf`
-4. 最后再微调 `max_features`
+1. First increase `n_estimators` to a sufficiently large value, such as `100~300`
+2. Then look at `max_depth`
+3. Then look at `min_samples_leaf`
+4. Finally, fine-tune `max_features`
 
-原因是：
+The reason is:
 
-- 树太少时，波动大，不利于判断
-- `max_depth` 和 `min_samples_leaf` 更直接影响是否过拟合
-- `max_features` 更多是在做细调
+- Too few trees cause large fluctuations, which makes it hard to judge performance
+- `max_depth` and `min_samples_leaf` directly affect whether the model overfits
+- `max_features` is more for fine-tuning
 
-### 2.5 第一次用随机森林时，最值得先记住什么？
+### 2.5 What is the most important thing to remember when using Random Forest for the first time?
 
-第一次用随机森林时，最值得先记住的不是：
+The most important thing to remember is not:
 
-- 它比单棵树高级
+- that it is more advanced than a single tree
 
-而是：
+But rather:
 
-- 它本质上是在用“很多棵不完全一样的树”来降低波动
+- that it is essentially using “many trees that are not exactly the same” to reduce variance
 
-所以随机森林最大的默认价值通常是：
+So the biggest default value of Random Forest is usually:
 
-- 更稳
-- 更不容易过拟合到单棵树那种程度
-- 对表格数据很适合作为强 baseline
+- More stable
+- Less likely to overfit to the extent a single tree does
+- A strong baseline for tabular data
 
 ```python
-# 树的数量 vs 准确率
+# Number of trees vs accuracy
 n_trees = [1, 5, 10, 30, 50, 100, 200, 500]
 train_scores = []
 test_scores = []
@@ -302,11 +302,11 @@ for n in n_trees:
     test_scores.append(rf.score(X_test, y_test))
 
 plt.figure(figsize=(8, 5))
-plt.plot(n_trees, train_scores, 'bo-', label='训练集')
-plt.plot(n_trees, test_scores, 'ro-', label='测试集')
-plt.xlabel('树的数量 (n_estimators)')
-plt.ylabel('准确率')
-plt.title('树的数量对随机森林性能的影响')
+plt.plot(n_trees, train_scores, 'bo-', label='Training set')
+plt.plot(n_trees, test_scores, 'ro-', label='Test set')
+plt.xlabel('Number of trees (n_estimators)')
+plt.ylabel('Accuracy')
+plt.title('Effect of the number of trees on Random Forest performance')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
@@ -314,20 +314,20 @@ plt.show()
 
 ---
 
-## 三、Boosting 系列
+## 3. Boosting Methods
 
 ### 3.1 AdaBoost
 
-**思路**：每一轮关注**上一轮分错的样本**，给它们更高的权重。
+**Idea**: Each round focuses on the **samples misclassified in the previous round**, giving them higher weights.
 
 ```mermaid
 flowchart LR
-    D1["轮次 1<br/>均匀权重"] --> T1["弱分类器 1"]
-    T1 -->|"找出错误"| D2["轮次 2<br/>增大错误样本权重"]
-    D2 --> T2["弱分类器 2"]
-    T2 -->|"找出错误"| D3["轮次 3<br/>继续增大"]
-    D3 --> T3["弱分类器 3"]
-    T3 --> R["加权投票 → 强分类器"]
+    D1["Round 1<br/>Uniform weights"] --> T1["Weak classifier 1"]
+    T1 -->|"Find errors"| D2["Round 2<br/>Increase weights of misclassified samples"]
+    D2 --> T2["Weak classifier 2"]
+    T2 -->|"Find errors"| D3["Round 3<br/>Increase again"]
+    D3 --> T3["Weak classifier 3"]
+    T3 --> R["Weighted vote → Strong classifier"]
 
     style D1 fill:#e3f2fd,stroke:#1565c0,color:#333
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -337,7 +337,7 @@ flowchart LR
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
 
-# AdaBoost 默认使用浅层决策树（决策树桩）
+# AdaBoost uses a shallow decision tree by default (decision stump)
 ada = AdaBoostClassifier(
     estimator=DecisionTreeClassifier(max_depth=1),
     n_estimators=50,
@@ -345,25 +345,25 @@ ada = AdaBoostClassifier(
     random_state=42
 )
 ada.fit(X_train, y_train)
-print(f"AdaBoost | 训练: {ada.score(X_train, y_train):.1%} | 测试: {ada.score(X_test, y_test):.1%}")
+print(f"AdaBoost | Train: {ada.score(X_train, y_train):.1%} | Test: {ada.score(X_test, y_test):.1%}")
 ```
 
-### 3.2 GBDT（梯度提升决策树）
+### 3.2 GBDT (Gradient Boosting Decision Tree)
 
-**思路**：每棵新树拟合的不是原始标签，而是前面所有树的**残差**（预测误差）。
+**Idea**: Each new tree fits not the original labels, but the **residuals** (prediction errors) of all previous trees.
 
 > **Fm(x) = Fm-1(x) + η × hm(x)**
 
-其中 `hm(x)` 是第 m 棵树拟合的残差，`η` 是学习率。
+Here, `hm(x)` is the residual fitted by the m-th tree, and `η` is the learning rate.
 
-### 3.2.1 GBDT 最值得先记住的直觉
+### 3.2.1 The most important intuition to remember about GBDT
 
-如果只用一句话解释 GBDT，可以这样记：
+If you want to explain GBDT in just one sentence, remember this:
 
-> **前一轮哪里没拟合好，后一轮就重点去补哪里。**
+> **Where the previous round did not fit well, the next round focuses on fixing it.**
 
-这和随机森林非常不一样。  
-随机森林是“大家独立判断再平均”，而 GBDT 是“一轮一轮补漏洞”。
+This is very different from Random Forest.
+Random Forest is “everyone judges independently and then averages,” while GBDT is “fixing the holes round by round.”
 
 ```python
 from sklearn.ensemble import GradientBoostingClassifier
@@ -375,68 +375,68 @@ gbdt = GradientBoostingClassifier(
     random_state=42
 )
 gbdt.fit(X_train, y_train)
-print(f"GBDT | 训练: {gbdt.score(X_train, y_train):.1%} | 测试: {gbdt.score(X_test, y_test):.1%}")
+print(f"GBDT | Train: {gbdt.score(X_train, y_train):.1%} | Test: {gbdt.score(X_test, y_test):.1%}")
 ```
 
-### 3.3 GBDT 回归——直觉理解
+### 3.3 GBDT Regression — intuitive understanding
 
 ```python
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.tree import DecisionTreeRegressor
 
-# 用回归问题直观理解"拟合残差"
+# Use a regression problem to intuitively understand "fitting residuals"
 np.random.seed(42)
 X_demo = np.linspace(0, 10, 100).reshape(-1, 1)
 y_demo = np.sin(X_demo.ravel()) + np.random.randn(100) * 0.2
 
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
 
-# 手动模拟 GBDT 的过程
+# Manually simulate the GBDT process
 current_pred = np.zeros(len(y_demo))
 learning_rate = 0.5
 
 for i in range(6):
     ax = axes[i // 3][i % 3]
 
-    # 计算残差
+    # Compute residuals
     residual = y_demo - current_pred
 
-    # 用决策树拟合残差
+    # Fit a decision tree to the residuals
     tree = DecisionTreeRegressor(max_depth=2, random_state=42)
     tree.fit(X_demo, residual)
     tree_pred = tree.predict(X_demo)
 
-    # 更新预测
+    # Update predictions
     current_pred += learning_rate * tree_pred
 
     ax.scatter(X_demo, y_demo, s=10, alpha=0.5, color='steelblue')
-    ax.plot(X_demo, current_pred, 'r-', linewidth=2, label=f'当前预测')
-    ax.set_title(f'第 {i+1} 棵树后\nMSE={np.mean((y_demo - current_pred)**2):.4f}')
+    ax.plot(X_demo, current_pred, 'r-', linewidth=2, label=f'Current prediction')
+    ax.set_title(f'After tree {i+1}\nMSE={np.mean((y_demo - current_pred)**2):.4f}')
     ax.legend(fontsize=8)
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('GBDT 逐步拟合残差', fontsize=13)
+plt.suptitle('GBDT Step-by-Step Residual Fitting', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## 四、XGBoost
+## 4. XGBoost
 
-### 4.1 XGBoost 的改进
+### 4.1 Improvements in XGBoost
 
-XGBoost (eXtreme Gradient Boosting) 是 GBDT 的**工程优化版**：
+XGBoost (eXtreme Gradient Boosting) is the **engineering-optimized version** of GBDT:
 
-| 特性 | GBDT | XGBoost |
+| Feature | GBDT | XGBoost |
 |------|------|---------|
-| 正则化 | 无 | L1 + L2 正则化（减少过拟合） |
-| 缺失值 | 需要预处理 | 自动处理 |
-| 并行 | 串行 | 特征级并行（快 10 倍） |
-| 列采样 | 无 | 支持（类似随机森林） |
-| 早停 | 无 | 支持 early_stopping_rounds |
+| Regularization | None | L1 + L2 regularization (reduces overfitting) |
+| Missing values | Requires preprocessing | Handled automatically |
+| Parallelism | Sequential | Feature-level parallelism (10x faster) |
+| Column sampling | None | Supported (similar to Random Forest) |
+| Early stopping | None | Supports `early_stopping_rounds` |
 
-### 4.2 安装与使用
+### 4.2 Installation and usage
 
 ```bash
 pip install xgboost
@@ -448,12 +448,12 @@ from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# 加载数据
+# Load data
 wine = load_wine()
 X, y = wine.data, wine.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 训练 XGBoost
+# Train XGBoost
 xgb_model = xgb.XGBClassifier(
     n_estimators=100,
     max_depth=4,
@@ -464,46 +464,46 @@ xgb_model = xgb.XGBClassifier(
 )
 xgb_model.fit(X_train, y_train)
 
-print(f"XGBoost | 训练: {xgb_model.score(X_train, y_train):.1%} | 测试: {xgb_model.score(X_test, y_test):.1%}")
+print(f"XGBoost | Train: {xgb_model.score(X_train, y_train):.1%} | Test: {xgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 4.3 XGBoost 关键超参数
+### 4.3 Key hyperparameters of XGBoost
 
-| 参数 | 说明 | 推荐范围 |
+| Parameter | Description | Recommended range |
 |------|------|---------|
-| `n_estimators` | 树的数量 | 100~1000 |
-| `max_depth` | 树的最大深度 | 3~8 |
-| `learning_rate` | 学习率（缩减） | 0.01~0.3 |
-| `subsample` | 每棵树使用的样本比例 | 0.6~1.0 |
-| `colsample_bytree` | 每棵树使用的特征比例 | 0.6~1.0 |
-| `reg_alpha` | L1 正则化系数 | 0~1 |
-| `reg_lambda` | L2 正则化系数 | 1~5 |
+| `n_estimators` | Number of trees | 100~1000 |
+| `max_depth` | Maximum tree depth | 3~8 |
+| `learning_rate` | Learning rate (shrinkage) | 0.01~0.3 |
+| `subsample` | Fraction of samples used by each tree | 0.6~1.0 |
+| `colsample_bytree` | Fraction of features used by each tree | 0.6~1.0 |
+| `reg_alpha` | L1 regularization coefficient | 0~1 |
+| `reg_lambda` | L2 regularization coefficient | 1~5 |
 
-### 4.3.1 第一次调 XGBoost，最该先动哪几个参数？
+### 4.3.1 When tuning XGBoost for the first time, which parameters should you change first?
 
-不要一上来把十几个参数全开。更稳的顺序是：
+Don’t turn on a dozen parameters all at once. A more stable order is:
 
-1. 先定 `learning_rate`
-2. 再配 `n_estimators`
-3. 再看 `max_depth`
-4. 最后再看 `subsample`、`colsample_bytree` 和正则项
+1. Set `learning_rate` first
+2. Then pair it with `n_estimators`
+3. Then look at `max_depth`
+4. Finally look at `subsample`, `colsample_bytree`, and the regularization terms
 
-一个很实用的经验是：
+A very practical rule of thumb is:
 
-- 小学习率 + 更多树，通常比大步快跑更稳
-- 深度太大时，Boosting 系列会很容易开始记训练集
+- A smaller learning rate with more trees is usually more stable than taking big steps
+- If the depth is too large, Boosting methods can easily start memorizing the training set
 
-### 4.4 早停（Early Stopping）
+### 4.4 Early Stopping
 
 ```python
-# 早停：验证集上连续 N 轮没有提升就停止
+# Early stopping: stop if validation performance does not improve for N consecutive rounds
 xgb_model = xgb.XGBClassifier(
-    n_estimators=1000,   # 设一个很大的数
+    n_estimators=1000,   # Set a very large number
     max_depth=4,
     learning_rate=0.1,
     random_state=42,
     eval_metric='mlogloss',
-    early_stopping_rounds=20,  # 连续 20 轮不提升就停
+    early_stopping_rounds=20,  # Stop if there is no improvement for 20 rounds
 )
 
 xgb_model.fit(
@@ -512,22 +512,22 @@ xgb_model.fit(
     verbose=False
 )
 
-print(f"最佳迭代次数: {xgb_model.best_iteration}")
-print(f"测试准确率: {xgb_model.score(X_test, y_test):.1%}")
+print(f"Best iteration: {xgb_model.best_iteration}")
+print(f"Test accuracy: {xgb_model.score(X_test, y_test):.1%}")
 ```
 
-### 4.5 特征重要性
+### 4.5 Feature importance
 
 ```python
-# XGBoost 的特征重要性
+# Feature importance in XGBoost
 importance = xgb_model.feature_importances_
 sorted_idx = np.argsort(importance)
 
 plt.figure(figsize=(8, 6))
 plt.barh(range(len(sorted_idx)), importance[sorted_idx], color='coral')
 plt.yticks(range(len(sorted_idx)), np.array(wine.feature_names)[sorted_idx])
-plt.xlabel('特征重要性')
-plt.title('XGBoost 特征重要性（Wine 数据集）')
+plt.xlabel('Feature importance')
+plt.title('XGBoost Feature Importance (Wine Dataset)')
 plt.grid(axis='x', alpha=0.3)
 plt.tight_layout()
 plt.show()
@@ -535,18 +535,18 @@ plt.show()
 
 ---
 
-## 五、LightGBM 与 CatBoost
+## 5. LightGBM and CatBoost
 
 ### 5.1 LightGBM
 
-LightGBM 是微软开发的高效梯度提升框架，比 XGBoost **更快**：
+LightGBM is an efficient gradient boosting framework developed by Microsoft, and it is **faster** than XGBoost:
 
-| 特性 | 说明 |
+| Feature | Description |
 |------|------|
-| **Leaf-wise 生长** | 按叶子生长（不是层级），更高效 |
-| **直方图优化** | 对特征值分桶，加速分裂点查找 |
-| **类别特征原生支持** | 不需要手动 One-Hot 编码 |
-| **极快的训练速度** | 大数据集上比 XGBoost 快数倍 |
+| **Leaf-wise growth** | Grows by leaves instead of by levels, making it more efficient |
+| **Histogram optimization** | Bins feature values to speed up split point search |
+| **Native support for categorical features** | No manual One-Hot encoding required |
+| **Very fast training** | Several times faster than XGBoost on large datasets |
 
 ```bash
 pip install lightgbm
@@ -563,18 +563,18 @@ lgb_model = lgb.LGBMClassifier(
     verbose=-1,
 )
 lgb_model.fit(X_train, y_train)
-print(f"LightGBM | 训练: {lgb_model.score(X_train, y_train):.1%} | 测试: {lgb_model.score(X_test, y_test):.1%}")
+print(f"LightGBM | Train: {lgb_model.score(X_train, y_train):.1%} | Test: {lgb_model.score(X_test, y_test):.1%}")
 ```
 
 ### 5.2 CatBoost
 
-CatBoost（Categorical Boosting）是 Yandex 开发的框架，擅长处理**类别特征**：
+CatBoost (Categorical Boosting) is a framework developed by Yandex, and it is especially good at handling **categorical features**:
 
-| 特性 | 说明 |
+| Feature | Description |
 |------|------|
-| **类别特征处理** | 自动处理，不需要编码 |
-| **Ordered Boosting** | 减少预测偏移 |
-| **默认参数强** | 开箱即用效果通常不错 |
+| **Categorical feature handling** | Automatically handled, no encoding needed |
+| **Ordered Boosting** | Reduces prediction shift |
+| **Strong default parameters** | Usually works well out of the box |
 
 ```bash
 pip install catboost
@@ -591,74 +591,74 @@ cat_model = CatBoostClassifier(
     verbose=0,
 )
 cat_model.fit(X_train, y_train)
-print(f"CatBoost | 训练: {cat_model.score(X_train, y_train):.1%} | 测试: {cat_model.score(X_test, y_test):.1%}")
+print(f"CatBoost | Train: {cat_model.score(X_train, y_train):.1%} | Test: {cat_model.score(X_test, y_test):.1%}")
 ```
 
-### 5.3 三大 Boosting 框架对比
+### 5.3 Comparison of the three major Boosting frameworks
 
 | | XGBoost | LightGBM | CatBoost |
 |---|---------|----------|----------|
-| 开发者 | 陈天奇 | 微软 | Yandex |
-| 生长策略 | Level-wise | Leaf-wise | 对称树 |
-| 速度 | 中等 | 最快 | 中等 |
-| 类别特征 | 需编码 | 原生支持 | 最佳支持 |
-| 默认效果 | 好 | 好 | 通常最佳 |
-| Kaggle 使用 | 非常广泛 | 非常广泛 | 较广泛 |
+| Developer | Tianqi Chen | Microsoft | Yandex |
+| Growth strategy | Level-wise | Leaf-wise | Symmetric tree |
+| Speed | Medium | Fastest | Medium |
+| Categorical features | Need encoding | Native support | Best support |
+| Default performance | Good | Good | Usually best |
+| Kaggle usage | Very common | Very common | Fairly common |
 
-### 5.4 第一次做表格数据项目时，模型怎么选最稳？
+### 5.4 When you do your first tabular-data project, which model is the safest choice?
 
-如果你是第一次做结构化表格数据任务，可以先这样选：
+If this is your first structured tabular-data task, you can choose like this:
 
-- 想要稳、解释简单、训练快：先试随机森林
-- 想要更高上限：再试 XGBoost / LightGBM
-- 类别特征特别多：优先考虑 CatBoost
+- Want stability, simple interpretation, and fast training: try Random Forest first
+- Want a higher upper bound: then try XGBoost / LightGBM
+- Have lots of categorical features: prioritize CatBoost
 
-这个顺序比“哪个最火就先上哪个”更稳，因为它先帮你建立 baseline，再逐步提高上限。
+This order is more stable than “pick whatever is hottest first,” because it helps you build a baseline first and then improve the ceiling step by step.
 
-### 5.5 第一次学集成学习时，最稳的阅读顺序
+### 5.5 The safest reading order when learning ensemble methods for the first time
 
-如果你第一次学这节，建议按这个顺序理解：
+If this is your first time studying this section, it is recommended to understand it in this order:
 
-1. 先把单棵树的优缺点想清楚
-2. 再分清 Bagging 和 Boosting
-3. 先把随机森林看成“更稳的树”
-4. 再把 GBDT / XGBoost 看成“逐轮纠错的树”
-5. 最后再看 LightGBM / CatBoost 这些工程优化版本
+1. First think through the strengths and weaknesses of a single tree
+2. Then separate Bagging from Boosting
+3. First view Random Forest as a “more stable tree”
+4. Then view GBDT / XGBoost as “trees that correct errors round by round”
+5. Finally look at engineering-optimized versions like LightGBM / CatBoost
 
-这样你就不容易把这节学成“很多模型名字的平铺直叙”。
+This way, you won’t turn this section into a flat list of many model names.
 
 ---
 
-## 六、Stacking——模型堆叠
+## 6. Stacking — Model Stacking
 
-### 6.1 原理
+### 6.1 Principle
 
-用多个不同模型的预测结果作为**新特征**，再训练一个模型来做最终预测。
+Use the prediction results of multiple different models as **new features**, and then train another model to make the final prediction.
 
 ```mermaid
 flowchart TD
-    D["训练数据"]
-    D --> M1["模型 1: 随机森林"]
-    D --> M2["模型 2: XGBoost"]
-    D --> M3["模型 3: 逻辑回归"]
-    M1 -->|"预测结果"| F["新特征矩阵"]
-    M2 -->|"预测结果"| F
-    M3 -->|"预测结果"| F
-    F --> META["元学习器<br/>（如逻辑回归）"]
-    META --> R["最终预测"]
+    D["Training Data"]
+    D --> M1["Model 1: Random Forest"]
+    D --> M2["Model 2: XGBoost"]
+    D --> M3["Model 3: Logistic Regression"]
+    M1 -->|"Prediction results"| F["New Feature Matrix"]
+    M2 -->|"Prediction results"| F
+    M3 -->|"Prediction results"| F
+    F --> META["Meta Learner<br/>(e.g. Logistic Regression)"]
+    META --> R["Final Prediction"]
 
     style F fill:#fff3e0,stroke:#e65100,color:#333
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 6.2 sklearn 实现
+### 6.2 sklearn implementation
 
 ```python
 from sklearn.ensemble import StackingClassifier, RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 
-# 基础模型
+# Base models
 estimators = [
     ('rf', RandomForestClassifier(n_estimators=50, random_state=42)),
     ('gbdt', GradientBoostingClassifier(n_estimators=50, random_state=42)),
@@ -669,30 +669,30 @@ estimators = [
 stack = StackingClassifier(
     estimators=estimators,
     final_estimator=LogisticRegression(max_iter=1000),
-    cv=5  # 用 5 折交叉验证生成元特征
+    cv=5  # Use 5-fold cross-validation to generate meta-features
 )
 
 stack.fit(X_train, y_train)
-print(f"Stacking | 训练: {stack.score(X_train, y_train):.1%} | 测试: {stack.score(X_test, y_test):.1%}")
+print(f"Stacking | Train: {stack.score(X_train, y_train):.1%} | Test: {stack.score(X_test, y_test):.1%}")
 ```
 
-### 6.3 为什么 Stacking 不是新人第一步？
+### 6.3 Why isn’t Stacking the first step for beginners?
 
-因为 Stacking 虽然可能更强，但它对实验设计要求更高：
+Because although Stacking can be stronger, it has higher requirements for experimental design:
 
-- 更容易数据泄漏
-- 更依赖交叉验证
-- 更难解释最终为什么有效
+- It is easier to cause data leakage
+- It depends more on cross-validation
+- It is harder to explain why the final result works
 
-所以更稳的学习路径通常是：
+So a safer learning path is usually:
 
-- 先学会单模型 baseline
-- 再学随机森林和 Boosting
-- 最后才碰 Stacking
+- First learn a single-model baseline
+- Then learn Random Forest and Boosting
+- Only then try Stacking
 
 ---
 
-## 七、综合对比实战
+## 7. Comprehensive Comparison in Practice
 
 ```python
 from sklearn.ensemble import (
@@ -706,20 +706,20 @@ from sklearn.model_selection import train_test_split, cross_val_score
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 数据
+# Data
 wine = load_wine()
 X, y = wine.data, wine.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 所有模型
+# All models
 models = {
-    "决策树": DecisionTreeClassifier(max_depth=5, random_state=42),
-    "随机森林": RandomForestClassifier(n_estimators=100, random_state=42),
+    "Decision Tree": DecisionTreeClassifier(max_depth=5, random_state=42),
+    "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42),
     "AdaBoost": AdaBoostClassifier(n_estimators=100, random_state=42),
     "GBDT": GradientBoostingClassifier(n_estimators=100, random_state=42),
 }
 
-# 尝试导入 XGBoost 和 LightGBM
+# Try importing XGBoost and LightGBM
 try:
     import xgboost as xgb
     models["XGBoost"] = xgb.XGBClassifier(n_estimators=100, random_state=42,
@@ -733,7 +733,7 @@ try:
 except ImportError:
     pass
 
-# 交叉验证评估
+# Cross-validation evaluation
 results = {}
 for name, model in models.items():
     cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy')
@@ -744,9 +744,9 @@ for name, model in models.items():
         'cv_std': cv_scores.std(),
         'test': test_score
     }
-    print(f"{name:12s} | CV: {cv_scores.mean():.1%} ± {cv_scores.std():.1%} | 测试: {test_score:.1%}")
+    print(f"{name:12s} | CV: {cv_scores.mean():.1%} ± {cv_scores.std():.1%} | Test: {test_score:.1%}")
 
-# 可视化
+# Visualization
 fig, ax = plt.subplots(figsize=(10, 5))
 names = list(results.keys())
 cv_means = [v['cv_mean'] for v in results.values()]
@@ -755,13 +755,13 @@ test_scores = [v['test'] for v in results.values()]
 
 x = np.arange(len(names))
 width = 0.35
-bars1 = ax.bar(x - width/2, cv_means, width, yerr=cv_stds, label='CV 平均', color='steelblue', capsize=3)
-bars2 = ax.bar(x + width/2, test_scores, width, label='测试集', color='coral')
+bars1 = ax.bar(x - width/2, cv_means, width, yerr=cv_stds, label='CV Mean', color='steelblue', capsize=3)
+bars2 = ax.bar(x + width/2, test_scores, width, label='Test Set', color='coral')
 
 ax.set_xticks(x)
 ax.set_xticklabels(names, rotation=20, ha='right')
-ax.set_ylabel('准确率')
-ax.set_title('集成学习方法对比（Wine 数据集）')
+ax.set_ylabel('Accuracy')
+ax.set_title('Comparison of Ensemble Learning Methods (Wine Dataset)')
 ax.set_ylim(0.8, 1.05)
 ax.legend()
 ax.grid(axis='y', alpha=0.3)
@@ -772,22 +772,22 @@ plt.show()
 
 ---
 
-## 八、如何选择算法？
+## 8. How to choose an algorithm?
 
 ```mermaid
 flowchart TD
-    A["表格数据分类/回归"] --> B{"数据量？"}
-    B -->|"小 < 1000"| C["随机森林 / GBDT"]
-    B -->|"中 1000~10万"| D["XGBoost / LightGBM"]
-    B -->|"大 > 10万"| E["LightGBM（最快）"]
+    A["Tabular data classification/regression"] --> B{"How much data?"}
+    B -->|"Small < 1000"| C["Random Forest / GBDT"]
+    B -->|"Medium 1000~100k"| D["XGBoost / LightGBM"]
+    B -->|"Large > 100k"| E["LightGBM (fastest)"]
 
-    D --> F{"需要高可解释性？"}
-    F -->|"是"| G["单棵决策树 / 逻辑回归"]
-    F -->|"否"| H["XGBoost / LightGBM"]
+    D --> F{"Need high interpretability?"}
+    F -->|"Yes"| G["Single Decision Tree / Logistic Regression"]
+    F -->|"No"| H["XGBoost / LightGBM"]
 
-    E --> I{"有类别特征？"}
-    I -->|"多"| J["CatBoost / LightGBM"]
-    I -->|"少"| K["LightGBM / XGBoost"]
+    E --> I{"Many categorical features?"}
+    I -->|"Yes"| J["CatBoost / LightGBM"]
+    I -->|"No"| K["LightGBM / XGBoost"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style H fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -795,68 +795,68 @@ flowchart TD
     style K fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-:::tip 实用建议
-1. **第一选择**：先用 LightGBM 或 XGBoost 跑一个 baseline
-2. **调参顺序**：`n_estimators` → `learning_rate` → `max_depth` → 正则化参数
-3. **早停**：一定要用 `early_stopping_rounds`
-4. **竞赛冲分**：多个模型 Stacking
+:::tip Practical Advice
+1. **First choice**: Start with LightGBM or XGBoost to get a baseline
+2. **Tuning order**: `n_estimators` → `learning_rate` → `max_depth` → regularization parameters
+3. **Early stopping**: Be sure to use `early_stopping_rounds`
+4. **Competition boosting**: Stack multiple models
 :::
 
 ---
 
-## 十、第一次把集成学习放进项目里，最稳的默认顺序
+## 10. The Safest Default Order for Bringing Ensemble Learning into a Project for the First Time
 
-第一次把集成学习放进项目里，可以先按这个顺序：
+When you introduce ensemble learning into a project for the first time, you can follow this order:
 
-1. 先做线性模型或单棵树 baseline
-2. 如果单棵树波动大，先试随机森林
-3. 如果你已经有比较清楚的评估框架，再试 GBDT / XGBoost
-4. 最后再考虑更细的参数优化和模型融合
+1. First build a linear model or single-tree baseline
+2. If the single tree is too unstable, try Random Forest first
+3. If you already have a clear evaluation framework, then try GBDT / XGBoost
+4. Finally, consider finer parameter optimization and model blending
 
-这样更像真实项目里的推进方式，也更不容易一上来就掉进复杂调参里。
+This is closer to how real projects are progressed, and it is less likely to trap you in complicated tuning right away.
 
-:::info 连接后续
-- **第 3 章**：无监督学习——聚类、降维、异常检测
-- **第 4 章**：模型评估——交叉验证、偏差方差权衡、超参数调优
+:::info Connect to the next chapters
+- **Chapter 3**: Unsupervised Learning — clustering, dimensionality reduction, anomaly detection
+- **Chapter 4**: Model Evaluation — cross-validation, bias-variance tradeoff, hyperparameter tuning
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 方法 | 思路 | 代表 | 特点 |
+| Method | Idea | Representative | Characteristics |
 |------|------|------|------|
-| **Bagging** | 并行 + 投票 | 随机森林 | 减少方差，不易过拟合 |
-| **Boosting** | 串行 + 纠错 | XGBoost、LightGBM | 减少偏差，效果通常最好 |
-| **Stacking** | 模型堆叠 | 多种组合 | 充分利用不同模型的优势 |
+| **Bagging** | Parallel + voting | Random Forest | Reduces variance, less prone to overfitting |
+| **Boosting** | Sequential + error correction | XGBoost, LightGBM | Reduces bias, usually performs best |
+| **Stacking** | Model stacking | Various combinations | Fully leverages the strengths of different models |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-如果只带走一句话，我希望你记住：
+If you only take away one sentence, I hope you remember this:
 
-> **集成学习的本质不是“模型更多”，而是用不同方式让很多个不完美的树，组合成一个更稳或更强的系统。**
+> **The essence of ensemble learning is not “more models,” but combining many imperfect trees into a more stable or stronger system in different ways.**
 
-所以真正的关键收获应该是：
+So the real key takeaways should be:
 
-- 分清 Bagging 和 Boosting
-- 知道随机森林为什么稳
-- 知道 GBDT / XGBoost 为什么强
-- 知道第一次做表格数据项目时该怎么选路线
+- Distinguish Bagging from Boosting
+- Know why Random Forest is stable
+- Know why GBDT / XGBoost are powerful
+- Know how to choose a path when starting a tabular-data project for the first time
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：随机森林调参
+### Exercise 1: Random Forest Tuning
 
-用 `make_moons` 数据，尝试不同的 `n_estimators`（10, 50, 100, 200, 500）和 `max_depth`（3, 5, 10, None），找到最优组合。画出热力图。
+Use the `make_moons` dataset, try different `n_estimators` values (10, 50, 100, 200, 500) and `max_depth` values (3, 5, 10, None), and find the best combination. Plot a heatmap.
 
-### 练习 2：XGBoost 早停
+### Exercise 2: XGBoost Early Stopping
 
-用 Wine 数据集训练 XGBoost，设置 `n_estimators=1000`，`early_stopping_rounds=10`，观察最佳迭代次数。尝试不同的 `learning_rate` 看看最佳迭代次数如何变化。
+Train XGBoost on the Wine dataset, set `n_estimators=1000`, `early_stopping_rounds=10`, and observe the best iteration. Try different `learning_rate` values to see how the best iteration changes.
 
-### 练习 3：全面对比
+### Exercise 3: Full Comparison
 
-用 Iris 数据集，对比本节介绍的所有算法（决策树、随机森林、AdaBoost、GBDT、XGBoost、LightGBM），用 5 折交叉验证评估，画出对比柱状图。
+Use the Iris dataset to compare all algorithms introduced in this section (Decision Tree, Random Forest, AdaBoost, GBDT, XGBoost, LightGBM). Evaluate with 5-fold cross-validation and plot a comparison bar chart.
 
-### 练习 4：Stacking 实验
+### Exercise 4: Stacking Experiment
 
-创建一个 Stacking 模型，基础模型用随机森林 + XGBoost + KNN，元学习器用逻辑回归。与各基础模型单独使用对比效果。
+Create a Stacking model, use Random Forest + XGBoost + KNN as the base models, and Logistic Regression as the meta learner. Compare the results against each base model used alone.

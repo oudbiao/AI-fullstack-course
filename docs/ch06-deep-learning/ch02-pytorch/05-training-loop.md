@@ -1,73 +1,73 @@
 ---
-title: "2.7 训练流程 🔧"
+title: "2.7 Training Workflow 🔧"
 sidebar_position: 5
-description: "把模型、损失函数、优化器和 DataLoader 串起来，写出一个完整可运行的 PyTorch 训练循环。"
+description: "Connect the model, loss function, optimizer, and DataLoader to write a complete, runnable PyTorch training loop."
 keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
 ---
 
-# 训练流程
+# Training Workflow
 
-![PyTorch 训练循环图](/img/course/pytorch-training-loop.png)
+![PyTorch training loop diagram](/img/course/pytorch-training-loop-en.png)
 
-## 学习目标
+## Learning Goals
 
-- 看懂并写出标准的 PyTorch 训练循环
-- 明白 `train()`、`eval()`、`zero_grad()`、`backward()`、`step()` 的顺序
-- 能对一个小任务完成训练、验证和预测
-- 形成可复用的训练模板
+- Understand and write a standard PyTorch training loop
+- Know the order of `train()`, `eval()`, `zero_grad()`, `backward()`, and `step()`
+- Be able to complete training, validation, and prediction for a small task
+- Build a reusable training template
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-训练循环这节最适合新人的理解方式不是“背模板”，而是先看清训练到底在重复什么：
+The best way for beginners to understand this training-loop section is not to “memorize a template,” but to first see clearly what training is repeating:
 
 ```mermaid
 flowchart LR
-    A["取一个 batch"] --> B["模型前向预测"]
-    B --> C["计算损失"]
-    C --> D["反向传播梯度"]
-    D --> E["优化器更新参数"]
-    E --> F["进入下一个 batch"]
+    A["Get a batch"] --> B["Model forward prediction"]
+    B --> C["Compute loss"]
+    C --> D["Backpropagate gradients"]
+    D --> E["Optimizer updates parameters"]
+    E --> F["Move to the next batch"]
 ```
 
-这五步不断循环，就是深度学习训练最核心的节奏。
+These five steps loop continuously. That is the core rhythm of deep learning training.
 
-## 这节和第 5 站、PyTorch 前几节是怎么接上的
+## How this section connects with Station 5 and the earlier PyTorch lessons
 
-如果你是从第 5 站一路走过来，可以先这样理解：
+If you’ve come all the way here from Station 5, you can understand it like this:
 
-- 第 5 站里，`fit()` 已经帮你把训练这件事包起来了
-- 到了这一节，你开始自己把训练拆开写
+- In Station 5, `fit()` already wrapped the training process for you
+- In this section, you start writing the training process yourself, step by step
 
-如果你是从 PyTorch 前几节接过来，也可以这样看：
+If you’re connecting this with the earlier PyTorch lessons, you can also think about it this way:
 
-- `Tensor` 解决“数据装在哪里”
-- `Autograd` 解决“梯度怎么来”
-- `nn.Module` 解决“网络怎么组织”
-- `DataLoader` 解决“数据怎么分 batch 喂”
-- 而这一节负责把这些东西真正串成会跑的训练过程
+- `Tensor` solves “where the data lives”
+- `Autograd` solves “where gradients come from”
+- `nn.Module` solves “how the network is organized”
+- `DataLoader` solves “how data is split into batches and fed in”
+- And this section is responsible for stitching all of that into a real training process that runs
 
-## 一、训练循环为什么重要？
+## 1. Why is the training loop important?
 
-深度学习代码里最值得反复练的，不是某一个层，而是**训练循环**。
+In deep learning code, the most valuable thing to practice again and again is not one specific layer, but the **training loop**.
 
-因为不管你是做：
+Because no matter whether you are doing:
 
-- 图像分类
-- 文本分类
-- 目标检测
-- 大模型微调
+- image classification
+- text classification
+- object detection
+- large model fine-tuning
 
-训练主流程都逃不开这条线：
+the main training flow always follows this line:
 
 ```mermaid
 flowchart LR
-    A["取一个 batch"] --> B["前向计算"]
-    B --> C["计算损失"]
-    C --> D["清空旧梯度"]
-    D --> E["反向传播"]
-    E --> F["优化器更新参数"]
+    A["Get a batch"] --> B["Forward computation"]
+    B --> C["Compute loss"]
+    C --> D["Clear old gradients"]
+    D --> E["Backpropagation"]
+    E --> F["Optimizer updates parameters"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -77,22 +77,22 @@ flowchart LR
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.1 训练循环为什么比背网络结构更值得先练？
+### 1.1 Why is practicing the training loop more worthwhile than memorizing a network structure first?
 
-因为网络结构会变：
+Because network structures change:
 
-- CNN 会变
-- RNN 会变
-- Transformer 会变
+- CNNs change
+- RNNs change
+- Transformers change
 
-但训练循环的大骨架长期都很稳定。  
-所以这一节的价值非常高，它是在帮你抓住深度学习里最不容易过时的那部分。
+But the basic training loop stays stable for a long time.
+So this section is very valuable: it helps you grasp the part of deep learning that is least likely to become outdated.
 
 ---
 
-## 二、先记住标准模板
+## 2. First, memorize the standard template
 
-先不要急着背，先多看几遍：
+Don’t rush to memorize it yet. Read it a few times first:
 
 ```python
 for batch_x, batch_y in train_loader:
@@ -104,51 +104,51 @@ for batch_x, batch_y in train_loader:
     optimizer.step()
 ```
 
-它其实只在做三件事：
+It actually does only three things:
 
-1. 算预测
-2. 算误差
-3. 按误差更新参数
+1. Compute predictions
+2. Compute error
+3. Update parameters based on the error
 
-### 2.1 一个新人最该先背下来的口令
+### 2.1 The shortest chant a beginner should memorize first
 
-如果你每次写训练循环都会乱，可以先记这个最短口令：
+If your training loop gets messy every time you write it, remember this shortest chant:
 
-`前向 -> 算 loss -> 清梯度 -> 反传 -> 更新`
+`forward -> compute loss -> clear gradients -> backprop -> update`
 
-只要这一条顺了，后面再加验证、日志、早停都不难。
+As long as this line flows smoothly, adding validation, logging, and early stopping later is not hard.
 
-### 2.2 为什么这个顺序不能乱？
+### 2.2 Why can’t this order be changed?
 
-因为每一步都依赖前一步的结果：
+Because each step depends on the result of the previous one:
 
-- 没有前向，就没有预测
-- 没有预测，就没有 loss
-- 没有 loss，就没法 backward
-- 不清旧梯度，新的梯度就会和旧梯度混在一起
+- Without forward computation, there are no predictions
+- Without predictions, there is no loss
+- Without loss, `backward()` cannot happen
+- If you don’t clear old gradients, new gradients will mix with the old ones
 
-所以训练循环不是“几个 API 凑一起”，而是一条有严格顺序的因果链。
+So the training loop is not just “a few APIs put together,” but a causal chain with a strict order.
 
-![PyTorch 训练循环顺序护栏图](/img/course/ch06-training-loop-order-guardrail.png)
+![PyTorch training loop order guardrail diagram](/img/course/ch06-training-loop-order-guardrail-en.png)
 
-:::tip 读图提示
-这张图建议你每次写训练循环都对照一遍：`model.train()`、取 batch、forward、loss、`zero_grad()`、`backward()`、`step()`。验证阶段则切到 `model.eval()` 和 `torch.no_grad()`，不要让验证也记录梯度。
+:::tip Reading hint
+It’s a good idea to compare this diagram every time you write a training loop: `model.train()`, get batch, forward, loss, `zero_grad()`, `backward()`, `step()`. In the validation stage, switch to `model.eval()` and `torch.no_grad()` so validation does not record gradients.
 :::
 
 ---
 
-## 三、一个完整可运行例子
+## 3. A complete runnable example
 
-:::info 运行环境
-下面代码可以直接运行：
+:::info Runtime environment
+The code below can run directly:
 
 ```bash
 pip install torch
 ```
 :::
 
-我们做一个二维回归任务。  
-输入两个特征，目标值满足近似关系：
+We will build a 2D regression task.
+The input has two features, and the target follows an approximate relationship:
 
 > `y ≈ 3*x1 + 2*x2 + 5`
 
@@ -159,7 +159,7 @@ from torch.utils.data import TensorDataset, DataLoader, random_split
 
 torch.manual_seed(42)
 
-# 1. 造一份可直接运行的模拟数据
+# 1. Create a simulation dataset that can run directly
 X = torch.randn(200, 2)
 noise = torch.randn(200, 1) * 0.3
 y = 3 * X[:, [0]] + 2 * X[:, [1]] + 5 + noise
@@ -174,18 +174,18 @@ train_dataset, val_dataset = random_split(
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=40, shuffle=False)
 
-# 2. 定义模型
+# 2. Define the model
 model = nn.Sequential(
     nn.Linear(2, 8),
     nn.ReLU(),
     nn.Linear(8, 1)
 )
 
-# 3. 定义损失函数和优化器
+# 3. Define the loss function and optimizer
 loss_fn = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.05)
 
-# 4. 训练
+# 4. Train
 for epoch in range(1, 101):
     model.train()
     train_loss_sum = 0.0
@@ -202,7 +202,7 @@ for epoch in range(1, 101):
 
     train_loss = train_loss_sum / len(train_dataset)
 
-    # 5. 验证
+    # 5. Validate
     model.eval()
     with torch.no_grad():
         val_loss_sum = 0.0
@@ -215,78 +215,78 @@ for epoch in range(1, 101):
     if epoch % 20 == 0 or epoch == 1:
         print(f"epoch={epoch:3d}, train_loss={train_loss:.4f}, val_loss={val_loss:.4f}")
 
-# 6. 测试预测
+# 6. Test prediction
 test_x = torch.tensor([[1.0, 2.0], [-1.0, 0.5], [0.0, 0.0]])
 with torch.no_grad():
     test_pred = model(test_x)
 
-print("\n测试样本预测:")
+print("\nPredictions on test samples:")
 for x_row, y_row in zip(test_x, test_pred):
     print(f"x={x_row.tolist()} -> pred={round(y_row.item(), 2)}")
 ```
 
 ---
 
-## 四、逐行拆解这段代码
+## 4. Step-by-step breakdown of this code
 
 ### 1. `model.train()`
 
-告诉模型进入训练模式。  
-如果模型里有 `Dropout`、`BatchNorm` 这样的层，它们会切换到训练行为。
+Tells the model to enter training mode.
+If the model has layers like `Dropout` or `BatchNorm`, they switch to training behavior.
 
 ### 2. `pred = model(batch_x)`
 
-前向传播。  
-也就是“拿当前参数做一次预测”。
+Forward pass.
+In other words, “make a prediction using the current parameters.”
 
 ### 3. `loss = loss_fn(pred, batch_y)`
 
-告诉模型：“你这次和真实答案差多少。”
+Tell the model: “How far are you from the true answer this time?”
 
 ### 4. `optimizer.zero_grad()`
 
-清空旧梯度。  
-因为 PyTorch 默认会累计梯度。
+Clear old gradients.
+This is because PyTorch accumulates gradients by default.
 
 ### 5. `loss.backward()`
 
-反向传播。  
-把损失对各参数的梯度算出来。
+Backpropagation.
+Computes the gradients of the loss with respect to each parameter.
 
 ### 6. `optimizer.step()`
 
-根据梯度真正更新参数。
+Actually update the parameters based on the gradients.
 
-### 4.1 新人第一次自己写时，最容易漏哪一步？
+### 4.1 When beginners write this for the first time, what step is most likely to be missed?
 
-最常见的是这两处：
+The two most common omissions are:
 
-- 忘了 `optimizer.zero_grad()`
-- 验证阶段忘了 `model.eval()` 和 `torch.no_grad()`
+- forgetting `optimizer.zero_grad()`
+- forgetting `model.eval()` and `torch.no_grad()` during validation
 
-这两个问题都会让训练结果看起来“怪怪的”，但又不一定立刻报错。
+Both problems can make training look “weird,” but not necessarily fail immediately with an error.
 
-### 4.2 一个更适合新人的“每轮训练检查表”
+### 4.2 A more beginner-friendly “training checklist” for each epoch
 
-你可以在脑子里每轮都过一遍这张小表：
+You can mentally run through this small table each epoch:
 
-| 步骤 | 我要确认什么 |
+| Step | What should I check? |
 |---|---|
-| 前向 | 输入 shape 对吗？输出 shape 对吗？ |
-| loss | 输出和标签能对上吗？ |
-| zero_grad | 旧梯度清了吗？ |
-| backward | 梯度真的算出来了吗？ |
-| step | 参数真的更新了吗？ |
+| Forward | Are the input shapes correct? Are the output shapes correct? |
+| loss | Do the outputs and labels match properly? |
+| zero_grad | Were the old gradients cleared? |
+| backward | Were gradients actually computed? |
+| step | Were the parameters actually updated? |
 
-这张表对排错特别有帮助，因为很多训练 bug 都发生在这 5 个问题里。
+This checklist is very helpful for debugging, because many training bugs happen in these five places.
 
 ---
 
-## 五、为什么验证要用 `eval()` 和 `no_grad()`？
+## 5. Why do validation use `eval()` and `no_grad()`?
 
-验证阶段的目标不是学习，而是检查模型表现。
+The goal of validation is not learning, but checking model performance.
 
-所以我们一般会这样写：
+So we usually write this:
 
 ```python
 model.eval()
@@ -294,112 +294,112 @@ with torch.no_grad():
     ...
 ```
 
-原因有两个：
+There are two reasons:
 
-- `eval()`：让某些层切换成推理模式
-- `no_grad()`：不记录梯度，省内存、省时间
+- `eval()`: switch certain layers into inference mode
+- `no_grad()`: do not record gradients, saving memory and time
 
-### 5.1 初学阶段先把训练态和验证态分清，有多重要？
+### 5.1 In the early learning stage, how important is it to separate training mode from validation mode?
 
-这一步特别容易被忽略，因为很多最小例子里没明显问题。  
-但从这一节开始，你最好养成一个稳定习惯：
+This is easy to overlook because many tiny examples show no obvious problem.
+But from this section on, you should develop a stable habit:
 
-- 训练前：`model.train()`
-- 验证前：`model.eval()`
-- 验证时：`with torch.no_grad():`
+- Before training: `model.train()`
+- Before validation: `model.eval()`
+- During validation: `with torch.no_grad():`
 
-因为后面一旦出现：
+Because later, once you encounter:
 
 - Dropout
 - BatchNorm
-- 更大的模型
+- larger models
 
-训练态和验证态不分清，结果会越来越容易出错。
+if training mode and validation mode are not clearly separated, things will become increasingly error-prone.
 
 ---
 
-## 六、一个更适合记忆的“厨房版类比”
+## 6. A more memorable “kitchen-style analogy”
 
-把训练看成开餐厅会很好记：
+Thinking of training as running a restaurant is easy to remember:
 
-| 深度学习步骤 | 餐厅类比 |
+| Deep learning step | Restaurant analogy |
 |---|---|
-| `batch_x` | 一批顾客订单 |
-| `model(batch_x)` | 厨师按当前手法做菜 |
-| `loss_fn` | 顾客给评分 |
-| `backward()` | 找出是哪里做得不好 |
-| `step()` | 下次做菜时调整手法 |
+| `batch_x` | A batch of customer orders |
+| `model(batch_x)` | The chef cooks using the current method |
+| `loss_fn` | Customers give a rating |
+| `backward()` | Figure out what was done poorly |
+| `step()` | Adjust the cooking method next time |
 
-训练就是反复营业、反复改进。
+Training is repeated service, repeated improvement.
 
 ---
 
-## 七、常见变体
+## 7. Common variations
 
-### 1. 分类任务
+### 1. Classification tasks
 
-回归常用 `MSELoss()`，分类更常见：
+Regression often uses `MSELoss()`, while classification more commonly uses:
 
 ```python
 loss_fn = nn.CrossEntropyLoss()
 ```
 
-### 2. 不同优化器
+### 2. Different optimizers
 
-最常见的两个：
+The two most common ones are:
 
 - `SGD`
 - `Adam`
 
-初学阶段，`Adam` 往往更省心一些。
+For beginners, `Adam` is often a little easier to work with.
 
-### 3. 统计指标
+### 3. Metrics
 
-训练时除了 loss，还常常统计：
+In addition to loss, training often also tracks:
 
-- 准确率 `accuracy`
-- 精确率 `precision`
-- 召回率 `recall`
+- accuracy
+- precision
+- recall
 - F1
 
 ---
 
-## 八、最容易写错的地方
+## 8. The easiest places to make mistakes
 
-### 1. 忘记 `zero_grad()`
+### 1. Forgetting `zero_grad()`
 
-后果：梯度不断累加，训练结果不可信。
+Consequence: gradients keep accumulating, and the training result becomes unreliable.
 
-### 2. 验证时忘记 `model.eval()`
+### 2. Forgetting `model.eval()` during validation
 
-有些模型层在训练 / 验证模式下行为不同，会影响结果。
+Some layers behave differently in training and validation modes, which affects results.
 
-### 3. 验证时也在算梯度
+### 3. Computing gradients during validation too
 
-虽然可能能跑，但浪费内存与算力。
+Even if it runs, it wastes memory and compute.
 
-### 4. `loss.item()` 和 `loss` 混着用
+### 4. Mixing up `loss.item()` and `loss`
 
-- `loss` 是张量，能参与反向传播
-- `loss.item()` 是普通 Python 数字，适合打印和统计
+- `loss` is a tensor and can participate in backpropagation
+- `loss.item()` is a normal Python number, suitable for printing and statistics
 
-### 5. 只看 loss，不看训练和验证的关系
+### 5. Only watching loss and ignoring the relationship between training and validation
 
-新人最常见的另一个问题是：
+Another common beginner mistake is:
 
-- 看到训练 loss 在降，就以为一切正常
+- seeing training loss go down and assuming everything is fine
 
-但更稳的判断方式应该是：
+But a more reliable judgment should be:
 
-- 训练 loss 在降吗？
-- 验证 loss 也在同步变好吗？
-- 两者是不是开始分叉？
+- Is training loss going down?
+- Is validation loss improving at the same time?
+- Are the two starting to diverge?
 
-这其实已经是在为后面的过拟合诊断做准备。
+This is actually preparing you for diagnosing overfitting later.
 
 ---
 
-## 九、一个你可以保存下来的通用骨架
+## 9. A general skeleton you can save
 
 ```python
 for epoch in range(num_epochs):
@@ -419,34 +419,34 @@ for epoch in range(num_epochs):
             val_loss = loss_fn(pred, batch_y)
 ```
 
-以后你看到任何 PyTorch 项目，基本都能在里面认出这条主线。
+From now on, whenever you see any PyTorch project, you should be able to recognize this main line.
 
 ---
 
-## 小结
+## Summary
 
-如果这节你只记住一句话，那就是：
+If you only remember one sentence from this section, let it be:
 
-> **训练循环就是“前向算一次，反向改一次，然后重复很多次”。**
+> **A training loop is “compute forward once, update backward once, and repeat many times.”**
 
-把这条链路练熟，后面学 CNN、Transformer、微调大模型时，你不会总被框架代码吓住。
+Once you practice this chain well, later when you learn CNNs, Transformers, or fine-tuning large models, you won’t be intimidated by framework code.
 
-## 这节最该带走什么
+## What you should take away most from this section
 
-如果再多带走一句，我希望你记住：
+If I could add one more thing to remember, it would be this:
 
-> **训练循环不是模板记忆题，而是一条“预测 -> 衡量误差 -> 根据误差改参数”的闭环。**
+> **A training loop is not a template-memorization question, but a closed loop of “predict -> measure error -> update parameters based on the error.”**
 
-所以这一节真正要稳住的是：
+So what this section really needs you to keep stable is:
 
-- 顺序不能乱
-- 训练态和验证态要分开
-- 排错时先查 shape、loss、梯度、参数更新这几步
+- the order must not be messed up
+- training mode and validation mode must be separated
+- when debugging, first check shape, loss, gradients, and parameter updates
 
 ---
 
-## 练习
+## Exercises
 
-1. 把上面例子里的优化器从 `Adam` 改成 `SGD`，看看收敛速度有什么差异。
-2. 把隐藏层从 `8` 改成 `16`，观察训练和验证损失变化。
-3. 把数据中的噪声 `0.3` 改成 `1.0`，看看模型训练难度会发生什么变化。
+1. Change the optimizer in the example above from `Adam` to `SGD`, and observe the difference in convergence speed.
+2. Change the hidden layer size from `8` to `16`, and observe how the training and validation losses change.
+3. Change the noise in the data from `0.3` to `1.0`, and see how the difficulty of training the model changes.

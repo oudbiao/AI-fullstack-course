@@ -1,111 +1,111 @@
 ---
-title: "3.4 YOLO 系列"
+title: "3.4 YOLO Series"
 sidebar_position: 9
-description: "从单阶段检测思路讲起，理解 YOLO 为什么能把目标检测做得更实时，以及它在工程上为什么这么受欢迎。"
+description: "Starting from the idea of one-stage detection, understand why YOLO can make object detection more real-time, and why it is so popular in engineering practice."
 keywords: [YOLO, one-stage detector, object detection, NMS, realtime vision]
 ---
 
-# YOLO 系列
+# YOLO Series
 
-![YOLO 网格检测流程图](/img/course/yolo-grid-detection-flow.png)
+![YOLO grid detection flowchart](/img/course/yolo-grid-detection-flow-en.png)
 
-:::tip 本节定位
-YOLO 之所以火，不只是因为它能检测目标，  
-而是因为它把目标检测做成了更偏工程可用的形式：
+:::tip Section Overview
+YOLO became popular not just because it can detect objects,
+but because it turns object detection into a more engineering-friendly form:
 
-- 更快
-- 更直接
-- 更适合实时场景
+- Faster
+- More direct
+- Better suited to real-time scenarios
 
-所以这节要抓的不是版本号，而是它代表的这条路线：
+So in this section, the key is not the version numbers, but the route it represents:
 
-> **把检测尽量做成一步到位。**
+> **Make detection as close to one step as possible.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 YOLO 属于哪类检测器
-- 理解单阶段检测和两阶段检测的主要差别
-- 理解置信度、框筛选和 NMS 的基本作用
-- 建立 YOLO 在工程部署里的价值判断
-
----
-
-## 一、YOLO 的核心思路是什么？
-
-### 1.1 单阶段检测
-
-YOLO 想做的是：
-
-- 不分两步
-- 直接从图像一次性输出类别和框
-
-### 1.2 为什么这很有吸引力？
-
-因为它减少了：
-
-- 额外 proposal 阶段
-- 更复杂的检测流水线
-
-所以更容易做到：
-
-- 实时
-
-### 1.3 一个类比
-
-两阶段检测像先圈可疑区域，再派人逐一核查。  
-YOLO 更像一眼扫过去，同时报出：
-
-- 哪有目标
-- 是什么
+- Understand what type of detector YOLO belongs to
+- Understand the main difference between one-stage detection and two-stage detection
+- Understand the basic role of confidence, box filtering, and NMS
+- Build a practical judgment of YOLO’s value in engineering deployment
 
 ---
 
-## 二、YOLO 的输出大致长什么样？
+## 1. What is the core idea behind YOLO?
 
-通常可以粗略理解成一组候选框，每个候选都带：
+### 1.1 One-stage detection
 
-- 类别
-- 置信度
-- 边界框坐标
+What YOLO tries to do is:
 
-后面再通过筛选和 NMS，得到最终结果。
+- No two-step process
+- Directly output classes and boxes from the image in one pass
 
-### 2.1 一个更适合新人的类比
+### 1.2 Why is this attractive?
 
-可以先把 YOLO 想成：
+Because it reduces:
 
-- 模型先扫完整张图
-- 然后一次性报出“哪里像有东西、像什么、框大概在哪”
+- The extra proposal stage
+- A more complex detection pipeline
 
-这和两阶段检测很不一样。  
-两阶段更像：
+So it is easier to achieve:
 
-- 先到处圈可疑区域
-- 再对每个区域做细查
+- Real-time performance
 
-而 YOLO 更像：
+### 1.3 An analogy
 
-> **一眼看完，再把候选目标整体报出来。**
+Two-stage detection is like first drawing around suspicious areas, then sending someone to inspect them one by one.
+YOLO is more like taking one quick look and reporting at the same time:
 
-### 2.3 一个很适合初学者先记的判断表
+- Where the objects are
+- What they are
 
-| 你现在关心什么 | 更值得先看哪一层 |
+---
+
+## 2. What does YOLO’s output roughly look like?
+
+You can usually think of it as a set of candidate boxes, where each candidate includes:
+
+- Class
+- Confidence
+- Bounding box coordinates
+
+Then, through filtering and NMS, the final result is obtained.
+
+### 2.1 A more beginner-friendly analogy
+
+You can think of YOLO as:
+
+- The model scans the whole image first
+- Then it reports all at once: “Where something seems to be, what it seems to be, and roughly where the box is”
+
+This is very different from two-stage detection.
+Two-stage detection is more like:
+
+- First drawing suspicious regions everywhere
+- Then carefully checking each region
+
+YOLO is more like:
+
+> **Scan once, then report the candidate objects as a whole.**
+
+### 2.3 A judgment table that beginners should remember first
+
+| What are you concerned about now? | Which layer is more worth looking at first? |
 |---|---|
-| 为什么它快 | 单阶段路线和短推理链 |
-| 为什么会有一堆框 | 候选框输出 |
-| 为什么结果会重叠 | NMS 和阈值 |
-| 为什么实时项目爱用它 | 工程部署和生态成熟度 |
+| Why is it fast? | The one-stage route and short inference chain |
+| Why are there so many boxes? | Candidate box outputs |
+| Why do the results overlap? | NMS and thresholds |
+| Why do real-time projects like it? | Engineering deployment and ecosystem maturity |
 
-这个表很适合新人，因为它会把 YOLO 从“版本名集合”重新变成几个具体问题。
+This table is very suitable for beginners because it turns YOLO from a “collection of version names” back into a few concrete questions.
 
-### 2.2 一个最小“候选框输出”示意
+### 2.2 A minimal “candidate box output” example
 
-下面这个例子不是在模拟真实 YOLO 网络，  
-而是在帮你建立一个很关键的直觉：
+The example below is not simulating a real YOLO network,
+but it helps you build one very important intuition:
 
-- 模型输出通常不是“最终答案”
-- 而是一批带分数的候选框
+- Model outputs are usually not the “final answer”
+- They are a batch of candidate boxes with scores
 
 ```python
 predictions = [
@@ -118,15 +118,15 @@ for pred in predictions:
     print(pred)
 ```
 
-这段输出最值得先记住的不是字段名，  
-而是：
+The most important thing to remember from this output is not the field names,
+but rather:
 
-- 单阶段检测经常天然会吐出很多候选
-- 后处理本来就是检测链的一部分
+- One-stage detection often naturally produces many candidates
+- Post-processing is part of the detection pipeline itself
 
 ---
 
-## 三、先跑一个最小 NMS 直觉示例
+## 3. First, run a minimal NMS intuition example
 
 ```python
 def iou(box_a, box_b):
@@ -173,23 +173,23 @@ def nms(preds, iou_threshold=0.5):
 print(nms(predictions))
 ```
 
-### 3.1 这个例子最关键的价值是什么？
+### 3.1 What is the key value of this example?
 
-它说明检测输出并不是直接就能用。  
-很多时候模型会给出：
+It shows that detection outputs are not immediately usable.
+In many cases, the model will produce:
 
-- 一堆重叠候选框
+- A bunch of overlapping candidate boxes
 
-而 NMS 的作用就是：
+And the role of NMS is:
 
-- 保留最有代表性的那几个
+- Keep the few most representative ones
 
-### 3.2 为什么这对 YOLO 特别重要？
+### 3.2 Why is this especially important for YOLO?
 
-因为 YOLO 这种单阶段路线天然会产生很多候选，  
-后处理筛选就是整个检测链的一部分。
+Because a one-stage route like YOLO naturally produces many candidates,
+and post-processing is part of the whole detection pipeline.
 
-### 3.3 再看一个最小“阈值先筛一轮”示例
+### 3.3 Another minimal example: threshold filtering first
 
 ```python
 predictions = [
@@ -206,135 +206,135 @@ def filter_by_score(preds, threshold=0.5):
 print(filter_by_score(predictions, threshold=0.5))
 ```
 
-这个示例很适合初学者，因为它会帮助你看到：
+This example is very suitable for beginners because it helps you see:
 
-- 检测系统通常不是直接拿全部候选去画框
-- 而是会先用分数和规则筛一轮
+- Detection systems usually do not draw boxes from all candidates directly
+- They first filter with scores and rules
 
-![YOLO 候选框、阈值与 NMS 图](/img/course/ch10-yolo-threshold-nms-map.png)
+![YOLO candidate boxes, threshold, and NMS diagram](/img/course/ch10-yolo-threshold-nms-map-en.png)
 
-:::tip 读图提示
-YOLO 输出通常是一批候选框，不是最终结果。读图时按 score threshold 先过滤低分框，再用 NMS 合并重叠框，最后才得到页面上看到的检测结果。
+:::tip Reading the diagram
+YOLO outputs are usually a batch of candidate boxes, not the final result. When reading the diagram, first filter low-score boxes with the score threshold, then merge overlapping boxes with NMS, and only then do you get the detection results you see on the page.
 :::
 
 ---
 
-## 四、为什么 YOLO 在工程上这么受欢迎？
+## 4. Why is YOLO so popular in engineering?
 
-### 4.1 实时性强
+### 4.1 Strong real-time performance
 
-很多场景直接要求：
+Many scenarios directly require:
 
-- 摄像头实时检测
-- 边缘设备快速响应
+- Real-time camera detection
+- Fast response on edge devices
 
-YOLO 这类路线很适合这种需求。
+YOLO-style routes are very suitable for these needs.
 
-### 4.2 结构相对统一
+### 4.2 Relatively unified structure
 
-对很多工程同学来说，它比复杂多阶段管线更容易落地。
+For many engineering practitioners, it is easier to implement than a complicated multi-stage pipeline.
 
-### 4.3 社区和工程生态成熟
+### 4.3 Mature community and engineering ecosystem
 
-这让它在真实项目里更常被优先尝试。
+This makes it more likely to be tried first in real projects.
 
-### 4.4 第一次做实时检测项目时，为什么很多团队会先试 YOLO？
+### 4.4 When doing a real-time detection project for the first time, why do many teams try YOLO first?
 
-因为 YOLO 往往同时满足了几个很现实的条件：
+Because YOLO often satisfies several very practical conditions at once:
 
-- 上手快
-- 推理链短
-- 社区模型多
-- 部署资料多
+- Easy to get started
+- Short inference chain
+- Many community models
+- Plenty of deployment documentation
 
-也就是说，它的吸引力不只是精度，  
-而是：
+In other words, its appeal is not just accuracy,
+but:
 
-> **它特别容易先跑出一个“工程上能看见效果”的版本。**
+> **It is especially easy to quickly get a version that “works in engineering.”**
 
-### 4.5 如果把 YOLO 放进项目里，最值得先展示什么
+### 4.5 If you put YOLO into a project, what is the most worth showing first?
 
-最值得展示的通常不是：
+What is usually most worth showing is not:
 
-- 只贴一张检测效果图
+- Only one detection result image
 
-而是：
+But rather:
 
-1. baseline 检测结果
-2. 阈值调整前后对比
-3. NMS 前后框变化
-4. 误检、漏检、小目标案例
+1. Baseline detection results
+2. Comparison before and after threshold tuning
+3. Box changes before and after NMS
+4. False positive, missed detection, and small-object cases
 
-这样别人会更容易看出：
+This makes it easier for others to see:
 
-- 你理解的是检测链路
-- 不只是调用了一个现成模型
-
----
-
-## 五、最容易踩的坑
-
-### 5.1 误区一：YOLO 就等于目标检测
-
-YOLO 是重要路线，但不是全部。
-
-### 5.2 误区二：速度快就一定最适合
-
-还要看：
-
-- 小目标表现
-- 框定位质量
-- 部署约束
-
-### 5.3 误区三：后处理不重要
-
-NMS、阈值设置这些后处理会直接影响最终体验。
-
-## 六、第一次做 YOLO 项目时，最稳的默认顺序
-
-第一次把 YOLO 放进项目里，通常更稳的顺序是：
-
-1. 先把类别边界和标注规范定清楚
-2. 先用默认模型和默认阈值跑出 baseline
-3. 先看误检、漏检、小目标表现
-4. 再调阈值和 NMS
-5. 最后再考虑更换更大模型或更复杂增强
-
-这个顺序很重要，因为很多新人最容易犯的错是：
-
-- 一上来就换模型
-- 但根本没看清 baseline 到底错在哪
-
-## 一个新人可直接照抄的排查顺序
-
-如果 YOLO 项目效果不理想，更稳的排查顺序通常是：
-
-1. 先看类别边界和标注规范
-2. 再看 score threshold 和 NMS
-3. 再看误检 / 漏检主要集中在哪类目标
-4. 最后再考虑换更大模型或更复杂增强
-
-这样通常比直接换版本号更有效。
+- That you understand the detection pipeline
+- Not just that you called an existing model
 
 ---
 
-## 小结
+## 5. The most common pitfalls
 
-这节最重要的是建立一个工程判断：
+### 5.1 Mistake 1: YOLO equals object detection
 
-> **YOLO 代表的是单阶段、实时友好的检测路线，它之所以广泛流行，不只是因为“能检测”，而是因为“更容易在工程里快速检测”。**
+YOLO is an important route, but not the whole field.
 
-## 这节最该带走什么
+### 5.2 Mistake 2: Faster automatically means better
 
-- YOLO 最重要的不是版本号，而是它代表的单阶段实时路线
-- 它的输出通常是一批候选框，后处理是检测链的一部分
-- 第一次做项目时，先把 baseline 的误检和漏检看清，再谈模型升级
+You still need to consider:
+
+- Small-object performance
+- Box localization quality
+- Deployment constraints
+
+### 5.3 Mistake 3: Post-processing is not important
+
+Post-processing such as NMS and threshold settings directly affects the final experience.
+
+## 6. The safest default sequence for a first YOLO project
+
+When you first put YOLO into a project, the safer sequence is usually:
+
+1. First define the class boundaries and annotation rules clearly
+2. First run a baseline with the default model and default thresholds
+3. First look at false positives, missed detections, and small-object performance
+4. Then adjust thresholds and NMS
+5. Finally consider switching to a larger model or more complex augmentation
+
+This sequence is important because the mistake many beginners make is:
+
+- Switching models right away
+- Without understanding what the baseline is actually getting wrong
+
+## A troubleshooting order beginners can copy directly
+
+If a YOLO project does not perform well, a more stable troubleshooting order is usually:
+
+1. Check the class boundaries and annotation rules first
+2. Then check the score threshold and NMS
+3. Then see which types of objects the false positives / missed detections are concentrated on
+4. Finally consider switching to a larger model or more complex augmentation
+
+This is usually more effective than directly changing the version number.
 
 ---
 
-## 练习
+## Summary
 
-1. 调整示例里的 `iou_threshold`，看看保留框数如何变化。
-2. 用自己的话解释：为什么单阶段检测更容易做到实时？
-3. 为什么 NMS 对检测任务很重要？
-4. 想一想：什么时候你可能不会优先选 YOLO？
+The most important thing in this section is to build an engineering judgment:
+
+> **YOLO represents a one-stage, real-time-friendly detection route. Its popularity is not just because it can detect objects, but because it is easier to quickly get detection working in engineering practice.**
+
+## What you should take away from this section
+
+- The most important thing about YOLO is not the version number, but the one-stage real-time route it represents
+- Its output is usually a set of candidate boxes, and post-processing is part of the detection pipeline
+- When doing a project for the first time, first understand the false positives and missed detections in the baseline, then talk about model upgrades
+
+---
+
+## Exercises
+
+1. Adjust the `iou_threshold` in the example and see how the number of kept boxes changes.
+2. Explain in your own words: why is one-stage detection easier to make real-time?
+3. Why is NMS important for detection tasks?
+4. Think about it: when might you not choose YOLO first?

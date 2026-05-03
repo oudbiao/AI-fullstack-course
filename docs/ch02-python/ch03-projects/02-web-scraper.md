@@ -1,116 +1,116 @@
 ---
-title: "1.2 项目：网络爬虫"
+title: "1.2 Project: Web Scraper"
 sidebar_position: 2
-description: "学习使用 Python 抓取和解析网页数据"
+description: "Learn how to use Python to fetch and parse web data"
 ---
 
-# 项目：网络爬虫
+# Project: Web Scraper
 
-![网络爬虫数据采集流程图](/img/course/ch02-web-scraper-pipeline.png)
+![Web scraper data collection flowchart](/img/course/ch02-web-scraper-pipeline-en.png)
 
-## 项目定位
+## Project Overview
 
-这个项目让你第一次用 Python 从互联网获取数据。你会把 HTTP 请求、HTML 解析、数据清洗和文件保存串起来，理解真实数据不是凭空出现的，而是需要采集、整理和结构化。
+This project gives you your first experience using Python to obtain data from the internet. You will connect HTTP requests, HTML parsing, data cleaning, and file saving to understand that real-world data does not appear out of thin air — it must be collected, organized, and structured.
 
-## 项目目标
+## Project Goals
 
-- 理解 HTTP 请求和网页结构的基本概念
-- 学会使用 `requests` 库发送 HTTP 请求
-- 学会使用 `BeautifulSoup` 解析 HTML
-- 构建一个实用的网络数据采集工具
-
----
-
-## 项目简介
-
-网络爬虫（Web Scraper）是一个**自动从网页上提取数据**的程序。比如：
-
-- 从招聘网站收集职位信息
-- 从新闻网站抓取文章标题
-- 从电商网站获取商品价格
-- 收集数据用于 AI 模型训练
-
-我们将构建一个能抓取网页信息并保存为结构化数据的爬虫。
+- Understand the basic concepts of HTTP requests and web page structure
+- Learn how to use the `requests` library to send HTTP requests
+- Learn how to use `BeautifulSoup` to parse HTML
+- Build a practical web data collection tool
 
 ---
 
-## 前置知识：HTTP 和 HTML
+## Introduction
 
-### HTTP 请求是什么？
+A Web Scraper is a program that **automatically extracts data from web pages**. For example:
 
-当你在浏览器中输入一个网址并回车，浏览器会向服务器发送一个 **HTTP 请求**，服务器返回网页内容（**HTTP 响应**）。
+- Collect job listings from job boards
+- Scrape article titles from news websites
+- Get product prices from e-commerce websites
+- Collect data for AI model training
+
+We will build a scraper that can extract web page information and save it as structured data.
+
+---
+
+## Prerequisite Knowledge: HTTP and HTML
+
+### What is an HTTP request?
+
+When you enter a URL in your browser and press Enter, the browser sends an **HTTP request** to the server, and the server returns the web page content (**HTTP response**).
 
 ```
-你的浏览器  →  HTTP 请求  →  服务器
-你的浏览器  ←  HTTP 响应  ←  服务器（返回 HTML）
+Your browser  →  HTTP request  →  Server
+Your browser  ←  HTTP response  ←  Server (returns HTML)
 ```
 
-Python 的 `requests` 库可以帮你做和浏览器一样的事——发送请求，获取网页内容。
+Python’s `requests` library can help you do the same thing as a browser — send requests and get page content.
 
-### HTML 是什么？
+### What is HTML?
 
-HTML（超文本标记语言）是网页的"骨架"。一个简单的 HTML 页面：
+HTML (HyperText Markup Language) is the "skeleton" of a web page. A simple HTML page:
 
 ```html
 <html>
 <head>
-    <title>示例网页</title>
+    <title>Sample Page</title>
 </head>
 <body>
-    <h1>欢迎来到我的网站</h1>
-    <p class="intro">这是一段介绍文字。</p>
+    <h1>Welcome to My Website</h1>
+    <p class="intro">This is an introductory paragraph.</p>
     <ul>
-        <li>项目 1</li>
-        <li>项目 2</li>
-        <li>项目 3</li>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
     </ul>
-    <a href="https://example.com">点击这里</a>
+    <a href="https://example.com">Click here</a>
 </body>
 </html>
 ```
 
-爬虫的工作就是：**从这些 HTML 标签中提取你需要的数据。**
+The scraper’s job is to **extract the data you need from these HTML tags.**
 
 ---
 
-## 第一步：安装依赖
+## Step 1: Install Dependencies
 
 ```bash
 pip install requests beautifulsoup4
 ```
 
-| 库 | 作用 |
+| Library | Purpose |
 |---|------|
-| `requests` | 发送 HTTP 请求，获取网页内容 |
-| `beautifulsoup4` | 解析 HTML，提取数据 |
+| `requests` | Send HTTP requests and get web content |
+| `beautifulsoup4` | Parse HTML and extract data |
 
 ---
 
-## 第二步：发送 HTTP 请求
+## Step 2: Send an HTTP Request
 
 ```python
 import requests
 
-# 发送 GET 请求
+# Send a GET request
 response = requests.get("https://httpbin.org/get")
 
-# 查看响应状态
-print(f"状态码: {response.status_code}")  # 200 表示成功
-print(f"编码: {response.encoding}")
+# Check the response status
+print(f"Status code: {response.status_code}")  # 200 means success
+print(f"Encoding: {response.encoding}")
 
-# 查看响应内容
-print(response.text[:200])  # 文本内容（前 200 字符）
+# View the response content
+print(response.text[:200])  # Text content (first 200 characters)
 
-# 响应状态码含义
-# 200: 成功
-# 404: 页面不存在
-# 403: 禁止访问
-# 500: 服务器错误
+# Meaning of response status codes
+# 200: Success
+# 404: Page not found
+# 403: Forbidden
+# 500: Server error
 ```
 
-### 添加请求头（模拟浏览器）
+### Add Request Headers (Simulate a Browser)
 
-有些网站会检查请求是否来自浏览器，需要设置 User-Agent：
+Some websites check whether requests come from a browser, so you may need to set a User-Agent:
 
 ```python
 headers = {
@@ -123,30 +123,30 @@ response = requests.get("https://example.com", headers=headers)
 print(response.status_code)
 ```
 
-### 处理请求异常
+### Handle Request Exceptions
 
 ```python
 import requests
 
 def fetch_page(url: str) -> str | None:
-    """安全地获取网页内容"""
+    """Safely fetch web page content"""
     try:
         response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()  # 如果状态码不是 200，抛出异常
-        response.encoding = response.apparent_encoding  # 自动检测编码
+        response.raise_for_status()  # Raise an exception if the status code is not 200
+        response.encoding = response.apparent_encoding  # Auto-detect encoding
         return response.text
     except requests.ConnectionError:
-        print(f"❌ 无法连接到 {url}")
+        print(f"❌ Could not connect to {url}")
     except requests.Timeout:
-        print(f"❌ 请求超时: {url}")
+        print(f"❌ Request timed out: {url}")
     except requests.HTTPError as e:
-        print(f"❌ HTTP 错误: {e}")
+        print(f"❌ HTTP error: {e}")
     return None
 ```
 
 ---
 
-## 第三步：解析 HTML
+## Step 3: Parse HTML
 
 ```python
 from bs4 import BeautifulSoup
@@ -154,20 +154,20 @@ from bs4 import BeautifulSoup
 html = """
 <html>
 <body>
-    <h1>Python 课程列表</h1>
+    <h1>Python Course List</h1>
     <div class="course-list">
         <div class="course">
-            <h2 class="title">Python 入门</h2>
+            <h2 class="title">Python Basics</h2>
             <span class="price">¥99</span>
             <span class="rating">4.8</span>
         </div>
         <div class="course">
-            <h2 class="title">Python 进阶</h2>
+            <h2 class="title">Advanced Python</h2>
             <span class="price">¥199</span>
             <span class="rating">4.6</span>
         </div>
         <div class="course">
-            <h2 class="title">Python AI 实战</h2>
+            <h2 class="title">Python AI Practice</h2>
             <span class="price">¥399</span>
             <span class="rating">4.9</span>
         </div>
@@ -176,65 +176,65 @@ html = """
 </html>
 """
 
-# 创建 BeautifulSoup 对象
+# Create a BeautifulSoup object
 soup = BeautifulSoup(html, "html.parser")
 
-# 查找单个元素
+# Find a single element
 title = soup.find("h1")
-print(title.text)  # Python 课程列表
+print(title.text)  # Python Course List
 
-# 查找所有匹配的元素
+# Find all matching elements
 courses = soup.find_all("div", class_="course")
 for course in courses:
     name = course.find("h2", class_="title").text
     price = course.find("span", class_="price").text
     rating = course.find("span", class_="rating").text
-    print(f"{name} - {price} - 评分: {rating}")
+    print(f"{name} - {price} - Rating: {rating}")
 
-# 输出:
-# Python 入门 - ¥99 - 评分: 4.8
-# Python 进阶 - ¥199 - 评分: 4.6
-# Python AI 实战 - ¥399 - 评分: 4.9
+# Output:
+# Python Basics - ¥99 - Rating: 4.8
+# Advanced Python - ¥199 - Rating: 4.6
+# Python AI Practice - ¥399 - Rating: 4.9
 ```
 
-### BeautifulSoup 常用方法
+### Common BeautifulSoup Methods
 
 ```python
-# 通过标签名查找
-soup.find("h1")           # 找第一个 h1
-soup.find_all("p")        # 找所有 p
+# Find by tag name
+soup.find("h1")           # Find the first h1
+soup.find_all("p")        # Find all p tags
 
-# 通过 class 查找
+# Find by class
 soup.find("div", class_="content")
 soup.find_all("span", class_="price")
 
-# 通过 id 查找
+# Find by id
 soup.find("div", id="main")
 
-# CSS 选择器（功能更强大）
-soup.select("div.course h2")          # div.course 下的所有 h2
-soup.select("ul > li")                # ul 直接子元素 li
-soup.select("a[href]")                # 所有有 href 属性的 a 标签
+# CSS selectors (more powerful)
+soup.select("div.course h2")          # All h2 under div.course
+soup.select("ul > li")                # li direct children of ul
+soup.select("a[href]")                # All a tags with an href attribute
 
-# 获取文本和属性
+# Get text and attributes
 tag = soup.find("a")
-print(tag.text)              # 链接文本
-print(tag.get("href"))       # href 属性值
-print(tag["href"])           # 同上
+print(tag.text)              # Link text
+print(tag.get("href"))       # href attribute value
+print(tag["href"])           # Same as above
 ```
 
 ---
 
-## 第四步：完整项目实战
+## Step 4: Full Project Demo
 
-### 项目：抓取名言网站
+### Project: Scrape a Quotes Website
 
-我们用一个专门供爬虫练习的网站 `quotes.toscrape.com`：
+We’ll use a website made specifically for scraper practice: `quotes.toscrape.com`:
 
 ```python
 """
-网络爬虫项目：抓取名言名句
-目标网站：https://quotes.toscrape.com
+Web scraper project: Scrape famous quotes
+Target website: https://quotes.toscrape.com
 """
 
 import requests
@@ -244,26 +244,26 @@ import time
 
 
 def scrape_quotes(max_pages: int = 5) -> list[dict]:
-    """抓取名言数据"""
+    """Scrape quote data"""
     all_quotes = []
     base_url = "https://quotes.toscrape.com"
 
     for page in range(1, max_pages + 1):
         url = f"{base_url}/page/{page}/"
-        print(f"正在抓取第 {page} 页: {url}")
+        print(f"Scraping page {page}: {url}")
 
         try:
             response = requests.get(url, timeout=10)
             response.raise_for_status()
         except requests.RequestException as e:
-            print(f"  ❌ 请求失败: {e}")
+            print(f"  ❌ Request failed: {e}")
             continue
 
         soup = BeautifulSoup(response.text, "html.parser")
         quotes = soup.find_all("div", class_="quote")
 
         if not quotes:
-            print("  没有更多数据了")
+            print("  No more data available")
             break
 
         for quote in quotes:
@@ -277,21 +277,21 @@ def scrape_quotes(max_pages: int = 5) -> list[dict]:
                 "tags": tags
             })
 
-        print(f"  ✅ 抓取了 {len(quotes)} 条名言")
-        time.sleep(1)  # 礼貌性等待，不要给服务器太大压力
+        print(f"  ✅ Scraped {len(quotes)} quotes")
+        time.sleep(1)  # Be polite and do not put too much pressure on the server
 
     return all_quotes
 
 
 def save_to_json(data: list[dict], filename: str = "quotes.json") -> None:
-    """保存为 JSON 文件"""
+    """Save as a JSON file"""
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"\n💾 已保存 {len(data)} 条数据到 {filename}")
+    print(f"\n💾 Saved {len(data)} records to {filename}")
 
 
 def save_to_csv(data: list[dict], filename: str = "quotes.csv") -> None:
-    """保存为 CSV 文件"""
+    """Save as a CSV file"""
     import csv
     with open(filename, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["text", "author", "tags"])
@@ -300,54 +300,54 @@ def save_to_csv(data: list[dict], filename: str = "quotes.csv") -> None:
             item_copy = item.copy()
             item_copy["tags"] = ", ".join(item["tags"])
             writer.writerow(item_copy)
-    print(f"💾 已保存到 {filename}")
+    print(f"💾 Saved to {filename}")
 
 
 def analyze_quotes(quotes: list[dict]) -> None:
-    """分析数据"""
-    print("\n📊 数据分析:")
-    print(f"  总名言数: {len(quotes)}")
+    """Analyze data"""
+    print("\n📊 Data analysis:")
+    print(f"  Total quotes: {len(quotes)}")
 
-    # 统计每位作者的名言数
+    # Count how many quotes each author has
     author_count = {}
     for q in quotes:
         author = q["author"]
         author_count[author] = author_count.get(author, 0) + 1
 
-    # 按数量排序
+    # Sort by count
     sorted_authors = sorted(author_count.items(), key=lambda x: x[1], reverse=True)
-    print(f"  作者数: {len(sorted_authors)}")
-    print(f"\n  名言最多的 5 位作者:")
+    print(f"  Number of authors: {len(sorted_authors)}")
+    print(f"\n  Top 5 authors by quote count:")
     for author, count in sorted_authors[:5]:
-        print(f"    {author}: {count} 条")
+        print(f"    {author}: {count} quotes")
 
-    # 统计标签
+    # Count tags
     all_tags = {}
     for q in quotes:
         for tag in q["tags"]:
             all_tags[tag] = all_tags.get(tag, 0) + 1
 
     sorted_tags = sorted(all_tags.items(), key=lambda x: x[1], reverse=True)
-    print(f"\n  最热门的 10 个标签:")
+    print(f"\n  Top 10 most popular tags:")
     for tag, count in sorted_tags[:10]:
-        print(f"    #{tag}: {count} 次")
+        print(f"    #{tag}: {count} times")
 
 
 def main():
-    print("=== 名言名句爬虫 ===\n")
+    print("=== Famous Quotes Scraper ===\n")
 
-    # 抓取数据
+    # Scrape data
     quotes = scrape_quotes(max_pages=5)
 
     if not quotes:
-        print("没有抓取到数据")
+        print("No data was scraped")
         return
 
-    # 保存数据
+    # Save data
     save_to_json(quotes)
     save_to_csv(quotes)
 
-    # 分析数据
+    # Analyze data
     analyze_quotes(quotes)
 
 
@@ -357,36 +357,36 @@ if __name__ == "__main__":
 
 ---
 
-## 爬虫注意事项
+## Things to Keep in Mind When Scraping
 
-:::caution 重要的伦理和法律提醒
+:::caution Important Ethical and Legal Reminder
 
-1. **遵守 robots.txt**：网站的 `robots.txt` 文件规定了哪些内容允许爬取
-2. **控制请求频率**：每次请求之间加 `time.sleep()`，不要对服务器造成压力
-3. **不要爬取敏感数据**：个人隐私、付费内容等不应该爬取
-4. **遵守网站使用条款**：有些网站明确禁止爬虫
-5. **仅用于学习和个人用途**：商业用途需要格外注意法律问题
+1. **Follow robots.txt**: A website’s `robots.txt` file specifies which content is allowed to be scraped
+2. **Control request frequency**: Add `time.sleep()` between requests; do not put too much pressure on the server
+3. **Do not scrape sensitive data**: Personal privacy, paid content, and similar data should not be scraped
+4. **Follow the website’s terms of use**: Some websites explicitly prohibit scraping
+5. **Use only for learning and personal purposes**: Commercial use requires extra attention to legal issues
 :::
 
 ---
 
-## 扩展挑战
+## Extension Challenges
 
-### 挑战 1：错误重试机制
+### Challenge 1: Error Retry Mechanism
 
-给爬虫添加自动重试功能——如果请求失败，等待几秒后自动重试（最多 3 次）。
+Add automatic retry support to your scraper — if a request fails, wait a few seconds and retry automatically (up to 3 times).
 
-### 挑战 2：多页自动翻页
+### Challenge 2: Automatic Pagination
 
-让爬虫自动检测"下一页"按钮，持续抓取直到没有下一页。
+Let the scraper automatically detect the "next page" button and keep scraping until there is no next page.
 
-### 挑战 3：数据去重
+### Challenge 3: Data Deduplication
 
-如果同一条数据被抓取了多次，自动去重。
+If the same piece of data is scraped multiple times, automatically remove duplicates.
 
-### 挑战 4：命令行参数
+### Challenge 4: Command-Line Arguments
 
-用 `sys.argv` 或 `argparse` 让用户通过命令行指定抓取页数和输出文件名：
+Use `sys.argv` or `argparse` to let users specify the number of pages to scrape and the output filename from the command line:
 
 ```bash
 python scraper.py --pages 10 --output data.json
@@ -394,26 +394,26 @@ python scraper.py --pages 10 --output data.json
 
 ---
 
-## 项目自查清单
+## Project Self-Check Checklist
 
-- [ ] 能正常发送 HTTP 请求并获取响应
-- [ ] 能解析 HTML 并提取目标数据
-- [ ] 数据保存为 JSON 和/或 CSV 格式
-- [ ] 有适当的错误处理（网络异常、解析异常）
-- [ ] 请求之间有延时（`time.sleep`）
-- [ ] 代码结构清晰，函数分工明确
-- [ ] 有简单的数据分析和统计
+- [ ] Can successfully send HTTP requests and get responses
+- [ ] Can parse HTML and extract target data
+- [ ] Data is saved in JSON and/or CSV format
+- [ ] Has proper error handling (network errors, parsing errors)
+- [ ] Includes delays between requests (`time.sleep`)
+- [ ] Code structure is clear, with well-defined functions
+- [ ] Includes simple data analysis and statistics
 
-:::tip 项目经验
-网络爬虫是数据获取的重要手段。在 AI 领域，训练数据的质量和数量直接决定模型的效果。掌握爬虫技能，意味着你能**自己获取训练数据**，而不是只能依赖现成的数据集。同时，这个项目让你接触了 HTTP 协议和 HTML 解析——这些是 Web 开发的基础知识。
+:::tip Project Insight
+Web scraping is an important way to collect data. In the AI field, the quality and quantity of training data directly determine model performance. Mastering scraping means you can **collect your own training data** instead of relying only on ready-made datasets. At the same time, this project introduces you to the HTTP protocol and HTML parsing — fundamental knowledge for web development.
 :::
 
-## 版本路线建议
+## Suggested Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic | Complete the smallest working loop | Can accept input, process it, output it, and keep one set of examples |
+| Standard | Turn it into a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It’s recommended to complete the basic version first. Don’t try to make it large and comprehensive from the start. With each version upgrade, write into the README: “What new capability was added, how was it verified, and what problems remain.”

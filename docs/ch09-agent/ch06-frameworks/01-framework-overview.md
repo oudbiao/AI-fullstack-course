@@ -1,172 +1,172 @@
 ---
-title: "6.2 Agent 框架全景"
+title: "6.2 Agent Framework Overview"
 sidebar_position: 30
-description: "从为什么需要框架，到不同 Agent 框架在抽象层、控制力和适用场景上的区别，建立一张框架选择地图。"
+description: "From why frameworks are needed to the differences among Agent frameworks in abstraction level, control, and applicable scenarios, build a map for choosing frameworks."
 keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework overview]
 ---
 
-# Agent 框架全景
+# Agent Framework Overview
 
-:::tip 本节定位
-到了 Agent 阶段，很多人很快就会掉进另一个坑：
+:::tip Where this section fits
+When people reach the Agent stage, many quickly fall into another trap:
 
-> “框架太多了，到底该学哪个？”
+> “There are so many frameworks — which one should I learn?”
 
-这节课不是为了站队，也不是为了背框架名字，而是为了先建立一张判断地图：
+This lesson is not about picking sides or memorizing framework names. It is about building a decision map first:
 
-> 不同框架到底在帮你抽象什么、放弃什么、适合什么。
+> What exactly do different frameworks abstract away, what do they give up, and what are they best suited for?
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么 Agent 项目常常会引入框架
-- 分清不同框架在抽象层级上的差异
-- 知道框架通常在替你省什么、又让你失去什么
-- 建立初步的框架选型视角
-
----
-
-## 一、为什么需要 Agent 框架？
-
-### 1.1 没有框架时，自己写会遇到什么？
-
-一个稍微复杂一点的 Agent 系统，通常要自己处理：
-
-- 状态管理
-- 工具调用
-- 消息流转
-- 失败重试
-- trace
-- 多 Agent 协作
-
-你当然可以手写，但很快会遇到：
-
-- 重复样板代码很多
-- 每个项目结构都不一致
-- 调试和扩展越来越难
-
-### 1.2 框架真正解决什么？
-
-可以先用一句话记住：
-
-> **框架不是替你做产品，而是在帮你把高频结构先搭好。**
-
-例如：
-
-- 图结构状态流
-- 工具注册机制
-- Agent 间协作抽象
-- 运行与观测接口
+- Understand why Agent projects often introduce frameworks
+- Distinguish differences in abstraction levels across frameworks
+- Know what frameworks usually save you from, and what they make you lose
+- Build an initial perspective for choosing frameworks
 
 ---
 
-## 二、框架最大的差别通常不在“能不能做”，而在“怎么做”
+## 1. Why do we need Agent frameworks?
 
-### 2.1 一个很重要的视角：抽象层
+### 1.1 What happens if you write everything yourself without a framework?
 
-很多框架都能：
+A slightly more complex Agent system usually requires you to handle:
 
-- 接工具
-- 跑工作流
-- 做多 Agent
+- State management
+- Tool calling
+- Message passing
+- Failure retries
+- Trace
+- Multi-Agent collaboration
 
-但它们抽象的层级不同：
+Of course, you can write it by hand, but you will quickly run into:
 
-- 有的更接近“底层搭积木”
-- 有的更接近“高层角色编排”
-- 有的更偏检索与数据组织
+- Lots of repetitive boilerplate code
+- Inconsistent structure across projects
+- Increasing difficulty in debugging and extending
 
-### 2.2 一个类比
+### 1.2 What do frameworks actually solve?
 
-你可以把不同框架想成不同类型的厨房：
+You can remember it with one sentence:
 
-- 有的给你锅碗瓢盆，自己做菜
-- 有的给你半成品套餐，按说明组合
-- 有的专门擅长某类菜
+> **A framework does not build the product for you; it helps you set up the high-frequency structure first.**
 
-所以框架差别很多时候不是“谁更强”，而是：
+For example:
 
-> **谁更适合你现在的任务和团队习惯。**
+- Graph-based state flow
+- Tool registration mechanisms
+- Abstractions for Agent collaboration
+- Execution and observability interfaces
 
 ---
 
-## 三、先看一张粗粒度地图
+## 2. The biggest differences among frameworks are usually not about “can it do it,” but about “how does it do it”
 
-下面这张图不是精确排名，而是帮助你快速建立直觉：
+### 2.1 A very important perspective: abstraction level
 
-| 框架方向 | 更擅长什么 | 常见感觉 |
+Many frameworks can:
+
+- Connect tools
+- Run workflows
+- Support multiple Agents
+
+But they differ in abstraction level:
+
+- Some are closer to “building blocks at the lower level”
+- Some are closer to “high-level role orchestration”
+- Some are more focused on retrieval and data organization
+
+### 2.2 An analogy
+
+You can think of different frameworks as different kinds of kitchens:
+
+- Some give you pots, pans, and utensils, and you cook yourself
+- Some give you semi-finished meal kits that you combine following instructions
+- Some are especially good at certain types of dishes
+
+So the difference between frameworks is often not “who is stronger,” but:
+
+> **Who fits your current task and team habits better.**
+
+---
+
+## 3. Let’s first look at a coarse-grained map
+
+The following table is not an exact ranking, but a way to build intuition quickly:
+
+| Framework direction | What it is good at | Common feeling |
 |---|---|---|
-| 图/工作流型 | 复杂状态流、明确控制 | 灵活但更工程化 |
-| 检索/知识型 | 文档、索引、RAG | 数据导向更强 |
-| 角色/团队型 | 多 Agent 角色协作 | 上手快但抽象更高 |
-| 通用实验型 | 快速搭 demo | 灵活但需要自己补工程层 |
+| Graph/Workflow-oriented | Complex state flow, explicit control | Flexible but more engineering-heavy |
+| Retrieval/Knowledge-oriented | Documents, indexing, RAG | Stronger data orientation |
+| Role/Team-oriented | Multi-Agent role collaboration | Quick to start, but higher-level abstraction |
+| General experimentation-oriented | Rapid demo building | Flexible, but you need to fill in the engineering layers yourself |
 
-这张图最重要的作用是：
+The most important purpose of this map is:
 
-> 先不要问“哪个最好”，先问“我的问题更像哪一类”。 
-
----
-
-## 四、框架一般帮你省掉哪些工作？
-
-### 4.1 状态流和节点管理
-
-例如：
-
-- 当前任务状态放哪
-- 下一步流向哪里
-- 出错如何回退
-
-### 4.2 工具接入和消息结构
-
-例如：
-
-- 工具注册
-- 调用结果包装
-- 错误处理
-
-### 4.3 运行和观察
-
-例如：
-
-- trace
-- step 记录
-- 中间状态可视化
-
-所以框架最常见的价值并不是“模型更聪明”，而是：
-
-> **系统组织得更清楚。**
+> Don’t ask “which is best” first. Ask “which category does my problem resemble more?”
 
 ---
 
-## 五、框架也会带来代价
+## 4. What work do frameworks usually save you from?
 
-### 5.1 抽象越高，越容易失去底层控制
+### 4.1 State flow and node management
 
-框架帮你省事，但也会带来：
+For example:
 
-- 学习框架本身的成本
-- 框架约束
-- 调试时必须理解它的内部抽象
+- Where the current task state is stored
+- Where the next step goes
+- How to roll back on errors
 
-### 5.2 一个很常见的问题
+### 4.2 Tool integration and message structure
 
-很多新人不是不会做 Agent，而是：
+For example:
 
-- 还没把任务想清楚
-- 就先学了很多框架接口
+- Tool registration
+- Wrapping call results
+- Error handling
 
-结果最后学到的是框架用法，不是 Agent 本质。
+### 4.3 Execution and observation
 
-所以正确顺序通常是：
+For example:
 
-> 先懂系统，再借框架提速。 
+- Trace
+- Step records
+- Visualization of intermediate states
+
+So the most common value of a framework is not “the model becomes smarter,” but:
+
+> **The system is organized more clearly.**
 
 ---
 
-## 六、一个最小“框架感”示例
+## 5. Frameworks also bring trade-offs
 
-下面这个例子不是某个真实框架，而是一个“框架抽象味道”的极小示例。
+### 5.1 The higher the abstraction, the easier it is to lose low-level control
+
+A framework saves you effort, but it also brings:
+
+- The cost of learning the framework itself
+- Framework constraints
+- The need to understand its internal abstractions when debugging
+
+### 5.2 A very common problem
+
+Many beginners do not fail because they cannot build an Agent. They fail because they:
+
+- Have not clarified the task yet
+- But have already learned many framework interfaces
+
+In the end, what they learn is framework usage, not the essence of Agents.
+
+So the right order is usually:
+
+> First understand the system, then use a framework to speed things up.
+
+---
+
+## 6. A minimal “framework-like” example
+
+The example below is not from a real framework, but a very small example that has the flavor of framework abstraction.
 
 ```python
 class MiniWorkflow:
@@ -183,95 +183,95 @@ class MiniWorkflow:
         return state
 
 def retrieve(state):
-    state["docs"] = ["退款政策"]
+    state["docs"] = ["refund policy"]
     return state
 
 def answer(state):
-    state["answer"] = f"根据 {state['docs']} 生成回答"
+    state["answer"] = f"Generate an answer based on {state['docs']}"
     return state
 
 wf = MiniWorkflow()
 wf.add_step("retrieve", retrieve)
 wf.add_step("answer", answer)
 
-wf.run({"query": "退款政策是什么"})
+wf.run({"query": "What is the refund policy?"})
 ```
 
-### 6.2 这段代码为什么有“框架感”？
+### 6.2 Why does this code feel “framework-like”?
 
-因为它已经在抽象：
+Because it is already abstracting:
 
 - step
 - state
-- 流程组织
+- workflow organization
 
-真实框架无非是在这条路上做得更完整、更复杂。
-
----
-
-## 七、什么时候更适合不用框架？
-
-如果你的系统是：
-
-- 小实验
-- 单 Agent
-- 工具不多
-- 状态流很简单
-
-那手写未必更差。
-
-很多时候：
-
-- 手写更容易理解本质
-- 框架反而会增加抽象负担
-
-所以不要把“上框架”当成成熟的唯一标志。
+Real frameworks are simply more complete and more sophisticated versions of this direction.
 
 ---
 
-## 八、一个很实用的选型思路
+## 7. When is it more suitable to avoid a framework?
 
-先问这几个问题：
+If your system is:
 
-1. 我的系统复杂度高不高？
-2. 状态流是不是明显复杂？
-3. 多 Agent 协作是不是核心？
-4. 检索 / 文档能力是不是主线？
-5. 团队更想要底层控制，还是更快起步？
+- A small experiment
+- A single Agent
+- Few tools
+- Very simple state flow
 
-如果这些问题你答得出来，再看框架，判断会清楚很多。
+Then writing it yourself is not necessarily worse.
 
----
+Many times:
 
-## 九、初学者最常踩的坑
+- Hand-written code is easier to understand in terms of the essence
+- A framework may instead add abstraction overhead
 
-### 9.1 先学框架，再学系统
-
-这样最容易“会调用 API，但不会做架构判断”。
-
-### 9.2 因为框架火就直接选
-
-框架流行不代表适合你当前项目。
-
-### 9.3 把框架当能力本身
-
-框架只是组织方式，不是系统质量保证。
+So do not treat “using a framework” as the only sign of maturity.
 
 ---
 
-## 小结
+## 8. A very practical framework-selection approach
 
-这一节最重要的不是记住一串框架名字，而是理解：
+First ask these questions:
 
-> **Agent 框架的本质，是把高频的状态流、工具流和协作结构先抽象出来，帮助你更快组织系统。**
+1. Is my system highly complex?
+2. Is the state flow obviously complex?
+3. Is multi-Agent collaboration the core?
+4. Is retrieval/document capability the main focus?
+5. Does the team prefer low-level control or faster startup?
 
-理解了这一点，后面你再看具体框架，就会更像在比较“组织方式”，而不是在追热点。
+If you can answer these questions, framework comparison becomes much clearer.
 
 ---
 
-## 练习
+## 9. Common pitfalls for beginners
 
-1. 用自己的项目场景，判断它更适合“图/工作流型”还是“角色协作型”框架。
-2. 想一想：为什么说复杂度不高的项目，手写反而可能更好？
-3. 用自己的话解释：框架真正替你省掉的工作是什么？
-4. 如果你团队特别看重可控性，你会更倾向选择什么风格的框架？
+### 9.1 Learn the framework first, then the system
+
+This is the easiest way to end up “able to call APIs, but unable to make architectural decisions.”
+
+### 9.2 Choose a framework just because it is popular
+
+Popularity does not mean it fits your current project.
+
+### 9.3 Treat the framework as the capability itself
+
+A framework is only an organizing approach, not a guarantee of system quality.
+
+---
+
+## Summary
+
+The most important point in this section is not to memorize a list of framework names, but to understand:
+
+> **The essence of an Agent framework is to abstract away high-frequency state flow, tool flow, and collaboration structure, helping you organize systems faster.**
+
+Once you understand this, when you look at specific frameworks later, it will feel more like comparing “ways of organizing” rather than chasing trends.
+
+---
+
+## Exercises
+
+1. Using your own project scenario, decide whether it is more suitable for a “graph/workflow-oriented” framework or a “role-collaboration-oriented” framework.
+2. Think about this: why might hand-written code be better for projects with lower complexity?
+3. Explain in your own words: what work does a framework really save you from?
+4. If your team especially values controllability, what style of framework would you be more inclined to choose?

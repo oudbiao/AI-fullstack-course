@@ -1,51 +1,51 @@
 ---
-title: "2.1 NumPy 概述"
+title: "2.1 NumPy Overview"
 sidebar_position: 2
-description: "认识 NumPy——Python 科学计算的基石"
+description: "Get to know NumPy — the foundation of scientific computing in Python"
 ---
 
-# NumPy 概述
+# NumPy Overview
 
-## 学习目标
+## Learning Objectives
 
-- 了解 NumPy 是什么以及它在 Python 生态中的地位
-- 理解 ndarray 和 Python list 的区别
-- 安装 NumPy 并运行第一段代码
-- 直观感受 NumPy 的性能优势
-
----
-
-## NumPy 是什么？
-
-**NumPy**（Numerical Python）是 Python 中用于**科学计算**的核心库。如果说 Python 是一辆汽车，那 NumPy 就是它的引擎——几乎所有数据科学和 AI 相关的库都建立在 NumPy 之上。
-
-![NumPy 科学计算引擎图](/img/course/ch03-numpy-overview-array-engine.png)
-
-简单来说：**学数据分析和 AI，NumPy 是绕不开的第一站。**
+- Understand what NumPy is and its place in the Python ecosystem
+- Understand the difference between ndarray and Python list
+- Install NumPy and run your first piece of code
+- Intuitively feel NumPy’s performance advantages
 
 ---
 
-## 为什么需要 NumPy？
+## What Is NumPy?
 
-在第 1 章的预热练习中，我们用纯 Python 处理数据，遇到了很多痛点。那 NumPy 能帮我们解决什么问题呢？
+**NumPy** (Numerical Python) is the core library in Python for **scientific computing**. If Python is a car, then NumPy is its engine — almost every data science and AI-related library is built on top of NumPy.
 
-### Python 列表的局限
+![NumPy scientific computing engine diagram](/img/course/ch03-numpy-overview-array-engine-en.png)
 
-回忆一下，如果我们想把一组数字都乘以 2：
+In simple terms: **if you want to learn data analysis and AI, NumPy is the first stop you can’t avoid.**
+
+---
+
+## Why Do We Need NumPy?
+
+In the warm-up exercises of Chapter 1, we processed data using pure Python and ran into many pain points. So what problems can NumPy solve for us?
+
+### The Limitations of Python Lists
+
+Think back: if we want to multiply a set of numbers by 2:
 
 ```python
-# 纯 Python：需要写循环
+# Pure Python: need to write a loop
 numbers = [1, 2, 3, 4, 5]
 result = []
 for n in numbers:
     result.append(n * 2)
 print(result)  # [2, 4, 6, 8, 10]
 
-# 或者用列表推导式
+# Or use a list comprehension
 result = [n * 2 for n in numbers]
 ```
 
-如果想计算两组数据对应位置的和：
+If we want to calculate the sum of two datasets at corresponding positions:
 
 ```python
 a = [1, 2, 3, 4, 5]
@@ -54,60 +54,60 @@ result = [a[i] + b[i] for i in range(len(a))]
 print(result)  # [11, 22, 33, 44, 55]
 ```
 
-这些操作很常见，但每次都要写循环，既麻烦又慢。
+These operations are very common, but writing a loop every time is both troublesome and slow.
 
-### NumPy 的解决方案
+### NumPy’s Solution
 
 ```python
 import numpy as np
 
-# NumPy：直接对整个数组操作，不用循环！
+# NumPy: operate directly on the whole array, no loop needed!
 numbers = np.array([1, 2, 3, 4, 5])
 result = numbers * 2
 print(result)  # [ 2  4  6  8 10]
 
-# 两组数据相加
+# Add two datasets
 a = np.array([1, 2, 3, 4, 5])
 b = np.array([10, 20, 30, 40, 50])
 result = a + b
 print(result)  # [11 22 33 44 55]
 ```
 
-**不用循环，一行搞定！** 这就是 NumPy 的核心能力——**向量化运算**。
+**No loop, done in one line!** This is NumPy’s core ability — **vectorized computation**.
 
 ---
 
-## 安装 NumPy
+## Installing NumPy
 
-如果你用 Miniconda / Anaconda，NumPy 通常已经预装了。如果没有：
+If you use Miniconda / Anaconda, NumPy is usually already installed. If not:
 
 ```bash
-# 用 pip 安装
+# Install with pip
 pip install numpy
 
-# 或用 conda 安装
+# Or install with conda
 conda install numpy
 ```
 
-验证安装：
+Verify the installation:
 
 ```python
 import numpy as np
-print(np.__version__)  # 如 1.26.4
-print("NumPy 安装成功！")
+print(np.__version__)  # e.g. 1.26.4
+print("NumPy installed successfully!")
 ```
 
-:::tip import 别名
-`import numpy as np` 是约定俗成的写法。在整个数据科学社区中，几乎所有人都把 NumPy 简写为 `np`。后面我们也统一用 `np`。
+:::tip import alias
+`import numpy as np` is the conventional way to write it. In the entire data science community, almost everyone abbreviates NumPy as `np`. We’ll use `np` consistently from here on.
 :::
 
 ---
 
 ## ndarray vs Python list
 
-NumPy 的核心是 **ndarray**（N-dimensional array，N 维数组）。它和 Python 的 list 有什么区别？
+The core of NumPy is the **ndarray** (N-dimensional array). How is it different from a Python list?
 
-### 外观对比
+### Visual Comparison
 
 ```python
 import numpy as np
@@ -120,137 +120,137 @@ print(py_list)          # [1, 2, 3, 4, 5]
 # NumPy ndarray
 np_array = np.array([1, 2, 3, 4, 5])
 print(type(np_array))  # <class 'numpy.ndarray'>
-print(np_array)         # [1 2 3 4 5]  ← 注意：没有逗号！
+print(np_array)         # [1 2 3 4 5]  ← Notice: no commas!
 ```
 
-### 核心区别
+### Key Differences
 
-| 特性 | Python list | NumPy ndarray |
+| Feature | Python list | NumPy ndarray |
 |------|-------------|---------------|
-| **数据类型** | 可以混装（整数、字符串、对象混在一起） | 所有元素必须是**同一类型** |
-| **运算方式** | 需要循环逐个处理 | 支持**向量化运算**，整体操作 |
-| **内存布局** | 元素分散存储 | 元素**连续存储**，更紧凑 |
-| **运算速度** | 慢（Python 解释器逐个处理） | 快（底层用 C 语言优化） |
-| **功能** | 通用容器 | 专为数值计算设计，自带大量数学函数 |
+| **Data type** | Can mix types (integers, strings, objects together) | All elements must be the **same type** |
+| **Computation style** | Needs loops to process item by item | Supports **vectorized computation**, operating on the whole array |
+| **Memory layout** | Elements stored separately | Elements stored **contiguously**, more compactly |
+| **Speed** | Slow (Python interpreter processes each item) | Fast (optimized in C under the hood) |
+| **Functionality** | General-purpose container | Designed for numerical computing, with many built-in math functions |
 
-### 为什么同类型这么重要？
+### Why Is “Same Type” So Important?
 
 ```python
-# Python list 可以混装
-mixed = [1, "hello", 3.14, True]  # ✅ 没问题
+# Python list can mix types
+mixed = [1, "hello", 3.14, True]  # ✅ No problem
 
-# NumPy 数组要求同类型
-arr = np.array([1, 2, 3])       # 全是整数 → int64
-arr2 = np.array([1, 2.5, 3])    # 有浮点数 → 自动变成 float64
+# NumPy arrays require a single type
+arr = np.array([1, 2, 3])       # all integers → int64
+arr2 = np.array([1, 2.5, 3])    # contains a float → automatically becomes float64
 print(arr.dtype)   # int64
 print(arr2.dtype)  # float64
 ```
 
-正因为所有元素类型相同，NumPy 才能使用底层 C 代码进行高效的批量运算，而不用像 Python list 那样逐个检查类型。
+Because all elements have the same type, NumPy can use low-level C code for efficient batch computation instead of checking types one by one like Python lists do.
 
 ---
 
-## 性能对比：眼见为实
+## Performance Comparison: Seeing Is Believing
 
-空口无凭，让我们实际测一下 NumPy 到底有多快：
+Rather than just talking about it, let’s actually measure how fast NumPy is:
 
 ```python
 import numpy as np
 import time
 
-# 准备 100 万个数字
+# Prepare 1 million numbers
 size = 1_000_000
 py_list = list(range(size))
 np_array = np.arange(size)
 
-# Python list：用循环把每个数乘以 2
+# Python list: multiply each number by 2 using a loop
 start = time.time()
 result_py = [x * 2 for x in py_list]
 time_py = time.time() - start
-print(f"Python list: {time_py:.4f} 秒")
+print(f"Python list: {time_py:.4f} seconds")
 
-# NumPy：直接向量化运算
+# NumPy: direct vectorized computation
 start = time.time()
 result_np = np_array * 2
 time_np = time.time() - start
-print(f"NumPy array: {time_np:.4f} 秒")
+print(f"NumPy array: {time_np:.4f} seconds")
 
-# 速度对比
-print(f"\nNumPy 快了约 {time_py / time_np:.0f} 倍！")
+# Speed comparison
+print(f"\nNumPy is about {time_py / time_np:.0f} times faster!")
 ```
 
-典型输出：
+Typical output:
 
 ```
-Python list: 0.0580 秒
-NumPy array: 0.0008 秒
+Python list: 0.0580 seconds
+NumPy array: 0.0008 seconds
 
-NumPy 快了约 72 倍！
+NumPy is about 72 times faster!
 ```
 
-:::info 为什么这么快？
-NumPy 的底层是用 **C 语言**编写的，并且利用了 CPU 的 **SIMD 指令**（单指令多数据），可以一次处理多个数据。而 Python 的 for 循环每次只能处理一个元素，还要经过 Python 解释器的类型检查。
+:::info Why is it so fast?
+NumPy is written in **C** under the hood and takes advantage of the CPU’s **SIMD instructions** (Single Instruction, Multiple Data), which can process multiple values at once. By contrast, a Python for loop processes only one element at a time and must go through the Python interpreter’s type checking.
 
-打个比方：Python list 是手工一个一个搬砖，NumPy 是开铲车批量搬运。
+Put simply: Python lists are like manually carrying bricks one by one, while NumPy is like using a forklift to move them in batches.
 :::
 
 ---
 
-## 快速体验：NumPy 能做什么
+## Quick Hands-On: What Can NumPy Do?
 
-在深入学习之前，先快速体验一些 NumPy 的常见操作：
+Before going deeper, let’s quickly try some common NumPy operations:
 
-### 创建数组
+### Creating Arrays
 
 ```python
 import numpy as np
 
-# 从列表创建
+# Create from a list
 a = np.array([1, 2, 3, 4, 5])
 
-# 创建全 0 数组
+# Create an array of all zeros
 zeros = np.zeros(5)
 print(zeros)  # [0. 0. 0. 0. 0.]
 
-# 创建全 1 数组
+# Create an array of all ones
 ones = np.ones(3)
 print(ones)   # [1. 1. 1.]
 
-# 创建等差数列
-seq = np.arange(0, 10, 2)  # 从 0 到 10，步长 2
+# Create an arithmetic sequence
+seq = np.arange(0, 10, 2)  # from 0 to 10, step size 2
 print(seq)    # [0 2 4 6 8]
 
-# 创建均匀分布的数列
-lin = np.linspace(0, 1, 5)  # 从 0 到 1，均匀取 5 个点
+# Create an evenly spaced sequence
+lin = np.linspace(0, 1, 5)  # from 0 to 1, evenly take 5 points
 print(lin)    # [0.   0.25 0.5  0.75 1.  ]
 ```
 
-### 数学运算
+### Math Operations
 
 ```python
 a = np.array([1, 2, 3, 4, 5])
 
-print(a + 10)      # [11 12 13 14 15]  每个元素加 10
-print(a ** 2)       # [ 1  4  9 16 25]  每个元素平方
-print(np.sqrt(a))   # [1.   1.41 1.73 2.   2.24]  每个元素开方
+print(a + 10)      # [11 12 13 14 15]  add 10 to each element
+print(a ** 2)       # [ 1  4  9 16 25]  square each element
+print(np.sqrt(a))   # [1.   1.41 1.73 2.   2.24]  take the square root of each element
 ```
 
-### 统计计算
+### Statistical Computation
 
 ```python
 scores = np.array([85, 92, 78, 95, 88, 72, 90, 85])
 
-print(f"平均分: {np.mean(scores):.1f}")     # 85.6
-print(f"最高分: {np.max(scores)}")           # 95
-print(f"最低分: {np.min(scores)}")           # 72
-print(f"标准差: {np.std(scores):.1f}")       # 7.3
-print(f"中位数: {np.median(scores):.1f}")    # 86.5
+print(f"Average score: {np.mean(scores):.1f}")     # 85.6
+print(f"Highest score: {np.max(scores)}")          # 95
+print(f"Lowest score: {np.min(scores)}")           # 72
+print(f"Standard deviation: {np.std(scores):.1f}") # 7.3
+print(f"Median: {np.median(scores):.1f}")          # 86.5
 ```
 
-### 多维数组
+### Multidimensional Arrays
 
 ```python
-# 创建一个 3×3 的二维数组（矩阵）
+# Create a 3×3 2D array (matrix)
 matrix = np.array([
     [1, 2, 3],
     [4, 5, 6],
@@ -261,79 +261,79 @@ print(matrix)
 #  [4 5 6]
 #  [7 8 9]]
 
-print(f"形状: {matrix.shape}")   # (3, 3)
-print(f"维度: {matrix.ndim}")    # 2
-print(f"总元素: {matrix.size}")  # 9
+print(f"Shape: {matrix.shape}")   # (3, 3)
+print(f"Dimensions: {matrix.ndim}")    # 2
+print(f"Total elements: {matrix.size}")  # 9
 ```
 
 ---
 
-## NumPy 在 AI 中的应用
+## NumPy in AI
 
-你可能会问：NumPy 和 AI 有什么关系？其实关系非常密切：
+You may ask: what does NumPy have to do with AI? In fact, the connection is very close:
 
-| AI 场景 | NumPy 的角色 |
+| AI scenario | NumPy’s role |
 |---------|-------------|
-| 图像处理 | 一张图片就是一个三维数组（高度 × 宽度 × 颜色通道） |
-| 数据预处理 | 归一化、标准化、缺失值填充都用 NumPy |
-| 特征计算 | 计算均值、方差、相关系数等统计量 |
-| 神经网络 | PyTorch 的 Tensor 和 NumPy 的 ndarray 可以无缝转换 |
-| 词向量 | NLP 中的词嵌入就是一组 NumPy 向量 |
-| 矩阵运算 | 机器学习的核心就是矩阵乘法和梯度计算 |
+| Image processing | An image is a three-dimensional array (height × width × color channels) |
+| Data preprocessing | Normalization, standardization, and missing-value filling all use NumPy |
+| Feature computation | Compute statistics such as mean, variance, and correlation |
+| Neural networks | PyTorch Tensor and NumPy ndarray can be converted seamlessly |
+| Word vectors | Word embeddings in NLP are a set of NumPy vectors |
+| Matrix operations | The core of machine learning is matrix multiplication and gradient computation |
 
-举个例子——一张 RGB 彩色图片在计算机中就是一个 NumPy 数组：
+For example, an RGB color image in a computer is a NumPy array:
 
 ```python
 import numpy as np
 
-# 模拟一张 4×4 的彩色图片（实际图片可能是 1920×1080×3）
+# Simulate a 4×4 color image (a real image might be 1920×1080×3)
 image = np.random.randint(0, 256, size=(4, 4, 3), dtype=np.uint8)
-print(f"图片形状: {image.shape}")  # (4, 4, 3)  → 4 行 × 4 列 × 3 个颜色通道(RGB)
-print(f"总像素值: {image.size}")   # 48 个数字
+print(f"Image shape: {image.shape}")  # (4, 4, 3)  → 4 rows × 4 columns × 3 color channels (RGB)
+print(f"Total pixel values: {image.size}")   # 48 numbers
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key point | Explanation |
 |------|------|
-| NumPy 是什么 | Python 科学计算的核心库，几乎所有 AI/数据库都依赖它 |
-| 核心数据结构 | ndarray（N 维数组），所有元素类型相同 |
-| 为什么快 | 底层 C 实现 + 连续内存 + 向量化运算 |
-| vs Python list | 速度快几十到上百倍，运算更方便 |
-| 导入约定 | `import numpy as np` |
+| What NumPy is | The core library for scientific computing in Python, relied on by almost all AI/database work |
+| Core data structure | ndarray (N-dimensional array), where all elements have the same type |
+| Why it’s fast | C implementation under the hood + contiguous memory + vectorized computation |
+| vs Python list | Faster by dozens to hundreds of times, and much more convenient for computation |
+| Import convention | `import numpy as np` |
 
-:::tip 预告
-下一节我们将深入学习 NumPy 数组的创建方法和基本属性——这是后续所有操作的基础。
+:::tip Preview
+In the next section, we’ll dive into how to create NumPy arrays and their basic properties — the foundation for everything we do later.
 :::
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：安装与验证
+### Exercise 1: Install and Verify
 
-确保你的环境中已安装 NumPy，并打印版本号。
+Make sure NumPy is installed in your environment and print its version.
 
-### 练习 2：性能对比
+### Exercise 2: Performance Comparison
 
-自己跑一遍性能对比代码，试试把数据量改成 500 万、1000 万，看看速度差异变化。
+Run the performance comparison code yourself. Try changing the data size to 5 million and 10 million to see how the speed difference changes.
 
-### 练习 3：初体验
+### Exercise 3: First Try
 
-创建一个包含 1 到 100 所有整数的 NumPy 数组，然后：
-1. 计算所有数字的总和
-2. 计算平均值
-3. 找出最大值和最小值
-4. 计算所有数字的平方和
+Create a NumPy array containing all integers from 1 to 100, then:
+1. Compute the sum of all numbers
+2. Compute the average
+3. Find the maximum and minimum values
+4. Compute the sum of the squares of all numbers
 
 ```python
 import numpy as np
 
-arr = np.arange(1, 101)  # 1 到 100
+arr = np.arange(1, 101)  # 1 to 100
 
-# 补充代码：
+# Fill in the code:
 # total = ?
 # average = ?
 # max_val = ?

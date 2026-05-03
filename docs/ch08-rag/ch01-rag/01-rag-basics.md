@@ -1,124 +1,124 @@
 ---
-title: "1.2 RAG 基础"
+title: "1.2 RAG Basics"
 sidebar_position: 1
-description: "用最容易理解的方式讲清楚 RAG 的动机、流程、优势和局限，并给出一个纯 Python 可运行迷你版 RAG。"
-keywords: [RAG, retrieval augmented generation, 检索增强生成, chunk, retrieval]
+description: "Explain the motivation, workflow, advantages, and limitations of RAG in the easiest way to understand, and provide a pure Python mini RAG that can run."
+keywords: [RAG, retrieval augmented generation, retrieval-augmented generation, chunk, retrieval]
 ---
 
-# RAG 基础
+# RAG Basics
 
-![RAG 文档到答案闭环图](/img/course/rag-document-answer-loop.png)
+![RAG document-to-answer loop](/img/course/rag-document-answer-loop-en.png)
 
-:::tip 本节定位
-RAG 最容易被误解成：
+:::tip Section focus
+RAG is most often misunderstood as:
 
-- 接个向量库就行
+- Just connect a vector database
 
-但它真正更像：
+But it is really more like:
 
-- 让系统先查资料，再决定怎么答
+- Let the system look up information first, then decide how to answer
 
-所以这节最重要的不是记住组件名，而是先建立一个判断：
+So the most important thing in this section is not memorizing component names, but building a judgment first:
 
-> **RAG 的核心不是“多一个模块”，而是“把知识接入链路做对”。**
+> **The core of RAG is not "adding one more module," but "getting the knowledge-integration pipeline right."**
 :::
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解为什么光靠大模型参数记忆不够
-- 说清楚 RAG 的标准工作流程
-- 跑通一个最小可运行的检索增强示例
-- 理解 RAG 适合什么场景、不适合什么场景
-
----
-
-## 新人先掌握 / 进阶再理解
-
-如果你是新人，这一节先抓一句话：RAG 不是让模型“记住更多”，而是让模型回答前先查到合适资料。先理解“问题 -> 检索 -> 片段 -> 拼上下文 -> 生成答案”这条链路。
-
-如果你已经做过大模型应用，可以进一步关注：切块策略、召回质量、重排、元数据、引用来源、检索日志和错例分析。RAG 项目的成熟度，往往体现在这些工程细节上。
+- Understand why relying only on an LLM's parametric memory is not enough
+- Explain the standard RAG workflow clearly
+- Run a minimal, working retrieval-augmented example
+- Understand which scenarios are suitable for RAG and which are not
 
 ---
 
-## 先建立一张地图
+## First for Beginners / Deeper Understanding Later
 
-### 先看一个故事：闭卷答题和开卷查资料
+If you are a beginner, focus on this one sentence first: RAG does not make the model "remember more"; it makes the model look up the right materials before answering. First understand the chain: "question -> retrieval -> chunks -> assemble context -> generate answer."
 
-想象你问一个同学：“课程多久内可以退款？”如果他不翻规则，只凭印象回答，可能说得很流畅，但未必准确。更可靠的做法是：先打开课程规则，找到退款条款，再根据条款回答。
-
-RAG 做的就是把这个习惯系统化。模型仍然负责理解问题和组织语言，但关键事实先从知识库里查出来。这样答案就更容易及时、可控、可追溯。
-
-如果你刚学完 Prompt 和微调的判断逻辑，可以先把这节理解成：
-
-- Prompt 解决的是“任务怎么表达”
-- 微调更像“行为怎么塑形”
-- RAG 解决的是“知识不够新 / 不够全时，怎样先查再答”
-
-所以这节真正重要的不是“又一个名词”，而是：
-
-- 它在大模型系统里，专门负责外部知识接入
-
-### 一个更适合新人的总类比
-
-你可以把 RAG 理解成：
-
-- 让一个很聪明的人，回答问题前先去翻手册
-
-如果不翻手册，他可能：
-
-- 凭印象回答
-- 回答得流畅，但并不一定准
-
-而有了 RAG 之后，系统就更像：
-
-- 先找证据
-- 再基于证据回答
-
-## 一、为什么需要 RAG？
-
-你可以把大模型想成一个“读过很多书的人”。  
-但即使读过很多书，也会遇到三个问题：
-
-1. 某些信息太新，训练时还没出现
-2. 某些信息太专，模型记得不牢
-3. 某些回答必须严格基于你自己的私有文档
-
-这时候就需要 RAG：
-
-> **先查资料，再回答。**
-
-类比一下：
-
-- 纯模型回答：闭卷考试
-- RAG 回答：开卷考试
-
-### 1.1 第一次学 RAG，最该先抓住什么？
-
-最该先抓住的不是向量库，而是这句：
-
-> **RAG 的本质不是“把模型变聪明”，而是“让答案先建立在可更新资料之上”。**
-
-这句话一旦稳住，后面你再看：
-
-- 切块
-- 检索
-- 重排
-- 上下文拼接
-
-就会更自然地知道它们都在服务哪条主线。
+If you have already built LLM applications, you can go further and focus on: chunking strategy, retrieval quality, reranking, metadata, citation sources, retrieval logs, and failure-case analysis. The maturity of a RAG project is often reflected in these engineering details.
 
 ---
 
-## 二、RAG 的标准流程
+## Build a Map First
+
+### Start with a story: closed-book answering vs. open-book lookup
+
+Imagine you ask a classmate: "How long after purchase can a course be refunded?" If they do not check the policy and answer only from memory, the answer may sound fluent but may not be accurate. A more reliable approach is: open the course policy first, find the refund clause, and then answer based on that clause.
+
+RAG systematizes this habit. The model is still responsible for understanding the question and organizing the language, but the key facts are first retrieved from the knowledge base. That makes the answer more timely, controllable, and traceable.
+
+If you just finished learning Prompt and fine-tuning decision logic, you can think of this section like this:
+
+- Prompt solves "how the task is expressed"
+- Fine-tuning is more like "how behavior is shaped"
+- RAG solves "when knowledge is not fresh enough or complete enough, how to look it up first and then answer"
+
+So what really matters in this section is not "another term," but:
+
+- It is the part of an LLM system responsible for bringing in external knowledge
+
+### A more beginner-friendly overall analogy
+
+You can think of RAG as:
+
+- Letting a very smart person check the manual before answering a question
+
+If they do not check the manual, they may:
+
+- Answer from memory
+- Sound fluent, but not necessarily be correct
+
+With RAG, the system becomes more like:
+
+- Find evidence first
+- Then answer based on that evidence
+
+## 1. Why Do We Need RAG?
+
+You can think of an LLM as "someone who has read a lot of books."
+But even after reading many books, there are still three problems:
+
+1. Some information is too new and did not exist during training
+2. Some information is too specialized, and the model does not remember it reliably
+3. Some answers must strictly be based on your own private documents
+
+That is when RAG becomes necessary:
+
+> **Look up information first, then answer.**
+
+An analogy:
+
+- Pure model answer: closed-book exam
+- RAG answer: open-book exam
+
+### 1.1 When learning RAG for the first time, what should you focus on?
+
+The most important thing is not the vector database, but this sentence:
+
+> **The essence of RAG is not "making the model smarter," but "making answers based first on updatable materials."**
+
+Once this is clear, then when you look at:
+
+- Chunking
+- Retrieval
+- Reranking
+- Context assembly
+
+you will more naturally know what main goal they are serving.
+
+---
+
+## 2. The Standard RAG Workflow
 
 ```mermaid
 flowchart LR
-    A["用户问题"] --> B["检索器"]
-    B --> C["找到相关文档片段"]
-    C --> D["把问题 + 文档片段交给模型"]
-    D --> E["生成答案"]
+    A["User question"] --> B["Retriever"]
+    B --> C["Find relevant document chunks"]
+    C --> D["Send question + document chunks to the model"]
+    D --> E["Generate answer"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -127,50 +127,50 @@ flowchart LR
     style E fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-拆开看就是：
+Breaking it down:
 
-1. 文档先被切成小块
-2. 用户提问时，从知识库里检索相关块
-3. 把这些块作为上下文交给模型
-4. 模型基于上下文生成答案
+1. Documents are first split into smaller chunks
+2. When the user asks a question, relevant chunks are retrieved from the knowledge base
+3. These chunks are given to the model as context
+4. The model generates an answer based on that context
 
-### 2.1 为什么这条流程不能只盯最后一步生成？
+### 2.1 Why should you not focus only on the final generation step?
 
-因为很多 RAG 问题真正出在前面：
+Because many RAG problems actually happen earlier:
 
-- 文档切得不好
-- 检索召回不准
-- 重排没做好
-- 上下文拼得不合理
+- Documents are chunked poorly
+- Retrieval recall is inaccurate
+- Reranking is not done well
+- Context is assembled in an unreasonable way
 
-所以 RAG 的核心不是“生成前多塞点字”，而是：
+So the core of RAG is not "stuffing in more text before generation," but:
 
-- 让正确资料在正确时机进入模型上下文
+- Getting the right information into the model context at the right time
 
-### 2.2 一个很适合新人先记的故障定位表
+### 2.2 A failure-diagnosis table that is very beginner-friendly
 
-| 现象 | 更可能先查哪里 |
+| Symptom | Where to check first |
 |---|---|
-| 完全答偏 | 检索没召回相关片段 |
-| 答案像是半对半错 | 文档片段不完整或切块不好 |
-| 明明有文档却答不出来 | 检索分数、排序或上下文拼接有问题 |
-| 有证据但总结错 | 生成阶段没有正确利用证据 |
+| Completely off-topic answer | Retrieval did not recall relevant chunks |
+| Answer is half right and half wrong | Document chunks are incomplete or chunking is poor |
+| The document clearly exists but the model cannot answer | Retrieval scores, ranking, or context assembly has a problem |
+| Evidence exists but the summary is wrong | The generation stage did not use the evidence correctly |
 
-这个表很重要，因为它会帮初学者少走很多弯路：
+This table is important because it helps beginners avoid many detours:
 
-- RAG 出问题时，不要默认都是模型的问题
+- When RAG goes wrong, do not assume it is always the model's fault
 
-![RAG 分层故障定位图](/img/course/ch08-rag-layer-failure-debug-map.png)
+![RAG layered failure debug map](/img/course/ch08-rag-layer-failure-debug-map-en.png)
 
-:::tip 读图提示
-先顺着图从左到右问三件事：正确资料有没有被切成可检索的块、有没有进入 top-k、有没有被放进最终 context。只有这三层都没问题时，才优先怀疑生成模型本身。
+:::tip Reading tip
+Follow the diagram from left to right and ask three questions: Was the right information split into retrievable chunks? Did it enter top-k? Was it included in the final context? Only when all three layers are fine should you primarily suspect the generation model itself.
 :::
 
 ---
 
-## 三、一个最小可运行的迷你 RAG
+## 3. A Minimal, Runnable Mini RAG
 
-为了保证代码直接能跑，下面不用向量数据库，先用最简单的关键词重叠来模拟“检索”。
+To make sure the code runs directly, we will not use a vector database below. Instead, we will first simulate "retrieval" with simple keyword overlap.
 
 ```python
 import re
@@ -179,18 +179,18 @@ from collections import Counter
 documents = [
     {
         "id": 1,
-        "title": "退款政策",
-        "content": "课程购买后 7 天内，如果学习进度低于 20%，可以申请退款。"
+        "title": "Refund Policy",
+        "content": "Within 7 days after course purchase, if your learning progress is below 20%, you can apply for a refund."
     },
     {
         "id": 2,
-        "title": "证书说明",
-        "content": "完成所有必修项目并通过结课测试后，可以获得课程结业证书。"
+        "title": "Certificate Info",
+        "content": "After completing all required items and passing the course completion test, you can receive a course completion certificate."
     },
     {
         "id": 3,
-        "title": "学习方式",
-        "content": "课程支持按阶段学习，建议先完成 Python、数据分析和机器学习基础。"
+        "title": "Learning Approach",
+        "content": "The course supports stage-by-stage learning. It is recommended to first complete Python, data analysis, and machine learning fundamentals."
     }
 ]
 
@@ -215,359 +215,359 @@ def retrieve(query, documents, top_k=2):
 def answer_with_rag(query):
     hits = retrieve(query, documents, top_k=2)
     if not hits:
-        return "知识库里没有找到足够相关的信息。"
+        return "No sufficiently relevant information was found in the knowledge base."
 
-    context = "\\n".join([f"- {doc['title']}：{doc['content']}" for doc in hits])
-    return f"根据知识库检索结果：\\n{context}\\n\\n回答：优先参考上面的条款。"
+    context = "\\n".join([f"- {doc['title']}: {doc['content']}" for doc in hits])
+    return f"Based on the retrieval results from the knowledge base:\\n{context}\\n\\nAnswer: Please prioritize the policy above."
 
-query = "课程多久内可以退款？"
+query = "How long after purchase can I get a refund?"
 print(answer_with_rag(query))
 ```
 
-这个例子虽然简化了，但已经完整体现了 RAG 的结构。
+Although simplified, this example already fully shows the structure of RAG.
 
-### 3.1.1 再看一个最小“检索日志”示例
+### 3.1.1 Another minimal example of "retrieval logs"
 
 ```python
-query = "课程多久内可以退款？"
+query = "How long after purchase can I get a refund?"
 hits = retrieve(query, documents, top_k=2)
 
 for doc in hits:
     print({"query": query, "hit_title": doc["title"], "content": doc["content"]})
 ```
 
-这个日志非常适合初学者，因为它能帮你先回答一个关键问题：
+This log is very useful for beginners because it helps answer one key question first:
 
-- 系统到底查到了什么
+- What exactly did the system retrieve?
 
-很多 RAG 错误，其实在看见这个日志时就已经能定位一半。
-
----
-
-## 四、RAG 真正提升的是什么？
-
-RAG 主要提升的是三件事：
-
-### 4.1 时效性
-
-资料可以随时更新，不必重新训练大模型。
-
-### 4.2 可控性
-
-回答基于你指定的知识库，不是完全靠模型自由发挥。
-
-### 4.3 可追溯性
-
-你可以把“参考了哪些文档片段”展示给用户看。
-
-这在企业场景里尤其重要。
-
-### 4.4 为什么这三点比“模型参数大不大”更像工程价值？
-
-因为它们都直接关系到系统可用性：
-
-- 时效性决定知识更新效率
-- 可控性决定答案是否贴业务边界
-- 可追溯性决定系统能不能被信任和审计
-
-### 4.5 第一次做 RAG 项目时，最稳的默认顺序
-
-更稳的顺序通常是：
-
-1. 先把知识范围收窄
-2. 先做最简单检索 baseline
-3. 先把检索日志看明白
-4. 再接模型生成
-5. 最后再补重排和更复杂策略
-
-这样会比一开始就追复杂向量库和 reranker 更容易做出一个可解释系统。
+Many RAG errors can already be half-diagnosed just by looking at this log.
 
 ---
 
-## 五、RAG 不等于“问什么都不会幻觉”
+## 4. What Does RAG Really Improve?
 
-这是一个特别常见的误解。
+RAG mainly improves three things:
 
-RAG 虽然能降低幻觉，但不能彻底消灭。  
-它还是可能在这些地方出问题：
+### 4.1 Timeliness
 
-- 检索错了
-- 检索不全
-- 文档切块不好
-- 模型拿到证据后仍然总结错
+Materials can be updated at any time without retraining the LLM.
 
-所以 RAG 不是银弹，它是一种“让答案更有根据”的工程方法。
+### 4.2 Controllability
+
+Answers are based on the knowledge base you specify, not just on the model's free-form generation.
+
+### 4.3 Traceability
+
+You can show users which document chunks were referenced.
+
+This is especially important in enterprise scenarios.
+
+### 4.4 Why are these three points more like engineering value than "whether the model has big parameters"?
+
+Because they are directly related to system usability:
+
+- Timeliness determines knowledge update efficiency
+- Controllability determines whether the answer stays within business boundaries
+- Traceability determines whether the system can be trusted and audited
+
+### 4.5 The safest default order when building a RAG project for the first time
+
+A safer order is usually:
+
+1. Narrow the knowledge scope first
+2. Build the simplest retrieval baseline first
+3. Understand the retrieval logs first
+4. Then connect model generation
+5. Finally add reranking and more complex strategies
+
+This is usually easier than starting with a complex vector database and reranker right away, and it helps you build an explainable system faster.
 
 ---
 
-## 六、RAG 最适合哪些场景？
+## 5. RAG Does Not Mean "No Hallucinations for Any Question"
 
-### 很适合
+This is a very common misunderstanding.
 
-- 企业知识库问答
-- 政策 / 制度 / FAQ 查询
-- 基于产品文档的客服系统
-- 基于代码库 / 文档库的检索问答
+Although RAG can reduce hallucinations, it cannot eliminate them completely.
+It can still go wrong in these ways:
 
-### 不太适合
+- Retrieval finds the wrong thing
+- Retrieval is incomplete
+- Documents are chunked poorly
+- The model still summarizes incorrectly after receiving the evidence
 
-- 纯开放创作类任务
-- 根本没有知识库的场景
-- 需要精确数值计算但文档本身又不稳定的场景
+So RAG is not a silver bullet. It is an engineering method for making answers more grounded.
 
 ---
 
-## 七、RAG 和微调是什么关系？
+## 6. Which Scenarios Are Best Suited for RAG?
 
-很多新人会把它们混在一起。
+### Very suitable
+
+- Enterprise knowledge base Q&A
+- Policy / regulation / FAQ lookup
+- Customer support systems based on product documentation
+- Retrieval Q&A based on code repositories / document repositories
+
+### Less suitable
+
+- Purely open-ended creative tasks
+- Scenarios with no knowledge base at all
+- Scenarios that require exact numeric calculations but whose documents are unstable
+
+---
+
+## 7. What Is the Relationship Between RAG and Fine-Tuning?
+
+Many beginners mix them up.
 
 ### RAG
 
-- 不改模型参数
-- 靠“外部资料注入上下文”
+- Does not change model parameters
+- Uses "external material injected into context"
 
-### 微调
+### Fine-tuning
 
-- 修改模型参数
-- 让模型长期学会某种风格或能力
+- Modifies model parameters
+- Teaches the model a style or capability over the long term
 
-类比一下：
+An analogy:
 
-- RAG：考试时带资料
-- 微调：考前长期训练
+- RAG: bringing materials into the exam
+- Fine-tuning: long-term training before the exam
 
-两者不是互斥的，很多系统会一起用。
+The two are not mutually exclusive, and many systems use both together.
 
 ---
 
-## 八、一个更像“产品”的小例子
+## 8. A Small Example That Feels More Like a "Product"
 
-你可以把上面的迷你 RAG 稍微包装成“课程助手”：
+You can package the mini RAG above a little as a "course assistant":
 
 ```python
 questions = [
-    "结业证书怎么拿？",
-    "学习顺序怎么安排？",
-    "我能退款吗？"
+    "How do I get a completion certificate?",
+    "How should I arrange the learning order?",
+    "Can I get a refund?"
 ]
 
 for q in questions:
     print("=" * 50)
-    print("用户问题:", q)
+    print("User question:", q)
     print(answer_with_rag(q))
 ```
 
-这就是很多 AI 问答产品的最小原型。
+This is the smallest prototype of many AI Q&A products.
 
 ---
 
-## 九、如果你的目标是“知识库驱动的课件生成助手”，这节最该先抓什么？
+## 9. If Your Goal Is a "Knowledge-Base-Driven Courseware Generation Assistant," What Should You Focus on First in This Section?
 
-对这类项目来说，RAG 最关键的不是“查到一些相关文本”，  
-而是查到：
+For this kind of project, the key to RAG is not just "finding some relevant text,"
+but finding:
 
-- 相关知识点
-- 相关例题
-- 相关练习
-- 以及它们分别来自哪份资料、哪一页
+- Relevant knowledge points
+- Relevant example problems
+- Relevant exercises
+- And which material and which page each one comes from
 
-也就是说，你的知识块最好不要只是：
+In other words, your knowledge chunks should not just be:
 
-- 一段文字
+- A piece of text
 
-而更应该至少带这些字段：
+They should ideally include at least these fields:
 
 ```python
 courseware_chunk = {
-    "topic": "折扣应用题",
+    "topic": "discount word problem",
     "content_type": "example",
     "source_type": "docx",
     "page_or_slide": 3,
-    "text": "商品原价 100 元，打 8 折后价格是多少？",
+    "text": "A product costs 100 yuan originally. What is the price after a 20% discount?",
 }
 
 print(courseware_chunk)
 ```
 
-这会直接影响后面能不能：
+This directly affects whether later you can:
 
-- 按主题召回例题
-- 把概念、例题、练习分开组织
-- 在最终 Word 里保留来源说明
+- Retrieve example problems by topic
+- Organize concepts, examples, and exercises separately
+- Preserve source information in the final Word document
 
-## 十、内部资料和外部资料在 RAG 里应该怎么分工？
+## 10. How Should Internal and External Materials Be Divided in RAG?
 
-如果你的系统既查内部知识库，又补外部资料，  
-最稳的默认原则通常是：
+If your system looks up both internal knowledge bases and external materials,
+the safest default principle is usually:
 
-| 资料类型 | 更适合负责什么 |
+| Material type | Better for |
 |---|---|
-| 内部资料 | 主知识点、例题、企业或课程内部规范 |
-| 外部资料 | 新题型、背景补充、最新公开信息 |
+| Internal materials | Main knowledge points, example problems, internal company or course rules |
+| External materials | New problem types, background information, latest public information |
 
-也就是说，RAG 在这种项目里很重要的一层判断是：
+In other words, an important RAG judgment in this kind of project is:
 
-> **内部资料负责主骨架，外部资料负责补空白。**
+> **Internal materials provide the main structure, and external materials fill the gaps.**
 
-如果这条线不清，系统很容易出现：
+If this boundary is unclear, the system can easily end up in a situation where:
 
-- 内部文档明明有标准写法，最后却被外部内容带偏
+- The internal document clearly has the standard wording, but the final answer is pulled off course by external content
 
-## 十一、初学者常见误区
+## 11. Common Beginner Mistakes
 
-### 11.1 以为 RAG 的核心是“调用一下向量库”
+### 11.1 Thinking the core of RAG is "just call a vector database"
 
-不是。  
-RAG 的核心是：**让正确资料在正确时机进入模型上下文。**
+No.
+The core of RAG is: **make sure the right materials enter the model context at the right time.**
 
-### 11.2 以为检索和生成可以完全分开看
+### 11.2 Thinking retrieval and generation can be completely separated
 
-不行。  
-检索质量会直接决定生成质量。
+No.
+Retrieval quality directly determines generation quality.
 
-### 11.3 以为文档原样塞进去就行
+### 11.3 Thinking you can just dump the raw documents in as-is
 
-实际效果很大程度取决于切块、清洗、元数据和召回策略。
+In practice, the results depend heavily on chunking, cleaning, metadata, and retrieval strategy.
 
-## 十二、如果把它做成项目，最值得展示什么
+## 12. If You Turn This Into a Project, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “我接了一个向量库”
+- "I connected a vector database"
 
-而是：
+But rather:
 
-1. 一条用户问题
-2. 系统命中的文档片段
-3. 最终答案
-4. 一组典型错例
-5. 错例是检索错、切块错，还是生成错
+1. A user question
+2. The retrieved document chunks
+3. The final answer
+4. A set of representative failure cases
+5. Whether the failure was caused by retrieval, chunking, or generation
 
-这样别人会更容易看出：
+That makes it easier for others to see:
 
-- 你理解的是完整 RAG 链路
-- 不只是知道几个组件名
+- You understand the full RAG pipeline
+- Not just a few component names
 
-## 十三、一个常见错误：把整篇文档直接塞进 prompt
+## 13. A Common Mistake: Dumping the Entire Document Directly into the Prompt
 
-很多新人第一次做 RAG，会想：既然模型需要资料，那我把整篇文档都塞进去不就好了？
+Many beginners, when building RAG for the first time, think: if the model needs materials, why not just put the entire document into the prompt?
 
-这通常会带来几个问题：上下文窗口被浪费，关键信息被埋住，模型更难聚焦，长文成本也更高。RAG 的价值不是“塞更多字”，而是“把更相关的片段放到更合适的位置”。
+This usually causes several problems: the context window is wasted, important information gets buried, the model becomes harder to focus, and long-document cost is higher. The value of RAG is not "stuffing in more text," but "placing more relevant chunks in more suitable positions."
 
 ```mermaid
 flowchart LR
-    A["整篇文档直接塞入"] --> B["上下文很长"]
-    B --> C["关键信息被稀释"]
-    C --> D["答案不稳定 / 成本高"]
+    A["Dumping the entire document directly"] --> B["Very long context"]
+    B --> C["Key information gets diluted"]
+    C --> D["Unstable answers / high cost"]
 
-    E["先切块 + 检索"] --> F["只取相关片段"]
-    F --> G["上下文更聚焦"]
-    G --> H["答案更可控"]
+    E["Chunk first + retrieve"] --> F["Only relevant chunks are kept"]
+    F --> G["More focused context"]
+    G --> H["More controllable answers"]
 ```
 
-这个错例特别值得记住：RAG 不是“长 prompt 技巧”，而是一套资料选择和证据组织机制。
+This failure case is especially worth remembering: RAG is not a "long prompt trick," but a mechanism for material selection and evidence organization.
 
 ---
 
-## 十四、RAG 项目的交付物模板
+## 14. RAG Project Deliverables Template
 
-如果你把 RAG 做成作品集项目，建议至少交付这些内容：
+If you turn a RAG system into a portfolio project, it is recommended to deliver at least these items:
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 |---|---|
-| 知识库样例 | 展示原始文档、切块结果和元数据字段 |
-| 检索日志 | 展示用户问题命中了哪些片段、分数是多少 |
-| 答案与引用 | 最终回答要能追溯到来源片段 |
-| 错例分析 | 至少列出 3 个失败案例，并说明是检索、切块还是生成问题 |
-| 改进记录 | 比较 baseline、优化切块、加入重排后的效果变化 |
+| Knowledge base sample | Show the raw documents, chunking results, and metadata fields |
+| Retrieval logs | Show which chunks were hit by a user question and what the scores were |
+| Answer with citations | The final answer should be traceable back to source chunks |
+| Failure-case analysis | List at least 3 failure cases and explain whether they were retrieval, chunking, or generation problems |
+| Improvement record | Compare the changes in effect after the baseline, improved chunking, and adding reranking |
 
-这样别人看到你的项目时，会知道你理解的是完整链路，而不只是“接了一个向量库”。
+This way, when others look at your project, they will know that you understand the full pipeline, not just that "you connected a vector database."
 
 ---
 
-## 十五、这一节的学习闭环
+## 15. What Should You Take Away from This Section?
 
-学完这一节后，可以用下面这张表检查自己：
+Use the table below to check yourself after finishing this section:
 
-| 层次 | 你应该能做到什么 |
+| Level | What you should be able to do |
 |---|---|
-| 直觉 | 能解释为什么 RAG 像“开卷答题” |
-| 代码 | 能跑通一个最小检索增强示例，并打印检索日志 |
-| 工程 | 能区分切块问题、检索问题、生成问题 |
-| 项目 | 能设计带引用、错例分析和改进记录的 RAG demo |
+| Intuition | Explain why RAG is like "open-book answering" |
+| Code | Run a minimal retrieval-augmented example and print retrieval logs |
+| Engineering | Distinguish chunking problems, retrieval problems, and generation problems |
+| Project | Design a RAG demo with citations, failure-case analysis, and improvement records |
 
 ---
 
-## RAG 最小闭环检查表
+## RAG Minimal Closed-Loop Checklist
 
-第一次做 RAG，不要先追求框架完整，而是先确保下面 5 步都能被你看见和解释。
+When building RAG for the first time, do not chase framework completeness first. Instead, make sure you can see and explain all 5 steps below.
 
-| 步骤 | 最小产出 | 如果失败，优先怀疑 |
+| Step | Minimal output | If it fails, suspect first |
 |---|---|---|
-| 准备资料 | 至少 3 条带标题的文档片段 | 知识范围不清、文档质量差 |
-| 检索片段 | 能打印命中的标题、内容和分数 | query、切块、检索策略 |
-| 拼上下文 | 能看到最终交给模型的 context | top-k、上下文过长、顺序混乱 |
-| 生成答案 | 答案明确基于 context | prompt 约束不足、证据不足 |
-| 记录日志 | 保存 query、hits、answer | 无法复盘失败 |
+| Prepare materials | At least 3 document chunks with titles | Unclear knowledge scope, poor document quality |
+| Retrieve chunks | Can print the hit titles, content, and scores | Query, chunking, retrieval strategy |
+| Assemble context | Can see the final context given to the model | top-k, context too long, order confusion |
+| Generate answer | The answer is clearly based on the context | Weak prompt constraints, insufficient evidence |
+| Record logs | Save query, hits, answer | Cannot review failures |
 
-这个检查表的意义是：RAG 项目不要只展示最终答案。你要能展示“系统到底查到了什么、为什么这么答、失败时是哪一层出问题”。
+The meaning of this checklist is: do not show only the final answer in a RAG project. You should be able to show what the system actually retrieved, why it answered that way, and which layer failed when it did fail.
 
-## RAG 最小调试输出
+## Minimal RAG Debug Output
 
-在接入真实 LLM 之前，建议先把调试输出做出来。哪怕最终答案还很简单，只要能打印检索过程，后面优化就有抓手。
+Before connecting to a real LLM, it is recommended to build the debug output first. Even if the final answer is still simple, as long as you can print the retrieval process, you will have something concrete to optimize later.
 
 ```python
 def debug_rag(query):
     hits = retrieve(query, documents, top_k=2)
-    print("用户问题:", query)
-    print("命中文档:")
+    print("User question:", query)
+    print("Retrieved documents:")
     for idx, doc in enumerate(hits, start=1):
         print(f"{idx}. {doc['title']} -> {doc['content']}")
 
     if not hits:
-        print("回答: 知识库里没有找到足够相关的信息。")
+        print("Answer: No sufficiently relevant information was found in the knowledge base.")
         return
 
     context = "\n".join([doc["content"] for doc in hits])
-    print("最终上下文:", context)
-    print("回答: 请根据上面的命中文档组织答案，并保留来源。")
+    print("Final context:", context)
+    print("Answer: Please organize your answer based on the retrieved documents above and keep the sources.")
 
-debug_rag("课程多久内可以退款？")
+debug_rag("How long after purchase can I get a refund?")
 ```
 
-这个函数不是最终产品代码，而是调试工具。真实项目里，你至少应该在日志中保留这些字段：`query`、`retrieved_chunks`、`scores`、`context_length`、`answer`、`source_refs`。
+This function is not final product code; it is a debugging tool. In a real project, you should at least keep these fields in the logs: `query`, `retrieved_chunks`, `scores`, `context_length`, `answer`, `source_refs`.
 
-## 典型失败样本分析
+## Typical Failure Sample Analysis
 
-| 失败现象 | 可能原因 | 下一步动作 |
+| Failure symptom | Possible cause | Next step |
 |---|---|---|
-| 知识库里明明有答案，但没有命中 | chunk 太大、关键词不匹配、embedding 不适合 | 打印 top-k，检查 query 和 chunk 文本 |
-| 命中了正确文档，但答案漏掉关键条件 | chunk 不完整、context 顺序不合理、prompt 约束弱 | 增加 overlap，调整 context packing，要求引用条件 |
-| 答案引用了来源，但来源不支持结论 | 生成阶段幻觉、引用拼接错误 | 做 citation check，逐句核对证据 |
-| 多个文档互相冲突，答案混乱 | 缺少版本、日期、来源优先级 | 加 metadata filter 和来源优先级规则 |
+| The knowledge base clearly has the answer, but it is not retrieved | Chunk too large, keyword mismatch, embedding not suitable | Print top-k and inspect the query and chunk text |
+| The correct document is retrieved, but the answer misses a key condition | Chunk incomplete, context order unreasonable, weak prompt constraints | Increase overlap, adjust context packing, require condition citations |
+| The answer cites a source, but the source does not support the conclusion | Hallucination during generation, incorrect citation stitching | Do citation checks and verify evidence sentence by sentence |
+| Multiple documents conflict with each other, and the answer becomes confusing | Missing version, date, or source priority | Add metadata filters and source priority rules |
 
-这些失败样本应该写进项目 README 或实验记录。RAG 项目的含金量不只在“能答对”，也在于你能解释“为什么答错”。
+These failure samples should be included in the project README or experiment notes. The value of a RAG project is not only in "answering correctly," but also in your ability to explain "why it answered incorrectly."
 
 
-> **RAG 的本质，是让模型回答问题前先去查资料。**
+> **The essence of RAG is to let the model look up information before answering a question.**
 
-它不是替代模型，而是给模型补上“外部记忆”和“可更新知识”。
+It does not replace the model; it gives the model "external memory" and "updatable knowledge."
 
-下一节我们就继续看：  
-这些资料到底该怎么清洗、切块和向量化。
-
----
-
-## 这节最该带走什么
-
-- RAG 不是在替代模型，而是在补外部知识链路
-- 真正的难点往往不在“调用模型”，而在“资料到底有没有被正确送进去”
-- 后面所有知识库、企业问答、助手系统，都会建立在这条主线上
+In the next section, we will continue by looking at:
+How should these materials be cleaned, chunked, and vectorized?
 
 ---
 
-## 练习
+## What You Should Take Away from This Section
 
-1. 给 `documents` 再加两条文档，试着查询新的问题。
-2. 修改 `retrieve()` 的 `top_k`，观察回答上下文会怎么变化。
-3. 思考：如果文档里写的是“14 天可退款”，而模型回答成“7 天”，可能是哪一步出了问题？
+- RAG is not replacing the model; it is the external knowledge pipeline
+- The real difficulty is often not "calling the model," but "whether the materials were delivered correctly"
+- All future knowledge bases, enterprise Q&A systems, and assistant systems will be built on this main thread
+
+---
+
+## Exercises
+
+1. Add two more documents to `documents` and try querying new questions.
+2. Modify `top_k` in `retrieve()` and observe how the answer context changes.
+3. Think about this: if the document says "refund within 14 days" but the model answers "7 days," which step might have gone wrong?

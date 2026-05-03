@@ -1,139 +1,139 @@
 ---
-title: "7.2 项目：智能问答系统"
+title: "7.2 Project: Intelligent Question Answering System"
 sidebar_position: 1
-description: "从知识库设计、检索、拒答、评估到展示方式，走通一个真正可解释的小型问答系统项目。"
+description: "Walk through a truly interpretable small QA system project, from knowledge base design, retrieval, refusal, and evaluation to presentation."
 keywords: [QA system, retrieval QA, knowledge base, FAQ, evaluation, NLP project]
 ---
 
-# 项目：智能问答系统
+# Project: Intelligent Question Answering System
 
-![问答系统检索回答评估闭环图](/img/course/ch11-qa-retrieval-answer-evaluation-map.png)
+![Question answering system retrieval-answer-evaluation loop](/img/course/ch11-qa-retrieval-answer-evaluation-map-en.png)
 
-:::tip 读图提示
-问答系统不是“生成一句像答案的话”就结束。读图时重点看 query、retrieval、evidence、answer、refusal、evaluation 和 error log 如何闭环，这也是后面 RAG 项目的核心骨架。
+:::tip Reading guide
+A QA system is not finished just because it "generates something that looks like an answer." When reading the diagram, focus on how query, retrieval, evidence, answer, refusal, evaluation, and error log form a closed loop. This is also the core structure of later RAG projects.
 :::
 
-:::tip 本节定位
-问答系统很适合作为 NLP 作品集项目，因为它天然能展示：
+:::tip Where this section fits
+A QA system is a great NLP portfolio project because it naturally demonstrates:
 
-- 文本表示
-- 相似度
-- 检索
-- 拒答策略
+- Text representation
+- Similarity
+- Retrieval
+- Refusal strategies
 
-但要让它像“项目”，而不只是“能回答几句”的 demo，关键在于：
+But to make it feel like a real "project" rather than just a demo that "can answer a few questions," the key is:
 
-> **知识边界、检索质量、拒答机制和评估方式都要讲清楚。**
+> **The knowledge boundary, retrieval quality, refusal mechanism, and evaluation method all need to be clearly explained.**
 :::
 
-## 学习目标
+## Learning goals
 
-- 学会定义一个可解释的小型问答系统范围
-- 学会设计知识库、检索器和拒答策略
-- 学会用最小评估集做系统验证
-- 学会把问答系统包装成作品集页面
+- Learn how to define the scope of a small, explainable QA system
+- Learn how to design a knowledge base, retriever, and refusal strategy
+- Learn how to use a minimal evaluation set to validate the system
+- Learn how to package a QA system as a portfolio page
 
 ---
 
-## 一、项目题目怎么收窄？
+## 1. How should we narrow the project topic?
 
-一个很稳的起点是：
+A very solid starting point is:
 
-> **做一个课程平台 FAQ 检索式问答系统。**
+> **Build a retrieval-based FAQ QA system for a course platform.**
 
-它适合的原因是：
+Why this works well:
 
-- 题目范围清楚
-- 知识库容易准备
-- 错误原因容易分析
+- The scope is clear
+- The knowledge base is easy to prepare
+- The causes of errors are easy to analyze
 
 ---
 
-## 二、作品级问答项目最小闭环
+## 2. The minimal closed loop of a portfolio-level QA project
 
-1. 定义知识范围
-2. 准备知识库
-3. 做检索基线
-4. 增加拒答
-5. 做评估集
-6. 展示错误分析
+1. Define the knowledge scope
+2. Prepare the knowledge base
+3. Build a retrieval baseline
+4. Add refusal logic
+5. Create an evaluation set
+6. Present error analysis
 
-只要这 6 步清楚，项目就已经很有说服力。
+As long as these 6 steps are clear, the project is already quite convincing.
 
-### 2.1 一张更像真实系统的闭环图
+### 2.1 A loop diagram that looks more like a real system
 
 ```mermaid
 flowchart LR
-    A["用户问题"] --> B["检索命中知识"]
-    B --> C["生成答案或直接返回"]
-    C --> D["拒答判断"]
-    D --> E["用户看到结果"]
-    E --> F["错例分析与知识库修订"]
+    A["User question"] --> B["Retrieve matching knowledge"]
+    B --> C["Generate an answer or return directly"]
+    C --> D["Refusal check"]
+    D --> E["User sees the result"]
+    E --> F["Error analysis and knowledge base revision"]
     F --> A
 ```
 
-这张图很重要，因为问答系统真正交付的不是：
+This diagram matters a lot, because what a QA system truly delivers is not:
 
-- 一个看起来聪明的回复
+- just a reply that looks smart
 
-而是：
+but rather:
 
-- 一个知识边界清楚、错了也知道怎么复盘的系统
+- a system with a clear knowledge boundary that also knows how to review its mistakes
 
-## 三、推荐推进顺序
+## 3. Recommended implementation order
 
-对新人来说，更稳的顺序通常是：
+For beginners, a safer order is usually:
 
-1. 先把知识范围收窄
-2. 再做最简单检索 baseline
-3. 再补拒答机制
-4. 最后再做评估和展示
+1. Narrow the knowledge scope first
+2. Build the simplest retrieval baseline next
+3. Add a refusal mechanism after that
+4. Finally add evaluation and presentation
 
-这样项目会更像“可解释系统”，而不是“碰巧答对几句”的 demo。
+This makes the project feel more like an "explainable system" rather than a demo that just happens to get a few answers right.
 
-### 3.1 为什么问答系统特别适合训练“系统边界感”？
+### 3.1 Why is a QA system especially good for training "system boundary awareness"?
 
-因为它会逼你一直面对三个问题：
+Because it forces you to keep asking three questions:
 
-- 这个系统到底知道什么
-- 它不知道什么
-- 它什么时候应该停住不答
+- What does the system actually know?
+- What does it not know?
+- When should it stop and not answer?
 
-这正是很多真实产品系统最关键的一层判断。
+This is one of the most important layers of judgment in many real product systems.
 
-### 3.2 一个更适合新人的总类比
+### 3.2 A better analogy for beginners
 
-你可以把问答系统想成：
+You can think of a QA system as:
 
-- 图书馆前台答疑
+- a help desk at a library
 
-前台不是无所不知，  
-而是：
+The front desk is not omniscient,
+instead it:
 
-- 先在馆内资料里找
-- 找到再回答
-- 找不到就明确说没有
+- first looks in the library's materials
+- answers if it finds something
+- clearly says no if it cannot find anything
 
-这个类比很重要，因为它会帮助新人早点建立一个正确直觉：
+This analogy is important because it helps beginners build the right intuition early on:
 
-- 问答系统首先是知识边界系统
-- 不是“任何问题都尽量说点什么”的聊天系统
+- a QA system is first and foremost a knowledge-boundary system
+- not a chat system that tries to say something about everything
 
 ---
 
-## 四、先做一个更完整的最小系统
+## 4. First build a more complete minimal system
 
 ```python
 knowledge_base = [
-    {"question": "课程多久内可以退款？", "answer": "课程购买后 7 天内且学习进度低于 20% 可申请退款。"},
-    {"question": "证书怎么获得？", "answer": "完成所有必修项目并通过结课测试后，可以获得结业证书。"},
-    {"question": "学习顺序是什么？", "answer": "建议先学 Python、数据分析、机器学习，再进入深度学习和大模型阶段。"},
-    {"question": "前四阶段需要 GPU 吗？", "answer": "前四阶段不需要 GPU，普通电脑即可完成学习。"},
+    {"question": "How long after purchase can I get a refund?", "answer": "Refunds can be requested within 7 days of purchase if your learning progress is below 20%."},
+    {"question": "How do I get the certificate?", "answer": "You can receive the completion certificate after finishing all required projects and passing the final test."},
+    {"question": "What is the learning order?", "answer": "It is recommended to study Python, data analysis, and machine learning first, then move on to deep learning and large models."},
+    {"question": "Do I need a GPU for the first four stages?", "answer": "A GPU is not required for the first four stages; a regular computer is enough."},
 ]
 
 
 def tokenize(text):
-    return set(text.replace("？", "").replace("?", ""))
+    return set(text.replace("?", "").replace("?", ""))
 
 
 def answer_question(user_query):
@@ -153,40 +153,40 @@ def answer_question(user_query):
     }
 
 
-print(answer_question("退款时间是多久"))
-print(answer_question("怎么拿证书"))
+print(answer_question("How long is the refund period?"))
+print(answer_question("How do I get the certificate?"))
 ```
 
-### 4.1 这个例子为什么更像项目，而不只是一个函数？
+### 4.1 Why does this example feel more like a project, not just a function?
 
-因为它已经有：
+Because it already has:
 
-- 知识库
-- 匹配逻辑
-- 匹配得分
-- 可解释的返回结果
+- A knowledge base
+- Matching logic
+- A matching score
+- An explainable return value
 
-### 4.2 为什么 `matched_question` 很值得展示？
+### 4.2 Why is `matched_question` worth showing?
 
-因为它能帮你回答：
+Because it helps you answer:
 
-- 系统是答对了
-- 还是只是碰巧答得像
+- Did the system really answer correctly?
+- Or did it just happen to sound right?
 
-### 4.3 为什么“检索命中什么”比“回答看起来顺不顺”更值得先看？
+### 4.3 Why is "what was retrieved" more important to inspect first than "whether the answer sounds smooth"?
 
-因为问答系统很多错误并不是生成层的错误，  
-而是：
+Because many QA system errors are not errors in generation,
+but instead:
 
-- 一开始就命中了不对的知识
+- the system retrieved the wrong knowledge from the very beginning
 
-如果这一步没看清，  
-后面你会很难判断问题到底出在哪。
+If you do not see this clearly,
+it becomes very hard to figure out where the problem actually is.
 
-### 4.4 再看一个最小“命中日志”示例
+### 4.4 Another minimal "match log" example
 
 ```python
-queries = ["退款时间是多久", "怎么拿证书"]
+queries = ["How long is the refund period?", "How do I get the certificate?"]
 
 for query in queries:
     result = answer_question(query)
@@ -199,60 +199,60 @@ for query in queries:
     )
 ```
 
-这个日志很像真实项目里最值得先看的东西之一：
+This kind of log is one of the most useful things to look at in a real project:
 
-- 用户问了什么
-- 系统命中了哪条知识
-- 命中分数大概是多少
+- What did the user ask?
+- Which knowledge item did the system match?
+- Roughly how high was the match score?
 
-很多问题在这一步就已经能定位出来。
+Many issues can already be diagnosed at this stage.
 
 ---
 
-## 五、拒答机制为什么是作品级问答系统的关键？
+## 5. Why is a refusal mechanism the key to a portfolio-level QA system?
 
-没有拒答时，系统很容易：
+Without refusal, the system will easily:
 
-- 任何问题都硬答
+- force an answer to every question
 
-这在真实项目里很危险。
+That is dangerous in real projects.
 
 ```python
 def safe_answer_question(user_query, threshold=2):
     result = answer_question(user_query)
     if result["score"] < threshold:
         return {
-            "answer": "当前知识库中没有足够相关的信息。",
+            "answer": "There is not enough relevant information in the current knowledge base.",
             "matched_question": None,
             "score": result["score"],
         }
     return result
 
 
-print(safe_answer_question("DeepSeek 和 OpenAI 哪个更强？"))
+print(safe_answer_question("Which is stronger, DeepSeek or OpenAI?"))
 ```
 
-### 5.1 为什么这一步特别值钱？
+### 5.1 Why is this step especially valuable?
 
-因为它会让系统从：
+Because it changes the system from:
 
-- 总想说点什么
+- always wanting to say something
 
-变成：
+to:
 
-- 知道什么时候该停
+- knowing when to stop
 
-这在作品集里很加分。
+That is a big plus in a portfolio.
 
 ---
 
-## 六、一个最小评估集怎么设计？
+## 6. How should a minimal evaluation set be designed?
 
 ```python
 eval_data = [
-    ("退款时间是多久", "课程购买后 7 天内且学习进度低于 20% 可申请退款。"),
-    ("证书怎么拿", "完成所有必修项目并通过结课测试后，可以获得结业证书。"),
-    ("前四阶段需要显卡吗", "前四阶段不需要 GPU，普通电脑即可完成学习。"),
+    ("How long is the refund period?", "Refunds can be requested within 7 days of purchase if your learning progress is below 20%."),
+    ("How do I get the certificate?", "You can receive the completion certificate after finishing all required projects and passing the final test."),
+    ("Do I need a graphics card for the first four stages?", "A GPU is not required for the first four stages; a regular computer is enough."),
 ]
 
 
@@ -266,119 +266,119 @@ accuracy = correct / len(eval_data)
 print("accuracy =", accuracy)
 ```
 
-### 6.1 还应该评估什么？
+### 6.1 What else should be evaluated?
 
-除了准确率，还值得看：
+Besides accuracy, it is also worth checking:
 
-- 拒答是否合理
-- 哪些问题最容易误匹配
-- 近义表达是否稳定
+- Whether refusal is reasonable
+- Which questions are most likely to be mismatched
+- Whether paraphrases are handled consistently
 
-### 6.2 一个很适合新人的最小评估表
+### 6.2 A minimal evaluation table that works well for beginners
 
-你可以先只做这样一张表：
+You can start with just this table:
 
 | query | matched_question | answer | should_answer | actually_answered | correct |
 |---|---|---|---|---|---|
 
-这张表已经足够帮你判断：
+This table is already enough to help you judge:
 
-- 命中对不对
-- 拒答稳不稳
-- 最后答案靠不靠谱
+- Whether the match is correct
+- Whether refusal is stable
+- Whether the final answer is reliable
 
-### 6.3 第一次做问答项目时，最稳的默认顺序
+### 6.3 The safest default order for your first QA project
 
-更稳的顺序通常是：
+A safer order is usually:
 
-1. 先把知识库写小写清楚
-2. 先做最简单的检索 baseline
-3. 先加一层拒答
-4. 再补评估表和错例分析
+1. Write the knowledge base small and clearly
+2. Build the simplest retrieval baseline first
+3. Add a refusal layer
+4. Then add an evaluation table and error analysis
 
-这样会比一上来就追生成质量更容易做出一个可信系统。
-
----
-
-## 七、最值得展示的失败案例
-
-例如：
-
-- 问题说法变化后匹配错
-- 知识库没有覆盖
-- 不该回答时却给出错误答案
-
-把这些列出来，会比只展示正确样例更像项目课。
-
-### 7.1 如果继续把项目往上做，最值得补什么？
-
-更值得优先补的通常是：
-
-1. 近义表达鲁棒性测试
-2. 更稳的拒答策略
-3. 命中结果和最终回答的并排展示
-
-这样项目会更像真正可解释的问答系统，而不是一组 FAQ 文本拼接。
+This is easier than trying to pursue generation quality right away.
 
 ---
 
-## 项目交付时最好补上的内容
+## 7. The most valuable failure cases to show
 
-- 一张知识边界说明表
-- 一张检索命中 / 拒答效果示例
-- 一组典型错例
-- 一段你对下一步升级路线的说明
+For example:
 
-## 如果把它做成作品集，最值得展示什么
+- Matching fails after the wording of a question changes
+- The knowledge base does not cover the question
+- The system should not answer, but still gives a wrong answer
 
-最值得展示的通常不是：
+Listing these will make the project feel more like a course project than only showing correct examples.
 
-- “系统答对了哪几句”
+### 7.1 If you keep improving the project, what should you add first?
 
-而是：
+The most worthwhile additions are usually:
 
-1. 知识边界
-2. 检索命中日志
-3. 拒答案例
-4. 错例分析
-5. 下一步如何升级
+1. Paraphrase robustness tests
+2. A more stable refusal strategy
+3. Side-by-side display of retrieved results and final answers
 
-这样别人会更容易感觉到：
+This will make the project look more like a truly explainable QA system, instead of just a collection of FAQ text snippets.
 
-- 你做的是一个系统
-- 不是只拼了几条 FAQ
+---
 
-## 小结
+## What to include when delivering the project
 
-这节最重要的是建立一个作品级判断：
+- A table explaining the knowledge boundary
+- An example of retrieval success / refusal behavior
+- A set of typical failure cases
+- A short explanation of your next upgrade plan
 
-> **问答系统的价值，不只是“能答对几题”，而是你能否把知识边界、检索逻辑、拒答策略和错误分析讲成一个完整闭环。**
+## If you turn it into a portfolio project, what is most worth showing?
 
-只要这条闭环立住，这个项目就会非常适合做作品集。
+What is most worth showing is usually not:
 
-## 这节最该带走什么
+- "Which questions the system answered correctly"
 
-- 问答系统首先是“知识边界系统”，其次才是“回答系统”
-- 检索命中、拒答和错误分析是项目最值得展示的三块
-- 如果能把“为什么答、为什么不答、为什么答错”讲清楚，这个项目就会非常像作品级项目
+but rather:
+
+1. The knowledge boundary
+2. The retrieval log
+3. Refusal examples
+4. Error analysis
+5. How the system will be improved next
+
+That way, others will more easily feel that:
+
+- you built a system
+- not just a bundle of FAQ entries
+
+## Summary
+
+The most important idea in this section is to build a portfolio-level judgment:
+
+> **The value of a QA system is not just that it can answer a few questions correctly, but that you can explain its knowledge boundary, retrieval logic, refusal strategy, and error analysis as one complete closed loop.**
+
+Once that loop is in place, this project becomes very suitable for a portfolio.
+
+## What should you take away from this section?
+
+- A QA system is first a "knowledge-boundary system," and only then an "answering system"
+- Retrieval hits, refusal, and error analysis are the three most worth showing parts of the project
+- If you can clearly explain "why it answered," "why it did not answer," and "why it answered incorrectly," then the project will feel very much like a portfolio-level project
 
 ---
 
 
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimal closed loop | Can accept input, process it, and output results, while keeping a set of examples |
+| Standard version | Become a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Advanced version | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not try to build something huge and complete from the beginning. Each time you upgrade a version, write in the README what new capability was added, how it was verified, and what problems still remain.
 
-## 练习
+## Exercises
 
-1. 给知识库再加 5 条课程 FAQ，看看匹配效果如何变化。
-2. 为什么拒答机制会显著提升项目可信度？
-3. 想一想：如果两个问题很相近但答案不同，系统最容易出什么错？
-4. 如果做作品集展示，你最想给面试官看哪 3 块内容？
+1. Add 5 more course FAQ entries to the knowledge base and see how the matching results change.
+2. Why does a refusal mechanism significantly improve the credibility of the project?
+3. Think about this: if two questions are very similar but have different answers, what is the system most likely to get wrong?
+4. If you were presenting a portfolio project, which 3 parts would you most want to show the interviewer?

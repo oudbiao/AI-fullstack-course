@@ -1,63 +1,63 @@
 ---
 sidebar_position: 19
-title: "前置知识检查清单"
-description: "在进入关键阶段前快速检查是否具备必要基础，避免因为前置知识缺口导致学习卡顿。"
-keywords: [前置知识, 学习检查清单, AI学习路线, RAG前置知识, Agent前置知识]
+title: "Prerequisite Checklist"
+description: "Quickly check whether you have the necessary foundation before entering key stages, and avoid getting stuck because of prerequisite knowledge gaps."
+keywords: [prerequisite knowledge, learning checklist, AI learning roadmap, RAG prerequisites, Agent prerequisites]
 ---
 
-# 前置知识检查清单
+# Prerequisite Checklist
 
-这份清单用于在进入关键阶段前快速判断自己是否准备好了。如果某一项不熟，不代表不能继续学，但建议先回到对应章节补一个最小练习。AI 全栈学习最怕的是前置知识缺口不断累积，最后感觉“每一章都看得懂一点，但项目做不出来”。
+This checklist is used to quickly judge whether you are ready before entering a key stage. If you are not familiar with one item, it does not mean you cannot keep learning, but it is recommended that you first go back to the corresponding section and complete a minimal exercise. In AI full-stack learning, the biggest pitfall is prerequisite knowledge gaps piling up, until you feel like “I understand a little bit of every chapter, but I still can’t build the project.”
 
-## 使用方法一图看懂
+## One-glance usage guide
 
 ```mermaid
 flowchart LR
-  A["准备进入新阶段"] --> B["用清单自检"]
-  B --> C{"能完成最小动作吗"}
-  C -->|能| D["继续进入下一阶段"]
-  C -->|不能| E["回补一个最小练习"]
+  A["Ready to enter a new stage"] --> B["Self-check with the checklist"]
+  B --> C{"Can you complete the minimal action?"}
+  C -->|Yes| D["Continue to the next stage"]
+  C -->|No| E["Go back and complete one minimal exercise"]
   E --> B
 ```
 
-| 自检结果 | 下一步 |
+| Self-check result | Next step |
 |---|---|
-| 大部分能做 | 继续学习，把不熟的点写进复盘 |
-| 只有 1～2 项不熟 | 补一个最小练习，不要重学整章 |
-| 多数都不会 | 回到上一阶段任务单，先完成最小项目 |
+| Most items are doable | Keep learning, and write unfamiliar points into your review notes |
+| Only 1–2 items are unfamiliar | Complete one minimal exercise; do not relearn the whole chapter |
+| Most items are still unclear | Go back to the task list from the previous stage and complete the minimal project first |
 
-## 进入 Python 前
+## Before entering Python
 
-你应该能完成这些动作：打开终端，进入项目目录，创建文件，运行一个命令，理解当前工作目录，知道错误信息来自哪条命令。如果这些还不熟，先回到开发者工具基础阶段。
+You should be able to do these things: open the terminal, enter the project directory, create a file, run a command, understand the current working directory, and know which command produced an error message. If these are still unfamiliar, go back to the developer tools basics stage first.
 
-## 进入数据分析前
+## Before entering data analysis
 
-你应该能写函数、使用列表和字典、读写文件、安装第三方库，并理解脚本的输入和输出。进入 Pandas 前，最好能用纯 Python 读取一个文本文件并统计内容。
+You should be able to write functions, use lists and dictionaries, read and write files, install third-party libraries, and understand the input and output of a script. Before entering Pandas, it is best if you can use pure Python to read a text file and count its contents.
 
-## 进入机器学习前
+## Before entering machine learning
 
-你应该能读取表格数据，查看行列，处理缺失值，理解训练数据和目标变量的区别，能用图表描述数据分布。机器学习不是从算法开始，而是从“这个问题能不能被数据表达”开始。
+You should be able to read tabular data, view rows and columns, handle missing values, understand the difference between training data and target variables, and use charts to describe data distributions. Machine learning does not start with algorithms; it starts with the question, “Can this problem be expressed with data?”
 
-## 进入深度学习前
+## Before entering deep learning
 
-你应该理解训练集、验证集、测试集、特征、标签、损失函数、过拟合和评估指标。还应该对矩阵、向量和数组 shape 有基本直觉。否则 PyTorch 的张量错误会非常难排查。
+You should understand training sets, validation sets, test sets, features, labels, loss functions, overfitting, and evaluation metrics. You should also have a basic intuition for matrices, vectors, and array shapes. Otherwise, PyTorch tensor errors will be very hard to debug.
 
-## 进入大模型与 Prompt 前
+## Before entering large models and Prompt
 
-你应该理解什么是模型输入输出、什么是 API、什么是 JSON、什么是上下文，以及为什么模型回答可能不稳定。Prompt 不是魔法句子，而是把任务、约束、输入和输出格式清楚交给模型。
+You should understand what model inputs and outputs are, what an API is, what JSON is, what context is, and why model responses may be unstable. A Prompt is not a magic sentence, but a clear way to give the model the task, constraints, inputs, and output format.
 
-## 进入 RAG 前
+## Before entering RAG
 
-你应该能完成一次 LLM API 调用，理解文本切分，知道 embedding 是把文本变成向量，理解相似度检索，能区分“检索结果”和“生成答案”。如果你无法查看检索到的原文片段，RAG 调试会很困难。
+You should be able to complete one LLM API call, understand text chunking, know that embedding turns text into vectors, understand similarity retrieval, and distinguish between “retrieved results” and “generated answers.” If you cannot inspect the retrieved original text snippets, debugging RAG will be very difficult.
 
-## 进入 Agent 前
+## Before entering Agent
 
-你应该理解函数调用、工具参数、错误处理、日志、状态和权限。Agent 不是简单地让模型多思考，而是让模型在受控边界内调用工具完成任务。进入 Agent 前，最好先能写一个普通函数调用工作流。
+You should understand function calling, tool parameters, error handling, logs, state, and permissions. An Agent is not simply about making the model think more; it is about letting the model call tools within controlled boundaries to complete tasks. Before entering Agent, it is best if you can first write a normal function-calling workflow.
 
-## 进入部署前
+## Before entering deployment
 
-你应该能说明项目依赖、运行命令、配置项、环境变量、日志位置和错误排查方式。部署不是最后一步才考虑的事情，而是检验项目是否可复现的重要环节。
+You should be able to explain project dependencies, run commands, configuration items, environment variables, log locations, and how to troubleshoot errors. Deployment is not something to think about only at the very end; it is an important step for verifying whether a project is reproducible.
 
-## 如何使用这份清单
+## How to use this checklist
 
-每进入一个新阶段前，用 10 分钟检查对应条目。不会的地方不要长时间停留在理论解释上，优先补一个最小练习。例如不熟 JSON，就写一个读写 JSON 的脚本；不熟 API，就调用一次公开接口；不熟日志，就给自己的小程序加一条运行日志。
+Before entering each new stage, spend 10 minutes checking the corresponding items. For things you do not understand, do not stay stuck on theoretical explanations for too long; prioritize completing one minimal exercise. For example, if you are not familiar with JSON, write a script to read and write JSON; if you are not familiar with an API, call a public endpoint once; if you are not familiar with logs, add one runtime log message to your small program.

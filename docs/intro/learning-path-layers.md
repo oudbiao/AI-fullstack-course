@@ -1,66 +1,66 @@
 ---
 sidebar_position: 14
-title: "学习路径分层：必学、快读与选修"
-description: "把全课程按应用工程、模型理解、作品集三种目标拆成必学、快读和选修深入路径。"
-keywords: [学习路径分层, AI学习路线, 必学选修, AI全栈]
+title: "Layered Learning Path: Must-Learn, Quick Read, and Electives"
+description: "Split the entire course into must-learn, quick-read, and elective deep-dive paths based on three goals: application engineering, model understanding, and portfolio building."
+keywords: [learning path layering, AI learning roadmap, must-learn electives, full-stack AI]
 ---
 
-# 学习路径分层：必学、快读与选修
+# Layered Learning Path: Must-Learn, Quick Read, and Electives
 
-这套课程内容很多，不同目标不需要用同一种读法。你可以按自己的目标，把章节分成必学、快速浏览和选修深入。
+This course covers a lot of material, and different goals do not require the same way of reading. Based on your own goals, you can split the chapters into must-learn, quick-read, and elective deep-dive sections.
 
-## 一图读懂：同一章节有三种读法
+## One diagram to understand it all: one chapter, three ways to read it
 
 ```mermaid
 flowchart LR
-  A["明确目标"] --> B["必学：会影响项目闭环"]
-  A --> C["快读：先知道位置和作用"]
-  A --> D["选修：等项目需要再深入"]
+  A["Clarify your goal"] --> B["Must-learn: affects project completion"]
+  A --> C["Quick read: know the place and purpose first"]
+  A --> D["Elective: go deeper when the project needs it"]
 ```
 
-| 读法 | 判断标准 | 学到什么程度 |
+| Reading style | Decision rule | How well you need to learn it |
 |---|---|---|
-| 必学 | 不会它，当前项目做不下去 | 能跑最小例子，能解释输入输出 |
-| 快读 | 后面会用到，但第一遍不必深挖 | 知道它解决什么问题和常见坑 |
-| 选修 | 只和特定方向或毕业项目有关 | 等项目需要时再补实验和案例 |
+| Must-learn | Without it, the current project cannot move forward | You can run the smallest example and explain the input and output |
+| Quick read | You will use it later, but do not need to dig deep the first time | You know what problem it solves and the common pitfalls |
+| Elective | Only related to a specific direction or capstone project | Add experiments and case studies when the project needs them |
 
-## 路线一：LLM 应用工程
+## Path 1: LLM application engineering
 
-适合想尽快做 AI 应用、RAG、Agent 的学习者。
+Suitable for learners who want to quickly build AI applications, RAG, and Agent systems.
 
-| 模块 | 建议读法 |
+| Module | Recommended reading style |
 |---|---|
-| 开发工具、Python、数据分析 | 必学，至少完成最小项目 |
-| AI 数学、机器学习、深度学习 | 快速通过主线，理解指标、训练和评估 |
-| 大模型原理、Prompt、RAG、Agent | 必学，是主战场 |
-| CV、传统 NLP、多模态 | 按项目需要选修 |
-| 工程化、评估、安全 | 必学，决定能否上线 |
+| Development tools, Python, data analysis | Must-learn, at least complete a minimal project |
+| AI math, machine learning, deep learning | Quickly go through the main line, and understand metrics, training, and evaluation |
+| LLM principles, Prompt, RAG, Agent | Must-learn, this is the main battlefield |
+| CV, traditional NLP, multimodal | Elective, based on project needs |
+| Engineering, evaluation, safety | Must-learn, determines whether it can be launched |
 
-## 路线二：模型理解加强
+## Path 2: Stronger model understanding
 
-适合想深入模型、训练、微调和算法的人。
+Suitable for people who want to go deeper into models, training, fine-tuning, and algorithms.
 
-| 模块 | 建议读法 |
+| Module | Recommended reading style |
 |---|---|
-| 数学、机器学习、深度学习 | 必学，尽量做完整实验 |
-| CV、NLP、Transformer、预训练 | 必学或深入选修 |
-| RAG、Agent | 快速了解应用系统边界 |
-| 多模态、AIGC | 根据研究兴趣选择 |
+| Math, machine learning, deep learning | Must-learn, and try to complete full experiments |
+| CV, NLP, Transformer, pretraining | Must-learn or elective for deeper study |
+| RAG, Agent | Quickly understand the boundary of application systems |
+| Multimodal, AIGC | Choose based on research interests |
 
-## 路线三：作品集路线
+## Path 3: Portfolio path
 
-适合希望把学习过程变成作品的人。
+Suitable for learners who want to turn the learning process into a portfolio.
 
-| 阶段 | 作品集重点 |
+| Stage | Portfolio focus |
 |---|---|
-| Python | 命令行工具或 Web API |
-| 数据分析 | 一份可展示 EDA 报告 |
-| 机器学习 | 一个预测项目，包含 baseline 和指标 |
-| 深度学习 | 一个训练实验，包含曲线和失败样本 |
-| RAG | 一个知识库问答助手，包含引用和评估集 |
-| Agent | 一个可追踪工具调用助手，包含 trace 和安全边界 |
-| 多模态 | 一个图文/语音/视频工作流作品 |
+| Python | A command-line tool or Web API |
+| Data analysis | An EDA report that can be showcased |
+| Machine learning | A prediction project with baseline and metrics |
+| Deep learning | A training experiment with curves and failed samples |
+| RAG | A knowledge-base Q&A assistant with citations and an evaluation set |
+| Agent | A tool-using assistant with traceability and safety boundaries |
+| Multimodal | A workflow project for images and text, voice, or video |
 
-## 怎么判断可以跳过
+## How to decide whether you can skip ahead
 
-如果你能用自己的话解释这一章解决什么问题，并能完成最小项目出口，就可以继续往后走。不要因为没有完全掌握所有细节而停在前面。很多概念会在后面的项目中反复回来。
+If you can explain in your own words what problem this chapter solves, and you can complete the minimum project exit, then you can keep moving forward. Do not stop at the front because you have not fully mastered every detail. Many concepts will come back repeatedly in later projects.

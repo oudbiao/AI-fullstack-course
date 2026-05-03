@@ -1,151 +1,151 @@
 ---
-title: "3.3 主流大模型架构变体"
+title: "3.3 Mainstream Variants of Large Model Architectures"
 sidebar_position: 9
-description: "从 Encoder-only、Decoder-only、Encoder-Decoder 到 MoE，理解不同大模型架构为什么会针对不同任务走出不同分支。"
+description: "From Encoder-only, Decoder-only, and Encoder-Decoder to MoE, understand why different large model architectures branch out for different tasks."
 keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 ---
 
-# 主流大模型架构变体
+# Mainstream Variants of Large Model Architectures
 
-:::tip 本节定位
-很多人第一次接触大模型家族时，会觉得它们只是名字不同：
+:::tip Section Overview
+When many people first encounter the large model family, they may feel that the models are only different in name:
 
 - BERT
 - GPT
 - T5
 - Mixtral
 
-但真正要学会的是：
+But what you really need to learn is:
 
-> **不同架构之所以不同，是因为它们对“谁该看谁、怎样训练、适合做什么”给出了不同答案。**
+> **The reason different architectures are different is that they give different answers to “who should see whom, how should training work, and what tasks are they suitable for?”**
 
-这节课就是把这些分支拉回到底层结构上看。
+This lesson brings these branches back to their underlying structure.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Encoder-only、Decoder-only、Encoder-Decoder 的核心差异
-- 理解架构选择和训练目标、任务类型之间的关系
-- 通过一个可运行示例看清不同 mask 背后的信息流
-- 建立“这个任务更适合哪类结构”的第一层判断
-
----
-
-## 一、为什么同样是 Transformer，会长出这么多分支？
-
-### 1.1 因为任务不一样，信息流约束也不一样
-
-不同 NLP 任务的本质需求不同：
-
-- 文本分类更在意“看懂整句”
-- 开放式生成更在意“只能根据过去继续写”
-- 翻译摘要更在意“先编码输入，再生成输出”
-
-所以哪怕底层积木都是 Transformer block，  
-最后也会长成不同结构。
-
-### 1.2 一个简单类比
-
-你可以把三种经典架构理解成三种阅读方式：
-
-- Encoder-only：整篇文章先通读一遍，再做判断
-- Decoder-only：只能一边写一边往前看，不能偷看后文
-- Encoder-Decoder：先认真读原文，再根据原文写摘要或翻译
-
-只要这个类比成立，  
-后面的差异就会自然很多。
+- Understand the core differences among Encoder-only, Decoder-only, and Encoder-Decoder
+- Understand the relationship between architecture choice, training objectives, and task types
+- Use a runnable example to clearly see the information flow behind different masks
+- Build an initial judgment of “which type of structure is better suited to this task”
 
 ---
 
-## 二、三种经典结构分别在做什么？
+## 1. Why do so many branches grow from the same Transformer?
 
-### 2.1 Encoder-only：适合理解，不擅长开放式续写
+### 1.1 Because tasks differ, and so do information-flow constraints
 
-Encoder-only 的典型代表是：
+Different NLP tasks have different essential needs:
+
+- Text classification cares more about “understanding the whole sentence”
+- Open-ended generation cares more about “continuing to write based only on the past”
+- Translation and summarization care more about “encoding the input first, then generating the output”
+
+So even if the underlying building blocks are all Transformer blocks,
+they will still grow into different structures.
+
+### 1.2 A simple analogy
+
+You can think of the three classic architectures as three ways of reading:
+
+- Encoder-only: read the whole article once, then make a judgment
+- Decoder-only: write while looking only at what came before, not at the future
+- Encoder-Decoder: first read the original text carefully, then write a summary or translation based on it
+
+Once this analogy makes sense,
+the differences that follow become much easier to understand.
+
+---
+
+## 2. What does each of the three classic structures do?
+
+### 2.1 Encoder-only: good for understanding, not ideal for open-ended continuation
+
+A typical representative of Encoder-only is:
 
 - BERT
 
-它的特点是：
+Its characteristics are:
 
-- 每个位置都可以看到左右两边上下文
-- 更容易形成完整语义表示
-- 很适合分类、匹配、抽取等理解任务
+- Each position can see context on both the left and the right
+- It is easier to form a complete semantic representation
+- It is well suited for understanding tasks such as classification, matching, and extraction
 
-但它不天然适合做自由生成，  
-因为训练时并没有严格遵守“只能看过去”的约束。
+But it is not naturally suited for free generation,
+because during training it does not strictly follow the constraint of “only seeing the past.”
 
-### 2.2 Decoder-only：生成路线最直接
+### 2.2 Decoder-only: the most direct route for generation
 
-Decoder-only 的典型代表是：
+Typical representatives of Decoder-only are:
 
 - GPT
 - LLaMA
 - Qwen
 
-它的关键约束是：
+Its key constraint is:
 
-- 当前 token 只能看自己前面的 token
+- The current token can only see the tokens before it
 
-这和生成任务完全一致，因为生成时我们本来也只能一步一步往后写。
+This matches generation tasks perfectly, because when we generate, we also write forward one step at a time.
 
-它的优点是：
+Its advantages are:
 
-- 训练目标统一
-- 生成流程自然
-- 很适合大规模自回归建模
+- Unified training objective
+- Natural generation process
+- Very suitable for large-scale autoregressive modeling
 
-### 2.3 Encoder-Decoder：输入输出职责分开
+### 2.3 Encoder-Decoder: separate the responsibilities of input and output
 
-Encoder-Decoder 的典型代表是：
+Typical representatives of Encoder-Decoder are:
 
 - T5
 - BART
 
-它的思路是：
+The idea is:
 
-1. Encoder 先把输入理解好
-2. Decoder 再在输入表示基础上生成输出
+1. The Encoder first understands the input
+2. The Decoder then generates the output based on the input representation
 
-这类结构特别适合：
+This structure is especially suitable for:
 
-- 翻译
-- 摘要
-- 改写
-- 问答生成
+- Translation
+- Summarization
+- Paraphrasing
+- Question answering generation
 
-因为这些任务天然就是：
+Because these tasks are naturally:
 
-- 输入一段东西
-- 输出另一段东西
+- Given one piece of text
+- Output another piece of text
 
-### 2.4 MoE：不是改信息流，而是改“谁来算”
+### 2.4 MoE: not changing the information flow, but changing “who does the computation”
 
-当模型变得越来越大后，  
-另一条重要分支出现了：
+As models become larger and larger,
+another important branch appears:
 
 - Mixture of Experts
 
-它的重点不是改变自注意力的基本规则，  
-而是：
+Its focus is not to change the basic rules of self-attention,
+but rather:
 
-> **让不同 token 只激活部分专家网络，而不是每次都走完整个大 FFN。**
+> **Let different tokens activate only part of the expert networks instead of passing through the entire large FFN every time.**
 
-这样做的核心目的是：
+The main goal of this is:
 
-- 在扩大参数规模的同时，控制每次前向实际激活的计算量
+- Expand parameter scale while controlling the amount of computation actually activated in each forward pass
 
-所以 MoE 更像“规模化路线的变体”。
+So MoE is more like a “scaling strategy variant.”
 
 ---
 
-## 三、先跑一个真正有教学意义的结构差异示例
+## 3. First, run a truly instructive example of structural differences
 
-下面这段代码不会去训练模型，  
-但它会直接把三种核心架构最重要的差别打印出来：
+The code below does not train a model,
+but it directly prints the most important difference among the three core architectures:
 
-- 哪些位置能看到哪些位置
+- Which positions can see which positions
 
-这比单纯打印一个字典更接近结构本体。
+This is closer to the structure itself than simply printing a dictionary.
 
 ```python
 def full_mask(length):
@@ -173,191 +173,192 @@ pretty_print("decoder-only self-attention", causal_mask(length))
 pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 ```
 
-### 3.1 这段代码到底在教什么？
+### 3.1 What is this code teaching?
 
-它在教三件最根本的事：
+It teaches three most fundamental things:
 
-1. Encoder-only 是双向看的
-2. Decoder-only 是因果看的
-3. Encoder-Decoder 的 decoder 还能额外看输入序列
+1. Encoder-only looks both ways
+2. Decoder-only looks causally
+3. The decoder in Encoder-Decoder can also look at the input sequence
 
-也就是说，  
-大部分架构差异最后都能追溯到：
+In other words,
+most architectural differences can ultimately be traced back to:
 
-- 信息流限制不同
+- Different information-flow constraints
 
-### 3.2 为什么 mask 这么重要？
+### 3.2 Why is the mask so important?
 
-因为 mask 决定了模型训练时到底允许自己知道什么。
+Because the mask determines what the model is allowed to know during training.
 
-如果 decoder 没有 causal mask，  
-模型训练时就会偷看未来 token，  
-到真正生成时又看不到未来，训练-推理就不一致了。
+If the decoder does not have a causal mask,
+the model will peek at future tokens during training,
+but at generation time it cannot see the future. That creates a mismatch between training and inference.
 
-### 3.3 为什么这能决定任务适配？
+### 3.3 Why does this determine task suitability?
 
-因为任务本身就对应不同信息流：
+Because tasks themselves correspond to different information flows:
 
-- 分类：允许看完整输入
-- 生成：不能看未来
-- 翻译：输出可以看完整输入，但不能看未来输出
+- Classification: allowed to see the full input
+- Generation: cannot see the future
+- Translation: the output can see the full input, but cannot see future output tokens
 
-结构是否合适，本质上就是信息流约束是否匹配任务。
+Whether a structure is suitable is, in essence, whether its information-flow constraints match the task.
 
-![架构 mask 与任务适配图](/img/course/ch07-architecture-mask-task-fit-map.png)
+![Architecture mask and task-fit map](/img/course/ch07-architecture-mask-task-fit-map-en.png)
 
-:::tip 读图提示
-读这张图时先问“谁能看谁”：Encoder-only 适合理解，因为能双向看完整输入；Decoder-only 适合生成，因为只能看过去；Encoder-Decoder 适合翻译摘要，因为输入先被完整编码，输出再因果生成。
+:::tip Reading Guide
+When reading this diagram, first ask “who can see whom”: Encoder-only is suitable for understanding because it can look at the full input bidirectionally; Decoder-only is suitable for generation because it can only see the past; Encoder-Decoder is suitable for translation and summarization because the input is fully encoded first, and then the output is generated causally.
 :::
 
 ---
 
-## 四、把三条路线和典型任务连起来
+## 4. Connect the three routes to typical tasks
 
-### 4.1 文本理解任务为什么常用 Encoder-only？
+### 4.1 Why are text understanding tasks often based on Encoder-only?
 
-因为这类任务更关注：
+Because these tasks focus more on:
 
-- 句子整体意思
-- token 之间双向关系
-- 一个位置对前后上下文的综合理解
+- The overall meaning of the sentence
+- Bidirectional relationships between tokens
+- Comprehensive understanding of context around each position
 
-例如：
+For example:
 
-- 情感分类
-- 语义匹配
-- 命名实体识别
+- Sentiment classification
+- Semantic matching
+- Named entity recognition
 
-这些任务更像“读完整段再判断”。
+These tasks are more like “read the whole passage first, then make a judgment.”
 
-### 4.2 为什么现在大模型主流几乎都走 Decoder-only？
+### 4.2 Why do most mainstream large models now mainly follow Decoder-only?
 
-因为当目标变成：
+Because when the goal becomes:
 
-- 通用对话
-- 开放生成
-- 代码补全
-- 长文本续写
+- General chat
+- Open-ended generation
+- Code completion
+- Long-text continuation
 
-decoder-only 结构最顺手。
+the decoder-only structure is the most convenient.
 
-再加上：
+And with that:
 
-- 预训练目标统一
-- 推理路径清晰
-- 扩到超大规模后效果很好
+- The pretraining objective is unified
+- The inference path is clear
+- It performs very well at very large scale
 
-于是它成了大语言模型时代的主流路线。
+So it became the mainstream route in the era of large language models.
 
-### 4.3 Encoder-Decoder 为什么没有消失？
+### 4.3 Why hasn’t Encoder-Decoder disappeared?
 
-因为很多任务仍然非常适合它：
+Because many tasks are still very suitable for it:
 
-- 翻译
-- 摘要
-- 文本改写
-- 输入输出结构差异明显的生成任务
+- Translation
+- Summarization
+- Text rewriting
+- Generation tasks with a clear separation between input and output
 
-如果任务天然是“给定输入，生成另一段输出”，  
-encoder-decoder 依然很有优势。
+If a task is naturally “given an input, generate another output,”
+Encoder-Decoder still has a strong advantage.
 
-### 4.4 MoE 适合什么情况？
+### 4.4 What situations is MoE suitable for?
 
-当团队在追求：
+When a team is pursuing:
 
-- 更大参数规模
-- 但又不想每次前向都把所有参数算一遍
+- Larger parameter scale
+- But does not want to compute all parameters in every forward pass
 
-就会开始关注 MoE。
+then MoE starts to become attractive.
 
-但它也会带来新工程问题：
+But it also brings new engineering problems:
 
-- 路由是否稳定
-- 负载是否均衡
-- 分布式训练是否更复杂
+- Is routing stable?
+- Is load balanced?
+- Is distributed training more complex?
 
 ---
 
-## 五、结构差异不只是“谁更强”，而是“谁更合适”
+## 5. Structural differences are not just about “which is stronger,” but “which is more suitable”
 
-### 5.1 不存在永远最强的通用结构
+### 5.1 There is no universally strongest structure forever
 
-很多新人会问：
+Many beginners ask:
 
-- BERT、GPT、T5 到底谁更强？
+- Which is stronger, BERT, GPT, or T5?
 
-其实更合理的问题是：
+A more reasonable question is:
 
-- 任务是什么？
-- 训练目标是什么？
-- 推理方式是什么？
+- What is the task?
+- What is the training objective?
+- What is the inference method?
 
-结构不是排行榜，  
-而是任务匹配问题。
+An architecture is not a ranking list,
+but a task-matching problem.
 
-### 5.2 很多“效果差距”其实来自训练规模和数据，不只是结构
+### 5.2 Many “performance gaps” actually come from training scale and data, not just architecture
 
-例如 GPT 系列强，不只是因为 decoder-only，  
-还因为：
+For example, GPT models are strong not only because they are decoder-only,
+but also because:
 
-- 数据量大
-- 参数量大
-- 工程成熟
+- They have more data
+- They have more parameters
+- The engineering is more mature
 
-所以不要把结构本身神化成唯一因素。
+So do not turn the architecture itself into the only decisive factor.
 
-### 5.3 结构和目标函数是绑在一起看的
+### 5.3 Architecture and objective function should be viewed together
 
-通常你会看到这样的耦合：
+You will usually see such pairings:
 
 - Encoder-only + masked language modeling
 - Decoder-only + causal language modeling
 - Encoder-Decoder + seq2seq / denoising
 
-也就是说，  
-架构和训练目标通常是一整套设计，而不是随便拼。
+In other words,
+architecture and training objective are usually designed as a package, not assembled arbitrarily.
 
 ---
 
-## 六、常见误区
+## 6. Common misconceptions
 
-### 6.1 误区一：BERT 只是“老模型”，所以没必要学
+### 6.1 Misconception 1: BERT is just an “old model,” so it is not worth learning
 
-不对。  
-它仍然是理解任务和表示学习的重要基线。
+That is not true.
+It is still an important baseline for understanding tasks and representation learning.
 
-### 6.2 误区二：Decoder-only 什么都能做，所以一定是最优解
+### 6.2 Misconception 2: Decoder-only can do everything, so it must be the optimal solution
 
-它确实很通用，  
-但对某些输入输出明确分离的任务，  
-encoder-decoder 仍然可能更自然。
+It is indeed very general,
+but for some tasks with clearly separated input and output,
+Encoder-Decoder may still be more natural.
 
-### 6.3 误区三：MoE 只是“更大的普通模型”
+### 6.3 Misconception 3: MoE is just a “bigger normal model”
 
-不完全对。  
-MoE 的核心变化在于：
+Not exactly.
+The core change in MoE is:
 
-- 参数规模和实际激活计算被拆开了
+- Parameter scale and actual activated computation are separated
 
-这会改变训练和部署复杂度。
-
----
-
-## 小结
-
-这一节最重要的不是记名字，  
-而是建立一张结构地图：
-
-> **Encoder-only 更像“通读后理解”，Decoder-only 更像“按时间顺序生成”，Encoder-Decoder 更像“先读再写”，MoE 则是在规模化时改变计算路径。**
-
-只要你能把架构、任务和信息流这三件事连起来，  
-以后再看到新的模型名字时，就不会只剩“它很火”这种印象了。
+This changes both training and deployment complexity.
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么 causal mask 是 decoder-only 的核心约束？
-2. 想一个翻译或摘要任务，说明它为什么天然适合 encoder-decoder。
-3. 如果要做文本分类，你会更优先考虑 encoder-only 还是 decoder-only？为什么？
-4. 假设你要继续做超大模型扩展，但每步计算预算有限，为什么 MoE 会变得有吸引力？
+The most important thing in this section is not memorizing names,
+but building a map of the structures:
+
+> **Encoder-only is more like “read everything first, then understand,” Decoder-only is more like “generate in time order,” Encoder-Decoder is more like “read first, then write,” and MoE changes the computation path when scaling up.**
+
+As long as you can connect architecture, task, and information flow,
+when you see a new model name later,
+you will no longer be left with only the impression that “it is very popular.”
+
+---
+
+## Exercises
+
+1. Explain in your own words: Why is the causal mask the core constraint of Decoder-only?
+2. Think of a translation or summarization task, and explain why it is naturally suitable for Encoder-Decoder.
+3. If you were doing text classification, would you prioritize Encoder-only or Decoder-only? Why?
+4. Suppose you want to continue scaling up to a very large model, but your computation budget per step is limited. Why does MoE become attractive?

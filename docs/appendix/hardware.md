@@ -1,180 +1,180 @@
 ---
-title: "硬件与云资源指南"
+title: "Hardware and Cloud Resource Guide"
 sidebar_position: 2
 ---
 
-# 硬件与云资源指南
+# Hardware and Cloud Resource Guide
 
-![硬件与云资源决策树](/img/course/appendix-hardware-cloud-decision-tree.png)
+![Hardware and Cloud Resource Decision Tree](/img/course/appendix-hardware-cloud-decision-tree-en.png)
 
-![本地 云 API 三路线成本对比图](/img/course/appendix-hardware-local-cloud-api-cost-map.png)
+![Cost comparison chart for local, cloud, and API approaches](/img/course/appendix-hardware-local-cloud-api-cost-map-en.png)
 
-:::tip 读图提示
-硬件选择先看任务：学习基础、跑 Demo、训练模型和做应用的资源需求完全不同。读图时把本地电脑、云 GPU 和 API 路线放在一起比较，不要一开始就被“必须买显卡”绑架。
+:::tip Reading the charts
+When choosing hardware, start with the task: learning fundamentals, running demos, training models, and building applications all have very different resource needs. When reading the chart, compare your local computer, cloud GPU, and API options side by side, and don’t get trapped from the start by the idea that you “must buy a graphics card.”
 :::
 
-这页不是让你“堆配置”，而是帮你判断：在不同阶段，到底要不要买设备、什么时候租云更划算、什么配置是真的影响学习体验。
+This page is not about helping you “pile on specs.” It is here to help you decide: at different stages, should you buy hardware, when is renting cloud resources more cost-effective, and which specs actually improve the learning experience.
 
-## 先看结论
+## Start with the conclusion
 
-- 1～5 学习站基本不用 GPU。
-- 6 深度学习与 Transformer 基础、10 计算机视觉、11 自然语言处理可以先用云 GPU，不必急着买显卡。
-- 8 LLM 应用开发与 RAG、9 AI Agent 与智能体系统大量项目其实更依赖工程能力，不一定依赖本地大显卡。
-- 新人花钱优先级通常是：内存 > 硬盘 > 稳定环境 > GPU。
+- Learning stations 1–5 basically do not need a GPU.
+- 6 Deep Learning and Transformer fundamentals, 10 Computer Vision, and 11 Natural Language Processing can start with cloud GPUs; no need to rush into buying a graphics card.
+- 8 LLM Application Development and RAG, and 9 AI Agent and intelligent agent systems, involve many projects that actually rely more on engineering skills than on a powerful local GPU.
+- For beginners, the usual spending priority is: memory > storage > stable environment > GPU.
 
-## 1. 按阶段看硬件需求
+## 1. Hardware needs by stage
 
-| 学习站 | 常见任务 | 本地最低建议 | 更舒适配置 | 云端替代 |
+| Learning station | Common tasks | Minimum local recommendation | More comfortable setup | Cloud alternative |
 |---|---|---|---|---|
-| 1 开发者工具基础、2 Python 编程基础、3 数据分析与可视化 | Python、数据清洗、画图、Notebook | 8GB 内存 / 256GB SSD | 16GB / 512GB SSD | 不需要 |
-| 4 AI 数学最小必要基础、5 机器学习入门到实战 | 数学实验、传统机器学习 | 8GB 内存 | 16GB 内存 | 不需要 |
-| 6 深度学习与 Transformer 基础 | PyTorch、CNN、RNN、Transformer 基础 | 16GB 内存 | 16GB+ / 512GB SSD | Colab / 云 GPU |
-| 7 大模型原理、Prompt 与微调 | LLM 原理、Prompt 实验、微调概念实验 | 16GB 内存 | 32GB 内存更好 | 云 GPU 更现实 |
-| 8 LLM 应用开发与 RAG、9 AI Agent 与智能体系统 | RAG、Agent、应用开发 | 16GB 内存 | 16GB+ / 稳定网络 | CPU + API 就能做大部分项目 |
-| 10 计算机视觉、11 自然语言处理 | CV、NLP 实验 | 16GB 内存 | 16GB+ / 外接显示器更舒服 | Colab / AutoDL / 云服务器 |
-| 12 AIGC 与多模态 | 多模态试玩、项目拼装 | 16GB 内存 | 32GB 内存更顺 | 图像视频生成更适合云端 |
+| 1 Developer Tools Basics, 2 Python Programming Basics, 3 Data Analysis and Visualization | Python, data cleaning, charting, Notebook | 8GB RAM / 256GB SSD | 16GB / 512GB SSD | Not needed |
+| 4 Minimum Essential AI Math Basics, 5 Introduction to Machine Learning and Practice | Math experiments, traditional machine learning | 8GB RAM | 16GB RAM | Not needed |
+| 6 Deep Learning and Transformer Fundamentals | PyTorch, CNN, RNN, Transformer basics | 16GB RAM | 16GB+ / 512GB SSD | Colab / Cloud GPU |
+| 7 LLM Principles, Prompting, and Fine-Tuning | LLM principles, Prompt experiments, fine-tuning concept experiments | 16GB RAM | 32GB RAM is better | Cloud GPU is more realistic |
+| 8 LLM Application Development and RAG, 9 AI Agent and Intelligent Agent Systems | RAG, Agent, application development | 16GB RAM | 16GB+ / stable network | CPU + API is enough for most projects |
+| 10 Computer Vision, 11 Natural Language Processing | CV, NLP experiments | 16GB RAM | 16GB+ / external monitor is more comfortable | Colab / AutoDL / cloud server |
+| 12 AIGC and Multimodal | Multimodal trials, project assembly | 16GB RAM | 32GB RAM is smoother | Image and video generation is more suitable for the cloud |
 
-## 2. 三档设备方案
+## 2. Three hardware tiers
 
-### 2.1 够用档
+### 2.1 Enough-to-get-by tier
 
-适合人群：
+Suitable for:
 
-- 刚开始系统学习
-- 预算有限
-- 主要先跑教学示例和中小项目
+- People just starting systematic learning
+- Limited budgets
+- Mainly running teaching examples and small-to-medium projects
 
-建议：
+Recommendations:
 
-- 16GB 内存
+- 16GB RAM
 - 512GB SSD
-- 普通 CPU 笔记本或台式机
-- 需要 GPU 时临时用云
+- A regular CPU laptop or desktop
+- Use cloud resources temporarily when a GPU is needed
 
-### 2.2 舒适档
+### 2.2 Comfortable tier
 
-适合人群：
+Suitable for:
 
-- 会频繁跑本地实验
-- 同时开浏览器、IDE、Notebook、终端
-- 希望长时间学习体验稳定
+- Frequent local experiments
+- Running browser, IDE, Notebook, and terminal at the same time
+- Wanting a stable long-term learning experience
 
-建议：
+Recommendations:
 
-- 32GB 内存
+- 32GB RAM
 - 1TB SSD
-- 多核 CPU
-- 必要时配中端独显，或者继续以云 GPU 为主
+- Multi-core CPU
+- Add a mid-range discrete GPU if needed, or keep cloud GPU as the main option
 
-### 2.3 重度实验档
+### 2.3 Heavy experimentation tier
 
-适合人群：
+Suitable for:
 
-- 明确要做训练实验
-- 经常跑较大的视觉或深度学习任务
-- 需要本地快速迭代
+- People who are clearly going to do training experiments
+- Frequent large vision or deep learning tasks
+- Needing fast local iteration
 
-建议：
+Recommendations:
 
-- 32GB～64GB 内存
-- 1TB SSD 以上
-- 较新显卡
-- 但要提前想清楚：这是不是学习需要，还是“设备焦虑”
+- 32GB–64GB RAM
+- 1TB SSD or larger
+- A newer graphics card
+- But first ask yourself: is this really for learning, or just “device anxiety”?
 
-## 3. 对新人最值钱的配置，不一定是显卡
+## 3. For beginners, the most valuable specs are not necessarily the GPU
 
-很多人一开始最容易高估 GPU 的价值，低估内存和硬盘的重要性。
+Many people initially overestimate the value of the GPU and underestimate the importance of memory and storage.
 
-更影响体验的通常是：
+What usually affects the experience more is:
 
-1. 内存够不够  
-   浏览器、VS Code、Jupyter、终端一起开时，16GB 和 8GB 的差距非常明显。
+1. Enough memory
+   When the browser, VS Code, Jupyter, and terminal are open together, the difference between 16GB and 8GB is very noticeable.
 
-2. SSD 够不够  
-   数据集、模型缓存、虚拟环境都很占空间。硬盘太小会让你频繁清理，学习节奏容易被打断。
+2. Enough SSD storage
+   Datasets, model caches, and virtual environments all take up space. A too-small disk will force you to clean up constantly and can disrupt your learning rhythm.
 
-3. 环境稳定不稳定  
-   同样一台机器，如果环境混乱，你会把大量时间浪费在排错上。
+3. A stable environment
+   Even on the same machine, if the environment is messy, you can waste a lot of time debugging.
 
-4. 显示器和输入设备顺不顺手  
-   长时间看代码和文档，外接显示器、键盘和鼠标带来的提升很实在。
+4. Comfortable display and input devices
+   When you spend long hours reading code and docs, an external monitor, keyboard, and mouse make a real difference.
 
-## 4. 云资源怎么选更合理
+## 4. How to choose cloud resources more reasonably
 
-### 4.1 免费或低成本试玩
+### 4.1 Free or low-cost trial use
 
-适合：
+Suitable for:
 
-- 跑课程示例
-- 做小实验
-- 熟悉 GPU 训练流程
+- Running course examples
+- Doing small experiments
+- Getting familiar with the GPU training workflow
 
-特点：
+Features:
 
-- 上手快
-- 成本低
-- 不适合长期稳定训练
+- Quick to start
+- Low cost
+- Not suitable for long-term stable training
 
-### 4.2 按小时租用云 GPU
+### 4.2 Hourly cloud GPU rental
 
-适合：
+Suitable for:
 
-- 训练时间较长
-- 需要更稳定的显存和算力
-- 想控制成本，不想一次性买硬件
+- Long training times
+- Needing more stable VRAM and compute
+- Wanting to control costs without buying hardware upfront
 
-建议：
+Suggestions:
 
-- 先在小数据上跑通流程，再上云
-- 开机前准备好代码、数据和实验计划
-- 训练结束及时导出结果、关机止损
+- First get the workflow working on a small dataset, then move to the cloud
+- Prepare your code, data, and experiment plan before starting the machine
+- After training, export results promptly and shut down to stop the cost
 
-### 4.3 API 优先的应用路线
+### 4.3 API-first application route
 
-适合：
+Suitable for:
 
-- 做 RAG、Agent、智能助手
-- 更关注产品和工程，而不是自己训练底座模型
+- Building RAG, Agent, and intelligent assistant applications
+- Focusing more on product and engineering than on training a foundation model yourself
 
-这种路线通常不需要本地 GPU，重点在于：
+This route usually does not require a local GPU. The focus is on:
 
-- 接口封装
-- 日志和监控
-- 检索和工具调用
-- 用户体验和成本控制
+- API wrapping
+- Logging and monitoring
+- Retrieval and tool calling
+- User experience and cost control
 
-## 5. 什么时候值得考虑买本地 GPU？
+## 5. When is it worth buying a local GPU?
 
-只有当下面至少满足两条时，买本地 GPU 才更有意义：
+Only when at least two of the following are true does buying a local GPU make more sense:
 
-- 你已经确定会长期做训练实验
-- 你经常被云端排队和时长限制打断
-- 你对本地迭代速度有明确需求
-- 你已经知道自己主要跑哪些任务、需要多大显存
+- You are sure you will do training experiments for a long time
+- You are often interrupted by cloud queues and time limits
+- You have a clear need for faster local iteration
+- You already know which tasks you mainly run and how much VRAM you need
 
-如果你还停留在“也许以后会用到”，先别急着买。
+If you are still at the stage of “maybe I’ll need it later,” don’t rush to buy one.
 
-## 6. 常见误区
+## 6. Common misconceptions
 
-### 6.1 误区一：没有显卡就学不了 AI
+### 6.1 Misconception 1: You can’t learn AI without a graphics card
 
-这是最常见的误解。前半段很多能力和显卡无关，后半段大量应用工程项目也可以靠 API 和云资源完成。
+This is the most common misunderstanding. Many abilities in the early stages have nothing to do with a graphics card, and many application engineering projects in later stages can also be completed with APIs and cloud resources.
 
-### 6.2 误区二：先把设备买齐再开始
+### 6.2 Misconception 2: Buy all the gear first, then start learning
 
-学习最怕的不是设备普通，而是迟迟不开始。先用现有设备推进，遇到真实瓶颈再升级，通常更合理。
+What hurts learning most is not ordinary hardware; it is delaying the start. It is usually more reasonable to move forward with the hardware you already have and upgrade only when you hit a real bottleneck.
 
-### 6.3 误区三：为了显卡牺牲整体稳定性
+### 6.3 Misconception 3: Sacrificing overall stability for a graphics card
 
-如果你买了高配 GPU，但内存、硬盘、散热、系统稳定性都跟不上，实际体验可能并不好。
+If you buy a high-end GPU but the RAM, storage, cooling, and system stability can’t keep up, the actual experience may still be poor.
 
-## 7. 一份现实的购买建议
+## 7. A realistic buying recommendation
 
-如果你现在正准备开始，最稳的方案通常是：
+If you are getting ready to start now, the most stable plan is usually:
 
-- 先用现有电脑完成 1～5 学习站
-- 6 深度学习与 Transformer 基础、10 计算机视觉、11 自然语言处理按需租云 GPU
-- 8 LLM 应用开发与 RAG、9 AI Agent 与智能体系统优先做应用项目
-- 等你明确自己会长期做训练，再决定要不要升级本地硬件
+- Use your current computer to complete learning stations 1–5
+- Rent cloud GPUs as needed for 6 Deep Learning and Transformer Fundamentals, 10 Computer Vision, and 11 Natural Language Processing
+- Prioritize application projects for 8 LLM Application Development and RAG, and 9 AI Agent and Intelligent Agent Systems
+- Once you are sure you will be doing training for the long term, then decide whether to upgrade your local hardware
 
-这比一开始把预算全部砸在设备上更理性，也更适合长期学习。
+This is more rational than spending your whole budget on hardware from the start, and it is also better suited for long-term learning.

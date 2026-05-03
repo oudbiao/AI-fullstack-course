@@ -1,0 +1,54 @@
+{
+  "link.title.Course": {
+    "message": "课程",
+    "description": "The title of the footer links column with title=Course in the footer"
+  },
+  "link.title.Community": {
+    "message": "社区",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.Resources": {
+    "message": "资源",
+    "description": "The title of the footer links column with title=Resources in the footer"
+  },
+  "link.item.label.Course Overview": {
+    "message": "课程总览",
+    "description": "The label of footer link with label=Course Overview linking to /"
+  },
+  "link.item.label.Learning Path": {
+    "message": "学习路线",
+    "description": "The label of footer link with label=Learning Path linking to /intro/learning-path"
+  },
+  "link.item.label.Career Paths": {
+    "message": "职业方向",
+    "description": "The label of footer link with label=Career Paths linking to /intro/career-guide"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/oudbiao/AI-fullstack-course"
+  },
+  "link.item.label.Kaggle": {
+    "message": "Kaggle",
+    "description": "The label of footer link with label=Kaggle linking to https://www.kaggle.com/"
+  },
+  "link.item.label.Hugging Face": {
+    "message": "Hugging Face",
+    "description": "The label of footer link with label=Hugging Face linking to https://huggingface.co/"
+  },
+  "link.item.label.Learning Resources": {
+    "message": "学习资源",
+    "description": "The label of footer link with label=Learning Resources linking to /appendix/resources"
+  },
+  "link.item.label.Hardware Guide": {
+    "message": "硬件指南",
+    "description": "The label of footer link with label=Hardware Guide linking to /appendix/hardware"
+  },
+  "link.item.label.Job Preparation": {
+    "message": "求职准备",
+    "description": "The label of footer link with label=Job Preparation linking to /appendix/job-prep"
+  },
+  "copyright": {
+    "message": "Copyright © 2026 AI 全栈学习教程",
+    "description": "The footer copyright"
+  }
+}

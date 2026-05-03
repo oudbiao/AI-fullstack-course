@@ -1,50 +1,50 @@
 ---
-title: "课程编号约定"
-description: "说明源码目录 ch01-tools、ch02-python 等编号与网页展示第 1～12 章之间的对应关系，避免维护课程时混淆。"
-keywords: [课程编号, 章节目录, 章节编号, 课程维护]
+title: "Course Numbering Convention"
+description: "Explains the mapping between source directories like ch01-tools and ch02-python and the displayed chapters 1–12 on the website, so course maintenance stays consistent."
+keywords: [course numbering, chapter directory, chapter numbering, course maintenance]
 ---
 
-# 课程编号约定
+# Course Numbering Convention
 
-![展示章节号与源码目录对应地图](/img/course/appendix-course-numbering-map.png)
+![Map showing the correspondence between chapter numbers and source directories](/img/course/appendix-course-numbering-map-en.png)
 
-![课程维护命名一致性检查图](/img/course/appendix-course-numbering-maintenance-check.png)
+![Naming consistency check diagram for course maintenance](/img/course/appendix-course-numbering-maintenance-check-en.png)
 
-:::tip 读图提示
-维护课程时，网页标题、sidebar 顺序、源码目录和图片命名要互相对齐。读图时把“展示编号”和“文件路径”分开看，就不容易再出现 chxx 与中文章节号混用的问题。
+:::tip Reading tip
+When maintaining the course, keep the page title, sidebar order, source directories, and image names aligned with one another. When reading the diagram, separate the “display number” from the “file path” to avoid mixing up chxx with Chinese chapter numbers.
 :::
 
-课程网页面向学习者时，统一使用第 1～12 章的展示编号。源码目录也已经和展示章节号对齐：`ch01-*` 对应第 1 章，`ch02-*` 对应第 2 章，依此类推。
+When the course pages are shown to learners, use the display numbering from Chapter 1 to Chapter 12 consistently. The source directories are also aligned with the displayed chapter numbers: `ch01-*` corresponds to Chapter 1, `ch02-*` corresponds to Chapter 2, and so on.
 
-目录名后半段用于说明主题，例如 `ch05-machine-learning` 表示第 5 章机器学习，`ch09-agent` 表示第 9 章 AI Agent。侧边栏里的“主线 1～4”只是学习分组，不作为文件目录层级。
+The second half of each directory name is used to describe the topic. For example, `ch05-machine-learning` means Chapter 5, Machine Learning, and `ch09-agent` means Chapter 9, AI Agent. The “Tracks 1–4” in the sidebar are only learning groups and do not represent the file directory hierarchy.
 
-## 对应关系
+## Correspondence
 
-| 源码目录 | 网页展示章节 | 课程名称 |
+| Source directory | Displayed chapter on website | Course name |
 |---|---|---|
-| `docs/ch01-tools` | 第 1 章 | 开发者工具基础 |
-| `docs/ch02-python` | 第 2 章 | Python 编程基础 |
-| `docs/ch03-data-analysis` | 第 3 章 | 数据分析与可视化 |
-| `docs/ch04-ai-math` | 第 4 章 | AI 数学最小必要基础 |
-| `docs/ch05-machine-learning` | 第 5 章 | 机器学习入门到实战 |
-| `docs/ch06-deep-learning` | 第 6 章 | 深度学习与 Transformer 基础 |
-| `docs/ch07-llm-principles` | 第 7 章 | 大模型原理、Prompt 与微调 |
-| `docs/ch08-rag` | 第 8 章 | LLM 应用开发与 RAG |
-| `docs/ch09-agent` | 第 9 章 | AI Agent 与智能体系统 |
-| `docs/ch10-computer-vision` | 第 10 章 | 计算机视觉 |
-| `docs/ch11-nlp` | 第 11 章 | 自然语言处理 |
-| `docs/ch12-multimodal` | 第 12 章 | AIGC 与多模态 |
+| `docs/ch01-tools` | Chapter 1 | Developer Tools Basics |
+| `docs/ch02-python` | Chapter 2 | Python Programming Basics |
+| `docs/ch03-data-analysis` | Chapter 3 | Data Analysis and Visualization |
+| `docs/ch04-ai-math` | Chapter 4 | Minimum Essential AI Math Basics |
+| `docs/ch05-machine-learning` | Chapter 5 | Introduction to and Practice of Machine Learning |
+| `docs/ch06-deep-learning` | Chapter 6 | Deep Learning and Transformer Basics |
+| `docs/ch07-llm-principles` | Chapter 7 | LLM Principles, Prompt, and Fine-Tuning |
+| `docs/ch08-rag` | Chapter 8 | LLM Application Development and RAG |
+| `docs/ch09-agent` | Chapter 9 | AI Agent and Intelligent Agent Systems |
+| `docs/ch10-computer-vision` | Chapter 10 | Computer Vision |
+| `docs/ch11-nlp` | Chapter 11 | Natural Language Processing |
+| `docs/ch12-multimodal` | Chapter 12 | AIGC and Multimodality |
 
-## 写作规则
+## Writing rules
 
-在页面标题、导读、任务单、附录说明、图片进度记录中，优先使用网页展示章节号，例如“第 5 章机器学习”。
+In page titles, introductions, task sheets, appendix notes, and image progress records, prefer the displayed chapter number on the website, for example, “Chapter 5, Machine Learning.”
 
-在引用文件路径、代码脚本、图片文件名、内部链接时，使用 `ch05-machine-learning` 这类源码目录名。
+When referring to file paths, code scripts, image filenames, or internal links, use source directory names like `ch05-machine-learning`.
 
-不再新增旧式阶段目录或带字母后缀的阶段目录。新增章节、图片和脚本配置时，应优先沿用 `ch01-*` 到 `ch12-*` 的编号体系。
+Do not add old-style stage directories or stage directories with letter suffixes. When adding new chapters, images, or script configurations, prioritize the numbering system from `ch01-*` to `ch12-*`.
 
-如果一句话里必须同时出现两者，推荐写法是：
+If a sentence must include both, the recommended format is:
 
 ```text
-第 5 章机器学习（目录 docs/ch05-machine-learning）
+Chapter 5, Machine Learning (directory docs/ch05-machine-learning)
 ```

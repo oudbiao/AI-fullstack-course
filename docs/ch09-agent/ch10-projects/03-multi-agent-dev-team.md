@@ -1,60 +1,60 @@
 ---
-title: "10.4 项目：多 Agent 开发团队【选修】"
+title: "10.4 Project: Multi-Agent Development Team [Optional]"
 sidebar_position: 56
-description: "围绕 planner、coder、reviewer 和 tester 四类角色，建立一个多 Agent 开发团队项目的作品级最小闭环。"
+description: "Build a portfolio-level minimal closed loop for a multi-Agent development team project around four roles: planner, coder, reviewer, and tester."
 keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 ---
 
-# 项目：多 Agent 开发团队【选修】
+# Project: Multi-Agent Development Team [Optional]
 
-:::tip 本节定位
-多 Agent 开发团队项目很容易流于表演：
+:::tip Section focus
+Multi-Agent development team projects can easily turn into a performance:
 
-- 角色很多
-- 对话很多
-- 但结果并不稳定
+- Many roles
+- Many conversations
+- But unstable results
 
-所以真正有价值的，不是角色数量，而是：
+So what really matters is not the number of roles, but:
 
-> **任务有没有被稳定拆分、交接是否清楚、失败后能不能回退。**
+> **Can the task be split reliably, is the handoff clear, and can the system roll back after failure?**
 
-这节课会把一个“作品级最小闭环”讲出来。
+This lesson will walk through a “portfolio-level minimal closed loop.”
 :::
 
-## 学习目标
+## Learning objectives
 
-- 学会定义一个多 Agent 开发团队的最小角色集
-- 理解角色之间最关键的交接工件是什么
-- 建立一个可展示、可验证的多 Agent 项目骨架
-- 理解为什么协议和状态比“多说几轮话”更重要
+- Learn how to define a minimal role set for a multi-Agent development team
+- Understand the most important handoff artifacts between roles
+- Build a multi-Agent project skeleton that can be demonstrated and verified
+- Understand why protocols and state matter more than “more rounds of talking”
 
 ---
 
-## 一、最小角色集为什么通常就够了？
+## 1. Why is a minimal role set usually enough?
 
-一个很稳的最小闭环通常只需要：
+A very stable minimal closed loop usually only needs:
 
 - planner
 - coder
 - reviewer
 - tester
 
-这四类角色已经足够展示：
+These four roles are already enough to demonstrate:
 
-- 拆任务
-- 实现
-- 复审
-- 验证
+- Task decomposition
+- Implementation
+- Review
+- Verification
 
-如果一开始就把角色堆到很多，  
-系统很容易看起来很忙，但其实在空转。
+If you add too many roles at the start,
+the system can easily look busy while actually spinning in place.
 
 ---
 
-## 二、先跑一个角色工件交接示例
+## 2. First, run a role artifact handoff example
 
-这个例子不会真的改代码，  
-但它会把最关键的“交接工件”结构跑出来。
+This example does not actually modify code,
+but it will show the structure of the most important “handoff artifacts.”
 
 ```python
 from dataclasses import dataclass
@@ -86,19 +86,19 @@ class TestReport:
 
 
 plan = TaskPlan(
-    goal="修复退款页面金额显示错误",
+    goal="Fix the incorrect amount display on the refund page",
     files_to_change=["refund.py", "test_refund.py"],
-    acceptance_test="输入 100 元和 8 折，结果应为 80 元",
+    acceptance_test="Given 100 yuan and 20% off, the result should be 80 yuan",
 )
 
 patch = Patch(
-    summary="修复折扣计算逻辑，并补充测试",
+    summary="Fix the discount calculation logic and add tests",
     changed_files=["refund.py", "test_refund.py"],
 )
 
 review = ReviewNote(
     approved=False,
-    issues=["变量命名不清晰", "边界条件测试不完整"],
+    issues=["Unclear variable naming", "Incomplete edge case tests"],
 )
 
 test_report = TestReport(
@@ -112,45 +112,45 @@ print(review)
 print(test_report)
 ```
 
-### 2.1 这个例子最关键的地方是什么？
+### 2.1 What is the most important part of this example?
 
-它说明多 Agent 项目真正应该展示的，不是纯聊天记录，  
-而是：
+It shows that what a multi-Agent project should really demonstrate is not plain chat logs,
+but:
 
-- 交接工件
-- 任务状态
-- 结果验证
+- Handoff artifacts
+- Task status
+- Result verification
 
-### 2.2 为什么工件比对话更重要？
+### 2.2 Why are artifacts more important than conversation?
 
-因为工件才是后续角色真正依赖的输入。  
-如果只看对话，很难判断系统是不是能稳定协作。
+Because artifacts are the inputs that later roles actually depend on.
+If you only look at conversation, it is hard to tell whether the system can collaborate reliably.
 
 ---
 
-## 三、一个最小工作流闭环
+## 3. A minimal workflow loop
 
-下面把四个角色串成一条最小流程：
+Now connect the four roles into a minimal flow:
 
 ```python
 def planner(goal):
     return TaskPlan(
         goal=goal,
         files_to_change=["refund.py", "test_refund.py"],
-        acceptance_test="输入 100 元和 8 折，结果应为 80 元",
+        acceptance_test="Given 100 yuan and 20% off, the result should be 80 yuan",
     )
 
 
 def coder(plan):
     return Patch(
-        summary=f"根据任务目标实现: {plan.goal}",
+        summary=f"Implement according to the task goal: {plan.goal}",
         changed_files=plan.files_to_change,
     )
 
 
 def reviewer(patch):
     if "test_refund.py" not in patch.changed_files:
-        return ReviewNote(approved=False, issues=["缺少测试文件改动"])
+        return ReviewNote(approved=False, issues=["Missing test file changes"])
     return ReviewNote(approved=True, issues=[])
 
 
@@ -160,7 +160,7 @@ def tester(review_note):
     return TestReport(passed=True, cases=["test_discount_basic", "test_discount_zero"])
 
 
-goal = "修复退款页面金额显示错误"
+goal = "Fix the incorrect amount display on the refund page"
 plan = planner(goal)
 patch = coder(plan)
 review = reviewer(patch)
@@ -172,105 +172,105 @@ print(review)
 print(test_report)
 ```
 
-### 3.1 为什么这个闭环已经很像真实项目？
+### 3.1 Why does this loop already feel like a real project?
 
-因为它体现了多 Agent 项目最关键的 3 个点：
+Because it captures the three most important things in a multi-Agent project:
 
-1. 角色分工
-2. 明确工件交接
-3. 基于评审与测试的回路
+1. Role division of labor
+2. Clear artifact handoffs
+3. A review-and-test feedback loop
 
-### 3.2 如果 reviewer 不通过，为什么 tester 就不该继续？
+### 3.2 If reviewer does not approve, why should tester not continue?
 
-这说明多 Agent 系统不是“人人都并行做自己的”，  
-而是要尊重：
+This shows that a multi-Agent system is not “everyone works in parallel on their own,”
+but must respect:
 
-- 阶段依赖
-- 交接质量
+- Stage dependencies
+- Handoff quality
 
-![多 Agent 开发团队交付闭环图](/img/course/ch09-multi-agent-dev-team-delivery-map.png)
+![Multi-Agent development team delivery closed loop diagram](/img/course/ch09-multi-agent-dev-team-delivery-map-en.png)
 
-:::tip 读图提示
-这张图强调“角色数量不是重点，工件交接才是重点”：planner 产出 plan，coder 产出 patch，reviewer 产出 issue，tester 产出 test report，失败后回到对应角色修复。
+:::tip Reading guide
+This diagram emphasizes that “the number of roles is not the point; artifact handoff is the point”: planner produces the plan, coder produces the patch, reviewer produces issues, tester produces the test report, and after failure the system returns to the corresponding role for fixes.
 :::
 
 ---
 
-## 四、作品级项目最该展示什么？
+## 4. What should a portfolio-level project show?
 
-### 4.1 一条完整任务 trace
+### 4.1 A complete task trace
 
-例如：
+For example:
 
-- 任务目标
+- Task goal
 - plan
 - patch
 - review issues
 - test report
 
-### 4.2 一次失败回退
+### 4.2 One failure rollback
 
-这会非常有说服力。  
-例如：
+This is very convincing.
+For example:
 
-- reviewer 打回
-- coder 二次修复
-- tester 重新验证
+- reviewer rejects the patch
+- coder fixes it a second time
+- tester verifies again
 
-### 4.3 清楚的角色边界
+### 4.3 Clear role boundaries
 
-作品集里要能回答：
+Your portfolio should be able to answer:
 
-- 为什么要这 4 个角色
-- 每个角色输入和输出是什么
-
----
-
-## 五、最容易踩的坑
-
-### 5.1 角色很多但边界不清
-
-这会让系统看起来复杂，  
-实际上只是重复劳动。
-
-### 5.2 没有共享状态或统一工件格式
-
-这样角色之间很难稳定交接。
-
-### 5.3 只展示成功路径
-
-一个好的多 Agent 项目更该展示：
-
-- 失败后如何回退
-- 哪一步最容易出问题
+- Why do we need these 4 roles?
+- What are the input and output of each role?
 
 ---
 
-## 小结
+## 5. The most common pitfalls
 
-这节最重要的是建立一个作品级判断：
+### 5.1 Many roles, but unclear boundaries
 
-> **多 Agent 开发团队项目真正有价值的地方，不是角色越多越炫，而是能否把任务拆解、工件交接和失败回退组织成稳定闭环。**
+This makes the system look complex,
+but in reality it is just duplicate work.
 
-只要这条闭环立住，这个项目会非常适合展示你对多 Agent 系统的真正理解。
+### 5.2 No shared state or unified artifact format
+
+This makes it hard for roles to hand off work reliably.
+
+### 5.3 Only showing the success path
+
+A good multi-Agent project should also show:
+
+- How rollback happens after failure
+- Which step is most likely to go wrong
+
+---
+
+## Summary
+
+The most important thing in this lesson is to establish a portfolio-level judgment:
+
+> **The real value of a multi-Agent development team project is not having more and more roles, but whether task decomposition, artifact handoff, and failure rollback can be organized into a stable closed loop.**
+
+Once this loop is in place, the project becomes a very good way to demonstrate your true understanding of multi-Agent systems.
 
 ---
 
 
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic | Get the minimal closed loop working | Can input, process, and output, while keeping a set of examples |
+| Standard | Become a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not pursue something huge and complete from the start. With every version upgrade, write into the README: “What new capability was added, how was it verified, and what problems remain.”
 
-## 练习
+## Exercises
 
-1. 给工作流加一个 `ops_agent`，思考它应该接在哪一步。
-2. 想一想：为什么多 Agent 项目里“统一工件格式”比“角色会聊天”更重要？
-3. 如果 reviewer 经常打回 patch，应该优先优化哪一层？
-4. 如果把这个项目做成 demo 页面，你最想展示哪一条完整 trace？
+1. Add an `ops_agent` to the workflow and think about where it should be inserted.
+2. Think about why “a unified artifact format” is more important than “roles that can chat” in a multi-Agent project.
+3. If reviewer frequently rejects patches, which layer should you optimize first?
+4. If you turn this project into a demo page, which complete trace would you most want to show?

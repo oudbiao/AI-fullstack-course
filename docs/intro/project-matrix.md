@@ -1,61 +1,61 @@
 ---
 sidebar_position: 12
-title: "全课程项目矩阵"
-description: "用一张矩阵看清每个阶段的最小项目、标准项目、挑战项目和作品集证据。"
-keywords: [AI项目矩阵, 作品集, 阶段项目, AI全栈项目]
+title: "Full-Course Project Matrix"
+description: "See the minimum project, standard project, challenge project, and portfolio evidence for each stage at a glance in one matrix."
+keywords: [AI project matrix, portfolio, stage projects, AI full-stack project]
 ---
 
-# 全课程项目矩阵
+# Full-Course Project Matrix
 
-这张表帮助你把课程从“章节列表”变成“作品路线”。每个阶段都至少保留一个可运行成果，最后你会得到一组能展示成长过程的项目证据。
+This table helps you turn the course from a “list of chapters” into a “project roadmap.” At each stage, keep at least one runnable result, and by the end you will have a set of project artifacts that show your growth.
 
-## 先看图：每个项目分三档
+## First, look at the diagram: each project has three tiers
 
 ```mermaid
 flowchart LR
-  A["最小项目：能跑"] --> B["标准项目：能解释"]
-  B --> C["挑战项目：能扩展"]
-  C --> D["作品集证据：能展示"]
+  A["Minimum project: runs"] --> B["Standard project: can explain"]
+  B --> C["Challenge project: can extend"]
+  C --> D["Portfolio evidence: can showcase"]
 ```
 
-第一遍只做“最小项目”也可以继续往后走。准备作品集时，再把关键项目升级到“标准项目”或“挑战项目”。
+It is fine to start by doing only the “minimum project” in the first pass. When you prepare your portfolio, upgrade key projects to the “standard project” or “challenge project” tier.
 
-| 学习站 | 最小项目 | 标准项目 | 挑战项目 | 作品集证据 |
+| Learning stage | Minimum project | Standard project | Challenge project | Portfolio evidence |
 |---|---|---|---|---|
-| 1 开发者工具基础 | 建仓库并跑通 Python | 配好 Git、VS Code、Jupyter | 写环境搭建脚本 | README、截图、提交记录 |
-| 2 Python 编程基础 | 命令行任务管理器 | 支持 JSON 保存和模块拆分 | 加 Web API 或 AI API 调用 | 运行命令、示例输入输出 |
-| 3 数据分析与可视化 | 单 CSV EDA | 多数据源分析报告 | 加数据库和交互图表 | 图表、结论、数据清洗记录 |
-| 4 AI 数学基础 | 用向量和概率解释数据 | 梯度下降可视化小实验 | 反向传播直觉演示 | 公式解释、图示、实验记录 |
-| 5 机器学习 | 房价或分类 baseline | 完整 sklearn pipeline | 特征工程和模型对比 | 指标、baseline、错误分析 |
-| 6 深度学习与 Transformer | PyTorch 训练循环 | 图像或文本分类项目 | 训练诊断与迁移学习 | 曲线、混淆矩阵、失败样本 |
-| 7 大模型原理与 Prompt | Prompt 模板集 | 学习计划/复盘卡生成器 | 行为对比评估表 | Prompt 版本、输出对比 |
-| 8 LLM 应用与 RAG | Markdown 检索问答 | 课程知识库助手 | Rerank、评估集、引用检查 | 问题集、来源引用、评估结果 |
-| 9 AI Agent | 工具调用小 Agent | 学习规划 Agent | 加记忆、MCP、trace 和安全边界 | 执行轨迹、工具日志、回放样本 |
-| 10 计算机视觉 | 图像分类或 OCR 实验 | 目标检测/视觉理解项目 | 行业视觉检测 Demo | 标注样例、指标、可视化结果 |
-| 11 自然语言处理 | 文本分类或关键词抽取 | 评论理解/信息抽取项目 | 领域文本分析系统 | 标签体系、指标、错误样本 |
-| 12 AIGC 与多模态 | 图片/语音/视频小实验 | 多模态内容工作流 | 可审核的创意平台 Demo | 素材、生成记录、人工审核标准 |
+| 1 Developer Tools Basics | Create a repo and get Python running | Set up Git, VS Code, and Jupyter properly | Write an environment setup script | README, screenshots, commit history |
+| 2 Python Programming Basics | Command-line task manager | Support JSON saving and module splitting | Add a Web API or AI API call | Run commands, sample input/output |
+| 3 Data Analysis and Visualization | EDA on a single CSV | Analysis report from multiple data sources | Add a database and interactive charts | Charts, conclusions, data cleaning notes |
+| 4 AI Math Basics | Explain data with vectors and probability | Small gradient descent visualization experiment | Intuitive backpropagation demo | Formula explanations, diagrams, experiment logs |
+| 5 Machine Learning | House price or classification baseline | Complete sklearn pipeline | Feature engineering and model comparison | Metrics, baseline, error analysis |
+| 6 Deep Learning and Transformer | PyTorch training loop | Image or text classification project | Training diagnostics and transfer learning | Curves, confusion matrix, failed samples |
+| 7 LLM Principles and Prompt | Prompt template set | Study plan / review card generator | Behavior comparison evaluation table | Prompt versions, output comparison |
+| 8 LLM Applications and RAG | Markdown retrieval QA | Course knowledge base assistant | Rerank, evaluation set, citation checks | Question set, source citations, evaluation results |
+| 9 AI Agent | Small tool-calling Agent | Study planning Agent | Add memory, MCP, trace, and safety boundaries | Execution trace, tool logs, replay samples |
+| 10 Computer Vision | Image classification or OCR experiment | Object detection / visual understanding project | Industry visual inspection demo | Annotation samples, metrics, visualization results |
+| 11 Natural Language Processing | Text classification or keyword extraction | Comment understanding / information extraction project | Domain text analysis system | Label system, metrics, error samples |
+| 12 AIGC and Multimodal | Small image / audio / video experiment | Multimodal content workflow | Reviewable creative platform demo | Assets, generation logs, human review criteria |
 
-## 怎么使用这张矩阵
+## How to use this matrix
 
-如果你时间有限，每个阶段只完成最小项目也可以继续往后走。如果你想做作品集，建议至少在机器学习、RAG、Agent、多模态阶段完成标准项目，并把 README 写完整。
+If you are short on time, finishing only the minimum project for each stage is enough to keep moving forward. If you want to build a portfolio, it is recommended to complete at least the standard project in the machine learning, RAG, Agent, and multimodal stages, and to write a complete README.
 
-不要把挑战项目当成必做项。它们更适合在你已经跑通主线后，用来把作品从“学习练习”升级成“可展示项目”。
+Do not treat the challenge projects as required tasks. They are better suited for after you have already finished the main path, and can be used to upgrade your work from “learning exercise” to “showcase project.”
 
-## 项目证据分层
+## Project evidence tiers
 
-同一个项目可以分三次交付，不需要一开始就做到完整产品。第一次先交最小闭环，证明它能运行；第二次补工程证据，证明它能复现和排查；第三次补展示材料，证明它能放进作品集或面试。
+The same project can be delivered in three rounds. You do not need to build a complete product from the start. In the first round, submit the minimum closed loop to prove it runs; in the second round, add engineering evidence to prove it can be reproduced and debugged; in the third round, add presentation materials to prove it can go into a portfolio or interview.
 
-| 证据层 | 要回答的问题 | 常见文件 |
+| Evidence tier | Question to answer | Common files |
 |---|---|---|
-| 最小闭环 | 这个项目能不能跑起来 | `README.md`、运行命令、示例输入输出 |
-| 工程闭环 | 出错时能不能定位和复现 | 配置文件、日志、测试样例、失败样本 |
-| 作品闭环 | 别人能不能看懂价值和取舍 | 架构图、评估报告、截图/GIF、复盘记录 |
+| Minimum closed loop | Can this project run? | `README.md`, run commands, sample input/output |
+| Engineering closed loop | Can errors be located and reproduced? | Config files, logs, test samples, failed samples |
+| Portfolio closed loop | Can others understand the value and trade-offs? | Architecture diagram, evaluation report, screenshots/GIFs, retrospective notes |
 
-越到课程后半段，项目证据越应该从“能跑”转向“能解释、能评估、能复盘”。RAG 和 Agent 项目尤其要保留中间过程，而不是只保留最终答案。
+As you move into the second half of the course, project evidence should shift from “it runs” to “it can be explained, evaluated, and reviewed.” RAG and Agent projects especially should keep intermediate process artifacts, not just the final answer.
 
-## 推荐仓库组织方式
+## Recommended repository organization
 
-如果你想把整套课程整理成一个长期作品集，可以把每个阶段项目放在同一个总仓库里，也可以每个成熟项目单独建仓。无论哪种方式，建议保持统一结构。
+If you want to organize the entire course into a long-term portfolio, you can place each stage project in the same monorepo, or create a separate repo for each mature project. Either way, it is recommended to keep a consistent structure.
 
 ```text
 ai-fullstack-portfolio/
@@ -67,4 +67,4 @@ ai-fullstack-portfolio/
 └── final-ai-app/
 ```
 
-每个项目目录至少包含 README、源码、示例数据或输入、结果截图或输出、失败样本和下一步计划。这样做的好处是，学完整门课后你不是只有一堆练习文件，而是有一条清晰的成长证据链。
+Each project folder should include at least a README, source code, sample data or inputs, result screenshots or outputs, failed samples, and a next-step plan. The benefit is that after finishing the course, you will not just have a pile of exercise files—you will have a clear chain of evidence showing your growth.

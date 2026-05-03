@@ -1,112 +1,112 @@
 ---
-title: "1.4 文本表示方法"
+title: "1.4 Text Representation Methods"
 sidebar_position: 3
-description: "从 one-hot、词袋、TF-IDF 到相似度计算，理解文本为什么必须先数值化，以及不同表示方式各自适合什么任务。"
+description: "From one-hot, bag of words, and TF-IDF to similarity computation, understand why text must be converted to numbers first, and what tasks each representation is best suited for."
 keywords: [text representation, one-hot, bag of words, tf-idf, cosine similarity, embedding]
 ---
 
-# 文本表示方法
+# Text Representation Methods
 
-![BoW 与 TF-IDF 文本表示图](/img/course/bow-tfidf-representation.png)
+![BoW and TF-IDF text representation diagram](/img/course/bow-tfidf-representation-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解为什么文本必须先表示成数字
-- 掌握 one-hot、词袋模型、TF-IDF 的基本思路
-- 写出一个简单的文本向量化示例
-- 理解传统表示法和 embedding 的差异
-
----
-
-## 这节和前面文本基础主线是怎么接上的
-
-如果你刚看完 NLP 任务地图和预处理，这一节最自然的续接就是：
-
-- 前面已经知道文本要先被切分、清洗、整理
-- 这一节开始解决“整理完以后，怎样把文本变成模型能算的数字”
-
-所以这节真正重要的不是几个向量化方法名，而是：
-
-- 表示一旦变了，后面整个任务主线都会跟着变
-
-## 一、为什么文本必须先数值化？
-
-模型不能直接理解“退款规则”或“我喜欢这门课”这类文字本身。  
-它只能处理数字。
-
-所以 NLP 里有一个绕不过去的步骤：
-
-> **把文本变成向量。**
-
-这个过程叫：
-
-- 文本表示
-- 或向量化
-
-### 1.1 第一次学 NLP 表示，最该先抓住什么？
-
-最该先抓住的不是 `one-hot / BoW / TF-IDF` 名字，而是这句：
-
-> **模型最终吃的是数字，而表示方式决定了模型到底能不能看见有用的信息。**
-
-一旦这句稳了，后面你看每种表示法时都会自然多问一句：
-
-- 它到底保留了什么？
-- 又丢掉了什么？
+- Understand why text must first be represented as numbers
+- Master the basic ideas behind one-hot, bag of words, and TF-IDF
+- Write a simple text vectorization example
+- Understand the differences between traditional representations and embedding
 
 ---
 
-## 二、one-hot：最朴素的表示
+## How this section connects to the earlier text fundamentals track
 
-假设词表只有 4 个词：
+If you just finished the NLP task map and preprocessing, the most natural next step is this:
+
+- Earlier, you learned that text must first be tokenized, cleaned, and organized
+- This section starts solving the next question: after organizing it, how do we turn text into numbers that models can work with?
+
+So what really matters in this section is not the names of several vectorization methods, but this:
+
+- Once the representation changes, the entire task pipeline that follows changes too
+
+## 1. Why must text be converted to numbers?
+
+Models cannot directly understand the text itself, such as “refund policy” or “I like this course.”
+They can only process numbers.
+
+So in NLP there is one unavoidable step:
+
+> **Convert text into vectors.**
+
+This process is called:
+
+- text representation
+- or vectorization
+
+### 1.1 When learning NLP representations for the first time, what should you focus on first?
+
+What you should focus on first is not the names `one-hot / BoW / TF-IDF`, but this sentence:
+
+> **The model ultimately consumes numbers, and the representation method determines whether the model can actually see useful information.**
+
+Once this idea is solid, when you look at each representation method, you will naturally ask:
+
+- What does it preserve?
+- What does it lose?
+
+---
+
+## 2. one-hot: the most basic representation
+
+Suppose the vocabulary has only 4 words:
 
 ```python
 ["i", "love", "nlp", "python"]
 ```
 
-那每个词都可以用一个只有一个位置为 1 的向量表示：
+Then each word can be represented by a vector with a single 1:
 
 - `i` -> `[1, 0, 0, 0]`
 - `love` -> `[0, 1, 0, 0]`
 - `nlp` -> `[0, 0, 1, 0]`
 - `python` -> `[0, 0, 0, 1]`
 
-### one-hot 的优点
+### Advantages of one-hot
 
-- 简单
-- 明确
+- Simple
+- Explicit
 
-### one-hot 的局限
+### Limitations of one-hot
 
-- 维度会很高
-- 词和词之间没有语义关系
+- The dimensionality becomes very high
+- There is no semantic relationship between words
 
-例如 `love` 和 `like` 在 one-hot 空间里并不会更接近。
+For example, `love` and `like` are not any closer in one-hot space.
 
-### 2.1 one-hot 最值得先记住的，不是“简单”，而是“只会区分身份”
+### 2.1 What is the most important thing to remember about one-hot, beyond “simple”?
 
-也就是说：
+It is this:
 
-- 它能告诉模型“这是不是同一个词”
-- 但几乎不告诉模型“这些词彼此关系怎样”
+- It can tell the model whether two tokens are the same word
+- But it tells the model almost nothing about how words relate to one another
 
-这也是后面为什么会自然走向：
+This is also why we naturally move on to:
 
-- 词袋
+- bag of words
 - TF-IDF
 - embedding
 
 ---
 
-## 三、词袋模型（Bag of Words）
+## 3. Bag of Words (BoW)
 
-词袋模型的核心思想很直接：
+The core idea of bag of words is very straightforward:
 
-> **不看词序，只看每个词出现了多少次。**
+> **Ignore word order and only count how many times each word appears.**
 
-下面给一个最小示例。
+Here is a minimal example.
 
 ```python
 from collections import Counter
@@ -130,59 +130,59 @@ def to_bow_vector(tokens):
     return vector
 
 
-print("词表:", vocab)
+print("Vocabulary:", vocab)
 for doc, tokens in zip(docs, tokenized_docs):
     print(doc, "->", to_bow_vector(tokens))
 ```
 
-### 这个表示法的直觉是什么？
+### What is the intuition behind this representation?
 
-它把句子变成了：
+It turns a sentence into:
 
-- 一个固定长度的数字向量
+- a fixed-length numeric vector
 
-这样后面分类器就能处理。
+That way, downstream classifiers can process it.
 
-### 它的局限是什么？
+### What is its limitation?
 
-它不看顺序。  
-例如：
+It ignores order.
+For example:
 
-- “狗咬人”
-- “人咬狗”
+- “dog bites man”
+- “man bites dog”
 
-在词袋表示里可能非常接近，但含义完全不同。
+These may look very similar in bag-of-words representation, but their meanings are completely different.
 
-### 3.1 为什么词袋虽然“粗”，却依然很重要？
+### 3.1 Why is bag of words still important, even though it is “rough”?
 
-因为它第一次帮你建立了一件很重要的感觉：
+Because it helps you build an important first intuition:
 
-- 文本可以先变成固定长度向量
-- 然后就能交给传统模型去做分类、检索和聚类
+- Text can first be converted into a fixed-length vector
+- Then it can be handed to traditional models for classification, retrieval, and clustering
 
-所以词袋模型的教学价值很高，它让你第一次真正看到“文本进模型”的最小入口。
+So the teaching value of bag of words is very high. It gives you the first real minimal entry point for seeing how text goes into a model.
 
 ---
 
-## 四、TF-IDF：让更有区分度的词权重更高
+## 4. TF-IDF: give higher weight to more discriminative words
 
-词袋只管计数，  
-但很多高频词并没有太强区分力。
+Bag of words only counts occurrences,
+but many high-frequency words do not provide much discriminative power.
 
-例如在英文里：
+For example in English:
 
 - the
 - is
 - and
 
-于是 TF-IDF 的思路就是：
+So the idea behind TF-IDF is:
 
-- 当前文档里出现得多的词更重要
-- 但如果这个词在所有文档里都很常见，它的重要性要打折
+- Words that appear frequently in the current document are more important
+- But if a word is very common across all documents, its importance should be discounted
 
 ---
 
-## 五、一个纯 Python 的简单 TF-IDF 示例
+## 5. A simple pure Python TF-IDF example
 
 ```python
 import math
@@ -220,39 +220,39 @@ def to_tfidf(tokens, vocab, idf):
     return vector
 
 
-print("词表:", vocab)
+print("Vocabulary:", vocab)
 for doc, tokens in zip(docs, tokenized_docs):
     print(doc)
     print(to_tfidf(tokens, vocab, idf))
 ```
 
-### TF-IDF 最重要的直觉
+### The most important intuition behind TF-IDF
 
-它会压低“到处都常见”的词，  
-放大“在当前文本里特别有代表性”的词。
+It lowers the weight of words that are common everywhere,
+and boosts the weight of words that are especially representative in the current text.
 
-### 5.1 第一次学 TF-IDF，最值得先问什么？
+### 5.1 When learning TF-IDF for the first time, what is the most important question to ask?
 
-最值得先问的是：
+The most important question is:
 
-- 哪些词只是常见噪声？
-- 哪些词对当前文本更有区分力？
+- Which words are just common noise?
+- Which words are more discriminative for the current text?
 
-这样你就会更容易理解，TF-IDF 真正做的不是“更复杂计数”，而是在做：
+Once you think this way, it becomes much easier to understand that TF-IDF is not just “more complicated counting,” but rather:
 
-- 区分度加权
+- discriminative weighting
 
 ---
 
-## 六、向量化之后，文本就能比较相似度
+## 6. After vectorization, text can be compared by similarity
 
-最常见的是：
+The most common method is:
 
-- 余弦相似度
+- cosine similarity
 
-可以先简单理解成：
+You can think of it simply as:
 
-> 两个向量朝向有多接近。
+> How similar the directions of two vectors are.
 
 ```python
 import math
@@ -290,101 +290,101 @@ vec1 = to_bow(tokenized_docs[0])
 vec2 = to_bow(tokenized_docs[1])
 vec3 = to_bow(tokenized_docs[2])
 
-print("句子1 vs 句子2:", round(cosine_similarity(vec1, vec2), 4))
-print("句子1 vs 句子3:", round(cosine_similarity(vec1, vec3), 4))
+print("Sentence 1 vs Sentence 2:", round(cosine_similarity(vec1, vec2), 4))
+print("Sentence 1 vs Sentence 3:", round(cosine_similarity(vec1, vec3), 4))
 ```
 
-这个例子通常会得到：
+This example will usually show:
 
-- `i love python` 和 `i love coding` 更近
-- 与 `weather is sunny` 更远
+- `i love python` and `i love coding` are closer
+- both are farther from `weather is sunny`
 
 ---
 
-## 七、传统表示法和 embedding 的区别是什么？
+## 7. What is the difference between traditional representations and embedding?
 
-### 传统表示法
+### Traditional representations
 
-例如：
+For example:
 
 - one-hot
 - BoW
 - TF-IDF
 
-优点：
+Advantages:
 
-- 简单
-- 可解释
+- Simple
+- Interpretable
 
-局限：
+Limitations:
 
-- 语义表达能力有限
-- 对上下文不敏感
+- Limited semantic expressiveness
+- Not sensitive to context
 
-### 7.1 为什么这一节最后一定要把 embedding 拉进来？
+### 7.1 Why do we have to bring embedding in at the end of this section?
 
-因为这正是 11 自然语言处理（方向选修）主线真正开始抬升的地方：
+Because this is exactly where the main track of Chapter 11 Natural Language Processing truly starts to rise:
 
-- 传统表示法更像“统计出现”
-- embedding 开始真正进入“语义空间”
+- Traditional representations are more like “counting occurrences”
+- Embedding begins to move into the “semantic space”
 
-所以这一节其实是在给后面表示学习一章做桥：
+So this section is actually building a bridge for the later chapter on representation learning:
 
-- 先让你看清传统表示的价值
-- 再让你自然意识到它们为什么会不够
+- First, let you clearly see the value of traditional representations
+- Then, naturally help you realize why they are not enough
 
 ### Embedding
 
-embedding 的核心目标是：
+The core goal of embedding is:
 
-- 让语义相近的词在向量空间里也更接近
+- Make semantically similar words closer together in vector space
 
-所以后面我们才会继续学：
+That is why later we will continue learning:
 
-- 词嵌入
-- 上下文表示
-
----
-
-## 八、最常见误区
-
-### 1. 误区一：one-hot 太简单，所以没必要学
-
-它很重要，因为它帮你理解“文本必须先数值化”这件事。
-
-### 2. 误区二：TF-IDF 一定过时
-
-在很多传统文本分类和检索基线里，它依然很有价值。
-
-### 3. 误区三：有了向量就等于理解语义
-
-向量化只是开始。  
-后面还要看：
-
-- 语义表示质量
-- 上下文建模
+- word embeddings
+- contextual representations
 
 ---
 
-## 小结
+## 8. Common misconceptions
 
-文本表示这一节最重要的是建立一个非常基础但非常关键的判断：
+### 1. Misconception 1: one-hot is too simple, so there is no need to learn it
 
-> **机器不能直接读文本，所以 NLP 必须先把文本变成数字表示；不同表示法的差异，决定了模型后面能利用到多少信息。**
+It is very important, because it helps you understand the idea that “text must first be converted into numbers.”
 
-这也是为什么从 one-hot、BoW、TF-IDF，一路走向 embedding 和语言模型，实际上是一条非常自然的演进线。
+### 2. Misconception 2: TF-IDF is definitely outdated
 
-## 这节最该带走什么
+In many traditional text classification and retrieval baselines, it is still very valuable.
 
-- 表示方法不是小技巧，而是 NLP 的入口层
-- one-hot / BoW / TF-IDF 是从“身份”到“统计区分度”的演进
-- embedding 会成为后面真正进入语义表示和预训练主线的转折点
+### 3. Misconception 3: once you have vectors, you understand semantics
+
+Vectorization is only the beginning.
+After that, you still need to look at:
+
+- the quality of semantic representation
+- context modeling
 
 ---
 
-## 练习
+## Summary
 
-1. 自己给 `docs` 再加 2 句文本，重新观察 BoW 和 TF-IDF 向量。
-2. 为什么词袋模型会忽略语序？
-3. 用自己的话解释：TF-IDF 为什么会压低过于常见的词？
-4. 想一想：如果任务特别依赖词序，仅靠 BoW 或 TF-IDF 会遇到什么问题？
+The most important thing in this section on text representation is to build a very basic but crucial judgment:
+
+> **Machines cannot read text directly, so NLP must first convert text into numerical representations; the differences between representation methods determine how much information the model can use later.**
+
+This is also why the path from one-hot, BoW, and TF-IDF all the way to embedding and language models is actually a very natural evolution.
+
+## What you should take away from this section
+
+- Representation methods are not small tricks, but the entry layer of NLP
+- one-hot / BoW / TF-IDF evolve from “identity” to “statistical discriminative power”
+- embedding will become the turning point that truly leads into semantic representation and the pretraining track later on
+
+---
+
+## Exercises
+
+1. Add 2 more sentences to `docs` yourself, and observe the BoW and TF-IDF vectors again.
+2. Why does the bag-of-words model ignore word order?
+3. Explain in your own words: why does TF-IDF lower the weight of overly common words?
+4. Think about it: if a task depends heavily on word order, what problems would you encounter using only BoW or TF-IDF?

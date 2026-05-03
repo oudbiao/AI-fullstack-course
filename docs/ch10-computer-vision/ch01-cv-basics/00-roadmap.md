@@ -1,76 +1,77 @@
 ---
-title: "1.1 学前导读：视觉基础这一章到底在学什么"
+title: "1.1 Pre-study Guide: What Is This Vision Basics Chapter Really About?"
 sidebar_position: 0
-description: "先建立视觉基础章的学习地图：图像表示、OpenCV 和基础处理是怎样给后面分类、检测、分割打地基的。"
-keywords: [视觉基础导读, OpenCV导读, 图像处理导读]
+description: "First build a learning map for the vision basics chapter: how image representation, OpenCV, and basic processing lay the foundation for later classification, detection, and segmentation."
+keywords: [vision basics guide, OpenCV guide, image processing guide]
 ---
 
-# 学前导读：视觉基础这一章到底在学什么
+# Pre-study Guide: What Is This Vision Basics Chapter Really About?
 
-这一章不是在学“几种图像 API”，而是在帮你建立视觉任务最基本的输入直觉。
+This chapter is not about learning “a few image APIs.” It is about helping you build the most basic intuition for inputs in vision tasks.
 
-## 先建立一张桥接线
+## First, build a bridge
 
-如果你是从第 6 站 CNN 主线过来的，这一章最值得先看清的一件事是：
+If you are coming from Station 6, the CNN main track, the most important thing to understand in this chapter is:
 
-- 前面你已经知道卷积网络很适合图像
-- 这一章开始回答“图像本身在计算机里到底长什么样”
+- You already know that convolutional networks are very suitable for images
+- This chapter starts answering: “What does the image itself actually look like inside a computer?”
 
-所以这一章不是在偏离深度学习主线，而是在补：
+So this chapter is not drifting away from the deep learning main track. Instead, it fills in:
 
-> **视觉任务最基本的输入直觉。**
+> **The most basic input intuition for vision tasks.**
 
-## 这一章的主线
+## The main line of this chapter
 
-![视觉基础章节学习顺序图](/img/course/ch10-cv-basics-chapter-flow.png)
+![Vision basics chapter learning flow](/img/course/ch10-cv-basics-chapter-flow-en.png)
 
-如果这一章没学稳，后面分类、检测、分割会很容易只剩模型名，没有输入感觉。
+If you do not build a solid foundation in this chapter, then later classification, detection, and segmentation will easily become just model names with no real sense of the input.
 
-## 这一章更适合新人的学习顺序
+## A more beginner-friendly learning order for this chapter
 
-1. 先看图像在计算机里到底是什么  
-   把像素、通道、尺寸、颜色空间先看顺。
+1. First, understand what an image actually is inside a computer
+   Get a clear sense of pixels, channels, dimensions, and color spaces.
 
-2. 再看 OpenCV 的读写和查看  
-   先能把图读进来、看出来、拆通道。
+2. Then, look at reading, writing, and viewing with OpenCV
+   First learn to load an image, display it, and split its channels.
 
-3. 最后看基础处理  
-   这时再做灰度、阈值、滤波之类操作，会更有感觉。
+3. Finally, learn basic processing
+   Then operations like grayscale conversion, thresholding, and filtering will feel much more natural.
 
-## 这一章最该先抓住什么
+## What you should focus on first in this chapter
 
-- 图像本质上是按空间组织起来的数字
-- 通道和颜色空间会直接决定后面怎么处理图像
-- 视觉模型之前，先要看懂“输入数据到底是什么”
+- An image is essentially a number organized in space
+- Channels and color spaces directly determine how you process images later
+- Before visual models, you must first understand what the “input data” actually is
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main line and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter to fill gaps and practice engineering skills: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after it. After reading, it is best to turn the chapter content into notes in your own project README or experiment log.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study style | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick scan | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimal input and output? | You can clearly say what the example needs as input and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor results, or misunderstanding |
+| What can you preserve after learning it? | You can write this chapter’s output into a project README, experiment log, or portfolio |
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+## Chapter small project exit task
 
-## 过关标准
+After finishing this chapter, it is recommended that you complete a minimal practice task: choose the most core concept or tool in this chapter, and create a small result that can run, can be screenshot, and can be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output result is.
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+## Passing standard
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stations before and after it, and complete the minimal version of the chapter’s small project exit task.
+
+If you can also record one common mistake, one debugging process, or one result improvement, then it shows that you are not just “reading the content,” but are turning this chapter into your own project experience.

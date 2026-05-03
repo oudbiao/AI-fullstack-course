@@ -1,138 +1,138 @@
 ---
-title: "8.1 学前导读：项目实战这一章到底该怎么学"
+title: "8.1 Pre-class Guide: How Should You Actually Learn This Project Practice Chapter?"
 sidebar_position: 0
-description: "先建立深度学习项目章的学习地图：图像分类、文本情感分析和生成模型项目如何按数据、训练、评估、错误分析和展示形成作品集闭环。"
-keywords: [深度学习项目导读, 图像分类, 情感分析, 生成模型项目, 深度学习作品集]
+description: "First build a learning map for the deep learning project chapter: how image classification, text sentiment analysis, and generative model projects form a portfolio loop through data, training, evaluation, error analysis, and presentation."
+keywords: [deep learning project guide, image classification, sentiment analysis, generative model project, deep learning portfolio]
 ---
 
-# 学前导读：项目实战这一章到底该怎么学
+# Pre-class Guide: How Should You Actually Learn This Project Practice Chapter?
 
-这一章不是继续堆概念，而是把前面学过的神经网络、PyTorch、CNN、RNN、Transformer、生成模型和训练技巧真正做成项目。
+This chapter is not about piling up more concepts. Instead, it is about turning the neural networks, PyTorch, CNN, RNN, Transformer, generative models, and training techniques you learned earlier into real projects.
 
-深度学习项目和传统机器学习项目最大的不同，是你会更频繁地面对数据规模、训练成本、模型收敛、过拟合、GPU 环境、超参数和结果可视化问题。因此这一章不只是让模型跑起来，更要训练你管理训练过程和解释模型表现的能力。
+The biggest difference between deep learning projects and traditional machine learning projects is that you will more often face issues such as data scale, training cost, model convergence, overfitting, GPU environments, hyperparameters, and result visualization. So this chapter is not just about getting the model to run; it is also about training you to manage the training process and explain model behavior.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-深度学习项目章是第 6 站的出口。它要证明你能把深度学习知识用于真实任务，而不是只理解单个模型结构。
+The deep learning project chapter is the exit of Station 6. It should prove that you can apply deep learning knowledge to real tasks, rather than only understanding individual model structures.
 
-从课程主线看，这一章也是通往大模型阶段的重要桥梁。你在这里学到的训练闭环、数据划分、loss 曲线、验证集、错误分析和实验记录，会在后面理解预训练、微调和大模型评估时继续发挥作用。
+From the course roadmap, this chapter is also an important bridge to the large model stage. The training loop, data splitting, loss curves, validation set, error analysis, and experiment records you learn here will keep helping you later when you study pretraining, fine-tuning, and large model evaluation.
 
-![深度学习项目作品集路线图](/img/course/ch06-projects-portfolio-loop.png)
+![Deep Learning Project Portfolio Roadmap](/img/course/ch06-projects-portfolio-loop-en.png)
 
-前半段先确定任务、数据和训练方案，后半段再围绕指标、曲线、失败样本和报告完成项目复盘。
+In the first half, you determine the task, data, and training plan. In the second half, you complete the project review around metrics, curves, failure samples, and reports.
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：如何为深度学习任务准备数据集和数据加载器；如何设计训练循环、验证循环和保存最佳模型；如何根据 loss、accuracy、F1、样例输出和错误案例判断模型表现；如何处理过拟合、欠拟合、类别不平衡和训练不稳定；如何把项目整理成可复现 Notebook、脚本或报告。
+This chapter answers five questions: how to prepare datasets and data loaders for deep learning tasks; how to design the training loop, validation loop, and best-model saving; how to judge model performance from loss, accuracy, F1, sample outputs, and error cases; how to handle overfitting, underfitting, class imbalance, and unstable training; and how to organize a project into a reproducible Notebook, script, or report.
 
-新人最容易犯的错误，是只关心“代码有没有跑完”。深度学习项目更应该关心：训练是否收敛，验证集是否提升，错误样例有什么规律，模型失败时是数据问题、模型问题还是训练设置问题。
+The most common mistake beginners make is caring only about “whether the code finished running.” Deep learning projects should care more about: Did training converge? Did the validation set improve? What patterns appear in the error samples? When the model fails, is it a data problem, a model problem, or a training setup problem?
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先做图像分类，因为它最适合理解数据增强、CNN、迁移学习和训练曲线。然后做文本情感分析，把文本数据、token、embedding、序列模型和分类评估连接起来。最后做生成模型实战，关注生成结果的质量、多样性、稳定性和展示方式。
+It is recommended to start with image classification because it is the best way to understand data augmentation, CNNs, transfer learning, and training curves. Then do text sentiment analysis to connect text data, tokens, embeddings, sequence models, and classification evaluation. Finally, practice with generative models, focusing on output quality, diversity, stability, and presentation.
 
 ```mermaid
 flowchart TD
-  A[先做图像分类] --> B[理解数据增强和训练曲线]
-  B --> C[做文本情感分析]
-  C --> D[理解文本输入和分类评估]
-  D --> E[做生成模型实战]
-  E --> F[学习质量 多样性 稳定性展示]
+  A[Start with image classification] --> B[Understand data augmentation and training curves]
+  B --> C[Do text sentiment analysis]
+  C --> D[Understand text input and classification evaluation]
+  D --> E[Practice with generative models]
+  E --> F[Learn quality diversity stability presentation]
 ```
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：深度学习项目是数据、模型、训练、验证和错误分析的循环。
+The main thread of this chapter can be summarized as: a deep learning project is a loop of data, model, training, validation, and error analysis.
 
-![深度学习项目训练复盘闭环图](/img/course/ch06-deep-learning-project-cycle.png)
+![Deep Learning Project Training Review Loop](/img/course/ch06-deep-learning-project-cycle-en.png)
 
-前半段先确定任务、数据和训练方案，后半段再围绕指标、曲线、失败样本和报告完成项目复盘。
+In the first half, you determine the task, data, and training plan. In the second half, you complete the project review around metrics, curves, failure samples, and reports.
 
-看懂这条线后，你会知道深度学习项目不能只展示最终指标。训练曲线、验证曲线、混淆矩阵、错误样例和可视化结果，都是作品集里非常重要的证据。
+Once you understand this thread, you will know that deep learning projects should not only show final metrics. Training curves, validation curves, confusion matrices, error examples, and visualization results are all very important evidence in a portfolio.
 
-## 三个项目分别在练什么
+## What Each of the Three Projects Trains You On
 
-| 项目 | 任务类型 | 你真正要练什么 |
+| Project | Task Type | What You Really Practice |
 |---|---|---|
-| 图像分类 | CNN 项目 | 从训练到评估的完整图像任务闭环 |
-| 文本情感分析 | 文本分类项目 | 标签设计、baseline、错误分析和升级路线 |
-| 生成模型实战 | 生成项目 | 质量、多样性、稳定性和展示框架 |
+| Image classification | CNN project | A complete image task loop from training to evaluation |
+| Text sentiment analysis | Text classification project | Label design, baseline, error analysis, and upgrade path |
+| Generative model practice | Generative project | Quality, diversity, stability, and presentation framework |
 
-## 这一章和后面阶段的关系
+## Relationship Between This Chapter and Later Stages
 
-深度学习项目会帮助你更好地理解大模型不是黑箱魔法。后面学预训练、微调、RAG 评估和 Agent 评估时，你会不断用到这里的训练记录、验证集、错误分析和可复现思维。
+Deep learning projects will help you better understand that large models are not black-box magic. Later, when you study pretraining, fine-tuning, RAG evaluation, and Agent evaluation, you will keep using the training records, validation sets, error analysis, and reproducible thinking from this chapter.
 
-如果这一章没学稳，后面常见的问题是：看到 loss 下降却不知道是否过拟合；不知道验证集和测试集的区别；只会调用预训练模型，不会判断模型失败原因；做微调时没有 baseline 和评估方案。
+If you do not build a solid foundation here, common problems later include: seeing the loss go down but not knowing whether it is overfitting; not knowing the difference between validation and test sets; only knowing how to call a pretrained model without being able to judge why it fails; and having no baseline or evaluation plan during fine-tuning.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners read this chapter for the first time, they should focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter to fill in gaps and practice engineering skills: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and the connections between the earlier and later stages. After reading it, you should ideally be able to distill this chapter into your own project README or experiment log.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor results, or misunderstanding |
+| What can be accumulated after learning it? | You can write the chapter output into a project README, experiment log, or portfolio |
 
-## 本章小项目出口
+## Small Project Exit for This Chapter
 
-学完这一章后，建议至少完成一个“可复现深度学习训练项目”。项目需要包含数据准备、训练/验证划分、模型结构、训练曲线、评估指标、错误案例、模型保存和结果展示。
+After finishing this chapter, it is recommended that you complete at least one “reproducible deep learning training project.” The project should include data preparation, training/validation split, model architecture, training curves, evaluation metrics, error cases, model saving, and result presentation.
 
-如果做图像分类，建议展示几张预测正确和预测错误的样例；如果做文本情感分析，建议展示错误文本和可能原因；如果做生成项目，建议展示不同参数或版本下的生成结果对比。
-
-
+If you are doing image classification, you should show several correctly predicted and incorrectly predicted examples. If you are doing text sentiment analysis, you should show error texts and possible reasons. If you are doing a generative project, you should show a comparison of generated results under different parameters or versions.
 
 
-## Debug 侦探案件
 
-| 案件 | 内容 |
+
+## Debug Detective Case
+
+| Case | Content |
 |---|---|
-| 案件名 | Shape 巨兽出没 |
-| 案发现场 | 训练脚本报 shape mismatch，或 loss 长时间不下降。 |
-| 侦查步骤 | 打印每层 tensor shape，用小数据过拟合测试确认训练循环是否正确。 |
-| 结案证据 | 错误日志、修复前后 shape 记录、训练曲线。 |
+| Case name | The Shape Monster Appears |
+| Crime scene | The training script reports a shape mismatch, or the loss does not decrease for a long time. |
+| Investigation steps | Print the tensor shape of each layer, and use an overfitting test on a small dataset to confirm whether the training loop is correct. |
+| Evidence for closing the case | Error logs, shape records before and after the fix, training curves. |
 
-项目练习不要只保留成功截图。至少挑一个真实失败样本，按“现象、线索、嫌疑原因、侦查步骤、修复动作、回归检查”写进 `reports/failure_cases.md`，这样项目会更像真实工程作品。
+Do not keep only success screenshots when practicing projects. At minimum, choose one real failure case and write it into `reports/failure_cases.md` in the format of “phenomenon, clues, suspected cause, investigation steps, fix actions, regression check.” That will make the project feel more like a real engineering work.
 
-## 项目交付物标准
+## Project Delivery Standards
 
-每个综合项目都建议按同一套作品集标准交付，而不是只把代码跑通。最小交付物应该包括：一份 README、一条可复现运行命令、一组示例输入输出、一张关键流程图、一次失败样本分析，以及下一步改进计划。
+For each comprehensive project, it is recommended to deliver it using the same portfolio standard instead of just getting the code to run. The minimum deliverables should include: a README, one reproducible run command, a set of example inputs and outputs, one key flowchart, one failure case analysis, and a next-step improvement plan.
 
-| 交付物 | 最低要求 | 进阶要求 |
+| Deliverable | Minimum Requirement | Advanced Requirement |
 |---|---|---|
-| README | 写清项目目标、运行方式、依赖和示例 | 增加架构图、设计取舍和复盘 |
-| 示例输入输出 | 至少保留 1 个完整案例 | 保留成功、失败和边界案例 |
-| 评估记录 | 写清用什么指标判断效果 | 加入 baseline、对比实验和错误分析 |
-| 工程记录 | 记录一次环境或接口问题 | 记录日志、成本、耗时和排障过程 |
-| 展示材料 | 截图或短 GIF 证明能运行 | 做成可讲解的作品集页面 |
+| README | Clearly state the project goal, how to run it, dependencies, and examples | Add an architecture diagram, design trade-offs, and a review |
+| Example input/output | Keep at least 1 complete case | Keep successful, failed, and boundary cases |
+| Evaluation record | Clearly state which metrics are used to judge performance | Add baselines, comparison experiments, and error analysis |
+| Engineering record | Record one environment or interface issue | Record logs, cost, time spent, and troubleshooting process |
+| Presentation material | Use screenshots or a short GIF to prove it runs | Turn it into a portfolio page that can be explained |
 
-做项目时最重要的不是功能堆得多，而是能讲清楚：你解决了什么问题，系统怎样工作，效果怎么判断，失败时怎么定位，下一版准备怎样改。
+The most important thing when doing a project is not how many features you pile on, but whether you can clearly explain: what problem you solved, how the system works, how the results are judged, how failures are located, and what you plan to improve in the next version.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能独立写出一个基础 PyTorch 训练流程，能解释训练集、验证集和测试集的作用，能根据训练曲线判断过拟合或欠拟合，能保存和加载模型，能用错误分析说明模型局限。
+By the end of this chapter, you should be able to independently write a basic PyTorch training workflow, explain the roles of the training set, validation set, and test set, judge overfitting or underfitting from training curves, save and load models, and use error analysis to explain model limitations.
 
-如果你能把一个深度学习项目整理成可复现 Notebook 或脚本，并用指标、曲线和样例说明模型表现，就达到了深度学习阶段的作品集出口标准。
+If you can organize a deep learning project into a reproducible Notebook or script, and use metrics, curves, and examples to explain model performance, then you have reached the portfolio exit standard for the deep learning stage.
 
-## 版本路线建议
+## Suggested Version Path
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run through the minimum loop | Can input, can process, can output, and keeps a set of examples |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not try to make it big and complete from the start. Every time you upgrade a version, write “what new capability was added, how it was verified, and what problems remain” into the README.

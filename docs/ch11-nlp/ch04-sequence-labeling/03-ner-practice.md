@@ -1,129 +1,128 @@
 ---
-title: "4.5 NER 实战"
+title: "4.5 NER Practice"
 sidebar_position: 4
-description: "围绕一个简历信息抽取小项目，走完标签设计、数据组织、实体恢复和错误分析这条 NER 实战闭环。"
+description: "Walk through the full NER practice loop around a small resume information extraction project: label design, data organization, entity recovery, and error analysis."
 keywords: [NER, named entity recognition, information extraction, BIO, project, NLP]
 ---
 
-# NER 实战
+# NER Practice
 
-![NER 项目实体评估闭环图](/img/course/ch11-ner-project-entity-eval-loop.png)
+![NER project entity evaluation loop](/img/course/ch11-ner-project-entity-eval-loop-en.png)
 
-:::tip 读图提示
-NER 项目不要只盯 token accuracy。先看标签体系、标注样例、实体恢复、实体级 Precision/Recall/F1 和错例分桶如何形成闭环，这比单纯换模型更像真实项目。
+:::tip Reading guide
+For NER projects, do not focus only on token accuracy. First look at how the label scheme, annotation examples, entity recovery, entity-level Precision/Recall/F1, and error buckets form a closed loop. This is much closer to a real project than simply swapping models.
 :::
 
-:::tip 本节定位
-前两节已经把：
+:::tip Where this section fits
+In the previous two sections, we already explained:
 
-- 序列标注任务
-- BiLSTM + CRF 的核心思想
+- sequence labeling tasks
+- the core idea of BiLSTM + CRF
 
-讲清楚了。  
-这一节我们把它放回项目里，做一个更像真实业务的练习：
+Now we will put it back into a project and do a more realistic exercise:
 
-> **从简历文本里抽取姓名、学校和技能。**
+> **Extract names, schools, and skills from resume text.**
 
-这类任务非常适合练 NER，因为它同时包含：
+This kind of task is very suitable for practicing NER because it includes both:
 
-- 明确 span
-- 明确类型
-- 很多边界细节
+- clear spans
+- clear types
+- many boundary details
 :::
 
-## 学习目标
+## Learning goals
 
-- 学会定义一个最小 NER 项目边界
-- 学会从 token 标签恢复实体
-- 学会做实体级别错误分析
-- 通过可运行示例建立信息抽取项目骨架
+- Learn how to define the boundary of a minimal NER project
+- Learn how to recover entities from token labels
+- Learn how to do entity-level error analysis
+- Build a project skeleton for information extraction through a runnable example
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-NER 实战更适合按“标签 -> 实体 -> 评估 -> 迭代”的顺序理解：
+NER practice is easier to understand in the order of “labels -> entities -> evaluation -> iteration”:
 
 ```mermaid
 flowchart LR
-    A["定义实体类型"] --> B["设计 BIO 标签"]
-    B --> C["模型输出标签序列"]
-    C --> D["恢复实体 span"]
-    D --> E["做实体级评估和错例分析"]
+    A["Define entity types"] --> B["Design BIO labels"]
+    B --> C["Model outputs label sequence"]
+    C --> D["Recover entity span"]
+    D --> E["Do entity-level evaluation and error analysis"]
 ```
 
-所以这节真正想解决的是：
+So the real questions this section wants to solve are:
 
-- NER 项目为什么不只是“标签预测”
-- 为什么实体恢复和错误分析才更像真实项目
+- Why is an NER project not just “label prediction”?
+- Why do entity recovery and error analysis feel more like a real project?
 
 ---
 
-## 一、项目问题先要定义清楚
+## 1. First, define the project problem clearly
 
-### 1.1 场景
+### 1.1 Scenario
 
-输入：
+Input:
 
-- 一段简历或候选人简介文本
+- A resume or candidate profile text
 
-输出：
+Output:
 
-- 姓名
-- 学校
-- 技能
+- Name
+- School
+- Skill
 
-### 1.2 为什么这比“随便抽点实体”更适合练手？
+### 1.2 Why is this more suitable for practice than “just extracting some entities”?
 
-因为它边界清楚：
+Because the boundaries are clear:
 
-- 类别数不多
-- 实体类型明确
-- 结果很容易做业务解释
+- Not too many categories
+- Entity types are explicit
+- The results are easy to explain from a business perspective
 
-### 1.3 第一个关键点不是模型，而是标签体系
+### 1.3 The first key point is not the model, but the label scheme
 
-例如：
+For example:
 
-- `张三` -> `B-NAME`
-- `清华大学` -> `B-SCHOOL I-SCHOOL ...`
+- `Zhang San` -> `B-NAME`
+- `Tsinghua University` -> `B-SCHOOL I-SCHOOL ...`
 - `Python` -> `B-SKILL`
 
-这一步一旦含糊，后面模型和评估都会一起乱。
+If this step is vague, the model and evaluation will both become messy later.
 
-### 1.4 一个更适合新人的总类比
+### 1.4 A better analogy for beginners
 
-你可以把 NER 想成：
+You can think of NER as:
 
-- 在一段文字里拿荧光笔圈重点信息
+- using a highlighter to mark important information in a piece of text
 
-难点不只是“圈出来”，而是：
+The hard part is not only “marking it,” but also:
 
-- 从哪里开始圈
-- 到哪里结束
-- 这一段到底属于哪一类
+- where to start marking
+- where to stop
+- what category this span belongs to
 
-这样理解后，为什么 NER 特别容易卡在边界问题，就会自然很多。
+Once you understand it this way, it becomes much more natural why NER often gets stuck on boundary issues.
 
 ---
 
-## 二、先做一个可运行标注与解码闭环
+## 2. First build a runnable annotation and decoding loop
 
-下面这个示例会做三件事：
+The example below does three things:
 
-1. 准备一个小型样本
-2. 把 BIO 标签解码成实体
-3. 做简单的预测对比与错误分析
+1. Prepare a small sample
+2. Decode BIO labels into entities
+3. Do a simple prediction comparison and error analysis
 
 ```python
 samples = [
     {
-        "tokens": ["张三", "毕业于", "清华大学", "，", "熟悉", "Python", "和", "PyTorch"],
+        "tokens": ["Zhang San", "graduated from", "Tsinghua University", ",", "familiar with", "Python", "and", "PyTorch"],
         "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
         "pred_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL", "O", "B-SKILL"],
     },
     {
-        "tokens": ["李四", "来自", "北京大学", "，", "掌握", "Java"],
+        "tokens": ["Li Si", "is from", "Peking University", ",", "knows", "Java"],
         "gold_tags": ["B-NAME", "O", "B-SCHOOL", "O", "O", "B-SKILL"],
         "pred_tags": ["B-NAME", "O", "O", "O", "O", "B-SKILL"],
     },
@@ -175,27 +174,27 @@ for sample in samples:
     print()
 ```
 
-### 2.1 这段代码为什么是“项目最小闭环”？
+### 2.1 Why is this code the “minimal project loop”?
 
-因为它已经包含了：
+Because it already includes:
 
-- 数据表示
-- 预测结果
-- 实体恢复
-- 错误分析
+- data representation
+- prediction results
+- entity recovery
+- error analysis
 
-这比只打印一串标签更接近真实项目形态。
+This is much closer to the shape of a real project than printing a string of labels.
 
-### 2.2 为什么这里按实体比较，而不是只按 token 比较？
+### 2.2 Why compare by entity here instead of only by token?
 
-因为业务真正关心的通常是：
+Because what the business usually cares about is:
 
-- 实体有没有抽出来
-- 类型对不对
+- whether the entity was extracted
+- whether the type is correct
 
-而不是某一个 token 单点是否打对。
+Not whether a single token was labeled correctly.
 
-### 2.3 再看一个最小“实体日志”示例
+### 2.3 Another minimal “entity log” example
 
 ```python
 sample = samples[1]
@@ -211,30 +210,30 @@ print(
 )
 ```
 
-这个日志特别适合初学者，因为它会把一个抽象的标签任务，变成更像真实项目的输出：
+This kind of log is especially good for beginners because it turns an abstract labeling task into a more realistic project output:
 
-- 原文本是什么
-- 正确实体有哪些
-- 系统到底漏了什么
+- What is the original text?
+- What are the correct entities?
+- What exactly did the system miss?
 
 ---
 
-## 三、NER 项目最该先看什么指标？
+## 3. What metrics should an NER project look at first?
 
-### 3.1 实体级 Precision / Recall / F1
+### 3.1 Entity-level Precision / Recall / F1
 
-这是最常见也最有意义的一组指标。
+This is the most common and most meaningful set of metrics.
 
-### 3.2 为什么 token accuracy 不够？
+### 3.2 Why is token accuracy not enough?
 
-因为序列里往往很多都是：
+Because most positions in a sequence are often:
 
 - `O`
 
-只看 token accuracy 很容易显得“很高”，  
-但真正的实体抽取效果可能并不好。
+If you only look at token accuracy, it can easily seem “very high,”
+but the actual entity extraction performance may still be poor.
 
-### 3.3 一个极简实体召回例子
+### 3.3 A minimal entity recall example
 
 ```python
 def entity_recall(gold_entities, pred_entities):
@@ -250,128 +249,128 @@ for sample in samples:
     print(entity_recall(gold_entities, pred_entities))
 ```
 
-### 3.4 第一次做 NER 项目时，最稳的默认顺序
+### 3.4 The safest default order when doing an NER project for the first time
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先把实体类型收窄
-2. 先把标签标准写清楚
-3. 先做实体恢复和实体级评估
-4. 再去换更强模型
+1. Narrow down the entity types first
+2. Write the labeling standard clearly first
+3. Do entity recovery and entity-level evaluation first
+4. Then switch to a stronger model
 
-这样会比一开始就急着上 BERT 更容易把项目做稳。
-
----
-
-## 四、NER 项目最常见的失败点
-
-### 4.1 实体边界错
-
-例如学校名只抽了一半。
-
-### 4.2 类型错
-
-例如把技能识别成学校。
-
-### 4.3 漏实体
-
-例如样本 2 里把 `北京大学` 漏掉了。
-
-### 4.4 为什么这很适合做错误分析？
-
-因为 NER 的错误通常很具体，  
-非常适合逐条看、逐类修。
-
-### 4.5 一个新人很值得先用的错误分桶方式
-
-第一次做错例分析时，最值得先分的通常就是：
-
-1. 边界错
-2. 类型错
-3. 漏实体
-
-这三类已经足够帮助你判断：
-
-- 是数据标注问题
-- 是模型表示问题
-- 还是后处理规则不够
+This is easier to keep the project stable than rushing to BERT from the start.
 
 ---
 
-## 五、真实项目下一步该怎么走？
+## 4. The most common failure points in NER projects
 
-### 5.1 扩充数据
+### 4.1 Wrong entity boundary
 
-尤其是：
+For example, only half of a school name is extracted.
 
-- 长实体
-- 稀有实体
-- 容易混淆类型
+### 4.2 Wrong type
 
-### 5.2 从规则 / 经典模型升级到更强模型
+For example, a skill is recognized as a school.
 
-例如：
+### 4.3 Missing entity
+
+For example, in sample 2, `Peking University` is missed.
+
+### 4.4 Why is this so suitable for error analysis?
+
+Because NER errors are usually very concrete,
+which makes them easy to inspect one by one and fix category by category.
+
+### 4.5 A very useful error-bucketing method for beginners
+
+When doing error analysis for the first time, the most valuable buckets are usually:
+
+1. Boundary error
+2. Type error
+3. Missing entity
+
+These three are already enough to help you judge:
+
+- Is it a data annotation problem?
+- Is it a model representation problem?
+- Or are the post-processing rules not strong enough?
+
+---
+
+## 5. What should the next step be in a real project?
+
+### 5.1 Expand the data
+
+Especially:
+
+- long entities
+- rare entities
+- easily confused types
+
+### 5.2 Upgrade from rules / classic models to stronger models
+
+For example:
 
 - BiLSTM + CRF
 - BERT token classification
 
-### 5.3 加入后处理规则
+### 5.3 Add post-processing rules
 
-很多业务项目里，  
-合理的后处理规则能明显提升实体质量。
+In many business projects,
+reasonable post-processing rules can significantly improve entity quality.
 
-## 如果把它做成项目，最值得展示什么
+## If you turn this into a project, what is most worth showing?
 
-最值得展示的通常不是：
+What is usually most worth showing is not:
 
-- 一串标签预测结果
+- a string of label prediction results
 
-而是：
+but:
 
-1. 原始文本
-2. gold 实体
-3. 预测实体
-4. 漏抽和错抽案例
-5. 你下一步准备优先修哪类错误
+1. Original text
+2. Gold entities
+3. Predicted entities
+4. Missed and false extraction cases
+5. Which type of error you plan to fix first
 
-这样别人会更容易感觉到：
+This makes it much easier for others to feel that:
 
-- 你做的是信息抽取项目
-- 不只是训练了一个序列标注模型
-
----
-
-## 六、最常见误区
-
-### 6.1 误区一：只看 token 级指标
-
-NER 更该看实体级效果。
-
-### 6.2 误区二：一开始就想覆盖所有实体类型
-
-更稳的做法通常是：
-
-- 先选 2~4 类核心实体做透
-
-### 6.3 误区三：标签体系一开始不定清楚
-
-标签边界不清，数据和评估都会一起发散。
+- you built an information extraction project
+- not just trained a sequence labeling model
 
 ---
 
-## 小结
+## 6. The most common misconceptions
 
-这节最重要的是建立一个实战习惯：
+### 6.1 Misconception 1: Only look at token-level metrics
 
-> **做 NER 项目时，先把实体类型、标签体系、实体恢复和实体级错误分析做扎实，再去追求更复杂模型。**
+NER should pay more attention to entity-level performance.
 
-这样你留下的会是一个真正可解释、可改进的信息抽取项目，而不是只会跑训练脚本的半成品。
+### 6.2 Misconception 2: Try to cover all entity types from the start
+
+A more stable approach is usually:
+
+- first choose 2~4 core entity types and make them solid
+
+### 6.3 Misconception 3: Do not define the label scheme clearly at the beginning
+
+If the label boundaries are unclear, both the data and the evaluation will drift.
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例再加一个 `ORG` 或 `TITLE` 实体类型，扩展样本。
-2. 想一想：为什么 NER 项目更适合看实体级指标，而不是 token accuracy？
-3. 如果系统经常把长学校名只抽一半，你会优先改数据、改模型，还是加后处理？为什么？
-4. 你会如何把这个简历抽取项目进一步扩成作品集展示？
+The most important thing in this section is to build a practical habit:
+
+> **When doing an NER project, first make the entity types, label scheme, entity recovery, and entity-level error analysis solid, and only then pursue more complex models.**
+
+In that way, what you leave behind is a truly explainable and improvable information extraction project, not just a half-finished script that can run training.
+
+---
+
+## Exercises
+
+1. Add an `ORG` or `TITLE` entity type to the example and expand the samples.
+2. Think about why NER projects are more suitable for entity-level metrics than token accuracy.
+3. If the system often extracts only half of a long school name, would you prioritize changing the data, changing the model, or adding post-processing? Why?
+4. How would you further expand this resume extraction project into a portfolio presentation?

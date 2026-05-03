@@ -1,212 +1,212 @@
 ---
-title: "3.4 经典 CNN 架构"
+title: "3.4 Classic CNN Architectures"
 sidebar_position: 3
-description: "从 LeNet、AlexNet、VGG 到 ResNet，理解经典 CNN 架构为什么一代代演进，以及每一代到底解决了什么问题。"
-keywords: [LeNet, AlexNet, VGG, ResNet, CNN, 残差连接, 经典架构]
+description: "From LeNet and AlexNet to VGG and ResNet, understand why classic CNN architectures evolved generation by generation, and what problem each generation actually solved."
+keywords: [LeNet, AlexNet, VGG, ResNet, CNN, residual connection, classic architecture]
 ---
 
-# 经典 CNN 架构
+# Classic CNN Architectures
 
-![经典 CNN 架构演进图](/img/course/imagenet-cnn-evolution.png)
+![Classic CNN architecture evolution](/img/course/imagenet-cnn-evolution-en.png)
 
-:::tip 本节定位
-学经典架构不是为了背模型名字，而是为了看清一条非常重要的演进主线：
+:::tip Section overview
+Learning classic architectures is not about memorizing model names. It is about seeing a very important evolution line clearly:
 
-> **当图像任务越来越复杂时，CNN 到底是怎么一步步变强的？**
+> **As image tasks become more complex, how did CNNs gradually become stronger?**
 
-看懂这条主线，你后面遇到更现代的视觉模型时，就不会只看到一堆名词。
+Once you understand this line, later when you encounter more modern vision models, you will not just see a pile of terms.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 LeNet、AlexNet、VGG、ResNet 各自解决了什么问题
-- 看懂经典 CNN 的演进逻辑，而不是只记结构图
-- 理解“小卷积核堆叠”和“残差连接”为什么重要
-- 写出一个最小残差块，真正理解 ResNet 的核心想法
-- 能从工程角度判断不同架构的优缺点
-
----
-
-## 一、为什么要学“经典架构”？
-
-### 1.1 经典模型不是过时知识，而是视觉建模的演化史
-
-很多初学者看 CNN 架构时容易这样学：
-
-- LeNet：记一个名字
-- AlexNet：再记一个名字
-- VGG：又记一个名字
-- ResNet：好像很重要
-
-这样学很容易散。
-
-更好的方式是把它们看成一条演化链：
-
-1. LeNet：证明卷积网络能做图像识别
-2. AlexNet：把深 CNN 真正做大并在大数据上打出效果
-3. VGG：把“多层小卷积核”这件事做成标准思路
-4. ResNet：解决深网络训练困难的问题
-
-所以学经典架构的真正目标不是“知道名字”，而是知道：
-
-> 每一代在补哪一个关键短板。 
-
-### 1.1.1 这些名字背后其实很像一部“深度视觉进化史”
-
-如果你只把它们当成模型名，会很容易无聊。  
-但如果你把它们看成一部进化史，会更容易有感觉：
-
-- `LeNet` 像在证明“卷积这条路是能走通的”
-- `AlexNet` 像在告诉全世界“这条路不只可行，而且突然非常能打”
-- `VGG` 像在把工程经验整理成更稳定的套路
-- `ResNet` 则像在解决“网络再深一点就开始难训”的真正卡点
-
-所以这节课其实不只是在讲模型，  
-而是在讲：
-
-> **视觉领域为什么会一代代走到今天这种结构。**
-
-### 1.2 一个很好记的类比
-
-你可以把经典 CNN 架构理解成“造楼”：
-
-- LeNet：先证明楼能盖起来
-- AlexNet：楼盖高了，而且开始真正商用
-- VGG：开始有了更统一、更可复制的施工规范
-- ResNet：解决高楼盖太高容易塌的问题
-
-这就是它们的直觉区别。
+- Understand what problems LeNet, AlexNet, VGG, and ResNet each solved
+- Read the evolution logic of classic CNNs instead of only memorizing diagrams
+- Understand why “stacking small convolution kernels” and “residual connections” matter
+- Write a minimal residual block and truly understand the core idea of ResNet
+- Judge the pros and cons of different architectures from an engineering perspective
 
 ---
 
-## 二、LeNet：卷积网络的早期原型
+## 1. Why learn “classic architectures”?
 
-### 2.1 LeNet 的历史位置
+### 1.1 Classic models are not outdated knowledge, but the evolution history of visual modeling
 
-LeNet 最早主要用于手写数字识别。  
-它的重要性不在于今天还多强，而在于它很早就把这条主线定下来了：
+Many beginners learn CNN architectures like this:
 
-> **卷积层提特征，池化层压缩，最后全连接做分类。**
+- LeNet: memorize one name
+- AlexNet: memorize another name
+- VGG: memorize yet another name
+- ResNet: seems important
 
-### 2.2 LeNet 的典型结构
+This kind of learning is easy to become fragmented.
 
-粗略看，LeNet 就是：
+A better way is to see them as an evolution chain:
+
+1. LeNet: proved that convolutional networks can do image recognition
+2. AlexNet: truly scaled up deep CNNs and achieved strong results on large data
+3. VGG: turned “stacking many small convolution kernels” into a standard approach
+4. ResNet: solved the problem of training very deep networks
+
+So the real goal of learning classic architectures is not to “know the names,” but to know:
+
+> What key weakness did each generation make up for?
+
+### 1.1.1 These names actually feel like a “deep visual evolution history”
+
+If you only treat them as model names, it will feel boring very quickly.
+But if you see them as an evolution history, it becomes much easier to feel their significance:
+
+- `LeNet` is like proving that “the convolution path is workable”
+- `AlexNet` is like telling the world “this path is not only feasible, it can suddenly perform extremely well”
+- `VGG` is like organizing engineering experience into a more stable recipe
+- `ResNet` is like solving the real bottleneck of “once the network gets deeper, training becomes hard”
+
+So this lesson is not just about models.
+It is about:
+
+> **Why the vision field has evolved into today’s structures step by step.**
+
+### 1.2 A very easy-to-remember analogy
+
+You can understand classic CNN architectures as “building a house”:
+
+- LeNet: first prove the house can be built
+- AlexNet: the house gets taller, and it starts to be truly commercialized
+- VGG: a more unified and reproducible construction standard appears
+- ResNet: solve the problem that very tall buildings are easy to collapse
+
+That is their intuitive difference.
+
+---
+
+## 2. LeNet: the early prototype of convolutional networks
+
+### 2.1 LeNet’s historical position
+
+LeNet was originally used mainly for handwritten digit recognition.
+Its importance is not that it is still very strong today, but that it established the main line very early:
+
+> **Convolution layers extract features, pooling layers compress them, and fully connected layers do classification.**
+
+### 2.2 The typical LeNet structure
+
+Roughly speaking, LeNet is:
 
 ```text
-输入 -> Conv -> Pool -> Conv -> Pool -> FC -> 输出
+Input -> Conv -> Pool -> Conv -> Pool -> FC -> Output
 ```
 
-它已经具备了 CNN 的核心骨架。
+It already had the core skeleton of a CNN.
 
-### 2.3 LeNet 教会了我们什么？
+### 2.3 What did LeNet teach us?
 
-LeNet 真正教会后来者的是：
+LeNet truly taught later researchers:
 
-- 图像不应该一开始就展平
-- 局部特征提取是可行的
-- 分层特征学习是有效的
+- Images should not be flattened from the start
+- Local feature extraction is feasible
+- Hierarchical feature learning is effective
 
-这件事今天看起来很自然，但在当时是很关键的突破。
+Today this seems very natural, but at the time it was a crucial breakthrough.
 
-### 2.4 为什么 LeNet 虽然古老，却一直值得被讲？
+### 2.4 Why is LeNet, despite being old, still worth discussing?
 
-因为它像一个真正的“原型机”时刻：
+Because it was like a real “prototype” moment:
 
-- 不是把所有问题都解决了
-- 但它第一次把后来整条 CNN 主线的骨架摆出来了
+- It did not solve every problem
+- But it was the first to lay out the skeleton of the entire later CNN main line
 
-这也是为什么很多经典架构课里，  
-LeNet 的意义常常不在“今天还多强”，  
-而在：
+That is why in many classic architecture lessons,
+LeNet’s meaning is often not “how strong it is today,”
+but rather:
 
-> **它让后来的人终于知道，这栋楼大概该怎么盖。**
-
----
-
-## 三、AlexNet：深 CNN 真正爆发的开始
-
-### 3.1 AlexNet 为什么是里程碑？
-
-AlexNet 最著名的地方，是它在 ImageNet 上把深 CNN 的威力真正打出来了。
-
-它的重要意义可以粗略记成：
-
-- 模型更深
-- 数据更大
-- GPU 真正发挥作用
-- ReLU、Dropout 等技巧开始被广泛采用
-
-### 3.1.1 为什么很多人会把 AlexNet 当成“深度学习复兴的枪声”？
-
-因为在它之前，很多人并不真的相信：
-
-- 更深的网络
-- 更大的数据
-- 更强的算力
-
-会一起带来这么明显的效果跃迁。
-
-AlexNet 最让人震撼的地方，是它不像“慢慢提升一点点”，  
-而更像：
-
-- 一下子把整条路线从“研究方向之一”推成“主流方向”
-
-所以它在历史上的地位，不只是 ImageNet 夺冠，  
-而是让很多人第一次认真相信：
-
-> **深度学习真的不只是概念热闹，而是已经能打出决定性效果。**
-
-### 3.2 AlexNet 解决了什么？
-
-相比早期小模型，它证明了：
-
-> **只要数据、算力和训练技巧跟上，深卷积网络能显著提升图像识别能力。**
-
-### 3.3 AlexNet 的启发
-
-AlexNet 不只是“变深了”，而是告诉大家：
-
-- 深网络是值得做的
-- GPU 训练是未来方向
-- 激活函数和正则化技巧很关键
-
-它更像是深度视觉时代真正的起跑枪。
+> **It finally showed later people how this building should probably be constructed.**
 
 ---
 
-## 四、VGG：为什么“小卷积核堆叠”这么重要？
+## 3. AlexNet: the real start of deep CNN breakthroughs
 
-### 4.1 VGG 的一个核心思想
+### 3.1 Why is AlexNet a milestone?
 
-VGG 最好记的点是：
+AlexNet is best known for truly demonstrating the power of deep CNNs on ImageNet.
 
-> **用很多个 `3x3` 小卷积层去堆，而不是直接上大卷积核。**
+Its historical significance can be summarized as:
 
-### 4.2 为什么不用大核，反而用很多小核？
+- Deeper model
+- Larger data
+- GPU truly made a difference
+- Techniques like ReLU and Dropout began to be widely adopted
 
-因为连续堆叠多个小卷积核有几个优点：
+### 3.1.1 Why do many people call AlexNet the “starting gun” of the deep learning revival?
 
-1. 感受野也能变大
-2. 参数量更可控
-3. 中间能插入更多非线性
+Because before it, many people did not really believe that:
 
-举个直觉例子：
+- deeper networks
+- larger datasets
+- stronger computing power
 
-- 一个 `7x7` 卷积核：一步看很大区域
-- 三个连续 `3x3` 卷积：最后也能看大范围，但每一步都能加非线性
+would together lead to such a dramatic performance jump.
 
-这通常更灵活。
+What was most shocking about AlexNet was that it did not feel like “a little improvement step by step.”
+Instead, it was more like:
 
-### 4.3 一个参数量直觉比较
+- instantly pushing the whole route from “one research direction” to “the mainstream direction”
 
-假设输入输出通道数都相同，粗略比较：
+So its place in history is not only winning ImageNet,
+but also making many people believe for the first time:
 
-- 一个 `7x7` 卷积：参数和 `49` 成正比
-- 一个 `3x3` 卷积：参数和 `9` 成正比
+> **Deep learning is not just exciting in concept; it can already deliver decisive results.**
 
-虽然堆多层并不一定总是参数更少，但“小核 + 多层”往往更容易形成更细腻的表达。
+### 3.2 What problem did AlexNet solve?
 
-### 4.4 可运行示例：一个 VGG 风格小块
+Compared with earlier small models, it proved:
+
+> **As long as data, compute, and training techniques keep up, deep convolutional networks can significantly improve image recognition.**
+
+### 3.3 What did AlexNet inspire?
+
+AlexNet did not just “get deeper.” It told everyone that:
+
+- Deep networks are worth doing
+- GPU training is the future direction
+- Activation functions and regularization techniques are critical
+
+It was more like the real starting gun for the deep vision era.
+
+---
+
+## 4. VGG: Why is “stacking small convolution kernels” so important?
+
+### 4.1 One core idea of VGG
+
+The easiest thing to remember about VGG is:
+
+> **Use many stacked `3x3` small convolution layers instead of directly using large convolution kernels.**
+
+### 4.2 Why not use large kernels, and instead use many small ones?
+
+Because stacking several small convolution kernels has several advantages:
+
+1. The receptive field can still become larger
+2. The number of parameters is more controllable
+3. More nonlinearities can be inserted in between
+
+An intuitive example:
+
+- One `7x7` convolution kernel: sees a large region in one step
+- Three consecutive `3x3` convolutions: can also see a large range in the end, but each step can add nonlinearity
+
+This is usually more flexible.
+
+### 4.3 A rough parameter-count intuition
+
+Assume the input and output channel numbers are the same. Roughly compare:
+
+- One `7x7` convolution: parameters are proportional to `49`
+- One `3x3` convolution: parameters are proportional to `9`
+
+Although stacking multiple layers does not always mean fewer parameters, “small kernels + many layers” often leads to more refined representations.
+
+### 4.4 Runnable example: a VGG-style small block
 
 ```python
 import torch
@@ -227,70 +227,70 @@ print("input shape :", x.shape)
 print("output shape:", y.shape)
 ```
 
-这个块非常像经典 VGG 的思路：
+This block is very much like the classic VGG idea:
 
-- 先连续卷积两次
-- 再池化
+- First apply convolution twice in a row
+- Then pool
 
 ---
 
-## 五、ResNet：为什么网络一深就更难训？
+## 5. ResNet: Why does training get harder when the network gets deeper?
 
-### 5.1 一个反直觉问题
+### 5.1 A counterintuitive question
 
-按理说，网络更深，表达能力更强，效果应该更好。  
-但实践里人们发现：
+In theory, deeper networks have stronger expressive power, so the results should be better.
+But in practice, people found that:
 
-> 深到一定程度后，训练反而更困难，效果也不一定更好。
+> Once the network becomes deep enough, training becomes harder, and the results are not necessarily better.
 
-这不是“模型太强导致过拟合”这么简单，而是：
+This is not as simple as “the model is too strong and overfits.” Instead, it is because:
 
-- 梯度传递更难
-- 训练优化更困难
-- 很深的网络未必容易学到“至少不变差”的映射
+- Gradient flow becomes harder
+- Optimization becomes more difficult
+- Very deep networks are not always easy to learn an “at least not worse” mapping
 
-### 5.2 ResNet 的核心想法
+### 5.2 The core idea of ResNet
 
-ResNet 提出的关键是残差连接：
+The key idea introduced by ResNet is the residual connection:
 
-> 不直接学习 `H(x)`，而是学习 `F(x) = H(x) - x`
+> Instead of directly learning `H(x)`, learn `F(x) = H(x) - x`
 
-于是输出就变成：
+Then the output becomes:
 
 > `y = F(x) + x`
 
-### 5.2.1 ResNet 真正打动人的地方是什么？
+### 5.2.1 What is truly impressive about ResNet?
 
-它最打动人的地方，不是“更深”这两个字，  
-而是它在回答一个特别现实的问题：
+What is impressive is not just the word “deeper,”
+but that it answers a very practical question:
 
-- 如果深网络这么有潜力，为什么越深越难训？
+- If deep networks have such potential, why do they become harder to train as they go deeper?
 
-ResNet 的价值就在于它没有回避这个问题，  
-而是直接给出了一条非常工程化的答案：
+The value of ResNet is that it does not avoid this problem.
+Instead, it directly gives a very engineering-oriented answer:
 
-- 给深层网络一条更容易保住原信息的旁路
+- Provide a side path that makes it easier for deep networks to preserve the original information
 
-这也是为什么很多人后来学到 ResNet 时，会第一次明显感受到：
+That is why many people, after learning ResNet, clearly feel for the first time that:
 
-> **神经网络结构设计，不只是堆层，而是在认真处理优化难题。**
+> **Neural network architecture design is not just stacking layers. It is seriously dealing with optimization difficulties.**
 
-### 5.3 这为什么有帮助？
+### 5.3 Why does this help?
 
-因为模型现在可以更容易学出：
+Because the model can now more easily learn:
 
-- “这层有用就学一点新东西”
-- “这层没必要大改，就尽量保持输入信息”
+- “This layer is useful, so learn a little new thing”
+- “This layer does not need major changes, so keep the input information as much as possible”
 
-换句话说：
+In other words:
 
-> 残差连接给深网络开了一条“不要把原信息彻底搞丢”的旁路。 
+> Residual connections create a side path for deep networks so they do not completely lose the original information.
 
 ---
 
-## 六、一个真正值得你手敲的最小残差块
+## 6. A minimal residual block that is really worth typing by hand
 
-### 6.1 先看代码
+### 6.1 First look at the code
 
 ```python
 import torch
@@ -320,104 +320,104 @@ print("input shape :", x.shape)
 print("output shape:", y.shape)
 ```
 
-### 6.2 这段代码真正重要的是哪一行？
+### 6.2 Which line is the most important?
 
-最关键的一行就是：
+The most important line is:
 
 ```python
 out = out + identity
 ```
 
-这就是残差连接本身。
+This is the residual connection itself.
 
-它让网络在学新特征时，不会完全丢掉原来的输入信息。
+It allows the network to learn new features without completely losing the original input information.
 
-### 6.3 为什么 shape 必须一致？
+### 6.3 Why must the shapes match?
 
-因为要做逐元素相加。  
-如果输入输出 shape 不一致，就不能直接残差相加。
+Because the addition is element-wise.
+If the input and output shapes do not match, residual addition cannot be done directly.
 
-这也是为什么真实 ResNet 里有时会用：
+That is also why in real ResNet models, people sometimes use:
 
 - `1x1 conv`
 
-来做维度对齐。
+to align dimensions.
 
 ---
 
-## 七、从经典架构看一条清晰演化线
+## 7. A clear evolution line from classic architectures
 
-### 7.1 演化逻辑总结
+### 7.1 Summary of the evolution logic
 
-| 架构 | 核心贡献 | 它解决的问题 |
+| Architecture | Core contribution | Problem it solved |
 |---|---|---|
-| LeNet | CNN 骨架雏形 | 证明卷积用于图像识别可行 |
-| AlexNet | 更深、更大、GPU 训练 | 让深 CNN 真正爆发 |
-| VGG | 多层小卷积核堆叠 | 提升表达力，结构更统一 |
-| ResNet | 残差连接 | 解决深网络训练困难 |
+| LeNet | Early CNN skeleton | Proved that convolution can be used for image recognition |
+| AlexNet | Deeper, larger, GPU training | Made deep CNNs take off for real |
+| VGG | Stacking many small convolution kernels | Improved expressive power and made the structure more unified |
+| ResNet | Residual connections | Solved the difficulty of training very deep networks |
 
-### 7.2 真正该记住什么？
+### 7.2 What should you really remember?
 
-不是“谁第几层多少个卷积”，而是：
+Not “which model had how many layers and convolutions,” but:
 
-> **每一代经典架构都在为更深、更稳、更强的视觉表示学习铺路。**
-
----
-
-## 八、今天还要学这些经典架构吗？
-
-### 8.1 要学，但不是为了原样复刻
-
-今天你在真实项目里，可能不一定直接从 LeNet 或 AlexNet 起步。  
-但这些架构依然重要，因为它们教会你：
-
-- CNN 为什么这样长
-- 深度为什么重要
-- 小卷积核为什么流行
-- 残差为什么几乎成了标配
-
-### 8.2 很多现代模型仍然继承了这些思想
-
-哪怕今天更现代的模型已经出现，它们很多核心思想仍然能追溯到经典 CNN：
-
-- 分层特征
-- 通道扩张
-- 深度堆叠
-- 残差路径
+> **Each generation of classic architecture is paving the way for deeper, more stable, and stronger visual representation learning.**
 
 ---
 
-## 九、初学者最常踩的坑
+## 8. Do we still need to learn these classic architectures today?
 
-### 9.1 把经典架构学成“背模型名”
+### 8.1 Yes, but not to copy them exactly
 
-这样最容易忘，而且几乎没法迁移。
+In real projects today, you may not necessarily start from LeNet or AlexNet directly.
+But these architectures are still important because they teach you:
 
-### 9.2 只看结构图，不理解为什么这样设计
+- Why CNNs are shaped this way
+- Why depth matters
+- Why small convolution kernels became popular
+- Why residual connections have almost become standard
 
-一旦不理解设计动机，后面遇到新架构就很难判断变化是不是有意义。
+### 8.2 Many modern models still inherit these ideas
 
-### 9.3 以为 ResNet 的重点是“更深”
+Even though more modern models have appeared today, many of their core ideas can still be traced back to classic CNNs:
 
-ResNet 的关键不是更深本身，而是：
-
-> **让更深这件事变得可训练。**
-
----
-
-## 小结
-
-这一节最重要的不是记住 LeNet、AlexNet、VGG、ResNet 的名字，而是抓住这条主线：
-
-> **经典 CNN 架构的演进，本质上是在回答：怎样让图像网络学得更深、更稳、更有效。**
-
-理解这条线以后，后面再看更现代的视觉模型，你就能知道它是在延续哪条思想、又改进了哪里。
+- Hierarchical features
+- Channel expansion
+- Deep stacking
+- Residual paths
 
 ---
 
-## 练习
+## 9. Common mistakes beginners make
 
-1. 用自己的话总结 LeNet、AlexNet、VGG、ResNet 各自最核心的一点。
-2. 把最小残差块里的 `channels=8` 改成 16，再看 shape 是否一致。
-3. 想一想：为什么连续多个 `3x3` 卷积，往往比直接一个大卷积核更受欢迎？
-4. 如果让你只记一句话来区分 VGG 和 ResNet，你会怎么说？
+### 9.1 Treating classic architectures as just “memorizing model names”
+
+This is the easiest way to forget them, and it is almost impossible to transfer the knowledge.
+
+### 9.2 Only looking at architecture diagrams without understanding why they were designed that way
+
+Once you do not understand the design motivation, it becomes very hard to judge whether changes in a new architecture are meaningful.
+
+### 9.3 Thinking the key point of ResNet is simply “deeper”
+
+The key of ResNet is not depth itself, but:
+
+> **Making depth trainable.**
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing the names LeNet, AlexNet, VGG, and ResNet, but grasping this main line:
+
+> **The evolution of classic CNN architectures is essentially about how to make image networks learn deeper, more stably, and more effectively.**
+
+Once you understand this line, when you look at more modern vision models later, you will know which ideas they are continuing and what they are improving.
+
+---
+
+## Exercises
+
+1. Summarize the most important point of LeNet, AlexNet, VGG, and ResNet in your own words.
+2. Change `channels=8` in the minimal residual block to 16, and check whether the shapes still match.
+3. Think about this: why are several consecutive `3x3` convolutions often more popular than using one large convolution kernel directly?
+4. If you had to use just one sentence to distinguish VGG from ResNet, what would you say?

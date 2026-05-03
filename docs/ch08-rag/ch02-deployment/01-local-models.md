@@ -1,124 +1,124 @@
 ---
-title: "2.2 本地模型运行"
+title: "2.2 Local Model Runtime"
 sidebar_position: 8
-description: "从为什么要本地跑模型，到模型大小、量化、CPU/GPU 权衡和最小推理流程，建立本地模型运行的工程直觉。"
+description: "From why models are run locally, to model size, quantization, CPU/GPU trade-offs, and the minimum inference flow, build an engineering intuition for local model runtime."
 keywords: [local models, local inference, quantization, CPU, GPU, model runtime]
 ---
 
-# 本地模型运行
+# Local Model Runtime
 
-:::tip 本节定位
-大模型应用最容易让人默认的一条路是：
+:::tip Section focus
+The most common default path for large-model applications is:
 
-- 直接调云端 API
+- Call a cloud API directly
 
-但真实项目里，很快就会遇到这些问题：
+But in real projects, you will quickly run into these issues:
 
-- 成本
-- 延迟
-- 数据安全
-- 网络依赖
+- Cost
+- Latency
+- Data security
+- Network dependency
 
-于是“本地模型能不能跑、值不值得跑”就会变成一个非常现实的问题。
+At that point, “Can a local model run, and is it worth running?” becomes a very practical question.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么很多场景会优先考虑本地模型
-- 理解模型大小、量化和硬件条件之间的关系
-- 分清 CPU 跑、GPU 跑和量化跑的基本差别
-- 看懂一个最小本地推理流程
-- 建立“什么时候该本地跑、什么时候更适合 API”的判断
+- Understand why many scenarios prioritize local models
+- Understand the relationship between model size, quantization, and hardware constraints
+- Distinguish the basic differences between CPU runtime, GPU runtime, and quantized runtime
+- Read a minimal local inference flow
+- Build judgment about “when to run locally and when an API is a better fit”
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-本地模型这节最适合新人的理解顺序不是“先选模型名”，而是先看清：
+For beginners, the best way to understand local models is not to “pick a model name” first, but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["业务需求"] --> B["隐私 / 成本 / 延迟 / 离线要求"]
-    B --> C["决定是否考虑本地模型"]
-    C --> D["再看资源是否匹配"]
-    D --> E["再决定 CPU / GPU / 量化路线"]
+    A["Business requirements"] --> B["Privacy / cost / latency / offline needs"]
+    B --> C["Decide whether to consider a local model"]
+    C --> D["Check whether resources match"]
+    D --> E["Decide between CPU / GPU / quantization"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to answer is:
 
-- 为什么会有人放着现成 API 不用，反而去本地跑
-- 本地跑到底是在换什么
+- Why would someone choose not to use an existing API and instead run locally?
+- What are you actually trading for local runtime?
 
-### 一个更适合新人的总类比
+### A better overall analogy for beginners
 
-你可以把云 API 和本地模型理解成：
+You can think of cloud APIs and local models as:
 
-- 打车
-- 和自己买车
+- Taking a taxi
+- Versus buying your own car
 
-打车的好处是：
+The advantages of taking a taxi:
 
-- 省心
-- 随叫随到
+- Hassle-free
+- Available on demand
 
-自己买车的好处是：
+The advantages of owning a car:
 
-- 更可控
-- 长期可能更省
-- 某些情况下更安全
+- More controllable
+- Potentially cheaper in the long run
+- Safer in some cases
 
-但你也要自己承担：
+But you also have to handle:
 
-- 保养
-- 停车
-- 故障处理
+- Maintenance
+- Parking
+- Repairs
 
-本地模型和云 API 的关系，很像这种权衡。
+The relationship between local models and cloud APIs is very much a trade-off like this.
 
-## 一、为什么要考虑本地模型？
+## 1. Why consider local models?
 
-### 1.1 先看云端 API 的优点
+### 1.1 First, look at the strengths of cloud APIs
 
-云 API 的优势很明显：
+The advantages of cloud APIs are obvious:
 
-- 开箱即用
-- 模型通常更强
-- 运维压力更小
+- Ready to use out of the box
+- The model is usually stronger
+- Less operational burden
 
-所以很多项目起步时，云 API 往往是最省心的选择。
+So when a project is just getting started, cloud APIs are often the most convenient choice.
 
-### 1.2 但为什么还是会有人坚持本地跑？
+### 1.2 But why do some people still insist on running locally?
 
-常见原因通常是：
+Common reasons usually include:
 
-- 数据不能离开本地或企业内网
-- API 成本累积太快
-- 需要离线可用
-- 想更强地控制模型和推理链路
+- Data cannot leave the local machine or the enterprise intranet
+- API costs add up too quickly
+- The system needs to work offline
+- You want stronger control over the model and inference pipeline
 
-也就是说，本地模型的核心价值不是“更高级”，而是：
+In other words, the core value of local models is not “being more advanced,” but:
 
-> **在质量、成本、隐私和可控性之间重新做一套权衡。**
+> **Rebalancing the trade-off among quality, cost, privacy, and controllability.**
 
 ---
 
-## 二、先建立一个最重要的现实直觉：模型大小不是抽象数字
+## 2. First build the most important real-world intuition: model size is not an abstract number
 
-### 2.1 参数量直接影响资源占用
+### 2.1 Parameter count directly affects resource usage
 
-当你看到一个模型是：
+When you see a model described as:
 
 - 7B
 - 13B
 - 70B
 
-这些不只是宣传标签，它们通常意味着：
+These are not just marketing labels. They usually mean:
 
-- 内存 / 显存占用差很多
-- 加载时间差很多
-- 推理速度也会差很多
+- Very different memory / VRAM usage
+- Very different loading times
+- Very different inference speeds
 
-### 2.2 一个粗略的资源示意
+### 2.2 A rough resource illustration
 
 ```python
 runtime_options = [
@@ -131,47 +131,47 @@ for item in runtime_options:
     print(item)
 ```
 
-### 2.3 这段代码真正想提醒你什么？
+### 2.3 What is this code really trying to tell you?
 
-不是让你记住数字，而是让你先建立一个非常实用的判断：
+It is not asking you to memorize numbers. It is helping you build a very practical judgment:
 
-> **模型能不能本地跑，第一层往往先是资源匹配问题。**
+> **Whether a model can run locally is often first a resource-matching problem.**
 
-不是“想不想跑”，而是“机器扛不扛得住”。
+The question is not “Do I want to run it?” but “Can my machine handle it?”
 
-### 2.4 一个很适合初学者先记的决策表
+### 2.4 A decision table that is very useful for beginners
 
-| 你最在意什么 | 更可能优先哪条路 |
+| What you care about most | Which path is more likely to come first |
 |---|---|
-| 快速原型 | 云 API |
-| 隐私和内网 | 本地模型 |
-| 长期成本 | 本地模型或混合方案 |
-| 最强效果 | 往往先试云 API |
+| Fast prototyping | Cloud API |
+| Privacy and intranet use | Local model |
+| Long-term cost | Local model or a hybrid solution |
+| Best possible performance | Often try the cloud API first |
 
-这个表不是绝对规则，但很适合新人先建立一个现实判断：
+This table is not an absolute rule, but it is very useful for beginners to build a realistic judgment:
 
-- 部署路线首先是业务决策，不只是技术偏好
+- The deployment path is first a business decision, not just a technical preference
 
-![本地模型与云 API 部署决策图](/img/course/ch08-local-model-api-decision-map.png)
+![Local model vs. cloud API deployment decision map](/img/course/ch08-local-model-api-decision-map-en.png)
 
-:::tip 读图提示
-看图时不要从“哪个模型更强”开始，而是先看隐私、成本、延迟、离线和运维能力。很多部署选择本质上是业务约束排序，而不是单纯模型能力排序。
+:::tip Reading the diagram
+When looking at the diagram, do not start by asking “which model is stronger.” Instead, first look at privacy, cost, latency, offline needs, and operational capability. Many deployment choices are essentially about ordering business constraints, not simply comparing model capability.
 :::
 
 ---
 
-## 三、量化为什么总是和本地模型绑定出现？
+## 3. Why are quantization and local models always mentioned together?
 
-### 3.1 因为大家都想把模型塞进更小的机器
+### 3.1 Because everyone wants to fit the model into a smaller machine
 
-量化最粗糙但最好懂的理解方式是：
+The roughest but easiest way to understand quantization is:
 
-> **用更低精度表示模型参数，换更低的内存占用。**
+> **Use lower-precision values to represent model parameters, and trade that for lower memory usage.**
 
-### 3.2 一个最小示意
+### 3.2 A minimal illustration
 
 ```python
-params = 7_000_000_000  # 70亿参数，示意
+params = 7_000_000_000  # 7 billion parameters, illustrative
 
 precisions = {
     "fp16": 2.0,
@@ -184,21 +184,21 @@ for name, bytes_per_param in precisions.items():
     print(name, "rough memory GB =", round(memory_gb, 2))
 ```
 
-### 3.3 量化的好处和代价
+### 3.3 The benefits and costs of quantization
 
-好处：
+Benefits:
 
-- 更容易本地跑
-- 更容易压到端侧或弱机器
+- Easier to run locally
+- Easier to fit on edge devices or weaker machines
 
-代价：
+Costs:
 
-- 精度可能会掉一点
-- 某些任务上更敏感
+- Accuracy may drop a little
+- Some tasks are more sensitive to it
 
-所以量化也是典型的工程权衡，而不是无代价魔法。
+So quantization is also a typical engineering trade-off, not a free magic trick.
 
-### 3.4 再看一个最小“资源不够时怎么办”示例
+### 3.4 Another minimal example of “what if resources are not enough”
 
 ```python
 constraints = {
@@ -210,70 +210,70 @@ constraints = {
 
 def suggest_runtime(constraints):
     if constraints["privacy_sensitive"] and constraints["memory_gb"] <= 8:
-        return "优先考虑小型量化本地模型。"
+        return "Prioritize a small quantized local model."
     if constraints["need_low_latency"] and constraints["memory_gb"] >= 16:
-        return "优先考虑 GPU 本地推理。"
-    return "先用云 API 做原型，再评估是否迁移到本地。"
+        return "Prioritize GPU local inference."
+    return "Start with a cloud API prototype, then evaluate whether to migrate locally."
 
 
 print(suggest_runtime(constraints))
 ```
 
-这个示例很适合初学者，因为它会提醒你：
+This example is very suitable for beginners because it reminds you:
 
-- 本地部署很多时候不是先选模型
-- 而是先看约束
-
----
-
-## 四、CPU 跑和 GPU 跑到底差在哪？
-
-### 4.1 CPU 跑的特点
-
-优点：
-
-- 普通机器都有
-- 部署门槛低
-
-缺点：
-
-- 慢
-
-### 4.2 GPU 跑的特点
-
-优点：
-
-- 更快
-- 更适合较大模型
-
-缺点：
-
-- 成本高
-- 部署环境要求高
-
-### 4.3 一个实用判断
-
-如果你的场景是：
-
-- 个人工具
-- 小流量实验
-- 离线助手
-
-那 CPU 跑小模型可能就够。
-
-如果你的场景是：
-
-- 多轮交互
-- 用户等待敏感
-- 模型稍大
-
-那 GPU 或更专业 runtime 会更现实。
+- Local deployment is often not about choosing a model first
+- It is about checking constraints first
 
 ---
 
-## 五、一个最小本地推理流程示意
+## 4. What is the real difference between CPU runtime and GPU runtime?
 
-这里我们先不用真实大模型，而是写一个 mock runtime，目的是把“加载 -> 推理 -> 返回”的运行逻辑看清楚。
+### 4.1 Characteristics of CPU runtime
+
+Advantages:
+
+- Available on most computers
+- Low deployment barrier
+
+Disadvantages:
+
+- Slow
+
+### 4.2 Characteristics of GPU runtime
+
+Advantages:
+
+- Faster
+- Better suited for larger models
+
+Disadvantages:
+
+- Higher cost
+- Higher environment requirements
+
+### 4.3 A practical rule of thumb
+
+If your scenario is:
+
+- A personal tool
+- A low-traffic experiment
+- An offline assistant
+
+Then running a small model on CPU may be enough.
+
+If your scenario is:
+
+- Multi-turn interaction
+- Sensitive to user waiting time
+- A somewhat larger model
+
+Then GPU or a more specialized runtime is more realistic.
+
+---
+
+## 5. A minimal local inference flow
+
+Here we will not use a real large model yet. Instead, we will write a mock runtime to make the “load -> infer -> return” flow clear.
 
 ```python
 class LocalModelRuntime:
@@ -292,145 +292,145 @@ class LocalModelRuntime:
 
 runtime = LocalModelRuntime("small-local-model")
 runtime.load()
-print(runtime.generate("退款政策是什么？"))
+print(runtime.generate("What is the refund policy?"))
 ```
 
-### 5.2 这段代码在教什么？
+### 5.2 What is this code teaching?
 
-它在教你本地模型运行最基础的三件事：
+It is teaching you the three most basic things about local model runtime:
 
-1. 模型要先加载
-2. 推理请求要走到 runtime
-3. 结果再交给上层系统
+1. The model must be loaded first
+2. Inference requests must go through the runtime
+3. The result is then handed back to the upper-level system
 
-这看起来很简单，但它已经非常接近真实推理系统的最小骨架。
+This looks simple, but it is already very close to the smallest skeleton of a real inference system.
 
-## 新人第一次做项目时，怎么决定要不要本地跑？
+## When beginners build their first project, how should they decide whether to run locally?
 
-一个更稳的顺序通常是：
+A safer order is usually:
 
-1. 先问自己是否真的有隐私 / 离线 / 成本约束
-2. 再问当前机器是否真的扛得住
-3. 如果只是做原型，优先考虑云 API
-4. 如果要控制链路或长期压成本，再认真考虑本地模型
+1. First ask whether you really have privacy / offline / cost constraints
+2. Then ask whether the current machine can actually handle it
+3. If you are only building a prototype, prioritize the cloud API
+4. If you need to control the pipeline or reduce costs long term, seriously consider a local model
 
-这样通常比一开始就追“本地部署很酷”更现实。
+This is usually more realistic than starting with “local deployment is cool.”
 
-## 如果把它做成项目或方案，最值得展示什么
+## If you turn this into a project or solution, what is worth showing most?
 
-最值得展示的通常不是：
+What is usually worth showing most is not:
 
-- “模型跑起来了”
+- “The model runs successfully”
 
-而是：
+But rather:
 
-1. 为什么选本地而不是 API
-2. 硬件和模型大小如何匹配
-3. 是否用了量化
-4. 冷启动、延迟、成本的权衡
-5. 这套方案适合什么场景，不适合什么场景
+1. Why you chose local instead of an API
+2. How hardware and model size match
+3. Whether quantization was used
+4. The trade-offs between cold start, latency, and cost
+5. What scenarios this solution fits and what scenarios it does not
 
-这样别人会更容易看出：
+That way, others can more easily see:
 
-- 你理解的是部署决策
-- 不只是跑通了一次推理
-
----
-
-## 七、真正难的不是“生成成功”，而是“长期稳定运行”
-
-一旦走到真实系统，你会遇到这些更现实的问题：
-
-- 冷启动要多久
-- 模型常驻会占多少资源
-- 一台机器能扛多少并发
-- 切模型要不要重载
-
-### 6.1 冷启动问题
-
-第一次加载模型通常很慢。  
-这对服务型系统是大问题。
-
-### 6.2 常驻进程问题
-
-为了减少冷启动，你常常会让模型常驻内存。  
-但这又带来：
-
-- 更高资源长期占用
-
-所以你会发现：
-
-> 本地模型运行真正难的地方，不在“调一次成功”，而在“怎样让它像服务一样活着”。**
+- You understand deployment decisions
+- Not just that you got inference to run once
 
 ---
 
-## 八、什么时候本地模型特别值得？
+## Seven. The real challenge is not “generation succeeds,” but “stable long-term operation”
 
-### 7.1 很适合
+Once you reach a real system, you will encounter these more practical issues:
 
-- 企业内网
-- 隐私敏感内容
-- API 成本压力大
-- 弱网络 / 离线场景
-- 需要更强控制链路
+- How long does cold start take
+- How many resources does the resident model consume
+- How much concurrency can one machine handle
+- Does switching models require reloading
 
-### 7.2 不一定适合
+### 6.1 The cold start problem
 
-- 团队没运维能力
-- 任务强依赖最前沿大模型质量
-- 用户量很小、API 已经足够省事
+The first model load is usually slow.
+This is a big problem for service-oriented systems.
 
-这时云端模型可能反而更合适。
+### 6.2 The always-on process problem
 
----
+To reduce cold start, you often keep the model resident in memory.
+But that brings:
 
-## 八、一个很实用的决策问题清单
+- Higher long-term resource usage
 
-在决定本地跑之前，你可以先问：
+So you will find:
 
-1. 我最在意的是成本、隐私，还是模型质量？
-2. 我有没有足够的硬件？
-3. 我愿不愿意承担部署和维护复杂度？
-4. API 方案是不是已经够好？
-
-如果这些问题答清楚了，本地模型方案通常就不会太盲目。
+> The real difficulty of local model runtime is not “making it succeed once,” but “making it live like a service.”**
 
 ---
 
-## 九、初学者最常踩的坑
+## Eight. When is a local model especially worth it?
 
-### 9.1 只看模型参数，不看 runtime
+### 7.1 A very good fit
 
-同一个模型，换个 runtime 体验可能差很多。
+- Enterprise intranets
+- Privacy-sensitive content
+- High API cost pressure
+- Weak network / offline scenarios
+- Need for stronger control over the pipeline
 
-### 9.2 一开始就追大模型
+### 7.2 Not necessarily a good fit
 
-很多本地场景，其实小模型已经够用。
+- The team lacks operations capability
+- The task heavily depends on cutting-edge large-model quality
+- User volume is small, and an API is already convenient enough
 
-### 9.3 以为“跑起来”就等于“适合上线”
-
-上线后还要看：
-
-- 稳定性
-- 监控
-- 并发
-- 成本
-
----
-
-## 小结
-
-这一节最重要的不是记住几个模型名，而是建立一个稳定直觉：
-
-> **本地模型运行的核心，是在“质量、成本、隐私、硬件、维护复杂度”之间做现实权衡。**
-
-它不是云 API 的简单替代，而是一整套不同的部署选择。
+In these cases, a cloud model may actually be more appropriate.
 
 ---
 
-## 练习
+## Eight. A very practical checklist for deciding
 
-1. 用你当前机器条件，写出一个你认为合理的本地模型运行方案。
-2. 用自己的话解释：为什么量化会在本地模型运行里频繁出现？
-3. 为什么说“模型文件能加载”不等于“模型服务能上线”？
-4. 如果你的系统很重隐私但团队运维能力弱，你会怎么取舍？
+Before deciding to run locally, you can ask:
+
+1. What do I care about most: cost, privacy, or model quality?
+2. Do I have enough hardware?
+3. Am I willing to take on deployment and maintenance complexity?
+4. Is the API solution already good enough?
+
+If these questions are answered clearly, the local model approach usually will not be too blind.
+
+---
+
+## Nine. Common beginner mistakes
+
+### 9.1 Looking only at model parameters, not the runtime
+
+For the same model, changing the runtime can make the experience very different.
+
+### 9.2 Going straight for a large model
+
+In many local scenarios, a small model is already enough.
+
+### 9.3 Thinking “it runs” means “it is ready for production”
+
+After going live, you still need to look at:
+
+- Stability
+- Monitoring
+- Concurrency
+- Cost
+
+---
+
+## Summary
+
+The most important thing in this section is not remembering a few model names, but building a stable intuition:
+
+> **The core of local model runtime is making a real-world trade-off among “quality, cost, privacy, hardware, and maintenance complexity.”**
+
+It is not a simple replacement for a cloud API, but a completely different deployment choice.
+
+---
+
+## Exercises
+
+1. Based on your current machine, write out a local model runtime plan that you think is reasonable.
+2. In your own words, explain: why does quantization appear so frequently in local model runtime?
+3. Why does “the model file can be loaded” not mean “the model service is ready for production”?
+4. If your system is highly privacy-sensitive but your team has weak operations capability, how would you make the trade-off?

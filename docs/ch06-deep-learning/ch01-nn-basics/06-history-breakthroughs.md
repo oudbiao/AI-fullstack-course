@@ -1,254 +1,254 @@
 ---
-title: "1.2 深度学习历史突破主线"
+title: "1.2 The Main Line of Breakthroughs in Deep Learning History"
 sidebar_position: 1
-description: "按历史进程理解深度学习的重要突破：感知器、XOR 挫折、反向传播、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Attention 与 Transformer 分别解决了什么问题。"
-keywords: [深度学习历史, 神经网络三次浪潮, 感知器, XOR, 反向传播, LSTM, AlexNet, ResNet, Transformer]
+description: "Understand the major breakthroughs in deep learning through their historical progression: perceptron, the XOR setback, backpropagation, gradient vanishing, LSTM, RBM/DBN, AlexNet, ResNet, Attention, and Transformer, and what problems each one solved."
+keywords: [deep learning history, three waves of neural networks, perceptron, XOR, backpropagation, LSTM, AlexNet, ResNet, Transformer]
 ---
 
-# 深度学习历史突破主线
+# The Main Line of Breakthroughs in Deep Learning History
 
-![深度学习历史突破地图](/img/course/ch06-dl-history-breakthrough-map.png)
+![Deep Learning History Breakthrough Map](/img/course/ch06-dl-history-breakthrough-map-en.png)
 
-:::tip 本节定位
-这一节帮你把第 6 章的模型名字放回历史脉络里。
+:::tip Section Overview
+This section helps you place the model names in Chapter 6 back into their historical context.
 
-你不需要背所有年份，但要看懂每一次突破都在回答一个问题：
+You do not need to memorize every year, but you should understand what question each breakthrough was answering:
 
-> **为什么上一代方法不够用？新方法到底补上了什么？**
+> **Why was the previous method not enough? What exactly did the new method add?**
 :::
 
-## 一、先抓住深度学习历史的三次气氛变化
+## 1. First, grasp the three major shifts in deep learning history
 
-深度学习不是一路顺风顺水发展起来的。它更像经历了几次“燃起希望、遇到瓶颈、等待条件成熟、再次爆发”的循环。
+Deep learning did not develop smoothly all the way through. It is more like several cycles of “hope rises, bottlenecks appear, conditions mature, and then it takes off again.”
 
-| 阶段 | 当时的期待 | 主要瓶颈 | 后来的突破 |
+| Stage | Expectations at the time | Main bottleneck | Later breakthrough |
 |---|---|---|---|
-| 第一波神经网络 | 感知器让机器能从数据学规则 | 单层模型表达能力有限，XOR 做不了 | 多层网络和反向传播 |
-| 第二波神经网络 | 反向传播让多层网络能训练 | 梯度消失、数据少、算力弱 | LSTM、初始化、预训练思想 |
-| 深度学习复兴 | 数据、GPU、网络结构一起成熟 | 深层网络训练困难、序列建模瓶颈 | AlexNet、ResNet、Attention、Transformer |
+| First wave of neural networks | The perceptron showed that machines could learn rules from data | Single-layer models had limited expressiveness; XOR could not be solved | Multi-layer networks and backpropagation |
+| Second wave of neural networks | Backpropagation made multi-layer networks trainable | Gradient vanishing, little data, weak compute | LSTM, initialization, and pretraining ideas |
+| Deep learning revival | Data, GPUs, and network architectures all matured | Deep networks were hard to train; sequence modeling was a bottleneck | AlexNet, ResNet, Attention, Transformer |
 
-这条历史线和第 6 章学习顺序高度对应：
+This historical line closely matches the learning order in Chapter 6:
 
-| 历史问题 | 本章对应学习 |
+| Historical problem | Related learning in this chapter |
 |---|---|
-| 单个神经元能做什么 | 1.4 从神经元到 MLP |
-| 多层网络怎么训练 | 1.5 前向传播与反向传播 |
-| 训练为什么不稳定 | 1.6 优化器、1.7 正则化、1.8 初始化 |
-| CNN 为什么适合图像 | 3.2 卷积操作原理、3.4 经典 CNN |
-| 图像为什么适合 CNN | 第三章 CNN |
-| 序列为什么需要记忆机制 | 第四章 RNN / LSTM |
-| 长依赖和并行训练怎么办 | 第五章 Attention / Transformer |
+| What can a single neuron do | 1.4 From Neurons to MLP |
+| How to train multi-layer networks | 1.5 Forward Propagation and Backpropagation |
+| Why training is unstable | 1.6 Optimizers, 1.7 Regularization, 1.8 Initialization |
+| Why CNNs are suitable for images | 3.2 How Convolution Works, 3.4 Classic CNNs |
+| Why images fit CNNs | Chapter 3 CNNs |
+| Why sequences need memory mechanisms | Chapter 4 RNN / LSTM |
+| How to handle long-range dependencies and parallel training | Chapter 5 Attention / Transformer |
 
-## 二、1943～1958：从人工神经元到感知器
+## 2. 1943–1958: From artificial neurons to the perceptron
 
-1943 年，McCulloch 和 Pitts 提出了人工神经元的早期抽象：神经元可以接收输入，经过简单计算后输出结果。这个想法很粗糙，但它第一次把“大脑式计算”翻译成了可计算模型。
+In 1943, McCulloch and Pitts proposed an early abstraction of the artificial neuron: a neuron could receive inputs and produce an output after simple computation. This idea was very rough, but it translated “brain-like computation” into a computable model for the first time.
 
-1958 年，Rosenblatt 提出感知器。感知器真正让人兴奋的地方是：
+In 1958, Rosenblatt proposed the perceptron. What made the perceptron exciting was this:
 
-> **机器不只是执行人写好的规则，而是可以从样本中调整参数。**
+> **The machine was not just executing hand-written rules; it could adjust parameters from samples.**
 
-对新人来说，可以把感知器理解成最小神经元模型：
+For beginners, you can think of the perceptron as the smallest neural network model:
 
 ```text
-输入特征 -> 加权求和 -> 激活判断 -> 输出类别
+input features -> weighted sum -> activation decision -> output class
 ```
 
-它和第 5 章线性模型很像，但它打开了神经网络这条路线：如果一个神经元能学一点规律，那很多神经元、多层结构能不能学更复杂的规律？
+It is very similar to the linear models in Chapter 5, but it opened the door to neural networks: if one neuron can learn some patterns, could many neurons and multi-layer structures learn more complex ones?
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 1.4 从神经元到 MLP | 神经元、权重、偏置、激活函数 |
-| 第 5 章逻辑回归 | 线性打分和分类概率如何连接 |
+| 1.4 From Neurons to MLP | Neurons, weights, bias, activation functions |
+| Chapter 5 Logistic Regression | How linear scoring connects to class probabilities |
 
-## 三、1969：XOR 问题让第一波神经网络热潮冷下来
+## 3. 1969: The XOR problem cooled down the first neural network wave
 
-感知器的局限很快暴露出来。Minsky 和 Papert 指出，单层感知器无法解决 XOR 这种非线性可分问题。
+The limitations of the perceptron quickly became clear. Minsky and Papert pointed out that a single-layer perceptron cannot solve nonlinear separable problems like XOR.
 
-XOR 的关键不是它有多复杂，而是它提醒大家：
+The key point about XOR is not that it is very complex, but that it reminds us:
 
-> **只靠一条直线分不开的数据，单层模型学不了。**
+> **If the data cannot be separated by a single straight line, a single-layer model cannot learn it.**
 
-这件事的历史影响很大，因为它说明早期神经网络的表达能力远远不够。第一波神经网络热潮因此明显降温。
+This had a huge historical impact because it showed that early neural networks were far too limited in expressiveness. As a result, the first wave of neural network enthusiasm cooled off noticeably.
 
-但从今天学习角度看，XOR 反而是一个特别好的教学例子：
+But from today’s learning perspective, XOR is actually a particularly good teaching example:
 
-| 问题 | 为什么重要 |
+| Problem | Why it matters |
 |---|---|
-| 单层模型分不开 XOR | 说明线性边界有局限 |
-| 加隐藏层可以解决 | 说明多层网络能组合出非线性 |
-| 需要非线性激活 | 说明激活函数不是装饰，而是表达能力来源 |
+| A single-layer model cannot separate XOR | Shows the limitation of linear decision boundaries |
+| Adding a hidden layer can solve it | Shows that multi-layer networks can combine nonlinearities |
+| Nonlinear activation is needed | Shows that activation functions are not decoration; they are the source of expressiveness |
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 1.4 从神经元到 MLP | 为什么多层和激活函数重要 |
-| 第 5 章任务类型和决策边界 | 为什么线性模型不是万能 |
+| 1.4 From Neurons to MLP | Why multi-layer structures and activation functions matter |
+| Chapter 5 Task Types and Decision Boundaries | Why linear models are not universal |
 
-## 四、1980：新认知机提前埋下 CNN 的关键思想
+## 4. 1980: Neocognitron quietly planted the key ideas behind CNNs
 
-在 AlexNet 之前很久，Fukushima 在 1980 年提出的新认知机（Neocognitron）就已经包含了后来 CNN 里非常重要的味道：
+Long before AlexNet, Fukushima’s Neocognitron, proposed in 1980, already contained the spirit of many core ideas in modern CNNs:
 
-- 局部感受野：不用每个像素都和所有位置相连，而是先看局部区域
-- 层级特征：先看简单边缘，再逐渐组合成更复杂形状
-- 空间不变性直觉：同一个特征在不同位置出现，也应该能被识别
+- Local receptive fields: not every pixel connects to every position; first look at local regions
+- Hierarchical features: first detect simple edges, then gradually combine them into more complex shapes
+- Intuition of spatial invariance: the same feature appearing in different positions should still be recognizable
 
-对新人来说，可以把它理解成：
+For beginners, you can understand it this way:
 
-> **图像不是一堆孤立像素，而是由局部纹理、边缘、形状一层层组合出来的。**
+> **An image is not a collection of isolated pixels, but something built layer by layer from local textures, edges, and shapes.**
 
-新认知机没有直接变成今天的主流工程框架，但它让 CNN 的核心直觉很早就出现了。后来 LeNet、AlexNet、ResNet 继续把这条路线推向可训练、可扩展、可落地。
+The Neocognitron did not directly become today’s mainstream engineering framework, but it introduced the core CNN intuition very early. Later, LeNet, AlexNet, and ResNet continued pushing this path toward something trainable, scalable, and practical.
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 3.2 卷积操作原理 | 局部感受野、卷积核、特征图 |
-| 3.4 经典 CNN 架构 | LeNet、AlexNet、ResNet 怎样继承和放大 CNN 思想 |
+| 3.2 How Convolution Works | Local receptive fields, convolution kernels, feature maps |
+| 3.4 Classic CNN Architectures | How LeNet, AlexNet, and ResNet inherit and amplify CNN ideas |
 
-## 五、1986：反向传播让多层网络终于能有效训练
+## 5. 1986: Backpropagation finally made multi-layer networks trainable
 
-如果网络只有一层，参数怎么改还比较直观。但多层网络的问题是：前面层的参数对最终损失的影响很绕。
+If a network has only one layer, adjusting parameters is still relatively intuitive. But the problem with multi-layer networks is that the influence of early-layer parameters on the final loss is indirect and complicated.
 
-反向传播解决的就是这个核心问题：
+Backpropagation solves this core problem:
 
-> **把最终错误沿计算图一层层传回去，告诉每个参数该往哪个方向改。**
+> **It sends the final error back through the computation graph layer by layer, telling each parameter which direction to change.**
 
-它依赖第 4 章的链式法则，也构成第 6 章训练循环的发动机。
+It relies on the chain rule from Chapter 4 and also powers the training loop in Chapter 6.
 
-你可以把反向传播想成项目复盘：
+You can think of backpropagation as a project postmortem:
 
-| 训练动作 | 类比 |
+| Training action | Analogy |
 |---|---|
-| 前向传播 | 项目先做一次预测 |
-| 计算 loss | 看结果和目标差多少 |
-| 反向传播 | 追查每一步对错误贡献多少 |
-| 优化器更新 | 根据责任分配调整参数 |
+| Forward propagation | The project makes one prediction first |
+| Compute loss | Check how far the result is from the target |
+| Backpropagation | Trace how much each step contributed to the error |
+| Optimizer update | Adjust parameters based on responsibility assignment |
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 1.5 前向传播与反向传播 | 计算图、loss、gradient |
-| PyTorch 自动求导 | `loss.backward()` 背后的含义 |
-| 第 4 章链式法则 | 数学上为什么能反传 |
+| 1.5 Forward Propagation and Backpropagation | Computation graph, loss, gradient |
+| PyTorch automatic differentiation | What `loss.backward()` means |
+| Chapter 4 Chain Rule | Why backpropagation works mathematically |
 
-## 六、1989～1997：表达能力、梯度消失和 LSTM
+## 6. 1989–1997: Expressiveness, gradient vanishing, and LSTM
 
-1989 年，Cybenko 的通用逼近定理从理论上说明，带非线性的前馈网络具有很强的函数逼近能力。它给了神经网络路线一个重要信号：只要结构和训练合适，网络确实可以表示复杂函数。
+In 1989, Cybenko’s universal approximation theorem theoretically showed that feedforward networks with nonlinearities have very strong function approximation ability. It sent an important signal for the neural network path: if the structure and training are appropriate, neural networks can indeed represent complex functions.
 
-但理论上能表示，不代表工程上好训练。1994 年，Bengio 等人系统指出长序列训练中的梯度消失问题。普通 RNN 在处理长文本或长时间序列时，很容易把早期信息“忘掉”，梯度也难以稳定传回很久以前的时间步。
+But being theoretically expressive does not mean being easy to train in practice. In 1994, Bengio and others systematically pointed out the gradient vanishing problem in long-sequence training. Ordinary RNNs, when processing long text or long time series, easily “forget” early information, and gradients also struggle to flow stably back to very early time steps.
 
-1997 年，LSTM 用门控机制缓解了这个问题。你可以把 LSTM 想成给 RNN 加了一个更可靠的记忆本：
+In 1997, LSTM used gating mechanisms to alleviate this problem. You can think of LSTM as giving the RNN a more reliable memory notebook:
 
-| 模型 | 解决的问题 |
+| Model | Problem it solves |
 |---|---|
-| 普通 RNN | 能处理顺序，但容易忘远处信息 |
-| LSTM | 用门控控制记什么、忘什么、输出什么 |
-| GRU | 用更简化的门控结构实现类似能力 |
+| Ordinary RNN | Can handle sequences, but easily forgets distant information |
+| LSTM | Uses gates to control what to remember, what to forget, and what to output |
+| GRU | Achieves similar capability with a simpler gating structure |
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 1.8 权重初始化 | 为什么信号和梯度稳定很重要 |
-| 4.2 RNN 基础 | 序列建模和隐藏状态 |
-| 4.3 LSTM 与 GRU | 门控如何缓解长期依赖 |
+| 1.8 Weight Initialization | Why stable signals and gradients matter |
+| 4.2 RNN Basics | Sequence modeling and hidden states |
+| 4.3 LSTM and GRU | How gating alleviates long-term dependency issues |
 
-## 七、2006：RBM / DBN 让深层网络重新被重视
+## 7. 2006: RBM / DBN brought deep networks back into focus
 
-2006 年左右，Hinton 等人的 Deep Belief Nets 和 RBM 预训练工作让深层网络再次引起关注。那时深层网络直接训练并不容易，预训练提供了一种“先逐层学表示，再微调任务”的思路。
+Around 2006, Hinton’s Deep Belief Nets and RBM pretraining work brought deep networks back into the spotlight. At that time, directly training deep networks was not easy, and pretraining offered a strategy of “learn representations layer by layer first, then fine-tune for the task.”
 
-今天你不一定需要在项目里手写 RBM，但它的历史意义在于：
+You may not need to hand-code RBMs in a project today, but their historical significance is that:
 
-> **它让大家重新相信，多层表示学习可能是可行的。**
+> **They made people believe again that multi-layer representation learning could be feasible.**
 
-这也是“深度学习复兴”的重要前奏之一。后来数据规模、GPU、初始化、正则化、优化器、网络结构一起成熟，深度学习才真正爆发。
+This was an important prelude to the “deep learning revival.” Later, data scale, GPUs, initialization, regularization, optimizers, and network architectures all matured together, and deep learning truly took off.
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 训练技巧 | 为什么深层网络需要初始化、正则化和诊断 |
-| 生成模型选修 | RBM、VAE、GAN 都属于学习数据分布的不同思路 |
-| 第 7 章预训练 | “先学通用表示，再迁移任务”的思想延续 |
+| Training techniques | Why deep networks need initialization, regularization, and diagnostics |
+| Generative model electives | RBM, VAE, and GAN are different ways of learning data distributions |
+| Chapter 7 Pretraining | The idea of “learn general representations first, then transfer to tasks” |
 
-## 八、2012～2015：AlexNet、ImageNet 和 ResNet 让深度学习真正打穿视觉任务
+## 8. 2012–2015: AlexNet, ImageNet, and ResNet made deep learning truly break through in vision
 
-2012 年，AlexNet 在 ImageNet 图像分类比赛中取得突破性成绩。这次突破不只是模型结构本身，而是多个条件同时成熟：
+In 2012, AlexNet achieved a breakthrough result in the ImageNet image classification competition. This breakthrough was not just about the model architecture itself, but about several conditions maturing at the same time:
 
-- 大规模标注数据集 ImageNet
-- GPU 加速训练
-- 更深的 CNN
-- ReLU、Dropout、数据增强等训练技巧
+- Large-scale labeled dataset ImageNet
+- GPU-accelerated training
+- Deeper CNNs
+- Training techniques such as ReLU, Dropout, and data augmentation
 
-AlexNet 让很多人意识到：深度学习在视觉任务上真的可以明显超过传统方案。
+AlexNet made many people realize that deep learning could clearly outperform traditional approaches in vision tasks.
 
-2015 年，ResNet 用残差连接解决了深层网络难训练的问题。残差连接的直觉是：不要强迫每一层都从零学完整变换，而是让它学习“相对输入要改多少”。
+In 2015, ResNet solved the problem of training very deep networks by introducing residual connections. The intuition behind residual connections is: do not force every layer to learn a complete transformation from scratch; instead, let it learn “how much to change relative to the input.”
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 3.2 卷积操作原理 | CNN 为什么适合图像 |
-| 3.4 经典 CNN 架构 | LeNet、AlexNet、VGG、ResNet 的演进 |
-| 3.5 迁移学习 | 为什么预训练视觉模型可以迁移到新任务 |
-| 第 10 章计算机视觉 | 图像分类、检测、分割如何继续发展 |
+| 3.2 How Convolution Works | Why CNNs are suitable for images |
+| 3.4 Classic CNN Architectures | The evolution of LeNet, AlexNet, VGG, and ResNet |
+| 3.5 Transfer Learning | Why pretrained vision models can transfer to new tasks |
+| Chapter 10 Computer Vision | How image classification, detection, and segmentation continue to develop |
 
-## 九、2017：Attention 和 Transformer 改写序列建模主线
+## 9. 2017: Attention and Transformer rewrote the main line of sequence modeling
 
-RNN 和 LSTM 按顺序处理序列，有一个天然问题：难并行，长距离信息路径也长。Transformer 的突破在于：
+RNNs and LSTMs process sequences in order, which naturally creates a problem: they are hard to parallelize, and the path for long-range information is also long. The breakthrough of the Transformer is:
 
-> **用 self-attention 让序列中任意位置可以直接建立联系。**
+> **It uses self-attention to allow any position in the sequence to directly relate to any other position.**
 
-`Attention Is All You Need` 这篇论文不只是提出一个新模型，而是改变了后面 NLP、大模型和多模态系统的底座。
+The paper *Attention Is All You Need* did not just propose a new model; it changed the foundation of NLP, large models, and multimodal systems that came after it.
 
-Transformer 解决了几个关键问题：
+Transformer solved several key problems:
 
-| 旧问题 | Transformer 的变化 |
+| Old problem | What Transformer changed |
 |---|---|
-| RNN 按顺序算，不容易并行 | Self-Attention 可以并行处理 token |
-| 长距离依赖路径太长 | 注意力让远处 token 直接相互关注 |
-| 不同任务结构分散 | Encoder、Decoder 和预训练范式统一很多任务 |
+| RNNs compute in order and are not easy to parallelize | Self-Attention can process tokens in parallel |
+| The path for long-range dependencies is too long | Attention lets distant tokens directly attend to each other |
+| Task structures are scattered across different models | Encoder, Decoder, and the pretraining paradigm unify many tasks |
 
-建议对应学习：
+Recommended related learning:
 
-| 对应位置 | 你要看懂什么 |
+| Related section | What you should understand |
 |---|---|
-| 5.2 注意力机制 | Q/K/V 和 self-attention |
-| 5.3 Transformer 架构 | Block、残差、LayerNorm、FFN |
-| 第 7 章大模型原理 | Transformer 如何变成 LLM 底座 |
-| 第 8～9 章 RAG / Agent | 大模型如何接入知识和工具 |
+| 5.2 Attention Mechanism | Q/K/V and self-attention |
+| 5.3 Transformer Architecture | Blocks, residuals, LayerNorm, FFN |
+| Chapter 7 Principles of Large Models | How Transformer became the foundation of LLMs |
+| Chapters 8–9 RAG / Agent | How large models connect with knowledge and tools |
 
-## 十、把深度学习突破分配到第 6 章学习路径
+## 10. Map the breakthroughs in deep learning to the learning path of Chapter 6
 
-| 历史突破 | 解决的问题 | 本课程对应章节 |
+| Historical breakthrough | Problem it solved | Corresponding chapter in this course |
 |---|---|---|
-| McCulloch-Pitts / Perceptron | 神经元可计算、参数可学习 | 1.4 从神经元到 MLP |
-| XOR 局限 | 单层线性模型表达能力不足 | 1.4 MLP、激活函数 |
-| Neocognitron | 局部感受野和层级视觉特征 | 3.2 卷积操作、3.4 经典 CNN |
-| Backpropagation | 多层网络如何分配错误并更新参数 | 1.5 前向传播与反向传播、PyTorch autograd |
-| Cybenko 通用逼近 | 多层非线性网络具备强表达能力 | 1.4 MLP 背景 |
-| 梯度消失 | 深层/长序列训练不稳定 | 1.8 初始化、4.3 LSTM |
-| LSTM / GRU | 长序列记忆和门控控制 | 第四章 RNN 与序列模型 |
-| RBM / DBN | 深层网络重新可训练的历史前奏 | 生成模型、预训练背景 |
-| AlexNet / ImageNet | 数据 + GPU + CNN 打穿视觉任务 | 第三章 CNN、第 10 章视觉 |
-| ResNet | 深层 CNN 训练困难 | 3.4 经典 CNN 架构 |
-| Attention / Transformer | 长依赖、并行训练和统一序列建模 | 第五章 Transformer、第 7 章 LLM |
+| McCulloch-Pitts / Perceptron | Neurons are computable, parameters are learnable | 1.4 From Neurons to MLP |
+| XOR limitation | Single-layer linear models lack expressiveness | 1.4 MLP, activation functions |
+| Neocognitron | Local receptive fields and hierarchical visual features | 3.2 Convolution Operations, 3.4 Classic CNNs |
+| Backpropagation | How multi-layer networks assign errors and update parameters | 1.5 Forward Propagation and Backpropagation, PyTorch autograd |
+| Cybenko universal approximation | Multi-layer nonlinear networks have strong expressiveness | 1.4 MLP background |
+| Gradient vanishing | Deep and long-sequence training is unstable | 1.8 Initialization, 4.3 LSTM |
+| LSTM / GRU | Long-sequence memory and gated control | Chapter 4 RNNs and Sequence Models |
+| RBM / DBN | Historical prelude to trainable deep networks | Generative models, pretraining background |
+| AlexNet / ImageNet | Data + GPU + CNNs broke through vision tasks | Chapter 3 CNNs, Chapter 10 Vision |
+| ResNet | Training very deep CNNs is difficult | 3.4 Classic CNN Architectures |
+| Attention / Transformer | Long dependencies, parallel training, and unified sequence modeling | Chapter 5 Transformer, Chapter 7 LLMs |
 
-## 十一、学完这一节应该形成的直觉
+## 11. The intuition you should have after finishing this section
 
-深度学习历史不是一堆模型名字，而是一条连续的问题链：
+The history of deep learning is not just a pile of model names, but a continuous chain of problems:
 
-| 老问题 | 新突破 | 你现在要练的能力 |
+| Old problem | New breakthrough | Capability you should practice now |
 |---|---|---|
-| 规则写不完 | 感知器和神经元 | 理解参数学习 |
-| 单层模型太弱 | 多层网络和激活函数 | 理解表达能力 |
-| 多层网络难训练 | 反向传播 | 理解训练循环 |
-| 长序列记不住 | LSTM / GRU | 理解门控记忆 |
-| 图像任务难做 | CNN / AlexNet / ResNet | 理解局部特征和深层结构 |
-| 序列难并行、长依赖难 | Attention / Transformer | 理解大模型底座 |
+| Rules are impossible to write out completely | Perceptron and neurons | Understand parameter learning |
+| Single-layer models are too weak | Multi-layer networks and activation functions | Understand expressiveness |
+| Multi-layer networks are hard to train | Backpropagation | Understand the training loop |
+| Long sequences are hard to remember | LSTM / GRU | Understand gated memory |
+| Image tasks are hard | CNN / AlexNet / ResNet | Understand local features and deep structures |
+| Sequences are hard to parallelize; long dependencies are hard | Attention / Transformer | Understand the foundation of large models |
 
-如果你能把每个模型名都回答成“它解决了上一代什么问题”，第 6 章就不会变成架构清单，而会变成一条清晰的技术演进路线。
+If you can answer every model name with “what problem did it solve from the previous generation?”, then Chapter 6 will no longer feel like a list of architectures. It will become a clear path of technical evolution.

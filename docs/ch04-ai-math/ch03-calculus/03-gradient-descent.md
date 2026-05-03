@@ -1,68 +1,68 @@
 ---
-title: "3.4 梯度下降：AI 最核心的优化算法"
+title: "3.4 Gradient Descent: The Most Core Optimization Algorithm in AI"
 sidebar_position: 11
-description: "直觉理解梯度下降，掌握学习率的影响，从头实现梯度下降拟合直线，了解 SGD 等变体"
-keywords: [梯度下降, 学习率, SGD, 优化算法, 线性回归, AI数学]
+description: "Build an intuitive understanding of gradient descent, grasp the impact of learning rate, implement gradient descent from scratch to fit a line, and learn about variants such as SGD"
+keywords: [gradient descent, learning rate, SGD, optimization algorithm, linear regression, AI math]
 ---
 
-# 梯度下降：AI 最核心的优化算法
+# Gradient Descent: The Most Core Optimization Algorithm in AI
 
-![梯度下降路径图](/img/course/gradient-descent-path.png)
+![Gradient descent path diagram](/img/course/gradient-descent-path-en.png)
 
-:::tip 本节是整个数学阶段的高潮
-梯度下降是**所有深度学习模型训练的基础**。理解了它，你就理解了 AI 模型是如何"学习"的。
+:::tip This section is the climax of the entire math phase
+Gradient descent is the **foundation of training all deep learning models**. Once you understand it, you understand how AI models "learn".
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 直觉理解梯度下降——"蒙着眼下山"
-- 理解学习率的影响（太大/太小）
-- **从头实现**梯度下降拟合一条直线
-- 了解 BGD、SGD、Mini-batch SGD 的区别
-- 理解局部最小值和鞍点
+- Build an intuitive understanding of gradient descent — "walking down a hill blindfolded"
+- Understand the impact of learning rate (too large / too small)
+- **Implement from scratch** gradient descent to fit a straight line
+- Learn the differences between BGD, SGD, and Mini-batch SGD
+- Understand local minima and saddle points
 
-## 先说一个很重要的学习预期
+## First, a very important learning expectation
 
-这一节不是要你立刻把所有优化细节都吃透，  
-而是先让你真正看懂：
+This section is not about making you fully master every optimization detail right away,
+but about helping you truly understand:
 
-- 模型为什么不是“一下子学会”
-- 而是靠一轮轮小更新慢慢变好
+- Why a model does not "learn it all at once"
+- Instead, it improves gradually through repeated small updates
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-前两节解决的是“怎样知道函数怎么变”，这一节开始解决：
+The previous two sections solved the question of "how to know how a function changes"; from this section on, we begin to solve:
 
-> **既然知道怎么变了，怎样真正把参数一步步调到更好的位置？**
+> **Now that we know how it changes, how do we actually move the parameters step by step to a better position?**
 
-![梯度下降迭代闭环图](/img/course/ch04-gradient-descent-iteration-loop.png)
+![Gradient descent iteration loop diagram](/img/course/ch04-gradient-descent-iteration-loop-en.png)
 
-如果把这一节学明白，后面你看到优化器、学习率、训练过程时就不会只剩下“背 API”了。
+If you understand this section clearly, then later when you see optimizers, learning rates, and training processes, you won't be left with just "memorizing the API."
 
-## 一、直觉：蒙着眼睛下山
+## 1. Intuition: Walking Down a Hill Blindfolded
 
-想象你站在一座山上，被蒙住了眼睛，想走到山谷最低点。你会怎么做？
+Imagine you are standing on a mountain, blindfolded, and you want to reach the lowest point in the valley. What would you do?
 
-1. **用脚感受地面**：哪个方向最陡？（= 计算梯度）
-2. **往最陡的下坡方向走一步**（= 沿负梯度方向更新参数）
-3. **重复**，直到感觉周围都是平的（= 梯度接近零，到达最低点）
+1. **Feel the ground with your feet**: which direction is steepest? (= compute the gradient)
+2. **Take one step in the steepest downhill direction** (= update parameters along the negative gradient direction)
+3. **Repeat** until it feels flat all around (= the gradient is close to zero, meaning you have reached the minimum)
 
-### 1.1 为什么这个类比对新人特别重要？
+### 1.1 Why is this analogy especially important for beginners?
 
-因为它会帮你先接受一件事：
+Because it helps you accept one thing first:
 
-- 模型训练不是一次算完
-- 而是在一个看不见全局地图的损失地形里，一点点试着往更低处走
+- Model training does not happen in one shot
+- It improves little by little in a loss landscape where you cannot see the whole map
 
 ```mermaid
 flowchart TD
-    A["初始化参数<br/>（随机站在山上）"] --> B["计算梯度<br/>（感受地面坡度）"]
-    B --> C["更新参数<br/>w = w - lr × 梯度<br/>（往下坡方向走一步）"]
-    C --> D{"收敛了吗？<br/>梯度 ≈ 0？"}
-    D -->|否| B
-    D -->|是| E["找到最低点！"]
+    A["Initialize parameters<br/>（randomly standing on the mountain）"] --> B["Compute gradient<br/>（feel the slope of the ground）"]
+    B --> C["Update parameters<br/>w = w - lr × gradient<br/>（take one step downhill）"]
+    C --> D{"Has it converged?<br/>gradient ≈ 0?"}
+    D -->|No| B
+    D -->|Yes| E["Found the lowest point!"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -70,9 +70,9 @@ flowchart TD
 
 ---
 
-## 二、从代码开始理解
+## 2. Start by Understanding Through Code
 
-### 2.1 最简单的例子：找 f(x) = x² 的最小值
+### 2.1 The simplest example: finding the minimum of f(x) = x²
 
 ```python
 import numpy as np
@@ -81,30 +81,30 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 目标函数
+# Target function
 def f(x):
     return x ** 2
 
-# 导数
+# Derivative
 def df(x):
     return 2 * x
 
-# 梯度下降
-x = 4.0          # 初始位置
-lr = 0.3          # 学习率
-history = [x]     # 记录轨迹
+# Gradient descent
+x = 4.0          # Initial position
+lr = 0.3          # Learning rate
+history = [x]     # Record the trajectory
 
 for step in range(20):
-    grad = df(x)              # 计算梯度
-    x = x - lr * grad         # 更新参数
+    grad = df(x)              # Compute gradient
+    x = x - lr * grad         # Update parameters
     history.append(x)
     if step < 8:
-        print(f"步骤 {step+1}: x = {x:.4f}, f(x) = {f(x):.6f}, 梯度 = {grad:.4f}")
+        print(f"Step {step+1}: x = {x:.4f}, f(x) = {f(x):.6f}, gradient = {grad:.4f}")
 
-print(f"\n最终: x = {x:.6f}, f(x) = {f(x):.10f}")
+print(f"\nFinal: x = {x:.6f}, f(x) = {f(x):.10f}")
 ```
 
-### 2.2 可视化下降过程
+### 2.2 Visualize the descent process
 
 ```python
 x_plot = np.linspace(-5, 5, 200)
@@ -112,19 +112,19 @@ x_plot = np.linspace(-5, 5, 200)
 plt.figure(figsize=(10, 6))
 plt.plot(x_plot, f(x_plot), 'steelblue', linewidth=2, label='f(x) = x²')
 
-# 画出每一步的位置
+# Draw the position of each step
 for i in range(len(history) - 1):
     plt.plot(history[i], f(history[i]), 'ro', markersize=8, alpha=0.5)
     plt.annotate('', xy=(history[i+1], f(history[i+1])),
                  xytext=(history[i], f(history[i])),
                  arrowprops=dict(arrowstyle='->', color='red', lw=1.5))
 
-plt.plot(history[0], f(history[0]), 'ro', markersize=12, label=f'起点 x={history[0]}')
-plt.plot(history[-1], f(history[-1]), 'g*', markersize=15, label=f'终点 x={history[-1]:.2f}')
+plt.plot(history[0], f(history[0]), 'ro', markersize=12, label=f'Start x={history[0]}')
+plt.plot(history[-1], f(history[-1]), 'g*', markersize=15, label=f'End x={history[-1]:.2f}')
 
 plt.xlabel('x')
 plt.ylabel('f(x)')
-plt.title('梯度下降过程：从 x=4 出发，逐步走到最低点')
+plt.title('Gradient descent process: starting from x=4 and gradually reaching the minimum')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
@@ -132,76 +132,76 @@ plt.show()
 
 ---
 
-## 三、学习率——最关键的超参数
+## 3. Learning Rate — The Most Important Hyperparameter
 
-### 3.1 学习率太大 vs 太小
+### 3.1 Learning rate too large vs too small
 
-### 3.1.1 一个更适合新人的类比
+### 3.1.1 A more beginner-friendly analogy
 
-学习率其实很像你下山时每一步迈多大：
+The learning rate is very much like how big each step is when you walk downhill:
 
-- 步子太小：下得很慢
-- 步子太大：容易直接跨过谷底，来回震荡
+- Steps too small: you go down very slowly
+- Steps too large: you may jump over the valley floor and oscillate back and forth
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 x_plot = np.linspace(-5, 5, 200)
 
-for ax, lr, title in zip(axes, [0.01, 0.3, 0.95], 
-                          ['太小 (lr=0.01)', '刚好 (lr=0.3)', '太大 (lr=0.95)']):
+for ax, lr, title in zip(axes, [0.01, 0.3, 0.95],
+                          ['Too small (lr=0.01)', 'Just right (lr=0.3)', 'Too large (lr=0.95)']):
     x = 4.0
     history = [x]
     for _ in range(30):
         x = x - lr * df(x)
         history.append(x)
-    
+
     ax.plot(x_plot, f(x_plot), 'steelblue', linewidth=2)
-    
+
     for i in range(min(len(history)-1, 20)):
         ax.plot(history[i], f(history[i]), 'ro', markersize=5, alpha=0.6)
         if i < len(history)-1:
-            ax.plot([history[i], history[i+1]], 
+            ax.plot([history[i], history[i+1]],
                     [f(history[i]), f(history[i+1])], 'r-', alpha=0.3)
-    
-    ax.set_title(f'{title}\n30 步后 x={history[-1]:.4f}')
+
+    ax.set_title(f'{title}\nAfter 30 steps x={history[-1]:.4f}')
     ax.set_xlabel('x')
     ax.set_ylabel('f(x)')
     ax.set_ylim(-1, 30)
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('学习率对梯度下降的影响', fontsize=14)
+plt.suptitle('The effect of learning rate on gradient descent', fontsize=14)
 plt.tight_layout()
 plt.show()
 ```
 
-| 学习率 | 表现 | 问题 |
+| Learning rate | Behavior | Problem |
 |--------|------|------|
-| 太小（0.01） | 每步走太短 | 收敛极慢，需要上万步 |
-| 合适（0.1~0.5） | 稳步下降 | 理想情况 |
-| 太大（0.95+） | 来回震荡 | 可能永远不收敛 |
-| 超大（>1.0） | 越跑越远 | 发散（损失爆炸） |
+| Too small (0.01) | Takes very tiny steps | Converges extremely slowly, may need tens of thousands of steps |
+| Suitable (0.1~0.5) | Descends steadily | Ideal case |
+| Too large (0.95+) | Oscillates back and forth | May never converge |
+| Too large (>1.0) | Moves farther and farther away | Diverges (loss explodes) |
 
-:::warning 学习率超过 1.0 时
-对 f(x)=x²，如果 lr > 1，每一步 x 的绝对值会越来越大——模型"学爆了"。
+:::warning When the learning rate exceeds 1.0
+For f(x)=x², if lr > 1, the absolute value of x will keep getting larger with each step — the model "blows up" while learning.
 ```python
 x = 4.0
 for i in range(5):
     x = x - 1.1 * (2*x)
-    print(f"步骤 {i+1}: x={x:.2f}, f(x)={x**2:.2f}")
-# x 越来越大！
+    print(f"Step {i+1}: x={x:.2f}, f(x)={x**2:.2f}")
+# x keeps getting larger!
 ```
 :::
 
 ---
 
-## 四、实战：从头实现梯度下降拟合直线
+## 4. Hands-on: Implement Gradient Descent from Scratch to Fit a Line
 
-### 4.1 问题设定
+### 4.1 Problem setup
 
-用梯度下降拟合 y = wx + b，找到最佳的 w 和 b。
+Use gradient descent to fit y = wx + b and find the best w and b.
 
 ```python
-# 生成数据：y = 2x + 3 + 噪声
+# Generate data: y = 2x + 3 + noise
 np.random.seed(42)
 n = 100
 X = np.random.uniform(-5, 5, n)
@@ -211,29 +211,29 @@ plt.figure(figsize=(8, 5))
 plt.scatter(X, y_true, alpha=0.5, s=30, color='steelblue')
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('数据点（真实关系：y = 2x + 3 + 噪声）')
+plt.title('Data points (true relationship: y = 2x + 3 + noise)')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.2 损失函数
+### 4.2 Loss function
 
-**均方误差（MSE）**：
+**Mean Squared Error (MSE)**:
 
-MSE = (1/n) × Σ (预测值 - 真实值)²
+MSE = (1/n) × Σ (predicted value - true value)²
 
 ```python
 def predict(X, w, b):
-    """预测函数：y = wx + b"""
+    """Prediction function: y = wx + b"""
     return w * X + b
 
 def mse_loss(X, y, w, b):
-    """均方误差损失"""
+    """Mean squared error loss"""
     y_pred = predict(X, w, b)
     return np.mean((y_pred - y) ** 2)
 
 def compute_gradients(X, y, w, b):
-    """计算损失对 w 和 b 的梯度"""
+    """Compute gradients of the loss with respect to w and b"""
     y_pred = predict(X, w, b)
     n = len(y)
     dw = (2/n) * np.sum((y_pred - y) * X)
@@ -241,73 +241,73 @@ def compute_gradients(X, y, w, b):
     return dw, db
 ```
 
-### 4.3 梯度下降训练
+### 4.3 Gradient descent training
 
 ```python
-# 初始化参数
+# Initialize parameters
 w = 0.0
 b = 0.0
 lr = 0.01
 epochs = 200
 
-# 记录训练过程
+# Record the training process
 loss_history = []
 w_history = []
 b_history = []
 
 for epoch in range(epochs):
-    # 1. 计算损失
+    # 1. Compute loss
     loss = mse_loss(X, y_true, w, b)
     loss_history.append(loss)
     w_history.append(w)
     b_history.append(b)
-    
-    # 2. 计算梯度
+
+    # 2. Compute gradients
     dw, db = compute_gradients(X, y_true, w, b)
-    
-    # 3. 更新参数
+
+    # 3. Update parameters
     w = w - lr * dw
     b = b - lr * db
-    
-    # 打印进度
+
+    # Print progress
     if epoch % 40 == 0:
         print(f"Epoch {epoch:4d}: loss={loss:.4f}, w={w:.4f}, b={b:.4f}")
 
-print(f"\n最终结果: w={w:.4f}, b={b:.4f}")
-print(f"真实参数: w=2.0000, b=3.0000")
+print(f"\nFinal result: w={w:.4f}, b={b:.4f}")
+print(f"True parameters: w=2.0000, b=3.0000")
 ```
 
-### 4.4 可视化训练过程
+### 4.4 Visualize the training process
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 
-# 1. 损失曲线
+# 1. Loss curve
 axes[0].plot(loss_history, color='coral', linewidth=2)
 axes[0].set_xlabel('Epoch')
 axes[0].set_ylabel('MSE Loss')
-axes[0].set_title('训练损失曲线')
+axes[0].set_title('Training loss curve')
 axes[0].grid(True, alpha=0.3)
 
-# 2. 参数收敛过程
+# 2. Parameter convergence
 axes[1].plot(w_history, label='w', color='steelblue', linewidth=2)
 axes[1].plot(b_history, label='b', color='coral', linewidth=2)
-axes[1].axhline(y=2.0, color='steelblue', linestyle='--', alpha=0.5, label='w 真实值')
-axes[1].axhline(y=3.0, color='coral', linestyle='--', alpha=0.5, label='b 真实值')
+axes[1].axhline(y=2.0, color='steelblue', linestyle='--', alpha=0.5, label='True w')
+axes[1].axhline(y=3.0, color='coral', linestyle='--', alpha=0.5, label='True b')
 axes[1].set_xlabel('Epoch')
-axes[1].set_ylabel('参数值')
-axes[1].set_title('参数收敛过程')
+axes[1].set_ylabel('Parameter value')
+axes[1].set_title('Parameter convergence')
 axes[1].legend()
 axes[1].grid(True, alpha=0.3)
 
-# 3. 拟合结果
+# 3. Fitting result
 x_line = np.linspace(-5, 5, 100)
 axes[2].scatter(X, y_true, alpha=0.4, s=20, color='gray')
-axes[2].plot(x_line, 2*x_line + 3, 'g--', linewidth=2, label='真实: y=2x+3')
-axes[2].plot(x_line, w*x_line + b, 'r-', linewidth=2, label=f'拟合: y={w:.2f}x+{b:.2f}')
+axes[2].plot(x_line, 2*x_line + 3, 'g--', linewidth=2, label='True: y=2x+3')
+axes[2].plot(x_line, w*x_line + b, 'r-', linewidth=2, label=f'Fit: y={w:.2f}x+{b:.2f}')
 axes[2].set_xlabel('x')
 axes[2].set_ylabel('y')
-axes[2].set_title('拟合结果')
+axes[2].set_title('Fitting result')
 axes[2].legend()
 axes[2].grid(True, alpha=0.3)
 
@@ -317,30 +317,30 @@ plt.show()
 
 ---
 
-## 五、梯度下降的三种变体
+## 5. Three Variants of Gradient Descent
 
-### 5.1 批梯度下降（BGD）
+### 5.1 Batch Gradient Descent (BGD)
 
-每步用**全部数据**计算梯度（上面的实现就是 BGD）。
+Use **all data** to compute the gradient at each step (the implementation above is BGD).
 
 ```python
-# BGD：用全部 n 个样本计算梯度
-dw = (2/n) * np.sum((y_pred - y) * X)  # 用所有数据
+# BGD: use all n samples to compute the gradient
+dw = (2/n) * np.sum((y_pred - y) * X)  # use all data
 ```
 
-### 5.2 随机梯度下降（SGD）
+### 5.2 Stochastic Gradient Descent (SGD)
 
-每步只用**一个样本**计算梯度。
+Use **only one sample** to compute the gradient at each step.
 
 ```python
-# SGD：每次只用 1 个样本
+# SGD: use only 1 sample each time
 i = np.random.randint(0, n)
 dw = 2 * (w * X[i] + b - y_true[i]) * X[i]
 ```
 
-### 5.3 小批量梯度下降（Mini-batch SGD）
+### 5.3 Mini-batch Gradient Descent (Mini-batch SGD)
 
-每步用一小批数据（如 32 个样本）——**最常用**。
+Use a small batch of data at each step (for example, 32 samples) — **the most commonly used**.
 
 ```python
 # Mini-batch SGD
@@ -351,48 +351,48 @@ y_batch = y_true[indices]
 dw = (2/batch_size) * np.sum((w * X_batch + b - y_batch) * X_batch)
 ```
 
-### 5.4 对比
+### 5.4 Comparison
 
-| 方法 | 每步用的数据 | 梯度估计 | 速度 | 实际使用 |
+| Method | Data used per step | Gradient estimate | Speed | Practical use |
 |------|------------|---------|------|---------|
-| BGD | 全部数据 | 精确 | 慢（数据多时） | 小数据集 |
-| SGD | 1 个样本 | 噪声大 | 快但震荡 | 理论分析 |
-| Mini-batch | 32~512 个 | 较准且快 | 最佳平衡 | **最常用** |
+| BGD | All data | Exact | Slow (when data is large) | Small datasets |
+| SGD | 1 sample | Noisy | Fast but oscillatory | Theoretical analysis |
+| Mini-batch | 32~512 samples | Fairly accurate and fast | Best balance | **Most commonly used** |
 
 ```python
-# 对比三种方法的收敛曲线
+# Compare convergence curves of the three methods
 fig, ax = plt.subplots(figsize=(10, 5))
 
-for method, batch_size, color in [('BGD', n, 'steelblue'), 
+for method, batch_size, color in [('BGD', n, 'steelblue'),
                                     ('Mini-batch(32)', 32, 'coral'),
                                     ('SGD', 1, 'gray')]:
     w, b = 0.0, 0.0
     lr = 0.01
     losses = []
-    
+
     for epoch in range(200):
         if batch_size == n:
             idx = np.arange(n)
         else:
             idx = np.random.choice(n, batch_size, replace=False)
-        
+
         X_b, y_b = X[idx], y_true[idx]
         y_pred = w * X_b + b
-        
+
         dw = (2/len(idx)) * np.sum((y_pred - y_b) * X_b)
         db = (2/len(idx)) * np.sum(y_pred - y_b)
-        
+
         w -= lr * dw
         b -= lr * db
-        
+
         losses.append(mse_loss(X, y_true, w, b))
-    
-    ax.plot(losses, label=method, color=color, linewidth=2, 
+
+    ax.plot(losses, label=method, color=color, linewidth=2,
             alpha=0.7 if method != 'SGD' else 0.4)
 
 ax.set_xlabel('Epoch')
 ax.set_ylabel('MSE Loss')
-ax.set_title('三种梯度下降方法的收敛对比')
+ax.set_title('Convergence comparison of the three gradient descent methods')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.show()
@@ -400,12 +400,12 @@ plt.show()
 
 ---
 
-## 六、局部最小值与鞍点
+## 6. Local Minima and Saddle Points
 
-### 6.1 非凸函数的挑战
+### 6.1 Challenges of non-convex functions
 
 ```python
-# 有多个极值点的函数
+# A function with multiple extrema
 def tricky_f(x):
     return x**4 - 4*x**2 + 0.5*x
 
@@ -417,95 +417,95 @@ x_plot = np.linspace(-2.5, 2.5, 200)
 plt.figure(figsize=(10, 5))
 plt.plot(x_plot, tricky_f(x_plot), 'steelblue', linewidth=2)
 
-# 从不同起点出发
+# Start from different initial points
 for x0, color in [(-2.0, 'red'), (0.5, 'green'), (2.0, 'orange')]:
     x = x0
     history = [x]
     for _ in range(100):
         x = x - 0.01 * tricky_df(x)
         history.append(x)
-    
+
     for h in history[::5]:
         plt.plot(h, tricky_f(h), 'o', color=color, markersize=4, alpha=0.5)
     plt.plot(history[0], tricky_f(history[0]), 's', color=color, markersize=10,
-             label=f'起点 x={x0} → 终点 x={history[-1]:.2f}')
+             label=f'Start x={x0} → End x={history[-1]:.2f}')
 
 plt.xlabel('x')
 plt.ylabel('f(x)')
-plt.title('不同起点可能找到不同的极值点')
+plt.title('Different starting points may find different extrema')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-**解读**：不同起点可能"下山"到不同的谷底（局部最小值）。在深度学习中，好消息是高维空间中局部最小值通常也足够好。
+**Interpretation**: Different starting points may "walk downhill" to different valleys (local minima). In deep learning, the good news is that local minima in high-dimensional spaces are usually good enough.
 
-### 6.2 鞍点
+### 6.2 Saddle points
 
 ```mermaid
 flowchart LR
-    A["局部最小值<br/>四周都比它高<br/>在那里卡住也不太差"]
-    B["鞍点<br/>某些方向上升，某些下降<br/>梯度为零但不是最低点"]
+    A["Local minimum<br/>Higher all around<br/>Getting stuck there is not too bad"]
+    B["Saddle point<br/>Rises in some directions and falls in others<br/>Gradient is zero but it is not the lowest point"]
 
     style A fill:#fff3e0,stroke:#e65100,color:#333
     style B fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-在高维空间中，鞍点比局部最小值更常见。现代优化器（如 Adam）通过动量机制可以帮助跳过鞍点。
+In high-dimensional spaces, saddle points are more common than local minima. Modern optimizers such as Adam can help jump over saddle points through momentum mechanisms.
 
 ---
 
-## 学到这里，下一节该带着什么问题走？
+## After learning this, what questions should you bring to the next section?
 
-看完梯度下降以后，最值得带去下一节的问题是：
+After looking at gradient descent, the most valuable questions to bring to the next section are:
 
-1. 如果网络有很多层，梯度到底怎么一层层传回来？
-2. 为什么 `loss.backward()` 能一下子算出所有参数的梯度？
-3. 链式法则到底是怎样在复杂网络里工作的？
+1. If a network has many layers, how does the gradient flow back layer by layer?
+2. Why can `loss.backward()` compute the gradients of all parameters at once?
+3. How exactly does the chain rule work in a complex network?
 
-这几个问题，正好会把你自然带到：
+These questions will naturally lead you to:
 
-- [链式法则与反向传播预览](./04-chain-rule-backprop.md)
+- [Preview of the chain rule and backpropagation](./04-chain-rule-backprop.md)
 
-:::info 连接后续
-- **下一节**：链式法则——如何高效计算复杂网络中每个参数的梯度
-- **第 5 站**：线性回归、逻辑回归的训练都用梯度下降
-- **第 6 站**：PyTorch 的 `optimizer.step()` 就是执行一步梯度下降
-- **高级优化器**：Adam、AdamW 是梯度下降的改进版（自适应学习率 + 动量）
+:::info Connecting to what comes next
+- **Next section**: Chain rule — how to efficiently compute the gradient of each parameter in a complex network
+- **Stop 5**: Training linear regression and logistic regression both use gradient descent
+- **Stop 6**: `optimizer.step()` in PyTorch performs one gradient descent step
+- **Advanced optimizers**: Adam and AdamW are improved versions of gradient descent (adaptive learning rate + momentum)
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 |
+| Concept | Intuition |
 |------|------|
-| 梯度下降 | 沿负梯度方向一步步走到最低点 |
-| 学习率 | 每步走多远（太大震荡，太小太慢） |
-| BGD | 用全部数据算梯度（精确但慢） |
-| Mini-batch SGD | 用一小批数据（最常用） |
-| 局部最小值 | 非全局最优但梯度为零的点 |
+| Gradient descent | Move step by step along the negative gradient direction toward the minimum |
+| Learning rate | How far you move each step (too large causes oscillation, too small is too slow) |
+| BGD | Compute gradients using all data (accurate but slow) |
+| Mini-batch SGD | Use a small batch of data (most commonly used) |
+| Local minimum | A point that is not globally optimal but has zero gradient |
 
-## 这节最该带走什么
+## What you should take away from this section
 
-- 梯度下降最重要的直觉是“沿着让损失下降的方向，一步步更新”
-- 学习率决定的是“每一步走多远”
-- 训练模型这件事，本质上就是不断重复“看梯度 -> 走一步 -> 再看”的过程
+- The most important intuition of gradient descent is "update step by step in the direction that decreases the loss"
+- The learning rate determines "how far each step moves"
+- Training a model is, in essence, a repeated process of "look at the gradient -> take a step -> look again"
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：调学习率
+### Exercise 1: Tune the learning rate
 
-修改 4.3 节的代码，分别用 lr=0.001、0.01、0.1、0.5 训练，画出 4 条损失曲线对比。
+Modify the code in Section 4.3, train with lr=0.001, 0.01, 0.1, and 0.5 respectively, and plot four loss curves for comparison.
 
-### 练习 2：从头拟合二次函数
+### Exercise 2: Fit a quadratic function from scratch
 
-用梯度下降拟合 y = ax² + bx + c，找到最佳的 a、b、c。数据：
+Use gradient descent to fit y = ax² + bx + c and find the best a, b, and c. Data:
 ```python
 X = np.linspace(-3, 3, 100)
 y = 0.5 * X**2 - 2 * X + 1 + np.random.randn(100) * 0.5
 ```
 
-### 练习 3：二维梯度下降可视化
+### Exercise 3: Visualize 2D gradient descent
 
-对 f(x, y) = x² + 2y²，从 (4, 3) 出发做梯度下降，在等高线图上画出下降轨迹。
+For f(x, y) = x² + 2y², start from (4, 3) and run gradient descent, then draw the descent path on a contour plot.

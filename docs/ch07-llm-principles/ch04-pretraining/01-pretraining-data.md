@@ -1,244 +1,245 @@
 ---
-title: "4.2 预训练数据"
+title: "4.2 Pretraining Data"
 sidebar_position: 12
-description: "从数据来源、清洗、去重、混合比例到污染控制，理解预训练数据为什么往往比很多人想象得更决定模型上限。"
+description: "From data sources, cleaning, deduplication, and mixture ratios to contamination control, understand why pretraining data often determines the model ceiling more than many people expect."
 keywords: [pretraining data, deduplication, data mixture, contamination, corpus cleaning]
 ---
 
-# 预训练数据
+# Pretraining Data
 
-![预训练数据流水线图](/img/course/pretraining-data-pipeline.png)
+![Pretraining data pipeline diagram](/img/course/pretraining-data-pipeline-en.png)
 
-:::tip 本节定位
-很多人提到大模型，会先想到：
+:::tip Section overview
+When many people talk about large models, they first think about:
 
-- 参数有多大
-- 架构有多新
-- 训练了多久
+- How many parameters it has
+- How new the architecture is
+- How long it was trained
 
-但真正决定模型“学到什么”和“没学到什么”的底盘，往往是预训练数据。
+But the real foundation that determines what the model “learns” and “does not learn” is often the pretraining data.
 
-而且这里最难的并不是：
+And the hardest part here is not:
 
-- 找更多文本
+- finding more text
 
-而是：
+But rather:
 
-- 找什么文本
-- 怎么清洗
-- 怎么配比
-- 怎么避免重复和污染
+- what text to find
+- how to clean it
+- how to mix it
+- how to avoid duplication and contamination
 
-这节课的目标，就是把“数据很重要”这句空话拆成真正可操作的判断。
+The goal of this lesson is to break the vague statement “data matters a lot” into something you can actually judge and act on.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解预训练数据的核心质量维度
-- 理解为什么“更多数据”不一定等于“更好数据”
-- 通过一个可运行示例理解清洗、去重和数据配比的意义
-- 建立对污染、重复和低质量语料的风险意识
+- Understand the core quality dimensions of pretraining data
+- Understand why “more data” does not always mean “better data”
+- Use a runnable example to understand the meaning of cleaning, deduplication, and data mixture ratios
+- Build awareness of the risks of contamination, duplication, and low-quality corpora
 
 ---
 
-## 这节和前面 LLM / 预训练主线是怎么接上的
+## How this lesson connects to the earlier LLM / pretraining path
 
-如果你已经接受了“预训练会决定模型底座”这件事，这一节最自然的续接就是：
+If you have already accepted the idea that “pretraining determines the model’s foundation,” then the most natural follow-up here is:
 
-- 前面你知道模型能力来自预训练
-- 这一节开始更具体地问：这些能力到底是被什么数据喂出来的
+- Earlier, you learned that model capability comes from pretraining
+- In this lesson, we ask a more specific question: what data actually feeds those capabilities?
 
-所以这节真正想解决的不是“数据很重要”这种空话，而是：
+So the real goal here is not the empty phrase “data matters,” but to answer:
 
-- 预训练数据到底在决定什么
-- 为什么数据工程会直接影响模型上限
+- What does pretraining data actually determine?
+- Why does data engineering directly affect the model ceiling?
 
-## 一、为什么预训练数据会决定模型底盘？
+## 1. Why does pretraining data determine the model foundation?
 
-### 先看一个故事：两个学生读了不同的书
+### First, a story: two students read different books
 
-想象有两个学生都很聪明，也都用同样的学习方法。
+Imagine two students who are both smart and use the same learning method.
 
-第一个学生每天读的是高质量教材、论文、技术文档和经过编辑的长文。第二个学生每天读的是重复广告、标题党、搬运网页和混乱评论。半年后，他们的表达能力、事实可靠性和问题分析习惯大概率会很不一样。
+The first student reads high-quality textbooks, papers, technical docs, and well-edited long-form articles every day. The second student reads repeated ads, clickbait, copied webpages, and messy comments. After half a year, their expression ability, factual reliability, and problem-analysis habits will likely look very different.
 
-预训练数据对模型的影响也类似。模型架构像学习方法，算力像学习时间，而数据就是它每天读进去的材料。材料不同，最后形成的能力底色就不同。
+Pretraining data affects a model in a similar way. The model architecture is like the learning method, compute is like learning time, and data is the material it reads every day. Different material leads to different capabilities in the end.
 
-### 1.1 模型学到的，不只是知识，还有语言习惯和世界分布
+### 1.1 What the model learns is not only knowledge, but also language habits and the world distribution
 
-预训练阶段模型并不会自动区分：
+During pretraining, the model does not automatically distinguish between:
 
-- 哪些内容更可信
-- 哪些文本只是噪音
-- 哪些表达更值得模仿
+- content that is more trustworthy
+- text that is just noise
+- expressions that are worth imitating
 
-它看到什么，就会尽力去拟合什么。
+It tries to fit whatever it sees.
 
-所以预训练数据最后影响的不只是：
+So pretraining data affects not only:
 
-- 知识覆盖
+- knowledge coverage
 
-还会影响：
+but also:
 
-- 语言风格
-- 事实可靠性
-- 偏见分布
-- 安全风险
+- language style
+- factual reliability
+- bias distribution
+- safety risks
 
-### 1.2 一个类比：地基质量决定后面所有装修的上限
+### 1.2 An analogy: foundation quality sets the ceiling for all later renovation
 
-你可以把预训练数据想成地基。
+You can think of pretraining data as the foundation.
 
-- 微调像装修
-- 对齐像护栏和规范
+- Fine-tuning is like renovation
+- Alignment is like guardrails and rules
 
-如果地基本身就很混乱，  
-后面再怎么微调，也更多是在一个已经定型的底盘上修修补补。
+If the foundation itself is messy,
+then no matter how much you fine-tune later,
+you are mostly just patching an already-set base.
 
-### 1.3 为什么“互联网很大”不等于“能直接拿来训”？
+### 1.3 Why doesn’t “the internet is huge” mean “we can just train on it directly”?
 
-因为真实世界文本里混着很多问题：
+Because real-world text contains many problems:
 
-- 重复内容
-- 低质量搬运
-- 广告和垃圾页
-- 模板化 SEO 文本
-- 非法或敏感内容
-- 评测集污染
+- duplicated content
+- low-quality copies
+- ads and spam pages
+- template-like SEO text
+- illegal or sensitive content
+- evaluation set contamination
 
-大模型真正难的地方，不是抓不到数据，  
-而是：
+The real challenge of large models is not that data is unavailable,
+but rather:
 
-> **如何把海量原始文本整理成一个高质量、可控、可复用的数据底盘。**
+> **How do you turn massive raw text into a high-quality, controllable, reusable data foundation?**
 
-### 1.4 第一次学预训练数据，最该先抓住什么？
+### 1.4 When learning pretraining data for the first time, what should you grasp first?
 
-最该先抓住的不是具体语料名字，而是这句：
+What you should grasp first is not specific corpus names, but this sentence:
 
-> **模型预训练阶段并不会自动分辨“什么值得学”，所以数据治理就是在替模型做第一轮价值筛选。**
+> **During pretraining, the model cannot automatically tell what is worth learning, so data governance is the first round of value filtering on behalf of the model.**
 
-一旦这句稳住了，后面你看：
+Once this idea is stable, then later when you see:
 
-- 去重
-- 过滤
-- 配比
-- 污染控制
+- deduplication
+- filtering
+- mixture ratios
+- contamination control
 
-就不再只是工程细节，而会知道它们都在影响模型底盘。
+you will understand that these are not just engineering details — they directly shape the model foundation.
 
-### 1.5 预训练数据管道先放在一张图里
+### 1.5 Put the pretraining data pipeline in one picture first
 
 ```mermaid
 flowchart LR
-    A["原始数据<br/>网页 / 书籍 / 代码 / 论坛"] --> B["清洗<br/>去广告 / 去乱码 / 过滤低质"]
-    B --> C["去重<br/>exact / near duplicate"]
-    C --> D["风险控制<br/>隐私 / 版权 / 污染"]
-    D --> E["数据配比<br/>web / book / code / chat"]
-    E --> F["训练语料版本"]
-    F --> G["预训练模型底座"]
+    A["Raw data<br/>web / books / code / forums"] --> B["Cleaning<br/>remove ads / remove garbled text / filter low-quality data"]
+    B --> C["Deduplication<br/>exact / near duplicate"]
+    C --> D["Risk control<br/>privacy / copyright / contamination"]
+    D --> E["Data mixture<br/>web / book / code / chat"]
+    E --> F["Training corpus version"]
+    F --> G["Pretrained model foundation"]
 ```
 
-这条管道可以帮你把“数据很重要”具体化：每一步都会改变模型最后能学到什么、偏向什么、容易犯什么错。
+This pipeline helps make “data matters” concrete: every step changes what the model can learn, what it leans toward, and what mistakes it is likely to make.
 
-![预训练数据治理漏斗图](/img/course/ch07-pretraining-data-governance-funnel.png)
+![Pretraining data governance funnel diagram](/img/course/ch07-pretraining-data-governance-funnel-en.png)
 
-:::tip 读图提示
-这张图要从“原始数据很多”读到“可训练语料很少”：清洗、去重、风险过滤、污染控制和配比不是装饰步骤，而是在替模型决定哪些模式值得学、哪些噪声必须挡在训练前。
+:::tip Reading guide
+Read this diagram from “there is a lot of raw data” to “there is only a small amount of trainable corpus”: cleaning, deduplication, risk filtering, contamination control, and mixing are not decorative steps. They are how we decide which patterns are worth learning and which noise must be kept out before training starts.
 :::
 
 ---
 
-## 二、预训练数据到底要看哪些维度？
+## 2. Which dimensions should we look at for pretraining data?
 
-### 2.1 覆盖面：模型能接触到多少类型的语言和知识
+### 2.1 Coverage: how many types of language and knowledge can the model access?
 
-常见来源可能包括：
+Common sources may include:
 
-- 网页
-- 书籍
-- 代码
-- 学术论文
-- 问答论坛
-- 对话语料
+- webpages
+- books
+- code
+- academic papers
+- Q&A forums
+- conversational corpora
 
-覆盖面不足会导致模型在一些场景里明显发虚。  
-例如：
+Insufficient coverage can make the model clearly weak in some scenarios.
+For example:
 
-- 代码比例太低，代码能力会弱
-- 书面长文太少，长篇组织能力会差
+- If code is underrepresented, coding ability will be weak
+- If long-form writing is rare, long-document organization will be poor
 
-### 2.2 质量：不是所有 token 都同样值钱
+### 2.2 Quality: not every token is equally valuable
 
-一个很实用的经验是：
+A very practical rule of thumb is:
 
-- 高质量 token 的价值，常常远高于低质量 token 的数量堆叠
+- The value of high-quality tokens often far exceeds simply stacking more low-quality tokens
 
-如果语料里大量是：
+If the corpus contains lots of:
 
-- 重复句式
-- 机械拼接
-- 营销广告
-- 错字病句
+- repeated sentence patterns
+- mechanical concatenation
+- marketing ads
+- typos and broken grammar
 
-模型会把算力浪费在这些不值得学的模式上。
+then the model wastes compute on patterns that are not worth learning.
 
-### 2.3 多样性：不能只会一种话风
+### 2.3 Diversity: the model should not only know one style of speaking
 
-如果数据全部来自同一类来源，  
-模型很可能会学得很偏。
+If all data comes from the same kind of source,
+the model will likely become biased.
 
-例如全是论坛口语，就容易：
+For example, if it is all forum-style casual language, then:
 
-- 风格不稳
-- 正式写作能力差
+- style may become unstable
+- formal writing ability may be weak
 
-例如全是百科书面语，又容易：
+If it is all encyclopedia-style writing, then:
 
-- 对话感不足
-- 指令跟随不自然
+- conversational feel may be lacking
+- instruction following may feel unnatural
 
-### 2.4 安全与合规：有些内容不是“看了再说”
+### 2.4 Safety and compliance: some content should not be handled with “just train on it first”
 
-数据治理还必须考虑：
+Data governance must also consider:
 
-- 版权风险
-- 隐私信息
-- 敏感或有害内容
-- 合规边界
+- copyright risks
+- privacy information
+- sensitive or harmful content
+- compliance boundaries
 
-这不是后期加一个安全微调就能完全补救的。
+This is not something you can fully fix later with a safety fine-tune.
 
-### 2.5 第一次看数据治理，最值得先记哪四个词？
+### 2.5 When first learning data governance, which four words are most worth remembering?
 
-你可以先抓这四个词：
+You can start with these four words:
 
-- 覆盖面
-- 质量
-- 多样性
-- 风险
+- coverage
+- quality
+- diversity
+- risk
 
-这四个词几乎就是后面所有数据讨论的最小骨架。
+These four words are basically the smallest framework for almost all later data discussions.
 
 ---
 
-## 三、先跑一个真正有用的数据清洗示例
+## 3. First run a truly useful data cleaning example
 
-下面这段代码会模拟一个非常小的预训练数据管道：
+The code below simulates a very small pretraining data pipeline:
 
-1. 文本规范化
-2. 去重
-3. 低质量过滤
-4. 统计不同来源保留下来的比例
+1. Text normalization
+2. Deduplication
+3. Low-quality filtering
+4. Statistics on the proportion kept from each source
 
 ```python
 from collections import Counter
 
 raw_docs = [
-    {"source": "web", "text": "点击领取优惠券！！！点击领取优惠券！！！"},
+    {"source": "web", "text": "Click to claim a coupon!!! Click to claim a coupon!!!"},
     {"source": "web", "text": "Python is a programming language. Python is widely used."},
     {"source": "book", "text": "The transformer architecture uses self-attention to model token interactions."},
     {"source": "web", "text": "python is a programming language. python is widely used."},
-    {"source": "forum", "text": "我忘记密码了，客服说可以通过短信重置。"},
-    {"source": "forum", "text": "哈哈哈哈哈哈"},
+    {"source": "forum", "text": "I forgot my password, and customer service said I could reset it by SMS."},
+    {"source": "forum", "text": "hahahahaha"},
 ]
 
 
@@ -256,7 +257,7 @@ def repeated_char_ratio(text):
 def quality_ok(text):
     if len(text.split()) < 4 and len(text) < 12:
         return False
-    if "优惠券" in text or "点击领取" in text:
+    if "coupon" in text or "click to claim" in text:
         return False
     if repeated_char_ratio(text) > 0.6:
         return False
@@ -281,85 +282,85 @@ for doc in clean_docs:
 print("\nsource mix:", Counter(doc["source"] for doc in clean_docs))
 ```
 
-### 3.1 这段代码在真实工程里对应哪几步？
+### 3.1 What steps in real engineering does this code correspond to?
 
-它虽然很小，但对应的是预训练管道里最常见的动作：
+Although it is very small, it corresponds to the most common actions in a pretraining pipeline:
 
-- 文本规范化
-- exact dedup
-- 低质量样本过滤
-- 数据来源分布统计
+- text normalization
+- exact deduplication
+- low-quality sample filtering
+- source distribution statistics
 
-这不是可有可无的预处理，  
-而是大模型数据工程的基本盘。
+This is not optional preprocessing,
+but the basic foundation of large-model data engineering.
 
-### 3.2 为什么去重特别重要？
+### 3.2 Why is deduplication especially important?
 
-因为重复文本会让模型反复看到同一段内容。  
-这会带来两个问题：
+Because duplicate text makes the model see the same content again and again.
+This creates two problems:
 
-1. 训练 token 被浪费
-2. 某些模式被过度放大
+1. Training tokens are wasted
+2. Certain patterns are over-amplified
 
-尤其在网页数据里，  
-转载、镜像和模板页非常常见。
+This is especially common in web data,
+where reposts, mirrors, and template pages are everywhere.
 
-### 3.3 为什么“哈哈哈哈哈哈”这种样本要过滤？
+### 3.3 Why should a sample like “hahahahaha” be filtered out?
 
-因为这类文本虽然是真实语言，  
-但对通用能力提升几乎没有价值，  
-还可能把分布拉偏。
+Because although this is real language,
+it has almost no value for improving general capability,
+and it may also skew the distribution.
 
-所以预训练数据不是越原始越好，  
-而是要对“训练价值”有判断。
+So pretraining data is not about being as raw as possible,
+but about judging “training value.”
 
-### 3.4 为什么这个小例子特别值得反复看？
+### 3.4 Why is this small example especially worth studying again and again?
 
-因为它让你看到：
+Because it shows you:
 
-- 数据工程不是从抽象理念开始
-- 而是从一个个非常具体的判断开始
+- data engineering does not start from abstract ideas
+- it starts from many very concrete judgments
 
-例如：
+For example:
 
-- 这条是不是重复
-- 这条是不是噪声
-- 这类来源比例是不是太失衡
+- Is this sample duplicated?
+- Is this sample noise?
+- Is the proportion from this source too imbalanced?
 
-这些判断最后会累积成模型能力差异。
+These judgments accumulate into differences in model capability.
 
 ---
 
-## 四、数据配比为什么会直接影响模型风格？
+## 4. Why does data mixture directly affect model style?
 
-### 4.1 不同来源的 token 会塑造不同能力
+### 4.1 Tokens from different sources shape different capabilities
 
-一个粗略但实用的理解是：
+A rough but practical understanding is:
 
-- 网页：覆盖广，但质量波动大
-- 书籍：结构完整，语言更稳定
-- 代码：强化程序模式和形式语言能力
-- 论坛对话：提升口语化和互动感
+- Web: broad coverage, but quality varies a lot
+- Books: complete structure, more stable language
+- Code: strengthens program patterns and formal language ability
+- Forum dialogue: improves conversational style and interactivity
 
-所以最终的数据混合比例，会直接影响模型：
+So the final data mixture ratio directly affects whether the model feels more like:
 
-- 更像百科
-- 更像助手
-- 更像程序员
+- an encyclopedia
+- an assistant
+- a programmer
 
-### 4.2 配比不合理会出现什么问题？
+### 4.2 What happens if the mixture ratio is unreasonable?
 
-例如：
+For example:
 
-- 代码占比过低，写代码能力弱
-- 论坛占比过高，正式写作容易口语化
-- 垃圾网页比例高，回答风格会变得空泛和模板化
+- If code accounts for too little, coding ability becomes weak
+- If forum data is too dominant, formal writing may become too casual
+- If low-quality web pages are too common, the model may sound vague and template-like
 
-这也是为什么训练前常常要做：
+That is also why before training, people often need to design:
 
-- source mix 设计
+- source mix
 
-### 4.3 一个简单的配比采样例子
+### 4.3 A simple example of mixture-based sampling
 
 ```python
 import random
@@ -394,106 +395,106 @@ for _ in range(20):
 print(draws)
 ```
 
-这段代码在提醒你：
+This code is reminding you that:
 
-- 数据混合不是“全部扔进去就完了”
-- 采样策略本身就是训练设计的一部分
-
----
-
-## 五、污染和评测泄漏为什么很危险？
-
-### 5.1 什么叫数据污染？
-
-最常见的一种是：
-
-- 评测题、标准答案或近似变体被混进训练数据
-
-这样模型在评测时看起来很强，  
-但那并不是泛化，而更像见过原题。
-
-### 5.2 为什么这比一般重复更严重？
-
-因为它会直接扭曲你对模型能力的判断。  
-你会以为：
-
-- 模型推理更强了
-- 模型知识更丰富了
-
-实际上可能只是：
-
-- 训练数据漏进了测试样本
-
-### 5.3 现实里怎么尽量降低这种风险？
-
-常见做法包括：
-
-- 基于哈希或 n-gram 的近重复检测
-- 对公开 benchmark 做显式过滤
-- 严格记录数据来源和版本
-
-这也是为什么数据治理必须有版本意识。
+- data mixing is not “just throw everything in”
+- the sampling strategy itself is part of training design
 
 ---
 
-## 六、预训练数据质量自测表
+## 5. Why are contamination and evaluation leakage so dangerous?
 
-看一份预训练语料时，可以先用下面这张表做快速判断：
+### 5.1 What is data contamination?
 
-| 检查点 | 要问的问题 | 如果做不好会怎样 |
+A very common form is:
+
+- evaluation questions, reference answers, or close variants get mixed into the training data
+
+Then the model looks strong during evaluation,
+but that is not generalization — it is more like having already seen the original question.
+
+### 5.2 Why is this more serious than ordinary duplication?
+
+Because it directly distorts your judgment of model ability.
+You may think:
+
+- the model is better at reasoning
+- the model knows more
+
+But in reality it may just be:
+
+- the test samples leaked into the training data
+
+### 5.3 How can we reduce this risk in practice?
+
+Common approaches include:
+
+- near-duplicate detection based on hashes or n-grams
+- explicit filtering of public benchmarks
+- strict tracking of data sources and versions
+
+This is also why data governance must have version awareness.
+
+---
+
+## 6. Pretraining data quality self-check table
+
+When reviewing a pretraining corpus, you can use the table below for a quick judgment:
+
+| Checkpoint | What should you ask? | What happens if it is done poorly? |
 |---|---|---|
-| 覆盖面 | 任务需要的语言、领域、格式有没有覆盖？ | 模型在某些场景明显发虚 |
-| 质量 | 是否混入大量广告、乱码、模板页？ | 模型学到低价值模式 |
-| 去重 | 是否有大量转载、镜像、重复模板？ | 浪费 token，放大重复模式 |
-| 配比 | 网页、书籍、代码、对话比例是否符合目标？ | 风格和能力偏向失衡 |
-| 污染 | 评测集或答案是否混进训练？ | 评测结果虚高，误判泛化能力 |
-| 版本 | 数据来源和处理规则是否可追踪？ | 后续复现实验和排查问题困难 |
+| Coverage | Does it cover the language, domain, and formats required by the task? | The model becomes obviously weak in some scenarios |
+| Quality | Does it contain a lot of ads, garbled text, or template pages? | The model learns low-value patterns |
+| Deduplication | Are there many reposts, mirrors, or repeated templates? | Tokens are wasted, and repeated patterns are amplified |
+| Mixture ratio | Do the proportions of web, books, code, and dialogue match the target? | Style and capability become unbalanced |
+| Contamination | Have evaluation sets or answers leaked into training? | Evaluation scores become falsely high, and generalization is misjudged |
+| Versioning | Are the data sources and processing rules traceable? | Reproducing experiments and troubleshooting becomes difficult |
 
-这张表适合放进项目笔记里，因为它能说明你不是只知道“数据越多越好”，而是能从工程角度判断数据是否适合训练。
-
----
-
-## 七、预训练数据最容易踩的坑
-
-### 7.1 误区一：数据越多越好
-
-如果低质量比例很高，  
-单纯加量可能只是在浪费算力。
-
-### 7.2 误区二：清洗越狠越安全
-
-过度清洗也会有代价：
-
-- 多样性下降
-- 稀有知识被误删
-- 语言风格变窄
-
-所以清洗不是越狠越好，  
-而是要和目标能力匹配。
-
-### 7.3 误区三：后面有微调，所以预训练数据不用太在意
-
-不对。  
-微调更像是在已有底盘上做定向塑形，  
-不是把底盘推倒重来。
+This table is worth putting into your project notes, because it shows that you do not just know “more data is better,” but can judge whether the data is suitable for training from an engineering perspective.
 
 ---
 
-## 小结
+## 7. The most common pitfalls in pretraining data
 
-这节课最重要的不是背几个数据来源名称，  
-而是建立这样一个判断：
+### 7.1 Mistake 1: More data is always better
 
-> **预训练数据决定了模型看到怎样的世界，而高质量预训练管道的核心，不只是收集更多文本，而是做清洗、去重、配比和污染控制。**
+If the low-quality proportion is high,
+simply increasing volume may just waste compute.
 
-只要这层判断建立起来，  
-你后面再看预训练目标、训练工程和微调数据时，才会知道哪些问题该在“源头”解决。
+### 7.2 Mistake 2: The stricter the cleaning, the safer it is
+
+Over-cleaning also has a cost:
+
+- diversity decreases
+- rare knowledge may be removed by mistake
+- language style becomes narrower
+
+So cleaning is not about being as aggressive as possible,
+but about matching the target capability.
+
+### 7.3 Mistake 3: Since we have fine-tuning later, pretraining data does not need that much attention
+
+That is not correct.
+Fine-tuning is more like shaping an already existing foundation in a targeted way,
+not tearing down and rebuilding the foundation from scratch.
 
 ---
 
-## 八、练习
+## Summary
 
-1. 参考本节代码，再添加几条你认为应该被过滤或保留的样本，看看规则是否合理。
-2. 为什么说“exact dedup”只是第一步，真实项目还要做近重复检测？
-3. 想一想：如果你的模型主要面向代码场景，数据配比应该怎么调整？
-4. 用自己的话解释：为什么评测泄漏会让我们高估模型能力？
+The most important thing in this lesson is not memorizing a few data source names,
+but building this judgment:
+
+> **Pretraining data determines what kind of world the model sees, and the core of a high-quality pretraining pipeline is not just collecting more text, but performing cleaning, deduplication, mixture control, and contamination control.**
+
+Once this judgment is in place,
+then when you later look at pretraining objectives, training engineering, and fine-tuning data, you will know which problems should be solved at the source.
+
+---
+
+## 8. Exercises
+
+1. Based on the code in this section, add a few more samples that you think should be filtered or kept, and see whether the rules are reasonable.
+2. Why do we say “exact dedup” is only the first step, and real projects also need near-duplicate detection?
+3. Think about it: if your model is mainly for code scenarios, how should the data mixture ratio be adjusted?
+4. Explain in your own words: why does evaluation leakage make us overestimate model capability?

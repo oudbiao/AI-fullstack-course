@@ -1,189 +1,189 @@
 ---
-title: "1.6 类型注解与代码质量"
+title: "1.6 Type Hints and Code Quality"
 sidebar_position: 6
-description: "掌握 Python 类型注解和代码质量工具"
+description: "Master Python type hints and code quality tools"
 ---
 
-# 类型注解与代码质量
+# Type Hints and Code Quality
 
-![类型注解与代码质量流程图](/img/course/ch02-type-hints-quality-flow.png)
+![Type Hints and Code Quality Flowchart](/img/course/ch02-type-hints-quality-flow-en.png)
 
-## 本节定位
+## Where This Section Fits
 
-这一节把注意力从“代码能跑”推进到“代码好维护”。类型注解、格式化工具和代码检查工具能让你在项目变大、多人协作、调用复杂库时少犯错，也能让未来的自己更快读懂代码。
+This section shifts the focus from “code that runs” to “code that is easy to maintain.” Type hints, formatting tools, and code-checking tools help you make fewer mistakes as your project grows, as more people collaborate, and as you work with more complex libraries. They also help your future self understand the code faster.
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么需要类型注解
-- 掌握 Python 类型注解的基本语法
-- 了解常用的代码质量工具（linter、formatter）
-- 养成编写高质量代码的习惯
+- Understand why type hints are needed
+- Master the basic syntax of Python type hints
+- Learn common code quality tools (linter, formatter)
+- Build the habit of writing high-quality code
 
 ---
 
-## 为什么需要类型注解？
+## Why Do We Need Type Hints?
 
-Python 是动态类型语言——变量不需要声明类型。这让写代码很灵活，但也带来一个问题：
+Python is a dynamically typed language — variables do not need type declarations. This makes coding very flexible, but it also brings a problem:
 
 ```python
 def calculate_total(items, tax):
     return sum(items) * (1 + tax)
 
-# 用的时候，你得猜：
-# items 是什么？列表？元组？
-# tax 是什么？0.1？还是 "10%"？
-# 返回什么？数字？字符串？
+# When using it, you have to guess:
+# What is items? A list? A tuple?
+# What is tax? 0.1? Or "10%"?
+# What does it return? A number? A string?
 ```
 
-当项目变大时，没有类型信息的代码就像**没有路标的高速公路**——你得靠猜。
+As projects get larger, code without type information is like a **highway with no road signs** — you have to rely on guessing.
 
-类型注解的作用：
+The benefits of type hints:
 
-| 好处 | 说明 |
+| Benefit | Description |
 |------|------|
-| **自文档化** | 一看就知道函数要什么参数、返回什么 |
-| **IDE 智能提示** | VS Code 能给出更准确的自动补全 |
-| **静态检查** | 在运行前就发现类型错误 |
-| **团队协作** | 降低沟通成本，代码自己说话 |
+| **Self-documenting** | You can tell at a glance what parameters a function needs and what it returns |
+| **IDE smart hints** | VS Code can provide more accurate autocomplete |
+| **Static checking** | Type errors can be found before the code runs |
+| **Team collaboration** | Reduces communication cost; the code speaks for itself |
 
 ---
 
-## 基本类型注解
+## Basic Type Hints
 
-### 变量注解
+### Variable Hints
 
 ```python
-# 基本类型
-name: str = "小明"
+# Basic types
+name: str = "Xiao Ming"
 age: int = 25
 height: float = 1.75
 is_student: bool = True
 
-# Python 不会强制检查类型注解
-# 以下代码不会报错，但静态检查工具会警告
-age: int = "二十五"  # 类型注解说是 int，实际赋了 str
+# Python does not enforce type hints
+# The following code will not raise an error, but static analysis tools will warn
+age: int = "twenty-five"  # The type hint says int, but a str is assigned
 ```
 
-:::info 类型注解只是"建议"
-Python 的类型注解**不会在运行时强制执行**。即使类型不匹配，程序也能运行。它主要是给**开发者和工具**看的。真正的类型检查需要用 mypy 等静态检查工具。
+:::info Type hints are only a "suggestion"
+Python type hints are **not enforced at runtime**. Even if the types do not match, the program can still run. They are mainly for **developers and tools**. Real type checking requires static analysis tools such as mypy.
 :::
 
-### 函数注解
+### Function Hints
 
 ```python
 def greet(name: str) -> str:
     """
-    name: str  → 参数 name 的类型是 str
-    -> str     → 返回值的类型是 str
+    name: str  → The type of parameter name is str
+    -> str     → The return type is str
     """
-    return f"你好，{name}！"
+    return f"Hello, {name}!"
 
 def calculate_bmi(weight: float, height: float) -> float:
-    """计算 BMI"""
+    """Calculate BMI"""
     return weight / (height ** 2)
 
 def train_model(epochs: int = 10, lr: float = 0.001) -> None:
-    """返回 None 的函数"""
-    print(f"训练 {epochs} 轮，学习率 {lr}")
+    """A function that returns None"""
+    print(f"Training for {epochs} epochs, learning rate {lr}")
 ```
 
-有了类型注解，VS Code 的智能提示会变得非常准确——当你输入 `greet(` 时，它会提示你参数类型是 `str`。
+With type hints, VS Code’s IntelliSense becomes much more accurate — when you type `greet(`, it can tell you that the parameter type is `str`.
 
 ---
 
-## 复合类型注解
+## Composite Type Hints
 
-### 列表和字典
+### Lists and Dictionaries
 
 ```python
-# Python 3.9+：直接用内置类型
+# Python 3.9+: use built-in types directly
 scores: list[int] = [85, 92, 78]
-student: dict[str, int] = {"张三": 85, "李四": 92}
+student: dict[str, int] = {"Zhang San": 85, "Li Si": 92}
 coordinates: tuple[float, float] = (3.14, 2.71)
 unique_ids: set[int] = {1, 2, 3}
 
-# Python 3.8 及更早：需要从 typing 导入
+# Python 3.8 and earlier: import from typing
 from typing import List, Dict, Tuple, Set
 
 scores: List[int] = [85, 92, 78]
-student: Dict[str, int] = {"张三": 85, "李四": 92}
+student: Dict[str, int] = {"Zhang San": 85, "Li Si": 92}
 ```
 
-### Optional：可能为 None 的值
+### Optional: Values That May Be None
 
 ```python
 from typing import Optional
 
 def find_student(name: str) -> Optional[dict]:
-    """查找学生，找不到返回 None"""
-    students = {"张三": {"age": 20}, "李四": {"age": 21}}
+    """Look up a student; return None if not found"""
+    students = {"Zhang San": {"age": 20}, "Li Si": {"age": 21}}
     return students.get(name)
 
-# Python 3.10+ 可以用更简洁的写法
+# Python 3.10+ can use a shorter syntax
 def find_student(name: str) -> dict | None:
     ...
 ```
 
-### Union：多种可能的类型
+### Union: Multiple Possible Types
 
 ```python
 from typing import Union
 
 def process(data: Union[str, list]) -> str:
-    """接受字符串或列表"""
+    """Accepts a string or a list"""
     if isinstance(data, list):
         return ", ".join(str(item) for item in data)
     return data
 
-# Python 3.10+ 的简洁写法
+# Shorter syntax in Python 3.10+
 def process(data: str | list) -> str:
     ...
 ```
 
-### Callable：函数类型
+### Callable: Function Types
 
 ```python
 from typing import Callable
 
 def apply_func(func: Callable[[int, int], int], a: int, b: int) -> int:
-    """接受一个函数作为参数"""
+    """Accepts a function as an argument"""
     return func(a, b)
 
 result = apply_func(lambda x, y: x + y, 3, 5)  # 8
 ```
 
-### 更多类型注解
+### More Type Hints
 
 ```python
 from typing import Any, Literal
 
-# Any：任意类型
+# Any: any type
 def log(message: Any) -> None:
     print(message)
 
-# Literal：只接受特定的值
+# Literal: only accepts specific values
 def set_mode(mode: Literal["train", "eval", "test"]) -> None:
-    print(f"模式: {mode}")
+    print(f"Mode: {mode}")
 
 set_mode("train")   # ✅
-set_mode("play")    # 静态检查会警告
+set_mode("play")    # Static analysis will warn
 ```
 
 ---
 
-## 类型注解实战
+## Type Hints in Practice
 
-### 为函数添加类型注解
+### Add Type Hints to a Function
 
 ```python
 def analyze_scores(
     scores: list[float],
-    subject: str = "未知",
+    subject: str = "Unknown",
     pass_line: float = 60.0
 ) -> dict[str, float | int | str]:
-    """分析成绩，返回统计信息"""
+    """Analyze scores and return summary statistics"""
     if not scores:
-        return {"error": "成绩列表为空"}
+        return {"error": "The score list is empty"}
 
     return {
         "subject": subject,
@@ -195,7 +195,7 @@ def analyze_scores(
     }
 ```
 
-### 为类添加类型注解
+### Add Type Hints to a Class
 
 ```python
 class DataProcessor:
@@ -205,39 +205,39 @@ class DataProcessor:
         self._processed: bool = False
 
     def filter_by(self, key: str, value: Any) -> list[dict[str, Any]]:
-        """按条件过滤数据"""
+        """Filter data by condition"""
         return [item for item in self.data if item.get(key) == value]
 
     def get_column(self, key: str) -> list[Any]:
-        """提取某一列"""
+        """Extract a column"""
         return [item[key] for item in self.data if key in item]
 ```
 
 ---
 
-## 代码质量工具
+## Code Quality Tools
 
-好的代码不仅要能运行，还要**可读、规范、少 bug**。以下工具帮你做到这一点。
+Good code should not only run, but also be **readable, consistent, and bug-free**. The following tools help you achieve that.
 
-### 代码格式化：black
+### Code Formatter: black
 
-`black` 是 Python 最流行的代码格式化工具，它会自动帮你把代码格式化成统一风格。
+`black` is the most popular Python code formatter. It automatically formats your code into a consistent style.
 
 ```bash
-# 安装
+# Install
 pip install black
 
-# 格式化单个文件
+# Format a single file
 black my_script.py
 
-# 格式化整个目录
+# Format an entire directory
 black src/
 
-# 只检查不修改
+# Check only, without modifying files
 black --check my_script.py
 ```
 
-格式化前：
+Before formatting:
 
 ```python
 x = {  'a':37,'b':42,
@@ -247,7 +247,7 @@ z = 'hello '+'world'
 a = [1,2,3,4,5,]
 ```
 
-格式化后：
+After formatting:
 
 ```python
 x = {"a": 37, "b": 42, "c": 927}
@@ -256,31 +256,31 @@ z = "hello " + "world"
 a = [1, 2, 3, 4, 5]
 ```
 
-### 代码检查：ruff
+### Code Checking: ruff
 
-`ruff` 是新一代的 Python linter，速度极快，能发现很多常见问题。
+`ruff` is a next-generation Python linter. It is extremely fast and can find many common problems.
 
 ```bash
-# 安装
+# Install
 pip install ruff
 
-# 检查代码
+# Check code
 ruff check my_script.py
 
-# 自动修复
+# Auto-fix
 ruff check --fix my_script.py
 
-# 格式化（ruff 也可以替代 black）
+# Format (ruff can also replace black)
 ruff format my_script.py
 ```
 
-### 类型检查：mypy
+### Type Checking: mypy
 
 ```bash
-# 安装
+# Install
 pip install mypy
 
-# 检查类型
+# Check types
 mypy my_script.py
 ```
 
@@ -289,7 +289,7 @@ mypy my_script.py
 def add(a: int, b: int) -> int:
     return a + b
 
-result = add("hello", "world")  # mypy 会报错：参数类型不对！
+result = add("hello", "world")  # mypy will raise an error: wrong argument types!
 ```
 
 ```bash
@@ -297,17 +297,17 @@ $ mypy example.py
 example.py:4: error: Argument 1 to "add" has incompatible type "str"; expected "int"
 ```
 
-### VS Code 集成
+### VS Code Integration
 
-在 VS Code 中安装以下扩展，可以**实时**看到代码质量问题：
+Install the following extensions in VS Code to see code quality issues **in real time**:
 
-| 扩展 | 功能 |
+| Extension | Feature |
 |------|------|
-| **Pylance** | 类型检查和智能提示（VS Code 自带推荐） |
-| **Ruff** | 实时代码检查 |
-| **Black Formatter** | 保存时自动格式化 |
+| **Pylance** | Type checking and smart hints (recommended by VS Code by default) |
+| **Ruff** | Real-time code checking |
+| **Black Formatter** | Auto-format on save |
 
-推荐在 VS Code 设置中添加：
+It is recommended to add the following to your VS Code settings:
 
 ```json
 {
@@ -321,37 +321,37 @@ example.py:4: error: Argument 1 to "add" has incompatible type "str"; expected "
 
 ---
 
-## Python 代码风格指南（PEP 8）
+## Python Style Guide (PEP 8)
 
-PEP 8 是 Python 官方的代码风格指南，以下是最重要的几条：
+PEP 8 is the official Python style guide. Here are the most important rules:
 
-### 命名规范
+### Naming Conventions
 
 ```python
-# 变量和函数：小写加下划线（snake_case）
-student_name = "张三"
+# Variables and functions: lowercase with underscores (snake_case)
+student_name = "Zhang San"
 def calculate_average(scores):
     pass
 
-# 类：首字母大写（PascalCase）
+# Classes: CapitalizedWords (PascalCase)
 class DataProcessor:
     pass
 
-# 常量：全大写加下划线
+# Constants: ALL_CAPS with underscores
 MAX_RETRY = 3
 DEFAULT_TIMEOUT = 30
 API_BASE_URL = "https://api.example.com"
 
-# "私有"属性：前缀下划线
+# "Private" attributes: underscore prefix
 class MyClass:
     def __init__(self):
         self._internal_state = None
 ```
 
-### 空行和空格
+### Blank Lines and Spaces
 
 ```python
-# 函数之间空两行
+# Two blank lines between functions
 def function_one():
     pass
 
@@ -360,7 +360,7 @@ def function_two():
     pass
 
 
-# 类之间空两行
+# Two blank lines between classes
 class ClassOne:
     pass
 
@@ -368,32 +368,32 @@ class ClassOne:
 class ClassTwo:
     pass
 
-# 运算符周围加空格
+# Add spaces around operators
 x = 1 + 2       # ✅
 x = 1+2          # ❌
 
-# 逗号后面加空格
+# Add spaces after commas
 items = [1, 2, 3]     # ✅
 items = [1,2,3]        # ❌
 
-# 函数参数的默认值不加空格
+# No spaces around default values in function parameters
 def func(x=10):       # ✅
 def func(x = 10):     # ❌
 ```
 
-### 每行长度
+### Line Length
 
 ```python
-# 单行不超过 79 字符（或 88/120 字符，取决于团队规范）
+# A single line should not exceed 79 characters (or 88/120, depending on team standards)
 
-# 太长的行可以用括号换行
+# Long lines can be wrapped with parentheses
 result = (
     first_variable
     + second_variable
     + third_variable
 )
 
-# 函数参数太多时
+# When a function has too many parameters
 def complex_function(
     param1: str,
     param2: int,
@@ -405,9 +405,9 @@ def complex_function(
 
 ---
 
-## 编写文档字符串（docstring）
+## Writing Docstrings
 
-好的文档字符串让别人（和未来的你）能快速理解代码：
+Good docstrings help other people (and your future self) quickly understand the code:
 
 ```python
 def train_model(
@@ -417,21 +417,21 @@ def train_model(
     batch_size: int = 32
 ) -> dict[str, float]:
     """
-    训练模型并返回训练指标。
+    Train a model and return training metrics.
 
     Args:
-        data: 训练数据列表，每个元素是一个样本字典
-        epochs: 训练轮数，默认 100
-        learning_rate: 学习率，默认 0.001
-        batch_size: 批次大小，默认 32
+        data: A list of training data, where each element is a sample dictionary
+        epochs: Number of training epochs, default is 100
+        learning_rate: Learning rate, default is 0.001
+        batch_size: Batch size, default is 32
 
     Returns:
-        包含训练指标的字典，例如:
+        A dictionary containing training metrics, for example:
         {"accuracy": 0.95, "loss": 0.05}
 
     Raises:
-        ValueError: 当 data 为空时
-        RuntimeError: 当 GPU 不可用时
+        ValueError: When data is empty
+        RuntimeError: When the GPU is unavailable
 
     Example:
         >>> result = train_model(data, epochs=50)
@@ -439,18 +439,18 @@ def train_model(
         0.95
     """
     if not data:
-        raise ValueError("训练数据不能为空")
-    # ... 训练逻辑 ...
+        raise ValueError("Training data cannot be empty")
+    # ... training logic ...
     return {"accuracy": 0.95, "loss": 0.05}
 ```
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：为旧代码添加类型注解
+### Exercise 1: Add Type Hints to Legacy Code
 
-给以下代码添加完整的类型注解：
+Add complete type hints to the following code:
 
 ```python
 def process_students(students, min_score):
@@ -475,27 +475,27 @@ def calculate_stats(numbers):
     }
 ```
 
-### 练习 2：安装和使用代码质量工具
+### Exercise 2: Install and Use Code Quality Tools
 
 ```bash
-# 1. 安装 ruff
+# 1. Install ruff
 pip install ruff
 
-# 2. 创建一个有格式问题的 Python 文件
+# 2. Create a Python file with formatting issues
 
-# 3. 运行 ruff check 查看问题
+# 3. Run ruff check to see the problems
 
-# 4. 运行 ruff format 自动格式化
+# 4. Run ruff format to auto-format it
 
-# 5. 对比前后差异
+# 5. Compare the differences before and after
 ```
 
-### 练习 3：编写高质量代码
+### Exercise 3: Write High-Quality Code
 
-用你学到的所有规范，重写以下"糟糕"的代码：
+Use all the conventions you have learned to rewrite the following "bad" code:
 
 ```python
-# 糟糕的代码
+# Bad code
 def f(l,n):
  r=[]
  for x in l:
@@ -508,25 +508,25 @@ def g(d):
  return s/len(d)
 ```
 
-要求：
-1. 改成有意义的命名
-2. 添加类型注解
-3. 添加文档字符串
-4. 符合 PEP 8 规范
+Requirements:
+1. Use meaningful names
+2. Add type hints
+3. Add docstrings
+4. Follow PEP 8
 
 ---
 
-## 小结
+## Summary
 
-| 工具/概念 | 作用 | 推荐程度 |
+| Tool/Concept | Purpose | Recommendation |
 |-----------|------|---------|
-| **类型注解** | 标注参数和返回值类型 | 强烈推荐 |
-| **PEP 8** | Python 代码风格规范 | 必须遵循 |
-| **black / ruff format** | 自动格式化代码 | 强烈推荐 |
-| **ruff** | 代码质量检查 | 强烈推荐 |
-| **mypy** | 静态类型检查 | 推荐 |
-| **docstring** | 文档字符串 | 公开函数必须有 |
+| **Type hints** | Annotate parameter and return types | Strongly recommended |
+| **PEP 8** | Python code style standard | Must follow |
+| **black / ruff format** | Automatically format code | Strongly recommended |
+| **ruff** | Code quality checks | Strongly recommended |
+| **mypy** | Static type checking | Recommended |
+| **docstring** | Documentation strings | Required for public functions |
 
-:::tip 核心理解
-代码是写给人看的，顺便让机器执行。类型注解和代码规范不会让你的代码跑得更快，但会让你的代码**更容易被理解、被维护、被协作**。在 AI 项目中，一个人写的代码往往需要多人使用和修改——养成好习惯，从现在开始。
+:::tip Core Idea
+Code is written for humans to read, and only then for machines to execute. Type hints and code conventions will not make your code run faster, but they will make your code **easier to understand, maintain, and collaborate on**. In AI projects, code written by one person is often used and modified by many others — build good habits starting now.
 :::

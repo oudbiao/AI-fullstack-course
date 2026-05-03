@@ -1,36 +1,36 @@
 ---
-title: "Git 核心操作"
+title: "Git Core Operations"
 sidebar_position: 2
-description: "掌握日常开发中最常用的 Git 操作"
+description: "Master the most commonly used Git operations in day-to-day development"
 ---
 
-# Git 核心操作
+# Git Core Operations
 
-![Git 日常最小循环图](/img/course/ch01-git-daily-loop.png)
+![Git daily minimal loop diagram](/img/course/ch01-git-daily-loop-en.png)
 
-## 本节定位
+## Where This Section Fits
 
-这一节开始把 Git 用起来。重点是掌握每天都会重复使用的 add、commit、status、log、diff 和撤销操作，形成“写一点代码、看一下状态、提交一次记录”的基本开发习惯。
+This section starts putting Git into practice. The focus is on mastering the add, commit, status, log, diff, and undo operations you will use every day, so you can build the basic development habit of “write a bit of code, check the status, and commit a record.”
 
-## 学习目标
+## Learning Objectives
 
-- 熟练使用 `git add`、`git commit`、`git status`、`git log`
-- 学会用 `git diff` 查看修改内容
-- 会编写 `.gitignore` 文件
-- 掌握几种常用的撤销操作
+- Use `git add`, `git commit`, `git status`, and `git log` fluently
+- Learn to use `git diff` to inspect changes
+- Be able to write a `.gitignore` file
+- Master several commonly used undo operations
 
 ---
 
-## 准备工作
+## Preparation
 
-我们用一个模拟的 AI 项目来练习所有操作。先创建项目：
+We will use a simulated AI project to practice all operations. First, create the project:
 
 ```bash
 mkdir ai-image-classifier
 cd ai-image-classifier
 git init
 
-# 创建基本的项目结构
+# Create the basic project structure
 mkdir data models src
 touch src/train.py src/model.py src/utils.py
 touch README.md requirements.txt
@@ -38,15 +38,15 @@ touch README.md requirements.txt
 
 ---
 
-## 查看状态：git status
+## Check Status: git status
 
-`git status` 是你用得最多的命令，它告诉你当前仓库的状态：哪些文件被修改了？哪些在暂存区？哪些还没被 Git 跟踪？
+`git status` is one of the commands you will use most often. It tells you the current state of the repository: which files have been modified? Which files are in the staging area? Which files are not yet tracked by Git?
 
 ```bash
 git status
 ```
 
-输出：
+Output:
 
 ```
 On branch main
@@ -62,35 +62,35 @@ Untracked files:
 nothing added to commit but untracked files present
 ```
 
-**Untracked files（未跟踪的文件）**：Git 看到了这些文件，但还没有管理它们。你需要用 `git add` 告诉 Git "请开始跟踪这些文件"。
+**Untracked files**: Git can see these files, but it is not managing them yet. You need to use `git add` to tell Git, “please start tracking these files.”
 
 ---
 
-## 添加到暂存区：git add
+## Add to the Staging Area: git add
 
 ```bash
-# 添加单个文件
+# Add a single file
 git add README.md
 
-# 添加多个文件
+# Add multiple files
 git add src/train.py src/model.py
 
-# 添加整个文件夹
+# Add an entire folder
 git add src/
 
-# 添加所有文件（最常用）
+# Add all files (most commonly used)
 git add .
 
-# 添加所有修改过的已跟踪文件（不包括新文件）
+# Add all modified tracked files (excluding new files)
 git add -u
 ```
 
-### 实操案例
+### Hands-on Example
 
-先给文件写点内容：
+First, write some content into the files:
 
 ```bash
-echo "# AI 图像分类器" > README.md
+echo "# AI Image Classifier" > README.md
 echo "torch>=2.0" > requirements.txt
 
 cat > src/model.py << 'EOF'
@@ -111,14 +111,14 @@ class SimpleCNN(nn.Module):
 EOF
 ```
 
-现在添加所有文件并查看状态：
+Now add all files and check the status:
 
 ```bash
 git add .
 git status
 ```
 
-输出：
+Output:
 
 ```
 On branch main
@@ -134,20 +134,20 @@ Changes to be committed:
         new file:   src/utils.py
 ```
 
-文件变成了绿色的 **"Changes to be committed"**，说明它们已经在暂存区里，准备好被提交了。
+The files have turned green as **"Changes to be committed"**, which means they are now in the staging area and ready to be committed.
 
 ---
 
-## 提交：git commit
+## Commit: git commit
 
 ```bash
-git commit -m "初始化项目：添加模型定义和项目结构"
+git commit -m "Initialize project: add model definition and project structure"
 ```
 
-输出：
+Output:
 
 ```
-[main (root-commit) a1b2c3d] 初始化项目：添加模型定义和项目结构
+[main (root-commit) a1b2c3d] Initialize project: add model definition and project structure
  5 files changed, 18 insertions(+)
  create mode 100644 README.md
  create mode 100644 requirements.txt
@@ -156,42 +156,42 @@ git commit -m "初始化项目：添加模型定义和项目结构"
  create mode 100644 src/utils.py
 ```
 
-### 提交信息怎么写？
+### How Should You Write Commit Messages?
 
-提交信息应该简洁、清晰，让人一看就知道这次改了什么。
+Commit messages should be concise and clear, so people can immediately tell what changed.
 
-**好的提交信息：**
-
-```bash
-git commit -m "添加 CNN 模型定义"
-git commit -m "修复训练循环中学习率未更新的 bug"
-git commit -m "添加数据增强：随机翻转和颜色抖动"
-git commit -m "更新 README：添加安装说明"
-```
-
-**不好的提交信息：**
+**Good commit messages:**
 
 ```bash
-git commit -m "update"           # 改了什么？
-git commit -m "fix"              # 修了什么？
-git commit -m "aaa"              # ？？？
-git commit -m "改了一些东西"       # 等于没说
+git commit -m "Add CNN model definition"
+git commit -m "Fix bug where learning rate was not updated in the training loop"
+git commit -m "Add data augmentation: random flip and color jitter"
+git commit -m "Update README: add installation instructions"
 ```
 
-:::tip 一个实用的原则
-提交信息回答这个问题：**"这次提交做了什么？"** 用动词开头（添加、修复、更新、删除、重构），说清楚对象。
+**Bad commit messages:**
+
+```bash
+git commit -m "update"           # What was updated?
+git commit -m "fix"              # What was fixed?
+git commit -m "aaa"              # ???
+git commit -m "Changed some stuff" # Basically says nothing
+```
+
+:::tip A practical principle
+A commit message should answer this question: **“What did this commit do?”** Start with a verb (add, fix, update, delete, refactor) and make the target clear.
 :::
 
 ---
 
-## 查看修改：git diff
+## Inspect Changes: git diff
 
-`git diff` 告诉你"上次提交之后，你改了什么"。
+`git diff` tells you “what changed since the last commit.”
 
-### 案例：修改模型代码
+### Example: Modifying the Model Code
 
 ```bash
-# 给 model.py 添加一个新层
+# Add a new layer to model.py
 cat > src/model.py << 'EOF'
 import torch
 import torch.nn as nn
@@ -200,26 +200,26 @@ class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(3, 16, 3, padding=1)
-        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)  # 新增的卷积层
+        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)  # Newly added convolution layer
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 8 * 8, 10)
 
     def forward(self, x):
         x = self.pool(torch.relu(self.conv1(x)))
-        x = self.pool(torch.relu(self.conv2(x)))  # 新增
+        x = self.pool(torch.relu(self.conv2(x)))  # Newly added
         x = x.view(-1, 32 * 8 * 8)
         x = self.fc1(x)
         return x
 EOF
 ```
 
-现在查看变化：
+Now check the changes:
 
 ```bash
 git diff
 ```
 
-输出会用红色和绿色高亮显示：
+The output will highlight differences in red and green:
 
 ```diff
 --- a/src/model.py
@@ -232,130 +232,130 @@ git diff
      def __init__(self):
          super().__init__()
          self.conv1 = nn.Conv2d(3, 16, 3, padding=1)
-+        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)  # 新增的卷积层
++        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)  # Newly added convolution layer
          self.pool = nn.MaxPool2d(2, 2)
 -        self.fc1 = nn.Linear(16 * 16 * 16, 10)
 +        self.fc1 = nn.Linear(32 * 8 * 8, 10)
 ```
 
-- **红色（`-` 开头）**：被删除的行
-- **绿色（`+` 开头）**：被新增的行
+- **Red** (`-` at the start): deleted lines
+- **Green** (`+` at the start): newly added lines
 
-现在提交这次修改：
+Now commit this change:
 
 ```bash
 git add src/model.py
-git commit -m "增加第二层卷积层，提升模型能力"
+git commit -m "Add a second convolution layer to improve model capacity"
 ```
 
-### diff 的几种用法
+### Common Ways to Use diff
 
 ```bash
-git diff                    # 查看工作目录中未暂存的修改
-git diff --staged           # 查看暂存区中的修改（已 add 但未 commit）
-git diff HEAD~1             # 查看最近一次提交改了什么
-git diff abc1234 def5678    # 比较两次提交之间的差异
+git diff                    # View unstaged changes in the working directory
+git diff --staged           # View staged changes (added but not yet committed)
+git diff HEAD~1             # View what the most recent commit changed
+git diff abc1234 def5678    # Compare differences between two commits
 ```
 
 ---
 
-## 查看历史：git log
+## View History: git log
 
 ```bash
 git log
 ```
 
-输出：
+Output:
 
 ```
 commit def5678... (HEAD -> main)
 Author: Zhang San <zhangsan@example.com>
 Date:   Mon Feb 9 10:30:00 2026
 
-    增加第二层卷积层，提升模型能力
+    Add a second convolution layer to improve model capacity
 
 commit a1b2c3d...
 Author: Zhang San <zhangsan@example.com>
 Date:   Mon Feb 9 10:00:00 2026
 
-    初始化项目：添加模型定义和项目结构
+    Initialize project: add model definition and project structure
 ```
 
-### 更简洁的历史查看
+### A More Concise Way to View History
 
 ```bash
-# 一行一条记录（最常用）
+# One record per line (most commonly used)
 git log --oneline
-# 输出:
-# def5678 增加第二层卷积层，提升模型能力
-# a1b2c3d 初始化项目：添加模型定义和项目结构
+# Output:
+# def5678 Add a second convolution layer to improve model capacity
+# a1b2c3d Initialize project: add model definition and project structure
 
-# 带文件变更统计
+# With file change statistics
 git log --oneline --stat
 
-# 图形化显示分支（有分支时很有用）
+# Show branches visually (very useful when branches exist)
 git log --oneline --graph --all
 ```
 
 ---
 
-## .gitignore：告诉 Git 忽略哪些文件
+## .gitignore: Tell Git What to Ignore
 
-有些文件不应该被 Git 管理：
+Some files should not be managed by Git:
 
-- 数据文件（几个 GB 的训练数据）
-- 模型权重文件（几百 MB）
-- 虚拟环境文件夹
-- 系统生成的临时文件
-- API 密钥、密码等敏感信息
+- Data files (training data that is several GB)
+- Model weight files (hundreds of MB)
+- Virtual environment folders
+- Temporary files generated by the system
+- Sensitive information such as API keys and passwords
 
-创建 `.gitignore` 文件来告诉 Git 忽略它们：
+Create a `.gitignore` file to tell Git to ignore them:
 
 ```bash
 cat > .gitignore << 'EOF'
-# Python 缓存
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 
-# 虚拟环境
+# Virtual environment
 venv/
 .venv/
 env/
 
-# Jupyter Notebook 检查点
+# Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
-# 数据文件（太大了，不放进 Git）
+# Data files (too large to put in Git)
 data/*.csv
 data/*.json
 data/*.zip
 *.h5
 *.hdf5
 
-# 模型权重文件
+# Model weight files
 models/*.pt
 models/*.pth
 models/*.onnx
 *.bin
 
-# 环境变量文件（包含 API 密钥等敏感信息）
+# Environment variable files (contain API keys and other sensitive information)
 .env
 .env.local
 
-# IDE 配置
+# IDE settings
 .vscode/
 .idea/
 
-# 操作系统文件
+# Operating system files
 .DS_Store
 Thumbs.db
 
-# 日志
+# Logs
 logs/
 *.log
 
-# 分发/打包
+# Distribution / packaging
 dist/
 build/
 *.egg-info/
@@ -364,149 +364,149 @@ EOF
 
 ```bash
 git add .gitignore
-git commit -m "添加 .gitignore：忽略缓存、数据、模型权重和敏感文件"
+git commit -m "Add .gitignore: ignore cache, data, model weights, and sensitive files"
 ```
 
-### 验证 .gitignore 生效
+### Verify That .gitignore Works
 
 ```bash
-# 创建一些应该被忽略的文件
+# Create some files that should be ignored
 mkdir -p __pycache__
 touch __pycache__/model.cpython-311.pyc
 touch .env
 echo "OPENAI_API_KEY=your_api_key_here" > .env
 
-# 查看状态——这些文件不会出现
+# Check the status — these files will not appear
 git status
-# 输出: nothing to commit, working tree clean
+# Output: nothing to commit, working tree clean
 ```
 
-`.env` 和 `__pycache__/` 都被忽略了，不会被提交到 Git 里。你的 API 密钥是安全的。
+`.env` and `__pycache__/` are both ignored and will not be committed to Git. Your API key is safe.
 
-:::warning 已经被跟踪的文件
-`.gitignore` 只对**还没有被 Git 跟踪**的文件有效。如果你先提交了一个文件、后来才把它加入 `.gitignore`，它不会自动被忽略。需要先手动取消跟踪：
+:::warning Already Tracked Files
+`.gitignore` only works for files that have **not yet been tracked by Git**. If you committed a file first and only later added it to `.gitignore`, Git will not ignore it automatically. You need to stop tracking it manually first:
 
 ```bash
 git rm --cached .env
-git commit -m "从 Git 中移除 .env 文件"
+git commit -m "Remove .env file from Git"
 ```
 :::
 
 ---
 
-## 撤销操作：后悔药
+## Undo Operations: Safety Nets
 
-Git 提供了几种不同的"后悔药"，根据你后悔到哪一步来选择。
+Git provides several different “safety nets,” and you choose one based on how far you want to go back.
 
-### 场景1：改了文件但还没 add，想恢复原样
+### Scenario 1: You changed a file but have not run add yet, and want to restore it
 
 ```bash
-# 你改了 src/utils.py，但改得不满意，想恢复到上次提交的状态
+# You changed src/utils.py, but you are not happy with the changes and want to restore it to the last committed state
 git restore src/utils.py
 
-# 恢复所有文件
+# Restore all files
 git restore .
 ```
 
 :::warning
-`git restore` 会**丢弃你的修改**，无法恢复。确认你真的不要这些修改后再执行。
+`git restore` will **discard your changes** and they cannot be recovered. Make sure you really do not want those changes before running it.
 :::
 
-### 场景2：已经 add 了，想从暂存区撤回（但保留修改）
+### Scenario 2: You already ran add and want to remove it from the staging area, but keep the changes
 
 ```bash
-# 你 add 了 model.py，但还不想提交它
+# You added model.py, but you do not want to commit it yet
 git restore --staged src/model.py
 
-# 文件会从暂存区退回到工作目录，你的修改还在
+# The file will move from the staging area back to the working directory, and your changes will remain
 ```
 
-### 场景3：已经 commit 了，想修改提交信息
+### Scenario 3: You already committed and want to change the commit message
 
 ```bash
-# 刚提交完发现消息写错了
-git commit --amend -m "修正后的提交信息"
+# You just committed and realized the message was wrong
+git commit --amend -m "Corrected commit message"
 ```
 
-### 场景4：已经 commit 了，想撤销整个提交
+### Scenario 4: You already committed and want to undo the entire commit
 
 ```bash
-# 撤销最近一次提交，但保留文件修改（回到 add 之前）
+# Undo the most recent commit, but keep the file changes (go back to before add)
 git reset HEAD~1
 
-# 撤销最近一次提交，并且丢弃所有修改（彻底回退，慎用）
+# Undo the most recent commit and discard all changes (full rollback, use with caution)
 git reset --hard HEAD~1
 ```
 
-### 案例：完整的后悔流程
+### Example: A Complete Undo Flow
 
 ```bash
-# 假设你不小心把 API 密钥提交了
+# Suppose you accidentally committed an API key
 echo "API_KEY=your_api_key_here" > config.py
 git add .
-git commit -m "添加配置文件"
+git commit -m "Add configuration file"
 
-# 糟糕！密钥不应该提交。撤销这次提交
+# Oops! The key should not have been committed. Undo this commit
 git reset HEAD~1
 
-# 文件还在，但提交被撤销了。现在把它加入 .gitignore
+# The file is still there, but the commit has been undone. Now add it to .gitignore
 echo "config.py" >> .gitignore
 git add .gitignore
-git commit -m "更新 .gitignore：忽略 config.py"
+git commit -m "Update .gitignore: ignore config.py"
 ```
 
-### 撤销操作速查
+### Undo Quick Reference
 
-| 我想撤销什么 | 命令 | 文件修改还在吗 |
+| What I want to undo | Command | Are the file changes still there? |
 |------------|------|:-----------:|
-| 工作目录的修改（还没 add） | `git restore 文件名` | ❌ 丢弃 |
-| 暂存区的文件（已 add 未 commit） | `git restore --staged 文件名` | ✅ 保留 |
-| 最近的提交信息写错了 | `git commit --amend -m "新信息"` | ✅ 保留 |
-| 最近的提交（保留修改） | `git reset HEAD~1` | ✅ 保留 |
-| 最近的提交（丢弃修改） | `git reset --hard HEAD~1` | ❌ 丢弃 |
+| Changes in the working directory (not yet added) | `git restore file-name` | ❌ Discarded |
+| Files in the staging area (added but not committed) | `git restore --staged file-name` | ✅ Kept |
+| The last commit message was wrong | `git commit --amend -m "new message"` | ✅ Kept |
+| The most recent commit (keep changes) | `git reset HEAD~1` | ✅ Kept |
+| The most recent commit (discard changes) | `git reset --hard HEAD~1` | ❌ Discarded |
 
 ---
 
-## 实操练习：模拟一次完整的开发过程
+## Hands-on Practice: Simulate a Full Development Workflow
 
 ```bash
-# 1. 写训练脚本
+# 1. Write the training script
 cat > src/train.py << 'EOF'
 import torch
 from model import SimpleCNN
 
 model = SimpleCNN()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-print("模型参数量:", sum(p.numel() for p in model.parameters()))
+print("Number of model parameters:", sum(p.numel() for p in model.parameters()))
 EOF
 
 git add src/train.py
-git commit -m "添加基础训练脚本"
+git commit -m "Add basic training script"
 
-# 2. 写工具函数
+# 2. Write a utility function
 cat > src/utils.py << 'EOF'
 def accuracy(predictions, labels):
-    """计算准确率"""
+    """Calculate accuracy"""
     correct = (predictions.argmax(dim=1) == labels).sum().item()
     return correct / len(labels)
 EOF
 
 git add src/utils.py
-git commit -m "添加准确率计算工具函数"
+git commit -m "Add accuracy calculation utility function"
 
-# 3. 更新 README
+# 3. Update the README
 cat > README.md << 'EOF'
-# AI 图像分类器
+# AI Image Classifier
 
-一个使用 CNN 的简单图像分类项目。
+A simple image classification project using CNN.
 
-## 安装
+## Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 使用
+## Usage
 
 ```bash
 python src/train.py
@@ -514,34 +514,34 @@ python src/train.py
 EOF
 
 git add README.md
-git commit -m "更新 README：添加安装和使用说明"
+git commit -m "Update README: add installation and usage instructions"
 
-# 4. 查看完整历史
+# 4. View the full history
 git log --oneline
 ```
 
-你应该看到类似这样的 5 条提交记录：
+You should see something like these 5 commit records:
 
 ```
-f6g7h8i 更新 README：添加安装和使用说明
-d4e5f6g 添加准确率计算工具函数
-b2c3d4e 添加基础训练脚本
-9a0b1c2 添加 .gitignore：忽略缓存、数据、模型权重和敏感文件
-a1b2c3d 初始化项目：添加模型定义和项目结构
+f6g7h8i Update README: add installation and usage instructions
+d4e5f6g Add accuracy calculation utility function
+b2c3d4e Add basic training script
+9a0b1c2 Add .gitignore: ignore cache, data, model weights, and sensitive files
+a1b2c3d Initialize project: add model definition and project structure
 ```
 
-每一条都是一个可以回退到的存档点。
+Each one is an archive point you can roll back to.
 
 ---
 
-## 小结
+## Summary
 
-| 命令 | 用途 | 使用频率 |
+| Command | Purpose | Frequency |
 |------|------|:------:|
-| `git status` | 查看当前状态 | ⭐⭐⭐⭐⭐ |
-| `git add .` | 暂存所有修改 | ⭐⭐⭐⭐⭐ |
-| `git commit -m "消息"` | 提交 | ⭐⭐⭐⭐⭐ |
-| `git log --oneline` | 查看历史 | ⭐⭐⭐⭐ |
-| `git diff` | 查看修改内容 | ⭐⭐⭐⭐ |
-| `git restore` | 撤销工作目录修改 | ⭐⭐⭐ |
-| `git reset` | 撤销提交 | ⭐⭐ |
+| `git status` | Check the current status | ⭐⭐⭐⭐⭐ |
+| `git add .` | Stage all changes | ⭐⭐⭐⭐⭐ |
+| `git commit -m "message"` | Commit | ⭐⭐⭐⭐⭐ |
+| `git log --oneline` | View history | ⭐⭐⭐⭐ |
+| `git diff` | Inspect changes | ⭐⭐⭐⭐ |
+| `git restore` | Undo working-directory changes | ⭐⭐⭐ |
+| `git reset` | Undo commits | ⭐⭐ |

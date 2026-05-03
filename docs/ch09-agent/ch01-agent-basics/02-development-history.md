@@ -1,338 +1,338 @@
 ---
-title: "1.3 Agent 发展历程"
+title: "1.3 Agent Development History"
 sidebar_position: 2
-description: "从规则机器人、工作流自动化到工具调用和现代智能体，梳理 Agent 概念是如何一步步演进出来的。"
+description: "From rule-based bots and workflow automation to tool calling and modern agents, this section traces how the concept of Agent has evolved step by step."
 keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 ---
 
-# Agent 发展历程
+# Agent Development History
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 理解 Agent 不是突然出现的新概念
-- 说清楚规则系统、工作流和现代 Agent 的演化关系
-- 看懂“为什么大模型让 Agent 真正变得可用”
-- 用一个小例子体验不同阶段系统的差别
-
----
-
-## 一、Agent 之前，自动化早就存在了
-
-### 1.1 最早的自动化更像“固定脚本”
-
-在没有大模型之前，很多自动化系统就已经在工作了：
-
-- 定时任务
-- 表单自动处理
-- 规则引擎
-- RPA 流程机器人
-
-这些系统有价值，但共同特点是：
-
-> 路线基本提前写死。
-
-### 1.2 规则机器人更像“严格照剧本演”
-
-比如一个客服规则机器人可能这样工作：
-
-- 如果用户提到“退款”，回复退款条款
-- 如果用户提到“证书”，回复证书说明
-
-它不太会真正规划，也不太会灵活换招。
+- Understand that Agent did not appear out of nowhere as a brand-new concept
+- Explain the evolutionary relationship between rule systems, workflows, and modern Agents
+- See why large models made Agents truly usable
+- Experience the differences between systems from different stages through a small example
 
 ---
 
-## 二、工作流时代：比规则更强，但还是偏固定
+## 1. Before Agents, automation already existed
 
-### 2.1 工作流是“可组合的固定流程”
+### 1.1 Early automation was more like “fixed scripts”
 
-后来系统变得更复杂一些，开始出现：
+Before large models existed, many automation systems were already at work:
 
-- 条件分支
-- 多步骤串联
-- 工具组合
+- Scheduled tasks
+- Automatic form processing
+- Rule engines
+- RPA process bots
 
-比如：
+These systems are valuable, but they all share one trait:
 
-1. 识别用户意图
-2. 调数据库
-3. 调模板生成回复
+> The path is basically written in advance.
 
-这已经比纯规则更强，但很多时候仍然是“预先设计好的路”。
+### 1.2 Rule-based bots are more like “acting strictly by the script”
 
-### 2.2 工作流为什么到今天仍然重要？
+For example, a customer service rule bot might work like this:
 
-因为它：
+- If the user mentions “refund,” reply with the refund policy
+- If the user mentions “certificate,” reply with certificate instructions
 
-- 稳定
-- 可控
-- 好调试
-
-所以今天即使 Agent 很火，很多真实项目里依然大量使用工作流。
-
-### 2.3 为什么工作流这条线直到今天都没过时？
-
-因为它满足了工程里最现实的三件事：
-
-- 稳定
-- 可控
-- 可审计
-
-这也是为什么很多初学者后来会发现：
-
-- “更像 Agent”的系统不一定总比工作流更值
-
-很多真实场景里，  
-工作流并不是旧时代残留，  
-而更像：
-
-> **Agent 时代里仍然非常重要的地基。**
+It usually does not really plan, and it is not very flexible at changing tactics.
 
 ---
 
-## 三、大模型出现前，为什么很难做通用 Agent？
+## 2. The workflow era: stronger than rules, but still relatively fixed
 
-### 3.1 因为“理解任务”本身很难
+### 2.1 Workflows are “composable fixed processes”
 
-过去系统擅长：
+Later, systems became a bit more complex, and we started to see:
 
-- 按规则执行
-- 按结构化字段处理
+- Conditional branches
+- Multi-step chaining
+- Tool combination
 
-但不擅长：
+For example:
 
-- 读懂开放式自然语言指令
-- 在不确定场景里决定下一步
+1. Identify the user’s intent
+2. Query the database
+3. Use a template to generate a reply
 
-### 3.2 所以很多系统只能“自动化”，很难“智能体化”
+This is already stronger than pure rules, but in many cases it is still a “pre-designed path.”
 
-它们能做事，但做的通常是：
+### 2.2 Why are workflows still important today?
 
-- 固定、明确、结构化的事
+Because they are:
 
-而不是：
+- Stable
+- Controllable
+- Easy to debug
 
-- 带歧义、带上下文、需要动态判断的事
+So even though Agents are very popular today, many real-world projects still rely heavily on workflows.
 
----
+### 2.3 Why has this workflow approach not become outdated even today?
 
-## 四、大模型把哪件事改变了？
+Because it satisfies the three most practical needs in engineering:
 
-### 4.1 它让“自然语言 -> 可执行动作”的桥接变强了
+- Stability
+- Controllability
+- Auditability
 
-大模型最关键的改变之一，不只是更会聊天，而是更会：
+That is also why many beginners later realize:
 
-- 理解开放式指令
-- 生成结构化输出
-- 选择工具
-- 组织中间步骤
+- A system that is “more like an Agent” is not always more valuable than a workflow
 
-这意味着系统终于可以：
+In many real scenarios,
+a workflow is not a leftover from an old era,
+but more like:
 
-> 不必每一步都人工写死，而是让模型辅助决定下一步。
-
-### 4.2 这就是现代 Agent 爆发的原因
-
-当大模型具备：
-
-- 指令跟随
-- 工具调用
-- 长上下文
-- 更强的规划能力
-
-Agent 才真正从概念走向可用。
-
-### 4.3 为什么很多人会把这一步看成真正的“门槛被迈过去”？
-
-因为在大模型之前，自动化系统大多只能：
-
-- 按模板走
-- 按固定结构走
-
-而大模型第一次明显增强了：
-
-- 理解开放式指令
-- 生成结构化动作
-- 在模糊条件下继续推进任务
-
-这就让很多人产生一种很强的感觉：
-
-> **系统终于不只是“照着流程做事”，而开始更像“能围绕目标自己组织步骤”。**
+> **The foundation that is still very important in the Agent era.**
 
 ---
 
-## 五、一个“进化版”小例子
+## 3. Why was it hard to build a general-purpose Agent before large models?
 
-下面我们用同一个任务，看三种不同阶段的实现味道。
+### 3.1 Because “understanding the task” itself is hard
 
-### 5.1 规则机器人
+In the past, systems were good at:
+
+- Executing according to rules
+- Processing structured fields
+
+But they were not good at:
+
+- Understanding open-ended natural language instructions
+- Deciding the next step in uncertain situations
+
+### 3.2 So many systems could only “automate,” not really “agentify”
+
+They could get things done, but what they handled was usually:
+
+- Fixed, explicit, structured tasks
+
+Not:
+
+- Ambiguous, context-dependent tasks that require dynamic judgment
+
+---
+
+## 4. What exactly did large models change?
+
+### 4.1 They made the bridge from “natural language -> executable actions” much stronger
+
+One of the biggest changes brought by large models is not just that they chat better, but that they are better at:
+
+- Understanding open-ended instructions
+- Generating structured output
+- Choosing tools
+- Organizing intermediate steps
+
+This means systems can finally:
+
+> Stop hard-coding every step manually, and instead let the model help decide the next step.
+
+### 4.2 This is why modern Agents exploded in popularity
+
+When large models gained:
+
+- Instruction following
+- Tool calling
+- Long context
+- Stronger planning ability
+
+Agents truly moved from concept to practical use.
+
+### 4.3 Why do many people see this as the moment the “threshold was crossed”?
+
+Because before large models, automation systems mostly could only:
+
+- Follow templates
+- Follow fixed structures
+
+But large models significantly improved, for the first time:
+
+- Understanding open-ended instructions
+- Generating structured actions
+- Continuing a task under vague conditions
+
+This gives many people a strong feeling:
+
+> **The system is no longer just “doing things by following a process,” but is starting to look like something that can organize steps around a goal on its own.**
+
+---
+
+## 5. A small “evolutionary” example
+
+Below, let’s use the same task to look at the flavor of three different stages.
+
+### 5.1 Rule-based bot
 
 ```python
 def rule_bot(query):
-    if "退款" in query:
-        return "请查看退款政策。"
-    if "证书" in query:
-        return "请查看证书说明。"
-    return "抱歉，我不理解你的问题。"
+    if "refund" in query:
+        return "Please check the refund policy."
+    if "certificate" in query:
+        return "Please check the certificate instructions."
+    return "Sorry, I do not understand your question."
 
-print(rule_bot("怎么退款"))
-print(rule_bot("证书怎么拿"))
+print(rule_bot("How do I get a refund"))
+print(rule_bot("How do I get a certificate"))
 ```
 
-### 5.2 工作流系统
+### 5.2 Workflow system
 
 ```python
 def workflow_bot(query):
-    if "退款" in query:
-        doc = "退款政策：7 天内且学习进度低于 20% 可退款。"
-        return f"根据知识库：{doc}"
-    if "证书" in query:
-        doc = "证书说明：完成项目并通过测试后可获得证书。"
-        return f"根据知识库：{doc}"
-    return "未命中流程节点。"
+    if "refund" in query:
+        doc = "Refund policy: You can get a refund within 7 days if your learning progress is below 20%."
+        return f"Based on the knowledge base: {doc}"
+    if "certificate" in query:
+        doc = "Certificate instructions: You can receive a certificate after completing the project and passing the test."
+        return f"Based on the knowledge base: {doc}"
+    return "No workflow node matched."
 
-print(workflow_bot("怎么退款"))
+print(workflow_bot("How do I get a refund"))
 ```
 
-### 5.3 简化版 Agent
+### 5.3 Simplified Agent
 
 ```python
 def tool_search_policy(keyword):
     docs = {
-        "退款": "退款政策：7 天内且学习进度低于 20% 可退款。",
-        "证书": "证书说明：完成项目并通过测试后可获得证书。"
+        "refund": "Refund policy: You can get a refund within 7 days if your learning progress is below 20%.",
+        "certificate": "Certificate instructions: You can receive a certificate after completing the project and passing the test."
     }
     for k, v in docs.items():
         if k in keyword:
             return v
-    return "未找到相关政策。"
+    return "No related policy found."
 
 def simple_agent(query):
     steps = []
-    steps.append("先判断问题类型")
+    steps.append("First, determine the question type")
 
-    if "退款" in query or "证书" in query:
-        steps.append("决定调用政策检索工具")
+    if "refund" in query or "certificate" in query:
+        steps.append("Decide to call the policy retrieval tool")
         evidence = tool_search_policy(query)
-        steps.append(f"拿到证据：{evidence}")
-        answer = f"根据检索到的政策，回答如下：{evidence}"
+        steps.append(f"Evidence obtained: {evidence}")
+        answer = f"Based on the retrieved policy, here is the answer: {evidence}"
     else:
-        steps.append("当前无法决定合适工具")
-        answer = "抱歉，我还不会处理这个任务。"
+        steps.append("No suitable tool can be determined right now")
+        answer = "Sorry, I still do not know how to handle this task."
 
     return steps, answer
 
-steps, answer = simple_agent("如果我没学多少，可以退款吗？")
+steps, answer = simple_agent("If I have not learned much, can I get a refund?")
 print(steps)
 print(answer)
 ```
 
-这个例子里，Agent 虽然还是简化版，但已经体现出“判断 -> 选工具 -> 利用结果”的结构了。
+In this example, although the Agent is still simplified, it already reflects the structure of “judge -> choose a tool -> use the result.”
 
 ---
 
-## 六、从 AutoGPT 热潮到今天
+## 6. From the AutoGPT wave to today
 
-### 6.1 早期热潮带来了什么？
+### 6.1 What did the early wave bring?
 
-早期大家看到大模型可以：
+Early on, people saw that large models could:
 
-- 自己写计划
-- 自己调用工具
-- 自己循环执行
+- Write plans on their own
+- Call tools on their own
+- Execute in loops on their own
 
-于是出现了大量“全自动 Agent”尝试。
+This led to many attempts at “fully automated Agents.”
 
-### 6.2 后来大家更理性了
+### 6.2 Later, people became more rational
 
-实践下来发现：
+In practice, people found that:
 
-- 完全自由的 Agent 不一定稳定
-- 多步系统容易累计错误
-- 成本和时延会很高
+- Completely free-form Agents are not necessarily stable
+- Multi-step systems can accumulate errors
+- Costs and latency can become very high
 
-所以行业逐渐走向更成熟的方向：
+So the industry gradually moved toward a more mature direction:
 
-- 用工作流约束 Agent
-- 用工具调用增强稳定性
-- 用评估和观测提升可控性
+- Use workflows to constrain Agents
+- Use tool calling to improve stability
+- Use evaluation and observability to improve controllability
 
-这是一种“从兴奋走向工程化”的过程。
+This is a process of “moving from excitement to engineering.”
 
-### 6.3 为什么这段历史对初学者特别有价值？
+### 6.3 Why is this history especially valuable for beginners?
 
-因为它会帮你避免一个很常见的误区：
+Because it helps you avoid a very common misunderstanding:
 
-- 以为 Agent 一定是越自由越高级
+- Thinking that an Agent is always better the more autonomous it is
 
-但真实世界往往不是这样。  
-很多时候真正值钱的是：
+But the real world often is not like that.
+Many times, what is truly valuable is:
 
-- 稳定
-- 可解释
-- 可恢复
-- 可回放
+- Stability
+- Explainability
+- Recoverability
+- Replayability
 
-所以 AutoGPT 这段历史最值得记住的，不是热度本身，  
-而是它像一次全行业一起上的公开实验：
+So the most important thing to remember about the AutoGPT era is not the hype itself,
+but that it was like an open experiment for the entire industry:
 
-> **大家先看见了可能性，然后又被现实拉回工程约束。**
-
----
-
-## 七、今天的 Agent 更像什么？
-
-### 7.1 不再是“无限自主”，而是“有限自主”
-
-更成熟的 Agent 系统通常会：
-
-- 给定明确目标边界
-- 限制可用工具
-- 记录中间状态
-- 设置超时和安全护栏
-
-### 7.2 它更像“带流程约束的智能执行器”
-
-这也是为什么现在很多团队并不追求“最自由的 Agent”，而更重视：
-
-- 稳定
-- 可回放
-- 可审计
+> **Everyone first saw the possibility, and then reality pulled things back to engineering constraints.**
 
 ---
 
-## 八、初学者常见误区
+## 7. What do Agents look like today?
 
-### 8.1 以为 Agent 历史就是从 ChatGPT 开始
+### 7.1 No longer “infinite autonomy,” but “limited autonomy”
 
-不是。  
-ChatGPT 和 LLM 只是让 Agent 进入了新阶段。
+More mature Agent systems usually:
 
-### 8.2 以为旧系统都落后了
+- Define clear goal boundaries
+- Restrict available tools
+- Record intermediate states
+- Set timeouts and safety guardrails
 
-很多规则系统和工作流到今天依然是工业主力。
+### 7.2 They are more like “intelligent executors with workflow constraints”
 
-### 8.3 以为越自主越先进
+That is also why many teams today do not pursue the “most free” Agent, but instead focus more on:
 
-真实工程里，可控往往比“听起来更聪明”更重要。
-
----
-
-## 小结
-
-这一节最重要的认识是：
-
-> Agent 不是凭空出现的新物种，而是自动化系统在大模型时代的一次能力跃迁。
-
-理解它的历史，能帮助你更冷静地判断：  
-什么时候该用 Agent，什么时候其实工作流就够了。
+- Stability
+- Replayability
+- Auditability
 
 ---
 
-## 练习
+## 8. Common beginner misconceptions
 
-1. 给 `simple_agent()` 再增加一个工具，比如“计算器”。
-2. 用自己的话总结规则机器人、工作流和 Agent 的区别。
-3. 想一想：为什么很多团队在 Agent 项目里，最后还是会保留大量固定流程节点？
+### 8.1 Thinking Agent history started with ChatGPT
+
+No.
+ChatGPT and LLMs only brought Agents into a new stage.
+
+### 8.2 Thinking old systems are all outdated
+
+Many rule systems and workflows are still the main force in industry today.
+
+### 8.3 Thinking more autonomy always means more advanced
+
+In real engineering, controllability is often more important than “sounding smarter.”
+
+---
+
+## Summary
+
+The most important takeaway from this section is:
+
+> Agent is not a brand-new species that appeared out of thin air, but a leap in capability for automation systems in the era of large models.
+
+Understanding its history helps you judge more calmly:
+when you should use an Agent, and when a workflow is actually enough.
+
+---
+
+## Exercises
+
+1. Add another tool to `simple_agent()`, such as a “calculator.”
+2. Summarize the differences between rule-based bots, workflows, and Agents in your own words.
+3. Think about this: why do many teams still keep a large number of fixed workflow nodes in Agent projects?

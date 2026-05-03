@@ -1,138 +1,138 @@
 ---
-title: "2.2 概率基础：不确定性的度量"
+title: "2.2 Probability Basics: Measuring Uncertainty"
 sidebar_position: 5
-description: "理解概率的直觉含义，掌握条件概率、联合概率、贝叶斯定理，用 Python 模拟验证"
-keywords: [概率, 条件概率, 贝叶斯定理, 联合概率, Python概率, AI数学]
+description: "Understand the intuitive meaning of probability, master conditional probability, joint probability, and Bayes' theorem, and verify them with Python simulations"
+keywords: [probability, conditional probability, Bayes' theorem, joint probability, Python probability, AI math]
 ---
 
-# 概率基础：不确定性的度量
+# Probability Basics: Measuring Uncertainty
 
-![概率分布与贝叶斯更新图](/img/course/probability-distribution-map.png)
+![Probability distribution and Bayes update diagram](/img/course/probability-distribution-map-en.png)
 
-:::tip 为什么学概率？
-AI 本质上就是在"不确定性"中做决策。模型输出的不是"这张图一定是猫"，而是"这张图有 95% 的概率是猫"。概率论就是处理不确定性的数学工具。
+:::tip Why learn probability?
+AI is essentially about making decisions in "uncertainty." A model does not output "this image is definitely a cat," but rather "this image has a 95% probability of being a cat." Probability theory is the mathematical tool for handling uncertainty.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解概率的两种理解方式（频率 vs 信念）
-- 掌握条件概率和联合概率
-- 用经典案例理解贝叶斯定理
-- 用 Python 模拟验证概率公式
+- Understand the two interpretations of probability (frequentist vs. Bayesian)
+- Master conditional probability and joint probability
+- Understand Bayes' theorem through classic examples
+- Use Python simulations to verify probability formulas
 
-## 历史背景：贝叶斯法则从哪里来？
+## Historical Background: Where Did Bayes' Rule Come From?
 
-这一节最值得知道的历史节点是：
+The most important historical milestone in this section is:
 
-| 年份 | 节点 | 它最重要地解决了什么 |
+| Year | Milestone | What it most importantly solved |
 |---|---|---|
-| 1763 | Bayes' Theorem（后由 Price 整理发表） | 奠定了“有了新证据以后，怎样更新判断”这条概率推断主线 |
+| 1763 | Bayes' Theorem (later organized and published by Price) | Laid the foundation for the main line of probabilistic inference: "How do we update our judgment when new evidence appears?" |
 
-对新人来说，最值得先记的不是原始论文细节，而是：
+For beginners, the most important thing to remember first is not the details of the original paper, but:
 
-> **贝叶斯法则最大的价值，不是一个公式本身，而是它把“先验判断 + 新证据 = 更新后的判断”这件事说清楚了。**
+> **The greatest value of Bayes' rule is not the formula itself, but that it clearly explains "prior judgment + new evidence = updated judgment."**
 
-这也是为什么后面机器学习里：
+That is also why in machine learning later on:
 
-- 垃圾邮件判断
-- 医疗检测
-- 朴素贝叶斯
+- spam detection
+- medical testing
+- Naive Bayes
 
-都会反复回到这条更新逻辑上。
+all repeatedly return to this update logic.
 
-### 为什么贝叶斯会一直让很多初学者觉得“很有意思”？
+### Why has Bayes always felt "interesting" to many beginners?
 
-因为它不像很多公式那样只是在算数，  
-它更像是在回答一个很像现实生活的问题：
+Because unlike many formulas that are just about calculation,
+it feels more like answering a very real-life question:
 
-- 我原来怎么判断
-- 新证据来了以后，我该不该改主意
+- How did I originally judge this?
+- Now that new evidence has arrived, should I change my mind?
 
-这件事特别容易让人产生代入感。  
-比如医学检测、垃圾邮件判断、风控、推荐系统，  
-本质上都不是“绝对知道答案”，而是在做：
+This is especially easy to relate to.
+For example, medical testing, spam detection, risk control, and recommendation systems
+are all essentially not about "knowing the answer absolutely," but about:
 
-- 一边看证据
-- 一边更新把握
+- looking at evidence
+- updating confidence
 
-所以贝叶斯法则之所以一直被人记住，  
-往往不是因为它“优雅”，  
-而是因为它特别像真实世界里人做判断的方式。
+So the reason Bayes' rule has been remembered for so long
+is often not because it is "elegant,"
+but because it so closely resembles how people make judgments in the real world.
 
-### 这件事为什么会让后人一直记住？
+### Why has this been remembered by later generations?
 
-因为它第一次非常清楚地告诉人们：
+Because it clearly told people for the first time:
 
-- 推理不是“有了结论就结束”
-- 推理其实可以随着证据不断更新
+- reasoning does not end once you have a conclusion
+- reasoning can actually be updated continuously as evidence arrives
 
-这听起来今天很自然，但在历史上它很重要。  
-你可以把贝叶斯法则想成一句特别朴素、但影响很深的话：
+That sounds natural today, but historically it was important.
+You can think of Bayes' rule as a very simple but deeply influential idea:
 
-> **我原来怎么想不重要，重要的是拿到新证据后，我愿不愿意更新判断。**
+> **What I originally thought is not important; what matters is whether I am willing to update my judgment after getting new evidence.**
 
-这也是为什么它不只是一条数学公式，  
-而更像一整种看待不确定世界的方式。
+That is why it is not just a mathematical formula,
+but more like an entire way of viewing an uncertain world.
 
-## 先说一个很重要的学习预期
+## First, Set a Very Important Expectation
 
-这一节不会把概率论所有内容都讲完。  
-它更现实的目标是：
+This section will not cover everything in probability theory.
+Its more realistic goals are:
 
-- 先让你知道“概率不是玄学，而是在描述不确定”
-- 先让你知道“有了新信息以后，判断会更新”
-- 先让你知道“模型输出概率”背后到底在说什么
+- to help you see that "probability is not mysticism; it describes uncertainty"
+- to help you see that "judgments update when new information arrives"
+- to help you see what model output probabilities are really saying
 
-所以你这一节最重要的目标，不是把每个公式背到滚瓜烂熟，  
-而是先把：
+So the most important goal in this section is not to memorize every formula perfectly,
+but to first clearly understand:
 
-- 事件
-- 条件
-- 更新
+- events
+- conditions
+- updates
 
-这三件事看顺。
+These three things.
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-这一节最好先把它放回整章里理解：
+It is best to place this section back into the chapter as a whole:
 
-![概率与贝叶斯更新流程图](/img/course/ch04-probability-bayes-update-flow.png)
+![Probability and Bayes update flowchart](/img/course/ch04-probability-bayes-update-flow-en.png)
 
-这节真正要学的，不只是几个公式，而是：
+What you really need to learn here is not just a few formulas, but:
 
-- 世界里很多判断都不是 0 或 1
-- 有了新证据后，我们的判断会更新
-- 这正是 AI 模型输出概率时的基本思路
+- Many judgments in the world are not 0 or 1
+- When new evidence appears, our judgments are updated
+- This is exactly the basic idea behind AI models outputting probabilities
 
-## 一、概率是什么？
+## 1. What Is Probability?
 
-### 1.1 两种理解方式
+### 1.1 Two Interpretations
 
 ```mermaid
 flowchart LR
-    P["概率"]
-    P --> F["频率学派<br/>重复实验中事件出现的比例<br/>例：抛 1000 次硬币，正面 503 次"]
-    P --> B["贝叶斯学派<br/>对事件的信心程度<br/>例：我 80% 确定明天会下雨"]
+    P["Probability"]
+    P --> F["Frequentist<br/>The proportion of an event in repeated experiments<br/>Example: Flip a coin 1000 times, get heads 503 times"]
+    P --> B["Bayesian<br/>The degree of confidence in an event<br/>Example: I am 80% sure it will rain tomorrow"]
 
     style P fill:#e3f2fd,stroke:#1565c0,color:#333
     style F fill:#fff3e0,stroke:#e65100,color:#333
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-在 AI 中，两种理解都用到：
-- **训练模型**时：用频率学派的方法（大量数据统计规律）
-- **模型推断**时：用贝叶斯的方法（根据观测更新信念）
+In AI, both interpretations are used:
+- **When training models**: use frequentist methods (statistical patterns from large amounts of data)
+- **When doing inference with models**: use Bayesian methods (updating beliefs based on observations)
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A More Beginner-Friendly Analogy
 
-可以先把概率想成两种不同语境下的“把握程度”：
+You can first think of probability as "confidence" in two different contexts:
 
-- 频率学派：像反复做实验后的统计结论
-- 贝叶斯学派：像拿到证据后对一件事的主观把握更新
+- Frequentist: like a statistical conclusion from repeated experiments
+- Bayesian: like updating your subjective confidence after getting evidence
 
-### 1.2 用 Python 体验"频率即概率"
+### 1.2 Experiencing "Frequency Is Probability" with Python
 
 ```python
 import numpy as np
@@ -141,189 +141,188 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 模拟抛硬币
+# Simulate coin flips
 np.random.seed(42)
 n_flips = 10000
-results = np.random.choice(['正面', '反面'], size=n_flips)
+results = np.random.choice(['Heads', 'Tails'], size=n_flips)
 
-# 随着抛的次数增加，正面比例趋近 0.5
-cumulative_ratio = np.cumsum(results == '正面') / np.arange(1, n_flips + 1)
+# As the number of flips increases, the proportion of heads approaches 0.5
+cumulative_ratio = np.cumsum(results == 'Heads') / np.arange(1, n_flips + 1)
 
 plt.figure(figsize=(10, 5))
 plt.plot(cumulative_ratio, color='steelblue', linewidth=1)
-plt.axhline(y=0.5, color='red', linestyle='--', label='理论概率 0.5')
-plt.xlabel('抛掷次数')
-plt.ylabel('正面出现的比例')
-plt.title('大数定律：抛的次数越多，比例越接近真实概率')
+plt.axhline(y=0.5, color='red', linestyle='--', label='Theoretical probability 0.5')
+plt.xlabel('Number of flips')
+plt.ylabel('Proportion of heads')
+plt.title('Law of Large Numbers: The more trials, the closer the proportion gets to the true probability')
 plt.legend()
 plt.xscale('log')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-**大数定律**：实验次数越多，频率越接近真实概率。这就是为什么深度学习需要"大数据"。
+**Law of Large Numbers**: The more experiments you run, the closer the frequency gets to the true probability. This is why deep learning needs "big data."
 
 ---
 
-## 二、条件概率——"在已知某些信息时"
+## 2. Conditional Probability — "Given Some Information"
 
-### 2.1 直觉理解
+### 2.1 Intuitive Understanding
 
-**条件概率 P(A|B)** = 在已知 B 发生的前提下，A 发生的概率。
+**Conditional probability P(A|B)** = the probability that A happens, given that B has already happened.
 
-### 2.1.1 为什么条件概率这么像 AI 的思考方式？
+### 2.1.1 Why Does Conditional Probability Feel So Much Like How AI Thinks?
 
-因为现实里的判断几乎总是在“有上下文”的情况下发生。
+Because real-world judgments almost always happen in a context.
 
-也就是说，条件概率最重要的不是符号，而是这句话：
+In other words, the most important thing about conditional probability is not the symbol, but this sentence:
 
-> **一旦知道了更多信息，原来的判断就应该更新。**
+> **Once we know more information, the original judgment should be updated.**
 
-:::tip 生活例子
-- P(迟到 | 堵车) = 在堵车的情况下迟到的概率（远高于平时）
-- P(及格 | 认真复习) = 认真复习了及格的概率（也远高于平时）
-- P(是垃圾邮件 | 包含"免费") = 包含"免费"这个词的邮件是垃圾邮件的概率
+:::tip Life Example
+- P(late | traffic jam) = the probability of being late given a traffic jam (much higher than usual)
+- P(pass | studied hard) = the probability of passing given that you studied hard (also much higher than usual)
+- P(is spam | contains "free") = the probability that an email containing the word "free" is spam
 :::
 
-### 2.2 公式与计算
+### 2.2 Formula and Calculation
 
-**P(A|B) = P(A 且 B) / P(B)**
+**P(A|B) = P(A and B) / P(B)**
 
-用一个直观的例子：
+A simple intuitive example:
 
 ```python
-# 一个班 100 个学生
-# 60 人喜欢数学，50 人喜欢编程，30 人两者都喜欢
+# A class of 100 students
+# 60 like math, 50 like programming, 30 like both
 
 n_total = 100
 n_math = 60
 n_code = 50
 n_both = 30
 
-# P(喜欢编程 | 喜欢数学) = P(两者都喜欢) / P(喜欢数学)
+# P(like programming | like math) = P(like both) / P(like math)
 p_code_given_math = n_both / n_math
-print(f"喜欢数学的人中，也喜欢编程的比例: {p_code_given_math:.1%}")  # 50%
+print(f"Among students who like math, the proportion who also like programming: {p_code_given_math:.1%}")  # 50%
 
-# P(喜欢数学 | 喜欢编程)
+# P(like math | like programming)
 p_math_given_code = n_both / n_code
-print(f"喜欢编程的人中，也喜欢数学的比例: {p_math_given_code:.1%}")  # 60%
+print(f"Among students who like programming, the proportion who also like math: {p_math_given_code:.1%}")  # 60%
 ```
 
-**注意**：P(A|B) 和 P(B|A) 通常不相等！
+**Note**: P(A|B) and P(B|A) are usually not equal!
 
-### 2.2.1 这是新人最容易踩的坑之一
+### 2.2.1 This Is One of the Easiest Pitfalls for Beginners
 
-很多人第一次学到这里，会下意识把：
+When many people first learn this, they instinctively mix up:
 
-- “在喜欢数学的人里，有多少人喜欢编程”
+- "Among people who like math, how many like programming"
 
-和
+with
 
-- “在喜欢编程的人里，有多少人喜欢数学”
+- "Among people who like programming, how many like math"
 
-混成一件事。  
-但它们问的分母不一样，所以本质上就是两个不同问题。
+But they have different denominators, so they are fundamentally different questions.
 
-### 2.3 联合概率与边缘概率
+### 2.3 Joint Probability and Marginal Probability
 
 ```python
-# 用 NumPy 模拟数据
+# Simulate data with NumPy
 np.random.seed(42)
 n = 10000
 
-# 天气：晴(0.7) / 雨(0.3)
-weather = np.random.choice(['晴', '雨'], n, p=[0.7, 0.3])
+# Weather: sunny (0.7) / rainy (0.3)
+weather = np.random.choice(['Sunny', 'Rainy'], n, p=[0.7, 0.3])
 
-# 带伞概率取决于天气
+# Probability of carrying an umbrella depends on the weather
 umbrella = np.where(
-    weather == '雨',
-    np.random.choice(['带', '不带'], n, p=[0.8, 0.2]),  # 下雨时 80% 会带伞
-    np.random.choice(['带', '不带'], n, p=[0.1, 0.9])   # 晴天时 10% 会带伞
+    weather == 'Rainy',
+    np.random.choice(['Carry', 'No carry'], n, p=[0.8, 0.2]),  # 80% carry an umbrella when rainy
+    np.random.choice(['Carry', 'No carry'], n, p=[0.1, 0.9])   # 10% carry an umbrella when sunny
 )
 
-# 联合概率表
+# Joint probability table
 import pandas as pd
-df = pd.DataFrame({'天气': weather, '带伞': umbrella})
-joint = pd.crosstab(df['天气'], df['带伞'], normalize=True)
-print("联合概率表：")
+df = pd.DataFrame({'Weather': weather, 'Umbrella': umbrella})
+joint = pd.crosstab(df['Weather'], df['Umbrella'], normalize=True)
+print("Joint probability table:")
 print(joint.round(3))
-print(f"\n边缘概率 P(雨): {(weather == '雨').mean():.3f}")
-print(f"边缘概率 P(带伞): {(umbrella == '带').mean():.3f}")
+print(f"\nMarginal probability P(rainy): {(weather == 'Rainy').mean():.3f}")
+print(f"Marginal probability P(carry umbrella): {(umbrella == 'Carry').mean():.3f}")
 ```
 
-| | 带伞 | 不带 | 合计（边缘概率） |
+| | Carry | No carry | Total (marginal probability) |
 |---|------|------|---------|
-| 晴 | 0.07 | 0.63 | 0.70 |
-| 雨 | 0.24 | 0.06 | 0.30 |
-| 合计 | 0.31 | 0.69 | 1.00 |
+| Sunny | 0.07 | 0.63 | 0.70 |
+| Rainy | 0.24 | 0.06 | 0.30 |
+| Total | 0.31 | 0.69 | 1.00 |
 
 ---
 
-## 三、贝叶斯定理——AI 最重要的概率公式
+## 3. Bayes' Theorem — The Most Important Probability Formula in AI
 
-### 3.1 引入：医院检查的故事
+### 3.1 Introduction: The Story of a Hospital Test
 
-一种罕见疾病的发病率是 0.1%（1000 人中 1 人有病）。医院有一个检测方法：
-- 如果你有病，检测出阳性的概率是 99%（灵敏度）
-- 如果你没病，检测出阳性的概率是 5%（假阳率）
+A rare disease has an incidence rate of 0.1% (1 in 1000 people has it). A hospital has a test:
+- If you have the disease, the probability the test is positive is 99% (sensitivity)
+- If you do not have the disease, the probability the test is positive is 5% (false positive rate)
 
-**问题：如果你检测出了阳性，你真正有病的概率是多少？**
+**Question: If your test comes back positive, what is the probability that you really have the disease?**
 
-很多人直觉会说"99%"——但答案会让你大吃一惊。
+Many people instinctively say "99%" — but the answer may surprise you.
 
-### 3.2 贝叶斯公式
+### 3.2 Bayes' Formula
 
-**P(有病 | 阳性) = P(阳性 | 有病) × P(有病) / P(阳性)**
+**P(Have disease | Positive) = P(Positive | Have disease) × P(Have disease) / P(Positive)**
 
 ```python
-# 已知条件
-p_disease = 0.001       # 先验概率：发病率 0.1%
-p_positive_if_disease = 0.99    # 有病 → 阳性的概率
-p_positive_if_healthy = 0.05    # 没病 → 阳性的概率（假阳率）
+# Given conditions
+p_disease = 0.001       # Prior probability: incidence rate 0.1%
+p_positive_if_disease = 0.99    # Have disease → probability of positive
+p_positive_if_healthy = 0.05    # No disease → probability of positive (false positive rate)
 
-# P(阳性) = P(阳性|有病)×P(有病) + P(阳性|没病)×P(没病)
-p_positive = (p_positive_if_disease * p_disease + 
+# P(Positive) = P(Positive|Have disease)×P(Have disease) + P(Positive|No disease)×P(No disease)
+p_positive = (p_positive_if_disease * p_disease +
               p_positive_if_healthy * (1 - p_disease))
-print(f"P(阳性): {p_positive:.4f}")
+print(f"P(Positive): {p_positive:.4f}")
 
-# 贝叶斯公式
+# Bayes' formula
 p_disease_if_positive = (p_positive_if_disease * p_disease) / p_positive
-print(f"P(有病|阳性): {p_disease_if_positive:.4f}")  # ≈ 0.0194
-print(f"约等于 {p_disease_if_positive:.1%}")           # ≈ 1.9%
+print(f"P(Have disease|Positive): {p_disease_if_positive:.4f}")  # ≈ 0.0194
+print(f"Approximately {p_disease_if_positive:.1%}")             # ≈ 1.9%
 ```
 
-**结果：只有约 2%！** 即使检测阳性，你有病的概率也只有 2%。
+**Result: only about 2%!** Even if the test is positive, the probability that you actually have the disease is only 2%.
 
-### 3.3 为什么这么低？
+### 3.3 Why Is It So Low?
 
-因为发病率太低了（0.1%），绝大多数阳性结果其实是假阳性。
+Because the incidence rate is too low (0.1%), most positive results are actually false positives.
 
 ```python
-# 用 10000 人模拟
+# Simulate with 10000 people
 n_people = 10000
-n_sick = int(n_people * p_disease)        # 10 人有病
-n_healthy = n_people - n_sick             # 9990 人没病
+n_sick = int(n_people * p_disease)        # 10 people have the disease
+n_healthy = n_people - n_sick             # 9990 people do not have the disease
 
-true_positive = n_sick * p_positive_if_disease    # 有病且检测阳性: ≈ 10
-false_positive = n_healthy * p_positive_if_healthy # 没病但检测阳性: ≈ 500
+true_positive = n_sick * p_positive_if_disease    # have disease and test positive: ≈ 10
+false_positive = n_healthy * p_positive_if_healthy # no disease but test positive: ≈ 500
 
 total_positive = true_positive + false_positive
 
-print(f"10000 人中：")
-print(f"  有病的人: {n_sick}")
-print(f"  检测阳性的人: {total_positive:.0f}")
-print(f"    其中真阳性: {true_positive:.0f}")
-print(f"    其中假阳性: {false_positive:.0f}")
-print(f"  阳性中真有病的比例: {true_positive/total_positive:.1%}")
+print(f"Out of 10000 people:")
+print(f"  People with the disease: {n_sick}")
+print(f"  People who test positive: {total_positive:.0f}")
+print(f"    Of which true positives: {true_positive:.0f}")
+print(f"    Of which false positives: {false_positive:.0f}")
+print(f"  Proportion of truly sick among positive results: {true_positive/total_positive:.1%}")
 ```
 
 ```mermaid
 flowchart TD
-    A["10000 人"] --> B["10 人有病"]
-    A --> C["9990 人没病"]
-    B --> D["≈ 10 人检测阳性<br/>（真阳性）"]
-    C --> E["≈ 500 人检测阳性<br/>（假阳性）"]
-    D --> F["阳性共 ≈ 510 人<br/>其中只有 10 人真有病<br/>≈ 2%"]
+    A["10000 people"] --> B["10 people have the disease"]
+    A --> C["9990 people do not have the disease"]
+    B --> D["≈ 10 people test positive<br/>(true positives)"]
+    C --> E["≈ 500 people test positive<br/>(false positives)"]
+    D --> F["Total positives ≈ 510<br/>Only 10 are truly sick<br/>≈ 2%"]
     E --> F
 
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -331,125 +330,125 @@ flowchart TD
     style F fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 3.4 贝叶斯定理的核心思想
+### 3.4 The Core Idea of Bayes' Theorem
 
 ```mermaid
 flowchart LR
-    A["先验 P(A)<br/>事先的信念"] -->|"看到证据 B"| B["后验 P(A|B)<br/>更新后的信念"]
-    C["似然 P(B|A)<br/>证据支持程度"] --> B
+    A["Prior P(A)<br/>Belief before evidence"] -->|"See evidence B"| B["Posterior P(A|B)<br/>Updated belief"]
+    C["Likelihood P(B|A)<br/>How strongly the evidence supports it"] --> B
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
     style C fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-**后验 = 先验 × 似然 / 归一化因子**
+**Posterior = Prior × Likelihood / Normalization factor**
 
-这就是贝叶斯的核心：**不断用新证据更新你的信念**。
+This is the core of Bayes: **continuously updating your belief with new evidence**.
 
-### 3.5 用模拟验证贝叶斯定理
+### 3.5 Verifying Bayes' Theorem with Simulation
 
 ```python
-# 蒙特卡洛模拟
+# Monte Carlo simulation
 np.random.seed(42)
 n_sim = 1_000_000
 
-# 1. 每个人是否有病
+# 1. Whether each person has the disease
 has_disease = np.random.random(n_sim) < p_disease
 
-# 2. 每个人的检测结果
+# 2. Each person's test result
 test_positive = np.where(
     has_disease,
-    np.random.random(n_sim) < p_positive_if_disease,  # 有病
-    np.random.random(n_sim) < p_positive_if_healthy    # 没病
+    np.random.random(n_sim) < p_positive_if_disease,  # Have disease
+    np.random.random(n_sim) < p_positive_if_healthy    # No disease
 )
 
-# 3. 在检测阳性的人中，有病的比例
+# 3. Among those who test positive, the proportion who are sick
 positive_people = test_positive.sum()
 positive_and_sick = (test_positive & has_disease).sum()
 
 simulated_probability = positive_and_sick / positive_people
-print(f"模拟结果 P(有病|阳性): {simulated_probability:.4f}")
-print(f"公式计算: {p_disease_if_positive:.4f}")
-print(f"两者差距: {abs(simulated_probability - p_disease_if_positive):.6f}")
+print(f"Simulated result P(Have disease|Positive): {simulated_probability:.4f}")
+print(f"Formula result: {p_disease_if_positive:.4f}")
+print(f"Difference: {abs(simulated_probability - p_disease_if_positive):.6f}")
 ```
 
 ---
 
-## 四、贝叶斯定理在 AI 中的应用
+## 4. Applications of Bayes' Theorem in AI
 
-### 4.1 朴素贝叶斯分类器
+### 4.1 Naive Bayes Classifier
 
-垃圾邮件过滤就是贝叶斯定理的经典应用：
+Spam filtering is a classic application of Bayes' theorem:
 
 ```python
-# 简化的垃圾邮件分类
-# P(垃圾邮件 | 包含"免费") = P(包含"免费"|垃圾邮件) × P(垃圾邮件) / P(包含"免费")
+# Simplified spam classification
+# P(Spam | contains "free") = P(contains "free"|Spam) × P(Spam) / P(contains "free")
 
-p_spam = 0.3                      # 30% 的邮件是垃圾邮件
-p_free_given_spam = 0.8           # 垃圾邮件中 80% 包含"免费"
-p_free_given_ham = 0.05           # 正常邮件中 5% 包含"免费"
+p_spam = 0.3                      # 30% of emails are spam
+p_free_given_spam = 0.8           # 80% of spam emails contain "free"
+p_free_given_ham = 0.05           # 5% of normal emails contain "free"
 
-# P(包含"免费")
+# P(contains "free")
 p_free = p_free_given_spam * p_spam + p_free_given_ham * (1 - p_spam)
 
-# 贝叶斯
+# Bayes
 p_spam_given_free = p_free_given_spam * p_spam / p_free
-print(f"包含'免费'的邮件是垃圾邮件的概率: {p_spam_given_free:.1%}")
+print(f"Probability that an email containing 'free' is spam: {p_spam_given_free:.1%}")
 # ≈ 87.3%
 ```
 
-### 4.2 更多 AI 应用
+### 4.2 More AI Applications
 
-| 应用 | 先验 | 似然 | 后验 |
+| Application | Prior | Likelihood | Posterior |
 |------|------|------|------|
-| 垃圾邮件过滤 | 邮件是垃圾邮件的概率 | 垃圾邮件包含某词的概率 | 给定词后是垃圾邮件的概率 |
-| 医学诊断 | 疾病的发病率 | 有病时检测阳性的概率 | 阳性后真有病的概率 |
-| 推荐系统 | 用户喜欢某类型的概率 | 喜欢该类型的人看某电影的概率 | 用户会看这部电影的概率 |
-| 语言模型 | 某个词出现的概率 | 前文给定后该词出现的概率 | 最可能的下一个词 |
+| Spam filtering | Probability that an email is spam | Probability that spam contains a certain word | Probability that it is spam given the word |
+| Medical diagnosis | Incidence rate of a disease | Probability of a positive test when diseased | Probability of truly being sick after a positive result |
+| Recommendation systems | Probability that a user likes a category | Probability that users who like that category watch a certain movie | Probability that the user will watch this movie |
+| Language models | Probability of a word appearing | Probability that the word appears given the context | Most likely next word |
 
 ---
 
-## 五、独立性——简化计算的利器
+## 5. Independence — A Powerful Tool for Simplifying Calculations
 
-### 5.1 什么是独立？
+### 5.1 What Is Independence?
 
-两个事件**独立**，意味着一个事件的发生不影响另一个事件的概率。
+Two events are **independent**, meaning the occurrence of one does not affect the probability of the other.
 
-**P(A 且 B) = P(A) × P(B)**  （仅当 A、B 独立时）
+**P(A and B) = P(A) × P(B)**  (only when A and B are independent)
 
 ```python
-# 抛两次硬币——两次是独立的
+# Flipping two coins — the two flips are independent
 p_head = 0.5
 
-# 两次都是正面
+# Both are heads
 p_both_heads = p_head * p_head
-print(f"两次都正面: {p_both_heads}")  # 0.25
+print(f"Both flips are heads: {p_both_heads}")  # 0.25
 
-# 模拟验证
+# Simulation check
 n = 100000
 coin1 = np.random.random(n) < 0.5
 coin2 = np.random.random(n) < 0.5
 both = (coin1 & coin2).mean()
-print(f"模拟结果: {both:.4f}")  # ≈ 0.25
+print(f"Simulated result: {both:.4f}")  # ≈ 0.25
 ```
 
-### 5.2 AI 中的独立性假设
+### 5.2 The Independence Assumption in AI
 
-朴素贝叶斯之所以叫"朴素"，就是因为它**假设所有特征独立**（虽然实际中往往不独立，但效果依然不错）。
+Naive Bayes is called "naive" because it **assumes all features are independent** (although in reality they often are not, the method still works surprisingly well).
 
 ```python
-# 朴素贝叶斯：假设各个词独立出现
-# P(垃圾|"免费","中奖","点击") ∝ P(垃圾) × P("免费"|垃圾) × P("中奖"|垃圾) × P("点击"|垃圾)
+# Naive Bayes: assume each word appears independently
+# P(Spam|"free","winner","click") ∝ P(Spam) × P("free"|Spam) × P("winner"|Spam) × P("click"|Spam)
 
 p_spam = 0.3
 words = {
-    "免费": (0.8, 0.05),    # (P(词|垃圾), P(词|正常))
-    "中奖": (0.6, 0.01),
-    "点击": (0.7, 0.1),
+    "free": (0.8, 0.05),    # (P(word|spam), P(word|normal))
+    "winner": (0.6, 0.01),
+    "click": (0.7, 0.1),
 }
 
-# 计算分子
+# Compute numerator
 score_spam = p_spam
 score_ham = 1 - p_spam
 
@@ -457,68 +456,68 @@ for word, (p_word_spam, p_word_ham) in words.items():
     score_spam *= p_word_spam
     score_ham *= p_word_ham
 
-# 归一化
+# Normalize
 p_spam_given_words = score_spam / (score_spam + score_ham)
-print(f"邮件包含 '免费'+'中奖'+'点击' 是垃圾邮件的概率: {p_spam_given_words:.1%}")
+print(f"Probability that an email containing 'free' + 'winner' + 'click' is spam: {p_spam_given_words:.1%}")
 ```
 
 ---
 
-## 学到这里，下一节该带着什么问题走？
+## After Learning This, What Should You Bring to the Next Section?
 
-看完概率基础以后，最值得带去下一节的问题是：
+After finishing probability basics, the most worthwhile questions to carry forward are:
 
-1. 如果一次事件可以用概率描述，那很多次随机结果整体会长什么样？
-2. 为什么有些现象总像钟形曲线，有些现象却更像计数分布？
-3. 模型里的噪声、初始化和误差，为什么总爱和某些分布绑在一起？
+1. If a single event can be described by probability, what will a collection of many random outcomes look like overall?
+2. Why do some phenomena always seem like bell curves, while others look more like count distributions?
+3. Why are noise, initialization, and errors in models so often tied to certain distributions?
 
-这三个问题，正好会把你自然带到：
+These three questions will naturally lead you to:
 
-- [概率分布：数据背后的规律](./02-distributions.md)
+- [Probability Distributions: Patterns Behind Data](./02-distributions.md)
 
-:::info 连接后续
-- **下一节**：概率分布——数据背后的规律
-- **5 机器学习入门到实战**：朴素贝叶斯分类器直接基于贝叶斯定理
-- **5 机器学习入门到实战**：逻辑回归的输出就是条件概率 P(y=1|x)
-- **7 大模型原理、Prompt 与微调**：大语言模型生成下一个 token 的概率分布
+:::info Connecting to Later Sections
+- **Next section**: Probability Distributions — Patterns Behind Data
+- **5 Introduction to Machine Learning and Practice**: The Naive Bayes classifier is directly based on Bayes' theorem
+- **5 Introduction to Machine Learning and Practice**: The output of logistic regression is the conditional probability P(y=1|x)
+- **7 LLM Principles, Prompting, and Fine-Tuning**: The generation of a large language model is a probability distribution over the next token
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 | 公式/代码 |
+| Concept | Intuition | Formula / Code |
 |------|------|----------|
-| 概率 | 不确定性的度量（0~1） | `np.random.random() < p` |
-| 条件概率 | 已知 B 发生时 A 的概率 | P(A\|B) = P(A且B) / P(B) |
-| 联合概率 | A 和 B 同时发生的概率 | `pd.crosstab(normalize=True)` |
-| 贝叶斯定理 | 用证据更新信念 | 后验 = 先验 × 似然 / 归一化 |
-| 独立性 | 互不影响 | P(A且B) = P(A) × P(B) |
+| Probability | A measure of uncertainty (0~1) | `np.random.random() < p` |
+| Conditional probability | Probability of A given B has occurred | P(A\|B) = P(A and B) / P(B) |
+| Joint probability | Probability of A and B happening together | `pd.crosstab(normalize=True)` |
+| Bayes' theorem | Updating beliefs with evidence | Posterior = Prior × Likelihood / Normalization |
+| Independence | No mutual influence | P(A and B) = P(A) × P(B) |
 
-## 这节最该带走什么
+## What Should You Take Away from This Section?
 
-- 概率是在描述不确定，不是在假装绝对确定
-- 条件概率最重要的直觉是“信息一变，判断就该变”
-- 贝叶斯最值得先记的是“先验 + 证据 -> 更新后的判断”
-- 这就是为什么 AI 里的很多输出天然是概率，而不是绝对结论
+- Probability describes uncertainty; it does not pretend things are absolutely certain
+- The most important intuition for conditional probability is: "when information changes, the judgment should change too"
+- The most important thing to remember about Bayes is: "prior + evidence -> updated judgment"
+- That is why many outputs in AI are naturally probabilities, not absolute conclusions
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：条件概率
+### Exercise 1: Conditional Probability
 
-一副 52 张扑克牌，随机抽一张：
-1. P(红心) = ?
-2. P(红心 | 红色) = ?（已知是红色牌）
-3. P(A | 红心) = ?（已知是红心）
+From a standard 52-card deck, draw one card at random:
+1. P(hearts) = ?
+2. P(hearts | red card) = ? (given that it is a red card)
+3. P(A | hearts) = ? (given that it is a heart)
 
-用 Python 模拟 100000 次验证。
+Use Python to simulate and verify 100000 trials.
 
-### 练习 2：贝叶斯更新
+### Exercise 2: Bayes Update
 
-一个工厂有 A、B 两条生产线，A 生产 60% 的产品，B 生产 40%。A 的次品率是 2%，B 的次品率是 5%。
+A factory has two production lines, A and B. Line A produces 60% of the products, and line B produces 40%. The defect rate of A is 2%, and the defect rate of B is 5%.
 
-如果随机取一个产品发现是次品，它来自 B 生产线的概率是多少？
+If a randomly selected product is found to be defective, what is the probability that it came from production line B?
 
-### 练习 3：模拟贝叶斯定理
+### Exercise 3: Simulate Bayes' Theorem
 
-修改疾病检测的例子，改为发病率 1%（而不是 0.1%），看看阳性后有病的概率变成多少。用模拟和公式两种方法验证。
+Modify the disease testing example by changing the incidence rate to 1% (instead of 0.1%), and see how the probability of having the disease after a positive test changes. Verify it using both simulation and the formula.

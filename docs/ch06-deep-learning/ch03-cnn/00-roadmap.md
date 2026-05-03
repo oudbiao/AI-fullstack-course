@@ -1,99 +1,99 @@
 ---
-title: "3.1 学前导读：CNN 这一章到底在学什么"
+title: "3.1 Pre-study Guide: What Is This CNN Chapter Really About?"
 sidebar_position: 0
-description: "先建立 CNN 章节的学习地图：卷积、网络结构、经典架构、迁移学习和图像分类实践是怎么串起来的。"
-keywords: [CNN导读, 卷积, ResNet, 迁移学习, 图像分类]
+description: "First build a learning map for the CNN chapter: how convolution, network structure, classic architectures, transfer learning, and image classification practice fit together."
+keywords: [CNN guide, convolution, ResNet, transfer learning, image classification]
 ---
 
-# 学前导读：CNN 这一章到底在学什么
+# Pre-study Guide: What Is This CNN Chapter Really About?
 
-这一章解决的是：
+This chapter answers the question:
 
-> **图像为什么不能直接按普通表格特征来学，而需要卷积网络。**
+> **Why can’t images be learned directly like ordinary tabular features, and why do we need convolutional networks?**
 
-## 先建立一张桥接线
+## First, build a bridge
 
-如果你是从前面的 MLP 过来的，这一章最值得先看清的一件事是：
+If you are coming from the earlier MLP section, the most important thing to understand first in this chapter is:
 
-- MLP 不是错
-- 只是它对图像这种“有空间结构的数据”不够自然
+- MLP is not wrong
+- It is just not a natural fit for “data with spatial structure” like images
 
-更稳的理解方式是：
+A clearer way to understand it is:
 
-![CNN 章节关系图](/img/course/ch06-cnn-chapter-flow.png)
+![CNN chapter relationship diagram](/img/course/ch06-cnn-chapter-flow-en.png)
 
-所以这一章并不是在否定全连接网络，而是在回答：
+So this chapter is not denying fully connected networks. Instead, it is answering:
 
-> **当数据是图片时，网络结构为什么要跟着变。**
+> **When the data is an image, why does the network structure need to change too?**
 
-## 这一章的主线
+## The main thread of this chapter
 
-## 这一章更适合新人的学习顺序
+## The recommended learning order for beginners
 
-1. 先搞懂卷积到底在做什么  
-   不要急着背架构名，先把“局部连接、参数共享、感受野”这几个词立住。
+1. First understand what convolution is actually doing
+   Don’t rush to memorize architecture names. Start by getting “local connections,” “parameter sharing,” and “receptive field” straight.
 
-2. 再看 CNN 的基本结构  
-   先把卷积块、池化、通道数和分类头串起来。
+2. Then look at the basic CNN structure
+   Connect convolution blocks, pooling, channel count, and the classification head.
 
-3. 再看经典架构演进  
-   这时你再看 LeNet / AlexNet / VGG / ResNet，会更像在看设计演进，而不是模型名单。
+3. Then study the evolution of classic architectures
+   At this point, LeNet / AlexNet / VGG / ResNet will feel more like a design evolution than just a list of models.
 
-4. 然后看迁移学习  
-   这会让你第一次感受到“为什么视觉里常常不从零训”。
+4. Then look at transfer learning
+   This is where you first feel why vision tasks are often not trained from scratch.
 
-5. 最后做图像分类项目  
-   把训练、评估、错误分析真正串起来。
+5. Finally, do an image classification project
+   Put training, evaluation, and error analysis together in a real workflow.
 
-## 这一章最该先抓住什么
+## What you should focus on first
 
-- 图片不是普通表格
-- 卷积最核心的价值是保留空间结构
-- CNN 的很多设计，都是在平衡表达能力、参数量和训练稳定性
-- 后面的分类、检测、分割，其实都会建立在这章直觉上
+- Images are not ordinary tables
+- The core value of convolution is preserving spatial structure
+- Many CNN design choices are trade-offs among expressive power, parameter count, and training stability
+- Later tasks like classification, detection, and segmentation are all built on the intuitions from this chapter
 
-## 新人最容易卡住的地方
+## Where beginners most easily get stuck
 
-- 只记“卷积核会滑动”，但不知道为什么要这么做
-- 看到很多 shape 变化就乱
-- 记住模型名字，却说不清为什么结构会演进
-- 一上来就想做大模型，不先做最小图像分类闭环
+- Remembering only that “the convolution kernel slides,” without understanding why
+- Getting lost when seeing many shape changes
+- Memorizing model names without being able to explain why the architecture evolved
+- Trying to build a large model right away instead of first completing a smallest possible image classification loop
 
-## 学完这一章后，你应该能自己回答什么
+## What you should be able to answer after finishing this chapter
 
-- 为什么图像任务更适合卷积而不是直接展平
-- 一个卷积层到底在提取什么
-- CNN 里通道、池化、感受野分别在干什么
-- 为什么迁移学习在视觉任务里这么常见
+- Why image tasks are better suited to convolution than to direct flattening
+- What a convolution layer is really extracting
+- What channels, pooling, and receptive fields do in CNNs
+- Why transfer learning is so common in vision tasks
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can move on.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Learners with more experience can use this chapter for review and engineering practice: focus on edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after. After reading, it is best to distill the chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study style | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run through a minimal example and complete the chapter’s small project outcome |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Chapter self-check questions
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the smallest input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you preserve after learning it? | You can write this chapter’s outcome into a project README, experiment notes, or portfolio |
+## Small project outcome for this chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the most core concept or tool from this chapter, and create a small result that can run, be screenshotted, and written into a README. It does not need to be complicated, but it should clearly show what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing criteria
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stages before and after it, and complete the smallest version of the chapter’s small project outcome.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, that means you are not just “reading the content,” but turning this chapter into your own project experience.

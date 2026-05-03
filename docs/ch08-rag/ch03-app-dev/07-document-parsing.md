@@ -1,108 +1,108 @@
 ---
-title: "3.7 文档解析与知识抽取"
+title: "3.7 Document Parsing and Knowledge Extraction"
 sidebar_position: 16
-description: "从 PDF、Word、PPT 到扫描件 OCR，理解知识库型应用为什么必须先把文档解析成结构化知识，而不是只抽出纯文本。"
+description: "From PDF, Word, and PPT to OCR for scanned files, understand why knowledge-base applications must first parse documents into structured knowledge rather than extracting plain text only."
 keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction]
 ---
 
-# 文档解析与知识抽取
+# Document Parsing and Knowledge Extraction
 
-:::tip 本节定位
-很多知识库项目一开始最容易犯的错是：
+:::tip Section overview
+One of the most common mistakes in knowledge-base projects is:
 
-- 先想着向量化
-- 先想着怎么问答
+- thinking about vectorization first
+- thinking about Q&A first
 
-但如果文档根本没被解析对，后面检索和生成都会一起歪。
+But if the documents are not parsed correctly, both retrieval and generation will go off track.
 
-所以这节最重要的不是先讲向量库，而是先建立一个判断：
+So the most important thing in this section is not to start with vector databases, but to build a key judgment first:
 
-> **文档要先被解析成“可理解、可切块、可追溯”的知识对象。**
+> **Documents must first be parsed into knowledge objects that are “understandable, chunkable, and traceable.”**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么 PDF / Word / PPT 不能只抽纯文本
-- 理解扫描版 PDF 和图片页为什么会把 OCR 拉进链路
-- 学会把文档解析成“正文 + 层级 + 元数据 + 例题”这类结构
-- 看懂一个最小的文档解析与知识抽取流程
+- Understand why PDF / Word / PPT cannot be treated as plain text only
+- Understand why scanned PDFs and image pages bring OCR into the pipeline
+- Learn how to parse documents into structures such as “body text + hierarchy + metadata + examples”
+- Understand a minimal document parsing and knowledge extraction workflow
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-文档解析更适合按“文件 -> 结构 -> 知识块”来理解：
+Document parsing is easier to understand as “file -> structure -> knowledge chunks”:
 
 ```mermaid
 flowchart LR
-    A["PDF / DOCX / PPTX"] --> B["文本抽取"]
-    B --> C["结构恢复"]
-    C --> D["元数据补齐"]
-    D --> E["切块与知识抽取"]
+    A["PDF / DOCX / PPTX"] --> B["Text extraction"]
+    B --> C["Structure recovery"]
+    C --> D["Metadata completion"]
+    D --> E["Chunking and knowledge extraction"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么知识库项目不是“把文件内容抠出来就结束”
-- 为什么标题层级、页码、章节和例题都会影响后面检索质量
+- Why knowledge-base projects are not just “extract file content and you’re done”
+- Why heading levels, page numbers, chapters, and examples all affect retrieval quality later
 
-## 一、为什么文档解析经常比想象中更难？
+## 1. Why is document parsing often harder than expected?
 
-因为不同文档格式的问题完全不一样：
+Because the problems in different document formats are completely different:
 
-- `PDF` 可能只是“视觉排版结果”，段落顺序并不天然稳定
-- `DOCX` 结构通常更清楚，但样式、标题层级不一定统一
-- `PPTX` 常常是碎片化要点，不像连续文章
-- 扫描版 PDF 则连正文文字都不一定能直接拿到
+- `PDF` may just be a “visual layout result,” and paragraph order is not naturally stable
+- `DOCX` structure is usually clearer, but styles and heading levels are not always consistent
+- `PPTX` often contains fragmented bullet points, unlike continuous prose
+- Scanned PDFs may not even give you the actual text directly
 
-这意味着真正可用的知识库通常要先回答：
+This means a truly usable knowledge base usually has to answer first:
 
-1. 文本抽出来了吗？
-2. 顺序对了吗？
-3. 标题、页码、章节还在吗？
-4. 哪些内容是例题、定义、正文、备注？
+1. Was the text extracted?
+2. Is the order correct?
+3. Are headings, page numbers, and chapters preserved?
+4. Which parts are examples, definitions, body text, or notes?
 
-## 二、一个更适合新人的总类比
+## 2. A beginner-friendly analogy
 
-你可以把文档解析理解成：
+You can think of document parsing like this:
 
-- 先把一大箱资料整理成可翻阅的卡片盒
+- organizing a big box of materials into a set of cards you can flip through
 
-如果你只是把所有纸随便倒出来，  
-后面当然也能翻，但会很乱。  
-更稳的做法是先把它们整理成：
+If you just dump all the papers out randomly,
+you can still search through them later, but it will be messy.
+The safer approach is to organize them into:
 
-- 主题
-- 章节
-- 标题
-- 例题
-- 来源
+- topics
+- chapters
+- headings
+- examples
+- sources
 
-这样后面系统问“我要找哪个主题的例题”时，才有可能真的找得准。
+Then when the system asks, “Find examples for this topic,” it has a real chance of finding the right ones.
 
-## 三、不同文件类型最常见的问题
+## 3. The most common problems by file type
 
-| 文件类型 | 最常见的问题 |
+| File type | Most common problems |
 |---|---|
-| PDF | 顺序错、页眉页脚混进正文、两栏排版打乱 |
-| Word | 标题层级不统一、表格和正文混在一起 |
-| PPT | 一页信息少但碎，常需要保留“页”这个概念 |
-| 扫描版 PDF / 图片页 | 需要 OCR，且容易识别错字和顺序 |
+| PDF | Wrong order, headers/footers mixed into body text, two-column layouts get scrambled |
+| Word | Inconsistent heading levels, tables mixed with body text |
+| PPT | Each slide has little information but is fragmented; often need to preserve the “slide” concept |
+| Scanned PDF / image pages | Requires OCR, and is prone to character recognition errors and ordering issues |
 
-这张表特别适合新人，因为它会提醒你：
+This table is especially useful for beginners because it reminds you:
 
-- 文档处理不是“一个解析器走天下”
+- Document processing is not “one parser to rule them all”
 
-![PDF Word PPT 文档解析路由图](/img/course/ch08-document-parsing-format-router-map.png)
+![PDF Word PPT document parsing routing diagram](/img/course/ch08-document-parsing-format-router-map-en.png)
 
-:::tip 读图提示
-文件进入系统后先路由：文本 PDF、扫描 PDF、DOCX、PPTX 的问题不同。真正入库前要恢复正文顺序、标题层级、页码和内容类型，而不是只抽一大段纯文本。
+:::tip Reading guide
+After a file enters the system, it is routed first: text PDFs, scanned PDFs, DOCX, and PPTX have different problems. Before storing into the knowledge base, you need to restore body order, heading hierarchy, page numbers, and content types—not just extract one big block of plain text.
 :::
 
-## 四、一个最小文档解析工作流示例
+## 4. A minimal document parsing workflow example
 
-下面这个例子不依赖真实第三方库，  
-但会把“不同文档类型走不同解析路线”这件事先讲清楚。
+The following example does not depend on a real third-party library,
+but it helps explain the idea of using different parsing routes for different document types.
 
 ```python
 from pathlib import Path
@@ -129,40 +129,40 @@ for file in files:
     print(file, "->", route_parser(file))
 ```
 
-这个示例最重要的价值是：
+The most important value of this example is:
 
-- 先让你脑子里有“路由”这件事
+- it helps you build the idea of “routing” in your mind
 
-也就是说，文件一进系统，不是直接统一塞进一个函数，  
-而是先判断：
+In other words, when a file enters the system, you do not just throw it into one universal function,
+but first determine:
 
-- 这是什么文件
-- 该走哪条解析链
+- what kind of file it is
+- which parsing pipeline it should use
 
-## 五、一个更像真实系统的知识块长什么样？
+## 5. What does a real knowledge chunk look like?
 
-真正送进知识库的，不应该只是：
+What goes into the knowledge base should not just be:
 
-- 一段裸文本
+- a raw text block
 
-而更应该像下面这样：
+It should look more like this:
 
 ```python
 chunks = [
     {
         "doc_id": "word_001",
         "source_type": "docx",
-        "section_title": "应用题：折扣计算",
+        "section_title": "Word Problem: Discount Calculation",
         "page_or_slide": 3,
-        "content": "商店对 100 元商品打 8 折，问现价是多少？",
+        "content": "A store gives a 20% discount on a 100 yuan item. What is the new price?",
         "content_type": "example",
     },
     {
         "doc_id": "ppt_002",
         "source_type": "pptx",
-        "section_title": "知识点总结",
+        "section_title": "Key Takeaways",
         "page_or_slide": 8,
-        "content": "折扣 = 原价 × 折扣率。",
+        "content": "Discount = Original price × discount rate.",
         "content_type": "concept",
     },
 ]
@@ -171,58 +171,58 @@ for chunk in chunks:
     print(chunk)
 ```
 
-这个例子特别适合初学者，因为它会帮助你先看到：
+This example is especially helpful for beginners because it shows:
 
-- 真正有价值的不是“只拿到字”
-- 而是把字放回来源、章节、页码和内容类型里
+- what matters is not just getting the words
+- but putting the words back into their source, chapter, page number, and content type
 
-## 六、一个更像真实项目的解析结果 schema
+## 6. A more realistic parsing result schema
 
-第一次做这类系统时，最容易少掉的是：
+When building this kind of system for the first time, the easiest things to miss are:
 
-- 文档级元数据
-- 章节级结构
-- 知识块级内容
+- document-level metadata
+- chapter-level structure
+- knowledge-chunk-level content
 
-更稳的做法通常是把解析结果分成三层：
+A safer approach is usually to divide the parsing result into three layers:
 
-| 层次 | 你最少要保留什么 |
+| Layer | Minimum information to keep |
 |---|---|
-| 文档层 | `doc_id / 文件名 / 来源类型 / 创建时间 / 学科` |
-| 章节层 | `section_id / 标题 / 章节路径 / 页码范围` |
-| 知识块层 | `chunk_id / 文本 / 内容类型 / 来源页 / 是否例题` |
+| Document layer | `doc_id / filename / source type / creation time / subject` |
+| Chapter layer | `section_id / title / chapter path / page range` |
+| Knowledge chunk layer | `chunk_id / text / content type / source page / is example` |
 
-你可以先把它想成：
+You can think of it like this:
 
-- 文档层像一本书的封面卡
-- 章节层像目录
-- 知识块层像真正拿去检索和生成的卡片
+- document layer is like a book cover card
+- chapter layer is like a table of contents
+- knowledge chunk layer is the actual card used for retrieval and generation
 
-下面这个最小结构很适合新人先抄着做：
+The following minimal structure is a good starting point for beginners:
 
 ```python
 parsed_doc = {
     "doc_id": "math_pdf_001",
     "source_type": "pdf",
-    "title": "折扣应用题专项训练",
-    "subject": "数学",
+    "title": "Discount Word Problems Practice",
+    "subject": "Math",
     "sections": [
         {
             "section_id": "s1",
-            "section_title": "折扣基础概念",
+            "section_title": "Basic Discount Concepts",
             "page_range": [1, 2],
             "chunks": [
                 {
                     "chunk_id": "c1",
                     "content_type": "concept",
                     "page_or_slide": 1,
-                    "text": "折扣 = 原价 × 折扣率",
+                    "text": "Discount = Original price × discount rate",
                 },
                 {
                     "chunk_id": "c2",
                     "content_type": "example",
                     "page_or_slide": 2,
-                    "text": "商品原价 100 元，打 8 折后是多少元？",
+                    "text": "An item costs 100 yuan. What is the price after a 20% discount?",
                 },
             ],
         }
@@ -232,146 +232,146 @@ parsed_doc = {
 print(parsed_doc["sections"][0]["chunks"][1]["text"])
 ```
 
-这个 schema 的意义不是“设计得特别漂亮”，而是：
+The point of this schema is not that it is “beautifully designed,” but that:
 
-- 后面检索时有东西可筛
-- 后面生成课件时知道哪里是概念、哪里是例题
-- 后面做引用回溯时知道内容从哪一页来
+- retrieval can filter on something later
+- courseware generation can tell concepts from examples
+- citation traceability knows where the content came from
 
-## 七、为什么“内容类型”特别重要？
+## 7. Why is “content type” so important?
 
-因为你的项目不是普通问答，  
-而是要做：
+Because your project is not ordinary Q&A,
+but something that needs to:
 
-- 按主题找资料
-- 找相关例题
-- 再按固定格式生成 Word 课件
+- find materials by topic
+- find related examples
+- then generate Word courseware in a fixed format
 
-这时系统如果能分清：
+At that point, if the system can distinguish:
 
 - `concept`
 - `example`
 - `exercise`
 - `definition`
 
-后面生成课件时就会稳很多。
+then courseware generation will be much more stable.
 
-## 八、一个最小“例题抽取”示例
+## 8. A minimal “example extraction” demo
 
-对你的项目来说，只知道一段话属于哪一页还不够，  
-还要尽量分清：
+For your project, just knowing which page a passage comes from is not enough.
+You also want to distinguish, as much as possible:
 
-- 这是不是例题
-- 这是不是练习题
-- 这是不是定义或公式
+- whether it is an example
+- whether it is an exercise
+- whether it is a definition or formula
 
-第一次做时不用一上来就上复杂模型，  
-可以先用最小规则版建立闭环。
+When you first build this, you do not need to start with a complex model.
+You can begin with a minimal rule-based version to close the loop.
 
 ```python
 def guess_content_type(text):
-    if "例" in text or "解：" in text:
+    if "Example" in text or "Solution:" in text:
         return "example"
-    if "练习" in text or "思考题" in text:
+    if "Exercise" in text or "Think about it" in text:
         return "exercise"
-    if "定义" in text or "公式" in text:
+    if "Definition" in text or "Formula" in text:
         return "concept"
     return "paragraph"
 
 
 samples = [
-    "例1：商品原价 100 元，打 8 折后是多少元？",
-    "练习：一件衣服原价 80 元，打 7 折后是多少元？",
-    "公式：折扣 = 原价 × 折扣率",
+    "Example 1: An item costs 100 yuan. What is the price after a 20% discount?",
+    "Exercise: A shirt costs 80 yuan. What is the price after a 30% discount?",
+    "Formula: Discount = Original price × discount rate",
 ]
 
 for sample in samples:
     print(guess_content_type(sample), "->", sample)
 ```
 
-这个最小规则版虽然不完美，  
-但特别适合新人理解：
+This minimal rule-based version is not perfect,
+but it is very helpful for beginners to understand:
 
-- “例题抽取”不是魔法
-- 它本质上是在做文档内容分类
+- “example extraction” is not magic
+- it is essentially document content classification
 
-## 九、扫描件为什么会把 OCR 拉进来？
+## 9. Why do scanned files bring OCR into the pipeline?
 
-因为扫描版 PDF 或图片页本质上不是文字文件，而是：
+Because scanned PDFs or image pages are not text files at their core, but rather:
 
-- 文字长得像图片
+- text that looks like an image
 
-所以你需要先做：
+So you need to do:
 
-- OCR 识字
+- OCR to recognize the text
 
-再继续做：
+and then continue with:
 
-- 结构恢复
-- 标题层级识别
-- 例题抽取
+- structure recovery
+- heading hierarchy recognition
+- example extraction
 
-如果你后面要处理很多扫描教案、截图或拍照资料，这一步会非常关键。
+If you later need to process many scanned lesson plans, screenshots, or photographed materials, this step becomes critical.
 
-对应课程可以回看：
-- [OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
+For a related course section, see:
+- [OCR Text Recognition](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-## 十、第一次做这个模块时，最稳的范围控制
+## 10. The safest scope control for your first implementation
 
-第一次开发时，最容易失败的原因不是技术太难，  
-而是支持范围一下子开太大。
+When you first develop this module, the most common reason for failure is not that the technology is too hard,
+but that the scope gets too large too quickly.
 
-更稳的最小版本通常是：
+A safer minimal version is usually:
 
-1. 先只支持文本型 `DOCX`
-2. 再支持文本型 `PDF`
-3. 再支持 `PPTX`
-4. 最后再补扫描件 OCR
+1. Support text-based `DOCX` first
+2. Then support text-based `PDF`
+3. Then support `PPTX`
+4. Finally add OCR for scanned files
 
-这个顺序的好处是：
+The benefit of this order is:
 
-- 你可以先把结构和 schema 跑顺
-- 不会一开始就被 OCR 识别问题拖住
+- you can first make the structure and schema work smoothly
+- you will not get stuck on OCR recognition problems right away
 
-## 十一、一个新人可直接照抄的解析检查表
+## 11. A parsing checklist beginners can copy directly
 
-第一次做知识库文档解析时，最稳的检查表通常是：
+When you parse documents for a knowledge base for the first time, the safest checklist is usually:
 
-1. 文字有没有被完整抽出来？
-2. 标题和正文顺序对不对？
-3. 章节层级有没有保住？
-4. 页码 / 幻灯片页号有没有保留？
-5. 能不能区分正文和例题？
-6. 扫描件有没有 OCR 错字？
+1. Was all the text extracted correctly?
+2. Is the order of headings and body text correct?
+3. Was the chapter hierarchy preserved?
+4. Were page numbers / slide numbers kept?
+5. Can body text and examples be distinguished?
+6. Are there OCR recognition errors in scanned files?
 
-这 6 项比“先上向量库”更优先。
+These 6 items are higher priority than “just use a vector database first.”
 
-## 十二、如果把它做成项目，最值得展示什么？
+## 12. If you turn this into a project, what is most worth showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “我们支持 PDF / Word / PPT”
+- “We support PDF / Word / PPT”
 
-而是：
+but rather:
 
-1. 原始文档长什么样
-2. 解析后的结构化知识块长什么样
-3. 例题是怎么被识别出来的
-4. OCR 或结构恢复在哪些地方容易出错
+1. What the original document looks like
+2. What the parsed structured knowledge chunks look like
+3. How examples were identified
+4. Where OCR or structure recovery tends to fail
 
-这样别人会更容易看出：
+That way, others can more easily see that:
 
-- 你理解的是知识入库链路
-- 不只是会“读文件”
+- you understand the knowledge ingestion pipeline
+- you are not just capable of “reading files”
 
-## 小结
+## Summary
 
-- 文档解析真正要解决的是“把文件变成结构化知识对象”
-- schema 设计决定了后面的检索、引用和课件生成能不能稳
-- 第一次做时，先把 `DOCX / 文本 PDF / 例题抽取规则版` 跑顺，比一上来全支持更现实
+- Document parsing is really about turning files into structured knowledge objects
+- Schema design determines whether retrieval, citation, and courseware generation will be stable later
+- When you start, it is more realistic to get `DOCX / text PDF / rule-based example extraction` working smoothly first than to support everything at once
 
-## 这节最该带走什么
+## What you should take away from this section
 
-- 文档解析不是把字抠出来就结束，而是要恢复结构和来源
-- 真正有价值的知识块，应该带标题、页码、内容类型等元数据
-- 如果你的知识库来自大量 PDF / Word / PPT / 扫描件，这一步就是整条链最关键的入口之一
+- Document parsing is not finished just by extracting text; structure and source must also be restored
+- Truly valuable knowledge chunks should carry metadata such as headings, page numbers, and content types
+- If your knowledge base comes from a large number of PDF / Word / PPT / scanned files, this step is one of the most critical entry points in the whole pipeline

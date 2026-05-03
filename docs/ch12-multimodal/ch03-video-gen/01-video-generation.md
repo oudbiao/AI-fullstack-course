@@ -1,103 +1,103 @@
 ---
-title: "3.2 视频生成技术"
+title: "3.2 Video Generation Technology"
 sidebar_position: 9
-description: "从时间一致性、运动建模和主流路线出发，建立对视频生成为什么比图像生成更难、也更有价值的系统直觉。"
+description: "Starting from temporal consistency, motion modeling, and mainstream approaches, build a systematic intuition for why video generation is harder than image generation and also more valuable."
 keywords: [video generation, temporal consistency, motion modeling, video diffusion, frame coherence]
 ---
 
-# 视频生成技术
+# Video Generation Technology
 
-![视频与语音生成流水线图](/img/course/video-audio-generation-pipeline.png)
+![Video and audio generation pipeline diagram](/img/course/video-audio-generation-pipeline-en.png)
 
-:::tip 本节定位
-如果说图像生成是在解决：
+:::tip Section Overview
+If image generation is about solving:
 
-> “一张图像不像真的？”
+> “Does this image look fake?”
 
-那么视频生成是在解决：
+then video generation is about solving:
 
-> “每一帧都像真的，而且一整段连起来也像真的。”
+> “Does every frame look real, and does the whole sequence look real when played together?”
 
-这就是它比图像生成更难的核心原因。
+That is the core reason it is harder than image generation.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么视频生成比图像生成多了一层难度
-- 理解时间一致性和运动建模的核心问题
-- 建立对主流视频生成路线的第一层地图
-- 明白为什么视频生成往往更像“多模块系统”而不只是单模型
+- Understand why video generation is one level more difficult than image generation
+- Understand the core problems of temporal consistency and motion modeling
+- Build a first-pass map of mainstream video generation approaches
+- Understand why video generation often looks more like a “multi-module system” than a single model
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-视频生成更适合按“单帧质量 + 时间一致性 + 工作流组织”来理解：
+It is more helpful to understand video generation from three angles: “single-frame quality + temporal consistency + workflow organization”:
 
 ```mermaid
 flowchart LR
-    A["单帧看起来像真"] --> B["前后帧保持一致"]
-    B --> C["动作和镜头合理"]
-    C --> D["再和音频 / 控制 / 后处理组合"]
+    A["Looks real in a single frame"] --> B["Adjacent frames stay consistent"]
+    B --> C["Motion and camera movement are reasonable"]
+    C --> D["Then combine with audio / control / post-processing"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to explain is:
 
-- 为什么视频生成不是“多生成几张图”
-- 为什么它天然更像一个时间连续系统
-
----
-
-## 一、为什么视频生成更难？
-
-### 1.1 图像生成只要求单帧合理
-
-文生图最核心的要求是：
-
-- 这一张图看起来要像真的
-
-### 1.2 视频生成还要求前后连续
-
-视频除了单帧质量，还必须保证：
-
-- 同一个人别忽然变脸
-- 背景别一帧一帧闪
-- 动作要平滑
-- 镜头运动要连贯
-
-也就是说，视频生成最核心新增的问题就是：
-
-> **时间一致性。**
-
-### 1.3 一个更适合新人的总类比
-
-你可以把视频生成理解成：
-
-- 拍一小段戏，而不是拍一张照片
-
-照片只要这一帧好看就行，  
-视频还要求：
-
-- 演员别忽然换脸
-- 灯光别乱跳
-- 动作别像卡顿
-
-这个类比很适合新人，因为它会帮助你先抓住：
-
-- 视频最难的不是“单帧像不像”
-- 而是“整段连起来像不像”
+- Why video generation is not just “generate more images”
+- Why it is naturally more like a temporally continuous system
 
 ---
 
-## 二、先从最简单的视角理解视频
+## 1. Why Is Video Generation Harder?
 
-### 2.1 视频本质上是什么？
+### 1.1 Image generation only requires a reasonable single frame
 
-从最粗糙的角度看：
+The core requirement of text-to-image is:
 
-> 视频 = 一串按时间排列的图像帧。 
+- This image should look real
 
-### 2.2 一个最小示意
+### 1.2 Video generation also requires continuity over time
+
+In addition to single-frame quality, video must also ensure:
+
+- The same person does not suddenly change their face
+- The background does not flicker from frame to frame
+- Motion is smooth
+- Camera movement is coherent
+
+In other words, the most important new problem in video generation is:
+
+> **Temporal consistency.**
+
+### 1.3 A better analogy for beginners
+
+You can think of video generation as:
+
+- Filming a short scene, not taking a single photo
+
+For a photo, only that one frame has to look good.
+For a video, you also need:
+
+- The actor not to suddenly change faces
+- The lighting not to jump around
+- The motion not to look stuttery
+
+This analogy is very helpful for beginners because it helps you focus first on:
+
+- The hardest part of video is not “does a single frame look real?”
+- It is “does the whole sequence look real when played together?”
+
+---
+
+## 2. Start by Understanding Video from the Simplest View
+
+### 2.1 What is video, essentially?
+
+From the roughest perspective:
+
+> Video = a sequence of image frames arranged in time.
+
+### 2.2 A minimal illustration
 
 ```python
 frames = ["frame_1", "frame_2", "frame_3", "frame_4"]
@@ -106,39 +106,39 @@ for i, frame in enumerate(frames, start=1):
     print(f"t={i}: {frame}")
 ```
 
-这当然不是全部，但这是所有视频生成模型都绕不开的起点：
+Of course, that is not the whole story, but it is the starting point that every video generation model must deal with:
 
-- 你不仅要理解空间结构
-- 还要理解时间顺序
-
----
-
-## 三、为什么“帧做得好”不等于“视频做好”？
-
-### 3.1 一个很典型的失败例子
-
-假设一段视频里有一只猫从左往右跑。  
-如果模型每一帧单看都不错，但：
-
-- 第 1 帧是橘猫
-- 第 2 帧是灰猫
-- 第 3 帧体型突然变大
-
-那用户仍然会觉得非常假。
-
-### 3.2 所以视频生成比图像生成多出来的关键约束是
-
-- 帧间一致性
-- 运动连续性
-- 身份保持
-
-这也是为什么视频任务不能简单理解成：
-
-> “多生成几张图就行。” 
+- You need to understand spatial structure
+- You also need to understand temporal order
 
 ---
 
-## 四、一个最小“帧到片段”示意
+## 3. Why Does “Good Frames” Not Mean “Good Video”?
+
+### 3.1 A very typical failure example
+
+Suppose there is a cat running from left to right in a video.
+If each frame looks fine on its own, but:
+
+- Frame 1 shows an orange cat
+- Frame 2 shows a gray cat
+- Frame 3 suddenly has a much larger body
+
+Then users will still feel that it is very fake.
+
+### 3.2 So the key extra constraints in video generation are
+
+- Inter-frame consistency
+- Motion continuity
+- Identity preservation
+
+That is also why a video task cannot be understood simply as:
+
+> “Just generate more images.”
+
+---
+
+## 4. A Minimal “Frames to Clip” Example
 
 ```python
 frames = ["f1", "f2", "f3", "f4"]
@@ -148,191 +148,189 @@ print("frames:", frames)
 print("clips :", clips)
 ```
 
-### 4.2 这个例子在教什么？
+### 4.2 What is this example teaching?
 
-它在教你：
+It is teaching you that:
 
-- 视频不是独立样本集合
-- 相邻帧之间天然有关系
-- 很多模型会把这种局部时间关系当成建模基础
+- Video is not a collection of independent samples
+- Adjacent frames are naturally related
+- Many models treat these local temporal relationships as the basis for modeling
 
 ---
 
-## 五、主流视频生成路线可以先粗略怎么理解？
+## 5. How Can We Roughly Understand Mainstream Video Generation Approaches?
 
-### 5.1 逐帧生成路线
+### 5.1 Frame-by-frame generation
 
-思路：
+Idea:
 
-- 一帧帧生成
-- 再尽量让它们连起来
+- Generate frames one by one
+- Then try to make them connect smoothly
 
-优点：
+Pros:
 
-- 好理解
+- Easy to understand
 
-缺点：
+Cons:
 
-- 很容易不一致
+- Inconsistency is very easy to appear
 
-### 5.2 图像模型扩展到时间维
+### 5.2 Extending image models into the time dimension
 
-思路：
+Idea:
 
-- 先复用图像生成能力
-- 再加入时间建模
+- Reuse image generation capability first
+- Then add temporal modeling
 
-这是一条非常自然的路线，因为图像生成本身已经很成熟。
+This is a very natural route, because image generation itself is already quite mature.
 
-### 5.3 视频扩散路线
+### 5.3 Video diffusion approaches
 
-思路：
+Idea:
 
-- 不只对单帧扩散，而是对整段视频表示做扩散和去噪
+- Instead of diffusing only single frames, perform diffusion and denoising on the representation of the whole video sequence
 
-这也是后面越来越重要的方向。
+This is also an increasingly important direction.
 
-### 5.4 一个很适合初学者先记的路线对比表
+### 5.4 A comparison table that beginners can remember first
 
-| 路线 | 最值得先记住的感觉 |
+| Approach | The most important first impression to remember |
 |---|---|
-| 逐帧生成 | 好理解，但一致性容易差 |
-| 图像模型扩时间维 | 很自然的工程演进路线 |
-| 视频扩散 | 更完整地同时考虑整段视频 |
+| Frame-by-frame generation | Easy to understand, but consistency can be poor |
+| Extending image models into time | A very natural engineering evolution path |
+| Video diffusion | More complete consideration of the whole video sequence |
 
-这个表很适合新人，因为它会把“路线很多”重新压缩成三种比较容易抓住的思路。
-
----
-
-## 六、为什么很多视频生成路线都和图像模型有亲缘关系？
-
-因为图像生成已经解决了很多基础难题：
-
-- 文字条件控制
-- 单帧视觉质量
-- 细节表达
-
-于是一个自然想法就是：
-
-> 先把单帧质量建立好，再逐步把“时间”这维加进去。 
-
-所以你会发现很多视频生成系统，看起来像是：
-
-- 图像扩散模型 + 时间建模
-
-这不是巧合，而是非常自然的演进逻辑。
+This table is very useful for beginners because it compresses “there are many approaches” into three easier-to-grasp ideas.
 
 ---
 
-## 七、视频生成最常见的几个评价维度
+## 6. Why Are Many Video Generation Approaches Related to Image Models?
 
-### 7.1 单帧质量
+Because image generation has already solved many fundamental problems:
 
-每一帧本身像不像真的。
+- Text-conditioned control
+- Single-frame visual quality
+- Detail expression
 
-### 7.2 时间一致性
+So a natural idea is:
 
-前后帧之间是否平滑稳定。
+> First establish strong single-frame quality, then gradually add the dimension of “time.”
 
-### 7.3 运动合理性
+That is why many video generation systems look like:
 
-动作轨迹是否自然。
+- Image diffusion models + temporal modeling
 
-### 7.4 条件控制
+This is not a coincidence, but a very natural evolutionary logic.
 
-用户文字或参考条件能否贯穿整段视频。
+---
 
-所以视频生成的评估往往比图像生成更复杂，因为它至少是“空间质量 + 时间质量”的双重任务。
+## 7. The Most Common Evaluation Dimensions for Video Generation
 
-### 7.5 一个更适合初学者先记的评估表
+### 7.1 Single-frame quality
 
-| 维度 | 你最该先看什么 |
+Whether each frame itself looks real.
+
+### 7.2 Temporal consistency
+
+Whether adjacent frames are smooth and stable.
+
+### 7.3 Motion plausibility
+
+Whether the motion trajectory feels natural.
+
+### 7.4 Condition control
+
+Whether the user’s text or reference conditions are maintained throughout the entire video.
+
+So evaluating video generation is often more complex than evaluating image generation, because it is at least a dual task of “spatial quality + temporal quality.”
+
+### 7.5 A beginner-friendly evaluation table
+
+| Dimension | What you should look at first |
 |---|---|
-| 单帧质量 | 单张画面像不像真 |
-| 时间一致性 | 前后是否跳变 |
-| 运动合理性 | 动作轨迹自然不自然 |
-| 条件控制 | 文字或参考条件有没有贯穿整段 |
+| Single-frame quality | Whether one image looks real |
+| Temporal consistency | Whether there are sudden jumps between frames |
+| Motion plausibility | Whether the motion trajectory feels natural |
+| Condition control | Whether the text or reference conditions persist throughout |
 
-这个表很适合新人，因为它会把“视频质量”重新拆成几个比较可观察的问题。
-
----
-
-## 八、为什么视频生成在工程上更难？
-
-### 8.1 计算量更大
-
-因为不再是：
-
-- 高 x 宽 x 通道
-
-而是：
-
-- 帧数 x 高 x 宽 x 通道
-
-### 8.2 失败更容易被看出来
-
-图像里有一个小瑕疵，用户可能还能接受。  
-视频里如果前后跳变，用户会马上感觉假。
-
-### 8.3 交互成本更高
-
-视频生成通常更慢、更贵，也更依赖工程优化。
+This table is helpful for beginners because it breaks “video quality” into several more observable problems.
 
 ---
 
-## 九、一个重要的产品视角
+## 8. Why Is Video Generation Harder in Engineering?
 
-现实里很多视频生成产品并不完全依赖一个单独大模型，而更像：
+### 8.1 Larger compute cost
 
-- 关键帧生成
-- 插帧
-- 音频合成
-- 姿态控制
-- 后处理
+Because it is no longer just:
 
-这些模块的组合。
+- Height x width x channels
 
-也就是说：
+but:
 
-> 视频生成产品很多时候本质上是“多模块工作流系统”。 
+- Number of frames x height x width x channels
 
-这点非常重要，因为它说明：
+### 8.2 Failures are easier to notice
 
-- 不是所有问题都要交给一个巨大的端到端模型
+A small flaw in an image may still be acceptable to users.
+But if a video jumps inconsistently from frame to frame, users will immediately feel that it is fake.
 
-## 如果把它做成项目或系统设计，最值得展示什么
+### 8.3 Higher interaction cost
 
-最值得展示的通常不是：
-
-- “我生成了一段视频”
-
-而是：
-
-1. 单帧质量和时间一致性分别如何评估
-2. 系统用了哪些模块
-3. 哪些地方最容易出错
-4. 为什么它更像多模块工作流而不是单个模型按钮
-
-这样别人会更容易看出：
-
-- 你理解的是视频生成的系统难点
-- 不只是把结果导出来了
+Video generation is usually slower, more expensive, and more dependent on engineering optimization.
 
 ---
 
-## 小结
+## 9. An Important Product Perspective
 
-这一节最重要的不是记住某条路线的名字，而是建立一个稳定直觉：
+In practice, many video generation products do not rely entirely on one single large model. Instead, they are more like a combination of:
 
-> **视频生成 = 生成每一帧 + 维持帧与帧之间的合理连续性。**
+- Keyframe generation
+- Interpolation
+- Audio synthesis
+- Pose control
+- Post-processing
 
-这就是它比图像生成更难、也更有工程挑战的根本原因。
+In other words:
+
+> Many video generation products are essentially “multi-module workflow systems.”
+
+This is very important, because it shows that:
+
+- Not every problem needs to be handed over to one huge end-to-end model
+
+## If you turn this into a project or system design, what is most worth showing?
+
+What is usually most worth showing is not:
+
+- “I generated a video”
+
+but rather:
+
+1. How single-frame quality and temporal consistency are evaluated separately
+2. What modules the system uses
+3. Where the system is most likely to fail
+4. Why it looks more like a multi-module workflow than a single model button
+
+In this way, others can more easily see that:
+
+- You understand the system-level challenges of video generation
+- You are not just exporting a result
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么视频生成比图像生成多了一层核心难点？
-2. 想一想：如果一段视频每一帧单看都很好，但连起来很跳，这说明哪一层出了问题？
-3. 为什么说很多视频生成系统本质上更像“多模块工作流”？
-4. 如果你要做一个短视频生成产品，你会更优先优化单帧质量还是时间一致性？为什么？
+The most important thing in this section is not to remember the name of a particular approach, but to build a stable intuition:
+
+> **Video generation = generating each frame + maintaining reasonable continuity between frames.**
+
+That is the fundamental reason it is harder than image generation and also more challenging from an engineering perspective.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why does video generation have one more core layer of difficulty than image generation?
+2. Think about this: if every frame in a video looks good on its own, but the sequence feels jumpy when played together, which layer has gone wrong?
+3. Why do we say that many video generation systems are essentially “multi-module workflows”?
+4. If you were building a short-video generation product, would you prioritize single-frame quality or temporal consistency first? Why?

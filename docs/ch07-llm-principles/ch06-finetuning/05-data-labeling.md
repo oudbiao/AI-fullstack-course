@@ -1,162 +1,162 @@
 ---
-title: "6.6 数据标注与数据飞轮"
+title: "6.6 Data Labeling and the Data Flywheel"
 sidebar_position: 23
-description: "把数据标注看成任务定义的一部分，理解标注规范、一致性、难例挖掘与数据飞轮是怎样真正推动微调质量提升的。"
+description: "Treat data labeling as part of task definition, and understand how labeling guidelines, consistency, hard example mining, and the data flywheel truly drive improvements in fine-tuning quality."
 keywords: [data labeling, data flywheel, annotation, agreement, hard example mining, finetuning]
 ---
 
-# 数据标注与数据飞轮
+# Data Labeling and the Data Flywheel
 
-:::tip 本节定位
-模型效果的上限，很多时候不是由训练技巧决定的，而是由数据决定的。
+:::tip Section Overview
+The upper limit of model performance is often determined not by training tricks, but by data.
 
-尤其是大模型微调里，常见的情况不是：
+Especially in LLM fine-tuning, the common problems are usually not:
 
-- 方法不够新
+- The method is not new enough
 
-而是：
+but rather:
 
-- 标注口径不一致
-- 正负样本边界含糊
-- 线上失败样本没有回流
+- Inconsistent labeling standards
+- Blurry boundaries between positive and negative samples
+- Failed online samples are not fed back
 
-所以这节课要解决的是一个更根本的问题：
+So this lesson is about solving a more fundamental question:
 
-> **怎样把“数据越来越好”做成一条持续运转的飞轮。**
+> **How do we turn “data keeps getting better” into a continuously running flywheel?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解标注不只是“打标签”，而是在定义任务边界
-- 知道如何设计标签体系、标注规范和质检流程
-- 学会用一致性指标和难例筛选来检查数据质量
-- 理解数据飞轮是如何把线上失败样本转成下一轮训练资产
-
----
-
-## 一、为什么说“数据标注”本质上是在定义任务？
-
-### 1.1 标签不是文员工作，而是产品决策
-
-假设你的任务是“客服回复质量分类”。
-
-如果你只给标注员一个标签名：
-
-- 好回复
-- 坏回复
-
-那每个人心里的标准都不同：
-
-- 有人看礼貌
-- 有人看是否解决问题
-- 有人看是否符合政策
-
-最后模型学到的就会是一锅混合标准。
-
-所以标签真正应该回答的是：
-
-- 什么算对
-- 什么算错
-- 边界情况怎么判
-
-### 1.2 类比：模型不是在学标签名，而是在学你背后的规则
-
-你可以把每一条标注数据想成：
-
-- 一个经过人类裁决的案例
-
-模型看到的不是“safe/unsafe”这几个字，  
-而是你通过大量案例暗中表达的判断标准。
-
-因此如果规则本身模糊，  
-模型不可能学得清楚。
-
-### 1.3 为什么很多微调项目会卡在这里？
-
-因为团队常常会高估“标签名”的清晰度，低估“标注规范”的重要性。
-
-真正能稳定提升数据质量的，往往不是标注平台，而是：
-
-- 标签定义
-- 正反例
-- 边界例
-- 复核机制
+- Understand that labeling is not just “assigning tags,” but defining task boundaries
+- Know how to design label systems, labeling guidelines, and quality-check processes
+- Learn to use agreement metrics and hard example selection to check data quality
+- Understand how the data flywheel turns failed online samples into the next round of training assets
 
 ---
 
-## 二、先把标签体系设计清楚
+## 1. Why is “data labeling” essentially task definition?
 
-### 2.1 标签尽量和业务动作对应
+### 1.1 Labels are not clerical work, but product decisions
 
-一个好标签体系，最好能自然映射到后续动作。
+Suppose your task is “customer service reply quality classification.”
 
-例如在客服审核任务里，  
-比起只分：
+If you only give annotators a label name:
 
-- 好
-- 坏
+- Good reply
+- Bad reply
 
-更实用的标签可能是：
+then everyone will interpret the standard differently:
+
+- Some people judge politeness
+- Some judge whether the issue is solved
+- Some judge whether it follows policy
+
+In the end, the model will learn a mixture of standards.
+
+So the labels should really answer:
+
+- What counts as correct
+- What counts as wrong
+- How to judge edge cases
+
+### 1.2 Analogy: the model is not learning label names, but the rules behind them
+
+You can think of each labeled data point as:
+
+- A case judged by humans
+
+What the model sees is not the words “safe/unsafe,”
+but the judgment criteria you implicitly express through many examples.
+
+So if the rules themselves are vague,
+the model cannot learn them clearly.
+
+### 1.3 Why do many fine-tuning projects get stuck here?
+
+Because teams often overestimate how clear the “label names” are, and underestimate the importance of the “labeling guidelines.”
+
+What really improves data quality in a stable way is often not the labeling platform, but:
+
+- Label definitions
+- Positive and negative examples
+- Boundary examples
+- Review mechanisms
+
+---
+
+## 2. First, design the label system clearly
+
+### 2.1 Labels should map naturally to business actions
+
+A good label system should map cleanly to downstream actions.
+
+For example, in a customer service review task,
+instead of simply dividing into:
+
+- Good
+- Bad
+
+more practical labels might be:
 
 - `correct_and_polite`
 - `correct_but_too_brief`
 - `policy_violation`
 - `hallucinated_promise`
 
-因为这样的标签更利于后续：
+Because these labels are more useful for:
 
-- 错误分析
-- 数据补充
-- 定向微调
+- Error analysis
+- Data augmentation
+- Targeted fine-tuning
 
-### 2.2 边界样本一定要单独写规则
+### 2.2 Boundary cases must have their own rules
 
-新人最容易忽略的是：
+What beginners most easily overlook is that:
 
-- 明显正例
-- 明显负例
+- Clear positive cases
+- Clear negative cases
 
-通常不难标。
+are usually not hard to label.
 
-真正难的是：
+The truly difficult cases are:
 
-- 部分正确
-- 语气礼貌但事实错
-- 拒答方向对，但措辞生硬
+- Partially correct
+- Polite in tone but factually wrong
+- The refusal direction is right, but the wording is harsh
 
-这些边界例如果不写清楚，  
-一致性一定会掉。
+If these boundary cases are not clearly defined,
+consistency will definitely drop.
 
-### 2.3 什么时候该做分类标签，什么时候该做偏好对比？
+### 2.3 When should you use classification labels, and when should you use preference comparison?
 
-如果你的任务重点是：
+If your task focuses on:
 
-- 明确类别
-- 明确是否违规
+- Clear categories
+- Whether something violates a rule
 
-分类标签通常更自然。
+classification labels are usually more natural.
 
-如果你的任务重点是：
+If your task focuses on:
 
-- 两个回答谁更好
-- 风格谁更符合预期
+- Which of two answers is better
+- Which style better matches the expectation
 
-偏好对比往往更稳定。
+preference comparison is often more stable.
 
-也就是说：
+In other words:
 
-- 分类更适合“绝对标准”
-- 偏好更适合“相对优劣”
+- Classification is better for “absolute standards”
+- Preference is better for “relative quality”
 
 ---
 
-## 三、先跑一个真正有用的数据质检脚本
+## 3. Start with a truly useful data quality check script
 
-下面这段代码会做三件现实中非常常用的事：
+The code below does three very practical things:
 
-1. 计算两个标注员的一致率
-2. 计算 Cohen's kappa
-3. 找出需要进入下一轮复核或补标的样本
+1. Computes agreement rate between two annotators
+2. Computes Cohen's kappa
+3. Finds samples that should go into the next round of review or relabeling
 
 ```python
 from collections import Counter
@@ -164,35 +164,35 @@ from collections import Counter
 records = [
     {
         "id": 1,
-        "text": "可以先去重置密码，再尝试重新登录。",
+        "text": "You can reset the password first, then try logging in again.",
         "label_a": "good",
         "label_b": "good",
         "model_confidence": 0.93,
     },
     {
         "id": 2,
-        "text": "你自己去查吧。",
+        "text": "Go check it yourself.",
         "label_a": "bad",
         "label_b": "bad",
         "model_confidence": 0.91,
     },
     {
         "id": 3,
-        "text": "已经发货也一定可以秒退。",
+        "text": "Even if it has already been shipped, it can definitely be refunded instantly.",
         "label_a": "bad",
         "label_b": "good",
         "model_confidence": 0.52,
     },
     {
         "id": 4,
-        "text": "订单完成后可在发票中心申请开票。",
+        "text": "After the order is completed, you can apply for an invoice in the invoice center.",
         "label_a": "good",
         "label_b": "good",
         "model_confidence": 0.51,
     },
     {
         "id": 5,
-        "text": "我不确定是否支持改地址，建议联系人工客服确认。",
+        "text": "I'm not sure whether changing the address is supported. Please contact human support to confirm.",
         "label_a": "good",
         "label_b": "bad",
         "model_confidence": 0.47,
@@ -242,205 +242,205 @@ for row in needs_review:
     )
 ```
 
-### 3.1 为什么这段代码不是“废示例”？
+### 3.1 Why is this code not a “useless example”?
 
-因为它对应的是数据团队每天都会做的三件事：
+Because it corresponds to three things data teams do every day:
 
-- 看标注员是否一致
-- 看模型在哪些样本上最不确定
-- 把争议样本拉出来重点复核
+- Check whether annotators are consistent
+- Check which samples the model is most uncertain about
+- Pull out disputed samples for focused review
 
-如果你只盯“总样本量”，却不看这些信息，  
-数据质量会很容易停留在表面。
+If you only look at “total sample size” and ignore these signals,
+data quality can easily stay at a superficial level.
 
-### 3.2 为什么 `agreement` 还不够？
+### 3.2 Why is `agreement` not enough?
 
-因为有时类别非常不平衡。  
-例如 90% 样本都属于 `good`，  
-那两个标注员即便都很偷懒，也能得到看起来很高的一致率。
+Because sometimes the classes are highly imbalanced.
+For example, if 90% of samples are `good`,
+then even two lazy annotators can get a seemingly high agreement rate.
 
-这就是为什么很多团队还会看：
+That is why many teams also look at:
 
 - Cohen's kappa
 
-它会尝试扣除“碰巧一致”的成分。
+It tries to subtract the part that may have matched by chance.
 
-### 3.3 为什么低置信度样本要进复核队列？
+### 3.3 Why should low-confidence samples go into the review queue?
 
-因为这类样本往往意味着：
+Because such samples often mean:
 
-- 模型拿不准
-- 规则边界模糊
-- 或者样本本身比较脏
+- The model is unsure
+- The rule boundaries are blurry
+- Or the sample itself is noisy
 
-它们正是下一轮数据增益最大的地方。
+They are exactly where the next round of data gains is greatest.
 
-![数据标注质检与飞轮回流图](/img/course/ch07-data-labeling-flywheel-review-map.png)
+![Data labeling quality check and flywheel feedback diagram](/img/course/ch07-data-labeling-flywheel-review-map-en.png)
 
-:::tip 读图提示
-这张图建议先看 review queue：标注员不一致、模型低置信度、线上失败样本都应该进入复核，再变成下一轮高价值训练数据。数据飞轮不是“多收集样本”，而是把最能暴露边界的问题持续回流。
+:::tip Reading guide
+For this diagram, it is recommended to first look at the review queue: inconsistent annotators, low-confidence model outputs, and failed online samples should all go into review, and then become high-value training data for the next round. The data flywheel is not about “collecting more samples,” but about continuously feeding back the problems that best expose boundaries.
 :::
 
 ---
 
-## 四、什么叫“数据飞轮”？
+## 4. What is the “data flywheel”?
 
-### 4.1 最小闭环长什么样？
+### 4.1 What does the smallest loop look like?
 
-一个典型的数据飞轮通常是：
+A typical data flywheel usually looks like this:
 
-1. 模型上线
-2. 收集失败样本
-3. 清洗和去重
-4. 复标或补标
-5. 加入下一轮训练集
-6. 再评估、再上线
+1. Deploy the model
+2. Collect failed samples
+3. Clean and deduplicate
+4. Relabel or add labels
+5. Add them to the next training set
+6. Evaluate again, then deploy again
 
-飞轮的重点不是“循环”这两个字，  
-而是每一轮回来的数据都更贴近真实问题。
+The key point of the flywheel is not the word “loop,”
+but that the data coming back each round is closer to the real problem.
 
-### 4.2 为什么线上失败样本特别值钱？
+### 4.2 Why are failed online samples especially valuable?
 
-因为它们往往具备两个特点：
+Because they usually have two characteristics:
 
-- 来自真实用户
-- 正好打中当前系统最薄弱的地方
+- They come from real users
+- They hit the system’s weakest points exactly
 
-和人工凭空编一批样本相比，  
-这种数据更有针对性。
+Compared with manually invented samples,
+this kind of data is much more targeted.
 
-### 4.3 飞轮最怕什么？
+### 4.3 What does the flywheel fear most?
 
-最怕三件事：
+It fears three things the most:
 
-- 失败样本收不上来
-- 收上来后没人分类归因
-- 归因后没有进入下一轮训练或评估
+- Failed samples cannot be collected
+- Once collected, no one categorizes the causes
+- After categorization, they are not used in the next round of training or evaluation
 
-如果只收集、不回流，  
-那就不叫飞轮，只是积压。
-
----
-
-## 五、怎样把飞轮做得更稳？
-
-### 5.1 先做失败类型分桶
-
-把线上问题分成几类，常常比单纯堆样本更有效。
-
-例如：
-
-- 格式错误
-- 幻觉
-- 政策违规
-- 过度拒答
-- 漏关键字段
-
-这样下一轮你就知道该补哪一类数据。
-
-### 5.2 再做去重和代表性采样
-
-真实线上数据很容易重复。  
-如果用户大量重复问同一类问题，你不应该机械地把所有样本都塞回训练集。
-
-更好的做法通常是：
-
-- 去掉近重复
-- 保留代表性样本
-- 给稀有但高风险问题更高优先级
-
-### 5.3 别忘了版本管理
-
-每一轮数据最好都记清楚：
-
-- 从哪里来
-- 为什么加入
-- 属于哪一类错误
-- 是否已经人工复核
-
-否则到后面你会很难回答：
-
-> 这次提升到底是因为方法变了，还是因为数据变了？
+If you only collect data but do not feed it back,
+that is not a flywheel — it is just accumulation.
 
 ---
 
-## 六、标注规范到底该写到什么程度？
+## 5. How do we make the flywheel more stable?
 
-### 6.1 至少要有正例、反例和边界例
+### 5.1 First, bucket the failure types
 
-一个好规范通常至少包含：
+Dividing online issues into categories is often more effective than simply piling up samples.
 
-- 标签定义
-- 适用条件
-- 明确正例
-- 明确反例
-- 易混边界例
+For example:
 
-### 6.2 最好能回答“为什么”
+- Format errors
+- Hallucinations
+- Policy violations
+- Over-refusal
+- Missing key fields
 
-如果规范只写：
+Then in the next round, you know exactly which type of data to add.
 
-- 遇到这种情况打 `bad`
+### 5.2 Then deduplicate and sample representatively
 
-但没写为什么，  
-标注员在遇到相似但不完全相同的情况时就会摇摆。
+Real online data is often repetitive.
+If users repeatedly ask the same kind of question, you should not mechanically dump all samples back into the training set.
 
-### 6.3 规范本身也要迭代
+A better approach is usually:
 
-随着项目推进，你会不断发现：
+- Remove near-duplicates
+- Keep representative samples
+- Give higher priority to rare but high-risk issues
 
-- 旧规则覆盖不到的新场景
-- 原标签过粗
-- 两个标签容易混淆
+### 5.3 Don’t forget version control
 
-这时要更新的，不只是数据，  
-还有规范本身。
+Each round of data should clearly record:
 
----
+- Where it came from
+- Why it was added
+- Which error category it belongs to
+- Whether it has been manually reviewed
 
-## 七、这些误区特别容易踩
+Otherwise, later on it will be very hard to answer:
 
-### 7.1 误区一：先大量标，再说规则
-
-规则没定清楚就大规模开标，  
-通常会导致返工量极大。
-
-### 7.2 误区二：只盯一致率，不看争议原因
-
-一致率低只是表象。  
-更重要的是知道：
-
-- 是规范不清
-- 还是样本太脏
-- 或者标签体系本身就不合理
-
-### 7.3 误区三：把飞轮理解成“不断加更多数据”
-
-飞轮不是纯堆量，  
-而是不断把最有价值的失败样本转成高质量训练资产。
+> Was this improvement due to a method change, or because the data changed?
 
 ---
 
-## 小结
+## 6. How detailed should labeling guidelines be?
 
-这一节最重要的结论是：
+### 6.1 At minimum, include positive examples, negative examples, and boundary examples
 
-> **数据标注不是微调前的一道杂务，而是任务定义、质量控制和持续迭代能力的核心。**
+A good guideline usually includes at least:
 
-真正有生命力的数据体系，通常同时具备三件事：
+- Label definition
+- Applicability conditions
+- Clear positive examples
+- Clear negative examples
+- Confusing boundary examples
 
-1. 规则清楚
-2. 质检到位
-3. 失败样本能稳定回流
+### 6.2 It should preferably answer “why”
 
-当这三件事都成立时，  
-你的模型质量才会出现持续、可解释的提升。
+If the guideline only says:
+
+- In this case, assign `bad`
+
+but does not explain why,
+annotators will hesitate when they encounter similar but not identical cases.
+
+### 6.3 The guidelines themselves also need to evolve
+
+As the project progresses, you will keep discovering:
+
+- New scenarios not covered by old rules
+- Labels that are too coarse
+- Two labels that are easy to confuse
+
+At that point, what needs updating is not just the data,
+but the guidelines themselves.
 
 ---
 
-## 练习
+## 7. These mistakes are especially easy to make
 
-1. 为一个你熟悉的任务设计 3 到 5 个标签，并写出每个标签的正例和反例。
-2. 参考本节代码，自己手动构造一批双人标注数据，算一下一致率和 kappa。
-3. 想一想：你的项目里哪些线上失败样本最值得优先回流到训练集？
-4. 如果两个标注员总在同一类样本上争议，你会先改规范、改标签体系，还是直接投票裁决？为什么？
+### 7.1 Mistake 1: Label a lot first, talk about rules later
+
+If the rules are not clearly defined before large-scale labeling,
+the rework burden is usually enormous.
+
+### 7.2 Mistake 2: Only focus on agreement rate, not on the reasons for disagreement
+
+Low agreement is just a symptom.
+What matters more is knowing whether:
+
+- The guidelines are unclear
+- The samples are too noisy
+- Or the label system itself is unreasonable
+
+### 7.3 Mistake 3: Thinking of the flywheel as “just adding more data all the time”
+
+The flywheel is not about blindly increasing volume,
+but about continuously turning the most valuable failed samples into high-quality training assets.
+
+---
+
+## Summary
+
+The most important conclusion in this section is:
+
+> **Data labeling is not a side task before fine-tuning; it is the core of task definition, quality control, and continuous iteration capability.**
+
+A truly vibrant data system usually has all three of these:
+
+1. Clear rules
+2. Strong quality control
+3. Reliable feedback of failed samples
+
+When all three are in place,
+your model quality can improve continuously and in an explainable way.
+
+---
+
+## Exercises
+
+1. Design 3 to 5 labels for a task you know well, and write positive and negative examples for each label.
+2. Refer to the code in this section and manually construct a set of two-annotator labeled data. Calculate the agreement rate and kappa.
+3. Think about which failed online samples in your project are most worth feeding back into the training set first.
+4. If two annotators keep disagreeing on the same type of sample, would you first revise the guidelines, revise the label system, or directly decide by vote? Why?

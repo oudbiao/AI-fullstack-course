@@ -1,150 +1,150 @@
 ---
-title: "7.3 项目：文本摘要系统"
+title: "7.3 Project: Text Summarization System"
 sidebar_position: 2
-description: "从切句、句子打分、摘要生成、评估到失败分析，走通一个真正可展示的文本摘要项目闭环。"
+description: "Walk through a complete, showcase-ready text summarization project loop, from sentence splitting and sentence scoring to summary generation, evaluation, and failure analysis."
 keywords: [text summarization, extractive summarization, TF-IDF, evaluation, NLP project]
 ---
 
-# 项目：文本摘要系统
+# Project: Text Summarization System
 
-![文本摘要抽取生成评估图](/img/course/ch11-summarization-extractive-generative-eval-map.png)
+![Text summarization extraction-generation-evaluation diagram](/img/course/ch11-summarization-extractive-generative-eval-map-en.png)
 
-:::tip 读图提示
-摘要项目最容易忽略评估。读图时把 extractive summary、generative summary、coverage、faithfulness、length control 和人工评分放在一起看，先保证摘要不丢事实，再追求表达漂亮。
+:::tip Reading tip
+Evaluation is the part summarization projects most easily overlook. When reading this diagram, think about extractive summary, generative summary, coverage, faithfulness, length control, and human scoring together. First make sure the summary does not lose facts, then pursue better expression.
 :::
 
-:::tip 本节定位
-摘要项目很适合作为作品集，因为它逼着你回答几个非常真实的问题：
+:::tip Where this section fits
+A summarization project is a great portfolio piece because it forces you to answer a few very real questions:
 
-- 什么叫关键信息
-- 怎样压缩长文本
-- 怎样判断摘要是否真的好
+- What counts as key information?
+- How do you compress long text?
+- How do you tell whether a summary is actually good?
 
-这一节不会只停在“会抽几句”，而会把一个作品级项目最该展示的部分讲清楚。
+This section will not stop at “I can extract a few sentences.” Instead, it will clearly explain the parts of a project-level deliverable that matter most.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 学会定义一个摘要项目的最小闭环
-- 学会把抽取式 baseline 做成可解释系统
-- 学会设计最小评估和失败分析
-- 学会把这个题材包装成一个完整的 NLP 项目
+- Learn how to define the minimum end-to-end loop of a summarization project
+- Learn how to turn an extractive baseline into an explainable system
+- Learn how to design minimal evaluation and failure analysis
+- Learn how to package this topic as a complete NLP project
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-文本摘要项目最适合新人的理解顺序不是“先追更强模型”，而是先看清项目闭环：
+For beginners, the best way to understand a text summarization project is not to “chase a stronger model first,” but to first see the full project loop clearly:
 
 ```mermaid
 flowchart LR
-    A["原文"] --> B["切句"]
-    B --> C["打分 / 选择关键信息"]
-    C --> D["生成摘要"]
-    D --> E["评估与失败分析"]
+    A["Original text"] --> B["Sentence splitting"]
+    B --> C["Scoring / selecting key information"]
+    C --> D["Generating summary"]
+    D --> E["Evaluation and failure analysis"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 什么叫“保住主线”
-- 摘要项目到底怎样评估和展示
+- What does it mean to “keep the main thread”?
+- How do you evaluate and present a summarization project?
 
-### 一个更适合新人的总类比
+### A better overall analogy for beginners
 
-你可以把文本摘要理解成：
+You can think of text summarization as:
 
-- 给一篇长文章做读书卡片
+- Making a reading card for a long article
 
-真正困难的地方不是“把字数变短”，而是：
+The real difficulty is not “making the text shorter,” but:
 
-- 不能把主线压没了
-- 不能只留下边角信息
-- 还要让最后的摘要读起来顺
+- Not losing the main thread
+- Not keeping only side details
+- Making the final summary read smoothly
 
-## 一、项目题目怎么收窄？
+## 1. How should you narrow the project topic?
 
-一个适合练手的题目可以是：
+A good starter project could be:
 
-> **给课程长文介绍生成 2 句摘要。**
+> **Generate a 2-sentence summary for long course articles.**
 
-这类题目好在：
+This type of task is good because:
 
-- 领域清晰
-- 文本长度适中
-- 摘要目标比较直观
+- The domain is clear
+- The text length is moderate
+- The summarization goal is easy to understand
 
-### 1.1 第一次做摘要项目，题目怎么选更稳？
+### 1.1 When doing your first summarization project, how do you choose a safer topic?
 
-更稳的起点通常有三个特点：
+A safer starting point usually has these three traits:
 
-- 原文结构比较清楚
-- 主线信息比较集中
-- 读者比较容易判断“有没有漏重点”
+- The original text has a clear structure
+- The main thread is concentrated
+- It is easy for readers to judge whether the key points are missing
 
-所以像：
+So texts like:
 
-- 课程介绍
-- 新闻简报
-- 会议纪要
+- course introductions
+- news briefs
+- meeting minutes
 
-这类文本通常都很适合作为练手题目。
+are often great practice topics.
 
-### 1.2 一个新人很适合先记的判断
+### 1.2 A useful early judgment for beginners
 
-第一次做摘要项目时，最值得先挑的是：
+When you do a summarization project for the first time, the most worthwhile thing to choose first is:
 
-- 读者比较容易判断“哪些才是重点”的文本
+- Texts where readers can easily tell which parts are the key points
 
-因为摘要最难的一层，本来就是：
+Because the hardest layer of summarization is:
 
-- 关键信息到底是什么
+- What exactly counts as key information?
 
 ---
 
-## 二、作品级摘要项目最小闭环
+## 2. The minimum project loop for a portfolio-level summarization project
 
-1. 选文本集合
-2. 切句
-3. 句子打分
-4. 选 top-k 句子
-5. 做人工评估
-6. 总结失败模式
+1. Select a text collection
+2. Split into sentences
+3. Score sentences
+4. Select the top-k sentences
+5. Do human evaluation
+6. Summarize failure patterns
 
-### 2.1 一个很适合初学者先记的项目检查表
+### 2.1 A project checklist that beginners can remember first
 
-| 环节 | 你最该先确认什么 |
+| Step | What should you confirm first? |
 |---|---|
-| 切句 | 句子边界是不是稳定 |
-| 打分 | 是按什么标准判断“更重要” |
-| 生成摘要 | top-k 句子有没有保住主线 |
-| 评估 | 是不是只看“读起来顺”，还是也看“有没有漏重点” |
+| Sentence splitting | Whether sentence boundaries are stable |
+| Scoring | What standard is used to decide “more important” |
+| Summary generation | Whether the top-k sentences preserve the main thread |
+| Evaluation | Whether you are only checking “does it read smoothly,” or also “does it miss key points” |
 
-这个表很适合新人，因为它会把摘要项目从“抽几句就结束”，重新变成一条可以检查的项目链。
+This table is useful for beginners because it turns a summarization project back into a chain of steps that can be checked, rather than “just extract a few sentences and stop.”
 
-## 三、推荐推进顺序
+## 3. Recommended order of progress
 
-对新人来说，更稳的顺序通常是：
+For beginners, a safer order is usually:
 
-1. 先做抽取式 baseline
-2. 再补最小人工评估
-3. 再做失败案例分析
-4. 最后再考虑生成式摘要对比
+1. Build an extractive baseline first
+2. Add minimal human evaluation
+3. Do failure case analysis
+4. Only then consider a comparison with generative summarization
 
-这样你会更容易知道摘要系统到底提升了什么。
+This way, you can more easily see what the summarization system is actually improving.
 
 ---
 
-## 四、先做一个更完整的抽取式摘要系统
+## 4. Start with a more complete extractive summarization system
 
 ```python
 import re
 
 article = """
-人工智能课程的学习路径通常分为基础阶段和进阶阶段。
-基础阶段包括 Python 编程、数据分析和机器学习。
-当学习者掌握了这些内容之后，才能更稳地进入深度学习和大模型应用开发。
-很多人一开始就想直接学大模型，但往往因为基础不牢而很快卡住。
-如果学习目标是做 AI 应用工程，理解数据处理、模型训练和系统部署都很重要。
+The learning path for AI courses is usually divided into a foundation stage and an advanced stage.
+The foundation stage includes Python programming, data analysis, and machine learning.
+Only after learners master these topics can they move more steadily into deep learning and large model application development.
+Many people want to jump straight into large models at the beginning, but they often get stuck quickly because their foundation is not solid enough.
+If the learning goal is AI application engineering, understanding data processing, model training, and system deployment is all very important.
 """.strip()
 
 
@@ -154,7 +154,7 @@ def split_sentences(text):
 
 
 def sentence_score(sentence, all_sentences):
-    # 极简词频打分：句子中的高频词越多，分数越高
+    # Extremely simple frequency-based scoring: sentences with more high-frequency words get higher scores
     tokens = "".join(all_sentences)
     return sum(tokens.count(ch) for ch in sentence if ch.strip())
 
@@ -174,28 +174,28 @@ print("summary:", summary)
 print("scores:", scored)
 ```
 
-### 4.1 这个示例为什么更像项目？
+### 4.1 Why does this example feel more like a project?
 
-因为它不只给你结果，  
-还保留了：
+Because it does not only give you the result,
+it also keeps:
 
-- 切句结果
-- 打分结果
+- the sentence-splitting result
+- the scoring result
 
-这让你能做：
+This lets you do:
 
-- 解释
-- 调试
-- 失败分析
+- explanation
+- debugging
+- failure analysis
 
-### 4.2 为什么摘要项目特别值得展示中间分数？
+### 4.2 Why is it especially worth showing intermediate scores in a summarization project?
 
-因为摘要好不好本来就带主观性。  
-中间打分过程能帮助别人理解：
+Because whether a summary is good or bad is inherently subjective.
+The intermediate scoring process helps others understand:
 
-- 你是怎样做选择的
+- how you made your selection
 
-### 4.3 再看一个最小“摘要长度控制”示例
+### 4.3 Here is another minimal example for “summary length control”
 
 ```python
 for k in [1, 2, 3]:
@@ -203,24 +203,24 @@ for k in [1, 2, 3]:
     print(f"top_k={k} -> {summary_k}")
 ```
 
-这个示例很适合初学者，因为它会帮助你立住一个关键感觉：
+This example is great for beginners because it helps you build one key intuition:
 
-- 摘要不是句子越多越好
-- 也不是越短越高级
+- A summary is not better just because it has more sentences
+- Nor is it more advanced just because it is shorter
 
-而是：
+Rather, it is about:
 
-- 在长度约束下尽量保住主线
+- Preserving the main thread as much as possible under length constraints
 
 ---
 
-## 五、一个最小人工评估表该长什么样？
+## 5. What should a minimal human evaluation table look like?
 
 ```python
 eval_cases = [
     {
         "text": article,
-        "gold_focus": ["基础阶段", "深度学习和大模型", "系统部署"],
+        "gold_focus": ["foundation stage", "deep learning and large models", "system deployment"],
     }
 ]
 
@@ -234,133 +234,133 @@ for case in eval_cases:
     })
 ```
 
-### 5.1 这个评估为什么简单但有用？
+### 5.1 Why is this evaluation simple but useful?
 
-因为它逼你回答：
+Because it forces you to answer:
 
-- 摘要到底保没保住主线
+- Did the summary keep the main thread or not?
 
-这比只看“读起来顺不顺”更具体。
+That is more concrete than only asking whether it “reads smoothly.”
 
 ---
 
-## 六、摘要项目最值得展示的失败案例
+## 6. The failure cases most worth showing in a summarization project
 
-例如：
+For example:
 
-- 选句重复
-- 漏掉关键信息
-- 句子顺序不自然
+- Repeated sentence selection
+- Missing key information
+- Unnatural sentence order
 
-### 为什么这些很值得展示？
+### Why are these worth showing?
 
-因为它们恰好体现了抽取式摘要的典型局限。
+Because they happen to reflect the typical limitations of extractive summarization.
 
-### 6.1 一个很适合新人的失败分析框架
+### 6.1 A failure analysis framework that is easy for beginners to use directly
 
-你可以先按这三类去分：
+You can first categorize them into these three types:
 
-1. 漏掉主线信息
-2. 句子重复或冗余
-3. 句子本身对，但组合起来不自然
+1. Missing main-thread information
+2. Repeated or redundant sentences
+3. The individual sentences are fine, but the combination feels unnatural
 
-这样比只说“这个摘要不太好”更容易推进下一步改进。
+This is easier to move forward with than just saying “the summary is not very good.”
 
-### 6.2 一个新人可直接照抄的错误分桶表
+### 6.2 An error bucket table that beginners can copy directly
 
-| 错误类型 | 你下一步更可能先改什么 |
+| Error type | What should you probably improve next? |
 |---|---|
-| 漏掉主线信息 | 句子打分规则 |
-| 句子重复 | 去冗余策略 |
-| 组合不自然 | 句子排序或生成式改写 |
+| Missing main-thread information | Sentence scoring rules |
+| Repeated sentences | Redundancy removal strategy |
+| Unnatural combination | Sentence ordering or generative rewriting |
 
-这个表很适合新人，因为它能帮助你把“摘要不太好”重新拆回具体可改的问题。
-
----
-
-## 七、怎么把这个项目再推成作品级？
-
-### 7.1 加一个生成式摘要对比
-
-### 7.2 增加更多文本类型
-
-例如：
-
-- 新闻
-- 课程介绍
-- 会议纪要
-
-### 7.3 做一页 before / after 展示
-
-例如：
-
-- 原文
-- baseline 摘要
-- 调优后摘要
-- 失败分析
+This table is helpful for beginners because it helps turn “the summary is not very good” back into concrete problems that can be improved.
 
 ---
 
-## 项目交付时最好补上的内容
+## 7. How can you push this project toward portfolio quality?
 
-- 原文 / 摘要对照
-- 中间句子得分表
-- 一组失败摘要案例
-- 一段你对“什么叫关键信息”的定义说明
+### 7.1 Add a generative summarization comparison
 
-## 如果把它做成作品集，最值得强调什么
+### 7.2 Include more text types
 
-最值得强调的通常不是：
+For example:
 
-- “我做了摘要模型”
+- news
+- course introductions
+- meeting minutes
 
-而是：
+### 7.3 Make a one-page before / after display
 
-1. 你的 baseline 怎么挑句
-2. 你怎么定义“保住主线”
-3. 中间句子得分怎么展示
-4. 错误案例主要是什么
+For example:
 
-这样别人会更容易看出：
-
-- 你理解的是摘要项目的判断标准
-- 不只是把文本压短了
-
-## 如果继续往上做，这个项目最值得补什么
-
-更值得优先补的通常是：
-
-1. 更稳的句子打分特征
-2. 更好的人工评估标准
-3. 抽取式和生成式摘要的对比页
-
-这样你的项目就会从“能跑”进一步变成“能比较、能解释、能展示”。
+- original text
+- baseline summary
+- tuned summary
+- failure analysis
 
 ---
 
-## 小结
+## What you should ideally include when delivering the project
 
-这节最重要的是建立一个作品级判断：
+- Original text / summary comparison
+- Intermediate sentence score table
+- A set of failed summary examples
+- A short explanation of what you define as “key information”
 
-> **摘要项目的关键，不只是能抽几句，而是你能否把“切句、打分、生成、评估和失败分析”讲成一个可解释的闭环。**
+## If you turn it into a portfolio piece, what should you emphasize most?
 
-只要这个闭环清楚，文本摘要项目就会非常像一个成熟的 NLP 作品。
+What is usually most worth emphasizing is not:
+
+- “I built a summarization model”
+
+but rather:
+
+1. How your baseline selects sentences
+2. How you define “keeping the main thread”
+3. How you present intermediate sentence scores
+4. What the main error cases are
+
+This makes it easier for others to see that:
+
+- You understand the evaluation criteria of a summarization project
+- Not just that you shortened the text
+
+## If you keep going, what is most worth adding next?
+
+The most worthwhile additions, in order, are usually:
+
+1. More stable sentence scoring features
+2. Better human evaluation criteria
+3. A comparison page for extractive and generative summarization
+
+Then your project can grow from “it runs” into “it can compare, explain, and present.”
+
+---
+
+## Summary
+
+The most important takeaway from this section is to build a portfolio-level judgment:
+
+> **The key to a summarization project is not just extracting a few sentences, but whether you can explain sentence splitting, scoring, generation, evaluation, and failure analysis as one explainable loop.**
+
+As long as this loop is clear, a text summarization project will feel very much like a mature NLP deliverable.
 
 
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimum loop | Can input, process, and output, while keeping a set of examples |
+| Standard version | Become a presentable project | Add configuration, logging, error handling, a README, and screenshots |
+| Advanced version | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not chase a large, all-in-one solution from the beginning. Each time you improve a version, write down in the README what new capability was added, how it was validated, and what problems still remain.
 
-## 练习
+## Exercises
 
-1. 把 `top_k` 改成 1 和 3，观察摘要内容怎么变化。
-2. 为什么摘要项目特别值得展示“中间打分结果”？
-3. 想一想：抽取式摘要最容易出现哪类失败？
-4. 如果你要把这个项目放进作品集，你会优先展示哪 4 部分？
+1. Change `top_k` to 1 and 3, and observe how the summary changes.
+2. Why is it especially worthwhile for a summarization project to show the “intermediate scoring results”?
+3. Think about it: what type of failure is extractive summarization most likely to have?
+4. If you were to put this project into a portfolio, which 4 parts would you prioritize showing?

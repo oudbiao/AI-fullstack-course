@@ -1,127 +1,127 @@
 ---
-title: "3.6 工具安全与错误处理"
+title: "3.6 Tool Safety and Error Handling"
 sidebar_position: 15
-description: "从权限分级、参数校验、超时、幂等与审计讲起，理解 Agent 工具层为什么必须像后端系统一样认真处理安全和失败。"
+description: "Starting from permission tiers, parameter validation, timeouts, idempotency, and auditing, understand why the Agent tool layer must handle security and failures with the same rigor as backend systems."
 keywords: [tool safety, error handling, validation, timeout, idempotency, audit, permissions]
 ---
 
-# 工具安全与错误处理
+# Tool Safety and Error Handling
 
-:::tip 本节定位
-工具让 Agent 从“会说”变成“会做”，  
-但一旦开始“会做”，风险就立刻升级。
+:::tip Section Overview
+Tools turn an Agent from “able to talk” into “able to act,”
+but once it can act, the risk level rises immediately.
 
-例如：
+For example:
 
-- 查错数据还能补救
-- 写错文件可能直接出事
-- 调错删除接口，后果就更严重
+- Mistakenly querying bad data can often be fixed
+- Writing the wrong file can cause immediate trouble
+- Calling the wrong delete API can be even worse
 
-所以这一节的核心不是“工具能不能跑通”，而是：
+So the core question in this section is not “can the tool run,” but:
 
-> **工具出错、超时、误用甚至越权时，系统能不能稳稳兜住。**
+> **When a tool fails, times out, is misused, or exceeds its permissions, can the system still handle it safely and reliably?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解工具风险为什么比纯文本回答更高
-- 学会设计权限分级、参数校验和错误返回
-- 理解重试、超时、幂等和人工确认分别在防什么
-- 通过可运行示例看懂一个带安全护栏的工具执行器
-
----
-
-## 一、为什么工具安全是 Agent 的红线？
-
-### 1.1 纯回答错，通常是“说错”
-
-如果模型只是回答文本，  
-错误后果往往是：
-
-- 信息不准
-- 表述误导
-
-虽然也很重要，  
-但很多场景里还停留在“输出层”。
-
-### 1.2 工具调用错，可能是“做错”
-
-一旦工具有执行能力，  
-风险会变成：
-
-- 查到不该查的数据
-- 写坏文件
-- 调错外部接口
-- 重复下单、重复扣费
-
-也就是说：
-
-> **工具把错误从语言层，放大成了动作层。**
-
-### 1.3 一个类比：聊天机器人和实习操作员不是一个风险等级
-
-一个只会解释流程的机器人，  
-和一个真的能去点击按钮、改数据库、发邮件的操作员，  
-风险等级完全不同。
-
-Agent 一旦进到工具层，也一样。
+- Understand why tool-related risk is higher than plain text answers
+- Learn how to design permission tiers, parameter validation, and error returns
+- Understand what retries, timeouts, idempotency, and human approval each protect against
+- Use a runnable example to understand a tool executor with safety guardrails
 
 ---
 
-## 二、工具安全最常见的四层防线
+## 1. Why Is Tool Safety a Red Line for Agents?
 
-### 2.1 参数校验
+### 1.1 If a pure answer is wrong, it is usually just “saying something wrong”
 
-先确认：
+If the model only returns text,
+the consequences of an error are often:
 
-- 参数齐不齐
-- 类型对不对
-- 值是否合法
+- Incorrect information
+- Misleading wording
 
-### 2.2 权限分级
+These are still important,
+but in many scenarios they remain at the “output layer.”
 
-不同工具风险不同，  
-常见可分成：
+### 1.2 If a tool call is wrong, it may become “doing the wrong thing”
+
+Once a tool can execute actions,
+the risks become:
+
+- Accessing data it should not access
+- Writing a bad file
+- Calling the wrong external API
+- Placing duplicate orders or charging twice
+
+In other words:
+
+> **Tools amplify mistakes from the language layer into the action layer.**
+
+### 1.3 An analogy: a chatbot and an intern operator are not the same risk level
+
+A robot that only explains procedures,
+and an operator who can actually click buttons, modify the database, and send emails,
+are completely different in risk level.
+
+The same is true once an Agent enters the tool layer.
+
+---
+
+## 2. The Four Most Common Safety Lines for Tools
+
+### 2.1 Parameter validation
+
+First confirm:
+
+- Are all parameters present?
+- Are the types correct?
+- Are the values valid?
+
+### 2.2 Permission tiers
+
+Different tools have different risk levels.
+A common breakdown is:
 
 - `read_only`
 - `write_limited`
 - `destructive`
 
-### 2.3 执行约束
+### 2.3 Execution constraints
 
-例如：
+For example:
 
-- 超时
-- 最大重试次数
-- 速率限制
-- 幂等 key
+- Timeout
+- Maximum retry count
+- Rate limiting
+- Idempotency key
 
-### 2.4 审计与回放
+### 2.4 Auditing and replay
 
-最少也应该记录：
+At a minimum, you should record:
 
-- 谁发起了调用
-- 选了哪个工具
-- 参数是什么
-- 是否成功
-- 返回了什么
+- Who initiated the call
+- Which tool was selected
+- What the arguments were
+- Whether it succeeded
+- What it returned
 
 ---
 
-## 三、先跑一个带护栏的最小执行器
+## 3. First, Run a Minimal Executor with Guardrails
 
-下面这个例子会模拟三类工具：
+The following example simulates three types of tools:
 
-- 低风险只读工具
-- 中风险写操作工具
-- 高风险删除工具
+- Low-risk read-only tool
+- Medium-risk write tool
+- High-risk delete tool
 
-然后在执行前做：
+Then, before execution, it performs:
 
-- 白名单检查
-- 参数校验
-- 权限检查
-- 超时模拟
+- Whitelist check
+- Parameter validation
+- Permission check
+- Timeout simulation
 
 ```python
 ALLOWED_TOOLS = {
@@ -145,22 +145,22 @@ def run_tool(name, arguments, user_role):
         return {"ok": False, "error": "permission_denied"}
 
     if name == "search_docs":
-        return {"ok": True, "data": {"result": f"找到与 {arguments['keyword']} 相关的文档"}}
+        return {"ok": True, "data": {"result": f"Found documents related to {arguments['keyword']}"}}
 
     if name == "update_profile":
         return {
             "ok": True,
-            "data": {"message": f"已把用户 {arguments['user_id']} 的城市更新为 {arguments['city']}"},
+            "data": {"message": f"Updated user {arguments['user_id']}'s city to {arguments['city']}"},
         }
 
     if name == "delete_file":
-        return {"ok": True, "data": {"message": f"已删除 {arguments['path']}"}}
+        return {"ok": True, "data": {"message": f"Deleted {arguments['path']}"}}
 
     return {"ok": False, "error": "tool_not_implemented"}
 
 
 calls = [
-    ("search_docs", {"keyword": "退款"}, "guest"),
+    ("search_docs", {"keyword": "refund"}, "guest"),
     ("update_profile", {"user_id": 7, "city": "Taipei"}, "operator"),
     ("delete_file", {"path": "/tmp/a.txt"}, "operator"),
 ]
@@ -169,66 +169,66 @@ for call in calls:
     print(call, "->", run_tool(*call))
 ```
 
-### 3.1 这段代码为什么比“判断在不在白名单里”强得多？
+### 3.1 Why is this better than just checking whether the tool is in a whitelist?
 
-因为它不是只做一个开关判断，  
-而是体现了工具安全的真实多层结构：
+Because it is not just a simple on/off check,
+but reflects the real multi-layer structure of tool safety:
 
-1. 先确认工具存在
-2. 再确认参数完整
-3. 再确认权限够不够
-4. 最后才执行
+1. First confirm the tool exists
+2. Then confirm the parameters are complete
+3. Then confirm the permissions are sufficient
+4. Only then execute
 
-这就是现实里工具执行器该做的事。
+That is what a real-world tool executor should do.
 
-### 3.2 为什么权限不能只按“能不能用 Agent”来分？
+### 3.2 Why can’t permissions be based only on whether “the Agent can use it”?
 
-因为风险不是统一的。
+Because risk is not uniform.
 
-- 搜索文档的风险很低
-- 修改资料风险中等
-- 删除文件风险很高
+- Searching documents is very low risk
+- Modifying user info is medium risk
+- Deleting files is high risk
 
-所以权限要和工具风险绑定，  
-不能只做一个总开关。
+So permissions must be tied to tool risk,
+not just controlled by one global switch.
 
-### 3.3 为什么高风险工具常常要加人工确认？
+### 3.3 Why do high-risk tools often need human confirmation?
 
-因为就算模型大多数时候都选对，  
-高风险动作也不适合完全自动化。
+Because even if the model chooses correctly most of the time,
+high-risk actions should not be fully automated.
 
-典型做法是：
+A typical approach is:
 
-- 先生成执行计划
-- 再要求用户或管理员确认
+- First generate an execution plan
+- Then ask the user or administrator to confirm
 
-![工具安全权限、沙箱与审计图](/img/course/ch09-tool-safety-permission-sandbox-map.png)
+![Tool safety permission, sandbox, and audit diagram](/img/course/ch09-tool-safety-permission-sandbox-map-en.png)
 
-:::tip 读图提示
-读这张图时，把“工具调用”想成一次真实操作：低风险可直接记录，高风险要经过权限、沙箱、人工确认和 audit log。Agent 越能行动，系统护栏越不能省。
+:::tip Reading Tip
+When reading this diagram, think of “tool call” as a real action: low-risk actions can be logged directly, while high-risk actions must go through permission checks, a sandbox, human confirmation, and an audit log. The more an Agent can act, the more important the guardrails become.
 :::
 
 ---
 
-## 四、错误处理为什么不能只靠 `try/except`？
+## 4. Why Can’t Error Handling Rely Only on `try/except`?
 
-### 4.1 因为失败不只有一种
+### 4.1 Because failures are not all the same
 
-常见失败类型至少包括：
+Common failure types include at least:
 
-- 参数错误
-- 权限错误
-- 工具超时
-- 外部服务失败
-- 返回结果为空
+- Parameter errors
+- Permission errors
+- Tool timeouts
+- External service failures
+- Empty results
 
-如果所有失败都只返回：
+If every failure only returns:
 
 - `something went wrong`
 
-那后面几乎无法调试和恢复。
+then debugging and recovery later become nearly impossible.
 
-### 4.2 更好的做法：错误类型结构化
+### 4.2 A better approach: structured error types
 
 ```python
 def normalize_error(code, detail):
@@ -242,80 +242,80 @@ def normalize_error(code, detail):
     }
 
 
-print(normalize_error("missing_arg", "缺少 keyword"))
-print(normalize_error("timeout", "上游接口 3 秒未返回"))
+print(normalize_error("missing_arg", "keyword is missing"))
+print(normalize_error("timeout", "Upstream API did not respond within 3 seconds"))
 ```
 
-结构化错误的好处是：
+The benefits of structured errors are:
 
-- 调度器知道是否该重试
-- 日志系统更容易统计
-- 前端也能做更清楚的反馈
+- The scheduler knows whether it should retry
+- Logging systems can count and analyze errors more easily
+- The frontend can show clearer feedback
 
-### 4.3 什么错误适合重试？
+### 4.3 Which errors are suitable for retry?
 
-通常更适合重试的是：
+Usually, the errors more suitable for retry are:
 
 - timeout
 - temporary unavailable
 - transient network error
 
-不适合重试的是：
+Errors that are not suitable for retry include:
 
-- 参数缺失
-- 权限不足
-- 逻辑校验失败
-
----
-
-## 五、超时、重试、幂等分别是在防什么？
-
-### 5.1 超时：防止系统一直挂住
-
-如果工具一直不返回，  
-agent 整条链路都会被拖住。
-
-所以超时本质上是在保护：
-
-- 延迟
-- 资源占用
-
-### 5.2 重试：防止偶发故障直接变成失败
-
-如果上游偶尔抖一下，  
-合理的重试可以明显提升稳定性。
-
-但重试也要配合判断：
-
-- 是不是临时错误
-- 重试次数是否受限
-
-### 5.3 幂等：防止重复执行造成重复副作用
-
-例如：
-
-- 重复扣款
-- 重复发邮件
-- 重复创建工单
-
-所以写操作类工具通常要特别关心：
-
-- 重复请求会不会造成重复副作用
+- missing arguments
+- insufficient permissions
+- logical validation failures
 
 ---
 
-## 六、审计日志为什么不是“以后再加”？
+## 5. What Are Timeout, Retry, and Idempotency Protecting Against?
 
-### 6.1 没有审计，出事后很难还原过程
+### 5.1 Timeout: preventing the system from hanging forever
 
-你至少要能回答：
+If a tool never returns,
+the entire Agent chain is blocked.
 
-- 谁调用了什么工具
-- 当时参数是什么
-- 系统为什么允许它执行
-- 最终结果是什么
+So timeout is fundamentally protecting:
 
-### 6.2 一个最小审计记录例子
+- Latency
+- Resource usage
+
+### 5.2 Retry: preventing a temporary glitch from becoming a hard failure
+
+If the upstream service occasionally stumbles,
+a reasonable retry strategy can significantly improve stability.
+
+But retries should also consider:
+
+- Whether the error is temporary
+- Whether the retry count is limited
+
+### 5.3 Idempotency: preventing repeated execution from causing repeated side effects
+
+For example:
+
+- Double charging
+- Sending duplicate emails
+- Creating duplicate tickets
+
+So write-type tools should pay special attention to:
+
+- Whether repeated requests cause repeated side effects
+
+---
+
+## 6. Why Isn’t Auditing Something You “Add Later”?
+
+### 6.1 Without auditing, it is hard to reconstruct what happened after something goes wrong
+
+You should at least be able to answer:
+
+- Who called which tool?
+- What were the parameters at the time?
+- Why did the system allow it to run?
+- What was the final result?
+
+### 6.2 A minimal audit record example
 
 ```python
 def audit_log(user_id, tool_name, arguments, result):
@@ -328,55 +328,55 @@ def audit_log(user_id, tool_name, arguments, result):
     }
 
 
-result = run_tool("search_docs", {"keyword": "退款"}, "guest")
-print(audit_log("u_001", "search_docs", {"keyword": "退款"}, result))
+result = run_tool("search_docs", {"keyword": "refund"}, "guest")
+print(audit_log("u_001", "search_docs", {"keyword": "refund"}, result))
 ```
 
-这虽然简单，但已经体现出审计核心：
+Although simple, this already captures the core of auditing:
 
-- 记录动作
-- 记录上下文
-- 记录结果
-
----
-
-## 七、最常见的误区
-
-### 7.1 误区一：工具安全等上线前再补
-
-不对。  
-工具安全是设计期就该进入的部分。
-
-### 7.2 误区二：所有失败都重试一下就好
-
-参数错误和权限错误，  
-重试只会浪费资源。
-
-### 7.3 误区三：读操作就完全没有风险
-
-很多读操作也可能涉及：
-
-- 隐私
-- 越权查询
-- 敏感信息暴露
+- Record the action
+- Record the context
+- Record the result
 
 ---
 
-## 小结
+## 7. The Most Common Misconceptions
 
-这节最重要的，不是背下几种错误码，  
-而是建立一个工具层的基本安全观：
+### 7.1 Misconception 1: Tool safety can wait until just before launch
 
-> **Agent 一旦具备行动能力，工具执行器就必须像后端核心服务一样处理权限、校验、超时、幂等和审计，而不能只把它当作“模型后面接个函数”。**
+No.
+Tool safety should be part of the design phase.
 
-这层意识越早建立，  
-后面的代码 Agent、多工具协作和真实上线系统就越稳。
+### 7.2 Misconception 2: Just retry every failure
+
+Parameter errors and permission errors
+will only waste resources if retried.
+
+### 7.3 Misconception 3: Read-only operations are completely risk-free
+
+Many read operations may still involve:
+
+- Privacy
+- Unauthorized access
+- Sensitive information leakage
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例再加一个 `send_email` 工具，思考它的风险等级该怎么定。
-2. 为什么说“是否允许重试”应该是错误结构的一部分？
-3. 想一想：一个读数据库的工具为什么也可能需要权限控制？
-4. 如果你要为高风险工具增加人工确认，你会把确认放在调用前还是调用后？为什么？
+The most important thing in this section is not memorizing a few error codes,
+but building a basic safety mindset for the tool layer:
+
+> **Once an Agent has action capabilities, the tool executor must handle permissions, validation, timeouts, idempotency, and auditing with the same seriousness as a core backend service, rather than treating it as “just a function behind the model.”**
+
+The earlier you build this mindset,
+the more stable your code Agents, multi-tool workflows, and real production systems will be later.
+
+---
+
+## Exercises
+
+1. Add a `send_email` tool to the example and think about how to define its risk level.
+2. Why should “whether retries are allowed” be part of the error structure?
+3. Think about it: why might a tool that reads from a database still need permission control?
+4. If you wanted to add human confirmation for a high-risk tool, would you place the confirmation before or after the call? Why?

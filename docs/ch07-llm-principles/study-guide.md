@@ -1,60 +1,60 @@
 ---
-title: "学习指南：大模型原理、Prompt 与微调怎么学最不容易学乱"
+title: "Study Guide: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused"
 sidebar_position: 1
-description: "给 AI 全栈新人的大模型学习指南：LLM 历史、Transformer、预训练、Prompt、微调、对齐、项目路线和验收标准。"
-keywords: [LLM 学习指南, Transformer 怎么学, Prompt 怎么学, 微调怎么学, RLHF 怎么学]
+description: "A learning guide for AI full-stack beginners: LLM history, Transformer, pretraining, Prompt, fine-tuning, alignment, project roadmap, and evaluation criteria."
+keywords: [LLM study guide, how to learn Transformer, how to learn Prompt, how to learn fine-tuning, how to learn RLHF]
 ---
 
-# 学习指南：大模型原理、Prompt 与微调怎么学最不容易学乱
+# Study Guide: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused
 
-如果你来到 `06 大模型原理、Prompt 与微调` 后觉得术语很多，先不要追模型榜单。你要先搞清楚大模型能力从哪里来，以及这些能力如何被控制和适配。
+If you arrive at `06 LLM Principles, Prompt, and Fine-Tuning` and feel overwhelmed by the terminology, don’t rush to model leaderboards. First, you need to understand where LLM capabilities come from and how those capabilities are controlled and adapted.
 
-## 本阶段总原则
+## Core principle for this stage
 
-大模型第一遍要抓住一条演进线：文本被切成 token，token 变成 embedding，Transformer 建模上下文，预训练获得通用能力，Prompt、微调和对齐让能力更可用。
+On the first pass, focus on one evolution path: text is split into tokens, tokens become embeddings, Transformer models context, pretraining gives general capabilities, and Prompt, fine-tuning, and alignment make those capabilities more usable.
 
-![大模型学习指南演进线](/img/course/ch07-study-guide-evolution-line.png)
+![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先补 NLP 核心速成。你至少要理解 tokenizer、embedding、语言模型和 HuggingFace 基本使用。
+In the first round, quickly fill in the core NLP basics. At minimum, you should understand tokenizer, embedding, language models, and basic HuggingFace usage.
 
-第二轮学 LLM 概览和发展历史。重点不是记模型名字，而是理解规模、数据、架构和对齐如何共同推动能力变化。
+In the second round, study the LLM overview and development history. The key is not to memorize model names, but to understand how scale, data, architecture, and alignment work together to drive capability changes.
 
-第三轮学 Transformer 和预训练。你要知道 Attention、上下文窗口、训练数据和算力为什么重要。
+In the third round, study Transformer and pretraining. You need to know why Attention, context windows, training data, and compute matter.
 
-第四轮学 Prompt。Prompt 是最轻量的行为控制方式，也是后续结构化输出、RAG 和 Agent 的基础。
+In the fourth round, study Prompt. Prompt is the lightest-weight way to control behavior, and it is also the foundation for structured output, RAG, and Agent workflows.
 
-第五轮学微调和对齐。重点理解什么时候需要微调，LoRA/QLoRA 解决什么问题，RLHF 为什么和模型行为有关。
+In the fifth round, study fine-tuning and alignment. Focus on when fine-tuning is needed, what problems LoRA/QLoRA solve, and why RLHF is related to model behavior.
 
-## 建议学习节奏
+## Suggested learning pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| NLP 速成 | 4～8 小时 | 理解 token、embedding 和语言模型 |
-| LLM 概览 | 3～5 小时 | 建立发展历史和能力边界 |
-| Transformer / 预训练 | 8～16 小时 | 理解能力来源 |
-| Prompt | 4～8 小时 | 能设计结构化任务提示 |
-| 微调 / 对齐 | 8～16 小时 | 能判断是否需要微调及风险 |
+| NLP crash course | 4–8 hours | Understand token, embedding, and language models |
+| LLM overview | 3–5 hours | Build an understanding of development history and capability boundaries |
+| Transformer / pretraining | 8–16 hours | Understand where capabilities come from |
+| Prompt | 4–8 hours | Be able to design structured task prompts |
+| Fine-tuning / alignment | 8–16 hours | Be able to judge whether fine-tuning is needed and what risks exist |
 
-## 阶段项目路线
+## Stage project roadmap
 
-第一个项目建议做 Prompt 对比实验。选择一个任务，对比普通提示、角色提示、分步骤提示、少样本提示和结构化输出。
+For the first project, it is recommended to do a Prompt comparison experiment. Choose one task and compare a basic prompt, role prompt, step-by-step prompt, few-shot prompt, and structured output.
 
-第二个项目建议做结构化输出任务，例如把自然语言转换成 JSON、表格或函数参数。
+For the second project, it is recommended to do a structured output task, such as converting natural language into JSON, tables, or function arguments.
 
-第三个项目可以设计一个领域微调方案，不一定马上训练大模型，但要说明数据格式、标注方式、训练方法、评估指标和风险。
+For the third project, you can design a domain fine-tuning plan. You do not have to train a large model right away, but you should explain the data format, annotation method, training approach, evaluation metrics, and risks.
 
-## 常见卡点
+## Common sticking points
 
-最常见的卡点是把 Prompt、RAG、微调混在一起。Prompt 改变输入组织，RAG 补充外部知识，微调改变模型行为倾向，它们解决的问题不同。
+The most common sticking point is mixing up Prompt, RAG, and fine-tuning. Prompt changes how inputs are organized, RAG adds external knowledge, and fine-tuning changes the model’s behavioral tendencies. They solve different problems.
 
-第二个卡点是把大模型当数据库。大模型可能幻觉，知识可能过期，回答不等于事实。
+The second sticking point is treating an LLM like a database. LLMs can hallucinate, knowledge can become outdated, and an answer is not the same as a fact.
 
-第三个卡点是过早微调。很多问题应该先用 Prompt、RAG、工具调用或产品逻辑解决。
+The third sticking point is fine-tuning too early. Many problems should first be solved with Prompt, RAG, tool calling, or product logic.
 
-## 过关标准
+## Passing criteria
 
-学完本阶段后，你应该能解释 Token、Embedding、Attention、预训练、Prompt、微调和对齐之间的关系。
+After completing this stage, you should be able to explain the relationship between Token, Embedding, Attention, pretraining, Prompt, fine-tuning, and alignment.
 
-如果你能判断一个需求应该用 Prompt、RAG 还是微调，并能设计一个结构化输出 Prompt，就可以进入 LLM 应用与 RAG 阶段。
+If you can judge whether a requirement should use Prompt, RAG, or fine-tuning, and you can design a structured output Prompt, then you are ready to move on to the LLM application and RAG stage.

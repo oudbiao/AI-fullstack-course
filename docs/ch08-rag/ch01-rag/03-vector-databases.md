@@ -1,108 +1,108 @@
 ---
-title: "1.4 向量数据库"
+title: "1.4 Vector Databases"
 sidebar_position: 3
-description: "理解向量数据库为什么是 RAG 的基础设施，以及它如何存储向量、元数据并完成相似度检索。"
-keywords: [向量数据库, embedding, similarity search, metadata filter, RAG]
+description: "Understand why vector databases are the infrastructure behind RAG, and how they store vectors, metadata, and perform similarity search."
+keywords: [vector database, embedding, similarity search, metadata filter, RAG]
 ---
 
-# 向量数据库
+# Vector Databases
 
-![向量数据库相似度检索图](/img/course/vector-database-similarity-search.png)
+![Vector database similarity search diagram](/img/course/vector-database-similarity-search-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解为什么 RAG 经常需要向量数据库
-- 分清“向量”、“元数据”和“相似度检索”的关系
-- 跑通一个最小可运行的向量检索示例
-- 知道选择向量数据库时要关注哪些维度
-
----
-
-## 一、为什么普通数据库不够用？
-
-### 1.1 RAG 里要找的不是“完全相同”，而是“语义相近”
-
-传统数据库擅长做：
-
-- 精确匹配
-- 条件过滤
-- 关系查询
-
-但 RAG 更常见的问题是：
-
-> 用户问一句话，系统要找到“意思最接近”的文本块。
-
-比如用户问：
-
-> “怎么退课？”
-
-知识库里可能写的是：
-
-> “课程购买后 7 天内可申请退款”
-
-这两句话字面不完全一样，但语义相关。  
-这就是向量检索擅长处理的场景。
-
-### 1.2 向量数据库本质上是在管理“语义坐标”
-
-你可以把每段文本的 embedding 想成一组坐标。  
-向量数据库做的事就是：
-
-1. 存下这些坐标
-2. 用户查询时，把问题也变成坐标
-3. 找离它最近的那些点
+- Understand why RAG often needs a vector database
+- Distinguish the relationship between “vectors”, “metadata”, and “similarity search”
+- Run a minimal working vector retrieval example
+- Know which dimensions to pay attention to when choosing a vector database
 
 ---
 
-## 二、向量数据库里通常存什么？
+## 1. Why Aren’t Ordinary Databases Enough?
 
-### 2.1 不只是向量，还会存文本和元数据
+### 1.1 In RAG, what we need is not “exactly the same”, but “semantically similar”
 
-一条记录通常至少包含：
+Traditional databases are good at:
+
+- Exact matching
+- Conditional filtering
+- Relational queries
+
+But the more common problem in RAG is:
+
+> The user asks a question, and the system needs to find the text chunk with the “closest meaning”.
+
+For example, the user asks:
+
+> “How do I drop a course?”
+
+The knowledge base may say:
+
+> “A refund can be requested within 7 days after purchasing the course”
+
+These two sentences are not exactly the same on the surface, but they are semantically related.
+This is the kind of scenario vector retrieval is good at handling.
+
+### 1.2 A vector database is essentially managing “semantic coordinates”
+
+You can think of the embedding for each text chunk as a set of coordinates.
+What a vector database does is:
+
+1. Store these coordinates
+2. When a user submits a query, convert the question into coordinates too
+3. Find the nearest points
+
+---
+
+## 2. What Does a Vector Database Usually Store?
+
+### 2.1 It stores not only vectors, but also text and metadata
+
+A record usually contains at least:
 
 - `id`
 - `vector`
 - `text`
 - `metadata`
 
-比如：
+For example:
 
 ```python
 record = {
     "id": "doc_001",
     "vector": [0.2, 0.8, 0.1],
-    "text": "课程购买后 7 天内可申请退款",
-    "metadata": {"section": "退款政策", "source": "policy.pdf"}
+    "text": "A refund can be requested within 7 days after purchasing the course",
+    "metadata": {"section": "refund policy", "source": "policy.pdf"}
 }
 
 print(record)
 ```
 
-### 2.2 元数据为什么重要？
+### 2.2 Why is metadata important?
 
-因为很多时候你不只想“语义接近”，还想“满足业务过滤条件”。
+Because in many cases, you do not just want “semantically close”; you also want to “meet business filtering conditions”.
 
-例如：
+For example:
 
-- 只查 `section=退款政策`
-- 只查某个产品版本
-- 只查某个部门文档
+- Only search `section=refund policy`
+- Only search a specific product version
+- Only search documents from a specific department
 
-所以向量数据库不是“只有向量”，而是“向量 + 文本 + 元数据”的组合管理。
+So a vector database is not “vectors only”, but a combined management system for “vectors + text + metadata”.
 
-![向量库记录与元数据过滤图](/img/course/ch08-vector-record-metadata-filter-map.png)
+![Vector record and metadata filtering diagram](/img/course/ch08-vector-record-metadata-filter-map-en.png)
 
-:::tip 读图提示
-不要只看 vector 那一列。真实 RAG 里，`text` 负责给模型证据，`metadata` 负责过滤、权限、引用和评估，三者缺一块都会让系统难以调试。
+:::tip Reading tip
+Do not just look at the `vector` column. In real RAG systems, `text` gives the model evidence, and `metadata` supports filtering, permissions, citations, and evaluation. Missing any one of these makes the system much harder to debug.
 :::
 
 ---
 
-## 三、一个最小可运行的向量检索器
+## 3. A Minimal Working Vector Retriever
 
-下面我们用 `numpy` 手写一个迷你向量库，让原理完全可见。
+Below we will hand-write a tiny vector database with `numpy` so the principle is completely visible.
 
 ```python
 import numpy as np
@@ -111,20 +111,20 @@ records = [
     {
         "id": "r1",
         "vector": np.array([0.95, 0.05, 0.10]),
-        "text": "课程购买后 7 天内可申请退款",
-        "metadata": {"section": "退款政策"}
+        "text": "A refund can be requested within 7 days after purchasing the course",
+        "metadata": {"section": "refund policy"}
     },
     {
         "id": "r2",
         "vector": np.array([0.10, 0.95, 0.05]),
-        "text": "完成结课项目后可获得证书",
-        "metadata": {"section": "证书说明"}
+        "text": "You can receive a certificate after completing the course project",
+        "metadata": {"section": "certificate info"}
     },
     {
         "id": "r3",
         "vector": np.array([0.20, 0.80, 0.15]),
-        "text": "通过结课测试后系统会发放证书",
-        "metadata": {"section": "证书说明"}
+        "text": "The system will issue a certificate after passing the final course test",
+        "metadata": {"section": "certificate info"}
     }
 ]
 
@@ -142,23 +142,23 @@ for score, rid, text in sorted(results, reverse=True):
     print(rid, round(score, 4), text)
 ```
 
-这里 `query_vector` 可以理解成“用户问题的 embedding”。
+Here, `query_vector` can be understood as the embedding of the user’s question.
 
 ---
 
-## 四、加上元数据过滤
+## 4. Adding Metadata Filtering
 
-### 4.1 为什么过滤很常见？
+### 4.1 Why is filtering so common?
 
-因为很多企业知识库不是一池子乱搜，而是带边界的。
+Because many enterprise knowledge bases are not a pool of random search results, but have boundaries.
 
-比如：
+For example:
 
-- 只查 HR 政策
-- 只查某个产品文档
-- 只查 2025 年后的版本
+- Only search HR policies
+- Only search a specific product document
+- Only search versions after 2025
 
-### 4.2 可运行示例
+### 4.2 Runnable example
 
 ```python
 import numpy as np
@@ -167,20 +167,20 @@ records = [
     {
         "id": "r1",
         "vector": np.array([0.95, 0.05, 0.10]),
-        "text": "课程购买后 7 天内可申请退款",
-        "metadata": {"section": "退款政策"}
+        "text": "A refund can be requested within 7 days after purchasing the course",
+        "metadata": {"section": "refund policy"}
     },
     {
         "id": "r2",
         "vector": np.array([0.10, 0.95, 0.05]),
-        "text": "完成结课项目后可获得证书",
-        "metadata": {"section": "证书说明"}
+        "text": "You can receive a certificate after completing the course project",
+        "metadata": {"section": "certificate info"}
     },
     {
         "id": "r3",
         "vector": np.array([0.20, 0.80, 0.15]),
-        "text": "通过结课测试后系统会发放证书",
-        "metadata": {"section": "证书说明"}
+        "text": "The system will issue a certificate after passing the final course test",
+        "metadata": {"section": "certificate info"}
     }
 ]
 
@@ -189,7 +189,7 @@ query_vector = np.array([0.15, 0.90, 0.10])
 def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
-target_section = "证书说明"
+target_section = "certificate info"
 
 filtered_results = []
 for item in records:
@@ -202,195 +202,195 @@ for score, text in sorted(filtered_results, reverse=True):
     print(round(score, 4), "->", text)
 ```
 
-这就是“相似度检索 + 业务过滤”的最小形态。
+This is the minimal form of “similarity search + business filtering”.
 
 ---
 
-## 五、如果你的目标是“知识库驱动的课件生成助手”，元数据至少要带哪些？
+## 5. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant”, What Metadata Should You Include at Minimum?
 
-这类项目里，向量数据库不只是拿来“语义找相似”，  
-还要支撑后面：
+In this kind of project, the vector database is not only used for “finding semantically similar content”;
+it also has to support:
 
-- 按主题筛
-- 按概念 / 例题 / 练习筛
-- 按内部资料 / 外部资料筛
-- 最后做来源回溯
+- Filtering by topic
+- Filtering by concept / example / practice
+- Filtering by internal / external sources
+- Source traceability later on
 
-所以更适合新人的最小元数据集合通常是：
+So for beginners, a minimal metadata set often looks like this:
 
-| 字段 | 它在帮你做什么 |
+| Field | What it helps you do |
 |---|---|
-| `topic` | 当前主题路由 |
-| `content_type` | 区分概念 / 例题 / 练习 |
-| `source_origin` | 区分内部资料 / 外部资料 |
-| `page_or_slide` | 生成时引用来源 |
-| `grade` | 过滤适用年级或对象 |
+| `topic` | Route by current topic |
+| `content_type` | Distinguish concepts / examples / exercises |
+| `source_origin` | Distinguish internal / external materials |
+| `page_or_slide` | Cite the source during generation |
+| `grade` | Filter by suitable grade level or audience |
 
-一个很小的记录对象可以先写成：
+A very small record object can be written like this first:
 
 ```python
 record = {
     "id": "doc_001_chunk_03",
-    "text": "商品原价 100 元，打 8 折后价格是多少？",
+    "text": "If a product originally costs 100 yuan and is discounted by 20%, what is the price?",
     "metadata": {
-        "topic": "折扣应用题",
+        "topic": "discount word problems",
         "content_type": "example",
         "source_origin": "internal",
         "page_or_slide": 3,
-        "grade": "小学高年级",
+        "grade": "upper primary",
     },
 }
 
 print(record)
 ```
 
-这个例子最值得新人注意的是：
+The most important thing for beginners to notice here is:
 
-- 向量库这一层其实已经在悄悄决定后面课件能不能稳定组装
+- The vector database layer is already quietly deciding whether the later courseware can be assembled reliably
 
-## 六、精确搜索和近似搜索有什么区别？
+## 6. What Is the Difference Between Exact Search and Approximate Search?
 
-### 6.1 精确搜索
+### 6.1 Exact search
 
-就是把查询向量和所有向量都比一遍。
+This means comparing the query vector with every vector.
 
-优点：
+Pros:
 
-- 结果准确
+- Accurate results
 
-缺点：
+Cons:
 
-- 数据量大时速度慢
+- Slow when the data volume is large
 
-### 6.2 近似最近邻（ANN）
+### 6.2 Approximate Nearest Neighbor (ANN)
 
-真实向量数据库常用近似方法加速搜索。
+Real vector databases often use approximate methods to speed up search.
 
-你可以把它理解成：
+You can understand it like this:
 
-> 不再地毯式逐一比对，而是先快速缩小候选范围，再找近邻。
+> Instead of comparing one by one in a brute-force way, first quickly narrow down the candidate set, then find the nearest neighbors.
 
-优点：
+Pros:
 
-- 速度快
+- Fast
 
-代价：
+Trade-off:
 
-- 可能不是绝对最优，但通常足够好
+- It may not be the absolute best result, but it is usually good enough
 
-![精确搜索与 ANN 取舍图](/img/course/ch08-ann-exact-search-tradeoff-map.png)
+![Trade-off diagram between exact search and ANN](/img/course/ch08-ann-exact-search-tradeoff-map-en.png)
 
-:::tip 读图提示
-精确搜索像全班逐个比对，ANN 像先按区域缩小候选再找邻居。新人先记住一句：ANN 牺牲一点“绝对最优保证”，换来大规模检索速度。
+:::tip Reading tip
+Exact search is like comparing everyone in a class one by one, while ANN is like narrowing the candidate set by area first and then finding the neighbors. Beginners can remember this one sentence: ANN sacrifices a little “absolute optimality guarantee” in exchange for faster large-scale retrieval.
 :::
 
 ---
 
-## 七、常见向量数据库 / 工具的角色
+## 7. The Roles of Common Vector Databases / Tools
 
-### 7.1 轻量本地方案
+### 7.1 Lightweight local solutions
 
-适合：
+Suitable for:
 
-- 学习
-- 原型验证
-- 小规模项目
+- Learning
+- Prototype validation
+- Small-scale projects
 
-常见有：
+Common options include:
 
 - FAISS
 - Chroma
-- SQLite + 向量扩展
+- SQLite + vector extensions
 
-### 7.2 更完整的服务型方案
+### 7.2 More complete service-based solutions
 
-适合：
+Suitable for:
 
-- 多用户系统
-- 大规模数据
-- 线上服务
+- Multi-user systems
+- Large-scale data
+- Online services
 
-更关注：
+More focus is placed on:
 
-- 持久化
-- 并发
-- 索引管理
-- 权限控制
-- 运维能力
-
----
-
-## 八、选型时该看什么？
-
-### 8.1 先看业务规模
-
-关键问题包括：
-
-- 数据量有多大？
-- 更新频率高不高？
-- 是否必须在线增量写入？
-- 是否需要强元数据过滤？
-
-### 8.2 再看工程约束
-
-例如：
-
-- 能不能自部署？
-- 是否支持云托管？
-- 和现有系统好不好集成？
-- 维护成本高不高？
-
-很多时候，最适合的不是“最强大的”，而是“最省心的”。
+- Persistence
+- Concurrency
+- Index management
+- Access control
+- Operations and maintenance capability
 
 ---
 
-## 九、初学者常见误区
+## 8. What Should You Look At When Choosing?
 
-### 9.1 以为向量数据库自己就懂语义
+### 8.1 First, look at business scale
 
-不是。  
-真正决定语义质量的首先是 embedding 模型。
+Key questions include:
 
-### 9.2 以为只要存了向量，RAG 就一定好用
+- How much data is there?
+- How frequent are updates?
+- Is online incremental writing required?
+- Do you need strong metadata filtering?
 
-不够。  
-前面还需要文档清洗、切块，后面还需要 prompt 和答案约束。
+### 8.2 Then look at engineering constraints
 
-### 9.3 只看召回，不看过滤和引用
+For example:
 
-很多实际项目里，元数据过滤和来源可追踪同样重要。
+- Can it be self-hosted?
+- Does it support cloud hosting?
+- How well does it integrate with existing systems?
+- Is the maintenance cost high?
+
+Often, the best choice is not “the most powerful one”, but “the one that causes the least trouble”.
 
 ---
 
-## 向量库调试 Checklist
+## 9. Common Beginner Mistakes
 
-向量数据库接入后，第一件事不是立刻接 LLM，而是确认“写入、过滤、检索、引用”四件事都可靠。
+### 9.1 Thinking the vector database itself understands semantics
 
-| 检查项 | 你应该能看到什么 | 常见风险 |
+It does not.
+What actually determines semantic quality first is the embedding model.
+
+### 9.2 Thinking that once vectors are stored, RAG will definitely work well
+
+Not enough.
+You also need document cleaning and chunking in the front, and prompt and answer constraints in the back.
+
+### 9.3 Only looking at retrieval, and ignoring filtering and citations
+
+In many real projects, metadata filtering and source traceability are equally important.
+
+---
+
+## Vector Database Debugging Checklist
+
+After a vector database is integrated, the first thing is not to connect the LLM right away, but to confirm that four things are reliable: “writing, filtering, retrieval, and citation”.
+
+| Check item | What you should be able to see | Common risk |
 |---|---|---|
-| 写入数量 | 原始 chunk 数和入库记录数一致或有明确过滤原因 | 文档解析失败、重复写入 |
-| 向量维度 | 同一批记录维度一致 | embedding 模型切换后维度不一致 |
-| 元数据 | source、section、page、topic 等字段完整 | 后续无法引用和过滤 |
-| 相似度结果 | top-k 结果能打印 id、score、text、metadata | 只看答案，不看命中内容 |
-| 过滤条件 | metadata filter 能缩小搜索范围 | 过滤字段类型不一致，导致查不到 |
+| Write count | The raw chunk count matches the number of stored records, or there is a clear filtering reason | Document parsing failure, duplicate writes |
+| Vector dimension | Records in the same batch have consistent dimensions | Inconsistent dimensions after switching embedding models |
+| Metadata | Fields such as source, section, page, and topic are complete | Cannot cite or filter later |
+| Similarity results | top-k results can print id, score, text, metadata | Looking only at the answer, not the matched content |
+| Filtering conditions | The metadata filter can narrow the search range | Inconsistent filter field types, causing no results |
 
-如果这张表没通过，就不要急着优化 prompt。很多 RAG 问题其实在向量库这一层已经埋下了。
+If you do not pass this table, do not rush to optimize the prompt. Many RAG issues are already planted at the vector database layer.
 
-## 一个最小入库记录校验示例
+## A Minimal Example for Verifying Ingestion Records
 
 ```python
 records = [
     {
         "id": "doc_001_chunk_01",
         "vector": [0.95, 0.05, 0.10],
-        "text": "课程购买后 7 天内可申请退款",
-        "metadata": {"source": "policy.md", "section": "退款政策", "page": 1},
+        "text": "A refund can be requested within 7 days after purchasing the course",
+        "metadata": {"source": "policy.md", "section": "refund policy", "page": 1},
     },
     {
         "id": "doc_001_chunk_02",
         "vector": [0.10, 0.90, 0.05],
-        "text": "完成结课项目后可获得证书",
-        "metadata": {"source": "policy.md", "section": "证书说明", "page": 2},
+        "text": "You can receive a certificate after completing the course project",
+        "metadata": {"source": "policy.md", "section": "certificate info", "page": 2},
     },
 ]
 
@@ -409,35 +409,35 @@ for record in records:
     print(record["id"], problems or "ok")
 ```
 
-这个校验可以放在入库前。真实项目里，一旦 metadata 丢失，后面很难做引用、过滤、权限和评估。
+You can put this check before ingestion. In real projects, once metadata is missing, it becomes very hard to do citations, filtering, permissions, and evaluation later.
 
-## 向量数据库选型决策表
+## Vector Database Selection Decision Table
 
-| 场景 | 推荐起点 | 原因 |
+| Scenario | Recommended starting point | Reason |
 |---|---|---|
-| 课程学习、小型 Demo | 内存列表、FAISS、Chroma | 简单、可见、易调试 |
-| 本地原型，需要持久化 | Chroma、SQLite 向量扩展 | 便于保存和重跑 |
-| 企业知识库 | 支持元数据过滤和权限的服务型向量库 | 需要并发、权限、监控和运维 |
-| 多租户 SaaS | 托管向量数据库或成熟搜索服务 | 关注隔离、扩展、备份和成本 |
+| Course learning, small demo | In-memory list, FAISS, Chroma | Simple, visible, easy to debug |
+| Local prototype, needs persistence | Chroma, SQLite vector extension | Easy to save and rerun |
+| Enterprise knowledge base | Service-based vector database with metadata filtering and permissions | Needs concurrency, access control, monitoring, and operations |
+| Multi-tenant SaaS | Managed vector database or mature search service | Focus on isolation, scaling, backups, and cost |
 
-选型不要从“哪个最流行”开始，而要从数据量、更新频率、过滤需求、部署方式和维护成本开始。
+Do not start from “which one is the most popular”; start from data volume, update frequency, filtering needs, deployment method, and maintenance cost.
 
-## 小结
+## Summary
 
-这一节最关键的认识是：
+The most important insight in this section is:
 
-> 向量数据库不是“魔法黑盒”，它本质上是在高效管理语义向量及其附属信息。
+> A vector database is not a “magic black box”; it is essentially an efficient manager of semantic vectors and their attached information.
 
-你真正要关心的，是：
+What you really need to care about is:
 
-- 向量质量够不够好
-- 检索速度够不够快
-- 元数据是否能支撑业务需求
+- Whether vector quality is good enough
+- Whether retrieval is fast enough
+- Whether metadata can support business needs
 
 ---
 
-## 练习
+## Exercises
 
-1. 给迷你向量库再加两条记录，手动构造一个新的 `query_vector` 测试排序。
-2. 再加一个 `source` 元数据字段，尝试做双条件过滤。
-3. 想一想：如果 embedding 模型很差，向量数据库再强能不能救回来？
+1. Add two more records to the mini vector database, then manually create a new `query_vector` to test the ranking.
+2. Add a `source` metadata field and try double-condition filtering.
+3. Think about this: if the embedding model is poor, can a powerful vector database still save the result?

@@ -1,62 +1,62 @@
 ---
-title: "1.4 特征值与特征向量"
+title: "1.4 Eigenvalues and Eigenvectors"
 sidebar_position: 3
-description: "直觉理解特征值和特征向量，理解 PCA 降维为什么有效，用 NumPy 计算和可视化"
-keywords: [特征值, 特征向量, PCA, 降维, NumPy, 线性代数, 主成分分析]
+description: "Build an intuitive understanding of eigenvalues and eigenvectors, see why PCA dimensionality reduction works, and compute and visualize them with NumPy"
+keywords: [eigenvalues, eigenvectors, PCA, dimensionality reduction, NumPy, linear algebra, principal component analysis]
 ---
 
-# 特征值与特征向量
+# Eigenvalues and Eigenvectors
 
-![特征向量特殊方向示意图](/img/course/eigenvalue-special-directions.png)
+![Illustration of special eigenvector directions](/img/course/eigenvalue-special-directions-en.png)
 
-:::tip 不要被名字吓到
-"特征值"和"特征向量"听起来很数学，但直觉其实很简单：**在矩阵变换下，有些特殊的向量只会被拉伸/缩小，不会改变方向**。这些就是特征向量，拉伸的倍数就是特征值。
+:::tip Don't be intimidated by the names
+"Eigenvalue" and "eigenvector" sound very mathematical, but the intuition is actually simple: **under a matrix transformation, some special vectors only get stretched or shrunk, and their direction does not change**. These are eigenvectors, and the stretching factor is the eigenvalue.
 :::
 
-## 学习目标
+## Learning goals
 
-- 直觉理解特征值和特征向量的含义
-- 用可视化看到矩阵变换中的"特殊方向"
-- 理解 PCA 降维为什么有效
-- 用 NumPy 计算特征值和特征向量
+- Intuitively understand what eigenvalues and eigenvectors mean
+- Use visualizations to see the "special directions" in matrix transformations
+- Understand why PCA dimensionality reduction works
+- Compute eigenvalues and eigenvectors with NumPy
 
-## 先说一个很重要的学习预期
+## First, set an important learning expectation
 
-这一节很容易让新人一看到标题就紧张。  
-但这里真正要先学会的，不是完整线代课程里的所有推导，而是：
+This section can easily make beginners nervous as soon as they see the title.
+But what you really need to learn first here is not every derivation from a full linear algebra course, but:
 
-- 为什么会有“方向不变但长度改变”这种特殊向量
-- 为什么这些特殊方向和 PCA、降维、信息保留直接相关
-- 为什么 AI 里会反复碰到它们
+- Why there are special vectors whose direction stays the same while their length changes
+- Why these special directions are directly related to PCA, dimensionality reduction, and information preservation
+- Why AI keeps running into them again and again
 
-所以你这一节的第一目标，不是把符号背熟，  
-而是先把“特殊方向”这层直觉真正建立起来。
+So your first goal in this section is not to memorize symbols,
+but to truly build an intuition for these "special directions."
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-这一节最容易让新人觉得“名字很难、好像很高级”。其实你先记住下面这条线就够了：
+This section can easily make beginners think, "The name sounds hard; it must be very advanced." In fact, you only need to remember this line:
 
-![特征方向与 PCA 地图](/img/course/ch04-eigen-pca-direction-map.png)
+![Map of eigen-directions and PCA](/img/course/ch04-eigen-pca-direction-map-en.png)
 
-所以这节课真正想解决的问题不是“背定义”，而是：
+So the real problem this lesson solves is not "memorize the definition," but:
 
-- 怎样在一堆变化里找到最重要的方向
-- 为什么 PCA 能把数据压缩得更少丢信息
+- How to find the most important direction among many changes
+- Why PCA can compress data while losing little information
 
-## 一、直觉理解
+## 1. Intuition
 
-### 1.1 矩阵变换中的"特殊方向"
+### 1.1 "Special directions" in matrix transformations
 
-上一节我们学了：矩阵 × 向量 = 新向量（方向和大小都可能改变）。
+In the previous section, we learned: matrix × vector = new vector (both direction and magnitude may change).
 
-但有些向量很特殊——矩阵作用在它们身上后，**方向不变**，只有长度变化。
+But some vectors are special — after a matrix acts on them, their **direction does not change**, only their length changes.
 
 ```mermaid
 flowchart LR
-    A["普通向量 v"] -->|"矩阵 A 作用"| B["方向和大小都变了"]
-    C["特征向量 v"] -->|"矩阵 A 作用"| D["方向不变，大小变了 λ 倍"]
+    A["Ordinary vector v"] -->|"Matrix A acts"| B["Direction and magnitude both change"]
+    C["Eigenvector v"] -->|"Matrix A acts"| D["Direction stays the same, magnitude changes by λ"]
 
     style A fill:#ffebee,stroke:#c62828,color:#333
     style B fill:#ffebee,stroke:#c62828,color:#333
@@ -64,26 +64,26 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-用数学语言说：**A × v = λ × v**
-- v 是特征向量（方向不变的那个向量）
-- λ（lambda）是特征值（拉伸的倍数）
+In mathematical terms: **A × v = λ × v**
+- v is the eigenvector (the vector whose direction does not change)
+- λ (lambda) is the eigenvalue (the stretching factor)
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A more beginner-friendly analogy
 
-你可以先把矩阵变换想成一阵风吹过很多根箭头：
+You can think of a matrix transformation as a gust of wind blowing across many arrows:
 
-- 大多数箭头会被吹偏
-- 但有少数箭头恰好正对着这股风
+- Most arrows get pushed off course
+- But a few arrows happen to point exactly along the wind
 
-这些箭头被吹了以后：
+After those arrows are blown:
 
-- 方向不会偏
-- 只会变长或变短
+- Their direction does not change
+- They only become longer or shorter
 
-这些“怎么吹都不偏”的特殊箭头，  
-就是特征向量。
+These special arrows that "never get pushed off course,"
+are eigenvectors.
 
-### 1.2 可视化：哪些向量方向不变？
+### 1.2 Visualization: which vectors keep their direction?
 
 ```python
 import numpy as np
@@ -92,33 +92,33 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 定义一个矩阵
+# Define a matrix
 A = np.array([[2, 1],
               [1, 2]])
 
-# 计算特征值和特征向量
+# Compute eigenvalues and eigenvectors
 eigenvalues, eigenvectors = np.linalg.eig(A)
-print(f"特征值: {eigenvalues}")         # [3. 1.]
-print(f"特征向量:\n{eigenvectors}")
+print(f"Eigenvalues: {eigenvalues}")         # [3. 1.]
+print(f"Eigenvectors:\n{eigenvectors}")
 
-# 可视化：对很多方向的向量做变换，看看哪些方向不变
+# Visualization: transform vectors in many directions and see which directions stay the same
 fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
-# 生成一组均匀分布的单位向量
+# Generate a set of uniformly distributed unit vectors
 angles = np.linspace(0, 2*np.pi, 50, endpoint=False)
 unit_vectors = np.array([np.cos(angles), np.sin(angles)])  # 2×50
 
-# 变换后的向量
+# Transformed vectors
 transformed = A @ unit_vectors  # 2×50
 
-# 画变换前后
-for ax, vectors, title in [(axes[0], unit_vectors, '变换前（单位圆）'), 
-                             (axes[1], transformed, '变换后（椭圆）')]:
-    # 画所有向量（灰色）
+# Plot before and after transformation
+for ax, vectors, title in [(axes[0], unit_vectors, 'Before transformation (unit circle)'),
+                             (axes[1], transformed, 'After transformation (ellipse)')]:
+    # Plot all vectors (gray)
     for i in range(vectors.shape[1]):
         ax.plot([0, vectors[0, i]], [0, vectors[1, i]], 'gray', alpha=0.3)
-    
-    # 高亮特征向量方向
+
+    # Highlight eigenvector directions
     for j in range(2):
         ev = eigenvectors[:, j]
         if ax == axes[0]:
@@ -126,10 +126,10 @@ for ax, vectors, title in [(axes[0], unit_vectors, '变换前（单位圆）'),
         else:
             scale = eigenvalues[j]
         color = ['red', 'blue'][j]
-        ax.quiver(0, 0, ev[0]*scale, ev[1]*scale, angles='xy', scale_units='xy', 
+        ax.quiver(0, 0, ev[0]*scale, ev[1]*scale, angles='xy', scale_units='xy',
                   scale=1, color=color, width=0.01,
-                  label=f'特征向量 {j+1} (λ={eigenvalues[j]:.0f})')
-    
+                  label=f'Eigenvector {j+1} (λ={eigenvalues[j]:.0f})')
+
     ax.set_xlim(-4, 4)
     ax.set_ylim(-4, 4)
     ax.set_aspect('equal')
@@ -137,175 +137,175 @@ for ax, vectors, title in [(axes[0], unit_vectors, '变换前（单位圆）'),
     ax.legend(fontsize=10)
     ax.set_title(title, fontsize=13)
 
-plt.suptitle(f'矩阵 A = [[2,1],[1,2]] 的特征向量', fontsize=14)
+plt.suptitle(f'Eigenvectors of matrix A = [[2,1],[1,2]]', fontsize=14)
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：
-- 红色和蓝色箭头是特征向量的方向
-- 变换后，单位圆变成了椭圆
-- 但特征向量的**方向没变**，只是长度变了（分别变为 3 倍和 1 倍）
-- 椭圆的长轴和短轴，恰好就是特征向量的方向
+**Interpretation**:
+- The red and blue arrows are the directions of the eigenvectors
+- After transformation, the unit circle becomes an ellipse
+- But the **direction** of the eigenvectors stays the same; only their lengths change (they become 3 times and 1 time longer, respectively)
+- The long axis and short axis of the ellipse happen to be the directions of the eigenvectors
 
-### 1.3 为什么这张图对新人特别重要？
+### 1.3 Why is this figure especially important for beginners?
 
-因为它让“特征值 / 特征向量”第一次不再只是抽象名词。
+Because it makes "eigenvalue / eigenvector" stop being abstract terms for the first time.
 
-你可以直接用肉眼看到：
+You can see with your own eyes:
 
-- 大多数方向在变
-- 只有少数方向很特别
-- 这些方向刚好就是数据最值得保留或关注的方向
+- Most directions change
+- Only a few directions are special
+- These directions happen to be the ones worth preserving or paying attention to in the data
 
-也就是说，这一节最关键的，不是先会算，而是先会看懂这种“特殊方向感”。
+In other words, the key thing in this section is not learning to calculate first, but first learning to understand this sense of "special directions."
 
 ---
 
-## 二、用 NumPy 计算特征值和特征向量
+## 2. Compute eigenvalues and eigenvectors with NumPy
 
-### 2.1 基本用法
+### 2.1 Basic usage
 
 ```python
 A = np.array([[4, 2],
               [1, 3]])
 
-# 一行搞定
+# One line does it all
 eigenvalues, eigenvectors = np.linalg.eig(A)
 
-print("特征值:", eigenvalues)      # [5. 2.]
-print("特征向量:\n", eigenvectors)
-# 每一列是一个特征向量
-# 第 1 个特征向量（对应 λ=5）: eigenvectors[:, 0]
-# 第 2 个特征向量（对应 λ=2）: eigenvectors[:, 1]
+print("Eigenvalues:", eigenvalues)      # [5. 2.]
+print("Eigenvectors:\n", eigenvectors)
+# Each column is an eigenvector
+# 1st eigenvector (corresponding to λ=5): eigenvectors[:, 0]
+# 2nd eigenvector (corresponding to λ=2): eigenvectors[:, 1]
 ```
 
-### 2.2 验证：A × v = λ × v
+### 2.2 Verify: A × v = λ × v
 
 ```python
 for i in range(len(eigenvalues)):
-    v = eigenvectors[:, i]      # 第 i 个特征向量
-    lam = eigenvalues[i]        # 第 i 个特征值
-    
-    left = A @ v                # 矩阵乘向量
-    right = lam * v             # 特征值乘向量
-    
-    print(f"\n特征值 λ={lam:.1f}, 特征向量 v={v.round(3)}")
+    v = eigenvectors[:, i]      # i-th eigenvector
+    lam = eigenvalues[i]        # i-th eigenvalue
+
+    left = A @ v                # matrix times vector
+    right = lam * v             # eigenvalue times vector
+
+    print(f"\nEigenvalue λ={lam:.1f}, eigenvector v={v.round(3)}")
     print(f"  A @ v  = {left.round(6)}")
     print(f"  λ * v  = {right.round(6)}")
-    print(f"  相等？ {np.allclose(left, right)}")  # True
+    print(f"  Equal? {np.allclose(left, right)}")  # True
 ```
 
-### 2.3 对称矩阵的特殊性质
+### 2.3 Special properties of symmetric matrices
 
-在 AI 中，我们经常遇到**对称矩阵**（如协方差矩阵）。对称矩阵有一个好性质：**特征向量互相垂直**。
+In AI, we often encounter **symmetric matrices** (such as covariance matrices). Symmetric matrices have a nice property: **their eigenvectors are perpendicular to each other**.
 
 ```python
-# 协方差矩阵（对称矩阵的典型例子）
+# Covariance matrix (a typical example of a symmetric matrix)
 data = np.random.randn(100, 2)
-data[:, 1] = data[:, 0] * 0.8 + np.random.randn(100) * 0.3  # 制造相关性
+data[:, 1] = data[:, 0] * 0.8 + np.random.randn(100) * 0.3  # create correlation
 
 cov_matrix = np.cov(data.T)
-print(f"协方差矩阵（对称）:\n{cov_matrix.round(3)}")
+print(f"Covariance matrix (symmetric):\n{cov_matrix.round(3)}")
 
 eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
-print(f"\n特征值: {eigenvalues.round(3)}")
+print(f"\nEigenvalues: {eigenvalues.round(3)}")
 
-# 验证特征向量垂直（点积 ≈ 0）
+# Verify that the eigenvectors are perpendicular (dot product ≈ 0)
 dot = np.dot(eigenvectors[:, 0], eigenvectors[:, 1])
-print(f"两个特征向量的点积: {dot:.10f}")  # ≈ 0（垂直）
+print(f"Dot product of the two eigenvectors: {dot:.10f}")  # ≈ 0 (perpendicular)
 ```
 
 ---
 
-## 三、PCA 降维——特征值最重要的应用
+## 3. PCA dimensionality reduction — the most important application of eigenvalues
 
-### 3.1 先记住 PCA 的工作流
+### 3.1 First, remember the PCA workflow
 
-对新人来说，PCA 最好先记成一个流程，而不是一套抽象定义：
+For beginners, it is best to remember PCA as a process rather than as an abstract definition:
 
 ```mermaid
 flowchart TD
-    A["原始高维数据"] --> B["先做中心化"]
-    B --> C["计算协方差矩阵"]
-    C --> D["求特征值和特征向量"]
-    D --> E["按特征值从大到小排序"]
-    E --> F["保留最重要的前几个方向"]
-    F --> G["把原始数据投影过去"]
-    G --> H["得到更低维的新表示"]
+    A["Original high-dimensional data"] --> B["First, center the data"]
+    B --> C["Compute the covariance matrix"]
+    C --> D["Find eigenvalues and eigenvectors"]
+    D --> E["Sort by eigenvalues from largest to smallest"]
+    E --> F["Keep the most important first few directions"]
+    F --> G["Project the original data onto them"]
+    G --> H["Get a lower-dimensional new representation"]
 ```
 
-### 3.2 为什么需要降维？
+### 3.2 Why do we need dimensionality reduction?
 
 ```mermaid
 flowchart TD
-    A["原始数据<br/>100 个特征"] --> B{"特征太多"}
-    B --> C["训练慢"]
-    B --> D["容易过拟合"]
-    B --> E["无法可视化"]
-    B --> F["PCA 降维"]
-    F --> G["保留最重要的方向<br/>比如降到 2-3 维"]
+    A["Original data<br/>100 features"] --> B{"Too many features"}
+    B --> C["Training is slow"]
+    B --> D["Overfitting is more likely"]
+    B --> E["Cannot visualize"]
+    B --> F["PCA dimensionality reduction"]
+    F --> G["Keep the most important directions<br/>for example, reduce to 2–3 dimensions"]
 
     style A fill:#ffebee,stroke:#c62828,color:#333
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
     style G fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.3 PCA 的直觉
+### 3.3 The intuition behind PCA
 
-PCA（主成分分析）的核心思想：
+The core idea of PCA (Principal Component Analysis):
 
-1. 数据在不同方向上的"变化幅度"不同
-2. **特征值最大**的方向 = 数据变化最大的方向 = 包含信息最多的方向
-3. 只保留前几个最重要的方向，丢弃不重要的方向 → 降维
+1. The amount of "variation" in data is different along different directions
+2. The direction with the **largest eigenvalue** = the direction where the data varies the most = the direction that contains the most information
+3. Keep only the first few most important directions and discard the less important ones → dimensionality reduction
 
-### 3.3.1 一个更适合新人的说法
+### 3.3.1 A more beginner-friendly way to say it
 
-你可以先把 PCA 理解成：
+You can think of PCA like this:
 
-- 数据原来站在很多坐标轴上
-- 但真正最有信息的变化，通常只集中在少数几个方向
+- The data originally stands on many coordinate axes
+- But the most informative changes are usually concentrated in only a few directions
 
-所以 PCA 做的事很像：
+So what PCA does is a lot like this:
 
-- 先重新摆正坐标轴
-- 再只保留最有信息的那几根轴
+- First, it reorients the coordinate axes
+- Then, it keeps only the axes with the most information
 
-这比一开始就记“协方差矩阵特征分解”要更容易进脑子。
+This is easier to understand than starting with "eigendecomposition of the covariance matrix."
 
 ```python
-# 生成有明显主方向的 2D 数据
+# Generate 2D data with a clear main direction
 np.random.seed(42)
 n = 200
 x = np.random.randn(n)
-y = 0.6 * x + np.random.randn(n) * 0.3  # y 和 x 有关联
+y = 0.6 * x + np.random.randn(n) * 0.3  # y is related to x
 data = np.column_stack([x, y])
 
-# 计算协方差矩阵
+# Compute covariance matrix
 cov = np.cov(data.T)
 eigenvalues, eigenvectors = np.linalg.eig(cov)
 
-# 按特征值从大到小排序
+# Sort by eigenvalues from largest to smallest
 idx = eigenvalues.argsort()[::-1]
 eigenvalues = eigenvalues[idx]
 eigenvectors = eigenvectors[:, idx]
 
-print(f"特征值: {eigenvalues.round(3)}")
-print(f"方差占比: {(eigenvalues / eigenvalues.sum() * 100).round(1)}%")
+print(f"Eigenvalues: {eigenvalues.round(3)}")
+print(f"Variance ratio: {(eigenvalues / eigenvalues.sum() * 100).round(1)}%")
 ```
 
-### 3.4 可视化：PCA 找到的方向
+### 3.4 Visualization: directions found by PCA
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
-# 左图：原始数据 + 主成分方向
+# Left: original data + principal component directions
 ax = axes[0]
 ax.scatter(data[:, 0], data[:, 1], alpha=0.4, s=20, color='gray')
 
 mean = data.mean(axis=0)
 colors = ['red', 'blue']
-labels = ['第 1 主成分（信息最多）', '第 2 主成分（信息较少）']
+labels = ['1st principal component (most information)', '2nd principal component (less information)']
 
 for i in range(2):
     direction = eigenvectors[:, i] * eigenvalues[i] * 2
@@ -315,52 +315,52 @@ for i in range(2):
 
 ax.set_aspect('equal')
 ax.grid(True, alpha=0.3)
-ax.set_title('原始 2D 数据 + PCA 方向')
-ax.set_xlabel('特征 1')
-ax.set_ylabel('特征 2')
+ax.set_title('Original 2D data + PCA directions')
+ax.set_xlabel('Feature 1')
+ax.set_ylabel('Feature 2')
 
-# 右图：投影到第 1 主成分（降到 1D）
-projected = data @ eigenvectors[:, 0]  # 投影到第 1 主成分
+# Right: project onto the 1st principal component (reduce to 1D)
+projected = data @ eigenvectors[:, 0]  # project onto the 1st principal component
 ax = axes[1]
 ax.scatter(projected, np.zeros_like(projected), alpha=0.4, s=20, color='red')
-ax.set_title(f'降到 1D（保留了 {eigenvalues[0]/eigenvalues.sum()*100:.0f}% 的信息）')
-ax.set_xlabel('第 1 主成分')
+ax.set_title(f'Reduced to 1D (kept {eigenvalues[0]/eigenvalues.sum()*100:.0f}% of the information)')
+ax.set_xlabel('1st principal component')
 ax.set_yticks([])
 
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：
-- 红色箭头是第 1 主成分——数据变化最大的方向
-- 蓝色箭头是第 2 主成分——变化较小的方向
-- 如果只保留第 1 主成分（从 2D 降到 1D），仍然保留了大部分信息
+**Interpretation**:
+- The red arrow is the 1st principal component — the direction where the data varies the most
+- The blue arrow is the 2nd principal component — the direction with smaller variation
+- If we keep only the 1st principal component (reduce from 2D to 1D), we still preserve most of the information
 
-### 3.5 用 scikit-learn 做 PCA
+### 3.5 Use scikit-learn for PCA
 
-在实际项目中，我们通常直接用 scikit-learn 的 PCA：
+In real projects, we usually use PCA from scikit-learn directly:
 
 ```python
 from sklearn.decomposition import PCA
 from sklearn.datasets import load_iris
 
-# 加载经典鸢尾花数据集（4 个特征）
+# Load the classic Iris dataset (4 features)
 iris = load_iris()
 X = iris.data       # (150, 4)
-y = iris.target      # 3 种花
+y = iris.target      # 3 flower species
 
-print(f"原始维度: {X.shape}")  # (150, 4)
+print(f"Original dimension: {X.shape}")  # (150, 4)
 
-# PCA 降到 2 维
+# Reduce to 2 dimensions with PCA
 pca = PCA(n_components=2)
 X_2d = pca.fit_transform(X)
-print(f"降维后: {X_2d.shape}")  # (150, 2)
+print(f"After dimensionality reduction: {X_2d.shape}")  # (150, 2)
 
-# 各主成分的方差占比
-print(f"方差占比: {pca.explained_variance_ratio_.round(3)}")
-# [0.925, 0.053] → 前 2 个主成分保留了约 97.8% 的信息！
+# Variance ratio of each principal component
+print(f"Variance ratio: {pca.explained_variance_ratio_.round(3)}")
+# [0.925, 0.053] → the first 2 principal components retain about 97.8% of the information!
 
-# 可视化
+# Visualization
 plt.figure(figsize=(8, 6))
 for i, name in enumerate(iris.target_names):
     mask = y == i
@@ -368,133 +368,133 @@ for i, name in enumerate(iris.target_names):
 
 plt.xlabel(f'PC1 ({pca.explained_variance_ratio_[0]*100:.1f}%)')
 plt.ylabel(f'PC2 ({pca.explained_variance_ratio_[1]*100:.1f}%)')
-plt.title('鸢尾花数据集 PCA 降维（4D → 2D）')
+plt.title('PCA dimensionality reduction on the Iris dataset (4D → 2D)')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-**结果**：4 维数据降到 2 维后，三种花依然能清晰分开！这说明 PCA 有效地保留了最重要的信息。
+**Result**: After reducing 4D data to 2D, the three flower species are still clearly separated! This shows that PCA effectively preserves the most important information.
 
 ---
 
-## 四、特征值的其他含义
+## 4. Other meanings of eigenvalues
 
-### 4.1 特征值大小的含义
+### 4.1 What the size of an eigenvalue means
 
-| 特征值 | 含义 |
+| Eigenvalue | Meaning |
 |--------|------|
-| 大的特征值 | 数据在这个方向上变化大，信息量大 |
-| 小的特征值 | 数据在这个方向上变化小，可以舍弃 |
-| 特征值为 0 | 数据在这个方向上完全没有变化（冗余维度） |
-| 负的特征值 | 矩阵在这个方向上做了"反转"（翻转方向） |
+| Large eigenvalue | The data varies a lot in this direction; the information content is high |
+| Small eigenvalue | The data varies little in this direction; it can be discarded |
+| Eigenvalue of 0 | The data does not vary at all in this direction (a redundant dimension) |
+| Negative eigenvalue | The matrix "reverses" in this direction (flips the direction) |
 
-### 4.2 方差解释比
+### 4.2 Explained variance ratio
 
-PCA 中最关键的指标——前 k 个特征值占总特征值的比例：
+The most important indicator in PCA — the ratio of the first k eigenvalues to the total eigenvalues:
 
 ```python
-# 模拟一个高维数据集
+# Simulate a high-dimensional dataset
 np.random.seed(42)
 n_features = 20
 X = np.random.randn(200, n_features)
-# 让前几个特征有很强的信号
+# Give the first few features strong signal
 X[:, :3] = X[:, :3] * 5
 
-# 计算协方差矩阵的特征值
+# Compute eigenvalues of the covariance matrix
 cov = np.cov(X.T)
-eigenvalues = np.linalg.eigvalsh(cov)  # eigvalsh 用于对称矩阵，更快
-eigenvalues = eigenvalues[::-1]        # 从大到小排列
+eigenvalues = np.linalg.eigvalsh(cov)  # eigvalsh is for symmetric matrices, faster
+eigenvalues = eigenvalues[::-1]        # sort from largest to smallest
 
-# 方差占比
+# Variance ratio
 variance_ratio = eigenvalues / eigenvalues.sum()
 cumulative_ratio = np.cumsum(variance_ratio)
 
-# 画 Scree Plot（碎石图）
+# Draw a Scree Plot
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 axes[0].bar(range(1, 21), variance_ratio * 100, color='steelblue')
-axes[0].set_xlabel('主成分编号')
-axes[0].set_ylabel('方差占比 (%)')
-axes[0].set_title('各主成分的方差占比')
+axes[0].set_xlabel('Principal component index')
+axes[0].set_ylabel('Variance ratio (%)')
+axes[0].set_title('Variance ratio of each principal component')
 
 axes[1].plot(range(1, 21), cumulative_ratio * 100, 'o-', color='coral')
-axes[1].axhline(y=95, color='gray', linestyle='--', label='95% 阈值')
-axes[1].set_xlabel('主成分个数')
-axes[1].set_ylabel('累计方差占比 (%)')
-axes[1].set_title('累计方差占比（选几个主成分？）')
+axes[1].axhline(y=95, color='gray', linestyle='--', label='95% threshold')
+axes[1].set_xlabel('Number of principal components')
+axes[1].set_ylabel('Cumulative variance ratio (%)')
+axes[1].set_title('Cumulative variance ratio (how many principal components to keep?)')
 axes[1].legend()
 
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：通过"碎石图"可以判断保留几个主成分就够了——通常选择累计方差达到 95% 的点。
+**Interpretation**: With a "scree plot," you can decide how many principal components to keep — usually by choosing the point where the cumulative variance reaches 95%.
 
 ---
 
-## 学到这里，下一节该带着什么问题走？
+## What should you take with you to the next section?
 
-看完这节以后，最值得带去后面的是这几个问题：
+After reading this section, the most valuable things to carry forward are these questions:
 
-1. 如果我们已经知道怎么找“重要方向”，那更抽象地说，什么叫一个空间的维度？
-2. 一组向量到底什么时候算“冗余”？
-3. 为什么 SVD 会成为以后很多 AI 方法里的通用工具？
+1. If we already know how to find "important directions," then more abstractly, what does the dimension of a space mean?
+2. When do a set of vectors count as "redundant"?
+3. Why will SVD become a general tool in many later AI methods?
 
-这三个问题，正好会把你自然带到：
+These three questions will naturally lead you to:
 
-- [向量空间与线性变换](./04-vector-spaces.md)
+- [Vector Spaces and Linear Transformations](./04-vector-spaces.md)
 
 ```mermaid
 flowchart LR
-    A["矩阵 A"] --> B["特征值分解"]
-    B --> C["特征值 λ<br/>方向的重要性"]
-    B --> D["特征向量 v<br/>重要的方向"]
-    C --> PCA["PCA 降维"]
+    A["Matrix A"] --> B["Eigenvalue decomposition"]
+    B --> C["Eigenvalue λ<br/>Importance of the direction"]
+    B --> D["Eigenvector v<br/>Important direction"]
+    C --> PCA["PCA dimensionality reduction"]
     D --> PCA
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style PCA fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-:::info 连接后续
-- **5 机器学习入门到实战**：PCA 降维是常用的数据预处理步骤
-- **11 自然语言处理（方向选修）**：SVD 分解（特征值分解的推广）用于降维和主题模型
-- **6 深度学习与 Transformer 基础**：理解权重矩阵的特征值有助于理解网络训练的稳定性
+:::info Connections to later topics
+- **5 Machine Learning: from basics to practice**: PCA dimensionality reduction is a common data preprocessing step
+- **11 Natural Language Processing (elective direction)**: SVD decomposition (a generalization of eigendecomposition) is used for dimensionality reduction and topic models
+- **6 Deep Learning and Transformer Basics**: Understanding the eigenvalues of weight matrices helps explain the stability of network training
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉理解 | NumPy 实现 |
+| Concept | Intuitive understanding | NumPy implementation |
 |------|---------|-----------|
-| 特征向量 | 矩阵变换下方向不变的向量 | `np.linalg.eig(A)[1]` |
-| 特征值 | 特征向量被拉伸的倍数 | `np.linalg.eig(A)[0]` |
-| PCA | 找数据变化最大的方向，降维 | `sklearn.decomposition.PCA` |
-| 方差占比 | 每个主成分保留了多少信息 | `pca.explained_variance_ratio_` |
+| Eigenvector | A vector whose direction stays the same under a matrix transformation | `np.linalg.eig(A)[1]` |
+| Eigenvalue | The stretching factor applied to an eigenvector | `np.linalg.eig(A)[0]` |
+| PCA | Find the directions where the data varies the most, then reduce dimensions | `sklearn.decomposition.PCA` |
+| Variance ratio | How much information each principal component preserves | `pca.explained_variance_ratio_` |
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：计算特征值
+### Exercise 1: Compute eigenvalues
 
-用 NumPy 计算以下矩阵的特征值和特征向量，并验证 A × v = λ × v：
+Use NumPy to compute the eigenvalues and eigenvectors of the following matrix, and verify A × v = λ × v:
 
 ```python
 A = np.array([[3, 1],
               [0, 2]])
 ```
 
-### 练习 2：可视化特征向量
+### Exercise 2: Visualize eigenvectors
 
-对矩阵 `A = [[1, 2], [0, 3]]`，画出：
-- 一组均匀分布的单位向量（圆）
-- 矩阵变换后的结果（椭圆）
-- 标出特征向量的方向
+For the matrix `A = [[1, 2], [0, 3]]`, draw:
+- A set of uniformly distributed unit vectors (a circle)
+- The result after the matrix transformation (an ellipse)
+- Mark the directions of the eigenvectors
 
-### 练习 3：PCA 实战
+### Exercise 3: PCA practice
 
-使用 scikit-learn 的 `load_digits()` 手写数字数据集（64 维），用 PCA 降到 2 维并可视化，看看不同数字能否区分开。
+Use scikit-learn's `load_digits()` handwritten digit dataset (64 dimensions), reduce it to 2 dimensions with PCA, and visualize it to see whether different digits can be separated.
 
 ```python
 from sklearn.datasets import load_digits
@@ -504,5 +504,5 @@ digits = load_digits()
 X = digits.data      # (1797, 64)
 y = digits.target     # 0~9
 
-# 你的代码：PCA 降维 + 可视化
+# Your code: PCA dimensionality reduction + visualization
 ```

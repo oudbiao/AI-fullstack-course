@@ -1,196 +1,196 @@
 ---
-title: "1.3 文件操作与序列化"
+title: "1.3 File Operations and Serialization"
 sidebar_position: 3
-description: "掌握文件读写和数据序列化"
+description: "Master file reading and writing, and data serialization"
 ---
 
-# 文件操作与序列化
+# File Operations and Serialization
 
-![文件读写与序列化流程图](/img/course/ch02-file-io-serialization-flow.png)
+![File reading/writing and serialization flowchart](/img/course/ch02-file-io-serialization-flow-en.png)
 
-## 本节定位
+## Where this section fits
 
-这一节让程序的数据可以保存下来、再读回来。文件读写、CSV、JSON 和序列化是数据集处理、训练日志、配置文件、模型结果保存的基础，也是从内存中的临时代码走向真实项目的关键一步。
+This section shows how program data can be saved and loaded again later. File reading and writing, CSV, JSON, and serialization are the foundation for dataset processing, training logs, configuration files, and saving model results. They are also a key step from temporary code in memory to real projects.
 
-## 学习目标
+## Learning objectives
 
-- 掌握文件的读写操作（`open`、`read`、`write`）
-- 理解 `with` 语句的作用和好处
-- 学会处理 CSV、JSON 等常用数据格式
-- 理解序列化和反序列化的概念
-
----
-
-## 为什么需要文件操作？
-
-到目前为止，你的程序中的数据都在**内存**中——程序一关，数据就没了。但在真实场景中：
-
-- 训练好的 AI 模型需要**保存**到文件，下次直接加载
-- 数据集存在 CSV 文件里，需要**读取**到程序中
-- 训练日志需要**写入**文件，方便后续分析
-- 配置参数存在 JSON 文件里，启动时需要**加载**
-
-文件操作就是让你的程序能**持久化保存数据**。
+- Master basic file reading and writing operations (`open`, `read`, `write`)
+- Understand the role and benefits of the `with` statement
+- Learn how to handle common data formats such as CSV and JSON
+- Understand the concepts of serialization and deserialization
 
 ---
 
-## 文件读写基础
+## Why do we need file operations?
 
-### 打开文件：open()
+So far, the data in your programs has lived in **memory** — once the program closes, the data is gone. But in real-world scenarios:
+
+- Trained AI models need to be **saved** to a file so they can be loaded later
+- Datasets are stored in CSV files and need to be **read** into the program
+- Training logs need to be **written** to files for later analysis
+- Configuration parameters are stored in JSON files and need to be **loaded** at startup
+
+File operations let your program **persist data**.
+
+---
+
+## File I/O basics
+
+### Open a file: `open()`
 
 ```python
-# 基本语法
-file = open("文件路径", "模式", encoding="编码")
+# Basic syntax
+file = open("file_path", "mode", encoding="encoding")
 ```
 
-常用模式：
+Common modes:
 
-| 模式 | 含义 | 文件不存在时 |
+| Mode | Meaning | When the file does not exist |
 |------|------|------------|
-| `"r"` | 读取（默认） | 报错 |
-| `"w"` | 写入（覆盖） | 自动创建 |
-| `"a"` | 追加（在末尾添加） | 自动创建 |
-| `"x"` | 创建（文件已存在则报错） | 自动创建 |
-| `"rb"` | 读取二进制文件 | 报错 |
-| `"wb"` | 写入二进制文件 | 自动创建 |
+| `"r"` | Read (default) | Error |
+| `"w"` | Write (overwrite) | Create automatically |
+| `"a"` | Append (add to the end) | Create automatically |
+| `"x"` | Create (error if file already exists) | Create automatically |
+| `"rb"` | Read binary file | Error |
+| `"wb"` | Write binary file | Create automatically |
 
-### 写入文件
+### Write to a file
 
 ```python
-# 方式 1：手动打开和关闭（不推荐）
+# Method 1: Manually open and close (not recommended)
 file = open("hello.txt", "w", encoding="utf-8")
-file.write("你好，世界！\n")
-file.write("我正在学习 Python 文件操作。\n")
-file.close()  # 别忘了关闭文件！
+file.write("Hello, world!\n")
+file.write("I am learning Python file operations.\n")
+file.close()  # Don't forget to close the file!
 
-# 方式 2：使用 with 语句（推荐！）
+# Method 2: Use the with statement (recommended!)
 with open("hello.txt", "w", encoding="utf-8") as file:
-    file.write("你好，世界！\n")
-    file.write("我正在学习 Python 文件操作。\n")
-# 离开 with 块时，文件自动关闭，不需要手动 close()
+    file.write("Hello, world!\n")
+    file.write("I am learning Python file operations.\n")
+# When you leave the with block, the file is closed automatically, so no manual close() is needed
 ```
 
-:::tip 为什么推荐 with 语句？
-`with` 语句有两个好处：
-1. **自动关闭文件**——不用担心忘记 `close()`
-2. **异常安全**——即使代码出错，文件也会被正确关闭
+:::tip Why is the with statement recommended?
+The `with` statement has two benefits:
+1. **Automatically closes the file** — you do not need to worry about forgetting `close()`
+2. **Exception-safe** — even if an error occurs, the file will still be closed properly
 
-以后写文件操作，**永远用 `with`**。
+From now on, when writing file operations, **always use `with`**.
 :::
 
-### 读取文件
+### Read a file
 
 ```python
-# 读取全部内容
+# Read the entire content
 with open("hello.txt", "r", encoding="utf-8") as file:
     content = file.read()
     print(content)
 
-# 逐行读取
+# Read line by line
 with open("hello.txt", "r", encoding="utf-8") as file:
     for line in file:
-        print(line.strip())  # strip() 去掉行尾的换行符
+        print(line.strip())  # strip() removes the newline at the end of the line
 
-# 读取所有行到列表
+# Read all lines into a list
 with open("hello.txt", "r", encoding="utf-8") as file:
     lines = file.readlines()
-    print(lines)  # ['你好，世界！\n', '我正在学习 Python 文件操作。\n']
+    print(lines)  # ['Hello, world!\n', 'I am learning Python file operations.\n']
 ```
 
-### 追加内容
+### Append content
 
 ```python
-# "a" 模式：在文件末尾追加，不会覆盖原有内容
+# "a" mode: append to the end of the file without overwriting existing content
 with open("log.txt", "a", encoding="utf-8") as file:
-    file.write("2026-02-09: 开始学习\n")
-    file.write("2026-02-09: 完成第一章\n")
+    file.write("2026-02-09: Started learning\n")
+    file.write("2026-02-09: Finished Chapter 1\n")
 ```
 
-### 写入多行
+### Write multiple lines
 
 ```python
-lines = ["第一行\n", "第二行\n", "第三行\n"]
+lines = ["Line 1\n", "Line 2\n", "Line 3\n"]
 
 with open("output.txt", "w", encoding="utf-8") as file:
-    file.writelines(lines)  # 写入一个字符串列表
+    file.writelines(lines)  # Write a list of strings
 
-# 或者用 print 写入文件
+# Or use print to write to a file
 with open("output.txt", "w", encoding="utf-8") as file:
-    print("第一行", file=file)  # print 可以指定输出到文件
-    print("第二行", file=file)
-    print("第三行", file=file)
+    print("Line 1", file=file)  # print can direct output to a file
+    print("Line 2", file=file)
+    print("Line 3", file=file)
 ```
 
 ---
 
-## 实际案例：处理不同文件格式
+## Real-world examples: working with different file formats
 
-### CSV 文件
+### CSV files
 
-CSV（Comma-Separated Values）是最常见的数据文件格式：
+CSV (Comma-Separated Values) is one of the most common data file formats:
 
 ```python
 import csv
 
-# 写入 CSV
+# Write CSV
 students = [
-    ["姓名", "年龄", "成绩"],
-    ["张三", 20, 85],
-    ["李四", 21, 92],
-    ["王五", 19, 78],
+    ["Name", "Age", "Score"],
+    ["Zhang San", 20, 85],
+    ["Li Si", 21, 92],
+    ["Wang Wu", 19, 78],
 ]
 
 with open("students.csv", "w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file)
     writer.writerows(students)
 
-# 读取 CSV
+# Read CSV
 with open("students.csv", "r", encoding="utf-8") as file:
     reader = csv.reader(file)
-    header = next(reader)  # 读取表头
-    print(f"列名: {header}")
+    header = next(reader)  # Read the header row
+    print(f"Column names: {header}")
 
     for row in reader:
         name, age, score = row
-        print(f"{name}, {age}岁, 成绩: {score}")
+        print(f"{name}, {age} years old, score: {score}")
 
-# 用字典方式读取（更方便）
+# Read as dictionaries (more convenient)
 with open("students.csv", "r", encoding="utf-8") as file:
     reader = csv.DictReader(file)
     for row in reader:
-        print(f"{row['姓名']} 的成绩是 {row['成绩']}")
+        print(f"{row['Name']}'s score is {row['Score']}")
 ```
 
-### JSON 文件
+### JSON files
 
-JSON 是 Web 开发和 API 中最常用的数据格式：
+JSON is the most common data format in web development and APIs:
 
 ```python
 import json
 
-# 写入 JSON
+# Write JSON
 config = {
     "model": "ResNet-50",
     "learning_rate": 0.001,
     "epochs": 100,
     "batch_size": 32,
-    "classes": ["猫", "狗", "鸟"],
+    "classes": ["cat", "dog", "bird"],
     "use_gpu": True
 }
 
 with open("config.json", "w", encoding="utf-8") as file:
     json.dump(config, file, ensure_ascii=False, indent=2)
 
-# 读取 JSON
+# Read JSON
 with open("config.json", "r", encoding="utf-8") as file:
     loaded_config = json.load(file)
 
-print(f"模型: {loaded_config['model']}")
-print(f"学习率: {loaded_config['learning_rate']}")
-print(f"类别: {loaded_config['classes']}")
+print(f"Model: {loaded_config['model']}")
+print(f"Learning rate: {loaded_config['learning_rate']}")
+print(f"Classes: {loaded_config['classes']}")
 ```
 
-生成的 `config.json` 文件内容：
+Generated `config.json` content:
 
 ```json
 {
@@ -198,80 +198,80 @@ print(f"类别: {loaded_config['classes']}")
   "learning_rate": 0.001,
   "epochs": 100,
   "batch_size": 32,
-  "classes": ["猫", "狗", "鸟"],
+  "classes": ["cat", "dog", "bird"],
   "use_gpu": true
 }
 ```
 
 :::info ensure_ascii=False
-默认情况下，`json.dump()` 会把中文转成 Unicode 编码（如 `\u732b`）。加上 `ensure_ascii=False` 可以保留中文字符，让文件更可读。
+By default, `json.dump()` converts Chinese characters into Unicode escapes (such as `\u732b`). Adding `ensure_ascii=False` keeps the Chinese characters as they are, making the file easier to read.
 :::
 
-### 文本日志文件
+### Text log files
 
 ```python
 from datetime import datetime
 
 def log(message, filename="app.log"):
-    """写入日志"""
+    """Write a log entry"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(filename, "a", encoding="utf-8") as file:
         file.write(f"[{timestamp}] {message}\n")
 
-# 使用
-log("程序启动")
-log("加载数据集: train.csv")
-log("开始训练模型")
-log("训练完成，准确率: 92.5%")
+# Use it
+log("Program started")
+log("Loaded dataset: train.csv")
+log("Started training model")
+log("Training complete, accuracy: 92.5%")
 ```
 
-生成的日志文件：
+Generated log file:
 
 ```
-[2026-02-09 14:30:01] 程序启动
-[2026-02-09 14:30:02] 加载数据集: train.csv
-[2026-02-09 14:30:03] 开始训练模型
-[2026-02-09 14:35:15] 训练完成，准确率: 92.5%
+[2026-02-09 14:30:01] Program started
+[2026-02-09 14:30:02] Loaded dataset: train.csv
+[2026-02-09 14:30:03] Started training model
+[2026-02-09 14:35:15] Training complete, accuracy: 92.5%
 ```
 
 ---
 
-## 路径处理：pathlib
+## Path handling: `pathlib`
 
-`pathlib` 是 Python 3 推荐的路径处理方式，比 `os.path` 更现代、更好用：
+`pathlib` is the recommended way to handle paths in Python 3. It is more modern and easier to use than `os.path`:
 
 ```python
 from pathlib import Path
 
-# 创建路径对象
+# Create Path objects
 data_dir = Path("data")
-train_file = data_dir / "train" / "data.csv"  # 用 / 拼接路径！
+train_file = data_dir / "train" / "data.csv"  # Use / to join paths!
 print(train_file)  # data/train/data.csv
 
-# 检查路径
-print(train_file.exists())    # 文件是否存在
-print(train_file.is_file())   # 是否是文件
-print(data_dir.is_dir())      # 是否是目录
+# Check paths
+print(train_file.exists())    # Whether the file exists
+print(train_file.is_file())   # Whether it is a file
+print(data_dir.is_dir())      # Whether it is a directory
 
-# 获取文件信息
+# Get file information
 path = Path("model.pth")
-print(path.name)       # model.pth（文件名）
-print(path.stem)       # model（不带扩展名）
-print(path.suffix)     # .pth（扩展名）
-print(path.parent)     # .（父目录）
+print(path.name)       # model.pth (file name)
+print(path.stem)       # model (without extension)
+print(path.suffix)     # .pth (extension)
+print(path.parent)     # . (parent directory)
 
-# 创建目录
+# Create directories
 Path("output/results").mkdir(parents=True, exist_ok=True)
 
-# 列出目录中的文件
+# List files in a directory
 for file in Path(".").glob("*.py"):
     print(file)
 
-# 递归查找所有 CSV 文件
+# Recursively find all CSV files
 for csv_file in Path("data").rglob("*.csv"):
     print(csv_file)
 
-# 读写文件的便捷方法
+# Convenient file read/write methods
 Path("note.txt").write_text("Hello!", encoding="utf-8")
 content = Path("note.txt").read_text(encoding="utf-8")
 print(content)  # Hello!
@@ -279,47 +279,47 @@ print(content)  # Hello!
 
 ---
 
-## 序列化：保存 Python 对象
+## Serialization: saving Python objects
 
-### 什么是序列化？
+### What is serialization?
 
-**序列化**就是把 Python 对象（列表、字典、类实例等）转换成可以保存到文件的格式。**反序列化**就是反过来，从文件恢复成 Python 对象。
+**Serialization** means converting Python objects (lists, dictionaries, class instances, and so on) into a format that can be saved to a file. **Deserialization** means doing the reverse: restoring Python objects from a file.
 
-| 格式 | 模块 | 可读性 | 速度 | 安全性 | 适用场景 |
+| Format | Module | Readability | Speed | Safety | Use case |
 |------|------|--------|------|--------|---------|
-| JSON | `json` | ✅ 好 | 中等 | ✅ 安全 | 配置文件、API 数据 |
-| CSV | `csv` | ✅ 好 | 快 | ✅ 安全 | 表格数据 |
-| pickle | `pickle` | ❌ 二进制 | 快 | ❌ 不安全 | Python 对象 |
+| JSON | `json` | ✅ Good | Medium | ✅ Safe | Configuration files, API data |
+| CSV | `csv` | ✅ Good | Fast | ✅ Safe | Tabular data |
+| pickle | `pickle` | ❌ Binary | Fast | ❌ Unsafe | Python objects |
 
-### pickle：保存任意 Python 对象
+### `pickle`: save any Python object
 
 ```python
 import pickle
 
-# 保存 Python 对象
+# Save Python object
 data = {
     "scores": [85, 92, 78, 95],
-    "names": ["张三", "李四", "王五", "赵六"],
-    "metadata": {"class": "A班", "year": 2026}
+    "names": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu"],
+    "metadata": {"class": "Class A", "year": 2026}
 }
 
-with open("data.pkl", "wb") as file:  # 注意是 "wb"（二进制写入）
+with open("data.pkl", "wb") as file:  # Note: "wb" (binary write)
     pickle.dump(data, file)
 
-# 加载 Python 对象
-with open("data.pkl", "rb") as file:  # 注意是 "rb"（二进制读取）
+# Load Python object
+with open("data.pkl", "rb") as file:  # Note: "rb" (binary read)
     loaded_data = pickle.load(file)
 
-print(loaded_data["names"])  # ['张三', '李四', '王五', '赵六']
+print(loaded_data["names"])  # ['Zhang San', 'Li Si', 'Wang Wu', 'Zhao Liu']
 ```
 
-:::caution pickle 的安全警告
-**永远不要加载不信任来源的 pickle 文件！** pickle 可以执行任意代码，恶意构造的 pickle 文件可以在你的电脑上执行危险操作。只加载你自己或可信来源创建的 pickle 文件。
+:::caution pickle safety warning
+**Never load a pickle file from an untrusted source!** pickle can execute arbitrary code, and a maliciously crafted pickle file can run dangerous operations on your computer. Only load pickle files created by yourself or from trusted sources.
 :::
 
 ---
 
-## 综合案例：学生成绩管理系统
+## Comprehensive example: student grade management system
 
 ```python
 import json
@@ -327,54 +327,54 @@ from pathlib import Path
 from datetime import datetime
 
 class GradeBook:
-    """成绩管理系统，支持文件持久化"""
+    """Grade management system with file persistence"""
 
     def __init__(self, filename="gradebook.json"):
         self.filename = Path(filename)
         self.students = {}
-        self.load()  # 启动时加载数据
+        self.load()  # Load data at startup
 
     def load(self):
-        """从文件加载数据"""
+        """Load data from a file"""
         if self.filename.exists():
             with open(self.filename, "r", encoding="utf-8") as f:
                 self.students = json.load(f)
-            print(f"✅ 已加载 {len(self.students)} 名学生的数据")
+            print(f"✅ Loaded data for {len(self.students)} students")
         else:
-            print("📝 创建新的成绩簿")
+            print("📝 Creating a new gradebook")
 
     def save(self):
-        """保存数据到文件"""
+        """Save data to a file"""
         with open(self.filename, "w", encoding="utf-8") as f:
             json.dump(self.students, f, ensure_ascii=False, indent=2)
 
     def add_score(self, name, subject, score):
-        """添加成绩"""
+        """Add a score"""
         if name not in self.students:
             self.students[name] = {}
         self.students[name][subject] = score
         self.save()
-        print(f"✅ {name} 的 {subject} 成绩（{score}分）已保存")
+        print(f"✅ Saved {name}'s {subject} score ({score})")
 
     def get_report(self, name):
-        """获取学生报告"""
+        """Get a student report"""
         if name not in self.students:
-            print(f"❌ 找不到学生: {name}")
+            print(f"❌ Student not found: {name}")
             return
 
         scores = self.students[name]
         print(f"\n{'='*30}")
-        print(f"  {name} 的成绩报告")
+        print(f"  {name}'s Grade Report")
         print(f"{'='*30}")
         for subject, score in scores.items():
-            print(f"  {subject}: {score} 分")
+            print(f"  {subject}: {score}")
         avg = sum(scores.values()) / len(scores)
         print(f"{'─'*30}")
-        print(f"  平均分: {avg:.1f}")
+        print(f"  Average score: {avg:.1f}")
         print(f"{'='*30}")
 
     def export_csv(self, filename="grades.csv"):
-        """导出为 CSV"""
+        """Export as CSV"""
         import csv
         subjects = set()
         for scores in self.students.values():
@@ -383,80 +383,80 @@ class GradeBook:
 
         with open(filename, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["姓名"] + subjects)
+            writer.writerow(["Name"] + subjects)
             for name, scores in self.students.items():
                 row = [name] + [scores.get(s, "") for s in subjects]
                 writer.writerow(row)
-        print(f"✅ 已导出到 {filename}")
+        print(f"✅ Exported to {filename}")
 
-# 使用
+# Use it
 gb = GradeBook()
-gb.add_score("张三", "数学", 85)
-gb.add_score("张三", "英语", 92)
-gb.add_score("张三", "Python", 95)
-gb.add_score("李四", "数学", 78)
-gb.add_score("李四", "英语", 88)
-gb.get_report("张三")
+gb.add_score("Zhang San", "Math", 85)
+gb.add_score("Zhang San", "English", 92)
+gb.add_score("Zhang San", "Python", 95)
+gb.add_score("Li Si", "Math", 78)
+gb.add_score("Li Si", "English", 88)
+gb.get_report("Zhang San")
 gb.export_csv()
 ```
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：文件统计工具
+### Exercise 1: File statistics tool
 
 ```python
 def file_stats(filename):
     """
-    统计文件信息：
-    - 总行数
-    - 总字符数（不含换行符）
-    - 总单词数
-    - 最长的行及其行号
+    Count file information:
+    - Total number of lines
+    - Total number of characters (excluding newline characters)
+    - Total number of words
+    - Longest line and its line number
     """
     pass
 
-# 创建一个测试文件并统计
+# Create a test file and analyze it
 ```
 
-### 练习 2：日记本程序
+### Exercise 2: Diary app
 
-写一个简单的日记本程序：
-- 支持写入新日记（自动加上时间戳）
-- 支持查看所有日记
-- 日记保存在文本文件中，程序关闭后数据不丢失
+Write a simple diary app:
+- Support writing new diary entries (automatically add a timestamp)
+- Support viewing all diary entries
+- Store diary entries in a text file so data is not lost after the program closes
 
-### 练习 3：配置文件管理器
+### Exercise 3: Configuration file manager
 
 ```python
 def load_config(filename="config.json"):
-    """加载配置文件，如果不存在则创建默认配置"""
+    """Load a configuration file, or create a default config if it does not exist"""
     pass
 
 def save_config(config, filename="config.json"):
-    """保存配置到文件"""
+    """Save the config to a file"""
     pass
 
 def update_config(key, value, filename="config.json"):
-    """更新某个配置项"""
+    """Update a configuration item"""
     pass
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 操作 | 代码 | 说明 |
+| Operation | Code | Notes |
 |------|------|------|
-| 写入文件 | `with open("f.txt", "w") as f:` | `"w"` 覆盖，`"a"` 追加 |
-| 读取文件 | `with open("f.txt", "r") as f:` | `.read()`、`.readlines()` |
-| JSON 写入 | `json.dump(data, file)` | 字典 → JSON 文件 |
-| JSON 读取 | `json.load(file)` | JSON 文件 → 字典 |
-| CSV 写入 | `csv.writer(file).writerow()` | 列表 → CSV 行 |
-| CSV 读取 | `csv.reader(file)` | CSV 行 → 列表 |
-| 路径处理 | `Path("data") / "file.txt"` | 推荐用 pathlib |
+| Write file | `with open("f.txt", "w") as f:` | `"w"` overwrites, `"a"` appends |
+| Read file | `with open("f.txt", "r") as f:` | `.read()`, `.readlines()` |
+| Write JSON | `json.dump(data, file)` | Dictionary → JSON file |
+| Read JSON | `json.load(file)` | JSON file → Dictionary |
+| Write CSV | `csv.writer(file).writerow()` | List → CSV row |
+| Read CSV | `csv.reader(file)` | CSV row → List |
+| Path handling | `Path("data") / "file.txt"` | `pathlib` is recommended |
 
-:::tip 核心理解
-文件操作让程序有了"记忆"——数据可以跨程序运行保留。在 AI 开发中，你会频繁地读写各种文件：数据集（CSV）、配置（JSON/YAML）、模型权重（.pth）、训练日志（.log）。掌握文件操作是成为开发者的基本功。
+:::tip Core idea
+File operations give your program a "memory" — data can persist across program runs. In AI development, you will often read and write many kinds of files: datasets (CSV), configurations (JSON/YAML), model weights (`.pth`), and training logs (`.log`). Mastering file operations is a fundamental skill for becoming a developer.
 :::

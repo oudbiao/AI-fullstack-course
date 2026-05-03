@@ -1,76 +1,77 @@
 ---
-title: "3.3 偏导数与梯度：多变量的变化方向"
+title: "3.3 Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions"
 sidebar_position: 10
-description: "理解偏导数和梯度的直觉含义，掌握梯度的方向意义，用 Python 可视化三维曲面上的梯度"
-keywords: [偏导数, 梯度, 多变量微积分, 梯度方向, Python, AI数学]
+description: "Build intuition for partial derivatives and gradients, understand the directional meaning of gradients, and visualize gradients on 3D surfaces with Python"
+keywords: [partial derivatives, gradient, multivariable calculus, gradient direction, Python, AI math]
 ---
 
-# 偏导数与梯度：多变量的变化方向
+# Partial Derivatives and Gradients: The Directions of Change in Multivariable Functions
 
-![梯度等高线方向场图](/img/course/gradient-contour-field.png)
+![Gradient contour direction field](/img/course/gradient-contour-field-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解偏导数——固定其他变量，看一个变量的影响
-- 理解梯度——所有偏导数组成的向量，指向"上升最快"的方向
-- 可视化三维曲面上的梯度
-- 理解梯度在神经网络训练中的核心作用
+- Understand partial derivatives — hold other variables fixed and look at the effect of one variable
+- Understand gradients — vectors made up of all partial derivatives, pointing in the "steepest ascent" direction
+- Visualize gradients on 3D surfaces
+- Understand the core role of gradients in neural network training
 
-## 新人先掌握 / 进阶再理解
+## First Get the Basics / Then Go Deeper
 
-如果你是第一次学这节，不需要马上熟练推导复杂函数。新人先掌握三句话就够了：偏导数是“只动一个变量看影响”，梯度是“把所有偏导数组成方向”，负梯度是“让损失下降最快的方向”。
+If this is your first time studying this section, you do not need to be able to derive complicated functions right away. As a beginner, it is enough to understand these three sentences: a partial derivative is "change one variable only and see the effect," a gradient is "put all partial derivatives together as a direction," and a negative gradient is "the direction in which the loss decreases fastest."
 
-如果你已经有一点数学基础，可以进一步关注：为什么梯度方向和等高线垂直、为什么学习率会影响沿负梯度走的效果、以及 PyTorch 的 `loss.backward()` 本质上在帮你自动计算哪些偏导。
+If you already have some math background, you can go further: why the gradient direction is perpendicular to contour lines, why the learning rate affects the result of moving along the negative gradient, and what `loss.backward()` in PyTorch is actually helping you compute automatically.
 
-## 先说一个很重要的学习预期
+## First, Set a Very Important Learning Expectation
 
-这一节是很多新人第一次觉得“数学开始真的有点难”的地方。  
-但这里最重要的，不是一下子把多元微积分全吃透，而是先看懂：
+This section is often the first place where many beginners feel that "math is starting to get a bit hard."
 
-- 单变量导数为什么会自然升级成偏导数
-- 梯度为什么会把“很多个变化率”打包成一个方向
-- 为什么它会直接决定模型参数怎么调
+But the most important thing here is not to fully master multivariable calculus all at once. Instead, first understand:
+
+- Why the derivative of a single variable naturally expands into partial derivatives
+- Why a gradient bundles many rates of change into one direction
+- Why it directly determines how model parameters should be adjusted
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-### 先看一个故事：你在调一个复杂机器
+### Start with a Story: You Are Tuning a Complex Machine
 
-想象你面前有一台咖啡机，咖啡味道由很多旋钮共同决定：水温、研磨粗细、咖啡粉量、萃取时间。现在咖啡太苦了，你不能只问“整体哪里错了”，而要一个个试：只调水温会怎样，只调研磨会怎样，只调时间会怎样。
+Imagine a coffee machine in front of you. The taste of the coffee is determined by many knobs together: water temperature, grind size, coffee amount, and extraction time. Now the coffee tastes too bitter. You cannot just ask, "Where is the whole thing wrong?" Instead, you need to test one by one: what happens if you only change the temperature, only change the grind size, only change the time?
 
-偏导数做的就是这件事：先固定其他旋钮，只看一个旋钮对结果的影响。梯度则是把所有旋钮的影响合成一张“调参指南”，告诉你整体最该往哪个方向改。
+That is what partial derivatives do: they first hold all other knobs fixed and look at the effect of one knob on the result. A gradient then combines the effects of all knobs into a "tuning guide," telling you which direction the overall adjustment should go.
 
-上一节你看到的是“一个变量怎么变”，这一节把问题升级成：
+In the previous section, you saw "how one variable changes." In this section, we upgrade the problem to:
 
-> **如果一个函数同时受很多变量影响，我们怎么知道该往哪个方向调？**
+> **If a function is affected by many variables at the same time, how do we know which direction to adjust it?**
 
-![偏导与梯度调参旋钮图](/img/course/ch04-gradient-parameter-knobs-map.png)
+![Partial derivative and gradient tuning knob map](/img/course/ch04-gradient-parameter-knobs-map-en.png)
 
-这节课最重要的不是先记符号，而是先理解：
+The most important thing in this lesson is not memorizing symbols first, but understanding first:
 
-- 偏导数是在“其他变量不动”的前提下看一个变量
-- 梯度是把所有局部变化信息打包成一个向量
+- A partial derivative looks at one variable under the condition that "other variables do not change"
+- A gradient packages all local change information into a vector
 
-## 一、偏导数——"只动一个变量"
+## 1. Partial Derivatives — "Change One Variable Only"
 
-### 1.1 从单变量到多变量
+### 1.1 From Single Variable to Multiple Variables
 
-上一节的导数只有一个变量。但 AI 中，损失函数通常依赖**成千上万个参数**。
+The derivative in the previous section had only one variable. But in AI, loss functions usually depend on **thousands or even millions of parameters**.
 
-偏导数的想法很简单：**固定其他所有变量不动，只看一个变量的变化对结果的影响。**
+The idea of a partial derivative is simple: **hold all other variables fixed and only look at how changing one variable affects the result.**
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A Beginner-Friendly Analogy
 
-可以先把偏导数想成“调音台上的单个旋钮”：
+You can think of partial derivatives as "a single knob on a mixing board":
 
-- 你先只拧一个旋钮
-- 其他旋钮都先别动
-- 看输出会怎么变
+- First, you turn only one knob
+- Leave all the other knobs alone for now
+- See how the output changes
 
-这就是偏导数最重要的第一层直觉：
+That is the most important first intuition behind partial derivatives:
 
-> **先单独看一个变量的影响。**
+> **First look at the effect of one variable separately.**
 
 ```python
 import numpy as np
@@ -81,26 +82,26 @@ plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 ```
 
-### 1.2 生活直觉
+### 1.2 Everyday Intuition
 
-假设你的考试成绩取决于"学习时间"和"睡眠时间"：
+Suppose your exam score depends on "study time" and "sleep time":
 
-**成绩 = f(学习时间, 睡眠时间)**
+**Score = f(study_time, sleep_time)**
 
-- 偏导数 ∂f/∂学习时间 = **固定睡眠不变**，多学 1 小时，成绩提高多少？
-- 偏导数 ∂f/∂睡眠时间 = **固定学习不变**，多睡 1 小时，成绩提高多少？
+- Partial derivative ∂f/∂study_time = **keep sleep fixed**; if you study one more hour, how much does your score improve?
+- Partial derivative ∂f/∂sleep_time = **keep study fixed**; if you sleep one more hour, how much does your score improve?
 
-### 1.3 数学示例
+### 1.3 Mathematical Example
 
 f(x, y) = x² + y²
 
-- ∂f/∂x = 2x（把 y 当常数，只对 x 求导）
-- ∂f/∂y = 2y（把 x 当常数，只对 y 求导）
+- ∂f/∂x = 2x (treat y as a constant, differentiate only with respect to x)
+- ∂f/∂y = 2y (treat x as a constant, differentiate only with respect to y)
 
 ```python
-# 数值偏导数
+# Numerical partial derivative
 def partial_derivative(f, args, var_index, h=1e-7):
-    """计算多变量函数 f 对第 var_index 个变量的偏导数"""
+    """Compute the partial derivative of multivariable function f with respect to the variable at var_index"""
     args_plus = list(args)
     args_minus = list(args)
     args_plus[var_index] += h
@@ -110,135 +111,135 @@ def partial_derivative(f, args, var_index, h=1e-7):
 # f(x, y) = x² + y²
 f = lambda x, y: x**2 + y**2
 
-# 在 (1, 2) 处的偏导数
+# Partial derivatives at (1, 2)
 x0, y0 = 1, 2
 df_dx = partial_derivative(f, [x0, y0], 0)
 df_dy = partial_derivative(f, [x0, y0], 1)
 
-print(f"在 ({x0}, {y0}) 处：")
-print(f"  ∂f/∂x = {df_dx:.4f}（精确值: {2*x0}）")
-print(f"  ∂f/∂y = {df_dy:.4f}（精确值: {2*y0}）")
+print(f"At ({x0}, {y0}):")
+print(f"  ∂f/∂x = {df_dx:.4f} (exact value: {2*x0})")
+print(f"  ∂f/∂y = {df_dy:.4f} (exact value: {2*y0})")
 ```
 
 ---
 
-## 二、梯度——"上升最快的方向"
+## 2. Gradient — "The Direction of Steepest Ascent"
 
-### 2.1 定义
+### 2.1 Definition
 
-**梯度 = 所有偏导数组成的向量。**
+**Gradient = a vector made up of all partial derivatives.**
 
-### 2.1.1 一个更好记的说法
+### 2.1.1 A More Memorable Way to Say It
 
-你可以先把梯度理解成：
+You can first understand the gradient as:
 
-- 每个变量都有一个“局部变化率”
-- 梯度把这些变化率打包成了一支箭头
+- Each variable has a "local rate of change"
+- The gradient bundles these rates of change into one arrow
 
-这支箭头最重要的作用不是“漂亮”，而是：
+The most important job of this arrow is not to look nice, but to:
 
-- 它会告诉你函数往哪边升得最快
+- Tell you which direction the function rises fastest
 
-对 f(x, y)：梯度 = [∂f/∂x, ∂f/∂y]
+For f(x, y): gradient = [∂f/∂x, ∂f/∂y]
 
 ```python
 def gradient(f, args, h=1e-7):
-    """计算多变量函数的梯度"""
+    """Compute the gradient of a multivariable function"""
     grad = []
     for i in range(len(args)):
         grad.append(partial_derivative(f, args, i, h))
     return np.array(grad)
 
-# 在 (1, 2) 处的梯度
+# Gradient at (1, 2)
 grad = gradient(f, [1, 2])
-print(f"梯度: {grad}")  # [2, 4]
+print(f"Gradient: {grad}")  # [2, 4]
 ```
 
-### 2.2 梯度的方向意义
+### 2.2 The Directional Meaning of the Gradient
 
 ```mermaid
 flowchart LR
-    G["梯度方向"]
-    G --> UP["指向函数值<br/>增长最快的方向"]
-    NEG["负梯度方向"]
-    NEG --> DOWN["指向函数值<br/>下降最快的方向"]
+    G["Gradient direction"]
+    G --> UP["Points in the direction<br/>where the function increases fastest"]
+    NEG["Negative gradient direction"]
+    NEG --> DOWN["Points in the direction<br/>where the function decreases fastest"]
 
     style UP fill:#ffebee,stroke:#c62828,color:#333
     style DOWN fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-**关键洞察**：梯度指向"上坡"最快的方向。所以要让损失函数下降，就应该往**负梯度方向**走。这就是梯度下降的原理。
+**Key insight**: The gradient points in the direction of the steepest uphill climb. So if you want the loss function to go down, you should move in the **negative gradient direction**. This is the principle behind gradient descent.
 
-### 2.2.1 为什么这一步对 AI 特别关键？
+### 2.2.1 Why Is This Especially Important for AI?
 
-因为训练模型时，你真正最想知道的就是：
+Because when training a model, the one thing you most want to know is:
 
-- 参数现在应该往哪边改
+- Which way should the parameters be adjusted now?
 
-而梯度恰好就在回答这个问题。
+And that is exactly what the gradient answers.
 
-### 2.2.2 一个更适合新人的总类比
+### 2.2.2 A Better Overall Analogy for Beginners
 
-你可以把梯度想成：
+You can think of the gradient as:
 
-- 站在山坡上的你，脚下最陡的上坡箭头
+- You standing on a hillside, with the steepest uphill arrow under your feet
 
-如果你想往高处走，就沿着梯度方向走；  
-如果你想往低处走，就沿着负梯度方向走。
+If you want to go higher, move along the gradient direction;
+if you want to go lower, move along the negative gradient direction.
 
-这个类比特别值得先记住，因为它会把抽象的“偏导数组成的向量”，重新变成一个很具体的动作问题：
+This analogy is especially worth remembering first, because it turns the abstract idea of "a vector made up of partial derivatives" back into a very concrete action question:
 
-- 我现在该往哪边迈步
+- Which way should I step right now?
 
-### 2.3 可视化：三维曲面上的梯度
+### 2.3 Visualization: The Gradient on a 3D Surface
 
 ```python
-# f(x, y) = x² + y²（碗形曲面）
+# f(x, y) = x² + y² (bowl-shaped surface)
 x = np.linspace(-3, 3, 100)
 y = np.linspace(-3, 3, 100)
 X, Y = np.meshgrid(x, y)
 Z = X**2 + Y**2
 
-# 三维曲面图
+# 3D surface plot
 fig = plt.figure(figsize=(14, 5))
 
-# 左：三维曲面
+# Left: 3D surface
 ax1 = fig.add_subplot(121, projection='3d')
 ax1.plot_surface(X, Y, Z, cmap='coolwarm', alpha=0.8)
 ax1.set_xlabel('x')
 ax1.set_ylabel('y')
 ax1.set_zlabel('f(x,y)')
-ax1.set_title('f(x,y) = x² + y²（三维视图）')
+ax1.set_title('f(x,y) = x² + y² (3D view)')
 
-# 右：等高线 + 梯度箭头
+# Right: contour lines + gradient arrows
 ax2 = fig.add_subplot(122)
 contour = ax2.contourf(X, Y, Z, levels=20, cmap='coolwarm', alpha=0.7)
 plt.colorbar(contour, ax=ax2)
 
-# 在几个点画梯度箭头
+# Draw gradient arrows at several points
 points = [(-2, -2), (-1, 1), (1, -1), (2, 2), (0.5, 0.5)]
 for px, py in points:
-    gx, gy = 2*px, 2*py  # 解析梯度
+    gx, gy = 2*px, 2*py  # analytic gradient
     ax2.quiver(px, py, gx, gy, color='black', scale=30, width=0.005)
 
 ax2.set_xlabel('x')
 ax2.set_ylabel('y')
-ax2.set_title('等高线 + 梯度方向（箭头）\n箭头指向上升最快的方向')
+ax2.set_title('Contour lines + gradient directions (arrows)\nArrows point toward the direction of fastest increase')
 ax2.set_aspect('equal')
 
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：
-- 等高线图中，箭头（梯度）总是**垂直于等高线**指向高处
-- 离中心越远，梯度越大（箭头越长）——表示函数变化越剧烈
-- 在最低点 (0,0)，梯度为 [0,0]——已经到底了
+**Interpretation**:
+- In the contour plot, the arrows (gradients) are always **perpendicular to the contour lines** and point uphill
+- The farther away from the center, the larger the gradient (the longer the arrows) — this means the function changes more sharply
+- At the lowest point (0,0), the gradient is [0,0] — you are already at the bottom
 
-### 2.4 非碗形曲面的梯度
+### 2.4 The Gradient on a Non-Bowl Surface
 
 ```python
-# 更有趣的函数：有多个极值点
+# A more interesting function: with multiple extrema
 def rosenbrock(x, y):
     return (1 - x)**2 + 100 * (y - x**2)**2
 
@@ -251,68 +252,68 @@ fig, ax = plt.subplots(figsize=(10, 8))
 contour = ax.contourf(X, Y, np.log1p(Z), levels=30, cmap='viridis', alpha=0.8)
 plt.colorbar(contour, ax=ax, label='log(1 + f(x,y))')
 
-# 画几个点的梯度
+# Draw gradients at several points
 for px, py in [(-1, 1), (0, 0), (1, 1), (1.5, 2)]:
     grad = gradient(rosenbrock, [px, py])
-    # 缩放梯度方便显示
+    # Scale the gradient for display
     norm = np.linalg.norm(grad)
     if norm > 0:
         grad_scaled = grad / norm * 0.3
-        ax.quiver(px, py, -grad_scaled[0], -grad_scaled[1], 
+        ax.quiver(px, py, -grad_scaled[0], -grad_scaled[1],
                   color='red', scale=3, width=0.008)
 
-ax.plot(1, 1, 'r*', markersize=20, label='最小值 (1, 1)')
+ax.plot(1, 1, 'r*', markersize=20, label='Minimum (1, 1)')
 ax.set_xlabel('x')
 ax.set_ylabel('y')
-ax.set_title('Rosenbrock 函数（优化的经典测试函数）\n红色箭头 = 负梯度方向（下降方向）')
+ax.set_title('Rosenbrock function (a classic optimization test function)\nRed arrows = negative gradient direction (descent direction)')
 ax.legend(fontsize=12)
 plt.show()
 ```
 
 ---
 
-## 三、梯度在神经网络中的意义
+## 3. The Meaning of Gradients in Neural Networks
 
-### 3.1 损失函数的梯度
+### 3.1 The Gradient of the Loss Function
 
-在神经网络中：
-- **参数** = 数千到数十亿个权重 [w1, w2, ..., wn]
-- **损失函数** = L(w1, w2, ..., wn)
-- **梯度** = [∂L/∂w1, ∂L/∂w2, ..., ∂L/∂wn]
+In a neural network:
+- **Parameters** = thousands to billions of weights [w1, w2, ..., wn]
+- **Loss function** = L(w1, w2, ..., wn)
+- **Gradient** = [∂L/∂w1, ∂L/∂w2, ..., ∂L/∂wn]
 
-梯度告诉我们：**每个权重应该增大还是减小，才能让损失减少。**
+The gradient tells us: **which way each weight should increase or decrease so that the loss becomes smaller.**
 
 ```python
-# 模拟：一个只有 2 个参数的简单模型
-# 损失函数 L(w1, w2) = (w1 - 3)² + (w2 + 1)²
-# 最优解：w1 = 3, w2 = -1
+# Simulation: a simple model with only 2 parameters
+# Loss function L(w1, w2) = (w1 - 3)² + (w2 + 1)²
+# Optimal solution: w1 = 3, w2 = -1
 
 def loss(w1, w2):
     return (w1 - 3)**2 + (w2 + 1)**2
 
-# 当前参数
+# Current parameters
 w1, w2 = 0, 0
 grad = gradient(loss, [w1, w2])
 
-print(f"当前参数: w1={w1}, w2={w2}")
-print(f"当前损失: {loss(w1, w2)}")
-print(f"梯度: {grad}")
-print(f"→ w1 的偏导数 = {grad[0]:.1f}（负数 → w1 应该增大）")
-print(f"→ w2 的偏导数 = {grad[1]:.1f}（正数 → w2 应该减小）")
+print(f"Current parameters: w1={w1}, w2={w2}")
+print(f"Current loss: {loss(w1, w2)}")
+print(f"Gradient: {grad}")
+print(f"→ Partial derivative with respect to w1 = {grad[0]:.1f} (negative → w1 should increase)")
+print(f"→ Partial derivative with respect to w2 = {grad[1]:.1f} (positive → w2 should decrease)")
 ```
 
-### 3.2 高维梯度的挑战
+### 3.2 The Challenge of High-Dimensional Gradients
 
-| 模型 | 参数数量 | 梯度维度 |
+| Model | Number of parameters | Gradient dimension |
 |------|---------|---------|
-| 线性回归 | 几个~几百 | 几个~几百 |
-| CNN (ResNet-50) | 2500 万 | 2500 万维梯度 |
-| BERT | 1.1 亿 | 1.1 亿维梯度 |
-| GPT-3 | 1750 亿 | 1750 亿维梯度 |
+| Linear regression | a few ~ hundreds | a few ~ hundreds |
+| CNN (ResNet-50) | 25 million | 25 million-dimensional gradient |
+| BERT | 110 million | 110 million-dimensional gradient |
+| GPT-3 | 175 billion | 175 billion-dimensional gradient |
 
-虽然维度极高，但梯度的计算规则是一样的——每个参数的偏导数。PyTorch 的 `autograd` 会自动帮你高效计算。
+Although the dimensionality is extremely high, the rule for computing the gradient is the same — the partial derivative of each parameter. PyTorch's `autograd` automatically computes this efficiently for you.
 
-### 3.3 再看一个最小“按梯度更新参数”示例
+### 3.3 Another Minimal Example of "Updating Parameters by Gradient"
 
 ```python
 def loss(w1, w2):
@@ -332,38 +333,38 @@ for step in range(3):
     print(f"step={step+1}, w={np.round(w, 4)}, loss={round(loss(w[0], w[1]), 4)}")
 ```
 
-这个例子特别适合初学者，因为它第一次把“梯度只是一个方向”真正变成了：
+This example is especially good for beginners because it turns the idea that "the gradient is just a direction" into something concrete for the first time:
 
-- 参数怎么被一步步改掉
+- How parameters are updated step by step
 
-也就是说，梯度不只是数学对象，  
-它会直接变成训练里的更新动作。
+In other words, a gradient is not just a mathematical object;
+it directly becomes the update action during training.
 
-### 3.4 一个很适合初学者先记的对比表
+### 3.4 A Comparison Table That Beginners Should Remember First
 
-| 概念 | 最值得先记住的问法 |
+| Concept | The most important question to remember |
 |------|------|
-| 偏导数 | 如果只拧这一个旋钮，结果怎么变？ |
-| 梯度 | 如果把所有旋钮的变化率合在一起，最该往哪边调？ |
-| 负梯度 | 如果我想让损失下降，最该往哪边走？ |
+| Partial derivative | If I turn only this one knob, how does the result change? |
+| Gradient | If I combine the rates of change of all knobs, which direction should I adjust? |
+| Negative gradient | If I want the loss to go down, which way should I move? |
 
-这个表特别适合新人，因为它能把“多变量微积分”重新压回到几个可操作的问题上。
+This table is especially useful for beginners because it compresses "multivariable calculus" back into a few actionable questions.
 
-### 3.5 一个常见错误：沿着梯度方向更新损失
+### 3.5 A Common Mistake: Updating Loss in the Gradient Direction
 
-很多新人第一次写梯度下降时，会不小心写成：
+When many beginners first write gradient descent, they accidentally write:
 
 ```python
 w = w + lr * grad
 ```
 
-如果你的目标是让损失变小，这通常方向反了。因为梯度指向的是函数值上升最快的方向，最小化损失时应该沿负梯度走：
+If your goal is to make the loss smaller, this is usually the wrong direction. Because the gradient points in the direction of the fastest increase of the function value, minimizing the loss means moving along the negative gradient:
 
 ```python
 w = w - lr * grad
 ```
 
-可以用下面的小例子直观看到差别：
+You can see the difference more clearly with the following small example:
 
 ```python
 def loss_1d(w):
@@ -377,7 +378,7 @@ def grad_1d(w):
 for direction in ["wrong", "right"]:
     w = 0.0
     lr = 0.1
-    print("\n方向:", direction)
+    print("\nDirection:", direction)
     for step in range(3):
         grad = grad_1d(w)
         if direction == "wrong":
@@ -387,68 +388,68 @@ for direction in ["wrong", "right"]:
         print(f"step={step+1}, w={w:.3f}, loss={loss_1d(w):.3f}")
 ```
 
-这个错例很值得记住：如果你发现训练越训 loss 越大，第一件事就应该检查更新方向和学习率。
+This wrong example is worth remembering: if you find that training makes the loss larger and larger, the first thing you should check is the update direction and the learning rate.
 
 ---
 
-## 学到这里，下一步最值得带去哪里？
+## After Learning This, What Is the Best Next Step?
 
-看完偏导数与梯度以后，最值得带去下一节的问题是：
+After understanding partial derivatives and gradients, the most worthwhile questions to take to the next section are:
 
-1. 如果梯度已经告诉我方向，那怎样真的沿着这个方向走？
-2. 为什么训练不是一下到位，而是一轮轮更新？
-3. 学习率到底在“往哪调”之外又决定了什么？
+1. If the gradient already tells me the direction, how do I actually move along that direction?
+2. Why does training not finish in one step, but instead updates round by round?
+3. Beyond "where should I move," what else does the learning rate determine?
 
-最适合接着看的通常是：
+The next section to read is usually:
 
-- [梯度下降](./03-gradient-descent.md)
+- [Gradient Descent](./03-gradient-descent.md)
 
-:::info 连接后续
-- **下一节**：梯度下降——沿负梯度方向一步步走，找到损失函数的最低点
-- **3.4 节**：链式法则——如何高效计算复杂网络的梯度
-- **第 6 站**：PyTorch 的 `loss.backward()` 就是在算梯度
+:::info Connecting to What Comes Next
+- **Next section**: Gradient Descent — step by step along the negative gradient to find the minimum of the loss function
+- **Section 3.4**: Chain Rule — how to efficiently compute gradients for complex networks
+- **Station 6**: PyTorch's `loss.backward()` is doing gradient computation
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 | Python |
+| Concept | Intuition | Python |
 |------|------|--------|
-| 偏导数 | 固定其他变量，看一个变量的影响 | `partial_derivative(f, args, i)` |
-| 梯度 | 所有偏导数的向量，指向上升最快方向 | `gradient(f, args)` |
-| 负梯度 | 指向下降最快方向 | `-gradient(f, args)` |
-| 梯度大小 | 函数变化的剧烈程度 | `np.linalg.norm(grad)` |
+| Partial derivative | Hold other variables fixed and see the effect of one variable | `partial_derivative(f, args, i)` |
+| Gradient | A vector of all partial derivatives, pointing in the steepest ascent direction | `gradient(f, args)` |
+| Negative gradient | Points in the steepest descent direction | `-gradient(f, args)` |
+| Gradient magnitude | How sharply the function changes | `np.linalg.norm(grad)` |
 
-## 这节最该带走什么
+## What You Should Take Away Most from This Section
 
-- 偏导数最重要的直觉是“先只看一个变量怎么影响结果”
-- 梯度最重要的直觉是“把很多局部变化率打包成一个方向”
-- 在 AI 里，梯度最关键的价值是告诉模型参数该往哪边调
+- The most important intuition behind partial derivatives is: "look at how one variable affects the result first"
+- The most important intuition behind gradients is: "bundle many local rates of change into one direction"
+- In AI, the most important value of gradients is telling the model parameters which way to adjust
 
-## 这一节的学习闭环
+## The Learning Loop for This Section
 
-学完这一节后，你可以用下面这张表检查自己是不是真的理解了：
+After finishing this section, you can use the following table to check whether you truly understand it:
 
-| 层次 | 你应该能做到什么 |
+| Level | What you should be able to do |
 |---|---|
-| 直觉 | 能解释“只动一个变量”和“沿负梯度下降”是什么意思 |
-| 代码 | 能用数值差分计算一个二维函数的偏导数和梯度 |
-| 图像 | 能看懂等高线图里的梯度箭头为什么指向高处 |
-| 连接 AI | 能说清楚为什么训练模型时需要梯度来更新参数 |
+| Intuition | Explain what "change one variable only" and "descend along the negative gradient" mean |
+| Code | Use numerical differences to compute the partial derivatives and gradient of a 2D function |
+| Image | Understand why gradient arrows in contour plots point uphill |
+| AI connection | Clearly explain why gradients are needed to update parameters when training models |
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：计算梯度
+### Exercise 1: Compute the Gradient
 
-用 `gradient` 函数计算 f(x, y) = x²y + xy² 在 (2, 3) 处的梯度。手算验证（∂f/∂x = 2xy + y², ∂f/∂y = x² + 2xy）。
+Use the `gradient` function to compute the gradient of f(x, y) = x²y + xy² at (2, 3). Verify it by hand (∂f/∂x = 2xy + y², ∂f/∂y = x² + 2xy).
 
-### 练习 2：可视化梯度场
+### Exercise 2: Visualize the Gradient Field
 
-画出 f(x, y) = sin(x) + cos(y) 的等高线图和梯度箭头（使用 `plt.quiver`）。
+Draw the contour plot and gradient arrows for f(x, y) = sin(x) + cos(y) (use `plt.quiver`).
 
-### 练习 3：三变量梯度
+### Exercise 3: Gradient of Three Variables
 
-对 f(x, y, z) = x² + 2y² + 3z²，在 (1, 1, 1) 处计算梯度，判断哪个方向变化最快。
+For f(x, y, z) = x² + 2y² + 3z², compute the gradient at (1, 1, 1), and determine which direction changes fastest.

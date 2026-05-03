@@ -1,146 +1,146 @@
 ---
-title: "5.4 机器翻译实战【选修】"
+title: "5.4 Machine Translation Practice [Optional]"
 sidebar_position: 3
-description: "围绕一个最小翻译任务，走完数据对、基线系统、错误分析和下一步升级方向这条翻译项目闭环。"
+description: "Work through the full loop of a translation project around a minimal translation task: data pairs, a baseline system, error analysis, and next-step upgrade directions."
 keywords: [machine translation, seq2seq, translation project, alignment, error analysis]
 ---
 
-# 机器翻译实战【选修】
+# Machine Translation Practice [Optional]
 
-![机器翻译错误分析图](/img/course/ch11-machine-translation-error-analysis-map.png)
+![Machine Translation Error Analysis Map](/img/course/ch11-machine-translation-error-analysis-map-en.png)
 
-:::tip 读图提示
-翻译项目不是只看一句结果顺不顺。读图时把平行语料、baseline、漏译、错译、词序问题、术语一致性和人工评估连起来看，才能真正知道系统哪里在进步。
+:::tip Reading guide
+A translation project is not just about whether one output sentence sounds smooth. When reading the diagram, connect parallel corpus, baseline, omission, mistranslation, word order issues, terminology consistency, and human evaluation together so you can really see where the system is improving.
 :::
 
-:::tip 本节定位
-翻译是 Seq2Seq 最经典的任务。  
-它很适合用来练习一整条“输入文本 -> 输出文本”的项目闭环。
+:::tip Section focus
+Translation is the most classic task for Seq2Seq.
+It is very suitable for practicing a complete project loop of “input text -> output text.”
 
-这节课不会硬上大模型训练，  
-而是先把最关键的项目结构做清楚：
+This lesson will not jump straight into training a large model.
+Instead, we will first make the most important project structure clear:
 
-- 数据对长什么样
-- 最小翻译系统怎么跑
-- 错误应该怎么看
+- What the data pairs look like
+- How the minimal translation system runs
+- How to analyze errors
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解一个翻译项目的最小组成
-- 学会从平行语料对组织数据
-- 通过可运行示例建立最小翻译基线
-- 学会做简单的翻译错误分析
+- Understand the minimal components of a translation project
+- Learn how to organize data from parallel corpus pairs
+- Build a minimal translation baseline with a runnable example
+- Learn simple translation error analysis
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-机器翻译实战这节最适合新人的理解顺序不是“先换更强模型”，而是先看清项目闭环：
+For beginners, the best way to understand this hands-on machine translation lesson is not “start by switching to a stronger model,” but to first see the full project loop clearly:
 
 ```mermaid
 flowchart LR
-    A["准备平行语料"] --> B["先做最小翻译基线"]
-    B --> C["按错误类型分析"]
-    C --> D["再决定该补数据还是换模型"]
+    A["Prepare parallel corpus"] --> B["Build a minimal translation baseline first"]
+    B --> C["Analyze by error type"]
+    C --> D["Then decide whether to add data or change models"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 翻译项目到底该怎么推进
-- 为什么错误分析会比盲目上大模型更重要
+- How a translation project should move forward
+- Why error analysis is more important than blindly using a large model
 
-### 一个更适合新人的总类比
+### A more beginner-friendly overall analogy
 
-你可以把机器翻译项目想成：
+You can think of a machine translation project like:
 
-- 两个人在做双语对照笔记
+- Two people taking bilingual side-by-side notes
 
-一边写源语言，另一边写目标语言。  
-真正困难的地方不只是“查到对应词”，而是：
+One side writes the source language, and the other writes the target language.
+The real difficulty is not only “finding the matching word,” but also:
 
-- 这句话该怎么重组
-- 哪些词不能逐字翻
-- 哪些表达必须看上下文
+- How the sentence should be reorganized
+- Which words cannot be translated literally
+- Which expressions must be understood in context
 
-这样理解后，为什么翻译任务天然适合 Seq2Seq，会直观很多。
+Once you think about it this way, it becomes much more intuitive why translation tasks are naturally suited to Seq2Seq.
 
-## 一、机器翻译任务最核心的输入输出是什么？
+## 1. What are the most essential input and output of machine translation?
 
-### 1.1 输入
+### 1.1 Input
 
-- 源语言句子
+- A sentence in the source language
 
-### 1.2 输出
+### 1.2 Output
 
-- 目标语言句子
+- A sentence in the target language
 
-### 1.3 为什么这类任务特别适合 Seq2Seq？
+### 1.3 Why is this kind of task especially suitable for Seq2Seq?
 
-因为：
+Because:
 
-- 输入和输出都不是固定长度
-- 两边存在顺序和语义映射
+- Both input and output are not fixed-length
+- There is a sequence and semantic mapping relationship between the two sides
 
-这正是 Seq2Seq 的典型场景。
+This is exactly the typical Seq2Seq scenario.
 
 ---
 
-## 二、先看一个最小平行语料集
+## 2. First, look at a minimal parallel corpus
 
 ```python
 parallel_data = [
-    ("hello", "你好"),
-    ("world", "世界"),
-    ("i love ai", "我 爱 AI"),
-    ("study hard", "努力 学习"),
+    ("hello", "hola"),
+    ("world", "mundo"),
+    ("i love ai", "me encanta la IA"),
+    ("study hard", "estudia mucho"),
 ]
 
 for src, tgt in parallel_data:
     print(src, "->", tgt)
 ```
 
-### 2.1 为什么平行语料是翻译项目的基础？
+### 2.1 Why is parallel corpus the foundation of a translation project?
 
-因为模型最终需要学习的是：
+Because the model ultimately needs to learn:
 
-- 源语言 -> 目标语言
+- Source language -> target language
 
-没有这类对齐数据，翻译任务就无从开始。
+Without this kind of aligned data, the translation task cannot even begin.
 
-### 2.2 新人第一次做翻译项目，数据怎么选更稳？
+### 2.2 For a beginner’s first translation project, how should you choose data more safely?
 
-更稳的起步通常是：
+A safer starting point is usually:
 
-- 先做短句
-- 先做主题比较窄的语料
-- 先用高质量小数据建立闭环
+- Start with short sentences
+- Start with a corpus in a narrower domain
+- Start with high-quality small data to establish the loop
 
-这样会比一开始就上大而杂的语料更容易看清问题。
+This makes it easier to see the problems than starting with a large and messy corpus.
 
-### 2.3 一个新人可直接照抄的数据检查表
+### 2.3 A data checklist that beginners can copy directly
 
-第一次做翻译项目时，最值得先检查的是：
+When doing a translation project for the first time, the most important things to check first are:
 
-1. 源句和目标句是否真的一一对应
-2. 句子长度是不是差太多
-3. 主题是否过杂
-4. 同一个词或短语是否有很多冲突翻法
+1. Do the source and target sentences really correspond one-to-one?
+2. Is the sentence length very different?
+3. Is the domain too mixed?
+4. Does the same word or phrase have many conflicting translations?
 
-因为如果这些问题一开始不看，  
-后面你很容易把数据问题误以为是模型问题。
+Because if you do not check these issues at the beginning,
+later you may easily mistake data problems for model problems.
 
 ---
 
-## 三、先跑一个最小翻译基线
+## 3. First, run a minimal translation baseline
 
 ```python
 parallel_data = [
-    ("hello", "你好"),
-    ("world", "世界"),
-    ("i", "我"),
-    ("love", "爱"),
-    ("study", "学习"),
+    ("hello", "hola"),
+    ("world", "mundo"),
+    ("i", "yo"),
+    ("love", "amo"),
+    ("study", "estudiar"),
 ]
 
 phrase_table = {src: tgt for src, tgt in parallel_data}
@@ -162,46 +162,46 @@ for sent in tests:
     print(sent, "->", translate(sent))
 ```
 
-### 3.1 这个例子为什么仍然值得做？
+### 3.1 Why is this example still worth doing?
 
-因为它先帮你抓住翻译项目最底层的形式：
+Because it helps you first grasp the most basic form of a translation project:
 
-- 数据对
-- 映射规则
-- 输出质量
+- Data pairs
+- Mapping rules
+- Output quality
 
-### 3.2 它的局限也很明显
+### 3.2 Its limitations are also very obvious
 
-- 不会处理词序变化
-- 不会处理多义词
-- 遇到未知词就 `<unk>`
+- It cannot handle word order changes
+- It cannot handle polysemy
+- It outputs `<unk>` for unknown words
 
-也正因为这些局限明显，  
-你更容易理解为什么后面需要更强模型。
+And precisely because these limitations are so obvious,
+it becomes easier to understand why stronger models are needed later.
 
-### 3.3 为什么最小基线反而很有教学价值？
+### 3.3 Why is the minimal baseline especially valuable for teaching?
 
-因为它会逼你真正看到：
+Because it forces you to really notice:
 
-- 词序问题
-- 未知词问题
-- 上下文歧义问题
+- Word order problems
+- Unknown word problems
+- Contextual ambiguity problems
 
-这些都是后面注意力和 Transformer 要继续解决的点。
+These are all issues that attention and Transformer will continue to address later.
 
-### 3.4 第一次做翻译项目，为什么不要嫌 baseline 太弱？
+### 3.4 For a first translation project, why should you not complain that the baseline is too weak?
 
-因为 baseline 越简单，错误来源越容易解释。
+Because the simpler the baseline, the easier it is to explain the source of errors.
 
-例如：
+For example:
 
-- `<unk>` 太多，说明词表覆盖不够
-- 词序乱，说明模型没有真正学到序列映射
-- 逐词翻译味很重，说明上下文能力不足
+- Too many `<unk>` tokens means vocabulary coverage is insufficient
+- Word order is messy means the model did not truly learn sequence mapping
+- Translation feels too word-for-word means contextual ability is lacking
 
-这会比一开始就上复杂模型更能帮助你建立项目判断力。
+This helps you build project judgment much better than starting with a complex model.
 
-### 3.5 再看一个最小“翻译项目检查表”示例
+### 3.5 Another example of a minimal “translation project checklist”
 
 ```python
 project_status = {
@@ -214,46 +214,46 @@ project_status = {
 
 def next_step(status):
     if not status["parallel_data_ready"]:
-        return "先把平行语料对整理干净。"
+        return "First clean up the parallel corpus."
     if not status["baseline_ready"]:
-        return "先做最小 baseline。"
+        return "First build a minimal baseline."
     if not status["error_buckets_defined"]:
-        return "先把错误类型分成漏译、错译、词序问题。"
+        return "First divide error types into omission, mistranslation, and word order issues."
     if not status["evaluation_examples_selected"]:
-        return "先挑一组展示样例。"
-    return "可以继续升级模型。"
+        return "First pick a set of showcase examples."
+    return "You can continue upgrading the model."
 
 
 print(next_step(project_status))
 ```
 
-这个例子很小，但它非常适合初学者，因为它会提醒你：
+This example is very small, but it is very suitable for beginners because it reminds you that:
 
-- 项目推进不只是“换模型”
-- 还包括数据、错误分析和展示骨架
+- Project progress is not just “changing the model”
+- It also includes data, error analysis, and the presentation structure
 
 ---
 
-## 四、翻译项目该怎么做错误分析？
+## 4. How should translation project error analysis be done?
 
-### 4.1 常见错误一：漏译
+### 4.1 Common error type 1: Omission
 
-例如某个词直接没翻出来。
+For example, a certain word is simply not translated.
 
-### 4.2 常见错误二：错译
+### 4.2 Common error type 2: Mistranslation
 
-例如一个词翻到了错误义项。
+For example, a word is translated into the wrong sense.
 
-### 4.3 常见错误三：词序不自然
+### 4.3 Common error type 3: Unnatural word order
 
-这是最小词典基线特别容易出现的问题。
+This is a problem that the minimal dictionary baseline is especially likely to produce.
 
-### 4.4 一个极简错误检查
+### 4.4 A very simple error check
 
 ```python
 gold = {
-    "hello world": "你好 世界",
-    "i love study": "我 爱 学习",
+    "hello world": "hello world",
+    "i love study": "I love learning",
 }
 
 for src, expected in gold.items():
@@ -266,135 +266,135 @@ for src, expected in gold.items():
     })
 ```
 
-### 4.5 一个更适合新人的错误分析框架
+### 4.5 An error analysis framework that is more beginner-friendly
 
-做翻译错误分析时，可以先按这三类分：
+When analyzing translation errors, you can start by dividing them into these three categories:
 
-1. 漏译
-2. 错译
-3. 词序或表达不自然
+1. Omission
+2. Mistranslation
+3. Unnatural word order or expression
 
-这样你更容易知道：
+This makes it easier to tell whether:
 
-- 是数据问题
-- 还是模型表达能力问题
+- It is a data problem
+- Or a model capability problem
 
-### 4.6 一个很适合展示在作品集里的对比方式
+### 4.6 A comparison format that is great for showing in a portfolio
 
-很推荐直接并排展示：
+It is highly recommended to present them side by side directly:
 
-- 原句
-- baseline 输出
-- 目标输出
-- 错误类型标签
+- Original sentence
+- Baseline output
+- Target output
+- Error type label
 
-这样项目会显得非常清楚，不像只是“跑了个模型”。
+This makes the project very clear and avoids the impression that you merely “ran a model.”
 
-### 4.7 如果你第一次做翻译项目，最稳的错误分桶方式
+### 4.7 If this is your first translation project, the safest error bucketing method
 
-最稳的做法通常是只先分三类：
+The safest approach is usually to start with only three categories:
 
-1. 漏译
-2. 错译
-3. 词序或表达不自然
+1. Omission
+2. Mistranslation
+3. Unnatural word order or expression
 
-因为对新人来说，这三类已经足够帮助你判断：
+Because for beginners, these three categories are already enough to help you judge:
 
-- 该补数据
-- 该改表示
-- 还是该换更强模型
-
----
-
-## 五、从这个最小项目往后升级，可以怎么走？
-
-### 5.1 加更多平行语料
-
-### 5.2 引入注意力和神经 Seq2Seq
-
-### 5.3 再进一步走向 Transformer
-
-所以这个小项目的意义，不在于它本身够强，  
-而在于它让你看清：
-
-- 翻译项目的基本骨架
-
-### 5.4 第一次升级项目时，更建议先补什么？
-
-通常更建议先补：
-
-1. 数据覆盖
-2. 错误分析
-3. 注意力或更强模型
-
-这样会比一开始就盲目换更大模型更稳。
-
-### 5.5 什么时候更适合补数据，而不是换模型？
-
-如果你发现问题主要来自：
-
-- 词表覆盖太差
-- 训练样本太少
-- 某类表达几乎没见过
-
-那通常应该先补数据，而不是先换模型。
-
-## 如果把它做成项目，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我用了某个模型”
-
-而是：
-
-1. 平行语料示例
-2. baseline 输出
-3. gold 输出
-4. 错误类型标签
-5. 你下一步准备怎么升级
-
-这样别人会更容易看出：
-
-- 你在做一个完整翻译项目
-- 不只是跑一个翻译 demo
+- Whether to add data
+- Whether to improve representation
+- Or whether to switch to a stronger model
 
 ---
 
-## 六、最常见误区
+## 5. How can you upgrade this minimal project later?
 
-### 6.1 误区一：翻译就是查字典
+### 5.1 Add more parallel corpus
 
-真实翻译远比逐词替换复杂。
+### 5.2 Introduce attention and neural Seq2Seq
 
-### 6.2 误区二：只看一两条漂亮样例
+### 5.3 Then move further toward Transformer
 
-真正项目里更重要的是系统性错误分析。
+So the value of this small project is not that it is strong by itself,
+but that it helps you see clearly:
 
-### 6.3 误区三：一开始就想直接训很大模型
+- The basic skeleton of a translation project
 
-更稳的做法通常是先把数据和基线结构理清。
+### 5.4 When upgrading the project for the first time, what should you usually improve first?
 
-## 小结
+Usually, it is better to improve:
 
-这节最重要的是把翻译项目看成：
+1. Data coverage
+2. Error analysis
+3. Attention or a stronger model
 
-> **一个围绕平行语料、映射学习和错误分析展开的典型 Seq2Seq 项目。**
+This is more stable than blindly switching to a larger model at the very beginning.
 
-先把这条闭环走顺，后面升级模型时就不会只剩“换更大模型”一种思路。
+### 5.5 When is it more appropriate to add data instead of changing the model?
+
+If you find that the main issues come from:
+
+- Poor vocabulary coverage
+- Too few training samples
+- Expressions that were almost never seen
+
+Then you should usually add data first, instead of changing the model first.
+
+## If you turn this into a project, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- “I used a certain model”
+
+But rather:
+
+1. Parallel corpus examples
+2. Baseline outputs
+3. Gold outputs
+4. Error type labels
+5. How you plan to upgrade next
+
+This makes it much easier for others to see:
+
+- That you are building a complete translation project
+- Not just running a translation demo
 
 ---
 
-## 这节最该带走什么
+## 6. The most common misunderstandings
 
-- 机器翻译项目首先是数据对和错误分析项目
-- 最小词典基线虽然弱，但特别适合建立项目判断力
-- 先把错误类型看清，再决定升级路线，会更像真正项目
+### 6.1 Misunderstanding 1: Translation is just dictionary lookup
+
+Real translation is far more complex than word-for-word replacement.
+
+### 6.2 Misunderstanding 2: Only looking at one or two nice examples
+
+In a real project, systematic error analysis matters much more.
+
+### 6.3 Misunderstanding 3: Wanting to train a very large model right away
+
+A safer approach is usually to first make the data and baseline structure clear.
+
+## Summary
+
+The most important thing in this lesson is to view a translation project as:
+
+> **A typical Seq2Seq project centered on parallel corpus, mapping learning, and error analysis.**
+
+First make this loop run smoothly, and later when you upgrade the model, you will not be left with only one idea: “switch to a bigger model.”
 
 ---
 
-## 练习
+## What you should take away from this lesson
 
-1. 自己再补 5 组词对，扩展这个小词典基线。
-2. 为什么最小翻译基线特别容易出词序问题？
-3. 想一想：什么错误是词典基线无论如何都很难解决的？
-4. 如果你要升级这个项目，第一步会先补数据还是先换模型？为什么？
+- A machine translation project is first and foremost a data-pair and error-analysis project
+- A minimal dictionary baseline is weak, but it is especially useful for building project judgment
+- First make the error types clear, then decide the upgrade path; that is closer to a real project
+
+---
+
+## Exercises
+
+1. Add 5 more word pairs yourself to extend this small dictionary baseline.
+2. Why is the minimal translation baseline especially prone to word order problems?
+3. Think about it: what kind of error is very hard for a dictionary baseline to solve no matter what?
+4. If you want to upgrade this project, would you first add data or first change the model? Why?

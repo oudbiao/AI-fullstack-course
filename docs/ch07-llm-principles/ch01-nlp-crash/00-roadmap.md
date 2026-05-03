@@ -1,79 +1,79 @@
 ---
-title: "1.1 学前导读：NLP 核心速成这一章到底在学什么"
+title: "1.1 Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?"
 sidebar_position: 0
-description: "先建立 NLP 核心速成章的学习地图：tokenizer、embedding、预训练模型和 Hugging Face 快速实践是怎样串起来的。"
-keywords: [NLP速成导读, tokenizer, embedding, HuggingFace]
+description: "First build a learning map for the NLP crash course chapter: how tokenizer, embedding, pre-trained models, and hands-on practice with Hugging Face fit together."
+keywords: [NLP crash course guide, tokenizer, embedding, HuggingFace]
 ---
 
-# 学前导读：NLP 核心速成这一章到底在学什么
+# Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?
 
-这一章不是要把完整 NLP 再学一遍，而是给后面大模型主线补最小必需的文本基础。
+This chapter is not meant to reteach all of NLP. Instead, it provides the minimum essential text foundation for the main LLM track later on.
 
-## 先建立一张桥接线
+## First, Build a Bridge
 
-如果你是从 11 自然语言处理（方向选修）主线过来的，这一章最值得先看清的一件事是：
+If you are coming from the Chapter 11 Natural Language Processing (elective track) main line, the most important thing to notice in this chapter is:
 
-- 它不是在重复 11 自然语言处理（方向选修）
-- 而是在给 7 大模型原理、Prompt 与微调后面的 LLM 原理、预训练和调用，补一套最小共同底座
+- It is not repeating Chapter 11 Natural Language Processing (elective track)
+- Instead, it is adding the minimum shared foundation needed for Chapter 7 on LLM principles, Prompt, and fine-tuning, as well as the later sections on LLM principles, pre-training, and model usage
 
-所以这一章真正的定位是：
+So the real position of this chapter is:
 
-> **在进入大模型原理前，先把 tokenizer、embedding、预训练模型这些最低限度的文本抓手重新压实。**
+> **Before entering LLM principles, first strengthen the minimum text-handling tools: tokenizer, embedding, and pre-trained models.**
 
-## 这一章的主线
+## The Main Thread of This Chapter
 
-![NLP 速成章节关系图](/img/course/ch07-nlp-crash-chapter-flow.png)
+![NLP crash course chapter flowchart](/img/course/ch07-nlp-crash-chapter-flow-en.png)
 
-这一章学稳后，你再看大模型训练和调用，心里会更有抓手。
+Once you learn this chapter solidly, it will be much easier to understand LLM training and usage.
 
-## 这一章更适合新人的学习顺序
+## A Better Learning Order for Beginners
 
-1. 先看 tokenizer  
-   先把“文本怎么切成模型能吃的单位”看清楚。
+1. Start with tokenizer
+   First make sure you understand how text is split into units that a model can process.
 
-2. 再看 embedding  
-   先把“词或 token 怎么变成向量”接起来。
+2. Then look at embedding
+   Connect the idea of how words or tokens are turned into vectors.
 
-3. 再看预训练模型速览  
-   这时你更容易理解不同模型为什么共享某些底层结构。
+3. Then review pre-trained models
+   At this point, it becomes easier to understand why different models share some underlying structures.
 
-4. 最后看 Hugging Face  
-   再把前面这些对象真正落到库调用上。
+4. Finally, look at Hugging Face
+   Then map all of the above concepts to actual library calls.
 
-## 这一章最该先抓住什么
+## What You Should Focus on First
 
-- 这一章不是重学 NLP，而是在给大模型主线补最小可用文本底座
-- tokenizer 和 embedding 会成为后面所有 LLM 调用和训练的入口对象
-- 预训练模型速览是后面进入 LLM 概览与 Transformer 深入的前置抓手
+- This chapter is not about relearning NLP, but about adding the minimum usable text foundation for the LLM track
+- tokenizer and embedding will become the entry objects for all later LLM usage and training
+- the pre-trained model overview is the prerequisite bridge to later LLM overviews and deeper Transformer study
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus on the main thread and the smallest runnable examples. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how to run the minimum project, you can move forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering skills: pay attention to edge cases, failure examples, evaluation methods, code reproducibility, and how it connects to earlier and later stages. After reading, it is best to turn the content of this chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study style | Recommended time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s smallest project outcome |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one cause of errors, poor results, or misunderstanding |
+| What can you document after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
+## Small Project Outcome for This Chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimum exercise: choose the most core concept or tool from this chapter and create something runnable, screenshot-ready, and ready to be included in a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stages before and after it, and complete the minimum version of the chapter’s small project outcome.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common error, one debugging process, or one result improvement, that means you are no longer just “reading the content” — you are turning this chapter into your own project experience.

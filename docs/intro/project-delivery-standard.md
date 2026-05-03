@@ -1,87 +1,87 @@
 ---
 sidebar_position: 16
-title: "项目页交付标准"
-description: "统一各阶段项目页的 README、运行方式、示例输入输出、评估方式、失败样本和下一步计划要求。"
-keywords: [项目页模板, README标准, 项目交付, 作品集, AI项目]
+title: "Project Delivery Standard"
+description: "Standardize the README, run instructions, example inputs/outputs, evaluation method, failure cases, and next-step plan for project pages at each stage."
+keywords: [project page template, README standard, project delivery, portfolio, AI project]
 ---
 
-# 项目页交付标准
+# Project Delivery Standard
 
-课程里的项目页不应该只告诉学习者“做什么功能”，还应该告诉他们“交付什么证据”。一个项目如果没有运行方式、示例输入输出、评估方式和失败样本，就很难从练习变成作品集。
+Project pages in this course should not only tell learners “what features to build,” but also “what evidence to deliver.” If a project does not include run instructions, example inputs/outputs, evaluation methods, or failure cases, it is hard to turn it from an exercise into a portfolio piece.
 
-## 一图读懂：项目页交付闭环
+## One-Chart Overview: The Project Delivery Loop
 
 ```mermaid
 flowchart LR
-  A["项目目标"] --> B["运行方式"]
-  B --> C["示例输入输出"]
-  C --> D["评估方式"]
-  D --> E["失败样本"]
-  E --> F["下一步计划"]
+  A["Project goal"] --> B["Run instructions"]
+  B --> C["Example inputs/outputs"]
+  C --> D["Evaluation method"]
+  D --> E["Failure cases"]
+  E --> F["Next-step plan"]
 ```
 
-| 如果只能先补 3 件事 | 原因 |
+| If you can only add 3 things first | Reason |
 |---|---|
-| 运行方式 | 让别人能复现 |
-| 示例输入输出 | 让别人知道项目实际效果 |
-| 失败样本 | 证明你理解系统边界 |
+| Run instructions | So others can reproduce it |
+| Example inputs/outputs | So others can see the actual result |
+| Failure cases | To prove you understand the system limits |
 
-## 项目页推荐结构
+## Recommended Project Page Structure
 
-| 模块 | 要回答的问题 | 最低要求 |
+| Module | Question it should answer | Minimum requirement |
 |---|---|---|
-| 项目目标 | 这个项目解决什么问题 | 说明用户输入、系统输出和使用场景 |
-| 运行方式 | 别人如何复现 | 给出安装依赖、运行命令和环境变量说明 |
-| 示例输入输出 | 项目实际长什么样 | 至少展示一个真实输入和对应输出 |
-| 项目结构 | 文件如何组织 | 列出核心源码、数据、日志和报告目录 |
-| 方法说明 | 为什么这样做 | 说明数据、模型、Prompt、RAG、Agent 或工具选择 |
-| 评估方式 | 怎么判断效果 | 写清指标、baseline、测试集或人工检查标准 |
-| 失败样本 | 哪里还不稳定 | 至少记录 1～3 个失败案例和可能原因 |
-| 下一步计划 | 如何迭代 | 给出下一版准备改什么，以及为什么 |
+| Project goal | What problem does this project solve? | Explain user input, system output, and usage scenario |
+| Run instructions | How can others reproduce it? | Provide dependency installation, run commands, and environment variable notes |
+| Example inputs/outputs | What does the project actually look like? | Show at least one real input and the corresponding output |
+| Project structure | How are files organized? | List core source code, data, logs, and report directories |
+| Method explanation | Why was it done this way? | Explain the choice of data, model, Prompt, RAG, Agent, or tools |
+| Evaluation method | How do we judge the result? | Clearly state metrics, baseline, test set, or manual review criteria |
+| Failure cases | Where is it still unstable? | Record at least 1–3 failure cases and possible causes |
+| Next-step plan | How will it be iterated? | State what will be changed in the next version and why |
 
-项目越接近课程后半段，就越应该强调工程闭环。RAG 项目要有检索日志和引用检查，Agent 项目要有 trace 和权限边界，多模态项目要有素材来源和审核清单。
+The closer a project is to the second half of the course, the more it should emphasize an engineering loop. RAG projects should include retrieval logs and citation checks, Agent projects should include traces and permission boundaries, and multimodal projects should include material sources and a review checklist.
 
-## README 最小验收
+## Minimum README Acceptance Criteria
 
-每个阶段项目的 README 至少应该能让另一个人回答：这个项目是做什么的，怎么运行，输入输出是什么，当前效果怎样，哪里会失败，下一步准备怎么改。
+For each stage of a project, the README should at least allow another person to answer: what this project does, how to run it, what the inputs and outputs are, how well it currently works, where it fails, and what will be changed next.
 
 ~~~md
-# 项目名称
+# Project Name
 
-## 项目目标
+## Project Goal
 
-## 运行方式
+## Run Instructions
 
-## 示例输入输出
+## Example Inputs/Outputs
 
-## 项目结构
+## Project Structure
 
-## 方法说明
+## Method Explanation
 
-## 评估方式
+## Evaluation Method
 
-## 失败样本
+## Failure Cases
 
-## 下一步计划
+## Next-Step Plan
 ~~~
 
-如果项目涉及 LLM、RAG 或 Agent，还应该额外说明 Prompt 版本、模型调用配置、检索配置、工具 schema、日志字段和安全边界。
+If the project involves LLM, RAG, or Agent, it should also explain the Prompt version, model call configuration, retrieval configuration, tool schema, log fields, and safety boundaries.
 
-## 不同类型项目的补充要求
+## Additional Requirements for Different Project Types
 
-| 项目类型 | 额外证据 | 常见不合格信号 |
+| Project type | Extra evidence | Common signs of failure |
 |---|---|---|
-| Python 小工具 | 命令行参数、文件读写样例、异常处理 | 只能在作者电脑上跑，没有示例输入 |
-| 数据分析项目 | 数据字典、清洗记录、图表结论、局限性 | 只有图，没有解释和数据质量说明 |
-| 机器学习项目 | baseline、指标、数据划分、错误分析 | 只报告最高分，不说明评估方式 |
-| 深度学习项目 | 训练曲线、配置、checkpoint、失败样本 | loss 截图存在，但无法复现实验 |
-| Prompt 项目 | Prompt 版本、固定测试样本、结构化校验 | 只展示一次成功输出 |
-| RAG 项目 | chunks、retrieval logs、eval questions、citation check | 答案看似正确但引用不支持 |
-| Agent 项目 | tools schema、agent traces、max_steps、人工确认 | Agent 做了什么无法回放 |
-| 多模态项目 | 素材来源、Prompt 版本、审核清单、导出结果 | 只展示生成图，不说明来源和使用边界 |
+| Python utility | Command-line arguments, file read/write examples, exception handling | Only runs on the author's computer, no example input |
+| Data analysis project | Data dictionary, cleaning records, chart conclusions, limitations | Only charts, no explanation or data quality notes |
+| Machine learning project | baseline, metrics, data split, error analysis | Only reports the highest score, no explanation of evaluation method |
+| Deep learning project | training curves, configuration, checkpoint, failure cases | Loss screenshots exist, but experiments cannot be reproduced |
+| Prompt project | Prompt version, fixed test samples, structured validation | Only shows one successful output |
+| RAG project | chunks, retrieval logs, eval questions, citation check | Answers look correct, but the citations do not support them |
+| Agent project | tools schema, agent traces, max_steps, human confirmation | Impossible to replay what the Agent did |
+| Multimodal project | material sources, Prompt version, review checklist, exported results | Only generated images are shown, with no source or usage boundary explained |
 
-## 项目收口 Checklist
+## Project Completion Checklist
 
-提交阶段项目之前，建议逐项检查：README 是否能独立阅读，运行命令是否可复制，示例输入输出是否真实，评估方式是否明确，失败样本是否记录，项目限制是否写清，下一步计划是否具体。
+Before submitting a stage project, it is recommended to check item by item: can the README be read independently, are the run commands copyable, are the example inputs/outputs real, is the evaluation method clear, are failure cases recorded, are project limitations explained, and is the next-step plan specific?
 
-如果一个项目暂时还不完整，也可以先按“最小闭环”提交。重要的是每次迭代都留下证据：本次新增什么、验证了什么、失败在哪里、下一步为什么这样改。
+If a project is still incomplete for now, it can still be submitted using a “minimum closed loop” approach. The important thing is to leave evidence in each iteration: what was added this time, what was verified, where it failed, and why the next change should be made that way.

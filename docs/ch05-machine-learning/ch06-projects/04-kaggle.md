@@ -1,76 +1,76 @@
 ---
-title: "6.5 Kaggle 竞赛实战"
+title: "6.5 Kaggle Competition Practice"
 sidebar_position: 22
-description: "Kaggle 平台入门、竞赛流程与技巧、参加入门级竞赛"
-keywords: [Kaggle, 竞赛, Titanic, 数据科学竞赛, Notebook, 排行榜]
+description: "Kaggle platform basics, competition workflow and techniques, getting started with beginner competitions"
+keywords: [Kaggle, competition, Titanic, data science competition, Notebook, leaderboard]
 ---
 
-# Kaggle 竞赛实战（选修）
+# Kaggle Competition Practice (Elective)
 
-![Kaggle 竞赛提交闭环图](/img/course/kaggle-submission-loop.png)
+![Kaggle competition submission loop diagram](/img/course/kaggle-submission-loop-en.png)
 
-:::tip 本节定位
-Kaggle 是全球最大的数据科学竞赛平台。通过参加入门竞赛，你可以把之前学到的所有技能**串联起来**，并向真实的评分系统验证。
+:::tip Section focus
+Kaggle is the world’s largest data science competition platform. By joining a beginner competition, you can **connect** all the skills you learned earlier and verify them against a real scoring system.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 了解 Kaggle 平台和竞赛流程
-- 学会参加入门级竞赛（Titanic）
-- 学习优秀 Notebook 的技巧
+- Understand the Kaggle platform and competition workflow
+- Learn how to participate in a beginner-level competition (Titanic)
+- Learn techniques from high-quality Notebooks
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-Kaggle 最容易让新人学歪的地方是：只盯着排行榜，不知道自己到底在练什么。
+The easiest way for beginners to go wrong on Kaggle is to focus only on the leaderboard and not know what they are actually practicing.
 
-更好的理解方式是：
+A better way to understand it is:
 
 ```mermaid
 flowchart LR
-    A["竞赛数据"] --> B["EDA"]
-    B --> C["特征工程"]
-    C --> D["建 baseline"]
-    D --> E["交叉验证"]
-    E --> F["提交"]
-    F --> G["根据结果继续迭代"]
+    A["Competition data"] --> B["EDA"]
+    B --> C["Feature engineering"]
+    C --> D["Build a baseline"]
+    D --> E["Cross-validation"]
+    E --> F["Submit"]
+    F --> G["Keep iterating based on results"]
 ```
 
-所以这一节最重要的不是“冲多高分”，而是把前面学过的整条 ML 工作流放进一个真实评测环境。
+So the most important thing in this section is not “how high a score can you get,” but how to put the entire ML workflow you learned earlier into a real evaluation environment.
 
-## 这一节真正要练什么
+## What You Really Need to Practice Here
 
-Kaggle 对新人最有价值的，其实不是“我排到第几名”，而是：
+What is most valuable for beginners on Kaggle is not really “what rank did I get,” but:
 
-- 第一次在真实数据和真实评测规则下做完整项目
-- 学会把 baseline、交叉验证、特征工程和提交记录串成闭环
-- 学会分清“本地验证好”和“排行榜分数好”是不是一回事
+- Completing a full project for the first time with real data and real evaluation rules
+- Learning to turn baseline, cross-validation, feature engineering, and submission records into a closed loop
+- Learning to tell whether “good local validation” and “good leaderboard score” are actually the same thing
 
-## 一、Kaggle 平台入门
+## 1. Kaggle Platform Basics
 
-### 1.1 核心功能
+### 1.1 Core Features
 
-| 功能 | 说明 |
+| Feature | Description |
 |------|------|
-| **Competitions** | 竞赛（入门/基础/奖金赛） |
-| **Datasets** | 海量免费数据集 |
-| **Notebooks** | 在线 Jupyter 环境（GPU 免费） |
-| **Discussion** | 讨论区（学习他人思路） |
-| **Learn** | 官方免费课程 |
+| **Competitions** | Competitions (beginner / standard / prize) |
+| **Datasets** | Massive free datasets |
+| **Notebooks** | Online Jupyter environment (free GPU) |
+| **Discussion** | Forum (learn from others’ ideas) |
+| **Learn** | Official free courses |
 
-### 1.2 竞赛流程
+### 1.2 Competition Workflow
 
 ```mermaid
 flowchart LR
-    A["加入竞赛"] --> B["下载数据"]
-    B --> C["EDA 探索"]
-    C --> D["特征工程"]
-    D --> E["训练模型"]
-    E --> F["生成提交文件"]
-    F --> G["上传 submission.csv"]
-    G --> H["查看排行榜"]
-    H --> |"改进"|C
+    A["Join competition"] --> B["Download data"]
+    B --> C["EDA exploration"]
+    C --> D["Feature engineering"]
+    D --> E["Train model"]
+    E --> F["Generate submission file"]
+    F --> G["Upload submission.csv"]
+    G --> H["Check leaderboard"]
+    H --> |"Improve"|C
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#fff3e0,stroke:#e65100,color:#333
@@ -79,9 +79,9 @@ flowchart LR
 
 ---
 
-## 二、入门竞赛：Titanic 生存预测
+## 2. Beginner Competition: Titanic Survival Prediction
 
-### 2.1 完整解题流程
+### 2.1 Full Solution Workflow
 
 ```python
 import pandas as pd
@@ -93,15 +93,15 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 
-# 1. 加载数据（Kaggle 下载 或 seaborn）
+# 1. Load data (download from Kaggle or use seaborn)
 import seaborn as sns
 df = sns.load_dataset('titanic').dropna(subset=['embarked'])
 
-# 2. 特征工程
+# 2. Feature engineering
 df['family_size'] = df['sibsp'] + df['parch'] + 1
 df['is_alone'] = (df['family_size'] == 1).astype(int)
 
-# 3. 定义特征
+# 3. Define features
 num_features = ['age', 'fare', 'family_size']
 cat_features = ['sex', 'embarked', 'class']
 all_features = num_features + cat_features
@@ -109,7 +109,7 @@ all_features = num_features + cat_features
 X = df[all_features]
 y = df['survived']
 
-# 4. 构建 Pipeline
+# 4. Build Pipeline
 preprocessor = ColumnTransformer([
     ('num', Pipeline([
         ('imputer', SimpleImputer(strategy='median')),
@@ -121,9 +121,9 @@ preprocessor = ColumnTransformer([
     ]), cat_features),
 ])
 
-# 5. 模型对比
+# 5. Model comparison
 models = {
-    '随机森林': RandomForestClassifier(n_estimators=200, random_state=42),
+    'Random Forest': RandomForestClassifier(n_estimators=200, random_state=42),
     'GBDT': GradientBoostingClassifier(n_estimators=200, random_state=42),
 }
 
@@ -136,22 +136,22 @@ for name, model in models.items():
     print(f"{name}: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.1.1 第一次参加 Kaggle，最稳的目标是什么
+### 2.1.1 What Is the Safest Goal for Your First Kaggle Competition?
 
-第一次玩 Kaggle，不建议把目标定成“冲榜”。更稳的目标是：
+When you play Kaggle for the first time, it is not recommended to set your goal as “ranking up.” A safer goal is:
 
-1. 提交出第一份合法结果
-2. 做出一个清楚的 baseline
-3. 至少完成两轮有记录的改进
-4. 能说清自己每次为什么提升或为什么没提升
+1. Submit your first valid result
+2. Build a clear baseline
+3. Complete at least two rounds of documented improvements
+4. Be able to explain why each change improved the score or why it did not
 
-做到这四点，你已经学到最核心的东西了。
+If you can do these four things, you have already learned the most important parts.
 
-### 2.2 生成提交文件
+### 2.2 Generate a Submission File
 
 ```python
-# Kaggle 竞赛中的标准提交格式
-# 假设 test_df 是测试集
+# Standard submission format in Kaggle competitions
+# Assume test_df is the test set
 # pipe.fit(X_train, y_train)
 # predictions = pipe.predict(test_df[all_features])
 #
@@ -160,108 +160,108 @@ for name, model in models.items():
 #     'Survived': predictions
 # })
 # submission.to_csv('submission.csv', index=False)
-# print(f"提交文件: {submission.shape}")
+# print(f"Submission file shape: {submission.shape}")
 ```
 
 ---
 
-## 三、竞赛提分技巧
+## 3. Techniques for Improving Competition Scores
 
-### 3.1 分数提升路径
+### 3.1 Score Improvement Path
 
-| 阶段 | 重点 | 预期提升 |
+| Stage | Focus | Expected Improvement |
 |------|------|---------|
-| 基线 | 简单模型 + 默认参数 | — |
-| 特征工程 | 构造新特征、编码优化 | 显著 |
-| 模型选择 | 试多种模型 | 中等 |
-| 超参数调优 | GridSearch / Optuna | 小幅 |
-| 模型融合 | Stacking / Blending | 小幅但稳定 |
+| Baseline | Simple model + default parameters | — |
+| Feature engineering | Create new features, optimize encoding | Significant |
+| Model selection | Try multiple models | Moderate |
+| Hyperparameter tuning | GridSearch / Optuna | Small |
+| Model ensembling | Stacking / Blending | Small but stable |
 
-### 3.3 Kaggle 最容易让新人踩的坑
+### 3.3 Common Pitfalls for Beginners on Kaggle
 
-- 在公开榜单上反复试，结果过拟合排行榜
-- 没有本地交叉验证，只盯线上分数
-- 一次改很多东西，最后不知道是哪里带来的提升
-- 直接抄高分 Notebook，却说不清自己到底学到了什么
+- Repeatedly trying things on the public leaderboard and overfitting to it
+- Having no local cross-validation and only watching the online score
+- Changing too many things at once, so you cannot tell what caused the improvement
+- Copying a high-scoring Notebook directly, without being able to explain what you actually learned
 
-所以更稳的做法是：
+So a safer approach is:
 
-- 先把本地验证流程搭稳
-- 每次只改一个主要因素
-- 把每次提交都做成一条实验记录
+- First make your local validation process solid
+- Change only one major factor at a time
+- Turn every submission into an experiment record
 
-### 3.2 学习优秀 Notebook
+### 3.2 Learn from High-Quality Notebooks
 
-| 看什么 | 为什么 |
+| What to Look At | Why |
 |--------|--------|
-| 投票最多的 Notebook | 社区认可的思路 |
-| EDA 型 Notebook | 学习数据探索技巧 |
-| 高分选手的分享 | 学习特征工程和融合策略 |
-| Discussion 区 | 了解数据泄露、评分陷阱等 |
+| Most upvoted Notebooks | Community-approved ideas |
+| EDA Notebooks | Learn data exploration techniques |
+| High-ranking competitors’ shared notebooks | Learn feature engineering and ensembling strategies |
+| Discussion section | Understand data leakage, scoring pitfalls, and more |
 
 ---
 
-## 四、推荐入门竞赛
+## 4. Recommended Beginner Competitions
 
-| 竞赛 | 类型 | 难度 | 说明 |
+| Competition | Type | Difficulty | Description |
 |------|------|------|------|
-| **Titanic** | 分类 | 入门 | 经典入门，社区资源丰富 |
-| **House Prices** | 回归 | 入门 | 房价预测，特征工程练习 |
-| **Digit Recognizer** | 图像分类 | 入门 | MNIST，可尝试简单 CNN |
-| **Spaceship Titanic** | 分类 | 入门 | Titanic 升级版 |
+| **Titanic** | Classification | Beginner | Classic starter competition with rich community resources |
+| **House Prices** | Regression | Beginner | House price prediction, good for feature engineering practice |
+| **Digit Recognizer** | Image classification | Beginner | MNIST, can try a simple CNN |
+| **Spaceship Titanic** | Classification | Beginner | An upgraded version of Titanic |
 
 ---
 
-## 新人参加 Kaggle 最稳的方式
+## The Safest Way for Beginners to Participate in Kaggle
 
-1. 只选入门题
-2. 先做 baseline，不追复杂融合
-3. 每次只改一件事
-4. 记录每次提交改了什么、为什么分数变了
+1. Choose only beginner-level tasks
+2. Build a baseline first, and do not chase complex ensembling
+3. Change only one thing at a time
+4. Record what changed in each submission and why the score changed
 
-这样你学到的是方法，不只是“抄一个高分 Notebook”。
+This way, you learn a method, not just how to copy a high-scoring Notebook.
 
-## 如果把 Kaggle 当成课程训练场，你该怎样用它
+## If You Treat Kaggle as a Course Training Ground, How Should You Use It?
 
-一个很推荐的用法是：
+A very recommended way is:
 
-1. 用 Kaggle 找到真实题目
-2. 用课程里的方法搭 baseline
-3. 用课程里的评估与特征工程思路迭代
-4. 最后把结果整理成自己的项目复盘
+1. Use Kaggle to find a real-world task
+2. Use the methods from the course to build a baseline
+3. Iterate using the evaluation and feature engineering ideas from the course
+4. Finally, organize the results into your own project review
 
-这样 Kaggle 就不会把你带偏成“只会追榜”，而会变成第 5 站最好的实战放大器。
+In this way, Kaggle will not lead you into “just chasing rankings,” but instead become the best practical amplifier for the fifth stage.
 
 ---
 
 
 
-## 版本路线建议
+## Suggested Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimum loop working | Can input, process, and output, while keeping one set of examples |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not try to make everything complete from the start. Each time you level up, write into the README what new capabilities were added, how they were verified, and what issues remain.
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key Point | Description |
 |------|------|
-| 从入门竞赛开始 | Titanic / House Prices |
-| 先建基线再优化 | 不要一上来就搞复杂模型 |
-| 多看优秀 Notebook | 站在巨人的肩膀上 |
-| 特征工程最重要 | 比调参的回报大得多 |
-| 坚持提交和迭代 | 每次改进都提交看效果 |
+| Start with beginner competitions | Titanic / House Prices |
+| Build a baseline before optimizing | Do not jump into complex models right away |
+| Study excellent Notebooks | Learn from the best |
+| Feature engineering matters most | It gives much more return than tuning |
+| Keep submitting and iterating | Submit every improvement and check the effect |
 
-## 动手挑战
+## Hands-on Challenges
 
-### 挑战 1：Titanic 冲刺 0.80+
+### Challenge 1: Titanic Sprint to 0.80+
 
-在 Kaggle 注册账号，参加 Titanic 竞赛，用本课程学到的所有技能（特征工程 + Pipeline + 模型调优）尝试达到 0.80+ 的分数。
+Register an account on Kaggle, join the Titanic competition, and use all the skills learned in this course (feature engineering + Pipeline + model tuning) to try to reach a score of 0.80+.
 
-### 挑战 2：House Prices 实战
+### Challenge 2: House Prices Practice
 
-参加 Kaggle 的 House Prices 竞赛，用更大的数据集练习回归任务，重点练习缺失值处理和高维类别特征编码。
+Join Kaggle’s House Prices competition, use a larger dataset to practice regression tasks, and focus on missing value handling and high-dimensional categorical feature encoding.

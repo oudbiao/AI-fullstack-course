@@ -1,104 +1,104 @@
 ---
-title: "5.3 项目：RAG+微调综合系统"
+title: "5.3 Project: Integrated RAG + Fine-tuning System"
 sidebar_position: 22
-description: "从为什么单独 RAG 或单独微调都不够，到如何把两者组合，设计一个更完整的领域问答系统。"
+description: "From why using only RAG or only fine-tuning is not enough, to how to combine them to design a more complete domain Q&A system."
 keywords: [RAG, finetuning, domain adaptation, hybrid system, LLM project]
 ---
 
-# 项目：RAG+微调综合系统
+# Project: Integrated RAG + Fine-tuning System
 
-:::tip 本节定位
-前面你已经分别学过：
+:::tip Section overview
+So far, you have learned them separately:
 
-- RAG：让模型先查资料再回答
-- 微调：让模型更适应某类任务或风格
+- RAG: let the model look up information before answering
+- Fine-tuning: make the model better fit a certain task or style
 
-这一节要解决的问题是：
+This section solves this question:
 
-> **如果一个领域系统既需要外部知识，又需要特定表达风格和任务能力，该怎么办？**
+> **If a domain system needs both external knowledge and a specific response style plus task capability, what should we do?**
 
-这时，RAG 和微调往往不是替代关系，而是组合关系。
+At this point, RAG and fine-tuning are usually not a replacement relationship, but a combination relationship.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么“只做 RAG”或“只做微调”有时都不够
-- 学会把领域问答系统拆成 RAG 层和微调层
-- 设计一个可解释的 RAG+微调项目方案
-- 跑通一个最小的组合式项目骨架
+- Understand why “only doing RAG” or “only doing fine-tuning” is sometimes not enough
+- Learn how to split a domain Q&A system into a RAG layer and a fine-tuning layer
+- Design an explainable RAG + fine-tuning project plan
+- Run a minimal combined project scaffold
 
 ---
 
-## 一、为什么要把 RAG 和微调组合起来？
+## 1. Why combine RAG and fine-tuning?
 
-### 1.1 单独 RAG 的优点和局限
+### 1.1 The strengths and limitations of RAG alone
 
-RAG 的优点：
+The advantages of RAG:
 
-- 知识可更新
-- 可引用来源
-- 不必重新训练模型
+- Knowledge can be updated
+- Sources can be cited
+- No need to retrain the model
 
-但它也有局限：
+But it also has limitations:
 
-- 模型未必懂你的领域表达
-- 检索到了也未必会答得符合业务格式
-- 复杂任务时，模型的“回答习惯”未必够稳
+- The model may not understand your domain language
+- Even if it retrieves the right content, it may not answer in the required business format
+- For complex tasks, the model’s “answering habits” may not be stable enough
 
-### 1.2 单独微调的优点和局限
+### 1.2 The strengths and limitations of fine-tuning alone
 
-微调的优点：
+The advantages of fine-tuning:
 
-- 能让模型更懂特定任务形式
-- 输出风格更稳定
-- 指令跟随更贴合业务
+- It can make the model better understand specific task formats
+- Output style becomes more stable
+- Instruction following fits business needs better
 
-但它也有局限：
+But it also has limitations:
 
-- 新知识更新没那么灵活
-- 很难靠微调记住所有细节文档
-- 成本更高
+- New knowledge is not updated as flexibly
+- It is hard to make the model memorize all detailed documents through fine-tuning alone
+- The cost is higher
 
-### 1.3 所以它们经常是互补关系
+### 1.3 So they are often complementary
 
-可以先用一句话记住：
+You can remember this in one sentence:
 
-> **RAG 负责补知识，微调负责补行为。**
+> **RAG adds knowledge, fine-tuning adds behavior.**
 
-这正是组合式系统的核心逻辑。
+That is the core logic of a combined system.
 
-![RAG 与微调职责拆分图](/img/course/ch08-rag-finetune-responsibility-split-map.png)
+![RAG and fine-tuning responsibility split diagram](/img/course/ch08-rag-finetune-responsibility-split-map-en.png)
 
-:::tip 读图提示
-左边看 RAG：知识更新、来源引用、外部文档；右边看 fine-tuning：回答风格、格式稳定、业务口径。两层职责分清，系统才好评估和维护。
+:::tip Reading guide
+Look at the left side for RAG: knowledge updates, source citations, external documents. Look at the right side for fine-tuning: response style, stable formatting, business wording. When the responsibilities are clearly separated, the system becomes easier to evaluate and maintain.
 :::
 
 ---
 
-## 二、这个项目到底在做什么？
+## 2. What is this project actually doing?
 
-我们把目标定成一个领域问答助手，比如：
+We define the goal as a domain Q&A assistant, for example:
 
-- 面向企业内部政策文档
-- 回答时要稳定引用来源
-- 输出格式必须规范
-- 某些问题需要用固定业务口径回答
+- For internal company policy documents
+- Answers must reliably cite sources
+- Output format must be standardized
+- Some questions need to be answered with fixed business wording
 
-也就是说，这个系统既要：
+In other words, this system needs to:
 
-- 查得到知识
-- 又要答得像该领域系统
+- Find the knowledge
+- And answer like a domain system should
 
 ---
 
-## 三、先画出系统结构
+## 3. First draw the system structure
 
 ```mermaid
 flowchart LR
-    A["用户问题"] --> B["检索器"]
-    B --> C["相关文档块"]
-    C --> D["微调后的回答模型"]
-    D --> E["规范化输出"]
+    A["User question"] --> B["Retriever"]
+    B --> C["Relevant document chunks"]
+    C --> D["Fine-tuned answer model"]
+    D --> E["Standardized output"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -107,27 +107,27 @@ flowchart LR
     style E fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 3.2 这张图真正重要的地方
+### 3.2 What really matters in this diagram
 
-不是“组件多”，而是职责清楚：
+It is not that “there are many components,” but that the responsibilities are clear:
 
-- 检索器负责找资料
-- 微调模型负责按业务方式组织答案
+- The retriever is responsible for finding information
+- The fine-tuned model is responsible for organizing the answer in a business-friendly way
 
-这能让系统更可解释，也更容易迭代。
+This makes the system more explainable and easier to iterate on.
 
 ---
 
-## 四、一个最小知识库和检索器
+## 4. A minimal knowledge base and retriever
 
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 kb = [
-    {"id": "doc1", "text": "退款政策：购买后 7 天内且学习进度低于 20% 可退款。"},
-    {"id": "doc2", "text": "证书政策：完成项目并通过测试后可获得证书。"},
-    {"id": "doc3", "text": "客服处理规范：回答时需要先说明政策依据，再给出结论。"}
+    {"id": "doc1", "text": "Refund policy: Refunds are available within 7 days of purchase if learning progress is below 20%."},
+    {"id": "doc2", "text": "Certificate policy: A certificate is issued after completing the project and passing the test."},
+    {"id": "doc3", "text": "Customer support rule: When answering, first explain the policy basis, then give the conclusion."}
 ]
 
 vectorizer = TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b")
@@ -139,58 +139,58 @@ def retrieve(query, top_k=2):
     top_idx = scores.argsort()[::-1][:top_k]
     return [kb[i] for i in top_idx]
 
-print(retrieve("退款条件是什么"))
+print(retrieve("What are the refund conditions"))
 ```
 
-这个检索器本身不复杂，但它已经是组合系统的第一半。
+This retriever is not complicated, but it is already the first half of the combined system.
 
 ---
 
-## 五、再模拟一个“微调后的回答风格”
+## 5. Simulate a “fine-tuned” answer style
 
-在真实项目里，这一步可能来自：
+In a real project, this step might come from:
 
-- 指令微调
+- Instruction tuning
 - LoRA / QLoRA
-- 监督数据集训练
+- Supervised dataset training
 
-为了让代码能直接运行，这里我们先用规则模拟“已经被训练过的业务输出风格”。
+To make the code runnable directly, here we first simulate a “trained business output style” with rules.
 
 ```python
 def domain_answer_style(question, retrieved_docs):
     evidence = " ".join(doc["text"] for doc in retrieved_docs)
 
-    if "退款" in question:
+    if "refund" in question:
         return {
-            "answer": "根据现行退款政策，购买后 7 天内且学习进度低于 20% 的用户可申请退款。",
-            "reasoning_style": "先政策后结论",
+            "answer": "According to the current refund policy, users may request a refund within 7 days of purchase if their learning progress is below 20%.",
+            "reasoning_style": "policy first, conclusion second",
             "evidence": evidence
         }
 
-    if "证书" in question:
+    if "certificate" in question:
         return {
-            "answer": "根据证书政策，完成项目并通过测试后可以获得证书。",
-            "reasoning_style": "先政策后结论",
+            "answer": "According to the certificate policy, a certificate can be obtained after completing the project and passing the test.",
+            "reasoning_style": "policy first, conclusion second",
             "evidence": evidence
         }
 
     return {
-        "answer": "当前没有找到足够匹配的业务规则。",
-        "reasoning_style": "谨慎拒答",
+        "answer": "No sufficiently matching business rule was found at the moment.",
+        "reasoning_style": "cautious refusal",
         "evidence": evidence
     }
 ```
 
-### 5.2 为什么这个模拟是有意义的？
+### 5.2 Why is this simulation meaningful?
 
-因为它在帮你理解：
+Because it helps you understand:
 
-- RAG 解决的是“知道什么”
-- 微调解决的是“怎么答”
+- RAG solves “what does the system know?”
+- Fine-tuning solves “how should it answer?”
 
 ---
 
-## 六、把两部分真正串起来
+## 6. Connect the two parts for real
 
 ```python
 def rag_plus_finetune_system(question):
@@ -202,82 +202,82 @@ def rag_plus_finetune_system(question):
         **result
     }
 
-result = rag_plus_finetune_system("退款条件是什么？")
+result = rag_plus_finetune_system("What are the refund conditions?")
 print(result["question"])
 print(result["answer"])
 print("evidence:", result["evidence"])
 ```
 
-### 6.2 这个系统已经说明了什么？
+### 6.2 What does this system already show?
 
-它已经说明：
+It already shows:
 
-> 组合系统不是把两种技术硬拼，而是让它们各自做最擅长的部分。 
-
----
-
-## 七、真正项目里，微调通常微调什么？
-
-### 7.1 不是为了“记住所有文档”
-
-很多新人会误以为：
-
-> 微调后模型就该把知识库都背下来
-
-但更常见、更现实的目标其实是：
-
-- 学会领域术语风格
-- 学会输出格式
-- 学会业务回答模板
-- 学会某类任务的固定结构
-
-### 7.2 举个例子
-
-你可能希望模型学会：
-
-- “先引用政策，再给结论”
-- “不确定时明确拒答”
-- “所有回答都输出标准字段”
-
-这类能力就很适合靠微调或至少靠强监督式训练来强化。
+> A combined system is not about forcing two technologies together, but about letting each do the part it is best at.
 
 ---
 
-## 八、一个真正有项目价值的拆分方式
+## 7. What does fine-tuning usually optimize in a real project?
 
-### 8.1 RAG 层负责
+### 7.1 It is not for “memorizing all documents”
 
-- 文档切块
-- 检索
-- 来源引用
-- 知识更新
+Many beginners mistakenly think:
 
-### 8.2 微调层负责
+> After fine-tuning, the model should memorize the whole knowledge base
 
-- 回答风格
-- 输出格式
-- 任务模板
-- 业务术语理解
+But a more common and realistic goal is:
 
-这个职责拆分一清楚，项目的可维护性会好很多。
+- Learn the style of domain terminology
+- Learn the output format
+- Learn business answer templates
+- Learn the fixed structure of certain tasks
+
+### 7.2 For example
+
+You may want the model to learn:
+
+- “Cite the policy first, then give the conclusion”
+- “When uncertain, explicitly refuse to answer”
+- “All answers must output standard fields”
+
+These kinds of capabilities are well suited to fine-tuning, or at least to strong supervised training.
 
 ---
 
-## 九、怎样评估这个综合系统？
+## 8. A project split that is truly valuable
 
-### 9.1 不能只看“答得顺不顺”
+### 8.1 The RAG layer is responsible for
 
-你至少要看两层：
+- Document chunking
+- Retrieval
+- Source citations
+- Knowledge updates
 
-- 检索层：有没有找到对的文档
-- 回答层：输出是否符合业务要求
+### 8.2 The fine-tuning layer is responsible for
 
-### 9.2 一个最小评估思路
+- Response style
+- Output format
+- Task templates
+- Understanding business terminology
+
+Once this responsibility split is clear, the project becomes much easier to maintain.
+
+---
+
+## 9. How do we evaluate this combined system?
+
+### 9.1 You cannot only look at whether the answer sounds smooth
+
+You should check at least two layers:
+
+- Retrieval layer: did it find the right document?
+- Answer layer: does the output meet business requirements?
+
+### 9.2 A minimal evaluation approach
 
 ```python
 eval_data = [
-    {"question": "退款条件是什么", "gold_doc": "doc1", "must_contain": "7 天内"},
-    {"question": "证书如何获得", "gold_doc": "doc2", "must_contain": "通过测试"}
+    {"question": "What are the refund conditions", "gold_doc": "doc1", "must_contain": "7 days"},
+    {"question": "How to get a certificate", "gold_doc": "doc2", "must_contain": "passing the test"}
 ]
 
 for item in eval_data:
@@ -287,54 +287,54 @@ for item in eval_data:
     print(item["question"], "retrieval_hit=", hit, "answer_ok=", good_answer)
 ```
 
-这已经比“只看看 Demo 像不像”前进很多了。
+This is already much better than just saying “the demo looks good.”
 
 ---
 
-## 十、初学者最常踩的坑
+## 10. Common pitfalls for beginners
 
-### 10.1 用微调去解决知识更新问题
+### 10.1 Using fine-tuning to solve knowledge update problems
 
-这通常会很低效。
+This is usually inefficient.
 
-### 10.2 用 RAG 去强行解决输出风格稳定问题
+### 10.2 Using RAG to force stable output style problems
 
-这也不总合适。
+This is not always appropriate either.
 
-### 10.3 两层职责混乱
+### 10.3 Confusing the responsibilities of the two layers
 
-如果你自己都说不清“哪一层在负责什么”，系统后面会很难调。
-
----
-
-## 小结
-
-这一节最重要的不是把 RAG 和微调两个词放在一起，而是理解：
-
-> **RAG+微调综合系统的价值，在于让“知识获取”和“回答行为”分别由最合适的机制负责。**
-
-这才是组合式 LLM 系统真正的工程思路。
+If you cannot clearly explain “which layer is responsible for what,” the system will be hard to debug later.
 
 ---
 
-## 作品集级交付清单
+## Summary
 
-如果你想把这个项目放进作品集，不要只展示“问一句能答一句”。更好的做法是把 RAG 层、回答层、评估层和复盘材料都交付出来。
+The most important point in this section is not simply putting the two words RAG and fine-tuning together, but understanding:
 
-| 交付物 | 最低要求 | 作品集级要求 |
+> **The value of an integrated RAG + fine-tuning system is that knowledge acquisition and answer behavior are handled by the most suitable mechanisms respectively.**
+
+That is the real engineering thinking behind combined LLM systems.
+
+---
+
+## Portfolio-level deliverables checklist
+
+If you want to include this project in your portfolio, do not just show “ask a question, get an answer.” A better approach is to deliver the RAG layer, answer layer, evaluation layer, and postmortem materials together.
+
+| Deliverable | Minimum requirement | Portfolio-level requirement |
 |---|---|---|
-| 知识库样例 | 至少 3～5 条文档片段 | 展示原始资料、切块结果、metadata 字段和来源 |
-| 检索日志 | 能打印命中文档 | 保存 query、top-k、score、source、context 长度 |
-| 回答输出 | 能给出答案 | 答案包含结论、依据、来源和“不足以回答”的兜底 |
-| 评估集 | 2～5 条测试问题 | 20～50 条问题，覆盖同义问法、边界条件和混淆问题 |
-| 失败样本 | 简单记录错误 | 区分检索失败、生成失败、引用失败、格式失败 |
-| README | 能说明怎么运行 | 有架构图、运行命令、示例输入输出、指标和下一步计划 |
+| Knowledge base sample | At least 3–5 document snippets | Show raw materials, chunking results, metadata fields, and sources |
+| Retrieval logs | Can print matched documents | Save query, top-k, score, source, and context length |
+| Answer output | Can provide an answer | Answer includes conclusion, evidence, source, and a fallback for “not enough information” |
+| Evaluation set | 2–5 test questions | 20–50 questions covering paraphrases, boundary cases, and confusing cases |
+| Failure samples | Simple error notes | Separate retrieval failures, generation failures, citation failures, and format failures |
+| README | Can explain how to run it | Includes architecture diagram, run commands, sample inputs/outputs, metrics, and next steps |
 
-这张表的重点是让项目从“技术 Demo”升级成“可解释作品”。别人看你的项目时，不只看它有没有答对，还会看你是否知道系统为什么答对、为什么答错、怎么继续改。
+The key point of this table is to upgrade the project from a “technical demo” to an “explainable project.” People looking at your project will not only check whether it answers correctly, but also whether you know why it answered correctly, why it answered incorrectly, and how to improve it.
 
-## 一个推荐的项目目录结构
+## A recommended project directory structure
 
-你可以把最终项目整理成下面这种结构：
+You can organize the final project like this:
 
 ```text
 rag-domain-assistant/
@@ -356,58 +356,58 @@ rag-domain-assistant/
     └── improvement_record.md
 ```
 
-第一次做时不必一次写满所有文件，但至少要让别人能看见三条线：资料怎么进入系统，问题怎么命中文档，答案怎么被评估。
+When you build it for the first time, you do not need to fill every file immediately. But at minimum, you should let others see three lines clearly: how the materials enter the system, how questions match documents, and how answers are evaluated.
 
-## README 里最该展示什么
+## What should the README show most?
 
-作品集项目的 README 不应该只写“本项目使用了 RAG 和微调”。更有价值的是展示完整闭环。
+A portfolio project README should not just say “this project uses RAG and fine-tuning.” It is more valuable to show the full loop.
 
-| README 模块 | 应该回答的问题 |
+| README module | Question it should answer |
 |---|---|
-| 项目目标 | 这个系统解决什么领域问题，为什么需要 RAG 或微调 |
-| 系统架构 | 用户问题如何经过检索、上下文、回答和引用 |
-| 运行方式 | 如何安装依赖、准备数据、运行问答和评估 |
-| 示例输出 | 输入问题、命中文档、最终答案、来源引用 |
-| 评估结果 | baseline 表现、优化后表现、失败样本 |
-| 技术取舍 | 为什么用 RAG，为什么考虑微调，二者边界是什么 |
-| 后续计划 | 下一步要优化检索、回答风格、成本还是部署 |
+| Project goal | What domain problem does this system solve, and why are RAG or fine-tuning needed? |
+| System architecture | How does the user question flow through retrieval, context, answer, and citation? |
+| How to run | How to install dependencies, prepare data, run Q&A, and run evaluation |
+| Sample output | Input question, matched documents, final answer, source citations |
+| Evaluation results | Baseline performance, improved performance, failure samples |
+| Technical trade-offs | Why use RAG, why consider fine-tuning, and where is the boundary between them |
+| Next steps | What to improve next: retrieval, answer style, cost, or deployment |
 
-一个很小但有效的示例输出可以写成：
+A small but effective sample output can be written like this:
 
 ```text
-问题：退款条件是什么？
-命中文档：doc1 退款政策 score=0.92
-回答：根据退款政策，购买后 7 天内且学习进度低于 20% 可申请退款。
-来源：doc1
-评估：retrieval_hit=true, answer_ok=true, citation_ok=true
+Question: What are the refund conditions?
+Matched document: doc1 refund policy score=0.92
+Answer: According to the refund policy, users may request a refund within 7 days of purchase if their learning progress is below 20%.
+Source: doc1
+Evaluation: retrieval_hit=true, answer_ok=true, citation_ok=true
 ```
 
-## 最小失败样本记录
+## Minimal failure sample record
 
-RAG+微调项目最能体现工程能力的地方，往往不是成功样例，而是失败样例。建议至少记录 3 类失败：
+In a RAG + fine-tuning project, the part that best shows engineering ability is often not the success cases, but the failure cases. It is recommended to record at least 3 types of failures:
 
-| 失败类型 | 现象 | 可能原因 | 下一步 |
+| Failure type | Symptom | Possible cause | Next step |
 |---|---|---|---|
-| 检索失败 | 正确政策没有进入 top-k | chunk 切得不好、关键词不匹配、embedding 不适合 | 调整切块、混合检索、query rewrite |
-| 回答失败 | 检索到了资料，但答案漏掉关键条件 | prompt 约束弱、回答模板不稳 | 强化输出格式、增加 must_contain 检查 |
-| 引用失败 | 答案结论和引用片段对不上 | 引用拼接错误、模型自由发挥 | 做 citation check，要求逐句依据 |
-| 风格失败 | 答案事实对，但不符合业务表达 | 微调数据或示例不足 | 增加格式样例或监督数据 |
+| Retrieval failure | The correct policy does not appear in the top-k results | Poor chunking, keyword mismatch, unsuitable embeddings | Adjust chunking, use hybrid retrieval, query rewrite |
+| Answer failure | The right material was retrieved, but the answer missed key conditions | Weak prompt constraints, unstable answer template | Strengthen output format, add must_contain checks |
+| Citation failure | The answer conclusion does not match the cited passage | Citation concatenation error, model improvisation | Add citation checks, require sentence-level grounding |
+| Style failure | The facts are correct, but the answer does not fit the business style | Fine-tuning data or examples are insufficient | Add more format examples or supervised data |
 
-把失败样本写清楚，会比只贴一个成功截图更有说服力。
+Writing down failure samples clearly is more persuasive than only showing one successful screenshot.
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimal closed loop | Can input, process, and output, and keep one set of examples |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to complete the basic version first. Do not try to make it too large at the beginning. With each version upgrade, write down in the README “what capability was added, how it was verified, and what problems remain.”
 
-## 练习
+## Exercises
 
-1. 给知识库再加两条新文档，观察检索结果是否变化。
-2. 设计一个你自己的“领域回答风格规则”，模拟微调层行为。
-3. 想一想：如果系统检索总是对，但回答格式总乱，你该优先优化 RAG 还是微调？
-4. 用自己的话解释：为什么说“RAG 补知识，微调补行为”？
+1. Add two more documents to the knowledge base and observe whether the retrieval results change.
+2. Design your own “domain answer style rules” to simulate the behavior of the fine-tuning layer.
+3. Think about this: if the system always retrieves the right documents but the answer format is always messy, should you prioritize improving RAG or fine-tuning?
+4. Explain in your own words: why do we say “RAG adds knowledge, fine-tuning adds behavior”?

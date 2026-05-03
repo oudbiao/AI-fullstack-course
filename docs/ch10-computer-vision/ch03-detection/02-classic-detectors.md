@@ -1,153 +1,153 @@
 ---
-title: "3.3 经典检测架构"
+title: "3.3 Classic Detection Architectures"
 sidebar_position: 8
-description: "从 R-CNN、Fast R-CNN 到 Faster R-CNN，理解经典检测架构是怎样一步步把检测变快的。"
+description: "From R-CNN and Fast R-CNN to Faster R-CNN, understand how classic detection architectures gradually made detection faster."
 keywords: [R-CNN, Fast R-CNN, Faster R-CNN, object detection, region proposal]
 ---
 
-# 经典检测架构
+# Classic Detection Architectures
 
-:::tip 本节定位
-经典检测架构最值得学的不是“模型名”，而是它们一路在解决同一个问题：
+:::tip What this section is about
+What is most worth learning about classic detection architectures is not the model names themselves, but the fact that they all solve the same problem step by step:
 
-> **怎么在保证检测质量的同时，把检测速度提上来。**
+> **How can we improve detection speed while still keeping detection quality high?**
 
-R-CNN 家族的发展史，本质上就是“把重复计算越来越多地省掉”的历史。
+The history of the R-CNN family is essentially the history of “eliminating repeated computation” more and more.
 :::
 
-## 学习目标
+## Learning Goals
 
-- 理解 R-CNN 家族为什么重要
-- 理解 region proposal 在检测早期路线中的作用
-- 理解 Fast / Faster R-CNN 分别优化了哪一层瓶颈
-- 建立两阶段检测器的核心直觉
+- Understand why the R-CNN family matters
+- Understand the role of region proposal in early detection pipelines
+- Understand which bottleneck Fast / Faster R-CNN respectively optimized
+- Build the core intuition behind two-stage detectors
 
 ---
 
-## 先建立一张地图
+## First, build a mental map
 
-经典检测架构这节最适合新人的理解顺序不是“背一串模型名”，而是先看清它们在解决同一条问题链：
+For beginners, the best way to understand this section is not to memorize a list of model names, but to first see the shared problem chain they solve:
 
 ```mermaid
 flowchart LR
     A["R-CNN"] --> B["Fast R-CNN"]
     B --> C["Faster R-CNN"]
-    C --> D["不断减少重复计算"]
+    C --> D["Reduce repeated computation step by step"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to answer is:
 
-- 早期检测系统为什么会慢
-- 后续架构到底是在优化哪一层
+- Why early detection systems were slow
+- Which layer each later architecture actually optimized
 
-### 一个更适合新人的总类比
+### A better overall analogy for beginners
 
-你可以把经典检测架构想成逛一个超大商场找目标商品：
+You can think of classic detection architectures as shopping in a huge mall for a target product:
 
-- R-CNN 像是把每个可疑区域都单独拿出来认真检查一遍
-- Fast R-CNN 像是先把整个商场快速扫一遍，再对重点区域放大看
-- Faster R-CNN 则像是连“哪些区域值得看”这件事也交给系统自动学会
+- R-CNN is like taking each suspicious area out separately and checking it carefully
+- Fast R-CNN is like scanning the whole mall quickly first, then zooming in on key areas
+- Faster R-CNN is like letting the system learn automatically which areas are worth looking at
 
-这样理解后，这三代模型的区别就不会只剩名字。
+Once you understand it this way, the differences between these three generations of models are no longer just names.
 
-## 一、R-CNN 系列在做什么？
+## 1. What is the R-CNN family doing?
 
-### 1.1 基本套路
+### 1.1 The basic workflow
 
-两阶段检测的典型思路是：
+The typical idea behind two-stage detection is:
 
-1. 先提出候选区域
-2. 再对候选区域做分类和框回归
+1. First propose candidate regions
+2. Then perform classification and box regression on those candidate regions
 
-### 1.2 为什么会这样设计？
+### 1.2 Why was it designed this way?
 
-因为直接在整张图上同时找所有目标并不容易。  
-先缩小到“可能有目标的区域”，会更自然。
+Because directly finding all objects in the entire image at once is not easy.
+It feels more natural to first narrow things down to “regions that may contain objects.”
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-就像先在地图上圈出“可能有店铺的街区”，  
-再逐个街区判断是哪种店。
+It is like first marking the blocks on a map where shops are likely to be,
+then judging one block at a time to see what kind of shop it is.
 
 ---
 
-## 二、三代经典架构各自补了什么？
+## 2. What did each of the three classic architectures improve?
 
 ### 2.1 R-CNN
 
-优点：
+Pros:
 
-- 思路清楚
+- Clear idea
 
-缺点：
+Cons:
 
-- 每个候选框都要单独跑一次特征提取
-- 非常慢
+- Each candidate box must run feature extraction separately
+- Very slow
 
 ### 2.2 Fast R-CNN
 
-优化点：
+Improvement:
 
-- 整张图只提一次卷积特征
-- 候选框在共享特征图上裁切
+- Extract convolutional features for the whole image only once
+- Crop candidate boxes on the shared feature map
 
-收益：
+Benefit:
 
-- 速度明显提升
+- Speed improves significantly
 
 ### 2.3 Faster R-CNN
 
-优化点：
+Improvement:
 
-- 连候选区域提议也交给网络自己学
+- Even candidate region proposal is learned by the network itself
 
-收益：
+Benefit:
 
-- 把 region proposal 也纳入端到端学习
+- Region proposal is also brought into end-to-end learning
 
-### 2.4 一张更适合新人的对比表
+### 2.4 A comparison table that is easier for beginners
 
-| 架构 | 候选区域怎么来 | 特征提取怎么做 | 你最该记住的进步 |
+| Architecture | Where candidate regions come from | How feature extraction is done | The most important improvement to remember |
 |---|---|---|---|
-| R-CNN | 外部候选框 | 每个框单独提特征 | 思路最清楚，但计算最重 |
-| Fast R-CNN | 外部候选框 | 整图共享特征 | 解决了大量重复卷积 |
-| Faster R-CNN | 网络自己提 proposal | 整图共享特征 | 把 proposal 也纳入可学习流程 |
+| R-CNN | External candidate boxes | Extract features for each box separately | The idea is clear, but computation is heavy |
+| Fast R-CNN | External candidate boxes | Shared features for the whole image | Removes a lot of repeated convolution |
+| Faster R-CNN | Network learns proposals itself | Shared features for the whole image | Brings proposal into a learnable pipeline |
 
-### 2.5 为什么这条路线当年会这么重要？
+### 2.5 Why was this path so important back then?
 
-因为在 YOLO 这类单阶段方法流行之前，检测任务最大的难点之一就是：
+Because before single-stage methods like YOLO became popular, one of the biggest challenges in detection was:
 
-- 既要找目标
-- 又要分类
-- 还要把速度控制在能接受的范围内
+- finding objects
+- classifying them
+- keeping speed within an acceptable range
 
-R-CNN 家族正是在一点点回答这个问题：
+The R-CNN family was answering this question step by step:
 
-- 先能做出来
-- 再减少重复计算
-- 再让 proposal 本身也变成可学习模块
+- First, make it work
+- Then reduce repeated computation
+- Then make proposal itself a learnable module
 
-![R-CNN 家族共享特征演进图](/img/course/ch10-classic-detectors-shared-feature-map.png)
+![R-CNN family shared feature evolution diagram](/img/course/ch10-classic-detectors-shared-feature-map-en.png)
 
-:::tip 读图提示
-R-CNN 家族最值得看的不是名字，而是“重复计算如何被一步步省掉”：从每个 proposal 单独提特征，到整图共享特征，再到 proposal 也由网络学习。
+:::tip Reading guide
+What is most worth looking at in the R-CNN family is not the names, but how repeated computation is gradually removed: from extracting features for each proposal separately, to sharing features across the whole image, and finally to letting the network learn proposals as well.
 :::
 
 ---
 
-## 三、先看一个“共享特征 vs 重复计算”的小示例
+## 3. First look at a small example of “shared features vs repeated computation”
 
 ```python
 proposals = ["box1", "box2", "box3", "box4"]
 
 
 def rcNN_style_cost(num_proposals):
-    # 每个 proposal 都单独提特征
+    # Extract features for each proposal separately
     return num_proposals * 10
 
 
 def fast_rcnn_style_cost(num_proposals):
-    # 整图提一次特征 + proposal 裁切
+    # Extract features once for the whole image + crop proposals
     return 10 + num_proposals * 2
 
 
@@ -161,24 +161,24 @@ for n in [1, 4, 16]:
     )
 ```
 
-### 3.1 这个例子最想表达什么？
+### 3.1 What is this example trying to show?
 
-Fast R-CNN 这类改进的核心并不是“更神奇”，  
-而是：
+The core of improvements like Fast R-CNN is not that they are “more magical,”
+but that they:
 
-- 共享计算
+- share computation
 
-### 3.2 为什么这条主线今天仍然值得学？
+### 3.2 Why is this main idea still worth learning today?
 
-因为它非常适合帮新人理解：
+Because it is very helpful for beginners to understand:
 
-- 检测系统到底被拆成了哪些阶段
-- 速度和质量通常是怎么互相交换的
-- 为什么后来单阶段路线会显得更有吸引力
+- which stages a detection system is broken into
+- how speed and quality usually trade off against each other
+- why single-stage approaches later became more attractive
 
-这正是检测模型效率演进的主线之一。
+This is one of the main threads in the evolution of detection efficiency.
 
-### 3.3 再看一个最小“proposal -> 分类”示例
+### 3.3 Look at a minimal “proposal -> classification” example again
 
 ```python
 proposals = [
@@ -195,99 +195,97 @@ def keep_proposals(proposals, threshold=0.5):
 print(keep_proposals(proposals))
 ```
 
-这个例子当然比真实检测器简单得多，但它能帮助新人先抓住一个关键动作：
+Of course, this example is much simpler than a real detector, but it can help beginners grasp one key action first:
 
-- 两阶段检测器会先筛一轮“哪些区域值得认真看”
-- 后面才继续做更细的分类和框回归
-
----
-
-## 四、两阶段检测器今天还有价值吗？
-
-当然有。  
-它们通常在：
-
-- 精细检测
-- 高质量框定位
-- 小目标和复杂场景
-
-里仍然很有竞争力。
-
-只不过在很多实时场景里，  
-YOLO 一类单阶段方法更常见。
-
-### 4.1 那为什么这节不直接跳到 YOLO？
-
-因为经典两阶段路线特别适合建立“检测系统是怎样一步步被拆开和优化”的直觉。  
-如果这条线没看懂，后面学 YOLO 时也很容易只剩“它更快”。
+- Two-stage detectors first screen for “which regions are worth looking at carefully”
+- Only then do they continue with more detailed classification and box regression
 
 ---
 
-## 五、最常见误区
+## 4. Do two-stage detectors still have value today?
 
-### 5.1 误区一：经典检测架构已经没必要学
+Absolutely.
+They are still often very competitive in:
 
-不对。  
-它们很适合理解检测问题是怎样被系统拆开的。
+- fine-grained detection
+- high-quality box localization
+- small objects and complex scenes
 
-### 5.2 误区二：两阶段就一定更慢且毫无价值
+But in many real-time scenarios,
+single-stage methods like YOLO are more common.
 
-很多时候它仍然在质量上有优势。
+### 4.1 So why not skip straight to YOLO in this section?
 
-### 5.3 误区三：Faster R-CNN 只是更快一点
-
-它更重要的是把候选区域生成纳入了可学习体系。
-
-## 第一次学经典检测架构时，最稳的默认顺序
-
-更稳的顺序通常是：
-
-1. 先搞清楚两阶段检测器在分哪两步
-2. 再理解 R-CNN 为什么慢
-3. 再看 Fast R-CNN 怎样减少重复卷积
-4. 最后看 Faster R-CNN 怎样把 proposal 学进去
-
-这样会比直接背三个模型名更容易形成主线。
-
-## 如果把它做成笔记或作品，最值得展示什么
-
-最值得展示的通常不是：
-
-- 一张架构图贴完就结束
-
-而是：
-
-1. 三代模型的对比表
-2. 每一代到底优化了哪一步
-3. 为什么共享特征图会更快
-4. 为什么 proposal 学习是重要转折
-
-这样别人一眼就能看出：
-
-- 你理解的是演进逻辑
-- 不只是会背名词
-
-## 小结
-
-这节最重要的是建立一个演进判断：
-
-> **R-CNN 家族的发展，本质上是在不断减少重复计算，把检测从“能做”推进到“更高效地做”。**
-
-只要这点看清楚，后面你再学 YOLO，就会更容易比较两条路线的取舍。
+Because the classic two-stage path is especially good for building intuition about how a detection system is gradually decomposed and optimized.
+If you do not understand this path, then when you later study YOLO, it is easy to remember only that “it is faster.”
 
 ---
 
-## 这节最该带走什么
+## 5. Most common misconceptions
 
-- R-CNN 家族不是三种零散模型，而是一条清晰的效率演进路线
-- 核心改进点始终围绕“减少重复计算、让 proposal 更可学习”
-- 经典架构最大的教学价值，是帮你看懂检测系统如何被工程化拆分
+### 5.1 Misconception 1: Classic detection architectures are no longer worth learning
+
+That is not true.
+They are great for understanding how detection problems are systematically decomposed.
+
+### 5.2 Misconception 2: Two-stage methods are always slower and have no value
+
+In many cases, they still have an advantage in quality.
+
+### 5.3 Misconception 3: Faster R-CNN is just a little faster
+
+What is more important is that it brought candidate region generation into a learnable system.
+
+## The safest default order when learning classic detection architectures for the first time
+
+A more reliable order is usually:
+
+1. First understand the two steps in a two-stage detector
+2. Then understand why R-CNN is slow
+3. Then see how Fast R-CNN reduces repeated convolution
+4. Finally see how Faster R-CNN learns proposals
+
+This makes it easier to form the main thread than memorizing the three model names directly.
+
+## If you turn this into notes or a project, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- One architecture diagram pasted and done
+
+But rather:
+
+1. A comparison table of the three generations
+2. Which step each generation optimized
+3. Why a shared feature map is faster
+4. Why proposal learning is an important turning point
+
+This lets others see at a glance that:
+
+- You understand the evolution logic
+- You are not just memorizing terminology
+
+## Summary
+
+The most important thing in this section is to build an evolutionary judgment:
+
+> **The development of the R-CNN family is essentially about continuously reducing repeated computation, moving detection from “can be done” to “done more efficiently.”**
+
+Once you see this clearly, it will be easier to compare the trade-offs between the two routes when you later study YOLO.
 
 ---
 
-## 练习
+## What you should take away from this section
 
-1. 想一想：为什么共享特征图会显著降低检测成本？
-2. 用自己的话解释：Faster R-CNN 比 Fast R-CNN 多解决了哪一步问题？
-3. 什么时候你会更偏向两阶段检测器？
-4. 为什么经典架构对理解检测任务仍然有价值？
+- The R-CNN family is not three unrelated models, but a clear path of efficiency evolution
+- The core improvements always revolve around “reducing repeated computation and making proposals more learnable”
+- The greatest teaching value of classic architectures is helping you understand how detection systems are engineered and decomposed
+
+---
+
+## Exercises
+
+1. Think about it: why can sharing a feature map significantly reduce detection cost?
+2. Explain in your own words: what extra problem does Faster R-CNN solve compared with Fast R-CNN?
+3. In what situations would you prefer a two-stage detector?
+4. Why do classic architectures still matter for understanding detection tasks?

@@ -1,110 +1,110 @@
 ---
-title: "6.9 框架选型指南"
+title: "6.9 Framework Selection Guide"
 sidebar_position: 37
-description: "从任务结构、知识侧重、状态复杂度、团队能力和长期维护成本出发，建立更实用的 Agent 框架选型方法。"
+description: "Build a more practical method for choosing an Agent framework by considering task structure, knowledge focus, state complexity, team capability, and long-term maintenance cost."
 keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture decision, agent framework]
 ---
 
-# 框架选型指南
+# Framework Selection Guide
 
-:::tip 本节定位
-学完一圈框架以后，真正重要的问题终于来了：
+:::tip Section Overview
+After exploring a full set of frameworks, the truly important question finally arrives:
 
-> **到底该选哪个？**
+> **Which one should you choose?**
 
-这不是一个“背答案”的题，而是一个“按任务结构做判断”的题。  
-这节课要做的，就是把这个判断过程讲清楚。
+This is not a “memorize the answer” kind of question. It is a “make a judgment based on task structure” kind of question.
+What this lesson will do is make that judgment process clear.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会用任务结构去判断框架，而不是看热度
-- 建立几条最实用的选型维度
-- 看懂一个最小选型打分示例
-- 知道什么时候甚至应该先别上框架
-
----
-
-## 一、为什么框架选型本质上是架构决策？
-
-因为框架一旦选定，后面很多东西都会跟着走：
-
-- 代码组织方式
-- 团队学习成本
-- 调试方式
-- 可观测性接入方式
-- 上线和维护复杂度
-
-所以它不是一个无关紧要的小依赖，而更像：
-
-> **你决定系统要按什么方式长出来。**
-
-这也是为什么“哪个最火”通常不是最重要问题。
+- Learn to judge frameworks based on task structure, not popularity
+- Build several of the most practical selection dimensions
+- Understand a minimal framework scoring example
+- Know when you should even delay using a framework at all
 
 ---
 
-## 二、先看最关键的五个选型维度
+## 1. Why is framework selection essentially an architecture decision?
 
-### 2.1 任务是不是复杂状态流？
+Because once a framework is chosen, many things follow from it:
 
-如果你的系统有：
+- Code organization
+- Team learning cost
+- Debugging approach
+- Observability integration method
+- Deployment and maintenance complexity
 
-- 明显分支
-- 回路
-- 回退
-- 显式中间状态
+So it is not a trivial dependency. It is more like:
 
-那图工作流型抽象更有价值。
+> **You are deciding how the system will grow.**
 
-### 2.2 系统是不是知识 / 检索驱动？
-
-如果核心难点在：
-
-- 文档摄取
-- 索引
-- 检索
-- 查询组织
-
-那知识导向框架会更自然。
-
-### 2.3 任务是不是天然像角色协作？
-
-如果任务本来就像：
-
-- 调研
-- 写作
-- 审核
-
-这类团队分工，角色型框架更顺手。
-
-### 2.4 团队更在意什么？
-
-例如：
-
-- 更高控制力
-- 更低学习成本
-- 更快原型速度
-- 更稳的长期维护
-
-### 2.5 项目现在是 demo 还是长期系统？
-
-这个区别非常关键。
-
-- demo 更看重搭得快
-- 长期系统更看重结构清晰和可维护
+That is also why “which one is hottest” is usually not the most important question.
 
 ---
 
-## 三、一个最小选型打分示例
+## 2. First, look at the five most important selection dimensions
 
-这个例子不是为了给你“标准答案”，而是教你：
+### 2.1 Is the task a complex state flow?
 
-> 先把任务维度摊开，再做判断。 
+If your system has:
 
-![Agent 框架选型决策图](/img/course/ch09-framework-selection-decision-map.png)
+- Clear branching
+- Loops
+- Rollbacks
+- Explicit intermediate states
 
-:::tip 读图提示
-选框架时先不要问“哪个最火”，而要问任务更像哪一类：复杂状态流、知识检索、角色协作、快速 Demo，还是长期可维护系统。图中的分叉就是选型依据。
+Then graph/workflow-style abstractions are more valuable.
+
+### 2.2 Is the system knowledge / retrieval driven?
+
+If the core challenges are:
+
+- Document ingestion
+- Indexing
+- Retrieval
+- Query organization
+
+Then a knowledge-oriented framework will feel more natural.
+
+### 2.3 Does the task naturally look like role collaboration?
+
+If the task is something like:
+
+- Research
+- Writing
+- Review
+
+Then team-role division makes a role-based framework a better fit.
+
+### 2.4 What does the team care about more?
+
+For example:
+
+- Higher control
+- Lower learning cost
+- Faster prototyping
+- More stable long-term maintenance
+
+### 2.5 Is the project a demo or a long-term system?
+
+This difference is very important.
+
+- A demo values speed of setup
+- A long-term system values clear structure and maintainability
+
+---
+
+## 3. A minimal selection scoring example
+
+This example is not meant to give you a “standard answer.” It is here to teach you:
+
+> First spread out the task dimensions, then make the judgment.
+
+![Agent framework selection decision map](/img/course/ch09-framework-selection-decision-map-en.png)
+
+:::tip Reading the diagram
+When choosing a framework, do not first ask “which one is the hottest?” Instead, ask which category the task is closer to: complex state flow, knowledge retrieval, role collaboration, rapid demo building, or a long-term maintainable system. The branches in the diagram are the basis for selection.
 :::
 
 ```python
@@ -128,152 +128,152 @@ for name, info in frameworks.items():
     print(name, "->", round(score(info, weights), 3))
 ```
 
-### 3.2 这段代码真正重要的不是分数
+### 3.2 What really matters in this code is not the score
 
-真正重要的是你开始会问：
+What really matters is that you start asking:
 
-- 我的系统到底更看重什么？
-- 为什么这个维度权重更高？
+- What does my system care about most?
+- Why is this dimension weighted more heavily?
 
-这才是选型思维本身。
-
----
-
-## 四、几个典型任务下的直觉选型
-
-### 4.1 如果你做的是复杂状态流 Agent
-
-更优先考虑：
-
-- 图 / workflow 型框架
-
-因为你更需要：
-
-- 显式状态
-- 条件边
-- 回退和重试
-
-### 4.2 如果你做的是知识库 / RAG 主线
-
-更优先考虑：
-
-- 检索与知识组织导向框架
-
-因为你的关键问题是：
-
-- 文档怎么进系统
-- 检索怎么组织
-
-### 4.3 如果你做的是角色型多 Agent 原型
-
-更优先考虑：
-
-- 团队 / 角色协作型框架
-
-因为这时最重要的是：
-
-- 分工表达自然
-- 角色关系清楚
+That is the framework-selection mindset itself.
 
 ---
 
-## 五、什么时候不该着急上复杂框架？
+## 4. Intuitive choices for several typical tasks
 
-### 5.1 一个很常见但容易被忽略的情况
+### 4.1 If you are building a complex state-flow Agent
 
-如果你的项目只是：
+Prioritize:
 
-- 一个模型
-- 一个工具
-- 一条线性流程
+- Graph / workflow-style frameworks
 
-那很多时候：
+Because you need more of:
 
-- 手写
-- 轻量封装
+- Explicit state
+- Conditional edges
+- Rollback and retry
 
-就已经很够了。
+### 4.2 If you are building around a knowledge base / RAG main line
 
-### 5.2 为什么这反而可能更好？
+Prioritize:
 
-因为框架会带来：
+- Retrieval- and knowledge-organization-oriented frameworks
 
-- 学习成本
-- 抽象成本
-- 调试成本
+Because your key problems are:
 
-如果系统本身还很小，框架反而可能是额外负担。
+- How documents enter the system
+- How retrieval is organized
 
-所以可以先记住：
+### 4.3 If you are building a role-based multi-Agent prototype
 
-> **不是每个项目都需要“框架感”。**
+Prioritize:
 
----
+- Team / role collaboration frameworks
 
-## 六、团队因素为什么不能忽略？
+Because what matters most here is:
 
-框架不是只服务单个开发者，它还会影响整个团队：
-
-- 新人上手难不难
-- 社区资料多不多
-- 出问题时好不好查
-- 后面是否容易维护
-
-一个技术上很强的框架，如果团队没人熟、资料也少，真实成本可能会很高。
-
-所以“团队匹配度”是选型时非常现实的维度。
+- Natural expression of task division
+- Clear role relationships
 
 ---
 
-## 七、几个最常见的错误选型方式
+## 5. When should you avoid rushing into a complex framework?
 
-### 7.1 看谁最火
+### 5.1 A very common but easily overlooked case
 
-这几乎是最常见的误区。
+If your project is just:
 
-### 7.2 看 demo 最炫
+- One model
+- One tool
+- One linear workflow
 
-demo 好看，不代表适合长期系统。
+Then in many cases:
 
-### 7.3 还没想清任务结构，就先选框架
+- Handwritten code
+- Lightweight wrapping
 
-这会让你后面变成“拿框架套问题”，而不是“按问题选抽象”。
+Is already enough.
 
-### 7.4 想让一个框架包办所有问题
+### 5.2 Why might that actually be better?
 
-现实里很多系统本来就可能是混搭：
+Because frameworks bring:
 
-- 检索层一种风格
-- 工作流层另一种风格
+- Learning cost
+- Abstraction cost
+- Debugging cost
 
----
+If the system is still small, the framework may become extra overhead.
 
-## 八、一个更实用的选型顺序
+So remember this first:
 
-比起“先列框架”，更建议你这样走：
-
-1. 先写出任务主线
-2. 画出状态流或工作流草图
-3. 标出知识、工具、角色三类需求谁更重
-4. 再选匹配抽象
-
-这样你选框架时，依据就会清楚很多。
+> **Not every project needs “framework-ness.”**
 
 ---
 
-## 小结
+## 6. Why can’t team factors be ignored?
 
-这一节最重要的不是选出一个“唯一正确框架”，而是学会：
+A framework does not only serve an individual developer; it also affects the whole team:
 
-> **先看任务形状，再看框架形状。**
+- Is it easy for newcomers to get started?
+- Is there enough community documentation?
+- Is it easy to investigate issues?
+- Will it be easy to maintain later?
 
-当你开始按状态流、知识组织、角色协作、团队约束这些维度去思考时，框架选型就不再只是跟风。
+A framework that is technically powerful may still have a high real-world cost if no one on the team knows it and the documentation is sparse.
+
+So “team fit” is a very practical dimension in framework selection.
 
 ---
 
-## 练习
+## 7. Several of the most common wrong ways to choose
 
-1. 用你当前的项目，给“状态流 / 知识组织 / 角色协作 / 上手难度”四个维度分别打权重。
-2. 想一想：为什么简单项目硬上复杂框架，长期反而可能更慢？
-3. 用自己的话解释：为什么说框架选型是架构决策，而不是库选择？
-4. 如果你的团队特别看重可控性和可观测性，你会优先选什么风格的框架？
+### 7.1 Choosing what is most popular
+
+This is almost the most common misunderstanding.
+
+### 7.2 Choosing what looks coolest in a demo
+
+A good-looking demo does not mean it is suitable for a long-term system.
+
+### 7.3 Choosing a framework before understanding the task structure
+
+This can turn into “forcing a framework onto the problem” instead of “choosing abstractions based on the problem.”
+
+### 7.4 Expecting one framework to solve every problem
+
+In reality, many systems are naturally mixed:
+
+- One style for the retrieval layer
+- Another style for the workflow layer
+
+---
+
+## 8. A more practical selection order
+
+Instead of “listing frameworks first,” it is better to follow this path:
+
+1. First write out the main task flow
+2. Sketch the state flow or workflow
+3. Identify whether knowledge, tools, or roles are the dominant need
+4. Then choose the matching abstraction
+
+This way, when you choose a framework, your basis will be much clearer.
+
+---
+
+## Summary
+
+The most important thing in this section is not to find one “uniquely correct framework,” but to learn to:
+
+> **First look at the shape of the task, then look at the shape of the framework.**
+
+When you start thinking in terms of state flow, knowledge organization, role collaboration, and team constraints, framework selection is no longer just about following trends.
+
+---
+
+## Exercises
+
+1. For your current project, assign weights to the four dimensions: “state flow / knowledge organization / role collaboration / ease of getting started.”
+2. Think about this: why can forcing a complex framework onto a simple project actually make long-term progress slower?
+3. Explain in your own words why framework selection is an architecture decision, not a library choice.
+4. If your team values controllability and observability especially highly, what style of framework would you prioritize?

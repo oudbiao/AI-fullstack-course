@@ -1,110 +1,110 @@
 ---
-title: "7.7 实战：多 Agent 协作系统"
+title: "7.7 Practice: Multi-Agent Collaboration System"
 sidebar_position: 43
-description: "从任务输入、角色划分、状态流转到结果汇总，完整搭一个最小多 Agent 协作系统。"
+description: "Build a minimal multi-Agent collaboration system from task input, role division, state transitions, to result aggregation."
 keywords: [multi-agent project, planner, retriever, writer, reviewer, workflow, collaboration]
 ---
 
-# 实战：多 Agent 协作系统
+# Practice: Multi-Agent Collaboration System
 
-:::tip 本节定位
-这一节是本章的收口项目。  
-前面你已经学过：
+:::tip Section Overview
+This section is the closing project for this chapter.
+You have already learned:
 
-- 架构模式
-- 通信
-- 任务分配
-- 协作模式
-- 挑战与解决
+- Architecture patterns
+- Communication
+- Task allocation
+- Collaboration patterns
+- Challenges and solutions
 
-现在要做的就是把这些真正拼起来，形成一个最小但完整的多 Agent 系统。
+What we are going to do now is put all of these together and build a minimal but complete multi-Agent system.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 搭建一个最小多 Agent 协作闭环
-- 学会让 planner、retriever、writer、reviewer 各司其职
-- 看懂任务状态如何在多个角色之间流转
-- 理解这个项目和单 Agent 系统相比真正多了什么
-
----
-
-## 一、先定义项目目标
-
-我们做一个最小研究型多 Agent 系统：
-
-用户输入：
-
-> “请帮我总结退款政策的关键条件。”
-
-系统内部角色：
-
-- Planner：拆任务
-- Retriever：找资料
-- Writer：写总结
-- Reviewer：检查结果
-
-这个任务之所以合适，是因为它天然能拆工，而且每个角色职责很清楚。
+- Build a minimal multi-Agent collaboration loop
+- Learn how to let planner, retriever, writer, and reviewer each do their own job
+- Understand how task state flows among multiple roles
+- Understand what this project truly adds compared with a single-Agent system
 
 ---
 
-## 二、先准备资料库
+## 1. First, Define the Project Goal
+
+We will build a minimal research-style multi-Agent system:
+
+User input:
+
+> "Please help me summarize the key conditions of the refund policy."
+
+Internal system roles:
+
+- Planner: break down the task
+- Retriever: find information
+- Writer: write the summary
+- Reviewer: check the result
+
+This task is a good fit because it can naturally be split into parts, and each role has a very clear responsibility.
+
+---
+
+## 2. Prepare a Knowledge Base
 
 ```python
 knowledge_base = {
-    "退款政策": "课程购买后 7 天内且学习进度低于 20% 可申请退款。",
-    "证书政策": "完成所有必修项目并通过测试后可获得结业证书。",
-    "学习顺序": "建议先学 Python、数据分析、机器学习，再进入深度学习与大模型阶段。"
+    "refund policy": "You can apply for a refund within 7 days after purchase, provided your learning progress is below 20%.",
+    "certificate policy": "You can receive a completion certificate after finishing all required projects and passing the test.",
+    "learning sequence": "It is recommended to learn Python, data analysis, and machine learning first, then move on to deep learning and large models."
 }
 
 print(knowledge_base)
 ```
 
-这就是系统要操作的最小知识来源。
+This is the minimal knowledge source that the system will operate on.
 
 ---
 
-## 三、定义四个 Agent
+## 3. Define Four Agents
 
 ### 3.1 Planner
 
 ```python
 def planner_agent(user_query):
-    if "退款" in user_query:
-        return ["检索退款政策", "整理关键条件", "撰写总结", "审核输出"]
-    return ["检索相关资料", "撰写总结", "审核输出"]
+    if "refund" in user_query:
+        return ["retrieve refund policy", "organize key conditions", "write summary", "review output"]
+    return ["retrieve related materials", "write summary", "review output"]
 ```
 
 ### 3.2 Retriever
 
 ```python
 def retriever_agent(task):
-    if "退款政策" in task:
-        return knowledge_base["退款政策"]
-    return "未找到资料"
+    if "refund policy" in task:
+        return knowledge_base["refund policy"]
+    return "No materials found"
 ```
 
 ### 3.3 Writer
 
 ```python
 def writer_agent(evidence):
-    return f"总结：{evidence}"
+    return f"Summary: {evidence}"
 ```
 
 ### 3.4 Reviewer
 
 ```python
 def reviewer_agent(draft):
-    if "7 天内" in draft and "20%" in draft:
-        return {"approved": True, "comment": "关键信息完整"}
-    return {"approved": False, "comment": "缺少关键条件"}
+    if "7 days" in draft and "20%" in draft:
+        return {"approved": True, "comment": "Key information is complete"}
+    return {"approved": False, "comment": "Missing key conditions"}
 ```
 
 ---
 
-## 四、把它们串起来
+## 4. Connect Them Together
 
-### 4.1 一个最小多 Agent 协作流程
+### 4.1 A Minimal Multi-Agent Collaboration Flow
 
 ```python
 def multi_agent_system(user_query):
@@ -116,56 +116,56 @@ def multi_agent_system(user_query):
         "review": None
     }
 
-    # 1. 规划
+    # 1. Planning
     state["plan"] = planner_agent(user_query)
 
-    # 2. 检索
+    # 2. Retrieval
     state["evidence"] = retriever_agent(state["plan"][0])
 
-    # 3. 写作
+    # 3. Writing
     state["draft"] = writer_agent(state["evidence"])
 
-    # 4. 审核
+    # 4. Review
     state["review"] = reviewer_agent(state["draft"])
 
     return state
 
-result = multi_agent_system("请帮我总结退款政策的关键条件。")
+result = multi_agent_system("Please help me summarize the key conditions of the refund policy.")
 for k, v in result.items():
     print(k, "->", v)
 ```
 
-### 4.2 这段代码已经说明了什么？
+### 4.2 What Does This Code Already Show?
 
-它已经说明：
+It already shows that:
 
-- 多 Agent 不是简单多个函数
-- 关键在状态流转
-- 每个角色只负责自己那一段
+- Multi-Agent is not just multiple functions
+- The key is state transition
+- Each role is only responsible for its own part
 
-这就是一个真正的最小多 Agent 系统。
+This is a true minimal multi-Agent system.
 
 ---
 
-## 五、让系统更像真实工作流
+## 5. Make the System More Like a Real Workflow
 
-### 5.1 如果 reviewer 不通过怎么办？
+### 5.1 What If the Reviewer Does Not Approve?
 
-真实系统里，review 不通过后，通常不会直接结束。  
-更合理的做法是：
+In a real system, if the review does not pass, the process usually should not end immediately.
+A more reasonable approach is:
 
-- 把 comment 回传给 writer
-- 再修一版
+- Send the comment back to the writer
+- Revise the output again
 
-### 5.2 一个带修订的小例子
+### 5.2 A Small Example with Revision
 
 ```python
 def reviser_agent(draft, review):
     if review["approved"]:
         return draft
-    return draft + " 补充说明：退款还要求学习进度低于 20%。"
+    return draft + " Additional note: the refund also requires learning progress to be below 20%."
 
-state = multi_agent_system("请帮我总结退款政策的关键条件。")
+state = multi_agent_system("Please help me summarize the key conditions of the refund policy.")
 final_output = reviser_agent(state["draft"], state["review"])
 
 print("draft :", state["draft"])
@@ -173,24 +173,24 @@ print("review:", state["review"])
 print("final :", final_output)
 ```
 
-这一步很重要，因为它体现了：
+This step is very important because it shows:
 
-> 多 Agent 系统的价值，不只是分工，还在于角色之间能形成迭代闭环。 
+> The value of a multi-Agent system is not only division of labor, but also the ability for roles to form an iterative closed loop.
 
 ---
 
-## 六、加入更明确的任务日志
+## 6. Add Clearer Task Logs
 
-### 6.1 为什么项目里一定要有 trace？
+### 6.1 Why Must a Project Have Traces?
 
-如果系统答错了，你至少得知道：
+If the system gives the wrong answer, at least you need to know:
 
-- planner 怎么拆的
-- retriever 找到了什么
-- writer 写了什么
-- reviewer 为什么没拦住
+- How the planner broke down the task
+- What the retriever found
+- What the writer wrote
+- Why the reviewer did not catch the problem
 
-### 6.2 一个最小 trace 版本
+### 6.2 A Minimal Trace Version
 
 ```python
 def traced_multi_agent_system(user_query):
@@ -210,86 +210,86 @@ def traced_multi_agent_system(user_query):
 
     return trace
 
-for step in traced_multi_agent_system("请帮我总结退款政策的关键条件。"):
+for step in traced_multi_agent_system("Please help me summarize the key conditions of the refund policy."):
     print(step)
 ```
 
-这个 trace 就是后面你调试和评估系统的重要基础。
+This trace is the important foundation for debugging and evaluating the system later.
 
 ---
 
-## 七、为什么这个系统比单 Agent 更值得学？
+## 7. Why Is This System More Worth Learning Than a Single Agent?
 
-### 7.1 因为它把问题拆开了
+### 7.1 Because It Breaks the Problem Apart
 
-单 Agent 往往是一口气：
+A single Agent often does everything in one go:
 
-- 理解任务
-- 检索
-- 总结
-- 自我检查
+- Understand the task
+- Retrieve information
+- Summarize
+- Self-check
 
-而多 Agent 把这些动作拆开后，你更容易：
+A multi-Agent system breaks these actions apart, which makes it easier for you to:
 
-- 观察每一层
-- 替换其中一层
-- 找到哪一层出错
+- Observe each layer
+- Replace one layer
+- Find out where an error happened
 
-### 7.2 但它也更贵、更复杂
+### 7.2 But It Is Also More Expensive and More Complex
 
-所以真正的工程判断不是：
+So the real engineering judgment is not:
 
-> 多 Agent 一定更高级
+> Multi-Agent is always more advanced
 
-而是：
+Instead, it is:
 
-> 这个任务值不值得为“更可拆、可控”付出额外复杂度。 
-
----
-
-## 八、这个项目怎样继续升级？
-
-你可以继续往上加：
-
-1. 更真实的检索器
-2. 多任务路由
-3. 异步通信
-4. 冲突裁决机制
-5. 失败重试
-
-如果再继续做大，它就会越来越接近真实的多 Agent 产品系统。
+> Is this task worth paying extra complexity for better decomposability and controllability?
 
 ---
 
-## 九、初学者最常踩的坑
+## 8. How Can This Project Be Extended?
 
-### 9.1 把所有角色都写得差不多
+You can keep adding:
 
-这样最后只是“多个名字不同的同一种 Agent”。
+1. A more realistic retriever
+2. Multi-task routing
+3. Asynchronous communication
+4. Conflict resolution
+5. Retry on failure
 
-### 9.2 没有共享状态或 trace
-
-一旦出错就很难查。
-
-### 9.3 项目看起来热闹，但每个角色并没有真正分工
-
-这是很多多 Agent demo 最常见的问题。
+If you keep expanding it, it will gradually become closer to a real multi-Agent product system.
 
 ---
 
-## 小结
+## 9. Common Mistakes Beginners Make
 
-这一节最重要的不是写出四个函数，而是理解：
+### 9.1 Writing All Roles in Almost the Same Way
 
-> **多 Agent 项目的核心，是让每个角色围绕状态流转承担不同责任，并最终收敛成一个可解释、可迭代的工作流。**
+Then the result is just "multiple Agents with different names for the same thing."
 
-这才是多 Agent 真正比单 Agent 更有价值的地方。
+### 9.2 No Shared State or Trace
+
+Once something goes wrong, it becomes very hard to debug.
+
+### 9.3 The Project Looks Busy, but Each Role Does Not Actually Have a Real Division of Labor
+
+This is one of the most common problems in many multi-Agent demos.
 
 ---
 
-## 练习
+## Summary
 
-1. 给这个系统再加一个 `fact_checker_agent`，专门核查数字条件。
-2. 让 `planner_agent` 针对“证书政策”也能产出不同计划。
-3. 想一想：如果 reviewer 一直不通过，系统应该怎样限制修订轮数？
-4. 用自己的话解释：为什么说多 Agent 项目真正重要的是“状态流转”，而不是“角色数量”？
+The most important thing in this section is not to write four functions, but to understand:
+
+> **The core of a multi-Agent project is to let each role take different responsibilities around state transitions, and ultimately converge into an explainable and iterative workflow.**
+
+That is where multi-Agent truly becomes more valuable than a single Agent.
+
+---
+
+## Exercises
+
+1. Add a `fact_checker_agent` to this system to specifically verify numeric conditions.
+2. Make `planner_agent` produce different plans for "certificate policy" as well.
+3. Think about this: if the reviewer keeps rejecting the output, how should the system limit the number of revision rounds?
+4. Explain in your own words: why is the real importance of a multi-Agent project "state transition" rather than "number of roles"?

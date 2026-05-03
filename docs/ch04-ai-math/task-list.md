@@ -1,83 +1,82 @@
 ---
-title: "阶段学习任务单"
-description: "把 AI 数学最小必要基础阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [AI数学, 线性代数, 概率统计, 梯度下降, 学习任务单]
+title: "Phase Learning Task Sheet"
+description: "Break down the minimum necessary foundation stage of AI mathematics into executable learning tasks, practice deliverables, and pass criteria."
+keywords: [AI mathematics, linear algebra, probability and statistics, gradient descent, learning task sheet]
 ---
 
-# 阶段学习任务单：AI 数学最小必要基础
+# Phase Learning Task Sheet: Minimum Necessary Foundation for AI Mathematics
 
-![数学最小通关任务单图](/img/course/math-task-checklist.png)
+![Minimal math checkpoint task sheet diagram](/img/course/math-task-checklist-en.png)
 
-这个阶段的目标不是把数学学成考试科目，而是让你能看懂 AI 模型背后的核心直觉。你需要理解向量如何表示样本，矩阵如何表示变换，概率如何表达不确定性，梯度如何指导模型更新。
+The goal of this stage is not to turn math into an exam subject, but to help you understand the core intuitions behind AI models. You need to understand how vectors represent samples, how matrices represent transformations, how probability expresses uncertainty, and how gradients guide model updates.
 
-## 本阶段必须完成的任务
+## Required tasks for this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Pass Criteria |
 | --- | --- | --- |
-| 理解向量与矩阵 | 一份向量相似度实验 | 能解释点积、范数、余弦相似度和矩阵乘法 |
-| 理解概率与统计 | 一个分布可视化 Notebook | 能解释均值、方差、条件概率和常见分布 |
-| 理解信息量与熵 | 一份信息论笔记 | 能说明熵、交叉熵和模型损失的关系 |
-| 理解梯度下降 | 一个参数更新可视化实验 | 能解释学习率、梯度方向和收敛过程 |
-| 完成阶段项目 | 一个数学直觉可视化小项目 | 能把数学概念连接到 ML、RAG 或 LLM 场景 |
+| Understand vectors and matrices | A vector similarity experiment | Can explain dot product, norm, cosine similarity, and matrix multiplication |
+| Understand probability and statistics | A distribution visualization Notebook | Can explain mean, variance, conditional probability, and common distributions |
+| Understand information content and entropy | An information theory note | Can explain the relationship between entropy, cross-entropy, and model loss |
+| Understand gradient descent | A parameter update visualization experiment | Can explain learning rate, gradient direction, and the convergence process |
+| Complete the stage project | A small math-intuition visualization project | Can connect math concepts to ML, RAG, or LLM scenarios |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先学习向量和矩阵，再学习概率统计，最后学习微积分和优化。不要一开始追求严密证明，第一遍重点是建立“这些概念在模型里做什么”的直觉。
+First learn vectors and matrices, then probability and statistics, and finally calculus and optimization. Do not start by pursuing rigorous proofs. In the first pass, focus on building intuition for “what these concepts do inside a model.”
 
-学数学时建议每个概念都配一个小实验。比如用向量相似度解释检索，用概率分布解释分类置信度，用梯度下降解释模型为什么会逐步变好。
+When learning math, it is recommended to pair each concept with a small experiment. For example, use vector similarity to explain retrieval, use probability distributions to explain classification confidence, and use gradient descent to explain why a model improves gradually.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI Learning Assistant project
 
-本阶段对应 AI 学习助手的 v0.4 数学解释能力。你可以为学习助手增加一个“概念解释卡”功能：输入一个数学概念，输出直觉解释、AI 场景、简单例子和常见误区。
+This stage corresponds to the v0.4 math explanation capability of the AI learning assistant. You can add a “concept explanation card” feature to the learning assistant: input a math concept, and output an intuitive explanation, AI scenario, simple example, and common misconceptions.
 
-建议先实现静态模板，不需要调用模型。重点是把抽象数学概念翻译成后续项目能用到的工程语言。
+It is recommended to start with a static template and not call the model yet. The key is to translate abstract mathematical concepts into engineering language that can be used in later projects.
 
-## 常见卡点
+## Common sticking points
 
-常见问题包括把公式当成孤立记忆、看懂推导但不知道应用场景、把概率和频率混淆、无法理解梯度方向、只会套库不理解指标含义。遇到卡点时，优先回到图形、数值实验和具体 AI 场景。
+Common issues include treating formulas as isolated memorization, understanding derivations but not knowing when to use them, confusing probability with frequency, being unable to understand gradient direction, and only knowing how to use libraries without understanding what the metrics mean. When you get stuck, first return to graphs, numerical experiments, and concrete AI scenarios.
 
+## Easy version / Standard version / Challenge version tasks
 
-## 轻松版 / 标准版 / 挑战版任务
-
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Who it is for |
 |---|---|---|
-| 轻松版 | 用代码计算相似度或概率指标 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 比较两个指标并解释差异 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 把一个指标用手算样例、代码和图示讲清楚 | 已有基础、想做更强项目证据的学习者 |
+| Easy version | Use code to calculate similarity or probability metrics | Learners studying for the first time, with limited time, or just getting started |
+| Standard version | Compare two metrics and explain the differences | Learners who want to include this stage in their portfolio |
+| Challenge version | Explain one metric clearly with a hand-calculated example, code, and diagrams | Learners with a foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Stage badges and Boss battle
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | 指标迷宫 |
-| 可解锁徽章 | 向量翻译官、指标解释员 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss battle | Metric maze |
+| Unlockable badges | Vector Translator, Metric Explainer |
+| Minimal pass slogan | Get it running first, then explain it, then record failures |
+| Evidence-saving suggestion | Save screenshots, logs, failure samples, or evaluation tables into `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+You can move on after completing the easy version; you should only include it in your portfolio after completing the standard version; do the challenge version only when you have extra bandwidth.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to capture the results of this stage in your portfolio, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `vector_similarity.ipynb` | 用向量、点积、余弦相似度解释样本相似 |
-| `probability_demo.ipynb` | 可视化随机变量、分布、均值、方差和不确定性 |
-| `gradient_descent.ipynb` | 展示学习率、梯度方向和收敛路径 |
-| `math_cards.md` | 把向量、概率、熵、梯度翻译成 AI 应用直觉 |
-| `reflection.md` | 说明这些数学概念如何支撑机器学习、RAG 和大模型 |
+| `vector_similarity.ipynb` | Use vectors, dot products, and cosine similarity to explain sample similarity |
+| `probability_demo.ipynb` | Visualize random variables, distributions, mean, variance, and uncertainty |
+| `gradient_descent.ipynb` | Show the learning rate, gradient direction, and convergence path |
+| `math_cards.md` | Translate vectors, probability, entropy, and gradients into intuition for AI applications |
+| `reflection.md` | Explain how these mathematical concepts support machine learning, RAG, and large models |
 
-这些材料会证明你不是为了考试学数学，而是能把数学转化成理解模型、调试模型和解释系统的工具。
+These materials will prove that you are not learning math just for exams, but can turn math into a tool for understanding models, debugging models, and explaining systems.
 
-## 阶段通关问题
+## Stage checkpoint questions
 
-学完后，你应该能回答这些问题：为什么文本和图片可以表示成向量，为什么相似度可以用于检索，概率为什么能表示模型不确定性，交叉熵为什么常用于分类，梯度下降为什么能让模型参数逐步变好。
+After finishing, you should be able to answer these questions: why text and images can be represented as vectors, why similarity can be used for retrieval, why probability can represent model uncertainty, why cross-entropy is commonly used for classification, and why gradient descent can gradually improve model parameters.
 
-## 完成状态 Checklist
+## Completion status Checklist
 
-- [ ] 我能解释向量、矩阵和相似度在 AI 中的作用。
-- [ ] 我能用图表解释至少一种概率分布和不确定性。
-- [ ] 我能说明熵、交叉熵和分类损失之间的关系。
-- [ ] 我能用一个小实验演示梯度下降过程。
-- [ ] 我已经把至少 3 个数学概念写成自己的 AI 应用解释卡。
+- [ ] I can explain the role of vectors, matrices, and similarity in AI.
+- [ ] I can use charts to explain at least one probability distribution and uncertainty.
+- [ ] I can explain the relationship between entropy, cross-entropy, and classification loss.
+- [ ] I can demonstrate the gradient descent process with a small experiment.
+- [ ] I have written at least 3 math concepts into my own AI application explanation cards.

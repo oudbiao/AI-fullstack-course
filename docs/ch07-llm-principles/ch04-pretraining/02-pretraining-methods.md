@@ -1,179 +1,179 @@
 ---
-title: "4.3 预训练方法"
+title: "4.3 Pretraining Methods"
 sidebar_position: 13
-description: "把 Causal LM、Masked LM、Span Corruption 等目标放在同一张图里，理解不同预训练方法究竟在让模型学什么。"
+description: "Put Causal LM, Masked LM, Span Corruption, and other objectives into one diagram, and understand what different pretraining methods actually teach the model."
 keywords: [causal language modeling, masked language modeling, span corruption, pretraining objectives, BERT, GPT, T5]
 ---
 
-# 预训练方法
+# Pretraining Methods
 
-:::tip 本节定位
-预训练方法本质上是在回答一句非常根本的话：
+:::tip Section Overview
+Pretraining methods are essentially answering one very fundamental question:
 
-> **训练时，模型到底被要求完成什么任务？**
+> **During training, what task is the model actually asked to do?**
 
-同样是一堆文本，如果训练目标不同，  
-最后学出来的能力也会很不一样。
+If you train on the same text but with different objectives,
+the abilities the model learns will be very different.
 
-这就是为什么：
+That is why:
 
-- BERT 走向理解任务
-- GPT 走向生成任务
-- T5 走向统一文本到文本
+- BERT moves toward understanding tasks
+- GPT moves toward generation tasks
+- T5 moves toward unified text-to-text
 
-这节课要做的，就是把这些目标真正拆开。
+What this lesson does is break these objectives apart clearly.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解不同预训练目标分别在教模型什么能力
-- 区分 Causal LM、Masked LM、Span Corruption 的核心差异
-- 通过一个可运行示例理解同一条文本如何被改造成不同训练样本
-- 建立“任务目标和后续能力为什么强相关”的直觉
+- Understand what abilities different pretraining objectives teach the model
+- Distinguish the core differences among Causal LM, Masked LM, and Span Corruption
+- Use a runnable example to see how the same text can be turned into different training samples
+- Build intuition for why “task objective” and “downstream ability” are so strongly related
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-预训练方法更适合按“模型每天在练什么”来理解：
+Pretraining methods are easier to understand if we think in terms of “what the model practices every day”:
 
 ```mermaid
 flowchart LR
-    A["Causal LM"] --> B["练续写和生成"]
-    C["Masked LM"] --> D["练补空和双向理解"]
-    E["Span Corruption"] --> F["练恢复片段和文本转换"]
+    A["Causal LM"] --> B["Practice continuation and generation"]
+    C["Masked LM"] --> D["Practice filling blanks and bidirectional understanding"]
+    E["Span Corruption"] --> F["Practice recovering spans and text transformation"]
 ```
 
-所以这节真正想解决的是：
+So what this lesson is really trying to answer is:
 
-- 同样都是预训练，为什么最后能力画像会不一样
-- 为什么训练标签怎么构造，会直接影响模型后续擅长什么
-
----
-
-## 一、为什么预训练目标会决定模型路线？
-
-### 1.1 因为模型会优先学会“训练里反复被要求做的事”
-
-如果训练时模型不断被要求：
-
-- 根据前文预测后文
-
-它自然会更擅长：
-
-- 续写
-- 生成
-
-如果训练时模型不断被要求：
-
-- 根据左右文恢复被遮掉的 token
-
-它自然更容易学会：
-
-- 双向理解
-- 语义补全
-
-所以预训练目标不是表面任务，  
-而是模型能力的方向盘。
-
-### 1.2 一个类比：考试题型会塑造学习方式
-
-你可以把模型想成学生。
-
-- 如果天天考填空，它会练填空
-- 如果天天考作文，它会练续写
-- 如果天天考改写和摘要，它会练输入到输出映射
-
-模型也是一样。
-
-### 1.3 一个更适合新人的总类比
-
-你可以把预训练目标理解成：
-
-- 在决定模型每天刷什么题
-
-如果它天天刷：
-
-- 续写题
-
-它最后自然会更像生成型选手。  
-如果它天天刷：
-
-- 填空题
-
-它更容易变成理解型选手。  
-如果它天天刷：
-
-- 缺一整段的恢复题
-
-它就更容易学会输入到输出的映射。
+- Why does the ability profile differ even though all of them are pretraining?
+- Why does how we construct training labels directly affect what the model becomes good at later?
 
 ---
 
-## 二、三条最重要的预训练路线
+## 1. Why Does the Pretraining Objective Decide the Model’s Path?
 
-### 2.1 Causal Language Modeling：根据过去预测未来
+### 1.1 Because the model will preferentially learn what it is repeatedly asked to do in training
 
-这是 GPT 一系最经典的目标。
+If training keeps asking the model to:
 
-形式上很简单：
+- predict the next token from the previous text
 
-- 输入前面的 token
-- 预测下一个 token
+then it will naturally become better at:
 
-它的好处是：
+- continuation
+- generation
 
-- 训练目标和生成任务天然一致
+If training keeps asking the model to:
 
-也就是说，训练时模型不能看未来，  
-推理时模型也不能看未来，  
-两者没有错位。
+- recover masked tokens from left and right context
 
-### 2.2 Masked Language Modeling：根据上下文补空
+then it will more easily learn:
 
-这是 BERT 一系的经典目标。
+- bidirectional understanding
+- semantic completion
 
-做法是：
+So the pretraining objective is not just a surface-level task;
+it is the steering wheel for the model’s abilities.
 
-- 把输入里部分 token 遮掉
-- 让模型根据左右文把它们补回来
+### 1.2 An analogy: Exam question types shape how you study
 
-这种目标非常适合双向建模，  
-所以它更擅长：
+Think of the model as a student.
 
-- 理解
-- 表示学习
-- 分类和抽取类任务
+- If the exam is always fill-in-the-blank, it practices fill-in-the-blank
+- If the exam is always essay writing, it practices continuation
+- If the exam is always paraphrasing and summarization, it practices input-to-output mapping
 
-但它天然不如 Causal LM 那么适合自由生成。
+Models are the same.
 
-### 2.3 Span Corruption / Denoising：不是遮一个词，而是遮一段
+### 1.3 A more beginner-friendly overall analogy
 
-T5 / BART 一类模型常用更一般化的去噪目标：
+You can think of the pretraining objective as:
 
-- 不是只 mask 一个 token
-- 而是 mask 一整段 span
-- 然后让模型恢复这段内容
+- deciding what kind of questions the model practices every day
 
-这会更贴近：
+If it practices:
 
-- 摘要
-- 改写
-- 翻译
-- 文本到文本转换
+- continuation questions
+
+it will naturally become more like a generative model.
+If it practices:
+
+- fill-in-the-blank questions
+
+it will more easily become an understanding-oriented model.
+If it practices:
+
+- recovery questions with an entire missing span
+
+it will more easily learn the mapping from input to output.
 
 ---
 
-## 三、先用同一条文本构造三种训练样本
+## 2. The Three Most Important Pretraining Routes
 
-这一段代码的目标很直接：
+### 2.1 Causal Language Modeling: Predict the Future from the Past
 
-- 给同一条句子
-- 分别生成 Causal LM、Masked LM、Span Corruption 三种训练样本
+This is the classic objective in the GPT family.
 
-这样你能非常直观地看到：
+The form is simple:
 
-- “目标不同”到底意味着什么
+- input the previous tokens
+- predict the next token
+
+Its advantage is:
+
+- the training objective is naturally aligned with generation
+
+In other words, during training the model cannot see the future,
+and during inference the model also cannot see the future,
+so there is no mismatch.
+
+### 2.2 Masked Language Modeling: Fill in the Blanks from Context
+
+This is the classic objective in the BERT family.
+
+The method is:
+
+- mask out some tokens in the input
+- let the model recover them from left and right context
+
+This objective is very suitable for bidirectional modeling,
+so it is especially good at:
+
+- understanding
+- representation learning
+- classification and extraction tasks
+
+But it is not as naturally suited to free-form generation as Causal LM.
+
+### 2.3 Span Corruption / Denoising: Not Masking One Word, but an Entire Span
+
+T5 / BART-style models often use a more general denoising objective:
+
+- instead of masking a single token
+- mask an entire span
+- then let the model reconstruct that content
+
+This is closer to:
+
+- summarization
+- paraphrasing
+- translation
+- text-to-text transformation
+
+---
+
+## 3. First, Construct Three Training Samples from the Same Text
+
+The goal of this code is very direct:
+
+- take the same sentence
+- generate Causal LM, Masked LM, and Span Corruption training samples respectively
+
+This lets you see very clearly:
+
+- what “different objectives” actually means
 
 ```python
 tokens = "transformer models learn patterns from large text corpora".split()
@@ -214,248 +214,248 @@ print("span inputs   :", span_inputs)
 print("span target   :", span_target)
 ```
 
-### 3.1 这段代码最该看哪里？
+### 3.1 What should you look at most in this code?
 
-先看这三件事：
+Focus on these three things first:
 
-1. 输入被改成了什么样
-2. 标签到底让模型学什么
-3. 为什么同一句话会被组织成完全不同的训练任务
+1. What the input has been turned into
+2. What the labels are asking the model to learn
+3. Why the same sentence can be organized into completely different training tasks
 
-如果这一点看懂了，  
-你就会明白为什么：
+If you understand this point,
+you will understand why:
 
-- GPT、BERT、T5 最后能力画像不同
+- GPT, BERT, and T5 end up with different capability profiles
 
-![预训练目标样本改造对比图](/img/course/ch07-pretraining-objective-comparison-map.png)
+![Comparison of pretraining objective sample transformations](/img/course/ch07-pretraining-objective-comparison-map-en.png)
 
-:::tip 读图提示
-读这张图时对比同一句话被改造成三种训练题：Causal LM 练“续写下一个 token”，Masked LM 练“根据左右文补空”，Span Corruption 练“恢复缺失片段”。模型每天刷什么题，长期就会长出什么能力倾向。
+:::tip Reading Guide
+When reading this figure, compare how the same sentence is turned into three different training tasks: Causal LM trains “predict the next token,” Masked LM trains “fill in blanks from both sides,” and Span Corruption trains “recover missing spans.” What the model practices every day is what it will gradually become good at.
 :::
 
-### 3.2 Causal LM 的标签为什么是右移一位？
+### 3.2 Why Are Causal LM Labels Shifted by One Position?
 
-因为它在做的就是：
+Because what it is doing is:
 
-- 给前文，猜下一个 token
+- given the previous text, guess the next token
 
-所以最自然的训练数据组织就是：
+So the most natural way to organize the training data is:
 
-- 输入：`x_1 ... x_{t-1}`
-- 标签：`x_2 ... x_t`
+- input: `x_1 ... x_{t-1}`
+- labels: `x_2 ... x_t`
 
-### 3.3 Span Corruption 为什么常被看得更“通用”？
+### 3.3 Why Is Span Corruption Often Considered More “General”?
 
-因为它比单点 mask 更接近真实文本变换。  
-模型不仅要恢复一个词，  
-而是要补回一段缺失内容。
+Because it is closer to real text transformation than single-token masking.
+The model is not just recovering one word,
+but restoring an entire missing span.
 
-这会让它更自然地走向：
+This makes it naturally move toward:
 
 - text-to-text
 
-这也是 T5 路线很重要的原因。
+That is also a very important reason behind the T5 route.
 
-### 3.4 再看一个最小“同一句话三种训练目标的对比表”
+### 3.4 A Minimal Comparison Table for the Same Sentence and Three Training Objectives
 
-| 方法 | 输入长什么样 | 标签长什么样 | 最容易让新人先记住什么 |
+| Method | What the input looks like | What the labels look like | What beginners should remember first |
 |---|---|---|---|
-| Causal LM | 看到前文 | 预测下一个 token | 更像续写 |
-| Masked LM | 中间挖空 | 恢复被遮掉的 token | 更像补空题 |
-| Span Corruption | 挖掉一整段 | 恢复整段内容 | 更像文本修复/改写 |
+| Causal LM | Sees the previous text | Predicts the next token | More like continuation |
+| Masked LM | Has blanks in the middle | Restores masked tokens | More like fill-in-the-blank |
+| Span Corruption | Deletes an entire span | Restores the whole span | More like text repair / paraphrasing |
 
-这个表特别适合初学者，因为它能把：
+This table is especially useful for beginners because it puts:
 
-- 名字
-- 输入形式
-- 标签形式
-- 最终能力倾向
+- the name
+- the input format
+- the label format
+- the final capability tendency
 
-放在同一张图里看。
+into one view.
 
 ---
 
-## 四、这些目标分别更擅长什么？
+## 4. What Is Each Objective Better At?
 
-### 4.1 Causal LM：生成、续写、对话
+### 4.1 Causal LM: Generation, Continuation, Dialogue
 
-这类目标和后续生成任务高度一致，  
-所以特别适合：
+This type of objective is highly aligned with downstream generation tasks,
+so it is especially suitable for:
 
-- 聊天
-- 写作
-- 代码补全
-- 长文本续写
+- chat
+- writing
+- code completion
+- long-text continuation
 
-### 4.2 Masked LM：表示学习和理解
+### 4.2 Masked LM: Representation Learning and Understanding
 
-因为模型能同时看到左右上下文，  
-所以很适合：
+Because the model can see both left and right context,
+it is very suitable for:
 
-- 分类
-- 检索编码
-- 语义匹配
-- 抽取任务
+- classification
+- retrieval encoding
+- semantic matching
+- extraction tasks
 
-### 4.3 Span Corruption：输入到输出映射
+### 4.3 Span Corruption: Input-to-Output Mapping
 
-如果你想要模型自然地做：
+If you want the model to naturally do:
 
-- 摘要
-- 改写
-- 翻译
-- 问答生成
+- summarization
+- paraphrasing
+- translation
+- question answering generation
 
-这类去噪和 seq2seq 目标会更顺手。
+then this kind of denoising and seq2seq objective will feel much more natural.
 
-### 4.4 第一次学这节时，最稳的默认顺序
+### 4.4 A Safe Default Sequence for First-Time Learners
 
-更稳的顺序通常是：
+A good order is usually:
 
-1. 先别急着记缩写
-2. 先看输入被改成什么样
-3. 再看标签到底让模型学什么
-4. 最后再看这种训练目标和后续任务有什么关系
+1. Don’t rush to memorize the abbreviations
+2. First look at how the input is transformed
+3. Then look at what the labels ask the model to learn
+4. Finally, see how the training objective relates to downstream tasks
 
-这样会比一上来就背：
+This is much easier than memorizing:
 
 - CLM
 - MLM
 - span corruption
 
-更容易真正看懂区别。
+right away.
 
 ---
 
-## 五、预训练目标不是独立存在的，它和架构绑在一起
+## 5. Pretraining Objectives Do Not Exist Alone; They Are Bound to the Architecture
 
-### 5.1 为什么 Decoder-only 常配 Causal LM？
+### 5.1 Why Do Decoder-only Models Usually Use Causal LM?
 
-因为两者完全一致：
+Because the two are perfectly aligned:
 
-- decoder 只能看过去
-- causal LM 也要求只能看过去
+- a decoder can only look at the past
+- Causal LM also requires looking only at the past
 
-训练和生成闭环非常自然。
+Training and generation form a very natural loop.
 
-### 5.2 为什么 Encoder-only 常配 Masked LM？
+### 5.2 Why Do Encoder-only Models Usually Use Masked LM?
 
-因为 encoder 擅长双向建模。  
-既然它能看全句，就很适合做：
+Because encoders are good at bidirectional modeling.
+Since they can see the whole sentence, they are well suited for:
 
-- 被 mask 位置的恢复
+- recovering masked positions
 
-### 5.3 为什么 Encoder-Decoder 常配去噪目标？
+### 5.3 Why Do Encoder-Decoder Models Usually Use Denoising Objectives?
 
-因为这类结构天然适合：
+Because this structure is naturally suited to:
 
-- 输入一段东西
-- 输出另一段东西
+- taking one piece of text as input
+- producing another piece of text as output
 
-所以 span corruption、denoising、文本到文本训练都很搭。
-
----
-
-## 六、除了经典目标，还会有什么变化？
-
-### 6.1 Prefix LM：部分双向、部分因果
-
-有些方法会让输入前半段可以双向看，  
-但生成段仍然保持因果约束。
-
-这类目标适合：
-
-- 既要读上下文
-- 又要生成续写
-
-### 6.2 多模态预训练：输入不只是一串文本
-
-如果输入同时包含：
-
-- 图像
-- 音频
-- 视频
-
-那目标就会变成：
-
-- 跨模态对齐
-- 图文生成
-- 多模态理解
-
-虽然形式更复杂，但核心仍然一样：
-
-- 训练目标决定模型优先学什么
-
-### 6.3 自监督目标不代表完全“无偏”
-
-即使标签是自动构造的，  
-目标函数本身也在给模型施加偏好。
-
-例如：
-
-- 更偏生成
-- 更偏理解
-- 更偏结构恢复
-
-这也是为什么预训练目标本身也是设计选择。
+So span corruption, denoising, and text-to-text training all fit very well.
 
 ---
 
-## 七、最容易踩的误区
+## 6. What Other Variants Are There Besides the Classic Objectives?
 
-### 7.1 误区一：预训练目标只是前期细节，后面微调会解决一切
+### 6.1 Prefix LM: Partly Bidirectional, Partly Causal
 
-不对。  
-预训练目标会给模型打下长期能力偏向。
+Some methods let the first part of the input be read bidirectionally,
+while the generated part still follows a causal constraint.
 
-### 7.2 误区二：Masked LM 比 Causal LM 更高级，或者反过来
+This kind of objective is suitable when you want both:
 
-两者不是等级关系，  
-而是针对不同路线的设计。
+- understanding of context
+- continuation generation
 
-### 7.3 误区三：只记名字，不看标签长什么样
+### 6.2 Multimodal Pretraining: The Input Is Not Just a String of Text
 
-真正的理解是：
+If the input also includes:
 
-- 输入怎么组织
-- 标签怎么构造
-- 模型被要求学什么
+- images
+- audio
+- video
 
-## 如果把它做成笔记或讲义，最值得展示什么
+then the objective may become:
 
-最值得展示的通常不是：
+- cross-modal alignment
+- image-text generation
+- multimodal understanding
 
-- 只列三个缩写
+Even though the form is more complex, the core idea is the same:
 
-而是：
+- the training objective decides what the model will prioritize learning
 
-1. 同一句话被改造成三种训练样本
-2. 三种方法的输入 / 标签对比
-3. 每种目标更偏向学什么能力
-4. 它们和 GPT / BERT / T5 为什么能对应起来
+### 6.3 Self-Supervised Does Not Mean Completely “Bias-Free”
 
-这样别人会更容易看出：
+Even if the labels are automatically constructed,
+the objective function still imposes preferences on the model.
 
-- 你理解的是“训练目标如何塑造能力”
-- 不只是记住方法名
+For example:
 
----
+- more generation-oriented
+- more understanding-oriented
+- more structure-recovery-oriented
 
-## 小结
-
-这一节最重要的，不是背下 `CLM / MLM / Span Corruption` 这几个缩写，  
-而是抓住一条主线：
-
-> **预训练目标本质上是在规定模型每天反复练什么，而模型最后最擅长的，通常就是它被反复练得最多的那类能力。**
-
-这条主线一旦建立起来，  
-你看后面的架构选择、微调方式和任务迁移，就会更顺。
+That is why the pretraining objective itself is a design choice.
 
 ---
 
-## 练习
+## 7. The Most Common Mistakes
 
-1. 把示例中的句子换成你自己的句子，再分别生成三种训练样本。
-2. 用自己的话解释：为什么 Causal LM 更适合开放式生成？
-3. 为什么说 Masked LM 更像“补空题”，而不是“续写题”？
-4. 想一想：如果你的目标是做一个强摘要模型，你会更偏向哪类预训练目标？为什么？
+### 7.1 Mistake 1: The pretraining objective is just an early-stage detail, and fine-tuning will solve everything later
+
+Not true.
+The pretraining objective gives the model a long-term ability bias.
+
+### 7.2 Mistake 2: Masked LM is more advanced than Causal LM, or vice versa
+
+There is no ranking relationship between them,
+only design choices for different paths.
+
+### 7.3 Mistake 3: Remembering only the name without looking at what the labels look like
+
+True understanding means:
+
+- how the input is organized
+- how the labels are constructed
+- what the model is being asked to learn
+
+## If You Turn This into Notes or Slides, What Is Most Worth Showing?
+
+What is most worth showing is usually not:
+
+- just listing the three abbreviations
+
+Instead, show:
+
+1. The same sentence transformed into three training samples
+2. A comparison of the inputs and labels for the three methods
+3. What ability each objective tends to teach
+4. Why they correspond to GPT / BERT / T5
+
+That way, people will more easily see:
+
+- you understand how “training objectives shape abilities”
+- not just the method names
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing the abbreviations `CLM / MLM / Span Corruption`,
+but grasping one main line:
+
+> **A pretraining objective is essentially a rule for what the model practices over and over every day, and what the model ends up best at is usually the kind of ability it practiced most often.**
+
+Once this line is established,
+the architectural choices, fine-tuning methods, and task transfer in the following sections will make much more sense.
+
+---
+
+## Exercises
+
+1. Replace the sentence in the example with one of your own, and generate the three training samples again.
+2. Explain in your own words: why is Causal LM more suitable for open-ended generation?
+3. Why is Masked LM more like a “fill-in-the-blank” task than a “continuation” task?
+4. Think about this: if your goal is to build a strong summarization model, which type of pretraining objective would you prefer? Why?

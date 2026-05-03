@@ -1,129 +1,129 @@
 ---
-title: "3.2 目标检测概述"
+title: "3.2 Object Detection Overview"
 sidebar_position: 7
-description: "从分类任务为什么不够讲起，理解目标检测如何同时回答“图里有什么”和“它在哪里”。"
+description: "Starting from why classification alone is not enough, understand how object detection answers both “what is in the image” and “where is it?”."
 keywords: [object detection, bounding box, detection, localization, computer vision]
 ---
 
-# 目标检测概述
+# Object Detection Overview
 
-![目标检测输出拆解图](/img/course/object-detection-output.png)
+![Object detection output breakdown](/img/course/object-detection-output-en.png)
 
-:::tip 本节定位
-图像分类只能回答：
+:::tip Where this section fits
+Image classification can only answer:
 
-- 这张图大概是什么
+- What is this image roughly about?
 
-但很多真实任务需要更具体的问题：
+But many real-world tasks need a more specific question:
 
-> **图里有什么，而且它在哪里？**
+> **What is in the image, and where is it?**
 
-这就是目标检测的核心。
+That is the core of object detection.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解目标检测和图像分类的差别
-- 理解边界框、类别和置信度三要素
-- 通过可运行示例理解 IoU 这类核心指标直觉
-- 建立检测任务和后续 YOLO / 检测实战之间的连接感
+- Understand the difference between object detection and image classification
+- Understand the three key elements: bounding boxes, classes, and confidence scores
+- Build intuition for core metrics like IoU through a runnable example
+- Connect the detection task with later YOLO / hands-on detection practice
 
 ---
 
-## 先建立一张地图
+## First, build a mental map
 
-如果你刚学完图像分类，可以先把这节理解成：
+If you just finished image classification, you can think of this section as:
 
-- 分类解决的是“整张图最主要是什么”
-- 检测开始解决“图里每个目标是什么、它在哪”
+- Classification solves “what is the main thing in the whole image?”
+- Detection starts solving “what is each object in the image, and where is it?”
 
-所以检测不是“多一个框而已”，而是：
+So detection is not “just adding a box” — it changes:
 
-- 输出对象变了
-- 评估对象变了
-- 错误类型也变了
+- What the model outputs
+- What we evaluate
+- The types of errors we care about
 
-目标检测最适合新人的理解顺序不是“先记模型”，而是先把任务结构看清楚：
+For beginners, the best way to understand object detection is not to memorize models first, but to clearly see the task structure:
 
 ```mermaid
 flowchart LR
-    A["输入图像"] --> B["找到候选目标"]
-    B --> C["给每个目标分类"]
-    C --> D["给每个目标回归边界框"]
-    D --> E["再筛掉重复框"]
+    A["Input image"] --> B["Find candidate objects"]
+    B --> C["Classify each object"]
+    C --> D["Regress a bounding box for each object"]
+    D --> E["Filter out duplicate boxes"]
 ```
 
-所以检测任务天然比分类复杂，因为它同时在做：
+So the detection task is naturally more complex than classification, because it does all of the following at the same time:
 
-- 分类
-- 定位
-- 多目标筛选
+- Classification
+- Localization
+- Multi-object filtering
 
-## 一、目标检测到底在做什么？
+## 1. What exactly does object detection do?
 
-检测任务通常同时输出：
+A detection task usually outputs:
 
-- 类别
-- 边界框位置
-- 置信度
+- Class
+- Bounding box location
+- Confidence score
 
-例如：
+For example:
 
-- 一张街景图里有两辆车、一位行人
-- 每个对象都要标出位置
+- In a street scene, there may be two cars and one pedestrian
+- The model needs to mark the location of each object
 
-这比整图分类复杂很多。
+That is much more complex than classifying the whole image.
 
-### 1.1 第一次学这节最该先记什么？
+### 1.1 What should you remember first when learning this section?
 
-最值得先记住的是：
+The most important things to remember first are:
 
-1. 检测不是整图判断，而是多目标判断
-2. 每个目标至少有三样东西：类别、位置、置信度
-3. 后面很多模型差异，其实都围绕这三样东西在展开
+1. Detection is not judging the whole image; it is judging multiple objects
+2. Each object needs at least three things: class, location, and confidence
+3. Many later model differences are really variations around these three things
 
-### 1.2 为什么这一节最值得先抓住“三要素”？
+### 1.2 Why is the “three-element” view the most important one here?
 
-因为后面几乎所有检测模型，最后都在围绕这三样东西展开：
+Because almost all detection models are ultimately organized around these three things:
 
-- 类别
-- 框
-- 置信度
+- Class
+- Box
+- Confidence
 
-你可以先把检测输出理解成一句很朴素的话：
+You can think of detection output in a very simple way:
 
-> “我觉得这里有个什么目标，它大概在这里，而且我有多大把握。”
-
----
-
-## 二、为什么分类模型不够用？
-
-因为同一张图里可能：
-
-- 有多个目标
-- 目标大小不同
-- 目标位置不同
-
-图像分类只给整张图一个标签，  
-无法表达这些信息。
-
-### 2.1 一个更适合新人的判断方式
-
-以后你看到一个视觉问题时，可以先问：
-
-- 是整张图只要一个答案？
-- 还是图里每个对象都要单独找出来？
-
-如果是后者，那它就已经超出了普通分类任务的边界。
+> “I think there is some object here, it is probably around here, and this is how confident I am.”
 
 ---
 
-## 三、先看一个最小 IoU 例子
+## 2. Why isn’t an image classification model enough?
 
-IoU 是检测里非常核心的概念，  
-因为它回答：
+Because the same image may contain:
 
-- 预测框和真实框到底重合得有多好
+- Multiple objects
+- Objects of different sizes
+- Objects at different locations
+
+Image classification gives only one label for the whole image,
+so it cannot express this information.
+
+### 2.1 A more beginner-friendly way to judge a vision problem
+
+When you see a vision problem in the future, ask:
+
+- Does the whole image need only one answer?
+- Or does each object in the image need to be found separately?
+
+If it is the latter, then it is already beyond the scope of a standard classification task.
+
+---
+
+## 3. Let’s look at a minimal IoU example
+
+IoU is a very core concept in detection,
+because it answers:
+
+- How well do the predicted box and the ground-truth box overlap?
 
 ```python
 def iou(box_a, box_b):
@@ -152,128 +152,128 @@ pred_box = (15, 15, 32, 32)
 print("IoU =", round(iou(gt_box, pred_box), 4))
 ```
 
-### 3.1 为什么这个指标特别重要？
+### 3.1 Why is this metric so important?
 
-因为检测不只是“有没有发现目标”，  
-还要看：
+Because detection is not only about “did we find the object?”
+It also asks:
 
-- 框得准不准
+- Is the box accurate?
 
-### 3.1.1 IoU 最值得先记住的，不是公式，而是“重叠质量”
+### 3.1.1 The most important thing to remember about IoU is not the formula, but “overlap quality”
 
-第一次学检测，不要先背坐标交并比公式。  
-先记住：
+When you first learn detection, don’t start by memorizing the coordinate formula for intersection over union.
+Instead, remember this:
 
-- IoU 本质上是在看预测框和真实框重合得有多好
+- IoU is essentially measuring how well the predicted box overlaps with the ground-truth box
 
-这会直接帮助你理解后面很多概念：
+This will help you understand many later concepts:
 
-- 正负样本匹配
+- Positive/negative sample matching
 - NMS
 - mAP
 
-### 3.2 新人第一次学检测，最该先记哪三个概念？
+### 3.2 When you first learn detection, which three concepts should you remember first?
 
-第一次接触目标检测时，最值得先记住的是：
+When you first encounter object detection, the most important concepts to remember are:
 
-1. 边界框  
-   模型不是只回答“有车”，还要回答“车在哪”。
+1. Bounding boxes
+   The model does not just answer “there is a car,” but also “where is the car?”
 
-2. IoU  
-   用来衡量预测框和真实框重合得好不好。
+2. IoU
+   Used to measure how well the predicted box overlaps with the ground-truth box.
 
-3. 多目标场景  
-   同一张图通常不止一个目标，所以会有重复框、遮挡、重叠这些问题。
+3. Multi-object scenes
+   A single image usually contains more than one object, so duplicate boxes, occlusion, and overlap all become issues.
 
-### 3.3 为什么检测天然更像“系统问题”？
+### 3.3 Why is detection naturally more like a “system problem”?
 
-因为你最后要处理的往往不是一个框，  
-而是一组框：
+Because in the end, you often need to handle not just one box,
+but a set of boxes:
 
-- 哪些框该保留
-- 哪些框是重复
-- 哪些框分数太低应该过滤
+- Which boxes should be kept?
+- Which boxes are duplicates?
+- Which boxes have scores that are too low and should be filtered out?
 
-这也是为什么检测从很早开始就会有明显的后处理环节。
+That is also why detection has a clear post-processing stage from very early on.
 
-### 3.4 第一次做检测时，最容易低估的是什么？
+### 3.4 What do beginners usually underestimate when doing detection for the first time?
 
-通常不是分类器本身，而是：
+Usually not the classifier itself, but:
 
-- 框的定义口径
-- 阈值选择
-- 重复框处理
-- 误检和漏检之间的平衡
+- How bounding boxes are defined
+- Threshold selection
+- Duplicate-box handling
+- The balance between false positives and false negatives
 
-所以检测项目会比分类更像一个完整系统，而不是单个模型输出。
+So detection projects are more like complete systems than a single model output.
 
-![目标检测输出、IoU 与错误类型图](/img/course/ch10-detection-output-iou-error-map.png)
+![Object detection output, IoU, and error types](/img/course/ch10-detection-output-iou-error-map-en.png)
 
-:::tip 读图提示
-这张图把检测输出拆成 class、box、score 三件事，再用 IoU 判断框是否够准。检测错误通常不是“一个错”，而是漏检、误检、定位偏差和重复框共同组成。
+:::tip Reading guide
+This diagram breaks detection output into three parts — class, box, and score — and then uses IoU to judge whether the box is accurate enough. Detection errors are usually not “just one mistake,” but a combination of missed detections, false detections, localization errors, and duplicate boxes.
 :::
 
 ---
 
-## 四、最容易踩的坑
+## 4. The most common pitfalls
 
-### 4.1 误区一：检测只是分类加个框
+### 4.1 Mistake 1: Thinking detection is just classification plus a box
 
-框本身就是很难的回归问题。
+The box itself is already a difficult regression problem.
 
-### 4.2 误区二：只看分类分数
+### 4.2 Mistake 2: Only looking at the classification score
 
-位置误差同样关键。
+Location error is just as important.
 
-### 4.3 误区三：多目标场景按单目标想
+### 4.3 Mistake 3: Thinking about multi-object scenes as if they were single-object scenes
 
-多目标会带来：
+Multi-object scenes bring:
 
-- 重叠
-- 遮挡
-- 重复预测
+- Overlap
+- Occlusion
+- Duplicate predictions
 
-## 五、学这一节时最正确的预期
+## 5. The right expectations for this section
 
-这一节最重要的不是今天就学会一个完整检测器，  
-而是先真正分清：
+The most important goal of this section is not to learn a complete detector today,
+but to clearly distinguish:
 
-- 分类任务只回答“是什么”
-- 检测任务还要回答“在哪里”
-- 后面所有 YOLO、Faster R-CNN，本质上都在解决这两个问题的组合
+- Classification tasks answer “what is it?”
+- Detection tasks also answer “where is it?”
+- Later YOLO and Faster R-CNN models are essentially solving a combination of these two problems
 
-## 第一次做检测项目时，最该先建立哪种意识？
+## What mindset should you build first when doing your first detection project?
 
-最值得先建立的是：
+The most important mindset to build is:
 
-- 检测项目首先是标注项目
-- 其次才是模型项目
+- A detection project is first a labeling project
+- Only then is it a model project
 
-因为如果框口径不统一，后面模型和评估都会一起乱掉。
-
----
-
-## 小结
-
-这节最重要的是建立一个检测判断：
-
-> **目标检测是在同时解决“是什么”和“在哪里”两个问题，因此它天然比分类更复杂，也更接近真实视觉应用。**
-
-## 这节最该带走什么
-
-- 检测不是分类加一个框这么简单
-- IoU 是理解检测质量的第一把钥匙
-- 真正的难点来自多目标、遮挡和定位误差
-
-如果再压成一句话，那就是：
-
-> **目标检测是在把“看见东西”升级成“看见每个东西，并把它们逐个定位出来”。**
+Because if the box definition is not consistent, both the model and evaluation will become messy.
 
 ---
 
-## 练习
+## Summary
 
-1. 自己换两组框坐标，看看 IoU 怎么变。
-2. 为什么说检测比分类更贴近真实视觉任务？
-3. 如果一个检测框分类对了但位置偏很多，这次预测能算好吗？为什么？
-4. 想一想：多目标场景为什么会比单目标场景难很多？
+The key idea in this section is to build a detection-level judgment:
+
+> **Object detection solves “what is it” and “where is it” at the same time, so it is naturally more complex than classification and much closer to real-world visual applications.**
+
+## What should you take away from this section?
+
+- Detection is not as simple as classification plus a box
+- IoU is the first key to understanding detection quality
+- The real difficulty comes from multiple objects, occlusion, and localization error
+
+If we compress it into one sentence, it would be:
+
+> **Object detection upgrades “seeing an object” into “seeing every object and locating them one by one.”**
+
+---
+
+## Exercises
+
+1. Change two sets of box coordinates yourself and see how IoU changes.
+2. Why is detection said to be closer to real-world vision tasks than classification?
+3. If a detection box gets the class right but is far off in location, can this prediction be considered good? Why?
+4. Think about it: why is a multi-object scene much harder than a single-object scene?

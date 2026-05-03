@@ -306,19 +306,19 @@ import torch.nn as nn
 class SimpleCNN(nn.Module):
     def __init__(self):
         super().__init__()
-<<<<<<< HEAD
+CONFLICT_MARKER_START HEAD
         self.conv1 = nn.Conv2d(3, 32, 3, padding=1)  # Alice: フィルター数を 32 に変更
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(32 * 16 * 16, 10)
-=======
+CONFLICT_MARKER_SEPARATOR
         self.conv1 = nn.Conv2d(3, 64, 5, padding=2)  # Bob: フィルター数を 64 にし、5x5 カーネル
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(64 * 16 * 16, 10)
->>>>>>> bob/update-model
+CONFLICT_MARKER_END bob/update-model
 ```
 
-- `<<<<<<< HEAD` から `=======` までが**現在のブランチ**（main、Alice の変更を含む）の内容
-- `=======` から `>>>>>>> bob/update-model` までが**取り込もうとしているブランチ**（Bob）の内容
+- 実際のコンフリクトでは、Git は `<<<<<<< HEAD`、現在のブランチの内容、`=======`、取り込む側の内容、最後に `>>>>>>> branch-name` という順で表示します。
+- 上の例では、リポジトリのチェックが教材サンプルを未解決コンフリクトと誤判定しないように `CONFLICT_MARKER_*` というプレースホルダーを使っています。
 
 **最終的に何を残すかを手動で決める必要があります。** たとえば、ここでは Bob の案を採用するとします。
 

@@ -1,132 +1,130 @@
 ---
-title: "8.4 项目：生成模型实战【选修】"
+title: "8.4 Project: Generative Models in Practice [Optional]"
 sidebar_position: 3
-description: "从任务定义、数据、生成质量观察到样本多样性分析，建立一个最小生成模型项目的评估和展示框架。"
+description: "Build an evaluation and presentation framework for a minimal generative model project, from task definition and data to generation quality observation and sample diversity analysis."
 keywords: [generative project, GAN, VAE, generation quality, diversity, evaluation]
 ---
 
-# 项目：生成模型实战【选修】
+# Project: Generative Models in Practice [Optional]
 
-:::tip 本节定位
-生成项目和分类项目最大的差别在于：
+:::tip Section focus
+The biggest difference between a generative project and a classification project is:
 
-- 你没有一个特别简单清楚的“正确标签”可对
+- You do not have a very simple and clear “correct label” to compare against
 
-所以生成项目真正难的地方常常不是把模型跑起来，  
-而是：
+So the hardest part of a generative project is often not getting the model to run,
+but:
 
-> **你到底怎么判断它生成得好不好。**
+> **How do you actually tell whether it is generating well?**
 
-这一节的重点，就是把生成项目最基础的评估和展示框架讲清楚。
+The main goal of this section is to explain the most basic evaluation and presentation framework for generative projects.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解生成项目和分类项目在评估上的差别
-- 学会设计一个最小生成项目的展示结构
-- 理解“质量”和“多样性”为什么都重要
-- 建立生成项目的基本复盘框架
+- Understand the difference in evaluation between generative projects and classification projects
+- Learn how to design a minimal presentation structure for a generative project
+- Understand why both “quality” and “diversity” matter
+- Build a basic review framework for generative projects
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-生成项目最容易让新人困惑的地方是：模型明明跑起来了，但你不知道自己到底做得算不算好。
+The most confusing part of a generative project for beginners is this: the model is clearly running, but you do not know whether the result is actually good.
 
 ```mermaid
 flowchart LR
-    A["训练生成模型"] --> B["看生成质量"]
-    A --> C["看多样性"]
-    A --> D["看训练是否稳定"]
-    B --> E["项目展示与复盘"]
+    A["Train generative model"] --> B["Check generation quality"]
+    A --> C["Check diversity"]
+    A --> D["Check training stability"]
+    B --> E["Project presentation and review"]
     C --> E
     D --> E
 ```
 
-所以这一节真正要学的，是“怎么判断和展示”，不只是“怎么生成”。
+So what you really need to learn in this section is “how to judge and present,” not just “how to generate.”
 
-## 一、生成项目最先要解决的是什么？
+## 1. What Is the First Problem a Generative Project Needs to Solve?
 
-不是：
+Not:
 
-- 用哪种最复杂模型
+- Which is the most complex model to use
 
-而是：
+But:
 
-- 你到底在生成什么
-- 你要怎么判断生成结果值不值
+- What exactly are you generating
+- How will you judge whether the generated result is worthwhile
 
-### 常见项目问题形式
+### Common Project Problem Types
 
-- 生成人脸或头像
-- 生成小型手写数字
-- 生成简单轮廓图
+- Generating faces or avatars
+- Generating small handwritten digits
+- Generating simple outline drawings
 
-对练手来说，建议先选：
+For practice, it is recommended to start with a topic that is:
 
-- 目标清楚
-- 数据容易获取
-- 结果容易肉眼观察
-
-的题目。
+- Clearly defined
+- Easy to obtain data for
+- Easy to inspect visually
 
 ---
 
-## 二、生成项目最小骨架
+## 2. The Minimal Structure of a Generative Project
 
-### 1. 数据
+### 1. Data
 
-- 训练样本
+- Training samples
 
-### 2. 模型
+### 2. Model
 
-- GAN / VAE / 更现代生成模型
+- GAN / VAE / more modern generative models
 
-### 3. 采样与可视化
+### 3. Sampling and Visualization
 
-- 定期生成样本看趋势
+- Generate samples periodically to observe trends
 
-### 4. 评估
+### 4. Evaluation
 
-- 样本质量
-- 多样性
+- Sample quality
+- Diversity
 
-### 5. 展示
+### 5. Presentation
 
-- 不同时期样本对比
-- 失败模式总结
+- Compare samples from different training stages
+- Summarize failure modes
 
-### 2.1 一张更适合新人的评估看板
+### 2.1 A More Beginner-Friendly Evaluation Dashboard
 
-很多新人第一次做生成项目时，  
-最大的问题不是“不会训”，  
-而是：
+When many beginners do a generative project for the first time,
+the biggest problem is not “I can’t train it,”
+but:
 
-- 不知道该看什么
+- I don’t know what I should look at
 
-可以先把最小看板收成下面这 4 栏：
+You can first reduce the minimal dashboard to the following 4 columns:
 
 ```mermaid
 flowchart LR
-    A["训练阶段样本"] --> E["项目评估看板"]
-    B["质量观察"] --> E
-    C["多样性观察"] --> E
-    D["失败样本"] --> E
+    A["Samples at training stages"] --> E["Project evaluation dashboard"]
+    B["Quality observations"] --> E
+    C["Diversity observations"] --> E
+    D["Failure samples"] --> E
 ```
 
-只要这 4 栏你能持续填出来，  
-这个项目就不会再只是“生成了一些图”。
+As long as you can keep filling in these 4 columns consistently,
+your project will no longer be just “some generated images.”
 
-## 三、推荐推进顺序
+## 3. Recommended Order of Progress
 
-1. 先选一个非常小、容易观察的数据集
-2. 再确定你更重视质量、多样性还是稳定性
-3. 然后再选模型路线
-4. 最后再决定怎么展示和比较结果
+1. First choose a very small dataset that is easy to inspect
+2. Then decide whether you care more about quality, diversity, or stability
+3. Then choose the model path
+4. Finally decide how to present and compare the results
 
 ---
 
-## 四、先跑一个最小项目规划示例
+## 4. A Minimal Project Planning Example
 
 ```python
 from dataclasses import dataclass, field
@@ -146,35 +144,35 @@ plan = GenerativeProjectPlan(
     data_source="small_grayscale_digits",
     model_family="VAE",
     evaluation_focus=["visual_quality", "diversity", "training_stability"],
-    risks=["mode collapse", "模糊样本", "潜空间不连续"],
+    risks=["mode collapse", "blurry samples", "discontinuous latent space"],
 )
 
 print(plan)
 ```
 
-### 4.1 为什么这一步比直接堆代码更重要？
+### 4.1 Why Is This Step More Important Than Directly Piling on Code?
 
-因为生成项目如果不先说清：
+Because if a generative project does not first clarify:
 
-- 数据
-- 模型路线
-- 评估重点
+- data
+- model path
+- evaluation focus
 
-后面很容易只剩“我生成了一些图”，却说不清项目价值。
+then later it is very easy to end up with only “I generated some images,” without being able to explain the project’s value.
 
 ---
 
-## 五、生成项目怎么做最基础的结果检查？
+## 5. How Do You Do the Most Basic Result Check for a Generative Project?
 
-### 5.1 先看质量
+### 5.1 First, Check Quality
 
-生成结果像不像目标数据？
+Do the generated results look like the target data?
 
-### 5.2 再看多样性
+### 5.2 Then, Check Diversity
 
-是不是总生成差不多的东西？
+Does it keep generating almost the same thing?
 
-### 5.3 一个极简多样性检查例子
+### 5.3 A Minimal Diversity Check Example
 
 ```python
 samples = [
@@ -188,137 +186,135 @@ diversity = len(set(samples)) / len(samples)
 print("diversity score =", diversity)
 ```
 
-虽然这个例子非常简化，  
-但它已经在提醒你：
+Although this example is very simplified,
+it is already reminding you that:
 
-- 只看“像不像”还不够
-- 还要看“是不是老生成同样东西”
+- It is not enough to only check “does it look similar?”
+- You also need to check “is it just generating the same thing over and over?”
 
-### 5.4 再加一个“训练阶段样本看板”示例
+### 5.4 Add a “Training Stage Sample Dashboard” Example
 
-真实项目里，一个特别好用的展示方式是：
+In real projects, a very useful presentation method is:
 
-- 固定几个 epoch
-- 每个 epoch 都保存一小组样本
-- 再把它们并排展示
+- Fix several epochs
+- Save a small batch of samples at each epoch
+- Then display them side by side
 
-哪怕不用真的画图，  
-先做一个结构化看板都很有帮助：
+Even if you do not actually draw charts,
+building a structured dashboard first is very helpful:
 
 ```python
 checkpoints = [
-    {"epoch": 1, "quality": 0.20, "diversity": 0.80, "note": "大多是噪声"},
-    {"epoch": 10, "quality": 0.45, "diversity": 0.72, "note": "开始出现轮廓"},
-    {"epoch": 30, "quality": 0.68, "diversity": 0.60, "note": "清晰度提高，但开始变像"},
-    {"epoch": 60, "quality": 0.75, "diversity": 0.48, "note": "可能出现 mode collapse"},
+    {"epoch": 1, "quality": 0.20, "diversity": 0.80, "note": "Mostly noise"},
+    {"epoch": 10, "quality": 0.45, "diversity": 0.72, "note": "Outlines begin to appear"},
+    {"epoch": 30, "quality": 0.68, "diversity": 0.60, "note": "Sharper results, but starting to look similar"},
+    {"epoch": 60, "quality": 0.75, "diversity": 0.48, "note": "Possible mode collapse"},
 ]
 
 for row in checkpoints:
     print(row)
 ```
 
-这个例子最值得先记住的不是数值本身，  
-而是：
+The most important thing to remember here is not the numbers themselves,
+but that:
 
-- 质量和多样性往往要一起看
-- 训练越往后，不一定所有指标都一起变好
-
----
-
-## 六、最容易踩的坑
-
-### 6.1 误区一：只放最好看的几张图
-
-真正项目应该展示：
-
-- 平均样本质量
-- 失败样本
-
-### 6.2 误区二：只看质量，不看多样性
-
-这会掩盖 mode collapse。
-
-### 6.3 误区三：一上来选太复杂数据集
-
-练手项目更适合先选：
-
-- 易观察
-- 易比较
-
-的小任务。
+- Quality and diversity usually need to be considered together
+- Training does not always make every metric better at the same time
 
 ---
 
-## 项目交付时最好补上的内容
+## 6. The Most Common Pitfalls
 
-- 一组不同训练阶段的样本对比
-- 一组失败样本
-- 一段对“质量 / 多样性 / 稳定性”取舍的说明
-- 一段为什么选这个模型而不是别的模型的解释
+### 6.1 Mistake 1: Only Showing the Best-Looking Images
 
-## 一个新人可直接照抄的项目评估表
+A real project should show:
 
-如果你不知道怎么写生成项目复盘，  
-最稳的起点通常是先做这样一张表：
+- Average sample quality
+- Failure samples
 
-| 维度 | 你要回答的问题 | 最小证据 |
+### 6.2 Mistake 2: Only Looking at Quality, Not Diversity
+
+This can hide mode collapse.
+
+### 6.3 Mistake 3: Choosing a Dataset That Is Too Complex Too Early
+
+Practice projects are better off starting with small tasks that are:
+
+- Easy to observe
+- Easy to compare
+
+---
+
+## What to Add When Delivering the Project
+
+- A comparison of samples from different training stages
+- A set of failure samples
+- An explanation of the trade-off among “quality / diversity / stability”
+- An explanation of why this model was chosen instead of another model
+
+## A Project Evaluation Template Beginners Can Copy Directly
+
+If you do not know how to write a generative project review,
+the safest starting point is usually a table like this:
+
+| Dimension | Question You Need to Answer | Minimal Evidence |
 |---|---|---|
-| 质量 | 生成结果像不像目标数据？ | 不同时期样本对比 |
-| 多样性 | 是不是老生成差不多的东西？ | 一组不同采样结果 |
-| 稳定性 | 训练有没有明显崩掉或塌缩？ | loss / 样本趋势说明 |
-| 解释 | 为什么选这个模型路线？ | 一段路线选择理由 |
+| Quality | Do the generated results look like the target data? | Sample comparison across different stages |
+| Diversity | Does it keep generating almost the same thing? | A set of different sampling results |
+| Stability | Did training clearly collapse or break? | Loss / sample trend explanation |
+| Interpretation | Why choose this model path? | A paragraph explaining the choice |
 
-这张表特别适合初学者，  
-因为它会把“我到底该展示什么”这件事先讲清楚。
+This table is especially suitable for beginners,
+because it first makes clear what exactly you should present.
 
-## 如果继续把这个项目往上做，最值得补什么
+## If You Want to Take This Project Further, What Is Most Worth Adding?
 
-更值得优先补的通常是：
+The most worthwhile additions are usually:
 
-1. 一页质量 / 多样性对照展示
-2. 不同模型路线的对比页
-3. 一组 mode collapse 或模糊样本的失败案例分析
+1. A one-page quality / diversity comparison display
+2. A comparison page for different model paths
+3. A failure case analysis for mode collapse or blurry samples
 
-这样项目会从“生成了一些结果”进一步变成“我知道该怎么评价和解释这些结果”。
+This way, the project will move from “I generated some results” to “I know how to evaluate and explain these results.”
 
-## 十、一个更适合作品集的展示顺序
+## 10. A Presentation Order Better Suited for a Portfolio
 
-如果你把这个项目做成作品集页面，比较推荐按这个顺序展示：
+If you turn this project into a portfolio page, a recommended order is:
 
-1. 项目目标和数据范围
-2. 模型路线选择
-3. 不同训练阶段样本
-4. 质量 / 多样性对比
-5. 失败案例与原因判断
-6. 下一步升级方向
+1. Project goal and data scope
+2. Model path selection
+3. Samples from different training stages
+4. Quality / diversity comparison
+5. Failure cases and root-cause judgment
+6. Next-step improvement directions
 
-这样别人看到的不是“几张图”，而是一条完整的生成项目思路。
+This way, what others see is not “a few images,” but a complete generative project story.
 
 ---
 
-## 小结
+## Summary
 
-这节最重要的是建立一个生成项目判断：
+The most important thing in this section is to establish a generative project judgment framework:
 
-> **生成模型项目最难的不只是训练，而是怎样围绕质量、多样性和稳定性建立一个可信的评估与展示框架。**
+> **The hardest part of a generative model project is not just training it, but building a trustworthy evaluation and presentation framework around quality, diversity, and stability.**
 
-只要这个框架立住了，你做出来的项目就不再只是“生成几张图”。
+Once this framework is in place, your project will no longer be just “some generated images.”
 
 
 
-## 版本路线建议
+## Recommended Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic | Run the minimal loop | Can take input, process it, and output it, while keeping a set of examples |
+| Standard | Form a presentable project | Add configuration, logging, error handling, a README, and screenshots |
+| Challenge | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step directions |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to complete the basic version first, and not try to make everything comprehensive from the start. Every time you improve the version, write into the README what new capability was added, how it was validated, and what issues remain.
 
-## 练习
+## Exercises
 
-1. 想一个你愿意做的最小生成项目，并写出它的数据源和评估重点。
-2. 为什么生成项目不能只展示最好看的几张结果？
-3. 什么情况下你会优先怀疑 mode collapse？
-4. 如果只能选一个指标优先观察，你会先看质量还是多样性？为什么？
+1. Think of a minimal generative project you would like to do, and write down its data source and evaluation focus.
+2. Why can’t a generative project just show the best-looking few results?
+3. In what situation would you suspect mode collapse first?
+4. If you could only prioritize one metric to observe, would you first look at quality or diversity? Why?

@@ -1,111 +1,111 @@
 ---
-title: "1.1 支持向量机"
+title: "1.1 Support Vector Machine"
 sidebar_position: 12
-description: "从最大间隔分类器讲起，理解 SVM 为什么在中小数据、高维特征和清晰边界任务里仍然是很强的基线。"
+description: "Starting from the max-margin classifier, understand why SVM is still a strong baseline for small to medium datasets, high-dimensional features, and tasks with clear decision boundaries."
 keywords: [SVM, support vector machine, max margin, kernel, classification, classic ML]
 ---
 
-# 支持向量机
+# Support Vector Machine
 
-![SVM 最大间隔与支持向量图](/img/course/elective-svm-margin-support-vectors.png)
+![SVM max-margin and support vector diagram](/img/course/elective-svm-margin-support-vectors-en.png)
 
-![SVM 参数 C 与 kernel 选择图](/img/course/elective-svm-c-kernel-decision-map.png)
+![SVM parameter C and kernel selection diagram](/img/course/elective-svm-c-kernel-decision-map-en.png)
 
-:::tip 读图提示
-SVM 的关键不是背公式，而是理解 `C` 控制“容错 vs 间隔”、`kernel` 控制“线性边界 vs 非线性边界”。读图时顺便记住：特征缩放几乎总是先做。
+:::tip Reading the diagram
+The key to SVM is not memorizing formulas, but understanding that `C` controls “tolerance vs. margin” and `kernel` controls “linear boundary vs. nonlinear boundary.” While reading the diagram, also remember: feature scaling is almost always the first step.
 :::
 
-:::tip 本节定位
-SVM 不是“过时算法”。  
-在很多中小数据任务里，它仍然是很强的基线，特别是：
+:::tip Where this section fits
+SVM is not an “outdated algorithm.”
+In many small to medium data tasks, it is still a very strong baseline, especially when:
 
-- 特征维度高
-- 数据量不算大
-- 类别边界比较清楚
+- The feature dimension is high
+- The dataset is not too large
+- The class boundary is fairly clear
 
-这节课的重点不是把公式堆满，而是先把它的工程直觉抓住：
+The goal of this lesson is not to fill the page with formulas, but to first build the engineering intuition:
 
-> **SVM 的核心是找一条分类边界，而且要让这条边界离两边样本都尽量远。**
+> **The core of SVM is to find a classification boundary, and make that boundary as far away from the samples on both sides as possible.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解最大间隔和支持向量的直觉
-- 理解线性核和核技巧分别适合什么情况
-- 理解为什么特征缩放对 SVM 特别重要
-- 通过可运行示例建立对 SVM 的第一层实战判断
-
----
-
-## 一、SVM 到底在做什么？
-
-### 1.1 不是只找一条分界线，而是找“最稳”的那条
-
-假设你要把两类样本分开。  
-能把它们分开的线可能很多条，但 SVM 不会随便挑一条，而是会倾向选择：
-
-- 离两边最近样本都尽量远的那条
-
-这就是：
-
-- 最大间隔（max margin）
-
-### 1.2 为什么“间隔大”有意义？
-
-因为间隔越大，模型通常越不容易被边界附近的小扰动影响。  
-你可以把它理解成：
-
-- 不只是分开
-- 还要分得更稳
-
-### 1.3 什么是支持向量？
-
-并不是所有样本都同样重要。  
-真正决定分界线位置的，往往是最靠近边界的那一小部分样本。
-
-这部分样本就叫：
-
-- 支持向量
-
-也就是说，  
-SVM 的边界是被“最关键的少数样本”撑起来的。
+- Understand the intuition behind max margin and support vectors
+- Understand when linear kernels and kernel tricks are suitable
+- Understand why feature scaling is especially important for SVM
+- Build your first practical judgment of SVM through a runnable example
 
 ---
 
-## 二、什么时候 SVM 特别值得试？
+## 1. What exactly does SVM do?
 
-### 2.1 中小数据集
+### 1.1 It does not just find a separating line; it finds the “most stable” one
 
-如果数据量不是特别大，  
-SVM 往往很值得作为基线。
+Suppose you want to separate two classes of samples.
+There may be many lines that can separate them, but SVM does not pick one at random. Instead, it tends to choose:
 
-### 2.2 高维特征
+- The line that stays as far as possible from the nearest samples on both sides
 
-例如：
+This is:
 
-- TF-IDF 文本特征
-- 手工特征工程后的表格特征
+- Max margin
 
-SVM 在这类任务里经常表现不错。
+### 1.2 Why is a “large margin” meaningful?
 
-### 2.3 类别边界相对清晰
+Because the larger the margin, the less likely the model is to be affected by small disturbances near the boundary.
+You can think of it as:
 
-如果不同类别在特征空间里本来就有较清楚的分隔，  
-SVM 会更容易发挥。
+- Not just separating the classes
+- But separating them more stably
+
+### 1.3 What are support vectors?
+
+Not all samples matter equally.
+The samples that actually determine the position of the decision boundary are usually the small set of points closest to that boundary.
+
+These samples are called:
+
+- Support vectors
+
+In other words,
+the SVM boundary is held up by the “most critical few samples.”
 
 ---
 
-## 三、先跑一个真正有意义的最小示例
+## 2. When is SVM especially worth trying?
 
-这个例子会同时做两件事：
+### 2.1 Small to medium datasets
 
-1. 用线性 SVM 做分类
-2. 打印出支持向量数量
+If the dataset is not too large,
+SVM is often a very worthwhile baseline.
 
-这样你能直接看到 SVM 的两层关键输出：
+### 2.2 High-dimensional features
 
-- 分类器效果
-- 边界由哪些点决定
+For example:
+
+- TF-IDF text features
+- Tabular features after manual feature engineering
+
+SVM often performs well on these tasks.
+
+### 2.3 Relatively clear class boundaries
+
+If different classes are already fairly separable in feature space,
+SVM can work especially well.
+
+---
+
+## 3. First run a truly meaningful minimal example
+
+This example does two things at the same time:
+
+1. Use a linear SVM for classification
+2. Print the number of support vectors
+
+This way, you can directly see SVM’s two key outputs:
+
+- Classifier performance
+- Which points determine the boundary
 
 ```python
 import numpy as np
@@ -138,110 +138,110 @@ print("n_support_ :", svc.n_support_.tolist())
 print("support_vectors shape:", svc.support_vectors_.shape)
 ```
 
-### 3.1 这段代码为什么比只 `fit/predict` 更有用？
+### 3.1 Why is this code more useful than just `fit/predict`?
 
-因为它不仅让你看到：
+Because it lets you see not only:
 
-- 预测结果
+- The prediction results
 
-还让你看到：
+but also:
 
-- 每类有多少支持向量
+- How many support vectors each class has
 
-这有助于你把 SVM 的“最大间隔”直觉和模型行为连起来。
+This helps connect the “max margin” intuition with the model’s behavior.
 
-### 3.2 为什么这里要加 `StandardScaler()`？
+### 3.2 Why do we add `StandardScaler()` here?
 
-因为 SVM 对特征尺度非常敏感。  
-如果某一列数值范围特别大，它会在距离计算里占过大权重。
+Because SVM is very sensitive to feature scale.
+If one column has a much larger numeric range, it will get too much weight in distance calculations.
 
-这也是 SVM 最常见的工程坑之一：
+This is also one of the most common engineering pitfalls with SVM:
 
-- 不做缩放，效果会莫名其妙变差
+- If you do not scale features, the performance may drop for no obvious reason
 
 ---
 
-## 四、核技巧到底在解决什么？
+## 4. What problem does the kernel trick solve?
 
-### 4.1 线性 SVM 适合边界近似线性的情况
+### 4.1 Linear SVM is suitable when the boundary is approximately linear
 
-如果两类样本本来就能被一条直线分开，  
-线性核通常已经足够。
+If two classes can already be separated by a straight line,
+a linear kernel is usually enough.
 
-### 4.2 核技巧的直觉
+### 4.2 The intuition behind the kernel trick
 
-当原空间里不好分时，可以通过核方法隐式映射到更高维空间，  
-让问题在新空间里变得更容易线性可分。
+When the original space is hard to separate, kernel methods can implicitly map the data into a higher-dimensional space,
+making the problem easier to separate linearly in the new space.
 
-最常见的是：
+The most common choice is:
 
 - RBF kernel
 
-### 4.3 什么时候该谨慎用核方法？
+### 4.3 When should you be cautious with kernel methods?
 
-核 SVM 虽然更灵活，但也通常意味着：
+Although kernel SVM is more flexible, it usually also means:
 
-- 调参更敏感
-- 训练和预测更重
+- More sensitive hyperparameter tuning
+- Heavier training and prediction cost
 
-所以在工程里，通常建议：
+So in practice, the usual recommendation is:
 
-1. 先试线性
-2. 线性明显不够，再考虑更复杂核
+1. Try linear first
+2. If linear is clearly not enough, then consider a more complex kernel
 
 ---
 
-## 五、SVM 最常见的两个参数
+## 5. The two most common SVM parameters
 
 ### 5.1 `C`
 
-它控制“错误容忍”和“边界硬度”的平衡。
+It controls the balance between “error tolerance” and “boundary hardness.”
 
-你可以先粗略记成：
+A rough rule of thumb:
 
-- `C` 大：更努力把训练集分对，但可能更容易过拟合
-- `C` 小：允许一些误差，但边界更宽松
+- Large `C`: tries harder to fit the training set, but may overfit more easily
+- Small `C`: allows some errors, but gives a wider, looser boundary
 
 ### 5.2 `kernel`
 
-它决定模型使用：
+It determines whether the model uses:
 
-- 线性边界
-- 还是更灵活的非线性边界
-
----
-
-## 六、SVM 最容易踩的坑
-
-### 6.1 误区一：不做特征缩放
-
-这几乎是最常见问题。
-
-### 6.2 误区二：数据量很大时还默认上核 SVM
-
-数据量大后，核方法常常会变得比较重。
-
-### 6.3 误区三：把 SVM 当成“自动最优”
-
-SVM 常常是很强基线，  
-但它不是所有任务的默认最优解。
+- A linear boundary
+- Or a more flexible nonlinear boundary
 
 ---
 
-## 小结
+## 6. The most common SVM pitfalls
 
-这节最重要的，不是把支持向量机记成一堆公式，  
-而是建立一个判断：
+### 6.1 Mistake 1: Not scaling features
 
-> **SVM 的强项在于中小数据、高维特征和较清晰边界问题；它通过最大间隔找到更稳的分类边界，而支持向量是这个边界真正的关键样本。**
+This is by far the most common issue.
 
-只要这层理解清楚了，你以后就知道它什么时候值得上，什么时候不该硬用。
+### 6.2 Mistake 2: Using kernel SVM by default on a very large dataset
+
+When the dataset gets large, kernel methods can become quite heavy.
+
+### 6.3 Mistake 3: Treating SVM as “automatically optimal”
+
+SVM is often a very strong baseline,
+but it is not the default best solution for every task.
 
 ---
 
-## 练习
+## Summary
 
-1. 去掉 `StandardScaler()` 再跑一次，观察结果是否变化。
-2. 把 `kernel` 改成 `"rbf"`，看看模型还能否正常工作。
-3. 想一想：为什么文本分类里线性 SVM 往往是很强的基线？
-4. 用自己的话解释：支持向量为什么叫“支持”向量？
+The most important thing in this lesson is not to memorize support vector machines as a pile of formulas,
+but to build this judgment:
+
+> **SVM is strong on small to medium datasets, high-dimensional features, and problems with clear boundaries; it finds a more stable classification boundary through max margin, and the support vectors are the key samples that determine that boundary.**
+
+Once you understand this layer clearly, you will know when SVM is worth using—and when you should not force it.
+
+---
+
+## Exercises
+
+1. Remove `StandardScaler()` and run it again. Observe whether the result changes.
+2. Change `kernel` to `"rbf"` and see whether the model still works normally.
+3. Think about this: Why is linear SVM often such a strong baseline for text classification?
+4. Explain in your own words: Why are support vectors called “support” vectors?

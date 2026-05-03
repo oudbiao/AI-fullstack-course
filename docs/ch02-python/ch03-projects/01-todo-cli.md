@@ -1,126 +1,126 @@
 ---
-title: "1.1 项目：命令行任务管理器"
+title: "1.1 Project: Command-Line Task Manager"
 sidebar_position: 1
-description: "综合运用 Python 基础知识，构建一个命令行任务管理工具"
+description: "Apply Python fundamentals in a hands-on way to build a command-line task management tool"
 ---
 
-# 项目：命令行任务管理器
+# Project: Command-Line Task Manager
 
-![命令行任务管理器架构图](/img/course/ch02-todo-cli-architecture.png)
+![Command-Line Task Manager architecture diagram](/img/course/ch02-todo-cli-architecture-en.png)
 
-## 项目定位
+## Project Overview
 
-这是 Python 基础阶段的第一个完整小项目。你会把数据结构、函数、文件读写和异常处理组合起来，做出一个真正能保存任务、查看任务、修改任务状态的命令行工具。
+This is the first complete mini-project in the Python fundamentals stage. You will combine data structures, functions, file I/O, and exception handling to build a real command-line tool that can save tasks, view tasks, and update task status.
 
-## 项目目标
+## Project Goals
 
-- 综合运用 Python 基础知识（数据结构、函数、文件操作、异常处理）
-- 体验完整的项目开发流程：需求分析 → 设计 → 编码 → 测试
-- 构建一个**真正可用的**命令行工具
+- Apply Python fundamentals in a comprehensive way (data structures, functions, file operations, exception handling)
+- Experience the full project development workflow: requirements analysis → design → coding → testing
+- Build a **truly usable** command-line tool
 
 ---
 
-## 项目简介
+## Project Introduction
 
-我们要构建一个**命令行任务管理器**（类似简易版的 Todoist），支持：
+We are going to build a **command-line task manager** (similar to a simplified Todoist) that supports:
 
-- 添加任务
-- 查看所有任务
-- 标记任务完成
-- 删除任务
-- 数据持久化（关闭程序后数据不丢失）
+- Adding tasks
+- Viewing all tasks
+- Marking tasks as complete
+- Deleting tasks
+- Data persistence (data will not be lost after the program closes)
 
-最终效果：
+Final result:
 
 ```
-===== 任务管理器 =====
-1. 查看所有任务
-2. 添加任务
-3. 完成任务
-4. 删除任务
-5. 退出
+===== Task Manager =====
+1. View all tasks
+2. Add task
+3. Complete task
+4. Delete task
+5. Exit
 
-请选择操作 (1-5): 1
+Choose an action (1-5): 1
 
-📋 任务列表:
-  1. [ ] 学习 Python 基础        (创建于: 2026-02-09)
-  2. [✓] 完成第 1 章工具基础     (创建于: 2026-02-08)
-  3. [ ] 开始机器学习项目        (创建于: 2026-02-09)
+📋 Task List:
+  1. [ ] Learn Python fundamentals   (Created at: 2026-02-09)
+  2. [✓] Finish Chapter 1 tooling basics  (Created at: 2026-02-08)
+  3. [ ] Start a machine learning project (Created at: 2026-02-09)
 
-共 3 个任务，已完成 1 个
+Total 3 tasks, 1 completed
 ```
 
 ---
 
-## 第一步：项目规划
+## Step 1: Project Planning
 
-### 数据设计
+### Data Design
 
-每个任务需要哪些信息？
+What information does each task need?
 
 ```python
 task = {
     "id": 1,
-    "title": "学习 Python 基础",
+    "title": "Learn Python fundamentals",
     "done": False,
     "created_at": "2026-02-09 14:30:00"
 }
 ```
 
-所有任务存在一个列表中，并保存到 JSON 文件。
+All tasks are stored in a list and saved to a JSON file.
 
-### 功能模块
+### Functional Modules
 
-| 模块 | 功能 |
+| Module | Function |
 |------|------|
-| 数据管理 | 加载/保存任务到文件 |
-| 任务操作 | 增删改查 |
-| 用户界面 | 菜单显示、输入处理 |
+| Data management | Load/save tasks to/from a file |
+| Task operations | Create, read, update, delete |
+| User interface | Menu display, input handling |
 
 ---
 
-## 第二步：基础版本
+## Step 2: Basic Version
 
-先实现一个最简单的版本，不带文件保存：
+First, implement the simplest version without file persistence:
 
 ```python
-# todo.py —— 命令行任务管理器
+# todo.py —— command-line task manager
 
 from datetime import datetime
 
 
 def show_menu():
-    """显示菜单"""
-    print("\n===== 任务管理器 =====")
-    print("1. 查看所有任务")
-    print("2. 添加任务")
-    print("3. 完成任务")
-    print("4. 删除任务")
-    print("5. 退出")
+    """Display the menu"""
+    print("\n===== Task Manager =====")
+    print("1. View all tasks")
+    print("2. Add task")
+    print("3. Complete task")
+    print("4. Delete task")
+    print("5. Exit")
     print()
 
 
 def show_tasks(tasks: list[dict]) -> None:
-    """显示所有任务"""
+    """Display all tasks"""
     if not tasks:
-        print("📭 暂无任务，快去添加一个吧！")
+        print("📭 No tasks yet. Go add one!")
         return
 
-    print("\n📋 任务列表:")
+    print("\n📋 Task List:")
     for i, task in enumerate(tasks, 1):
         status = "✓" if task["done"] else " "
         print(f'  {i}. [{status}] {task["title"]}  '
-              f'(创建于: {task["created_at"][:10]})')
+              f'(Created at: {task["created_at"][:10]})')
 
     done_count = sum(1 for t in tasks if t["done"])
-    print(f"\n共 {len(tasks)} 个任务，已完成 {done_count} 个")
+    print(f"\nTotal {len(tasks)} tasks, {done_count} completed")
 
 
 def add_task(tasks: list[dict]) -> None:
-    """添加新任务"""
-    title = input("请输入任务标题: ").strip()
+    """Add a new task"""
+    title = input("Enter task title: ").strip()
     if not title:
-        print("❌ 任务标题不能为空！")
+        print("❌ Task title cannot be empty!")
         return
 
     task = {
@@ -130,56 +130,56 @@ def add_task(tasks: list[dict]) -> None:
         "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     tasks.append(task)
-    print(f"✅ 任务「{title}」已添加！")
+    print(f"✅ Task '{title}' has been added!")
 
 
 def complete_task(tasks: list[dict]) -> None:
-    """标记任务为完成"""
+    """Mark a task as complete"""
     show_tasks(tasks)
     if not tasks:
         return
 
     try:
-        num = int(input("请输入要完成的任务编号: "))
+        num = int(input("Enter the task number to complete: "))
         if 1 <= num <= len(tasks):
             task = tasks[num - 1]
             if task["done"]:
-                print(f"⚠️ 任务「{task['title']}」已经完成过了")
+                print(f"⚠️ Task '{task['title']}' has already been completed")
             else:
                 task["done"] = True
-                print(f"✅ 任务「{task['title']}」已标记为完成！")
+                print(f"✅ Task '{task['title']}' has been marked as complete!")
         else:
-            print("❌ 无效的任务编号！")
+            print("❌ Invalid task number!")
     except ValueError:
-        print("❌ 请输入数字！")
+        print("❌ Please enter a number!")
 
 
 def delete_task(tasks: list[dict]) -> None:
-    """删除任务"""
+    """Delete a task"""
     show_tasks(tasks)
     if not tasks:
         return
 
     try:
-        num = int(input("请输入要删除的任务编号: "))
+        num = int(input("Enter the task number to delete: "))
         if 1 <= num <= len(tasks):
             removed = tasks.pop(num - 1)
-            print(f"🗑️ 任务「{removed['title']}」已删除！")
+            print(f"🗑️ Task '{removed['title']}' has been deleted!")
         else:
-            print("❌ 无效的任务编号！")
+            print("❌ Invalid task number!")
     except ValueError:
-        print("❌ 请输入数字！")
+        print("❌ Please enter a number!")
 
 
 def main():
-    """主函数"""
+    """Main function"""
     tasks = []
 
-    print("欢迎使用任务管理器！")
+    print("Welcome to Task Manager!")
 
     while True:
         show_menu()
-        choice = input("请选择操作 (1-5): ").strip()
+        choice = input("Choose an action (1-5): ").strip()
 
         if choice == "1":
             show_tasks(tasks)
@@ -190,23 +190,23 @@ def main():
         elif choice == "4":
             delete_task(tasks)
         elif choice == "5":
-            print("👋 再见！")
+            print("👋 Goodbye!")
             break
         else:
-            print("❌ 无效的选择，请输入 1-5")
+            print("❌ Invalid choice, please enter 1-5")
 
 
 if __name__ == "__main__":
     main()
 ```
 
-**试一试：** 把上面的代码保存为 `todo.py`，运行 `python todo.py`。
+**Try it out:** Save the code above as `todo.py`, then run `python todo.py`.
 
 ---
 
-## 第三步：添加文件持久化
+## Step 3: Add File Persistence
 
-现在程序一关数据就没了。让我们加上文件保存功能：
+Right now, the data disappears when the program closes. Let's add file saving:
 
 ```python
 import json
@@ -216,97 +216,97 @@ DATA_FILE = Path("tasks.json")
 
 
 def load_tasks() -> list[dict]:
-    """从文件加载任务"""
+    """Load tasks from a file"""
     if DATA_FILE.exists():
         try:
             with open(DATA_FILE, "r", encoding="utf-8") as f:
                 tasks = json.load(f)
-            print(f"📂 已加载 {len(tasks)} 个任务")
+            print(f"📂 Loaded {len(tasks)} tasks")
             return tasks
         except (json.JSONDecodeError, IOError) as e:
-            print(f"⚠️ 加载数据失败: {e}，将使用空列表")
+            print(f"⚠️ Failed to load data: {e}. An empty list will be used")
     return []
 
 
 def save_tasks(tasks: list[dict]) -> None:
-    """保存任务到文件"""
+    """Save tasks to a file"""
     try:
         with open(DATA_FILE, "w", encoding="utf-8") as f:
             json.dump(tasks, f, ensure_ascii=False, indent=2)
     except IOError as e:
-        print(f"⚠️ 保存数据失败: {e}")
+        print(f"⚠️ Failed to save data: {e}")
 ```
 
-然后修改 `main()` 函数：
+Then update the `main()` function:
 
 ```python
 def main():
-    tasks = load_tasks()  # 启动时加载
+    tasks = load_tasks()  # Load on startup
 
-    print("欢迎使用任务管理器！")
+    print("Welcome to Task Manager!")
 
     while True:
         show_menu()
-        choice = input("请选择操作 (1-5): ").strip()
+        choice = input("Choose an action (1-5): ").strip()
 
         if choice == "1":
             show_tasks(tasks)
         elif choice == "2":
             add_task(tasks)
-            save_tasks(tasks)  # 添加后保存
+            save_tasks(tasks)  # Save after adding
         elif choice == "3":
             complete_task(tasks)
-            save_tasks(tasks)  # 修改后保存
+            save_tasks(tasks)  # Save after updating
         elif choice == "4":
             delete_task(tasks)
-            save_tasks(tasks)  # 删除后保存
+            save_tasks(tasks)  # Save after deleting
         elif choice == "5":
-            save_tasks(tasks)  # 退出前保存
-            print("👋 再见！")
+            save_tasks(tasks)  # Save before exiting
+            print("👋 Goodbye!")
             break
         else:
-            print("❌ 无效的选择，请输入 1-5")
+            print("❌ Invalid choice, please enter 1-5")
 ```
 
 ---
 
-## 第四步：扩展挑战
+## Step 4: Extension Challenges
 
-基础版完成后，试着添加以下功能来提升自己：
+After finishing the basic version, try adding the following features to improve it:
 
-### 挑战 1：任务优先级
+### Challenge 1: Task Priority
 
-给任务添加优先级（高/中/低），并支持按优先级排序显示。
+Add priority levels to tasks (high/medium/low) and support sorting by priority when displaying tasks.
 
-### 挑战 2：搜索功能
+### Challenge 2: Search Feature
 
-支持按关键词搜索任务标题。
+Support searching task titles by keyword.
 
-### 挑战 3：统计功能
+### Challenge 3: Statistics
 
-显示统计信息：总任务数、完成率、今日新增等。
+Display statistics such as total task count, completion rate, and number of tasks added today.
 
-### 挑战 4：用类重构
+### Challenge 4: Refactor with Classes
 
-把整个项目用面向对象的方式重构：
+Refactor the whole project using object-oriented programming:
 
 ```python
 class Task:
-    """单个任务"""
-    def __init__(self, title: str, priority: str = "中"):
+    """Single task"""
+    def __init__(self, title: str, priority: str = "medium"):
         self.title = title
         self.priority = priority
         self.done = False
         self.created_at = datetime.now()
 
 class TaskManager:
-    """任务管理器"""
+    """Task manager"""
     def __init__(self, filename: str = "tasks.json"):
         self.filename = filename
         self.tasks: list[Task] = []
         self.load()
 
-    def add(self, title: str, priority: str = "中") -> None: ...
+    def add(self, title: str, priority: str = "medium") -> None: ...
     def complete(self, index: int) -> None: ...
     def delete(self, index: int) -> None: ...
     def search(self, keyword: str) -> list[Task]: ...
@@ -316,28 +316,28 @@ class TaskManager:
 
 ---
 
-## 项目自查清单
+## Project Self-Check Checklist
 
-完成项目后，对照检查：
+After completing the project, check the following:
 
-- [ ] 程序能正常运行，不会因为非法输入而崩溃
-- [ ] 数据保存到文件，重启后数据还在
-- [ ] 代码有函数分层，不是一大坨
-- [ ] 有适当的错误处理（try/except）
-- [ ] 函数有文档字符串
-- [ ] 变量命名清晰（符合 PEP 8）
-- [ ] 用 Git 管理了项目代码
+- [ ] The program runs normally and does not crash because of invalid input
+- [ ] Data is saved to a file and still exists after restarting
+- [ ] The code is split into functions, not one giant block
+- [ ] There is appropriate error handling (`try/except`)
+- [ ] Functions have docstrings
+- [ ] Variable names are clear (follow PEP 8)
+- [ ] The project code is managed with Git
 
-:::tip 项目经验
-这个项目虽然简单，但涵盖了软件开发的核心要素：**用户交互、数据处理、文件存储、错误处理**。后面的所有项目（无论是 Web 应用还是 AI 系统）都是这些要素的扩展和组合。把这个项目做好，你就迈出了实战编程的第一步。
+:::tip Project Insight
+Although this project is simple, it covers the core elements of software development: **user interaction, data processing, file storage, error handling**. All later projects, whether web applications or AI systems, are extensions and combinations of these elements. If you do this project well, you will take your first real step into hands-on programming.
 :::
 
-## 版本路线建议
+## Recommended Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimum working loop running | Be able to input, process, output, and keep a sample set |
+| Standard version | Turn it into a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge version | Get close to portfolio quality | Add evaluation, comparison experiments, failure-case analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not aim for something huge right from the start. With each version upgrade, make sure to write in the README what new capability was added, how it was verified, and what issues still remain.

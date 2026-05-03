@@ -1,149 +1,149 @@
 ---
-title: "4.3 序列标注任务"
+title: "4.3 Sequence Labeling Tasks"
 sidebar_position: 2
-description: "从“整句一个标签”和“每个 token 一个标签”的差别讲起，理解序列标注为什么是信息抽取任务的重要基础。"
+description: "Start from the difference between “one label for the whole sentence” and “one label for each token” to understand why sequence labeling is an important foundation for information extraction."
 keywords: [sequence labeling, token classification, NER, BIO, span extraction, NLP]
 ---
 
-# 序列标注任务
+# Sequence Labeling Tasks
 
-![BIO 标签到实体恢复图](/img/course/bio-ner-recovery.png)
+![BIO label to entity recovery diagram](/img/course/bio-ner-recovery-en.png)
 
-:::tip 本节定位
-文本分类的输出通常是：
+:::tip Section Overview
+The output of text classification is usually:
 
-- 整句一个标签
+- one label for the whole sentence
 
-而序列标注的输出更细：
+But the output of sequence labeling is more fine-grained:
 
-- 每个 token 一个标签
+- one label for each token
 
-这一步非常关键，因为它把 NLP 从“整句判断”推进到了：
+This step is very important because it moves NLP from “judging the whole sentence” to:
 
-> **在句子内部定位具体信息。**
+> **locating specific information inside the sentence.**
 
-也正是从这里开始，我们才更自然地走向命名实体识别、信息抽取、槽位填充这类任务。
+From here, it becomes much more natural to move toward tasks like named entity recognition, information extraction, and slot filling.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解序列标注和整句分类的根本区别
-- 理解 BIO / BIOES 这类标签体系为什么常用
-- 通过可运行示例理解 token 级标注过程
-- 建立序列标注和信息抽取任务之间的联系
-
----
-
-## 一、序列标注到底在解决什么问题？
-
-### 1.1 它不只是判断“这句话是什么”，而是判断“这句话里哪一段是什么”
-
-例如句子：
-
-- “张三在北京大学工作”
-
-如果做文本分类，也许只会输出：
-
-- 这是一个关于人物与地点的句子
-
-但序列标注更关心：
-
-- `张三` 是人名
-- `北京大学` 是机构名
-
-### 1.2 为什么这很重要？
-
-因为很多真实业务并不满足于整句理解。  
-它们更关心：
-
-- 人名
-- 地址
-- 机构名
-- 金额
-- 时间
-
-这些具体片段的位置和边界。
-
-### 1.3 一个类比
-
-文本分类像给整篇文章贴标签。  
-序列标注像拿荧光笔在句子里圈重点。
+- Understand the fundamental difference between sequence labeling and sentence-level classification
+- Understand why label schemes such as BIO / BIOES are commonly used
+- Use a runnable example to understand token-level labeling
+- Build the connection between sequence labeling and information extraction tasks
 
 ---
 
-## 二、为什么输出通常要按 token 来标？
+## 1. What Problem Is Sequence Labeling Solving?
 
-### 2.1 因为实体是连续片段
+### 1.1 It is not just deciding “what kind of sentence this is,” but “which part of the sentence is what”
 
-很多要抽的信息不是单个词，而是一段连续 span。  
-例如：
+For example, the sentence:
 
-- `上海交通大学`
-- `2025年6月1日`
+- “Zhang San works at Peking University”
 
-### 2.2 用 token 级标签可以表达边界
+If you do text classification, you might only output:
 
-这就是为什么常见标签体系不是简单地写：
+- This is a sentence about a person and a location
+
+But sequence labeling cares more about:
+
+- `Zhang San` is a person name
+- `Peking University` is an organization name
+
+### 1.2 Why is this important?
+
+Because many real-world applications are not satisfied with sentence-level understanding.
+They care more about:
+
+- person names
+- addresses
+- organization names
+- amounts
+- time expressions
+
+That is, the positions and boundaries of these specific spans.
+
+### 1.3 An analogy
+
+Text classification is like putting a label on an entire article.
+Sequence labeling is like using a highlighter to circle important parts in the sentence.
+
+---
+
+## 2. Why Is the Output Usually Token-Based?
+
+### 2.1 Because entities are continuous spans
+
+Many pieces of information we want to extract are not single words, but a continuous span.
+For example:
+
+- `Shanghai Jiao Tong University`
+- `June 1, 2025`
+
+### 2.2 Token-level labels can express boundaries
+
+That is why common label schemes do not simply write:
 
 - PERSON
 - LOCATION
 
-而是会写：
+Instead, they write:
 
 - `B-PER`
 - `I-PER`
 - `O`
 
-### 2.3 BIO 的直觉
+### 2.3 The intuition behind BIO
 
-- `B-`：实体开始
-- `I-`：实体内部
-- `O`：不属于任何实体
+- `B-`: beginning of an entity
+- `I-`: inside an entity
+- `O`: not part of any entity
 
-这样系统就能更明确地区分：
+This lets the system distinguish more clearly:
 
-- 一个实体从哪里开始
-- 到哪里结束
+- where an entity starts
+- where it ends
 
 ---
 
-## 三、先跑一个最小 BIO 标注示例
+## 3. First Run a Minimal BIO Labeling Example
 
 ```python
-tokens = ["张三", "在", "北京", "大学", "工作"]
+tokens = ["Zhang San", "works at", "Peking", "University", "today"]
 tags = ["B-PER", "O", "B-ORG", "I-ORG", "O"]
 
 for tok, tag in zip(tokens, tags):
     print(tok, tag)
 ```
 
-### 3.1 这个例子最核心的地方是什么？
+### 3.1 What is the most important thing in this example?
 
-它让你看到：
+It shows you:
 
-- 序列输入
-- 对应的序列输出
+- a sequence input
+- a corresponding sequence output
 
-这就是序列标注最本质的形式：
+This is the most essential form of sequence labeling:
 
-> **输入一串 token，输出同样长度的一串标签。**
+> **Input a sequence of tokens, output a sequence of labels of the same length.**
 
-### 3.2 为什么 `北京 大学` 会被标成 `B-ORG / I-ORG`？
+### 3.2 Why are `Peking University` labeled as `B-ORG / I-ORG`?
 
-因为这里想表达的是：
+Because the goal here is to express:
 
-- 这是同一个连续实体
+- this is one continuous entity
 
-而不是两个分开的实体。
+not two separate entities.
 
 ---
 
-## 四、从标签序列还原实体
+## 4. Recovering Entities from a Label Sequence
 
-下面这个例子会把 token + BIO 标签恢复成实体片段。
+The following example recovers entity spans from token + BIO labels.
 
 ```python
-tokens = ["张三", "在", "北京", "大学", "工作"]
+tokens = ["Zhang San", "works at", "Peking", "University", "today"]
 tags = ["B-PER", "O", "B-ORG", "I-ORG", "O"]
 
 
@@ -170,7 +170,7 @@ def decode_entities(tokens, tags):
         elif prefix == "I" and current_type == entity_type:
             current_tokens.append(token)
         else:
-            # 标签不合法时，简单切断并重开
+            # If the label is invalid, simply cut off and restart
             if current_tokens:
                 entities.append(("".join(current_tokens), current_type))
             current_tokens = [token]
@@ -185,73 +185,73 @@ def decode_entities(tokens, tags):
 print(decode_entities(tokens, tags))
 ```
 
-### 4.1 这段代码为什么很重要？
+### 4.1 Why is this code important?
 
-因为它把“标注任务”和“抽取结果”连起来了。  
-真实系统里我们真正关心的通常不是标签本身，而是：
+Because it connects the “labeling task” with the “extraction result.”
+In real systems, what we usually care about is not the labels themselves, but:
 
-- 实体 span
-- 实体类型
-
----
-
-## 五、序列标注和信息抽取是什么关系？
-
-### 5.1 NER 是典型序列标注任务
-
-最经典的就是：
-
-- 命名实体识别
-
-### 5.2 但它不只用于 NER
-
-还可以做：
-
-- 槽位填充
-- 关键词抽取
-- 事件触发词定位
-
-### 5.3 所以它是“信息抽取的底层技能”
-
-很多抽取系统后面会更复杂，  
-但最基础的一步常常仍然是：
-
-- 先把关键 span 标出来
+- entity spans
+- entity types
 
 ---
 
-## 六、最容易踩的坑
+## 5. What Is the Relationship Between Sequence Labeling and Information Extraction?
 
-### 6.1 误区一：把序列标注当成普通分类
+### 5.1 NER is a typical sequence labeling task
 
-它和整句分类最大的差别就在于：
+The most classic example is:
 
-- 输出是对齐序列
+- named entity recognition
 
-### 6.2 误区二：只看标签，不看边界恢复
+### 5.2 But it is not only used for NER
 
-真实系统更关心最终抽出的实体片段，  
-不是标签表本身。
+It can also be used for:
 
-### 6.3 误区三：标签体系随便定
+- slot filling
+- keyword extraction
+- event trigger identification
 
-如果标签设计混乱，模型和评估都会一起乱。
+### 5.3 So it is a “foundational skill” for information extraction
 
----
+Many extraction systems become more complex later,
+but the most basic first step is often still:
 
-## 小结
-
-这节最重要的是建立一个判断：
-
-> **序列标注的核心，是对输入序列中的每个 token 做标签判断，从而恢复出句子内部的关键片段与边界。**
-
-只要这个直觉稳住了，后面学 NER、BiLSTM+CRF 和信息抽取项目时就会顺很多。
+- mark the key spans first
 
 ---
 
-## 练习
+## 6. Common Pitfalls
 
-1. 把示例再加一个时间实体，例如 `2025年`，自己写一组 BIO 标签。
-2. 为什么说 BIO 标签体系的关键作用是表达实体边界？
-3. 用自己的话解释：序列标注和文本分类最大的区别是什么？
-4. 想一想：如果标签序列里出现不合法的 `I-XXX`，系统该怎么处理更稳？
+### 6.1 Mistake 1: Treating sequence labeling like ordinary classification
+
+The biggest difference from sentence-level classification is:
+
+- the output is sequence-aligned
+
+### 6.2 Mistake 2: Only looking at labels and ignoring boundary recovery
+
+Real systems care more about the final extracted entity spans,
+not the label table itself.
+
+### 6.3 Mistake 3: Designing the label scheme casually
+
+If the label design is messy, both the model and the evaluation will become messy too.
+
+---
+
+## Summary
+
+The most important takeaway from this lesson is to build one core intuition:
+
+> **The core of sequence labeling is to assign labels to each token in the input sequence, so that the key spans and boundaries inside the sentence can be recovered.**
+
+Once this intuition is solid, it will be much smoother to learn NER, BiLSTM+CRF, and information extraction projects later.
+
+---
+
+## Exercises
+
+1. Add another time entity to the example, such as `2025`, and write a BIO label sequence yourself.
+2. Why is the key role of the BIO label scheme to express entity boundaries?
+3. Explain in your own words: what is the biggest difference between sequence labeling and text classification?
+4. Think about this: if an invalid `I-XXX` appears in the label sequence, how should the system handle it more robustly?

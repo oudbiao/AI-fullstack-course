@@ -1,181 +1,181 @@
 ---
 title: "Jupyter Notebook"
 sidebar_position: 3
-description: "掌握数据分析和 AI 实验的标配工具"
+description: "A standard tool for data analysis and AI experiments"
 ---
 
 # Jupyter Notebook
 
-![Jupyter Cell 与 Kernel 状态图](/img/course/ch01-jupyter-kernel-state.png)
+![Jupyter Cell and Kernel State Diagram](/img/course/ch01-jupyter-kernel-state-en.png)
 
-## 本节定位
+## What This Section Covers
 
-这一节介绍数据分析和 AI 实验最常用的交互式环境。你会理解 Notebook 适合探索、实验和展示，`.py` 文件更适合正式项目代码，并学会创建 Cell、运行代码、写 Markdown 和画图。
+This section introduces the interactive environment most commonly used for data analysis and AI experiments. You will learn why Notebook is great for exploration, experimentation, and presentation, why `.py` files are better for production project code, and how to create Cells, run code, write Markdown, and make plots.
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Jupyter Notebook 是什么、适合做什么
-- 安装和启动 Jupyter Notebook
-- 掌握 Cell 类型和基本操作
-- 熟悉最常用的快捷键
-- 学会使用魔法命令
-- 理解 Notebook 和 `.py` 文件的区别
+- Understand what Jupyter Notebook is and what it is used for
+- Install and start Jupyter Notebook
+- Master Cell types and basic operations
+- Get familiar with the most commonly used shortcuts
+- Learn how to use magic commands
+- Understand the difference between Notebook and `.py` files
 
 ---
 
-## Jupyter Notebook 是什么？
+## What Is Jupyter Notebook?
 
-**Jupyter Notebook 是一种交互式编程环境**——你可以写一段代码、立刻运行、看到结果，然后再写下一段。代码、输出、图表、文字说明全部混在一个文件里。
+**Jupyter Notebook is an interactive programming environment** — you can write a piece of code, run it immediately, see the result, and then write the next piece. Code, output, charts, and text explanations are all mixed together in one file.
 
-### 它长什么样？
+### What Does It Look Like?
 
-想象一个笔记本，每一页（叫做 **Cell**）可以是：
-- 一段可以运行的代码
-- 一段 Markdown 文字（标题、说明、公式）
-- 代码运行后的输出（数字、表格、图表）
+Imagine a notebook where each page (called a **Cell**) can be:
+- A piece of runnable code
+- A piece of Markdown text (titles, explanations, formulas)
+- The output after running code (numbers, tables, charts)
 
-它们按顺序排列在一起，形成一个"可运行的文档"。
+They are arranged in order to form a "runnable document."
 
-### 什么场景最适合用 Jupyter？
+### What Scenarios Is Jupyter Best For?
 
-| 场景 | 用 Jupyter | 用 .py 文件 |
+| Scenario | Use Jupyter | Use .py files |
 |------|:---------:|:----------:|
-| 探索性数据分析（EDA） | ✅ 最佳 | ❌ |
-| 画图和可视化 | ✅ 图直接显示在下方 | ❌ 需要弹窗 |
-| 学习和实验 | ✅ 逐步运行，边学边试 | ❌ |
-| 展示成果（给老板看） | ✅ 代码+图+文字一体 | ❌ |
-| 正式项目代码 | ❌ | ✅ 更好维护 |
-| 调试复杂程序 | ❌ | ✅ |
-| 团队协作 | ❌ 合并冲突多 | ✅ |
+| Exploratory Data Analysis (EDA) | ✅ Best | ❌ |
+| Plotting and visualization | ✅ Charts appear directly below | ❌ Requires a pop-up window |
+| Learning and experimentation | ✅ Run step by step and learn as you go | ❌ |
+| Presenting results (to your boss) | ✅ Code + charts + text in one place | ❌ |
+| Production project code | ❌ | ✅ Easier to maintain |
+| Debugging complex programs | ❌ | ✅ |
+| Team collaboration | ❌ More merge conflicts | ✅ |
 
-一句话：**学习和实验用 Jupyter，写正式代码用 .py 文件。** 本课程的前几个阶段会大量使用 Jupyter。
+In one sentence: **Use Jupyter for learning and experiments, and use .py files for production code.** We will use Jupyter a lot in the early stages of this course.
 
 ---
 
-## 安装和启动
+## Installation and Launch
 
-### 安装
+### Install
 
-确保你在正确的 conda 环境里：
+Make sure you are in the correct conda environment:
 
 ```bash
 conda activate ai-course
 
-# 安装 Jupyter Notebook
+# Install Jupyter Notebook
 pip install jupyter
 
-# （可选）安装 JupyterLab——Jupyter 的增强版，界面更现代
+# (Optional) Install JupyterLab — an enhanced version of Jupyter with a more modern interface
 pip install jupyterlab
 ```
 
-### 启动
+### Launch
 
 ```bash
-# 启动 Jupyter Notebook（经典版）
+# Start Jupyter Notebook (classic version)
 jupyter notebook
 
-# 或启动 JupyterLab（推荐）
+# Or start JupyterLab (recommended)
 jupyter lab
 ```
 
-运行后，终端会输出类似这样的信息：
+After running this, the terminal will output something like:
 
 ```
 [I 10:00:00 NotebookApp] Serving notebooks from local directory: /Users/zhangsan
 [I 10:00:00 NotebookApp] http://localhost:8888/?token=abc123...
 ```
 
-浏览器会自动打开，你就能看到 Jupyter 的界面了。
+The browser will open automatically, and you will see the Jupyter interface.
 
-:::tip 在 VS Code 里用 Jupyter
-如果你安装了 VS Code 的 Jupyter 扩展，可以直接在 VS Code 里创建和运行 `.ipynb` 文件，不需要启动浏览器版本。新建一个 `.ipynb` 文件就行。后续课程中两种方式都可以用。
+:::tip Using Jupyter in VS Code
+If you have installed the Jupyter extension for VS Code, you can create and run `.ipynb` files directly in VS Code without launching the browser version. Just create a new `.ipynb` file. Both approaches can be used later in the course.
 :::
 
-### 创建新 Notebook
+### Create a New Notebook
 
-在 Jupyter 界面里：
-1. 点击右上角的 **New → Python 3**（经典版）
-2. 或点击左侧的 **+** 号，选择 **Python 3 Notebook**（JupyterLab）
+In the Jupyter interface:
+1. Click **New → Python 3** in the top-right corner (classic version)
+2. Or click the **+** icon on the left and choose **Python 3 Notebook** (JupyterLab)
 
-一个新的空白 Notebook 就创建好了。
+A new blank Notebook is now created.
 
 ---
 
-## Cell（单元格）基础
+## Cell Basics
 
-Notebook 由一个一个的 **Cell** 组成。每个 Cell 有两种类型：
+A Notebook is made up of one **Cell** after another. Each Cell has two types:
 
-### Code Cell（代码单元格）
+### Code Cell
 
-用来写和运行 Python 代码：
+Used to write and run Python code:
 
 ```python
-# Cell 1：定义变量
-name = "AI 全栈学习"
+# Cell 1: define variables
+name = "AI Full-Stack Learning"
 year = 2026
 ```
 
-按 `Shift + Enter` 运行。
+Press `Shift + Enter` to run it.
 
 ```python
-# Cell 2：使用上面定义的变量
-print(f"欢迎来到 {name} 课程！现在是 {year} 年。")
+# Cell 2: use the variables defined above
+print(f"Welcome to the {name} course! It is now {year}.")
 ```
 
-输出：
+Output:
 
 ```
-欢迎来到 AI 全栈学习教程！现在是 2026 年。
+Welcome to the AI Full-Stack Learning tutorial! It is now 2026.
 ```
 
-**重要特性：** Cell 之间共享变量。你在 Cell 1 里定义的 `name`，在 Cell 2 里可以直接用。
+**Important feature:** Cells share variables. The `name` you define in Cell 1 can be used directly in Cell 2.
 
-### Markdown Cell（文字单元格）
+### Markdown Cell
 
-用来写文字说明、标题、列表、公式等。切换方法：
-- 选中 Cell，按 `M` 键切换为 Markdown
-- 按 `Y` 键切换回 Code
+Used for text explanations, headings, lists, formulas, and more. To switch:
+- Select the Cell and press `M` to switch to Markdown
+- Press `Y` to switch back to Code
 
-Markdown Cell 里可以写：
+You can write this in a Markdown Cell:
 
 ```markdown
-## 第一步：加载数据
+## Step 1: Load the data
 
-我们使用 **Iris 数据集**进行探索性分析。
+We use the **Iris dataset** for exploratory analysis.
 
-- 150 个样本
-- 4 个特征
-- 3 个类别
+- 150 samples
+- 4 features
+- 3 classes
 
-数学公式：$y = wx + b$
+Mathematical formula: $y = wx + b$
 ```
 
-运行后会渲染成漂亮的格式化文字。
+After running, it will be rendered as nicely formatted text.
 
-### 案例：一个典型的数据分析 Notebook 结构
+### Example: A Typical Data Analysis Notebook Structure
 
 ```
-[Markdown]  # Iris 数据集探索性分析
-[Markdown]  ## 1. 导入库
+[Markdown]  # Exploratory Analysis of the Iris Dataset
+[Markdown]  ## 1. Import Libraries
 [Code]      import numpy as np
             import pandas as pd
             import matplotlib.pyplot as plt
 
-[Markdown]  ## 2. 加载数据
+[Markdown]  ## 2. Load Data
 [Code]      from sklearn.datasets import load_iris
             iris = load_iris()
             df = pd.DataFrame(iris.data, columns=iris.feature_names)
             df['species'] = iris.target
             df.head()
 
-[Output]    （显示一个表格）
+[Output]    (a table is displayed)
 
-[Markdown]  ## 3. 数据概览
+[Markdown]  ## 3. Data Overview
 [Code]      df.describe()
 
-[Output]    （显示统计摘要表格）
+[Output]    (a statistical summary table is displayed)
 
-[Markdown]  ## 4. 可视化
+[Markdown]  ## 4. Visualization
 [Code]      plt.figure(figsize=(10, 6))
             plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=df['species'])
             plt.xlabel('sepal length')
@@ -183,102 +183,102 @@ Markdown Cell 里可以写：
             plt.title('Iris Dataset')
             plt.show()
 
-[Output]    （直接显示散点图）
+[Output]    (a scatter plot is displayed directly)
 
-[Markdown]  ## 5. 结论
-            花瓣长度和花瓣宽度是区分三个品种最有效的特征。
+[Markdown]  ## 5. Conclusion
+            Petal length and petal width are the most effective features for distinguishing the three species.
 ```
 
-代码、图表、文字解释，全在一个文件里。这就是 Jupyter 的魅力。
+Code, charts, and text explanations are all in one file. That is the charm of Jupyter.
 
 ---
 
-## 快捷键
+## Shortcuts
 
-Jupyter 有两种模式：
+Jupyter has two modes:
 
-- **命令模式**（Cell 外框是蓝色）：按 `Esc` 进入，用于管理 Cell
-- **编辑模式**（Cell 外框是绿色）：按 `Enter` 进入，用于编辑内容
+- **Command mode** (the Cell border is blue): press `Esc` to enter, used for managing Cells
+- **Edit mode** (the Cell border is green): press `Enter` to enter, used for editing content
 
-### 命令模式快捷键（按 Esc 后使用）
+### Command Mode Shortcuts (use after pressing Esc)
 
-| 快捷键 | 操作 |
+| Shortcut | Action |
 |:---:|------|
-| `Shift + Enter` | 运行当前 Cell 并跳到下一个（最最最常用） |
-| `Ctrl + Enter` | 运行当前 Cell 但不跳转 |
-| `A` | 在上方插入新 Cell |
-| `B` | 在下方插入新 Cell |
-| `DD`（连按两次 D） | 删除当前 Cell |
-| `M` | 把当前 Cell 改为 Markdown |
-| `Y` | 把当前 Cell 改为 Code |
-| `Z` | 撤销删除 Cell |
-| `↑` / `↓` | 上下移动选中不同的 Cell |
+| `Shift + Enter` | Run the current Cell and move to the next one (the most commonly used shortcut) |
+| `Ctrl + Enter` | Run the current Cell without moving on |
+| `A` | Insert a new Cell above |
+| `B` | Insert a new Cell below |
+| `DD` (press D twice) | Delete the current Cell |
+| `M` | Change the current Cell to Markdown |
+| `Y` | Change the current Cell to Code |
+| `Z` | Undo Cell deletion |
+| `↑` / `↓` | Move between Cells |
 
-### 编辑模式快捷键（按 Enter 后使用）
+### Edit Mode Shortcuts (use after pressing Enter)
 
-| 快捷键 | 操作 |
+| Shortcut | Action |
 |:---:|------|
-| `Shift + Enter` | 运行并跳到下一个 |
-| `Tab` | 代码补全 |
-| `Shift + Tab` | 显示函数文档 |
-| `Ctrl + /` | 注释/取消注释 |
-| `Ctrl + Z` | 撤销 |
+| `Shift + Enter` | Run and move to the next one |
+| `Tab` | Code completion |
+| `Shift + Tab` | Show function documentation |
+| `Ctrl + /` | Comment / uncomment |
+| `Ctrl + Z` | Undo |
 
-### 实操：练习快捷键
+### Hands-On: Practice the Shortcuts
 
-创建一个新 Notebook，然后：
+Create a new Notebook, then:
 
-1. 在第一个 Cell 里输入 `print("Cell 1")`，按 `Shift + Enter` 运行
-2. 按 `B` 在下方新建一个 Cell
-3. 输入 `print("Cell 2")`，按 `Ctrl + Enter` 运行（注意光标不跳转）
-4. 按 `Esc` 回到命令模式
-5. 按 `A` 在上方插入 Cell
-6. 按 `M` 切换为 Markdown，输入 `# 我的标题`，按 `Shift + Enter` 渲染
-7. 选中一个不需要的 Cell，按 `DD` 删除
+1. In the first Cell, type `print("Cell 1")` and press `Shift + Enter` to run it
+2. Press `B` to create a new Cell below
+3. Type `print("Cell 2")` and press `Ctrl + Enter` to run it (note that the cursor will not move)
+4. Press `Esc` to return to command mode
+5. Press `A` to insert a Cell above
+6. Press `M` to switch to Markdown, type `# My Title`, and press `Shift + Enter` to render it
+7. Select a Cell you do not need and press `DD` to delete it
 
-反复练习几次，很快就能形成肌肉记忆。
+Practice a few times, and muscle memory will come quickly.
 
 ---
 
-## 魔法命令
+## Magic Commands
 
-Jupyter 提供了一些以 `%` 或 `!` 开头的特殊命令，叫做"魔法命令"。它们可以做到普通 Python 代码做不到的事。
+Jupyter provides special commands that start with `%` or `!`, called "magic commands." They can do things that ordinary Python code cannot.
 
-### `!` 命令：在 Cell 里执行终端命令
+### `!` Commands: Run Terminal Commands in a Cell
 
 ```python
-# 安装包（不需要切到终端）
+# Install a package (no need to switch to the terminal)
 !pip install seaborn
 
-# 查看当前目录
+# Check the current directory
 !ls
 
-# 查看 Python 版本
+# Check the Python version
 !python --version
 
-# 下载文件
+# Download a file
 !wget https://example.com/data.csv
 ```
 
-### `%timeit`：测量代码运行时间
+### `%timeit`: Measure Code Execution Time
 
 ```python
 import numpy as np
 
-# 测量一行代码的运行时间
+# Measure the execution time of one line of code
 %timeit np.random.rand(1000, 1000)
-# 输出: 5.23 ms ± 128 µs per loop
+# Output: 5.23 ms ± 128 µs per loop
 ```
 
 ```python
 %%timeit
-# 测量整个 Cell 的运行时间（注意是两个 %）
+# Measure the execution time of the entire Cell (note the two % signs)
 data = np.random.rand(1000, 1000)
 result = np.dot(data, data.T)
-# 输出: 15.6 ms ± 1.2 ms per loop
+# Output: 15.6 ms ± 1.2 ms per loop
 ```
 
-### `%matplotlib inline`：让图表显示在 Notebook 里
+### `%matplotlib inline`: Display Charts Inside the Notebook
 
 ```python
 %matplotlib inline
@@ -287,128 +287,128 @@ import numpy as np
 
 x = np.linspace(0, 10, 100)
 plt.plot(x, np.sin(x))
-plt.title("正弦函数")
+plt.title("Sine Function")
 plt.show()
-# 图表直接显示在 Cell 下方
+# The chart is displayed directly below the Cell
 ```
 
 :::info
-在较新的 Jupyter 版本中，`%matplotlib inline` 通常是默认行为，可以省略。但写上也不会错。
+In newer versions of Jupyter, `%matplotlib inline` is usually the default behavior and can be omitted. But keeping it there is also fine.
 :::
 
-### `%who`：查看当前定义的变量
+### `%who`: View the Variables Currently Defined
 
 ```python
-name = "张三"
+name = "Zhang San"
 age = 25
 scores = [90, 85, 92]
 
 %who
-# 输出: age   name   scores
+# Output: age   name   scores
 
 %whos
-# 输出变量的详细信息（类型、值）
+# Output detailed information about variables (type, value)
 ```
 
-### 常用魔法命令速查
+### Quick Reference for Common Magic Commands
 
-| 命令 | 用途 |
+| Command | Purpose |
 |------|------|
-| `!命令` | 执行终端命令 |
-| `%timeit` | 测量一行代码运行时间 |
-| `%%timeit` | 测量整个 Cell 运行时间 |
-| `%matplotlib inline` | 图表内联显示 |
-| `%who` / `%whos` | 查看当前变量 |
-| `%reset` | 清除所有变量（重新开始） |
-| `%pwd` | 显示当前目录 |
-| `%history` | 显示输入历史 |
+| `!command` | Run a terminal command |
+| `%timeit` | Measure the execution time of one line of code |
+| `%%timeit` | Measure the execution time of the entire Cell |
+| `%matplotlib inline` | Display charts inline |
+| `%who` / `%whos` | View current variables |
+| `%reset` | Clear all variables (start over) |
+| `%pwd` | Show the current directory |
+| `%history` | Show input history |
 
 ---
 
-## Notebook vs .py 文件
+## Notebook vs .py Files
 
-### 什么时候用 Notebook？
+### When Should You Use Notebook?
 
-- 数据分析、EDA
-- 学习新库、做实验
-- 画图和可视化
-- 给别人展示（如 Kaggle Notebook）
-- 写教程
+- Data analysis, EDA
+- Learning new libraries and doing experiments
+- Plotting and visualization
+- Presenting to others (such as Kaggle Notebooks)
+- Writing tutorials
 
-### 什么时候用 .py 文件？
+### When Should You Use .py Files?
 
-- 正式项目代码（模型定义、训练脚本、API 服务）
-- 需要被其他文件 import 的模块
-- 需要在命令行用参数运行的脚本
-- 团队协作的代码
+- Production project code (model definitions, training scripts, API services)
+- Modules that need to be imported by other files
+- Scripts that need to be run with command-line arguments
+- Code used for team collaboration
 
-### 一个典型的 AI 项目，两者配合使用
+### A Typical AI Project Uses Both Together
 
 ```
 my-ai-project/
 ├── notebooks/
-│   ├── 01_eda.ipynb          # 探索数据（Notebook）
-│   ├── 02_experiment.ipynb   # 实验不同模型（Notebook）
-│   └── 03_analysis.ipynb     # 分析结果（Notebook）
+│   ├── 01_eda.ipynb          # Explore data (Notebook)
+│   ├── 02_experiment.ipynb   # Try different models (Notebook)
+│   └── 03_analysis.ipynb     # Analyze results (Notebook)
 ├── src/
-│   ├── model.py              # 模型定义（.py）
-│   ├── train.py              # 训练脚本（.py）
-│   ├── evaluate.py           # 评估脚本（.py）
-│   └── utils.py              # 工具函数（.py）
+│   ├── model.py              # Model definition (.py)
+│   ├── train.py              # Training script (.py)
+│   ├── evaluate.py           # Evaluation script (.py)
+│   └── utils.py              # Utility functions (.py)
 ├── data/
 ├── models/
 ├── requirements.txt
 └── README.md
 ```
 
-先在 Notebook 里做实验，确定方案后把代码整理到 `.py` 文件中——这是 AI 工程师的标准工作流。
+First do experiments in a Notebook, then organize the code into `.py` files after the plan is finalized — this is the standard workflow of an AI engineer.
 
-### 在 Notebook 里调用 .py 文件的代码
+### Calling `.py` Code Inside a Notebook
 
 ```python
-# 在 Notebook 中 import 自己写的模块
+# Import your own modules in a Notebook
 import sys
-sys.path.append('../src')  # 把 src 目录加入路径
+sys.path.append('../src')  # Add the src directory to the path
 
 from model import SimpleCNN
 from utils import accuracy
 
 model = SimpleCNN()
-print(f"模型参数量: {sum(p.numel() for p in model.parameters())}")
+print(f"Number of model parameters: {sum(p.numel() for p in model.parameters())}")
 ```
 
 ---
 
-## 实操练习
+## Hands-On Practice
 
-创建一个 Notebook，完成以下练习：
+Create a Notebook and complete the following exercises:
 
-**Cell 1（Markdown）：**
+**Cell 1 (Markdown):**
 ```markdown
-# 我的第一个 Jupyter Notebook
-今天的日期：2026 年 X 月 X 日
+# My First Jupyter Notebook
+Today's date: 2026 X month X day
 ```
 
-**Cell 2（Code）：**
+**Cell 2 (Code):**
 ```python
-# 基本运算
+# Basic calculations
 import math
-print(f"圆周率: {math.pi:.10f}")
-print(f"自然对数底: {math.e:.10f}")
+print(f"Pi: {math.pi:.10f}")
+print(f"Euler's number: {math.e:.10f}")
 print(f"10! = {math.factorial(10)}")
 ```
 
-**Cell 3（Code）：**
+**Cell 3 (Code):**
 ```python
-# 列表操作
-fruits = ["苹果", "香蕉", "橙子", "葡萄", "西瓜"]
+# List operations
+fruits = ["apple", "banana", "orange", "grape", "watermelon"]
 for i, fruit in enumerate(fruits, 1):
-    print(f"第{i}种水果: {fruit}")
+    print(f"Fruit {i}: {fruit}")
 ```
 
-**Cell 4（Code）：**
+**Cell 4 (Code):**
 ```python
-# 简单可视化
+# Simple visualization
 %matplotlib inline
 import matplotlib.pyplot as plt
 import numpy as np
@@ -426,34 +426,34 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Cell 5（Code）：**
+**Cell 5 (Code):**
 ```python
-# 测量性能
+# Measure performance
 %timeit sum(range(100000))
 %timeit np.sum(np.arange(100000))
-# 对比 Python 原生 sum 和 NumPy sum 的速度差异
+# Compare the speed difference between Python's built-in sum and NumPy sum
 ```
 
-**Cell 6（Markdown）：**
+**Cell 6 (Markdown):**
 ```markdown
-## 小结
-- 学会了创建和运行 Cell
-- 学会了在 Notebook 里画图
-- 发现 NumPy 比原生 Python 快很多（这就是 3 数据分析与可视化会学 NumPy 的原因！）
+## Summary
+- Learned how to create and run Cells
+- Learned how to plot inside a Notebook
+- Found that NumPy is much faster than native Python (this is why you will learn NumPy in data analysis and visualization!)
 ```
 
 ---
 
-## 1 开发者工具基础自检
+## 1 Developer Tools Basic Self-Check
 
-恭喜你完成了整个 1 开发者工具基础！回顾一下你学会了什么：
+Congratulations on completing the entire Developer Tools Basics section! Let’s review what you have learned:
 
-- [ ] **终端：** 能用命令行导航、操作文件、使用管道和重定向
-- [ ] **Git：** 能创建仓库、提交代码、推送到 GitHub、使用分支
-- [ ] **Python 环境：** 能用 Miniconda 创建和管理虚拟环境
-- [ ] **VS Code：** 能用 VS Code 写代码、调试、使用快捷键
-- [ ] **Jupyter：** 能创建 Notebook、运行代码、画图、写文档
+- [ ] **Terminal:** Can use the command line to navigate, manipulate files, and use pipes and redirection
+- [ ] **Git:** Can create repositories, commit code, push to GitHub, and use branches
+- [ ] **Python environment:** Can use Miniconda to create and manage virtual environments
+- [ ] **VS Code:** Can write code, debug, and use shortcuts in VS Code
+- [ ] **Jupyter:** Can create Notebooks, run code, plot charts, and write documentation
 
-:::tip 全部打勾了？
-你已经拥有了一个专业的 AI 开发环境。这些工具会陪伴你走过整个学习旅程。接下来，正式开始学习 Python 编程！
+:::tip Checked everything?
+You now have a professional AI development environment. These tools will stay with you throughout your learning journey. Next, let’s officially start learning Python programming!
 :::

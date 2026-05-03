@@ -1,101 +1,101 @@
 ---
-title: "7.4 模型压缩【选修】"
+title: "7.4 Model Compression [Elective]"
 sidebar_position: 3
-description: "从量化、剪枝、蒸馏三类思路出发，理解模型压缩为什么本质上是部署与精度之间的权衡。"
+description: "Starting from quantization, pruning, and distillation, understand why model compression is essentially a trade-off between deployment and accuracy."
 keywords: [model compression, quantization, pruning, distillation, deployment]
 ---
 
-# 模型压缩【选修】
+# Model Compression [Elective]
 
-:::tip 本节定位
-模型压缩不是为了追求“更小”这一个目标，  
-而是为了在真实部署里解决更具体的问题：
+:::tip Section Overview
+Model compression is not about pursuing the single goal of “making the model smaller.”
+It is about solving more concrete problems in real deployment:
 
-- 内存不够
-- 推理太慢
-- 设备跑不动
+- Not enough memory
+- Inference is too slow
+- The device cannot run the model
 
-所以这节课的关键不是记术语，而是建立一个很实用的判断：
+So the key idea in this lesson is not memorizing terms, but building a very practical judgment:
 
-> **压缩永远是在拿某些精度或灵活性，换部署收益。**
+> **Compression always trades some accuracy or flexibility for deployment benefits.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解量化、剪枝、蒸馏三类压缩方法的核心思路
-- 理解为什么压缩不是白赚
-- 通过可运行示例建立量化误差直觉
-- 学会从部署约束出发选择压缩路线
+- Understand the core ideas behind quantization, pruning, and distillation
+- Understand why compression is not free
+- Build intuition for quantization error through runnable examples
+- Learn how to choose a compression strategy based on deployment constraints
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-模型压缩更适合从部署问题反推，而不是从方法名出发：
+Model compression is better understood by starting from deployment problems, not from method names:
 
 ```mermaid
 flowchart LR
-    A["部署痛点"] --> B["内存不够 -> 量化"]
-    A --> C["结构冗余 -> 剪枝"]
-    A --> D["模型太大但可重训 -> 蒸馏"]
+    A["Deployment pain points"] --> B["Not enough memory -> Quantization"]
+    A --> C["Structural redundancy -> Pruning"]
+    A --> D["Model is too large but can be retrained -> Distillation"]
 ```
 
-这节最重要的是建立“先看痛点，再选路线”的判断。
+The most important thing in this section is to build the habit of “identify the pain point first, then choose the path.”
 
-## 一、模型压缩到底在换什么？
+## 1. What exactly are we trading with model compression?
 
-### 1.1 常见收益
+### 1.1 Common benefits
 
-- 更小内存
-- 更低延迟
-- 更高吞吐
-- 更适合边缘设备
+- Smaller memory footprint
+- Lower latency
+- Higher throughput
+- Better fit for edge devices
 
-### 1.2 常见代价
+### 1.2 Common costs
 
-- 精度下降
-- 工程复杂度增加
-- 调试更难
+- Lower accuracy
+- Increased engineering complexity
+- Harder debugging
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-模型压缩像出差打包。  
-你当然希望箱子越轻越好，  
-但不能把关键东西全扔了。
-
----
-
-## 二、三条最常见的压缩路线
-
-### 2.1 量化
-
-把高精度数值压到低精度表示。
-
-### 2.2 剪枝
-
-去掉不太重要的权重、通道或结构。
-
-### 2.3 蒸馏
-
-让更小模型去模仿更大模型的行为。
-
-### 2.4 一个更适合新人的总类比
-
-如果你觉得这三条路容易混，可以先这样记：
-
-- **量化**：同样的东西，换更省空间的材质去装
-- **剪枝**：把明显多余的枝叶先剪掉
-- **蒸馏**：重新训练一个更小的学生，让它模仿老师
-
-它们都叫“压缩”，但真正动手的位置并不一样：
-
-- 量化主要动数值表示
-- 剪枝主要动结构冗余
-- 蒸馏主要动训练方式
+Model compression is like packing for a business trip.
+Of course you want the suitcase to be as light as possible,
+but you cannot throw away everything important.
 
 ---
 
-## 三、先看一个最小量化误差示例
+## 2. Three of the most common compression paths
+
+### 2.1 Quantization
+
+Convert high-precision values into lower-precision representations.
+
+### 2.2 Pruning
+
+Remove weights, channels, or structures that are not very important.
+
+### 2.3 Distillation
+
+Train a smaller model to imitate the behavior of a larger model.
+
+### 2.4 A more beginner-friendly way to think about them
+
+If these three approaches feel easy to mix up, you can remember them like this first:
+
+- **Quantization**: Put the same thing into a more space-efficient material
+- **Pruning**: Cut off obviously unnecessary branches and leaves first
+- **Distillation**: Train a smaller student again so it can imitate the teacher
+
+They are all called “compression,” but the place where you actually work is different:
+
+- Quantization mainly changes numeric representation
+- Pruning mainly changes structural redundancy
+- Distillation mainly changes the training process
+
+---
+
+## 3. First, look at a minimal quantization error example
 
 ```python
 weights = [0.12, -1.87, 3.44, -0.03]
@@ -119,39 +119,39 @@ print("q8 mae  :", round(mae(weights, q8_like), 4))
 print("q4 mae  :", round(mae(weights, q4_like), 4))
 ```
 
-### 3.1 这个例子最关键的启发是什么？
+### 3.1 What is the most important insight from this example?
 
-压得越狠，通常误差越大。  
-所以量化的核心不是：
+The more aggressively you compress, the larger the error usually becomes.
+So the core question in quantization is not:
 
-- 能不能压
+- Can it be compressed?
 
-而是：
+But rather:
 
-- 压完后业务还能不能接受
+- After compression, can the business still accept the result?
 
-### 3.2 为什么这和真实部署高度相关？
+### 3.2 Why is this highly related to real deployment?
 
-因为部署里最常见的问题之一就是：
+Because one of the most common deployment questions is:
 
-- 模型能不能塞进设备
+- Can the model fit on the device?
 
-量化往往是第一步会想到的办法。
+Quantization is often the first solution people think of.
 
-### 3.3 再看一个最小“模型体积”估算示例
+### 3.3 Another minimal example: estimating “model size”
 
-很多新人第一次做压缩实验时，最大的问题不是不会量化，  
-而是根本不知道：
+When many beginners first do compression experiments, the biggest problem is not that they cannot quantize,
+but that they have no idea at all:
 
-- 压前有多大
-- 压后大概能省多少
+- How large the model is before compression
+- Roughly how much space they can save after compression
 
-下面这个例子就只做一件很实用的事：
+This example only does one very practical thing:
 
-- 先把“模型有多少参数”和“不同精度下大概占多少空间”算出来
+- It calculates “how many parameters the model has” and “roughly how much space different precisions take”
 
 ```python
-param_count = 12_000_000  # 假设一个 1200 万参数的小模型
+param_count = 12_000_000  # Assume a small model with 12 million parameters
 
 
 def size_mb(param_count, bits):
@@ -169,148 +169,142 @@ for name, bits in variants:
     print(f"{name:>4} -> {size_mb(param_count, bits):.2f} MB")
 ```
 
-这个例子最值得先记住的不是绝对数字，  
-而是：
+What is worth remembering first here is not the exact numbers,
+but this:
 
-- 在不改参数数量的前提下
-- **光靠数值精度变化，就可能先把模型体积降掉一大截**
+- Without changing the number of parameters
+- **Simply changing numeric precision may already reduce the model size by a large amount**
 
-这也是为什么量化经常会成为第一选择。
+That is also why quantization is often the first choice.
 
 ---
 
-## 四、什么时候更该想量化、剪枝还是蒸馏？
+## 4. When should you think about quantization, pruning, or distillation?
 
-### 4.1 量化
+### 4.1 Quantization
 
-更适合：
+Better when you want to quickly reduce memory usage and speed up inference.
 
-- 先快速降内存和加速
+### 4.2 Pruning
 
-### 4.2 剪枝
+Better when you clearly know there is a lot of redundant structure.
 
-更适合：
+### 4.3 Distillation
 
-- 明确知道有大量冗余结构
+Better when you are willing to retrain a smaller model.
 
-### 4.3 蒸馏
+### 4.4 A decision table beginners can use directly
 
-更适合：
-
-- 你愿意重新训练一个更小模型
-
-### 4.4 一个新人可直接用的选择表
-
-| 场景 | 更优先考虑 |
+| Scenario | Higher priority |
 |---|---|
-| 模型太大，想先快速压缩 | 量化 |
-| 你怀疑网络有明显冗余 | 剪枝 |
-| 你愿意重训一个小模型换稳定收益 | 蒸馏 |
+| The model is too large and you want quick compression first | Quantization |
+| You suspect the network has obvious redundancy | Pruning |
+| You are willing to retrain a small model for stable gains | Distillation |
 
-这张表不一定总对，但足够做第一轮决策。
+This table is not always perfect, but it is enough for the first round of decisions.
 
-### 4.5 一张更像真实工程的选择流程图
+### 4.5 A flowchart that feels closer to real engineering
 
 ```mermaid
 flowchart TD
-    A["先明确痛点"] --> B{"主要是内存问题？"}
-    B -->|"是"| Q["先试量化"]
-    B -->|"否"| C{"主要是结构冗余？"}
-    C -->|"是"| P["考虑剪枝"]
-    C -->|"否"| D{"愿意重新训练小模型？"}
-    D -->|"是"| K["考虑蒸馏"]
-    D -->|"否"| E["先回头检查部署瓶颈是不是其实不在模型大小"]
+    A["First identify the pain point"] --> B{"Is the main issue memory?"}
+    B -->|"Yes"| Q["Try quantization first"]
+    B -->|"No"| C{"Is the main issue structural redundancy?"}
+    C -->|"Yes"| P["Consider pruning"]
+    C -->|"No"| D{"Willing to retrain a smaller model?"}
+    D -->|"Yes"| K["Consider distillation"]
+    D -->|"No"| E["First check whether the deployment bottleneck is actually not model size"]
 
     style Q fill:#e3f2fd,stroke:#1565c0,color:#333
     style P fill:#fff3e0,stroke:#e65100,color:#333
     style K fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-这张图最想帮你建立一个习惯：
+What this diagram most wants to help you build is a habit:
 
-- 不要先问“哪种压缩最流行”
-- 先问“我到底是在解决哪种部署问题”
-
----
-
-## 五、最容易踩的坑
-
-### 5.1 误区一：压缩一定更快
-
-不一定。  
-还要看：
-
-- 硬件支持
-- 推理引擎支持
-
-### 5.2 误区二：只看模型大小，不看任务指标
-
-部署收益只有在任务还能用时才有意义。
-
-### 5.3 误区三：先压再说
-
-更稳的顺序通常是：
-
-- 先明确部署痛点
-- 再选压缩策略
+- Don’t first ask “Which compression method is most popular?”
+- First ask “What deployment problem am I actually trying to solve?”
 
 ---
 
-## 学这一节最该带走什么
+## 5. The most common pitfalls
 
-- 压缩从来不是白赚
-- 量化、剪枝、蒸馏各有适用边界
-- 真正的出发点永远应该是部署约束，而不是方法流行度
+### 5.1 Misconception 1: Compression always makes things faster
 
-## 第一次做压缩实验时更稳的顺序
+Not necessarily.
+You also need to consider:
 
-更建议这样做：
+- Hardware support
+- Inference engine support
 
-1. 先明确真正瓶颈是内存、延迟还是吞吐
-2. 如果主要是内存，先试量化
-3. 如果主要是模型冗余，再考虑剪枝
-4. 如果愿意重新训练并长期维护，再考虑蒸馏
+### 5.2 Misconception 2: Only look at model size, not task metrics
 
-这样比“看到压缩方法就轮流试一遍”更像工程工作。
+Deployment benefits only matter if the model is still usable for the task.
 
-## 如果把这节放进项目里，最值得展示什么
+### 5.3 Misconception 3: Compress first and think later
 
-如果你想把压缩实验做成一个真正像工程项目的页面，  
-最值得展示的通常不是：
+A more reliable order is usually:
 
-- “我会 int8 量化”
-
-而是下面这 4 样：
-
-1. 压缩前后的模型大小对比
-2. 压缩前后的延迟 / 吞吐对比
-3. 压缩前后的核心任务指标对比
-4. 你为什么最后选了这条压缩路线
-
-这样别人看到的就不是“做过一个技巧”，  
-而是：
-
-- 你能围绕部署约束做权衡
+- First identify the deployment pain point
+- Then choose a compression strategy
 
 ---
 
-## 小结
+## What you should take away from this section
 
-这节最重要的是建立一个部署判断：
+- Compression is never free
+- Quantization, pruning, and distillation each have their own suitable range of use
+- The real starting point should always be deployment constraints, not method popularity
 
-> **模型压缩不是“越小越好”，而是在精度、工程复杂度和部署收益之间做权衡。**
+## A safer order when doing your first compression experiment
 
-只要这个判断建立起来，你后面看量化和蒸馏就不会只剩方法名。
+It is recommended to do it like this:
 
-## 这节最该带走什么
+1. First identify the real bottleneck: memory, latency, or throughput
+2. If the main issue is memory, try quantization first
+3. If the main issue is model redundancy, then consider pruning
+4. If you are willing to retrain and maintain the model long-term, then consider distillation
 
-- 模型压缩首先是部署问题，不是炫技问题
-- 量化、剪枝、蒸馏真正动手的位置完全不同
-- 第一次做压缩实验时，先量清“模型大小 / 延迟 / 指标”三件事，比直接上方法更值
+This is more like engineering work than “trying compression methods one by one because you saw them.”
 
-## 练习
+## If you put this section into a project, what is most worth showing?
 
-1. 把示例里的 `scale` 改大和改小，观察误差变化。
-2. 用自己的话解释：为什么压缩从来不是白赚？
-3. 想一想：如果目标设备内存特别小，你会先考虑哪条路线？
-4. 如果模型大小已经够小，但延迟仍然高，你还会优先做压缩吗？为什么？
+If you want to turn a compression experiment into a page that truly feels like an engineering project,
+what is most worth showing is usually not:
+
+- “I know int8 quantization”
+
+But rather these four things:
+
+1. Comparison of model size before and after compression
+2. Comparison of latency / throughput before and after compression
+3. Comparison of core task metrics before and after compression
+4. Why you ultimately chose this compression path
+
+Then what others see is not “I used a trick,”
+but:
+
+- You can make trade-offs based on deployment constraints
+
+---
+
+## Summary
+
+The most important thing in this section is to build a deployment-oriented judgment:
+
+> **Model compression is not about “the smaller the better,” but about making trade-offs among accuracy, engineering complexity, and deployment benefits.**
+
+Once you build this judgment, you will no longer see only method names when you later look at quantization and distillation.
+
+## What you should take away most from this section
+
+- Model compression is first a deployment problem, not a flashy-technique problem
+- Quantization, pruning, and distillation act on completely different parts of the system
+- In your first compression experiment, measuring “model size / latency / metrics” first is more valuable than jumping straight into methods
+
+## Exercises
+
+1. Change the `scale` in the example to larger and smaller values, and observe how the error changes.
+2. Explain in your own words: why is compression never free?
+3. Think about it: if the target device has very limited memory, which path would you consider first?
+4. If the model is already small enough but the latency is still high, would you still prioritize compression? Why?

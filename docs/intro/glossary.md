@@ -1,112 +1,112 @@
 ---
 sidebar_position: 20
-title: "AI 全栈术语表"
-description: "按开发基础、数据与机器学习、深度学习、大模型、RAG、Agent 和工程化整理常见术语，帮助学习者快速查概念。"
-keywords: [AI术语表, AI全栈, RAG术语, Agent术语, 机器学习术语]
+title: "AI Full-Stack Glossary"
+description: "A glossary of common terms organized by development basics, data and machine learning, deep learning, large models, RAG, Agent, and engineering, to help learners quickly look up concepts."
+keywords: [AI glossary, AI full-stack, RAG glossary, Agent glossary, machine learning glossary]
 ---
 
-# AI 全栈术语表
+# AI Full-Stack Glossary
 
-这份术语表不是用来背诵的，而是在你阅读课程时遇到陌生词，可以快速查“它是什么意思、第一次应该在哪里理解、容易和什么混淆”。如果一个概念暂时看不懂，先知道它解决什么问题，再回到对应章节补细节。
+This glossary is not meant for memorization. It is here so that when you run into an unfamiliar term while reading the course, you can quickly check “what it means, where you should understand it first, and what it is easy to confuse it with.” If a concept still feels unclear for now, first understand what problem it solves, then come back to the relevant chapter for the details.
 
-## 查词路径
+## Lookup path
 
 ```mermaid
 flowchart LR
-  A["遇到陌生词"] --> B["先看所属类别"]
-  B --> C["读一句简明解释"]
-  C --> D["回到推荐章节"]
-  D --> E["在项目里用一次"]
+  A["Run into an unfamiliar term"] --> B["First check its category"]
+  B --> C["Read a one-sentence explanation"]
+  C --> D["Go back to the recommended chapter"]
+  D --> E["Use it once in a project"]
 ```
 
-| 你看到的词 | 先查哪一类 |
+| Term you see | Category to check first |
 |---|---|
-| 终端、Git、API、JSON | 开发基础 |
-| 特征、标签、baseline、过拟合 | 数据与机器学习 |
-| Loss、Embedding、Attention、Token | 深度学习与大模型基础 |
-| Prompt、RAG、Chunk、Citation | LLM、Prompt 与 RAG |
-| Agent、Tool、Trace、Guardrails | Agent 与工程化 |
+| Terminal, Git, API, JSON | Development basics |
+| Features, labels, baseline, overfitting | Data and machine learning |
+| Loss, Embedding, Attention, Token | Deep learning and large model basics |
+| Prompt, RAG, Chunk, Citation | LLM, Prompt, and RAG |
+| Agent, Tool, Trace, Guardrails | Agent and engineering |
 
-## 开发基础
+## Development basics
 
-| 术语 | 简明解释 | 第一次推荐理解位置 |
+| Term | Simple explanation | First recommended place to understand it |
 | --- | --- | --- |
-| 终端 | 用命令和系统交互的入口 | 开发者工具基础 |
-| 当前目录 | 命令执行时所在的位置，很多路径错误都和它有关 | 终端与命令行 |
-| 包管理器 | 安装和管理依赖的工具，例如 pip、npm、conda | 开发环境配置 |
-| 虚拟环境 | 为项目隔离 Python 依赖的环境 | Python 环境 |
-| Git | 记录代码版本变化的工具 | Git 与版本管理 |
-| Commit | 一次可回溯的代码变更记录 | Git 基础流程 |
-| README | 项目说明文件，告诉别人项目是什么、怎么运行、怎么验证 | 阶段项目与作品集 |
-| API | 程序之间交换数据和调用能力的接口 | Python 项目、LLM API 调用 |
-| JSON | 常见结构化数据格式，适合接口、配置和日志 | Python 文件与 API 章节 |
+| Terminal | The entry point for interacting with the system using commands | Developer tools basics |
+| Current directory | The location where commands are being executed; many path errors are related to it | Terminal and command line |
+| Package manager | A tool for installing and managing dependencies, such as pip, npm, and conda | Development environment setup |
+| Virtual environment | An environment that isolates Python dependencies for a project | Python environment |
+| Git | A tool for tracking code version changes | Git and version management |
+| Commit | A record of a code change that can be traced back later | Basic Git workflow |
+| README | A project description file that tells others what the project is, how to run it, and how to verify it | Phase projects and portfolio |
+| API | An interface for programs to exchange data and call capabilities | Python projects, LLM API calls |
+| JSON | A common structured data format, suitable for APIs, configuration, and logs | Python files and API chapters |
 
-## 数据与机器学习
+## Data and machine learning
 
-| 术语 | 简明解释 | 容易混淆点 |
+| Term | Simple explanation | Points that are easy to confuse |
 | --- | --- | --- |
-| 数据集 | 用于分析、训练或评估的一组数据 | 数据集不等于训练集，训练集只是其中一部分 |
-| 特征 | 模型用来预测或判断的输入信息 | 特征不是越多越好，质量和泄漏风险更重要 |
-| 标签 | 监督学习中希望模型预测的目标 | 分类标签和回归目标不同 |
-| 训练集 | 用来让模型学习的数据 | 不能用它代表最终效果 |
-| 测试集 | 用来评估泛化能力的数据 | 不应该反复拿来调参 |
-| 验证集 | 用来选择模型或调参数的数据 | 和测试集职责不同 |
-| Baseline | 最简单的可比较起点模型或规则 | 不是低级做法，而是判断改进是否有效的基准 |
-| 数据泄漏 | 模型训练时看到了本不该知道的信息 | 会让离线指标虚高，真实效果变差 |
-| 过拟合 | 模型记住训练数据，却不能泛化到新数据 | 训练分数高不代表模型好 |
-| 召回率 | 真正相关的样本中被找回的比例 | RAG 检索和分类任务里都常见 |
-| F1 | 精确率和召回率的综合指标 | 类别不平衡时比准确率更有参考价值 |
+| Dataset | A collection of data used for analysis, training, or evaluation | A dataset is not the same as a training set; the training set is only part of it |
+| Feature | Input information a model uses to predict or make decisions | More features is not always better; quality and leakage risk matter more |
+| Label | The target a model is expected to predict in supervised learning | Classification labels and regression targets are different |
+| Training set | The data used to let the model learn | It should not be used to represent final performance |
+| Test set | The data used to evaluate generalization ability | It should not be repeatedly used for tuning |
+| Validation set | The data used to choose models or tune parameters | Its role is different from the test set |
+| Baseline | The simplest comparable starting model or rule | It is not a low-level approach, but a benchmark for judging whether improvements are effective |
+| Data leakage | Information that the model should not have seen during training | It can make offline metrics look too high and real-world performance worse |
+| Overfitting | The model memorizes the training data but cannot generalize to new data | A high training score does not mean the model is good |
+| Recall | The proportion of truly relevant samples that are retrieved | Common in both RAG retrieval and classification tasks |
+| F1 | A combined metric of precision and recall | More informative than accuracy when classes are imbalanced |
 
-## 深度学习与大模型基础
+## Deep learning and large model basics
 
-| 术语 | 简明解释 | 第一次推荐理解位置 |
+| Term | Simple explanation | First recommended place to understand it |
 | --- | --- | --- |
-| 张量 | 多维数组，是深度学习框架的基本数据结构 | PyTorch 基础 |
-| Loss | 模型预测和真实目标之间的差距 | 神经网络训练闭环 |
-| 反向传播 | 根据损失计算参数应该如何调整的过程 | 神经网络基础 |
-| Optimizer | 根据梯度更新参数的算法 | PyTorch 训练循环 |
-| Embedding | 把文本、图片或类别映射成向量表示 | NLP、RAG、向量检索 |
-| Attention | 让模型判断输入中哪些部分更重要的机制 | Transformer 基础 |
-| Transformer | 现代大模型的重要基础架构 | 深度学习与 Transformer |
-| Token | 模型处理文本时的基本片段 | 大模型原理与 Prompt |
-| Context Window | 模型一次能看到的上下文长度 | LLM 应用开发 |
-| Pretraining | 在大规模数据上预先学习通用能力 | 大模型预训练 |
-| Fine-tuning | 用特定数据继续训练模型以适配任务 | 微调章节 |
-| Alignment | 让模型输出更符合人类意图、安全和规范 | 对齐章节 |
+| Tensor | A multi-dimensional array, the basic data structure of deep learning frameworks | PyTorch basics |
+| Loss | The gap between the model’s prediction and the true target | The neural network training loop |
+| Backpropagation | The process of computing how parameters should be adjusted based on the loss | Neural network basics |
+| Optimizer | An algorithm that updates parameters based on gradients | PyTorch training loop |
+| Embedding | Mapping text, images, or categories into vector representations | NLP, RAG, vector retrieval |
+| Attention | A mechanism that helps the model decide which parts of the input matter more | Transformer basics |
+| Transformer | An important foundational architecture for modern large models | Deep learning and Transformer |
+| Token | The basic unit of text that a model processes | Large model principles and Prompt |
+| Context Window | The length of context a model can see at one time | LLM application development |
+| Pretraining | Learning general capabilities in advance on large-scale data | Large model pretraining |
+| Fine-tuning | Continuing to train a model on specific data to adapt it to a task | Fine-tuning chapter |
+| Alignment | Making model outputs more aligned with human intent, safety, and rules | Alignment chapter |
 
-## LLM、Prompt 与 RAG
+## LLM, Prompt, and RAG
 
-| 术语 | 简明解释 | 容易混淆点 |
+| Term | Simple explanation | Points that are easy to confuse |
 | --- | --- | --- |
-| LLM | 大语言模型，能理解和生成文本 | LLM 不是完整应用，只是能力核心之一 |
-| Prompt | 交给模型的任务说明、输入、约束和输出格式 | Prompt 不是咒语，而是任务设计 |
-| System Prompt | 给模型设定角色、规则和边界的高优先级提示 | 不应把安全边界只寄托在普通用户提示里 |
-| Structured Output | 让模型按 JSON、表格或固定字段输出 | 需要配合校验和重试 |
-| Function Calling | 让模型按工具 schema 生成调用参数 | 它不是直接执行工具，执行仍由程序控制 |
-| RAG | 检索增强生成，把外部资料检索后交给模型回答 | RAG 不等于向量数据库，向量库只是常见组件 |
-| Chunk | 文档切分后的片段 | 太大影响精确度，太小容易丢上下文 |
-| Vector Database | 存储和检索向量的数据库 | 不负责判断答案是否正确 |
-| Hybrid Search | 结合关键词检索和向量检索 | 适合兼顾精确词和语义相似 |
-| Rerank | 对初步检索结果重新排序 | 常用于提高最终上下文质量 |
-| Citation | 答案引用的来源 | 有引用不代表引用真的支持答案，需要检查 |
-| Hallucination | 模型生成看似合理但不可靠的内容 | RAG 可以降低但不能完全消除幻觉 |
+| LLM | Large Language Model, capable of understanding and generating text | An LLM is not a complete application; it is only one core capability |
+| Prompt | Task instructions, inputs, constraints, and output format given to the model | A Prompt is not magic; it is task design |
+| System Prompt | A high-priority prompt that sets the model’s role, rules, and boundaries | Safety boundaries should not rely only on a normal user prompt |
+| Structured Output | Making the model output JSON, tables, or fixed fields | It needs to work together with validation and retries |
+| Function Calling | Making the model generate call arguments according to a tool schema | It does not execute the tool directly; execution is still controlled by the program |
+| RAG | Retrieval-Augmented Generation, where external materials are retrieved and then given to the model for answering | RAG is not the same as a vector database; a vector database is only a common component |
+| Chunk | A piece of text after document splitting | Too large hurts precision; too small loses context |
+| Vector Database | A database for storing and retrieving vectors | It does not judge whether an answer is correct |
+| Hybrid Search | Combining keyword search and vector search | Useful for balancing exact words and semantic similarity |
+| Rerank | Reordering the initial retrieval results | Often used to improve the quality of the final context |
+| Citation | The source referenced by an answer | Having a citation does not mean it truly supports the answer; it still needs to be checked |
+| Hallucination | Content generated by the model that seems reasonable but is not reliable | RAG can reduce hallucinations but cannot completely eliminate them |
 
-## Agent 与工程化
+## Agent and engineering
 
-| 术语 | 简明解释 | 容易混淆点 |
+| Term | Simple explanation | Points that are easy to confuse |
 | --- | --- | --- |
-| Agent | 能围绕目标进行规划、调用工具、记录状态的 AI 工作流 | Agent 不是更会聊天的 LLM，而是系统设计 |
-| Tool | Agent 可调用的外部能力，例如检索、计算、文件操作 | 工具权限必须受控 |
-| Memory | Agent 保存短期或长期上下文的机制 | 记忆不是越多越好，污染会带来风险 |
-| Planning | 把目标拆成步骤的过程 | 计划需要可执行、可停止、可回退 |
-| Trace | 记录 Agent 每一步输入、输出、工具和状态 | 没有 trace 的 Agent 很难排障 |
-| Replay | 根据历史轨迹复现执行过程 | 用于调试和评估 |
-| Guardrails | 对输入、输出、工具和权限设置保护边界 | 不能只靠模型自觉遵守 |
-| Human-in-the-loop | 在关键步骤加入人工确认 | 适合高风险操作和不可逆操作 |
-| Observability | 对系统日志、指标、trace 和错误的可观察能力 | 不是上线后才加，而应从项目中期开始 |
-| Deployment | 把项目部署到可访问环境 | 部署成功不等于生产可用，还需要监控和回滚 |
-| Evaluation | 用样本、指标和人工标准判断系统好坏 | AI 应用评估通常需要自动指标和人工复核结合 |
+| Agent | An AI workflow that can plan around a goal, call tools, and keep state | An Agent is not just a more talkative LLM; it is a system design |
+| Tool | An external capability an Agent can call, such as search, calculation, or file operations | Tool permissions must be controlled |
+| Memory | A mechanism for an Agent to store short-term or long-term context | More memory is not always better; contamination can create risks |
+| Planning | The process of breaking a goal into steps | Plans need to be executable, stoppable, and reversible |
+| Trace | A record of each step’s inputs, outputs, tools, and state in an Agent | An Agent without traces is hard to debug |
+| Replay | Reproducing the execution process from a historical trace | Used for debugging and evaluation |
+| Guardrails | Safety boundaries placed on inputs, outputs, tools, and permissions | You cannot rely only on the model to obey them on its own |
+| Human-in-the-loop | Adding human review at key steps | Suitable for high-risk and irreversible operations |
+| Observability | The ability to observe system logs, metrics, traces, and errors | It should not be added only after launch; it should start from the middle stage of the project |
+| Deployment | Putting a project into an accessible environment | Successful deployment does not mean production readiness; monitoring and rollback are still needed |
+| Evaluation | Judging how good a system is using samples, metrics, and human criteria | AI application evaluation usually needs both automatic metrics and human review |
 
-## 怎么使用术语表
+## How to use the glossary
 
-遇到陌生词时，先看它属于哪一类，再回到对应阶段阅读。不要因为一个术语暂时不懂就中断整条主线。第一次学习只需要知道它解决什么问题、输入输出是什么、和当前项目有什么关系；等你在项目里真正用到它，再补更细的原理和实现。
+When you encounter an unfamiliar term, first see which category it belongs to, then go back to the corresponding stage and read on. Do not stop the whole learning flow just because one term is not clear yet. In your first pass, you only need to know what problem it solves, what its input and output are, and how it relates to the current project. When you actually use it in a project, you can then fill in the deeper principles and implementation details.

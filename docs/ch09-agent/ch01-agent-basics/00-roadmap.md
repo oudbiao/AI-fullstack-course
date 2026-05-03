@@ -1,81 +1,81 @@
 ---
-title: "1.1 学前导读：Agent 基础这一章到底在学什么"
+title: "1.1 Pre-Class Guide: What Exactly Will You Learn in the Agent Basics Chapter?"
 sidebar_position: 0
-description: "先建立 Agent 基础章的学习地图：Agent 边界、目标、状态、工具、记忆、规划和系统闭环怎样拼成第一张智能体地图。"
-keywords: [Agent导读, 智能体导读, Agent系统结构, 工具调用, Agent闭环]
+description: "First build a learning map for the Agent basics chapter: how Agent boundaries, goals, state, tools, memory, planning, and the system feedback loop fit together into the first smart-agent map."
+keywords: [Agent guide, intelligent agent guide, Agent system architecture, tool calling, Agent loop]
 ---
 
-# 学前导读：Agent 基础这一章到底在学什么
+# Pre-Class Guide: What Exactly Will You Learn in the Agent Basics Chapter?
 
-这一章解决的是：先把 Agent 的边界、能力和系统结构说清楚。
+This chapter is about clarifying the boundaries, capabilities, and system architecture of an Agent.
 
-很多新人第一次学 Agent 时，会把聊天机器人、工作流、RAG、工具调用和多 Agent 全部混在一起。这样学很容易被框架和 Demo 带着跑。Agent 基础章的任务，就是先把最小闭环建立起来：目标、计划、行动、观察、修正，最后输出结果。
+When many beginners first learn about Agent, they mix chatbots, workflows, RAG, tool calling, and multi-Agent together. Learning this way is easy to get carried along by frameworks and demos. The job of the Agent basics chapter is to first establish the smallest closed loop: goals, planning, action, observation, correction, and finally outputting results.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-你已经在前面学过 LLM 应用开发和 RAG，知道大模型可以接文档、接 API、做对话和生成内容。到 Agent 阶段，课程开始从“模型应用”进入“能围绕目标持续行动的系统”。
+You have already learned LLM application development and RAG, and you know that large models can connect to documents, APIs, conversations, and content generation. At the Agent stage, the course begins to move from “model applications” to “systems that can keep acting toward a goal.”
 
-这一步的关键变化是：普通 LLM 应用通常是用户问一次、系统答一次；Agent 更强调目标驱动、状态维护、工具调用、结果观察和多步执行。
+The key change here is: a normal LLM application usually works as one user question, one system answer; an Agent places more emphasis on goal-driven behavior, state maintenance, tool calling, result observation, and multi-step execution.
 
-![Agent 基础位置桥接图](/img/course/ch09-basics-position-bridge.png)
+![Agent basics position bridging diagram](/img/course/ch09-basics-position-bridge-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：Agent 和普通聊天机器人有什么区别；Agent 和固定工作流有什么区别；目标、状态、工具、记忆、规划分别承担什么职责；为什么单 Agent 要先做稳，再考虑多 Agent；一个 Agent 系统怎样记录过程、处理失败和避免无限循环。
+This chapter answers five questions: What is the difference between an Agent and a normal chatbot; what is the difference between an Agent and a fixed workflow; what roles do goals, state, tools, memory, and planning each play; why should a single Agent be made stable first before considering multiple Agents; and how does an Agent system record the process, handle failures, and avoid infinite loops.
 
-新人最容易犯的错误，是一上来就追 LangGraph、CrewAI、AutoGen 或多 Agent 协作，却没有先理解单 Agent 的执行闭环。框架可以提高开发效率，但不能替你理解系统边界。
+The mistake beginners make most often is jumping straight into LangGraph, CrewAI, AutoGen, or multi-Agent collaboration without first understanding the execution loop of a single Agent. Frameworks can improve development efficiency, but they cannot replace your understanding of system boundaries.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先看“什么是 Agent”，把 Agent、聊天机器人、RAG 应用、工具调用系统和固定工作流的边界分清。然后看发展脉络，理解 Agent 为什么会在 LLM 之后重新受到关注。接着看能力层级，把“会回答、会检索、会调用工具、会规划、会使用记忆、会协作”放在同一条能力线上。之后看系统结构，理解目标、状态、工具、记忆、规划器和执行器怎样组合。最后补读“从 TD-Gammon 到 AlphaGo”，把强化学习里的行动、反馈、规划和现代 Agent 连接起来。
+It is recommended to first look at “What is an Agent” and clearly distinguish the boundaries between Agents, chatbots, RAG applications, tool-calling systems, and fixed workflows. Then study the development path to understand why Agent regained attention after LLMs. Next, look at the capability levels and place “can answer, can retrieve, can call tools, can plan, can use memory, can collaborate” on the same capability line. After that, study the system architecture to understand how goals, state, tools, memory, planners, and executors work together. Finally, read “From TD-Gammon to AlphaGo” to connect action, feedback, and planning in reinforcement learning with modern Agents.
 
-![Agent 基础章节学习顺序图](/img/course/ch09-basics-chapter-flow.png)
+![Agent basics chapter learning order diagram](/img/course/ch09-basics-chapter-flow-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on While Studying This Chapter
 
-这一章的主线可以概括为：Agent 不是模型名，而是一种围绕目标组织模型、工具、状态和反馈的系统方式。
+The main thread of this chapter can be summarized as: Agent is not a model name, but a system approach that organizes models, tools, state, and feedback around a goal.
 
-![单 Agent 执行闭环图](/img/course/ch09-basics-execution-loop.png)
+![Single-Agent execution loop diagram](/img/course/ch09-basics-execution-loop-en.png)
 
-这条闭环能帮助你判断一个系统是不是 Agent。如果系统只是固定地调用一次模型，它更像普通 LLM 应用。如果系统能根据目标拆步骤、调用工具、观察结果、修正计划，并在必要时继续执行，它才开始接近 Agent。
+This loop helps you judge whether a system is an Agent. If the system only calls a model once in a fixed way, it is more like a normal LLM application. If the system can break a goal into steps, call tools, observe results, revise the plan, and continue execution when needed, it starts to resemble an Agent.
 
-## 这一章和后面章节的关系
+## The Relationship Between This Chapter and Later Chapters
 
-这一章是第 9 章 AI Agent 与智能体系统的入口。后面的推理与规划会展开 Agent 如何决定下一步，工具调用会讲它怎样连接外部能力，记忆系统会讲它怎样保存上下文和经验，MCP 会讲工具生态和协议，多 Agent 会讲多个角色如何协作，评估安全和部署会讲怎样让 Agent 可靠运行。
+This chapter is the entry point to Chapter 9, AI Agents and Intelligent Agent Systems. Later chapters on reasoning and planning will expand on how an Agent decides the next step; tool calling will explain how it connects to external capabilities; memory systems will explain how it stores context and experience; MCP will cover the tool ecosystem and protocols; multi-Agent will discuss how multiple roles collaborate; and evaluation, safety, and deployment will explain how to run Agents reliably.
 
-如果这一章没学稳，后面常见的问题是：以为多 Agent 一定比单 Agent 强；只演示成功路径，不处理工具失败和循环执行；把记忆当成“越多越智能”，却不知道记忆应该服务任务；框架学了很多，但不知道系统为什么这样设计。
+If this chapter is not learned solidly, common problems later on are: assuming multi-Agent is always stronger than single-Agent; only demonstrating successful paths and not handling tool failures or looped execution; treating memory as “the more, the smarter,” without understanding that memory should serve the task; and learning many frameworks without knowing why the system is designed this way.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the input and output are, and how the minimum project runs, you can continue forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter as a chance to fill gaps and practice engineering: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the earlier and later stages. After reading, it is best to store the chapter content in your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study style | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimum example and complete the chapter’s small project output |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
+| What can you retain after learning it? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Output for This Chapter
 
-学完这一章后，建议做一个最小研究助手 Agent。用户输入一个主题，Agent 先拆解问题，再选择是否检索资料或调用工具，然后整理观察结果，最后输出一份带步骤记录的简短摘要。
+After finishing this chapter, it is recommended to build a minimum research assistant Agent. The user enters a topic, the Agent first breaks down the question, then decides whether to retrieve information or call tools, then organizes the observation results, and finally outputs a short summary with step records.
 
-这个项目的重点不是搜索结果多丰富，而是要把执行过程记录清楚：目标是什么，计划是什么，调用了什么工具，观察到了什么，什么时候决定继续，什么时候决定结束。
+The focus of this project is not how rich the search results are, but how clearly the execution process is recorded: what the goal is, what the plan is, what tools were called, what was observed, when the system decided to continue, and when it decided to stop.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能解释 Agent 和聊天机器人、RAG 应用、固定工作流之间的区别，能说清楚目标、状态、工具、记忆、规划和观察在 Agent 里的作用，能画出一个单 Agent 的执行闭环。
+By the end of this chapter, you should be able to explain the differences between an Agent and a chatbot, a RAG application, and a fixed workflow; you should be able to explain the roles of goals, state, tools, memory, planning, and observation in an Agent; and you should be able to draw the execution loop of a single Agent.
 
-如果你能做出一个单 Agent Demo，并记录每一步工具调用、观察结果、失败处理和最终输出，就可以继续进入推理、工具、记忆、MCP 和多 Agent 章节。
+If you can build a single-Agent demo and record each tool call, observed result, failure handling step, and final output, then you are ready to move on to the chapters on reasoning, tools, memory, MCP, and multi-Agent.

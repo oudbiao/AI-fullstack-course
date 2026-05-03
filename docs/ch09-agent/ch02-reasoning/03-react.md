@@ -1,140 +1,140 @@
 ---
-title: "2.4 ReAct 框架"
+title: "2.4 ReAct Framework"
 sidebar_position: 7
-description: "从 Thought-Action-Observation 循环讲起，理解 ReAct 为什么能把推理和工具调用交织起来，以及它最适合哪类 Agent 任务。"
+description: "Starting from the Thought-Action-Observation loop, understand why ReAct can intertwine reasoning and tool use, and which types of Agent tasks it is best suited for."
 keywords: [ReAct, thought action observation, tool use, agent loop, reasoning and acting]
 ---
 
-# ReAct 框架
+# ReAct Framework
 
-![ReAct 推理行动观察循环图](/img/course/react-reason-act-observe-loop.png)
+![ReAct reasoning-action-observation loop diagram](/img/course/react-reason-act-observe-loop-en.png)
 
-:::tip 本节定位
-CoT 解决的是：
+:::tip Section Overview
+CoT solves this problem:
 
-- 先拆步骤再回答
+- Break the steps down first, then answer
 
-但 Agent 常常还会遇到另一类问题：
+But Agent often faces another kind of problem:
 
-- 只靠脑内推导不够
-- 必须去外部查、算、搜、看
+- Reasoning alone is not enough
+- It must query, calculate, search, or inspect the external world
 
-这时系统需要的不只是“思考”，还要“行动”。  
-ReAct 的核心就是把两件事交织起来：
+At this point, the system needs not just “thinking,” but also “acting.”
+The core idea of ReAct is to intertwine the two:
 
-> **先想下一步该做什么，再调工具拿观察，再根据观察继续想。**
+> **Think about the next step first, then call a tool to get an observation, and then continue thinking based on that observation.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 ReAct 的核心循环：`Thought -> Action -> Observation`
-- 理解它和纯 CoT 的差别
-- 通过可运行示例看懂一个最小 ReAct agent loop
-- 理解 ReAct 最适合什么问题，什么情况下会变得笨重
-
----
-
-## 一、为什么只靠“想”还不够？
-
-### 1.1 因为很多答案不在模型脑子里
-
-例如：
-
-- 今天北京天气怎么样？
-- 某个订单现在是什么状态？
-- 这两个数精确相加是多少？
-
-这些问题都依赖：
-
-- 实时外部信息
-- 精确工具能力
-
-如果模型只靠自己“猜”，  
-就会出现：
-
-- 幻觉
-- 过度自信
-- 算错
-
-### 1.2 ReAct 的本质：边想边拿新信息
-
-它的典型循环是：
-
-1. `Thought`  
-   我现在缺什么信息？
-2. `Action`  
-   我该调用哪个工具？
-3. `Observation`  
-   工具返回了什么？
-4. 再进入下一轮思考
-
-这让 Agent 不再只是“脑补答案”，  
-而是可以逐步靠近真实环境。
-
-### 1.3 一个类比：像做调查，而不是闭门写作
-
-纯 CoT 更像在草稿纸上推题。  
-ReAct 更像做调查：
-
-- 先想应该去查什么
-- 去拿证据
-- 再根据证据继续判断
+- Understand the core ReAct loop: `Thought -> Action -> Observation`
+- Understand how it differs from pure CoT
+- Learn a minimal, runnable ReAct agent loop through an example
+- Understand what kinds of problems ReAct is best for, and when it becomes cumbersome
 
 ---
 
-## 二、ReAct 和 CoT 的根本差别
+## 1. Why is “thinking” alone not enough?
 
-### 2.1 CoT 偏“内部推导”
+### 1.1 Because many answers are not in the model’s head
 
-核心问题是：
+For example:
 
-- 如何拆步骤
-- 如何保持中间状态
+- What is the weather in Beijing today?
+- What is the current status of a certain order?
+- What is the exact sum of these two numbers?
 
-### 2.2 ReAct 偏“推导 + 外部交互”
+These questions depend on:
 
-它额外多了一层：
+- Real-time external information
+- Precise tool capabilities
 
-- 什么时候该向外部要信息
+If the model only relies on itself to “guess,”
+it can lead to:
 
-所以 ReAct 更像：
+- Hallucinations
+- Overconfidence
+- Calculation errors
+
+### 1.2 The essence of ReAct: think while getting new information
+
+Its typical loop is:
+
+1. `Thought`
+   What information am I missing now?
+2. `Action`
+   Which tool should I call?
+3. `Observation`
+   What did the tool return?
+4. Enter the next round of thinking
+
+This allows the Agent to do more than just “make up an answer in its head,”
+and instead gradually move closer to the real environment.
+
+### 1.3 An analogy: like doing an investigation, not writing in isolation
+
+Pure CoT is more like solving a problem on scratch paper.
+ReAct is more like doing an investigation:
+
+- First think about what to check
+- Gather evidence
+- Then continue judging based on the evidence
+
+---
+
+## 2. The fundamental difference between ReAct and CoT
+
+### 2.1 CoT focuses on “internal reasoning”
+
+The core questions are:
+
+- How to break down the steps
+- How to maintain intermediate state
+
+### 2.2 ReAct focuses on “reasoning + external interaction”
+
+It adds another layer:
+
+- When should it ask the outside world for information?
+
+So ReAct is more like:
 
 - CoT + Tool Loop
 
-### 2.3 为什么这对 Agent 特别关键？
+### 2.3 Why is this especially important for Agents?
 
-因为 Agent 不只是做静态问答。  
-它经常要：
+Because Agents do more than static Q&A.
+They often need to:
 
-- 查知识库
-- 调数据库
-- 算数
-- 执行命令
+- Query a knowledge base
+- Call a database
+- Perform calculations
+- Execute commands
 
-这些都要求它在思考过程中不断接入外部世界。
+All of these require the system to continuously connect with the external world during reasoning.
 
 ---
 
-## 三、先跑一个真正的 ReAct 最小闭环
+## 3. First run a real minimal ReAct closed loop
 
-下面这个例子会模拟一个小型电商助手。  
-用户问：
+The following example simulates a small e-commerce assistant.
+The user asks:
 
-- 退款规则是什么？
-- 订单金额 `299 + 15` 最终会退多少？
+- What is the refund policy?
+- For an order amount of `299 + 15`, how much will be refunded in the end?
 
-Agent 需要：
+The Agent needs to:
 
-1. 先查退款政策
-2. 再调用计算器
-3. 最后整合出答案
+1. Check the refund policy first
+2. Then call the calculator
+3. Finally combine the information into an answer
 
 ```python
 def search_policy(topic):
     policies = {
-        "refund": "未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。",
+        "refund": "Unshipped orders can be refunded directly. The amount will be returned to the original payment method, usually within 3 to 7 business days.",
     }
-    return policies.get(topic, "未找到相关政策。")
+    return policies.get(topic, "No related policy found.")
 
 
 def calculator(expression):
@@ -147,14 +147,14 @@ def policy(state):
 
     if not any(item["action"] == "search_policy" for item in trace):
         return {
-            "thought": "我需要先确认退款政策，再回答规则部分。",
+            "thought": "I need to confirm the refund policy first before answering the policy part.",
             "action": "search_policy",
             "args": {"topic": "refund"},
         }
 
     if not any(item["action"] == "calculator" for item in trace):
         return {
-            "thought": "我已经知道政策了，接下来计算退款金额 299 + 15。",
+            "thought": "Now that I know the policy, I should calculate the refund amount 299 + 15.",
             "action": "calculator",
             "args": {"expression": "299 + 15"},
         }
@@ -163,9 +163,9 @@ def policy(state):
     amount = next(item["observation"] for item in trace if item["action"] == "calculator")
 
     return {
-        "thought": "信息已经足够，可以给出最终回答。",
+        "thought": "I have enough information now, so I can provide the final answer.",
         "action": None,
-        "answer": f"{policy_text} 本单预计退款金额为 {amount} 元。",
+        "answer": f"{policy_text} The estimated refund amount for this order is {amount} yuan.",
     }
 
 
@@ -196,10 +196,10 @@ def run_react(question, max_steps=5):
             }
         )
 
-    return state["trace"], "达到最大步数，未能完成任务。"
+    return state["trace"], "Maximum steps reached, task not completed."
 
 
-trace, answer = run_react("退款规则是什么？订单金额 299 + 15 最终会退多少？")
+trace, answer = run_react("What is the refund policy? For an order amount of 299 + 15, how much will be refunded in the end?")
 
 print("trace:")
 for item in trace:
@@ -208,190 +208,190 @@ print("\nfinal answer:")
 print(answer)
 ```
 
-### 3.1 这段代码最应该怎么读？
+### 3.1 How should you read this code?
 
-建议按这个顺序：
+It is recommended to read it in this order:
 
-1. 先看 `policy`  
-   理解 agent 每轮如何决定“下一步”
-2. 再看 `TOOLS`
-   理解外部能力从哪来
-3. 最后看 `run_react`
-   理解完整循环如何把 trace 逐步积累起来
+1. Start with `policy`
+   Understand how the agent decides the “next step” each round
+2. Then look at `TOOLS`
+   Understand where external capabilities come from
+3. Finally look at `run_react`
+   Understand how the full loop gradually accumulates the trace
 
-### 3.2 `trace` 为什么这么重要？
+### 3.2 Why is `trace` so important?
 
-因为 ReAct 不是一次出答案，  
-而是逐步推进。
+Because ReAct does not answer in one shot,
+but progresses step by step.
 
-有了 trace，你才能知道：
+With a trace, you can know:
 
-- 想了什么
-- 调了什么
-- 看到了什么
-- 为什么最后会给出这个答案
+- What it thought
+- What it called
+- What it saw
+- Why it gave that final answer
 
-这对调试非常关键。
+This is crucial for debugging.
 
-### 3.3 为什么 ReAct 往往比“直接一次调用工具”更强？
+### 3.3 Why is ReAct often stronger than “calling a tool directly once”?
 
-因为真实问题经常不是一步完成。  
-工具调用顺序可能依赖前一步结果。
+Because real problems are often not solved in a single step.
+The order of tool calls may depend on the result of the previous step.
 
-例如这里：
+For example here:
 
-- 要先确认政策
-- 再算金额
-- 再组织回答
+- First confirm the policy
+- Then calculate the amount
+- Then compose the answer
 
-这就是 ReAct 最擅长的结构。
+This is exactly the kind of structure ReAct is best at.
 
 ---
 
-## 四、ReAct 什么时候最好用？
+## 4. When is ReAct most useful?
 
-### 4.1 任务需要多轮观察
+### 4.1 Tasks that require multiple rounds of observation
 
-例如：
+For example:
 
-- 先搜再算
-- 先查再比
-- 先看状态再决定下一步
+- Search first, then calculate
+- Check first, then compare
+- Inspect the status first, then decide the next step
 
-### 4.2 工具调用顺序不是固定死的
+### 4.2 Tool call order is not fixed
 
-如果每个任务都严格是：
+If every task is strictly:
 
-1. 查 A
-2. 查 B
-3. 输出
+1. Check A
+2. Check B
+3. Output
 
-那普通 workflow 也许就够了。
+Then a normal workflow may be enough.
 
-ReAct 更适合：
+ReAct is more suitable when:
 
-- 当前一步结果会影响下一步选择
+- The result of the current step affects the next choice
 
-### 4.3 你需要过程可追踪
+### 4.3 You need process traceability
 
-因为 ReAct 天然有：
+Because ReAct naturally has:
 
 - thought
 - action
 - observation
 
-这让它很适合做：
+This makes it a good fit for:
 
-- 调试
-- 回放
-- 错误分析
-
----
-
-## 五、ReAct 最常见的问题是什么？
-
-### 5.1 循环太长
-
-如果 agent 老是在：
-
-- 想
-- 调
-- 再想
-- 再调
-
-就会出现：
-
-- 慢
-- 贵
-- 容易跑偏
-
-### 5.2 工具选错
-
-ReAct 不保证每轮都选对工具。  
-它可能会：
-
-- 查错知识源
-- 重复调用
-- 调一个其实没必要的工具
-
-### 5.3 Observation 整合失败
-
-即使工具返回了对的信息，  
-agent 也可能：
-
-- 忽略关键字段
-- 误读结果
-- 最后整合错
-
-这说明 ReAct 的难点不只是“有没有工具”，  
-还有“能不能读懂工具输出”。
+- Debugging
+- Replay
+- Error analysis
 
 ---
 
-## 六、工程上怎么让 ReAct 更稳？
+## 5. What are the most common problems with ReAct?
 
-### 6.1 让 action schema 足够清楚
+### 5.1 The loop is too long
 
-工具描述越清楚，  
-agent 越不容易乱调。
+If the agent keeps:
 
-### 6.2 限制最大步数
+- Thinking
+- Acting
+- Thinking again
+- Acting again
 
-避免无意义循环的一个最简单办法就是：
+Then it can become:
 
-- 明确 `max_steps`
+- Slow
+- Expensive
+- Prone to drifting off track
 
-### 6.3 对 observation 做结构化
+### 5.2 Choosing the wrong tool
 
-如果工具返回的是乱糟糟的一大段自然语言，  
-agent 更容易误读。
+ReAct does not guarantee the right tool is chosen each round.
+It may:
 
-更稳的方式通常是：
+- Query the wrong knowledge source
+- Call the same tool repeatedly
+- Call a tool that is actually unnecessary
 
-- 返回结构化字段
+### 5.3 Failure to integrate the observation
 
-例如：
+Even if the tool returns the correct information,
+the agent may:
+
+- Ignore key fields
+- Misread the result
+- Combine the information incorrectly in the end
+
+This shows that the difficulty of ReAct is not only “whether there is a tool,”
+but also “whether the tool output can be understood.”
+
+---
+
+## 6. How can we make ReAct more stable in practice?
+
+### 6.1 Make the action schema clear enough
+
+The clearer the tool description is,
+the less likely the agent is to call tools incorrectly.
+
+### 6.2 Limit the maximum number of steps
+
+One of the simplest ways to avoid useless loops is to:
+
+- Set `max_steps` explicitly
+
+### 6.3 Structure the observation
+
+If the tool returns a messy block of natural language,
+the agent is more likely to misread it.
+
+A more stable approach is usually to:
+
+- Return structured fields
+
+For example:
 
 - `{"refund_days": "3-7", "channel": "original_payment"}`
 
 ---
 
-## 七、常见误区
+## 7. Common misconceptions
 
-### 7.1 误区一：ReAct 就是“会调用工具”
+### 7.1 Misconception 1: ReAct just means “can call tools”
 
-不够准确。  
-ReAct 的关键是：
+That is not accurate enough.
+The key idea of ReAct is:
 
-- 推理和行动交替推进
+- Reasoning and action alternate and progress together
 
-### 7.2 误区二：只要有 trace，就一定可靠
+### 7.2 Misconception 2: As long as there is a trace, it must be reliable
 
-trace 可追踪，但不自动保证正确。
+A trace is traceable, but it does not automatically guarantee correctness.
 
-### 7.3 误区三：所有 Agent 都应该用 ReAct
+### 7.3 Misconception 3: All Agents should use ReAct
 
-不一定。  
-如果流程高度固定，  
-显式工作流可能更简单、更稳。
-
----
-
-## 小结
-
-这节最重要的不是把 `ReAct` 当成一个流行名词，  
-而是理解它为什么重要：
-
-> **当任务需要边思考边向外部世界拿信息时，ReAct 能把“推理”和“行动”组织成一条逐步收集证据、逐步靠近答案的循环。**
-
-只要这层理解清楚了，  
-你后面再看更复杂的 Agent 轨迹、工具策略和多步执行框架，就会更顺。
+Not necessarily.
+If the process is highly fixed,
+an explicit workflow may be simpler and more stable.
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例再加一个工具，例如 `check_order_status`，让 agent 多一步判断。
-2. 为什么说 ReAct 更适合“下一步动作依赖上一轮 observation”的任务？
-3. 如果工具输出很乱，ReAct 为什么更容易出错？
-4. 想一个更适合固定 workflow、而不太适合 ReAct 的任务。
+The most important thing in this lesson is not to treat `ReAct` as a buzzword,
+but to understand why it matters:
+
+> **When a task requires thinking while also obtaining information from the external world, ReAct can organize “reasoning” and “acting” into a loop that gathers evidence step by step and gradually approaches the answer.**
+
+Once this understanding is clear,
+you will find it much easier to follow more complex Agent traces, tool strategies, and multi-step execution frameworks later on.
+
+---
+
+## Exercises
+
+1. Add another tool to the example, such as `check_order_status`, so the agent has one more step of judgment.
+2. Why is ReAct more suitable for tasks where the “next action depends on the previous observation”?
+3. Why is ReAct more likely to make mistakes if the tool output is messy?
+4. Think of a task that is better suited to a fixed workflow and not very suitable for ReAct.

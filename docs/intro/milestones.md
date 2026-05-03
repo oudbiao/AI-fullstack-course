@@ -1,173 +1,171 @@
 ---
 sidebar_position: 4
-title: "学习里程碑"
-description: "用入门、基础、进阶、应用、专家和全栈六个里程碑，帮助学习者判断 AI 全栈学习进度和阶段能力。"
-keywords: [AI学习里程碑, AI全栈学习进度, 学习路线, AI自学, 作品集]
+title: "Learning Milestones"
+description: "Use six milestones—beginner, foundation, intermediate, application, expert, and full-stack—to help learners judge their AI full-stack learning progress and stage-based abilities."
+keywords: [AI learning milestones, AI full-stack learning progress, learning path, self-learning AI, portfolio]
 ---
 
-# 学习里程碑
+# Learning Milestones
 
-> 学一门复杂的技能，最怕的不是难，而是**不知道自己走了多远、还要走多久**。  
-> 这页就是你的地图。每到一个里程碑，回来看看，给自己一个确认：你在进步。
+> When learning a complex skill, what’s most frightening is not that it’s hard, but that you **don’t know how far you’ve come or how much farther you have to go**.
+> This page is your map. Every time you reach a milestone, come back and take a look, and give yourself a checkpoint: you are making progress.
 
 ---
 
-## 一图看懂六个里程碑
+## Understand the six milestones at a glance
 
 ```mermaid
 flowchart LR
-  A["入门：能写 Python 小工具"] --> B["基础：能做数据分析"]
-  B --> C["进阶：能训练和评估模型"]
-  C --> D["应用：能做 RAG 与 LLM 应用"]
-  D --> E["专家：能做可控 Agent"]
-  E --> F["全栈：能交付完整 AI 产品"]
+  A["Beginner: Can write small Python utilities"] --> B["Foundation: Can do data analysis"]
+  B --> C["Intermediate: Can train and evaluate models"]
+  C --> D["Application: Can build RAG and LLM applications"]
+  D --> E["Expert: Can build controllable Agents"]
+  E --> F["Full-stack: Can deliver complete AI products"]
 ```
 
-每个里程碑不要只看“学完哪些章节”，更要看“能交付什么证据”。项目、截图、评估表、失败样本和复盘，才是你真正走到下一站的证明。
+For each milestone, don’t just look at “which chapters you finished.” Pay more attention to “what proof can you deliver.” Projects, screenshots, evaluation sheets, failure samples, and retrospectives are the real proof that you’ve moved to the next stop.
 
-## 总览：从零到 AI 全栈的六个里程碑
+## Overview: Six milestones from zero to AI full stack
 
-| 里程碑 | 完成学习站 | 你能做什么 | 求职参考 | 全职学习时间 |
+| Milestone | Learning stations completed | What you can do | Job search reference | Full-time study time |
 |:---:|---------|----------|---------|:---:|
-| 🌱 **入门** | 1 开发者工具基础、2 Python 编程基础 | 用 Python 写自动化脚本、爬虫、简单 API | 还不能找 AI 岗位，但 Python 岗位可以尝试 | 1-2 个月 |
-| 🌿 **基础** | + 3 数据分析与可视化 | 数据分析、可视化报表、数据清洗 | 可尝试数据分析实习 | 3-4 个月 |
-| 🌳 **进阶** | + 4 AI 数学、5 机器学习、6 深度学习 | 训练 AI 模型、图像分类、文本分类 | 可找 AI 工程师实习 | 6-8 个月 |
-| 🌲 **应用** | + 7 大模型原理、8 RAG 应用 | 开发 AI 应用、微调大模型、构建 RAG 系统 | **AI 应用工程师** | 10-12 个月 |
-| 🏆 **专家** | + 9 AI Agent 与智能体系统 | 开发 AI Agent、自主推理系统、多 Agent 协作 | **高级 AI 工程师** | 12-15 个月 |
-| 🎯 **全栈** | 所有学习站 + 部署 | 从算法到产品的全链路开发 | **AI 全栈工程师 / Tech Lead** | 16-20 个月 |
+| 🌱 **Beginner** | 1 Developer Tools Basics, 2 Python Programming Basics | Write automation scripts, crawlers, and simple APIs with Python | Not ready for AI roles yet, but you can try Python roles | 1-2 months |
+| 🌿 **Foundation** | + 3 Data Analysis and Visualization | Data analysis, visualization reports, data cleaning | Can try for data analysis internships | 3-4 months |
+| 🌳 **Intermediate** | + 4 AI Math, 5 Machine Learning, 6 Deep Learning | Train AI models, image classification, text classification | Can look for AI engineer internships | 6-8 months |
+| 🌲 **Application** | + 7 LLM Principles, 8 RAG Applications | Develop AI applications, fine-tune LLMs, build RAG systems | **AI Application Engineer** | 10-12 months |
+| 🏆 **Expert** | + 9 AI Agent and Intelligent Agent Systems | Develop AI Agents, autonomous reasoning systems, and multi-Agent collaboration | **Senior AI Engineer** | 12-15 months |
+| 🎯 **Full-stack** | All learning stations + deployment | End-to-end development from algorithms to products | **AI Full-stack Engineer / Tech Lead** | 16-20 months |
 
-:::note 关于时间估算
-以上是全职学习（每天 6-8 小时）的预估。兼职学习（每天 2-3 小时）大约需要 2-2.5 倍的时间。每个人的节奏不同，不必太在意具体数字，关键是**持续推进**。
+:::note About time estimates
+The estimates above are for full-time study (6-8 hours a day). Part-time study (2-3 hours a day) usually takes about 2-2.5 times longer. Everyone learns at a different pace, so don’t worry too much about the exact numbers. The key is to **keep moving forward**.
 :::
 
 ---
 
-## 每个里程碑的详细说明
+## Detailed explanation of each milestone
 
-### 🌱 里程碑一：入门（1 开发者工具基础 + 2 Python 编程基础）
+### 🌱 Milestone 1: Beginner (1 Developer Tools Basics + 2 Python Programming Basics)
 
-**你完成了什么：**
-- 掌握了终端、Git、VS Code 等开发工具
-- 学会了 Python 基础语法、数据结构、函数、面向对象
-- 完成了 4 个小项目（命令行工具、爬虫、Web API、AI API 体验）
+**What you completed:**
+- Learned development tools such as the terminal, Git, and VS Code
+- Learned basic Python syntax, data structures, functions, and object-oriented programming
+- Completed 4 small projects (command-line tools, crawlers, Web API, AI API practice)
 
-**你的能力水平：**
-- 能用 Python 写 200-500 行的程序
-- 能从网上爬取数据并保存
-- 能用 FastAPI 搭建简单的后端服务
-- 能调用大模型 API 做简单应用
+**Your skill level:**
+- Can write 200-500 line programs in Python
+- Can crawl data from the web and save it
+- Can build a simple backend service with FastAPI
+- Can call LLM APIs to build simple applications
 
-**真实感受：** "我终于能让计算机按我说的做事了！虽然代码还不太优雅，但它跑起来了。"
+**What it feels like:** "I can finally make the computer do what I tell it to do! The code is not elegant yet, but it runs."
 
-**自检方式：** 能不能不看教程，独立写一个"猜数字"游戏？能不能用 requests 库从一个网站上爬取标题列表？
-
----
-
-### 🌿 里程碑二：基础（+ 3 数据分析与可视化）
-
-**你完成了什么：**
-- 掌握了 NumPy、Pandas、Matplotlib 等数据分析工具
-- 学会了数据清洗、探索性分析、可视化
-
-**你的能力水平：**
-- 拿到一个 CSV 数据集，能独立完成完整的数据分析流程
-- 能写出清晰的数据可视化图表
-- 能用数据回答业务问题（"哪个月销售额最高？""用户流失率是多少？"）
-
-**真实感受：** "原来数据里藏着这么多故事！一张图就能说清楚一件事。"
-
-**自检方式：** 从 Kaggle 下载一个数据集（比如泰坦尼克号生存预测数据集），能不能用 Pandas 做完整的 EDA 并画出至少 5 张有意义的图？
+**Self-check:** Can you independently write a "guess the number" game without following a tutorial? Can you use the requests library to crawl a list of titles from a website?
 
 ---
 
-### 🌳 里程碑三：进阶（+ 4 AI 数学、5 机器学习、6 深度学习）
+### 🌿 Milestone 2: Foundation (+ 3 Data Analysis and Visualization)
 
-**你完成了什么：**
-- 理解了线性代数、概率统计、微积分在 AI 中的应用
-- 掌握了经典机器学习算法（线性回归、逻辑回归、决策树、随机森林、XGBoost）
-- 学会了 PyTorch 框架和深度学习核心概念（CNN、RNN、Transformer 基础）
+**What you completed:**
+- Learned data analysis tools such as NumPy, Pandas, and Matplotlib
+- Learned data cleaning, exploratory analysis, and visualization
 
-**你的能力水平：**
-- 能独立完成一个机器学习项目的全流程（数据处理 → 特征工程 → 模型训练 → 评估调优）
-- 能用 PyTorch 搭建和训练神经网络
-- 能做图像分类、文本分类等实际任务
-- 对 AI 的核心原理有了系统性的理解
+**Your skill level:**
+- Given a CSV dataset, you can independently complete the full data analysis workflow
+- You can create clear data visualizations
+- You can answer business questions with data ("Which month had the highest sales?" "What is the churn rate?")
 
-**真实感受：** "以前觉得 AI 是黑魔法，现在发现它就是数学 + 数据 + 代码。没那么神秘，但确实精妙。"
+**What it feels like:** "So there are so many stories hidden in data! One chart can explain a whole thing clearly."
 
-**自检方式：** 能不能用 PyTorch 从头实现一个 CNN，在 CIFAR-10 数据集上训练到 80%+ 的准确率？能不能手写反向传播的简单推导？
+**Self-check:** After downloading a dataset from Kaggle (for example, the Titanic survival prediction dataset), can you use Pandas to do a complete EDA and draw at least 5 meaningful charts?
 
 ---
 
-### 🌲 里程碑四：应用（+ 7 大模型原理、8 LLM 应用开发与 RAG）
+### 🌳 Milestone 3: Intermediate (+ 4 AI Math, 5 Machine Learning, 6 Deep Learning)
 
-**你完成了什么：**
-- 理解了大语言模型的原理（Transformer、预训练、微调、对齐）
-- 掌握了 Prompt 工程和 LoRA 微调
-- 学会了开发 RAG 系统、部署本地大模型、构建生产级 AI 服务
-- 掌握了 Docker、FastAPI 等工程化技能
+**What you completed:**
+- Understood how linear algebra, probability and statistics, and calculus are used in AI
+- Mastered classic machine learning algorithms (linear regression, logistic regression, decision trees, random forests, XGBoost)
+- Learned the PyTorch framework and core deep learning concepts (CNN, RNN, Transformer basics)
 
-**你的能力水平：**
-- 能独立开发一个企业级知识库问答系统（RAG）
-- 能对开源大模型做垂直领域微调
-- 能用 Docker 打包和部署 AI 服务
-- 写出的代码有日志、有错误处理、有 API 文档
+**Your skill level:**
+- Can independently complete the full workflow of a machine learning project (data processing → feature engineering → model training → evaluation and tuning)
+- Can build and train neural networks with PyTorch
+- Can handle real tasks such as image classification and text classification
+- Have developed a systematic understanding of AI’s core principles
 
-**真实感受：** "我现在真的能做出用户可以用的 AI 产品了，不再是只会跑 Demo 的程度。"
+**What it feels like:** "I used to think AI was black magic. Now I realize it’s just math + data + code. It’s not as mysterious, but it is truly elegant."
 
-**自检方式：** 能不能独立搭建一个 RAG 系统：读取一堆 PDF 文档 → 向量化存入数据库 → 用户提问时检索相关内容 → 用大模型生成回答？
+**Self-check:** Can you implement a CNN from scratch with PyTorch and train it to 80%+ accuracy on the CIFAR-10 dataset? Can you manually derive the basics of backpropagation?
 
-:::tip 求职里程碑
-到这个阶段，你已经具备了 **AI 应用工程师** 的核心能力。如果你的目标是尽快就业，可以开始准备简历和面试了。
+---
+
+### 🌲 Milestone 4: Application (+ 7 LLM Principles, 8 LLM Application Development and RAG)
+
+**What you completed:**
+- Understood the principles of large language models (Transformer, pre-training, fine-tuning, alignment)
+- Mastered Prompt engineering and LoRA fine-tuning
+- Learned to develop RAG systems, deploy local LLMs, and build production-grade AI services
+- Mastered engineering skills such as Docker and FastAPI
+
+**Your skill level:**
+- Can independently develop an enterprise knowledge-base Q&A system (RAG)
+- Can fine-tune open-source LLMs for specific domains
+- Can package and deploy AI services with Docker
+- Your code includes logging, error handling, and API documentation
+
+**What it feels like:** "I can really build AI products that users can use now, not just run demos."
+
+**Self-check:** Can you independently build a RAG system: read a batch of PDF documents → vectorize and store them in a database → retrieve relevant content when the user asks a question → generate an answer with an LLM?
+
+:::tip Job search milestone
+By this stage, you already have the core skills of an **AI Application Engineer**. If your goal is to find a job quickly, you can start preparing your resume and interview now.
 :::
 
 ---
 
-### 🏆 里程碑五：专家（+ 9 AI Agent 与智能体系统）
+### 🏆 Milestone 5: Expert (+ 9 AI Agent and Intelligent Agent Systems)
 
-**你完成了什么：**
-- 掌握了 AI Agent 的核心架构（推理、工具使用、记忆系统）
-- 学会了 MCP 协议、LangGraph、CrewAI 等框架
-- 能开发单 Agent 和多 Agent 协作系统
-- 具备 Agent 评估、安全防护、生产部署能力
+**What you completed:**
+- Mastered the core architecture of AI Agents (reasoning, tool use, memory systems)
+- Learned frameworks such as MCP, LangGraph, and CrewAI
+- Can develop single-Agent and multi-Agent collaboration systems
+- Have the ability to evaluate Agents, protect against risks, and deploy them in production
 
-**你的能力水平：**
-- 能设计和开发一个能自主推理、调用工具、记住上下文的 AI Agent
-- 能搭建多 Agent 协作系统（比如：研究 Agent + 写作 Agent + 审核 Agent 协作完成研究报告）
-- 能评估 Agent 性能、做安全防护、控制成本
+**Your skill level:**
+- Can design and develop an AI Agent that can reason on its own, call tools, and remember context
+- Can build multi-Agent collaboration systems (for example: a research Agent + a writing Agent + a review Agent working together to complete a research report)
+- Can evaluate Agent performance, apply safety protections, and control costs
 
-**真实感受：** "AI 不再只是一个问答工具，它可以帮我自动完成复杂的工作流。我在造一个'AI 员工'。"
-
----
-
-### 🎯 里程碑六：全栈（所有阶段 + 选修）
-
-**你完成了什么：**
-- 主线全部完成，选修模块按需学习
-- 对 CV、NLP、AIGC、Agent 都有了解，至少精通其中 1-2 个方向
-- 能从需求分析到产品部署，走完全链路
-
-**你的能力水平：**
-- 拿到一个 AI 相关的业务需求，能独立做技术选型、架构设计、开发实现、测试部署
-- 能带领团队做 AI 项目
-- 对 AI 行业的发展趋势有清晰的判断
+**What it feels like:** "AI is no longer just a Q&A tool. It can help me automatically complete complex workflows. I’m building an 'AI employee.'"
 
 ---
 
-## 学习节奏参考
+### 🎯 Milestone 6: Full-stack (all stages + electives)
 
-### 全职学习（每天 6-8 小时）
+**What you completed:**
+- Finished the main learning path, and learned elective modules as needed
+- Have knowledge of CV, NLP, AIGC, and Agent, and are at least proficient in 1-2 of these directions
+- Can handle the entire chain from requirement analysis to product deployment
 
-| 月份 | 学习内容 | 关键产出 |
+**Your skill level:**
+- Given an AI-related business requirement, you can independently handle technology selection, architecture design, development, testing, and deployment
+- Can lead a team to deliver AI projects
+- Have a clear judgment on the development trends of the AI industry
+
+---
+
+## Suggested learning pace
+
+### Full-time study (6-8 hours per day)
+
+| Month | Learning content | Key output |
 |:---:|---------|---------|
-| 第 1 月 | 1 开发者工具基础、2 Python 编程基础 | Python 爬虫项目、Web API 项目 |
-| 第 2-3 月 | 3 数据分析与可视化 | 完整的数据分析报告 |
-| 第 4-6 月 | 4 AI 数学、5 机器学习、6 深度学习（融合学习） | ML 项目 + PyTorch 项目 |
-| 第 7-9 月 | 7 大模型原理、8 LLM 应用开发与 RAG | RAG 系统、大模型微调项目 |
-| 第 10-12 月 | 9 AI Agent 与智能体系统 + 求职准备 | Agent 项目 + 完整作品集 |
+| Month 1 | 1 Developer Tools Basics, 2 Python Programming Basics | Python crawler project, Web API project |
+| Month 2-3 | 3 Data Analysis and Visualization | A complete data analysis report |
+| Month 4-6 | 4 AI Math, 5 Machine Learning, 6 Deep Learning (integrated learning) | ML project + PyTorch project |
+| Month 7-9 | 7 LLM Principles, 8 LLM Application Development and RAG | RAG system, LLM fine-tuning project |
+| Month 10-12 | 9 AI Agent and Intelligent Agent Systems + job search prep | Agent project + complete portfolio |
 
-### 兼职学习（每天 2-3 小时）
+### Part-time study (2-3 hours per day)
 
-按上述表格×2 即可。关键是**每天都学一点**，哪怕只有 30 分钟，也比一周集中一天效果好得多。
-
----
+You can simply multiply the schedule above by 2. The key is to **study a little every day**. Even 30 minutes a day is much better than studying one full day each week.

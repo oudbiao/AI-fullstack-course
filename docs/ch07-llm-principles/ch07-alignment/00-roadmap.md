@@ -1,48 +1,48 @@
 ---
-title: "7.1 学前导读：对齐这一章到底在学什么"
+title: "7.1 Pre-class Guide: What Is This Alignment Chapter Really About?"
 sidebar_position: 0
-description: "先建立大模型对齐章的学习地图：为什么模型有能力不等于好用、可靠和符合人类意图。"
-keywords: [alignment导读, RLHF, DPO, 安全对齐, 人类反馈]
+description: "First build a learning map for the LLM alignment chapter: why having capabilities does not mean the model is useful, reliable, or aligned with human intent."
+keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 ---
 
-# 学前导读：对齐这一章到底在学什么
+# Pre-class Guide: What Is This Alignment Chapter Really About?
 
-## 本章定位
+## Chapter Overview
 
-预训练让模型获得通用语言能力，微调让模型适配任务，但这还不等于模型会按人类期望的方式回答。对齐这一章解决的是：怎样让模型更有帮助、更诚实、更安全，更符合使用者的意图和边界。
+Pretraining gives a model general language ability, and fine-tuning adapts it to tasks, but that still does not mean the model will answer the way humans expect. This chapter on alignment addresses how to make models more helpful, more honest, more safe, and more aligned with user intent and boundaries.
 
-如果说预训练回答“模型知道什么”，微调回答“模型擅长什么任务”，对齐则回答“模型应该怎样表现”。这也是为什么 ChatGPT 之后，对齐从研究问题变成了大模型产品体验的核心问题。
+If pretraining answers “what the model knows,” and fine-tuning answers “what tasks the model is good at,” then alignment answers “how the model should behave.” That is also why, after ChatGPT, alignment shifted from a research topic to a core issue in LLM product experience.
 
-## 本章在大模型路线中的位置
+## Where This Chapter Fits in the LLM Roadmap
 
-![大模型对齐章节关系图](/img/course/ch07-alignment-chapter-flow.png)
+![LLM alignment chapter relationship diagram](/img/course/ch07-alignment-chapter-flow-en.png)
 
-对齐不是一个孤立技巧，而是连接模型能力、用户体验和安全治理的一组方法。后面做 RAG、Agent、工具调用时，你也会继续遇到对齐问题：模型什么时候应该拒绝，什么时候应该请求确认，什么时候不能编造来源或擅自执行动作。
+Alignment is not an isolated technique, but a set of methods that connect model capability, user experience, and safety governance. Later, when you work on RAG, Agent, or tool calling, you will continue to encounter alignment questions: when should the model refuse, when should it ask for confirmation, and when should it avoid fabricating sources or executing actions on its own.
 
-## 本章学习主线
+## Main Learning Path for This Chapter
 
-| 小节 | 重点问题 | 学完后应该能说清楚什么 |
+| Section | Key Question | What You Should Be Able to Explain After Learning |
 |---|---|---|
-| 对齐问题 | 为什么有能力的模型仍可能不好用 | 幻觉、迎合、越权、偏见和不稳定输出 |
-| RLHF | 怎样用人类偏好训练模型行为 | SFT、奖励模型、强化学习的大致流程 |
-| 替代方法 | 为什么出现 DPO、RLAIF 等方法 | 对齐方法的工程成本和替代路线 |
+| Alignment Problems | Why capable models can still be hard to use | Hallucination, sycophancy, overreach, bias, and unstable outputs |
+| RLHF | How to train model behavior using human preferences | The general process of SFT, reward models, and reinforcement learning |
+| Alternative Methods | Why methods like DPO and RLAIF emerged | The engineering cost of alignment methods and alternative approaches |
 
-学习时不要陷入公式细节，而要抓住：人类偏好如何被收集，模型行为如何被比较，安全边界如何被注入，评估如何判断对齐是否真的改善。
+While learning, do not get stuck in formula details. Instead, focus on how human preferences are collected, how model behaviors are compared, how safety boundaries are injected, and how evaluation determines whether alignment has really improved.
 
-## 对齐和应用开发的关系
+## The Relationship Between Alignment and Application Development
 
-很多应用问题不能只靠 Prompt 解决。例如客服机器人不能编造政策，医疗助手不能越权诊断，Agent 不能直接删除文件或付款。你可以通过系统提示、工具权限、RAG 引用和人工确认来约束行为，但底层模型是否倾向于遵守指令、承认不知道、避免危险输出，仍然和对齐有关。
+Many application problems cannot be solved by Prompt alone. For example, a customer service bot cannot fabricate policies, a medical assistant cannot diagnose beyond its authority, and an Agent cannot directly delete files or make payments. You can constrain behavior through system prompts, tool permissions, RAG citations, and human confirmation, but whether the underlying model tends to follow instructions, admit when it does not know, and avoid dangerous outputs is still related to alignment.
 
-![对齐与应用安全边界图](/img/course/ch07-alignment-app-safety-map.png)
+![Alignment and application safety boundary map](/img/course/ch07-alignment-app-safety-map-en.png)
 
-## 本章小项目出口
+## What You Will Build in This Chapter
 
-本章不要求你训练 RLHF。建议做一个“模型行为对比记录表”：设计 10 个容易出问题的问题，例如含糊需求、冲突指令、缺少来源、越权工具请求、安全边界请求，比较不同 Prompt 或不同模型的回答差异。基础版写成 Markdown 表格；标准版加入评分维度，如有用性、诚实性、边界感、引用可靠性；挑战版把它接入后面的 RAG 或 Agent 评估集。
+This chapter does not require you to train RLHF yourself. A good practice is to build a “model behavior comparison log”: design 10 questions that are likely to cause problems, such as ambiguous requests, conflicting instructions, missing sources, overreaching tool requests, and safety-boundary requests, then compare the differences in responses from different Prompts or different models. For the basic version, write it as a Markdown table; for the standard version, add scoring dimensions such as helpfulness, honesty, boundary awareness, and citation reliability; for the challenge version, connect it to the later RAG or Agent evaluation set.
 
-## 常见误区
+## Common Misconceptions
 
-第一个误区是把对齐等同于“让模型更听话”。真正的对齐还包括拒绝不该做的事、承认不知道、避免误导和保护用户。第二个误区是认为对齐只发生在模型训练阶段；应用层的系统提示、工具权限、人工确认和日志审计也是广义对齐的一部分。第三个误区是只看单次回答，不做成体系的行为评估。
+The first misconception is equating alignment with “making the model more obedient.” Real alignment also includes refusing to do things it should not do, admitting when it does not know, avoiding misleading outputs, and protecting users. The second misconception is that alignment only happens during model training; system prompts, tool permissions, human confirmation, and log auditing at the application layer are also part of alignment in a broad sense. The third misconception is looking only at one response instead of doing systematic behavior evaluation.
 
-## 过关标准
+## Passing Criteria
 
-学完这一章后，你应该能解释预训练、微调和对齐的区别，能说清 RLHF 的基本流程，知道为什么会出现 DPO 等替代方法，并能把“有用性、诚实性、安全边界”写进自己的 LLM 应用评估清单。
+After finishing this chapter, you should be able to explain the difference between pretraining, fine-tuning, and alignment; describe the basic RLHF process; understand why alternative methods such as DPO emerged; and incorporate “helpfulness, honesty, and safety boundaries” into your own LLM application evaluation checklist.

@@ -1,101 +1,101 @@
 ---
-title: "1.1 学前导读：神经网络基础这一章到底在学什么"
+title: "1.1 Pre-Class Guide: What Is This Chapter on Neural Network Basics Really About?"
 sidebar_position: 0
-description: "先建立神经网络基础章的学习地图：神经元、前向后向传播、优化器、正则化和初始化是怎么串起来的。"
-keywords: [神经网络导读, 反向传播, 优化器, 正则化, 初始化]
+description: "First build a learning map for the neural network basics chapter: how neurons, forward and backward propagation, optimizers, regularization, and initialization fit together."
+keywords: [neural network guide, backpropagation, optimizer, regularization, initialization]
 ---
 
-# 学前导读：神经网络基础这一章到底在学什么
+# Pre-Class Guide: What Is This Chapter on Neural Network Basics Really About?
 
-这一章解决的是一个根本问题：
+This chapter addresses a fundamental question:
 
-> **神经网络到底为什么能学起来？**
+> **Why can neural networks actually learn?**
 
-## 先建立一张桥接线
+## First, build a bridge map
 
-如果你是从第 5 站刚过来，最该先确认的一件事是：
+If you have just come over from Station 5, the first thing you should confirm is:
 
-- 第 5 站已经教会你“怎么做建模”
-- 这一章开始教你“模型内部到底怎么学起来”
+- Station 5 has already taught you “how to do modeling”
+- This chapter starts teaching you “how the model actually learns inside”
 
-更稳的过渡理解是：
+A more solid way to think about the transition is:
 
-![神经网络基础章节关系图](/img/course/ch06-nn-basics-chapter-flow.png)
+![Neural network basics chapter relationship diagram](/img/course/ch06-nn-basics-chapter-flow-en.png)
 
-如果你还没把这条桥接关系看顺，建议先读：
-[1.3 过渡：从经典机器学习到深度学习](./ml-to-dl-bridge)
+If you still do not fully understand this bridge relationship, it is recommended to first read:
+[1.3 Transition: From Classical Machine Learning to Deep Learning](./ml-to-dl-bridge)
 
-如果你想先知道神经网络、反向传播、LSTM、AlexNet、ResNet 和 Transformer 为什么会依次出现，建议先读：
-[1.2 深度学习历史突破主线](./history-breakthroughs)
+If you want to first understand why neural networks, backpropagation, LSTM, AlexNet, ResNet, and Transformer appear in that order, it is recommended to first read:
+[1.2 Main Line of Historical Breakthroughs in Deep Learning](./history-breakthroughs)
 
-## 这一章的主线
+## The main line of this chapter
 
-如果这一章学稳，后面 PyTorch 和各种网络结构都会更容易看懂。
+If you master this chapter well, PyTorch and various network architectures will become much easier to understand later.
 
-## 这一章更适合新人的学习顺序
+## The recommended learning order for newcomers
 
-1. 先看神经元和激活函数  
-   先理解一层里到底发生了什么。
+1. First look at neurons and activation functions
+   First understand what is actually happening inside one layer.
 
-2. 再看前向传播和反向传播  
-   先看模型怎样算输出，再看它怎样改参数。
+2. Then look at forward propagation and backward propagation
+   First see how the model computes outputs, then see how it updates parameters.
 
-3. 再看优化器  
-   理解“知道梯度”之后，参数到底怎么更新。
+3. Then look at optimizers
+   Understand how parameters are updated after you know the gradients.
 
-4. 最后看正则化和初始化  
-   理解为什么训练能不能稳、能不能泛化，往往取决于这些工程细节。
+4. Finally look at regularization and initialization
+   Understand why training stability and generalization often depend on these engineering details.
 
-## 学这一章时最该先抓住什么
+## What you should focus on first in this chapter
 
-- 一个神经元本质上就是：线性变换 + 非线性激活
-- 多层网络本质上就是：重复很多次这种结构
-- 训练本质上就是：前向算输出，反向算梯度，再更新参数
+- A neuron is essentially: linear transformation + nonlinear activation
+- A multi-layer network is essentially: repeating this structure many times
+- Training is essentially: compute outputs in the forward pass, compute gradients in the backward pass, then update parameters
 
-## 这一章和第 5 站最深的连续性是什么
+## What is the deepest continuity between this chapter and Station 5?
 
-如果用一句最关键的话来说：
+If we put it in one key sentence:
 
-> 第 5 站里你已经见过“模型 -> 损失 -> 优化”的骨架，这一章只是把这个骨架拆开给你看得更清楚。
+> In Station 5, you already saw the skeleton of “model -> loss -> optimization”; this chapter simply breaks that skeleton apart and shows it to you more clearly.
 
-也就是说，这一章不是从零开始，而是在把第 5 站里很多被封装起来的训练过程，真正讲开。
+In other words, this chapter does not start from zero. It is actually unpacking the training process that was hidden inside Station 5.
 
-## 新人最容易卡住的地方
+## The places where newcomers most easily get stuck
 
-- 把“神经元”“层”“网络”三个层次混在一起
-- 只记住公式，不知道每一步在改什么
-- 看到 `loss.backward()` 就直接跳过，不知道它到底在算什么
+- Mixing up the three levels of “neuron”, “layer”, and “network”
+- Memorizing formulas without knowing what each step is changing
+- Seeing `loss.backward()` and skipping over it, without knowing what it is actually computing
 
-如果你能把这三件事讲清楚，这一章就已经学得很扎实了。
+If you can explain these three things clearly, then you have already learned this chapter quite solidly.
 
-## 新人和进阶学习者怎么读
+## How newcomers and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When newcomers study this chapter for the first time, they should first focus on the main line and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and do engineering practice: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to distill the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Learning mode | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run through a minimal example and complete the chapter’s small project exit |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its position in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly say what input the example needs and what result it produces |
+| Where are the common failure points? | Can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you distill after learning it? | Can write the chapter output into a project README, experiment notes, or portfolio |
+## Small project exit for this chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended to complete a minimal exercise: choose the core concept or tool of this chapter, and create a small result that can run, can be screenshotted, and can be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing flow is, and what the output result is.
 
-## 过关标准
+## Passing standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects to the previous and next learning stations, and complete the minimum version of the chapter’s small project exit.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one improvement in results, that means you are no longer just “having read the content” — you are turning this chapter into your own project experience.

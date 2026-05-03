@@ -1,109 +1,109 @@
 ---
-title: "4.4 日志与监控"
+title: "4.4 Logging and Monitoring"
 sidebar_position: 19
-description: "从结构化日志、关键指标、trace 到告警思路，理解 LLM 服务为什么一定要可观测。"
+description: "From structured logs, key metrics, and traces to alerting ideas, understand why LLM services must be observable."
 keywords: [logging, monitoring, tracing, metrics, observability, LLM ops]
 ---
 
-# 日志与监控
+# Logging and Monitoring
 
-:::tip 本节定位
-很多 LLM 应用本地 Demo 跑起来都不错，但一到线上就会暴露一个问题：
+:::tip Section overview
+Many LLM app demos work well locally, but once they go live, one problem quickly appears:
 
-> **出了问题，你根本不知道是哪里坏了。**
+> **When something goes wrong, you have no idea where it broke.**
 
-日志与监控的价值，不在“多记点东西”，而在：
+The value of logging and monitoring is not “record a few more things,” but:
 
-> 让系统出问题时，你有办法定位、解释、回放、修复。
+> When the system fails, you have a way to locate, explain, replay, and fix it.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解日志、指标、追踪三者分别解决什么问题
-- 学会设计结构化日志字段
-- 理解 LLM 系统里最值得监控的指标有哪些
-- 看懂一个最小日志 + 监控示例
+- Understand what problems logs, metrics, and tracing each solve
+- Learn how to design structured log fields
+- Understand which metrics are most worth monitoring in an LLM system
+- Read a minimal example of logs + monitoring
 
 ---
 
-## 先建立一张地图
+## First, build a mental map
 
-日志与监控更适合按“发生了什么 -> 整体表现怎样 -> 单条请求经历了什么”来理解：
+Logging and monitoring are easier to understand as “what happened -> how is the system performing overall -> what did a single request go through”:
 
 ```mermaid
 flowchart LR
-    A["日志"] --> B["记录单点事件"]
-    B --> C["指标"]
-    C --> D["看整体趋势"]
+    A["Logs"] --> B["Record single events"]
+    B --> C["Metrics"]
+    C --> D["See overall trends"]
     D --> E["Trace"]
-    E --> F["还原单条请求链路"]
+    E --> F["Reconstruct a single request path"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 出问题时你到底先看哪一层
-- 为什么日志、指标、trace 缺一块都会很难排障
+- When something goes wrong, which layer should you look at first?
+- Why are logs, metrics, and traces all necessary for troubleshooting?
 
 ---
 
-## 一、为什么这件事特别重要？
+## 1. Why is this especially important?
 
-### 1.1 LLM 系统的故障比普通接口更隐蔽
+### 1.1 Failures in LLM systems are more hidden than in normal APIs
 
-普通接口错误通常比较直接：
+Errors in ordinary APIs are usually pretty direct:
 
 - 500
-- 超时
-- 参数错
+- timeout
+- invalid parameters
 
-而 LLM 系统还会有这些“软故障”：
+But LLM systems can also have these “soft failures”:
 
-- 回答变差
-- 检索飘了
-- token 成本暴涨
-- 只在某些场景失误
+- Answer quality gets worse
+- Retrieval drifts
+- Token cost skyrockets
+- Mistakes happen only in certain scenarios
 
-所以如果你没有观测能力，系统经常会变成：
+So if you do not have observability, the system often becomes:
 
-> 看起来还活着，但其实已经坏了一半。 
+> It looks alive, but in reality it is already half broken.
 
-### 1.2 日志与监控到底在解决什么？
+### 1.2 What do logging and monitoring actually solve?
 
-可以先粗略分三层：
+A rough three-layer view is enough to start:
 
-- 日志：发生了什么
-- 指标：发生得多不多、快不快、贵不贵
-- 追踪：一条请求完整走了哪些步骤
+- Logs: what happened
+- Metrics: how often, how fast, and how expensive it is
+- Tracing: the full path a request took
 
-### 1.3 一个更适合新人的总类比
+### 1.3 A beginner-friendly analogy
 
-你可以把可观测性理解成：
+You can think of observability as:
 
-- 给系统装仪表盘、行车记录仪和维修日志
+- Installing a dashboard, a dashcam, and a maintenance log in the system
 
-没有这些东西时，系统坏了你只能说：
+Without these, when the system breaks, all you can say is:
 
-- 好像有点不对
+- Something feels off
 
-有了之后你才可能知道：
+With them, you can actually know:
 
-- 哪里开始异常
-- 是偶发还是持续
-- 是单条请求的问题，还是整个系统的问题
+- Where the problem started
+- Whether it is occasional or continuous
+- Whether it is a single-request issue or a system-wide issue
 
 ---
 
-## 二、先看日志：最基础也最常被写坏
+## 2. Start with logs: the most basic and most often misused tool
 
-### 2.1 什么叫“结构化日志”？
+### 2.1 What is a “structured log”?
 
-相比只打一行字符串：
+Instead of printing just a string:
 
 ```python
 print("request received")
 ```
 
-更有价值的是记录结构化字段：
+It is much more useful to record structured fields:
 
 - request_id
 - user_id
@@ -111,13 +111,13 @@ print("request received")
 - latency_ms
 - model_name
 
-### 2.2 一个最小结构化日志示例
+### 2.2 A minimal structured log example
 
 ```python
 log = {
     "trace_id": "trace_001",
     "stage": "retrieval",
-    "query": "退款政策是什么",
+    "query": "What is the refund policy?",
     "latency_ms": 120,
     "top_k": 3
 }
@@ -125,27 +125,27 @@ log = {
 print(log)
 ```
 
-这种日志最大的好处是：
+The biggest advantage of this kind of log is:
 
-> 后面你可以按字段查、按字段聚合，而不只是人工看文本。 
+> Later, you can query and aggregate by field instead of reading text manually.
 
 ---
 
-## 三、指标：系统整体表现的体温计
+## 3. Metrics: the thermometer for overall system health
 
-### 3.1 最值得监控的几类指标
+### 3.1 The most important metrics to monitor
 
-对 LLM 系统来说，最常见的指标包括：
+For LLM systems, the most common metrics include:
 
-- 请求量
-- 错误率
-- 平均延迟
-- P95 / P99 延迟
-- token 使用量
-- 工具调用次数
-- 检索命中率
+- Request volume
+- Error rate
+- Average latency
+- P95 / P99 latency
+- Token usage
+- Number of tool calls
+- Retrieval hit rate
 
-### 3.2 一个最小指标汇总示例
+### 3.2 A minimal metrics aggregation example
 
 ```python
 requests = [
@@ -163,48 +163,48 @@ print("error_rate     =", error_rate)
 print("avg_tokens     =", avg_tokens)
 ```
 
-这就是监控面板最小的雏形。
+This is the smallest possible prototype of a monitoring dashboard.
 
-### 3.3 一个很适合初学者先记的指标表
+### 3.3 A beginner-friendly metric table to remember first
 
-| 指标 | 更像在回答什么问题 |
+| Metric | What it helps answer |
 |---|---|
-| 请求量 | 系统忙不忙 |
-| 错误率 | 系统是否经常失败 |
-| 平均 / P95 延迟 | 用户是否在等太久 |
-| token 使用量 | 成本是否异常 |
-| 检索命中率 | RAG 链路是否在变差 |
-| 工具调用成功率 | Agent 行动层是否稳定 |
+| Request volume | Is the system busy? |
+| Error rate | Does the system fail often? |
+| Average / P95 latency | Are users waiting too long? |
+| Token usage | Is the cost abnormal? |
+| Retrieval hit rate | Is the RAG pipeline getting worse? |
+| Tool call success rate | Is the Agent action layer stable? |
 
-这个表很适合新人，因为它会把“指标很多”重新压回到几个能理解的问题上。
+This table is useful for beginners because it turns “there are many metrics” back into a few understandable questions.
 
-![日志、指标与 Trace 可观测性图](/img/course/ch08-observability-logs-metrics-trace-map.png)
+![Observability map for logs, metrics, and trace](/img/course/ch08-observability-logs-metrics-trace-map-en.png)
 
-:::tip 读图提示
-日志回答“发生了什么”，指标回答“整体趋势怎样”，trace 回答“单条请求走过哪里”。LLM 系统排障时三者要连起来看，不能只盯 500 和超时。
+:::tip Reading the diagram
+Logs answer “what happened,” metrics answer “what is the overall trend,” and traces answer “where did a single request go.” When troubleshooting an LLM system, you need all three together, not just 500 errors and timeouts.
 :::
 
 ---
 
-## 四、追踪（trace）：一条请求到底经历了什么？
+## 4. Tracing: what exactly did a request go through?
 
-### 4.1 为什么 LLM 系统特别需要 trace？
+### 4.1 Why do LLM systems especially need traces?
 
-因为一条请求往往不只过一个模块，而可能经过：
+Because a single request usually does not go through just one module; it may pass through:
 
-1. API 接入
-2. 检索
-3. 工具调用
-4. 模型生成
-5. 后处理
+1. API entry
+2. Retrieval
+3. Tool calls
+4. Model generation
+5. Post-processing
 
-如果最后回答错了，你需要知道：
+If the final answer is wrong, you need to know:
 
-- 是检索错了
-- 还是模型生成错了
-- 还是工具层挂了
+- Was retrieval wrong?
+- Or was model generation wrong?
+- Or did the tool layer fail?
 
-### 4.2 一个最小 trace 示例
+### 4.2 A minimal trace example
 
 ```python
 trace = [
@@ -218,23 +218,23 @@ for item in trace:
     print(item)
 ```
 
-trace 的核心价值是：
+The core value of trace is:
 
-> 让你看到“同一个请求的完整旅程”。 
+> It lets you see the complete journey of the same request.
 
-### 4.3 第一次做线上排障时，最稳的默认顺序
+### 4.3 The safest default order for your first production troubleshooting session
 
-更稳的顺序通常是：
+A more reliable order is usually:
 
-1. 先看指标有没有整体异常
-2. 再看日志里具体哪一类请求在出错
-3. 最后顺着 trace 看完整链路
+1. First check whether metrics show an overall anomaly
+2. Then look at logs to see which type of request is failing
+3. Finally follow the trace to inspect the full path
 
-这样会比一开始就翻满屏日志更容易定位问题。
+This is usually easier than opening a wall of logs right away.
 
 ---
 
-## 五、一个更贴近真实的最小观测闭环
+## 5. A more realistic minimal observability loop
 
 ```python
 import time
@@ -253,122 +253,120 @@ def timed_stage(name, fn, *args, **kwargs):
 
 def fake_retrieve(query):
     time.sleep(0.1)
-    return ["退款政策"]
+    return ["refund policy"]
 
 def fake_llm(docs):
     time.sleep(0.2)
-    return f"根据 {docs} 生成回答"
+    return f"Generate an answer based on {docs}"
 
-docs = timed_stage("retrieval", fake_retrieve, "退款政策是什么")
+docs = timed_stage("retrieval", fake_retrieve, "What is the refund policy?")
 answer = timed_stage("llm_generate", fake_llm, docs)
 print(answer)
 ```
 
-这个例子虽然小，但已经把：
+Although this example is small, it already includes these core fields:
 
 - trace_id
 - stage
 - latency
 
-这几个核心字段带起来了。
+---
+
+## 6. What else is worth monitoring in an LLM system?
+
+Compared with a traditional API, an LLM system is usually worth monitoring for these additional things:
+
+### 6.1 Token cost
+
+Because it directly determines:
+
+- How much money you spend
+- Whether prompts are getting longer and longer
+
+### 6.2 Retrieval quality
+
+For example:
+
+- Whether top-1 is a hit
+- The rate of empty retrieval results
+
+### 6.3 Tool call quality
+
+For example:
+
+- Tool call success rate
+- Parameter validation failure rate
+- Retry rate
+
+### 6.4 Answer quality signals
+
+For example:
+
+- User follow-up rate
+- User correction rate
+- Thumbs-down rate
+
+These metrics cannot replace offline evaluation, but they are still very important.
 
 ---
 
-## 六、LLM 系统最值得额外监控的东西
+## 7. Why alerts should not only ask “is the service down?”
 
-相比传统 API，LLM 系统通常还值得多监控这些：
+### 7.1 Many LLM issues do not directly cause a 500 error
 
-### 6.1 token 成本
+For example:
 
-因为它直接决定：
+- Answer quality keeps dropping
+- Token usage suddenly doubles
+- Retrieval hit rate falls sharply
 
-- 钱花了多少
-- prompt 是否越来越长
+The system may still be “alive,” but the business is already clearly broken.
 
-### 6.2 检索质量
+### 7.2 So alerts are best split into two layers
 
-例如：
+- Basic availability alerts
+  - Error rate
+  - Timeout rate
 
-- top-1 是否命中
-- 检索为空比例
+- Business quality alerts
+  - Retrieval hit rate drops
+  - Average token count rises abnormally
+  - User negative feedback increases abnormally
 
-### 6.3 工具调用质量
+### 7.3 A beginner-friendly alert layering table
 
-例如：
-
-- 工具调用成功率
-- 参数校验失败率
-- 重试率
-
-### 6.4 回答质量信号
-
-例如：
-
-- 用户追问率
-- 用户纠错率
-- 点踩率
-
-这类指标不能替代离线评估，但非常重要。
-
----
-
-## 七、告警为什么不能只看“服务挂没挂”？
-
-### 7.1 LLM 系统很多问题不会直接 500
-
-例如：
-
-- 回答质量持续下降
-- token 用量突然翻倍
-- 检索命中率掉得很厉害
-
-这些问题系统可能仍然“活着”，但业务已经明显坏了。
-
-### 7.2 所以告警最好分两层
-
-- 基础可用性告警
-  - 错误率
-  - 超时率
-
-- 业务质量告警
-  - 检索命中率下降
-  - 平均 token 数异常上升
-  - 用户负反馈异常增加
-
-### 7.3 一个很适合初学者先记的告警分层表
-
-| 告警类型 | 典型例子 |
+| Alert type | Typical example |
 |---|---|
-| 可用性告警 | 错误率高、超时率高 |
-| 成本告警 | token 暴涨、调用次数异常 |
-| 质量告警 | 检索命中率下降、用户追问率上升 |
+| Availability alert | High error rate, high timeout rate |
+| Cost alert | Token usage spikes, abnormal call volume |
+| Quality alert | Retrieval hit rate drops, user follow-up rate rises |
 
-这个表很适合新人，因为它会提醒你：
+This table is useful for beginners because it reminds you:
 
-- LLM 系统的“坏掉”不只是一种坏法
+- An LLM system can “break” in more than one way
 
 ---
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，最值得先监控什么？
+## 8. If your goal is a “courseware generation assistant driven by a knowledge base,” what should you monitor first?
 
-这类系统比普通问答更容易出现“看起来还行，但其实已经歪了”的问题。
+This kind of system is more likely than ordinary Q&A to look “fine” while actually drifting off course.
 
-第一次做时，特别值得先盯这几类字段：
+When you build it for the first time, it is especially worth watching these fields:
 
-| 监控点 | 更像在看什么 |
+| Monitoring point | What it is really checking |
 |---|---|
-| `retrieved_count` | 内部资料有没有召回到内容 |
-| `example_count` | 有没有真的抽到例题 |
-| `source_origin_mix` | 内部资料和外部资料谁占主导 |
-| `export_success` | Word 导出是否成功 |
-| `schema_valid` | 结构化结果是否符合模板要求 |
+| `retrieved_count` | Whether internal materials were actually retrieved |
+| `example_count` | Whether example questions were really extracted |
+| `source_origin_mix` | Whether internal or external materials are dominant |
+| `export_success` | Whether Word export succeeded |
+| `schema_valid` | Whether the structured result matches the template requirements |
 
-一个最小日志对象可以先写成：
+A minimal log object can look like this:
 
 ```python
 log = {
     "trace_id": "trace_001",
-    "topic": "折扣应用题",
+    "topic": "discount word problems",
     "retrieved_count": 5,
     "example_count": 2,
     "schema_valid": True,
@@ -378,85 +376,85 @@ log = {
 print(log)
 ```
 
-这个例子特别适合新人，因为它会帮助你先明白：
+This example is especially good for beginners because it helps you understand:
 
-- 这类项目的监控重点，不只是模型快不快
-- 还包括资料有没有找对、结构有没有成型、文档有没有导出成功
+- The monitoring focus of this kind of project is not just whether the model is fast
+- It also includes whether the right materials were found, whether the structure took shape, and whether the document was exported successfully
 
 ---
 
-## 九、一个很实用的日志字段清单
+## 9. A very practical checklist of log fields
 
-如果你在做 LLM 服务，最实用的一组字段通常包括：
+If you are building an LLM service, the most practical set of fields usually includes:
 
-| 字段 | 作用 |
+| Field | Purpose |
 |---|---|
-| trace_id | 串起整条链路 |
-| user_id / session_id | 定位用户或会话 |
-| stage | 当前在哪个环节 |
-| latency_ms | 这一步耗时多少 |
-| model_name | 用了哪个模型 |
-| prompt_tokens / completion_tokens | 成本分析 |
-| tool_name | 调了什么工具 |
-| retrieval_topk | 检索设置 |
-| error_code | 失败类型 |
+| trace_id | Connect the whole request path |
+| user_id / session_id | Identify the user or session |
+| stage | Which step it is in |
+| latency_ms | How long this step took |
+| model_name | Which model was used |
+| prompt_tokens / completion_tokens | Cost analysis |
+| tool_name | Which tool was called |
+| retrieval_topk | Retrieval settings |
+| error_code | Failure type |
 
-不是每一条日志都要全打，但这份清单很适合作为设计起点。
-
----
-
-## 十、初学者最常踩的坑
-
-### 10.1 只打字符串，不打字段
-
-后面很难聚合分析。
-
-### 10.2 只记成功，不记失败
-
-这会让错误定位非常痛苦。
-
-### 10.3 没有 trace_id
-
-出了问题无法追完整链路。
-
-### 10.4 只监控系统可用性，不监控业务质量
-
-这是 LLM 项目里特别常见的问题。
+Not every log needs all of these, but this list is a very good starting point for design.
 
 ---
 
-## 小结
+## 10. Common mistakes beginners make
 
-这一节最重要的不是“学会打日志”，而是理解：
+### 10.1 Only logging strings, not fields
 
-> **日志、指标、trace 共同组成了系统的可观测性，它们决定你能不能真正维护一个上线后的 LLM 服务。**
+That makes later aggregation and analysis difficult.
 
-没有观测，很多故障只能靠猜；  
-有了观测，系统才真正可维护。
+### 10.2 Only logging successes, not failures
 
-## 如果把它做成项目或系统设计，最值得展示什么
+This makes error diagnosis very painful.
 
-最值得展示的通常不是：
+### 10.3 No trace_id
 
-- “我接了日志系统”
+When something goes wrong, you cannot reconstruct the full request path.
 
-而是：
+### 10.4 Monitoring only availability, not business quality
 
-1. 一条请求的 trace
-2. 一组关键指标
-3. 一个典型错误案例怎么被定位出来
-4. 质量告警和可用性告警是怎么分层的
-
-这样别人会更容易看出：
-
-- 你理解的是可观测性闭环
-- 不只是会打印日志
+This is a very common problem in LLM projects.
 
 ---
 
-## 练习
+## Summary
 
-1. 给本节的 `timed_stage()` 再加一个 `error_code` 字段。
-2. 设计一个你自己的日志结构，专门记录检索阶段。
-3. 想一想：如果服务错误率没变，但用户追问率突然上升，这通常意味着什么？
-4. 用自己的话解释：为什么 LLM 系统的告警不能只看 500 和超时？
+The most important thing in this section is not “learning how to write logs,” but understanding:
+
+> **Logs, metrics, and traces together form system observability, and they determine whether you can truly maintain a production LLM service.**
+
+Without observability, many failures can only be guessed at;
+with observability, the system becomes maintainable.
+
+## If you turn this into a project or system design, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- “I connected a logging system”
+
+But rather:
+
+1. A trace for a single request
+2. A set of key metrics
+3. How a typical error case was located
+4. How quality alerts and availability alerts are layered
+
+That way, other people can more easily see:
+
+- You understand the full observability loop
+- You are not just able to print logs
+
+---
+
+## Exercises
+
+1. Add an `error_code` field to `timed_stage()` in this section.
+2. Design your own log structure specifically for the retrieval stage.
+3. Think about this: if the service error rate does not change, but the user follow-up rate suddenly increases, what does that usually mean?
+4. Explain in your own words: why can’t LLM system alerts rely only on 500 errors and timeouts?

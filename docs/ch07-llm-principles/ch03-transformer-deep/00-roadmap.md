@@ -1,51 +1,51 @@
 ---
-title: "3.1 学前导读：Transformer 深入这一章到底在学什么"
+title: "3.1 Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?"
 sidebar_position: 0
-description: "先建立 Transformer 深入章的学习地图：注意力、结构变体、高效计算和规模化怎样共同支撑现代大模型。"
-keywords: [Transformer导读, 注意力机制, 大模型架构, 高效注意力]
+description: "Build the learning map for the Transformer deep dive: how attention, architectural variants, efficient computation, and scaling work together to support modern large models."
+keywords: [Transformer overview, attention mechanism, large model architecture, efficient attention]
 ---
 
-# 学前导读：Transformer 深入这一章到底在学什么
+# Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?
 
-## 本章定位
+## What this chapter is about
 
-这一章不是重复讲“Transformer 是什么”，而是把你从能看懂结构图推进到能理解现代大模型为什么这样设计。前面你已经见过 Attention、Encoder、Decoder 和预训练模型；这一章要进一步回答：为什么 Transformer 能扩展到大模型，主流架构为什么会有不同变体，长上下文和推理成本为什么会成为工程问题。
+This chapter is not a repeat of “what is a Transformer.” Instead, it takes you from being able to read a diagram to understanding why modern large models are designed the way they are. In earlier chapters, you already saw Attention, Encoder, Decoder, and pre-trained models. This chapter goes further and answers: why can Transformers scale to large models, why do mainstream architectures have different variants, and why have long context and inference cost become engineering issues?
 
-如果你只会背“多头注意力 + FFN + 残差 + LayerNorm”，还不足以理解后面的 LLM、微调、RAG 和部署。本章的重点是把结构、计算和工程约束连起来。
+If you only know how to recite “multi-head attention + FFN + residual + LayerNorm,” that is still not enough to understand LLMs, fine-tuning, RAG, and deployment. The focus of this chapter is to connect structure, computation, and engineering constraints.
 
-## 本章在大模型主线中的位置
+## Where this chapter fits in the large-model storyline
 
-![Transformer 深入章节关系图](/img/course/ch07-transformer-deep-chapter-flow.png)
+![Transformer deep-dive chapter relationship diagram](/img/course/ch07-transformer-deep-chapter-flow-en.png)
 
-Transformer 深入是大模型原理部分的中轴。你后面看到上下文窗口、KV Cache、显存占用、推理延迟、LoRA 插入位置、RAG 上下文拼接限制时，都会回到这一章的概念。
+The Transformer deep dive is the backbone of the large-model theory section. Later, when you see concepts like context windows, KV Cache, memory usage, inference latency, LoRA insertion points, and RAG context concatenation limits, you will come back to the ideas in this chapter.
 
-## 本章学习主线
+## Main learning path for this chapter
 
-| 小节 | 重点问题 | 学完后应该能说清楚什么 |
+| Section | Key question | What you should be able to explain after learning it |
 |---|---|---|
-| 架构回顾与深入 | Transformer 每个组件为什么存在 | Attention、FFN、残差、LayerNorm 的作用 |
-| 模型架构变体 | Encoder-only、Decoder-only、Encoder-Decoder 有何不同 | BERT、GPT、T5 为什么适合不同任务 |
-| 高效注意力机制 | 长文本为什么贵 | 稀疏注意力、线性注意力、FlashAttention 解决什么问题 |
-| 模型规模与计算 | 参数、显存、吞吐、上下文如何互相影响 | 为什么部署大模型是工程权衡 |
+| Architecture review and deep dive | Why does each component in a Transformer exist? | The role of Attention, FFN, residual connections, and LayerNorm |
+| Model architecture variants | What are the differences among Encoder-only, Decoder-only, and Encoder-Decoder? | Why BERT, GPT, and T5 are suited to different tasks |
+| Efficient attention mechanisms | Why are long texts expensive? | What problems sparse attention, linear attention, and FlashAttention solve |
+| Model scale and computation | How do parameters, memory, throughput, and context affect each other? | Why deploying large models is an engineering trade-off |
 
-## 学习时要抓住的三个问题
+## Three questions to keep in mind while studying
 
-第一，信息怎么流动：token 如何通过 Attention 看到其他 token，层与层之间如何逐步形成表示。第二，计算贵在哪里：Attention 为什么和序列长度强相关，显存为什么会成为瓶颈。第三，架构怎么服务任务：理解型任务、生成型任务和 text-to-text 任务为什么对应不同结构偏好。
+First, how does information flow: how do tokens use Attention to see other tokens, and how do layers gradually build representations? Second, where is the computation expensive: why is Attention strongly tied to sequence length, and why does memory become a bottleneck? Third, how does the architecture serve the task: why do understanding tasks, generation tasks, and text-to-text tasks prefer different structures?
 
-![Transformer 信息流计算成本任务适配图](/img/course/ch07-transformer-cost-task-map.png)
+![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map-en.png)
 
-## 和后续章节的连接
+## How this connects to later chapters
 
-预训练章节会继续讨论这些结构如何在大规模数据上学习；微调章节会关心哪些参数要更新、LoRA 插在哪里；部署章节会关心 KV Cache、批处理和推理服务；RAG 会关心上下文窗口和长文档压缩。也就是说，这章不是纯理论，而是后面工程决策的基础。
+The pre-training chapter will continue discussing how these structures learn from large-scale data; the fine-tuning chapter will focus on which parameters to update and where to insert LoRA; the deployment chapter will cover KV Cache, batching, and inference services; and RAG will focus on context windows and long-document compression. In other words, this chapter is not pure theory — it is the foundation for later engineering decisions.
 
-## 本章小项目出口
+## Small project suggestion
 
-建议做一个“Transformer 成本直觉小实验”。基础版可以写一个简单脚本，比较不同序列长度下 Attention 矩阵大小的增长。标准版可以用一个小模型观察输入长度变化对推理耗时的影响。挑战版可以对比普通 Attention、FlashAttention 或长上下文策略的概念差异，并写成一页实验记录。
+It is recommended to build a “Transformer cost intuition mini-experiment.” For the basic version, you can write a simple script to compare how the size of the Attention matrix grows with different sequence lengths. For the standard version, you can use a small model to observe how changes in input length affect inference time. For the challenge version, you can compare the conceptual differences between standard Attention, FlashAttention, or long-context strategies, and write them up as a one-page experiment report.
 
-## 常见误区
+## Common misunderstandings
 
-第一个误区是把 Transformer 只当成结构图，不关心计算代价。第二个误区是把所有大模型都看成同一种架构，而忽略 Encoder-only、Decoder-only 和 Encoder-Decoder 的任务差异。第三个误区是认为上下文越长越好；真实应用里，长上下文会带来成本、延迟和注意力稀释问题。
+The first misunderstanding is treating the Transformer only as a structure diagram and ignoring computation cost. The second is viewing all large models as the same kind of architecture and overlooking the task differences among Encoder-only, Decoder-only, and Encoder-Decoder models. The third is believing that longer context is always better; in real applications, long context brings costs, latency, and attention dilution problems.
 
-## 过关标准
+## Pass standard
 
-学完这一章后，你应该能解释 Transformer 的关键组件、主流架构变体的适用任务、长序列为什么昂贵，以及这些知识如何影响预训练、微调、RAG 和部署决策。
+After finishing this chapter, you should be able to explain the key components of a Transformer, the applicable tasks of mainstream architectural variants, why long sequences are expensive, and how this knowledge affects decisions in pre-training, fine-tuning, RAG, and deployment.

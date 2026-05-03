@@ -1,106 +1,106 @@
 ---
-title: "2.5 信息论基础"
+title: "2.5 Fundamentals of Information Theory"
 sidebar_position: 8
-description: "理解信息量、熵、交叉熵和 KL 散度的直觉含义，理解为什么交叉熵是分类任务的损失函数"
-keywords: [信息论, 熵, 交叉熵, KL散度, 损失函数, AI数学]
+description: "Understand the intuitive meaning of information content, entropy, cross-entropy, and KL divergence, and why cross-entropy is the loss function for classification tasks"
+keywords: [information theory, entropy, cross entropy, KL divergence, loss function, AI math]
 ---
 
-# 信息论基础
+# Fundamentals of Information Theory
 
-![信息熵与不确定性图](/img/course/information-entropy-uncertainty.png)
+![Information entropy and uncertainty diagram](/img/course/information-entropy-uncertainty-en.png)
 
-:::tip 为什么学信息论？
-你在训练分类模型时用的 `CrossEntropyLoss`（交叉熵损失），名字里就有"熵"。信息论告诉你**这个损失函数到底在度量什么**，以及为什么它对分类任务这么有效。
+:::tip Why learn information theory?
+When you train a classification model with `CrossEntropyLoss`, the word "entropy" is right there in the name. Information theory tells you **what this loss function is actually measuring** and why it is so effective for classification tasks.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解信息量和熵——不确定性的度量
-- 理解交叉熵——衡量两个分布的差异
-- 理解 KL 散度——一个分布到另一个分布的"距离"
-- 用 Python 计算和可视化
+- Understand information content and entropy — measures of uncertainty
+- Understand cross-entropy — the difference between two distributions
+- Understand KL divergence — the "distance" from one distribution to another
+- Compute and visualize everything with Python
 
-## 历史背景：信息论这一节最关键的起点是什么？
+## Historical Background: What Is the Most Important Starting Point for This Section?
 
-这一节最值得知道的历史节点是：
+The most important historical milestone in this section is:
 
-| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+| Year | Paper | Key Author | What it Solved Most Importantly |
 |---|---|---|---|
-| 1948 | *A Mathematical Theory of Communication* | Claude Shannon | 系统提出了信息量、熵和现代信息论主线 |
+| 1948 | *A Mathematical Theory of Communication* | Claude Shannon | Systematically introduced information content, entropy, and the main framework of modern information theory |
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember first is:
 
-> **香农让“信息到底有多少”第一次可以被严格度量。**
+> **Shannon made it possible to rigorously measure "how much information" there is for the first time.**
 
-所以你这一节看到的：
+So the topics in this section:
 
-- 信息量
-- 熵
-- 交叉熵
+- information content
+- entropy
+- cross-entropy
 
-不是散碎概念，而是都站在同一条信息论主线上。
+are not separate ideas, but all part of the same information theory framework.
 
-## 先说一个很重要的学习预期
+## First, Set the Right Learning Expectations
 
-这一节对新人来说最容易卡住的点是：
+The most common sticking points for beginners in this section are:
 
-- 名字听起来很抽象
-- 公式看起来像“数学中的数学”
+- the names sound very abstract
+- the formulas look like "math about math"
 
-但这里真正最重要的，不是先把所有定义背熟，而是先看懂：
+But what matters most here is not memorizing every definition first. Instead, start by understanding:
 
-- 为什么“越意外，信息量越大”
-- 为什么“越不确定，熵越大”
-- 为什么分类损失最后会和这些量连在一起
+- why "the more surprising something is, the more information it contains"
+- why "the more uncertain something is, the higher its entropy"
+- why classification loss is connected to these quantities
 
-你可以把这节先理解成：
+You can think of this section as:
 
-> **给“模型到底有多确定、预测到底差多远”找一套更精确的语言。**
+> **A more precise language for describing how certain a model is and how far its prediction is from the truth.**
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-这一节看起来最不像“概率课”，但它和模型训练其实联系非常紧。
+This section may not look much like a "probability lesson," but it is very closely related to model training.
 
-![信息论到损失函数地图](/img/course/ch04-information-theory-loss-map.png)
+![Map from information theory to loss function](/img/course/ch04-information-theory-loss-map-en.png)
 
-所以这节课真正想讲的是：
+So what this lesson really wants to explain is:
 
-- 为什么“越意外的事，信息量越大”
-- 为什么一个分布越不确定，熵越大
-- 为什么交叉熵会成为分类任务的核心损失函数
+- why "more surprising events carry more information"
+- why a distribution with more uncertainty has higher entropy
+- why cross-entropy becomes the core loss function for classification tasks
 
-## 一、信息量——"惊讶程度"
+## 1. Information Content — "How Surprised Are You?"
 
-### 1.1 直觉
+### 1.1 Intuition
 
-一条消息包含的**信息量** = 它有多**出人意料**。
+The **information content** of a message = how **unexpected** it is.
 
-- "太阳从东边升起" → 信息量 ≈ 0（完全不意外）
-- "今天北京下雪了"（夏天） → 信息量很大（非常意外）
-- "今天北京下雪了"（冬天） → 信息量中等
+- "The sun rises in the east" → information content ≈ 0 (not surprising at all)
+- "It snowed in Beijing today" (in summer) → very high information content (very surprising)
+- "It snowed in Beijing today" (in winter) → moderate information content
 
-**概率越低的事件，发生时带来的信息量越大。**
+**The lower the probability of an event, the more information it brings when it happens.**
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A More Beginner-Friendly Analogy
 
-你可以先把信息量想成：
+You can think of information content as:
 
-- “这件事有多值得我惊讶一下”
+- "How much should I be surprised by this?"
 
-比如：
+For example:
 
-- 太阳明天升起，不值得惊讶
-- 夏天下雪，就很值得惊讶
+- The sun rises tomorrow: not worth being surprised about
+- It snows in summer: definitely surprising
 
-所以信息量最值得先记的，不是公式，而是：
+So the most important thing to remember about information content is not the formula, but this:
 
-> **越不常见的事，一旦发生，带来的信息就越多。**
+> **The less common something is, the more information it gives when it happens.**
 
-### 1.2 数学定义
+### 1.2 Mathematical Definition
 
-**信息量 = -log2(概率)**
+**Information content = -log2(probability)**
 
 ```python
 import numpy as np
@@ -109,21 +109,21 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 不同概率对应的信息量
+# Information content for different probabilities
 probs = np.linspace(0.01, 1, 100)
 info = -np.log2(probs)
 
 plt.figure(figsize=(8, 5))
 plt.plot(probs, info, color='steelblue', linewidth=2)
-plt.xlabel('事件概率')
-plt.ylabel('信息量（比特）')
-plt.title('信息量 = -log₂(概率)')
+plt.xlabel('Event Probability')
+plt.ylabel('Information Content (bits)')
+plt.title('Information Content = -log₂(Probability)')
 plt.grid(True, alpha=0.3)
 
-# 标注几个关键点
-for p, label in [(1.0, '必然事件'), (0.5, '抛硬币'), (0.01, '罕见事件')]:
+# Mark a few key points
+for p, label in [(1.0, 'Certain event'), (0.5, 'Coin flip'), (0.01, 'Rare event')]:
     i = -np.log2(p)
-    plt.annotate(f'{label}\np={p}, info={i:.1f}bit', 
+    plt.annotate(f'{label}\np={p}, info={i:.1f}bit',
                  xy=(p, i), fontsize=10,
                  xytext=(p+0.15, i+0.5),
                  arrowprops=dict(arrowstyle='->', color='gray'))
@@ -131,78 +131,78 @@ for p, label in [(1.0, '必然事件'), (0.5, '抛硬币'), (0.01, '罕见事件
 plt.show()
 ```
 
-| 事件概率 | 信息量 | 直觉 |
+| Event Probability | Information Content | Intuition |
 |---------|--------|------|
-| 1.0 | 0 bit | 必然发生，没有信息 |
-| 0.5 | 1 bit | 抛一次硬币，1 比特信息 |
-| 0.25 | 2 bit | 猜中一个两位二进制数 |
-| 0.01 | 6.64 bit | 很意外，信息量大 |
+| 1.0 | 0 bit | It must happen, so it carries no information |
+| 0.5 | 1 bit | One coin flip gives 1 bit |
+| 0.25 | 2 bits | Guessing a two-digit binary number |
+| 0.01 | 6.64 bits | Very surprising, so it carries a lot of information |
 
 ---
 
-## 二、熵——平均不确定性
+## 2. Entropy — Average Uncertainty
 
-### 2.1 直觉
+### 2.1 Intuition
 
-**熵（Entropy）= 一个分布的"平均信息量"= 系统的"平均不确定性"。**
+**Entropy = the "average information content" of a distribution = the system's "average uncertainty."**
 
-### 2.1.1 熵最值得先记住的，不是定义，而是“混乱程度”
+### 2.1.1 The Most Important Thing to Remember About Entropy Is Not the Definition, but the "Degree of Chaos"
 
-可以先把熵想成：
+You can first think of entropy as:
 
-- 你在做判断前到底有多拿不准
+- how unsure you are before making a judgment
 
-如果一个系统总是几乎确定：
+If a system is usually almost certain:
 
-- 熵就低
+- entropy is low
 
-如果一个系统每次都很难猜：
+If a system is hard to predict every time:
 
-- 熵就高
+- entropy is high
 
-所以熵的最朴素意义，其实就是：
+So the most basic meaning of entropy is:
 
-> **平均不确定性有多大。**
+> **How large is the average uncertainty?**
 
 ```mermaid
 flowchart LR
-    A["确定性高<br/>熵低"] --> E["例：99% 晴天<br/>几乎不用猜"]
-    B["不确定性高<br/>熵高"] --> F["例：50% 晴 50% 雨<br/>完全猜不到"]
+    A["High certainty<br/>Low entropy"] --> E["Example: 99% sunny<br/>Almost no need to guess"]
+    B["High uncertainty<br/>High entropy"] --> F["Example: 50% sunny 50% rainy<br/>Impossible to guess"]
 
     style A fill:#e8f5e9,stroke:#2e7d32,color:#333
     style B fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 公式与计算
+### 2.2 Formula and Calculation
 
 **H(X) = -Σ p(x) × log2(p(x))**
 
 ```python
 def entropy(probs):
-    """计算熵（以比特为单位）"""
+    """Compute entropy (in bits)"""
     probs = np.array(probs)
-    # 避免 log(0)
+    # Avoid log(0)
     probs = probs[probs > 0]
     return -np.sum(probs * np.log2(probs))
 
-# 例 1：公平硬币（最大不确定性）
+# Example 1: fair coin (maximum uncertainty)
 h1 = entropy([0.5, 0.5])
-print(f"公平硬币的熵: {h1:.3f} bit")  # 1.0
+print(f"Entropy of a fair coin: {h1:.3f} bit")  # 1.0
 
-# 例 2：不公平硬币
+# Example 2: unfair coin
 h2 = entropy([0.9, 0.1])
-print(f"不公平硬币(0.9, 0.1)的熵: {h2:.3f} bit")  # 0.469
+print(f"Entropy of an unfair coin (0.9, 0.1): {h2:.3f} bit")  # 0.469
 
-# 例 3：必然事件（无不确定性）
+# Example 3: certain event (no uncertainty)
 h3 = entropy([1.0, 0.0])
-print(f"必然事件的熵: {h3:.3f} bit")  # 0.0
+print(f"Entropy of a certain event: {h3:.3f} bit")  # 0.0
 
-# 例 4：公平骰子
+# Example 4: fair die
 h4 = entropy([1/6]*6)
-print(f"公平骰子的熵: {h4:.3f} bit")  # 2.585
+print(f"Entropy of a fair die: {h4:.3f} bit")  # 2.585
 ```
 
-### 2.3 可视化：硬币的熵随 p 变化
+### 2.3 Visualization: How Coin Entropy Changes with p
 
 ```python
 p_values = np.linspace(0.001, 0.999, 1000)
@@ -210,246 +210,244 @@ entropies = [-p * np.log2(p) - (1-p) * np.log2(1-p) for p in p_values]
 
 plt.figure(figsize=(8, 5))
 plt.plot(p_values, entropies, color='steelblue', linewidth=2)
-plt.xlabel('正面概率 p')
-plt.ylabel('熵 H (bit)')
-plt.title('二元分布的熵：p=0.5 时最大（最不确定）')
-plt.axvline(x=0.5, color='red', linestyle='--', alpha=0.5, label='p=0.5（最大熵）')
+plt.xlabel('Probability of Heads p')
+plt.ylabel('Entropy H (bit)')
+plt.title('Entropy of a Binary Distribution: Maximum at p=0.5 (Most Uncertain)')
+plt.axvline(x=0.5, color='red', linestyle='--', alpha=0.5, label='p=0.5 (maximum entropy)')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-**关键洞察**：p = 0.5 时熵最大（最不确定），p = 0 或 1 时熵为 0（完全确定）。
+**Key insight**: entropy is maximum when p = 0.5 (most uncertain), and entropy is 0 when p = 0 or 1 (completely certain).
 
-### 2.4 熵在 AI 中的应用
+### 2.4 Applications of Entropy in AI
 
-| 应用 | 说明 |
+| Application | Description |
 |------|------|
-| 决策树 | 用**信息增益**（熵的减少量）选择最佳分割特征 |
-| 模型输出 | 分类模型输出概率分布的熵越低，模型越"自信" |
-| 数据压缩 | 熵是数据压缩的理论下限 |
-| 语言模型 | 困惑度(Perplexity) = 2^(交叉熵)，衡量模型好坏 |
+| Decision trees | Use **information gain** (the reduction in entropy) to choose the best split feature |
+| Model outputs | The lower the entropy of a classification model's probability distribution, the more "confident" the model is |
+| Data compression | Entropy is the theoretical lower bound of data compression |
+| Language models | Perplexity = 2^(cross-entropy), used to measure model quality |
 
 ---
 
-## 三、交叉熵——衡量"预测有多准"
+## 3. Cross-Entropy — Measuring "How Accurate the Prediction Is"
 
-### 3.1 直觉
+### 3.1 Intuition
 
-**交叉熵 = 用分布 Q 来编码分布 P 的数据，平均每个样本需要多少比特。**
+**Cross-entropy = the average number of bits needed to encode data from distribution P using distribution Q.**
 
-### 3.1.1 一个更适合新人的说法
+### 3.1.1 A More Beginner-Friendly Way to Say It
 
-你也可以暂时把交叉熵理解成：
+You can also temporarily think of cross-entropy as:
 
-- 预测分布和真实分布到底差得有多离谱
+- how far apart the predicted distribution and the true distribution are
 
-这对初学者来说已经足够有用了。  
-因为后面你在分类模型里真正关心的也是：
+That is already enough for beginners.
+Because later, in classification models, what you really care about is also:
 
-- 模型到底有没有把正确类别放到更高概率上
+- whether the model assigns higher probability to the correct class
 
-如果 Q 和 P 完全一样 → 交叉熵 = P 的熵（最小值）
-如果 Q 和 P 差异大 → 交叉熵远大于 P 的熵
+If Q and P are exactly the same → cross-entropy = entropy of P (the minimum value)
+If Q and P are very different → cross-entropy is much larger than the entropy of P
 
-### 3.2 公式与计算
+### 3.2 Formula and Calculation
 
 **H(P, Q) = -Σ p(x) × log2(q(x))**
 
 ```python
 def cross_entropy(p, q):
-    """计算交叉熵"""
+    """Compute cross-entropy"""
     p, q = np.array(p), np.array(q)
-    # 避免 log(0)
+    # Avoid log(0)
     q = np.clip(q, 1e-10, 1)
     return -np.sum(p * np.log2(q))
 
-# 真实分布 P
-P = [0.7, 0.2, 0.1]  # 三分类问题
+# True distribution P
+P = [0.7, 0.2, 0.1]  # three-class problem
 
-# 预测分布 Q（不同质量的预测）
-Q_good = [0.65, 0.25, 0.10]   # 好预测
-Q_bad  = [0.33, 0.33, 0.34]   # 差预测（均匀猜）
-Q_wrong = [0.1, 0.1, 0.8]     # 错误预测
+# Predicted distributions Q (different prediction quality)
+Q_good = [0.65, 0.25, 0.10]   # good prediction
+Q_bad  = [0.33, 0.33, 0.34]   # poor prediction (uniform guess)
+Q_wrong = [0.1, 0.1, 0.8]     # wrong prediction
 
-print(f"P 的熵:        {entropy(P):.4f}")
-print(f"好预测交叉熵:   {cross_entropy(P, Q_good):.4f}")
-print(f"差预测交叉熵:   {cross_entropy(P, Q_bad):.4f}")
-print(f"错误预测交叉熵: {cross_entropy(P, Q_wrong):.4f}")
+print(f"Entropy of P:        {entropy(P):.4f}")
+print(f"Cross-entropy, good prediction:   {cross_entropy(P, Q_good):.4f}")
+print(f"Cross-entropy, poor prediction:   {cross_entropy(P, Q_bad):.4f}")
+print(f"Cross-entropy, wrong prediction: {cross_entropy(P, Q_wrong):.4f}")
 ```
 
-### 3.3 交叉熵作为损失函数
+### 3.3 Cross-Entropy as a Loss Function
 
-在分类任务中，**最小化交叉熵 = 让模型预测尽可能接近真实分布**。
+In classification tasks, **minimizing cross-entropy = making the model's predictions as close as possible to the true distribution**.
 
 ```python
-# 二分类的交叉熵损失
+# Binary cross-entropy loss
 def binary_cross_entropy(y_true, y_pred):
-    """二分类交叉熵（和 PyTorch 的 BCELoss 等价）"""
+    """Binary cross-entropy (equivalent to PyTorch's BCELoss)"""
     y_pred = np.clip(y_pred, 1e-10, 1 - 1e-10)
     return -np.mean(
         y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred)
     )
 
-# 真实标签
+# True labels
 y_true = np.array([1, 0, 1, 1, 0])
 
-# 不同质量的预测
+# Predictions of different quality
 predictions = {
-    "完美预测":   np.array([1.0, 0.0, 1.0, 1.0, 0.0]),
-    "好预测":     np.array([0.9, 0.1, 0.8, 0.9, 0.2]),
-    "差预测":     np.array([0.6, 0.4, 0.6, 0.6, 0.4]),
-    "完全错误":   np.array([0.1, 0.9, 0.1, 0.1, 0.9]),
+    "Perfect prediction":   np.array([1.0, 0.0, 1.0, 1.0, 0.0]),
+    "Good prediction":     np.array([0.9, 0.1, 0.8, 0.9, 0.2]),
+    "Poor prediction":     np.array([0.6, 0.4, 0.6, 0.6, 0.4]),
+    "Completely wrong":   np.array([0.1, 0.9, 0.1, 0.1, 0.9]),
 }
 
 for name, y_pred in predictions.items():
     loss = binary_cross_entropy(y_true, y_pred)
-    print(f"{name:10s} → 交叉熵损失 = {loss:.4f}")
+    print(f"{name:18s} → cross-entropy loss = {loss:.4f}")
 ```
 
-输出：
+Output:
 ```
-完美预测   → 交叉熵损失 ≈ 0.0000
-好预测     → 交叉熵损失 ≈ 0.1643
-差预测     → 交叉熵损失 ≈ 0.6365
-完全错误   → 交叉熵损失 ≈ 2.3026
+Perfect prediction   → cross-entropy loss ≈ 0.0000
+Good prediction      → cross-entropy loss ≈ 0.1643
+Poor prediction      → cross-entropy loss ≈ 0.6365
+Completely wrong     → cross-entropy loss ≈ 2.3026
 ```
 
-### 3.4 可视化：预测准确度 vs 损失
+### 3.4 Visualization: Prediction Accuracy vs. Loss
 
 ```python
-# 真实标签 y=1 时，预测值 p 和损失的关系
+# Relationship between predicted probability p and loss when the true label y=1
 p_pred = np.linspace(0.01, 0.99, 100)
 
-# 当 y=1 时，loss = -log(p)
+# When y=1, loss = -log(p)
 loss_y1 = -np.log(p_pred)
 
-# 当 y=0 时，loss = -log(1-p)
+# When y=0, loss = -log(1-p)
 loss_y0 = -np.log(1 - p_pred)
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 axes[0].plot(p_pred, loss_y1, color='steelblue', linewidth=2)
-axes[0].set_xlabel('模型预测 P(y=1)')
-axes[0].set_ylabel('损失')
-axes[0].set_title('真实标签 y=1 时的损失\n预测越接近 1，损失越小')
+axes[0].set_xlabel('Model prediction P(y=1)')
+axes[0].set_ylabel('Loss')
+axes[0].set_title('Loss when the true label is y=1\nThe closer the prediction is to 1, the smaller the loss')
 axes[0].grid(True, alpha=0.3)
 
 axes[1].plot(p_pred, loss_y0, color='coral', linewidth=2)
-axes[1].set_xlabel('模型预测 P(y=1)')
-axes[1].set_ylabel('损失')
-axes[1].set_title('真实标签 y=0 时的损失\n预测越接近 0，损失越小')
+axes[1].set_xlabel('Model prediction P(y=1)')
+axes[1].set_ylabel('Loss')
+axes[1].set_title('Loss when the true label is y=0\nThe closer the prediction is to 0, the smaller the loss')
 axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：交叉熵损失有一个很好的性质——当预测错误时（比如 y=1 但模型输出 0.01），损失会**急剧增大**，对错误预测施加强烈惩罚。
+**Interpretation**: cross-entropy loss has a very nice property — when the prediction is wrong (for example, y=1 but the model outputs 0.01), the loss increases **sharply**, strongly penalizing wrong predictions.
 
-### 3.5 一个更适合初学者的分类直觉
+### 3.5 A More Beginner-Friendly Classification Intuition
 
-可以先把交叉熵理解成：
+You can first think of cross-entropy as:
 
-- 你给正确答案押了多少信心
+- how much confidence you placed on the correct answer
 
-如果正确类别明明是 `猫`，你却把大部分概率押给了 `狗`，  
-那交叉熵就会很大。  
-如果你把概率主要押给了正确类别，  
-交叉熵就会变小。
+If the correct class is clearly `cat`, but you assign most of the probability to `dog`,
+then cross-entropy will be large.
+If you assign most of the probability to the correct class,
+cross-entropy will be smaller.
 
-所以交叉熵最值得先抓住的，不是公式长什么样，而是这句：
+So the most important thing to remember about cross-entropy is not what the formula looks like, but this:
 
-> **模型越把概率押在正确答案上，损失通常就越小。**
+> **The more probability the model assigns to the correct answer, the smaller the loss usually is.**
 
-### 3.6 再看一个最小“单个样本交叉熵”示例
+### 3.6 Another Small "Single-Sample Cross-Entropy" Example
 
 ```python
-labels = ["猫", "狗", "鸟"]
-true_label = "狗"
+labels = ["cat", "dog", "bird"]
+true_label = "dog"
 pred_probs = [0.1, 0.7, 0.2]
 
 true_index = labels.index(true_label)
 loss = -np.log(pred_probs[true_index])
 
-print("正确类别:", true_label)
-print("模型预测:", dict(zip(labels, pred_probs)))
-print("交叉熵损失:", round(loss, 4))
+print("Correct class:", true_label)
+print("Model prediction:", dict(zip(labels, pred_probs)))
+print("Cross-entropy loss:", round(loss, 4))
 ```
 
-这个例子特别适合新人，因为它把抽象的分布语言，重新拉回了最熟悉的分类问题：
+This example is especially good for beginners because it brings abstract distribution language back to the most familiar classification setting:
 
-- 正确答案是谁
-- 你到底给了它多少概率
-- 这会直接变成多大的损失
+- Who is the correct answer?
+- How much probability did you assign to it?
+- How large does that make the loss?
 
 ---
 
-## 四、KL 散度——两个分布的"距离"
+## 4. KL Divergence — The "Distance" Between Two Distributions
 
-### 4.1 直觉
+### 4.1 Intuition
 
-**KL 散度（KL Divergence）= 用分布 Q 替代真实分布 P，会"多花"多少比特。**
+**KL divergence = how many extra bits you "pay" if you use distribution Q instead of the true distribution P.**
 
-### 4.1.1 KL 散度为什么老让人发虚？
+### 4.1.1 Why Does KL Divergence Feel So Intimidating?
 
-因为它看起来像“分布之间的距离”，  
-但又不是对称的。
+Because it looks like a "distance" between distributions,
+but it is not symmetric.
 
-对新人更稳的第一步理解通常是：
+A safer first step for beginners is to understand it as:
 
-- KL 不是普通几何距离
-- 它更像“如果我拿错了一个分布来近似真实分布，会额外多付出多少代价”
+- KL is not a normal geometric distance
+- It is more like: "If I use the wrong distribution to approximate the true one, how much extra cost will I pay?"
 
-这个直觉其实已经够支撑你理解它在：
+This intuition is already enough to help you understand its role in:
 
 - VAE
-- 蒸馏
+- distillation
 - RLHF
 
-里的作用了。
-
-**KL(P || Q) = 交叉熵(P, Q) - 熵(P)**
+**KL(P || Q) = cross-entropy(P, Q) - entropy(P)**
 
 ```python
 def kl_divergence(p, q):
-    """计算 KL 散度"""
+    """Compute KL divergence"""
     p, q = np.array(p), np.array(q)
     q = np.clip(q, 1e-10, 1)
     p = np.clip(p, 1e-10, 1)
     return np.sum(p * np.log2(p / q))
 
 P = [0.7, 0.2, 0.1]
-Q1 = [0.65, 0.25, 0.10]  # 接近 P
-Q2 = [0.33, 0.33, 0.34]  # 远离 P
+Q1 = [0.65, 0.25, 0.10]  # close to P
+Q2 = [0.33, 0.33, 0.34]  # far from P
 
-print(f"KL(P || Q1): {kl_divergence(P, Q1):.4f} (Q1 接近 P)")
-print(f"KL(P || Q2): {kl_divergence(P, Q2):.4f} (Q2 远离 P)")
-print(f"KL(P || P):  {kl_divergence(P, P):.4f} (P 和自己)")
+print(f"KL(P || Q1): {kl_divergence(P, Q1):.4f} (Q1 is close to P)")
+print(f"KL(P || Q2): {kl_divergence(P, Q2):.4f} (Q2 is far from P)")
+print(f"KL(P || P):  {kl_divergence(P, P):.4f} (P with itself)")
 ```
 
-### 4.2 KL 散度的性质
+### 4.2 Properties of KL Divergence
 
-| 性质 | 说明 |
+| Property | Description |
 |------|------|
-| 非负性 | KL(P \|\| Q) ≥ 0，等号当且仅当 P = Q |
-| 不对称 | KL(P \|\| Q) ≠ KL(Q \|\| P)，不是真正的"距离" |
-| P=Q 时为 0 | 两个分布完全一样时，KL 散度为 0 |
+| Non-negativity | KL(P \|\| Q) ≥ 0, with equality if and only if P = Q |
+| Asymmetry | KL(P \|\| Q) ≠ KL(Q \|\| P), so it is not a true "distance" |
+| Zero when P=Q | When the two distributions are exactly the same, KL divergence is 0 |
 
 ```python
-# 验证不对称性
+# Verify asymmetry
 P = [0.7, 0.2, 0.1]
 Q = [0.33, 0.33, 0.34]
 
 print(f"KL(P || Q) = {kl_divergence(P, Q):.4f}")
 print(f"KL(Q || P) = {kl_divergence(Q, P):.4f}")
-print("两者不相等！")
+print("They are not equal!")
 ```
 
-### 4.3 可视化：KL 散度随分布差异变化
+### 4.3 Visualization: How KL Divergence Changes with Distribution Difference
 
 ```python
-# 二元分布：P = [0.8, 0.2]，让 Q 从 [0.01, 0.99] 到 [0.99, 0.01] 变化
+# Binary distribution: P = [0.8, 0.2], let Q vary from [0.01, 0.99] to [0.99, 0.01]
 p = 0.8
 q_values = np.linspace(0.01, 0.99, 200)
 
@@ -457,37 +455,37 @@ kl_values = [kl_divergence([p, 1-p], [q, 1-q]) for q in q_values]
 
 plt.figure(figsize=(8, 5))
 plt.plot(q_values, kl_values, color='steelblue', linewidth=2)
-plt.axvline(x=p, color='red', linestyle='--', label=f'q = p = {p}（KL=0）')
-plt.xlabel('q 的值')
+plt.axvline(x=p, color='red', linestyle='--', label=f'q = p = {p} (KL=0)')
+plt.xlabel('Value of q')
 plt.ylabel('KL(P || Q)')
-plt.title(f'KL 散度：P=[{p}, {1-p}]，Q=[q, 1-q]')
+plt.title(f'KL Divergence: P=[{p}, {1-p}], Q=[q, 1-q]')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.4 KL 散度在 AI 中的应用
+### 4.4 Applications of KL Divergence in AI
 
-| 应用 | 说明 |
+| Application | Description |
 |------|------|
-| VAE | 让隐变量的分布接近标准正态分布：KL(q(z\|x) \|\| N(0,1)) |
-| 知识蒸馏 | 让小模型的输出分布接近大模型：最小化 KL 散度 |
-| RLHF | 限制微调后的模型不要偏离原始模型太远 |
-| 策略优化 | PPO 算法中限制策略更新幅度 |
+| VAE | Makes the latent variable distribution close to a standard normal distribution: KL(q(z\|x) \|\| N(0,1)) |
+| Knowledge distillation | Makes the small model's output distribution close to the large model's output distribution: minimize KL divergence |
+| RLHF | Constrains the fine-tuned model so it does not drift too far from the original model |
+| Policy optimization | Restricts the size of policy updates in PPO |
 
-:::tip KL 散度在 RLHF 中的关键作用
-大语言模型微调（RLHF）时，需要在"满足人类偏好"和"不偏离原始模型太远"之间平衡。KL 散度就是那个"不偏离太远"的约束。
+:::tip The Key Role of KL Divergence in RLHF
+When fine-tuning a large language model with RLHF, you need to balance "satisfying human preferences" and "not drifting too far from the original model." KL divergence is the constraint that keeps the model from drifting too far.
 :::
 
 ---
 
-## 五、三者的关系
+## 5. The Relationship Among the Three
 
 ```mermaid
 flowchart TD
-    H["熵 H(P)<br/>P 自身的不确定性<br/>信息的下限"]
-    CE["交叉熵 H(P,Q)<br/>用 Q 编码 P 的数据<br/>= 熵 + KL 散度"]
-    KL["KL 散度 KL(P||Q)<br/>Q 比 P 多花的比特<br/>= 交叉熵 - 熵"]
+    H["Entropy H(P)<br/>Uncertainty of P itself<br/>Lower bound of information"]
+    CE["Cross-entropy H(P,Q)<br/>Using Q to encode data from P<br/>= Entropy + KL divergence"]
+    KL["KL divergence KL(P||Q)<br/>Extra bits paid when Q differs from P<br/>= Cross-entropy - Entropy"]
 
     CE --> H
     CE --> KL
@@ -498,7 +496,7 @@ flowchart TD
     style KL fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-**核心关系：交叉熵 = 熵 + KL 散度**
+**Core relationship: cross-entropy = entropy + KL divergence**
 
 ```python
 P = [0.7, 0.2, 0.1]
@@ -508,86 +506,86 @@ h = entropy(P)
 ce = cross_entropy(P, Q)
 kl = kl_divergence(P, Q)
 
-print(f"熵 H(P):        {h:.4f}")
-print(f"交叉熵 H(P,Q):  {ce:.4f}")
-print(f"KL 散度:        {kl:.4f}")
-print(f"H(P) + KL =     {h + kl:.4f}")  # = 交叉熵 ✓
+print(f"Entropy H(P):        {h:.4f}")
+print(f"Cross-entropy H(P,Q):  {ce:.4f}")
+print(f"KL divergence:        {kl:.4f}")
+print(f"H(P) + KL =     {h + kl:.4f}")  # = cross-entropy ✓
 ```
 
-:::info 为什么分类用交叉熵而不是 KL 散度？
-因为在训练时，真实分布 P 是固定的（标签不变），所以 H(P) 是常数。最小化交叉熵 H(P,Q) 等价于最小化 KL(P||Q)。但交叉熵的计算更简单——不需要知道 H(P)。
+:::info Why do we use cross-entropy instead of KL divergence for classification?
+Because during training, the true distribution P is fixed (the labels do not change), so H(P) is a constant. Minimizing cross-entropy H(P,Q) is equivalent to minimizing KL(P||Q). But cross-entropy is easier to compute — you do not need to know H(P).
 :::
 
-### 5.1 一个很适合初学者先记的对比表
+### 5.1 A Comparison Table That's Very Good for Beginners to Remember
 
-| 概念 | 最值得先记住的问法 |
+| Concept | The Most Important Question to Remember |
 |------|------|
-| 信息量 | 这件事有多意外？ |
-| 熵 | 整体平均有多不确定？ |
-| 交叉熵 | 预测和真实到底差多远？ |
-| KL 散度 | 如果我拿错了分布，会额外多付出多少代价？ |
+| Information content | How surprising is this event? |
+| Entropy | How uncertain is the system on average? |
+| Cross-entropy | How far apart are the prediction and the truth? |
+| KL divergence | If I use the wrong distribution, how much extra cost will I pay? |
 
-这个表特别适合新人，因为它能把这一章从“公式堆”重新变回一张直觉地图。
+This table is especially useful for beginners because it turns this chapter back into an intuitive map instead of a pile of formulas.
 
 ---
 
-## 学到这里，下一步最值得带去哪里？
+## After Learning This, Where Should You Go Next?
 
-如果你把概率与统计整章读到这里，最值得带去后面的不是更多公式，而是这几个问题：
+If you have read this entire probability and statistics chapter, what is most worth taking with you is not more formulas, but these questions:
 
-1. 概率、交叉熵和 KL 散度最后会怎样真的长进 loss？
-2. 模型为什么总在输出概率，而不是绝对结论？
-3. 这些“不确定性语言”在机器学习里会怎样变成训练和评估工具？
+1. How do probability, cross-entropy, and KL divergence actually become loss functions?
+2. Why do models output probabilities instead of absolute conclusions?
+3. How do these "uncertainty languages" turn into training and evaluation tools in machine learning?
 
-最适合接着看的通常是：
+The most natural next reading is usually:
 
-- [第 5 站首页](../../ch05-machine-learning/index.md)
-- [逻辑回归](../../ch05-machine-learning/ch02-supervised/02-logistic-regression.md)
-- [评估指标](../../ch05-machine-learning/ch04-evaluation/01-metrics.md)
+- [Station 5 Home](../../ch05-machine-learning/index.md)
+- [Logistic Regression](../../ch05-machine-learning/ch02-supervised/02-logistic-regression.md)
+- [Evaluation Metrics](../../ch05-machine-learning/ch04-evaluation/01-metrics.md)
 
-:::info 本章回顾
-概率与统计四节课，你学到了：
-1. **概率基础**：条件概率、贝叶斯定理——用证据更新信念
-2. **概率分布**：正态分布无处不在，中心极限定理
-3. **统计推断**：MLE 就是交叉熵损失的来源，MAP 就是正则化
-4. **信息论**（本节）：熵度量不确定性，交叉熵是分类损失，KL 散度约束分布差异
+:::info Chapter Review
+In these four lessons on probability and statistics, you learned:
+1. **Probability basics**: conditional probability, Bayes' theorem — updating beliefs with evidence
+2. **Probability distributions**: the normal distribution is everywhere, and so is the central limit theorem
+3. **Statistical inference**: MLE is the source of cross-entropy loss, and MAP is regularization
+4. **Information theory** (this lesson): entropy measures uncertainty, cross-entropy is a classification loss, and KL divergence constrains distribution differences
 
-这些概念会在机器学习、深度学习、大语言模型中反复出现。
+These concepts appear again and again in machine learning, deep learning, and large language models.
 
-**🔀 融合学习跳转**：建议现在就去看**第 5 站·2.2 逻辑回归 + 2.3 决策树**——用刚学的概率和信息论知识理解分类算法的损失函数和信息增益。
+**🔀 Integrated learning jump**: It is recommended that you now go to **Station 5 · 2.2 Logistic Regression + 2.3 Decision Trees** — use the probability and information theory knowledge you just learned to understand the loss functions and information gain of classification algorithms.
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 | 值域 |
+| Concept | Intuition | Range |
 |------|------|------|
-| 信息量 | 一个事件有多"意外" | ≥ 0 |
-| 熵 | 一个分布有多"不确定" | ≥ 0 |
-| 交叉熵 | 预测分布和真实分布差多少 | ≥ H(P) |
-| KL 散度 | 两个分布的"距离" | ≥ 0 |
+| Information content | How "surprising" an event is | ≥ 0 |
+| Entropy | How "uncertain" a distribution is | ≥ 0 |
+| Cross-entropy | How different the predicted distribution is from the true distribution | ≥ H(P) |
+| KL divergence | The "distance" between two distributions | ≥ 0 |
 
-## 这节最该带走什么
+## What You Should Take Away Most from This Section
 
-- 信息量最重要的直觉是“越意外，信息越大”
-- 熵最重要的直觉是“平均有多不确定”
-- 交叉熵最重要的直觉是“预测和真实差多远”
-- KL 散度最重要的直觉是“用错分布要多付出多少代价”
+- The most important intuition for information content is: "the more surprising, the more information"
+- The most important intuition for entropy is: "average uncertainty"
+- The most important intuition for cross-entropy is: "how far apart the prediction and the truth are"
+- The most important intuition for KL divergence is: "how much extra cost you pay for using the wrong distribution"
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：计算熵
+### Exercise 1: Compute Entropy
 
-计算以下分布的熵，解释哪个最"不确定"：
-1. [0.25, 0.25, 0.25, 0.25]（四面骰子）
-2. [0.97, 0.01, 0.01, 0.01]（几乎确定）
-3. [0.4, 0.3, 0.2, 0.1]（不均匀）
+Compute the entropy of the following distributions and explain which one is the most "uncertain":
+1. [0.25, 0.25, 0.25, 0.25] (a four-sided die)
+2. [0.97, 0.01, 0.01, 0.01] (almost certain)
+3. [0.4, 0.3, 0.2, 0.1] (non-uniform)
 
-### 练习 2：交叉熵损失
+### Exercise 2: Cross-Entropy Loss
 
-三分类问题：真实标签是第 2 类（one-hot: [0, 1, 0]），模型输出 softmax 概率为 [0.1, 0.7, 0.2]。计算交叉熵损失。如果模型输出变成 [0.05, 0.9, 0.05]，损失会怎么变？
+For a three-class problem: the true label is class 2 (one-hot: [0, 1, 0]), and the model outputs softmax probabilities [0.1, 0.7, 0.2]. Compute the cross-entropy loss. If the model output changes to [0.05, 0.9, 0.05], how will the loss change?
 
-### 练习 3：可视化 KL 散度
+### Exercise 3: Visualize KL Divergence
 
-画一张图，展示当真实分布 P = [0.6, 0.3, 0.1] 固定时，让 Q 沿着某个参数变化（如 q1 从 0.1 到 0.9），KL(P||Q) 的变化曲线。
+Draw a graph showing how KL(P||Q) changes when the true distribution P = [0.6, 0.3, 0.1] is fixed and Q changes along some parameter (for example, q1 from 0.1 to 0.9).

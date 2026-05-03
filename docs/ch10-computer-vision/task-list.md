@@ -1,81 +1,81 @@
 ---
-title: "阶段学习任务单"
-description: "把计算机视觉方向阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [计算机视觉, OpenCV, 图像分类, 目标检测, OCR, 学习任务单]
+title: "Stage Learning Task List"
+description: "Break the computer vision stage into actionable learning tasks, practice deliverables, and completion criteria."
+keywords: [Computer Vision, OpenCV, image classification, object detection, OCR, learning task list]
 ---
 
-# 阶段学习任务单：计算机视觉
+# Stage Learning Task List: Computer Vision
 
-这个阶段的目标是让你理解 AI 如何处理图像和视频。你需要掌握基础图像处理、视觉任务类型、数据标注、模型评估和错误样本分析，而不是只调用一个视觉模型得到结果。
+The goal of this stage is to help you understand how AI processes images and videos. You need to learn basic image processing, common vision task types, data annotation, model evaluation, and error sample analysis, rather than simply calling a vision model to get results.
 
-## 本阶段必须完成的任务
+## Tasks you must complete in this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Passing Criteria |
 | --- | --- | --- |
-| 理解视觉任务类型 | 一份任务对比表 | 能区分分类、检测、分割、OCR 和视觉问答 |
-| 跑通图像处理 | 一个 OpenCV 练习脚本 | 能读取、裁剪、缩放、灰度、边缘检测或增强图像 |
-| 完成图像分类实验 | 一个分类 Demo | 能说明数据划分、训练/推理流程和指标 |
-| 分析错误样本 | 一份误判样本记录 | 能从清晰度、标注、类别混淆和分布差异分析原因 |
-| 完成阶段项目 | 一个视觉应用小项目 | 有输入输出、运行方式、指标和限制说明 |
+| Understand vision task types | A task comparison table | Can distinguish classification, detection, segmentation, OCR, and visual question answering |
+| Get image processing working | An OpenCV practice script | Can read, crop, resize, convert to grayscale, detect edges, or enhance images |
+| Complete an image classification experiment | A classification Demo | Can explain data splitting, training/inference flow, and metrics |
+| Analyze error samples | A misclassification sample log | Can analyze causes from image clarity, annotation, category confusion, and distribution differences |
+| Complete the stage project | A small vision application project | Has input/output, how to run it, metrics, and limitation notes |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先理解图片在计算机里的表示，再学习 OpenCV 基础处理，然后学习分类、检测、分割、OCR 等任务。不要一开始就追最新模型，先看清每个视觉任务的输入、输出和评估指标。
+First understand how images are represented in a computer, then learn basic OpenCV processing, and then study tasks such as classification, detection, segmentation, and OCR. Do not rush to the latest models at the beginning; first understand each vision task’s inputs, outputs, and evaluation metrics.
 
-视觉项目很依赖数据质量。训练前要看样本是否清晰、类别是否平衡、标注是否一致；评估后要看错误样本，而不是只看一个总体分数。
+Vision projects depend heavily on data quality. Before training, check whether samples are clear, whether categories are balanced, and whether annotations are consistent. After evaluation, look at error samples instead of only relying on one overall score.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI Learning Assistant project
 
-本阶段可以为 AI 学习助手补充视觉能力，例如识别课件截图、OCR 提取图片文字，或分析学习资料中的图表。它也可以作为后续多模态阶段的输入能力。
+This stage can add vision capabilities to the AI Learning Assistant, such as recognizing lecture slide screenshots, using OCR to extract text from images, or analyzing charts in learning materials. It can also serve as an input capability for the later multimodal stage.
 
-建议最小功能包括：上传或读取一张课件截图，提取其中的文字或关键区域，输出结构化摘要，并记录失败样本。
+A recommended minimum feature set is: upload or read a lecture slide screenshot, extract the text or key regions from it, output a structured summary, and record failed samples.
 
-## 常见卡点
+## Common stumbling blocks
 
-常见问题包括图片路径错误、颜色通道 BGR/RGB 混淆、训练样本太少、类别不平衡、标注框不准、只看 Demo 图不看真实输入、把视觉模型结果当成绝对事实。排查时先看原图、预处理结果、标注和错误样本。
+Common issues include incorrect image paths, confusion between BGR/RGB color channels, too few training samples, class imbalance, inaccurate bounding-box annotations, only looking at Demo images instead of real inputs, and treating vision model outputs as absolute truth. When debugging, first inspect the original image, preprocessing results, annotations, and error samples.
 
 
-## 轻松版 / 标准版 / 挑战版任务
+## Easy / Standard / Challenge Tasks
 
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Suitable for |
 |---|---|---|
-| 轻松版 | 读取图片并输出尺寸、模式或预测结果 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 保存成功和失败图片样例 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 分析一次识别失败来自数据、标注还是模型 | 已有基础、想做更强项目证据的学习者 |
+| Easy | Read an image and output its size, mode, or prediction result | First-time learners, those with limited time, or beginners |
+| Standard | Save successful and failed image examples | Learners who want to include this stage in their portfolio |
+| Challenge | Analyze whether a recognition failure comes from data, annotations, or the model | Learners with some foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Badges and Boss Battle for this stage
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | 视觉线索猎人 |
-| 可解锁徽章 | 图像观察员、视觉失败记录员 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss Battle | Vision Clue Hunter |
+| Unlockable Badges | Image Observer, Vision Failure Logger |
+| Minimum Completion Motto | Get it running first, then explain it, then record failures |
+| Evidence storage suggestion | Save screenshots, logs, failed samples, or evaluation tables in `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+You can move on after completing the Easy version; you are recommended to add it to your portfolio only after completing the Standard version; do the Challenge version only if you have extra time and energy.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to turn the results of this stage into a portfolio piece, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `opencv_demo.py` | 图像读取、预处理和基础可视化脚本 |
-| `vision_dataset.md` | 数据来源、类别、样本数量、标注方式和限制 |
-| `eval_results.md` | 分类准确率、检测 mAP、OCR 命中率或其他指标 |
-| `failure_cases.md` | 保存误判图片、可能原因和修复方向 |
-| `README.md` | 项目目标、运行命令、输入输出示例和场景边界 |
+| `opencv_demo.py` | A script for image loading, preprocessing, and basic visualization |
+| `vision_dataset.md` | Data source, categories, sample count, annotation method, and limitations |
+| `eval_results.md` | Classification accuracy, detection mAP, OCR hit rate, or other metrics |
+| `failure_cases.md` | Saved misclassified images, possible causes, and directions for improvement |
+| `README.md` | Project goal, run commands, input/output examples, and scenario boundaries |
 
-这些材料会让视觉项目从“能识别一张图”升级成“知道数据、指标、失败和应用边界在哪里”。
+These materials will upgrade a vision project from “can recognize one image” to “knows where the data, metrics, failures, and application boundaries are.”
 
-## 阶段通关问题
+## Stage completion questions
 
-学完后，你应该能回答这些问题：图像分类、目标检测、分割和 OCR 的输出有什么不同，为什么标注质量会影响模型效果，mAP 和 IoU 解决什么问题，为什么视觉模型在真实图片上容易失败。
+After learning this stage, you should be able to answer these questions: How do image classification, object detection, segmentation, and OCR differ in their outputs? Why does annotation quality affect model performance? What problems do mAP and IoU solve? Why do vision models often fail on real-world images?
 
-## 完成状态 Checklist
+## Completion Checklist
 
-- [ ] 我能解释常见视觉任务的输入、输出和指标。
-- [ ] 我能用 OpenCV 完成基础图像处理并保存结果。
-- [ ] 我能跑通一个图像分类、OCR 或检测 Demo。
-- [ ] 我记录了若干视觉错误样本，并分析可能原因。
-- [ ] 我能说明视觉能力如何接入多模态或 AI 学习助手项目。
+- [ ] I can explain the inputs, outputs, and metrics of common vision tasks.
+- [ ] I can use OpenCV to complete basic image processing and save the results.
+- [ ] I can get an image classification, OCR, or detection Demo running.
+- [ ] I recorded several vision error samples and analyzed the possible causes.
+- [ ] I can explain how vision capabilities connect to multimodal or AI Learning Assistant projects.

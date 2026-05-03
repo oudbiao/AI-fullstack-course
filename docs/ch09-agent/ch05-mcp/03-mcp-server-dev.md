@@ -1,82 +1,82 @@
 ---
-title: "5.4 MCP Server 开发"
+title: "5.4 MCP Server Development"
 sidebar_position: 27
-description: "从工具描述、参数校验、结果返回到最小 server 结构，理解一个 MCP Server 到底应该怎样暴露能力。"
+description: "From tool descriptions and parameter validation to result return and the minimal server structure, understand how an MCP Server should expose capabilities."
 keywords: [MCP server, tool server, schema, tool exposure, server development]
 ---
 
-# MCP Server 开发
+# MCP Server Development
 
-:::tip 本节定位
-前两节我们已经知道：
+:::tip Section overview
+In the previous two sections, we already learned:
 
-- MCP 要解决什么问题
-- MCP 架构里 client 和 server 各自负责什么
+- What problem MCP is trying to solve
+- What client and server are respectively responsible for in the MCP architecture
 
-这一节开始真正落地 server 视角，回答：
+From this section on, we move into the real server-side implementation and answer:
 
-> **如果我要自己写一个 MCP Server，我到底应该从哪里开始？**
+> **If I want to write my own MCP Server, where should I start?**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 MCP Server 的最小职责边界
-- 学会定义工具描述、参数结构和调用入口
-- 理解为什么 server 开发的重点是“暴露能力”，而不是“把业务逻辑写死”
-- 看懂一个最小可运行的 Mock MCP Server
-
----
-
-## 一、MCP Server 真正在做什么？
-
-### 1.1 它不是“另一个普通后端”
-
-普通后端往往直接面向业务接口。  
-而 MCP Server 更像：
-
-> **把已有能力整理成一组可被 client 发现和调用的工具。**
-
-所以它的核心关注点通常是：
-
-- 有哪些工具
-- 工具怎样描述
-- 参数怎样校验
-- 结果怎样统一返回
-
-### 1.2 一个直觉类比
-
-MCP Server 很像一个有前台的工具库管理员：
-
-- 客户端来问“你这里有什么工具”
-- Server 列出能力清单
-- 客户端再说“我要用哪个”
-- Server 按约定执行并返回结果
-
-这和“直接把所有业务函数散着写”非常不一样。
+- Understand the minimum responsibility boundary of an MCP Server
+- Learn how to define tool descriptions, parameter structures, and invocation entry points
+- Understand why the focus of server development is “exposing capabilities,” not “hard-coding business logic”
+- Read and understand a minimal runnable Mock MCP Server
 
 ---
 
-## 二、先定义一个最小工具
+## 1. What is an MCP Server really doing?
 
-### 2.1 一个工具最少得有哪几样？
+### 1.1 It is not “just another regular backend”
 
-至少要有：
+A regular backend usually exposes business APIs directly.
+An MCP Server is more like:
 
-- 名称
-- 描述
-- 参数说明
-- 实际执行逻辑
+> **Organizing existing capabilities into a set of tools that can be discovered and called by the client.**
 
-### 2.2 一个最小工具描述示例
+So its core concerns are usually:
+
+- What tools are available
+- How each tool is described
+- How parameters are validated
+- How results are returned in a consistent way
+
+### 1.2 An intuitive analogy
+
+An MCP Server is a bit like a tool library manager with a front desk:
+
+- The client asks, “What tools do you have here?”
+- The server lists its capability inventory
+- The client then says, “Which one should I use?”
+- The server executes according to the contract and returns the result
+
+This is very different from “just writing all the business functions loosely scattered around.”
+
+---
+
+## 2. First define a minimal tool
+
+### 2.1 What does a tool minimally need?
+
+At minimum, it should have:
+
+- A name
+- A description
+- Parameter specifications
+- Actual execution logic
+
+### 2.2 A minimal tool description example
 
 ```python
 search_docs_tool = {
     "name": "search_docs",
-    "description": "搜索课程文档并返回相关内容",
+    "description": "Search course documents and return relevant content",
     "parameters": {
         "query": {
             "type": "string",
-            "description": "要搜索的关键词"
+            "description": "The keyword to search for"
         }
     },
     "required": ["query"]
@@ -85,42 +85,42 @@ search_docs_tool = {
 print(search_docs_tool)
 ```
 
-你可以把这个结构理解成：
+You can think of this structure as:
 
-> 工具的对外说明书。 
+> The public-facing instruction manual for the tool.
 
 ---
 
-## 三、工具描述为什么不能写得太随意？
+## 3. Why can’t tool descriptions be too casual?
 
-### 3.1 一个坏描述
+### 3.1 A bad description
 
 ```python
 bad_tool = {
     "name": "search",
-    "description": "做搜索",
+    "description": "Do search",
     "parameters": {"q": {"type": "string"}}
 }
 
 print(bad_tool)
 ```
 
-问题在于：
+The problems are:
 
-- 名字太模糊
-- 描述太空
-- 参数含义不清楚
+- The name is too vague
+- The description is too empty
+- The meaning of the parameter is unclear
 
-### 3.2 一个更稳的描述
+### 3.2 A more reliable description
 
 ```python
 good_tool = {
     "name": "search_course_docs",
-    "description": "搜索课程 FAQ、政策和学习路线文档",
+    "description": "Search course FAQ, policies, and learning path documents",
     "parameters": {
         "query": {
             "type": "string",
-            "description": "用户要查询的主题，比如 退款政策 或 证书"
+            "description": "The topic the user wants to query, such as refund policy or certificate"
         }
     },
     "required": ["query"]
@@ -129,22 +129,22 @@ good_tool = {
 print(good_tool)
 ```
 
-这里更好的地方在于：
+What is better here:
 
-- 工具边界更清楚
-- 参数语义更清楚
-- client 更容易正确使用
+- The tool boundary is clearer
+- The parameter semantics are clearer
+- The client is more likely to use it correctly
 
 ---
 
-## 四、Server 的最小两项能力：列工具 + 调工具
+## 4. The two minimum capabilities of a Server: list tools + call tools
 
-一个最小可用的 MCP Server，通常至少要能：
+A minimal usable MCP Server usually needs to be able to:
 
-1. 列出可用工具
-2. 接受某个工具调用
+1. List available tools
+2. Accept a tool invocation
 
-### 4.1 先写一个最小 Server
+### 4.1 First, write a minimal Server
 
 ```python
 class MockMCPServer:
@@ -152,7 +152,7 @@ class MockMCPServer:
         self.tool_specs = [
             {
                 "name": "search_docs",
-                "description": "搜索课程文档",
+                "description": "Search course documents",
                 "parameters": {
                     "query": {"type": "string"}
                 }
@@ -166,20 +166,20 @@ server = MockMCPServer()
 print(server.list_tools())
 ```
 
-### 4.2 再加真正的执行逻辑
+### 4.2 Then add real execution logic
 
 ```python
 class MockMCPServer:
     def __init__(self):
         self.kb = {
-            "退款": "课程购买后 7 天内且学习进度低于 20% 可退款。",
-            "证书": "完成所有项目并通过测试后可获得证书。"
+            "refund": "You can request a refund within 7 days after purchase if your learning progress is below 20%.",
+            "certificate": "You can receive a certificate after completing all projects and passing the tests."
         }
 
         self.tool_specs = [
             {
                 "name": "search_docs",
-                "description": "搜索课程文档",
+                "description": "Search course documents",
                 "parameters": {
                     "query": {"type": "string"}
                 }
@@ -197,29 +197,29 @@ class MockMCPServer:
         for key, value in self.kb.items():
             if key in query:
                 return {"result": value}
-        return {"result": "未找到相关文档"}
+        return {"result": "No relevant documents found"}
 
 server = MockMCPServer()
-print(server.call_tool("search_docs", {"query": "退款政策是什么"}))
+print(server.call_tool("search_docs", {"query": "What is the refund policy?"}))
 ```
 
-这已经是一个非常清楚的最小 server 骨架了。
+This is already a very clear minimal server skeleton.
 
 ---
 
-## 五、参数校验为什么是 server 的责任之一？
+## 5. Why is parameter validation one of the server’s responsibilities?
 
-### 5.1 因为 client 或模型都可能给错参数
+### 5.1 Because the client or the model may pass incorrect parameters
 
-例如：
+For example:
 
 ```python
-bad_call = {"query_text": "退款政策"}
+bad_call = {"query_text": "refund policy"}
 ```
 
-如果 server 直接执行，就可能报错或产生奇怪行为。
+If the server executes this directly, it may crash or behave strangely.
 
-### 5.2 一个最小校验版本
+### 5.2 A minimal validation version
 
 ```python
 def validate_search_docs(arguments):
@@ -229,38 +229,38 @@ def validate_search_docs(arguments):
         return False, "query_must_be_string"
     return True, "ok"
 
-print(validate_search_docs({"query": "退款政策"}))
-print(validate_search_docs({"query_text": "退款政策"}))
+print(validate_search_docs({"query": "refund policy"}))
+print(validate_search_docs({"query_text": "refund policy"}))
 ```
 
-### 5.3 为什么这一步一定不能省？
+### 5.3 Why can’t we skip this step?
 
-因为 server 是能力边界守门人。  
-如果 server 不校验，整个工具系统就很难稳定。
+Because the server is the gatekeeper of the capability boundary.
+If the server does not validate, the entire tool system becomes hard to keep stable.
 
-![MCP Server 工具契约图](/img/course/ch09-mcp-server-tool-contract-map.png)
+![MCP Server Tool Contract Diagram](/img/course/ch09-mcp-server-tool-contract-map-en.png)
 
-:::tip 读图提示
-把 MCP Server 看成工具契约的守门人：它不仅暴露 list_tools，还要校验 call_tool 的参数、执行真实逻辑、统一返回结果，并把错误变成 client 能理解的结构。
+:::tip Reading guide
+Think of the MCP Server as the gatekeeper of the tool contract: it not only exposes list_tools, but also validates call_tool parameters, executes the real logic, standardizes returned results, and turns errors into structures the client can understand.
 :::
 
 ---
 
-## 六、一个更完整的最小 Server 版本
+## 6. A more complete minimal Server version
 
 ```python
 class BetterMCPServer:
     def __init__(self):
         self.kb = {
-            "退款": "课程购买后 7 天内且学习进度低于 20% 可退款。",
-            "证书": "完成所有项目并通过测试后可获得证书。"
+            "refund": "You can request a refund within 7 days after purchase if your learning progress is below 20%.",
+            "certificate": "You can receive a certificate after completing all projects and passing the tests."
         }
 
     def list_tools(self):
         return [
             {
                 "name": "search_docs",
-                "description": "搜索课程文档",
+                "description": "Search course documents",
                 "parameters": {
                     "query": {"type": "string"}
                 }
@@ -285,74 +285,74 @@ class BetterMCPServer:
         for key, value in self.kb.items():
             if key in query:
                 return {"result": value}
-        return {"result": "未找到相关文档"}
+        return {"result": "No relevant documents found"}
 
 server = BetterMCPServer()
 print(server.list_tools())
-print(server.call_tool("search_docs", {"query": "证书怎么获得"}))
-print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
+print(server.call_tool("search_docs", {"query": "How do I get a certificate?"}))
+print(server.call_tool("search_docs", {"wrong": "How do I get a certificate?"}))
 ```
 
-### 6.2 这个版本比上一版强在哪？
+### 6.2 What is better about this version than the previous one?
 
-它已经具备了：
+It already has:
 
-- 工具列出
-- 参数校验
-- 统一调用入口
-- 统一错误返回
+- Tool listing
+- Parameter validation
+- A unified invocation entry point
+- Unified error returns
 
-这已经非常接近真实工程里 server 的核心职责。
-
----
-
-## 七、MCP Server 开发里最常见的坑
-
-### 7.1 把业务逻辑和协议逻辑混在一起
-
-结果会变成：
-
-- 工具描述不清
-- 扩展困难
-- 调试困难
-
-### 7.2 工具粒度太粗或太细
-
-- 太粗：一个工具什么都干
-- 太细：client 调用复杂度爆炸
-
-### 7.3 返回结构不统一
-
-有时返回文本，有时返回 dict，有时直接抛异常，后面会很难接。
+This is already very close to the core responsibilities of a server in real-world engineering.
 
 ---
 
-## 八、怎么判断一个 MCP Server 设计得够不够好？
+## 7. The most common pitfalls in MCP Server development
 
-可以先问四个问题：
+### 7.1 Mixing business logic with protocol logic
 
-1. client 能不能清楚知道有哪些工具
-2. 参数要求是不是明确
-3. 错误返回是不是统一
-4. 加新工具时结构会不会越来越乱
+This leads to:
 
-如果这四个问题都答得比较稳，server 设计通常就已经不错了。
+- Unclear tool descriptions
+- Harder extension
+- Harder debugging
 
----
+### 7.2 Tool granularity that is too coarse or too fine
 
-## 小结
+- Too coarse: one tool does everything
+- Too fine: client invocation complexity explodes
 
-这一节最重要的不是“把一个类写出来”，而是理解：
+### 7.3 Inconsistent return structures
 
-> **MCP Server 的本质，是把一组可执行能力，用清晰可发现、可校验、可调用的方式暴露出来。**
-
-server 做得越清楚，client 侧越容易扩展，整个工具生态也越容易做大。
+Sometimes returning text, sometimes dicts, sometimes raising exceptions directly makes future integration very difficult.
 
 ---
 
-## 练习
+## 8. How do you know whether an MCP Server design is good enough?
 
-1. 给 `BetterMCPServer` 再增加一个 `get_weather(city)` 工具。
-2. 为这个新工具补上参数校验逻辑。
-3. 想一想：工具粒度太粗和太细，各自会带来什么问题？
-4. 用自己的话解释：为什么说 MCP Server 开发的核心不只是“执行工具”，更是“暴露清晰边界”？
+You can start by asking four questions:
+
+1. Can the client clearly know what tools are available?
+2. Are the parameter requirements explicit?
+3. Are error returns consistent?
+4. Will the structure become messy when adding new tools?
+
+If you can answer all four questions confidently, the server design is usually already pretty good.
+
+---
+
+## Summary
+
+The most important thing in this section is not “writing a class,” but understanding:
+
+> **The essence of an MCP Server is to expose a set of executable capabilities in a way that is clear to discover, validate, and call.**
+
+The clearer the server is, the easier it is for the client side to expand, and the easier it is to grow the whole tool ecosystem.
+
+---
+
+## Exercises
+
+1. Add a new `get_weather(city)` tool to `BetterMCPServer`.
+2. Add parameter validation logic for this new tool.
+3. Think about it: what problems do too coarse and too fine tool granularity each cause?
+4. Explain in your own words: why is the core of MCP Server development not just “executing tools,” but “exposing clear boundaries”?

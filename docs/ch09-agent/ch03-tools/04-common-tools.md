@@ -1,143 +1,143 @@
 ---
-title: "3.5 常见工具集成"
+title: "3.5 Common Tool Integration"
 sidebar_position: 14
-description: "从搜索、计算器、数据库、文件系统到浏览器，理解 Agent 里最常见的工具类型以及怎样把它们接进系统。"
+description: "From search, calculators, databases, and file systems to browsers, understand the most common tool types in Agents and how to connect them into a system."
 keywords: [tool integration, search, calculator, database, filesystem, browser, Agent]
 ---
 
-# 常见工具集成
+# Common Tool Integration
 
-:::tip 本节定位
-讲工具层时，如果只停留在抽象 schema，很容易发虚。  
-这一节我们把镜头拉近一点，直接看：
+:::tip Section overview
+When talking about the tool layer, if we only stay at the abstract schema level, it can easily feel vague.
+In this section, we’ll zoom in a bit and look directly at:
 
-> **Agent 系统里最常见的工具到底有哪些，它们分别怎么接？**
+> **What are the most common tools in Agent systems, and how are they connected?**
 
-你会发现，很多工具虽然名字不同，但接入方式其实很有共性。
+You’ll find that although many tools have different names, their integration patterns are often very similar.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 认识 Agent 中最常见的几类工具
-- 理解每类工具分别适合解决什么问题
-- 看懂一个统一工具注册与调度示例
-- 理解工具集成时最常见的失败点和工程注意事项
-
----
-
-## 一、为什么要把工具分类型来看？
-
-### 1.1 因为“工具”这个词太宽了
-
-搜索是工具，计算器是工具，数据库查询是工具，文件读写也是工具。  
-如果一股脑都看成“一个函数”，你很快就会混乱。
-
-更实用的做法是先分几类：
-
-1. 检索类
-2. 计算类
-3. 数据访问类
-4. 文件 / 环境操作类
-5. 外部服务调用类
-
-### 1.2 为什么分类有帮助？
-
-因为不同类型工具的关注点不同：
-
-- 搜索类看召回质量
-- 计算类看精确性和安全
-- 数据库类看权限和过滤
-- 文件类看路径边界
-- 外部服务类看超时和重试
-
-也就是说：
-
-> 不同工具虽然都叫工具，但工程风险完全不一样。 
+- Recognize the most common types of tools in Agents
+- Understand what problems each tool type is best suited for
+- Read a unified example of tool registration and dispatch
+- Understand the most common failure points and engineering considerations when integrating tools
 
 ---
 
-## 二、最常见的五类工具
+## 1. Why classify tools by type?
 
-### 2.1 搜索 / 检索类
+### 1.1 Because the word “tool” is too broad
 
-适合：
+Search is a tool, a calculator is a tool, database queries are tools, and file operations are tools too.
+If you treat them all as “just a function,” you’ll quickly get confused.
 
-- 查文档
-- 查知识库
-- 查网页
+A more practical approach is to divide them into categories first:
 
-特点：
+1. Retrieval tools
+2. Computation tools
+3. Data access tools
+4. File / environment operation tools
+5. External service call tools
 
-- 输入通常是 query
-- 输出通常是一组候选结果
+### 1.2 Why is classification helpful?
 
-### 2.2 计算类
+Because different tool types have different concerns:
 
-适合：
+- Search tools focus on recall quality
+- Computation tools focus on accuracy and safety
+- Database tools focus on permissions and filtering
+- File tools focus on path boundaries
+- External service tools focus on timeouts and retries
 
-- 四则运算
-- 统计指标
-- 小型数据转换
+In other words:
 
-特点：
-
-- 输出必须稳定精确
-- 安全风险要格外小心
-
-### 2.3 数据访问类
-
-适合：
-
-- 查数据库
-- 查订单
-- 查用户状态
-
-特点：
-
-- 参数和权限最关键
-- 很多业务逻辑在这一层决定
-
-### 2.4 文件 / 环境操作类
-
-适合：
-
-- 读文件
-- 写文件
-- 列目录
-- 执行代码
-
-特点：
-
-- 风险高
-- 边界控制极其重要
-
-### 2.5 外部服务调用类
-
-适合：
-
-- 发邮件
-- 调第三方 API
-- 提交工单
-
-特点：
-
-- 失败率、超时、重试都很常见
+> Even though different tools are all called tools, their engineering risks are completely different.
 
 ---
 
-## 三、一个统一的工具注册表
+## 2. The five most common tool types
 
-真实系统里，常常不会把工具散落在各处，而是统一注册。
+### 2.1 Search / retrieval tools
 
-### 3.1 最小可运行示例
+Good for:
+
+- Looking up documents
+- Searching knowledge bases
+- Searching web pages
+
+Characteristics:
+
+- The input is usually a query
+- The output is usually a set of candidate results
+
+### 2.2 Computation tools
+
+Good for:
+
+- Basic arithmetic
+- Statistical metrics
+- Small data transformations
+
+Characteristics:
+
+- Output must be stable and exact
+- Safety risks need special attention
+
+### 2.3 Data access tools
+
+Good for:
+
+- Querying databases
+- Looking up orders
+- Checking user status
+
+Characteristics:
+
+- Parameters and permissions are the key
+- A lot of business logic is determined here
+
+### 2.4 File / environment operation tools
+
+Good for:
+
+- Reading files
+- Writing files
+- Listing directories
+- Executing code
+
+Characteristics:
+
+- High risk
+- Boundary control is extremely important
+
+### 2.5 External service call tools
+
+Good for:
+
+- Sending emails
+- Calling third-party APIs
+- Submitting tickets
+
+Characteristics:
+
+- Failures, timeouts, and retries are very common
+
+---
+
+## 3. A unified tool registry
+
+In real systems, tools are often not scattered everywhere, but registered in one place.
+
+### 3.1 Minimal runnable example
 
 ```python
 def search_docs(keyword):
     docs = {
-        "退款": "课程购买后 7 天内可申请退款",
-        "证书": "完成项目并通过测试后可获得证书"
+        "refund": "You can apply for a refund within 7 days after purchasing the course",
+        "certificate": "You can receive a certificate after completing the project and passing the test"
     }
-    return docs.get(keyword, "未找到相关文档")
+    return docs.get(keyword, "No relevant document found")
 
 def calculator(expression):
     return eval(expression, {"__builtins__": {}})
@@ -158,22 +158,22 @@ TOOLS = {
 print(TOOLS.keys())
 ```
 
-### 3.2 为什么统一注册很重要？
+### 3.2 Why is unified registration important?
 
-因为后面你会需要：
+Because later you will need to:
 
-- 统一描述 schema
-- 统一做权限控制
-- 统一打日志
-- 统一调度和统计
+- Standardize schema descriptions
+- Apply permission control uniformly
+- Add logging consistently
+- Dispatch and collect statistics in one place
 
-如果工具没有注册表，系统会越来越难维护。
+If there is no tool registry, the system becomes harder and harder to maintain.
 
 ---
 
-## 四、一个统一调度器
+## 4. A unified dispatcher
 
-### 4.1 最小调度器示例
+### 4.1 Minimal dispatcher example
 
 ```python
 def dispatch(call):
@@ -190,7 +190,7 @@ def dispatch(call):
         return {"error": str(e)}
 
 calls = [
-    {"name": "search_docs", "arguments": {"keyword": "退款"}},
+    {"name": "search_docs", "arguments": {"keyword": "refund"}},
     {"name": "calculator", "arguments": {"expression": "12 * 7"}},
     {"name": "get_user_status", "arguments": {"user_id": 1}}
 ]
@@ -199,35 +199,35 @@ for call in calls:
     print(call, "->", dispatch(call))
 ```
 
-### 4.2 这段代码教会你什么？
+### 4.2 What does this code teach you?
 
-它教会你：
+It shows you that:
 
-- 不同工具可以共享统一调用入口
-- 程序端可以统一做错误处理
-- 后面要扩工具时，结构也不会乱
+- Different tools can share a unified call entry point
+- The program can handle errors in a consistent way
+- When you expand tools later, the structure will not become messy
 
 ---
 
-## 五、不同类型工具到底要注意什么？
+## 5. What should you pay attention to for different tool types?
 
-### 5.1 搜索类工具
+### 5.1 Search tools
 
-重点关注：
+Key concerns:
 
-- query 是否改写
-- 返回多少条结果
-- 结果是否要 rerank
+- Whether the query should be rewritten
+- How many results to return
+- Whether the results need reranking
 
-### 5.2 计算类工具
+### 5.2 Computation tools
 
-重点关注：
+Key concerns:
 
-- 安全
-- 精度
-- 表达式是否合法
+- Safety
+- Precision
+- Whether the expression is valid
 
-一个简单的安全计算器示例：
+A simple safe calculator example:
 
 ```python
 def safe_calculator(expression):
@@ -240,50 +240,50 @@ print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))
 ```
 
-### 5.3 数据库类工具
+### 5.3 Database tools
 
-重点关注：
+Key concerns:
 
-- 权限
-- 参数完整性
-- 查询边界
+- Permissions
+- Parameter completeness
+- Query boundaries
 
-例如，不要让模型随意生成任意 SQL 再直接执行。
+For example, do not let the model freely generate arbitrary SQL and execute it directly.
 
-### 5.4 文件类工具
+### 5.4 File tools
 
-重点关注：
+Key concerns:
 
-- 路径白名单
-- 写入权限
-- 是否需要人工确认
+- Path whitelists
+- Write permissions
+- Whether human confirmation is needed
 
-### 5.5 外部服务类工具
+### 5.5 External service tools
 
-重点关注：
+Key concerns:
 
-- 超时
-- 重试
-- 幂等性
+- Timeouts
+- Retries
+- Idempotency
 
 ---
 
-## 六、一个更贴近 Agent 的工具组合例子
+## 6. A more Agent-like tool combination example
 
-### 6.1 场景：判断用户能不能退款
+### 6.1 Scenario: determine whether a user can get a refund
 
-这件事可能需要两个工具：
+This task may require two tools:
 
-1. 查用户学习进度
-2. 查退款政策
+1. Check the user’s learning progress
+2. Check the refund policy
 
 ```python
 def refund_eligibility_agent(user_id):
     status = get_user_status(user_id)
     if "error" in status:
-        return {"error": "用户不存在"}
+        return {"error": "user does not exist"}
 
-    policy = search_docs("退款")
+    policy = search_docs("refund")
     progress = status["progress"]
 
     can_refund = progress < 0.2
@@ -298,42 +298,42 @@ print(refund_eligibility_agent(1))
 print(refund_eligibility_agent(2))
 ```
 
-### 6.2 这段代码真正说明了什么？
+### 6.2 What does this code really show?
 
-它说明：
+It shows:
 
-> 工具集成不是每个工具单独存在，而是经常要协同完成一个目标。 
+> Tool integration does not mean each tool exists independently; more often, tools need to work together to complete a goal.
 
-这也是为什么后面 Agent 会越来越依赖工具编排能力。
-
----
-
-## 七、工具集成最常见的失败点
-
-### 7.1 schema 对不上
-
-例如：
-
-- 工具需要 `user_id`
-- 模型却传了 `id`
-
-### 7.2 返回值格式不统一
-
-如果有的工具返回字符串，有的返回 dict，有的返回 list，系统会越来越难接。
-
-### 7.3 没有统一错误处理
-
-一个工具返回 `None`，另一个抛异常，第三个返回 `"failed"`，后面逻辑很容易乱。
-
-### 7.4 没有日志和回放
-
-线上一出错，就很难知道到底是哪类工具出了问题。
+This is also why Agents will increasingly rely on tool orchestration ability.
 
 ---
 
-## 八、一个实用建议：统一工具返回格式
+## 7. The most common failure points in tool integration
 
-最稳妥的做法之一是统一工具输出结构，例如都返回：
+### 7.1 Schema mismatch
+
+For example:
+
+- The tool expects `user_id`
+- But the model passes `id`
+
+### 7.2 Inconsistent return formats
+
+If one tool returns a string, another returns a dict, and a third returns a list, the system will become increasingly hard to connect.
+
+### 7.3 No unified error handling
+
+One tool returns `None`, another raises an exception, and a third returns `"failed"`; the downstream logic can easily become messy.
+
+### 7.4 No logging or replay
+
+When something goes wrong in production, it becomes very hard to know which type of tool caused the issue.
+
+---
+
+## 8. A practical suggestion: standardize the tool return format
+
+One of the safest approaches is to standardize the output structure of tools, for example:
 
 ```python
 {
@@ -342,7 +342,7 @@ print(refund_eligibility_agent(2))
 }
 ```
 
-或者：
+Or:
 
 ```python
 {
@@ -351,7 +351,7 @@ print(refund_eligibility_agent(2))
 }
 ```
 
-一个小示例：
+A small example:
 
 ```python
 def wrapped_search(keyword):
@@ -361,45 +361,45 @@ def wrapped_search(keyword):
     except Exception as e:
         return {"ok": False, "error": str(e)}
 
-print(wrapped_search("退款"))
+print(wrapped_search("refund"))
 ```
 
-这会让后面 Agent 层更容易做统一判断。
+This makes it easier for the Agent layer to make unified decisions later.
 
 ---
 
-## 九、初学者最常踩的坑
+## 9. Common pitfalls for beginners
 
-### 9.1 把所有工具都接进来再说
+### 9.1 Connecting all tools first, then thinking later
 
-工具越多，系统越复杂。  
-更稳妥的做法是：
+The more tools you add, the more complex the system becomes.
+A safer approach is:
 
-- 先接最刚需的 2~3 个
+- Start with the 2–3 most necessary tools first
 
-### 9.2 不区分高风险工具和低风险工具
+### 9.2 Not distinguishing between high-risk and low-risk tools
 
-文件删除、支付操作、数据库写入，和搜索文档不是一个风险等级。
+File deletion, payment operations, and database writes are not at the same risk level as searching documents.
 
-### 9.3 工具接口没有统一约定
+### 9.3 No unified convention for tool interfaces
 
-这是很多 Agent 系统越做越乱的直接原因。
-
----
-
-## 小结
-
-这一节最重要的不是背“有哪些工具”，而是理解：
-
-> **常见工具集成的关键，不只是把工具接进来，而是把它们用统一接口、统一错误处理、统一边界约束组织起来。**
-
-只有这样，工具层才会成为 Agent 的能力放大器，而不是故障制造器。
+This is a direct reason why many Agent systems become messier and messier over time.
 
 ---
 
-## 练习
+## Summary
 
-1. 给本节工具注册表再加一个 `get_weather(city)` 工具。
-2. 把所有工具的返回值统一成 `{"ok": ..., "data": ..., "error": ...}` 格式。
-3. 想一想：为什么数据库写入工具和搜索工具不应该放在同一个权限等级？
-4. 用自己的话解释：为什么说工具注册表和统一调度器是 Agent 工程里非常重要的两个结构？
+The most important thing in this section is not memorizing “what tools there are,” but understanding:
+
+> **The key to common tool integration is not just connecting tools, but organizing them with a unified interface, unified error handling, and unified boundary constraints.**
+
+Only in this way can the tool layer become an amplifier of Agent capabilities, rather than a source of failures.
+
+---
+
+## Exercises
+
+1. Add a `get_weather(city)` tool to the tool registry in this section.
+2. Standardize the return values of all tools to the format `{"ok": ..., "data": ..., "error": ...}`.
+3. Think about it: why should a database write tool and a search tool not be placed at the same permission level?
+4. Explain in your own words: why are a tool registry and a unified dispatcher two very important structures in Agent engineering?

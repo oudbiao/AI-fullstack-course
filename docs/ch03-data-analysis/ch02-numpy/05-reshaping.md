@@ -1,27 +1,27 @@
 ---
-title: "2.5 数组变形与操作"
+title: "2.5 Array Reshaping and Operations"
 sidebar_position: 6
-description: "掌握数组的 reshape、拼接、分割和转置操作"
+description: "Master reshape, concatenation, splitting, and transpose operations for arrays"
 ---
 
-# 数组变形与操作
+# Array Reshaping and Operations
 
-![NumPy 变形与轴操作图](/img/course/ch03-numpy-reshape-axis-flow.png)
+![NumPy Reshaping and Axis Operations Diagram](/img/course/ch03-numpy-reshape-axis-flow-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 reshape、flatten、ravel 等变形操作
-- 学会数组的拼接（concatenate、stack、hstack、vstack）
-- 学会数组的分割（split、hsplit、vsplit）
-- 理解转置和轴交换
+- Master reshaping operations such as reshape, flatten, and ravel
+- Learn array concatenation (concatenate, stack, hstack, vstack)
+- Learn array splitting (split, hsplit, vsplit)
+- Understand transpose and axis swapping
 
 ---
 
-## reshape：改变形状
+## reshape: Changing Shape
 
-`reshape` 是最常用的变形操作——在**不改变数据**的前提下改变数组的形状。
+`reshape` is one of the most commonly used reshaping operations—it changes the shape of an array **without changing the data**.
 
-### 基本用法
+### Basic Usage
 
 ```python
 import numpy as np
@@ -29,14 +29,14 @@ import numpy as np
 arr = np.arange(12)    # [ 0  1  2  3  4  5  6  7  8  9 10 11]
 print(arr.shape)       # (12,)
 
-# 变成 3 行 4 列
+# Change to 3 rows and 4 columns
 m1 = arr.reshape(3, 4)
 print(m1)
 # [[ 0  1  2  3]
 #  [ 4  5  6  7]
 #  [ 8  9 10 11]]
 
-# 变成 4 行 3 列
+# Change to 4 rows and 3 columns
 m2 = arr.reshape(4, 3)
 print(m2)
 # [[ 0  1  2]
@@ -44,7 +44,7 @@ print(m2)
 #  [ 6  7  8]
 #  [ 9 10 11]]
 
-# 变成 2×2×3 的三维数组
+# Change to a 2×2×3 3D array
 m3 = arr.reshape(2, 2, 3)
 print(m3)
 # [[[ 0  1  2]
@@ -53,49 +53,49 @@ print(m3)
 #   [ 9 10 11]]]
 ```
 
-:::caution 元素总数必须一致
-reshape 前后的元素总数必须相同，否则报错：
+:::caution The total number of elements must match
+The number of elements before and after `reshape` must be the same, otherwise an error will occur:
 
 ```python
-arr = np.arange(12)    # 12 个元素
-arr.reshape(3, 5)      # ❌ 报错！3 × 5 = 15 ≠ 12
+arr = np.arange(12)    # 12 elements
+arr.reshape(3, 5)      # ❌ Error! 3 × 5 = 15 ≠ 12
 arr.reshape(3, 4)      # ✅ 3 × 4 = 12
 ```
 :::
 
-### 用 -1 自动计算
+### Use -1 for Automatic Calculation
 
-`-1` 表示"让 NumPy 自动计算这个维度"：
+`-1` means "let NumPy automatically calculate this dimension":
 
 ```python
 arr = np.arange(12)
 
-# 我想要 3 行，列数你帮我算
-m1 = arr.reshape(3, -1)    # 自动算出 4 列
+# I want 3 rows, please calculate the number of columns
+m1 = arr.reshape(3, -1)    # Automatically calculates 4 columns
 print(m1.shape)             # (3, 4)
 
-# 我想要 4 列，行数你帮我算
-m2 = arr.reshape(-1, 4)    # 自动算出 3 行
+# I want 4 columns, please calculate the number of rows
+m2 = arr.reshape(-1, 4)    # Automatically calculates 3 rows
 print(m2.shape)             # (3, 4)
 
-# 变成一列（列向量）
+# Convert to a single column (column vector)
 col = arr.reshape(-1, 1)
 print(col.shape)            # (12, 1)
 ```
 
-:::tip -1 只能用一次
-reshape 中最多只有一个维度可以是 -1。因为只有一个未知数才能算出来。
+:::tip -1 can only be used once
+In `reshape`, at most one dimension can be `-1`. That is because there must be only one unknown value to solve for.
 
 ```python
-arr.reshape(-1, -1)  # ❌ 报错！不能有两个 -1
+arr.reshape(-1, -1)  # ❌ Error! You cannot have two -1 values
 ```
 :::
 
 ---
 
-## flatten 和 ravel：展平数组
+## flatten and ravel: Flattening Arrays
 
-把多维数组变回一维：
+Convert a multi-dimensional array back to one dimension:
 
 ```python
 matrix = np.array([
@@ -103,47 +103,47 @@ matrix = np.array([
     [4, 5, 6]
 ])
 
-# flatten：返回拷贝（修改不影响原数组）
+# flatten: returns a copy (changes do not affect the original array)
 flat = matrix.flatten()
 print(flat)          # [1 2 3 4 5 6]
 flat[0] = 99
-print(matrix[0, 0])  # 1  ← 原数组不变
+print(matrix[0, 0])  # 1  ← original array does not change
 
-# ravel：返回视图（修改会影响原数组）
+# ravel: returns a view (changes affect the original array)
 rav = matrix.ravel()
 print(rav)           # [1 2 3 4 5 6]
 rav[0] = 99
-print(matrix[0, 0])  # 99  ← 原数组也变了！
+print(matrix[0, 0])  # 99  ← original array also changes!
 ```
 
-| 方法 | 返回类型 | 修改是否影响原数组 | 速度 |
+| Method | Return type | Does modification affect the original array? | Speed |
 |------|---------|------------------|------|
-| `flatten()` | 拷贝 | 不影响 | 较慢（要复制数据） |
-| `ravel()` | 视图 | 影响 | 较快（不复制） |
-| `reshape(-1)` | 视图 | 影响 | 较快 |
+| `flatten()` | Copy | No | Slower (data must be copied) |
+| `ravel()` | View | Yes | Faster (no copy) |
+| `reshape(-1)` | View | Yes | Faster |
 
 ---
 
-## 数组拼接
+## Array Concatenation
 
-### concatenate：通用拼接
+### concatenate: General-Purpose Concatenation
 
 ```python
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 
-# 一维拼接
+# 1D concatenation
 c = np.concatenate([a, b])
 print(c)  # [1 2 3 4 5 6]
 ```
 
-二维拼接需要指定方向（axis）：
+For 2D concatenation, you need to specify the direction (`axis`):
 
 ```python
 m1 = np.array([[1, 2], [3, 4]])
 m2 = np.array([[5, 6], [7, 8]])
 
-# axis=0：上下拼接（行数增加）
+# axis=0: stack vertically (increase rows)
 v = np.concatenate([m1, m2], axis=0)
 print(v)
 # [[1 2]
@@ -151,48 +151,48 @@ print(v)
 #  [5 6]
 #  [7 8]]
 
-# axis=1：左右拼接（列数增加）
+# axis=1: stack horizontally (increase columns)
 h = np.concatenate([m1, m2], axis=1)
 print(h)
 # [[1 2 5 6]
 #  [3 4 7 8]]
 ```
 
-### vstack 和 hstack：快捷拼接
+### vstack and hstack: Shortcut Concatenation
 
 ```python
 m1 = np.array([[1, 2], [3, 4]])
 m2 = np.array([[5, 6], [7, 8]])
 
-# vstack = vertical stack = 上下拼接 = concatenate(axis=0)
+# vstack = vertical stack = stack vertically = concatenate(axis=0)
 print(np.vstack([m1, m2]))
 # [[1 2]
 #  [3 4]
 #  [5 6]
 #  [7 8]]
 
-# hstack = horizontal stack = 左右拼接 = concatenate(axis=1)
+# hstack = horizontal stack = stack horizontally = concatenate(axis=1)
 print(np.hstack([m1, m2]))
 # [[1 2 5 6]
 #  [3 4 7 8]]
 ```
 
-### stack：创建新维度
+### stack: Create a New Dimension
 
-`stack` 和 `concatenate` 的区别是——`stack` 会**增加一个维度**：
+The difference between `stack` and `concatenate` is that `stack` **adds a new dimension**:
 
 ```python
 a = np.array([1, 2, 3])   # shape: (3,)
 b = np.array([4, 5, 6])   # shape: (3,)
 
-# stack 沿新维度堆叠
-s0 = np.stack([a, b], axis=0)   # 相当于"横着放"
+# Stack along a new dimension
+s0 = np.stack([a, b], axis=0)   # similar to placing them "side by side"
 print(s0)
 # [[1 2 3]
 #  [4 5 6]]
 print(s0.shape)  # (2, 3)
 
-s1 = np.stack([a, b], axis=1)   # 相当于"竖着放"
+s1 = np.stack([a, b], axis=1)   # similar to placing them "top to bottom"
 print(s1)
 # [[1 4]
 #  [2 5]
@@ -200,38 +200,38 @@ print(s1)
 print(s1.shape)  # (3, 2)
 ```
 
-### 拼接方法总结
+### Concatenation Summary
 
-| 函数 | 作用 | 维度变化 |
+| Function | Purpose | Dimension Change |
 |------|------|---------|
-| `np.concatenate()` | 沿已有轴拼接 | 维度不变，某个轴变长 |
-| `np.vstack()` | 上下拼接 | 行数增加 |
-| `np.hstack()` | 左右拼接 | 列数增加 |
-| `np.stack()` | 沿新轴堆叠 | 增加一个维度 |
+| `np.concatenate()` | Concatenate along an existing axis | Number of dimensions stays the same, one axis becomes longer |
+| `np.vstack()` | Stack vertically | Number of rows increases |
+| `np.hstack()` | Stack horizontally | Number of columns increases |
+| `np.stack()` | Stack along a new axis | Adds one dimension |
 
 ---
 
-## 数组分割
+## Array Splitting
 
-### split：均匀分割
+### split: Even Splitting
 
 ```python
 arr = np.arange(12)   # [ 0  1  2  3  4  5  6  7  8  9 10 11]
 
-# 均匀分成 3 份
+# Split evenly into 3 parts
 parts = np.split(arr, 3)
 print(parts[0])   # [0 1 2 3]
 print(parts[1])   # [4 5 6 7]
 print(parts[2])   # [8 9 10 11]
 
-# 按指定位置分割
-parts2 = np.split(arr, [3, 7])  # 在索引 3 和 7 处切
+# Split at specified positions
+parts2 = np.split(arr, [3, 7])  # split at indices 3 and 7
 print(parts2[0])  # [0 1 2]
 print(parts2[1])  # [3 4 5 6]
 print(parts2[2])  # [7 8 9 10 11]
 ```
 
-### 二维分割
+### 2D Splitting
 
 ```python
 matrix = np.arange(16).reshape(4, 4)
@@ -241,13 +241,13 @@ print(matrix)
 #  [ 8  9 10 11]
 #  [12 13 14 15]]
 
-# vsplit：上下分割
+# vsplit: split vertically
 top, bottom = np.vsplit(matrix, 2)
 print(top)
 # [[0 1 2 3]
 #  [4 5 6 7]]
 
-# hsplit：左右分割
+# hsplit: split horizontally
 left, right = np.hsplit(matrix, 2)
 print(left)
 # [[ 0  1]
@@ -258,11 +258,11 @@ print(left)
 
 ---
 
-## 转置与轴交换
+## Transpose and Axis Swapping
 
-### 二维转置
+### 2D Transpose
 
-转置就是**行变列，列变行**：
+Transpose means **rows become columns, and columns become rows**:
 
 ```python
 matrix = np.array([
@@ -271,7 +271,7 @@ matrix = np.array([
 ])
 print(matrix.shape)  # (2, 3)
 
-# 转置
+# Transpose
 t = matrix.T
 print(t)
 # [[1 4]
@@ -279,39 +279,39 @@ print(t)
 #  [3 6]]
 print(t.shape)  # (3, 2)
 
-# 也可以用 transpose
+# You can also use transpose
 t2 = matrix.transpose()
 print(np.array_equal(t, t2))  # True
 ```
 
-### 添加维度：np.newaxis 和 expand_dims
+### Add Dimensions: np.newaxis and expand_dims
 
-有时候我们需要给数组增加一个维度（比如把行向量变成列向量）：
+Sometimes we need to add a dimension to an array (for example, turning a row vector into a column vector):
 
 ```python
 arr = np.array([1, 2, 3])      # shape: (3,)
 
-# 方法 1：np.newaxis
-row = arr[np.newaxis, :]        # shape: (1, 3) 行向量
-col = arr[:, np.newaxis]        # shape: (3, 1) 列向量
+# Method 1: np.newaxis
+row = arr[np.newaxis, :]        # shape: (1, 3) row vector
+col = arr[:, np.newaxis]        # shape: (3, 1) column vector
 print(row)  # [[1 2 3]]
 print(col)
 # [[1]
 #  [2]
 #  [3]]
 
-# 方法 2：np.expand_dims
-row2 = np.expand_dims(arr, axis=0)   # 在 axis=0 处添加维度 → (1, 3)
-col2 = np.expand_dims(arr, axis=1)   # 在 axis=1 处添加维度 → (3, 1)
+# Method 2: np.expand_dims
+row2 = np.expand_dims(arr, axis=0)   # add a dimension at axis=0 → (1, 3)
+col2 = np.expand_dims(arr, axis=1)    # add a dimension at axis=1 → (3, 1)
 
-# 方法 3：reshape
+# Method 3: reshape
 row3 = arr.reshape(1, -1)   # (1, 3)
 col3 = arr.reshape(-1, 1)   # (3, 1)
 ```
 
-### 压缩维度：squeeze
+### Remove Dimensions: squeeze
 
-去掉大小为 1 的维度：
+Remove dimensions whose size is 1:
 
 ```python
 arr = np.array([[[1, 2, 3]]])
@@ -324,91 +324,91 @@ print(squeezed)           # [1 2 3]
 
 ---
 
-## 实战：数据重组
+## Practice: Data Reorganization
 
 ```python
 import numpy as np
 
-# 场景：你有 12 个月的销售数据（一维）
+# Scenario: you have 12 months of sales data (1D)
 monthly_sales = np.array([
     120, 135, 150, 180, 200, 210,
     195, 188, 220, 250, 280, 310
 ])
 
-# 重组成 4 个季度 × 3 个月
+# Reorganize into 4 quarters × 3 months
 quarterly = monthly_sales.reshape(4, 3)
-print("季度数据:")
+print("Quarterly data:")
 print(quarterly)
 # [[120 135 150]    Q1
 #  [180 200 210]    Q2
 #  [195 188 220]    Q3
 #  [250 280 310]]   Q4
 
-# 每季度总销售额
+# Total sales for each quarter
 q_totals = quarterly.sum(axis=1)
 quarters = ["Q1", "Q2", "Q3", "Q4"]
 for q, total in zip(quarters, q_totals):
     print(f"  {q}: {total}")
 
-# 上半年 vs 下半年
+# First half vs second half
 first_half, second_half = np.vsplit(quarterly, 2)
-print(f"\n上半年总额: {first_half.sum()}")
-print(f"下半年总额: {second_half.sum()}")
+print(f"\nFirst-half total: {first_half.sum()}")
+print(f"Second-half total: {second_half.sum()}")
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 操作 | 函数 | 说明 |
+| Operation | Function | Description |
 |------|------|------|
-| 改变形状 | `reshape()` | 元素总数不变，改变维度排列 |
-| 展平 | `flatten()` / `ravel()` | 多维变一维 |
-| 拼接 | `concatenate()` / `vstack()` / `hstack()` | 多个数组合并 |
-| 堆叠 | `stack()` | 合并并增加一个维度 |
-| 分割 | `split()` / `vsplit()` / `hsplit()` | 一个数组拆成多个 |
-| 转置 | `.T` / `transpose()` | 行列互换 |
-| 增加维度 | `np.newaxis` / `expand_dims()` | 添加 size=1 的维度 |
-| 压缩维度 | `squeeze()` | 去掉 size=1 的维度 |
+| Change shape | `reshape()` | Keep the total number of elements the same, change the arrangement of dimensions |
+| Flatten | `flatten()` / `ravel()` | Convert multi-dimensional arrays to 1D |
+| Concatenate | `concatenate()` / `vstack()` / `hstack()` | Merge multiple arrays |
+| Stack | `stack()` | Merge arrays and add a new dimension |
+| Split | `split()` / `vsplit()` / `hsplit()` | Split one array into multiple parts |
+| Transpose | `.T` / `transpose()` | Swap rows and columns |
+| Add dimensions | `np.newaxis` / `expand_dims()` | Add a dimension with size 1 |
+| Remove dimensions | `squeeze()` | Remove dimensions with size 1 |
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：reshape 练习
+### Exercise 1: reshape Practice
 
 ```python
 arr = np.arange(24)
 
-# 1. 变成 4×6 的矩阵
-# 2. 变成 2×3×4 的三维数组
-# 3. 变成 6 行（列数自动计算）
-# 4. 把 (2,3,4) 数组展平回一维
+# 1. Change it into a 4×6 matrix
+# 2. Change it into a 2×3×4 3D array
+# 3. Change it into 6 rows (let the number of columns be calculated automatically)
+# 4. Flatten a (2,3,4) array back into 1D
 ```
 
-### 练习 2：拼接与分割
+### Exercise 2: Concatenation and Splitting
 
 ```python
-# 有 3 个班的成绩数据
-class_a = np.array([[85, 90], [78, 82], [92, 88]])   # 3 人 × 2 科
-class_b = np.array([[76, 80], [95, 91], [83, 87]])   # 3 人 × 2 科
-class_c = np.array([[88, 92], [71, 75], [90, 85]])   # 3 人 × 2 科
+# Grade data from 3 classes
+class_a = np.array([[85, 90], [78, 82], [92, 88]])   # 3 students × 2 subjects
+class_b = np.array([[76, 80], [95, 91], [83, 87]])   # 3 students × 2 subjects
+class_c = np.array([[88, 92], [71, 75], [90, 85]])   # 3 students × 2 subjects
 
-# 1. 把 3 个班的成绩合并成一个 9×2 的矩阵
-# 2. 如果有第 3 科成绩需要补充，怎么拼接？
+# 1. Merge the grades from the 3 classes into one 9×2 matrix
+# 2. If scores for a 3rd subject need to be added, how should you concatenate them?
 extra_scores = np.array([[70], [65], [80], [75], [90], [85], [78], [72], [88]])
-# 3. 把合并后的 9×3 矩阵按每 3 人分割回 3 组
+# 3. Split the merged 9×3 matrix back into 3 groups, 3 students each
 ```
 
-### 练习 3：数据重组
+### Exercise 3: Data Reorganization
 
 ```python
-# 一年 365 天的温度数据（假数据）
+# Temperature data for 365 days in a year (dummy data)
 np.random.seed(42)
-daily_temps = np.random.uniform(low=-5, high=38, size=360)  # 取 360 天方便分割
+daily_temps = np.random.uniform(low=-5, high=38, size=360)  # Use 360 days for easier splitting
 
-# 1. 重组成 12 个月 × 30 天
-# 2. 计算每月平均温度
-# 3. 找出最热和最冷的月份
-# 4. 计算上半年和下半年的平均温度差
+# 1. Reorganize into 12 months × 30 days
+# 2. Calculate the average temperature for each month
+# 3. Find the hottest and coldest months
+# 4. Calculate the average temperature difference between the first half and second half of the year
 ```

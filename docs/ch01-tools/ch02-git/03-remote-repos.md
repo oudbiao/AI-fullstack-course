@@ -1,69 +1,69 @@
 ---
-title: "远程仓库"
+title: "Remote Repositories"
 sidebar_position: 3
-description: "将代码推送到 GitHub，学会远程协作"
+description: "Push code to GitHub and learn remote collaboration"
 ---
 
-# 远程仓库
+# Remote Repositories
 
-![Git 本地远程同步图](/img/course/ch01-git-remote-sync.png)
+![Git local-remote sync diagram](/img/course/ch01-git-remote-sync-en.png)
 
-## 本节定位
+## Where this lesson fits
 
-这一节把本地 Git 仓库连接到 GitHub。你会理解远程仓库为什么同时承担备份、协作和作品集展示三种作用，并学会用 push、pull、clone 把代码同步到云端。
+In this lesson, you will connect your local Git repository to GitHub. You will understand why remote repositories serve three purposes at the same time—backup, collaboration, and portfolio display—and learn how to sync code to the cloud with push, pull, and clone.
 
-## 学习目标
+## Learning objectives
 
-- 在 GitHub 上创建仓库
-- 配置 SSH 连接（再也不用输密码）
-- 掌握 `git push`、`git pull`、`git clone`
-- 写一个好的 README.md
-
----
-
-## 为什么需要远程仓库？
-
-到目前为止，你的 Git 记录都只存在于你自己的电脑上。如果电脑硬盘坏了，所有代码和历史就全没了。
-
-**远程仓库**就是把你的代码存一份到云端（通常是 GitHub）。它有三个核心好处：
-
-1. **备份**——电脑坏了也不怕，代码在云端
-2. **协作**——多人可以往同一个仓库提交代码
-3. **展示**——你的 GitHub 就是你的代码作品集，求职面试会看
+- Create a repository on GitHub
+- Configure SSH connections (no more password prompts)
+- Master `git push`, `git pull`, and `git clone`
+- Write a good README.md
 
 ---
 
-## 注册 GitHub
+## Why do we need a remote repository?
 
-1. 打开 [github.com](https://github.com)
-2. 点击 **Sign up**，用邮箱注册
-3. 用户名建议用英文，简洁好记（比如 `zhangsan-dev`），这会出现在你的项目链接里
+So far, your Git history has only existed on your own computer. If the hard drive fails, all your code and history will be gone.
 
-:::info 国内用户
-如果 GitHub 访问慢，可以同时注册一个 [Gitee](https://gitee.com)（码云）作为备用。操作方式几乎一样。但建议主力用 GitHub——它是全球最大的开源平台，求职时更有价值。
+A **remote repository** is a copy of your code stored in the cloud, usually on GitHub. It has three core benefits:
+
+1. **Backup** — if your computer breaks, your code is still in the cloud
+2. **Collaboration** — multiple people can push code to the same repository
+3. **Showcase** — your GitHub profile is your code portfolio, and employers will look at it during interviews
+
+---
+
+## Sign up for GitHub
+
+1. Open [github.com](https://github.com)
+2. Click **Sign up** and register with your email
+3. It is recommended to use an English username that is short and easy to remember (for example, `zhangsan-dev`), because it will appear in your project links
+
+:::info For users in China
+If GitHub is slow to access, you can also register a [Gitee](https://gitee.com) account as a backup. The workflow is almost the same. But GitHub should still be your main platform—it is the world’s largest open-source platform and is more valuable for job hunting.
 :::
 
 ---
 
-## 配置 SSH 连接
+## Configure SSH connections
 
-每次 push 代码到 GitHub 都需要验证身份。SSH 是最方便的方式——配置一次，之后再也不用输密码。
+Every time you push code to GitHub, you need to verify your identity. SSH is the most convenient method—configure it once, and you will no longer need to enter a password.
 
-### 第一步：生成 SSH 密钥
+### Step 1: Generate an SSH key
 
 ```bash
-ssh-keygen -t ed25519 -C "你的邮箱@example.com"
+ssh-keygen -t ed25519 -C "your-email@example.com"
 ```
 
-会提示你几个问题，全部按回车（使用默认值）就行：
+You will be asked a few questions. Just press Enter for all of them (use the default values):
 
 ```
-Enter file in which to save the key (/Users/你的用户名/.ssh/id_ed25519): [回车]
-Enter passphrase (empty for no passphrase): [回车]
-Enter same passphrase again: [回车]
+Enter file in which to save the key (/Users/your-username/.ssh/id_ed25519): [Enter]
+Enter passphrase (empty for no passphrase): [Enter]
+Enter same passphrase again: [Enter]
 ```
 
-### 第二步：复制公钥
+### Step 2: Copy the public key
 
 ```bash
 # macOS
@@ -71,215 +71,215 @@ cat ~/.ssh/id_ed25519.pub | pbcopy
 
 # Linux
 cat ~/.ssh/id_ed25519.pub
-# 然后手动复制输出的内容
+# Then manually copy the output
 
 # Windows PowerShell
 Get-Content ~/.ssh/id_ed25519.pub | Set-Clipboard
 ```
 
-输出类似这样（这是公钥，可以安全分享）：
+The output will look like this (this is the public key and can be safely shared):
 
 ```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... 你的邮箱@example.com
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... your-email@example.com
 ```
 
-### 第三步：添加到 GitHub
+### Step 3: Add it to GitHub
 
-1. 打开 [github.com/settings/keys](https://github.com/settings/keys)
-2. 点击 **New SSH key**
-3. Title 填 "My Laptop"（或任意名字，方便你认识是哪台电脑）
-4. Key 栏粘贴你刚才复制的公钥
-5. 点击 **Add SSH key**
+1. Open [github.com/settings/keys](https://github.com/settings/keys)
+2. Click **New SSH key**
+3. Fill in `My Laptop` in the Title field (or any name that helps you recognize which computer it is)
+4. Paste the public key you just copied into the Key field
+5. Click **Add SSH key**
 
-### 第四步：验证连接
+### Step 4: Verify the connection
 
 ```bash
 ssh -T git@github.com
 ```
 
-如果看到：
+If you see:
 
 ```
 Hi zhangsan! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-就说明配置成功了！
+then the setup was successful!
 
-:::tip SSH 密钥的原理（选读）
-SSH 密钥是一对"钥匙"：
-- **私钥**（`id_ed25519`）存在你电脑上，绝对不能给任何人
-- **公钥**（`id_ed25519.pub`）放在 GitHub 上
+:::tip How SSH keys work (optional reading)
+An SSH key is a pair of "keys":
+- The **private key** (`id_ed25519`) stays on your computer and must never be shared with anyone
+- The **public key** (`id_ed25519.pub`) is stored on GitHub
 
-每次你 push 代码，GitHub 用公钥验证"这个人确实拥有对应的私钥"，验证通过就允许操作。这比输密码既安全又方便。
+Every time you push code, GitHub uses the public key to verify that "this person really has the matching private key." If the verification passes, the operation is allowed. This is both safer and more convenient than entering a password.
 :::
 
 ---
 
-## 创建远程仓库并推送
+## Create a remote repository and push code
 
-### 案例：把我们之前的 AI 项目推送到 GitHub
+### Example: Push our earlier AI project to GitHub
 
-#### 方式一：先在 GitHub 上创建仓库，再关联本地项目
+#### Method 1: Create the repository on GitHub first, then connect your local project
 
-**第一步：在 GitHub 上创建仓库**
+**Step 1: Create a repository on GitHub**
 
-1. 打开 [github.com/new](https://github.com/new)
-2. Repository name 填 `ai-image-classifier`
-3. Description 填 "一个使用 CNN 的简单图像分类项目"
-4. 选择 **Public**（公开，让别人也能看到你的作品）
-5. **不要**勾选 "Add a README file"（我们本地已经有了）
-6. 点击 **Create repository**
+1. Open [github.com/new](https://github.com/new)
+2. Set the Repository name to `ai-image-classifier`
+3. Set the Description to "A simple image classification project using CNN"
+4. Choose **Public** (so others can see your work)
+5. **Do not** check "Add a README file" (we already have one locally)
+6. Click **Create repository**
 
-**第二步：把本地仓库关联到 GitHub**
+**Step 2: Connect the local repository to GitHub**
 
-GitHub 会显示一段命令，我们需要的是"push an existing repository"那段：
+GitHub will show you a set of commands. We need the section for "push an existing repository":
 
 ```bash
 cd ai-image-classifier
 
-# 关联远程仓库（把 zhangsan 换成你的 GitHub 用户名）
+# Connect the remote repository (replace zhangsan with your GitHub username)
 git remote add origin git@github.com:zhangsan/ai-image-classifier.git
 
-# 把本地代码推送到 GitHub
+# Push the local code to GitHub
 git push -u origin main
 ```
 
-`git remote add origin` 的意思是：给远程仓库起一个名字叫 `origin`（这是约定俗成的名字），地址是后面那个 URL。
+`git remote add origin` means: give the remote repository the name `origin` (this is the conventional name), and use the URL that comes after it.
 
-`-u origin main` 的意思是：把本地的 `main` 分支和远程的 `main` 分支关联起来。以后只需要 `git push` 就行，不用再写完整命令。
+`-u origin main` means: associate the local `main` branch with the remote `main` branch. After that, you only need to run `git push`; you no longer need to type the full command.
 
-**第三步：验证**
+**Step 3: Verify**
 
-刷新 GitHub 页面，你应该能看到你的代码、提交历史、README 都在上面了。
+Refresh the GitHub page, and you should see your code, commit history, and README there.
 
-#### 方式二：先 clone 空仓库，再往里加文件
+#### Method 2: Clone an empty repository first, then add files to it
 
-如果你还没有本地代码，可以反过来操作：
+If you do not have local code yet, you can do the reverse:
 
 ```bash
-# 从 GitHub 克隆一个空仓库（或别人的项目）
+# Clone an empty repository from GitHub (or someone else's project)
 git clone git@github.com:zhangsan/my-new-project.git
 cd my-new-project
 
-# 在里面写代码...
+# Write code inside it...
 echo "print('hello')" > main.py
 
-# 提交并推送
+# Commit and push
 git add .
-git commit -m "添加主程序"
+git commit -m "Add main program"
 git push
 ```
 
 ---
 
-## 日常推送和拉取
+## Daily push and pull workflow
 
-关联好远程仓库之后，日常操作就很简单了：
+After you connect the remote repository, daily work becomes very simple:
 
-### git push：把本地新提交推送到远程
+### git push: push new local commits to the remote
 
 ```bash
-# 写了新代码
-echo "新功能" >> src/utils.py
+# Write some new code
+echo "new feature" >> src/utils.py
 git add .
-git commit -m "添加数据预处理函数"
+git commit -m "Add data preprocessing function"
 
-# 推送到 GitHub
+# Push to GitHub
 git push
 ```
 
-### git pull：把远程的更新拉取到本地
+### git pull: pull remote updates to your local machine
 
 ```bash
-# 假设你在另一台电脑上（或同事）修改了代码并推送到了 GitHub
-# 你需要把最新的代码拉下来
+# Suppose you made changes on another computer (or a teammate did) and pushed them to GitHub
+# You need to pull the latest code down
 git pull
 ```
 
-### 实际工作中的节奏
+### The rhythm in real work
 
 ```bash
-# 每天开始工作前：先拉最新代码
+# Before starting work each day: pull the latest code
 git pull
 
-# 写代码、做修改...
+# Write code and make changes...
 
-# 完成一个功能后：提交并推送
+# After finishing a feature: commit and push
 git add .
-git commit -m "完成数据增强模块"
+git commit -m "Complete the data augmentation module"
 git push
 
-# 继续写代码...
+# Keep writing code...
 
-# 又完成一个功能
+# Finish another feature
 git add .
-git commit -m "添加训练日志记录功能"
+git commit -m "Add training log recording"
 git push
 ```
 
 ---
 
-## git clone：下载别人的项目
+## git clone: download someone else's project
 
-这可能是你最先会用到的 Git 操作——从 GitHub 上下载一个开源项目：
+This may be the first Git operation you use: downloading an open-source project from GitHub:
 
 ```bash
-# 克隆一个 AI 相关的开源项目
+# Clone an AI-related open-source project
 git clone git@github.com:ultralytics/yolov5.git
 cd yolov5
 ls
 ```
 
-`git clone` 做了三件事：
-1. 创建一个和项目同名的文件夹
-2. 把所有代码和完整的历史记录下载下来
-3. 自动配置好远程仓库关联
+`git clone` does three things:
+1. Creates a folder with the same name as the project
+2. Downloads all the code and the full commit history
+3. Automatically configures the remote repository connection
 
-### 克隆后的常用操作
+### Common actions after cloning
 
 ```bash
-# 查看这个项目的提交历史
-git log --oneline -10    # 看最近 10 条
+# View the commit history of this project
+git log --oneline -10    # View the latest 10 entries
 
-# 查看有哪些分支
+# See which branches exist
 git branch -a
 
-# 查看远程仓库地址
+# View the remote repository URL
 git remote -v
 ```
 
 ---
 
-## 写好 README.md
+## Write a good README.md
 
-每个 GitHub 项目的首页会自动展示 `README.md` 的内容。一个好的 README 是你作品集的门面。
+The homepage of every GitHub project automatically displays the contents of `README.md`. A good README is the front door of your portfolio.
 
-### AI 项目 README 模板
+### README template for AI projects
 
 ```markdown
-# 项目名称
+# Project Name
 
-一句话介绍这个项目做了什么。
+A one-sentence introduction to what this project does.
 
-## 📋 项目简介
+## 📋 Project Overview
 
-用 2-3 句话详细说明项目背景、解决的问题、使用的方法。
+Use 2–3 sentences to describe the project background, the problem it solves, and the method it uses.
 
-## ✨ 主要特性
+## ✨ Key Features
 
-- 特性1：XXX
-- 特性2：XXX
-- 特性3：XXX
+- Feature 1: XXX
+- Feature 2: XXX
+- Feature 3: XXX
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
 - Python 3.11
 - PyTorch 2.0
-- 其他用到的库
+- Other libraries used
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境安装
+### Environment setup
 
 ​```bash
 git clone git@github.com:yourname/project.git
@@ -287,29 +287,29 @@ cd project
 pip install -r requirements.txt
 ​```
 
-### 运行
+### Run
 
 ​```bash
 python src/train.py
 ​```
 
-## 📊 实验结果
+## 📊 Experimental results
 
-| 模型 | 准确率 | 训练时间 |
+| Model | Accuracy | Training time |
 |------|:-----:|:------:|
 | SimpleCNN | 85.2% | 10 min |
 | ResNet18 | 92.7% | 30 min |
 
-## 📁 项目结构
+## 📁 Project structure
 
 ​```
 project/
-├── data/              # 数据文件
-├── models/            # 训练好的模型
+├── data/              # Data files
+├── models/            # Trained models
 ├── src/
-│   ├── model.py       # 模型定义
-│   ├── train.py       # 训练脚本
-│   └── utils.py       # 工具函数
+│   ├── model.py       # Model definition
+│   ├── train.py       # Training script
+│   └── utils.py       # Utility functions
 ├── requirements.txt
 └── README.md
 ​```
@@ -319,21 +319,21 @@ project/
 MIT
 ```
 
-### 案例：给我们的项目更新 README
+### Example: Update the README for our project
 
 ```bash
-# 用上面的模板写一个 README（内容简化版）
+# Write a README using the template above (simplified version)
 cat > README.md << 'READMEEOF'
-# AI 图像分类器
+# AI Image Classifier
 
-使用 CNN 对 CIFAR-10 数据集进行图像分类的入门项目。
+An introductory project that uses CNN to classify images on the CIFAR-10 dataset.
 
-## 技术栈
+## Tech Stack
 
 - Python 3.11
 - PyTorch 2.0
 
-## 快速开始
+## Quick Start
 
 ```bash
 git clone git@github.com:zhangsan/ai-image-classifier.git
@@ -342,16 +342,16 @@ pip install -r requirements.txt
 python src/train.py
 ```
 
-## 项目结构
+## Project Structure
 
 ```
 ai-image-classifier/
-├── data/              # 数据文件（git忽略）
-├── models/            # 模型权重（git忽略）
+├── data/              # Data files (ignored by git)
+├── models/            # Model weights (ignored by git)
 ├── src/
-│   ├── model.py       # CNN 模型定义
-│   ├── train.py       # 训练脚本
-│   └── utils.py       # 工具函数
+│   ├── model.py       # CNN model definition
+│   ├── train.py       # Training script
+│   └── utils.py       # Utility functions
 ├── .gitignore
 ├── requirements.txt
 └── README.md
@@ -359,58 +359,58 @@ ai-image-classifier/
 READMEEOF
 
 git add README.md
-git commit -m "完善 README：添加项目说明和使用方法"
+git commit -m "Improve README: add project description and usage"
 git push
 ```
 
 ---
 
-## 常见问题
+## Common issues
 
-### push 被拒绝（rejected）
+### Push rejected
 
 ```
 ! [rejected]        main -> main (fetch first)
 ```
 
-这意味着远程仓库有你本地没有的提交（可能是你在另一台电脑上改的，或者同事推送了新代码）。解决方法：
+This means the remote repository has commits that you do not have locally (maybe you changed them on another computer, or a teammate pushed new code). The solution is:
 
 ```bash
-git pull          # 先拉取远程的更新
-git push          # 然后再推送
+git pull          # First pull the remote updates
+git push          # Then push again
 ```
 
-### clone 很慢
+### Clone is very slow
 
-国内 clone GitHub 项目可能很慢。几个解决方案：
+Cloning GitHub projects can be slow in some regions. Here are a few solutions:
 
 ```bash
-# 方案1：只克隆最新版本（不要完整历史），大幅加速
+# Option 1: Clone only the latest version (do not download full history), which is much faster
 git clone --depth 1 git@github.com:xxx/yyy.git
 
-# 方案2：使用镜像加速
-# 将 github.com 替换为镜像站点（具体镜像地址请搜索最新可用的）
+# Option 2: Use a mirror for acceleration
+# Replace github.com with a mirror site (please search for the latest available mirror URL)
 ```
 
-### push 到了错误的仓库
+### Pushed to the wrong repository
 
 ```bash
-# 查看当前关联的远程仓库
+# Check the currently connected remote repository
 git remote -v
 
-# 修改远程仓库地址
-git remote set-url origin git@github.com:正确的用户名/正确的仓库名.git
+# Change the remote repository URL
+git remote set-url origin git@github.com:correct-username/correct-repository-name.git
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 命令 | 用途 | 什么时候用 |
+| Command | Purpose | When to use |
 |------|------|----------|
-| `git remote add origin URL` | 关联远程仓库 | 新项目第一次推送前 |
-| `git push` | 推送本地提交到远程 | 完成功能后 |
-| `git pull` | 拉取远程更新到本地 | 开始工作前 |
-| `git clone URL` | 下载远程仓库到本地 | 第一次获取项目 |
+| `git remote add origin URL` | Connect a remote repository | Before the first push for a new project |
+| `git push` | Push local commits to the remote | After finishing a feature |
+| `git pull` | Pull remote updates to local | Before starting work |
+| `git clone URL` | Download a remote repository to local | When you get a project for the first time |
 
-日常节奏：**pull → 写代码 → add → commit → push**。就这么简单。
+Daily workflow: **pull → write code → add → commit → push**. It’s that simple.

@@ -1,171 +1,171 @@
 ---
-title: "4.6 记忆工程实现"
+title: "4.6 Memory Engineering Implementation"
 sidebar_position: 23
-description: "从记忆写入、检索、过期、压缩和隐私控制出发，理解 Agent 记忆系统如何从概念落地为可维护的工程模块。"
+description: "Starting from memory writing, retrieval, expiration, compression, and privacy control, understand how an Agent memory system is turned from a concept into a maintainable engineering module."
 keywords: [memory engineering, write policy, retrieval policy, ttl, summarization, agent memory]
 ---
 
-# 记忆工程实现
+# Memory Engineering Implementation
 
-:::tip 本节定位
-前面讲“记忆系统概念”时，最容易产生一个错觉：
+:::tip Section focus
+When we first talk about the concept of a "memory system" earlier, it is easy to form a misconception:
 
-- 记忆就是把信息存起来
+- Memory is just storing information
 
-真正落到工程后会发现，难点根本不在“能不能存”，而在：
+But once it becomes real engineering work, you find the hard part is not "can it be stored", but:
 
-> **什么该写、什么时候写、怎么检索、什么时候删。**
+> **What should be written, when should it be written, how should it be retrieved, and when should it be deleted.**
 
-这四件事决定了记忆系统最后是“有帮助”，还是“又贵又乱”。
+These four things determine whether a memory system is ultimately "helpful" or "expensive and messy."
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解记忆工程里的核心决策：写入、检索、过期、压缩
-- 学会设计一条最小可运行的记忆读写链路
-- 理解为什么“记忆越多”不等于“效果越好”
-- 通过可运行示例掌握记忆评分与清理的基本实现
-
----
-
-## 一、记忆工程真正要解决什么？
-
-### 1.1 记忆系统不是一个“桶”，而是一个带策略的流程
-
-如果我们把所有对话和工具结果全丢进长期记忆，短期看起来很完整，长期通常会出现：
-
-- 噪声越来越多
-- 检索命中率下降
-- token 成本上升
-- 关键事实反而被淹没
-
-所以记忆工程的核心不是“全存”，而是“有策略地存”。
-
-### 1.2 记忆链路可以先拆成四段
-
-1. `write`：是否写入
-2. `index`：写入后如何组织
-3. `retrieve`：查询时如何排序
-4. `lifecycle`：过期、清理、压缩
-
-只要这四段清楚，系统就比较容易稳。
-
-### 1.3 一个类比
-
-记忆系统更像图书馆，而不是储物间。
-
-- 储物间只管“放进去”
-- 图书馆要管“编目、检索、淘汰、归档”
-
-Agent 要长期工作，必须接近后者。
+- Understand the core decisions in memory engineering: write, retrieve, expire, compress
+- Learn how to design a minimal, working memory read/write pipeline
+- Understand why "more memory" does not mean "better results"
+- Use a runnable example to master basic memory scoring and cleanup
 
 ---
 
-## 二、写入策略：什么信息值得进入长期记忆？
+## 1. What Does Memory Engineering Actually Solve?
 
-### 2.1 并不是每条消息都值得写
+### 1.1 A memory system is not a "bucket", but a process with policies
 
-例如下面两类信息价值很不同：
+If we dump all conversations and tool results into long-term memory, it may look complete in the short term, but in the long run it usually leads to:
 
-- “你好，在吗？”  
-- “用户偏好简洁回答，不要超过三点”
+- More and more noise
+- Lower retrieval hit rate
+- Higher token cost
+- Important facts getting buried instead
 
-第二条更适合长期保留，第一条通常不值得。
+So the core of memory engineering is not "store everything", but "store with policies."
 
-### 2.2 一个实用写入判断
+### 1.2 We can first split the memory pipeline into four parts
 
-可以先用三个问题过滤：
+1. `write`: whether to store
+2. `index`: how to organize after writing
+3. `retrieve`: how to rank during queries
+4. `lifecycle`: expiration, cleanup, compression
 
-1. 这条信息是否会在未来复用？
-2. 这条信息是否和用户、任务或策略相关？
-3. 这条信息是否足够稳定，不是一次性噪声？
+As long as these four parts are clear, the system is much easier to keep stable.
 
-### 2.3 常见可写入类型
+### 1.3 An analogy
 
-- 用户偏好
-- 稳定背景信息
-- 关键任务结论
-- 经验证可复用的步骤摘要
+A memory system is more like a library than a storage room.
 
-常见不建议直接长期写入的类型：
+- A storage room only cares about "put it in"
+- A library must care about "cataloging, retrieval, removal, and archiving"
 
-- 临时中间日志
-- 重复寒暄
-- 无法验证的猜测性内容
-
----
-
-## 三、检索策略：怎么把“有用记忆”找回来？
-
-### 3.1 检索不只是语义相似度
-
-纯相似度有时会漏掉很关键的工程信号，例如：
-
-- 这条记忆是不是太旧
-- 这条记忆本身重要性是否高
-- 是否和当前用户有关
-
-### 3.2 一个常见排序组合
-
-检索得分可以来自多项加权：
-
-- 语义或关键词相关度
-- 重要性分
-- 新鲜度衰减
-- 来源可信度
-
-这比只看“像不像”更稳。
-
-### 3.3 为什么要考虑衰减
-
-某些信息会过时。  
-如果没有时间衰减，系统可能一直拿很旧的偏好或上下文参与当前决策。
+If an Agent needs to work for a long time, it must be closer to the latter.
 
 ---
 
-## 四、生命周期：过期、清理和压缩
+## 2. Write Policy: What Information Is Worth Keeping in Long-Term Memory?
 
-### 4.1 TTL 不是可选项
+### 2.1 Not every message is worth writing
 
-有些记忆天然短命，例如：
+For example, these two kinds of information are very different in value:
 
-- 当前会话临时参数
-- 一次性状态标记
+- "Hello, are you there?"
+- "The user prefers concise answers, no more than three points"
 
-这类信息最好带 TTL。
+The second one is more suitable for long-term retention, while the first one usually is not.
 
-### 4.2 清理不是“定时删一批”那么简单
+### 2.2 A practical write decision
 
-更好的做法通常是结合：
+You can start by filtering with three questions:
 
-- 过期检查
-- 低价值淘汰
-- 重复内容合并
+1. Will this information be reused in the future?
+2. Is this information related to the user, the task, or the strategy?
+3. Is this information stable enough, rather than one-time noise?
 
-### 4.3 压缩能让系统长期可持续
+### 2.3 Common types that can be written
 
-当记录越来越多时，可以把同类历史压成摘要，例如：
+- User preferences
+- Stable background information
+- Key task conclusions
+- Summaries of steps that have been proven reusable
 
-- 最近 20 条“用户偏好确认”合并成一条稳定偏好记录
+Common types that are not recommended for direct long-term storage:
 
-这能显著减轻检索噪声和上下文压力。
+- Temporary intermediate logs
+- Repeated small talk
+- Speculative content that cannot be verified
 
-![记忆工程生命周期图](/img/course/ch09-memory-engineering-lifecycle-map.png)
+---
 
-:::tip 读图提示
-这张图按生命周期读：write 决定是否写入，index 决定怎么组织，retrieve 决定怎么找回，cleanup / compress 决定什么时候清理和压缩。记忆工程的难点是策略，不只是存储。
+## 3. Retrieval Policy: How Do We Find "Useful Memory" Again?
+
+### 3.1 Retrieval is not just semantic similarity
+
+Pure similarity sometimes misses important engineering signals, such as:
+
+- Whether this memory is too old
+- Whether the memory itself is highly important
+- Whether it is related to the current user
+
+### 3.2 A common ranking combination
+
+Retrieval scores can come from weighted multiple factors:
+
+- Semantic or keyword relevance
+- Importance score
+- Freshness decay
+- Source credibility
+
+This is more stable than looking only at "does it look similar."
+
+### 3.3 Why decay matters
+
+Some information becomes outdated.
+Without time decay, the system may keep using very old preferences or context in current decisions.
+
+---
+
+## 4. Lifecycle: Expiration, Cleanup, and Compression
+
+### 4.1 TTL is not optional
+
+Some memories are naturally short-lived, such as:
+
+- Temporary parameters for the current session
+- One-time state flags
+
+These kinds of information are best stored with a TTL.
+
+### 4.2 Cleanup is not as simple as "deleting a batch on a schedule"
+
+A better approach is usually to combine:
+
+- Expiration checks
+- Low-value eviction
+- Duplicate content merging
+
+### 4.3 Compression makes the system sustainable over time
+
+When the number of records keeps growing, you can compress similar history into summaries, for example:
+
+- Merge the latest 20 "user preference confirmations" into one stable preference record
+
+This can significantly reduce retrieval noise and context pressure.
+
+![Memory engineering lifecycle diagram](/img/course/ch09-memory-engineering-lifecycle-map-en.png)
+
+:::tip Reading guide
+Read this diagram by lifecycle: `write` decides whether to store, `index` decides how to organize, `retrieve` decides how to find it back, and `cleanup` / `compress` decide when to clean up and compress. The hard part of memory engineering is policy, not just storage.
 :::
 
 ---
 
-## 五、先跑一个可执行的最小记忆引擎
+## 5. First Run a Runnable Minimal Memory Engine
 
-下面这个示例会完整演示：
+The example below will demonstrate the full flow:
 
-1. 短期消息窗口
-2. 长期记忆写入（带 importance 和 TTL）
-3. 查询检索（相关度 + 重要性 + 新鲜度）
-4. 过期清理
+1. Short-term message window
+2. Long-term memory writing (with importance and TTL)
+3. Query retrieval (relevance + importance + freshness)
+4. Expiration cleanup
 
 ```python
 from dataclasses import dataclass
@@ -201,7 +201,7 @@ class MemoryEngine:
         tags = tags or []
         normalized = text.strip().lower()
 
-        # 极简去重: 完全相同文本不重复写
+        # Minimal deduplication: do not write the exact same text twice
         for item in self.long_memories:
             if item.text.strip().lower() == normalized and self._is_alive(item):
                 return item.memory_id
@@ -239,7 +239,7 @@ class MemoryEngine:
             overlap = len(query_tokens & item_tokens)
 
             age = self.step - item.created_step
-            recency = math.exp(-age / 20)  # 越新分越高
+            recency = math.exp(-age / 20)  # newer items get higher scores
 
             score = (0.55 * overlap) + (0.30 * item.importance) + (0.15 * recency)
             scored.append((item, round(score, 4)))
@@ -250,17 +250,17 @@ class MemoryEngine:
 
 engine = MemoryEngine(short_window=3)
 
-engine.add_short_message("user", "我想了解退款条件")
+engine.add_short_message("user", "I want to understand refund conditions")
 engine.write_long_memory(
-    "用户偏好: 回答尽量简洁，最多三点",
+    "User preference: answer as briefly as possible, no more than three points",
     tags=["preference", "style"],
     importance=0.95,
 )
 
 engine.tick()
-engine.add_short_message("assistant", "好的，我会简洁说明")
+engine.add_short_message("assistant", "Okay, I'll keep it brief")
 engine.write_long_memory(
-    "临时调试标记: 本轮使用实验提示词 v2",
+    "Temporary debug flag: this round uses experimental prompt v2",
     tags=["debug"],
     importance=0.2,
     ttl_steps=1,
@@ -268,7 +268,7 @@ engine.write_long_memory(
 
 engine.tick()
 engine.write_long_memory(
-    "退款政策关键点: 7天内且学习进度低于20%",
+    "Key refund policy points: within 7 days and learning progress below 20%",
     tags=["refund", "policy"],
     importance=0.9,
 )
@@ -278,101 +278,101 @@ engine.tick()
 engine.cleanup()
 print("after cleanup :", [m.text for m in engine.long_memories])
 
-results = engine.retrieve("请按简洁风格回答退款政策", top_k=2)
+results = engine.retrieve("Please answer the refund policy in a concise style", top_k=2)
 print("\nretrieval:")
 for item, score in results:
     print(item.memory_id, round(score, 4), item.text)
 ```
 
-### 5.1 这段代码最值得学的三点
+### 5.1 The three most important things to learn from this code
 
-1. 写入不是无条件  
-   通过 `importance`、`tags`、去重控制写入质量
-2. 检索不是纯相似度  
-   相关度、重要性、新鲜度一起决定排序
-3. 生命周期必须有  
-   通过 `ttl_steps` 和 `cleanup` 防止长期膨胀
+1. Writing is not unconditional
+   `importance`, `tags`, and deduplication are used to control write quality
+2. Retrieval is not pure similarity
+   Relevance, importance, and freshness together determine ranking
+3. A lifecycle is necessary
+   `ttl_steps` and `cleanup` prevent long-term growth from getting out of control
 
-### 5.2 为什么“调试标记”被清掉是合理的？
+### 5.2 Why is it reasonable to clear the "debug flag"?
 
-因为它是临时信息，设置了 `ttl_steps=1`。  
-在后续步骤里继续保留它，通常只会污染检索结果。
+Because it is temporary information and has `ttl_steps=1`.
+If it is kept in later steps, it usually only pollutes retrieval results.
 
-### 5.3 为什么“用户偏好”和“退款政策”会被优先召回？
+### 5.3 Why are "user preference" and "refund policy" retrieved first?
 
-因为查询词同时触发了：
+Because the query terms trigger both:
 
-- `简洁` 对应偏好记忆
-- `退款政策` 对应政策记忆
+- `concise` matching the preference memory
+- `refund policy` matching the policy memory
 
-而且它们 importance 更高、未过期。
-
----
-
-## 六、工程实践里还要补哪几层？
-
-### 6.1 隐私和敏感信息处理
-
-写入长期记忆前，通常要做：
-
-- PII 脱敏
-- 合规字段过滤
-
-### 6.2 存储后端与索引
-
-示例里是内存结构。  
-真实系统常见会接：
-
-- KV / 文档库
-- 向量库
-- 关系库
-
-### 6.3 监控指标
-
-建议至少观察：
-
-- 记忆命中率
-- 过期清理率
-- 平均召回条数
-- 误召回率
-
-没有指标，记忆系统很容易越改越黑盒。
+And both have higher importance and have not expired.
 
 ---
 
-## 七、最常见误区
+## 6. What Else Should Be Added in Engineering Practice?
 
-### 7.1 误区一：记忆越多越聪明
+### 6.1 Privacy and sensitive information handling
 
-记忆越多也可能越吵。  
-关键是有效记忆占比，而不是总量。
+Before writing to long-term memory, you usually need to do:
 
-### 7.2 误区二：只做写入，不做清理
+- PII anonymization
+- Compliance field filtering
 
-这会导致长期检索噪声累积，后期效果反而下降。
+### 6.2 Storage backends and indexing
 
-### 7.3 误区三：只做语义检索，不做策略层
+The example uses in-memory structures.
+Real systems often connect to:
 
-记忆工程一定是“检索 + 策略”的组合，  
-不是单一向量搜索就能解决全部问题。
+- KV / document stores
+- Vector databases
+- Relational databases
+
+### 6.3 Monitoring metrics
+
+It is recommended to observe at least:
+
+- Memory hit rate
+- Expired cleanup rate
+- Average number of retrieved items
+- False retrieval rate
+
+Without metrics, a memory system can easily become more and more of a black box with every change.
 
 ---
 
-## 小结
+## 7. Most Common Misconceptions
 
-这节最重要的不是再记几个“记忆类型名词”，  
-而是建立一个工程判断：
+### 7.1 Misconception 1: More memory means smarter
 
-> **记忆系统是否可用，取决于写入、检索、生命周期三条策略是否闭环，而不是是否接了一个存储组件。**
+More memory can also mean more noise.
+The key is the proportion of effective memory, not the total amount.
 
-当你把这条闭环跑起来，  
-记忆系统才会从概念变成稳定能力。
+### 7.2 Misconception 2: Only write, but never clean up
+
+This leads to the accumulation of retrieval noise over time, and performance may actually get worse later.
+
+### 7.3 Misconception 3: Only do semantic retrieval, but no policy layer
+
+Memory engineering is always a combination of "retrieval + policy",
+not something a single vector search can solve completely.
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例增加“来源可信度”字段，把它纳入检索打分。
-2. 把 `ttl_steps` 设得更短或更长，观察召回结果如何变化。
-3. 设计一条“永不过期但低重要度”的记忆，看看它会不会污染结果。
-4. 你会如何给“用户偏好”与“临时调试信息”设置不同写入策略？
+The most important thing in this section is not to memorize a few more "memory type" terms,
+but to build an engineering judgment:
+
+> **Whether a memory system is usable depends on whether the write, retrieval, and lifecycle policies form a closed loop, not on whether you have connected a storage component.**
+
+Once you get this loop running,
+the memory system can truly move from concept to stable capability.
+
+---
+
+## Exercises
+
+1. Add a "source credibility" field to the example and include it in the retrieval score.
+2. Set `ttl_steps` shorter or longer and observe how the retrieval results change.
+3. Design a memory item that "never expires but has low importance" and see whether it pollutes the results.
+4. How would you set different write policies for "user preferences" and "temporary debug information"?

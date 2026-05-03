@@ -1,200 +1,200 @@
 ---
-title: "1.3 项目：Web API 开发"
+title: "1.3 Project: Web API Development"
 sidebar_position: 3
-description: "使用 FastAPI 构建你的第一个 Web API"
+description: "Build your first Web API with FastAPI"
 ---
 
-# 项目：Web API 开发
+# Project: Web API Development
 
-![Web API 请求响应架构图](/img/course/ch02-web-api-request-response.png)
+![Web API request-response architecture diagram](/img/course/ch02-web-api-request-response-en.png)
 
-## 项目定位
+## Project Overview
 
-这个项目把 Python 从脚本带到服务端。你会用 FastAPI 把功能包装成可被其他程序调用的接口，理解 API 如何连接模型、应用和用户，为后面的 AI 应用开发打基础。
+This project takes Python from scripts to the server side. You will use FastAPI to wrap functionality into interfaces that other programs can call, understand how APIs connect models, applications, and users, and lay the groundwork for later AI application development.
 
-## 项目目标
+## Project Goals
 
-- 理解什么是 API，为什么 AI 工程师需要会写 API
-- 学会使用 FastAPI 框架构建 Web API
-- 掌握 RESTful API 的基本设计原则
-- 构建一个可以被其他程序调用的 AI 服务接口
-
----
-
-## 为什么 AI 工程师需要会写 API？
-
-你训练了一个很棒的 AI 模型——然后呢？
-
-模型训练好只是第一步。要让别人**使用**你的模型，你需要把它**包装成一个 API 服务**：
-
-```
-你的 AI 模型  →  包装成 API  →  手机 App / 网站 / 其他程序 调用
-
-具体例子：
-- ChatGPT 模型 → 通过 API 提供服务 → 各种 App 调用
-- 图像识别模型 → 通过 API → 用户上传图片获得识别结果
-- 推荐算法 → 通过 API → 电商网站展示推荐商品
-```
-
-所以 **API 是连接 AI 模型和真实世界的桥梁**。
+- Understand what an API is and why AI engineers need to know how to write APIs
+- Learn how to use the FastAPI framework to build a Web API
+- Master the basic design principles of RESTful APIs
+- Build an AI service interface that can be called by other programs
 
 ---
 
-## 什么是 API？
+## Why do AI engineers need to know how to write APIs?
 
-**API（Application Programming Interface）** = 应用程序编程接口。
+You trained a great AI model — then what?
 
-简单理解：API 就是一个**程序和程序之间的"对话窗口"**。
-
-你去餐厅吃饭的过程就是一个 API 调用：
+Training the model is only the first step. To let others **use** your model, you need to **wrap it as an API service**:
 
 ```
-你（客户端）  →  向服务员（API）说"一碗牛肉面"（请求）
-服务员       →  传给后厨（服务器）
-后厨         →  做好面
-服务员       →  把面端给你（响应）
+Your AI model  →  wrapped as an API  →  called by mobile apps / websites / other programs
+
+Examples:
+- ChatGPT model → provide service through an API → called by various apps
+- Image recognition model → through an API → users upload images and get recognition results
+- Recommendation algorithm → through an API → e-commerce websites show recommended products
 ```
 
-你不需要知道后厨怎么做的面，你只需要知道**怎么点餐（发请求）和怎么接面（收响应）**。
+So **APIs are the bridge between AI models and the real world**.
 
-### Web API 的核心概念
+---
 
-| 概念 | 说明 | 类比 |
+## What is an API?
+
+**API (Application Programming Interface)** = Application Programming Interface.
+
+Simply put, an API is a **"conversation window" between programs**.
+
+Going to a restaurant to eat is just like making an API call:
+
+```
+You (client)  →  tell the server (API) "one bowl of beef noodles" (request)
+The server     →  passes it to the kitchen (server)
+The kitchen    →  makes the noodles
+The server     →  brings the noodles to you (response)
+```
+
+You do not need to know how the kitchen makes the noodles. You only need to know **how to order (send a request)** and **how to receive the food (get a response)**.
+
+### Core concepts of Web APIs
+
+| Concept | Description | Analogy |
 |------|------|------|
-| **URL（端点）** | API 的地址 | 餐厅地址 |
-| **HTTP 方法** | 操作类型 | 点餐 / 退菜 / 加菜 |
-| **请求体** | 发送的数据 | 你要的菜名 |
-| **响应** | 返回的结果 | 端上来的菜 |
-| **状态码** | 操作是否成功 | 200=成功, 404=没这道菜 |
+| **URL (endpoint)** | The address of the API | Restaurant address |
+| **HTTP method** | Type of operation | Ordering / returning a dish / adding a dish |
+| **Request body** | The data you send | The dish you want |
+| **Response** | The returned result | The dish served to you |
+| **Status code** | Whether the operation succeeded | 200 = success, 404 = no such dish |
 
-### HTTP 方法
+### HTTP methods
 
-| 方法 | 用途 | 示例 |
+| Method | Use | Example |
 |------|------|------|
-| `GET` | 获取数据 | 获取任务列表 |
-| `POST` | 创建数据 | 添加新任务 |
-| `PUT` | 更新数据（整体） | 修改任务全部信息 |
-| `DELETE` | 删除数据 | 删除一个任务 |
+| `GET` | Retrieve data | Get task list |
+| `POST` | Create data | Add a new task |
+| `PUT` | Update data (entirely) | Modify all task information |
+| `DELETE` | Delete data | Delete a task |
 
 ---
 
-## 第一步：安装 FastAPI
+## Step 1: Install FastAPI
 
 ```bash
 pip install fastapi uvicorn
 ```
 
-| 库 | 作用 |
+| Library | Purpose |
 |---|------|
-| `fastapi` | Web 框架，用来编写 API |
-| `uvicorn` | ASGI 服务器，用来运行 FastAPI 应用 |
+| `fastapi` | Web framework for writing APIs |
+| `uvicorn` | ASGI server for running FastAPI apps |
 
 ---
 
-## 第二步：Hello World API
+## Step 2: Hello World API
 
-创建文件 `main.py`：
+Create the file `main.py`:
 
 ```python
 from fastapi import FastAPI
 
-# 创建应用实例
-app = FastAPI(title="我的第一个 API", version="1.0")
+# Create the app instance
+app = FastAPI(title="My First API", version="1.0")
 
-# 定义一个端点
+# Define an endpoint
 @app.get("/")
 def root():
     return {"message": "Hello, World!", "status": "running"}
 
 @app.get("/hello/{name}")
 def hello(name: str):
-    return {"message": f"你好，{name}！", "name": name}
+    return {"message": f"Hello, {name}!", "name": name}
 ```
 
-启动服务器：
+Start the server:
 
 ```bash
 uvicorn main:app --reload
 ```
 
-- `main` = 文件名（`main.py`）
-- `app` = FastAPI 实例名
-- `--reload` = 代码修改后自动重启（开发时用）
+- `main` = file name (`main.py`)
+- `app` = FastAPI instance name
+- `--reload` = automatically restart after code changes (for development)
 
-打开浏览器访问：
-- `http://127.0.0.1:8000` → 看到 Hello World
-- `http://127.0.0.1:8000/hello/小明` → 看到个性化问候
-- `http://127.0.0.1:8000/docs` → **自动生成的交互式 API 文档！**
+Open your browser and visit:
+- `http://127.0.0.1:8000` → see Hello World
+- `http://127.0.0.1:8000/hello/Xiaoming` → see a personalized greeting
+- `http://127.0.0.1:8000/docs` → **automatically generated interactive API documentation!**
 
-:::tip FastAPI 的杀手锏：自动文档
-访问 `/docs`，你会看到一个精美的交互式 API 文档（基于 Swagger UI）。你可以直接在浏览器中测试 API，不需要写任何前端代码。这是 FastAPI 最受欢迎的功能之一。
+:::tip FastAPI's killer feature: automatic docs
+Visit `/docs`, and you will see a beautiful interactive API document (based on Swagger UI). You can test the API directly in your browser without writing any frontend code. This is one of FastAPI's most popular features.
 :::
 
 ---
 
-## 第三步：构建任务管理 API
+## Step 3: Build a task management API
 
-让我们把之前的命令行任务管理器改造成 Web API：
+Let's turn the task manager from the previous command line project into a Web API:
 
 ```python
 """
-任务管理 API
-运行: uvicorn main:app --reload
-文档: http://127.0.0.1:8000/docs
+Task Management API
+Run: uvicorn main:app --reload
+Docs: http://127.0.0.1:8000/docs
 """
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
 
-# 创建应用
+# Create the app
 app = FastAPI(
-    title="任务管理 API",
-    description="一个简单的 RESTful 任务管理接口",
+    title="Task Management API",
+    description="A simple RESTful task management interface",
     version="1.0"
 )
 
-# ---------- 数据模型 ----------
+# ---------- Data models ----------
 
 class TaskCreate(BaseModel):
-    """创建任务时的请求体"""
+    """Request body for creating a task"""
     title: str
-    priority: str = "中"
+    priority: str = "medium"
 
 class TaskUpdate(BaseModel):
-    """更新任务时的请求体"""
+    """Request body for updating a task"""
     title: str | None = None
     priority: str | None = None
     done: bool | None = None
 
 class Task(BaseModel):
-    """任务的完整数据"""
+    """Full task data"""
     id: int
     title: str
     priority: str
     done: bool
     created_at: str
 
-# ---------- 模拟数据库（内存存储） ----------
+# ---------- Mock database (in-memory storage) ----------
 
 tasks_db: list[dict] = []
 next_id: int = 1
 
-# ---------- API 端点 ----------
+# ---------- API endpoints ----------
 
 @app.get("/")
 def root():
-    """API 首页"""
+    """API homepage"""
     return {
-        "name": "任务管理 API",
+        "name": "Task Management API",
         "version": "1.0",
         "endpoints": {
-            "查看所有任务": "GET /tasks",
-            "创建任务": "POST /tasks",
-            "查看单个任务": "GET /tasks/{task_id}",
-            "更新任务": "PUT /tasks/{task_id}",
-            "删除任务": "DELETE /tasks/{task_id}",
-            "API 文档": "GET /docs"
+            "View all tasks": "GET /tasks",
+            "Create a task": "POST /tasks",
+            "View a single task": "GET /tasks/{task_id}",
+            "Update a task": "PUT /tasks/{task_id}",
+            "Delete a task": "DELETE /tasks/{task_id}",
+            "API documentation": "GET /docs"
         }
     }
 
@@ -202,10 +202,10 @@ def root():
 @app.get("/tasks")
 def get_tasks(done: bool | None = None):
     """
-    获取所有任务。
+    Get all tasks.
 
-    可选参数:
-    - done: 过滤已完成(true)或未完成(false)的任务
+    Optional parameter:
+    - done: filter completed (true) or incomplete (false) tasks
     """
     if done is not None:
         filtered = [t for t in tasks_db if t["done"] == done]
@@ -215,7 +215,7 @@ def get_tasks(done: bool | None = None):
 
 @app.post("/tasks", status_code=201)
 def create_task(task: TaskCreate):
-    """创建新任务"""
+    """Create a new task"""
     global next_id
 
     new_task = {
@@ -228,23 +228,23 @@ def create_task(task: TaskCreate):
     tasks_db.append(new_task)
     next_id += 1
 
-    return {"message": "任务创建成功", "task": new_task}
+    return {"message": "Task created successfully", "task": new_task}
 
 
 @app.get("/tasks/{task_id}")
 def get_task(task_id: int):
-    """获取指定 ID 的任务"""
+    """Get a task by its ID"""
     for task in tasks_db:
         if task["id"] == task_id:
             return task
 
-    # 找不到任务，返回 404
-    raise HTTPException(status_code=404, detail=f"任务 {task_id} 不存在")
+    # Task not found, return 404
+    raise HTTPException(status_code=404, detail=f"Task {task_id} does not exist")
 
 
 @app.put("/tasks/{task_id}")
 def update_task(task_id: int, task_update: TaskUpdate):
-    """更新任务"""
+    """Update a task"""
     for task in tasks_db:
         if task["id"] == task_id:
             if task_update.title is not None:
@@ -253,25 +253,25 @@ def update_task(task_id: int, task_update: TaskUpdate):
                 task["priority"] = task_update.priority
             if task_update.done is not None:
                 task["done"] = task_update.done
-            return {"message": "更新成功", "task": task}
+            return {"message": "Update successful", "task": task}
 
-    raise HTTPException(status_code=404, detail=f"任务 {task_id} 不存在")
+    raise HTTPException(status_code=404, detail=f"Task {task_id} does not exist")
 
 
 @app.delete("/tasks/{task_id}")
 def delete_task(task_id: int):
-    """删除任务"""
+    """Delete a task"""
     for i, task in enumerate(tasks_db):
         if task["id"] == task_id:
             removed = tasks_db.pop(i)
-            return {"message": "删除成功", "task": removed}
+            return {"message": "Delete successful", "task": removed}
 
-    raise HTTPException(status_code=404, detail=f"任务 {task_id} 不存在")
+    raise HTTPException(status_code=404, detail=f"Task {task_id} does not exist")
 
 
 @app.get("/stats")
 def get_stats():
-    """获取任务统计信息"""
+    """Get task statistics"""
     total = len(tasks_db)
     done = sum(1 for t in tasks_db if t["done"])
     return {
@@ -282,122 +282,122 @@ def get_stats():
     }
 ```
 
-### 运行和测试
+### Run and test
 
 ```bash
-# 启动服务器
+# Start the server
 uvicorn main:app --reload
 ```
 
-然后打开 `http://127.0.0.1:8000/docs`，你可以在浏览器中直接测试所有 API。
+Then open `http://127.0.0.1:8000/docs`, and you can test all APIs directly in the browser.
 
-也可以用命令行测试：
+You can also test with the command line:
 
 ```bash
-# 创建任务
+# Create a task
 curl -X POST http://127.0.0.1:8000/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title": "学习 FastAPI", "priority": "高"}'
+  -d '{"title": "Learn FastAPI", "priority": "high"}'
 
-# 查看所有任务
+# View all tasks
 curl http://127.0.0.1:8000/tasks
 
-# 完成任务
+# Complete a task
 curl -X PUT http://127.0.0.1:8000/tasks/1 \
   -H "Content-Type: application/json" \
   -d '{"done": true}'
 
-# 删除任务
+# Delete a task
 curl -X DELETE http://127.0.0.1:8000/tasks/1
 ```
 
-或者用 Python 的 `requests` 库：
+Or use Python's `requests` library:
 
 ```python
 import requests
 
 BASE_URL = "http://127.0.0.1:8000"
 
-# 创建任务
-resp = requests.post(f"{BASE_URL}/tasks", json={"title": "学习 Python", "priority": "高"})
+# Create a task
+resp = requests.post(f"{BASE_URL}/tasks", json={"title": "Learn Python", "priority": "high"})
 print(resp.json())
 
-# 获取所有任务
+# Get all tasks
 resp = requests.get(f"{BASE_URL}/tasks")
 print(resp.json())
 ```
 
 ---
 
-## 理解 Pydantic 数据模型
+## Understanding Pydantic data models
 
-FastAPI 使用 **Pydantic** 来验证请求数据——你定义好数据模型，FastAPI 自动帮你检查：
+FastAPI uses **Pydantic** to validate request data — you define the data model, and FastAPI checks it automatically:
 
 ```python
 from pydantic import BaseModel, Field
 
 class TaskCreate(BaseModel):
-    title: str = Field(..., min_length=1, max_length=100, description="任务标题")
-    priority: str = Field(default="中", description="优先级: 高/中/低")
+    title: str = Field(..., min_length=1, max_length=100, description="Task title")
+    priority: str = Field(default="medium", description="Priority: high/medium/low")
 
-# 如果用户发送了不合法的数据
-# POST /tasks {"title": ""} → 自动返回 422 错误（标题太短）
-# POST /tasks {} → 自动返回 422 错误（缺少 title）
-# POST /tasks {"title": "OK"} → 成功，priority 使用默认值 "中"
+# If the user sends invalid data
+# POST /tasks {"title": ""} → automatically returns a 422 error (title too short)
+# POST /tasks {} → automatically returns a 422 error (missing title)
+# POST /tasks {"title": "OK"} → success, priority uses the default value "medium"
 ```
 
-你不需要手动写验证代码——Pydantic 和 FastAPI 帮你搞定了。
+You do not need to write validation code by hand — Pydantic and FastAPI handle it for you.
 
 ---
 
-## 扩展挑战
+## Extension challenges
 
-### 挑战 1：添加文件持久化
+### Challenge 1: Add file persistence
 
-现在数据存在内存里，服务器重启就没了。改成用 JSON 文件保存。
+Right now the data is stored in memory, so it disappears when the server restarts. Change it to save data in a JSON file.
 
-### 挑战 2：添加搜索功能
+### Challenge 2: Add search
 
 ```python
 @app.get("/tasks/search")
 def search_tasks(keyword: str):
-    """按关键词搜索任务"""
+    """Search tasks by keyword"""
     pass
 ```
 
-### 挑战 3：添加分页
+### Challenge 3: Add pagination
 
-当任务很多时，支持分页返回：
+When there are many tasks, support paginated responses:
 
 ```
 GET /tasks?page=1&size=10
 ```
 
-### 挑战 4：接入 AI 模型
+### Challenge 4: Connect an AI model
 
-提前预习：创建一个 `/predict` 端点，接收文本输入，返回情感分析结果。
+Preview for later: create a `/predict` endpoint that accepts text input and returns sentiment analysis results.
 
 ---
 
-## 项目自查清单
+## Project self-checklist
 
-- [ ] API 能正常启动和访问
-- [ ] 实现了完整的 CRUD（增删改查）操作
-- [ ] 使用了 Pydantic 做数据验证
-- [ ] 有适当的错误处理（HTTPException）
-- [ ] 自动生成的 API 文档（`/docs`）可以正常使用
-- [ ] 能用 curl 或 requests 测试所有端点
+- [ ] The API can start and be accessed normally
+- [ ] Full CRUD (create, read, update, delete) operations are implemented
+- [ ] Pydantic is used for data validation
+- [ ] Proper error handling is in place (HTTPException)
+- [ ] The automatically generated API docs (`/docs`) work correctly
+- [ ] All endpoints can be tested with curl or requests
 
-:::tip 项目经验
-FastAPI 是 AI 工程师最常用的 Web 框架之一。很多 AI 项目的部署方式都是：训练好模型 → 用 FastAPI 包装成 API → 部署到服务器。掌握 FastAPI，你就具备了**将 AI 模型产品化**的关键能力。而且 FastAPI 的自动文档功能，让前后端协作变得非常顺畅。
+:::tip Project experience
+FastAPI is one of the most commonly used Web frameworks for AI engineers. Many AI projects are deployed like this: train the model → wrap it as an API with FastAPI → deploy it to a server. By mastering FastAPI, you gain the key ability to **productize AI models**. Also, FastAPI's automatic documentation makes frontend-backend collaboration very smooth.
 :::
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Make the minimal loop run end to end | Can input, process, and output, and keep a set of examples |
+| Standard version | Shape it into a presentable project | Add configuration, logs, error handling, a README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not chase a huge, all-in-one project at the beginning. Each time you upgrade to a new version, write down in the README what new capability was added, how it was verified, and what problems remain.

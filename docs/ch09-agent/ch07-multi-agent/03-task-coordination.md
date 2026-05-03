@@ -1,111 +1,111 @@
 ---
-title: "7.4 任务分配与协调"
+title: "7.4 Task Allocation and Coordination"
 sidebar_position: 40
-description: "从拆任务、分配角色、同步状态到冲突解决，理解多 Agent 系统怎样真正把活分出去并收回来。"
+description: "From breaking down tasks, assigning roles, and syncing state to resolving conflicts, understand how multi-Agent systems actually distribute work and bring it back together."
 keywords: [task coordination, task assignment, multi-agent, scheduling, conflict resolution]
 ---
 
-# 任务分配与协调
+# Task Allocation and Coordination
 
-:::tip 本节定位
-上一节讲了通信，说明“信息怎样传”。  
-这一节要解决的是另一个更棘手的问题：
+:::tip Section Focus
+The previous section covered communication and explained "how information is transmitted."
+This section tackles another, trickier question:
 
-> **任务到底该怎么拆、怎么分、怎么收？**
+> **How should tasks be broken down, assigned, and brought back together?**
 
-如果分配得不好，多 Agent 系统即使会通信，也只会低效甚至互相打架。
+If the assignment is poor, a multi-Agent system may be able to communicate, but it will still be inefficient or even end up working against itself.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解多 Agent 中任务分配为什么是核心问题
-- 分清静态分配、动态分配、能力路由这几种常见方式
-- 理解协调里最常见的冲突和解决方式
-- 看懂一个小型任务调度示例
-
----
-
-## 一、为什么多 Agent 最难的不只是“多”
-
-### 1.1 多 Agent 最大风险：不是没人干活，而是大家都干不对
-
-多 Agent 系统里常见失败不只是：
-
-- 没人做
-
-更常见的是：
-
-- 两个人重复做
-- 错的人接了任务
-- 任务顺序错了
-- 结果回不来
-
-所以真正的重点是：
-
-> **怎样让对的人，在对的时机，做对的事。**
-
-### 1.2 一个生活类比
-
-像做一个小项目：
-
-- 有人负责找资料
-- 有人负责写代码
-- 有人负责评审
-
-如果分配乱了，再聪明的人也会低效。
+- Understand why task allocation is a core problem in multi-Agent systems
+- Distinguish between common approaches such as static allocation, dynamic allocation, and capability-based routing
+- Understand the most common conflicts in coordination and how to resolve them
+- Read a small task scheduling example
 
 ---
 
-## 二、最常见的三种任务分配方式
+## 1. Why “multi” is not the only challenge
 
-### 2.1 静态分配
+### 1.1 The biggest risk in multi-Agent systems: not that nobody works, but that everyone works incorrectly
 
-任务和角色提前写死。
+Common failures in multi-Agent systems are not just:
 
-例如：
+- nobody does the work
 
-- 检索一定给 retriever
-- 写作一定给 writer
+More often, the problems are:
 
-优点：
+- two people do the same work
+- the wrong Agent takes the task
+- the task order is wrong
+- the result never makes it back
 
-- 稳定
-- 易调试
+So the real focus is:
 
-缺点：
+> **How do we get the right Agent, at the right time, to do the right thing?**
 
-- 灵活性差
+### 1.2 A real-life analogy
 
-### 2.2 动态分配
+Think of a small project:
 
-系统根据当前任务内容决定交给谁。
+- one person handles research
+- one person writes code
+- one person reviews the work
 
-例如：
-
-- 法律问题交给 legal_agent
-- 技术问题交给 tech_agent
-
-优点：
-
-- 更灵活
-
-缺点：
-
-- 路由错了就会连锁出错
-
-### 2.3 能力路由
-
-不是按名字分，而是按能力特征分：
-
-- 谁更适合检索？
-- 谁更适合总结？
-- 谁更适合审查？
-
-这更像“按岗位能力派活”。
+If the assignments are messy, even very smart people will be inefficient.
 
 ---
 
-## 三、一个最小任务分配示例
+## 2. The three most common task allocation methods
+
+### 2.1 Static allocation
+
+Tasks and roles are fixed in advance.
+
+For example:
+
+- retrieval always goes to `retriever`
+- writing always goes to `writer`
+
+Pros:
+
+- stable
+- easy to debug
+
+Cons:
+
+- not very flexible
+
+### 2.2 Dynamic allocation
+
+The system decides who gets the task based on the current content.
+
+For example:
+
+- legal questions go to `legal_agent`
+- technical questions go to `tech_agent`
+
+Pros:
+
+- more flexible
+
+Cons:
+
+- if routing is wrong, failures can cascade
+
+### 2.3 Capability-based routing
+
+This is not based on names, but on capability traits:
+
+- Who is better at retrieval?
+- Who is better at summarization?
+- Who is better at reviewing?
+
+This is more like "assigning work based on role capability."
+
+---
+
+## 3. A minimal task allocation example
 
 ```python
 agents = {
@@ -115,9 +115,9 @@ agents = {
 }
 
 tasks = [
-    {"name": "查资料", "skill": "search"},
-    {"name": "写总结", "skill": "write"},
-    {"name": "做评审", "skill": "review"}
+    {"name": "Find information", "skill": "search"},
+    {"name": "Write summary", "skill": "write"},
+    {"name": "Do review", "skill": "review"}
 ]
 
 def assign_task(task, agents):
@@ -130,27 +130,27 @@ for task in tasks:
     print(task["name"], "->", assign_task(task, agents))
 ```
 
-### 3.2 这段代码在教你什么？
+### 3.2 What is this code teaching you?
 
-它在教你一个非常重要的抽象：
+It teaches you a very important abstraction:
 
-> 任务分配不是随机发活，而是“任务需求”和“Agent 能力”之间的匹配。 
+> Task allocation is not random assignment. It is a match between "task requirements" and "Agent capabilities."
 
 ---
 
-## 四、任务协调不只是分配，还包括顺序控制
+## 4. Coordination is not just assignment, but also order control
 
-### 4.1 有些任务不能并行
+### 4.1 Some tasks cannot run in parallel
 
-例如：
+For example:
 
-1. 先查资料
-2. 再写总结
-3. 最后再评审
+1. first retrieve information
+2. then write a summary
+3. finally review it
 
-如果顺序反了，系统就会乱。
+If the order is reversed, the system will break down.
 
-### 4.2 一个最小顺序调度示例
+### 4.2 A minimal scheduling example
 
 ```python
 dependencies = {
@@ -171,45 +171,45 @@ while len(done) < len(dependencies):
 print(execution_order)
 ```
 
-输出会是：
+The output will be:
 
 ```text
 ['retrieve', 'write', 'review']
 ```
 
-这就是多 Agent 协调里很重要的一层：  
-**不仅知道谁做，还要知道先后顺序。**
+This shows an important layer in multi-Agent coordination:
+**it is not only about knowing who does what, but also about knowing the order.**
 
 ---
 
-## 五、任务协调里最常见的冲突
+## 5. The most common conflicts in task coordination
 
-### 5.1 重复劳动
+### 5.1 Duplicate work
 
-两个 Agent 都去做同一件事。
+Two Agents both do the same task.
 
-### 5.2 结论冲突
+### 5.2 Conflicting conclusions
 
-一个 Agent 说“可以退款”，另一个说“不可以退款”。
+One Agent says "refund is allowed," another says "refund is not allowed."
 
-### 5.3 状态不同步
+### 5.3 Out-of-sync state
 
-writer 还以为资料没找到，但 retriever 其实已经返回了。
+The writer still thinks the material has not been found, but the retriever has already returned it.
 
-### 5.4 为什么这些问题很常见？
+### 5.4 Why are these problems so common?
 
-因为多 Agent 本质上就是“分布式系统的小型版”。  
-只要一旦分工，就会出现：
+Because multi-Agent systems are essentially a small-scale version of a distributed system.
+Once you split the work, you will run into:
 
-- 同步
-- 冲突
-- 收敛
+- synchronization
+- conflict
+- convergence
 
-这些问题。
+These kinds of problems.
 
 ---
 
-## 六、一个带冲突解决思路的小例子
+## 6. A small example with conflict resolution
 
 ```python
 results = {
@@ -227,107 +227,107 @@ def resolve_conflict(results):
 print(resolve_conflict(results))
 ```
 
-### 6.2 为什么这只是最小版？
+### 6.2 Why is this only the minimal version?
 
-真实系统里，冲突解决可能会用：
+In real systems, conflict resolution may use:
 
-- 置信度
-- 投票
-- reviewer 裁决
-- supervisor 最终拍板
+- confidence scores
+- voting
+- reviewer judgment
+- final decision by a supervisor
 
-但你至少要先意识到：
+But you should first realize this:
 
-> 多 Agent 一定会有冲突，冲突不是异常，而是常态。 
+> Multi-Agent systems will definitely have conflicts. Conflict is not an exception; it is the norm.
 
-![多 Agent 协调、冲突与收敛图](/img/course/ch09-multi-agent-coordination-cost-map.png)
+![Multi-Agent coordination, conflict, and convergence diagram](/img/course/ch09-multi-agent-coordination-cost-map-en.png)
 
-:::tip 读图提示
-这张图把协调成本画出来：任务分配、依赖顺序、共享状态和冲突裁决都会增加复杂度。多 Agent 的收益必须大于这些通信和收敛成本，才值得上。
+:::tip Reading guide
+This diagram shows coordination costs: task assignment, dependency ordering, shared state, and conflict arbitration all increase complexity. The benefits of a multi-Agent system must be greater than these communication and convergence costs for it to be worth using.
 :::
 
 ---
 
-## 七、任务协调和通信有什么关系？
+## 7. What is the relationship between task coordination and communication?
 
-通信解决的是：
+Communication solves:
 
-- 信息怎么传
+- how information is transmitted
 
-协调解决的是：
+Coordination solves:
 
-- 任务怎么排
-- 谁负责什么
-- 出现冲突怎么收敛
+- how tasks are arranged
+- who is responsible for what
+- how conflicts are resolved
 
-所以可以记成：
+So you can remember it like this:
 
-- 通信更像“线路”
-- 协调更像“调度”
+- communication is more like the "wiring"
+- coordination is more like the "scheduling"
 
-两者缺一不可。
-
----
-
-## 八、真实系统里常见的协调策略
-
-### 8.1 中心调度型
-
-由 supervisor 统一决定任务流转。
-
-优点：
-
-- 最容易管控
-
-### 8.2 分布协商型
-
-Agent 之间互相提议、协商。
-
-优点：
-
-- 灵活
-
-缺点：
-
-- 难调
-
-### 8.3 半中心型
-
-大方向由 supervisor 控制，细节由 worker 自主。
-
-这在实际工程里往往是个比较平衡的选择。
+Both are essential.
 
 ---
 
-## 九、初学者最常踩的坑
+## 8. Common coordination strategies in real systems
 
-### 9.1 只分工，不设计收尾
+### 8.1 Centralized scheduling
 
-任务做了一半没人负责收尾，是非常常见的问题。
+A supervisor decides the task flow in one place.
 
-### 9.2 只设计 happy path
+Pros:
 
-一旦有 Agent 超时、失败、冲突，系统就乱了。
+- easiest to manage
 
-### 9.3 以为“更多 Agent = 更高效率”
+### 8.2 Distributed negotiation
 
-如果协调做不好，更多 Agent 只会带来更多管理成本。
+Agents propose and negotiate with each other.
+
+Pros:
+
+- flexible
+
+Cons:
+
+- harder to tune
+
+### 8.3 Semi-centralized
+
+The supervisor controls the big picture, while workers handle details autonomously.
+
+In real engineering work, this is often a more balanced choice.
 
 ---
 
-## 小结
+## 9. Common pitfalls for beginners
 
-这一节最重要的不是把任务“分出去”，而是理解：
+### 9.1 Only assigning work, without designing the finish
 
-> **任务分配与协调的核心，是让任务、角色、顺序和冲突处理形成一个能收敛的系统。**
+A task being half done with nobody responsible for the final step is very common.
 
-这才是多 Agent 从“看起来热闹”走向“真正高效协作”的关键。
+### 9.2 Only designing the happy path
+
+Once an Agent times out, fails, or conflicts arise, the system falls apart.
+
+### 9.3 Thinking "more Agents = higher efficiency"
+
+If coordination is not done well, more Agents only bring more management overhead.
 
 ---
 
-## 练习
+## Summary
 
-1. 给任务分配示例再加一个 `planner` Agent，并让它决定执行顺序。
-2. 设计一个“retrieve -> write -> review -> revise” 的协调流程。
-3. 想一想：如果两个 Agent 结论冲突，你更倾向于投票、置信度裁决，还是 reviewer 拍板？为什么？
-4. 用自己的话解释：为什么说多 Agent 协调本质上很像一个小型任务调度系统？
+The most important point in this section is not simply to "split up the work," but to understand:
+
+> **The core of task allocation and coordination is making tasks, roles, order, and conflict handling form a system that can converge.**
+
+That is the key to helping multi-Agent systems move from "looking busy" to "truly collaborating efficiently."
+
+---
+
+## Exercises
+
+1. Add a `planner` Agent to the task allocation example and let it decide the execution order.
+2. Design a coordination flow for `"retrieve -> write -> review -> revise"`.
+3. Think about it: if two Agents have conflicting conclusions, would you prefer voting, confidence-based arbitration, or reviewer judgment? Why?
+4. Explain in your own words: why is multi-Agent coordination essentially like a small task scheduling system?

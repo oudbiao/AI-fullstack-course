@@ -1,88 +1,88 @@
 ---
-title: "5.2 人脸检测与识别【选修】"
+title: "5.2 Face Detection and Recognition [Elective]"
 sidebar_position: 14
-description: "从检测、对齐到识别，理解人脸系统为什么不只是一个模型，而是一条完整流水线。"
+description: "From detection and alignment to recognition, understand why a face system is not just one model, but a complete pipeline."
 keywords: [face detection, face recognition, alignment, embeddings, computer vision]
 ---
 
-# 人脸检测与识别【选修】
+# Face Detection and Recognition [Elective]
 
-:::tip 本节定位
-人脸任务看起来像“只是检测一个特殊目标”，  
-但真实系统通常至少包含：
+:::tip Section Overview
+Face tasks may look like “just detecting a special object,”
+but a real system usually includes at least:
 
-- 找到脸
-- 对齐
-- 提特征
-- 比较相似度
+- finding the face
+- alignment
+- feature extraction
+- similarity comparison
 
-所以这节更重要的是理解：
+So the most important thing in this section is to understand:
 
-> **人脸系统往往是一条流水线，不是单个模型。**
+> **A face system is often a pipeline, not a single model.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解人脸检测、对齐和识别之间的区别
-- 通过可运行示例理解特征比对的直觉
-- 理解人脸系统为什么特别关注误识和隐私问题
-- 建立人脸任务的整体流水线感
+- Understand the differences between face detection, alignment, and recognition
+- Build intuition for feature matching through runnable examples
+- Understand why face systems pay special attention to misidentification and privacy
+- Build an overall pipeline mindset for face tasks
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-人脸任务最适合新人的理解方式不是“一个模型识别人脸”，而是先把完整流水线看清：
+The best way for beginners to understand face tasks is not “one model recognizes faces,” but to first see the full pipeline clearly:
 
 ```mermaid
 flowchart LR
-    A["输入图像"] --> B["人脸检测"]
-    B --> C["人脸对齐"]
-    C --> D["特征提取"]
-    D --> E["相似度匹配 / 身份识别"]
+    A["Input image"] --> B["Face detection"]
+    B --> C["Face alignment"]
+    C --> D["Feature extraction"]
+    D --> E["Similarity matching / identity recognition"]
 ```
 
-这条线一旦理清，你就不会把人脸系统误以为只是“检测一个特殊类别”。
+Once this line is clear, you won’t mistake a face system for “just detecting a special category.”
 
-### 一个更适合新人的总类比
+### A Better Overall Analogy for Beginners
 
-你可以把人脸系统想成机场值机的三步：
+You can think of a face system like the three steps of airport check-in:
 
-1. 先找到旅客是谁
-2. 再把证件摆正、对齐
-3. 最后才拿来和系统里的档案做比对
+1. First find out who the traveler is
+2. Then straighten and align the ID document
+3. Only then compare it with the records in the system
 
-这样理解后，人脸识别就不会再像：
+With this understanding, face recognition no longer feels like:
 
-- 一个神秘的“认人模型”
+- a mysterious “person-recognition model”
 
-而更像：
+and instead feels more like:
 
-- 一条先整理输入、再做比较的流水线
+- a pipeline that first organizes the input and then compares it
 
-## 一、人脸识别系统通常有哪些步骤？
+## 1. What Steps Does a Face Recognition System Usually Have?
 
-1. 检测：先找到脸在哪  
-2. 对齐：把角度和姿态尽量规范化  
-3. 表示：提取人脸向量  
-4. 匹配：比较向量相似度
+1. Detection: first find where the face is
+2. Alignment: standardize the angle and pose as much as possible
+3. Representation: extract a face vector
+4. Matching: compare vector similarity
 
-### 1.1 为什么“对齐”这一步经常被低估？
+### 1.1 Why Is the “Alignment” Step Often Underestimated?
 
-因为很多新人会天然觉得：
+Because many beginners naturally think:
 
-- 把脸框出来就够了
+- As long as the face is boxed in, that’s enough
 
-但实际系统里，如果人脸角度、姿态、裁切范围差太多，  
-后面的 embedding 往往会明显不稳定。
+But in real systems, if the face angle, pose, or crop range differs too much,
+the later embedding is often much less stable.
 
-所以对齐的作用更像是：
+So the role of alignment is more like:
 
-> **先把输入拉回到一个更可比的状态。**
+> **First bring the input back to a more comparable state.**
 
 ---
 
-## 二、先看一个最小相似度比对示例
+## 2. First, Look at a Minimal Similarity Matching Example
 
 ```python
 from math import sqrt
@@ -103,38 +103,38 @@ print("a vs b:", round(cosine(face_a, face_b), 4))
 print("a vs c:", round(cosine(face_a, face_c), 4))
 ```
 
-### 2.1 这个例子最重要的直觉
+### 2.1 The Most Important Intuition from This Example
 
-人脸识别很多时候不是直接分类名字，  
-而是：
+Face recognition is often not directly classifying a name,
+but rather:
 
-- 看两张脸的表示是否足够接近
+- checking whether the representations of two faces are close enough
 
-### 2.2 新人第一次学这节，最该先记什么？
+### 2.2 What Should Beginners Remember First in This Section?
 
-最值得先记的其实是：
+The most important things to remember are:
 
-- 检测负责“先把脸找出来”
-- 对齐负责“把姿态拉回更可比的状态”
-- 识别很多时候是在比较 embedding，而不是直接输出名字
+- Detection is responsible for “finding the face first”
+- Alignment is responsible for “bringing the pose back to a more comparable state”
+- Recognition is often about comparing embeddings, not directly outputting a name
 
-### 2.3 阈值为什么会直接影响系统体验？
+### 2.3 Why Does the Threshold Directly Affect the User Experience?
 
-因为阈值本质上是在决定：
+Because the threshold is essentially deciding:
 
-- 多像才算同一个人
+- how similar is similar enough to count as the same person
 
-阈值设得太松：
+If the threshold is too loose:
 
-- 容易误识
+- misidentification becomes more likely
 
-阈值设得太严：
+If the threshold is too strict:
 
-- 容易漏识
+- missed recognition becomes more likely
 
-这类问题通常不只是模型问题，而是系统配置问题。
+This kind of issue is often not just a model problem, but a system configuration problem.
 
-### 2.4 再看一个最小“阈值怎么改变结果”示例
+### 2.4 Another Minimal Example: How a Threshold Changes the Result
 
 ```python
 similarities = [0.93, 0.81, 0.68]
@@ -148,112 +148,112 @@ def match_results(scores, threshold):
 print(match_results(similarities, threshold))
 ```
 
-这个示例很小，但它能帮助新人立住一个系统直觉：
+This example is small, but it helps beginners build a system-level intuition:
 
-- 人脸识别很多时候不是“模型告诉你答案”
-- 而是“模型给分数，系统再根据阈值做决定”
+- Face recognition is often not “the model tells you the answer”
+- It is more like “the model gives scores, and the system makes decisions based on a threshold”
 
-![人脸检测、对齐、Embedding 与阈值风险图](/img/course/ch10-face-recognition-threshold-pipeline-map.png)
+![Face detection, alignment, embedding, and threshold risk diagram](/img/course/ch10-face-recognition-threshold-pipeline-map-en.png)
 
-:::tip 读图提示
-人脸系统不是一个模型：检测先找脸，对齐让输入可比，embedding 做相似度表示，阈值决定 same / different。阈值太松会误识，太严会漏识。
+:::tip Reading Guide
+A face system is not one model: detection finds the face first, alignment makes the input comparable, embedding represents similarity, and the threshold decides same / different. A threshold that is too loose causes misidentification; one that is too strict causes missed recognition.
 :::
 
 ---
 
-## 三、最常见误区
+## 3. Most Common Misconceptions
 
-### 3.1 只看检测，不看对齐
+### 3.1 Only Looking at Detection, Not Alignment
 
-对齐往往会直接影响后续识别稳定性。
+Alignment often directly affects the stability of later recognition.
 
-### 3.2 只看相似度，不看阈值风险
+### 3.2 Only Looking at Similarity, Not Threshold Risk
 
-阈值设太宽容易误识，  
-设太严又容易漏识。
+A threshold that is too loose makes misidentification more likely,
+while a threshold that is too strict makes missed recognition more likely.
 
-### 3.3 忽略隐私和合规
+### 3.3 Ignoring Privacy and Compliance
 
-人脸任务几乎天然带有更高合规要求。
+Face tasks almost inherently come with higher compliance requirements.
 
-### 3.4 只展示成功识别，不展示误识和拒识
+### 3.4 Only Showing Successful Recognition, Not Misidentification or Rejection
 
-如果只展示：
+If you only show:
 
-- 成功认出了谁
+- who was successfully recognized
 
-那这个项目更像演示，而不像系统。  
-更像真实项目的展示应该同时包括：
+then the project is more like a demo than a system.
+A display that is closer to a real project should include:
 
-- 正确识别
-- 错误匹配
-- 本该拒绝但阈值太松的样例
-- 本该识别却被阈值拒掉的样例
+- correct recognition
+- wrong matches
+- examples that should have been rejected but were accepted because the threshold was too loose
+- examples that should have been recognized but were rejected by the threshold
 
-## 四、为什么这一节特别适合训练“系统思维”？
+## 4. Why Is This Section Especially Good for Training “System Thinking”?
 
-因为它会逼你意识到：
+Because it forces you to realize that:
 
-- 单一模型结果不等于完整系统能力
-- 阈值、误识、漏识、合规都会进入最终判断
+- the result of a single model is not the same as the ability of a complete system
+- thresholds, misidentification, missed recognition, and compliance all affect the final judgment
 
-这和很多真实 CV 系统都很像。
+This is very similar to many real-world CV systems.
 
-### 4.1 一个新人可直接照抄的学习顺序
+### 4.1 A Learning Order Beginners Can Copy Directly
 
-更稳的顺序通常是：
+A safer order is usually:
 
-1. 先理解检测
-2. 再理解对齐
-3. 再理解 embedding 相似度
-4. 最后再看阈值和系统风险
+1. First understand detection
+2. Then understand alignment
+3. Then understand embedding similarity
+4. Finally look at thresholds and system risks
 
-如果一开始就只盯识别模型，反而最容易看不懂整条链。
+If you start by focusing only on the recognition model, it is actually easier to lose sight of the whole chain.
 
-### 4.2 如果把它做成项目，最值得先展示什么
+### 4.2 If You Turn It into a Project, What Is Most Worth Showing First
 
-更像真实项目的展示顺序通常是：
+A display that is closer to a real project usually follows this order:
 
-1. 原图中的检测框
-2. 对齐前后对比
-3. 两张脸的 embedding 相似度
-4. 不同阈值下的匹配结果
-5. 误识 / 漏识 / 拒识案例
+1. Detection boxes on the original image
+2. Comparison before and after alignment
+3. Embedding similarity between two faces
+4. Matching results under different thresholds
+5. Misidentification / missed recognition / rejection cases
 
-这样读者一眼就能看懂：
+This way, readers can instantly see:
 
-- 问题出在检测
-- 还是对齐
-- 还是阈值本身
-
----
-
-## 如果把它做成项目，最值得展示什么
-
-- 检测结果
-- 对齐前后对比
-- embedding 相似度对比
-- 不同阈值下的误识 / 漏识变化
-
-这样会比只贴“识别成功截图”更像真正项目。
+- whether the problem is in detection
+- or alignment
+- or the threshold itself
 
 ---
 
-## 小结
+## If You Turn It into a Project, What Is Most Worth Showing?
 
-这节最重要的是建立一个系统判断：
+- Detection results
+- Comparison before and after alignment
+- Embedding similarity comparison
+- Changes in misidentification / missed recognition under different thresholds
 
-> **人脸检测与识别不是单一模型问题，而是一条从检测到匹配的完整流水线。**
+This will feel more like a real project than only posting a “successful recognition screenshot.”
 
-## 这节最该带走什么
+---
 
-- 人脸系统本质上是流水线
-- embedding 和阈值决定后续匹配体验
-- 这类系统天然比普通视觉任务更需要考虑风险和合规
+## Summary
 
-## 练习
+The most important thing in this section is to build a system-level judgment:
 
-1. 自己构造几组向量，看看相似度阈值怎么影响匹配判断。
-2. 为什么说人脸系统特别依赖阈值设置？
-3. 对齐为什么会影响识别质量？
-4. 想一想：人脸系统为什么要特别重视隐私？
+> **Face detection and recognition are not a single-model problem, but a complete pipeline from detection to matching.**
+
+## What You Should Take Away
+
+- A face system is essentially a pipeline
+- Embeddings and thresholds determine the later matching experience
+- This kind of system naturally requires more attention to risk and compliance than ordinary vision tasks
+
+## Exercises
+
+1. Construct several sets of vectors yourself and see how the similarity threshold affects matching decisions.
+2. Why is it said that face systems depend especially on threshold settings?
+3. Why does alignment affect recognition quality?
+4. Think about it: why do face systems need to pay special attention to privacy?

@@ -1,90 +1,90 @@
 ---
-title: "4 AI 数学最小必要基础"
+title: "4 AI Math: the Minimum Necessary Foundation"
 sidebar_position: 0
-description: "用代码和直觉理解线性代数、概率统计、微积分与优化，建立机器学习、深度学习和大模型所需的数学底座。"
-keywords: [AI数学, 线性代数, 概率统计, 微积分, 机器学习数学基础]
+description: "Use code and intuition to understand linear algebra, probability and statistics, calculus, and optimization, and build the math foundation needed for machine learning, deep learning, and large models."
+keywords: [AI math, linear algebra, probability and statistics, calculus, machine learning math foundation]
 ---
 
-# 4 AI 数学最小必要基础
+# 4 AI Math: the Minimum Necessary Foundation
 
-![AI 数学基础主视觉](/img/course/ch04-ai-math.png)
+![AI Math Foundations Main Visual](/img/course/ch04-ai-math-en.png)
 
-这一阶段解决的是“看见模型里的数学时不再害怕”。它不是要把你训练成数学专业学生，而是帮助你理解模型里最常出现的数学对象：向量、矩阵、概率、损失、梯度和优化。
+At this stage, the goal is to stop feeling scared when you see the math inside models. This is not about training you to become a math major. It is about helping you understand the most common mathematical objects in models: vectors, matrices, probability, loss, gradients, and optimization.
 
-## 故事化导入：给模型装上一副“数学眼镜”
+## Story-Based Introduction: Putting on a Pair of “Math Glasses” for Models
 
-很多初学者害怕 AI 数学，是因为公式看起来像一堵墙。这里换一种方式：把数学当成一副眼镜。向量让模型看见“方向和相似度”，矩阵让模型一次处理很多数据，概率让模型表达不确定性，梯度让模型知道应该往哪里改。你不需要先成为数学专家，只需要先看懂这些工具在模型里扮演什么角色。
+Many beginners fear AI math because formulas look like a wall. Let’s change the approach: treat math like a pair of glasses. Vectors let models see “direction and similarity,” matrices let models process lots of data at once, probability lets models express uncertainty, and gradients tell models where to improve. You do not need to become a math expert first; you only need to understand what role these tools play inside models.
 
-## 学习闯关地图
+## Learning Quest Map
 
-![AI 数学学习闯关地图](/img/course/ch04-learning-quest-map.png)
+![AI Math Learning Quest Map](/img/course/ch04-learning-quest-map-en.png)
 
-## 互动练习：用代码把公式变成画面
+## Interactive Practice: Turning Formulas into Pictures with Code
 
-学向量时，试着画出两个二维箭头，观察它们夹角越小相似度越高；学概率时，生成一组随机数并画出分布图；学梯度下降时，从一个随机点出发，看它如何一步步走向最低点。只要能把公式变成数组、曲线和动画感，你就已经跨过了最难的第一关。
+When learning vectors, try drawing two 2D arrows and observe that the smaller the angle between them, the higher the similarity. When learning probability, generate a set of random numbers and plot the distribution. When learning gradient descent, start from a random point and watch it move step by step toward the minimum. As long as you can turn formulas into arrays, curves, and animated intuition, you have already crossed the hardest first hurdle.
 
-## 项目彩蛋
+## Project Bonus
 
-本阶段的彩蛋不是一个大项目，而是一组“数学小实验”：向量相似度可视化、概率分布观察器、梯度下降演示器。后面学推荐系统、Embedding、神经网络和 Transformer 时，你会不断发现这些小实验原来都在真正的 AI 模型里出现过。
+The bonus for this stage is not a big project, but a set of “math mini-experiments”: vector similarity visualization, probability distribution observation, and gradient descent demonstration. Later, when you study recommendation systems, Embedding, neural networks, and Transformer, you will keep finding that these mini-experiments were already appearing inside real AI models.
 
-## 阶段定位
+## Stage Positioning
 
-| 信息 | 说明 |
+| Information | Description |
 |---|---|
-| 适合对象 | 已完成 Python 和数据分析，希望进入机器学习但数学基础不稳的学习者 |
-| 预估学时 | 40～60 小时 |
-| 前置要求 | 完成数据分析与可视化，能使用 NumPy 做基础计算 |
-| 阶段产出 | 用代码可视化向量、概率分布和梯度下降的最小实验 |
+| Suitable for | Learners who have completed Python and data analysis and want to move into machine learning but are not confident in math foundations |
+| Estimated study time | 40–60 hours |
+| Prerequisites | Completed data analysis and visualization; able to use NumPy for basic calculations |
+| Stage output | Minimal experiments that visualize vectors, probability distributions, and gradient descent with code |
 
-## 新手最小通关路线
+## Minimum Passing Route for Beginners
 
-新手不要追求完整数学体系，先理解向量、矩阵、概率、损失、梯度这些概念在模型里分别解决什么问题。只要能用 NumPy 写出向量相似度、概率分布和梯度下降的小实验，就算完成最小通关。
+Beginners should not chase a complete mathematical system. First, understand what vectors, matrices, probability, loss, and gradients solve in models. As long as you can write small NumPy experiments for vector similarity, probability distributions, and gradient descent, you have completed the minimum pass.
 
-## 进阶深入路线
+## Advanced Deep-Dive Route
 
-有经验的学习者可以进一步理解矩阵乘法的几何意义、统计推断、信息熵、链式法则和反向传播。建议把每个公式都配一个代码实验或图像解释，为后面的机器学习和深度学习公式阅读做准备。
+More experienced learners can further understand the geometric meaning of matrix multiplication, statistical inference, information entropy, the chain rule, and backpropagation. It is recommended to pair every formula with a code experiment or visual explanation, preparing for reading machine learning and deep learning formulas later.
 
-## 新人先做什么，进阶再做什么
+## What Beginners Should Do First, and What Advanced Learners Should Do Later
 
-新人第一次学这一阶段时，不要把数学学成公式背诵。先抓住向量表示“对象的位置”、概率表示“不确定性”、梯度表示“改进方向”这三个直觉，再回到模型里看它们怎么用。
+When learning this stage for the first time, do not turn math into memorizing formulas. First grasp these three intuitions: vectors represent an object’s position, probability represents uncertainty, and gradients represent the direction of improvement. Then go back to the model and see how they are used.
 
-有经验的学习者可以把重点放在模型解释上：为什么矩阵乘法能做特征变换，为什么概率能表达预测置信度，为什么梯度下降能训练模型。你的目标是读模型文章和调参时知道每个数学概念在解决什么问题。
+Experienced learners can focus on model interpretation: why matrix multiplication can perform feature transformation, why probability can express prediction confidence, and why gradient descent can train a model. Your goal is to know what problem each mathematical concept is solving when reading model articles and tuning parameters.
 
-## 为什么这里叫“最小必要基础”
+## Why This Is Called the “Minimum Necessary Foundation”
 
-线性代数、概率论、微积分都可以单独学很久。但 AI 入门第一遍不应该追求完整数学体系，而应该先抓住最有用、最高频、最容易和模型连接的部分。
+Linear algebra, probability theory, and calculus can each be studied for a long time on their own. But the first pass into AI should not pursue a complete mathematical system. Instead, it should focus first on the most useful, most frequent, and easiest-to-connect-to-model concepts.
 
-![AI 数学最小必要主线图](/img/course/ch04-ai-math-backbone.png)
+![AI Math Minimum Necessary Backbone](/img/course/ch04-ai-math-backbone-en.png)
 
-## 本阶段学习路径
+## Learning Path for This Stage
 
-第一章学习线性代数。你需要理解向量、矩阵、矩阵乘法、线性变换和特征值这些概念如何出现在数据矩阵、Embedding、神经网络参数和注意力计算中。
+The first chapter covers linear algebra. You need to understand how vectors, matrices, matrix multiplication, linear transformations, and eigenvalues appear in data matrices, Embedding, neural network parameters, and attention computation.
 
-第二章学习概率与统计。你需要理解概率、分布、期望、方差、统计推断和信息熵，它们会出现在分类模型、损失函数、评估指标和生成模型里。
+The second chapter covers probability and statistics. You need to understand probability, distributions, expectation, variance, statistical inference, and information entropy. These appear in classification models, loss functions, evaluation metrics, and generative models.
 
-第三章学习微积分与优化。你需要理解导数、偏导、梯度、链式法则和梯度下降，因为它们解释了模型如何通过损失函数一点点更新参数。
+The third chapter covers calculus and optimization. You need to understand derivatives, partial derivatives, gradients, the chain rule, and gradient descent, because they explain how models update parameters little by little through the loss function.
 
-## 学完后你应该能做到
+## What You Should Be Able to Do After Learning
 
-- 能把表格数据理解成矩阵，把一行样本理解成向量
-- 能解释为什么分类模型常输出概率
-- 能理解损失函数、梯度下降和参数更新的大致过程
-- 能用 NumPy 或简单代码演示向量运算、概率分布和梯度下降
-- 后面看到机器学习和深度学习公式时，能判断它大概在表达什么
+- Understand tabular data as matrices and one row of samples as a vector
+- Explain why classification models often output probabilities
+- Understand the rough process of loss functions, gradient descent, and parameter updates
+- Use NumPy or simple code to demonstrate vector operations, probability distributions, and gradient descent
+- Judge roughly what a formula means when you later see machine learning and deep learning equations
 
-## 常见误区
+## Common Misconceptions
 
-不要因为数学细节没完全掌握就停在这里。AI 数学是循环学习的，第一次只要建立直觉，后面在机器学习、深度学习、Transformer 和 RAG 里会反复遇到这些概念。
+Do not stop here just because you have not fully mastered the math details. AI math is learned in cycles. The first time, you only need to build intuition. Later, you will meet these concepts again and again in machine learning, deep learning, Transformer, and RAG.
 
-也不要只看公式不写代码。对工程学习者来说，用数组、图像和小实验理解数学，通常比只看推导更有效。
+Also, do not just read formulas without writing code. For engineering learners, understanding math through arrays, images, and small experiments is usually more effective than looking only at derivations.
 
-## 数学错误剧场：公式看懂了但不会用怎么办
+## Math Failure Theater: What to Do When You Understand the Formula but Can’t Use It
 
-如果公式一看就晕，先把它翻译成一句模型语言：它在表示对象、衡量不确定性，还是告诉模型往哪里改；如果推导跟不上，先用二维图、表格或小数字例子跑一遍；如果觉得数学和代码断开，回到模型输入、损失函数和参数更新里找它的位置。
+If a formula makes you dizzy at first glance, translate it into one model-language sentence: is it representing an object, measuring uncertainty, or telling the model where to improve? If the derivation is too hard to follow, first run through it with a 2D graph, a table, or a small-number example. If math and code feel disconnected, go back and find where it lives in model inputs, loss functions, and parameter updates.
 
-## 最小可运行实验：用代码看见向量、概率和梯度
+## Minimum Runnable Experiment: Seeing Vectors, Probability, and Gradients with Code
 
-本阶段最小实验不要求完整推导，而是用 3 个小 Notebook 把抽象概念变成可观察结果：用余弦相似度比较两个学习主题，用随机数画出分布，用一元函数演示梯度下降。
+The minimum experiment for this stage does not require a complete derivation. Instead, use three small notebooks to turn abstract concepts into observable results: compare two learning topics with cosine similarity, plot a distribution with random numbers, and demonstrate gradient descent with a one-variable function.
 
 ```python
 import numpy as np
@@ -95,67 +95,66 @@ cosine = a @ b / (np.linalg.norm(a) * np.linalg.norm(b))
 print(cosine)
 ```
 
-如果你能解释这个数为什么可以表示“相似”，后面理解 Embedding、检索和推荐就会轻松很多。
+If you can explain why this number can represent “similarity,” then later understanding Embedding, retrieval, and recommendation will become much easier.
 
-## 数学失败案例库：先翻译成模型语言
+## Math Failure Case Library: First Translate It into Model Language
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Phenomenon | Common cause | How to locate the issue | Direction for fixing it |
 |---|---|---|---|
-| 公式看懂但不会用 | 没连接到输入、参数、损失和输出 | 问它在模型里扮演什么角色 | 用小数字例子和图像重写一遍 |
-| 概率概念混乱 | 把频率、置信和模型分数混为一谈 | 找出随机变量和事件 | 用表格列出样本、结果和概率 |
-| 梯度下降不收敛 | 学习率过大或函数尺度不清 | 画出 loss 随迭代变化 | 调整学习率，观察路径 |
-| 数学和代码断开 | 只看推导，没有数组实验 | 用 NumPy 复现最小例子 | 每个公式配一个可运行片段 |
+| Understand the formula but can’t use it | Not connected to inputs, parameters, loss, and outputs | Ask what role it plays in the model | Rewrite it with a small-number example and a visual |
+| Confused probability concepts | Mixing up frequency, confidence, and model scores | Identify the random variable and events | List samples, outcomes, and probabilities in a table |
+| Gradient descent does not converge | Learning rate too large or unclear function scale | Plot how loss changes over iterations | Adjust the learning rate and observe the path |
+| Math and code feel disconnected | Only reading derivations, no array experiments | Reproduce the minimal example with NumPy | Pair every formula with an executable snippet |
 
-## 阶段验收 Rubric
+## Stage Assessment Rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Passing criteria | Portfolio evidence |
 |---|---|---|
-| 最低通关 | 能用直觉解释向量、概率和梯度 | 数学卡片、手写例子 |
-| 推荐通关 | 能用 NumPy 或图表演示核心概念 | 可运行 Notebook、图表输出 |
-| 作品集通关 | 能把数学概念连接到 ML、RAG 和 LLM | 概念复盘、项目中的应用说明 |
+| Minimum pass | Can explain vectors, probability, and gradients intuitively | Math cards, handwritten examples |
+| Recommended pass | Can demonstrate core concepts with NumPy or charts | Runnable notebook, chart outputs |
+| Portfolio pass | Can connect math concepts to ML, RAG, and LLM | Concept review, application notes in projects |
 
-## 阶段项目
+## Stage Projects
 
-基础版是完成三个最小实验：二维向量相似度、随机数据分布观察、一元函数梯度下降。标准版需要把实验画成图，并用文字解释每个数学概念对应模型里的什么动作。挑战版可以做一个交互式数学 Notebook，让学习者修改参数后观察向量角度、分布形状和优化路径如何变化。
+The basic version is to complete three minimum experiments: 2D vector similarity, random data distribution observation, and gradient descent for a one-variable function. The standard version requires drawing the experiments as charts and using text to explain what action each mathematical concept corresponds to in the model. The challenge version can be an interactive math notebook where learners change parameters and observe how vector angles, distribution shapes, and optimization paths change.
 
-如果你想看更细的学习节奏，可以阅读 [学习指南：AI 数学基础怎么学最不容易放弃](./study-guide.md)。
-
-
+If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn AI Math Foundations Without Giving Up](./study-guide.md).
 
 
-## 本阶段趣味任务卡
 
-| 玩法 | 本阶段任务 |
+## Fun Task Card for This Stage
+
+| Play style | Task for this stage |
 |---|---|
-| 剧情任务 | 教助手理解相似度、概率、loss 和指标：用代码把抽象概念变成可观察结果。 |
-| Boss 战 | **指标迷宫** |
-| 可解锁徽章 | 向量翻译官、指标解释员 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | 一个可运行数学小实验和解释 |
+| Story mission | Help the assistant understand similarity, probability, loss, and metrics: turn abstract concepts into observable results with code. |
+| Boss fight | **Metric Maze** |
+| Unlockable badges | Vector Translator, Metric Explainer |
+| Easy mode for beginners | Complete only one minimal input-to-output loop, and keep a run screenshot or command output first |
+| Portfolio evidence | One runnable math mini-experiment and explanation |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If you feel this stage has a lot of content, first treat this task card as your minimum goal. If you can complete the easy mode for beginners, you can keep learning forward. Later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage Deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| 向量相似度实验 | 用 NumPy 计算点积、范数和余弦相似度 | 配图解释样本、Embedding 和相似度检索的关系 |
-| 概率分布实验 | 生成随机数据并画分布 | 解释均值、方差、置信和分类概率 |
-| 梯度下降实验 | 用一元函数演示参数更新 | 展示学习率、迭代次数和收敛路径对结果的影响 |
-| 数学复盘笔记 | 用自己的话解释向量、概率、梯度 | 把每个概念连接到 ML、DL、RAG 或 LLM 场景 |
-| 可视化 Notebook | 能运行并生成图表 | 有参数可修改、实验结论和失败观察 |
+| Vector similarity experiment | Use NumPy to compute dot product, norm, and cosine similarity | Add visuals to explain the relationship between samples, Embedding, and similarity retrieval |
+| Probability distribution experiment | Generate random data and plot the distribution | Explain mean, variance, confidence, and classification probability |
+| Gradient descent experiment | Demonstrate parameter updates with a one-variable function | Show how learning rate, number of iterations, and convergence path affect the result |
+| Math review notes | Explain vectors, probability, and gradients in your own words | Connect each concept to ML, DL, RAG, or LLM scenarios |
+| Visualization notebook | Can run and generate charts | Has editable parameters, experimental conclusions, and failure observations |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship to the AI Learning Assistant End-to-End Project
 
-本阶段可以对应 AI 学习助手 v0.4：用向量、概率和梯度解释学习数据中的相似度、完成率和优化直觉。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can correspond to AI Learning Assistant v0.4: use vectors, probability, and gradients to explain similarity, completion rate, and optimization intuition in learning data. If you are learning according to the end-to-end project route, it is recommended that by the end of this stage you submit at least one version record: what new capability was added, how to run it, what the sample input/output is, what problems were encountered, and what you plan to improve next.
 
 
-## 阶段通关标准
+## Stage Completion Criteria
 
-| 通关层级 | 你需要做到什么 |
+| Passing level | What you need to be able to do |
 |---|---|
-| 最低通关 | 能用向量、概率和梯度解释机器学习里的核心概念。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum pass | Can use vectors, probability, and gradients to explain core concepts in machine learning. |
+| Recommended pass | Complete at least one runnable mini-project in this stage, and document the run steps, sample input/output, and issues encountered in the README. |
+| Portfolio pass | Integrate the output of this stage into the “AI Learning Assistant” end-to-end project, leaving screenshots, logs, evaluation samples, and a next-step plan. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。下一阶段会把这些数学概念落到 sklearn 模型训练和评估中。
+After finishing this stage, you do not need to memorize every detail. What matters more is being able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. The next stage will ground these mathematical concepts in sklearn model training and evaluation.

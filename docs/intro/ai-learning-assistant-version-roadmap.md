@@ -1,215 +1,215 @@
 ---
 sidebar_position: 10
-title: "AI 学习助手版本路线图"
-description: "把贯穿项目拆成 v0.1 到 v1.0 的版本迭代，让每个阶段都能沉淀为一个可运行、可评估、可展示的作品。"
-keywords: [AI学习助手, 贯穿项目, 版本路线图, AI作品集, RAG项目, Agent项目]
+title: "AI Learning Assistant Version Roadmap"
+description: "Break the end-to-end project into version iterations from v0.1 to v1.0, so each stage becomes a runnable, evaluable, and showcaseable work."
+keywords: [AI Learning Assistant, end-to-end project, version roadmap, AI portfolio, RAG project, Agent project]
 ---
 
-# AI 学习助手版本路线图
+# AI Learning Assistant Version Roadmap
 
-![AI 学习助手版本路线图](/img/course/ai-learning-assistant-roadmap.png)
+![AI Learning Assistant version roadmap](/img/course/ai-learning-assistant-roadmap-en.png)
 
-AI 学习助手是这门课最推荐的贯穿项目。它的价值不在于一开始做成大而全的产品，而是把每个阶段学到的能力都变成一次小版本发布：先能运行，再能保存数据，再能分析，再能接入 LLM、RAG、Agent 和多模态。
+The AI Learning Assistant is the most recommended end-to-end project in this course. Its value is not in becoming a huge all-in-one product from the start, but in turning what you learn at each stage into a small version release: first it can run, then it can save data, then it can analyze, then it can connect to LLM, RAG, Agent, and multimodal capabilities.
 
-这页专门回答一个问题：每个阶段到底应该给 AI 学习助手增加什么能力，留下什么证据，什么时候可以进入下一版。
+This page answers one question in particular: what exactly should be added to the AI Learning Assistant at each stage, what evidence should be left behind, and when can you move on to the next version?
 
-## 先看发布规则
+## First, look at the release rules
 
 ```mermaid
 flowchart LR
-  A["新增一个能力"] --> B["跑通一个示例"]
-  B --> C["记录一个失败"]
-  C --> D["写清下一版计划"]
-  D --> E["发布一个小版本"]
+  A["Add one capability"] --> B["Run one example successfully"]
+  B --> C["Record one failure"]
+  C --> D["Write down the next version plan"]
+  D --> E["Release a small version"]
 ```
 
-| 每个版本都要有 | 用来证明什么 |
+| Each version must have | What it proves |
 |---|---|
-| 运行方式 | 不是只在编辑器里偶然跑通 |
-| 示例输入输出 | 用户能看懂功能长什么样 |
-| 失败样本 | 你知道系统边界在哪里 |
-| 下一版计划 | 项目是持续迭代，不是一次练习 |
+| A way to run it | It does not only work by accident in the editor |
+| Sample input and output | Users can understand what the feature looks like |
+| Failure samples | You know where the system boundary is |
+| Next version plan | The project is evolving continuously, not a one-time exercise |
 
-## 总体版本线
+## Overall version line
 
 ```mermaid
 flowchart LR
-  A[v0.1 项目骨架] --> B[v0.2 命令行学习助手]
-  B --> C[v0.3 学习数据分析]
-  C --> D[v0.4 学习问题分类]
-  D --> E[v0.5 模型与相似度实验]
+  A[v0.1 Project skeleton] --> B[v0.2 Command-line learning assistant]
+  B --> C[v0.3 Learning data analysis]
+  C --> D[v0.4 Learning question classification]
+  D --> E[v0.5 Model and similarity experiments]
 ```
 
 ```mermaid
 flowchart LR
-  E[v0.5 模型与相似度实验] --> F[v0.6 训练诊断实验]
-  F --> G[v0.7 Prompt 学习助手]
-  G --> H[v0.8 RAG 课程问答]
-  H --> I[v0.9 学习规划 Agent]
-  I --> J[v1.0 毕业作品]
+  E[v0.5 Model and similarity experiments] --> F[v0.6 Training diagnosis experiments]
+  F --> G[v0.7 Prompt learning assistant]
+  G --> H[v0.8 RAG course Q&A]
+  H --> I[v0.9 Learning planning Agent]
+  I --> J[v1.0 Graduation project]
 ```
 
-版本号不是强制格式。如果你的项目实际进展不同，可以合并或拆分版本，但不要跳过“运行方式、示例输入输出、失败样本、评估方式”这四类证据。
+Version numbers are not a strict format. If your project progresses differently in practice, you can merge or split versions, but do not skip these four kinds of evidence: a way to run it, sample input and output, failure samples, and an evaluation method.
 
-## v0.1 项目骨架：先让项目稳定存在
+## v0.1 Project skeleton: make the project exist stably first
 
-v0.1 的目标不是实现 AI，而是建立一个以后能持续迭代的仓库。很多作品集失败不是因为模型不强，而是项目从一开始就没有目录、README、依赖和运行命令。
+The goal of v0.1 is not to implement AI, but to build a repository that can keep evolving later. Many portfolio projects fail not because the model is weak, but because the project never had a directory structure, README, dependencies, or a run command from the beginning.
 
-| 项目项 | 最小版 | 标准版 | 验收证据 |
+| Project item | Minimum version | Standard version | Acceptance evidence |
 |---|---|---|---|
-| 仓库 | 创建项目目录和 Git 仓库 | 增加 `src/`、`data/`、`reports/`、`evals/`、`logs/` | commit 记录、目录截图 |
-| README | 写清项目目标和运行命令 | 增加版本记录、输入输出和限制 | README 可按步骤复现 |
-| 环境 | 能运行一个 Python 入口文件 | 增加依赖文件和环境说明 | `python main.py` 输出截图 |
-| 记录 | 保存一次学习日志 | 规范日志字段 | 示例 JSON 或 Markdown |
+| Repository | Create the project directory and Git repository | Add `src/`, `data/`, `reports/`, `evals/`, `logs/` | commit history, directory screenshot |
+| README | Clearly explain the project goal and run command | Add version records, input/output, and limitations | README can be reproduced step by step |
+| Environment | Be able to run one Python entry file | Add dependency file and environment notes | screenshot of `python main.py` output |
+| Records | Save one learning log | Standardize log fields | example JSON or Markdown |
 
-进入下一版前，你应该能在新终端按 README 跑通项目，而不是只在当前编辑器里跑通。
+Before moving to the next version, you should be able to run the project in a new terminal by following the README, not just make it work in the current editor.
 
-## v0.2 命令行学习助手：让它能记录任务
+## v0.2 Command-line learning assistant: make it able to record tasks
 
-v0.2 对应 Python 编程基础。目标是做一个命令行学习助手，支持新增学习任务、查看任务、标记完成，并把数据保存到 JSON 文件。
+v0.2 corresponds to Python programming basics. The goal is to build a command-line learning assistant that can add learning tasks, view tasks, mark them as done, and save data to a JSON file.
 
-| 功能 | 最小版 | 标准版 | 常见失败 |
+| Feature | Minimum version | Standard version | Common failures |
 |---|---|---|---|
-| 新增任务 | 输入标题并保存 | 支持主题、截止时间、优先级 | JSON 写入失败、路径错误 |
-| 查看任务 | 打印所有任务 | 支持按状态或主题过滤 | 空数据处理不好 |
-| 完成任务 | 修改 `done` 字段 | 记录完成时间和备注 | ID 不稳定或越界 |
-| 异常处理 | 文件不存在时返回空列表 | 文件损坏时给出友好提示 | 报错只显示 traceback |
+| Add task | Enter a title and save it | Support topic, deadline, and priority | JSON write failure, path error |
+| View tasks | Print all tasks | Support filtering by status or topic | Poor empty-data handling |
+| Complete task | Modify the `done` field | Record completion time and notes | Unstable or out-of-range ID |
+| Error handling | Return an empty list when the file does not exist | Give a friendly message when the file is corrupted | Only shows a traceback when an error occurs |
 
-这一版的核心能力是 Python 文件读写、列表字典、函数、异常处理和命令行输入输出。
+The core abilities in this version are Python file I/O, lists and dictionaries, functions, exception handling, and command-line input/output.
 
-## v0.3 学习数据分析：让它能发现学习模式
+## v0.3 Learning data analysis: make it able to discover learning patterns
 
-v0.3 对应数据分析与可视化。目标是把学习任务和学习日志变成可以分析的数据，例如学习时长、完成率、高频主题、拖延任务和每周趋势。
+v0.3 corresponds to data analysis and visualization. The goal is to turn learning tasks and learning logs into analyzable data, such as study time, completion rate, high-frequency topics, procrastinated tasks, and weekly trends.
 
-| 分析问题 | 最小输出 | 作品集输出 |
+| Analysis question | Minimum output | Portfolio output |
 |---|---|---|
-| 我把时间花在哪些主题上 | 按主题汇总分钟数 | 图表 + 结论 + 局限性 |
-| 哪些任务最容易拖延 | 列出延期任务 | 延期原因分类和改进建议 |
-| 学习是否稳定 | 每日或每周学习时长 | 趋势图和异常日期解释 |
-| 数据是否可信 | 缺失值和重复值检查 | 数据字典、清洗日志、清洗前后对比 |
+| What topics do I spend my time on | Summarize minutes by topic | Chart + conclusion + limitations |
+| Which tasks are most likely to be delayed | List delayed tasks | Delay reason categories and improvement suggestions |
+| Is my learning stable | Daily or weekly study time | Trend chart and explanation of abnormal dates |
+| Is the data trustworthy | Check missing and duplicate values | Data dictionary, cleaning log, before-and-after comparison |
 
-这一版不要只画漂亮图。每张图都应该回答一个学习问题，并说明数据有什么限制。
+In this version, do not just draw pretty charts. Every chart should answer a learning question and explain what limitations the data has.
 
-## v0.4 学习问题分类：让它能辅助定位卡点
+## v0.4 Learning question classification: help locate sticking points
 
-v0.4 对应数学和机器学习的入门应用。目标是把学习中遇到的问题分成环境、Python、数据、模型、Prompt、RAG、Agent、部署等类别。最小版可以用规则，标准版再训练一个简单分类模型。
+v0.4 corresponds to introductory applications of math and machine learning. The goal is to classify learning problems into categories such as environment, Python, data, model, Prompt, RAG, Agent, and deployment. The minimum version can use rules, and the standard version can train a simple classification model.
 
-| 方案 | 适合阶段 | 评估方式 | 作品证据 |
+| Approach | Suitable stage | Evaluation method | Portfolio evidence |
 |---|---|---|---|
-| 关键词规则 | 刚开始做分类 | 人工检查 20 条样本 | 规则表、错误样本 |
-| ML baseline | 学完机器学习后 | train/test 指标 | 指标表、混淆矩阵 |
-| LLM 分类 | 学完 Prompt 后 | 固定输入输出对比 | Prompt 版本、schema 校验 |
-| RAG 辅助定位 | 学完 RAG 后 | 能否引用相关课程页 | 检索日志、引用检查 |
+| Keyword rules | Just starting classification | Manually check 20 samples | rule table, error samples |
+| ML baseline | After learning machine learning | train/test metrics | metric table, confusion matrix |
+| LLM classification | After learning Prompt | Compare fixed input-output pairs | Prompt version table, schema validation |
+| RAG-assisted location | After learning RAG | Can it cite relevant course pages | retrieval logs, citation checks |
 
-这一版能把前面的排障索引和后面的 RAG、Agent 串起来：用户输入一个卡点，系统先判断它属于哪一类，再给出建议回看的章节。
+This version connects the earlier troubleshooting index with later RAG and Agent work: when a user enters a sticking point, the system first determines which category it belongs to, and then gives suggestions for which chapter to review.
 
-## v0.5 模型与相似度实验：理解表示和检索的前置能力
+## v0.5 Model and similarity experiments: understand the prerequisites of representation and retrieval
 
-v0.5 对应机器学习、向量和 Embedding 的前置理解。目标是让学习助手能比较学习问题、课程章节和笔记之间的相似度，为后面的 RAG 做准备。
+v0.5 corresponds to machine learning, vectors, and the prerequisites for understanding Embedding. The goal is to help the learning assistant compare similarity among learning questions, course chapters, and notes, preparing for later RAG work.
 
-| 实验 | 最小版 | 标准版 |
+| Experiment | Minimum version | Standard version |
 |---|---|---|
-| 文本相似度 | 用简单词袋或关键词重合度 | 比较 TF-IDF、Embedding 或不同相似度 |
-| 推荐章节 | 根据问题匹配章节标签 | 输出推荐理由和置信度 |
-| 错误分析 | 记录匹配错的样本 | 分析是关键词、表达方式还是标签边界问题 |
-| 指标说明 | 人工判断是否命中 | 统计 top-k 命中率或简单准确率 |
+| Text similarity | Use simple bag-of-words or keyword overlap | Compare TF-IDF, Embedding, or different similarity methods |
+| Chapter recommendation | Match chapters based on the question | Output recommendation reasons and confidence |
+| Error analysis | Record mismatched samples | Analyze whether the issue is keywords, phrasing, or label boundaries |
+| Metric explanation | Manually judge whether the match is correct | Count top-k hit rate or simple accuracy |
 
-这一版的重点不是算法多高级，而是理解“表示方式会影响检索结果”。后面做 RAG 时，很多问题都能追溯到这一层。
+The key point in this version is not how advanced the algorithm is, but understanding that “the representation method affects retrieval results.” Many problems in later RAG work can be traced back to this layer.
 
-## v0.6 训练诊断实验：理解模型失败
+## v0.6 Training diagnosis experiments: understand model failures
 
-v0.6 对应深度学习与 Transformer 基础。AI 学习助手本身不一定需要训练大模型，但你需要通过一个小实验理解训练循环、loss、验证集、过拟合和失败样本。
+v0.6 corresponds to the basics of deep learning and Transformer. The AI Learning Assistant itself does not necessarily need to train a large model, but you need to understand the training loop, loss, validation set, overfitting, and failure samples through a small experiment.
 
-| 训练证据 | 最小要求 | 作品集要求 |
+| Training evidence | Minimum requirement | Portfolio requirement |
 |---|---|---|
-| 数据 | 一份小型文本或图像数据 | 标注说明和数据划分 |
-| 训练 | 跑通一个训练循环 | 保存配置、随机种子和日志 |
-| 评估 | 输出验证指标 | 混淆矩阵、错误样本、曲线 |
-| 复盘 | 说明一次失败 | 解释可能原因和下一步实验 |
+| Data | A small text or image dataset | Annotation notes and data split |
+| Training | Run through a training loop | Save config, random seed, and logs |
+| Evaluation | Output validation metrics | Confusion matrix, error samples, curves |
+| Retrospective | Explain one failure | Describe possible causes and the next experiment |
 
-这一版的价值是让你以后面对 LLM、微调或多模态模型时，不会只看最终效果，而会关注数据、指标和失败归因。
+The value of this version is that when you later face LLMs, fine-tuning, or multimodal models, you will not only look at the final result, but also pay attention to data, metrics, and failure attribution.
 
-## v0.7 Prompt 学习助手：让它能生成计划和复盘
+## v0.7 Prompt learning assistant: make it able to generate plans and retrospectives
 
-v0.7 对应大模型原理、Prompt 和结构化输出。学习助手开始接入 LLM API，帮助用户生成学习计划、复盘卡、问题改写和阶段总结。
+v0.7 corresponds to LLM principles, Prompt, and structured output. The learning assistant starts connecting to an LLM API to help users generate study plans, review cards, question rewrites, and stage summaries.
 
-| 功能 | 最小版 | 标准版 | 评估材料 |
+| Feature | Minimum version | Standard version | Evaluation materials |
 |---|---|---|---|
-| 学习计划 | 输入目标，输出 3～5 个任务 | 按时间、基础、目标调整计划 | 固定输入输出对比 |
-| 复盘卡 | 把学习记录整理成总结 | 输出结构化 JSON 或 Markdown | schema 校验结果 |
-| 问题改写 | 把模糊问题改清楚 | 生成多个检索 query | Prompt 版本表 |
-| 失败处理 | 输出不合格时人工重试 | 自动校验和重试 | 失败样本记录 |
+| Study plan | Enter a goal and output 3 to 5 tasks | Adjust the plan based on time, background, and goal | fixed input-output comparison |
+| Review card | Organize learning records into a summary | Output structured JSON or Markdown | schema validation results |
+| Question rewrite | Turn vague questions into clear ones | Generate multiple retrieval queries | Prompt version table |
+| Failure handling | Retry manually when output is invalid | Automatic validation and retry | failure sample records |
 
-这一版最重要的是稳定性。不要只保存一次好看的回答，要保存同一组输入在不同 Prompt 版本下的输出差异。
+The most important thing in this version is stability. Do not save only one nice answer; save the differences in output for the same set of inputs across different Prompt versions.
 
-## v0.8 RAG 课程问答：让它能基于资料回答
+## v0.8 RAG course Q&A: make it answer based on materials
 
-v0.8 是贯穿项目的关键版本。目标是让学习助手读取课程 Markdown、个人笔记或项目 README，基于资料回答问题，并给出来源引用。
+v0.8 is a key version of the end-to-end project. The goal is for the learning assistant to read course Markdown, personal notes, or project README files, answer questions based on the materials, and provide source citations.
 
-| 模块 | 最小版 | 标准版 | 作品集证据 |
+| Module | Minimum version | Standard version | Portfolio evidence |
 |---|---|---|---|
-| 文档导入 | 读取 Markdown 文本 | 保存标题、阶段、路径等 metadata | 文档清单、chunk 样例 |
-| 检索 | 简单向量检索 | Hybrid Search、Rerank、Query Rewrite | retrieval logs |
-| 回答 | 基于检索片段回答 | 无答案时拒答或提示补资料 | 问答样例、引用检查 |
-| 评估 | 10 个固定问题 | gold_doc、gold_answer、citation_ok | eval questions、失败统计 |
+| Document import | Read Markdown text | Save metadata such as title, stage, and path | document list, chunk samples |
+| Retrieval | Simple vector retrieval | Hybrid Search, Rerank, Query Rewrite | retrieval logs |
+| Answering | Answer based on retrieved chunks | Refuse to answer or ask for more material when there is no answer | Q&A samples, citation checks |
+| Evaluation | 10 fixed questions | gold_doc, gold_answer, citation_ok | eval questions, failure statistics |
 
-这一版要重点记录 RAG 为什么失败：是文档没导入，chunk 切坏了，query 不清楚，检索没命中，还是模型没有忠实使用引用。
+In this version, focus on recording why RAG fails: was the document not imported, were the chunks cut poorly, was the query unclear, did retrieval miss, or did the model fail to use the citations faithfully?
 
-## v0.9 学习规划 Agent：让它能执行多步骤任务
+## v0.9 Learning planning Agent: make it able to execute multi-step tasks
 
-v0.9 对应 Agent 阶段。学习助手从“回答问题”升级为“围绕目标执行任务”。例如用户输入“帮我准备 RAG 复习”，它可以拆成查资料、列重点、生成练习、安排复习、输出计划几步。
+v0.9 corresponds to the Agent stage. The learning assistant upgrades from “answering questions” to “executing tasks around a goal.” For example, if the user says “help me prepare for RAG review,” it can break the task into several steps such as looking up materials, listing key points, generating practice questions, arranging review, and outputting a plan.
 
-| Agent 能力 | 最小版 | 标准版 | 风险控制 |
+| Agent capability | Minimum version | Standard version | Risk control |
 |---|---|---|---|
-| 任务拆解 | 生成步骤列表 | 根据中间结果调整步骤 | 限制最大步数 |
-| 工具调用 | 调用课程检索工具 | 调用 todo、总结、评估工具 | 工具白名单 |
-| 执行轨迹 | 打印每一步 action 和 observation | 保存 `agent_traces.jsonl` | trace 可回放 |
-| 人工确认 | 高风险步骤停下来 | 区分只读、写入、发送、删除 | 默认 dry-run |
+| Task decomposition | Generate a step list | Adjust steps based on intermediate results | Limit the maximum number of steps |
+| Tool calling | Call the course retrieval tool | Call todo, summary, and evaluation tools | tool whitelist |
+| Execution trace | Print each action and observation | Save `agent_traces.jsonl` | trace can be replayed |
+| Human confirmation | Pause on high-risk steps | Distinguish read-only, write, send, delete | default dry-run |
 
-这一版不要追求“模型完全自主”。更好的作品集表达是：我限制了工具权限，记录了执行轨迹，设置了停止条件，并用固定任务集评估完成率和工具错误率。
+In this version, do not chase “fully autonomous models.” A better portfolio story is: I restricted tool permissions, recorded execution traces, set stop conditions, and evaluated completion rate and tool error rate with a fixed task set.
 
-## v1.0 毕业作品：把学习助手整理成可展示产品
+## v1.0 Graduation project: organize the learning assistant into a showcaseable product
 
-v1.0 不一定要功能最多，但要完整、可运行、可解释、可评估。它可以是 RAG 课程问答助手、学习规划 Agent、多模态课件助手，或者三者的组合。
+v1.0 does not have to have the most features, but it should be complete, runnable, explainable, and evaluable. It can be a RAG course Q&A assistant, a learning planning Agent, a multimodal courseware assistant, or a combination of the three.
 
-| 毕业要求 | 最低标准 | 优秀标准 |
+| Graduation requirement | Minimum standard | Excellent standard |
 |---|---|---|
-| 问题定义 | 说明解决谁的什么学习问题 | 有用户场景、边界和不用它的情况 |
-| 运行方式 | 本地可运行 | 有部署、环境变量和启动说明 |
-| 示例 | 3 个成功样例 | 成功、失败、边界样例都有 |
-| 评估 | 固定问题或任务集 | 完成率、引用正确率、成本和失败类型统计 |
-| 工程化 | README、日志、配置 | 监控、限流、安全边界、回归测试 |
-| 展示 | 截图或录屏 | 演示脚本、作品集说明、复盘文章 |
+| Problem definition | Explain which learning problem and who it solves for | Have user scenarios, boundaries, and cases where it should not be used |
+| Run mode | Can run locally | Includes deployment, environment variables, and startup instructions |
+| Examples | 3 successful examples | Includes success, failure, and boundary examples |
+| Evaluation | Fixed question or task set | Completion rate, citation accuracy, cost, and failure type statistics |
+| Engineering | README, logs, configuration | Monitoring, rate limiting, security boundaries, regression tests |
+| Demonstration | Screenshots or screen recording | Demo script, portfolio description, retrospective article |
 
-最后展示时，不要只说“我做了一个 AI 助手”。更好的讲法是：这个项目从 v0.1 的命令行工具逐步迭代到 v1.0，每个版本都留下运行记录、失败样本和评估证据。
+When presenting at the end, do not just say “I built an AI assistant.” A better way to say it is: this project iterated from the v0.1 command-line tool to v1.0, and each version left behind run records, failure samples, and evaluation evidence.
 
-## 每个版本的固定记录模板
+## Fixed record template for each version
 
-建议每完成一个版本，都在项目 README 或 `reports/improvement_record.md` 中增加一段版本记录。
+It is recommended that every time you complete a version, you add a version record in the project README or `reports/improvement_record.md`.
 
 ```md
-## v0.x 版本名称
+## v0.x Version Name
 
-### 本版本目标
-这版要解决什么问题。
+### Goal of this version
+What problem does this version aim to solve?
 
-### 新增能力
-这版新增了哪些功能或模块。
+### New capabilities
+What features or modules were added in this version?
 
-### 运行方式
-使用什么命令运行，依赖什么数据或配置。
+### Run mode
+What command is used to run it, and what data or configuration does it depend on?
 
-### 示例输入输出
-给出一个真实输入和对应输出。
+### Sample input and output
+Provide one real input and the corresponding output.
 
-### 评估方式
-用哪些样例、指标或人工检查判断效果。
+### Evaluation method
+Which samples, metrics, or manual checks are used to judge the result?
 
-### 失败样本
-记录至少一个失败输入、实际结果、原因和修复计划。
+### Failure samples
+Record at least one failed input, the actual result, the cause, and the fix plan.
 
-### 下一版计划
-下一版准备补什么能力。
+### Next version plan
+What capability will be added in the next version?
 ```
 
-如果你能坚持这个模板，毕业时就不需要重新整理作品集材料，因为项目成长过程已经被记录下来了。
+If you can stick to this template, you will not need to reorganize your portfolio materials when you graduate, because the project growth process has already been recorded.

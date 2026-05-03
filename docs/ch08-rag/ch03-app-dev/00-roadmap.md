@@ -1,83 +1,83 @@
 ---
-title: "3.1 学前导读：应用开发这一章到底在学什么"
+title: "3.1 Pre-study Guide: What Is This Application Development Chapter Really About"
 sidebar_position: 0
-description: "先建立 LLM 应用开发章的学习地图：API 调用、框架抽象、Function Calling、对话系统、文档处理和产品闭环怎样组织起来。"
-keywords: [LLM应用开发导读, 对话系统, Function Calling, LangChain, 大模型应用]
+description: "First build a learning map for the LLM application development chapter: how API calls, framework abstractions, Function Calling, dialogue systems, document processing, and product loops fit together."
+keywords: [LLM application development guide, dialogue systems, Function Calling, LangChain, large model applications]
 ---
 
-# 学前导读：应用开发这一章到底在学什么
+# Pre-study Guide: What Is This Application Development Chapter Really About
 
-这一章解决的是：模型能力怎样被组织成真实可用的产品功能。
+This chapter answers one question: how model capabilities are organized into truly usable product features.
 
-到这里，你已经知道 RAG 如何接入知识，模型部署如何提供稳定调用方式。应用开发这一章要进一步回答：这些能力怎样被封装成用户能使用、开发者能维护、系统能持续运行的功能。
+By now, you already know how RAG connects knowledge and how model deployment provides a stable way to call models. This application development chapter goes one step further: how do we package these capabilities into functions that users can use, developers can maintain, and systems can keep running continuously?
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Whole Course
 
-第 8 章的主线是把大模型从“能回答”推进到“能做成应用”。RAG 负责知识链路，部署负责模型服务，应用开发负责把模型、知识、工具、界面和业务流程组织起来。
+The main thread of Chapter 8 is to move large models from “able to answer” to “able to become applications.” RAG is responsible for the knowledge pipeline, deployment is responsible for model services, and application development is responsible for organizing the model, knowledge, tools, interface, and business processes.
 
-这一步的关键变化是：你不再只写一次模型调用，而是要设计一个完整交互过程。用户输入从哪里来，系统怎样理解意图，是否需要调用工具，如何保存多轮上下文，输出如何被前端或后端继续使用，这些都是应用层要处理的问题。
+The key change here is that you are no longer writing a one-time model call. Instead, you need to design a complete interaction flow. Where does user input come from? How does the system understand intent? Does it need to call a tool? How is multi-turn context saved? How is the output used by the frontend or backend? These are all problems that application-layer development must handle.
 
-![LLM 应用开发章节关系图](/img/course/ch08-app-dev-chapter-flow.png)
+![LLM application development chapter relationship diagram](/img/course/ch08-app-dev-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：如何可靠调用 LLM API，并处理超时、重试、成本和错误；为什么应用复杂后需要框架或抽象层；Function Calling 如何把模型输出连接成系统动作；多轮对话怎样维护上下文和状态；文档解析、模板生成、代码助手等复杂场景怎样被拆成可维护模块。
+This chapter answers five questions: how to reliably call the LLM API and handle timeouts, retries, cost, and errors; why frameworks or abstraction layers become necessary as applications grow more complex; how Function Calling connects model outputs to system actions; how multi-turn conversations maintain context and state; and how complex scenarios such as document parsing, template generation, and code assistants can be split into maintainable modules.
 
-新人最容易误解的是：LLM 应用开发就是“前端输入框加一个模型接口”。真实产品里，模型只是其中一层。你还需要处理输入校验、上下文管理、权限、日志、异常、结构化输出、用户反馈和效果评估。
+The most common misunderstanding for beginners is that LLM application development is just “an input box on the frontend plus a model API.” In real products, the model is only one layer. You still need to handle input validation, context management, permissions, logs, exceptions, structured outputs, user feedback, and effectiveness evaluation.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先看 API 调用实践，把最小调用链路、参数、错误处理和成本意识建立起来。然后看框架抽象，理解为什么当功能变复杂时，需要把 prompt、模型、工具、检索、记忆和输出解析拆成组件。接着学 Function Calling，因为这是从“生成文本”走向“触发动作”的关键。最后学对话系统和复杂应用场景，把多轮状态、文档处理和模板生成连接起来。
+It is recommended to first look at API calling practice and build the minimal calling flow, parameters, error handling, and cost awareness. Then study framework abstractions to understand why, as features become more complex, prompt, model, tool, retrieval, memory, and output parsing need to be split into components. Next, learn Function Calling, because this is the key step from “generating text” to “triggering actions.” Finally, study dialogue systems and complex application scenarios to connect multi-turn state, document processing, and template generation.
 
-![LLM 应用开发学习顺序图](/img/course/ch08-app-dev-learning-order-map.png)
+![LLM application development learning order diagram](/img/course/ch08-app-dev-learning-order-map-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Line to Focus on When Studying This Chapter
 
-这一章的主线可以概括为：把一次模型调用，升级成一个可维护的应用闭环。
+The main line of this chapter can be summarized as: upgrade one model call into a maintainable application loop.
 
-![LLM 应用能力闭环图](/img/course/ch08-llm-app-capability-loop.png)
+![LLM application capability loop diagram](/img/course/ch08-llm-app-capability-loop-en.png)
 
-前半段先把模型能力封装成接口和功能模块，后半段再补对话状态、工具调用、文档处理和工程化交付。
+In the first half, model capabilities are packaged into interfaces and functional modules; in the second half, dialogue state, tool calling, document processing, and engineering delivery are added.
 
-这条线能帮助你判断应用开发的重点在哪里。不是每个场景都需要复杂框架，但每个可用产品都需要明确输入、处理、输出和反馈闭环。
+This line helps you judge where the focus of application development really is. Not every scenario needs a complex framework, but every usable product needs a clear loop of input, processing, output, and feedback.
 
-## 这一章和后面章节的关系
+## The Relationship Between This Chapter and the Later Chapters
 
-应用开发是 RAG 和 Agent 之间的桥。RAG 让系统会查资料，Function Calling 让系统能触发动作，多轮对话让系统能持续交互，这些能力组合起来后，就会自然进入 Agent 的目标、计划、工具、记忆和执行闭环。
+Application development is the bridge between RAG and Agent. RAG enables the system to look up information, Function Calling enables the system to trigger actions, and multi-turn conversations enable continuous interaction. Once these capabilities are combined, the system naturally moves toward the goal, planning, tool, memory, and execution loop of an Agent.
 
-如果这一章没学稳，后面常见的问题是：Agent 还没做，应用层已经混乱；工具调用结果没有校验；对话状态越堆越乱；模型输出格式不稳定导致后端解析失败；只关注 Demo 成功，不知道异常路径如何处理。
+If this chapter is not learned well, common problems later are: the Agent has not even been built yet, but the application layer is already a mess; tool call results are not validated; dialogue state keeps piling up and becomes disorganized; model output formats are unstable, causing backend parsing failures; and only Demo success is considered, while exception paths are ignored.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main line and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter for gap-filling and engineering practice: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and the connections between this stage and the stages before and after it. After reading, it is best to condense the content of this chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Recommended Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick read | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its position in the whole course in one sentence |
+| What are the minimal input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor results, or misunderstanding |
+| What can be retained after learning? | You can write the chapter output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议做一个“课程问答与学习规划助手”。它可以接收用户问题，判断是概念解释、路线建议、项目建议还是资料检索；必要时调用知识库检索；最后输出结构化建议，并记录用户反馈。
+After finishing this chapter, it is recommended to build a “course Q&A and study planning assistant.” It can receive user questions, determine whether they are concept explanations, learning path suggestions, project suggestions, or knowledge retrieval requests; when necessary, it can call a knowledge base for retrieval; and finally it can output structured suggestions and record user feedback.
 
-这个项目可以很小，但要体现应用闭环：API 调用、Prompt 组织、可选工具调用、多轮上下文、结构化输出、日志记录和简单错误处理。
+This project can be small, but it should reflect the application loop: API calling, Prompt organization, optional tool calling, multi-turn context, structured output, log recording, and simple error handling.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能独立封装一个 LLM API 调用模块，能解释 Function Calling 如何连接模型和工具，能设计一个基本多轮对话状态结构，能把 RAG、Prompt 和工具调用组织成一个小型应用。
+By the end of this chapter, you should be able to independently package an LLM API calling module, explain how Function Calling connects the model and tools, design a basic multi-turn dialogue state structure, and organize RAG, Prompt, and tool calling into a small application.
 
-如果你能把模型调用失败、输出格式错误、检索为空和工具报错这些异常路径都考虑进去，说明你已经开始具备大模型应用工程化思维。
+If you can also consider exception paths such as model call failures, output format errors, empty retrieval results, and tool errors, it means you are already starting to develop engineering thinking for large model applications.

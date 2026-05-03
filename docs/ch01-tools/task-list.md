@@ -1,36 +1,36 @@
 ---
-title: "阶段学习任务单"
-description: "把开发者工具基础阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [开发者工具, 学习任务单, Git, 命令行, 开发环境]
+title: "Stage Learning Task Sheet"
+description: "Break the developer tools basics stage into actionable learning tasks, practice deliverables, and completion criteria."
+keywords: [developer tools, learning task sheet, Git, command line, development environment]
 ---
 
-# 阶段学习任务单：开发者工具基础
+# Stage Learning Task Sheet: Developer Tools Basics
 
-这个阶段的目标不是记住所有命令，而是让你具备后续学习 AI 项目所需的基本开发工作流。学完后，你应该能创建项目、管理文件、安装依赖、使用 Git 保存版本，并把运行结果记录下来。
+The goal of this stage is not to memorize every command, but to give you the basic development workflow needed for later AI project learning. After finishing this stage, you should be able to create projects, manage files, install dependencies, use Git to save versions, and record execution results.
 
-![开发者工具阶段任务链](/img/course/ch01-task-list-workflow.png)
+![Developer Tools Stage Task Chain](/img/course/ch01-task-list-workflow-en.png)
 
-## 本阶段必须完成的任务
+## Tasks you must complete in this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Completion Criteria |
 | --- | --- | --- |
-| 配置终端与常用命令 | 一份命令练习记录 | 能用命令创建、移动、查看和删除文件 |
-| 配置 Python 开发环境 | 一个可运行的 Python 项目目录 | 能运行 `python --version`、安装依赖并执行脚本 |
-| 配置 VS Code 或等价编辑器 | 项目截图或配置说明 | 能打开项目、运行文件、查看终端输出 |
-| 掌握 Git 基础流程 | 至少 3 次 commit 记录 | 能解释 add、commit、status、log 的作用 |
-| 连接远程仓库 | 一个远程仓库地址或截图 | 能 push，并能从远程确认文件存在 |
+| Configure the terminal and common commands | A command practice log | You can create, move, view, and delete files with commands |
+| Set up a Python development environment | A runnable Python project directory | You can run `python --version`, install dependencies, and execute scripts |
+| Configure VS Code or an equivalent editor | A project screenshot or setup notes | You can open the project, run files, and view terminal output |
+| Master the basic Git workflow | At least 3 commit records | You can explain the role of add, commit, status, and log |
+| Connect to a remote repository | A remote repository URL or screenshot | You can push and confirm the file exists remotely |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先学习终端和文件操作，再配置 Python 环境，然后学习编辑器，最后学习 Git。不要一开始就纠结复杂分支模型，先把“本地改文件、提交、推送”这条主线跑通。
+First learn the terminal and file operations, then configure the Python environment, then learn the editor, and finally learn Git. Do not get stuck on complex branching models at the beginning. First make sure you can follow the main workflow of “edit files locally, commit, and push.”
 
-如果遇到环境问题，优先记录错误原文、操作系统、Python 版本、执行目录和完整命令。后续学习 RAG、Agent、部署时，大量问题本质上仍然是环境、路径和依赖问题。
+If you run into environment issues, prioritize recording the original error message, operating system, Python version, execution directory, and the full command. In later learning on RAG, Agent, and deployment, many problems still come down to environment, paths, and dependencies.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI Learning Assistant project
 
-本阶段对应 AI 学习助手的 v0.1 项目骨架。你需要创建一个项目目录，准备 README，建立 Git 仓库，并写一个最简单的命令行入口。这个版本不需要 AI 能力，只需要让项目具备可持续迭代的工程基础。
+This stage corresponds to the v0.1 project skeleton of the AI Learning Assistant. You need to create a project directory, prepare a README, set up a Git repository, and write the simplest command-line entry point. This version does not need AI capabilities; it only needs to give the project a sustainable engineering foundation for continuous iteration.
 
-推荐目录结构：
+Recommended directory structure:
 
 ```text
 ai-learning-assistant/
@@ -42,54 +42,54 @@ ai-learning-assistant/
   requirements.txt
 ```
 
-`main.py` 可以先只输出一行欢迎语。重点不是功能，而是你能否用固定命令运行它，并把结果写进 README。
+`main.py` can first just print a line of welcome text. The key point is not functionality, but whether you can run it with a fixed command and write the result into the README.
 
-## 常见卡点
+## Common sticking points
 
-最常见的问题包括命令执行目录不对、Python 版本混乱、依赖安装到错误环境、Git 没有配置用户名、远程仓库权限失败。解决这类问题时，不要只复制最后一行错误，要保留完整命令和完整输出。
+The most common problems include running commands in the wrong directory, mixed-up Python versions, installing dependencies into the wrong environment, Git not being configured with a username, and remote repository permission failures. When solving these problems, do not only copy the last line of the error. Keep the full command and the full output.
 
 
-## 轻松版 / 标准版 / 挑战版任务
+## Easy / Standard / Challenge tasks
 
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Who it is for |
 |---|---|---|
-| 轻松版 | 运行一个 Python 文件并完成一次 Git 提交 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 补 README、虚拟环境说明和命令记录 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 故意制造路径或命令错误并写排障记录 | 已有基础、想做更强项目证据的学习者 |
+| Easy | Run a Python file and complete one Git commit | First-time learners, learners with limited time, or beginners |
+| Standard | Add a README, virtual environment notes, and command logs | Learners who want to include this stage in their portfolio |
+| Challenge | Intentionally create path or command errors and write troubleshooting notes | Learners with a foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Stage badge and boss battle
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | 工作台守门人 |
-| 可解锁徽章 | 终端生存者、Git 存档师 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss battle | Workbench Guardian |
+| Unlockable badges | Terminal Survivor, Git Archivist |
+| Minimum completion motto | Get it running first, then explain it, then record the failures |
+| Evidence storage suggestion | Save screenshots, logs, failure samples, or evaluation tables in `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+Completing the Easy version is enough to move on; completing the Standard version is what we recommend including in your portfolio; only do the Challenge version if you have extra bandwidth.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to preserve the results of this stage in your portfolio, we recommend keeping at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `README.md` | 项目目标、环境要求、运行命令和示例输出 |
-| `requirements.txt` | 当前项目依赖，哪怕最初为空也可以保留 |
-| `notes/learning-log.md` | 记录每天做了什么、遇到什么环境问题 |
-| `screenshots/` | 保存终端运行、编辑器和 Git 提交截图 |
-| Git commit 记录 | 至少 3 次小步提交，能看出项目迭代过程 |
+| `README.md` | Project goals, environment requirements, run commands, and example output |
+| `requirements.txt` | Current project dependencies; you can keep it even if it is initially empty |
+| `notes/learning-log.md` | Record what you did each day and what environment issues you encountered |
+| `screenshots/` | Save screenshots of terminal runs, editor usage, and Git commits |
+| Git commit history | At least 3 small commits that show the project iteration process |
 
-这些材料会证明你不是只会看教程，而是已经具备后续持续开发 AI 项目的基本工程习惯。
+These materials will prove that you are not just following tutorials, but already have the basic engineering habits needed for continuous AI project development.
 
-## 阶段通关问题
+## Stage completion questions
 
-学完后，你应该能回答这些问题：当前终端在哪个目录，Python 脚本是用哪个解释器运行的，项目依赖记录在哪里，Git 当前有哪些未提交修改，为什么每次完成一个小功能都应该提交一次。
+After finishing this stage, you should be able to answer these questions: which directory the terminal is currently in, which interpreter the Python script is running with, where the project dependency record is stored, what uncommitted changes Git currently has, and why you should make a commit every time you finish a small feature.
 
-## 完成状态 Checklist
+## Completion checklist
 
-- [ ] 我能在终端进入项目目录，并说明当前命令在哪里执行。
-- [ ] 我能创建、运行和修改一个 Python 文件。
-- [ ] 我能用 Git 查看状态、提交变更，并理解 commit 记录的意义。
-- [ ] 我已经为 AI 学习助手建立项目骨架、README 和运行截图。
-- [ ] 我记录了至少一个环境或路径问题，以及自己的排查过程。
+- [ ] I can enter the project directory in the terminal and explain where the current command is being executed.
+- [ ] I can create, run, and modify a Python file.
+- [ ] I can use Git to check status, commit changes, and understand the meaning of commit records.
+- [ ] I have already created the project skeleton, README, and run screenshots for the AI Learning Assistant.
+- [ ] I have recorded at least one environment or path issue, along with my troubleshooting process.

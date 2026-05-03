@@ -1,344 +1,344 @@
 ---
-title: "4.2 记忆系统概述"
+title: "4.2 Memory System Overview"
 sidebar_position: 19
-description: "从为什么 Agent 需要记忆，到短期、长期、情景与程序记忆的分层，建立完整的记忆系统地图。"
+description: "From why an Agent needs memory to the layered structure of short-term, long-term, episodic, and procedural memory, build a complete map of the memory system."
 keywords: [memory, Agent memory, short-term memory, long-term memory, episodic memory, procedural memory]
 ---
 
-# 记忆系统概述
+# Memory System Overview
 
-![Agent 记忆系统分层图](/img/course/agent-memory-system.png)
+![Agent memory system layering diagram](/img/course/agent-memory-system-en.png)
 
-:::tip 本节定位
-很多 Agent 系统一开始看起来很聪明，但一旦任务一长、回合一多，就会暴露一个本质问题：
+:::tip Section Overview
+Many Agent systems may seem smart at first, but once a task gets longer and the conversation has more turns, they reveal a fundamental problem:
 
-> **它不记得自己刚才在干什么。**
+> **They do not remember what they were just doing.**
 
-所以记忆系统不是“锦上添花”，而是 Agent 从一次性回答器走向持续任务系统的关键一层。
+So a memory system is not a “nice to have.” It is a key layer that helps an Agent move from a one-shot responder to a system that can handle ongoing tasks.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么 Agent 需要记忆，而不仅仅是上下文窗口
-- 分清短期、长期、情景、程序记忆的区别
-- 看懂一个最小的多层记忆结构
-- 建立对“记忆不是越多越好”的正确直觉
-- 知道后面几节分别在解决哪一层问题
-
----
-
-## 新人先掌握 / 进阶再理解
-
-如果你是新人，这一节先抓住一句话：Agent 记忆不是把所有聊天记录都塞回模型，而是把当前任务、长期偏好、过去经历和可复用流程分层保存、按需取用。
-
-如果你已经做过 Agent 项目，可以进一步关注：哪些信息应该写入长期记忆，什么时候应该读取，如何避免短期噪声污染长期事实，以及记忆是否真的改善了任务完成率。
+- Understand why an Agent needs memory, not just a context window
+- Distinguish between short-term, long-term, episodic, and procedural memory
+- Understand a minimal multi-layer memory structure
+- Build the right intuition that “more memory is not always better”
+- Know what problem each of the next sections is trying to solve
 
 ---
 
-## 一、为什么 Agent 需要记忆？
+## First for Beginners / Deeper Understanding for Advanced Learners
 
-### 1.1 没有记忆，系统就像每次都重新开机
+If you are new, keep one sentence in mind for now: Agent memory is not about stuffing all chat history back into the model. It is about storing the current task, long-term preferences, past experiences, and reusable workflows in layers, and using them when needed.
 
-假设用户和 Agent 的对话是这样的：
-
-1. “我想查退款政策”
-2. “主要看时间范围”
-3. “如果我已经学了 30%，还能退吗？”
-
-如果系统每次都只看最后一句：
-
-> “如果我已经学了 30%，还能退吗？”
-
-它其实缺了大量关键上下文。
-
-### 1.2 所以记忆系统在解决什么？
-
-它在解决：
-
-- 当前任务如何保持连贯
-- 过去信息怎样有选择地保留
-- 未来决策怎样利用这些保留下来的内容
-
-一句话说：
-
-> **记忆系统是在帮 Agent 抵抗“每一步都重新开始”的失忆感。**
+If you have already built Agent projects, you can go further and think about: which information should be written into long-term memory, when it should be read, how to prevent short-term noise from polluting long-term facts, and whether memory really improves task completion.
 
 ---
 
-## 二、记忆不等于“把所有历史全塞进去”
+## 1. Why Does an Agent Need Memory?
 
-### 2.1 一个常见误解
+### 1.1 Without memory, the system is like rebooting every time
 
-很多人一说记忆，第一反应就是：
+Suppose the conversation between a user and an Agent goes like this:
 
-- 把历史消息全存起来
-- 需要时全塞给模型
+1. “I want to check the refund policy”
+2. “Focus mainly on the time range”
+3. “If I’ve already completed 30%, can I still get a refund?”
 
-但这通常会带来：
+If the system only looks at the last sentence each time:
 
-- token 成本爆炸
-- 延迟上升
-- 噪声过多
-- 真正重要的信息反而被淹掉
+> “If I’ve already completed 30%, can I still get a refund?”
 
-### 2.2 记忆系统真正要做的是筛选和组织
+it is actually missing a lot of important context.
 
-所以记忆系统不是简单的“多存点东西”，而是：
+### 1.2 So what does the memory system solve?
 
-> **在有限预算下，保留最有价值的信息，并用对的方式组织它。**
+It solves:
 
-这和人类记忆也很像：
+- How to keep the current task coherent
+- How to selectively retain past information
+- How to use that retained information for future decisions
 
-- 不是把一切原封不动记住
-- 而是会压缩、选择、归纳
+In one sentence:
+
+> **A memory system helps an Agent resist the feeling of “starting over from scratch” at every step.**
 
 ---
 
-## 三、先建立一张完整地图
+## 2. Memory Does Not Mean “Stuff All History In”
 
-### 3.1 记忆系统常见分层
+### 2.1 A common misunderstanding
 
-| 记忆类型 | 更像什么 | 主要解决什么 |
+When many people hear “memory,” their first thought is:
+
+- Store all historical messages
+- Feed everything back into the model when needed
+
+But this usually leads to:
+
+- Exploding token cost
+- Higher latency
+- Too much noise
+- Important information getting buried instead
+
+### 2.2 What a memory system really needs to do is filter and organize
+
+So a memory system is not just “store more stuff.” It is:
+
+> **Under a limited budget, keep the most valuable information and organize it in the right way.**
+
+This is very similar to human memory:
+
+- We do not remember everything exactly as it happened
+- Instead, we compress, select, and summarize
+
+---
+
+## 3. First Build a Complete Map
+
+### 3.1 Common memory layers
+
+| Memory Type | What It Is Like | What It Mainly Solves |
 |---|---|---|
-| 短期记忆 | 工作台 | 当前任务上下文 |
-| 长期记忆 | 档案库 | 跨回合稳定信息 |
-| 情景记忆 | 任务经历 | 过去发生过什么 |
-| 程序记忆 | 操作手册 | 某类任务该怎么做 |
+| Short-term memory | A workbench | Current task context |
+| Long-term memory | An archive | Stable information across turns |
+| Episodic memory | Task experiences | What happened in the past |
+| Procedural memory | An operation manual | How to do a class of tasks |
 
-### 3.2 一句话先记住
+### 3.2 One sentence to remember first
 
-- 短期记忆：这次任务正在发生什么
-- 长期记忆：这个用户 / 这个系统长期是什么样
-- 情景记忆：过去某次经历的记录
-- 程序记忆：一套可复用的做事流程
+- Short-term memory: what is happening in this task right now
+- Long-term memory: what this user / system is like over time
+- Episodic memory: a record of one specific past experience
+- Procedural memory: a reusable workflow for getting things done
 
-这四种记忆不是总要全都上，但它们组成了一个非常实用的思考框架。
+These four types of memory are not always all needed, but together they form a very practical framework for thinking.
 
-![Agent 记忆分层选择图](/img/course/ch09-memory-layer-selection-map.png)
+![Agent memory layer selection map](/img/course/ch09-memory-layer-selection-map-en.png)
 
-:::tip 读图提示
-这张图不是要求你一次做满四类记忆，而是帮你判断“这条信息该放哪”。当前任务放 short-term，稳定偏好放 long-term，单次经历放 episodic，可复用流程放 procedural。
+:::tip Reading Tip
+This diagram is not asking you to build all four kinds of memory at once. It is there to help you decide “which layer should this information go into?” Current task goes to short-term, stable preferences go to long-term, a single experience goes to episodic, and reusable workflows go to procedural.
 :::
 
 ---
 
-## 四、短期记忆：当前任务的工作区
+## 4. Short-Term Memory: The Work Area for the Current Task
 
-### 4.1 它通常存什么？
+### 4.1 What does it usually store?
 
-- 最近几轮对话
-- 当前任务目标
-- 中间工具结果
-- 正在执行到哪一步
+- The most recent few turns of conversation
+- The current task goal
+- Intermediate tool results
+- Which step the system is currently on
 
-### 4.2 为什么它最先重要？
+### 4.2 Why is it the first thing that matters?
 
-因为用户最容易感知到的失败，往往来自短期记忆出错：
+Because the failures users notice most often come from short-term memory mistakes:
 
-- 系统忘了刚说过什么
-- 工具刚查过的结果又查一遍
-- 上一步已经决定的事下一步又推翻
+- The system forgets what it just said
+- It checks the same tool result again and again
+- It overturns a decision that was already made in the previous step
 
-这也是为什么下一节我们会先专门讲短期记忆。
-
----
-
-## 五、长期记忆：跨回合依然有价值的信息
-
-### 5.1 它通常存什么？
-
-例如：
-
-- 用户偏好：喜欢简洁回答
-- 用户背景：是 Python 初学者
-- 项目背景：当前正在做 RAG 系统
-
-### 5.2 和短期记忆最大的区别
-
-短期记忆服务“这一次任务”。  
-长期记忆服务“以后遇到类似情况时还能继续用”。
-
-所以长期记忆更像档案，而不是当前工作台。
+That is also why the next section will focus specifically on short-term memory first.
 
 ---
 
-## 六、情景记忆和程序记忆是什么？
+## 5. Long-Term Memory: Information That Still Matters Across Turns
 
-### 6.1 情景记忆（episodic memory）
+### 5.1 What does it usually store?
 
-可以理解成：
+For example:
 
-> 过去发生过的一次具体经历。 
+- User preference: likes concise answers
+- User background: a Python beginner
+- Project context: currently building a RAG system
 
-例如：
+### 5.2 The biggest difference from short-term memory
 
-- “上次用户问退款，最终发现是超过 7 天导致不可退”
+Short-term memory serves “this one task.”
+Long-term memory serves “similar situations in the future.”
 
-它更像一条带时间和事件背景的记录。
-
-### 6.2 程序记忆（procedural memory）
-
-可以理解成：
-
-> 一套已经被证明有用的做事步骤。 
-
-例如：
-
-- “处理退款问题时，先查订单，再查政策，再判断资格”
-
-这更像经验流程，而不是单次事件。
-
-### 6.3 为什么要区分这两类？
-
-因为：
-
-- 情景记忆更像“我经历过什么”
-- 程序记忆更像“我学会怎么做”
-
-这两种记忆会直接影响 Agent 的可迁移能力。
+So long-term memory is more like an archive than a current workbench.
 
 ---
 
-## 七、一个最小多层记忆示例
+## 6. What Are Episodic Memory and Procedural Memory?
 
-下面这个例子虽然简单，但能帮你快速建立“多层记忆结构”直觉。
+### 6.1 Episodic memory
+
+You can understand it as:
+
+> A specific past experience that actually happened.
+
+For example:
+
+- “Last time the user asked about refunds, it turned out they could not get one because they were beyond 7 days”
+
+It is more like a record with both time and event context.
+
+### 6.2 Procedural memory
+
+You can understand it as:
+
+> A set of steps for doing something that has already been proven useful.
+
+For example:
+
+- “When handling a refund issue, first check the order, then check the policy, then judge eligibility”
+
+This is more like an experienced workflow than a single event.
+
+### 6.3 Why do we need to distinguish these two?
+
+Because:
+
+- Episodic memory is more like “what I experienced”
+- Procedural memory is more like “what I learned to do”
+
+These two types of memory directly affect an Agent’s ability to transfer knowledge to new situations.
+
+---
+
+## 7. A Minimal Multi-Layer Memory Example
+
+The example below is simple, but it helps you quickly build an intuition for a “multi-layer memory structure.”
 
 ```python
 memory = {
     "short_term": {
-        "messages": ["我想查退款政策", "主要看时间范围"],
-        "current_goal": "判断退款资格"
+        "messages": ["I want to check the refund policy", "Focus mainly on the time range"],
+        "current_goal": "Determine refund eligibility"
     },
     "long_term": {
-        "user_preference": "回答要简洁",
-        "skill_level": "Python 初学者"
+        "user_preference": "Responses should be concise",
+        "skill_level": "Python beginner"
     },
     "episodic": [
-        "上次处理退款问题时，用户因为学习进度过高而不能退款"
+        "Last time handling a refund issue, the user could not get a refund because their learning progress was too high"
     ],
     "procedural": {
-        "refund_workflow": ["查订单", "查政策", "判断资格", "返回结论"]
+        "refund_workflow": ["Check order", "Check policy", "Judge eligibility", "Return conclusion"]
     }
 }
 
 print(memory)
 ```
 
-### 7.2 这段代码真正教了什么？
+### 7.2 What does this code really teach?
 
-它在教你：
+It teaches you this:
 
-> 记忆不是一个桶，而是多层、分工不同的信息结构。 
+> Memory is not a single bucket. It is a multi-layered information structure with different responsibilities.
 
-如果把所有内容混成一堆文本，系统会越来越难用。
-
----
-
-## 八、记忆系统设计时最常见的权衡
-
-### 8.1 记多少？
-
-- 太少：系统容易失忆
-- 太多：系统容易混乱、成本升高
-
-### 8.2 记成原文还是摘要？
-
-- 原文：细节更完整
-- 摘要：更省上下文
-
-### 8.3 什么时候写入、什么时候读取？
-
-不是所有内容都值得写入长期记忆。  
-也不是每次回答都要把所有长期记忆都读出来。
-
-所以记忆系统的关键，不只是“存”，更是：
-
-- 写入策略
-- 检索策略
-- 清理策略
+If everything is mixed into one pile of text, the system will become harder and harder to use.
 
 ---
 
-## 九、一个很重要的工程提醒
+## 8. The Most Common Trade-offs in Memory System Design
 
-记忆系统不是越复杂越好。
+### 8.1 How much should you remember?
 
-很多项目一开始最需要的其实只是：
+- Too little: the system easily forgets
+- Too much: the system becomes confused and costs go up
 
-- 短期消息窗口
-- 一点结构化状态
+### 8.2 Should you store raw text or summaries?
 
-如果一开始就上：
+- Raw text: more complete details
+- Summary: saves context space
 
-- 向量长期记忆
-- 多层情景摘要
-- 程序记忆图谱
+### 8.3 When should you write and when should you read?
 
-很可能会把系统复杂度拉得过高。
+Not all content is worth writing into long-term memory.
+And you do not need to read all long-term memories every time you answer.
 
-所以更稳妥的原则通常是：
+So the key to a memory system is not just “store,” but also:
 
-> **从最小可用记忆开始，再逐步升级。**
-
----
-
-## 十、初学者最常踩的坑
-
-### 10.1 把记忆理解成“聊天记录归档”
-
-这只是很浅的一层。
-
-### 10.2 只关注存储，不关注读取与使用
-
-存了但不会在正确时机取出来，记忆就没有真正工作。
-
-### 10.3 不区分短期和长期
-
-最后会导致：
-
-- 当前状态混乱
-- 长期偏好被短期噪声污染
+- Write strategy
+- Retrieval strategy
+- Cleanup strategy
 
 ---
 
-## 十一、记忆系统最值得展示什么
+## 9. An Important Engineering Reminder
 
-如果把记忆系统做成作品集项目，最值得展示的不是“我存了很多历史记录”，而是：
+A memory system is not better just because it is more complex.
 
-| 展示内容 | 说明 |
+In many projects, what you really need at the beginning is simply:
+
+- A short-term message window
+- A bit of structured state
+
+If you start with:
+
+- Vector-based long-term memory
+- Multi-layer episodic summarization
+- Procedural memory graphs
+
+you may end up making the system far too complex.
+
+So a safer principle is usually:
+
+> **Start with the smallest usable memory, then upgrade gradually.**
+
+---
+
+## 10. The Most Common Mistakes for Beginners
+
+### 10.1 Thinking of memory as “chat log archiving”
+
+That is only a very shallow layer.
+
+### 10.2 Focusing only on storage, not on retrieval and usage
+
+If you store something but never bring it back at the right time, the memory is not really working.
+
+### 10.3 Not distinguishing between short-term and long-term
+
+This will eventually cause:
+
+- Confused current state
+- Long-term preferences polluted by short-term noise
+
+---
+
+## 11. What Is Most Worth Showing in a Memory System
+
+If you turn a memory system into a portfolio project, what is most worth showing is not “I stored a lot of historical records,” but rather:
+
+| What to Show | Description |
 |---|---|
-| 记忆分层 | 哪些是短期状态，哪些是长期偏好，哪些是情景记录或流程经验 |
-| 写入规则 | 什么信息值得保存，什么信息只留在当前任务里 |
-| 读取规则 | 回答或执行任务前，系统如何选择相关记忆 |
-| 错误案例 | 哪些记忆造成了误导，后来如何修正或清理 |
-| 效果对比 | 有记忆和无记忆时，任务连贯性或成功率有什么变化 |
+| Memory layers | Which parts are short-term state, which are long-term preferences, which are episodic records or workflow experience |
+| Write rules | What information is worth saving, and what should stay only in the current task |
+| Read rules | Before answering or acting, how the system selects relevant memories |
+| Error cases | Which memories caused confusion, and how they were corrected or cleaned up later |
+| Effect comparison | What changes in task coherence or success rate with memory versus without memory |
 
-这会让别人看到你理解的是“记忆工程”，而不是简单的聊天记录归档。
+This will show that you understand “memory engineering,” not just simple chat log archiving.
 
-## 十二、这一节的学习闭环
+## 12. The Learning Loop for This Section
 
-| 层次 | 你应该能做到什么 |
+| Layer | What You Should Be Able to Do |
 |---|---|
-| 直觉 | 能解释为什么 Agent 需要抵抗“每一步都重新开始” |
-| 结构 | 能分清短期、长期、情景、程序记忆分别负责什么 |
-| 工程 | 能说出写入、读取、清理三类策略为什么重要 |
-| 项目 | 能设计一个带记忆分层和错误案例的 Agent demo |
+| Intuition | Explain why an Agent needs to resist “starting over from scratch at every step” |
+| Structure | Distinguish what short-term, long-term, episodic, and procedural memory are responsible for |
+| Engineering | Explain why write, read, and cleanup strategies are important |
+| Project | Design an Agent demo with memory layers and error cases |
 
 ---
 
-## 小结
+## Summary
 
-这一节最重要的不是背四种记忆名词，而是抓住这条主线：
+The most important thing in this section is not memorizing the four memory names, but grasping the main thread:
 
-> **记忆系统的本质，是让 Agent 在跨步、跨回合、跨任务时，不必每次都从零开始。**
+> **The essence of a memory system is to let an Agent avoid starting from zero every time across steps, turns, and tasks.**
 
-真正有用的记忆系统，通常不是“存得最多”，而是“分层清楚、写读有策略、能真正支持决策”。
+A truly useful memory system is usually not the one that “stores the most,” but the one that has clear layers, well-designed write/read strategies, and can genuinely support decision-making.
 
 ---
 
-## 练习
+## Exercises
 
-1. 用自己的项目场景，分别举一个短期记忆和长期记忆的例子。
-2. 想一想：如果用户短期内连续改需求，哪些信息应该留在短期记忆而不是长期记忆？
-3. 试着设计一个简单的“程序记忆”流程，比如“处理订单退款”的步骤清单。
-4. 用自己的话解释：为什么说记忆系统的难点不只是存储，而是选择和组织？
+1. Using your own project scenario, give one example of short-term memory and one example of long-term memory.
+2. Think about this: if a user changes requirements several times in a short period, which information should stay in short-term memory instead of long-term memory?
+3. Try designing a simple “procedural memory” workflow, such as a step-by-step checklist for “handling an order refund.”
+4. Explain in your own words: why is the hard part of a memory system not just storage, but selection and organization?

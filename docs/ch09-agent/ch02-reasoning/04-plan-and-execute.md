@@ -1,195 +1,195 @@
 ---
 title: "2.5 Plan-and-Execute"
 sidebar_position: 8
-description: "把“先规划，再执行”拆开讲清楚，理解为什么长任务和复杂任务常常不适合全程即兴 ReAct，而需要更稳定的计划层。"
+description: "Explain “plan first, execute later” clearly, and understand why long-horizon and complex tasks are often not a good fit for fully improvised ReAct, but instead need a more stable planning layer."
 keywords: [plan and execute, planner, executor, workflow, long horizon tasks, agent planning]
 ---
 
 # Plan-and-Execute
 
-:::tip 本节定位
-ReAct 很适合边走边看。  
-但当任务变长以后，它会遇到一个典型问题：
+:::tip Section overview
+ReAct is great for learning as you go.
+But when tasks get longer, it runs into a typical problem:
 
-- 每一步都临场决定，容易飘
+- deciding everything on the spot at each step can easily drift off track
 
-这时很多系统会换一种组织方式：
+At that point, many systems switch to a different organizational pattern:
 
-> **先用 planner 拆计划，再由 executor 按计划逐步完成。**
+> **First use a planner to break down the plan, then let the executor complete it step by step.**
 
-这就是 Plan-and-Execute 的核心。
+That is the core idea of Plan-and-Execute.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 Plan-and-Execute 为什么适合长任务
-- 理解 planner 和 executor 的职责分离
-- 通过可运行示例看懂一个最小的“先规划再执行”系统
-- 理解它和 ReAct 的差别与取舍
+- Understand why Plan-and-Execute is well-suited to long tasks
+- Understand the division of responsibilities between planner and executor
+- See a runnable example of a minimal “plan first, execute later” system
+- Understand how it differs from ReAct and the trade-offs involved
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-Plan-and-Execute 更适合按“高层先定路线，低层再跑步骤”来理解：
+Plan-and-Execute is easier to understand as “high-level route first, low-level steps later”:
 
 ```mermaid
 flowchart LR
-    A["用户目标"] --> B["Planner 先拆步骤"]
-    B --> C["Executor 逐步执行"]
-    C --> D["写回 context"]
-    D --> E["汇总结果"]
+    A["User goal"] --> B["Planner breaks the steps down first"]
+    B --> C["Executor executes step by step"]
+    C --> D["Write back to context"]
+    D --> E["Summarize results"]
 ```
 
-所以这节真正想解决的是：
+So what this section really aims to solve is:
 
-- 为什么长任务不适合全程即兴
-- 为什么计划层和执行层分开后，系统会更稳
-
----
-
-## 一、为什么任务一长，就更需要“先规划”？
-
-### 1.1 边走边想容易丢全局
-
-如果任务只有一步两步，  
-ReAct 的即兴决策通常够用。
-
-但如果任务变成：
-
-- 整理一周售后数据
-- 统计高频问题
-- 生成汇报
-- 再给出改进建议
-
-这类长任务就有更强的全局结构。
-
-如果每一步都临时决定，  
-常见问题会是：
-
-- 漏步骤
-- 顺序错
-- 做了重复工作
-
-### 1.2 Planner 的作用：先把大任务变成小任务
-
-Planner 最核心的价值不是“更聪明”，  
-而是：
-
-- 先画路线图
-
-它会回答：
-
-- 一共有哪些步骤
-- 步骤顺序是什么
-- 哪些结果要传给后面
-
-### 1.3 Executor 的作用：专心把当前步骤做好
-
-把计划拆出来后，  
-执行器就可以少想一点“战略问题”，  
-更多关注：
-
-- 当前步骤怎么完成
-- 当前工具怎么调
-- 当前结果怎么落库
-
-这让系统更稳，也更容易调试。
-
-### 1.4 一个更适合新人的总类比
-
-你可以把 Plan-and-Execute 理解成：
-
-- 先列施工清单，再安排工人按清单施工
-
-如果没有施工清单，工人当然也能边做边想，  
-但任务一长就很容易出现：
-
-- 漏步骤
-- 顺序错
-- 重复返工
-
-这个类比很适合新人，因为它会把“planner / executor”重新拉回一个很日常的组织问题。
+- Why long tasks are not a good fit for fully improvised execution
+- Why separating planning and execution makes the system more stable
 
 ---
 
-## 二、Plan-and-Execute 和 ReAct 的差别到底在哪里？
+## 1. Why do longer tasks need “planning first” more?
 
-### 2.1 ReAct 更像边调查边走
+### 1.1 Thinking while moving can easily lose the big picture
 
-它适合：
+If a task only has one or two steps,
+ReAct’s on-the-fly decision-making is usually enough.
 
-- 信息未知很多
-- 下一步取决于上一轮 observation
+But if the task becomes:
 
-### 2.2 Plan-and-Execute 更像先列施工清单
+- organizing a week of customer support data
+- counting frequent issues
+- generating a report
+- then giving improvement suggestions
 
-它适合：
+then the task has a much stronger global structure.
 
-- 任务结构比较清楚
-- 步骤可以预先拆解
-- 希望减少即兴漂移
+If every step is decided only at the moment,
+common problems are:
 
-### 2.3 两者不是敌对关系
+- missed steps
+- wrong order
+- repeated work
 
-很多真实系统其实会混用：
+### 1.2 The role of the planner: turn a big task into smaller tasks first
 
-- 高层先 Plan-and-Execute
-- 每个执行步骤内部再用 ReAct
+The most important value of the planner is not “being smarter,”
+but:
 
-也就是说：
+- drawing the roadmap first
 
-- 规划负责全局
-- ReAct 负责局部探索
+It answers questions like:
 
-### 2.4 一个很适合初学者先记的选择表
+- How many steps are there?
+- What is the order of the steps?
+- Which results need to be passed to later steps?
 
-| 任务特点 | 更稳的第一反应 |
+### 1.3 The role of the executor: focus on doing the current step well
+
+Once the plan is separated out,
+the executor can spend less time on “strategy”
+and more time on:
+
+- how to complete the current step
+- how to call the current tool
+- how to write the current result into storage
+
+This makes the system more stable and easier to debug.
+
+### 1.4 A beginner-friendly overall analogy
+
+You can think of Plan-and-Execute as:
+
+- first make a construction checklist, then have the workers follow it step by step
+
+Without a checklist, workers can of course improvise as they go,
+but once the task gets long it is very easy to end up with:
+
+- missed steps
+- wrong order
+- repeated rework
+
+This analogy is especially good for beginners, because it brings “planner / executor” back to a very everyday coordination problem.
+
+---
+
+## 2. What is the real difference between Plan-and-Execute and ReAct?
+
+### 2.1 ReAct is more like investigating while moving
+
+It works well when:
+
+- there is a lot of unknown information
+- the next step depends on the previous observation
+
+### 2.2 Plan-and-Execute is more like making a construction checklist first
+
+It works well when:
+
+- the task structure is fairly clear
+- steps can be broken down in advance
+- you want to reduce improvisational drift
+
+### 2.3 They are not opposing approaches
+
+Many real systems actually combine them:
+
+- use Plan-and-Execute at the high level first
+- then use ReAct inside each execution step
+
+In other words:
+
+- planning handles the global picture
+- ReAct handles local exploration
+
+### 2.4 A selection table that is easy for beginners to remember
+
+| Task characteristics | Safer first choice |
 |---|---|
-| 路径清楚、步骤多 | Plan-and-Execute |
-| 信息未知多、边走边查 | ReAct |
-| 既要全局规划，又要局部探索 | 两者混用 |
+| Clear path, many steps | Plan-and-Execute |
+| Lots of unknowns, learn as you go | ReAct |
+| Need both global planning and local exploration | Combine both |
 
-这个表很适合新人，因为它会把“该用哪种推理组织方式”变成一个能判断的问题。
+This table is useful for beginners because it turns “which reasoning organization should I use?” into something you can actually judge.
 
-![Plan-and-Execute 监控重规划图](/img/course/ch09-plan-execute-monitor-replan-map.png)
+![Plan-and-Execute monitoring and replanning diagram](/img/course/ch09-plan-execute-monitor-replan-map-en.png)
 
-:::tip 读图提示
-读图时注意两层职责：Planner 负责全局路线，Executor 负责当前步骤；Monitor 一旦发现缺资料、工具失败或目标变化，就触发 replan，而不是让系统硬走原计划。
+:::tip Reading the diagram
+When reading the diagram, pay attention to the two layers of responsibility: the Planner handles the global route, the Executor handles the current step; once the Monitor detects missing information, a tool failure, or a goal change, it triggers replan instead of forcing the system to keep following the original plan.
 :::
 
 ---
 
-## 三、先跑一个真正的最小 Plan-and-Execute 示例
+## 3. Let’s run a real minimal Plan-and-Execute example first
 
-下面这个例子会模拟一个“售后周报 Agent”。  
-用户任务是：
+The example below simulates a “customer support weekly report Agent.”
+The user task is to:
 
-- 统计售后问题
-- 找出高频意图
-- 生成一份简短总结
+- count support issues
+- identify frequent intents
+- generate a short summary
 
-我们会明确拆出：
+We will explicitly separate:
 
 - planner
 - executor
 
 ```python
 tickets = [
-    {"intent": "refund", "text": "订单未发货，可以退款吗？"},
-    {"intent": "refund", "text": "退款多久到账？"},
-    {"intent": "password", "text": "忘记密码怎么办？"},
-    {"intent": "address", "text": "地址填错了还能改吗？"},
-    {"intent": "refund", "text": "退款为什么还没到账？"},
+    {"intent": "refund", "text": "My order has not shipped yet, can I get a refund?"},
+    {"intent": "refund", "text": "How long does a refund take?"},
+    {"intent": "password", "text": "What should I do if I forgot my password?"},
+    {"intent": "address", "text": "Can I still change the address if I entered it wrong?"},
+    {"intent": "refund", "text": "Why has my refund not arrived yet?"},
 ]
 
 
 def planner(goal):
     return [
-        {"step": "load_tickets", "description": "读取本周售后工单"},
-        {"step": "count_intents", "description": "统计各类问题数量"},
-        {"step": "find_top_intent", "description": "找出最高频问题"},
-        {"step": "draft_report", "description": "生成简短周报"},
+        {"step": "load_tickets", "description": "Load this week’s support tickets"},
+        {"step": "count_intents", "description": "Count the number of issues in each category"},
+        {"step": "find_top_intent", "description": "Find the most frequent issue"},
+        {"step": "draft_report", "description": "Generate a short weekly report"},
     ]
 
 
@@ -198,7 +198,7 @@ def executor(task, context):
 
     if name == "load_tickets":
         context["tickets"] = tickets
-        return "已读取 5 条工单"
+        return "Loaded 5 tickets"
 
     if name == "count_intents":
         counts = {}
@@ -217,9 +217,9 @@ def executor(task, context):
         counts = context["intent_counts"]
         top_intent = context["top_intent"]
         report = (
-            f"本周共处理 {len(context['tickets'])} 条售后工单。"
-            f"最高频问题是 {top_intent}，出现 {counts[top_intent]} 次。"
-            f"建议优先优化 {top_intent} 流程和 FAQ 文案。"
+            f"This week, a total of {len(context['tickets'])} support tickets were handled. "
+            f"The most frequent issue was {top_intent}, appearing {counts[top_intent]} times. "
+            f"It is recommended to prioritize improving the {top_intent} workflow and FAQ copy."
         )
         context["report"] = report
         return report
@@ -227,7 +227,7 @@ def executor(task, context):
     raise ValueError(f"Unknown step: {name}")
 
 
-goal = "生成本周售后问题周报"
+goal = "Generate this week's customer support report"
 plan = planner(goal)
 context = {}
 trace = []
@@ -248,44 +248,44 @@ print("\nfinal report:")
 print(context["report"])
 ```
 
-### 3.1 这段代码最关键的价值是什么？
+### 3.1 What is the most important value of this code?
 
-它清楚分开了两件事：
+It clearly separates two things:
 
-1. 规划  
-   确定要做哪些步骤
-2. 执行  
-   真正把步骤跑完，并把结果放进 context
+1. Planning
+   Decide which steps need to be done
+2. Execution
+   Actually run the steps and place the results into `context`
 
-这就是 Plan-and-Execute 最本质的结构。
+That is the most essential structure of Plan-and-Execute.
 
-### 3.2 `context` 在这里扮演什么角色？
+### 3.2 What role does `context` play here?
 
-它就是执行期的共享状态。
+It is the shared state during execution.
 
-前一步产出的：
+The outputs from earlier steps:
 
 - `tickets`
 - `intent_counts`
 - `top_intent`
 
-都会被后一步继续使用。
+will all be used by later steps.
 
-所以 Plan-and-Execute 的关键并不只是“有 plan”，  
-还包括：
+So the key idea in Plan-and-Execute is not just “having a plan,”
+but also:
 
-- 中间产物怎样被安全传递
+- how intermediate results are safely passed along
 
-### 3.3 为什么这比单纯 `for step in plan` 更值得学？
+### 3.3 Why is this more worth learning than just `for step in plan`?
 
-因为这不是在演示一个循环，  
-而是在演示：
+Because this is not just demonstrating a loop,
+but demonstrating:
 
-- 长任务如何拆分
-- 依赖如何传递
-- 最终结果如何逐步汇总
+- how long tasks are decomposed
+- how dependencies are passed
+- how the final result is aggregated step by step
 
-### 3.4 再看一个最小“计划检查表”示例
+### 3.4 Let’s look at one more minimal “plan checklist” example
 
 ```python
 plan_quality = {
@@ -297,170 +297,170 @@ plan_quality = {
 
 def next_fix(plan_quality):
     if not plan_quality["steps_clear"]:
-        return "先把步骤描述写清楚。"
+        return "First make the step descriptions clear."
     if not plan_quality["order_defined"]:
-        return "先明确执行顺序。"
+        return "First define the execution order."
     if not plan_quality["handoff_defined"]:
-        return "先写清每一步产出怎样传给后一步。"
-    return "计划已经具备基本可执行性。"
+        return "First clarify how each step’s output is passed to the next step."
+    return "The plan is now basically executable."
 
 
 print(next_fix(plan_quality))
 ```
 
-这个示例很适合初学者，因为它会提醒你：
+This example is especially good for beginners, because it reminds you:
 
-- 好计划不只是“列几个步骤”
-- 还要考虑步骤之间的交接关系
-
----
-
-## 四、Plan-and-Execute 什么时候特别有价值？
-
-### 4.1 长任务
-
-例如：
-
-- 写报告
-- 做研究总结
-- 整理知识库
-- 搭建多步骤业务流程
-
-### 4.2 需要稳定复现的流程
-
-如果你希望同类任务每次都按相近结构执行，  
-那显式计划会比完全即兴更稳。
-
-### 4.3 需要人类审阅计划的场景
-
-有些任务里，  
-你甚至会先把 plan 给人看一眼，再决定是否执行。
-
-例如：
-
-- 高风险操作
-- 复杂数据处理
-- 自动化流程变更
+- a good plan is not just “listing a few steps”
+- you also need to consider the handoff relationship between steps
 
 ---
 
-## 五、它最容易出什么问题？
+## 4. When is Plan-and-Execute especially valuable?
 
-### 5.1 计划一开始就拆错
+### 4.1 Long tasks
 
-如果 planner 把任务理解错了，  
-后面 executor 再认真也没用。
+For example:
 
-### 5.2 计划过死，不会根据新观察调整
+- writing reports
+- doing research summaries
+- organizing a knowledge base
+- building multi-step business workflows
 
-这正是 Plan-and-Execute 的典型短板。
+### 4.2 Processes that need stable repeatability
 
-如果外部世界变化很快，  
-过于固定的计划可能会显得僵硬。
+If you want similar tasks to be executed with a similar structure every time,
+then an explicit plan is more stable than pure improvisation.
 
-### 5.3 执行器和计划描述脱节
+### 4.3 Scenarios where a human should review the plan
 
-常见情况：
+In some tasks,
+you may even show the plan to a person first and then decide whether to execute it.
 
-- planner 写了一个模糊步骤
-- executor 却不知道怎么落地
+For example:
 
-所以计划步骤最好：
-
-- 粒度明确
-- 可以执行
-- 输入输出清楚
+- high-risk operations
+- complex data processing
+- changes to automation workflows
 
 ---
 
-## 六、工程上怎样让 Plan-and-Execute 更稳？
+## 5. What problems does it most easily run into?
 
-### 6.1 让 plan 结构化
+### 5.1 The plan is wrong from the start
 
-不要只生成一串自然语言。  
-更好的形式通常是：
+If the planner misunderstands the task,
+then even a careful executor cannot fix it.
+
+### 5.2 The plan is too rigid and does not adapt to new observations
+
+This is the classic weakness of Plan-and-Execute.
+
+If the external world changes quickly,
+a plan that is too fixed may feel rigid.
+
+### 5.3 The executor is disconnected from the plan description
+
+Common situations:
+
+- the planner writes a vague step
+- the executor does not know how to implement it
+
+So plan steps are best when they are:
+
+- clearly scoped
+- executable
+- explicit about inputs and outputs
+
+---
+
+## 6. How do we make Plan-and-Execute more stable in engineering practice?
+
+### 6.1 Make the plan structured
+
+Do not generate only a string of natural language.
+A better format is usually:
 
 - step id
 - description
 - input
 - output
 
-### 6.2 每步执行完都写回 context
+### 6.2 Write back to `context` after each step
 
-这样更利于：
+This is more helpful for:
 
-- 调试
-- 回放
-- 重试
+- debugging
+- replay
+- retrying
 
-### 6.3 允许必要时 replan
+### 6.3 Allow replanning when necessary
 
-Plan-and-Execute 最稳的版本往往不是：
+The most stable version of Plan-and-Execute is often not:
 
-- 一次计划，永不修改
+- plan once, never change it
 
-而是：
+but:
 
-- 大方向先规划
-- 遇到重大偏差时允许重规划
+- plan the big direction first
+- allow replanning when major deviations occur
 
-## 如果把它做成项目或系统设计，最值得展示什么
+## If you turn this into a project or system design, what is most worth showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “系统先生成了一段计划”
+- “the system first generated a plan”
 
-而是：
+but:
 
-1. 用户目标
-2. Planner 拆出的步骤
-3. 每步执行后的 context 如何变化
-4. 哪些地方需要 replan
+1. The user goal
+2. The steps broken down by the Planner
+3. How `context` changes after each step
+4. Where replan is needed
 
-这样别人会更容易看出：
+That way, others can more easily see:
 
-- 你理解的是长任务组织方式
-- 不只是多加了一层 prompt
-
----
-
-## 七、常见误区
-
-### 7.1 误区一：有了 plan 就一定更聪明
-
-计划能提升稳定性，  
-但前提是计划本身质量够好。
-
-### 7.2 误区二：所有任务都要先 planner 再 executor
-
-不一定。  
-短任务、强交互任务，ReAct 往往更自然。
-
-### 7.3 误区三：计划只要写出步骤名就够了
-
-真正可执行的计划，还需要：
-
-- 步骤粒度
-- 状态依赖
-- 产出定义
+- you understand long-task orchestration
+- you did not just add another layer of prompt
 
 ---
 
-## 小结
+## 7. Common misconceptions
 
-这节最重要的，不是把 `Plan-and-Execute` 当成另一个时髦名字，  
-而是理解它的核心工程价值：
+### 7.1 Misconception 1: having a plan always makes the system smarter
 
-> **当任务够长、够复杂、需要更稳定复现时，先规划再执行能显著减少即兴漂移，让系统更容易调试、审阅和维护。**
+A plan can improve stability,
+but only if the plan itself is good enough.
 
-只要这一层建立起来，  
-你后面再看 DAG 规划、多 Agent 分工和任务图调度，就会更顺。
+### 7.2 Misconception 2: every task should use planner first and executor second
+
+Not necessarily.
+For short tasks or highly interactive tasks, ReAct is often more natural.
+
+### 7.3 Misconception 3: it is enough to just list step names in the plan
+
+A truly executable plan also needs:
+
+- step granularity
+- state dependencies
+- output definitions
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例里的“售后周报”换成“整理知识库回答”或“做竞品调研”，重新写一版 plan。
-2. 为什么说长任务比短任务更需要 planner？
-3. 如果执行到一半发现目标变了，你会如何设计 replan 机制？
-4. 想一想：哪些任务更适合 ReAct，哪些更适合 Plan-and-Execute？
+The most important thing in this section is not to treat `Plan-and-Execute` as just another trendy name,
+but to understand its core engineering value:
+
+> **When tasks are long enough, complex enough, and need stable repeatability, planning first and executing later can significantly reduce improvisational drift, making the system easier to debug, review, and maintain.**
+
+Once this layer is in place,
+you will find DAG planning, multi-Agent division of labor, and task graph scheduling much easier to understand.
+
+---
+
+## Exercises
+
+1. Replace the “customer support weekly report” in the example with “organize knowledge base answers” or “do competitor research,” and rewrite the plan.
+2. Why do long tasks need a planner more than short tasks?
+3. If the goal changes halfway through execution, how would you design a replanning mechanism?
+4. Think about it: which tasks are better suited to ReAct, and which are better suited to Plan-and-Execute?

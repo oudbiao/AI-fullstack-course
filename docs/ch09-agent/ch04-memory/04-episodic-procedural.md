@@ -1,114 +1,114 @@
 ---
-title: "4.5 情景与程序记忆【选修】"
+title: "4.5 Episodic and Procedural Memory [Optional]"
 sidebar_position: 22
-description: "从“记住发生过什么”和“记住应该怎么做”这两条线，理解情景记忆与程序记忆为何对复杂 Agent 特别重要。"
+description: "Understand why episodic memory and procedural memory are especially important for complex Agents from two perspectives: “remembering what happened” and “remembering how to do things.”"
 keywords: [episodic memory, procedural memory, workflow memory, agent experience, skill memory]
 ---
 
-# 情景与程序记忆【选修】
+# Episodic and Procedural Memory [Optional]
 
-:::tip 本节定位
-长期记忆更像“稳定档案”。  
-但有些信息不是长期档案，也不是短期窗口，而更像：
+:::tip Section overview
+Long-term memory is more like a “stable archive.”
+But some information is neither a long-term archive nor a short-term window, and is more like:
 
-- 一次具体经历
-- 一套经过验证的做事流程
+- A specific experience
+- A validated way of doing things
 
-这就是情景记忆和程序记忆要解决的层。
+This is the layer that episodic memory and procedural memory are meant to address.
 
-一句话区分：
+In one sentence:
 
-> **情景记忆是“我经历过什么”，程序记忆是“我学会怎么做”。**
+> **Episodic memory is “what I experienced,” and procedural memory is “what I learned how to do.”**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解情景记忆和程序记忆的区别
-- 理解这两类记忆为什么对复杂任务特别重要
-- 通过可运行示例看懂“从经历提炼流程”的最小闭环
-- 学会判断一条信息更适合存成 episode 还是 workflow
-
----
-
-## 一、情景记忆到底是什么？
-
-### 1.1 它更像单次经历
-
-例如：
-
-- 上周处理过一次退款争议，原因是学习进度超出阈值
-- 某次生成周报时，数据库接口超时导致任务失败
-
-这类记忆的特点是：
-
-- 带时间和上下文
-- 有具体事件经过
-- 不一定总能直接复用
-
-### 1.2 为什么 Agent 需要情景记忆？
-
-因为复杂系统经常要参考过去发生过的事：
-
-- 用户之前遇到过什么问题
-- 上一次类似任务是怎么结束的
-- 哪类情况容易失败
-
-这类信息不是静态档案，但对决策很有帮助。
+- Understand the difference between episodic memory and procedural memory
+- Understand why these two kinds of memory are especially important for complex tasks
+- Use a runnable example to understand the smallest loop of “extracting a workflow from experience”
+- Learn how to judge whether a piece of information is better stored as an episode or as a workflow
 
 ---
 
-## 二、程序记忆又是什么？
+## 1. What exactly is episodic memory?
 
-### 2.1 它更像技能和流程
+### 1.1 It is more like a single experience
 
-例如：
+For example:
 
-- 处理退款问题时，先查订单，再查政策，再判断资格
-- 做竞品报告时，先收集数据，再分类，再总结
+- Last week, I handled a refund dispute because the learning progress exceeded the threshold
+- During one weekly report generation, a database API timeout caused the task to fail
 
-这类记忆的重点不在“过去具体哪次”，  
-而在“以后遇到类似任务时可以沿用这套做法”。
+The characteristics of this kind of memory are:
 
-### 2.2 为什么程序记忆很重要？
+- It has time and context
+- It includes a specific event process
+- It is not always directly reusable
 
-因为它能让 Agent 避免每次都从零规划。  
-很多任务其实不是完全新问题，而是：
+### 1.2 Why does an Agent need episodic memory?
 
-- 新实例 + 旧流程
+Because complex systems often need to refer to things that happened in the past:
 
-这时程序记忆能显著降低推理负担。
+- What problems the user encountered before
+- How a similar task ended last time
+- Which situations are likely to fail
 
----
-
-## 三、两者最大的区别是什么？
-
-### 3.1 情景记忆回答“发生过什么”
-
-例子：
-
-- “上次生成周报时，因为日志太多导致摘要质量下降”
-
-### 3.2 程序记忆回答“类似问题通常怎么处理”
-
-例子：
-
-- “生成周报的一般步骤是拉数据 -> 聚类 -> 生成摘要 -> 审核”
-
-### 3.3 一个类比
-
-情景记忆像项目复盘。  
-程序记忆像 SOP 手册。
-
-两者都重要，但用途不同。
+This kind of information is not a static archive, but it is very helpful for decision-making.
 
 ---
 
-## 四、先跑一个“经历 -> 流程”示例
+## 2. What is procedural memory?
 
-下面这个例子会做两件事：
+### 2.1 It is more like skills and workflows
 
-1. 记录几次具体 episode
-2. 从 episode 中提炼出一个可复用 workflow
+For example:
+
+- When handling a refund issue, first check the order, then check the policy, then determine eligibility
+- When creating a competitor report, first collect data, then categorize it, then summarize it
+
+The focus of this kind of memory is not “which specific time in the past,”
+but rather “what method can be reused the next time a similar task appears.”
+
+### 2.2 Why is procedural memory important?
+
+Because it helps an Agent avoid planning from scratch every time.
+Many tasks are not completely new problems, but rather:
+
+- New instance + old workflow
+
+In this case, procedural memory can significantly reduce reasoning burden.
+
+---
+
+## 3. What is the biggest difference between them?
+
+### 3.1 Episodic memory answers “what happened”
+
+Example:
+
+- “Last time I generated a weekly report, too many logs caused the summary quality to drop”
+
+### 3.2 Procedural memory answers “how similar problems are usually handled”
+
+Example:
+
+- “The general steps for generating a weekly report are: pull data -> cluster issues -> generate summary -> review”
+
+### 3.3 An analogy
+
+Episodic memory is like a project postmortem.
+Procedural memory is like an SOP manual.
+
+Both are important, but they serve different purposes.
+
+---
+
+## 4. First, run an “experience -> workflow” example
+
+The example below does two things:
+
+1. Records several specific episodes
+2. Extracts a reusable workflow from those episodes
 
 ```python
 from dataclasses import dataclass
@@ -125,20 +125,20 @@ class Episode:
 episodes = [
     Episode(
         task_type="refund_case",
-        context="用户询问未发货订单是否能退款",
-        steps=["查订单状态", "查退款政策", "判断资格", "返回结论"],
+        context="The user asked whether an unshipped order can be refunded",
+        steps=["Check order status", "Check refund policy", "Determine eligibility", "Return conclusion"],
         result="success",
     ),
     Episode(
         task_type="refund_case",
-        context="用户询问学习进度超 20% 是否能退款",
-        steps=["查订单状态", "查退款政策", "判断资格", "返回结论"],
+        context="The user asked whether a refund is allowed after learning progress exceeded 20%",
+        steps=["Check order status", "Check refund policy", "Determine eligibility", "Return conclusion"],
         result="success",
     ),
     Episode(
         task_type="weekly_report",
-        context="周报生成任务",
-        steps=["拉数据", "聚类问题", "写总结"],
+        context="Weekly report generation task",
+        steps=["Pull data", "Cluster issues", "Write summary"],
         result="partial_failure",
     ),
 ]
@@ -161,126 +161,124 @@ procedural_memory = build_procedural_memory(episodes)
 print("procedural_memory:", procedural_memory)
 ```
 
-### 4.1 这段代码到底说明了什么？
+### 4.1 What does this code actually show?
 
-它说明：
+It shows that:
 
-- 情景记忆可以积累“具体做过的事”
-- 当重复 enough 次之后，可以抽象成程序记忆
+- Episodic memory can accumulate “specific things we have done”
+- After enough repetitions, it can be abstracted into procedural memory
 
-也就是说，程序记忆往往不是凭空写出来的，  
-而是从反复成功的 episode 中沉淀出来。
+In other words, procedural memory is often not written from scratch,
+but distilled from repeatedly successful episodes.
 
-### 4.2 为什么 `weekly_report` 没有进入程序记忆？
+### 4.2 Why didn’t `weekly_report` enter procedural memory?
 
-因为它只出现了一次，  
-还没有足够支持度。
+Because it appeared only once,
+so there was not enough support.
 
-这很符合现实：
+This matches reality very well:
 
-- 一次偶然成功或失败，不一定值得立刻写成标准流程
+- A one-time success or failure is not necessarily worth turning into a standard workflow immediately
 
-### 4.3 为什么这比直接手写 workflow 更有启发？
+### 4.3 Why is this more insightful than writing a workflow directly?
 
-因为它展示了一个非常真实的知识沉淀过程：
+Because it shows a very realistic process of knowledge accumulation:
 
-- 先做
-- 再复盘
-- 最后抽象成流程
+- Do it first
+- Then review it
+- Finally abstract it into a workflow
 
-这恰恰是很多成熟 Agent 系统演进的路径。
-
----
-
-## 五、情景记忆在系统里通常怎么用？
-
-### 5.1 检索相似案例
-
-当遇到当前问题时，可以先查：
-
-- 以前有没有类似情况
-- 当时是怎么处理的
-- 最后结果如何
-
-### 5.2 做失败复盘
-
-如果某类任务经常失败，  
-情景记忆会非常适合回答：
-
-- 是在哪一步容易出错
-- 哪类上下文容易触发失败
-
-### 5.3 作为程序记忆的训练素材
-
-它本身也可以成为后续流程抽象的原始数据。
+This is exactly the path many mature Agent systems follow as they evolve.
 
 ---
 
-## 六、程序记忆在系统里通常怎么用？
+## 5. How is episodic memory usually used in a system?
 
-### 6.1 作为 planner 的默认模板
+### 5.1 Retrieve similar cases
 
-当任务类型被识别后，系统可直接加载：
+When facing a current problem, the system can first check:
 
-- 默认工作流
+- Whether a similar situation happened before
+- How it was handled
+- What the final result was
 
-### 6.2 作为技能库
+### 5.2 Review failures
 
-很多程序记忆本质上就像：
+If a certain type of task often fails,
+episodic memory is very suitable for answering:
 
-- 可复用技能
-- 标准处理流程
-- 任务模板
+- Which step is likely to go wrong
+- Which context tends to trigger failure
 
-### 6.3 作为安全边界
+### 5.3 Serve as training material for procedural memory
 
-程序记忆还能起到“别乱来”的作用。  
-例如对高风险任务，只允许系统沿用已经审核过的流程。
-
----
-
-## 七、最容易踩的坑
-
-### 7.1 误区一：把所有历史都叫情景记忆
-
-不是所有历史都值得保留为 episode。  
-episode 更适合：
-
-- 有明确任务
-- 有过程
-- 有结果
-
-的记录。
-
-### 7.2 误区二：一有 episode 就自动变成程序记忆
-
-程序记忆需要：
-
-- 重复性
-- 稳定性
-- 可迁移性
-
-### 7.3 误区三：程序记忆写死后永远不更新
-
-如果流程变化了，程序记忆也 باید更新。  
-否则它会从“经验”变成“过期经验”。
+It can also become the raw data for later workflow abstraction.
 
 ---
 
-## 小结
+## 6. How is procedural memory usually used in a system?
 
-这节最重要的是建立一条沉淀逻辑：
+### 6.1 As the default template for the planner
 
-> **情景记忆负责保存具体经历，程序记忆负责把反复验证过的经历抽象成可复用流程。**
+Once a task type is recognized, the system can directly load:
 
-一旦你把这条逻辑想清楚，  
-记忆系统就不再只是“存档”，而会开始真正帮助 Agent 学习。
+- A default workflow
+
+### 6.2 As a skill library
+
+In essence, many procedural memories are like:
+
+- Reusable skills
+- Standard operating procedures
+- Task templates
+
+### 6.3 As a safety boundary
+
+Procedural memory can also act as a “don’t improvise” mechanism.
+For high-risk tasks, for example, the system may only be allowed to follow approved workflows.
 
 ---
 
-## 练习
+## 7. Common pitfalls
 
-1. 给示例再增加两条 `weekly_report` 的成功案例，让它也能沉淀出程序记忆。
-2. 想一想：哪些任务更适合查 episode，哪些任务更适合直接套 workflow？
-3. 为什么说程序记忆很像“技能库”，而不只是“历史记录”？
-4. 如果某条 workflow 已经过时，你会怎么设计更新机制？
+### 7.1 Mistake 1: Calling all history episodic memory
+
+Not all history is worth keeping as an episode.
+Episodes are better for records with:
+
+- A clear task
+- A process
+- A result
+
+### 7.2 Mistake 2: Assuming every episode automatically becomes procedural memory
+
+Procedural memory needs:
+
+- Repetition
+- Stability
+- Transferability
+
+### 7.3 Mistake 3: Never updating procedural memory after it is written
+
+If the workflow changes, procedural memory should also be updated.
+Otherwise, it will go from “experience” to “outdated experience.”
+
+---
+
+## Summary
+
+The most important thing in this section is to establish a clear accumulation logic:
+
+> **Episodic memory preserves specific experiences, while procedural memory abstracts repeatedly validated experiences into reusable workflows.**
+
+Once you understand this logic,
+a memory system is no longer just an “archive,” but something that truly helps an Agent learn.
+
+---
+
+## Exercises
+
+1. Add two more successful `weekly_report` cases to the example so that it can also accumulate procedural memory.
+2. Think about which tasks are better handled by checking episodes, and which tasks are better handled by directly applying a workflow.
+3. Why is procedural memory more like a “skill library” rather than just a “history log”?
+4. If a workflow has become outdated, how would you design an update mechanism?

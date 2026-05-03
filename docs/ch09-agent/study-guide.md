@@ -1,60 +1,60 @@
 ---
-title: "学习指南：AI Agent 与智能体系统怎么学最不容易学乱"
+title: "Study Guide: How to Learn AI Agents and Agent Systems Without Getting Confused"
 sidebar_position: 1
-description: "给 AI 全栈新人的 Agent 学习指南：任务规划、工具调用、记忆、MCP、多 Agent、评估部署、项目路线和验收标准。"
-keywords: [Agent 学习指南, AI Agent 怎么学, ReAct 怎么学, MCP 怎么学, 多 Agent]
+description: "A learning guide for AI full-stack beginners on Agents: task planning, tool calling, memory, MCP, multi-Agent, evaluation, deployment, project roadmap, and acceptance criteria."
+keywords: [Agent Learning Guide, How to learn AI Agent, How to learn ReAct, How to learn MCP, Multi-Agent]
 ---
 
-# 学习指南：AI Agent 与智能体系统怎么学最不容易学乱
+# Study Guide: How to Learn AI Agents and Agent Systems Without Getting Confused
 
-如果你来到 `第 9 章 AI Agent 与智能体系统` 后觉得工具、记忆、框架、多 Agent、MCP 全都混在一起，先回到 Agent 的最小闭环：目标、计划、行动、观察、修正。
+If you reach `Chapter 9: AI Agents and Agent Systems` and feel that tools, memory, frameworks, multi-Agent, and MCP are all mixed together, first go back to the smallest Agent loop: goal, plan, action, observation, refinement.
 
-## 本阶段总原则
+## Core principle for this stage
 
-Agent 第一遍不要急着做多 Agent，也不要一上来堆框架。先把单 Agent 做稳：它能理解目标，制定下一步，调用工具，观察结果，然后决定是否继续。
+For your first Agent, do not rush into multi-Agent, and do not pile on frameworks right away. First make a single Agent solid: it can understand the goal, decide the next step, call tools, observe the result, and then decide whether to continue.
 
-![最小 Agent 学习闭环图](/img/course/ch09-study-guide-minimal-agent-loop.png)
+![Minimal Agent learning loop diagram](/img/course/ch09-study-guide-minimal-agent-loop-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先学 Agent 基础，分清 Agent、普通聊天机器人、固定工作流和 RAG 应用的边界。
+In the first round, learn the basics of Agents and clearly distinguish between Agents, ordinary chatbots, fixed workflows, and RAG applications.
 
-第二轮学推理与规划，包括 ReAct、Chain-of-Thought、Plan-and-Execute 和推理评估。
+In the second round, learn reasoning and planning, including ReAct, Chain-of-Thought, Plan-and-Execute, and reasoning evaluation.
 
-第三轮学工具调用。工具描述、参数 schema、错误处理、权限边界和安全策略，是 Agent 能不能可靠执行的关键。
+In the third round, learn tool calling. Tool descriptions, parameter schemas, error handling, permission boundaries, and safety policies are the keys to whether an Agent can execute reliably.
 
-第四轮学记忆系统。短期记忆、长期记忆、情景记忆和程序性记忆要服务于任务，不是为了“看起来智能”。
+In the fourth round, learn memory systems. Short-term memory, long-term memory, episodic memory, and procedural memory should serve the task, not exist just to “look smart.”
 
-第五轮再学 MCP、框架、多 Agent、评估、安全和部署。框架应该在你理解系统层次后再使用。
+In the fifth round, learn MCP, frameworks, multi-Agent, evaluation, security, and deployment. Use frameworks only after you understand the system layers.
 
-## 建议学习节奏
+## Suggested learning pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| Agent 基础 | 4～8 小时 | 分清 Agent 和普通应用 |
-| 推理与工具 | 8～16 小时 | 跑通单 Agent 执行闭环 |
-| 记忆与 MCP | 8～16 小时 | 理解外部上下文和工具生态 |
-| 框架与多 Agent | 8～20 小时 | 能判断何时需要复杂编排 |
-| 评估部署项目 | 16～32 小时 | 做出可观察、可恢复的 Agent Demo |
+| Agent basics | 4–8 hours | Distinguish Agents from ordinary applications |
+| Reasoning and tools | 8–16 hours | Complete the single-Agent execution loop |
+| Memory and MCP | 8–16 hours | Understand external context and the tool ecosystem |
+| Frameworks and multi-Agent | 8–20 hours | Judge when complex orchestration is needed |
+| Evaluation, deployment, and projects | 16–32 hours | Build an observable, recoverable Agent demo |
 
-## 阶段项目路线
+## Project roadmap by stage
 
-第一个项目建议做研究助手。输入一个主题，Agent 拆解问题、检索资料、整理摘要并输出结构化报告。
+For the first project, it is recommended to build a research assistant. Given a topic, the Agent breaks down the problem, retrieves materials, organizes summaries, and outputs a structured report.
 
-第二个项目建议做数据分析 Agent。它能读取数据，制定分析计划，调用 Python 工具，生成图表和结论。
+For the second project, it is recommended to build a data analysis Agent. It can read data, make an analysis plan, call Python tools, and generate charts and conclusions.
 
-第三个项目可以做多 Agent 开发小组 Demo，让不同角色围绕需求分析、代码生成、测试和文档协作。
+For the third project, you can build a multi-Agent development team demo, where different roles collaborate on requirements analysis, code generation, testing, and documentation.
 
-## 常见卡点
+## Common sticking points
 
-最常见的卡点是太早做多 Agent。单 Agent 的工具调用、错误恢复、上下文管理都没做好，多 Agent 只会放大混乱。
+The most common sticking point is doing multi-Agent too early. If single-Agent tool calling, error recovery, and context management are not done well, multi-Agent will only amplify the chaos.
 
-第二个卡点是只演示成功路径。真实 Agent 必须考虑工具失败、参数错误、权限不足、循环执行、成本失控和输出不可信。
+The second sticking point is only demonstrating the success path. A real Agent must consider tool failures, parameter errors, insufficient permissions, infinite loops, uncontrolled cost, and untrustworthy outputs.
 
-第三个卡点是框架学得比系统还多。你应该先理解 Agent 架构，再选择 LangGraph、CrewAI、AutoGen 或其他框架。
+The third sticking point is learning more about frameworks than about the system itself. You should first understand the Agent architecture, then choose LangGraph, CrewAI, AutoGen, or another framework.
 
-## 过关标准
+## Passing criteria
 
-学完本阶段后，你应该能解释一个 Agent 的目标、状态、工具、记忆、规划和评估方式。
+After finishing this stage, you should be able to explain an Agent’s goal, state, tools, memory, planning, and evaluation methods.
 
-如果你能做出一个单 Agent 项目，并记录每一步工具调用、观察结果、失败处理和最终输出，就可以继续进入多 Agent、部署或多模态方向。
+If you can build a single-Agent project and record each tool call, observed result, failure handling step, and final output, then you can move on to multi-Agent, deployment, or multimodal directions.

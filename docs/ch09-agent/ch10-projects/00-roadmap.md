@@ -1,159 +1,159 @@
 ---
-title: "10.1 学前导读：综合项目这一章到底该怎么学"
+title: "10.1 Pre-course Guide: How Should You Actually Study This Chapter on Comprehensive Projects?"
 sidebar_position: 0
-description: "先建立 9 AI Agent 与智能体系统项目章的学习地图：研究助手、数据分析 Agent 和多 Agent 开发团队如何把规划、工具、记忆、评估和部署组织成作品集项目。"
-keywords: [Agent项目导读, 研究助手, 数据分析Agent, 多Agent项目, Agent作品集]
+description: "First build the study map for Chapter 9 on AI Agents and intelligent agent systems projects: research assistants, data analysis Agents, and multi-Agent development teams—how they organize planning, tools, memory, evaluation, and deployment into portfolio projects."
+keywords: [Agent Project Guide, research assistant, data analysis Agent, multi-Agent project, Agent portfolio]
 ---
 
-# 学前导读：综合项目这一章到底该怎么学
+# Pre-course Guide: How Should You Actually Study This Chapter on Comprehensive Projects?
 
-这一章不是继续堆能力，而是把前面学过的推理、工具、记忆、MCP、评估、安全和部署真正装进项目。
+This chapter is not about piling on more capabilities. Instead, it is about really putting the reasoning, tools, memory, MCP, evaluation, safety, and deployment you learned earlier into a project.
 
-Agent 项目的核心不是“模型会不会回答”，而是系统能否围绕目标持续行动：它要能拆解任务、选择工具、观察结果、更新状态、处理失败、记录过程，并在合适的时候停止和交付。
+The core of an Agent project is not “whether the model can answer,” but whether the system can keep acting toward a goal: it should be able to break down tasks, choose tools, observe results, update state, handle failures, record the process, and stop and deliver at the right time.
 
-## 这一章在整个课程里的位置
+## Where this chapter sits in the whole course
 
-第 9 章 AI Agent 与智能体系统的综合项目是 Agent 主线的出口。前面章节分别讲了 Agent 的目标、规划、工具、记忆、MCP、多 Agent、评估安全和部署运维；项目章要把这些能力合成一个可演示、可复盘、可扩展的智能体系统。
+Chapter 9, the comprehensive projects for AI Agents and intelligent agent systems, is the exit point of the Agent main line. Earlier chapters covered the Agent’s goals, planning, tools, memory, MCP, multi-Agent systems, evaluation and safety, and deployment and operations. The project chapter brings these capabilities together into an intelligent agent system that can be demonstrated, reviewed, and extended.
 
-![Agent 综合项目路线图](/img/course/ch09-projects-route-map.png)
+![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-en.png)
 
-## 这一章真正要解决的问题
+## The real problems this chapter solves
 
-这一章要回答五个问题：如何为 Agent 项目定义清晰目标和完成条件；如何选择研究助手、数据分析 Agent 或多 Agent 开发团队这样的项目形态；如何记录每一步计划、工具调用和观察结果；如何处理工具失败、检索不到、输出不可信和成本过高；如何把 Agent 项目整理成作品集，而不是只展示一次成功运行。
+This chapter answers five questions: how to define clear goals and completion criteria for an Agent project; how to choose a project form such as a research assistant, a data analysis Agent, or a multi-Agent development team; how to record each step of planning, tool calls, and observations; how to handle tool failures, retrieval misses, untrustworthy outputs, and excessive cost; and how to package an Agent project into a portfolio instead of showing only one successful run.
 
-新人最容易犯的错误，是只展示 Agent 成功完成任务的最终结果。真正有价值的 Agent 项目，要能展示过程：它为什么这样计划，调用了什么工具，工具返回了什么，失败时怎么修正，最后为什么认为任务完成。
+A mistake beginners often make is showing only the final result of an Agent successfully completing a task. A truly valuable Agent project should show the process: why it planned that way, which tools it called, what the tools returned, how it corrected itself when something failed, and why it finally decided the task was complete.
 
-## 新人推荐学习顺序
+## Recommended learning order for beginners
 
-建议先做智能研究助手，因为它最适合练习检索、引用、摘要和可信输出。然后做数据分析 Agent，练习 Python 工具调用、表格分析、图表生成和结果解释。最后再做多 Agent 开发团队，练习角色分工、任务协调、代码生成、审查和文档协作。
+It is recommended to start with an intelligent research assistant, because it is best for practicing retrieval, citation, summarization, and trustworthy outputs. Then build a data analysis Agent to practice Python tool calling, table analysis, chart generation, and result interpretation. Finally, build a multi-Agent development team to practice role division, task coordination, code generation, review, and documentation collaboration.
 
-![Agent 项目学习顺序图](/img/course/ch09-project-learning-order-map.png)
+![Agent project learning order diagram](/img/course/ch09-project-learning-order-map-en.png)
 
-## 学这一章时要抓住的主线
+## What to focus on in this chapter
 
-这一章的主线可以概括为：Agent 项目作品集展示的是“可追踪的执行闭环”，不是一次模型输出。
+The main thread of this chapter can be summarized as: an Agent project portfolio shows a “traceable execution loop,” not just one model output.
 
-![Agent 项目交付闭环图](/img/course/ch09-project-delivery-loop.png)
+![Agent project delivery loop diagram](/img/course/ch09-project-delivery-loop-en.png)
 
-看懂这条线后，你会知道 Agent 项目的交付物应该包括：系统架构图、任务流程图、工具列表、调用日志样例、失败案例、安全规则、评估样例和最终输出。
+Once you understand this line, you will know that the deliverables of an Agent project should include: a system architecture diagram, a task flow diagram, a tool list, sample call logs, failure cases, safety rules, evaluation examples, and the final output.
 
-## 三个项目分别在练什么
+## What each of the three projects is training
 
-| 项目 | 你真正要练什么 |
+| Project | What you are really practicing |
 |---|---|
-| 智能研究助手 | 检索、引用、总结和可信输出 |
-| 数据分析 Agent | 工具调用、表格分析和结果解释 |
-| 多 Agent 开发团队 | 多角色协作、任务拆分和审查闭环 |
+| Intelligent research assistant | Retrieval, citation, summarization, and trustworthy outputs |
+| Data analysis Agent | Tool calling, table analysis, and result interpretation |
+| Multi-Agent development team | Multi-role collaboration, task decomposition, and review loop |
 
-## 这一章和整个课程的关系
+## How this chapter relates to the whole course
 
-Agent 综合项目可以把前面几乎所有阶段串起来。Python 和数据分析提供工具能力，机器学习和深度学习提供模型理解，大模型和 RAG 提供语言与知识能力，工程化提供部署与可观测性，多模态则可以继续扩展输入输出形式。
+The comprehensive Agent project can connect almost all the earlier stages. Python and data analysis provide tool capabilities, machine learning and deep learning provide model understanding, large models and RAG provide language and knowledge capabilities, engineering provides deployment and observability, and multimodal systems can further expand input and output forms.
 
-如果这一章没学稳，常见问题是：Agent 没有明确停止条件；工具调用没有记录；失败时模型硬编；记忆和状态混乱；多 Agent 只是多个角色聊天；没有评估和安全边界；项目无法复现。
+If you do not learn this chapter solidly, common problems are: the Agent has no clear stopping condition; tool calls are not recorded; the model makes things up when it fails; memory and state get mixed up; multi-Agent systems are just multiple roles chatting; there is no evaluation or safety boundary; and the project cannot be reproduced.
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read it
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to earlier and later stages. After reading, it is best to distill this chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study mode | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and finish the chapter’s small project exit |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Pass standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its position in the whole course in one sentence |
+| What are the minimal input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you preserve after finishing? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter project exit
 
-学完这一章后，建议至少完成一个“可追踪单 Agent 项目”。它需要包含目标输入、计划生成、工具调用、观察记录、失败处理、最终输出和评估复盘。
+After studying this chapter, it is recommended that you complete at least one “traceable single-Agent project.” It should include goal input, plan generation, tool calls, observation records, failure handling, final output, and an evaluation review.
 
-进阶版本可以加入长期记忆、MCP 工具、多 Agent 协作、部署接口和可视化执行轨迹。作品集版本建议补充架构图、运行截图、日志片段、测试任务集、失败案例和成本估算。
+An advanced version can add long-term memory, MCP tools, multi-Agent collaboration, deployment interfaces, and a visual execution trace. For a portfolio version, it is recommended to add architecture diagrams, run screenshots, log snippets, test task sets, failure cases, and cost estimates.
 
-## 项目交付物模板
+## Project deliverable template
 
-Agent 项目最怕只展示“最后答案”。为了让项目更像真实系统，建议至少包含这些交付物：
+Agent projects are most afraid of showing only the “final answer.” To make the project feel more like a real system, it is recommended to include at least these deliverables:
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 |---|---|
-| 目标定义 | 明确 Agent 要完成什么、不负责什么、什么时候算完成 |
-| 系统架构图 | 展示模型、工具、记忆、状态、评估和安全边界 |
-| 工具清单 | 列出可调用工具、输入输出格式、失败情况 |
-| 执行轨迹 | 展示计划、行动、观察、再计划的完整过程 |
-| 工具调用日志 | 展示每次调用的参数、结果、错误和重试 |
-| 失败案例 | 至少列出 3 个失败任务，分析是规划、工具、记忆还是安全问题 |
-| 评估任务集 | 准备一组固定任务，用来判断 Agent 是否稳定完成目标 |
-| 成本与安全说明 | 说明调用成本、权限边界、停止条件和人工接管方式 |
+| Goal definition | Clearly define what the Agent should do, what it should not do, and when it is considered done |
+| System architecture diagram | Show the model, tools, memory, state, evaluation, and safety boundaries |
+| Tool list | List callable tools, input/output formats, and failure cases |
+| Execution trace | Show the full process of planning, action, observation, and replanning |
+| Tool call logs | Show the parameters, results, errors, and retries for each call |
+| Failure cases | List at least 3 failed tasks and analyze whether the issue was planning, tools, memory, or safety |
+| Evaluation task set | Prepare a fixed set of tasks to determine whether the Agent can consistently complete the goal |
+| Cost and safety notes | Explain call cost, permission boundaries, stopping conditions, and how to hand over to a human |
 
-这个模板能让别人看到你的 Agent 不是“会聊天”，而是真的具备可追踪、可复盘的执行闭环。
-
----
-
-## 作品集检查清单
-
-提交 Agent 项目前，可以用下面这张表自查：
-
-| 检查项 | 是否达标 |
-|---|---|
-| Agent 有明确目标和停止条件 | 是 / 否 |
-| 每一步计划、工具调用和观察结果都可追踪 | 是 / 否 |
-| 工具失败时有降级、重试或停止策略 | 是 / 否 |
-| 记忆和状态不会混乱覆盖 | 是 / 否 |
-| 有固定评估任务集，而不是只展示一次成功 | 是 / 否 |
-| 有安全边界、成本估算和人工接管说明 | 是 / 否 |
+This template helps others see that your Agent is not just “good at chatting,” but truly has a traceable and reviewable execution loop.
 
 ---
 
+## Portfolio checklist
 
+Before submitting an Agent project, you can use the following table to self-check:
 
-
-## Debug 侦探案件
-
-| 案件 | 内容 |
+| Check item | Meets the standard |
 |---|---|
-| 案件名 | Agent 原地转圈案 |
-| 案发现场 | Agent 重复计划、反复调用同一个工具，或者执行了不该执行的动作。 |
-| 侦查步骤 | 限制最大步数，保存 thought/action/observation，给高风险工具加人工确认。 |
-| 结案证据 | agent_traces.jsonl、tool_calls.jsonl、权限边界说明。 |
+| The Agent has a clear goal and stopping condition | Yes / No |
+| Every step of planning, tool calls, and observations is traceable | Yes / No |
+| There are fallback, retry, or stop strategies when tools fail | Yes / No |
+| Memory and state do not become confused or overwrite each other | Yes / No |
+| There is a fixed evaluation task set, not just one successful demo | Yes / No |
+| There are safety boundaries, cost estimates, and human handoff instructions | Yes / No |
 
-项目练习不要只保留成功截图。至少挑一个真实失败样本，按“现象、线索、嫌疑原因、侦查步骤、修复动作、回归检查”写进 `reports/failure_cases.md`，这样项目会更像真实工程作品。
+---
 
-## 项目交付物标准
 
-每个综合项目都建议按同一套作品集标准交付，而不是只把代码跑通。最小交付物应该包括：一份 README、一条可复现运行命令、一组示例输入输出、一张关键流程图、一次失败样本分析，以及下一步改进计划。
 
-| 交付物 | 最低要求 | 进阶要求 |
+
+## Debug detective cases
+
+| Case | Content |
+|---|---|
+| Case name | Agent spins in place |
+| Scene of the incident | The Agent repeatedly plans, keeps calling the same tool, or performs actions it should not perform. |
+| Investigation steps | Limit the maximum number of steps, save thought/action/observation, and require manual confirmation for high-risk tools. |
+| Closure evidence | `agent_traces.jsonl`, `tool_calls.jsonl`, and the permission boundary description. |
+
+In project practice, do not keep only successful screenshots. Be sure to choose at least one real failure sample and write it into `reports/failure_cases.md` using “phenomenon, clues, suspected cause, investigation steps, fix action, regression check.” This will make the project feel more like a real engineering work.
+
+## Project deliverable standards
+
+For each comprehensive project, it is recommended to deliver according to the same portfolio standard instead of just getting the code to run. The minimum deliverables should include: a README, one reproducible run command, a set of sample inputs and outputs, one key flow diagram, one failure sample analysis, and a next-step improvement plan.
+
+| Deliverable | Minimum requirement | Advanced requirement |
 |---|---|---|
-| README | 写清项目目标、运行方式、依赖和示例 | 增加架构图、设计取舍和复盘 |
-| 示例输入输出 | 至少保留 1 个完整案例 | 保留成功、失败和边界案例 |
-| 评估记录 | 写清用什么指标判断效果 | 加入 baseline、对比实验和错误分析 |
-| 工程记录 | 记录一次环境或接口问题 | 记录日志、成本、耗时和排障过程 |
-| 展示材料 | 截图或短 GIF 证明能运行 | 做成可讲解的作品集页面 |
+| README | Clearly write the project goal, how to run it, dependencies, and examples | Add architecture diagrams, design trade-offs, and a review |
+| Sample input/output | Keep at least 1 complete case | Keep success, failure, and boundary cases |
+| Evaluation records | Clearly state what metrics are used to judge performance | Add baselines, comparison experiments, and error analysis |
+| Engineering records | Record one environment or interface issue | Record logs, cost, time spent, and troubleshooting process |
+| Presentation materials | Use screenshots or a short GIF to prove it runs | Turn it into a portfolio page that can be explained |
 
-做项目时最重要的不是功能堆得多，而是能讲清楚：你解决了什么问题，系统怎样工作，效果怎么判断，失败时怎么定位，下一版准备怎样改。
+The most important thing in a project is not how many features you pile in, but whether you can explain clearly: what problem you solved, how the system works, how the results are judged, how to locate failures, and what you plan to improve in the next version.
 
-## 过关标准
+## Passing criteria
 
-这一章结束时，你应该能做出一个 Agent 项目，并清楚说明它的目标、状态、工具、记忆、规划、评估和部署方式。你应该能展示每一步工具调用、观察结果、失败处理和最终输出，而不是只展示最后答案。
+By the end of this chapter, you should be able to build an Agent project and clearly explain its goals, state, tools, memory, planning, evaluation, and deployment method. You should be able to show every tool call, observation result, failure handling, and final output, rather than showing only the final answer.
 
-如果你能让别人通过你的项目文档复现一次 Agent 执行过程，并看懂系统为什么这样决策，就达到了 AI Agent 阶段的作品集出口标准。
+If you can let others reproduce an Agent execution process through your project documentation and understand why the system made those decisions, then you have reached the portfolio exit standard for the AI Agent stage.
 
-## 版本路线建议
+## Recommended version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimal loop | Can accept input, process it, output results, and keep a set of examples |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not try to make everything complete from the start. Every time you move up a version, write into the README: “What new capability was added, how was it verified, and what problems remain.”

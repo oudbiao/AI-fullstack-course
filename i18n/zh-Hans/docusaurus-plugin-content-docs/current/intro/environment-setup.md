@@ -1,0 +1,240 @@
+---
+sidebar_position: 5
+title: "环境准备"
+description: "AI 全栈课程所需的电脑配置、Python、VS Code、Git、Jupyter、GPU 与大模型 API 环境准备说明。"
+keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型API]
+---
+
+# 环境准备
+
+> **目标：** 确认你的电脑满足要求，了解需要安装的工具
+> **说明：** 这里只做概览。每个工具的详细安装步骤在 1 开发者工具基础的对应章节里有手把手教程。
+
+---
+
+## 新人先装什么
+
+```mermaid
+flowchart LR
+  A["Python 3.11"] --> B["VS Code"]
+  B --> C["Git"]
+  C --> D["Miniconda"]
+  D --> E["Jupyter"]
+  E --> F["后续按章节补库"]
+```
+
+| 阶段 | 环境策略 |
+|---|---|
+| 1～5 站 | 普通电脑即可，先把 Python、VS Code、Git、Miniconda 配好 |
+| 6 站以后 | 需要深度学习时再考虑 Colab、云 GPU 或本地 GPU |
+| 8～9 站 | 重点补 API Key、向量库、日志和环境变量 |
+| 12 站 | 按多模态项目需要再补图像、音频、视频工具 |
+
+## 硬件要求
+
+### 1～5 学习站（工具 + Python + 数据分析 + 数学 + ML）
+
+任何能正常使用的电脑都行：
+
+| 配置项 | 最低要求 | 推荐配置 |
+|-------|---------|---------|
+| CPU | 任意双核 | 4 核以上 |
+| 内存 | 4GB | 8GB 以上 |
+| 硬盘 | 20GB 可用空间 | SSD，50GB 可用 |
+| GPU | **不需要** | 不需要 |
+| 操作系统 | Windows 10/11、macOS 10.15+、Ubuntu 20.04+ | 均可 |
+
+:::tip
+如果你的电脑很老，也不用担心。1～5 学习站的所有代码都可以在 [Google Colab](https://colab.research.google.com) 上运行，只需要一个浏览器。
+:::
+
+### 6 深度学习与 Transformer 基础开始
+
+从 6 深度学习与 Transformer 基础开始训练神经网络，需要 GPU：
+
+| 方案 | 说明 | 费用 | 推荐度 |
+|------|------|------|:---:|
+| **Google Colab** | 免费 T4 GPU，零配置 | 免费（Pro 版 $10/月） | ⭐⭐⭐⭐⭐ |
+| **AutoDL** | 国内云 GPU，按小时计费 | 约 2-3 元/小时 | ⭐⭐⭐⭐ |
+| **本地 NVIDIA GPU** | 显存 ≥ 8GB | 一次性投入 | ⭐⭐⭐ |
+
+:::info 不用提前买 GPU
+学完 1～5 学习站大约需要 4-6 个月。到了 6 深度学习与 Transformer 基础再考虑 GPU 的事。课程在进入深度学习前有详细的[硬件与云资源指南](/appendix/hardware)。
+:::
+
+---
+
+## 软件清单
+
+以下是整个课程需要用到的软件，分阶段列出。**现在只需要安装前两项**，其他的到了对应阶段再装。
+
+### 现在就需要安装的（1 开发者工具基础教你怎么装）
+
+| 软件 | 是什么 | 为什么需要 |
+|------|-------|----------|
+| **Python 3.10+** | 编程语言 | 所有代码都用 Python 写 |
+| **VS Code** | 代码编辑器 | 写代码、调试、查看文件 |
+| **Git** | 版本管理工具 | 管理代码、上传 GitHub |
+| **Miniconda** | Python 环境管理 | 创建隔离的虚拟环境，避免包冲突 |
+
+### 2 Python 编程基础需要的
+
+| 软件/库 | 用途 |
+|---------|------|
+| `requests` | 发送 HTTP 请求（爬虫、API 调用） |
+| `beautifulsoup4` | 解析 HTML（爬虫） |
+| `fastapi` + `uvicorn` | Web API 开发 |
+
+### 3 数据分析与可视化需要的
+
+| 软件/库 | 用途 |
+|---------|------|
+| **Jupyter Notebook** | 交互式编程环境（数据分析标配） |
+| `numpy` | 科学计算 |
+| `pandas` | 数据处理 |
+| `matplotlib` + `seaborn` | 数据可视化 |
+
+### 6 深度学习与 Transformer 基础需要的
+
+| 软件/库 | 用途 |
+|---------|------|
+| `torch`（PyTorch） | 深度学习框架 |
+| `torchvision` | 图像相关工具 |
+| CUDA Toolkit（本地 GPU 用户） | GPU 加速 |
+
+### 后续阶段按需安装的
+
+| 软件/库 | 阶段 | 用途 |
+|---------|------|------|
+| `transformers` | 7 / 11 | Hugging Face 预训练模型 |
+| `langchain` | 8 / 9 | 大模型应用开发框架 |
+| `docker` | 8 | 容器化部署 |
+| `chromadb` / `faiss` | 8 | 向量数据库 |
+| `openai` / `anthropic` | 8 | 大模型 API 调用 |
+
+---
+
+## 推荐环境方案
+
+前面的课程可以按章节逐步装库。
+但如果你想从 6 深度学习与 Transformer 基础一路学到 9 AI Agent 与智能体系统、12 AIGC 与多模态，更稳妥的做法是直接准备一套“课程示例环境”。
+
+仓库根目录已经补了两份依赖清单：
+
+| 文件 | 适用范围 |
+|------|----------|
+| `requirements-course-core.txt` | 1～5 学习站 + 大部分传统机器学习 / 工程示例 |
+| `requirements-course-ai.txt` | 6 深度学习与 Transformer 基础之后常见的深度学习 / Transformers / LLM 工具依赖 |
+
+### 推荐安装顺序
+
+先创建一个新的 conda 环境：
+
+```bash
+conda create -n ai-course python=3.11 -y
+conda activate ai-course
+```
+
+然后安装基础依赖：
+
+```bash
+pip install -r requirements-course-core.txt
+```
+
+如果你准备学习 6 深度学习与 Transformer 基础及之后的内容，再安装 AI 相关依赖：
+
+```bash
+pip install -r requirements-course-ai.txt
+```
+
+:::warning 关于 PyTorch
+`requirements-course-ai.txt` 里已经包含 `torch`。
+如果你使用的是：
+
+- NVIDIA GPU
+- Apple Silicon
+- 或特定 CUDA 版本
+
+更推荐先根据 PyTorch 官方安装说明装好与你机器匹配的版本，再安装这份文件里的其他库。
+:::
+
+### 一个更稳的实践
+
+后续课程页里的 `pip install ...` 仍然可以单独使用，
+但如果你打算系统刷完整条主线，建议优先维护这一套统一环境，避免：
+
+- 每章单独装库造成版本打架
+- 代码示例能看懂但本地跑不起来
+
+---
+
+## Python 版本选择
+
+**推荐 Python 3.11**。原因：
+
+- 3.11 比 3.10 快 10-60%
+- 目前所有主流 AI 库都兼容 3.11
+- 3.12/3.13 太新，部分库可能还没适配
+
+:::warning 不要用 Python 3.8 或更低版本
+很多新版本的 AI 库已经不再支持 3.8/3.9。如果你电脑上已经有旧版 Python，不需要卸载，用 Miniconda 创建一个新的 3.11 环境就行（1 开发者工具基础会教你怎么做）。
+:::
+
+---
+
+## 操作系统相关说明
+
+### Windows 用户
+
+- 推荐安装 **Windows Terminal**（Windows 11 自带，Windows 10 去微软商店下载）
+- 命令行推荐用 **PowerShell** 或 **Git Bash**
+- 如果遇到 Python 包安装问题，优先考虑用 Miniconda
+
+### macOS 用户
+
+- 推荐安装 **Homebrew** 包管理器
+- macOS 自带 Python 2，不要用它。通过 Miniconda 安装 Python 3.11
+- Apple Silicon（M1/M2/M3/M4）的 PyTorch 支持已经很好，可以用 MPS 加速
+
+### Linux（Ubuntu）用户
+
+- 大部分 AI 工具对 Linux 支持最好
+- 推荐 Ubuntu 22.04 LTS
+- NVIDIA GPU 驱动安装可能需要一些额外步骤（1 开发者工具基础会覆盖）
+
+---
+
+## 网络环境
+
+有些资源需要科学上网：
+
+| 资源 | 是否需要科学上网 | 替代方案 |
+|------|:---:|---------|
+| Google Colab | 需要 | AutoDL、本地 Jupyter |
+| GitHub | 部分地区需要 | Gitee 作为镜像 |
+| HuggingFace | 部分地区需要 | HuggingFace 镜像站 |
+| PyPI（pip 源） | 不需要，但国外源慢 | 使用清华/阿里镜像 |
+| OpenAI API | 需要 | 国内大模型 API（通义千问、DeepSeek） |
+
+### 配置 pip 国内镜像（推荐）
+
+如果你在国内，pip 安装包会很慢。运行以下命令一劳永逸地配好清华镜像：
+
+```bash
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+配好后所有 `pip install` 都会从清华镜像下载，速度飞快。
+
+---
+
+
+
+:::tip 遇到环境问题不要怕
+配环境是每个开发者都要经历的"痛苦"。如果你卡住了：
+1. 把错误信息完整地复制下来
+2. 粘贴到 Google 搜索（英文搜索效果更好）
+3. 99% 的环境问题都有人遇到过，Stack Overflow 上一定有答案
+4. 实在搞不定，先用 Google Colab 继续学习，环境问题以后再解决
+5. 如果是第 5 章机器学习之后的课程代码跑不起来，优先检查你是否已经按上面的统一环境方案安装依赖
+:::

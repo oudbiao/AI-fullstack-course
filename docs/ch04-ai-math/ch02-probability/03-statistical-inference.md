@@ -1,139 +1,139 @@
 ---
-title: "2.4 统计推断基础"
+title: "2.4 Basics of Statistical Inference"
 sidebar_position: 7
-description: "理解最大似然估计(MLE)、最大后验估计(MAP)、假设检验和 A/B 测试的直觉含义"
-keywords: [最大似然估计, MLE, MAP, 假设检验, A/B测试, 统计推断, AI数学]
+description: "Understand the intuitive meaning of Maximum Likelihood Estimation (MLE), Maximum A Posteriori Estimation (MAP), hypothesis testing, and A/B testing"
+keywords: [Maximum Likelihood Estimation, MLE, MAP, hypothesis testing, A/B testing, statistical inference, AI math]
 ---
 
-# 统计推断基础
+# Basics of Statistical Inference
 
-![最大似然估计似然曲线图](/img/course/mle-likelihood-curve.png)
+![Maximum Likelihood Estimation likelihood curve](/img/course/mle-likelihood-curve-en.png)
 
-:::tip 统计推断 = 从数据反推规律
-上一节学了各种概率分布。但真实世界中，我们不知道分布的参数（比如硬币正面概率是多少）。统计推断就是**从观测到的数据，反推出分布的参数**。
+:::tip Statistical inference = inferring rules from data
+In the previous section, we learned about various probability distributions. But in the real world, we often do not know the parameters of a distribution (for example, what is the probability that a coin lands heads?). Statistical inference is **using observed data to infer the parameters of the distribution**.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解最大似然估计（MLE）的直觉——为什么要"最大化概率"
-- 理解最大后验估计（MAP）——加入先验知识
-- 理解假设检验和 p 值（A/B 测试思维）
-- 用 Python 实现 MLE
+- Understand the intuition behind Maximum Likelihood Estimation (MLE) — why do we "maximize probability"?
+- Understand Maximum A Posteriori Estimation (MAP) — adding prior knowledge
+- Understand hypothesis testing and p-values (A/B testing mindset)
+- Implement MLE in Python
 
-## 历史背景：MLE 和 EM 各自是怎么来的？
+## Historical Background: How Did MLE and EM Come About?
 
-这一节里有两个特别值得知道的历史节点：
+There are two especially important historical milestones in this section:
 
-| 年份 | 节点 | 关键作者 | 它最重要地解决了什么 |
+| Year | Milestone | Key Author(s) | What did it solve most importantly? |
 |---|---|---|---|
-| 1922 | Maximum Likelihood Estimation | Ronald Fisher | 把“最能解释观测数据的参数”系统化，成为统计学习和损失函数主线的重要底座 |
-| 1977 | EM Algorithm | Dempster, Laird, Rubin | 给“有隐变量、缺失信息”的参数估计问题提供了稳定迭代框架 |
+| 1922 | Maximum Likelihood Estimation | Ronald Fisher | Systematized the idea of "the parameters that best explain the observed data," becoming an important foundation for statistical learning and loss functions |
+| 1977 | EM Algorithm | Dempster, Laird, Rubin | Provided a stable iterative framework for parameter estimation problems with latent variables and missing information |
 
-这里有个很重要的区分：
+There is a very important distinction here:
 
-- **MLE** 更像一个完整领域 / 原则
-- **EM** 更像在某类困难场景下求 MLE 的经典方法
+- **MLE** is more like a complete field / principle
+- **EM** is more like a classic method for finding MLE in certain difficult scenarios
 
-所以新人第一次学这一节，最值得先知道的是：
+So for beginners learning this section for the first time, the most important thing to know is:
 
-> **MLE 在回答“什么参数最像真的”，EM 在回答“当问题里有看不见的部分时，怎么一步步逼近这个参数”。**
+> **MLE answers "which parameters look most like the truth," while EM answers "when there are unseen parts in the problem, how do we step by step approach those parameters."**
 
-### 为什么这条线对很多初学者会特别有吸引力？
+### Why is this line especially appealing to many beginners?
 
-因为它第一次把“从数据反推规律”这件事讲得很像破案：
+Because it explains "inferring rules from data" in a way that feels like solving a case:
 
-- 真相你没直接看到
-- 参数也没人告诉你
-- 但你手里已经有很多观测痕迹
+- You do not directly see the truth
+- No one tells you the parameters
+- But you already have many observed clues
 
-于是问题就变成：
+So the question becomes:
 
-- 哪种解释最能把这些痕迹串起来？
+- Which explanation best connects all these clues?
 
-MLE 会让人觉得“像侦探”，  
-EM 会让人觉得“像在黑箱里摸着石头过河”，  
-这也是为什么很多人第一次认真学统计推断时，会突然感觉：
+MLE makes people feel like "a detective,"
+EM makes people feel like "feeling their way through a black box,"
+and that is also why many people, when they first seriously learn statistical inference, suddenly feel:
 
-> **原来模型训练不只是算公式，而是在做一种有步骤的反推。**
+> **So model training is not just calculating formulas — it is a step-by-step reverse inference process.**
 
-### 这条线为什么会让统计学习后来那么重要？
+### Why did this line later become so important for statistical learning?
 
-因为它把一个很朴素的问题讲得非常清楚：
+Because it explains a very simple question extremely clearly:
 
-- 既然世界不会直接把参数告诉你
-- 那你就应该从数据倒着猜
+- Since the world will not directly tell you the parameters
+- You should infer them backward from data
 
-MLE 最打动人的地方，恰恰就是它很像侦探工作：
+The most appealing part of MLE is precisely that it feels like detective work:
 
-- 现场已经留下了很多痕迹
-- 你不知道真相
-- 但你可以问：哪种解释最像真的发生过
+- The scene already has many clues
+- You do not know the truth
+- But you can ask: which explanation is most likely what really happened?
 
-而 EM 更像是在说：
+And EM is more like saying:
 
-- 如果现场有一部分信息根本看不见
-- 那就不要放弃，先猜一版，再修一版，反复逼近
+- If part of the information at the scene is completely invisible
+- Then do not give up; guess once, refine it, and keep approaching the answer repeatedly
 
-所以这条主线对初学者很有吸引力的地方在于：
+So the reason this main line is so attractive to beginners is:
 
-> **它让“从数据反推规律”第一次变得像一个有步骤、有策略、能逐步逼近的过程。**
+> **It makes "inferring rules from data" feel like a process with steps, strategy, and gradual approximation for the first time.**
 
-## 先说一个很重要的学习预期
+## First, set an important learning expectation
 
-这一节很容易让新人一读到 `MLE / MAP / p 值` 就开始发虚。  
-但这里最重要的不是一下子把统计推断学得像统计课那样完整，而是先让你知道：
+This section can easily make beginners feel nervous as soon as they see `MLE / MAP / p-value`.
+But the most important thing here is not to instantly master statistical inference as completely as in a statistics course, but to first understand:
 
-- 看到了数据以后，我们到底想反推出什么
-- “最能解释数据”这句话在数学上是什么意思
-- 为什么这些思想最后会直接长进 loss、正则化和 A/B 测试里
+- After seeing data, what are we trying to infer?
+- What does "the model that best explains the data" mean mathematically?
+- Why do these ideas eventually grow directly into loss functions, regularization, and A/B testing?
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-前两节学的是“概率怎么定义、分布长什么样”，这一节开始进入：
+The previous two sections were about "how probability is defined" and "what distributions look like." Starting from this section, we enter:
 
-> **既然我们拿到了数据，怎样反推出背后的参数和结论？**
+> **Now that we have data, how do we infer the underlying parameters and conclusions?**
 
-![统计推断从数据到参数图](/img/course/ch04-statistical-inference-data-to-parameter.png)
+![Statistical inference from data to parameters](/img/course/ch04-statistical-inference-data-to-parameter-en.png)
 
-这节课最重要的不是记名词，而是先抓住：
+The most important thing in this lesson is not memorizing terminology, but first grasping:
 
-- MLE：什么参数最能解释这些数据
-- MAP：在数据之外，再把先验常识也考虑进去
-- 假设检验：看到差异后，怎样判断它是不是偶然
+- MLE: which parameters best explain these data?
+- MAP: in addition to the data, also consider prior knowledge
+- Hypothesis testing: after seeing a difference, how do we judge whether it is just by chance?
 
-## 一、最大似然估计（MLE）
+## 1. Maximum Likelihood Estimation (MLE)
 
-### 1.1 直觉：什么参数最能解释数据？
+### 1.1 Intuition: Which parameters best explain the data?
 
-你捡到一枚硬币，不知道它公不公平。你抛了 10 次：**正正反正正正反正正正**（8 次正面，2 次反面）。
+You pick up a coin and do not know whether it is fair. You toss it 10 times: **HHTHHHTHHH** (8 heads, 2 tails).
 
-**问题：这枚硬币正面朝上的概率 p 最可能是多少？**
+**Question: what is the most likely probability p of landing heads?**
 
-直觉告诉你：p ≈ 0.8。MLE 就是把这个直觉数学化——**找到那个让观测数据出现概率最大的参数值**。
+Intuition tells you: p ≈ 0.8. MLE turns this intuition into math — **find the parameter value that makes the observed data most likely to occur**.
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A more beginner-friendly analogy
 
-你可以把 MLE 先想成“最像侦探在还原案情”的过程：
+You can first think of MLE as a "detective reconstructing the case" process:
 
-- 已经看到了一串线索（观测数据）
-- 现在要倒推：哪种参数设定最像真的发生过这件事
+- You have already seen a series of clues (observed data)
+- Now you infer backward: which parameter setting looks most like what really happened?
 
-所以 MLE 的核心不是“为了最大化而最大化”，而是：
+So the core of MLE is not "maximizing for the sake of maximizing," but:
 
-> **找出最能解释眼前这批数据的参数。**
+> **Find the parameters that best explain the data in front of you.**
 
 ```mermaid
 flowchart LR
-    D["观测数据<br/>8 正 2 反"] --> Q["哪个 p 最能<br/>解释这些数据？"]
-    Q --> MLE["p = 0.8<br/>（最大似然估计）"]
+    D["Observed data<br/>8 heads, 2 tails"] --> Q["Which p best<br/>explains these data?"]
+    Q --> MLE["p = 0.8<br/>(Maximum Likelihood Estimate)"]
 
     style D fill:#e3f2fd,stroke:#1565c0,color:#333
     style MLE fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 1.2 用代码理解
+### 1.2 Understanding with code
 
 ```python
 import numpy as np
@@ -143,280 +143,280 @@ from scipy import stats
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 观测数据：10 次抛掷，8 正 2 反
+# Observed data: 10 tosses, 8 heads and 2 tails
 n_heads = 8
 n_tails = 2
 n_total = n_heads + n_tails
 
-# 对于不同的 p 值，计算产生这组数据的概率（似然函数）
+# For different p values, compute the probability of generating this data (likelihood function)
 p_values = np.linspace(0.01, 0.99, 1000)
 
-# 似然函数：L(p) = C(n,k) * p^k * (1-p)^(n-k)
-# 我们可以忽略 C(n,k)（它不依赖于 p）
+# Likelihood function: L(p) = C(n,k) * p^k * (1-p)^(n-k)
+# We can ignore C(n,k) because it does not depend on p
 likelihood = p_values**n_heads * (1 - p_values)**n_tails
 
-# MLE：似然最大的 p
+# MLE: the p that maximizes the likelihood
 p_mle = p_values[np.argmax(likelihood)]
-print(f"MLE 估计: p = {p_mle:.3f}")
+print(f"MLE estimate: p = {p_mle:.3f}")
 
-# 可视化
+# Visualization
 plt.figure(figsize=(10, 5))
 plt.plot(p_values, likelihood, color='steelblue', linewidth=2)
 plt.axvline(x=p_mle, color='red', linestyle='--', linewidth=2, label=f'MLE: p = {p_mle:.2f}')
 plt.fill_between(p_values, likelihood, alpha=0.1, color='steelblue')
-plt.xlabel('p（正面概率）')
-plt.ylabel('似然 L(p)')
-plt.title(f'似然函数：抛 10 次硬币，{n_heads} 正 {n_tails} 反')
+plt.xlabel('p (heads probability)')
+plt.ylabel('Likelihood L(p)')
+plt.title(f'Likelihood function: tossing a coin 10 times, {n_heads} heads and {n_tails} tails')
 plt.legend(fontsize=12)
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 1.3 MLE 的数学直觉
+### 1.3 Mathematical intuition behind MLE
 
-MLE 的答案其实很简单：**p = 正面次数 / 总次数 = 8/10 = 0.8**
+The answer from MLE is actually very simple: **p = number of heads / total number of tosses = 8/10 = 0.8**
 
-但 MLE 的价值在于它是一个**通用框架**——对于任何分布，都可以用同样的思路找参数。
+But the value of MLE is that it is a **general framework** — for any distribution, you can use the same idea to find the parameters.
 
-### 1.3.1 为什么这一点对 AI 特别重要？
+### 1.3.1 Why is this especially important for AI?
 
-因为很多损失函数表面看起来是在“做优化”，  
-但更底层的视角其实是：
+Because many loss functions, on the surface, look like they are "doing optimization,"
+but from a deeper perspective, they are actually:
 
-- 我们在找一组参数
-- 让这组参数最能解释训练数据
+- finding a set of parameters
+- so that those parameters best explain the training data
 
-也就是说，MLE 是很多训练目标背后的共同语言。
+In other words, MLE is the common language behind many training objectives.
 
-### 1.4 更多数据 = 更准确的估计
+### 1.4 More data = more accurate estimates
 
 ```python
-# 真实的 p = 0.6
+# True p = 0.6
 true_p = 0.6
 n_experiments = [10, 50, 100, 500, 2000]
 
 fig, axes = plt.subplots(1, len(n_experiments), figsize=(20, 4))
 
 for ax, n in zip(axes, n_experiments):
-    # 抛 n 次硬币
+    # Toss the coin n times
     heads = np.random.binomial(n, true_p)
-    
-    # 似然函数
+
+    # Likelihood function
     p_vals = np.linspace(0.01, 0.99, 500)
     ll = heads * np.log(p_vals) + (n - heads) * np.log(1 - p_vals)
-    ll = np.exp(ll - ll.max())  # 归一化
-    
+    ll = np.exp(ll - ll.max())  # Normalize
+
     p_mle = heads / n
-    
+
     ax.plot(p_vals, ll, color='steelblue', linewidth=2)
-    ax.axvline(x=true_p, color='green', linestyle='--', label=f'真实 p={true_p}')
+    ax.axvline(x=true_p, color='green', linestyle='--', label=f'True p={true_p}')
     ax.axvline(x=p_mle, color='red', linestyle='--', label=f'MLE={p_mle:.3f}')
     ax.set_title(f'n = {n}')
     ax.set_xlabel('p')
     ax.legend(fontsize=8)
 
-plt.suptitle('数据越多，MLE 越准、越确定（曲线越窄）', fontsize=13)
+plt.suptitle('More data means a more accurate and more certain MLE (the curve becomes narrower)', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：数据越多，似然函数的峰越窄、越接近真实值。这就是"大数据"的力量。
+**Interpretation**: The more data you have, the narrower the peak of the likelihood function and the closer it gets to the true value. This is the power of "big data."
 
 ---
 
-## 二、最大后验估计（MAP）
+## 2. Maximum A Posteriori Estimation (MAP)
 
-### 2.1 MLE 的问题
+### 2.1 The problem with MLE
 
-如果你只抛了 3 次硬币，全是正面，MLE 会告诉你 p = 3/3 = 1.0——"这枚硬币永远正面朝上"。
+If you only toss a coin 3 times and all three are heads, MLE will tell you p = 3/3 = 1.0 — "this coin always lands heads."
 
-这显然不合理。我们的**常识**告诉我们，大多数硬币的 p 应该接近 0.5。
+That is clearly unreasonable. Our **common sense** tells us that for most coins, p should be close to 0.5.
 
-### 2.2 MAP：加入先验知识
+### 2.2 MAP: adding prior knowledge
 
-MAP 在 MLE 的基础上加了一个"先验"——你对参数的事先信念：
+MAP adds a "prior" on top of MLE — your prior belief about the parameters:
 
-**MAP = 似然 × 先验**
+**MAP = likelihood × prior**
 
-### 2.2.1 一个更好记的说法
+### 2.2.1 A better way to remember it
 
-如果 MLE 是：
+If MLE is:
 
-- 只看眼前证据
+- only looking at the evidence in front of you
 
-那 MAP 更像：
+Then MAP is more like:
 
-- 眼前证据 + 你原本对世界的常识
+- the evidence in front of you + your original common sense about the world
 
-所以它很适合解释很多 AI 里的现象：
+So it is very suitable for explaining many phenomena in AI:
 
-- 为什么“约束一下参数别太大”会更稳
-- 为什么正则化不只是技巧，而是某种先验假设
+- Why adding a constraint to keep parameters from getting too large makes training more stable
+- Why regularization is not just a trick, but a kind of prior assumption
 
 ```python
-# 数据：3 次全正面
+# Data: 3 tosses, all heads
 n, k = 3, 3
 
 p_values = np.linspace(0.01, 0.99, 1000)
 
-# 似然函数
+# Likelihood function
 likelihood = p_values**k * (1 - p_values)**(n - k)
 
-# 先验：我们相信 p 大概率在 0.5 附近（用 Beta 分布表示）
-prior = stats.beta.pdf(p_values, a=5, b=5)  # 以 0.5 为中心的先验
+# Prior: we believe p is likely near 0.5 (represented by a Beta distribution)
+prior = stats.beta.pdf(p_values, a=5, b=5)  # Prior centered at 0.5
 
-# 后验 ∝ 似然 × 先验
+# Posterior ∝ likelihood × prior
 posterior = likelihood * prior
-posterior = posterior / np.trapz(posterior, p_values)  # 归一化
+posterior = posterior / np.trapz(posterior, p_values)  # Normalize
 
-# 找最大值
+# Find the maximum
 p_mle = p_values[np.argmax(likelihood)]
 p_map = p_values[np.argmax(posterior)]
 
 print(f"MLE: p = {p_mle:.3f}")
 print(f"MAP: p = {p_map:.3f}")
 
-# 可视化
+# Visualization
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(p_values, likelihood / np.trapz(likelihood, p_values), 
-        '--', color='coral', linewidth=2, label='似然函数')
-ax.plot(p_values, prior / np.trapz(prior, p_values), 
-        '--', color='green', linewidth=2, label='先验')
-ax.plot(p_values, posterior, color='steelblue', width=0.01, label='后验')
+ax.plot(p_values, likelihood / np.trapz(likelihood, p_values),
+        '--', color='coral', linewidth=2, label='Likelihood function')
+ax.plot(p_values, prior / np.trapz(prior, p_values),
+        '--', color='green', linewidth=2, label='Prior')
+ax.plot(p_values, posterior, color='steelblue', width=0.01, label='Posterior')
 ax.axvline(x=p_mle, color='coral', linestyle=':', alpha=0.7, label=f'MLE = {p_mle:.2f}')
 ax.axvline(x=p_map, color='steelblue', linestyle=':', alpha=0.7, label=f'MAP = {p_map:.2f}')
 ax.set_xlabel('p')
-ax.set_ylabel('概率密度')
-ax.set_title('MLE vs MAP（只有 3 次数据时）')
+ax.set_ylabel('Probability density')
+ax.set_title('MLE vs MAP (with only 3 data points)')
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.show()
 ```
 
-**解读**：
-- MLE 给出 p=1.0（完全被少量数据带偏）
-- MAP 给出 p≈0.69（在数据和先验之间折中）
-- 随着数据增多，MAP 和 MLE 会趋于一致
+**Interpretation**:
+- MLE gives p = 1.0 (completely biased by very little data)
+- MAP gives p≈0.69 (a compromise between data and prior)
+- As the amount of data increases, MAP and MLE will converge
 
 ### 2.3 MLE vs MAP
 
 | | MLE | MAP |
 |---|-----|-----|
-| 使用先验？ | 否 | 是 |
-| 数据少时 | 容易过拟合 | 更稳定 |
-| 数据多时 | 和 MAP 趋同 | 和 MLE 趋同 |
-| AI 中的对应 | 普通训练 | 正则化（如 L2 正则化 = 高斯先验） |
+| Uses prior? | No | Yes |
+| When data is small | Easy to overfit | More stable |
+| When data is large | Approaches MAP | Approaches MLE |
+| Corresponding idea in AI | Ordinary training | Regularization (e.g. L2 regularization = Gaussian prior) |
 
-:::tip AI 连接
-**L2 正则化**（又叫 weight decay）本质上就是 MAP——它假设权重的先验是均值为 0 的正态分布，鼓励权重不要太大。这就是为什么正则化能防止过拟合。
+:::tip AI connection
+**L2 regularization** (also called weight decay) is essentially MAP — it assumes the prior on weights is a normal distribution with mean 0, encouraging weights not to become too large. This is why regularization helps prevent overfitting.
 :::
 
 ---
 
-## 三、假设检验与 A/B 测试
+## 3. Hypothesis Testing and A/B Testing
 
-### 3.1 日常场景
+### 3.1 A daily-life scenario
 
-你改了网站的按钮颜色（A 版用蓝色，B 版用绿色），B 版的点击率高了 2%。
+You changed the color of a website button (version A uses blue, version B uses green), and version B’s click-through rate increased by 2%.
 
-**问题：这个差异是真实的，还是只是随机波动？**
+**Question: is this difference real, or just random fluctuation?**
 
-### 3.2 假设检验的思路
+### 3.2 The idea behind hypothesis testing
 
 ```mermaid
 flowchart TD
-    A["提出假设"] --> B["H₀：A 和 B 没有差异<br/>（零假设）"]
-    A --> C["H₁：B 比 A 更好<br/>（备择假设）"]
-    B --> D["假设 H₀ 为真<br/>计算观测到的差异<br/>有多'不寻常'"]
-    D --> E{"p 值 < 0.05?"}
-    E -->|"是"| F["拒绝 H₀<br/>差异是显著的"]
-    E -->|"否"| G["不拒绝 H₀<br/>差异可能是随机的"]
+    A["State the hypothesis"] --> B["H₀: A and B have no difference<br/>(null hypothesis)"]
+    A --> C["H₁: B is better than A<br/>(alternative hypothesis)"]
+    B --> D["Assume H₀ is true<br/>Calculate how 'unusual'<br/>the observed difference is"]
+    D --> E{"p-value < 0.05?"}
+    E -->|"Yes"| F["Reject H₀<br/>The difference is significant"]
+    E -->|"No"| G["Do not reject H₀<br/>The difference may be random"]
 
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
     style G fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 3.3 p 值的直觉
+### 3.3 Intuition for p-values
 
-**p 值 = 假设没有真实差异，仅靠随机波动产生这么大（或更大）差异的概率。**
+**p-value = the probability of getting a difference this large (or larger) just by random fluctuation, assuming there is no real difference.**
 
-- p 值小（比如 0.01）→ "如果真没差异，这种结果几乎不可能出现" → 差异是真实的
-- p 值大（比如 0.3）→ "就算没有真实差异，这种结果也很常见" → 可能只是随机波动
+- Small p-value (for example, 0.01) → "If there were really no difference, this result would almost never happen" → the difference is real
+- Large p-value (for example, 0.3) → "Even if there were no real difference, this result would still be common" → it may just be random fluctuation
 
-### 3.4 A/B 测试实战
+### 3.4 A/B testing in practice
 
 ```python
-# 模拟 A/B 测试
+# Simulate an A/B test
 np.random.seed(42)
 
-# A 组：蓝色按钮，真实点击率 10%
+# Group A: blue button, true click-through rate 10%
 n_a = 1000
 clicks_a = np.random.binomial(n_a, 0.10)
 rate_a = clicks_a / n_a
 
-# B 组：绿色按钮，真实点击率 12%（真的更好）
+# Group B: green button, true click-through rate 12% (really better)
 n_b = 1000
 clicks_b = np.random.binomial(n_b, 0.12)
 rate_b = clicks_b / n_b
 
-print(f"A 组点击率: {rate_a:.1%} ({clicks_a}/{n_a})")
-print(f"B 组点击率: {rate_b:.1%} ({clicks_b}/{n_b})")
-print(f"差异: {rate_b - rate_a:.1%}")
+print(f"Group A click-through rate: {rate_a:.1%} ({clicks_a}/{n_a})")
+print(f"Group B click-through rate: {rate_b:.1%} ({clicks_b}/{n_b})")
+print(f"Difference: {rate_b - rate_a:.1%}")
 
-# 使用 z 检验
+# Use a z-test
 from scipy.stats import norm
 
-# 合并比例
+# Pooled proportion
 p_pool = (clicks_a + clicks_b) / (n_a + n_b)
-# 标准误
+# Standard error
 se = np.sqrt(p_pool * (1 - p_pool) * (1/n_a + 1/n_b))
-# z 统计量
+# z statistic
 z = (rate_b - rate_a) / se
-# p 值（单侧）
+# p-value (one-sided)
 p_value = 1 - norm.cdf(z)
 
-print(f"\nz 统计量: {z:.3f}")
-print(f"p 值: {p_value:.4f}")
+print(f"\nz statistic: {z:.3f}")
+print(f"p-value: {p_value:.4f}")
 
 if p_value < 0.05:
-    print("→ p < 0.05，差异显著！B 版确实更好。")
+    print("→ p < 0.05, the difference is significant! Version B is indeed better.")
 else:
-    print("→ p >= 0.05，差异不显著，可能是随机波动。")
+    print("→ p >= 0.05, the difference is not significant and may be due to random fluctuation.")
 ```
 
-### 3.5 用模拟理解 p 值
+### 3.5 Understanding p-values through simulation
 
 ```python
-# 模拟：如果 A 和 B 真的没有差异（都是 10%），会看到多大的差异？
+# Simulation: if A and B really had no difference (both 10%), how large a difference would we see?
 np.random.seed(42)
 n_simulations = 10000
 simulated_diffs = []
 
 for _ in range(n_simulations):
-    # 两组用同样的概率 10%
+    # Both groups use the same probability of 10%
     sim_a = np.random.binomial(1000, 0.10) / 1000
     sim_b = np.random.binomial(1000, 0.10) / 1000
     simulated_diffs.append(sim_b - sim_a)
 
 simulated_diffs = np.array(simulated_diffs)
 
-# 画分布
+# Plot the distribution
 observed_diff = rate_b - rate_a
 
 plt.figure(figsize=(10, 5))
-plt.hist(simulated_diffs, bins=50, density=True, color='steelblue', 
-         edgecolor='white', alpha=0.7, label='零假设下的差异分布')
+plt.hist(simulated_diffs, bins=50, density=True, color='steelblue',
+         edgecolor='white', alpha=0.7, label='Difference distribution under the null hypothesis')
 plt.axvline(x=observed_diff, color='red', linewidth=2, linestyle='--',
-            label=f'观测到的差异: {observed_diff:.3f}')
+            label=f'Observed difference: {observed_diff:.3f}')
 
-# p 值 = 红线右边的面积
+# p-value = area to the right of the red line
 p_sim = (simulated_diffs >= observed_diff).mean()
 plt.fill_between(np.linspace(observed_diff, 0.08, 100),
-                 0, 30, alpha=0.3, color='red', label=f'p 值 ≈ {p_sim:.4f}')
+                 0, 30, alpha=0.3, color='red', label=f'p-value ≈ {p_sim:.4f}')
 
-plt.xlabel('点击率差异 (B - A)')
-plt.ylabel('密度')
-plt.title('p 值的直觉：观测到的差异有多"不寻常"？')
+plt.xlabel('Click-through rate difference (B - A)')
+plt.ylabel('Density')
+plt.title('Intuition for p-values: how "unusual" is the observed difference?')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
@@ -424,65 +424,65 @@ plt.show()
 
 ---
 
-## 四、MLE 与损失函数的联系
+## 4. The Connection Between MLE and Loss Functions
 
-### 4.1 MLE = 最小化交叉熵
+### 4.1 MLE = minimizing cross-entropy
 
-这是一个非常重要的联系——**分类问题中，最大化似然等价于最小化交叉熵损失**。
+This is a very important connection — **in classification problems, maximizing likelihood is equivalent to minimizing cross-entropy loss**.
 
 ```python
-# 二分类问题
-# 模型预测：p_hat = 模型认为标签为 1 的概率
-# 真实标签：y ∈ {0, 1}
+# Binary classification problem
+# Model prediction: p_hat = the probability the model assigns to label 1
+# True label: y ∈ {0, 1}
 
-# 似然函数
+# Likelihood function
 # L = ∏ p_hat^y * (1-p_hat)^(1-y)
 
-# 取对数（对数似然）
+# Take logarithm (log-likelihood)
 # log L = Σ [y * log(p_hat) + (1-y) * log(1-p_hat)]
 
-# 最大化 log L = 最小化 -log L = 最小化交叉熵！
+# Maximize log L = minimize -log L = minimize cross-entropy!
 
-# 示例
+# Example
 y_true = np.array([1, 0, 1, 1, 0])
 p_pred = np.array([0.9, 0.2, 0.8, 0.7, 0.3])
 
-# 交叉熵（手算）
+# Cross-entropy (manual)
 cross_entropy = -np.mean(
     y_true * np.log(p_pred) + (1 - y_true) * np.log(1 - p_pred)
 )
-print(f"交叉熵损失: {cross_entropy:.4f}")
+print(f"Cross-entropy loss: {cross_entropy:.4f}")
 
-# 对数似然（手算）
+# Log-likelihood (manual)
 log_likelihood = np.mean(
     y_true * np.log(p_pred) + (1 - y_true) * np.log(1 - p_pred)
 )
-print(f"对数似然: {log_likelihood:.4f}")
-print(f"交叉熵 = -对数似然: {-log_likelihood:.4f}")
+print(f"Log-likelihood: {log_likelihood:.4f}")
+print(f"Cross-entropy = -log-likelihood: {-log_likelihood:.4f}")
 ```
 
-:::info 为什么这很重要？
-当你看到 PyTorch 中的 `nn.CrossEntropyLoss()` 或 `nn.BCELoss()`，现在你知道了——**它们本质上是在做最大似然估计**。损失函数不是随便定义的，它有深刻的概率论基础。
+:::info Why is this important?
+When you see `nn.CrossEntropyLoss()` or `nn.BCELoss()` in PyTorch, now you know — **they are essentially doing maximum likelihood estimation**. Loss functions are not defined arbitrarily; they have a deep probabilistic foundation.
 :::
 
 ---
 
-## 学到这里，下一节该带着什么问题走？
+## What should you take into the next section?
 
-看完这节以后，最值得带去下一节的是：
+After reading this section, the most valuable questions to bring to the next one are:
 
-1. 如果模型预测的是一个分布，那“分布和分布差多少”到底怎么量？
-2. 为什么交叉熵能同时像信息论概念，又像训练损失？
-3. KL 散度为什么会反复出现在 VAE、RLHF 和蒸馏里？
+1. If a model predicts a distribution, how do we measure how different two distributions are?
+2. Why can cross-entropy feel both like an information theory concept and a training loss?
+3. Why does KL divergence keep showing up in VAE, RLHF, and distillation?
 
-这几个问题，正好会把你自然带到：
+These questions will naturally lead you to:
 
-- [信息论基础](./04-information-theory.md)
+- [Basics of Information Theory](./04-information-theory.md)
 
 ```mermaid
 flowchart LR
-    MLE["MLE<br/>最大似然估计"] --> CE["交叉熵损失<br/>分类任务"]
-    MAP["MAP<br/>最大后验估计"] --> REG["正则化<br/>防止过拟合"]
+    MLE["MLE<br/>Maximum Likelihood Estimation"] --> CE["Cross-entropy loss<br/>Classification tasks"]
+    MAP["MAP<br/>Maximum A Posteriori Estimation"] --> REG["Regularization<br/>Prevent overfitting"]
 
     style MLE fill:#e3f2fd,stroke:#1565c0,color:#333
     style MAP fill:#e3f2fd,stroke:#1565c0,color:#333
@@ -490,38 +490,38 @@ flowchart LR
     style REG fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-:::info 连接后续
-- **下一节**：信息论——从另一个角度理解交叉熵
-- **第 5 站**：逻辑回归的损失函数就是交叉熵（来自 MLE）
-- **第 5 站**：正则化（L1/L2）的概率解释是 MAP
-- **第 6 站**：神经网络训练 = 最小化损失函数 = 做 MLE/MAP
+:::info Connection to later sections
+- **Next section**: Information theory — understand cross-entropy from another perspective
+- **Station 5**: The loss function of logistic regression is cross-entropy (from MLE)
+- **Station 5**: The probabilistic interpretation of regularization (L1/L2) is MAP
+- **Station 6**: Neural network training = minimizing loss functions = doing MLE/MAP
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 | 公式/代码 |
+| Concept | Intuition | Formula/Code |
 |------|------|----------|
-| MLE | 找最能解释数据的参数 | 最大化似然函数 |
-| MAP | MLE + 先验知识 | 最大化 似然 × 先验 |
-| p 值 | 差异有多"不寻常" | 零假设下观测到该差异的概率 |
-| A/B 测试 | 比较两组是否有真实差异 | `scipy.stats` |
-| 交叉熵 | 最小化交叉熵 = MLE | `nn.CrossEntropyLoss()` |
+| MLE | Find the parameters that best explain the data | Maximize the likelihood function |
+| MAP | MLE + prior knowledge | Maximize likelihood × prior |
+| p-value | How "unusual" the difference is | The probability of observing such a difference under the null hypothesis |
+| A/B testing | Compare whether two groups have a real difference | `scipy.stats` |
+| Cross-entropy | Minimizing cross-entropy = MLE | `nn.CrossEntropyLoss()` |
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：抛硬币 MLE
+### Exercise 1: Coin Toss MLE
 
-抛一枚硬币 100 次，得到 62 次正面。
-1. 用 MLE 估计 p
-2. 画出似然函数
-3. 如果先验是 Beta(10, 10)，MAP 估计是多少？
+Toss a coin 100 times and get 62 heads.
+1. Use MLE to estimate p
+2. Plot the likelihood function
+3. If the prior is Beta(10, 10), what is the MAP estimate?
 
-### 练习 2：A/B 测试
+### Exercise 2: A/B Testing
 
-模拟一个 A/B 测试：A 组（n=500）真实转化率 8%，B 组（n=500）真实转化率 8%（没有差异）。运行 1000 次实验，统计有多少次 p 值小于 0.05（这就是"假阳率"，理论上应该约 5%）。
+Simulate an A/B test: Group A (n=500) has a true conversion rate of 8%, and Group B (n=500) has a true conversion rate of 8% (no difference). Run 1000 experiments and count how many times the p-value is less than 0.05 (this is the "false positive rate," which should be about 5% in theory).
 
-### 练习 3：MLE 估计正态分布
+### Exercise 3: MLE for a Normal Distribution
 
-从 N(5, 2) 生成 200 个样本，用 MLE 估计均值和标准差（正态分布的 MLE：均值=样本均值，标准差=样本标准差），和真实值对比。
+Generate 200 samples from N(5, 2), use MLE to estimate the mean and standard deviation (for a normal distribution, the MLE is: mean = sample mean, standard deviation = sample standard deviation), and compare with the true values.

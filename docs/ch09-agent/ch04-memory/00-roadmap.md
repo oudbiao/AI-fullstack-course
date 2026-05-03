@@ -1,81 +1,81 @@
 ---
-title: "4.1 学前导读：记忆这一章到底在学什么"
+title: "4.1 Pre-Study Guide: What Is This Chapter on Memory Really About?"
 sidebar_position: 0
-description: "先建立 Agent 记忆系统章的学习地图：短期记忆、长期记忆、情景记忆、程序性记忆和记忆工程怎样支撑持续协作。"
-keywords: [记忆系统导读, Agent记忆, 短期记忆, 长期记忆, 情景记忆]
+description: "First build a learning map for the Agent memory systems chapter: how short-term memory, long-term memory, episodic memory, procedural memory, and memory engineering support continuous collaboration."
+keywords: [memory systems overview, Agent memory, short-term memory, long-term memory, episodic memory]
 ---
 
-# 学前导读：记忆这一章到底在学什么
+# Pre-Study Guide: What Is This Chapter on Memory Really About?
 
-这一章解决的是：Agent 怎样不只是“当前这一轮会回答”，而是能在合适的时候记住、检索和使用历史信息。
+This chapter answers one core question: how can an Agent do more than just respond in the current turn, and instead remember, retrieve, and use historical information at the right time?
 
-记忆不是为了让 Agent 看起来更像人，而是为了服务任务。如果记忆不能帮助系统更好地完成目标、减少重复沟通、保持上下文一致或复用经验，它就可能只是增加复杂度和风险。
+Memory is not about making an Agent seem more human. It is about serving the task. If memory cannot help the system complete goals better, reduce repeated communication, maintain context consistency, or reuse experience, then it may only add complexity and risk.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Whole Course
 
-你已经学过 Agent 基础、推理规划和工具调用。到记忆这一章，课程开始回答：当任务不是一次性完成，而是跨多轮、跨文件、跨时间持续推进时，Agent 怎样管理上下文和经验。
+You have already learned Agent fundamentals, reasoning and planning, and tool calling. In this memory chapter, the course starts to answer this question: when a task is not completed in one shot, but continues across multiple turns, files, and time periods, how should an Agent manage context and experience?
 
-工具让 Agent 能行动，记忆让 Agent 能延续。没有记忆，Agent 每次都像第一次见到任务；记忆设计不好，Agent 又可能记错、记多、记乱，甚至把过期信息当成事实。
+Tools let an Agent act. Memory lets an Agent continue. Without memory, an Agent feels like it is seeing the task for the first time every time. If memory is poorly designed, the Agent may remember things incorrectly, remember too much, or remember them in a messy way, and may even treat outdated information as fact.
 
-![Agent 记忆系统分层图](/img/course/agent-memory-system.png)
+![Layered diagram of the Agent memory system](/img/course/agent-memory-system-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：短期记忆和长期记忆有什么区别；哪些信息值得记，哪些信息不该记；情景记忆和程序性记忆分别服务什么任务；记忆如何写入、检索、更新和遗忘；如何避免记忆污染、隐私风险和过期信息误导。
+This chapter answers five questions: what is the difference between short-term memory and long-term memory; which information is worth remembering and which should not be stored; what tasks episodic memory and procedural memory serve respectively; how memory is written, retrieved, updated, and forgotten; and how to avoid memory pollution, privacy risks, and misleading outdated information.
 
-新人最容易误解的是：记得越多，Agent 越智能。真实情况是，记忆系统的质量取决于筛选、结构化、检索和更新机制。无关信息越多，反而越容易干扰决策。
+The most common misconception for beginners is that the more you remember, the smarter the Agent becomes. In reality, the quality of a memory system depends on its filtering, structuring, retrieval, and update mechanisms. The more irrelevant information there is, the more likely it is to interfere with decision-making.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学记忆总览，分清上下文窗口、短期记忆、长期记忆和外部存储。然后学短期记忆，理解多轮对话和任务状态如何被保留。接着学长期记忆，理解偏好、项目背景、稳定事实和可复用经验如何保存。再看情景记忆和程序性记忆，知道“发生过什么”和“以后怎么做”是两类不同信息。最后学习记忆工程实践，重点看写入规则、检索策略、更新机制和安全边界。
+It is recommended to first study the memory overview and distinguish between context windows, short-term memory, long-term memory, and external storage. Then study short-term memory to understand how multi-turn conversations and task state are preserved. Next, study long-term memory to understand how preferences, project background, stable facts, and reusable experience are stored. After that, look at episodic memory and procedural memory to see that “what happened” and “how to do it next time” are two different kinds of information. Finally, learn memory engineering practices, focusing on write rules, retrieval strategies, update mechanisms, and safety boundaries.
 
-![Agent 记忆系统章节学习顺序图](/img/course/ch09-memory-chapter-flow.png)
+![Learning order diagram for the Agent memory systems chapter](/img/course/ch09-memory-chapter-flow-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Follow in This Chapter
 
-这一章的主线可以概括为：记忆系统不是存储仓库，而是面向任务的上下文管理机制。
+The main thread of this chapter can be summarized as: a memory system is not a storage warehouse, but a task-oriented context management mechanism.
 
-![Agent 记忆写入检索闭环图](/img/course/ch09-memory-write-retrieve-loop.png)
+![Closed loop diagram of Agent memory writing and retrieval](/img/course/ch09-memory-write-retrieve-loop-en.png)
 
-看懂这条线后，你会知道记忆的关键不是“存下来”，而是“什么时候存、存成什么、什么时候取、取出来是否可信、过期后怎样处理”。
+Once you understand this thread, you will know that the key to memory is not “saving it,” but “when to save it, what to save it as, when to retrieve it, whether what you retrieve is trustworthy, and how to handle it when it expires.”
 
-## 这一章和后面章节的关系
+## How This Chapter Relates to Later Chapters
 
-记忆是 MCP、多 Agent、评估安全和部署的重要基础。MCP 可能让记忆连接到外部系统，多 Agent 会让不同角色共享或隔离记忆，评估安全会检查记忆是否带来隐私和错误传播风险，部署阶段则必须考虑权限、审计、数据保留和用户可控删除。
+Memory is an important foundation for MCP, multi-Agent systems, evaluation and safety, and deployment. MCP may connect memory to external systems, multi-Agent setups may require different roles to share or isolate memory, evaluation and safety will check whether memory introduces privacy and error-propagation risks, and deployment must consider permissions, auditing, data retention, and user-controlled deletion.
 
-如果这一章没学稳，后面常见的问题是：Agent 每轮都重复问同样信息；长期记忆里保存了过期或无关内容；系统把用户偏好和事实混在一起；多 Agent 共享了不该共享的上下文；记忆检索结果没有验证就被当成真实依据。
+If you do not learn this chapter firmly, common problems later will be: the Agent asks for the same information every round; long-term memory stores outdated or irrelevant content; the system mixes user preferences with facts; multiple Agents share context that should not be shared; and retrieval results are used as truth without verification.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+For beginners, when studying this chapter for the first time, focus first on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering work: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects with the earlier and later stages. After reading, it is best to write down the chapter’s content in your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study method | Recommended time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Chapter Self-Check Questions
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one cause of errors, poor results, or misunderstandings |
+| What can you retain after finishing? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Small Project Exit Task
 
-学完这一章后，建议做一个“带记忆的学习规划助手”。它可以记住用户的学习目标、当前阶段、偏好的学习节奏和已完成项目；当用户下次询问时，系统能检索这些信息并给出更贴合的建议。
+After completing this chapter, it is recommended to build a “learning planning assistant with memory.” It can remember the user’s learning goals, current stage, preferred learning pace, and completed projects; when the user asks again later, the system can retrieve this information and provide more suitable suggestions.
 
-项目重点是设计记忆规则：哪些内容保存为长期偏好，哪些只是当前任务状态，哪些需要用户确认，哪些应该过期或删除。
+The main focus of the project is to design memory rules: which content should be saved as long-term preferences, which is only current task state, which requires user confirmation, and which should expire or be deleted.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能解释短期记忆、长期记忆、情景记忆和程序性记忆的区别，能设计一个简单的记忆写入和检索流程，能说明记忆污染、过期信息和隐私风险为什么重要。
+By the end of this chapter, you should be able to explain the differences between short-term memory, long-term memory, episodic memory, and procedural memory; design a simple memory write-and-retrieve flow; and explain why memory pollution, outdated information, and privacy risks matter.
 
-如果你能让一个 Agent 在多轮任务中正确使用历史信息，同时避免把无关或过期信息当成事实，就说明你已经掌握了记忆系统的入门能力。
+If you can make an Agent correctly use historical information in multi-turn tasks while avoiding treating irrelevant or outdated information as fact, then you have already mastered the beginner level of memory systems.

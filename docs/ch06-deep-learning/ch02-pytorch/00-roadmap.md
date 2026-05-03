@@ -1,95 +1,95 @@
 ---
-title: "2.1 学前导读：PyTorch 这一章到底在学什么"
+title: "2.1 Pre-class Guide: What Exactly Are We Learning in This PyTorch Chapter?"
 sidebar_position: 0
-description: "先建立 PyTorch 章节的学习地图：tensor、autograd、nn.Module、DataLoader 和训练循环分别负责什么。"
-keywords: [PyTorch导读, tensor, autograd, nn.Module, DataLoader, training loop]
+description: "First build a learning map for the PyTorch chapter: what tensor, autograd, nn.Module, DataLoader, and the training loop are each responsible for."
+keywords: [PyTorch guide, tensor, autograd, nn.Module, DataLoader, training loop]
 ---
 
-# 学前导读：PyTorch 这一章到底在学什么
+# Pre-class Guide: What Exactly Are We Learning in This PyTorch Chapter?
 
-这一章不是在教“某几个 API”，而是在帮你搭出深度学习训练的最小工程闭环。
+This chapter is not teaching “a few APIs.” Instead, it helps you build the smallest complete engineering loop for deep learning training.
 
-## 先建立一张桥接线
+## First, Build a Bridge
 
-如果你前面已经学过第 5 站和第 6 站第一章，这一章最适合这样理解：
+If you have already studied Station 5 and Chapter 1 of Station 6, this chapter is best understood like this:
 
-- 前面你已经知道神经网络为什么能学
-- 这一章开始学怎么把“能学”真正写成代码和训练流程
+- Earlier, you already learned why neural networks can learn
+- Starting in this chapter, you learn how to actually turn “can learn” into code and a training process
 
-所以这一章其实是在回答：
+So this chapter is really answering:
 
-> **如果不用 `sklearn.fit()` 帮我把训练全部包掉，我自己要把哪些步骤搭起来？**
+> **If I do not use `sklearn.fit()` to wrap up all the training for me, what steps do I need to build myself?**
 
-## 这一章的主线
+## The Main Thread of This Chapter
 
-![PyTorch 章节关系图](/img/course/ch06-pytorch-chapter-flow.png)
+![PyTorch chapter flowchart](/img/course/ch06-pytorch-chapter-flow-en.png)
 
-学完这一章后，你应该能自己把一个最小深度学习训练流程搭起来。
+After finishing this chapter, you should be able to build a minimal deep learning training workflow on your own.
 
-## 这一章更适合新人的学习顺序
+## The Best Learning Order for Beginners
 
-1. 先看 `Tensor`
-2. 再看自动求导
-3. 再看 `nn.Module`
-4. 再看 `DataLoader`
-5. 最后把它们串进训练循环
+1. First look at `Tensor`
+2. Then look at automatic differentiation
+3. Then look at `nn.Module`
+4. Then look at `DataLoader`
+5. Finally, connect them in a training loop
 
-这比一上来直接啃完整训练代码更容易稳住。
+This is much easier to keep steady than diving straight into complete training code.
 
-## 这一章最该先抓住什么
+## What You Should Focus on First
 
-- `Tensor` 是深度学习里的基础数据容器
-- `autograd` 负责自动算梯度
-- `nn.Module` 负责组织网络结构
-- `DataLoader` 负责批量喂数据
-- `training loop` 负责把这些东西真正跑起来
+- `Tensor` is the basic data container in deep learning
+- `autograd` is responsible for automatically computing gradients
+- `nn.Module` organizes the network structure
+- `DataLoader` handles batch data loading
+- `training loop` is what actually makes all of this run
 
-## 和第 5 站的 sklearn 主线，到底对应在哪里
+## Where This Maps to the Main sklearn Path in Station 5
 
-你可以先用下面这个对照来理解：
+You can start with the following comparison:
 
-| 第 5 站更常见的体验 | 到这一章会看到什么 |
+| More common experience in Station 5 | What you will see in this chapter |
 |---|---|
-| `model.fit(X_train, y_train)` | 你开始自己写训练循环 |
-| 模型训练细节被封装 | 你开始显式看到 forward / backward / step |
-| 重点在算法选择 | 重点开始转向训练流程理解 |
+| `model.fit(X_train, y_train)` | You start writing the training loop yourself |
+| Training details are abstracted away | You begin to clearly see forward / backward / step |
+| Focus is on choosing the algorithm | Focus shifts toward understanding the training process |
 
-所以这一章并不是在“重学建模”，而是在把训练过程打开给你看。
+So this chapter is not about “learning modeling again.” It is about opening up the training process so you can see it clearly.
 
-## 新人最容易卡住的地方
+## The Places Beginners Most Often Get Stuck
 
-- 看不懂 shape
-- 不知道 `forward / backward / step` 各自做了什么
-- 代码能跑，但不理解每个对象在训练流程里扮演什么角色
+- Not understanding shapes
+- Not knowing what `forward / backward / step` each does
+- Code runs, but you do not understand what role each object plays in the training workflow
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a way to fill gaps and practice engineering skills: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to consolidate what you learned into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study mode | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and complete the chapter’s project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly state what the example needs as input and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you leave behind after learning? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Project Exit Task for This Chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the most core concept or tool in this chapter and create a small result that can run, be captured in a screenshot, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the process is, and what the output result is.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the previous and next learning stages, and complete the minimum version of the chapter’s project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one improvement in results, that means you have not just “read the content,” but have started turning this chapter into your own project experience.

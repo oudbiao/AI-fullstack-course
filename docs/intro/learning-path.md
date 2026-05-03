@@ -1,117 +1,117 @@
 ---
 sidebar_position: 2
-title: "推荐学习路线"
-description: "为不同目标的学习者设计 AI 全栈学习路线，包括应用型主线、模型理解路线和项目作品集路线。"
-keywords: [AI学习路线, AI全栈路线, 大模型学习路线, Agent学习路线, RAG学习路线]
+title: "Recommended Learning Path"
+description: "AI full-stack learning paths designed for learners with different goals, including an application-focused main path, a model-understanding path, and a project portfolio path."
+keywords: [AI learning path, AI full-stack path, LLM learning path, Agent learning path, RAG learning path]
 ---
 
-# 推荐学习路线
+# Recommended Learning Path
 
-![推荐学习路线选择图](/img/course/intro-learning-path-selection.png)
+![Recommended Learning Path Selection Diagram](/img/course/intro-learning-path-selection-en.png)
 
-这套课程内容很多，但你不需要第一次就把所有分支推平。更好的方式是先选择一条主线，跑通从基础到项目的闭环，再根据兴趣补方向内容。
+This course contains a lot of material, but you do not need to flatten every branch the first time through. A better approach is to choose one main path first, complete the full loop from fundamentals to project work, and then fill in additional direction-specific content based on your interests.
 
-## 先选一种学习模式
+## First, choose a learning mode
 
-| 学习模式 | 适合谁 | 怎么学 | 不容易枯燥的关键 |
+| Learning mode | Who it is for | How to learn | Key to avoiding boredom |
 |---|---|---|---|
-| 新人通关模式 | 会一点编程，但 AI 基础不系统 | 按路线一从 1 到 9 走，每阶段完成最小项目 | 每章只抓“能做什么”，不要一开始追所有细节 |
-| 作品集模式 | 想求职、转行或展示能力 | 路线一 + 路线三同步推进，每阶段沉淀一个作品 | 每学一段都更新项目 README、截图和结果分析 |
-| 深入理解模式 | 想做算法、训练、微调、评估 | 走路线二，数学、深度学习、Transformer 多停留 | 每个概念都问“它解决了上一代什么问题” |
-| 快速应用模式 | 已有开发经验，想尽快做 LLM 应用 | 快速浏览 1～6，重点学 7～9 | 用一个真实业务问题贯穿 Prompt、RAG、Agent |
+| Beginner completion mode | You know a bit of programming, but your AI foundation is not systematic | Follow Route 1 from 1 to 9, and complete a minimum project at each stage | Focus only on “what can I do with this” in each chapter; do not chase every detail at the beginning |
+| Portfolio mode | You want a job, a career switch, or a way to showcase your skills | Move forward with Route 1 + Route 3 at the same time, and produce one portfolio piece at each stage | Update the project README, screenshots, and result analysis after each learning segment |
+| Deep understanding mode | You want to work on algorithms, training, fine-tuning, and evaluation | Follow Route 2, and spend more time on math, deep learning, and Transformer | Ask for each concept: “What problem did it solve for the previous generation?” |
+| Fast application mode | You already have development experience and want to build LLM applications quickly | Quickly skim 1–6, and focus on 7–9 | Use one real business problem to connect Prompt, RAG, and Agent |
 
-如果不确定选哪种，默认用“新人通关模式”：先跑通一条完整主线，再回头补强。
+If you are not sure which mode to choose, use “Beginner completion mode” by default: first complete one full main path, then go back and strengthen weaker areas.
 
-## 一图看懂三条主线
+## Understand the three main paths at a glance
 
 ```mermaid
 flowchart TB
-  A["30 分钟 AI 快速体验"] --> B["新人通关：基础 -> 应用 -> 项目"]
-  A --> C["深入理解：数学 -> 模型 -> Transformer"]
-  A --> D["作品集：小项目 -> Demo -> 文档 -> 复盘"]
-  B --> E["完整 AI 应用"]
+  A["30-minute AI quick start"] --> B["Beginner completion: fundamentals -> application -> project"]
+  A --> C["Deep understanding: math -> models -> Transformer"]
+  A --> D["Portfolio: small project -> demo -> documentation -> retrospective"]
+  B --> E["Complete AI application"]
   C --> E
   D --> E
 ```
 
-## 按时间和目标选择路线
+## Choose a path based on time and goals
 
-学习路线不要只按兴趣选，也要按你能投入的时间和最终目标选。
+Do not choose a learning path based only on interest. Also choose based on how much time you can invest and what your final goal is.
 
-| 当前情况 | 推荐路线 | 学习策略 | 阶段交付物 |
+| Current situation | Recommended path | Learning strategy | Stage deliverables |
 |---|---|---|---|
-| 每周 3～5 小时 | 最小通关路线 | 每阶段只抓核心概念和一个最小项目 | README、运行命令、示例输出 |
-| 每周 6～10 小时 | 应用工程路线 | 重点完成 Python、数据、Prompt、RAG、Agent | 小项目、日志、失败样本、评估表 |
-| 准备作品集或求职 | 作品集路线 | 每个主阶段都沉淀可展示证据 | 截图/GIF、指标、复盘、部署说明 |
-| 已有开发经验 | 快速应用路线 | 快速扫过基础，集中做 LLM 应用闭环 | LLM API、RAG、Agent、上线清单 |
-| 想走模型/算法 | 模型理解路线 | 加深数学、机器学习、深度学习和 Transformer | 实验记录、模型对比、误差分析 |
+| 3–5 hours per week | Minimal completion path | Focus only on core concepts and one minimum project at each stage | README, run commands, sample output |
+| 6–10 hours per week | Application engineering path | Focus on completing Python, data, Prompt, RAG, and Agent | Small projects, logs, failure cases, evaluation table |
+| Preparing a portfolio or job search | Portfolio path | Turn every major stage into evidence you can showcase | Screenshots/GIFs, metrics, retrospectives, deployment notes |
+| Existing development experience | Fast application path | Quickly cover the basics and concentrate on the LLM application loop | LLM API, RAG, Agent, launch checklist |
+| Want to go into models/algorithms | Model understanding path | Go deeper into math, machine learning, deep learning, and Transformer | Experiment logs, model comparisons, error analysis |
 
-选择路线后，不要频繁切换。更稳的做法是先完成一轮主线，再用 [全课程能力评估与通关标准](/intro/assessment-standards) 检查薄弱环节，最后回到对应章节补强。
+After choosing a path, do not switch frequently. A more stable approach is to complete one full main path first, then use [Full-course capability assessment and completion standards](/intro/assessment-standards) to check weak areas, and finally return to the relevant chapters to strengthen them.
 
-## 重要参考页放这里
+## Important reference pages
 
-| 你需要什么 | 看哪里 |
+| What you need | Where to look |
 | --- | --- |
-| 跟上 2025～2026 年 AI 应用工程 | [2025-2026 AI 应用技术地图](/intro/modern-ai-stack) |
-| 想进一步确认主线 | [四条主线学习路线](/intro/main-learning-routes) |
-| 想用一个项目贯穿学习 | [贯穿项目：AI 学习助手成长路线](/intro/ai-learning-assistant-project) |
-| 想看 RAG、Agent、多模态怎么逐步升级 | [AI 学习助手版本路线图](/intro/ai-learning-assistant-version-roadmap) |
-| 已经有明确职业目标 | [角色路线选择](/intro/role-based-paths) |
-| 想检查项目质量 | [AI 工程评估与上线清单](/intro/ai-engineering-checklist) |
-| 需要每周计划 | [学习节奏规划](/intro/learning-schedule) |
+| Keep up with 2025–2026 AI application engineering | [2025-2026 AI Application Technology Map](/intro/modern-ai-stack) |
+| Want to confirm the main path further | [Four Main Learning Paths](/intro/main-learning-routes) |
+| Want one project to run through the whole course | [Capstone Project: AI Learning Assistant Growth Path](/intro/ai-learning-assistant-project) |
+| Want to see how RAG, Agent, and multimodal systems evolve step by step | [AI Learning Assistant Version Roadmap](/intro/ai-learning-assistant-version-roadmap) |
+| Already have a clear career goal | [Role-Based Path Selection](/intro/role-based-paths) |
+| Want to check project quality | [AI Engineering Evaluation and Launch Checklist](/intro/ai-engineering-checklist) |
+| Need a weekly plan | [Learning Schedule Planning](/intro/learning-schedule) |
 
-## 路线切换规则
+## Route switching rules
 
-| 从哪里切换 | 什么时候切换 | 怎么补 |
+| From | When to switch | How to fill the gap |
 |---|---|---|
-| 新人通关 -> 作品集 | 已经完成 3 个以上阶段项目 | 回头补 README、截图、失败样本和评估方式 |
-| 快速应用 -> 系统学习 | RAG 或 Agent 经常卡在基础问题 | 补 Python、数据处理、HTTP/API 和数据库基础 |
-| 应用工程 -> 模型理解 | 开始关注模型效果和微调 | 补数学、机器学习、深度学习和 Transformer |
-| 模型理解 -> 应用工程 | 想把模型能力做成产品 | 补后端接口、Prompt、RAG、日志和部署 |
+| Beginner completion -> Portfolio | You have already completed 3 or more stage projects | Go back and add README, screenshots, failure cases, and evaluation methods |
+| Fast application -> Systematic learning | You often get stuck on basic issues in RAG or Agent | Fill in Python, data processing, HTTP/API, and database fundamentals |
+| Application engineering -> Model understanding | You start caring about model performance and fine-tuning | Fill in math, machine learning, deep learning, and Transformer |
+| Model understanding -> Application engineering | You want to turn model capabilities into products | Fill in backend interfaces, Prompt, RAG, logs, and deployment |
 
-路线切换的重点不是“重新学一遍”，而是补齐当前项目缺的能力。用项目暴露问题，再用章节补知识，学习会更顺。
+The key to switching paths is not “learning everything again,” but filling in the capabilities your current project is missing. Use the project to expose problems, then use the chapters to fill in the knowledge. Learning will feel smoother.
 
-## 项目闯关线：每一段都要留下一个作品
+## Project challenge track: leave one project behind at every stage
 
-学习 AI 最容易枯燥的原因，是只看概念、没有产出。建议你把整套课当成一条作品升级线：每完成一个阶段，就留下一个能解释、能运行、能展示的小成果。
+One of the easiest reasons AI learning becomes boring is that you only look at concepts and produce nothing. It is recommended that you treat the whole course as a track of project upgrades: after completing each stage, leave behind a small result that can be explained, run, and shown.
 
-| 阶段 | 闯关任务 | 作品标准 |
+| Stage | Challenge task | Project standard |
 |---|---|---|
-| 1 开发者工具基础 | 搭好开发环境，学会命令行和 Git | 能从零创建项目、提交代码、说明运行方式 |
-| 2 Python 编程基础 | 写一个能解决小问题的脚本或 API | 有输入、有输出、有异常处理，别人能运行 |
-| 3 数据分析与可视化 | 分析一份真实或模拟数据 | 有清洗过程、关键图表、结论和局限 |
-| 4 AI 数学最小必要基础 | 把公式翻译成模型直觉 | 能解释向量、概率、梯度分别在模型里做什么 |
-| 5 机器学习入门到实战 | 做一个预测、分类或分群项目 | 有 baseline、指标、误差分析和改进方向 |
-| 6 深度学习与 Transformer 基础 | 跑通一个神经网络训练实验 | 有训练曲线、测试结果和失败样本分析 |
-| 7 大模型原理、Prompt 与微调 | 设计一组稳定 Prompt 或微调方案 | 能说明为什么用 Prompt、RAG 或微调 |
-| 8 LLM 应用开发与 RAG | 做一个带引用的知识库助手 | 有文档处理、检索、回答、引用、RAGOps 日志和评估样例 |
-| 9 AI Agent 与智能体系统 | 做一个能分步执行的 Agent | 有工具调用、执行轨迹、权限边界、失败处理和日志 |
-| 10～12 方向拓展 | 选择计算机视觉、自然语言处理或 AIGC 多模态做毕业作品 | 有完整问题定义、技术路线、评估和展示材料 |
+| 1 Developer tools basics | Set up the development environment and learn the command line and Git | Can create a project from scratch, commit code, and explain how to run it |
+| 2 Python programming basics | Write a script or API that solves a small problem | Has input, output, exception handling, and can be run by others |
+| 3 Data analysis and visualization | Analyze a real or simulated dataset | Has a cleaning process, key charts, conclusions, and limitations |
+| 4 Minimum necessary AI math foundation | Translate formulas into model intuition | Can explain what vectors, probability, and gradients do in a model |
+| 5 Machine learning from basics to practice | Build a prediction, classification, or clustering project | Has a baseline, metrics, error analysis, and improvement directions |
+| 6 Deep learning and Transformer basics | Run a neural network training experiment | Has training curves, test results, and failure case analysis |
+| 7 LLM principles, Prompt, and fine-tuning | Design a stable set of Prompts or a fine-tuning plan | Can explain why Prompt, RAG, or fine-tuning was chosen |
+| 8 LLM application development and RAG | Build a knowledge-base assistant with citations | Has document processing, retrieval, answering, citations, RAGOps logs, and evaluation examples |
+| 9 AI Agent and intelligent agent systems | Build an Agent that can execute step by step | Has tool calling, execution traces, permission boundaries, failure handling, and logs |
+| 10–12 Direction expansion | Choose computer vision, natural language processing, or AIGC multimodal work for your capstone project | Has a complete problem definition, technical approach, evaluation, and presentation materials |
 
-这条闯关线可以和任何学习路线叠加。新人可以做基础版，有经验的人可以把每个作品做成更完整的工程项目。
+This challenge track can be layered onto any learning path. Beginners can create a basic version, while experienced learners can turn each project into a more complete engineering project.
 
-## 三条路线的读法
+## How to read the three paths
 
-| 路线 | 适合人群 | 第一遍怎么读 |
+| Path | Who it is for | How to read it the first time |
 | --- | --- | --- |
-| 应用型 AI 全栈主线 | 想做 AI 应用工程、RAG、Agent、自动化工具 | 1 到 9 章顺序走，数学和模型先抓直觉 |
-| 模型理解加强路线 | 想做算法、训练、微调、评估或模型工程 | 数学、机器学习、深度学习、Transformer 多停留 |
-| 项目作品集路线 | 想求职、转行、展示能力 | 每阶段都留下 README、截图、结果分析和下一步计划 |
+| Application-focused AI full-stack main path | You want to work on AI application engineering, RAG, Agent, and automation tools | Follow Chapters 1 to 9 in order, and first build intuition for math and models |
+| Model understanding enhancement path | You want to work on algorithms, training, fine-tuning, evaluation, or model engineering | Spend more time on math, machine learning, deep learning, and Transformer |
+| Project portfolio path | You want a job, a career switch, or a way to show your skills | Leave behind README, screenshots, result analysis, and next-step plans at every stage |
 
-每条路线都不是孤立的。应用路线需要一点模型直觉，模型路线也要做项目，作品集路线更需要真实可运行的代码。
+None of the paths is isolated. The application path needs some model intuition, the model path also needs projects, and the portfolio path needs real runnable code even more.
 
-## 如何选择
+## How to choose
 
-如果你不确定怎么选，默认选择路线一。它最适合从“会一点编程”过渡到“能做 AI 应用”。
+If you are not sure what to choose, default to Route 1. It is the best fit for moving from “knows a bit of programming” to “can build AI applications.”
 
-如果你学习过程中发现自己总想知道模型内部发生了什么，就在机器学习和深度学习部分多停留一些时间，并补充 CV、NLP 和数学章节。
+If, during learning, you keep wanting to know what is happening inside the model, then spend more time in the machine learning and deep learning sections, and add the CV, NLP, and math chapters as needed.
 
-如果你希望更快看到成果，就每学完一个阶段都完成一个小项目。不要等课程全部学完才开始做项目，因为项目会反过来暴露你真正没掌握的地方。
+If you want to see results faster, complete a small project after each stage. Do not wait until you finish the entire course to start projects, because projects will reveal what you really have not mastered.
 
-## 建议学习节奏
+## Suggested learning rhythm
 
-第一遍学习时，不要追求所有细节都掌握。建议用“主线优先、项目驱动、方向后补”的方式推进。
+When learning for the first time, do not try to master every detail. It is recommended to move forward with a “main path first, project-driven, direction-specific content later” approach.
 
-每学完一个阶段，你至少应该完成一次复盘：这一阶段解决什么问题，我能否用自己的话解释核心概念，我是否亲手跑过代码，我是否有一个可展示的小产出。
+After finishing each stage, you should complete at least one retrospective: what problem does this stage solve, can I explain the core concepts in my own words, have I run the code myself, and do I have a small result that I can show?
 
-如果某一章太难，可以先知道它在系统中的位置，再往后推进。AI 学习不是线性一次通过，而是不断回头补强的过程。
+If a chapter feels too difficult, you can first understand where it fits in the system, and then keep moving forward. AI learning is not a one-pass linear process; it is an ongoing cycle of returning and strengthening weak areas.

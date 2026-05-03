@@ -1,38 +1,38 @@
 ---
 sidebar_position: 10
-title: "贯穿项目仓库模板：AI 学习助手"
-description: "为贯穿全课的 AI 学习助手项目提供目录结构、版本迭代、README、评估、日志和作品集沉淀模板。"
-keywords: [AI学习助手, 项目模板, 作品集项目, RAG项目模板, Agent项目模板]
+title: "Project Repository Template Throughout the Course: AI Learning Assistant"
+description: "A directory structure, versioning roadmap, README, evaluation, logs, and portfolio documentation template for the AI Learning Assistant project that runs throughout the course."
+keywords: [AI Learning Assistant, project template, portfolio project, RAG project template, Agent project template]
 ---
 
-# 贯穿项目仓库模板：AI 学习助手
+# Project Repository Template Throughout the Course: AI Learning Assistant
 
-## 本节定位
+## What this section is for
 
-这一页给“AI 学习助手”贯穿项目一个可直接照着搭建的仓库模板。它不是要求你一开始就把所有目录都写满，而是让你从第 1 站开始就按真实项目方式保存代码、数据、实验、日志、评估和文档。
+This page gives the “AI Learning Assistant” capstone project a repository template you can follow directly. It does not mean you must fill in every directory from the start. Instead, it helps you save code, data, experiments, logs, evaluations, and documentation in a real-project way from Station 1 onward.
 
-好的作品集项目不只是功能截图，还应该让别人看得懂你怎么迭代、怎么评估、怎么定位失败、怎么做取舍。
+A strong portfolio project is not just a screenshot of features. It should also let other people understand how you iterated, how you evaluated, how you diagnosed failures, and how you made trade-offs.
 
-## 一图读懂：仓库就是证据柜
+## Read it in one picture: the repository is your evidence cabinet
 
 ```mermaid
 flowchart LR
-  A["代码 src/"] --> B["数据 data/"]
-  B --> C["评估 evals/"]
-  C --> D["日志 logs/"]
-  D --> E["文档 docs/"]
-  E --> F["作品集展示"]
+  A["Code src/"] --> B["Data data/"]
+  B --> C["Evaluation evals/"]
+  C --> D["Logs logs/"]
+  D --> E["Docs docs/"]
+  E --> F["Portfolio showcase"]
 ```
 
-| 目录 | 负责回答的问题 |
+| Directory | Question it answers |
 |---|---|
-| `src/` | 系统怎么运行 |
-| `data/` | 输入资料从哪里来 |
-| `evals/` | 效果怎么判断 |
-| `logs/` | 失败和执行过程怎么复盘 |
-| `docs/` | 别人怎么看懂你的项目 |
+| `src/` | How does the system run? |
+| `data/` | Where does the input material come from? |
+| `evals/` | How do we judge the results? |
+| `logs/` | How do we review failures and execution flow? |
+| `docs/` | How can others understand your project? |
 
-## 推荐目录结构
+## Recommended directory structure
 
 ```text
 ai-learning-assistant/
@@ -64,105 +64,105 @@ ai-learning-assistant/
   tests/
 ```
 
-这个结构可以从很小开始。第 1～3 站只需要 `README.md`、`src/`、`data/` 和 `docs/screenshots/`；第 5～6 站开始加入 `notebooks/`、`evals/`；第 8～9 站再加入 `rag/`、`agent/`、`logs/traces/`；第 12 站再加入 `multimodal/`。
+You can start with a very small version of this structure. Stations 1–3 only need `README.md`, `src/`, `data/`, and `docs/screenshots/`; Stations 5–6 add `notebooks/` and `evals/`; Stations 8–9 add `rag/`, `agent/`, and `logs/traces/`; Station 12 adds `multimodal/`.
 
-## 每个目录放什么
+## What to put in each directory
 
-| 目录 | 用途 | 常见内容 |
+| Directory | Purpose | Common contents |
 |---|---|---|
-| `data/raw/` | 原始数据 | 学习记录、课程文档、示例文本 |
-| `data/processed/` | 清洗后的数据 | 切分后的文档、特征表、索引输入 |
-| `src/app/` | 应用入口 | CLI、API、简单 Web 页面 |
-| `src/rag/` | RAG 能力 | 文档解析、切分、检索、引用、评估 |
-| `src/agent/` | Agent 能力 | 工具定义、任务规划、执行轨迹、权限控制 |
-| `src/multimodal/` | 多模态能力 | OCR、截图解析、PDF 页面处理、图文输出 |
-| `evals/` | 评估集 | 固定问题、期望来源、评估结果 |
-| `logs/` | 复盘材料 | Trace、失败样本、成本和耗时记录 |
-| `docs/` | 作品集材料 | 截图、架构图、技术决策、版本记录 |
-| `tests/` | 自动化检查 | 数据处理、检索、工具调用和格式测试 |
+| `data/raw/` | Raw data | Learning records, course documents, sample text |
+| `data/processed/` | Cleaned data | Split documents, feature tables, index inputs |
+| `src/app/` | Application entry point | CLI, API, simple web pages |
+| `src/rag/` | RAG capabilities | Document parsing, chunking, retrieval, citations, evaluation |
+| `src/agent/` | Agent capabilities | Tool definitions, task planning, execution traces, permission control |
+| `src/multimodal/` | Multimodal capabilities | OCR, screenshot parsing, PDF page processing, text-image output |
+| `evals/` | Evaluation set | Fixed questions, expected sources, evaluation results |
+| `logs/` | Review materials | Traces, failure samples, cost and latency records |
+| `docs/` | Portfolio materials | Screenshots, architecture diagrams, technical decisions, version history |
+| `tests/` | Automated checks | Data processing, retrieval, tool calls, and format tests |
 
-## 按 1～12 站逐步升级
+## Upgrade step by step from Stations 1 to 12
 
-| 学习站 | 项目版本 | 新增能力 | 应该留下的证据 |
+| Learning station | Project version | New capability | Evidence to keep |
 |---|---|---|---|
-| 1 | v0.1 项目骨架 | Git、README、目录结构 | 仓库截图、运行说明 |
-| 2 | v0.2 命令行助手 | 添加任务、查看任务、保存 JSON | CLI 示例输入输出 |
-| 3 | v0.3 学习数据分析 | 完成率、学习时长、主题统计 | 图表和结论 |
-| 4 | v0.4 数学直觉卡 | 向量、概率、梯度解释卡 | 概念图和小实验 |
-| 5 | v0.5 预测模型 | 学习任务分类或延期预测 | baseline、指标、错误样本 |
-| 6 | v0.6 深度学习实验 | 文本或图像分类训练 | loss 曲线、测试结果 |
-| 7 | v0.7 Prompt 助手 | 学习计划、笔记摘要、复盘卡 | Prompt 版本和失败样本 |
-| 8 | v0.8 RAG 问答助手 | 文档检索、引用、评估集 | 检索片段、来源引用、评估结果 |
-| 9 | v0.9 Agent 规划助手 | 工具调用、任务拆解、Trace | 执行轨迹、权限边界、失败恢复 |
-| 10～11 | v1.0 方向扩展 | CV 或 NLP 子能力 | 独立方向实验报告 |
-| 12 | v1.1 多模态助手 | 截图、PDF、图文复盘卡 | 多模态输入输出、审核清单 |
+| 1 | v0.1 Project skeleton | Git, README, directory structure | Repository screenshot, run instructions |
+| 2 | v0.2 CLI assistant | Add tasks, view tasks, save JSON | CLI example inputs and outputs |
+| 3 | v0.3 Learning data analysis | Completion rate, study time, topic statistics | Charts and conclusions |
+| 4 | v0.4 Math intuition cards | Vector, probability, gradient explanation cards | Concept diagrams and small experiments |
+| 5 | v0.5 Prediction model | Learning task classification or delay prediction | baseline, metrics, error samples |
+| 6 | v0.6 Deep learning experiment | Text or image classification training | loss curves, test results |
+| 7 | v0.7 Prompt assistant | Study plans, note summaries, review cards | Prompt versions and failure samples |
+| 8 | v0.8 RAG Q&A assistant | Document retrieval, citations, evaluation set | Retrieved chunks, source citations, evaluation results |
+| 9 | v0.9 Agent planning assistant | Tool calling, task decomposition, Trace | Execution traces, permission boundaries, failure recovery |
+| 10–11 | v1.0 Directional extension | CV or NLP sub-capabilities | Independent direction experiment report |
+| 12 | v1.1 Multimodal assistant | Screenshots, PDFs, text-image review cards | Multimodal inputs and outputs, review checklist |
 
-## README 最小模板
+## Minimum README template
 
 ````md
-# AI 学习助手
+# AI Learning Assistant
 
-## 项目目标
+## Project goal
 
-这个项目帮助学习者记录学习任务、分析学习状态，并逐步升级为能回答课程问题、规划学习任务、理解截图和课件的 AI 助手。
+This project helps learners record study tasks, analyze their learning status, and gradually evolve into an AI assistant that can answer course questions, plan study tasks, and understand screenshots and course materials.
 
-## 当前版本
+## Current version
 
-当前版本：v0.8 RAG 课程问答助手
+Current version: v0.8 RAG course Q&A assistant
 
-本版本新增：课程文档读取、文本切分、检索、带来源回答、固定评估问题集。
+This version adds: course document reading, text chunking, retrieval, source-grounded answers, and a fixed evaluation question set.
 
-## 如何运行
+## How to run
 
 ```bash
 pip install -r requirements.txt
 python -m src.app.cli
 ```
 
-## 示例输入输出
+## Example input and output
 
-输入：RAG 项目为什么需要评估集？
+Input: Why does a RAG project need an evaluation set?
 
-输出：系统回答、引用来源、检索片段和日志文件路径。
+Output: The system answer, source citations, retrieved chunks, and the log file path.
 
-## 评估方式
+## Evaluation method
 
-使用 `evals/questions.jsonl` 中的固定问题，检查是否命中期望来源、答案是否忠实、是否在无答案时拒绝编造。
+Use the fixed questions in `evals/questions.jsonl` to check whether the expected sources are hit, whether the answer is faithful, and whether the system refuses to make things up when there is no answer.
 
-## 失败样本
+## Failure samples
 
-记录至少 3 个失败样本：检索不到、引用不准、回答过度概括，并说明下一步怎么修复。
+Record at least 3 failure samples: retrieval misses, inaccurate citations, and overly generalized answers, and explain how you will fix them next.
 
-## 下一步计划
+## Next steps
 
-加入 Reranking、Query Rewrite、Agent 学习规划和多模态 PDF 理解。
+Add Reranking, Query Rewrite, Agent study planning, and multimodal PDF understanding.
 ````
 
-## 评估文件示例
+## Example evaluation file
 
 ```json
-{"id":"q001","question":"RAG 项目为什么需要评估集？","expected_sources":["ai-engineering-checklist.md"],"ideal_points":["比较优化效果","避免凭感觉判断","记录失败样本"]}
-{"id":"q002","question":"Agent 高风险动作为什么要人工确认？","expected_sources":["ai-engineering-checklist.md","ch09-agent/index.md"],"ideal_points":["权限边界","审计日志","避免自动执行危险操作"]}
+{"id":"q001","question":"Why does a RAG project need an evaluation set?","expected_sources":["ai-engineering-checklist.md"],"ideal_points":["compare optimization results","avoid judging by feel","record failure samples"]}
+{"id":"q002","question":"Why should high-risk Agent actions require human confirmation?","expected_sources":["ai-engineering-checklist.md","ch09-agent/index.md"],"ideal_points":["permission boundaries","audit logs","avoid automatically executing dangerous actions"]}
 ```
 
-## Trace 日志示例
+## Example Trace log
 
 ```json
 {
   "run_id": "2026-04-25-rag-001",
-  "user_input": "帮我准备 RAG 阶段复习",
+  "user_input": "Help me prepare for the RAG stage review",
   "steps": [
-    {"action": "rewrite_query", "output": "RAGOps 评估 日志 检索质量"},
+    {"action": "rewrite_query", "output": "RAGOps evaluation log retrieval quality"},
     {"action": "retrieve", "sources": ["modern-ai-stack.md", "ai-engineering-checklist.md"]},
     {"action": "generate_plan", "cost_estimate": "low"}
   ],
-  "final_output": "生成 RAG 复习计划",
+  "final_output": "Generated a RAG review plan",
   "failure": null
 }
 ```
 
-## 作品集展示建议
+## Portfolio presentation tips
 
-展示这个项目时，不要只放最终截图。更好的展示顺序是：先说明学习者问题，再展示产品如何从命令行工具一步步升级，接着展示 RAG 检索片段、Agent 执行轨迹、多模态输入输出，最后展示评估结果、失败样本和下一步计划。
+When presenting this project, do not only show the final screenshots. A better order is: first explain the learner’s problem, then show how the product evolved step by step from a CLI tool, then show the RAG retrieved chunks, the Agent execution trace, and the multimodal inputs and outputs, and finally show the evaluation results, failure samples, and next-step plan.
 
-如果面试官问“这个项目难点是什么”，可以回答：难点不是调用模型，而是让系统可复现、可评估、可追踪、可控制成本，并且在回答错、检索错或工具调错时能定位原因。
+If the interviewer asks, “What was the hardest part of this project?”, you can answer: the hard part was not calling the model, but making the system reproducible, evaluable, traceable, controllable in cost, and able to pinpoint the cause when answers are wrong, retrieval fails, or tools are called incorrectly.

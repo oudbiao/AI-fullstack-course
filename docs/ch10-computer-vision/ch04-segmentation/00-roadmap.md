@@ -1,87 +1,87 @@
 ---
-title: "4.1 学前导读：图像分割这一章到底在学什么"
+title: "4.1 Pre-class Guide: What Exactly Will You Learn in the Image Segmentation Chapter?"
 sidebar_position: 0
-description: "先建立图像分割章的学习地图：语义分割、实例分割和分割实战是怎么从像素级理解任务展开的。"
-keywords: [图像分割导读, 语义分割, 实例分割, mask]
+description: "First build a learning map for the image segmentation chapter: how semantic segmentation, instance segmentation, and practical segmentation tasks unfold from pixel-level task understanding."
+keywords: [image segmentation guide, semantic segmentation, instance segmentation, mask]
 ---
 
-# 学前导读：图像分割这一章到底在学什么
+# Pre-class Guide: What Exactly Will You Learn in the Image Segmentation Chapter?
 
-这一章解决的是：
+This chapter is about:
 
-> **不只是给框，而是给出更精细的区域理解。**
+> **Not just drawing boxes, but giving a more precise understanding of regions.**
 
-## 先建立一张桥接线
+## First, Build a Bridge
 
-如果你已经学过分类和检测，这一章最值得先看清的一件事是：
+If you have already learned classification and detection, the most important thing to understand first in this chapter is:
 
-- 分类给整图一个标签
-- 检测给目标一个框
-- 分割开始给像素级区域答案
+- Classification gives a label to the whole image
+- Detection gives a box around the object
+- Segmentation starts giving answers at the pixel-level region
 
-所以分割真正新增的核心，不是“更复杂的模型”，而是：
+So the real new core of segmentation is not “a more complex model,” but:
 
-- 输出粒度更细
-- 评估更细
-- 边界理解更重要
+- Finer output granularity
+- Finer evaluation
+- Greater emphasis on boundary understanding
 
-## 这一章的主线
+## The Main Thread of This Chapter
 
-![图像分割章节学习顺序图](/img/course/ch10-segmentation-chapter-flow.png)
+![Image segmentation chapter learning order diagram](/img/course/ch10-segmentation-chapter-flow-en.png)
 
-这章最适合帮助新人分清：
+This chapter is especially helpful for beginners to distinguish between:
 
-- 整图分类
-- 框级检测
-- 像素级分割
+- Whole-image classification
+- Box-level detection
+- Pixel-level segmentation
 
-这三类视觉任务到底差在哪。
+What exactly is different among these three visual tasks?
 
-## 这一章更适合新人的学习顺序
+## A Learning Order That Is Friendlier for Beginners
 
-1. 先看语义分割  
-   先把“每个像素都要判类”这件事看懂。
+1. First, look at semantic segmentation
+   Understand the idea that “every pixel needs a class prediction.”
 
-2. 再看实例分割  
-   这时你更容易理解“同类不同个体为什么还要分开”。
+2. Then, look at instance segmentation
+   At this point, it becomes easier to understand why same-class different instances still need to be separated.
 
-3. 最后做分割实战  
-   把 mask、损失、IoU 和错例分析串起来。
+3. Finally, do a segmentation project
+   Connect mask, loss, IoU, and error analysis together.
 
-## 这一章最该先抓住什么
+## What You Should Focus on First in This Chapter
 
-- 分割比检测更细，是像素级输出
-- mask 是这一章最重要的对象
-- 这一章会让你第一次真正进入“区域理解”层面
+- Segmentation is more fine-grained than detection, because it outputs pixel-level results
+- Mask is the most important object in this chapter
+- This chapter will let you truly step into the level of “region understanding” for the first time
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can continue forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill in gaps and practice engineering skills: pay attention to edge cases, failure examples, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to write down this chapter’s content in your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and finish the chapter’s small project output |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly state what the example needs as input and what result it produces |
+| Where are the common failure points? | Can list at least one reason for an error, poor result, or misunderstanding |
+| What can you record after learning it? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Chapter Mini Project Output
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended to complete a minimal exercise: choose the most core concept or tool in this chapter and create a small result that can run, can be screenshot, and can be written into a README. It does not need to be complex, but it should clearly explain what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects with the previous and next learning stages, and complete the smallest version of the chapter’s mini project output.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, that means you are no longer just “reading the content,” but turning this chapter into your own project experience.

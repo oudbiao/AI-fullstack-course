@@ -1,140 +1,140 @@
 ---
-title: "1.6 从 TD-Gammon 到 AlphaGo：强化学习怎样影响 Agent"
+title: "1.6 From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents"
 sidebar_position: 5
-description: "用 TD-Gammon、DQN Atari 和 AlphaGo 三个历史节点理解强化学习、搜索、反馈和现代 Agent 的关系。"
-keywords: [TD-Gammon, DQN, Atari, AlphaGo, 强化学习, Agent历史]
+description: "Understand the relationship between reinforcement learning, search, feedback, and modern Agents through three historical milestones: TD-Gammon, DQN Atari, and AlphaGo."
+keywords: [TD-Gammon, DQN, Atari, AlphaGo, reinforcement learning, Agent history]
 ---
 
-# 从 TD-Gammon 到 AlphaGo：强化学习怎样影响 Agent
+# From TD-Gammon to AlphaGo: How Reinforcement Learning Shaped Agents
 
-![强化学习到 Agent 历史突破地图](/img/course/ch09-rl-agent-breakthroughs-map.png)
+![Historical breakthroughs map from reinforcement learning to Agent](/img/course/ch09-rl-agent-breakthroughs-map-en.png)
 
-:::tip 本节定位
-现代 LLM Agent 不等于强化学习，但 Agent 这个概念和强化学习历史有很深的关系。
+:::tip Section overview
+Modern LLM Agents are not the same as reinforcement learning, but the concept of an Agent is deeply connected to the history of reinforcement learning.
 
-这一节先抓住三个故事：
+In this section, we will first focus on three stories:
 
-> **TD-Gammon 证明机器可以从自我对弈中变强，DQN 证明深度网络可以从像素和奖励中学策略，AlphaGo 证明学习、搜索和规划结合后可以打穿复杂博弈。**
+> **TD-Gammon showed that machines can get stronger through self-play, DQN showed that deep networks can learn policies from pixels and rewards, and AlphaGo showed that combining learning, search, and planning can break through complex games.**
 :::
 
-## 一、为什么 Agent 课程要补强化学习历史？
+## 1. Why does an Agent course need reinforcement learning history?
 
-Agent 关心的是：
+An Agent cares about:
 
-- 在环境里观察状态
-- 决定下一步行动
-- 根据反馈调整策略
-- 为长期目标做规划
+- observing the state in an environment
+- deciding the next action
+- adjusting strategy based on feedback
+- planning for long-term goals
 
-这和强化学习的基本问题高度相似。
+This is highly similar to the basic problems in reinforcement learning.
 
-| 强化学习语言 | Agent 系统语言 |
+| Reinforcement learning term | Agent system term |
 |---|---|
-| state | 当前上下文、任务状态 |
-| action | 工具调用、回复、计划步骤 |
-| reward | 用户反馈、评估分数、任务是否完成 |
-| policy | 决策策略、调用工具的规则 |
-| environment | 外部系统、知识库、浏览器、代码仓库 |
+| state | current context, task state |
+| action | tool call, response, planning step |
+| reward | user feedback, evaluation score, whether the task is complete |
+| policy | decision strategy, rules for tool use |
+| environment | external systems, knowledge base, browser, code repository |
 
-所以强化学习历史不是旁支，它帮你理解 Agent 为什么要关心反馈、规划、试错和安全边界。
+So the history of reinforcement learning is not a side topic. It helps you understand why Agents need to care about feedback, planning, trial and error, and safety boundaries.
 
-## 二、TD-Gammon：从自我对弈里学策略
+## 2. TD-Gammon: learning strategy from self-play
 
-1992 年左右，Gerald Tesauro 的 TD-Gammon 用时序差分学习在西洋双陆棋上达到很强水平。
+Around 1992, Gerald Tesauro’s TD-Gammon achieved a very strong level of play in backgammon using temporal-difference learning.
 
-它有一个很吸引人的点：
+One especially attractive aspect was this:
 
-> **系统不只是模仿人类棋谱，而是通过大量自我对弈，从结果反馈里改进判断。**
+> **The system did not merely imitate human game records, but improved its judgment through massive self-play and feedback from outcomes.**
 
-对新人来说，可以这样理解：
+For beginners, you can think about it like this:
 
-| 普通监督学习 | TD-Gammon 的味道 |
+| Ordinary supervised learning | The TD-Gammon style |
 |---|---|
-| 每一步都有标准答案 | 很多时候只有最后输赢反馈 |
-| 重点是拟合标签 | 重点是学会长期策略 |
-| 数据通常由人提供 | 系统可以通过自我对弈产生经验 |
+| Every step has a standard answer | Often only the final win/lose result is available |
+| The focus is on fitting labels | The focus is on learning a long-term strategy |
+| Data is usually provided by humans | The system can generate experience through self-play |
 
-这给后来的强化学习和博弈 AI 打开了一个重要想象：
+This opened up an important idea for later reinforcement learning and game AI:
 
-> **如果系统能自己产生经验，它就不完全受限于人工标注数据。**
+> **If a system can generate its own experience, it is not fully limited by manually labeled data.**
 
-## 三、DQN Atari：从像素到动作
+## 3. DQN Atari: from pixels to actions
 
-2015 年，DeepMind 的 DQN 在 Atari 游戏上取得突破。  
-它的重要性在于把深度学习和强化学习结合起来：
+In 2015, DeepMind’s DQN achieved a breakthrough on Atari games.
+Its significance was that it combined deep learning and reinforcement learning:
 
-- 输入是游戏画面像素
-- 输出是下一步动作
-- 反馈来自游戏得分
+- the input was game-screen pixels
+- the output was the next action
+- feedback came from the game score
 
-这件事很像让模型从“看屏幕”开始学玩游戏。
+It is like teaching a model to learn games starting from “looking at the screen.”
 
 ```text
-游戏画面 -> 神经网络 -> 动作 -> 分数反馈 -> 更新策略
+Game screen -> neural network -> action -> score feedback -> policy update
 ```
 
-它对现代 Agent 的启发是：
+Its inspiration for modern Agents is:
 
-- Agent 不一定只处理静态文本
-- Agent 可以在环境里连续行动
-- 行动会改变后续状态
-- 评价不一定每一步都立刻出现
+- an Agent does not have to work only on static text
+- an Agent can take continuous actions in an environment
+- actions change the future state
+- evaluation does not always appear immediately after each step
 
-这也是为什么 Agent 评估比普通问答评估更难。
+This is also why evaluating Agents is more difficult than evaluating ordinary question-answering systems.
 
-## 四、AlphaGo：学习、搜索和规划合在一起
+## 4. AlphaGo: combining learning, search, and planning
 
-2016 年 AlphaGo 战胜李世石，让很多人第一次非常直观地感受到 AI 的突破。
+In 2016, AlphaGo defeated Lee Sedol, and many people felt AI’s breakthrough very directly for the first time.
 
-AlphaGo 的关键不是“一个神经网络直接下棋”，而是多种能力组合：
+The key to AlphaGo was not “one neural network simply playing Go,” but a combination of multiple abilities:
 
-| 能力 | 在 AlphaGo 里的角色 | 对 Agent 的启发 |
+| Capability | Role in AlphaGo | Inspiration for Agents |
 |---|---|---|
-| 策略网络 | 判断下一步候选走法 | 生成可行动作 |
-| 价值网络 | 估计局面好坏 | 评估当前计划 |
-| 蒙特卡罗树搜索 | 向未来多走几步看结果 | 规划和搜索 |
-| 自我对弈 | 产生更多训练经验 | 从反馈中改进 |
+| policy network | judges candidate next moves | generates possible actions |
+| value network | estimates how good the position is | evaluates the current plan |
+| Monte Carlo tree search | looks a few moves ahead to see the result | planning and search |
+| self-play | generates more training experience | improves from feedback |
 
-对 Agent 来说，这个启发非常重要：
+For Agents, this is extremely important:
 
-> **强系统往往不是一个模型单点发力，而是模型、搜索、工具、反馈和约束一起工作。**
+> **Strong systems are often not the result of one model working alone, but of models, search, tools, feedback, and constraints working together.**
 
-## 五、这条线和 LLM Agent 有什么关系？
+## 5. What does this line have to do with LLM Agents?
 
-现代 LLM Agent 的核心不一定是 RL 算法，但它继承了强化学习的很多问题：
+The core of modern LLM Agents is not necessarily a reinforcement learning algorithm, but they inherit many of reinforcement learning’s problems:
 
-| 经典 RL 问题 | LLM Agent 版本 |
+| Classical RL problem | LLM Agent version |
 |---|---|
-| 奖励怎么定义 | 任务成功、引用正确、用户满意怎样衡量 |
-| 探索会不会危险 | 工具调用会不会误删文件、误发请求 |
-| 长期目标怎么拆解 | 多步任务怎样规划、执行、纠错 |
-| 策略怎么评估 | Agent benchmark、日志回放、人工审核 |
+| How should reward be defined? | How should task success, correct citations, and user satisfaction be measured? |
+| Is exploration dangerous? | Could a tool call accidentally delete files or send the wrong request? |
+| How should long-term goals be broken down? | How should multi-step tasks be planned, executed, and corrected? |
+| How should the policy be evaluated? | Agent benchmarks, log replay, human review |
 
-所以你后面学 ReAct、Plan-and-Execute、工具调用和 Agent 评估时，可以把它们看成：
+So when you later study ReAct, Plan-and-Execute, tool calling, and Agent evaluation, you can think of them as:
 
-> **语言模型时代对“行动、反馈、规划”这套老问题的新实现。**
+> **new implementations in the language-model era of the old problems of “action, feedback, and planning.”**
 
-## 六、把历史节点分配到课程章节
+## 6. Assigning historical milestones to course chapters
 
-| 历史节点 | 解决的问题 | 对应课程章节 |
+| Historical milestone | Problem it solved | Corresponding course chapter |
 |---|---|---|
-| TD-Gammon | 从自我对弈和长期反馈中学习策略 | 9.1 Agent 历史背景、9.2 推理规划 |
-| DQN / Atari | 深度网络从环境反馈中学习动作 | 9.8 Agent 评估、安全与环境交互 |
-| AlphaGo | 把学习、搜索、规划结合成强系统 | 9.2 规划、9.7 多 Agent / 复杂系统 |
-| RLHF | 用人类偏好调整模型行为 | 第 7 章对齐、9.8 安全评估 |
-| ReAct | 让模型交替进行推理和行动 | 9.2 ReAct、9.3 工具调用 |
+| TD-Gammon | Learning strategy from self-play and long-term feedback | 9.1 Agent historical background, 9.2 reasoning and planning |
+| DQN / Atari | Deep networks learning actions from environmental feedback | 9.8 Agent evaluation, safety, and environment interaction |
+| AlphaGo | Combining learning, search, and planning into a strong system | 9.2 planning, 9.7 multi-Agent / complex systems |
+| RLHF | Adjusting model behavior using human preferences | Chapter 7 alignment, 9.8 safety evaluation |
+| ReAct | Letting the model alternate between reasoning and acting | 9.2 ReAct, 9.3 tool calling |
 
-## 七、学完这一节应该形成的直觉
+## 7. The intuition you should have after this section
 
-Agent 不是“让模型自由发挥”这么简单。  
-它更像一个不断在下面几件事之间平衡的系统：
+An Agent is not just “letting the model improvise.”
+It is more like a system that constantly balances the following:
 
-- 目标
-- 行动
-- 环境
-- 反馈
-- 规划
-- 安全约束
+- goals
+- actions
+- environment
+- feedback
+- planning
+- safety constraints
 
-TD-Gammon、DQN 和 AlphaGo 的故事告诉我们：  
-真正强的智能系统，通常都不是只会回答问题，而是能在环境里行动，并根据反馈修正策略。
+The stories of TD-Gammon, DQN, and AlphaGo tell us:
+truly strong intelligent systems are usually not just good at answering questions—they can act in an environment and adjust their strategy based on feedback.

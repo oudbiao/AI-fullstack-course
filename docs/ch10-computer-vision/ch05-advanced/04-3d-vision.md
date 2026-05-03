@@ -1,95 +1,95 @@
 ---
-title: "5.5 3D 视觉入门【选修】"
+title: "5.5 Introduction to 3D Vision [Optional]"
 sidebar_position: 17
-description: "从深度、点云和多视角几何讲起，理解 3D 视觉为什么比 2D 视觉多了一层空间结构问题。"
+description: "Starting from depth, point clouds, and multi-view geometry, understand why 3D vision has an extra layer of spatial structure compared with 2D vision."
 keywords: [3D vision, depth, point cloud, stereo, camera geometry]
 ---
 
-# 3D 视觉入门【选修】
+# Introduction to 3D Vision [Optional]
 
-:::tip 本节定位
-2D 视觉主要在平面图像里理解内容。  
-3D 视觉再往前走一步：
+:::tip Section Overview
+2D vision mainly understands content in flat images.
+3D vision goes one step further:
 
-> **不仅要知道图里是什么，还想知道它在空间里离我们多远、朝向如何、结构怎样。**
+> **It is not only about knowing what is in the image, but also how far it is from us in space, what direction it faces, and what its structure looks like.**
 
-这也是它和普通 CV 最大的不同。
+This is also the biggest difference between it and ordinary CV.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解深度、点云和多视角几何的基本直觉
-- 理解 3D 视觉为什么比 2D 更难
-- 通过可运行示例建立深度估计最小直觉
-- 知道 3D 视觉常见应用场景
+- Understand the basic intuition behind depth, point clouds, and multi-view geometry
+- Understand why 3D vision is harder than 2D vision
+- Build a minimal intuition for depth estimation through runnable examples
+- Know the common application scenarios of 3D vision
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-3D 视觉最适合新人的理解方式不是“多了一维”，而是先看问题升级在哪里：
+The best way for beginners to understand 3D vision is not “there is one more dimension,” but to first see where the problem has actually evolved:
 
 ```mermaid
 flowchart LR
-    A["2D 视觉"] --> B["知道是什么、在哪里"]
-    C["3D 视觉"] --> D["还想知道有多远、朝向如何、空间结构怎样"]
+    A["2D vision"] --> B["Know what it is and where it is"]
+    C["3D vision"] --> D["Also want to know how far it is, what direction it faces, and what the spatial structure is like"]
 ```
 
-所以这节真正想帮你建立的是：
+So what this section really wants to help you build is:
 
-- 平面理解和空间理解的差别
-- 深度、点云、多视角几何分别在解决什么问题
+- The difference between flat understanding and spatial understanding
+- What depth, point clouds, and multi-view geometry are each solving
 
-### 一个更适合新人的总类比
+### A More Beginner-Friendly Overall Analogy
 
-你可以把 2D 和 3D 的差别理解成：
+You can think of the difference between 2D and 3D as:
 
-- 2D 像看一张旅游照片
-- 3D 像真的站在现场，想知道人离你多远、桌子有多高、车在你左前方还是右前方
+- 2D is like looking at a travel photo
+- 3D is like really standing in the scene, wanting to know how far a person is from you, how high the table is, and whether the car is in front-left or front-right of you
 
-也就是说，3D 视觉真正新增的不是“多一列数字”，而是：
+In other words, what 3D vision really adds is not “one more column of numbers,” but:
 
-- 你开始关心空间关系本身
+- You begin to care about spatial relationships themselves
 
-## 一、3D 视觉最核心的新问题是什么？
+## 1. What Is the Most Core New Problem in 3D Vision?
 
-在 2D 图像里，很多时候只关心：
+In 2D images, most of the time we only care about:
 
-- 类别
-- 位置
+- Category
+- Location
 
-3D 视觉还会进一步关心：
+3D vision also further cares about:
 
-- 距离
-- 体积
-- 空间结构
+- Distance
+- Volume
+- Spatial structure
 
-### 一个类比
+### An Analogy
 
-2D 更像看地图截图。  
-3D 更像真的站在场景里，想知道：
+2D is more like looking at a map screenshot.
+3D is more like standing in the scene and wanting to know:
 
-- 这个物体离我多远
-
----
-
-## 二、几个最常见的 3D 视觉概念
-
-### 2.1 深度（Depth）
-
-每个点离相机有多远。
-
-### 2.2 点云（Point Cloud）
-
-把场景表示成很多带三维坐标的点。
-
-### 2.3 多视角几何
-
-通过多个视角之间的对应关系，恢复三维结构。
+- How far is this object from me
 
 ---
 
-## 三、先看一个最小深度直觉示例
+## 2. Several of the Most Common 3D Vision Concepts
+
+### 2.1 Depth
+
+How far each point is from the camera.
+
+### 2.2 Point Cloud
+
+Representing a scene as many points with 3D coordinates.
+
+### 2.3 Multi-View Geometry
+
+Recovering 3D structure through correspondences between multiple views.
+
+---
+
+## 3. First, Look at a Minimal Depth Intuition Example
 
 ```python
 def estimate_depth(focal_length, baseline, disparity):
@@ -106,29 +106,29 @@ for disparity in [40, 20, 10]:
     print({"disparity": disparity, "depth": round(depth, 4)})
 ```
 
-### 3.1 这个例子最想表达什么？
+### 3.1 What Is This Example Trying to Express?
 
-它抓住了立体视觉最核心的一层直觉：
+It captures the most essential intuition of stereo vision:
 
-- 视差越大，通常越近
-- 视差越小，通常越远
+- The larger the disparity, the closer the object usually is
+- The smaller the disparity, the farther the object usually is
 
-### 3.2 为什么这很重要？
+### 3.2 Why Is This Important?
 
-因为它让“图像里的点”第一次和真实三维空间联系起来。
+Because it connects “points in an image” to real 3D space for the first time.
 
-### 3.3 新人第一次学 3D 视觉，最该先记哪三件事？
+### 3.3 When Beginners First Learn 3D Vision, What Three Things Should They Remember First?
 
-1. 深度  
-   先理解“离相机多远”。
+1. Depth
+   First understand “how far it is from the camera.”
 
-2. 点云  
-   先理解 3D 世界可以表示成很多空间点。
+2. Point Cloud
+   First understand that the 3D world can be represented as many spatial points.
 
-3. 视差  
-   先理解多视角为什么能恢复空间距离。
+3. Disparity
+   First understand why multiple views can recover spatial distance.
 
-### 3.4 再看一个最小“由深度恢复点”的示例
+### 3.4 Then Look at a Minimal Example of “Recovering Points from Depth”
 
 ```python
 pixels = [
@@ -145,113 +145,111 @@ points = [to_point(pixel) for pixel in pixels]
 print(points)
 ```
 
-这个示例不是严格相机模型，只是帮助新人先建立一个直觉：
+This example is not a strict camera model. It is only meant to help beginners build an intuition first:
 
-- 当你已经知道深度时
-- 图像里的点就可以被重新想象成空间里的点
+- Once you already know the depth
+- A point in the image can be reimagined as a point in space
 
-这正是“点云感”最容易入门的地方。
+This is exactly the easiest place to get started with a “point cloud feel.”
 
-![3D 视觉深度、视差与点云直觉图](/img/course/ch10-3d-depth-disparity-pointcloud-map.png)
+![Intuition diagram for depth, disparity, and point cloud in 3D vision](/img/course/ch10-3d-depth-disparity-pointcloud-map-en.png)
 
-:::tip 读图提示
-3D 视觉真正新增的是空间关系。读这张图时先看 disparity 如何影响 depth，再看像素点如何带着深度变成 point cloud，最后再理解相机参数和多视角几何为什么重要。
+:::tip Reading Hint
+What 3D vision truly adds is spatial relationships. When reading this diagram, first see how disparity affects depth, then see how image points become a point cloud with depth, and finally understand why camera parameters and multi-view geometry matter.
 :::
 
 ---
 
-## 四、3D 视觉为什么更难？
+## 4. Why Is 3D Vision Harder?
 
-### 4.1 数据更难拿
+### 4.1 Data Is Harder to Collect
 
-2D 图片很好收集，  
-3D 标注和深度数据通常更贵。
+2D images are easy to gather,
+while 3D annotations and depth data are usually more expensive.
 
-### 4.2 几何关系更复杂
+### 4.2 Geometric Relationships Are More Complex
 
-你不只是处理外观，  
-还要处理：
+You are not only processing appearance,
+but also handling:
 
-- 相机参数
-- 视角变化
-- 空间一致性
+- Camera parameters
+- Viewpoint changes
+- Spatial consistency
 
-### 4.3 可视化和调试也更难
+### 4.3 Visualization and Debugging Are Harder Too
 
-二维图像错误很直观，  
-三维结构错误往往更难肉眼看懂。
-
----
-
-## 五、最常见误区
-
-### 5.1 误区一：3D 视觉只是“多一个维度”
-
-不止。  
-它带来的是新的几何问题。
-
-### 5.2 误区二：2D 做好了自然就能做 3D
-
-有帮助，但仍然要补空间几何直觉。
-
-### 5.3 误区三：一开始就直接上复杂 3D 网络
-
-更稳妥的方式通常是先把：
-
-- 深度
-- 视差
-- 点云
-
-这些基础直觉立住。
-
-### 5.4 第一次做 3D 项目时，最稳的默认顺序
-
-更稳的顺序通常是：
-
-1. 先选一个单目标的小场景
-2. 先理解深度和视差
-3. 先把二维点和三维点的对应关系看懂
-4. 再进入点云或多视角几何
-5. 最后再看更复杂的重建或 3D 检测
-
-这样会比一开始就直接读复杂 3D 网络更容易稳住。
-
-## 这节最正确的学习预期
-
-这一节不是要把你立刻带到复杂三维重建，  
-而是先让你真正意识到：
-
-- 3D 视觉比 2D 视觉多出的是空间几何问题
-- 这会影响数据、建模、评估和调试的难度
+Errors in 2D images are very intuitive,
+while errors in 3D structure are often much harder to see with the naked eye.
 
 ---
 
-## 小结
+## 5. The Most Common Misunderstandings
 
-这节最重要的是建立一个判断：
+### 5.1 Misunderstanding 1: 3D Vision Is Just “One More Dimension”
 
-> **3D 视觉的核心价值，是把图像理解从平面提升到空间结构，而这也让它天然比 2D 视觉多出一层几何难度。**
+Not quite.
+It brings new geometric problems.
 
-## 这节最该带走什么
+### 5.2 Misunderstanding 2: If You Do 2D Well, You Can Naturally Do 3D
 
-- 3D 视觉不是“多一个维度”那么简单
-- 深度、视差、点云是最值得先立住的三层直觉
-- 先学空间感，再看复杂模型，会更稳很多
+That helps, but you still need to build spatial geometry intuition.
 
-## 如果把它做成项目，最值得展示什么
+### 5.3 Misunderstanding 3: Start Directly with Complex 3D Networks
 
-- 一个小型深度估计或双目示例
-- 深度图和原图的对照
-- 从图像点到空间点的最小可视化
-- 一组“近处 / 远处”判断的错误案例
+A more stable approach is usually to first make these basics solid:
 
-这样会比只说“我做了 3D 视觉”更有说服力。
+- Depth
+- Disparity
+- Point cloud
+
+### 5.4 The Most Stable Default Order When You First Work on a 3D Project
+
+A more stable order is usually:
+
+1. First choose a small single-object scenario
+2. First understand depth and disparity
+3. First understand the correspondence between 2D points and 3D points
+4. Then move into point clouds or multi-view geometry
+5. Finally look at more complex reconstruction or 3D detection
+
+This is usually much easier than jumping straight into a complex 3D network at the beginning.
+
+## The Right Learning Expectation for This Section
+
+This section is not meant to take you directly into complex 3D reconstruction,
+but to help you truly realize first that:
+
+- What makes 3D vision different from 2D vision is the spatial geometry problem
+- This affects the difficulty of data, modeling, evaluation, and debugging
 
 ---
 
-## 练习
+## Summary
 
-1. 改一改 `disparity`，观察深度变化趋势。
-2. 为什么说 3D 视觉比 2D 视觉更依赖几何直觉？
-3. 点云为什么是一种很自然的 3D 表示？
-4. 想一想：哪些应用特别依赖 3D 视觉，而不是只要 2D 检测就够了？
+The most important thing in this section is to build one judgment:
+
+> **The core value of 3D vision is lifting image understanding from flat space to spatial structure, and this naturally adds one more layer of geometric difficulty compared with 2D vision.**
+
+## What You Should Take Away Most
+
+- 3D vision is not as simple as “one more dimension”
+- Depth, disparity, and point cloud are the three layers of intuition most worth building first
+- Learning spatial intuition first, then looking at complex models, will be much more stable
+
+## If You Turn It into a Project, What Is Most Worth Showing?
+
+- A small depth estimation or stereo example
+- A comparison between the depth map and the original image
+- A minimal visualization from image points to spatial points
+- A set of error cases for “near / far” judgments
+
+This will be more convincing than simply saying “I did 3D vision.”
+
+---
+
+## Exercises
+
+1. Change `disparity` and observe the trend in depth changes.
+2. Why is 3D vision said to rely more on geometric intuition than 2D vision?
+3. Why is a point cloud a very natural 3D representation?
+4. Think about which applications depend especially on 3D vision, rather than only needing 2D detection.

@@ -1,68 +1,68 @@
 ---
-title: "1.5 前向传播与反向传播 🔧"
+title: "1.5 Forward and Backward Propagation 🔧"
 sidebar_position: 4
-description: "理解前向传播计算过程、损失函数（MSE/交叉熵）、反向传播算法与计算图"
-keywords: [前向传播, 反向传播, 损失函数, MSE, 交叉熵, 链式法则, 计算图, 反向传播推导]
+description: "Understand the forward propagation computation process, loss functions (MSE/cross-entropy), the backpropagation algorithm, and computational graphs"
+keywords: [forward propagation, backpropagation, loss function, MSE, cross-entropy, chain rule, computational graph, backpropagation derivation]
 ---
 
-# 前向传播与反向传播
+# Forward and Backward Propagation
 
-![神经网络前向与反向传播图](/img/course/neural-network-forward-backward.png)
+![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward-en.png)
 
-:::tip 🔧 核心技能
-反向传播是深度学习的**核心算法**。你必须能手动推导一个 2 层网络的反向传播过程。本节在第 4 站"链式法则与反向传播预览"的基础上，给出完整的推导和实现。
+:::tip 🔧 Core Skill
+Backpropagation is the **core algorithm** of deep learning. You must be able to manually derive the backpropagation process for a 2-layer network. Based on the "Chain Rule and Backpropagation Preview" at Station 4, this section gives you the complete derivation and implementation.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解前向传播的完整计算过程
-- 掌握常用损失函数（MSE、交叉熵）
-- 🔧 能手动推导 2 层网络的反向传播
-- 理解计算图的概念
+- Understand the full computation process of forward propagation
+- Master common loss functions (MSE, cross-entropy)
+- 🔧 Be able to manually derive backpropagation for a 2-layer network
+- Understand the concept of a computational graph
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-这一节最容易让新人害怕的地方，是“公式一下子变多”。更适合的理解顺序是：
+The most intimidating part for beginners in this section is that "the formulas suddenly get more numerous." A better order for understanding is:
 
 ```mermaid
 flowchart LR
-    A["输入"] --> B["前向传播"]
-    B --> C["预测值"]
-    C --> D["损失函数"]
-    D --> E["反向传播"]
-    E --> F["每层参数梯度"]
-    F --> G["参数更新"]
+    A["Input"] --> B["Forward Propagation"]
+    B --> C["Predicted Value"]
+    C --> D["Loss Function"]
+    D --> E["Backpropagation"]
+    E --> F["Gradient of Each Layer's Parameters"]
+    F --> G["Parameter Update"]
 ```
 
-你可以把这节课理解成一句话：
+You can understand this lesson with one sentence:
 
-> **前向传播负责算结果，反向传播负责算“该怎么改”。**
+> **Forward propagation calculates the result, and backpropagation calculates what needs to be changed.**
 
-## 这节和第 5 站、上一节是怎么接上的
+## How This Section Connects with Station 5 and the Previous Section
 
-如果你刚学过上一节，可以先这样理解：
+If you just finished the previous section, you can understand it like this first:
 
-- 上一节解决的是“一个神经元 / 一层网络到底在算什么”
-- 这一节解决的是“它算错以后，参数到底怎么改”
+- The previous section answered, "What is a neuron / a layer actually computing?"
+- This section answers, "After it computes the wrong thing, how do the parameters get updated?"
 
-如果你刚学过第 5 站，也可以这样对照：
+If you just finished Station 5, you can also compare it this way:
 
-- 第 5 站里你已经见过 loss 和梯度下降
-- 这一节只是把“梯度到底从哪里来”彻底拆开给你看
+- In Station 5, you already saw loss and gradient descent
+- This section simply breaks down where the gradients actually come from
 
-所以这一节真正新增的，不是“突然很多公式”，而是：
+So what this section really adds is not "suddenly a lot of formulas," but:
 
-- 训练过程里的责任分配是怎么一层层往回传的
+- How responsibility during training is passed backward layer by layer
 
-## 一、前向传播
+## 1. Forward Propagation
 
-前向传播就是**从输入到输出的计算过程**：
+Forward propagation is the **computation process from input to output**:
 
 ```mermaid
 flowchart LR
-    X["输入 X"] --> Z1["z1 = X·W1 + b1"]
+    X["Input X"] --> Z1["z1 = X·W1 + b1"]
     Z1 --> A1["a1 = ReLU(z1)"]
     A1 --> Z2["z2 = a1·W2 + b2"]
     Z2 --> A2["a2 = Softmax(z2)"]
@@ -74,32 +74,32 @@ flowchart LR
     style L fill:#fce4ec,stroke:#c62828,color:#333
 ```
 
-### 1.0.1 前向传播时，最值得先盯哪四个对象？
+### 1.0.1 During Forward Propagation, Which Four Things Should You Focus on First?
 
-第一次读网络前向代码时，可以先只盯这四类变量：
+When you read network forward code for the first time, you can start by focusing only on these four kinds of variables:
 
-- `x / X`：输入
-- `z`：线性变换后的中间量
-- `a`：过激活后的输出
-- `loss`：最终误差
+- `x / X`: input
+- `z`: intermediate value after the linear transformation
+- `a`: output after activation
+- `loss`: final error
 
-这样你看到任何一行代码，都更容易知道它是属于：
+In this way, whenever you see a line of code, it becomes easier to tell whether it belongs to:
 
-- 输入
-- 中间计算
-- 输出
-- 还是误差定义
+- input
+- intermediate computation
+- output
+- or error definition
 
-### 1.1 手动计算示例
+### 1.1 Manual Calculation Example
 
 ```python
 import numpy as np
 
-# 一个极简的 2 层网络: 2→3→2
+# A minimal 2-layer network: 2→3→2
 np.random.seed(0)
 
-# 输入和权重
-X = np.array([[1.0, 2.0]])     # 1 个样本, 2 个特征
+# Input and weights
+X = np.array([[1.0, 2.0]])     # 1 sample, 2 features
 W1 = np.array([[0.1, 0.3, -0.2],
                [0.4, -0.1, 0.5]])  # 2×3
 b1 = np.array([[0.0, 0.0, 0.0]])
@@ -107,9 +107,9 @@ W2 = np.array([[0.2, -0.3],
                [0.1, 0.4],
                [-0.5, 0.2]])       # 3×2
 b2 = np.array([[0.0, 0.0]])
-y_true = np.array([[1, 0]])        # 真实标签（one-hot）
+y_true = np.array([[1, 0]])        # true label (one-hot)
 
-# 前向传播
+# Forward propagation
 z1 = X @ W1 + b1
 print(f"z1 = {z1}")
 
@@ -125,35 +125,35 @@ a2 = exp_z2 / exp_z2.sum(axis=1, keepdims=True)
 print(f"a2 (Softmax) = {a2}")
 ```
 
-### 1.2 前向传播最该盯住哪三件事？
+### 1.2 What Are the Three Things You Should Pay the Most Attention to in Forward Propagation?
 
-第一次看网络前向计算时，建议每一步都只问这三个问题：
+When you first look at a network's forward computation, it is recommended that you ask only these three questions at each step:
 
-1. 当前张量的 shape 是什么
-2. 这一层做的是线性变换还是非线性变换
-3. 这一步输出会不会传给下一层
+1. What is the shape of the current tensor?
+2. Is this layer doing a linear transformation or a nonlinear transformation?
+3. Will the output of this step be passed to the next layer?
 
-很多人一看到公式就晕，其实先抓住这三件事就够了。
+Many people get lost as soon as they see formulas. In fact, just grasping these three things first is enough.
 
-### 1.3 一个更适合新人的类比：前向传播像“逐层加工”
+### 1.3 A More Beginner-Friendly Analogy: Forward Propagation Is Like "Layer-by-Layer Processing"
 
-可以先把前向传播想成工厂流水线：
+You can first think of forward propagation as a factory assembly line:
 
-- 输入原料进第一层
-- 第一层加工后交给第二层
-- 第二层再加工
-- 最后得到成品输出
+- Input materials go into the first layer
+- The first layer processes them and passes them to the second layer
+- The second layer processes them again
+- Finally, the finished output is produced
 
-所以前向传播最重要的，不是“公式多”，而是：
+So the most important thing about forward propagation is not that "the formulas are many," but that:
 
-- 数据在一层层流动
-- 每层都在把表示改写成下一层更容易使用的形式
+- data flows through the layers one by one
+- each layer rewrites the representation into a form that the next layer can use more easily
 
 ---
 
-## 二、损失函数
+## 2. Loss Functions
 
-### 2.1 MSE（回归）
+### 2.1 MSE (Regression)
 
 > **MSE = (1/n) × Σ(yi - ŷi)²**
 
@@ -165,144 +165,144 @@ mse = np.mean((y_true_reg - y_pred_reg) ** 2)
 print(f"MSE = {mse:.4f}")
 ```
 
-### 2.2 交叉熵（分类）
+### 2.2 Cross-Entropy (Classification)
 
 > **Cross-Entropy = -Σ(yi × log(ŷi))**
 
 ```python
-# 交叉熵
+# Cross-entropy
 loss = -np.sum(y_true * np.log(a2 + 1e-8))
-print(f"交叉熵损失 = {loss:.4f}")
+print(f"Cross-entropy loss = {loss:.4f}")
 ```
 
-### 2.3 二元交叉熵（二分类）
+### 2.3 Binary Cross-Entropy (Binary Classification)
 
 > **BCE = -(y × log(ŷ) + (1-y) × log(1-ŷ))**
 
 ```python
-# 二元交叉熵
+# Binary cross-entropy
 y_bin = np.array([1, 0, 1, 1])
 y_pred_bin = np.array([0.9, 0.1, 0.8, 0.7])
 bce = -np.mean(y_bin * np.log(y_pred_bin) + (1 - y_bin) * np.log(1 - y_pred_bin))
 print(f"BCE = {bce:.4f}")
 ```
 
-### 损失函数选择
+### Choosing a Loss Function
 
-| 任务 | 输出层激活 | 损失函数 |
-|------|-----------|---------|
-| 回归 | 无（线性） | MSE |
-| 二分类 | Sigmoid | BCE |
-| 多分类 | Softmax | 交叉熵 |
+| Task | Output Layer Activation | Loss Function |
+|------|------------------------|---------------|
+| Regression | None (linear) | MSE |
+| Binary classification | Sigmoid | BCE |
+| Multi-class classification | Softmax | Cross-entropy |
 
-### 2.4 为什么输出层和损失函数总是一起讲？
+### 2.4 Why Are the Output Layer and Loss Function Always Explained Together?
 
-因为它们本来就是一组“配套设计”。
+Because they are originally a matched pair.
 
-比如：
+For example:
 
-- 回归输出连续值，常配 `MSE`
-- 二分类输出概率，常配 `Sigmoid + BCE`
-- 多分类输出类别分布，常配 `Softmax + CrossEntropy`
+- Regression outputs continuous values, often paired with `MSE`
+- Binary classification outputs probabilities, often paired with `Sigmoid + BCE`
+- Multi-class classification outputs a category distribution, often paired with `Softmax + CrossEntropy`
 
-所以新人第一次做任务时，一个很稳的习惯是：
+So when beginners do their first task, a very reliable habit is:
 
-- 不只问模型最后一层怎么写
-- 还要一起问：损失函数该怎么配
+- not only ask how to write the model's last layer
+- also ask together: which loss function should be matched with it
 
 ---
 
-## 三、反向传播——🔧 手动推导
+## 3. Backpropagation — 🔧 Manual Derivation
 
-### 3.1 核心思想
+### 3.1 Core Idea
 
-反向传播就是**链式法则的系统化应用**——从损失出发，逐层往回算每个参数的梯度。
+Backpropagation is the **systematic application of the chain rule** — starting from the loss and moving backward layer by layer to calculate the gradient of each parameter.
 
 ```mermaid
 flowchart RL
     L["Loss"] --> |"dL/da2"|A2["a2"]
     A2 --> |"da2/dz2"|Z2["z2"]
-    Z2 --> |"dz2/dW2"|W2["W2 梯度"]
+    Z2 --> |"dz2/dW2"|W2["W2 gradient"]
     Z2 --> |"dz2/da1"|A1["a1"]
     A1 --> |"da1/dz1"|Z1["z1"]
-    Z1 --> |"dz1/dW1"|W1["W1 梯度"]
+    Z1 --> |"dz1/dW1"|W1["W1 gradient"]
 
     style L fill:#fce4ec,stroke:#c62828,color:#333
     style W2 fill:#e8f5e9,stroke:#2e7d32,color:#333
     style W1 fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 3.2 反向传播最适合新人的一句话解释
+### 3.2 The Most Beginner-Friendly One-Sentence Explanation of Backpropagation
 
-你完全可以先不记完整推导，只先记住：
+You do not need to memorize the full derivation right away. You only need to remember this first:
 
-- 输出错了多少
-- 这份错误怎么一层层往前分摊
-- 每一层据此知道自己该改多少
+- How wrong the output is
+- How that error is distributed backward layer by layer
+- How each layer knows how much it should change accordingly
 
-这其实就已经抓住了反向传播的第一层本质。
+This already captures the first essential nature of backpropagation.
 
-### 3.2.1 一个更直白的说法：误差责任往前分摊
+### 3.2.1 A More Direct Way to Say It: Error Responsibility Is Distributed Backward
 
-如果你还是觉得“梯度”很抽象，可以先把反向传播理解成：
+If "gradient" still feels abstract, you can first understand backpropagation as:
 
-- 最后结果错了
-- 这份错误要一步步追溯到前面每层
-- 每层都分到一部分“该负责的误差”
-- 然后再根据这份责任决定参数怎么改
+- The final result is wrong
+- This error is traced back through the earlier layers step by step
+- Each layer takes on part of the "responsibility" for the error
+- Then, based on that responsibility, the parameters are updated
 
-这就是为什么反向传播看起来像“从后往前传消息”。
+This is why backpropagation looks like it is "sending messages from back to front."
 
-![反向传播误差责任分摊图](/img/course/ch06-backprop-error-responsibility-map.png)
+![Backpropagation error responsibility allocation diagram](/img/course/ch06-backprop-error-responsibility-map-en.png)
 
-:::tip 读图提示
-这张图建议从右往左读：先看 `loss` 发现错了多少，再沿着计算图把责任分摊给输出层、隐藏层和更早的参数。反向传播不是魔法公式，而是在回答“每个参数对这次错误贡献了多少，下一步该怎么改”。
+:::tip Reading Guide
+This diagram is best read from right to left: first look at `loss` to see how wrong the prediction is, then distribute the responsibility along the computational graph to the output layer, hidden layer, and earlier parameters. Backpropagation is not magic; it answers, "How much did each parameter contribute to this error, and how should it change next?"
 :::
 
-### 3.3 完整推导（2 层网络）
+### 3.3 Complete Derivation (2-Layer Network)
 
 ```python
-# 继续上面的例子，手动反向传播
+# Continue the example above with manual backpropagation
 
-# --- 输出层梯度 ---
-# 对 Softmax + 交叉熵, 梯度简化为: dz2 = a2 - y_true
+# --- Output layer gradients ---
+# For Softmax + cross-entropy, the gradient simplifies to: dz2 = a2 - y_true
 dz2 = a2 - y_true
 print(f"dz2 = {dz2}")
 
-# W2 梯度: dW2 = a1.T @ dz2
+# W2 gradient: dW2 = a1.T @ dz2
 dW2 = a1.T @ dz2
 db2 = dz2.copy()
 print(f"dW2 = \n{dW2}")
 
-# --- 隐藏层梯度 ---
+# --- Hidden layer gradients ---
 # da1 = dz2 @ W2.T
 da1 = dz2 @ W2.T
 print(f"da1 = {da1}")
 
-# ReLU 的导数: z1 > 0 则为 1, 否则为 0
+# Derivative of ReLU: 1 if z1 > 0, otherwise 0
 relu_mask = (z1 > 0).astype(float)
 dz1 = da1 * relu_mask
 print(f"dz1 = {dz1}")
 
-# W1 梯度: dW1 = X.T @ dz1
+# W1 gradient: dW1 = X.T @ dz1
 dW1 = X.T @ dz1
 db1 = dz1.copy()
 print(f"dW1 = \n{dW1}")
 
-# --- 参数更新 ---
+# --- Parameter update ---
 lr = 0.1
 W2 -= lr * dW2
 b2 -= lr * db2
 W1 -= lr * dW1
 b1 -= lr * db1
-print("\n参数已更新！")
+print("\nParameters updated!")
 ```
 
-### 3.4 梯度计算公式总结
+### 3.4 Summary of Gradient Formulas
 
-| 变量 | 梯度 |
+| Variable | Gradient |
 |------|------|
-| `dz2` | `a2 - y`（Softmax+交叉熵简化） |
+| `dz2` | `a2 - y` (Softmax + cross-entropy simplification) |
 | `dW2` | `a1.T @ dz2` |
 | `db2` | `dz2` |
 | `da1` | `dz2 @ W2.T` |
@@ -310,31 +310,31 @@ print("\n参数已更新！")
 | `dW1` | `X.T @ dz1` |
 | `db1` | `dz1` |
 
-### 3.5 第一次自己推导时，最容易错在哪？
+### 3.5 What Is the Most Common Source of Mistakes the First Time You Derive It Yourself?
 
-通常最容易错的是这三类地方：
+Usually, the easiest mistakes are these three types:
 
-1. shape 对不上  
-   比如把转置漏了，`a1.T @ dz2` 写错。
+1. Shapes do not match
+   For example, forgetting a transpose and writing `a1.T @ dz2` incorrectly.
 
-2. 把 `z` 和 `a` 混掉  
-   尤其在激活函数求导时，常常不知道到底该对谁求导。
+2. Mixing up `z` and `a`
+   Especially when taking the derivative of an activation function, it is often unclear which one you should differentiate with respect to.
 
-3. 忘了这是链式法则  
-   只盯局部一项，没把“上一层的梯度 × 当前层导数”连起来。
+3. Forgetting that this is the chain rule
+   You only look at a local term and do not connect "the previous layer's gradient × the current layer's derivative."
 
-所以第一次做时，建议每写一步都顺手写：
+So the first time you do it, it is recommended that for each step you also write down:
 
-- 当前变量 shape
-- 当前梯度来自哪一项
+- the current variable shape
+- which term the current gradient comes from
 
 ---
 
-## 四、计算图
+## 4. Computational Graph
 
-### 4.1 什么是计算图？
+### 4.1 What Is a Computational Graph?
 
-计算图是把每一步计算拆成节点，记录**谁依赖谁**。反向传播时，沿着图的反方向传递梯度。
+A computational graph splits each computation step into nodes and records **what depends on what**. During backpropagation, gradients are passed in the reverse direction along the graph.
 
 ```mermaid
 flowchart TD
@@ -351,29 +351,29 @@ flowchart TD
     style loss fill:#fce4ec,stroke:#c62828,color:#333
 ```
 
-**PyTorch 就是在自动构建和遍历这个计算图**——这就是 `autograd` 的本质。
+**PyTorch automatically builds and traverses this computational graph** — this is the essence of `autograd`.
 
-### 4.3 新人最容易在这节卡住哪几步？
+### 4.3 Which Steps Do Beginners Usually Get Stuck on in This Section?
 
-- 搞不清 `z`、`a`、`loss` 分别是什么
-- 不知道为什么梯度方向要从后往前传
-- 只记局部公式，不知道整条链在干什么
+- Not understanding what `z`, `a`, and `loss` each represent
+- Not knowing why the gradient direction must flow from back to front
+- Memorizing only local formulas without knowing what the whole chain is doing
 
-如果你现在已经能说清：
+If you can now clearly explain:
 
-- 前向传播是在算什么
-- 损失在衡量什么
-- 反向传播是在把“误差责任”往前传
+- what forward propagation is computing
+- what loss is measuring
+- how backpropagation passes "error responsibility" backward
 
-那这节就已经学得很到位了。
+then you have already learned this section very well.
 
-### 4.2 数值验证
+### 4.2 Numerical Verification
 
-用微小扰动验证梯度是否正确：
+Use a small perturbation to verify whether the gradient is correct:
 
 ```python
 def numerical_gradient(f, x, eps=1e-5):
-    """数值梯度（有限差分法）"""
+    """Numerical gradient (finite difference method)"""
     grad = np.zeros_like(x)
     for i in range(x.size):
         old_val = x.flat[i]
@@ -385,25 +385,25 @@ def numerical_gradient(f, x, eps=1e-5):
         x.flat[i] = old_val
     return grad
 
-# 验证: y = x^2, dy/dx = 2x
+# Verify: y = x^2, dy/dx = 2x
 x = np.array([3.0])
 f = lambda x: x[0]**2
-print(f"解析梯度: 2×3 = 6")
-print(f"数值梯度: {numerical_gradient(f, x)[0]:.6f}")
+print(f"Analytical gradient: 2×3 = 6")
+print(f"Numerical gradient: {numerical_gradient(f, x)[0]:.6f}")
 ```
 
 ---
 
-## 五、完整训练循环
+## 5. Complete Training Loop
 
 ```python
-# 完整的 2 层网络训练 (分类月牙数据)
+# Complete 2-layer network training (moon-shaped classification data)
 from sklearn.datasets import make_moons
 
 X, y = make_moons(200, noise=0.2, random_state=42)
 y_onehot = np.eye(2)[y]  # one-hot
 
-# 初始化
+# Initialization
 np.random.seed(42)
 W1 = np.random.randn(2, 16) * 0.5
 b1 = np.zeros((1, 16))
@@ -414,18 +414,18 @@ lr = 0.5
 losses = []
 
 for epoch in range(1000):
-    # 前向
+    # Forward
     z1 = X @ W1 + b1
     a1 = np.maximum(0, z1)
     z2 = a1 @ W2 + b2
     exp_z = np.exp(z2 - z2.max(axis=1, keepdims=True))
     a2 = exp_z / exp_z.sum(axis=1, keepdims=True)
 
-    # 损失
+    # Loss
     loss = -np.mean(np.sum(y_onehot * np.log(a2 + 1e-8), axis=1))
     losses.append(loss)
 
-    # 反向
+    # Backward
     dz2 = (a2 - y_onehot) / len(X)
     dW2 = a1.T @ dz2
     db2 = dz2.sum(axis=0, keepdims=True)
@@ -434,84 +434,84 @@ for epoch in range(1000):
     dW1 = X.T @ dz1
     db1 = dz1.sum(axis=0, keepdims=True)
 
-    # 更新
+    # Update
     W2 -= lr * dW2
     b2 -= lr * db2
     W1 -= lr * dW1
     b1 -= lr * db1
 
-# 结果
+# Results
 preds = np.argmax(a2, axis=1)
 acc = (preds == y).mean()
-print(f"最终损失: {losses[-1]:.4f}, 准确率: {acc:.1%}")
+print(f"Final loss: {losses[-1]:.4f}, accuracy: {acc:.1%}")
 
 import matplotlib.pyplot as plt
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 axes[0].plot(losses)
 axes[0].set_xlabel('Epoch')
 axes[0].set_ylabel('Loss')
-axes[0].set_title('训练损失')
+axes[0].set_title('Training Loss')
 
 axes[1].scatter(X[:, 0], X[:, 1], c=preds, cmap='coolwarm', s=10, alpha=0.7)
-axes[1].set_title(f'分类结果（准确率 {acc:.1%}）')
+axes[1].set_title(f'Classification Results (accuracy {acc:.1%})')
 plt.tight_layout()
 plt.show()
 ```
 
-### 5.1 为什么这段 NumPy 训练循环很值得反复看？
+### 5.1 Why Is This NumPy Training Loop So Worth Studying Repeatedly?
 
-因为它其实就是后面 PyTorch 训练循环的裸版本：
+Because it is actually the bare version of the PyTorch training loop that comes later:
 
-- 前向
-- 算 loss
-- 反向
-- 更新
+- forward
+- compute loss
+- backward
+- update
 
-所以你现在看懂这段，后面看到：
+So once you understand this part, when you later see:
 
 - `loss.backward()`
 - `optimizer.step()`
 
-时就不会觉得那是凭空发生的黑箱。
+you will not feel like they are a black box that happens out of nowhere.
 
-![NumPy 到 PyTorch 训练循环对照图](/img/course/ch06-numpy-to-pytorch-training-loop-map.png)
+![NumPy to PyTorch training loop comparison diagram](/img/course/ch06-numpy-to-pytorch-training-loop-map-en.png)
 
-:::tip 读图提示
-读这张图时，把 NumPy 的四件事和 PyTorch API 一一对上：前向计算对应 `model(x)`，手算梯度对应 `loss.backward()`，手动更新参数对应 `optimizer.step()`，清掉旧梯度对应 `optimizer.zero_grad()`。
+:::tip Reading Guide
+When reading this diagram, match the four NumPy steps with the PyTorch API one by one: forward computation corresponds to `model(x)`, manual gradient calculation corresponds to `loss.backward()`, manual parameter update corresponds to `optimizer.step()`, and clearing old gradients corresponds to `optimizer.zero_grad()`.
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 要点 |
+| Concept | Key Point |
 |------|------|
-| 前向传播 | 输入→加权求和→激活→输出→损失 |
-| 损失函数 | 回归用 MSE，分类用交叉熵 |
-| 反向传播 | 链式法则从后往前算梯度 |
-| 计算图 | 记录计算依赖，PyTorch 自动构建 |
+| Forward propagation | Input → weighted sum → activation → output → loss |
+| Loss function | Use MSE for regression, cross-entropy for classification |
+| Backpropagation | Use the chain rule to compute gradients from back to front |
+| Computational graph | Records computation dependencies; automatically built by PyTorch |
 
-## 这节最该带走什么
+## What Should You Take Away Most from This Section?
 
-如果只带走一句话，我希望你记住：
+If I had to leave you with only one sentence, I hope you remember this:
 
-> **反向传播不是在制造神秘公式，而是在系统地回答“模型错了以后，每个参数各自该改多少”。**
+> **Backpropagation is not about creating mysterious formulas; it is about systematically answering, "After the model makes a mistake, how much should each parameter change?"**
 
-所以这一节真正要稳住的是：
+So what you really need to keep steady in this section is:
 
-- 前向是在算结果
-- 损失是在定义“错得多不多”
-- 反向是在分配误差责任
-- 梯度最终是为了更新参数
+- forward propagation computes results
+- loss defines "how wrong" the result is
+- backpropagation assigns error responsibility
+- gradients are ultimately used to update parameters
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：手动推导（纸笔）
+### Exercise 1: Manual Derivation (Pen and Paper)
 
-对一个 1→2→1 的网络（Sigmoid 激活），输入 x=0.5，目标 y=1，手动计算一轮前向+反向传播，更新参数。
+For a 1→2→1 network (with Sigmoid activation), input x=0.5, target y=1, manually calculate one round of forward + backward propagation, then update the parameters.
 
-### 练习 2：数值梯度验证
+### Exercise 2: Numerical Gradient Verification
 
-修改完整训练循环，在第一轮时用数值梯度验证 dW1 的解析梯度是否正确（误差应小于 1e-5）。
+Modify the complete training loop and use numerical gradients in the first round to verify whether the analytical gradient of dW1 is correct (the error should be less than 1e-5).

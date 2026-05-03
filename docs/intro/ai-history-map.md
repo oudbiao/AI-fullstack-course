@@ -1,88 +1,88 @@
 ---
 sidebar_position: 3
-title: "AI 发展历史地图"
-description: "从专家系统、机器学习、深度学习、Transformer、大模型到 AI Agent，建立 AI 技术演进的历史脉络。"
-keywords: [AI历史, 人工智能发展史, 机器学习历史, 深度学习历史, Transformer, 大模型, AI Agent]
+title: "AI History Map"
+description: "Build a historical overview of AI’s evolution, from expert systems, machine learning, and deep learning to Transformer, large models, and AI Agent."
+keywords: [AI history, history of artificial intelligence, history of machine learning, history of deep learning, Transformer, large models, AI Agent]
 ---
 
-# AI 发展历史地图
+# AI History Map
 
-学习 AI 不应该只记住技术名词，还要理解这些技术为什么出现。每一次技术浪潮，基本都在回答上一代方法解决不了的问题。
+When learning AI, you should not just memorize technical terms; you should also understand why these technologies emerged. Each wave of innovation is basically answering problems that the previous generation could not solve.
 
-这篇不是完整的学术史，而是一张学习地图：帮助你知道专家系统、机器学习、深度学习、Transformer、大模型、RAG 和 Agent 之间的关系。
+This is not a complete academic history. It is a learning map: it helps you understand the relationships among expert systems, machine learning, deep learning, Transformer, large models, RAG, and Agent.
 
-## 先看演进逻辑
+## First, look at the evolution logic
 
-| 阶段 | 它主要解决什么 | 又带来什么新问题 |
+| Stage | What it mainly solves | What new problems it brings |
 |---|---|---|
-| 符号主义 | 把专家规则写进机器 | 规则太多、难维护、难泛化 |
-| 统计机器学习 | 从数据中学习规律 | 依赖特征工程和数据质量 |
-| 深度学习 | 自动学习复杂表示 | 需要更多数据、算力和训练技巧 |
-| Transformer | 更好处理长序列和上下文 | 模型规模、训练成本和解释性问题 |
-| 大模型 + RAG + Agent | 连接知识库、工具和工作流 | 幻觉、权限、评估、成本和安全 |
+| Symbolic AI | Encode expert rules into machines | Too many rules, hard to maintain, hard to generalize |
+| Statistical machine learning | Learn patterns from data | Depends on feature engineering and data quality |
+| Deep learning | Automatically learn complex representations | Needs more data, compute, and training skills |
+| Transformer | Better handles long sequences and context | Model scale, training cost, and interpretability issues |
+| Large models + RAG + Agent | Connect knowledge bases, tools, and workflows | Hallucination, permissions, evaluation, cost, and safety |
 
-## 一张图看懂 AI 演进
-
-```mermaid
-timeline
-  title AI 技术发展主线：从规则到深度学习
-  1950s : 图灵测试 : 人工智能问题被正式提出
-  1960s-1980s : 符号主义与专家系统 : 人类手写规则，让机器按规则推理
-  1990s-2000s : 统计机器学习 : 从数据中学习规律，特征工程变得重要
-  2012 : 深度学习爆发 : AlexNet 推动神经网络在视觉任务中突破
-```
-
-前半段的主线是：AI 先尝试让人手写规则，后来逐渐转向让机器从数据中学习规律。到了 2012 年左右，数据、GPU 和训练技巧一起成熟，深度学习开始成为主流。
+## See the AI evolution in one chart
 
 ```mermaid
 timeline
-  title AI 技术发展主线：从 Transformer 到 Agent
-  2017 : Transformer : Attention 架构改变 NLP 与大模型路线
-  2018-2021 : 预训练模型 : BERT、GPT 等模型让迁移学习成为主流
-  2022 : ChatGPT : 指令对齐让大模型进入大众视野
-  2023-至今 : RAG 与 Agent : 大模型开始连接知识库、工具和工作流
+  title Main line of AI development: from rules to deep learning
+  1950s : Turing Test : The AI problem was formally proposed
+  1960s-1980s : Symbolic AI and expert systems : Human-written rules let machines reason by rules
+  1990s-2000s : Statistical machine learning : Learn patterns from data, feature engineering becomes important
+  2012 : Deep learning breakout : AlexNet drove breakthroughs of neural networks in vision tasks
 ```
 
-## 第一阶段：符号主义与专家系统
+The main line in the first half is: AI first tried to let humans write rules, and later gradually shifted toward letting machines learn patterns from data. Around 2012, data, GPUs, and training techniques matured together, and deep learning began to become mainstream.
 
-早期 AI 的核心想法是：如果人类专家能把知识写成规则，机器就可以按照规则推理。比如医学诊断系统可以写成“如果出现症状 A 和指标 B，就考虑疾病 C”。
+```mermaid
+timeline
+  title Main line of AI development: from Transformer to Agent
+  2017 : Transformer : The Attention architecture changed the NLP and large-model path
+  2018-2021 : Pretrained models : Models such as BERT and GPT made transfer learning mainstream
+  2022 : ChatGPT : Instruction alignment brought large models into the public spotlight
+  2023-Now : RAG and Agent : Large models began connecting to knowledge bases, tools, and workflows
+```
 
-这种方法在规则清晰、范围有限的场景里有价值，但它很难处理真实世界的复杂性。规则越写越多，维护成本越来越高，而且系统很难从新数据中自动改进。
+## Phase 1: Symbolic AI and expert systems
 
-## 第二阶段：统计机器学习
+The core idea of early AI was: if human experts can write knowledge as rules, then machines can reason according to those rules. For example, a medical diagnosis system could be written as: “If symptom A and indicator B appear, then consider disease C.”
 
-机器学习的思路发生了变化：与其让人类手写所有规则，不如让机器从数据中学习规律。
+This approach is valuable in scenarios where the rules are clear and the scope is limited, but it struggles with the complexity of the real world. The more rules you write, the higher the maintenance cost, and the harder it is for the system to improve automatically from new data.
 
-这一阶段的典型方法包括线性回归、逻辑回归、决策树、随机森林、SVM、朴素贝叶斯、聚类和降维。学习重点从“写规则”变成“准备数据、设计特征、训练模型、评估效果”。
+## Phase 2: Statistical machine learning
 
-这也是为什么本课程在进入大模型前，仍然保留机器学习和数据分析。因为模型训练、评估、过拟合、特征、数据分布这些概念，在今天的 AI 应用中仍然非常重要。
+The idea of machine learning changed: instead of having humans handwrite all the rules, let the machine learn patterns from data.
 
-## 第三阶段：深度学习
+Typical methods in this stage include linear regression, logistic regression, decision trees, random forests, SVM, naive Bayes, clustering, and dimensionality reduction. The focus of learning shifted from “writing rules” to “preparing data, designing features, training models, and evaluating results.”
 
-深度学习让模型可以自动学习更复杂的表示。图像识别、语音识别、机器翻译等任务都因此取得巨大进展。
+This is also why this course still keeps machine learning and data analysis before moving into large models. Concepts such as model training, evaluation, overfitting, features, and data distribution are still very important in today’s AI applications.
 
-这一阶段的重要背景是数据变多、GPU 算力提升、神经网络训练技巧成熟。你会在课程中学习神经网络、反向传播、优化器、CNN、RNN 和 Transformer 的基础。
+## Phase 3: Deep learning
 
-深度学习不是替代所有传统机器学习，而是在高维复杂数据上表现更强，尤其适合图像、文本、语音、多模态等任务。
+Deep learning allows models to automatically learn more complex representations. Tasks such as image recognition, speech recognition, and machine translation made huge progress because of it.
 
-## 第四阶段：Transformer 与预训练模型
+The important background of this stage is more data, improved GPU compute, and mature neural network training techniques. In this course, you will learn the basics of neural networks, backpropagation, optimizers, CNN, RNN, and Transformer.
 
-Transformer 的关键变化是用 Attention 机制处理序列关系。相比 RNN，Transformer 更适合并行训练，也更容易扩展到大规模数据和大模型。
+Deep learning does not replace all traditional machine learning. Instead, it performs better on high-dimensional and complex data, and is especially suitable for image, text, speech, and multimodal tasks.
 
-BERT、GPT、T5 等预训练模型推动了 NLP 的范式变化：先在海量数据上预训练，再在具体任务上微调或提示。后来，大语言模型进一步把“语言接口”变成通用能力入口。
+## Phase 4: Transformer and pretrained models
 
-## 第五阶段：大模型、RAG 与 Agent
+The key change brought by Transformer is using the Attention mechanism to handle sequence relationships. Compared with RNNs, Transformer is more suitable for parallel training and easier to scale to large datasets and large models.
 
-ChatGPT 之后，大模型从研究工具进入大众应用。新的问题也随之出现：模型会幻觉，知识可能过期，不能直接访问企业内部资料，也不能天然执行外部动作。
+Pretrained models such as BERT, GPT, and T5 drove a paradigm shift in NLP: first pretrain on massive amounts of data, then fine-tune or prompt on specific tasks. Later, large language models further turned the “language interface” into a universal entry point for capabilities.
 
-RAG 用检索增强生成，把外部知识库接入模型上下文。Agent 则进一步让模型能够规划步骤、调用工具、保存记忆、连接系统，完成更复杂的任务。
+## Phase 5: Large models, RAG, and Agent
 
-这就是本课程后半部分的主线：不是只学会“问大模型问题”，而是学会设计一个可靠的 AI 应用系统。
+After ChatGPT, large models moved from research tools into public applications. New problems also emerged: models can hallucinate, knowledge may become outdated, they cannot directly access internal enterprise documents, and they cannot naturally execute external actions.
 
-## 学习时怎么使用这张历史地图
+RAG uses retrieval-augmented generation to connect an external knowledge base to the model context. Agent goes one step further, enabling the model to plan steps, call tools, save memory, connect systems, and complete more complex tasks.
 
-当你学到一个新概念时，可以问自己三个问题：它解决了上一代方法的什么问题，它带来了什么新的能力，它又引入了什么新的风险或限制。
+This is the main line of the second half of this course: not just learning how to “ask questions to a large model,” but learning how to design a reliable AI application system.
 
-比如 RAG 解决了大模型知识不足和知识更新问题，但引入了文档切分、检索质量、引用可信度和评估问题。Agent 解决了任务执行问题，但引入了工具安全、权限控制、成本和稳定性问题。
+## How to use this history map while learning
 
-理解这种演进逻辑，会比孤立记忆每个技术名词更有用。
+When you learn a new concept, you can ask yourself three questions: what problem does it solve from the previous generation, what new capability does it bring, and what new risks or limitations does it introduce?
+
+For example, RAG solves the problem of insufficient knowledge and outdated knowledge in large models, but it introduces document chunking, retrieval quality, citation trustworthiness, and evaluation issues. Agent solves task execution problems, but it introduces tool safety, permission control, cost, and stability issues.
+
+Understanding this evolution logic is much more useful than memorizing each technical term in isolation.

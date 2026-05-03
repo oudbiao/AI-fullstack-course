@@ -1,124 +1,122 @@
 ---
-title: "1.3 模型优化技术"
+title: "1.3 Model Optimization Techniques"
 sidebar_position: 3
-description: "从量化、剪枝、蒸馏、算子融合和批处理出发，理解部署里的模型优化到底在换取什么。"
+description: "Starting from quantization, pruning, distillation, operator fusion, and batching, understand what model optimization is really trading off in deployment."
 keywords: [model optimization, quantization, pruning, distillation, fusion, batching, deployment]
 ---
 
-# 模型优化技术
+# Model Optimization Techniques
 
-![模型优化路线图](/img/course/elective-model-optimization-map.png)
+![Model Optimization Roadmap](/img/course/elective-model-optimization-map-en.png)
 
-![模型优化取舍仪表盘](/img/course/elective-optimization-tradeoff-dashboard.png)
+![Model Optimization Trade-off Dashboard](/img/course/elective-optimization-tradeoff-dashboard-en.png)
 
-:::tip 读图提示
-优化前先判断瓶颈在哪里：显存、延迟、吞吐、精度、硬件适配和维护成本通常会互相牵制。读图时不要只问“能不能更快”，而要问“用什么代价换哪一个指标”。
+:::tip Reading guide
+Before optimizing, first identify where the bottleneck is: memory, latency, throughput, accuracy, hardware compatibility, and maintenance cost often constrain one another. When reading this diagram, do not only ask “Can it be faster?”, but ask “What cost am I paying to improve which metric?”
 :::
 
-:::tip 本节定位
-模型优化最容易被讲成一堆名词：
+:::tip Where this section fits
+Model optimization is easiest to turn into a pile of jargon:
 
-- 量化
-- 剪枝
-- 蒸馏
-- 融合
+- Quantization
+- Pruning
+- Distillation
+- Fusion
 
-但真正部署时，问题其实更朴素：
+But in real deployment, the question is much simpler:
 
-> **你到底想省什么，是显存、延迟、吞吐，还是硬件适配成本？**
+> **What exactly are you trying to save: memory, latency, throughput, or hardware adaptation cost?**
 
-只有先把这个问题想清楚，优化方法才不会变成“为了优化而优化”。
+Only after you make this clear can optimization stop becoming “optimization for optimization’s sake.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解几种主流模型优化方法分别在解决什么问题
-- 理解优化通常是用精度换性能，不是白赚
-- 通过可运行示例看懂量化和成本权衡
-- 建立部署视角下的优化优先级判断
-
----
-
-## 一、模型优化不是单一目标
-
-### 1.1 常见想优化的其实是四件事
-
-- 模型体积
-- 推理延迟
-- 吞吐
-- 设备适配性
-
-### 1.2 为什么“更快”不总等于“更好”？
-
-因为很多优化都在做 trade-off：
-
-- 更小，但精度下降
-- 更快，但调试更复杂
-- 更省内存，但后处理变难
-
-### 1.3 一个类比
-
-模型优化更像收拾行李箱。  
-你不是把所有东西都塞进去，而是在：
-
-- 体积
-- 重量
-- 实用性
-
-之间做取舍。
+- Understand what problems several mainstream model optimization methods are trying to solve
+- Understand that optimization usually trades accuracy for performance rather than giving it away for free
+- See a runnable example to understand quantization and cost trade-offs
+- Build a deployment-oriented priority framework for choosing optimization methods
 
 ---
 
-## 二、五种最常见的优化路线
+## 1. Model Optimization Is Not a Single Goal
 
-### 2.1 量化
+### 1.1 What people usually want to optimize are actually four things
 
-把高精度权重压到更低精度。  
-目标通常是：
+- Model size
+- Inference latency
+- Throughput
+- Device compatibility
 
-- 降低显存
-- 提升吞吐
-- 更适合边缘设备
+### 1.2 Why doesn’t “faster” always mean “better”?
 
-### 2.2 剪枝
+Because many optimizations involve trade-offs:
 
-移除不重要的权重、通道或层。  
-目标通常是：
+- Smaller, but lower accuracy
+- Faster, but harder to debug
+- Less memory usage, but more difficult post-processing
 
-- 减少计算量
+### 1.3 An analogy
 
-### 2.3 蒸馏
+Model optimization is more like packing a suitcase.
+You are not stuffing everything in blindly; instead, you are making trade-offs among:
 
-让一个更小模型学习大模型输出。  
-目标通常是：
-
-- 保留尽量多能力
-- 但把部署成本降下来
-
-### 2.4 算子融合
-
-把多步计算在执行图里合并。  
-目标通常是：
-
-- 减少内存读写
-- 提升执行效率
-
-### 2.5 批处理与调度优化
-
-不是改模型本身，  
-而是改运行方式。  
-目标通常是：
-
-- 提高吞吐
+- Size
+- Weight
+- Practicality
 
 ---
 
-## 三、先跑一个量化误差示例
+## 2. Five of the Most Common Optimization Paths
 
-这个例子会做一件很直接的事：
+### 2.1 Quantization
 
-- 把浮点权重量化到更粗的刻度
-- 计算量化前后的误差
+Compress high-precision weights into lower precision.
+The usual goals are:
+
+- Reduce memory usage
+- Improve throughput
+- Better fit edge devices
+
+### 2.2 Pruning
+
+Remove unimportant weights, channels, or layers.
+The usual goal is:
+
+- Reduce computation
+
+### 2.3 Distillation
+
+Let a smaller model learn from a larger model’s outputs.
+The usual goals are:
+
+- Retain as much capability as possible
+- Lower deployment cost
+
+### 2.4 Operator Fusion
+
+Merge multiple computation steps in the execution graph.
+The usual goals are:
+
+- Reduce memory reads and writes
+- Improve execution efficiency
+
+### 2.5 Batching and Scheduling Optimization
+
+This does not change the model itself,
+but changes how it runs.
+The usual goal is:
+
+- Increase throughput
+
+---
+
+## 3. First Run a Quantization Error Example
+
+This example does one very direct thing:
+
+- Quantize floating-point weights to a coarser scale
+- Compute the error before and after quantization
 
 ```python
 import numpy as np
@@ -140,115 +138,115 @@ print("q8 mae   :", np.mean(np.abs(weights - q8_like)))
 print("q4 mae   :", np.mean(np.abs(weights - q4_like)))
 ```
 
-### 3.1 这段代码最重要的启发是什么？
+### 3.1 What is the most important takeaway from this code?
 
-量化并不是“免费压缩”。  
-它会带来误差。
+Quantization is not “free compression.”
+It introduces error.
 
-所以你以后看到：
+So when you see:
 
 - `int8`
 - `int4`
 
-第一反应不该只是“更省”，  
-还要问：
+your first reaction should not only be “this saves more,”
+but also:
 
-- 精度损失有多少
+- How much accuracy is lost?
 
-### 3.2 为什么更低比特通常更难？
+### 3.2 Why is lower bit width usually harder?
 
-因为表达空间更粗。  
-压得越狠，原始细节越可能丢。
-
----
-
-## 四、蒸馏为什么常被当成“部署友好方案”？
-
-### 4.1 因为它不只是压模型，而是换模型
-
-蒸馏的本质不是直接改原模型，  
-而是训练一个更小学生模型。
-
-### 4.2 它最适合什么场景？
-
-适合：
-
-- 请求模式比较稳定
-- 任务边界清楚
-- 你愿意用训练换部署收益
-
-### 4.3 它和量化的差别
-
-- 量化：还是原模型，只是更低精度
-- 蒸馏：换成了更小的新模型
+Because the representation space is coarser.
+The more aggressively you compress, the more original detail may be lost.
 
 ---
 
-## 五、优化顺序通常怎么排？
+## 4. Why Is Distillation Often Considered a “Deployment-Friendly” Approach?
 
-### 5.1 最先查链路，不是最先上技巧
+### 4.1 Because it does not just compress the model, it replaces the model
 
-先问：
+The essence of distillation is not to directly modify the original model,
+but to train a smaller student model.
 
-- 慢在哪里
-- 贵在哪里
-- 爆内存在哪里
+### 4.2 What scenarios is it best suited for?
 
-### 5.2 一个很实用的顺序
+It is suitable for:
 
-1. 先做运行时层优化  
-   例如 batching、缓存、调度
-2. 再做低风险模型优化  
-   例如 int8 量化
-3. 最后再考虑更激进路线  
-   例如重剪枝、蒸馏、结构改造
+- Stable request patterns
+- Clear task boundaries
+- Cases where you are willing to trade training effort for deployment gains
 
-### 5.3 为什么这个顺序更稳？
+### 4.3 How is it different from quantization?
 
-因为很多问题根本不在模型本身。  
-如果运行时没调好，  
-先折腾模型常常收益不大。
+- Quantization: keep the same model, but at lower precision
+- Distillation: switch to a new, smaller model
 
 ---
 
-## 六、最常见误区
+## 5. How Is the Optimization Order Usually Arranged?
 
-### 6.1 误区一：优化就是尽量压到最小
+### 5.1 Check the pipeline first, not the trick first
 
-不是。  
-关键是：
+First ask:
 
-- 在业务可接受的精度下尽量省
+- Where is it slow?
+- Where is it expensive?
+- Where does memory blow up?
 
-### 6.2 误区二：只要量化了就一定更快
+### 5.2 A very practical order
 
-不一定。  
-还要看：
+1. Start with runtime-level optimization
+   For example: batching, caching, scheduling
+2. Then apply lower-risk model optimization
+   For example: int8 quantization
+3. Finally consider more aggressive approaches
+   For example: heavy pruning, distillation, structural changes
 
-- 硬件是否支持
-- 引擎是否优化到位
+### 5.3 Why is this order more stable?
 
-### 6.3 误区三：所有模型都用同一套优化手段
-
-不同模型、不同硬件、不同业务，  
-最优路线经常不同。
-
----
-
-## 小结
-
-这节最重要的，不是把优化方法背成术语表，  
-而是建立一个部署判断：
-
-> **模型优化的本质，是围绕体积、延迟、吞吐和硬件适配做权衡，而不是单纯追求“压得更狠”。**
-
-只要这层判断清楚，后面你在做具体部署时就更容易选对手段。
+Because many problems are not in the model itself.
+If the runtime is not tuned well,
+changing the model first often brings limited benefit.
 
 ---
 
-## 练习
+## 6. The Most Common Misunderstandings
 
-1. 把示例里的 `scale` 改成更大或更小，观察误差变化。
-2. 为什么说量化更像“压缩原模型”，蒸馏更像“换一个更小模型”？
-3. 想一想：如果你的问题主要是吞吐不够，而不是显存爆掉，第一优先该看哪类优化？
-4. 你会如何判断某次优化是否“值得上线”？
+### 6.1 Misunderstanding 1: Optimization means making it as small as possible
+
+No.
+The key is:
+
+- Save as much as possible while staying within acceptable business accuracy
+
+### 6.2 Misunderstanding 2: If you quantize it, it will definitely be faster
+
+Not necessarily.
+It also depends on:
+
+- Whether the hardware supports it
+- Whether the inference engine is well optimized
+
+### 6.3 Misunderstanding 3: All models should use the same optimization methods
+
+Different models, different hardware, and different business needs
+often require different best paths.
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing optimization methods as a glossary,
+but building a deployment mindset:
+
+> **The essence of model optimization is making trade-offs around size, latency, throughput, and hardware compatibility, rather than simply pursuing “more aggressive compression.”**
+
+Once you are clear on this, it becomes much easier to choose the right method in actual deployment work.
+
+---
+
+## Exercises
+
+1. Change the `scale` in the example to a larger or smaller value and observe how the error changes.
+2. Why is quantization more like “compressing the original model,” while distillation is more like “switching to a smaller model”?
+3. Think about this: if your main problem is insufficient throughput rather than running out of memory, which type of optimization should you look at first?
+4. How would you determine whether a given optimization is “worth shipping”?

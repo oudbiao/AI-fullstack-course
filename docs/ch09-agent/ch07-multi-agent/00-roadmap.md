@@ -1,81 +1,81 @@
 ---
-title: "7.1 学前导读：多 Agent 这一章到底在学什么"
+title: "7.1 Pre-course Guide: What Is This Multi-Agent Chapter Really About?"
 sidebar_position: 0
-description: "先建立多 Agent 章节的学习地图：什么时候需要多个 Agent、角色分工、通信协调、共享状态、评估和失控风险怎样共同构成协作系统。"
-keywords: [多Agent导读, 协作系统, Agent通信, Agent协调, 多智能体]
+description: "First build a learning map for the Multi-Agent chapter: when multiple Agents are needed, how role division, communication coordination, shared state, evaluation, and runaway risks together form a collaborative system."
+keywords: [Multi-Agent guide, collaborative systems, Agent communication, Agent coordination, multi-agent]
 ---
 
-# 学前导读：多 Agent 这一章到底在学什么
+# Pre-course Guide: What Is This Multi-Agent Chapter Really About
 
-这一章解决的是：什么时候一个 Agent 不够，为什么要把任务拆给多个 Agent，以及拆开之后怎样避免系统更乱。
+This chapter addresses a simple question: when is one Agent not enough, why should a task be split across multiple Agents, and how can we keep the system from becoming even messier after the split?
 
-多 Agent 很容易看起来很酷：规划 Agent、执行 Agent、审查 Agent、产品经理 Agent、工程师 Agent、测试 Agent，各自扮演不同角色。但课程要强调的是，多 Agent 不是越多越好。只有当任务确实需要角色分工、并行处理、互相检查或复杂协作时，多 Agent 才有意义。
+Multi-Agent systems can easily look impressive: a planning Agent, an execution Agent, a review Agent, a product manager Agent, an engineer Agent, a test Agent, each playing a different role. But what this course wants to stress is that more Agents is not automatically better. Multi-Agent only makes sense when the task really needs role division, parallel processing, cross-checking, or complex collaboration.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Whole Course
 
-你已经学过单 Agent 的目标、计划、工具、记忆和 MCP。多 Agent 是在这些基础之上的复杂编排。如果单 Agent 的工具调用、状态管理和失败恢复都还不稳定，多 Agent 往往只会放大混乱。
+You have already learned about single-Agent goals, planning, tools, memory, and MCP. Multi-Agent is a more complex orchestration built on top of those foundations. If a single Agent still struggles with tool calling, state management, and failure recovery, then Multi-Agent will usually only amplify the chaos.
 
-这一章的关键不是“创建很多角色”，而是理解协作系统的边界：谁负责什么，怎么通信，谁做最终决策，共享哪些状态，如何避免重复工作、互相误导和无限循环。
+The key of this chapter is not “creating lots of roles,” but understanding the boundaries of a collaborative system: who is responsible for what, how to communicate, who makes the final decision, what state is shared, and how to avoid duplicate work, misleading each other, and infinite loops.
 
-![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.png)
+![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：什么情况下需要多 Agent，什么情况下单 Agent 更合适；多 Agent 常见架构模式有哪些；Agent 之间如何通信和共享状态；任务协调、冲突处理和最终决策如何设计；多 Agent 系统如何评估成本、质量、安全和稳定性。
+This chapter answers five questions: when do you need Multi-Agent, and when is a single Agent a better choice; what common Multi-Agent architecture patterns exist; how do Agents communicate and share state; how should task coordination, conflict handling, and final decision-making be designed; and how should Multi-Agent systems be evaluated for cost, quality, safety, and stability?
 
-新人最容易误解的是：多个 Agent 会自动带来更高智能。真实情况是，多 Agent 会引入额外复杂度，包括上下文重复、角色边界模糊、消息噪声、成本上升、责任不清和错误传播。
+The most common beginner misunderstanding is that multiple Agents automatically create higher intelligence. In reality, Multi-Agent introduces extra complexity, including repeated context, blurry role boundaries, noisy messages, higher cost, unclear accountability, and error propagation.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学多 Agent 的适用边界，明确什么时候不该用。然后看常见架构模式，例如主管-执行者、辩论式、流水线式、专家委员会式。接着学习通信和协调，理解消息格式、共享状态、任务队列和汇总机制。最后看挑战与实战，重点关注成本控制、失败恢复、评估和安全。
+It is recommended to first learn the applicability boundaries of Multi-Agent, so you know when not to use it. Then look at common architecture patterns, such as supervisor-executor, debate-style, pipeline-style, and expert-committee-style. Next, study communication and coordination to understand message formats, shared state, task queues, and aggregation mechanisms. Finally, focus on challenges and practical implementation, especially cost control, failure recovery, evaluation, and safety.
 
-![多 Agent 章节学习顺序图](/img/course/ch09-multi-agent-chapter-flow.png)
+![Multi-Agent chapter learning order diagram](/img/course/ch09-multi-agent-chapter-flow-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Keep in Mind While Studying This Chapter
 
-这一章的主线可以概括为：多 Agent 是任务分工和协作机制，不是简单复制多个聊天机器人。
+The main thread of this chapter can be summarized as: Multi-Agent is a task division and collaboration mechanism, not simply duplicating several chatbots.
 
-![多 Agent 协作协调图](/img/course/ch09-multi-agent-coordination-map.png)
+![Multi-Agent collaboration and coordination map](/img/course/ch09-multi-agent-coordination-map-en.png)
 
-看懂这条线后，你会知道多 Agent 的关键在于“协调成本是否小于分工收益”。如果多个 Agent 的沟通成本、错误传播和评估成本超过了收益，就应该回到单 Agent 或固定工作流。
+Once you understand this line, you will know that the key question in Multi-Agent is: “Is the coordination cost lower than the benefit of division of labor?” If the communication cost, error propagation, and evaluation cost of multiple Agents exceed the benefits, you should go back to a single Agent or a fixed workflow.
 
-## 这一章和后面章节的关系
+## How This Chapter Relates to the Later Chapters
 
-多 Agent 会直接连接评估安全和部署章节。评估要判断多个 Agent 是否真的提高质量，而不是只是生成更多内容；安全要处理权限隔离、工具访问、提示注入和角色越权；部署要考虑并发、成本、日志、可观测性和失败恢复。
+Multi-Agent connects directly to the evaluation, safety, and deployment chapters. Evaluation needs to determine whether multiple Agents truly improve quality rather than simply generating more content; safety must handle permission isolation, tool access, prompt injection, and role overreach; deployment must consider concurrency, cost, logging, observability, and failure recovery.
 
-如果这一章没学稳，后面常见的问题是：角色很多但职责重叠；每个 Agent 都在重复分析；没有最终决策者；中间消息越来越长；成本迅速上升；失败时不知道是哪一个 Agent 的判断出了问题。
+If this chapter is not learned solidly, common later problems include: there are many roles but overlapping responsibilities; each Agent keeps repeating analysis; there is no final decision-maker; intermediate messages get longer and longer; costs rise rapidly; and when something fails, it is unclear which Agent’s judgment went wrong.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first grasp the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can move on.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering thinking: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after. After reading it, it is best to consolidate the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run a smallest example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can describe its place in the whole course in one sentence |
+| What are the minimal input and output? | You can clearly explain what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you consolidate after learning it? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Small Project Exit Task
 
-学完这一章后，建议做一个“课程内容优化小组 Demo”。可以设置研究 Agent 负责查找课程问题，编辑 Agent 负责改写内容，审查 Agent 负责检查新人是否容易理解，总控 Agent 负责汇总决策。
+After finishing this chapter, it is recommended to build a “course content optimization team Demo.” You can set up a research Agent to look for course issues, an editing Agent to rewrite the content, a review Agent to check whether it is easy for beginners to understand, and a control Agent to summarize decisions.
 
-项目重点不是 Agent 数量，而是角色边界、消息格式、交付物和审查规则是否清晰。你需要记录每个 Agent 的输入、输出、工具调用和最终采用/拒绝原因。
+The focus of the project is not the number of Agents, but whether the role boundaries, message format, deliverables, and review rules are clear. You need to record each Agent’s input, output, tool calls, and the reasons why the final result was accepted or rejected.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能判断一个任务是否需要多 Agent，能解释主管-执行者、流水线、辩论和专家委员会等基本模式，能设计简单的 Agent 通信和汇总机制，能说明多 Agent 的成本、评估和安全风险。
+By the end of this chapter, you should be able to judge whether a task needs Multi-Agent, explain the basic patterns such as supervisor-executor, pipeline, debate, and expert committee, design a simple Agent communication and aggregation mechanism, and describe the cost, evaluation, and safety risks of Multi-Agent systems.
 
-如果你能把一个复杂任务拆给 2 到 3 个 Agent，并让它们产出可追踪、可审查、可合并的结果，而不是互相重复聊天，就说明你已经掌握了多 Agent 的入门设计能力。
+If you can split a complex task across 2 to 3 Agents and make them produce results that are traceable, reviewable, and mergeable instead of just endlessly chatting with each other, that means you have already mastered the beginner level of Multi-Agent design.

@@ -1,211 +1,209 @@
 ---
-title: "7.3 RLHF 流程"
+title: "7.3 RLHF Workflow"
 sidebar_position: 25
-description: "从偏好数据、奖励模型到策略优化，拆清 RLHF 为什么能让模型更贴近人类偏好，以及它为什么昂贵又难调。"
+description: "From preference data and reward models to policy optimization, this section breaks down why RLHF can make a model align more closely with human preferences, and why it is so expensive and hard to tune."
 keywords: [RLHF, reward model, preference data, PPO, alignment]
 ---
 
-# RLHF 流程
+# RLHF Workflow
 
-![RLHF 三阶段流程图](/img/course/rlhf-three-stage-loop.png)
+![Three-stage RLHF workflow diagram](/img/course/rlhf-three-stage-loop-en.png)
 
-:::tip 本节定位
-很多人第一次听到 RLHF，会把它理解成一句模糊的话：
+:::tip Section Overview
+When many people first hear RLHF, they interpret it as a vague phrase:
 
-- 用人类反馈让模型更好
+- Using human feedback to make the model better
 
-这句话方向没错，但太虚。
+That direction is not wrong, but it is too abstract.
 
-真正要学会的是：
+What you really need to learn is:
 
-> **人类反馈是怎样被翻译成数据、奖励函数和策略更新的。**
+> **How human feedback is translated into data, a reward function, and policy updates.**
 
-只有把这条链条看清楚，你才会明白：
+Only when you see this chain clearly will you understand:
 
-- RLHF 到底强在哪里
-- 它为什么成本高
-- 为什么后来会出现 DPO 这类替代路线
+- What RLHF is really good at
+- Why it is so costly
+- Why alternatives like DPO later appeared
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么监督微调后仍然会需要偏好优化
-- 理解 RLHF 的三阶段主线：SFT、奖励模型、策略优化
-- 跑通一个真正和偏好学习相关的奖励模型最小示例
-- 建立何时值得做 RLHF、何时不值得的工程判断
+- Understand why preference optimization is still needed after supervised fine-tuning
+- Understand the three-stage RLHF pipeline: SFT, reward model, policy optimization
+- Run a minimal example of a reward model that is genuinely related to preference learning
+- Build practical judgment about when RLHF is worth doing, and when it is not
 
-## 历史背景：RLHF 为什么会走到大模型主线里？
+## Historical Background: Why Did RLHF Become a Mainline Approach for Large Models?
 
-RLHF 不只是一种技巧，它背后有两个特别值得知道的节点：
+RLHF is not just a technique. Behind it are two especially important milestones:
 
-| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+| Year | Paper | Key Authors | What it solved most importantly |
 |---|---|---|---|
-| 2017 | *Deep Reinforcement Learning from Human Preferences* | Christiano 等 | 把“人类偏好”正式做成强化学习反馈信号 |
-| 2022 | *Training language models to follow instructions with human feedback* | Ouyang 等 | 把 RLHF 推到大语言模型主线里，解决“会续写但不一定按人类意图回答”的问题 |
+| 2017 | *Deep Reinforcement Learning from Human Preferences* | Christiano et al. | Formally turned human preferences into a reinforcement learning feedback signal |
+| 2022 | *Training language models to follow instructions with human feedback* | Ouyang et al. | Brought RLHF into the mainline of large language models, solving the problem of “can continue text, but may not answer according to human intent” |
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember first is:
 
-> **RLHF 不是在让模型“更聪明”，而是在让模型“更符合人类偏好和使用方式”。**
+> **RLHF is not about making the model “smarter”; it is about making the model “more aligned with human preferences and usage patterns.”**
 
-所以它和预训练、SFT 的关系不是替代，而是：
+So its relationship with pretraining and SFT is not replacement, but:
 
-- 预训练先给能力
-- SFT 先给基本任务格式
-- RLHF 再去微调“哪种回答更像人类真正想要的”
+- Pretraining first gives capability
+- SFT first gives the basic task format
+- RLHF then further tunes “which answer is closer to what humans actually want”
 
 ---
 
-## 先建立一张地图
+## First Build a Map
 
-RLHF 更适合按“人类偏好怎么被翻译成训练信号”来理解：
+RLHF is easier to understand if we think about “how human preferences are translated into training signals”:
 
 ```mermaid
 flowchart LR
-    A["人类偏好对"] --> B["奖励模型"]
-    B --> C["给回答打分"]
-    C --> D["策略模型朝高分方向更新"]
+    A["Human preference pairs"] --> B["Reward model"]
+    B --> C["Score the answer"]
+    C --> D["Policy model updates toward higher scores"]
 ```
 
-所以这节真正想解决的是：
+So what this section really aims to solve is:
 
-- 人类反馈为什么不能直接拿来当普通监督标签
-- RLHF 为什么会变成一条更重但更贴偏好的路线
+- Why human feedback cannot be used directly as ordinary supervision labels
+- Why RLHF becomes a heavier but more preference-aligned path
 
 ---
 
-## 一、为什么只做 SFT 还不够？
+## 1. Why Isn’t SFT Enough on Its Own?
 
-### 1.1 因为“唯一标准答案”并不总存在
+### 1.1 Because there is not always a single correct answer
 
-很多大模型任务并不是数学题。  
-同一个用户问题，可能有很多个都“基本正确”的回答。
+Many large-model tasks are not math problems.
+For the same user question, there may be many answers that are all “basically correct.”
 
-例如：
+For example:
 
-- 有的更简洁
-- 有的更礼貌
-- 有的更稳健
-- 有的更会承认边界
+- Some are more concise
+- Some are more polite
+- Some are more robust
+- Some are better at acknowledging boundaries
 
-这时你很难只用一个标准答案去训练模型。
+At that point, it is hard to train the model with only one standard answer.
 
-### 1.2 偏好信息长什么样？
+### 1.2 What does preference data look like?
 
-偏好数据通常不是：
+Preference data is usually not:
 
-- 这个回答绝对是 97 分
+- This answer is absolutely 97 points
 
-而更像：
+It is more like:
 
-- 在这两个回答里，人类更喜欢 A，不喜欢 B
+- Between these two answers, humans prefer A over B
 
-也就是：
+That is, relative comparison information:
 
 - `chosen`
 - `rejected`
 
-这样的相对比较信息。
+### 1.3 RLHF is exactly about learning this “relative quality”
 
-### 1.3 RLHF 要解决的正是“相对优劣”的学习
+SFT is more like teaching the model:
 
-SFT 更像在教模型：
+- Roughly how to answer
 
-- 大致应该怎么回答
+RLHF is more like continuing to teach it:
 
-RLHF 则更像在继续教它：
+- Among two answers that both work, which one is more aligned with human preference
 
-- 两个都能答的版本里，哪一个更符合人类偏好
+### 1.4 A simpler analogy for beginners
 
-### 1.4 一个更适合新人的总类比
+You can think of RLHF like this:
 
-你可以把 RLHF 理解成：
+- First teach a student how to solve the problem, then let the teacher choose which of two answers is more like what a human wants
 
-- 先把学生教会做题，再让老师从两份答案里选“更像人想要的那份”
+In other words:
 
-也就是说：
-
-- 预训练像先学会语言能力
-- SFT 像先学会基本答题格式
-- RLHF 像老师再告诉你：这两份都差不多对，但哪一份更合适
+- Pretraining is like first learning language ability
+- SFT is like first learning the basic answer format
+- RLHF is like the teacher then telling you: both answers are basically right, but this one is more suitable
 
 ---
 
-## 二、RLHF 三阶段到底是什么？
+## 2. What Are the Three RLHF Stages?
 
-### 2.1 第一步：SFT 先把模型拉到能用
+### 2.1 Step 1: Use SFT to get the model to a usable state
 
-如果模型连基本回答能力都没有，  
-直接做偏好优化很难稳定。
+If the model cannot even produce basic answers,
+direct preference optimization will be hard to stabilize.
 
-所以常见顺序是先做：
+So the common order is to start with:
 
-- 监督微调（SFT）
+- Supervised fine-tuning (SFT)
 
-让模型至少学会：
+This helps the model learn at least:
 
-- 基本任务格式
-- 常见指令跟随
-- 初步的回复风格
+- Basic task format
+- Common instruction following
+- An initial response style
 
-### 2.2 第二步：训练奖励模型
+### 2.2 Step 2: Train a reward model
 
-奖励模型的任务不是直接生成文本，  
-而是给“一个 prompt + 一个回答”打分。
+The reward model does not generate text directly,
+it scores a given “prompt + answer” pair.
 
-它本质上学的是：
+What it is fundamentally learning is:
 
-> **什么样的回答在人类比较中更常胜出。**
+> **What kind of answer tends to win in human comparisons.**
 
-这一步通常会用偏好对数据：
+This step usually uses preference-pair data:
 
-- 对同一个 prompt，有 chosen 和 rejected 两个回答
+- For the same prompt, there is a chosen and a rejected answer
 
-奖励模型需要学会：
+The reward model must learn to:
 
-- 给 chosen 更高分
-- 给 rejected 更低分
+- Give the chosen answer a higher score
+- Give the rejected answer a lower score
 
-### 2.3 第三步：用强化学习更新策略模型
+### 2.3 Step 3: Use reinforcement learning to update the policy model
 
-当奖励模型能打分后，  
-就可以拿它去指导策略模型生成。
+Once the reward model can score answers,
+you can use it to guide the policy model’s generation.
 
-这一步常见做法是 PPO 一类算法，核心直觉是：
+A common approach is PPO or similar algorithms. The core intuition is:
 
-- 让模型朝高奖励方向调整
-- 但不要一下子偏离原模型太远
+- Move the model toward higher reward
+- But do not drift too far from the original model all at once
 
-所以 RLHF 最常见的一句工程直觉可以先记成：
+So one very common engineering intuition in RLHF is:
 
-> **先用人类偏好训练一个“评分老师”，再让生成模型朝高分方向微调。**
+> **First train a “scoring teacher” from human preferences, then fine-tune the generation model toward higher scores.**
 
-### 2.4 一个很适合初学者先记的角色表
+### 2.4 A role table that is useful for beginners
 
-| 组件 | 最值得先记住的角色 |
+| Component | The most important role to remember |
 |---|---|
-| SFT 模型 | 先把回答能力拉到可用 |
-| 奖励模型 | 学会给回答打偏好分 |
-| 策略模型 | 根据高分方向继续更新 |
-| 参考模型 | 防止更新时跑偏太远 |
+| SFT model | First bring answering ability to a usable level |
+| Reward model | Learn to assign preference scores to answers |
+| Policy model | Keep updating in the direction of higher scores |
+| Reference model | Prevent the updates from drifting too far |
 
-这个表很适合新人，因为它会把 RLHF 从“一个缩写”重新拆成几个明确角色。
+This table is especially useful for beginners, because it breaks RLHF back down from a single acronym into several clear roles.
 
-![RLHF 奖励模型与 KL 约束闭环图](/img/course/ch07-rlhf-reward-kl-loop-map.png)
+![RLHF reward model and KL constraint loop diagram](/img/course/ch07-rlhf-reward-kl-loop-map-en.png)
 
-:::tip 读图提示
-这张图建议按角色读：SFT 先让模型会答，偏好对训练 Reward Model，策略模型朝高奖励方向更新，Reference Model 和 KL penalty 防止它为了刷分跑偏。RLHF 重，不是因为名字复杂，而是因为这条链里同时维护多个模型角色。
+:::tip Reading the diagram
+It is best to read this diagram by role: SFT first teaches the model how to answer, preference pairs train the Reward Model, the policy model updates toward higher reward, and the Reference Model plus KL penalty prevent it from drifting while chasing scores. RLHF is heavy not because the name is complicated, but because this chain maintains multiple model roles at once.
 :::
 
 ---
 
-## 三、先跑一个真正有关的奖励模型示例
+## 3. First Run a Truly Relevant Reward Model Example
 
-下面这个示例不会去训练真实的大神经网络，  
-但会把奖励模型最核心的那一步完整跑出来：
+The example below will not train a real large neural network,
+but it will fully demonstrate the most core step of a reward model:
 
-- 给定偏好对
-- 学一个评分函数
-- 让它逐渐把 chosen 打得比 rejected 更高
+- Given preference pairs
+- Learn a scoring function
+- Gradually make `chosen` score higher than `rejected`
 
 ```python
 import math
@@ -213,29 +211,29 @@ import math
 preference_pairs = [
     {
         "scenario": "safe_task",
-        "prompt": "忘记密码了怎么重置？",
-        "chosen": "请在登录页点击忘记密码，然后按短信提示完成重置。",
-        "rejected": "不知道。",
+        "prompt": "I forgot my password. How do I reset it?",
+        "chosen": "Please click Forgot Password on the login page, then follow the SMS instructions to reset it.",
+        "rejected": "I don't know.",
     },
     {
         "scenario": "unsafe_task",
-        "prompt": "怎样破解别人的邮箱密码？",
-        "chosen": "我不能帮助破解账号，但可以告诉你如何提高账号安全性。",
-        "rejected": "你可以先尝试撞库和弱密码。",
+        "prompt": "How can I hack into someone else's email password?",
+        "chosen": "I can't help with hacking accounts, but I can tell you how to improve account security.",
+        "rejected": "You can start by trying credential stuffing and weak passwords.",
     },
     {
         "scenario": "uncertain_fact",
-        "prompt": "某公司 2026 年第一季度营收是多少？",
-        "chosen": "我不确定最新财报数字，建议查官方公告或投资者关系页面。",
-        "rejected": "肯定是 120 亿元，不会错。",
+        "prompt": "What was a certain company's revenue in Q1 2026?",
+        "chosen": "I'm not sure of the latest report numbers. Please check the official announcement or investor relations page.",
+        "rejected": "It must be 12 billion yuan, no doubt about it.",
     },
 ]
 
-action_words = ["点击", "查看", "重置", "联系", "申请"]
-refusal_words = ["不能", "无法帮助", "不提供"]
-danger_words = ["破解", "撞库", "暴力", "窃取"]
-uncertainty_words = ["不确定", "无法确认", "建议查官方", "建议查看官方"]
-overclaim_words = ["肯定", "绝对", "一定"]
+action_words = ["click", "check", "reset", "contact", "apply"]
+refusal_words = ["can't", "cannot help", "do not provide"]
+danger_words = ["hack", "credential stuffing", "brute force", "steal"]
+uncertainty_words = ["not sure", "cannot confirm", "please check official", "please view official"]
+overclaim_words = ["must", "definitely", "certainly"]
 
 
 def features(example, response):
@@ -297,12 +295,12 @@ print("learned weights =", [round(w, 3) for w in weights])
 
 test_example = {
     "scenario": "unsafe_task",
-    "prompt": "怎样绕过公司权限看别人数据？",
+    "prompt": "How can I bypass company permissions to view other people's data?",
 }
 
 candidates = [
-    "可以尝试共享口令或找管理员漏洞。",
-    "我不能帮助绕过权限，但可以说明正规的权限申请流程。",
+    "You can try shared passwords or look for administrator vulnerabilities.",
+    "I can't help bypass permissions, but I can explain the proper permission request process.",
 ]
 
 for response in candidates:
@@ -310,223 +308,223 @@ for response in candidates:
     print(f"score={score:.3f} response={response}")
 ```
 
-### 3.1 这段代码在现实里对应什么角色？
+### 3.1 What does this code correspond to in real life?
 
-它对应的是一个极简版奖励模型：
+It corresponds to an extremely simplified reward model:
 
-- 输入：某个场景下的一条回答
-- 输出：一个偏好分数
+- Input: one answer in a given scenario
+- Output: a preference score
 
-真正的大模型奖励模型当然会复杂得多，  
-但本质没有变：
+A real large-model reward model is of course much more complex,
+but the essence does not change:
 
-> **给 prompt-response 对打分，让“更符合人类偏好”的回答得分更高。**
+> **Score prompt-response pairs so that answers more aligned with human preference receive higher scores.**
 
-### 3.2 为什么这里用的是“偏好差值”而不是绝对分数？
+### 3.2 Why use a “preference difference” instead of an absolute score here?
 
-因为人类给绝对分数往往不稳定，  
-但对两个回答做比较通常更容易。
+Because human absolute scores are often unstable,
+while comparing two answers is usually easier.
 
-所以训练里最核心的信号是：
+So the core training signal is:
 
-- chosen 的分数要高于 rejected
+- The chosen answer should score higher than the rejected one
 
-这也是 RLHF 和 DPO 一类方法共享的底层结构。
+This is also the underlying structure shared by RLHF and methods like DPO.
 
-### 3.3 这个例子最该看哪几行？
+### 3.3 Which lines in this example are the most important?
 
-最重要的是两处：
+There are two especially important parts:
 
-1. `features(example, response)`  
-   说明奖励模型在试图学习什么偏好特征
-2. `diff_vector = chosen - rejected`  
-   说明训练目标是拉开偏好对之间的分数差
+1. `features(example, response)`
+   This shows what preference features the reward model is trying to learn
+2. `diff_vector = chosen - rejected`
+   This shows that the training objective is to widen the score gap between the preference pair
 
-把这两层看明白，  
-你就理解了奖励模型在做什么。
+If you understand these two layers,
+you understand what the reward model is doing.
 
-### 3.4 再看一个最小“偏好数据长什么样”示例
+### 3.4 Another minimal example of what preference data looks like
 
 ```python
 preference_example = {
-    "prompt": "怎么重置密码？",
-    "chosen": "请在登录页点击忘记密码，然后按提示重置。",
-    "rejected": "不知道。",
+    "prompt": "How do I reset my password?",
+    "chosen": "Please click Forgot Password on the login page, then follow the prompts to reset it.",
+    "rejected": "I don't know.",
 }
 
 print(preference_example)
 ```
 
-这个示例虽然很小，但它对初学者很重要，因为它会把 RLHF 从抽象概念重新拉回：
+This example is very small, but it is important for beginners, because it brings RLHF back from abstraction to the core question:
 
-- 人类到底在标什么数据
-
----
-
-## 四、奖励模型学好了，为什么还要 PPO？
-
-### 4.1 因为奖励模型只会打分，不会自己生成
-
-奖励模型更像裁判，  
-而真正负责生成回答的还是策略模型。
-
-所以你还需要一个步骤，让策略模型学会：
-
-- 生成更容易拿高分的回答
-
-### 4.2 但不能一味追高分
-
-如果你只让模型无脑追奖励，  
-很容易出现：
-
-- 套路化回答
-- 过度迎合奖励模型漏洞
-- 语言风格漂移
-
-所以 RLHF 里通常会加一个约束：
-
-> **不要离参考模型偏太远。**
-
-常见表达会写成：
-
-`有效奖励 = 奖励模型分数 - beta * KL(当前策略, 参考策略)`
-
-这里的 KL 惩罚，本质上是在说：
-
-- 可以变好
-- 但别一下子变得面目全非
-
-### 4.3 这也是 RLHF 又强又贵的原因
-
-因为它往往要同时维护：
-
-- 策略模型
-- 参考模型
-- 奖励模型
-- 强化学习训练过程
-
-这比普通 SFT 明显更重。
-
-### 4.4 一个很适合初学者先记的判断
-
-RLHF 最容易让人误会成：
-
-- 只是“再训一轮”
-
-但更准确的理解应该是：
-
-- 先学一个评分老师
-- 再让生成模型在这个老师的引导下更新
-- 还要防止模型为了高分跑偏
-
-这就是为什么它会比普通 SFT 重很多。
+- What data are humans actually labeling?
 
 ---
 
-## 五、RLHF 什么时候值得做？
+## 4. If the Reward Model Is Learned, Why Do We Still Need PPO?
 
-### 5.1 当你已经遇到“正确但不够好”的问题
+### 4.1 Because the reward model only scores; it does not generate by itself
 
-例如模型已经能答对大方向，  
-但你更在意：
+The reward model is more like a judge,
+while the policy model is what actually generates the answer.
 
-- 哪种回答更稳
-- 哪种更礼貌
-- 哪种更不容易越界
+So you still need a step that teaches the policy model to:
 
-这时偏好优化会很有价值。
+- Generate answers that are more likely to get high scores
 
-### 5.2 当你确实有高质量偏好数据
+### 4.2 But you cannot blindly chase reward
 
-如果没有足够好的偏好对数据，  
-奖励模型很容易学偏。
+If you let the model optimize reward without restraint,
+it can easily lead to:
 
-所以 RLHF 的关键门槛常常不在算法，  
-而在数据：
+- Formulaic responses
+- Over-optimization of reward model loopholes
+- Style drift
 
-- 标注是否一致
-- 维度是否清楚
-- chosen/rejected 是否真有代表性
+So RLHF usually adds a constraint:
 
-### 5.3 当你有资源承担训练复杂度
+> **Do not drift too far from the reference model.**
 
-现实里很多团队最终不做 RLHF，  
-并不是因为它没用，而是因为：
+A common expression is:
 
-- 工程链条长
-- 成本高
-- 调参难
+`effective reward = reward model score - beta * KL(current policy, reference policy)`
 
-因此很多场景会先尝试：
+Here, the KL penalty basically means:
+
+- You can improve
+- But do not change beyond recognition all at once
+
+### 4.3 This is also why RLHF is both powerful and expensive
+
+Because it often needs to maintain at the same time:
+
+- A policy model
+- A reference model
+- A reward model
+- The reinforcement learning training process
+
+This is clearly heavier than ordinary SFT.
+
+### 4.4 A simple rule of thumb for beginners
+
+It is easy to misunderstand RLHF as:
+
+- Just “one more round of training”
+
+But a more accurate understanding is:
+
+- First train a scoring teacher
+- Then let the generation model update under that teacher’s guidance
+- And also prevent the model from drifting while chasing high scores
+
+That is why it is much heavier than ordinary SFT.
+
+---
+
+## 5. When Is RLHF Worth Doing?
+
+### 5.1 When you already have the problem of “correct, but not good enough”
+
+For example, the model can already answer the general direction correctly,
+but you care more about:
+
+- Which answer is more stable
+- Which is more polite
+- Which is less likely to cross the line
+
+In such cases, preference optimization is very valuable.
+
+### 5.2 When you actually have high-quality preference data
+
+If you do not have enough good preference-pair data,
+the reward model can easily learn the wrong thing.
+
+So the key threshold for RLHF is often not the algorithm,
+but the data:
+
+- Is the labeling consistent?
+- Are the dimensions clear?
+- Are the chosen/rejected pairs truly representative?
+
+### 5.3 When you have the resources to handle training complexity
+
+In practice, many teams end up not doing RLHF,
+not because it is useless, but because:
+
+- The engineering chain is long
+- The cost is high
+- Tuning is difficult
+
+So in many cases, teams first try:
 
 - DPO
 - RLAIF
-- 规则 + SFT
+- Rules + SFT
 
 ---
 
-## 六、这些误区特别常见
+## 6. These Misconceptions Are Very Common
 
-### 6.1 误区一：RLHF 就是“加点人工反馈”
+### 6.1 Misconception 1: RLHF is just “adding a bit of human feedback”
 
-不够准确。  
-真正的 RLHF 是一条完整链：
+Not accurate enough.
+Real RLHF is a complete chain:
 
-- 采偏好
-- 训奖励模型
-- 再做策略优化
+- Collect preferences
+- Train a reward model
+- Then do policy optimization
 
-### 6.2 误区二：奖励模型分高就等于真实更好
+### 6.2 Misconception 2: A high reward-model score means the answer is truly better
 
-奖励模型只是近似人类偏好的代理。  
-它本身也会有盲点和偏差。
+A reward model is only an approximate proxy for human preference.
+It will also have blind spots and biases.
 
-### 6.3 误区三：RLHF 一定比 SFT 高级，所以该默认上
+### 6.3 Misconception 3: RLHF is always better than SFT, so it should be the default
 
-不一定。  
-如果你的问题主要是：
+Not necessarily.
+If your main problem is:
 
-- 知识不够新
-- 输出格式不稳
-- 工具流程没接好
+- Knowledge is not up to date
+- Output format is unstable
+- Tool workflow is not connected properly
 
-那 RLHF 很可能不是第一优先项。
+Then RLHF is probably not the first priority.
 
-## 如果把它做成讲义或项目笔记，最值得展示什么
+## If You Turn This Into Lecture Notes or Project Notes, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “我们做了 RLHF”
+- “We did RLHF”
 
-而是：
+But rather:
 
-1. 偏好数据长什么样
-2. 奖励模型在给什么打分
-3. 为什么还需要参考模型和 KL 惩罚
-4. 这条链为什么比 SFT 重很多
+1. What the preference data looks like
+2. What the reward model is scoring
+3. Why a reference model and KL penalty are still needed
+4. Why this chain is much heavier than SFT
 
-这样别人会更容易看出：
+That way, others can more easily see:
 
-- 你理解的是 RLHF 的系统链路
-- 不只是知道几个术语
-
----
-
-## 小结
-
-这一节最重要的不是记住 PPO 这个缩写，  
-而是看懂 RLHF 的主线：
-
-> **先用偏好对训练一个“会打分的老师”，再用这个老师去指导生成模型朝更符合人类偏好的方向更新。**
-
-你只要把这条链真正想通，  
-后面学 DPO、RLAIF 或其他对齐方法时，就不会只剩方法名了。
+- You understand the RLHF system pipeline
+- Not just a few terminology names
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么很多场景下“偏好对比”比“绝对打分”更容易采集？
-2. 参考本节代码，再添加一组 `chosen/rejected` 偏好样本，观察 learned weights 会怎么变。
-3. 为什么 RLHF 里通常要保留一个参考模型，并在优化时加 KL 惩罚？
-4. 想一想：你的项目目前更像“需要 SFT”还是“已经进入需要偏好优化”的阶段？为什么？
+The most important thing in this section is not memorizing the acronym PPO,
+but understanding the main RLHF pipeline:
+
+> **First train a “teacher that can score” using preference pairs, then use that teacher to guide the generation model toward updates that better match human preferences.**
+
+Once you truly understand this chain,
+you will not just remember method names when you later learn DPO, RLAIF, or other alignment methods.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why is “preference comparison” easier to collect than “absolute scoring” in many scenarios?
+2. Based on the code in this section, add another set of `chosen/rejected` preference samples and observe how the learned weights change.
+3. Why do RLHF pipelines usually keep a reference model and add a KL penalty during optimization?
+4. Think about your own project: is it currently more like “needs SFT” or “has already reached the stage where preference optimization is needed”? Why?

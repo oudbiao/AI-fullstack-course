@@ -1,114 +1,114 @@
 ---
 sidebar_position: 7
-title: "2025-2026 AI 应用技术地图"
-description: "系统梳理现代 AI 应用工程中的 RAGOps、AgentOps、MCP、多模态、模型工程、LLMOps、评估与上线架构。"
-keywords: [现代AI应用, RAGOps, AgentOps, MCP, LLMOps, 多模态AI, AI工程]
+title: "2025-2026 AI Application Technology Map"
+description: "A systematic overview of RAGOps, AgentOps, MCP, multimodal AI, model engineering, LLMOps, evaluation, and deployment architectures in modern AI application engineering."
+keywords: [modern AI applications, RAGOps, AgentOps, MCP, LLMOps, multimodal AI, AI engineering]
 ---
 
-# 2025-2026 AI 应用技术地图
+# 2025-2026 AI Application Technology Map
 
-![现代 AI 应用技术栈全景图](/img/course/intro-modern-ai-stack-map.png)
+![Modern AI application technology stack overview](/img/course/intro-modern-ai-stack-map-en.png)
 
-## 本节定位
+## What this section is about
 
-这一页是整套课程后半段的“现代技术总览”。你会看到 2025～2026 年 AI 应用工程的主线已经从“会调用大模型”升级为“能构建可检索、可行动、可评估、可监控、可部署的 AI 系统”。
+This page is the “modern technology overview” for the second half of the course. You will see that the main direction of AI application engineering in 2025–2026 has evolved from “knowing how to call an LLM” to “being able to build AI systems that are searchable, actionable, evaluable, monitorable, and deployable.”
 
-新人阅读这一页时，不需要记住所有新名词，只要先建立一张地图：RAG 解决知识接入，Agent 解决多步骤行动，多模态解决真实世界输入输出，模型工程解决成本和部署，LLMOps / RAGOps / AgentOps 解决长期运行和质量控制。
+As a beginner reading this page, you do not need to memorize every new term. First, build a map: RAG solves knowledge access, Agent solves multi-step actions, multimodal AI solves real-world input and output, model engineering solves cost and deployment, and LLMOps / RAGOps / AgentOps solve long-term operation and quality control.
 
-## 新人先记这 5 件事
+## First remember these 5 things
 
-| 技术块 | 解决的问题 | 课程里主要在哪里学 |
+| Technology block | Problem it solves | Where you mainly learn it in the course |
 |---|---|---|
-| RAGOps | 知识库能否持续更新、检索和评估 | 第 8 站 |
-| AgentOps | Agent 能否被追踪、控制和安全执行 | 第 9 站 |
-| 多模态 AI | AI 能否处理图片、PDF、音频、视频 | 第 10～12 站 |
-| 模型工程 | 如何在效果、成本、延迟之间取舍 | 第 6～8 站 |
-| LLMOps | Prompt、评估、日志、上线如何长期维护 | 第 7～9 站和毕业项目 |
+| RAGOps | Can the knowledge base be continuously updated, retrieved, and evaluated? | Station 8 |
+| AgentOps | Can an Agent be traced, controlled, and executed safely? | Station 9 |
+| Multimodal AI | Can AI handle images, PDFs, audio, and video? | Stations 10–12 |
+| Model engineering | How do you balance performance, cost, and latency? | Stations 6–8 |
+| LLMOps | How do you maintain Prompt, evaluation, logs, and deployment over time? | Stations 7–9 and the capstone project |
 
-## 现代 AI 系统不只是一个模型
+## A modern AI system is not just a model
 
-早期大模型应用常见形态是：用户输入问题，后端调用一个模型，模型返回答案。但真实产品很快会遇到问题：模型不知道私有资料，回答没有来源，工具调用不稳定，成本不可控，生成内容无法审核，线上失败无法复盘。
+A common early form of LLM application was: the user asks a question, the backend calls a model, and the model returns an answer. But real products quickly run into problems: the model does not know private data, answers have no sources, tool calling is unstable, costs are uncontrollable, generated content cannot be reviewed, and online failures cannot be traced back.
 
-所以现代 AI 应用更像一个系统，而不是一个单点模型。
+That is why modern AI applications are more like a system than a single model.
 
 ```mermaid
 flowchart LR
-  A[模型层] --> B[上下文层]
-  B --> C[检索层]
-  C --> D[工具层]
-  D --> E[工作流与 Agent]
+  A[Model layer] --> B[Context layer]
+  B --> C[Retrieval layer]
+  C --> D[Tool layer]
+  D --> E[Workflow and Agent]
 ```
 
 ```mermaid
 flowchart LR
-  E[工作流与 Agent] --> F[评估层]
-  F --> G[监控与治理]
-  G --> H[产品交互层]
+  E[Workflow and Agent] --> F[Evaluation layer]
+  F --> G[Monitoring and governance]
+  G --> H[Product interaction layer]
 ```
 
-看懂这两段图，就能理解为什么课程后半段要从 Prompt 进入 RAG、Agent、多模态、部署和评估。真正的能力不是“调一次模型成功”，而是让系统在不同用户、不同资料、不同失败场景下仍然能被检查和改进。
+Once you understand these two diagrams, you will see why the second half of the course moves from Prompt into RAG, Agent, multimodal AI, deployment, and evaluation. The real skill is not “successfully calling a model once,” but making the system inspectable and improvable across different users, different data, and different failure scenarios.
 
-## RAGOps：让知识库不是一次性 Demo
+## RAGOps: making a knowledge base more than a one-time demo
 
-RAGOps 可以理解成“围绕 RAG 系统的运行、评估和维护方法”。普通 RAG 只关心能不能检索并回答；RAGOps 还关心文档是否更新、索引是否过期、召回是否稳定、引用是否可信、成本和延迟是否可接受。
+RAGOps can be understood as the engineering methods for operating, evaluating, and maintaining a RAG system. Basic RAG only cares whether it can retrieve and answer; RAGOps also cares whether documents are updated, whether indexes are stale, whether recall is stable, whether citations are trustworthy, and whether cost and latency are acceptable.
 
-现代 RAG 常见技术包括 Hybrid Search、Reranking、Query Rewrite、Multi-query Retrieval、GraphRAG、Agentic RAG 和 Multimodal RAG。它们解决的问题不同：Hybrid Search 避免纯向量检索漏掉关键词，Reranking 让召回结果重新排序，Query Rewrite 让含糊问题变得更适合检索，GraphRAG 适合跨文档实体关系，Agentic RAG 让系统能多轮判断还要不要继续查资料，多模态 RAG 则把图片、表格、PDF 和截图纳入知识来源。
+Common modern RAG techniques include Hybrid Search, Reranking, Query Rewrite, Multi-query Retrieval, GraphRAG, Agentic RAG, and Multimodal RAG. They solve different problems: Hybrid Search avoids missing keywords with pure vector retrieval, Reranking reorders retrieved results, Query Rewrite makes vague questions more suitable for retrieval, GraphRAG is good for cross-document entity relationships, Agentic RAG lets the system decide across multiple rounds whether it should continue looking up information, and Multimodal RAG brings images, tables, PDFs, and screenshots into the knowledge sources.
 
-这一部分会主要落在第 8 站：LLM 应用开发与 RAG。
+This part will mainly appear in Station 8: LLM Application Development and RAG.
 
-## AgentOps：让智能体能被追踪和控制
+## AgentOps: making Agents traceable and controllable
 
-AgentOps 可以理解成“围绕 Agent 的执行轨迹、工具调用、权限、安全、评估和部署的工程方法”。一个 Agent 不应该只是看起来会行动，还要知道它为什么行动、调用了什么工具、花了多少成本、失败时怎么恢复、什么时候需要人工确认。
+AgentOps can be understood as the engineering approach around an Agent’s execution traces, tool calls, permissions, safety, evaluation, and deployment. An Agent should not merely look like it can act; it should also be clear why it acted, which tools it called, how much it cost, how it recovers when it fails, and when human confirmation is needed.
 
-现代 Agent 的重点不是完全放任模型自由发挥，而是把工作流、工具协议和安全边界结合起来。MCP 这类协议让模型和工具、文件、数据库、业务系统之间的连接更标准；Agentic Workflow 让开放任务和固定流程结合；Human-in-the-loop 让高风险步骤保留人工确认；Agent Observability 记录计划、工具调用、结果和错误。
+The key idea in modern Agents is not to let the model act completely freely, but to combine workflows, tool protocols, and safety boundaries. Protocols like MCP make connections between models, tools, files, databases, and business systems more standardized; Agentic Workflow combines open-ended tasks with fixed processes; Human-in-the-loop keeps human confirmation for high-risk steps; and Agent Observability records plans, tool calls, results, and errors.
 
-这一部分会主要落在第 9 站：AI Agent 与智能体系统。
+This part will mainly appear in Station 9: AI Agents and Agent Systems.
 
-## 多模态 AI：从文字助手到真实世界助手
+## Multimodal AI: from text assistant to real-world assistant
 
-多模态 AI 的重点不是“生成图片很漂亮”，而是让 AI 能处理真实世界里的多种输入输出：截图、图表、PDF、文档页面、语音、视频、图片和文本。现代应用里，多模态能力经常和 RAG、Agent、内容生成、审核工作流结合。
+The focus of multimodal AI is not “making pretty images,” but enabling AI to handle many kinds of real-world input and output: screenshots, charts, PDFs, document pages, speech, video, images, and text. In modern applications, multimodal capabilities are often combined with RAG, Agent, content generation, and review workflows.
 
-例如，一个课程资料助手可以读取 Markdown，也可以理解课件截图和 PDF 表格；一个研究 Agent 可以看网页截图、提取图表信息、调用工具生成报告；一个 AIGC 工作台可以从主题生成文案、图片提示词、分镜脚本、语音稿和审核清单。
+For example, a course materials assistant can read Markdown and also understand lecture screenshots and PDF tables; a research Agent can look at webpage screenshots, extract chart information, and call tools to generate reports; an AIGC workspace can generate copy, image prompts, storyboard scripts, voice scripts, and review checklists from a topic.
 
-这一部分会主要落在第 12 站：AIGC 与多模态，也会和第 8 站的文档解析、多模态 RAG，以及第 9 站的多模态 Agent 产生连接。
+This part will mainly appear in Station 12: AIGC and Multimodal AI, and it will also connect with document parsing and multimodal RAG in Station 8, as well as multimodal Agents in Station 9.
 
-## 模型工程：不是永远调用最强模型
+## Model engineering: not always using the strongest model
 
-真实项目不一定永远使用最强、最贵、最大的模型。很多场景需要在效果、延迟、成本、隐私和部署复杂度之间取平衡。
+In real projects, you do not always need the strongest, most expensive, or largest model. Many scenarios require balancing performance, latency, cost, privacy, and deployment complexity.
 
-现代模型工程会考虑小模型、模型路由、量化、蒸馏、LoRA / QLoRA、本地部署、混合部署、缓存、批处理和推理优化。一个系统可能会用便宜模型处理简单任务，用强模型处理复杂推理，用视觉模型处理图片，用本地模型处理隐私数据。
+Modern model engineering considers small models, model routing, quantization, distillation, LoRA / QLoRA, local deployment, hybrid deployment, caching, batching, and inference optimization. One system may use a cheap model for simple tasks, a strong model for complex reasoning, a vision model for images, and a local model for private data.
 
-这一部分会落在第 6 站的深度学习基础、第 7 站的大模型原理与微调、第 8 站的模型部署和工程化实践里。
+This part appears in Station 6’s deep learning basics, Station 7’s LLM principles and fine-tuning, and Station 8’s model deployment and engineering practices.
 
-## LLMOps：把大模型应用当成长期运行的软件
+## LLMOps: treating LLM applications as long-running software
 
-LLMOps 关注的是大模型应用的全生命周期：Prompt 版本管理、评估集、自动化测试、日志、Trace、Token 成本、延迟、模型版本变化、权限控制、内容安全和上线回滚。
+LLMOps focuses on the full lifecycle of LLM applications: Prompt versioning, evaluation sets, automated testing, logs, traces, token cost, latency, model version changes, access control, content safety, and deployment rollback.
 
-如果没有 LLMOps，一个应用可能今天回答很好，明天因为文档更新、Prompt 改动、模型版本变化或用户问题变化而变差，却没人知道原因。课程里的工程化部分会逐步把这些能力加入项目：先记录日志，再设计评估集，再加入监控和成本统计，最后形成上线检查清单。
+Without LLMOps, an application may answer well today, but get worse tomorrow because of document updates, Prompt changes, model version changes, or changes in user questions, and nobody knows why. The engineering parts of the course will gradually add these capabilities to the project: first logging, then evaluation sets, then monitoring and cost statistics, and finally a deployment checklist.
 
-## 现代 AI 应用的最小闭环
+## The minimum closed loop of a modern AI application
 
-无论你做 RAG、Agent 还是多模态应用，都可以用下面这条闭环检查系统是否可靠。
+Whether you are building RAG, Agent, or multimodal applications, you can use the following loop to check whether the system is reliable.
 
 ```mermaid
 flowchart LR
-  A[输入] --> B[上下文与资料]
-  B --> C[模型或工具]
-  C --> D[输出]
+  A[Input] --> B[Context and data]
+  B --> C[Model or tool]
+  C --> D[Output]
 ```
 
 ```mermaid
 flowchart LR
-  D[输出] --> E[评估]
-  E --> F[日志与监控]
-  F --> G[改进]
-  G --> B[上下文与资料]
+  D[Output] --> E[Evaluation]
+  E --> F[Logs and monitoring]
+  F --> G[Improvement]
+  G --> B[Context and data]
 ```
 
-如果一个项目只有输入和输出，没有评估、日志和改进，它还只是 Demo。如果它能知道自己用了哪些资料、调用了哪些工具、为什么失败、怎么比较优化前后效果，它才开始接近真实 AI 工程。
+If a project only has input and output, but no evaluation, logs, or improvement, it is still just a demo. If it can tell you which data it used, which tools it called, why it failed, and how to compare results before and after optimization, then it is starting to approach real AI engineering.
 
-## 学习建议
+## Learning advice
 
-第一次读这一页时，只要记住四句话：RAG 负责把外部知识接进来，Agent 负责围绕目标执行多步骤任务，多模态负责处理真实世界输入输出，Ops 负责让系统长期稳定运行。
+The first time you read this page, just remember four sentences: RAG brings external knowledge in, Agent executes multi-step tasks around a goal, multimodal AI handles real-world input and output, and Ops keeps the system stable over time.
 
-进入具体章节时，不要把新技术当成名词清单。每学一个技术，都要问：它解决什么失败？什么时候不该用？最小例子怎么做？如何评估？如何写进项目 README？这样你学到的就不是热点，而是可迁移的工程能力。
+When you move into the specific chapters, do not treat new technologies as a list of terms. Every time you learn a technology, ask: What failure does it solve? When should it not be used? What is the smallest example? How do you evaluate it? How do you write it into the project README? In this way, what you learn is not just a trend, but transferable engineering capability.

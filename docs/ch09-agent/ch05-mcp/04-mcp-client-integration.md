@@ -1,74 +1,74 @@
 ---
-title: "5.5 MCP Client 集成"
+title: "5.5 MCP Client Integration"
 sidebar_position: 28
-description: "从工具发现、调用调度、错误处理到最小 client 实现，理解客户端怎样真正消费 MCP Server 暴露的能力。"
+description: "From tool discovery and call dispatch to error handling and a minimal client implementation, understand how the client actually consumes the capabilities exposed by an MCP Server."
 keywords: [MCP client, tool discovery, client integration, dispatch, protocol client]
 ---
 
-# MCP Client 集成
+# MCP Client Integration
 
-:::tip 本节定位
-前面我们已经从 server 视角看了 MCP。  
-这一节换个方向，从 client 视角来看：
+:::tip Section Overview
+So far, we have looked at MCP from the server side.
+In this section, let’s switch perspectives and look at it from the client side:
 
-> **客户端怎样发现、选择并调用 MCP Server 的能力？**
+> **How does the client discover, choose, and call the capabilities exposed by an MCP Server?**
 
-这一步很关键，因为真正用工具的往往不是 server，而是 client。
+This step is very important, because in real usage, the one that actually uses the tools is often not the server, but the client.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 MCP Client 的核心职责
-- 学会把“发现工具”和“调用工具”分成两步看
-- 看懂一个最小 MCP Client 调用流程
-- 理解 client 侧为什么仍然需要选择策略、失败处理和缓存
-
----
-
-## 一、Client 和 Server 的职责到底怎么分？
-
-### 1.1 Server 提供能力
-
-Server 更像“工具仓库管理员”，它负责：
-
-- 列出工具
-- 暴露能力
-- 执行调用
-
-### 1.2 Client 负责消费能力
-
-Client 更像“真正来办事的人”，它负责：
-
-- 发现工具
-- 决定调用哪个
-- 组织参数
-- 接收结果
-
-所以非常重要的一点是：
-
-> **MCP Client 不是被动转发器，它通常仍然有自己的调用决策逻辑。**
+- Understand the core responsibilities of an MCP Client
+- Learn to think about “discovering tools” and “calling tools” as two separate steps
+- Understand a minimal MCP Client call flow
+- Understand why the client side still needs selection strategies, failure handling, and caching
 
 ---
 
-## 二、Client 最先要学会什么？先发现工具
+## 1. How are the responsibilities of Client and Server divided?
 
-### 2.1 为什么不能直接写死？
+### 1.1 The Server provides capabilities
 
-如果 client 一开始就把工具全写死：
+The Server is more like a “tool warehouse manager.” It is responsible for:
 
-- server 工具一变就要改代码
-- 换一个 server 也要重写
+- Listing tools
+- Exposing capabilities
+- Executing calls
 
-这和 MCP 想解决的问题正好反着来。
+### 1.2 The Client consumes capabilities
 
-### 2.2 一个最小发现示例
+The Client is more like the “person actually doing the work.” It is responsible for:
+
+- Discovering tools
+- Deciding which tool to call
+- Organizing arguments
+- Receiving results
+
+So one very important point is:
+
+> **An MCP Client is not a passive relay. It usually still has its own decision-making logic for calls.**
+
+---
+
+## 2. What should the Client learn first? Discover tools first
+
+### 2.1 Why not hard-code everything?
+
+If the client hard-codes all tools from the beginning:
+
+- When server tools change, the code must change too
+- If you switch to a different server, you must rewrite the client
+
+That is the exact opposite of what MCP is trying to solve.
+
+### 2.2 A minimal discovery example
 
 ```python
 class MockMCPServer:
     def list_tools(self):
         return [
-            {"name": "search_docs", "description": "搜索课程文档"},
-            {"name": "get_weather", "description": "查询天气"}
+            {"name": "search_docs", "description": "Search course documents"},
+            {"name": "get_weather", "description": "Query the weather"}
         ]
 
 server = MockMCPServer()
@@ -78,63 +78,63 @@ for tool in tools:
     print(tool)
 ```
 
-### 2.3 这一步在教你什么？
+### 2.3 What is this step teaching you?
 
-它在教你：
+It is teaching you this:
 
-> client 先要知道“能用什么”，再谈“怎么用”。 
+> The client must first know “what is available” before thinking about “how to use it.”
 
-这就是发现阶段的价值。
-
----
-
-## 三、发现完以后，client 还要做什么？
-
-### 3.1 选择工具
-
-不是所有工具都要调。  
-客户端通常要先判断：
-
-- 当前问题需不需要工具
-- 如果需要，调哪个
-
-### 3.2 组织参数
-
-就算选对工具，也还要正确组织参数。
-
-### 3.3 处理错误
-
-如果：
-
-- server 超时
-- 工具不存在
-- 参数校验失败
-
-client 不能只崩掉，还要决定：
-
-- 要不要重试
-- 要不要降级
-- 要不要换工具
+That is the value of the discovery phase.
 
 ---
 
-## 四、一个最小 Client 示例
+## 3. After discovery, what else does the client need to do?
 
-### 4.1 可运行代码
+### 3.1 Choose a tool
+
+Not every tool needs to be called.
+The client usually needs to judge first:
+
+- Whether the current problem needs a tool
+- If it does, which tool to call
+
+### 3.2 Organize arguments
+
+Even if the correct tool is chosen, the arguments still need to be organized properly.
+
+### 3.3 Handle errors
+
+If:
+
+- The server times out
+- The tool does not exist
+- Argument validation fails
+
+the client cannot just crash. It also needs to decide:
+
+- Whether to retry
+- Whether to fall back
+- Whether to switch tools
+
+---
+
+## 4. A minimal Client example
+
+### 4.1 Runnable code
 
 ```python
 class MockMCPServer:
     def list_tools(self):
         return [
-            {"name": "search_docs", "description": "搜索课程文档"},
-            {"name": "get_weather", "description": "查询天气"}
+            {"name": "search_docs", "description": "Search course documents"},
+            {"name": "get_weather", "description": "Query the weather"}
         ]
 
     def call_tool(self, name, arguments):
         if name == "search_docs":
-            return {"result": f"检索结果: {arguments['query']}"}
+            return {"result": f"Search result: {arguments['query']}"}
         if name == "get_weather":
-            return {"result": f"{arguments['city']} 当前晴天 22 度"}
+            return {"result": f"{arguments['city']} is sunny, 22 degrees right now"}
         return {"error": "unknown_tool"}
 
 class MockMCPClient:
@@ -153,101 +153,101 @@ server = MockMCPServer()
 client = MockMCPClient(server)
 
 print(client.discover())
-print(client.call("search_docs", {"query": "退款政策"}))
+print(client.call("search_docs", {"query": "refund policy"}))
 ```
 
-### 4.2 这段代码已经在说明什么？
+### 4.2 What is this code already showing?
 
-它已经体现了 client 的两大主功能：
+It already shows the client’s two main functions:
 
-1. 发现
-2. 调用
+1. Discovery
+2. Calling
 
-这就是 MCP Client 的最小闭环。
+This is the minimal closed loop of an MCP Client.
 
 ---
 
-## 五、Client 其实还有“策略层”
+## 5. The Client actually has a “strategy layer”
 
-### 5.1 为什么说 client 不只是协议调用器？
+### 5.1 Why say the client is not just a protocol caller?
 
-因为真实系统里，client 往往还要决定：
+Because in real systems, the client often still needs to decide:
 
-- 当前问题需不需要走 MCP
-- 如果走，优先哪个 server / 哪个工具
-- 失败后如何回退
+- Whether the current problem should go through MCP
+- If so, which server / which tool has priority
+- How to fall back after a failure
 
-### 5.2 一个简单工具选择器
+### 5.2 A simple tool selector
 
 ```python
 def choose_tool(user_query, tools):
     tool_names = [t["name"] for t in tools]
 
-    if "退款" in user_query and "search_docs" in tool_names:
-        return {"name": "search_docs", "arguments": {"query": "退款政策"}}
+    if "refund" in user_query and "search_docs" in tool_names:
+        return {"name": "search_docs", "arguments": {"query": "refund policy"}}
 
-    if "天气" in user_query and "get_weather" in tool_names:
-        return {"name": "get_weather", "arguments": {"city": "北京"}}
+    if "weather" in user_query and "get_weather" in tool_names:
+        return {"name": "get_weather", "arguments": {"city": "Beijing"}}
 
     return None
 
 tools = client.discover()
-decision = choose_tool("退款政策是什么？", tools)
+decision = choose_tool("What is the refund policy?", tools)
 print(decision)
 print(client.call(decision["name"], decision["arguments"]))
 ```
 
-这说明 client 往往还承担一层轻量调度职责。
+This shows that the client often also takes on a lightweight scheduling role.
 
 ---
 
-## 六、错误处理为什么对 client 特别重要？
+## 6. Why is error handling especially important for the client?
 
-### 6.1 因为 client 是“最先感知失败的一方”
+### 6.1 Because the client is the first one to feel the failure
 
-server 那边可能返回：
+The server side may return:
 
 - unknown_tool
 - invalid_arguments
 - timeout
 
-而 client 必须决定接下来怎么做。
+And the client must decide what to do next.
 
-### 6.2 一个最小错误处理示例
+### 6.2 A minimal error handling example
 
 ```python
 def safe_call(client, name, arguments):
     result = client.call(name, arguments)
     if "error" in result:
-        return {"ok": False, "fallback": "当前工具不可用，请稍后重试。"}
+        return {"ok": False, "fallback": "This tool is currently unavailable. Please try again later."}
     return {"ok": True, "data": result["result"]}
 
-print(safe_call(client, "search_docs", {"query": "退款政策"}))
+print(safe_call(client, "search_docs", {"query": "refund policy"}))
 print(safe_call(client, "bad_tool", {}))
 ```
 
-这一步让系统从：
+This step turns the system from:
 
-- “一错就崩”
+- “Crash on the first error”
 
-变成：
+into:
 
-- “一错也能兜住”
+- “Absorb errors gracefully”
 
 ---
 
-## 七、为什么有时 client 也需要缓存？
+## 7. Why do clients sometimes need caching too?
 
-### 7.1 一个很现实的问题
+### 7.1 A very practical question
 
-如果你每次请求都重新 `list_tools()`，会不会浪费？
+If you call `list_tools()` again for every request, wouldn’t that be wasteful?
 
-很多时候：
+In many cases:
 
-- 工具列表变化没那么频繁
-- 每次重新发现会增加延迟
+- The tool list does not change that often
+- Rediscovering every time adds latency
 
-### 7.2 一个最小缓存思路
+### 7.2 A minimal caching idea
 
 ```python
 class CachedMCPClient(MockMCPClient):
@@ -261,43 +261,43 @@ print(cached_client.discover_once())
 print(cached_client.discover_once())
 ```
 
-这虽然简单，但已经体现出：
+Although simple, it already shows:
 
-> client 也不只是“转发器”，它本身也有状态和优化空间。 
-
----
-
-## 八、Client 集成里最常见的坑
-
-### 8.1 只会调，不会选
-
-如果 client 不做选择策略，很容易：
-
-- 工具虽多，但不会用
-
-### 8.2 只看成功，不看失败路径
-
-一旦 server 出错，系统体验就会突然变差。
-
-### 8.3 每次都重新发现工具
-
-可能会浪费很多不必要的开销。
+> The client is not just a “relay”; it also has state and room for optimization.
 
 ---
 
-## 小结
+## 8. Common pitfalls in client integration
 
-这一节最重要的不是写出一个能调 server 的类，而是理解：
+### 8.1 Being able to call, but not choose
 
-> **MCP Client 的核心，不只是“发请求”，而是把“发现工具、选择工具、组织参数、处理结果”整成一个稳定消费层。**
+If the client does not do selection strategy, it is easy to end up with:
 
-client 做得越成熟，server 侧的能力就越容易真正被上层系统利用。
+- Many tools, but no idea how to use them
+
+### 8.2 Looking only at success, not at failure paths
+
+Once the server fails, the system experience can suddenly get much worse.
+
+### 8.3 Rediscovering tools every time
+
+This may waste a lot of unnecessary overhead.
 
 ---
 
-## 练习
+## Summary
 
-1. 给 `MockMCPServer` 再加一个 `read_file` 工具，然后扩展 client 选择逻辑。
-2. 想一想：为什么有些系统适合每次都重新发现工具，而有些适合做缓存？
-3. 给 `safe_call()` 再加一个“出错后重试一次”的逻辑。
-4. 用自己的话解释：为什么说 MCP Client 通常还要有“策略层”？
+The most important thing in this section is not to write a class that can call the server, but to understand:
+
+> **The core of an MCP Client is not just “sending requests,” but turning “tool discovery, tool selection, argument organization, and result handling” into a stable consumption layer.**
+
+The more mature the client is, the easier it becomes for the capabilities on the server side to be truly used by upper-layer systems.
+
+---
+
+## Exercises
+
+1. Add a `read_file` tool to `MockMCPServer`, then extend the client’s selection logic.
+2. Think about this: why are some systems suitable for rediscovering tools on every request, while others are better with caching?
+3. Add a “retry once after failure” behavior to `safe_call()`.
+4. Explain in your own words: why does an MCP Client usually also need a “strategy layer”?

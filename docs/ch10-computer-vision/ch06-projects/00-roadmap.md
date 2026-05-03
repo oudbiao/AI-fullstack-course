@@ -1,122 +1,121 @@
 ---
-title: "9.1 学前导读：综合项目这一章到底该怎么学"
+title: "9.1 Pre-reading Guide: How Should You Study This Comprehensive Projects Chapter?"
 sidebar_position: 0
-description: "先建立计算机视觉项目章的学习地图：图像分类、目标检测、图像分割和行业场景如何按数据、标注、训练、评估和展示形成作品集闭环。"
-keywords: [CV项目导读, 安防检测, 医学影像, 图像分类项目, 目标检测项目]
+description: "First build a learning map for the Computer Vision projects chapter: how image classification, object detection, image segmentation, and industry scenarios form a portfolio loop around data, annotation, training, evaluation, and presentation."
+keywords: [CV project guide, security inspection, medical imaging, image classification project, object detection project]
 ---
 
-# 学前导读：综合项目这一章到底该怎么学
+# Pre-reading Guide: How Should You Study This Comprehensive Projects Chapter?
 
-这一章不是继续堆模型，而是把前面学过的视觉任务真正装进一个应用场景。
+This chapter is not about stacking more models. Instead, it is about putting the vision tasks you have learned into a real application scenario.
 
-计算机视觉项目的核心不是“我用了哪个模型”，而是：输入图像是什么，标注标准是什么，模型输出是什么，评价指标是什么，错误案例在哪里，结果如何展示给真实使用者。
+The core of a computer vision project is not “which model did I use,” but: what the input image is, what the annotation standard is, what the model output is, what the evaluation metric is, where the error cases are, and how the results are presented to real users.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Whole Course
 
-第 10 章计算机视觉（方向选修）前面已经学过视觉基础、图像分类、目标检测、图像分割和高级视觉方向。综合项目是这一方向的出口，要把这些任务放进真实场景中，例如安防检测、工业质检、医学影像、文档 OCR 或商品识别。
+In Chapter 10, Computer Vision (elective track), you have already learned vision basics, image classification, object detection, image segmentation, and advanced vision directions. Comprehensive projects are the exit point of this track, where you put these tasks into real scenarios such as security inspection, industrial quality inspection, medical imaging, document OCR, or product recognition.
 
-从课程主线看，视觉项目也会为后面的多模态和 AIGC 打基础。因为多模态系统里的图像理解能力，仍然离不开分类、检测、分割、OCR、错误分析和数据质量意识。
+From the overall course perspective, vision projects also lay the foundation for the later multimodal and AIGC stages. This is because the image understanding ability in multimodal systems still depends on classification, detection, segmentation, OCR, error analysis, and awareness of data quality.
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：如何把场景需求转成视觉任务；如何收集和标注图像数据；如何选择分类、检测或分割方案；如何用 accuracy、F1、mAP、IoU、Dice 等指标评估；如何展示模型成功案例、失败案例和业务风险。
+This chapter answers five questions: how to turn scenario requirements into vision tasks; how to collect and annotate image data; how to choose a classification, detection, or segmentation solution; how to evaluate using metrics such as accuracy, F1, mAP, IoU, and Dice; and how to present successful cases, failure cases, and business risks.
 
-新人最容易犯的错误，是只追模型架构，不看数据和标注。视觉项目里，数据质量、类别定义、标注一致性、光照角度、遮挡情况和样本分布，往往比换一个模型更影响最终效果。
+A common mistake for beginners is focusing only on model architecture and ignoring data and annotation. In vision projects, data quality, class definitions, annotation consistency, lighting and viewing angles, occlusion, and sample distribution often affect the final result more than switching to another model.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先做图像分类项目，因为它最容易跑通数据准备、训练、评估和结果展示。然后做目标检测项目，练习框标注、IoU、mAP 和误报漏报分析。最后根据兴趣选择图像分割、OCR、工业质检或医学影像项目，进一步理解像素级输出和高风险场景的评估要求。
+It is recommended to start with an image classification project, because it is the easiest way to get through data preparation, training, evaluation, and result presentation. Then move on to an object detection project to practice box annotation, IoU, mAP, and false-positive/false-negative analysis. Finally, choose an image segmentation, OCR, industrial inspection, or medical imaging project based on your interests to further understand pixel-level outputs and the evaluation requirements of high-risk scenarios.
 
-![视觉任务输出粒度进阶图](/img/course/ch10-visual-task-progression-map.png)
+![Progression map of output granularity in vision tasks](/img/course/ch10-visual-task-progression-map-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：视觉项目是“数据标注 + 模型训练 + 指标评估 + 失败案例展示”的闭环。
+The main thread of this chapter can be summarized as: a vision project is a closed loop of “data annotation + model training + metric evaluation + failure case presentation.”
 
-![视觉项目交付闭环图](/img/course/ch10-projects-delivery-loop.png)
+![Closed-loop delivery diagram for vision projects](/img/course/ch10-projects-delivery-loop-en.png)
 
-看懂这条线后，你会知道视觉项目展示不能只放一张预测图。你还应该展示数据样例、标注规则、指标、混淆矩阵或检测可视化、失败案例和改进方向。
+Once you understand this thread, you will know that a vision project presentation should not only include one prediction image. You should also present data samples, annotation rules, metrics, confusion matrices or detection visualizations, failure cases, and improvement directions.
 
-## 两个项目分别在练什么
+## What the Two Projects Are Training
 
-| 项目 | 你真正要练什么 |
+| Project | What You Really Need to Practice |
 |---|---|
-| 安防检测 | 把检测模型放进告警场景里思考误报和漏报 |
-| 医学影像 | 把分割 / 分类结果放进高风险场景里思考评估和责任边界 |
+| Security inspection | Think about false positives and false negatives when placing a detection model into an alert scenario |
+| Medical imaging | Think about evaluation and responsibility boundaries when placing segmentation/classification results into a high-risk scenario |
 
-## 这一章和后面阶段的关系
+## How This Chapter Connects to Later Stages
 
-视觉项目会直接连接多模态阶段。图文问答、截图理解、文档解析和 AIGC 创作都需要你理解图像输入、视觉输出、结果可视化和失败边界。
+Vision projects connect directly to the multimodal stage. Image-text question answering, screenshot understanding, document parsing, and AIGC creation all require you to understand image input, visual output, result visualization, and failure boundaries.
 
-如果这一章没学稳，后面常见的问题是：多模态模型看起来会识图，但你不知道它错在哪里；AIGC 图像结果没有审核标准；视觉项目只展示成功样例，不知道误报漏报意味着什么。
+If you do not learn this chapter well, common problems later are: the multimodal model seems to recognize images, but you do not know where it is wrong; there is no review standard for AIGC image results; and vision projects only show successful samples, without understanding what false positives and false negatives mean.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project gets running, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter for gap-filling and engineering practice: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Recommended Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its position in the whole course in one sentence |
+| What are the minimum input and output? | You can describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you leave behind after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Project Exit Task
 
-学完这一章后，建议完成一个“可展示视觉项目”。最小版本可以是图像分类，包含数据集说明、训练/验证划分、模型、指标、预测样例和错误分析。进阶版本可以做安全帽检测、车辆检测、缺陷检测、医学分割或 OCR，并展示标注样例和模型可视化结果。
+After finishing this chapter, it is recommended that you complete a “presentable vision project.” The minimal version can be image classification, including a dataset description, training/validation split, model, metrics, prediction examples, and error analysis. An advanced version can be safety helmet detection, vehicle detection, defect detection, medical segmentation, or OCR, along with annotation examples and model visualization results.
 
-作品集版本建议补充项目背景、任务定义、数据来源、标注规范、评价指标、成功/失败案例、部署设想和风险说明。
+For a portfolio version, it is recommended to add project background, task definition, data source, annotation rules, evaluation metrics, successful/failure cases, deployment ideas, and risk notes.
 
+## Debug Detective Case
 
-## Debug 侦探案件
-
-| 案件 | 内容 |
+| Case | Content |
 |---|---|
-| 案件名 | 视觉线索误判案 |
-| 案发现场 | 模型或 OCR 对某些图片表现很好，对另一些图片明显失败。 |
-| 侦查步骤 | 检查图片尺寸、光照、标注、类别分布和失败样本共同特征。 |
-| 结案证据 | 失败图片、人工标注、错误归因表。 |
+| Case name | Visual clue misjudgment case |
+| Scene | The model or OCR performs very well on some images but clearly fails on others. |
+| Investigation steps | Check image size, lighting, annotations, class distribution, and the common features of failed samples. |
+| Closing evidence | Failed images, human annotations, error attribution table. |
 
-项目练习不要只保留成功截图。至少挑一个真实失败样本，按“现象、线索、嫌疑原因、侦查步骤、修复动作、回归检查”写进 `reports/failure_cases.md`，这样项目会更像真实工程作品。
+When doing project practice, do not keep only successful screenshots. At minimum, choose one real failure sample and write it into `reports/failure_cases.md` using the format “phenomenon, clue, suspected cause, investigation steps, fix action, regression check.” This will make the project feel more like a real engineering deliverable.
 
-## 项目交付物标准
+## Project Delivery Standard
 
-每个视觉综合项目都建议按同一套作品集标准交付，而不是只展示一张预测成功的图片。最小交付物应该包括：一份 README、一条可复现运行命令、一组示例输入输出、数据与标注说明、一次失败样本分析，以及下一步改进计划。
+Each computer vision comprehensive project is recommended to follow the same portfolio standard, rather than showing only one image where the prediction succeeded. The minimum deliverables should include: a README, one reproducible run command, a set of example inputs and outputs, data and annotation documentation, one failure sample analysis, and a next-step improvement plan.
 
-| 交付物 | 最低要求 | 进阶要求 |
+| Deliverable | Minimum Requirement | Advanced Requirement |
 |---|---|---|
-| README | 写清项目目标、运行方式、依赖和示例 | 增加视觉任务边界、数据来源和部署设想 |
-| 示例输入输出 | 至少保留 1 张输入图和预测结果 | 保留正确、误报、漏报和边界案例 |
-| 评估记录 | 写清 accuracy、mAP、IoU 或 OCR 命中率 | 加入按类别、场景、清晰度的错误分析 |
-| 数据与标注记录 | 说明图片来源、类别和标注格式 | 展示标注样例、质量检查和数据偏差 |
-| 展示材料 | 截图或短 GIF 证明能运行 | 做成可讲解的视觉应用作品页 |
+| README | Clearly write the project goal, how to run it, dependencies, and examples | Add vision task boundaries, data sources, and deployment ideas |
+| Example inputs and outputs | Keep at least 1 input image and prediction result | Keep correct cases, false positives, false negatives, and boundary cases |
+| Evaluation record | Clearly write accuracy, mAP, IoU, or OCR hit rate | Add error analysis by class, scenario, or clarity |
+| Data and annotation record | Explain image sources, classes, and annotation format | Show annotation examples, quality checks, and data bias |
+| Presentation materials | Use screenshots or a short GIF to prove it runs | Turn it into a visual application page that can be presented clearly |
 
-做视觉项目时最重要的不是“模型看起来识别对了”，而是能讲清楚：数据从哪里来，指标怎么计算，模型在哪些图片上失败，真实场景使用时有哪些风险。
+The most important thing in a vision project is not “the model seems to recognize things correctly,” but being able to explain clearly: where the data comes from, how the metrics are calculated, on which images the model fails, and what risks there are in real-world use.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能把视觉场景拆成分类、检测或分割任务，能准备数据和标注规范，能选择合适指标，能展示模型结果和失败案例，能说明误报、漏报或分割错误对业务的影响。
+By the end of this chapter, you should be able to break a vision scenario into classification, detection, or segmentation tasks; prepare data and annotation rules; choose appropriate metrics; present model results and failure cases; and explain how false positives, false negatives, or segmentation errors affect the business.
 
-如果你能把一个视觉项目整理成可复现 Notebook 或脚本，并用图像样例说明模型表现和局限，就达到了计算机视觉方向的作品集出口标准。
+If you can organize a vision project into a reproducible Notebook or script and use image examples to show the model’s performance and limitations, then you have reached the portfolio exit standard for the computer vision track.
 
-## 版本路线建议
+## Recommended Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimal loop | Can input, process, output, and keep one set of examples |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next steps |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to complete the basic version first. Do not try to build something huge and complete from the start. Every time you level up, write into the README “what new capability was added, how it was verified, and what problems remain.”

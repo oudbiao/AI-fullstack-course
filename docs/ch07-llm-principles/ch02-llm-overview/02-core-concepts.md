@@ -1,81 +1,81 @@
 ---
-title: "2.3 大模型核心概念"
+title: "2.3 Core Concepts of Large Models"
 sidebar_position: 6
-description: "用新人能读懂的方式理解 token、上下文、注意力、采样温度、预训练和指令跟随等核心概念。"
-keywords: [token, 上下文窗口, attention, temperature, sampling, pretraining, LLM]
+description: "Understand core concepts such as token, context, attention, sampling temperature, pretraining, and instruction following in a way beginners can understand."
+keywords: [token, context window, attention, temperature, sampling, pretraining, LLM]
 ---
 
-# 大模型核心概念
+# Core Concepts of Large Models
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解 token、上下文窗口、next-token prediction 的含义
-- 理解 embedding、logits、temperature 的直觉
-- 看懂一个极简的注意力计算例子
-- 分清预训练、微调、提示词驱动这几类能力来源
+- Understand the meaning of token, context window, and next-token prediction
+- Understand the intuition behind embedding, logits, and temperature
+- Read a very simple example of attention calculation
+- Distinguish the sources of capability among pretraining, fine-tuning, and prompt-driven methods
 
 ---
 
-## 一、大模型到底在做什么？
+## 1. What Exactly Is a Large Model Doing?
 
-### 先看一个故事：自动补全文本的学徒
+### First, a story: an apprentice that auto-completes text
 
-假设你带一个新人编辑做文字校对。你不先教他“什么是智能”，而是让他每天做一件事：
+Suppose you are training a new editor to proofread text. You do not first teach him “what intelligence is”; instead, you ask him to do one thing every day:
 
-> 看前面已经写好的内容，猜下一个最合理的词。
+> Look at the content already written and guess the most reasonable next word.
 
-一开始他只能猜很短的句子。后来他看过大量新闻、代码、问答、小说和说明书之后，就慢慢学会了：什么表达更自然，什么知识经常连在一起，什么问题后面通常要给步骤。
+At first, he can only guess very short sentences. Later, after seeing a large amount of news, code, Q&A, novels, and manuals, he gradually learns what expressions sound more natural, what knowledge often appears together, and what kind of question usually needs step-by-step answers afterward.
 
-大模型的训练直觉也可以先这样理解：它不是一开始就被明确教会“回答问题”，而是在海量文本里反复练习“根据上下文预测下一个 token”，最后长出了很多看起来像理解、推理和写作的能力。
+The training intuition of a large model can be understood like this too: it is not explicitly taught “how to answer questions” from the beginning. Instead, it repeatedly practices “predict the next token based on the context” in massive amounts of text, and eventually develops abilities that look like understanding, reasoning, and writing.
 
-先用最不容易误解的话说：
+Let’s say it in the least misleading way first:
 
-> **大语言模型本质上是在做“给定上下文，预测下一个 token”。**
+> **A large language model is essentially doing “given a context, predict the next token.”**
 
-这听起来朴素，但能力就是从这里长出来的。
+That sounds simple, but the abilities grow from there.
 
 ```mermaid
 flowchart LR
-    A["原始文本"] --> B["切成 token"]
-    B --> C["转成 embedding 向量"]
-    C --> D["Transformer 计算上下文关系"]
-    D --> E["输出 logits 分数"]
-    E --> F["softmax 变成概率"]
-    F --> G["采样下一个 token"]
-    G --> H["拼回上下文继续生成"]
+    A["Raw text"] --> B["Split into tokens"]
+    B --> C["Convert to embedding vectors"]
+    C --> D["Transformer computes contextual relationships"]
+    D --> E["Output logits scores"]
+    E --> F["softmax turns them into probabilities"]
+    F --> G["Sample the next token"]
+    G --> H["Combine back into context and continue generating"]
 ```
 
-这张图先帮你建立主线：大模型并不是直接“吐出答案”，而是不断重复一条生成链路。后面你看到 token、embedding、attention、temperature 时，都可以把它们放回这条链路里理解。
+This diagram helps you see the main thread first: a large model does not directly “spit out an answer”; instead, it repeatedly follows a generation loop. Later, when you see token, embedding, attention, and temperature, you can place them back into this loop for understanding.
 
-![Next-token 生成循环与采样图](/img/course/ch07-next-token-generation-loop-map.png)
+![Next-token generation loop and sampling diagram](/img/course/ch07-next-token-generation-loop-map-en.png)
 
-:::tip 读图提示
-这张图建议按循环读：上下文变成向量，Transformer 输出 `logits`，`softmax` 变成概率，再由 temperature/top-p 等采样策略选出下一个 token。大模型生成不是一次写完整答案，而是把“预测下一个 token”重复很多次。
+:::tip Reading tip
+It is best to read this diagram as a loop: context becomes vectors, the Transformer outputs `logits`, `softmax` turns them into probabilities, and then sampling strategies such as temperature/top-p choose the next token. Generation by a large model is not writing the full answer at once; it repeats “predict the next token” many times.
 :::
 
-比如你看到：
+For example, when you see:
 
-> “北京是中国的”
+> “Beijing is China’s”
 
-你很可能会接：
+you might naturally continue with:
 
-> “首都”
+> “capital”
 
-模型做的事，本质上也是类似的，只不过它是在超大规模语料上学会这种预测。
+What the model does is essentially similar, except that it learns this kind of prediction from a massive-scale corpus.
 
 ---
 
-### 一个完整的“下一 token”玩具示例
+### A complete toy example of “next token”
 
-下面这个例子非常小，但它把“上下文 -> logits -> 概率 -> 选择 token”的链路串起来了：
+The example below is very small, but it connects the chain of “context -> logits -> probabilities -> token selection”:
 
 ```python
 import numpy as np
 
-context = "北京是中国的"
-candidates = ["首都", "城市", "大学"]
+context = "Beijing is China's"
+candidates = ["capital", "city", "university"]
 logits = np.array([4.0, 2.0, 0.5])
 
 
@@ -87,82 +87,82 @@ def softmax(x):
 probs = softmax(logits)
 best = candidates[np.argmax(probs)]
 
-print("上下文:", context)
+print("Context:", context)
 for token, prob in zip(candidates, probs):
-    print(f"候选 token={token}, 概率={prob:.3f}")
-print("最可能的下一个 token:", best)
+    print(f"Candidate token={token}, probability={prob:.3f}")
+print("Most likely next token:", best)
 ```
 
-这个例子真正想说明的是：模型不是从候选里“凭感觉选”，而是先给每个可能 token 一个分数，再把分数转成概率分布。真实大模型的候选 token 数量会大得多，但核心流程是一致的。
+What this example really wants to show is: the model does not “pick by feeling” from the candidates. Instead, it first gives each possible token a score, then turns the scores into a probability distribution. Real large models have many more candidate tokens, but the core flow is the same.
 
 ---
 
-## 二、Token：模型真正看到的不是“句子”，而是切分后的单位
+## 2. Token: What the Model Actually Sees Is Not a “Sentence,” but Split Units
 
-很多新人以为模型是按“字”或“词”看文本，其实不一定。
+Many beginners think the model reads text by “characters” or “words,” but that is not necessarily true.
 
-更准确地说：
+More accurately:
 
-> 模型看到的是 token。
+> The model sees tokens.
 
-token 可以是：
+A token can be:
 
-- 一个字
-- 一个词
-- 一个词的一部分
-- 一个标点
+- a character
+- a word
+- part of a word
+- punctuation
 
-### 一个玩具版 tokenizer
+### A toy tokenizer
 
 ```python
 text = "AI fullstack course"
 
-# 这里只是最简单的空格切分，真实大模型 tokenizer 更复杂
+# This is just the simplest whitespace split; real large model tokenizers are more complex
 tokens = text.split()
 
-print("原文:", text)
+print("Original text:", text)
 print("tokens:", tokens)
-print("token 数量:", len(tokens))
+print("Number of tokens:", len(tokens))
 ```
 
-真实大模型通常会把文本切得更细，因为这样更利于处理生僻词和不同语言。
+Real large models usually split text more finely, because that helps handle rare words and different languages.
 
 ---
 
-## 三、上下文窗口：模型一次能“看多远”
+## 3. Context Window: How Far the Model Can “See” at Once
 
-上下文窗口（context window）可以理解成模型的“当前工作台”。
+The context window can be understood as the model’s “current workbench.”
 
-工作台越大：
+The larger the workbench:
 
-- 一次能放下的信息越多
-- 模型越可能利用更长的历史内容
+- the more information can be placed on it at once
+- the more likely the model can use longer historical content
 
-但它不是无限的。  
-所以很多长文任务、RAG 任务都绕不开“上下文怎么塞进去”这个问题。
+But it is not unlimited.
+That is why many long-document tasks and RAG tasks always come back to the question: “How do we fit the context in?”
 
-类比一下：
+Think of it like this:
 
-> 你在桌上做题，桌面越大，能摊开的参考资料越多。
+> You are solving problems on a desk. The larger the desk, the more reference materials you can spread out.
 
-![Context window 信息预算图](/img/course/ch07-context-window-budget-map.png)
+![Context window information budget diagram](/img/course/ch07-context-window-budget-map-en.png)
 
-:::tip 读图提示
-把 context window 想成固定大小的工作台：系统提示、用户问题、历史对话、检索资料和输出空间都要抢 token 预算。窗口变大只是桌子变大，不代表资料可以随便塞，真正关键是把最有用的信息放进去。
+:::tip Reading tip
+Think of the context window as a fixed-size workbench: system prompt, user question, chat history, retrieved materials, and output space all compete for the token budget. A larger window only means a bigger desk; it does not mean you can stuff in information arbitrarily. The key is to place the most useful information inside it.
 :::
 
 ---
 
-## 四、Embedding：先把 token 变成向量
+## 4. Embedding: First Turn Tokens into Vectors
 
-模型不能直接吃 token 字符串，所以要先变成向量。  
-这个过程可以先理解成：
+The model cannot directly consume token strings, so they must first be turned into vectors.
+You can initially understand this process as:
 
-> **给每个 token 分配一个高维坐标。**
+> **Assign each token a coordinate in a high-dimensional space.**
 
-语义相近的 token，在好的表示空间里也会更接近。
+Tokens with similar meanings are also closer together in a good representation space.
 
-虽然真实 embedding 很复杂，但我们先用一个小例子体会“文本转向量”的思想：
+Although real embeddings are very complex, we can first use a small example to feel the idea of “text to vectors”:
 
 ```python
 import numpy as np
@@ -178,43 +178,43 @@ print("dog embedding:", embedding_table["dog"])
 print("car embedding:", embedding_table["car"])
 ```
 
-这里只是玩具示意，但你已经能看出：
+This is only a toy illustration, but you can already see:
 
-- `cat` 和 `dog` 更接近
-- `car` 更远
-
----
-
-## 五、模型为什么叫“自回归”？
-
-因为它经常是这样生成文本的：
-
-1. 看已有上下文
-2. 预测下一个 token
-3. 把这个新 token 拼回上下文
-4. 再预测下一个
-
-所以生成是一点点往后滚的。
-
-就像你玩接龙游戏：
-
-- 先说一个词
-- 再根据前面的话继续往下接
+- `cat` and `dog` are closer
+- `car` is farther away
 
 ---
 
-## 六、logits、概率和 temperature
+## 5. Why Is the Model Called “Autoregressive”?
 
-模型内部先算出来的通常不是“最终概率”，而是一组分数，常叫 `logits`。
+Because it often generates text like this:
 
-然后经过 softmax，变成概率分布。
+1. Look at the existing context
+2. Predict the next token
+3. Append the new token back into the context
+4. Predict the next one again
 
-### 一个温度采样的可运行例子
+So generation rolls forward step by step.
+
+It is like playing a word-chain game:
+
+- say one word first
+- then continue based on the previous text
+
+---
+
+## 6. Logits, Probabilities, and Temperature
+
+What the model computes internally first is usually not the “final probability,” but a set of scores, often called `logits`.
+
+Then, after softmax, they become a probability distribution.
+
+### A runnable example of temperature sampling
 
 ```python
 import numpy as np
 
-tokens = ["北京", "上海", "广州"]
+tokens = ["Beijing", "Shanghai", "Guangzhou"]
 logits = np.array([3.0, 1.5, 0.5])
 
 def softmax_with_temperature(logits, temperature=1.0):
@@ -229,44 +229,44 @@ for temp in [0.5, 1.0, 2.0]:
         print(f"  {token}: {prob:.4f}")
 ```
 
-### 怎么理解 temperature？
+### How should temperature be understood?
 
-- 温度低：更保守，更偏向最高分选项
-- 温度高：更发散，更容易尝试次优选项
+- Low temperature: more conservative, more likely to choose the highest-scoring option
+- High temperature: more diverse, more likely to try lower-ranked options
 
-类比一下：
+In analogy:
 
-- 低温像“特别谨慎的答题”
-- 高温像“更敢发散联想”
+- low temperature is like “very cautious answering”
+- high temperature is like “more willing to think broadly”
 
 ---
 
-## 七、注意力（Attention）：为什么它这么关键？
+## 7. Attention: Why Is It So Important?
 
-注意力的核心直觉是：
+The core intuition of attention is:
 
-> 当前 token 在计算表示时，不必平均看所有词，而是可以“更关注和自己相关的词”。
+> When computing the representation of the current token, the model does not need to look at all words equally; it can “pay more attention” to the words related to it.
 
-比如句子：
+For example, in the sentence:
 
-> “小王把球给了小李，因为他接得很稳。”
+> “Xiao Wang gave the ball to Xiao Li because he caught it very steadily.”
 
-这里“他”到底指谁，需要看上下文关系。  
-注意力机制就是在做这种“相关性分配”。
+Who does “he” refer to? You need to look at the contextual relationships.
+The attention mechanism is doing this kind of “relevance allocation.”
 
-### 一个极简注意力示例
+### A very minimal attention example
 
 ```python
 import numpy as np
 
-# 假设有 3 个 token 的向量表示
+# Suppose there are vector representations for 3 tokens
 X = np.array([
     [1.0, 0.0],   # token1
     [0.0, 1.0],   # token2
     [1.0, 1.0]    # token3
 ])
 
-# 这里为了演示，直接把 Q K V 都设成 X
+# For demonstration, set Q, K, V all to X directly
 Q = X
 K = X
 V = X
@@ -281,110 +281,110 @@ def softmax(row):
 attention_weights = np.apply_along_axis(softmax, 1, scaled_scores)
 output = attention_weights @ V
 
-print("注意力分数:\n", np.round(scaled_scores, 3))
-print("注意力权重:\n", np.round(attention_weights, 3))
-print("输出表示:\n", np.round(output, 3))
+print("Attention scores:\n", np.round(scaled_scores, 3))
+print("Attention weights:\n", np.round(attention_weights, 3))
+print("Output representations:\n", np.round(output, 3))
 ```
 
-你不需要现在就完全吃透公式，但要先抓住直觉：
+You do not need to fully master the formula right now, but you should first grasp the intuition:
 
-- 先比较“谁和谁相关”
-- 再按相关性做加权汇总
+- first compare “who is related to whom”
+- then aggregate information by weight according to relevance
 
 ---
 
-## 八、预训练、微调、提示词，分别在干什么？
+## 8. What Do Pretraining, Fine-Tuning, and Prompts Do?
 
-### 1. 预训练
+### 1. Pretraining
 
-让模型在海量文本上学语言规律。
+Let the model learn language patterns from massive amounts of text.
 
-### 2. 微调
+### 2. Fine-tuning
 
-在特定任务或风格上进一步训练，让模型更适应某场景。
+Continue training on a specific task or style so the model adapts better to a certain scenario.
 
-### 3. 提示词（Prompting）
+### 3. Prompting
 
-不改模型参数，只通过输入方式引导模型按某种方式工作。
+Do not change the model parameters; instead, guide the model through the input so it works in a desired way.
 
-类比一下：
+In analogy:
 
-| 方式 | 类比 |
+| Method | Analogy |
 |---|---|
-| 预训练 | 通读大量书籍 |
-| 微调 | 岗前专项培训 |
-| Prompting | 临时给清晰任务说明 |
+| Pretraining | Reading a large number of books thoroughly |
+| Fine-tuning | Specialized pre-job training |
+| Prompting | Giving clear instructions on the spot |
 
 ---
 
-## 九、为什么大模型会“看起来像会思考”？
+## 9. Why Do Large Models Seem to “Think”?
 
-因为当模型规模、数据量和训练质量足够高时，它会学到很多复杂模式：
+Because when the model scale, data volume, and training quality are large enough, it learns many complex patterns:
 
-- 语言规律
-- 常识关联
-- 指令跟随
-- 多步生成结构
+- language patterns
+- common-sense associations
+- instruction following
+- multi-step generation structure
 
-但要注意：
+But note:
 
-> 模型“像会思考”，不等于它和人类思维方式完全一样。
+> The fact that a model “looks like it thinks” does not mean it thinks in exactly the same way humans do.
 
-作为工程师，我们更关心的是：
+As engineers, what we care about more is:
 
-- 它输入输出规律是什么
-- 它什么时候可靠
-- 它什么时候容易出错
+- what its input-output patterns are
+- when it is reliable
+- when it tends to make mistakes
 
 ---
 
-## 十、自测一下：这些说法对不对？
+## 10. Quick Self-Check: Are These Statements True?
 
-在继续往后学 RAG 和 Agent 之前，可以先判断下面几句话：
+Before moving on to RAG and Agent, let’s judge the following statements:
 
-| 说法 | 是否正确 | 为什么 |
+| Statement | Correct? | Why |
 |---|---|---|
-| 大模型训练时的核心任务之一是根据上下文预测下一个 token | 正确 | next-token prediction 是理解 LLM 的入口直觉 |
-| token 一定等于中文里的一个字或英文里的一个完整单词 | 不正确 | token 可能是字、词、词片段或标点 |
-| temperature 越高，答案一定越聪明 | 不正确 | 高温只是更发散，不代表更准确 |
-| attention 可以理解成相关性加权 | 正确 | 先算相关性，再按权重汇总信息 |
+| One of the core tasks in large model training is predicting the next token based on context | Correct | next-token prediction is the entry-level intuition for understanding LLMs |
+| A token is always equal to one Chinese character or one complete English word | Incorrect | a token may be a character, a word, a word piece, or punctuation |
+| The higher the temperature, the smarter the answer must be | Incorrect | high temperature only means more diversity, not better accuracy |
+| Attention can be understood as relevance-based weighting | Correct | it first computes relevance, then aggregates information by weight |
 
 ---
 
-## 十一、初学者常见误区
+## 11. Common Beginner Misconceptions
 
-### 1. 以为大模型是“直接记住答案”
+### 1. Thinking that a large model “directly memorizes answers”
 
-不完全是。  
-它更像是在学习大规模语言分布和模式。
+Not quite.
+It is more like learning large-scale language distributions and patterns.
 
-### 2. 以为 temperature 越高越聪明
+### 2. Thinking that a higher temperature means smarter
 
-不是。  
-高温更发散，未必更准确。
+No.
+Higher temperature means more diversity, not necessarily more accuracy.
 
-### 3. 看到 attention 公式就放弃
+### 3. Giving up when seeing the attention formula
 
-没必要。  
-先抓住“相关性加权”这个直觉，再逐步看公式。
-
----
-
-## 小结
-
-这节课最核心的几句话是：
-
-1. 大模型通过预测下一个 token 学习语言
-2. token 会先变成向量，再进入模型计算
-3. 注意力让模型能根据相关性利用上下文
-4. 预训练、微调、Prompt 分别贡献不同层面的能力
-
-理解了这些，后面你看 RAG、Agent、工具调用时，就不会只觉得它们是“黑盒魔法”。
+No need.
+First grasp the intuition of “relevance weighting,” then gradually look at the formula.
 
 ---
 
-## 练习
+## Summary
 
-1. 修改温度采样例子里的 `logits`，看看概率分布怎么变化。
-2. 试着把注意力示例中的 `X` 改掉，观察注意力权重变化。
-3. 用自己的话解释：为什么上下文窗口会直接影响 RAG 效果？
+The most important points in this lesson are:
+
+1. Large models learn language by predicting the next token
+2. Tokens are first turned into vectors before entering model computation
+3. Attention allows the model to use context based on relevance
+4. Pretraining, fine-tuning, and Prompts contribute different layers of capability
+
+Once you understand these, when you later see RAG, Agent, and tool calling, they will no longer feel like “black-box magic.”
+
+---
+
+## Exercises
+
+1. Modify the `logits` in the temperature sampling example and observe how the probability distribution changes.
+2. Change the `X` in the attention example and observe how the attention weights change.
+3. Explain in your own words: why does the context window directly affect RAG performance?

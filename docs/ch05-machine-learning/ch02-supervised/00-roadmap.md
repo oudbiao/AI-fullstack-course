@@ -1,106 +1,106 @@
 ---
-title: "2.1 学前导读：监督学习这一章到底在学什么"
+title: "2.1 Pre-Class Guide: What Exactly Are We Learning in the Supervised Learning Chapter?"
 sidebar_position: 2
-description: "先建立监督学习的学习地图：回归、分类、树模型、集成学习应该怎样由浅入深地理解。"
-keywords: [监督学习导读, 线性回归, 逻辑回归, 决策树, 集成学习]
+description: "First build a learning map for supervised learning: how regression, classification, tree models, and ensemble learning should be understood step by step."
+keywords: [supervised learning guide, linear regression, logistic regression, decision tree, ensemble learning]
 ---
 
-# 学前导读：监督学习这一章到底在学什么
+# Pre-Class Guide: What Exactly Are We Learning in the Supervised Learning Chapter?
 
-![监督学习路线图](/img/course/supervised-learning-roadmap.png)
+![Supervised Learning Roadmap](/img/course/supervised-learning-roadmap-en.png)
 
-监督学习这一章是 5 机器学习入门到实战的主干，它解决的是：
+The supervised learning chapter is the main thread of Chapter 5, Machine Learning from Basics to Practice. It addresses this question:
 
-> **当我们手上有带标签的数据时，怎样学出一个能做预测的模型。**
+> **When we have labeled data, how do we learn a model that can make predictions?**
 
-## 先建立一张地图
+## First, Build a Map
 
-这一章最容易学成“一个模型接一个模型”。  
-但更稳的理解方式是先把它看成一条渐进主线：
+This chapter is easy to learn as “one model after another.”
+But a more stable way to understand it is to see it as a progressive main line:
 
-![监督学习章节关系图](/img/course/ch05-supervised-chapter-flow.png)
+![Supervised Learning Chapter Flow](/img/course/ch05-supervised-chapter-flow-en.png)
 
-如果你先抓住“从简单到复杂、从单模型到多模型”这条线，这一章就会顺很多。
+If you first grasp the line of “from simple to complex, from single models to multiple models,” this chapter will become much smoother to learn.
 
-## 这一章的学习顺序为什么这样排
+## Why Is the Learning Order in This Chapter Arranged Like This?
 
 ```mermaid
 flowchart LR
-    A["线性回归"] --> B["逻辑回归"]
-    B --> C["决策树"]
-    C --> D["集成学习"]
+    A["Linear Regression"] --> B["Logistic Regression"]
+    B --> C["Decision Tree"]
+    C --> D["Ensemble Learning"]
 ```
 
-这条线是有层次的：
+This line has a clear progression:
 
-- 线性回归：先学最简单的连续值预测
-- 逻辑回归：再学最基础的分类模型
-- 决策树：再看非线性和规则划分
-- 集成学习：最后看怎样把多个弱模型组合成更强模型
-- SVM：补一条经典最大间隔路线，理解“边界要离样本远一点”的泛化直觉
+- Linear Regression: first learn the simplest continuous-value prediction
+- Logistic Regression: then learn the most basic classification model
+- Decision Tree: then look at nonlinearity and rule-based splitting
+- Ensemble Learning: finally see how to combine multiple weak models into a stronger one
+- SVM: add a classic maximum-margin path to understand the generalization intuition that “the boundary should stay a little farther from the samples”
 
-## 这一章更适合新人的读法
+## A Better Way for Beginners to Read This Chapter
 
-建议不要把它读成“4 篇互相独立的算法说明”，而是读成下面 4 个问题：
+It is recommended not to read it as “four independent algorithm explanations,” but instead to read it as these four questions:
 
-1. 如果关系大致线性，能不能先用最简单模型解决？
-2. 如果任务变成分类，线性思路还能不能继续用？
-3. 如果关系明显非线性，能不能改成规则切分？
-4. 如果想让分类边界更稳，能不能最大化两边样本的安全距离？
-5. 如果单个模型不够稳或不够强，能不能组合很多模型？
+1. If the relationship is roughly linear, can we start with the simplest model?
+2. If the task becomes classification, can the linear idea still be used?
+3. If the relationship is clearly nonlinear, can we switch to rule-based splitting?
+4. If we want the classification boundary to be more stable, can we maximize the safe distance on both sides?
+5. If a single model is not stable enough or not strong enough, can we combine many models?
 
-这会比单纯记模型名字更容易形成完整理解。
+This is much more likely to build a complete understanding than simply memorizing model names.
 
-## 学这一章时最该养成什么习惯
+## What Habits Should You Develop While Studying This Chapter?
 
-- 每学一个模型，都问它更适合什么任务
-- 每学一个模型，都问它最容易在哪种数据上吃亏
-- 每学一个模型，都问它和前一个模型相比到底解决了什么新问题
+- Every time you learn a model, ask what kind of task it is best for
+- Every time you learn a model, ask on what kind of data it is most likely to struggle
+- Every time you learn a model, ask what new problem it solves compared with the previous one
 
-这样你学到的就不是“工具列表”，而是“模型选择的判断链”。
+That way, what you learn is not a “tool list,” but a “decision chain for model selection.”
 
-## 新人这一章最该带走什么
+## What Should Beginners Take Away from This Chapter?
 
-- 知道回归和分类是两类不同任务
-- 知道线性模型和树模型的差异
-- 知道集成学习为什么常常更强
-- 知道模型效果差时，不一定是算法太弱，也可能是数据和特征没处理好
+- Know that regression and classification are two different kinds of tasks
+- Know the difference between linear models and tree models
+- Know why ensemble learning is often stronger
+- Know that when a model performs poorly, it is not always because the algorithm is too weak; the data and features may also not have been processed well
 
-## 学完这一章后，你应该能自己回答什么
+## After Finishing This Chapter, What Should You Be Able to Answer on Your Own?
 
-- 为什么线性回归是起点
-- 为什么逻辑回归虽然叫“回归”，却是分类模型
-- 为什么树模型会更灵活，也更容易过拟合
-- 为什么表格数据任务里，集成树模型常常特别强
+- Why linear regression is the starting point
+- Why logistic regression, although called “regression,” is actually a classification model
+- Why tree models are more flexible, and also more prone to overfitting
+- Why ensemble tree models are often especially strong on tabular data tasks
 
-## 新人和进阶学习者怎么读
+## How Should Beginners and Advanced Learners Read This Chapter?
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main line and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the inputs and outputs are, and how to run the smallest project, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter as a chance to fill gaps and practice engineering skills: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how this chapter connects with the stages before and after it. After reading, it is best to save the chapter’s content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick Scan | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum Pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep Practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-Check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its position in the whole course in one sentence |
+| What are the minimum inputs and outputs? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one cause of an error, poor performance, or misunderstanding |
+| What can you save after learning it? | You can write the chapter’s output into a project README, experiment notes, or portfolio |
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended to complete a minimum exercise: choose one of the chapter’s most core concepts or tools and produce a small result that can run, be screenshotted, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the process is, and what the output result is.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stations before and after it, and complete the minimum version of the chapter’s small project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, then it means you have not just “read the content,” but have started turning this chapter into your own project experience.

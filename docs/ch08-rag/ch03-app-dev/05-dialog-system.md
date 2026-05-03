@@ -1,108 +1,108 @@
 ---
-title: "3.6 对话系统与多轮管理"
+title: "3.6 Dialog Systems and Multi-turn Management"
 sidebar_position: 15
-description: "从单轮问答到多轮状态、记忆和策略控制，理解一个真正可用的对话系统为什么比“接个聊天 API”难得多。"
+description: "From single-turn Q&A to multi-turn state, memory, and strategy control, understand why a truly usable dialog system is much harder than just “adding a chat API.”"
 keywords: [dialog system, multi-turn, conversation state, memory, turn management, LLM app]
 ---
 
-# 对话系统与多轮管理
+# Dialog Systems and Multi-turn Management
 
-:::tip 本节定位
-很多人一做聊天应用，第一反应是：
+:::tip Section Focus
+When many people build a chat app, their first instinct is:
 
-- 维护一个 `history`
-- 把历史一起塞给模型
+- keep a `history`
+- send the history to the model together
 
-这能做出最基础 demo，但离一个真正可用的对话系统还有很远。
+This can make the most basic demo, but it is still far from a truly usable dialog system.
 
-这一节的重点，就是把“多轮对话”这件事拆清楚。
+The key goal of this section is to break down what “multi-turn conversation” really means.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解单轮问答和多轮对话系统的核心区别
-- 理解会话状态、上下文窗口、澄清问题这些基本概念
-- 看懂一个最小多轮对话管理器
-- 明白为什么对话系统的关键不只是记历史，而是管状态
+- Understand the core difference between single-turn Q&A and multi-turn dialog systems
+- Understand basic concepts such as session state, context window, and clarification questions
+- Read a minimal multi-turn dialog manager
+- Understand why the key to a dialog system is not just remembering history, but managing state
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-多轮对话这节最适合新人的理解顺序不是“把历史都塞进去”，而是先看清：
+For beginners, the best way to understand multi-turn conversation is not “just stuff all the history in,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["用户多轮输入"] --> B["会话历史"]
-    B --> C["主题和槽位状态"]
-    C --> D["是否需要追问 / 调工具"]
-    D --> E["生成当前轮回答"]
+    A["User multi-turn input"] --> B["Conversation history"]
+    B --> C["Topic and slot state"]
+    C --> D["Need follow-up / call tools?"]
+    D --> E["Generate the current-turn response"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 多轮系统为什么比单轮问答难
-- “有历史”为什么不等于“有状态”
+- Why multi-turn systems are harder than single-turn Q&A
+- Why “having history” does not mean “having state”
 
-### 一个更适合新人的总类比
+### A Better Analogy for Beginners
 
-你可以把多轮对话系统想成：
+You can think of a multi-turn dialog system as:
 
-- 一个客服在和用户持续聊天
+- A customer service agent chatting with a user continuously
 
-用户不会每一轮都把背景重新讲一遍。  
-所以客服必须记住：
+The user will not repeat all the background in every turn.
+So the agent must remember:
 
-- 现在聊的主题是什么
-- 哪些关键信息已经知道
-- 哪些信息还缺
+- What topic is being discussed now
+- Which key pieces of information are already known
+- Which information is still missing
 
-如果只把聊天记录全堆在旁边，但没有真正整理状态，  
-这个客服还是会很容易答乱。
+If you only pile the chat logs beside the model without truly organizing the state,
+the agent will still easily get confused.
 
-## 一、为什么多轮对话比单轮问答难得多？
+## 1. Why Is Multi-turn Conversation Much Harder Than Single-turn Q&A?
 
-### 1.1 单轮问答更像“一问一答”
+### 1.1 Single-turn Q&A Is More Like “One Question, One Answer”
 
-例如：
+For example:
 
-- 用户问一句
-- 系统回一句
+- The user asks one question
+- The system gives one reply
 
-这类系统即使没有长期状态，也能工作。
+Such systems can work even without long-term state.
 
-### 1.2 多轮对话真正难在哪？
+### 1.2 What Makes Multi-turn Conversation Truly Hard?
 
-因为后续轮次经常会省略信息：
+Because later turns often omit information:
 
-1. “退款政策是什么？”
-2. “那我已经学了 30% 还能退吗？”
+1. “What is the refund policy?”
+2. “Then can I still get a refund if I’ve already completed 30%?”
 
-第二句里的“那我”其实默认继承了第一轮主题。  
-如果系统不记得前文，就会理解不完整。
+The “Then” in the second sentence implicitly inherits the topic from the first turn.
+If the system does not remember the previous context, it will not understand fully.
 
-所以多轮对话真正难的地方不是“消息变多了”，而是：
+So the real difficulty of multi-turn conversation is not “there are more messages,” but:
 
-> **上下文依赖和状态延续。**
-
----
-
-## 二、一个对话系统通常至少要管什么？
-
-最少通常要管：
-
-- 会话历史
-- 当前主题
-- 用户澄清信息
-- 是否需要追问
-
-也就是说，对话系统不仅要“生成回答”，还要管理：
-
-> **这段对话现在处于什么状态。**
+> **context dependence and state continuation.**
 
 ---
 
-## 三、一个最小对话管理器示例
+## 2. What Does a Dialog System Usually Need to Manage?
+
+At a minimum, it usually needs to manage:
+
+- conversation history
+- current topic
+- user clarification information
+- whether a follow-up question is needed
+
+In other words, a dialog system does not just “generate answers”; it also manages:
+
+> **What state is this conversation currently in?**
+
+---
+
+## 3. A Minimal Dialog Manager Example
 
 ```python
 def new_session():
@@ -115,22 +115,22 @@ def add_turn(session, role, content):
     session["history"].append({"role": role, "content": content})
 
 session = new_session()
-add_turn(session, "user", "退款政策是什么？")
-add_turn(session, "assistant", "你是想看时间范围，还是资格条件？")
+add_turn(session, "user", "What is the refund policy?")
+add_turn(session, "assistant", "Do you want the time range, or the eligibility conditions?")
 
 print(session)
 ```
 
-### 3.1 这段代码虽然很小，但它已经在教什么？
+### 3.1 Although This Code Is Very Small, What Is It Teaching?
 
-它在教你：
+It teaches you that:
 
-- 对话系统天然就有状态
-- 状态至少包括历史和当前主题
+- dialog systems naturally have state
+- state at least includes history and the current topic
 
-这就是从“单次调用模型”走向“对话系统”的第一步。
+This is the first step from “a one-off model call” to “a dialog system.”
 
-### 3.2 再看一个最小“状态流”示例
+### 3.2 Another Minimal “State Flow” Example
 
 ```python
 state = {
@@ -138,7 +138,7 @@ state = {
     "slots": {"progress": None},
 }
 
-user_message = "我已经学了 30% 还能退吗？"
+user_message = "Can I still get a refund if I’ve already completed 30%?"
 
 if "30%" in user_message:
     state["slots"]["progress"] = "30%"
@@ -146,194 +146,194 @@ if "30%" in user_message:
 print(state)
 ```
 
-这个示例很适合初学者，因为它会帮助你看到：
+This example is very suitable for beginners because it helps you see:
 
-- 对话系统真正要保留的，不只是原话
-- 还包括结构化的状态
+- what a dialog system really needs to keep is not just the raw words
+- it also includes structured state
 
-![对话状态、槽位与记忆管理图](/img/course/ch08-dialog-state-slot-memory-map.png)
+![Diagram of dialog state, slots, and memory management](/img/course/ch08-dialog-state-slot-memory-map-en.png)
 
-:::tip 读图提示
-历史记录是原始材料，state 才是系统正在维护的“当前理解”。图里把 topic、slots、last_tool_result 和 summary 分开，是为了避免把所有上下文都粗暴塞进 prompt。
+:::tip Reading the Diagram
+History is the raw material, while state is the system’s current understanding. In the diagram, topic, slots, last_tool_result, and summary are separated to avoid blindly stuffing all context into the prompt.
 :::
 
 ---
 
-## 四、对话系统不是只会回答，还要会追问
+## 4. A Dialog System Must Not Only Answer, but Also Ask Follow-up Questions
 
-### 4.1 为什么追问能力很关键？
+### 4.1 Why Is Follow-up Questioning So Important?
 
-因为用户输入很多时候是不完整的。
+Because user inputs are often incomplete.
 
-例如：
+For example:
 
-- “帮我查天气”
+- “Help me check the weather”
 
-这时系统如果直接瞎猜城市，体验通常会变差。  
-更合理的做法是：
+At this point, if the system randomly guesses a city, the experience is usually worse.
+A more reasonable approach is:
 
-> **先补齐缺失信息。**
+> **First fill in the missing information.**
 
-### 4.2 一个最小追问示例
+### 4.2 A Minimal Follow-up Example
 
 ```python
 def dialog_step(session, user_message):
     add_turn(session, "user", user_message)
 
-    if "天气" in user_message and "北京" not in user_message and "上海" not in user_message:
-        reply = "你想查哪个城市的天气？"
+    if "weather" in user_message and "Beijing" not in user_message and "Shanghai" not in user_message:
+        reply = "Which city’s weather would you like to check?"
         add_turn(session, "assistant", reply)
         return reply
 
-    reply = f"系统正在处理：{user_message}"
+    reply = f"The system is processing: {user_message}"
     add_turn(session, "assistant", reply)
     return reply
 
 session = new_session()
-print(dialog_step(session, "帮我查天气"))
+print(dialog_step(session, "Help me check the weather"))
 print(session["history"])
 ```
 
-这已经体现出一个很关键的能力：
+This already demonstrates a very important capability:
 
-> 对话系统不只是答，还要能管理信息缺口。 
+> A dialog system does not just answer; it also manages information gaps.
 
-### 4.3 为什么追问其实是一种“系统更稳”的表现？
+### 4.3 Why Is Follow-up Actually a Sign of a More Stable System?
 
-很多新人会误以为：
+Many beginners mistakenly think:
 
-- 系统越少追问越聪明
+- the fewer follow-up questions a system asks, the smarter it is
 
-但真实产品里，很多时候恰恰相反：
+But in real products, it is often the opposite:
 
-- 先追问把条件补齐
-- 往往比直接乱猜更可靠
-
----
-
-## 五、为什么“只把全部历史塞给模型”不够？
-
-### 5.1 历史太长会带来什么？
-
-- token 成本上升
-- 响应变慢
-- 无关信息越来越多
-
-### 5.2 所以真实系统通常会做选择
-
-例如：
-
-- 只保留最近 N 轮
-- 当前主题单独存状态
-- 更早历史做摘要
-
-也就是说，多轮管理不只是“有历史”，而是：
-
-> **怎样保留有用历史。**
+- ask follow-up questions first to complete the conditions
+- this is often more reliable than guessing blindly
 
 ---
 
-## 六、一个更完整一点的多轮示例
+## 5. Why Isn’t “Just Put the Entire History into the Model” Enough?
+
+### 5.1 What Happens When History Becomes Too Long?
+
+- token cost increases
+- response becomes slower
+- irrelevant information keeps piling up
+
+### 5.2 So What Do Real Systems Usually Do?
+
+For example:
+
+- keep only the most recent N turns
+- store the current topic separately as state
+- summarize earlier history
+
+In other words, multi-turn management is not just “having history,” but:
+
+> **deciding which history is useful to keep.**
+
+---
+
+## 6. A Slightly More Complete Multi-turn Example
 
 ```python
 def dialog_reply(session, user_message):
     add_turn(session, "user", user_message)
 
-    if "退款" in user_message:
+    if "refund" in user_message:
         session["topic"] = "refund"
-        reply = "退款政策是：购买后 7 天内且学习进度低于 20% 可退款。你是想看时间，还是想判断自己是否符合资格？"
+        reply = "The refund policy is: refunds are available within 7 days of purchase and if learning progress is below 20%. Do you want the time limit, or do you want to see whether you qualify?"
 
     elif "30%" in user_message and session["topic"] == "refund":
-        reply = "如果你的学习进度是 30%，通常不符合退款条件。"
+        reply = "If your learning progress is 30%, you usually do not meet the refund conditions."
 
     else:
-        reply = "我可以继续帮助你处理当前主题。"
+        reply = "I can continue helping you with the current topic."
 
     add_turn(session, "assistant", reply)
     return reply
 
 session = new_session()
-print(dialog_reply(session, "退款政策是什么？"))
-print(dialog_reply(session, "那如果我已经学了 30% 呢？"))
+print(dialog_reply(session, "What is the refund policy?"))
+print(dialog_reply(session, "What if I’ve already completed 30%?"))
 print(session)
 ```
 
-### 6.1 这个例子真正比普通问答多了什么？
+### 6.1 What Does This Example Really Add Compared with Ordinary Q&A?
 
-它多出来的关键不是模型更强，而是：
+The key addition is not a stronger model, but:
 
-- 主题跟踪
-- 上下文继承
+- topic tracking
+- context inheritance
 
-也就是说：
+In other words:
 
-> 对话系统的核心，常常首先是状态设计。 
+> The core of a dialog system often starts with state design.
 
-### 6.2 一个新人很值得先记的状态表
+### 6.2 A Useful State Table for Beginners
 
-| 状态类型 | 它在记录什么 |
+| State type | What it records |
 |---|---|
-| history | 之前说过的话 |
-| topic | 现在主要在聊什么 |
-| slot | 当前任务还缺哪些关键信息 |
-| tool state | 工具是否已经调用、结果是否已拿到 |
+| history | What has been said before |
+| topic | What is being discussed now |
+| slot | Which key pieces of information are still missing for the current task |
+| tool state | Whether a tool has been called and whether the result has been received |
 
-这个表非常适合初学者，因为它能把“多轮对话的复杂性”拆成几个清楚的箱子。
+This table is especially useful for beginners because it breaks the complexity of multi-turn conversation into several clear boxes.
 
 ---
 
-## 七、对话系统常见的几类状态
+## 7. Common Types of State in Dialog Systems
 
-### 7.1 topic state
+### 7.1 Topic State
 
-当前到底在聊什么。
+What exactly is being discussed right now.
 
-### 7.2 slot state
+### 7.2 Slot State
 
-哪些关键信息已经知道，哪些还缺。
+Which key pieces of information are already known and which are still missing.
 
-例如天气系统里：
+For example, in a weather system:
 
-- 城市已知 / 未知
-- 日期已知 / 未知
+- city known / unknown
+- date known / unknown
 
-### 7.3 tool state
+### 7.3 Tool State
 
-哪些工具已经调过，哪些结果已经拿到。
+Which tools have been called and which results have been obtained.
 
-这在 Agent 化对话里特别重要。
+This is especially important in Agent-style dialog.
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，最该维护哪些槽位？
+## 8. If Your Goal Is a “Knowledge-base-driven Lesson Material Generation Assistant,” Which Slots Should You Maintain Most Carefully?
 
-这类项目和普通聊天最大的不同是：
+The biggest difference between this kind of project and ordinary chat is:
 
-- 用户常常不会一次把要求说全
+- users often do not give all requirements at once
 
-比如用户可能先说：
+For example, the user may first say:
 
-- “帮我做一个折扣应用题的 Word 课件”
+- “Help me make a Word course handout for discount word problems”
 
-后面才补：
+Later they add:
 
-- “面向小学高年级”
-- “要有 3 道练习题”
-- “风格偏课堂讲解”
+- “For upper elementary school”
+- “Need 3 practice questions”
+- “Style should be more like classroom explanation”
 
-所以第一次做时，很适合把槽位先定成：
+So for a first version, it is very suitable to define the slots like this:
 
-| 槽位 | 它在记录什么 |
+| Slot | What it records |
 |---|---|
-| `topic` | 课件主题 |
-| `audience` | 面向对象 / 年级 |
+| `topic` | Course material topic |
+| `audience` | Target audience / grade |
 | `doc_format` | Word / PPT |
-| `style` | 课堂讲解 / 提纲式 / 讲义式 |
-| `exercise_count` | 练习题数量 |
+| `style` | Classroom explanation / outline-style / handout-style |
+| `exercise_count` | Number of practice questions |
 
-一个最小状态对象可以先写成：
+A minimal state object can be written like this:
 
 ```python
 state = {
-    "topic": "折扣应用题",
+    "topic": "discount word problems",
     "audience": None,
     "doc_format": "word",
     "style": None,
@@ -343,25 +343,25 @@ state = {
 print(state)
 ```
 
-这个例子最重要的价值是：
+The most important value of this example is:
 
-- 让新人先明白“多轮对话在项目里到底在补什么信息”
+- to help beginners first understand what multi-turn conversation is actually filling in for a project
 
-## 九、一个更像真实项目的最小追问示例
+## 9. A Minimal Follow-up Example That Feels Closer to a Real Project
 
 ```python
 def next_question(state):
     if not state["audience"]:
-        return "这份课件主要面向哪个年级或人群？"
+        return "Which grade level or audience is this course material for?"
     if not state["style"]:
-        return "你希望它更像课堂讲解，还是提纲式讲义？"
+        return "Would you like it to be more like classroom explanation or outline-style notes?"
     if not state["exercise_count"]:
-        return "你希望最后附几道练习题？"
-    return "信息已经比较完整，可以开始生成课件结构。"
+        return "How many practice questions would you like at the end?"
+    return "The information is fairly complete, and we can start generating the course outline."
 
 
 state = {
-    "topic": "折扣应用题",
+    "topic": "discount word problems",
     "audience": None,
     "doc_format": "word",
     "style": None,
@@ -369,97 +369,97 @@ state = {
 }
 
 print(next_question(state))
-state["audience"] = "小学高年级"
+state["audience"] = "upper elementary school"
 print(next_question(state))
 ```
 
-这会帮助新人先建立一个非常重要的直觉：
+This helps beginners build a very important intuition:
 
-- 对话系统不是为了“多聊几句”
-- 而是为了把生成任务需要的参数慢慢补齐
+- a dialog system is not designed to “chat a few more lines”
+- it is designed to gradually fill in the parameters needed for the generation task
 
-## 十、新人第一次做对话系统时最稳的顺序
+## 10. The Safest Order for Beginners Building a Dialog System for the First Time
 
-更稳的顺序通常是：
+A more stable sequence is usually:
 
-1. 先做单轮问答
-2. 再补主题状态
-3. 再补追问逻辑
-4. 最后再补工具状态和更复杂记忆
+1. Build single-turn Q&A first
+2. Add topic state next
+3. Add follow-up logic next
+4. Finally add tool state and more complex memory
 
-如果一开始就想把所有状态都做满，通常会很乱。
+If you try to implement all states at once from the start, things usually become messy.
 
-## 十一、如果把它做成项目，最值得展示什么
+## 11. What Is Most Worth Showing If You Turn It Into a Project?
 
-最值得展示的通常不是：
+What is usually most worth showing is not:
 
-- 一长串聊天截图
+- a long chain of chat screenshots
 
-而是：
+But rather:
 
-1. 一轮带上下文继承的对话
-2. 主题状态如何变化
-3. 槽位如何被补齐
-4. 什么时候系统选择追问
-5. 什么时候系统继续回答
+1. one turn of conversation with context inheritance
+2. how the topic state changes
+3. how slots get filled in
+4. when the system chooses to ask a follow-up question
+5. when the system continues answering
 
-这样别人会更容易看出：
+This makes it much easier for others to see:
 
-- 你做的是一个多轮系统
-- 不只是把历史拼起来给模型
-
----
-
-## 十二、为什么多轮对话特别容易“跑偏”？
-
-因为它很容易受这些影响：
-
-- 上一轮主题残留
-- 历史太长
-- 用户表达不完整
-- 状态没有显式记录
-
-所以你会发现：
-
-> 做对话系统时，“状态管理”往往比“回复多漂亮”更重要。 
+- that you built a multi-turn system
+- not just a history string pasted into the model
 
 ---
 
-## 十三、初学者最常踩的坑
+## 12. Why Does Multi-turn Conversation So Easily Go Off Track?
 
-### 13.1 只维护 history，不维护结构化状态
+Because it is easily affected by:
 
-系统会越来越难控。
+- leftover topic from the previous turn
+- overly long history
+- incomplete user expressions
+- lack of explicit state recording
 
-### 13.2 一问不清就瞎猜
+So you will find that:
 
-很多时候追问比乱答好。
-
-### 13.3 历史无限堆长
-
-成本和噪声都会上升。
-
----
-
-## 小结
-
-这一节最重要的不是做出一个“会聊天”的函数，而是理解：
-
-> **对话系统的核心，在于管理多轮状态，而不只是生成多轮文本。**
-
-只要这个区别真正建立起来，后面你再学智能助手、Agent 对话和记忆系统时，就会顺很多。
-
-## 这节最该带走什么
-
-- 对话系统的本质首先是状态管理
-- 历史、主题、槽位和工具状态都可能是关键
-- 先把简单状态做好，再逐步扩展，比一开始做“大记忆系统”更稳
+> When building a dialog system, “state management” is often more important than “how pretty the reply sounds.”
 
 ---
 
-## 练习
+## 13. Common Pitfalls for Beginners
 
-1. 给本节示例再加一个“证书”主题状态。
-2. 为天气查询任务设计一个 `slot state`，比如城市和日期。
-3. 想一想：为什么“追问”往往是比“乱猜”更好的对话策略？
-4. 用自己的话解释：为什么说多轮对话的核心是状态管理，而不是历史拼接？
+### 13.1 Only Maintain `history`, but Not Structured State
+
+The system will become harder and harder to control.
+
+### 13.2 Guess Blindly When Something Is Unclear
+
+In many cases, a follow-up question is better than a random answer.
+
+### 13.3 Let History Grow Without Limit
+
+Both cost and noise will increase.
+
+---
+
+## Summary
+
+The most important thing in this section is not building a function that “can chat,” but understanding:
+
+> **The core of a dialog system is managing multi-turn state, not just generating multi-turn text.**
+
+Once you truly understand this difference, it will be much smoother when you later learn intelligent assistants, Agent conversations, and memory systems.
+
+## What You Should Take Away from This Section
+
+- The essence of a dialog system is first and foremost state management
+- History, topic, slots, and tool state can all be important
+- It is more stable to first build simple state well, and then expand gradually, than to start with a “big memory system”
+
+---
+
+## Exercises
+
+1. Add a new “certificate” topic state to the examples in this section.
+2. Design a `slot state` for a weather query task, such as city and date.
+3. Think about why “asking a follow-up question” is often a better dialog strategy than “guessing blindly.”
+4. Explain in your own words why the core of multi-turn conversation is state management, not history concatenation.

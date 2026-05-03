@@ -1,109 +1,109 @@
 ---
-title: "3.1 学前导读：无监督学习这一章到底在学什么"
+title: "3.1 Pre-class Guide: What Is This Chapter on Unsupervised Learning Really About?"
 sidebar_position: 6
-description: "先建立无监督学习的学习地图：聚类、降维、异常检测分别在什么场景下使用。"
-keywords: [无监督学习导读, 聚类, 降维, 异常检测]
+description: "First build a learning map for unsupervised learning: when to use clustering, dimensionality reduction, and anomaly detection."
+keywords: [Unsupervised Learning Guide, Clustering, Dimensionality Reduction, Anomaly Detection]
 ---
 
-# 学前导读：无监督学习这一章到底在学什么
+# Pre-class Guide: What Is This Chapter on Unsupervised Learning Really About?
 
-![无监督学习路线图](/img/course/unsupervised-learning-roadmap.png)
+![Unsupervised Learning Roadmap](/img/course/unsupervised-learning-roadmap-en.png)
 
-无监督学习和监督学习最大的区别是：**没有标签**。
+The biggest difference between unsupervised learning and supervised learning is: **there are no labels**.
 
-这意味着你不能直接问模型“答对了吗”，而是要先问：
+That means you cannot directly ask the model, “Did you get it right?” Instead, you need to ask first:
 
-- 数据里有没有自然分组
-- 数据能不能压缩到更少维度
-- 数据里有没有明显异常点
+- Does the data contain natural groups?
+- Can the data be compressed into fewer dimensions?
+- Are there any obvious outliers in the data?
 
-## 先说一个很重要的学习预期
+## First, a very important learning expectation
 
-这一章最容易让新人发虚的地方，不是算法本身，而是：
+The part of this chapter that is easiest to make beginners feel lost is not the algorithms themselves, but rather:
 
-- 没有标签
-- 没有标准答案
-- 看起来“好像都能讲”，又不知道怎样才算合理
+- no labels
+- no standard answer
+- it seems like “everything can be explained,” but you do not know what counts as reasonable
 
-更适合第一遍先建立的认知是：
+A better first-round understanding is:
 
-> **无监督学习不是在直接判断对错，而是在帮助你发现数据里可能存在的结构。**
+> **Unsupervised learning is not about directly judging right or wrong; it is about helping you discover the structure that may exist in the data.**
 
-所以这一章更像“探索和假设生成”，而不是前面监督学习那种“直接学会怎么判”。
+So this chapter is more like “exploration and hypothesis generation” than the earlier supervised learning chapters, which are more like “learning how to make direct judgments.”
 
-## 这一章三节是怎么串起来的
+## How the three sections in this chapter connect
 
-![无监督学习章节关系图](/img/course/ch05-unsupervised-chapter-flow.png)
+![Unsupervised learning chapter flow](/img/course/ch05-unsupervised-chapter-flow-en.png)
 
-- 聚类：在没有标签时，先看数据能不能自动分群
-- 降维：再看能不能把高维数据压缩得更容易看、更容易算
-- 异常检测：最后看怎样找出少数“不正常”的点
+- Clustering: when there are no labels, first see whether the data can automatically form groups
+- Dimensionality reduction: then see whether high-dimensional data can be compressed so it is easier to view and easier to compute
+- Anomaly detection: finally, see how to identify a few points that are “not normal”
 
-## 如果你是第一次学无监督学习，最稳的顺序
+## If this is your first time learning unsupervised learning, this is the safest order
 
-更适合新人的顺序通常是：
+A sequence that works well for beginners is usually:
 
-1. 先看 [3.2 聚类算法](./clustering)<br/>
-   先建立“没有标签时，数据也可能有结构”这件事。
+1. Start with [3.2 Clustering Algorithms](./clustering)
+   First build the idea that even without labels, data may still have structure.
 
-2. 再看 [3.3 降维算法](./dimensionality-reduction)<br/>
-   先分清“为了建模预处理”和“为了可视化探索”。
+2. Then read [3.3 Dimensionality Reduction Algorithms](./dimensionality-reduction)
+   First distinguish between “preprocessing for modeling” and “exploration for visualization.”
 
-3. 最后看 [3.4 异常检测](./anomaly-detection)<br/>
-   这时你会更容易接受：不是所有任务都在分组，有些任务是在找“不属于大多数”的点。
+3. Finally read [3.4 Anomaly Detection](./anomaly-detection)
+   By then, it is easier to accept that not every task is about grouping; some tasks are about finding points that do not belong to the majority.
 
-这样学的好处是：
+The benefits of learning in this order are:
 
-- 先从最容易理解的“分群”进入
-- 再去理解“压缩表示”
-- 最后再进入“找少数异常”这种更依赖阈值和业务判断的任务
+- Start with the easiest concept to understand: grouping
+- Then understand compressed representations
+- Finally move into tasks like finding a small number of anomalies, which rely more on thresholds and business judgment
 
-## 这一章最容易学乱的地方
+## The easiest places to get confused in this chapter
 
-- 把无监督结果误会成唯一真相
-- 只盯着图好不好看，不问结果有没有业务意义
-- 聚类、降维、异常检测都学了，但不知道它们各自解决什么问题
+- Mistaking unsupervised results for the only truth
+- Only looking at whether the plot looks nice, without asking whether the result has business meaning
+- Learning clustering, dimensionality reduction, and anomaly detection, but not knowing what each one solves
 
-所以这一章最值得先带走的，不是更多模型名字，而是这三个问题：
+So the most valuable things to take away from this chapter are not more model names, but these three questions:
 
-1. 我现在是在找群体，还是在压缩表示，还是在找异常？
-2. 我手上的结果能不能被业务解释？
-3. 如果没有标签，我要用什么证据来判断这个结果有没有价值？
+1. Am I looking for groups, compressing representations, or finding anomalies?
+2. Can the result I have be explained in business terms?
+3. If there are no labels, what evidence should I use to judge whether this result is valuable?
 
-## 新人这一章最该带走什么
+## What beginners should take away from this chapter
 
-- 知道没有标签时，问题该怎样重新表述
-- 知道 K-Means、PCA、异常检测分别解决什么问题
-- 知道无监督结果通常更依赖解释和业务理解，而不只是一个分数
+- Know how to reframe a problem when there are no labels
+- Know what K-Means, PCA, and anomaly detection each solve
+- Know that unsupervised results usually depend more on interpretation and business understanding than on a single score
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how to run the smallest project, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and do engineering practice: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how this chapter connects to earlier and later stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study mode | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick scan | 20–30 minutes | Understand what this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimal example and finish the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or a project README record |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly explain what input the example needs and what result it produces |
+| Where are the common failure points? | Can list at least one cause of an error, poor result, or misunderstanding |
+| What can be preserved after learning it? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Small project exit task for this chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimum exercise: choose the core concept or tool from this chapter, and create a small result that can run, be captured in a screenshot, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing criteria
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects to the learning stations before and after it, and complete the minimum version of the chapter’s small project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, then it shows that you have not just “read the content,” but have started turning this chapter into your own project experience.

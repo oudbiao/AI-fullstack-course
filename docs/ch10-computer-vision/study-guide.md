@@ -1,59 +1,59 @@
 ---
-title: "学习指南：计算机视觉怎么学最不容易学乱"
+title: "Study Guide: How to Learn Computer Vision Without Getting Confused"
 sidebar_position: 1
-description: "给 AI 全栈新人的计算机视觉学习指南：图像基础、分类、检测、分割、项目路线和验收标准。"
-keywords: [计算机视觉学习指南, 图像分类怎么学, 目标检测怎么学, 图像分割怎么学]
+description: "A computer vision learning guide for AI full-stack beginners: image fundamentals, classification, detection, segmentation, project paths, and acceptance criteria."
+keywords: [Computer vision learning guide, how to learn image classification, how to learn object detection, how to learn image segmentation]
 ---
 
-# 学习指南：计算机视觉怎么学最不容易学乱
+# Study Guide: How to Learn Computer Vision Without Getting Confused
 
-如果你来到 `第 10 章 计算机视觉（方向选修）` 后觉得模型很多、任务很多，先把视觉任务按输出粒度分清楚。分类、检测、分割不是并列名词堆叠，而是从粗到细的理解图像方式。
+If you come to `Chapter 10 Computer Vision (elective track)` and feel like there are too many models and too many tasks, first sort out visual tasks by output granularity. Classification, detection, and segmentation are not just a stack of parallel terms; they are different ways to understand images, from coarse to fine.
 
-## 本阶段总原则
+## Core principle for this stage
 
-计算机视觉第一遍要抓住一条任务粒度线：先理解图像本身，再判断整图类别，再定位目标位置，最后理解像素级区域。
+On your first pass through computer vision, focus on one task-granularity line: first understand the image itself, then determine the category of the whole image, then locate object positions, and finally understand pixel-level regions.
 
-![视觉输出粒度学习指南图](/img/course/ch10-study-guide-output-granularity-map.png)
+![Visual output granularity learning guide map](/img/course/ch10-study-guide-output-granularity-map-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先学图像基础与 OpenCV。你要理解像素、颜色空间、滤波、边缘和基础图像处理。
+In the first round, learn image fundamentals and OpenCV. You need to understand pixels, color spaces, filtering, edges, and basic image processing.
 
-第二轮学图像分类。分类是视觉深度学习最直观的入口，适合练习数据增强、迁移学习和训练技巧。
+In the second round, learn image classification. Classification is the most intuitive entry point into deep learning for vision, and it is a good place to practice data augmentation, transfer learning, and training techniques.
 
-第三轮学目标检测。重点理解边界框、类别、置信度、IoU、mAP 和 YOLO 系列。
+In the third round, learn object detection. Focus on understanding bounding boxes, class labels, confidence, IoU, mAP, and the YOLO series.
 
-第四轮学图像分割。重点理解语义分割、实例分割和像素级输出。
+In the fourth round, learn image segmentation. Focus on semantic segmentation, instance segmentation, and pixel-level outputs.
 
-第五轮再选 OCR、视频、人脸、3D 或医学影像等方向项目。
+In the fifth round, choose a project direction such as OCR, video, face recognition, 3D vision, or medical imaging.
 
-## 建议学习节奏
+## Suggested learning pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| 图像基础 | 4～8 小时 | 理解图像数据和 OpenCV 操作 |
-| 图像分类 | 8～16 小时 | 完成一个分类训练闭环 |
-| 检测 / 分割 | 12～24 小时 | 理解输入输出和评价指标 |
-| 综合项目 | 16～32 小时 | 完成一个视觉方向作品 |
+| Image fundamentals | 4–8 hours | Understand image data and OpenCV operations |
+| Image classification | 8–16 hours | Complete a full training loop for classification |
+| Detection / segmentation | 12–24 hours | Understand inputs, outputs, and evaluation metrics |
+| Comprehensive project | 16–32 hours | Complete a visual project |
 
-## 阶段项目路线
+## Stage project roadmap
 
-第一个项目建议做图像分类，例如垃圾分类、花卉分类、食品分类或手写数字识别。
+For your first project, it is recommended to do image classification, such as garbage classification, flower classification, food classification, or handwritten digit recognition.
 
-第二个项目建议做目标检测，例如安全帽检测、车辆检测、缺陷检测或商品识别。
+For your second project, it is recommended to do object detection, such as helmet detection, vehicle detection, defect detection, or product recognition.
 
-第三个项目可以做图像分割或 OCR，根据你的方向选择医学影像、文档识别或工业质检。
+For your third project, you can do image segmentation or OCR, depending on your direction, and choose medical imaging, document recognition, or industrial quality inspection.
 
-## 常见卡点
+## Common sticking points
 
-最常见的卡点是分类、检测、分割混在一起。你可以先问输出是什么：一个类别、多个框，还是每个像素的类别。
+The most common sticking point is mixing up classification, detection, and segmentation. You can first ask what the output is: a single category, multiple boxes, or a category for every pixel.
 
-第二个卡点是只追模型结构，不看数据标注。视觉项目里，数据质量、类别平衡、标注规范和增强策略往往比换模型更重要。
+The second sticking point is focusing only on model architecture and ignoring data annotation. In vision projects, data quality, class balance, annotation standards, and augmentation strategies are often more important than switching models.
 
-第三个卡点是指标不清。分类看 accuracy/F1，检测常看 mAP，分割常看 IoU/Dice。
+The third sticking point is unclear metrics. For classification, look at accuracy/F1; for detection, commonly look at mAP; for segmentation, commonly look at IoU/Dice.
 
-## 过关标准
+## Passing criteria
 
-学完本阶段后，你应该能解释分类、检测、分割三类任务的区别，并能完成一个视觉项目的数据准备、训练、评估和结果展示。
+After finishing this stage, you should be able to explain the differences among classification, detection, and segmentation, and complete a vision project’s data preparation, training, evaluation, and result presentation.
 
-如果你能把一个视觉项目整理成可复现 Notebook 或脚本，并说明模型失败案例，就达到了方向入门标准。
+If you can organize a vision project into a reproducible Notebook or script, and explain the model’s failure cases, you have reached the entry-level standard for this track.

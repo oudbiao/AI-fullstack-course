@@ -1,119 +1,119 @@
 ---
-title: "推荐学习资源"
+title: "Recommended Learning Resources"
 sidebar_position: 1
 ---
 
-# 推荐学习资源
+# Recommended Learning Resources
 
-![资源选择漏斗图](/img/course/appendix-resource-selection-funnel.png)
+![Resource Selection Funnel](/img/course/appendix-resource-selection-funnel-en.png)
 
-![资源选择卡点优先级图](/img/course/appendix-resource-bottleneck-priority-map.png)
+![Resource Bottleneck Priority Map](/img/course/appendix-resource-bottleneck-priority-map-en.png)
 
-:::tip 读图提示
-资源不是越多越好，而是要服务当前卡点。先判断你卡在概念、代码、数学、工程、项目还是表达，再选择一种资源补齐，最后必须回到项目验证。
+:::tip Reading Guide
+More resources are not always better. What matters is whether they solve your current bottleneck. First figure out whether you are stuck on concepts, code, math, engineering, projects, or communication. Then choose one resource to fill that gap, and finally return to a project to verify what you learned.
 :::
 
-这页不是“资源越多越好”，而是帮你在不同学习阶段知道：该补什么、为什么补、补到什么程度就够了。
+This page is not about “the more resources, the better.” Instead, it helps you know what to supplement, why to supplement it, and how far is enough at different stages of learning.
 
-## 1. 使用这页的正确方式
+## 1. The right way to use this page
 
-更推荐这样用：
+A better approach is:
 
-1. 主线课程优先
-2. 碰到具体卡点，再补对应外部资源
-3. 补完就回到课程或项目
+1. Prioritize the main course path
+2. When you hit a specific bottleneck, supplement it with the corresponding external resource
+3. After filling the gap, return to the course or project
 
-外部资源最适合拿来做三件事：
+External resources are best used for three things:
 
-- 补另一种讲法
-- 补图像直觉
-- 补更系统的全景
+- A different explanation
+- Visual intuition
+- A more systematic overview
 
-## 2. 数学与直觉资源
+## 2. Math and intuition resources
 
-| 资源 | 适合什么时候看 | 主要帮助 |
+| Resource | When to look at it | Main help |
 |---|---|---|
-| 3Blue1Brown 线性代数 / 微积分 | 觉得数学太抽象时 | 帮你建立图像直觉 |
-| 吴恩达 / 李宏毅相关数学补充内容 | 想知道公式在模型里怎么用 | 连接任务和数学 |
-| 《统计学习方法》 | 学完传统机器学习基础后 | 建立经典方法的系统理解 |
+| 3Blue1Brown linear algebra / calculus | When math feels too abstract | Helps you build visual intuition |
+| Related math supplements from Andrew Ng / Li Hongyi | When you want to know how formulas are used in models | Connects tasks and math |
+| *Statistical Learning Methods* | After finishing the basics of traditional machine learning | Builds a systematic understanding of classic methods |
 
-## 3. Python 与工程资源
+## 3. Python and engineering resources
 
-| 资源 | 适合什么时候看 | 主要帮助 |
+| Resource | When to look at it | Main help |
 |---|---|---|
-| Python 官方教程 | 语法和基础概念不稳时 | 最权威的基础材料 |
-| Real Python | 某个具体主题卡住时 | 查问题很方便 |
-| 《Fluent Python》 | 已经写了一段时间 Python 后 | 语言理解更深入 |
+| Python official tutorial | When syntax and basic concepts feel shaky | The most authoritative foundational material |
+| Real Python | When you are stuck on a specific topic | Very convenient for checking problems |
+| *Fluent Python* | After you have written Python for a while | Deepens your understanding of the language |
 
-如果你当前最大的痛点是环境、调试、函数、类、包管理，那就优先补这一类。
+If your biggest pain point right now is the environment, debugging, functions, classes, or package management, then prioritize this category first.
 
-## 4. 机器学习与深度学习资源
+## 4. Machine learning and deep learning resources
 
-| 资源 | 适合什么时候看 | 主要帮助 |
+| Resource | When to look at it | Main help |
 |---|---|---|
-| 吴恩达 ML / DL 系列 | 建立学习地图时 | 主线很经典 |
-| 《机器学习》周志华 | 想更系统地补理论时 | 概念框架更完整 |
-| 《动手学深度学习》 | 想边学边跑代码时 | 理论和代码结合得很好 |
-| Fast.ai | 想快速建立实践感觉时 | 更偏实战推进 |
+| Andrew Ng ML / DL series | When building your learning map | A classic main learning path |
+| Zhou Zhihua's *Machine Learning* | When you want a more systematic theory supplement | A more complete conceptual framework |
+| *Dive into Deep Learning* | When you want to learn while running code | Combines theory and code very well |
+| Fast.ai | When you want to build practical intuition quickly | More focused on hands-on progress |
 
-## 5. CV、NLP 与大模型资源
+## 5. CV, NLP, and large model resources
 
-| 方向 | 资源 | 更适合补什么 |
+| Area | Resource | Better for supplementing |
 |---|---|---|
-| CV | CS231n、OpenCV 文档 | 图像任务、卷积、检测、分割 |
-| NLP | CS224n | 文本任务、表示学习、序列建模 |
-| Transformer / LLM | Hugging Face 文档、工程博客 | 模型调用、生态和实操 |
+| CV | CS231n, OpenCV documentation | Image tasks, convolution, detection, segmentation |
+| NLP | CS224n | Text tasks, representation learning, sequence modeling |
+| Transformer / LLM | Hugging Face documentation, engineering blogs | Model usage, ecosystem, and hands-on practice |
 
-## 6. RAG、Agent 与应用工程资源
+## 6. RAG, Agent, and application engineering resources
 
-| 资源 | 适合什么时候看 | 主要帮助 |
+| Resource | When to look at it | Main help |
 |---|---|---|
-| LangChain / LangGraph 文档 | 想理解框架抽象时 | 看链式和图式设计 |
-| LlamaIndex 文档 | 做知识库系统时 | 看索引、检索、查询链路 |
-| 常见后端和部署文档 | 做 API、日志、部署时 | 看真正的工程实现 |
+| LangChain / LangGraph documentation | When you want to understand framework abstractions | Shows chain-style and graph-style design |
+| LlamaIndex documentation | When building a knowledge base system | Shows indexing, retrieval, and query pipelines |
+| Common backend and deployment documentation | When building APIs, logs, and deployment workflows | Shows real engineering implementation |
 
-## 7. 按学习阶段快速选资源
+## 7. Quick resource selection by learning stage
 
-如果你不想每次都重新判断，可以按这条简单路线来选：
+If you do not want to re-evaluate every time, you can follow this simple route:
 
-| 你当前所在学习站 | 更值得优先补的资源类型 |
+| Your current learning stage | Resource type worth prioritizing |
 |---|---|
-| 1 开发者工具基础、2 Python 编程基础 | Python 官方教程、Real Python、Git / VS Code 官方文档 |
-| 3 数据分析与可视化 | Pandas、NumPy、Matplotlib / Seaborn、数据库基础文档 |
-| 4 AI 数学最小必要基础、5 机器学习入门到实战 | 3Blue1Brown、吴恩达 ML、周志华《机器学习》、Scikit-learn 文档 |
-| 6 深度学习与 Transformer 基础 | 《动手学深度学习》、Fast.ai、PyTorch 文档 |
-| 7 大模型原理、Prompt 与微调、8 LLM 应用开发与 RAG | Hugging Face 文档、Transformer / LLM 工程博客、RAG 框架文档 |
-| 9 AI Agent 与智能体系统 | LangChain / LangGraph、LlamaIndex、MCP 与工程化文档 |
-| 10 计算机视觉、11 自然语言处理、12 AIGC 与多模态 | CS231n、CS224n、OpenCV、扩散模型、多模态与 AIGC 工程资料 |
+| 1 Developer tools basics, 2 Python programming basics | Python official tutorial, Real Python, Git / VS Code official docs |
+| 3 Data analysis and visualization | Pandas, NumPy, Matplotlib / Seaborn, basic database docs |
+| 4 Minimum necessary AI math foundation, 5 Machine learning from beginner to practice | 3Blue1Brown, Andrew Ng ML, Zhou Zhihua's *Machine Learning*, Scikit-learn docs |
+| 6 Deep learning and Transformer basics | *Dive into Deep Learning*, Fast.ai, PyTorch docs |
+| 7 Large model principles, Prompt and fine-tuning, 8 LLM application development and RAG | Hugging Face docs, Transformer / LLM engineering blogs, RAG framework docs |
+| 9 AI Agent and intelligent agent systems | LangChain / LangGraph, LlamaIndex, MCP and engineering docs |
+| 10 Computer vision, 11 Natural language processing, 12 AIGC and multimodal | CS231n, CS224n, OpenCV, diffusion models, multimodal and AIGC engineering materials |
 
-## 8. 补资源时最容易踩的坑
+## 8. Common mistakes when supplementing resources
 
-- 一次补太多，主线被打断
-- 收藏很多，却很少真正看完和复盘
-- 只看概念文章，不回到代码和项目里验证
+- Adding too many resources at once and interrupting the main learning path
+- Saving a lot of links but rarely finishing or reviewing them
+- Only reading conceptual articles without returning to code and projects to verify understanding
 
-所以更稳的方式通常是：
+So a more stable approach is usually:
 
-1. 只补当前问题直接相关的一类材料
-2. 补完就回到课程或项目
-3. 记下一句“这份资源到底帮我解决了什么”
+1. Only supplement the type of material directly related to the current problem
+2. After supplementing, return to the course or project
+3. Write down one sentence: “What exactly did this resource help me solve?”
 
-## 9. 看资源时最值得记什么
+## 9. What is most worth noting when reading resources
 
-不要只记“看过什么”，更建议记：
+Do not just record “what you read.” It is better to note:
 
-- 这个资源最适合解决什么问题
-- 我从里面拿到了哪一个最有用的点
-- 它和当前课程哪一章能互补
+- What problem this resource is best at solving
+- The most useful takeaway you got from it
+- Which chapter of the current course it complements
 
-这样以后回查时，你会比单纯收藏链接高效很多。
+That way, when you look things up later, you will be much more efficient than simply saving links.
 
-## 10. 一份最实用的使用建议
+## 10. The most practical usage advice
 
-如果你拿不准现在该不该补资料，可以先问自己三个问题：
+If you are unsure whether you should supplement materials right now, ask yourself three questions first:
 
-1. 我现在卡的是概念、代码，还是项目判断？
-2. 我缺的是另一种讲法，还是更系统的一份资料？
-3. 我补完之后，准备回到哪一章或哪个项目？
+1. Am I stuck on a concept, code, or project judgment?
+2. Do I need a different explanation, or a more systematic resource?
+3. After I finish supplementing, which chapter or project will I return to?
 
-只要这三个问题答得清楚，补资源就更容易变成推进，而不是分心。
+As long as you can answer these three questions clearly, supplementing resources is more likely to move you forward instead of distracting you.

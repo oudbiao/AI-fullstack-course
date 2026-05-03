@@ -1,87 +1,87 @@
 ---
-title: "5.1 关系型数据库基础"
+title: "5.1 Basics of Relational Databases"
 sidebar_position: 21
-description: "理解数据库是什么，为什么 AI 工程师也需要学数据库"
+description: "Understand what a database is and why AI engineers also need to learn databases"
 ---
 
-# 关系型数据库基础
+# Basics of Relational Databases
 
-![关系型数据库基础图](/img/course/ch03-relational-database-foundation.png)
+![Basics of Relational Databases](/img/course/ch03-relational-database-foundation-en.png)
 
-:::info 选修章节
-本章为选修内容。如果你只想做数据分析和建模，可以暂时跳过。但如果你未来要做 AI 应用开发（如 RAG 系统、AI Agent），数据库知识是必备的。
+:::info Elective Chapter
+This chapter is optional. If you only want to do data analysis and modeling, you can skip it for now. But if you plan to build AI applications in the future (such as RAG systems or AI Agents), database knowledge is essential.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解什么是数据库以及为什么需要它
-- 掌握关系型数据库的核心概念
-- 理解表、行、列、主键、外键的含义
-- 了解常见的数据库管理系统
+- Understand what a database is and why we need it
+- Master the core concepts of relational databases
+- Understand the meaning of tables, rows, columns, primary keys, and foreign keys
+- Learn about common database management systems
 
 ---
 
-## 为什么 AI 工程师需要学数据库？
+## Why do AI engineers need to learn databases?
 
-你可能会想："我已经会用 Pandas 读 CSV 了，为什么还要学数据库？"
+You may be thinking: "I already know how to use Pandas to read CSV files, so why do I still need to learn databases?"
 
 ```mermaid
 flowchart LR
-    A["CSV / Excel 文件"] --> B{"数据量"}
-    B -->|"几万行"| C["Pandas 足够"]
-    B -->|"几百万行"| D["需要数据库"]
-    B -->|"多人同时用"| D
-    B -->|"需要安全存储"| D
+    A["CSV / Excel files"] --> B{"Data size"}
+    B -->|"tens of thousands of rows"| C["Pandas is enough"]
+    B -->|"millions of rows"| D["Need a database"]
+    B -->|"multiple people use it at the same time"| D
+    B -->|"need secure storage"| D
 
     style C fill:#e8f5e9,stroke:#2e7d32,color:#333
     style D fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-| 场景 | CSV 文件 | 数据库 |
+| Scenario | CSV files | Database |
 |------|---------|--------|
-| 数据量 | 几万行还行，百万行卡死 | 轻松处理上亿行 |
-| 多人协作 | 谁改了不知道，容易冲突 | 支持并发读写，有权限控制 |
-| 数据安全 | 文件删了就没了 | 有备份、事务、崩溃恢复 |
-| 查询速度 | 每次都要全量扫描 | 有索引，毫秒级查询 |
-| 数据关联 | 手动 merge 多个文件 | 用 SQL JOIN 一句搞定 |
+| Data size | Okay for tens of thousands of rows, slows to a crawl at millions | Easily handles hundreds of millions of rows |
+| Collaboration | Hard to know who changed what, easy to conflict | Supports concurrent read/write with access control |
+| Data security | If the file is deleted, it is gone | Has backups, transactions, and crash recovery |
+| Query speed | Must scan everything each time | Has indexes, millisecond-level queries |
+| Data relationships | Manually merge multiple files | Use one SQL JOIN to get it done |
 
-**真实场景举例：**
+**Real-world examples:**
 
-- 做 RAG 系统 → 用户问答记录要存数据库
-- 做 AI Agent → 记忆系统需要持久化存储
-- 做推荐系统 → 用户行为数据在数据库里
-- 做数据分析 → 企业数据 99% 存在数据库中
+- Building a RAG system → user Q&A records need to be stored in a database
+- Building an AI Agent → the memory system needs persistent storage
+- Building a recommendation system → user behavior data lives in the database
+- Doing data analysis → 99% of enterprise data is stored in databases
 
 ---
 
-## 什么是关系型数据库？
+## What is a relational database?
 
-### 用 Excel 来类比
+### A comparison with Excel
 
-如果你用过 Excel，你已经理解了关系型数据库 80% 的概念：
+If you have used Excel before, you already understand 80% of the concepts of relational databases:
 
-| Excel 概念 | 数据库概念 | 说明 |
+| Excel concept | Database concept | Explanation |
 |-----------|-----------|------|
-| 一个 Excel 文件 | 一个**数据库**（Database） | 存放所有数据的容器 |
-| 一个 Sheet 工作表 | 一张**表**（Table） | 存放某一类数据 |
-| 一行 | 一条**记录**（Row / Record） | 一个具体的数据实体 |
-| 一列 | 一个**字段**（Column / Field） | 数据的一个属性 |
-| 列标题 | **字段名**（Column Name） | 属性名称 |
-| 单元格的数据类型 | **数据类型**（Data Type） | 整数、文本、日期等 |
+| One Excel file | One **database** | A container that stores all data |
+| One Sheet | One **table** | Stores one type of data |
+| One row | One **record** (Row / Record) | One specific data entity |
+| One column | One **field** (Column / Field) | One attribute of the data |
+| Column header | **Column name** | The attribute name |
+| Cell data type | **Data type** | Integer, text, date, and so on |
 
-### 用一个例子理解
+### Understand it with an example
 
-假设你开了一家网店，需要管理**用户**和**订单**：
+Suppose you run an online store and need to manage **users** and **orders**:
 
-**用户表（users）：**
+**Users table (users):**
 
 | id | name | email | age | city |
 |----|------|-------|-----|------|
-| 1 | 张三 | zhang@mail.com | 28 | 北京 |
-| 2 | 李四 | li@mail.com | 35 | 上海 |
-| 3 | 王五 | wang@mail.com | 22 | 广州 |
+| 1 | Zhang San | zhang@mail.com | 28 | Beijing |
+| 2 | Li Si | li@mail.com | 35 | Shanghai |
+| 3 | Wang Wu | wang@mail.com | 22 | Guangzhou |
 
-**订单表（orders）：**
+**Orders table (orders):**
 
 | order_id | user_id | product | amount | order_date |
 |----------|---------|---------|--------|------------|
@@ -89,213 +89,213 @@ flowchart LR
 | 102 | 1 | AirPods | 999 | 2024-11-05 |
 | 103 | 2 | MacBook | 14999 | 2024-11-10 |
 
-这两张表通过 `user_id` 关联——这就是**关系型**数据库名字的由来：表与表之间存在**关系**。
+These two tables are connected through `user_id`—this is where the name **relational** database comes from: tables have **relationships** with each other.
 
 ---
 
-## 核心概念
+## Core concepts
 
-### 1. 主键（Primary Key）
+### 1. Primary Key
 
-主键是每条记录的**唯一标识**，就像身份证号一样，不能重复、不能为空。
+A primary key is the **unique identifier** for each record, like an ID card number: it cannot be repeated and cannot be empty.
 
 ```
-用户表中：id 是主键 → 每个用户有唯一的 id
-订单表中：order_id 是主键 → 每个订单有唯一的 order_id
+In the users table: id is the primary key → each user has a unique id
+In the orders table: order_id is the primary key → each order has a unique order_id
 ```
 
-:::tip 为什么需要主键？
-想象没有主键的情况：有两个都叫"张三"的用户，你怎么区分他们？主键就是解决这个问题的——即使名字相同，id 一定不同。
+:::tip Why do we need a primary key?
+Imagine there is no primary key: if two users are both named "Zhang San", how would you tell them apart? The primary key solves this problem—even if the names are the same, the ids must be different.
 :::
 
-### 2. 外键（Foreign Key）
+### 2. Foreign Key
 
-外键是指**引用另一张表主键的字段**，用于建立表之间的关系。
+A foreign key is a field that **references the primary key of another table** and is used to build relationships between tables.
 
 ```mermaid
 flowchart LR
-    subgraph users["用户表 users"]
-        U["id (主键) | name | email"]
+    subgraph users["users table"]
+        U["id (primary key) | name | email"]
     end
 
-    subgraph orders["订单表 orders"]
-        O["order_id (主键) | user_id (外键) | product"]
+    subgraph orders["orders table"]
+        O["order_id (primary key) | user_id (foreign key) | product"]
     end
 
-    orders -->|"user_id 引用"| users
+    orders -->|"user_id references"| users
 
     style users fill:#e3f2fd,stroke:#1565c0,color:#333
     style orders fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-订单表中的 `user_id` 就是外键——它指向用户表的 `id`，表示"这个订单属于哪个用户"。
+The `user_id` in the orders table is the foreign key—it points to the `id` in the users table and indicates "which user this order belongs to."
 
-### 3. 常见数据类型
+### 3. Common data types
 
-| 类型 | 说明 | 示例 |
+| Type | Explanation | Example |
 |------|------|------|
-| `INTEGER` | 整数 | 1, 42, -100 |
-| `REAL` / `FLOAT` | 浮点数 | 3.14, 99.9 |
-| `TEXT` / `VARCHAR` | 文本字符串 | "张三", "hello" |
-| `DATE` | 日期 | 2024-11-01 |
-| `DATETIME` | 日期时间 | 2024-11-01 14:30:00 |
-| `BOOLEAN` | 布尔值 | TRUE / FALSE |
-| `BLOB` | 二进制数据 | 图片、文件（不常用） |
+| `INTEGER` | Integer | 1, 42, -100 |
+| `REAL` / `FLOAT` | Floating-point number | 3.14, 99.9 |
+| `TEXT` / `VARCHAR` | Text string | "Zhang San", "hello" |
+| `DATE` | Date | 2024-11-01 |
+| `DATETIME` | Date and time | 2024-11-01 14:30:00 |
+| `BOOLEAN` | Boolean value | TRUE / FALSE |
+| `BLOB` | Binary data | Images, files (less commonly used) |
 
-### 4. 约束（Constraints）
+### 4. Constraints
 
-约束是对数据的**规则限制**，保证数据质量：
+Constraints are **rules** for data that help ensure data quality:
 
-| 约束 | 作用 | 示例 |
+| Constraint | Purpose | Example |
 |------|------|------|
-| `PRIMARY KEY` | 主键，唯一且不为空 | `id` |
-| `NOT NULL` | 不能为空 | `name NOT NULL` |
-| `UNIQUE` | 值不能重复 | `email UNIQUE` |
-| `DEFAULT` | 默认值 | `city DEFAULT '未知'` |
-| `FOREIGN KEY` | 外键，引用其他表 | `user_id REFERENCES users(id)` |
+| `PRIMARY KEY` | Primary key, unique and not null | `id` |
+| `NOT NULL` | Cannot be empty | `name NOT NULL` |
+| `UNIQUE` | Value cannot be duplicated | `email UNIQUE` |
+| `DEFAULT` | Default value | `city DEFAULT 'Unknown'` |
+| `FOREIGN KEY` | Foreign key, references another table | `user_id REFERENCES users(id)` |
 
 ---
 
-## 常见数据库管理系统
+## Common database management systems
 
-| 数据库 | 特点 | 适用场景 |
+| Database | Features | Use cases |
 |--------|------|---------|
-| **SQLite** | 零配置，存在单个文件中 | 学习、小应用、移动端 |
-| **MySQL** | 最流行的开源数据库 | Web 应用、中小型项目 |
-| **PostgreSQL** | 功能最强大的开源数据库 | 大型项目、AI 应用（支持向量搜索） |
-| **SQL Server** | 微软出品 | 企业级 Windows 环境 |
+| **SQLite** | Zero configuration, stored in a single file | Learning, small apps, mobile apps |
+| **MySQL** | The most popular open-source database | Web applications, small to medium projects |
+| **PostgreSQL** | The most powerful open-source database | Large projects, AI applications (supports vector search) |
+| **SQL Server** | Made by Microsoft | Enterprise Windows environments |
 
-:::tip 本章使用 SQLite
-SQLite 不需要安装任何服务器，Python 自带 `sqlite3` 模块，最适合学习。所有 SQL 语法在其他数据库中也通用。
+:::tip This chapter uses SQLite
+SQLite does not require installing any server, and Python comes with the `sqlite3` module, making it ideal for learning. All SQL syntax is also applicable in other databases.
 :::
 
-### 第一次学数据库时，最稳的默认顺序
+### The safest default order when learning databases for the first time
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先把“表、主键、外键”看顺
-2. 再学 SQL 查询
-3. 再让 Python 连数据库
-4. 最后再看数据库设计
+1. First get familiar with “tables, primary keys, and foreign keys”
+2. Then learn SQL queries
+3. Then connect Python to the database
+4. Finally, learn database design
 
-这样会比一开始就背很多 SQL 细节更不容易乱。
+This is less confusing than trying to memorize a lot of SQL details right from the start.
 
 ---
 
-## 动手体验：创建第一个数据库
+## Hands-on: Create your first database
 
 ```python
 import sqlite3
 
-# 1. 连接数据库（不存在则自动创建）
+# 1. Connect to the database (it will be created automatically if it does not exist)
 conn = sqlite3.connect("my_shop.db")
 cursor = conn.cursor()
 
-# 2. 创建用户表
+# 2. Create the users table
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         email TEXT UNIQUE,
         age INTEGER,
-        city TEXT DEFAULT '未知'
+        city TEXT DEFAULT 'Unknown'
     )
 """)
 
-# 3. 插入数据
-cursor.execute("INSERT INTO users (name, email, age, city) VALUES ('张三', 'zhang@mail.com', 28, '北京')")
-cursor.execute("INSERT INTO users (name, email, age, city) VALUES ('李四', 'li@mail.com', 35, '上海')")
-cursor.execute("INSERT INTO users (name, email, age, city) VALUES ('王五', 'wang@mail.com', 22, '广州')")
+# 3. Insert data
+cursor.execute("INSERT INTO users (name, email, age, city) VALUES ('Zhang San', 'zhang@mail.com', 28, 'Beijing')")
+cursor.execute("INSERT INTO users (name, email, age, city) VALUES ('Li Si', 'li@mail.com', 35, 'Shanghai')")
+cursor.execute("INSERT INTO users (name, email, age, city) VALUES ('Wang Wu', 'wang@mail.com', 22, 'Guangzhou')")
 
-# 4. 提交更改
+# 4. Commit changes
 conn.commit()
 
-# 5. 查询数据
+# 5. Query data
 cursor.execute("SELECT * FROM users")
 rows = cursor.fetchall()
 for row in rows:
     print(row)
-# (1, '张三', 'zhang@mail.com', 28, '北京')
-# (2, '李四', 'li@mail.com', 35, '上海')
-# (3, '王五', 'wang@mail.com', 22, '广州')
+# (1, 'Zhang San', 'zhang@mail.com', 28, 'Beijing')
+# (2, 'Li Si', 'li@mail.com', 35, 'Shanghai')
+# (3, 'Wang Wu', 'wang@mail.com', 22, 'Guangzhou')
 
-# 6. 关闭连接
+# 6. Close the connection
 conn.close()
 ```
 
-恭喜！你刚刚创建了一个数据库、一张表，并存入了 3 条数据。
+Congratulations! You just created a database, created a table, and inserted 3 rows of data.
 
-### 这个小示例最值得先学到什么？
+### What is the most important thing to learn from this small example first?
 
-最值得先学到的不是每个 SQL 关键字，  
-而是数据库最小工作流其实很朴素：
+The most important thing is not every SQL keyword,
+but that the smallest database workflow is actually very straightforward:
 
-1. 连上数据库
-2. 创建表
-3. 插入数据
-4. 查询结果
+1. Connect to the database
+2. Create a table
+3. Insert data
+4. Query the results
 
-只要这条线先顺了，后面学 SQL 和 Python 连接就不会那么虚。
+Once this flow makes sense, learning SQL and Python database connections later will feel much less abstract.
 
 ---
 
-## 小结
+## Summary
 
 ```mermaid
 mindmap
-  root(("关系型数据库"))
-    核心概念
-      数据库 Database
-      表 Table
-      行 Row
-      列 Column
-    关键机制
-      主键 PK
-      外键 FK
-      约束 Constraints
-      数据类型
-    常用数据库
-      SQLite（学习用）
+  root(("Relational Database"))
+    Core concepts
+      Database
+      Table
+      Row
+      Column
+    Key mechanisms
+      Primary Key PK
+      Foreign Key FK
+      Constraints
+      Data types
+    Common databases
+      SQLite (for learning)
       MySQL
       PostgreSQL
       SQL Server
 ```
 
-| 概念 | 一句话理解 |
+| Concept | One-sentence understanding |
 |------|----------|
-| 数据库 | 存放所有表的"文件夹" |
-| 表 | 一类数据的"Excel 工作表" |
-| 主键 | 每条记录的"身份证号" |
-| 外键 | 连接两张表的"纽带" |
-| 约束 | 保证数据质量的"规则" |
+| Database | A "folder" that stores all tables |
+| Table | An "Excel worksheet" for one kind of data |
+| Primary key | The "ID card number" of each record |
+| Foreign key | The "link" connecting two tables |
+| Constraint | A "rule" that ensures data quality |
 
-## 这节最该带走什么
+## What should you take away from this lesson?
 
-- 关系型数据库最重要的不是“存很多表”，而是表和表之间能通过键建立关系
-- 主键负责唯一标识，外键负责把表接起来
-- 这一节先立住了，后面的 SQL 和多表分析才会顺
+- The most important thing about relational databases is not "storing many tables," but that tables can establish relationships through keys
+- Primary keys uniquely identify records, and foreign keys connect tables
+- Once this foundation is clear, SQL and multi-table analysis will make much more sense
 
 ---
 
-## 动手练习
+## Hands-on practice
 
-### 练习 1：设计表结构
+### Exercise 1: Design table structures
 
 ```
-为一个图书管理系统设计两张表：
-- books 表：书名、作者、出版年份、价格、分类
-- borrows 表：借阅记录（谁借了哪本书、借阅日期、归还日期）
+Design two tables for a library management system:
+- books table: title, author, publication year, price, category
+- borrows table: borrowing records (who borrowed which book, borrow date, return date)
 
-思考：
-1. 每张表的主键是什么？
-2. borrows 表需要哪些外键？
-3. 哪些字段应该加 NOT NULL 约束？
+Think about:
+1. What is the primary key of each table?
+2. Which foreign keys does the borrows table need?
+3. Which fields should have NOT NULL constraints?
 ```
 
-### 练习 2：用 SQLite 实践
+### Exercise 2: Practice with SQLite
 
 ```python
-# 使用 sqlite3 创建上面设计的 books 表和 borrows 表
-# 插入 5 本书和 3 条借阅记录
-# 查询所有数据并打印
+# Use sqlite3 to create the books table and borrows table designed above
+# Insert 5 books and 3 borrowing records
+# Query all data and print it
 ```

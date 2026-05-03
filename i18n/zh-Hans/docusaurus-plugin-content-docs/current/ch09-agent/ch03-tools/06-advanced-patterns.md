@@ -1,0 +1,387 @@
+---
+title: "3.7 高级工具模式【选修】"
+sidebar_position: 16
+description: "从重试、缓存、批量、复合工具到工具代理层，理解当工具越来越多时，为什么必须把工具层做成一套可组合系统。"
+keywords: [tool patterns, composite tools, caching, batching, retries, decorators, orchestration]
+---
+
+# 高级工具模式【选修】
+
+:::tip 本节定位
+当工具只有两三个时，
+直接注册和调度往往已经够用。
+
+但工具一多，你很快就会遇到新问题：
+
+- 同一个工具老被重复调用
+- 一些调用适合批量做
+- 某些常用流程总是几种工具连着用
+
+这时你就会发现，工具层也开始需要“设计模式”。
+
+这一节要讲的，就是：
+
+> **如何把工具从一堆散函数，提升成一套可组合、可复用的能力层。**
+:::
+
+## 学习目标
+
+- 理解缓存、重试、批量、复合工具等高级模式分别解决什么问题
+- 理解“工具包装层”为什么重要
+- 通过可运行示例看懂一个可组合工具执行器
+- 建立工具层从“函数集合”走向“系统组件”的意识
+
+---
+
+## 一、为什么工具层也需要模式？
+
+### 1.1 因为很多问题会重复出现
+
+例如：
+
+- 每次调用都要记录日志
+- 某些接口老超时，需要重试
+- 同一查询一会儿就被问一次，适合缓存
+- 某些任务总是“先搜再总结”
+
+如果这些逻辑每个工具里都手写一遍，
+系统会很快失控。
+
+### 1.2 模式的价值不是“显得高级”
+
+而是：
+
+- 复用
+- 一致性
+- 降低重复工程
+
+这和后端服务里的中间件思想很像。
+
+### 1.3 一个类比：工具本体像电器，模式像插线板和稳压器
+
+你买回来的电器当然能单独用，
+但当设备越来越多，
+你会自然加上：
+
+- 插线板
+- 稳压器
+- 定时器
+
+工具模式对 Agent 来说，也是在做类似的事情。
+
+---
+
+## 二、四种最常见的高级工具模式
+
+### 2.1 重试包装
+
+适合：
+
+- 临时性失败
+- 上游接口偶发抖动
+
+### 2.2 缓存包装
+
+适合：
+
+- 短时间内高频重复查询
+- 只读类工具
+
+### 2.3 批量工具
+
+适合：
+
+- 一次问多个类似问题
+- 一组相似请求合并处理
+
+### 2.4 复合工具
+
+适合：
+
+- 多个工具经常固定搭配使用
+
+例如：
+
+- 搜索文档 -> rerank -> 总结
+
+这时与其每次都让 Agent 即兴组织，
+不如封成一个更高层的复合工具。
+
+---
+
+## 三、先跑一个“可组合工具包装器”示例
+
+下面这个例子会做三件事：
+
+1. 给底层工具套上缓存
+2. 给工具套上重试
+3. 再组合成一个复合工具
+
+```python
+from functools import wraps
+
+
+def cache_tool(fn):
+    cache = {}
+
+    @wraps(fn)
+    def wrapper(*args):
+        if args in cache:
+            return {"source": "cache", "value": cache[args]}
+        value = fn(*args)
+        cache[args] = value
+        return {"source": "tool", "value": value}
+
+    return wrapper
+
+
+def retry_tool(fn, retries=2):
+    @wraps(fn)
+    def wrapper(*args):
+        last_error = None
+        for _ in range(retries + 1):
+            try:
+                return fn(*args)
+            except Exception as e:
+                last_error = str(e)
+        return {"error": f"retry_failed:{last_error}"}
+
+    return wrapper
+
+
+@cache_tool
+def search_docs(keyword):
+    docs = {
+        "退款": "退款需满足 7 天内且学习进度低于 20%。",
+        "证书": "完成所有必修项目并通过测试后可获得证书。",
+    }
+    return docs.get(keyword, "未找到相关文档")
+
+
+def summarize(text):
+    return f"总结：{text[:18]}..."
+
+
+def search_and_summarize(keyword):
+    doc = search_docs(keyword)
+    if "error" in doc:
+        return doc
+    return {
+        "keyword": keyword,
+        "raw": doc,
+        "summary": summarize(doc["value"]),
+    }
+
+
+print(search_and_summarize("退款"))
+print(search_and_summarize("退款"))
+```
+
+### 3.1 这段代码最值得学的是什么？
+
+它说明工具层不是只有“工具本体”。
+实际系统里，你经常会先做：
+
+- 包装
+- 增强
+- 组合
+
+最终被 Agent 调用的，
+常常是增强后的能力，而不只是原始函数。
+
+### 3.2 为什么缓存适合只读工具？
+
+因为只读工具在短时间内重复调用时，
+返回值往往不会立刻变。
+
+例如：
+
+- 查询退款政策
+- 查询产品说明
+
+这种工具做短时缓存，很容易显著降成本。
+
+### 3.3 为什么“搜索 + 总结”适合封成复合工具？
+
+因为它是高度固定的组合。
+如果每次都让 Agent 自己想：
+
+- 先搜
+- 再总结
+
+既慢又容易多一步少一步。
+
+封装成复合工具后，
+系统会更稳。
+
+---
+
+## 四、批量工具为什么重要？
+
+### 4.1 因为很多请求本质上可以一起做
+
+例如：
+
+- 一次查 10 个订单状态
+- 一次算一批价格
+- 一次取一组文档摘要
+
+如果逐条调用，
+会浪费很多：
+
+- 网络往返
+- 模型步数
+- 调度开销
+
+### 4.2 一个最小批量工具示例
+
+```python
+def get_order_status_batch(order_ids):
+    mock_db = {
+        "A001": "未发货",
+        "A002": "已发货",
+        "A003": "已签收",
+    }
+    return {order_id: mock_db.get(order_id, "未知订单") for order_id in order_ids}
+
+
+print(get_order_status_batch(["A001", "A002", "A009"]))
+```
+
+这类模式特别适合：
+
+- 后端本身支持批量接口
+- 单次调用成本不低
+
+---
+
+## 五、什么时候该把一串工具封成“高级工具”？
+
+### 5.1 当组合足够固定
+
+如果流程总是：
+
+- `search -> rerank -> summarize`
+
+那就很适合做复合工具。
+
+### 5.2 当你希望 Agent 少想一点细节
+
+Agent 的工作不应该永远停留在低级操作。
+如果基础动作已经稳定，
+封装成高层工具后，Agent 可以把注意力放在：
+
+- 更高层决策
+
+### 5.3 当你希望系统更稳、更快、更易测
+
+复合工具通常更容易：
+
+- 单元测试
+- 观测
+- 限流
+
+因为边界更明确了。
+
+---
+
+## 六、如果你的目标是“知识库驱动的课件生成助手”，哪些组合最值得先封装？
+
+这类项目里，工具很容易自然长成下面这几类：
+
+- 查内部资料
+- 查外部资料
+- 去重和重排
+- 生成课件 schema
+- 导出 Word
+
+如果每一步都让 Agent 临场决定，
+系统通常会出现：
+
+- 顺序不稳定
+- 一会儿漏查内部资料
+- 一会儿先导出、后补内容
+
+所以第一次做时，更值得先封装的，往往是这些高频固定流程：
+
+| 复合工具 | 它在替你固定什么 |
+|---|---|
+| `retrieve_teaching_materials` | 先查内部，再补外部，再合并去重 |
+| `build_courseware_outline` | 先抽概念、例题、练习，再整理 schema |
+| `export_courseware_doc` | 先校验 schema，再套模板导出 Word |
+
+你可以先把它理解成：
+
+> **把经常一起出现的动作，提前捆成一个稳定步骤。**
+
+### 6.1 一个更像真实项目的最小复合工具示例
+
+```python
+def retrieve_internal_docs(topic):
+    return [{"source": "internal", "text": f"内部资料：{topic} 的知识点和例题"}]
+
+
+def retrieve_external_docs(topic):
+    return [{"source": "external", "text": f"外部资料：{topic} 的补充说明"}]
+
+
+def merge_materials(internal_docs, external_docs):
+    return internal_docs + external_docs
+
+
+def retrieve_teaching_materials(topic):
+    internal_docs = retrieve_internal_docs(topic)
+    external_docs = retrieve_external_docs(topic)
+    return merge_materials(internal_docs, external_docs)
+
+
+print(retrieve_teaching_materials("折扣应用题"))
+```
+
+这个示例最重要的价值不是代码多复杂，
+而是让新人先看到：
+
+- 高级工具模式不是“玄学设计”
+- 而是在把项目里反复出现的流程固化下来
+
+---
+
+## 七、最常见的误区
+
+### 7.1 误区一：高级模式就是“多写点装饰器”
+
+不是。
+关键不是写法炫，
+而是它是否真的减少了重复问题。
+
+### 7.2 误区二：有了缓存就一定更好
+
+如果数据变化快，
+缓存可能反而带来陈旧结果风险。
+
+### 7.3 误区三：组合越多越说明系统强
+
+过度封装也会让系统变僵硬。
+关键看组合是否稳定、是否高频。
+
+---
+
+## 小结
+
+这节最重要的，不是记住几个模式名字，
+而是建立一个更工程化的判断：
+
+> **当工具越来越多、问题越来越重复时，工具层需要通过缓存、重试、批量和复合封装，从“函数集合”升级成一套可组合的能力系统。**
+
+这层意识建立起来后，
+你后面做代码 Agent 和多工具系统时，
+就不会只想着“再加一个函数”了。
+
+---
+
+## 练习
+
+1. 给示例再加一个 `timeout_tool` 包装器，思考它该放在哪一层。
+2. 为什么缓存更适合只读工具，而不适合高频变化的写操作？
+3. 想一个你做过的 Agent 任务，找出其中一个适合封成复合工具的固定流程。
+4. 如果一个工具组合不稳定、经常改顺序，你还会把它封成高级工具吗？为什么？

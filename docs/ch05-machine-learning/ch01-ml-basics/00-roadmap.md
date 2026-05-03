@@ -1,98 +1,98 @@
 ---
-title: "1.1 学前导读：机器学习基础这一章到底在学什么"
+title: "1.1 Pre-study Guide: What Is This Chapter on Machine Learning Basics Really About?"
 sidebar_position: 0
-description: "先建立机器学习入门章的学习地图：任务类型、数据集、训练流程、sklearn 和后续算法学习怎样串成一条主线。"
-keywords: [机器学习导读, ML入门, sklearn导读, 监督学习, 无监督学习]
+description: "First build a learning map for the introductory machine learning chapter: task types, datasets, training workflow, and how sklearn and later algorithm study connect into one main thread."
+keywords: [machine learning guide, ML introduction, sklearn guide, supervised learning, unsupervised learning]
 ---
 
-# 学前导读：机器学习基础这一章到底在学什么
+# Pre-study Guide: What Is This Chapter on Machine Learning Basics Really About?
 
-![机器学习基础学习地图](/img/course/ml-basics-roadmap.png)
+![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap-en.png)
 
-这一章不是在教你背算法名称，而是在帮你先建立“机器学习项目的地图感”。如果这一章学稳，后面的监督学习、无监督学习、模型评估、特征工程和项目实践就不会变成零散概念。
+This chapter is not about memorizing algorithm names. Instead, it helps you first build a “sense of the map” for machine learning projects. If you master this chapter well, the later topics—supervised learning, unsupervised learning, model evaluation, feature engineering, and project practice—will no longer feel like scattered concepts.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Whole Course
 
-你已经在前面学过 Python、数据分析和 AI 数学最小基础。到这里，课程开始从“处理数据”进入“让模型从数据中学习规律”。
+You have already learned Python, data analysis, and the minimum foundation of AI math. From here, the course begins to move from “processing data” to “letting models learn patterns from data.”
 
-这一步的关键变化是：传统编程主要是人写规则，机器学习则是你准备数据、定义目标、选择模型、训练模型，再用评估结果判断模型是否真的学到了规律。
+The key change in this step is: in traditional programming, humans mainly write rules, while in machine learning, you prepare data, define the goal, choose a model, train the model, and then use evaluation results to judge whether the model has really learned the pattern.
 
-前半段的重点是把“数据”和“数学”准备好：你先能读懂数据、处理数据，再理解向量、概率和优化这些机器学习会反复用到的概念。
+The first half focuses on getting “data” and “math” ready: you first learn to read and process data, and then understand vectors, probability, and optimization—the concepts machine learning will use again and again.
 
-![机器学习基础章节关系图](/img/course/ch05-basics-chapter-flow.png)
+![Machine Learning Basics Chapter Flow](/img/course/ch05-basics-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要先回答四个基础问题：机器学习和传统编程到底差在哪里；分类、回归、聚类这些任务为什么要先分清；训练集、验证集、测试集为什么不能混用；`scikit-learn` 为什么能把训练、预测和评估组织成统一流程。
+This chapter first answers four basic questions: how machine learning differs from traditional programming; why you need to distinguish tasks such as classification, regression, and clustering; why training sets, validation sets, and test sets should not be mixed; and why `scikit-learn` can organize training, prediction, and evaluation into a unified workflow.
 
-新人最容易把机器学习学成“算法清单”。但真正更重要的是先看懂一件事：每个算法都是为某类任务服务的，而任务、数据、特征、评估方式共同决定了模型是否有意义。
+Beginners often turn machine learning into a “list of algorithms.” But what matters more is understanding this first: each algorithm serves a specific type of task, and the task, data, features, and evaluation method together determine whether the model is meaningful.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先看“机器学习历史突破主线”，把贝叶斯、线性模型、决策树、SVM、随机森林、Boosting 和 sklearn 放进一条技术演进线。然后看“什么是机器学习”，把监督学习、无监督学习、分类、回归、聚类、训练集和测试集这些坐标轴立起来。再看 `Scikit-learn` 入门，理解 `fit / predict / score` 这条最短建模工作流。最后回看“数学如何真正流到机器学习”，把第 4 站的线性代数、概率统计和微积分接到模型训练里。
+It is recommended to first read the “main thread of machine learning history breakthroughs” and place Bayes, linear models, decision trees, SVM, random forests, Boosting, and sklearn into one technical evolution line. Then read “What Is Machine Learning” to establish the axes of supervised learning, unsupervised learning, classification, regression, clustering, training sets, and test sets. Next, read the `Scikit-learn` introduction to understand the shortest modeling workflow of `fit / predict / score`. Finally, revisit “How Math Really Flows into Machine Learning” to connect the linear algebra, probability and statistics, and calculus from Station 4 into model training.
 
 ```mermaid
 flowchart TD
-  A[先看历史突破主线] --> B[再分清任务类型]
-  B --> C[理解数据集切分]
-  C --> D[跑通 sklearn 最小流程]
-  D --> E[理解训练 预测 评估]
-  E --> F[把数学概念接回模型]
-  F --> G[进入监督学习和无监督学习]
+  A[First read the main thread of history breakthroughs] --> B[Then distinguish task types]
+  B --> C[Understand dataset splitting]
+  C --> D[Run through the sklearn minimal workflow]
+  D --> E[Understand training prediction evaluation]
+  E --> F[Connect math concepts back to models]
+  F --> G[Move into supervised learning and unsupervised learning]
 ```
 
-## 学这一章时要抓住的主线
+## The Main Thread You Should Focus on While Studying This Chapter
 
-你可以把这一章记成一条最小闭环：先判断任务是什么，再准备数据和标签，然后选择一个 baseline 模型，用 `fit` 训练，用 `predict` 预测，用 `score` 或其他指标评估，最后根据结果决定是否改特征、换模型或重新检查数据。
+You can remember this chapter as a minimal closed loop: first identify the task, then prepare the data and labels, then choose a baseline model, use `fit` to train, use `predict` to make predictions, use `score` or other metrics to evaluate, and finally decide whether to improve features, switch models, or recheck the data based on the results.
 
 ```mermaid
 flowchart LR
-  A[任务定义] --> B[数据与标签]
-  B --> C[训练模型 fit]
-  C --> D[预测结果 predict]
-  D --> E[评估表现 score]
-  E --> F{效果够好吗}
-  F -- 否 --> B
-  F -- 是 --> G[进入项目输出]
+  A[Task definition] --> B[Data and labels]
+  B --> C[Train model fit]
+  C --> D[Predict results predict]
+  D --> E[Evaluate performance score]
+  E --> F{Is the result good enough}
+  F -- No --> B
+  F -- Yes --> G[Move on to project output]
 ```
 
-## 这一章和后面章节的关系
+## How This Chapter Relates to Later Chapters
 
-这一章是第 5 站的入口。后面的监督学习会展开分类和回归，无监督学习会展开聚类和降维，模型评估会告诉你分数是否可信，特征工程会告诉你怎样让数据更适合模型，最后项目实践会把这些内容合成一个完整建模流程。
+This chapter is the entry point to Station 5. Later, supervised learning will expand classification and regression, unsupervised learning will expand clustering and dimensionality reduction, model evaluation will tell you whether the score is trustworthy, feature engineering will show you how to make data more suitable for models, and project practice will combine all of this into a complete modeling workflow.
 
-如果这一章没有学稳，后面常见的问题是：每个算法都看过，但不知道什么时候该用它；代码能跑，但不知道结果是否可信；模型分数很高，却没有意识到可能发生了数据泄漏或评估错误。
+If this chapter is not learned well, common problems later are: you have seen each algorithm, but you do not know when to use it; the code runs, but you do not know whether the result is trustworthy; the model score is very high, but you do not realize that data leakage or evaluation mistakes may have occurred.
 
-如果你想把“为什么这些算法会出现”先看顺，可以先读 [1.2 机器学习历史突破主线](./04-history-breakthroughs.md)。它会把 Bayes、MLE、EM、线性模型、决策树、SVM、随机森林、Boosting、XGBoost 和 sklearn 分配到对应学习章节。
+If you want to first understand “why these algorithms appeared,” you can read [1.2 Main Thread of Machine Learning History Breakthroughs](./04-history-breakthroughs.md). It will map Bayes, MLE, EM, linear models, decision trees, SVM, random forests, Boosting, XGBoost, and sklearn to the corresponding learning chapters.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus on the main thread and the minimal runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the minimal project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter for gap filling and engineering practice: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after. After reading, it is best to record the content of this chapter in your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run through a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its position in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly say what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you preserve after learning? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议做一个最小分类或回归练习。你可以使用 sklearn 内置数据集，完成数据加载、训练测试切分、模型训练、预测、评估和简单结论说明。项目不需要复杂，但必须能说清楚：这是分类还是回归，输入特征是什么，目标标签是什么，使用了什么评估指标，以及模型结果是否能作为 baseline。
+After finishing this chapter, it is recommended to do a minimal classification or regression exercise. You can use a built-in sklearn dataset and complete data loading, train-test splitting, model training, prediction, evaluation, and a brief conclusion. The project does not need to be complex, but it must clearly explain: whether it is classification or regression, what the input features are, what the target label is, what evaluation metric is used, and whether the model result can serve as a baseline.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能用自己的话解释机器学习和传统编程的差异，能区分分类、回归和聚类，能说明训练集和测试集为什么要分开，能读懂 `fit / predict / score` 的含义，并能跑通一个最小 sklearn 建模流程。
+By the end of this chapter, you should be able to explain in your own words the difference between machine learning and traditional programming, distinguish classification, regression, and clustering, explain why training sets and test sets must be separated, understand what `fit / predict / score` means, and run through a minimal sklearn modeling workflow.
 
-如果你还能主动问“这个分数可信吗”“有没有数据泄漏”“baseline 是多少”，说明你已经不是只在学 API，而是在建立机器学习项目思维。
+If you can also proactively ask, “Is this score trustworthy?”, “Is there data leakage?”, and “What is the baseline?”, that means you are no longer just learning APIs—you are building a machine learning project mindset.

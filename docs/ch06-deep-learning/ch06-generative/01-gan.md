@@ -1,159 +1,159 @@
 ---
-title: "6.2 GAN 基础【选修】"
+title: "6.2 GAN Basics [Optional]"
 sidebar_position: 1
-description: "从生成器和判别器的对抗博弈讲起，理解 GAN 为什么能学出逼真样本，以及它为什么容易训练不稳。"
+description: "Starting from the adversarial game between the generator and the discriminator, understand why GAN can learn realistic samples and why it is often hard to train stably."
 keywords: [GAN, generator, discriminator, adversarial training, mode collapse]
 ---
 
-# GAN 基础【选修】
+# GAN Basics [Optional]
 
-![GAN 生成器判别器对抗图](/img/course/gan-adversarial-loop.png)
+![GAN generator discriminator adversarial diagram](/img/course/gan-adversarial-loop-en.png)
 
-:::tip 本节定位
-GAN 最吸引人的地方是：
+:::tip Section overview
+What makes GAN especially appealing is:
 
-- 它不是学“标签”
-- 而是学“像不像真的”
+- It does not learn “labels”
+- It learns “whether something looks real”
 
-这让它在生成任务里很有魅力。  
-但它也非常容易让初学者发虚，因为训练方式看起来不像普通监督学习。
+That is what makes it so attractive for generation tasks.
+But it can also make beginners feel uneasy, because the training process does not look like ordinary supervised learning.
 
-这一节的目标不是把 GAN 神秘化，而是把它还原成一场很具体的博弈：
+The goal of this section is not to mystify GAN, but to reduce it to a very concrete game:
 
-> **生成器想骗过判别器，判别器想识破生成器。**
+> **The generator tries to fool the discriminator, and the discriminator tries to catch the generator.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解生成器和判别器各自负责什么
-- 理解“对抗训练”为什么能推动生成质量提升
-- 通过可运行示例建立最小 GAN 训练直觉
-- 理解 mode collapse 和训练不稳为何高频出现
+- Understand what the generator and discriminator are each responsible for
+- Understand why “adversarial training” can improve generation quality
+- Build a minimal intuition for GAN training through a runnable example
+- Understand why mode collapse and unstable training happen so often
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-如果你刚从前面的分类或回归任务过来，可以先这样理解：
+If you just came from earlier classification or regression tasks, you can think about it like this:
 
-- 以前模型主要是在学“这个输入该判成什么”
-- GAN 开始学“怎样造出一个看起来像真实分布里的样本”
+- Previously, the model mainly learned “what class should this input be assigned to?”
+- GAN starts learning “how can we create a sample that looks like it came from the real distribution?”
 
-所以 GAN 最重要的变化不是“也有网络”，而是：
+So the biggest change in GAN is not “there is also a network,” but:
 
-- 目标函数和训练关系都变得更动态
-- 模型不再只追求分类正确率，而是在追求真假博弈中的生成质量
+- The objective function and training relationship become much more dynamic
+- The model no longer only pursues classification accuracy, but generation quality in a real-vs-fake game
 
-GAN 最适合新人的理解方式不是从公式开始，而是先把它看成一场动态博弈：
+The best way for beginners to understand GAN is not to start from formulas, but to first see it as a dynamic game:
 
 ```mermaid
 flowchart LR
-    A["随机噪声 z"] --> B["生成器 G"]
-    B --> C["伪造样本"]
-    C --> D["判别器 D"]
-    E["真实样本"] --> D
-    D --> F["真假反馈"]
+    A["Random noise z"] --> B["Generator G"]
+    B --> C["Fake sample"]
+    C --> D["Discriminator D"]
+    E["Real sample"] --> D
+    D --> F["Real-vs-fake feedback"]
     F --> B
 ```
 
-所以这节最重要的不是先记损失函数，而是先看清：
+So the most important thing in this section is not to memorize the loss function first, but to clearly see:
 
-- 生成器想做什么
-- 判别器想做什么
-- 为什么双方一起训练会让系统变难
+- What the generator wants to do
+- What the discriminator wants to do
+- Why training both together makes the system harder
 
-## 一、GAN 到底在做什么？
+## 1. What exactly does GAN do?
 
-### 1.1 生成器
+### 1.1 Generator
 
-输入：
+Input:
 
-- 随机噪声
+- Random noise
 
-输出：
+Output:
 
-- 一个伪造样本
+- A fake sample
 
-它的目标是：
+Its goal is to:
 
-- 让样本看起来像真实数据分布里来的
+- Make the sample look like it came from the real data distribution
 
-### 1.2 判别器
+### 1.2 Discriminator
 
-输入：
+Input:
 
-- 一个样本
+- A sample
 
-输出：
+Output:
 
-- 这个样本像不像真的
+- Whether the sample looks real
 
-它的目标是：
+Its goal is to:
 
-- 把真实样本和伪造样本区分开
+- Distinguish real samples from fake ones
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-GAN 像假钞工厂和验钞机的对抗：
+GAN is like a battle between a counterfeit money factory and a bill detector:
 
-- 假钞工厂越做越像
-- 验钞机也越识别越准
+- The counterfeit factory keeps making better fakes
+- The detector keeps getting better at spotting them
 
-在不断博弈中，伪造样本质量提升。
+Through this ongoing game, the quality of fake samples improves.
 
-### 1.4 第一次学 GAN，最该先抓住什么？
+### 1.4 When learning GAN for the first time, what should you focus on?
 
-最该先抓住的不是一堆对抗损失公式，而是这句：
+What you should focus on first is not a pile of adversarial loss formulas, but this sentence:
 
-> **GAN 不是直接被教“正确答案”，而是在真假对抗中一点点学会更像真实分布。**
+> **GAN is not directly taught the “correct answer”; instead, it learns bit by bit to look more like the real distribution through a real-vs-fake game.**
 
-这句话一旦稳住，后面很多现象就都容易理解：
+Once this idea is stable in your mind, many later phenomena become easier to understand:
 
-- 为什么训练会不稳
-- 为什么判别器不能强得太离谱
-- 为什么生成样本“像了”但可能开始塌缩
+- Why training can be unstable
+- Why the discriminator should not become too strong
+- Why generated samples may look realistic but still collapse
 
-![GAN 对抗训练平衡与模式崩塌图](/img/course/ch06-gan-adversarial-balance-map.png)
+![GAN adversarial training balance and mode collapse diagram](/img/course/ch06-gan-adversarial-balance-map-en.png)
 
-:::tip 读图提示
-读这张图时把 GAN 看成两个人同时学习：生成器在学会“更像真”，判别器在学会“识破假”。如果判别器太强，生成器拿不到有效反馈；如果生成器只会一种骗法，就容易 mode collapse。
+:::tip Reading hint
+When reading this diagram, think of GAN as two people learning at the same time: the generator is learning to become “more real,” and the discriminator is learning to “spot the fake.” If the discriminator is too strong, the generator cannot get useful feedback; if the generator only knows one trick, mode collapse becomes likely.
 :::
 
 ---
 
-## 二、为什么 GAN 会比“直接拟合像素”更有意思？
+## 2. Why is GAN more interesting than “direct pixel fitting”?
 
-因为它不是让模型逐像素去复制一张图，  
-而是让模型学会：
+Because it does not ask the model to copy an image pixel by pixel,
+but instead lets the model learn:
 
-- 什么样的样本整体上更像真实分布
+- What kind of samples look more like the real distribution overall
 
-所以 GAN 更像在学：
+So GAN is more like learning:
 
-- 数据分布的“真假边界”
+- The “real-vs-fake boundary” of the data distribution
 
-这也是它后来在图像生成里很有影响力的原因之一。
+This is one of the reasons it became so influential in image generation.
 
 ---
 
-## 三、先跑一个最小 GAN 博弈示例
+## 3. Run a minimal GAN game example first
 
-下面这个例子不会生成图片，  
-而是用一维数字来模拟真实分布和生成分布。
+This example will not generate images,
+but instead uses 1D numbers to simulate the real distribution and the generated distribution.
 
-真实数据假设集中在：
+Assume the real data is concentrated around:
 
-- `2.0` 左右
+- `2.0`
 
-生成器一开始输出很差，  
-然后不断往真实分布靠近。
+The generator starts off badly,
+then keeps moving closer to the real distribution.
 
 ```python
 real_samples = [1.8, 2.0, 2.2, 1.9, 2.1]
 
 
 def discriminator_score(x):
-    # 越接近真实中心 2.0，越像真样本
+    # The closer x is to the real center 2.0, the more real it looks
     return max(0.0, 1.0 - abs(x - 2.0))
 
 
@@ -166,184 +166,184 @@ for step in range(8):
         f"disc_score={score:.2f}"
     )
 
-    # 极简“更新”：往判别器认为更真实的方向移动
+    # Extremely simplified "update": move toward the direction the discriminator thinks is more real
     if generator_output < 2.0:
         generator_output += 0.5
     else:
         generator_output -= 0.2
 ```
 
-### 3.1 这个例子最该抓住什么？
+### 3.1 What should you take away from this example?
 
-它说明 GAN 的关键不是固定答案，  
-而是：
+It shows that the key to GAN is not a fixed answer,
+but rather:
 
-- 生成器根据“真假反馈”不断调整
+- The generator keeps adjusting based on “real-vs-fake” feedback
 
-### 3.2 为什么这和普通分类训练感觉不一样？
+### 3.2 Why does this feel different from ordinary classification training?
 
-因为目标本身会动。  
-判别器在变，生成器也在变。  
-这就是对抗训练不稳定的根源之一。
+Because the goal itself is moving.
+The discriminator changes, and the generator changes too.
+That is one of the root causes of instability in adversarial training.
 
 ---
 
-## 四、GAN 为什么经常训练不稳？
+## 4. Why is GAN often unstable to train?
 
-### 4.1 两边强弱不平衡
+### 4.1 Imbalance between the two sides
 
-如果判别器太强：
+If the discriminator is too strong:
 
-- 生成器学不到有效梯度
+- The generator cannot learn useful gradients
 
-如果生成器太强：
+If the generator is too strong:
 
-- 判别器分不出真假
+- The discriminator cannot tell real from fake
 
-### 4.2 目标本身在变化
+### 4.2 The objective itself changes
 
-普通监督学习里，标签不动。  
-GAN 里，生成器和判别器彼此改变对方的学习环境。
+In ordinary supervised learning, the labels do not move.
+In GAN, the generator and discriminator keep changing each other’s learning environment.
 
-### 4.3 mode collapse 是什么？
+### 4.3 What is mode collapse?
 
-最常见的一种坏情况是：
+One of the most common failure cases is:
 
-- 生成器发现某一类样本特别容易骗过判别器
-- 就反复只生成那一小类
+- The generator finds one kind of sample that easily fools the discriminator
+- Then it keeps generating only that small category over and over
 
-这就叫：
+This is called:
 
 - mode collapse
 
-也就是：
+In other words:
 
-- 看起来“像”了
-- 但多样性丢了
+- It may look “realistic”
+- But diversity is lost
 
-### 4.4 新人最该先看哪些训练信号？
+### 4.4 What should beginners pay attention to first when training?
 
-如果你真的开始跑 GAN，最值得优先观察的是：
+If you actually start running GAN, the most important things to observe first are:
 
-- 生成样本有没有越来越像
-- 判别器是不是很快强到压制生成器
-- 样本是不是越来越像同一种东西
+- Whether the generated samples are becoming more realistic
+- Whether the discriminator becomes so strong that it overwhelms the generator too quickly
+- Whether the samples are increasingly becoming the same kind of thing
 
-也就是说，GAN 不要只看一个 loss 数字，更要看：
+In other words, with GAN, do not look only at a single loss number; also pay attention to:
 
-- 可视化样本
-- 多样性
-- 双方训练是否失衡
+- Visualized samples
+- Diversity
+- Whether the two sides are becoming imbalanced
 
-### 4.5 GAN 训练和普通监督学习最不一样的地方是什么？
+### 4.5 What is the biggest difference between GAN training and ordinary supervised learning?
 
-最不一样的一点是：
+One very important difference is:
 
-- 你的学习环境本身也在动
+- Your learning environment is also moving
 
-在普通监督学习里：
+In ordinary supervised learning:
 
-- 标签不动
-- loss 的参照系相对稳定
+- The labels do not move
+- The reference frame for the loss is relatively stable
 
-在 GAN 里：
+In GAN:
 
-- 判别器在变
-- 生成器也在变
-- 双方都在改变对方的训练难度
+- The discriminator changes
+- The generator changes too
+- Both sides change the difficulty of training for the other side
 
-所以 GAN 的不稳定，并不是偶然 bug，而是这类训练目标天然带来的挑战。
-
----
-
-## 五、GAN 适合什么时候学？
-
-### 5.1 适合建立“生成模型不只有重建和似然”这条认知
-
-它能帮你理解：
-
-- 还有一种从对抗信号出发学分布的路线
-
-### 5.2 也适合看清生成模型训练为什么会难
-
-GAN 是很好的反例教材：
-
-- 你会非常直观地看到训练不稳、模式崩塌这些问题
-
-### 5.3 但不建议把它当成所有生成项目的默认起点
-
-在今天很多任务里，  
-扩散模型往往更稳定、更主流。
-
-### 5.4 那为什么这一章还要学 GAN？
-
-因为 GAN 是理解“生成模型为什么难训练”的最好入口之一。
-
-你学 GAN 的价值不只是会一个模型，而是会真正建立这三个判断：
-
-- 生成不只是在拟合标签
-- 生成训练目标可能会动态变化
-- 样本质量和多样性往往需要一起看
+So GAN instability is not an accidental bug; it is a natural challenge brought by this kind of training objective.
 
 ---
 
-## 六、最常见误区
+## 5. When is GAN worth learning?
 
-### 6.1 误区一：GAN 就是“会生成图像的模型”
+### 5.1 Good for building the idea that generative models are not only about reconstruction and likelihood
 
-它更本质上是一种：
+It can help you understand:
 
-- 对抗式生成学习方法
+- There is another path for learning distributions, starting from adversarial signals
 
-### 6.2 误区二：判别器越强越好
+### 5.2 Also good for seeing why generative model training is hard
 
-不对。  
-过强会让生成器学不到东西。
+GAN is a very good example for counterintuitive cases:
 
-### 6.3 误区三：只看生成样本够不够像
+- You can very clearly see problems like unstable training and mode collapse
 
-还要看：
+### 5.3 But it is not recommended as the default starting point for all generation projects
 
-- 多样性
-- 训练稳定性
+Today, in many tasks,
+diffusion models are often more stable and more mainstream.
 
-## 如果继续往下学，最推荐的顺序
+### 5.4 Then why learn GAN in this chapter?
 
-1. 先把 GAN 和 VAE 的直觉差异看清
-2. 再回到项目里想“我到底更重视潜空间、逼真度还是稳定性”
-3. 最后再去看更新的生成模型路线
+Because GAN is one of the best entry points for understanding why generative models are hard to train.
 
-这节最重要的是建立一个判断：
+The value of learning GAN is not just to know one model, but to build these three judgments:
 
-> **GAN 的核心是通过生成器与判别器的对抗博弈逼近真实数据分布，它很强，但也天然带来训练不稳和多样性退化的风险。**
-
-只要这一点看清楚，后面你再学 VAE、扩散模型和更现代生成路线时，就会更容易比较它们的优缺点。
+- Generation is not just about fitting labels
+- The training objective for generation may change dynamically
+- Sample quality and diversity often need to be considered together
 
 ---
 
-## 小结
+## 6. Most common misconceptions
 
-这节最重要的，不是你今天就会训练高质量图像模型，而是建立一个判断：
+### 6.1 Misconception 1: GAN is just “a model that can generate images”
 
-> **GAN 的核心是对抗博弈，它能帮助你理解生成式学习为什么迷人，也为什么训练不稳。**
+More fundamentally, it is a:
 
-## 这节最该带走什么
+- Adversarial generative learning method
 
-如果只带走一句话，我希望你记住：
+### 6.2 Misconception 2: The stronger the discriminator, the better
 
-> **GAN 最重要的教学价值，不只是“会生成”，而是让你第一次真正看见：生成模型训练为什么会天然更动态、更脆弱。**
+Not true.
+If it becomes too strong, the generator cannot learn anything.
 
-所以这一节真正要稳住的是：
+### 6.3 Misconception 3: It is enough to only look at whether the generated samples look real
 
-- 生成器和判别器的角色分工
-- 对抗训练为什么能推动生成质量
-- 训练不稳和 mode collapse 为什么高频出现
+You also need to look at:
+
+- Diversity
+- Training stability
+
+## If you continue learning, the recommended order is
+
+1. First, make the intuitive differences between GAN and VAE clear
+2. Then go back to your project and ask: “Do I care more about latent space, realism, or stability?”
+3. Finally, look at newer generative model approaches
+
+The most important thing in this section is to establish one judgment:
+
+> **The core of GAN is to approximate the real data distribution through the adversarial game between the generator and the discriminator. It is powerful, but it also naturally brings the risk of unstable training and reduced diversity.**
+
+Once you understand this clearly, it will be much easier to compare the strengths and weaknesses of VAE, diffusion models, and more modern generative approaches later on.
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例里的真实中心从 `2.0` 改成 `5.0`，观察生成器轨迹怎么变。
-2. 用自己的话解释：为什么 GAN 的训练目标比普通监督学习更容易不稳定？
-3. mode collapse 为什么会让“看起来生成得不错”的模型依然不好用？
-4. 如果你要做一个需要稳定训练的生成项目，你会优先考虑 GAN 还是更现代的方法？为什么？
+The most important thing in this section is not that you can train a high-quality image model today, but that you build one judgment:
+
+> **The core of GAN is adversarial game play. It helps you understand why generative learning is fascinating, and also why it is often unstable to train.**
+
+## What should you take away from this section?
+
+If you only take away one sentence, I hope you remember this:
+
+> **The most important teaching value of GAN is not just that it can “generate,” but that it lets you truly see for the first time why generative model training is naturally more dynamic and more fragile.**
+
+So what you really need to keep in mind in this section is:
+
+- The division of roles between the generator and the discriminator
+- Why adversarial training can improve generation quality
+- Why unstable training and mode collapse happen so often
+
+---
+
+## Exercises
+
+1. Change the real center in the example from `2.0` to `5.0`, and observe how the generator trajectory changes.
+2. Explain in your own words: why is the training objective of GAN more likely to become unstable than ordinary supervised learning?
+3. Why does mode collapse make a model that “looks like it generates well” still not very useful?
+4. If you were building a generation project that requires stable training, would you choose GAN first or a more modern method? Why?

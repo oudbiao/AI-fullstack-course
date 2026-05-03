@@ -1,113 +1,113 @@
 ---
-title: "7.4 项目：信息抽取"
+title: "7.4 Project: Information Extraction"
 sidebar_position: 3
-description: "把 NER、关系抽取和结构化输出串成一个小型信息抽取项目，理解从文本到结构化数据的过程。"
-keywords: [信息抽取, NER, 关系抽取, 结构化输出, NLP项目]
+description: "Connect NER, relation extraction, and structured output into a small information extraction project to understand the process from text to structured data."
+keywords: [information extraction, NER, relation extraction, structured output, NLP project]
 ---
 
-# 项目：信息抽取
+# Project: Information Extraction
 
-![信息抽取 schema 流程图](/img/course/ch11-information-extraction-schema-pipeline-map.png)
+![Information Extraction schema flowchart](/img/course/ch11-information-extraction-schema-pipeline-map-en.png)
 
-:::tip 读图提示
-信息抽取的关键是先定义 schema，再让文本稳定落到字段、实体和关系上。读图时重点看规则、NER、关系抽取、JSON 输出和人工复核如何连成可交付流程。
+:::tip Reading Guide
+The key to information extraction is to define the schema first, then let the text reliably map to fields, entities, and relationships. When reading the diagram, focus on how rules, NER, relation extraction, JSON output, and human review connect into a deliverable workflow.
 :::
 
-:::tip 本节定位
-信息抽取项目的目标不是让模型“读懂所有文本”，而是把文本中的关键实体、关系或字段稳定地转成结构化数据。它是传统 NLP、RAG 文档处理和 LLM 结构化输出之间的重要桥梁。
+:::tip Section Positioning
+The goal of an information extraction project is not to make the model “understand every text,” but to reliably turn key entities, relationships, or fields in text into structured data. It is an important bridge between traditional NLP, RAG document processing, and LLM structured output.
 :::
 
-## 项目目标
+## Project Goal
 
-做一个“小型课程公告信息抽取器”：输入一段课程公告或活动通知，输出时间、地点、主题、讲师、适合人群等结构化字段。
+Build a “small course announcement information extractor”: given a course announcement or event notice, output structured fields such as time, location, topic, speaker, and target audience.
 
 ```mermaid
 flowchart LR
-  A[原始文本] --> B[实体识别]
-  B --> C[关系或字段整理]
-  C --> D[结构化 JSON]
-  D --> E[人工检查和错误分析]
+  A[Raw text] --> B[Entity recognition]
+  B --> C[Relation or field organization]
+  C --> D[Structured JSON]
+  D --> E[Human review and error analysis]
 ```
 
-## 最小版本
+## Minimal Version
 
-基础版可以先不训练模型，使用规则和正则完成字段抽取。例如从文本中抽取日期、时间、地点等格式较明显的信息。
+For the basic version, you do not need to train a model first. Use rules and regular expressions to extract fields. For example, extract clearly formatted information such as dates, times, and locations from text.
 
 ```python
 import re
 
-text = "本周六 19:30 在腾讯会议举行 RAG 入门直播，主讲人是张老师。"
+text = "This Saturday at 19:30, there will be an introductory RAG livestream on Tencent Meeting, hosted by Teacher Zhang."
 
 result = {
     "time": re.findall(r"\d{1,2}:\d{2}", text),
-    "platform": "腾讯会议" if "腾讯会议" in text else None,
-    "topic": "RAG 入门" if "RAG 入门" in text else None,
+    "platform": "Tencent Meeting" if "Tencent Meeting" in text else None,
+    "topic": "RAG Introduction" if "RAG Introduction" in text else None,
 }
 
 print(result)
 ```
 
-这个版本虽然简单，但能帮助你理解信息抽取的核心：从非结构化文本中提取可用字段。
+Although this version is simple, it helps you understand the core of information extraction: extracting usable fields from unstructured text.
 
-## 标准版本
+## Standard Version
 
-标准版可以引入 NER 或 LLM 结构化输出。你可以用现成 NER 模型识别人名、机构、地点，再用规则或 Prompt 把结果组织成 JSON。重点不是追求完美，而是建立“抽取结果可检查”的流程。
+The standard version can introduce NER or LLM structured output. You can use an off-the-shelf NER model to identify names, organizations, and locations, then use rules or a Prompt to organize the results into JSON. The focus is not perfection, but building a workflow where extraction results can be checked.
 
-建议输出格式如下：
+A recommended output format is:
 
 ```json
 {
-  "event_name": "RAG 入门直播",
-  "time": "周六 19:30",
-  "location": "腾讯会议",
-  "speaker": "张老师",
-  "audience": "AI 应用初学者",
+  "event_name": "RAG Intro Livestream",
+  "time": "Saturday 19:30",
+  "location": "Tencent Meeting",
+  "speaker": "Teacher Zhang",
+  "audience": "Beginners in AI applications",
   "confidence": "medium"
 }
 ```
 
-## 挑战版本
+## Challenge Version
 
-挑战版可以加入批量抽取和人工校验。比如输入 20 条课程公告，系统批量生成 JSON，然后人工标记哪些字段正确、哪些字段缺失、哪些字段抽错。最后统计字段级准确率。
+The challenge version can add batch extraction and human validation. For example, if you input 20 course announcements, the system generates JSON in batches, and then a person marks which fields are correct, which fields are missing, and which fields were extracted incorrectly. Finally, calculate field-level accuracy.
 
-| 字段 | 正确率 | 常见错误 |
+| Field | Accuracy | Common Errors |
 |---|---|---|
-| time | 90% | 相对时间没有标准化 |
-| location | 85% | 线上平台和地点混淆 |
-| speaker | 80% | 职称和姓名边界不清 |
-| topic | 75% | 主题过长或遗漏关键词 |
+| time | 90% | Relative time is not normalized |
+| location | 85% | Online platforms and locations are confused |
+| speaker | 80% | The boundary between title and name is unclear |
+| topic | 75% | The topic is too long or missing keywords |
 
-## 和 RAG / Agent 的连接
+## Connection to RAG / Agent
 
-信息抽取可以用于 RAG 的文档元数据构建。例如从课程文档中抽取阶段、章节、关键概念、适合人群，然后作为检索过滤条件。它也可以作为 Agent 的工具：当 Agent 需要整理会议、合同、工单或课程资料时，先抽取结构化字段，再做后续决策。
+Information extraction can be used to build metadata for RAG documents. For example, extract stages, chapters, key concepts, and target audience from course documents, and use them as retrieval filters. It can also serve as a tool for an Agent: when an Agent needs to organize meetings, contracts, tickets, or course materials, it can first extract structured fields and then make follow-up decisions.
 
-## 项目交付物
+## Project Deliverables
 
-README 中建议包含：项目目标、输入样例、输出 JSON schema、抽取方法、字段解释、评估方式、失败样本和下一步计划。作品集展示时，最好放一组“原文 -> JSON -> 人工修正”的对照表。
+The README should include: project goals, input examples, output JSON schema, extraction method, field explanations, evaluation method, failed samples, and next steps. When presenting your portfolio, it is best to include a comparison table showing “original text -> JSON -> human correction.”
 
-## 常见误区
+## Common Mistakes
 
-第一个误区是只展示成功样例，不做字段级评估。第二个误区是 JSON schema 不稳定，导致后续程序无法使用。第三个误区是忽略边界问题，例如“张老师将在北京大学分享”里，北京大学可能是地点，也可能是机构。第四个误区是把 LLM 输出直接入库，不做校验。
+The first mistake is showing only successful examples without field-level evaluation. The second mistake is an unstable JSON schema, which makes downstream programs unusable. The third mistake is ignoring boundary issues—for example, in “Teacher Zhang will share at Peking University,” Peking University may be a location or an organization. The fourth mistake is sending LLM output directly into the database without validation.
 
 
 
-## 版本路线建议
+## Suggested Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic Version | Complete the minimal loop | Able to input, process, and output, while keeping a set of examples |
+| Standard Version | Form a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge Version | Close to portfolio quality | Add evaluation, comparison experiments, failed sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not try to make everything comprehensive from the start. Every time you upgrade a version, write into the README what new capability was added, how it was verified, and what problems remain.
 
-## 练习
+## Exercises
 
-1. 设计一个课程公告抽取 JSON schema。
-2. 用 5 条样例公告测试规则抽取，记录每个字段是否正确。
-3. 找 3 个抽取失败案例，分析是实体边界错、字段缺失还是 schema 设计不清。
-4. 思考：这些结构化字段如何帮助后续 RAG 检索？
+1. Design a JSON schema for extracting course announcements.
+2. Test rule-based extraction on 5 sample announcements and record whether each field is correct.
+3. Find 3 failed extraction cases and analyze whether the issue is entity boundary errors, missing fields, or unclear schema design.
+4. Think about how these structured fields help subsequent RAG retrieval.
 
-## 过关标准
+## Passing Criteria
 
-完成项目后，你应该能说明信息抽取和文本分类、NER 的区别，能设计稳定的输出 schema，能用字段级指标评估抽取质量，并能解释它如何服务 RAG 或 Agent 系统。
+After completing the project, you should be able to explain the difference between information extraction, text classification, and NER; design a stable output schema; evaluate extraction quality with field-level metrics; and explain how it serves RAG or Agent systems.

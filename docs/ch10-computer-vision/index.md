@@ -1,96 +1,96 @@
 ---
-title: "10 计算机视觉（方向选修）"
+title: "10 Computer Vision (Elective Track)"
 sidebar_position: 0
-description: "学习计算机视觉核心任务，包括图像基础、OpenCV、图像分类、目标检测、图像分割和视觉项目实践。"
-keywords: [计算机视觉, OpenCV, 图像分类, 目标检测, YOLO, 图像分割]
+description: "Learn the core tasks of computer vision, including image fundamentals, OpenCV, image classification, object detection, image segmentation, and hands-on visual projects."
+keywords: [computer vision, OpenCV, image classification, object detection, YOLO, image segmentation]
 ---
 
-# 10 计算机视觉（方向选修）
+# 10 Computer Vision (Elective Track)
 
-![计算机视觉主视觉](/img/course/ch10-computer-vision.png)
+![Computer Vision main visual](/img/course/ch10-computer-vision-en.png)
 
-这一阶段解决的是“怎样让模型理解图像”。它是方向选修：如果你的主线目标是 LLM 应用和 Agent，可以后补；如果你想做视觉、多模态、工业检测、OCR 或医学影像，就建议系统学习。
+This stage is about “how to make models understand images.” It is an elective track: if your main goal is LLM applications and Agent development, you can come back to it later; if you want to work on vision, multimodal systems, industrial inspection, OCR, or medical imaging, it is recommended to study this systematically.
 
-## 故事化导入：教模型看见世界
+## Story-driven introduction: teaching the model to see the world
 
-人类看到一张图片，会自然识别物体、位置、边界和动作；模型看到的却只是像素矩阵。计算机视觉要做的事，就是让模型从像素中逐步学会“这是什么”“在哪里”“边界到哪里”。从分类到检测再到分割，每一步都让模型看得更细。
+When humans look at an image, we naturally recognize objects, positions, boundaries, and actions; a model only sees a matrix of pixels. What computer vision does is help the model gradually learn from pixels: “what is this” and “where is it” and “where are the boundaries.” From classification to detection to segmentation, each step makes the model see more precisely.
 
-## 学习闯关地图
+## Learning quest map
 
-![计算机视觉学习闯关地图](/img/course/ch10-learning-quest-map.png)
+![Computer vision learning quest map](/img/course/ch10-learning-quest-map-en.png)
 
-## 互动练习：同一张图问三个层级的问题
+## Interactive exercise: ask three levels of questions about the same image
 
-拿一张包含多个物体的图片，先问“这张图主要是什么类别”，再问“每个物体在哪里”，最后问“每个物体的边界在哪里”。这三个问题分别对应分类、检测和分割。你会发现视觉任务的难度不是突然增加，而是输出越来越精细。
+Take an image with multiple objects and first ask, “What is the main category of this image?” Then ask, “Where is each object?” Finally ask, “What are the boundaries of each object?” These three questions correspond to classification, detection, and segmentation. You’ll find that the difficulty of vision tasks does not suddenly increase; rather, the outputs become more and more detailed.
 
-## 项目彩蛋
+## Project bonus content
 
-本阶段的彩蛋作品可以是一个“视觉检测小工具”：上传图片后，系统完成预处理、识别目标、标出位置，并输出置信度和结果说明。它可以继续升级成 OCR 文档助手、工业缺陷检测或多模态问答项目。
+A bonus project for this stage could be a “visual detection mini tool”: after uploading an image, the system performs preprocessing, recognizes objects, marks their locations, and outputs confidence scores and result explanations. It can later be upgraded into an OCR document assistant, an industrial defect detection tool, or a multimodal Q&A project.
 
-## 阶段定位
+## Stage positioning
 
-| 信息 | 说明 |
+| Information | Description |
 |---|---|
-| 适合对象 | 已完成深度学习基础，希望进入视觉或多模态方向的学习者 |
-| 预估学时 | 120～180 小时 |
-| 前置要求 | 完成深度学习与 Transformer 基础 |
-| 阶段产出 | 图像分类、目标检测、图像分割或视觉综合项目 |
+| Suitable for | Learners who have completed the basics of deep learning and want to move into vision or multimodal directions |
+| Estimated study time | 120–180 hours |
+| Prerequisites | Complete the basics of deep learning and Transformer |
+| Stage deliverables | Image classification, object detection, image segmentation, or a comprehensive vision project |
 
-## 新手最小通关路线
+## Minimum path for beginners
 
-新手先理解图像像素、颜色空间、OpenCV 预处理、分类、检测和分割的区别，不需要一开始追最新模型。只要能训练或调用一个图像分类模型，并说清楚检测和分割比分类多输出了什么，就算完成最小通关。
+Beginners should first understand image pixels, color spaces, OpenCV preprocessing, and the differences between classification, detection, and segmentation. There is no need to chase the newest model at the very beginning. As long as you can train or call an image classification model and clearly explain what detection and segmentation output beyond classification, you’ve completed the minimum path.
 
-## 进阶深入路线
+## Advanced path
 
-有经验的学习者可以深入数据标注、增强策略、YOLO、分割模型、mAP、部署场景和失败案例分析。进一步尝试把视觉模型接入一个小应用，输出带标注框、置信度和错误样例说明的结果。
+Experienced learners can go deeper into data annotation, augmentation strategies, YOLO, segmentation models, mAP, deployment scenarios, and failure case analysis. Try further to connect a vision model to a small application that outputs bounding boxes, confidence scores, and explanations of error examples.
 
-## 视觉任务如何由浅入深
+## How vision tasks become more detailed step by step
 
-计算机视觉不是一个单一任务。它通常按输出粒度逐步变复杂：先判断整张图是什么，再找出目标在哪里，再判断每个像素属于什么区域。
+Computer vision is not a single task. It usually becomes more complex in stages by output granularity: first determine what the whole image is, then locate the objects, then determine which region each pixel belongs to.
 
-![视觉任务输出粒度进阶图](/img/course/ch10-visual-task-progression-map.png)
+![Progression map of vision task output granularity](/img/course/ch10-visual-task-progression-map-en.png)
 
-## 新人先做什么，进阶再做什么
+## What beginners should do first, and what advanced learners should do later
 
-新人第一次学这一阶段时，先抓住图像任务的主线：图片如何变成张量，卷积如何提取局部特征，分类、检测、分割分别解决什么问题。
+When beginners study this stage for the first time, they should focus on the main line of image tasks: how images become tensors, how convolutions extract local features, and what problems classification, detection, and segmentation solve respectively.
 
-有经验的学习者可以把重点放在数据和评估上：标注质量、类别不平衡、IoU、mAP、失败样本和部署速度。你的目标是把视觉 Demo 做成能解释、能评估、能迭代的作品。
+Experienced learners can focus on data and evaluation: annotation quality, class imbalance, IoU, mAP, failure samples, and deployment speed. Your goal is to turn a vision demo into a project that can be explained, evaluated, and iterated on.
 
-## 本阶段学习路径
+## Learning path for this stage
 
-第一章学习 CV 基础与 OpenCV，理解图像像素、颜色空间、滤波、边缘、形态学和基础图像处理。
+Chapter 1 covers CV basics and OpenCV, helping you understand image pixels, color spaces, filtering, edges, morphology, and basic image processing.
 
-第二章学习图像分类进阶，包括数据增强、现代分类架构和训练技巧。
+Chapter 2 covers advanced image classification, including data augmentation, modern classification architectures, and training techniques.
 
-第三章学习目标检测，理解候选框、类别、置信度、IoU、mAP 和 YOLO 系列。
+Chapter 3 covers object detection, helping you understand candidate boxes, classes, confidence, IoU, mAP, and the YOLO family.
 
-第四章学习图像分割，理解语义分割、实例分割和像素级输出。
+Chapter 4 covers image segmentation, helping you understand semantic segmentation, instance segmentation, and pixel-level outputs.
 
-第五章学习进阶专题，包括人脸检测、视频分析、OCR 和 3D 视觉。
+Chapter 5 covers advanced topics, including face detection, video analysis, OCR, and 3D vision.
 
-第六章完成综合项目，把数据、模型、指标和应用场景连起来。
+Chapter 6 completes a comprehensive project that connects data, models, metrics, and application scenarios.
 
-## 学完后你应该能做到
+## What you should be able to do after learning
 
-- 能解释分类、检测、分割三类视觉任务的区别
-- 能用 OpenCV 完成基础图像处理
-- 能训练或微调一个图像分类模型
-- 能理解目标检测和分割任务的输入输出及评价指标
-- 能为一个视觉项目准备数据、训练模型并分析结果
+- Explain the differences between classification, detection, and segmentation tasks
+- Use OpenCV to complete basic image processing
+- Train or fine-tune an image classification model
+- Understand the inputs, outputs, and evaluation metrics of object detection and segmentation tasks
+- Prepare data, train a model, and analyze results for a vision project
 
-## 常见误区
+## Common misconceptions
 
-不要只追最新视觉模型。视觉项目真正困难的地方往往是数据采集、标注质量、类别不平衡、指标选择和部署场景。
+Don’t just chase the newest vision model. The real difficulty in vision projects often lies in data collection, annotation quality, class imbalance, metric selection, and deployment scenarios.
 
-也不要把 OpenCV 和深度学习割裂。OpenCV 适合传统图像处理和工程预处理，深度学习适合复杂识别任务，两者经常会一起出现。
+Also don’t separate OpenCV from deep learning. OpenCV is suitable for traditional image processing and engineering preprocessing, while deep learning is suitable for complex recognition tasks; the two often appear together.
 
-## 视觉错误剧场：模型看错通常不是一个原因
+## Vision failure theater: model mistakes usually do not have only one cause
 
-如果分类结果不稳定，先看训练图片是否清晰、类别是否平衡、增强是否过度；如果检测漏掉小目标，检查标注质量、图片分辨率和评估阈值；如果 Demo 图片表现好但真实图片差，优先怀疑数据分布不一致。
+If classification results are unstable, first check whether the training images are clear, whether the classes are balanced, and whether augmentation is too aggressive. If detection misses small objects, check annotation quality, image resolution, and evaluation thresholds. If the demo works well on sample images but performs poorly on real images, suspect a mismatch in data distribution first.
 
-## 最小可运行实验：读取图片并输出可检查结果
+## Minimal runnable experiment: read an image and output inspectable results
 
-本阶段最小实验可以从 OpenCV 或 PIL 开始：读取一张图片，完成尺寸、通道、裁剪或灰度处理，并保存处理后的结果。然后再替换成分类、检测或 OCR 模型。
+The minimum experiment for this stage can start with OpenCV or PIL: read an image, process its size, channels, cropping, or grayscale conversion, and save the processed result. Then replace it with a classification, detection, or OCR model.
 
 ```python
 from PIL import Image
@@ -101,67 +101,67 @@ small = img.resize((224, 224))
 small.save("sample_224.jpg")
 ```
 
-视觉项目一定要保留输入图、处理结果和预测可视化。否则模型错了时，很难判断问题来自数据、标注、预处理还是模型。
+Vision projects must keep the input image, processed result, and prediction visualization. Otherwise, when the model makes a mistake, it is hard to tell whether the problem comes from the data, annotation, preprocessing, or the model itself.
 
-## 视觉失败案例库：先查输入质量和标注边界
+## Vision failure case library: check input quality and annotation boundaries first
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Symptom | Common cause | How to locate it | Fix direction |
 |---|---|---|---|
-| 分类不稳定 | 图片模糊、类别不平衡、增强过度 | 查看误判图片和类别分布 | 清洗数据，调整增强策略 |
-| 检测漏掉小目标 | 分辨率低、标注不一致、阈值过高 | 可视化框和置信度 | 提高分辨率，检查标注，调阈值 |
-| 分割边界粗糙 | 标注边缘不准或模型输出尺度低 | 对比 mask 和原图 | 改标注规范，使用更合适指标 |
-| Demo 图好真实图差 | 训练数据和真实场景分布不同 | 比较光照、角度、背景 | 补充真实样本和场景说明 |
+| Unstable classification | Blurry images, class imbalance, excessive augmentation | Check misclassified images and class distribution | Clean the data, adjust augmentation strategy |
+| Detection misses small objects | Low resolution, inconsistent annotations, overly high threshold | Visualize boxes and confidence scores | Increase resolution, check annotations, tune thresholds |
+| Rough segmentation boundaries | Inaccurate annotation edges or low model output resolution | Compare the mask with the original image | Improve annotation standards, use more suitable metrics |
+| Demo looks good but real images look bad | Training data and real-world scene distribution differ | Compare lighting, angle, and background | Add real samples and scene descriptions |
 
-## 阶段验收 Rubric
+## Stage acceptance rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Acceptance criteria | Portfolio evidence |
 |---|---|---|
-| 最低通关 | 能说明分类、检测、分割和 OCR 的输入输出 | 输入图、预测结果 |
-| 推荐通关 | 能训练或调用视觉模型并计算指标 | 数据说明、指标、可视化结果 |
-| 作品集通关 | 能分析误报、漏报和场景风险 | 错误样本集、标注说明、项目报告 |
+| Minimum pass | Can explain the inputs and outputs of classification, detection, segmentation, and OCR | Input image, prediction results |
+| Recommended pass | Can train or call a vision model and calculate metrics | Data description, metrics, visualized results |
+| Portfolio pass | Can analyze false positives, false negatives, and scenario risks | Error sample set, annotation notes, project report |
 
-## 阶段项目
+## Stage project
 
-基础版是完成一个图像分类项目，包含数据准备、训练和基础评估。标准版需要加入数据增强、错误样例分析和可视化预测结果。挑战版可以做目标检测或分割项目，加入标注格式、mAP/IoU 指标、推理展示和场景化应用说明。
+The basic version is to complete an image classification project, including data preparation, training, and basic evaluation. The standard version should add data augmentation, error sample analysis, and visualization of prediction results. The challenge version can be an object detection or segmentation project, with annotation formats, mAP/IoU metrics, inference demos, and scenario-based application descriptions.
 
-如果你想看更细的学习节奏，可以阅读 [学习指南：计算机视觉怎么学最不容易学乱](./study-guide.md)。
-
-
+If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Computer Vision Without Getting Confused](./study-guide.md).
 
 
-## 本阶段趣味任务卡
 
-| 玩法 | 本阶段任务 |
+
+## Fun task cards for this stage
+
+| Gameplay | Task for this stage |
 |---|---|
-| 剧情任务 | 让助手看懂图片或截图：读取图像、输出可检查结果，并记录识别失败样本。 |
-| Boss 战 | **视觉线索猎人** |
-| 可解锁徽章 | 图像观察员、视觉失败记录员 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | 输入图片、输出结果和失败图片 |
+| Story task | Teach the assistant to understand images or screenshots: read the image, output inspectable results, and record failed recognition samples. |
+| Boss battle | **Visual Clue Hunter** |
+| Badges to unlock | Image Observer, Vision Failure Recorder |
+| Easy mode for beginners | Only complete one minimal input-to-output loop, and first save a runtime screenshot or command output |
+| Portfolio evidence | Input image, output result, and failed images |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If you feel there is a lot of content in this stage, first treat this task card as the minimum goal. Once you complete the easy mode for beginners, you can continue learning; later, when you prepare your portfolio, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| 图像分类实验 | 能训练或调用模型完成分类 | 有数据划分、增强策略、指标和预测可视化 |
-| 图像处理脚本 | 完成读取、裁剪、灰度、边缘等处理 | 说明预处理如何影响模型输入和结果 |
-| 错误样本集 | 保存若干误判图片 | 分析清晰度、类别混淆、标注质量和数据分布 |
-| 视觉项目报告 | 写清任务、数据和指标 | 展示 mAP/IoU/accuracy、可视化结果和限制 |
-| 应用 Demo | 能对单张图片推理 | 有输入输出示例、运行命令和场景边界 |
+| Image classification experiment | Can train or call a model to complete classification | Includes data split, augmentation strategy, metrics, and prediction visualization |
+| Image processing script | Completes reading, cropping, grayscale, edge, and other processing | Explains how preprocessing affects model inputs and results |
+| Error sample set | Saves several misclassified images | Analyzes clarity, class confusion, annotation quality, and data distribution |
+| Vision project report | Clearly describes the task, data, and metrics | Shows mAP/IoU/accuracy, visualized results, and limitations |
+| Application demo | Can infer on a single image | Includes input/output examples, run commands, and scenario boundaries |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship with the AI Learning Assistant capstone project
 
-本阶段可以为 AI 学习助手补充视觉能力：识别课件截图、OCR 提取文字，或分析学习图片资料。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can add vision capabilities to the AI Learning Assistant: recognizing lecture screenshots, extracting text with OCR, or analyzing image-based learning materials. If you are following the capstone project path, it is recommended that by the end of this stage you submit at least one version log: what new capabilities were added, how to run it, what the sample inputs and outputs are, what problems you encountered, and what you plan to improve next.
 
 
-## 阶段通关标准
+## Stage completion criteria
 
-| 通关层级 | 你需要做到什么 |
+| Completion level | What you need to do |
 |---|---|
-| 最低通关 | 能理解图像分类、检测、分割和 OCR 等视觉任务的输入输出。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum pass | Understand the inputs and outputs of vision tasks such as image classification, detection, segmentation, and OCR. |
+| Recommended pass | Complete at least one runnable mini project in this stage, and record the run method, sample input/output, and problems encountered in the README. |
+| Portfolio pass | Integrate the outputs of this stage into the “AI Learning Assistant” capstone project, and leave screenshots, logs, evaluation samples, and next-step plans. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。多模态阶段会继续使用视觉理解和生成能力。
+After finishing this stage, you do not need to memorize every detail. What matters more is being able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it supports later learning. The multimodal stage will continue to use vision understanding and generation capabilities.

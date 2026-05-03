@@ -1,109 +1,109 @@
 ---
-title: "9.3 项目：医学影像分析【选修】"
+title: "9.3 Project: Medical Imaging Analysis [Elective]"
 sidebar_position: 19
-description: "围绕一个高风险视觉任务，从任务边界、标注协议、指标优先级和风险说明出发，建立更像真实临床辅助项目的闭环。"
+description: "Build a more realistic clinical-assistance project loop around a high-risk visual task, starting from task boundaries, annotation protocols, metric priorities, and risk explanation."
 keywords: [medical imaging, segmentation, sensitivity, risk, annotation, project]
 ---
 
-# 项目：医学影像分析【选修】
+# Project: Medical Imaging Analysis [Elective]
 
-:::tip 本节定位
-医学影像项目和普通视觉项目最大的不同，不在于模型换了个名字，而在于：
+:::tip Section Positioning
+The biggest difference between a medical imaging project and a regular computer vision project is not that the model has a different name, but that:
 
-- 错误代价更高
-- 数据更贵
-- 标注更难
-- 上线边界更敏感
+- The cost of mistakes is higher
+- Data is more expensive
+- Annotation is harder
+- Deployment boundaries are more sensitive
 
-所以它特别适合用来练“高风险 AI 项目”的判断能力。
+So it is especially suitable for training your judgment on “high-risk AI projects.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会把医学影像项目范围定得足够清楚
-- 学会把标注、指标和临床风险一起写进项目定义
-- 学会设计更像临床辅助系统的评估展示方式
-- 学会把这类项目做成作品级页面而不是炫图 demo
+- Learn how to define the scope of a medical imaging project clearly enough
+- Learn how to write annotation, metrics, and clinical risk into the project definition together
+- Learn how to design an evaluation display that feels more like a clinical-assistance system
+- Learn how to turn this kind of project into a portfolio-level page instead of a flashy demo
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-医学影像项目更适合按“任务边界 -> 风险指标 -> 人工复核 -> 错误复盘”的顺序理解：
+Medical imaging projects are better understood in the order of “task boundary -> risk metrics -> human review -> failure analysis”:
 
 ```mermaid
 flowchart LR
-    A["定义任务边界"] --> B["选择高风险指标"]
-    B --> C["模型预测"]
-    C --> D["人工复核"]
-    D --> E["失败样本复盘"]
+    A["Define task boundary"] --> B["Choose high-risk metrics"]
+    B --> C["Model prediction"]
+    C --> D["Human review"]
+    D --> E["Failure sample analysis"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 医学影像项目为什么不能只拿普通视觉项目那套思路直接套
-- 为什么这类项目特别强调边界、风险和复核
-
----
-
-## 一、项目题目为什么一定要收窄？
-
-一个适合作品集的题目可以是：
-
-> **做一个“肺部病灶区域分割辅助系统”，输入 CT slice，输出病灶区域 mask 和风险说明。**
-
-### 为什么这个题目好？
-
-- 输入输出明确
-- 指标可解释
-- 风险边界清晰
-
-### 为什么不建议一开始做太大？
-
-例如：
-
-- 覆盖多器官、多病种、多模态
-
-这会让项目从一开始就失去可验证性。
+- Why medical imaging projects cannot simply reuse the thinking of regular computer vision projects
+- Why this kind of project especially emphasizes boundaries, risk, and review
 
 ---
 
-## 二、作品级医学影像项目最小闭环
+## 1. Why Must the Project Title Be Narrowed Down?
 
-1. 定义任务和临床边界
-2. 说明标注协议
-3. 选 baseline
-4. 定义高风险指标
-5. 展示成功与失败样例
-6. 明确人工复核与适用边界
+A portfolio-friendly project title could be:
 
-如果这些没讲清，项目就很难让人信任。
+> **Build a “lung lesion region segmentation assistance system” that takes CT slices as input and outputs a lesion mask and a risk explanation.**
 
-### 2.1 一张更像真实临床辅助系统的闭环图
+### Why is this title good?
+
+- Clear input and output
+- Metrics are explainable
+- Risk boundaries are clear
+
+### Why is it not recommended to start too big?
+
+For example:
+
+- Covering multiple organs, multiple diseases, and multiple modalities
+
+This will cause the project to lose verifiability from the start.
+
+---
+
+## 2. The Minimum Closed Loop for a Portfolio-Level Medical Imaging Project
+
+1. Define the task and clinical boundaries
+2. Explain the annotation protocol
+3. Choose a baseline
+4. Define high-risk metrics
+5. Show success and failure examples
+6. Clarify human review and applicability boundaries
+
+If these are not clearly explained, the project will be hard to trust.
+
+### 2.1 A Loop Diagram That Feels More Like a Real Clinical Assistance System
 
 ```mermaid
 flowchart LR
-    A["影像输入"] --> B["模型预测"]
-    B --> C["风险指标"]
-    C --> D["人工复核"]
-    D --> E["最终结论"]
-    E --> F["错误复盘与标注修订"]
+    A["Image input"] --> B["Model prediction"]
+    B --> C["Risk metrics"]
+    C --> D["Human review"]
+    D --> E["Final conclusion"]
+    E --> F["Failure analysis and annotation revision"]
     F --> A
 ```
 
-这个闭环很重要，因为医学影像项目通常不是：
+This loop is important because medical imaging projects are usually not:
 
-- 模型跑完就结束
+- “The model finishes, and that’s the end”
 
-而是：
+Instead, they are:
 
-- 模型先给出辅助判断
-- 人工再做确认
-- 失败样本再回流修订数据和规则
+- The model first gives an assistive judgment
+- A human then confirms it
+- Failure cases are fed back to revise data and rules
 
 ---
 
-## 三、先看一个更像真实项目的规划对象
+## 3. First Look at a Planning Object That Feels More Like a Real Project
 
 ```python
 from dataclasses import dataclass, field
@@ -120,59 +120,59 @@ class MedicalProject:
 
 
 project = MedicalProject(
-    task="肺部病灶区域分割",
+    task="Lung lesion region segmentation",
     input_type="CT slice",
     labels=["background", "lesion"],
     metrics=["dice", "iou", "sensitivity", "false_negative_rate"],
     clinical_constraints=[
-        "高风险样本必须人工复核",
-        "结果仅作辅助，不直接替代临床判断",
+        "High-risk samples must be reviewed by humans",
+        "Results are for assistance only and do not directly replace clinical judgment",
     ],
-    risks=["标注不一致", "类别极度不平衡", "假阴性代价高"],
+    risks=["annotation inconsistency", "extreme class imbalance", "high cost of false negatives"],
 )
 
 print(project)
 ```
 
-### 3.1 为什么这里要把 `clinical_constraints` 单独列出来？
+### 3.1 Why Is `clinical_constraints` Listed Separately Here?
 
-因为这类项目和普通视觉项目最大的差别之一就在于：
+Because one of the biggest differences between this kind of project and a regular vision project is:
 
-- 不是只看模型成绩
-- 还要看临床使用边界
+- It is not only about model performance
+- It is also about the boundary of clinical use
 
-这也是它更像真实高风险项目的地方。
+This is also what makes it feel more like a real high-risk project.
 
 ---
 
-## 四、为什么这类项目最怕假阴性？
+## 4. Why Are False Negatives the Most Dangerous in This Kind of Project?
 
-如果模型漏掉病灶，  
-通常风险比多报一个可疑区域更大。
+If the model misses a lesion,
+the risk is usually greater than flagging one extra suspicious region.
 
-所以作品级项目里，  
-很值得单独展示：
+So in a portfolio-level project,
+it is very worthwhile to show separately:
 
 - sensitivity / recall
 - false negative rate
 
-而不是只放一个总体准确率。
+rather than only a single overall accuracy number.
 
-### 4.1 一个更适合新人的总类比
+### 4.1 A More Beginner-Friendly Analogy
 
-你可以把医学影像系统想成：
+You can think of a medical imaging system like:
 
-- 机场安检机器
+- An airport security scanner
 
-它可以多报几个可疑包裹，再让安检员复查；  
-但如果真正危险的包裹完全没被发现，问题会严重得多。
+It may flag a few extra suspicious bags and let security staff recheck them;
+but if a truly dangerous bag is completely missed, the problem is much more serious.
 
-这就是为什么很多医学项目里：
+That is why in many medical projects:
 
-- 误报很烦
-- 漏报更危险
+- False positives are annoying
+- False negatives are more dangerous
 
-### 4.2 再看一个最小“病例复核优先级”示例
+### 4.2 Another Minimal Example of “Case Review Priority”
 
 ```python
 cases = [
@@ -194,14 +194,14 @@ for case in cases:
     print(case["id"], review_priority(case))
 ```
 
-这个例子虽然很小，但它已经体现出一个真实项目思路：
+Although this example is small, it already reflects a real project idea:
 
-- 不是所有样本都同样对待
-- 高风险样本要优先人工复核
+- Not all samples are treated equally
+- High-risk samples should be reviewed first by humans
 
 ---
 
-## 五、一个最小“高风险指标优先级”示例
+## 5. A Minimal Example of “High-Risk Metric Priority”
 
 ```python
 metrics = {
@@ -214,159 +214,155 @@ metrics = {
 
 def risk_summary(metrics):
     if metrics["false_negative_rate"] > 0.1:
-        return "当前假阴性偏高，不适合直接作为高风险辅助系统。"
+        return "False negatives are currently too high, so it is not suitable as a high-risk assistance system yet."
     if metrics["sensitivity"] < 0.9:
-        return "召回仍偏低，建议优先继续优化病灶检出率。"
-    return "指标初步可用，但仍需配合人工复核与临床验证。"
+        return "Recall is still too low; continue improving lesion detection first."
+    return "The metrics are preliminarily usable, but human review and clinical validation are still required."
 
 
 print(risk_summary(metrics))
 ```
 
-### 5.1 这个例子为什么比只打印一堆分数更有价值？
+### 5.1 Why Is This More Valuable Than Printing a Bunch of Scores?
 
-因为它把指标翻译成了：
+Because it translates metrics into:
 
-- 可用于项目判断的语言
+- Language that can actually be used for project judgment
 
-这在医学项目里非常关键。
+This is especially important in medical projects.
 
-### 5.2 一个更适合初学者先记的评估表
+### 5.2 An Evaluation Table That Beginners Can Remember First
 
-| 指标 | 更像在回答什么问题 |
+| Metric | What question does it answer? |
 |---|---|
-| Dice / IoU | 区域分得准不准 |
-| Sensitivity / Recall | 真正的病灶有没有尽量找出来 |
-| False Negative Rate | 漏掉高风险样本的比例有多高 |
-| 人工复核通过率 | 结果有没有机会进入真实辅助流程 |
+| Dice / IoU | How accurate is the region segmentation? |
+| Sensitivity / Recall | Are we trying to find as many true lesions as possible? |
+| False Negative Rate | How high is the proportion of missed high-risk samples? |
+| Human review pass rate | Can the result enter a real assistance workflow? |
 
-这个表很适合新人，因为它会把医学影像评估从“又多几个指标名”重新变成“这些指标到底在替谁服务”。
+This table is very suitable for beginners, because it turns medical imaging evaluation from “yet another list of metric names” into “who are these metrics really serving?”
 
-![医学影像风险指标与人工复核闭环图](/img/course/ch10-medical-imaging-risk-review-map.png)
+![Medical imaging risk metrics and human review loop](/img/course/ch10-medical-imaging-risk-review-map-en.png)
 
-:::tip 读图提示
-医学影像项目不能只展示漂亮 mask。读这张图时按任务边界、标注协议、sensitivity、false negative rate、人工复核和失败样本回流来判断它是否可信。
+:::tip Reading Tip
+A medical imaging project should not only show pretty masks. When reading this diagram, judge whether it is trustworthy based on the task boundary, annotation protocol, sensitivity, false negative rate, human review, and failure-case feedback.
 :::
 
 ---
 
-## 六、医学影像项目最值得展示什么？
+## 6. What Is Most Worth Showing in a Medical Imaging Project?
 
-建议至少展示：
+At minimum, it is recommended to show:
 
-1. 原图
-2. 专家标注 mask
-3. 模型预测 mask
-4. 失败样例
-5. 风险边界说明
+1. Raw image
+2. Expert annotation mask
+3. Model prediction mask
+4. Failure cases
+5. Risk boundary explanation
 
-### 为什么这些比“几张好看的成功图”更重要？
+### Why Are These More Important Than “A Few Nice Success Images”?
 
-因为高风险项目最重要的是：
+Because the most important things in a high-risk project are:
 
-- 可信
-- 可解释
-- 边界清楚
+- Trustworthiness
+- Explainability
+- Clear boundaries
 
-### 6.1 如果你第一次做这类项目，最稳的默认顺序
+### 6.1 If You Are Doing This Kind of Project for the First Time, the Safest Default Order
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先把任务收窄成一个病种或一个器官
-2. 先做二分类或单类分割 baseline
-3. 先把标注协议和风险边界写清楚
-4. 再补 sensitivity、false negative rate 这些高风险指标
-5. 最后再展示成功样本、失败样本和人工复核流程
+1. Narrow the task down to one disease or one organ
+2. Start with a binary classification or single-class segmentation baseline
+3. Clearly write the annotation protocol and risk boundaries first
+4. Then add high-risk metrics such as sensitivity and false negative rate
+5. Finally show success cases, failure cases, and the human review flow
 
-这样会比一开始就追求：
+This will be easier to make into a trustworthy project than starting with:
 
-- 多病种
-- 多模态
-- 多任务
+- Multiple diseases
+- Multiple modalities
+- Multiple tasks
 
-更容易做出一个可信的项目。
+### 6.2 If You Turn It into a Portfolio Piece, What Is Most Worth Showing?
 
-### 6.2 如果把它做成作品集，最值得展示什么
+What is most worth showing is not just model scores, but:
 
-最值得展示的，不只是模型分数，而是：
+1. Why the task was narrowed down so much
+2. Why false negatives are the key risk
+3. How model results enter the human review process
+4. What failure cases look like
+5. Where your project boundaries are
 
-1. 任务为什么收得这么窄
-2. 为什么假阴性是重点风险
-3. 模型结果如何进入人工复核流程
-4. 失败样本长什么样
-5. 你的项目边界在哪里
+This makes it easier for recruiters or readers to feel that:
 
-这样招聘方或读者会更容易感觉到：
+- You understand the system problem
+- You are not just someone who can run a segmentation model
 
-- 你理解的是系统问题
-- 不只是会跑一个分割模型
+### 6.3 An Error Analysis Order That Beginners Can Copy Directly
 
-### 6.3 一个新人可直接照抄的错误分析顺序
+When doing this kind of project for the first time, a safer error analysis order is usually:
 
-第一次做这类项目时，更稳的错误分析顺序通常是：
+1. First separate missed detections from false alarms
+2. Then check whether high-risk samples are especially error-prone
+3. Then see whether boundary issues or annotation issues are more prominent
+4. Finally decide whether to add data, add rules, or change the model
 
-1. 先分漏检和误检
-2. 再看高风险样本是不是特别容易错
-3. 再看边界问题还是标注问题更突出
-4. 最后再决定是补数据、补规则还是改模型
+This makes it easier to identify the real problem than immediately replacing the network.
 
-这样会比一上来就重新换网络更容易看清真正问题。
-
-而不是视觉演示效果。
+Rather than visual presentation effects.
 
 ---
 
-## 七、最常见误区
+## 7. Most Common Mistakes
 
-### 7.1 只看总体准确率
+### 7.1 Only Looking at Overall Accuracy
 
-### 7.2 不写标注一致性问题
+### 7.2 Not Writing Down Annotation Consistency Issues
 
-### 7.3 不说明人工复核边界
+### 7.3 Not Explaining the Human Review Boundary
 
-### 7.4 只展示漂亮成功图，不展示高风险错例
+### 7.4 Only Showing Pretty Success Images, Not High-Risk Failure Cases
 
-医学影像项目最容易“看起来很强”，  
-因为成功案例往往很直观。  
-但真正更有价值的通常是：
+Medical imaging projects are easiest to make “look strong,”
+because success cases are often very intuitive.
+But the truly valuable parts are usually:
 
-- 哪些病例最容易漏
-- 哪些边界最容易分错
-- 这些错误会不会影响人工辅助决策
-
----
-
-## 小结
-
-这节最重要的是建立一个作品级判断：
-
-> **医学影像项目真正像项目的地方，不是模型多复杂，而是你能否把任务边界、标注协议、敏感指标和风险说明一起讲清楚。**
-
-只要这一点做到位，这类项目会非常有说服力。
-
-## 这节最该带走什么
-
-- 医学影像项目比普通视觉项目更强调风险边界
-- 很多时候 sensitivity 和 false negative rate 比总体准确率更关键
-- 一个可信的医学项目，必须把人工复核和适用边界一起讲出来
+- Which cases are most likely to be missed
+- Which boundaries are most likely to be misclassified
+- Whether these errors will affect human-assisted decision-making
 
 ---
 
+## Summary
 
+The most important thing in this section is to build a portfolio-level judgment:
 
-## 版本路线建议
+> **What truly makes a medical imaging project feel like a real project is not how complex the model is, but whether you can clearly explain the task boundary, annotation protocol, sensitive metrics, and risk statement together.**
 
-| 版本 | 目标 | 交付重点 |
+As long as you do this well, this kind of project will be very convincing.
+
+## What You Should Take Away from This Section
+
+- Medical imaging projects emphasize risk boundaries more than regular vision projects
+- In many cases, sensitivity and false negative rate are more important than overall accuracy
+- A trustworthy medical project must explain human review and applicability boundaries together
+
+---
+
+## Version Roadmap Suggestions
+
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimum loop running | Can input, process, and output, while keeping a set of examples |
+| Standard version | Form a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failure-case analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not pursue something huge and complete from the beginning. Each time you improve a version, write “what capabilities were added, how they were validated, and what problems remain” into the README.
 
-## 练习
+## Exercises
 
-1. 把项目再改成一个更小的二分类筛查任务，重写 `clinical_constraints`。
-2. 为什么说医学影像项目里 `false_negative_rate` 往往比总体准确率更值得被单独展示？
-3. 想一想：标注一致性不高时，模型结果该怎么被解读？
-4. 如果把这个项目放进作品集，哪一段风险说明最值得你单独强调？
+1. Modify the project into a smaller binary screening task and rewrite `clinical_constraints`.
+2. Why is `false_negative_rate` in medical imaging projects often more worth showing separately than overall accuracy?
+3. Think about it: when annotation consistency is not high, how should model results be interpreted?
+4. If you put this project into a portfolio, which risk explanation is most worth emphasizing separately?

@@ -1,136 +1,136 @@
 ---
-title: "7.2 超参数调优策略"
+title: "7.2 Hyperparameter Tuning Strategy"
 sidebar_position: 1
-description: "从学习率、batch size、正则化和搜索顺序出发，理解超参数调优为什么更像实验设计而不是盲目撞运气。"
+description: "Starting from learning rate, batch size, regularization, and search order, understand why hyperparameter tuning is more like experiment design than blind luck."
 keywords: [hyperparameter tuning, learning rate, batch size, regularization, search strategy]
 ---
 
-# 超参数调优策略
+# Hyperparameter Tuning Strategy
 
-:::tip 本节定位
-很多训练问题最后都会绕回一句话：
+:::tip Section overview
+Many training problems eventually come back to one sentence:
 
-- 参数没调好
+- The parameters were not tuned well
 
-但“调参”常常被做得很随意，好像只能靠运气。  
-其实更稳的做法是：
+But “tuning” is often done very casually, as if it could only rely on luck.
+In fact, a more reliable approach is:
 
-> **把调参当成实验设计问题，而不是盲目撞点。**
+> **Treat tuning as an experiment design problem, not as blind trial and error.**
 
-这节课会把这件事讲实。
+This lesson will explain that clearly.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解哪些超参数最值得先调
-- 理解学习率、batch size、正则化等参数分别在影响什么
-- 通过可运行示例建立“实验记录和排序比较”的调参直觉
-- 学会设计更稳的调参顺序
+- Understand which hyperparameters are worth tuning first
+- Understand what learning rate, batch size, and regularization each affect
+- Build an intuition for tuning through runnable examples of “experiment logging and ranking”
+- Learn how to design a more stable tuning order
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-如果你已经学过优化器、正则化和训练循环，这一节最自然的续接就是：
+If you have already learned about optimizers, regularization, and training loops, then the most natural continuation is:
 
-- 前面你已经知道模型能怎么训
-- 这一节开始问“怎样把这些训练配置调得更稳、更有效”
+- You already know how to train a model
+- Now you ask, “How do we tune these training settings more stably and effectively?”
 
-所以调参不是训练之外的附加题，而是：
+So tuning is not an extra task outside training; it is:
 
-- 训练闭环真正跑起来以后，迟早会面对的实验设计问题
+- An experiment design problem you will inevitably face once the training loop is running
 
-调参最好不要理解成“试很多组合”，而要理解成：
+It is better not to think of tuning as “trying many combinations,” but instead as:
 
 ```mermaid
 flowchart LR
-    A["先保证能稳定训练"] --> B["再看验证集效果"]
-    B --> C["再做局部细调"]
-    C --> D["记录并排序实验结果"]
+    A["First make training stable"] --> B["Then check validation performance"]
+    B --> C["Then do local fine-tuning"]
+    C --> D["Record and rank experiment results"]
 ```
 
-这节真正想帮你建立的是：
+What this section really wants to help you build is:
 
-- 先调什么
-- 后调什么
-- 怎样避免实验失控
+- What to tune first
+- What to tune later
+- How to avoid losing control of experiments
 
-## 一、为什么调参不能靠乱试？
+## 1. Why can’t tuning rely on random trial and error?
 
-### 1.1 因为参数之间经常互相影响
+### 1.1 Because parameters often interact with each other
 
-例如：
+For example:
 
-- 学习率和 batch size 会一起影响稳定性
-- dropout 和 weight decay 会一起影响泛化
+- Learning rate and batch size together affect stability
+- Dropout and weight decay together affect generalization
 
-### 1.2 如果没有顺序，实验很快失控
+### 1.2 Without an order, experiments quickly get out of control
 
-你会遇到：
+You may run into situations where:
 
-- 同时改太多参数
-- 不知道是哪项起作用
-- 结果不可复现
+- Too many parameters are changed at once
+- You do not know which change actually helped
+- The results cannot be reproduced
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-调参像做烘焙。  
-如果你一次同时改：
+Tuning is like baking.
+If you change all of these at once:
 
-- 温度
-- 时间
-- 糖量
-- 面粉量
+- temperature
+- time
+- sugar amount
+- flour amount
 
-你很难知道最后成败到底是谁导致的。
+it becomes very hard to know what caused the final success or failure.
 
-### 1.4 调参这件事最值得先记的，不是参数名，而是什么？
+### 1.4 What is the most important thing to remember about tuning, besides parameter names?
 
-最值得先记的是：
+The most important thing to remember is:
 
-> **每一轮实验都应该尽量回答一个更清楚的问题。**
+> **Each round of experiments should try to answer one clearer question.**
 
-比如：
+For example:
 
-- 学习率太大还是太小？
-- batch size 会不会影响稳定性？
-- 过拟合更像该靠正则化还是该靠早停？
+- Is the learning rate too large or too small?
+- Does batch size affect stability?
+- Is overfitting better handled by regularization or by early stopping?
 
-一旦你把实验问题问清楚，调参就不会再像碰运气。
+Once you ask the right experimental question, tuning no longer feels like luck.
 
 ---
 
-## 二、最值得优先看的超参数有哪些？
+## 2. Which hyperparameters are worth looking at first?
 
-### 2.1 学习率
+### 2.1 Learning rate
 
-通常是第一优先项。  
-它太大容易震荡，太小又学不动。
+Usually the top priority.
+If it is too large, training may oscillate; if it is too small, learning may stall.
 
-### 2.2 batch size
+### 2.2 Batch size
 
-会影响：
+It affects:
 
-- 梯度稳定性
-- 显存占用
-- 训练速度
+- Gradient stability
+- GPU memory usage
+- Training speed
 
-### 2.3 正则化
+### 2.3 Regularization
 
-例如：
+For example:
 
 - dropout
 - weight decay
 
-它们更偏向控制泛化能力。
+These mainly help control generalization.
 
-### 2.4 训练轮数 / 早停
+### 2.4 Number of training epochs / early stopping
 
-它们和是否过拟合关系很大。
+These are closely related to whether overfitting happens.
 
 ---
 
-## 三、先跑一个最小调参记录示例
+## 3. Start with a minimal tuning log example
 
 ```python
 experiments = [
@@ -154,105 +154,105 @@ for item in ranked:
     print(item)
 ```
 
-### 3.1 这个例子想表达什么？
+### 3.1 What is this example trying to show?
 
-调参不是只看一个最终准确率。  
-你通常还要一起看：
+Tuning is not just about one final accuracy number.
+You usually also need to look at:
 
-- 训练时间
-- 资源成本
-- 是否稳定
+- Training time
+- Resource cost
+- Whether it is stable
 
-### 3.2 为什么实验记录这么重要？
+### 3.2 Why is experiment logging so important?
 
-因为没有记录，你就很难回答：
+Because without logs, it becomes hard to answer:
 
-- 哪个参数真的更好
-- 这次变化是不是偶然
+- Which parameter is really better?
+- Was this change just a coincidence?
 
 ---
 
-## 四、一个更稳的调参顺序
+## 4. A more stable tuning order
 
-### 4.1 先固定大部分，只调一两项关键参数
+### 4.1 First fix most settings, and tune only one or two key parameters
 
-通常建议先看：
+A good starting point is usually:
 
-- 学习率
-- batch size
+- Learning rate
+- Batch size
 
-### 4.2 确认训练能稳定跑后，再看泛化控制
+### 4.2 After confirming stable training, look at generalization control
 
-例如：
+For example:
 
 - dropout
 - weight decay
 
-### 4.3 最后再做更细的局部搜索
+### 4.3 Finally, do more detailed local search
 
-这样能让实验更可解释。
+This makes the experiments easier to interpret.
 
-### 4.4 一个新人可直接照抄的顺序
+### 4.4 A sequence beginners can directly follow
 
-第一次调深度学习模型时，最稳的顺序通常是：
+When tuning a deep learning model for the first time, the safest order is usually:
 
-1. 先调学习率
-2. 再调 batch size
-3. 再看训练轮数和早停
-4. 再看 dropout / weight decay
-5. 最后才去碰更细的结构和优化器细节
+1. Tune the learning rate first
+2. Then tune the batch size
+3. Then look at the number of epochs and early stopping
+4. Then look at dropout / weight decay
+5. Only then move on to more detailed architecture and optimizer settings
 
-这个顺序的好处是：你先解决“能不能稳定学”，再解决“泛化够不够好”。
+The benefit of this order is that you first solve “Can it learn stably?” and then solve “Is the generalization good enough?”
 
-### 4.5 为什么这个顺序对新人特别重要？
+### 4.5 Why is this order especially important for beginners?
 
-因为初学阶段最容易出现的问题，不是“上限不够高”，而是：
+Because in the early learning stage, the most common problems are not “the upper limit is too low,” but:
 
-- 训练根本不稳定
-- 实验解释不清
-- 一次改太多，最后不知道什么真的有效
+- Training is not stable at all
+- Experiments are hard to interpret
+- Too many things are changed at once, so you no longer know what really worked
 
-所以这个顺序本质上是在帮你先保住两件事：
+So this order is essentially helping you protect two things first:
 
-- 训练能稳定跑
-- 每轮实验有解释
+- Training runs stably
+- Each experiment can be explained
 
 ---
 
-## 五、最容易踩的坑
+## 5. The most common mistakes
 
-### 5.1 误区一：一次改很多参数
+### 5.1 Mistake 1: Changing too many parameters at once
 
-这会让结果难解释。
+This makes the results hard to explain.
 
-### 5.2 误区二：只看训练集表现
+### 5.2 Mistake 2: Looking only at training set performance
 
-调参更该关注：
+Tuning should pay more attention to:
 
-- 验证集
-- 泛化
+- Validation set
+- Generalization
 
-### 5.3 误区三：觉得调参就是黑魔法
+### 5.3 Mistake 3: Thinking tuning is black magic
 
-只要实验设计清楚，  
-它其实是很工程化的工作。
+As long as the experiment design is clear,
+it is actually a very engineering-oriented task.
 
-## 六、一次实验最好至少记什么
+## 6. What should you record in each experiment?
 
-建议至少记录这几项：
+At minimum, it is recommended to record these items:
 
-- 模型版本
-- 数据版本
-- 关键超参数
-- 训练时长
-- 最佳验证指标
-- 你主观判断这次实验说明了什么
+- Model version
+- Data version
+- Key hyperparameters
+- Training duration
+- Best validation metric
+- Your subjective interpretation of what this experiment means
 
-没有记录，调参很容易变成重复劳动。
+Without records, tuning easily turns into repeated work.
 
-### 一个最小实验记录模板
+### A minimal experiment log template
 
-你可以直接照着记：
+You can record it like this:
 
 ```text
 experiment_id:
@@ -264,36 +264,36 @@ weight_decay:
 dropout:
 best_val_metric:
 train_time:
-结论:
+conclusion:
 ```
 
-只要你真的把这份模板坚持记几轮，调参的混乱感会明显下降。
+If you really keep using this template for a few rounds, the confusion around tuning will drop noticeably.
 
 ---
 
-## 如果继续把这节往上做，最值得补什么
+## If you want to expand this section further, what is most worth adding?
 
-更值得继续补的通常是：
+The most useful additions are usually:
 
-1. 一页实验记录表示例
-2. 一组“学习率太大 / 太小 / 合适”的对照曲线
-3. 一份从 baseline 到稳定模型的完整调参日志
+1. A one-page example of experiment logs
+2. A set of comparison curves for “learning rate too large / too small / just right”
+3. A complete tuning log from baseline to a stable model
 
-这样这节会更像真正的训练工程课，而不只是调参建议。
+That would make this section feel more like a real training engineering lesson, not just tuning advice.
 
 ---
 
-## 小结
+## Summary
 
-这节最重要的是建立一个调参判断：
+The most important idea in this section is to build a tuning mindset:
 
-> **超参数调优不是盲猜，而是围绕学习率、batch size 和泛化控制做有顺序、有记录的实验设计。**
+> **Hyperparameter tuning is not blind guessing, but a structured experiment design process centered on learning rate, batch size, and generalization control.**
 
-只要这个习惯建立起来，后面很多训练问题都会更容易排查。
+Once this habit is established, many training problems become easier to debug.
 
-## 练习
+## Exercises
 
-1. 给示例再加两组实验，看看排序是否变化。
-2. 为什么说学习率通常是最值得优先调的参数？
-3. 想一想：如果模型训练特别慢，你会怎么让调参更省成本？
-4. 用自己的话解释：为什么“一次只改少量参数”会更稳？
+1. Add two more experiments to the example and see whether the ranking changes.
+2. Why is learning rate usually the most important parameter to tune first?
+3. Think about this: if model training is very slow, how would you make tuning cheaper?
+4. Explain in your own words: why is “changing only a small number of parameters at a time” more stable?

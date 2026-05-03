@@ -1,136 +1,136 @@
 ---
-title: "5.4 项目：智能问答助手"
+title: "5.4 Project: Intelligent Q&A Assistant"
 sidebar_position: 23
-description: "从多轮对话、知识检索、状态管理到工具调用，建立一个更像真实产品的智能问答助手项目闭环。"
+description: "Build a more product-like intelligent Q&A assistant by connecting multi-turn dialogue, knowledge retrieval, state management, and tool calling into a complete loop."
 keywords: [assistant project, multi-turn QA, dialog state, retrieval, tool calling, LLM app]
 ---
 
-# 项目：智能问答助手
+# Project: Intelligent Q&A Assistant
 
-:::tip 本节定位
-这一节和“企业知识库问答”很像，但目标更进一步。  
-企业知识库更偏“查资料并回答”，而智能问答助手更像一个真正和用户协作的系统：
+:::tip Section focus
+This section is very similar to “enterprise knowledge base Q&A,” but the goal goes one step further.
+An enterprise knowledge base is more about “look up information and answer,” while an intelligent Q&A assistant is more like a real system that collaborates with the user:
 
-- 能多轮对话
-- 能记住上下文
-- 能在必要时调用工具
+- It can hold multi-turn conversations
+- It can remember context
+- It can call tools when needed
 
-所以这节更接近一个**产品雏形项目**，而不是单轮问答 demo。
+So this section is closer to a **prototype product project** than a single-turn QA demo.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解一个智能问答助手和普通问答函数的差别
-- 学会把检索、状态、工具调用放进同一条流程
-- 学会定义这个项目最关键的评估维度
-- 学会把它做成一个更像产品的作品集项目
-
----
-
-## 一、一个智能问答助手到底比普通问答多了什么？
-
-### 1.1 不只是“你问一句，我答一句”
-
-真正的助手感通常来自：
-
-1. 它记得上一轮
-2. 它会在需要时追问
-3. 它知道什么时候该查知识库，什么时候该查工具
-
-### 1.2 一个清楚的练手题目
-
-例如：
-
-> **做一个课程平台助手，能回答退款、证书和学习进度类问题。**
-
-这个题目非常适合，因为它天然包含：
-
-- 知识库
-- 用户状态
-- 多轮上下文
+- Understand the difference between an intelligent Q&A assistant and a regular Q&A function
+- Learn how to put retrieval, state, and tool calling into one workflow
+- Learn how to define the most important evaluation dimensions for this project
+- Learn how to turn it into a portfolio project that feels more like a product
 
 ---
 
-## 二、作品级项目的最小闭环长什么样？
+## 1. What does an intelligent Q&A assistant have that a regular Q&A app does not?
 
-1. 维护会话历史
-2. 识别当前主题
-3. 检索相关知识
-4. 必要时调工具查用户状态
-5. 输出带上下文意识的回答
+### 1.1 It is not just “you ask once, I answer once”
 
-只要这 5 步做清楚，项目就已经很有产品感。
+The real feeling of an assistant usually comes from:
 
-### 2.1 一张更像真实产品的闭环图
+1. It remembers the previous turn
+2. It asks follow-up questions when needed
+3. It knows when to check the knowledge base and when to use tools
+
+### 1.2 A clear practice task
+
+For example:
+
+> **Build a course platform assistant that can answer questions about refunds, certificates, and learning progress.**
+
+This is a very good task because it naturally includes:
+
+- A knowledge base
+- User state
+- Multi-turn context
+
+---
+
+## 2. What does the minimum product-level loop look like?
+
+1. Maintain conversation history
+2. Identify the current topic
+3. Retrieve relevant knowledge
+4. Call tools to check user status when needed
+5. Generate a response with context awareness
+
+As long as you make these 5 steps clear, the project already feels very product-like.
+
+### 2.1 A loop diagram that looks more like a real product
 
 ```mermaid
 flowchart LR
-    A["用户消息"] --> B["主题判断"]
-    B --> C["检索知识"]
-    C --> D["是否需要调工具"]
-    D --> E["生成回答"]
-    E --> F["更新会话状态"]
+    A["User message"] --> B["Topic detection"]
+    B --> C["Knowledge retrieval"]
+    C --> D["Need to call a tool?"]
+    D --> E["Generate response"]
+    E --> F["Update session state"]
     F --> A
 ```
 
-这张图很重要，因为它会提醒你：
+This diagram is important because it reminds you that:
 
-- 助手不是只回答一次
-- 而是在一轮轮对话里不断更新状态和行动
+- The assistant does not answer just once
+- It keeps updating state and actions across turns
 
-![智能助手 session、检索与工具 Trace 图](/img/course/ch08-assistant-session-tool-trace-map.png)
+![Intelligent assistant session, retrieval, and tool trace diagram](/img/course/ch08-assistant-session-tool-trace-map-en.png)
 
-:::tip 读图提示
-一条多轮助手 trace 至少要看四件事：session 里记住了什么、检索命中了什么、工具有没有被调用、回答后状态怎样更新。这样才能证明它不是普通 FAQ。
+:::tip Reading guide
+For a multi-turn assistant trace, you should look at at least four things: what is remembered in the session, what the retrieval returns, whether a tool is called, and how the state changes after the answer. That is what proves it is not just a normal FAQ.
 :::
 
-## 三、推荐推进顺序
+## 3. Recommended build order
 
-对新人来说，更稳的顺序通常是：
+For beginners, a safer sequence is usually:
 
-1. 先做单轮知识问答
-2. 再补会话状态
-3. 再补工具调用
-4. 最后再做多轮评估和失败案例展示
+1. Build single-turn knowledge Q&A first
+2. Add conversation state next
+3. Add tool calling next
+4. Finally add multi-turn evaluation and failure case demos
 
-这样你才能明确知道“助手感”到底是从哪一层加出来的。
+This way, you can clearly see which layer creates the “assistant feel.”
 
-### 3.1 一个更适合新人的总类比
+### 3.1 A simpler analogy for beginners
 
-你可以把智能问答助手理解成：
+You can think of an intelligent Q&A assistant as:
 
-- 一个会查资料、会追问、也会查系统状态的客服
+- A customer service assistant that can look up documents, ask follow-up questions, and check system status
 
-它和 FAQ 页最大的不同不在于：
+The biggest difference from an FAQ page is not:
 
-- 回答更长
+- Longer answers
 
-而在于：
+But rather:
 
-- 会根据上下文继续协作
+- It continues collaborating based on context
 
 ---
 
-## 四、先跑一个更完整的最小助手
+## 4. Start by running a more complete minimal assistant
 
-下面这个示例会做：
+The example below will:
 
-1. 维护 session
-2. 检索知识库
-3. 在退款问题里调用用户进度工具
-4. 根据上下文生成最终回答
+1. Maintain a session
+2. Retrieve from a knowledge base
+3. Call a user progress tool for refund questions
+4. Generate a final answer based on context
 
 ```python
 kb = [
-    {"key": "退款", "text": "退款政策：购买后 7 天内且学习进度低于 20% 可退款。"},
-    {"key": "证书", "text": "证书政策：完成所有项目并通过测试后可获得证书。"},
+    {"key": "refund", "text": "Refund policy: You can get a refund within 7 days of purchase if your learning progress is below 20%."},
+    {"key": "certificate", "text": "Certificate policy: You can receive a certificate after completing all projects and passing the test."},
 ]
 
 
 def retrieve(query):
-    if "退款" in query:
+    if "refund" in query:
         return kb[0], 0.92
-    if "证书" in query:
+    if "certificate" in query:
         return kb[1], 0.88
     return None, 0.0
 
@@ -158,56 +158,56 @@ def assistant_reply(session, user_message, user_id=None):
 
     session["history"].append({"role": "user", "content": user_message})
 
-    if "退款" in user_message:
-        session["topic"] = "退款"
-        doc, score = retrieve("退款")
+    if "refund" in user_message:
+        session["topic"] = "refund"
+        doc, score = retrieve("refund")
         session["last_retrieved_doc"] = doc
-        answer = f"{doc['text']} 如果你告诉我学习进度，我可以继续帮你判断是否符合资格。"
+        answer = f"{doc['text']} If you tell me your learning progress, I can help you check whether you qualify."
 
-    elif "证书" in user_message:
-        session["topic"] = "证书"
-        doc, score = retrieve("证书")
+    elif "certificate" in user_message:
+        session["topic"] = "certificate"
+        doc, score = retrieve("certificate")
         session["last_retrieved_doc"] = doc
         answer = doc["text"]
 
-    elif "还能退吗" in user_message and session["topic"] == "退款" and session["user_id"] is not None:
+    elif "can I still get a refund" in user_message and session["topic"] == "refund" and session["user_id"] is not None:
         progress = get_user_progress(session["user_id"])
         if progress is None:
-            answer = "当前查不到你的学习进度信息，请确认账号状态。"
+            answer = "I can't find your learning progress right now. Please confirm your account status."
         else:
             answer = (
-                f"系统查到你的学习进度约为 {int(progress * 100)}%。"
-                + (" 当前仍可退款。" if progress < 0.2 else " 当前不满足退款条件。")
+                f"The system shows your learning progress is about {int(progress * 100)}%."
+                + (" You are still eligible for a refund." if progress < 0.2 else " You do not currently meet the refund conditions.")
             )
     else:
-        answer = "我目前可以帮助你处理退款、证书和学习进度类问题。"
+        answer = "I can currently help with refund, certificate, and learning progress questions."
 
     session["history"].append({"role": "assistant", "content": answer})
     return answer
 
 
 session = new_session()
-print(assistant_reply(session, "退款政策是什么？", user_id=2))
-print(assistant_reply(session, "那我还能退吗？"))
+print(assistant_reply(session, "What is the refund policy?", user_id=2))
+print(assistant_reply(session, "Can I still get a refund?"))
 print(session)
 ```
 
-### 4.1 这个例子最关键的价值是什么？
+### 4.1 What is the most important value of this example?
 
-它不是只在做“问答”，而是在体现：
+It is not just doing “Q&A,” but showing:
 
-- 会话状态
-- 检索与工具的分工
-- 多轮上下文如何推动回答
+- Conversation state
+- The division of labor between retrieval and tools
+- How multi-turn context drives the answer
 
-这已经比单轮 FAQ 匹配更像真正的助手产品。
+This already feels much more like a real assistant product than single-turn FAQ matching.
 
-### 4.2 为什么 `session` 比答案本身更值得看？
+### 4.2 Why is `session` more worth looking at than the answer itself?
 
-因为 `session` 才是让系统持续协作的关键。  
-没有状态，你几乎做不出助手感。
+Because `session` is the key to keeping the system collaborative over time.
+Without state, it is very hard to create an assistant-like experience.
 
-### 4.3 再看一个最小“状态快照”示例
+### 4.3 Another tiny “state snapshot” example
 
 ```python
 snapshot = {
@@ -219,36 +219,36 @@ snapshot = {
 print(snapshot)
 ```
 
-这个示例很适合初学者，因为它会帮助你先看到：
+This example is great for beginners because it helps you first see:
 
-- 助手系统真正需要维护的不是“原话全部文本”
-- 而是几项关键状态
+- What an assistant system really needs to maintain is not the full raw conversation text
+- It is several key pieces of state
 
 ---
 
-## 五、这个项目最该怎么评估？
+## 5. How should you evaluate this project?
 
-### 5.1 单轮正确率不够
+### 5.1 Single-turn accuracy is not enough
 
-你至少还要看：
+You should also check at least:
 
-- 多轮上下文是否保持一致
-- 工具调用是否合理
-- 系统会不会在缺信息时瞎猜
+- Whether the multi-turn context stays consistent
+- Whether tool calling is reasonable
+- Whether the system starts making things up when information is missing
 
-### 5.2 一个最小评估用例表
+### 5.2 A minimal evaluation case table
 
 ```python
 eval_cases = [
     {
-        "turns": ["退款政策是什么？", "那我还能退吗？"],
+        "turns": ["What is the refund policy?", "Can I still get a refund?"],
         "user_id": 1,
-        "expected_keywords": ["15%", "可退款"],
+        "expected_keywords": ["15%", "eligible for a refund"],
     },
     {
-        "turns": ["证书怎么拿？"],
+        "turns": ["How do I get a certificate?"],
         "user_id": None,
-        "expected_keywords": ["结课测试", "证书"],
+        "expected_keywords": ["final test", "certificate"],
     },
 ]
 
@@ -264,123 +264,121 @@ for case in eval_cases:
     })
 ```
 
-### 5.3 为什么多轮评估特别重要？
+### 5.3 Why is multi-turn evaluation especially important?
 
-因为这类项目的亮点根本就不在单轮。  
-它最容易出错的地方恰恰是：
+Because the highlight of this kind of project is not single-turn performance.
+The place where it most easily fails is:
 
-- 第二轮开始忘记上下文
+- Forgetting the context starting from the second turn
 
-### 5.4 一个很适合初学者先记的评估表
+### 5.4 An evaluation table that beginners can remember first
 
-| 维度 | 更像在看什么 |
+| Dimension | What you are really checking |
 |---|---|
-| 单轮回答对不对 | 知识回答能力 |
-| 多轮上下文有没有接住 | 状态管理能力 |
-| 工具调用合不合理 | 系统决策能力 |
-| 缺信息时会不会追问 | 助手协作能力 |
+| Is the single-turn answer correct? | Knowledge answering ability |
+| Does the multi-turn context stay on track? | State management ability |
+| Is tool calling reasonable? | System decision-making ability |
+| Does it ask follow-up questions when information is missing? | Assistant collaboration ability |
 
-这个表很适合新人，因为它会帮助你把“助手感”拆成几个具体可检查的部分。
-
----
-
-## 六、怎么把这个项目做成作品级页面？
-
-### 6.1 展示一条完整对话 trace
-
-例如：
-
-1. 用户问题
-2. 检索命中文档
-3. 是否调用工具
-4. 最终回答
-
-### 6.2 特别值得展示的失败案例
-
-例如：
-
-- 用户没给足信息时，系统是否会乱猜
-- 工具查不到状态时，系统是否会诚实停住
-
-### 6.3 一个很加分的点
-
-把：
-
-- 知识回答
-- 用户状态回答
-
-这两条链画成流程图展示出来。
+This table is especially useful for beginners because it breaks “assistant feel” into several concrete, checkable parts.
 
 ---
 
-## 七、最容易踩的坑
+## 6. How do you turn this into a portfolio-quality page?
 
-### 7.1 只做单轮问答
+### 6.1 Show one complete dialogue trace
 
-这样很难体现“助手感”。
+For example:
 
-### 7.2 没有工具边界
+1. User question
+2. Retrieved document
+3. Whether a tool was called
+4. Final answer
 
-所有问题都靠模型猜，会越来越不稳。
+### 6.2 Failure cases that are especially worth showing
 
-### 7.3 不做上下文一致性检查
+For example:
 
-很多项目的问题恰恰出在第二轮和第三轮。
+- When the user does not provide enough information, does the system make random guesses?
+- When the tool cannot find the status, does the system honestly stop and wait?
 
-## 如果把它做成作品集，最值得强调什么
+### 6.3 A very good bonus point
 
-最值得强调的通常不是：
+Turn these two chains into flowcharts and show them:
 
-- “它能聊天”
-
-而是：
-
-1. 一条完整多轮对话 trace
-2. 其中哪一轮触发了检索
-3. 哪一轮触发了工具调用
-4. session 状态是怎么变化的
-5. 系统什么时候选择追问或停住
-
-这样别人会更容易感觉到：
-
-- 你做的是一个持续协作系统
-- 不只是多轮聊天 demo
+- Knowledge answering
+- User state answering
 
 ---
 
-## 项目交付时最好补上的内容
+## 7. The easiest mistakes to make
 
-- 一张系统流程图
-- 一段完整多轮对话 trace
-- 一组工具调用成功 / 失败案例
-- 一组“系统知道该追问 / 该停住”的例子
-- 一段你对后续扩展路径的说明
+### 7.1 Only building single-turn Q&A
+
+This makes it hard to show the “assistant feel.”
+
+### 7.2 No tool boundary
+
+If every question depends on model guessing, the system will become less and less stable.
+
+### 7.3 Not checking context consistency
+
+Many project problems happen exactly on the second and third turns.
+
+## If you turn this into a portfolio, what should you emphasize most?
+
+What is most worth emphasizing is usually not:
+
+- “It can chat”
+
+But instead:
+
+1. One complete multi-turn dialogue trace
+2. Which turn triggered retrieval
+3. Which turn triggered tool calling
+4. How the session state changed
+5. When the system chose to ask a follow-up question or stop
+
+That way, others can more easily feel that:
+
+- You built a continuous collaboration system
+- Not just a multi-turn chat demo
 
 ---
 
-## 小结
+## What to include when delivering the project
 
-这节最重要的是建立一个产品级判断：
+- A system flowchart
+- One complete multi-turn dialogue trace
+- A set of tool-calling success/failure cases
+- A set of examples showing when the system knows to ask follow-up questions or stop
+- A short explanation of your future extension path
 
-> **智能问答助手真正像项目的地方，不是答得像人，而是能否把检索、状态和工具调用组织成一条持续协作的多轮流程。**
+---
 
-只要这条流程讲清楚，它就会非常像一款可继续扩展的真实 AI 产品。
+## Summary
+
+The most important idea in this section is to build a product-level judgment:
+
+> **What makes an intelligent Q&A assistant feel like a real project is not whether it sounds human, but whether it can organize retrieval, state, and tool calling into a continuous multi-turn collaboration flow.**
+
+As long as you explain that flow clearly, it will feel very much like a real AI product that can keep growing.
 
 
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimum loop working | Can accept input, process it, and output results, while keeping a few examples |
+| Standard version | Become a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step planning |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not try to make it large and complete from the start. Every time you move up a version, write in the README what new capability was added, how it was verified, and what problems remain.
 
-## 练习
+## Exercises
 
-1. 给示例再加一个 `学习顺序` 主题，让助手能处理三类问题。
-2. 想一想：为什么智能助手比 FAQ 更需要状态管理？
-3. 如果工具查不到用户状态，系统最稳妥的回应应该是什么？
-4. 如果你把这个项目做成作品集，最值得展示哪一段对话？
+1. Add a `learning path` topic to the example so the assistant can handle three kinds of questions.
+2. Think about why an intelligent assistant needs state management more than an FAQ does.
+3. If the tool cannot find the user’s status, what is the safest response?
+4. If you turn this project into a portfolio piece, which conversation is most worth showing?

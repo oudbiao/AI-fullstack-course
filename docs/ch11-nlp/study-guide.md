@@ -1,60 +1,60 @@
 ---
-title: "学习指南：自然语言处理怎么学最不容易学乱"
+title: "Study Guide: How to Learn Natural Language Processing Without Getting Confused"
 sidebar_position: 1
-description: "给 AI 全栈新人的 NLP 学习指南：文本表示、词向量、文本分类、序列标注、预训练模型、项目路线和验收标准。"
-keywords: [NLP 学习指南, 自然语言处理怎么学, 文本分类, BERT 怎么学, GPT 怎么学]
+description: "An NLP study guide for AI full-stack beginners: text representation, word embeddings, text classification, sequence labeling, pre-trained models, project roadmap, and acceptance criteria."
+keywords: [NLP Study Guide, how to learn natural language processing, text classification, how to learn BERT, how to learn GPT]
 ---
 
-# 学习指南：自然语言处理怎么学最不容易学乱
+# Study Guide: How to Learn Natural Language Processing Without Getting Confused
 
-如果你来到 `第 11 章 自然语言处理（方向选修）` 后觉得 token、embedding、分类、抽取、生成、BERT、GPT 全都混在一起，先回到 NLP 的主线：文本如何变成模型能处理的表示。
+If you reach `Chapter 11 Natural Language Processing (elective track)` and feel that token, embedding, classification, extraction, generation, BERT, and GPT are all mixed together, first return to the main line of NLP: how text becomes a representation that a model can process.
 
-## 本阶段总原则
+## Core principles for this stage
 
-NLP 第一遍要抓住一条演进线：文本先被清洗和切分，再变成向量表示，然后进入分类、抽取、生成等任务，最后走向预训练语言模型。
+For NLP, the first pass is to follow one development path: text is first cleaned and split, then turned into vector representations, then fed into tasks such as classification, extraction, and generation, and finally moves toward pre-trained language models.
 
-![NLP 文本到模型学习指南图](/img/course/ch11-study-guide-text-to-model-map.png)
+![NLP text-to-model study guide map](/img/course/ch11-study-guide-text-to-model-map-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先学文本基础。你要理解分词、清洗、停用词、文本规范化和表示方法。
+In the first round, study text fundamentals. You need to understand tokenization, cleaning, stop words, text normalization, and representation methods.
 
-第二轮学词嵌入与语言模型。重点理解词向量、上下文表示和语言模型为什么能预测文本。
+In the second round, study word embeddings and language models. Focus on understanding word vectors, contextual representations, and why language models can predict text.
 
-第三轮学文本分类。它是最适合入门的 NLP 项目，能帮助你理解从文本到标签的流程。
+In the third round, study text classification. This is the most beginner-friendly NLP project and helps you understand the workflow from text to labels.
 
-第四轮学序列标注和 Seq2Seq。它们分别对应信息抽取和生成/翻译任务。
+In the fourth round, study sequence labeling and Seq2Seq. These correspond to information extraction and generation/translation tasks, respectively.
 
-第五轮学预训练语言模型。BERT、GPT、T5 和 Transformers 库会把前面的概念重新组织起来。
+In the fifth round, study pre-trained language models. BERT, GPT, T5, and the Transformers library will reorganize the concepts from the earlier stages.
 
-## 建议学习节奏
+## Suggested learning pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| 文本基础 | 4～8 小时 | 理解文本如何变成特征 |
-| 词向量和语言模型 | 6～12 小时 | 理解表示和上下文 |
-| 分类 / 抽取 / 生成 | 12～24 小时 | 分清不同 NLP 任务 |
-| 预训练模型 | 8～16 小时 | 理解 BERT/GPT/T5 的差异 |
-| 综合项目 | 16～32 小时 | 完成一个文本任务项目 |
+| Text fundamentals | 4–8 hours | Understand how text becomes features |
+| Word vectors and language models | 6–12 hours | Understand representations and context |
+| Classification / extraction / generation | 12–24 hours | Distinguish different NLP tasks |
+| Pre-trained models | 8–16 hours | Understand the differences between BERT/GPT/T5 |
+| Integrated project | 16–32 hours | Complete a text task project |
 
-## 阶段项目路线
+## Stage project roadmap
 
-第一个项目建议做文本分类，例如情感分析、垃圾邮件识别或评论分类。
+For your first project, it is recommended to do text classification, such as sentiment analysis, spam detection, or review classification.
 
-第二个项目建议做信息抽取，例如命名实体识别、简历信息抽取或合同字段抽取。
+For your second project, it is recommended to do information extraction, such as named entity recognition, resume information extraction, or contract field extraction.
 
-第三个项目可以做问答系统或文本摘要，把传统 NLP 思维和预训练模型结合起来。
+For your third project, you can build a question-answering system or text summarization project, combining traditional NLP thinking with pre-trained models.
 
-## 常见卡点
+## Common stumbling blocks
 
-最常见的卡点是直接跳到大模型，忽略文本表示。即使使用 LLM，你仍然需要理解 token、上下文、文本清洗和评估。
+The most common stumbling block is jumping straight to large models and ignoring text representation. Even when using an LLM, you still need to understand token, context, text cleaning, and evaluation.
 
-第二个卡点是任务边界不清。分类输出类别，序列标注输出每个 token 的标签，生成任务输出新文本。
+The second stumbling block is unclear task boundaries. Classification outputs categories, sequence labeling outputs a label for each token, and generation tasks output new text.
 
-第三个卡点是只看模型不看数据。文本任务非常依赖标注质量、类别定义和评估集设计。
+The third stumbling block is looking only at the model and not the data. Text tasks depend heavily on annotation quality, category definitions, and evaluation set design.
 
-## 过关标准
+## Passing criteria
 
-学完本阶段后，你应该能解释文本从原始字符串到模型输入的大致过程，并能完成一个文本分类或信息抽取项目。
+After finishing this stage, you should be able to explain the general process of how text goes from a raw string to model input, and you should be able to complete a text classification or information extraction project.
 
-如果你能说清楚 BERT 和 GPT 在训练目标、适用任务和使用方式上的差异，就能更顺畅地进入大模型原理。
+If you can clearly explain the differences between BERT and GPT in training objectives, applicable tasks, and usage patterns, you will be able to move more smoothly into the principles of large models.

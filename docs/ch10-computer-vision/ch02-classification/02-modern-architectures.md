@@ -1,211 +1,211 @@
 ---
-title: "2.3 现代分类架构"
+title: "2.3 Modern Classification Architectures"
 sidebar_position: 5
-description: "从 VGG、ResNet 到 EfficientNet 与 ConvNeXt，理解现代图像分类架构为什么不断在深度、残差和效率之间迭代。"
+description: "From VGG and ResNet to EfficientNet and ConvNeXt, understand why modern image classification architectures keep iterating around depth, residual connections, and efficiency."
 keywords: [ResNet, EfficientNet, ConvNeXt, classification, architecture, computer vision]
 ---
 
-# 现代分类架构
+# Modern Classification Architectures
 
-:::tip 本节定位
-做图像分类时，模型结构不是“越新越好”，  
-而是在不断围绕几个核心问题演化：
+:::tip Section focus
+When doing image classification, model architecture is not simply “the newer, the better.”
+Instead, it keeps evolving around a few core questions:
 
-- 怎么让网络更深
-- 怎么让训练更稳
-- 怎么让算力利用更高
+- How can we make networks deeper?
+- How can we make training more stable?
+- How can we use compute more efficiently?
 
-这一节不是给你背模型名字，而是帮你抓住它们演化背后的动机。
+This section is not about memorizing model names. It is about helping you understand the motivations behind their evolution.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解几代主流图像分类架构在解决什么问题
-- 理解残差连接为什么改变了深层网络训练
-- 理解效率型架构为什么重要
-- 建立架构选择时的基本判断
+- Understand what problems several generations of mainstream image classification architectures are trying to solve
+- Understand why residual connections changed deep network training
+- Understand why efficiency-focused architectures matter
+- Build basic judgment for architecture selection
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-如果你刚学完数据增强，这一节最自然的续接就是：
+If you just finished data augmentation, the most natural next step is:
 
-- 前一节在解决“同样一张图可以怎样更稳地喂给模型”
-- 这一节开始解决“模型骨架本身该怎么设计得更强、更稳、更省”
+- The previous section focused on “how to feed the same image to the model in a more stable way”
+- This section starts to solve “how the model backbone itself should be designed to be stronger, more stable, and more efficient”
 
-所以这一节不是在单独背架构名字，而是在补图像分类里的另一半：
+So this section is not about memorizing architecture names by themselves. It fills in the other half of image classification:
 
-- 数据怎么准备
-- 网络怎么搭得合理
+- How data is prepared
+- How the network is built in a reasonable way
 
-现代分类架构这节最适合新人的理解顺序不是“看一串名字”，而是先看清架构演进在回答什么问题：
+For beginners, the best way to understand modern classification architectures is not to “look at a list of names,” but to first see what problems the evolution of architectures is answering:
 
 ```mermaid
 flowchart LR
-    A["VGG：先把网络堆深"] --> B["ResNet：让深网络能训"]
-    B --> C["EfficientNet：开始认真看效率"]
-    C --> D["ConvNeXt：重新整理卷积路线"]
+    A["VGG: make networks deeper first"] --> B["ResNet: make deep networks trainable"]
+    B --> C["EfficientNet: start caring about efficiency"]
+    C --> D["ConvNeXt: reorganize the convolutional path"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to address is:
 
-- 图像分类网络为什么会一路演进
-- 不同架构到底在补哪类瓶颈
+- Why image classification networks keep evolving
+- What kinds of bottlenecks different architectures are trying to fix
 
-### 一个更适合新人的总类比
+### A Better Analogy for Beginners
 
-你可以把分类架构演进理解成：
+You can understand the evolution of classification architectures as:
 
-- 工厂流水线一次次升级改造
+- A factory assembly line being upgraded again and again
 
-每一代改造都不是为了“名字更新”，  
-而是为了回答一些很现实的问题：
+Each upgrade is not about making the machine look fancier,
+but about answering very practical questions:
 
-- 线能不能拉得更长
-- 机器会不会越跑越不稳
-- 同样电费下能不能产出更多
+- Can the line be made longer?
+- Will the machines become unstable as they run?
+- Can we produce more with the same electricity bill?
 
-## 一、为什么图像分类架构会不断演进？
+## 1. Why Do Image Classification Architectures Keep Evolving?
 
-### 1.1 因为“更深”不自动等于“更好”
+### 1.1 Because “deeper” does not automatically mean “better”
 
-早期网络一变深，常常会遇到：
+In early networks, once they became deeper, they often ran into:
 
-- 梯度难传
-- 优化困难
-- 训练不稳定
+- Hard-to-propagate gradients
+- Optimization difficulties
+- Unstable training
 
-### 1.2 所以后续演化本质上是在回答两个问题
+### 1.2 So later evolution is essentially answering two questions
 
-1. 如何更好训练深网络
-2. 如何在性能和效率之间平衡
+1. How can deep networks be trained better?
+2. How can performance and efficiency be balanced?
 
-### 1.3 一个类比
+### 1.3 An Analogy
 
-架构演进像不断改造流水线：
+Architecture evolution is like continually upgrading an assembly line:
 
-- 不是为了让机器变花哨
-- 而是为了在更复杂生产规模下还能稳定工作
+- Not to make the machine more ornate
+- But to keep it working reliably at larger production scales
 
-### 1.4 第一次学这节，最该先抓住什么？
+### 1.4 When Learning This Section for the First Time, What Should You Focus On?
 
-最该先抓住的不是模型年份和排行榜，而是这句：
+What matters most is not the model year or leaderboard, but this sentence:
 
-> **架构演进本质上是在解决“更深怎么训、更强怎么省、更现代怎么稳”。**
+> **The essence of architecture evolution is solving “how to train deeper models, how to make them stronger with less cost, and how to keep them stable in a modern way.”**
 
-一旦这句稳了，后面看到任何新架构时，你都会更自然地去问：
+Once that idea is clear, whenever you see a new architecture, you’ll naturally ask:
 
-- 它主要在补什么瓶颈？
-- 它解决的是深度、稳定性，还是效率问题？
+- What bottleneck is it mainly addressing?
+- Is it solving depth, stability, or efficiency?
 
 ---
 
-## 二、几代架构在关注什么？
+## 2. What Did Different Generations of Architectures Focus On?
 
-### 2.1 VGG：先把“堆更深”做出来
+### 2.1 VGG: First Make “Going Deeper” Work
 
-特点：
+Features:
 
-- 结构规则
-- 全是小卷积
-- 网络更深
+- Regular structure
+- All small convolutions
+- Deeper networks
 
-它的意义在于：
+Its significance is:
 
-- 证明更深网络可以明显提升能力
+- It proved that deeper networks can significantly improve capability
 
-### 2.2 ResNet：让更深网络真正能训
+### 2.2 ResNet: Make Very Deep Networks Actually Trainable
 
-残差连接的核心直觉是：
+The core intuition of residual connections is:
 
-- 不要求每层都学一个全新变换
-- 而是学“在原基础上的增量”
+- Each layer does not need to learn a completely new transformation
+- Instead, it learns an increment on top of the existing representation
 
-这让深层网络训练稳定性大幅提升。
+This greatly improves training stability in deep networks.
 
-### 2.2.1 为什么 ResNet 会成为图像分类里最重要的分水岭之一？
+### 2.2.1 Why Did ResNet Become One of the Most Important Turning Points in Image Classification?
 
-因为它第一次比较系统地解决了一个很关键的问题：
+Because it was the first architecture to systematically solve a very important problem:
 
-- 网络想变深
-- 但深了以后又很难训练
+- Networks want to become deeper
+- But deeper networks are hard to train
 
-ResNet 的意义，不只是“分数变高”，而是它把：
+The significance of ResNet is not just “the score got better.” It connected:
 
-- 更深网络
-- 可训练性
+- Deeper networks
+- Trainability
 
-这两件事真正接上了。
+These two things were finally brought together.
 
-### 2.3 EfficientNet：开始认真看算力效率
+### 2.3 EfficientNet: Start Taking Compute Efficiency Seriously
 
-它不只问“能不能更强”，  
-还问：
+It does not only ask, “Can it be stronger?”
+It also asks:
 
-- 同样预算下怎样更划算
+- How can we get better value with the same budget?
 
-### 2.4 ConvNeXt：重新审视卷积体系
+### 2.4 ConvNeXt: Re-examining the Convolutional Family
 
-在 Transformer 强势之后，  
-卷积路线也开始重新整理和现代化。
+After Transformer became dominant,
+the convolutional path also began to be reorganized and modernized.
 
-这说明：
+This shows:
 
-- 架构演进并不是单线淘汰
+- Architecture evolution is not a one-way replacement
 
-### 2.5 一张更适合新人的架构对比表
+### 2.5 A More Beginner-Friendly Architecture Comparison Table
 
-| 架构 | 你最该先记住的特点 | 适合建立什么直觉 |
+| Architecture | The most important thing to remember first | What intuition it helps you build |
 |---|---|---|
-| VGG | 深、规则、好理解 | 更深网络为什么会更强 |
-| ResNet | 残差连接 | 深网络怎么训得更稳 |
-| EfficientNet | 性能和效率一起看 | 为什么不能只看精度 |
-| ConvNeXt | 卷积也能继续现代化 | 架构不是新旧二元对立 |
+| VGG | Deep, regular, easy to understand | Why deeper networks can be stronger |
+| ResNet | Residual connections | How deep networks train more stably |
+| EfficientNet | Performance and efficiency together | Why accuracy is not the only thing that matters |
+| ConvNeXt | Convolutions can still be modernized | Architecture is not a simple new-vs-old binary |
 
-### 2.7 第一次学架构演进，最容易学歪在哪里？
+### 2.7 Where Do Beginners Most Easily Go Wrong When Learning Architecture Evolution?
 
-最容易学歪成：
+It is easiest to turn it into:
 
-- 一堆模型名
-- 一堆层数
-- 一堆排行榜结论
+- A bunch of model names
+- A bunch of layer counts
+- A bunch of leaderboard conclusions
 
-但真正更值钱的学习方式应该是：
+But a more valuable way to learn is:
 
-- 先问它的动机
-- 再问它的结构变化
-- 最后问它在项目里值不值得作为 baseline
+- First ask about the motivation
+- Then ask about the structural changes
+- Finally ask whether it is worth using as a baseline in a project
 
-### 2.6 如果把它们放到“项目选择”里，该怎么理解？
+### 2.6 If You Put Them Into “Project Selection,” How Should You Understand Them?
 
-一个更实用的记法是：
+A more practical way to remember them is:
 
-- `VGG`：更像教学上的经典起点，适合建立“深度和结构感”
-- `ResNet`：最稳的工程 baseline，很多项目第一反应还是先上它
-- `EfficientNet`：当你开始在意“同等资源下更划算”时特别有价值
-- `ConvNeXt`：当你想理解“卷积体系也能继续现代化”时再看会更合适
+- `VGG`: more like a classic teaching starting point, good for building a sense of “depth and structure”
+- `ResNet`: the most reliable engineering baseline; in many projects, people still reach for it first
+- `EfficientNet`: especially valuable when you start caring about “more value for the same resources”
+- `ConvNeXt`: more suitable when you want to understand how “the convolutional family can still be modernized”
 
-### 2.8 一个新人很适合先记的架构选择表
+### 2.8 A Practical Architecture Selection Table for Beginners
 
-| 你的目标 | 更稳的第一反应 |
+| Your goal | Safer first choice |
 |---|---|
-| 第一次做图像分类项目 | ResNet |
-| 想理解深网络为什么能训稳 | ResNet |
-| 想兼顾效果和效率 | EfficientNet |
-| 想补视觉架构演进视角 | VGG -> ResNet -> ConvNeXt |
+| Your first image classification project | ResNet |
+| You want to understand why deep networks can be trained stably | ResNet |
+| You want both performance and efficiency | EfficientNet |
+| You want to study the evolution of visual architectures | VGG -> ResNet -> ConvNeXt |
 
-这个表很适合初学者，因为它会把“模型名”重新变成“什么时候我该先想到它”。
+This table is useful for beginners because it turns “model names” back into “when should I think of this first?”
 
-![图像分类架构演进与选择图](/img/course/ch10-classification-architecture-evolution-map.png)
+![Diagram of image classification architecture evolution and selection](/img/course/ch10-classification-architecture-evolution-map-en.png)
 
-:::tip 读图提示
-这张图不要当模型排行榜看，而要当“问题演进图”看：VGG 先证明深度有效，ResNet 解决深层可训练性，EfficientNet 关注效率，ConvNeXt 代表卷积路线的现代化整理。
+:::tip Reading tip
+Do not read this diagram as a model leaderboard. Read it as a “problem evolution map”: VGG first proved that depth works, ResNet solved trainability for deep networks, EfficientNet focused on efficiency, and ConvNeXt represents a modernized organization of the convolutional path.
 :::
 
 ---
 
-## 三、先用一个最小残差示例建立直觉
+## 3. Build Intuition with a Minimal Residual Example First
 
 ```python
 def block_without_residual(x):
@@ -223,161 +223,161 @@ print("without residual:", block_without_residual(x))
 print("with residual   :", block_with_residual(x))
 ```
 
-### 3.1 这个例子想表达什么？
+### 3.1 What Is This Example Trying to Show?
 
-残差连接的感觉可以先理解成：
+You can first understand residual connections as:
 
-- 不是把旧信息完全替换
-- 而是在旧信息上叠加一个新修正
+- Not completely replacing old information
+- But adding a new correction on top of the old information
 
-这对深层网络训练非常重要。
+This is very important for training deep networks.
 
-### 3.2 为什么这和“更深但更稳”有关？
+### 3.2 Why Does This Relate to “Deeper but More Stable”?
 
-因为当层数很深时，  
-完全重写表示比“逐层微调表示”更难学。
+Because when the network is very deep,
+fully rewriting representations is harder to learn than “gradually refining” them layer by layer.
 
-### 3.4 第一次看残差连接，最值得先记的不是公式，而是“保留原路”
+### 3.4 When Seeing Residual Connections for the First Time, the Most Important Thing to Remember Is Not the Formula, but “Keeping the Original Path”
 
-可以先把残差块理解成：
+You can first think of a residual block as:
 
-- 新分支在学修正
-- 原路在保留已有信息
+- The new branch learning corrections
+- The original path preserving existing information
 
-这会让你更容易理解为什么它能帮助深层网络：
+This makes it easier to understand why it helps deep networks:
 
-- 信息不必每一层都被强行重写
-- 梯度也更容易传回去
+- Information does not need to be forcibly rewritten at every layer
+- Gradients can also flow back more easily
 
-### 3.3 新人第一次学这节，最该先记什么？
+### 3.3 What Should Beginners Remember First When Learning This Section?
 
-最值得先记住的是：
+The most important things to remember are:
 
-1. 架构演进不是“新模型不断替代旧模型”
-2. 很多改进都在解决训练稳定性和效率问题
-3. ResNet 之所以重要，不只是因为它强，而是因为它把“更深还能训”这件事做成了
+1. Architecture evolution is not “new models endlessly replacing old ones”
+2. Many improvements are about training stability and efficiency
+3. ResNet matters not only because it is strong, but because it made “deeper networks can still be trained” a reality
 
 ---
 
-## 四、现代分类架构到底怎么选？
+## 4. How Should You Choose Modern Classification Architectures?
 
-### 4.1 如果你是入门做 baseline
+### 4.1 If You Are a Beginner Building a Baseline
 
-优先考虑：
+Prioritize:
 
-- ResNet 一类经典强基线
+- Classic strong baselines such as ResNet
 
-### 4.2 如果你资源特别敏感
+### 4.2 If You Are Very Sensitive to Resources
 
-更应该关注：
+You should pay more attention to:
 
 - EfficientNet
-- 更轻量卷积架构
+- Lighter-weight convolutional architectures
 
-### 4.3 如果你要做研究或强性能对比
+### 4.3 If You Are Doing Research or Strong Performance Comparisons
 
-那才更值得系统比较不同家族。
+Only then is it worth systematically comparing different families.
 
-### 4.4 第一次做图像分类项目时，怎么选更稳？
+### 4.4 When Doing Your First Image Classification Project, How Can You Make a Safer Choice?
 
-一个够稳的顺序通常是：
+A stable sequence is usually:
 
-1. 先用 ResNet 做强 baseline
-2. 如果资源真的敏感，再看 EfficientNet 这类效率型路线
-3. 真要做更深入对比，再研究更多家族
+1. Use ResNet first to establish a strong baseline
+2. If resources are truly limited, then look at efficiency-focused approaches such as EfficientNet
+3. If you really want a deeper comparison, then study more families
 
-这样会比一开始就追最时髦架构更容易把项目做扎实。
+This is usually better than chasing the trendiest architecture from the start.
 
-### 4.5 一个更适合新人的实际选择表
+### 4.5 A Practical Selection Table for Beginners
 
-| 你的场景 | 更稳的第一选择 |
+| Your scenario | Safer first choice |
 |---|---|
-| 第一次做图像分类项目 | ResNet |
-| 设备资源有限 | EfficientNet 或轻量卷积网络 |
-| 想理解卷积体系演进 | VGG -> ResNet -> ConvNeXt |
-| 想做更认真架构对比 | 再系统比较不同家族 |
+| Your first image classification project | ResNet |
+| Device resources are limited | EfficientNet or a lightweight convolutional network |
+| You want to understand the evolution of convolutional systems | VGG -> ResNet -> ConvNeXt |
+| You want to do a more serious architecture comparison | Systematically compare different families |
 
-### 4.6 第一次把架构放进项目里，最稳的默认顺序
+### 4.6 The Safest Default Sequence When Putting Architectures into a Project for the First Time
 
-更稳的顺序通常是：
+A safer sequence is usually:
 
-1. 先用 ResNet 立强 baseline
-2. 先看数据和训练流程是否已经稳定
-3. 如果资源真的敏感，再换效率型架构
-4. 最后再做架构家族对比
+1. Use ResNet to establish a strong baseline
+2. Check whether the data and training pipeline are already stable
+3. If resources are truly limited, switch to an efficiency-focused architecture
+4. Finally, do comparisons across architecture families
 
-这样会比一开始就追“最先进 backbone”更容易看清收益来自哪里。
-
----
-
-## 五、最常见误区
-
-### 5.1 误区一：只记名字不记问题
-
-更重要的是知道：
-
-- 它到底在解决什么瓶颈
-
-### 5.2 误区二：最新架构一定更适合当前项目
-
-现实里经常还是成熟强基线更稳。
-
-### 5.3 误区三：网络越深越一定更强
-
-没有好的优化结构，深度很容易变成负担。
+This makes it easier to see where the gains actually come from than chasing the “most advanced backbone” right away.
 
 ---
 
-## 七、一个很实用的复盘问题
+## 5. The Most Common Misconceptions
 
-每学完一种架构，都可以问自己：
+### 5.1 Misconception 1: Memorizing names without remembering the problem
 
-1. 它主要想解决什么问题？
-2. 它是在换“表示能力”，还是在换“训练稳定性 / 效率”？
-3. 如果放进真实项目，我为什么会选它？
+What matters more is knowing:
 
-如果这三个问题都能答清楚，这节课就不再只是模型名列表了。
+- What bottleneck is it actually solving?
 
-## 如果把它做成项目或笔记，最值得展示什么
+### 5.2 Misconception 2: The newest architecture is definitely the best fit for the current project
 
-最值得展示的通常不是：
+In reality, a mature strong baseline is often more reliable.
 
-- 一串模型排行榜
+### 5.3 Misconception 3: A deeper network is always stronger
 
-而是：
-
-1. 你为什么先选 ResNet 做 baseline
-2. 你为什么考虑换到更效率型架构
-3. 不同架构是在解决深度、稳定性，还是效率问题
-
-这样别人会更容易看出：
-
-- 你理解的是架构选择逻辑
-- 不只是记住了名字
+Without a good optimization structure, depth easily becomes a burden.
 
 ---
 
-## 小结
+## 7. A Very Useful Reflection Question
 
-这节最重要的是建立一个架构演进视角：
+After learning any architecture, ask yourself:
 
-> **图像分类架构的发展，本质上是在不断解决“更深怎么训、更强怎么省、更现代怎么稳”这几个问题。**
+1. What problem is it mainly trying to solve?
+2. Is it changing “representational power,” or “training stability / efficiency”?
+3. If I put it into a real project, why would I choose it?
 
-只要这个视角在，后面你看到新模型时就不会只剩名字。
+If you can answer these three questions clearly, then this lesson is no longer just a list of model names.
 
-## 这节最该带走什么
+## If You Turn This Into a Project or Notes, What Is Most Worth Showing?
 
-- 架构名字背后对应的是瓶颈和设计动机
-- ResNet 是第一次学视觉分类架构时最值得真正看懂的一条线
-- 做项目时，稳定 baseline 往往比盲目追新更重要
+What is usually most worth showing is not:
 
-如果再压成一句话，那就是：
+- A string of model leaderboards
 
-> **现代分类架构最重要的不是“谁更新”，而是谁更清楚地解决了训练深网络和提高效率这两个现实问题。**
+But rather:
 
-## 练习
+1. Why you chose ResNet first as a baseline
+2. Why you considered switching to a more efficiency-focused architecture
+3. Whether each architecture is solving depth, stability, or efficiency
 
-1. 用自己的话解释：为什么残差连接会让深层网络更容易训练？
-2. 为什么说 EfficientNet 更像“预算优化”思路？
-3. 如果你要做一个资源有限的移动端分类器，你会优先考虑哪类架构？
-4. 想一想：为什么架构选择不该只看排行榜？
+That way, others can more easily see:
+
+- You understand the logic of architecture selection
+- Not just the model names
+
+---
+
+## Summary
+
+The most important thing in this section is to build an architecture evolution perspective:
+
+> **The development of image classification architectures is essentially a continuous effort to solve “how to train deeper models, how to make them stronger with less cost, and how to keep them stable in a modern way.”**
+
+As long as you keep this perspective, when you see a new model later, you will not be left with only its name.
+
+## What Should You Take Away from This Section?
+
+- Behind architecture names are bottlenecks and design motivations
+- ResNet is the line you most need to truly understand when first learning visual classification architectures
+- In projects, a stable baseline is often more important than blindly chasing the newest model
+
+If we compress it into one sentence, it would be:
+
+> **The most important thing about modern classification architectures is not “who is newer,” but who more clearly solves the two real-world problems of training deep networks and improving efficiency.**
+
+## Exercises
+
+1. Explain in your own words: why do residual connections make deep networks easier to train?
+2. Why is EfficientNet more like a “budget optimization” idea?
+3. If you were building a resource-constrained mobile classifier, which type of architecture would you prioritize?
+4. Think about it: why should architecture selection not rely only on leaderboards?

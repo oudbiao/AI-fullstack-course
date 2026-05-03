@@ -1,110 +1,110 @@
 ---
-title: "3.8 模板化文档生成（Word / PPT）"
+title: "3.8 Template-Based Document Generation (Word / PPT)"
 sidebar_position: 17
-description: "从结构化输出、模板填充到 Word/PPT 生成，理解为什么知识库型生成系统最好先产出结构，再渲染成文档。"
+description: "From structured output and template filling to Word/PPT generation, understand why knowledge-base generation systems are best built by producing structure first and then rendering it into documents."
 keywords: [word generation, ppt generation, template, docx, pptx, structured output]
 ---
 
-# 模板化文档生成（Word / PPT）
+# Template-Based Document Generation (Word / PPT)
 
-![Word PPT 模板生成流水线图](/img/course/template-doc-generation-pipeline.png)
+![Word PPT template generation pipeline](/img/course/template-doc-generation-pipeline-en.png)
 
-:::tip 本节定位
-很多新人做“生成 Word / 课件”时，最容易直接让模型输出一大段正文，  
-然后希望它天然就符合：
+:::tip Section focus
+When many beginners create “generated Word / slides,” they tend to directly ask the model to output a long block of text,
+and then hope it naturally fits:
 
-- 章节顺序
-- 格式要求
-- 例题位置
-- 课件风格
+- chapter order
+- formatting requirements
+- exercise placement
+- slide style
 
-这通常不稳。
+This is usually not stable.
 
-更稳的做法通常是：
+A more reliable approach is usually:
 
-> **先让模型产出结构化内容，再把结构填进模板。**
+> **First let the model produce structured content, then fill that structure into a template.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么文档生成最好走“结构 -> 模板 -> 导出”路线
-- 理解 Word / PPT 生成和普通聊天输出的差别
-- 看懂一个最小模板填充流程
-- 建立“结构化输出先于文档排版”的工程直觉
+- Understand why document generation is best built with a “structure -> template -> export” workflow
+- Understand the difference between Word / PPT generation and ordinary chat output
+- Read a minimal template filling process
+- Build an engineering intuition that “structured output comes before document layout”
 
 ---
 
-## 先建立一张地图
+## First, Build a Mental Map
 
-模板化文档生成更适合按“主题 -> 大纲 -> 内容块 -> 模板导出”来理解：
+Template-based document generation is easier to understand as “topic -> outline -> content blocks -> template export”:
 
 ```mermaid
 flowchart LR
-    A["用户给主题"] --> B["生成结构化大纲"]
-    B --> C["填入知识点、例题、总结"]
-    C --> D["套 Word / PPT 模板"]
-    D --> E["导出文档"]
+    A["User gives a topic"] --> B["Generate structured outline"]
+    B --> C["Fill in knowledge points, examples, and summary"]
+    C --> D["Apply Word / PPT template"]
+    D --> E["Export document"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么不要让模型直接“自由写一整份 Word”
-- 为什么固定模板会让生成结果更稳
+- Why you should not let the model freely “write an entire Word document”
+- Why fixed templates make generation results more stable
 
-## 一、为什么模板化这么重要？
+## 1. Why Is Template-Based Generation So Important?
 
-因为你的目标不是普通问答，  
-而是要交付：
+Because your goal is not ordinary Q&A,
+but to deliver:
 
-- 像课件的文档
+- a document that looks like a course slide deck
 
-这意味着系统不只要回答对，  
-还要满足：
+That means the system not only needs to answer correctly,
+but also needs to satisfy:
 
-- 结构稳定
-- 栏目固定
-- 标题级别固定
-- 例题和总结位置合理
+- stable structure
+- fixed sections
+- fixed heading levels
+- reasonable placement of examples and summaries
 
-## 二、一个更适合新人的总类比
+## 2. A Better Beginner-Friendly Analogy
 
-你可以把文档生成理解成：
+You can think of document generation as:
 
-- 先写提纲，再填内容，最后排版
+- write the outline first, then fill in the content, and finally format it
 
-如果一上来直接写整篇正文，  
-很容易发生：
+If you start by directly writing the entire body text,
+it is very easy for things to go wrong:
 
-- 结构乱
-- 内容重复
-- 例题跑到不该去的位置
+- the structure becomes messy
+- content gets repeated
+- examples end up in the wrong place
 
-所以更稳的方式通常是：
+So a more reliable approach is usually:
 
-- 先定骨架
-- 再填血肉
+- define the skeleton first
+- then add the flesh and blood
 
-## 三、一个最小结构化课件对象示例
+## 3. A Minimal Structured Courseware Object Example
 
 ```python
 courseware = {
-    "title": "折扣应用题讲解",
-    "target_audience": "小学高年级",
+    "title": "Discount Word Problem Explanation",
+    "target_audience": "Upper elementary school",
     "sections": [
         {
-            "heading": "一、知识点回顾",
+            "heading": "1. Knowledge Review",
             "content_type": "concept",
-            "items": ["折扣 = 原价 × 折扣率"],
+            "items": ["Discount = original price × discount rate"],
         },
         {
-            "heading": "二、例题讲解",
+            "heading": "2. Example Explanation",
             "content_type": "example",
-            "items": ["商品原价 100 元，打 8 折后价格是多少？"],
+            "items": ["If an item originally costs 100 yuan and is 20% off, what is the price?"],
         },
         {
-            "heading": "三、课堂练习",
+            "heading": "3. Classroom Practice",
             "content_type": "exercise",
-            "items": ["一件衣服原价 80 元，打 7 折后是多少元？"],
+            "items": ["If a shirt originally costs 80 yuan and is 30% off, how much is it?"],
         },
     ],
 }
@@ -112,46 +112,46 @@ courseware = {
 print(courseware)
 ```
 
-这个例子最重要的价值是：
+The most important value of this example is:
 
-- 先把“要生成什么结构”说清楚
+- it makes clear what structure needs to be generated first
 
-也就是说，模型不应该直接输出最终 `.docx`，  
-而应该先输出一份结构化内容对象。
+In other words, the model should not directly output the final `.docx`,
+but should first output a structured content object.
 
-## 四、一个更适合真实项目的课件 schema
+## 4. A Courseware Schema Better Suited for Real Projects
 
-如果你的目标是“生成符合固定格式的 Word 课件”，  
-建议在最小对象上再多补两层：
+If your goal is to “generate a Word course handout in a fixed format,”
+it is recommended to add two more layers on top of the minimal object:
 
-- 页面级或章节级顺序
-- 模板字段级映射
+- page-level or chapter-level ordering
+- template field mapping
 
-一个更稳的课件 schema 往往至少包含：
+A more robust courseware schema usually includes at least:
 
-| 字段 | 用途 |
+| Field | Purpose |
 |---|---|
-| `title` | 文档标题 |
-| `audience` | 适用对象 |
-| `teaching_goal` | 教学目标 |
-| `sections` | 正文结构 |
-| `source_refs` | 引用来源 |
-| `template_version` | 用的是哪个模板 |
+| `title` | Document title |
+| `audience` | Intended audience |
+| `teaching_goal` | Teaching objective |
+| `sections` | Main body structure |
+| `source_refs` | Reference sources |
+| `template_version` | Which template is being used |
 
-这张表特别适合新人，因为它会提醒你：
+This table is especially useful for beginners because it reminds you:
 
-- 你不是在生成“长文本”
-- 你是在生成“可被模板稳定消费的数据对象”
+- you are not generating “long text”
+- you are generating a “data object that can be reliably consumed by a template”
 
-## 五、一个最小模板填充示例
+## 5. A Minimal Template Filling Example
 
-下面这个例子不用真实 `python-docx`，  
-先用最简单的字符串模板讲清楚工作流。
+The example below does not use real `python-docx`;
+instead, it uses the simplest string template to make the workflow clear.
 
 ```python
 template = """# {title}
 
-适用对象：{target_audience}
+Target audience: {target_audience}
 
 {body}
 """
@@ -176,49 +176,49 @@ result = template.format(
 print(result)
 ```
 
-这个例子特别适合初学者，因为它会帮助你先看到：
+This example is especially suitable for beginners because it helps you first see:
 
-- 模板化的核心不是库
-- 而是“先有结构，再套模板”
+- the core of templating is not the library
+- it is “structure first, template second”
 
-## 六、模板字段应该怎么设计？
+## 6. How Should Template Fields Be Designed?
 
-第一次做这类系统时，特别推荐先把模板字段明写出来。
+When building this kind of system for the first time, it is strongly recommended that you write the template fields out explicitly.
 
-| 模板字段 | 对应内容 |
+| Template field | Corresponding content |
 |---|---|
-| `{title}` | 课件标题 |
-| `{target_audience}` | 适用对象 |
-| `{teaching_goal}` | 教学目标 |
-| `{concept_block}` | 知识点回顾 |
-| `{example_block}` | 例题讲解 |
-| `{exercise_block}` | 课堂练习 |
-| `{source_block}` | 来源说明 |
+| `{title}` | Courseware title |
+| `{target_audience}` | Intended audience |
+| `{teaching_goal}` | Teaching objective |
+| `{concept_block}` | Knowledge review |
+| `{example_block}` | Example explanation |
+| `{exercise_block}` | Classroom practice |
+| `{source_block}` | Source notes |
 
-它的好处是：
+The benefits are:
 
-- 模型知道自己要产什么
-- 模板渲染层知道自己要填什么
-- 你后面改版时也知道是哪一层出了问题
+- the model knows what it needs to produce
+- the template rendering layer knows what it needs to fill
+- later, when you revise the system, you can tell which layer has a problem
 
-## 七、Word / PPT 真正要额外处理什么？
+## 7. What Extra Things Do Word / PPT Actually Need to Handle?
 
-在真实工程里，除了正文内容，你还会处理：
+In real engineering work, besides the body content, you also need to handle:
 
-- 标题样式
-- 段落层级
-- 编号
-- 表格
-- 图片占位
-- 页眉页脚
-- 幻灯片页布局
+- title styles
+- paragraph hierarchy
+- numbering
+- tables
+- image placeholders
+- headers and footers
+- slide layouts
 
-所以模板化文档生成其实是两层问题：
+So template-based document generation is really a two-layer problem:
 
-1. 内容结构
-2. 文档排版
+1. content structure
+2. document layout
 
-## 八、一个最小“结构对象 -> 模板字段”示例
+## 8. A Minimal “Structured Object -> Template Fields” Example
 
 ```python
 def to_template_payload(courseware):
@@ -229,11 +229,11 @@ def to_template_payload(courseware):
     return {
         "title": courseware["title"],
         "target_audience": courseware["target_audience"],
-        "teaching_goal": "理解折扣的基本计算方法",
+        "teaching_goal": "Understand the basic calculation method for discounts",
         "concept_block": "\n".join(f"- {x}" for x in blocks["concept"]),
         "example_block": "\n".join(f"- {x}" for x in blocks["example"]),
         "exercise_block": "\n".join(f"- {x}" for x in blocks["exercise"]),
-        "source_block": "来源：内部知识库 + 外部资料补充",
+        "source_block": "Source: internal knowledge base + external supplemental materials",
     }
 
 
@@ -241,98 +241,98 @@ payload = to_template_payload(courseware)
 print(payload)
 ```
 
-这个小例子最值得新人注意的是：
+The key takeaway for beginners in this example is:
 
-- 结构对象不一定等于模板对象
-- 中间往往还会有一层“字段整理”
+- a structured object is not necessarily the same as a template object
+- there is often an extra layer for “field organization” in between
 
-![结构化课件到模板渲染图](/img/course/ch08-template-schema-to-render-map.png)
+![Structured courseware to template rendering diagram](/img/course/ch08-template-schema-to-render-map-en.png)
 
-:::tip 读图提示
-不要让模型直接“写 Word”。先产出 courseware schema，再整理成 template payload，最后交给 docx/pptx 渲染层。这样格式错误和内容错误才容易分开排查。
+:::tip Reading guide
+Do not let the model directly “write Word.” First produce the courseware schema, then organize it into a template payload, and finally hand it to the docx/pptx rendering layer. This makes it much easier to separate formatting errors from content errors.
 :::
 
-## 九、为什么这一层和 Prompt / 结构化输出强相关？
+## 9. Why Is This Layer Closely Related to Prompt / Structured Output?
 
-因为你通常会让模型先产出：
+Because you will usually ask the model to first produce:
 
 - JSON
-- 大纲
-- 标题列表
-- 每节的知识点 / 例题 / 练习
+- an outline
+- a title list
+- the knowledge points / examples / exercises for each section
 
-而不是直接产出一份“自由散文式”长文档。
+rather than directly producing a long, free-form prose document.
 
-这部分最相关的已有课程是：
-- [Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
-- [结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
+The most relevant existing lessons for this part are:
+- [Prompt Basics](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
+- [Structured Output](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
 
-## 十、第一次做这个模块时，最稳的范围控制
+## 10. The Safest Scope Control When You Build This Module for the First Time
 
-第一次做时，最稳的范围通常是：
+When you build this for the first time, the safest scope is usually:
 
-1. 先只生成 `Word`
-2. 先只支持一种模板
-3. 先不加图片自动布局
-4. 先不做复杂样式切换
+1. Generate only `Word` first
+2. Support only one template first
+3. Do not add automatic image layout yet
+4. Do not do complex style switching yet
 
-这样更容易先证明：
+This makes it easier to first prove that:
 
-- 结构对象稳定
-- 模板字段稳定
-- 导出链路稳定
+- the structured object is stable
+- the template fields are stable
+- the export pipeline is stable
 
-## 十一、一个新人可直接照抄的生成顺序
+## 11. A Generation Sequence Beginners Can Follow Directly
 
-第一次做这种系统时，更稳的顺序通常是：
+When building this kind of system for the first time, a more reliable sequence is usually:
 
-1. 先定义课件结构
-2. 先生成结构化 JSON / 大纲
-3. 再填知识点和例题
-4. 最后再导出 Word / PPT
+1. Define the courseware structure first
+2. Generate structured JSON / an outline first
+3. Then fill in knowledge points and examples
+4. Finally export to Word / PPT
 
-这样会比一上来直接生成 `.docx` 内容稳定很多。
+This is much more stable than directly generating `.docx` content from the start.
 
-## 十二、实际工程里会用到哪些库？
+## 12. What Libraries Are Used in Real Projects?
 
-这部分当前课程里还没有展开到具体库使用层，  
-但你做项目时大概率会接触：
+This section has not yet expanded into specific library usage,
+but when you work on a project, you will likely encounter:
 
 - `python-docx`
 - `docxtpl`
 - `python-pptx`
 
-所以这节可以看成是：
+So you can think of this section as:
 
-- 先把思路讲顺
-- 具体库再去查官方文档
+- first get the idea straight
+- then check the official documentation for the specific libraries
 
-## 十三、如果把它做成项目，最值得展示什么？
+## 13. If You Turn This into a Project, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “我们能导出 Word”
+- “we can export Word”
 
-而是：
+but rather:
 
-1. 结构化内容对象长什么样
-2. 模板长什么样
-3. 最终 Word / PPT 和结构之间是怎么对应的
-4. 哪些格式要求是稳定可控的
+1. What the structured content object looks like
+2. What the template looks like
+3. How the final Word / PPT maps to the structure
+4. Which formatting requirements are stable and controllable
 
-这样别人会更容易看出：
+That way, others can more easily see:
 
-- 你理解的是模板化生成
-- 不只是“让模型写长文”
+- that you understand template-based generation
+- not just “having the model write long text”
 
-## 小结
+## Summary
 
-- 模板化文档生成最关键的是先定义稳定 schema，再定义模板字段
-- “结构对象 -> 字段整理 -> 模板渲染” 这三层分开后，系统会稳很多
-- 第一次做时，先把单模板 Word 导出跑顺，比同时做 Word 和 PPT 更稳
+- The most important thing in template-based document generation is to define a stable schema first, then define template fields
+- Separating “structured object -> field organization -> template rendering” into three layers makes the system much more stable
+- When building this for the first time, getting a single-template Word export working smoothly is more reliable than trying to do Word and PPT at the same time
 
-## 这节最该带走什么
+## What You Should Take Away from This Section
 
-- 文档生成最稳的路线通常是“结构化输出 -> 模板渲染 -> 文档导出”
-- 先定结构，再填内容，比直接让模型自由写整份课件稳得多
-- 如果你的目标是生成 Word / 课件，这一层是项目成败的关键环节
+- The most reliable path for document generation is usually “structured output -> template rendering -> document export”
+- Defining the structure first and then filling content is much more stable than letting the model freely write the entire course handout
+- If your goal is to generate Word / slides, this layer is a critical part of project success

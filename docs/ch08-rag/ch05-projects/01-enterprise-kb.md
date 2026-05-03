@@ -1,131 +1,129 @@
 ---
-title: "5.2 项目：企业知识库问答"
+title: "5.2 Project: Enterprise Knowledge Base Q&A"
 sidebar_position: 21
-description: "从文档切块、检索、权限过滤、引用来源到错误分析，建立一个企业知识库问答系统的作品级项目闭环。"
+description: "Build a portfolio-grade enterprise knowledge base Q&A system, covering document chunking, retrieval, permission filtering, source citation, and error analysis."
 keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source citation, permissions]
 ---
 
-# 项目：企业知识库问答
+# Project: Enterprise Knowledge Base Q&A
 
-:::tip 本节定位
-企业知识库问答之所以适合作为作品集项目，不是因为它名字高级，而是因为它非常真实：
+:::tip Section positioning
+The reason enterprise knowledge base Q&A is a great portfolio project is not because it sounds fancy, but because it is very real:
 
-- 有文档
-- 有权限
-- 有版本
-- 有引用
-- 还有“答错会影响业务”的压力
+- There are documents
+- There are permissions
+- There are versions
+- There are citations
+- And there is pressure that “getting the answer wrong affects the business”
 
-所以这类项目最重要的不是“看起来像在回答”，而是：
+So the most important thing for this kind of project is not “whether it looks like it is answering,” but:
 
-> **答案是否来自正确文档、是否在正确权限范围内、是否能回溯到来源。**
+> **Does the answer come from the correct document, within the correct permission scope, and can it be traced back to the source?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会把企业文档组织成可检索知识单元
-- 学会设计权限和引用这两条企业级关键约束
-- 学会用一个最小检索器搭出可展示项目闭环
-- 学会围绕错误分析和可追溯性来展示项目
+- Learn how to organize enterprise documents into searchable knowledge units
+- Learn how to design the two enterprise-grade constraints of permissions and citations
+- Learn how to build a showcaseable project loop with a minimal retriever
+- Learn how to present the project around error analysis and traceability
 
 ---
 
-## 一、为什么企业知识库问答比普通 FAQ 更难？
+## 1. Why is enterprise knowledge base Q&A harder than ordinary FAQ?
 
-### 1.1 文档更长
+### 1.1 Documents are longer
 
-企业知识往往不只是几条问答，  
-而是：
+Enterprise knowledge is often not just a few Q&As,
+but rather:
 
-- 政策文档
-- 内部 SOP
-- 培训手册
-- 产品说明
+- Policy documents
+- Internal SOPs
+- Training manuals
+- Product documentation
 
-### 1.2 权限更复杂
+### 1.2 Permissions are more complex
 
-同一个问题，可能存在：
+For the same question, there may be:
 
-- 对外版本
-- 内部版本
+- An external version
+- An internal version
 
-### 1.3 可信度要求更高
+### 1.3 Trust requirements are higher
 
-用户常常会追问：
+Users will often ask:
 
-- 这条规则从哪来的？
-- 你引用的是哪份文件？
+- Where did this rule come from?
+- Which file are you citing?
 
-所以企业知识库问答更像：
+So enterprise knowledge base Q&A is more like a combination of:
 
-- 检索系统
-- 引用系统
-- 权限系统
+- A retrieval system
+- A citation system
+- A permission system
 
-的组合。
+![Enterprise knowledge base permission and citation loop diagram](/img/course/ch08-enterprise-kb-permission-citation-map-en.png)
 
-![企业知识库权限与引用闭环图](/img/course/ch08-enterprise-kb-permission-citation-map.png)
-
-:::tip 读图提示
-企业知识库不能只看“语义相关”。先按用户权限过滤候选，再检索和重排，最后答案必须带来源引用；否则系统可能答得很像，却泄露内部文档或无法追溯。
+:::tip Reading guide
+An enterprise knowledge base cannot rely only on “semantic relevance.” First filter candidates by user permissions, then retrieve and rerank, and finally make sure the answer includes source citations; otherwise, the system may sound correct while leaking internal documents or becoming impossible to trace.
 :::
 
 ---
 
-## 二、先把项目边界定清楚
+## 2. Define the project scope first
 
-一个很适合作品集展示的最小范围可以是：
+A very suitable minimum scope for a portfolio project is:
 
-> **针对课程平台内部帮助中心，做一个“退款 / 发票 / 证书 / 内部客服 SOP”知识库问答系统。**
+> **Build a “refund / invoice / certificate / internal customer support SOP” knowledge base Q&A system for an internal help center on a course platform.**
 
-它至少要回答四类问题：
+It should at least answer four types of questions:
 
-1. 对外规则类问题
-2. 内部流程类问题
-3. 权限不同导致答案不同的问题
-4. 需要给出来源的问题
+1. External policy questions
+2. Internal process questions
+3. Questions whose answers differ by permission
+4. Questions that require source citations
 
-### 为什么这个范围好？
+### Why is this scope good?
 
-- 文档主题集中
-- 权限边界真实
-- 结果好坏容易解释
+- The document topics are focused
+- The permission boundary is realistic
+- It is easy to explain whether the result is good or bad
 
 ---
 
-## 三、先设计知识单元，而不是先写模型
+## 3. Design the knowledge units first, not the model first
 
-下面这个示例会做三件事：
+The following example does three things:
 
-1. 把文档切成最小知识单元
-2. 给每段加元数据
-3. 区分对外和内部可见范围
+1. Splits documents into the smallest knowledge units
+2. Adds metadata to each chunk
+3. Distinguishes between public and internal visibility
 
 ```python
 kb = [
     {
         "id": "doc_001",
-        "section": "退款政策",
+        "section": "Refund Policy",
         "department": "support",
         "visibility": "public",
-        "text": "课程购买后 7 天内且学习进度低于 20% 可申请退款。",
-        "keywords": {"退款", "7天", "进度", "20%"},
+        "text": "A refund can be requested within 7 days of purchase if learning progress is below 20%.",
+        "keywords": {"refund", "7 days", "progress", "20%"},
     },
     {
         "id": "doc_002",
-        "section": "证书说明",
+        "section": "Certificate Guide",
         "department": "teaching",
         "visibility": "public",
-        "text": "完成所有必修项目并通过结课测试后，可以获得结业证书。",
-        "keywords": {"证书", "结课测试", "项目"},
+        "text": "A completion certificate can be issued after finishing all required projects and passing the course final test.",
+        "keywords": {"certificate", "final test", "project"},
     },
     {
         "id": "doc_003",
-        "section": "内部客服 SOP",
+        "section": "Internal Customer Support SOP",
         "department": "internal",
         "visibility": "internal",
-        "text": "客服处理退款申请时，需要先核验订单号、学习进度和支付渠道。",
-        "keywords": {"退款", "客服", "SOP", "核验"},
+        "text": "When handling a refund request, customer support must first verify the order number, learning progress, and payment channel.",
+        "keywords": {"refund", "customer support", "SOP", "verify"},
     },
 ]
 
@@ -133,23 +131,23 @@ for item in kb:
     print(item)
 ```
 
-### 3.1 为什么这里要加这么多元数据？
+### 3.1 Why add so much metadata here?
 
-因为企业知识库检索不只是“内容像不像”，  
-还要判断：
+Because enterprise knowledge base retrieval is not only about “does the content seem similar,”
+but also about deciding:
 
-- 能不能给当前用户看
-- 它属于哪个业务域
-- 回答时来源怎么展示
+- Whether the current user is allowed to see it
+- Which business domain it belongs to
+- How the source should be shown in the answer
 
-这也是企业项目和普通问答 demo 的根本差异。
+This is also the fundamental difference between an enterprise project and a normal Q&A demo.
 
 ---
 
-## 四、先做一个可解释检索器
+## 4. Build an explainable retriever first
 
-为了让示例在当前环境里也能直接跑，我们先不用外部 embedding 库，  
-而是用一个纯 Python 的关键词重叠检索器，先把项目骨架搭稳。
+To make the example runnable in the current environment, we will not use an external embedding library yet,
+but instead use a pure Python keyword-overlap retriever to get the project skeleton in place first.
 
 ```python
 def retrieve(query, allowed_visibility, top_k=2):
@@ -166,34 +164,34 @@ def retrieve(query, allowed_visibility, top_k=2):
 
 
 print("public user:")
-print(retrieve("退款规则是什么？", allowed_visibility={"public"}))
+print(retrieve("What is the refund policy?", allowed_visibility={"public"}))
 
 print("\ninternal support:")
-print(retrieve("客服核验流程是什么？", allowed_visibility={"public", "internal"}))
+print(retrieve("What is the customer verification process?", allowed_visibility={"public", "internal"}))
 ```
 
-### 4.1 这个检索器虽然简单，但为什么很适合教学？
+### 4.1 Although this retriever is simple, why is it very suitable for teaching?
 
-因为它让你清楚看到三件事：
+Because it makes three things very clear:
 
-1. 查询词怎么影响召回
-2. 权限怎么影响候选集
-3. 结果为什么会不同
+1. How query terms affect recall
+2. How permissions affect the candidate set
+3. Why the results are different
 
-### 4.2 为什么这里故意不直接用 embedding？
+### 4.2 Why deliberately not use embeddings directly here?
 
-因为这节课要先把：
+Because this lesson first needs to explain clearly:
 
-- 权限
-- 来源
-- 结构化知识单元
+- Permissions
+- Source citations
+- Structured knowledge units
 
-这些企业级关键点讲清楚。  
-等骨架清楚后，再换更强检索方式才更稳。
+These enterprise-grade key points.
+Once the skeleton is clear, switching to a stronger retrieval method will be much more stable.
 
 ---
 
-## 五、把“回答 + 来源”一起做出来
+## 5. Make “answer + sources” together
 
 ```python
 def answer_with_sources(query, allowed_visibility):
@@ -201,7 +199,7 @@ def answer_with_sources(query, allowed_visibility):
 
     if not hits:
         return {
-            "answer": "当前权限范围内没有找到足够相关的信息。",
+            "answer": "No sufficiently relevant information was found within the current permission scope.",
             "sources": [],
         }
 
@@ -219,53 +217,53 @@ def answer_with_sources(query, allowed_visibility):
     }
 
 
-print(answer_with_sources("退款规则是什么？", {"public"}))
-print(answer_with_sources("客服核验流程是什么？", {"public", "internal"}))
+print(answer_with_sources("What is the refund policy?", {"public"}))
+print(answer_with_sources("What is the customer verification process?", {"public", "internal"}))
 ```
 
-### 5.1 为什么“来源返回”是作品级项目的亮点？
+### 5.1 Why is “returning sources” a highlight of a portfolio project?
 
-因为它让系统不只是“给你一个答案”，  
-而是还能回答：
+Because it makes the system do more than just “give you an answer,”
+and also answer:
 
-- 这答案从哪来
-- 为什么信它
+- Where did this answer come from?
+- Why should I trust it?
 
-这会显著提高项目可信度。
+This significantly increases the credibility of the project.
 
-### 5.2 为什么企业场景比普通问答更需要来源？
+### 5.2 Why do enterprise scenarios need sources more than ordinary Q&A?
 
-因为企业用户经常会真的拿答案去执行流程。  
-没有来源，就很难建立信任。
+Because enterprise users often really use the answer to carry out a process.
+Without sources, trust is hard to build.
 
 ---
 
-## 六、项目最该怎么评估？
+## 6. How should this project be evaluated?
 
-### 6.1 不是只看“有没有答出来”
+### 6.1 It is not enough to only check “whether it answered”
 
-企业知识库项目最少要分成三层评估：
+An enterprise knowledge base project should be evaluated in at least three layers:
 
-1. 召回是否相关
-2. 权限是否正确
-3. 引用是否可追溯
+1. Whether the retrieval is relevant
+2. Whether the permissions are correct
+3. Whether the citations are traceable
 
-### 6.2 一个极简评估集
+### 6.2 A minimal evaluation set
 
 ```python
 eval_cases = [
     {
-        "query": "退款规则是什么？",
+        "query": "What is the refund policy?",
         "visibility": {"public"},
         "expected_doc": "doc_001",
     },
     {
-        "query": "客服核验流程是什么？",
+        "query": "What is the customer verification process?",
         "visibility": {"public"},
         "expected_doc": None,
     },
     {
-        "query": "客服核验流程是什么？",
+        "query": "What is the customer verification process?",
         "visibility": {"public", "internal"},
         "expected_doc": "doc_003",
     },
@@ -282,73 +280,73 @@ for case in eval_cases:
     })
 ```
 
-### 6.3 为什么这种评估很值钱？
+### 6.3 Why is this kind of evaluation valuable?
 
-因为它直接覆盖了企业知识库最关键的两个风险：
+Because it directly covers the two most important risks in an enterprise knowledge base:
 
-- 该答却没答对
-- 不该看却看到了内部文档
-
----
-
-## 七、这个项目怎么往作品级再推一步？
-
-### 7.1 把规则检索升级成向量检索
-
-### 7.2 加文档 chunking 和 rerank
-
-### 7.3 把来源展示做成界面
-
-最推荐展示：
-
-- 用户问题
-- 命中文档
-- 最终答案
-- 来源引用
-
-### 7.4 展示几个“权限相关失败样例”
-
-这会非常有说服力。
+- It should answer, but fails to answer correctly
+- It should not be visible, but internal documents are exposed
 
 ---
 
-## 八、最容易踩的坑
+## 7. How can you take this project one step closer to portfolio quality?
 
-### 8.1 只做“能答”，不做“能追溯”
+### 7.1 Upgrade rule-based retrieval to vector retrieval
 
-### 8.2 只看语义相关，不看权限边界
+### 7.2 Add document chunking and reranking
 
-### 8.3 文档单元切得太粗
+### 7.3 Build a user interface for source display
 
-切太粗时，答案和来源常常都会变得含糊。
+The most recommended items to show are:
+
+- User question
+- Matched document
+- Final answer
+- Source citation
+
+### 7.4 Show a few “permission-related failure examples”
+
+This will be very convincing.
 
 ---
 
-## 小结
+## 8. The most common pitfalls
 
-这节最重要的是建立一个作品级判断：
+### 8.1 Only building “can answer,” not “can be traced”
 
-> **企业知识库问答真正像项目的地方，不是接了一个检索器，而是能把知识单元、权限边界、回答生成和来源追溯组织成一条可信闭环。**
+### 8.2 Only looking at semantic relevance, not permission boundaries
 
-只要这条闭环清楚了，这个项目就会非常像真实企业场景里的系统。
+### 8.3 Making document chunks too coarse
+
+When chunks are too coarse, both answers and sources often become vague.
+
+---
+
+## Summary
+
+The most important thing in this lesson is to build a portfolio-grade judgment:
+
+> **What makes enterprise knowledge base Q&A feel like a real project is not that it connects to a retriever, but that it organizes knowledge units, permission boundaries, answer generation, and source traceability into a trustworthy closed loop.**
+
+Once this closed loop is clear, this project will look very much like a real enterprise system.
 
 ---
 
 
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimal loop running | Can accept input, process it, and output results, while keeping a set of examples |
+| Standard version | Form a showcaseable project | Add configuration, logs, error handling, README, and screenshots |
+| Advanced version | Close to portfolio quality | Add evaluation, comparison experiments, failure-case analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first, and do not pursue an all-in-one solution from the beginning. Each time you upgrade a version, write into the README what new capability was added, how it was verified, and what problems still remain.
 
-## 练习
+## Exercises
 
-1. 给 `kb` 再加两条“公开文档”和一条“内部文档”，让查询竞争更真实。
-2. 为什么说企业知识库项目里“权限正确”有时比“答案漂亮”更重要？
-3. 想一想：如果文档 chunk 切得太粗，会怎么影响回答和引用？
-4. 如果你把这个项目做成作品集，首页最值得展示哪 4 块信息？
+1. Add two more “public documents” and one “internal document” to `kb` to make query competition more realistic.
+2. Why is “correct permissions” sometimes more important than “a beautiful answer” in an enterprise knowledge base project?
+3. Think about it: if document chunks are cut too coarsely, how will that affect the answer and the citation?
+4. If you turn this project into a portfolio piece, which 4 blocks of information would be most worth showing on the homepage?

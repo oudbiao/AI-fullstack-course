@@ -1,147 +1,147 @@
 ---
-title: "1.4 从神经元到多层感知机"
+title: "1.4 From Neurons to Multilayer Perceptrons"
 sidebar_position: 3
-description: "理解人工神经元、感知机模型和常用激活函数，搭建你的第一个多层感知机（MLP）"
-keywords: [神经元, 感知机, 激活函数, ReLU, Sigmoid, Tanh, MLP, 多层感知机]
+description: "Understand artificial neurons, the perceptron model, and common activation functions, and build your first multilayer perceptron (MLP)"
+keywords: [neuron, perceptron, activation function, ReLU, Sigmoid, Tanh, MLP, multilayer perceptron]
 ---
 
-# 从神经元到多层感知机
+# From Neurons to Multilayer Perceptrons
 
-![神经元到 MLP 结构图](/img/course/mlp-neuron-activation.png)
+![Diagram from neurons to MLP](/img/course/mlp-neuron-activation-en.png)
 
-:::tip 本节定位
-深度学习的一切都从**人工神经元**开始。本节从最简单的感知机出发，认识各种激活函数，再组装成多层感知机（MLP）——这是所有神经网络的基础。
+:::tip Section Overview
+Everything in deep learning starts with the **artificial neuron**. In this section, we begin with the simplest perceptron, learn about different activation functions, and then combine them into a multilayer perceptron (MLP) — the foundation of all neural networks.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解从生物神经元到人工神经元的映射
-- 掌握感知机模型
-- 掌握常用激活函数：ReLU、Sigmoid、Tanh 等
-- 理解多层感知机（MLP）的结构
+- Understand the mapping from biological neurons to artificial neurons
+- Master the perceptron model
+- Master common activation functions: ReLU, Sigmoid, Tanh, and more
+- Understand the structure of a multilayer perceptron (MLP)
 
-## 历史背景：神经网络这条线最早是怎么长出来的？
+## Historical Background: How did the neural network story begin?
 
-这一节最关键的几个历史节点是：
+The most important historical milestones in this section are:
 
-| 年份 | 节点 | 关键作者 | 它最重要地解决了什么 |
+| Year | Milestone | Key Authors | What it most importantly solved |
 |---|---|---|---|
-| 1943 | McCulloch-Pitts Neuron | McCulloch, Pitts | 给出了人工神经元的最早计算抽象 |
-| 1958 | Perceptron | Frank Rosenblatt | 提出了最早可训练的单层神经网络分类器之一 |
-| 1969 | Perceptrons | Minsky, Papert | 系统揭示了单层感知器对 XOR 等非线性可分问题的局限 |
-| 1980 | Neocognitron | Fukushima | 提前给出了卷积、局部感受野、层级特征的核心思路 |
+| 1943 | McCulloch-Pitts Neuron | McCulloch, Pitts | Provided the earliest computational abstraction of an artificial neuron |
+| 1958 | Perceptron | Frank Rosenblatt | Proposed one of the earliest trainable single-layer neural network classifiers |
+| 1969 | Perceptrons | Minsky, Papert | Systematically revealed the limitations of single-layer perceptrons on nonlinearly separable problems such as XOR |
+| 1980 | Neocognitron | Fukushima | Introduced the core ideas of convolution, local receptive fields, and hierarchical features ahead of its time |
 
-对新人来说，这里最值得先记的是：
+For beginners, the most important thing to remember here is:
 
-> **感知器不是“落后模型”，而是神经网络历史上第一次非常清楚地让人看到：单层模型能做什么、又做不到什么。**
+> **The perceptron was not an “outdated model,” but the first moment in neural network history when people clearly saw what a single-layer model can and cannot do.**
 
-所以你这一节看到的 `XOR`，不只是一个玩具例子，  
-而是神经网络历史上非常关键的分水岭问题之一。
+So the `XOR` you see in this section is not just a toy example;
+it is one of the key turning points in the history of neural networks.
 
-### 为什么 XOR 这个只有 4 个点的小问题会这么出名？
+### Why did the tiny XOR problem with only 4 points become so famous?
 
-因为它特别“打脸式”地暴露了单层感知器的边界。
+Because it very “directly” exposed the boundary of a single-layer perceptron.
 
-表面上看，XOR 非常小：
+On the surface, XOR is very small:
 
-- 只有 4 个输入点
+- Only 4 input points
 
-但它的意义恰恰在于：
+But its significance is exactly this:
 
-- 如果一个模型连这么小的非线性模式都搞不定
-- 那就说明它的表达能力不是“差一点”，而是结构上就有边界
+- If a model cannot handle such a small nonlinear pattern
+- Then its expressive power is not just “a little weak” — it is structurally limited
 
-所以 XOR 之所以会反复出现在教材里，  
-不是因为它本身复杂，  
-而是因为它像一个非常锋利的测试题：
+That is why XOR appears again and again in textbooks:
+not because it is itself complicated,
+but because it is like a sharp test:
 
-> **用极小的例子，把“单层不够”这件事讲得无可回避。**
+> **Use a tiny example to make the fact that “a single layer is not enough” impossible to ignore.**
 
-### 为什么感知器会先让人兴奋，后来又让人失望？
+### Why did the perceptron first excite people, and later disappoint them?
 
-因为感知器刚出现时，很多人第一次看见：
+Because when the perceptron first appeared, many people saw for the first time:
 
-- 机器好像真的可以“学”
-- 而不是所有规则都靠人手写
+- Machines could actually seem to “learn”
+- Instead of every rule having to be handwritten by humans
 
-这件事在当时非常抓人。  
-它像是在告诉大家：
+That was extremely exciting at the time.
+It felt like the world was being told:
 
-> **也许智能不只是编码出来的，也可以训练出来。**
+> **Maybe intelligence is not only something you code, but something you can train.**
 
-但后来 `XOR` 这类问题又像一盆冷水。
+But later, problems like `XOR` poured cold water on that excitement.
 
-因为它提醒整个领域：
+Because they reminded the field:
 
-- 单层模型的表达能力其实很有限
-- “会学”不代表“什么都能学”
+- A single-layer model has very limited expressive power
+- Being able to “learn” does not mean it can “learn everything”
 
-所以这段历史特别有故事感的地方在于：
+So what makes this history so compelling is:
 
-- 它先点燃了一次巨大期待
-- 然后又迫使大家重新面对模型能力的边界
+- It first ignited huge expectations
+- Then it forced everyone to confront the limits of model capacity again
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-这一节更适合新人的理解顺序不是“背神经网络名词”，而是先看这条线：
+For beginners, the best way to understand this section is not to memorize neural network terms, but to follow this path first:
 
 ```mermaid
 flowchart LR
-    A["输入特征 x"] --> B["加权求和 z = x·w + b"]
-    B --> C["激活函数 a = f(z)"]
-    C --> D["一个神经元输出"]
-    D --> E["多个神经元组成一层"]
-    E --> F["多层堆起来就是 MLP"]
+    A["Input features x"] --> B["Weighted sum z = x·w + b"]
+    B --> C["Activation function a = f(z)"]
+    C --> D["Output of one neuron"]
+    D --> E["Multiple neurons form one layer"]
+    E --> F["Stack multiple layers to get an MLP"]
 ```
 
-所以你真正要先看懂的是：
+So the first things you should understand are:
 
-- 神经元先做了什么线性计算
-- 激活函数为什么必须存在
-- 一层和多层到底是怎么长出来的
+- What linear computation a neuron performs
+- Why an activation function must exist
+- How a single layer and multiple layers are built
 
-## 这节和第 5 站最直接的连续性是什么
+## What is the most direct connection between this section and Station 5?
 
-如果你刚学完第 5 站，可以先把一个神经元理解成：
+If you just finished Station 5, you can first think of a neuron as:
 
-- 线性回归 / 逻辑回归那种“加权求和”的升级版
+- an upgraded version of the “weighted sum” used in linear regression / logistic regression
 
-也就是说，神经元并不是凭空出现的新对象，它其实是在第 5 站熟悉的线性模型骨架上，多加了一步：
+In other words, a neuron is not a brand-new object out of nowhere. It is built on the linear-model skeleton you already know from Station 5, with one extra step added:
 
 ```mermaid
 flowchart LR
-    A["第 5 站熟悉的部分<br/>z = x·w + b"] --> B["第 6 站新增的一步<br/>a = f(z)"]
-    B --> C["多个神经元再堆成层"]
+    A["The part you already know from Station 5<br/>z = x·w + b"] --> B["A new step in Station 6<br/>a = f(z)"]
+    B --> C["Then multiple neurons are stacked into layers"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style C fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-所以这一节真正新增的核心，其实只有两件事：
+So the real core ideas added in this section are only two things:
 
-- 激活函数
-- 多层堆叠
+- Activation functions
+- Layer stacking
 
-![神经元线性打分与激活门图](/img/course/ch06-neuron-linear-activation-gate.png)
+![Diagram of neuron linear scoring and activation gate](/img/course/ch06-neuron-linear-activation-gate-en.png)
 
-:::tip 读图提示
-读这张图时，先把神经元拆成两步：第一步是 `z = x·w + b` 的线性打分，第二步是激活函数决定这份信号怎样通过。这样你会发现神经元并不神秘，它就是“线性模型 + 非线性门”。
+:::tip Reading the diagram
+When reading this diagram, first split the neuron into two steps: the first step is the linear score `z = x·w + b`, and the second step is how the activation function decides whether the signal passes through. Once you do that, you will see that a neuron is not mysterious at all — it is just a “linear model + nonlinear gate.”
 :::
 
-## 一、从生物到人工
+## 1. From biology to artificial neurons
 
 ```mermaid
 flowchart LR
-    subgraph BIO["生物神经元"]
-        D["树突<br/>接收信号"] --> S["细胞体<br/>汇总加工"]
-        S --> A["轴突<br/>输出信号"]
+    subgraph BIO["Biological neuron"]
+        D["Dendrites<br/>Receive signals"] --> S["Cell body<br/>Aggregate and process"]
+        S --> A["Axon<br/>Output signal"]
     end
-    subgraph ART["人工神经元"]
-        X["输入 x1, x2, ..."] --> W["加权求和<br/>z = w1·x1 + w2·x2 + b"]
-        W --> ACT["激活函数<br/>a = f(z)"]
-        ACT --> O["输出"]
+    subgraph ART["Artificial neuron"]
+        X["Inputs x1, x2, ..."] --> W["Weighted sum<br/>z = w1·x1 + w2·x2 + b"]
+        W --> ACT["Activation function<br/>a = f(z)"]
+        ACT --> O["Output"]
     end
 
     style D fill:#e3f2fd,stroke:#1565c0,color:#333
@@ -153,82 +153,82 @@ flowchart LR
     style O fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-核心对应关系：
+Core correspondences:
 
-| 生物 | 人工 |
+| Biological | Artificial |
 |------|------|
-| 树突（接收信号） | 输入 x |
-| 突触强度 | 权重 w |
-| 细胞体（汇总） | 加权求和 z = Σ(wi·xi) + b |
-| 激活/抑制 | 激活函数 f(z) |
-| 轴突（输出） | 输出 a = f(z) |
+| Dendrites (receive signals) | Input x |
+| Synaptic strength | Weight w |
+| Cell body (aggregation) | Weighted sum z = Σ(wi·xi) + b |
+| Activation/inhibition | Activation function f(z) |
+| Axon (output) | Output a = f(z) |
 
-### 1.1 一个最小“人工神经元”计算例子
+### 1.1 A minimal artificial neuron example
 
-新人最容易发虚的地方是：知道公式，但脑子里没有“这一步到底算出了什么”。
+The easiest place for beginners to feel stuck is this: you know the formula, but you do not have a clear mental picture of what is actually being computed.
 
-先看一个最小例子：
+Let’s start with a minimal example:
 
 ```python
 import numpy as np
 
-# 一个样本的 3 个特征
+# 3 features of one sample
 x = np.array([0.8, 0.3, 0.5])
 
-# 一个神经元的 3 个权重
+# 3 weights of one neuron
 w = np.array([0.2, -0.4, 0.6])
 b = 0.1
 
-# 第一步：线性组合
+# Step 1: linear combination
 z = np.dot(x, w) + b
 print("z =", round(z, 4))
 
-# 第二步：过激活函数
+# Step 2: pass through activation function
 relu_out = max(0, z)
 print("ReLU(z) =", round(relu_out, 4))
 ```
 
-你可以把这一步理解成：
+You can think of this step as:
 
-- 权重在表达“每个输入有多重要”
-- 偏置在表达“整体阈值往哪边推一点”
-- 激活函数决定“这个神经元到底要不要被激活”
+- Weights express “how important each input is”
+- The bias expresses “which way to shift the overall threshold”
+- The activation function decides “whether this neuron should actually fire”
 
-### 1.1.1 如果先不谈深度学习，可以把神经元想成什么？
+### 1.1.1 If we do not talk about deep learning yet, how can we think about a neuron?
 
-一个很适合新人的理解方式是：
+A very beginner-friendly way to understand it is:
 
-- 把神经元先看成“带一个门”的线性模型
+- First think of a neuron as a linear model with a “gate”
 
-先算：
+First compute:
 
 - `z = x·w + b`
 
-再决定：
+Then decide:
 
-- 这个结果要原样通过、压到 `0~1`、还是小于 0 直接截掉
+- Whether to pass the result through as-is, compress it to `0~1`, or clip values below 0 directly
 
-这个“门”就是激活函数。  
-所以神经元并不是神秘新物种，而是在“线性打分”外面再加一层非线性选择。
+That “gate” is the activation function.
+So a neuron is not a mysterious new species — it is a linear score plus an extra nonlinear choice.
 
 ---
 
-## 二、感知机——最简单的人工神经元
+## 2. The perceptron — the simplest artificial neuron
 
-### 2.1 模型
+### 2.1 Model
 
-感知机是一个做**二分类**的简单模型：
+A perceptron is a simple model for **binary classification**:
 
 > **z = w1·x1 + w2·x2 + ... + wn·xn + b**
 >
-> **输出 = 1 如果 z > 0，否则 = 0**
+> **output = 1 if z > 0, otherwise = 0**
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
 class Perceptron:
-    """最简单的感知机"""
+    """The simplest perceptron"""
     def __init__(self, n_features, lr=0.1):
         self.w = np.zeros(n_features)
         self.b = 0
@@ -249,78 +249,78 @@ class Perceptron:
                     self.b += self.lr * error
                     errors += 1
             if errors == 0:
-                print(f"第 {epoch+1} 轮收敛！")
+                print(f"Converged at epoch {epoch+1}!")
                 break
 
-# AND 门
+# AND gate
 X = np.array([[0,0], [0,1], [1,0], [1,1]])
 y = np.array([0, 0, 0, 1])
 
 p = Perceptron(2)
 p.train(X, y)
-print(f"权重: {p.w}, 偏置: {p.b}")
+print(f"Weights: {p.w}, Bias: {p.b}")
 for xi, yi in zip(X, y):
-    print(f"  输入 {xi} → 预测 {p.predict(xi)}, 真实 {yi}")
+    print(f"  Input {xi} → Predicted {p.predict(xi)}, True {yi}")
 ```
 
-### 2.2 感知机的局限
+### 2.2 Limitations of the perceptron
 
-感知机只能解决**线性可分**问题。XOR 问题就无法解决——这正是多层网络出现的原因。
+A perceptron can only solve **linearly separable** problems. The XOR problem cannot be solved — this is exactly why multilayer networks were introduced.
 
 ```python
-# XOR 问题——感知机无法解决
+# XOR problem — a perceptron cannot solve it
 X_xor = np.array([[0,0], [0,1], [1,0], [1,1]])
 y_xor = np.array([0, 1, 1, 0])
 
 p_xor = Perceptron(2)
 p_xor.train(X_xor, y_xor, epochs=100)
 
-print("\nXOR 预测结果:")
+print("\nXOR prediction results:")
 for xi, yi in zip(X_xor, y_xor):
-    print(f"  输入 {xi} → 预测 {p_xor.predict(xi)}, 真实 {yi}")
+    print(f"  Input {xi} → Predicted {p_xor.predict(xi)}, True {yi}")
 ```
 
-### 2.3 感知机这一段最该带走什么？
+### 2.3 What should you really take away from the perceptron section?
 
-不是“感知机还值得不用”，而是它帮你看清了一个特别关键的事实：
+Not that “the perceptron is still worth using or not,” but that it helps you see a very important fact:
 
-> **只有线性打分时，模型表达能力会很快遇到边界。**
+> **When you only have linear scoring, the model’s expressive power quickly hits a boundary.**
 
-这正是后面为什么需要：
+That is exactly why we later need:
 
-- 激活函数
-- 多层网络
+- Activation functions
+- Multilayer networks
 
-所以感知机最重要的教学价值，是帮你第一次看到“为什么单层不够”。
+So the most important teaching value of the perceptron is that it lets you see for the first time why a single layer is not enough.
 
-![XOR 单层感知机局限图](/img/course/ch06-xor-single-layer-limit-map.png)
+![XOR single-layer perceptron limitation diagram](/img/course/ch06-xor-single-layer-limit-map-en.png)
 
-:::tip 读图提示
-XOR 这张图最值得看的是：四个点没有办法被一条直线分开。单层感知机只能画一条线性边界，多层网络则可以先把空间折一下、组合一下，再完成非线性分类。
+:::tip Reading the diagram
+The most important thing to notice in the XOR diagram is that the four points cannot be separated by a single straight line. A single-layer perceptron can only draw a linear boundary, while a multilayer network can first bend and combine the space, and then complete nonlinear classification.
 :::
 
 ---
 
-## 三、激活函数
+## 3. Activation functions
 
-### 3.1 为什么需要激活函数？
+### 3.1 Why do we need activation functions?
 
-如果没有激活函数，多层网络就退化为一个线性模型——无论叠多少层，效果等同于单层。激活函数引入**非线性**，让网络能拟合任意复杂的函数。
+Without activation functions, a multilayer network collapses into a linear model — no matter how many layers you stack, the result is equivalent to a single layer. Activation functions introduce **nonlinearity**, allowing the network to fit arbitrarily complex functions.
 
-### 3.1.1 这句话为什么这么重要？
+### 3.1.1 Why is this sentence so important?
 
-因为它解释了“深度”为什么不是单纯堆层数。
+Because it explains why “depth” is not just about stacking more layers.
 
-如果每一层都只是线性变换，那很多层合起来本质上还是一个更大的线性变换。  
-真正让多层网络变得有意义的，不是层数本身，而是：
+If each layer is only a linear transformation, then many layers together are still essentially just one larger linear transformation.
+What makes multilayer networks meaningful is not the number of layers itself, but:
 
-- 每层之间插入了非线性
+- Nonlinearity inserted between layers
 
-所以可以先记一个最重要的判断：
+So remember this key rule first:
 
-- 没有非线性，深度网络就学不出复杂形状
+- Without nonlinearity, deep networks cannot learn complex shapes
 
-### 3.2 常用激活函数
+### 3.2 Common activation functions
 
 ```python
 import numpy as np
@@ -328,7 +328,7 @@ import matplotlib.pyplot as plt
 
 x = np.linspace(-5, 5, 200)
 
-# 各种激活函数
+# Various activation functions
 activations = {
     'Sigmoid': (1 / (1 + np.exp(-x)), 'σ(x) = 1/(1+e⁻ˣ)'),
     'Tanh': (np.tanh(x), 'tanh(x)'),
@@ -347,73 +347,73 @@ for ax, (name, (y, formula)), color in zip(axes.ravel(), activations.items(), co
     ax.set_xlim(-5, 5)
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('常用激活函数', fontsize=14)
+plt.suptitle('Common Activation Functions', fontsize=14)
 plt.tight_layout()
 plt.show()
 ```
 
-### 3.3 对比与选择
+### 3.3 Comparison and selection
 
-| 激活函数 | 输出范围 | 优点 | 缺点 | 使用场景 |
+| Activation function | Output range | Advantages | Disadvantages | Use case |
 |---------|---------|------|------|---------|
-| **ReLU** | [0, +∞) | 计算快、缓解梯度消失 | 神经元"死亡" | **隐藏层首选** |
-| **Sigmoid** | (0, 1) | 输出概率解释 | 梯度消失、非零中心 | 二分类输出层 |
-| **Tanh** | (-1, 1) | 零中心 | 梯度消失 | RNN（较少用） |
-| **Leaky ReLU** | (-∞, +∞) | 避免神经元死亡 | 多一个超参数 | ReLU 改进 |
-| **GELU** | 约 (-0.17, +∞) | 平滑、效果好 | 计算稍慢 | Transformer |
-| **Swish** | 约 (-0.28, +∞) | 平滑、自门控 | 计算稍慢 | 新架构 |
+| **ReLU** | [0, +∞) | Fast to compute, helps reduce vanishing gradients | Dead neurons | **First choice for hidden layers** |
+| **Sigmoid** | (0, 1) | Interpretable as probability | Vanishing gradients, not zero-centered | Binary classification output layer |
+| **Tanh** | (-1, 1) | Zero-centered | Vanishing gradients | RNNs (used less often) |
+| **Leaky ReLU** | (-∞, +∞) | Helps avoid dead neurons | One more hyperparameter | Improved ReLU |
+| **GELU** | Approximately (-0.17, +∞) | Smooth, good performance | Slightly slower to compute | Transformer |
+| **Swish** | Approximately (-0.28, +∞) | Smooth, self-gated | Slightly slower to compute | New architectures |
 
-:::info ReLU 的"神经元死亡"
-当输入始终为负时，ReLU 输出永远为 0，梯度也为 0，参数不再更新。Leaky ReLU 通过给负数一个小斜率（0.01）来缓解。
+:::info ReLU “dead neurons”
+When the input is always negative, ReLU always outputs 0, and the gradient is also 0, so the parameters stop updating. Leaky ReLU alleviates this by giving negative values a small slope (0.01).
 :::
 
-### 3.4 初学阶段怎么选激活函数最不容易乱？
+### 3.4 Which activation function should beginners choose first?
 
-一个足够稳的记法是：
+A stable rule of thumb is:
 
-- 隐藏层先默认用 `ReLU`
-- 二分类输出层常见 `Sigmoid`
-- 多分类输出层常见 `Softmax`
-- Transformer 里经常会碰到 `GELU`
+- Use `ReLU` by default for hidden layers
+- `Sigmoid` is common for binary classification output layers
+- `Softmax` is common for multiclass output layers
+- `GELU` is often used in Transformers
 
-先把这四条记住，已经足够支撑你进入大部分后续章节。
+If you remember just these four points first, that is already enough to support most of the later chapters.
 
-### 3.5 第一次看激活函数图，最值得先盯哪几件事？
+### 3.5 When you look at activation function plots for the first time, what should you focus on?
 
-不要一上来纠结每条曲线的精确公式。先只看这三件事：
+Do not worry about the exact formula of each curve at first. Just look at these three things:
 
-1. 输出范围是什么
-2. 小于 0 的部分会怎么处理
-3. 这条曲线是不是平滑、是不是容易让梯度太小
+1. What is the output range?
+2. How are values below 0 handled?
+3. Is the curve smooth, and is it likely to make gradients too small?
 
-这三件事会直接决定：
+These three things directly affect:
 
-- 输出能不能解释成概率
-- 梯度会不会消失
-- 训练时会不会比较稳
+- Whether the output can be interpreted as a probability
+- Whether gradients vanish
+- Whether training is relatively stable
 
 ---
 
-## 四、多层感知机（MLP）
+## 4. Multilayer Perceptron (MLP)
 
-### 4.1 结构
+### 4.1 Structure
 
-把多个神经元**按层排列**，前一层的输出作为下一层的输入：
+Arrange multiple neurons **by layers**, where the output of the previous layer becomes the input of the next layer:
 
 ```mermaid
 flowchart LR
-    subgraph INPUT["输入层"]
+    subgraph INPUT["Input layer"]
         I1["x1"]
         I2["x2"]
         I3["x3"]
     end
-    subgraph HIDDEN["隐藏层"]
+    subgraph HIDDEN["Hidden layer"]
         H1["h1"]
         H2["h2"]
         H3["h3"]
         H4["h4"]
     end
-    subgraph OUTPUT["输出层"]
+    subgraph OUTPUT["Output layer"]
         O1["y1"]
         O2["y2"]
     end
@@ -431,31 +431,31 @@ flowchart LR
     style OUTPUT fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.1.1 多层到底强在哪里？
+### 4.1.1 What makes multilayer networks so powerful?
 
-一个更适合新人的理解方式是：
+A more beginner-friendly way to understand this is:
 
-- 第一层先学一些比较基础的小模式
-- 后一层再把这些模式重新组合
-- 层数越往后，表示就越抽象
+- The first layer learns some basic patterns
+- The next layer recombines those patterns
+- The deeper you go, the more abstract the representation becomes
 
-哪怕在最简单的 MLP 里，你也可以把它先粗略理解成：
+Even in the simplest MLP, you can roughly think of it as:
 
-- 前面层在学“中间表示”
-- 最后一层在用这些表示做输出判断
+- Early layers learning “intermediate representations”
+- The last layer using those representations to make the final prediction
 
-这正是“自动学表示”开始发生的地方。
+This is where “automatic feature learning” begins to happen.
 
-### 4.2 用 NumPy 实现 MLP 解决 XOR
+### 4.2 Using NumPy to implement an MLP for XOR
 
 ```python
 np.random.seed(42)
 
-# XOR 数据
+# XOR data
 X = np.array([[0,0], [0,1], [1,0], [1,1]])
 y = np.array([[0], [1], [1], [0]])
 
-# 网络: 2 → 4 → 1
+# Network: 2 → 4 → 1
 W1 = np.random.randn(2, 4) * 0.5
 b1 = np.zeros((1, 4))
 W2 = np.random.randn(4, 1) * 0.5
@@ -471,17 +471,17 @@ lr = 1.0
 losses = []
 
 for epoch in range(5000):
-    # 前向传播
+    # Forward propagation
     z1 = X @ W1 + b1
     a1 = sigmoid(z1)
     z2 = a1 @ W2 + b2
     a2 = sigmoid(z2)
 
-    # 损失
+    # Loss
     loss = np.mean((y - a2) ** 2)
     losses.append(loss)
 
-    # 反向传播
+    # Backpropagation
     dz2 = (a2 - y) * sigmoid_deriv(a2)
     dW2 = a1.T @ dz2 / 4
     db2 = np.mean(dz2, axis=0, keepdims=True)
@@ -490,76 +490,76 @@ for epoch in range(5000):
     dW1 = X.T @ dz1 / 4
     db1 = np.mean(dz1, axis=0, keepdims=True)
 
-    # 更新
+    # Update
     W2 -= lr * dW2
     b2 -= lr * db2
     W1 -= lr * dW1
     b1 -= lr * db1
 
-print(f"最终损失: {losses[-1]:.6f}")
-print("XOR 预测:")
+print(f"Final loss: {losses[-1]:.6f}")
+print("XOR predictions:")
 for xi, yi, pred in zip(X, y, a2):
-    print(f"  {xi} → {pred[0]:.4f}, 真实 {yi[0]}")
+    print(f"  {xi} → {pred[0]:.4f}, True {yi[0]}")
 
 plt.plot(losses)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
-plt.title('MLP 解决 XOR')
+plt.title('MLP Solving XOR')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 要点 |
+| Concept | Key point |
 |------|------|
-| 人工神经元 | 加权求和 + 激活函数 |
-| 感知机 | 最简单的神经元，只能线性分类 |
-| 激活函数 | 引入非线性；隐藏层用 ReLU |
-| MLP | 多层堆叠，可拟合任意函数 |
+| Artificial neuron | Weighted sum + activation function |
+| Perceptron | The simplest neuron, only able to do linear classification |
+| Activation function | Introduces nonlinearity; use ReLU in hidden layers |
+| MLP | Stacked layers, can fit arbitrary functions |
 
-## 这节最该带走什么
+## What should you really take away from this section?
 
-如果只带走一句话，我希望你记住：
+If you only take away one sentence, I hope you remember this:
 
-> **神经网络的起点不是“很多层”，而是“在线性计算后加上非线性，再把这种结构不断堆起来”。**
+> **The starting point of neural networks is not “many layers,” but “adding nonlinearity after linear computation, and then stacking this structure repeatedly.”**
 
-所以这一节真正要稳住的是：
+So the things that really need to be solidified in this section are:
 
-- 神经元先算线性，再过激活
-- 感知机的边界会逼出多层网络
-- 激活函数决定网络有没有真正的非线性表达能力
-- MLP 是后面很多复杂结构的最小原型
+- A neuron first computes a linear score, then passes through an activation function
+- The boundary of the perceptron forces the need for multilayer networks
+- Activation functions determine whether the network has real nonlinear expressive power
+- MLP is the smallest prototype behind many complex structures that come later
 
 ```mermaid
 mindmap
-  root((神经网络基础))
-    人工神经元
-      加权求和
-      偏置
-      激活函数
-    激活函数
-      ReLU 🔧首选
-      Sigmoid 输出层
-      Tanh 零中心
+  root((Neural Network Basics))
+    Artificial neuron
+      Weighted sum
+      Bias
+      Activation function
+    Activation function
+      ReLU 🔧 first choice
+      Sigmoid output layer
+      Tanh zero-centered
       GELU Transformer
     MLP
-      输入层
-      隐藏层
-      输出层
-      能解决 XOR
+      Input layer
+      Hidden layer
+      Output layer
+      Can solve XOR
 ```
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：实现 OR 门感知机
+### Exercise 1: Implement an OR gate perceptron
 
-修改 AND 门的训练数据为 OR 门（0|0→0, 0|1→1, 1|0→1, 1|1→1），训练感知机并画出决策边界。
+Change the AND gate training data to OR gate data (0|0→0, 0|1→1, 1|0→1, 1|1→1), train the perceptron, and plot the decision boundary.
 
-### 练习 2：MLP 分类月牙数据
+### Exercise 2: Use an MLP to classify moon-shaped data
 
-用 `sklearn.datasets.make_moons` 生成月牙数据，手写 NumPy MLP（2→8→1），训练后画出决策边界。
+Use `sklearn.datasets.make_moons` to generate moon-shaped data, hand-code a NumPy MLP (2→8→1), and plot the decision boundary after training.

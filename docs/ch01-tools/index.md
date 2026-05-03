@@ -1,106 +1,106 @@
 ---
-title: "1 开发者工具基础"
+title: "1 Developer Tools Fundamentals"
 sidebar_position: 0
-description: "学习终端命令行、Git、VS Code、Python 环境与依赖管理，建立后续 AI 学习必备的开发工具链。"
-keywords: [终端, 命令行, Git, VS Code, 开发环境, Python 环境配置]
+description: "Learn terminal command lines, Git, VS Code, Python environments, and dependency management to build the development toolchain needed for later AI learning."
+keywords: [Terminal, command line, Git, VS Code, development environment, Python environment setup]
 ---
 
-# 1 开发者工具基础
+# 1 Developer Tools Fundamentals
 
-![开发者工具基础主视觉](/img/course/ch01-tools-foundation.png)
+![Main visual for Developer Tools Fundamentals](/img/course/ch01-tools-foundation-en.png)
 
-这一阶段解决的是“能不能稳定地写代码、运行代码、保存代码”。很多新人后面学 AI 卡住，并不是因为模型太难，而是因为命令行不会用、环境混乱、依赖装错、代码没有版本管理。
+This stage is about whether you can write code, run code, and save code reliably. Many beginners get stuck later in AI learning not because the models are too hard, but because they do not know how to use the command line, their environments are messy, dependencies are installed incorrectly, and their code has no version management.
 
-## 故事化导入：先打造你的 AI 工作台
+## Story-based introduction: first build your AI workstation
 
-在开始写模型和应用之前，先把工作台搭稳。终端像控制台，Git 像存档系统，Python 环境像实验室，VS Code 和 Jupyter 像两种不同的操作台。工具阶段的目标不是学很多命令，而是让你以后遇到项目时能自己创建、运行、保存和恢复。
+Before you start writing models and applications, set up your workstation properly. The terminal is like a console, Git is like an archive system, the Python environment is like a lab, and VS Code and Jupyter are like two different operating panels. The goal of this tools stage is not to learn a lot of commands, but to make sure that when you encounter a project later, you can create, run, save, and restore it on your own.
 
-## 学习闯关地图
+## Learning roadmap
 
 ```mermaid
 flowchart LR
-  A[打开终端] --> B[进入项目目录]
-  B --> C[创建 Python 环境]
-  C --> D[运行第一段代码]
-  D --> E[用 VS Code 编辑]
-  E --> F[用 Git 保存历史]
-  F --> G[形成学习仓库]
+  A[Open the terminal] --> B[Enter the project directory]
+  B --> C[Create a Python environment]
+  C --> D[Run the first code snippet]
+  D --> E[Edit with VS Code]
+  E --> F[Save history with Git]
+  F --> G[Form a learning repository]
 ```
 
-## 互动练习：每天留下一个可复现记录
+## Interactive exercise: leave one reproducible record every day
 
-每完成一个工具操作，都在学习仓库里记下一条“我做了什么、用了什么命令、遇到什么报错、最后怎么解决”。这些记录会成为你自己的开发说明书。后面环境出问题时，你不是从零开始猜，而是能回到历史记录里找线索。
+Every time you complete a tool operation, write a note in your learning repository: “What I did, what command I used, what error I ran into, and how I solved it.” These records will become your own development manual. When environment problems come up later, you will not be guessing from scratch — you can go back to your history and look for clues.
 
-## 项目彩蛋
+## Project bonus
 
-本阶段的彩蛋作品是一个 `ai-learning-lab` 仓库。它看起来只是一个简单文件夹，但以后会逐步装进 Python 脚本、数据分析 Notebook、模型实验、RAG 项目和 Agent Demo。也就是说，这个仓库会从第一天的小工具箱，成长为你的 AI 全栈作品集。
+The bonus project for this stage is a repository called `ai-learning-lab`. At first it may look like just a simple folder, but later it will gradually hold Python scripts, data analysis notebooks, model experiments, RAG projects, and Agent demos. In other words, this repository will grow from a small toolbox on day one into your AI full-stack portfolio.
 
-## 阶段定位
+## Stage position
 
-| 信息 | 说明 |
+| Information | Description |
 |---|---|
-| 适合对象 | 刚开始系统学习 AI 全栈，或开发工具链不稳定的学习者 |
-| 预估学时 | 8～12 小时 |
-| 前置要求 | 无 |
-| 阶段产出 | 一个可复现的 Python 开发环境，一个能用 Git 管理的学习仓库 |
+| Suitable for | Learners who are just starting to study AI full-stack systematically, or whose development toolchain is unstable |
+| Estimated time | 8–12 hours |
+| Prerequisites | None |
+| Stage output | A reproducible Python development environment and a learning repository managed with Git |
 
-## 新手最小通关路线
+## Beginner minimum path to completion
 
-新手先把终端基础、Git 基本操作和 Python 环境配置跑通，不需要一开始掌握复杂分支模型或所有命令参数。只要你能创建项目、运行 Python 文件、安装依赖、提交一次 Git 记录，就算完成本阶段最小通关。
+Beginners should first get the basics of the terminal, Git, and Python environment setup working. You do not need to master complex branching models or every command parameter at the start. As long as you can create a project, run a Python file, install dependencies, and make one Git commit, you have completed the minimum path for this stage.
 
-## 进阶深入路线
+## Advanced deepening path
 
-如果你已经有开发经验，可以重点补齐环境隔离、Git 分支协作、远程仓库同步和可复现项目说明。进一步尝试把 `ai-learning-lab` 写成一个标准项目仓库，包含环境说明、运行命令、目录结构和常见问题记录。
+If you already have development experience, focus on environment isolation, Git branch collaboration, remote repository synchronization, and reproducible project documentation. Try to turn `ai-learning-lab` into a standard project repository, including environment instructions, run commands, directory structure, and common troubleshooting notes.
 
-## 新人先做什么，进阶再做什么
+## What beginners should do first, and what advanced learners should do later
 
-新人第一次学这一阶段时，先把目标压到最低：能打开终端、进入项目目录、运行一个 Python 文件、安装一个依赖、完成一次 Git 提交。不要被命令参数吓到，先形成“遇到问题会看路径、看报错、看当前环境”的习惯。
+When beginners study this stage for the first time, keep the goal as small as possible: open the terminal, enter the project directory, run a Python file, install one dependency, and make one Git commit. Do not be intimidated by command parameters. First build the habit of checking paths, reading errors, and understanding the current environment when problems occur.
 
-有经验的学习者可以把重点放在可复现性上：不同项目如何隔离环境，README 怎样写运行步骤，依赖版本怎样记录，Git 历史怎样帮助回滚。你的目标不是“会用工具”，而是让后面的每个 AI 项目都能被别人重新跑起来。
+Learners with experience can focus on reproducibility: how to isolate environments for different projects, how to write run steps in the README, how to record dependency versions, and how Git history helps with rollbacks. Your goal is not just to “know how to use tools,” but to make sure every AI project later can be rerun by someone else.
 
-## 为什么先学工具
+## Why learn tools first
 
-AI 学习不是只在网页上看概念。你后面会不断安装库、运行脚本、打开 Notebook、下载数据、调用 API、训练模型、启动服务、排查报错。工具链越早稳定，后面越少在无关问题上消耗精力。
+AI learning is not just about reading concepts on a web page. Later you will constantly install libraries, run scripts, open notebooks, download data, call APIs, train models, start services, and troubleshoot errors. The earlier your toolchain becomes stable, the less energy you will waste on unrelated problems.
 
 ```mermaid
 flowchart LR
-  A[终端] --> B[运行命令和脚本]
-  B --> C[Python 环境]
-  C --> D[安装依赖]
-  D --> E[运行课程代码]
-  E --> F[Git 保存历史]
-  F --> G[形成项目作品]
+  A[Terminal] --> B[Run commands and scripts]
+  B --> C[Python environment]
+  C --> D[Install dependencies]
+  D --> E[Run course code]
+  E --> F[Save history with Git]
+  F --> G[Build project outcomes]
 ```
 
-## 本阶段学习路径
+## Learning path for this stage
 
-第一章先学终端与命令行。你需要能进入目录、查看文件、运行命令、理解路径和常见报错。
+In Chapter 1, learn the terminal and command line first. You need to be able to enter directories, view files, run commands, understand paths, and handle common errors.
 
-第二章再学 Git 与版本管理。你需要养成边写边提交的习惯，知道如何查看历史、回滚改动、管理分支和同步远程仓库。
+In Chapter 2, learn Git and version management. You need to build the habit of committing as you go, know how to view history, roll back changes, manage branches, and sync with remote repositories.
 
-第三章最后学开发环境配置。你会搭建 Python 环境、配置 VS Code、使用 Jupyter，并理解为什么要用虚拟环境隔离依赖。
+In Chapter 3, learn development environment setup. You will build a Python environment, configure VS Code, use Jupyter, and understand why virtual environments are needed to isolate dependencies.
 
-## 学完后你应该能做到
+## What you should be able to do after finishing
 
-- 能在终端中完成基本文件和项目操作
-- 能创建、激活和管理 Python 环境
-- 能使用 VS Code 编写、运行和调试 Python 文件
-- 能用 Git 保存学习过程，并把项目推送到 GitHub
-- 遇到环境问题时，能先判断是路径、解释器、依赖还是权限问题
+- Complete basic file and project operations in the terminal
+- Create, activate, and manage Python environments
+- Use VS Code to write, run, and debug Python files
+- Use Git to save your learning process and push projects to GitHub
+- When environment issues occur, first determine whether the problem is path, interpreter, dependency, or permission related
 
-## 常见误区
+## Common misconceptions
 
-很多新人会觉得“命令行和 Git 以后再补也行”。但 AI 项目里，环境、依赖、数据路径、模型文件和部署命令几乎每天都会出现。如果工具基础不稳，后面的每个阶段都会反复被打断。
+Many beginners think, “I can always learn the command line and Git later.” But in AI projects, environments, dependencies, data paths, model files, and deployment commands appear almost every day. If your tool foundation is unstable, every later stage will be interrupted again and again.
 
-另一个常见误区是把所有 Python 包都装进同一个环境。短期看方便，长期会出现版本冲突。你应该从一开始就理解虚拟环境的意义。
+Another common misconception is installing every Python package into the same environment. That may feel convenient in the short term, but in the long term it leads to version conflicts. You should understand the meaning of virtual environments from the very beginning.
 
-## 工具错误剧场：环境问题先看哪里
+## Tool troubleshooting theater: where to look first
 
-如果终端提示找不到命令，先检查命令是否安装、当前 shell 是否刷新、路径是否写错；如果 Python 能运行但包导入失败，先确认当前解释器和安装依赖的环境是不是同一个；如果 Git 提交失败，先看是否初始化仓库、是否配置用户名邮箱、是否真的把文件加入暂存区。
+If the terminal says a command cannot be found, first check whether the command is installed, whether the current shell has refreshed, and whether the path is written correctly. If Python can run but imports fail, first confirm whether the current interpreter and the environment where you installed the dependency are the same. If a Git commit fails, first check whether the repository has been initialized, whether your username and email are configured, and whether the file has really been added to the staging area.
 
-## 最小可运行实验：从空文件夹到可复现仓库
+## Minimum runnable experiment: from an empty folder to a reproducible repository
 
-本阶段最小实验不是写复杂代码，而是完整走一遍开发工作流：创建一个 `ai-learning-lab` 文件夹，写一个 `hello_ai.py`，在终端运行它，把命令和输出写进 README，然后用 Git 提交一次。
+The minimum experiment in this stage is not about writing complex code, but about completing the full development workflow: create an `ai-learning-lab` folder, write a `hello_ai.py`, run it in the terminal, write the commands and output into the README, and then make one Git commit.
 
 ```bash
 mkdir ai-learning-lab
@@ -112,66 +112,64 @@ git add .
 git commit -m "init learning lab"
 ```
 
-如果这条链路能独立完成，后面学习 Python、数据分析、RAG 和 Agent 时就有了稳定工作台。
+If you can complete this chain independently, then when you later study Python, data analysis, RAG, and Agent, you will already have a stable workstation.
 
-## 工具失败案例库：先看路径、环境和版本
+## Tool failure case library: check paths, environment, and version first
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Symptom | Common cause | How to locate it | How to fix it |
 |---|---|---|---|
-| 终端提示 command not found | 命令未安装或 PATH 未生效 | 查看安装位置和当前 shell | 重新安装，刷新终端，检查 PATH |
-| Python 能运行但导包失败 | pip 和 python 不是同一环境 | 比较 `which python` 和 `python -m pip --version` | 用虚拟环境并通过 `python -m pip install` 安装 |
-| Git 提交失败 | 未初始化、未暂存或未配置身份 | 运行 `git status` 和 `git config --list` | 初始化仓库，配置用户名邮箱，先 add 再 commit |
-| README 里的命令跑不通 | 路径、文件名或依赖缺失 | 在新终端按 README 重跑 | 补充目录、依赖和完整命令 |
+| The terminal says command not found | The command is not installed or PATH has not taken effect | Check the installation location and the current shell | Reinstall, refresh the terminal, and check PATH |
+| Python runs but importing packages fails | `pip` and `python` are not in the same environment | Compare `which python` and `python -m pip --version` | Use a virtual environment and install with `python -m pip install` |
+| Git commit fails | Repository not initialized, not staged, or identity not configured | Run `git status` and `git config --list` | Initialize the repository, configure username and email, then add before committing |
+| Commands in the README do not work | Missing path, filename, or dependency | Re-run from a fresh terminal according to the README | Add the directory, dependencies, and full commands |
 
-## 阶段验收 Rubric
+## Stage evaluation rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Evaluation criteria | Portfolio evidence |
 |---|---|---|
-| 最低通关 | 能打开终端、运行 Python、完成一次 Git 提交 | 运行截图、commit 记录 |
-| 推荐通关 | 能创建虚拟环境、安装依赖、写清 README | `.venv` 说明、`requirements.txt`、README |
-| 作品集通关 | 能把工具链沉淀成后续课程通用仓库 | 目录结构、命令记录、排障笔记、远程仓库链接 |
+| Minimum pass | Can open the terminal, run Python, and make one Git commit | Run screenshots, commit record |
+| Recommended pass | Can create a virtual environment, install dependencies, and write a clear README | `.venv` notes, `requirements.txt`, README |
+| Portfolio pass | Can turn the toolchain into a reusable repository for later courses | Directory structure, command notes, troubleshooting notes, remote repository link |
 
-## 阶段项目
+## Stage project
 
-基础版是创建一个 `ai-learning-lab` 学习仓库，包含一个能运行的 `hello_ai.py`、一次 Git 提交和一份命令记录。标准版需要补充 Python 环境说明、依赖安装方式、VS Code 或 Jupyter 使用记录，并把仓库推送到远程平台。挑战版可以把它整理成后续 12 个学习站的作品集根目录，提前设计 `scripts/`、`notebooks/`、`projects/`、`notes/` 等目录，让整个课程的成果都能持续沉淀。
+The basic version is to create an `ai-learning-lab` learning repository, including a runnable `hello_ai.py`, one Git commit, and a command log. The standard version should add Python environment instructions, dependency installation steps, VS Code or Jupyter usage notes, and push the repository to a remote platform. The challenge version can organize it as the portfolio root directory for the following 12 learning stations, and pre-design folders such as `scripts/`, `notebooks/`, `projects/`, and `notes/` so that the results of the whole course can be continuously accumulated.
 
+If you want to see a more detailed learning rhythm, you can read [Stage Learning Task List: Developer Tools Fundamentals](task-list.md).
 
-如果你想看更细的学习节奏，可以阅读 [阶段学习任务单：开发者工具基础](task-list.md)。
+## Fun task card for this stage
 
-
-## 本阶段趣味任务卡
-
-| 玩法 | 本阶段任务 |
+| Play style | Task in this stage |
 |---|---|
-| 剧情任务 | 帮 AI 学习助手搭建第一张工作台：能打开终端、运行 Python、写 README，并完成一次 Git 存档。 |
-| Boss 战 | **工作台守门人** |
-| 可解锁徽章 | 终端生存者、Git 存档师 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | 从空文件夹到一次可复现提交 |
+| Story task | Help the AI learning assistant build its first workstation: open the terminal, run Python, write a README, and complete one Git archive. |
+| Boss battle | **Workstation Gatekeeper** |
+| Unlockable badges | Terminal Survivor, Git Archivist |
+| Beginner easy mode | Only complete one minimal input-to-output loop, and first leave a run screenshot or command output |
+| Portfolio evidence | From an empty folder to one reproducible commit |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If you feel there is a lot of content in this stage, use this task card as your minimum goal first. Once you can complete the beginner easy mode, you can keep going; when you prepare your portfolio later, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| 学习仓库 | 创建 `ai-learning-lab` 并运行一个 Python 文件 | 有清晰目录、README、截图和提交历史 |
-| 环境说明 | 记录 Python 版本和安装命令 | 提供虚拟环境、依赖文件和常见问题排查 |
-| 命令记录 | 保存 5～10 条常用终端命令 | 说明每条命令的用途、输出和失败处理 |
-| Git 记录 | 完成一次本地提交 | 有分支、远程仓库、提交说明和回滚记录 |
-| README | 写清如何运行 `hello_ai.py` | 说明项目目标、目录结构、环境配置和下一步 |
+| Learning repository | Create `ai-learning-lab` and run one Python file | Clear directory structure, README, screenshots, and commit history |
+| Environment notes | Record the Python version and installation commands | Provide virtual environment notes, dependency files, and common troubleshooting steps |
+| Command log | Save 5–10 commonly used terminal commands | Explain the purpose, output, and failure handling of each command |
+| Git record | Make one local commit | Include branches, remote repository, commit messages, and rollback records |
+| README | Clearly explain how to run `hello_ai.py` | Explain project goals, directory structure, environment setup, and next steps |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship with the AI learning assistant integrated project
 
-本阶段可以对应 AI 学习助手 v0.1：创建仓库、配置 Python 环境、写 README，并保存第一次运行截图。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can correspond to AI Learning Assistant v0.1: create the repository, configure the Python environment, write the README, and save the first run screenshot. If you are learning through the integrated project path, it is recommended that by the end of this stage you submit at least one version record: what new capability was added in this stage, how to run it, what the sample input and output are, what problems you encountered, and how you plan to improve it next.
 
 
-## 阶段通关标准
+## Stage completion criteria
 
-| 通关层级 | 你需要做到什么 |
+| Completion level | What you need to do |
 |---|---|
-| 最低通关 | 能独立使用终端、Git、编辑器和 Python/Jupyter 环境。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum pass | Independently use the terminal, Git, editor, and Python/Jupyter environment. |
+| Recommended pass | Complete at least one runnable mini-project in this stage, and record the run method, sample input/output, and problems encountered in the README. |
+| Portfolio pass | Connect the output of this stage to the “AI Learning Assistant” integrated project, leaving screenshots, logs, evaluation samples, and a next-step plan. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。下一阶段会用这些工具写 Python 程序和保存项目代码。
+After finishing this stage, you do not need to memorize every detail. What matters more is being able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. The next stage will use these tools to write Python programs and save project code.

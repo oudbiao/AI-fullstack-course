@@ -1,87 +1,87 @@
 ---
-title: "10.3 项目：数据分析 Agent"
+title: "10.3 Project: Data Analysis Agent"
 sidebar_position: 55
-description: "围绕读取表格、做统计、输出图表建议和解释结论，建立一个可复核的数据分析 Agent 项目闭环。"
+description: "Build a reproducible, end-to-end Data Analysis Agent project centered on reading tables, performing statistics, suggesting charts, and explaining conclusions."
 keywords: [data analysis agent, statistics, chart suggestion, insight generation, agent project]
 ---
 
-# 项目：数据分析 Agent
+# Project: Data Analysis Agent
 
-:::tip 本节定位
-数据分析 Agent 的真正价值不在于：
+:::tip Section focus
+The real value of a Data Analysis Agent is not:
 
-- 帮你算平均值
+- helping you calculate the average
 
-而在于：
+But rather:
 
-> **它能否把“读数据 -> 做分析 -> 解释结论”串成一条可复核的链路。**
+> **Can it connect “read data -> analyze -> explain conclusions” into a reproducible chain?**
 
-所以这类项目非常适合拿来展示多步工具协作和中间状态。
+That is why this kind of project is especially good for showing multi-step tool coordination and intermediate states.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 学会定义一个数据分析 Agent 的最小项目范围
-- 学会把数据输入、统计计算和解释输出串成闭环
-- 学会用最小样例做“可复核性”展示
-- 学会把这个题材包装成一页很强的作品集项目
+- Learn how to define the minimum project scope for a Data Analysis Agent
+- Learn how to connect data input, statistical computation, and explanatory output into a closed loop
+- Learn how to use a minimal example to demonstrate “reproducibility”
+- Learn how to package this topic into a strong one-page portfolio project
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-数据分析 Agent 更适合按“读数据 -> 算统计 -> 形成解释 -> 给出展示建议”来理解：
+A Data Analysis Agent is easier to understand as “read data -> compute statistics -> form interpretation -> provide visualization suggestions”:
 
 ```mermaid
 flowchart LR
-    A["输入表格"] --> B["统计计算"]
-    B --> C["生成洞察"]
-    C --> D["图表建议 / 报告建议"]
+    A["Input table"] --> B["Statistical computation"]
+    B --> C["Generate insights"]
+    C --> D["Chart suggestions / report suggestions"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 数据分析 Agent 为什么不只是“会调 pandas”
-- 为什么可复核的中间过程会比最终一句结论更重要
-
----
-
-## 一、项目题目怎么收窄？
-
-建议先做成：
-
-- 读取一个小表
-- 算几个核心统计量
-- 根据统计量生成洞察摘要
-
-而不是一开始做成：
-
-- 自动 BI 平台
-- 全自动报告工厂
-
-### 1.1 一个更适合新人的总类比
-
-你可以把数据分析 Agent 理解成：
-
-- 一个会先算、再讲、还会建议怎么画图的分析助理
-
-它和普通计算器的差别不在于：
-
-- 算得更快
-
-而在于：
-
-- 它能把数字组织成有解释力的结论
+- Why a Data Analysis Agent is not just “good at calling pandas”
+- Why a reproducible intermediate process is more important than a final one-line conclusion
 
 ---
 
-## 二、先跑一个最小数据分析闭环
+## 1. How should we narrow the project topic?
 
-这个例子会做：
+It is recommended to start with:
 
-1. 读取一份小型销售表
-2. 计算总销售额和品类均值
-3. 给出一条简单分析结论
+- reading a small table
+- calculating a few core statistics
+- generating an insight summary based on those statistics
+
+Rather than starting with:
+
+- an automatic BI platform
+- a fully automated report factory
+
+### 1.1 A more beginner-friendly overall analogy
+
+You can think of a Data Analysis Agent as:
+
+- an analysis assistant that first computes, then explains, and can also suggest how to visualize the data
+
+Its difference from a regular calculator is not:
+
+- calculating faster
+
+But rather:
+
+- organizing numbers into conclusions with explanatory power
+
+---
+
+## 2. First run a minimal data analysis loop
+
+This example will:
+
+1. Read a small sales table
+2. Compute total sales and category averages
+3. Give a simple analytical conclusion
 
 ```python
 sales = [
@@ -110,7 +110,7 @@ def summarize_sales(rows):
     return {
         "total_amount": total,
         "per_category_avg": per_category_avg,
-        "insight": f"{top_category} 的客单价最高。",
+        "insight": f"{top_category} has the highest average order value.",
     }
 
 
@@ -118,81 +118,81 @@ result = summarize_sales(sales)
 print(result)
 ```
 
-### 2.1 这个例子为什么已经很像项目？
+### 2.1 Why is this already very project-like?
 
-因为它不只做了“计算”，  
-还做了：
+Because it does not only do “computation”,
+it also does:
 
-- 输入数据
-- 中间统计
-- 输出结论
+- input data
+- intermediate statistics
+- output conclusions
 
-这已经是最小数据分析工作流。
+This is already the smallest data analysis workflow.
 
-### 2.2 为什么“insight”特别重要？
+### 2.2 Why is `insight` especially important?
 
-因为用户通常不是为了看原始数字，  
-而是为了得到：
+Because users are usually not trying to look at raw numbers,
+but want:
 
-- 有解释力的结论
+- conclusions with explanatory power
 
-这正是数据分析 Agent 和普通计算器的差别。
+This is exactly the difference between a Data Analysis Agent and a regular calculator.
 
-### 2.3 一个很适合初学者先记的项目检查表
+### 2.3 A beginner-friendly project checklist to remember first
 
-| 环节 | 你最该先确认什么 |
+| Step | What should you confirm first |
 |---|---|
-| 输入数据 | 字段含义清不清楚 |
-| 中间统计 | 计算口径是不是一致 |
-| insight | 结论和数字能不能对上 |
-| 图表建议 | 图表类型是不是贴数据形态 |
+| Input data | Are the field meanings clear |
+| Intermediate statistics | Are the calculation rules consistent |
+| insight | Do the conclusion and the numbers match |
+| Chart suggestions | Does the chart type fit the data shape |
 
-这个表很适合新人，因为它会把“数据分析 Agent”重新压回一条可检查的工作流。
+This table is especially useful for beginners because it compresses “Data Analysis Agent” back into a workflow that can be checked step by step.
 
-![数据分析 Agent 可复核工作流图](/img/course/ch09-data-analysis-agent-notebook-loop-map.png)
+![Data Analysis Agent reproducible workflow diagram](/img/course/ch09-data-analysis-agent-notebook-loop-map-en.png)
 
-:::tip 读图提示
-这张图按 notebook 思路读：load data、profile schema、compute statistics、generate insight、suggest chart、write report。每个结论都应该能回到中间计算结果。
+:::tip Reading guide
+Read this diagram using a notebook mindset: load data, profile schema, compute statistics, generate insight, suggest chart, write report. Every conclusion should be traceable back to the intermediate computation results.
 :::
 
 ---
 
-## 三、一个作品级数据分析 Agent 最该展示什么？
+## 3. What should a portfolio-level Data Analysis Agent show?
 
-### 3.1 输入数据长什么样
+### 3.1 What does the input data look like?
 
-最好明确：
+It is best to make clear:
 
-- 字段
-- 样本量
-- 缺失值情况
+- fields
+- sample size
+- missing value status
 
-### 3.2 中间计算结果
+### 3.2 Intermediate computation results
 
-例如：
+For example:
 
-- 汇总统计
-- 分组结果
-- 趋势判断
+- summary statistics
+- grouped results
+- trend judgments
 
-### 3.3 最终解释
+### 3.3 Final explanation
 
-例如：
+For example:
 
-- 哪类商品表现最好
-- 哪段时间波动最大
+- which product category performed best
+- which time period fluctuated the most
 
-### 3.4 图表建议
+### 3.4 Chart suggestions
 
-即使你不直接生成图，也可以输出：
+Even if you do not generate charts directly, you can still output:
 
-- 该用柱状图还是折线图
+- whether a bar chart or a line chart should be used
 
-这会让项目更接近真实分析助手。
+This makes the project feel closer to a real analysis assistant.
 
 ---
 
-## 四、再加一个最小“图表建议器”
+## 4. Add a minimal “chart recommender”
 
 ```python
 def suggest_chart(columns):
@@ -207,18 +207,16 @@ print(suggest_chart(["category", "amount"]))
 print(suggest_chart(["date", "amount"]))
 ```
 
-### 4.1 这个小模块有什么价值？
+### 4.1 What value does this small module provide?
 
-它说明项目不只是“算数”，  
-而是在逐渐往：
+It shows that the project is not just “doing arithmetic”,
+but is gradually moving toward:
 
-- 分析
-- 解释
-- 可视化建议
+- analysis
+- explanation
+- visualization suggestions
 
-推进。
-
-### 4.2 再看一个最小“分析 trace”示例
+### 4.2 Let’s look at a minimal “analysis trace” example
 
 ```python
 trace = {
@@ -231,113 +229,111 @@ trace = {
 print(trace)
 ```
 
-这个示例很适合初学者，因为它会帮助你看到：
+This example is especially suitable for beginners because it helps you see:
 
-- 数据分析 Agent 项目真正值钱的地方
-- 往往在“过程能不能被复核”
-
----
-
-## 五、最容易踩的坑
-
-### 5.1 字段理解错
-
-这是数据分析 Agent 的典型致命问题。  
-如果字段含义理解错，后面全链路都可能被带偏。
-
-### 5.2 只展示结论，不展示中间过程
-
-这样项目会很像黑盒，难以建立信任。
-
-### 5.3 只做 happy path
-
-没有展示：
-
-- 缺失值
-- 异常值
-- 统计口径冲突
-
-项目会显得不够真实。
+- where the real value of a Data Analysis Agent project lies
+- often in whether the process can be verified
 
 ---
 
-## 六、怎么把它打磨成作品级页面？
+## 5. The most common pitfalls
 
-### 6.1 结构建议
+### 5.1 Misunderstanding the fields
 
-1. 原始数据样例
-2. 中间统计表
-3. 洞察摘要
-4. 图表建议
-5. 错误案例
+This is a typical fatal problem for Data Analysis Agents.
+If the field meanings are misunderstood, the entire workflow may be led astray.
 
-### 6.2 很值得补的一个亮点
+### 5.2 Only showing the conclusion, not the intermediate process
 
-把：
+This makes the project feel like a black box and makes it hard to build trust.
 
-- 原始数据
-- 中间计算
-- 最终结论
+### 5.3 Only handling the happy path
 
-做成一条 trace 展示出来。  
-这会比只贴一段结果强很多。
+If you do not show:
 
-### 6.3 一个新人很适合先记的评估表
+- missing values
+- outliers
+- inconsistent calculation rules
 
-| 维度 | 最值得先问什么 |
+the project will feel unrealistic.
+
+---
+
+## 6. How do you polish it into a portfolio-level page?
+
+### 6.1 Suggested structure
+
+1. Raw data example
+2. Intermediate statistics table
+3. Insight summary
+4. Chart suggestions
+5. Error cases
+
+### 6.2 One highlight worth adding
+
+Show:
+
+- raw data
+- intermediate computations
+- final conclusions
+
+as a single trace.
+This will be much stronger than pasting only a result.
+
+### 6.3 A beginner-friendly evaluation table to remember first
+
+| Dimension | What is the most important first question |
 |---|---|
-| 正确性 | 数字有没有算对 |
-| 可复核性 | 中间过程能不能看回去 |
-| 解释性 | 结论和统计有没有对上 |
-| 展示性 | 图表建议和结论是否自然 |
+| Correctness | Are the numbers calculated correctly |
+| Reproducibility | Can the intermediate process be traced back |
+| Interpretability | Do the conclusions match the statistics |
+| Presentation | Do the chart suggestions naturally fit the conclusions |
 
-这个表很适合新人，因为它会把“Agent 项目好不好”拆成几项更具体的判断。
-
----
-
-## 小结
-
-这节最重要的是建立一个作品级判断：
-
-> **数据分析 Agent 的真正亮点，不是会不会调用 pandas，而是能否把输入数据、中间计算和最终洞察组织成可复核的分析闭环。**
-
-只要这条闭环清楚，这个项目会非常适合展示你对多工具 Agent 的理解。
-
-## 如果把它做成作品集，最值得展示什么
-
-最值得展示的通常不是：
-
-- 一句分析结论
-
-而是：
-
-1. 原始数据样例
-2. 中间统计结果
-3. insight 是怎么长出来的
-4. 图表建议为什么这样给
-
-这样别人会更容易看出：
-
-- 你理解的是分析闭环
-- 不只是让 Agent 说了一段话
+This table is especially useful for beginners because it breaks “Is the Agent project good?” into a few more concrete judgments.
 
 ---
 
+## Summary
 
+The most important thing in this section is to build a portfolio-level judgment:
 
-## 版本路线建议
+> **The real highlight of a Data Analysis Agent is not whether it can call pandas, but whether it can organize input data, intermediate computations, and final insights into a reproducible analysis loop.**
 
-| 版本 | 目标 | 交付重点 |
+As long as that loop is clear, this project is very well suited to showing your understanding of multi-tool Agents.
+
+## If you turn this into a portfolio project, what is most worth showing?
+
+What is usually most worth showing is not:
+
+- a single analytical conclusion
+
+But rather:
+
+1. A raw data example
+2. Intermediate statistical results
+3. How the insight was generated
+4. Why the chart suggestion was made that way
+
+This makes it easier for others to see:
+
+- that you understand the analysis loop
+- not just that the Agent said something
+
+---
+
+## Suggested version roadmap
+
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimal loop | Can input, process, and output, with one set of examples preserved |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not chase a large, all-in-one solution from the start. For each version upgrade, write into the README what new capability was added, how it was verified, and what problems still remain.
 
-## 练习
+## Exercises
 
-1. 给示例数据再加一个 `date` 字段，把项目扩成简单时间趋势分析。
-2. 想一想：为什么“可复核性”对数据分析 Agent 特别重要？
-3. 如果结论和数字对不上，这个项目最可能出问题的层在哪？
-4. 如果做作品集展示，你会把哪一块设计成最显眼的部分？
+1. Add a `date` field to the example data and expand the project into a simple time-trend analysis.
+2. Think about why “reproducibility” is especially important for a Data Analysis Agent.
+3. If the conclusions do not match the numbers, which layer is most likely to be the problem?
+4. If you were presenting this as a portfolio project, which part would you design to be the most eye-catching?

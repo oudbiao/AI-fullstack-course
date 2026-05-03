@@ -1,67 +1,67 @@
 ---
-title: "3.2 Function Calling 详解"
+title: "3.2 Function Calling Explained"
 sidebar_position: 11
-description: "从 schema 设计、参数校验、错误恢复到多步调用，深入理解 Function Calling 在 Agent 工具层里的真实工程价值。"
-keywords: [Function Calling, Tool Calling, 参数校验, Agent, schema, 工具调度]
+description: "From schema design and parameter validation to error recovery and multi-step calls, gain a deep understanding of the real engineering value of Function Calling in the Agent tool layer."
+keywords: [Function Calling, Tool Calling, parameter validation, Agent, schema, tool orchestration]
 ---
 
-# Function Calling 详解
+# Function Calling Explained
 
-:::tip 本节定位
-上一节你已经知道 Function Calling 是“模型产出结构化工具调用”。  
-这一节我们不再停留在“会调用”，而要进入真正重要的问题：
+:::tip Section focus
+In the previous section, you learned that Function Calling means “the model outputs structured tool calls.”
+In this section, we will not stop at “being able to call tools,” but move into the really important questions:
 
-> **怎样把函数调用做得稳定、可控、可扩展？**
+> **How do we make function calling stable, controllable, and extensible?**
 
-这才是它在 Agent 系统里真正的工程价值。
+That is its real engineering value in an Agent system.
 :::
 
-## 学习目标
+## Learning goals
 
-- 理解 Function Calling 的完整工程链路
-- 学会设计更稳的工具 schema
-- 理解参数校验、失败处理和错误恢复
-- 看懂一个多步工具调用的小型闭环
-- 分清“模型做决定”和“程序做执行”各自负责什么
-
----
-
-## 一、为什么要把 Function Calling 单独深挖？
-
-### 1.1 初级版本只解决“能不能调”
-
-最简单的函数调用系统只要求：
-
-- 模型选对工具
-- 参数大致对
-
-这在 demo 阶段通常够了。
-
-### 1.2 真正上线后会立刻遇到更难的问题
-
-比如：
-
-- 工具很多，模型经常选错
-- 参数经常缺字段
-- 某些调用必须做权限控制
-- 工具失败后怎么恢复？
-- 多步调用时怎样避免无限循环？
-
-所以真正的 Function Calling，不只是一个 JSON 结构，而是一套工程机制。
+- Understand the full engineering pipeline of Function Calling
+- Learn how to design more robust tool schemas
+- Understand parameter validation, failure handling, and error recovery
+- Read a small closed loop of multi-step tool calls
+- Distinguish what “the model decides” and what “the program executes”
 
 ---
 
-## 二、先把完整链路看清楚
+## 1. Why dig deeper into Function Calling separately?
 
-### 2.1 Function Calling 的标准闭环
+### 1.1 The beginner version only solves “can it call?”
+
+The simplest function calling system only requires:
+
+- The model chooses the right tool
+- The parameters are roughly correct
+
+That is usually enough in the demo stage.
+
+### 1.2 Once it goes live, harder problems appear immediately
+
+For example:
+
+- There are many tools, and the model often chooses the wrong one
+- Parameters are often missing fields
+- Some calls must be protected by permission checks
+- How do you recover after a tool failure?
+- How do you avoid infinite loops in multi-step calls?
+
+So real Function Calling is not just a JSON structure, but an engineering mechanism.
+
+---
+
+## 2. First, understand the complete pipeline
+
+### 2.1 The standard closed loop of Function Calling
 
 ```mermaid
 flowchart LR
-    A["用户输入"] --> B["模型选择工具并产出参数"]
-    B --> C["程序校验调用是否合法"]
-    C --> D["执行工具"]
-    D --> E["拿到结果"]
-    E --> F["继续回复 / 继续下一步调用"]
+    A["User input"] --> B["Model selects tool and outputs parameters"]
+    B --> C["Program validates whether the call is legal"]
+    C --> D["Execute the tool"]
+    D --> E["Get the result"]
+    E --> F["Continue response / continue next step"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -71,36 +71,36 @@ flowchart LR
     style F fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 哪些环节分别归谁负责？
+### 2.2 Which parts are handled by whom?
 
-| 环节 | 谁负责 |
+| Step | Responsible party |
 |---|---|
-| 识别要不要调工具 | 模型 |
-| 产出调用结构 | 模型 |
-| 校验参数是否合法 | 程序 |
-| 执行工具 | 程序 |
-| 根据结果继续下一步 | 模型 / 工作流 / Agent 调度器 |
+| Decide whether to call a tool | Model |
+| Output the call structure | Model |
+| Validate whether the parameters are legal | Program |
+| Execute the tool | Program |
+| Continue to the next step based on the result | Model / workflow / Agent scheduler |
 
-这是一个特别关键的边界：
+This is a very important boundary:
 
-> **模型负责“决定”，程序负责“保证执行安全和稳定”。**
+> **The model is responsible for “decision-making,” and the program is responsible for ensuring safe and stable execution.**
 
-![Function Calling Schema 校验与执行护栏图](/img/course/ch09-tool-schema-validation-guardrail-map.png)
+![Function Calling schema validation and execution guardrail map](/img/course/ch09-tool-schema-validation-guardrail-map-en.png)
 
-:::tip 读图提示
-这张图要按“模型输出不等于程序执行”来读：模型只提出 tool call，程序必须先做 schema 校验、权限检查、参数清洗和错误归一化，最后才进入真实工具。
+:::tip Reading guide
+Read this diagram as “model output is not the same as program execution”: the model only proposes a tool call, and the program must first perform schema validation, permission checks, parameter cleaning, and error normalization before the real tool is executed.
 :::
 
 ---
 
-## 三、Schema 设计为什么会直接影响效果？
+## 3. Why does schema design directly affect results?
 
-### 3.1 一个坏 schema 长什么样？
+### 3.1 What does a bad schema look like?
 
 ```python
 bad_schema = {
     "name": "search",
-    "description": "做一些查询",
+    "description": "Do some queries",
     "parameters": {
         "q": {"type": "string"}
     }
@@ -109,24 +109,24 @@ bad_schema = {
 print(bad_schema)
 ```
 
-这个 schema 的问题在于：
+The problems with this schema are:
 
-- 工具名太模糊
-- 描述太空
-- 参数语义不清
+- The tool name is too vague
+- The description is too empty
+- The parameter semantics are unclear
 
-模型拿到这种 schema，很容易糊涂。
+When the model sees a schema like this, it can easily get confused.
 
-### 3.2 一个更好的 schema
+### 3.2 A better schema
 
 ```python
 good_schema = {
     "name": "search_course_policy",
-    "description": "查询课程政策类文档，例如退款、证书、学习顺序",
+    "description": "Query policy-related course documents, such as refunds, certificates, and learning order",
     "parameters": {
         "keyword": {
             "type": "string",
-            "description": "需要检索的主题关键词，例如 退款 或 证书"
+            "description": "The topic keyword to search for, such as refund or certificate"
         }
     },
     "required": ["keyword"]
@@ -135,18 +135,18 @@ good_schema = {
 print(good_schema)
 ```
 
-更好的 schema 往往具备：
+A better schema usually has:
 
-- 工具名明确
-- 描述具体
-- 参数命名有语义
-- 必填项清楚
+- Clear tool names
+- Specific descriptions
+- Semantic parameter names
+- Explicit required fields
 
 ---
 
-## 四、参数校验：你不能把模型当作永远可靠的调用器
+## 4. Parameter validation: you cannot treat the model as a perfectly reliable caller
 
-### 4.1 一个典型错误
+### 4.1 A typical error
 
 ```python
 tool_call = {
@@ -155,15 +155,15 @@ tool_call = {
 }
 ```
 
-如果你直接执行：
+If you execute it directly:
 
 ```python
 search_course_policy(**tool_call["arguments"])
 ```
 
-那程序大概率会出错。
+the program will likely fail.
 
-### 4.2 一个最小校验器
+### 4.2 A minimal validator
 
 ```python
 def validate_tool_call(call):
@@ -181,31 +181,31 @@ def validate_tool_call(call):
 
     return True, "ok"
 
-print(validate_tool_call({"name": "search_course_policy", "arguments": {"keyword": "退款"}}))
+print(validate_tool_call({"name": "search_course_policy", "arguments": {"keyword": "refund"}}))
 print(validate_tool_call({"name": "search_course_policy", "arguments": {}}))
 ```
 
-这一步不是“锦上添花”，而是上线系统的基础防线。
+This step is not a “nice-to-have”; it is a basic line of defense for any production system.
 
 ---
 
-## 五、一个更完整的可运行版本
+## 5. A more complete runnable version
 
-### 5.1 先定义工具
+### 5.1 Define the tools first
 
 ```python
 def search_course_policy(keyword):
     docs = {
-        "退款": "课程购买后 7 天内且学习进度低于 20% 可申请退款。",
-        "证书": "完成所有必修项目并通过结课测试后可获得证书。"
+        "refund": "You can apply for a refund within 7 days after purchase and if your learning progress is below 20%.",
+        "certificate": "You can obtain a certificate after completing all required items and passing the final assessment."
     }
-    return docs.get(keyword, "未找到相关政策")
+    return docs.get(keyword, "No related policy found")
 
 def calculate(expression):
     return str(eval(expression, {"__builtins__": {}}))
 ```
 
-### 5.2 定义调度器和校验
+### 5.2 Define the dispatcher and validation
 
 ```python
 def validate_tool_call(call):
@@ -232,91 +232,91 @@ def dispatch(call):
     return "unknown_tool"
 ```
 
-### 5.3 模拟“模型决定工具调用”
+### 5.3 Simulate “the model decides the tool call”
 
 ```python
 def mock_model(user_query):
-    if "退款" in user_query:
+    if "refund" in user_query:
         return {
             "name": "search_course_policy",
-            "arguments": {"keyword": "退款"}
+            "arguments": {"keyword": "refund"}
         }
-    if "证书" in user_query:
+    if "certificate" in user_query:
         return {
             "name": "search_course_policy",
-            "arguments": {"keyword": "证书"}
+            "arguments": {"keyword": "certificate"}
         }
-    if "计算" in user_query:
+    if "calculate" in user_query:
         return {
             "name": "calculate",
-            "arguments": {"expression": user_query.replace("计算", "").strip()}
+            "arguments": {"expression": user_query.replace("calculate", "").strip()}
         }
     return None
 ```
 
-### 5.4 串成完整闭环
+### 5.4 Chain it into a complete closed loop
 
 ```python
 queries = [
-    "退款政策是什么？",
-    "证书怎么拿？",
-    "计算 12 * (3 + 2)"
+    "What is the refund policy?",
+    "How do I get a certificate?",
+    "calculate 12 * (3 + 2)"
 ]
 
 for q in queries:
-    print("用户问题:", q)
+    print("User question:", q)
     call = mock_model(q)
-    print("模型产出:", call)
+    print("Model output:", call)
 
     valid, msg = validate_tool_call(call)
-    print("校验结果:", valid, msg)
+    print("Validation result:", valid, msg)
 
     if valid:
         result = dispatch(call)
-        print("工具执行结果:", result)
+        print("Tool execution result:", result)
     else:
-        print("调用被拒绝")
+        print("Call rejected")
 
     print("-" * 50)
 ```
 
-这个示例已经比“单纯打印 tool_call”更接近真实系统。
+This example is already much closer to a real system than simply printing `tool_call`.
 
 ---
 
-## 六、多步调用时，真正难点在哪里？
+## 6. Where is the real challenge in multi-step calls?
 
-### 6.1 难点不是再多调用一次，而是状态管理
+### 6.1 The challenge is not calling once more, but managing state
 
-比如用户问：
+For example, a user asks:
 
-> “先查退款政策，再帮我算一下 3000 元打七折是多少钱。”
+> “First check the refund policy, then help me calculate how much 3000 yuan is after a 30% discount.”
 
-这时系统可能需要：
+At this point, the system may need to:
 
-1. 调 `search_course_policy`
-2. 再调 `calculate`
-3. 最后合并回答
+1. Call `search_course_policy`
+2. Then call `calculate`
+3. Finally merge the answer
 
-问题在于：
+The problem is:
 
-- 中间结果怎么保存
-- 下一步什么时候停
-- 出错时怎么处理
+- How do you store intermediate results?
+- When should the next step stop?
+- How do you handle errors?
 
-### 6.2 一个最小多步例子
+### 6.2 A minimal multi-step example
 
 ```python
 def multi_step_agent(query):
     steps = []
 
-    if "退款" in query:
-        call_1 = {"name": "search_course_policy", "arguments": {"keyword": "退款"}}
+    if "refund" in query:
+        call_1 = {"name": "search_course_policy", "arguments": {"keyword": "refund"}}
         steps.append(("tool_call", call_1))
         result_1 = dispatch(call_1)
         steps.append(("tool_result", result_1))
 
-    if "打七折" in query:
+    if "30% discount" in query:
         call_2 = {"name": "calculate", "arguments": {"expression": "3000 * 0.7"}}
         steps.append(("tool_call", call_2))
         result_2 = dispatch(call_2)
@@ -324,26 +324,26 @@ def multi_step_agent(query):
 
     return steps
 
-for step in multi_step_agent("先查退款，再算 3000 元打七折"):
+for step in multi_step_agent("First check the refund policy, then calculate a 30% discount on 3000 yuan"):
     print(step)
 ```
 
-这就是为什么 Function Calling 讲到后面，迟早会和 Agent 结合起来。
+This is why, once Function Calling goes deeper, it will eventually be combined with Agents.
 
 ---
 
-## 七、失败处理和恢复为什么重要？
+## 7. Why are failure handling and recovery important?
 
-### 7.1 工具失败是常态，不是例外
+### 7.1 Tool failure is the norm, not the exception
 
-真实系统里，工具失败非常常见：
+In real systems, tool failures are very common:
 
-- 参数错
-- 接口超时
-- 网络异常
-- 数据为空
+- Wrong parameters
+- API timeouts
+- Network issues
+- Empty data
 
-### 7.2 一个简单失败兜底
+### 7.2 A simple fallback for failures
 
 ```python
 def safe_dispatch(call):
@@ -359,71 +359,71 @@ print(safe_dispatch({"name": "calculate", "arguments": {"expression": "2 + 3"}})
 print(safe_dispatch({"name": "calculate", "arguments": {"wrong": "2 + 3"}}))
 ```
 
-一个成熟系统通常不会因为一次工具失败就直接崩掉。
+A mature system usually does not crash just because one tool call fails.
 
 ---
 
-## 八、Function Calling 深水区真正要关注什么？
+## 8. What should you really pay attention to in the deeper end of Function Calling?
 
-### 8.1 不是“能不能调”，而是“能不能稳稳调”
+### 8.1 It is not about “can it call,” but “can it call reliably”
 
-真正重要的问题包括：
+The truly important questions include:
 
-- schema 够不够清晰
-- 参数校验够不够严格
-- 工具权限有没有分层
-- 多步调用如何收敛
-- 错误能不能回放和定位
+- Is the schema clear enough?
+- Is parameter validation strict enough?
+- Are tool permissions layered properly?
+- How do multi-step calls converge?
+- Can errors be replayed and diagnosed?
 
-### 8.2 工具层是 Agent 工程的可靠性底盘
+### 8.2 The tool layer is the reliability foundation of Agent engineering
 
-如果工具层不稳，后面这些都会跟着摇：
+If the tool layer is unstable, everything above it will wobble:
 
-- 推理链
-- 多步执行
-- 记忆系统
-- 多 Agent 协同
+- Reasoning chains
+- Multi-step execution
+- Memory systems
+- Multi-Agent collaboration
 
-所以 Function Calling 虽然看起来像“结构化输出”，本质上却是 Agent 工程里的关键基础设施。
-
----
-
-## 九、初学者最常踩的坑
-
-### 9.1 把 schema 当文案写
-
-schema 不是说明书摆设，而是调用边界本身。
-
-### 9.2 没有校验就直接执行
-
-这是非常危险的。
-
-### 9.3 工具层没有日志
-
-一旦调用错了、参数错了、执行炸了，根本不知道哪里出问题。
+So although Function Calling looks like “structured output,” in essence it is a key piece of infrastructure in Agent engineering.
 
 ---
 
-## 工具设计审查表
+## 9. Common mistakes beginners make
 
-真正设计工具时，可以先用下面这张表审查 schema。它能帮助你减少“模型选错工具、参数写错、程序执行危险操作”的问题。
+### 9.1 Treating schema like copywriting
 
-| 检查项 | 合格表现 | 常见问题 |
+A schema is not decorative documentation; it is the call boundary itself.
+
+### 9.2 Executing directly without validation
+
+This is very dangerous.
+
+### 9.3 Having no logs in the tool layer
+
+Once something is called incorrectly, a parameter is wrong, or execution blows up, you will not know where the problem came from.
+
+---
+
+## Tool design review checklist
+
+When designing tools for real, you can first review the schema with the table below. It helps reduce problems such as “the model chose the wrong tool, the parameters were wrong, or the program executed something dangerous.”
+
+| Check item | What good looks like | Common problems |
 |---|---|---|
-| 工具名 | 动词 + 对象清楚，例如 `search_course_policy` | `search`、`process` 这种名字太泛 |
-| 描述 | 写清楚什么时候用、什么时候不用 | 只写“查询信息” |
-| 参数 | 每个字段都有语义、类型和约束 | `q`、`data`、`input` 过于模糊 |
-| 必填项 | required 字段明确 | 模型漏传关键参数 |
-| 返回值 | 程序能区分成功、失败和空结果 | 只返回一段字符串，难以判断状态 |
-| 权限 | 区分只读、写入、高风险工具 | 所有工具权限混在一起 |
+| Tool name | Clear verb + object, such as `search_course_policy` | Names like `search` or `process` are too vague |
+| Description | Clearly states when to use it and when not to | Only says “query information” |
+| Parameters | Every field has semantics, type, and constraints | `q`, `data`, `input` are too vague |
+| Required fields | `required` is explicit | The model omits critical parameters |
+| Return value | The program can distinguish success, failure, and empty results | Only returns a string, making status hard to judge |
+| Permissions | Distinguish read-only, write, and high-risk tools | All tool permissions are mixed together |
 
-工具 schema 写得越清楚，模型越容易做正确选择；程序校验越严格，系统越不容易被错误参数拖垮。
+The clearer the tool schema, the more likely the model is to make the right choice; the stricter the program validation, the less likely the system is to be dragged down by bad parameters.
 
-## 工具返回值也需要设计
+## Tool return values also need design
 
-很多人只设计输入参数，忽略返回值。但 Agent 后续怎么行动，很大程度取决于它能不能读懂工具结果。
+Many people only design input parameters and ignore return values. But what the Agent does next depends heavily on whether it can understand the tool result.
 
-一个更稳的返回结构可以长这样：
+A more robust return structure can look like this:
 
 ```python
 def tool_result(ok, data=None, error=None, retryable=False):
@@ -434,46 +434,46 @@ def tool_result(ok, data=None, error=None, retryable=False):
         "retryable": retryable,
     }
 
-print(tool_result(True, data={"text": "课程购买后 7 天内可申请退款"}))
+print(tool_result(True, data={"text": "You can apply for a refund within 7 days after purchase"}))
 print(tool_result(False, error="timeout", retryable=True))
 ```
 
-这种结构比单纯返回字符串更适合 Agent，因为系统可以根据 `ok`、`error` 和 `retryable` 决定下一步是继续、重试、换工具，还是停止并向用户说明。
+This structure is more suitable for Agents than simply returning a string, because the system can decide whether to continue, retry, switch tools, or stop and explain to the user based on `ok`, `error`, and `retryable`.
 
-## 多步工具调用的安全边界
+## Safety boundaries for multi-step tool calls
 
-多步调用最容易出现的问题不是“不会继续”，而是“停不下来”或“做了不该做的事”。所以至少要有这些边界：
+The easiest problem to run into with multi-step calls is not “failing to continue,” but “not being able to stop” or “doing something it should not do.” So at minimum, you need these boundaries:
 
-| 边界 | 作用 |
+| Boundary | Purpose |
 |---|---|
-| 最大步数 | 防止无限循环 |
-| 工具白名单 | 防止调用未授权能力 |
-| 参数校验 | 防止错误或危险参数进入执行层 |
-| 人工确认 | 高风险写入动作必须先确认 |
-| 错误分类 | 区分可重试错误和不可重试错误 |
-| trace 记录 | 出错后能回放每一步 |
+| Max steps | Prevent infinite loops |
+| Tool allowlist | Prevent unauthorized capabilities from being called |
+| Parameter validation | Prevent bad or dangerous parameters from reaching the execution layer |
+| Human confirmation | High-risk write operations must be confirmed first |
+| Error classification | Distinguish retryable from non-retryable errors |
+| Trace logging | Enable replay of every step after an error |
 
-可以先用一句话记住：
+You can remember it with one sentence:
 
-> **模型可以建议动作，但程序必须控制边界。**
+> **The model may suggest actions, but the program must control the boundaries.**
 
-这也是 Function Calling 从 Demo 走向 Agent 工程的关键分水岭。
-
----
-
-## 小结
-
-这一节最重要的不是会写一个 `{"name": ..., "arguments": ...}`，而是理解：
-
-> **Function Calling 的真正价值，在于把模型的决策能力，安全地接到工程系统的执行能力上。**
-
-当你开始关注 schema 设计、参数校验、失败恢复和多步状态时，才算真正进入了工具层工程。
+This is also the key dividing line between Function Calling demos and real Agent engineering.
 
 ---
 
-## 练习
+## Summary
 
-1. 把本节工具系统再加一个 `get_weather(city)`，并补上对应 schema 与校验。
-2. 故意构造一个参数错误的 tool call，看看校验器是否能拦住。
-3. 把 `multi_step_agent()` 扩展成“最多执行 3 步”，避免无限循环。
-4. 想一想：为什么 Function Calling 在 Agent 系统里比在普通聊天机器人里更关键？
+The most important thing in this section is not learning to write `{"name": ..., "arguments": ...}`, but understanding that:
+
+> **The real value of Function Calling lies in safely connecting the model’s decision-making ability to the execution ability of an engineering system.**
+
+Once you start paying attention to schema design, parameter validation, failure recovery, and multi-step state, you are truly entering tool-layer engineering.
+
+---
+
+## Exercises
+
+1. Add another tool `get_weather(city)` to the tool system in this section, and include the corresponding schema and validation.
+2. Deliberately construct a tool call with incorrect parameters and see whether the validator can block it.
+3. Extend `multi_step_agent()` so that it executes at most 3 steps to avoid infinite loops.
+4. Think about this: why is Function Calling more critical in an Agent system than in a normal chatbot?

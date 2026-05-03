@@ -1,56 +1,56 @@
 ---
-title: "6.1 学前导读：预训练模型这一章到底在学什么"
+title: "6.1 Pre-reading Guide: What Exactly Is This Chapter About Pretrained Models?"
 sidebar_position: 0
-description: "先建立预训练模型章的学习地图：预训练范式、BERT、GPT、T5 和 transformers 实战怎样串成现代 NLP 主线。"
-keywords: [预训练导读, BERT, GPT, T5, transformers]
+description: "First build a learning map for the pretrained models chapter: how the pretraining paradigm, BERT, GPT, T5, and transformers practice connect into the main line of modern NLP."
+keywords: [pretraining guide, BERT, GPT, T5, transformers]
 ---
 
-# 学前导读：预训练模型这一章到底在学什么
+# Pre-reading Guide: What Exactly Is This Chapter About Pretrained Models?
 
-![BERT GPT T5 对比图](/img/course/bert-gpt-t5-comparison.png)
+![BERT GPT T5 comparison chart](/img/course/bert-gpt-t5-comparison-en.png)
 
-## 本章定位
+## Chapter Positioning
 
-这一章是传统 NLP 通向大模型应用的桥。前面你学过文本表示、文本分类、序列标注和 Seq2Seq，这些内容通常围绕单个任务训练模型；这一章开始进入“先预训练一个通用底座，再迁移到不同任务”的现代 NLP 范式。
+This chapter is the bridge from traditional NLP to large-model applications. In the previous chapters, you learned text representation, text classification, sequence labeling, and Seq2Seq. These topics usually train models around a single task. Starting with this chapter, we enter the modern NLP paradigm: “pretrain a general-purpose foundation first, then transfer it to different tasks.”
 
-学这一章的目标不是背 BERT、GPT、T5 的名字，而是理解三种问题：模型怎样从大规模文本中获得语言能力，为什么不同预训练目标会带来不同能力倾向，以及 transformers 工具库怎样把这些模型接入真实项目。
+The goal of studying this chapter is not to memorize the names BERT, GPT, and T5, but to understand three questions: how models gain language ability from large-scale text, why different pretraining objectives lead to different capability tendencies, and how the transformers library connects these models to real projects.
 
-## 这一章在整门课里的位置
+## Where This Chapter Fits in the Whole Course
 
-![预训练语言模型章节学习顺序图](/img/course/ch11-pretrained-chapter-flow.png)
+![Learning order diagram for the pretrained language models chapter](/img/course/ch11-pretrained-chapter-flow-en.png)
 
-这章既是第 11 站自然语言处理的收束，也是第 7～9 站大模型、RAG 和 Agent 的前置桥梁。你后面调用大模型 API、做文本检索、做微调或构建 RAG 时，都会反复遇到 tokenizer、embedding、上下文长度、生成方式和模型加载这些概念。
+This chapter is both the conclusion of natural language processing at Station 11 and the bridge leading into the large-model, RAG, and Agent sections at Stations 7–9. Later, when you call large-model APIs, do text retrieval, perform fine-tuning, or build RAG systems, you will repeatedly encounter concepts such as tokenizer, embedding, context length, generation methods, and model loading.
 
-## BERT、GPT、T5 分别代表什么思路
+## What Do BERT, GPT, and T5 Each Represent?
 
-| 模型家族 | 核心思路 | 更适合理解什么 |
+| Model family | Core idea | What it helps you understand better |
 |---|---|---|
-| BERT | 通过掩码预测学习双向语义表示 | 分类、匹配、抽取、检索 embedding 的基础直觉 |
-| GPT | 通过自回归预测下一个 token 学习生成能力 | 聊天、续写、工具调用、Prompt 和生成式应用 |
-| T5 | 把各种 NLP 任务统一成 text-to-text | 任务统一、指令化、多任务迁移 |
+| BERT | Learn bidirectional semantic representations through masked prediction | Basic intuition for classification, matching, extraction, and retrieval embeddings |
+| GPT | Learn generation ability through autoregressive next-token prediction | Chatting, continuation, tool use, Prompting, and generative applications |
+| T5 | Unify various NLP tasks as text-to-text | Task unification, instruction-style learning, and multitask transfer |
 
-不要把这三类模型看成互相替代的版本号。它们更像三种训练和使用范式：BERT 偏理解，GPT 偏生成，T5 强调把任务都改写成文本到文本。现代大模型会吸收这些思想，但学习它们能帮你理解后面的技术为什么这样设计。
+Do not think of these three model types as different versions replacing one another. They are more like three training and usage paradigms: BERT focuses on understanding, GPT focuses on generation, and T5 emphasizes rewriting every task into text-to-text form. Modern large models absorb these ideas, and learning them will help you understand why later techniques are designed the way they are.
 
-## 本章学习顺序
+## Learning Sequence for This Chapter
 
-第一步先理解预训练范式：为什么一个模型先在大规模文本上学习，再在具体任务上迁移，比每个任务从零训练更有效。第二步看 BERT，重点理解 mask、双向上下文、CLS 表示和下游任务微调。第三步看 GPT，重点理解自回归生成、上下文窗口和 Prompt。第四步看 T5，理解把翻译、摘要、问答、分类都统一成 text-to-text 的思想。最后用 transformers 跑一个最小例子，把 tokenizer、model、pipeline、输入输出连起来。
+First, understand the pretraining paradigm: why a model that first learns from large-scale text and then transfers to specific tasks is more effective than training from scratch for each task. Second, look at BERT, with a focus on mask, bidirectional context, CLS representations, and fine-tuning for downstream tasks. Third, look at GPT, with a focus on autoregressive generation, context windows, and Prompting. Fourth, look at T5 and understand the idea of unifying translation, summarization, question answering, and classification as text-to-text. Finally, run a minimal example with transformers to connect tokenizer, model, pipeline, input, and output.
 
-## 和大模型课程的连接
+## Connection to the Large-Model Course
 
-这一章会帮你提前理解大模型应用里的很多“工程常识”。例如，tokenizer 决定文本怎样被模型读取；上下文长度决定一次能放多少资料；embedding 可以用于检索和聚类；生成模型需要控制温度、长度和停止条件；模型加载和推理成本会影响部署方案。
+This chapter will help you understand many “engineering common sense” ideas in large-model applications ahead of time. For example, tokenizer determines how text is read by the model; context length determines how much material can be included at once; embedding can be used for retrieval and clustering; generation models need control over temperature, length, and stopping conditions; and model loading and inference costs can affect deployment choices.
 
-当你进入 RAG 时，BERT/embedding 的理解会帮助你看懂向量检索；进入 Prompt 和 Agent 时，GPT 的自回归生成会帮助你理解为什么模型会一步步生成计划和工具参数；进入微调时，预训练和下游任务迁移的关系会变得非常重要。
+When you move into RAG, your understanding of BERT and embeddings will help you understand vector retrieval; when you move into Prompt and Agent, GPT’s autoregressive generation will help you understand why the model generates plans and tool parameters step by step; when you move into fine-tuning, the relationship between pretraining and downstream task transfer becomes very important.
 
-## 本章小项目出口
+## Chapter Mini-Project Outcome
 
-建议完成一个“预训练模型对比小实验”。基础版可以用 transformers pipeline 分别跑文本分类、摘要或生成示例，并记录输入输出。标准版可以比较 BERT 类模型和 GPT 类模型在同一文本任务上的适用边界。挑战版可以把一个课程段落做成 embedding 检索小例子，作为后面 RAG 的前置准备。
+It is recommended that you complete a “pretrained model comparison mini-experiment.” The basic version can use transformers pipelines to run text classification, summarization, or generation examples separately and record the inputs and outputs. The standard version can compare the applicability boundaries of BERT-like models and GPT-like models on the same text task. The challenge version can turn a course paragraph into a small embedding retrieval example as preparation for later RAG work.
 
-README 至少写清楚：使用了哪个模型，输入是什么，输出是什么，模型更适合理解还是生成，运行时遇到什么依赖或下载问题，以及这个实验会怎样连接到后面的 RAG 或 LLM 应用。
+At minimum, the README should clearly explain which model was used, what the input was, what the output was, whether the model is better for understanding or generation, what dependency or download problems were encountered during runtime, and how this experiment connects to later RAG or LLM applications.
 
-## 常见误区
+## Common Misunderstandings
 
-不要以为“预训练模型”只等于“更大的模型”。真正重要的是训练目标、输入输出形式和迁移方式。也不要一开始就追最新模型名，先把 BERT、GPT、T5 的基本范式弄清楚，后面看到 RoBERTa、DeBERTa、LLaMA、Qwen、DeepSeek 等模型时，才能知道它们大致是在解决哪类问题。
+Do not assume that “pretrained models” simply means “larger models.” What really matters is the training objective, the input-output format, and the transfer method. Also, do not rush to the newest model names at the beginning. First make sure you understand the basic paradigms of BERT, GPT, and T5, so that when you later see models like RoBERTa, DeBERTa, LLaMA, Qwen, and DeepSeek, you will know roughly what kinds of problems they are trying to solve.
 
-## 过关标准
+## Passing Criteria
 
-学完这一章后，你应该能说清楚：BERT、GPT、T5 的训练思路有什么不同，为什么 transformers 工具库能统一调用很多模型，什么任务适合理解型模型，什么任务适合生成型模型，以及这些概念如何连接到后面的 RAG、Prompt、微调和 Agent。
+After finishing this chapter, you should be able to clearly explain the differences between the training ideas behind BERT, GPT, and T5, why the transformers library can unify access to many models, what tasks are suitable for understanding-oriented models, what tasks are suitable for generation-oriented models, and how these concepts connect to later RAG, Prompt, fine-tuning, and Agent work.

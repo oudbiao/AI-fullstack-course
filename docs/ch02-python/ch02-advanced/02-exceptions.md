@@ -1,96 +1,96 @@
 ---
-title: "1.2 异常处理"
+title: "1.2 Exception Handling"
 sidebar_position: 2
-description: "掌握 Python 异常处理机制，让程序更健壮"
+description: "Master Python's exception handling mechanism to make your programs more robust"
 ---
 
-# 异常处理
+# Exception Handling
 
-![异常处理执行流程图](/img/course/ch02-exception-flow.png)
+![Exception handling flowchart](/img/course/ch02-exception-flow-en.png)
 
-## 本节定位
+## Where this section fits
 
-这一节让你的程序在出错时不至于直接崩溃。异常处理会在文件读写、网络请求、API 调用、数据清洗和模型推理中反复出现，重点是学会预判错误、捕获错误，并给出可恢复的处理方式。
+This section helps your program avoid crashing immediately when something goes wrong. Exception handling comes up again and again in file I/O, network requests, API calls, data cleaning, and model inference. The key is to learn how to anticipate errors, catch errors, and provide recoverable handling.
 
-## 学习目标
+## Learning objectives
 
-- 理解什么是异常，为什么需要处理异常
-- 掌握 `try/except/else/finally` 的用法
-- 学会捕获不同类型的异常
-- 能编写健壮的、不会轻易崩溃的程序
+- Understand what exceptions are and why they need to be handled
+- Master the use of `try/except/else/finally`
+- Learn how to catch different types of exceptions
+- Write robust programs that do not crash easily
 
 ---
 
-## 什么是异常？
+## What is an exception?
 
-异常就是程序运行时发生的**错误**。没有异常处理的程序，一遇到错误就会直接崩溃：
+An exception is an **error** that occurs while a program is running. A program without exception handling will crash immediately when it encounters an error:
 
 ```python
-# 这些代码都会导致程序崩溃
-print(10 / 0)           # ZeroDivisionError: 除以零
-print(int("abc"))        # ValueError: 无法转换
-print([1, 2, 3][10])     # IndexError: 索引越界
-print({"a": 1}["b"])     # KeyError: 键不存在
+# These lines will all crash the program
+print(10 / 0)           # ZeroDivisionError: division by zero
+print(int("abc"))        # ValueError: cannot convert
+print([1, 2, 3][10])     # IndexError: list index out of range
+print({"a": 1}["b"])     # KeyError: key does not exist
 
-# 程序崩溃意味着后面的代码都不会执行
-print("这行永远不会被执行")
+# If the program crashes, the code below will never run
+print("This line will never be executed")
 ```
 
-在真实的程序中，错误是**不可避免的**——用户可能输入非法数据、文件可能不存在、网络可能断开。异常处理让你能**优雅地应对这些问题**，而不是让程序直接崩溃。
+In real programs, errors are **unavoidable** — users may enter invalid data, files may not exist, and networks may disconnect. Exception handling lets you **respond to these problems gracefully** instead of letting the program crash.
 
 ---
 
-## 常见的异常类型
+## Common exception types
 
-| 异常类型 | 触发场景 | 示例 |
+| Exception type | Trigger scenario | Example |
 |---------|---------|------|
-| `ZeroDivisionError` | 除以零 | `1 / 0` |
-| `TypeError` | 类型操作不匹配 | `"hello" + 5` |
-| `ValueError` | 值不合法 | `int("abc")` |
-| `IndexError` | 列表索引越界 | `[1, 2][5]` |
-| `KeyError` | 字典键不存在 | `{"a": 1}["b"]` |
-| `FileNotFoundError` | 文件不存在 | `open("不存在.txt")` |
-| `AttributeError` | 属性不存在 | `"hello".foo()` |
-| `NameError` | 变量未定义 | `print(xyz)` |
-| `ImportError` | 导入失败 | `import 不存在的模块` |
+| `ZeroDivisionError` | Division by zero | `1 / 0` |
+| `TypeError` | Mismatched operation types | `"hello" + 5` |
+| `ValueError` | Invalid value | `int("abc")` |
+| `IndexError` | List index out of range | `[1, 2][5]` |
+| `KeyError` | Dictionary key does not exist | `{"a": 1}["b"]` |
+| `FileNotFoundError` | File does not exist | `open("nonexistent.txt")` |
+| `AttributeError` | Attribute does not exist | `"hello".foo()` |
+| `NameError` | Variable is not defined | `print(xyz)` |
+| `ImportError` | Import failed | `import nonexistent_module` |
 
 ---
 
-## try / except 基本用法
+## Basic try / except usage
 
-`try/except` 的逻辑是：**尝试执行代码，如果出错了，执行备选方案。**
+The logic of `try/except` is: **try to run the code, and if something goes wrong, run an alternative plan.**
 
 ```python
 try:
-    number = int(input("请输入一个数字: "))
-    print(f"你输入的是: {number}")
+    number = int(input("Please enter a number: "))
+    print(f"You entered: {number}")
 except ValueError:
-    print("输入无效！请输入一个数字。")
+    print("Invalid input! Please enter a number.")
 
-print("程序继续运行...")  # 不管有没有异常，这行都会执行
+print("The program continues running...")  # This line runs whether or not there was an exception
 ```
 
-运行效果：
+Output behavior:
 
 ```
-# 正常输入
-请输入一个数字: 42
-你输入的是: 42
-程序继续运行...
+# Valid input
+Please enter a number: 42
+You entered: 42
+The program continues running...
 
-# 输入非数字
-请输入一个数字: abc
-输入无效！请输入一个数字。
-程序继续运行...
+# Non-numeric input
+Please enter a number: abc
+Invalid input! Please enter a number.
+The program continues running...
 ```
 
-关键点：**有了 `try/except`，程序不会因为错误而崩溃。**
+Key point: **with `try/except`, the program will not crash because of an error.**
 
 ---
 
-## 捕获不同类型的异常
+## Catching different types of exceptions
 
-### 捕获多种异常
+### Catching multiple exceptions
 
 ```python
 def safe_divide(a, b):
@@ -98,60 +98,60 @@ def safe_divide(a, b):
         result = a / b
         return result
     except ZeroDivisionError:
-        print("错误：不能除以零！")
+        print("Error: cannot divide by zero!")
         return None
     except TypeError:
-        print("错误：请传入数字！")
+        print("Error: please pass numbers!")
         return None
 
 print(safe_divide(10, 3))    # 3.333...
-print(safe_divide(10, 0))    # 错误：不能除以零！ → None
-print(safe_divide("10", 3))  # 错误：请传入数字！ → None
+print(safe_divide(10, 0))    # Error: cannot divide by zero! → None
+print(safe_divide("10", 3))  # Error: please pass numbers! → None
 ```
 
-### 捕获多种异常（合并写法）
+### Catching multiple exceptions (combined form)
 
 ```python
 try:
-    # 可能出错的代码
-    value = int(input("请输入数字: "))
+    # Code that may fail
+    value = int(input("Please enter a number: "))
     result = 100 / value
-    print(f"结果: {result}")
+    print(f"Result: {result}")
 except (ValueError, ZeroDivisionError) as e:
-    print(f"出错了: {e}")
+    print(f"An error occurred: {e}")
 ```
 
-### 获取异常信息
+### Getting exception information
 
 ```python
 try:
     number = int("abc")
 except ValueError as e:
-    print(f"异常类型: {type(e).__name__}")  # ValueError
-    print(f"异常信息: {e}")                 # invalid literal for int() with base 10: 'abc'
+    print(f"Exception type: {type(e).__name__}")  # ValueError
+    print(f"Exception message: {e}")               # invalid literal for int() with base 10: 'abc'
 ```
 
-### 捕获所有异常（谨慎使用）
+### Catching all exceptions (use with caution)
 
 ```python
 try:
-    # 一些代码
+    # Some code
     result = risky_operation()
 except Exception as e:
-    print(f"发生了意外错误: {type(e).__name__}: {e}")
+    print(f"An unexpected error occurred: {type(e).__name__}: {e}")
 ```
 
-:::caution 不要滥用 except Exception
-捕获所有异常听起来很方便，但会**掩盖真正的 bug**。你应该尽量捕获**具体的异常类型**，只在最外层使用 `except Exception` 作为兜底。
+:::caution Do not overuse `except Exception`
+Catching all exceptions may seem convenient, but it can **hide real bugs**. You should try to catch **specific exception types** and use `except Exception` only as a last-resort fallback at the outermost level.
 
 ```python
-# 不好的做法 ❌
+# Bad practice ❌
 try:
     do_something()
-except:  # 捕获所有异常，包括 KeyboardInterrupt
-    pass   # 而且还什么都不做！
+except:  # Catches all exceptions, including KeyboardInterrupt
+    pass   # And does nothing at all!
 
-# 好的做法 ✅
+# Good practice ✅
 try:
     do_something()
 except ValueError:
@@ -159,7 +159,7 @@ except ValueError:
 except FileNotFoundError:
     handle_file_not_found()
 except Exception as e:
-    logging.error(f"未预期的错误: {e}")
+    logging.error(f"Unexpected error: {e}")
 ```
 :::
 
@@ -167,93 +167,93 @@ except Exception as e:
 
 ## try / except / else / finally
 
-完整的异常处理结构有四个部分：
+A complete exception-handling structure has four parts:
 
 ```python
 try:
-    # 尝试执行的代码
+    # Code to try
     file = open("data.txt", "r")
     content = file.read()
 except FileNotFoundError:
-    # 出错时执行
-    print("文件不存在！")
+    # Runs when an error occurs
+    print("File not found!")
 else:
-    # 没有出错时执行
-    print(f"文件内容: {content}")
+    # Runs when no error occurs
+    print(f"File content: {content}")
 finally:
-    # 不管有没有出错都执行（通常用来清理资源）
-    print("操作完成")
+    # Runs whether or not an error occurs (usually for cleanup)
+    print("Operation complete")
 ```
 
-| 子句 | 何时执行 | 用途 |
+| Clause | When it runs | Purpose |
 |------|---------|------|
-| `try` | 总是执行 | 放可能出错的代码 |
-| `except` | 只在出错时执行 | 处理错误 |
-| `else` | 只在没出错时执行 | 放成功后的逻辑 |
-| `finally` | 不管有没有出错都执行 | 清理资源（关闭文件、断开连接） |
+| `try` | Always | Put code that may fail here |
+| `except` | Only when an error occurs | Handle the error |
+| `else` | Only when no error occurs | Put success logic here |
+| `finally` | Always, regardless of errors | Clean up resources (close files, disconnect connections) |
 
-### finally 的典型用途
+### Typical use of `finally`
 
 ```python
 file = None
 try:
     file = open("data.txt", "r")
     data = file.read()
-    # 处理数据...
+    # Process data...
 except FileNotFoundError:
-    print("文件不存在")
+    print("File not found")
 finally:
     if file:
-        file.close()   # 不管有没有出错，都要关闭文件
-        print("文件已关闭")
+        file.close()   # Always close the file, whether or not there was an error
+        print("File closed")
 ```
 
-:::tip 更好的方式：with 语句
-在后面的"文件操作"章节中，你会学到 `with` 语句，它可以自动处理资源的关闭，比 `finally` 更简洁。
+:::tip A better approach: the `with` statement
+In the later "File Operations" section, you will learn the `with` statement. It can automatically close resources and is cleaner than `finally`.
 :::
 
 ---
 
-## 抛出异常
+## Raising exceptions
 
-除了处理异常，你也可以**主动抛出异常**——当你发现一个不合理的状态时，告诉调用者"出问题了"。
+In addition to handling exceptions, you can also **raise exceptions proactively** — when you detect an invalid state, you tell the caller that "something is wrong."
 
-### raise 语句
+### The `raise` statement
 
 ```python
 def set_age(age):
     if not isinstance(age, int):
-        raise TypeError("年龄必须是整数")
+        raise TypeError("Age must be an integer")
     if age < 0 or age > 150:
-        raise ValueError(f"年龄 {age} 不合理，应该在 0-150 之间")
+        raise ValueError(f"Age {age} is invalid and should be between 0 and 150")
     return age
 
-# 正常使用
+# Normal use
 print(set_age(25))      # 25
 
-# 触发异常
+# Trigger an exception
 try:
     set_age(-5)
 except ValueError as e:
-    print(f"错误: {e}")  # 错误: 年龄 -5 不合理，应该在 0-150 之间
+    print(f"Error: {e}")  # Error: Age -5 is invalid and should be between 0 and 150
 
 try:
-    set_age("二十")
+    set_age("twenty")
 except TypeError as e:
-    print(f"错误: {e}")  # 错误: 年龄必须是整数
+    print(f"Error: {e}")  # Error: Age must be an integer
 ```
 
-### 自定义异常
+### Custom exceptions
 
-当内置异常类型不够用时，可以自定义：
+When built-in exception types are not enough, you can define your own:
 
 ```python
 class InsufficientFundsError(Exception):
-    """余额不足异常"""
+    """Insufficient funds error"""
     def __init__(self, balance, amount):
         self.balance = balance
         self.amount = amount
-        super().__init__(f"余额不足：当前余额 {balance}，尝试取出 {amount}")
+        super().__init__(f"Insufficient funds: current balance {balance}, attempted withdrawal {amount}")
 
 class BankAccount:
     def __init__(self, balance=0):
@@ -265,98 +265,98 @@ class BankAccount:
         self.balance -= amount
         return self.balance
 
-# 使用
+# Use it
 account = BankAccount(1000)
 try:
     account.withdraw(1500)
 except InsufficientFundsError as e:
-    print(f"交易失败: {e}")
-    print(f"当前余额: {e.balance}, 请求金额: {e.amount}")
+    print(f"Transaction failed: {e}")
+    print(f"Current balance: {e.balance}, requested amount: {e.amount}")
 ```
 
 ---
 
-## 实战模式
+## Practical patterns
 
-### 模式 1：LBYL vs EAFP
+### Pattern 1: LBYL vs EAFP
 
-Python 社区推崇 **EAFP**（Easier to Ask Forgiveness than Permission，先做再说）而不是 **LBYL**（Look Before You Leap，先检查再做）：
+The Python community prefers **EAFP** (Easier to Ask Forgiveness than Permission, try first and handle errors) over **LBYL** (Look Before You Leap, check first and then act):
 
 ```python
-# LBYL 风格（先检查再操作）—— 不够 Pythonic
+# LBYL style (check before acting) — not very Pythonic
 if key in my_dict:
     value = my_dict[key]
 else:
     value = default_value
 
-# EAFP 风格（先操作，出错再处理）—— 更 Pythonic
+# EAFP style (act first, handle errors later) — more Pythonic
 try:
     value = my_dict[key]
 except KeyError:
     value = default_value
 
-# 当然，字典有更好的写法
+# Of course, dictionaries have an even better way
 value = my_dict.get(key, default_value)
 ```
 
-### 模式 2：重试机制
+### Pattern 2: Retry mechanism
 
 ```python
 import time
 
 def fetch_data_with_retry(url, max_retries=3):
-    """带重试的数据获取"""
+    """Fetch data with retries"""
     for attempt in range(1, max_retries + 1):
         try:
-            print(f"第 {attempt} 次尝试...")
-            # 模拟网络请求
+            print(f"Attempt {attempt}...")
+            # Simulate a network request
             import random
             if random.random() < 0.5:
-                raise ConnectionError("网络连接失败")
-            return "获取到的数据"
+                raise ConnectionError("Network connection failed")
+            return "Fetched data"
         except ConnectionError as e:
-            print(f"  失败: {e}")
+            print(f"  Failed: {e}")
             if attempt < max_retries:
-                wait = attempt * 2  # 递增等待时间
-                print(f"  {wait} 秒后重试...")
+                wait = attempt * 2  # Increasing wait time
+                print(f"  Retrying in {wait} seconds...")
                 time.sleep(wait)
             else:
-                print("  所有重试均失败！")
-                raise  # 最后一次重试失败，抛出异常
+                print("  All retries failed!")
+                raise  # If the last retry fails, re-raise the exception
 
 try:
     data = fetch_data_with_retry("https://api.example.com")
-    print(f"成功: {data}")
+    print(f"Success: {data}")
 except ConnectionError:
-    print("最终获取数据失败")
+    print("Failed to fetch data საბოლო")
 ```
 
-### 模式 3：安全的用户输入
+### Pattern 3: Safe user input
 
 ```python
 def get_number(prompt, min_val=None, max_val=None):
-    """安全地获取用户输入的数字"""
+    """Safely get a number from user input"""
     while True:
         try:
             value = float(input(prompt))
             if min_val is not None and value < min_val:
-                print(f"请输入不小于 {min_val} 的数")
+                print(f"Please enter a number no less than {min_val}")
                 continue
             if max_val is not None and value > max_val:
-                print(f"请输入不大于 {max_val} 的数")
+                print(f"Please enter a number no greater than {max_val}")
                 continue
             return value
         except ValueError:
-            print("请输入有效的数字！")
+            print("Please enter a valid number!")
 
-# 使用
-age = get_number("请输入年龄: ", min_val=0, max_val=150)
-print(f"你的年龄是: {age}")
+# Use it
+age = get_number("Please enter your age: ", min_val=0, max_val=150)
+print(f"Your age is: {age}")
 ```
 
 ---
 
-## 综合案例：安全的成绩管理系统
+## Comprehensive example: a safe grade management system
 
 ```python
 class GradeManager:
@@ -364,82 +364,82 @@ class GradeManager:
         self.students = {}
 
     def add_student(self, name, score):
-        """添加学生成绩"""
+        """Add a student's score"""
         if not isinstance(name, str) or not name.strip():
-            raise ValueError("学生姓名不能为空")
+            raise ValueError("Student name cannot be empty")
         if not isinstance(score, (int, float)):
-            raise TypeError(f"成绩必须是数字，收到: {type(score).__name__}")
+            raise TypeError(f"Score must be a number, got: {type(score).__name__}")
         if not 0 <= score <= 100:
-            raise ValueError(f"成绩 {score} 超出范围（0-100）")
+            raise ValueError(f"Score {score} is out of range (0-100)")
 
         self.students[name] = score
-        print(f"✅ 添加成功: {name} - {score}分")
+        print(f"✅ Added successfully: {name} - {score} points")
 
     def get_average(self):
-        """获取平均分"""
+        """Get the average score"""
         if not self.students:
-            raise RuntimeError("没有学生数据，无法计算平均分")
+            raise RuntimeError("No student data available, cannot calculate average")
         return sum(self.students.values()) / len(self.students)
 
     def get_student(self, name):
-        """查询学生成绩"""
+        """Look up a student's score"""
         if name not in self.students:
-            raise KeyError(f"找不到学生: {name}")
+            raise KeyError(f"Cannot find student: {name}")
         return self.students[name]
 
-# 使用
+# Use it
 gm = GradeManager()
 
-# 安全地添加学生
+# Safely add students
 test_data = [
-    ("张三", 85),
-    ("李四", 92),
-    ("王五", "优秀"),  # 类型错误
-    ("赵六", 150),     # 范围错误
-    ("", 80),          # 姓名为空
-    ("钱七", 78),
+    ("Zhang San", 85),
+    ("Li Si", 92),
+    ("Wang Wu", "excellent"),  # Type error
+    ("Zhao Liu", 150),         # Range error
+    ("", 80),                  # Empty name
+    ("Qian Qi", 78),
 ]
 
 for name, score in test_data:
     try:
         gm.add_student(name, score)
     except (ValueError, TypeError) as e:
-        print(f"❌ 添加失败: {e}")
+        print(f"❌ Add failed: {e}")
 
-# 查询
-print(f"\n平均分: {gm.get_average():.1f}")
+# Query
+print(f"\nAverage score: {gm.get_average():.1f}")
 
 try:
-    print(gm.get_student("孙八"))
+    print(gm.get_student("Sun Ba"))
 except KeyError as e:
-    print(f"查询失败: {e}")
+    print(f"Lookup failed: {e}")
 ```
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：安全的计算器
+### Exercise 1: Safe calculator
 
 ```python
 def safe_calculator():
-    """安全的四则运算器，能处理所有可能的错误"""
-    # 1. 获取两个数字（处理非法输入）
-    # 2. 获取运算符（+、-、*、/）
-    # 3. 计算结果（处理除以零）
-    # 4. 询问是否继续
+    """A safe calculator that can handle all possible errors"""
+    # 1. Get two numbers (handle invalid input)
+    # 2. Get an operator (+, -, *, /)
+    # 3. Compute the result (handle division by zero)
+    # 4. Ask whether to continue
     pass
 
 safe_calculator()
 ```
 
-### 练习 2：文件读取器
+### Exercise 2: File reader
 
 ```python
 def read_file_safely(filename):
-    """安全地读取文件内容"""
-    # 处理文件不存在、权限不足等情况
-    # 返回文件内容或 None
+    """Safely read file contents"""
+    # Handle file not found, permission denied, and other cases
+    # Return the file content or None
     pass
 
 content = read_file_safely("test.txt")
@@ -447,33 +447,33 @@ if content:
     print(content)
 ```
 
-### 练习 3：批量类型转换
+### Exercise 3: Batch type conversion
 
 ```python
 def convert_to_numbers(data_list):
     """
-    将字符串列表转换为数字列表。
-    无法转换的元素用 None 替代，并记录错误信息。
+    Convert a list of strings into a list of numbers.
+    Replace elements that cannot be converted with None, and record error messages.
 
-    输入: ["10", "20.5", "abc", "30", "xyz"]
-    输出: ([10.0, 20.5, None, 30.0, None], ["abc 无法转换", "xyz 无法转换"])
+    Input: ["10", "20.5", "abc", "30", "xyz"]
+    Output: ([10.0, 20.5, None, 30.0, None], ["abc cannot be converted", "xyz cannot be converted"])
     """
     pass
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 语法 | 作用 | 何时使用 |
+| Syntax | Purpose | When to use |
 |------|------|---------|
-| `try` | 包裹可能出错的代码 | 任何可能出错的地方 |
-| `except` | 捕获并处理异常 | 指定要处理的异常类型 |
-| `else` | 没有异常时执行 | 成功后的逻辑 |
-| `finally` | 始终执行 | 清理资源 |
-| `raise` | 主动抛出异常 | 输入不合法、状态不对时 |
-| 自定义异常 | 创建业务相关的异常 | 内置异常不够描述性时 |
+| `try` | Wrap code that may fail | Anywhere errors may occur |
+| `except` | Catch and handle exceptions | For specific exception types |
+| `else` | Runs when no exception occurs | Success logic |
+| `finally` | Always runs | Resource cleanup |
+| `raise` | Raise an exception proactively | When input is invalid or state is wrong |
+| Custom exceptions | Create business-specific exceptions | When built-in exceptions are not descriptive enough |
 
-:::tip 核心理解
-异常处理的本质是：**预见可能的问题，准备好应对方案。** 好的程序不是不会出错，而是出错时能够**优雅地处理**——给用户友好的提示，记录错误信息，或者自动重试。这是专业开发者和初学者的重要区别。
+:::tip Core idea
+The essence of exception handling is: **anticipate possible problems and prepare a response plan.** A good program is not one that never makes mistakes, but one that can **handle them gracefully** when they happen — by giving users friendly messages, recording error information, or retrying automatically. This is an important difference between professional developers and beginners.
 :::

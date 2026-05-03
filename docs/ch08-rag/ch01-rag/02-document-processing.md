@@ -1,115 +1,115 @@
 ---
-title: "1.3 文档处理与向量化"
+title: "1.3 Document Processing and Vectorization"
 sidebar_position: 2
-description: "从清洗、切块、重叠、元数据到简单向量化，理解 RAG 前处理链路为什么决定效果上限。"
-keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
+description: "From cleaning, chunking, overlap, and metadata to simple vectorization, understand why the RAG preprocessing pipeline determines the performance ceiling."
+keywords: [chunking, document chunking, vectorization, metadata, RAG preprocessing]
 ---
 
-# 文档处理与向量化
+# Document Processing and Vectorization
 
-![文档解析与向量化流程图](/img/course/document-processing-vectorization.png)
+![Document parsing and vectorization flowchart](/img/course/document-processing-vectorization-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解为什么 RAG 效果很大程度取决于前处理
-- 掌握文档清洗、切块、重叠和元数据的直觉
-- 写出一个简单可运行的切块与检索示例
-- 理解“向量化”到底在做什么
-
----
-
-## 一、为什么 RAG 不是“文档直接塞进去”？
-
-因为真实文档往往很长、很乱、很杂。
-
-例如一份 PDF 可能包含：
-
-- 页眉页脚
-- 目录
-- 空行
-- 标题层级
-- 表格
-- 重复文本
-
-如果你把它原样塞给模型，常见问题包括：
-
-- 上下文太长，塞不下
-- 重点埋在长文里，不容易被检索到
-- 噪声太多，影响检索质量
-
-所以文档处理其实是在做一件事：
-
-> **把资料整理成模型更容易找到、也更容易利用的知识块。**
+- Understand why RAG performance depends heavily on preprocessing
+- Build intuition for document cleaning, chunking, overlap, and metadata
+- Write a simple runnable example of chunking and retrieval
+- Understand what “vectorization” is actually doing
 
 ---
 
-## 二、文档处理常见的 4 步
+## 1. Why not just “drop the document into RAG”?
 
-### 1. 清洗
+Because real documents are often long, messy, and mixed together.
 
-去掉无关噪声，比如：
+For example, a PDF may contain:
 
-- 多余空格
-- 页码
-- 重复标题
+- Headers and footers
+- Table of contents
+- Blank lines
+- Heading hierarchy
+- Tables
+- Repeated text
 
-### 2. 切块（Chunking）
+If you feed it to the model as-is, common problems include:
 
-把长文切成适合检索的小片段。
+- The context is too long and does not fit
+- Important points get buried in long text and are hard to retrieve
+- Too much noise hurts retrieval quality
 
-### 3. 加元数据
+So document processing is really doing one thing:
 
-给每块附加信息，如：
-
-- 来源文件
-- 标题
-- 页码
-- 标签
-
-### 4. 向量化
-
-把文本块变成可做相似度检索的向量。
+> **Organizing materials into knowledge chunks that the model can find more easily and use more effectively.**
 
 ---
 
-## 三、切块为什么这么重要？
+## 2. The 4 common steps in document processing
 
-切块大小很像“做笔记时一张卡片写多少内容”。
+### 1. Cleaning
 
-- 太大：一次装太多，检索不精准
-- 太小：上下文不够，回答容易断裂
+Remove irrelevant noise, such as:
 
-这没有唯一标准，但一定要围绕任务调。
+- Extra spaces
+- Page numbers
+- Repeated headings
 
-类比一下：
+### 2. Chunking
 
-> 做开卷考试笔记时，你不会把整本书粘成一张超大海报，也不会把每个字都剪成一张纸条。
+Split long text into small pieces suitable for retrieval.
 
-![Chunk 大小与 overlap 取舍图](/img/course/ch08-chunk-size-overlap-tradeoff-map.png)
+### 3. Adding metadata
 
-:::tip 读图提示
-这张图要从中间的“证据完整度”看起：chunk 太大会让检索变钝，chunk 太小会切断证据，overlap 的价值是给边界处的信息多留一段缓冲。
+Attach information to each chunk, such as:
+
+- Source file
+- Title
+- Page number
+- Tags
+
+### 4. Vectorization
+
+Turn text chunks into vectors that can be used for similarity retrieval.
+
+---
+
+## 3. Why is chunking so important?
+
+Chunk size is a lot like deciding how much content to write on one flashcard when taking notes.
+
+- Too large: too much content in one piece, retrieval becomes less precise
+- Too small: not enough context, answers become fragmented
+
+There is no single best setting, but you should always tune it for the task.
+
+Think of it like this:
+
+> When making notes for an open-book exam, you would not paste the whole book into one giant poster, and you would not cut every single word into its own slip of paper.
+
+![Chunk size vs. overlap trade-off diagram](/img/course/ch08-chunk-size-overlap-tradeoff-map-en.png)
+
+:::tip Reading hint
+Start by looking at the central idea of “evidence completeness”: chunks that are too large make retrieval blunt, chunks that are too small cut evidence apart, and the value of overlap is to leave some buffer for information near boundaries.
 :::
 
 ---
 
-## 四、一个最小可运行的切块示例
+## 4. A minimal runnable chunking example
 
 ```python
 import re
 
 text = """
-退款政策：
-课程购买后 7 天内，如果学习进度低于 20%，可以申请退款。
-超过 7 天后，不再支持无条件退款。
+Refund policy:
+If your learning progress is below 20% within 7 days after purchase, you can apply for a refund.
+After 7 days, unconditional refunds are no longer supported.
 
-证书说明：
-完成所有必修项目并通过结课测试后，可以获得结业证书。
+Certificate description:
+After completing all required items and passing the final test, you can receive a completion certificate.
 
-学习顺序：
-建议先学习 Python、数据分析、机器学习，再进入深度学习和大模型阶段。
+Learning order:
+It is recommended to study Python, data analysis, and machine learning first, and then move on to deep learning and large models.
 """.strip()
 
 def split_into_sentences(text):
@@ -117,22 +117,22 @@ def split_into_sentences(text):
     return [p.strip() for p in parts if p.strip()]
 
 sentences = split_into_sentences(text)
-print("句子列表:")
+print("Sentence list:")
 for s in sentences:
     print("-", s)
 ```
 
-如果句子已经比较短，你可以直接把句子当 chunk。  
-但更多时候，我们会把几句组合成一个块。
+If the sentences are already fairly short, you can use each sentence directly as a chunk.
+But more often, we combine several sentences into one chunk.
 
 ---
 
-## 五、带重叠的切块
+## 5. Chunking with overlap
 
-为什么很多 RAG 系统会做 chunk overlap？
+Why do many RAG systems use chunk overlap?
 
-因为信息可能刚好卡在块边界上。  
-加一点重叠，可以减少“上下文被切断”的概率。
+Because information may land right on a chunk boundary.
+Adding a little overlap reduces the chance that context gets cut off.
 
 ```python
 def chunk_sentences(sentences, chunk_size=2, overlap=1):
@@ -144,44 +144,44 @@ def chunk_sentences(sentences, chunk_size=2, overlap=1):
         chunks.append(chunk)
         start += chunk_size - overlap
         if chunk_size - overlap <= 0:
-            raise ValueError("chunk_size 必须大于 overlap")
+            raise ValueError("chunk_size must be greater than overlap")
     return chunks
 
 chunks = chunk_sentences(sentences, chunk_size=2, overlap=1)
 
-print("切块结果:")
+print("Chunking result:")
 for i, chunk in enumerate(chunks):
     print(f"[chunk {i}] {chunk}")
 ```
 
 ---
 
-## 六、元数据为什么重要？
+## 6. Why is metadata important?
 
-很多新人只关注文本内容，忽略元数据。  
-但元数据往往直接影响检索和展示体验。
+Many beginners focus only on the text content and ignore metadata.
+But metadata often directly affects retrieval and display quality.
 
-一个 chunk 常见的元数据有：
+Common metadata for a chunk includes:
 
-- `source`: 来自哪个文件
-- `section`: 属于哪一节
-- `page`: 来自哪一页
-- `tags`: 属于什么主题
+- `source`: which file it came from
+- `section`: which section it belongs to
+- `page`: which page it came from
+- `tags`: what topic it belongs to
 
-比如：
+For example:
 
 ```python
 chunks_with_meta = [
     {
-        "text": "课程购买后 7 天内，如果学习进度低于 20%，可以申请退款",
+        "text": "If your learning progress is below 20% within 7 days after purchase, you can apply for a refund",
         "source": "course_policy.pdf",
-        "section": "退款政策",
+        "section": "Refund Policy",
         "page": 3
     },
     {
-        "text": "完成所有必修项目并通过结课测试后，可以获得结业证书",
+        "text": "After completing all required items and passing the final test, you can receive a completion certificate",
         "source": "course_policy.pdf",
-        "section": "证书说明",
+        "section": "Certificate Description",
         "page": 5
     }
 ]
@@ -190,67 +190,67 @@ for item in chunks_with_meta:
     print(item)
 ```
 
-元数据的价值在于：
+The value of metadata is that it:
 
-- 便于过滤
-- 便于引用来源
-- 便于后续 UI 展示
+- Makes filtering easier
+- Makes source citation easier
+- Makes later UI display easier
 
 ---
 
-## 七、如果你的目标是“知识库驱动的课件生成助手”，切块方式要多想一步
+## 7. If your goal is a “knowledge-base-driven courseware generation assistant,” you need to think one step further about chunking
 
-这类项目和普通 FAQ 问答有一个很大的不同：
+This kind of project is very different from a normal FAQ Q&A system:
 
-- 你不是只想“找到相关段落”
-- 你还想把资料重新组织成“知识点 / 例题 / 练习”
+- You do not just want to “find relevant passages”
+- You also want to reorganize the materials into “knowledge points / examples / exercises”
 
-所以第一次做时，切块不要只按长度想，  
-还要按“内容类型”想。
+So when you first design the chunks, do not think only about length.
+Also think about “content type.”
 
-更稳的默认思路通常是：
+A more stable default approach is usually:
 
-| 内容类型 | 更适合怎么切 |
+| Content type | Better chunking strategy |
 |---|---|
-| 概念定义 | 保留完整定义和公式，不要切断 |
-| 例题讲解 | 题目 + 解题过程尽量在同一块 |
-| 练习题 | 一题一块，方便后面单独抽取 |
-| 章节总结 | 保留标题和要点列表 |
+| Concept definition | Keep the full definition and formula intact; do not split it |
+| Example explanation | Keep the problem statement and solution process in the same chunk as much as possible |
+| Exercise | One question per chunk, so it is easy to extract later |
+| Chapter summary | Keep the heading and key bullet points |
 
-这张表很重要，因为它会帮新人意识到：
+This table is important because it helps beginners realize:
 
-> **切块不是固定的文本操作，它其实在服务后面的生成目标。**
+> **Chunking is not just a fixed text operation; it actually serves the downstream generation goal.**
 
-![课件知识块元数据 schema 图](/img/course/ch08-courseware-chunk-metadata-schema-map.png)
+![Courseware knowledge chunk metadata schema diagram](/img/course/ch08-courseware-chunk-metadata-schema-map-en.png)
 
-:::tip 读图提示
-课件生成最怕“找到了文字却不知道该放哪”。看图时重点关注 `topic`、`content_type`、`source_origin`、`page_or_slide` 这几个字段，它们会决定后面能不能按知识点、例题和练习稳定组装。
+:::tip Reading hint
+Courseware generation is most likely to fail when it “finds the text but does not know where to place it.” When looking at the diagram, focus on the `topic`, `content_type`, `source_origin`, and `page_or_slide` fields. They determine whether the system can reliably assemble knowledge points, examples, and exercises later.
 :::
 
-## 八、一个更像课件生成项目的知识块示例
+## 8. A knowledge chunk example that looks more like a courseware project
 
 ```python
 courseware_chunks = [
     {
-        "topic": "折扣应用题",
+        "topic": "Discount word problems",
         "content_type": "concept",
-        "section": "知识点回顾",
+        "section": "Knowledge Review",
         "page": 1,
-        "text": "折扣 = 原价 × 折扣率",
+        "text": "Discount = original price × discount rate",
     },
     {
-        "topic": "折扣应用题",
+        "topic": "Discount word problems",
         "content_type": "example",
-        "section": "例题讲解",
+        "section": "Example Explanation",
         "page": 2,
-        "text": "商品原价 100 元，打 8 折后价格是多少？",
+        "text": "A product has an original price of 100 yuan. What is the price after a 20% discount?",
     },
     {
-        "topic": "折扣应用题",
+        "topic": "Discount word problems",
         "content_type": "exercise",
-        "section": "课堂练习",
+        "section": "Class Exercise",
         "page": 3,
-        "text": "一件衣服原价 80 元，打 7 折后是多少元？",
+        "text": "A piece of clothing costs 80 yuan originally. How much is it after a 30% discount?",
     },
 ]
 
@@ -258,20 +258,20 @@ for item in courseware_chunks:
     print(item["content_type"], "->", item["text"])
 ```
 
-这个例子最值得新人注意的是：
+The most important thing beginners should notice here is:
 
-- 同一个主题下，知识块最好还能再分概念、例题、练习
-- 这样后面生成 Word 课件时，系统就知道什么该放进哪个栏目
+- Under the same topic, knowledge chunks should also be split into concepts, examples, and exercises
+- Then, when generating Word courseware later, the system will know what belongs in which section
 
 ---
 
-## 九、向量化到底在做什么？
+## 9. What is vectorization actually doing?
 
-向量化的核心，是把文本块映射到一个“语义空间”里。
+The core idea of vectorization is to map text chunks into a “semantic space.”
 
-这样查询和文档块都能变成向量，然后比较相似度。
+That way, both queries and document chunks can become vectors, and then we can compare similarity.
 
-为了保证代码直接能跑，我们先用一个极简的词袋向量来模拟这个过程。
+To keep the code runnable, let’s first use a very simple bag-of-words vector to simulate the process.
 
 ```python
 import math
@@ -279,9 +279,9 @@ import re
 from collections import Counter
 
 chunks = [
-    "课程购买后 7 天内，如果学习进度低于 20%，可以申请退款",
-    "完成所有必修项目并通过结课测试后，可以获得结业证书",
-    "建议先学习 Python、数据分析、机器学习，再进入深度学习和大模型阶段"
+    "If your learning progress is below 20% within 7 days after purchase, you can apply for a refund",
+    "After completing all required items and passing the final test, you can receive a completion certificate",
+    "It is recommended to study Python, data analysis, and machine learning first, and then move on to deep learning and large models"
 ]
 
 def tokenize(text):
@@ -306,7 +306,7 @@ def cosine_similarity(a, b):
         return 0.0
     return dot / (norm_a * norm_b)
 
-query = "怎么申请退款"
+query = "How do I apply for a refund?"
 query_vec = vectorize(query)
 
 scores = []
@@ -319,86 +319,86 @@ for score, chunk in scores:
     print(round(score, 4), "->", chunk)
 ```
 
-这就是“检索”的最小原理版。
+This is the most basic version of retrieval.
 
 ---
 
-## 十、真实项目里通常会更复杂
+## 10. Real projects are usually more complex
 
-真实 RAG 系统里，向量化一般会用专门的 embedding 模型，而不是简单词频。
+In real RAG systems, vectorization usually uses a dedicated embedding model instead of simple word frequencies.
 
-但思路是一致的：
+But the idea is the same:
 
-1. 查询转向量
-2. 文档块转向量
-3. 在向量空间里找最相近的块
+1. Convert the query into a vector
+2. Convert document chunks into vectors
+3. Find the most similar chunks in vector space
 
-所以别被“向量数据库”这个词吓到。  
-它本质上还是在做相似度检索，只是规模更大、效率更高。
-
----
-
-## 十一、文档处理最容易出问题的地方
-
-### 1. chunk 太大
-
-召回不精准，浪费上下文。
-
-### 2. chunk 太小
-
-信息不完整，模型看到的片段支离破碎。
-
-### 3. 清洗过头
-
-把标题、层级、表格结构等有价值信息也删掉了。
-
-### 4. 没有元数据
-
-后面很难解释“答案来自哪里”。
-
-### 5. 只按长度切块，不按任务切块
-
-对课件生成项目来说，这会导致：
-
-- 例题和解题过程被拆散
-- 概念和练习混在一起
-- 后面很难稳定组装成固定格式文档
+So do not be intimidated by the term “vector database.”
+At its core, it is still doing similarity retrieval, just at a larger scale and with higher efficiency.
 
 ---
 
-## 文档处理验收表
+## 11. The most common problem areas in document processing
 
-做完文档处理后，不要只看“生成了多少 chunk”，而要检查这些 chunk 是否真的能支撑后续问答。
+### 1. Chunk too large
 
-| 检查项 | 合格表现 | 常见问题 |
+Retrieval becomes less precise and wastes context.
+
+### 2. Chunk too small
+
+The information is incomplete, and the model only sees fragmented pieces.
+
+### 3. Over-cleaning
+
+You also remove valuable information such as headings, hierarchy, and table structure.
+
+### 4. No metadata
+
+Later it becomes hard to explain “where the answer came from.”
+
+### 5. Chunking only by length, not by task
+
+For courseware generation projects, this can cause:
+
+- Example problems and solution steps to be split apart
+- Concepts and exercises to be mixed together
+- Later assembly into a fixed document format to become unstable
+
+---
+
+## Document processing checklist
+
+After finishing document processing, do not just look at “how many chunks were generated.” Check whether these chunks can really support downstream Q&A.
+
+| Check item | What good looks like | Common problem |
 |---|---|---|
-| 文本清洗 | 去掉页眉页脚、重复空白、无意义噪声 | 清洗过头，把标题和表格结构删掉 |
-| chunk 完整性 | 一个 chunk 能表达完整事实或完整步骤 | 关键条件被切到相邻 chunk |
-| chunk 粒度 | 能被准确召回，也不会太碎 | 太大召回不准，太小证据不完整 |
-| 元数据 | 保留 source、section、page、topic、content_type | 答案无法引用来源，无法按主题过滤 |
-| 样例抽查 | 随机抽 10 个 chunk 人工看一遍 | 只看数量，不看质量 |
+| Text cleaning | Removes headers, footers, repeated whitespace, and meaningless noise | Over-cleaning removes headings and table structure |
+| Chunk completeness | One chunk can express a complete fact or a complete step | Key conditions are split into neighboring chunks |
+| Chunk granularity | Can be retrieved accurately without being too fragmented | Too large is imprecise, too small is incomplete |
+| Metadata | Keeps `source`, `section`, `page`, `topic`, `content_type` | Answers cannot cite sources or filter by topic |
+| Sample audit | Randomly inspect 10 chunks by hand | Only count quantity, not quality |
 
-最实用的做法是先做一份“chunk 抽查表”。每次改切块规则后，随机抽几条 chunk，判断它们是否适合被检索、引用和展示。
+The most practical approach is to first make a “chunk audit sheet.” Every time you adjust the chunking rules, randomly sample a few chunks and judge whether they are suitable for retrieval, citation, and display.
 
-## 一个 chunk 质量抽查脚本
+## A chunk quality audit script
 
-下面这个脚本不依赖外部库，只用于帮你建立检查习惯。真实项目里可以把抽查结果写入 CSV 或 Markdown。
+The script below does not depend on external libraries. It is only meant to help you build the habit of checking. In a real project, you can write the audit results to CSV or Markdown.
 
 ```python
 chunks_with_meta = [
     {
         "id": "policy_001_01",
-        "text": "课程购买后 7 天内，如果学习进度低于 20%，可以申请退款",
+        "text": "If your learning progress is below 20% within 7 days after purchase, you can apply for a refund",
         "source": "course_policy.pdf",
-        "section": "退款政策",
+        "section": "Refund Policy",
         "page": 3,
         "content_type": "policy",
     },
     {
         "id": "policy_001_02",
-        "text": "完成所有必修项目并通过结课测试后，可以获得结业证书",
+        "text": "After completing all required items and passing the final test, you can receive a completion certificate",
         "source": "course_policy.pdf",
-        "section": "证书说明",
+        "section": "Certificate Description",
         "page": 5,
         "content_type": "rule",
     },
@@ -419,35 +419,35 @@ for chunk in chunks_with_meta:
     })
 ```
 
-这个脚本不会替你判断语义质量，但能先发现一类基础问题：字段缺失、chunk 过短、chunk 过长、来源不可追踪。
+This script will not judge semantic quality for you, but it can quickly reveal basic issues: missing fields, chunks that are too short, chunks that are too long, and untraceable sources.
 
-## 切块策略对比记录
+## Chunking strategy comparison log
 
-建议每次尝试一种切块策略，都用固定格式记录结果。
+It is a good idea to record the results in a fixed format every time you try a chunking strategy.
 
-| 策略 | 参数 | 优点 | 暴露的问题 | 是否保留 |
+| Strategy | Parameters | Advantages | Problems revealed | Keep or not |
 |---|---|---|---|---|
-| 按句子切 | 1 句 1 块 | 简单，召回精准 | 很多证据不完整 | 只适合短 FAQ |
-| 滑动窗口 | 2～4 句，overlap 1 | 不容易切断上下文 | chunk 数量增加 | 适合作为 baseline |
-| 按标题层级切 | H2/H3 下内容成块 | 保留结构 | 长章节可能过大 | 适合教程和文档 |
-| 按内容类型切 | 概念/例题/练习分开 | 适合生成课件 | 需要解析或标注 | 适合结构化项目 |
+| Sentence-based chunking | 1 sentence per chunk | Simple, precise retrieval | Many pieces of evidence are incomplete | Only suitable for short FAQ |
+| Sliding window | 2–4 sentences, overlap 1 | Less likely to cut context apart | More chunks overall | Good as a baseline |
+| Heading-based chunking | Group content under H2/H3 headings | Preserves structure | Long sections may become too large | Suitable for tutorials and documents |
+| Content-type-based chunking | Separate concepts / examples / exercises | Good for courseware generation | Requires parsing or labeling | Suitable for structured projects |
 
-如果你不知道从哪里开始，建议先用“标题层级 + 滑动窗口”作为 baseline，再根据评估集调整。
+If you do not know where to start, it is recommended to use “heading hierarchy + sliding window” as your baseline, and then adjust based on an evaluation set.
 
-## 小结
+## Summary
 
-这节课最关键的认识是：
+The most important takeaway from this lesson is:
 
-> **RAG 的前处理不是配角，而是效果上限的重要来源。**
+> **RAG preprocessing is not a supporting role; it is a major source of the performance ceiling.**
 
-检索做不好，生成几乎不可能稳定做好。  
-所以文档清洗、切块、元数据、向量化，都是必须认真设计的环节。
+If retrieval is not done well, generation will almost never be stable either.
+So document cleaning, chunking, metadata, and vectorization are all steps that must be designed carefully.
 
 ---
 
-## 练习
+## Exercises
 
-1. 调整 `chunk_size` 和 `overlap`，观察切块结果有什么变化。
-2. 往 `chunks` 里加入一条和退款完全无关的文本，再看检索分数排序。
-3. 思考：如果一个政策条款跨了两段，怎么设计 chunk 才不容易把关键信息切断？
-4. 如果你的目标是生成课件，想一想：概念、例题、练习为什么不适合完全用同一种切块方式？
+1. Adjust `chunk_size` and `overlap`, and observe how the chunking results change.
+2. Add a text item completely unrelated to refunds into `chunks`, then look at the retrieval score ranking again.
+3. Think about this: if a policy clause spans two paragraphs, how should you design the chunks so that important information is not cut apart?
+4. If your goal is courseware generation, think about why concepts, examples, and exercises should not all use exactly the same chunking strategy.

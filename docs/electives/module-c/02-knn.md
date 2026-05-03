@@ -1,100 +1,100 @@
 ---
-title: "1.2 K 近邻"
+title: "1.2 K-Nearest Neighbors"
 sidebar_position: 13
-description: "从“看邻居投票”讲起，理解 KNN 为什么在小数据、低训练成本场景里很有价值，以及它为什么会被特征尺度强烈影响。"
+description: "Start from the idea of 'letting neighbors vote' to understand why KNN is valuable for small-data, low-training-cost scenarios, and why it is strongly affected by feature scale."
 keywords: [KNN, k-nearest neighbors, distance metric, lazy learning, classification]
 ---
 
-# K 近邻
+# K-Nearest Neighbors
 
-![KNN 邻居投票图](/img/course/elective-knn-neighbor-voting.png)
+![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting-en.png)
 
-:::tip 本节定位
-KNN 是特别适合建立直觉的一类算法。  
-它几乎没有复杂训练过程，核心想法非常直接：
+:::tip Section overview
+KNN is a type of algorithm that is especially good for building intuition.
+It has almost no complicated training process, and its core idea is very direct:
 
-> **看一个新样本周围最像它的几个邻居是谁，再根据邻居做判断。**
+> **Look at the few neighbors most similar to a new sample, then make a judgment based on those neighbors.**
 
-也正因为它足够直接，KNN 很适合帮助你理解：
+Because it is so direct, KNN is very useful for helping you understand:
 
-- 距离度量
-- 特征缩放
-- 局部决策
+- distance metrics
+- feature scaling
+- local decision-making
 
-这些经典机器学习里非常重要的概念。
+These are all very important concepts in classic machine learning.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 KNN 的基本工作机制
-- 理解为什么 K 值和距离度量会显著影响结果
-- 理解为什么特征缩放对 KNN 尤其关键
-- 通过可运行示例掌握 KNN 的最小使用方式
+- Understand the basic working mechanism of KNN
+- Understand why the K value and distance metric can significantly affect results
+- Understand why feature scaling is especially important for KNN
+- Master the minimal way to use KNN through a runnable example
 
 ---
 
-## 一、KNN 到底在做什么？
+## 1. What exactly does KNN do?
 
-### 1.1 它几乎不“训练”
+### 1.1 It almost does not “train”
 
-KNN 经常被称为：
+KNN is often called a:
 
 - lazy learner
 
-因为它不像很多模型那样在训练阶段学出一套明确参数。  
-它更像是：
+because unlike many models, it does not learn a set of explicit parameters during training.
+It is more like:
 
-- 把样本先记住
-- 等预测时再去找最近邻居
+- remembering the samples first
+- finding the nearest neighbors when making predictions
 
-### 1.2 为什么它很容易理解？
+### 1.2 Why is it so easy to understand?
 
-因为逻辑真的非常像人类直觉：
+Because the logic is really very similar to human intuition:
 
-- 这个新客户和谁最像？
-- 这张新图片和哪几张旧图片最像？
+- Which people is this new customer most like?
+- Which old pictures is this new image most like?
 
-如果最近的几个样本大多属于某类，  
-新样本也大概率属于那类。
+If most of the nearest samples belong to one class,
+the new sample is also likely to belong to that class.
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-KNN 就像问：
+KNN is like asking:
 
-- “你附近的邻居大多是什么职业？”
+- “What occupations do most of your nearby neighbors have?”
 
-如果周围 5 个最像的人里 4 个都是工程师，  
-你会倾向判断这个人也更像工程师。
-
----
-
-## 二、K 值为什么这么关键？
-
-### 2.1 K 太小
-
-如果 K=1，模型非常敏感：
-
-- 容易被噪声点影响
-
-### 2.2 K 太大
-
-如果 K 很大，  
-模型会变得过于平均：
-
-- 局部差异被抹平
-
-### 2.3 所以 K 本质上在控制什么？
-
-可以先粗略理解成：
-
-- K 小：更看局部细节
-- K 大：更看整体平均
-
-这就是为什么 KNN 虽然简单，但也很依赖调参。
+If 4 out of the 5 most similar people around you are engineers,
+you would tend to judge that this person is also more like an engineer.
 
 ---
 
-## 三、先跑一个真正能体现“邻居投票”的示例
+## 2. Why is the K value so important?
+
+### 2.1 If K is too small
+
+If K=1, the model becomes very sensitive:
+
+- it can be easily affected by noisy points
+
+### 2.2 If K is too large
+
+If K is very large,
+the model becomes too averaged:
+
+- local differences get smoothed out
+
+### 2.3 So what is K really controlling?
+
+You can roughly understand it as:
+
+- small K: focuses more on local details
+- large K: focuses more on the overall average
+
+That is why KNN, although simple, still depends a lot on tuning.
+
+---
+
+## 3. Let’s first run a real example that shows “neighbor voting”
 
 ```python
 import numpy as np
@@ -122,111 +122,111 @@ pred = clf.predict([[3, 3], [8.5, 8.2]])
 print(pred.tolist())
 ```
 
-### 3.1 这段代码最想让你抓住什么？
+### 3.1 What should you focus on in this code?
 
-它抓住了 KNN 的两个最基本点：
+It highlights the two most basic points of KNN:
 
-1. `n_neighbors=3`  
-   就是在说“看 3 个最近邻”
-2. `StandardScaler()`  
-   表示距离度量前先做特征缩放
+1. `n_neighbors=3`
+   means “look at the 3 nearest neighbors”
+2. `StandardScaler()`
+   means feature scaling is applied before distance calculation
 
-### 3.2 为什么 KNN 也要配缩放？
+### 3.2 Why does KNN also need scaling?
 
-因为它的核心就是距离。  
-如果某一维数值范围远大于另一维，这一维会在距离里占主导。
+Because its core is distance.
+If one feature has a much larger numeric range than another, that feature will dominate the distance.
 
-例如：
+For example:
 
-- 年龄是几十
-- 收入是几十万
+- age is in the tens
+- income is in the hundreds of thousands
 
-不缩放时，收入这维会几乎“吞掉”年龄这维。
-
----
-
-## 四、KNN 的优点和代价是什么？
-
-### 4.1 优点
-
-- 思路直观
-- 训练阶段很轻
-- 常作为小数据基线很好用
-
-### 4.2 代价
-
-- 预测阶段可能更慢
-- 数据量大时查询成本高
-- 对特征缩放和距离定义很敏感
-
-### 4.3 一个工程判断
-
-KNN 很适合：
-
-- 样本不大
-- 特征不复杂
-- 想先快速建立可解释基线
-
-不太适合：
-
-- 超大样本量
-- 高实时性推理要求
+Without scaling, the income feature will almost “swallow” the age feature.
 
 ---
 
-## 五、距离度量为什么值得注意？
+## 4. What are the advantages and costs of KNN?
 
-### 5.1 欧氏距离只是最常见的一种
+### 4.1 Advantages
 
-很多时候默认用的是：
+- intuitive idea
+- very light training phase
+- a good baseline for small datasets
+
+### 4.2 Costs
+
+- prediction can be slower
+- query cost is high when the dataset is large
+- very sensitive to feature scaling and the distance definition
+
+### 4.3 An engineering judgment
+
+KNN is a good choice when:
+
+- the sample size is not large
+- the features are not too complex
+- you want to quickly build an interpretable baseline
+
+It is not ideal when:
+
+- the dataset is huge
+- the inference needs to be highly real-time
+
+---
+
+## 5. Why is the distance metric worth paying attention to?
+
+### 5.1 Euclidean distance is only the most common one
+
+In many cases, the default is:
 
 - Euclidean distance
 
-但不同任务可能也会考虑：
+But different tasks may also consider:
 
 - Manhattan distance
 - Cosine distance
 
-### 5.2 为什么距离定义会改变模型行为？
+### 5.2 Why does the distance definition change model behavior?
 
-因为 KNN 的全部判断都建立在：
+Because all KNN decisions are based on:
 
-- “谁更近”
+- “who is closer”
 
-如果“近”的定义变了，邻居集合也会变。
-
----
-
-## 六、KNN 最容易踩的坑
-
-### 6.1 误区一：数据一大还默认上 KNN
-
-预测阶段查邻居会越来越贵。
-
-### 6.2 误区二：忘了缩放
-
-这和 SVM 一样，也是高频坑。
-
-### 6.3 误区三：只调 K，不看特征质量
-
-如果特征本身没有区分度，  
-K 调得再漂亮也很难救。
+If the definition of “close” changes, the neighbor set also changes.
 
 ---
 
-## 小结
+## 6. The most common pitfalls with KNN
 
-这节最重要的，是把 KNN 看成一个“局部投票”模型：
+### 6.1 Mistake 1: Using KNN by default on large data
 
-> **它不靠复杂参数学习，而是靠距离度量和邻居投票来做判断，所以特别适合帮助你建立对距离、特征缩放和局部决策的直觉。**
+Neighbor search becomes increasingly expensive during prediction.
 
-只要这层理解清楚了，KNN 就不再只是入门算法，而会变成你做基线时很有用的一把小工具。
+### 6.2 Mistake 2: Forgetting to scale
+
+This is just like SVM — also a very common pitfall.
+
+### 6.3 Mistake 3: Only tuning K and ignoring feature quality
+
+If the features themselves are not discriminative,
+no matter how well you tune K, it is still hard to save the model.
 
 ---
 
-## 练习
+## Summary
 
-1. 把 `n_neighbors` 改成 `1` 和 `5`，看看预测会不会变化。
-2. 去掉 `StandardScaler()` 再试一次，观察结果差异。
-3. 想一想：为什么说 KNN 的“训练很轻”，但“预测可能不轻”？
-4. 你会在什么样的项目里优先试 KNN 作为基线？
+The most important thing in this section is to view KNN as a “local voting” model:
+
+> **It does not rely on learning complex parameters, but instead makes decisions through distance metrics and neighbor voting, which makes it especially useful for building intuition about distance, feature scaling, and local decision-making.**
+
+Once you understand this layer clearly, KNN is no longer just an introductory algorithm — it becomes a very useful small tool when you need a baseline.
+
+---
+
+## Exercises
+
+1. Change `n_neighbors` to `1` and `5`, and see whether the predictions change.
+2. Remove `StandardScaler()` and try again, then observe the difference in results.
+3. Think about this: why do we say KNN has “light training” but “prediction may not be light”?
+4. In what kinds of projects would you try KNN first as a baseline?

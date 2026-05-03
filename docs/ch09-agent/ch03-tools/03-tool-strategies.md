@@ -1,242 +1,242 @@
 ---
-title: "3.4 工具调用策略"
+title: "3.4 Tool Calling Strategies"
 sidebar_position: 13
-description: "从何时调用、调哪个、调几次、失败后怎么办，系统理解 Agent 工具层的调用策略。"
+description: "Systematically understand Agent tool-layer calling strategies: when to call, which tool to call, how many times to call, and what to do after failures."
 keywords: [tool strategy, Agent, routing, retry, fallback, verification, tool policy]
 ---
 
-# 工具调用策略
+# Tool Calling Strategies
 
-:::tip 本节定位
-上一节你已经知道怎样把工具安全地接到模型后面。  
-这一节要继续往前走一步：
+:::tip Section Overview
+In the previous section, you learned how to safely connect tools behind the model.
+This section takes one more step forward:
 
-> **工具不是接上就行，关键是怎么用。**
+> **It is not enough to connect tools; the key is how to use them.**
 
-真正拉开系统质量差距的，往往不是“有没有工具”，而是“什么时候调、先调哪个、失败后怎么办”。
+What really creates differences in system quality is often not “whether tools exist,” but “when to call them, which one to call first, and what to do after failures.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解工具调用策略为什么是 Agent 成败关键之一
-- 分清“不调用 / 单次调用 / 多步调用 / 回退策略”几种常见模式
-- 学会设计基本的路由、重试和验证逻辑
-- 看懂一个更完整的工具策略示例
-
----
-
-## 一、为什么“有工具”不等于“会用工具”？
-
-### 1.1 一个常见误解
-
-很多人做 Agent 的第一步是：
-
-- 接上搜索工具
-- 接上计算器
-- 接上数据库
-
-然后就觉得系统会变强。
-
-但现实里经常出现：
-
-- 不该调工具时乱调
-- 该调工具时反而不调
-- 调错工具
-- 一件事连着调 5 次还停不下来
-
-所以真正的问题不是：
-
-> 系统有没有工具
-
-而是：
-
-> 系统有没有“使用工具的策略”。 
-
-### 1.2 一个生活类比
-
-你家厨房有刀、锅、烤箱、微波炉，不代表你就会做菜。  
-关键在于：
-
-- 什么时候切
-- 什么时候煮
-- 什么时候烤
-- 哪一步出错了怎么补救
-
-Agent 的工具调用策略也是一样。
+- Understand why tool calling strategy is one of the keys to Agent success or failure
+- Distinguish between common patterns such as "do not call / single call / multi-step call / fallback strategy"
+- Learn how to design basic routing, retry, and verification logic
+- Understand a more complete example of a tool strategy
 
 ---
 
-## 二、先把几种常见策略分清楚
+## 1. Why does "having tools" not mean "knowing how to use tools"?
 
-### 2.1 不调用工具
+### 1.1 A common misunderstanding
 
-适合：
+Many people’s first step in building an Agent is:
 
-- 常识性解释
-- 简单改写
-- 文风转换
+- connect a search tool
+- connect a calculator
+- connect a database
 
-例如：
+Then they assume the system will become stronger.
 
-> “把这段话改得更正式一点”
+But in reality, you often see:
 
-这种任务通常不需要外部工具。
+- tools are called randomly when they should not be
+- tools are not called when they should be
+- the wrong tool is called
+- the system keeps calling tools 5 times in a row and never stops
 
-### 2.2 单次调用
+So the real question is not:
 
-适合：
+> Does the system have tools?
 
-- 查天气
-- 算数学式
-- 查一条知识库记录
+but:
 
-这是最简单也最稳定的调用方式。
+> Does the system have a "tool usage strategy"?
 
-### 2.3 多步调用
+### 1.2 A real-life analogy
 
-适合：
+Having a knife, pot, oven, and microwave in your kitchen does not mean you know how to cook.
+What matters is:
 
-- 先查订单，再查退款规则，再给结论
-- 先搜资料，再总结，再生成输出
+- when to cut
+- when to boil
+- when to bake
+- how to recover when something goes wrong
 
-这时策略不再只是“调用哪个工具”，而是“下一步还要不要继续调”。
-
-### 2.4 回退与兜底
-
-如果：
-
-- 主工具失败
-- 结果不可信
-- 参数校验不过
-
-系统就要决定：
-
-- 重试
-- 换工具
-- 让用户补充信息
-- 直接承认无法完成
-
-这也是工具策略的重要部分。
+Tool calling strategy in an Agent works the same way.
 
 ---
 
-## 三、工具调用前要先判断什么？
+## 2. First, distinguish the common strategies
 
-### 3.1 这件事真的需要工具吗？
+### 2.1 Do not call a tool
 
-并不是所有问题都值得走工具链。  
-每次调用工具都会增加：
+Suitable for:
 
-- 延迟
-- 成本
-- 失败路径
+- common-sense explanations
+- simple rewriting
+- style conversion
 
-所以第一步常常是：
+For example:
 
-> **先判断需不需要调用工具。**
+> "Rewrite this paragraph to sound more formal."
 
-### 3.2 如果需要工具，该选哪个？
+This kind of task usually does not need an external tool.
 
-例如用户问：
+### 2.2 Single call
 
-> “我这个订单还能退款吗？”
+Suitable for:
 
-可能需要：
+- checking the weather
+- calculating a mathematical expression
+- looking up one knowledge base record
 
-1. 查订单状态
-2. 查退款政策
+This is the simplest and most stable calling pattern.
 
-所以工具选择不总是“单选题”，有时是“有顺序的组合题”。
+### 2.3 Multi-step calls
 
-### 3.3 参数是否足够？
+Suitable for:
 
-有些问题即使知道该调哪个工具，也可能参数还不够。
+- first check the order, then check refund rules, then give a conclusion
+- first search for materials, then summarize, then generate output
 
-例如：
+At this point, the strategy is no longer just "which tool to call," but also "should I keep calling the next step?"
 
-> “帮我查天气”
+### 2.4 Fallback and backup
 
-缺城市名。  
-这时最合理的策略不是乱猜，而是：
+If:
 
-> 先向用户追问。 
+- the main tool fails
+- the result is not trustworthy
+- parameter validation does not pass
 
----
+then the system must decide whether to:
 
-## 四、工具调用后还要判断什么？
+- retry
+- switch tools
+- ask the user for more information
+- admit it cannot complete the task
 
-### 4.1 结果是否可信？
-
-工具返回了，不代表就可以直接用。
-
-比如：
-
-- 接口超时后返回空值
-- 搜索结果相关性不高
-- 数据库查不到记录
-
-### 4.2 是否需要继续下一步？
-
-有些任务一次调用拿不到最终答案。
-
-例如：
-
-- 先查知识库
-- 再做计算
-- 再汇总成用户能读懂的话
-
-所以工具策略本质上经常是：
-
-> 调用 -> 观察 -> 再决定下一步
+This is also an important part of tool strategy.
 
 ---
 
-## 五、一个最小但有教学意义的策略示例
+## 3. What should be judged before calling a tool?
 
-下面这个例子会区分三种情况：
+### 3.1 Does this task really need a tool?
 
-- 不调工具
-- 调单个工具
-- 参数不足时先追问
+Not every problem is worth going through a tool chain.
+Every tool call adds:
+
+- latency
+- cost
+- failure paths
+
+So the first step is often:
+
+> **First decide whether a tool is needed.**
+
+### 3.2 If a tool is needed, which one should be chosen?
+
+For example, if the user asks:
+
+> "Can I still get a refund for this order?"
+
+You may need to:
+
+1. check order status
+2. check refund policy
+
+So tool selection is not always a "single-choice question"; sometimes it is a "combination question with an order."
+
+### 3.3 Are the parameters sufficient?
+
+Sometimes you know which tool to call, but the parameters are still incomplete.
+
+For example:
+
+> "Help me check the weather"
+
+The city name is missing.
+In that case, the most reasonable strategy is not to guess randomly, but to:
+
+> ask the user for clarification first.
+
+---
+
+## 4. What should be judged after calling a tool?
+
+### 4.1 Is the result trustworthy?
+
+A tool returned something, but that does not mean it can be used directly.
+
+For example:
+
+- the API timed out and returned an empty value
+- search results are not very relevant
+- the database returned no record
+
+### 4.2 Is another step needed?
+
+Some tasks cannot be solved in one call.
+
+For example:
+
+- first query the knowledge base
+- then do a calculation
+- then summarize it in user-friendly language
+
+So tool strategy is often essentially:
+
+> call -> observe -> decide the next step
+
+---
+
+## 5. A minimal but educational strategy example
+
+The example below distinguishes three cases:
+
+- do not call a tool
+- call a single tool
+- ask the user first when parameters are insufficient
 
 ```python
 def route_query(query):
-    if "总结" in query or "改写" in query:
-        return {"action": "no_tool", "reason": "纯文本任务"}
+    if "summarize" in query or "rewrite" in query:
+        return {"action": "no_tool", "reason": "pure text task"}
 
-    if "天气" in query:
-        if "北京" in query:
-            return {"action": "tool", "tool": "weather", "arguments": {"city": "北京"}}
-        return {"action": "ask_user", "question": "你想查哪个城市的天气？"}
+    if "weather" in query:
+        if "Beijing" in query:
+            return {"action": "tool", "tool": "weather", "arguments": {"city": "Beijing"}}
+        return {"action": "ask_user", "question": "Which city's weather would you like to check?"}
 
-    if "计算" in query:
-        expression = query.replace("计算", "").strip()
+    if "calculate" in query:
+        expression = query.replace("calculate", "").strip()
         return {"action": "tool", "tool": "calculator", "arguments": {"expression": expression}}
 
-    return {"action": "fallback", "reason": "当前没有合适策略"}
+    return {"action": "fallback", "reason": "no suitable strategy available"}
 
 queries = [
-    "把这段话总结一下",
-    "北京天气怎么样",
-    "帮我查天气",
-    "计算 12 * 7"
+    "Summarize this paragraph",
+    "How's the weather in Beijing?",
+    "Help me check the weather",
+    "Calculate 12 * 7"
 ]
 
 for q in queries:
     print(q, "->", route_query(q))
 ```
 
-这个例子虽然简单，但已经体现出“策略”这个层次了：
+Although this example is simple, it already shows the level of "strategy":
 
-- 不是所有输入都交给工具
-- 不是一缺参数就硬猜
-- 不知道怎么办时有 fallback
+- not every input should be sent to a tool
+- do not guess when parameters are missing
+- have a fallback when you do not know what to do
 
 ---
 
-## 六、一个更完整的策略闭环
+## 6. A more complete strategy loop
 
-### 6.1 定义几个工具
+### 6.1 Define a few tools
 
 ```python
 def get_weather(city):
@@ -246,14 +246,14 @@ def calculate(expression):
     return {"result": eval(expression, {"__builtins__": {}})}
 ```
 
-### 6.2 调度 + 校验 + 执行
+### 6.2 Scheduling + validation + execution
 
 ```python
 def execute_strategy(query):
     decision = route_query(query)
 
     if decision["action"] == "no_tool":
-        return {"type": "answer", "content": "这类任务更适合直接由模型生成文本结果。"}
+        return {"type": "answer", "content": "This kind of task is better handled directly by the model generating text."}
 
     if decision["action"] == "ask_user":
         return {"type": "question", "content": decision["question"]}
@@ -266,118 +266,118 @@ def execute_strategy(query):
             result = calculate(**decision["arguments"])
             return {"type": "tool_result", "content": result}
 
-    return {"type": "fallback", "content": "当前无法稳定处理这个请求。"}
+    return {"type": "fallback", "content": "This request cannot be handled reliably right now."}
 
-for q in ["北京天气怎么样", "帮我查天气", "计算 9 + 8"]:
+for q in ["How's the weather in Beijing?", "Help me check the weather", "Calculate 9 + 8"]:
     print(q, "->", execute_strategy(q))
 ```
 
-这段代码真正教的是：
+What this code really teaches is:
 
-> 工具调用策略不是一行 `if`，而是“判断 + 分流 + 执行 + 兜底”的链路设计。
-
----
-
-## 七、真实系统里最常见的几种策略模式
-
-### 7.1 Router 模式
-
-先判断问题属于哪个工具或哪个子系统。
-
-适合：
-
-- 工具很多
-- 任务边界明确
-
-### 7.2 Verify 模式
-
-工具调用后，不马上信结果，而是再做检查。
-
-适合：
-
-- 外部数据不稳定
-- 工具失败率较高
-
-### 7.3 Retry / Fallback 模式
-
-先重试，再降级，再兜底。
-
-适合：
-
-- 外部 API 波动
-- 线上服务不稳定
-
-### 7.4 Plan-then-tool 模式
-
-先规划，再决定工具顺序。
-
-适合：
-
-- 多步任务
-- 多工具依赖
+> Tool calling strategy is not a single `if` statement, but a chain of "decision + routing + execution + fallback."
 
 ---
 
-## 八、什么时候该“少调工具”？
+## 7. Several common strategy patterns in real systems
 
-这其实也是很重要的策略能力。
+### 7.1 Router pattern
 
-### 8.1 少调工具的典型场景
+First determine which tool or subsystem the question belongs to.
 
-- 纯总结
-- 纯改写
-- 风格转换
-- 已有上下文足够
+Suitable for:
 
-### 8.2 为什么少调有时更好？
+- many tools
+- clear task boundaries
 
-因为每增加一次工具调用，就增加一次：
+### 7.2 Verify pattern
 
-- 时延
-- 失败可能
-- 状态管理成本
+After calling a tool, do not trust the result immediately; check it again.
 
-所以一个成熟系统不是“能调就调”，而是：
+Suitable for:
 
-> **该省的时候就省。**
+- unstable external data
+- tools with a high failure rate
 
----
+### 7.3 Retry / Fallback pattern
 
-## 九、初学者最常踩的坑
+Retry first, then degrade, then fall back.
 
-### 9.1 把工具调用策略理解成“路由规则”
+Suitable for:
 
-路由只是其中一部分。  
-真正的策略还包括：
+- fluctuating external APIs
+- unstable online services
 
-- 是否调用
-- 是否追问
-- 是否继续下一步
-- 是否回退
+### 7.4 Plan-then-tool pattern
 
-### 9.2 调用失败后没有下一步
+First make a plan, then decide the order of tool use.
 
-没有重试、没有 fallback、没有补问，这种系统线上会很脆。
+Suitable for:
 
-### 9.3 每次都默认模型自己决定一切
-
-实际工程里，很多策略应该由程序框架明确约束，而不是完全放给模型自由发挥。
+- multi-step tasks
+- tasks with multiple tool dependencies
 
 ---
 
-## 小结
+## 8. When should you "call tools less"?
 
-这一节最重要的不是知道“可以调哪些工具”，而是理解：
+This is also an important strategic ability.
 
-> **工具调用策略决定了 Agent 会不会在正确的时机、以正确的顺序、用正确的方式调用工具。**
+### 8.1 Typical scenarios where fewer tool calls are better
 
-这往往比“多接几个工具”更影响系统质量。
+- pure summarization
+- pure rewriting
+- style conversion
+- enough existing context
+
+### 8.2 Why is calling fewer tools sometimes better?
+
+Because each additional tool call adds:
+
+- latency
+- failure risk
+- state management cost
+
+So a mature system is not one that says "call whenever possible," but one that says:
+
+> **Save calls when saving is the better choice.**
 
 ---
 
-## 练习
+## 9. Common pitfalls for beginners
 
-1. 给本节示例再加一个 `search_docs(keyword)` 工具，并扩展路由逻辑。
-2. 增加一个“如果工具执行报错，则 fallback 到人工确认”的分支。
-3. 想一想：如果用户问“帮我查天气并计算穿衣指数”，策略层应该怎样拆分这件事？
-4. 用自己的话解释：为什么说工具调用策略是 Agent 质量的分水岭之一？
+### 9.1 Treating tool calling strategy as just "routing rules"
+
+Routing is only one part of it.
+A real strategy also includes:
+
+- whether to call
+- whether to ask follow-up questions
+- whether to continue to the next step
+- whether to fall back
+
+### 9.2 No next step after a call fails
+
+No retry, no fallback, no clarification request — such systems are fragile in production.
+
+### 9.3 Always assuming the model should decide everything
+
+In real engineering, many strategies should be explicitly constrained by the program framework, rather than being left entirely to the model.
+
+---
+
+## Summary
+
+The most important idea in this section is not knowing "which tools can be called," but understanding:
+
+> **Tool calling strategy determines whether an Agent calls tools at the right time, in the right order, and in the right way.**
+
+This often affects system quality more than "adding a few more tools."
+
+---
+
+## Exercises
+
+1. Add a `search_docs(keyword)` tool to the example in this section and extend the routing logic.
+2. Add a branch for "if a tool execution error occurs, fall back to human confirmation."
+3. Think about this: if the user asks, "Help me check the weather and calculate a clothing index," how should the strategy layer split this task?
+4. Explain in your own words: why is tool calling strategy one of the dividing lines for Agent quality?

@@ -1,169 +1,170 @@
 ---
-title: "4.3 LSTM 与 GRU"
+title: "4.3 LSTM and GRU"
 sidebar_position: 2
-description: "从 RNN 为什么会忘，到门控机制如何控制信息流，理解 LSTM 和 GRU 在序列建模中的作用。"
-keywords: [LSTM, GRU, 门控机制, cell state, update gate, forget gate]
+description: "From why RNNs forget to how gated mechanisms control information flow, understand the role of LSTM and GRU in sequence modeling."
+keywords: [LSTM, GRU, gated mechanism, cell state, update gate, forget gate]
 ---
 
-# LSTM 与 GRU
+# LSTM and GRU
 
-![LSTM 门控记忆流图](/img/course/lstm-gate-memory-flow.png)
+![LSTM gated memory flow diagram](/img/course/lstm-gate-memory-flow-en.png)
 
-:::tip 本节定位
-上一节你已经看到 RNN 会“边读边记”。  
-这一节要解决一个更现实的问题：
+:::tip Section Overview
+In the previous section, you saw that an RNN can “read while remembering.”
+This section solves a more realistic problem:
 
-> **如果普通 RNN 记不住太久，怎么办？**
+> **What if a plain RNN cannot remember for very long?**
 
-LSTM 和 GRU 就是为了解决这个“会读，但容易忘”的问题。
+LSTM and GRU were designed to solve this “it can read, but it forgets easily” problem.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解普通 RNN 为什么容易忘掉远处信息
-- 直觉理解门控机制在做什么
-- 掌握 LSTM 的 cell state 和三种门
-- 掌握 GRU 的更新门与重置门
-- 看懂 PyTorch 中 `nn.LSTM` 和 `nn.GRU` 的输入输出
-- 理解什么时候更适合用 LSTM，什么时候 GRU 已经够用
+- Understand why a plain RNN easily forgets distant information
+- Build an intuition for what a gated mechanism does
+- Master LSTM cell state and its three gates
+- Master the update gate and reset gate in GRU
+- Understand the input and output of `nn.LSTM` and `nn.GRU` in PyTorch
+- Know when LSTM is a better choice and when GRU is already enough
 
-## 历史背景：为什么后来一定会走到 LSTM？
+## Historical Background: Why Did the Field Eventually Move to LSTM?
 
-这一节最关键的历史节点是：
+The most important historical milestones in this section are:
 
-| 年份 | 节点 | 关键作者 | 它最重要地解决了什么 |
+| Year | Milestone | Key Authors | What It Most Importantly Solved |
 |---|---|---|---|
-| 1994 | Learning Long-Term Dependencies is Difficult | Bengio, Simard, Frasconi | 系统揭示了普通 RNN 在长依赖训练里的梯度消失问题 |
-| 1997 | LSTM | Hochreiter, Schmidhuber | 用门控记忆机制缓解长期依赖和梯度问题 |
+| 1994 | Learning Long-Term Dependencies is Difficult | Bengio, Simard, Frasconi | Systematically revealed the gradient vanishing problem in training plain RNNs on long dependencies |
+| 1997 | LSTM | Hochreiter, Schmidhuber | Used gated memory to ease long-term dependency and gradient problems |
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember first is:
 
-> **LSTM 不是“RNN 再复杂一点”，而是为了解决普通 RNN 很难稳稳记住长距离信息这个核心问题。**
+> **LSTM is not “just a more complicated RNN.” It was designed to solve the core problem that plain RNNs struggle to reliably remember long-range information.**
 
-所以这节课真正的主线不是：
+So the real main thread of this lesson is not:
 
-- 记住几个门的名字
+- memorizing a few gate names
 
-而是：
+but:
 
-- 理解这些门为什么会被发明出来
+- understanding why these gates were invented
 
-### 为什么当年很多人会把 LSTM 看成一次“正面救场”？
+### Why Did Many People at the Time See LSTM as a “Rescue Move”?
 
-因为在那之前，RNN 这条路并不是没人喜欢。  
-恰恰相反，它看起来非常诱人：
+Because before that, RNNs were not unpopular.
+Quite the opposite—they looked very appealing:
 
-- 文本是序列
-- 语音是序列
-- 时间序列还是序列
+- Text is a sequence
+- Speech is a sequence
+- Time series are also sequences
 
-按直觉，RNN 好像天然就该成为这类任务的主力。
+Intuitively, RNNs seemed like the natural choice for these tasks.
 
-但真正训练起来后，大家又不断撞到同一堵墙：
+But once people actually trained them, they kept running into the same wall:
 
-- 早期信息留不住
-- 梯度往回传时越来越弱
-- 序列一长，模型就开始“会读但会忘”
+- Early information could not be preserved
+- Gradients became weaker as they were propagated backward
+- On long sequences, the model could “read but forget”
 
-所以 LSTM 当年让人兴奋的地方，不只是“门控很聪明”，  
-而是它第一次非常明确地在说：
+So what excited people about LSTM was not just that “the gates are clever,”
+but that it clearly said for the first time:
 
-> **不是 RNN 方向错了，而是它需要一种更认真管理记忆的结构。**
+> **The problem is not that the RNN direction is wrong, but that it needs a structure that manages memory more carefully.**
 
-### 为什么“梯度消失”会让很多人对 RNN 主线开始焦虑？
+### Why Did “Gradient Vanishing” Make So Many People Worry About the RNN Path?
 
-因为在纸面上，RNN 看起来几乎什么序列都能处理：
+Because on paper, RNNs looked like they could handle almost any sequence:
 
-- 文本
-- 语音
-- 时间序列
+- Text
+- Speech
+- Time series
 
-但一到真正训练长序列时，大家会发现：
+But once people trained them on long sequences, they discovered:
 
-- 越早的信息越难留下来
-- 梯度一路传回去时会越来越弱
+- Earlier information was much harder to keep
+- Gradients became weaker and weaker as they propagated backward
 
-这就像你一开始以为自己能一路把长故事复述清楚，  
-但讲到后面，最前面的细节已经开始变得模糊。
+It is like thinking at first that you can retell a long story accurately,
+but by the time you reach the end, the details from the beginning have already become blurry.
 
-所以 LSTM 当年真正让人眼前一亮的地方，不是“多了几道门”，  
-而是它像在告诉大家：
+So what really impressed people about LSTM was not simply “it has a few more gates,”
+but that it seemed to say:
 
-> **既然普通 RNN 靠自然传递记不住，那就给记忆本身加管理机制。**
+> **If a plain RNN cannot remember through natural propagation alone, then we should add a management mechanism to memory itself.**
 
-这就是为什么后来很多人会把 LSTM 看成：
+That is why many people later saw LSTM as:
 
-- 不是小修小补
-- 而是一次真正针对长依赖问题的正面回应
-
----
-
-## 一、为什么普通 RNN 不够？
-
-### 1.1 一个经典问题：长距离依赖
-
-看这句话：
-
-> “我小时候在上海住过很多年，所以虽然现在搬走了，但我最熟悉的城市还是上海。”
-
-如果模型在最后读到“上海”时，要知道前面说的是哪座城市，它就必须把很久之前的信息一路记下来。
-
-普通 RNN 理论上可以做到，但实践里经常会遇到：
-
-- 越往后，早期信息越容易被冲淡
-- 训练时梯度容易消失
-- 序列一长，记忆就不稳
-
-### 1.2 一个直觉类比
-
-普通 RNN 很像你在纸条上不断改写一小段摘要：
-
-- 每来一句新话，就把旧摘要改一下
-
-问题是：
-
-- 摘要空间太小
-- 旧信息容易被覆盖
-
-所以后面就出现了一个更聪明的思路：
-
-> **不要只靠一个“会变的摘要”，而要让模型学会“哪些该忘、哪些该留、哪些该输出”。**
-
-这就是门控机制。
+- not a small tweak
+- but a real response to the long-dependency problem
 
 ---
 
-## 二、LSTM 的核心直觉：给记忆加上“门”
+## 1. Why Is a Plain RNN Not Enough?
 
-### 2.1 LSTM 到底多了什么？
+### 1.1 A Classic Problem: Long-Range Dependencies
 
-LSTM 在普通 RNN 基础上，最关键的增强是：
+Look at this sentence:
 
-- 多了一条更稳定的记忆通道：`cell state`
-- 多了几道门，控制信息流
+> “When I was young, I lived in Shanghai for many years, so although I moved away now, the city I know best is still Shanghai.”
 
-可以先把它理解成：
+If the model needs to know which city is being referred to when it reaches “Shanghai” at the end,
+it must keep track of information from a long time ago.
 
-> **普通 RNN 像只有一个小本子，LSTM 则像一套更精细的记忆管理系统。**
+A plain RNN can theoretically do this, but in practice it often faces these issues:
 
-### 2.2 LSTM 的三道门
+- Earlier information becomes diluted over time
+- Gradients tend to vanish during training
+- On long sequences, memory becomes unstable
 
-| 门 | 作用 |
+### 1.2 An Intuitive Analogy
+
+A plain RNN is like repeatedly rewriting a short summary on a piece of paper:
+
+- Every time a new sentence comes in, you revise the old summary
+
+The problem is:
+
+- The summary space is too small
+- Old information is easily overwritten
+
+So a smarter idea appeared later:
+
+> **Instead of relying only on a changing “summary,” let the model learn what should be forgotten, what should be kept, and what should be output.**
+
+That is the gated mechanism.
+
+---
+
+## 2. LSTM’s Core Intuition: Adding “Gates” to Memory
+
+### 2.1 What Does LSTM Add?
+
+Compared with a plain RNN, the key enhancements in LSTM are:
+
+- A more stable memory pathway: `cell state`
+- Several gates that control information flow
+
+You can first understand it as:
+
+> **A plain RNN is like having only a small notebook, while LSTM is like a more refined memory management system.**
+
+### 2.2 The Three Gates in LSTM
+
+| Gate | Function |
 |---|---|
-| Forget Gate | 决定旧记忆保留多少 |
-| Input Gate | 决定新信息写入多少 |
-| Output Gate | 决定当前输出多少给外部 |
+| Forget Gate | Decides how much of the old memory to keep |
+| Input Gate | Decides how much new information to write |
+| Output Gate | Decides how much to expose as output |
 
-这三道门不是人工规则，而是模型自己学出来的。
+These gates are not hand-written rules; they are learned by the model itself.
 
 ---
 
-## 三、先用一个“标量版”LSTM 建立直觉
+## 3. Build Intuition First with a “Scalar LSTM”
 
-### 3.1 为什么先看标量版？
+### 3.1 Why Look at the Scalar Version First?
 
-因为真实 LSTM 一上来全是矩阵和向量，初学者容易看晕。  
-先看缩小版逻辑，会更容易抓住本质。
+Because a real LSTM is full of matrices and vectors at the beginning, which can overwhelm beginners.
+Starting with a smaller version makes it easier to grasp the essence.
 
 ```python
 import numpy as np
@@ -171,25 +172,25 @@ import numpy as np
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
-# 假设这是上一时刻的记忆
+# Assume this is the memory from the previous time step
 c_prev = 0.8
 
-# 当前输入和上一隐藏状态
+# Current input and previous hidden state
 x_t = 1.2
 h_prev = 0.5
 
-# 这里手工设几个门值，真实模型里这些门由网络学出来
-forget_gate = sigmoid(1.0)   # 大约 0.73
-input_gate = sigmoid(0.2)    # 大约 0.55
-output_gate = sigmoid(0.7)   # 大约 0.67
+# We manually set some gate values here; in a real model, the network learns them
+forget_gate = sigmoid(1.0)   # about 0.73
+input_gate = sigmoid(0.2)    # about 0.55
+output_gate = sigmoid(0.7)   # about 0.67
 
-# 新候选信息
+# New candidate information
 c_tilde = np.tanh(0.9)
 
-# 更新 cell state
+# Update cell state
 c_t = forget_gate * c_prev + input_gate * c_tilde
 
-# 更新 hidden state
+# Update hidden state
 h_t = output_gate * np.tanh(c_t)
 
 print("forget_gate =", round(float(forget_gate), 4))
@@ -199,67 +200,65 @@ print("c_t         =", round(float(c_t), 4))
 print("h_t         =", round(float(h_t), 4))
 ```
 
-### 3.2 这段代码到底在教什么？
+### 3.2 What Is This Code Teaching?
 
-它在教你：
+It teaches you that:
 
-- `forget_gate` 决定旧记忆丢多少
-- `input_gate` 决定新信息写多少
-- `output_gate` 决定当前往外暴露多少
+- `forget_gate` decides how much old memory to discard
+- `input_gate` decides how much new information to write
+- `output_gate` decides how much to reveal outward
 
-也就是说，LSTM 真正强的地方不是“更复杂”，而是：
+In other words, what makes LSTM powerful is not that it is “more complicated,” but that:
 
-> **它学会了控制信息流。**
+> **It has learned to control information flow.**
 
-![LSTM 门控信息流控制图](/img/course/ch06-lstm-gates-information-control-map.png)
+![LSTM gated information flow control diagram](/img/course/ch06-lstm-gates-information-control-map-en.png)
 
-:::tip 读图提示
-这张图建议你只先看三件事：Forget Gate 决定旧记忆留多少，Input Gate 决定新信息写多少，Output Gate 决定对外输出多少。LSTM 的重点不是门名，而是它终于开始“管理记忆”。
+:::tip Reading Tip
+When reading this diagram, focus on just three things first: the Forget Gate decides how much old memory to keep, the Input Gate decides how much new information to write, and the Output Gate decides how much to output externally. The key point of LSTM is not the gate names, but that it finally starts “managing memory.”
 :::
 
 ---
 
-## 四、LSTM 的两个状态：`c_t` 和 `h_t`
+## 4. The Two States in LSTM: `c_t` and `h_t`
 
-### 4.1 为什么要有两个状态？
+### 4.1 Why Are There Two States?
 
-LSTM 里通常有：
+An LSTM usually has:
 
-- `c_t`：cell state，更偏长期记忆主通道
-- `h_t`：hidden state，更偏当前时刻对外输出
+- `c_t`: cell state, more like the main long-term memory path
+- `h_t`: hidden state, more like the current output at this time step
 
-### 4.2 一个容易记的比喻
+### 4.2 An Easy-to-Remember Analogy
 
-你可以把它理解成：
+You can think of it as:
 
-- `c_t`：你的长期草稿本
-- `h_t`：你当前对外说出来的话
+- `c_t`: your long-term draft notebook
+- `h_t`: what you currently say out loud
 
-长期草稿本不一定全说出来，但它决定你后面还能记住什么。
+You do not necessarily say everything in the draft notebook, but it determines what you can still remember later.
 
 ---
 
-## 五、GRU：更轻量的门控版本
+## 5. GRU: A Lighter Gated Version
 
-### 5.1 GRU 为什么会出现？
+### 5.1 Why Did GRU Appear?
 
-LSTM 很强，但结构也更复杂。  
-后来人们提出 GRU（Gated Recurrent Unit），想做一个：
+LSTM is powerful, but it is also more complex.
+Later, people proposed GRU (Gated Recurrent Unit) as a version that is:
 
-- 更简单
-- 参数更少
-- 效果又不差太多
+- simpler
+- has fewer parameters
+- performs similarly well in many cases
 
-的版本。
+### 5.2 The Two Core Gates in GRU
 
-### 5.2 GRU 的两个核心门
-
-| 门 | 作用 |
+| Gate | Function |
 |---|---|
-| Update Gate | 决定保留多少旧状态、混入多少新状态 |
-| Reset Gate | 决定计算新状态时忘掉多少旧信息 |
+| Update Gate | Decides how much old state to keep and how much new state to mix in |
+| Reset Gate | Decides how much old information to forget when computing the new state |
 
-### 5.3 一个最小 GRU 直觉示例
+### 5.3 A Minimal GRU Intuition Example
 
 ```python
 import numpy as np
@@ -282,44 +281,44 @@ print("h_candidate =", round(float(h_candidate), 4))
 print("h_t         =", round(float(h_t), 4))
 ```
 
-### 5.4 和 LSTM 的直觉差别
+### 5.4 Intuitive Difference from LSTM
 
-- LSTM：更像精细记忆管理系统
-- GRU：更像压缩版记忆管理系统
+- LSTM: more like a detailed memory management system
+- GRU: more like a compressed memory management system
 
-所以很多时候可以简单记成：
+So it is often convenient to remember it this way:
 
-> **GRU = 更轻一些的 LSTM。**
-
----
-
-## 六、LSTM 和 GRU 怎么选？
-
-### 6.1 一般经验
-
-如果你只是要一个序列模型 baseline：
-
-- 先试 GRU 往往更省事
-
-如果任务对长距离依赖特别敏感：
-
-- LSTM 常常更值得一试
-
-### 6.2 但不要把它们神化
-
-在今天的大模型时代，很多长文本任务已经更多交给 Transformer。  
-但在这些场景里，LSTM / GRU 仍然很常见：
-
-- 较短序列建模
-- 小数据场景
-- 时序任务 baseline
-- 教学与理解序列建模本质
+> **GRU = a lighter version of LSTM.**
 
 ---
 
-## 七、PyTorch 中怎么用 LSTM 和 GRU？
+## 6. How Should You Choose Between LSTM and GRU?
 
-### 7.1 最小可运行示例
+### 6.1 General Rule of Thumb
+
+If you just want a baseline sequence model:
+
+- Trying GRU first is often easier
+
+If the task is especially sensitive to long-range dependencies:
+
+- LSTM is often worth trying
+
+### 6.2 But Do Not Overhype Them
+
+In the age of large models, many long-text tasks are handled more often by Transformers.
+Still, LSTM and GRU remain very common in these scenarios:
+
+- Shorter sequence modeling
+- Small-data settings
+- Time-series baselines
+- Teaching and understanding the essence of sequence modeling
+
+---
+
+## 7. How Do You Use LSTM and GRU in PyTorch?
+
+### 7.1 Minimal Runnable Example
 
 ```python
 import torch
@@ -342,34 +341,34 @@ print("gru_out shape :", gru_out.shape)
 print("gru_h shape   :", gru_h.shape)
 ```
 
-### 7.2 输出分别是什么？
+### 7.2 What Are the Outputs?
 
-对于 LSTM：
+For LSTM:
 
-- `lstm_out`：每个时间步的输出
-- `lstm_h`：最后隐藏状态
-- `lstm_c`：最后 cell state
+- `lstm_out`: output at each time step
+- `lstm_h`: final hidden state
+- `lstm_c`: final cell state
 
-对于 GRU：
+For GRU:
 
-- `gru_out`：每个时间步的输出
-- `gru_h`：最后隐藏状态
+- `gru_out`: output at each time step
+- `gru_h`: final hidden state
 
-这里你也能一眼看到一个区别：
+Here you can also see one difference at a glance:
 
-> **LSTM 比 GRU 多维护了一份 `c` 状态。**
+> **LSTM maintains one extra `c` state compared with GRU.**
 
 ---
 
-## 八、一个小任务：让模型记住序列开头的信息
+## 8. A Small Task: Let the Model Remember Information from the Beginning of a Sequence
 
-下面我们构造一个很小的任务：
+Next, we construct a very small task:
 
-- 输入序列第一个位置可能是 `+1` 或 `-1`
-- 标签就看这个第一个值
-- 中间加很多噪声
+- The first position of the input sequence may be `+1` or `-1`
+- The label depends on this first value
+- Noise is added in the middle
 
-也就是说，模型必须记住“很早之前”的信息。
+In other words, the model must remember information from “far earlier.”
 
 ```python
 import torch
@@ -419,46 +418,46 @@ with torch.no_grad():
     print("final acc =", round(final_acc, 3))
 ```
 
-这个任务很小，但它确实在教你：
+This task is very small, but it does teach you something important:
 
-> 门控循环网络比普通 RNN 更擅长保住早期重要信息。
-
----
-
-## 九、初学者最常踩的坑
-
-### 9.1 把 LSTM / GRU 当成“比 RNN 更深”
-
-不是“更深”，而是“记忆管理更聪明”。
-
-### 9.2 分不清 `out`、`h`、`c`
-
-记住：
-
-- `out`：每一步输出
-- `h`：最后隐藏状态
-- `c`：LSTM 的长期记忆状态
-
-### 9.3 以为用了 LSTM 就天然不会忘
-
-不是。  
-它只是比普通 RNN 更擅长控制忘和记，不代表无限长依赖都能轻松搞定。
+> Gated recurrent networks are better than plain RNNs at preserving important early information.
 
 ---
 
-## 小结
+## 9. Common Pitfalls for Beginners
 
-这一节最关键的不是背门公式，而是理解这件事：
+### 9.1 Thinking of LSTM / GRU as “deeper than RNN”
 
-> **LSTM 和 GRU 的本质，是用门控机制学会“该忘什么、该留什么、当前该输出什么”。**
+It is not “deeper,” but “smarter about memory management.”
 
-它们是对普通 RNN 的一次重要升级，也是你理解后续注意力机制和 Transformer 的很好台阶。
+### 9.2 Confusing `out`, `h`, and `c`
+
+Remember:
+
+- `out`: output at each step
+- `h`: final hidden state
+- `c`: LSTM’s long-term memory state
+
+### 9.3 Thinking LSTM Automatically Never Forgets
+
+Not true.
+It is just better than a plain RNN at controlling what to forget and what to keep; that does not mean it can handle infinitely long dependencies with ease.
 
 ---
 
-## 练习
+## Summary
 
-1. 把 LSTM 标量示例里的门值改掉，看看 `c_t` 和 `h_t` 如何变化。
-2. 把 GRU 分类小任务改成“标签由最后一个值决定”，看模型是否更容易学。
-3. 分别把同一个任务换成 LSTM 和 GRU，比较训练速度和代码复杂度。
-4. 用自己的话解释：为什么说 LSTM / GRU 的关键不是“更复杂”，而是“信息流控制更精细”？
+The key idea in this section is not to memorize gate formulas, but to understand this:
+
+> **The essence of LSTM and GRU is using gated mechanisms to learn “what to forget, what to keep, and what to output now.”**
+
+They are an important upgrade over plain RNNs, and they are also a great stepping stone toward understanding attention mechanisms and Transformers later on.
+
+---
+
+## Exercises
+
+1. Change the gate values in the scalar LSTM example and observe how `c_t` and `h_t` change.
+2. Modify the GRU classification task so that the label depends on the last value, and see whether the model learns more easily.
+3. Replace the same task with LSTM and GRU separately, and compare training speed and code complexity.
+4. Explain in your own words: why is the key idea of LSTM / GRU not “more complexity,” but “more fine-grained control over information flow”?

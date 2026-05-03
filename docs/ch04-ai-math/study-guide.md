@@ -1,59 +1,59 @@
 ---
-title: "学习指南：AI 数学基础怎么学最不容易放弃"
+title: "Study Guide: The Most Sustainable Way to Learn the Math Foundations for AI"
 sidebar_position: 1
-description: "给 AI 全栈新人的数学学习指南：线性代数、概率统计、微积分与优化的学习顺序、项目实验和过关标准。"
-keywords: [AI数学学习指南, 线性代数怎么学, 概率统计怎么学, 微积分怎么学, 梯度下降]
+description: "A math learning guide for AI full-stack beginners: the learning order for linear algebra, probability and statistics, calculus, and optimization, plus project experiments and pass criteria."
+keywords: [AI math learning guide, how to learn linear algebra, how to learn probability and statistics, how to learn calculus, gradient descent]
 ---
 
-# 学习指南：AI 数学基础怎么学最不容易放弃
+# Study Guide: The Most Sustainable Way to Learn the Math Foundations for AI
 
-![AI 数学学习循环图](/img/course/math-study-loop.png)
+![AI math learning loop diagram](/img/course/math-study-loop-en.png)
 
-如果你来到 `03 AI 数学最小必要基础` 后开始担心公式太多，先把目标放低一点：第一遍不是学完整数学体系，而是建立模型直觉。
+If you reach `03 Minimum Essential Math for AI` and start worrying that there are too many formulas, lower your goal a bit first: on the first pass, you are not trying to learn the entire math system, but to build model intuition.
 
-## 本阶段总原则
+## Overall principles for this stage
 
-AI 数学第一遍只抓三件事：线性代数解释数据和参数如何表示，概率统计解释不确定性和评估，微积分解释模型如何通过损失和梯度更新。
+On the first pass through AI math, focus on just three things: linear algebra explains how data and parameters are represented, probability and statistics explain uncertainty and evaluation, and calculus explains how models update through loss and gradients.
 
-![AI 数学学习指南最小闭环](/img/course/ch04-study-guide-math-minimum-loop.png)
+![Minimum closed loop for AI math study guide](/img/course/ch04-study-guide-math-minimum-loop-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先学线性代数。重点理解向量、矩阵、矩阵乘法、线性变换和相似度。后面 Embedding、神经网络和 Attention 都会反复出现这些概念。
+In the first round, study linear algebra first. Focus on understanding vectors, matrices, matrix multiplication, linear transformations, and similarity. These concepts will keep coming up later in Embedding, neural networks, and Attention.
 
-第二轮学概率统计。重点理解概率、分布、期望、方差、条件概率、统计估计和信息熵。它们会出现在分类、评估、生成和检索里。
+In the second round, study probability and statistics. Focus on understanding probability, distributions, expectation, variance, conditional probability, statistical estimation, and entropy. They will appear in classification, evaluation, generation, and retrieval.
 
-第三轮学微积分与优化。重点理解导数、偏导、梯度、链式法则和梯度下降。你不需要一开始推导很复杂的公式，但要知道模型为什么能一步步变好。
+In the third round, study calculus and optimization. Focus on understanding derivatives, partial derivatives, gradients, the chain rule, and gradient descent. You do not need to derive very complicated formulas at the beginning, but you should know why models can keep improving step by step.
 
-## 建议学习节奏
+## Suggested study pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| 线性代数页 | 2～4 小时 | 能把向量、矩阵和数据联系起来 |
-| 概率统计页 | 2～4 小时 | 能理解分类概率和评估指标 |
-| 微积分优化页 | 2～4 小时 | 能解释梯度下降的直觉 |
-| 小实验 | 4～8 小时 | 用代码可视化数学概念 |
+| Linear algebra pages | 2–4 hours | Be able to connect vectors, matrices, and data |
+| Probability and statistics pages | 2–4 hours | Be able to understand classification probabilities and evaluation metrics |
+| Calculus and optimization pages | 2–4 hours | Be able to explain the intuition behind gradient descent |
+| Small experiments | 4–8 hours | Visualize mathematical concepts with code |
 
-## 阶段项目路线
+## Stage project roadmap
 
-第一个小实验用二维向量画相似度，理解点积、距离和相似度。
+The first small experiment is to use 2D vectors to draw similarity and understand dot products, distance, and similarity.
 
-第二个小实验用随机数生成概率分布，观察均值、方差和采样波动。
+The second small experiment is to use random numbers to generate probability distributions and observe mean, variance, and sampling fluctuations.
 
-第三个小实验用一个简单函数演示梯度下降，让一个点不断接近最小值。
+The third small experiment is to use a simple function to demonstrate gradient descent and watch a point gradually move closer to the minimum.
 
-这些项目都不复杂，但能帮你把公式和代码连起来。
+These projects are not complicated, but they help connect formulas with code.
 
-## 常见卡点
+## Common sticking points
 
-最常见的卡点是试图把数学学得“彻底”再进入机器学习。对 AI 学习来说，这通常会拖慢进度。你应该先建立最小直觉，后面遇到具体模型时再回头补。
+The most common sticking point is trying to learn math “thoroughly” before moving into machine learning. For AI learning, this usually slows you down. You should first build the minimum intuition, then come back and fill in the details when you encounter specific models later.
 
-第二个卡点是只看公式不写代码。建议每个核心概念都配一个 NumPy 小实验或图像。
+The second sticking point is only looking at formulas and not writing code. It is recommended that every core concept be paired with a small NumPy experiment or a visualization.
 
-第三个卡点是害怕忘。数学本来就需要反复见面，第一次只要知道它在模型里扮演什么角色。
+The third sticking point is worrying about forgetting. Math naturally requires repeated exposure; on the first pass, you only need to know what role it plays in the model.
 
-## 过关标准
+## Pass criteria
 
-学完本阶段后，你应该能用自己的话解释：为什么数据可以表示成矩阵，为什么模型会输出概率，为什么损失函数可以指导参数更新。
+After finishing this stage, you should be able to explain in your own words: why data can be represented as matrices, why models output probabilities, and why loss functions can guide parameter updates.
 
-如果你能用代码演示一个最小梯度下降过程，并能解释每一步在做什么，就可以进入机器学习阶段。
+If you can demonstrate a minimal gradient descent process with code and explain what each step is doing, you are ready to move on to the machine learning stage.

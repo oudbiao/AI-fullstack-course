@@ -1,142 +1,142 @@
 ---
-title: "2.4 统一 API 接口"
+title: "2.4 Unified API Interface"
 sidebar_position: 10
-description: "从多模型、多 provider 接入痛点出发，理解为什么统一 API 层在 LLM 应用部署中这么重要。"
+description: "Starting from the pain points of integrating multiple models and multiple providers, understand why a unified API layer is so important in LLM application deployment."
 keywords: [unified API, provider abstraction, LLM gateway, model routing, deployment]
 ---
 
-# 统一 API 接口
+# Unified API Interface
 
-:::tip 本节定位
-一旦你的系统不只接一个模型，问题很快就会冒出来：
+:::tip Section Overview
+Once your system is connected to more than one model, problems show up quickly:
 
-- 不同 provider 的参数名不一样
-- 返回结构不一样
-- 错误处理不一样
+- Different providers use different parameter names
+- The return structures are different
+- Error handling is different
 
-这时真正有价值的就不是“再接一个模型”，而是：
+At this point, what really matters is no longer “connect one more model,” but:
 
-> **先把模型调用入口统一起来。**
+> **First unify the model calling entry point.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么多模型系统需要统一 API 层
-- 理解统一 API 接口在工程上到底省了什么
-- 看懂一个最小 provider 抽象示例
-- 明白统一 API 不等于“所有模型都完全一样”
+- Understand why multi-model systems need a unified API layer
+- Understand what the unified API interface actually saves in engineering work
+- Read a minimal provider abstraction example
+- Understand that a unified API does not mean “all models are exactly the same”
 
 ---
 
-## 先建立一张地图
+## First Build a Mental Map
 
-如果你已经学过本地模型运行和推理服务，这一节最自然的续接就是：
+If you have already learned local model execution and inference services, this section is the most natural next step:
 
-- 前面你已经知道模型怎样被加载和服务化
-- 这一节开始回答：一旦系统接多个模型 / 多个 provider，怎样不让上层业务代码变乱
+- Earlier, you already learned how models are loaded and served
+- From here, we answer: once a system connects to multiple models / multiple providers, how do you keep the upper-layer business code from becoming messy?
 
-所以统一 API 这一节真正重要的不是“再包一层接口”，而是：
+So the most important thing in this unified API section is not “wrap another layer of interface,” but:
 
-- 给多模型系统建立一个稳定入口层
+- Build a stable entry layer for multi-model systems
 
-统一 API 这节最适合新人的理解顺序不是“再包一层接口”，而是先看清：
+For beginners, the best way to understand unified API is not “wrap another interface layer,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["多个 provider / 模型"] --> B["参数名和返回结构都不同"]
-    B --> C["业务层代码越来越乱"]
-    C --> D["统一 API 层收拢差异"]
-    D --> E["上层业务只面对稳定接口"]
+    A["Multiple providers / models"] --> B["Different parameter names and return structures"]
+    B --> C["Business-layer code becomes messy"]
+    C --> D["Unified API layer gathers differences"]
+    D --> E["Upper-layer business only sees a stable interface"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么多模型系统一定会自然长出一层抽象
-- 为什么业务代码不该到处知道 provider 差异
+- Why a multi-model system will naturally grow a layer of abstraction
+- Why business code should not need to know provider differences everywhere
 
-### 一个更适合新人的总类比
+### A Better Analogy for Beginners
 
-你可以把统一 API 理解成：
+You can think of a unified API as:
 
-- 给很多不同品牌的插头做一个统一转接头
+- A universal adapter for many different plug types
 
-如果没有这层转接头，  
-上层业务代码就会变成：
+Without this adapter layer,
+the upper-layer business code becomes:
 
-- 这里适配 A 厂商
-- 那里适配 B 厂商
-- 再另一处适配本地模型
+- Adapt provider A here
+- Adapt provider B there
+- Adapt local models somewhere else
 
-最后系统会越来越碎。  
-统一 API 最重要的价值，就是把这些差异收拢在一层里。
+In the end, the system becomes more and more fragmented.
+The most important value of a unified API is to gather these differences into one layer.
 
-## 一、为什么统一 API 会变得重要？
+## 1. Why Does a Unified API Become Important?
 
-### 1.1 当你只有一个模型时，还不明显
+### 1.1 When You Only Have One Model, It Is Not Obvious
 
-如果你的项目里只有一个模型，一个简单 client 往往就够了。
+If your project only has one model, a simple client is often enough.
 
-### 1.2 一旦开始多模型 / 多 provider
+### 1.2 Once You Start Using Multiple Models / Multiple Providers
 
-你就会面对这些问题：
+You will face these problems:
 
-- A 模型叫 `messages`
-- B 模型叫 `prompt`
-- 有的返回 `content`
-- 有的返回 `output_text`
-- 有的 token 统计字段也不同
+- Model A uses `messages`
+- Model B uses `prompt`
+- Some return `content`
+- Some return `output_text`
+- Some have different token statistics fields too
 
-这时业务代码会迅速变得很乱。
+At that point, business code quickly becomes messy.
 
-所以统一 API 的核心价值可以先记成：
+So the core value of a unified API can be remembered like this:
 
-> **把 provider 差异收拢到一层，而不是让业务层到处知道这些差异。**
+> **Gather provider differences into one layer instead of letting business code know them everywhere.**
 
-### 1.3 第一次学统一 API，最该先抓住什么？
+### 1.3 When Learning Unified API for the First Time, What Should You Focus on First?
 
-最该先抓住的不是“抽象得多漂亮”，而是这句：
+What you should focus on first is not “how elegant the abstraction is,” but this sentence:
 
-> **统一 API 的核心价值，是把模型差异隔离掉，让业务层面对稳定接口。**
+> **The core value of a unified API is to isolate model differences, so the business layer faces a stable interface.**
 
-这句话一旦稳住，后面你看：
+Once this idea is stable, when you later see:
 
-- provider 适配
-- 路由
+- provider adaptation
+- routing
 - fallback
-- 统一日志
+- unified logging
 
-都会更自然地知道它们为什么会长在这一层。
+you will understand more naturally why they belong in this layer.
 
 ---
 
-## 二、统一 API 最常见的目标是什么？
+## 2. What Is the Most Common Goal of a Unified API?
 
-通常至少包括：
+Usually it includes at least:
 
-- 统一请求结构
-- 统一响应结构
-- 统一错误处理
-- 统一日志与 trace
+- Unifying request structure
+- Unifying response structure
+- Unifying error handling
+- Unifying logs and trace
 
-### 2.1 一个最小统一请求结构
+### 2.1 A Minimal Unified Request Structure
 
 ```python
 request = {
     "provider": "demo_provider",
     "model": "demo-chat-model",
-    "query": "退款政策是什么？"
+    "query": "What is the refund policy?"
 }
 
 print(request)
 ```
 
-### 2.2 一个最小统一响应结构
+### 2.2 A Minimal Unified Response Structure
 
 ```python
 response = {
     "provider": "demo_provider",
     "model": "demo-chat-model",
-    "answer": "课程购买后 7 天内且学习进度低于 20% 可退款。",
+    "answer": "Courses can be refunded within 7 days of purchase if the learning progress is below 20%.",
     "usage": {
         "prompt_tokens": 24,
         "completion_tokens": 18
@@ -146,30 +146,30 @@ response = {
 print(response)
 ```
 
-这样做的好处是：
+The advantage of doing this is:
 
-- 上层业务逻辑只面对一套稳定结构
+- Upper-layer business logic only needs to face one stable structure
 
-### 2.3 一个很适合初学者先记的统一表
+### 2.3 A Unified Table That Is Very Easy for Beginners to Remember
 
-| 层 | 这一层最该统一什么 |
+| Layer | What should be unified in this layer? |
 |---|---|
-| 请求 | query / model / provider / 参数格式 |
-| 响应 | answer / usage / error |
-| 日志 | trace_id / provider / latency / token |
-| 错误 | error_code / message / retryable |
+| Request | query / model / provider / parameter format |
+| Response | answer / usage / error |
+| Logging | trace_id / provider / latency / token |
+| Errors | error_code / message / retryable |
 
-这个表很适合新人，因为它能把“统一 API”从一个抽象名词重新拉回成几类可见对象。
+This table is great for beginners because it pulls “unified API” back from an abstract term into a few visible object types.
 
-![统一 API Provider Gateway 图](/img/course/ch08-unified-api-provider-gateway-map.png)
+![Unified API Provider Gateway Diagram](/img/course/ch08-unified-api-provider-gateway-map-en.png)
 
-:::tip 读图提示
-统一 API 层像模型网关：上层业务只发统一请求，网关内部再处理 provider 适配、模型路由、fallback、usage 统计和统一错误结构。
+:::tip Reading the Diagram
+The unified API layer is like a model gateway: upper-layer business code only sends unified requests, and the gateway internally handles provider adaptation, model routing, fallback, usage statistics, and a unified error structure.
 :::
 
 ---
 
-## 三、一个最小 provider 抽象示例
+## 3. A Minimal Provider Abstraction Example
 
 ```python
 class ProviderA:
@@ -187,13 +187,13 @@ class ProviderB:
         }
 ```
 
-如果你直接让业务代码分别去调这两个 provider，代码会越来越碎。
+If you let business code call these two providers separately, the code will become more and more fragmented.
 
 ---
 
-## 四、统一适配层到底在做什么？
+## 4. What Does the Unified Adaptation Layer Actually Do?
 
-### 4.1 把不同 provider 翻译成同一种结构
+### 4.1 Translate Different Providers into the Same Structure
 
 ```python
 class UnifiedClient:
@@ -225,30 +225,30 @@ class UnifiedClient:
         return {"error": "unknown_provider"}
 
 client = UnifiedClient()
-print(client.chat("provider_a", "退款政策是什么？", "demo-1"))
-print(client.chat("provider_b", "退款政策是什么？", "demo-2"))
+print(client.chat("provider_a", "What is the refund policy?", "demo-1"))
+print(client.chat("provider_b", "What is the refund policy?", "demo-2"))
 ```
 
-### 4.2 这段代码真正重要的不是语法，而是分层
+### 4.2 What Is Really Important Here Is Not the Syntax, but the Layering
 
-它在告诉你：
+What it tells you is:
 
-- provider 差异应该尽量收拢在统一适配层
-- 上层业务代码最好只看到统一接口
+- Provider differences should be gathered as much as possible into the unified adaptation layer
+- Upper-layer business code should ideally only see the unified interface
 
-这就是“统一 API”最实际的工程价值。
+This is the most practical engineering value of a “unified API.”
 
-### 4.3 为什么这层特别适合承担日志、统计和路由？
+### 4.3 Why Is This Layer Especially Suitable for Logging, Statistics, and Routing?
 
-因为它天然站在“所有请求都会经过”的入口位置。  
-所以像这些能力都很适合长在这里：
+Because it naturally sits at the entry point that **all requests pass through**.
+So capabilities like these are a very good fit here:
 
-- token / 成本统计
-- trace 和日志
-- provider fallback
-- 模型路由
+- Token / cost statistics
+- Trace and logging
+- Provider fallback
+- Model routing
 
-### 4.4 再看一个最小“统一错误结构”示例
+### 4.4 Another Minimal Example of a “Unified Error Structure”
 
 ```python
 def normalize_error(provider, error_type, message):
@@ -266,154 +266,154 @@ def normalize_error(provider, error_type, message):
 print(normalize_error("provider_a", "timeout", "request timed out"))
 ```
 
-这个示例很适合初学者，因为它会帮助你意识到：
+This example is very suitable for beginners because it helps you realize:
 
-- 真正难维护的常常不是成功返回
-- 而是不同 provider 出错时怎么还能对上层保持同一种契约
-
----
-
-## 五、为什么统一 API 不等于“所有模型完全一样”？
-
-这是一个特别容易误解的点。
-
-统一 API 的目标不是假装所有模型没有区别，而是：
-
-> **把共性抽出来，把差异控制在有限边界内。**
-
-例如不同模型仍然可能在这些方面有差异：
-
-- 上下文长度
-- 支持的工具调用能力
-- 多模态能力
-- 输出格式约束能力
-
-所以统一 API 更像：
-
-- 统一入口
-- 不是统一能力
+- The truly hard part is often not successful responses
+- It is how to keep the same contract for the upper layer when different providers fail
 
 ---
 
-## 六、为什么路由（routing）会自然出现在这一层？
+## 5. Why Doesn’t a Unified API Mean “All Models Are Exactly the Same”?
 
-一旦有统一 API 层，接下来很自然就会问：
+This is a point that is very easy to misunderstand.
 
-- 哪类请求该去哪个模型？
-- 便宜模型够不够？
-- 高风险请求要不要走更强模型？
+The goal of a unified API is not to pretend that all models have no differences, but rather:
 
-### 6.1 一个简单路由示例
+> **Extract the common parts and keep the differences within a limited boundary.**
+
+For example, different models may still differ in:
+
+- Context length
+- Tool-calling capabilities
+- Multimodal capabilities
+- Output format constraints
+
+So a unified API is more like:
+
+- A unified entry point
+- Not unified capabilities
+
+---
+
+## 6. Why Does Routing Naturally Appear in This Layer?
+
+Once you have a unified API layer, the next natural question is:
+
+- Which requests should go to which model?
+- Is a cheaper model good enough?
+- Should high-risk requests go to a stronger model?
+
+### 6.1 A Simple Routing Example
 
 ```python
 def route_model(query):
-    if "总结" in query or "改写" in query:
+    if "summary" in query or "rewrite" in query:
         return "provider_a", "cheap-model"
     return "provider_b", "strong-model"
 
-for q in ["帮我总结这段话", "退款政策是什么？"]:
+for q in ["Help me summarize this paragraph", "What is the refund policy?"]:
     print(q, "->", route_model(q))
 ```
 
-统一 API 层很适合承担这种“模型路由入口”角色。
+The unified API layer is very suitable for taking on this role as the “model routing entry point.”
 
 ---
 
-## 七、统一 API 层最常见的工程收益
+## 7. The Most Common Engineering Benefits of a Unified API Layer
 
-### 7.1 更容易切模型
+### 7.1 Easier Model Switching
 
-你不用每个业务模块都改一遍。
+You do not need to modify every business module.
 
-### 7.2 更容易打日志和做成本统计
+### 7.2 Easier Logging and Cost Statistics
 
-因为所有请求都经过同一入口。
+Because all requests go through the same entry point.
 
-### 7.3 更容易做灰度和 fallback
+### 7.3 Easier Canary Releases and Fallback
 
-例如：
+For example:
 
-- 主模型失败后切备用模型
-- 特定请求走便宜模型
+- Switch to a backup model when the primary model fails
+- Route specific requests to a cheaper model
 
-这都是统一入口特别容易发挥价值的地方。
+These are exactly the places where a unified entry point can shine.
 
-### 7.4 一个很适合初学者先记的选择表
+### 7.4 A Selection Table That Beginners Can Remember First
 
-| 系统现象 | 统一 API 层更适合先补什么 |
+| System symptom | What should the unified API layer prioritize first? |
 |---|---|
-| provider 越来越多 | 请求 / 响应统一 |
-| 日志越来越难看懂 | trace 和统一日志 |
-| 成本不好统计 | usage 统一 |
-| 模型切换太痛苦 | 路由和 fallback |
+| More and more providers | Unify request / response |
+| Logs are harder and harder to understand | Trace and unified logging |
+| Costs are hard to calculate | Unify usage |
+| Model switching is too painful | Routing and fallback |
 
-这个表很适合新人，因为它会把“为什么要做统一 API”直接和真实工程痛点对应起来。
+This table is especially good for beginners because it directly connects “why do unified API” with real engineering pain points.
 
-## 新人第一次做多模型系统时，最稳的顺序
+## The Most Stable Order for Beginners Building a Multi-Model System for the First Time
 
-更稳的顺序通常是：
+A safer order is usually:
 
-1. 先把请求结构统一
-2. 再把响应结构统一
-3. 再统一错误和日志
-4. 最后再谈模型路由
+1. First unify the request structure
+2. Then unify the response structure
+3. Then unify errors and logging
+4. Finally discuss model routing
 
-这样接口层会比一开始就做复杂路由更稳定。
+This keeps the interface layer more stable than starting with complex routing right away.
 
-## 九、最常见的误区
+## 9. The Most Common Misunderstandings
 
-### 9.1 以为统一 API 就能抹平所有模型差异
+### 9.1 Thinking Unified API Can Eliminate All Model Differences
 
-不会。  
-差异依然在，只是你把它们组织得更可控了。
+It cannot.
+Differences still exist; you are just organizing them in a more controllable way.
 
-### 9.2 过早设计得太重
+### 9.2 Designing It Too Heavy Too Early
 
-如果项目只有一个 provider，过度抽象反而可能是负担。
+If the project only has one provider, over-abstraction can become a burden instead.
 
-### 9.3 统一了输入输出，却没统一错误结构和日志
+### 9.3 Unifying Input and Output, But Not Error Structure and Logging
 
-这样后面排障还是会痛苦。
-
----
-
-## 小结
-
-这一节最重要的不是写出一个 `UnifiedClient`，而是理解：
-
-> **统一 API 层的核心价值，在于把多 provider 差异收敛到有限边界里，让上层业务面对稳定契约。**
-
-这一步做稳之后，多模型路由、fallback、成本优化这些工程能力才更容易做起来。
-
-## 这节最该带走什么
-
-- 统一 API 是工程分层，不是语法包装
-- 它的价值在于把差异压缩到一层
-- 多模型、多 provider 一旦出现，这层几乎一定会自然出现
-
-## 如果把它做成项目或系统设计，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我写了一个 UnifiedClient”
-
-而是：
-
-1. 统一前和统一后的调用差异
-2. 请求 / 响应 / 错误结构是怎么被收拢的
-3. 路由和 fallback 为什么会自然长在这一层
-4. 这层如何帮助成本统计和日志治理
-
-这样别人会更容易看出：
-
-- 你理解的是统一入口层的系统价值
-- 不只是封装了一个类
+Then debugging will still be painful later.
 
 ---
 
-## 练习
+## Summary
 
-1. 给 `UnifiedClient` 再加一个统一错误结构。
-2. 想一想：为什么说统一 API 是“统一入口”，而不是“统一能力”？
-3. 如果你的系统暂时只接一个模型，为什么不一定要过早做很重的统一抽象？
-4. 用自己的话解释：为什么统一 API 层很适合承接模型路由和 fallback？
+The most important thing in this section is not writing a `UnifiedClient`, but understanding:
+
+> **The core value of a unified API layer is to gather multi-provider differences into a limited boundary, so the upper layer faces a stable contract.**
+
+Once this step is solid, engineering capabilities like multi-model routing, fallback, and cost optimization become much easier to build.
+
+## What You Should Take Away From This Section
+
+- Unified API is engineering layering, not syntax wrapping
+- Its value is to compress differences into one layer
+- Once multiple models and multiple providers appear, this layer will almost certainly emerge naturally
+
+## If You Turn This Into a Project or System Design, What Is Most Worth Showing?
+
+What is most worth showing is usually not:
+
+- “I wrote a UnifiedClient”
+
+But rather:
+
+1. The difference in calls before and after unification
+2. How request / response / error structures are gathered together
+3. Why routing and fallback naturally belong in this layer
+4. How this layer helps with cost statistics and logging governance
+
+That way, others can more easily see:
+
+- You understand the system value of a unified entry layer
+- Not just that you wrapped a class
+
+---
+
+## Exercises
+
+1. Add a unified error structure to `UnifiedClient`.
+2. Think about it: why is a unified API called a “unified entry point,” rather than “unified capability”?
+3. If your system currently only connects to one model, why might it not be necessary to design a heavy abstraction too early?
+4. Explain in your own words: why is the unified API layer a good place for model routing and fallback?

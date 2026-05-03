@@ -14,16 +14,66 @@ chapter_dirs = [
 ]
 
 required_index_sections = [
-    '## 阶段交付物',
-    '## 阶段通关标准',
+    ('## Stage deliverables', '## Stage Deliverables', '## 阶段交付物'),
+    (
+        '## Stage completion criteria',
+        '## Stage Completion Criteria',
+        '## Stage completion standards',
+        '## Stage Completion Standards',
+        '## 阶段通关标准',
+    ),
 ]
 
 required_task_sections = [
-    '## 本阶段必须完成的任务',
-    '## 推荐学习顺序',
-    '## 阶段作品集交付物',
-    '## 阶段通关问题',
+    (
+        '## Tasks you must complete in this stage',
+        '## Tasks that must be completed in this stage',
+        '## Required tasks for this stage',
+        '## Required tasks for this phase',
+        '## Required Tasks for This Phase',
+        '## 本阶段必须完成的任务',
+    ),
+    (
+        '## Recommended learning order',
+        '## Recommended Learning Order',
+        '## 推荐学习顺序',
+    ),
+    (
+        '## Stage portfolio deliverables',
+        '## Portfolio deliverables for this stage',
+        '## Phase portfolio deliverables',
+        '## Phase Portfolio Deliverables',
+        '## 阶段作品集交付物',
+    ),
+    (
+        '## Stage completion questions',
+        '## Stage passing questions',
+        '## Stage checkpoint questions',
+        '## Stage pass questions',
+        '## Phase completion questions',
+        '## Phase Completion Questions',
+        '## 阶段通关问题',
+    ),
 ]
+
+required_project_sections = [
+    (
+        '## Project Deliverable Standards',
+        '## Project deliverable standards',
+        '## Project Delivery Standards',
+        '## Project Delivery Standard',
+        '## 项目交付物标准',
+    ),
+]
+
+
+def has_any_section(text, section_options):
+    lower_text = text.lower()
+    return any(section.lower() in lower_text for section in section_options)
+
+
+def section_label(section_options):
+    return ' / '.join(section_options)
 
 for chapter in sorted(chapter_dirs):
     index_path = os.path.join(docs, chapter, 'index.md')
@@ -34,16 +84,16 @@ for chapter in sorted(chapter_dirs):
     else:
         text = open(index_path, encoding='utf-8').read()
         for section in required_index_sections:
-            if section not in text:
-                errors.append(f'{chapter}/index.md missing section: {section}')
+            if not has_any_section(text, section):
+                errors.append(f'{chapter}/index.md missing section: {section_label(section)}')
 
     if not os.path.exists(task_path):
         errors.append(f'{chapter}/task-list.md missing')
     else:
         text = open(task_path, encoding='utf-8').read()
         for section in required_task_sections:
-            if section not in text:
-                errors.append(f'{chapter}/task-list.md missing section: {section}')
+            if not has_any_section(text, section):
+                errors.append(f'{chapter}/task-list.md missing section: {section_label(section)}')
 
 project_roadmaps = []
 for dirpath, _, files in os.walk(docs):
@@ -52,8 +102,9 @@ for dirpath, _, files in os.walk(docs):
 
 for path in project_roadmaps:
     text = open(path, encoding='utf-8').read()
-    if '## 项目交付物标准' not in text:
-        errors.append(f'{os.path.relpath(path, docs)} missing section: ## 项目交付物标准')
+    for section in required_project_sections:
+        if not has_any_section(text, section):
+            errors.append(f'{os.path.relpath(path, docs)} missing section: {section_label(section)}')
 
 if errors:
     print('FAIL course structure: found missing required structure')

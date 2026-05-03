@@ -1,113 +1,113 @@
 ---
-title: "6.3 LoRA 与 QLoRA"
+title: "6.3 LoRA and QLoRA"
 sidebar_position: 20
-description: "从低秩增量到量化微调，理解 LoRA 和 QLoRA 到底在改什么、为什么它们能把大模型微调门槛大幅拉低。"
+description: "From low-rank increments to quantized fine-tuning, understand what LoRA and QLoRA actually change and why they can greatly lower the barrier to fine-tuning large models."
 keywords: [LoRA, QLoRA, low-rank adaptation, quantization, PEFT, finetuning]
 ---
 
-# LoRA 与 QLoRA
+# LoRA and QLoRA
 
-![LoRA 参数更新对比图](/img/course/lora-parameter-update.png)
+![LoRA parameter update comparison](/img/course/lora-parameter-update-en.png)
 
-:::tip 本节定位
-上一节已经把“为什么不是所有任务都该全量微调”讲清楚了。  
-这一节继续回答一个非常关键的问题：
+:::tip Section Overview
+In the previous section, we already explained why not every task should use full fine-tuning.
+This section continues by answering a very important question:
 
-> **如果不想重训整个模型，那到底该怎样低成本改它？**
+> **If you don’t want to retrain the entire model, how can you modify it at low cost?**
 
-LoRA 和 QLoRA 正是最重要的两条现实答案。
+LoRA and QLoRA are two of the most important real-world answers.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 LoRA 的低秩增量直觉
-- 理解 QLoRA 在 LoRA 基础上又多做了什么
-- 看懂一个最小矩阵增量示意
-- 建立何时考虑 LoRA、何时考虑 QLoRA 的实用判断
+- Understand the intuition behind LoRA’s low-rank increment
+- Understand what QLoRA adds on top of LoRA
+- Read a minimal matrix increment illustration
+- Build a practical sense of when to consider LoRA and when to consider QLoRA
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-LoRA / QLoRA 这节最适合新人的理解顺序不是“先记缩写”，而是先看清：
+For beginners, the best way to understand LoRA / QLoRA is not to memorize the acronym first, but to first clarify:
 
 ```mermaid
 flowchart LR
-    A["不想全量改模型"] --> B["LoRA：只学小增量"]
-    B --> C["基础模型还是很大"]
-    C --> D["QLoRA：再把基础模型量化"]
+    A["Don't want to fully modify the model"] --> B["LoRA: learn only a small increment"]
+    B --> C["The base model is still very large"]
+    C --> D["QLoRA: quantize the base model as well"]
 ```
 
-这节真正想解决的是：
+What this section really wants to answer is:
 
-- LoRA 到底在省什么
-- QLoRA 又是在 LoRA 基础上多解决了什么
+- What exactly is LoRA saving?
+- What additional problem does QLoRA solve on top of LoRA?
 
-### 一个更适合新人的总类比
+### A Better Analogy for Beginners
 
-你可以把 LoRA / QLoRA 理解成：
+You can think of LoRA / QLoRA like this:
 
-- 不重做整台机器，只换一个小但关键的模块
+- Instead of rebuilding the whole machine, replace only a small but critical module
 
-全量微调更像：
+Full fine-tuning is more like:
 
-- 把整台机器全部拆开重调
+- Taking the whole machine apart and retuning everything
 
-LoRA 更像：
+LoRA is more like:
 
-- 只加一个可训练的小改装件
+- Adding one small, trainable modification component
 
-QLoRA 则是在此基础上再进一步：
+QLoRA goes one step further:
 
-- 先把原机器做得更省空间，再装这个改装件
+- First make the original machine more memory-efficient, then attach that modification component
 
-## 一、为什么 LoRA 会变得这么重要？
+## 1. Why Has LoRA Become So Important?
 
-因为全量微调在大模型上往往太贵：
+Because full fine-tuning is often too expensive for large models:
 
-- 参数太多
-- 显存太高
-- 训练和保存成本都高
+- Too many parameters
+- Too much VRAM
+- High training and storage cost
 
-于是人们自然会问：
+So people naturally ask:
 
-> **能不能不改整个模型，只改一小部分真正有用的东西？**
+> **Can we avoid changing the entire model and only modify a small part of what really matters?**
 
-LoRA 就是在回答这个问题。
+LoRA is the answer to that question.
 
 ---
 
-## 二、LoRA 最核心的直觉是什么？
+## 2. What Is the Core Intuition Behind LoRA?
 
-### 2.1 不直接改整个权重矩阵
+### 2.1 Don’t Directly Change the Entire Weight Matrix
 
-假设原来的权重矩阵是：
+Suppose the original weight matrix is:
 
 > `W`
 
-LoRA 的思路是：
+The LoRA idea is:
 
-> 不直接训练 `W`，而是学习一个增量 `ΔW`
+> Don’t train `W` directly; instead, learn an increment `ΔW`
 
-然后实际使用：
+Then the model actually uses:
 
 > `W + ΔW`
 
-### 2.2 为什么叫“低秩”？
+### 2.2 Why Is It Called “Low-Rank”?
 
-因为这个增量不是直接学一个完整大矩阵，而通常写成：
+Because this increment is usually not learned as one full large matrix. Instead, it is often written as:
 
 > `ΔW = A @ B`
 
-其中：
+where:
 
-- `A` 和 `B` 比原矩阵小很多
+- `A` and `B` are much smaller than the original matrix
 
-这就是“低秩”的核心来源。
+This is the core reason it is called “low-rank.”
 
 ---
 
-## 三、一个最小 LoRA 矩阵示意
+## 3. A Minimal LoRA Matrix Illustration
 
 ```python
 import torch
@@ -124,82 +124,82 @@ print("delta shape :", delta.shape)
 print("W_new shape :", W_new.shape)
 ```
 
-### 3.2 这段代码在教什么？
+### 3.2 What Does This Code Teach?
 
-它在教你：
+It teaches you that:
 
-- LoRA 不重训整个权重
-- 而是训练一个更小的增量结构
+- LoRA does not retrain the entire weight matrix
+- Instead, it trains a smaller increment structure
 
-这就是它能省资源的根本原因。
+That is the fundamental reason it saves resources.
 
-![LoRA 与 QLoRA 低秩增量和显存节省图](/img/course/ch07-lora-qlora-low-rank-memory-map.png)
+![LoRA and QLoRA low-rank increment and memory-saving diagram](/img/course/ch07-lora-qlora-low-rank-memory-map-en.png)
 
-:::tip 读图提示
-读这张图时把原始权重 `W` 看成冻结的大底座，LoRA 只训练小矩阵 `A` 和 `B` 形成 `ΔW = A @ B`，QLoRA 再把基础模型量化以减少显存。核心不是缩写，而是“少改参数、少占显存”。
+:::tip Reading Tip
+When reading this diagram, think of the original weight `W` as a frozen large base. LoRA trains only the small matrices `A` and `B` to form `ΔW = A @ B`, while QLoRA further quantizes the base model to reduce VRAM usage. The key idea is not the acronym, but “fewer parameters changed, less VRAM used.”
 :::
 
-### 3.3 一个很适合初学者先记的对比表
+### 3.3 A Beginner-Friendly Comparison Table
 
-| 路线 | 最值得先记住的核心动作 |
+| Approach | Core action to remember |
 |---|---|
-| 全量微调 | 直接改原模型所有参数 |
-| LoRA | 学一个小增量矩阵 |
-| QLoRA | 学小增量 + 把基础模型量化 |
+| Full fine-tuning | Directly update all parameters of the original model |
+| LoRA | Learn a small increment matrix |
+| QLoRA | Learn a small increment + quantize the base model |
 
-这个表很适合新人，因为它会把三个容易混掉的路线重新压缩成一句最关键的话。
-
----
-
-## 四、为什么这能显著降低训练成本？
-
-因为原始大矩阵如果全量训练，代价很高。  
-而低秩分解后的可训练部分小很多。
-
-所以 LoRA 的核心工程价值可以先记成：
-
-> **用更少的训练参数，换取足够好的任务适配能力。**
-
-这也是它为什么在实际项目中这么受欢迎。
+This table is especially useful for beginners because it compresses three easily confused approaches into one key sentence each.
 
 ---
 
-## 五、QLoRA 又多解决了什么问题？
+## 4. Why Can This Greatly Reduce Training Cost?
 
-### 5.1 仅有 LoRA，为什么有时还不够？
+Because training the original large matrix in full is expensive.
+After low-rank decomposition, the trainable part becomes much smaller.
 
-即使只训练小增量参数，基础模型本体本身还是很大。  
-模型一加载进来，显存压力依然很高。
+So the core engineering value of LoRA can be remembered as:
 
-### 5.2 QLoRA 的关键点
+> **Use fewer trainable parameters to achieve sufficiently good task adaptation.**
 
-它在 LoRA 的基础上又做了一步：
+That is also why it is so popular in real projects.
 
-> **把基础模型量化到更低精度。**
+---
 
-也就是说：
+## 5. What Additional Problem Does QLoRA Solve?
 
-- 基础模型更省内存
-- 增量适配层仍然可训练
+### 5.1 Why Isn’t LoRA Alone Always Enough?
 
-### 5.3 一个最小直觉示意
+Even if you only train the small increment parameters, the base model itself is still large.
+Once the model is loaded, VRAM pressure is still high.
+
+### 5.2 The Key Point of QLoRA
+
+QLoRA adds one more step on top of LoRA:
+
+> **Quantize the base model to a lower precision.**
+
+In other words:
+
+- The base model uses less memory
+- The adapter layers are still trainable
+
+### 5.3 A Minimal Intuition Example
 
 ```python
 config = {
     "base_model_precision": "4bit",
     "trainable_part": "LoRA adapters",
-    "goal": "在更低显存下做微调"
+    "goal": "Fine-tune with lower VRAM usage"
 }
 
 print(config)
 ```
 
-这个示意最重要的意思是：
+The most important meaning of this example is:
 
-- LoRA：主要省训练参数
-- QLoRA：在此基础上进一步省基础模型占用
+- LoRA: mainly saves training parameters
+- QLoRA: further reduces the memory used by the base model
 
-### 5.4 再看一个最小“资源约束 -> 方案选择”示例
+### 5.4 Another Minimal “Resource Constraint -> Solution Choice” Example
 
 ```python
 constraints = {
@@ -211,120 +211,120 @@ constraints = {
 
 def choose_peft_route(c):
     if not c["task_boundary_clear"]:
-        return "先别急着微调，先把任务边界定清楚。"
+        return "Don’t rush into fine-tuning yet; clarify the task boundary first."
     if c["gpu_memory_gb"] <= 12 and c["want_larger_model"]:
-        return "优先考虑 QLoRA。"
-    return "可以先从 LoRA 开始。"
+        return "Prioritize QLoRA."
+    return "You can start with LoRA."
 
 
 print(choose_peft_route(constraints))
 ```
 
-这个示例很适合初学者，因为它会提醒你：
+This example is especially useful for beginners because it reminds you to:
 
-- 先看约束
-- 再看方法
-
----
-
-## 六、LoRA 和 QLoRA 分别更适合什么时候？
-
-### 6.1 LoRA 更适合
-
-- 资源还可以
-- 不一定要把显存压到极限
-- 想先快速做参数高效微调
-
-### 6.2 QLoRA 更适合
-
-- 显存很紧
-- 想在更小机器上跑更大模型
-
-也就是说：
-
-> QLoRA 更像“资源受限场景下的现实工程方案”。 
-
-### 6.3 第一次做项目时，怎么选更稳？
-
-一个够实用的判断顺序是：
-
-1. 如果资源还可以，先从 LoRA 开始
-2. 如果显存已经明显吃紧，再优先考虑 QLoRA
-3. 如果你还没想清任务边界，先别急着进微调细节
-
-### 6.4 如果把它做成项目或方案，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我用了 LoRA/QLoRA”
-
-而是：
-
-1. 你为什么没有选全量微调
-2. 你的资源约束是什么
-3. LoRA 或 QLoRA 分别解决了什么
-4. 这条路线在当前任务里为什么最现实
-
-这样别人会更容易看出：
-
-- 你理解的是微调方案选择
-- 不只是知道几个缩写
+- Look at constraints first
+- Then choose the method
 
 ---
 
-## 七、为什么说它们改变了微调门槛？
+## 6. When Is LoRA or QLoRA More Appropriate?
 
-在 LoRA / QLoRA 普及前，很多人一提大模型微调会直接想到：
+### 6.1 LoRA Is Better When
 
-- 只有大团队能做
-- 机器要求极高
+- Resources are still acceptable
+- You do not necessarily need to push VRAM usage to the limit
+- You want to quickly try parameter-efficient fine-tuning
 
-而它们的重要意义正在于：
+### 6.2 QLoRA Is Better When
 
-> **把原本门槛很高的事情，拉到了更多团队和开发者可尝试的范围。**
+- VRAM is very tight
+- You want to run a larger model on a smaller machine
 
-这不是小优化，而是工程可达性的变化。
+In other words:
 
----
+> QLoRA is more like a practical engineering solution for resource-constrained scenarios.
 
-## 八、最常见的误区
+### 6.3 If You Are Doing a Project for the First Time, How Should You Choose More Safely?
 
-### 8.1 以为 LoRA / QLoRA 是“无代价增强”
+A practical decision order is:
 
-它们很强，但并不是完全无代价。
+1. If resources are still okay, start with LoRA
+2. If VRAM is already clearly tight, prioritize QLoRA
+3. If you still have not clarified the task boundary, don’t rush into fine-tuning details
 
-### 8.2 以为上了 QLoRA 就不需要考虑资源了
+### 6.4 If You Turn This Into a Project or Proposal, What Is Most Worth Showing?
 
-只是更轻，不是无限轻。
+What is usually most worth showing is not:
 
-### 8.3 只记方法名，不理解到底在改什么
+- “I used LoRA/QLoRA”
 
-真正要记住的是：
+But rather:
 
-- LoRA：学增量
-- QLoRA：学增量 + 基础模型量化
+1. Why you did not choose full fine-tuning
+2. What your resource constraints were
+3. What LoRA or QLoRA solved
+4. Why this route is the most realistic for the current task
 
-## 九、核心提醒
+That way, others can more easily see that:
 
-- LoRA 的核心是“少改参数”
-- QLoRA 的核心是“少改参数 + 更省基础模型内存”
-- 这两者重要，不是因为名字新，而是因为它们让微调在现实里更可做
-
----
-
-## 小结
-
-这一节最重要的不是背缩写，而是理解：
-
-> **LoRA 用更少参数去做任务适配，QLoRA 则在此基础上进一步把大模型微调的资源门槛压低。**
-
-它们之所以重要，不只是因为“方法新”，而是因为它们真的改变了大模型微调的现实可行性。
+- You understand fine-tuning strategy selection
+- You are not just familiar with a few acronyms
 
 ---
 
-## 练习
+## 7. Why Do They Lower the Fine-Tuning Barrier?
 
-1. 用自己的话解释：为什么 LoRA 不是“重训整个矩阵”？
-2. 为什么说 QLoRA 的关键新增点在于基础模型量化？
-3. 如果你显存有限但又想试更大模型，为什么 QLoRA 往往更值得优先考虑？
-4. 用自己的话总结：LoRA 和全量微调最本质的差别是什么？
+Before LoRA / QLoRA became widely used, many people thought of large-model fine-tuning as something that only:
+
+- Large teams could do
+- Required extremely powerful hardware
+
+Their important impact is:
+
+> **They brought something with a very high barrier down to a range that more teams and developers can realistically try.**
+
+This is not a small optimization, but a change in engineering accessibility.
+
+---
+
+## 8. The Most Common Misunderstandings
+
+### 8.1 Thinking LoRA / QLoRA Are “Free Improvements”
+
+They are powerful, but they are not completely free.
+
+### 8.2 Thinking QLoRA Means You No Longer Need to Care About Resources
+
+It is lighter, but not infinitely light.
+
+### 8.3 Memorizing the Method Name Without Understanding What Is Actually Being Changed
+
+What you really need to remember is:
+
+- LoRA: learn increments
+- QLoRA: learn increments + quantize the base model
+
+## 9. Key Reminder
+
+- The core of LoRA is “change fewer parameters”
+- The core of QLoRA is “change fewer parameters + use less base model memory”
+- These methods matter not because the names are new, but because they make fine-tuning more practical in real-world settings
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing the acronyms, but understanding:
+
+> **LoRA uses fewer parameters for task adaptation, while QLoRA further lowers the resource barrier for fine-tuning large models.**
+
+They matter not just because they are “new methods,” but because they truly changed the practical feasibility of large-model fine-tuning.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why is LoRA not “retraining the entire matrix”?
+2. Why is the key new addition in QLoRA the quantization of the base model?
+3. If you have limited VRAM but still want to try a larger model, why is QLoRA often worth prioritizing?
+4. Summarize in your own words: what is the most fundamental difference between LoRA and full fine-tuning?

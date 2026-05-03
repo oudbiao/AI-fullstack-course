@@ -1,202 +1,202 @@
 ---
-title: "为什么要学命令行"
+title: "Why Learn the Command Line"
 sidebar_position: 1
-description: "理解命令行在 AI 开发中的重要性"
+description: "Understand the importance of the command line in AI development"
 ---
 
-# 为什么要学命令行
+# Why Learn the Command Line
 
-![命令行自动化工作流图](/img/course/ch01-cli-automation-workflow.png)
+![Command-line automation workflow diagram](/img/course/ch01-cli-automation-workflow-en.png)
 
-## 本节定位
+## What This Section Is About
 
-这一节先不要求你背命令，而是帮你理解命令行在 AI 开发工作流里的位置。学完后，你应该知道为什么开发者需要终端、哪些 AI 开发任务离不开命令行，以及如何克服对“黑底白字”的陌生感。
+This section is not asking you to memorize commands yet. Instead, it helps you understand where the command line sits in an AI development workflow. By the end, you should know why developers need a terminal, which AI development tasks cannot be done without the command line, and how to overcome your unfamiliarity with a “black screen with white text.”
 
-## 学习目标
+## Learning Objectives
 
-- 理解命令行和图形界面的本质区别
-- 了解 AI 开发中哪些操作必须用命令行
-- 克服对"黑底白字"的恐惧感
+- Understand the essential differences between the command line and graphical interfaces
+- Learn which operations in AI development must use the command line
+- Overcome the fear of “black screen with white text”
 
 ---
 
-## 零、先建立一张地图
+## 0. First, Build a Map
 
-命令行这一节最适合新人的理解顺序不是“先背命令”，而是先看清它在开发工作流里的位置：
+For beginners, the best way to understand this command-line section is not to “memorize commands” first, but to first see clearly where it fits in the development workflow:
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么开发者最终都会回到命令行
-- 为什么它不是“另一个界面”，而是一种更适合开发的操作方式
+- Why developers eventually return to the command line
+- Why it is not “just another interface,” but a way of working that is better suited for development
 
-## 先看一个场景
+## Look at a Scenario First
 
-假设你刚训练完一个 AI 模型，需要做以下操作：
+Suppose you just finished training an AI model and need to do the following:
 
-1. 把训练好的模型文件从服务器下载到本地
-2. 在 3 个不同的测试数据集上评估模型效果
-3. 把结果整理成表格
-4. 推送代码到 GitHub
+1. Download the trained model file from the server to your local machine
+2. Evaluate the model on 3 different test datasets
+3. Organize the results into a table
+4. Push the code to GitHub
 
-如果用图形界面，你需要：打开文件管理器 → 找到文件 → 拖拽下载 → 打开 3 个 Jupyter Notebook → 手动运行 → 手动复制结果 → 打开 GitHub Desktop → 点击提交……
+If you use a graphical interface, you need to: open the file manager → find the file → drag to download → open 3 Jupyter Notebooks → run them manually → copy the results manually → open GitHub Desktop → click commit...
 
-如果用命令行，你可以这样做：
+If you use the command line, you can do this:
 
 ```bash
-# 从服务器下载模型
+# Download the model from the server
 scp server:/models/best_model.pt ./models/
 
-# 在 3 个数据集上评估（一条命令搞定）
+# Evaluate on 3 datasets (done with one command)
 for dataset in test_a test_b test_c; do
     python evaluate.py --model models/best_model.pt --data data/$dataset
 done
 
-# 推送到 GitHub
-git add . && git commit -m "添加模型评估结果" && git push
+# Push to GitHub
+git add . && git commit -m "Add model evaluation results" && git push
 ```
 
-6 行命令，30 秒搞定。而且下次再做同样的事，直接复制这 6 行就行。
+6 lines of commands, done in 30 seconds. And next time you do the same thing, you can just copy these 6 lines.
 
-这就是命令行的核心优势：**高效、可重复、可自动化**。
+This is the core advantage of the command line: **efficient, repeatable, and automatable**.
 
-### 这段例子最值得先看什么？
+### What Is Most Worth Noticing in This Example?
 
-第一次看命令行，不必先纠结每条命令具体参数。  
-更值得先抓住的是：
+When you first see the command line, you do not need to worry about the exact parameters of every command right away.
+What is more important is to notice:
 
-1. 命令行很适合把一串操作串起来
-2. 串起来以后就更容易重复执行
-3. 这和后面脚本化、自动化是同一条主线
+1. The command line is great for chaining a sequence of operations together
+2. Once chained together, the operations are easier to repeat
+3. This is the same main thread as scripting and automation later on
 
 ---
 
-## 命令行 vs 图形界面
+## Command Line vs Graphical Interface
 
-| 对比维度 | 图形界面（GUI） | 命令行（CLI） |
+| Comparison Dimension | Graphical Interface (GUI) | Command Line (CLI) |
 |---------|---------------|-------------|
-| **上手难度** | 简单直观，看到什么点什么 | 需要记命令，初期有学习成本 |
-| **操作效率** | 单个操作方便，批量操作痛苦 | 单个操作稍慢，批量操作极快 |
-| **可重复性** | 每次都要手动操作 | 写好命令可以反复使用 |
-| **自动化** | 几乎不可能自动化 | 天然支持脚本和自动化 |
-| **远程操作** | 需要远程桌面（慢、卡） | SSH 连接，流畅无比 |
-| **精确控制** | 被界面设计限制 | 想做什么做什么 |
+| **Ease of Getting Started** | Simple and intuitive; click what you see | You need to remember commands; there is an initial learning curve |
+| **Operational Efficiency** | Convenient for single actions, painful for batch actions | Slightly slower for single actions, extremely fast for batch actions |
+| **Repeatability** | You have to do it manually every time | Once written, commands can be reused repeatedly |
+| **Automation** | Almost impossible to automate | Naturally supports scripts and automation |
+| **Remote Operation** | Requires remote desktop (slow and laggy) | SSH connection, smooth and efficient |
+| **Precise Control** | Limited by interface design | You can do exactly what you want |
 
-一句话总结：**图形界面是给用户用的，命令行是给开发者用的。**
+In one sentence: **Graphical interfaces are for users; command lines are for developers.**
 
-你现在要从"用户"变成"开发者"，命令行是第一课。
+You are now moving from being a “user” to being a “developer,” and the command line is the first lesson.
 
 ---
 
-## AI 开发中，哪些事必须用命令行？
+## In AI Development, What Must Be Done with the Command Line?
 
-你可能觉得"我用鼠标点点也行吧"。在 AI 开发中，很多操作只有命令行能做，或者用命令行做效率高一个数量级：
+You might think, “Can’t I just click around with a mouse?” In AI development, many tasks can only be done with the command line, or can be done an order of magnitude more efficiently with it:
 
-### 1. 管理 Python 环境
+### 1. Manage Python Environments
 
 ```bash
-# 创建一个专门用于深度学习的环境
+# Create an environment dedicated to deep learning
 conda create -n dl python=3.11
 
-# 激活环境
+# Activate the environment
 conda activate dl
 
-# 安装 PyTorch
+# Install PyTorch
 pip install torch torchvision
 ```
 
-这些操作没有图形界面可以替代。
+There is no graphical interface that can replace these operations.
 
-### 2. 使用 Git 管理代码
+### 2. Use Git to Manage Code
 
 ```bash
 git add .
-git commit -m "修复了数据加载的 bug"
+git commit -m "Fix the data loading bug"
 git push origin main
 ```
 
-所有团队协作都基于 Git 命令行（或其图形封装，但底层是命令行）。
+All team collaboration is based on the Git command line (or graphical wrappers around it, but the underlying layer is still the command line).
 
-### 3. 在云服务器上训练模型
+### 3. Train Models on Cloud Servers
 
-训练大模型通常不在你的电脑上，而是在云服务器（如 AutoDL、AWS）上。连接方式：
+Training large models usually does not happen on your own computer, but on cloud servers (such as AutoDL or AWS). The connection method is:
 
 ```bash
-# 通过 SSH 连接到云服务器
+# Connect to the cloud server via SSH
 ssh root@123.456.789.0
 
-# 在服务器上启动训练
+# Start training on the server
 python train.py --epochs 100 --batch_size 32
 ```
 
-云服务器通常**没有图形界面**，你唯一的操作方式就是命令行。
+Cloud servers usually **do not have a graphical interface**. Your only way to operate them is through the command line.
 
-### 4. 安装各种工具和库
+### 4. Install Various Tools and Libraries
 
 ```bash
 pip install transformers langchain chromadb
 ```
 
-### 5. 运行脚本和项目
+### 5. Run Scripts and Projects
 
 ```bash
-# 启动一个 FastAPI 服务
+# Start a FastAPI service
 uvicorn main:app --reload
 
-# 运行测试
+# Run tests
 pytest tests/
 
-# 构建 Docker 镜像
+# Build a Docker image
 docker build -t my-ai-app .
 ```
 
-### 一个更适合新人的理解方式
+### A More Beginner-Friendly Way to Think About It
 
-你可以先把命令行理解成：
+You can first understand the command line as:
 
-- 开发者和系统之间的直接对话层
+- A direct communication layer between developers and the system
 
-图形界面更像：
+Graphical interfaces are more like:
 
-- 帮你把常见操作做成按钮
+- Turning common operations into buttons for you
 
-而命令行则是：
+The command line, on the other hand, is:
 
-- 让你自己把这些操作精确组织起来
+- Letting you organize these operations precisely yourself
 
-这也是为什么越往后学：
+That is also why, the further you go in your learning:
 
-- 环境
-- 训练
-- 部署
-- 自动化
+- Environment setup
+- Training
+- Deployment
+- Automation
 
-越离不开命令行。
+the less you can do without the command line.
 
 ---
 
-## "我怕命令行"——如何克服？
+## “I’m Afraid of the Command Line” — How Can You Overcome It?
 
-如果你从来没用过命令行，看到那个黑色窗口可能会紧张。这完全正常。几点建议：
+If you have never used the command line before, seeing that black window may make you nervous. That is completely normal. Here are a few suggestions:
 
-**1. 它不会炸掉你的电脑**
+**1. It won’t blow up your computer**
 
-命令行里的大部分命令都是安全的（查看文件、创建文件夹、切换目录）。少数危险命令（比如 `rm -rf /`）你现在根本不会碰到。
+Most commands in the command line are safe (viewing files, creating folders, switching directories). A few dangerous commands (like `rm -rf /`) are not something you will run into now.
 
-**2. 记不住命令很正常**
+**2. Forgetting commands is normal**
 
-没有人记得住所有命令。90% 的时间你只会用 10 个左右的核心命令（下一节会教你）。其他的用到了再查就行。
+No one remembers all the commands. 90% of the time, you will only use about 10 core commands (which we will teach in the next section). For the rest, just look them up when you need them.
 
-**3. Tab 键是你的好朋友**
+**3. The Tab key is your friend**
 
-在命令行里输入文件名或命令的前几个字母，按 `Tab` 键，它会自动帮你补全。这个功能能帮你省掉一半的打字量。
+In the command line, if you type the first few letters of a file name or command and press `Tab`, it will automatically complete it for you. This feature can save you half your typing.
 
-**4. 上下箭头可以翻历史**
+**4. The Up Arrow lets you browse history**
 
-按 `↑` 键可以调出上一条执行过的命令，不需要重新打字。
+Press `↑` to bring back the last command you ran, so you do not need to type it again.
 
-### 5. 第一次上手时，先只学最常用的 8~10 个命令
+### 5. When You First Start, Learn Only the 8–10 Most Common Commands
 
-更稳的节奏通常是：
+A more stable learning pace is usually:
 
 1. `pwd`
 2. `ls`
@@ -209,45 +209,45 @@ docker build -t my-ai-app .
 9. `git`
 10. `pip` / `conda`
 
-只要这批命令会了，你后面很多课程就已经能顺利跟上。
+As long as you know these commands, you will already be able to keep up smoothly with many later lessons.
 
-### 一个很适合新人的练习方式
+### A Practice Method That Is Great for Beginners
 
-第一次练命令行时，不要只盯着命令本身背。  
-更稳的做法是每天练 3 类动作：
+When practicing the command line for the first time, do not just stare at the commands and memorize them.
+A more stable approach is to practice 3 kinds of actions every day:
 
-1. 进目录、看文件、切目录
-2. 创建、复制、移动和删除文件
-3. 运行一个 Python 脚本或 Git 命令
+1. Enter a directory, view files, and change directories
+2. Create, copy, move, and delete files
+3. Run a Python script or a Git command
 
-只要你把“命令和动作”建立起对应关系，  
-命令行就不会再只是黑底白字。
+As long as you build the connection between “commands” and “actions,”
+the command line will no longer just be black screen with white text.
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key Point | Explanation |
 |------|------|
-| 命令行是 AI 开发的基础工具 | 环境管理、Git、服务器操作都离不开 |
-| 核心优势是效率和自动化 | 批量操作、可重复、可脚本化 |
-| 初期有学习成本 | 但只需要掌握 ~10 个核心命令 |
-| 不需要背命令 | 用多了自然就记住了，忘了就查 |
+| The command line is a basic tool for AI development | Environment management, Git, and server operations all depend on it |
+| Its core advantages are efficiency and automation | Batch operations, repeatability, and scripting |
+| There is an initial learning cost | But you only need to master about 10 core commands |
+| You do not need to memorize commands | Use them often and you will naturally remember them; if you forget, look them up |
 
-## 这节最该带走什么
+## What You Should Take Away from This Section
 
-- 命令行不是为了显得专业，而是为了更高效地组织开发动作
-- 它最大的优势不是“酷”，而是“可重复、可自动化、可远程”
-- 只要把最常用的几个命令练熟，后面很多开发体验都会一下顺起来
+- The command line is not about looking professional; it is about organizing development tasks more efficiently
+- Its biggest advantages are not “coolness,” but being “repeatable, automatable, and remote-ready”
+- As long as you practice a few commonly used commands well, many development experiences later on will suddenly feel much smoother
 
-## 如果继续往上做，这节最值得补什么
+## If You Continue, What Is Most Worth Adding Next?
 
-更值得继续补的通常是：
+The most useful next additions are usually:
 
-1. 一个“10 个最常用命令”随手表
-2. 一个“第一次 SSH 上服务器”练习
-3. 一个“命令行 + Git + Python 脚本”三步小项目
+1. A quick-reference sheet for the “10 most commonly used commands”
+2. A practice exercise for “SSH into a server for the first time”
+3. A mini project combining “command line + Git + Python scripts”
 
-:::tip 心态调整
-把命令行想象成一个只听文字指令的助手。图形界面是你用手指指指点点告诉它干什么，命令行是你用文字精确地告诉它干什么。文字比手指更精确、更快、更容易复制。
+:::tip Mindset Shift
+Think of the command line as an assistant that only understands text instructions. A graphical interface is like pointing and clicking with your fingers to tell it what to do. Text is more precise than fingers, faster, and easier to copy.
 :::

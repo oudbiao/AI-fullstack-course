@@ -1,128 +1,128 @@
 ---
-title: "4.2 语义分割"
+title: "4.2 Semantic Segmentation"
 sidebar_position: 11
-description: "从“整图一个标签”走到“每个像素一个标签”，理解语义分割为什么是更细粒度的视觉理解任务。"
+description: "Move from “one label for the whole image” to “one label for each pixel,” and understand why semantic segmentation is a more fine-grained visual understanding task."
 keywords: [semantic segmentation, pixel classification, mask, IoU, vision]
 ---
 
-# 语义分割
+# Semantic Segmentation
 
-![语义分割 Mask 对比图](/img/course/semantic-segmentation-mask.png)
+![Semantic Segmentation Mask Comparison](/img/course/semantic-segmentation-mask-en.png)
 
-:::tip 本节定位
-分类回答的是：
+:::tip Section Focus
+Classification answers:
 
-- 这张图是什么
+- What is in this image?
 
-检测回答的是：
+Detection answers:
 
-- 图里有什么、它在哪
+- What objects are there, and where are they?
 
-语义分割再进一步回答：
+Semantic segmentation goes one step further and answers:
 
-> **图里的每个像素属于什么类别。**
+> **What category does each pixel in the image belong to?**
 
-这让视觉理解进入更细粒度层面。
+This pushes visual understanding to a more fine-grained level.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解语义分割和分类/检测的区别
-- 理解分割 mask 为什么更细粒度
-- 通过可运行示例理解像素级标签和 IoU
-- 建立语义分割的基本任务直觉
+- Understand the difference between semantic segmentation and classification/detection
+- Understand why segmentation masks are more fine-grained
+- Use a runnable example to understand pixel-level labels and IoU
+- Build a basic intuition for the semantic segmentation task
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-如果你刚学完分类和检测，可以先把这节理解成：
+If you have just finished learning classification and detection, you can think of this section as:
 
-- 分类只给整图一个答案
-- 检测给每个目标一个框
-- 分割开始给每个像素一个类别
+- Classification gives one answer for the whole image
+- Detection gives one box for each object
+- Segmentation starts giving a category to each pixel
 
-所以这一节真正新增的核心是：
+So the real new core ideas in this section are:
 
-- 输出粒度变得最细
-- 评估也更细
-- 模型是否“看懂边界”开始非常重要
+- The output granularity becomes the finest
+- Evaluation also becomes more fine-grained
+- Whether the model “understands boundaries” becomes very important
 
-语义分割最适合新人的理解顺序是：
+The most beginner-friendly order for understanding semantic segmentation is:
 
 ```mermaid
 flowchart LR
-    A["整图分类"] --> B["只给整张图一个标签"]
-    A2["目标检测"] --> B2["给目标一个框"]
-    A3["语义分割"] --> B3["给每个像素一个标签"]
+    A["Image Classification"] --> B["Give one label for the whole image"]
+    A2["Object Detection"] --> B2["Give each object a box"]
+    A3["Semantic Segmentation"] --> B3["Give each pixel a label"]
 ```
 
-这节最重要的不是先记网络名，而是先知道：
+The most important thing in this section is not to memorize network names first, but to understand:
 
-- 分割为什么比检测更细
-- mask 为什么是核心表示
+- Why segmentation is more fine-grained than detection
+- Why the mask is the key representation
 
-### 一个更适合新人的总类比
+### A Better Overall Analogy for Beginners
 
-如果把分类、检测、分割放在一起看，可以这样理解：
+If we compare classification, detection, and segmentation together, it can be understood like this:
 
-- 分类像在回答：“这张照片主要拍了什么？”
-- 检测像在回答：“画面里有哪些对象，它们大概在哪？”
-- 分割像在回答：“把整张图像拿来涂色，每个像素都要决定属于谁。”
+- Classification is like answering: “What is this photo mainly about?”
+- Detection is like answering: “What objects are in the image, and roughly where are they?”
+- Segmentation is like answering: “If we color the whole image, every pixel must decide who it belongs to.”
 
-这样一来，分割为什么更难就会一下子清楚很多：
+This makes it much easier to see why segmentation is harder:
 
-- 它不是只给一个答案
-- 也不是只画几个框
-- 它要对整张图的每一块区域都负责
+- It does not give just one answer
+- It does not just draw a few boxes
+- It is responsible for every region in the entire image
 
-## 一、语义分割到底在做什么？
+## 1. What Exactly Does Semantic Segmentation Do?
 
-它的目标是：
+Its goal is:
 
-- 给图像中每个像素分一个类别
+- Assign a class to every pixel in an image
 
-例如：
+For example:
 
-- 天空
-- 路面
-- 人
-- 车
+- sky
+- road
+- person
+- car
 
-### 1.1 第一次学这节最该先记什么？
+### 1.1 What Should You Remember First When Learning This Section?
 
-最值得先记住的是：
+The most important thing to remember first is:
 
-1. 分类只给整图标签
-2. 检测给框
-3. 分割给区域
+1. Classification gives a whole-image label
+2. Detection gives boxes
+3. Segmentation gives regions
 
-而且这个“区域”不是粗略提示，而是每个像素都有类别归属。
+And this “region” is not just a rough hint — every pixel belongs to a class.
 
-### 为什么它比检测更细？
+### Why Is It More Fine-Grained Than Detection?
 
-因为检测只给框，  
-分割会更精确地给出区域边界。
+Because detection only gives boxes,
+while segmentation gives the region boundaries much more precisely.
 
-### 1.2 为什么这节最值得先抓住“像素级”这件事？
+### 1.2 Why Is the “Pixel-Level” Idea the Most Important Part to Grasp First?
 
-因为从这一节开始，视觉任务不再只是：
+Because starting from this section, vision tasks are no longer just about:
 
-- 找对象
-- 给框
+- finding objects
+- drawing boxes
 
-而是开始回答：
+They start answering:
 
-- 这一片区域到底属于什么
-- 这个边界到底画得准不准
+- What does this region actually belong to?
+- Is this boundary drawn accurately?
 
-所以语义分割可以先简单理解成：
+So you can think of semantic segmentation simply as:
 
-> **把整张图变成一张“每个像素都有语义标签”的地图。**
+> **Turning the whole image into a “map where every pixel has a semantic label.”**
 
 ---
 
-## 二、先跑一个最小分割 mask 示例
+## 2. First, Run a Minimal Segmentation Mask Example
 
 ```python
 pred_mask = [
@@ -153,56 +153,56 @@ def iou_for_class(pred, gt, target_class):
 print("IoU for class 1:", round(iou_for_class(pred_mask, gt_mask, 1), 4))
 ```
 
-### 2.1 这个例子最关键的直觉是什么？
+### 2.1 What Is the Most Important Intuition in This Example?
 
-分割评估不是看“整图对不对”，  
-而是看：
+Segmentation evaluation is not about whether the whole image is correct,
+but about:
 
-- 区域重叠得好不好
+- how well the regions overlap
 
-### 2.1.1 为什么分割里的 IoU 会比分类指标更有存在感？
+### 2.1.1 Why Does IoU Matter So Much in Segmentation?
 
-因为在分割任务里：
+Because in segmentation tasks:
 
-- 预测类别对了还不够
-- 区域要大致重合才算真的分对
+- Getting the class right is not enough
+- The regions must overlap reasonably well to count as truly correct
 
-这也是为什么你会经常看到：
+That is why you often see:
 
 - per-class IoU
 - mIoU
 
-而不是只看一个总体准确率。
+instead of only a single overall accuracy value.
 
-这就是为什么 IoU 在分割里也非常重要。
+This is why IoU is also very important in segmentation.
 
-### 2.2 新人第一次学分割，最该先记哪三件事？
+### 2.2 When a Beginner Learns Segmentation for the First Time, What Three Things Should They Remember Most?
 
-1. mask 是像素级标签图
-2. 分割评估比分类更关注区域重叠
-3. 小类别和边界区域往往最难
+1. A mask is a pixel-level label map
+2. Segmentation evaluation cares more about region overlap than classification does
+3. Small classes and boundary regions are often the hardest
 
-### 2.3 为什么分割项目里特别容易出现“看起来差不多，但指标差很多”？
+### 2.3 Why Do Segmentation Projects So Often Have the Problem of “Looks Almost the Same, But the Metrics Are Very Different”?
 
-因为只要边界区域错一点，或者小类别漏一片，  
-IoU 就可能掉得很明显。
+Because as long as the boundary region is slightly wrong, or a small class is missed,
+the IoU can drop very noticeably.
 
-这也是为什么分割任务特别适合训练新人建立一个意识：
+This is also why segmentation tasks are especially good for helping beginners build this awareness:
 
-> **视觉结果不是“看着像就行”，区域边界本身就是结果的一部分。**
+> **In visual results, “looks similar” is not enough; the region boundary itself is part of the result.**
 
-### 2.4 第一次学分割时，最容易低估什么？
+### 2.4 What Is Most Likely to Be Underestimated When Learning Segmentation for the First Time?
 
-最容易低估的是：
+The most commonly underestimated parts are:
 
-- 边界
-- 小类别
-- 类别不平衡
+- boundaries
+- small classes
+- class imbalance
 
-因为这些地方常常在可视化里只占一点点，  
-但对 IoU 和真实效果影响会很大。
+Because these areas often take up only a tiny portion in visualizations,
+but they can have a huge impact on IoU and real-world performance.
 
-### 2.5 再看一个最小“类别不平衡”示例
+### 2.5 Look at Another Minimal “Class Imbalance” Example
 
 ```python
 mask = [
@@ -224,106 +224,106 @@ def class_counts(mask):
 print(class_counts(mask))
 ```
 
-这个例子虽然很小，但能一下子帮新人看懂一个现实问题：
+Although this example is very small, it can help beginners immediately understand a real-world issue:
 
-- 背景像素经常特别多
-- 真正重要的小类别却只占很少一部分
+- Background pixels are often in the majority
+- The truly important small classes may take up only a tiny part
 
-所以分割项目里，如果你只盯总体像素准确率，很容易被“背景全都判对了”这件事误导。
+So in segmentation projects, if you only focus on overall pixel accuracy, it is easy to be misled by the fact that “the background was all predicted correctly.”
 
-![语义分割 Mask、IoU 与边界误差图](/img/course/ch10-semantic-segmentation-iou-boundary-map.png)
+![Semantic Segmentation Mask, IoU, and Boundary Error Diagram](/img/course/ch10-semantic-segmentation-iou-boundary-map-en.png)
 
-:::tip 读图提示
-分割不是“看起来涂上颜色就行”。这张图把原图、GT mask、预测 mask、IoU 和边界误差放在一起，帮助你看懂为什么小类别和边缘区域会影响 mIoU。
+:::tip Reading Tip
+Segmentation is not just “painting colors on top and calling it done.” This image places the original image, GT mask, predicted mask, IoU, and boundary error together to help you understand why small classes and edge regions affect mIoU.
 :::
 
 ---
 
-## 三、最容易踩的坑
+## 3. The Most Common Pitfalls
 
-### 3.1 边界不准
+### 3.1 Inaccurate Boundaries
 
-分割模型很容易在物体边缘出错。
+Segmentation models can easily make mistakes at object edges.
 
-### 3.2 类别极度不平衡
+### 3.2 Extremely Imbalanced Classes
 
-背景往往太多，  
-小目标类别很容易被忽略。
+Backgrounds are often too dominant,
+and small object classes can easily be ignored.
 
-### 3.3 只看总体像素准确率
+### 3.3 Only Looking at Overall Pixel Accuracy
 
-像素准确率高，不代表小类别真的分得好。
+High pixel accuracy does not mean small classes are actually segmented well.
 
-### 3.4 只看彩色可视化，不做失败分桶
+### 3.4 Only Looking at Color Visualizations, Without Failure Analysis
 
-很多新人第一次做分割时，会贴几张好看的 mask 图就结束。  
-但真正能推动项目进步的，通常是把失败样本分成：
+Many beginners make a few nice-looking mask images and stop there when they first do segmentation.
+But what really drives project progress is usually dividing failure cases into:
 
-- 边界错
-- 小类别漏掉
-- 类别混淆
-- 标注本身有争议
+- boundary errors
+- missed small classes
+- class confusion
+- ambiguous annotations
 
-只有这样，你才知道下一步该改：
+Only then can you know what to improve next:
 
-- 数据
-- 损失函数
-- 采样策略
-- 还是模型结构
+- the data
+- the loss function
+- the sampling strategy
+- or the model architecture
 
-## 四、学这一节时最正确的预期
+## 4. The Right Expectations When Studying This Section
 
-这一节最重要的不是今天就学会复杂分割模型，  
-而是先真正看清：
+The most important thing in this section is not to master complex segmentation models today,
+but to truly understand:
 
-- 分割比检测更细粒度
-- 分割结果通常更依赖区域级指标
-- 小类别和边界误差会极大影响真实效果
+- Segmentation is more fine-grained than detection
+- Segmentation results usually depend more on region-level metrics
+- Small classes and boundary errors can greatly affect real performance
 
-## 第一次做语义分割项目时，最稳的顺序
+## The Best Order When Doing a Semantic Segmentation Project for the First Time
 
-更建议这样做：
+A better approach is:
 
-1. 先把类别定义收窄
-2. 再统一 mask 标注标准
-3. 先做一个最小 baseline
-4. 再看 per-class IoU 和失败样本
+1. Narrow down the class definitions first
+2. Then unify the mask annotation standard
+3. Start with a minimal baseline
+4. Then look at per-class IoU and failure cases
 
-这样会比一开始就追复杂网络更容易把项目做清楚。
+This will make it much easier to understand the project clearly than chasing a complex network from the start.
 
 ---
 
-## 如果把它做成项目，最值得展示什么
+## If You Turn This into a Project, What Is Most Worth Showing?
 
-- 原图
-- 预测 mask
+- Original image
+- Predicted mask
 - GT mask
 - per-class IoU
-- 失败样本里的边界对比
+- Boundary comparisons in failure cases
 
-这样会比只贴一张“彩色 mask 图”更像真正项目。
+This will look much more like a real project than just pasting a single “colorful mask” image.
 
 ---
 
-## 小结
+## Summary
 
-这节最重要的是建立一个判断：
+The most important thing in this section is to build this judgment:
 
-> **语义分割是在做像素级分类，因此它比分类和检测都更细粒度，也更依赖区域级评估。**
+> **Semantic segmentation is pixel-level classification, so it is more fine-grained than classification and detection, and it depends more on region-level evaluation.**
 
-## 这节最该带走什么
+## What Should You Take Away from This Section?
 
-- 分割的核心对象是 mask，不是整图标签也不是框
-- IoU 在分割里不是配角，而是核心评估视角
-- 边界和类别不平衡是分割任务的常见难点
+- The core object of segmentation is the mask, not the whole-image label or the box
+- IoU is not a side metric in segmentation; it is a core evaluation perspective
+- Boundaries and class imbalance are common challenges in segmentation tasks
 
-如果再压成一句话，那就是：
+If we compress it into one sentence, it is:
 
-> **语义分割是在做像素级语义地图，因此它真正关心的不只是“有没有识别到”，还要看“区域边界有没有画对”。**
+> **Semantic segmentation builds a pixel-level semantic map, so what it really cares about is not only “whether it was recognized,” but also “whether the region boundaries were drawn correctly.”**
 
-## 练习
+## Exercises
 
-1. 自己改一组 `pred_mask`，观察 IoU 会怎么变。
-2. 为什么像素准确率高，不一定说明分割模型真的好？
-3. 语义分割和目标检测最大的差别是什么？
-4. 如果类别非常不平衡，你最担心什么问题？
+1. Modify a set of `pred_mask` values yourself and observe how IoU changes.
+2. Why does high pixel accuracy not necessarily mean the segmentation model is truly good?
+3. What is the biggest difference between semantic segmentation and object detection?
+4. If the classes are very imbalanced, what problem would you worry about most?

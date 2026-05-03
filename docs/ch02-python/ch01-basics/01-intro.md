@@ -1,126 +1,126 @@
 ---
-title: "1.1 Python 简介"
+title: "1.1 Python Introduction"
 sidebar_position: 1
-description: "了解 Python 语言的特点、应用领域和开发环境"
+description: "Understand the features of Python, its application areas, and development environment"
 ---
 
-# Python 简介
+# Python Introduction
 
-![Python 到 AI 应用工作流](/img/course/ch02-python-ai-workflow.png)
+![Python to AI Application Workflow](/img/course/ch02-python-ai-workflow-en.png)
 
-## 本节定位
+## What This Section Is About
 
-这一节是 Python 学习的入口。你不需要马上掌握复杂语法，先理解 Python 为什么适合 AI、它能做哪些事情，并亲手运行第一个程序，建立“代码可以解决真实问题”的第一印象。
+This section is your entry point into learning Python. You do not need to master complex syntax right away. First, understand why Python is a good fit for AI, what it can do, and run your first program yourself so you can build the first impression that “code can solve real problems.”
 
-## 学习目标
+## Learning Objectives
 
-- 了解 Python 是什么，为什么它这么受欢迎
-- 理解 Python 在 AI 领域的核心地位
-- 写出并运行你的第一个 Python 程序
-- 理解 Python 代码的基本结构
+- Understand what Python is and why it is so popular
+- Understand Python’s central role in AI
+- Write and run your first Python program
+- Understand the basic structure of Python code
 
 ---
 
-## 为什么学 Python？
+## Why Learn Python?
 
-如果编程语言是工具，那 Python 就是**瑞士军刀**——什么都能干，而且上手简单。
+If a programming language is a tool, then Python is a **Swiss Army knife**—it can do almost anything, and it is easy to get started with.
 
-先看几个数据：
+First, let’s look at some data:
 
-| 维度 | 说明 |
+| Dimension | Description |
 |------|------|
-| **流行度** | 连续多年蝉联 TIOBE 编程语言排行榜第一 |
-| **AI 首选** | 几乎所有 AI/机器学习框架（PyTorch、TensorFlow）都以 Python 为主 |
-| **就业市场** | 数据科学、AI 工程师、后端开发岗位的必备技能 |
-| **学习曲线** | 语法接近自然语言，初学者最容易上手的语言之一 |
+| **Popularity** | Has ranked No. 1 on the TIOBE programming language leaderboard for many consecutive years |
+| **AI First Choice** | Almost all AI / machine learning frameworks (PyTorch, TensorFlow) are Python-first |
+| **Job Market** | A must-have skill for data science, AI engineering, and backend development roles |
+| **Learning Curve** | Syntax is close to natural language, making it one of the easiest languages for beginners to pick up |
 
-一句话总结：**如果你想做 AI，Python 是唯一的起点。**
+In one sentence: **If you want to do AI, Python is the starting point.**
 
 ---
 
-## Python 到底是什么？
+## What Exactly Is Python?
 
-Python 是一门**高级编程语言**，由 Guido van Rossum（吉多·范罗苏姆）于 1991 年发布。
+Python is a **high-level programming language** released by Guido van Rossum in 1991.
 
-"高级"是什么意思？编程语言离硬件越远、越接近人类语言，就越"高级"。比较一下：
+What does “high-level” mean? The farther a programming language is from hardware and the closer it is to human language, the more “high-level” it is. Compare these:
 
 ```
-# 机器语言（二进制，计算机直接执行）
+# Machine language (binary, directly executed by the computer)
 10110000 01100001
 
-# C 语言（需要手动管理很多细节）
+# C language (requires manual management of many details)
 #include <stdio.h>
 int main() {
     printf("Hello World\n");
     return 0;
 }
 
-# Python（简洁明了）
+# Python (concise and clear)
 print("Hello World")
 ```
 
-同样是打印一句话，Python 只需要 **1 行**，而 C 语言需要 5 行。这就是 Python 的设计哲学：**简洁优雅，让你专注于解决问题，而不是语法细节。**
+To print the same sentence, Python needs only **1 line**, while C needs 5 lines. This is Python’s design philosophy: **simple and elegant, so you can focus on solving problems instead of syntax details.**
 
-### Python 的核心特点
+### Core Features of Python
 
-| 特点 | 说明 | 对你的好处 |
+| Feature | Description | Benefit to You |
 |------|------|-----------|
-| **语法简洁** | 用缩进代替大括号，代码像英语 | 学得快，写得少 |
-| **解释型语言** | 写完直接运行，不需要编译 | 调试方便，马上看结果 |
-| **动态类型** | 不需要声明变量类型 | 代码更简短灵活 |
-| **生态丰富** | 超过 40 万个第三方库 | 别人造好的轮子，拿来就用 |
-| **跨平台** | Windows、macOS、Linux 都能跑 | 一份代码，到处运行 |
+| **Simple syntax** | Uses indentation instead of braces; code reads like English | Learn faster, write less |
+| **Interpreted language** | Run directly after writing, no compilation needed | Easy to debug, see results immediately |
+| **Dynamic typing** | No need to declare variable types | Code is shorter and more flexible |
+| **Rich ecosystem** | More than 400,000 third-party libraries | Ready-made tools others have built, use them directly |
+| **Cross-platform** | Runs on Windows, macOS, and Linux | One codebase, many environments |
 
 ---
 
-## Python 能做什么？
+## What Can Python Do?
 
-Python 的应用范围非常广泛，以下是几个最重要的方向：
+Python is used in many areas. Here are a few of the most important:
 
-### 1. AI 和机器学习（这门课的核心）
+### 1. AI and Machine Learning (the core of this course)
 
-:::tip 运行本段示例前请先安装 scikit-learn
-在 Colab 或 Jupyter 中运行下面代码前，先执行安装（只需一次）：
+:::tip Install scikit-learn before running this example
+Before running the code below in Colab or Jupyter, install it first (only once):
 ```bash
 !pip install scikit-learn
 ```
-在本地终端或 Conda 环境中则用：`pip install scikit-learn`
+On your local terminal or in a Conda environment, use: `pip install scikit-learn`
 :::
 
 ```python
-# 用几行代码训练一个简单的线性回归模型（示例数据，可直接运行）
+# Train a simple linear regression model with a few lines of code (sample data, runnable as-is)
 import numpy as np
 from sklearn.linear_model import LinearRegression
 
-X_train = np.array([[1], [2], [3], [4], [5]])   # 特征
-y_train = np.array([2, 4, 6, 8, 10])             # 标签（y ≈ 2*x）
+X_train = np.array([[1], [2], [3], [4], [5]])   # features
+y_train = np.array([2, 4, 6, 8, 10])             # labels (y ≈ 2*x)
 
 model = LinearRegression()
 model.fit(X_train, y_train)
-# 训练完成后可用 model.predict() 做预测
+# After training, you can use model.predict() for prediction
 ```
 
-主流框架：PyTorch、TensorFlow、scikit-learn、Hugging Face Transformers
+Mainstream frameworks: PyTorch, TensorFlow, scikit-learn, Hugging Face Transformers
 
-### 2. 数据分析和可视化
+### 2. Data Analysis and Visualization
 
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 示例数据（实际项目中可用 pd.read_csv("sales.csv") 读取自己的文件）
-data = pd.DataFrame({"month": ["1月", "2月", "3月"], "revenue": [100, 150, 120]})
+# Sample data (in real projects, you can use pd.read_csv("sales.csv") to load your own file)
+data = pd.DataFrame({"month": ["January", "February", "March"], "revenue": [100, 150, 120]})
 
-# 一行代码画图
+# Draw a chart in one line
 data.plot(x="month", y="revenue", kind="bar")
 plt.show()
 ```
 
-主流库：pandas、NumPy、Matplotlib、Seaborn
+Mainstream libraries: pandas, NumPy, Matplotlib, Seaborn
 
-### 3. Web 后端开发
+### 3. Web Backend Development
 
-用 Python 可以快速写一个提供 API 的网站后端，例如：
+With Python, you can quickly build a website backend that provides an API, for example:
 
 ```python
 from fastapi import FastAPI
@@ -129,74 +129,74 @@ app = FastAPI()
 
 @app.get("/hello")
 def say_hello():
-    return {"message": "你好，世界！"}
+    return {"message": "Hello, world!"}
 ```
 
-**把服务跑起来并访问：**
+**Run the service and visit it:**
 
-1. 先把上面代码保存到一个文件（如 `main.py`），在终端进入该目录后执行：
+1. First save the code above into a file, such as `main.py`. Then open a terminal in that directory and run:
    ```bash
    pip install fastapi uvicorn
    uvicorn main:app --reload
    ```
-2. 终端里出现 `Uvicorn running on http://127.0.0.1:8000` 后，在浏览器打开：
-   - **http://127.0.0.1:8000/hello** → 会返回 `{"message":"你好，世界！"}`
-   - **http://127.0.0.1:8000/docs** → 自动生成的 API 文档页面，可直接点接口调试
+2. After you see `Uvicorn running on http://127.0.0.1:8000` in the terminal, open the following in your browser:
+   - **http://127.0.0.1:8000/hello** → returns `{"message":"Hello, world!"}`
+   - **http://127.0.0.1:8000/docs** → the auto-generated API documentation page, where you can click endpoints to test them
 
-主流框架：FastAPI、Django、Flask
+Mainstream frameworks: FastAPI, Django, Flask
 
-### 4. 自动化脚本
+### 4. Automation Scripts
 
 ```python
 import os
 
-# 示例：批量重命名文件夹中的图片（先建一个测试目录再运行，避免 FileNotFoundError）
+# Example: batch rename images in a folder (create a test directory first before running to avoid FileNotFoundError)
 os.makedirs("photos", exist_ok=True)
 for i in range(3):
-    open(f"photos/old_{i}.jpg", "w").close()   # 创建 3 个空文件当示例
+    open(f"photos/old_{i}.jpg", "w").close()   # create 3 empty files as examples
 
 for i, filename in enumerate(os.listdir("photos/")):
     new_name = f"photo_{i+1}.jpg"
     os.rename(f"photos/{filename}", f"photos/{new_name}")
 
-# 查看结果（实际项目中可删掉测试目录：os.removedirs 等）
+# Check the result (in real projects, you can remove the test directory: os.removedirs, etc.)
 print(os.listdir("photos/"))   # ['photo_1.jpg', 'photo_2.jpg', 'photo_3.jpg']
 ```
 
-### 5. 网络爬虫
+### 5. Web Scraping
 
 ```python
-# 先安装：!pip install beautifulsoup4
+# First install: !pip install beautifulsoup4
 from bs4 import BeautifulSoup
 
-# 用一段示例 HTML 演示解析（不依赖外网，可直接运行）
+# Use a sample HTML snippet to demonstrate parsing (no internet required, runnable as-is)
 html = """
 <html><body>
-  <h1>欢迎学习 Python</h1>
-  <p>第一段</p>
-  <p>第二段</p>
+  <h1>Welcome to Learning Python</h1>
+  <p>First paragraph</p>
+  <p>Second paragraph</p>
 </body></html>
 """
 soup = BeautifulSoup(html, "html.parser")
 title = soup.find("h1").text
 paragraphs = soup.find_all("p")
-print(f"网页标题: {title}")
-print(f"共 {len(paragraphs)} 个段落")
+print(f"Web page title: {title}")
+print(f"Total {len(paragraphs)} paragraphs")
 ```
 
 ---
 
-## 写你的第一个 Python 程序
+## Write Your First Python Program
 
-### 方式一：在终端中使用 Python 交互模式
+### Option 1: Use Python Interactive Mode in the Terminal
 
-打开终端（在第 1 站你已经学过了），输入：
+Open the terminal (you already learned this in Station 1) and type:
 
 ```bash
 python
 ```
 
-你会看到类似这样的提示符：
+You will see a prompt like this:
 
 ```
 Python 3.11.5 (main, Sep 11 2023, 08:31:25)
@@ -204,9 +204,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-`>>>` 就是 Python 的交互提示符，表示它在等你输入命令。
+`>>>` is Python’s interactive prompt, which means it is waiting for you to enter a command.
 
-试试这些：
+Try these:
 
 ```python
 >>> print("Hello, World!")
@@ -222,187 +222,187 @@ Hello, World!
 6
 ```
 
-输入 `exit()` 或按 `Ctrl+D` 退出交互模式。
+Type `exit()` or press `Ctrl+D` to exit interactive mode.
 
-:::tip 交互模式的用途
-交互模式非常适合**快速实验**——比如你不确定一个函数怎么用，可以先在交互模式里试试，确认没问题再写到文件里。
+:::tip What interactive mode is for
+Interactive mode is great for **quick experiments**—for example, if you are not sure how a function works, you can try it in interactive mode first, then write it into a file once you confirm it works.
 :::
 
-### 方式二：在 VS Code 中编写并运行
+### Option 2: Write and Run in VS Code
 
-1. 打开 VS Code（在第 1 站里已经装好了）
-2. 创建一个新文件 `hello.py`（注意后缀是 `.py`）
-3. 输入以下代码：
+1. Open VS Code (it has already been installed in Station 1)
+2. Create a new file called `hello.py` (note the `.py` extension)
+3. Enter the following code:
 
 ```python
-# 这是我的第一个 Python 程序
+# This is my first Python program
 print("Hello, World!")
-print("我正在学习 Python！")
+print("I am learning Python!")
 print("1 + 1 =", 1 + 1)
 ```
 
-4. 保存文件（`Ctrl+S` / `Cmd+S`）
-5. 在终端中运行：
+4. Save the file (`Ctrl+S` / `Cmd+S`)
+5. Run it in the terminal:
 
 ```bash
 python hello.py
 ```
 
-输出：
+Output:
 
 ```
 Hello, World!
-我正在学习 Python！
+I am learning Python!
 1 + 1 = 2
 ```
 
-恭喜你，你的第一个 Python 程序诞生了！
+Congratulations, your first Python program is born!
 
-### 方式三：在 Jupyter Notebook 中运行
+### Option 3: Run in Jupyter Notebook
 
-在第 1 站里你已经装了 Jupyter。打开它：
+You already installed Jupyter in Station 1. Open it:
 
 ```bash
 jupyter notebook
 ```
 
-创建一个新 Notebook，在代码单元格里输入 `print("Hello from Jupyter!")` 然后按 `Shift+Enter` 运行。
+Create a new Notebook, enter `print("Hello from Jupyter!")` in a code cell, and then press `Shift+Enter` to run it.
 
-:::info 三种方式怎么选？
-- **交互模式**：快速测试一小段代码
-- **VS Code + .py 文件**：写正式的项目代码
-- **Jupyter Notebook**：数据分析、学习实验（我们这门课主要用这种）
+:::info Which of the three should you choose?
+- **Interactive mode**: quickly test a small piece of code
+- **VS Code + .py files**: write formal project code
+- **Jupyter Notebook**: data analysis and learning experiments (this course will mainly use this one)
 :::
 
 ---
 
-## Python 代码的基本规则
+## Basic Rules of Python Code
 
-在深入学习之前，先了解几个最基本的规则：
+Before diving deeper, let’s first understand a few basic rules:
 
-### 1. 缩进很重要
+### 1. Indentation Matters
 
-Python 用**缩进**（通常是 4 个空格）来表示代码块，而不是像其他语言那样用大括号 `{}`。
+Python uses **indentation** (usually 4 spaces) to indicate code blocks, instead of braces `{}` like some other languages.
 
 ```python
-# 正确 ✅
+# Correct ✅
 if True:
-    print("缩进了 4 个空格")
-    print("同一个代码块")
+    print("Indented by 4 spaces")
+    print("Same code block")
 
-# 错误 ❌ —— 会报 IndentationError
+# Incorrect ❌ — will raise IndentationError
 if True:
-print("没有缩进，Python 会报错")
+print("Not indented, Python will raise an error")
 ```
 
-:::caution 注意
-缩进错误是新手最常见的错误。VS Code 会帮你自动缩进，但如果你复制粘贴代码，要注意检查缩进是否正确。
+:::caution Note
+Indentation errors are one of the most common mistakes for beginners. VS Code will help you indent automatically, but if you copy and paste code, make sure the indentation is still correct.
 :::
 
-### 2. 注释用 `#`
+### 2. Comments Use `#`
 
 ```python
-# 这是一行注释，Python 会忽略它
-print("这行代码会执行")  # 行尾也可以写注释
+# This is a comment line; Python will ignore it
+print("This line will run")  # You can also write comments at the end of a line
 
-# 多行注释就是多个 # 开头的行
-# 第一行注释
-# 第二行注释
+# Multi-line comments are just multiple lines starting with #
+# First comment line
+# Second comment line
 ```
 
-注释是写给人看的，帮助你（和别人）理解代码。好的注释解释**为什么**这么做，而不是**做了什么**。
+Comments are for humans to read and help you (and others) understand the code. Good comments explain **why** something is done, not **what** is done.
 
-### 3. 大小写敏感
+### 3. Python Is Case-Sensitive
 
 ```python
 name = "Alice"
 Name = "Bob"
 NAME = "Charlie"
-# 这是三个不同的变量！
+# These are three different variables!
 
 print(name)   # Alice
-Print(name)   # 报错！Python 没有 Print，只有 print
+Print(name)   # Error! Python has no Print, only print
 ```
 
-### 4. 文件以 `.py` 结尾
+### 4. Files End with `.py`
 
-Python 脚本文件的后缀是 `.py`，比如 `hello.py`、`train.py`、`model.py`。
+Python script files use the `.py` extension, such as `hello.py`, `train.py`, and `model.py`.
 
 ---
 
-## Python 2 还是 Python 3？
+## Python 2 or Python 3?
 
-简短的回答：**用 Python 3，不要用 Python 2。**
+Short answer: **Use Python 3, not Python 2.**
 
-Python 2 已经在 2020 年 1 月 1 日正式停止维护。所有新项目、所有现代库都只支持 Python 3。本课程使用 **Python 3.10+**。
+Python 2 officially reached end of life on January 1, 2020. All new projects and all modern libraries support only Python 3. This course uses **Python 3.10+**.
 
-确认你的 Python 版本：
+Check your Python version:
 
 ```bash
 python --version
-# 应该输出 Python 3.10.x 或更高
+# Should output Python 3.10.x or higher
 ```
 
-如果输出是 `Python 2.x`，你需要使用 `python3` 命令，或者检查你在第 1 站中配置的 conda 环境是否正确激活。
+If the output is `Python 2.x`, you need to use the `python3` command, or check whether the Conda environment you configured in Station 1 is activated correctly.
 
 ---
 
-## 动手练习
+## Hands-on Practice
 
-### 练习 1：Hello World 升级版
+### Exercise 1: An Upgraded Hello World
 
-创建文件 `about_me.py`，让它输出你的个人介绍：
+Create a file called `about_me.py` and make it print your personal introduction:
 
 ```python
-print("=== 个人介绍 ===")
-print("姓名：[你的名字]")
-print("目标：成为 AI 工程师")
-print("正在学习：Python 编程")
+print("=== Personal Introduction ===")
+print("Name: [Your Name]")
+print("Goal: Become an AI Engineer")
+print("Currently learning: Python programming")
 print("=" * 20)
 ```
 
-运行它，看看输出。试着修改内容，加上更多信息。
+Run it and see the output. Try changing the content and add more information.
 
-### 练习 2：Python 当计算器
+### Exercise 2: Use Python as a Calculator
 
-在 Python 交互模式中，尝试以下运算：
+In Python interactive mode, try the following operations:
 
 ```python
 >>> 100 + 200
 >>> 10 * 3.14
->>> 2 ** 10        # ** 是幂运算，2的10次方
->>> 17 / 5         # 除法
->>> 17 // 5        # 整除（去掉小数部分）
->>> 17 % 5         # 取余数
+>>> 2 ** 10        # ** is exponentiation, 2 to the 10th power
+>>> 17 / 5         # division
+>>> 17 // 5        # floor division (drop the decimal part)
+>>> 17 % 5         # remainder
 ```
 
-记下每个运算的结果，想想为什么。
+Write down the result of each operation and think about why.
 
-### 练习 3：探索 print()
+### Exercise 3: Explore print()
 
-试试以下代码，观察 `print()` 的不同用法：
+Try the following code and observe different uses of `print()`:
 
 ```python
 print("Hello")
-print("Hello", "World")           # 多个参数用逗号分隔
-print("Hello", "World", sep="-")  # 用 - 连接
-print("Hello", end=" ")           # 不换行
+print("Hello", "World")           # multiple arguments separated by commas
+print("Hello", "World", sep="-")  # connect with -
+print("Hello", end=" ")           # no newline
 print("World")
-print("价格:", 99.9, "元")
+print("Price:", 99.9, "yuan")
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key Point | Description |
 |------|------|
-| Python 是 AI 开发的首选语言 | 几乎所有 AI 框架都基于 Python |
-| 语法简洁，接近自然语言 | 降低学习门槛，让你专注于逻辑 |
-| 生态丰富 | 40 万+ 第三方库，绝大部分需求都有现成方案 |
-| 三种运行方式 | 交互模式、.py 文件、Jupyter Notebook |
-| 缩进是 Python 的灵魂 | 用 4 个空格缩进，不要用 Tab |
+| Python is the preferred language for AI development | Almost all AI frameworks are built on Python |
+| Syntax is simple and close to natural language | Lowers the learning barrier and lets you focus on logic |
+| Rich ecosystem | 400,000+ third-party libraries, with ready-made solutions for most needs |
+| Three ways to run code | Interactive mode, .py files, and Jupyter Notebook |
+| Indentation is the soul of Python | Use 4-space indentation, not Tab |
 
-:::tip 学习建议
-编程是一门**手艺**，光看不练是学不会的。每一节课的练习都要动手敲一遍——不是复制粘贴，而是一个字一个字敲出来。打字的过程中你会犯错、会调试、会理解得更深。
+:::tip Learning Advice
+Programming is a **craft**. You cannot learn it just by watching. For every exercise in this course, type the code yourself—do not copy and paste. Type it character by character. In the process of typing, you will make mistakes, debug, and understand more deeply.
 :::

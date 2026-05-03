@@ -1,74 +1,74 @@
 ---
-title: "3.8 时间序列"
+title: "3.8 Time Series"
 sidebar_position: 16
-description: "掌握日期时间处理、重采样和滚动窗口计算"
+description: "Master date-time handling, resampling, and rolling window calculations"
 ---
 
-# 时间序列
+# Time Series
 
-:::tip 本节定位
-很多新人第一次学时间序列时，最容易把它理解成：
+:::tip Section Focus
+When many beginners first learn time series, the easiest misunderstanding is:
 
-- 数据里多了一列日期
+- It’s just a data column with dates added
 
-但更稳的理解应该是：
+A more reliable way to think about it is:
 
-> **一旦有时间，很多分析就不再只是“看值是多少”，而是“看它随时间怎么变化”。**
+> **Once time is involved, many analyses are no longer just about “what is the value?”, but “how does it change over time?”**
 
-所以这节最重要的不是背 `resample()` 和 `rolling()`，而是先建立“时间会改变分析方式”的感觉。
+So the most important thing in this section is not memorizing `resample()` and `rolling()`, but first building the intuition that “time changes the way we analyze data.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握日期时间类型的创建和转换
-- 学会时间序列的索引与切片
-- 掌握重采样（resample）和频率转换
-- 学会滚动窗口计算（rolling）
-
----
-
-## 先建立一张地图
-
-时间序列更适合按“先把日期变成可操作对象，再按时间维度做分析”来理解：
-
-![Pandas 时间序列分析图](/img/course/ch03-pandas-time-series-analysis.png)
-
-所以这节真正想解决的是：
-
-- 日期为什么不能只当普通字符串用
-- 为什么时间数据一旦整理好，后面的分析会完全不一样
-
-## 为什么需要时间序列？
-
-很多数据都和时间相关——股票价格、销售数据、网站访问量、天气记录……处理时间数据是数据分析的必备技能。
-
-### 一个更适合新人的总类比
-
-你可以把时间序列理解成：
-
-- 给数据加上一条真正有顺序的时间轴
-
-有了这条轴以后，你不只是能问：
-
-- 现在是多少
-
-还会开始问：
-
-- 比上个月高还是低
-- 最近 7 天是不是在上升
-- 去年同月和今年同月差多少
+- Master creating and converting date-time types
+- Learn time series indexing and slicing
+- Master resampling and frequency conversion
+- Learn rolling window calculations (`rolling`)
 
 ---
 
-## 日期时间类型
+## First, Build a Map
 
-### 创建时间戳
+Time series is easier to understand as: “first turn dates into objects you can work with, then analyze along the time dimension”:
+
+![Pandas Time Series Analysis Diagram](/img/course/ch03-pandas-time-series-analysis-en.png)
+
+So what this section really aims to solve is:
+
+- Why dates should not be treated like ordinary strings
+- Why, once time data is organized properly, the analysis that follows becomes completely different
+
+## Why Do We Need Time Series?
+
+Many datasets are time-related—stock prices, sales data, website traffic, weather records... Handling time data is an essential skill in data analysis.
+
+### A More Beginner-Friendly Overall Analogy
+
+You can think of time series as:
+
+- Adding a real, ordered timeline to your data
+
+With that timeline in place, you can ask not only:
+
+- What is it now?
+
+But also questions like:
+
+- Is it higher or lower than last month?
+- Has it been rising over the last 7 days?
+- How much difference is there between the same month last year and this year?
+
+---
+
+## Date-Time Types
+
+### Create Timestamps
 
 ```python
 import pandas as pd
 import numpy as np
 
-# 创建单个时间戳
+# Create a single timestamp
 ts = pd.Timestamp("2024-01-15")
 print(ts)        # 2024-01-15 00:00:00
 print(ts.year)   # 2024
@@ -76,245 +76,245 @@ print(ts.month)  # 1
 print(ts.day)    # 15
 print(ts.day_name())  # Monday
 
-# 更多格式
+# More formats
 ts2 = pd.Timestamp("2024-01-15 14:30:00")
 ts3 = pd.Timestamp(year=2024, month=3, day=20)
 ```
 
-### 字符串转日期
+### Convert Strings to Dates
 
 ```python
-# 单列转换
+# Convert a single column
 dates = pd.Series(["2024-01-15", "2024-02-20", "2024-03-10"])
 dt_series = pd.to_datetime(dates)
 print(dt_series)
 print(dt_series.dtype)  # datetime64[ns]
 
-# 处理不同格式
+# Handle different formats
 pd.to_datetime("15/01/2024", format="%d/%m/%Y")
-pd.to_datetime("2024年3月15日", format="%Y年%m月%d日")
+pd.to_datetime("March 15, 2024", format="%B %d, %Y")
 
-# 处理无法解析的值
+# Handle values that cannot be parsed
 dirty = pd.Series(["2024-01-15", "not a date", "2024-03-10"])
-clean = pd.to_datetime(dirty, errors="coerce")  # 无法解析的变成 NaT
+clean = pd.to_datetime(dirty, errors="coerce")  # Unparseable values become NaT
 print(clean)
 # 0   2024-01-15
 # 1          NaT   ← Not a Time
 # 2   2024-03-10
 ```
 
-### 日期范围
+### Date Ranges
 
 ```python
-# 创建日期范围
-dates = pd.date_range("2024-01-01", periods=10, freq="D")  # 每天
+# Create a date range
+dates = pd.date_range("2024-01-01", periods=10, freq="D")  # daily
 print(dates)
 
-# 不同频率
-pd.date_range("2024-01-01", periods=12, freq="ME")   # 每月末
-pd.date_range("2024-01-01", periods=4, freq="QE")    # 每季度末
-pd.date_range("2024-01-01", "2024-12-31", freq="W")  # 每周
+# Different frequencies
+pd.date_range("2024-01-01", periods=12, freq="ME")   # month-end
+pd.date_range("2024-01-01", periods=4, freq="QE")    # quarter-end
+pd.date_range("2024-01-01", "2024-12-31", freq="W")  # weekly
 
-# 常用频率代码
-# D=天, W=周, ME=月末, MS=月初, QE=季末, YE=年末
-# h=小时, min=分钟, s=秒
-# B=工作日
+# Common frequency codes
+# D = day, W = week, ME = month-end, MS = month-start, QE = quarter-end, YE = year-end
+# h = hour, min = minute, s = second
+# B = business day
 ```
 
-### 第一次处理日期列时，最该先记什么？
+### What Should You Remember First When Handling Date Columns for the First Time?
 
-最值得先记的是：
+The most important thing to remember first is:
 
-> **日期列最好先转成真正的 datetime，再谈后面所有时间分析。**
+> **A date column should preferably be converted to a real datetime type before doing any time-based analysis.**
 
-如果还停留在字符串层，  
-很多事情都很难自然地做：
+If you still keep it as a string,
+many things become hard to do naturally:
 
-- 切月份
-- 算时间差
-- 做重采样
+- Extract months
+- Calculate time differences
+- Do resampling
 
 ---
 
-## 时间序列数据
+## Time Series Data
 
-### 创建时间序列 DataFrame
+### Create a Time Series DataFrame
 
 ```python
-# 模拟 2024 年每天的销售数据
+# Simulate daily sales data for 2024
 np.random.seed(42)
 dates = pd.date_range("2024-01-01", periods=365, freq="D")
 sales = pd.DataFrame({
-    "日期": dates,
-    "销售额": np.random.randint(5000, 20000, 365) + \
-              np.sin(np.arange(365) * 2 * np.pi / 365) * 3000  # 加入季节性
+    "Date": dates,
+    "Sales": np.random.randint(5000, 20000, 365) + \
+              np.sin(np.arange(365) * 2 * np.pi / 365) * 3000  # Add seasonality
 })
-sales = sales.set_index("日期")
+sales = sales.set_index("Date")
 print(sales.head())
 print(sales.shape)  # (365, 1)
 ```
 
-### 提取日期组件
+### Extract Date Components
 
 ```python
 df = pd.DataFrame({
-    "日期": pd.date_range("2024-01-01", periods=100, freq="D"),
-    "销量": np.random.randint(10, 100, 100)
+    "Date": pd.date_range("2024-01-01", periods=100, freq="D"),
+    "Sales": np.random.randint(10, 100, 100)
 })
 
-# 用 dt 访问器提取日期组件
-df["年"] = df["日期"].dt.year
-df["月"] = df["日期"].dt.month
-df["日"] = df["日期"].dt.day
-df["星期几"] = df["日期"].dt.day_name()
-df["是否周末"] = df["日期"].dt.dayofweek >= 5  # 5=周六, 6=周日
-df["第几周"] = df["日期"].dt.isocalendar().week
+# Use the dt accessor to extract date components
+df["Year"] = df["Date"].dt.year
+df["Month"] = df["Date"].dt.month
+df["Day"] = df["Date"].dt.day
+df["Weekday"] = df["Date"].dt.day_name()
+df["IsWeekend"] = df["Date"].dt.dayofweek >= 5  # 5 = Saturday, 6 = Sunday
+df["WeekNumber"] = df["Date"].dt.isocalendar().week
 
 print(df.head())
 ```
 
-### 时间索引切片
+### Time Index Slicing
 
-当日期是索引时，可以用字符串方便地切片：
+When dates are used as the index, you can slice conveniently with strings:
 
 ```python
-# sales 的索引是日期
-# 选取 2024 年 3 月的数据
+# sales uses a date index
+# Select data for March 2024
 print(sales.loc["2024-03"])
 
-# 选取 2024 年第一季度
+# Select the first quarter of 2024
 print(sales.loc["2024-01":"2024-03"])
 
-# 选取某一天
+# Select a specific day
 print(sales.loc["2024-06-15"])
 ```
 
-### 一个很适合初学者先记的时间分析顺序
+### A Time Analysis Sequence That Beginners Should Remember First
 
-更稳的顺序通常是：
+A more reliable sequence is usually:
 
-1. 先转成 datetime
-2. 先提取年 / 月 / 星期几
-3. 再把日期设成索引
-4. 最后再做重采样和滚动窗口
+1. Convert to datetime first
+2. Extract year / month / weekday first
+3. Then set the date as the index
+4. Finally do resampling and rolling windows
 
-这个顺序特别重要，因为很多新人是跳着学，最后把时间索引和普通列混在一起。
+This sequence is especially important because many beginners learn in a jumpy way and end up mixing time indexes with ordinary columns.
 
 ---
 
-## 重采样（resample）
+## Resampling (`resample`)
 
-重采样是时间序列最核心的操作——改变数据的**时间频率**。
+Resampling is one of the core operations in time series—it changes the **time frequency** of the data.
 
-### 降采样（高频 → 低频）
+### Downsampling (high frequency → low frequency)
 
 ```python
-# 每日数据 → 每月数据
-monthly = sales.resample("ME").sum()  # 月末汇总
+# Daily data → monthly data
+monthly = sales.resample("ME").sum()  # Aggregate by month-end
 print(monthly.head())
 
-# 每日 → 每周
-weekly = sales.resample("W").mean()  # 周平均
+# Daily → weekly
+weekly = sales.resample("W").mean()  # Weekly average
 
-# 每日 → 每季度
+# Daily → quarterly
 quarterly = sales.resample("QE").agg({
-    "销售额": ["sum", "mean", "max"]
+    "Sales": ["sum", "mean", "max"]
 })
 print(quarterly)
 ```
 
-### 升采样（低频 → 高频）
+### Upsampling (low frequency → high frequency)
 
 ```python
-# 月度数据 → 每日数据（需要填充）
-daily = monthly.resample("D").ffill()     # 前向填充
-# 或
-daily = monthly.resample("D").interpolate()  # 插值
+# Monthly data → daily data (needs filling)
+daily = monthly.resample("D").ffill()     # Forward fill
+# or
+daily = monthly.resample("D").interpolate()  # Interpolation
 ```
 
-### 一个很适合初学者先记的判断表
+### A Beginner-Friendly Quick Reference Table
 
-| 你想做什么 | 更稳的第一反应 |
+| What you want to do | Better first reaction |
 |---|---|
-| 每日变每月 | `resample()` 降采样 |
-| 每月变每日 | `resample()` 升采样 |
-| 看最近 7 天平均 | `rolling()` |
-| 看从开始到现在平均 | `expanding()` |
+| Daily → monthly | `resample()` downsampling |
+| Monthly → daily | `resample()` upsampling |
+| Look at the average of the last 7 days | `rolling()` |
+| Look at the average from the start up to now | `expanding()` |
 
-这个表特别适合新人，因为它会把时间序列常见操作重新压回几种最常见的问题。
+This table is especially useful for beginners because it compresses common time series operations back into a few familiar questions.
 
 ---
 
-## 滚动窗口（rolling）
+## Rolling Window (`rolling`)
 
-滚动窗口对连续的 N 个数据点计算统计量——常用于平滑数据和计算移动平均。
+A rolling window calculates statistics over consecutive N data points, and it is commonly used to smooth data and calculate moving averages.
 
-### 移动平均
+### Moving Average
 
 ```python
-# 7 日移动平均（平滑日常波动）
-sales["MA7"] = sales["销售额"].rolling(window=7).mean()
+# 7-day moving average (smooth daily fluctuations)
+sales["MA7"] = sales["Sales"].rolling(window=7).mean()
 
-# 30 日移动平均（看长期趋势）
-sales["MA30"] = sales["销售额"].rolling(window=30).mean()
+# 30-day moving average (see long-term trend)
+sales["MA30"] = sales["Sales"].rolling(window=30).mean()
 
 print(sales.head(10))
-# 前 6 天的 MA7 是 NaN（不够 7 天计算）
+# The first 6 days of MA7 are NaN (not enough 7 days to calculate)
 ```
 
-### 其他滚动统计
+### Other Rolling Statistics
 
 ```python
-# 滚动标准差（波动性）
-sales["STD7"] = sales["销售额"].rolling(7).std()
+# Rolling standard deviation (volatility)
+sales["STD7"] = sales["Sales"].rolling(7).std()
 
-# 滚动最大值
-sales["MAX7"] = sales["销售额"].rolling(7).max()
+# Rolling maximum
+sales["MAX7"] = sales["Sales"].rolling(7).max()
 
-# 滚动求和
-sales["SUM7"] = sales["销售额"].rolling(7).sum()
+# Rolling sum
+sales["SUM7"] = sales["Sales"].rolling(7).sum()
 ```
 
-### expanding：累积计算
+### `expanding`: Cumulative Calculations
 
 ```python
-# 累积均值（从头到当前的均值）
-sales["累积均值"] = sales["销售额"].expanding().mean()
+# Cumulative mean (mean from the beginning to the current point)
+sales["Cumulative Mean"] = sales["Sales"].expanding().mean()
 
-# 累积最大值
-sales["历史最高"] = sales["销售额"].expanding().max()
+# Cumulative maximum
+sales["Historical High"] = sales["Sales"].expanding().max()
 ```
 
-### 为什么 `rolling` 这么常见？
+### Why Is `rolling` So Common?
 
-因为真实时间数据通常很抖。  
-如果你只盯每天的原始值，很容易被波动带偏。
+Because real time data usually fluctuates a lot.
+If you only look at the raw value for each day, it’s easy to get misled by the noise.
 
-`rolling` 最值得先记住的价值就是：
+The most important value of `rolling` to remember first is:
 
-- 帮你从抖动里看趋势
+- It helps you see trends through the noise
 
 ---
 
-## 时间差计算
+## Calculating Time Differences
 
 ```python
 df = pd.DataFrame({
-    "注册时间": pd.to_datetime(["2023-01-15", "2023-06-20", "2024-01-10"]),
-    "最后登录": pd.to_datetime(["2024-06-01", "2024-05-15", "2024-06-10"])
+    "Signup Time": pd.to_datetime(["2023-01-15", "2023-06-20", "2024-01-10"]),
+    "Last Login": pd.to_datetime(["2024-06-01", "2024-05-15", "2024-06-10"])
 })
 
-# 计算时间差
-df["使用天数"] = (df["最后登录"] - df["注册时间"]).dt.days
+# Calculate time difference
+df["Days Used"] = (df["Last Login"] - df["Signup Time"]).dt.days
 print(df)
 
-# 距今天数
-df["注册至今天数"] = (pd.Timestamp.now() - df["注册时间"]).dt.days
+# Days since signup
+df["Days Since Signup"] = (pd.Timestamp.now() - df["Signup Time"]).dt.days
 ```
 
 ---
 
-## 实战：销售趋势分析
+## Practice: Sales Trend Analysis
 
 ```python
 import pandas as pd
@@ -322,142 +322,142 @@ import numpy as np
 
 np.random.seed(42)
 
-# 创建 2 年的日销售数据
+# Create 2 years of daily sales data
 dates = pd.date_range("2023-01-01", "2024-12-31", freq="D")
 n = len(dates)
 
 sales = pd.DataFrame({
-    "日期": dates,
-    "销售额": (
-        10000 +                                    # 基础值
-        np.sin(np.arange(n) * 2 * np.pi / 365) * 3000 +  # 季节性
-        np.arange(n) * 5 +                         # 增长趋势
-        np.random.normal(0, 1000, n)               # 随机波动
+    "Date": dates,
+    "Sales": (
+        10000 +                                    # Base value
+        np.sin(np.arange(n) * 2 * np.pi / 365) * 3000 +  # Seasonality
+        np.arange(n) * 5 +                         # Growth trend
+        np.random.normal(0, 1000, n)               # Random fluctuation
     ).astype(int)
-}).set_index("日期")
+}).set_index("Date")
 
-# 1. 月度汇总
+# 1. Monthly summary
 monthly = sales.resample("ME").agg(
-    月销售额=("销售额", "sum"),
-    日均销售额=("销售额", "mean"),
-    最高日销售额=("销售额", "max")
+    Monthly_Sales=("Sales", "sum"),
+    Daily_Average_Sales=("Sales", "mean"),
+    Highest_Daily_Sales=("Sales", "max")
 )
-print("=== 月度汇总 ===")
+print("=== Monthly Summary ===")
 print(monthly.head())
 
-# 2. 移动平均看趋势
-sales["MA30"] = sales["销售额"].rolling(30).mean()
-print("\n=== 30日移动平均（最后5天）===")
-print(sales[["销售额", "MA30"]].tail())
+# 2. Use moving averages to see the trend
+sales["MA30"] = sales["Sales"].rolling(30).mean()
+print("\n=== 30-Day Moving Average (Last 5 Days) ===")
+print(sales[["Sales", "MA30"]].tail())
 
-# 3. 同比增长（和去年同月比）
-monthly_pivot = sales.resample("ME")["销售额"].sum()
+# 3. Year-over-year growth (compare with the same month last year)
+monthly_pivot = sales.resample("ME")["Sales"].sum()
 monthly_pivot.index = monthly_pivot.index.to_period("M")
-# 简单计算 2024 年各月 vs 2023 年同月
+# Simply compare each month in 2024 vs the same month in 2023
 m2024 = monthly_pivot["2024"]
 m2023 = monthly_pivot["2023"]
 
-print("\n=== 2024 vs 2023 月度对比 ===")
+print("\n=== 2024 vs 2023 Monthly Comparison ===")
 for m24, m23 in zip(m2024.items(), m2023.items()):
     month = m24[0].month
     growth = (m24[1] - m23[1]) / m23[1] * 100
-    print(f"  {month}月: 2023={m23[1]:,.0f}, 2024={m24[1]:,.0f}, 增长率={growth:+.1f}%")
+    print(f"  Month {month}: 2023={m23[1]:,.0f}, 2024={m24[1]:,.0f}, Growth={growth:+.1f}%")
 
-# 4. 每周几的销售差异
+# 4. Sales differences by weekday
 sales_with_dow = sales.copy()
-sales_with_dow["星期几"] = sales_with_dow.index.day_name()
-dow_avg = sales_with_dow.groupby("星期几")["销售额"].mean()
-print("\n=== 各星期几的平均销售额 ===")
+sales_with_dow["Weekday"] = sales_with_dow.index.day_name()
+dow_avg = sales_with_dow.groupby("Weekday")["Sales"].mean()
+print("\n=== Average Sales by Weekday ===")
 print(dow_avg.sort_values(ascending=False))
 ```
 
-### 这个小实战最值得先学到什么？
+### What Is the Most Important Thing to Learn from This Small Practice?
 
-最值得先学到的不是某个函数名，  
-而是时间分析通常会先从这几步开始：
+The most important thing is not a specific function name,
+but that time analysis usually starts with these steps:
 
-1. 先汇总
-2. 再看趋势
-3. 再看同比 / 环比
-4. 最后再看周期差异
+1. Summarize first
+2. Then look at the trend
+3. Then look at year-over-year / month-over-month changes
+4. Finally look at cyclic differences
 
-这会比一上来就直接做复杂预测更稳很多。
+This is much more stable than jumping straight into complex forecasting.
 
 ---
 
-## 小结
+## Summary
 
-| 操作 | 方法 | 用途 |
+| Operation | Method | Use |
 |------|------|------|
-| 字符串转日期 | `pd.to_datetime()` | 类型转换 |
-| 日期范围 | `pd.date_range()` | 生成连续日期 |
-| 提取组件 | `.dt.year/month/day` | 拆解日期 |
-| 重采样 | `.resample()` | 改变时间频率 |
-| 滚动窗口 | `.rolling()` | 移动平均、平滑 |
-| 累积计算 | `.expanding()` | 累积统计 |
-| 时间差 | 相减 `.dt.days` | 计算间隔 |
+| String to date | `pd.to_datetime()` | Type conversion |
+| Date range | `pd.date_range()` | Generate consecutive dates |
+| Extract components | `.dt.year/month/day` | Break down dates |
+| Resampling | `.resample()` | Change time frequency |
+| Rolling window | `.rolling()` | Moving average, smoothing |
+| Cumulative calculation | `.expanding()` | Cumulative statistics |
+| Time difference | subtraction + `.dt.days` | Calculate intervals |
 
-## 这节最该带走什么
+## What Should You Take Away from This Section?
 
-- 时间序列不只是“多一列日期”，而是分析方式变了
-- 先把日期转成 datetime，再谈切片、重采样和滚动窗口
-- `resample` 负责改时间频率，`rolling` 负责看局部趋势
+- Time series is not just “a date column added”; the analysis method changes too
+- Convert dates to datetime first, then do slicing, resampling, and rolling windows
+- `resample` changes the time frequency, while `rolling` helps you see local trends
 
 ---
 
-## 章节总结：Pandas 知识全景
+## Chapter Summary: The Big Picture of Pandas
 
-恭喜你完成了 Pandas 的全部内容！来回顾一下：
+Congratulations on completing all of the Pandas content! Let’s review:
 
 ```mermaid
 flowchart TB
-    subgraph "第2章 Pandas 数据处理"
-        A["2.1 核心数据结构<br/>Series + DataFrame"] --> B["2.2 数据读写<br/>CSV/Excel/JSON"]
-        B --> C["2.3 选择与过滤<br/>loc/iloc/布尔索引"]
-        C --> D["2.4 数据清洗<br/>缺失值/重复值/异常值"]
-        D --> E["2.5 数据转换<br/>apply/map/排序/分箱"]
-        E --> F["2.6 分组与聚合<br/>groupby/agg/pivot_table"]
-        F --> G["2.7 数据合并<br/>merge/concat"]
-        G --> H["2.8 时间序列<br/>resample/rolling"]
+    subgraph "Chapter 2 Pandas Data Processing"
+        A["2.1 Core Data Structures<br/>Series + DataFrame"] --> B["2.2 Read/Write Data<br/>CSV/Excel/JSON"]
+        B --> C["2.3 Selection and Filtering<br/>loc/iloc/Boolean indexing"]
+        C --> D["2.4 Data Cleaning<br/>Missing values/Duplicates/Outliers"]
+        D --> E["2.5 Data Transformation<br/>apply/map/sorting/binning"]
+        E --> F["2.6 Grouping and Aggregation<br/>groupby/agg/pivot_table"]
+        F --> G["2.7 Data Merging<br/>merge/concat"]
+        G --> H["2.8 Time Series<br/>resample/rolling"]
     end
 
-    H --> I["✅ Pandas 掌握！<br/>准备进入数据可视化 →"]
+    H --> I["✅ Pandas mastered!<br/>Ready to move on to data visualization →"]
 
     style I fill:#4caf50,color:#fff
 ```
 
-> **✅ 自检：** 给你一份销售数据 CSV，你能用 Pandas 清洗缺失值、按月份和产品分组统计销售额、并找出每月销售最高的产品吗？回想一下第 1 章的预热练习——现在是不是简洁多了？
+> **✅ Self-check:** Given a sales data CSV, can you use Pandas to clean missing values, group sales by month and product, and find the top-selling product for each month? Think back to the warm-up exercise from Chapter 1—isn’t it much more concise now?
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：日期处理
+### Exercise 1: Date Handling
 
 ```python
-# 创建一个包含"2024-01-01"到"2024-12-31"的日期 DataFrame
-# 1. 提取月份、星期几
-# 2. 标记是否为工作日
-# 3. 计算每月的工作日天数
+# Create a DataFrame containing dates from "2024-01-01" to "2024-12-31"
+# 1. Extract month and weekday
+# 2. Mark whether it is a business day
+# 3. Calculate the number of business days in each month
 ```
 
-### 练习 2：时间序列分析
+### Exercise 2: Time Series Analysis
 
 ```python
-# 用上面的 sales 数据
-# 1. 计算 7 日和 30 日移动平均
-# 2. 找出销售额最高和最低的月份
-# 3. 计算每月的环比增长率（本月vs上月）
-# 4. 分析周末vs工作日的销售差异
+# Use the sales data above
+# 1. Calculate 7-day and 30-day moving averages
+# 2. Find the months with the highest and lowest sales
+# 3. Calculate month-over-month growth rates (current month vs previous month)
+# 4. Analyze sales differences between weekends and weekdays
 ```
 
-### 练习 3：综合实战
+### Exercise 3: Comprehensive Practice
 
 ```python
-# 模拟一个 App 的用户活跃数据（365天）
-# 包含：日期、DAU（日活跃用户）、新增用户、收入
-# 1. 计算周活跃用户数（WAU）和月活跃用户数（MAU）
-# 2. 计算 7 日留存率趋势
-# 3. 用 rolling 计算 ARPU（每用户平均收入）的 30 日平均
-# 4. 找出用户增长最快的月份
+# Simulate an app user activity dataset (365 days)
+# Include: date, DAU (daily active users), new users, revenue
+# 1. Calculate WAU (weekly active users) and MAU (monthly active users)
+# 2. Calculate the trend of 7-day retention rate
+# 3. Use rolling to calculate the 30-day average ARPU (average revenue per user)
+# 4. Find the month with the fastest user growth
 ```

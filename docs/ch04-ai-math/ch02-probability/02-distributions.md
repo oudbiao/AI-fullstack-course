@@ -1,62 +1,62 @@
 ---
-title: "2.3 概率分布：数据背后的规律"
+title: "2.3 Probability Distributions: Patterns Behind the Data"
 sidebar_position: 6
-description: "理解常见的离散分布和连续分布，掌握正态分布和中心极限定理，用 Python 画出分布图"
-keywords: [概率分布, 正态分布, 二项分布, 泊松分布, 中心极限定理, Python, AI数学]
+description: "Understand common discrete and continuous distributions, master the normal distribution and the Central Limit Theorem, and use Python to plot distribution charts"
+keywords: [probability distribution, normal distribution, binomial distribution, Poisson distribution, central limit theorem, Python, AI math]
 ---
 
-# 概率分布：数据背后的规律
+# Probability Distributions: Patterns Behind the Data
 
-![概率分布家族对比图](/img/course/distribution-family-comparison.png)
+![Probability distribution family comparison chart](/img/course/distribution-family-comparison-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解什么是概率分布
-- 掌握常见的离散分布（伯努利、二项、泊松）
-- 掌握常见的连续分布（均匀、正态/高斯）
-- 直觉理解中心极限定理——为什么正态分布无处不在
-- 用 Python 生成和可视化各种分布
+- Understand what a probability distribution is
+- Master common discrete distributions (Bernoulli, binomial, Poisson)
+- Master common continuous distributions (uniform, normal/Gaussian)
+- Build an intuitive understanding of the Central Limit Theorem — why the normal distribution appears everywhere
+- Use Python to generate and visualize different distributions
 
-## 先说一个很重要的学习预期
+## First, a very important learning expectation
 
-这一节不是要把所有分布都讲成“考试大全”，  
-而是要先让你建立一个特别关键的感觉：
+This section is not meant to turn every distribution into an "exam cheat sheet."
+Instead, it is meant to help you build one especially important intuition:
 
-- 概率基础在看单个事件
-- 概率分布开始看“随机现象整体长什么样”
+- Probability basics focus on a single event
+- Probability distributions focus on what the whole random phenomenon looks like
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-如果上一节学的是“单个事件的概率”，这一节学的就是：
+If the previous section was about "the probability of a single event," then this section is about:
 
-> **一个随机现象整体会长成什么样。**
+> **What does an entire random phenomenon look like?**
 
-![概率分布随机现象地图](/img/course/ch04-distribution-random-world-map.png)
+![Map of random phenomena for probability distributions](/img/course/ch04-distribution-random-world-map-en.png)
 
-这节课的重点不是背所有分布，而是先知道：
+The key point of this lesson is not to memorize every distribution, but to first know:
 
-- 什么情况下会出现某种分布
-- 它大概长什么样
-- 在 AI 里你为什么会反复遇到它
+- When a certain distribution appears
+- What it roughly looks like
+- Why you keep running into it in AI
 
-## 一、什么是概率分布？
+## 1. What is a probability distribution?
 
-**概率分布 = 一个随机变量所有可能取值以及每个值出现的概率。**
+**A probability distribution = all possible values of a random variable and the probability of each value.**
 
-### 1.1 一个更适合新人的类比
+### 1.1 A more beginner-friendly analogy
 
-如果概率像“某次会不会发生”，  
-那分布就更像：
+If probability is like "whether something will happen this time,"
+then a distribution is more like:
 
-- 一张长期统计出来的“可能性地图”
+- A long-term, statistically estimated "map of possibilities"
 
 ```mermaid
 flowchart TD
-    A["概率分布"]
-    A --> B["离散分布<br/>取值是离散的（1, 2, 3...）<br/>例：掷骰子的点数"]
-    A --> C["连续分布<br/>取值是连续的（任意实数）<br/>例：人的身高"]
+    A["Probability distribution"]
+    A --> B["Discrete distribution<br/>Values are discrete (1, 2, 3...)<br/>Example: the number shown on a die"]
+    A --> C["Continuous distribution<br/>Values are continuous (any real number)<br/>Example: human height"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -74,128 +74,128 @@ plt.rcParams['axes.unicode_minus'] = False
 
 ---
 
-## 二、离散分布
+## 2. Discrete distributions
 
-### 2.1 伯努利分布——只有两种结果
+### 2.1 Bernoulli distribution — only two outcomes
 
-**只做一次实验**，结果只有"成功"（1）或"失败"（0）。
+You **perform one experiment only**, and the result is either "success" (1) or "failure" (0).
 
 ```python
-# 伯努利分布：抛一次硬币
-# p = 成功的概率
-p = 0.6  # 不公平硬币，正面概率 60%
+# Bernoulli distribution: flipping a coin once
+# p = probability of success
+p = 0.6  # unfair coin, 60% chance of heads
 
-# 模拟 10000 次
+# Simulate 10000 times
 samples = np.random.binomial(1, p, 10000)
-print(f"正面比例: {samples.mean():.3f}")  # ≈ 0.6
+print(f"Proportion of heads: {samples.mean():.3f}")  # ≈ 0.6
 
 fig, ax = plt.subplots(figsize=(6, 4))
 values, counts = np.unique(samples, return_counts=True)
-ax.bar(['反面 (0)', '正面 (1)'], counts / len(samples), 
+ax.bar(['Tails (0)', 'Heads (1)'], counts / len(samples),
        color=['coral', 'steelblue'], edgecolor='white')
-ax.set_ylabel('概率')
-ax.set_title(f'伯努利分布 (p={p})')
+ax.set_ylabel('Probability')
+ax.set_title(f'Bernoulli Distribution (p={p})')
 ax.set_ylim(0, 1)
 plt.show()
 ```
 
-**AI 中的应用**：二分类任务的标签就是伯努利分布（0 或 1）。
+**Application in AI**: labels for binary classification tasks follow a Bernoulli distribution (0 or 1).
 
-### 2.2 二项分布——多次伯努利的总和
+### 2.2 Binomial distribution — the sum of multiple Bernoulli trials
 
-**做 n 次伯努利实验，成功的总次数**服从二项分布。
+The **total number of successes after n Bernoulli trials** follows a binomial distribution.
 
 ```python
-# 二项分布：抛 20 次硬币，正面出现的次数
-n = 20   # 实验次数
-p = 0.5  # 每次成功概率
+# Binomial distribution: flipping a coin 20 times, counting heads
+n = 20   # number of trials
+p = 0.5  # probability of success each time
 
-# 理论分布
+# Theoretical distribution
 x = np.arange(0, n + 1)
 pmf = stats.binom.pmf(x, n, p)
 
-# 模拟
+# Simulation
 samples = np.random.binomial(n, p, 10000)
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 理论
+# Theory
 axes[0].bar(x, pmf, color='steelblue', edgecolor='white')
-axes[0].set_xlabel('正面次数')
-axes[0].set_ylabel('概率')
-axes[0].set_title(f'二项分布 B(n={n}, p={p})（理论）')
+axes[0].set_xlabel('Number of heads')
+axes[0].set_ylabel('Probability')
+axes[0].set_title(f'Binomial Distribution B(n={n}, p={p}) (theoretical)')
 
-# 模拟
+# Simulation
 axes[1].hist(samples, bins=range(n+2), density=True, color='coral', edgecolor='white', alpha=0.7)
-axes[1].set_xlabel('正面次数')
-axes[1].set_ylabel('频率')
-axes[1].set_title(f'二项分布 B(n={n}, p={p})（模拟 10000 次）')
+axes[1].set_xlabel('Number of heads')
+axes[1].set_ylabel('Frequency')
+axes[1].set_title(f'Binomial Distribution B(n={n}, p={p}) (10,000 simulations)')
 
 plt.tight_layout()
 plt.show()
 ```
 
-**关键参数**：
-- 均值 = n × p（抛 20 次公平硬币，期望正面 10 次）
-- 方差 = n × p × (1-p)
+**Key parameters**:
+- Mean = n × p (if you flip a fair coin 20 times, the expected number of heads is 10)
+- Variance = n × p × (1-p)
 
-### 2.3 泊松分布——"稀有事件"的计数
+### 2.3 Poisson distribution — counting "rare events"
 
-**在固定时间/空间内，某稀有事件发生的次数**。
+This is the **number of times a rare event occurs in a fixed amount of time or space**.
 
 ```python
-# 泊松分布：一家奶茶店每小时平均来 5 个客人
-lambda_ = 5  # 平均值（λ）
+# Poisson distribution: a milk tea shop gets an average of 5 customers per hour
+lambda_ = 5  # average value (λ)
 
 x = np.arange(0, 20)
 pmf = stats.poisson.pmf(x, lambda_)
 
 fig, ax = plt.subplots(figsize=(8, 5))
 ax.bar(x, pmf, color='mediumseagreen', edgecolor='white')
-ax.set_xlabel('每小时客人数')
-ax.set_ylabel('概率')
-ax.set_title(f'泊松分布 Poisson(λ={lambda_})')
+ax.set_xlabel('Number of customers per hour')
+ax.set_ylabel('Probability')
+ax.set_title(f'Poisson Distribution Poisson(λ={lambda_})')
 ax.set_xticks(x)
 plt.show()
 
-print(f"来 0 个客人的概率: {stats.poisson.pmf(0, lambda_):.4f}")
-print(f"来 5 个客人的概率: {stats.poisson.pmf(5, lambda_):.4f}")
-print(f"来 10+ 个客人的概率: {1 - stats.poisson.cdf(9, lambda_):.4f}")
+print(f"Probability of 0 customers: {stats.poisson.pmf(0, lambda_):.4f}")
+print(f"Probability of 5 customers: {stats.poisson.pmf(5, lambda_):.4f}")
+print(f"Probability of 10+ customers: {1 - stats.poisson.cdf(9, lambda_):.4f}")
 ```
 
-**AI 中的应用**：文本中某个罕见词出现的次数、网站的访问量、异常事件的检测。
+**Application in AI**: the number of rare words in a text, website traffic volume, anomaly detection.
 
 ---
 
-## 三、连续分布
+## 3. Continuous distributions
 
-### 3.1 均匀分布——完全随机
+### 3.1 Uniform distribution — completely random
 
-每个值出现的概率完全相同。
+Every value has exactly the same probability of occurring.
 
 ```python
-# 均匀分布 U(0, 1)
+# Uniform distribution U(0, 1)
 samples = np.random.uniform(0, 1, 10000)
 
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.hist(samples, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
-ax.axhline(y=1, color='red', linestyle='--', label='理论密度 = 1')
-ax.set_xlabel('值')
-ax.set_ylabel('概率密度')
-ax.set_title('均匀分布 U(0, 1)')
+ax.axhline(y=1, color='red', linestyle='--', label='Theoretical density = 1')
+ax.set_xlabel('Value')
+ax.set_ylabel('Probability density')
+ax.set_title('Uniform Distribution U(0, 1)')
 ax.legend()
 plt.show()
 ```
 
-**AI 中的应用**：随机初始化权重、随机采样、数据增强中的随机变换。
+**Application in AI**: random weight initialization, random sampling, random transformations in data augmentation.
 
-### 3.2 正态分布（高斯分布）——最重要的分布
+### 3.2 Normal distribution (Gaussian distribution) — the most important distribution
 
 ```mermaid
 flowchart LR
-    N["正态分布<br/>N(μ, σ²)"]
-    N --> M["μ = 均值<br/>（钟形曲线的中心）"]
-    N --> S["σ = 标准差<br/>（曲线的胖瘦）"]
+    N["Normal distribution<br/>N(μ, σ²)"]
+    N --> M["μ = mean<br/>（center of the bell curve）"]
+    N --> S["σ = standard deviation<br/>（how wide or narrow the curve is）"]
 
     style N fill:#e3f2fd,stroke:#1565c0,color:#333
     style M fill:#fff3e0,stroke:#e65100,color:#333
@@ -205,211 +205,211 @@ flowchart LR
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 不同均值
+# Different means
 x = np.linspace(-8, 12, 1000)
 for mu in [-2, 0, 3, 5]:
     axes[0].plot(x, stats.norm.pdf(x, mu, 1), linewidth=2, label=f'μ={mu}, σ=1')
-axes[0].set_title('不同均值 μ（中心位置不同）')
+axes[0].set_title('Different means μ (different center positions)')
 axes[0].legend()
 axes[0].set_xlabel('x')
-axes[0].set_ylabel('概率密度')
+axes[0].set_ylabel('Probability density')
 
-# 不同标准差
+# Different standard deviations
 for sigma in [0.5, 1, 2, 4]:
     axes[1].plot(x, stats.norm.pdf(x, 0, sigma), linewidth=2, label=f'μ=0, σ={sigma}')
-axes[1].set_title('不同标准差 σ（胖瘦不同）')
+axes[1].set_title('Different standard deviations σ (different widths)')
 axes[1].legend()
 axes[1].set_xlabel('x')
-axes[1].set_ylabel('概率密度')
+axes[1].set_ylabel('Probability density')
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 3.3 68-95-99.7 法则
+### 3.3 The 68-95-99.7 rule
 
-正态分布有一个非常实用的规律：
+The normal distribution has a very useful rule:
 
 ```python
 mu, sigma = 0, 1
 
-print("68-95-99.7 法则：")
+print("68-95-99.7 rule:")
 for k, pct in [(1, '68.3%'), (2, '95.4%'), (3, '99.7%')]:
     area = stats.norm.cdf(mu + k*sigma) - stats.norm.cdf(mu - k*sigma)
-    print(f"  μ ± {k}σ 范围内: {area:.1%} 的数据（理论 {pct}）")
+    print(f"  Within μ ± {k}σ: {area:.1%} of the data (theoretical {pct})")
 ```
 
 ```python
-# 可视化 68-95-99.7
+# Visualize 68-95-99.7
 fig, ax = plt.subplots(figsize=(10, 5))
 x = np.linspace(-4, 4, 1000)
 y = stats.norm.pdf(x)
 
 ax.plot(x, y, 'k-', linewidth=2)
 
-# 填充区域
+# Fill regions
 colors = ['steelblue', 'cornflowerblue', 'lightblue']
-labels = ['68.3%（±1σ）', '95.4%（±2σ）', '99.7%（±3σ）']
+labels = ['68.3% (±1σ)', '95.4% (±2σ)', '99.7% (±3σ)']
 for k, color, label in zip([3, 2, 1], colors[::-1], labels[::-1]):
     mask = (x >= -k) & (x <= k)
     ax.fill_between(x[mask], y[mask], alpha=0.5, color=color, label=label)
 
-ax.set_xlabel('标准差')
-ax.set_ylabel('概率密度')
-ax.set_title('正态分布的 68-95-99.7 法则')
+ax.set_xlabel('Standard deviations')
+ax.set_ylabel('Probability density')
+ax.set_title('The 68-95-99.7 Rule of the Normal Distribution')
 ax.legend(loc='upper right')
 plt.show()
 ```
 
-### 3.4 正态分布在 AI 中的应用
+### 3.4 Applications of the normal distribution in AI
 
-| 应用场景 | 说明 |
+| Use case | Description |
 |---------|------|
-| 权重初始化 | 神经网络的权重通常用正态分布初始化（如 He 初始化、Xavier 初始化） |
-| 数据标准化 | 把数据变成均值 0、标准差 1 的"标准正态" |
-| 噪声建模 | 传感器噪声、测量误差通常假设为正态分布 |
-| 生成模型 | VAE 和扩散模型从正态分布采样生成新数据 |
-| 异常检测 | 偏离均值超过 3σ 的数据点可能是异常值 |
+| Weight initialization | Neural network weights are often initialized with a normal distribution (such as He initialization and Xavier initialization) |
+| Data standardization | Convert data to a "standard normal" distribution with mean 0 and standard deviation 1 |
+| Noise modeling | Sensor noise and measurement error are often assumed to follow a normal distribution |
+| Generative models | VAE and diffusion models sample from a normal distribution to generate new data |
+| Anomaly detection | Data points more than 3σ away from the mean may be outliers |
 
 ---
 
-## 四、中心极限定理——最重要的定理
+## 4. The Central Limit Theorem — the most important theorem
 
-### 4.1 核心思想
+### 4.1 Core idea
 
-**不管原始数据是什么分布，大量独立样本的平均值趋近于正态分布。**
+**No matter what the original data distribution is, the average of a large number of independent samples tends toward a normal distribution.**
 
-这就是为什么正态分布在自然界和数据科学中无处不在——很多现象本质上是大量独立因素的叠加效果。
+This is why the normal distribution appears everywhere in nature and data science — many phenomena are essentially the combined effect of many independent factors.
 
-### 4.2 用代码验证
+### 4.2 Verify it with code
 
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(16, 10))
 
-# 三种完全不同的原始分布
+# Three completely different original distributions
 distributions = [
-    ('均匀分布', lambda n: np.random.uniform(0, 1, n)),
-    ('指数分布', lambda n: np.random.exponential(1, n)),
-    ('二项分布', lambda n: np.random.binomial(10, 0.3, n)),
+    ('Uniform distribution', lambda n: np.random.uniform(0, 1, n)),
+    ('Exponential distribution', lambda n: np.random.exponential(1, n)),
+    ('Binomial distribution', lambda n: np.random.binomial(10, 0.3, n)),
 ]
 
 for col, (name, dist_func) in enumerate(distributions):
-    # 上面：原始分布
+    # Top: original distribution
     samples = dist_func(10000)
-    axes[0, col].hist(samples, bins=50, density=True, color='coral', 
+    axes[0, col].hist(samples, bins=50, density=True, color='coral',
                        edgecolor='white', alpha=0.7)
-    axes[0, col].set_title(f'原始分布：{name}')
-    axes[0, col].set_ylabel('概率密度')
-    
-    # 下面：取 30 个样本的平均值，重复 10000 次
+    axes[0, col].set_title(f'Original distribution: {name}')
+    axes[0, col].set_ylabel('Probability density')
+
+    # Bottom: take the average of 30 samples, repeat 10000 times
     n_samples = 30
     means = np.array([dist_func(n_samples).mean() for _ in range(10000)])
-    
-    axes[1, col].hist(means, bins=50, density=True, color='steelblue', 
+
+    axes[1, col].hist(means, bins=50, density=True, color='steelblue',
                        edgecolor='white', alpha=0.7)
-    
-    # 叠加正态分布曲线
+
+    # Overlay a normal distribution curve
     x = np.linspace(means.min(), means.max(), 100)
-    axes[1, col].plot(x, stats.norm.pdf(x, means.mean(), means.std()), 
-                       'r-', linewidth=2, label='正态分布拟合')
-    axes[1, col].set_title(f'样本均值的分布（n={n_samples}）')
-    axes[1, col].set_ylabel('概率密度')
+    axes[1, col].plot(x, stats.norm.pdf(x, means.mean(), means.std()),
+                       'r-', linewidth=2, label='Normal fit')
+    axes[1, col].set_title(f'Distribution of sample means (n={n_samples})')
+    axes[1, col].set_ylabel('Probability density')
     axes[1, col].legend()
 
-plt.suptitle('中心极限定理：无论原始分布是什么，样本均值都趋近正态分布', 
+plt.suptitle('Central Limit Theorem: No matter what the original distribution is, sample means tend toward a normal distribution',
              fontsize=14, y=1.01)
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：不管原始数据是均匀的、偏斜的还是离散的，只要取足够多样本的平均值，分布就会变成正态分布。
+**Interpretation**: No matter whether the original data is uniform, skewed, or discrete, as long as you take the average of enough samples, the distribution will become normal.
 
-### 4.3 样本量的影响
+### 4.3 The effect of sample size
 
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
 
-# 用指数分布（非常偏斜）做实验
+# Use the exponential distribution (highly skewed) for the experiment
 for ax, n in zip(axes, [1, 5, 30, 100]):
     means = [np.random.exponential(1, n).mean() for _ in range(10000)]
     ax.hist(means, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
-    
+
     x = np.linspace(min(means), max(means), 100)
     ax.plot(x, stats.norm.pdf(x, np.mean(means), np.std(means)), 'r-', linewidth=2)
     ax.set_title(f'n = {n}')
-    ax.set_xlabel('样本均值')
+    ax.set_xlabel('Sample mean')
 
-plt.suptitle('样本量越大，均值分布越接近正态', fontsize=13)
+plt.suptitle('The larger the sample size, the closer the mean distribution is to normal', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-:::tip 经验法则
-通常 n ≥ 30 时，中心极限定理的效果就很好了。这就是为什么很多统计方法要求"样本量至少 30"。
+:::tip Rule of thumb
+Usually when n ≥ 30, the Central Limit Theorem works quite well. That is why many statistical methods require a "sample size of at least 30."
 :::
 
 ---
 
-## 五、分布一览表
+## 5. Distribution overview table
 
-| 分布 | 类型 | 参数 | 典型场景 | NumPy 生成 |
+| Distribution | Type | Parameters | Typical scenario | NumPy generation |
 |------|------|------|---------|-----------|
-| 伯努利 | 离散 | p（成功概率） | 二分类标签 | `np.random.binomial(1, p)` |
-| 二项 | 离散 | n, p | n 次实验成功次数 | `np.random.binomial(n, p)` |
-| 泊松 | 离散 | λ（平均次数） | 稀有事件计数 | `np.random.poisson(lam)` |
-| 均匀 | 连续 | a, b（范围） | 随机初始化 | `np.random.uniform(a, b)` |
-| 正态 | 连续 | μ, σ（均值, 标准差） | 噪声、权重初始化 | `np.random.normal(mu, sigma)` |
-| 指数 | 连续 | λ（速率） | 事件间隔时间 | `np.random.exponential(1/lam)` |
+| Bernoulli | Discrete | p (success probability) | Binary classification labels | `np.random.binomial(1, p)` |
+| Binomial | Discrete | n, p | Number of successes in n trials | `np.random.binomial(n, p)` |
+| Poisson | Discrete | λ (average rate) | Rare event counting | `np.random.poisson(lam)` |
+| Uniform | Continuous | a, b (range) | Random initialization | `np.random.uniform(a, b)` |
+| Normal | Continuous | μ, σ (mean, standard deviation) | Noise, weight initialization | `np.random.normal(mu, sigma)` |
+| Exponential | Continuous | λ (rate) | Time between events | `np.random.exponential(1/lam)` |
 
 ---
 
-## 学到这里，下一节该带着什么问题走？
+## After learning this, what question should you take to the next section?
 
-看完分布以后，最值得带去下一节的问题是：
+After looking at distributions, the most valuable questions to carry forward are:
 
-1. 如果我已经知道某类分布长什么样，怎样从观测数据反推出它的参数？
-2. “最能解释数据”到底是什么意思？
-3. A/B 测试里看到一个差异时，怎样判断它是真差异还是随机波动？
+1. If I already know what a certain distribution looks like, how do I infer its parameters from observed data?
+2. What does "the model that best explains the data" actually mean?
+3. When I see a difference in an A/B test, how can I tell whether it is a real difference or just random fluctuation?
 
-这几个问题，正好会把你自然带到：
+These questions will naturally lead you to:
 
-- [统计推断基础](./03-statistical-inference.md)
+- [Basics of Statistical Inference](./03-statistical-inference.md)
 
-:::info 连接后续
-- **下一节**：统计推断——从数据推断分布的参数
-- **5 机器学习入门到实战**：逻辑回归用 sigmoid 函数输出伯努利分布的参数 p
-- **6 深度学习与 Transformer 基础**：神经网络权重用正态分布初始化（He/Xavier 初始化）
-- **7 大模型原理、Prompt 与微调**：VAE 模型假设隐变量服从正态分布
+:::info Connecting ahead
+- **Next section**: Statistical inference — inferring distribution parameters from data
+- **5 Introduction to Machine Learning and Practice**: Logistic regression uses the sigmoid function to output the Bernoulli distribution parameter p
+- **6 Fundamentals of Deep Learning and Transformers**: Neural network weights are initialized with a normal distribution (He/Xavier initialization)
+- **7 Principles of Large Models, Prompting, and Fine-Tuning**: VAE models assume latent variables follow a normal distribution
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 |
+| Concept | Intuition |
 |------|------|
-| 概率分布 | 随机变量的"可能性地图" |
-| 离散分布 | 取有限个值，每个值有确定的概率 |
-| 连续分布 | 取任意值，用概率密度函数描述 |
-| 正态分布 | 最重要的分布——钟形曲线，由 μ 和 σ 决定 |
-| 中心极限定理 | 样本均值趋近正态分布，与原始分布无关 |
+| Probability distribution | The "map of possibilities" for a random variable |
+| Discrete distribution | Takes a finite set of values, each with a definite probability |
+| Continuous distribution | Takes any value, described with a probability density function |
+| Normal distribution | The most important distribution — a bell curve determined by μ and σ |
+| Central Limit Theorem | Sample means tend toward a normal distribution, regardless of the original distribution |
 
-## 这节最该带走什么
+## What you should take away from this section
 
-- 概率分布最重要的直觉是“随机现象整体长什么样”
-- 伯努利、二项、泊松是在看离散计数问题
-- 正态分布和中心极限定理会在后面 AI 里反复出现
+- The most important intuition about probability distributions is "what does the whole random phenomenon look like"
+- Bernoulli, binomial, and Poisson are for discrete counting problems
+- The normal distribution and the Central Limit Theorem will appear repeatedly later in AI
 
-## 动手练习
+## Hands-on Practice
 
-### 练习 1：画出所有分布
+### Exercise 1: Plot all distributions
 
-在一张 2×3 的子图中，分别画出伯努利、二项、泊松、均匀、正态、指数分布的图形。
+In a 2×3 subplot grid, plot Bernoulli, binomial, Poisson, uniform, normal, and exponential distributions.
 
-### 练习 2：验证 68-95-99.7
+### Exercise 2: Verify 68-95-99.7
 
-生成 100000 个 N(170, 5) 的身高数据（均值 170cm，标准差 5cm），验证有多少比例的人身高在 160-180cm 之间（±2σ）。
+Generate 100000 height data points from N(170, 5) (mean 170 cm, standard deviation 5 cm), and verify what proportion of people have heights between 160 and 180 cm (±2σ).
 
-### 练习 3：中心极限定理实验
+### Exercise 3: Central Limit Theorem experiment
 
-用骰子（1-6 均匀分布）做中心极限定理实验：掷 1 次、10 次、50 次、200 次骰子取平均值，各重复 10000 组，画出平均值的分布图。
+Use dice (uniform distribution from 1 to 6) to perform a Central Limit Theorem experiment: roll the dice 1 time, 10 times, 50 times, and 200 times, compute the average each time, repeat each group 10000 times, and plot the distribution of the averages.

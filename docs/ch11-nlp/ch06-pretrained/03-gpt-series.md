@@ -1,142 +1,142 @@
 ---
-title: "6.4 GPT 系列"
+title: "6.4 GPT Series"
 sidebar_position: 18
-description: "从自回归语言建模、因果掩码、上下文学习到指令化演进，理解 GPT 系列为什么改变了生成式 NLP。"
-keywords: [GPT, 自回归, causal language model, decoder-only, in-context learning, next token]
+description: "From autoregressive language modeling and causal masking to in-context learning and instruction tuning, understand why the GPT series changed generative NLP."
+keywords: [GPT, autoregressive, causal language model, decoder-only, in-context learning, next token]
 ---
 
-# GPT 系列
+# GPT Series
 
-![GPT 自回归生成图](/img/course/gpt-autoregressive-generation.png)
+![GPT autoregressive generation diagram](/img/course/gpt-autoregressive-generation-en.png)
 
-:::tip 本节定位
-如果说 BERT 更像“读懂文本的高手”，那 GPT 路线更像：
+:::tip Where this section fits
+If BERT is more like a “text comprehension expert,” then the GPT path is more like:
 
-> **根据已有上下文，把后面的内容一段段续出来。**
+> **Given the existing context, keep extending the rest of the text step by step.**
 
-这条路线后来一路长成了今天我们熟悉的大语言模型主线。
+This path later grew into the main line of the large language models we know today.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 GPT 的核心训练目标为什么是“预测下一个 token”
-- 理解 GPT 和 BERT 在结构与任务上的关键区别
-- 理解 causal mask 为什么不可少
-- 通过一个最小 bigram 语言模型体验自回归生成
-- 理解 GPT 系列从“续写模型”走向“对话助手”的演化逻辑
+- Understand why GPT’s core training objective is “predict the next token”
+- Understand the key differences between GPT and BERT in structure and tasks
+- Understand why causal masking is necessary
+- Experience autoregressive generation through a minimal bigram language model
+- Understand the evolution logic of the GPT series from “completion models” to “conversational assistants”
 
-## 历史背景：GPT 这条线是怎样长出来的？
+## Historical Background: How Did the GPT Line Emerge?
 
-GPT 更适合按“系列节点”来理解，而不是只盯一个模型：
+GPT is easier to understand as a sequence of milestones rather than focusing on just one model:
 
-| 年份 | 节点 | 代表论文 | 它最重要地解决了什么 |
+| Year | Milestone | Representative paper | What did it solve most importantly? |
 |---|---|---|---|
-| 2018 | GPT-1 | *Improving Language Understanding by Generative Pre-Training* | 把 decoder-only 预训练路线真正推到主流视野 |
-| 2019 | GPT-2 | *Language Models are Unsupervised Multitask Learners* | 用更大规模模型展示出强生成能力和零样本潜力 |
-| 2020 | GPT-3 | *Language Models are Few-Shot Learners* | 把 in-context learning / few-shot 现象推到主流 |
+| 2018 | GPT-1 | *Improving Language Understanding by Generative Pre-Training* | Brought the decoder-only pretraining path into the mainstream |
+| 2019 | GPT-2 | *Language Models are Unsupervised Multitask Learners* | Showed strong generation ability and zero-shot potential at larger scale |
+| 2020 | GPT-3 | *Language Models are Few-Shot Learners* | Brought in-context learning / few-shot behavior into the mainstream |
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember first is:
 
-> **GPT 不是一下子就“会聊天”，而是先在“预测下一个 token”这条主线上不断扩规模、扩能力。**
+> **GPT did not suddenly become “chatty”; instead, it kept scaling up and improving along the “predict the next token” path.**
 
-后面大家熟悉的对话助手、指令跟随和 Agent 能力，都是建立在这条生成主线继续演化出来的。
-
----
-
-## 一、GPT 到底在做什么？
-
-### 1.1 最朴素的一句话
-
-GPT 路线最本质的目标是：
-
-> **给定前文，预测下一个 token。**
-
-例如：
-
-输入：
-
-> “北京是中国的”
-
-模型会倾向于预测：
-
-> “首都”
-
-这看起来很简单，但如果你把这个动作反复做很多次：
-
-1. 预测一个 token
-2. 把它接到上下文后面
-3. 再预测下一个 token
-
-就能一步步生成完整文本。
-
-### 1.2 为什么这条路线这么强？
-
-因为“预测下一个 token”这个目标非常通用：
-
-- 可以学语言规律
-- 可以学知识模式
-- 可以学代码结构
-- 可以学推理轨迹
-
-所以 GPT 的强大，不是因为它一开始就会聊天，而是因为：
-
-> 它先学会了大规模的语言生成规律。 
-
-### 1.3 一个更适合新人的总类比
-
-你可以把 GPT 理解成：
-
-- 一个非常会“顺着前文接着写”的选手
-
-它不一定先擅长：
-
-- 做最严谨的结构化理解题
-
-但它非常擅长：
-
-- 根据已经给出的上下文，继续往下生成合理内容
-
-这就是为什么 GPT 路线天然更容易长成：
-
-- 对话
-- 写作
-- 代码补全
+The conversational assistants, instruction following, and Agent capabilities we use later were all built by continuing to evolve this generation-centered line.
 
 ---
 
-## 二、GPT 和 BERT 的根本区别
+## 1. What Exactly Is GPT Doing?
 
-### 2.1 一张表先记住
+### 1.1 The simplest one-sentence answer
 
-| 模型路线 | 核心方式 | 更擅长 |
+The most fundamental goal of the GPT line is:
+
+> **Given the previous context, predict the next token.**
+
+For example:
+
+Input:
+
+> “Beijing is China’s”
+
+The model will tend to predict:
+
+> “capital”
+
+This looks simple, but if you repeat this action many times:
+
+1. Predict one token
+2. Append it to the context
+3. Predict the next token again
+
+You can generate a complete text step by step.
+
+### 1.2 Why is this path so powerful?
+
+Because the “predict the next token” objective is very general:
+
+- It can learn language patterns
+- It can learn knowledge patterns
+- It can learn code structure
+- It can learn reasoning traces
+
+So GPT is powerful not because it was born knowing how to chat, but because:
+
+> It first learned large-scale language generation patterns.
+
+### 1.3 A more beginner-friendly analogy
+
+You can think of GPT as:
+
+- someone who is very good at “continuing to write from what came before”
+
+It may not be best at:
+
+- strict structured understanding tasks at the beginning
+
+But it is very good at:
+
+- continuing to generate reasonable content based on the context already given
+
+That is why the GPT path naturally grows into:
+
+- dialogue
+- writing
+- code completion
+
+---
+
+## 2. The Fundamental Difference Between GPT and BERT
+
+### 2.1 Remember this table first
+
+| Model line | Core approach | What it is better at |
 |---|---|---|
-| BERT | 双向看上下文 | 理解、匹配、抽取 |
-| GPT | 只看左侧历史，自回归生成 | 续写、对话、生成 |
+| BERT | Bidirectional context viewing | Understanding, matching, extraction |
+| GPT | Left-to-right history only, autoregressive generation | Completion, dialogue, generation |
 
-### 2.2 为什么 GPT 不能偷看右边？
+### 2.2 Why can’t GPT peek at the right side?
 
-因为它训练时必须保持和生成时一致。
+Because training must match generation.
 
-生成时，未来内容还没出现，所以训练时也不能偷偷看未来 token。  
-这就是所谓的 **causal / autoregressive** 约束。
+During generation, future content has not appeared yet, so training also cannot secretly look at future tokens.
+This is the **causal / autoregressive** constraint.
 
 ---
 
-## 三、因果掩码（causal mask）为什么是 GPT 的关键？
+## 3. Why Is Causal Masking So Important for GPT?
 
-### 3.1 一个直觉理解
+### 3.1 An intuitive explanation
 
-在 GPT 里，当模型正在预测第 `t` 个位置时：
+In GPT, when the model is predicting the token at position `t`:
 
-- 可以看 `1 ~ t-1`
-- 不能看 `t+1` 之后
+- it can look at `1 ~ t-1`
+- it cannot look at anything after `t`
 
-这就像你做完形填空：
+It is like a cloze test:
 
-- 只能看前面已经写好的内容
-- 不能偷看答案栏
+- you can only see the text that has already been filled in
+- you cannot peek at the answer key
 
-### 3.2 一个最小 mask 示例
+### 3.2 A minimal mask example
 
 ```python
 import numpy as np
@@ -147,7 +147,7 @@ mask = np.tril(np.ones((seq_len, seq_len), dtype=int))
 print(mask)
 ```
 
-输出会是一个下三角矩阵：
+The output will be a lower triangular matrix:
 
 ```text
 [[1 0 0 0 0]
@@ -157,48 +157,48 @@ print(mask)
  [1 1 1 1 1]]
 ```
 
-它表示：
+It means:
 
-- 第 1 个位置只能看自己
-- 第 2 个位置看前两个
-- 第 5 个位置看前五个
+- the 1st position can only see itself
+- the 2nd position can see the first two
+- the 5th position can see the first five
 
-这就是 GPT 训练和生成的一致性来源。
+This is the source of consistency between GPT training and generation.
 
-### 3.3 一个很适合初学者先记的对比表
+### 3.3 A very beginner-friendly comparison table
 
-| 问题 | GPT 的回答方式 |
+| Question | GPT’s answer style |
 |---|---|
-| 训练时能不能看未来 token？ | 不能 |
-| 生成时能不能看未来 token？ | 也不能 |
-| 为什么这样设计？ | 保证训练和生成一致 |
+| Can it see future tokens during training? | No |
+| Can it see future tokens during generation? | No |
+| Why is it designed this way? | To keep training and generation consistent |
 
-这个表很适合新人，因为它会把“causal mask”从一个术语，重新变成一个非常朴素的约束：
+This table is good for beginners because it turns “causal mask” from a technical term back into a very simple constraint:
 
-- 不能偷看后面的答案
+- do not peek at the answer that comes later
 
 ---
 
-## 四、一个真正有教学意义的最小 GPT 示例：bigram 语言模型
+## 4. A Truly Educational Minimal GPT Example: a Bigram Language Model
 
-### 4.1 为什么先看 bigram？
+### 4.1 Why start with bigram?
 
-因为它虽然非常简单，但已经能让你亲眼看到：
+Because it is very simple, yet it already lets you see with your own eyes:
 
-- 什么叫“根据前文预测下一个词”
-- 什么叫“自回归生成”
+- what it means to “predict the next word from the previous context”
+- what autoregressive generation means
 
-### 4.2 可运行示例
+### 4.2 Runnable example
 
 ```python
 from collections import defaultdict, Counter
 import random
 
 corpus = [
-    "我 爱 AI",
-    "我 爱 Python",
-    "你 爱 AI",
-    "我们 爱 学习"
+    "I love AI",
+    "I love Python",
+    "You love AI",
+    "We love learning"
 ]
 
 transitions = defaultdict(Counter)
@@ -228,54 +228,54 @@ def generate(start, max_steps=5):
     return " ".join(tokens)
 
 for _ in range(5):
-    print(generate("我"))
+    print(generate("I"))
 ```
 
-### 4.3 这段代码到底在教什么？
+### 4.3 What is this code teaching exactly?
 
-它在教你 GPT 的最小骨架：
+It teaches you the smallest skeleton of GPT:
 
-1. 根据前文决定下一个词分布
-2. 从分布里采样
-3. 把采样结果接回去
-4. 再继续生成
+1. Decide the next-word distribution based on the previous context
+2. Sample from that distribution
+3. Append the sampled result back
+4. Keep generating
 
-这已经是“自回归生成”的最小原型。
+This is already the minimal prototype of “autoregressive generation.”
 
-当然，真实 GPT 比这个复杂无数倍，但主线是一样的。
+Of course, real GPT is far more complex than this, but the main idea is the same.
 
-### 4.4 第一次学 GPT 时，最稳的默认顺序
+### 4.4 The safest order for a first-time GPT learner
 
-更稳的顺序通常是：
+A more stable learning order is usually:
 
-1. 先理解“预测下一个 token”这句话
-2. 先看 causal mask 为什么必要
-3. 先用 bigram 这种最小模型建立自回归直觉
-4. 最后再去看 GPT-1 / 2 / 3 的规模演化
+1. First understand the sentence “predict the next token”
+2. Then see why causal masking is necessary
+3. Then use a minimal model like bigram to build autoregressive intuition
+4. Finally look at the scale evolution of GPT-1 / 2 / 3
 
-这样会比一上来就盯模型参数和发布时间更容易看懂主线。
+This is easier to understand than jumping straight into parameter counts and release dates.
 
 ---
 
-## 五、GPT 为什么是 decoder-only？
+## 5. Why Is GPT Decoder-Only?
 
-### 5.1 因为它最核心的任务就是逐步生成
+### 5.1 Because its core task is step-by-step generation
 
-GPT 系列通常基于 decoder-only Transformer：
+GPT series are usually based on a decoder-only Transformer:
 
-- 每个位置只看左边
-- 通过 causal mask 保证不偷看未来
-- 每步输出下一个 token 的分布
+- each position only sees the left side
+- causal masking prevents peeking into the future
+- each step outputs the distribution of the next token
 
-这和 encoder-only（比如 BERT）最大的区别在于：
+The biggest difference from encoder-only models (such as BERT) is:
 
-> GPT 的结构天然服务于“续写和生成”。 
+> GPT’s architecture is naturally built for “completion and generation.”
 
-### 5.2 一个离线随机初始化的小型 GPT 形状示例
+### 5.2 A small offline randomly initialized GPT shape example
 
-如果你想更直观地感受“decoder-only LM”的输出，可以用本地随机初始化的小模型，不依赖下载权重：
+If you want to feel more intuitively what a “decoder-only LM” outputs, you can use a locally randomly initialized small model without downloading weights:
 
-:::info 运行环境
+:::info Runtime environment
 ```bash
 pip install torch transformers
 ```
@@ -308,165 +308,165 @@ print("input_ids shape:", input_ids.shape)
 print("logits shape   :", logits.shape)
 ```
 
-这里的 `logits.shape` 会是：
+Here `logits.shape` will be:
 
 - `[batch, seq_len, vocab_size]`
 
-意思是：
+This means:
 
-> 对每个位置，模型都在预测“下一个 token 的分布”。 
+> For each position, the model is predicting the distribution of the “next token.”
 
 ---
 
-## 六、什么是 in-context learning？
+## 6. What Is In-Context Learning?
 
-### 6.1 GPT 为什么后来越来越像“会临场学规则”？
+### 6.1 Why does GPT increasingly look like it can learn rules on the spot?
 
-随着模型变大，GPT 路线逐渐展现出一个很重要的能力：
+As models grow larger, the GPT line gradually shows an important ability:
 
-> 不改参数，只在上下文里给几个示例，它也能临时学着做。
+> Without changing parameters, it can temporarily learn to do something just from examples in the context.
 
-例如：
+For example:
 
 ```text
-输入: 苹果 很 好吃
-输出: positive
+Input: Apples are very tasty
+Output: positive
 
-输入: 这门课 太 乱 了
-输出: negative
+Input: This class is so messy
+Output: negative
 
-输入: 老师 讲得 很 清楚
-输出:
+Input: The teacher explains very clearly
+Output:
 ```
 
-模型就可能继续补出：
+The model might then continue with:
 
 ```text
 positive
 ```
 
-这就是 in-context learning 的味道。
+That is the feel of in-context learning.
 
-### 6.2 为什么这很重要？
+### 6.2 Why is this important?
 
-因为它意味着：
+Because it means:
 
-- 不一定每个任务都要重新训练模型
-- Prompt 本身就能成为一种临时任务配置方式
+- not every task needs model retraining
+- a Prompt itself can become a temporary task configuration method
 
-这为后面的 Prompt 工程、Agent 和工具调用铺了很大一条路。
-
----
-
-## 七、GPT 系列是怎么一步步演化的？
-
-### 7.1 粗略脉络
-
-可以先用这条线记住：
-
-1. 先做更强的自回归语言模型
-2. 模型越大，通用生成能力越强
-3. 再通过指令微调、对齐、偏好优化
-4. 最后变成更像“助手”的形态
-
-### 7.2 从“会续写”到“会配合”
-
-早期 GPT 更像：
-
-- 强大的文本续写模型
-
-后来经过：
-
-- 指令微调
-- 偏好学习
-- 安全对齐
-
-它才逐渐变成了今天这种更会跟人协作的聊天助手。
-
-也就是说：
-
-> GPT 的聊天能力，不只是来自预训练，还来自后续对齐。 
+This laid a large foundation for later Prompt engineering, Agents, and tool use.
 
 ---
 
-## 八、GPT 最擅长什么？又不擅长什么？
+## 7. How Has the GPT Series Evolved Step by Step?
 
-### 8.1 擅长
+### 7.1 A rough timeline
 
-- 文本生成
-- 对话
-- 摘要
-- 改写
-- 代码生成
-- 开放式续写
+You can remember this path first:
 
-### 8.2 不天然擅长
+1. Build stronger autoregressive language models
+2. As models get larger, general generation ability becomes stronger
+3. Then use instruction tuning, alignment, and preference optimization
+4. Finally, they become more like “assistants”
 
-- 严格事实检索
-- 长期稳定记忆
-- 需要强约束的结构化执行
+### 7.2 From “can complete text” to “can cooperate”
 
-所以在真实系统里，经常要给 GPT 搭配：
+Early GPT was more like:
+
+- a powerful text completion model
+
+Later, after:
+
+- instruction tuning
+- preference learning
+- safety alignment
+
+it gradually became the chat assistant we use today, which is much better at collaborating with people.
+
+In other words:
+
+> GPT’s conversational ability does not come only from pretraining; it also comes from later alignment.
+
+---
+
+## 8. What Is GPT Best At? What Is It Not Naturally Good At?
+
+### 8.1 Strengths
+
+- text generation
+- dialogue
+- summarization
+- rewriting
+- code generation
+- open-ended completion
+
+### 8.2 Not naturally good at
+
+- strict factual retrieval
+- long-term stable memory
+- highly constrained structured execution
+
+So in real systems, GPT is often paired with:
 
 - RAG
-- 工具调用
-- 记忆系统
-- 护栏
+- tool calling
+- memory systems
+- guardrails
 
-## 如果把它做成笔记或项目，最值得展示什么
+## If you turn this into notes or a project, what is most worth showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “GPT 很强”
+- “GPT is powerful”
 
-而是：
+but rather:
 
-1. next-token prediction 到自回归生成的主线
-2. causal mask 为什么让训练和生成保持一致
-3. GPT-1 / 2 / 3 代表的能力演化
-4. 为什么它后面还需要 Prompt、RAG、工具和对齐系统
+1. the main line from next-token prediction to autoregressive generation
+2. why causal masking keeps training and generation consistent
+3. the capability evolution represented by GPT-1 / 2 / 3
+4. why it still needs Prompt, RAG, tools, and alignment systems afterward
 
-这样别人会更容易看出：
+That way, others can more easily see:
 
-- 你理解的是 GPT 的能力骨架
-- 不只是知道它很热门
-
----
-
-## 九、初学者最常踩的坑
-
-### 9.1 以为 GPT 就是“会聊天的模型”
-
-聊天只是表层。  
-根部是自回归语言建模。
-
-### 9.2 以为 GPT 训练时也能双向看上下文
-
-不是。  
-GPT 的关键约束就是不能偷看未来。
-
-### 9.3 只知道“模型很大”，不知道它的输出张量在表达什么
-
-真正要记住的是：
-
-- 每个位置都在预测下一个 token 分布
-- 生成是一步步滚动出来的
+- you understand the capability skeleton of GPT
+- not just that it is popular
 
 ---
 
-## 小结
+## 9. Common Pitfalls for Beginners
 
-这一节最重要的不是记住某一代 GPT 的名字，而是抓住这条主线：
+### 9.1 Thinking GPT is just a “chatting model”
 
-> **GPT = decoder-only + causal mask + next-token prediction + 自回归生成。**
+Chatting is only the surface.
+The root is autoregressive language modeling.
 
-理解了这条主线，你后面再学 Prompt、Agent、工具调用和大模型应用时，就会知道它们到底是建立在什么能力之上。
+### 9.2 Thinking GPT can also look bidirectionally during training
+
+No.
+The key GPT constraint is that it cannot peek at the future.
+
+### 9.3 Only knowing “the model is big,” but not understanding what its output tensor means
+
+What you really need to remember is:
+
+- each position predicts a distribution over the next token
+- generation is rolled out step by step
 
 ---
 
-## 练习
+## Summary
 
-1. 改一下 bigram 示例的语料，观察生成结果如何变化。
-2. 用自己的话解释：为什么 causal mask 对 GPT 是必须的？
-3. 看懂随机初始化 GPT 示例里的 `logits` shape，它为什么会是 `[batch, seq_len, vocab_size]`？
-4. 想一想：为什么说 GPT 的“会聊天”能力，不能简单等同于“只是会预测下一个词”？
+The most important thing in this section is not remembering the name of a certain GPT version, but grasping this main line:
+
+> **GPT = decoder-only + causal mask + next-token prediction + autoregressive generation.**
+
+Once you understand this line, when you later learn Prompt, Agent, tool calling, and LLM applications, you will know exactly what capabilities they are built on.
+
+---
+
+## Exercises
+
+1. Modify the corpus in the bigram example and observe how the generated results change.
+2. Explain in your own words: why is causal masking necessary for GPT?
+3. Understand the `logits` shape in the randomly initialized GPT example — why is it `[batch, seq_len, vocab_size]`?
+4. Think about this: why can’t GPT’s “ability to chat” be simply reduced to “it only predicts the next word”?

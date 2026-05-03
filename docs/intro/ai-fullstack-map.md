@@ -1,97 +1,97 @@
 ---
 sidebar_position: 1
-title: "AI 全栈能力地图"
-description: "用一张能力地图理解 AI 全栈学习路径：开发、数据、模型、大模型应用、RAG、Agent、工程化与方向拓展。"
-keywords: [AI全栈, 能力地图, AI学习路线, LLM应用, RAG, AI Agent]
+title: "AI Full-Stack Capability Map"
+description: "Understand the AI full-stack learning path with one capability map: development, data, models, LLM applications, RAG, Agent systems, engineering, and extended directions."
+keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RAG, AI Agent]
 ---
 
-# AI 全栈能力地图
+# AI Full-Stack Capability Map
 
-![AI 全栈能力总地图](/img/course/intro-ai-fullstack-capability-map.png)
+![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.png)
 
-学习 AI 最容易迷路的原因，是你会同时看到 Python、数学、机器学习、深度学习、Transformer、Prompt、RAG、Agent、MCP、向量数据库、微调、部署、安全等大量名词。它们不是平铺关系，而是一层一层叠起来的能力。
+The easiest way to get lost when learning AI is that you will see many terms at the same time: Python, math, machine learning, deep learning, Transformer, Prompt, RAG, Agent, MCP, vector databases, fine-tuning, deployment, security, and more. These are not side-by-side topics; they are layers of capability stacked on top of one another.
 
-这门课把 AI 全栈能力分成七层：开发基础、数据能力、模型基础、大模型理解、应用开发、Agent 系统、工程化与拓展方向。
+This course divides AI full-stack capability into seven layers: development basics, data skills, model fundamentals, LLM understanding, application development, Agent systems, and engineering plus extended directions.
 
-## 先记这个表
+## Remember this table first
 
-| 层级 | 它解决的问题 | 你最终会做出的东西 |
+| Layer | Problem it solves | What you will eventually build |
 | --- | --- | --- |
-| 开发基础 | 代码在哪里写、怎么运行、怎么保存 | 可运行、可复盘的小项目 |
-| 数据能力 | 资料怎么清洗、整理、观察 | 数据报告、可视化图表、可检索资料 |
-| 模型基础 | 模型为什么能从数据中学规律 | 分类、预测、聚类、推荐等基础模型 |
-| 大模型理解 | LLM 为什么能理解和生成文本 | Prompt、Embedding、Transformer 直觉 |
-| 应用开发 | 怎么把模型变成用户能用的功能 | 聊天助手、知识库问答、文档处理工具 |
-| Agent 系统 | 怎么让 AI 拆任务、调工具、保留记忆 | 自动化助手、学习规划 Agent |
-| 工程化与拓展 | 怎么让应用稳定上线并深入方向 | 部署项目、评估体系、CV/NLP/AIGC 作品 |
+| Development basics | Where to write code, how to run it, how to save it | Small runnable, reviewable projects |
+| Data skills | How to clean, organize, and inspect materials | Data reports, charts, searchable materials |
+| Model fundamentals | Why models can learn patterns from data | Basic models for classification, prediction, clustering, recommendation, and more |
+| LLM understanding | Why LLMs can understand and generate text | Intuition for Prompt, Embedding, and Transformer |
+| Application development | How to turn a model into a feature users can use | Chat assistants, knowledge-base Q&A, document processing tools |
+| Agent systems | How to let AI break down tasks, use tools, and keep memory | Automation assistants, learning-planning Agents |
+| Engineering and expansion | How to launch applications reliably and explore deeper directions | Deployed projects, evaluation systems, CV/NLP/AIGC works |
 
-## 总体能力地图
+## Overall capability map
 
 ```mermaid
 mindmap
-  root((AI 全栈能力))
-    开发基础
-      终端与 Git
-      Python 编程
-      环境与依赖管理
-      API 与基础后端
-    数据能力
+  root((AI Full-Stack Capability))
+    Development basics
+      Terminal and Git
+      Python programming
+      Environment and dependency management
+      API and basic backend
+    Data skills
       NumPy
       Pandas
-      数据清洗
-      可视化
-      数据库
-    模型基础
-      AI 数学
-      机器学习
-      深度学习
+      Data cleaning
+      Visualization
+      Databases
+    Model fundamentals
+      AI math
+      Machine learning
+      Deep learning
       PyTorch
       Transformer
-    大模型理解
-      Token 与 Embedding
+    LLM understanding
+      Token and Embedding
       Attention
-      预训练
+      Pretraining
       Prompt
-      微调与对齐
-    应用开发
+      Fine-tuning and alignment
+    Application development
       LLM API
       Function Calling
       RAG
-      文档解析
-      向量数据库
-    Agent 系统
-      推理与规划
-      工具调用
-      记忆系统
+      Document parsing
+      Vector databases
+    Agent systems
+      Reasoning and planning
+      Tool calling
+      Memory systems
       MCP
-      多 Agent
-    工程化
-      部署
-      监控
-      评估
-      成本控制
-      安全与权限
-    方向拓展
-      计算机视觉
-      自然语言处理
-      多模态
+      Multi-Agent
+    Engineering
+      Deployment
+      Monitoring
+      Evaluation
+      Cost control
+      Security and permissions
+    Extension directions
+      Computer vision
+      Natural language processing
+      Multimodal
       AIGC
-      模型部署优化
+      Model deployment optimization
 ```
 
-## 七层怎么连起来
+## How the seven layers connect
 
-| 从哪一层到哪一层 | 连接关系 |
+| From which layer to which layer | Connection |
 | --- | --- |
-| 开发基础 -> 数据能力 | 先会写脚本，才能自动清洗、统计和保存数据 |
-| 数据能力 -> 模型基础 | 模型学到的规律来自数据质量、特征和标签 |
-| 模型基础 -> 大模型理解 | Transformer、Embedding、损失函数等概念会反复出现 |
-| 大模型理解 -> 应用开发 | 理解上下文、幻觉和边界，才能设计可靠 Prompt 与 RAG |
-| 应用开发 -> Agent 系统 | RAG 负责查资料，Agent 进一步负责拆任务和调用工具 |
-| Agent 系统 -> 工程化 | 真正上线时要处理权限、日志、评估、成本和错误恢复 |
+| Development basics -> Data skills | First learn to write scripts, then you can automatically clean, summarize, and save data |
+| Data skills -> Model fundamentals | The patterns a model learns come from data quality, features, and labels |
+| Model fundamentals -> LLM understanding | Concepts such as Transformer, Embedding, and loss functions appear again and again |
+| LLM understanding -> Application development | Only after understanding context, hallucinations, and boundaries can you design reliable Prompts and RAG |
+| Application development -> Agent systems | RAG handles information retrieval, while Agents further break down tasks and call tools |
+| Agent systems -> Engineering | Real production systems must handle permissions, logs, evaluation, cost, and error recovery |
 
-## 最小记忆版
+## Minimal memory version
 
-把七层合成一句话：先把代码跑起来，再把数据整理好，然后理解模型怎么学，接着用大模型做应用，最后把项目部署、展示、复盘。
+Combine the seven layers into one sentence: first get the code running, then organize the data, then understand how models learn, then use LLMs to build applications, and finally deploy, present, and review the project.
 
-第一遍学习不需要背完整地图。只要记住“工具 -> 数据 -> 模型 -> 大模型 -> 应用 -> Agent -> 工程化”这条主线，就不会在术语里迷路。
+You do not need to memorize the entire map the first time you study it. Just remember this main thread: "tools -> data -> model -> LLM -> application -> Agent -> engineering" and you will not get lost in the terminology.

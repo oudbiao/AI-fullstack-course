@@ -1,139 +1,139 @@
 ---
-title: "2.3 上下文词嵌入"
+title: "2.3 Contextual Embeddings"
 sidebar_position: 5
-description: "从固定词向量的局限讲起，理解为什么同一个词在不同句子里应该有不同表示，以及上下文化表示如何改变 NLP。"
+description: "Starting from the limitations of fixed word vectors, understand why the same word should have different representations in different sentences, and how contextualized representations change NLP."
 keywords: [contextual embedding, contextual representation, polysemy, BERT, dynamic embeddings]
 ---
 
-# 上下文词嵌入
+# Contextual Embeddings
 
-![上下文词嵌入对比图](/img/course/contextual-embedding-comparison.png)
+![Contextual embedding comparison](/img/course/contextual-embedding-comparison-en.png)
 
-:::tip 本节定位
-上一节我们讲了词嵌入能把词映射到语义空间。  
-但它有一个很快就会遇到的大问题：
+:::tip Section overview
+In the previous section, we saw that word embeddings can map words into a semantic space.
+But there is a big problem you will run into very quickly:
 
-> **同一个词，在不同上下文里可能根本不是一个意思。**
+> **The same word may not mean the same thing in different contexts.**
 
-如果每个词永远只有一个固定向量，这件事就很难处理。
+If every word always has only one fixed vector, this is hard to handle.
 
-这正是“上下文化表示”出现的原因。
+That is exactly why “contextualized representations” were introduced.
 :::
 
-## 学习目标
+## Learning goals
 
-- 理解固定词向量为什么不够
-- 理解上下文化表示的核心思想
-- 通过可运行示例建立“同词不同向量”的直觉
-- 理解为什么这一步是从传统 NLP 走向现代预训练模型的关键转折
+- Understand why fixed word vectors are not enough
+- Understand the core idea behind contextualized representations
+- Build an intuition for “the same word, different vector” through runnable examples
+- Understand why this is a key turning point from traditional NLP to modern pretraining models
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-上下文化表示这节最适合新人的理解顺序不是“它只是更强的词向量”，而是先看清：
+For beginners, the best way to understand this section is not “it is just a stronger word embedding,” but first to see clearly:
 
 ```mermaid
 flowchart LR
-    A["静态词向量"] --> B["同一个词永远一个表示"]
-    B --> C["多义词会卡住"]
-    C --> D["上下文化表示"]
-    D --> E["同词在不同句子里有不同向量"]
+    A["Static word vectors"] --> B["The same word always has one representation"]
+    B --> C["Polysemous words get stuck"]
+    C --> D["Contextualized representations"]
+    D --> E["The same word has different vectors in different sentences"]
 ```
 
-所以这节真正想解决的是：
+So what this section is really trying to solve is:
 
-- 为什么固定词向量迟早会不够
-- 为什么“词义取决于上下文”会改变整个 NLP 主线
+- Why fixed word vectors eventually become insufficient
+- Why “word meaning depends on context” changes the main direction of NLP
 
-### 一个更适合新人的总类比
+### A more beginner-friendly overall analogy
 
-你可以把静态词向量和上下文化表示理解成：
+You can think of static word vectors and contextualized representations as:
 
-- 静态词向量像词典里的“固定头像”
-- 上下文化表示像演员在不同剧情里的“角色状态”
+- Static word vectors are like a “fixed profile photo” in a dictionary
+- Contextualized representations are like an actor’s “role state” in different scenes
 
-同一个演员是同一个人，  
-但在不同场景里，他的表情、动作、身份角色会不同。  
-同样地：
+The same actor is still the same person,
+but in different scenes, their expression, actions, and role identity change.
+Likewise:
 
-- 同一个词在不同句子里
-- 也不应该永远长成同一个向量
+- The same word in different sentences
+- Should not always look like the same vector
 
-## 一、固定词向量的根本局限是什么？
+## 1. What is the fundamental limitation of fixed word vectors?
 
-### 1.1 一个词可能有多个义项
+### 1.1 A word may have multiple meanings
 
-经典例子：
+Classic example:
 
 - `bank`
 
-它可以指：
+It can mean:
 
-- 银行
-- 河岸
+- a financial bank
+- a river bank
 
-如果它永远只有一个固定向量，  
-那这个向量到底该更像哪种含义？
+If it always has only one fixed vector,
+then what should that vector be closer to?
 
-### 1.2 所以固定词向量在多义词上会很吃力
+### 1.2 So fixed word vectors struggle with polysemous words
 
-哪怕静态 embedding 再好，  
-它仍然会把：
+Even if static embeddings are very good,
+they still treat:
 
 - “open a bank account”
 - “sit on the river bank”
 
-里的 `bank` 看成同一个向量。
+as the same `bank` vector.
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-固定词向量像给每个人发一张终身不变的证件照。  
-上下文化表示更像根据当前场景给出动态工作照：
+A fixed word vector is like giving every person one ID photo that never changes.
+A contextualized representation is more like a dynamic work photo based on the current scene:
 
-- 在银行上班时一张
-- 在河边散步时一张
-
----
-
-## 二、上下文化表示到底在做什么？
-
-### 2.1 核心思想
-
-不是“每个词对应一个向量”，  
-而是：
-
-- 每个词在当前句子里对应一个向量
-
-也就是说，  
-表示不只由词本身决定，  
-还由它周围的上下文决定。
-
-### 2.2 为什么这很重要？
-
-因为 NLP 真正的难点从来不只是“词是什么”，  
-而是：
-
-- 词在这句话里是什么意思
-
-### 2.3 它改变了什么？
-
-这一步让表示学习从：
-
-- 静态查表
-
-走向了：
-
-- 动态语义编码
-
-这也是现代预训练模型能明显提升很多任务效果的重要原因之一。
+- One version when working at a bank
+- Another version when walking by a river
 
 ---
 
-## 三、先跑一个“同词不同向量”的直观示例
+## 2. What exactly do contextualized representations do?
 
-下面这个例子不会实现真正的 BERT，  
-但它会非常清楚地模拟“词向量 + 上下文修正”的过程。
+### 2.1 Core idea
+
+It is not “one vector per word,”
+but:
+
+- one vector for each word in the current sentence
+
+In other words,
+the representation is determined not only by the word itself,
+but also by the surrounding context.
+
+### 2.2 Why is this important?
+
+Because the real difficulty in NLP has never been just “what is the word,”
+but:
+
+- what does the word mean in this sentence
+
+### 2.3 What does this change?
+
+This moves representation learning from:
+
+- static lookup
+
+to:
+
+- dynamic semantic encoding
+
+This is also one of the key reasons modern pretraining models can significantly improve performance on many tasks.
+
+---
+
+## 3. Let’s first run an intuitive “same word, different vector” example
+
+The example below does not implement real BERT,
+but it clearly simulates the process of “word vector + contextual adjustment.”
 
 ```python
 base_embeddings = {
@@ -161,29 +161,29 @@ print("bank in finance:", bank_in_finance)
 print("bank in nature :", bank_in_nature)
 ```
 
-### 3.1 这段代码当然不是真实上下文模型
+### 3.1 Of course, this code is not a real contextual model
 
-但它抓住了最重要的一层直觉：
+But it captures the most important intuition:
 
-- 词本体有一个基础表示
-- 上下文会把这个表示往不同方向推
+- The word itself has a base representation
+- Context pushes that representation in different directions
 
-### 3.2 为什么这个直觉足够重要？
+### 3.2 Why is this intuition important enough?
 
-因为你后面学 BERT、GPT、T5 时，  
-都会不断看到一个事实：
+Because when you later learn BERT, GPT, and T5,
+you will keep seeing one fact:
 
-- token 最终表示取决于整段上下文
+- the final representation of a token depends on the entire context
 
-### 3.3 第一次学这节最该先记什么？
+### 3.3 What should you remember first when learning this section?
 
-最值得先记住的是：
+The most important things to remember first are:
 
-1. 静态 embedding 在多义词上天然吃力
-2. 上下文化表示是在回答“这个词在这句话里是什么意思”
-3. 这正是现代预训练模型真正变强的关键一步
+1. Static embeddings are naturally weak on polysemous words
+2. Contextualized representations answer “what does this word mean in this sentence”
+3. This is a key step that makes modern pretraining models much stronger
 
-### 3.4 再看一个最小“上下文窗口影响表示”的示例
+### 3.4 Another minimal example showing how a context window affects representation
 
 ```python
 sentences = [
@@ -204,136 +204,137 @@ for word, context_words, sense in sentences:
     print(explain_representation(word, context_words, sense))
 ```
 
-这个示例当然不是神经网络，  
-但它能帮助新人先建立一个非常关键的意识：
+This example is definitely not a neural network,
+but it helps beginners build a crucial awareness:
 
-- 一个词的表示，必须连同周围上下文一起看
+- A word’s representation must be viewed together with the surrounding context
 
-否则你很难说清：
+Otherwise, it is hard to clearly say:
 
-- 它现在到底是哪一个义项
-
----
-
-## 四、上下文化表示带来了什么实际变化？
-
-### 4.1 多义词处理更自然
-
-模型可以把同一个词在不同句子里的表示区分开。
-
-### 4.2 句子和段落理解更强
-
-因为词的表示不再孤立，而是已经融合了上下文线索。
-
-### 4.3 迁移学习效果更好
-
-很多下游任务不再需要从头学复杂表示，  
-而是直接利用上下文化后的隐藏状态。
-
-### 4.4 为什么这一步会直接改变很多任务上限？
-
-因为很多 NLP 任务真正难的不是：
-
-- 这个词大概是什么意思
-
-而是：
-
-- 这个词在当前上下文里到底代表什么角色
-
-一旦表示层就开始区分这件事，  
-很多分类、抽取和问答任务都会自然变得更稳。
-
-### 4.5 如果把它放进任务里，最值得先想到哪些场景？
-
-上下文化表示最容易在这些场景里让新人感受到价值：
-
-1. 多义词分类
-2. 命名实体识别
-3. 问答
-4. 机器翻译
-
-因为这些任务真正难的，往往都不是：
-
-- 词典里这个词大概什么意思
-
-而是：
-
-- 它在这句话里到底扮演什么角色
+- which meaning the word has right now
 
 ---
 
-## 五、它和静态词向量的关系是什么？
+## 4. What practical changes do contextualized representations bring?
 
-### 5.1 不是完全替代，而是能力升级
+### 4.1 Polysemy handling becomes more natural
 
-静态词向量仍然有教育价值，也在某些轻量任务里有用。  
-但在现代 NLP 主线上，上下文化表示通常更强。
+The model can distinguish the representation of the same word in different sentences.
 
-### 5.2 一个简单总结
+### 4.2 Sentence and paragraph understanding becomes stronger
 
-- 静态 embedding：词级别固定表示
-- 上下文化表示：token 在句子中的动态表示
+Because the word representation is no longer isolated,
+it already incorporates contextual clues.
 
----
+### 4.3 Transfer learning works better
 
-## 六、最常见误区
+Many downstream tasks no longer need to learn complex representations from scratch,
+but can directly use contextualized hidden states.
 
-### 6.1 误区一：上下文化表示只是“更大的词向量”
+### 4.4 Why does this step directly raise the ceiling for many tasks?
 
-不对。  
-它的关键变化在于：
+Because the real difficulty in many NLP tasks is not:
 
-- 表示依赖上下文
+- what a word probably means
 
-### 6.2 误区二：同一个词不同向量只是细节优化
+but:
 
-不是。  
-这一步其实改变了很多任务的上限。
+- what role it actually plays in the current context
 
-### 6.3 误区三：有上下文化表示就不需要更上层建模了
+Once the representation layer starts distinguishing this,
+many classification, extraction, and question-answering tasks become naturally more stable.
 
-上下文化表示很强，  
-但仍然要放进具体任务和具体模型里使用。
+### 4.5 If we put this into tasks, which scenarios should you think of first?
 
-## 如果把它做成学习笔记或项目，最值得展示什么
+Contextualized representations are especially easy for beginners to appreciate in these scenarios:
 
-最值得展示的通常不是：
+1. Polysemy classification
+2. Named entity recognition
+3. Question answering
+4. Machine translation
 
-- 一句“BERT 更强”
+Because what is truly hard in these tasks is often not:
 
-而是：
+- what the word means in a dictionary
 
-1. 同一个词在不同句子里的义项对比
-2. 静态 embedding 和上下文化表示的区别
-3. 哪类任务会特别依赖这种能力
-4. 为什么这一步会成为现代 NLP 的分水岭
+but:
 
-这样别人一眼就能看出：
-
-- 你理解的是“为什么会变强”
-- 不只是记住模型名字
-
-## 小结
-
-这节最重要的是建立一个判断：
-
-> **固定词向量只能回答“这个词一般像什么”，上下文化表示则开始回答“这个词在这句话里到底是什么意思”。**
-
-这一步，是现代 NLP 真正进入预训练时代的重要门槛。
+- what role it plays in this sentence
 
 ---
 
-## 这节最该带走什么
+## 5. What is the relationship between this and static word vectors?
 
-- 上下文化表示不是“更大的词向量”，而是“会随句子变化的表示”
-- 它是从传统 NLP 走向现代预训练模型的关键转折点
-- 后面学 BERT、GPT、T5 时，都应该把这条线带进去理解
+### 5.1 Not a complete replacement, but an upgrade in capability
+
+Static word vectors still have educational value and are useful in some lightweight tasks.
+But on the main line of modern NLP, contextualized representations are usually stronger.
+
+### 5.2 A simple summary
+
+- Static embedding: fixed representation at the word level
+- Contextualized representation: dynamic representation of a token in a sentence
 
 ---
 
-## 练习
+## 6. The most common misconceptions
 
-1. 给示例再加一个词 `apple`，分别模拟它在“水果”和“公司”场景中的表示变化。
-2. 用自己的话解释：为什么固定词向量处理多义词会吃力？
-3. 为什么说上下文化表示让很多下游任务更容易做？
-4. 想一想：如果表示已经依赖上下文，那“词本身”还重要吗？为什么？
+### 6.1 Misconception 1: Contextualized representations are just “bigger word vectors”
+
+Not true.
+The key change is:
+
+- the representation depends on context
+
+### 6.2 Misconception 2: Different vectors for the same word are just a minor optimization
+
+No.
+This step actually changes the performance ceiling of many tasks.
+
+### 6.3 Misconception 3: Once you have contextualized representations, you no longer need higher-level modeling
+
+Contextualized representations are powerful,
+but they still need to be used within specific tasks and specific models.
+
+## If you turn this into study notes or a project, what is most worth showing?
+
+What is usually most worth showing is not:
+
+- “BERT is stronger”
+
+but:
+
+1. A comparison of the same word across different sentences
+2. The difference between static embeddings and contextualized representations
+3. Which tasks depend especially on this capability
+4. Why this step became a watershed moment in modern NLP
+
+That way, others can immediately see:
+
+- You understand “why it becomes stronger”
+- Not just the model names
+
+## Summary
+
+The most important thing in this section is to build a judgment:
+
+> **Fixed word vectors can only answer “what a word generally looks like,” while contextualized representations begin to answer “what this word means in this sentence.”**
+
+This step is an important threshold for modern NLP to truly enter the pretraining era.
+
+---
+
+## What you should take away from this section
+
+- Contextualized representations are not “bigger word vectors,” but “representations that change with the sentence”
+- They are the key turning point from traditional NLP to modern pretraining models
+- When you later study BERT, GPT, and T5, you should keep this line of thinking in mind
+
+---
+
+## Exercises
+
+1. Add another word `apple` to the example and simulate how its representation changes in the “fruit” and “company” contexts.
+2. Explain in your own words: why do fixed word vectors struggle with polysemous words?
+3. Why do contextualized representations make many downstream tasks easier?
+4. Think about this: if the representation already depends on context, is the “word itself” still important? Why?

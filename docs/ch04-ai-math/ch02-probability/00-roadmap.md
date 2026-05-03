@@ -1,186 +1,186 @@
 ---
-title: "2.1 学前导读：概率与统计这章到底在学什么"
+title: "2.1 Pre-reading guide: What is this chapter on probability and statistics really about?"
 sidebar_position: 4
-description: "先建立概率与统计的学习地图：概率、分布、统计推断、信息论分别在 AI 里解决什么问题。"
-keywords: [概率导读, 统计导读, 概率分布, 贝叶斯, MLE, 信息论]
+description: "First build a learning map for probability and statistics: what problems probability, distributions, statistical inference, and information theory solve in AI."
+keywords: [probability guide, statistics guide, probability distribution, Bayes, MLE, information theory]
 ---
 
-# 学前导读：概率与统计这章到底在学什么
+# Pre-reading guide: What is this chapter on probability and statistics really about?
 
-![概率与统计学习地图](/img/course/ch04-probability-roadmap.png)
+![Probability and statistics learning map](/img/course/ch04-probability-roadmap-en.png)
 
-对新人来说，这一章最容易出现的问题不是“公式不会算”，而是学着学着不知道这些概念到底和 AI 有什么关系。
+For beginners, the biggest problem in this chapter is not “I can’t calculate the formulas,” but rather that as you keep learning, you lose sight of what these concepts have to do with AI.
 
-这一章其实在解决同一件事：
+In fact, this chapter is really solving the same kind of problem:
 
-> **当世界充满不确定性时，我们怎样描述不确定、怎样从数据反推规律、怎样衡量模型到底有多确定。**
+> **When the world is full of uncertainty, how do we describe uncertainty, infer patterns from data, and measure how certain a model really is?**
 
-## 学习目标
+## Learning goals
 
-- 建立“概率 -> 分布 -> 推断 -> 信息论”的整章地图
-- 知道这一章每节课在 AI 里的位置
-- 知道新人应该先抓哪些直觉，再看公式
+- Build the full-chapter map of “probability -> distributions -> inference -> information theory”
+- Understand where each section of this chapter fits in AI
+- Know which intuitions beginners should grasp first, before looking at formulas
 
-## 先说一个很重要的学习预期
+## First, an important learning expectation
 
-概率与统计本来就不是几节课能“学完”的内容。  
-所以这一章更现实的目标是：
+Probability and statistics are not the kind of topics you can “finish learning” in just a few lessons.
+So the more realistic goal of this chapter is:
 
-- 先让你不怕概率符号
-- 先让你知道“为什么模型老在输出概率”
-- 先让你看懂分布、推断和信息论在 AI 里各自扮演什么角色
+- First, help you stop being afraid of probability notation
+- First, help you understand “why models keep outputting probabilities”
+- First, help you see what roles distributions, inference, and information theory each play in AI
 
-你不需要一开始就把所有公式推得很熟，  
-但你应该开始能说清：
+You do not need to become fluent in every formula right away,
+but you should begin to clearly explain:
 
-- 它们分别在描述什么不确定性
-- 为什么这些概念会直接影响模型训练和判断
-
----
-
-## 一、这一章四节之间是什么关系？
-
-![概率统计章节关系图](/img/course/ch04-probability-chapter-flow.png)
-
-你可以把这一章记成四个问题：
-
-1. 概率基础：某件事发生的可能性有多大？
-2. 概率分布：如果不是一次事件，而是一整类随机现象，它整体长什么样？
-3. 统计推断：看到了数据，怎样反推出背后的参数和结论？
-4. 信息论：模型的预测到底有多不确定、和真实分布差多远？
+- What kind of uncertainty each one describes
+- Why these concepts directly affect model training and evaluation
 
 ---
 
-## 二、这一章和 AI 的关系
+## 1. What is the relationship between the four sections in this chapter?
 
-| 章节 | 在 AI 里最直接的作用 |
+![Probability and statistics chapter flow](/img/course/ch04-probability-chapter-flow-en.png)
+
+You can remember this chapter as four questions:
+
+1. Basics of probability: How likely is something to happen?
+2. Probability distributions: If it is not a single event, but a whole class of random phenomena, what does it look like overall?
+3. Statistical inference: After seeing data, how do we infer the parameters and conclusions behind it?
+4. Information theory: How uncertain is the model’s prediction, and how far is it from the true distribution?
+
+---
+
+## 2. How this chapter relates to AI
+
+| Chapter | Most direct role in AI |
 |---|---|
-| 概率基础 | 分类概率、贝叶斯更新、垃圾邮件判断 |
-| 概率分布 | 正态分布、噪声建模、随机初始化、数据统计 |
-| 统计推断 | MLE、MAP、A/B 测试、参数估计 |
-| 信息论 | 熵、交叉熵、KL 散度、分类损失函数 |
-| 历史主线 | Bayes、MLE、EM、Shannon 分别解决什么老问题 |
+| Basics of probability | Classification probabilities, Bayes updates, spam detection |
+| Probability distributions | Normal distribution, noise modeling, random initialization, data statistics |
+| Statistical inference | MLE, MAP, A/B testing, parameter estimation |
+| Information theory | Entropy, cross-entropy, KL divergence, classification loss functions |
+| Historical thread | What problems Bayes, MLE, EM, and Shannon each solved |
 
-很多 AI 名词如果只背表面，会很散；但一旦放回这条主线就会清楚很多。
+If you only memorize AI terms at the surface level, they can feel scattered; but once you place them back in this main thread, things become much clearer.
 
-例如：
+For example:
 
-- 模型输出 `0.93`，其实是在给一个概率
-- `CrossEntropyLoss` 其实来自信息论
-- `MLE` 其实是在做“什么参数最能解释这批数据”
-- `贝叶斯` 其实是在做“有了新证据后，怎样更新判断”
+- When a model outputs `0.93`, it is actually giving a probability
+- `CrossEntropyLoss` actually comes from information theory
+- `MLE` is actually asking, “Which parameters best explain this data?”
+- `Bayes` is actually asking, “Once we have new evidence, how do we update our judgment?”
 
-## 三、为什么 AI 特别离不开这一章？
+## 3. Why is AI especially inseparable from this chapter?
 
-因为 AI 处理的世界，几乎从来都不是完全确定的。
+Because the world AI deals with is almost never completely certain.
 
-比如：
+For example:
 
-- 模型只会说“80% 可能是猫”
-- 检测结果总有误报和漏报
-- 文本分类也常常不是 100% 确定
-- 训练时 loss 和交叉熵都和概率视角直接相关
+- A model can only say “there is an 80% chance it is a cat”
+- Detection results always have false positives and false negatives
+- Text classification is often not 100% certain either
+- During training, loss and cross-entropy are both directly related to the probability view
 
-所以你可以把这章先理解成：
+So you can think of this chapter as:
 
-> **给 AI 系统补一套面对不确定性时的语言。**
-
----
-
-## 新人最应该怎么学这一章？
-
-### 4.1 先学直觉，不先死磕符号
-
-比如：
-
-- 条件概率先想“已知某件事发生后，再看另一件事的概率”
-- 分布先想“随机现象整体长什么样”
-- MLE 先想“哪个参数最能解释观测数据”
-- 熵先想“到底有多不确定”
-
-### 4.2 每个概念都要连回一个 AI 场景
-
-如果你学完一个概念，回答不出“它在 AI 里用来干嘛”，那它大概率还没有真正进入你的理解。
-
-### 4.3 不用追求一次全会
-
-这一章很多内容在后面会反复出现：
-
-- 5 机器学习入门到实战会继续碰到概率和统计推断
-- 6 深度学习与 Transformer 基础以后会继续碰到梯度、损失和优化
-- 7 大模型原理、Prompt 与微调、8 LLM 应用开发与 RAG 会继续碰到交叉熵、KL 散度、贝叶斯视角
-
-所以这章更重要的是先建立第一次清晰理解。
-
-## 五、这一章建议怎么分配时间？
-
-一个比较适合新人的参考节奏是：
-
-1. 概率基础：2~4 小时  
-   重点把“条件概率”和“贝叶斯更新”看顺。
-
-2. 概率分布：2~4 小时  
-   重点把“单次事件”升级成“整体规律”。
-
-3. 统计推断：2~4 小时  
-   重点看懂 MLE、MAP、A/B 测试这些判断为什么成立。
-
-4. 信息论：2~4 小时  
-   重点看懂熵、交叉熵、KL 散度为什么会直接进 loss。
-
-5. 概率统计历史主线：20～40 分钟  
-   重点把 Bayes、MLE、EM 和 Shannon 放回 AI 技术演进里，知道它们分别连接到哪些后续章节。
-
-这样学会比“先背一堆符号”稳很多。
+> **Giving AI systems a language for dealing with uncertainty.**
 
 ---
 
-## 六、学完这章后，你至少应该会什么？
+## 4. How should beginners learn this chapter?
 
-- 看到一个模型概率输出时，不会把它当成“绝对结论”
-- 知道条件概率、贝叶斯更新和分布各自是在说什么
-- 知道 MLE、MAP、假设检验大概在解决什么问题
-- 知道熵、交叉熵和 KL 散度为什么会出现在 AI 训练里
+### 4.1 Start with intuition, not with brute-forcing symbols
 
-## 如果你读这章时开始发虚，先抓哪几件事最值？
+For example:
 
-最值得先抓的是：
+- For conditional probability, first think “the probability of one thing after knowing another thing happened”
+- For distributions, first think “what a random phenomenon looks like as a whole”
+- For MLE, first think “which parameters best explain the observed data”
+- For entropy, first think “how uncertain it really is”
 
-1. 概率是在描述“不确定性”
-2. 条件概率是在说“有了新信息以后，判断会怎么变”
-3. 分布是在说“随机现象整体长什么样”
-4. 交叉熵和信息论最后会直接长进 loss 里
+### 4.2 Connect every concept back to an AI scenario
 
-只要这四条稳了，这章就已经很值。
+If after learning a concept, you cannot answer “What is it used for in AI?”, then it probably has not truly become part of your understanding yet.
 
-## 新人和进阶学习者怎么读
+### 4.3 Do not try to master everything at once
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+Many topics in this chapter will come up again later:
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+- Chapter 5, Machine Learning from Basics to Practice, will continue to involve probability and statistical inference
+- Chapter 6, Deep Learning and Transformer Basics, will continue to involve gradients, loss, and optimization
+- Chapter 7, Principles of Large Language Models, Prompt and Fine-tuning, and Chapter 8, LLM Application Development and RAG, will continue to involve cross-entropy, KL divergence, and the Bayesian perspective
 
-## 学习时间与难度建议
+So what matters most in this chapter is building a clear first understanding.
 
-| 学习方式 | 建议投入 | 目标 |
+## 5. How should you allocate your time for this chapter?
+
+A beginner-friendly pace could be:
+
+1. Basics of probability: 2–4 hours
+   Focus on understanding conditional probability and Bayes updates.
+
+2. Probability distributions: 2–4 hours
+   Focus on upgrading from “single events” to “overall patterns.”
+
+3. Statistical inference: 2–4 hours
+   Focus on why MLE, MAP, and A/B testing make sense.
+
+4. Information theory: 2–4 hours
+   Focus on why entropy, cross-entropy, and KL divergence go directly into loss functions.
+
+5. Historical thread of probability and statistics: 20–40 minutes
+   Focus on placing Bayes, MLE, EM, and Shannon back into the evolution of AI technology, and knowing which later chapters they connect to.
+
+This way of learning is much more stable than “memorizing a pile of symbols first.”
+
+---
+
+## 6. After finishing this chapter, what should you at least be able to do?
+
+- When you see a model’s probability output, you will not treat it as an “absolute conclusion”
+- You know what conditional probability, Bayes updates, and distributions are each saying
+- You have a rough idea of what problems MLE, MAP, and hypothesis testing are solving
+- You know why entropy, cross-entropy, and KL divergence appear in AI training
+
+## If you start feeling unsure while reading this chapter, what should you focus on first?
+
+The most valuable things to focus on first are:
+
+1. Probability describes “uncertainty”
+2. Conditional probability means “how judgments change after new information arrives”
+3. A distribution describes “what a random phenomenon looks like as a whole”
+4. Cross-entropy and information theory eventually become part of the loss function directly
+
+If these four points are solid, then this chapter is already very worthwhile.
+
+## How beginners and advanced learners should read this
+
+When beginners study this chapter for the first time, they should focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how to run the smallest project, you can keep moving forward.
+
+More experienced learners can treat this chapter as a chance to fill gaps and do engineering practice: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the stages before and after it. After reading, it is best to turn the content of this chapter into your own project README or experiment notes.
+
+## Suggested study time and difficulty
+
+| Study approach | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimal example and complete the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check questions for this chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its position in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly describe what the example needs as input and what result it produces |
+| Where are the common failure points? | Can list at least one reason for an error, poor results, or misunderstanding |
+| What can you preserve after learning it? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Chapter small project exit task
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimum exercise: choose the most core concept or tool from this chapter, and create a small result that can run, be screenshotted, and be written into a README. It does not need to be complex, but it should be able to show what the input is, what the processing steps are, and what the output result is.
 
-## 过关标准
+## Passing standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stages before and after it, and complete the minimum version of the chapter’s small project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one improvement in results, then it shows you are not just “reading the content,” but truly turning this chapter into your own project experience.

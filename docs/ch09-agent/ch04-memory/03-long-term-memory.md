@@ -1,220 +1,220 @@
 ---
-title: "4.4 长期记忆"
+title: "4.4 Long-Term Memory"
 sidebar_position: 21
-description: "从用户偏好、稳定背景和跨会话信息出发，理解长期记忆为什么不能只是“存更多”，而必须关注可信度、更新和检索质量。"
+description: "Starting from user preferences, stable background, and cross-session information, understand why long-term memory cannot be just 'store more,' and must instead focus on credibility, updates, and retrieval quality."
 keywords: [long-term memory, user profile, persistent memory, retrieval, confidence, update policy]
 ---
 
-# 长期记忆
+# Long-Term Memory
 
-:::tip 本节定位
-短期记忆解决的是：
+:::tip Section Focus
+Short-term memory solves:
 
-- 当前这次任务正在发生什么
+- What is happening in this task right now
 
-长期记忆解决的是：
+Long-term memory solves:
 
-- 这个用户、这个项目、这个系统在更长时间尺度上是什么样
+- What a user, a project, or a system looks like over a longer time scale
 
-很多 Agent 一开始会把长期记忆想成一句话：
+Many Agents first think of long-term memory like this:
 
-- 把重要信息存起来
+- Store important information
 
-但真正落地时，问题会立刻变成：
+But when you actually build it, the question quickly becomes:
 
-> **哪些信息真的值得长期保留，旧信息和新信息冲突时该信谁？**
+> **Which information is really worth keeping for the long term, and who should you trust when old and new information conflict?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解长期记忆和短期记忆的职责边界
-- 学会区分用户偏好、稳定背景、临时事实三类信息
-- 理解长期记忆写入、更新、冲突处理和读取的基本策略
-- 通过可运行示例掌握一个最小长期记忆存取器
+- Understand the boundary between long-term memory and short-term memory
+- Learn to distinguish between user preferences, stable background, and temporary facts
+- Understand the basic strategies for writing, updating, handling conflicts, and reading long-term memory
+- Build a minimal long-term memory store with a runnable example
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-长期记忆更适合按“写什么 -> 怎么更新 -> 怎么取用”来理解：
+Long-term memory is easier to understand in terms of “what to write -> how to update -> how to use”:
 
 ```mermaid
 flowchart LR
-    A["用户与项目信息"] --> B["判断是否值得长期保留"]
-    B --> C["写入长期记忆"]
-    C --> D["冲突更新与版本选择"]
-    D --> E["按当前任务检索相关信息"]
+    A["User and project information"] --> B["Decide whether it is worth keeping long term"]
+    B --> C["Write into long-term memory"]
+    C --> D["Conflict updates and version selection"]
+    D --> E["Retrieve relevant information based on the current task"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 长期记忆为什么不是“多存一点”
-- 为什么写入和读取策略同样重要
-
----
-
-## 一、什么信息适合进入长期记忆？
-
-### 1.1 未来大概率还会用到
-
-长期记忆最重要的标准不是“看起来重要”，  
-而是：
-
-- 未来还有复用价值
-
-例如：
-
-- 用户偏好：喜欢简洁回答
-- 用户背景：是初学者
-- 项目背景：当前正在做退款助手
-
-这些信息都可能跨很多轮继续发挥作用。
-
-### 1.2 相对稳定，而不是瞬时波动
-
-例如：
-
-- “今天心情不好”  
-  更像短期上下文
-- “长期偏好表格总结”  
-  更像长期特征
-
-如果把短期波动也写进长期记忆，  
-系统很快会学到很多噪声。
-
-### 1.3 一个类比
-
-长期记忆更像“用户档案”和“项目档案”，  
-不是聊天记录备份箱。
-
-档案强调：
-
-- 稳定
-- 可复用
-- 有版本感
-
-### 1.4 一个更适合新人的总类比
-
-你可以把长期记忆理解成：
-
-- 在给用户和项目维护档案卡
-
-档案卡里应该写的是：
-
-- 未来还会反复用到的信息
-
-而不是：
-
-- 这次聊天里一时的情绪波动
-- 临时说的一句随口要求
-
-这个类比很重要，因为它会帮新人从一开始就避免把长期记忆做成“无限聊天日志”。
+- Why long-term memory is not just “store a little more”
+- Why write and read strategies are equally important
 
 ---
 
-## 二、长期记忆最常见的三类内容
+## 1. What Information Belongs in Long-Term Memory?
 
-### 2.1 用户偏好
+### 1.1 Likely to Be Used Again in the Future
 
-例如：
+The most important criterion for long-term memory is not “looks important,”
+but:
 
-- 喜欢简洁
-- 喜欢中文
-- 输出最好带表格
+- It is likely to be reused in the future
 
-### 2.2 稳定背景信息
+For example:
 
-例如：
+- User preference: likes concise answers
+- User background: is a beginner
+- Project background: currently building a refund assistant
 
-- 用户角色是运营同学
-- 用户正在做 RAG 项目
-- 所属团队主要使用 Python
+These pieces of information may keep being useful across many turns.
 
-### 2.3 长期任务上下文
+### 1.2 Relatively Stable, Not Just Momentary Fluctuations
 
-例如：
+For example:
 
-- 本周重点在做退款模块优化
-- 当前项目的成功标准是什么
+- “I’m in a bad mood today”
+  is more like short-term context
+- “Long-term preference for table summaries”
+  is more like a long-term trait
 
-这类信息不像“最近 3 轮消息”那样短命，  
-也不像情景记忆那样带具体单次事件。
+If you write short-term fluctuations into long-term memory too,
+the system will quickly learn a lot of noise.
+
+### 1.3 An Analogy
+
+Long-term memory is more like a “user profile” and “project profile,”
+not a chat history backup box.
+
+A profile emphasizes:
+
+- Stability
+- Reusability
+- A sense of versioning
+
+### 1.4 A Better Analogy for Beginners
+
+You can think of long-term memory as:
+
+- Maintaining profile cards for users and projects
+
+What should go on those cards is:
+
+- Information that will be used repeatedly in the future
+
+Not:
+
+- Temporary emotional fluctuations in this chat
+- A casual request mentioned in passing
+
+This analogy matters, because it helps beginners avoid turning long-term memory into an “infinite chat log” from the start.
 
 ---
 
-## 三、长期记忆最难的不是“存”，而是“更新”
+## 2. The Three Most Common Types of Long-Term Memory Content
 
-### 3.1 因为新信息可能会推翻旧信息
+### 2.1 User Preferences
 
-例如之前记录：
+For example:
 
-- 用户喜欢详细解释
+- Likes concise answers
+- Likes Chinese
+- Prefer output with tables
 
-后来用户连续多次说：
+### 2.2 Stable Background Information
 
-- 以后请尽量简洁
+For example:
 
-这时系统不能简单同时保留两条，  
-否则读取时会自相矛盾。
+- The user’s role is operations
+- The user is working on a RAG project
+- The team mainly uses Python
 
-### 3.2 所以长期记忆通常需要：
+### 2.3 Long-Term Task Context
 
-- 时间戳
-- 置信度
-- 更新策略
+For example:
 
-常见策略包括：
+- This week’s focus is optimizing the refund module
+- What is the success criterion for the current project
 
-- 新记录覆盖旧记录
-- 新旧并存，但高置信度优先
-- 保留版本历史，只在读取时选最新
+This kind of information is not as short-lived as “the last 3 messages,”
+and it is not quite like episodic memory tied to a single event.
 
-### 3.3 为什么“置信度”很重要？
+---
 
-因为用户随口一句话，不一定就该被永远写死。  
-例如：
+## 3. The Hardest Part of Long-Term Memory Is Not “Storing,” but “Updating”
 
-- “这次先不用表格”
+### 3.1 Because New Information May Overrule Old Information
 
-未必等于：
+For example, an earlier record says:
 
-- “以后永远别用表格”
+- The user likes detailed explanations
 
-所以长期记忆最好有：
+Later, the user repeatedly says:
 
-- 观察次数
-- 明确度
-- 置信度
+- Please keep it concise from now on
 
-### 3.4 一个很适合初学者先记的写入判断表
+At this point, the system cannot simply keep both records forever,
+otherwise it will conflict when reading.
 
-| 信息类型 | 更适合短期还是长期 |
+### 3.2 So Long-Term Memory Usually Needs:
+
+- Timestamps
+- Confidence
+- An update policy
+
+Common strategies include:
+
+- New records overwrite old records
+- Old and new coexist, but higher confidence wins
+- Keep version history and choose the latest at read time
+
+### 3.3 Why Is “Confidence” So Important?
+
+Because a user’s casual remark should not necessarily be written in stone forever.
+For example:
+
+- “Don’t use tables for this one”
+
+Does not necessarily mean:
+
+- “Never use tables again”
+
+So long-term memory should ideally have:
+
+- Number of observations
+- Explicitness
+- Confidence level
+
+### 3.4 A Simple Write Decision Table for Beginners
+
+| Information Type | More Suitable for Short-Term or Long-Term |
 |---|---|
-| 这次先简洁一点 | 更偏短期 |
-| 用户长期喜欢中文 | 更偏长期 |
-| 当前项目是退款助手 | 更偏长期任务背景 |
-| 今天心情不好 | 更偏短期 |
+| Keep it concise for this one | More short-term |
+| User likes Chinese in the long run | More long-term |
+| Current project is a refund assistant | More long-term task background |
+| I’m in a bad mood today | More short-term |
 
-这个表很适合新人，因为它会帮助你先回答一个最容易混乱的问题：
+This table is very useful for beginners because it helps answer the easiest confusing question first:
 
-- 到底什么值得进长期记忆
+- What exactly is worth putting into long-term memory
 
-![长期记忆写入、更新与置信度图](/img/course/ch09-long-term-memory-write-update-policy-map.png)
+![Long-term memory write, update, and confidence diagram](/img/course/ch09-long-term-memory-write-update-policy-map-en.png)
 
-:::tip 读图提示
-长期记忆不是“永久聊天记录”。看图时重点关注 write policy、confidence、version 和 retrieval：系统要先判断值不值得写，再处理新旧冲突，最后按当前任务取回相关事实。
+:::tip Reading the Diagram
+Long-term memory is not “permanent chat history.” When reading the diagram, focus on write policy, confidence, version, and retrieval: the system must first decide whether something is worth writing, then handle conflicts between old and new information, and finally retrieve the relevant facts for the current task.
 :::
 
 ---
 
-## 四、先跑一个最小长期记忆存取器
+## 4. Run a Minimal Long-Term Memory Store First
 
-这个示例会做四件事：
+This example does four things:
 
-1. 写入长期记忆
-2. 更新已有记忆
-3. 用置信度和时间排序读取
-4. 按用户隔离记忆
+1. Writes long-term memory
+2. Updates existing memory
+3. Reads memory ordered by confidence and time
+4. Isolates memory by user
 
 ```python
 from dataclasses import dataclass
@@ -243,7 +243,7 @@ class LongTermMemoryStore:
 
         for item in self.items:
             if item.user_id == user_id and item.key == key:
-                # 新值更高置信时，覆盖旧值
+                # If the new value has higher confidence, overwrite the old one
                 if confidence >= item.confidence:
                     item.value = value
                     item.confidence = confidence
@@ -276,198 +276,198 @@ print("u_001 profile:", store.get_profile("u_001"))
 print("u_002 profile:", store.get_profile("u_002"))
 ```
 
-### 4.1 这个例子最值得注意什么？
+### 4.1 What Is the Most Important Thing to Notice Here?
 
-不是“能不能存进去”，  
-而是：
+Not “can it be stored,”
+but:
 
-- 同一个 key 会被更新
-- 置信度更高的信息会覆盖旧值
-- 读取时是按用户聚合的 profile
+- The same key can be updated
+- Higher-confidence information overwrites the old value
+- Reading is aggregated by user profile
 
-这已经比“往列表 append 一条字符串”更接近真实长期记忆。
+This is already much closer to real long-term memory than “just append a string to a list.”
 
-### 4.2 为什么这里用 `key-value` 很合理？
+### 4.2 Why Is `key-value` a Good Fit Here?
 
-因为长期记忆里很多信息天然就是 profile 型：
+Because many pieces of information in long-term memory are naturally profile-like:
 
 - `response_style`
 - `language`
 - `project_name`
 
-这类信息用键值结构会比纯文本段落更容易控。
+For these kinds of data, a key-value structure is easier to control than a plain text paragraph.
 
-### 4.3 什么时候不适合用这种形式？
+### 4.3 When Is This Form Not a Good Fit?
 
-如果信息本身更像一段故事或一次经历，  
-那更适合：
+If the information is more like a story or an experience,
+then it is better suited for:
 
-- 情景记忆
+- Episodic memory
 
-而不是简单 key-value。
+rather than simple key-value storage.
 
-### 4.4 再看一个最小“写入决策”示例
+### 4.4 Another Minimal “Write Decision” Example
 
 ```python
 facts = [
-    {"text": "以后尽量用中文", "stability": "high", "target": "long_term"},
-    {"text": "这次回答先短一点", "stability": "low", "target": "short_term"},
+    {"text": "Please use Chinese from now on", "stability": "high", "target": "long_term"},
+    {"text": "Keep this answer short for this time", "stability": "low", "target": "short_term"},
 ]
 
 for fact in facts:
     print(fact)
 ```
 
-这个示例虽然很小，但它很适合帮助初学者先建立一个关键习惯：
+Although this example is very small, it is great for helping beginners build one key habit first:
 
-- 写入记忆前，先问这条信息到底是长期还是短期
+- Before writing memory, ask whether this information is really long-term or short-term
 
 ---
 
-## 五、长期记忆怎么读取才不会“又多又乱”？
+## 5. How Should Long-Term Memory Be Read Without Becoming “Too Much and Too Messy”?
 
-### 5.1 读取时不要把所有东西都塞进上下文
+### 5.1 Don’t Put Everything into the Context When Reading
 
-就算长期记忆存了很多条，  
-回答当前问题时也不一定都相关。
+Even if long-term memory stores many records,
+not all of them are relevant when answering the current question.
 
-更好的方式是：
+A better approach is:
 
-- 先按用户过滤
-- 再按键或主题过滤
-- 最后只抽当前最相关的几条
+- Filter by user first
+- Then filter by key or topic
+- Finally retrieve only the few most relevant items
 
-### 5.2 一个极简按主题过滤示例
+### 5.2 A Minimal Topic-Based Filtering Example
 
 ```python
 def select_relevant_profile(profile, query):
     selected = {}
-    if "回答" in query or "风格" in query:
+    if "answer" in query or "style" in query:
         if "response_style" in profile:
             selected["response_style"] = profile["response_style"]
-    if "中文" in query or "语言" in query:
+    if "Chinese" in query or "language" in query:
         if "language" in profile:
             selected["language"] = profile["language"]
     return selected
 
 
 profile = store.get_profile("u_001")
-print(select_relevant_profile(profile, "之后回答风格保持一致"))
+print(select_relevant_profile(profile, "keep the response style consistent later"))
 ```
 
-这说明长期记忆真正有效，  
-还取决于读取策略。
+This shows that long-term memory only becomes truly effective
+when the retrieval strategy is also good.
 
-### 5.3 第一次做长期记忆系统时，最稳的默认顺序
+### 5.3 The Most Stable Default Order for Your First Long-Term Memory System
 
-更稳的顺序通常是：
+A safer default sequence is usually:
 
-1. 先只存最稳定的用户偏好
-2. 先做简单 key-value profile
-3. 先把冲突更新规则写清楚
-4. 再补更复杂的读取和检索策略
+1. First store only the most stable user preferences
+2. First use a simple key-value profile
+3. First make the conflict update rules clear
+4. Then add more complex reading and retrieval strategies
 
-这样会比一开始就做“大而全记忆系统”更容易做稳。
+This is usually much easier to make stable than building a “big and complete memory system” from the start.
 
 ---
 
-## 六、如果你的目标是“知识库驱动的课件生成助手”，哪些信息值得长期记？
+## 6. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” What Information Is Worth Storing Long Term?
 
-这类项目最容易犯的错是：
+The easiest mistake in this kind of project is:
 
-- 把每次课件主题都写进长期记忆
+- Storing every courseware topic into long-term memory
 
-但实际上，很多主题只是一次任务，  
-并不适合长期保留。
+In reality, many topics are just one-off tasks
+and are not suitable for long-term retention.
 
-更适合进长期记忆的，往往是这些稳定偏好：
+What is more suitable for long-term memory is often stable preference data like this:
 
-| 信息 | 更偏长期还是短期 |
+| Information | More Long-Term or Short-Term |
 |---|---|
-| 用户长期偏好输出成 Word | 长期 |
-| 用户长期喜欢课堂讲解风格 | 长期 |
-| 用户本次要做“折扣应用题”课件 | 短期 |
-| 这次只需要 3 道练习题 | 更偏短期 |
-| 用户长期面向“小学高年级”备课 | 长期或半长期 |
+| User prefers output in Word in the long run | Long-term |
+| User likes a lecture-style explanation in the long run | Long-term |
+| The current task is to create courseware for “discount word problems” | Short-term |
+| Only 3 practice questions are needed this time | More short-term |
+| User usually prepares lessons for “upper elementary school” | Long-term or semi-long-term |
 
-你可以先把它压成一句话：
+You can compress this into one sentence:
 
-> **长期记忆记偏好和稳定背景，短期状态记这次任务细节。**
+> **Long-term memory stores preferences and stable background, while short-term state stores current task details.**
 
-### 6.1 一个更像真实项目的长期 profile 示例
+### 6.1 A More Realistic Long-Term Profile Example
 
 ```python
 profile = {
     "preferred_doc_format": "word",
-    "preferred_style": "课堂讲解",
+    "preferred_style": "lecture-style explanation",
     "preferred_language": "zh",
-    "default_audience": "小学高年级",
+    "default_audience": "upper elementary school",
     "prefer_source_refs": True,
 }
 
 print(profile)
 ```
 
-这个例子最值得新人注意的是：
+What beginners should notice most here is:
 
-- 长期记忆不是帮你记住“这次要写什么”
-- 而是帮系统记住“你通常喜欢它怎么写”
-
----
-
-## 七、长期记忆最容易踩的坑
-
-### 7.1 误区一：用户说过一次就永久写入
-
-这会导致很多偶然偏好被永久固化。
-
-### 7.2 误区二：长期记忆和短期记忆不分层
-
-结果就是：
-
-- 当前对话信息和长期档案搅在一起
-
-系统会越来越乱。
-
-### 7.3 误区三：只管写入，不管更新和冲突
-
-冲突不处理，长期记忆迟早自相矛盾。
-
-## 如果把它做成项目或系统设计，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我存了很多历史”
-
-而是：
-
-1. 哪些信息会进长期记忆
-2. 冲突信息怎么更新
-3. 当前任务只会取回哪些相关档案
-4. 为什么这套策略不会把系统越存越乱
-
-这样别人会更容易看出：
-
-- 你理解的是长期档案系统
-- 不只是做了一个消息仓库
+- Long-term memory is not about remembering “what to write this time”
+- It is about helping the system remember “how you usually like it written”
 
 ---
 
-## 小结
+## 7. The Most Common Pitfalls in Long-Term Memory
 
-这节最重要的不是把长期记忆理解成“存更多信息”，  
-而是理解它的本质：
+### 7.1 Mistake 1: Writing It Permanently After Hearing It Once
 
-> **长期记忆是在为 Agent 建一个会随时间更新的稳定档案，而不是囤积历史消息。**
+This causes many accidental preferences to become permanently fixed.
 
-只要你抓住“稳定、可复用、可更新”这三个关键词，  
-后面再设计长期档案系统时就不会走偏。
+### 7.2 Mistake 2: Not Separating Long-Term Memory from Short-Term Memory
+
+The result is:
+
+- Current conversation information and long-term profiles get mixed together
+
+The system becomes more and more disorganized.
+
+### 7.3 Mistake 3: Only Writing, But Never Updating or Handling Conflicts
+
+If conflicts are not handled, long-term memory will eventually contradict itself.
+
+## If You Turn This into a Project or System Design, What Is Most Worth Showing?
+
+What is most worth showing is usually not:
+
+- “I stored a lot of history”
+
+But rather:
+
+1. Which information goes into long-term memory
+2. How conflicting information gets updated
+3. Which relevant profiles are retrieved for the current task
+4. Why this strategy will not make the system more and more messy as it stores more
+
+That way, others can more easily see:
+
+- You understand a long-term profile system
+- Not just a message warehouse
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例加一个 `source` 字段，区分“用户显式声明”和“系统推断”，然后让写入策略对两者区别对待。
-2. 想一想：`这次先简洁一点` 为什么不一定适合直接写成长期偏好？
-3. 如果用户偏好经常变化，你会用覆盖、版本保留，还是置信度衰减？为什么？
-4. 你会如何把长期记忆和短期记忆组合起来服务当前回答？
+The most important thing in this section is not to understand long-term memory as “store more information,”
+but to understand its essence:
+
+> **Long-term memory builds a stable profile for the Agent that updates over time, rather than hoarding historical messages.**
+
+As long as you hold on to the three keywords “stable, reusable, and updatable,”
+you will not go off track when designing a long-term profile system later.
+
+---
+
+## Exercises
+
+1. Add a `source` field to the example to distinguish between “explicit user statement” and “system inference,” then make the write policy treat the two differently.
+2. Think about why `Keep it concise for this one` should not necessarily be written directly as a long-term preference.
+3. If user preferences change frequently, would you use overwrite, version retention, or confidence decay? Why?
+4. How would you combine long-term memory and short-term memory to support the current response?

@@ -1,213 +1,213 @@
 ---
-title: "1.4 项目：AI API 快速体验"
+title: "1.4 Project: Quick AI API Experience"
 sidebar_position: 4
-description: "通过调用 AI API 体验人工智能的能力"
+description: "Experience the power of AI by calling AI APIs"
 ---
 
-# 项目：AI API 快速体验
+# Project: Quick AI API Experience
 
-![AI API 请求响应链路图](/img/course/ch02-ai-api-request-response.png)
+![AI API Request-Response Flow Diagram](/img/course/ch02-ai-api-request-response-en.png)
 
-## 项目定位
+## Project Overview
 
-这个项目让你在 Python 基础阶段提前体验大模型能力。你会用 API Key 调用现成 AI 服务，理解“训练模型”和“调用模型服务”的区别，并做出一个简单的 AI 对话程序。
+This project lets you experience LLM capabilities early in the Python fundamentals stage. You will use an API Key to call ready-made AI services, understand the difference between "training a model" and "calling a model service," and build a simple AI conversation program.
 
-## 项目目标
+## Project Goals
 
-- 了解什么是 AI API，以及它和 AI 模型的关系
-- 学会调用 OpenAI 等主流 AI API
-- 体验对话生成、文本分析等 AI 能力
-- 构建一个简单的 AI 聊天机器人
+- Understand what an AI API is and how it relates to AI models
+- Learn how to call mainstream AI APIs such as OpenAI
+- Experience AI capabilities such as conversation generation and text analysis
+- Build a simple AI chatbot
 
 ---
 
-## 什么是 AI API？
+## What Is an AI API?
 
-在上一个项目中，你学会了自己写 API。而 AI API 就是**别人训练好的 AI 模型，打包成 API 供你调用**。
+In the previous project, you learned how to write your own API. An AI API is **someone else’s trained AI model packaged as an API for you to call**.
 
 ```
-传统方式：你自己训练模型（需要大量数据、GPU、时间）
-API 方式：直接调用别人的模型（只需要一个 API Key，几行代码）
+Traditional approach: you train the model yourself (needs lots of data, GPUs, and time)
+API approach: directly call someone else’s model (just need an API Key and a few lines of code)
 ```
 
-就像你不需要自己种麦子才能吃面包一样——用 AI API，你可以**直接使用世界上最先进的 AI 能力**。
+Just like you do not need to grow wheat yourself to eat bread, with an AI API, you can **directly use some of the most advanced AI capabilities in the world**.
 
-### 常见的 AI API 服务
+### Common AI API Services
 
-| 服务 | 提供方 | 主要能力 |
+| Service | Provider | Main Capabilities |
 |------|--------|---------|
-| OpenAI API | OpenAI | 对话、文本生成、代码生成 |
-| Claude API | Anthropic | 对话、文档分析、推理 |
-| 通义千问 API | 阿里云 | 对话、文本理解 |
-| 文心一言 API | 百度 | 对话、知识问答 |
-| 智谱 API | 智谱AI | 对话、代码生成 |
+| OpenAI API | OpenAI | Conversation, text generation, code generation |
+| Claude API | Anthropic | Conversation, document analysis, reasoning |
+| Tongyi Qianwen API | Alibaba Cloud | Conversation, text understanding |
+| Wenxin Yiyan API | Baidu | Conversation, knowledge Q&A |
+| Zhipu API | Zhipu AI | Conversation, code generation |
 
 ---
 
-## 第一步：获取 API Key
+## Step 1: Get an API Key
 
-要使用 AI API，你需要先注册并获取一个 **API Key**——这就像一把钥匙，证明你有权限调用这个 API。
+To use an AI API, you first need to register and obtain an **API Key**—it is like a key that proves you have permission to call the API.
 
-:::info 选择一个 API 服务
-以下教程以 OpenAI API 为例。如果你在国内访问有困难，可以选择：
-- **智谱 AI**（bigmodel.cn）—— 国内免费额度较大
-- **通义千问**（dashscope.aliyun.com）—— 阿里云旗下
+:::info Choose an API Service
+The tutorial below uses the OpenAI API as an example. If access is difficult in your region, you can choose:
+- **Zhipu AI** (bigmodel.cn) — relatively generous free quota
+- **Tongyi Qianwen** (dashscope.aliyun.com) — from Alibaba Cloud
 
-这些国产 API 的调用方式和 OpenAI 非常相似，只需要改一下地址和 Key 即可。
+The calling methods for these domestic APIs are very similar to OpenAI; you usually only need to change the URL and the Key.
 :::
 
-### 获取 OpenAI API Key
+### Get an OpenAI API Key
 
-1. 访问 [platform.openai.com](https://platform.openai.com)
-2. 注册/登录账号
-3. 进入 API Keys 页面
-4. 点击 "Create new secret key"
-5. 复制并**安全保存** Key（只会显示一次）
+1. Visit [platform.openai.com](https://platform.openai.com)
+2. Register or log in
+3. Go to the API Keys page
+4. Click "Create new secret key"
+5. Copy and **store the Key safely** (it will only be shown once)
 
-### 安装 OpenAI SDK
+### Install the OpenAI SDK
 
 ```bash
 pip install openai
 ```
 
-### 设置 API Key
+### Set the API Key
 
 ```bash
-# 方法 1：设置环境变量（推荐）
+# Method 1: set an environment variable (recommended)
 export OPENAI_API_KEY="your_api_key_here"
 
-# 方法 2：在代码中设置（不推荐提交到 Git）
+# Method 2: set it in code (not recommended to commit to Git)
 ```
 
-:::caution API Key 安全
-**永远不要**把 API Key 写在代码里并提交到 GitHub！这相当于把你的密码公开了。正确做法：
-1. 使用环境变量
-2. 使用 `.env` 文件 + `.gitignore`
+:::caution API Key Security
+**Never** write your API Key directly in code and commit it to GitHub! That is like making your password public. The correct approach is:
+1. Use environment variables
+2. Use a `.env` file + `.gitignore`
 :::
 
 ---
 
-## 第二步：第一次调用 AI API
+## Step 2: Your First AI API Call
 
 ```python
 from openai import OpenAI
 
-# 创建客户端（自动从环境变量读取 OPENAI_API_KEY）
+# Create a client (reads OPENAI_API_KEY automatically from the environment variable)
 client = OpenAI()
 
-# 发送一个简单的对话请求
+# Send a simple conversation request
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
-        {"role": "user", "content": "你好！请用一句话介绍 Python 语言。"}
+        {"role": "user", "content": "Hello! Please introduce the Python language in one sentence."}
     ]
 )
 
-# 获取 AI 的回复
+# Get the AI's reply
 reply = response.choices[0].message.content
-print(f"AI 说: {reply}")
+print(f"AI says: {reply}")
 ```
 
-输出类似：
+Sample output:
 
 ```
-AI 说: Python 是一门简洁优雅、功能强大的高级编程语言，广泛应用于数据分析、人工智能、Web 开发等众多领域。
+AI says: Python is a concise, elegant, and powerful high-level programming language widely used in data analysis, AI, web development, and many other fields.
 ```
 
-### 理解请求结构
+### Understand the Request Structure
 
 ```python
 messages = [
-    {"role": "system", "content": "你是一个 Python 编程助手。"},  # 系统提示（设定 AI 的角色）
-    {"role": "user", "content": "什么是列表推导式？"},           # 用户消息
-    {"role": "assistant", "content": "列表推导式是..."},         # AI 之前的回复
-    {"role": "user", "content": "能给个例子吗？"},               # 用户的追问
+    {"role": "system", "content": "You are a Python programming assistant."},  # system prompt (sets the AI's role)
+    {"role": "user", "content": "What is a list comprehension?"},              # user message
+    {"role": "assistant", "content": "A list comprehension is..."},            # previous AI reply
+    {"role": "user", "content": "Can you give an example?"},                   # user's follow-up
 ]
 ```
 
-| 角色 | 含义 |
+| Role | Meaning |
 |------|------|
-| `system` | 设定 AI 的行为和角色（可选） |
-| `user` | 用户发送的消息 |
-| `assistant` | AI 之前的回复（用于多轮对话） |
+| `system` | Sets the AI's behavior and role (optional) |
+| `user` | Message sent by the user |
+| `assistant` | Previous AI reply (used for multi-turn conversations) |
 
 ---
 
-## 第三步：构建交互式聊天机器人
+## Step 3: Build an Interactive Chatbot
 
 ```python
 """
-AI 聊天机器人
-使用 OpenAI API 实现多轮对话
+AI chatbot
+Use the OpenAI API to implement multi-turn conversations
 """
 
 from openai import OpenAI
 
-def create_chatbot(system_prompt: str = "你是一个友好的 AI 助手。"):
-    """创建一个聊天机器人"""
+def create_chatbot(system_prompt: str = "You are a friendly AI assistant."):
+    """Create a chatbot"""
     client = OpenAI()
     messages = [{"role": "system", "content": system_prompt}]
 
     print("=" * 50)
-    print("  AI 聊天机器人")
-    print("  输入 'quit' 退出，输入 'clear' 清除对话历史")
+    print("  AI Chatbot")
+    print("  Type 'quit' to exit, type 'clear' to clear the conversation history")
     print("=" * 50)
 
     while True:
-        user_input = input("\n你: ").strip()
+        user_input = input("\nYou: ").strip()
 
         if not user_input:
             continue
         if user_input.lower() == "quit":
-            print("再见！")
+            print("Goodbye!")
             break
         if user_input.lower() == "clear":
             messages = [{"role": "system", "content": system_prompt}]
-            print("🧹 对话历史已清除")
+            print("🧹 Conversation history cleared")
             continue
 
-        # 添加用户消息
+        # Add user message
         messages.append({"role": "user", "content": user_input})
 
         try:
-            # 调用 API
+            # Call the API
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=messages,
-                temperature=0.7,    # 控制创造性（0=保守, 2=疯狂）
-                max_tokens=1000,    # 最大回复长度
+                temperature=0.7,    # controls creativity (0=conservative, 2=wild)
+                max_tokens=1000,    # maximum reply length
             )
 
-            # 获取回复
+            # Get reply
             reply = response.choices[0].message.content
             print(f"\nAI: {reply}")
 
-            # 把 AI 的回复也加入历史（实现多轮对话）
+            # Add the AI reply to history as well (to enable multi-turn conversation)
             messages.append({"role": "assistant", "content": reply})
 
-            # 显示 Token 使用量
+            # Show token usage
             usage = response.usage
-            print(f"\n  [Token 使用: 输入={usage.prompt_tokens}, "
-                  f"输出={usage.completion_tokens}, "
-                  f"总计={usage.total_tokens}]")
+            print(f"\n  [Token usage: input={usage.prompt_tokens}, "
+                  f"output={usage.completion_tokens}, "
+                  f"total={usage.total_tokens}]")
 
         except Exception as e:
-            print(f"\n❌ 调用失败: {e}")
-            messages.pop()  # 移除失败的用户消息
+            print(f"\n❌ Call failed: {e}")
+            messages.pop()  # remove the failed user message
 
 if __name__ == "__main__":
-    create_chatbot("你是一个专业的 Python 编程导师，用简洁通俗的语言回答问题。")
+    create_chatbot("You are a professional Python programming mentor. Answer questions in clear and simple language.")
 ```
 
 ---
 
-## 第四步：实用 AI 工具
+## Step 4: Practical AI Tools
 
-### 工具 1：AI 代码审查助手
+### Tool 1: AI Code Review Assistant
 
 ```python
 def review_code(code: str) -> str:
-    """让 AI 审查你的代码"""
+    """Let AI review your code"""
     client = OpenAI()
 
     response = client.chat.completions.create(
@@ -215,21 +215,21 @@ def review_code(code: str) -> str:
         messages=[
             {
                 "role": "system",
-                "content": "你是一个资深 Python 代码审查专家。"
-                          "请审查用户的代码，指出问题并给出改进建议。"
-                          "用中文回复，格式清晰。"
+                "content": "You are a senior Python code review expert."
+                          "Please review the user's code, point out issues, and give improvement suggestions."
+                          "Reply in Chinese, with a clear format."
             },
             {
                 "role": "user",
-                "content": f"请审查以下代码:\n\n```python\n{code}\n```"
+                "content": f"Please review the following code:\n\n```python\n{code}\n```"
             }
         ],
-        temperature=0.3  # 代码审查用低温度，更严谨
+        temperature=0.3  # low temperature for code review, more rigorous
     )
 
     return response.choices[0].message.content
 
-# 测试
+# Test
 code = """
 def calc(l):
     s = 0
@@ -241,11 +241,11 @@ def calc(l):
 print(review_code(code))
 ```
 
-### 工具 2：AI 文本摘要工具
+### Tool 2: AI Text Summarization Tool
 
 ```python
 def summarize(text: str, max_sentences: int = 3) -> str:
-    """让 AI 生成文本摘要"""
+    """Let AI generate a text summary"""
     client = OpenAI()
 
     response = client.chat.completions.create(
@@ -253,7 +253,7 @@ def summarize(text: str, max_sentences: int = 3) -> str:
         messages=[
             {
                 "role": "system",
-                "content": f"请用不超过 {max_sentences} 句话概括以下文本的核心内容。用中文回复。"
+                "content": f"Please summarize the core content of the following text in no more than {max_sentences} sentences. Reply in Chinese."
             },
             {"role": "user", "content": text}
         ],
@@ -262,23 +262,23 @@ def summarize(text: str, max_sentences: int = 3) -> str:
 
     return response.choices[0].message.content
 
-# 使用
+# Use
 long_text = """
-Python 是一种广泛使用的高级编程语言，由 Guido van Rossum 创建并于 1991 年首次发布。
-Python 的设计理念强调代码可读性和简洁性，使用显著的空白缩进来定义代码块。
-它支持多种编程范式，包括过程化、面向对象和函数式编程。
-Python 拥有一个大型标准库，并且有丰富的第三方库生态系统。
-在人工智能、机器学习、数据科学、Web 开发等领域，Python 都是最受欢迎的编程语言之一。
+Python is a widely used high-level programming language created by Guido van Rossum and first released in 1991.
+Python's design philosophy emphasizes code readability and simplicity, using significant whitespace indentation to define code blocks.
+It supports multiple programming paradigms, including procedural, object-oriented, and functional programming.
+Python has a large standard library and a rich third-party library ecosystem.
+In fields such as AI, machine learning, data science, and web development, Python is one of the most popular programming languages.
 """
 
 print(summarize(long_text))
 ```
 
-### 工具 3：AI 翻译工具
+### Tool 3: AI Translation Tool
 
 ```python
-def translate(text: str, target_lang: str = "英文") -> str:
-    """AI 翻译"""
+def translate(text: str, target_lang: str = "English") -> str:
+    """AI translation"""
     client = OpenAI()
 
     response = client.chat.completions.create(
@@ -286,8 +286,8 @@ def translate(text: str, target_lang: str = "英文") -> str:
         messages=[
             {
                 "role": "system",
-                "content": f"你是一个专业翻译。请将用户输入的文本翻译成{target_lang}。"
-                           "只返回翻译结果，不要添加任何解释。"
+                "content": f"You are a professional translator. Please translate the user's text into {target_lang}."
+                           "Return only the translation, without any explanations."
             },
             {"role": "user", "content": text}
         ],
@@ -296,17 +296,17 @@ def translate(text: str, target_lang: str = "英文") -> str:
 
     return response.choices[0].message.content
 
-print(translate("人工智能正在改变世界"))
-print(translate("Hello, how are you?", "中文"))
+print(translate("Artificial intelligence is changing the world"))
+print(translate("Hello, how are you?", "Chinese"))
 ```
 
 ---
 
-## 第五步：使用国产 AI API（替代方案）
+## Step 5: Use a Domestic AI API (Alternative)
 
-如果你使用国产 AI API，代码结构几乎一样，只需要修改 API 地址和 Key。
+If you use a domestic AI API, the code structure is almost the same; you only need to change the API address and Key.
 
-### 智谱 AI（GLM 模型）
+### Zhipu AI (GLM model)
 
 ```bash
 pip install zhipuai
@@ -320,78 +320,78 @@ client = ZhipuAI(api_key="your_api_key")
 response = client.chat.completions.create(
     model="glm-4-flash",
     messages=[
-        {"role": "user", "content": "你好！请介绍一下 Python"}
+        {"role": "user", "content": "Hello! Please introduce Python"}
     ]
 )
 
 print(response.choices[0].message.content)
 ```
 
-### 通用的 OpenAI 兼容接口
+### General OpenAI-Compatible Interface
 
-很多国产 API 都兼容 OpenAI 的接口格式，只需要修改 `base_url`：
+Many domestic APIs are compatible with OpenAI’s interface format; you only need to modify `base_url`:
 
 ```python
 from openai import OpenAI
 
-# 使用不同的 API 服务
+# Use a different API service
 client = OpenAI(
     api_key="your_api_key",
-    base_url="https://api.your-provider.com/v1"  # 替换为对应服务的地址
+    base_url="https://api.your-provider.com/v1"  # replace with the corresponding service address
 )
 
-# 之后的代码完全一样！
+# The rest of the code is exactly the same!
 response = client.chat.completions.create(
     model="model_name",
-    messages=[{"role": "user", "content": "你好"}]
+    messages=[{"role": "user", "content": "Hello"}]
 )
 ```
 
 ---
 
-## 理解 AI API 的关键参数
+## Key Parameters for Understanding AI APIs
 
-| 参数 | 含义 | 建议值 |
+| Parameter | Meaning | Suggested Value |
 |------|------|--------|
-| `model` | 使用哪个模型 | `gpt-3.5-turbo`（便宜），`gpt-4`（更强） |
-| `temperature` | 创造性/随机性 | 0.0-0.3（事实性），0.7-1.0（创造性） |
-| `max_tokens` | 最大输出长度 | 根据需要设置 |
-| `messages` | 对话历史 | 包含完整的对话上下文 |
-| `stream` | 是否流式输出 | `True` 实现打字机效果 |
+| `model` | Which model to use | `gpt-3.5-turbo` (cheaper), `gpt-4` (stronger) |
+| `temperature` | Creativity / randomness | 0.0-0.3 (factual), 0.7-1.0 (creative) |
+| `max_tokens` | Maximum output length | Set as needed |
+| `messages` | Conversation history | Contains the full conversation context |
+| `stream` | Whether to stream output | `True` creates a typewriter effect |
 
-### Token 和费用
+### Tokens and Cost
 
-AI API 按 **Token** 计费。Token 大约等于一个词或几个汉字。
+AI APIs are billed by **Token**. A Token is roughly a word or a few Chinese characters.
 
 ```python
-# 查看 Token 使用量
+# Check token usage
 usage = response.usage
-print(f"输入 Token: {usage.prompt_tokens}")
-print(f"输出 Token: {usage.completion_tokens}")
-print(f"总 Token: {usage.total_tokens}")
+print(f"Input tokens: {usage.prompt_tokens}")
+print(f"Output tokens: {usage.completion_tokens}")
+print(f"Total tokens: {usage.total_tokens}")
 ```
 
-:::tip 控制成本
-- 使用 `gpt-3.5-turbo` 而不是 `gpt-4`（便宜 10-20 倍）
-- 控制 `max_tokens`，避免不必要的长回复
-- 优化 system prompt，减少输入 Token
-- 定期清理对话历史，避免累积太多 Token
+:::tip Control Costs
+- Use `gpt-3.5-turbo` instead of `gpt-4` (10–20x cheaper)
+- Control `max_tokens` to avoid unnecessarily long replies
+- Optimize the system prompt to reduce input tokens
+- Clean up conversation history regularly to avoid accumulating too many tokens
 :::
 
 ---
 
-## 扩展挑战
+## Extension Challenges
 
-### 挑战 1：流式输出
+### Challenge 1: Streaming Output
 
-实现打字机效果（AI 回复一个字一个字出现）：
+Implement a typewriter effect (the AI reply appears one character at a time):
 
 ```python
-# 提示：使用 stream=True 参数
+# Hint: use the stream=True parameter
 response = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=messages,
-    stream=True  # 开启流式输出
+    stream=True  # enable streaming output
 )
 
 for chunk in response:
@@ -399,56 +399,56 @@ for chunk in response:
         print(chunk.choices[0].delta.content, end="", flush=True)
 ```
 
-### 挑战 2：结合 FastAPI
+### Challenge 2: Combine with FastAPI
 
-把 AI 聊天功能包装成 API，让其他人通过 HTTP 请求来使用你的 AI 机器人。
+Wrap the AI chatbot functionality as an API so others can use your AI bot through HTTP requests.
 
-### 挑战 3：角色扮演
+### Challenge 3: Role Playing
 
-创建不同角色的 AI 助手（Python 导师、英语老师、面试官），让用户选择。
+Create AI assistants with different roles (Python mentor, English teacher, interviewer) and let the user choose one.
 
-### 挑战 4：本地知识库
+### Challenge 4: Local Knowledge Base
 
-让 AI 先读取一个本地文件（比如你的笔记），然后基于文件内容回答问题。
-
----
-
-## 项目自查清单
-
-- [ ] 成功获取了 API Key 并安全存储
-- [ ] 能成功调用 AI API 并获得回复
-- [ ] 实现了多轮对话功能
-- [ ] 构建了至少一个实用工具（代码审查/摘要/翻译）
-- [ ] 有异常处理（网络错误、API 错误）
-- [ ] API Key 没有硬编码在代码里
+Let the AI read a local file first (for example, your notes), then answer questions based on the file content.
 
 ---
 
-## 阶段总结
+## Project Self-Check Checklist
 
-恭喜你完成了 2 Python 编程基础的所有学习！回顾一下你掌握的技能：
+- [ ] Successfully obtained an API Key and stored it safely
+- [ ] Can successfully call the AI API and get a reply
+- [ ] Implemented multi-turn conversation
+- [ ] Built at least one practical tool (code review / summarization / translation)
+- [ ] Has exception handling (network errors, API errors)
+- [ ] API Key is not hard-coded in the code
 
-| 章节 | 掌握的技能 |
+---
+
+## Stage Summary
+
+Congratulations on completing all the learning in Python Programming Fundamentals 2! Let’s review the skills you have mastered:
+
+| Chapter | Skills Mastered |
 |------|-----------|
-| Python 基础 | 变量、数据类型、运算符、流程控制、数据结构、函数、模块 |
-| Python 进阶 | 面向对象、异常处理、文件操作、函数式编程、生成器、类型注解 |
-| 实战项目 | 命令行工具、网络爬虫、Web API、AI API 调用 |
+| Python Basics | Variables, data types, operators, control flow, data structures, functions, modules |
+| Advanced Python | Object-oriented programming, exception handling, file operations, functional programming, generators, type annotations |
+| Practical Projects | Command-line tools, web crawlers, Web APIs, AI API calls |
 
-你已经具备了：
-- **编程思维**：能把问题拆解为代码逻辑
-- **工程能力**：能写出结构清晰、有错误处理的程序
-- **实战经验**：完成了 4 个真实项目
+You now have:
+- **Programming thinking**: you can break problems down into code logic
+- **Engineering ability**: you can write well-structured programs with error handling
+- **Practical experience**: you have completed 4 real projects
 
-:::tip 下一步
-接下来将进入 3 数据分析与可视化——用 NumPy、Pandas、Matplotlib 处理和展示数据。这是 AI 工程师的核心技能，因为 AI 的第一步就是理解数据。带着你在 2 Python 编程基础打下的能力，继续前进吧！
+:::tip Next Step
+Next, we will move into Data Analysis and Visualization 3 — using NumPy, Pandas, and Matplotlib to process and display data. This is a core skill for AI engineers, because the first step in AI is understanding data. Keep building on the foundation you developed in Python Programming Fundamentals 2 and keep going!
 :::
 
-## 版本路线建议
+## Recommended Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Key Deliverables |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimum loop working | Can input, process, and output, while keeping one set of examples |
+| Standard version | Form a project that can be shown | Add configuration, logging, error handling, README, and screenshots |
+| Challenge version | Get close to portfolio quality | Add evaluation, comparison experiments, failed sample analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not try to make it too large or complete at the beginning. Each time you upgrade a version, be sure to write in the README: "What capabilities were added, how to verify them, and what problems still remain."

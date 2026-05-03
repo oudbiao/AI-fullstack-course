@@ -1,63 +1,63 @@
 ---
-title: "学习指南：机器学习怎么学最不容易学乱"
+title: "Study Guide: How to Learn Machine Learning Without Getting Lost"
 sidebar_position: 1
-description: "给 AI 全栈新人的机器学习学习指南：任务定义、baseline、指标、特征工程、项目路线和验收标准。"
-keywords: [机器学习学习指南, sklearn怎么学, 机器学习项目, baseline, 特征工程]
+description: "A machine learning study guide for AI full-stack beginners: task definition, baseline, metrics, feature engineering, project roadmap, and acceptance criteria."
+keywords: [machine learning study guide, how to learn sklearn, machine learning project, baseline, feature engineering]
 ---
 
-# 学习指南：机器学习怎么学最不容易学乱
+# Study Guide: How to Learn Machine Learning Without Getting Lost
 
-![机器学习学习循环图](/img/course/ml-study-loop.png)
+![Machine learning study loop diagram](/img/course/ml-study-loop-en.png)
 
-如果你来到 `第 5 章 机器学习入门到实战` 后觉得模型名很多，先不要急着逐个背算法。机器学习第一遍最重要的是完整建模流程。
+If you reach `Chapter 5: Introduction to Machine Learning and Practical Applications` and feel like there are too many model names, don’t rush to memorize algorithms one by one. On your first pass through machine learning, the most important thing is understanding the complete modeling workflow.
 
-## 本阶段总原则
+## Overall Principles for This Stage
 
-机器学习要抓住一条项目主线：把问题翻译成任务，准备数据，建立 baseline，用指标评估，再通过特征和模型改进效果。
+In machine learning, you need to follow one main project line: translate the problem into a task, prepare the data, build a baseline, evaluate with metrics, and then improve the results through features and models.
 
-![机器学习学习指南项目循环](/img/course/ch05-study-guide-project-loop.png)
+![Machine learning study guide project loop](/img/course/ch05-study-guide-project-loop-en.png)
 
-## 推荐学习顺序
+## Recommended Learning Order
 
-第一轮先学机器学习历史突破、基础概念和 Scikit-learn 基本用法。你要先知道 Bayes、线性模型、决策树、SVM、随机森林、Boosting、XGBoost 为什么依次出现，再理解训练集、测试集、特征、标签、模型、指标和 pipeline 是什么。
+In the first round, study the major historical breakthroughs in machine learning, foundational concepts, and basic Scikit-learn usage. First, you should understand why Bayes, linear models, decision trees, SVM, random forests, Boosting, and XGBoost appeared in that order, and then understand what training sets, test sets, features, labels, models, metrics, and pipelines are.
 
-第二轮学监督学习。线性回归、逻辑回归、决策树和集成学习足够支撑很多入门项目。
+In the second round, study supervised learning. Linear regression, logistic regression, decision trees, and ensemble learning are enough to support many beginner projects.
 
-第三轮学无监督学习。聚类、降维和异常检测帮助你理解没有标签时如何发现结构。
+In the third round, study unsupervised learning. Clustering, dimensionality reduction, and anomaly detection help you understand how to discover structure when there are no labels.
 
-第四轮学模型评估与选择。指标、交叉验证、偏差方差和调参决定你是否能判断模型真的好不好。
+In the fourth round, study model evaluation and selection. Metrics, cross-validation, bias-variance, and hyperparameter tuning determine whether you can judge if a model is truly good.
 
-第五轮学特征工程和项目。很多表格数据项目里，特征处理比换模型更重要。
+In the fifth round, study feature engineering and projects. In many tabular data projects, feature processing matters more than switching models.
 
-## 建议学习节奏
+## Suggested Learning Pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content Type | Suggested Time | Learning Goal |
 |---|---|---|
-| 基础概念页 | 2～3 小时 | 能解释任务、数据和指标 |
-| 算法页 | 2～4 小时 | 能知道算法适用场景和直觉 |
-| 评估页 | 2～4 小时 | 能判断模型效果是否可信 |
-| 项目页 | 8～16 小时 | 跑通完整建模闭环 |
+| Basic concept pages | 2–3 hours | Be able to explain tasks, data, and metrics |
+| Algorithm pages | 2–4 hours | Know the use cases and intuition behind algorithms |
+| Evaluation pages | 2–4 hours | Be able to judge whether model performance is trustworthy |
+| Project pages | 8–16 hours | Complete the full modeling loop |
 
-## 阶段项目路线
+## Project Roadmap for This Stage
 
-第一个项目建议做房价预测，练习回归、特征处理和误差分析。
+For your first project, it is recommended to predict house prices and practice regression, feature processing, and error analysis.
 
-第二个项目建议做客户流失预测，练习分类、混淆矩阵、AUC、召回率和业务解释。
+For your second project, it is recommended to predict customer churn and practice classification, confusion matrix, AUC, recall, and business interpretation.
 
-第三个项目建议做用户分群，练习无监督学习、聚类结果解释和可视化。
+For your third project, it is recommended to segment users and practice unsupervised learning, interpreting clustering results, and visualization.
 
-如果时间有限，至少完整做一个项目，不要只学算法页。
+If time is limited, complete at least one project end to end instead of only studying the algorithm pages.
 
-## 常见卡点
+## Common Sticking Points
 
-最常见的卡点是“不知道该用哪个模型”。解决方式是先做 baseline。很多时候，先用简单模型确认数据和指标没问题，比一开始尝试复杂模型更重要。
+The most common sticking point is “I don’t know which model to use.” The solution is to start with a baseline. In many cases, confirming that the data and metrics are working with a simple model is more important than trying complex models from the start.
 
-第二个卡点是指标混乱。分类、回归、聚类指标不同，要先问任务是什么，再选指标。
+The second sticking point is metric confusion. Classification, regression, and clustering use different metrics, so first ask what the task is, then choose the metric.
 
-第三个卡点是数据泄漏。标准化、编码、特征选择都要注意训练集和测试集边界。
+The third sticking point is data leakage. Standardization, encoding, and feature selection all require attention to the boundary between the training set and the test set.
 
-## 过关标准
+## Passing Criteria
 
-学完本阶段后，你应该能独立完成一个机器学习项目：定义任务、处理数据、训练 baseline、选择指标、改进模型、解释结果。
+After finishing this stage, you should be able to complete a machine learning project independently: define the task, process the data, train a baseline, choose metrics, improve the model, and explain the results.
 
-如果你能把一个表格数据项目整理成报告，并说明模型哪里好、哪里不好、下一步怎么改，就可以进入深度学习阶段。
+If you can organize a tabular data project into a report and explain what the model does well, what it does poorly, and how to improve it next, you are ready to move on to the deep learning stage.

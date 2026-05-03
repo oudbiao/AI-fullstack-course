@@ -1,147 +1,147 @@
 ---
-title: "2.4 自动求导"
+title: "2.4 Autograd"
 sidebar_position: 2
-description: "理解 requires_grad、backward、梯度累计和 no_grad，真正明白训练时参数为什么会更新。"
+description: "Understand requires_grad, backward, gradient accumulation, and no_grad, and truly see why parameters update during training."
 keywords: [autograd, backward, gradient, requires_grad, no_grad, PyTorch]
 ---
 
-# 自动求导
+# Autograd
 
-![PyTorch Autograd 计算图](/img/course/pytorch-autograd-graph.png)
+![PyTorch Autograd computation graph](/img/course/pytorch-autograd-graph-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解梯度到底是什么
-- 掌握 `requires_grad=True` 的作用
-- 明白 `loss.backward()` 做了什么
-- 理解梯度累计、清零和 `torch.no_grad()`
+- Understand what gradients actually are
+- Master the role of `requires_grad=True`
+- Understand what `loss.backward()` does
+- Understand gradient accumulation, clearing gradients, and `torch.no_grad()`
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-这一节最容易让新人误会成“只是会不会写 `backward()`”。  
-但更重要的是先看清它在训练闭环里的位置：
+This section is most likely to be misunderstood by beginners as “it’s just about whether you can write `backward()`.”
+But more importantly, we should first see where it sits in the training loop:
 
 ```mermaid
 flowchart LR
-    A["前向算出 loss"] --> B["autograd 记录计算图"]
-    B --> C["backward() 沿图反向求梯度"]
-    C --> D["参数拿到 grad"]
-    D --> E["优化器更新参数"]
+    A["Forward pass computes loss"] --> B["autograd records the computation graph"]
+    B --> C["backward() traces the graph backward to compute gradients"]
+    C --> D["parameters receive grad"]
+    D --> E["optimizer updates parameters"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-所以这节真正要看懂的不是单个 API，而是：
+So what you really need to understand in this section is not a single API, but:
 
-- 梯度是怎么从 loss 一路传回参数的
+- How gradients are passed back from the loss all the way to the parameters
 
-## 这节和上一节、下一节是怎么接上的
+## How this section connects to the previous and next ones
 
-- 上一节 `Tensor` 解决的是“数据长什么样”
-- 这一节 `autograd` 解决的是“梯度怎么来”
-- 下一节 `nn.Module` 会解决“模型怎么组织起来”
+- The previous section on `Tensor` answered “what does the data look like?”
+- This section on `autograd` answers “where do gradients come from?”
+- The next section on `nn.Module` will answer “how do we organize the model?”
 
-所以这一节刚好是中间那根梁：  
-没有它，训练流程就只有前向，没有“学”。
+So this section is the beam in the middle:
+without it, the training process only has a forward pass, but no “learning.”
 
-## 一、为什么要有自动求导？
+## 1. Why do we need autograd?
 
-训练模型的核心目标只有一句话：
+The core goal of training a model is just one sentence:
 
-> **让模型参数朝“损失更小”的方向移动。**
+> **Make the model parameters move toward the direction that reduces the loss.**
 
-问题是：怎么知道该往哪个方向移动？
+The problem is: how do we know which direction to move in?
 
-答案就是**梯度（gradient）**。
+The answer is **gradient**.
 
-你可以把梯度想成“山坡的坡度”：
+You can think of a gradient as the “slope” of a hill:
 
-- 梯度大，说明这里很陡
-- 梯度方向告诉你损失增长最快的方向
-- 我们想要让损失下降，所以要沿着**负梯度方向**更新参数
+- A large gradient means the slope is steep
+- The gradient direction tells you the direction in which the loss increases fastest
+- We want the loss to go down, so we update parameters in the **negative gradient direction**
 
-如果每次都手工推导梯度，会非常痛苦。  
-PyTorch 的 `autograd` 就像一个自动记账员：
+If we manually derive gradients every time, it becomes extremely painful.
+PyTorch’s `autograd` is like an automatic bookkeeper:
 
-- 你只管写“怎么算出 loss”
-- 它会帮你把梯度链路记录下来
-- 你调用 `backward()`，它就自动把梯度算出来
+- You just write how to compute the loss
+- It records the gradient path for you
+- When you call `backward()`, it computes the gradients automatically
 
-### 1.1 为什么这件事一旦变复杂，就不能再手推？
+### 1.1 Why does this become impossible to do by hand once things get complicated?
 
-一个参数时你还能手算。  
-但一旦模型里有：
+With one parameter, you can still compute it by hand.
+But once a model has:
 
-- 上千上万个参数
-- 多层结构
-- 各种中间张量
+- Tens of thousands or millions of parameters
+- Many layers
+- Various intermediate tensors
 
-手推就会迅速失控。  
-所以自动求导最核心的价值不是“省一点事”，而是：
+manual derivation quickly becomes unmanageable.
+So the most important value of automatic differentiation is not “saving a bit of effort,” but:
 
-- 让训练大模型在工程上变得可行
+- Making large-model training feasible in practice
 
 ---
 
-## 二、一个最小例子
+## 2. A minimal example
 
 ```python
 import torch
 
-# 一个需要学习的参数
+# A parameter that needs to be learned
 w = torch.tensor(2.0, requires_grad=True)
 
-# 定义一个简单函数：loss = (w * 3 - 10)^2
+# Define a simple function: loss = (w * 3 - 10)^2
 loss = (w * 3 - 10) ** 2
 
 print("loss:", loss.item())
 
-# 自动求导
+# Automatic differentiation
 loss.backward()
 
-print("w 的梯度:", w.grad.item())
+print("Gradient of w:", w.grad.item())
 ```
 
-### 这里发生了什么？
+### What is happening here?
 
-PyTorch 记录了这条计算链：
+PyTorch records this computation chain:
 
 ```text
 w -> w*3 -> w*3-10 -> (w*3-10)^2
 ```
 
-当你执行：
+When you run:
 
 ```python
 loss.backward()
 ```
 
-它会沿着这条链，按链式法则把梯度一路传回来，最后得到：
+it walks backward along this chain using the chain rule, and finally gets:
 
 ```python
 w.grad
 ```
 
-这就是“当前 `w` 再往前走一点点，loss 会怎么变”的信息。
+This is the information that tells you “if `w` moves a little bit further, how will the loss change?”
 
-### 2.1 第一次看这个例子，最该先抓住什么？
+### 2.1 When you see this example for the first time, what should you focus on?
 
-最该先抓住的是：
+What you should focus on first is:
 
-- `loss` 是一个最终结果
-- `backward()` 会把这个最终结果对 `w` 的影响一路算回来
-- `w.grad` 里装的就是“该怎么改”的信息
+- `loss` is a final result
+- `backward()` computes the effect of this final result on `w`
+- `w.grad` stores the information about how to change `w`
 
-只要这三件事稳住了，后面更复杂网络也只是把这条链拉长。
+As long as these three things are clear, more complex networks are just a longer version of the same chain.
 
 ---
 
-## 三、从梯度到参数更新
+## 3. From gradients to parameter updates
 
-有了梯度，就能做一次最简单的梯度下降：
+Once you have gradients, you can do the simplest form of gradient descent:
 
 ```python
 import torch
@@ -161,24 +161,24 @@ for step in range(5):
     w.grad.zero_()
 ```
 
-### 这一段每步在干什么？
+### What does each step do?
 
-| 代码 | 作用 |
+| Code | Purpose |
 |---|---|
-| `loss = ...` | 计算当前损失 |
-| `loss.backward()` | 求当前损失对 `w` 的梯度 |
-| `w -= lr * w.grad` | 用梯度更新参数 |
-| `w.grad.zero_()` | 把旧梯度清掉，准备下轮计算 |
+| `loss = ...` | Compute the current loss |
+| `loss.backward()` | Compute the gradient of the current loss with respect to `w` |
+| `w -= lr * w.grad` | Update the parameter using the gradient |
+| `w.grad.zero_()` | Clear the old gradient and prepare for the next round |
 
 ---
 
-## 四、为什么要清零梯度？
+## 4. Why do we need to clear gradients?
 
-这是 PyTorch 初学者最容易踩坑的点之一。
+This is one of the easiest traps for beginners in PyTorch.
 
-PyTorch 默认会**累计梯度**，而不是自动覆盖。
+By default, PyTorch **accumulates gradients** instead of overwriting them automatically.
 
-看下面的例子：
+See the example below:
 
 ```python
 import torch
@@ -187,50 +187,50 @@ x = torch.tensor(3.0, requires_grad=True)
 
 y1 = x ** 2
 y1.backward()
-print("第一次 backward 后的梯度:", x.grad.item())
+print("Gradient after the first backward:", x.grad.item())
 
 y2 = 2 * x
 y2.backward()
-print("第二次 backward 后的梯度:", x.grad.item())
+print("Gradient after the second backward:", x.grad.item())
 ```
 
-你会发现第二次梯度不是新的结果，而是“第一次 + 第二次”的和。
+You will find that the second gradient is not a new result, but the sum of “first + second.”
 
-这就是为什么训练循环里通常都会写：
+That is why training loops usually include:
 
 ```python
 optimizer.zero_grad()
 ```
 
-或者：
+or:
 
 ```python
 tensor.grad.zero_()
 ```
 
-### 4.1 为什么 PyTorch 要默认“累计梯度”？
+### 4.1 Why does PyTorch default to “accumulate gradients”?
 
-因为有些更高级的训练技巧会故意这么做，比如：
+Because some advanced training techniques intentionally do this, such as:
 
-- 梯度累积
-- 多个 loss 一起反传
+- Gradient accumulation
+- Backpropagating multiple losses together
 
-所以这个设计本身没错。  
-只是对初学者来说，你要先养成一个稳定默认动作：
+So the design itself is not wrong.
+But as a beginner, you should first form a stable default habit:
 
-- 每轮更新前，先清零梯度
+- Before each update step, clear the gradients
 
-![PyTorch 自动求导梯度生命周期图](/img/course/ch06-autograd-gradient-lifecycle-map.png)
+![PyTorch autograd gradient lifecycle diagram](/img/course/ch06-autograd-gradient-lifecycle-map-en.png)
 
-:::tip 读图提示
-这张图按一轮训练读：先前向计算 loss，`backward()` 把梯度写进 `.grad`，`optimizer.step()` 用梯度更新参数，最后必须 `zero_grad()` 清空旧梯度。PyTorch 默认累计梯度，所以“忘记清零”是新人最常见的隐形 bug。
+:::tip Reading tip
+Read this diagram as one training cycle: first the forward pass computes the loss, then `backward()` writes gradients into `.grad`, `optimizer.step()` updates the parameters using those gradients, and finally you must call `zero_grad()` to clear old gradients. PyTorch accumulates gradients by default, so “forgetting to clear them” is one of the most common invisible bugs for beginners.
 :::
 
 ---
 
-## 五、`requires_grad=True` 到底控制了什么？
+## 5. What exactly does `requires_grad=True` control?
 
-只有被标记为 `requires_grad=True` 的张量，PyTorch 才会为它追踪梯度。
+Only tensors marked with `requires_grad=True` will have their gradients tracked by PyTorch.
 
 ```python
 import torch
@@ -245,47 +245,47 @@ print("a.grad:", a.grad.item())
 print("b.grad:", b.grad)
 ```
 
-输出里你会看到：
+In the output, you will see:
 
-- `a.grad` 有值
-- `b.grad` 是 `None`
+- `a.grad` has a value
+- `b.grad` is `None`
 
-这很符合直觉：  
-如果某个值不是“需要学习的参数”，就没必要对它求梯度。
+This makes perfect sense:
+if a value is not a “learnable parameter,” then there is no need to compute gradients for it.
 
 ---
 
-## 六、`torch.no_grad()` 是干什么的？
+## 6. What is `torch.no_grad()` for?
 
-训练时我们要记录梯度。  
-但推理、评估、参数手动更新时，我们往往**不需要**梯度。
+During training, we need to record gradients.
+But during inference, evaluation, or manual parameter updates, we often **do not need** gradients.
 
-这时就可以用：
-
-```python
-with torch.no_grad():
-    ...
-```
-
-它的作用是：
-
-- 关闭梯度追踪
-- 节省内存
-- 加快推理
-
-### 6.1 新人第一次最容易忽略的是：更新参数时也常常要关梯度
-
-你会发现很多手写更新代码里都包着：
+In that case, we can use:
 
 ```python
 with torch.no_grad():
     ...
 ```
 
-原因是：
+Its effects are:
 
-- 参数更新本身不是训练图里下一步要继续求导的对象
-- 所以通常不需要再被 autograd 跟踪
+- Turn off gradient tracking
+- Save memory
+- Speed up inference
+
+### 6.1 The easiest thing for beginners to miss: parameter updates often also need gradient tracking turned off
+
+You will find that many hand-written update snippets are wrapped in:
+
+```python
+with torch.no_grad():
+    ...
+```
+
+The reason is:
+
+- The parameter update itself is not something we want autograd to keep tracking for the next step
+- So it usually does not need to be tracked by autograd
 
 ```python
 import torch
@@ -300,32 +300,32 @@ print("y.requires_grad:", y.requires_grad)
 
 ---
 
-## 七、把它放回“模型训练”的语境里
+## 7. Putting it back into the context of “model training”
 
-真实训练时，我们通常不是只更新一个数字 `w`，而是更新一整组参数。
+In real training, we usually do not update just one number `w`, but a whole set of parameters.
 
-比如一个线性模型：
+For example, in a linear model:
 
 > `y = wx + b`
 
-这里的 `w` 和 `b` 都是参数，都要学习。  
-训练时发生的事其实还是一样：
+Here, both `w` and `b` are parameters, and both need to be learned.
+What happens during training is actually still the same:
 
-1. 用当前参数做预测
-2. 计算预测和真实值之间的损失
-3. 自动求出每个参数的梯度
-4. 用优化器按梯度方向更新参数
+1. Make predictions with the current parameters
+2. Compute the loss between predictions and true values
+3. Automatically compute the gradient for each parameter
+4. Update the parameters along the gradient direction using an optimizer
 
-所以自动求导不是“额外功能”，而是深度学习训练的发动机。
+So autograd is not an “extra feature”; it is the engine of deep learning training.
 
 ---
 
-## 八、一个带两个参数的可运行例子
+## 8. A runnable example with two parameters
 
 ```python
 import torch
 
-# 我们希望模型学到：y = 2x + 1
+# We want the model to learn: y = 2x + 1
 x = torch.tensor([1.0, 2.0, 3.0, 4.0])
 y_true = torch.tensor([3.0, 5.0, 7.0, 9.0])
 
@@ -353,56 +353,56 @@ for epoch in range(200):
         )
 ```
 
-如果一切正常，`w` 会逼近 `2`，`b` 会逼近 `1`。
+If everything works normally, `w` will approach `2` and `b` will approach `1`.
 
 ---
 
-## 九、常见误区
+## 9. Common misconceptions
 
-### 1. `backward()` 会自动更新参数
+### 1. `backward()` automatically updates parameters
 
-不会。  
-`backward()` 只负责**算梯度**，真正更新参数的是你自己写的更新逻辑，或优化器的 `step()`。
+No.
+`backward()` only **computes gradients**. The actual parameter update is done by your own update logic, or by the optimizer’s `step()`.
 
-### 2. 每轮不清梯度也没关系
+### 2. It does not matter if we don’t clear gradients every round
 
-不行。  
-如果你不清零，梯度会一直累加，训练结果通常会错掉。
+That is not okay.
+If you do not clear them, gradients will keep accumulating, and the training result will usually go wrong.
 
-### 3. 推理也照样开着梯度
+### 3. We can keep gradients on during inference too
 
-能跑，但浪费。  
-评估或部署时，应该尽量包上 `torch.no_grad()`。
-
----
-
-## 小结
-
-这一节最关键的结论只有三句：
-
-1. 梯度告诉我们“参数该往哪改”
-2. `backward()` 负责求梯度，不负责更新参数
-3. PyTorch 默认累计梯度，所以训练循环里必须清零
-
-理解了自动求导，你就真正踏进了“模型训练”这件事本身。
-
-## 这节最该带走什么
-
-如果再压成一句话，那就是：
-
-> **autograd 的本质，是把“loss 对参数的影响”自动沿计算图反向算回来。**
-
-所以真正要稳住的是：
-
-- 谁需要梯度
-- 梯度什么时候被算出来
-- 梯度什么时候会累计
-- 哪些阶段应该关掉梯度
+It will run, but it wastes resources.
+During evaluation or deployment, you should wrap code with `torch.no_grad()` whenever possible.
 
 ---
 
-## 练习
+## Summary
 
-1. 把上面 `y = 2x + 1` 的例子改成 `y = 3x - 2`，重新训练一次。
-2. 删除 `w.grad.zero_()` 和 `b.grad.zero_()`，观察训练会发生什么。
-3. 试着把学习率 `lr` 改成 `0.5` 和 `0.005`，比较收敛速度和稳定性。
+There are only three key takeaways in this section:
+
+1. Gradients tell us which direction parameters should change
+2. `backward()` computes gradients, but does not update parameters
+3. PyTorch accumulates gradients by default, so you must clear them in the training loop
+
+Once you understand autograd, you have truly stepped into the actual process of “training a model.”
+
+## What should you take away most from this section
+
+If we compress it into one sentence, it would be:
+
+> **The essence of autograd is to automatically trace back the effect of the loss on the parameters through the computation graph.**
+
+So what you really need to keep straight is:
+
+- Which tensors need gradients
+- When gradients are computed
+- When gradients are accumulated
+- Which stages should turn gradients off
+
+---
+
+## Exercises
+
+1. Change the `y = 2x + 1` example above to `y = 3x - 2`, and train it again.
+2. Remove `w.grad.zero_()` and `b.grad.zero_()`, and observe what happens during training.
+3. Try changing the learning rate `lr` to `0.5` and `0.005`, and compare convergence speed and stability.

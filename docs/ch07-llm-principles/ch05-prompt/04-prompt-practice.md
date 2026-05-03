@@ -1,321 +1,321 @@
 ---
-title: "5.5 Prompt 工程实践"
+title: "5.5 Prompt Engineering Practice"
 sidebar_position: 18
-description: "从坏 prompt 到好 prompt，系统练习改写、约束、示例设计和输出控制，把 Prompt 真正用进任务里。"
+description: "From bad prompts to good prompts, systematically practice rewriting, constraints, example design, and output control, and really use Prompt in tasks."
 keywords: [prompt engineering, few-shot, instruction design, prompt practice, output control]
 ---
 
-# Prompt 工程实践
+# Prompt Engineering Practice
 
-:::tip 本节定位
-前面几节已经讲了：
+:::tip Section Overview
+In the previous sections, we covered:
 
-- Prompt 基础
-- 高级技巧
-- 结构化输出
+- Prompt basics
+- Advanced techniques
+- Structured output
 
-这一节不再讲新名词，而是做一件更重要的事：
+In this section, we will not introduce new terms. Instead, we will do something even more important:
 
-> **把 Prompt 当成工程对象来练。**
+> **Treat Prompt as an engineering object and practice with it.**
 
-也就是说，不只问“这个 prompt 能不能跑”，而是问“它为什么更稳、哪里更清楚、为什么更适合当前任务”。
+In other words, do not just ask, “Can this prompt run?” Ask, “Why is it more stable, what is clearer, and why is it more suitable for the current task?”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会判断一个 prompt 为什么不好
-- 学会从目标、约束、示例、输出格式四个方向改 prompt
-- 看懂几个典型任务的 prompt 迭代过程
-- 建立 Prompt 调试而不是拍脑袋写 prompt 的习惯
-
----
-
-## 一、Prompt 工程最常见的误解
-
-### 1.1 误解：prompt 就是“写得礼貌一点”
-
-其实 Prompt 工程真正关心的是：
-
-- 任务定义是否清楚
-- 输出要求是否明确
-- 约束是否可执行
-- 示例是否足够引导
-
-礼貌与否通常不是关键。
-
-### 1.2 更准确的一句话
-
-> **Prompt 是你给模型写的任务接口说明书。**
-
-如果说明书含糊，模型输出自然容易飘。
+- Learn how to judge why a prompt is bad
+- Learn how to improve a prompt from four angles: goal, constraints, examples, and output format
+- Understand the prompt iteration process for several typical tasks
+- Build the habit of debugging Prompts instead of writing them by guesswork
 
 ---
 
-## 二、先看一个“坏 prompt”
+## 1. The Most Common Misunderstandings About Prompt Engineering
 
-### 2.1 任务：把用户评论做情感分类
+### 1.1 Misunderstanding: A prompt is just “writing more politely”
 
-一个很差的 prompt 可能长这样：
+In fact, Prompt Engineering really cares about:
+
+- Whether the task definition is clear
+- Whether the output requirements are explicit
+- Whether the constraints are executable
+- Whether the examples provide enough guidance
+
+Politeness is usually not the key point.
+
+### 1.2 A more accurate sentence
+
+> **A Prompt is the task interface documentation you write for the model.**
+
+If the documentation is vague, the model’s output will naturally be unstable.
+
+---
+
+## 2. First, Look at a “Bad Prompt”
+
+### 2.1 Task: Sentiment classification for user reviews
+
+A very poor prompt might look like this:
 
 ```text
-帮我分析这条评论。
+Help me analyze this comment.
 ```
 
-问题在哪？
+What is wrong with it?
 
-- 不知道要分析什么
-- 不知道输出格式
-- 不知道标签范围
-- 不知道要不要解释
+- It does not say what to analyze
+- It does not specify the output format
+- It does not define the label set
+- It does not say whether an explanation is needed
 
-### 2.2 改成一个更清楚的版本
+### 2.2 A clearer version
 
 ```text
-请判断下面评论的情感倾向，只能输出 positive 或 negative，不要输出其他内容。
+Please determine the sentiment of the review below. Only output positive or negative. Do not output anything else.
 
-评论：这门课讲得很清楚，例子也很多。
+Review: This course is explained very clearly, and there are many examples.
 ```
 
-这个版本一下子就清楚多了，因为它明确了：
+This version is much clearer because it defines:
 
-- 任务：情感分类
-- 输出集合：positive / negative
-- 输出约束：不要额外内容
-
----
-
-## 三、Prompt 调试的四个核心维度
-
-### 3.1 任务目标够不够清楚？
-
-先问：
-
-- 模型到底要做分类、总结、抽取还是改写？
-
-### 3.2 输出格式够不够清楚？
-
-再问：
-
-- 输出是一句话？
-- 一个标签？
-- JSON？
-- 表格？
-
-### 3.3 约束够不够清楚？
-
-例如：
-
-- 不能编造
-- 不能输出额外解释
-- 只能根据给定文本回答
-
-### 3.4 示例够不够有引导性？
-
-有些任务仅靠说明不够，最好补 few-shot 示例。
-
-这四个问题，基本构成了 Prompt 实践的主线。
+- Task: sentiment classification
+- Output set: positive / negative
+- Output constraint: no extra content
 
 ---
 
-## 四、一个可运行的 Prompt 练习器
+## 3. The Four Core Dimensions of Prompt Debugging
 
-下面这个例子不是在调用真实大模型，而是用“任务规范对象”来帮助你学会如何拆 Prompt 需求。
+### 3.1 Is the task goal clear enough?
+
+First ask:
+
+- Is the model supposed to classify, summarize, extract, or rewrite?
+
+### 3.2 Is the output format clear enough?
+
+Then ask:
+
+- Is the output a sentence?
+- A label?
+- JSON?
+- A table?
+
+### 3.3 Are the constraints clear enough?
+
+For example:
+
+- Do not hallucinate
+- Do not output extra explanations
+- Answer only based on the given text
+
+### 3.4 Are the examples guiding enough?
+
+For some tasks, instructions alone are not enough. It is better to add few-shot examples.
+
+These four questions basically form the main thread of Prompt practice.
+
+---
+
+## 4. A Runnable Prompt Practice Helper
+
+The example below does not call a real large model. Instead, it uses a “task specification object” to help you learn how to break down Prompt requirements.
 
 ```python
 prompt_spec = {
     "task": "sentiment_classification",
     "allowed_labels": ["positive", "negative"],
     "output_format": "single_label",
-    "constraints": ["不要输出解释", "只输出标签"]
+    "constraints": ["Do not output explanations", "Only output the label"]
 }
 
 print(prompt_spec)
 ```
 
-这个示例看起来简单，但它在教你一件很重要的事：
+This example looks simple, but it teaches you something very important:
 
-> 一个好 prompt 背后，通常有一套更明确的任务规格。 
-
----
-
-## 五、一个典型任务的 Prompt 迭代
-
-### 5.1 任务：文本摘要
-
-#### 版本 1：太泛
-
-```text
-总结这段话。
-```
-
-问题：
-
-- 不知道总结成多长
-- 不知道用什么风格
-- 不知道要不要保留要点
-
-#### 版本 2：更具体
-
-```text
-请把下面文本总结成 3 条中文要点，每条不超过 20 个字。
-```
-
-这就好很多了。
-
-#### 版本 3：再加边界
-
-```text
-请把下面文本总结成 3 条中文要点，每条不超过 20 个字。
-只保留事实，不要补充原文没有的信息。
-```
-
-这时 prompt 已经从“会回答”走向“更稳定可控”。
+> Behind a good Prompt, there is usually a clearer task specification.
 
 ---
 
-## 六、few-shot 什么时候特别有用？
+## 5. Prompt Iteration for a Typical Task
 
-### 6.1 当任务定义仅靠语言不够清楚时
+### 5.1 Task: Text summarization
 
-例如你让模型判断一句话是：
+#### Version 1: Too vague
+
+```text
+Summarize this paragraph.
+```
+
+Problems:
+
+- It does not say how long the summary should be
+- It does not say what style to use
+- It does not say whether key points should be preserved
+
+#### Version 2: More specific
+
+```text
+Please summarize the text below into 3 bullet points in Chinese, with no more than 20 characters per point.
+```
+
+This is much better.
+
+#### Version 3: Add boundaries
+
+```text
+Please summarize the text below into 3 bullet points in Chinese, with no more than 20 characters per point.
+Keep only the facts, and do not add any information that is not in the original text.
+```
+
+At this point, the prompt has moved from “able to respond” to “more stable and controllable.”
+
+---
+
+## 6. When Is few-shot Especially Useful?
+
+### 6.1 When the task definition is not clear enough from language alone
+
+For example, if you ask the model to decide whether a sentence is:
 
 - fact
 - opinion
 
-如果只给定义，模型可能理解不稳定。  
-这时 few-shot 示例就很有帮助。
+If you only provide definitions, the model may interpret them inconsistently.
+In this case, few-shot examples are very helpful.
 
-### 6.2 一个示例
+### 6.2 An example
 
 ```python
 few_shot_examples = [
-    {"input": "北京是中国的首都。", "output": "fact"},
-    {"input": "这门课非常有趣。", "output": "opinion"}
+    {"input": "Beijing is the capital of China.", "output": "fact"},
+    {"input": "This course is very interesting.", "output": "opinion"}
 ]
 
 for ex in few_shot_examples:
     print(ex)
 ```
 
-few-shot 的作用不是“多写点字”，而是：
+The role of few-shot is not “writing more words,” but:
 
-> 给模型示范“我想要的判断方式”。 
+> Showing the model the judgment style you want.
 
 ---
 
-## 七、结构化任务怎样写 prompt 更稳？
+## 7. How Can You Write Prompts More Stably for Structured Tasks?
 
-### 7.1 一个典型场景：信息抽取
+### 7.1 A typical scenario: Information extraction
 
-如果你只是说：
+If you only say:
 
 ```text
-帮我抽取简历信息。
+Help me extract resume information.
 ```
 
-那模型可能：
+Then the model may:
 
-- 抽得不全
-- 字段名乱写
-- 多输出解释
+- Miss fields
+- Use inconsistent field names
+- Output extra explanations
 
-### 7.2 更好的版本
+### 7.2 A better version
 
 ```text
-请从下面简历中抽取信息，并输出 JSON。
+Please extract the information from the resume below and output JSON.
 
-字段：
+Fields:
 - name: string
 - school: string
 - skills: list[string]
 
-不要输出任何额外解释。
+Do not output any extra explanation.
 ```
 
-这已经把任务、结构和边界都交代清楚了。
+This clearly explains the task, structure, and boundaries.
 
 ---
 
-## 八、Prompt 实践中的“最小实验”习惯
+## 8. The “Minimal Experiment” Habit in Prompt Practice
 
-### 8.1 不要一次改很多地方
+### 8.1 Do not change too many things at once
 
-Prompt 调试最怕这样：
+The biggest trap in Prompt debugging is this:
 
-- 任务说明改了
-- 例子改了
-- 输出格式也改了
+- The task description changes
+- The examples change
+- The output format changes too
 
-结果你根本不知道是哪一项起作用。
+Then you have no idea which change actually mattered.
 
-### 8.2 更好的方式
+### 8.2 A better way
 
-一次只改一个变量，例如：
+Change only one variable at a time, for example:
 
-1. 先只加输出约束
-2. 再只加 few-shot
-3. 再只改格式要求
+1. First add output constraints only
+2. Then add few-shot examples only
+3. Then change only the format requirements
 
-这和调模型超参数很像。
+This is very similar to tuning model hyperparameters.
 
 ---
 
-## 九、一个小型 Prompt 评估示例
+## 9. A Small Prompt Evaluation Example
 
-### 9.1 先定义测试样本
+### 9.1 First define test samples
 
 ```python
 test_cases = [
-    {"input": "这门课讲得很清楚。", "expected": "positive"},
-    {"input": "内容有点乱。", "expected": "negative"}
+    {"input": "This course is explained very clearly.", "expected": "positive"},
+    {"input": "The content is a bit messy.", "expected": "negative"}
 ]
 
 for case in test_cases:
     print(case)
 ```
 
-### 9.2 为什么这一步重要？
+### 9.2 Why is this step important?
 
-因为 Prompt 工程也要评估。  
-如果没有测试样本，你就只能凭感觉判断“这个 prompt 好不好”。
+Because Prompt Engineering also needs evaluation.
+Without test samples, you can only judge whether a prompt is “good” based on feeling.
 
-真正更成熟的做法是：
+A more mature approach is:
 
-- 有输入集
-- 有期望输出
-- 看 prompt 是否稳定符合预期
-
----
-
-## 十、初学者最常踩的坑
-
-### 10.1 写 prompt 时没有明确定义输出
-
-这会让后处理越来越痛苦。
-
-### 10.2 觉得 prompt 调优只能靠灵感
-
-其实它很像普通工程调试：要做小实验、看结果、逐步改。
-
-### 10.3 只看单条成功案例
-
-一条样例答对，不代表 prompt 稳。
+- Have an input set
+- Have expected outputs
+- Check whether the prompt consistently matches expectations
 
 ---
 
-## 小结
+## 10. Common Pitfalls for Beginners
 
-这一节最重要的不是背多少 Prompt 技巧，而是建立这样一个习惯：
+### 10.1 Not clearly defining the output when writing prompts
 
-> **把 Prompt 当成任务接口来设计、当成系统组件来调试。**
+This makes post-processing increasingly painful.
 
-当你开始围绕任务目标、格式、约束和示例做迭代，而不是凭感觉写一句话，Prompt 工程才真正开始变成熟。
+### 10.2 Thinking prompt tuning can only rely on inspiration
+
+In fact, it is very similar to ordinary engineering debugging: run small experiments, look at the results, and improve step by step.
+
+### 10.3 Only looking at one successful case
+
+Getting one example right does not mean the prompt is stable.
 
 ---
 
-## 练习
+## Summary
 
-1. 选一个你熟悉的任务，先写一个“坏 prompt”，再一步步改成更好的版本。
-2. 为“情感分类”任务补一个 few-shot 版本。
-3. 把“文本摘要”任务改成结构化输出格式，比如 JSON。
-4. 用自己的话解释：为什么 Prompt 工程不是“写一句好话”，而是“设计任务接口”？
+The most important thing in this section is not memorizing how many Prompt techniques you know, but building this habit:
+
+> **Treat Prompt as a task interface to design, and as a system component to debug.**
+
+When you start iterating around the task goal, format, constraints, and examples instead of writing one sentence by intuition, Prompt Engineering truly begins to mature.
+
+---
+
+## Exercises
+
+1. Choose a task you are familiar with, first write a “bad prompt,” then improve it step by step into a better version.
+2. Add a few-shot version for the “sentiment classification” task.
+3. Rewrite the “text summarization” task into a structured output format, such as JSON.
+4. Explain in your own words: Why is Prompt Engineering not “writing one nice sentence,” but “designing a task interface”?

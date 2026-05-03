@@ -1,146 +1,144 @@
 ---
-title: "4.2 RNN 基础"
+title: "4.2 RNN Basics"
 sidebar_position: 1
-description: "从序列为什么难，到隐藏状态、时间展开和 PyTorch RNN，真正理解 RNN 在解决什么问题。"
-keywords: [RNN, 序列建模, hidden state, 循环神经网络, 时间步]
+description: "From why sequences are hard, to hidden state, time unrolling, and PyTorch RNNs, truly understand what problem RNNs are solving."
+keywords: [RNN, sequence modeling, hidden state, recurrent neural network, time step]
 ---
 
-# RNN 基础
+# RNN Basics
 
-![RNN 时间展开隐藏状态图](/img/course/rnn-unrolled-hidden-state.png)
+![RNN time-unrolled hidden state diagram](/img/course/rnn-unrolled-hidden-state-en.png)
 
-:::tip 本节定位
-前面的 MLP 和 CNN 更擅长处理“静态输入”，而 RNN 要解决的是另一类问题：
+:::tip Section Focus
+The earlier MLP and CNN are better at handling “static inputs,” while RNNs are designed to solve a different kind of problem:
 
-> **输入不是一坨静态特征，而是一串有顺序的数据。**
+> **The input is not a pile of static features, but a sequence of ordered data.**
 
-比如一句话、一个时间序列、一段日志、一串用户行为。
+For example, a sentence, a time series, a log stream, or a sequence of user actions.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么序列任务不能只靠普通 MLP 解决
-- 直觉理解 RNN 的隐藏状态（hidden state）
-- 看懂 RNN 在时间维度上的展开方式
-- 手工走一遍最小 RNN 计算流程
-- 掌握 PyTorch 中 `nn.RNN` 的输入输出形状
-- 理解 RNN 的优势和局限，为后面的 LSTM / GRU 做准备
+- Understand why sequence tasks cannot be solved by a plain MLP alone
+- Build an intuitive understanding of the RNN hidden state
+- Read and understand how RNNs are unrolled across time
+- Walk through the smallest RNN computation process by hand
+- Master the input and output shapes of `nn.RNN` in PyTorch
+- Understand the strengths and limitations of RNNs to prepare for LSTM / GRU
 
 ---
 
-## 这节和前面 MLP / CNN 是怎么接上的
+## How This Section Connects to the Earlier MLP / CNN Content
 
-如果你刚从前面的章节过来，可以先这样理解：
+If you just came from the previous chapters, you can think about it like this:
 
-- MLP 和 CNN 都更像是在处理“当前这一份输入”
-- RNN 开始显式处理“当前输入 + 过去留下来的状态”
+- MLPs and CNNs are more like they process “the current input”
+- RNNs explicitly process “the current input + the state left over from the past”
 
-也就是说，RNN 最重要的新增点不是“循环结构很酷”，而是：
+In other words, the most important new thing in an RNN is not that “the recurrent structure is cool,” but that:
 
-- 模型开始拥有一种最基础的“记忆”
+- the model now has a very basic form of “memory”
 
-## 一、为什么序列任务更难？
+## 1. Why Are Sequence Tasks Harder?
 
-### 1.1 顺序本身就是信息
+### 1.1 Order itself is information
 
-看这两句话：
+Look at these two sentences:
 
-- “我不喜欢这门课”
-- “我喜欢这门课，不难”
+- “I don’t like this course”
+- “I like this course, it’s not hard”
 
-如果只统计词频，它们都出现了：
+If you only count word frequencies, they both contain:
 
-- 我
-- 喜欢
-- 这门课
+- I
+- like
+- this course
 
-但真正决定意思的，是顺序和上下文。
+But what really determines the meaning is the order and the context.
 
-再看时间序列：
+Now look at a time series:
 
-- 第 1 天销量低，第 2 天升高，第 3 天爆发
+- Day 1 sales are low, Day 2 rise, Day 3 surge
 
-这里也不是一堆独立数字，而是一个变化过程。
+This is not just a pile of independent numbers either, but a changing process.
 
-所以序列任务的难点不是“数据更多”，而是：
+So the difficulty in sequence tasks is not “there is more data,” but:
 
-> **前面的信息会影响后面的理解。**
+> **Earlier information affects how later information is understood.**
 
-### 1.3 第一次学 RNN，最该先抓住的不是公式
+### 1.3 When learning RNNs for the first time, don’t start with the formula
 
-而是先抓住这句：
+Instead, start by holding on to this sentence:
 
-> **序列任务里，位置和顺序本身就是信息。**
+> **In sequence tasks, position and order themselves are information.**
 
-只要这句稳了，后面为什么需要：
+Once this idea is stable, it becomes much easier to understand why we need:
 
 - hidden state
-- 时间展开
+- time unrolling
 - LSTM / GRU
 
-都会自然很多。
+### 1.2 Why is MLP not good at this problem?
 
-### 1.2 MLP 为什么不擅长这个问题？
+An MLP can map a fixed-length vector to an output, but it does not naturally remember:
 
-MLP 可以把固定长度向量映射成输出，但它不会天然记住：
+- the relationship between the 1st word and the 8th word
+- the relationship between the current value and the past trend
+- what was seen before and what should be kept now
 
-- 第 1 个词和第 8 个词之间的关系
-- 当前值和过去趋势的关系
-- 之前看过什么、现在该保留什么
-
-这就像你每看一句话，都强行“失忆一次”，自然很难理解长序列。
+It is like forcing yourself to “forget everything” every time you read a new sentence, which naturally makes long sequences hard to understand.
 
 ---
 
-## 二、RNN 的核心想法：每读一步，都带着一点“记忆”
+## 2. The Core Idea of RNNs: At Each Step, Carry a Bit of “Memory”
 
-### 2.1 隐藏状态是什么？
+### 2.1 What is hidden state?
 
-RNN 的核心设计是隐藏状态 `h_t`。
+The core design of an RNN is the hidden state `h_t`.
 
-你可以把它理解成：
+You can think of it as:
 
-> **模型读到当前这一步时，脑子里暂时记住的一点信息。**
+> **A little bit of information the model temporarily remembers when it reads the current step.**
 
-每来一个新输入 `x_t`，模型都会结合：
+When a new input `x_t` arrives, the model combines:
 
-- 当前输入 `x_t`
-- 上一时刻记忆 `h_{t-1}`
+- the current input `x_t`
+- the previous memory `h_{t-1}`
 
-算出新的记忆 `h_t`。
+to compute a new memory `h_t`.
 
-### 2.2 一个很好记的类比
+### 2.2 A very easy-to-remember analogy
 
-RNN 很像你边听别人说话边记笔记：
+An RNN is like taking notes while listening to someone speak:
 
-- 当前听到的新内容 = `x_t`
-- 之前已经记下来的重点 = `h_{t-1}`
-- 你更新后的笔记 = `h_t`
+- new content heard now = `x_t`
+- important points already written down = `h_{t-1}`
+- your updated notes = `h_t`
 
-这个“边看边更新”的过程，就是 RNN 的本质。
+This “read and update at the same time” process is the essence of an RNN.
 
-### 2.3 隐藏状态最容易被误解成什么？
+### 2.3 What is hidden state most often misunderstood as?
 
-很多新人会把 `h_t` 想成“精确记忆”。  
-更合适的理解其实是：
+Many beginners think of `h_t` as “exact memory.”
+A more accurate understanding is:
 
-- 它不是把过去逐字逐句存下来
-- 它更像对过去信息的一份压缩摘要
+- it does not store the past word-for-word
+- it is more like a compressed summary of past information
 
-这也是为什么普通 RNN 容易遇到问题：
+That is also why plain RNNs often run into problems:
 
-- 序列一长，摘要不一定还记得住很久以前的重要信息
+- when the sequence gets long, the summary may no longer remember important information from far back
 
 ---
 
-## 三、RNN 在时间上是怎样展开的？
+## 3. How Does an RNN Unroll Over Time?
 
-### 3.1 同一套参数，反复处理每个时间步
+### 3.1 The same parameters are reused at every time step
 
-RNN 不会给每个时间步都单独造一套新参数。  
-它做的是：
+An RNN does not create a separate new set of parameters for each time step.
+What it does is:
 
-> 用同一套参数，反复处理序列的每一个位置。
+> Use the same set of parameters to repeatedly process each position in the sequence.
 
 ```mermaid
 flowchart LR
@@ -158,132 +156,132 @@ flowchart LR
     style H3 fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-### 3.2 为什么“共享参数”很重要？
+### 3.2 Why is “parameter sharing” important?
 
-因为不管句子有 5 个词还是 50 个词，模型都能用同样方式处理。  
-这正是 RNN 能处理变长序列的关键之一。
+Because whether a sentence has 5 words or 50 words, the model can process it in the same way.
+This is one of the keys to why RNNs can handle variable-length sequences.
 
-### 3.3 时间展开这件事，最值得先看懂什么？
+### 3.3 When first learning time unrolling, what is the most important thing to understand?
 
-不要一上来把它当成复杂图。  
-先看懂这一个点就够了：
+Don’t treat it as a complicated diagram right away.
+Just understand this one point first:
 
-- 表面上像很多格子排开
-- 本质上是在不同时间步反复复用同一套参数
+- on the surface, it looks like many boxes laid out in a row
+- in essence, the same set of parameters is being reused across different time steps
 
-这就是为什么 RNN 既能处理变长序列，又不会每多一个位置就多一整套新参数。
+That is why RNNs can handle variable-length sequences without adding an entirely new set of parameters for every new position.
 
-![RNN 隐藏状态滚动记忆图](/img/course/ch06-rnn-hidden-state-rolling-memory-map.png)
+![RNN hidden-state rolling memory diagram](/img/course/ch06-rnn-hidden-state-rolling-memory-map-en.png)
 
-:::tip 读图提示
-这张图可以从左往右读：每个时间步都拿当前输入 `x_t` 和旧记忆 `h_{t-1}` 生成新记忆 `h_t`。RNN 的核心不是“循环很复杂”，而是模型每读一步都会更新一份压缩摘要。
+:::tip Reading Tip
+You can read this diagram from left to right: at each time step, the current input `x_t` and the old memory `h_{t-1}` are used to produce a new memory `h_t`. The core of an RNN is not that “the recurrence is complicated,” but that the model updates a compressed summary every time it reads a step.
 :::
 
 ---
 
-## 四、一个最小手工示例：一步步算隐藏状态
+## 4. A Minimal Hand-Crafted Example: Calculating the Hidden State Step by Step
 
-### 4.1 先看最简公式
+### 4.1 First look at the simplest formula
 
-最简单的 RNN 可以写成：
+The simplest RNN can be written as:
 
 > `h_t = tanh(W_x * x_t + W_h * h_{t-1} + b)`
 
-这里：
+Here:
 
-- `x_t`：当前输入
-- `h_{t-1}`：上一步记忆
-- `h_t`：当前新记忆
+- `x_t`: current input
+- `h_{t-1}`: previous-step memory
+- `h_t`: current new memory
 
-### 4.2 可运行示例
+### 4.2 Runnable example
 
 ```python
 import numpy as np
 
-# 一个长度为 4 的输入序列
+# An input sequence of length 4
 x_seq = [1.0, 0.5, -1.0, 2.0]
 
 W_x = 0.8
 W_h = 0.5
 b = 0.1
 
-h = 0.0  # 初始隐藏状态
+h = 0.0  # initial hidden state
 
 for t, x_t in enumerate(x_seq, start=1):
     h = np.tanh(W_x * x_t + W_h * h + b)
     print(f"step={t}, x_t={x_t:.1f}, h_t={h:.4f}")
 ```
 
-### 4.3 这段代码到底在教什么？
+### 4.3 What is this code actually teaching?
 
-它不是为了模拟真实大模型，而是为了让你先看懂：
+It is not trying to simulate a real large model. It is here to help you understand first that:
 
-- RNN 每一步都依赖前一步
-- 隐藏状态会不断被更新
-- 当前输出不是只看当前输入，而是“当前输入 + 过去摘要”
+- an RNN depends on the previous step at every step
+- the hidden state is continuously updated
+- the current output is not based only on the current input, but on “current input + past summary”
 
-这三点理解了，RNN 的核心就抓住了。
+Once you understand these three points, you have grasped the core of RNNs.
 
-### 4.4 第一次手工走这段代码时，最该盯哪几个量？
+### 4.4 When you manually walk through this code for the first time, what should you focus on?
 
-建议先只盯这三个：
+It is recommended to focus on just these three:
 
-- 当前输入 `x_t`
-- 上一步隐藏状态 `h_{t-1}`
-- 新的隐藏状态 `h_t`
+- current input `x_t`
+- previous hidden state `h_{t-1}`
+- new hidden state `h_t`
 
-也就是说，先把“输入 + 旧记忆 -> 新记忆”这件事看顺，比先背更多符号更重要。
-
----
-
-## 五、RNN 的输入输出到底有几种？
-
-### 5.1 Many-to-one：整段序列输出一个结果
-
-最典型的任务：
-
-- 情感分类
-- 垃圾邮件分类
-- 行为预测
-
-输入：
-
-- 一串词 / 一段序列
-
-输出：
-
-- 一个类别
-
-### 5.2 Many-to-many：每一步都输出
-
-典型任务：
-
-- 序列标注
-- 词性标注
-- 命名实体识别
-
-输入：
-
-- 一串词
-
-输出：
-
-- 每个词一个标签
-
-### 5.3 Sequence-to-sequence：一段输入变成另一段输出
-
-典型任务：
-
-- 机器翻译
-- 摘要生成
-
-这一块后面会在 Seq2Seq 章节里细讲。
+In other words, understanding “input + old memory -> new memory” is more important than memorizing more symbols right away.
 
 ---
 
-## 六、PyTorch 里的 RNN 到底怎么用？
+## 5. What Are the Different Input/Output Patterns of RNNs?
 
-### 6.1 最小可运行示例
+### 5.1 Many-to-one: one result for the whole sequence
+
+Typical tasks:
+
+- sentiment classification
+- spam classification
+- behavior prediction
+
+Input:
+
+- a sequence of words / a sequence of data
+
+Output:
+
+- one class
+
+### 5.2 Many-to-many: output at every step
+
+Typical tasks:
+
+- sequence labeling
+- part-of-speech tagging
+- named entity recognition
+
+Input:
+
+- a sequence of words
+
+Output:
+
+- one label for each word
+
+### 5.3 Sequence-to-sequence: one sequence becomes another sequence
+
+Typical tasks:
+
+- machine translation
+- summarization
+
+This will be covered in more detail later in the Seq2Seq chapter.
+
+---
+
+## 6. How Do You Actually Use an RNN in PyTorch?
+
+### 6.1 Minimal runnable example
 
 ```python
 import torch
@@ -306,42 +304,42 @@ print("out shape :", out.shape)
 print("h shape   :", h.shape)
 ```
 
-### 6.2 这些 shape 分别是什么意思？
+### 6.2 What do these shapes mean?
 
-输入：
+Input:
 
 - `x.shape = [2, 5, 4]`
-- 表示 2 个样本
-- 每个样本长度是 5
-- 每个时间步有 4 维特征
+- means there are 2 samples
+- each sample has length 5
+- each time step has 4 features
 
-输出：
+Output:
 
 - `out.shape = [2, 5, 6]`
-- 表示每个时间步都输出一个 6 维隐藏表示
+- means each time step outputs a 6-dimensional hidden representation
 
-最终隐藏状态：
+Final hidden state:
 
 - `h.shape = [1, 2, 6]`
-- 第一个维度 `1` 表示层数（这里只有一层）
-- 第二个维度 `2` 是 batch
-- 第三个维度 `6` 是隐藏状态维度
+- the first dimension `1` means the number of layers (only one layer here)
+- the second dimension `2` is the batch size
+- the third dimension `6` is the hidden-state size
 
-### 6.3 `out` 和 `h` 有什么区别？
+### 6.3 What is the difference between `out` and `h`?
 
-- `out`：每个时间步的输出都保留下来
-- `h`：最后一个时间步的隐藏状态
+- `out`: keeps the output of every time step
+- `h`: the hidden state at the last time step
 
-在 many-to-one 分类任务里，很多时候直接拿最后的 `h` 或 `out[:, -1, :]` 去做分类。
+In many-to-one classification tasks, people often directly use the final `h` or `out[:, -1, :]` for classification.
 
 ---
 
-## 七、一个更贴近任务的小例子：序列分类
+## 7. A Small Example Closer to a Real Task: Sequence Classification
 
-下面我们模拟一个很小的任务：
+Below we simulate a very small task:
 
-- 输入一串数字
-- 判断整体趋势更像“偏正”还是“偏负”
+- input is a sequence of numbers
+- determine whether the overall trend is more “positive” or more “negative”
 
 ```python
 import torch
@@ -349,7 +347,7 @@ from torch import nn
 
 torch.manual_seed(42)
 
-# 4 条序列，每条长度 5，每步 1 维
+# 4 sequences, each of length 5, with 1 feature per step
 X = torch.tensor([
     [[1.0], [1.2], [1.3], [1.1], [1.0]],
     [[-1.0], [-1.1], [-1.3], [-0.9], [-1.2]],
@@ -387,94 +385,94 @@ for epoch in range(100):
 
 with torch.no_grad():
     result = model(X).argmax(dim=1)
-    print("预测:", result.tolist())
-    print("真实:", y.tolist())
+    print("Predictions:", result.tolist())
+    print("Ground truth:", y.tolist())
 ```
 
-这个例子很小，但它确实在教一件事：
+This example is very small, but it really teaches one thing:
 
-> RNN 不是在单步上做分类，而是在整段序列上逐步累积信息，再做决策。
+> An RNN does not classify based on a single step. It gradually accumulates information over the whole sequence and then makes a decision.
 
 ---
 
-## 八、RNN 为什么后来被 LSTM / GRU 和 Transformer 挤下去？
+## 8. Why Were RNNs Eventually Pushed Aside by LSTM / GRU and Transformer?
 
-### 8.1 主要问题：长距离依赖难
+### 8.1 Main problem: long-range dependencies are hard
 
-RNN 理论上可以记很久，但实际训练里经常会遇到：
+In theory, RNNs can remember for a long time, but in practice they often run into:
 
-- 梯度消失
-- 梯度爆炸
-- 前面信息很快被冲淡
+- vanishing gradients
+- exploding gradients
+- earlier information being washed out too quickly
 
-比如一句很长的话里，开头的信息到结尾可能已经很难保住。
+For example, in a very long sentence, information from the beginning may become hard to preserve by the end.
 
-### 8.2 训练也不够并行
+### 8.2 Training is not parallelizable enough
 
-RNN 是一步一步往后算的：
+RNNs compute step by step:
 
-- 第 5 步要等第 4 步
-- 第 4 步要等第 3 步
+- step 5 has to wait for step 4
+- step 4 has to wait for step 3
 
-这就让它在长序列上效率不高。
+This makes them inefficient on long sequences.
 
-也正因此：
+That is also why:
 
-- LSTM / GRU 先补了一波
-- Transformer 后来从根上换了思路
+- LSTM / GRU improved the situation first
+- Transformer later changed the approach at a deeper level
 
-![RNN 长依赖与梯度消失直觉图](/img/course/ch06-rnn-long-dependency-vanishing-map.png)
+![RNN long-dependency and vanishing-gradient intuition diagram](/img/course/ch06-rnn-long-dependency-vanishing-map-en.png)
 
-:::tip 读图提示
-读这张图时注意两条衰减线：一条是早期信息在隐藏状态里越传越淡，另一条是梯度反向传回早期时间步时越来越弱。LSTM/GRU 和 Transformer 都是在回应这两个痛点。
+:::tip Reading Tip
+When reading this diagram, pay attention to the two decay lines: one shows early information becoming weaker as it passes through the hidden state, and the other shows gradients becoming weaker as they backpropagate to early time steps. LSTM / GRU and Transformer are both responses to these two pain points.
 :::
 
-但 RNN 依然值得学，因为它能帮你真正理解“序列建模”的底层直觉。
+But RNNs are still worth learning, because they help you truly understand the underlying intuition of “sequence modeling.”
 
 ---
 
-## 九、初学者最常踩的坑
+## 9. Common Mistakes Beginners Make
 
-### 9.1 不知道输入 shape 应该长什么样
+### 9.1 Not knowing what the input shape should look like
 
-在 PyTorch 里，最常见的就是搞混：
+In PyTorch, the most common confusion is:
 
 - `batch_first=True`
 - `batch_first=False`
 
-如果设成 `batch_first=True`，输入通常是：
+If you set `batch_first=True`, the input is usually:
 
 - `[batch, seq_len, input_size]`
 
-### 9.2 分不清 `out` 和 `h`
+### 9.2 Confusing `out` and `h`
 
-记住：
+Remember:
 
-- `out` 看每一步
-- `h` 看最后总结
+- `out` is for looking at every step
+- `h` is for the final summary
 
-### 9.3 以为 RNN 天然就能记很长历史
+### 9.3 Thinking RNNs can naturally remember very long histories
 
-理论上可以，实践里常常不行。  
-这正是后面要学 LSTM / GRU 的原因。
-
----
-
-## 小结
-
-这一节你最该带走的不是 API，而是三个稳定直觉：
-
-1. RNN 是为序列问题设计的，因为顺序本身就是信息
-2. 隐藏状态就是模型在“边读边记”
-3. RNN 的本质是用同一套参数，沿时间维度反复更新状态
-
-理解了这三点，你后面再学 LSTM、Seq2Seq、注意力机制，都会顺很多。
+Theoretically they can, but in practice they often cannot.
+That is exactly why we need to learn LSTM / GRU later.
 
 ---
 
-## 练习
+## Summary
 
-1. 把手工 RNN 示例里的 `W_x`、`W_h` 改掉，观察隐藏状态变化。
-2. 把 PyTorch 示例里的 `hidden_size` 从 6 改到 12，看 shape 怎样变化。
-3. 把分类示例里的序列换成你自己定义的数据，试着做一个简单趋势分类。
-4. 想一想：为什么一句很长的话，RNN 可能会“越读越忘掉开头”？ 
+The most important thing to take away from this section is not the API, but these three stable intuitions:
+
+1. RNNs are designed for sequence problems because order itself is information
+2. Hidden state is the model “reading and remembering at the same time”
+3. The essence of an RNN is repeatedly updating state along the time dimension using the same set of parameters
+
+Once you understand these three points, your later study of LSTM, Seq2Seq, and attention mechanisms will feel much smoother.
+
+---
+
+## Exercises
+
+1. Change `W_x` and `W_h` in the hand-crafted RNN example and observe how the hidden state changes.
+2. Change `hidden_size` from 6 to 12 in the PyTorch example and see how the shape changes.
+3. Replace the sequences in the classification example with data you define yourself and try building a simple trend classifier.
+4. Think about this: why might an RNN “forget the beginning more and more” when reading a very long sentence?

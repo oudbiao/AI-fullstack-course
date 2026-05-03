@@ -1,52 +1,52 @@
 ---
-title: "5.2 特征理解与探索"
+title: "5.2 Feature Understanding and Exploration"
 sidebar_position: 14
-description: "掌握特征类型分析、特征分布分析、相关性分析和目标泄漏检查，先看懂数据再做特征工程。"
-keywords: [特征工程, 特征类型, 特征分布, 相关性分析, EDA, 数值特征, 类别特征]
+description: "Master feature type analysis, distribution analysis, correlation analysis, and target leakage checks. Understand the data first, then do feature engineering."
+keywords: [feature engineering, feature types, feature distribution, correlation analysis, EDA, numerical features, categorical features]
 ---
 
-# 特征理解与探索
+# Feature Understanding and Exploration
 
-![特征类型与目标关系图](/img/course/feature-type-target-map.png)
+![Feature Type and Target Relationship Diagram](/img/course/feature-type-target-map-en.png)
 
-:::tip 本节定位
-特征工程是机器学习项目里投入产出比最高的环节之一，但它不是一上来就“造新列”。真正的第一步是理解数据：每一列代表什么、分布是否异常、和目标有没有关系、会不会泄漏未来信息。
+:::tip Section Overview
+Feature engineering is one of the highest-ROI steps in a machine learning project, but it does not start with “creating new columns” right away. The real first step is understanding the data: what each column means, whether the distribution is unusual, whether it relates to the target, and whether it leaks future information.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握数值、类别、时间、文本等常见特征类型
-- 能用分布图和统计摘要发现异常、偏斜和缺失
-- 能分析特征和目标变量的关系
-- 能初步识别冗余特征和目标泄漏风险
+- Understand common feature types such as numerical, categorical, time-based, and text features
+- Use distribution plots and statistical summaries to find anomalies, skewness, and missing values
+- Analyze the relationship between features and the target variable
+- Identify redundant features and target leakage risks at an early stage
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-![特征理解与泄漏检查图](/img/course/ch05-feature-understanding-workflow.png)
+![Feature Understanding and Leakage Check Workflow](/img/course/ch05-feature-understanding-workflow-en.png)
 
-这一步做得越稳，后面越不容易盲目试模型。很多模型效果差，并不是算法不够高级，而是数据含义、异常值、目标泄漏或训练测试分布差异没有看清。
+The more solid this step is, the less likely you are to blindly try models later. Poor model performance is often not because the algorithm is not advanced enough, but because the data meaning, outliers, target leakage, or train-test distribution differences were not understood clearly.
 
-## 一、特征类型
+## 1. Feature Types
 
 ```mermaid
 flowchart TD
-  F[特征类型] --> N[数值型]
-  F --> C[类别型]
-  F --> T[时间型]
-  F --> TX[文本型]
-  N --> N1[连续：收入、温度、金额]
-  N --> N2[离散：购买次数、评分]
-  C --> C1[有序：学历、会员等级]
-  C --> C2[无序：城市、颜色、渠道]
-  T --> T1[日期、小时、星期、节假日]
-  TX --> TX1[评论、标题、问题描述]
+  F[Feature Types] --> N[Numerical]
+  F --> C[Categorical]
+  F --> T[Time-based]
+  F --> TX[Text]
+  N --> N1[Continuous: income, temperature, amount]
+  N --> N2[Discrete: purchase count, rating]
+  C --> C1[Ordinal: education level, membership tier]
+  C --> C2[Nominal: city, color, channel]
+  T --> T1[date, hour, weekday, holiday]
+  TX --> TX1[reviews, titles, issue descriptions]
 ```
 
-不同类型决定了后续处理方式。数值型可能需要缩放或分箱，类别型可能需要编码，时间型常常要拆出周期特征，文本型可能需要向量化或 embedding。
+Different types determine the processing method that comes next. Numerical features may need scaling or binning, categorical features may need encoding, time-based features often need cyclic features extracted from them, and text features may need vectorization or embeddings.
 
-## 二、快速识别特征类型
+## 2. Quickly Identifying Feature Types
 
 ```python
 import pandas as pd
@@ -59,15 +59,15 @@ print(df.dtypes)
 num_cols = df.select_dtypes(include="number").columns.tolist()
 cat_cols = df.select_dtypes(include=["object", "category", "bool"]).columns.tolist()
 
-print("数值特征:", num_cols)
-print("类别特征:", cat_cols)
+print("Numerical features:", num_cols)
+print("Categorical features:", cat_cols)
 ```
 
-自动识别只是起点，不是最终判断。比如邮编、用户 id、商品 id 可能看起来是数字，但业务上是类别或标识符，不能直接当连续数值使用。
+Automatic identification is only a starting point, not the final judgment. For example, postal codes, user IDs, and product IDs may look like numbers, but in business terms they are categorical or identifier fields and should not be used directly as continuous numerical values.
 
-## 三、分布分析
+## 3. Distribution Analysis
 
-分布分析要回答三个问题：数值范围是否合理，是否有明显偏斜，是否存在极端值。
+Distribution analysis should answer three questions: Is the numerical range reasonable? Is there obvious skewness? Are there extreme values?
 
 ```python
 import matplotlib.pyplot as plt
@@ -86,11 +86,11 @@ plt.tight_layout()
 plt.show()
 ```
 
-如果均值和中位数差距很大，通常说明分布偏斜。偏斜不一定要处理，但你应该知道它存在。比如收入、消费额、访问次数经常是长尾分布。
+If the mean and median are far apart, that usually means the distribution is skewed. Skewness does not always need to be fixed, but you should know it exists. For example, income, spending amount, and visit counts are often long-tailed distributions.
 
-## 四、类别特征分析
+## 4. Categorical Feature Analysis
 
-类别特征要重点看取值数量、长尾类别和是否有未知类别风险。
+For categorical features, focus on the number of unique values, long-tail categories, and whether there is a risk of unseen categories.
 
 ```python
 for col in ["sex", "embarked", "class"]:
@@ -98,19 +98,19 @@ for col in ["sex", "embarked", "class"]:
     print(df[col].value_counts(dropna=False))
 ```
 
-如果一个类别特征有上千个取值，直接 one-hot 可能会让特征维度暴涨。如果训练集中没有出现的新类别在测试或线上出现，也需要提前用 `handle_unknown="ignore"` 这类策略处理。
+If a categorical feature has thousands of unique values, direct one-hot encoding may cause the feature dimension to explode. If new categories appear in test data or production that were not seen in training, you should prepare handling strategies in advance, such as `handle_unknown="ignore"`.
 
-## 五、与目标变量的关系
+## 5. Relationship with the Target Variable
 
-特征探索不能只看单列，还要看它和目标变量的关系。
+Feature exploration should not stop at a single column; you also need to look at the relationship between the feature and the target variable.
 
 ```python
 pd.crosstab(df["sex"], df["survived"], normalize="index")
 ```
 
-数值特征可以按目标分组看分布，类别特征可以看不同类别的目标均值。但要小心：相关不等于因果。你看到某个特征和目标关系很强，只能说明它可能有预测价值，还不能说明它导致了结果。
+For numerical features, you can compare distributions by target group. For categorical features, you can look at the target mean across categories. But be careful: correlation is not causation. If you see a strong relationship between a feature and the target, that only means it may be useful for prediction; it does not mean it caused the outcome.
 
-## 六、相关性和冗余
+## 6. Correlation and Redundancy
 
 ```python
 corr = df[["survived", "age", "fare", "sibsp", "parch", "pclass"]].corr()
@@ -118,29 +118,29 @@ sns.heatmap(corr, annot=True, cmap="coolwarm", center=0)
 plt.show()
 ```
 
-高度相关的特征可能带来冗余。对于线性模型，冗余特征可能影响系数解释；对于树模型，影响通常较小，但仍可能增加噪声和训练成本。
+Highly correlated features may introduce redundancy. For linear models, redundant features may affect coefficient interpretation. For tree models, the impact is usually smaller, but they can still add noise and training cost.
 
-## 七、目标泄漏检查
+## 7. Target Leakage Check
 
-目标泄漏是特征工程里最危险的问题之一。它指训练时用了预测时不可能知道的信息。比如预测用户是否流失时，使用“流失后客服回访次数”；预测贷款违约时，使用“逾期后催收状态”。
+Target leakage is one of the most dangerous problems in feature engineering. It means using information during training that would not be available at prediction time. For example, when predicting whether a user will churn, using the “number of customer service follow-ups after churn”; when predicting loan default, using the “collection status after delinquency.”
 
-检查目标泄漏时，可以问三个问题：这个特征在预测时刻是否已经存在；它是不是目标结果的后续产物；它和目标过于完美相关是否可疑。如果答案不确定，宁愿先从 baseline 中移除，再做对比实验。
+When checking for target leakage, ask three questions: Does this feature already exist at prediction time? Is it a downstream result of the target outcome? Is the relationship with the target too perfect to be trustworthy? If the answer is uncertain, it is better to remove it from the baseline first and then compare through experiments.
 
-![特征泄漏红旗检查图](/img/course/ch05-feature-leakage-red-flags-map.png)
+![Feature Leakage Red Flag Checklist](/img/course/ch05-feature-leakage-red-flags-map-en.png)
 
-这张图建议你在每次建模前扫一遍：时间上发生在预测之后的字段、由目标结果派生出来的字段、和目标几乎完美相关的字段、只在线下数据里存在的字段，都要先当作高风险特征处理。分数越高越离谱，越要先怀疑泄漏。
+This diagram is worth reviewing before every modeling task: fields that occur after the prediction time, fields derived from the target outcome, fields that are almost perfectly correlated with the target, and fields that only exist in offline data should all be treated as high-risk features first. The more outrageous the score, the more you should suspect leakage first.
 
-## 新人最实用的特征探索清单
+## The Most Practical Feature Exploration Checklist for Beginners
 
-在真正建模前，至少先回答：哪些列是数值、类别、时间、文本；哪些列缺失很多；哪些数值特征明显偏斜；哪些类别特征取值特别多；哪些特征彼此高度相关；哪些特征可能泄漏目标；训练集和测试集分布是否明显不同。
+Before you really start modeling, at a minimum, answer these questions: Which columns are numerical, categorical, time-based, or text? Which columns have many missing values? Which numerical features are clearly skewed? Which categorical features have too many unique values? Which features are highly correlated with each other? Which features may leak the target? Are the train and test distributions obviously different?
 
-## 练习
+## Exercises
 
-1. 用 Titanic 数据集识别所有数值和类别特征，并手动纠正自动识别不合理的列。
-2. 画出 `age`、`fare` 的分布，判断是否偏斜。
-3. 找出与 `survived` 关系最明显的 3 个特征，并说明它们是否可能存在泄漏。
-4. 选一个你自己的表格数据，写一份“特征探索记录”。
+1. Use the Titanic dataset to identify all numerical and categorical features, and manually correct any columns that automatic identification gets wrong.
+2. Plot the distributions of `age` and `fare`, and determine whether they are skewed.
+3. Find the 3 features most strongly related to `survived`, and explain whether any leakage may exist.
+4. Choose one of your own tabular datasets and write a “feature exploration record.”
 
-## 过关标准
+## Pass Criteria
 
-学完本节后，你应该能拿到一份表格数据后先做系统探索，而不是直接训练模型；能解释每类特征适合怎样处理；能发现明显异常、冗余和泄漏风险，并把这些观察写进项目 README。
+After finishing this section, you should be able to take a tabular dataset and perform systematic exploration first, instead of training a model immediately. You should be able to explain how each type of feature should be handled, identify obvious anomalies, redundancy, and leakage risks, and write these observations into the project README.

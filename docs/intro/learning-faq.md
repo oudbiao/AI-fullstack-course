@@ -1,90 +1,90 @@
 ---
 sidebar_position: 23
-title: "学习路径 FAQ"
-description: "回答 AI 全栈学习中最常见的路线、基础、时间、项目和工具问题，帮助学习者更快做选择。"
-keywords: [AI学习FAQ, 学习路线, RAG学习, Agent学习, AI转型]
+title: "Learning Path FAQ"
+description: "Answers to the most common questions about routes, foundations, time, projects, and tools in AI full-stack learning, helping learners make decisions faster."
+keywords: [AI Learning FAQ, learning path, RAG learning, Agent learning, AI transition]
 ---
 
-# 学习路径 FAQ
+# Learning Path FAQ
 
-这页回答学习前最容易纠结的问题。很多问题没有唯一答案，关键是先选一条能推进的路线，不要在“要不要学、先学什么、能不能跳过”上停太久。
+This page answers the questions that are easiest to get stuck on before you start learning. Many of these questions do not have a single correct answer. The key is to choose a path that helps you keep moving, instead of spending too long on “Should I learn this?”, “What should I learn first?”, or “Can I skip this?”
 
-## 先看 5 个最高频答案
+## Start with the 5 most common answers
 
-| 问题 | 短答案 |
+| Question | Short answer |
 |---|---|
-| 零基础能不能学 | 能，但先走工具、Python、数据三站 |
-| 会 Python 能不能跳 | 可以快读，但要完成阶段项目自检 |
-| 只做 RAG/Agent 要不要数学 | 要学够用直觉，尤其是向量、相似度和评估 |
-| 要不要 GPU | 第一遍大多数内容不需要 |
-| 卡住怎么办 | 不换路线，先缩小到一个命令、文件或输入 |
+| Can a complete beginner learn this? | Yes, but start with tools, Python, and data |
+| If I know Python, can I skip ahead? | You can skim faster, but complete the stage project checks |
+| If I only want RAG/Agent, do I need math? | You need enough intuition, especially for vectors, similarity, and evaluation |
+| Do I need a GPU? | Most content in the first pass does not require one |
+| What should I do if I get stuck? | Don’t change routes; first narrow it down to one command, file, or input |
 
-## 我完全零基础，可以学这门课吗？
+## I have absolutely no background. Can I still learn this course?
 
-可以，但不要从大模型、RAG 或 Agent 直接开始。先完成开发者工具、Python 编程基础和数据分析这三站。你不需要一开始成为算法专家，但必须能运行代码、读写文件、处理表格数据和理解基本项目结构。
+Yes, but do not start directly with large language models, RAG, or Agent. First complete these three stops: developer tools, Python basics, and data analysis. You do not need to become an algorithm expert right away, but you must be able to run code, read and write files, process tabular data, and understand basic project structure.
 
-如果你完全没有编程经验，建议先把每个阶段任务单里的最小产出做出来，而不是追求所有章节都读懂。能跑通一个小项目，比看完很多概念更重要。
+If you have no programming experience at all, it is better to finish the minimum deliverable in each stage task list instead of trying to understand every chapter. Getting one small project running is more important than reading lots of concepts.
 
-## 我已经会 Python，可以跳过前面吗？
+## I already know Python. Can I skip the early sections?
 
-可以快速浏览，但不建议完全跳过。你至少应该检查自己是否能完成阶段任务单里的项目：命令行小工具、文件读写、API 调用、数据清洗和 EDA 报告。如果这些都能完成，就可以把主要精力放到机器学习、大模型应用、RAG 和 Agent。
+You can skim them quickly, but it is not recommended to skip them entirely. At minimum, you should check whether you can complete the projects in the stage task list: command-line tools, file reading and writing, API calls, data cleaning, and EDA reports. If you can do all of these, then you can focus most of your energy on machine learning, LLM applications, RAG, and Agent.
 
-## 我只想做 RAG 和 Agent，需要学数学和深度学习吗？
+## I only want to do RAG and Agent. Do I need math and deep learning?
 
-需要学到“够用”，但不一定第一遍深入推导。你应该理解向量、相似度、embedding、训练/测试、评估指标、过拟合和 Transformer 的基本直觉。否则做 RAG 时很难判断检索为什么失败，做 Agent 时也很难设计评估和安全边界。
+You need enough to be useful, but you do not necessarily need to dive deep into derivations on the first pass. You should understand vectors, similarity, embedding, training/testing, evaluation metrics, overfitting, and the basic intuition behind Transformer. Otherwise, it will be hard to tell why retrieval fails in RAG, and it will also be hard to design evaluation and safety boundaries for Agent.
 
-更实际的路线是：先学开发工具、Python、数据分析、LLM API、RAG 和 Agent，数学和深度学习按项目中遇到的问题回补。
+A more practical route is: first learn developer tools, Python, data analysis, LLM API, RAG, and Agent, then fill in math and deep learning when project problems point to them.
 
-## 不会前端，能做 AI 全栈吗？
+## Can I build AI full-stack apps without knowing frontend?
 
-可以。AI 全栈的重点不是一开始就会完整前端，而是能把数据、模型、接口、工具和项目交付串起来。第一阶段可以用命令行、Notebook 或简单 API 做项目。等 RAG 或 Agent 原型稳定后，再考虑加 Web 界面。
+Yes. The focus of AI full-stack is not to master full frontend from the beginning, but to connect data, models, interfaces, tools, and project delivery. In the first stage, you can build projects with command-line tools, Notebooks, or simple APIs. Once your RAG or Agent prototype is stable, then you can consider adding a web interface.
 
-如果你的目标是求职或展示，最终最好至少能做一个简单可演示入口，例如命令行 Demo、Streamlit 页面、FastAPI 接口或轻量前端。
+If your goal is job hunting or showcasing your work, it is best to eventually create at least one simple demo entry point, such as a command-line demo, a Streamlit page, a FastAPI interface, or a lightweight frontend.
 
-## 需要 GPU 吗？
+## Do I need a GPU?
 
-大多数阶段不需要。Python、数据分析、机器学习、LLM API、RAG 和 Agent 都可以在普通电脑上学习。GPU 主要在你本地训练深度学习模型、微调模型或做较大的多模态实验时有帮助。
+Most stages do not require one. Python, data analysis, machine learning, LLM API, RAG, and Agent can all be learned on a regular computer. A GPU mainly helps when you train deep learning models locally, fine-tune models, or run larger multimodal experiments.
 
-第一次学习不建议把重点放在硬件上。先用小数据、小模型、API 或云端服务把流程跑通，再根据项目需要考虑 GPU。
+For your first learning pass, do not focus too much on hardware. First use small data, small models, API, or cloud services to get the workflow running, then consider a GPU based on project needs.
 
-## 英语不好会不会影响学习？
+## Will weak English affect my learning?
 
-会有一点影响，因为很多报错、文档、模型参数和库名是英文。但不需要英语很好才能开始。更重要的是能读懂错误关键词，例如 path、module、import、permission、timeout、shape、token、quota、schema。
+It will affect it a little, because many errors, documents, model parameters, and library names are in English. But you do not need strong English to start. What matters more is being able to recognize error keywords such as path, module, import, permission, timeout, shape, token, quota, and schema.
 
-建议你把常见英文报错整理进自己的排障记录里。看多了之后，很多错误会变成固定模式。
+It is a good idea to keep a record of common English error messages in your troubleshooting notes. After you see them often enough, many errors will start to feel like fixed patterns.
 
-## 学完整套课大概需要多久？
+## How long does it take to finish the whole course?
 
-如果你只想快速体验 AI 应用，2 到 4 周可以跑通 LLM API、RAG 和一个小项目。如果你想系统学习主线，通常需要 3 到 6 个月。如果你想把模型基础、工程化、Agent、安全和作品集都做好，可能需要 6 到 12 个月。
+If you only want a quick try of AI applications, 2 to 4 weeks can be enough to get LLM API, RAG, and one small project working. If you want to study the main track systematically, it usually takes 3 to 6 months. If you want to do well in model fundamentals, engineering, Agent, safety, and your portfolio, it may take 6 to 12 months.
 
-时间长短不如产出重要。更好的衡量方式是：你是否完成了阶段任务单，是否有可运行项目，是否有 README、截图、评估和失败样本。
+Length of time matters less than output. A better way to measure progress is: whether you completed the stage task lists, whether you have runnable projects, and whether you have README files, screenshots, evaluation, and failure examples.
 
-## 我应该先看理论还是先做项目？
+## Should I start with theory or projects?
 
-先用最小项目建立问题感，再回头补理论。比如学习 RAG 时，先跑通“读取文档、检索片段、生成答案、显示引用”的最小闭环，再深入研究 chunk、embedding、rerank 和评估。这样理论会更容易理解。
+Start with the smallest project to build a sense of the problem, then go back and fill in the theory. For example, when learning RAG, first get the minimum loop working: “read documents, retrieve passages, generate answers, show citations,” and then study chunking, embedding, rerank, and evaluation in depth. That way, the theory will be easier to understand.
 
-完全不看理论容易做出脆弱系统，只看理论又容易没有正反馈。推荐节奏是：先跑最小例子，再读核心概念，再做项目，再复盘失败。
+Ignoring theory completely can lead to fragile systems, while only studying theory can leave you without positive feedback. The recommended rhythm is: run a minimal example first, read the core concepts, build a project, and then review failures.
 
-## 每个阶段都必须做项目吗？
+## Do I have to do a project in every stage?
 
-建议至少做一个最小项目。项目可以很小，但必须可运行、可解释、可复盘。比如 Python 阶段做命令行工具，数据阶段做 EDA 报告，机器学习阶段做 baseline，RAG 阶段做课程问答，Agent 阶段做学习规划 Agent。
+It is recommended to do at least one minimal project. The project can be very small, but it must be runnable, explainable, and reviewable. For example: a command-line tool in the Python stage, an EDA report in the data stage, a baseline in the machine learning stage, a course Q&A app in the RAG stage, and a learning-planning Agent in the Agent stage.
 
-如果你时间有限，可以只做和 AI 学习助手贯穿项目相关的版本迭代。这样不会产生太多零散作业。
+If you have limited time, you can focus only on the version iterations related to the AI learning assistant flagship project. That way, you will not end up with too many scattered assignments.
 
-## 我应该选择哪条路线？
+## Which route should I choose?
 
-如果你想尽快做应用，选应用型 AI 全栈主线。如果你想理解模型和训练，选模型理解加强路线。如果你想求职或展示，选项目作品集路线。如果你还不确定，就先走应用型主线，因为它最容易通过项目获得反馈。
+If you want to build applications as soon as possible, choose the application-oriented AI full-stack main route. If you want to understand models and training, choose the model-understanding enhancement route. If you want to job hunt or showcase your work, choose the project portfolio route. If you are still unsure, start with the application-oriented main route, because it is the easiest way to get feedback through projects.
 
-选择路线不是一次性决定。你可以先用应用主线跑通项目，再回头深入数学、深度学习、微调或多模态。
+Choosing a route is not a one-time decision. You can first use the application route to get projects working, and then go deeper into math, deep learning, fine-tuning, or multimodal models later.
 
-## 什么时候可以开始做毕业项目？
+## When can I start the capstone project?
 
-当你能独立完成 RAG 或 Agent 的最小闭环时，就可以开始毕业项目。不要等所有章节都学完。毕业项目可以从 v0.1 逐步迭代，先做最小可运行版本，再加入评估、日志、安全、部署和多模态能力。
+Once you can independently complete the minimum loop for RAG or Agent, you can start the capstone project. Do not wait until you finish every chapter. The capstone project can be iterated from v0.1 step by step: first build the minimum runnable version, then add evaluation, logs, safety, deployment, and multimodal capabilities.
 
-判断是否准备好的标准是：你能定义用户问题，能跑通输入到输出，能记录失败样本，能说明下一步怎么改。
+The standard for being ready is: you can define the user problem, you can get from input to output, you can record failure examples, and you can explain what to improve next.
 
-## 如果学到一半卡住怎么办？
+## What should I do if I get stuck halfway through?
 
-先不要换路线或重开教程。回到当前阶段任务单，检查自己卡在环境、代码、数据、模型、评估还是项目边界。然后查排障索引，做一个最小复现，把问题缩小到一个文件、一个命令或一个输入。
+First, do not switch routes or restart the tutorial. Go back to the current stage task list and check whether you are stuck on the environment, code, data, model, evaluation, or project scope. Then check the troubleshooting index and create a minimal reproduction, narrowing the issue down to one file, one command, or one input.
 
-如果一个章节读不懂，可以先完成最小项目，再回来读。AI 学习很多理解是在项目中补上的，不是第一次阅读就完全掌握。
+If you do not understand a chapter, you can first finish the minimal project and then come back to it. In AI learning, a lot of understanding is filled in through projects, not fully mastered the first time you read the material.

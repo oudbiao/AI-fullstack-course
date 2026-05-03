@@ -1,104 +1,104 @@
 ---
-title: "2.3 链式推理策略"
+title: "2.3 Chain-of-Thought Reasoning Strategy"
 sidebar_position: 6
-description: "从 CoT 的核心作用讲起，理解“先拆步骤再回答”为什么能提升多步任务表现，以及它什么时候有帮助、什么时候会拖慢系统。"
+description: "Starting from the core role of CoT, understand why 'split the steps first, then answer' can improve multi-step task performance, and when it helps or slows a system down."
 keywords: [chain of thought, CoT, reasoning trace, scratchpad, decomposition]
 ---
 
-# 链式推理策略
+# Chain-of-Thought Reasoning Strategy
 
-:::tip 本节定位
-如果把上一节总结成一句话，就是：
+:::tip Section focus
+If we summarize the previous section in one sentence, it is:
 
-- 推理问题依赖中间状态
+- Reasoning problems depend on intermediate states
 
-那这一节要回答的就是：
+Then this section asks:
 
-> **我们怎样让模型更愿意、更稳定地把中间状态显式写出来？**
+> **How do we make the model more willing, and more consistent, to write intermediate states explicitly?**
 
-链式推理策略，也就是 CoT，最核心的想法就是：
+The Chain-of-Thought strategy, or CoT, is built around one core idea:
 
-- 不直接要答案
-- 先让模型拆步骤，再出结论
+- Don’t ask for the answer directly
+- First let the model break the problem into steps, then give the conclusion
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解链式推理策略为什么会提升多步任务表现
-- 理解 CoT 适合什么任务，不适合什么任务
-- 通过可运行示例理解“直接答”和“分步答”的差别
-- 理解生产环境里怎样使用结构化推理，而不是无节制长文本
+- Understand why Chain-of-Thought reasoning improves multi-step task performance
+- Understand what kinds of tasks CoT is suitable for, and what kinds it is not
+- Use runnable examples to understand the difference between “answer directly” and “answer step by step”
+- Understand how to use structured reasoning in production instead of uncontrolled long-form text
 
 ---
 
-## 一、为什么“先想步骤”会有帮助？
+## 1. Why does “thinking through the steps first” help?
 
-### 1.1 因为很多问题不是一跳到终点
+### 1.1 Because many problems do not reach the end in one jump
 
-例如这道题：
+For example, consider this problem:
 
-- 商品原价 80 元，打 8 折后再减 5 元，最后多少钱？
+- A product originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the final price?
 
-如果模型直接生成答案，  
-它可能会犯很典型的错误：
+If the model generates the answer directly,
+it may make very typical mistakes:
 
-- 把“8 折”当成减 8 元
-- 漏掉最后的减 5 元
-- 步骤顺序搞错
+- Treat “20% off” as subtracting 20 yuan
+- Forget the final 5 yuan discount
+- Get the step order wrong
 
-而如果它先把过程拆开：
+But if it first breaks the process into steps:
 
 1. `80 * 0.8 = 64`
 2. `64 - 5 = 59`
 
-最终答案通常会更稳定。
+the final answer is usually more stable.
 
-### 1.2 CoT 的核心不是“写很多字”，而是“暴露中间结构”
+### 1.2 The core of CoT is not “writing more,” but “exposing intermediate structure”
 
-这一点特别重要。  
-链式推理真正有用的地方不是：
+This point is especially important.
+The real value of Chain-of-Thought is not:
 
-- 输出更长
+- Making the output longer
 
-而是：
+But rather:
 
-- 把局部事实
-- 中间变量
-- 步骤依赖
+- Making local facts
+- Intermediate variables
+- Step dependencies
 
-显式写出来。
+explicit.
 
-### 1.3 一个类比：草稿纸不是为了显得认真
+### 1.3 An analogy: scratch paper is not for looking serious
 
-学生做题时写草稿纸，不是为了让答案更长，  
-而是为了：
+When students solve problems, they use scratch paper not to make the answer longer,
+but to:
 
-- 防止脑中状态丢失
-- 把复杂问题拆小
-- 方便检查
+- prevent the mental state from being lost
+- break a complex problem into smaller parts
+- make checking easier
 
-CoT 对模型的作用很像这一层。
+CoT plays a similar role for models.
 
 ---
 
-## 二、先看一个“直接答”和“链式答”的对比
+## 2. First, let’s compare “direct answer” and “chain reasoning”
 
-下面这个例子不会调用 LLM，  
-但它会非常清楚地演示：
+The example below does not call an LLM,
+but it clearly demonstrates:
 
-- 为什么“直接做一个粗糙映射”容易错
-- 为什么“先拆步骤再算”更稳
+- Why a “rough direct mapping” is easy to get wrong
+- Why “break the steps first, then calculate” is more stable
 
 ```python
 import re
 
-problem = "商品原价80元，打8折后再减5元，最后多少钱？"
+problem = "A product originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the final price?"
 
 
 def bad_direct_answer(text):
     numbers = list(map(int, re.findall(r"\d+", text)))
     original, discount, minus = numbers
-    # 常见错误：把“8折”误当成“减 8”
+    # Common mistake: misreading “20% off” as “subtract 20”
     return original - discount - minus
 
 
@@ -107,10 +107,10 @@ def chain_reason_answer(text):
 
     steps = []
     discounted_price = original * (discount / 10)
-    steps.append(f"先算折扣价：{original} * {discount}/10 = {discounted_price}")
+    steps.append(f"First calculate the discounted price: {original} * {discount}/10 = {discounted_price}")
 
     final_price = discounted_price - minus
-    steps.append(f"再减优惠：{discounted_price} - {minus} = {final_price}")
+    steps.append(f"Then subtract the discount: {discounted_price} - {minus} = {final_price}")
 
     return final_price, steps
 
@@ -125,185 +125,184 @@ for step in steps:
 print("final answer:", answer)
 ```
 
-### 2.1 这段代码最能说明什么？
+### 2.1 What does this code show most clearly?
 
-它说明：
+It shows that:
 
-- 直接映射很容易误解题意
-- 显式拆步骤后，错误更容易被暴露
+- Direct mapping can easily misinterpret the problem
+- Explicitly breaking the steps makes errors easier to expose
 
-例如这里：
+For example:
 
-- “8 折”到底是 `-8` 还是 `*0.8`
+- Does “20% off” mean `-20` or `*0.8`?
 
-只要你把这一步写出来，  
-错误就不容易藏起来。
+As soon as you write that step out,
+the mistake is much harder to hide.
 
-### 2.2 为什么 CoT 常常对数学、逻辑、规划类任务特别有用？
+### 2.2 Why is CoT especially useful for math, logic, and planning tasks?
 
-因为这些任务通常都具备：
+Because these tasks usually have:
 
-- 明确中间变量
-- 明确步骤顺序
-- 明确局部依赖
+- Clear intermediate variables
+- Clear step order
+- Clear local dependencies
 
-这和链式推理天然契合。
+That naturally matches chain reasoning.
 
-### 2.3 为什么 CoT 不是所有任务都该开？
+### 2.3 Why shouldn’t CoT be used for every task?
 
-因为不是所有问题都需要分步。  
-例如：
+Because not every problem needs step-by-step reasoning.
+For example:
 
-- “法国首都是哪里？”
+- “What is the capital of France?”
 
-这种问题更像检索，不需要拉长推理链。
+This kind of question is more like retrieval, and does not need a long reasoning chain.
 
-所以 CoT 不是默认越多越好，  
-而是：
+So CoT is not about “the more, the better” by default,
+but rather:
 
-- 在多步问题上更值钱
+- More valuable for multi-step problems
 
 ---
 
-## 三、CoT 在 Agent 里通常怎么用？
+## 3. How is CoT usually used in Agents?
 
-### 3.1 先分解，再调用工具
+### 3.1 First decompose, then call tools
 
-很多 Agent 任务里，CoT 不一定直接用来算数，  
-而是用来回答：
+In many Agent tasks, CoT is not directly used for arithmetic,
+but to decide:
 
-- 先做什么
-- 后做什么
-- 哪一步需要工具
+- What to do first
+- What to do next
+- Which step needs a tool
 
-例如：
+For example:
 
-1. 识别问题类型
-2. 决定先查政策还是先查库存
-3. 拿到观察后再组织结论
+1. Identify the problem type
+2. Decide whether to check policy first or inventory first
+3. After getting observations, organize the conclusion
 
-### 3.2 也可以变成更结构化的“推理槽位”
+### 3.2 It can also become more structured “reasoning slots”
 
-在生产环境里，不一定非要让模型输出一大段自然语言思维过程。  
-很多系统会改成更短、更结构化的格式，例如：
+In production, we do not always need the model to output a long natural-language thought process.
+Many systems instead switch to a shorter, more structured format, such as:
 
 - `facts`
 - `subtasks`
 - `decision`
 - `next_action`
 
-这类结构往往更容易：
+This kind of structure is often easier to:
 
-- 校验
-- 记录
-- 调试
+- validate
+- log
+- debug
 
-### 3.3 CoT 也常和自检结合
+### 3.3 CoT is also often combined with self-checking
 
-一种很常见的增强方式是：
+A very common enhancement is:
 
-1. 先推导
-2. 再检查关键步骤
-3. 最后输出答案
+1. Reason first
+2. Check key steps
+3. Output the final answer
 
-这样可以降低部分粗心错误。
+This can reduce some careless mistakes.
 
-![链式推理与自检结构图](/img/course/ch09-cot-self-check-structure-map.png)
+![Chain-of-Thought and self-check structure diagram](/img/course/ch09-cot-self-check-structure-map-en.png)
 
-:::tip 读图提示
-这张图强调的是“结构化中间状态”，不是让模型无限输出长篇思考。生产环境更常把推理压成 facts、subtasks、decision 和 next_action 这类可校验槽位。
+:::tip Reading note
+This diagram emphasizes “structured intermediate states,” not letting the model output endless long-form thinking. In production, reasoning is more often compressed into verifiable slots such as facts, subtasks, decision, and next_action.
 :::
 
 ---
 
-## 四、什么时候 CoT 最有帮助？
+## 4. When is CoT most helpful?
 
-### 4.1 需要拆步骤的问题
+### 4.1 Problems that require step-by-step decomposition
 
-例如：
+For example:
 
-- 多步计算
-- 条件筛选
-- 组合决策
-- 复杂规则判断
+- Multi-step calculation
+- Conditional filtering
+- Combined decision-making
+- Complex rule checking
 
-### 4.2 需要解释过程的问题
+### 4.2 Problems that require explaining the process
 
-例如：
+For example:
 
-- 为什么推荐这个方案
-- 为什么不能执行这个请求
-- 为什么这个回答符合规则
+- Why recommend this solution
+- Why can’t this request be executed
+- Why does this answer follow the rules
 
-当系统不仅要给结论，还要给理由时，  
-显式中间过程很有价值。
+When the system must provide not only a conclusion but also a reason,
+explicit intermediate steps are very valuable.
 
-### 4.3 错误代价较高的问题
+### 4.3 Problems with high error cost
 
-如果问题一旦算错或判断错，  
-后果比较严重，  
-那显式步骤通常更值得。
-
----
-
-## 五、什么时候 CoT 反而可能拖后腿？
-
-### 5.1 简单检索题
-
-如果问题本身不需要分步，  
-硬让模型输出长过程，通常只是：
-
-- 更慢
-- 更长
-- 更贵
-
-### 5.2 推理链太长，可能自己把自己绕晕
-
-链太长时，模型可能会出现：
-
-- 早期步骤对，后面漂移
-- 重复解释
-- 中间状态前后不一致
-
-也就是说，CoT 不是无限拉长就更好。
-
-### 5.3 对外展示时可能不适合原样暴露
-
-在很多产品里，更合理的做法是：
-
-- 内部有推理结构
-- 对用户只展示精炼解释
-
-因为用户真正需要的往往是：
-
-- 清晰结论
-- 必要理由
-
-而不是冗长草稿。
+If a mistake in calculation or judgment can lead to serious consequences,
+then explicit steps are usually more worthwhile.
 
 ---
 
-## 六、一个更实用的结构化 CoT 写法
+## 5. When might CoT actually hurt performance?
 
-下面这个示例展示一种更适合 Agent 的写法：
+### 5.1 Simple retrieval questions
 
-- 不输出一大段自由文本
-- 而是分成固定槽位
+If the problem itself does not require step-by-step reasoning,
+forcing the model to output a long process usually just means:
+
+- slower
+- longer
+- more expensive
+
+### 5.2 A reasoning chain that is too long can confuse itself
+
+When the chain gets too long, the model may:
+
+- Have correct early steps but drift later
+- Repeat explanations
+- Become inconsistent in intermediate states
+
+In other words, longer CoT is not automatically better.
+
+### 5.3 It may not be suitable to expose the full chain to users
+
+In many products, a more reasonable approach is:
+
+- Keep the reasoning structure internal
+- Show users only a concise explanation
+
+Because what users usually need is:
+
+- A clear conclusion
+- Necessary reasons
+
+Not a long scratchpad.
+
+---
+
+## 6. A more practical structured CoT pattern
+
+The following example shows a style that is more suitable for Agents:
+
+- Do not output a large block of free-form text
+- Instead, split it into fixed slots
 
 ```python
 ticket = {
-    "question": "订单未发货，原价80元打8折后又减5元，退款金额是多少？",
-    "policy": "未发货订单可原路退款。",
+    "question": "The order has not shipped yet. The item originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the refund amount?",
+    "policy": "Unshipped orders can be refunded through the original payment method.",
 }
 
 
 def structured_reasoning(ticket):
     facts = [
-        "订单未发货，可走原路退款",
-        "商品原价 80 元，打 8 折后再减 5 元",
+        "The order has not shipped yet, so it can be refunded through the original payment method",
+        "The item originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted",
     ]
     calculation = ["80 * 0.8 = 64", "64 - 5 = 59"]
-    decision = "退款金额应为 59 元，且原路退回。"
+    decision = "The refund amount should be 59 yuan, returned through the original payment method."
 
     return {
         "facts": facts,
@@ -316,57 +315,57 @@ result = structured_reasoning(ticket)
 print(result)
 ```
 
-这种格式的优点是：
+The advantages of this format are:
 
-- 更容易读
-- 更容易测
-- 更容易做后处理
-
----
-
-## 七、常见误区
-
-### 7.1 误区一：CoT 就是让模型啰嗦一点
-
-不是。  
-核心是：
-
-- 把中间结构显式化
-
-### 7.2 误区二：所有任务都该默认用 CoT
-
-不对。  
-是否启用，要看问题是否真的多步。
-
-### 7.3 误区三：有了 CoT，答案就一定可靠
-
-也不对。  
-链式推理会提升稳定性，  
-但不会自动消灭所有错误。
+- Easier to read
+- Easier to test
+- Easier to post-process
 
 ---
 
-## 小结
+## 7. Common misconceptions
 
-这节最重要的，不是记住 `Chain-of-Thought` 这个英文名，  
-而是建立一个实用判断：
+### 7.1 Misconception 1: CoT just means making the model more verbose
 
-> **当问题依赖多步中间状态时，让模型先显式拆步骤，往往能提升稳定性；但 CoT 的价值在于结构化中间过程，不在于无限拉长输出。**
+No.
+The core is:
 
-只要这层理解清楚了，  
-你后面再看：
+- Making intermediate structure explicit
+
+### 7.2 Misconception 2: All tasks should use CoT by default
+
+Not true.
+Whether to enable it depends on whether the problem is truly multi-step.
+
+### 7.3 Misconception 3: With CoT, the answer is always reliable
+
+Also not true.
+Chain reasoning can improve stability,
+but it does not automatically eliminate all errors.
+
+---
+
+## Summary
+
+The most important thing in this section is not remembering the English name `Chain-of-Thought`,
+but building a practical judgment:
+
+> **When a problem depends on multi-step intermediate states, letting the model explicitly break down the steps often improves stability; but the value of CoT lies in structured intermediate process, not in endlessly lengthening the output.**
+
+Once you understand that clearly,
+the next time you see:
 
 - ReAct
 - Plan-and-Execute
-- 自检与评估
+- Self-checking and evaluation
 
-都会更容易明白它们是在 CoT 之上继续做组织化。
+it will be much easier to understand that they are continuing to organize reasoning on top of CoT.
 
 ---
 
-## 练习
+## Exercises
 
-1. 把示例中的折扣题换成你自己的多步题，比较 `bad_direct_answer` 和 `chain_reason_answer`。
-2. 为什么说 CoT 的核心价值在“显式中间结构”而不是“输出更长”？
-3. 想一个不适合 CoT 的简单问题，解释原因。
-4. 如果你要把 CoT 用在产品里，你会更倾向自由文本还是结构化槽位？为什么？
+1. Replace the discount problem in the example with your own multi-step problem, and compare `bad_direct_answer` and `chain_reason_answer`.
+2. Why do we say the core value of CoT lies in “explicit intermediate structure” rather than “longer output”?
+3. Think of a simple question that is not suitable for CoT, and explain why.
+4. If you were using CoT in a product, would you prefer free-form text or structured slots? Why?

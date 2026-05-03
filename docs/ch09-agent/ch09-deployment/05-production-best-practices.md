@@ -1,120 +1,120 @@
 ---
-title: "9.6 生产环境最佳实践"
+title: "9.6 Production Best Practices"
 sidebar_position: 53
-description: "从发布前检查、灰度、告警、回滚、人工接管到安全审计，整理一套真正可执行的 Agent 生产环境最佳实践。"
+description: "From pre-release checks, canary rollout, alerting, rollback, and human takeover to security auditing, this section organizes a truly actionable set of production best practices for Agents."
 keywords: [production best practices, rollout, canary, rollback, observability, oncall, safety]
 ---
 
-# 生产环境最佳实践
+# Production Best Practices
 
-:::tip 本节定位
-前面这一章我们已经分别讲了：
+:::tip Section Positioning
+In the previous parts of this chapter, we covered:
 
-- 架构
-- 运行时
-- 恢复
-- 成本
+- Architecture
+- Runtime
+- Recovery
+- Cost
 
-这一节要做的，是把它们收成一套真正能执行的生产 checklist。
+What we want to do in this section is turn those ideas into a production checklist that can actually be executed.
 
-因为很多系统不是死在“不会写”，而是死在：
+Because many systems do not fail because people “can’t write the code,” but because they lack:
 
-- 没有灰度
-- 没有回滚
-- 没有告警
-- 没有人知道出事时该看哪
+- Canary rollout
+- Rollback
+- Alerts
+- Someone who knows what to check when something goes wrong
 
-所以这里的重点是：
+So the focus here is:
 
-> **把 Agent 从“能上线”推进到“可运维、可回滚、可审计”。**
+> **Move the Agent from “can be launched” to “operable, rollback-ready, and auditable.”**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解生产环境里最关键的发布与运维原则
-- 学会设计最小上线前检查清单
-- 理解灰度、回滚、告警和人工接管的作用
-- 通过可运行示例建立生产 readiness 检查思路
-
----
-
-## 一、上线前真正要确认什么？
-
-### 1.1 功能正确只是最基础的一层
-
-生产 readiness 至少还包括：
-
-- 是否可观测
-- 是否可回滚
-- 是否有限流和超时
-- 是否有安全边界
-- 是否有评估基线
-
-### 1.2 一个很实用的判断
-
-如果某个服务上线后出了事，你是否已经知道：
-
-- 去哪里看日志
-- 看哪些指标
-- 如何切回旧版本
-- 谁来人工接管
-
-如果这些问题答不上来，系统通常还没准备好进生产。
+- Understand the most important release and operations principles in production
+- Learn how to design a minimal pre-launch checklist
+- Understand the role of canary rollout, rollback, alerting, and human takeover
+- Build a production readiness mindset through a runnable example
 
 ---
 
-## 二、生产环境最重要的六条原则
+## 1. What Do You Really Need to Confirm Before Launch?
 
-### 2.1 先灰度，不要全量直上
+### 1.1 Functional correctness is only the most basic layer
 
-Agent 系统的不确定性通常比普通 CRUD 更高。  
-灰度能让你先观察：
+Production readiness should also include at least:
 
-- 正确率变化
-- 延迟变化
-- 成本变化
+- Is it observable?
+- Can it be rolled back?
+- Are rate limiting and timeouts in place?
+- Is there a safety boundary?
+- Is there an evaluation baseline?
 
-### 2.2 始终保留回滚路径
+### 1.2 A very practical way to judge
 
-没有回滚，就没有真正安全的发布。
+If a service goes wrong after release, do you already know:
 
-### 2.3 关键能力必须有人工接管方案
+- Where to check logs
+- Which metrics to inspect
+- How to switch back to the old version
+- Who will take over manually
 
-特别是：
-
-- 高风险操作
-- 写操作
-- 外部副作用类任务
-
-### 2.4 先定义告警，再谈上线
-
-至少要明确：
-
-- 哪些指标异常要告警
-- 谁接告警
-- 触发后第一步查什么
-
-### 2.5 所有关键动作都应可审计
-
-尤其是：
-
-- 工具调用
-- 权限判断
-- 关键状态变更
-
-### 2.6 发布要和评估绑定
-
-上线不是“相信模型”，  
-而是“让评估和线上信号共同说话”。
+If you cannot answer these questions, the system is usually not ready for production yet.
 
 ---
 
-## 三、先跑一个最小 readiness 检查器
+## 2. The Six Most Important Principles for Production
 
-下面这个示例会模拟一套上线前检查。  
-它不会直接部署服务，而是回答：
+### 2.1 Start with canary rollout, not full release
 
-- 现在这套系统是否具备最基础的生产条件
+Agent systems are usually more uncertain than ordinary CRUD systems.
+Canary rollout lets you observe:
+
+- Changes in accuracy
+- Changes in latency
+- Changes in cost
+
+### 2.2 Always keep a rollback path
+
+Without rollback, there is no truly safe release.
+
+### 2.3 Critical capabilities must have a human takeover plan
+
+Especially for:
+
+- High-risk operations
+- Write operations
+- Tasks with external side effects
+
+### 2.4 Define alerting before talking about launch
+
+At minimum, make it clear:
+
+- Which metric abnormalities should trigger alerts
+- Who receives the alerts
+- What to check first after an alert is triggered
+
+### 2.5 Every critical action should be auditable
+
+Especially:
+
+- Tool calls
+- Permission decisions
+- Important state changes
+
+### 2.6 Release must be tied to evaluation
+
+Launching is not “trusting the model,”
+but “letting evaluation and online signals speak together.”
+
+---
+
+## 3. Run a Minimal Readiness Checker First
+
+The example below simulates a pre-launch check.
+It does not deploy the service directly, but instead answers:
+
+- Does this system currently meet the most basic production requirements?
 
 ```python
 deployment_config = {
@@ -162,51 +162,51 @@ def readiness_check(config):
 print(readiness_check(deployment_config))
 ```
 
-### 3.1 这个示例最重要的启发是什么？
+### 3.1 What is the most important takeaway from this example?
 
-它提醒你：
+It reminds you that:
 
-- 生产 readiness 不是一种感觉
-- 而是一组可检查条件
+- Production readiness is not a feeling
+- It is a set of checkable conditions
 
-![Agent 生产 Readiness、灰度与回滚图](/img/course/ch09-production-readiness-canary-rollback-map.png)
+![Agent Production Readiness, Canary Rollout, and Rollback Diagram](/img/course/ch09-production-readiness-canary-rollback-map-en.png)
 
-:::tip 读图提示
-这张图可以当上线前检查清单：metrics、logs、timeout、rate limit、eval suite、canary、rollback、human override 和 audit log，缺一个都要知道风险在哪里。
+:::tip Reading the Diagram
+You can use this diagram as a pre-launch checklist: metrics, logs, timeout, rate limit, eval suite, canary, rollback, human override, and audit log. If one is missing, you should know what risk it creates.
 :::
 
-### 3.2 为什么把“缺失项”显式列出来很重要？
+### 3.2 Why is it important to explicitly list missing items?
 
-因为这样团队讨论就会从：
+Because it shifts team discussion from:
 
-- “好像差不多了”
+- “It seems basically ready”
 
-变成：
+to:
 
-- “现在缺 rate limit 和 human override”
+- “We are currently missing rate limit and human override”
 
-这会让上线决策更清楚。
+That makes the launch decision much clearer.
 
 ---
 
-## 四、灰度发布为什么对 Agent 尤其重要？
+## 4. Why Is Canary Rollout Especially Important for Agents?
 
-### 4.1 因为 Agent 的问题 often 是概率性的
+### 4.1 Because Agent issues are often probabilistic
 
-有些问题不会在本地固定复现，  
-而是在真实流量里才暴露，例如：
+Some issues do not reproduce reliably in local testing,
+but only show up under real traffic, for example:
 
-- 某类复杂输入触发错误路线
-- 某工具在高并发下表现不稳
-- 某些 prompt 在边缘样本上失控
+- A certain type of complex input triggers the wrong path
+- A tool behaves unstably under high concurrency
+- Some prompts go out of control on edge cases
 
-### 4.2 灰度的核心收益
+### 4.2 The main benefits of canary rollout
 
-- 先少量流量验证
-- 保留旧系统兜底
-- 在真实环境中收集指标
+- Validate with a small amount of traffic first
+- Keep the old system as a fallback
+- Collect metrics in a real environment
 
-### 4.3 一个很简单的流量分配示意
+### 4.3 A very simple traffic routing example
 
 ```python
 def route_request(request_id, canary_ratio=0.2):
@@ -218,116 +218,116 @@ for request_id in ["req-001", "req-002", "req-003", "req-004"]:
     print(request_id, "->", route_request(request_id))
 ```
 
-这段代码虽然简单，但它体现了：
+Although this code is simple, it shows that:
 
-- 灰度并不神秘
-- 本质上就是受控流量分配
-
----
-
-## 五、回滚为什么必须提前设计？
-
-### 5.1 回滚不是出事后临时想办法
-
-如果系统一出问题才开始想：
-
-- 切回哪个版本
-- 状态怎么恢复
-- 数据副作用怎么处理
-
-通常已经太晚。
-
-### 5.2 回滚至少要回答三件事
-
-1. 怎么切回旧版本
-2. 新版本产生的中间状态怎么处理
-3. 是否需要暂停高风险动作
-
-### 5.3 为什么 Agent 回滚比普通页面更复杂？
-
-因为它可能已经产生了：
-
-- 工具调用副作用
-- 持久化状态
-- 外部系统写入
-
-所以回滚不仅是“切镜像”，  
-还要考虑状态一致性。
+- Canary rollout is not mysterious
+- In essence, it is controlled traffic allocation
 
 ---
 
-## 六、告警和人工接管怎么配合？
+## 5. Why Must Rollback Be Designed in Advance?
 
-### 6.1 告警不是越多越好
+### 5.1 Rollback is not something you improvise after something breaks
 
-关键是：
+If the system has a problem and you only then start thinking about:
 
-- 告警要能触发具体动作
+- Which version to switch back to
+- How to restore state
+- How to handle data side effects
 
-例如：
+it is usually already too late.
 
-- 超时率 > 5%
-- 熔断连续打开
-- 成本突然偏离正常区间
+### 5.2 Rollback should answer at least three questions
 
-### 6.2 人工接管不是系统失败，而是系统成熟
+1. How do you switch back to the old version?
+2. How do you handle intermediate state created by the new version?
+3. Do you need to pause high-risk actions?
 
-在高风险系统里，  
-人工接管说明你承认：
+### 5.3 Why is rollback more complex for Agents than for ordinary pages?
 
-- 自动化不是无边界的
+Because it may have already produced:
 
-这反而更像成熟设计。
+- Tool-call side effects
+- Persistent state
+- Writes to external systems
 
-### 6.3 常见接管方式
-
-- 转人工客服
-- 暂停写操作
-- 切换只读模式
-- 要求人工审批
-
----
-
-## 七、最容易踩的误区
-
-### 7.1 误区一：上线前只做功能自测
-
-没有评估、观测、回滚和灰度，  
-功能自测远远不够。
-
-### 7.2 误区二：只有安全系统才需要审计
-
-很多普通业务 Agent 也会涉及：
-
-- 用户数据
-- 写操作
-- 外部副作用
-
-审计一样重要。
-
-### 7.3 误区三：生产最佳实践就是一张 checklist
-
-checklist 很重要，  
-但它真正有用的前提是：
-
-- 团队知道谁负责
-- 出事时真的会执行
+So rollback is not just “switch the image,”
+but also a question of state consistency.
 
 ---
 
-## 小结
+## 6. How Should Alerting and Human Takeover Work Together?
 
-这节最重要的是建立一个生产观：
+### 6.1 More alerts are not always better
 
-> **Agent 的生产 readiness，不是“功能跑通”就结束，而是必须同时具备灰度、回滚、告警、审计和人工接管这些保障机制。**
+The key is:
 
-只有这些机制在，系统才配得上“生产环境”这四个字。
+- Alerts should trigger specific actions
+
+For example:
+
+- Timeout rate > 5%
+- Circuit breaker stays open continuously
+- Cost suddenly deviates from the normal range
+
+### 6.2 Human takeover is not system failure; it is system maturity
+
+In high-risk systems,
+human takeover means you acknowledge that:
+
+- Automation is not unlimited
+
+That is actually a sign of mature design.
+
+### 6.3 Common takeover methods
+
+- Hand off to a human support agent
+- Pause write operations
+- Switch to read-only mode
+- Require human approval
 
 ---
 
-## 练习
+## 7. The Most Common Mistakes
 
-1. 根据你现在的项目，列一版自己的 readiness 配置表，看看缺哪些项。
-2. 为什么说灰度发布对 Agent 比对静态页面更重要？
-3. 如果某个高风险工具调用开始异常增多，你会优先做告警、熔断，还是人工接管？为什么？
-4. 想一想：回滚为什么不只是“把代码切回上一个版本”？
+### 7.1 Mistake 1: Only doing functional self-tests before launch
+
+Without evaluation, observability, rollback, and canary rollout,
+functional self-tests are far from enough.
+
+### 7.2 Mistake 2: Thinking only safety systems need auditing
+
+Many ordinary business Agents also involve:
+
+- User data
+- Write operations
+- External side effects
+
+Auditing is just as important.
+
+### 7.3 Mistake 3: Treating production best practices as just a checklist
+
+A checklist is important,
+but it is only truly useful when:
+
+- The team knows who is responsible
+- People will actually execute it when something goes wrong
+
+---
+
+## Summary
+
+The most important thing in this section is to build a production mindset:
+
+> **Agent production readiness does not end when the function works. It must also include canary rollout, rollback, alerting, auditing, and human takeover mechanisms.**
+
+Only when these mechanisms are in place does the system deserve to be called “production.”
+
+---
+
+## Exercises
+
+1. Based on your current project, create your own readiness configuration table and see which items are missing.
+2. Why is canary rollout more important for Agents than for static pages?
+3. If a high-risk tool call starts happening abnormally often, would you first add alerting, circuit breaking, or human takeover? Why?
+4. Think about it: why is rollback not just “switching the code back to the previous version”?

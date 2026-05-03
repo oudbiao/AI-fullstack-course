@@ -1,114 +1,114 @@
 ---
-title: "可视化导读：先学会选图，再学会美化"
+title: "Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It"
 sidebar_position: 16
-description: "给第一次学数据可视化的新人一张总地图：趋势、对比、分布、关系如何选图，Matplotlib、Seaborn、Plotly 和最佳实践如何配合。"
-keywords: [数据可视化, 图表选择, matplotlib, seaborn, plotly, visualization roadmap]
+description: "A master map for beginners learning data visualization for the first time: how to choose charts for trends, comparisons, distributions, and relationships, and how Matplotlib, Seaborn, Plotly, and best practices fit together."
+keywords: [data visualization, chart selection, matplotlib, seaborn, plotly, visualization roadmap]
 ---
 
-# 可视化导读：先学会选图，再学会美化
+# Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It
 
-这一章解决的是：怎样把数据里的趋势、对比、分布和关系，用别人一眼能看懂的图表表达出来。
+This chapter answers one question: how do you turn trends, comparisons, distributions, and relationships in your data into charts that other people can understand at a glance?
 
-很多新人第一次学可视化时会被 API 淹没：`plot()` 怎么写，参数怎么调，颜色怎么改。但可视化最重要的第一步不是背函数，而是先问清楚：我现在到底想让读者一眼看到什么。
+When beginners first learn visualization, they often get overwhelmed by APIs: how to write `plot()`, how to tune parameters, how to change colors. But the most important first step in visualization is not memorizing functions. It is asking clearly: what exactly do I want the reader to see at a glance?
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-你已经学过 Pandas，知道如何把数据读进来、清洗、筛选和聚合。可视化就是把这些整理后的数据变成图形表达，让自己更快探索数据，也让别人更快理解结论。
+You have already learned Pandas, so you know how to read, clean, filter, and aggregate data. Visualization turns that organized data into graphical expressions, helping you explore data faster and helping others understand conclusions faster.
 
-在后面的机器学习和项目阶段，可视化还会用于 EDA、特征分布分析、模型结果展示、错误分析和项目汇报。因此这一章不是“美化图表”的附属内容，而是数据分析表达能力的核心部分。
+In later machine learning and project stages, visualization will also be used for EDA, feature distribution analysis, model result presentation, error analysis, and project reporting. So this chapter is not an “extra” about making charts look nicer. It is a core part of data analysis communication.
 
-![数据可视化学习路线图](/img/course/ch03-visualization-roadmap.png)
+![Data Visualization Roadmap](/img/course/ch03-visualization-roadmap-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：什么时候应该画折线图、柱状图、散点图、直方图、箱线图或热力图；Matplotlib、Seaborn 和 Plotly 各自适合什么场景；探索性图表和汇报型图表有什么差异；怎样通过标题、坐标轴、图例和颜色让图更清楚；怎样避免图表误导读者。
+This chapter answers five questions: when should you use a line chart, bar chart, scatter plot, histogram, box plot, or heatmap; what scenarios are Matplotlib, Seaborn, and Plotly each best for; what is the difference between exploratory charts and presentation charts; how do titles, axes, legends, and colors make charts clearer; and how do you avoid misleading readers.
 
-新人最容易犯的错误，是图还没想好就开始写代码。工具很重要，但工具应该服务表达。你要先判断自己想表达趋势、对比、分布、关系还是占比，再决定用什么图。
+The most common mistake beginners make is starting to code before they have decided on the chart. Tools matter, but tools should serve the message. First decide whether you want to express a trend, comparison, distribution, relationship, or proportion, and then choose the chart.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学 Matplotlib，因为它能帮助你理解 Figure、Axes、坐标轴和基础绘图对象。然后学 Seaborn，用更少代码完成常见统计图和探索性分析。接着学可视化最佳实践，理解选图、标题、颜色、标注和避免误导。最后按需学 Plotly，当你需要交互图、网页展示或动态探索时再使用。
+It is recommended to start with Matplotlib, because it helps you understand Figure, Axes, axes, and basic plotting objects. Then learn Seaborn, which lets you create common statistical charts and exploratory analysis with less code. Next, learn visualization best practices so you understand chart selection, titles, colors, annotations, and how to avoid misleading visuals. Finally, learn Plotly when needed, for interactive charts, web display, or dynamic exploration.
 
 ```mermaid
 flowchart TD
-  A[先判断表达目标] --> B[学习 Matplotlib 基础]
-  B --> C[掌握常见基础图]
-  C --> D[学习 Seaborn 统计图]
-  D --> E[学习可视化最佳实践]
-  E --> F[按需学习 Plotly 交互图]
+  A[First identify the communication goal] --> B[Learn Matplotlib basics]
+  B --> C[Master common basic charts]
+  C --> D[Learn Seaborn statistical charts]
+  D --> E[Learn visualization best practices]
+  E --> F[Learn Plotly interactive charts as needed]
 ```
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：先决定要讲什么，再决定用什么图，最后才谈美化。
+The main thread of this chapter can be summarized as: decide what you want to say first, then decide what chart to use, and only then talk about styling.
 
 ```mermaid
 flowchart LR
-  A[数据问题] --> B{想表达什么}
-  B -- 趋势 --> C[折线图]
-  B -- 对比 --> D[柱状图/条形图]
-  B -- 分布 --> E[直方图/箱线图]
-  B -- 关系 --> F[散点图]
-  B -- 相关性 --> G[热力图]
-  C --> H[图表标注和解释]
+  A[Data problem] --> B{What do you want to express}
+  B -- Trend --> C[Line chart]
+  B -- Comparison --> D[Bar chart / Bar plot]
+  B -- Distribution --> E[Histogram / Box plot]
+  B -- Relationship --> F[Scatter plot]
+  B -- Correlation --> G[Heatmap]
+  C --> H[Chart annotations and explanation]
   D --> H
   E --> H
   F --> H
   G --> H
 ```
 
-看懂这条线后，你会知道“图画得好看”不是目标，“让别人更快看懂数据”才是目标。
+Once you understand this flow, you will know that “making charts look pretty” is not the goal. The goal is to help others understand the data faster.
 
-## 这一章 4 节课分别在做什么
+## What the 4 Lessons in This Chapter Do
 
-| 章节 | 它最该帮你解决什么问题 |
+| Section | The problem it should help you solve |
 |---|---|
-| [4.1 Matplotlib 基础](./01-matplotlib.md) | 先学会最基本的画图动作和 Figure/Axes 模型 |
-| [4.2 Seaborn 统计可视化](./02-seaborn.md) | 用更少代码更快做探索性分析和统计图 |
-| [4.3 交互式可视化（选修）](./03-plotly.md) | 当你需要交互、演示、网页图表时该怎么做 |
-| [4.4 可视化最佳实践](./04-best-practices.md) | 选图、配色、避免误导，让图真正“能看” |
+| [4.1 Matplotlib Basics](./01-matplotlib.md) | Learn the most basic plotting actions and the Figure/Axes model |
+| [4.2 Seaborn Statistical Visualization](./02-seaborn.md) | Do exploratory analysis and statistical charts faster with less code |
+| [4.3 Interactive Visualization (Optional)](./03-plotly.md) | How to handle interactivity, presentations, and web charts when needed |
+| [4.4 Visualization Best Practices](./04-best-practices.md) | Choose charts, colors, and avoid misleading visuals so the chart is truly readable |
 
-## 这一章和后面阶段的关系
+## How This Chapter Connects to Later Stages
 
-可视化会贯穿后面的机器学习、深度学习和大模型应用项目。机器学习需要用图查看数据分布、特征关系、模型误差和评估结果；深度学习需要展示训练曲线和预测样例；Agent 和 RAG 项目也可以用图展示评估数据、调用成本和失败类型。
+Visualization will run through later machine learning, deep learning, and LLM application projects. Machine learning needs charts to inspect data distributions, feature relationships, model errors, and evaluation results; deep learning needs training curves and prediction examples; Agent and RAG projects can also use charts to show evaluation data, call costs, and failure types.
 
-如果这一章没学稳，后面常见的问题是：数据分析报告只有表格没有结论；机器学习项目只给一个分数，没有解释；训练过程没有曲线；项目展示缺少让人快速理解的图。
+If you do not build a solid foundation here, common problems later will be: data analysis reports with tables but no conclusions; machine learning projects that only give a score but no explanation; no curves for the training process; and project presentations that lack charts people can quickly understand.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+More experienced learners can treat this chapter as a chance to fill gaps and practice engineering habits: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how this chapter connects to what comes before and after. After reading, it is best to turn the content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study style | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run through a minimal example and finish the chapter’s small project goal |
+| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its role in the course in one sentence |
+| What are the minimal input and output? | You can clearly state what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
+| What can you turn into a lasting artifact after learning it? | You can write the output of this chapter into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Goal for This Chapter
 
-学完这一章后，建议做一个“销售数据可视化报告”。用 Pandas 整理好的销售数据，分别画出月度趋势、品类对比、订单金额分布、价格与销量关系、地区热力图或透视表，并为每张图写一句结论。
+After finishing this chapter, it is recommended to create a “sales data visualization report.” Using sales data organized with Pandas, draw monthly trends, category comparisons, order amount distributions, the relationship between price and sales volume, regional heatmaps, or pivot tables, and write one conclusion for each chart.
 
-项目重点不是图表数量，而是每张图都能回答一个明确问题。
+The key point of the project is not the number of charts, but that each chart answers one clear question.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能根据趋势、对比、分布、关系和相关性选择合适图表，能用 Matplotlib 和 Seaborn 画出基础图，能解释 Plotly 适合什么场景，能通过标题、坐标轴、图例和颜色让图更清楚。
+By the end of this chapter, you should be able to choose appropriate charts based on trend, comparison, distribution, relationship, and correlation; draw basic charts with Matplotlib and Seaborn; explain what scenarios Plotly is suitable for; and use titles, axes, legends, and colors to make charts clearer.
 
-如果你能把一份数据整理成 4 到 6 张有结论的图表，并说明每张图为什么这样选，就达到了数据可视化入门标准。
+If you can turn a dataset into 4 to 6 meaningful charts and explain why each chart was chosen, you have reached the beginner level for data visualization.
 
-## 学到这里，下一步怎么读最顺
+## What to Read Next
 
-建议先读 Matplotlib 基础，再读 Seaborn 统计可视化，然后读可视化最佳实践，最后按需阅读 Plotly 交互式可视化。
+It is recommended to first read Matplotlib Basics, then Seaborn Statistical Visualization, then Visualization Best Practices, and finally Interactive Visualization with Plotly as needed.

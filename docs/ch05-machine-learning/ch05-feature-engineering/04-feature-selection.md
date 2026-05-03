@@ -1,42 +1,42 @@
 ---
-title: "5.5 特征选择"
+title: "5.5 Feature Selection"
 sidebar_position: 17
-description: "学习为什么不是特征越多越好，掌握过滤法、包裹法、嵌入法和基于验证集的特征选择思路。"
-keywords: [特征选择, feature selection, 过滤法, wrapper, embedded, 过拟合]
+description: "Learn why more features are not always better, and master the ideas behind filter methods, wrapper methods, embedded methods, and validation-set-based feature selection."
+keywords: [feature selection, feature selection, filter methods, wrapper, embedded, overfitting]
 ---
 
-# 特征选择
+# Feature Selection
 
-![特征选择方法对比图](/img/course/feature-selection-methods.png)
+![Feature selection method comparison](/img/course/feature-selection-methods-en.png)
 
-:::tip 本节定位
-特征选择不是为了把特征删得越少越好，而是为了在效果、稳定性、解释性和成本之间取得平衡。真正的目标是留下对任务有用、上线时可获得、不会泄漏的特征。
+:::tip This section’s focus
+Feature selection is not about removing as many features as possible. It is about balancing performance, stability, interpretability, and cost. The real goal is to keep features that are useful for the task, available in production, and free of leakage.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么特征不是越多越好
-- 掌握过滤法、包裹法、嵌入法三类基本思路
-- 能用验证集判断特征选择是否真的有效
-- 知道特征选择和业务可解释性、上线成本的关系
+- Understand why more features are not always better
+- Master the three basic approaches: filter methods, wrapper methods, and embedded methods
+- Use a validation set to determine whether feature selection is actually effective
+- Understand the relationship between feature selection, business interpretability, and production cost
 
 ---
 
-## 为什么需要特征选择
+## Why Feature Selection Is Needed
 
-特征太多会带来几个问题：噪声增加，训练变慢，模型更容易过拟合，解释成本上升，上线时数据依赖变复杂。尤其在真实业务里，一个特征可能意味着一个额外数据源、一个接口、一个权限或一段维护逻辑。
+Too many features bring several problems: more noise, slower training, greater risk of overfitting, higher interpretation cost, and more complex production dependencies. In real-world business settings, one feature may mean an additional data source, an API, a permission, or a piece of maintenance logic.
 
 ```mermaid
 flowchart LR
-  A[全部特征] --> B[去掉明显无用和泄漏]
-  B --> C[比较验证集效果]
-  C --> D[保留稳定有效特征]
-  D --> E[形成上线特征清单]
+  A[All features] --> B[Remove obvious useless and leaking features]
+  B --> C[Compare validation-set performance]
+  C --> D[Keep stable, effective features]
+  D --> E[Create the production feature list]
 ```
 
-## 一、先删掉不该进模型的特征
+## 1. First, Remove Features That Should Not Enter the Model
 
-第一步不是高级算法，而是人工排查。通常应该优先移除：唯一 ID、目标结果之后才出现的字段、缺失率极高且无业务意义的字段、训练和线上不可稳定获得的字段、明显重复的字段。
+The first step is not an advanced algorithm, but manual inspection. Usually, you should prioritize removing: unique IDs, fields that only appear after the target outcome, fields with extremely high missing rates and no business meaning, fields that cannot be reliably obtained in training and production, and clearly duplicated fields.
 
 ```python
 cols_to_drop = ["user_id", "order_id"]
@@ -44,11 +44,11 @@ X = df.drop(columns=cols_to_drop + ["target"])
 y = df["target"]
 ```
 
-ID 并不总是无用，但初学阶段要谨慎。很多 ID 会让模型记住训练样本，而不是学到可泛化规律。
+An ID is not always useless, but beginners should be careful. Many IDs can cause the model to memorize training samples instead of learning generalizable patterns.
 
-## 二、过滤法：先看单个特征的统计关系
+## 2. Filter Methods: First Look at the Statistical Relationship of Each Feature
 
-过滤法不依赖具体模型，先用统计指标筛选特征。例如数值特征可以看相关系数，类别特征可以看卡方检验，文本或高维特征可以看方差。
+Filter methods do not depend on a specific model. They first screen features using statistical metrics. For example, numerical features can use correlation coefficients, categorical features can use chi-square tests, and text or high-dimensional features can use variance.
 
 ```python
 from sklearn.feature_selection import SelectKBest, f_classif
@@ -59,11 +59,11 @@ selected_cols = X_train.columns[selector.get_support()]
 print(selected_cols)
 ```
 
-过滤法速度快，适合初筛；缺点是容易忽略特征之间的组合效果。
+Filter methods are fast and suitable for initial screening; their downside is that they can easily miss interactions between features.
 
-## 三、包裹法：用模型效果反复试
+## 3. Wrapper Methods: Repeatedly Test with Model Performance
 
-包裹法把模型训练效果作为选择标准，例如递归特征消除 RFE。它更贴近最终目标，但计算成本更高。
+Wrapper methods use model training performance as the selection criterion, such as Recursive Feature Elimination, or RFE. They are closer to the final objective, but the computational cost is higher.
 
 ```python
 from sklearn.feature_selection import RFE
@@ -75,11 +75,11 @@ selector.fit(X_train_scaled, y_train)
 print(selector.support_)
 ```
 
-包裹法适合特征数量不太大、你愿意花计算成本换更贴近模型效果的场景。
+Wrapper methods are suitable when the number of features is not too large and you are willing to spend more computation to get results that are closer to actual model performance.
 
-## 四、嵌入法：让模型自己给出重要性
+## 4. Embedded Methods: Let the Model Determine Importance
 
-一些模型在训练过程中就能给出特征重要性，例如 L1 正则的线性模型、随机森林、GBDT、XGBoost、LightGBM。
+Some models can provide feature importance during training, such as linear models with L1 regularization, Random Forest, GBDT, XGBoost, and LightGBM.
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
@@ -89,11 +89,11 @@ model.fit(X_train, y_train)
 importance = model.feature_importances_
 ```
 
-注意，特征重要性不是绝对真理。不同模型、不同随机种子、不同数据切分都可能影响排名。最好结合验证集效果和业务理解一起判断。
+Note that feature importance is not absolute truth. Different models, different random seeds, and different data splits can all affect the ranking. It is best to judge using validation-set performance together with business understanding.
 
-## 五、用验证集确认是否真的变好
+## 5. Use a Validation Set to Confirm Whether Things Really Improved
 
-特征选择最容易犯的错是只看“选出来的特征看起来合理”，却不验证模型是否更稳。正确做法是比较 baseline 和选择后的模型。
+The easiest mistake in feature selection is to only look at whether the selected features “seem reasonable,” without verifying whether the model is actually more stable. The correct approach is to compare the baseline model with the model after feature selection.
 
 ```python
 from sklearn.metrics import roc_auc_score
@@ -108,23 +108,23 @@ print("baseline", baseline_auc)
 print("selected", selected_auc)
 ```
 
-如果特征变少后效果差不多，但训练更快、解释更清楚、上线依赖更少，那也可能是更好的方案。
+If fewer features produce similar performance but faster training, clearer interpretation, and fewer production dependencies, that may be the better solution.
 
-## 六、真实项目里的选择标准
+## 6. Selection Criteria in Real Projects
 
-真实项目中，特征选择不只看分数，还要看是否稳定、是否能解释、是否能上线、是否有合规风险、是否会引入额外成本。一个 AUC 提升 0.001 但需要接入昂贵外部数据源的特征，未必值得上线。
+In real projects, feature selection is not judged only by score. You also need to consider whether it is stable, explainable, deployable, compliant, and cost-effective. A feature that improves AUC by 0.001 but requires integrating an expensive external data source may not be worth deploying.
 
-## 常见误区
+## Common Mistakes
 
-第一个误区是在全量数据上做特征选择，再切分训练测试集，这会泄漏。第二个误区是盲目相信特征重要性排名。第三个误区是只追求最少特征，导致模型欠拟合。第四个误区是忽略上线可获得性，训练时能用的字段不代表线上实时能拿到。
+The first mistake is performing feature selection on the full dataset and then splitting into training and test sets, which causes leakage. The second is blindly trusting feature importance rankings. The third is pursuing the smallest possible feature set and causing underfitting. The fourth is ignoring production availability: fields usable during training are not necessarily available in real time in production.
 
-## 练习
+## Exercises
 
-1. 在一个分类数据集上，用 SelectKBest 选择前 10 个特征，并和 baseline 比较。
-2. 用随机森林输出特征重要性，观察排名是否符合直觉。
-3. 手动列出 3 个“训练时可能有、上线时不一定有”的特征。
-4. 解释为什么特征选择必须放在交叉验证流程内部。
+1. On a classification dataset, use SelectKBest to select the top 10 features and compare them with the baseline.
+2. Use Random Forest to output feature importance and observe whether the ranking matches your intuition.
+3. Manually list 3 features that may exist during training but may not always be available in production.
+4. Explain why feature selection must be placed inside the cross-validation workflow.
 
-## 过关标准
+## Mastery Criteria
 
-学完本节后，你应该能解释三类特征选择方法的差异，能用验证集判断选择是否有效，能识别数据泄漏风险，并能从效果、解释性、成本和上线可获得性四个角度决定是否保留某个特征。
+After studying this section, you should be able to explain the differences among the three types of feature selection methods, use a validation set to judge whether selection is effective, identify data leakage risks, and decide whether to keep a feature from four perspectives: performance, interpretability, cost, and production availability.

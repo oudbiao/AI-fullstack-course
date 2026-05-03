@@ -1,138 +1,136 @@
 ---
-title: "6.1 实战项目：探索性数据分析（EDA）"
+title: "6.1 Hands-on Project: Exploratory Data Analysis (EDA)"
 sidebar_position: 25
-description: "用 Pandas 和 Matplotlib/Seaborn 对真实数据集进行完整的探索性数据分析，从数据清洗到可视化报告"
-keywords: [EDA, 探索性数据分析, Pandas, Matplotlib, Seaborn, 数据可视化, 数据清洗]
+description: "Perform a complete exploratory data analysis on a real dataset with Pandas and Matplotlib/Seaborn, from data cleaning to a visual report"
+keywords: [EDA, Exploratory Data Analysis, Pandas, Matplotlib, Seaborn, data visualization, data cleaning]
 ---
 
-# 实战项目：探索性数据分析（EDA）
+# Hands-on Project: Exploratory Data Analysis (EDA)
 
-![EDA 探索性数据分析流程图](/img/course/eda-analysis-workflow.png)
+![EDA exploratory data analysis workflow](/img/course/eda-analysis-workflow-en.png)
 
-:::tip 项目定位
-这是 3 数据分析与可视化的**综合实战项目**。你将用前面学到的 NumPy、Pandas、Matplotlib/Seaborn 知识，对一个真实数据集进行完整的探索性数据分析。
+:::tip Project focus
+This is a **comprehensive hands-on project** for Data Analysis and Visualization. You will use the NumPy, Pandas, and Matplotlib/Seaborn knowledge you learned earlier to perform a complete exploratory data analysis on a real dataset.
 :::
 
-## 先建立一张地图
+## First, build a map
 
-第一次做 EDA 项目，最稳的顺序不是“先把图都画出来”，而是先看清：
+When doing an EDA project for the first time, the safest sequence is not “draw all the charts first,” but to first understand:
 
 ```mermaid
 flowchart LR
-    A["先摸底数据"] --> B["再做清洗"]
-    B --> C["再做统计和分组分析"]
-    C --> D["再画图验证结论"]
-    D --> E["最后写出清楚结论"]
+    A["First get familiar with the data"] --> B["Then clean it"]
+    B --> C["Then do statistics and grouped analysis"]
+    C --> D["Then visualize to verify conclusions"]
+    D --> E["Finally write clear conclusions"]
 ```
 
-所以这个项目真正想练的是：
+So what this project really trains is:
 
-- 不是会不会写几张图
-- 而是能不能把“看数据 -> 得结论”走成一条完整链
+- not whether you can make a few charts
+- but whether you can turn “look at the data -> reach conclusions” into a complete chain
 
-## 项目简介
+## Project overview
 
-**探索性数据分析（Exploratory Data Analysis, EDA）** 是数据科学项目的第一步——在建模之前，先用统计和可视化手段"摸清"数据的底细。
+**Exploratory Data Analysis (EDA)** is the first step in a data science project — before modeling, use statistics and visualization to “get to know” the data.
 
 ```mermaid
 flowchart LR
-    A["拿到数据"] --> B["初步了解"]
-    B --> C["数据清洗"]
-    C --> D["统计分析"]
-    D --> E["可视化探索"]
-    E --> F["得出结论 & 撰写报告"]
+    A["Get the data"] --> B["Initial understanding"]
+    B --> C["Data cleaning"]
+    C --> D["Statistical analysis"]
+    D --> E["Visual exploration"]
+    E --> F["Draw conclusions & write report"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 一个更适合新人的总类比
+### A beginner-friendly overall analogy
 
-你可以把 EDA 理解成：
+You can think of EDA as:
 
-- 真正做模型前的一次现场勘察
+- a site survey before actually building a model
 
-你不会在还没看清地形的时候就直接开工。  
-同样地，在数据项目里，你也不该在还没看清：
+You wouldn’t start working before you’ve clearly seen the terrain.
+Likewise, in a data project, you shouldn’t rush into modeling before you’ve understood:
 
-- 分布
-- 缺失
-- 异常
-- 变量关系
+- the distribution
+- missing values
+- outliers
+- relationships between variables
 
-之前就急着建模。
+### Skills you will practice
 
-### 你将练到的技能
-
-| 技能 | 对应章节 |
+| Skill | Corresponding chapter |
 |------|---------|
-| Pandas 数据读取与清洗 | 第 3 章 |
-| 统计摘要与分组聚合 | 第 3 章 |
-| Matplotlib / Seaborn 可视化 | 第 4 章 |
-| NumPy 数值计算 | 第 2 章 |
+| Pandas data loading and cleaning | Chapter 3 |
+| Statistical summaries and grouped aggregation | Chapter 3 |
+| Matplotlib / Seaborn visualization | Chapter 4 |
+| NumPy numerical computation | Chapter 2 |
 
-### 项目产出
+### Project deliverable
 
-完成后你会得到一份**完整的 EDA 分析报告**（Jupyter Notebook），包含数据概览、清洗过程、统计发现和可视化图表。
+After finishing, you will have a **complete EDA report** (a Jupyter Notebook) that includes a data overview, cleaning process, statistical findings, and visual charts.
 
 ---
 
-## 一、项目准备
+## 1. Project setup
 
-### 1.1 数据集选择
+### 1.1 Dataset selection
 
-我们选用 Seaborn 内置的 **`tips` 数据集**——一个美国餐厅的小费记录。
+We will use Seaborn’s built-in **`tips` dataset** — a record of tips from a U.S. restaurant.
 
-| 字段 | 含义 | 类型 |
+| Field | Meaning | Type |
 |------|------|------|
-| `total_bill` | 消费总额（美元） | 连续型 |
-| `tip` | 小费金额（美元） | 连续型 |
-| `sex` | 顾客性别 | 分类型 |
-| `smoker` | 是否吸烟 | 分类型 |
-| `day` | 星期几 | 分类型 |
-| `time` | 午餐/晚餐 | 分类型 |
-| `size` | 就餐人数 | 离散型 |
+| `total_bill` | Total bill amount (USD) | Continuous |
+| `tip` | Tip amount (USD) | Continuous |
+| `sex` | Customer gender | Categorical |
+| `smoker` | Smoker or not | Categorical |
+| `day` | Day of the week | Categorical |
+| `time` | Lunch/Dinner | Categorical |
+| `size` | Party size | Discrete |
 
-:::info 为什么选这个数据集？
-- 内置数据，**无需下载**，一行代码就能加载
-- 变量类型丰富（连续型 + 分类型）
-- 数据量适中（244 行），适合学习
-- 业务场景直观，人人都去过餐厅
+:::info Why choose this dataset?
+- Built in, **no download required**, can be loaded with one line of code
+- Rich variable types (continuous + categorical)
+- Moderate size (244 rows), great for learning
+- Easy-to-understand business context — everyone has been to a restaurant
 :::
 
-### 1.2 环境搭建
+### 1.2 Environment setup
 
 ```python
-# 导入所有需要的库
+# Import all required libraries
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 设置中文显示（macOS）
+# Configure Chinese font display (macOS)
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-# Windows 用户可以用：plt.rcParams['font.sans-serif'] = ['SimHei']
+# Windows users can use: plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 设置 Seaborn 主题
+# Set Seaborn theme
 sns.set_theme(style="whitegrid", font_scale=1.1)
 
-# Jupyter 中图表内嵌显示
+# Show plots inline in Jupyter
 # %matplotlib inline
 ```
 
-### 1.3 加载数据
+### 1.3 Load the data
 
 ```python
-# 加载内置数据集
+# Load the built-in dataset
 tips = sns.load_dataset("tips")
 
-# 第一眼：看看数据长什么样
-print(f"数据集大小：{tips.shape[0]} 行 × {tips.shape[1]} 列")
+# First look: see what the data looks like
+print(f"Dataset size: {tips.shape[0]} rows × {tips.shape[1]} columns")
 tips.head(10)
 ```
 
-输出示例：
+Example output:
 
 | | total_bill | tip | sex | smoker | day | time | size |
 |---|-----------|-----|-----|--------|-----|------|------|
@@ -144,36 +142,36 @@ tips.head(10)
 
 ---
 
-## 二、数据概览——先"摸底"
+## 2. Data overview — start with “getting familiar”
 
-EDA 的第一步，不是急着画图，而是先搞清楚：数据有多大？每列是什么类型？有没有缺失值？
+The first step in EDA is not to rush into charts, but to first understand: How big is the dataset? What type is each column? Are there missing values?
 
-### 第一次看数据时，最该先问什么？
+### What should you ask first when looking at data?
 
-最值得先问这 4 个问题：
+The 4 most important questions are:
 
-1. 这张表有多大？
-2. 每列是什么类型？
-3. 有没有缺失值？
-4. 目标分析字段大概长什么样？
+1. How large is the table?
+2. What type is each column?
+3. Are there any missing values?
+4. What does the target analysis field look like?
 
-只要这 4 个问题先答清楚，后面很多分析动作就不会乱。
+If you can answer these 4 questions clearly first, many later analysis steps will go much more smoothly.
 
-### 2.1 基本信息
+### 2.1 Basic information
 
 ```python
-# 数据类型和非空计数
+# Data types and non-null counts
 tips.info()
 ```
 
-输出会告诉你：
-- 7 列，244 行
-- 没有缺失值（Non-Null Count 全是 244）
-- `total_bill` 和 `tip` 是 float64
-- `sex`、`smoker`、`day`、`time` 是 category
+The output tells you:
+- 7 columns, 244 rows
+- No missing values (all Non-Null Count values are 244)
+- `total_bill` and `tip` are float64
+- `sex`, `smoker`, `day`, and `time` are category
 
 ```python
-# 统计摘要
+# Statistical summary
 tips.describe()
 ```
 
@@ -188,35 +186,35 @@ tips.describe()
 | 75% | 24.13 | 3.56 | 3.00 |
 | max | 50.81 | 10.00 | 6.00 |
 
-**发现**：
-- 人均消费约 19.79 美元，小费约 3.00 美元
-- 小费最少 1 美元，最多 10 美元
-- 就餐人数大多是 2 人
+**Findings**:
+- Average bill is about 19.79 USD, and average tip is about 3.00 USD
+- Tips range from 1 USD to 10 USD
+- Most parties have 2 people
 
-### 2.2 分类变量分布
+### 2.2 Distribution of categorical variables
 
 ```python
-# 分类变量各取值的计数
+# Count each value for categorical variables
 for col in ['sex', 'smoker', 'day', 'time']:
     print(f"\n--- {col} ---")
     print(tips[col].value_counts())
 ```
 
-**发现**：
-- 男性顾客多于女性（157 vs 87）
-- 不吸烟的多于吸烟的（151 vs 93）
-- 周六和周日数据最多
-- 晚餐数据远多于午餐（176 vs 68）
+**Findings**:
+- There are more male customers than female customers (157 vs 87)
+- There are more non-smokers than smokers (151 vs 93)
+- Saturday and Sunday have the most records
+- Dinner data is far more common than lunch data (176 vs 68)
 
-### 2.3 添加衍生特征
+### 2.3 Create derived features
 
-好的分析师会**创造新特征**来帮助发现规律：
+Good analysts **create new features** to help discover patterns:
 
 ```python
-# 小费比例 = 小费 / 消费总额
+# Tip percentage = tip / total bill
 tips['tip_pct'] = (tips['tip'] / tips['total_bill'] * 100).round(2)
 
-# 人均消费
+# Per-person spending
 tips['per_person'] = (tips['total_bill'] / tips['size']).round(2)
 
 tips[['total_bill', 'tip', 'tip_pct', 'per_person']].head()
@@ -232,351 +230,351 @@ tips[['total_bill', 'tip', 'tip_pct', 'per_person']].head()
 
 ---
 
-## 三、数据清洗——检查数据质量
+## 3. Data cleaning — check data quality
 
-这个数据集比较干净，但真实项目中这一步通常最耗时间。我们依然走一遍完整流程：
+This dataset is quite clean, but in real projects this step usually takes the most time. We will still go through the full process:
 
-### 3.1 缺失值检查
+### 3.1 Missing value check
 
 ```python
-# 缺失值统计
+# Missing value statistics
 missing = tips.isnull().sum()
-print("缺失值统计：")
-print(missing[missing > 0] if missing.sum() > 0 else "无缺失值 ✓")
+print("Missing value statistics:")
+print(missing[missing > 0] if missing.sum() > 0 else "No missing values ✓")
 ```
 
-### 3.2 重复值检查
+### 3.2 Duplicate value check
 
 ```python
-# 完全重复的行
+# Completely duplicated rows
 dup_count = tips.duplicated().sum()
-print(f"重复行数：{dup_count}")
+print(f"Duplicate rows: {dup_count}")
 
 if dup_count > 0:
     tips = tips.drop_duplicates()
-    print(f"已删除重复行，剩余 {len(tips)} 行")
+    print(f"Duplicates removed, {len(tips)} rows remaining")
 ```
 
-### 3.3 异常值检测
+### 3.3 Outlier detection
 
-用 IQR（四分位距）方法检测异常值：
+Use the IQR (interquartile range) method to detect outliers:
 
 ```python
 def detect_outliers_iqr(df, column):
-    """用 IQR 方法检测异常值"""
+    """Detect outliers using the IQR method"""
     Q1 = df[column].quantile(0.25)
     Q3 = df[column].quantile(0.75)
     IQR = Q3 - Q1
     lower = Q1 - 1.5 * IQR
     upper = Q3 + 1.5 * IQR
-    
+
     outliers = df[(df[column] < lower) | (df[column] > upper)]
     return outliers, lower, upper
 
-# 检查各数值列的异常值
+# Check outliers in each numeric column
 for col in ['total_bill', 'tip', 'tip_pct']:
     outliers, lower, upper = detect_outliers_iqr(tips, col)
-    print(f"\n{col}：正常范围 [{lower:.2f}, {upper:.2f}]，异常值 {len(outliers)} 个")
+    print(f"\n{col}: normal range [{lower:.2f}, {upper:.2f}], {len(outliers)} outliers")
     if len(outliers) > 0:
-        print(f"  异常值示例：{outliers[col].values[:5]}")
+        print(f"  Outlier examples: {outliers[col].values[:5]}")
 ```
 
-:::tip 异常值处理策略
-在 EDA 阶段，**通常不急着删除异常值**，而是先标记它们、理解它们：
-- 异常值可能是数据录入错误 → 应修正
-- 异常值可能是真实的极端情况 → 保留，但分析时注意
-- 异常值过多 → 可能说明数据质量有问题
+:::tip Outlier handling strategy
+In the EDA stage, we usually **do not rush to delete outliers**. Instead, we first mark them and understand them:
+- Outliers may be data entry errors → should be corrected
+- Outliers may be real extreme cases → keep them, but pay attention during analysis
+- Too many outliers → may indicate data quality problems
 :::
 
 ---
 
-## 四、统计分析——用数字说话
+## 4. Statistical analysis — let the numbers speak
 
-### 4.1 核心统计指标
+### 4.1 Core statistical metrics
 
 ```python
-# 按性别分组的小费统计
+# Tip statistics grouped by gender
 tips.groupby('sex')[['total_bill', 'tip', 'tip_pct']].agg(['mean', 'median', 'std'])
 ```
 
 ```python
-# 按 day 分组
+# Group by day
 day_stats = tips.groupby('day')[['total_bill', 'tip']].agg(['mean', 'count'])
 print(day_stats)
 ```
 
-### 4.2 交叉分析
+### 4.2 Cross analysis
 
 ```python
-# 透视表：不同性别 + 是否吸烟 的小费比例
+# Pivot table: average tip percentage by gender and smoker status
 pivot = tips.pivot_table(
-    values='tip_pct', 
-    index='sex', 
-    columns='smoker', 
+    values='tip_pct',
+    index='sex',
+    columns='smoker',
     aggfunc='mean'
 ).round(2)
 
-print("小费比例(%)：")
+print("Tip percentage (%):")
 print(pivot)
 ```
 
-示例输出：
+Example output:
 
 | smoker | No | Yes |
 |--------|-----|------|
 | Female | 15.69 | 18.22 |
 | Male | 16.07 | 15.28 |
 
-**发现**：女性吸烟者给的小费比例最高，男性吸烟者给的最低。
+**Finding**: Female smokers have the highest tip percentage, while male smokers have the lowest.
 
-### 4.3 相关性分析
+### 4.3 Correlation analysis
 
 ```python
-# 数值列的相关系数
+# Correlation coefficients for numeric columns
 numeric_cols = ['total_bill', 'tip', 'size', 'tip_pct', 'per_person']
 corr_matrix = tips[numeric_cols].corr().round(3)
 print(corr_matrix)
 ```
 
-**关键发现**：
-- `total_bill` 和 `tip` 正相关（约 0.68）→ 消费越多，小费越多
-- `total_bill` 和 `tip_pct` 负相关（约 -0.09）→ 消费越多，小费**比例**反而略低
-- `size` 和 `total_bill` 正相关（约 0.60）→ 人越多，消费越高
+**Key findings**:
+- `total_bill` and `tip` are positively correlated (about 0.68) → the more you spend, the more tip you leave
+- `total_bill` and `tip_pct` are negatively correlated (about -0.09) → as spending increases, the tip **percentage** slightly decreases
+- `size` and `total_bill` are positively correlated (about 0.60) → the larger the party, the higher the spending
 
-### 一个新人很适合先记的分析顺序
+### A beginner-friendly analysis order to remember
 
-做 EDA 时，更稳的顺序通常是：
+When doing EDA, a safer order is usually:
 
-1. 先看单变量分布
-2. 再看分类变量计数
-3. 再看两个变量关系
-4. 最后才做组合分析和多维对比
+1. First look at single-variable distributions
+2. Then look at counts of categorical variables
+3. Then look at relationships between two variables
+4. Finally do combined analysis and multi-dimensional comparisons
 
-这样会比一开始就直接上复杂分面图更容易看清主线。
+This is often easier to follow than jumping directly into complex facet plots at the beginning.
 
 ---
 
-## 五、可视化探索——让数据说话
+## 5. Visual exploration — let the data speak
 
-### 5.1 数值分布
+### 5.1 Numeric distributions
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 
-# 消费总额分布
+# Total bill distribution
 axes[0].hist(tips['total_bill'], bins=20, color='steelblue', edgecolor='white')
-axes[0].set_title('消费总额分布')
-axes[0].set_xlabel('金额（美元）')
-axes[0].set_ylabel('频次')
+axes[0].set_title('Total Bill Distribution')
+axes[0].set_xlabel('Amount (USD)')
+axes[0].set_ylabel('Frequency')
 
-# 小费分布
+# Tip distribution
 axes[1].hist(tips['tip'], bins=20, color='coral', edgecolor='white')
-axes[1].set_title('小费分布')
-axes[1].set_xlabel('金额（美元）')
+axes[1].set_title('Tip Distribution')
+axes[1].set_xlabel('Amount (USD)')
 
-# 小费比例分布
+# Tip percentage distribution
 axes[2].hist(tips['tip_pct'], bins=20, color='mediumseagreen', edgecolor='white')
-axes[2].set_title('小费比例(%)分布')
-axes[2].set_xlabel('百分比')
+axes[2].set_title('Tip Percentage (%) Distribution')
+axes[2].set_xlabel('Percentage')
 
 plt.tight_layout()
 plt.savefig('01_distribution.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-**解读**：消费总额和小费都呈右偏分布——大多数人消费在 10-25 美元之间，小费在 2-4 美元之间。
+**Interpretation**: Total bill and tip both have right-skewed distributions — most people spend between 10 and 25 USD, and most tips are between 2 and 4 USD.
 
-### 5.2 分类变量可视化
+### 5.2 Visualization of categorical variables
 
 ```python
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
-# 按天统计
-sns.countplot(data=tips, x='day', order=['Thur', 'Fri', 'Sat', 'Sun'], 
+# Count by day
+sns.countplot(data=tips, x='day', order=['Thur', 'Fri', 'Sat', 'Sun'],
               palette='Blues_d', ax=axes[0, 0])
-axes[0, 0].set_title('各天的顾客数')
+axes[0, 0].set_title('Customer Count by Day')
 
-# 按时间段
+# By time of day
 sns.countplot(data=tips, x='time', palette='Set2', ax=axes[0, 1])
-axes[0, 1].set_title('午餐 vs 晚餐')
+axes[0, 1].set_title('Lunch vs Dinner')
 
-# 按性别
+# By gender
 sns.countplot(data=tips, x='sex', palette='Pastel1', ax=axes[1, 0])
-axes[1, 0].set_title('顾客性别分布')
+axes[1, 0].set_title('Customer Gender Distribution')
 
-# 按吸烟状态
+# By smoking status
 sns.countplot(data=tips, x='smoker', palette='Pastel2', ax=axes[1, 1])
-axes[1, 1].set_title('吸烟 vs 不吸烟')
+axes[1, 1].set_title('Smoker vs Non-smoker')
 
 plt.tight_layout()
 plt.savefig('02_categorical.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.3 关键关系探索
+### 5.3 Exploring key relationships
 
-#### 消费与小费的关系
+#### Relationship between bill and tip
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 散点图：消费 vs 小费
-sns.scatterplot(data=tips, x='total_bill', y='tip', hue='time', 
+# Scatter plot: bill vs tip
+sns.scatterplot(data=tips, x='total_bill', y='tip', hue='time',
                 style='smoker', s=80, alpha=0.7, ax=axes[0])
-axes[0].set_title('消费金额 vs 小费')
-axes[0].set_xlabel('消费总额（美元）')
-axes[0].set_ylabel('小费（美元）')
+axes[0].set_title('Total Bill vs Tip')
+axes[0].set_xlabel('Total Bill (USD)')
+axes[0].set_ylabel('Tip (USD)')
 
-# 回归线
-sns.regplot(data=tips, x='total_bill', y='tip', 
+# Regression line
+sns.regplot(data=tips, x='total_bill', y='tip',
             scatter_kws={'alpha': 0.5}, line_kws={'color': 'red'},
             ax=axes[1])
-axes[1].set_title('消费金额 vs 小费（含趋势线）')
-axes[1].set_xlabel('消费总额（美元）')
-axes[1].set_ylabel('小费（美元）')
+axes[1].set_title('Total Bill vs Tip (with trend line)')
+axes[1].set_xlabel('Total Bill (USD)')
+axes[1].set_ylabel('Tip (USD)')
 
 plt.tight_layout()
 plt.savefig('03_bill_vs_tip.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-**解读**：消费金额越高，小费也越高，呈明显的线性趋势。但也能看到一些"离群点"——有人消费 40 多美元只给了 1.5 美元小费。
+**Interpretation**: As the bill amount increases, the tip also increases, showing a clear linear trend. You can also see some “outliers” — for example, someone spent more than 40 USD but only left a 1.5 USD tip.
 
-#### 不同场景的小费比较
+#### Comparing tips across different scenarios
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(16, 5))
 
-# 按天比较小费
-sns.boxplot(data=tips, x='day', y='tip', 
+# Compare tip by day
+sns.boxplot(data=tips, x='day', y='tip',
             order=['Thur', 'Fri', 'Sat', 'Sun'],
             palette='coolwarm', ax=axes[0])
-axes[0].set_title('各天小费分布')
+axes[0].set_title('Tip Distribution by Day')
 
-# 按时间段比较
-sns.violinplot(data=tips, x='time', y='tip', 
+# Compare by time of day
+sns.violinplot(data=tips, x='time', y='tip',
                palette='Set2', ax=axes[1])
-axes[1].set_title('午餐 vs 晚餐小费分布')
+axes[1].set_title('Tip Distribution: Lunch vs Dinner')
 
-# 按就餐人数比较
-sns.boxplot(data=tips, x='size', y='tip', 
+# Compare by party size
+sns.boxplot(data=tips, x='size', y='tip',
             palette='YlOrRd', ax=axes[2])
-axes[2].set_title('不同就餐人数的小费')
+axes[2].set_title('Tip by Party Size')
 
 plt.tight_layout()
 plt.savefig('04_tip_comparison.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-**解读**：
-- 周日的小费中位数最高
-- 晚餐小费整体高于午餐（因为晚餐消费更多）
-- 人数越多，小费越高
+**Interpretation**:
+- Sunday has the highest median tip
+- Dinner tips are overall higher than lunch tips (because dinner spending is higher)
+- Larger parties give higher tips
 
-### 5.4 相关性热力图
+### 5.4 Correlation heatmap
 
 ```python
 plt.figure(figsize=(8, 6))
 
-# 绘制热力图
+# Draw heatmap
 sns.heatmap(
-    corr_matrix, 
-    annot=True,           # 显示数字
-    fmt='.2f',            # 保留两位小数
-    cmap='RdBu_r',        # 红蓝配色
-    center=0,             # 0 为中心
-    square=True,          # 正方形格子
-    linewidths=0.5        # 格线宽度
+    corr_matrix,
+    annot=True,           # show values
+    fmt='.2f',            # keep two decimal places
+    cmap='RdBu_r',        # red-blue palette
+    center=0,             # center at 0
+    square=True,          # square cells
+    linewidths=0.5        # grid line width
 )
-plt.title('数值变量相关性矩阵')
+plt.title('Correlation Matrix of Numeric Variables')
 plt.tight_layout()
 plt.savefig('05_correlation.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.5 组合多维度分析
+### 5.5 Combined multi-dimensional analysis
 
 ```python
-# FacetGrid：按性别和是否吸烟，看消费-小费关系
-g = sns.FacetGrid(tips, col='sex', row='smoker', 
+# FacetGrid: look at the bill-tip relationship by gender and smoking status
+g = sns.FacetGrid(tips, col='sex', row='smoker',
                   height=4, aspect=1.2, margin_titles=True)
-g.map_dataframe(sns.scatterplot, x='total_bill', y='tip', 
+g.map_dataframe(sns.scatterplot, x='total_bill', y='tip',
                 hue='time', alpha=0.7)
 g.add_legend()
-g.set_axis_labels('消费总额（美元）', '小费（美元）')
-g.fig.suptitle('按性别 × 吸烟状态分面', y=1.02, fontsize=14)
+g.set_axis_labels('Total Bill (USD)', 'Tip (USD)')
+g.fig.suptitle('Faceted by Gender × Smoking Status', y=1.02, fontsize=14)
 plt.savefig('06_facet.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
 ---
 
-## 六、分析结论
+## 6. Analysis conclusions
 
-经过完整的 EDA，我们得出以下结论：
+After a complete EDA, we can draw the following conclusions:
 
-### 核心发现
+### Key findings
 
 ```mermaid
 mindmap
-  root((EDA 核心发现))
-    消费模式
-      大多数消费在 10-25 美元
-      晚餐消费高于午餐
-      周末顾客最多
-    小费规律
-      平均小费约 15-16%
-      消费越高 小费金额越大
-      但小费比例略有下降
-    人群差异
-      男性消费略高于女性
-      吸烟者和非吸烟者差异不大
-      就餐人数是关键因素
+  root((EDA Key Findings))
+    Spending patterns
+      Most spending is between 10-25 USD
+      Dinner spending is higher than lunch
+      Weekend has the most customers
+    Tip patterns
+      Average tip is about 15-16%
+      Higher spending means higher tip amount
+      But tip percentage slightly decreases
+    Group differences
+      Male spending is slightly higher than female
+      Difference between smokers and non-smokers is small
+      Party size is a key factor
 ```
 
-### 具体结论
+### Specific conclusions
 
-1. **消费与小费正相关**：消费总额越高，小费金额越高（相关系数 0.68），但小费比例反而略有下降
-2. **晚餐消费高于午餐**：晚餐的平均消费和小费都显著高于午餐
-3. **周末是高峰**：周六和周日的顾客最多，消费也最高
-4. **就餐人数影响大**：人数越多，总消费越高（相关系数 0.60）
-5. **性别差异小**：男女在小费比例上差异不大（约 1 个百分点）
-6. **吸烟状态影响有限**：吸烟与否对小费比例影响不显著
+1. **Bill and tip are positively correlated**: the higher the total bill, the higher the tip amount (correlation coefficient 0.68), but the tip percentage decreases slightly
+2. **Dinner spending is higher than lunch**: both average spending and average tip are significantly higher at dinner
+3. **Weekends are peak periods**: Saturday and Sunday have the most customers and the highest spending
+4. **Party size matters a lot**: the larger the party, the higher the total bill (correlation coefficient 0.60)
+5. **Gender differences are small**: men and women do not differ much in tip percentage (about 1 percentage point)
+6. **Smoking status has limited impact**: whether someone smokes does not significantly affect tip percentage
 
-### 给餐厅的建议
+### Recommendations for the restaurant
 
-- **周末晚餐**是营收重点时段，应确保服务质量
-- 鼓励大桌就餐（人多消费多，小费也多）
-- 可以针对午餐推出套餐，提高午间客流
+- **Weekend dinner** is the key revenue period, so service quality should be ensured
+- Encourage larger parties to dine in (more people usually means more spending and more tips)
+- Consider lunch set meals to increase midday traffic
 
-### 一个很适合初学者先记的“结论写法”
+### A beginner-friendly way to write conclusions
 
-好的 EDA 结论通常不是：
+Good EDA conclusions are usually not:
 
-- 我画了很多图
+- I drew a lot of charts
 
-而是：
+Instead, they should answer:
 
-1. 我发现了什么
-2. 我是根据哪些图和统计发现的
-3. 这对业务意味着什么
+1. What did I find?
+2. Which charts and statistics support this?
+3. What does this mean for the business?
 
-这个顺序特别重要，因为它会让你的 Notebook 从“图很多”变成“有分析结论”。
+This order is especially important because it turns your Notebook from “many charts” into “a report with real insights.”
 
 ---
 
-## 七、代码整合——完整分析脚本
+## 7. Code integration — complete analysis script
 
-将上面的分析整合成一个结构清晰的脚本：
+Combine the above analysis into a clear, structured script:
 
 ```python
 """
-Tips 数据集 - 探索性数据分析（EDA）
-====================================
-分析目标：理解餐厅消费和小费的影响因素
+Tips dataset - Exploratory Data Analysis (EDA)
+==============================================
+Analysis goal: Understand the factors that influence restaurant spending and tipping
 """
 
-# ========== 1. 导入与配置 ==========
+# ========== 1. Imports and configuration ==========
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -587,177 +585,177 @@ plt.rcParams['axes.unicode_minus'] = False
 sns.set_theme(style="whitegrid", font_scale=1.1)
 
 
-# ========== 2. 数据加载 ==========
+# ========== 2. Load data ==========
 tips = sns.load_dataset("tips")
-print(f"数据集：{tips.shape[0]} 行 × {tips.shape[1]} 列\n")
+print(f"Dataset: {tips.shape[0]} rows × {tips.shape[1]} columns\n")
 
 
-# ========== 3. 数据概览 ==========
-print("=== 基本信息 ===")
+# ========== 3. Data overview ==========
+print("=== Basic information ===")
 tips.info()
-print("\n=== 统计摘要 ===")
+print("\n=== Statistical summary ===")
 print(tips.describe().round(2))
 
 
-# ========== 4. 特征工程 ==========
+# ========== 4. Feature engineering ==========
 tips['tip_pct'] = (tips['tip'] / tips['total_bill'] * 100).round(2)
 tips['per_person'] = (tips['total_bill'] / tips['size']).round(2)
 
 
-# ========== 5. 数据质量检查 ==========
-print(f"\n缺失值：{tips.isnull().sum().sum()}")
-print(f"重复行：{tips.duplicated().sum()}")
+# ========== 5. Data quality check ==========
+print(f"\nMissing values: {tips.isnull().sum().sum()}")
+print(f"Duplicate rows: {tips.duplicated().sum()}")
 
 
-# ========== 6. 统计分析 ==========
-print("\n=== 按性别分组 ===")
+# ========== 6. Statistical analysis ==========
+print("\n=== Grouped by gender ===")
 print(tips.groupby('sex')[['total_bill', 'tip', 'tip_pct']].mean().round(2))
 
-print("\n=== 按天分组 ===")
+print("\n=== Grouped by day ===")
 print(tips.groupby('day')[['total_bill', 'tip']].agg(['mean', 'count']).round(2))
 
-print("\n=== 相关性矩阵 ===")
+print("\n=== Correlation matrix ===")
 print(tips[['total_bill', 'tip', 'size', 'tip_pct']].corr().round(3))
 
 
-# ========== 7. 可视化 ==========
-# 此处参考上面第五节的可视化代码
-# 在 Jupyter Notebook 中逐个运行效果最佳
+# ========== 7. Visualization ==========
+# See the visualization code in Section 5 above
+# Running each part step by step in Jupyter Notebook works best
 
-print("\n分析完成！")
+print("\nAnalysis complete!")
 ```
 
 ---
 
-## 八、进阶挑战
+## 8. Advanced challenges
 
-完成基础 EDA 后，试试这些挑战：
+After completing the basic EDA, try these challenges:
 
-### 挑战 1：换一个数据集
+### Challenge 1: Use a different dataset
 
-用 Seaborn 内置的 **`diamonds`** 数据集做 EDA：
+Do EDA with Seaborn’s built-in **`diamonds`** dataset:
 
 ```python
 diamonds = sns.load_dataset("diamonds")
-print(diamonds.shape)       # 53940 行 × 10 列
+print(diamonds.shape)       # 53940 rows × 10 columns
 print(diamonds.head())
 ```
 
-分析方向：
-- 哪些因素影响钻石价格？
-- 切工（cut）、颜色（color）、净度（clarity）如何影响价格？
-- 克拉数（carat）和价格是线性关系吗？
+Analysis directions:
+- Which factors affect diamond price?
+- How do cut, color, and clarity affect price?
+- Is carat and price a linear relationship?
 
-### 挑战 2：自动化 EDA 报告
+### Challenge 2: Automate the EDA report
 
-试试用代码自动生成一份简单的报告：
+Try using code to automatically generate a simple report:
 
 ```python
 def quick_eda(df, title="EDA Report"):
-    """快速生成 EDA 报告"""
+    """Quickly generate an EDA report"""
     print(f"{'='*50}")
     print(f"  {title}")
     print(f"{'='*50}")
-    
-    # 基本信息
-    print(f"\n📊 数据集大小：{df.shape[0]} 行 × {df.shape[1]} 列")
-    
-    # 数据类型统计
-    print(f"\n📋 数据类型：")
+
+    # Basic information
+    print(f"\n📊 Dataset size: {df.shape[0]} rows × {df.shape[1]} columns")
+
+    # Data type statistics
+    print(f"\n📋 Data types:")
     print(df.dtypes.value_counts().to_string())
-    
-    # 缺失值
+
+    # Missing values
     missing = df.isnull().sum()
     if missing.sum() > 0:
-        print(f"\n⚠️ 缺失值：")
+        print(f"\n⚠️ Missing values:")
         print(missing[missing > 0].to_string())
     else:
-        print(f"\n✅ 无缺失值")
-    
-    # 数值列统计
+        print(f"\n✅ No missing values")
+
+    # Numeric column statistics
     num_cols = df.select_dtypes(include=[np.number]).columns
     if len(num_cols) > 0:
-        print(f"\n📈 数值列统计：")
+        print(f"\n📈 Numeric column statistics:")
         print(df[num_cols].describe().round(2).to_string())
-    
-    # 分类列统计
+
+    # Categorical column statistics
     cat_cols = df.select_dtypes(include=['object', 'category']).columns
     for col in cat_cols:
-        print(f"\n🏷️ {col} 分布：")
+        print(f"\n🏷️ Distribution of {col}:")
         print(df[col].value_counts().head(5).to_string())
-    
+
     return None
 
-# 使用
-quick_eda(tips, "Tips 数据集 EDA")
+# Use it
+quick_eda(tips, "Tips Dataset EDA")
 ```
 
-### 挑战 3：用 Plotly 做交互版
+### Challenge 3: Make an interactive version with Plotly
 
-如果你学了第 4 章的 Plotly，试试把静态图表替换成交互版：
+If you learned Plotly in Chapter 4, try replacing static charts with interactive ones:
 
 ```python
 import plotly.express as px
 
-# 交互式散点图
+# Interactive scatter plot
 fig = px.scatter(
-    tips, x='total_bill', y='tip', 
+    tips, x='total_bill', y='tip',
     color='time', size='size',
     hover_data=['sex', 'smoker', 'day'],
-    title='消费金额 vs 小费（交互版）'
+    title='Total Bill vs Tip (Interactive)'
 )
 fig.show()
 ```
 
 ---
 
-## 九、EDA 检查清单
+## 9. EDA checklist
 
-完成项目后，对照检查：
+After finishing the project, check the following:
 
-| 检查项 | 是否完成 |
+| Check item | Completed |
 |--------|---------|
-| 加载数据并查看前几行 | ☐ |
-| 查看 `info()` 和 `describe()` | ☐ |
-| 检查缺失值和重复值 | ☐ |
-| 检测异常值 | ☐ |
-| 创建有意义的衍生特征 | ☐ |
-| 绘制数值变量的分布图 | ☐ |
-| 绘制分类变量的计数图 | ☐ |
-| 探索变量之间的关系（散点图、箱线图） | ☐ |
-| 绘制相关性热力图 | ☐ |
-| 多维度交叉分析（分面图、透视表） | ☐ |
-| 写出 3-5 条有价值的发现 | ☐ |
-| 给出数据驱动的建议 | ☐ |
+| Load the data and view the first few rows | ☐ |
+| Check `info()` and `describe()` | ☐ |
+| Check missing values and duplicate values | ☐ |
+| Detect outliers | ☐ |
+| Create meaningful derived features | ☐ |
+| Plot distributions of numeric variables | ☐ |
+| Plot count charts for categorical variables | ☐ |
+| Explore relationships between variables (scatter plots, box plots) | ☐ |
+| Plot a correlation heatmap | ☐ |
+| Multi-dimensional cross analysis (facet plots, pivot tables) | ☐ |
+| Write 3–5 valuable findings | ☐ |
+| Provide data-driven recommendations | ☐ |
 
-## 一个新人可直接照抄的 EDA 检查表
+## A ready-to-use EDA checklist for beginners
 
-第一次做 EDA 项目时，最稳的检查表通常是：
+When doing an EDA project for the first time, the safest checklist is usually:
 
-1. 数据概览有没有做清楚？
-2. 缺失值和异常值有没有交代？
-3. 单变量、双变量和分组分析有没有各做至少一轮？
-4. 每张关键图有没有一句明确结论？
-5. 最后有没有把发现翻译成业务建议？
+1. Is the data overview clear?
+2. Have missing values and outliers been explained?
+3. Have single-variable, two-variable, and grouped analyses each been done at least once?
+4. Does each key chart have a clear conclusion?
+5. Have the findings been translated into business recommendations?
 
-如果这 5 件事都做到位，这个项目就已经不只是“画图练习”，而是一份真正像样的分析报告。
+If you can do these 5 things well, this project is no longer just a “plotting exercise,” but a real analysis report.
 
-:::tip 完成后的下一步
-拿到 EDA 的结论后，下一步通常是**建模预测**——比如用小费比例作为目标变量，用其他特征来预测。这就是第三、四阶段会学到的机器学习内容了。
+:::tip Next step after finishing
+After you get the EDA conclusions, the next step is usually **modeling and prediction** — for example, using tip percentage as the target variable and predicting it from other features. That is the machine learning content you will learn in the third and fourth stages.
 :::
 
 ---
 
-:::note 项目回顾
-本项目带你完成了一次完整的 EDA 流程：加载数据 → 概览 → 清洗 → 统计 → 可视化 → 得出结论。这个流程在几乎所有数据科学项目中都是第一步，熟练掌握后你会发现面对任何数据集都不会"不知道从何下手"。
+:::note Project recap
+This project guided you through a complete EDA workflow: load data → overview → clean → analyze → visualize → conclude. This workflow is the first step in almost all data science projects. Once you master it, you will find that you no longer “don’t know where to start” when facing any dataset.
 :::
 
-## 版本路线建议
+## Version roadmap suggestions
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimal loop working | Can input, process, and output, while keeping one set of examples |
+| Standard version | Build a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Get close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to complete the basic version first; don’t aim for everything at once at the beginning. Each time you improve a version, write into the README “what new capability was added, how it was validated, and what problems remain.”

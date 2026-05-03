@@ -1,142 +1,142 @@
 ---
-title: "Python 环境管理"
+title: "Python Environment Management"
 sidebar_position: 1
-description: "用 Miniconda 管理 Python 版本和虚拟环境，从根源上避免包冲突"
+description: "Use Miniconda to manage Python versions and virtual environments, avoiding package conflicts at the source"
 ---
 
-# Python 环境管理
+# Python Environment Management
 
-![Python 环境与依赖关系图](/img/course/ch01-python-env-stack.png)
+![Python Environment and Dependency Diagram](/img/course/ch01-python-env-stack-en.png)
 
-## 本节定位
+## What this section covers
 
-这一节解决的是 AI 学习中最常见的“环境混乱”和“依赖冲突”问题。你会理解为什么每个项目都应该有独立环境，并学会用 Miniconda 创建、切换、导出和恢复 Python 环境。
+This section solves the most common problems in AI learning: “environment mess” and “dependency conflicts.” You will understand why every project should have its own isolated environment, and learn how to create, switch, export, and restore Python environments with Miniconda.
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么需要虚拟环境（通过一个真实的翻车案例）
-- 安装和配置 Miniconda
-- 掌握虚拟环境的创建、激活、切换、删除
-- 理解 conda 和 pip 的区别，知道什么时候用哪个
-- 学会导出和导入环境配置
-- 能独立排查常见环境问题
+- Understand why virtual environments are needed (through a real-world failure case)
+- Install and configure Miniconda
+- Learn how to create, activate, switch, and delete virtual environments
+- Understand the difference between conda and pip, and know when to use each
+- Learn how to export and import environment configurations
+- Be able to troubleshoot common environment issues on your own
 
 ---
 
-## 为什么需要虚拟环境？
+## Why do we need virtual environments?
 
-### 一个真实的翻车场景
+### A real-world failure scenario
 
-小明在做两个 AI 项目：
+Xiaoming is working on two AI projects:
 
-- **项目 A**（图像分类）：需要 `torch==1.13`，因为用了一个只兼容 1.13 的旧库
-- **项目 B**（大模型应用）：需要 `torch==2.1`，因为用了最新的 Flash Attention
+- **Project A** (image classification): needs `torch==1.13` because it uses an old library that only works with 1.13
+- **Project B** (LLM application): needs `torch==2.1` because it uses the latest Flash Attention
 
-如果他把两个项目的依赖都装在同一个 Python 里：
+If he installs both projects’ dependencies into the same Python environment:
 
 ```bash
-pip install torch==1.13    # 项目 A 能跑了
-pip install torch==2.1     # 项目 B 能跑了，但 torch 被升级到 2.1
-# 这时候回去跑项目 A —— 报错了！因为 torch 已经变成 2.1 了
+pip install torch==1.13    # Project A works
+pip install torch==2.1     # Project B works, but torch is upgraded to 2.1
+# Then when going back to Project A — it fails! Because torch is now 2.1
 ```
 
-这就是**包版本冲突**——一个 Python 环境只能装一个版本的同名包。
+This is called a **package version conflict** — one Python environment can only hold one version of a package with the same name.
 
-### 虚拟环境怎么解决这个问题？
+### How do virtual environments solve this problem?
 
-虚拟环境 = 一个**独立的、隔离的 Python 安装**。每个项目一个环境，互不干扰：
+A virtual environment is an **independent, isolated Python installation**. Each project gets its own environment, and they do not interfere with each other:
 
 ```
-项目 A 的环境：Python 3.10 + torch 1.13 + ...
-项目 B 的环境：Python 3.11 + torch 2.1 + ...
+Project A environment: Python 3.10 + torch 1.13 + ...
+Project B environment: Python 3.11 + torch 2.1 + ...
 ```
 
-切换项目时，切换环境就行。两边互不影响。
+When you switch projects, just switch environments. The two sides won’t affect each other.
 
-### 类比
+### Analogy
 
-把虚拟环境想象成手机上的**多用户/工作空间**。每个用户有自己独立安装的 App，互不干扰。你可以在"工作用户"里装钉钉，在"个人用户"里装游戏，它们之间完全隔离。
+Think of a virtual environment like **multiple users/workspaces** on a phone. Each user has their own independently installed apps, and they don’t interfere with each other. You can install DingTalk in your “work” user and games in your “personal” user, and they remain completely isolated.
 
 ---
 
-## 安装 Miniconda
+## Install Miniconda
 
-### 为什么选 Miniconda？
+### Why choose Miniconda?
 
-| 工具 | 说明 | 推荐度 |
+| Tool | Description | Recommendation |
 |------|------|:---:|
-| **Miniconda** | 轻量级，只装核心组件，按需安装其他包 | ⭐⭐⭐⭐⭐ |
-| Anaconda | 全家桶，预装 250+ 个包，占用 3GB+ | ⭐⭐⭐ |
-| venv + pip | Python 自带，轻量但功能较少 | ⭐⭐⭐ |
+| **Miniconda** | Lightweight, installs only the core components, and lets you install other packages as needed | ⭐⭐⭐⭐⭐ |
+| Anaconda | A full bundle, preinstalled with 250+ packages, uses 3GB+ | ⭐⭐⭐ |
+| venv + pip | Built into Python, lightweight but with fewer features | ⭐⭐⭐ |
 
-Miniconda 是最佳选择：够轻量、能管理 Python 版本、能创建虚拟环境、AI 社区广泛使用。
+Miniconda is the best choice: it is lightweight enough, can manage Python versions, can create virtual environments, and is widely used in the AI community.
 
-### macOS 安装
+### macOS installation
 
 ```bash
-# 下载安装脚本（Apple Silicon / M1/M2/M3）
+# Download the installation script (Apple Silicon / M1/M2/M3)
 curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
 
-# Intel Mac 用这个
+# For Intel Mac, use this
 # curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
 
-# 运行安装
+# Run the installer
 bash Miniconda3-latest-MacOSX-arm64.sh
 ```
 
-安装过程中：
-- 阅读协议：按 `q` 跳过，输入 `yes` 同意
-- 安装路径：直接回车用默认路径
-- 是否初始化：输入 `yes`
+During installation:
+- Read the license: press `q` to skip, type `yes` to agree
+- Installation path: press Enter to use the default path
+- Initialize conda: type `yes`
 
-安装完成后，**关闭终端再重新打开**。
+After installation, **close the terminal and reopen it**.
 
-### Ubuntu/Linux 安装
+### Ubuntu/Linux installation
 
 ```bash
-# 下载
+# Download
 curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
-# 安装
+# Install
 bash Miniconda3-latest-Linux-x86_64.sh
 
-# 按提示操作，最后选 yes 初始化
+# Follow the prompts, and choose yes to initialize at the end
 ```
 
-关闭终端再重新打开。
+Close the terminal and reopen it.
 
-### Windows 安装
+### Windows installation
 
-1. 下载安装包：[Miniconda Windows 安装程序](https://docs.conda.io/en/latest/miniconda.html)
-2. 双击运行，一路 Next
-3. **勾选** "Add Miniconda3 to my PATH environment variable"（方便在 PowerShell 中使用）
-4. 安装完成后重启 PowerShell
+1. Download the installer: [Miniconda Windows Installer](https://docs.conda.io/en/latest/miniconda.html)
+2. Double-click to run it, then keep clicking Next
+3. **Check** "Add Miniconda3 to my PATH environment variable" (so it is convenient to use in PowerShell)
+4. After installation, restart PowerShell
 
-### 验证安装
+### Verify installation
 
 ```bash
 conda --version
-# 输出类似: conda 24.x.x
+# Output similar to: conda 24.x.x
 
 python --version
-# 输出类似: Python 3.12.x
+# Output similar to: Python 3.12.x
 ```
 
-看到版本号就说明安装成功了。
+If you see version numbers, the installation was successful.
 
-### 配置国内镜像（国内用户强烈推荐）
+### Configure a domestic mirror for faster downloads (strongly recommended for users in China)
 
-默认的 conda 源在国外，下载速度很慢。配置清华镜像：
+The default conda channels are overseas, so downloads can be slow. Configure the Tsinghua mirror:
 
 ```bash
-# 添加清华镜像
+# Add Tsinghua mirrors
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch
 conda config --set show_channel_urls yes
 ```
 
-同时配置 pip 的清华镜像（如果之前没配过）：
+Also configure the Tsinghua mirror for pip (if you have not done so before):
 
 ```bash
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
@@ -144,95 +144,95 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 ---
 
-## 虚拟环境操作
+## Virtual environment operations
 
-### 创建环境
+### Create an environment
 
 ```bash
-# 创建一个名叫 ai-basic 的环境，Python 版本 3.11
+# Create an environment named ai-basic with Python 3.11
 conda create -n ai-basic python=3.11
 
-# conda 会列出要安装的包，输入 y 确认
+# conda will list the packages to be installed; type y to confirm
 ```
 
-`-n ai-basic` 是环境的名字，你可以随便起，建议用项目名或用途命名。
+`-n ai-basic` is the environment name. You can name it however you like, but it is recommended to use the project name or purpose.
 
-### 激活环境
+### Activate an environment
 
 ```bash
 conda activate ai-basic
 ```
 
-激活后，你的终端提示符前面会出现环境名：
+After activation, the environment name appears at the front of your terminal prompt:
 
 ```
 (ai-basic) zhangsan@MacBook ~ $
 ```
 
-这表示你现在在 `ai-basic` 环境里。在这个环境里安装的任何包，都只属于这个环境。
+This means you are now inside the `ai-basic` environment. Any packages installed in this environment belong only to this environment.
 
-### 在环境里安装包
+### Install packages in the environment
 
 ```bash
-# 确认当前环境
+# Check the current environment
 conda info --envs
-# 带 * 号的就是当前激活的环境
+# The one with * is the currently active environment
 
-# 用 pip 安装包（推荐大部分情况使用 pip）
+# Install packages with pip (recommended in most cases)
 pip install numpy pandas matplotlib
 
-# 用 conda 安装包（某些特殊的包用 conda 更好）
+# Install packages with conda (some special packages are better installed with conda)
 conda install scipy
 
-# 查看当前环境安装了哪些包
+# View which packages are installed in the current environment
 pip list
-# 或
+# or
 conda list
 ```
 
-### 案例：为不同项目创建不同环境
+### Example: create different environments for different projects
 
 ```bash
-# 项目 A：传统机器学习
+# Project A: traditional machine learning
 conda create -n ml-project python=3.11
 conda activate ml-project
 pip install numpy pandas scikit-learn matplotlib seaborn jupyter
 
-# 项目 B：深度学习
+# Project B: deep learning
 conda create -n dl-project python=3.11
 conda activate dl-project
 pip install torch torchvision numpy matplotlib tensorboard
 
-# 项目 C：大模型应用
+# Project C: LLM application
 conda create -n llm-project python=3.11
 conda activate llm-project
 pip install openai langchain chromadb fastapi
 ```
 
-三个项目，三个独立的环境，互不干扰。
+Three projects, three separate environments, no interference.
 
-### 切换环境
+### Switch environments
 
 ```bash
-# 切换到 ml-project 环境
+# Switch to the ml-project environment
 conda activate ml-project
 
-# 切换到 dl-project 环境
+# Switch to the dl-project environment
 conda activate dl-project
 
-# 退出当前环境（回到 base 环境）
+# Exit the current environment (return to the base environment)
 conda deactivate
 ```
 
-### 查看所有环境
+### View all environments
 
 ```bash
 conda env list
-# 或
+# or
 conda info --envs
 ```
 
-输出：
+Output:
 
 ```
 # conda environments:
@@ -244,15 +244,15 @@ dl-project               /Users/zhangsan/miniconda3/envs/dl-project
 llm-project              /Users/zhangsan/miniconda3/envs/llm-project
 ```
 
-`*` 号表示当前激活的环境。
+The `*` indicates the currently active environment.
 
-### 删除环境
+### Delete an environment
 
 ```bash
-# 删除一个不再需要的环境
+# Delete an environment you no longer need
 conda env remove -n ai-basic
 
-# 确认已删除
+# Confirm it has been deleted
 conda env list
 ```
 
@@ -260,37 +260,37 @@ conda env list
 
 ## conda install vs pip install
 
-这是新手最常问的问题。简单的原则：
+This is one of the most common questions beginners ask. A simple rule of thumb:
 
-| 情况 | 用什么 | 原因 |
+| Situation | Use | Reason |
 |------|-------|------|
-| 大部分 Python 包 | `pip install` | pip 的包最全，更新最快 |
-| CUDA 相关的包 | `conda install` | conda 能自动处理 CUDA 依赖 |
-| 系统级的库（如 MKL） | `conda install` | pip 装不了系统级的库 |
-| 不确定用哪个 | 先试 `pip install` | pip 更通用 |
+| Most Python packages | `pip install` | pip has the widest package coverage and the fastest updates |
+| CUDA-related packages | `conda install` | conda can automatically handle CUDA dependencies |
+| System-level libraries (such as MKL) | `conda install` | pip cannot install system-level libraries |
+| Not sure which one to use | Try `pip install` first | pip is more general-purpose |
 
-:::warning 一个重要原则
-在同一个环境里，**尽量不要混用** conda install 和 pip install 安装同一个包。如果你用 pip 装了 numpy，就不要再用 conda 装一次 numpy。混用可能导致版本混乱。
+:::warning An important rule
+In the same environment, **try not to mix** `conda install` and `pip install` for the same package. If you installed numpy with pip, do not install numpy again with conda. Mixing them may cause version confusion.
 
-推荐做法：在 conda 环境里，优先用 pip 安装所有 Python 包。
+Recommended practice: in a conda environment, prioritize pip for installing all Python packages.
 :::
 
 ---
 
-## 导出和导入环境
+## Exporting and importing environments
 
-### 场景：分享你的项目环境
+### Scenario: share your project environment
 
-你做完一个项目，想让同事（或未来的自己）能快速搭建相同的环境。
+After finishing a project, you may want your teammates (or your future self) to quickly recreate the same environment.
 
-#### 方式一：pip freeze（最常用）
+#### Method 1: pip freeze (most common)
 
 ```bash
-# 导出当前环境的所有包到 requirements.txt
+# Export all packages in the current environment to requirements.txt
 pip freeze > requirements.txt
 ```
 
-`requirements.txt` 长这样：
+`requirements.txt` looks like this:
 
 ```
 numpy==1.26.4
@@ -300,172 +300,172 @@ matplotlib==3.8.2
 torch==2.1.2
 ```
 
-别人拿到后，一行命令恢复：
+Anyone who gets it can restore the environment with one command:
 
 ```bash
-# 创建新环境
+# Create a new environment
 conda create -n restored-env python=3.11
 conda activate restored-env
 
-# 安装所有依赖
+# Install all dependencies
 pip install -r requirements.txt
 ```
 
-#### 方式二：conda env export
+#### Method 2: conda env export
 
 ```bash
-# 导出完整环境（包括 conda 和 pip 安装的包）
+# Export the full environment (including packages installed by conda and pip)
 conda env export > environment.yml
 ```
 
-恢复：
+Restore:
 
 ```bash
 conda env create -f environment.yml
 ```
 
-#### 该用哪种？
+#### Which one should you use?
 
-| 文件 | 适合场景 | 优点 | 缺点 |
+| File | Suitable for | Advantages | Disadvantages |
 |------|---------|------|------|
-| `requirements.txt` | 大部分项目 | 简单、通用、跨平台 | 不含 Python 版本信息 |
-| `environment.yml` | 包含 conda 特殊包的项目 | 完整、含 Python 版本 | 可能有平台差异 |
+| `requirements.txt` | Most projects | Simple, universal, cross-platform | Does not include Python version information |
+| `environment.yml` | Projects with conda-specific packages | Complete, includes Python version | May vary across platforms |
 
-**建议：** 每个项目里都放一个 `requirements.txt`，这是 Python 社区的标准做法。
+**Recommendation:** Put a `requirements.txt` file in every project. This is the standard practice in the Python community.
 
 ---
 
-## 常见问题排查
+## Common troubleshooting
 
-### 问题1：`conda activate` 不生效
+### Problem 1: `conda activate` does not work
 
 ```
 CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
 ```
 
-解决：
+Solution:
 
 ```bash
-# 初始化 conda（根据你的 shell 选择）
-conda init zsh     # macOS 默认
-conda init bash    # Linux 默认
+# Initialize conda (choose according to your shell)
+conda init zsh     # macOS default
+conda init bash    # Linux default
 
-# 然后重启终端
+# Then restart the terminal
 ```
 
-### 问题2：`command not found: python`
+### Problem 2: `command not found: python`
 
-安装了 Miniconda 但输入 `python` 报找不到。
+You installed Miniconda, but typing `python` says it cannot be found.
 
 ```bash
-# 检查 conda 环境是否激活
+# Check whether the conda environment is activated
 conda activate base
 
-# 如果还不行，检查 PATH
+# If it still does not work, check PATH
 which python
 echo $PATH
 ```
 
-### 问题3：包安装超时
+### Problem 3: Package installation times out
 
 ```
 pip install torch
-# 卡住很久或报 timeout
+# Stuck for a long time or reports timeout
 ```
 
-解决：确认配置了国内镜像，或者手动指定：
+Solution: make sure you have configured a domestic mirror, or specify one manually:
 
 ```bash
 pip install torch -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-### 问题4：版本冲突
+### Problem 4: Version conflicts
 
 ```
 ERROR: pip's dependency resolver found conflicts
 ```
 
-解决思路：
+Suggested approach:
 
 ```bash
-# 方案1：创建一个全新的环境，逐个安装
+# Option 1: Create a brand-new environment and install packages one by one
 conda create -n fresh python=3.11
 conda activate fresh
-pip install 包A
-pip install 包B  # 如果冲突，会提示哪里冲突
+pip install PackageA
+pip install PackageB  # If there is a conflict, it will tell you where it is
 
-# 方案2：把冲突的包降到兼容的版本
-pip install "包A>=1.0,<2.0"
+# Option 2: Downgrade the conflicting package to a compatible version
+pip install "PackageA>=1.0,<2.0"
 ```
 
-### 问题5：装了包但 import 报错
+### Problem 5: Package installed, but import fails
 
 ```python
 import torch
 # ModuleNotFoundError: No module named 'torch'
 ```
 
-最常见原因：你装包的环境和运行代码的环境不是同一个。
+The most common reason is that the environment where you installed the package is not the same as the one where you are running the code.
 
 ```bash
-# 检查当前环境
-conda info --envs   # 看哪个带 *
+# Check the current environment
+conda info --envs   # See which one has *
 
-# 检查包装在了哪个环境里
-conda activate 你以为装了torch的环境
+# Check which environment has the package installed
+conda activate the_environment_you_think_has_torch
 pip list | grep torch
 
-# 确认 Python 路径
+# Confirm the Python path
 which python
-# 应该指向你的 conda 环境目录
+# It should point to your conda environment directory
 ```
 
 ---
 
-## 实操练习：搭建你的第一个学习环境
+## Hands-on exercise: build your first learning environment
 
 ```bash
-# 1. 创建一个专门用于本课程的环境
+# 1. Create an environment dedicated to this course
 conda create -n ai-course python=3.11
 conda activate ai-course
 
-# 2. 安装第 1 站需要的基础包
+# 2. Install the basic packages needed for Station 1
 pip install requests beautifulsoup4 fastapi uvicorn
 
-# 3. 安装第 2 站需要的数据分析包
+# 3. Install the data analysis packages needed for Station 2
 pip install numpy pandas matplotlib seaborn jupyter
 
-# 4. 验证安装
+# 4. Verify installation
 python -c "
 import numpy as np
 import pandas as pd
-print(f'NumPy 版本: {np.__version__}')
-print(f'Pandas 版本: {pd.__version__}')
-print('✅ 环境搭建成功！')
+print(f'NumPy version: {np.__version__}')
+print(f'Pandas version: {pd.__version__}')
+print('✅ Environment setup successful!')
 "
 
-# 5. 导出环境配置
+# 5. Export environment configuration
 pip freeze > requirements.txt
 cat requirements.txt
 
-# 6. 查看环境列表
+# 6. View the environment list
 conda env list
 ```
 
-如果最后看到 `✅ 环境搭建成功！`，你的 Python 环境就准备好了。
+If you see `✅ Environment setup successful!` at the end, your Python environment is ready.
 
 ---
 
-## 命令速查
+## Command quick reference
 
-| 命令 | 用途 |
+| Command | Purpose |
 |------|------|
-| `conda create -n 名字 python=3.11` | 创建新环境 |
-| `conda activate 名字` | 激活环境 |
-| `conda deactivate` | 退出当前环境 |
-| `conda env list` | 列出所有环境 |
-| `conda env remove -n 名字` | 删除环境 |
-| `pip install 包名` | 安装 Python 包 |
-| `pip list` | 查看已安装的包 |
-| `pip freeze > requirements.txt` | 导出依赖列表 |
-| `pip install -r requirements.txt` | 从文件安装依赖 |
+| `conda create -n name python=3.11` | Create a new environment |
+| `conda activate name` | Activate an environment |
+| `conda deactivate` | Exit the current environment |
+| `conda env list` | List all environments |
+| `conda env remove -n name` | Delete an environment |
+| `pip install package_name` | Install a Python package |
+| `pip list` | View installed packages |
+| `pip freeze > requirements.txt` | Export dependency list |
+| `pip install -r requirements.txt` | Install dependencies from a file |

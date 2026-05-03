@@ -1,123 +1,123 @@
 ---
-title: "7.2 多 Agent 架构模式"
+title: "7.2 Multi-Agent Architecture Patterns"
 sidebar_position: 38
-description: "从监督者模式、流水线模式、群体协作模式到评审模式，理解多 Agent 系统为什么要这样分工。"
+description: "From supervisor patterns and pipeline patterns to collaboration and reviewer patterns, understand why multi-Agent systems need different roles and division of labor."
 keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architecture, collaboration]
 ---
 
-# 多 Agent 架构模式
+# Multi-Agent Architecture Patterns
 
-![多 Agent 协作消息流图](/img/course/multi-agent-message-flow.png)
+![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.png)
 
-:::tip 本节定位
-很多人第一次做多 Agent 时，最容易犯的错就是：
+:::tip This section’s focus
+When many people build their first multi-Agent system, the easiest mistake to make is:
 
-> “既然一个 Agent 不够，那就多开几个。”
+> “If one Agent is not enough, just add more.”
 
-但真正的问题不是“数量”，而是：
+But the real issue is not “how many,” it is:
 
-> **这些 Agent 怎样分工、怎样组织、怎样协作。**
+> **How these Agents divide work, organize themselves, and collaborate.**
 
-这就是多 Agent 架构模式要解决的核心。
+That is the core problem multi-Agent architecture patterns are designed to solve.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解什么时候真的需要多 Agent
-- 分清几种最常见的多 Agent 架构模式
-- 看懂 supervisor、pipeline、reviewer 等模式的优缺点
-- 用一个小型示例感受不同模式的组织方式
-
----
-
-## 一、为什么不是所有任务都需要多 Agent？
-
-### 1.1 多 Agent 不是默认升级路线
-
-如果一个任务本来就能由单 Agent 稳定完成，多 Agent 往往只会增加：
-
-- 通信成本
-- 调试难度
-- 失败路径
-
-所以更稳妥的原则通常是：
-
-> **先把单 Agent 做稳，再考虑是否真的需要拆成多 Agent。**
-
-### 1.2 那什么时候值得上多 Agent？
-
-通常是这些情况：
-
-- 任务明显可以拆工
-- 子任务类型差异很大
-- 一个 Agent 同时承担所有职责太乱
-- 需要独立的规划、执行、评审角色
-
-这时多 Agent 才真正有意义。
+- Understand when you really need multiple Agents
+- Distinguish the most common multi-Agent architecture patterns
+- Understand the strengths and weaknesses of patterns like supervisor, pipeline, and reviewer
+- Use a small example to feel how different patterns are organized
 
 ---
 
-## 二、先看最常见的几种模式
+## 1. Why doesn’t every task need multiple Agents?
 
-### 2.1 Supervisor-Worker 模式
+### 1.1 Multi-Agent is not the default upgrade path
 
-一个监督者（supervisor）负责：
+If a task can already be completed stably by a single Agent, multi-Agent often only adds:
 
-- 拆任务
-- 分配任务
-- 汇总结果
+- Communication cost
+- Debugging difficulty
+- Failure paths
 
-其他 worker 负责具体执行。
+So a safer rule is usually:
 
-这是最常见也最好理解的模式之一。
+> **First make the single-Agent version solid, then consider whether it is really necessary to split into multiple Agents.**
 
-### 2.2 Pipeline 模式
+### 1.2 When is it worth using multiple Agents?
 
-每个 Agent 只负责固定阶段：
+Usually in these cases:
 
-1. 检索
-2. 分析
-3. 写作
+- The task can clearly be split into sub-tasks
+- The sub-tasks are very different in type
+- One Agent handling everything becomes too messy
+- You need separate planning, execution, and review roles
 
-它更像流水线。
-
-### 2.3 Reviewer 模式
-
-一个 Agent 负责生成，另一个专门负责检查或评审。
-
-这在代码、文档、报告生成里特别常见。
-
-### 2.4 Group / Peer 模式
-
-多个 Agent 相对平等地协商。
-
-这种模式更灵活，但也更难控。
+Only then does multi-Agent really make sense.
 
 ---
 
-## 三、Supervisor-Worker：最值得先学的模式
+## 2. First look at the most common patterns
 
-### 3.1 为什么它很常见？
+### 2.1 Supervisor-Worker pattern
 
-因为它最符合很多现实团队结构：
+A supervisor is responsible for:
 
-- 项目经理 / 组长负责拆任务
-- 执行同学负责具体工作
+- Breaking down tasks
+- Assigning tasks
+- Summarizing results
 
-### 3.2 一个最小可运行示例
+Other workers are responsible for the actual execution.
+
+This is one of the most common and easiest patterns to understand.
+
+### 2.2 Pipeline pattern
+
+Each Agent is responsible for a fixed stage:
+
+1. Retrieval
+2. Analysis
+3. Writing
+
+It is more like an assembly line.
+
+### 2.3 Reviewer pattern
+
+One Agent generates output, and another is dedicated to checking or reviewing it.
+
+This is especially common in code, documentation, and report generation.
+
+### 2.4 Group / Peer pattern
+
+Multiple Agents collaborate as peers and negotiate with each other.
+
+This pattern is more flexible, but also harder to control.
+
+---
+
+## 3. Supervisor-Worker: the first pattern worth learning
+
+### 3.1 Why is it so common?
+
+Because it matches many real-world team structures:
+
+- A project manager or team lead breaks down the work
+- Team members handle the actual tasks
+
+### 3.2 A minimal runnable example
 
 ```python
-tasks = ["检索资料", "整理要点", "撰写总结"]
+tasks = ["retrieve materials", "organize key points", "write summary"]
 workers = {
-    "researcher": "负责找资料",
-    "analyst": "负责整理信息",
-    "writer": "负责生成最终文本"
+    "researcher": "responsible for finding materials",
+    "analyst": "responsible for organizing information",
+    "writer": "responsible for generating the final text"
 }
 
 assignment = {
-    "检索资料": "researcher",
-    "整理要点": "analyst",
-    "撰写总结": "writer"
+    "retrieve materials": "researcher",
+    "organize key points": "analyst",
+    "write summary": "writer"
 }
 
 for task in tasks:
@@ -125,49 +125,49 @@ for task in tasks:
     print(f"{worker} <- {task} ({workers[worker]})")
 ```
 
-### 3.3 它的优点和缺点
+### 3.3 Its strengths and weaknesses
 
-优点：
+Strengths:
 
-- 分工清楚
-- 更容易控制
-- 更容易观察谁哪一步出问题
+- Clear division of labor
+- Easier to control
+- Easier to see which step has a problem
 
-缺点：
+Weaknesses:
 
-- supervisor 可能成为瓶颈
-- 如果拆任务质量差，后面全都会受影响
+- The supervisor may become a bottleneck
+- If task decomposition is poor, everything after that will be affected
 
 ---
 
-## 四、Pipeline 模式：像工厂流水线一样协作
+## 4. Pipeline pattern: collaboration like a factory assembly line
 
-### 4.1 它和 supervisor 模式的区别
+### 4.1 How is it different from the supervisor pattern?
 
-supervisor 模式强调“一个中心调度”。  
-pipeline 模式更强调“任务按固定阶段流动”。
+The supervisor pattern emphasizes “one central controller.”
+The pipeline pattern emphasizes “tasks flowing through fixed stages.”
 
-例如：
+For example:
 
-1. Retriever Agent 找资料
-2. Filter Agent 过滤噪声
-3. Writer Agent 生成答案
+1. Retriever Agent finds materials
+2. Filter Agent removes noise
+3. Writer Agent generates the answer
 
-### 4.2 一个最小示例
+### 4.2 A minimal example
 
 ```python
 def retriever(query):
-    return {"docs": ["退款政策", "证书说明"], "query": query}
+    return {"docs": ["refund policy", "certificate instructions"], "query": query}
 
 def filter_agent(data):
-    return {"docs": [doc for doc in data["docs"] if "退款" in doc], "query": data["query"]}
+    return {"docs": [doc for doc in data["docs"] if "refund" in doc], "query": data["query"]}
 
 def writer(data):
     if not data["docs"]:
-        return "未找到足够相关的信息。"
-    return f"基于 {data['docs']}，生成最终回答。"
+        return "No sufficiently relevant information found."
+    return f"Based on {data['docs']}, generate the final answer."
 
-query = "退款政策是什么"
+query = "What is the refund policy"
 step1 = retriever(query)
 step2 = filter_agent(step1)
 step3 = writer(step2)
@@ -177,172 +177,172 @@ print(step2)
 print(step3)
 ```
 
-### 4.3 它适合什么？
+### 4.3 What is it suitable for?
 
-适合：
+Suitable for:
 
-- 阶段固定
-- 顺序清晰
-- 每一层职责非常明确
+- Fixed stages
+- Clear order
+- Very explicit responsibilities at each layer
 
-不太适合：
+Not very suitable for:
 
-- 需要频繁回头修改计划
-- 需要大量灵活协商
+- Frequent plan revisions
+- A lot of flexible negotiation
 
 ---
 
-## 五、Reviewer 模式：生成和检查分离
+## 5. Reviewer pattern: separating generation and checking
 
-### 5.1 为什么这个模式很实用？
+### 5.1 Why is this pattern so practical?
 
-很多任务里，“生成”和“评审”天然就是两种不同能力。
+In many tasks, “generation” and “review” are naturally two different abilities.
 
-例如：
+For example:
 
-- 代码编写 vs 代码审查
-- 报告撰写 vs 事实核查
-- 答案生成 vs 风险审查
+- Code writing vs. code review
+- Report writing vs. fact checking
+- Answer generation vs. risk review
 
-### 5.2 一个可运行示例
+### 5.2 A runnable example
 
 ```python
 def writer_agent(topic):
-    return f"关于 {topic} 的初稿：课程购买后 7 天内可退款。"
+    return f"Draft about {topic}: courses are refundable within 7 days after purchase."
 
 def reviewer_agent(text):
-    if "7 天内" in text:
-        return {"approved": True, "comment": "关键信息已覆盖"}
-    return {"approved": False, "comment": "缺少核心时间条件"}
+    if "within 7 days" in text:
+        return {"approved": True, "comment": "Key information is covered"}
+    return {"approved": False, "comment": "Missing the core time condition"}
 
-draft = writer_agent("退款政策")
+draft = writer_agent("refund policy")
 review = reviewer_agent(draft)
 
 print("draft :", draft)
 print("review:", review)
 ```
 
-### 5.3 为什么这个模式好用？
+### 5.3 Why is this pattern useful?
 
-因为它可以把“生成质量”和“检查质量”拆开管理。
+Because it separates “generation quality” from “checking quality” so they can be managed independently.
 
-这在高风险任务里尤其有价值。
+This is especially valuable in high-risk tasks.
 
 ---
 
-## 六、Peer / Group 模式：多个 Agent 平等协作
+## 6. Peer / Group pattern: multiple Agents collaborate as equals
 
-### 6.1 看起来很自由，但也更难控
+### 6.1 It looks very free, but it is also harder to control
 
-在这种模式里，多个 Agent 都能提议、争论、补充。
+In this pattern, multiple Agents can propose ideas, debate, and add details.
 
-优点：
+Strengths:
 
-- 灵活
-- 容易激发多种方案
+- Flexible
+- Easy to generate multiple solutions
 
-缺点：
+Weaknesses:
 
-- 容易重复劳动
-- 容易跑题
-- 更难收敛
+- Easy to duplicate work
+- Easy to drift off topic
+- Harder to converge
 
-![多 Agent 架构模式选择图](/img/course/ch09-multi-agent-pattern-selection-map.png)
+![Multi-Agent architecture pattern selection map](/img/course/ch09-multi-agent-pattern-selection-map-en.png)
 
-:::tip 读图提示
-读这张图时，先看任务有没有天然分工：需要中心调度就选 supervisor-worker，阶段固定就选 pipeline，需要质量检查就加 reviewer，需要多视角讨论才考虑 peer/group。
+:::tip Reading guide
+When reading this diagram, first check whether the task has a natural division of labor: choose supervisor-worker if you need central scheduling, choose pipeline if the stages are fixed, add a reviewer if you need quality checks, and only consider peer/group when you truly need multi-perspective discussion.
 :::
 
-### 6.2 什么时候考虑它？
+### 6.2 When should you consider it?
 
-比较适合：
+It is a better fit for:
 
-- 头脑风暴
-- 方案比较
-- 多视角分析
+- Brainstorming
+- Comparing solutions
+- Multi-perspective analysis
 
-但对很多工程系统来说，它未必是最稳的起点。
-
----
-
-## 七、一个很重要的问题：谁负责收尾？
-
-不管你用哪种模式，都必须回答这个问题：
-
-> 最终由谁来决定“任务完成了”？ 
-
-如果这个问题没设计好，很容易出现：
-
-- 大家都在做事，但没人收尾
-- 多个 Agent 互相来回发消息
-- 任务迟迟不结束
-
-这也是为什么很多多 Agent 系统，最后还是会有一个“最终裁决者”。
+But for many engineering systems, it may not be the most stable starting point.
 
 ---
 
-## 八、多 Agent 架构的选择逻辑
+## 7. A very important question: who closes the loop?
 
-### 8.1 如果任务阶段固定
+No matter which pattern you use, you must answer this question:
 
-优先考虑：
+> Who is ultimately responsible for deciding that the task is done?
 
-- Pipeline 模式
+If this is not designed clearly, it is easy to get:
 
-### 8.2 如果任务需要中心拆分和调度
+- Everyone working, but nobody closing the loop
+- Multiple Agents sending messages back and forth
+- The task never ending
 
-优先考虑：
-
-- Supervisor-Worker 模式
-
-### 8.3 如果任务需要强评审和复核
-
-优先考虑：
-
-- Writer-Reviewer 模式
-
-### 8.4 如果任务本身就是多视角讨论
-
-才考虑：
-
-- Peer / Group 模式
-
-所以最重要的不是“哪种模式更高级”，而是：
-
-> **哪种模式更匹配你的任务形状。**
+That is also why many multi-Agent systems still end up with a “final decision maker.”
 
 ---
 
-## 九、初学者最常踩的坑
+## 8. How to choose a multi-Agent architecture
 
-### 9.1 把多 Agent 当成“多开几个模型就行”
+### 8.1 If the task stages are fixed
 
-真正难的是架构，不是数量。
+Prefer:
 
-### 9.2 一上来就选最自由的协作模式
+- Pipeline pattern
 
-自由越高，调试和收敛难度通常也越高。
+### 8.2 If the task needs central decomposition and scheduling
 
-### 9.3 没有明确的结束条件
+Prefer:
 
-这是很多多 Agent demo 看起来聪明，但实际跑起来容易死循环的根源。
+- Supervisor-Worker pattern
+
+### 8.3 If the task needs strong review and verification
+
+Prefer:
+
+- Writer-Reviewer pattern
+
+### 8.4 If the task itself is multi-perspective discussion
+
+Only then consider:
+
+- Peer / Group pattern
+
+So the most important question is not “which pattern is more advanced,” but:
+
+> **Which pattern matches the shape of your task best?**
 
 ---
 
-## 小结
+## 9. Common mistakes beginners often make
 
-这一节最重要的不是背模式名字，而是理解：
+### 9.1 Treating multi-Agent as “just run a few more models”
 
-> **多 Agent 架构模式的核心，是把任务拆成合适的角色和协作关系，而不是简单增加参与者数量。**
+What is really hard is the architecture, not the number.
 
-选对架构模式，系统会更稳、更可控；  
-选错了，复杂度会比收益增长得更快。
+### 9.2 Choosing the most flexible collaboration pattern right away
+
+The higher the flexibility, the harder debugging and convergence usually become.
+
+### 9.3 Not defining an end condition
+
+This is the root cause of many multi-Agent demos looking smart but getting stuck in infinite loops when actually run.
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释 supervisor、pipeline、reviewer 三种模式的区别。
-2. 想一想：如果你要做“自动研究报告”，哪种模式最适合先落地？为什么？
-3. 设计一个“检索 -> 写作 -> 审核”的三 Agent 流水线。
-4. 思考：为什么说多 Agent 架构首先是组织问题，而不是模型数量问题？
+The most important thing in this section is not memorizing pattern names, but understanding:
+
+> **The core of multi-Agent architecture patterns is to split tasks into appropriate roles and collaboration relationships, not simply to increase the number of participants.**
+
+Choose the right architecture pattern, and the system will be more stable and controllable;
+choose the wrong one, and complexity will grow faster than the benefits.
+
+---
+
+## Exercises
+
+1. Explain the differences between the supervisor, pipeline, and reviewer patterns in your own words.
+2. Think about this: if you want to build an “automatic research report” system, which pattern is most suitable to implement first? Why?
+3. Design a three-Agent pipeline: “retrieval -> writing -> review.”
+4. Reflect: why do we say multi-Agent architecture is first an organizational problem, not a model-count problem?

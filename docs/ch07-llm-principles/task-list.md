@@ -1,81 +1,81 @@
 ---
-title: "阶段学习任务单"
-description: "把大模型原理、Prompt 与微调阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [大模型, Prompt, 结构化输出, 微调, 学习任务单]
+title: "Stage Learning Task Sheet"
+description: "Break down LLM principles, Prompt, and fine-tuning into executable learning tasks, practice deliverables, and pass criteria."
+keywords: [LLM, Prompt, structured output, fine-tuning, learning task sheet]
 ---
 
-# 阶段学习任务单：大模型原理、Prompt 与微调
+# Stage Learning Task Sheet: LLM Principles, Prompt, and Fine-tuning
 
-这个阶段的目标是让你理解大模型为什么能生成文本，Prompt 如何影响输出，什么时候需要结构化输出、RAG 或微调。不要把 Prompt 当成玄学，要把它当成可版本化、可测试、可复盘的工程输入。
+The goal of this stage is to help you understand why LLMs can generate text, how Prompt affects outputs, and when you need structured output, RAG, or fine-tuning. Don’t treat Prompt as magic; treat it as an engineering input that can be versioned, tested, and reviewed.
 
-## 本阶段必须完成的任务
+## Required tasks for this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Pass criteria |
 | --- | --- | --- |
-| 理解大模型基本原理 | 一份 LLM 工作流图 | 能解释 token、上下文、概率生成和 Transformer 的关系 |
-| 完成 Prompt 基础练习 | 一组 Prompt 对比样本 | 能比较角色、上下文、示例和约束对输出的影响 |
-| 完成结构化输出 | 一个 JSON 输出 Demo | 能定义字段、校验类型，并处理解析失败 |
-| 理解 RAG 与微调边界 | 一份技术选择表 | 能说明什么时候用 Prompt、RAG、微调或规则 |
-| 完成阶段项目 | 一个 Prompt 助手或复盘卡生成器 | 有 Prompt 版本、固定输入、输出对比和失败样本 |
+| Understand the basic principles of LLMs | An LLM workflow diagram | Can explain the relationship between token, context, probability-based generation, and Transformer |
+| Complete Prompt fundamentals practice | A set of Prompt comparison samples | Can compare how role, context, examples, and constraints affect outputs |
+| Complete structured output | A JSON output demo | Can define fields, validate types, and handle parsing failures |
+| Understand the boundary between RAG and fine-tuning | A technical decision table | Can explain when to use Prompt, RAG, fine-tuning, or rules |
+| Complete the stage project | A Prompt assistant or review-card generator | Has Prompt versions, fixed inputs, output comparisons, and failure samples |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先理解 token、上下文和生成机制，再学习 Prompt 基础、进阶 Prompt、结构化输出和微调边界。第一遍不要急着训练模型，先把“怎么稳定调用和约束模型输出”这件事做好。
+First understand token, context, and generation mechanisms, then learn Prompt fundamentals, advanced Prompting, structured output, and the boundary of fine-tuning. On your first pass, don’t rush to train a model. First make sure you can “call and constrain model outputs reliably.”
 
-每次改 Prompt 都应该记录版本和测试样本。Prompt 工程不是凭感觉写一句更长的话，而是控制变量、对比输出、记录失败，并把有效改动固化下来。
+Every time you change a Prompt, you should record the version and test samples. Prompt engineering is not about writing a longer sentence based on intuition; it is about controlling variables, comparing outputs, recording failures, and locking in effective changes.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI Learning Assistant project
 
-本阶段对应 AI 学习助手的 v0.7 Prompt 助手。你可以让系统根据学习记录生成学习计划、知识卡片、复盘总结或错题解释，并记录 Prompt 版本和失败样本。
+This stage corresponds to version v0.7 of the AI Learning Assistant Prompt assistant. You can let the system generate study plans, knowledge cards, review summaries, or mistake explanations based on learning records, and record Prompt versions and failure samples.
 
-建议最小功能包括：输入学习主题和当前水平，输出结构化学习建议；保存 Prompt 版本；用固定样本测试输出是否稳定。
+A recommended minimum feature set includes: input study topic and current level, output structured study suggestions; save Prompt versions; use fixed samples to test whether outputs are stable.
 
-## 常见卡点
+## Common sticking points
 
-常见问题包括 Prompt 越写越长但效果不稳定，JSON 输出带额外解释，字段类型漂移，模型编造不存在的资料，改了 Prompt 后旧样本变差。排查时先看输入、Prompt 版本、模型原始输出和解析逻辑，不要只看最终展示文本。
+Common problems include Prompts getting longer and longer but producing unstable results, JSON outputs with extra explanations, drifting field types, the model hallucinating nonexistent information, and old samples getting worse after a Prompt change. When troubleshooting, first look at the input, Prompt version, raw model output, and parsing logic; don’t look only at the final displayed text.
 
 
-## 轻松版 / 标准版 / 挑战版任务
+## Easy / Standard / Challenge tasks
 
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to do | Suitable for |
 |---|---|---|
-| 轻松版 | 让模型按固定格式输出 5 次 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 用 schema 校验 10 个固定输入 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 比较两个 Prompt 版本并写改进记录 | 已有基础、想做更强项目证据的学习者 |
+| Easy | Make the model output in a fixed format 5 times | First-time learners, learners with limited time, or beginners |
+| Standard | Validate 10 fixed inputs with a schema | Learners who want to include this stage in their portfolio |
+| Challenge | Compare two Prompt versions and write an improvement log | Learners with a foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Badges and Boss fight for this stage
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | JSON 漂移怪 |
-| 可解锁徽章 | Prompt 调教师、Schema 守护者 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss fight | JSON Drift Monster |
+| Unlockable badges | Prompt Tuner, Schema Guardian |
+| Minimum pass mantra | Make it run first, then explain it, then record failures |
+| Evidence-saving suggestion | Save screenshots, logs, failure samples, or evaluation tables to `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+Once you complete the Easy version, you can move on; only the Standard version is recommended for your portfolio; do the Challenge version only if you have extra capacity.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to preserve the results of this stage in your portfolio, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `prompts/` | 保存 Prompt 模板、版本号、适用任务和变更说明 |
-| `prompt_eval_cases.csv` | 固定输入、期望输出要点、实际输出和评分 |
-| `structured_output_schema.json` | 结构化输出字段、类型、必填项和枚举值 |
-| `failure_cases.md` | JSON 解析失败、字段缺失、幻觉、风格漂移等样本 |
-| `README.md` | 项目目标、运行方式、Prompt 版本、评估结果和限制 |
+| `prompts/` | Save Prompt templates, version numbers, applicable tasks, and change notes |
+| `prompt_eval_cases.csv` | Fixed inputs, expected output points, actual outputs, and scores |
+| `structured_output_schema.json` | Structured output fields, types, required items, and enum values |
+| `failure_cases.md` | Samples such as JSON parsing failures, missing fields, hallucinations, and style drift |
+| `README.md` | Project goals, how to run it, Prompt versions, evaluation results, and limitations |
 
-这些材料会让 Prompt 项目从“我会写提示词”升级成“我能把模型输出变成稳定、可测试、可维护的应用接口”。
+These materials will upgrade a Prompt project from “I can write prompts” to “I can turn model outputs into a stable, testable, and maintainable application interface.”
 
-## 阶段通关问题
+## Stage pass questions
 
-学完后，你应该能回答这些问题：token 和上下文为什么重要，Prompt 示例为什么会影响输出，结构化输出为什么需要校验，什么时候应该用 RAG 而不是继续加 Prompt，什么时候微调值得考虑。
+After finishing this stage, you should be able to answer these questions: why token and context matter, why Prompt examples affect outputs, why structured output needs validation, when you should use RAG instead of adding more Prompting, and when fine-tuning is worth considering.
 
-## 完成状态 Checklist
+## Completion checklist
 
-- [ ] 我能解释大模型生成文本的基本过程和上下文限制。
-- [ ] 我能设计一个有角色、任务、约束和示例的 Prompt。
-- [ ] 我能让模型输出结构化 JSON，并处理解析失败。
-- [ ] 我能记录 Prompt 版本，并用固定样本比较效果。
-- [ ] 我能说明 Prompt、RAG、微调和规则系统的适用边界。
+- [ ] I can explain the basic process of LLM text generation and context limits.
+- [ ] I can design a Prompt with a role, task, constraints, and examples.
+- [ ] I can make the model output structured JSON and handle parsing failures.
+- [ ] I can record Prompt versions and compare results with fixed samples.
+- [ ] I can explain the applicable boundaries of Prompt, RAG, fine-tuning, and rule-based systems.

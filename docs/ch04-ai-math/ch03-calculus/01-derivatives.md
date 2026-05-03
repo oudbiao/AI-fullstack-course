@@ -1,79 +1,79 @@
 ---
-title: "3.2 导数：变化率的直觉"
+title: "3.2 Derivatives: The Intuition of Rate of Change"
 sidebar_position: 9
-description: "理解导数的直觉含义（切线斜率=变化速度），掌握常用求导规则，用 Python 数值求导并可视化"
-keywords: [导数, 微积分, 变化率, 切线斜率, Python, AI数学]
+description: "Understand the intuitive meaning of derivatives (tangent slope = rate of change), master common differentiation rules, and use Python for numerical differentiation and visualization"
+keywords: [derivative, calculus, rate of change, tangent slope, Python, AI math]
 ---
 
-# 导数：变化率的直觉
+# Derivatives: The Intuition of Rate of Change
 
-![导数切线斜率示意图](/img/course/derivative-tangent-slope.png)
+![Derivative tangent slope illustration](/img/course/derivative-tangent-slope-en.png)
 
-:::tip 不需要你背公式
-本节不会考你推导能力。核心目标是让你理解**导数 = 变化的速度**这个直觉，会用 Python 计算导数即可。后面学梯度下降时，你会发现导数就是告诉你"往哪个方向调参数能让损失变小"。
+:::tip No need to memorize formulas
+This section will not test your ability to derive formulas. The core goal is to help you understand the intuition that **derivative = speed of change**, and to be able to compute derivatives with Python. Later, when you learn gradient descent, you’ll find that derivatives tell you "which direction to adjust parameters to make the loss smaller."
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 直觉理解导数 = 切线斜率 = 变化速度
-- 用生活场景（速度、股价）理解导数
-- 掌握常用求导规则
-- 用 Python 进行数值求导和可视化
+- Intuitively understand derivative = tangent slope = rate of change
+- Use everyday scenarios (speed, stock prices) to understand derivatives
+- Master common differentiation rules
+- Use Python for numerical differentiation and visualization
 
-## 先说一个很重要的学习预期
+## First, set a very important learning expectation
 
-这一节不是为了让你先变成“会推导一切导数的人”，  
-而是为了让你先真的理解：
+This section is not meant to make you "someone who can derive every derivative" right away,
+but to help you truly understand:
 
-- 导数到底在描述什么
-- 为什么它会直接关系到模型怎么更新参数
+- What a derivative is describing
+- Why it is directly related to how a model updates its parameters
 
-如果你现在读完一遍，还不能熟练做大量求导题，这完全正常。  
-更重要的标准是：
+If you finish one reading and still can’t confidently solve lots of derivative problems, that is completely normal.
+What matters more is:
 
-- 你能不能把导数说成“变化率”
-- 你能不能把它和后面的损失变化、参数更新连起来
+- Can you explain a derivative as a "rate of change"?
+- Can you connect it to later topics like loss changes and parameter updates?
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-这一节最好先把它放回整章里理解：
+It’s best to place this section back into the context of the whole chapter:
 
-![导数变化率桥梁图](/img/course/ch04-derivative-change-rate-bridge.png)
+![Derivative as a bridge for rate of change](/img/course/ch04-derivative-change-rate-bridge-en.png)
 
-所以这一节不是单独的数学知识点，而是在给后面整个优化主线打地基。
+So this section is not an isolated math topic; it is laying the foundation for the optimization storyline that follows.
 
-## 一、导数是什么？
+## 1. What Is a Derivative?
 
-### 1.1 生活中的"变化率"
+### 1.1 "Rate of change" in daily life
 
-| 场景 | 变量 | 变化率（导数） |
+| Scenario | Variable | Rate of change (derivative) |
 |------|------|--------------|
-| 开车 | 距离随时间变化 | 速度（km/h） |
-| 股票 | 股价随时间变化 | 涨跌速度 |
-| 学习 | 分数随练习时间变化 | 学习效率 |
-| AI 训练 | 损失值随训练步数变化 | 收敛速度 |
+| Driving | Distance changes over time | Speed (km/h) |
+| Stocks | Stock price changes over time | Rise/fall speed |
+| Learning | Score changes over practice time | Learning efficiency |
+| AI training | Loss changes over training steps | Convergence speed |
 
-**导数 = 某个量在某一瞬间的变化速度。**
+**A derivative = the speed at which some quantity changes at a particular moment.**
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A more beginner-friendly analogy
 
-如果你总觉得“切线斜率”还是有点抽象，可以先把导数想成：
+If "tangent slope" still feels a bit abstract, you can first think of a derivative as:
 
-- 仪表盘上的“当前速度”
+- the "current speed" on a dashboard
 
-比如开车时：
+For example, when driving:
 
-- 总路程是累计值
-- 速度是你此刻变化得有多快
+- total distance is an accumulated value
+- speed is how fast you are changing right now
 
-所以导数不是在问“总共变了多少”，  
-而是在问：
+So a derivative is not asking "how much has it changed in total,"
+but instead asking:
 
-> **现在这一刻，变化到底有多快。**
+> **At this moment, how fast is it changing?**
 
-### 1.2 几何直觉：切线斜率
+### 1.2 Geometric intuition: tangent slope
 
 ```python
 import numpy as np
@@ -82,11 +82,11 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 函数 f(x) = x²
+# Function f(x) = x²
 def f(x):
     return x ** 2
 
-# 在 x=1 处的切线
+# Tangent line at x=1
 x0 = 1
 slope = 2 * x0  # f'(x) = 2x → f'(1) = 2
 
@@ -95,69 +95,69 @@ tangent = slope * (x - x0) + f(x0)
 
 plt.figure(figsize=(8, 6))
 plt.plot(x, f(x), 'steelblue', linewidth=2, label='f(x) = x²')
-plt.plot(x, tangent, 'r--', linewidth=2, label=f'切线（斜率 = {slope}）')
+plt.plot(x, tangent, 'r--', linewidth=2, label=f'Tangent line (slope = {slope})')
 plt.plot(x0, f(x0), 'ro', markersize=10, zorder=5)
-plt.annotate(f'x={x0}, 斜率={slope}', xy=(x0, f(x0)), 
+plt.annotate(f'x={x0}, slope={slope}', xy=(x0, f(x0)),
              xytext=(x0+0.5, f(x0)+1.5), fontsize=12,
              arrowprops=dict(arrowstyle='->', color='gray'))
 plt.xlim(-1, 3)
 plt.ylim(-1, 8)
 plt.xlabel('x')
 plt.ylabel('f(x)')
-plt.title('导数 = 切线斜率')
+plt.title('Derivative = Tangent Slope')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-**解读**：f(x) = x² 在 x=1 处的导数是 2，意思是"当 x 在 1 附近每增加一点点，f(x) 大约增加 2 倍那么多"。
+**Interpretation**: The derivative of f(x) = x² at x = 1 is 2, which means "when x increases a little near 1, f(x) increases by about twice as much."
 
-### 1.3 数值求导——用 Python "近似"计算
+### 1.3 Numerical differentiation — approximate with Python
 
-不需要知道公式，只要能算函数值就能算导数：
+You don’t need to know the formula; as long as you can compute function values, you can compute derivatives:
 
-**f'(x) ≈ (f(x + h) - f(x - h)) / (2h)** （h 取很小的数）
+**f'(x) ≈ (f(x + h) - f(x - h)) / (2h)** (take h as a very small number)
 
 ```python
 def numerical_derivative(f, x, h=1e-7):
-    """用中心差分法计算数值导数"""
+    """Compute the numerical derivative using the central difference method"""
     return (f(x + h) - f(x - h)) / (2 * h)
 
-# 测试：f(x) = x² 的导数应该是 2x
+# Test: the derivative of f(x) = x² should be 2x
 f = lambda x: x ** 2
 
 for x0 in [0, 1, 2, 3]:
     approx = numerical_derivative(f, x0)
     exact = 2 * x0
-    print(f"x={x0}: 数值导数={approx:.6f}, 精确导数={exact}")
+    print(f"x={x0}: numerical derivative={approx:.6f}, exact derivative={exact}")
 ```
 
-:::tip 数值求导 vs 解析求导
-- **解析求导**：用公式推导（如 (x²)' = 2x），精确但需要数学功底
-- **数值求导**：用代码近似计算，简单但有微小误差
-- **自动微分**（PyTorch 用的）：兼顾精确和自动化，第 6 站会学到
+:::tip Numerical differentiation vs. analytical differentiation
+- **Analytical differentiation**: derive using formulas (e.g. (x²)' = 2x), exact but requires mathematical skill
+- **Numerical differentiation**: approximate with code, simple but with small errors
+- **Automatic differentiation** (used by PyTorch): combines accuracy and automation; you’ll learn it in Station 6
 :::
 
 ---
 
-## 二、常用求导规则
+## 2. Common Differentiation Rules
 
-你不需要记住所有规则，只需要熟悉最常见的几个：
+You don’t need to memorize all the rules. Just get familiar with the most common ones:
 
-### 2.1 基本规则速查表
+### 2.1 Basic rule cheat sheet
 
-| 函数 | 导数 | 例子 |
+| Function | Derivative | Example |
 |------|------|------|
-| 常数 c | 0 | (5)' = 0 |
-| x 的 n 次方 | n × x 的 (n-1) 次方 | (x³)' = 3x² |
-| e 的 x 次方 | e 的 x 次方 | (eˣ)' = eˣ |
+| Constant c | 0 | (5)' = 0 |
+| x to the n-th power | n × x to the (n-1)-th power | (x³)' = 3x² |
+| e to the x power | e to the x power | (eˣ)' = eˣ |
 | ln(x) | 1/x | (ln x)' = 1/x |
 | sin(x) | cos(x) | (sin x)' = cos x |
 
-### 2.2 用 Python 验证
+### 2.2 Verify with Python
 
 ```python
-# 验证常用导数规则
+# Verify common differentiation rules
 functions = [
     ("x³",      lambda x: x**3,       lambda x: 3*x**2),
     ("eˣ",      lambda x: np.exp(x),  lambda x: np.exp(x)),
@@ -165,7 +165,7 @@ functions = [
     ("sin(x)",  lambda x: np.sin(x),  lambda x: np.cos(x)),
 ]
 
-print(f"{'函数':<10} {'x':<5} {'数值导数':<15} {'解析导数':<15} {'误差':<15}")
+print(f"{'Function':<10} {'x':<5} {'Numerical Derivative':<15} {'Analytical Derivative':<15} {'Error':<15}")
 print("-" * 60)
 
 for name, f, f_prime in functions:
@@ -176,7 +176,7 @@ for name, f, f_prime in functions:
     print(f"{name:<10} {x0:<5} {numerical:<15.8f} {analytical:<15.8f} {error:<15.2e}")
 ```
 
-### 2.3 可视化：函数及其导数
+### 2.3 Visualization: functions and their derivatives
 
 ```python
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
@@ -197,21 +197,21 @@ for ax, (name, f, f_prime) in zip(axes.flat, cases):
     ax.legend()
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('函数（蓝）和导数（红）', fontsize=14)
+plt.suptitle('Functions (blue) and derivatives (red)', fontsize=14)
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## 三、导数在 AI 中的角色
+## 3. The Role of Derivatives in AI
 
-### 3.1 损失函数的导数 = 优化方向
+### 3.1 The derivative of the loss function = the direction of optimization
 
 ```mermaid
 flowchart LR
-    L["损失函数 L(w)"] --> D["计算导数 dL/dw"]
-    D --> U["更新参数<br/>w = w - lr × dL/dw"]
+    L["Loss function L(w)"] --> D["Compute derivative dL/dw"]
+    D --> U["Update parameters<br/>w = w - lr × dL/dw"]
     U --> L
 
     style L fill:#ffebee,stroke:#c62828,color:#333
@@ -219,12 +219,12 @@ flowchart LR
     style U fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-**导数告诉你：参数应该往哪个方向调，才能让损失变小。** 这就是梯度下降的核心思想（下下节详细讲）。
+**A derivative tells you: which direction should the parameters move so that the loss becomes smaller.** This is the core idea of gradient descent (we’ll explain it in detail in the next subsection).
 
-### 3.2 AI 中常见函数的导数
+### 3.2 Derivatives of common AI functions
 
 ```python
-# Sigmoid 函数及其导数
+# Sigmoid function and its derivative
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
@@ -232,7 +232,7 @@ def sigmoid_derivative(x):
     s = sigmoid(x)
     return s * (1 - s)
 
-# ReLU 函数及其导数
+# ReLU function and its derivative
 def relu(x):
     return np.maximum(0, x)
 
@@ -245,14 +245,14 @@ x = np.linspace(-5, 5, 200)
 # Sigmoid
 axes[0].plot(x, sigmoid(x), 'steelblue', linewidth=2, label='sigmoid(x)')
 axes[0].plot(x, sigmoid_derivative(x), 'coral', linewidth=2, linestyle='--', label="sigmoid'(x)")
-axes[0].set_title('Sigmoid 及其导数')
+axes[0].set_title('Sigmoid and its derivative')
 axes[0].legend()
 axes[0].grid(True, alpha=0.3)
 
 # ReLU
 axes[1].plot(x, relu(x), 'steelblue', linewidth=2, label='ReLU(x)')
 axes[1].plot(x, relu_derivative(x), 'coral', linewidth=2, linestyle='--', label="ReLU'(x)")
-axes[1].set_title('ReLU 及其导数')
+axes[1].set_title('ReLU and its derivative')
 axes[1].legend()
 axes[1].grid(True, alpha=0.3)
 
@@ -260,58 +260,58 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Sigmoid 导数的问题**：在 x 远离 0 时，导数趋近 0（"梯度消失"），这就是为什么深度网络更常用 ReLU。
+**Problem with the Sigmoid derivative**: when x is far from 0, the derivative approaches 0 ("vanishing gradient"), which is why deep networks more often use ReLU.
 
 ---
 
-## 学到这里，下一节该带着什么问题走？
+## After learning this, what question should you bring to the next section?
 
-看完导数以后，最值得带去下一节的问题是：
+After reading about derivatives, the most valuable questions to carry forward are:
 
-1. 如果函数不只一个变量，变化率该怎么表示？
-2. 如果参数很多，模型到底该往哪个方向一起改？
-3. 为什么“一个变量的导数”会自然升级成“多变量的梯度”？
+1. If a function has more than one variable, how should its rate of change be represented?
+2. If there are many parameters, in which direction should the model change them together?
+3. Why does "the derivative of one variable" naturally grow into "the gradient of multiple variables"?
 
-这三个问题，正好会把你自然带到：
+These three questions will naturally lead you to:
 
-- [偏导数与梯度](./02-partial-derivatives-gradient.md)
+- [Partial Derivatives and Gradients](./02-partial-derivatives-gradient.md)
 
-:::info 连接后续
-- **下一节**：偏导数与梯度——多个变量时的"方向导数"
-- **3.3 节**：梯度下降——用导数一步步优化模型
-- **第 6 站**：PyTorch 的 `autograd` 自动帮你算导数（自动微分）
+:::info Connect to what comes next
+- **Next section**: Partial derivatives and gradients — "directional change" when there are multiple variables
+- **Section 3.3**: Gradient descent — optimize the model step by step using derivatives
+- **Station 6**: PyTorch `autograd` automatically computes derivatives for you (automatic differentiation)
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 | Python 实现 |
+| Concept | Intuition | Python implementation |
 |------|------|------------|
-| 导数 | 函数在某点的变化速度 | `(f(x+h) - f(x-h)) / (2h)` |
-| 切线斜率 | 导数的几何含义 | 画切线可视化 |
-| 常用规则 | 幂函数、指数、对数、三角函数 | 用数值导数验证 |
-| AI 中的角色 | 导数指示优化方向 | 梯度下降的基础 |
+| Derivative | The rate of change of a function at a point | `(f(x+h) - f(x-h)) / (2h)` |
+| Tangent slope | Geometric meaning of a derivative | Visualize by drawing a tangent line |
+| Common rules | Power, exponential, logarithmic, trigonometric functions | Verify with numerical derivatives |
+| Role in AI | Derivatives indicate the direction of optimization | Foundation of gradient descent |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-- 导数最重要的直觉是“当前变化率”
-- 数值求导在帮你先看见变化，而不是先逼你背推导
-- 导数在 AI 里最关键的作用，是告诉模型参数应该往哪边调
+- The most important intuition about derivatives is "the current rate of change"
+- Numerical differentiation helps you see change first, instead of forcing you to memorize derivations first
+- The most crucial role of derivatives in AI is telling the model which direction to adjust its parameters
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：数值求导
+### Exercise 1: Numerical differentiation
 
-用 `numerical_derivative` 函数计算以下函数在 x=2 处的导数，和精确值对比：
+Use the `numerical_derivative` function to compute the derivative of the following functions at x=2, and compare with the exact values:
 1. f(x) = 3x² + 2x - 1
 2. f(x) = 1/x
 3. f(x) = x × sin(x)
 
-### 练习 2：画导数图
+### Exercise 2: Plot derivative graphs
 
-画出 f(x) = x³ - 3x 和它的导数 f'(x) = 3x² - 3 在 [-3, 3] 范围内的图形。观察：f'(x) = 0 的地方（x = ±1），对应 f(x) 的什么特征？
+Plot f(x) = x³ - 3x and its derivative f'(x) = 3x² - 3 over the range [-3, 3]. Observe: where f'(x) = 0 (x = ±1), what feature of f(x) does that correspond to?
 
-### 练习 3：Sigmoid 梯度消失
+### Exercise 3: Sigmoid gradient vanishing
 
-画出 sigmoid 的导数图，找出导数最大值是多少，在什么位置。解释为什么这会导致"梯度消失"问题。
+Plot the derivative of Sigmoid, find the maximum value of the derivative and where it occurs. Explain why this leads to the "vanishing gradient" problem.

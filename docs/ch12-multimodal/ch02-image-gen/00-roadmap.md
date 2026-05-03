@@ -1,77 +1,77 @@
 ---
-title: "2.1 学前导读：图像生成这一章到底在学什么"
+title: "2.1 Pre-class Guide: What Is This Image Generation Chapter Really About?"
 sidebar_position: 0
-description: "先建立图像生成章的学习地图：扩散模型、Stable Diffusion、提示词、控制条件、微调和创作工作流怎样展开。"
-keywords: [图像生成导读, 扩散模型, Stable Diffusion, ControlNet, LoRA]
+description: "First build the learning map for the image generation chapter: how diffusion models, Stable Diffusion, prompts, control conditions, fine-tuning, and creative workflows fit together."
+keywords: [image generation guide, diffusion model, Stable Diffusion, ControlNet, LoRA]
 ---
 
-# 学前导读：图像生成这一章到底在学什么
+# Pre-class Guide: What Is This Image Generation Chapter Really About?
 
-这一章解决的是：图像不只是可以被分类、检测和理解，也可以被模型一步步生成、编辑和控制。
+This chapter addresses the idea that images are not only something models can classify, detect, and understand — they can also be generated, edited, and controlled step by step.
 
-如果前面的计算机视觉更强调“看懂图像”，那么图像生成更强调“创造图像”。这不仅是任务目标不同，系统链路也不同：分类输出标签，检测输出框，分割输出像素区域，而生成任务要从文本、草图、参考图、姿态或风格条件出发，逐步构造出新的图像结果。
+If earlier computer vision chapters emphasized “understanding images,” then image generation emphasizes “creating images.” This is not just a different task goal; it also changes the system pipeline. Classification outputs labels, detection outputs bounding boxes, segmentation outputs pixel regions, while generation starts from text, sketches, reference images, poses, or style conditions and gradually constructs a new image result.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Overall Course
 
-你已经学过视觉基础、多模态基础和大模型应用。图像生成章会把这些能力接到 AIGC 创作工作流中：文本提供意图，图像模型负责生成，控制模块负责结构约束，微调方法负责风格或角色一致性，后处理和审核负责交付质量。
+You have already learned visual fundamentals, multimodal basics, and large model applications. The image generation chapter connects those abilities into the AIGC creative workflow: text provides intent, the image model performs generation, control modules provide structural constraints, fine-tuning methods provide style or character consistency, and post-processing plus review ensure delivery quality.
 
-图像生成不是“写一个提示词然后等出图”。真实工作流通常包含需求拆解、提示词设计、参考素材、控制条件、生成迭代、局部修复、风格统一、版权和安全检查。
+Image generation is not just “write a prompt and wait for an image.” Real workflows usually include requirement breakdown, prompt design, reference materials, control conditions, generation iteration, local editing, style consistency, copyright checks, and safety review.
 
-![图像生成章节学习顺序图](/img/course/ch12-image-gen-chapter-flow.png)
+![Image generation chapter learning flowchart](/img/course/ch12-image-gen-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：扩散模型为什么可以通过“加噪和去噪”生成图像；Stable Diffusion 的文本编码器、U-Net、VAE 和 latent 空间分别在做什么；提示词、负面提示词、采样步数、种子和 CFG 等参数如何影响结果；ControlNet、图生图、局部重绘和参考图如何增强可控性；LoRA、DreamBooth 等微调方式为什么能学习特定风格或角色。
+This chapter answers five questions: why diffusion models can generate images through “adding noise and denoising”; what the text encoder, U-Net, VAE, and latent space in Stable Diffusion each do; how prompts, negative prompts, sampling steps, seeds, and CFG affect results; how ControlNet, image-to-image, local inpainting, and reference images improve controllability; and why fine-tuning methods like LoRA and DreamBooth can learn specific styles or characters.
 
-新人最容易误解的是：图像生成能力只取决于模型名。实际上，生成质量很大程度取决于工作流设计，包括提示词、控制条件、素材来源、参数选择、后处理和人工筛选。
+A common misunderstanding for beginners is that image generation ability depends only on the model name. In reality, generation quality depends heavily on workflow design, including prompts, control conditions, source materials, parameter choices, post-processing, and manual filtering.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先理解扩散模型的直觉：训练时学习如何从噪声中还原图像，生成时从噪声一步步去噪得到结果。然后看 Stable Diffusion 架构，把文本条件、latent 表示、U-Net 去噪和 VAE 解码放到同一张图里。接着学习常见应用工作流，例如文生图、图生图、局部重绘和风格迁移。最后再看控制条件和微调，不要一上来就追复杂插件。
+It is recommended to first understand the intuition behind diffusion models: during training, the model learns how to reconstruct images from noise; during generation, it removes noise step by step to obtain the result. Then study the Stable Diffusion architecture and place the text condition, latent representation, U-Net denoising, and VAE decoding into one diagram. Next, learn common application workflows such as text-to-image, image-to-image, local inpainting, and style transfer. Finally, look at control conditions and fine-tuning — do not jump straight into complex plugins.
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：图像生成是“意图表达 + 条件控制 + 逐步去噪 + 编辑审核”的完整链路。
+The main thread of this chapter can be summarized as: image generation is a complete pipeline of “intent expression + condition control + progressive denoising + editing review.”
 
-看懂这条线后，你会知道为什么同一个提示词可能生成不同结果，为什么参考图和控制图能改变构图，为什么 LoRA 能影响风格，为什么生成结果需要后处理和审核。
+Once you understand this thread, you will know why the same prompt may produce different results, why reference images and control images can change composition, why LoRA can affect style, and why generated results need post-processing and review.
 
-## 这一章和后面章节的关系
+## How This Chapter Relates to Later Chapters
 
-图像生成是视频生成、数字人和 AIGC 综合项目的基础。视频生成可以看成在时间维度上连续生成和保持一致性；数字人需要图像、语音、动作和身份一致性；综合项目则要把图像生成接入文案、审核、导出和产品界面。
+Image generation is the foundation for video generation, digital humans, and comprehensive AIGC projects. Video generation can be seen as continuous generation and consistency maintenance across time; digital humans require consistency across image, voice, motion, and identity; comprehensive projects need image generation to connect with copywriting, review, export, and product interfaces.
 
-如果这一章没学稳，后面常见的问题是：只会写提示词，不知道为什么结果不稳定；不知道 ControlNet 和 LoRA 解决的是不同问题；忽略素材授权和肖像风险；把模型输出当成最终作品，没有编辑和审核流程。
+If this chapter is not learned solidly, common later problems include: only knowing how to write prompts without understanding why results are unstable; not knowing that ControlNet and LoRA solve different problems; ignoring material licensing and portrait risks; and treating model output as the final work without editing and review workflows.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the inputs and outputs are, and how the minimal project runs, you can continue forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter for gap-filling and engineering practice: focus on edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the earlier and later stages. After reading, it is best to consolidate the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick preview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and complete the chapter’s small project outcome |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimal input and output? | You can clearly state what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one cause of errors, poor results, or misunderstanding |
+| What can be retained after learning? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Outcome for This Chapter
 
-学完这一章后，建议做一个“课程封面生成工作流”。输入课程主题、目标学习者、风格要求和尺寸规格，系统生成提示词，产出 3 到 5 张候选封面，并记录每张图的提示词、参数、优缺点和修改建议。
+After finishing this chapter, it is recommended to build a “course cover generation workflow.” Given a course topic, target learners, style requirements, and size specifications, the system generates prompts, produces 3 to 5 candidate covers, and records the prompt, parameters, strengths and weaknesses, and revision suggestions for each image.
 
-如果继续扩展，可以加入参考图、ControlNet 构图约束或 LoRA 风格控制，并在最终导出前加入版权和内容安全检查清单。
+If you want to extend it further, you can add reference images, ControlNet composition constraints, or LoRA style control, and include a copyright and content safety checklist before final export.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能用通俗语言解释扩散模型的加噪和去噪直觉，能说明 Stable Diffusion 中文本条件、U-Net、VAE 和 latent 空间的大致作用，能区分文生图、图生图、局部重绘、ControlNet 和 LoRA 的使用场景。
+By the end of this chapter, you should be able to explain the intuition of diffusion models’ noise addition and denoising in plain language, describe the general role of the text condition, U-Net, VAE, and latent space in Stable Diffusion, and distinguish the use cases for text-to-image, image-to-image, inpainting, ControlNet, and LoRA.
 
-如果你能设计一个带提示词、参数记录、生成迭代、人工筛选、后处理和审核步骤的图像生成工作流，就达到了 AIGC 图像方向的入门标准。
+If you can design an image generation workflow that includes prompts, parameter logging, generation iterations, manual filtering, post-processing, and review steps, then you have reached the beginner level standard for AIGC image generation.

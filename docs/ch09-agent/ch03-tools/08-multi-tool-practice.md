@@ -1,117 +1,117 @@
 ---
-title: "3.9 实战：多工具协作 Agent"
+title: "3.9 Hands-on: Multi-Tool Collaborative Agent"
 sidebar_position: 18
-description: "把工具发现、策略、安全和多步推理串成一个完整实践，做一个能处理退款工单的多工具 Agent。"
+description: "Put tool discovery, strategy, safety, and multi-step reasoning together into a complete practice by building a multi-tool Agent that can handle refund tickets."
 keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund assistant]
 ---
 
-# 实战：多工具协作 Agent
+# Hands-on: Multi-Tool Collaborative Agent
 
-![Agent 工具调用 Trace 图](/img/course/agent-tool-trace.png)
+![Agent Tool Call Trace Diagram](/img/course/agent-tool-trace-en.png)
 
-:::tip 本节定位
-前面几节我们已经分别讲了：
+:::tip Section Overview
+In the previous sections, we covered:
 
-- 工具 schema
-- 调用策略
-- 常见工具
-- 安全与高级模式
+- Tool schema
+- Calling strategies
+- Common tools
+- Safety and advanced patterns
 
-这一节要把它们真正串起来。  
-我们不再只讲某一个工具，而是做一个完整的小型 Agent：
+In this section, we will truly connect them together.
+We are no longer talking about just one tool. Instead, we will build a complete small Agent:
 
-> **用户提交退款工单后，Agent 先查订单状态，再查政策，再计算金额，最后给出可执行答复。**
+> **After a user submits a refund ticket, the Agent first checks the order status, then checks the policy, then calculates the amount, and finally gives an actionable response.**
 
-这就是一个典型的多工具协作任务。
+This is a classic multi-tool collaboration task.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解多工具 Agent 和单工具 Agent 的主要差别
-- 看懂一个完整的“发现 -> 选择 -> 执行 -> 整合 -> 输出”闭环
-- 理解多工具协作里状态管理为什么是关键
-- 学会用最小项目方式展示一个多工具 Agent
-
----
-
-## 一、多工具协作难在哪里？
-
-### 1.1 难点不只是“工具更多了”
-
-真正困难的地方通常有三层：
-
-1. 先后顺序
-2. 中间状态传递
-3. 错误后的处理
-
-例如退款场景里：
-
-- 不知道订单状态，政策判断就可能错
-- 不知道订单金额，计算退款额就没法做
-- 工具失败后，最终答复也必须改变
-
-### 1.2 一个类比：像接力赛而不是单人跑
-
-单工具任务像一个人直接完成动作。  
-多工具任务像接力赛：
-
-- 前一棒的结果要交给下一棒
-- 某一棒掉棒，后面都受影响
-
-### 1.3 所以多工具系统最怕“状态散掉”
-
-如果每一轮都不清楚当前已经知道什么，  
-系统就很容易：
-
-- 重复调用
-- 漏关键信息
-- 最后整合错
+- Understand the main differences between a multi-tool Agent and a single-tool Agent
+- Read a complete "discover -> select -> execute -> integrate -> output" loop
+- Understand why state management is the key in multi-tool collaboration
+- Learn how to present a multi-tool Agent using a minimal project structure
 
 ---
 
-## 二、这个实战例子要解决什么问题？
+## 1. What Makes Multi-Tool Collaboration Hard?
 
-我们做一个最小但完整的退款工单助手。  
-用户问题是：
+### 1.1 The difficulty is not just "more tools"
 
-- 我的订单还能退款吗？
-- 预计退多少钱？
-- 多久到账？
+The real challenges usually come in three layers:
 
-这个任务至少要用到三类工具：
+1. Order of execution
+2. Passing intermediate state
+3. Handling errors
+
+For a refund scenario, for example:
+
+- If you do not know the order status, the policy decision may be wrong
+- If you do not know the order amount, you cannot calculate the refund
+- If a tool fails, the final answer must also change
+
+### 1.2 An analogy: a relay race, not a solo run
+
+A single-tool task is like one person completing an action directly.
+A multi-tool task is like a relay race:
+
+- The result from the previous runner must be passed to the next one
+- If one runner drops the baton, everything after that is affected
+
+### 1.3 That is why multi-tool systems fear "state drift"
+
+If every round is unclear about what is already known,
+the system can easily:
+
+- Call the same tool repeatedly
+- Miss key information
+- Integrate the final answer incorrectly
+
+---
+
+## 2. What Problem Does This Hands-on Example Solve?
+
+We are building a minimal but complete refund ticket assistant.
+The user asks:
+
+- Can I still get a refund for my order?
+- How much will I get back?
+- When will the money arrive?
+
+This task needs at least three types of tools:
 
 1. `get_order_status`
 2. `search_refund_policy`
 3. `calculator`
 
-而且它们之间有明显顺序：
+And they have a clear order:
 
-- 先看订单状态
-- 再匹配政策
-- 再算金额
+- Check the order status first
+- Match the policy next
+- Then calculate the amount
 
 ---
 
-## 三、先跑一个完整闭环示例
+## 3. Start with a Complete End-to-End Example
 
-下面这段代码会完整展示：
+The following code shows the full process:
 
-1. 工具注册
-2. 状态跟踪
-3. 决策策略
-4. 多轮执行
-5. 最终回答
+1. Tool registration
+2. State tracking
+3. Decision strategy
+4. Multi-step execution
+5. Final answer
 
 ```python
 TOOLS = {
     "get_order_status": lambda order_id: {
         "order_id": order_id,
-        "status": "未发货",
+        "status": "Not shipped",
         "amount": 299,
         "shipping_fee": 15,
     },
     "search_refund_policy": lambda keyword: {
-        "policy_text": "未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。"
+        "policy_text": "Unshipped orders can be refunded directly. The money will be returned to the original payment method, usually within 3 to 7 business days."
     },
     "calculator": lambda expression: {
         "result": eval(expression, {"__builtins__": {}}, {})
@@ -124,7 +124,7 @@ def decide_next_action(state):
         return {"tool": "get_order_status", "arguments": {"order_id": state["order_id"]}}
 
     if "policy" not in state:
-        return {"tool": "search_refund_policy", "arguments": {"keyword": "退款"}}
+        return {"tool": "search_refund_policy", "arguments": {"keyword": "refund"}}
 
     if "refund_amount" not in state:
         order = state["order_info"]
@@ -145,13 +145,13 @@ def apply_observation(state, tool_name, observation):
 
 def build_final_answer(state):
     order = state["order_info"]
-    if order["status"] != "未发货":
-        return "该订单当前不满足直接退款条件，请联系人工客服进一步处理。"
+    if order["status"] != "Not shipped":
+        return "This order does not currently qualify for a direct refund. Please contact human support for further assistance."
 
     return (
-        f"订单 {state['order_id']} 当前状态为{order['status']}。"
+        f"Order {state['order_id']} is currently {order['status']}."
         f"{state['policy']} "
-        f"预计退款金额为 {state['refund_amount']} 元。"
+        f"The estimated refund amount is {state['refund_amount']} yuan."
     )
 
 
@@ -176,7 +176,7 @@ def run_agent(order_id, max_steps=5):
 
         apply_observation(state, tool_name, observation)
 
-    return state["trace"], "达到最大步数，任务未完成。"
+    return state["trace"], "Maximum steps reached, task not completed."
 
 
 trace, answer = run_agent("ORD-1001")
@@ -187,164 +187,163 @@ print("\nanswer:")
 print(answer)
 ```
 
-### 3.1 这段代码和前面分散示例最大的差别是什么？
+### 3.1 What is the biggest difference between this code and the earlier scattered examples?
 
-它已经不再是：
+It is no longer just:
 
-- 单一工具 demo
+- A single-tool demo
 
-而是完整表现出：
+Instead, it clearly shows:
 
-- 决策顺序
-- 状态累积
-- 多工具配合
-- 最终整合
+- Decision order
+- State accumulation
+- Multi-tool cooperation
+- Final integration
 
-也就是说，它已经接近一个真正的多工具 Agent 骨架。
+In other words, it is already very close to the skeleton of a real multi-tool Agent.
 
-### 3.2 为什么 `state` 这么关键？
+### 3.2 Why is `state` so important?
 
-因为每次工具调用后，系统都要知道：
+Because after every tool call, the system needs to know:
 
-- 现在已经知道了什么
-- 还缺什么
-- 下一步该补哪块信息
+- What is already known
+- What is still missing
+- What should be fetched next
 
-如果没有统一状态，  
-多工具协作几乎一定会乱。
+Without a shared state,
+multi-tool collaboration will almost certainly become messy.
 
-### 3.3 为什么最终回答不是直接拿最后一个 observation？
+### 3.3 Why does the final answer not simply use the last observation?
 
-因为多工具系统的目标，通常不是原样转述某次工具输出。  
-它真正要做的是：
+Because the goal of a multi-tool system is usually not to repeat a tool output verbatim.
+What it really needs to do is:
 
-- 把多个 observation 整合成用户可理解的结论
+- Integrate multiple observations into a conclusion the user can understand
 
-这正是 Agent 层的价值。
-
----
-
-## 四、这类系统最容易失败在哪？
-
-### 4.1 工具顺序错
-
-例如还没查订单状态，  
-就先查退款金额或直接给结论。
-
-### 4.2 中间状态没保存
-
-会导致：
-
-- 重复查同一工具
-- 结果覆盖错
-- 后面步骤用不到前面结果
-
-### 4.3 某个工具失败后，系统还假装继续成功
-
-这是多工具系统里很危险的一类 bug。  
-例如：
-
-- 政策没查到
-- 但系统还是编了一个退款规则
-
-所以失败路径也必须是设计的一部分。
+That is exactly where the value of the Agent layer comes from.
 
 ---
 
-## 五、怎样把这个 demo 进一步做成作品？
+## 4. Where Do These Systems Most Often Fail?
 
-### 5.1 第一步：让工具更真实
+### 4.1 Wrong tool order
 
-例如把：
+For example, checking refund amount or giving a conclusion before checking order status.
 
-- mock 订单状态
-- mock 政策文档
+### 4.2 Intermediate state is not saved
 
-换成：
+This can lead to:
 
-- 数据库查询
-- 文档检索
+- Rechecking the same tool repeatedly
+- Overwriting results incorrectly
+- Later steps being unable to use earlier results
 
-### 5.2 第二步：加失败处理
+### 4.3 A tool fails, but the system still pretends everything succeeded
 
-例如：
+This is a very dangerous kind of bug in multi-tool systems.
+For example:
 
-- 工具超时
-- 订单不存在
-- 政策未命中
+- The policy lookup fails
+- But the system still invents a refund rule
 
-系统都应有明确退路。
-
-### 5.3 第三步：加入评估集
-
-你可以准备：
-
-- 可退款订单
-- 不可退款订单
-- 金额边界样例
-- 工具失败样例
-
-这样系统就不只是“能跑”，  
-而是“能测”。
-
-### 5.4 第四步：把 trace 可视化
-
-如果你把工具调用轨迹展示出来，  
-这个项目会非常适合做作品集演示。
+So failure paths must also be part of the design.
 
 ---
 
-## 六、常见误区
+## 5. How Can You Turn This Demo into a Portfolio Project?
 
-### 6.1 误区一：多工具就是把多个函数按顺序连起来
+### 5.1 Step 1: Make the tools more realistic
 
-不够。  
-真正难的是：
+For example, replace:
 
-- 顺序判断
-- 状态传递
-- 失败恢复
+- Mock order status
+- Mock policy documents
 
-### 6.2 误区二：工具越多，Agent 就越强
+with:
 
-工具变多只会让：
+- Database queries
+- Document retrieval
 
-- 选择难度
-- 状态管理复杂度
+### 5.2 Step 2: Add failure handling
 
-一起上升。
+For example:
 
-### 6.3 误区三：最终答得像人就说明系统好
+- Tool timeout
+- Order not found
+- Policy not matched
 
-多工具系统更该看：
+The system should always have a clear fallback path.
 
-- trace 是否合理
-- 工具是否必要
-- observation 是否被正确整合
+### 5.3 Step 3: Add an evaluation set
 
----
+You can prepare:
 
-## 小结
+- Refundable orders
+- Non-refundable orders
+- Boundary amount cases
+- Tool failure cases
 
-这节最重要的，不是做出一个“会连续调三个函数”的 demo，  
-而是建立一个多工具 Agent 的核心认识：
+This way, the system is not just "able to run,"
+but also "able to be tested."
 
-> **多工具协作的本质，是围绕共享状态把多个外部能力按正确顺序组织起来，并在失败和不确定时保持系统可控。**
+### 5.4 Step 4: Visualize the trace
 
-只要这层理解稳了，  
-你后面做更复杂的：
-
-- 企业助手
-- 研究 Agent
-- 代码 Agent
-
-都会知道问题真正难在哪。
+If you show the tool call trace,
+this project will be very suitable for portfolio demos.
 
 ---
 
-## 练习
+## 6. Common Mistakes
 
-1. 给示例再加一个 `notify_user` 工具，只有在退款条件成立时才发送通知。
-2. 为什么说多工具 Agent 的核心不是“工具多”，而是“状态管理稳”？
-3. 如果 `search_refund_policy` 返回空结果，你会怎么改这套流程？
-4. 想一想：这个 demo 里哪些部分最适合拿去做作品集展示？
+### 6.1 Mistake 1: Multi-tool just means chaining several functions in order
+
+Not enough.
+What is truly hard is:
+
+- Order reasoning
+- State passing
+- Failure recovery
+
+### 6.2 Mistake 2: More tools means a stronger Agent
+
+More tools only increases:
+
+- Selection difficulty
+- State management complexity
+
+at the same time.
+
+### 6.3 Mistake 3: If the final answer sounds human, the system must be good
+
+For a multi-tool system, you should care more about:
+
+- Whether the trace is reasonable
+- Whether the tools were necessary
+- Whether the observations were integrated correctly
+
+---
+
+## Summary
+
+The most important thing in this section is not building a demo that can "call three functions in a row,"
+but forming a core understanding of a multi-tool Agent:
+
+> **The essence of multi-tool collaboration is to organize multiple external capabilities in the correct order around shared state, while keeping the system controllable under failure and uncertainty.**
+
+Once you understand this layer well,
+when you later build more complex systems such as:
+
+- Enterprise assistants
+- Research Agents
+- Code Agents
+
+you will know where the real difficulty lies.
+
+---
+
+## Exercises
+
+1. Add a `notify_user` tool to the example, and make it send a notification only when the refund conditions are met.
+2. Why do we say the core of a multi-tool Agent is not "having more tools," but "having stable state management"?
+3. If `search_refund_policy` returns an empty result, how would you change this workflow?
+4. Think about it: which parts of this demo are most suitable for portfolio presentation?

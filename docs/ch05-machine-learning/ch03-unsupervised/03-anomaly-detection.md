@@ -1,118 +1,117 @@
 ---
-title: "3.4 异常检测"
+title: "3.4 Anomaly Detection"
 sidebar_position: 9
-description: "掌握统计方法（Z-score、IQR）、Isolation Forest、One-Class SVM、LOF 等异常检测技术"
-keywords: [异常检测, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, 离群点]
+description: "Master anomaly detection techniques such as statistical methods (Z-score, IQR), Isolation Forest, One-Class SVM, and LOF"
+keywords: [anomaly detection, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, outliers]
 ---
 
-# 异常检测
+# Anomaly Detection
 
-![异常检测离群点示意图](/img/course/anomaly-detection-outliers.png)
+![Anomaly detection outlier illustration](/img/course/anomaly-detection-outliers-en.png)
 
-:::tip 本节定位
-异常检测用于发现数据中**"不正常"的样本**——信用卡欺诈、网络入侵、设备故障等。与分类不同，异常通常是稀有的，没有足够的标签，所以需要特殊的算法。
+:::tip Section Overview
+Anomaly detection is used to find **"abnormal"** samples in data—credit card fraud, network intrusions, equipment failures, and more. Unlike classification, anomalies are usually rare and there are not enough labels, so special algorithms are needed.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握统计方法异常检测（Z-score、IQR）
-- 掌握 Isolation Forest
-- 了解 One-Class SVM
-- 了解 LOF（局部离群因子）
-- 能对比选择合适的方法
+- Master statistical anomaly detection methods (Z-score, IQR)
+- Master Isolation Forest
+- Understand One-Class SVM
+- Understand LOF (Local Outlier Factor)
+- Be able to compare methods and choose the right one
 
-## 先说一个很重要的学习预期
+## First, set the right learning expectation
 
-这一节对新人最容易卡住的地方，是它不像普通分类那样有很清楚的标签和边界。  
-更适合第一遍先学会的，不是把每个方法都背熟，而是先建立这条线：
+The part that most easily trips up beginners in this section is that it does not have the clear labels and boundaries of ordinary classification.
+What is more suitable for the first pass is not memorizing every method, but building this mental model first:
 
-> **异常检测很多时候是在先定义“正常长什么样”，再判断谁偏离得太远。**
+> **In anomaly detection, you often define what "normal" looks like first, and then judge who deviates too far from it.**
 
-只要这条线立住，后面的统计方法、Isolation Forest、LOF 和阈值选择就会顺很多。
-
----
-
-## 先建立一张地图
-
-异常检测对新人来说最难的地方在于：  
-它不像普通分类那样“标签很清楚，直接学就行”。很多时候你面对的是：
-
-- 异常非常少
-- 异常标签不完整
-- 新异常长得和旧异常还不一样
-
-更稳的理解顺序是：
-
-![异常检测决策流程图](/img/course/ch05-anomaly-detection-decision-flow.png)
-
-所以异常检测最重要的不是先记模型名，而是先把“你眼里的异常到底是什么”想清楚。
+Once this idea is in place, the statistical methods, Isolation Forest, LOF, and threshold selection will make much more sense.
 
 ---
 
-## 一、异常检测概述
+## Build a map first
 
-### 1.1 什么是异常？
+The hardest part of anomaly detection for beginners is that it is not like ordinary classification, where "the labels are clear, so you just learn it directly." Often you are dealing with:
 
-**异常（Anomaly / Outlier）**= 与大多数数据显著不同的样本。
+- Very few anomalies
+- Incomplete anomaly labels
+- New anomalies that do not look like old ones
+
+A more stable order of understanding is:
+
+![Anomaly detection decision flowchart](/img/course/ch05-anomaly-detection-decision-flow-en.png)
+
+So the most important thing in anomaly detection is not memorizing model names first, but understanding what “anomaly” actually means in your case.
+
+---
+
+## 1. Overview of anomaly detection
+
+### 1.1 What is an anomaly?
+
+**Anomaly (Outlier)** = a sample that is significantly different from most of the data.
 
 ```mermaid
 flowchart LR
-    D["数据集"] --> N["正常数据<br/>（99%）"]
-    D --> A["异常数据<br/>（1%）"]
-    A --> A1["欺诈交易"]
-    A --> A2["设备故障"]
-    A --> A3["网络攻击"]
+    D["Dataset"] --> N["Normal data<br/>（99%）"]
+    D --> A["Anomalous data<br/>（1%）"]
+    A --> A1["Fraudulent transactions"]
+    A --> A2["Equipment failure"]
+    A --> A3["Network attacks"]
 
     style N fill:#e8f5e9,stroke:#2e7d32,color:#333
     style A fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-| 应用场景 | 正常数据 | 异常数据 |
+| Application scenario | Normal data | Anomalous data |
 |---------|---------|---------|
-| 信用卡欺诈 | 正常消费 | 盗刷交易 |
-| 工业监控 | 设备正常运行 | 设备即将故障 |
-| 网络安全 | 正常流量 | DDoS 攻击 |
-| 医疗诊断 | 健康指标正常 | 疾病信号 |
+| Credit card fraud | Regular spending | Stolen-card transactions |
+| Industrial monitoring | Equipment running normally | Equipment about to fail |
+| Network security | Normal traffic | DDoS attacks |
+| Medical diagnosis | Normal health indicators | Disease signals |
 
-### 1.2 为什么不用分类器？
+### 1.2 Why not use a classifier?
 
-| 问题 | 说明 |
+| Problem | Explanation |
 |------|------|
-| **数据不平衡** | 异常样本可能只有 0.1% |
-| **缺乏标签** | 很多异常事先不知道长什么样 |
-| **异常多变** | 新型欺诈手段不断出现 |
+| **Class imbalance** | Anomalous samples may be only 0.1% |
+| **Lack of labels** | Many anomalies are not known in advance |
+| **Anomalies change** | New fraud methods keep appearing |
 
-### 1.2.1 异常检测和分类真正差在哪？
+### 1.2.1 What is the real difference between anomaly detection and classification?
 
-分类通常是在学：
+Classification usually learns:
 
-- “A 和 B 怎么分”
+- “How do A and B differ?”
 
-而异常检测更常见的是在学：
+Anomaly detection more often learns:
 
-- “大多数正常样本长什么样”
-- “偏离到什么程度该开始警觉”
+- “What do most normal samples look like?”
+- “How far away is too far?”
 
-这也是为什么异常检测里，阈值、误报、漏报和业务代价会格外重要。
+That is why thresholds, false positives, false negatives, and business cost matter so much in anomaly detection.
 
-### 1.2.2 一个更适合新人的类比
+### 1.2.2 A better analogy for beginners
 
-你可以先把异常检测想成：
+You can think of anomaly detection as:
 
-- 先理解“正常人的日常节奏”
+- First understanding the “daily rhythm” of normal behavior
 
-比如：
+For example:
 
-- 正常设备的温度波动大概在哪
-- 正常用户的登录时间和操作频率大概在哪
+- The normal range of equipment temperature
+- The normal login time and operation frequency of users
 
-这时异常并不一定是“完全没见过”，  
-而是：
+At this point, an anomaly is not necessarily something “never seen before,”
+but rather something that:
 
-- 偏离正常模式偏得太远
-- 或者落在很少有人会去的位置上
+- Deviates too far from the normal pattern
+- Or falls into a place that very few points occupy
 
-### 1.3 生成演示数据
+### 1.3 Generate demo data
 
 ```python
 import numpy as np
@@ -120,25 +119,25 @@ import matplotlib.pyplot as plt
 
 np.random.seed(42)
 
-# 正常数据：二维高斯分布
+# Normal data: 2D Gaussian distribution
 n_normal = 300
 X_normal = np.random.randn(n_normal, 2) * 1.5 + [5, 5]
 
-# 异常数据：随机散布
+# Anomalous data: random scatter
 n_anomaly = 15
 X_anomaly = np.random.uniform(0, 12, (n_anomaly, 2))
 
-# 合并
+# Merge
 X_all = np.vstack([X_normal, X_anomaly])
-y_true = np.array([1] * n_normal + [-1] * n_anomaly)  # 1=正常, -1=异常
+y_true = np.array([1] * n_normal + [-1] * n_anomaly)  # 1=normal, -1=anomaly
 
 plt.figure(figsize=(8, 6))
-plt.scatter(X_normal[:, 0], X_normal[:, 1], s=20, alpha=0.6, label='正常', color='steelblue')
+plt.scatter(X_normal[:, 0], X_normal[:, 1], s=20, alpha=0.6, label='Normal', color='steelblue')
 plt.scatter(X_anomaly[:, 0], X_anomaly[:, 1], s=80, marker='x', color='red',
-            linewidths=2, label='异常')
-plt.title('异常检测演示数据')
-plt.xlabel('特征 1')
-plt.ylabel('特征 2')
+            linewidths=2, label='Anomaly')
+plt.title('Demo Data for Anomaly Detection')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
@@ -146,20 +145,20 @@ plt.show()
 
 ---
 
-## 二、统计方法
+## 2. Statistical methods
 
-### 2.1 Z-score 方法
+### 2.1 Z-score method
 
-**原理**：假设数据服从正态分布，距离均值超过 N 个标准差的样本视为异常。
+**Idea**: Assume the data follows a normal distribution, and treat samples that are more than N standard deviations away from the mean as anomalies.
 
 > **Z = (x - μ) / σ**
 
-通常 |Z| > 3 被视为异常（99.7% 的数据在 3σ 以内）。
+Usually, |Z| > 3 is considered anomalous (99.7% of data lies within 3σ).
 
 ```python
 from scipy import stats
 
-# 一维示例
+# 1D example
 data_1d = np.concatenate([np.random.randn(200) * 2 + 10, [25, -5, 30]])
 
 z_scores = np.abs(stats.zscore(data_1d))
@@ -173,21 +172,21 @@ plt.axhline(y=data_1d[~anomalies].mean() + threshold * data_1d[~anomalies].std()
             color='orange', linestyle='--', label='+3σ')
 plt.axhline(y=data_1d[~anomalies].mean() - threshold * data_1d[~anomalies].std(),
             color='orange', linestyle='--', label='-3σ')
-plt.title(f'Z-score 异常检测（发现 {anomalies.sum()} 个异常）')
+plt.title(f'Z-score Anomaly Detection ({anomalies.sum()} anomalies found)')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 2.2 IQR 方法
+### 2.2 IQR method
 
-**原理**：基于四分位数，不依赖正态分布假设。
+**Idea**: Based on quartiles, with no assumption about the data distribution.
 
-- IQR = Q3 - Q1（四分位距）
-- 异常：x < Q1 - 1.5×IQR 或 x > Q3 + 1.5×IQR
+- IQR = Q3 - Q1 (interquartile range)
+- Anomaly: x < Q1 - 1.5×IQR or x > Q3 + 1.5×IQR
 
 ```python
-# IQR 方法
+# IQR method
 Q1 = np.percentile(data_1d, 25)
 Q3 = np.percentile(data_1d, 75)
 IQR = Q3 - Q1
@@ -197,16 +196,16 @@ anomalies_iqr = (data_1d < lower) | (data_1d > upper)
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-# 箱线图
+# Box plot
 axes[0].boxplot(data_1d, vert=False)
-axes[0].set_title('箱线图（自动标记异常值）')
+axes[0].set_title('Box Plot (Automatically Marks Outliers)')
 
-# 散点图
+# Scatter plot
 axes[1].scatter(range(len(data_1d)), data_1d,
                 c=['red' if a else 'steelblue' for a in anomalies_iqr], s=20, alpha=0.7)
-axes[1].axhline(y=upper, color='orange', linestyle='--', label=f'上界={upper:.1f}')
-axes[1].axhline(y=lower, color='orange', linestyle='--', label=f'下界={lower:.1f}')
-axes[1].set_title(f'IQR 异常检测（发现 {anomalies_iqr.sum()} 个异常）')
+axes[1].axhline(y=upper, color='orange', linestyle='--', label=f'Upper bound={upper:.1f}')
+axes[1].axhline(y=lower, color='orange', linestyle='--', label=f'Lower bound={lower:.1f}')
+axes[1].set_title(f'IQR Anomaly Detection ({anomalies_iqr.sum()} anomalies found)')
 axes[1].legend()
 axes[1].grid(True, alpha=0.3)
 
@@ -218,86 +217,86 @@ plt.show()
 
 | | Z-score | IQR |
 |---|---------|-----|
-| 假设 | 正态分布 | 无分布假设 |
-| 鲁棒性 | 受极端值影响 | 更鲁棒 |
-| 适用 | 大致正态的数据 | 任何分布 |
-| 阈值 | 通常 3σ | 1.5×IQR |
+| Assumption | Normal distribution | No distribution assumption |
+| Robustness | Affected by extreme values | More robust |
+| Suitable for | Roughly normal data | Any distribution |
+| Threshold | Usually 3σ | 1.5×IQR |
 
-### 2.4 统计方法什么时候还特别值得先试？
+### 2.4 When are statistical methods especially worth trying first?
 
-如果你现在遇到的是：
+If you are dealing with:
 
-- 低维数据
-- 规则很简单
-- 只是想先快速发现明显离群点
+- Low-dimensional data
+- Simple rules
+- A need to quickly find obvious outliers
 
-那统计方法仍然非常值得先试。  
-它的价值不只是“简单”，还在于：
+then statistical methods are still very worth trying first.
+Their value is not just that they are “simple,” but also that:
 
-- 你能很快得到一个可解释 baseline
-- 你能先大致感受异常比例
-- 你能更早发现数据分布本身的问题
+- You can quickly get an interpretable baseline
+- You can get a rough sense of the anomaly rate
+- You can discover problems in the data distribution earlier
 
-![异常检测方法对比图](/img/course/ch05-anomaly-method-comparison-map.png)
+![Anomaly detection method comparison map](/img/course/ch05-anomaly-method-comparison-map-en.png)
 
-读这张图时，先问异常像什么：如果只是单列极端值，Z-score 或 IQR 就够快；如果是高维空间里的少数孤立点，Isolation Forest 更合适；如果异常依赖局部密度差异，可以看 LOF；如果你只想学正常边界，再考虑 One-Class SVM。
+When reading this chart, first ask what the anomaly looks like: if it is just extreme values in a single column, Z-score or IQR is fast enough; if it is a few isolated points in high-dimensional space, Isolation Forest is more suitable; if anomalies depend on local density differences, look at LOF; if you just want to learn the normal boundary, then consider One-Class SVM.
 
 ---
 
-## 三、Isolation Forest
+## 3. Isolation Forest
 
-### 3.1 原理
+### 3.1 Principle
 
-Isolation Forest（孤立森林）的思路非常巧妙：
+The idea behind Isolation Forest is very clever:
 
-**异常点更容易被"孤立"——只需很少的分割就能把它隔开。**
+**Anomalies are easier to "isolate" — it takes only a few splits to separate them.**
 
 ```mermaid
 flowchart TD
-    A["随机选一个特征"] --> B["随机选一个分割值"]
-    B --> C["将数据分成两半"]
-    C --> D{"数据被孤立了？"}
-    D -->|"是"| E["路径很短 → 可能是异常"]
-    D -->|"否"| A
+    A["Randomly choose a feature"] --> B["Randomly choose a split value"]
+    B --> C["Split the data into two parts"]
+    C --> D{"Is the data isolated?"}
+    D -->|"Yes"| E["Short path → likely anomaly"]
+    D -->|"No"| A
 
     style E fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-| 概念 | 说明 |
+| Concept | Explanation |
 |------|------|
-| 路径长度 | 从根节点到叶节点的步数 |
-| 异常分数 | 路径越短 → 分数越高 → 越可能是异常 |
-| 正常点 | 被"正常"数据包围，需要更多次分割才能孤立 |
+| Path length | Number of steps from root node to leaf node |
+| Anomaly score | Shorter path → higher score → more likely an anomaly |
+| Normal point | Surrounded by “normal” data and needs more splits to isolate |
 
-### 3.2 sklearn 实现
+### 3.2 sklearn implementation
 
 ```python
 from sklearn.ensemble import IsolationForest
 
-# 训练 Isolation Forest
+# Train Isolation Forest
 iso = IsolationForest(
     n_estimators=100,
-    contamination=0.05,  # 预估异常比例
+    contamination=0.05,  # Estimated anomaly ratio
     random_state=42
 )
-y_pred_iso = iso.fit_predict(X_all)  # 1=正常, -1=异常
+y_pred_iso = iso.fit_predict(X_all)  # 1=normal, -1=anomaly
 
-# 可视化
+# Visualization
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 预测结果
+# Prediction results
 colors_pred = ['red' if p == -1 else 'steelblue' for p in y_pred_iso]
 axes[0].scatter(X_all[:, 0], X_all[:, 1], c=colors_pred, s=20, alpha=0.7)
 n_detected = (y_pred_iso == -1).sum()
-axes[0].set_title(f'Isolation Forest 检测结果\n（检测到 {n_detected} 个异常）')
+axes[0].set_title(f'Isolation Forest Detection Results\n({n_detected} anomalies detected)')
 
-# 异常分数热图
+# Anomaly score heatmap
 xx, yy = np.meshgrid(np.linspace(-2, 14, 200), np.linspace(-2, 14, 200))
 Z = iso.decision_function(np.c_[xx.ravel(), yy.ravel()])
 Z = Z.reshape(xx.shape)
 axes[1].contourf(xx, yy, Z, levels=20, cmap='RdBu')
 axes[1].scatter(X_all[:, 0], X_all[:, 1], c=colors_pred, s=20, edgecolors='white', linewidth=0.5)
-axes[1].set_title('异常分数热图\n（蓝=正常，红=异常）')
+axes[1].set_title('Anomaly Score Heatmap\n(blue=normal, red=anomaly)')
 
 for ax in axes:
     ax.grid(True, alpha=0.3)
@@ -305,61 +304,61 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 
-# 评估
+# Evaluation
 from sklearn.metrics import classification_report
-print("Isolation Forest 评估:")
-print(classification_report(y_true, y_pred_iso, target_names=['异常(-1)', '正常(1)']))
+print("Isolation Forest evaluation:")
+print(classification_report(y_true, y_pred_iso, target_names=['Anomaly(-1)', 'Normal(1)']))
 ```
 
-### 3.3 关键参数
+### 3.3 Key parameters
 
-| 参数 | 说明 | 推荐 |
+| Parameter | Explanation | Recommendation |
 |------|------|------|
-| `n_estimators` | 树的数量 | 100（默认） |
-| `contamination` | 异常比例的估计 | 根据业务设定 |
-| `max_samples` | 每棵树的采样数 | 'auto' 或 256 |
-| `max_features` | 每棵树使用的特征比例 | 1.0（默认） |
+| `n_estimators` | Number of trees | 100 (default) |
+| `contamination` | Estimated anomaly ratio | Set based on the business case |
+| `max_samples` | Number of samples per tree | 'auto' or 256 |
+| `max_features` | Fraction of features used per tree | 1.0 (default) |
 
-### 3.4 为什么 Isolation Forest 常常是第一选择？
+### 3.4 Why is Isolation Forest often the first choice?
 
-因为它在很多真实任务里，正好卡在一个很实用的平衡点上：
+Because in many real-world tasks, it hits a very practical balance:
 
-- 比统计方法更能处理高维数据
-- 比 One-Class SVM 更容易扩展到更大数据
-- 比 LOF 更适合作为通用 baseline
+- Better at handling high-dimensional data than statistical methods
+- Easier to scale to larger data than One-Class SVM
+- More suitable as a general baseline than LOF
 
-所以第一次做异常检测项目时，如果你还没有特别明确的结构假设，先试 Isolation Forest 往往是最稳的。
+So when you build your first anomaly detection project, if you do not yet have a very clear structural assumption, starting with Isolation Forest is often the safest choice.
 
 ---
 
-## 四、One-Class SVM
+## 4. One-Class SVM
 
-### 4.1 原理
+### 4.1 Principle
 
-**只用正常数据训练**，学习一个"正常"的边界。落在边界外的就是异常。
+Train using **normal data only** and learn a boundary around “normal.” Anything outside the boundary is anomalous.
 
 ```python
 from sklearn.svm import OneClassSVM
 
 # One-Class SVM
-ocsvm = OneClassSVM(kernel='rbf', gamma='auto', nu=0.05)  # nu ≈ 异常比例
+ocsvm = OneClassSVM(kernel='rbf', gamma='auto', nu=0.05)  # nu ≈ anomaly ratio
 y_pred_svm = ocsvm.fit_predict(X_all)
 
-# 可视化
+# Visualization
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 colors_svm = ['red' if p == -1 else 'steelblue' for p in y_pred_svm]
 axes[0].scatter(X_all[:, 0], X_all[:, 1], c=colors_svm, s=20, alpha=0.7)
 n_detected = (y_pred_svm == -1).sum()
-axes[0].set_title(f'One-Class SVM 检测结果\n（检测到 {n_detected} 个异常）')
+axes[0].set_title(f'One-Class SVM Detection Results\n({n_detected} anomalies detected)')
 
-# 决策边界
+# Decision boundary
 Z_svm = ocsvm.decision_function(np.c_[xx.ravel(), yy.ravel()])
 Z_svm = Z_svm.reshape(xx.shape)
 axes[1].contourf(xx, yy, Z_svm, levels=20, cmap='RdBu')
 axes[1].contour(xx, yy, Z_svm, levels=[0], colors='black', linewidths=2)
 axes[1].scatter(X_all[:, 0], X_all[:, 1], c=colors_svm, s=20, edgecolors='white', linewidth=0.5)
-axes[1].set_title('One-Class SVM 决策边界')
+axes[1].set_title('One-Class SVM Decision Boundary')
 
 for ax in axes:
     ax.grid(True, alpha=0.3)
@@ -368,28 +367,28 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 4.2 关键参数
+### 4.2 Key parameters
 
-| 参数 | 说明 |
+| Parameter | Explanation |
 |------|------|
-| `kernel` | 核函数（'rbf' 最常用） |
-| `nu` | 异常比例的上界（0 到 1） |
-| `gamma` | RBF 核参数（'auto' 或 'scale'） |
+| `kernel` | Kernel function (`'rbf'` is most commonly used) |
+| `nu` | Upper bound on the anomaly ratio (0 to 1) |
+| `gamma` | RBF kernel parameter (`'auto'` or `'scale'`) |
 
 ---
 
-## 五、LOF（局部离群因子）
+## 5. LOF (Local Outlier Factor)
 
-### 5.1 原理
+### 5.1 Principle
 
-LOF（Local Outlier Factor）通过比较**一个点与其邻居的密度**来判断异常。
+LOF (Local Outlier Factor) judges anomalies by comparing **a point’s density with its neighbors’ density**.
 
-- 正常点：周围邻居密度和自己差不多
-- 异常点：周围邻居密度比自己高得多（自己在"低密度区"）
+- Normal point: the density around its neighbors is similar to its own
+- Anomalous point: the density around its neighbors is much higher than its own (it lies in a “low-density region”)
 
-LOF 的优势：**能检测到"局部异常"**——在不同密度的区域中也能工作。
+LOF’s advantage: **it can detect local anomalies** — it works even in regions with different densities.
 
-### 5.2 sklearn 实现
+### 5.2 sklearn implementation
 
 ```python
 from sklearn.neighbors import LocalOutlierFactor
@@ -398,43 +397,43 @@ from sklearn.neighbors import LocalOutlierFactor
 lof = LocalOutlierFactor(n_neighbors=20, contamination=0.05)
 y_pred_lof = lof.fit_predict(X_all)
 
-# 可视化
+# Visualization
 fig, ax = plt.subplots(figsize=(8, 6))
 colors_lof = ['red' if p == -1 else 'steelblue' for p in y_pred_lof]
 
-# LOF 分数（绝对值越大越异常）
+# LOF score (the larger the absolute value, the more anomalous)
 lof_scores = -lof.negative_outlier_factor_
 sizes = 20 + (lof_scores - lof_scores.min()) / (lof_scores.max() - lof_scores.min()) * 200
 
 ax.scatter(X_all[:, 0], X_all[:, 1], c=colors_lof, s=sizes, alpha=0.6,
            edgecolors='white', linewidth=0.5)
 n_detected = (y_pred_lof == -1).sum()
-ax.set_title(f'LOF 检测结果（圆越大 = 越异常，检测到 {n_detected} 个）')
+ax.set_title(f'LOF Detection Results (larger circle = more anomalous, {n_detected} detected)')
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
 
-### 5.3 关键参数
+### 5.3 Key parameters
 
-| 参数 | 说明 | 推荐 |
+| Parameter | Explanation | Recommendation |
 |------|------|------|
-| `n_neighbors` | 考虑的邻居数 | 20（默认） |
-| `contamination` | 异常比例 | 'auto' 或手动设定 |
+| `n_neighbors` | Number of neighbors to consider | 20 (default) |
+| `contamination` | Anomaly ratio | `'auto'` or set manually |
 
-### 5.4 LOF 最适合解决什么问题？
+### 5.4 What problem is LOF best for?
 
-LOF 最值得记住的不是公式，而是它特别适合处理：
+The most important thing to remember about LOF is not the formula, but that it is especially good at handling cases where:
 
-- 整体上看不算很极端
-- 但放到局部邻域里明显不合群
+- A point does not look extremely unusual globally
+- But it clearly does not fit in with its local neighborhood
 
-这就是“局部异常”的概念。  
-如果你的数据不同区域密度差异很大，LOF 往往比只看全局边界的方法更有感觉。
+That is the idea of a “local anomaly.”
+If your data has large density differences across regions, LOF often makes more sense than methods that only look at a global boundary.
 
 ---
 
-## 六、方法综合对比
+## 6. Comprehensive method comparison
 
 ```python
 from sklearn.ensemble import IsolationForest
@@ -454,26 +453,26 @@ for ax, (name, model) in zip(axes, methods.items()):
     colors = ['red' if p == -1 else 'steelblue' for p in y_pred]
     ax.scatter(X_all[:, 0], X_all[:, 1], c=colors, s=20, alpha=0.7)
     n_anomalies = (y_pred == -1).sum()
-    ax.set_title(f'{name}\n检测到 {n_anomalies} 个异常')
+    ax.set_title(f'{name}\n{n_anomalies} anomalies detected')
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('三种异常检测方法对比', fontsize=13)
+plt.suptitle('Comparison of Three Anomaly Detection Methods', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-| | 统计方法 | Isolation Forest | One-Class SVM | LOF |
+| | Statistical methods | Isolation Forest | One-Class SVM | LOF |
 |---|---------|-----------------|---------------|-----|
-| 原理 | 距离均值/四分位 | 随机分割隔离 | 学习正常边界 | 局部密度比较 |
-| 速度 | 最快 | 快 | 中等 | 中等 |
-| 高维数据 | 差 | 好 | 好 | 中等 |
-| 局部异常 | 检测不到 | 一般 | 一般 | 好 |
-| 大数据 | 好 | 好 | 差 | 中等 |
-| 适用场景 | 简单、低维 | 通用首选 | 有核函数需求 | 密度不均匀 |
+| Principle | Distance from mean/quartiles | Random split isolation | Learn normal boundary | Local density comparison |
+| Speed | Fastest | Fast | Medium | Medium |
+| High-dimensional data | Poor | Good | Good | Medium |
+| Local anomalies | Cannot detect | Average | Average | Good |
+| Large data | Good | Good | Poor | Medium |
+| Suitable scenarios | Simple, low-dimensional | General first choice | Needs kernel functions | Uneven density |
 
 ---
 
-## 七、实战：信用卡欺诈检测模拟
+## 7. Practice: Simulated credit card fraud detection
 
 ```python
 from sklearn.datasets import make_classification
@@ -481,42 +480,42 @@ from sklearn.ensemble import IsolationForest
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 
-# 模拟高度不平衡的数据
+# Simulate highly imbalanced data
 X_cc, y_cc = make_classification(
     n_samples=5000, n_features=10, n_informative=5,
     n_redundant=3, n_classes=2,
-    weights=[0.97, 0.03],  # 97% 正常，3% 异常
+    weights=[0.97, 0.03],  # 97% normal, 3% anomalous
     random_state=42
 )
 
-print(f"正常样本: {(y_cc == 0).sum()}")
-print(f"异常样本: {(y_cc == 1).sum()}")
+print(f"Normal samples: {(y_cc == 0).sum()}")
+print(f"Anomalous samples: {(y_cc == 1).sum()}")
 
-# 标准化
+# Standardization
 scaler = StandardScaler()
 X_cc_scaled = scaler.fit_transform(X_cc)
 
-# 用 Isolation Forest 检测
+# Detect with Isolation Forest
 iso = IsolationForest(contamination=0.05, random_state=42)
 y_pred = iso.fit_predict(X_cc_scaled)
 
-# 转换标签格式（iso: 1=正常,-1=异常 → 0=正常,1=异常）
+# Convert label format (iso: 1=normal, -1=anomaly → 0=normal, 1=anomaly)
 y_pred_binary = (y_pred == -1).astype(int)
 
-print("\n检测结果:")
-print(classification_report(y_cc, y_pred_binary, target_names=['正常', '异常']))
+print("\nDetection results:")
+print(classification_report(y_cc, y_pred_binary, target_names=['Normal', 'Anomaly']))
 
-# 混淆矩阵
+# Confusion matrix
 cm = confusion_matrix(y_cc, y_pred_binary)
 fig, ax = plt.subplots(figsize=(6, 5))
 im = ax.imshow(cm, cmap='Blues')
 ax.set_xticks([0, 1])
 ax.set_yticks([0, 1])
-ax.set_xticklabels(['正常', '异常'])
-ax.set_yticklabels(['正常', '异常'])
-ax.set_xlabel('预测')
-ax.set_ylabel('真实')
-ax.set_title('Isolation Forest 欺诈检测混淆矩阵')
+ax.set_xticklabels(['Normal', 'Anomaly'])
+ax.set_yticklabels(['Normal', 'Anomaly'])
+ax.set_xlabel('Predicted')
+ax.set_ylabel('Actual')
+ax.set_title('Isolation Forest Fraud Detection Confusion Matrix')
 
 for i in range(2):
     for j in range(2):
@@ -530,107 +529,105 @@ plt.show()
 
 ---
 
-## 八、如何选择方法？
+## 8. How should you choose a method?
 
 ```mermaid
 flowchart TD
-    Q["异常检测需求"] --> Q1{"数据维度？"}
-    Q1 -->|"低维（1-3）"| STAT["统计方法<br/>Z-score / IQR"]
-    Q1 -->|"中高维"| Q2{"数据量？"}
-    Q2 -->|"大"| ISO["Isolation Forest<br/>（通用首选）"]
-    Q2 -->|"中等"| Q3{"密度均匀？"}
-    Q3 -->|"是"| ISO2["Isolation Forest"]
-    Q3 -->|"否"| LOF["LOF<br/>（局部密度检测）"]
+    Q["Anomaly detection task"] --> Q1{"What is the data dimension?"}
+    Q1 -->|"Low-dimensional (1-3)"| STAT["Statistical methods<br/>Z-score / IQR"]
+    Q1 -->|"Medium to high dimensional"| Q2{"Is the data large?"}
+    Q2 -->|"Large"| ISO["Isolation Forest<br/>(general first choice)"]
+    Q2 -->|"Medium"| Q3{"Is the density uniform?"}
+    Q3 -->|"Yes"| ISO2["Isolation Forest"]
+    Q3 -->|"No"| LOF["LOF<br/>(local density detection)"]
 
     style ISO fill:#e8f5e9,stroke:#2e7d32,color:#333
     style ISO2 fill:#e8f5e9,stroke:#2e7d32,color:#333
     style LOF fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-:::tip 实用建议
-1. **第一选择**：Isolation Forest（通用、快速、效果好）
-2. **低维简单场景**：Z-score 或 IQR 就够了
-3. **密度不均匀**：LOF
-4. **设定 contamination**：根据业务知识估算异常比例
+:::tip Practical advice
+1. **First choice**: Isolation Forest (general, fast, and effective)
+2. **Low-dimensional simple scenarios**: Z-score or IQR is enough
+3. **Uneven density**: LOF
+4. **Setting `contamination`**: Estimate the anomaly ratio based on business knowledge
 :::
 
-### 8.1 第一次做异常检测项目时，更稳的顺序是什么？
+### 8.1 What is a more stable order for your first anomaly detection project?
 
-建议按这个顺序走：
+It is recommended to follow this order:
 
-1. 先用统计方法看一眼数据分布和明显离群点
-2. 再上 `Isolation Forest` 做通用 baseline
-3. 如果发现局部密度差异大，再补 `LOF`
-4. 如果你真的有比较清楚的“正常边界”概念，再尝试 `One-Class SVM`
-5. 最后根据误报 / 漏报成本去定阈值和 contamination
+1. Use statistical methods first to inspect the data distribution and obvious outliers
+2. Then use `Isolation Forest` as a general baseline
+3. If you find large local density differences, add `LOF`
+4. If you truly have a clear idea of the “normal boundary,” then try `One-Class SVM`
+5. Finally, set the threshold and `contamination` according to the cost of false positives / false negatives
 
-这样会比直接堆高级模型更稳，因为你先有了分布感和 baseline。
+This is more stable than jumping straight to advanced models, because you first get a sense of the distribution and a baseline.
 
 ---
 
-## 十、第一次把异常检测放进项目里，最稳的默认顺序
+## 10. The safest default order when bringing anomaly detection into a project for the first time
 
-第一次把异常检测真正放进项目里，可以先按这个顺序：
+When you first put anomaly detection into a real project, you can follow this order:
 
-1. 先定义什么叫异常
-2. 先估一个异常比例范围
-3. 低维简单数据先试统计方法
-4. 高维通用 baseline 先试 Isolation Forest
-5. 局部密度差异很大时再看 LOF
-6. 最后再根据误报和漏报代价定阈值
+1. Define what counts as an anomaly
+2. Estimate a reasonable anomaly ratio
+3. Try statistical methods first for low-dimensional, simple data
+4. Try Isolation Forest first as a high-dimensional general baseline
+5. Look at LOF when local density differences are large
+6. Finally, set thresholds based on the cost of false positives and false negatives
 
-这样更稳，因为你不是一上来就比模型，  
-而是先把：
+This is safer because you are not starting by comparing models right away;
+instead, you first make the three most important things clear:
 
-- 异常定义
-- 异常比例
-- 评估代价
+- Anomaly definition
+- Anomaly ratio
+- Evaluation cost
 
-这三件最关键的事想清楚。
-
-:::info 连接后续
-- **第 4 章**：模型评估——如何科学评估异常检测效果
-- **第 5 章**：特征工程——为异常检测准备更好的特征
+:::info Connecting to the next sections
+- **Chapter 4**: Model evaluation — how to evaluate anomaly detection results scientifically
+- **Chapter 5**: Feature engineering — how to prepare better features for anomaly detection
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key point | Explanation |
 |------|------|
-| 统计方法 | Z-score（正态假设）、IQR（无假设） |
-| Isolation Forest | 随机分割隔离，通用首选 |
-| One-Class SVM | 学习正常边界，核函数灵活 |
-| LOF | 局部密度比较，能检测局部异常 |
-| contamination | 大多数方法需要估算异常比例 |
+| Statistical methods | Z-score (normality assumption), IQR (no assumption) |
+| Isolation Forest | Random split isolation, general first choice |
+| One-Class SVM | Learns the normal boundary, flexible kernels |
+| LOF | Local density comparison, can detect local anomalies |
+| `contamination` | Most methods need an estimated anomaly ratio |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-如果只带走一句话，我希望你记住：
+If you only remember one sentence, I hope it is this:
 
-> **异常检测不是在找“奇怪的点”这么简单，而是在用有限信息去定义“什么程度的不正常值得被报警”。**
+> **Anomaly detection is not just about finding “weird points”; it is about using limited information to define how abnormal is abnormal enough to trigger an alert.**
 
-所以真正该学会的是：
+So what you really need to learn is:
 
-- 先理解异常的业务含义
-- 再选方法
-- 再结合误报和漏报成本解释结果
+- First understand the business meaning of anomalies
+- Then choose a method
+- Then explain the results using the cost of false positives and false negatives
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：IQR vs Z-score
+### Exercise 1: IQR vs Z-score
 
-生成一个包含异常值的一维数据（混合高斯 + 均匀噪声），分别用 Z-score 和 IQR 检测异常，对比结果差异。
+Generate one-dimensional data containing outliers (a mix of Gaussian noise and uniform noise), detect anomalies with Z-score and IQR separately, and compare the differences in the results.
 
-### 练习 2：Isolation Forest 调参
+### Exercise 2: Tune Isolation Forest
 
-用演示数据，尝试不同的 `contamination` 值（0.01, 0.05, 0.1, 0.2），观察检测结果的变化。画出 4 张子图对比。
+Using the demo data, try different `contamination` values (0.01, 0.05, 0.1, 0.2) and observe how the detection results change. Draw 4 subplots for comparison.
 
-### 练习 3：真实数据集
+### Exercise 3: Real dataset
 
-用 sklearn 的 `fetch_kddcup99`（网络入侵检测数据集的子集，可用 `subset='SA'`）做异常检测。对比 Isolation Forest 和 LOF 的效果。
+Use sklearn’s `fetch_kddcup99` (a subset of the network intrusion detection dataset, available with `subset='SA'`) for anomaly detection. Compare the performance of Isolation Forest and LOF.
 
-### 练习 4：多方法融合
+### Exercise 4: Multi-method fusion
 
-用相同的数据，分别用 Isolation Forest、One-Class SVM、LOF 检测异常，然后用"多数投票"（至少 2 个方法标为异常才算异常）融合结果。对比单个方法和融合方法的效果。
+Use the same data to detect anomalies with Isolation Forest, One-Class SVM, and LOF, then combine the results using majority voting (an anomaly is counted only if at least 2 methods label it as anomalous). Compare the performance of a single method and the fused method.

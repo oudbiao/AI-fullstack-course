@@ -1,137 +1,137 @@
 ---
-title: "6.5 微调工程实践"
+title: "6.5 Fine-Tuning Engineering Practice"
 sidebar_position: 22
-description: "从任务定义、数据格式、切分方式到训练计划和验证策略，建立一套真正能落地的微调工程流程。"
+description: "Build a practical fine-tuning workflow that can actually be put into production, from task definition and data format to data splitting, training plans, and validation strategy."
 keywords: [finetuning, sft, dataset formatting, training plan, validation, llmops]
 ---
 
-# 微调工程实践
+# Fine-Tuning Engineering Practice
 
-:::tip 本节定位
-很多微调项目不是死在“模型不够强”，而是死在更前面的地方：
+:::tip Section Focus
+Many fine-tuning projects do not fail because “the model is not strong enough,” but because they fail earlier:
 
-- 任务定义含糊
-- 数据格式混乱
-- 训练集和验证集泄漏
-- 指标只看 loss 不看输出
+- Vague task definition
+- Messy data format
+- Leakage between the training and validation sets
+- Metrics that only look at loss and not at outputs
 
-所以这节课不讨论“某个最炫的方法”，而是讲：
+So in this lesson, we will not talk about “the fanciest method.” Instead, we will focus on:
 
-> **一个微调项目从开始到上线，工程上到底该怎么走。**
+> **From the start of a fine-tuning project to its deployment, what should the engineering workflow actually look like?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解微调项目的完整工程顺序
-- 学会把原始业务数据整理成训练样本
-- 知道如何切分数据、规划 batch、估算训练步数
-- 建立“训练前、训练中、训练后分别该看什么”的检查意识
+- Understand the full engineering workflow of a fine-tuning project
+- Learn how to organize raw business data into training samples
+- Know how to split data, plan batch sizes, and estimate training steps
+- Build the habit of checking what to look at before, during, and after training
 
 ---
 
-## 一、微调项目真正的起点不是“开训”
+## 1. The real starting point of a fine-tuning project is not “start training”
 
-### 1.1 先把任务写成一句非常具体的话
+### 1.1 First, write the task as one very specific sentence
 
-很多团队一开始就说：
+Many teams begin by saying:
 
-- 我们想微调一个客服模型
+- We want to fine-tune a customer service model
 
-这句话其实太大了。  
-更像一个能执行的任务定义应该是：
+This is actually too broad.
+A task definition that is more executable would be:
 
-> “给定用户问题和订单上下文，生成一段礼貌、简洁、遵循退款政策的回复。”
+> “Given the user’s question and order context, generate a polite, concise reply that follows the refund policy.”
 
-你会发现，这里面其实已经隐含了很多关键信息：
+You can see that this already implies a lot of key information:
 
-- 输入是什么
-- 输出是什么
-- 风格是什么
-- 业务边界是什么
+- What the input is
+- What the output is
+- What the style is
+- What the business boundaries are
 
-如果这一步含糊，后面所有数据和指标都会跟着飘。
+If this step is vague, all the data and metrics that follow will drift too.
 
-### 1.2 先做 baseline，再谈微调
+### 1.2 Run a baseline first, then talk about fine-tuning
 
-在训练前，你最好先用下面几种方式跑出 baseline：
+Before training, you should try to produce a baseline using methods like:
 
-- 纯 Prompt
-- Prompt + 结构化输出
+- Plain Prompt
+- Prompt + structured output
 - RAG
-- 工具调用
+- Tool calling
 
-原因很现实：
+The reason is simple:
 
-- 如果不用微调就能解决，别把系统复杂度白白抬高
-- 如果 baseline 已经很强，微调收益可能不大
-- 如果 baseline 很差，你反而更容易看出微调到底改善了什么
+- If you can solve the problem without fine-tuning, do not increase system complexity for no reason
+- If the baseline is already strong, the gain from fine-tuning may be small
+- If the baseline is weak, it becomes easier to see what fine-tuning actually improves
 
-### 1.3 先决定“训练样本的基本单位”
+### 1.3 First decide the “basic unit” of training samples
 
-常见的训练单位有三种：
+There are three common training units:
 
-- 指令-回答对
-- 多轮对话
-- 偏好对比样本
+- Instruction-answer pairs
+- Multi-turn conversations
+- Preference comparison samples
 
-这节主要讲监督微调（SFT）工程实践，  
-因此最常见的单位是：
+This section mainly discusses supervised fine-tuning (SFT) engineering practice,
+so the most common unit is:
 
 - `messages`
 - `prompt/completion`
 
-别小看这个决定，它会直接影响你后面的数据清洗和模板格式。
+Do not underestimate this decision. It will directly affect your later data cleaning and template format.
 
 ---
 
-## 二、训练前最容易被忽略的三件事
+## 2. Three things that are easy to ignore before training
 
-### 2.1 目标不清，会让数据越标越乱
+### 2.1 Unclear goals will make the data messier and messier
 
-如果你的标注员并不知道：
+If your annotators do not know:
 
-- 回复是偏简洁还是偏详细
-- 是否要主动解释原因
-- 碰到越权问题要不要拒答
+- Whether the reply should be concise or detailed
+- Whether the model should proactively explain the reason
+- Whether it should refuse out-of-scope requests
 
-那你最后得到的数据一定会风格漂移。
+then the resulting data will definitely drift in style.
 
-### 2.2 数据泄漏会让验证集变得虚假乐观
+### 2.2 Data leakage makes the validation set falsely optimistic
 
-一个特别常见的问题是：
+A very common problem is:
 
-- 同一个客户的多条工单
-- 同一个 FAQ 的轻微改写版本
-- 同一篇文章被切成多个近似片段
+- Multiple tickets from the same customer
+- Slightly rewritten versions of the same FAQ
+- One article split into several similar fragments
 
-如果这些样本同时出现在训练和验证里，  
-你会误以为模型泛化很好，实际上它只是记住了同源数据。
+If these samples appear in both training and validation,
+you may think the model generalizes well, but in reality it is just memorizing data from the same source.
 
-### 2.3 loss 下降不代表业务可用
+### 2.3 A decreasing loss does not mean the model is usable for business
 
-对大模型来说，经常会出现这种情况：
+For large models, this often happens:
 
-- loss 在降
-- 但输出风格还是不对
-- 或者格式偶尔坏掉
-- 或者一长段解释后才给答案
+- Loss goes down
+- But the output style is still wrong
+- Or the format sometimes breaks
+- Or the model gives a long explanation before answering
 
-因此你不能只看训练曲线，  
-还得同时看：
+So you cannot look only at the training curve.
+You also need to check:
 
-- 结构化格式正确率
-- 关键业务字段命中率
-- 典型样例的人类阅读结果
+- Structured format accuracy
+- Hit rate for key business fields
+- Human review of typical samples
 
 ---
 
-## 三、先把原始业务数据整理成训练样本
+## 3. First, organize raw business data into training samples
 
-下面这个例子会做三件特别实用的事：
+The following example does three very practical things:
 
-1. 把原始客服记录转成 `messages` 格式
-2. 按 `customer_id` 分组切分训练集和验证集
-3. 避免同一客户同时出现在两边
+1. Convert raw customer service records into `messages` format
+2. Split the training and validation sets by `customer_id`
+3. Avoid having the same customer appear in both sets
 
 ```python
 import json
@@ -142,34 +142,34 @@ random.seed(42)
 raw_samples = [
     {
         "customer_id": "C001",
-        "question": "订单已经付款了，能申请退款吗？",
-        "answer": "可以申请退款。请先确认订单状态，如果已经发货，需要走售后流程。",
+        "question": "I already paid for the order. Can I request a refund?",
+        "answer": "Yes, you can request a refund. Please first confirm the order status. If it has already been shipped, you will need to go through the after-sales process.",
     },
     {
         "customer_id": "C001",
-        "question": "退款大概多久到账？",
-        "answer": "原路退款通常需要 3 到 7 个工作日，具体以支付渠道到账时间为准。",
+        "question": "How long does a refund usually take to arrive?",
+        "answer": "Refunds to the original payment method usually take 3 to 7 business days, depending on the payment provider.",
     },
     {
         "customer_id": "C002",
-        "question": "我忘记密码了，怎么重新登录？",
-        "answer": "请在登录页点击“忘记密码”，按短信或邮箱提示完成重置。",
+        "question": "I forgot my password. How can I log in again?",
+        "answer": "Please click “Forgot Password” on the login page and follow the SMS or email instructions to reset it.",
     },
     {
         "customer_id": "C003",
-        "question": "收货地址填错了，还能改吗？",
-        "answer": "如果订单还未出库，可以在订单详情页修改地址；若已出库，请联系人工客服。",
+        "question": "I entered the wrong shipping address. Can I still change it?",
+        "answer": "If the order has not yet been shipped, you can change the address on the order details page; if it has already been shipped, please contact human support.",
     },
     {
         "customer_id": "C004",
-        "question": "发票什么时候能开？",
-        "answer": "订单完成后可在发票中心申请开具，电子发票会发送到预留邮箱。",
+        "question": "When can I issue an invoice?",
+        "answer": "After the order is completed, you can request an invoice in the invoice center. The e-invoice will be sent to the email address you provided.",
     },
 ]
 
 
 def to_chat_record(row):
-    system_prompt = "你是电商客服助手，请给出礼貌、准确、符合平台政策的回复。"
+    system_prompt = "You are an e-commerce customer service assistant. Please provide polite, accurate replies that follow platform policy."
     return {
         "customer_id": row["customer_id"],
         "messages": [
@@ -200,58 +200,58 @@ print("first train example:")
 print(json.dumps(train_records[0], ensure_ascii=False, indent=2))
 ```
 
-### 3.1 这段代码为什么有工程价值？
+### 3.1 Why does this code have engineering value?
 
-因为它对应的是微调里最真实的第一步：
+Because it corresponds to the very first real step in fine-tuning:
 
-- 原始数据通常不是训练格式
-- 你得先整理成模型能吃的结构
-- 切分时还要避免同源泄漏
+- Raw data is usually not in training format
+- You need to organize it into a structure the model can consume
+- When splitting data, you also need to avoid leakage from the same source
 
-很多项目不是训练方法错，  
-而是从这一层开始就埋雷了。
+Many projects do not fail because the training method is wrong,
+but because they already plant problems at this layer.
 
-### 3.2 为什么要按客户切，而不是直接随机切？
+### 3.2 Why split by customer instead of randomly?
 
-因为随机切分很可能把同一个客户的不同问题同时放进训练和验证。
+Because random splitting may put different questions from the same customer into both training and validation.
 
-这样会导致：
+This leads to:
 
-- 验证分数看起来很漂亮
-- 但其实泛化能力被高估了
+- A validation score that looks great
+- But the real generalization ability is overestimated
 
-所以切分单位通常要尽量贴近真实泛化边界，例如：
+So the splitting unit should usually be as close as possible to the real generalization boundary, such as:
 
-- 用户
-- 会话
-- 文档
-- 工单
-- 产品线
+- User
+- Session
+- Document
+- Ticket
+- Product line
 
 ---
 
-## 四、训练格式不只是“长得像对话”
+## 4. Training format is not just “looks like a conversation”
 
-### 4.1 SFT 训练时，通常只希望模型为 assistant 部分负责
+### 4.1 During SFT training, we usually only want the model to be responsible for the assistant part
 
-这叫：
+This is called:
 
 - assistant-only loss
 
-意思是：
+It means:
 
 - `system`
 - `user`
 
-这些内容是条件输入，不该作为训练目标去“背诵”。
+These contents are conditional input and should not be trained as something the model should “memorize.”
 
-下面这个小函数就是一个简化版的 mask 思路：
+The small function below is a simplified mask example:
 
 ```python
 messages = [
-    {"role": "system", "content": "你是客服助手"},
-    {"role": "user", "content": "忘记密码怎么办"},
-    {"role": "assistant", "content": "请点击忘记密码完成重置"},
+    {"role": "system", "content": "You are a customer service assistant"},
+    {"role": "user", "content": "What should I do if I forgot my password?"},
+    {"role": "assistant", "content": "Please click Forgot Password to reset it"},
 ]
 
 
@@ -267,41 +267,41 @@ def build_loss_mask(messages):
 print(build_loss_mask(messages))
 ```
 
-这不是在复现真实 tokenizer，  
-而是在帮你理解：
+This is not meant to reproduce a real tokenizer,
+but to help you understand:
 
-> **训练时不是所有 token 都要一起算 loss。**
+> **During training, not all tokens should contribute to the loss.**
 
-### 4.2 如果格式规则不稳定，模型会学到“脏模式”
+### 4.2 If the formatting rules are unstable, the model will learn “dirty patterns”
 
-例如同一个任务里：
+For example, in the same task:
 
-- 有的样本用 `messages`
-- 有的样本用 `question/answer`
-- 有的样本 assistant 会先寒暄一大段
-- 有的样本直接给答案
+- Some samples use `messages`
+- Some samples use `question/answer`
+- Some assistant responses start with a long greeting
+- Some samples give the answer directly
 
-这种混乱会让模型难以形成稳定行为。
+This kind of inconsistency makes it hard for the model to form stable behavior.
 
-所以格式统一非常关键：
+So format consistency is critical:
 
-- 字段统一
-- role 顺序统一
-- 风格统一
-- 结束方式统一
+- Consistent fields
+- Consistent role order
+- Consistent style
+- Consistent ending format
 
 ---
 
-## 五、训练计划要在开训前就算清楚
+## 5. Training plans should be calculated before training starts
 
-很多人开训时才发现：
+Many people only realize during training that:
 
-- batch 太小
-- steps 太少
-- warmup 太怪
-- checkpoint 存太密或太稀
+- The batch size is too small
+- The number of steps is too few
+- The warmup is strange
+- Checkpoints are saved too frequently or too sparsely
 
-下面这个脚本可以帮你先算清训练规模。
+The script below can help you estimate the training scale in advance.
 
 ```python
 from math import ceil
@@ -347,152 +347,152 @@ best = min(val_history, key=lambda item: (item["val_loss"], -item["format_acc"])
 print("best checkpoint =", best)
 ```
 
-### 5.1 为什么要特别关心 effective batch size？
+### 5.1 Why should you pay special attention to effective batch size?
 
-因为你真正每次参数更新看到的样本数，不只是：
+Because the number of samples the model actually sees for each parameter update is not just:
 
-- 单卡 batch size
+- Single-GPU batch size
 
-而是：
+It is:
 
-- `micro_batch_size * gradient_accumulation * GPU 数量`
+- `micro_batch_size * gradient_accumulation * number of GPUs`
 
-这直接影响：
+This directly affects:
 
-- 梯度稳定性
-- 学习率选择
-- 总训练步数
+- Gradient stability
+- Learning rate choice
+- Total number of training steps
 
-### 5.2 为什么验证时不能只看 `val_loss`？
+### 5.2 Why not look only at `val_loss` during validation?
 
-因为业务任务常常有更关键的指标，例如：
+Because business tasks often have more important metrics, such as:
 
-- JSON 格式正确率
-- 分类标签准确率
-- 关键信息召回率
-- 人工满意度
+- JSON format correctness
+- Classification label accuracy
+- Key information recall
+- Human satisfaction
 
-所以保存最佳 checkpoint 时，  
-通常至少要同时看：
+So when saving the best checkpoint,
+you should usually consider at least:
 
-- 通用训练指标
-- 业务指标
-
----
-
-## 六、训练中到底该盯什么？
-
-### 6.1 第一层：曲线有没有明显异常
-
-例如：
-
-- loss 完全不降
-- 一开始就爆炸
-- 学习率调度异常
-- 验证集突然变差
-
-这些属于“先救火”的问题。
-
-### 6.2 第二层：模型输出有没有跑偏
-
-抽 20 到 50 条固定样例，  
-每个 checkpoint 都看一遍输出。
-
-重点看：
-
-- 是否过度啰嗦
-- 是否开始胡编
-- 是否格式不稳定
-- 是否遗忘原有基础能力
-
-### 6.3 第三层：有没有过拟合或灾难性遗忘
-
-你会经常遇到这种情况：
-
-- 训练集越来越好
-- 验证集提升停滞
-- 原本会的通用能力反而变差
-
-这通常说明：
-
-- 数据分布太窄
-- 训练轮数过多
-- 学习率过高
-- 样本风格太单一
+- General training metrics
+- Business metrics
 
 ---
 
-## 七、上线前要补的最后一层
+## 6. What should you actually monitor during training?
 
-### 7.1 离线评估通过，不代表可以直接上线
+### 6.1 First layer: Are the curves obviously abnormal?
 
-真正上线前，至少还要补：
+For example:
 
-- 灰度流量
-- 人工抽检
-- 回滚方案
-- 版本记录
+- Loss does not decrease at all
+- It explodes right from the start
+- Learning rate scheduling is abnormal
+- The validation set suddenly gets worse
 
-### 7.2 线上要记的不是只有请求日志
+These are “firefighting” problems.
 
-你还需要关心：
+### 6.2 Second layer: Has the model output drifted?
 
-- 哪类问题变好了
-- 哪类问题变差了
-- 新错误集中在哪些输入类型
+Pick 20 to 50 fixed samples,
+and review the outputs for each checkpoint.
 
-这会直接反过来变成你下一轮数据补充的来源。
+Focus on whether:
 
-### 7.3 微调项目不是“一次训练”，而是一条持续迭代链
+- The model becomes overly verbose
+- It starts hallucinating
+- The format is unstable
+- It forgets its original general ability
 
-最健康的闭环通常是：
+### 6.3 Third layer: Is there overfitting or catastrophic forgetting?
 
-1. 明确任务
-2. 准备数据
-3. 跑 baseline
-4. 开训与验证
-5. 灰度上线
-6. 收集失败样本
-7. 再进下一轮
+You will often see this:
 
----
+- Training set keeps improving
+- Validation improvement stalls
+- General capabilities that used to work become worse
 
-## 八、最常见的误区
+This usually means:
 
-### 8.1 误区一：一上来先配训练参数
-
-先配参数，往往是在跳过最关键的任务定义和数据整理。
-
-### 8.2 误区二：数据越多越好
-
-很多时候更重要的是：
-
-- 数据是否贴任务
-- 风格是否一致
-- 是否有代表性
-
-### 8.3 误区三：训练一结束就算项目结束
-
-真正的工程实践里，  
-训练完成通常只是中间节点，不是终点。
+- The data distribution is too narrow
+- Too many training epochs
+- Learning rate is too high
+- The sample style is too uniform
 
 ---
 
-## 小结
+## 7. The final layer to check before deployment
 
-这节最重要的不是记住某个配置文件长什么样，  
-而是建立一条稳定顺序：
+### 7.1 Passing offline evaluation does not mean you can deploy directly
 
-> **先把任务写清楚，再把数据整理对，再把切分和训练计划算明白，最后用业务指标而不只是 loss 去决定版本。**
+Before real deployment, you should at least add:
 
-只要这条顺序稳了，  
-你后面换模型、换框架、换微调方法，工程判断都不会乱。
+- Canary traffic
+- Manual spot checks
+- Rollback plan
+- Version records
+
+### 7.2 What you need to record online is not only request logs
+
+You also need to pay attention to:
+
+- Which types of problems improved
+- Which types of problems got worse
+- Which input types are causing the new errors
+
+This will directly become the source of data for your next iteration.
+
+### 7.3 A fine-tuning project is not “one training run,” but a continuous iteration loop
+
+The healthiest loop usually looks like this:
+
+1. Define the task
+2. Prepare the data
+3. Run a baseline
+4. Train and validate
+5. Deploy with canary traffic
+6. Collect failure cases
+7. Start the next round
 
 ---
 
-## 练习
+## 8. The most common misconceptions
 
-1. 把你手头一个真实业务任务改写成一句更具体的“输入-输出-风格-约束”描述。
-2. 参考本节代码，把一份原始问答数据整理成 `messages` 格式。
-3. 想一想：你的数据更应该按用户、按会话，还是按文档切分？为什么？
-4. 如果验证集 `val_loss` 更低，但 JSON 格式正确率更差，你会选哪个 checkpoint？为什么？
+### 8.1 Misconception 1: Start by tuning training parameters
+
+Starting with parameters usually means skipping the most important parts: task definition and data organization.
+
+### 8.2 Misconception 2: More data is always better
+
+Often, what matters more is:
+
+- Whether the data matches the task
+- Whether the style is consistent
+- Whether it is representative
+
+### 8.3 Misconception 3: The project ends when training ends
+
+In real engineering practice,
+training completion is usually only a midpoint, not the finish line.
+
+---
+
+## Summary
+
+The most important thing in this lesson is not to memorize what a certain config file looks like,
+but to build a stable sequence:
+
+> **First define the task clearly, then organize the data correctly, then calculate the splitting and training plan, and finally decide the version based on business metrics rather than just loss.**
+
+Once this sequence is stable,
+you can change the model, framework, or fine-tuning method later without losing engineering judgment.
+
+---
+
+## Exercises
+
+1. Rewrite one real business task you have into a more specific “input-output-style-constraints” description.
+2. Refer to the code in this section and organize a raw question-answer dataset into `messages` format.
+3. Think about this: should your data be split by user, by session, or by document? Why?
+4. If the validation set has a lower `val_loss` but worse JSON format correctness, which checkpoint would you choose? Why?

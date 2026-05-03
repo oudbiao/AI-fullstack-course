@@ -1,119 +1,119 @@
 ---
-title: "1.5 Agent 系统架构"
+title: "1.5 Agent System Architecture"
 sidebar_position: 4
-description: "从 Planner、Tool、Memory、State、Guardrails 等组件出发，理解一个可落地 Agent 系统的基本架构。"
+description: "Understand the basic architecture of a deployable Agent system, starting from components such as Planner, Tool, Memory, State, and Guardrails."
 keywords: [agent architecture, planner, tools, memory, state, guardrails, observability]
 ---
 
-# Agent 系统架构
+# Agent System Architecture
 
-![Agent 系统架构图](/img/course/agent-system-architecture.png)
+![Agent System Architecture Diagram](/img/course/agent-system-architecture-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 说清楚一个 Agent 系统常见的核心组件
-- 理解单 Agent 架构的基本执行闭环
-- 跑通一个带状态与工具注册的迷你架构示例
-- 知道真实系统为什么离不开观测和护栏
-
----
-
-## 一、Agent 不是“一个模型”这么简单
-
-### 1.1 最基础的误解：以为 Agent 只是大模型 + Prompt
-
-真实可用的 Agent 系统，通常至少还需要：
-
-- 工具层
-- 状态管理
-- 执行循环
-- 错误处理
-- 安全限制
-
-模型很重要，但它更像大脑的一部分，而不是整个系统。
-
-### 1.2 你可以把 Agent 想成一个小型操作系统
-
-里面有：
-
-- 决策中心
-- 工具箱
-- 记事本
-- 执行记录
-- 安全规则
-
-这也是为什么 Agent 一旦进入工程化阶段，就不再只是“写 prompt”。
+- Explain the core components commonly found in an Agent system
+- Understand the basic execution loop of a single-Agent architecture
+- Run a mini architecture example with state and tool registration
+- Know why real systems cannot do without observability and guardrails
 
 ---
 
-## 二、常见核心组件
+## 1. An Agent Is Not Just "a Model"
 
-### 2.1 Planner / 决策器
+### 1.1 The most basic misconception: thinking an Agent is just an LLM + Prompt
 
-负责决定：
+A truly usable Agent system usually also needs at least:
 
-- 当前任务怎么拆
-- 下一步做什么
-- 要不要调用工具
+- a tool layer
+- state management
+- an execution loop
+- error handling
+- safety constraints
 
-在简单系统里，这部分可能直接由 LLM 负责。  
-在更强控制场景里，也可能由规则 + LLM 混合完成。
+The model is important, but it is more like one part of the brain, not the whole system.
 
-### 2.2 Tool Layer / 工具层
+### 1.2 You can think of an Agent as a small operating system
 
-这是 Agent 能行动的关键。
+It contains:
 
-工具可能包括：
+- a decision center
+- a toolbox
+- a notebook
+- execution logs
+- safety rules
 
-- 搜索
-- 数据库查询
-- API 调用
-- 文件读写
-- 计算器
-
-如果没有工具，很多 Agent 其实只能“说”，不能“做”。
-
----
-
-## 三、状态、记忆和上下文
-
-### 3.1 State：当前任务进行到哪
-
-状态通常记录：
-
-- 用户目标
-- 已执行步骤
-- 中间结果
-- 失败重试次数
-
-这和“长期记忆”不是一回事。  
-它更像当前任务的工作区。
-
-### 3.2 Memory：跨回合保留什么
-
-记忆更偏向：
-
-- 用户偏好
-- 历史项目
-- 长期上下文
-
-很多基础 Agent 并不一定一开始就需要复杂记忆，但几乎都会需要状态。
+That is also why once an Agent enters the engineering stage, it is no longer just about "writing prompts."
 
 ---
 
-## 四、一个标准执行闭环
+## 2. Common Core Components
 
-### 4.1 最小闭环：感知、决策、行动、观察
+### 2.1 Planner / Decision Maker
+
+Responsible for deciding:
+
+- how to break down the current task
+- what to do next
+- whether to call a tool
+
+In simple systems, this part may be handled directly by the LLM.
+In scenarios that require stronger control, it may also be handled by a combination of rules + LLM.
+
+### 2.2 Tool Layer / Tools Layer
+
+This is the key to letting an Agent take action.
+
+Tools may include:
+
+- search
+- database queries
+- API calls
+- file read/write
+- calculators
+
+Without tools, many Agents can only "talk" and cannot actually "do."
+
+---
+
+## 3. State, Memory, and Context
+
+### 3.1 State: where the current task is now
+
+State usually records:
+
+- user goal
+- completed steps
+- intermediate results
+- number of retry attempts after failures
+
+This is not the same as "long-term memory."
+It is more like the workspace for the current task.
+
+### 3.2 Memory: what is kept across turns
+
+Memory is more about:
+
+- user preferences
+- historical projects
+- long-term context
+
+Many basic Agents do not necessarily need complex memory at the beginning, but almost all of them need state.
+
+---
+
+## 4. A Standard Execution Loop
+
+### 4.1 The minimal loop: perceive, decide, act, observe
 
 ```mermaid
 flowchart LR
-    A["输入目标"] --> B["决定下一步"]
-    B --> C["调用工具 / 生成动作"]
-    C --> D["拿到结果并更新状态"]
+    A["Input goal"] --> B["Decide next step"]
+    B --> C["Call tool / generate action"]
+    C --> D["Get result and update state"]
     D --> B
-    D --> E["满足结束条件后输出"]
+    D --> E["Output after the end condition is met"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -122,35 +122,35 @@ flowchart LR
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.2 为什么这个闭环很关键？
+### 4.2 Why is this loop so important?
 
-因为 Agent 的本质不是“一次性回答”，而是：
+Because the essence of an Agent is not "answer once," but:
 
-> 根据中间结果不断调整动作。
+> Continuously adjust actions based on intermediate results.
 
-这就是它和普通聊天机器人的根本差别之一。
+This is one of the fundamental differences between an Agent and a normal chatbot.
 
-![Agent 系统架构数据流图](/img/course/ch09-agent-system-architecture-dataflow-map.png)
+![Agent System Architecture Data Flow Diagram](/img/course/ch09-agent-system-architecture-dataflow-map-en.png)
 
-:::tip 读图提示
-把这张图当成“生产 Agent 的解剖图”来看：Planner 决定下一步，Tool Layer 负责行动，Memory 和 State 记录上下文，Guardrails 决定什么能做，Observability 让每一步能被追踪。
+:::tip Reading Tip
+Think of this diagram as the "anatomy of a production Agent": the Planner decides the next step, the Tool Layer handles actions, Memory and State record context, Guardrails decide what is allowed, and Observability makes every step traceable.
 :::
 
 ---
 
-## 五、一个迷你可运行架构示例
+## 5. A Mini Runnable Architecture Example
 
-下面这个例子里，我们显式写出：
+In the example below, we explicitly write out:
 
-- 工具注册表
-- 状态
-- 决策逻辑
-- 执行循环
+- a tool registry
+- state
+- decision logic
+- an execution loop
 
 ```python
 def tool_weather(city):
-    data = {"北京": "晴 22 度", "上海": "多云 25 度"}
-    return data.get(city, "暂无该城市天气")
+    data = {"Beijing": "Sunny, 22°C", "Shanghai": "Cloudy, 25°C"}
+    return data.get(city, "No weather information available for this city")
 
 def tool_calc(expression):
     return str(eval(expression, {"__builtins__": {}}))
@@ -165,12 +165,12 @@ def decide_next_action(state):
     if state["done"]:
         return None
 
-    if "天气" in query and not state["steps"]:
-        city = "北京" if "北京" in query else "上海"
+    if "weather" in query and not state["steps"]:
+        city = "Beijing" if "Beijing" in query else "Shanghai"
         return {"tool": "weather", "args": city}
 
-    if "计算" in query and not state["steps"]:
-        expression = query.replace("计算", "").strip()
+    if "calculate" in query and not state["steps"]:
+        expression = query.replace("calculate", "").strip()
         return {"tool": "calc", "args": expression}
 
     return {"tool": None, "args": None}
@@ -199,129 +199,129 @@ def run_agent(query):
 
     if state["observations"]:
         return state, state["observations"][-1]
-    return state, "没有可执行动作"
+    return state, "No executable action"
 
-state, answer = run_agent("计算 23 * 8")
-print("状态:", state)
-print("最终答案:", answer)
+state, answer = run_agent("calculate 23 * 8")
+print("State:", state)
+print("Final answer:", answer)
 ```
 
-这个例子很小，但已经包含了 Agent 架构的核心味道。
+This example is small, but it already contains the core feel of an Agent architecture.
 
 ---
 
-## 六、Guardrails：为什么护栏必不可少？
+## 6. Guardrails: Why Are Safety Rails Essential?
 
-### 6.1 因为 Agent 会行动
+### 6.1 Because Agents take actions
 
-行动就意味着风险。
+And action means risk.
 
-比如：
+For example:
 
-- 调错工具
-- 重复执行
-- 越权访问
-- 误删数据
+- calling the wrong tool
+- repeating execution
+- unauthorized access
+- accidentally deleting data
 
-所以真实系统里常见护栏包括：
+So common guardrails in real systems include:
 
-- 工具白名单
-- 参数校验
-- 最大步数限制
-- 人工确认节点
+- tool whitelists
+- parameter validation
+- maximum step limits
+- human approval checkpoints
 
-### 6.2 一个最简单的护栏例子
+### 6.2 The simplest guardrail example
 
 ```python
 def safe_eval(expression):
     allowed_chars = set("0123456789+-*/(). ")
     if not set(expression) <= allowed_chars:
-        return "表达式包含不允许的字符"
+        return "The expression contains disallowed characters"
     return str(eval(expression, {"__builtins__": {}}))
 
 print(safe_eval("3 * (4 + 5)"))
 print(safe_eval("__import__('os').system('rm -rf /')"))
 ```
 
-护栏的核心思想不是“让系统完全不会错”，而是把错误范围收窄。
+The core idea of guardrails is not to make the system completely error-free, but to narrow the scope of possible mistakes.
 
 ---
 
-## 七、Observability：为什么要能看见 Agent 在做什么？
+## 7. Observability: Why Do We Need to See What the Agent Is Doing?
 
-### 7.1 因为多步系统不透明就很难调试
+### 7.1 Because multi-step systems are hard to debug when they are opaque
 
-你至少希望能看到：
+At minimum, you want to see:
 
-- 每一步决定了什么
-- 调了哪个工具
-- 工具返回了什么
-- 为什么结束
+- what decision was made at each step
+- which tool was called
+- what the tool returned
+- why the process ended
 
-### 7.2 最小观测信息通常包括
+### 7.2 The minimum observability information usually includes
 
-- 输入
+- input
 - action
 - observation
-- 最终输出
-- 时间成本
+- final output
+- time cost
 
-很多 Agent 项目最后卡住，不是因为模型太弱，而是因为系统根本看不清自己哪里错了。
-
----
-
-## 八、单 Agent 和多 Agent
-
-### 8.1 单 Agent 通常先学会
-
-大多数系统应该先把单 Agent 打稳：
-
-- 更好调试
-- 更易收敛
-- 架构更清楚
-
-### 8.2 多 Agent 不是默认升级路线
-
-只有当任务真的适合分工时，多 Agent 才值得考虑。
-
-例如：
-
-- 规划 Agent
-- 执行 Agent
-- 评审 Agent
-
-如果任务不复杂，多 Agent 反而会增加协调成本。
+Many Agent projects get stuck in the end not because the model is too weak, but because the system itself cannot clearly see where it went wrong.
 
 ---
 
-## 九、初学者常见误区
+## 8. Single Agent and Multi-Agent
 
-### 9.1 先上多 Agent，再想清楚单 Agent
+### 8.1 A single Agent is usually what you should learn first
 
-这通常会让调试难度直线上升。
+Most systems should first make a single Agent solid:
 
-### 9.2 把状态和记忆混成一件事
+- easier to debug
+- easier to converge
+- clearer architecture
 
-状态更偏当前任务，记忆更偏跨任务积累。
+### 8.2 Multi-Agent is not the default upgrade path
 
-### 9.3 没有日志和回放机制
+Only when a task is truly suitable for division of labor is Multi-Agent worth considering.
 
-一旦系统出错，就只能靠猜。
+For example:
 
----
+- Planning Agent
+- Execution Agent
+- Review Agent
 
-## 小结
-
-这一节最重要的认识是：
-
-> Agent 架构的关键，不只是“能不能调用工具”，而是能不能把决策、执行、状态、护栏和观测组织成一个稳定闭环。
-
-这也是为什么真正的 Agent 工程，既是模型问题，也是系统设计问题。
+If the task is not complex, Multi-Agent may instead increase coordination costs.
 
 ---
 
-## 练习
+## 9. Common Beginner Mistakes
 
-1. 给迷你 Agent 再增加一个 `docs_search` 工具。
-2. 给 `run_agent()` 增加“最大步数”限制。
-3. 想一想：如果工具经常超时，架构层面应该补哪些机制？
+### 9.1 Starting with Multi-Agent before understanding Single Agent
+
+This usually makes debugging much harder.
+
+### 9.2 Mixing up state and memory
+
+State is more about the current task, while memory is more about accumulation across tasks.
+
+### 9.3 Having no logging or replay mechanism
+
+Once the system fails, you can only guess.
+
+---
+
+## Summary
+
+The most important takeaway from this section is:
+
+> The key to an Agent architecture is not just "whether it can call tools," but whether it can organize decision-making, execution, state, guardrails, and observability into a stable closed loop.
+
+That is why real Agent engineering is both a model problem and a system design problem.
+
+---
+
+## Exercises
+
+1. Add a `docs_search` tool to the mini Agent.
+2. Add a "maximum step count" limit to `run_agent()`.
+3. Think about it: if tools often time out, what mechanisms should be added at the architecture level?

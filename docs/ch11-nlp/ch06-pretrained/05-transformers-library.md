@@ -1,84 +1,84 @@
 ---
-title: "6.6 Transformers 库实战"
+title: "6.6 Practical Transformers Library Usage"
 sidebar_position: 20
-description: "从 tokenizer、config、model 到最小 pipeline，真正学会怎样离线使用 HuggingFace Transformers 的核心接口。"
+description: "From tokenizer, config, and model to the smallest pipeline, truly learn how to use the core HuggingFace Transformers interfaces offline."
 keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 ---
 
-# Transformers 库实战
+# Practical Transformers Library Usage
 
-![Transformers 库调用链图](/img/course/ch11-transformers-library-call-chain-map.png)
+![Transformers library call chain diagram](/img/course/ch11-transformers-library-call-chain-map-en.png)
 
-:::tip 读图提示
-第一次用 Transformers 库容易被 API 名字绕晕。先按 Tokenizer、Config、Model、Task Head、Pipeline 这条调用链看，理解每个对象负责什么，再去查具体类名会稳很多。
+:::tip Reading the diagram
+When you first use the Transformers library, it is easy to get confused by all the API names. First, look at the call chain in this order: Tokenizer, Config, Model, Task Head, Pipeline. Understand what each object is responsible for, and then look up the specific class names. That will make things much clearer.
 :::
 
-:::tip 本节定位
-学预训练模型只停留在概念层很容易“会说不会用”。  
-这一节要解决的是另一个很现实的问题：
+:::tip Where this section fits
+When learning pretrained models, it is easy to stay at the conceptual level and end up “able to talk about it but not use it.”
+This section is meant to solve a very practical question:
 
-> **面对 `transformers` 这个库，我到底该从哪里下手？**
+> **When facing the `transformers` library, where should I even start?**
 
-我们会尽量用不依赖外网下载的方式，把最核心接口走通。
+We will try to walk through the most important interfaces in a way that does not depend on downloading anything from the internet.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 `transformers` 库里最常见的几个对象分别干什么
-- 学会区分 tokenizer、config、model、pipeline 的角色
-- 离线跑通一个 tokenizer + model 的最小示例
-- 理解实际项目里怎样从“能跑”走向“可维护”
+- Understand what the most common objects in the `transformers` library do
+- Learn to distinguish the roles of tokenizer, config, model, and pipeline
+- Run a minimal offline example with tokenizer + model
+- Understand how real projects move from “it runs” to “it is maintainable”
 
 ---
 
-## 一、先把库里的几个主角分清楚
+## 1. First, let’s separate the main characters in the library
 
 ### 1.1 `Tokenizer`
 
-负责把文本变成模型能吃的数字序列。
+Responsible for turning text into a sequence of numbers that the model can process.
 
 ### 1.2 `Config`
 
-负责描述模型结构参数，比如：
+Responsible for describing model architecture parameters, such as:
 
 - hidden size
-- 层数
-- 头数
+- number of layers
+- number of heads
 
 ### 1.3 `Model`
 
-真正负责前向计算。
+Responsible for the actual forward computation.
 
 ### 1.4 `Pipeline`
 
-是更高层的封装，帮你把：
+A higher-level wrapper that helps you combine:
 
-- 分词
-- 前向
-- 后处理
+- tokenization
+- forward pass
+- post-processing
 
-串成一个更方便调用的接口。
+into a more convenient interface.
 
-一句话记：
+Remember this in one sentence:
 
-> tokenizer 负责进门，model 负责计算，pipeline 负责把整件事串起来。 
+> tokenizer handles entry, model handles computation, and pipeline stitches the whole thing together.
 
 ---
 
-## 二、为什么很多人第一次用 `transformers` 会晕？
+## 2. Why do many people get confused the first time they use `transformers`?
 
-因为它有两层世界：
+Because it has two layers:
 
-### 2.1 概念层
+### 2.1 Concept layer
 
-你知道：
+You know things like:
 
-- BERT 是 encoder-only
-- GPT 是 decoder-only
+- BERT is encoder-only
+- GPT is decoder-only
 
-### 2.2 工具层
+### 2.2 Tool layer
 
-你又会遇到：
+Then you run into:
 
 - `AutoTokenizer`
 - `AutoModel`
@@ -86,22 +86,22 @@ keywords: [transformers, HuggingFace, tokenizer, AutoModel, pipeline, config]
 - `pipeline`
 - `from_pretrained`
 
-初学者经常会卡在：
+Beginners often get stuck here:
 
-> 名字太多，但不知道每个接口到底解决什么问题。 
+> There are too many names, but I do not know what each interface actually solves.
 
-所以这一节的核心不是背接口，而是建立调用顺序的地图。
+So the key goal of this section is not memorizing APIs, but building a map of the call sequence.
 
 ---
 
-## 三、先离线构造一个最小 tokenizer
+## 3. First, build a minimal tokenizer offline
 
-### 3.1 为什么不直接下载现成模型？
+### 3.1 Why not just download an existing model?
 
-因为教程要尽量保证你在没有外网时也能跑通。  
-所以这里我们手工准备一个超小 `vocab.txt`，让你真正理解 tokenizer 在做什么。
+Because the tutorial should try to ensure that you can still run it even without internet access.
+So here we manually prepare a tiny `vocab.txt` so that you can truly understand what a tokenizer does.
 
-### 3.2 可运行示例
+### 3.2 Runnable example
 
 ```python
 from pathlib import Path
@@ -109,7 +109,7 @@ from transformers import BertTokenizer
 
 vocab_tokens = [
     "[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]",
-    "我", "爱", "自", "然", "语", "言", "处", "理", "北", "京"
+    "I", "love", "natural", "language", "processing", "Beijing"
 ]
 
 vocab_path = Path("mini_vocab.txt")
@@ -117,31 +117,31 @@ vocab_path.write_text("\n".join(vocab_tokens), encoding="utf-8")
 
 tokenizer = BertTokenizer(vocab_file=str(vocab_path))
 
-encoded = tokenizer("我爱自然语言处理", return_tensors="pt")
+encoded = tokenizer("Ilovenatural language processing", return_tensors="pt")
 
 print(encoded)
 print("tokens:", tokenizer.convert_ids_to_tokens(encoded["input_ids"][0]))
 ```
 
-### 3.3 这段代码在教你什么？
+### 3.3 What is this code teaching you?
 
-它在教你：
+It is teaching you that:
 
-- tokenizer 不是魔法黑盒
-- 它本质上是“词表 + 切分规则 + 编码规则”
-- 输出里最关键的是 `input_ids` 和 `attention_mask`
+- a tokenizer is not a magical black box
+- it is essentially “vocabulary + splitting rules + encoding rules”
+- the most important outputs are `input_ids` and `attention_mask`
 
 ---
 
-## 四、再离线构造一个最小 BERT 模型
+## 4. Next, build a minimal BERT model offline
 
-### 4.1 为什么用随机初始化模型？
+### 4.1 Why use a randomly initialized model?
 
-因为我们现在的目标不是追求效果，而是：
+Because our goal right now is not to chase performance, but to:
 
-> 真正看懂 `transformers` 库里 model 对象是怎么接输入、吐输出的。 
+> truly understand how a model object in the `transformers` library receives input and produces output.
 
-### 4.2 可运行示例
+### 4.2 Runnable example
 
 ```python
 import torch
@@ -166,20 +166,20 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
-### 4.3 你真正该看懂什么？
+### 4.3 What should you really understand here?
 
-- `input_ids` 是 token 编号
-- `attention_mask` 告诉模型哪些位置有效
-- `last_hidden_state` 是每个位置的上下文化表示
-- `pooler_output` 更像句级表示之一
+- `input_ids` are token IDs
+- `attention_mask` tells the model which positions are valid
+- `last_hidden_state` is the contextualized representation of each position
+- `pooler_output` is one kind of sentence-level representation
 
-这几样东西看懂了，后面你再接分类头、匹配头、生成头就会轻松很多。
+Once you understand these, it becomes much easier to add a classification head, matching head, or generation head later.
 
 ---
 
-## 五、把 tokenizer 和 model 串起来
+## 5. Connect tokenizer and model together
 
-### 5.1 可运行示例
+### 5.1 Runnable example
 
 ```python
 from pathlib import Path
@@ -188,7 +188,7 @@ from transformers import BertTokenizer, BertConfig, BertModel
 
 vocab_tokens = [
     "[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]",
-    "我", "爱", "自", "然", "语", "言", "处", "理"
+    "I", "love", "natural", "language", "processing"
 ]
 
 vocab_path = Path("mini_vocab_2.txt")
@@ -205,7 +205,7 @@ config = BertConfig(
 )
 model = BertModel(config)
 
-batch = tokenizer(["我爱自然语言处理", "我爱语言"], padding=True, return_tensors="pt")
+batch = tokenizer(["Ilovenatural language processing", "I love language"], padding=True, return_tensors="pt")
 outputs = model(**batch)
 
 print("input_ids shape        :", batch["input_ids"].shape)
@@ -213,37 +213,37 @@ print("attention_mask shape   :", batch["attention_mask"].shape)
 print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 ```
 
-### 5.2 这就是最基础的真实调用链
+### 5.2 This is the most basic real call chain
 
-真正项目里，最常见的底层流程就是：
+In real projects, the most common low-level flow is:
 
-1. 文本 -> tokenizer
+1. text -> tokenizer
 2. tokenizer -> tensor
 3. tensor -> model
-4. model 输出 -> 后处理或任务头
+4. model output -> post-processing or task head
 
-你现在已经把这条链跑通了。
+You have already run through this chain.
 
 ---
 
-## 六、`Auto*` 系列接口是干什么的？
+## 6. What are the `Auto*` interfaces for?
 
-### 6.1 为什么库里这么多 `AutoModel`？
+### 6.1 Why does the library have so many `AutoModel` variants?
 
-因为 `transformers` 想让你不用手写一堆模型类型判断。
+Because `transformers` wants to save you from writing lots of model-type conditionals by hand.
 
-例如：
+For example:
 
 - `AutoTokenizer`
 - `AutoModel`
 - `AutoModelForSequenceClassification`
 - `AutoModelForCausalLM`
 
-它们的设计目标是：
+Their design goal is:
 
-> 给一个模型名字或配置，就自动选合适的类。 
+> Give a model name or config, and automatically pick the right class.
 
-### 6.2 一个离线的 `AutoModel.from_config` 示例
+### 6.2 An offline `AutoModel.from_config` example
 
 ```python
 from transformers import AutoModel, BertConfig
@@ -260,99 +260,99 @@ model = AutoModel.from_config(config)
 print(type(model))
 ```
 
-这说明：
+This shows that:
 
-- `AutoModel` 不一定非要联网下载
-- 它本质上是“根据配置自动实例化正确模型”
+- `AutoModel` does not necessarily need to download anything online
+- it is essentially “automatically instantiate the correct model based on the config”
 
 ---
 
-## 七、`pipeline` 到底值不值得学？
+## 7. Is `pipeline` worth learning?
 
-### 7.1 值得，但你要知道它适合什么阶段
+### 7.1 Yes, but you need to know when it is appropriate
 
-`pipeline` 的优点：
+Advantages of `pipeline`:
 
-- 上手快
-- Demo 快
-- 少写样板代码
+- quick to get started
+- fast for demos
+- less boilerplate code
 
-它更适合：
+It is better suited for:
 
-- 学习
-- 快速验证
-- 小实验
+- learning
+- quick validation
+- small experiments
 
-### 7.2 但工程里不能只靠它
+### 7.2 But in engineering, you cannot rely on it alone
 
-因为真实项目往往还要控制：
+Because real projects often still need control over:
 
 - batch
 - device
-- 输出格式
-- 日志
-- 错误处理
+- output format
+- logging
+- error handling
 
-所以真正成熟的做法通常是：
+So the mature approach is usually:
 
-- 学会 `pipeline`
-- 但也要理解底层 tokenizer + model 调用链
+- learn `pipeline`
+- but also understand the underlying tokenizer + model call chain
 
 ---
 
-## 八、Transformers 库最常见的任务头
+## 8. The most common task heads in the Transformers library
 
-粗略记几个高频接口：
+Here are some high-frequency interfaces to remember:
 
-| 接口 | 适合什么 |
+| Interface | Suitable for |
 |---|---|
-| `AutoModel` | 只拿基础表示 |
-| `AutoModelForSequenceClassification` | 文本分类 |
-| `AutoModelForTokenClassification` | 序列标注 |
-| `AutoModelForQuestionAnswering` | 抽取式问答 |
-| `AutoModelForCausalLM` | 生成任务 |
+| `AutoModel` | Getting basic representations only |
+| `AutoModelForSequenceClassification` | Text classification |
+| `AutoModelForTokenClassification` | Sequence labeling |
+| `AutoModelForQuestionAnswering` | Extractive QA |
+| `AutoModelForCausalLM` | Generation tasks |
 
-这背后的逻辑其实很简单：
+The logic behind this is actually simple:
 
-> 相同骨干模型 + 不同任务头。 
+> the same backbone model + different task heads.
 
 ---
 
-## 九、初学者最常踩的坑
+## 9. Common pitfalls for beginners
 
-### 9.1 只会 `pipeline`，不会底层调用
+### 9.1 Only knowing `pipeline`, not the underlying calls
 
-这样一到工程场景就容易卡住。
+This makes it easy to get stuck in engineering scenarios.
 
-### 9.2 不理解 tokenizer 输出字段
+### 9.2 Not understanding tokenizer output fields
 
-至少要看懂：
+At minimum, you should understand:
 
 - `input_ids`
 - `attention_mask`
 
-### 9.3 把“模型概念”和“库接口”混在一起
+### 9.3 Mixing up “model concepts” and “library interfaces”
 
-你要能分清：
+You need to clearly distinguish:
 
-- BERT / GPT 是模型路线
-- `AutoModel` / `pipeline` 是库接口
-
----
-
-## 小结
-
-这一节最重要的不是会不会背 API，而是搞清楚：
-
-> **Transformers 库的核心调用链，就是 tokenizer 把文本编码成张量，model 对张量做前向计算，再由任务头或后处理得到结果。**
-
-一旦这条链清楚了，后面无论你做分类、抽取、生成还是微调，思路都会稳定很多。
+- BERT / GPT are model families
+- `AutoModel` / `pipeline` are library interfaces
 
 ---
 
-## 练习
+## Summary
 
-1. 修改本节的 mini vocab，加入你自己的几个词，再看 tokenizer 输出有什么变化。
-2. 把 `BertConfig` 的 `hidden_size` 改成 64，看看输出 shape 怎么变。
-3. 用自己的话解释：为什么学 `transformers` 库时，不能只会 `pipeline`？
-4. 想一想：如果你要做文本分类，应该优先找 `AutoModel` 还是 `AutoModelForSequenceClassification`？
+The most important thing in this section is not memorizing APIs, but understanding:
+
+> **The core call chain of the Transformers library is: tokenizer encodes text into tensors, model performs the forward computation on those tensors, and then a task head or post-processing step produces the final result.**
+
+Once this chain is clear, your thinking will become much more stable when you later do classification, extraction, generation, or fine-tuning.
+
+---
+
+## Exercises
+
+1. Modify the mini vocab in this section, add a few of your own words, and see how the tokenizer output changes.
+2. Change `hidden_size` in `BertConfig` to 64 and see how the output shape changes.
+3. Explain in your own words: why can’t you just learn `pipeline` when studying the `transformers` library?
+4. Think about this: if you want to do text classification, should you start with `AutoModel` or `AutoModelForSequenceClassification`?

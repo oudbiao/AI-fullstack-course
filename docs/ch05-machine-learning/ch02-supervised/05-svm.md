@@ -1,86 +1,86 @@
 ---
-title: "2.6 SVM：最大间隔与核方法"
+title: "2.6 SVM: Maximum Margin and Kernel Methods"
 sidebar_position: 7
-description: "用新手能理解的方式学习支持向量机：最大间隔、支持向量、核方法，以及它为什么是经典机器学习的重要里程碑。"
-keywords: [SVM, 支持向量机, 最大间隔, 核方法, 监督学习]
+description: "Learn Support Vector Machines in a beginner-friendly way: maximum margin, support vectors, kernel methods, and why they are an important milestone in classic machine learning."
+keywords: [SVM, Support Vector Machine, maximum margin, kernel methods, supervised learning]
 ---
 
-# SVM：最大间隔与核方法
+# SVM: Maximum Margin and Kernel Methods
 
-![SVM 最大间隔直觉图](/img/course/ch05-svm-margin-map.png)
+![SVM maximum margin intuition diagram](/img/course/ch05-svm-margin-map-en.png)
 
-:::tip 本节定位
-SVM 今天不一定是每个项目的首选模型，但它是经典机器学习里非常重要的一站。
+:::tip Section position
+SVM may not be the first-choice model for every project today, but it is a very important stop in classic machine learning.
 
-它最值得新人记住的一句话是：
+The most important sentence for beginners to remember is:
 
-> **分类不只是要分对，还要让边界离两边样本都尽量远。**
+> **Classification is not only about getting the labels right; it is also about making the boundary as far away from both sides of the samples as possible.**
 :::
 
-## 一、SVM 为什么会出现？
+## 1. Why did SVM appear?
 
-前面你已经学过逻辑回归。逻辑回归会学习一条分界线，把样本分成两类。
+You have already learned logistic regression. Logistic regression learns a decision boundary that separates samples into two classes.
 
-但这里会出现一个问题：
+But a problem comes up here:
 
-> 如果有很多条线都能把训练样本分开，哪一条更好？
+> If many different lines can separate the training samples, which one is better?
 
-SVM 的回答非常有意思：
+SVM gives a very interesting answer:
 
-> **选那条离两边最近样本都最远的线。**
+> **Choose the line that is farthest from the nearest samples on both sides.**
 
-这就是最大间隔思想。
+This is the idea of maximum margin.
 
-## 二、先用一个生活类比理解最大间隔
+## 2. First, understand maximum margin with a real-life analogy
 
-想象你要在两个班级的队伍中间画一条安全线：
+Imagine you need to draw a safety line between the queues of two classes:
 
-- 只要能分开两边，当然可以
-- 但如果线贴着某个同学画，就很危险
-- 稍微有人移动一点，就可能越界
+- As long as the two sides are separated, that is fine
+- But if the line is drawn very close to one student, it is risky
+- If someone moves a little, they may cross the boundary
 
-更稳的画法是：
+A more stable way is:
 
-> **让安全线尽量站在两边之间最宽的位置。**
+> **Place the safety line where the space between the two sides is widest.**
 
-SVM 就是在做类似的事。
+SVM does something similar.
 
-| 概念 | 类比 |
+| Concept | Analogy |
 |---|---|
-| 决策边界 | 两类样本之间的安全线 |
-| 间隔 margin | 安全线到两边最近样本的距离 |
-| 支持向量 | 离安全线最近、最关键的样本 |
+| Decision boundary | The safety line between two classes |
+| Margin | The distance from the safety line to the nearest samples on both sides |
+| Support vectors | The key samples closest to the safety line |
 
-## 三、支持向量到底是什么？
+## 3. What exactly are support vectors?
 
-SVM 这个名字里的“支持向量”，指的是最靠近分界线的那些样本。
+The “support vectors” in SVM are the samples closest to the decision boundary.
 
-它们很关键，因为：
+They are very important because:
 
-- 离边界很远的点，通常不会改变分界线
-- 离边界最近的点，决定了边界能放在哪里
+- Points far away from the boundary usually do not change the boundary
+- The points closest to the boundary decide where the boundary can be placed
 
-你可以把支持向量理解成“边界的支撑点”。  
-边界不是被所有样本平均决定的，而是被最关键、最危险的样本撑起来的。
+You can think of support vectors as the “anchor points” of the boundary.
+The boundary is not determined by all samples equally; it is held up by the most important and most critical samples.
 
-## 四、核方法：直线分不开时，换一个空间看
+## 4. Kernel methods: when a straight line cannot separate the data, change the space
 
-SVM 更有历史意义的地方在于核方法。
+One of the most historically important parts of SVM is kernel methods.
 
-有些数据在原始平面上分不开，例如同心圆：
+Some data cannot be separated in the original plane, such as concentric circles:
 
 ```text
-原始空间：看起来怎么画直线都分不开
-更高维空间：换个角度后可能可以用一个平面分开
+Original space: it looks like no straight line can separate them
+Higher-dimensional space: after changing the view, a plane may separate them
 ```
 
-核方法的直觉是：
+The intuition of kernel methods is:
 
-> **不一定真的把数据搬到高维空间里算，而是用核函数高效计算“高维空间里的相似度”。**
+> **We do not necessarily need to actually move the data into a higher-dimensional space to compute; instead, we use a kernel function to efficiently compute “similarity in a higher-dimensional space.”**
 
-这让 SVM 可以处理一些非线性边界。
+This allows SVM to handle some nonlinear boundaries.
 
-## 五、一个最小可运行示例
+## 5. A minimal runnable example
 
 ```python
 from sklearn.datasets import make_moons
@@ -103,41 +103,41 @@ model.fit(X_train, y_train)
 print("accuracy:", model.score(X_test, y_test))
 ```
 
-这里有两个点特别值得注意：
+There are two especially important points here:
 
-- `StandardScaler()` 很重要，因为 SVM 对特征尺度比较敏感
-- `kernel="rbf"` 表示使用常见的非线性核
+- `StandardScaler()` is very important because SVM is fairly sensitive to feature scale
+- `kernel="rbf"` means using a common nonlinear kernel
 
-## 六、SVM、逻辑回归和树模型怎么选？
+## 6. How do we choose between SVM, logistic regression, and tree models?
 
-| 模型 | 更像在做什么 | 适合新人怎么理解 |
+| Model | What it is more like doing | How a beginner can understand it |
 |---|---|---|
-| 逻辑回归 | 学一条概率化的线性边界 | 最基础的分类 baseline |
-| SVM | 学一条最大间隔边界 | 分类边界要稳，不要贴样本太近 |
-| 决策树 | 按规则一步步切分数据 | 更像人读得懂的规则树 |
-| 随机森林 / Boosting | 组合很多树 | 表格数据强 baseline |
+| Logistic regression | Learning a probabilistic linear boundary | The most basic classification baseline |
+| SVM | Learning a maximum-margin boundary | The classification boundary should be stable and not too close to the samples |
+| Decision tree | Splitting data step by step with rules | A rule tree that humans can read more easily |
+| Random forest / Boosting | Combining many trees | Strong baseline for tabular data |
 
-SVM 的优势是边界思想非常漂亮，小中型数据上常有不错效果。  
-它的限制是大数据训练可能慢，参数和核函数选择也需要经验。
+The advantage of SVM is that its boundary idea is very elegant, and it often performs well on small to medium-sized datasets.
+Its limitations are that training on large datasets can be slow, and choosing parameters and kernel functions also requires experience.
 
-## 七、把 SVM 放回历史主线
+## 7. Putting SVM back into the historical timeline
 
-1995 年，Cortes 和 Vapnik 的 Support-Vector Networks 让最大间隔分类器成为经典机器学习的重要节点。
+In 1995, Cortes and Vapnik's Support-Vector Networks made maximum-margin classifiers an important milestone in classic machine learning.
 
-它在历史上重要，不是因为它永远最强，而是因为它把两个问题讲得非常清楚：
+It is important in history not because it is always the strongest, but because it clearly explains two things:
 
-- 泛化不是只看训练集分对没有
-- 决策边界离样本远一点，模型通常更稳
+- Generalization is not only about whether the training set is classified correctly
+- If the decision boundary stays a little farther from the samples, the model is usually more stable
 
-这也是为什么即使今天很多表格任务会优先尝试 XGBoost、LightGBM 或随机森林，SVM 仍然值得学。
+That is also why, even today, many tabular tasks will first try XGBoost, LightGBM, or random forests, but SVM is still worth learning.
 
-## 八、学完这一节应该形成的直觉
+## 8. The intuition you should have after finishing this section
 
-你不需要第一遍就推完整的 SVM 优化公式。  
-更重要的是先形成三层直觉：
+You do not need to fully derive the SVM optimization formula on the first pass.
+What matters more is building these three layers of intuition first:
 
-1. SVM 追求最大间隔，不只是训练集分对
-2. 支持向量是决定边界的关键样本
-3. 核方法让线性模型获得处理非线性的能力
+1. SVM pursues maximum margin, not just correctness on the training set
+2. Support vectors are the key samples that determine the boundary
+3. Kernel methods give linear models the ability to handle nonlinearity
 
-如果你能解释“为什么 SVM 经常需要特征缩放”，说明你已经把它从算法名真正理解到工程使用了。
+If you can explain “why SVM often needs feature scaling,” it means you have truly understood it from the algorithm name to practical engineering use.

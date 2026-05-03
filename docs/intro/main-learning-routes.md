@@ -1,151 +1,151 @@
 ---
 sidebar_position: 3
-title: "四条主线学习路线"
-description: "把完整 AI 全栈课程整理成零基础全栈、已有开发经验、数据模型和作品集冲刺四条可执行路线。"
-keywords: [AI学习路线, AI全栈路线, 作品集路线, 数据科学路线, AI应用工程]
+title: "Four Main Learning Routes"
+description: "Organize the complete AI full-stack course into four actionable routes: zero-to-one full stack, existing development experience, data/model understanding, and portfolio sprint."
+keywords: [AI learning path, AI full-stack path, portfolio path, data science path, AI application engineering]
 ---
 
-# 四条主线学习路线
+# Four Main Learning Routes
 
-![四条主线学习路线地铁图](/img/course/intro-four-main-routes-subway.png)
+![Four Main Learning Routes subway map](/img/course/intro-four-main-routes-subway-en.png)
 
-这套课程可以完整顺序学习，也可以按目标选择主线。路线的作用不是删减课程，而是告诉你第一遍应该把哪些内容读深，哪些内容先知道位置，哪些内容等项目需要时再回来看。
+You can study this course in full, step by step, or choose a main route based on your goal. The purpose of a route is not to cut content out of the course, but to tell you which parts to read deeply on the first pass, which parts you only need to know where they fit, and which parts you should come back to later when a project needs them.
 
-如果你不确定选哪条，默认走“零基础全栈 AI 应用路线”。它覆盖最稳，最适合从工具、Python、数据一路走到 RAG、Agent 和毕业项目。
+If you are not sure which one to choose, default to the “Zero-to-One Full-Stack AI Application Route.” It is the most stable and the best choice for moving from tools, Python, and data all the way to RAG, Agent, and a capstone project.
 
-## 四条路线怎么选
+## How to Choose Among the Four Routes
 
-| 路线 | 适合谁 | 第一目标 | 最终作品 |
+| Route | Who It Is For | First Goal | Final Outcome |
 |---|---|---|---|
-| 零基础全栈 AI 应用路线 | 会一点电脑操作或刚开始编程 | 从环境、Python、数据到 AI 应用完整通关 | AI 学习助手或课程问答助手 |
-| 已有开发经验的 AI 工程路线 | 已会写代码、接口或产品开发 | 快速补齐数据、Prompt、RAG、Agent 和工程化 | 可部署的 LLM 应用或 Agent 工具 |
-| 数据与模型理解路线 | 想走数据分析、机器学习、模型评估 | 深入理解数据、指标、模型训练和误差分析 | 数据分析 + ML/DL 实验报告 |
-| 作品集冲刺路线 | 准备求职、转行、展示能力 | 最快沉淀可运行、可解释、可评估项目 | 3～5 个项目组合 + 毕业作品 |
+| Zero-to-One Full-Stack AI Application Route | People with a little computer experience or just starting to code | Complete the full path from environment setup, Python, and data to AI applications | An AI study assistant or a course Q&A assistant |
+| AI Engineering Route for Learners with Development Experience | People who already know how to write code, work with APIs, or do product development | Quickly fill in gaps in data, Prompt, RAG, Agent, and engineering practices | A deployable LLM application or Agent tool |
+| Data and Model Understanding Route | People who want to pursue data analysis, machine learning, or model evaluation | Develop a deep understanding of data, metrics, model training, and error analysis | Data analysis + ML/DL experiment report |
+| Portfolio Sprint Route | People preparing for jobs, career changes, or capability demonstrations | Quickly build runnable, explainable, and evaluable projects | A portfolio of 3–5 projects + a capstone project |
 
-四条路线可以切换，但不要每天切换。更好的方式是先按一条路线完成一个阶段，再根据项目暴露出来的问题回流补课。
+You can switch between routes, but do not switch every day. A better approach is to complete one stage along a single route first, then go back and fill in gaps based on problems exposed by the project.
 
-## 路线一：零基础全栈 AI 应用路线
+## Route 1: Zero-to-One Full-Stack AI Application Route
 
-这条路线适合大多数学习者。它按课程默认顺序推进，目标是建立完整能力链：会配置环境，会写 Python，会处理数据，理解模型基本逻辑，最后能做 RAG、Agent 和毕业项目。
+This route is suitable for most learners. It follows the default course order and aims to build a complete capability chain: you can set up the environment, write Python, handle data, understand the basic logic of models, and finally build RAG, Agent, and a capstone project.
 
 ```mermaid
 flowchart LR
-  A[1 开发者工具] --> B[2 Python]
-  B --> C[3 数据分析]
-  C --> D[4 AI 数学]
-  D --> E[5 机器学习]
-  E --> F[6 深度学习]
-  F --> G[7 Prompt 与大模型]
+  A[1 Developer Tools] --> B[2 Python]
+  B --> C[3 Data Analysis]
+  C --> D[4 AI Math]
+  D --> E[5 Machine Learning]
+  E --> F[6 Deep Learning]
+  F --> G[7 Prompt and LLMs]
   G --> H[8 RAG]
   H --> I[9 Agent]
-  I --> J[毕业项目]
+  I --> J[Capstone Project]
 ```
 
-第一遍学习时，每阶段只要求做到“能运行一个最小项目，能解释关键概念，能记录一个失败样本”。数学、深度学习和 Transformer 不需要一次学成专家，但要理解它们为什么支撑后面的 Embedding、检索、Prompt、模型评估和多模态。
+On the first pass, each stage only needs to reach this standard: “I can run a minimum project, explain the key concepts, and record one failed example.” You do not need to become an expert in math, deep learning, or Transformer all at once, but you should understand why they support Embedding, retrieval, Prompting, model evaluation, and multimodality later on.
 
-| 阶段 | 第一遍重点 | 可以先不深挖 | 必交付 |
+| Stage | First-Pass Focus | Can Delay Deep Dive Into | Must Deliver |
 |---|---|---|---|
-| 1～3 | 环境、Python、数据读取、清洗、图表 | 复杂工具链和高级 Pandas 技巧 | 可运行脚本、数据分析图表 |
-| 4～6 | 向量、概率、baseline、训练曲线、过拟合 | 复杂数学推导和大型训练 | baseline、指标、失败样本 |
-| 7～9 | Prompt、结构化输出、RAG、工具调用、Agent trace | 高级框架细节和复杂多 Agent | RAG 问答、Agent 执行轨迹 |
-| 10～12 | 选择一个方向做毕业作品 | 三个方向全部做深 | 可演示毕业项目 |
+| 1–3 | Environment, Python, data loading, cleaning, charts | Complex toolchains and advanced Pandas techniques | Runnable scripts, data analysis charts |
+| 4–6 | Vectors, probability, baseline, training curves, overfitting | Complex mathematical derivations and large-scale training | Baseline, metrics, failure cases |
+| 7–9 | Prompt, structured output, RAG, tool calling, Agent traces | Advanced framework details and complex multi-Agent setups | RAG Q&A, Agent execution traces |
+| 10–12 | Choose one direction and build a capstone project | Deeply developing all three directions | A presentable capstone project |
 
-通关标准是：你能从零创建一个 AI 应用项目，说明它的数据从哪里来，模型或 LLM 做了什么，结果如何评估，失败时如何复盘。
+The completion standard is this: you can create an AI application project from scratch, explain where its data comes from, what the model or LLM did, how the result was evaluated, and how you would review and improve it when it fails.
 
-## 路线二：已有开发经验的 AI 工程路线
+## Route 2: AI Engineering Route for Learners with Development Experience
 
-这条路线适合已经会写代码、做接口、做前端或做后端的人。你不需要在基础语法上停太久，但不能跳过数据、评估和工程边界，否则后面做 RAG 和 Agent 时会卡在输入输出、日志、权限和部署上。
+This route is suitable for people who already know how to write code, build APIs, make frontends, or build backends. You do not need to spend too long on basic syntax, but you cannot skip data, evaluation, and engineering boundaries. Otherwise, you will get stuck later on input/output, logging, permissions, and deployment when building RAG and Agent systems.
 
 ```mermaid
 flowchart LR
-  A[快速补环境与 Python 项目结构] --> B[数据处理与 API]
-  B --> C[Prompt 与结构化输出]
-  C --> D[RAG 工程]
-  D --> E[Agent 工具调用]
-  E --> F[部署、日志、评估]
+  A[Quickly fill in environment and Python project structure] --> B[Data processing and API]
+  B --> C[Prompt and structured output]
+  C --> D[RAG engineering]
+  D --> E[Agent tool calling]
+  E --> F[Deployment, logging, evaluation]
 ```
 
-| 学习段 | 精读内容 | 快速浏览 | 项目动作 |
+| Learning Segment | Read Closely | Skim Quickly | Project Action |
 |---|---|---|---|
-| 基础补齐 | Python 文件、异常、API、数据处理 | 终端基础、语法入门 | 把已有开发习惯迁移到 Python 项目 |
-| AI 应用 | Prompt、LLM API、结构化输出、RAG | 机器学习算法细节 | 做一个课程或业务知识库助手 |
-| 系统工程 | 工具 schema、Agent trace、权限、安全、日志 | 复杂多 Agent 框架 | 做一个可控 Agent 或自动化工具 |
-| 交付上线 | README、环境变量、部署、监控、成本估算 | 大规模训练 | 做可演示 Demo 和评估报告 |
+| Basics to Fill In | Python files, exceptions, APIs, data processing | Terminal basics, syntax introduction | Transfer your existing development habits to Python projects |
+| AI Applications | Prompt, LLM API, structured output, RAG | Machine learning algorithm details | Build a course or business knowledge-base assistant |
+| System Engineering | Tool schema, Agent trace, permissions, security, logging | Complex multi-Agent frameworks | Build a controllable Agent or automation tool |
+| Delivery and Launch | README, environment variables, deployment, monitoring, cost estimation | Large-scale training | Build a demo and evaluation report |
 
-这条路线最容易犯的错是“只会接 API，不会评估”。每个 LLM 功能都要留下固定测试样例、失败样本、日志字段和回归检查方法。
+The easiest mistake to make on this route is “I can call the API, but I cannot evaluate the output.” Every LLM feature needs fixed test cases, failure samples, log fields, and a regression-check method.
 
-## 路线三：数据与模型理解路线
+## Route 3: Data and Model Understanding Route
 
-这条路线适合想走数据分析、机器学习、模型评估、模型工程或研究助理方向的人。它更重视数据质量、数学直觉、baseline、实验记录和误差分析。
+This route is suitable for people who want to work in data analysis, machine learning, model evaluation, model engineering, or research assistance. It places more emphasis on data quality, mathematical intuition, baselines, experiment records, and error analysis.
 
 ```mermaid
 flowchart TD
-  A[Python 与数据处理] --> B[统计、向量、概率]
-  B --> C[机器学习 baseline]
-  C --> D[深度学习训练]
-  D --> E[Transformer 与大模型原理]
-  E --> F[模型评估与微调]
-  F --> G[选择 CV / NLP / 多模态方向]
+  A[Python and data processing] --> B[Statistics, vectors, probability]
+  B --> C[Machine learning baseline]
+  C --> D[Deep learning training]
+  D --> E[Transformer and LLM principles]
+  E --> F[Model evaluation and fine-tuning]
+  F --> G[Choose a CV / NLP / multimodal direction]
 ```
 
-| 学习段 | 关键问题 | 项目证据 |
+| Learning Segment | Key Question | Project Evidence |
 |---|---|---|
-| 数据分析 | 数据是否可信，结论是否有局限 | 数据字典、清洗日志、图表解释 |
-| 数学与指标 | 相似度、概率、loss、指标分别解释什么 | 小实验、指标说明、手算样例 |
-| 机器学习 | baseline 是什么，是否数据泄漏 | train/test 划分、指标表、错误样本 |
-| 深度学习 | loss 为什么变化，模型哪里失败 | 训练曲线、混淆矩阵、失败图片或文本 |
-| 大模型与评估 | Prompt、RAG、微调分别适合什么 | 对比实验、固定测试集、结论边界 |
+| Data Analysis | Is the data trustworthy, and are the conclusions limited? | Data dictionary, cleaning log, chart explanations |
+| Math and Metrics | What do similarity, probability, loss, and metrics each explain? | Small experiments, metric explanations, hand-calculated examples |
+| Machine Learning | What is the baseline, and is there data leakage? | Train/test split, metric table, error samples |
+| Deep Learning | Why does the loss change, and where does the model fail? | Training curves, confusion matrix, failed images or text |
+| LLMs and Evaluation | What are Prompt, RAG, and fine-tuning each best for? | Comparative experiments, fixed test set, conclusion boundaries |
 
-这条路线不是只学理论。每个模型概念都要落到一个实验：输入是什么，输出是什么，指标是什么，失败样本是什么，下一轮如何改。
+This route is not only about theory. Every model concept should be grounded in an experiment: what the input is, what the output is, what the metric is, what the failure samples are, and how the next iteration will improve it.
 
-## 路线四：作品集冲刺路线
+## Route 4: Portfolio Sprint Route
 
-这条路线适合已经有时间压力，希望尽快形成作品集的人。它的重点不是把所有章节读到最深，而是用项目驱动学习，边做边补。
+This route is suitable for people who are under time pressure and want to build a portfolio as quickly as possible. Its focus is not to read every chapter in the deepest possible way, but to learn through projects and fill in the gaps as you go.
 
 ```mermaid
 flowchart LR
-  A[Python 小工具] --> B[数据分析报告]
+  A[Python mini tool] --> B[Data analysis report]
   B --> C[ML baseline]
-  C --> D[Prompt 助手]
-  D --> E[RAG 知识库]
-  E --> F[Agent 自动化]
-  F --> G[毕业作品]
+  C --> D[Prompt assistant]
+  D --> E[RAG knowledge base]
+  E --> F[Agent automation]
+  F --> G[Capstone project]
 ```
 
-| 周期 | 学习重点 | 作品集交付 |
+| Period | Learning Focus | Portfolio Deliverable |
 |---|---|---|
-| 第 1 段 | 环境、Python、README、Git | 一个能运行的小工具 |
-| 第 2 段 | 数据清洗、可视化、结论表达 | 一份数据分析报告 |
-| 第 3 段 | baseline、指标、错误样本 | 一个 ML 或分类实验 |
-| 第 4 段 | Prompt、结构化输出、LLM API | 一个 Prompt 助手 |
-| 第 5 段 | 文档处理、检索、引用、评估 | 一个 RAG 问答项目 |
-| 第 6 段 | 工具调用、trace、权限、失败恢复 | 一个 Agent 自动化项目 |
-| 第 7 段 | 部署、演示、复盘、作品集包装 | 一个毕业作品 |
+| Stage 1 | Environment, Python, README, Git | A small runnable tool |
+| Stage 2 | Data cleaning, visualization, conclusion writing | A data analysis report |
+| Stage 3 | Baseline, metrics, error samples | An ML or classification experiment |
+| Stage 4 | Prompt, structured output, LLM API | A Prompt assistant |
+| Stage 5 | Document processing, retrieval, citations, evaluation | A RAG Q&A project |
+| Stage 6 | Tool calling, trace, permissions, failure recovery | An Agent automation project |
+| Stage 7 | Deployment, demo, review, portfolio packaging | A capstone project |
 
-作品集冲刺路线必须避免“只做成功演示”。每个项目至少要有 README、运行命令、示例输入输出、评估方式、失败样本和下一步计划。准备求职时，项目能讲清楚比功能堆得多更重要。
+The portfolio sprint route must avoid “only building successful demos.” Each project should have at least a README, run commands, sample inputs and outputs, an evaluation method, failure samples, and a next-step plan. When preparing for a job search, being able to explain the project clearly matters more than stuffing in more features.
 
-## 路线切换和回流规则
+## Route Switching and Backtracking Rules
 
-学习过程中如果卡住，不要立刻否定整条路线。先判断卡点属于哪一层，再回到对应章节补最小能力。
+If you get stuck during learning, do not immediately reject the whole route. First determine which layer the problem belongs to, then go back to the corresponding chapter to fill in the minimum needed skill.
 
-| 当前路线 | 常见卡点 | 回流方式 |
+| Current Route | Common Bottleneck | How to Go Back |
 |---|---|---|
-| 零基础全栈路线 | 后半段内容太多，RAG 和 Agent 混在一起 | 先完成 RAG 问答，再做 Agent；不要同时追所有框架 |
-| AI 工程路线 | API 能调通，但答案不稳定 | 回看数据、评估、Prompt schema 和 RAG 评估 |
-| 数据模型路线 | 理论能懂，但项目展示弱 | 回看 README、项目交付标准和作品集清单 |
-| 作品集冲刺路线 | 项目能演示，但讲不清原理 | 回看能力地图、数学最小基础和模型评估 |
+| Zero-to-One Full-Stack Route | Too much content in the later stages; RAG and Agent are mixed together | Finish RAG Q&A first, then build Agent; do not chase every framework at once |
+| AI Engineering Route | The API works, but the answers are unstable | Review data, evaluation, Prompt schema, and RAG evaluation |
+| Data/Model Route | The theory makes sense, but the project presentation is weak | Review README, project delivery standards, and the portfolio checklist |
+| Portfolio Sprint Route | The project can be demonstrated, but the principles are hard to explain | Review the capability map, minimum math foundations, and model evaluation |
 
-如果一个阶段连续卡住三次，优先做最小实验，而不是继续读更多材料。能跑通、能复现、能记录，才说明可以进入下一阶段。
+If you get stuck three times in a row in one stage, prioritize a minimum experiment instead of reading more material. Being able to run, reproduce, and record is what shows you are ready to move to the next stage.
 
-## 每条路线的最低毕业标准
+## Minimum Graduation Standard for Each Route
 
-无论你选择哪条路线，最后都应该能交付一个完整项目。完整项目不等于功能最多，而是有清晰问题定义、运行方式、输入输出、评估样例、失败分析和改进计划。
+No matter which route you choose, you should eventually deliver a complete project. A complete project does not mean the most features; it means a clear problem definition, a way to run it, input/output examples, evaluation samples, failure analysis, and an improvement plan.
 
-| 路线 | 最低毕业作品 | 必须证明 |
+| Route | Minimum Graduation Project | What Must Be Proven |
 |---|---|---|
-| 零基础全栈 AI 应用 | AI 学习助手或课程问答助手 | 从基础到 AI 应用的完整闭环 |
-| AI 工程路线 | 可部署 LLM / RAG / Agent 应用 | 工程可运行、可观测、可回归 |
-| 数据与模型路线 | 模型实验或评估报告 | 数据可信、指标清楚、结论有边界 |
-| 作品集冲刺路线 | 3～5 个项目组合和一个主项目 | 能展示、能解释、能复盘 |
+| Zero-to-One Full-Stack AI Application | AI study assistant or course Q&A assistant | A complete loop from fundamentals to AI application |
+| AI Engineering Route | A deployable LLM / RAG / Agent application | The engineering is runnable, observable, and regression-testable |
+| Data and Model Route | A model experiment or evaluation report | The data is trustworthy, the metrics are clear, and the conclusions have boundaries |
+| Portfolio Sprint Route | A portfolio of 3–5 projects and one main project | It can be shown, explained, and reviewed |
 
-路线只是学习顺序，项目才是能力证据。每完成一段，都回到项目里补一条运行记录、一张结果截图或一个失败样本，学习会更稳。
+The route is only the learning order; the project is the real proof of ability. After completing each stage, go back to the project and add a run log, a result screenshot, or a failure sample. That will make your learning much more stable.

@@ -1,96 +1,96 @@
 ---
-title: "5.2 SQL 基础"
+title: "5.2 SQL Basics"
 sidebar_position: 22
-description: "掌握数据库的通用语言 SQL，学会增删改查"
+description: "Master SQL, the common language of databases, and learn how to create, read, update, and delete data"
 ---
 
-# SQL 基础
+# SQL Basics
 
-![SQL 表连接关系图](/img/course/sql-table-join-map.png)
+![SQL Table Join Relationship Diagram](/img/course/sql-table-join-map-en.png)
 
-:::tip 本节定位
-很多新人第一次学 SQL 时最容易卡住的不是语法多，而是：
+:::tip Section Overview
+When many beginners first learn SQL, what trips them up most is not that the syntax is too much, but that they don’t know:
 
-- 它和 Pandas 到底是什么关系
-- 查询顺序在脑子里怎么排
+- What the relationship is between SQL and Pandas
+- How the query order should be organized in their head
 
-所以这节最重要的不是先背所有语法，而是先建立一个判断：
+So the most important thing in this section is not memorizing every syntax rule first, but building a judgment:
 
-> **SQL 本质上是在用一套比较稳定的语言，对表提问。**
+> **In essence, SQL is a stable language for asking tables questions.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 SQL 的四大操作：增、删、改、查
-- 熟练使用 SELECT 查询语句
-- 学会 WHERE 条件过滤
-- 掌握 JOIN 多表连接
-- 理解 GROUP BY 分组聚合
+- Master the four basic SQL operations: create, read, update, delete
+- Use `SELECT` queries fluently
+- Learn `WHERE` condition filtering
+- Master `JOIN` for combining multiple tables
+- Understand `GROUP BY` for grouped aggregation
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-SQL 最适合新人的理解顺序不是“从头背语法书”，而是先看清：
+The best way for beginners to understand SQL is not to “memorize the syntax book from start to finish,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["SELECT 选什么"] --> B["FROM 从哪张表来"]
-    B --> C["WHERE 先筛掉什么"]
-    C --> D["GROUP BY 怎么分组"]
-    D --> E["ORDER BY 最后怎么排"]
+    A["SELECT what to choose"] --> B["FROM which table"]
+    B --> C["WHERE what to filter first"]
+    C --> D["GROUP BY how to group"]
+    D --> E["ORDER BY how to sort last"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- SQL 查询在脑子里到底该怎么走
-- 为什么它和 `Pandas` 的筛选、分组、合并能对应起来
+- How SQL queries actually flow in your head
+- Why it corresponds to `Pandas` filtering, grouping, and merging
 
-## SQL 是什么？
+## What Is SQL?
 
-**SQL**（Structured Query Language，结构化查询语言）是和数据库"对话"的语言。无论你用的是 SQLite、MySQL 还是 PostgreSQL，SQL 语法基本一致。
+**SQL** (Structured Query Language) is the language used to “talk” to databases. Whether you use SQLite, MySQL, or PostgreSQL, the SQL syntax is basically the same.
 
 ```mermaid
 flowchart LR
-    A["你（人类）"] -->|"写 SQL"| B["数据库引擎"]
-    B -->|"返回结果"| A
+    A["You (human)"] -->|"Write SQL"| B["Database engine"]
+    B -->|"Return results"| A
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-:::tip SQL 和 Pandas 的关系
-SQL 能做的事，Pandas 大多也能做。实际上 Pandas 的很多方法名（如 `merge`、`groupby`）就是从 SQL 借鉴来的。两者对照着学，效果更好。
+:::tip The Relationship Between SQL and Pandas
+What SQL can do, Pandas can do for the most part too. In fact, many Pandas method names, such as `merge` and `groupby`, were borrowed from SQL. Learning them side by side works better.
 :::
 
-### 一个更适合新人的总类比
+### A Better Analogy for Beginners
 
-你可以把 SQL 理解成：
+You can think of SQL as:
 
-- 你在对数据库提问
+- You asking the database questions
 
-而这些问题通常都很朴素：
+And these questions are usually very straightforward:
 
-- 我要哪些列？
-- 我只要哪些行？
-- 我按什么分组？
-- 我怎么把两张表接起来？
+- Which columns do I want?
+- Which rows do I want?
+- How should I group them?
+- How do I connect two tables?
 
-这个类比很适合新人，因为它会把 SQL 从“另一门语言”重新拉回到“我怎样问表问题”。
+This analogy is especially useful for beginners because it pulls SQL back from “another language” into “how do I ask the table questions?”
 
 ---
 
-## 准备工作：创建练习数据库
+## Preparation: Create a Practice Database
 
-本节所有示例都基于这个练习数据库，请先运行：
+All examples in this section are based on this practice database. Please run the following first:
 
 ```python
 import sqlite3
 
-conn = sqlite3.connect(":memory:")  # 内存数据库，关闭即消失
+conn = sqlite3.connect(":memory:")  # In-memory database, disappears when closed
 cursor = conn.cursor()
 
-# 创建用户表
+# Create users table
 cursor.execute("""
     CREATE TABLE users (
         id INTEGER PRIMARY KEY,
@@ -101,7 +101,7 @@ cursor.execute("""
     )
 """)
 
-# 创建订单表
+# Create orders table
 cursor.execute("""
     CREATE TABLE orders (
         order_id INTEGER PRIMARY KEY,
@@ -113,37 +113,37 @@ cursor.execute("""
     )
 """)
 
-# 插入用户数据
+# Insert user data
 users_data = [
-    (1, "张三", 28, "北京", 15000),
-    (2, "李四", 35, "上海", 22000),
-    (3, "王五", 22, "广州", 8000),
-    (4, "赵六", 42, "北京", 35000),
-    (5, "钱七", 30, "上海", 18000),
-    (6, "孙八", 26, "深圳", 12000),
+    (1, "Alice", 28, "Beijing", 15000),
+    (2, "Bob", 35, "Shanghai", 22000),
+    (3, "Charlie", 22, "Guangzhou", 8000),
+    (4, "Diana", 42, "Beijing", 35000),
+    (5, "Ethan", 30, "Shanghai", 18000),
+    (6, "Fiona", 26, "Shenzhen", 12000),
 ]
 cursor.executemany("INSERT INTO users VALUES (?, ?, ?, ?, ?)", users_data)
 
-# 插入订单数据
+# Insert order data
 orders_data = [
     (101, 1, "iPhone", 7999, "2024-11-01"),
     (102, 1, "AirPods", 999, "2024-11-05"),
     (103, 2, "MacBook", 14999, "2024-11-10"),
     (104, 3, "iPad", 3999, "2024-11-15"),
-    (105, 2, "键盘", 599, "2024-11-20"),
-    (106, 4, "显示器", 2999, "2024-12-01"),
-    (107, 5, "鼠标", 299, "2024-12-05"),
+    (105, 2, "Keyboard", 599, "2024-11-20"),
+    (106, 4, "Monitor", 2999, "2024-12-01"),
+    (107, 5, "Mouse", 299, "2024-12-05"),
 ]
 cursor.executemany("INSERT INTO orders VALUES (?, ?, ?, ?, ?)", orders_data)
 
 conn.commit()
 
-# 定义一个方便查询的辅助函数
+# Define a helper function for easier querying
 def query(sql):
     cursor.execute(sql)
     cols = [desc[0] for desc in cursor.description]
     rows = cursor.fetchall()
-    # 打印表头
+    # Print header
     print(" | ".join(cols))
     print("-" * (len(" | ".join(cols))))
     for row in rows:
@@ -153,223 +153,221 @@ def query(sql):
 
 ---
 
-## 一、查询数据（SELECT）
+## 1. Query Data (`SELECT`)
 
-SELECT 是 SQL 中最常用的语句，用来从表中取数据。
+`SELECT` is the most commonly used SQL statement. It is used to retrieve data from tables.
 
-### 基本查询
+### Basic Queries
 
 ```sql
--- 查询所有列
+-- Query all columns
 SELECT * FROM users;
 
--- 查询指定列
+-- Query specific columns
 SELECT name, age, city FROM users;
 
--- 给列起别名
-SELECT name AS 姓名, age AS 年龄 FROM users;
+-- Give columns aliases
+SELECT name AS name, age AS age FROM users;
 ```
 
 ```python
 query("SELECT * FROM users")
 # id | name | age | city | salary
-# 1 | 张三 | 28 | 北京 | 15000
-# 2 | 李四 | 35 | 上海 | 22000
+# 1 | Alice | 28 | Beijing | 15000
+# 2 | Bob | 35 | Shanghai | 22000
 # ...
 ```
 
-### DISTINCT：去重
+### `DISTINCT`: Remove Duplicates
 
 ```sql
--- 查询所有不重复的城市
+-- Query all unique cities
 SELECT DISTINCT city FROM users;
 ```
 
-### LIMIT：限制行数
+### `LIMIT`: Limit the Number of Rows
 
 ```sql
--- 只取前 3 条
+-- Take only the first 3 rows
 SELECT * FROM users LIMIT 3;
 ```
 
-### 第一次写查询时，最稳的默认顺序
+### The Safest Default Order When Writing Your First Query
 
-更稳的顺序通常是：
+A more reliable order is usually:
 
-1. 先写 `SELECT`
-2. 再写 `FROM`
-3. 再看要不要加 `WHERE`
-4. 最后再补排序和分组
+1. Write `SELECT` first
+2. Then write `FROM`
+3. Then decide whether to add `WHERE`
+4. Finally add sorting and grouping
 
-这会比一上来就把所有子句混在一起更不容易乱。
+This is less confusing than trying to mix all clauses together right away.
 
 ---
 
-## 二、条件过滤（WHERE）
+## 2. Condition Filtering (`WHERE`)
 
-WHERE 就像 Pandas 的布尔索引，用来筛选满足条件的行。
+`WHERE` is like Pandas boolean indexing and is used to filter rows that meet certain conditions.
 
-### 基本比较
+### Basic Comparisons
 
 ```sql
--- 年龄大于 30
+-- Age greater than 30
 SELECT * FROM users WHERE age > 30;
 
--- 城市是北京
-SELECT * FROM users WHERE city = '北京';
+-- City is Beijing
+SELECT * FROM users WHERE city = 'Beijing';
 
--- 薪资在 10000 到 20000 之间
+-- Salary between 10000 and 20000
 SELECT * FROM users WHERE salary BETWEEN 10000 AND 20000;
 ```
 
-### 组合条件
+### Combined Conditions
 
 ```sql
--- AND：同时满足
-SELECT * FROM users WHERE city = '北京' AND age > 25;
+-- AND: both conditions must be true
+SELECT * FROM users WHERE city = 'Beijing' AND age > 25;
 
--- OR：满足其一
-SELECT * FROM users WHERE city = '北京' OR city = '上海';
+-- OR: either condition
+SELECT * FROM users WHERE city = 'Beijing' OR city = 'Shanghai';
 
--- IN：在列表中
-SELECT * FROM users WHERE city IN ('北京', '上海', '深圳');
+-- IN: within a list
+SELECT * FROM users WHERE city IN ('Beijing', 'Shanghai', 'Shenzhen');
 
--- NOT：取反
-SELECT * FROM users WHERE city NOT IN ('北京');
+-- NOT: negation
+SELECT * FROM users WHERE city NOT IN ('Beijing');
 ```
 
-### 模糊匹配（LIKE）
+### Pattern Matching (`LIKE`)
 
 ```sql
--- % 匹配任意字符（类似 Pandas 的 str.contains）
-SELECT * FROM users WHERE name LIKE '张%';    -- 以"张"开头
-SELECT * FROM users WHERE name LIKE '%三';    -- 以"三"结尾
-SELECT * FROM users WHERE email LIKE '%@mail%'; -- 包含"@mail"
+-- % matches any characters (similar to Pandas str.contains)
+SELECT * FROM users WHERE name LIKE 'A%';    -- starts with "A"
+SELECT * FROM users WHERE name LIKE '%e';    -- ends with "e"
+SELECT * FROM users WHERE email LIKE '%@mail%'; -- contains "@mail"
 ```
 
-### NULL 处理
+### Handling `NULL`
 
 ```sql
--- 判断是否为空（不能用 = NULL）
+-- Check whether it is empty (do not use = NULL)
 SELECT * FROM users WHERE city IS NULL;
 SELECT * FROM users WHERE city IS NOT NULL;
 ```
 
-### SQL vs Pandas 对照
+### SQL vs Pandas Comparison
 
-| 需求 | SQL | Pandas |
+| Requirement | SQL | Pandas |
 |------|-----|--------|
-| 年龄大于 30 | `WHERE age > 30` | `df[df["age"] > 30]` |
-| 城市是北京 | `WHERE city = '北京'` | `df[df["city"] == "北京"]` |
-| 多条件与 | `WHERE age > 30 AND city = '北京'` | `df[(df["age"] > 30) & (df["city"] == "北京")]` |
-| 多条件或 | `WHERE city IN ('北京', '上海')` | `df[df["city"].isin(["北京", "上海"])]` |
-| 模糊匹配 | `WHERE name LIKE '张%'` | `df[df["name"].str.startswith("张")]` |
-| 为空 | `WHERE city IS NULL` | `df[df["city"].isna()]` |
+| Age greater than 30 | `WHERE age > 30` | `df[df["age"] > 30]` |
+| City is Beijing | `WHERE city = 'Beijing'` | `df[df["city"] == "Beijing"]` |
+| Multiple conditions with AND | `WHERE age > 30 AND city = 'Beijing'` | `df[(df["age"] > 30) & (df["city"] == "Beijing")]` |
+| Multiple conditions with OR | `WHERE city IN ('Beijing', 'Shanghai')` | `df[df["city"].isin(["Beijing", "Shanghai"])]` |
+| Pattern matching | `WHERE name LIKE 'A%'` | `df[df["name"].str.startswith("A")]` |
+| Empty values | `WHERE city IS NULL` | `df[df["city"].isna()]` |
 
-### 一个很适合初学者先记的对照表
+### A Comparison Table Beginners Should Remember First
 
-| 你脑子里的问题 | 更像哪种 SQL |
+| Question in your head | More like which SQL clause |
 |---|---|
-| 只看满足条件的记录 | `WHERE` |
-| 看一张表里有哪些不重复的值 | `DISTINCT` |
-| 只拿前几条看看 | `LIMIT` |
-| 把两张表接起来 | `JOIN` |
-| 先分组再统计 | `GROUP BY` |
+| Only look at records that meet the condition | `WHERE` |
+| See which unique values exist in a table | `DISTINCT` |
+| Just take the first few rows to check | `LIMIT` |
+| Connect two tables | `JOIN` |
+| Group first, then aggregate | `GROUP BY` |
 
-这张表很适合新人，因为它会把 SQL 从关键字列表重新压回几类最常见的问题。
+This table is especially useful for beginners because it compresses SQL back into a few common types of questions instead of a long list of keywords.
 
 ---
 
-## 三、排序（ORDER BY）
+## 3. Sorting (`ORDER BY`)
 
 ```sql
--- 按薪资升序（默认）
+-- Sort by salary ascending (default)
 SELECT * FROM users ORDER BY salary;
 
--- 按薪资降序
+-- Sort by salary descending
 SELECT * FROM users ORDER BY salary DESC;
 
--- 先按城市排序，同城市再按薪资降序
+-- Sort by city first, then salary descending within the same city
 SELECT * FROM users ORDER BY city, salary DESC;
 ```
 
-### 为什么 `ORDER BY` 常常最后再写？
+### Why Is `ORDER BY` Often Written Last?
 
-因为排序更像：
+Because sorting is more like:
 
-- 结果已经出来了，我最后想按什么顺序看
+- The result is already there, and now I want to see it in a certain order
 
-这和：
+This is not the same kind of problem as:
 
-- 先筛选
-- 先分组
-
-不是同一层问题。
+- Filtering first
+- Grouping first
 
 ---
 
-## 四、聚合函数与分组（GROUP BY）
+## 4. Aggregate Functions and Grouping (`GROUP BY`)
 
-### 常用聚合函数
+### Common Aggregate Functions
 
-| 函数 | 作用 | 示例 |
+| Function | Purpose | Example |
 |------|------|------|
-| `COUNT(*)` | 计数 | 总共多少条记录 |
-| `SUM(col)` | 求和 | 总薪资 |
-| `AVG(col)` | 平均值 | 平均年龄 |
-| `MAX(col)` | 最大值 | 最高薪资 |
-| `MIN(col)` | 最小值 | 最低年龄 |
+| `COUNT(*)` | Count rows | How many records in total |
+| `SUM(col)` | Sum values | Total salary |
+| `AVG(col)` | Average value | Average age |
+| `MAX(col)` | Maximum value | Highest salary |
+| `MIN(col)` | Minimum value | Lowest age |
 
 ```sql
--- 基本聚合
-SELECT COUNT(*) AS 总人数, AVG(salary) AS 平均薪资, MAX(salary) AS 最高薪资
+-- Basic aggregation
+SELECT COUNT(*) AS total_people, AVG(salary) AS avg_salary, MAX(salary) AS highest_salary
 FROM users;
 ```
 
-### GROUP BY：分组统计
+### `GROUP BY`: Grouped Statistics
 
 ```sql
--- 按城市统计人数和平均薪资
-SELECT city, COUNT(*) AS 人数, AVG(salary) AS 平均薪资
+-- Count people and average salary by city
+SELECT city, COUNT(*) AS people_count, AVG(salary) AS avg_salary
 FROM users
 GROUP BY city;
 ```
 
 ```
-city | 人数 | 平均薪资
-北京 | 2 | 25000.0
-上海 | 2 | 20000.0
-广州 | 1 | 8000.0
-深圳 | 1 | 12000.0
+city | people_count | avg_salary
+Beijing | 2 | 25000.0
+Shanghai | 2 | 20000.0
+Guangzhou | 1 | 8000.0
+Shenzhen | 1 | 12000.0
 ```
 
-### HAVING：对分组结果过滤
+### `HAVING`: Filter Grouped Results
 
 ```sql
--- 找出平均薪资超过 15000 的城市
+-- Find cities with average salary above 15000
 SELECT city, AVG(salary) AS avg_salary
 FROM users
 GROUP BY city
 HAVING avg_salary > 15000;
 ```
 
-:::tip WHERE vs HAVING
-- `WHERE` 在分组**之前**过滤（过滤原始行）
-- `HAVING` 在分组**之后**过滤（过滤聚合结果）
+:::tip `WHERE` vs `HAVING`
+- `WHERE` filters **before** grouping (filters raw rows)
+- `HAVING` filters **after** grouping (filters aggregated results)
 :::
 
-### SQL 执行顺序
+### SQL Execution Order
 
-SQL 的书写顺序和执行顺序不同：
+The writing order of SQL is different from the execution order:
 
 ```mermaid
 flowchart TD
-    A["1. FROM<br/>确定数据来源"] --> B["2. WHERE<br/>过滤原始行"]
-    B --> C["3. GROUP BY<br/>分组"]
-    C --> D["4. HAVING<br/>过滤分组"]
-    D --> E["5. SELECT<br/>选择列"]
-    E --> F["6. ORDER BY<br/>排序"]
-    F --> G["7. LIMIT<br/>限制行数"]
+    A["1. FROM<br/>Determine data source"] --> B["2. WHERE<br/>Filter raw rows"]
+    B --> C["3. GROUP BY<br/>Group"]
+    C --> D["4. HAVING<br/>Filter groups"]
+    D --> E["5. SELECT<br/>Choose columns"]
+    E --> F["6. ORDER BY<br/>Sort"]
+    F --> G["7. LIMIT<br/>Limit rows"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#fff3e0,stroke:#e65100,color:#333
@@ -377,16 +375,16 @@ flowchart TD
 
 ---
 
-## 五、多表连接（JOIN）
+## 5. Joining Multiple Tables (`JOIN`)
 
-JOIN 是 SQL 最强大的功能之一，让你把多张表的数据合并在一起。
+`JOIN` is one of SQL’s most powerful features. It lets you combine data from multiple tables.
 
-### INNER JOIN：内连接
+### `INNER JOIN`
 
-只返回**两张表都有**匹配的行。
+Returns only rows that match in **both** tables.
 
 ```sql
--- 查询每个用户的订单信息
+-- Query each user's order information
 SELECT users.name, orders.product, orders.amount
 FROM users
 INNER JOIN orders ON users.id = orders.user_id;
@@ -394,23 +392,23 @@ INNER JOIN orders ON users.id = orders.user_id;
 
 ```
 name | product | amount
-张三 | iPhone | 7999.0
-张三 | AirPods | 999.0
-李四 | MacBook | 14999.0
-王五 | iPad | 3999.0
-李四 | 键盘 | 599.0
-赵六 | 显示器 | 2999.0
-钱七 | 鼠标 | 299.0
+Zhang San | iPhone | 7999.0
+Zhang San | AirPods | 999.0
+Li Si | MacBook | 14999.0
+Wang Wu | iPad | 3999.0
+Li Si | Keyboard | 599.0
+Zhao Liu | Monitor | 2999.0
+Qian Qi | Mouse | 299.0
 ```
 
-注意：孙八没有订单，所以不出现在结果中。
+Note: Sun Ba has no orders, so he does not appear in the result.
 
-### LEFT JOIN：左连接
+### `LEFT JOIN`
 
-返回左表所有行，右表没匹配的显示 NULL。
+Returns all rows from the left table; unmatched rows from the right table are shown as `NULL`.
 
 ```sql
--- 查询所有用户及其订单（没有订单的也显示）
+-- Query all users and their orders (including users with no orders)
 SELECT users.name, orders.product, orders.amount
 FROM users
 LEFT JOIN orders ON users.id = orders.user_id;
@@ -418,21 +416,21 @@ LEFT JOIN orders ON users.id = orders.user_id;
 
 ```
 name | product | amount
-张三 | iPhone | 7999.0
-张三 | AirPods | 999.0
-李四 | MacBook | 14999.0
+Zhang San | iPhone | 7999.0
+Zhang San | AirPods | 999.0
+Li Si | MacBook | 14999.0
 ...
-孙八 | None | None       ← 没有订单，但也显示了
+Sun Ba | None | None       ← No orders, but still shown
 ```
 
-### JOIN 类型对比
+### Comparison of JOIN Types
 
 ```mermaid
 flowchart TD
-    A["JOIN 类型"] --> B["INNER JOIN<br/>只要两边都有的"]
-    A --> C["LEFT JOIN<br/>左边全要，右边没有填 NULL"]
-    A --> D["RIGHT JOIN<br/>右边全要，左边没有填 NULL"]
-    A --> E["FULL OUTER JOIN<br/>两边都全要"]
+    A["JOIN types"] --> B["INNER JOIN<br/>Only rows that exist on both sides"]
+    A --> C["LEFT JOIN<br/>Keep all left rows, fill missing right values with NULL"]
+    A --> D["RIGHT JOIN<br/>Keep all right rows, fill missing left values with NULL"]
+    A --> E["FULL OUTER JOIN<br/>Keep all rows from both sides"]
 
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
     style C fill:#e3f2fd,stroke:#1565c0,color:#333
@@ -440,149 +438,149 @@ flowchart TD
     style E fill:#f3e5f5,stroke:#7b1fa2,color:#333
 ```
 
-:::tip SQL JOIN vs Pandas merge
+:::tip SQL `JOIN` vs Pandas `merge`
 | SQL | Pandas |
 |-----|--------|
 | `INNER JOIN` | `pd.merge(how="inner")` |
 | `LEFT JOIN` | `pd.merge(how="left")` |
 | `RIGHT JOIN` | `pd.merge(how="right")` |
-| `ON users.id = orders.user_id` | `on="user_id"` 或 `left_on=, right_on=` |
+| `ON users.id = orders.user_id` | `on="user_id"` or `left_on=, right_on=` |
 :::
 
-### 实用组合：JOIN + GROUP BY
+### Practical Combination: `JOIN` + `GROUP BY`
 
 ```sql
--- 查询每个用户的订单总额
-SELECT users.name, COUNT(orders.order_id) AS 订单数, SUM(orders.amount) AS 总消费
+-- Query each user's total order amount
+SELECT users.name, COUNT(orders.order_id) AS order_count, SUM(orders.amount) AS total_spent
 FROM users
 LEFT JOIN orders ON users.id = orders.user_id
 GROUP BY users.id, users.name
-ORDER BY 总消费 DESC;
+ORDER BY total_spent DESC;
 ```
 
 ---
 
-## 六、增删改（INSERT / UPDATE / DELETE）
+## 6. Insert, Update, Delete (`INSERT` / `UPDATE` / `DELETE`)
 
-### 插入数据
+### Insert Data
 
 ```sql
--- 插入一条
-INSERT INTO users (name, age, city, salary) VALUES ('周九', 29, '杭州', 16000);
+-- Insert one row
+INSERT INTO users (name, age, city, salary) VALUES ('Zhou Jiu', 29, 'Hangzhou', 16000);
 
--- 插入多条
+-- Insert multiple rows
 INSERT INTO users (name, age, city, salary) VALUES
-    ('吴十', 33, '成都', 13000),
-    ('郑十一', 27, '南京', 11000);
+    ('Wu Shi', 33, 'Chengdu', 13000),
+    ('Zheng Shiyi', 27, 'Nanjing', 11000);
 ```
 
-### 更新数据
+### Update Data
 
 ```sql
--- 给张三加薪
-UPDATE users SET salary = 18000 WHERE name = '张三';
+-- Give Zhang San a raise
+UPDATE users SET salary = 18000 WHERE name = 'Zhang San';
 
--- 所有北京员工加薪 10%
-UPDATE users SET salary = salary * 1.1 WHERE city = '北京';
+-- Give all Beijing employees a 10% raise
+UPDATE users SET salary = salary * 1.1 WHERE city = 'Beijing';
 ```
 
-:::caution UPDATE 一定要加 WHERE！
-`UPDATE users SET salary = 0;` 会把**所有用户**的薪资清零！忘加 WHERE 是数据库操作中最常见的灾难之一。
+:::caution Always Add `WHERE` for `UPDATE`!
+`UPDATE users SET salary = 0;` will set the salary of **all users** to zero! Forgetting `WHERE` is one of the most common disasters in database operations.
 :::
 
-### 删除数据
+### Delete Data
 
 ```sql
--- 删除指定记录
-DELETE FROM users WHERE name = '周九';
+-- Delete a specific record
+DELETE FROM users WHERE name = 'Zhou Jiu';
 
--- 删除所有年龄小于 20 的
+-- Delete all records with age less than 20
 DELETE FROM users WHERE age < 20;
 ```
 
-:::danger DELETE 也要加 WHERE！
-`DELETE FROM users;` 会删除表中**所有数据**！操作前请三思。
+:::danger Always Add `WHERE` for `DELETE`!
+`DELETE FROM users;` will delete **all data** in the table! Think carefully before doing this.
 :::
 
-### 第一次学 SQL 时，最稳的默认顺序
+### The Safest Default Order When Learning SQL for the First Time
 
-更稳的顺序通常是：
+A more reliable order is usually:
 
-1. 先把 `SELECT / FROM / WHERE` 写顺
-2. 再补 `ORDER BY`
-3. 再补 `GROUP BY / HAVING`
-4. 最后再学 `JOIN` 和增删改
+1. First write `SELECT / FROM / WHERE` correctly
+2. Then add `ORDER BY`
+3. Then add `GROUP BY / HAVING`
+4. Finally learn `JOIN` and insert, update, delete
 
-这样会比一上来就背所有语法块更不容易乱。
+This is less confusing than memorizing all syntax blocks at once.
 
 ---
 
-## SQL 语句速查表
+## SQL Statement Quick Reference
 
-| 操作 | SQL 语法 | 说明 |
+| Operation | SQL Syntax | Description |
 |------|---------|------|
-| 查询所有 | `SELECT * FROM 表名` | 取全部数据 |
-| 查询指定列 | `SELECT 列1, 列2 FROM 表名` | 取部分列 |
-| 条件过滤 | `SELECT ... WHERE 条件` | 筛选行 |
-| 排序 | `ORDER BY 列 DESC` | 降序排列 |
-| 限制行数 | `LIMIT 10` | 取前 N 条 |
-| 去重 | `SELECT DISTINCT 列` | 唯一值 |
-| 聚合 | `COUNT / SUM / AVG / MAX / MIN` | 统计计算 |
-| 分组 | `GROUP BY 列` | 分组统计 |
-| 分组过滤 | `HAVING 条件` | 过滤分组 |
-| 内连接 | `INNER JOIN 表 ON 条件` | 两表交集 |
-| 左连接 | `LEFT JOIN 表 ON 条件` | 左表全部 |
-| 插入 | `INSERT INTO 表 VALUES (...)` | 添加数据 |
-| 更新 | `UPDATE 表 SET 列=值 WHERE 条件` | 修改数据 |
-| 删除 | `DELETE FROM 表 WHERE 条件` | 删除数据 |
+| Query all | `SELECT * FROM table_name` | Get all data |
+| Query specific columns | `SELECT col1, col2 FROM table_name` | Get some columns |
+| Condition filtering | `SELECT ... WHERE condition` | Filter rows |
+| Sorting | `ORDER BY col DESC` | Sort descending |
+| Limit rows | `LIMIT 10` | Take the first N rows |
+| Remove duplicates | `SELECT DISTINCT col` | Unique values |
+| Aggregation | `COUNT / SUM / AVG / MAX / MIN` | Statistical calculations |
+| Grouping | `GROUP BY col` | Grouped statistics |
+| Group filtering | `HAVING condition` | Filter grouped results |
+| Inner join | `INNER JOIN table ON condition` | Intersection of two tables |
+| Left join | `LEFT JOIN table ON condition` | All rows from the left table |
+| Insert | `INSERT INTO table VALUES (...)` | Add data |
+| Update | `UPDATE table SET col=value WHERE condition` | Modify data |
+| Delete | `DELETE FROM table WHERE condition` | Delete data |
 
 ---
 
-## 小结
+## Summary
 
-SQL 就是和数据库"说话"的语言，核心就 4 类操作：
+SQL is the language for “talking” to databases. Its core consists of four types of operations:
 
-| 类别 | 关键字 | 作用 |
+| Category | Keyword | Purpose |
 |------|--------|------|
-| **查** | `SELECT` | 数据查询（最常用） |
-| **增** | `INSERT` | 插入新数据 |
-| **改** | `UPDATE` | 修改已有数据 |
-| **删** | `DELETE` | 删除数据 |
+| **Read** | `SELECT` | Query data (most common) |
+| **Create** | `INSERT` | Insert new data |
+| **Update** | `UPDATE` | Modify existing data |
+| **Delete** | `DELETE` | Remove data |
 
-其中 `SELECT` 搭配 `WHERE`、`JOIN`、`GROUP BY` 能完成绝大部分数据分析需求。
+Among them, `SELECT` together with `WHERE`, `JOIN`, and `GROUP BY` can cover most data analysis tasks.
 
-## 这节最该带走什么
+## What You Should Take Away From This Section
 
-- SQL 最重要的不是关键字多，而是你能不能用它稳定地对表提问
-- 先想“我要哪些列、哪些行、怎样分组”，再写 SQL，会比背语法更稳
-- `WHERE / GROUP BY / JOIN` 这三层一旦顺了，后面大多数查询都能拆开理解
+- The most important thing about SQL is not that it has many keywords, but whether you can use it steadily to ask tables questions
+- If you first think, “Which columns do I want, which rows do I want, and how should I group them?”, writing SQL will be much more stable than memorizing syntax
+- Once `WHERE / GROUP BY / JOIN` becomes clear, most later queries can be understood step by step
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：基础查询
+### Exercise 1: Basic Queries
 
 ```sql
--- 使用上面的练习数据库，完成以下查询：
--- 1. 查询所有上海的用户
--- 2. 查询薪资最高的 3 个人
--- 3. 查询每个城市的平均薪资，按平均薪资降序排列
+-- Using the practice database above, complete the following queries:
+-- 1. Query all users in Shanghai
+-- 2. Query the top 3 people with the highest salaries
+-- 3. Query the average salary for each city, sorted by average salary in descending order
 ```
 
-### 练习 2：JOIN 查询
+### Exercise 2: JOIN Queries
 
 ```sql
--- 1. 查询所有用户的姓名和他们买过的产品
--- 2. 查询没有下过单的用户
---    提示：LEFT JOIN + WHERE orders.order_id IS NULL
--- 3. 查询每个用户的订单总额，包括没有订单的用户（显示为 0）
+-- 1. Query the names of all users and the products they have bought
+-- 2. Query users who have never placed an order
+--    Hint: LEFT JOIN + WHERE orders.order_id IS NULL
+-- 3. Query the total order amount for each user, including users with no orders (show as 0)
 ```
 
-### 练习 3：综合分析
+### Exercise 3: Comprehensive Analysis
 
 ```sql
--- 用一条 SQL 完成：
--- 查询消费总额超过 5000 的用户姓名、订单数量和总消费
--- 按总消费降序排列
+-- Complete this with one SQL statement:
+-- Query the user name, number of orders, and total spending for users whose total spending exceeds 5000
+-- Sort by total spending in descending order
 ```

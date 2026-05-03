@@ -1,109 +1,109 @@
 ---
-title: "1.2 向量：AI 世界的基本单元"
+title: "1.2 Vectors: The Basic Unit of the AI World"
 sidebar_position: 1
-description: "理解向量的直觉含义，掌握点积、余弦相似度，用 NumPy 和 Matplotlib 实践向量运算"
-keywords: [向量, 点积, 余弦相似度, NumPy, 线性代数, AI数学]
+description: "Understand the intuitive meaning of vectors, master dot product and cosine similarity, and practice vector operations with NumPy and Matplotlib"
+keywords: [vector, dot product, cosine similarity, NumPy, linear algebra, AI math]
 ---
 
-# 向量：AI 世界的基本单元
+# Vectors: The Basic Unit of the AI World
 
-![向量点积与余弦相似度几何图](/img/course/vector-dot-cosine-geometry.png)
+![Geometric diagram of vector dot product and cosine similarity](/img/course/vector-dot-cosine-geometry-en.png)
 
-:::tip 学习方式
-本章的数学不需要你"证明定理"，只需要你**理解直觉、会用代码实现**。每个概念都会配上可视化和 NumPy 代码，看不懂公式没关系，看懂图和代码就行。
+:::tip Learning approach
+You do not need to “prove theorems” in this chapter. You only need to **understand the intuition and know how to implement it in code**. Each concept comes with visualization and NumPy code. It is okay if you do not fully understand the formulas—just understand the diagrams and code.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 直觉理解向量是什么（方向 + 大小）
-- 掌握向量的加法、数乘运算
-- 理解点积（Dot Product）的含义
-- 掌握余弦相似度——AI 中最常用的相似度度量
-- 用 NumPy 实现所有向量操作
+- Intuitively understand what a vector is (direction + magnitude)
+- Master vector addition and scalar multiplication
+- Understand the meaning of dot product
+- Master cosine similarity — the most commonly used similarity measure in AI
+- Implement all vector operations with NumPy
 
-## 先说一个很重要的学习预期
+## First, set a very important learning expectation
 
-这一节虽然会配代码，但**代码不是用来替代理解的**。  
-它更像在做两件事：
+Although this section includes code, **the code is not there to replace understanding**.
+It is more like doing two things:
 
-- 帮你把抽象对象变成能看到的东西
-- 帮你确认“我理解的直觉是不是对的”
+- Helping you turn abstract objects into something visible
+- Helping you check whether your intuition is correct
 
-如果你读完这节后，还不能马上熟练做题，这很正常。  
-更重要的标准是：
+If you finish this section and still cannot solve problems fluently right away, that is completely normal.
+A more important standard is:
 
-- 你能不能把“一个现实对象”写成向量
-- 你能不能说清点积和余弦相似度到底在比较什么
-- 你能不能把它们和推荐、检索、RAG 这些 AI 场景连起来
+- Can you write a “real-world object” as a vector?
+- Can you clearly explain what dot product and cosine similarity are comparing?
+- Can you connect them to AI scenarios such as recommendation, retrieval, and RAG?
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-这一节最重要的不是记住多少名词，而是先抓住一条主线：
+The most important thing in this section is not memorizing terms, but first grasping the main thread:
 
-![向量 AI 含义地图](/img/course/ch04-vector-ai-meaning-map.png)
+![Map of the meaning of vectors in AI](/img/course/ch04-vector-ai-meaning-map-en.png)
 
-你可以把这节课理解成：
+You can understand this lesson as:
 
-- 前半部分解决“一个对象怎样写成向量”
-- 后半部分解决“两个向量怎样比较是否相似”
+- The first half answers “how to write an object as a vector”
+- The second half answers “how to compare whether two vectors are similar”
 
-## 一、向量是什么？
+## 1. What Is a Vector?
 
-### 1.1 直觉理解
+### 1.1 Intuitive Understanding
 
-**向量 = 一组有序的数字。**
+**A vector = an ordered set of numbers.**
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A more beginner-friendly analogy
 
-如果你第一次学向量，总觉得“方向 + 大小”还是有点抽象，可以先把它想成：
+If this is your first time learning vectors, and “direction + magnitude” still feels a bit abstract, you can think of it as:
 
-- 一张对象的信息卡片
+- An information card for an object
 
-比如一个学生：
+For example, a student:
 
-- 数学 90
-- 英语 85
-- 物理 92
+- Math 90
+- English 85
+- Physics 92
 
-把这三项按固定顺序排好，  
-就得到一张可以被计算机处理的信息卡片：
+Arrange these items in a fixed order,
+and you get an information card that a computer can process:
 
 - `[90, 85, 92]`
 
-所以向量最朴素的意义不是“几何图形”，而是：
+So the most basic meaning of a vector is not a “geometric shape,” but:
 
-> **把一个对象稳定地写成一串数字。**
+> **A stable way to write an object as a sequence of numbers.**
 
-就这么简单。在 AI 领域，向量无处不在：
+That is all. In AI, vectors are everywhere:
 
-| AI 场景 | 向量表示 | 维度 |
+| AI scenario | Vector representation | Dimension |
 |---------|---------|------|
-| 一个学生的成绩 | [数学, 英语, 物理] = [90, 85, 92] | 3 维 |
-| 一个像素的颜色 | [R, G, B] = [255, 128, 0] | 3 维 |
-| 一个词的含义（词向量） | [0.2, -0.5, 0.8, ...] | 通常 100~300 维 |
-| 一张图片（展平后） | [像素1, 像素2, ..., 像素n] | 几万到几百万维 |
+| A student's grades | [Math, English, Physics] = [90, 85, 92] | 3D |
+| The color of a pixel | [R, G, B] = [255, 128, 0] | 3D |
+| The meaning of a word (word vector) | [0.2, -0.5, 0.8, ...] | Usually 100–300D |
+| An image (flattened) | [pixel1, pixel2, ..., pixeln] | Tens of thousands to millions of dimensions |
 
 ```mermaid
 mindmap
-  root((向量在 AI 中))
-    数据表示
-      每一行数据就是一个向量
-      图片是像素向量
-      文本是词向量
-    相似度计算
-      推荐系统
-      搜索引擎
-      人脸识别
-    模型参数
-      神经网络的权重
-      梯度也是向量
+  root((Vectors in AI))
+    Data representation
+      Each row of data is a vector
+      Images are pixel vectors
+      Text is word vectors
+    Similarity computation
+      Recommendation systems
+      Search engines
+      Face recognition
+    Model parameters
+      Neural network weights
+      Gradients are also vectors
 ```
 
-### 1.2 几何直觉
+### 1.2 Geometric Intuition
 
-在二维空间中，向量可以画成一个**带箭头的线段**——既有**方向**，又有**大小**（长度）。
+In 2D space, a vector can be drawn as a **line segment with an arrow** — it has both **direction** and **magnitude** (length).
 
 ```python
 import numpy as np
@@ -112,15 +112,15 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 定义两个二维向量
+# Define two 2D vectors
 a = np.array([3, 2])
 b = np.array([1, 4])
 
-# 画向量
+# Plot vectors
 fig, ax = plt.subplots(figsize=(6, 6))
-ax.quiver(0, 0, a[0], a[1], angles='xy', scale_units='xy', scale=1, 
+ax.quiver(0, 0, a[0], a[1], angles='xy', scale_units='xy', scale=1,
           color='steelblue', linewidth=2, label=f'a = {a}')
-ax.quiver(0, 0, b[0], b[1], angles='xy', scale_units='xy', scale=1, 
+ax.quiver(0, 0, b[0], b[1], angles='xy', scale_units='xy', scale=1,
           color='coral', linewidth=2, label=f'b = {b}')
 
 ax.set_xlim(-1, 6)
@@ -130,19 +130,19 @@ ax.grid(True, alpha=0.3)
 ax.axhline(y=0, color='k', linewidth=0.5)
 ax.axvline(x=0, color='k', linewidth=0.5)
 ax.legend(fontsize=12)
-ax.set_title('二维向量的几何表示')
+ax.set_title('Geometric representation of 2D vectors')
 plt.show()
 ```
 
-**解读**：向量 a = [3, 2] 从原点出发，向右走 3 步、向上走 2 步。
+**Interpretation**: vector a = [3, 2] starts at the origin, moves 3 steps to the right and 2 steps up.
 
-:::info 高维向量怎么理解？
-AI 中的向量通常是几百上千维的，没法画出来。但数学上的操作是一样的——向量就是**一串数字**，所有运算规则对任意维度都适用。
+:::info How should you understand high-dimensional vectors?
+Vectors in AI are often hundreds or thousands of dimensions, so they cannot be drawn. But the mathematical operations are exactly the same — a vector is just **a sequence of numbers**, and all the rules apply to any dimension.
 :::
 
-### 1.3 从一条真实数据记录到向量
+### 1.3 From a Real Data Record to a Vector
 
-新人最容易卡住的一点是：知道“向量是一串数字”，但不知道它怎么和真实数据连起来。
+A point where beginners often get stuck is this: they know “a vector is a sequence of numbers,” but they do not know how that connects to real data.
 
 ```python
 import numpy as np
@@ -159,58 +159,58 @@ student_vector = np.array([
     student["physics"],
 ])
 
-print("学生向量:", student_vector)
-print("向量形状:", student_vector.shape)  # (3,)
+print("Student vector:", student_vector)
+print("Vector shape:", student_vector.shape)  # (3,)
 ```
 
-这里的本质是：
+The essence here is:
 
-- 现实世界里是“有意义的字段”
-- 到计算机里要变成“固定顺序的数字数组”
+- In the real world, there are “meaningful fields”
+- In the computer, they must become a “fixed-order numeric array”
 
-一旦你把对象写成向量，就能开始做数学运算。
+Once you write an object as a vector, you can start doing mathematical operations.
 
 ```python
 weights = np.array([0.4, 0.2, 0.4])
 score = student_vector @ weights
-print("综合分:", score)  # 89.8
+print("Overall score:", score)  # 89.8
 ```
 
-这里其实已经提前连到了后面的机器学习主线：
+This already connects to a main thread in machine learning:
 
-- 数据是向量
-- 规则也是向量
-- 二者做点积，可以得到一个分数
+- Data is a vector
+- Rules are also vectors
+- If you take the dot product of the two, you get a score
 
 ---
 
-## 二、向量的基本运算
+## 2. Basic Vector Operations
 
-### 2.1 向量加法
+### 2.1 Vector Addition
 
-两个向量相加 = **对应位置的数字相加**。
+Adding two vectors = **adding the numbers at corresponding positions**.
 
 ```python
 a = np.array([3, 2])
 b = np.array([1, 4])
 
-# 向量加法
+# Vector addition
 c = a + b
 print(f"a + b = {c}")  # [4, 6]
 ```
 
-几何含义：把 b 接在 a 的末端，结果指向终点。
+Geometric meaning: place b at the end of a, and the result points to the final endpoint.
 
 ```python
 fig, ax = plt.subplots(figsize=(7, 7))
 
-# 画 a
+# Plot a
 ax.quiver(0, 0, a[0], a[1], angles='xy', scale_units='xy', scale=1,
           color='steelblue', linewidth=2, label=f'a = {a}')
-# 画 b（从 a 的末端开始）
+# Plot b (starting from the end of a)
 ax.quiver(a[0], a[1], b[0], b[1], angles='xy', scale_units='xy', scale=1,
           color='coral', linewidth=2, label=f'b = {b}')
-# 画 a + b
+# Plot a + b
 ax.quiver(0, 0, c[0], c[1], angles='xy', scale_units='xy', scale=1,
           color='green', linewidth=2.5, label=f'a + b = {c}')
 
@@ -219,21 +219,21 @@ ax.set_ylim(-1, 8)
 ax.set_aspect('equal')
 ax.grid(True, alpha=0.3)
 ax.legend(fontsize=11)
-ax.set_title('向量加法：首尾相接')
+ax.set_title('Vector addition: head-to-tail')
 plt.show()
 ```
 
-### 2.2 数乘（标量乘法）
+### 2.2 Scalar Multiplication
 
-向量乘以一个数 = **每个分量都乘以这个数**。
+Multiplying a vector by a number = **multiplying each component by that number**.
 
 ```python
 a = np.array([3, 2])
 
-# 数乘
-print(f"2 * a = {2 * a}")     # [6, 4]  —— 方向不变，长度变 2 倍
-print(f"0.5 * a = {0.5 * a}") # [1.5, 1.0]  —— 方向不变，长度变一半
-print(f"-1 * a = {-1 * a}")   # [-3, -2]  —— 方向反转
+# Scalar multiplication
+print(f"2 * a = {2 * a}")     # [6, 4]  —— same direction, twice the length
+print(f"0.5 * a = {0.5 * a}") # [1.5, 1.0]  —— same direction, half the length
+print(f"-1 * a = {-1 * a}")   # [-3, -2]  —— reversed direction
 ```
 
 ```python
@@ -257,105 +257,105 @@ ax.grid(True, alpha=0.3)
 ax.axhline(y=0, color='k', linewidth=0.5)
 ax.axvline(x=0, color='k', linewidth=0.5)
 ax.legend(fontsize=11)
-ax.set_title('数乘：缩放和反转')
+ax.set_title('Scalar multiplication: scaling and flipping')
 plt.show()
 ```
 
-### 2.3 向量的长度（模/范数）
+### 2.3 Vector Length (Magnitude / Norm)
 
-向量的**长度**（也叫**模**或**范数**）用勾股定理计算：
+The **length** of a vector (also called **magnitude** or **norm**) is calculated using the Pythagorean theorem:
 
-对于向量 a = [a1, a2]，长度 = 根号(a1 的平方 + a2 的平方)
+For vector a = [a1, a2], length = square root of (a1 squared + a2 squared)
 
 ```python
 a = np.array([3, 4])
 
-# 方法 1：手算
+# Method 1: manual calculation
 length_manual = np.sqrt(a[0]**2 + a[1]**2)
-print(f"手算长度: {length_manual}")  # 5.0
+print(f"Manual length: {length_manual}")  # 5.0
 
-# 方法 2：NumPy 内置函数（推荐）
+# Method 2: NumPy built-in function (recommended)
 length = np.linalg.norm(a)
-print(f"NumPy 长度: {length}")  # 5.0
+print(f"NumPy length: {length}")  # 5.0
 ```
 
-:::tip 3-4-5 三角形
-向量 [3, 4] 的长度恰好是 5——这就是经典的勾股数。在数据科学中，我们会经常用 `np.linalg.norm()` 来计算向量长度。
+:::tip The 3-4-5 triangle
+The length of vector [3, 4] is exactly 5 — the classic Pythagorean triple. In data science, we will often use `np.linalg.norm()` to compute vector length.
 :::
 
-### 2.4 单位向量
+### 2.4 Unit Vector
 
-长度为 1 的向量叫**单位向量**。任何向量除以它的长度，就变成同方向的单位向量：
+A vector with length 1 is called a **unit vector**. If you divide any vector by its length, you get a unit vector in the same direction:
 
 ```python
 a = np.array([3, 4])
 
-# 单位化（归一化）
+# Normalize
 unit_a = a / np.linalg.norm(a)
-print(f"单位向量: {unit_a}")                  # [0.6, 0.8]
-print(f"单位向量长度: {np.linalg.norm(unit_a)}")  # 1.0
+print(f"Unit vector: {unit_a}")                  # [0.6, 0.8]
+print(f"Unit vector length: {np.linalg.norm(unit_a)}")  # 1.0
 ```
 
-**为什么重要？** 在 AI 中，我们经常需要比较两个向量的**方向**而不是大小。单位化后就只保留了方向信息。
+**Why is this important?** In AI, we often need to compare the **direction** of two vectors rather than their size. After normalization, only the directional information remains.
 
-### 2.5 新人一定要建立的 shape 感
+### 2.5 A Shape Sense You Must Build as a Beginner
 
-很多人一开始学向量，概念能懂，但一写代码就被 `shape` 绕晕。
+When many people first learn vectors, they can understand the concept, but get confused by `shape` as soon as they write code.
 
 ```python
 import numpy as np
 
-a = np.array([1, 2, 3])          # 一维向量
-row = a.reshape(1, 3)            # 行向量
-col = a.reshape(3, 1)            # 列向量
+a = np.array([1, 2, 3])          # 1D vector
+row = a.reshape(1, 3)            # row vector
+col = a.reshape(3, 1)            # column vector
 
 print("a.shape   =", a.shape)    # (3,)
 print("row.shape =", row.shape)  # (1, 3)
 print("col.shape =", col.shape)  # (3, 1)
 ```
 
-它们看起来都像“3 个数字”，但在矩阵乘法里含义不同：
+They all look like “three numbers,” but in matrix multiplication they mean different things:
 
-- `(3,)` 是 NumPy 里的普通一维数组
-- `(1, 3)` 明确表示“1 行 3 列”
-- `(3, 1)` 明确表示“3 行 1 列”
+- `(3,)` is a normal 1D NumPy array
+- `(1, 3)` explicitly means “1 row, 3 columns”
+- `(3, 1)` explicitly means “3 rows, 1 column”
 
-后面学矩阵和神经网络时，`shape` 感比死背公式更重要。
+When you later learn matrices and neural networks, this `shape` sense is more important than memorizing formulas.
 
 ---
 
-## 三、点积——向量最重要的运算
+## 3. Dot Product — The Most Important Vector Operation
 
-### 3.1 什么是点积？
+### 3.1 What Is the Dot Product?
 
-两个向量的**点积**（Dot Product）= **对应位置相乘，再求和**。
+The **dot product** of two vectors = **multiply corresponding positions and then sum**.
 
 ```python
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 
-# 方法 1：手算
+# Method 1: manual calculation
 dot_manual = a[0]*b[0] + a[1]*b[1] + a[2]*b[2]
-print(f"手算: {dot_manual}")  # 1*4 + 2*5 + 3*6 = 32
+print(f"Manual: {dot_manual}")  # 1*4 + 2*5 + 3*6 = 32
 
-# 方法 2：NumPy（推荐）
+# Method 2: NumPy (recommended)
 dot_np = np.dot(a, b)
 print(f"NumPy: {dot_np}")  # 32
 
-# 方法 3：@ 运算符（Python 3.5+）
+# Method 3: @ operator (Python 3.5+)
 dot_at = a @ b
-print(f"@ 运算符: {dot_at}")  # 32
+print(f"@ operator: {dot_at}")  # 32
 ```
 
-### 3.2 点积的几何含义
+### 3.2 Geometric Meaning of the Dot Product
 
-点积反映了两个向量的**方向关系**：
+The dot product reflects the **directional relationship** between two vectors:
 
 ```mermaid
 flowchart LR
-    A["a · b > 0"] --> A1["方向大致相同<br/>夹角 < 90°"]
-    B["a · b = 0"] --> B1["完全垂直<br/>夹角 = 90°"]
-    C["a · b < 0"] --> C1["方向大致相反<br/>夹角 > 90°"]
+    A["a · b > 0"] --> A1["Roughly the same direction<br/>angle < 90°"]
+    B["a · b = 0"] --> B1["Completely perpendicular<br/>angle = 90°"]
+    C["a · b < 0"] --> C1["Roughly opposite directions<br/>angle > 90°"]
 
     style A fill:#e8f5e9,stroke:#2e7d32,color:#333
     style B fill:#e3f2fd,stroke:#1565c0,color:#333
@@ -363,63 +363,63 @@ flowchart LR
 ```
 
 ```python
-# 同方向
+# Same direction
 a = np.array([1, 0])
 b = np.array([1, 1])
-print(f"同方向: a · b = {np.dot(a, b)}")  # 1（正数）
+print(f"Same direction: a · b = {np.dot(a, b)}")  # 1 (positive)
 
-# 垂直
+# Perpendicular
 a = np.array([1, 0])
 b = np.array([0, 1])
-print(f"垂直:   a · b = {np.dot(a, b)}")  # 0
+print(f"Perpendicular: a · b = {np.dot(a, b)}")  # 0
 
-# 反方向
+# Opposite direction
 a = np.array([1, 0])
 b = np.array([-1, 0])
-print(f"反方向: a · b = {np.dot(a, b)}")  # -1（负数）
+print(f"Opposite direction: a · b = {np.dot(a, b)}")  # -1 (negative)
 ```
 
-### 3.3 为什么点积可以理解成“对齐程度”？
+### 3.3 Why Can the Dot Product Be Understood as “Alignment”?
 
-点积还有一个非常重要的理解角度：
+The dot product can also be understood from another very important angle:
 
-> **一个向量在另一个向量方向上投影得越多，点积通常越大。**
+> **The more one vector projects onto the direction of another vector, the larger the dot product usually is.**
 
-它的公式可以写成：
+Its formula is:
 
 `a · b = |a| × |b| × cos(theta)`
 
-你现在不用先推导它，只要先记住三件事：
+You do not need to derive it first. Just remember three things for now:
 
-1. 两个向量越同向，`cos(theta)` 越接近 1
-2. 两个向量越垂直，`cos(theta)` 越接近 0
-3. 两个向量越反向，`cos(theta)` 越接近 -1
+1. The more two vectors point in the same direction, the closer `cos(theta)` is to 1
+2. The more two vectors are perpendicular, the closer `cos(theta)` is to 0
+3. The more two vectors point in opposite directions, the closer `cos(theta)` is to -1
 
-所以点积同时包含了：
+So the dot product contains both:
 
-- 长度信息
-- 方向信息
+- Length information
+- Direction information
 
-### 3.4 用可视化理解点积
+### 3.4 Understanding the Dot Product with Visualization
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 
 cases = [
-    ([2, 1], [1, 2], '同向（点积 > 0）'),
-    ([2, 0], [0, 2], '垂直（点积 = 0）'),
-    ([2, 1], [-1, -2], '反向（点积 < 0）'),
+    ([2, 1], [1, 2], 'Same direction (dot product > 0)'),
+    ([2, 0], [0, 2], 'Perpendicular (dot product = 0)'),
+    ([2, 1], [-1, -2], 'Opposite direction (dot product < 0)'),
 ]
 
 for ax, (a, b, title) in zip(axes, cases):
     a, b = np.array(a), np.array(b)
     dot = np.dot(a, b)
-    
+
     ax.quiver(0, 0, a[0], a[1], angles='xy', scale_units='xy', scale=1,
               color='steelblue', width=0.02, label='a')
     ax.quiver(0, 0, b[0], b[1], angles='xy', scale_units='xy', scale=1,
               color='coral', width=0.02, label='b')
-    
+
     ax.set_xlim(-3, 4)
     ax.set_ylim(-3, 4)
     ax.set_aspect('equal')
@@ -435,65 +435,65 @@ plt.show()
 
 ---
 
-## 四、余弦相似度——AI 中最常用的相似度
+## 4. Cosine Similarity — The Most Common Similarity Measure in AI
 
-### 4.1 从点积到余弦相似度
+### 4.1 From Dot Product to Cosine Similarity
 
-点积的大小不仅取决于方向，还取决于向量的长度。如果我们只关心**方向有多相似**，需要消除长度的影响：
+The size of the dot product depends not only on direction, but also on vector length. If we only care about **how similar the directions are**, we need to remove the effect of length:
 
-**余弦相似度 = 点积 / (向量 A 的长度 × 向量 B 的长度)**
+**Cosine similarity = dot product / (length of vector A × length of vector B)**
 
 ```python
 def cosine_similarity(a, b):
-    """计算两个向量的余弦相似度"""
+    """Compute the cosine similarity between two vectors"""
     dot_product = np.dot(a, b)
     norm_a = np.linalg.norm(a)
     norm_b = np.linalg.norm(b)
     return dot_product / (norm_a * norm_b)
 ```
 
-余弦相似度的取值范围：
+The range of cosine similarity is:
 
-| 值 | 含义 |
+| Value | Meaning |
 |----|------|
-| 1 | 方向完全相同 |
-| 0 | 完全不相关（垂直） |
-| -1 | 方向完全相反 |
+| 1 | Exactly the same direction |
+| 0 | Completely unrelated (perpendicular) |
+| -1 | Exactly opposite directions |
 
-### 4.2 实例：用户偏好相似度
+### 4.2 Example: User Preference Similarity
 
-假设有三个用户对五种电影类型的评分：
+Suppose three users rate five movie genres:
 
 ```python
-# 用户对 [动作, 喜剧, 爱情, 科幻, 恐怖] 的偏好打分（1-5）
+# Users' preference scores for [action, comedy, romance, sci-fi, horror] (1-5)
 alice   = np.array([5, 3, 4, 5, 1])
 bob     = np.array([4, 2, 5, 4, 1])
 charlie = np.array([1, 5, 2, 1, 5])
 
-# 计算两两相似度
+# Compute pairwise similarity
 print(f"Alice vs Bob:     {cosine_similarity(alice, bob):.4f}")
 print(f"Alice vs Charlie: {cosine_similarity(alice, charlie):.4f}")
 print(f"Bob vs Charlie:   {cosine_similarity(bob, charlie):.4f}")
 ```
 
-输出：
+Output:
 ```
 Alice vs Bob:     0.9750
 Alice vs Charlie: 0.5054
 Bob vs Charlie:   0.4251
 ```
 
-**解读**：Alice 和 Bob 的偏好非常相似（0.98 接近 1），而 Charlie 和他们的口味很不同。这就是推荐系统的基本原理——找到和你口味相似的人，把他们喜欢的东西推荐给你。
+**Interpretation**: Alice and Bob have very similar preferences (0.98 is close to 1), while Charlie has very different tastes from them. This is the basic idea behind recommendation systems — find people with tastes similar to yours and recommend what they like.
 
-### 4.3 余弦相似度在 AI 中的应用
+### 4.3 Applications of Cosine Similarity in AI
 
 ```mermaid
 flowchart TD
-    CS["余弦相似度"]
-    CS --> NLP["自然语言处理<br/>词向量相似度<br/>king - man + woman ≈ queen"]
-    CS --> RS["推荐系统<br/>用户偏好匹配<br/>协同过滤"]
-    CS --> RAG["RAG 检索增强<br/>查询与文档匹配<br/>向量数据库"]
-    CS --> IR["图像检索<br/>找相似图片<br/>以图搜图"]
+    CS["Cosine similarity"]
+    CS --> NLP["Natural language processing<br/>word vector similarity<br/>king - man + woman ≈ queen"]
+    CS --> RS["Recommendation systems<br/>user preference matching<br/>collaborative filtering"]
+    CS --> RAG["RAG retrieval augmentation<br/>query-document matching<br/>vector databases"]
+    CS --> IR["Image retrieval<br/>find similar images<br/>search by image"]
 
     style CS fill:#e3f2fd,stroke:#1565c0,color:#333
     style NLP fill:#fff3e0,stroke:#e65100,color:#333
@@ -502,36 +502,36 @@ flowchart TD
     style IR fill:#fff3e0,stroke:#e65100,color:#333
 ```
 
-:::tip 你以后会反复用到余弦相似度
-- **NLP（11 自然语言处理）**：计算两个词向量有多相似，比如 "猫" 和 "狗" 的余弦相似度很高
-- **RAG（8 LLM 应用开发与 RAG）**：用向量数据库检索最相关的文档片段
-- **推荐系统**：找到偏好最相似的用户
+:::tip You will use cosine similarity again and again
+- **NLP (11 Natural Language Processing)**: compute how similar two word vectors are, for example, the cosine similarity between "cat" and "dog" is high
+- **RAG (8 LLM Application Development and RAG)**: use a vector database to retrieve the most relevant document chunks
+- **Recommendation systems**: find users with the most similar preferences
 
-所以，余弦相似度是你在整个 AI 学习旅程中会反复遇到的工具。
+So cosine similarity is a tool you will encounter repeatedly throughout your AI learning journey.
 :::
 
-### 4.4 可视化：不同余弦相似度的向量
+### 4.4 Visualization: Vectors with Different Cosine Similarities
 
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(16, 4))
 
-# 不同相似度的向量对
+# Vector pairs with different similarities
 pairs = [
-    ([1, 0], [1, 0.1], '≈ 1.0（几乎相同）'),
-    ([1, 0], [0.7, 0.7], '≈ 0.7（比较相似）'),
-    ([1, 0], [0, 1], '= 0（不相关）'),
-    ([1, 0], [-0.9, -0.3], '≈ -0.95（相反）'),
+    ([1, 0], [1, 0.1], '≈ 1.0 (almost identical)'),
+    ([1, 0], [0.7, 0.7], '≈ 0.7 (fairly similar)'),
+    ([1, 0], [0, 1], '= 0 (unrelated)'),
+    ([1, 0], [-0.9, -0.3], '≈ -0.95 (opposite)'),
 ]
 
 for ax, (a, b, desc) in zip(axes, pairs):
     a, b = np.array(a), np.array(b)
     sim = cosine_similarity(a, b)
-    
+
     ax.quiver(0, 0, a[0], a[1], angles='xy', scale_units='xy', scale=1,
               color='steelblue', width=0.02)
     ax.quiver(0, 0, b[0], b[1], angles='xy', scale_units='xy', scale=1,
               color='coral', width=0.02)
-    
+
     ax.set_xlim(-1.5, 1.5)
     ax.set_ylim(-1, 1.5)
     ax.set_aspect('equal')
@@ -542,9 +542,9 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 4.5 一个最小检索示例：从 3 条候选里找最像的一条
+### 4.5 A Minimal Retrieval Example: Find the Most Similar Item Among 3 Candidates
 
-下面这个例子虽然用的是手工构造的小向量，但思路和向量检索、RAG、语义搜索是一样的。
+Although the following example uses hand-crafted small vectors, the idea is the same as vector retrieval, RAG, and semantic search.
 
 ```python
 import numpy as np
@@ -555,9 +555,9 @@ def cosine_similarity(a, b):
 query = np.array([0.9, 0.1, 0.8, 0.2])
 
 docs = {
-    "文档A：机器学习入门": np.array([0.8, 0.2, 0.75, 0.1]),
-    "文档B：旅行攻略":     np.array([0.1, 0.9, 0.2, 0.8]),
-    "文档C：深度学习基础": np.array([0.85, 0.15, 0.7, 0.25]),
+    "Document A: Machine Learning Basics": np.array([0.8, 0.2, 0.75, 0.1]),
+    "Document B: Travel Guide":     np.array([0.1, 0.9, 0.2, 0.8]),
+    "Document C: Deep Learning Basics": np.array([0.85, 0.15, 0.7, 0.25]),
 }
 
 scores = []
@@ -571,117 +571,117 @@ for name, sim in scores:
     print(f"{name}: {sim:.4f}")
 ```
 
-你会发现，相似度最高的通常是语义方向更接近查询的文档。
+You will find that the document with the highest similarity is usually the one whose semantic direction is closest to the query.
 
 ---
 
-## 五、NumPy 向量操作汇总
+## 5. NumPy Vector Operations Summary
 
-把本节学到的所有操作用 NumPy 整理一遍：
+Let’s organize all the operations learned in this section with NumPy:
 
 ```python
 import numpy as np
 
-# ========== 创建向量 ==========
+# ========== Create vectors ==========
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 
-# ========== 基本运算 ==========
-print("加法:", a + b)           # [5, 7, 9]
-print("减法:", a - b)           # [-3, -3, -3]
-print("数乘:", 3 * a)           # [3, 6, 9]
-print("逐元素乘:", a * b)       # [4, 10, 18]
+# ========== Basic operations ==========
+print("Addition:", a + b)           # [5, 7, 9]
+print("Subtraction:", a - b)        # [-3, -3, -3]
+print("Scalar multiplication:", 3 * a)           # [3, 6, 9]
+print("Elementwise multiplication:", a * b)       # [4, 10, 18]
 
-# ========== 点积 ==========
-print("点积:", np.dot(a, b))    # 32
-print("点积:", a @ b)           # 32（等价写法）
+# ========== Dot product ==========
+print("Dot product:", np.dot(a, b))    # 32
+print("Dot product:", a @ b)           # 32 (equivalent)
 
-# ========== 长度（范数） ==========
-print("长度:", np.linalg.norm(a))   # 3.742
+# ========== Length (norm) ==========
+print("Length:", np.linalg.norm(a))   # 3.742
 
-# ========== 单位化 ==========
+# ========== Normalization ==========
 unit_a = a / np.linalg.norm(a)
-print("单位向量:", unit_a)
+print("Unit vector:", unit_a)
 
-# ========== 余弦相似度 ==========
+# ========== Cosine similarity ==========
 cos_sim = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
-print("余弦相似度:", cos_sim)   # 0.9746
+print("Cosine similarity:", cos_sim)   # 0.9746
 
-# scikit-learn 也提供了内置函数
+# scikit-learn also provides a built-in function
 # from sklearn.metrics.pairwise import cosine_similarity
 ```
 
 ---
 
-## 学到这里，下一节该带着什么问题走？
+## After learning this, what should you bring to the next section?
 
-看完向量以后，最值得带去下一节的问题是：
+After finishing vectors, the most valuable questions to carry forward are:
 
-1. 如果一个对象能写成向量，那很多对象怎么一起写？
-2. 如果两个向量能比较相似度，那一整批向量怎么一起做变换？
-3. 为什么神经网络里不会每次只处理一个向量，而总是一次处理一批？
+1. If one object can be written as a vector, how do we write many objects at once?
+2. If two vectors can be compared for similarity, how do we transform a whole batch of vectors at once?
+3. Why do neural networks not process just one vector at a time, but instead always process a batch?
 
-这三个问题，正好会把你自然带到：
+These three questions will naturally lead you to:
 
-- [矩阵：数据的批量变换](./02-matrices.md)
+- [Matrices: Batch Transformations of Data](./02-matrices.md)
 
-:::info 连接后续
-- **下一节**：矩阵——对一组向量做批量变换
-- **5 机器学习入门到实战**：线性回归中，每个样本就是一个特征向量，模型就是找到一个权重向量
-- **11 自然语言处理（方向选修）**：词向量、句子向量，余弦相似度反复出现
-- **8 LLM 应用开发与 RAG**：向量数据库的核心就是高维向量的相似度检索
+:::info Connection to later sections
+- **Next section**: Matrices — batch transformations for a set of vectors
+- **5 Introduction to Machine Learning to Practice**: in linear regression, each sample is a feature vector, and the model is finding a weight vector
+- **11 Natural Language Processing (elective track)**: word vectors, sentence vectors, and cosine similarity appear repeatedly
+- **8 LLM Application Development and RAG**: the core of vector databases is similarity retrieval over high-dimensional vectors
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉理解 | NumPy 实现 |
+| Concept | Intuitive understanding | NumPy implementation |
 |------|---------|-----------|
-| 向量 | 一组有序数字 | `np.array([1, 2, 3])` |
-| 向量加法 | 对应位置相加 | `a + b` |
-| 数乘 | 缩放向量 | `k * a` |
-| 向量长度 | 从原点到终点的距离 | `np.linalg.norm(a)` |
-| 点积 | 衡量两个向量的方向关系 | `np.dot(a, b)` 或 `a @ b` |
-| 余弦相似度 | 只看方向，不看长度的相似度 | `dot / (norm_a * norm_b)` |
+| Vector | An ordered set of numbers | `np.array([1, 2, 3])` |
+| Vector addition | Add corresponding positions | `a + b` |
+| Scalar multiplication | Scale the vector | `k * a` |
+| Vector length | Distance from the origin to the endpoint | `np.linalg.norm(a)` |
+| Dot product | Measures the directional relationship between two vectors | `np.dot(a, b)` or `a @ b` |
+| Cosine similarity | Similarity that looks only at direction, not length | `dot / (norm_a * norm_b)` |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-- 向量首先是在表示对象，不只是画箭头
-- 点积最值得先理解成“对齐程度”
-- 余弦相似度最值得先理解成“方向接近程度”
-- 这就是为什么 AI 里很多检索、推荐和匹配系统都离不开向量
+- A vector is first of all a way to represent an object, not just an arrow
+- The dot product is best understood first as “alignment”
+- Cosine similarity is best understood first as “how close the directions are”
+- This is why many retrieval, recommendation, and matching systems in AI cannot do without vectors
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：向量运算
+### Exercise 1: Vector Operations
 
-给定向量 a = [2, 3, -1] 和 b = [1, -2, 4]，用 NumPy 计算：
+Given vectors a = [2, 3, -1] and b = [1, -2, 4], use NumPy to compute:
 1. a + b
 2. 3a - 2b
-3. a 的长度
-4. a 和 b 的点积
-5. a 和 b 的余弦相似度
+3. The length of a
+4. The dot product of a and b
+5. The cosine similarity of a and b
 
-### 练习 2：找最相似的电影
+### Exercise 2: Find the Most Similar Movie
 
-已知五部电影的特征向量（根据风格打分）：
+Given the feature vectors of five movies (scored by style):
 
 ```python
 movies = {
-    "星际穿越": np.array([5, 1, 3, 5, 2]),   # [动作, 喜剧, 情感, 科幻, 恐怖]
-    "泰囧":     np.array([2, 5, 3, 1, 1]),
-    "战狼2":    np.array([5, 1, 2, 2, 1]),
-    "前任3":    np.array([1, 3, 5, 1, 1]),
-    "异形":     np.array([4, 1, 1, 4, 5]),
+    "Interstellar": np.array([5, 1, 3, 5, 2]),   # [action, comedy, emotion, sci-fi, horror]
+    "Lost in Thailand":     np.array([2, 5, 3, 1, 1]),
+    "Wolf Warrior 2":    np.array([5, 1, 2, 2, 1]),
+    "Ex-Files 3":    np.array([1, 3, 5, 1, 1]),
+    "Alien":     np.array([4, 1, 1, 4, 5]),
 }
 ```
 
-任务：计算每两部电影之间的余弦相似度，找出最相似和最不相似的一对。
+Task: compute the cosine similarity between every pair of movies, and find the most similar pair and the least similar pair.
 
-### 练习 3：可视化向量加法
+### Exercise 3: Visualize Vector Addition
 
-用 Matplotlib 画出以下向量加法的过程（带箭头）：
-- a = [2, 3]，b = [-1, 2]，画出 a、b 和 a+b
+Use Matplotlib to draw the process of the following vector addition (with arrows):
+- a = [2, 3], b = [-1, 2], and draw a, b, and a+b
 
-提示：参考 2.1 节的代码。
+Hint: refer to the code in Section 2.1.

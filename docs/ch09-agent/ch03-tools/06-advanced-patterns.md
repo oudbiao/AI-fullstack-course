@@ -1,121 +1,121 @@
 ---
-title: "3.7 高级工具模式【选修】"
+title: "3.7 Advanced Tool Patterns [Optional]"
 sidebar_position: 16
-description: "从重试、缓存、批量、复合工具到工具代理层，理解当工具越来越多时，为什么必须把工具层做成一套可组合系统。"
+description: "From retries, caching, batching, and composite tools to tool proxy layers, understand why the tool layer must become a composable system as tools grow in number."
 keywords: [tool patterns, composite tools, caching, batching, retries, decorators, orchestration]
 ---
 
-# 高级工具模式【选修】
+# Advanced Tool Patterns [Optional]
 
-:::tip 本节定位
-当工具只有两三个时，  
-直接注册和调度往往已经够用。
+:::tip Section Positioning
+When there are only two or three tools,
+direct registration and dispatch are often enough.
 
-但工具一多，你很快就会遇到新问题：
+But once the number of tools grows, you’ll quickly run into new problems:
 
-- 同一个工具老被重复调用
-- 一些调用适合批量做
-- 某些常用流程总是几种工具连着用
+- The same tool keeps getting called repeatedly
+- Some calls are better handled in batches
+- Certain common workflows always use several tools together
 
-这时你就会发现，工具层也开始需要“设计模式”。
+At that point, you’ll realize the tool layer also needs “design patterns.”
 
-这一节要讲的，就是：
+What this section is about is:
 
-> **如何把工具从一堆散函数，提升成一套可组合、可复用的能力层。**
+> **How to turn tools from a pile of separate functions into a composable, reusable capability layer.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解缓存、重试、批量、复合工具等高级模式分别解决什么问题
-- 理解“工具包装层”为什么重要
-- 通过可运行示例看懂一个可组合工具执行器
-- 建立工具层从“函数集合”走向“系统组件”的意识
-
----
-
-## 一、为什么工具层也需要模式？
-
-### 1.1 因为很多问题会重复出现
-
-例如：
-
-- 每次调用都要记录日志
-- 某些接口老超时，需要重试
-- 同一查询一会儿就被问一次，适合缓存
-- 某些任务总是“先搜再总结”
-
-如果这些逻辑每个工具里都手写一遍，  
-系统会很快失控。
-
-### 1.2 模式的价值不是“显得高级”
-
-而是：
-
-- 复用
-- 一致性
-- 降低重复工程
-
-这和后端服务里的中间件思想很像。
-
-### 1.3 一个类比：工具本体像电器，模式像插线板和稳压器
-
-你买回来的电器当然能单独用，  
-但当设备越来越多，  
-你会自然加上：
-
-- 插线板
-- 稳压器
-- 定时器
-
-工具模式对 Agent 来说，也是在做类似的事情。
+- Understand what problems caching, retries, batching, and composite tools each solve
+- Understand why a “tool wrapper layer” matters
+- Learn how a composable tool executor works through a runnable example
+- Build the awareness that the tool layer should evolve from a “function collection” into a “system component”
 
 ---
 
-## 二、四种最常见的高级工具模式
+## 1. Why Does the Tool Layer Need Patterns Too?
 
-### 2.1 重试包装
+### 1.1 Because Many Problems Repeat
 
-适合：
+For example:
 
-- 临时性失败
-- 上游接口偶发抖动
+- Log every call
+- Some APIs time out often and need retries
+- The same query gets asked again and again, so caching makes sense
+- Some tasks always follow the pattern “search first, then summarize”
 
-### 2.2 缓存包装
+If you hand-code this logic inside every tool,
+the system will quickly become unmanageable.
 
-适合：
+### 1.2 The Value of Patterns Is Not “Looking Advanced”
 
-- 短时间内高频重复查询
-- 只读类工具
+It is:
 
-### 2.3 批量工具
+- Reuse
+- Consistency
+- Less repetitive engineering
 
-适合：
+This is very similar to the middleware idea in backend services.
 
-- 一次问多个类似问题
-- 一组相似请求合并处理
+### 1.3 An Analogy: The Tool Itself Is Like an Appliance, and the Pattern Is Like a Power Strip or Voltage Regulator
 
-### 2.4 复合工具
+The appliance you buy can certainly be used on its own,
+but when you have more and more devices,
+you will naturally add:
 
-适合：
+- Power strips
+- Voltage regulators
+- Timers
 
-- 多个工具经常固定搭配使用
-
-例如：
-
-- 搜索文档 -> rerank -> 总结
-
-这时与其每次都让 Agent 即兴组织，  
-不如封成一个更高层的复合工具。
+Tool patterns do something similar for an Agent.
 
 ---
 
-## 三、先跑一个“可组合工具包装器”示例
+## 2. Four Common Advanced Tool Patterns
 
-下面这个例子会做三件事：
+### 2.1 Retry Wrapping
 
-1. 给底层工具套上缓存
-2. 给工具套上重试
-3. 再组合成一个复合工具
+Suitable for:
+
+- Temporary failures
+- Occasional upstream instability
+
+### 2.2 Cache Wrapping
+
+Suitable for:
+
+- High-frequency repeated queries in a short time
+- Read-only tools
+
+### 2.3 Batch Tools
+
+Suitable for:
+
+- Asking many similar questions at once
+- Combining a group of similar requests for processing
+
+### 2.4 Composite Tools
+
+Suitable for:
+
+- Multiple tools that are commonly used together in a fixed sequence
+
+For example:
+
+- Search documents -> rerank -> summarize
+
+In that case, instead of letting the Agent improvise every time,
+it is better to package it as a higher-level composite tool.
+
+---
+
+## 3. First, Run a “Composable Tool Wrapper” Example
+
+The example below does three things:
+
+1. Wraps the underlying tool with caching
+2. Wraps the tool with retries
+3. Then combines them into a composite tool
 
 ```python
 from functools import wraps
@@ -152,14 +152,14 @@ def retry_tool(fn, retries=2):
 @cache_tool
 def search_docs(keyword):
     docs = {
-        "退款": "退款需满足 7 天内且学习进度低于 20%。",
-        "证书": "完成所有必修项目并通过测试后可获得证书。",
+        "refund": "Refunds require being within 7 days and having a learning progress below 20%.",
+        "certificate": "You can receive a certificate after completing all required items and passing the test.",
     }
-    return docs.get(keyword, "未找到相关文档")
+    return docs.get(keyword, "No relevant documents found")
 
 
 def summarize(text):
-    return f"总结：{text[:18]}..."
+    return f"Summary: {text[:18]}..."
 
 
 def search_and_summarize(keyword):
@@ -173,156 +173,156 @@ def search_and_summarize(keyword):
     }
 
 
-print(search_and_summarize("退款"))
-print(search_and_summarize("退款"))
+print(search_and_summarize("refund"))
+print(search_and_summarize("refund"))
 ```
 
-### 3.1 这段代码最值得学的是什么？
+### 3.1 What Is the Most Important Lesson in This Code?
 
-它说明工具层不是只有“工具本体”。  
-实际系统里，你经常会先做：
+It shows that the tool layer is not just the “tool itself.”
+In real systems, you often do this first:
 
-- 包装
-- 增强
-- 组合
+- Wrap
+- Enhance
+- Compose
 
-最终被 Agent 调用的，  
-常常是增强后的能力，而不只是原始函数。
+What the Agent finally calls
+is often the enhanced capability, not just the raw function.
 
-### 3.2 为什么缓存适合只读工具？
+### 3.2 Why Is Caching Suitable for Read-Only Tools?
 
-因为只读工具在短时间内重复调用时，  
-返回值往往不会立刻变。
+Because when read-only tools are called repeatedly over a short time,
+their return values often do not change immediately.
 
-例如：
+For example:
 
-- 查询退款政策
-- 查询产品说明
+- Checking refund policies
+- Checking product documentation
 
-这种工具做短时缓存，很容易显著降成本。
+Adding short-term caching to these tools can significantly reduce cost.
 
-### 3.3 为什么“搜索 + 总结”适合封成复合工具？
+### 3.3 Why Is “Search + Summarize” Suitable as a Composite Tool?
 
-因为它是高度固定的组合。  
-如果每次都让 Agent 自己想：
+Because it is a highly fixed combination.
+If you let the Agent figure it out every time:
 
-- 先搜
-- 再总结
+- Search first
+- Then summarize
 
-既慢又容易多一步少一步。
+it is both slower and more error-prone.
 
-封装成复合工具后，  
-系统会更稳。
+After packaging it as a composite tool,
+the system becomes more stable.
 
 ---
 
-## 四、批量工具为什么重要？
+## 4. Why Are Batch Tools Important?
 
-### 4.1 因为很多请求本质上可以一起做
+### 4.1 Because Many Requests Can Be Handled Together
 
-例如：
+For example:
 
-- 一次查 10 个订单状态
-- 一次算一批价格
-- 一次取一组文档摘要
+- Check the status of 10 orders at once
+- Calculate a batch of prices at once
+- Fetch a set of document summaries at once
 
-如果逐条调用，  
-会浪费很多：
+If you call them one by one,
+you will waste a lot of:
 
-- 网络往返
-- 模型步数
-- 调度开销
+- Network round trips
+- Model steps
+- Scheduling overhead
 
-### 4.2 一个最小批量工具示例
+### 4.2 A Minimal Batch Tool Example
 
 ```python
 def get_order_status_batch(order_ids):
     mock_db = {
-        "A001": "未发货",
-        "A002": "已发货",
-        "A003": "已签收",
+        "A001": "Not shipped",
+        "A002": "Shipped",
+        "A003": "Delivered",
     }
-    return {order_id: mock_db.get(order_id, "未知订单") for order_id in order_ids}
+    return {order_id: mock_db.get(order_id, "Unknown order") for order_id in order_ids}
 
 
 print(get_order_status_batch(["A001", "A002", "A009"]))
 ```
 
-这类模式特别适合：
+This pattern is especially suitable when:
 
-- 后端本身支持批量接口
-- 单次调用成本不低
+- The backend itself supports batch APIs
+- The cost of a single call is relatively high
 
 ---
 
-## 五、什么时候该把一串工具封成“高级工具”？
+## 5. When Should You Package a Chain of Tools as an “Advanced Tool”?
 
-### 5.1 当组合足够固定
+### 5.1 When the Combination Is Stable Enough
 
-如果流程总是：
+If the workflow is always:
 
 - `search -> rerank -> summarize`
 
-那就很适合做复合工具。
+then it is a good fit for a composite tool.
 
-### 5.2 当你希望 Agent 少想一点细节
+### 5.2 When You Want the Agent to Think Less About Details
 
-Agent 的工作不应该永远停留在低级操作。  
-如果基础动作已经稳定，  
-封装成高层工具后，Agent 可以把注意力放在：
+An Agent should not always stay at the level of low-level operations.
+If the basic actions are already stable,
+then after packaging them into a higher-level tool, the Agent can focus on:
 
-- 更高层决策
+- Higher-level decisions
 
-### 5.3 当你希望系统更稳、更快、更易测
+### 5.3 When You Want the System to Be More Stable, Faster, and Easier to Test
 
-复合工具通常更容易：
+Composite tools are usually easier for:
 
-- 单元测试
-- 观测
-- 限流
+- Unit testing
+- Observability
+- Rate limiting
 
-因为边界更明确了。
+because the boundaries are clearer.
 
 ---
 
-## 六、如果你的目标是“知识库驱动的课件生成助手”，哪些组合最值得先封装？
+## 6. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Combinations Are Worth Packaging First?
 
-这类项目里，工具很容易自然长成下面这几类：
+In this kind of project, tools often naturally grow into these categories:
 
-- 查内部资料
-- 查外部资料
-- 去重和重排
-- 生成课件 schema
-- 导出 Word
+- Search internal materials
+- Search external materials
+- Deduplicate and reorder
+- Generate courseware schema
+- Export Word
 
-如果每一步都让 Agent 临场决定，  
-系统通常会出现：
+If you let the Agent decide every step on the fly,
+the system will usually develop problems like:
 
-- 顺序不稳定
-- 一会儿漏查内部资料
-- 一会儿先导出、后补内容
+- Unstable order
+- Sometimes forgetting to search internal materials
+- Sometimes exporting first and filling in content later
 
-所以第一次做时，更值得先封装的，往往是这些高频固定流程：
+So when building it for the first time, the workflows that are more worth packaging first are often these high-frequency fixed processes:
 
-| 复合工具 | 它在替你固定什么 |
+| Composite Tool | What It Fixes for You |
 |---|---|
-| `retrieve_teaching_materials` | 先查内部，再补外部，再合并去重 |
-| `build_courseware_outline` | 先抽概念、例题、练习，再整理 schema |
-| `export_courseware_doc` | 先校验 schema，再套模板导出 Word |
+| `retrieve_teaching_materials` | Search internal sources first, then supplement with external sources, then merge and deduplicate |
+| `build_courseware_outline` | Extract concepts, examples, and exercises first, then organize the schema |
+| `export_courseware_doc` | Validate the schema first, then export Word using a template |
 
-你可以先把它理解成：
+You can think of this first as:
 
-> **把经常一起出现的动作，提前捆成一个稳定步骤。**
+> **Bundling actions that often appear together into one stable step in advance.**
 
-### 6.1 一个更像真实项目的最小复合工具示例
+### 6.1 A Minimal Composite Tool Example That Feels Closer to a Real Project
 
 ```python
 def retrieve_internal_docs(topic):
-    return [{"source": "internal", "text": f"内部资料：{topic} 的知识点和例题"}]
+    return [{"source": "internal", "text": f"Internal materials: key points and examples for {topic}"}]
 
 
 def retrieve_external_docs(topic):
-    return [{"source": "external", "text": f"外部资料：{topic} 的补充说明"}]
+    return [{"source": "external", "text": f"External materials: supplementary notes for {topic}"}]
 
 
 def merge_materials(internal_docs, external_docs):
@@ -335,53 +335,53 @@ def retrieve_teaching_materials(topic):
     return merge_materials(internal_docs, external_docs)
 
 
-print(retrieve_teaching_materials("折扣应用题"))
+print(retrieve_teaching_materials("discount word problems"))
 ```
 
-这个示例最重要的价值不是代码多复杂，  
-而是让新人先看到：
+The most important value of this example is not that the code is complicated,
+but that it helps beginners see:
 
-- 高级工具模式不是“玄学设计”
-- 而是在把项目里反复出现的流程固化下来
-
----
-
-## 七、最常见的误区
-
-### 7.1 误区一：高级模式就是“多写点装饰器”
-
-不是。  
-关键不是写法炫，  
-而是它是否真的减少了重复问题。
-
-### 7.2 误区二：有了缓存就一定更好
-
-如果数据变化快，  
-缓存可能反而带来陈旧结果风险。
-
-### 7.3 误区三：组合越多越说明系统强
-
-过度封装也会让系统变僵硬。  
-关键看组合是否稳定、是否高频。
+- Advanced tool patterns are not “mystical design”
+- They are about solidifying workflows that repeatedly appear in the project
 
 ---
 
-## 小结
+## 7. The Most Common Misunderstandings
 
-这节最重要的，不是记住几个模式名字，  
-而是建立一个更工程化的判断：
+### 7.1 Misunderstanding 1: Advanced Patterns Just Mean “Writing More Decorators”
 
-> **当工具越来越多、问题越来越重复时，工具层需要通过缓存、重试、批量和复合封装，从“函数集合”升级成一套可组合的能力系统。**
+Not really.
+The key is not whether the implementation looks fancy,
+but whether it actually reduces repeated problems.
 
-这层意识建立起来后，  
-你后面做代码 Agent 和多工具系统时，  
-就不会只想着“再加一个函数”了。
+### 7.2 Misunderstanding 2: Caching Is Always Better Once You Have It
+
+If data changes quickly,
+caching may instead create the risk of stale results.
+
+### 7.3 Misunderstanding 3: The More Combinations You Have, the Stronger the System Must Be
+
+Over-engineering can also make the system rigid.
+The key is whether the combination is stable and frequent enough.
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例再加一个 `timeout_tool` 包装器，思考它该放在哪一层。
-2. 为什么缓存更适合只读工具，而不适合高频变化的写操作？
-3. 想一个你做过的 Agent 任务，找出其中一个适合封成复合工具的固定流程。
-4. 如果一个工具组合不稳定、经常改顺序，你还会把它封成高级工具吗？为什么？
+The most important thing in this section is not remembering a few pattern names,
+but building a more engineering-oriented judgment:
+
+> **As tools grow in number and problems become more repetitive, the tool layer needs caching, retries, batching, and composite packaging to upgrade from a “collection of functions” into a composable capability system.**
+
+Once this mindset is established,
+when you build code Agents and multi-tool systems later,
+you won’t just keep thinking, “Let’s add one more function.”
+
+---
+
+## Exercises
+
+1. Add a `timeout_tool` wrapper to the example and think about which layer it should belong to.
+2. Why is caching more suitable for read-only tools than for write operations that change frequently?
+3. Think of an Agent task you have done before, and identify one fixed workflow that would be suitable to package as a composite tool.
+4. If a tool combination is unstable and often changes order, would you still package it as an advanced tool? Why?

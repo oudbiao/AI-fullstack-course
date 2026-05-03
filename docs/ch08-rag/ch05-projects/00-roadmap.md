@@ -1,160 +1,160 @@
 ---
-title: "5.1 学前导读：综合项目这一章到底该怎么学"
+title: "5.1 Pre-study Guide: How Should You Learn This Capstone Projects Chapter?"
 sidebar_position: 0
-description: "先建立 8 LLM 应用开发与 RAG 项目章的学习地图：企业知识库、RAG+微调、智能助手和课件生成助手如何把知识、模型、应用和工程连成系统。"
-keywords: [LLM项目导读, 企业知识库, 智能助手, RAG项目, 课件生成助手]
+description: "First build a learning map for Chapter 8 on LLM application development and RAG projects: how enterprise knowledge bases, RAG + fine-tuning, intelligent assistants, and courseware generation assistants connect knowledge, models, applications, and engineering into one system."
+keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, RAG project, courseware generation assistant]
 ---
 
-# 学前导读：综合项目这一章到底该怎么学
+# Pre-study Guide: How Should You Learn This Capstone Projects Chapter?
 
-这一章不是继续堆组件，而是把前面学过的知识层、模型层、应用层和工程层真正做成系统。
+This chapter is not about stacking more components. Instead, it is about turning the knowledge layer, model layer, application layer, and engineering layer you learned earlier into a real system.
 
-第 8 章 LLM 应用开发与 RAG 的项目和第 7 章大模型原理、Prompt 与微调不一样。第 7 章更关注模型能力、Prompt、微调和方案选择；第 8 章更关注一个 LLM 应用怎样接入资料、调用模型、组织功能、处理错误、记录日志，并形成可以演示和迭代的产品原型。
+Chapter 8, LLM Application Development and RAG, is different from Chapter 7, which covered LLM principles, Prompt, and fine-tuning. Chapter 7 focuses more on model capabilities, Prompt, fine-tuning, and solution selection; Chapter 8 focuses more on how an LLM application connects to data, calls models, organizes functions, handles errors, records logs, and becomes a product prototype that can be demonstrated and iterated on.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Whole Course
 
-你已经学过 RAG、模型部署、应用开发和工程化。综合项目是这一阶段的出口，要证明你不只是能写一个模型调用，而是能把文档、检索、对话、工具、结构化输出、引用、评估和部署说明组织起来。
+You have already learned RAG, model deployment, application development, and engineering practices. The capstone projects are the exit point of this stage—they prove that you can do more than write a single model call; you can organize documents, retrieval, dialogue, tools, structured output, citations, evaluation, and deployment instructions into one system.
 
-![LLM 应用综合项目路线图](/img/course/ch08-projects-route-map.png)
+![LLM application capstone project roadmap](/img/course/ch08-projects-route-map-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：如何把资料变成可检索知识库；如何让模型基于来源回答而不是凭空发挥；如何把 RAG、Function Calling、多轮对话和结构化输出组织成应用功能；如何处理检索为空、模型超时、格式错误和无答案问题；如何用日志、引用和评估样例证明系统可靠。
+This chapter answers five questions: how to turn materials into a searchable knowledge base; how to make the model answer based on sources instead of making things up; how to organize RAG, Function Calling, multi-turn dialogue, and structured output into application features; how to handle empty retrieval results, model timeouts, format errors, and no-answer cases; and how to use logs, citations, and evaluation examples to prove the system is reliable.
 
-新人最容易犯的错误，是把项目理解为“接一个向量数据库就完成了”。真正的 LLM 应用项目要能解释每一层：资料从哪里来，怎样切分，怎样检索，怎样进入 prompt，模型怎样输出，系统怎样校验，用户怎样看到来源，开发者怎样评估效果。
+The mistake beginners make most often is treating a project as “just connect a vector database and it’s done.” A real LLM application project must be able to explain every layer: where the data comes from, how it is chunked, how it is retrieved, how it enters the prompt, how the model outputs results, how the system validates them, how users see the sources, and how developers evaluate the quality.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先做企业知识库问答或课程知识库问答，因为它最能训练 RAG 主链路。然后做智能问答助手，把检索、会话状态和工具调用接成产品功能。接着做 RAG + 微调综合系统，理解知识增强和行为适配怎样组合。最后可以做知识库驱动的课件生成助手，把文档解析、例题抽取、结构化输出和模板化生成放进一个更完整的应用场景。
+It is recommended to start with an enterprise knowledge base Q&A system or a course knowledge base Q&A system, because it trains the main RAG pipeline best. Then build an intelligent Q&A assistant, connecting retrieval, session state, and tool calling into product features. Next, build a combined RAG + fine-tuning system to understand how knowledge enhancement and behavior adaptation can work together. Finally, you can build a knowledge-base-driven courseware generation assistant, putting document parsing, example extraction, structured output, and template-based generation into a more complete application scenario.
 
-![LLM 应用项目学习顺序图](/img/course/ch08-project-learning-order-map.png)
+![LLM application project learning order diagram](/img/course/ch08-project-learning-order-map-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：LLM 应用项目不是一次生成，而是知识、模型、功能和工程的闭环。
+The main thread of this chapter can be summarized as: an LLM application project is not a one-time generation task, but a closed loop of knowledge, model, features, and engineering.
 
-![LLM 应用项目交付闭环图](/img/course/ch08-project-delivery-loop.png)
+![LLM application project delivery loop diagram](/img/course/ch08-project-delivery-loop-en.png)
 
-看懂这条线后，你会知道项目展示不能只放最终答案。你还应该展示检索片段、来源引用、失败处理、日志样例、评估问题和下一步改进。
+Once you understand this line, you will know that project demos should not only show the final answer. You should also show retrieved passages, source citations, failure handling, log examples, evaluation questions, and next-step improvements.
 
-## 几个项目分别在练什么
+## What Each Project Is Really Training
 
-| 项目 | 你真正要练什么 |
+| Project | What You Are Really Practicing |
 |---|---|
-| 企业知识库问答 | 检索、权限、引用和可追溯回答 |
-| RAG + 微调综合系统 | 知识增强和行为适配如何组合 |
-| 智能问答助手 | 检索、会话状态、工具调用如何串成产品链 |
-| 知识库驱动的课件生成助手 | 文档解析、例题抽取、结构化输出和模板化文档生成 |
+| Enterprise knowledge base Q&A | Retrieval, permissions, citations, and traceable answers |
+| RAG + fine-tuning integrated system | How knowledge enhancement and behavior adaptation combine |
+| Intelligent Q&A assistant | How retrieval, session state, and tool calling form a product pipeline |
+| Knowledge-base-driven courseware generation assistant | Document parsing, example extraction, structured output, and template-based document generation |
 
-## 这一章和后面阶段的关系
+## The Relationship Between This Chapter and Later Stages
 
-这一章是 AI Agent 阶段的前置出口。一个稳定的 LLM 应用已经包含知识、模型、工具、状态和工程化雏形；Agent 会在此基础上继续加入目标驱动、多步规划、工具观察、记忆和安全评估。
+This chapter is the prerequisite exit point for the AI Agent stage. A stable LLM application already contains the basic shape of knowledge, models, tools, state, and engineering. Agent will build on this by adding goal-driven behavior, multi-step planning, tool observation, memory, and safety evaluation.
 
-如果这一章没学稳，后面常见的问题是：Agent 还没开始做，RAG 和应用层已经不稳定；工具调用没有校验；无答案问题不会处理；系统没有日志和评估；Demo 看起来能回答，但无法解释答案从哪里来。
+If this chapter is not solid, common problems later are: the Agent has not even started, but the RAG and application layers are already unstable; tool calling has no validation; no-answer cases are not handled; the system has no logs or evaluation; the demo looks like it can answer, but it cannot explain where the answer came from.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimum project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Learners with more experience can treat this chapter as a chance to fill gaps and practice engineering: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and the connections to the earlier and later stages. After reading, it is best to turn the content of this chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s small project exit |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | Can explain its position in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly describe what the example needs as input and what result it produces |
+| Where are the common failure points? | Can list at least one reason for an error, poor results, or misunderstanding |
+| What can be retained after learning? | Can write the chapter output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Exit for This Chapter
 
-学完这一章后，建议至少完成一个“带来源引用的知识库助手”。项目需要包含文档导入、切分、向量化、检索、上下文拼接、模型回答、来源展示、无答案处理和简单评估集。
+After finishing this chapter, it is recommended that you complete at least one “knowledge base assistant with source citations.” The project should include document import, chunking, vectorization, retrieval, context assembly, model response, source display, no-answer handling, and a simple evaluation set.
 
-进阶版本可以加入多轮对话、用户反馈、Function Calling、文档解析和模板化导出。作品集版本建议补充架构图、关键代码说明、评估样例、失败案例和部署说明。
+An advanced version can add multi-turn dialogue, user feedback, Function Calling, document parsing, and template-based export. For a portfolio version, it is recommended to add an architecture diagram, key code explanations, evaluation examples, failure cases, and deployment instructions.
 
-## 项目交付物模板
+## Project Deliverable Template
 
-这一章的项目不要只交一个“能回答问题的 Demo”。为了让作品更像真实 LLM 应用，建议至少包含这些交付物：
+For this chapter, do not submit just a “Demo that can answer questions.” To make the project feel more like a real LLM application, it is recommended to include at least these deliverables:
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 |---|---|
-| 项目说明 | 说明目标用户、知识范围、核心问题和不做什么 |
-| 架构图 | 展示文档解析、切块、检索、模型调用、引用和日志链路 |
-| 知识库样例 | 展示原始资料、切块结果、metadata 和来源字段 |
-| 检索日志 | 展示典型问题命中的片段、分数和排序 |
-| 答案引用 | 最终答案要展示参考来源，不能只给一段生成文本 |
-| 失败案例 | 至少列出 3 个错例，并判断是切块、检索、上下文还是生成问题 |
-| 评估样例 | 准备一组固定测试问题，用来比较优化前后效果 |
-| 部署说明 | 说明如何运行、需要哪些环境变量、如何复现 Demo |
+| Project description | Explain the target users, knowledge scope, core problem, and what is out of scope |
+| Architecture diagram | Show the document parsing, chunking, retrieval, model calling, citation, and logging pipeline |
+| Knowledge base sample | Show the raw materials, chunking results, metadata, and source fields |
+| Retrieval logs | Show the matched passages, scores, and ranking for typical questions |
+| Answer citations | The final answer should display reference sources, not just a generated paragraph |
+| Failure cases | List at least 3 incorrect examples, and judge whether the issue is chunking, retrieval, context, or generation |
+| Evaluation samples | Prepare a fixed set of test questions to compare results before and after optimization |
+| Deployment instructions | Explain how to run it, which environment variables are needed, and how to reproduce the Demo |
 
-这个模板的目的，是让你的项目能被别人看懂、复现和评价，而不是只在你电脑上偶然跑通一次。
-
----
-
-## 作品集检查清单
-
-提交项目前，可以用下面这张表自查：
-
-| 检查项 | 是否达标 |
-|---|---|
-| 用户能看到答案来自哪些文档片段 | 是 / 否 |
-| 开发者能看到每次检索命中了什么 | 是 / 否 |
-| 检索为空时有明确处理，而不是硬编答案 | 是 / 否 |
-| 输出格式错误时有校验或重试机制 | 是 / 否 |
-| 至少有一组固定评估问题 | 是 / 否 |
-| README 或项目说明里有架构图和运行步骤 | 是 / 否 |
+The purpose of this template is to make your project understandable, reproducible, and evaluable by others—not just something that happened to run once on your own machine.
 
 ---
 
+## Portfolio Checklist
 
+Before submitting your project, you can use the checklist below for self-review:
 
-
-## Debug 侦探案件
-
-| 案件 | 内容 |
+| Checklist Item | Met? |
 |---|---|
-| 案件名 | RAG 找不到证据 |
-| 案发现场 | 问题明明在文档里，系统却答非所问或引用不支持答案。 |
-| 侦查步骤 | 先关闭生成，只打印检索结果；检查 chunk、metadata、top-k 和 query。 |
-| 结案证据 | retrieval_logs.jsonl、citation_check.csv、失败类型统计。 |
+| Users can see which document passages the answer came from | Yes / No |
+| Developers can see what each retrieval hit matched | Yes / No |
+| Empty retrieval is handled clearly instead of forcing an answer | Yes / No |
+| Output format errors have validation or retry mechanisms | Yes / No |
+| There is at least one fixed evaluation question set | Yes / No |
+| The README or project description includes an architecture diagram and run steps | Yes / No |
 
-项目练习不要只保留成功截图。至少挑一个真实失败样本，按“现象、线索、嫌疑原因、侦查步骤、修复动作、回归检查”写进 `reports/failure_cases.md`，这样项目会更像真实工程作品。
+---
 
-## 项目交付物标准
 
-每个综合项目都建议按同一套作品集标准交付，而不是只把代码跑通。最小交付物应该包括：一份 README、一条可复现运行命令、一组示例输入输出、一张关键流程图、一次失败样本分析，以及下一步改进计划。
 
-| 交付物 | 最低要求 | 进阶要求 |
+
+## Debug Detective Cases
+
+| Case | Content |
+|---|---|
+| Case name | RAG cannot find evidence |
+| Scene | The answer is clearly in the document, but the system gives an unrelated answer or cites sources that do not support it. |
+| Investigation steps | First disable generation and only print retrieval results; check chunking, metadata, top-k, and query. |
+| Closing evidence | retrieval_logs.jsonl, citation_check.csv, failure type statistics. |
+
+Do not keep only success screenshots for project practice. At minimum, choose one real failure sample and write it into `reports/failure_cases.md` using the structure “phenomenon, clues, suspected cause, investigation steps, fix, regression check.” This makes the project feel much more like real engineering work.
+
+## Project Deliverable Standards
+
+For each capstone project, it is recommended to deliver according to the same portfolio standard, rather than just getting the code to run. The minimum deliverables should include: a README, one reproducible run command, a set of sample inputs and outputs, one key process diagram, one failure sample analysis, and a next-step improvement plan.
+
+| Deliverable | Minimum Requirement | Advanced Requirement |
 |---|---|---|
-| README | 写清项目目标、运行方式、依赖和示例 | 增加架构图、设计取舍和复盘 |
-| 示例输入输出 | 至少保留 1 个完整案例 | 保留成功、失败和边界案例 |
-| 评估记录 | 写清用什么指标判断效果 | 加入 baseline、对比实验和错误分析 |
-| 工程记录 | 记录一次环境或接口问题 | 记录日志、成本、耗时和排障过程 |
-| 展示材料 | 截图或短 GIF 证明能运行 | 做成可讲解的作品集页面 |
+| README | Clearly state the project goal, how to run it, dependencies, and examples | Add architecture diagrams, design trade-offs, and retrospective notes |
+| Sample input/output | Keep at least 1 complete case | Keep success, failure, and boundary cases |
+| Evaluation record | Clearly state what metrics are used to judge effectiveness | Add baseline, comparison experiments, and error analysis |
+| Engineering record | Record one environment or API issue | Record logs, cost, time spent, and troubleshooting process |
+| Presentation materials | Screenshots or a short GIF proving it runs | Turn it into a portfolio page that can be explained |
 
-做项目时最重要的不是功能堆得多，而是能讲清楚：你解决了什么问题，系统怎样工作，效果怎么判断，失败时怎么定位，下一版准备怎样改。
+The most important thing when building a project is not how many features you stack, but whether you can clearly explain: what problem you solved, how the system works, how the results are judged, how you locate failures, and how you plan to improve the next version.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能独立完成一个 RAG 或 LLM 应用项目，能解释资料从文档到答案的完整路径，能处理检索为空、模型输出格式错误和无来源回答等常见失败，能用日志和评估样例说明系统效果。
+By the end of this chapter, you should be able to complete an RAG or LLM application project independently, explain the full path from documents to answers, handle common failures such as empty retrieval, model output format errors, and answers without sources, and use logs and evaluation samples to demonstrate system performance.
 
-如果你能做出一个带来源引用、基础日志、错误处理、评估样例和部署说明的知识库助手，就达到了 LLM 应用开发阶段的作品集出口标准。
+If you can build a knowledge base assistant with source citations, basic logs, error handling, evaluation samples, and deployment instructions, you have reached the portfolio exit standard for the LLM application development stage.
 
-## 版本路线建议
+## Suggested Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimum closed loop | Can input, process, and output, while keeping a set of examples |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not try to make it large and complete from the start. Each time you move up a version, write down “what capability was added, how it was verified, and what problems remain” in the README.

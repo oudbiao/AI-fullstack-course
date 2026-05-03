@@ -1,83 +1,82 @@
 ---
-title: "阶段学习任务单"
-description: "把 Python 编程基础阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [Python, 学习任务单, 编程基础, AI全栈]
+title: "Stage Learning Task List"
+description: "Break the Python programming fundamentals stage into executable learning tasks, practice deliverables, and passing criteria."
+keywords: [Python, learning task list, programming fundamentals, AI full-stack]
 ---
 
-# 阶段学习任务单：Python 编程基础
+# Stage Learning Task List: Python Programming Fundamentals
 
-这个阶段的目标是让你能用 Python 表达清楚一个小程序的输入、处理和输出。后续的数据分析、机器学习、RAG 和 Agent 都会依赖 Python，因此这里最重要的是写出可读、可运行、可调试的代码。
+The goal of this stage is to help you clearly express the input, processing, and output of a small program using Python. Later data analysis, machine learning, RAG, and Agent work will all depend on Python, so the most important thing here is to write code that is readable, runnable, and debuggable.
 
-![Python 阶段任务链](/img/course/ch02-task-list-workflow.png)
+![Python Stage Task Workflow](/img/course/ch02-task-list-workflow-en.png)
 
-## 本阶段必须完成的任务
+## Tasks that must be completed in this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Passing Criteria |
 | --- | --- | --- |
-| 掌握基础语法 | 5 个小练习脚本 | 能使用变量、条件、循环、函数处理简单问题 |
-| 熟悉数据结构 | 一个数据整理脚本 | 能选择 list、dict、set、tuple 并解释原因 |
-| 编写函数 | 一个拆分成多个函数的小程序 | 每个函数职责清晰，有输入和返回值 |
-| 处理文件 | 一个读取和写入文本或 JSON 的脚本 | 能把结果保存到文件并重新读取 |
-| 完成阶段项目 | 一个命令行小工具 | 能通过 README 说明运行方式和示例输出 |
+| Master basic syntax | 5 small exercise scripts | Can use variables, conditionals, loops, and functions to solve simple problems |
+| Become familiar with data structures | A data organization script | Can choose between list, dict, set, and tuple and explain why |
+| Write functions | A small program split into multiple functions | Each function has a clear responsibility, with inputs and return values |
+| Work with files | A script that reads and writes text or JSON | Can save results to a file and read them back |
+| Finish the stage project | A command-line tool | Can explain how to run it and show example output in the README |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先把变量、类型、条件、循环和函数跑通，再学习列表、字典和文件操作。面向对象、装饰器、生成器等进阶内容可以先理解用途，不必在第一遍追求熟练。
+First get variables, types, conditionals, loops, and functions working smoothly, then learn lists, dictionaries, and file operations. For advanced topics like OOP, decorators, and generators, you only need to understand their use cases at first; there is no need to master them on the first pass.
 
-学习 Python 时不要只看语法解释。每学一个语法点，都应该立刻写一个小脚本，例如任务清单、文本统计、文件整理、API 响应解析或学习日志生成。
+When learning Python, do not just read syntax explanations. Every time you learn a syntax point, immediately write a small script, such as a task list, text statistics, file organization, API response parsing, or a learning log generator.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI learning assistant project
 
-本阶段对应 AI 学习助手的 v0.2 命令行交互版本。你可以让程序读取一个问题，保存到日志文件，并返回一个固定模板答案。此时仍然不需要调用大模型，重点是练习输入输出、函数拆分和文件记录。
+This stage corresponds to the v0.2 command-line interaction version of the AI learning assistant. You can let the program read a question, save it to a log file, and return a fixed-template answer. At this stage, there is still no need to call a large model; the focus is on practicing input/output, function decomposition, and file logging.
 
-建议实现功能：用户输入一个学习问题，程序把问题、时间和当前阶段写入 `notes/questions.jsonl`，然后返回“已记录，建议先查看对应章节”的提示。
+Suggested feature: when the user enters a learning question, the program writes the question, time, and current stage into `notes/questions.jsonl`, then returns the prompt: “Recorded. Please check the relevant chapter first.”
 
-## 常见卡点
+## Common stumbling blocks
 
-初学者常见问题包括缩进错误、变量名覆盖、列表和字典混用、文件路径不对、函数只打印不返回、异常信息看不懂。遇到错误时，先定位是哪一行，再确认这一行用到的变量类型和值是否符合预期。
+Common beginner issues include indentation errors, variable name overwrites, mixing lists and dictionaries, incorrect file paths, functions that only print and do not return, and error messages that are hard to understand. When you encounter an error, first locate the line where it happens, then confirm whether the variable types and values used on that line match your expectations.
 
+## Easy version / Standard version / Challenge version tasks
 
-## 轻松版 / 标准版 / 挑战版任务
-
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Who it is for |
 |---|---|---|
-| 轻松版 | 完成新增、查看、完成任务并保存 JSON | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 支持分类、搜索和损坏文件提示 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 准备正常、空输入、损坏 JSON 三个测试样例 | 已有基础、想做更强项目证据的学习者 |
+| Easy version | Complete add, view, finish tasks and save JSON | First-time learners, learners with limited time, or complete beginners |
+| Standard version | Support categories, search, and damaged file prompts | Learners who want to include this stage in their portfolio |
+| Challenge version | Prepare three test cases: normal, empty input, and corrupted JSON | Learners with a foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Badges and Boss Battle for this stage
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | JSON 地牢管理员 |
-| 可解锁徽章 | JSON 驯服者、异常捕手 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss Battle | JSON Dungeon Manager |
+| Unlockable Badges | JSON Tamer, Exception Catcher |
+| Minimum Passing Slogan | Get it running first, then explain it, then record failures |
+| Evidence storage suggestion | Save screenshots, logs, failure samples, or evaluation tables to `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+You can move on after finishing the easy version; only the standard version is recommended for your portfolio; do the challenge version only if you have extra energy.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to turn the results of this stage into portfolio material, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `todo_cli.py` 或项目目录 | 命令行任务管理器源码，支持新增、查看、完成和保存 |
-| `data/tasks.json` | 示例数据文件，展示文件读写和数据结构设计 |
-| `api_demo.py` | 一个 Web API 调用练习，包含错误处理和返回解析 |
-| `README.md` | 运行命令、示例输入输出、项目结构和已知限制 |
-| `debug_notes.md` | 记录至少 2 个 Python 报错、原因和修复过程 |
+| `todo_cli.py` or project directory | Source code for a command-line task manager, supporting add, view, complete, and save |
+| `data/tasks.json` | Sample data file showing file reading/writing and data structure design |
+| `api_demo.py` | A Web API calling exercise, including error handling and response parsing |
+| `README.md` | Run commands, example input/output, project structure, and known limitations |
+| `debug_notes.md` | Record at least 2 Python errors, their causes, and the fix process |
 
-这些材料会让 Python 阶段从“语法练习”变成“能独立写小工具、能排错、能解释结构”的项目证据。
+These materials will turn the Python stage from “syntax practice” into project evidence that shows you can independently write small tools, debug them, and explain their structure.
 
-## 阶段通关问题
+## Stage passing questions
 
-学完后，你应该能回答这些问题：什么时候应该写函数，什么时候应该用字典，文件路径相对谁计算，print 和 return 有什么区别，为什么真实项目里需要把逻辑拆成多个小函数。
+After finishing this stage, you should be able to answer these questions: when should you write functions, when should you use dictionaries, how are file paths calculated relative to what, what is the difference between print and return, and why real projects need logic split into multiple small functions.
 
-## 完成状态 Checklist
+## Completion status Checklist
 
-- [ ] 我能用变量、条件、循环和函数写出一个完整小程序。
-- [ ] 我能用 list 和 dict 组织任务、问题或学习记录。
-- [ ] 我能读写文本、JSON 或 JSONL 文件。
-- [ ] 我已经完成一个命令行学习助手或等价小工具。
-- [ ] 我能解释 print、return、函数参数和文件路径的区别。
+- [ ] I can use variables, conditionals, loops, and functions to write a complete small program.
+- [ ] I can use list and dict to organize tasks, questions, or learning records.
+- [ ] I can read and write text, JSON, or JSONL files.
+- [ ] I have completed a command-line learning assistant or an equivalent small tool.
+- [ ] I can explain the differences between print, return, function parameters, and file paths.

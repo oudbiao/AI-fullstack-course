@@ -1,112 +1,112 @@
 ---
-title: "1.3 视觉-语言模型"
+title: "1.3 Vision-Language Models"
 sidebar_position: 2
-description: "理解视觉语言模型如何把图像和文本放进同一套系统里，并通过玩具示例感受图文检索和图像问答的核心思路。"
-keywords: [视觉语言模型, VLM, 图文检索, 图像问答, image-text]
+description: "Understand how vision-language models put images and text into the same system, and use toy examples to grasp the core ideas behind image-text retrieval and visual question answering."
+keywords: [vision-language model, VLM, image-text retrieval, visual question answering, image-text]
 ---
 
-# 视觉-语言模型
+# Vision-Language Models
 
-![视觉语言模型架构图](/img/course/vision-language-model-architecture.png)
+![Vision-Language Model Architecture](/img/course/vision-language-model-architecture-en.png)
 
-:::tip 本节定位
-视觉-语言模型最容易被新人理解成：
+:::tip Section focus
+Beginners often understand vision-language models as:
 
-- 图片喂进去，再让模型说点什么
+- Feed in an image, then let the model say something
 
-但真实一点的理解应该是：
+But a more accurate understanding is:
 
-- 图像信息和文本问题要先被放进同一套推理链里
+- Image information and text questions need to be placed into the same reasoning chain first
 
-所以这节最重要的不是“它会看图”，而是：
+So the most important thing in this section is not “it can see images,” but:
 
-> **它怎么把图和文真正接起来。**
+> **How it truly connects images and text.**
 :::
 
-## 学习目标
+## Learning goals
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 理解视觉-语言模型（VLM）和普通图像模型、文本模型的区别
-- 说清楚图像编码器、语言模型和桥接模块的大概角色
-- 跑通一个简化版图文检索 / 图像问答示例
-- 明白 VLM 适合什么任务、有哪些常见限制
+- Understand the difference between vision-language models (VLMs), ordinary image models, and text models
+- Explain the rough roles of the image encoder, language model, and bridge module
+- Run a simplified image-text retrieval / visual question answering example
+- Understand what tasks VLMs are suitable for, and what common limitations they have
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-视觉-语言模型更适合按“图像怎么进系统、文字怎么问系统”来理解：
+Vision-language models are easier to understand as “how images enter the system, and how text asks the system”:
 
 ```mermaid
 flowchart LR
-    A["图像输入"] --> B["图像表示"]
-    C["文本问题"] --> D["文本表示"]
-    B --> E["跨模态对齐"]
+    A["Image input"] --> B["Image representation"]
+    C["Text question"] --> D["Text representation"]
+    B --> E["Cross-modal alignment"]
     D --> E
-    E --> F["检索 / 回答 / 描述"]
+    E --> F["Retrieval / Answer / Description"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么 VLM 不是简单的“图片 + 文本拼一起”
-- 为什么图像信息必须先被表示、再和语言问题对齐
-
----
-
-## 一、什么是视觉-语言模型？
-
-视觉-语言模型（Vision-Language Model, VLM）可以理解成：
-
-> **既能看图，又能理解文字，还能把两者联系起来的模型。**
-
-和普通模型相比：
-
-- 纯视觉模型：擅长识别图片内容
-- 纯语言模型：擅长理解和生成文字
-- 视觉语言模型：擅长“图和文一起处理”
-
-这让它特别适合：
-
-- 图像问答
-- 图文检索
-- 图片描述
-- 界面理解
-- 文档截图问答
-
-### 1.1 一个更适合新人的总类比
-
-你可以把 VLM 理解成：
-
-- 一个同时会看图和看题目的助手
-
-如果只会看图，不会理解问题，  
-那它只能说：
-
-- “图里大概有什么”
-
-如果只会读问题，不会看图，  
-那它也没法回答：
-
-- “这张图里到底发生了什么”
-
-所以 VLM 真正特别的地方是：
-
-- 把“看图”和“理解提问”放进同一套系统里
+- Why VLMs are not simply “image + text pasted together”
+- Why image information must first be represented, then aligned with language questions
 
 ---
 
-## 二、VLM 的直觉结构
+## 1. What is a vision-language model?
 
-先不用被复杂架构吓到，抓住最粗的骨架就够了：
+A vision-language model (VLM) can be understood as:
+
+> **A model that can both see images, understand text, and connect the two.**
+
+Compared with ordinary models:
+
+- Pure vision models: good at recognizing image content
+- Pure language models: good at understanding and generating text
+- Vision-language models: good at handling images and text together
+
+This makes them especially suitable for:
+
+- Visual question answering
+- Image-text retrieval
+- Image captioning
+- UI understanding
+- Document screenshot question answering
+
+### 1.1 A more beginner-friendly analogy
+
+You can think of a VLM as:
+
+- An assistant that can both look at images and read questions
+
+If it can only look at images and not understand the question,
+then it can only say:
+
+- “There seems to be something in the image”
+
+If it can only read the question and not look at the image,
+then it cannot answer:
+
+- “What exactly is happening in this image?”
+
+So what makes a VLM special is:
+
+- It puts “looking at images” and “understanding questions” into the same system
+
+---
+
+## 2. The intuitive structure of a VLM
+
+No need to be scared by complicated architectures first. Just grasp the rough skeleton:
 
 ```mermaid
 flowchart LR
-    A["图像"] --> B["图像编码器"]
-    C["文本"] --> D["文本 / 语言模块"]
-    B --> E["跨模态桥接 / 对齐"]
+    A["Image"] --> B["Image encoder"]
+    C["Text"] --> D["Text / language module"]
+    B --> E["Cross-modal bridge / alignment"]
     D --> E
-    E --> F["答案 / 描述 / 检索结果"]
+    E --> F["Answer / Description / Retrieval result"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -116,19 +116,19 @@ flowchart LR
     style F fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 你可以先这么理解它们的职责
+### You can first understand their responsibilities like this
 
-| 模块 | 作用 |
+| Module | Role |
 |---|---|
-| 图像编码器 | 把图片变成向量 / 特征 |
-| 文本模块 | 理解提示词、生成回答 |
-| 桥接模块 | 让图像特征和语言系统能接上 |
+| Image encoder | Turns images into vectors / features |
+| Text module | Understands prompts and generates answers |
+| Bridge module | Connects image features and the language system |
 
 ---
 
-## 三、一个最小图文检索例子
+## 3. A minimal image-text retrieval example
 
-为了保证代码能直接运行，我们用手工定义的图像特征和文本特征，模拟 VLM 的“同空间对齐”思想。
+To make sure the code can run directly, we use manually defined image features and text features to simulate the VLM idea of “alignment in the same space.”
 
 ```python
 import numpy as np
@@ -149,7 +149,7 @@ def cosine_similarity(a, b):
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 for text, text_vec in text_embeddings.items():
-    print(f"\\n文本查询: {text}")
+    print(f"\\nText query: {text}")
     results = []
     for image_name, image_vec in image_embeddings.items():
         results.append((cosine_similarity(text_vec, image_vec), image_name))
@@ -158,37 +158,37 @@ for text, text_vec in text_embeddings.items():
         print(f"  {image_name}: {score:.4f}")
 ```
 
-如果一个模型学会了好的跨模态对齐，相关图文就会更靠近。
+If a model learns good cross-modal alignment, related images and text will be closer to each other.
 
-### 3.1 一个很适合初学者先记的判断表
+### 3.1 A beginner-friendly table to remember first
 
-| 任务 | VLM 最擅长补哪一块 |
+| Task | What VLMs are best at adding |
 |---|---|
-| 图文检索 | 图和文放进同一空间比较 |
-| 图像问答 | 问题和图像联合推理 |
-| 图片描述 | 从视觉内容走向自然语言 |
-| 界面理解 | 结合截图和指令定位信息 |
+| Image-text retrieval | Putting images and text into the same space for comparison |
+| Visual question answering | Joint reasoning over the question and the image |
+| Image captioning | Turning visual content into natural language |
+| UI understanding | Combining screenshots and instructions to locate information |
 
-这个表很适合新人，因为它能帮助你先区分：
+This table is useful for beginners because it helps you separate:
 
-- 视觉模型在看什么
-- VLM 又多补了什么
+- What the vision model is looking at
+- What extra ability the VLM adds
 
 ---
 
-## 四、图像问答（VQA）是什么味道？
+## 4. What does visual question answering (VQA) feel like?
 
-图像问答的目标是：
+The goal of visual question answering is:
 
-> 给模型一张图，再问它一个问题，让它基于图像内容回答。
+> Give the model an image, ask it a question, and let it answer based on the image content.
 
-在真实 VLM 中，模型会：
+In a real VLM, the model will:
 
-1. 看图得到视觉特征
-2. 结合文本问题理解需求
-3. 综合两者生成答案
+1. Look at the image to get visual features
+2. Combine the text question to understand the need
+3. Generate an answer by reasoning over both
 
-我们先写一个非常简化的“玩具版”。
+Let's first write a very simplified toy version.
 
 ```python
 image_features = {
@@ -210,170 +210,170 @@ def ask_vlm(image_name, question):
     feat = image_features[image_name]
     question = question.lower()
 
-    if "有没有文字" in question or "has text" in question:
-        return "有文字" if feat["has_text"] else "没有明显文字"
-    if "是不是界面" in question or "ui" in question:
-        return "像是一个界面截图" if feat["is_ui"] else "不像界面截图"
-    if "主题" in question:
-        return f"这张图的主题更接近：{feat['topic']}"
-    return "当前玩具模型无法回答这个问题"
+    if "have text" in question or "has text" in question:
+        return "Yes, it has text" if feat["has_text"] else "No obvious text"
+    if "is it a ui" in question or "ui" in question:
+        return "It looks like a UI screenshot" if feat["is_ui"] else "It does not look like a UI screenshot"
+    if "topic" in question:
+        return f"The topic of this image is closer to: {feat['topic']}"
+    return "This toy model cannot answer the question"
 
-print(ask_vlm("screen_error", "这张图有没有文字？"))
-print(ask_vlm("screen_error", "是不是界面截图？"))
-print(ask_vlm("food_photo", "主题是什么？"))
+print(ask_vlm("screen_error", "Does this image have text?"))
+print(ask_vlm("screen_error", "Is it a UI screenshot?"))
+print(ask_vlm("food_photo", "What is the topic?"))
 ```
 
-当然，真实 VLM 不是靠手写规则，但这个例子能帮你理解：
+Of course, real VLMs do not rely on hand-written rules, but this example can help you understand:
 
-- 图像信息要先被表示
-- 问题也要被理解
-- 最终回答依赖“图像 + 问题”的联合推理
+- Image information must first be represented
+- The question also needs to be understood
+- The final answer depends on joint reasoning over “image + question”
 
-### 4.1 再看一个最小“先判断任务类型”示例
+### 4.1 Another minimal example: first identify the task type
 
 ```python
 def vlm_task_type(question):
-    if "有没有" in question or "有没有文字" in question:
+    if "have" in question or "has text" in question:
         return "attribute_check"
-    if "主题" in question or "是什么" in question:
+    if "topic" in question or "what is" in question:
         return "semantic_qa"
-    if "像不像" in question:
+    if "looks like" in question:
         return "classification_judgement"
     return "generic_vlm_task"
 
 
-for question in ["这张图有没有文字？", "主题是什么？", "这像不像界面截图？"]:
+for question in ["Does this image have text?", "What is the topic?", "Does this look like a UI screenshot?"]:
     print(question, "->", vlm_task_type(question))
 ```
 
-这个示例很适合初学者，因为它会提醒你：
+This example is great for beginners because it reminds you:
 
-- 视觉语言系统也需要先判断用户到底在问哪一类问题
+- A vision-language system also needs to first judge what kind of question the user is asking
 
 ---
 
-## 五、VLM 和 OCR 是什么关系？
+## 5. What is the relationship between VLM and OCR?
 
-很多人会把两者混在一起。
+Many people mix them up.
 
 ### OCR
 
-重点是：
+The focus is:
 
-- 识别图里的文字是什么
+- Recognizing what text is in the image
 
 ### VLM
 
-重点是：
+The focus is:
 
-- 不只看文字，还要理解整张图和问题之间的关系
+- Not only reading text, but also understanding the relationship between the whole image and the question
 
-比如一张报错截图：
+For example, in an error screenshot:
 
-- OCR 负责认出报错文本
-- VLM 可以进一步回答“这更像网络错误还是权限错误？”
-
----
-
-## 六、VLM 最适合哪些任务？
-
-### 很适合
-
-- 看图问答
-- 截图解释
-- 图文检索
-- 电商商品图理解
-- 文档图像理解
-
-### 不一定适合
-
-- 完全不需要图像信息的纯文本任务
-- 极度精细的专业图像诊断任务
-- 对像素级精度要求非常高的任务
-
-这时候可能还需要专门视觉模型配合。
+- OCR is responsible for recognizing the error text
+- VLM can further answer: “Is this more like a network error or a permission error?”
 
 ---
 
-## 七、为什么 VLM 很容易“看错”或“答偏”？
+## 6. What tasks are VLMs best suited for?
 
-因为它要同时跨越两层难度：
+### Very suitable
 
-1. 图像理解本身就不容易
-2. 图像和文字之间的关系建模更难
+- Image question answering
+- Screenshot explanation
+- Image-text retrieval
+- E-commerce product image understanding
+- Document image understanding
 
-常见问题包括：
+### Not always suitable
 
-- 视觉细节漏看
-- OCR 读错字
-- 问题理解偏了
-- 生成答案时夸大或脑补
+- Pure text tasks that do not need image information at all
+- Extremely fine-grained professional image diagnosis tasks
+- Tasks that require very high pixel-level precision
 
-所以做 VLM 产品时，验证和护栏同样重要。
-
----
-
-## 八、今天很多产品为什么离不开 VLM？
-
-因为用户真实输入往往不是“纯文字”。
-
-比如：
-
-- 发一张页面截图问“这里哪里报错了？”
-- 发一张发票照片问“金额是多少？”
-- 发一张菜品图片问“这像什么食物？”
-
-这些任务如果只给文字模型，信息是不完整的。
+In those cases, you may still need specialized vision models to work together with them.
 
 ---
 
-## 九、初学者常见误区
+## 7. Why do VLMs so easily “misread” or “answer off track”?
 
-### 1. 以为 VLM 就是“图片喂给 GPT”
+Because they have to cross two levels of difficulty at the same time:
 
-更准确地说，是“图像信息经过编码和对齐后，再进入语言系统”。
+1. Image understanding is already difficult
+2. Modeling the relationship between images and text is even harder
 
-### 2. 以为 VLM 天生会 OCR、定位、推理，一切都很稳
+Common problems include:
 
-真实效果取决于模型能力、提示词、图像质量和任务难度。
+- Missing visual details
+- OCR reading errors
+- Misunderstanding the question
+- Exaggerating or hallucinating when generating answers
 
-### 3. 以为能看图就一定比纯文本模型更好
-
-只有当图像信息真的有价值时，多模态才有优势。
-
-## 如果把它做成项目，最值得展示什么
-
-最值得展示的通常不是：
-
-- “模型能看图”
-
-而是：
-
-1. 输入图片
-2. 用户问题
-3. 模型如何判断任务类型
-4. 最终回答或检索结果
-5. 一组典型失败案例
-
-这样别人会更容易看出：
-
-- 你理解的是多模态推理链
-- 不只是接了一个看图接口
+So when building VLM products, evaluation and guardrails are equally important.
 
 ---
 
-## 小结
+## 8. Why are so many products inseparable from VLMs today?
 
-这节课最重要的一句话是：
+Because real user inputs are often not “pure text.”
 
-> **VLM 的关键，不只是“看图”，而是把图像和语言放进同一套理解流程里。**
+For example:
 
-这也是多模态系统从“能看”走向“能解释、能回答、能交互”的关键一步。
+- Sending a page screenshot and asking “Where is the error?”
+- Sending a receipt photo and asking “What is the amount?”
+- Sending a dish photo and asking “What food is this similar to?”
+
+If you only give these tasks to a text model, the information is incomplete.
 
 ---
 
-## 练习
+## 9. Common beginner mistakes
 
-1. 修改图文检索例子里的向量，让“cake_photo” 更接近 “a sweet dessert”。
-2. 给玩具版 `ask_vlm()` 再加一个问题类型，比如“这张图更像生活照片还是软件界面？”
-3. 思考：如果用户上传的是一张模糊截图，VLM 可能会在哪些环节出错？
+### 1. Thinking VLM just means “feed images to GPT”
+
+More accurately, it means “image information goes through encoding and alignment, then enters the language system.”
+
+### 2. Thinking VLMs naturally do OCR, localization, reasoning, and everything perfectly
+
+Real performance depends on model capability, prompts, image quality, and task difficulty.
+
+### 3. Thinking that being able to see images is always better than a pure text model
+
+Multimodal only has an advantage when the image information is truly valuable.
+
+## If you turn it into a project, what is most worth showing?
+
+What is usually most worth showing is not:
+
+- “The model can see images”
+
+But rather:
+
+1. Input image
+2. User question
+3. How the model determines the task type
+4. Final answer or retrieval result
+5. A set of typical failure cases
+
+This way, others can more easily see:
+
+- You understand the multimodal reasoning chain
+- You are not just connecting an image viewing interface
+
+---
+
+## Summary
+
+The most important sentence in this lesson is:
+
+> **The key to a VLM is not just “seeing images,” but putting images and language into the same understanding process.**
+
+This is also the key step for multimodal systems to move from “can see” to “can explain, can answer, and can interact.”
+
+---
+
+## Exercises
+
+1. Modify the vectors in the image-text retrieval example so that `cake_photo` is closer to `a sweet dessert`.
+2. Add another question type to the toy `ask_vlm()`, such as “Does this image look more like a real-life photo or a software interface?”
+3. Think about this: if the user uploads a blurry screenshot, which parts of the VLM pipeline might fail?

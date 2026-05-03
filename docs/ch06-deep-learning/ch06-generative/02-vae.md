@@ -1,154 +1,154 @@
 ---
-title: "6.3 VAE 基础【选修】"
+title: "6.3 VAE Basics [Optional]"
 sidebar_position: 2
-description: "从编码、采样、解码三步讲起，理解 VAE 为什么能学到一个连续、可采样的潜空间。"
+description: "Start with encoding, sampling, and decoding to understand why VAE can learn a continuous, samplable latent space."
 keywords: [VAE, latent space, encoder, decoder, reparameterization, generation]
 ---
 
-# VAE 基础【选修】
+# VAE Basics [Optional]
 
-![VAE 潜空间生成流程图](/img/course/vae-latent-space-flow.png)
+![VAE latent space generation flowchart](/img/course/vae-latent-space-flow-en.png)
 
-:::tip 本节定位
-如果说 GAN 是通过“真假对抗”来学分布，  
-VAE 更像另一条思路：
+:::tip Section overview
+If GAN learns distributions through “real vs. fake” confrontation,
+VAE is more like another approach:
 
-> **先把数据压到一个连续潜空间，再从这个潜空间采样并重建回来。**
+> **First compress the data into a continuous latent space, then sample from that latent space and reconstruct it back.**
 
-它没有 GAN 那种强对抗味，但它对“潜空间”这件事讲得更清楚，也更适合建立生成模型的结构直觉。
+It does not have the strong adversarial flavor of GAN, but it explains the idea of “latent space” more clearly, and it is also better for building intuition about generative model structure.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解编码器、潜变量、解码器三者关系
-- 理解为什么 VAE 要学“分布”而不是单点编码
-- 通过可运行示例建立潜空间采样直觉
-- 理解 VAE 和普通自编码器的差别
+- Understand the relationship between the encoder, latent variables, and decoder
+- Understand why VAE learns a “distribution” instead of a single-point encoding
+- Build intuition for latent space sampling through a runnable example
+- Understand the difference between VAE and a standard autoencoder
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-如果你是从前面的编码表示、分类或自编码思路过来的，可以先这样理解：
+If you are coming from the earlier ideas of encoding representations, classification, or autoencoding, you can think about it like this:
 
-- 普通编码模型更像在学“怎么压缩表示”
-- VAE 开始更进一步问“这个表示空间能不能被采样、插值和生成”
+- A standard encoding model is more like learning “how to compress a representation”
+- VAE goes one step further and asks, “Can this representation space be sampled, interpolated, and generated from?”
 
-所以 VAE 最重要的变化不是“加点随机数”，而是：
+So the most important change in VAE is not “adding some random numbers,” but:
 
-- 把潜表示从一个固定点，变成一个可采样的分布区域
+- turning the latent representation from a fixed point into a samplable distribution region
 
-VAE 最适合新人的理解方式不是“先背 ELBO”，而是先把结构想清楚：
+The best way for a beginner to understand VAE is not to memorize the ELBO first, but to understand the structure first:
 
 ```mermaid
 flowchart LR
-    A["输入样本 x"] --> B["编码器"]
-    B --> C["潜变量分布参数<br/>mu, sigma"]
-    C --> D["采样 z"]
-    D --> E["解码器"]
-    E --> F["重建或生成样本"]
+    A["Input sample x"] --> B["Encoder"]
+    B --> C["Latent distribution parameters<br/>mu, sigma"]
+    C --> D["Sample z"]
+    D --> E["Decoder"]
+    E --> F["Reconstructed or generated sample"]
 ```
 
-这节最重要的是建立三个感觉：
+The three most important intuitions in this section are:
 
-- 编码器不是只吐出一个点，而是在描述一个区域
-- 潜空间是否连续，会影响你能不能平滑采样
-- VAE 更适合帮助你理解“生成”和“表示学习”的连接
+- The encoder does not output just a single point; it describes a region
+- Whether the latent space is continuous affects whether you can sample smoothly
+- VAE is especially useful for building your intuition about the connection between “generation” and “representation learning”
 
-## 一、VAE 到底在做什么？
+## 1. What is VAE actually doing?
 
-### 1.1 普通自编码器更像压缩与重建
+### 1.1 A standard autoencoder is more like compression and reconstruction
 
-它会做：
+It does:
 
-- 输入 -> 压缩表示 -> 重建输出
+- input -> compressed representation -> reconstructed output
 
-### 1.2 VAE 更进一步
+### 1.2 VAE goes further
 
-VAE 不只是学一个固定潜向量，  
-而是学：
+VAE does not just learn a fixed latent vector,
+it learns:
 
-- 一个潜在分布
+- a latent distribution
 
-例如：
+For example:
 
-- 均值 `mu`
-- 方差 `sigma`
+- mean `mu`
+- variance `sigma`
 
-这样模型就不只是会“记住怎么重建”，  
-还更像会：
+This way, the model is not only able to “remember how to reconstruct,”
+but also more like it can:
 
-- 在潜空间里采样
-- 再生成新样本
+- sample in latent space
+- then generate new samples
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-普通自编码器像给每张图分配一个固定抽屉。  
-VAE 更像给它分配一个“可波动的小区域”，这样你在附近采样也还能生成合理样本。
+A standard autoencoder is like assigning each image a fixed drawer.
+VAE is more like assigning it a “small fluctuating region,” so if you sample nearby, you can still generate reasonable samples.
 
-### 1.4 第一次学 VAE，最该先抓住什么？
+### 1.4 When learning VAE for the first time, what should you focus on first?
 
-最该先抓住的不是 ELBO，而是这句：
+What you should grasp first is not ELBO, but this sentence:
 
-> **VAE 想学的不是“每个样本唯一藏在哪个点”，而是“这类样本大概分布在潜空间的哪一片区域”。**
+> **What VAE wants to learn is not “the one exact point where each sample is hidden,” but “which region of latent space this kind of sample is likely to occupy.”**
 
-这句话一旦稳住，后面这些问题会都更容易：
+Once this idea is stable, the following questions become much easier:
 
-- 为什么要有 `mu` 和 `sigma`
-- 为什么潜空间需要更规整
-- 为什么 VAE 特别适合拿来建立“潜空间直觉”
+- Why do we need `mu` and `sigma`
+- Why does the latent space need to be more regular
+- Why is VAE especially good for building “latent space intuition”
 
 ---
 
-## 二、为什么 VAE 特别强调潜空间？
+## 2. Why does VAE emphasize latent space so much?
 
-### 2.1 因为生成的关键是“能不能从空间里采样”
+### 2.1 Because the key to generation is whether you can sample from the space
 
-如果潜表示是完全离散、零散、不连续的，  
-你很难在里面平滑采样并得到合理结果。
+If the latent representation is completely discrete, scattered, or discontinuous,
+it is hard to sample smoothly and get reasonable results.
 
-### 2.2 VAE 想让潜空间更规整
+### 2.2 VAE wants to make latent space more regular
 
-所以它会鼓励潜变量分布更接近一个规则先验，  
-通常是：
+So it encourages the latent variable distribution to be closer to a standard prior,
+usually:
 
-- 标准正态分布
+- a standard normal distribution
 
-这也是为什么 VAE 的潜空间通常更适合：
+That is also why VAE latent spaces are usually better for:
 
-- 插值
-- 采样
-- 生成
+- interpolation
+- sampling
+- generation
 
-### 2.3 潜空间最值得先记住的，不是维度，而是“连续性”
+### 2.3 What is most worth remembering about latent space is not the dimension, but “continuity”
 
-新人第一次学潜空间，很容易把注意力全放在：
+When beginners first learn latent space, it is easy to focus entirely on:
 
-- 向量多长
-- 维度是多少
+- how long the vector is
+- how many dimensions there are
 
-但更重要的其实是：
+But what matters more is actually:
 
-- 这个空间是不是连续的
-- 你在附近稍微动一点，生成结果会不会也合理地变化
+- whether the space is continuous
+- if you move a little nearby, will the generated result also change smoothly and reasonably
 
-这正是 VAE 和普通编码器很不一样的地方。
+This is exactly where VAE differs a lot from a standard encoder.
 
-![VAE 连续潜空间与采样区域图](/img/course/ch06-vae-latent-continuity-sampling-map.png)
+![VAE continuous latent space and sampling region diagram](/img/course/ch06-vae-latent-continuity-sampling-map-en.png)
 
-:::tip 读图提示
-这张图要看“区域”而不是“点”：普通自编码器更像把样本压到固定位置，VAE 会学 `mu` 和 `sigma`，让样本对应一个可采样的小区域。潜空间越连续，插值和生成越自然。
+:::tip Reading guide
+Read this image as “regions,” not “points”: a standard autoencoder is more like compressing samples into fixed positions, while VAE learns `mu` and `sigma` so that each sample corresponds to a samplable small region. The more continuous the latent space is, the more natural interpolation and generation become.
 :::
 
 ---
 
-## 三、先跑一个最小潜空间采样示例
+## 3. Let’s run a minimal latent space sampling example first
 
-这个例子会用最小形式演示：
+This example will demonstrate the minimal form:
 
-1. 编码器给出 `mu` 和 `sigma`
-2. 从中采样 `z`
-3. 解码器根据 `z` 生成输出
+1. The encoder produces `mu` and `sigma`
+2. Sample `z` from them
+3. The decoder generates output based on `z`
 
 ```python
 import math
@@ -158,7 +158,7 @@ random.seed(42)
 
 
 def encoder(x):
-    # 极简示意：输入 x 对应一个均值和标准差
+    # Minimal illustration: input x corresponds to a mean and standard deviation
     mu = x * 0.5
     sigma = 0.3 + x * 0.1
     return mu, sigma
@@ -170,7 +170,7 @@ def sample_z(mu, sigma):
 
 
 def decoder(z):
-    # 极简示意：把潜变量映射回“生成值”
+    # Minimal illustration: map the latent variable back to a "generated value"
     return round(z * 2, 3)
 
 
@@ -183,133 +183,133 @@ print("sigma:", round(sigma, 3))
 print("generated samples:", samples)
 ```
 
-### 3.1 这个例子最重要的地方是什么？
+### 3.1 What is the most important thing about this example?
 
-它清楚体现了 VAE 的关键特点：
+It clearly shows the key characteristic of VAE:
 
-- 同一个输入不只对应一个固定点
-- 而是对应一个可采样的分布
+- the same input does not correspond to just one fixed point
+- instead, it corresponds to a distribution that can be sampled
 
-### 3.2 为什么这比普通自编码器更有生成意味？
+### 3.2 Why is this more generation-like than a standard autoencoder?
 
-因为你可以从潜空间附近采样出多个不同但相关的结果。  
-这让模型不仅能重建，还能生成变体。
+Because you can sample multiple different but related results from around the latent space.
+This allows the model not only to reconstruct, but also to generate variations.
 
 ---
 
-## 四、VAE 和 GAN 的直觉差别是什么？
+## 4. What is the intuitive difference between VAE and GAN?
 
 ### 4.1 VAE
 
-更强调：
+It emphasizes more:
 
-- 潜空间结构
-- 分布建模
-- 平滑采样
+- latent space structure
+- distribution modeling
+- smooth sampling
 
 ### 4.2 GAN
 
-更强调：
+It emphasizes more:
 
-- 对抗训练
-- 样本真假判断
-- 生成样本逼真度
+- adversarial training
+- judging whether samples are real or fake
+- generation realism
 
-### 4.3 所以它们适合拿来理解的重点不同
+### 4.3 So the key learning focus is different
 
-- 学潜空间和概率生成直觉，VAE 很好
-- 学对抗式生成和训练不稳问题，GAN 很好
+- If you want to learn latent spaces and probabilistic generation intuition, VAE is great
+- If you want to learn adversarial generation and unstable training issues, GAN is great
 
-### 4.4 新人应该先把哪条线学稳？
+### 4.4 Which path should beginners study first?
 
-如果你更想理解：
+If you want to understand:
 
-- 为什么潜空间能做插值
-- 为什么生成模型会强调分布
-- 为什么“可采样”这件事很重要
+- why latent space can be used for interpolation
+- why generative models emphasize distributions
+- why “samplable” matters so much
 
-那 VAE 往往比 GAN 更适合做第一块直觉跳板。
+then VAE is often a better first stepping stone than GAN.
 
-### 4.6 如果把 GAN 和 VAE 放在一起，最值得先抓住的差别是什么？
+### 4.6 If you put GAN and VAE side by side, what is the most important difference to grasp first?
 
-一个更稳的记法是：
+A more stable way to remember it is:
 
-- GAN 更像在学“怎样骗过真假判断”
-- VAE 更像在学“怎样把样本放进一个可采样的潜空间”
+- GAN is more like learning “how to fool the real-vs-fake judge”
+- VAE is more like learning “how to place samples into a samplable latent space”
 
-所以：
+So:
 
-- 想理解对抗式生成，GAN 更典型
-- 想理解潜空间和表示生成，VAE 更清楚
+- If you want to understand adversarial generation, GAN is the classic choice
+- If you want to understand latent spaces and representation-based generation, VAE is clearer
 
-### 4.5 如果把 VAE 放到生成模型学习顺序里，该放在哪？
+### 4.5 Where should VAE be placed in the generative model learning order?
 
-一个更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先理解普通自编码器的压缩与重建
-2. 再理解 VAE 的“分布化潜空间”
-3. 再回头和 GAN 比
+1. First understand the compression and reconstruction of a standard autoencoder
+2. Then understand VAE’s “distribution-based latent space”
+3. Then compare it with GAN
 
-这样你更容易真的看懂：
+This makes it easier to really understand:
 
-- 重建
-- 采样
-- 潜空间结构
+- reconstruction
+- sampling
+- latent space structure
 
-这三件事是怎么慢慢连起来的。
-
----
-
-## 五、VAE 最容易踩的坑
-
-### 5.1 误区一：VAE 就是普通自编码器加点随机数
-
-不对。  
-它最关键的变化是：
-
-- 学分布
-- 让潜空间可采样
-
-### 5.2 误区二：重建清晰就说明潜空间一定好
-
-不一定。  
-潜空间是否规整、是否平滑，同样重要。
-
-### 5.3 误区三：VAE 只适合图像
-
-它也可以用于：
-
-- 文本潜表示
-- 表格生成
-- 表示学习
+and how these three things connect step by step.
 
 ---
 
-## 如果继续往下学，最推荐的顺序
+## 5. The easiest pitfalls when learning VAE
 
-1. 先把普通自编码器和 VAE 的差别讲清
-2. 再把 VAE 和 GAN 的差别讲清
-3. 最后再去看潜空间插值、生成质量和更现代的生成路线
+### 5.1 Mistake 1: VAE is just a standard autoencoder with some randomness added
 
-## 小结
+Not true.
+Its most important change is:
 
-这节最重要的是建立一个清楚判断：
+- learning a distribution
+- making latent space samplable
 
-> **VAE 的核心价值在于学出一个连续、可采样的潜空间，让模型不仅能重建输入，还能在潜空间里做生成和插值。**
+### 5.2 Mistake 2: If reconstruction is clear, the latent space must be good
 
-只要这个直觉建立起来，后面很多生成模型结构你都会更容易看懂。
+Not necessarily.
+Whether the latent space is regular and smooth is equally important.
 
-## 这节最该带走什么
+### 5.3 Mistake 3: VAE is only for images
 
-- VAE 最关键的不是“也能生成”，而是“能学出可采样的潜空间”
-- 它是连接表示学习和生成模型的一座桥
-- 如果你想先建立生成模型结构直觉，VAE 往往比 GAN 更温和
+It can also be used for:
+
+- text latent representations
+- tabular data generation
+- representation learning
 
 ---
 
-## 练习
+## If you continue learning, the most recommended order is
 
-1. 把示例里的 `x` 改成不同值，看看生成样本分布如何变化。
-2. 为什么说 VAE 更强调“潜空间结构”，而不只是“重建是否准确”？
-3. 用自己的话解释：VAE 和普通自编码器最大的差别是什么？
-4. 想一想：如果你想研究“样本在潜空间里如何平滑变化”，为什么 VAE 会是不错入口？
+1. First make the difference between a standard autoencoder and VAE clear
+2. Then make the difference between VAE and GAN clear
+3. Finally look at latent space interpolation, generation quality, and more modern generative approaches
+
+## Summary
+
+The most important thing to build in this section is a clear judgment:
+
+> **The core value of VAE is that it learns a continuous, samplable latent space, allowing the model not only to reconstruct inputs, but also to generate and interpolate in latent space.**
+
+Once this intuition is in place, many generative model structures will become much easier to understand.
+
+## What you should take away from this section
+
+- The most important thing about VAE is not just “it can generate,” but “it can learn a samplable latent space”
+- It is a bridge connecting representation learning and generative models
+- If you want to build intuition about generative model structure first, VAE is often the gentler starting point
+
+---
+
+## Exercises
+
+1. Change the `x` value in the example to different values and see how the generated sample distribution changes.
+2. Why is VAE said to emphasize “latent space structure” rather than just “whether reconstruction is accurate”?
+3. Explain in your own words: what is the biggest difference between VAE and a standard autoencoder?
+4. Think about it: if you want to study “how samples change smoothly in latent space,” why would VAE be a good entry point?

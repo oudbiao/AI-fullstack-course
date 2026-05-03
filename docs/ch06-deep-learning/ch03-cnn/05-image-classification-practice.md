@@ -1,65 +1,65 @@
 ---
-title: "3.6 CNN 实战：图像分类"
+title: "3.6 CNN Practice: Image Classification"
 sidebar_position: 5
-description: "从造数据、搭网络、训练、验证到预测，完整走通一个小型 CNN 图像分类项目。"
+description: "Walk through a complete small CNN image classification project from data generation, network building, training, validation, to prediction."
 keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic dataset]
 ---
 
-# CNN 实战：图像分类
+# CNN Practice: Image Classification
 
-:::tip 本节定位
-卷积、CNN 结构、经典架构、迁移学习都讲完以后，最重要的一件事就是：
+:::tip Section Overview
+After we have finished convolution, CNN architectures, classic models, and transfer learning, the most important thing is:
 
-> **把这些概念真正串成一个完整训练闭环。**
+> **To truly connect these concepts into a complete training loop.**
 
-这一节不会追求“大模型效果”，而是追求一件更重要的事：
+This section does not aim for “large model performance”; it aims for something more important:
 
-> 让你完整走通一次图像分类项目。
+> To help you complete an image classification project end to end.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 构造一个最小可训练的图像分类任务
-- 用 CNN 完整跑通训练、验证和预测
-- 理解图像分类项目里数据、模型、损失函数和指标怎样配合
-- 学会从结果判断模型到底有没有学到东西
-
----
-
-## 一、图像分类项目最小闭环是什么？
-
-一个图像分类项目，最少要有这几个部分：
-
-1. 数据
-2. 类别标签
-3. 模型
-4. 损失函数
-5. 训练循环
-6. 验证 / 测试
-
-很多初学者之所以学得发虚，就是因为只看到了“模型结构”，却没有把整个闭环串起来。
-
-这节课的重点就是把这条链完整走一遍。
+- Build a minimal trainable image classification task
+- Run training, validation, and prediction with a CNN end to end
+- Understand how data, model, loss function, and metrics work together in an image classification project
+- Learn how to tell from the results whether the model has actually learned anything
 
 ---
 
-## 二、先准备一份能直接跑的数据
+## 1. What is the minimal closed loop for an image classification project?
 
-### 2.1 为什么继续用合成图像？
+An image classification project needs at least these parts:
 
-因为这样：
+1. Data
+2. Class labels
+3. Model
+4. Loss function
+5. Training loop
+6. Validation / testing
 
-- 不依赖外部下载
-- 类别规律非常清楚
-- 最适合教学
+Many beginners feel confused when learning because they only see the “model architecture” and never connect the whole loop.
 
-### 2.2 造三类小图像
+The key point of this lesson is to walk through this chain completely.
 
-我们造 3 类：
+---
 
-- 竖线
-- 横线
-- 对角线
+## 2. First, prepare data that can run directly
+
+### 2.1 Why keep using synthetic images?
+
+Because:
+
+- It does not depend on external downloads
+- The class patterns are very clear
+- It is ideal for teaching
+
+### 2.2 Create three small image classes
+
+We create 3 classes:
+
+- Vertical line
+- Horizontal line
+- Diagonal line
 
 ```python
 import numpy as np
@@ -88,19 +88,19 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.3 这个数据集虽然简单，但足够教会你什么？
+### 2.3 This dataset is simple, but what can it teach you?
 
-它足够教会你：
+It can teach you enough to understand:
 
-- 图像张量该怎么组织
-- 分类标签怎样对齐
-- CNN 怎么学习局部模式
+- How image tensors should be organized
+- How class labels align with the data
+- How CNNs learn local patterns
 
-这比直接扔给你一个大数据集更适合入门。
+That makes it much better for beginners than throwing a large dataset at you right away.
 
 ---
 
-## 三、把数据做成训练集和验证集
+## 3. Turn the data into a training set and a validation set
 
 ```python
 import numpy as np
@@ -118,12 +118,12 @@ for label in range(3):
 X = np.array(X, dtype=np.float32)
 y = np.array(y)
 
-# 打乱
+# Shuffle
 indices = np.random.permutation(len(X))
 X = X[indices]
 y = y[indices]
 
-# 转成张量
+# Convert to tensors
 X = torch.tensor(X).unsqueeze(1)  # [N, 1, H, W]
 y = torch.tensor(y)
 
@@ -135,17 +135,17 @@ print("train:", X_train.shape, y_train.shape)
 print("val  :", X_val.shape, y_val.shape)
 ```
 
-### 3.2 为什么要 `unsqueeze(1)`？
+### 3.2 Why do we use `unsqueeze(1)`?
 
-因为 PyTorch 的卷积输入需要：
+Because PyTorch convolution inputs need the shape:
 
 - `[batch, channel, height, width]`
 
-这里是灰度图，所以通道数是 1。
+Here we are using grayscale images, so the channel count is 1.
 
 ---
 
-## 四、定义一个最小 CNN 分类器
+## 4. Define a minimal CNN classifier
 
 ```python
 import torch
@@ -180,22 +180,22 @@ sample_out = model(X_train[:4])
 print("sample output shape:", sample_out.shape)
 ```
 
-### 4.2 为什么这里 `16 * 3 * 3`？
+### 4.2 Why is it `16 * 3 * 3` here?
 
-因为原图大小是 `12x12`：
+Because the original image size is `12x12`:
 
-- 第一次 `MaxPool2d(2)` 后变 `6x6`
-- 第二次 `MaxPool2d(2)` 后变 `3x3`
+- After the first `MaxPool2d(2)`, it becomes `6x6`
+- After the second `MaxPool2d(2)`, it becomes `3x3`
 
-最后输出通道是 16，所以展平后就是：
+The final output has 16 channels, so after flattening it is:
 
 > `16 * 3 * 3`
 
-这就是 CNN 实战里最常见的 shape 计算题。
+This is the most common shape calculation problem in CNN practice.
 
 ---
 
-## 五、完整训练循环
+## 5. Complete training loop
 
 ```python
 import torch
@@ -233,26 +233,26 @@ for epoch in range(100):
         )
 ```
 
-### 5.2 这段代码里最该盯住什么？
+### 5.2 What should you pay the most attention to in this code?
 
-初学图像分类时，最重要的是看这四样：
+When learning image classification, the four most important things to watch are:
 
 - `train_loss`
 - `val_loss`
 - `train_acc`
 - `val_acc`
 
-因为它们会告诉你：
+Because they tell you:
 
-- 模型有没有学到
-- 有没有过拟合
-- 是否还在稳定收敛
+- Whether the model is learning
+- Whether it is overfitting
+- Whether it is still converging stably
 
 ---
 
-## 六、真正做一次预测
+## 6. Make a real prediction
 
-### 6.1 看单个样本
+### 6.1 Look at a single sample
 
 ```python
 import matplotlib.pyplot as plt
@@ -269,103 +269,103 @@ plt.axis("off")
 plt.show()
 ```
 
-### 6.2 为什么这一步很重要？
+### 6.2 Why is this step important?
 
-因为很多时候：
+Because often:
 
-- 指标看起来不错
-- 但你并不知道模型到底在“看什么”
+- The metrics look good
+- But you do not know what the model is actually “looking at”
 
-亲自看几张预测样本，会帮助你更快建立直觉。
-
----
-
-## 七、怎样判断模型有没有真的学会？
-
-### 7.1 几个典型信号
-
-如果模型真的学到了：
-
-- train loss 会下降
-- val loss 通常也会下降
-- train / val acc 会提高
-- 对单样本预测越来越稳定
-
-### 7.2 几个典型异常
-
-#### 训练集和验证集都很差
-
-可能是：
-
-- 模型太弱
-- 学习率不合适
-- 数据构造有问题
-
-#### 训练集很好，验证集很差
-
-可能是：
-
-- 过拟合
-- 数据量太少
-- 噪声过大
-
-#### loss 不动
-
-可能是：
-
-- shape 错
-- 标签错
-- 学习率太小
+Looking at a few prediction examples yourself helps you build intuition much faster.
 
 ---
 
-## 八、真实图像分类项目还要补什么？
+## 7. How do you tell whether the model has really learned?
 
-我们这个教学例子故意压得很小。  
-真实项目里通常还要继续补：
+### 7.1 A few typical signs
+
+If the model has really learned:
+
+- train loss will go down
+- val loss will usually go down too
+- train / val acc will improve
+- single-sample predictions will become more stable
+
+### 7.2 A few typical issues
+
+#### Both the training set and validation set are poor
+
+Possible reasons:
+
+- The model is too weak
+- The learning rate is not appropriate
+- There is a problem with how the data is created
+
+#### The training set is good, but the validation set is poor
+
+Possible reasons:
+
+- Overfitting
+- Too little data
+- Too much noise
+
+#### The loss does not change
+
+Possible reasons:
+
+- Shape mismatch
+- Wrong labels
+- Learning rate too small
+
+---
+
+## 8. What else is needed in a real image classification project?
+
+We intentionally keep this teaching example very small.
+In real projects, you usually still need to add:
 
 - DataLoader
-- 数据增强
-- 更真实的数据集
-- 更强 backbone
-- 更系统的验证指标
-- 模型保存与恢复
+- Data augmentation
+- A more realistic dataset
+- A stronger backbone
+- More systematic validation metrics
+- Model saving and loading
 
-也就是说：
+In other words:
 
-> 本节教的是“完整闭环”，不是“工业级最终方案”。 
-
----
-
-## 九、初学者最常踩的坑
-
-### 9.1 只会抄模型，不会检查数据 shape
-
-图像任务里，shape 几乎永远是第一检查项。
-
-### 9.2 只盯 train loss
-
-验证集指标同样重要。
-
-### 9.3 模型能跑起来就以为任务做完了
-
-真正的项目，不只是跑通，而是要能解释结果。
+> This section teaches the “complete closed loop,” not the final industrial-grade solution.
 
 ---
 
-## 小结
+## 9. Common mistakes beginners make
 
-这一节最重要的不是把 CNN 跑通，而是把图像分类项目的完整闭环走通：
+### 9.1 Copying the model without checking data shape
 
-> **造数据 / 整理数据 / 定义模型 / 训练 / 验证 / 单样本预测。**
+In image tasks, shape is almost always the first thing to check.
 
-只有这条链真的完整了，后面你换更复杂的数据集和更强模型时，才不会一直发虚。
+### 9.2 Only watching train loss
+
+Validation metrics are equally important.
+
+### 9.3 Thinking the task is done once the model runs
+
+In a real project, success is not just making it run; you also need to explain the results.
 
 ---
 
-## 练习
+## Summary
 
-1. 给当前数据再加一个第 4 类图像模式，比如“反对角线”。
-2. 把 `TinyCNNClassifier` 的通道数改大，看收敛速度是否变化。
-3. 尝试加一个 `Dropout`，观察验证集表现是否更稳。
-4. 想一想：为什么图像分类项目里，数据构造和验证方式往往比多加几层网络更重要？
+The most important thing in this section is not simply getting CNN to run, but walking through the complete image classification loop:
+
+> **Create data / organize data / define model / train / validate / predict on a single sample.**
+
+Only when this chain is truly complete will you avoid feeling lost later when you switch to more complex datasets and stronger models.
+
+---
+
+## Exercises
+
+1. Add a 4th image pattern to the current data, such as a “reverse diagonal.”
+2. Increase the channel counts in `TinyCNNClassifier` and see whether the convergence speed changes.
+3. Try adding `Dropout` and observe whether the validation performance becomes more stable.
+4. Think about this: why are data creation and validation methods often more important than adding a few more network layers in image classification projects?

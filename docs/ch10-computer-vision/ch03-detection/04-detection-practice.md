@@ -1,113 +1,113 @@
 ---
-title: "3.5 检测实战"
+title: "3.5 Detection Practice"
 sidebar_position: 10
-description: "围绕一个安防检测任务，走完目标定义、标注、评估和最小部署思路，建立检测项目闭环。"
+description: "Walk through target definition, annotation, evaluation, and a minimal deployment approach around a security inspection task to build a complete detection project loop."
 keywords: [detection practice, computer vision project, bounding box, evaluation, IoU, mAP]
 ---
 
-# 检测实战
+# Detection Practice
 
-:::tip 本节定位
-真正做检测项目时，困难往往不只是模型本身。  
-更常见的问题是：
+:::tip Section positioning
+When you really do a detection project, the difficulty is often not just the model itself.
+More common problems are:
 
-- 标注怎么做
-- 正负样本怎么定义
-- 小目标怎么评估
-- 检测框到底算不算对
+- How to annotate
+- How to define positive and negative samples
+- How to evaluate small objects
+- Whether a detection box is actually correct
 
-所以这一节的重点，是把一个最小检测项目从问题定义走到评估闭环。
+So the focus of this section is to take a minimal detection project from problem definition all the way to an evaluation loop.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 学会定义一个最小目标检测项目
-- 理解检测项目里的标注、框匹配和评估逻辑
-- 通过可运行示例建立 IoU 驱动的评估直觉
-- 建立检测项目的展示骨架
+- Learn how to define a minimal object detection project
+- Understand the logic of annotation, box matching, and evaluation in detection projects
+- Build an IoU-driven evaluation intuition through a runnable example
+- Set up a presentation scaffold for a detection project
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-如果你刚学完检测概述、经典检测器和 YOLO，这一节最自然的续接就是：
+If you just finished the detection overview, classic detectors, and YOLO, the most natural continuation here is:
 
-- 前面你已经知道检测任务在解决什么
-- 这一节开始问“如果把它做成一个真的项目，第一步到底该怎么下手”
+- You already know what detection tasks are solving
+- Now we ask, “If we turn this into a real project, where should we start?”
 
-所以这节真正重要的不是新模型，而是：
+So the truly important part of this section is not a new model, but:
 
-- 类别定义
-- 标注规范
-- 评估口径
-- 错例复盘
+- Class definition
+- Annotation standards
+- Evaluation criteria
+- Error analysis
 
-检测实战这节最适合新人的理解顺序不是“先训模型”，而是先看清项目闭环：
+For beginners, the best order to understand detection practice is not “train a model first,” but to first see the project loop clearly:
 
 ```mermaid
 flowchart LR
-    A["定义类别和边界"] --> B["统一标注规范"]
-    B --> C["先做 baseline"]
-    C --> D["按 IoU / mAP 评估"]
-    D --> E["分析漏检与误检"]
+    A["Define classes and boundaries"] --> B["Unify annotation standards"]
+    B --> C["Build a baseline first"]
+    C --> D["Evaluate with IoU / mAP"]
+    D --> E["Analyze missed detections and false detections"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 检测项目到底该怎么推进
-- 哪些地方比模型结构更容易先出问题
+- How a detection project should move forward
+- Which parts are more likely to go wrong than the model structure itself
 
-## 一、一个检测项目最先要定什么？
+## 1. What should be defined first in a detection project?
 
-### 1.1 类别边界
+### 1.1 Class boundaries
 
-例如安防场景里你可能只先做：
+For example, in a security scenario you might only start with:
 
 - person
 - helmet
 
-而不是一开始就把所有目标都做进来。
+instead of trying to cover every possible target from the beginning.
 
-### 1.2 标注规范
+### 1.2 Annotation standards
 
-必须先说清：
+You must first make it clear:
 
-- 框紧不紧
-- 遮挡怎么标
-- 小目标怎么算
+- How tight the box should be
+- How to label occlusion
+- How to handle small objects
 
-### 1.3 评估标准
+### 1.3 Evaluation criteria
 
-至少要明确：
+At minimum, you need to clarify:
 
-- IoU 阈值
-- 召回 / 精确率
+- IoU threshold
+- Recall / precision
 
-### 1.4 新人第一次做检测项目，题目怎么选更稳？
+### 1.4 When a beginner builds a detection project for the first time, how should they choose the task to make it more stable?
 
-更稳的题目通常有这几个特点：
+A more stable task usually has these characteristics:
 
-- 类别数不要太多
-- 目标定义清楚
-- 误检和漏检能肉眼看懂
+- Not too many classes
+- Clear target definitions
+- False detections and missed detections that can be understood with the naked eye
 
-所以第一次做项目时，  
-“少类别、强定义、易解释”通常比“任务更炫”更重要。
+So when you do your first project,
+“fewer classes, stronger definitions, easier explanation” is usually more important than “a cooler task.”
 
-### 1.5 这一步为什么比“先选模型”更重要？
+### 1.5 Why is this step more important than “choosing a model first”?
 
-因为如果你最开始这些东西没定稳：
+Because if these things are not settled well at the start:
 
-- 类别边界
-- 标注规则
-- 框口径
-- IoU 阈值
+- Class boundaries
+- Annotation rules
+- Box conventions
+- IoU threshold
 
-后面你做再多模型比较，也可能是在混乱标准上空转。
+Then no matter how many model comparisons you do later, you may still be spinning in circles on top of messy standards.
 
 ---
 
-## 二、先跑一个最小匹配评估示例
+## 2. Run a minimal matching evaluation example first
 
 ```python
 ground_truth = [
@@ -164,119 +164,119 @@ for pred in predictions:
 print(matches)
 ```
 
-### 2.1 这段代码最重要的地方是什么？
+### 2.1 What is the most important part of this code?
 
-它让你看到检测评估不是：
+It shows you that detection evaluation is not:
 
-- 分类对了就行
+- “The class is correct, so it’s fine”
 
-而是：
+Instead, it is:
 
-- 类别对
-- 框也要足够准
+- The class must be correct
+- The box must also be accurate enough
 
-### 2.2 为什么这就是很多检测项目的核心判断？
+### 2.2 Why is this the core judgment in many detection projects?
 
-因为真实检测结果好不好，  
-最终常常就体现在：
+Because in real detection results,
+the final quality is often reflected in:
 
-- 匹配阈值
-- 框质量
+- Matching threshold
+- Box quality
 
-### 2.3 为什么检测项目特别需要“误检 / 漏检”视角？
+### 2.3 Why do detection projects especially need a “false detection / missed detection” perspective?
 
-因为检测系统很少只有“对或错”两种结果。  
-更常见的是：
+Because detection systems rarely have only two outcomes: “correct” or “incorrect.”
+More often, you’ll see:
 
-- 框偏了
-- 目标漏了
-- 多报了一个框
+- The box is off
+- The target was missed
+- An extra box was reported
 
-这也是为什么检测项目展示时，最好不要只放几张成功样例。
+That is why, when presenting a detection project, it’s best not to show only a few success cases.
 
-### 2.4 第一次做检测项目时，最值得先分哪几类错？
+### 2.4 When doing a detection project for the first time, what types of errors are most worth separating first?
 
-一个很实用的错误分类方式是：
+A very practical way to categorize errors is:
 
-1. 漏检  
-   明明有目标，系统没报出来。
+1. Missed detection
+   There is clearly a target, but the system did not report it.
 
-2. 误检  
-   没目标也报了。
+2. False detection
+   The system reported a target even though there was none.
 
-3. 定位不准  
-   类别对了，但框偏差太大。
+3. Poor localization
+   The class is correct, but the box deviation is too large.
 
-这三类一分开，你后面很多迭代方向就会立刻更清楚。
+Once you separate these three, many of your next iteration directions become much clearer immediately.
 
-![检测项目评估与误检漏检分桶图](/img/course/ch10-detection-practice-eval-buckets-map.png)
+![Detection project evaluation and error bucket diagram](/img/course/ch10-detection-practice-eval-buckets-map-en.png)
 
-:::tip 读图提示
-检测项目展示时，不要只放成功截图。读这张图时看四个环节：标注规范、IoU/mAP 评估、误检/漏检/定位不准分桶，以及下一轮该改数据、阈值还是模型。
+:::tip Reading guide
+When presenting a detection project, don’t just show success screenshots. When reading this figure, look at four parts: annotation standards, IoU/mAP evaluation, the false detection / missed detection / poor localization buckets, and whether the next round should improve data, thresholds, or the model.
 :::
 
 ---
 
-## 三、检测项目最容易踩的坑
+## 3. The most common pitfalls in detection projects
 
-### 3.1 标注标准不一致
+### 3.1 Inconsistent annotation standards
 
-这会直接把训练和评估一起拖乱。
+This will directly mess up both training and evaluation.
 
-### 3.2 小目标和遮挡没单独分析
+### 3.2 Small objects and occlusion are not analyzed separately
 
-很多系统在这些场景下会明显掉表现。
+Many systems show a clear drop in performance in these scenarios.
 
-### 3.3 只展示一两张漂亮图
+### 3.3 Only showing one or two pretty images
 
-真实项目更该展示：
+A real project should also show:
 
-- 哪些情况容易漏检
-- 哪些情况容易误检
+- Which situations are likely to cause missed detections
+- Which situations are likely to cause false detections
 
-## 四、一个新人可直接照抄的推进顺序
+## 4. A progress order that beginners can directly follow
 
-更建议这样做：
+A better approach is:
 
-1. 先定类别和标注规则
-2. 再抽样检查标注质量
-3. 先做一个最小 baseline
-4. 再统一 IoU / mAP 评估口径
-5. 最后挑典型漏检 / 误检做分析
+1. Define the classes and annotation rules first
+2. Then sample and check annotation quality
+3. Build a minimal baseline first
+4. Unify the IoU / mAP evaluation criteria
+5. Finally, pick typical missed detections / false detections for analysis
 
-### 4.1 如果把它做成作品集，最值得展示什么？
+### 4.1 If you turn it into a portfolio project, what is most worth showing?
 
-比起只展示一张“预测效果图”，更值得展示的是：
+Compared with only showing one “prediction result” image, what is more valuable is:
 
-- 类别定义和标注规则
-- baseline 的 IoU / mAP
-- 一组典型误检和漏检案例
-- 你如何解释这些失败
-- 下一步你会优先改数据、阈值还是模型
-
----
-
-## 小结
-
-这节最重要的是建立一个项目意识：
-
-> **检测项目的关键，不只是模型名，而是类别定义、标注规范和框级评估方法是否清楚。**
-
-## 这节最该带走什么
-
-- 检测项目首先是标注和评估项目，其次才是模型项目
-- IoU 阈值和标注口径会直接影响你怎么判断“检测对没对”
-- 误检 / 漏检分析是检测项目最值得展示的部分之一
-
-如果再压成一句话，那就是：
-
-> **检测项目真正的难点，往往不是把模型跑起来，而是把“什么算检对了”这件事定义清楚。**
+- Class definitions and annotation rules
+- The baseline IoU / mAP
+- A set of typical false detection and missed detection cases
+- How you explain these failures
+- What you would improve first next: data, thresholds, or model
 
 ---
 
-## 练习
+## Summary
 
-1. 调整 IoU 阈值到 `0.7`，看看匹配结果会怎么变。
-2. 想一想：为什么检测项目比分类项目更依赖清晰标注规范？
-3. 如果项目里总漏小目标，你会优先检查数据、输入分辨率还是模型结构？
-4. 你会如何把这个检测项目包装成作品集？
+The most important thing in this section is to build a project mindset:
+
+> **The key to a detection project is not just the model name, but whether the class definitions, annotation standards, and box-level evaluation methods are clear.**
+
+## What you should take away from this section
+
+- A detection project is first an annotation and evaluation project, and only then a model project
+- The IoU threshold and annotation conventions directly affect how you judge whether a detection is correct
+- False detection / missed detection analysis is one of the most valuable parts of a detection project to present
+
+If we compress it into one sentence, it is:
+
+> **The real difficulty in a detection project is often not getting the model to run, but clearly defining what counts as a correct detection.**
+
+---
+
+## Exercises
+
+1. Change the IoU threshold to `0.7` and see how the matching result changes.
+2. Think about why detection projects depend more on clear annotation standards than classification projects do.
+3. If a project keeps missing small objects, would you check the data, input resolution, or model structure first?
+4. How would you package this detection project into a portfolio piece?

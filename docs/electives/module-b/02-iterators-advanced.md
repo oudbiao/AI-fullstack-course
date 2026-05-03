@@ -1,67 +1,67 @@
 ---
-title: "1.2 迭代器与生成器进阶"
+title: "1.2 Advanced Iterators and Generators"
 sidebar_position: 9
-description: "从惰性计算、流式处理、生成器管道到 `yield from`，理解迭代器和生成器为什么特别适合数据与服务代码。"
+description: "From lazy evaluation and streaming processing to generator pipelines and `yield from`, understand why iterators and generators are especially well-suited for data and service code."
 keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 ---
 
-# 迭代器与生成器进阶
+# Advanced Iterators and Generators
 
-:::tip 本节定位
-迭代器和生成器最容易被误解成“语法技巧”。  
-但在真实工程里，它们最重要的价值其实是：
+:::tip Section Overview
+Iterators and generators are often misunderstood as just “syntax tricks.”
+But in real-world engineering, their most important value is actually this:
 
-> **让数据一边产生、一边消费，而不是一次性全塞进内存。**
+> **They let data be produced and consumed step by step, instead of loading everything into memory at once.**
 
-这在数据处理、日志流、批量任务和服务端代码里非常常见。
+This is very common in data processing, log streams, batch jobs, and server-side code.
 :::
 
-![生成器流式管道图](/img/course/elective-generator-stream-pipeline.png)
+![Generator streaming pipeline diagram](/img/course/elective-generator-stream-pipeline-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解迭代器和生成器在工程中的核心价值
-- 理解惰性计算为什么能显著降低内存压力
-- 学会构建简单生成器管道
-- 通过可运行示例掌握 `yield` 和 `yield from` 的使用场景
-
----
-
-## 一、为什么工程代码很喜欢生成器？
-
-### 1.1 因为很多数据是“流”，不是“块”
-
-例如：
-
-- 日志流
-- 文件逐行读取
-- 网络请求结果
-- 大批量样本处理
-
-如果每次都先全部读进列表，  
-很容易变成：
-
-- 内存浪费
-- 延迟增加
-
-### 1.2 生成器的核心价值
-
-它让你可以：
-
-- 需要时再产出下一个值
-
-这就是惰性计算。
-
-### 1.3 一个类比
-
-列表像一次性备好一大桌菜。  
-生成器像按桌号一道一道上菜。
-
-如果客人很多、菜很多，后者通常更省资源。
+- Understand the core value of iterators and generators in engineering
+- Understand why lazy evaluation can significantly reduce memory pressure
+- Learn how to build simple generator pipelines
+- Use runnable examples to master when to use `yield` and `yield from`
 
 ---
 
-## 二、先看一个滑动窗口生成器
+## 1. Why do engineering teams like generators so much?
+
+### 1.1 Because much data is a “stream,” not a “chunk”
+
+For example:
+
+- Log streams
+- Reading files line by line
+- Network request results
+- Large-scale sample processing
+
+If you always read everything into a list first,
+it can easily lead to:
+
+- Memory waste
+- Increased latency
+
+### 1.2 The core value of generators
+
+They let you:
+
+- Produce the next value only when needed
+
+This is lazy evaluation.
+
+### 1.3 An analogy
+
+A list is like preparing a large table of dishes all at once.
+A generator is like serving dishes one by one to each table.
+
+If there are many guests and many dishes, the second approach usually uses fewer resources.
+
+---
+
+## 2. First, look at a sliding-window generator
 
 ```python
 def sliding_window(nums, size):
@@ -73,27 +73,27 @@ for window in sliding_window([1, 2, 3, 4, 5], 3):
     print(window)
 ```
 
-### 2.1 这段代码为什么有价值？
+### 2.1 Why is this code valuable?
 
-因为它已经展示了生成器的本质：
+Because it already shows the essence of a generator:
 
-- 不是一次性返回所有窗口
-- 而是一个一个产出
+- It does not return all windows at once
+- It produces them one by one
 
-### 2.2 这类写法在哪常见？
+### 2.2 Where is this kind of pattern common?
 
-例如：
+For example:
 
-- 时间序列窗口
-- NLP 分块
-- 批处理切片
+- Time-series windows
+- NLP chunking
+- Batch slicing
 
 ---
 
-## 三、生成器管道：把多个步骤串起来
+## 3. Generator pipelines: chaining multiple steps together
 
-工程里更常见的不是一个生成器，  
-而是一串生成器组成的流水线。
+In engineering, what is more common is not a single generator,
+but a pipeline made of multiple generators.
 
 ```python
 def read_lines():
@@ -124,36 +124,36 @@ for item in pipeline:
     print(item)
 ```
 
-### 3.1 这个例子最想教什么？
+### 3.1 What is this example mainly trying to teach?
 
-工程里很多数据处理都可以拆成：
+A lot of data processing in engineering can be broken into:
 
-- 读取
-- 过滤
-- 变换
+- Reading
+- Filtering
+- Transforming
 
-如果每一步都生成完整列表，  
-链路会更重；  
-用生成器管道则更自然。
+If each step generates a full list,
+the pipeline becomes heavier;
+using a generator pipeline is more natural.
 
-### 3.2 为什么这对 AI 工程也有用？
+### 3.2 Why is this useful for AI engineering too?
 
-因为你会经常处理：
+Because you often work with:
 
-- 样本流
-- 日志流
-- 检索结果流
+- Sample streams
+- Log streams
+- Retrieval result streams
 
-这类场景天然适合生成器管道。
+These scenarios are naturally suited to generator pipelines.
 
 ---
 
-## 四、`yield from` 为什么值得学？
+## 4. Why is `yield from` worth learning?
 
-### 4.1 它解决什么问题？
+### 4.1 What problem does it solve?
 
-当一个生成器只是想把另一个可迭代对象继续往外转发时，  
-`yield from` 会让代码更清晰。
+When a generator simply wants to forward another iterable outward,
+`yield from` makes the code clearer.
 
 ```python
 def chunk_batches():
@@ -169,47 +169,47 @@ def flatten():
 print(list(flatten()))
 ```
 
-### 4.2 为什么它比双重循环更值得学？
+### 4.2 Why is it more worth learning than a nested loop?
 
-因为它表达意图更明确：
+Because it expresses intent more clearly:
 
-- “把子迭代器的内容继续向外产出”
-
----
-
-## 五、最容易踩的坑
-
-### 5.1 误区一：生成器一定更快
-
-它通常更省内存，  
-但不代表所有场景都绝对更快。
-
-### 5.2 误区二：生成器只能遍历一次
-
-很多时候这是设计特征，不是 bug。  
-如果你需要重复消费，就要重新创建它。
-
-### 5.3 误区三：为了用生成器而用生成器
-
-如果数据量很小、逻辑很简单，  
-直接列表也许更好读。
+- “Continue yielding the contents of the sub-iterator outward”
 
 ---
 
-## 小结
+## 5. The easiest pitfalls to fall into
 
-这节最重要的是建立一个工程直觉：
+### 5.1 Misconception 1: Generators are always faster
 
-> **生成器和迭代器最适合处理“逐步产生、逐步消费”的数据流，它们的价值主要体现在节省内存、降低中间副本和组织流水线。**
+They usually save memory,
+but that does not mean they are absolutely faster in every scenario.
 
-只要这层理解清楚，  
-后面你在做日志处理、样本管道和流式服务时就会自然想到它们。
+### 5.2 Misconception 2: Generators can only be iterated once
+
+In many cases, this is a design feature, not a bug.
+If you need to consume it repeatedly, you must create it again.
+
+### 5.3 Misconception 3: Using generators just for the sake of using generators
+
+If the data size is small and the logic is simple,
+a plain list may actually be easier to read.
 
 ---
 
-## 练习
+## Summary
 
-1. 把 `sliding_window` 改成按固定 batch size 产出数据块。
-2. 用 `yield from` 再写一个把嵌套列表拉平的例子。
-3. 想一想：什么时候列表更合适，什么时候生成器更合适？
-4. 你能否把一个现有的数据处理函数改写成生成器管道？
+The most important thing in this section is to build an engineering intuition:
+
+> **Generators and iterators are best suited for data flows that are produced step by step and consumed step by step. Their value is mainly in saving memory, reducing intermediate copies, and organizing pipelines.**
+
+Once you clearly understand this layer,
+you will naturally think of them when doing log processing, sample pipelines, and streaming services.
+
+---
+
+## Exercises
+
+1. Modify `sliding_window` so it outputs data chunks with a fixed batch size.
+2. Use `yield from` to write another example that flattens a nested list.
+3. Think about when a list is more appropriate and when a generator is more appropriate.
+4. Can you rewrite an existing data processing function as a generator pipeline?

@@ -1,85 +1,84 @@
 ---
-title: "阶段学习任务单"
-description: "把数据分析与可视化阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [数据分析, Pandas, NumPy, 可视化, 学习任务单]
+title: "Stage Learning Task Sheet"
+description: "Break the data analysis and visualization stage into actionable learning tasks, practice deliverables, and passing criteria."
+keywords: [data analysis, Pandas, NumPy, visualization, learning task sheet]
 ---
 
-# 阶段学习任务单：数据分析与可视化
+# Stage Learning Task Sheet: Data Analysis and Visualization
 
-这个阶段的目标是让你能把原始数据变成可理解的结论。后续机器学习、RAG 评估、Agent 日志分析都需要数据处理能力，因此这里要重点训练数据读取、清洗、统计、可视化和解释。
+The goal of this stage is to help you turn raw data into understandable conclusions. Later machine learning, RAG evaluation, and Agent log analysis all require data processing skills, so here you should focus on data loading, cleaning, statistics, visualization, and interpretation.
 
-## 一图读懂：本阶段任务链
+## Understand the whole stage at a glance: task chain
 
-![数据分析阶段任务链](/img/course/ch03-task-list-workflow.png)
+![Data analysis stage task chain](/img/course/ch03-task-list-workflow-en.png)
 
-## 本阶段必须完成的任务
+## Tasks you must complete in this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Passing criteria |
 | --- | --- | --- |
-| 使用 NumPy 处理数组 | 一个数组计算练习文件 | 能解释 shape、广播、切片和矩阵运算 |
-| 使用 Pandas 读取数据 | 一个数据读取脚本或 Notebook | 能读取 CSV/Excel/JSON 并查看基本信息 |
-| 完成数据清洗 | 一份清洗前后对比记录 | 能处理缺失值、重复值、异常值和类型转换 |
-| 完成探索分析 | 一份 EDA Notebook | 能用统计和图表说明主要发现 |
-| 完成阶段项目 | 一份数据分析报告 | 有问题定义、图表、结论和局限性 |
+| Use NumPy to process arrays | An array computation practice file | Can explain shape, broadcasting, slicing, and matrix operations |
+| Use Pandas to read data | A data loading script or Notebook | Can read CSV/Excel/JSON and inspect basic information |
+| Complete data cleaning | A before-and-after cleaning record | Can handle missing values, duplicates, outliers, and type conversion |
+| Complete exploratory analysis | An EDA Notebook | Can use statistics and charts to explain the main findings |
+| Complete the stage project | A data analysis report | Includes problem definition, charts, conclusions, and limitations |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先学习 NumPy 的数组直觉，再进入 Pandas 的表格处理，最后学习可视化。不要一开始就追求复杂图表，先确保每张图都能回答一个明确问题。
+First build intuition for NumPy arrays, then move on to Pandas table processing, and finally learn visualization. Do not rush into complex charts at the beginning; first make sure each chart answers a clear question.
 
-数据分析的关键不是“画了多少图”，而是每一步都能解释为什么这么处理。比如为什么删除某些行，为什么填充缺失值，为什么选择柱状图而不是折线图。
+The key to data analysis is not “how many charts you made,” but whether each step can explain why you handled the data that way. For example, why delete certain rows, why fill missing values, and why choose a bar chart instead of a line chart.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI learning assistant project
 
-本阶段对应 AI 学习助手的 v0.3 学习记录分析版本。你可以读取前面记录的学习问题日志，统计用户最常问的章节、最常见的问题类型和每周学习频率，然后生成一份简单分析报告。
+This stage corresponds to version v0.3 of the AI learning assistant, the learning log analysis version. You can read the previously recorded learning issue logs, count the chapters users ask about most often, the most common question types, and the weekly learning frequency, then generate a simple analysis report.
 
-建议输出包括：问题数量趋势、问题分类统计、高频关键词、最容易卡住的阶段，以及下一步学习建议。这会让项目开始从“记录工具”变成“辅助学习工具”。
+Suggested outputs include: question count trends, question category statistics, high-frequency keywords, the stage where learners get stuck most easily, and recommendations for the next learning step. This will help the project evolve from a “recording tool” into a “learning support tool.”
 
-## 常见卡点
+## Common sticking points
 
-常见问题包括 DataFrame 行列搞反、索引和列名混淆、链式赋值警告、日期字段没转换、图表无法显示中文、把相关性误解成因果关系。遇到分析结论时，要问自己：这个结论来自哪一列、哪一步处理可能影响它、有没有反例。
+Common problems include mixing up DataFrame rows and columns, confusing indices and column names, chained assignment warnings, date fields not being converted, charts failing to display Chinese characters, and mistaking correlation for causation. When you reach a conclusion from your analysis, ask yourself: which column does this conclusion come from, which processing step may have affected it, and is there any counterexample?
 
+## Easy version / Standard version / Challenge version tasks
 
-## 轻松版 / 标准版 / 挑战版任务
-
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Suitable for |
 |---|---|---|
-| 轻松版 | 完成缺失、重复、异常值检查 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 输出清洗前后对比和两张图表 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 解释一个错误结论是如何由脏数据造成的 | 已有基础、想做更强项目证据的学习者 |
+| Easy version | Complete checks for missing, duplicate, and outlier values | First-time learners, those with limited time, or beginners |
+| Standard version | Output before-and-after cleaning comparisons and two charts | Learners who want to include this stage in their portfolio |
+| Challenge version | Explain how a wrong conclusion was caused by dirty data | Learners with some foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Stage badge and boss battle
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | 脏数据侦探 |
-| 可解锁徽章 | 脏数据侦探、图表讲述者 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss battle | Dirty Data Detective |
+| Unlockable badges | Dirty Data Detective, Chart Storyteller |
+| Minimum passing slogan | Get it running first, then explain it, then record the failures |
+| Evidence-saving recommendation | Save screenshots, logs, failure samples, or evaluation sheets to `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+You can move forward after completing the easy version; completing the standard version is recommended before including it in your portfolio; only do the challenge version if you have extra time and energy.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to turn the results of this stage into portfolio material, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `analysis.ipynb` | 完整 EDA Notebook，包含读取、清洗、统计、图表和结论 |
-| `data_dictionary.md` | 数据字段含义、类型、单位和缺失情况说明 |
-| `cleaning_log.md` | 缺失值、异常值、重复值和类型转换的处理记录 |
-| `figures/` | 关键图表导出文件，每张图对应一个分析问题 |
-| `report.md` | 分析目标、主要发现、局限性和下一步建模建议 |
+| `analysis.ipynb` | A complete EDA Notebook, including loading, cleaning, statistics, charts, and conclusions |
+| `data_dictionary.md` | Descriptions of data fields, including meaning, type, unit, and missingness |
+| `cleaning_log.md` | A record of how missing values, outliers, duplicates, and type conversions were handled |
+| `figures/` | Exported files for key charts, with each chart corresponding to one analysis question |
+| `report.md` | Analysis goals, main findings, limitations, and next-step modeling suggestions |
 
-这些材料会让数据分析阶段从“会用 Pandas”升级成“能用数据支持判断，并能把过程讲清楚”。
+These materials will upgrade the data analysis stage from “I can use Pandas” to “I can use data to support decisions, and explain the process clearly.”
 
-## 阶段通关问题
+## Stage passing questions
 
-学完后，你应该能回答这些问题：NumPy 的 shape 为什么重要，Pandas 的 Series 和 DataFrame 有什么区别，缺失值处理会如何影响结论，一张图应该服务于什么问题，为什么数据分析报告要写局限性。
+After finishing this stage, you should be able to answer these questions: why shape matters in NumPy, what the difference is between a Pandas Series and a DataFrame, how missing value handling affects conclusions, what question a chart should serve, and why a data analysis report should include limitations.
 
-## 完成状态 Checklist
+## Completion checklist
 
-- [ ] 我能读取 CSV、Excel 或 JSON 数据，并查看行列、类型和缺失值。
-- [ ] 我能完成一次基础数据清洗，并说明每一步处理原因。
-- [ ] 我能用统计表和图表回答一个明确问题。
-- [ ] 我已经完成一份小型 EDA 报告或学习记录分析。
-- [ ] 我能说明数据分析结论的限制，而不是只给出图表。
+- [ ] I can read CSV, Excel, or JSON data and inspect rows, columns, types, and missing values.
+- [ ] I can complete a basic data cleaning process and explain why each step was done.
+- [ ] I can use statistics tables and charts to answer a clear question.
+- [ ] I have completed a small EDA report or a learning log analysis.
+- [ ] I can explain the limitations of a data analysis conclusion instead of only presenting charts.

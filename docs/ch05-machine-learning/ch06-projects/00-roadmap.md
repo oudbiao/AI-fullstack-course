@@ -1,150 +1,147 @@
 ---
-title: "6.1 学前导读：项目实战这一章到底该怎么学"
+title: "6.1 Pre-class Guide: How Should You Study This Project-Practice Chapter?"
 sidebar_position: 18
-description: "先建立机器学习项目章的学习地图：回归、分类、聚类和 Kaggle 练习如何按问题定义、baseline、评估、迭代和交付形成作品集闭环。"
-keywords: [机器学习项目导读, 房价预测, 客户流失, 用户分群, Kaggle, 机器学习作品集]
+description: "First build a learning map for the machine learning project chapter: how regression, classification, clustering, and Kaggle practice form a portfolio loop through problem definition, baseline, evaluation, iteration, and delivery."
+keywords: [machine learning project guide, house price prediction, customer churn, user segmentation, Kaggle, machine learning portfolio]
 ---
 
-# 学前导读：项目实战这一章到底该怎么学
+# Pre-class Guide: How Should You Study This Project-Practice Chapter?
 
-![机器学习项目实战路线图](/img/course/ml-projects-roadmap.png)
+![Machine Learning Project Practice Roadmap](/img/course/ml-projects-roadmap-en.png)
 
-这一章不是新的算法课，而是把前面五章真正串成项目闭环。前面你学的是任务类型、监督学习、无监督学习、模型评估和特征工程；项目章要训练的是：拿到一个问题后，怎样把它变成可建模、可评估、可解释、可交付的机器学习作品。
+This chapter is not a new algorithm lesson. Instead, it ties together the previous five chapters into a real project loop. In the earlier chapters, you learned task types, supervised learning, unsupervised learning, model evaluation, and feature engineering. In this project chapter, you will train yourself to turn a problem into a machine learning work product that can be modeled, evaluated, explained, and delivered.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Sits in the Whole Course
 
-机器学习项目章是第 5 站的出口。它要证明你不是只会调用 `sklearn`，也不是只会背算法名称，而是能把业务问题、数据、模型、指标和结论放进同一个流程里。
+The machine learning project chapter is the exit point of Station 5. It is meant to prove that you are not only able to call `sklearn`, and not only able to memorize algorithm names, but also able to put business problems, data, models, metrics, and conclusions into one process.
 
-从课程主线看，这一章也会为后面的深度学习、大模型应用和 Agent 打基础。因为无论模型多复杂，项目思维都是类似的：先定义问题，再建立 baseline，然后评估、改进、解释和交付。
+From the course roadmap, this chapter also lays the foundation for later deep learning, LLM applications, and Agent work. Because no matter how complex the model is, the project mindset is similar: define the problem first, then build a baseline, then evaluate, improve, explain, and deliver.
 
-![机器学习项目作品集闭环图](/img/course/ch05-projects-portfolio-loop.png)
+![Machine Learning Project Portfolio Loop](/img/course/ch05-projects-portfolio-loop-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：如何把一个现实问题定义成回归、分类或聚类任务；如何建立一个最小 baseline，而不是一开始追复杂模型；如何选择主指标和辅助指标；如何通过特征工程、调参和模型对比做可解释改进；如何把模型结果翻译成业务语言或项目报告。
+This chapter answers five questions: how to define a real-world problem as a regression, classification, or clustering task; how to build a minimal baseline instead of jumping straight into complex models; how to choose the main metric and auxiliary metrics; how to make explainable improvements through feature engineering, tuning, and model comparison; and how to translate model results into business language or a project report.
 
-新人最容易犯的错误，是把项目章当成“照着代码跑完”。真正的项目不是模型跑出来了，而是你能说清楚：为什么这样定义问题，为什么选这个指标，为什么这次改进有效，模型错在哪里，下一步应该做什么。
+The most common mistake beginners make is treating the project chapter as “just running the code.” A real project is not about getting a model to run. It is about clearly explaining why the problem is defined this way, why this metric was chosen, why this improvement worked, where the model fails, and what should be done next.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先做房价预测，因为回归任务最容易理解“预测一个连续数值”。然后做客户流失预测，重点学习分类指标、不平衡数据和业务阈值。接着做用户分群分析，理解无监督项目怎样解释结果。最后再做 Kaggle 竞赛实战，把数据处理、建模、评估和提交放进真实评测环境。
+It is recommended that you start with house price prediction, because regression tasks make it easiest to understand “predicting a continuous value.” Then move on to customer churn prediction, focusing on classification metrics, imbalanced data, and business thresholds. Next, do user segmentation analysis to understand how unsupervised projects explain results. Finally, do Kaggle competition practice to put data processing, modeling, evaluation, and submission into a real evaluation environment.
 
 ```mermaid
 flowchart TD
-  A[先做房价预测] --> B[建立回归 baseline]
-  B --> C[做客户流失预测]
-  C --> D[理解分类指标和业务阈值]
-  D --> E[做用户分群]
-  E --> F[练习无监督解释]
-  F --> G[进入 Kaggle 综合实战]
+  A[Start with house price prediction] --> B[Build a regression baseline]
+  B --> C[Do customer churn prediction]
+  C --> D[Understand classification metrics and business thresholds]
+  D --> E[Do user segmentation]
+  E --> F[Practice unsupervised interpretation]
+  F --> G[Enter Kaggle comprehensive practice]
 ```
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：机器学习项目不是一次训练，而是一组可记录、可比较、可解释的实验。
+The main thread of this chapter can be summarized as: a machine learning project is not a single training run, but a set of experiments that can be recorded, compared, and explained.
 
 ```mermaid
 flowchart LR
-  A[业务问题] --> B[任务定义]
-  B --> C[数据准备]
+  A[Business problem] --> B[Task definition]
+  B --> C[Data preparation]
   C --> D[baseline]
-  D --> E[评估指标]
-  E --> F[特征工程和模型改进]
-  F --> G[错误分析]
-  G --> H[结论解释]
-  H --> I[报告和作品集]
+  D --> E[Evaluation metrics]
+  E --> F[Feature engineering and model improvement]
+  F --> G[Error analysis]
+  G --> H[Result explanation]
+  H --> I[Report and portfolio]
 ```
 
-看懂这条线后，你会知道为什么每个项目都应该保留实验记录。没有 baseline，就不知道改进是否真的有效；没有错误分析，就不知道模型在什么情况下会失败；没有交付表达，就很难把项目放进作品集。
+Once you understand this line, you will know why every project should keep experiment records. Without a baseline, you cannot tell whether an improvement is truly effective; without error analysis, you will not know when the model fails; without delivery-oriented expression, it is hard to include the project in your portfolio.
 
-## 四个项目分别在练什么
+## What the Four Projects Are Practicing
 
-| 项目 | 任务类型 | 你真正要练什么 |
+| Project | Task Type | What You Are Really Practicing |
 |---|---|---|
-| 房价预测 | 回归 | 从 baseline 到调参的完整回归闭环 |
-| 客户流失预测 | 分类 | 不平衡数据、业务指标和分类评估 |
-| 用户分群分析 | 聚类 | 无监督项目的解释与业务落地 |
-| Kaggle 竞赛实战 | 综合 | 把整套 ML 流程放进真实评测环境 |
+| House Price Prediction | Regression | The full regression loop from baseline to tuning |
+| Customer Churn Prediction | Classification | Imbalanced data, business metrics, and classification evaluation |
+| User Segmentation Analysis | Clustering | Interpreting unsupervised projects and applying them in business |
+| Kaggle Competition Practice | Comprehensive | Putting the full ML workflow into a real evaluation environment |
 
-## 这一章和后面阶段的关系
+## How This Chapter Connects to Later Stages
 
-机器学习项目会把“实验意识”带到后面的深度学习和大模型项目中。深度学习项目也需要 baseline、训练记录和错误分析；RAG 项目也需要评估集和失败样例；Agent 项目也需要过程日志和结果评估。
+Machine learning projects will bring an “experimental mindset” into later deep learning and LLM projects. Deep learning projects also need baselines, training records, and error analysis; RAG projects also need evaluation sets and failure examples; Agent projects also need process logs and result evaluation.
 
-如果这一章没学稳，后面常见的问题是：只会跑模型，不会设计实验；只看分数，不知道指标是否合适；模型结果无法解释；项目不能形成清晰作品集表达。
+If you do not build a solid foundation in this chapter, common problems later are: only knowing how to run models, but not how to design experiments; only looking at scores, but not knowing whether the metric is appropriate; being unable to explain model results; and failing to turn the project into a clear portfolio piece.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should focus on the main thread and the smallest runnable example first. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can use this chapter to fill gaps and practice engineering habits: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how this chapter connects to previous and next stages. After reading, it is best to distill the chapter into your own project README or experiment log.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimal example and finish the chapter’s project exit |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or a project README record |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimal input and output? | You can clearly explain what the example needs as input and what results it produces |
+| Where are the common failure points? | You can list at least one cause of errors, poor performance, or misunderstanding |
+| What can be preserved after learning it? | You can write this chapter’s output into a project README, experiment log, or portfolio |
 
-## 本章小项目出口
+## Project Exit Deliverable for This Chapter
 
-学完这一章后，建议至少完成一个“可复盘的机器学习项目报告”。报告需要包含问题定义、数据说明、baseline、评估指标、至少两轮改进、错误分析、最终结论和下一步计划。
+After finishing this chapter, it is recommended that you complete at least one “reviewable machine learning project report.” The report should include problem definition, data description, baseline, evaluation metrics, at least two rounds of improvement, error analysis, final conclusions, and next steps.
 
-建议每个项目保留一张实验记录表，字段包括版本、改了什么、主指标、辅助指标、我的判断和下一步。这样你会从“跑代码”逐渐转向“做实验”。
+It is recommended that each project keep an experiment log table with fields such as version, what changed, main metric, auxiliary metric, my judgment, and next step. This will gradually move you from “running code” to “doing experiments.”
 
+## Debug Detective Case
 
-
-
-## Debug 侦探案件
-
-| 案件 | 内容 |
+| Case | Content |
 |---|---|
-| 案件名 | 高得离谱的模型分数 |
-| 案发现场 | 模型指标异常好，但换测试集表现明显下降。 |
-| 侦查步骤 | 检查 train/test 划分、重复样本、目标泄漏和 Dummy baseline。 |
-| 结案证据 | 泄漏检查记录、baseline 指标、错误样本。 |
+| Case Name | A ridiculously high model score |
+| Scene | The model metrics look unusually good, but performance drops significantly on a different test set. |
+| Investigation Steps | Check the train/test split, duplicate samples, target leakage, and the Dummy baseline. |
+| Evidence to Close the Case | Leakage check records, baseline metrics, and error samples. |
 
-项目练习不要只保留成功截图。至少挑一个真实失败样本，按“现象、线索、嫌疑原因、侦查步骤、修复动作、回归检查”写进 `reports/failure_cases.md`，这样项目会更像真实工程作品。
+When doing project practice, do not only keep successful screenshots. Pick at least one real failure case and write it into `reports/failure_cases.md` using the format “phenomenon, clues, suspicious causes, investigation steps, fixes, and regression checks,” so the project feels more like a real engineering work.
 
-## 项目交付物标准
+## Project Deliverable Standards
 
-每个综合项目都建议按同一套作品集标准交付，而不是只把代码跑通。最小交付物应该包括：一份 README、一条可复现运行命令、一组示例输入输出、一张关键流程图、一次失败样本分析，以及下一步改进计划。
+For each comprehensive project, it is recommended to deliver it according to the same portfolio standard instead of only making the code run. The minimum deliverables should include: a README, a reproducible run command, a set of sample inputs and outputs, a key workflow diagram, one failure case analysis, and a next-step improvement plan.
 
-| 交付物 | 最低要求 | 进阶要求 |
+| Deliverable | Minimum Requirement | Advanced Requirement |
 |---|---|---|
-| README | 写清项目目标、运行方式、依赖和示例 | 增加架构图、设计取舍和复盘 |
-| 示例输入输出 | 至少保留 1 个完整案例 | 保留成功、失败和边界案例 |
-| 评估记录 | 写清用什么指标判断效果 | 加入 baseline、对比实验和错误分析 |
-| 工程记录 | 记录一次环境或接口问题 | 记录日志、成本、耗时和排障过程 |
-| 展示材料 | 截图或短 GIF 证明能运行 | 做成可讲解的作品集页面 |
+| README | Clearly state the project goal, how to run it, dependencies, and examples | Add architecture diagrams, design trade-offs, and retrospectives |
+| Sample inputs and outputs | Keep at least 1 complete case | Keep success, failure, and edge cases |
+| Evaluation records | Clearly state which metrics are used to judge performance | Add baselines, comparison experiments, and error analysis |
+| Engineering records | Record one environment or interface issue | Record logs, cost, time spent, and troubleshooting process |
+| Presentation materials | Use screenshots or a short GIF to prove it runs | Turn it into a portfolio page that can be explained |
 
-做项目时最重要的不是功能堆得多，而是能讲清楚：你解决了什么问题，系统怎样工作，效果怎么判断，失败时怎么定位，下一版准备怎样改。
+The most important thing when doing a project is not piling on lots of features, but clearly explaining: what problem you solved, how the system works, how performance is judged, how to locate failures, and how the next version will be improved.
 
-![机器学习项目报告故事板](/img/course/ch05-project-report-storyboard.png)
+![Machine Learning Project Report Storyboard](/img/course/ch05-project-report-storyboard-en.png)
 
-这张图可以当作项目报告模板：先说明问题和数据，再展示 baseline、指标、模型对比、错误样本和下一步计划。作品集里最打动人的不是“我跑了很多模型”，而是“我知道模型为什么这样错，以及下一轮要怎么改”。
+This diagram can serve as a project report template: first explain the problem and data, then show the baseline, metrics, model comparison, error samples, and next-step plan. What impresses people most in a portfolio is not “I ran many models,” but “I know why the model made these mistakes, and how I will improve it in the next round.”
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能把一个经典 ML 问题拆成清晰建模流程，能根据任务类型选择指标和 baseline，能做一轮可解释改进，能用错误分析说明模型局限，能把结果写成别人看得懂的项目报告。
+By the end of this chapter, you should be able to break a classic ML problem into a clear modeling workflow, choose metrics and a baseline based on the task type, make one round of explainable improvement, use error analysis to show model limitations, and write the results into a project report that other people can understand.
 
-如果你能清楚说出“我怎么定义问题、为什么这样评估、模型错在哪里、下一步该怎么改”，就达到了机器学习阶段的作品集出口标准。
+If you can clearly say “how I defined the problem, why I evaluated it this way, where the model went wrong, and how I should improve it next,” then you have reached the portfolio exit standard for the machine learning stage.
 
-## 版本路线建议
+## Suggested Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run the minimum loop | Can input, process, and output, with one set of examples kept |
+| Standard version | Form a presentable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not try to build everything at once. Every time you upgrade a version, write into the README what new capability was added, how it was verified, and what problems remain.

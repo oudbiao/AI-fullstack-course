@@ -1,374 +1,373 @@
 ---
-title: "2.4 SD 应用"
+title: "2.4 SD Applications"
 sidebar_position: 6
-description: "从文生图、图生图、局部修复到风格控制和工作流产品，理解 Stable Diffusion 在真实应用里最常怎么被用起来。"
+description: "From text-to-image and image-to-image, to inpainting, style control, and workflow products, understand how Stable Diffusion is most commonly used in real-world applications."
 keywords: [Stable Diffusion, text-to-image, img2img, inpainting, control, workflow product]
 ---
 
-# SD 应用
+# SD Applications
 
-![Stable Diffusion 应用模式选择图](/img/course/ch12-sd-application-mode-selector-map.png)
+![Stable Diffusion application mode selection diagram](/img/course/ch12-sd-application-mode-selector-map-en.png)
 
-:::tip 读图提示
-SD 应用要先分清用户到底是在“从零生成”“参考图改造”“局部修复”还是“按条件控制”。先选对应用模式，再谈 prompt、参数和工作流，项目会稳很多。
+:::tip Reading guide
+For SD applications, first figure out whether the user is trying to “generate from scratch,” “edit based on a reference image,” “do partial repair,” or “control by conditions.” Choose the right application mode first, then talk about prompts, parameters, and workflows. That will make your project much more stable.
 :::
 
-:::tip 本节定位
-前面两节已经把：
+:::tip What this section is about
+In the previous two sections, we already explained:
 
-- 扩散模型原理
-- Stable Diffusion 架构
+- the principles of diffusion models
+- the Stable Diffusion architecture
 
-讲清楚了。  
-这一节要把镜头从“模型怎么工作”切到“用户和产品怎么用它”。
+This section shifts the focus from “how the model works” to “how users and products use it.”
 
-很多时候，真正决定一个模型有没有价值的，不只是它会不会生成，而是：
+In many cases, what really determines whether a model is valuable is not just whether it can generate images, but:
 
-> **它能不能进入具体工作流。**
+> **Can it be integrated into a specific workflow?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Stable Diffusion 最常见的应用形态
-- 分清文生图、图生图、局部修复和风格控制
-- 理解为什么真实应用通常是“模型 + 工作流”
-- 建立对 SD 产品形态的系统直觉
+- Understand the most common application forms of Stable Diffusion
+- Distinguish text-to-image, image-to-image, inpainting, and style control
+- Understand why real-world applications are usually “model + workflow”
+- Build a systematic intuition for SD product forms
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-SD 应用更适合按“用户目标 -> 生成形态 -> 工作流”来理解：
+SD applications are easier to understand as “user goal -> generation form -> workflow”:
 
 ```mermaid
 flowchart LR
-    A["用户想要什么"] --> B["文生图 / 图生图 / 局部修复 / 条件控制"]
-    B --> C["批量生成与筛选"]
-    C --> D["编辑、后处理和导出"]
+    A["What does the user want?"] --> B["Text-to-image / Image-to-image / Inpainting / Conditional control"]
+    B --> C["Batch generation and filtering"]
+    C --> D["Editing, post-processing, and export"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么 SD 在真实产品里很少只靠一个按钮
-- 为什么工作流设计常常比单次生成更重要
-
----
-
-## 一、为什么 Stable Diffusion 特别容易形成产品？
-
-因为它离用户需求非常近。  
-很多用户问题都可以直接映射成生成任务：
-
-- 我想要一张海报
-- 我想把这张草图变成成图
-- 我想改掉图里的某一块
-- 我想把这张图变成另一种风格
-
-也就是说，Stable Diffusion 很容易从：
-
-- 模型能力
-
-走到：
-
-- 产品能力
-
-这就是它应用生态爆发的根本原因。
-
-### 1.1 一个更适合新人的总类比
-
-你可以把 Stable Diffusion 应用理解成：
-
-- 一个创意工作台
-
-文生图像是：
-
-- 从空白画布开始画
-
-图生图像是：
-
-- 拿着草图继续打磨
-
-局部修复像是：
-
-- 只改画面里某一小块
-
-这样理解后，为什么它会自然长成产品，而不只是模型 demo，就会清楚很多。
+- Why SD in real products is rarely just one button
+- Why workflow design is often more important than a single generation
 
 ---
 
-## 二、第一类：文生图（text-to-image）
+## 1. Why Is Stable Diffusion So Easy to Productize?
 
-### 2.1 最经典的入口
+Because it is very close to user needs.
+Many user problems can be directly mapped to generation tasks:
 
-用户输入：
+- I want a poster
+- I want to turn this sketch into a polished image
+- I want to modify one part of this picture
+- I want to turn this image into another style
 
-- 一段 prompt
+In other words, Stable Diffusion can easily move from:
 
-系统输出：
+- model capability
 
-- 一张图
+to:
 
-例如：
+- product capability
+
+That is the fundamental reason its application ecosystem exploded.
+
+### 1.1 A Better Analogy for Beginners
+
+You can think of Stable Diffusion applications as:
+
+- a creative workbench
+
+Text-to-image is like:
+
+- starting from a blank canvas
+
+Image-to-image is like:
+
+- refining an existing sketch
+
+Inpainting is like:
+
+- changing only a small part of the image
+
+Once you understand it this way, it becomes much clearer why it naturally grows into products, rather than staying as just a model demo.
+
+---
+
+## 2. First Type: Text-to-Image
+
+### 2.1 The Classic Entry Point
+
+The user inputs:
+
+- a prompt
+
+The system outputs:
+
+- an image
+
+For example:
 
 ```python
 text_to_image_task = {
-    "prompt": "一只坐在窗边的橘猫，夕阳，电影感",
+    "prompt": "An orange cat sitting by the window, sunset, cinematic",
     "output": "generated_image"
 }
 
 print(text_to_image_task)
 ```
 
-### 2.2 为什么它这么直观？
+### 2.2 Why Is This So Intuitive?
 
-因为它第一次把“语言意图 -> 图像结果”这件事变得特别直接。  
-用户不一定懂模型，只要会描述，就能开始创造。
+Because it makes the idea of “language intent -> image result” very direct for the first time.
+Users do not need to understand the model; as long as they can describe what they want, they can start creating.
 
 ---
 
-## 三、第二类：图生图（img2img）
+## 3. Second Type: Image-to-Image (img2img)
 
-### 3.1 它和文生图最大的差别
+### 3.1 The Biggest Difference from Text-to-Image
 
-文生图更像：
+Text-to-image is more like:
 
-- 从零开始
+- starting from scratch
 
-图生图更像：
+Image-to-image is more like:
 
-- 基于已有图改造
+- transforming an existing image
 
-例如：
+For example:
 
 ```python
 img2img_task = {
     "image": "rough_sketch.png",
-    "prompt": "把它变成赛博朋克风格插画"
+    "prompt": "Turn it into a cyberpunk-style illustration"
 }
 
 print(img2img_task)
 ```
 
-### 3.2 为什么这个模式很有价值？
+### 3.2 Why Is This Mode Valuable?
 
-因为很多创作任务并不是“完全从零生图”，而是：
+Because many creative tasks are not about “generating from zero,” but about:
 
-- 先有草图
-- 先有参考图
-- 先有构图
+- starting from a sketch
+- starting from a reference image
+- starting from an existing composition
 
-用户更关心“沿着已有方向改”，而不是重新赌一张。
+Users often care more about “improving along an existing direction” than about gambling on a brand-new image.
 
 ---
 
-## 四、第三类：局部修复（inpainting）
+## 4. Third Type: Inpainting
 
-### 4.1 为什么这个功能特别像产品功能？
+### 4.1 Why Does This Feature Feel So Product-Like?
 
-因为真实用户经常不是想整张重做，而是只想改一个局部。
+Because real users often do not want to remake the whole image. They only want to change one local area.
 
-例如：
+For example:
 
-- 去掉背景里一个路人
-- 把空白桌面补满
-- 把某个小区域替换成别的东西
+- remove a passerby in the background
+- fill in an empty tabletop
+- replace a small region with something else
 
-### 4.2 一个任务示意
+### 4.2 A Task Example
 
 ```python
 inpainting_task = {
     "image": "scene.png",
     "mask": "mask.png",
-    "prompt": "把被遮住区域补成一张木桌"
+    "prompt": "Fill the masked area with a wooden table"
 }
 
 print(inpainting_task)
 ```
 
-这里最关键的新元素是：
+The key new element here is:
 
 - `mask`
 
-也就是说，模型不仅要知道“生成什么”，还要知道“改哪里”。
+In other words, the model not only needs to know “what to generate,” but also “where to change it.”
 
 ---
 
-## 五、第四类：风格控制和条件控制
+## 5. Fourth Type: Style Control and Conditional Control
 
-很多时候用户真正想控制的不是“画什么”，而是：
+Often, what users really want to control is not “what to draw,” but:
 
-- 画成什么风格
-- 保持什么构图
-- 使用什么线稿
-- 沿用什么姿态
+- what style to draw it in
+- what composition to keep
+- what line art to follow
+- what pose to preserve
 
-这就让很多“控制式生成”工作流变得很重要。
+This makes many “control-based generation” workflows very important.
 
-例如：
+For example:
 
-- 线稿 -> 成图
-- 姿态图 -> 人物
-- 深度图 -> 场景
+- line art -> finished image
+- pose map -> character
+- depth map -> scene
 
-所以真实应用中，用户输入常常不止一个 prompt，而是一组条件。
+So in real applications, the user input is often not just one prompt, but a set of conditions.
 
-### 5.1 一个很适合初学者先记的选择表
+### 5.1 A Selection Table That Is Good for Beginners to Remember
 
-| 用户需求 | 更适合哪种形态 |
+| User need | More suitable mode |
 |---|---|
-| 从零做一张海报 | 文生图 |
-| 已有草图，想变精美 | 图生图 |
-| 只想改掉局部元素 | 局部修复 |
-| 想固定姿态、构图或结构 | 条件控制 |
+| Make a poster from scratch | Text-to-image |
+| Turn an existing sketch into a polished image | Image-to-image |
+| Only change a local element | Inpainting |
+| Keep pose, composition, or structure fixed | Conditional control |
 
-这个表很适合新人，因为它能帮助你把“功能名”直接翻译成“什么时候该用它”。
-
----
-
-## 六、为什么真实 SD 应用通常不是“一个模型 + 一个 prompt”？
-
-因为一旦产品化，你通常还会加很多层：
-
-- prompt 模板
-- 风格预设
-- negative prompt
-- 批量生成
-- 候选筛选
-- 后处理
-
-这时系统更像：
-
-> **模型 + 参数面板 + 工作流。**
-
-这也是为什么很多 AI 绘图产品最终看起来像一个创作工作台，而不是单一生成按钮。
+This table is especially useful for beginners, because it helps you translate a “feature name” directly into “when should I use it?”
 
 ---
 
-## 七、一个工作流产品示意
+## 6. Why Are Real SD Applications Usually Not Just “One Model + One Prompt”?
+
+Because once you productize it, you usually add many more layers:
+
+- prompt templates
+- style presets
+- negative prompts
+- batch generation
+- candidate filtering
+- post-processing
+
+At that point, the system becomes more like:
+
+> **model + parameter panel + workflow.**
+
+That is why many AI image generation products eventually look like a creative workbench, rather than a single generation button.
+
+---
+
+## 7. An Example of a Workflow Product
 
 ```python
 poster_workflow = {
-    "task": "海报生成",
+    "task": "poster generation",
     "inputs": {
-        "prompt": "科技会议海报，蓝色霓虹风格",
+        "prompt": "Tech conference poster, blue neon style",
         "style_preset": "futuristic",
-        "negative_prompt": "模糊, 低清晰度, 畸形文字",
+        "negative_prompt": "blurry, low resolution, distorted text",
         "num_images": 4
     },
     "steps": [
-        "构造提示词",
-        "批量采样",
-        "筛选候选图",
-        "后处理"
+        "Construct the prompt",
+        "Batch sampling",
+        "Filter candidate images",
+        "Post-process"
     ]
 }
 
 print(poster_workflow)
 ```
 
-这个例子最重要的意义是：
+The most important meaning of this example is:
 
-> 应用层真正关心的通常不是“只生成一张图”，而是“怎样稳定地产出一个用户可接受的结果”。 
+> At the application layer, what usually matters is not “generate one image,” but “how do we reliably produce a result the user can accept?”
 
-### 7.1 再看一个最小“工作流选择器”示例
+### 7.1 Another Minimal “Workflow Selector” Example
 
 ```python
 def choose_sd_mode(request):
-    if "改图" in request or "修图" in request:
+    if "edit image" in request or "retouch" in request:
         return "inpainting_or_img2img"
-    if "草图" in request:
+    if "sketch" in request:
         return "img2img"
-    if "姿态" in request or "线稿" in request:
+    if "pose" in request or "line art" in request:
         return "controlled_generation"
     return "text_to_image"
 
 
-for request in ["做一张海报", "把这张草图变成插画", "改图：去掉右上角的人"]:
+for request in ["Make a poster", "Turn this sketch into an illustration", "Edit image: remove the person in the upper right corner"]:
     print(request, "->", choose_sd_mode(request))
 ```
 
-这个示例很适合初学者，因为它会提醒你：
+This example is very suitable for beginners, because it reminds you that:
 
-- 产品层先要判断用户处于哪一种创作模式
-- 再决定后面的参数和流程
-
----
-
-## 八、为什么应用里经常要批量生成？
-
-因为图像生成天然有随机性。  
-同一个 prompt：
-
-- 可能这次很好
-- 下次一般
-- 再下次偏题
-
-所以很多应用不会只生成 1 张，而会：
-
-- 一次生成多张
-- 再让用户选
-
-这就是产品层面对模型随机性的应对方式。
+- the product layer first needs to determine which creative mode the user is in
+- then it decides the parameters and process that follow
 
 ---
 
-## 九、Stable Diffusion 应用最常见的失败点
+## 8. Why Do Applications Often Need Batch Generation?
 
-### 9.1 文本控制不够稳定
+Because image generation is naturally stochastic.
+With the same prompt:
 
-用户描述越复杂，结果越容易偏。
+- this time may be great
+- next time may be average
+- the time after that may go off-topic
 
-### 9.2 局部细节难控制
+So many applications do not generate only one image. Instead, they:
 
-尤其是：
+- generate multiple images at once
+- let the user choose
 
-- 文字
-- 手部
-- 精细结构
+This is the product-level way of dealing with the randomness of the model.
 
-### 9.3 用户真正的问题往往不是“生成”，而是“编辑”
+---
 
-这也是为什么很多产品后面越来越强调：
+## 9. The Most Common Failure Points in Stable Diffusion Applications
+
+### 9.1 Text Control Is Not Stable Enough
+
+The more complex the user description is, the easier it is for the result to drift.
+
+### 9.2 Local Details Are Hard to Control
+
+Especially:
+
+- text
+- hands
+- fine structures
+
+### 9.3 The User’s Real Problem Is Often Not “Generation,” but “Editing”
+
+This is also why many products increasingly emphasize:
 
 - img2img
 - inpainting
 - control
 
-而不是只强调单次文生图。
+rather than only single-shot text-to-image.
 
-## 如果把它做成项目，最值得展示什么
+## If You Turn This into a Project, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is most worth showing is usually not:
 
-- “我能生成图片”
+- “I can generate images”
 
-而是：
+but:
 
-1. 不同创作需求如何路由到不同工作流
-2. 候选图如何批量生成和筛选
-3. 编辑环节如何接上
-4. 最终结果如何导出
+1. How different creative needs are routed to different workflows
+2. How candidate images are generated in batches and filtered
+3. How the editing stage is connected
+4. How the final result is exported
 
-这样别人会更容易看出：
+This makes it easier for others to see that:
 
-- 你理解的是创作工作台
-- 不只是单次生图按钮
-
----
-
-## 小结
-
-这一节最重要的不是记住几种应用名字，而是理解：
-
-> **Stable Diffusion 的应用价值，在于它能被组织进不同类型的创作工作流，而不只是单次图像生成。**
-
-一旦你从“工作流”视角去看，就更容易理解为什么它能形成这么丰富的产品形态。
+- you understand a creative workbench
+- not just a single image generation button
 
 ---
 
-## 练习
+## Summary
 
-1. 为文生图、图生图、局部修复各设计一个你自己的应用场景。
-2. 想一想：为什么真实 SD 产品通常会支持一次生成多张候选图？
-3. 用自己的话解释：为什么说 SD 产品更像“工作台”，而不是“一个模型按钮”？
-4. 如果你要做电商产品图，你会更需要哪类 SD 应用形态？为什么？
+The most important thing in this section is not memorizing a few application names, but understanding:
+
+> **The value of Stable Diffusion applications lies in how they can be organized into different creative workflows, not just in single-image generation.**
+
+Once you look at it from a workflow perspective, it becomes much easier to understand why it can grow into such a rich set of product forms.
+
+---
+
+## Exercises
+
+1. Design one application scenario of your own for text-to-image, image-to-image, and inpainting.
+2. Think about why real SD products usually support generating multiple candidate images at once.
+3. Explain in your own words why we say SD products are more like a “workbench” than “one model button.”
+4. If you were building an e-commerce product image tool, which type of SD application would you need more? Why?

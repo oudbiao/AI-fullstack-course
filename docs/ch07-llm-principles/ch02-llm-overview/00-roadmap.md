@@ -1,77 +1,77 @@
 ---
-title: "2.1 学前导读：LLM 概览这一章到底在学什么"
+title: "2.1 Pre-Class Guide: What Exactly Will You Learn in the LLM Overview Chapter?"
 sidebar_position: 0
-description: "先建立 LLM 概览章的学习地图：发展历史、核心概念、模型能力、产业格局和后续学习主线怎样拼成第一张大模型地图。"
-keywords: [LLM概览导读, 大模型发展, 大模型概念, GPT, BERT]
+description: "First build a learning map for the LLM overview chapter: how development history, core concepts, model capabilities, the industry landscape, and the main learning line fit together into your first big-model map."
+keywords: [LLM overview guide, large model development, large model concepts, GPT, BERT]
 ---
 
-# 学前导读：LLM 概览这一章到底在学什么
+# Pre-Class Guide: What Exactly Will You Learn in the LLM Overview Chapter?
 
-这一章解决的是：第一次系统接触大模型时，先把地图建立起来。你不需要一上来追所有模型名称，也不需要立刻陷入参数规模、榜单和框架对比，而是要先知道大模型从哪里来、核心概念是什么、能力边界在哪里，以及它为什么会成为 AI 应用开发的新底座。
+This chapter answers one key question: when you first encounter large models in a systematic way, how do you build a map in your mind? You do not need to rush into memorizing every model name, and you do not need to get stuck immediately on parameter scales, leaderboards, or framework comparisons. Instead, you first need to know where large models came from, what the core concepts are, where their capability boundaries lie, and why they have become the new foundation for AI application development.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Overall Course
 
-你已经在前面学过 NLP 速成和 Transformer 基础。到这一章，课程开始把 token、embedding、attention、预训练这些概念放进“大模型时代”的完整图景中。
+You have already learned crash-course NLP and the basics of Transformer in the earlier sections. In this chapter, the course begins to place token, embedding, attention, and pre-training into the full picture of the “large model era.”
 
-这一章不是在讲某一个具体模型，而是在帮你建立一个判断框架：当你看到 GPT、Claude、Gemini、LLaMA、Qwen、DeepSeek 或其他模型时，你知道应该从训练方式、上下文能力、推理能力、工具能力、部署方式和应用生态去理解它，而不是只看名字和参数量。
+This chapter is not about a single specific model. It is here to help you build a framework for judgment: when you see GPT, Claude, Gemini, LLaMA, Qwen, DeepSeek, or any other model, you know to understand it through training method, context capability, reasoning ability, tool use ability, deployment method, and application ecosystem—not just by name or parameter count.
 
-![LLM 概览章节关系图](/img/course/ch07-llm-overview-chapter-flow.png)
+![LLM overview chapter relationship diagram](/img/course/ch07-llm-overview-chapter-flow-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要先解决四个问题：大模型为什么会从传统 NLP 和预训练模型一路发展出来；参数量、上下文窗口、token、embedding、推理、对齐这些词分别放在哪里；开源模型、闭源模型、本地部署和云端 API 有什么差异；大模型应用为什么不只是聊天，而是会继续走向 RAG、工具调用和 Agent。
+This chapter first addresses four questions: why large models evolved from traditional NLP and pre-trained models; where terms like parameter count, context window, token, embedding, reasoning, and alignment fit; what the differences are between open-source models, closed-source models, local deployment, and cloud APIs; and why large-model applications are not just chat, but are moving toward RAG, tool calling, and Agent.
 
-对于新人来说，这一章最重要的不是记住每个模型的发布时间，而是建立“看模型的坐标系”。只有坐标系建立起来，后面学 Prompt、微调、对齐、RAG 和 Agent 时才不会混乱。
+For beginners, the most important thing in this chapter is not memorizing the release date of each model, but building a “coordinate system” for understanding models. Only after that coordinate system is in place will later topics like Prompt, fine-tuning, alignment, RAG, and Agent make sense instead of feeling chaotic.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先看发展历史，理解大模型不是突然出现的，而是从统计 NLP、词向量、Transformer、预训练、指令微调和人类反馈对齐一步步演进出来的。然后看核心概念，把参数、token、上下文、embedding、推理、幻觉、对齐这些词放到正确位置。最后看产业格局，理解开源/闭源、云端/本地、通用/垂直模型之间的取舍。
+It is recommended that you first look at the development history and understand that large models did not appear out of nowhere—they evolved step by step from statistical NLP, word embeddings, Transformer, pre-training, instruction fine-tuning, and human-feedback alignment. Then study the core concepts and place terms like parameters, token, context, embedding, reasoning, hallucination, and alignment in the right positions. Finally, look at the industry landscape to understand the trade-offs among open-source vs. closed-source, cloud vs. local, and general-purpose vs. vertical-domain models.
 
-![大模型能力栈与应用生态图](/img/course/ch07-llm-capability-stack.png)
+![Large model capability stack and application ecosystem diagram](/img/course/ch07-llm-capability-stack-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Grasp When Studying This Chapter
 
-这一章的主线可以概括为：大模型是把大规模数据、Transformer 结构、预训练目标、指令对齐和应用接口组合起来形成的新型能力底座。
+The main thread of this chapter can be summarized as follows: large models are a new capability foundation formed by combining large-scale data, Transformer architecture, pre-training objectives, instruction alignment, and application interfaces.
 
-这条线能帮助你分清“模型本身的能力”和“应用系统补上的能力”。例如，模型参数里有一部分通用知识，但最新企业文档通常需要 RAG；模型可以生成文本，但可靠执行任务通常需要工具调用和状态管理；模型会回答问题，但生产系统还需要评估、监控、权限和成本控制。
+This thread helps you distinguish between “the model’s own capabilities” and “the capabilities that an application system adds.” For example, a model may contain some general knowledge in its parameters, but the latest enterprise documents usually require RAG; a model can generate text, but reliably executing tasks usually requires tool calling and state management; a model can answer questions, but a production system still needs evaluation, monitoring, permissions, and cost control.
 
-## 这一章和后面章节的关系
+## The Relationship Between This Chapter and Later Chapters
 
-这一章是第八 A 阶段的地图页。后面的 Transformer 深入会解释底层结构，预训练章节会解释能力从哪里来，Prompt 章节会解释怎样更好地调用能力，微调章节会解释怎样改变模型行为，对齐章节会解释为什么模型需要更符合人类意图。
+This chapter is the map page for Stage 8A. The later Transformer deep dive will explain the underlying structure, the pre-training chapter will explain where capabilities come from, the Prompt chapter will explain how to call those capabilities more effectively, the fine-tuning chapter will explain how to change model behavior, and the alignment chapter will explain why models need to better match human intent.
 
-如果这一章没学稳，后面容易出现的问题是：把 Prompt、微调、RAG、Agent 都当成“让模型变强”的同一类东西；只看模型榜单，不知道自己的应用到底需要知识更新、格式稳定、推理能力还是工具执行；过早纠结开源闭源，却没有先定义场景需求。
+If you do not learn this chapter well, the problems that often show up later are: treating Prompt, fine-tuning, RAG, and Agent as if they were all the same kind of thing that “makes the model stronger”; looking only at model leaderboards without knowing whether your application really needs knowledge updates, output-format stability, reasoning ability, or tool execution; or worrying too early about open-source vs. closed-source without first defining the needs of the scenario.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+More experienced learners can use this chapter as a checkup and an engineering practice: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the sections before and after it. After reading, it is best to turn what you learned into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study method | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick scan | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and finish the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly say what the example needs as input and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
+| What can you leave behind after learning it? | You can write this chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议做一张“模型选择小卡片”。选择三个你常听到的大模型，从模型类型、调用方式、上下文长度、适合场景、限制和成本角度做对比。这个小项目不追求绝对完整，而是训练你用统一坐标系看模型。
+After finishing this chapter, it is recommended that you create a “model selection cheat sheet.” Choose three large models you often hear about and compare them from the perspectives of model type, calling method, context length, suitable scenarios, limitations, and cost. This small project is not about being perfectly complete; it is about training yourself to view models through a unified coordinate system.
 
-你也可以写一个最小 LLM API 调用示例，记录输入 prompt、输出结果、token 或成本信息，并说明这个调用只是“大模型应用系统”的模型层，而不是完整产品。
+You can also write a minimal LLM API call example, record the input prompt, output result, token or cost information, and explain that this call is only the model layer of a “large model application system,” not a complete product.
 
-## 过关标准
+## Completion Criteria
 
-这一章结束时，你应该能说清楚 LLM 和传统 NLP 模型的差异，能解释 token、上下文窗口、参数量、预训练、指令微调和对齐的大致含义，能区分开源模型、闭源模型、本地部署和云端 API 的基本取舍。
+By the end of this chapter, you should be able to explain the difference between LLM and traditional NLP models, describe the basic meanings of token, context window, parameter count, pre-training, instruction fine-tuning, and alignment, and distinguish the basic trade-offs among open-source models, closed-source models, local deployment, and cloud APIs.
 
-如果你还能判断一个问题更适合用 Prompt、微调、RAG 还是 Agent 去解决，说明你已经开始建立大模型应用的系统视角。
+If you can also judge whether a problem is better solved with Prompt, fine-tuning, RAG, or Agent, that means you have already begun to build a systems view of large-model applications.

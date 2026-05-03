@@ -1,359 +1,355 @@
 ---
-title: "5.3 高级 Prompt 技巧"
+title: "5.3 Advanced Prompt Techniques"
 sidebar_position: 16
-description: "从 few-shot、角色设定、分步约束到自检，理解哪些 Prompt 技巧真的能提升稳定性，哪些只是看起来更花。"
+description: "From few-shot, role setting, and step-by-step constraints to self-checking, understand which Prompt techniques really improve stability and which only look fancier."
 keywords: [few-shot, role prompting, constraints, self-check, advanced prompting]
 ---
 
-# 高级 Prompt 技巧
+# Advanced Prompt Techniques
 
-:::tip 本节定位
-当你已经知道 Prompt 基础后，接下来更自然的问题就是：
+:::tip Section focus
+Once you already understand the basics of Prompt, the next natural question is:
 
-> **还有哪些方式能让模型更稳、更接近我想要的结果？**
+> **What other ways can make the model more stable and closer to the result I want?**
 
-这就是“高级 Prompt 技巧”的位置。  
-但注意，这里的“高级”不等于“更花哨”，而是：
+That is where “advanced Prompt techniques” come in.
+But note: here, “advanced” does not mean “more flashy”; it means:
 
-> **更适合问题。**
+> **More suitable for the task.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 few-shot、角色设定、分步约束这些技巧分别在解决什么问题
-- 学会判断什么时候值得加技巧，什么时候反而会把 Prompt 写乱
-- 建立 Prompt 调优要靠实验而不是靠感觉的意识
-- 看懂几类常见高级技巧的真实作用边界
+- Understand what problems few-shot, role setting, and step-by-step constraints each help solve
+- Learn when it is worth adding techniques, and when it actually makes the Prompt messy
+- Build the awareness that Prompt tuning should rely on experiments, not just intuition
+- Understand the real boundaries of several common advanced techniques
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-高级 Prompt 技巧最适合新人的理解方式不是“看到什么招都往上堆”，而是先看清：
+The best way for beginners to understand advanced Prompt techniques is not to “stack every trick you see,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["基础 Prompt 还不够稳"] --> B["Few-shot"]
-    A --> C["角色设定"]
-    A --> D["分步约束"]
-    A --> E["自检"]
+    A["The basic Prompt is not stable enough"] --> B["Few-shot"]
+    A --> C["Role setting"]
+    A --> D["Step-by-step constraints"]
+    A --> E["Self-check"]
 ```
 
-这节真正想解决的是：
+What this section really wants to solve is:
 
-- 哪些技巧分别在补哪类问题
-- 什么时候该加，什么时候反而会让 Prompt 变乱
+- Which techniques address which kinds of problems
+- When you should add them, and when they will make the Prompt messy
 
-### 一个更适合新人的总类比
+### A better analogy for beginners
 
-你可以把高级 Prompt 技巧理解成：
+You can think of advanced Prompt techniques as:
 
-- 给任务说明书继续加护栏和示范
+- Adding guardrails and examples to the task instructions
 
-基础 Prompt 像是：
+A basic Prompt is like:
 
-- 把任务说清楚
+- Stating the task clearly
 
-高级 Prompt 更像是：
+An advanced Prompt is more like:
 
-- 再补几个例子
-- 再说明输出长什么样
-- 再提醒模型先检查有没有漏条件
+- Adding a few examples
+- Clarifying what the output should look like
+- Reminding the model to check whether any conditions were missed
 
-所以“高级”不代表更玄，而是：
+So “advanced” does not mean mysterious; it means:
 
-- 更适合处理更容易跑偏的任务
+- Better suited for tasks that are more likely to go off track
 
-## 一、为什么会需要“高级” Prompt？
+## 1. Why do we need “advanced” Prompts?
 
-因为有些任务仅靠一句简单指令不够稳。
+Because for some tasks, a simple one-line instruction is not stable enough.
 
-例如：
+For example:
 
-- 标签边界模糊
-- 输出格式要求严格
-- 任务有多阶段逻辑
-- 模型容易漏条件
+- The boundary between labels is blurry
+- The output format must be strict
+- The task has multi-stage logic
+- The model tends to miss conditions
 
-这时就需要更细的引导。
+At times like these, you need more detailed guidance.
 
-但最重要的原则仍然是：
+But the most important principle is still:
 
-> **不是技巧越多越好，而是越匹配任务越好。**
+> **It is not better to add more techniques; it is better to match the task more closely.**
 
 ---
 
-## 二、Few-shot：为什么“给例子”这么有用？
+## 2. Few-shot: Why is “giving examples” so useful?
 
-### 2.1 它最适合哪些问题？
+### 2.1 What problems is it best for?
 
-当任务很难只靠一句定义讲清楚时，few-shot 特别有价值。
+When a task is hard to explain clearly with just one definition, few-shot is especially valuable.
 
-例如：
+For example:
 
 - `fact` vs `opinion`
-- 信息抽取字段样式
-- 某种固定回复风格
+- The format of information extraction fields
+- A fixed reply style
 
-### 2.2 一个最小 few-shot 示例
+### 2.2 A minimal few-shot example
 
 ```python
 few_shot_examples = [
-    {"input": "北京是中国的首都。", "output": "fact"},
-    {"input": "这门课非常有趣。", "output": "opinion"}
+    {"input": "Beijing is the capital of China.", "output": "fact"},
+    {"input": "This course is very interesting.", "output": "opinion"}
 ]
 
 for ex in few_shot_examples:
     print(ex)
 ```
 
-### 2.3 它真正的作用是什么？
+### 2.3 What does it really do?
 
-不是“多写几行字”，而是：
+It is not just “writing a few more lines,” but:
 
-> **把抽象规则变成可以模仿的示范。**
+> **Turning abstract rules into examples the model can imitate.**
 
-这在很多边界模糊任务里比单纯定义更稳。
+For many fuzzy boundary tasks, this is more stable than a plain definition.
 
-### 2.4 一个很适合初学者先记的判断表
+### 2.4 A simple table for beginners to remember
 
-| 任务现象 | 更值得优先试哪种技巧 |
+| Task phenomenon | Technique to try first |
 |---|---|
-| 标签边界很模糊 | few-shot |
-| 输出风格总不一致 | 角色设定或风格约束 |
-| 任务有明显多步骤 | 分步约束 |
-| 总漏条件或格式出错 | 自检 |
+| The label boundary is very blurry | few-shot |
+| The output style is always inconsistent | role setting or style constraints |
+| The task clearly has multiple steps | step-by-step constraints |
+| Conditions or format are often missed | self-check |
 
-这个表很适合新人，因为它会把“技巧列表”重新变成：
+This table is very beginner-friendly because it turns a “list of techniques” back into:
 
-- 出现什么问题时，我先补哪一层
+- What should I add first when a certain problem appears?
 
-![高级 Prompt 技巧选择图](/img/course/ch07-advanced-prompt-technique-decision-map.png)
+![Advanced Prompt technique decision map](/img/course/ch07-advanced-prompt-technique-decision-map-en.png)
 
-:::tip 读图提示
-读这张图时不要把技巧往上堆，而是先看问题类型：标签边界模糊再加 few-shot，格式不稳再加结构约束，步骤复杂再显式拆步骤，总漏条件再加自检。高级 Prompt 的核心是匹配问题，不是写得更花。
+:::tip Reading guide
+When you read this diagram, do not stack techniques blindly. First identify the problem type: if the label boundary is blurry, add few-shot; if the format is unstable, add structural constraints; if the steps are complex, split them explicitly; if conditions are often missed, add self-check. The core of advanced Prompting is matching the problem, not making the Prompt look fancier.
 :::
 
 ---
 
-## 三、角色设定什么时候有帮助？
+## 3. When is role setting helpful?
 
-很多 Prompt 会写：
+Many Prompts say things like:
 
-- 你是一个资深老师
-- 你是一个法律助手
-- 你是一个代码 reviewer
+- You are a senior teacher
+- You are a legal assistant
+- You are a code reviewer
 
-### 3.1 它什么时候真的能带来收益？
+### 3.1 When does it really help?
 
-当你希望模型：
+Role setting is useful when you want the model to:
 
-- 采用某种风格
-- 进入某种工作模式
-- 维持某种角色边界
+- Adopt a certain style
+- Enter a certain working mode
+- Maintain certain role boundaries
 
-时，角色设定会很有帮助。
+### 3.2 But role setting is not magic
 
-### 3.2 但角色设定不是魔法
+If the task itself is unclear, just saying:
 
-如果任务本身不清楚，只写一句：
+- You are the world’s top expert
 
-- 你是世界顶级专家
+usually will not automatically make the result more stable.
 
-通常不会自动让结果变稳。
+So an important judgment is:
 
-所以一个很重要的判断是：
+> Role setting is an auxiliary layer, not a replacement for task definition.
 
-> 角色设定是辅助层，不是替代任务定义层。 
-
-### 3.3 一个最小“角色不会替代任务定义”的对比例子
+### 3.3 A minimal contrast example showing that role setting cannot replace task definition
 
 ```python
-bad_prompt = "你是世界顶级专家，请帮我处理一下这段内容。"
-better_prompt = "你是一位课程助教。请把下面文本总结成 3 条中文要点，每条不超过 20 个字。"
+bad_prompt = "You are the world's top expert. Please help me handle this content."
+better_prompt = "You are a course assistant. Please summarize the text below into 3 Chinese key points, each no more than 20 characters."
 
 print("bad_prompt   =", bad_prompt)
 print("better_prompt=", better_prompt)
 ```
 
-这个例子很适合初学者，因为它会提醒你：
+This example is very suitable for beginners because it reminds you that:
 
-- 角色设定不是魔法增益
-- 真正稳不稳，还是看任务规格有没有说清楚
+- Role setting is not a magical boost
+- Whether the result is stable still depends on whether the task specification is clear
 
 ---
 
-## 四、分步约束为什么经常更稳？
+## 4. Why are step-by-step constraints often more stable?
 
-### 4.1 因为很多任务天然有多阶段
+### 4.1 Because many tasks are naturally multi-stage
 
-例如：
+For example:
 
-1. 先找事实
-2. 再做判断
-3. 最后结构化输出
+1. First find the facts
+2. Then make a judgment
+3. Finally output a structured result
 
-如果你把这几步全揉成一句话，模型更容易乱。
+If you squeeze all these steps into one sentence, the model is more likely to get confused.
 
-### 4.2 一个示意
+### 4.2 A quick illustration
 
 ```text
-请按以下步骤完成任务：
-1. 先找出文本里的关键事实
-2. 再判断其情感倾向
-3. 最后输出 JSON
+Please complete the task according to the following steps:
+1. First identify the key facts in the text
+2. Then determine its sentiment
+3. Finally output JSON
 ```
 
-这种写法的核心价值在于：
+The core value of this kind of writing is:
 
-> 把任务内部结构显式写出来。 
+> Make the internal structure of the task explicit.
 
 ---
 
-## 五、自检（self-check）为什么会出现？
+## 5. Why does self-check appear?
 
-### 5.1 什么时候它特别有意义？
+### 5.1 When is it especially meaningful?
 
-当你最担心模型：
+When you are most worried that the model will:
 
-- 漏掉条件
-- 格式出错
-- 输出和约束不一致
+- Miss conditions
+- Make format errors
+- Produce output that is inconsistent with the constraints
 
-时，可以让它在输出前再做一层自检。
+you can ask it to perform one more round of self-check before outputting the final answer.
 
-### 5.2 一个最小示意
+### 5.2 A minimal example
 
 ```text
-在输出最终答案前，请检查：
-1. 是否遗漏了关键信息
-2. 是否满足输出格式要求
-3. 是否包含了原文中不存在的事实
+Before outputting the final answer, please check:
+1. Whether any key information is missing
+2. Whether the output format requirements are satisfied
+3. Whether any facts not present in the original text have been included
 ```
 
-### 5.3 这类技巧的边界
+### 5.3 The boundaries of this technique
 
-它可能有帮助，但不是万能药。  
-它更适合：
+It may help, but it is not a cure-all.
+It is more suitable for scenarios that are:
 
-- 格式敏感
-- 漏信息敏感
-
-的场景。
+- Sensitive to format
+- Sensitive to missing information
 
 ---
 
-## 六、为什么高级技巧不能乱叠？
+## 6. Why can’t advanced techniques be stacked randomly?
 
-因为每多加一层技巧，也在增加：
+Because every extra technique also increases:
 
-- Prompt 长度
-- 复杂度
-- 调试难度
+- Prompt length
+- Complexity
+- Debugging difficulty
 
-所以更成熟的做法通常不是：
+So a more mature approach is usually not:
 
-- 什么都加
+- Add everything
 
-而是：
+but rather:
 
-- 先明确问题，再加最需要的那一层
+- First clarify the problem, then add the one layer that is most needed
 
-这是一个非常重要的 Prompt 工程习惯。
+This is a very important Prompt engineering habit.
 
-### 6.1 再看一个最小“逐层加技巧”的实验表
+### 6.1 Another minimal “layered technique” experiment table
 
-| 版本 | 改了什么 | 你最该观察什么 |
+| Version | What changed | What you should observe most |
 |---|---|---|
-| v1 | 只有任务目标 | 输出是否跑偏 |
-| v2 | + 输出格式 | 格式是否更稳 |
-| v3 | + few-shot | 边界任务是否更稳 |
-| v4 | + 自检 | 是否更少漏条件 |
+| v1 | Only the task goal | Whether the output goes off track |
+| v2 | + output format | Whether the format becomes more stable |
+| v3 | + few-shot | Whether boundary tasks become more stable |
+| v4 | + self-check | Whether fewer conditions are missed |
 
-这个表很适合新人，因为它能把 Prompt 调优重新变成：
+This table is very beginner-friendly because it can turn Prompt tuning back into:
 
-- 一个能做对照实验的过程
-
----
-
-## 七、一个更稳的 Prompt 调优顺序
-
-比起“看到一个技巧就往上堆”，更推荐：
-
-1. 先把任务目标写清楚
-2. 再把输出格式写清楚
-3. 如果还不稳，再补示例
-4. 如果还是不稳，再加分步约束或自检
-
-这样你更容易判断：
-
-- 哪一层改动真的带来了收益
-
-## 第一次做 Prompt 调优时最稳的策略
-
-建议你每次只新增一层技巧，例如：
-
-1. 先改输出格式
-2. 再补 1~2 个 few-shot
-3. 再考虑加分步约束
-
-不要一次把角色、示例、自检、格式全叠上去，否则很难知道到底哪一层在起作用。
+- A process you can test with controlled comparisons
 
 ---
 
-## 八、最常见的误区
+## 7. A more stable Prompt tuning order
 
-### 8.1 觉得 Prompt 越长越高级
+Rather than “stacking every technique you see,” a better approach is:
 
-长但乱的 Prompt 往往更糟。
+1. First write the task goal clearly
+2. Then write the output format clearly
+3. If it is still unstable, add examples
+4. If it is still unstable, add step-by-step constraints or self-check
 
-### 8.2 什么技巧都叠进去
+This way, it is easier to judge:
 
-这会让你很难知道究竟哪一层在起作用。
+- Which layer of change actually brought value
 
-### 8.3 只凭感觉调，不做小实验
+## The safest strategy when tuning Prompt for the first time
 
-## 九、核心提醒
+It is recommended that each time you only add one new layer of technique, for example:
 
-- 高级 Prompt 不是“更花”，而是“更贴问题”
-- few-shot、角色设定、分步约束和自检各有边界
-- 最稳的调优方式仍然是逐层实验，而不是一次乱叠
+1. First improve the output format
+2. Then add 1–2 few-shot examples
+3. Then consider adding step-by-step constraints
 
-Prompt 调优本质上也应该是实验过程。
-
-## 如果把它做成笔记或项目，最值得展示什么
-
-最值得展示的通常不是：
-
-- 一长串看起来很复杂的 Prompt
-
-而是：
-
-1. 原始 Prompt
-2. 你新增了哪一层技巧
-3. 输出因此稳定了什么
-4. 哪些技巧其实没有明显帮助
-
-这样别人会更容易看出：
-
-- 你理解的是 Prompt 调优方法
-- 不只是会堆技巧名词
+Do not stack role setting, examples, self-check, and format all at once, or it will be very hard to know which layer is actually working.
 
 ---
 
-## 小结
+## 8. The most common misconceptions
 
-这一节最重要的不是背几个技巧名字，而是理解：
+### 8.1 Thinking the longer the Prompt, the more advanced it is
 
-> **高级 Prompt 技巧真正有价值的地方，在于它们能帮助你把任务定义、示范、约束和校验做得更稳定。**
+A long but messy Prompt is often worse.
 
-而不是让 Prompt “看起来更高级”。
+### 8.2 Stacking every technique
+
+This makes it very hard to know which layer is doing the work.
+
+### 8.3 Tuning only by feeling, without small experiments
+
+## 9. Key reminders
+
+- Advanced Prompt is not about being “fancier,” but about being “better matched to the problem”
+- Few-shot, role setting, step-by-step constraints, and self-check all have their own boundaries
+- The most stable tuning method is still layered experimentation, not stacking everything at once
+
+Prompt tuning should, in essence, also be an experimental process.
+
+## If you turn this into notes or a project, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- A long Prompt that looks very complex
+
+but instead:
+
+1. The original Prompt
+2. Which technique layer you added
+3. What became more stable as a result
+4. Which techniques did not actually help much
+
+This makes it easier for others to see:
+
+- That you understand Prompt tuning methods
+- Not just how to pile up technique names
 
 ---
 
-## 练习
+## Summary
 
-1. 为一个情感分类任务写出一个包含 few-shot 的 Prompt。
-2. 想一想：角色设定和任务目标哪一个更基础？为什么？
-3. 用自己的话解释：为什么“分步约束”常常比一句模糊大指令更稳？
-4. 为什么说高级 Prompt 技巧真正重要的不是复杂，而是适配？
+The most important thing in this section is not memorizing a few technique names, but understanding:
+
+> **The real value of advanced Prompt techniques is that they help you make task definition, examples, constraints, and verification more stable.**
+
+Not to make the Prompt “look more advanced.”
+
+---
+
+## Exercises
+
+1. Write a Prompt for a sentiment classification task that includes few-shot examples.
+2. Think about it: which is more fundamental, role setting or task goals? Why?
+3. Explain in your own words: why are “step-by-step constraints” often more stable than one vague big instruction?
+4. Why do we say the real importance of advanced Prompt techniques is not complexity, but fit?

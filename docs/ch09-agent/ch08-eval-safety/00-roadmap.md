@@ -1,101 +1,101 @@
 ---
-title: "8.1 学前导读：评估与安全这一章到底在学什么"
+title: "8.1 Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter"
 sidebar_position: 0
-description: "先建立 Agent 评估与安全章的学习地图：任务评估、过程评估、安全护栏、可观测性和风险治理怎样共同决定系统是否可控。"
-keywords: [Agent评估导读, Agent安全导读, Guardrails, 可观测性, Agent风险]
+description: "Build a learning map for the Agent Evaluation and Safety chapter: how task evaluation, process evaluation, guardrails, observability, and risk governance work together to determine whether a system is controllable."
+keywords: [Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability, Agent Risk]
 ---
 
-# 学前导读：评估与安全这一章到底在学什么
+# Pre-study Guide: What Are Evaluation and Safety Really About in This Chapter
 
-这一章解决的是：Agent 不只是要能跑，还要知道跑得好不好、安不安全、出了问题能不能看见。
+This chapter is about this: an Agent should not only be able to run, but also let you know whether it is running well, whether it is safe, and whether problems can be seen when they happen.
 
-很多 Agent Demo 只展示成功路径：输入一个目标，系统调用工具，最后输出一个看起来不错的结果。但真实系统里，更重要的问题是：它为什么这么做，过程是否可靠，工具调用是否越权，答案是否可验证，失败时能不能追踪，成本是否可控，用户是否能理解和干预。
+Many Agent demos only show the success path: give the system a goal, it calls tools, and then it outputs something that looks good. But in real systems, the more important questions are: Why did it do that? Was the process reliable? Did it exceed tool permissions? Can the answer be verified? Can failures be traced? Is the cost under control? Can users understand and intervene?
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-你已经学过 Agent 的目标、规划、工具、记忆、MCP 和多 Agent。到评估与安全这一章，课程开始从“能实现”转向“能信任”。
+You have already learned about Agent goals, planning, tools, memory, MCP, and multi-Agent systems. In the evaluation and safety chapter, the course starts shifting from “can be built” to “can be trusted.”
 
-Agent 的风险比普通聊天系统更高，因为它不仅会生成内容，还可能调用工具、读取数据、修改文件、执行代码或触发外部流程。因此评估与安全不能放到最后随便补，而要成为 Agent 系统设计的一部分。
+The risks of an Agent are higher than those of a normal chat system because it not only generates content, but may also call tools, read data, modify files, execute code, or trigger external workflows. That is why evaluation and safety should not be added at the end as an afterthought; they must be part of the Agent system design.
 
-![Agent 护栏分层图](/img/course/agent-guardrails-layers.png)
+![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-en.png)
 
-前半段先识别 Agent 的任务风险、失败模式和评估维度，后半段再设计测试集、安全边界、人工接管和上线检查。
+The first half of the chapter identifies task risks, failure modes, and evaluation dimensions. The second half designs test sets, safety boundaries, human handoff, and launch checks.
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：怎样判断 Agent 是否完成了任务；除了最终答案，还应该如何评估规划、工具调用和中间观察；基准测试和自定义评估集各自有什么作用；Guardrails、权限控制、输入输出校验和人工确认怎样降低风险；日志、轨迹、成本和错误信息如何帮助调试和运维。
+This chapter answers five questions: How do we tell whether an Agent completed the task? Besides the final answer, how should we evaluate planning, tool calls, and intermediate observations? What are benchmarks good for, and what are custom evaluation sets good for? How do Guardrails, access control, input/output validation, and human confirmation reduce risk? And how do logs, traces, costs, and error messages help with debugging and operations?
 
-新人最容易忽略的是：Agent 的错误不一定出现在最终答案里。它可能在任务理解时就偏了，在工具选择时选错，在参数构造时传错，在观察结果总结时漏掉关键事实，最后输出看起来却很顺。这就是为什么 Agent 评估必须看过程。
+What beginners most often miss is this: an Agent’s mistake may not appear in the final answer. It may go off track when understanding the task, choose the wrong tool, pass the wrong parameters, miss key facts when summarizing observations, and still produce something that looks smooth. That is why Agent evaluation must look at the process.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学评估方法，分清结果评估、过程评估、人工评估和自动评估。然后看 benchmarks，知道公开基准能提供参考，但真实项目还需要自己的任务集。接着学安全与对齐，理解越权、提示注入、工具误用、数据泄露和幻觉的风险。再学 Guardrails，掌握输入过滤、输出校验、权限边界和人工确认。最后学可观测性，把日志、调用轨迹、错误、延迟和成本记录下来。
+It is recommended to start with evaluation methods and distinguish result evaluation, process evaluation, human evaluation, and automated evaluation. Then look at benchmarks to understand that public benchmarks can provide references, but real projects still need their own task sets. Next, learn safety and alignment to understand the risks of privilege escalation, prompt injection, tool misuse, data leakage, and hallucination. Then learn Guardrails to master input filtering, output validation, permission boundaries, and human confirmation. Finally, learn observability to record logs, call traces, errors, latency, and cost.
 
-![Agent 评估安全章节学习顺序图](/img/course/ch09-eval-safety-chapter-flow.png)
+![Agent evaluation and safety chapter learning flow](/img/course/ch09-eval-safety-chapter-flow-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：评估让你知道系统是否有效，安全让你控制系统能做什么，可观测性让你知道问题发生在哪里。
+The main thread of this chapter can be summarized as: evaluation tells you whether the system is effective, safety tells you what the system is allowed to do, and observability tells you where problems happen.
 
-![Agent 风险排障闭环图](/img/course/ch09-agent-risk-debug-loop.png)
+![Agent risk debugging closed loop diagram](/img/course/ch09-agent-risk-debug-loop-en.png)
 
-前半段先识别 Agent 的任务风险、失败模式和评估维度，后半段再设计测试集、安全边界、人工接管和上线检查。
+The first half of the chapter identifies task risks, failure modes, and evaluation dimensions. The second half designs test sets, safety boundaries, human handoff, and launch checks.
 
-看懂这条线后，你会知道评估不是上线前的一次打分，而是持续迭代机制。每次失败都应该能被归因：是模型理解错、计划错、工具错、权限错、资料错，还是最终表达错。
+Once you understand this thread, you will know that evaluation is not a one-time score before launch, but a continuous iteration mechanism. Every failure should be traceable to a cause: was it a misunderstanding by the model, a planning mistake, a tool error, a permission issue, a data issue, or a problem in the final response?
 
-## 这一章和后面章节的关系
+## Relationship to Later Chapters
 
-评估与安全是部署运维的前提。没有评估，你不知道系统是否值得上线；没有安全边界，Agent 调用工具会带来不可控风险；没有可观测性，上线后出现问题也无法定位。后面的部署章节会进一步把这些要求落到架构、日志、恢复、成本和生产实践里。
+Evaluation and safety are prerequisites for deployment and operations. Without evaluation, you do not know whether the system is worth launching. Without safety boundaries, Agent tool calls can create uncontrollable risks. Without observability, you cannot locate problems after launch. The later deployment chapters will further turn these requirements into architecture, logs, recovery, cost, and production practices.
 
-如果这一章没学稳，后面常见的问题是：Demo 看起来成功但没有可复现评估；工具权限过大；用户输入可以诱导系统泄露或误操作；出了问题只能看最终答案，找不到中间失败点；成本和延迟失控却没有记录。
+If this chapter is not learned well, common problems later will be: demos that look successful but have no reproducible evaluation; overly broad tool permissions; user input that can trick the system into leaking information or making mistakes; only the final answer being visible when something goes wrong, with no way to find the intermediate failure point; and cost and latency getting out of control with no records.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read It
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering: focus on edge cases, failure cases, evaluation methods, code reproducibility, and the connection between the earlier and later stages. After reading it, it is best to turn the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick read | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimal example and finish the chapter’s small project exit |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly state what the example needs as input and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
+| What can be retained after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Project Exit
 
-学完这一章后，建议给前面做过的研究助手或学习助手 Agent 加一套评估与安全层。准备 10 到 20 个测试任务，记录每次执行的计划、工具调用、观察结果、最终输出和人工评分，并加入至少三个安全规则，例如敏感操作需要确认、工具参数必须校验、无来源信息不能强答。
+After finishing this chapter, it is recommended that you add an evaluation and safety layer to the research assistant or learning assistant Agent you built earlier. Prepare 10 to 20 test tasks, record the plan, tool calls, observations, final output, and human score for each run, and add at least three safety rules, such as requiring confirmation for sensitive actions, validating tool parameters, and refusing to answer strongly without source information.
 
-项目重点是让 Agent 的行为可追踪、可评估、可复盘，而不是只看一次输出是否顺眼。
+The key goal of the project is to make the Agent’s behavior traceable, evaluable, and reviewable, not just to see whether one output looks nice.
 
 
 
-## Agent 评估指标总表
+## Agent Evaluation Metrics Overview
 
-Agent 评估要同时看任务结果和执行过程。一个答案看起来对，不代表执行路径安全、成本可控或可复现。
+Agent evaluation must look at both task outcomes and execution process. A response that looks correct does not mean the execution path was safe, cost-controlled, or reproducible.
 
-| 维度 | 指标 | 适合回答的问题 |
+| Dimension | Metric | Question It Helps Answer |
 |---|---|---|
-| 任务效果 | 任务成功率、人工评分、完成度 | 用户目标有没有达成 |
-| 工具使用 | 工具选择准确率、参数错误率、工具失败率 | Agent 有没有正确调用外部能力 |
-| 过程质量 | 步数、重试次数、循环率、人工接管率 | 执行是否稳定可控 |
-| 安全边界 | 越权动作率、确认覆盖率、拒绝准确率 | 高风险动作有没有被约束 |
-| 成本性能 | token 成本、延迟、并发稳定性 | 系统是否能长期运行 |
+| Task effectiveness | Task success rate, human score, completion level | Was the user’s goal achieved? |
+| Tool usage | Tool selection accuracy, parameter error rate, tool failure rate | Did the Agent correctly call external capabilities? |
+| Process quality | Number of steps, retry count, loop rate, human takeover rate | Was execution stable and controllable? |
+| Safety boundaries | Over-permission action rate, confirmation coverage, refusal accuracy | Were high-risk actions constrained? |
+| Cost and performance | Token cost, latency, concurrency stability | Can the system run long term? |
 
-后面做 Agent 项目时，至少要保留 10～20 条可回放任务样本。每条样本都应该能看到用户目标、计划、工具调用、结果、失败原因和改进建议。
+When doing Agent projects later, keep at least 10 to 20 replayable task samples. Each sample should show the user goal, plan, tool calls, results, failure reasons, and improvement suggestions.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能区分结果评估和过程评估，能设计一个小型 Agent 测试集，能说明 Guardrails、权限控制、输入输出校验和可观测性的作用，能根据调用轨迹定位 Agent 失败发生在哪一环。
+By the end of this chapter, you should be able to distinguish result evaluation from process evaluation, design a small Agent test set, explain the role of Guardrails, access control, input/output validation, and observability, and locate which step caused an Agent failure based on the call trace.
 
-如果你能把一个 Agent Demo 改造成带日志、评估样例、安全规则和失败复盘机制的系统，就达到了进入部署运维阶段的基础要求。
+If you can turn an Agent demo into a system with logs, evaluation samples, safety rules, and failure postmortems, then you have met the basic requirement for entering the deployment and operations stage.

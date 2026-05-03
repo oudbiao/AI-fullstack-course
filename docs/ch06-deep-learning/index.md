@@ -1,98 +1,98 @@
 ---
-title: "6 深度学习与 Transformer 基础"
+title: "6 Deep Learning and Transformer Basics"
 sidebar_position: 0
-description: "学习神经网络、PyTorch、训练循环、CNN、RNN、Attention 与 Transformer，建立进入大模型和多模态方向的深度学习基础。"
-keywords: [深度学习, PyTorch, 神经网络, CNN, RNN, Transformer, Attention]
+description: "Learn neural networks, PyTorch, training loops, CNN, RNN, Attention, and Transformer to build a deep learning foundation for moving into large models and multimodal directions."
+keywords: [deep learning, PyTorch, neural network, CNN, RNN, Transformer, Attention]
 ---
 
-# 6 深度学习与 Transformer 基础
+# 6 Deep Learning and Transformer Basics
 
-![深度学习与 Transformer 主视觉](/img/course/ch06-deep-learning.png)
+![Main visual for Deep Learning and Transformer](/img/course/ch06-deep-learning-en.png)
 
-这一阶段解决的是“模型内部到底是怎么学出来的”。机器学习阶段更多使用现成模型接口，而深度学习阶段会让你真正看到参数、梯度、训练循环、网络结构和表示学习。
+This stage is about answering the question: “How does the model actually learn internally?” In the machine learning stage, you mostly use ready-made model interfaces. In the deep learning stage, you will truly see parameters, gradients, training loops, network structures, and representation learning.
 
-## 故事化导入：走进模型的发动机舱
+## Story-Style Introduction: Enter the Model’s Engine Room
 
-如果说机器学习阶段像是在驾驶一辆车，深度学习阶段就是打开引擎盖，看清楚动力如何产生。张量是燃料，网络层是零件，损失函数像仪表盘，梯度和优化器负责不断调校。你会第一次真正看到模型如何从错误中学习。
+If the machine learning stage is like driving a car, the deep learning stage is like opening the hood and seeing how the power is produced. Tensors are the fuel, network layers are the parts, the loss function is like the dashboard, and gradients and the optimizer keep tuning the system. For the first time, you will really see how a model learns from mistakes.
 
-## 学习闯关地图
+## Learning Quest Map
 
-![深度学习学习闯关地图](/img/course/ch06-learning-quest-map.png)
+![Deep learning learning quest map](/img/course/ch06-learning-quest-map-en.png)
 
-## 互动练习：盯住训练循环的四个数字
+## Interactive Exercise: Watch the Four Numbers in the Training Loop
 
-训练小模型时，不要只看最终准确率。每次实验都观察训练损失、验证损失、训练准确率和验证准确率。如果训练集越来越好但验证集不变，可能是过拟合；如果两个都很差，可能是模型、数据或学习率有问题。把这些曲线看懂，比盲目换模型更重要。
+When training a small model, do not only look at the final accuracy. In every experiment, observe training loss, validation loss, training accuracy, and validation accuracy. If the training set keeps improving but the validation set does not, it may be overfitting; if both are poor, there may be a problem with the model, the data, or the learning rate. Understanding these curves is more important than blindly switching models.
 
-## 项目彩蛋
+## Project Easter Egg
 
-本阶段的彩蛋作品可以是一个“小型模型实验室”：同一个数据集上，分别记录不同网络结构、学习率、batch size、训练轮数的效果，并画出对比曲线。这个实验室会成为你理解微调、大模型训练和多模态模型的基础模板。
+The easter egg project for this stage can be a “small model lab”: on the same dataset, record the effects of different network structures, learning rates, batch sizes, and numbers of training epochs, and draw comparison curves. This lab will become a basic template for understanding fine-tuning, large model training, and multimodal models.
 
-## 阶段定位
+## Stage Positioning
 
-| 信息 | 说明 |
+| Information | Description |
 |---|---|
-| 适合对象 | 已完成机器学习，希望进入深度学习、Transformer、大模型或多模态方向的学习者 |
-| 预估学时 | 140～190 小时 |
-| 前置要求 | 完成前四个阶段 |
-| 阶段产出 | 图像分类、文本情感分类或简单生成模型项目 |
+| Suitable for | Learners who have completed machine learning and want to move into deep learning, Transformer, large models, or multimodal directions |
+| Estimated time | 140–190 hours |
+| Prerequisites | Complete the first four stages |
+| Stage output | Image classification, text sentiment classification, or a simple generative model project |
 
-## 新手最小通关路线
+## Beginner’s Minimum Completion Path
 
-新手先跑通张量、自动求导、数据加载、模型定义、损失计算、反向传播和优化器更新这条训练闭环。只要能用 PyTorch 训练一个小型分类模型，并看懂训练损失和验证指标，就算完成最小通关。
+Beginners should first get through the closed training loop of tensors, automatic differentiation, data loading, model definition, loss computation, backpropagation, and optimizer updates. As long as you can use PyTorch to train a small classification model and understand the training loss and validation metrics, you have completed the minimum path.
 
-## 进阶深入路线
+## Advanced Learning Path
 
-有经验的学习者可以深入 CNN、RNN、Attention、Transformer、正则化、初始化和训练诊断。进一步尝试记录不同网络结构和超参数的实验结果，形成自己的小型模型实验室。
+Experienced learners can go deeper into CNN, RNN, Attention, Transformer, regularization, initialization, and training diagnostics. You can further try recording experimental results for different network structures and hyperparameters to form your own small model lab.
 
-## 深度学习为什么重要
+## Why Deep Learning Matters
 
-深度学习让模型可以从数据中自动学习复杂表示。图像中的边缘、纹理和物体，文本中的词义和上下文，都可以通过多层网络逐步形成表示。Transformer 又进一步成为大语言模型和多模态模型的核心架构。
+Deep learning allows models to automatically learn complex representations from data. Edges, textures, and objects in images, as well as word meaning and context in text, can all be represented through multi-layer networks step by step. Transformer has further become the core architecture of large language models and multimodal models.
 
-![深度学习训练闭环主线图](/img/course/ch06-training-loop-backbone.png)
+![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone-en.png)
 
-如果你想按历史进程理解每次技术突破，可以先读 [1.2 深度学习历史突破主线](./ch01-nn-basics/06-history-breakthroughs.md)。它会把感知器、XOR 挫折、反向传播、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Attention 和 Transformer 分配到本章对应小节，帮助你理解模型为什么会一代代演进。
+If you want to understand each technical breakthrough in historical order, you can first read [1.2 Main Thread of Deep Learning Historical Breakthroughs](./ch01-nn-basics/06-history-breakthroughs.md). It will map the perceptron, XOR setbacks, backpropagation, vanishing gradients, LSTM, RBM/DBN, AlexNet, ResNet, Attention, and Transformer to the corresponding subsections in this chapter, helping you understand why models keep evolving generation after generation.
 
-## 新人先做什么，进阶再做什么
+## What Beginners Should Do First, and What Advanced Learners Should Do Later
 
-新人第一次学这一阶段时，先理解神经网络训练的最小闭环：准备数据、定义模型、计算损失、反向传播、更新参数、观察曲线。不要一开始追求复杂架构。
+When beginners learn this stage for the first time, they should first understand the minimum closed loop of neural network training: prepare data, define the model, compute the loss, backpropagate, update parameters, and observe the curves. Do not start by chasing complex architectures.
 
-有经验的学习者可以把重点放在训练诊断上：过拟合如何发现，学习率如何影响曲线，数据增强和正则化什么时候有用，Transformer 为什么改变序列建模。你的目标是能解释一次训练为什么成功或失败。
+Experienced learners can focus on training diagnostics: how to detect overfitting, how learning rate affects the curve, when data augmentation and regularization are useful, and why Transformer changed sequence modeling. Your goal is to be able to explain why a training run succeeded or failed.
 
-## 本阶段学习路径
+## Learning Path for This Stage
 
-第一章学习神经网络基础和历史突破主线。你会理解感知器、XOR 局限、反向传播、神经元、激活函数、前向传播、反向传播、优化器、正则化和参数初始化。
+Chapter 1 covers neural network basics and the main thread of historical breakthroughs. You will understand perceptrons, XOR limitations, backpropagation, neurons, activation functions, forward propagation, backpropagation, optimizers, regularization, and parameter initialization.
 
-第二章学习 PyTorch。你会从张量、自动求导、`nn.Module`、数据加载和训练循环开始，真正搭出一个可训练模型。
+Chapter 2 covers PyTorch. You will start with tensors, automatic differentiation, `nn.Module`, data loading, and the training loop to build a truly trainable model.
 
-第三章学习 CNN。视觉任务最直观，适合作为第一次理解深度网络结构的入口。
+Chapter 3 covers CNN. Visual tasks are the most intuitive and are a good entry point for understanding deep network structures for the first time.
 
-第四章学习 RNN 与序列模型。你会看到序列数据为什么和普通表格不同，也会理解 LSTM、GRU 的历史意义。
+Chapter 4 covers RNNs and sequence models. You will see why sequence data is different from ordinary tabular data, and you will also understand the historical significance of LSTM and GRU.
 
-第五章学习 Attention 与 Transformer。它是后续大模型主线的关键桥梁。
+Chapter 5 covers Attention and Transformer. It is the key bridge to the later main line of large models.
 
-第六和第七章作为扩展，帮助你理解生成模型和训练调优。
+Chapters 6 and 7 are extensions that help you understand generative models and training tuning.
 
-## 学完后你应该能做到
+## What You Should Be Able to Do After Learning This Stage
 
-- 能解释神经网络的前向传播、损失计算和参数更新
-- 能用 PyTorch 写出最小训练循环
-- 能训练一个简单 CNN 或文本分类模型
-- 能理解 RNN、Attention 和 Transformer 的基本区别
-- 能为后续 LLM 原理、微调和多模态学习打下基础
+- Explain forward propagation, loss computation, and parameter updates in neural networks
+- Write a minimal training loop in PyTorch
+- Train a simple CNN or text classification model
+- Understand the basic differences between RNN, Attention, and Transformer
+- Build a foundation for later learning about LLM principles, fine-tuning, and multimodal learning
 
-## 常见误区
+## Common Misconceptions
 
-不要只会复制训练代码，却不知道每一步在做什么。你至少要能说清楚数据如何进入模型，输出如何计算损失，梯度如何反传，优化器如何更新参数。
+Do not just copy training code without knowing what each step does. At the very least, you should be able to explain how data enters the model, how the output loss is computed, how gradients are backpropagated, and how the optimizer updates the parameters.
 
-也不要一开始追求训练大模型。深度学习第 1 站最重要的是跑通小模型和小数据集，把训练闭环理解清楚。
+Also, do not start by trying to train large models. The most important thing in the first stop of deep learning is to get a small model and a small dataset working and to understand the training loop clearly.
 
-## 训练错误剧场：曲线比模型名更重要
+## Training Failure Theater: Curves Matter More Than Model Names
 
-如果 loss 不下降，先检查学习率、标签格式、输入归一化和损失函数是否匹配；如果训练集很好但验证集很差，优先怀疑过拟合和数据划分；如果显存不够，先减小 batch size、图片尺寸或模型规模。
+If the loss does not decrease, first check whether the learning rate, label format, input normalization, and loss function match; if the training set looks good but the validation set is poor, suspect overfitting and data splitting issues first; if you run out of GPU memory, first reduce the batch size, image size, or model scale.
 
-## 最小可运行实验：一条完整 PyTorch 训练循环
+## Minimum Runnable Experiment: A Complete PyTorch Training Loop
 
-本阶段最小实验不是训练大模型，而是跑通一个小数据、小模型、小 epoch 的训练闭环。你要能指出每一步：数据进入模型，输出计算损失，损失反向传播，优化器更新参数。
+The minimum experiment in this stage is not training a large model, but getting a training loop working with a small dataset, a small model, and a small number of epochs. You should be able to point out each step: data enters the model, the output computes the loss, the loss is backpropagated, and the optimizer updates the parameters.
 
 ```python
 for x, y in dataloader:
@@ -103,67 +103,66 @@ for x, y in dataloader:
     optimizer.step()
 ```
 
-如果你能画出训练 loss 和验证 loss，并解释它们为什么变化，就已经抓住了深度学习工程的主线。
+If you can plot the training loss and validation loss, and explain why they change, then you have already grasped the main thread of deep learning engineering.
 
-## 深度学习失败案例库：先看 shape、loss 和曲线
+## Deep Learning Failure Case Library: First Check Shape, Loss, and Curves
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Phenomenon | Common Cause | Diagnosis Method | Fix Direction |
 |---|---|---|---|
-| shape mismatch | 输入维度、batch 维或类别数不匹配 | 打印每层输入输出 shape | 调整 reshape、模型头或数据格式 |
-| loss 不下降 | 学习率、标签格式、归一化或 loss 不匹配 | 先在小 batch 上过拟合测试 | 调学习率，检查标签和输入尺度 |
-| 训练好验证差 | 过拟合、数据划分不合理 | 对比训练/验证曲线 | 数据增强、正则化、早停 |
-| 显存不够 | batch、图片尺寸或模型过大 | 查看显存占用 | 减小 batch，降低分辨率，换轻量模型 |
+| shape mismatch | Input dimensions, batch dimension, or number of classes do not match | Print the input and output shape of each layer | Adjust reshape, the model head, or the data format |
+| loss does not decrease | Learning rate, label format, normalization, or loss mismatch | First try an overfitting test on a small batch | Tune the learning rate, check labels and input scale |
+| good training, poor validation | Overfitting, unreasonable data split | Compare training and validation curves | Data augmentation, regularization, early stopping |
+| out of memory | Batch size, image size, or model too large | Check memory usage | Reduce the batch size, lower the resolution, switch to a lighter model |
 
-## 阶段验收 Rubric
+## Stage Acceptance Rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Acceptance Criteria | Portfolio Evidence |
 |---|---|---|
-| 最低通关 | 能跑通 Dataset、DataLoader、模型、loss 和 optimizer | `train.py`、训练输出 |
-| 推荐通关 | 能记录训练曲线并解释过拟合/欠拟合 | 曲线图、验证指标、配置文件 |
-| 作品集通关 | 能比较模型方案并分析失败样本 | 实验报告、错误样本、改进计划 |
+| Minimum pass | Can run Dataset, DataLoader, model, loss, and optimizer | `train.py`, training output |
+| Recommended pass | Can record training curves and explain overfitting/underfitting | Curve plots, validation metrics, config files |
+| Portfolio pass | Can compare model approaches and analyze failed samples | Experiment report, error samples, improvement plan |
 
-## 阶段项目
+## Stage Projects
 
-基础版是训练一个简单图像分类或文本情感分类模型，能完成数据加载、训练和评估。标准版需要加入验证集、指标曲线、过拟合分析和模型保存加载。挑战版可以比较 CNN、RNN、Transformer 或迁移学习方案，并写出实验报告说明模型为什么变好或变差。
+The basic version is to train a simple image classification or text sentiment classification model that can complete data loading, training, and evaluation. The standard version should add a validation set, metric curves, overfitting analysis, and model save/load. The challenge version can compare CNN, RNN, Transformer, or transfer learning approaches, and write an experiment report explaining why the model got better or worse.
 
-如果你想看更细的学习节奏，可以阅读 [学习指南：深度学习基础怎么学最不容易学乱](./study-guide.md)。
-
-
+If you want a more detailed learning rhythm, you can read [Study Guide: The Easiest Way to Learn Deep Learning Basics Without Getting Confused](./study-guide.md).
 
 
-## 本阶段趣味任务卡
 
-| 玩法 | 本阶段任务 |
+
+## Fun Task Card for This Stage
+
+| Play Style | Task for This Stage |
 |---|---|
-| 剧情任务 | 让助手理解训练过程：跑通训练循环，观察 loss 曲线，定位 shape mismatch。 |
-| Boss 战 | **Shape 巨兽** |
-| 可解锁徽章 | Loss 观察员、Shape 追踪者 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | 训练日志、曲线和一次失败复盘 |
+| Story quest | Help the assistant understand the training process: run the training loop, observe the loss curve, and locate the shape mismatch. |
+| Boss battle | **Shape Beast** |
+| Unlockable badges | Loss Observer, Shape Tracker |
+| Easy beginner mode | Only complete one minimal input-to-output loop, and keep a screenshot or command output |
+| Portfolio evidence | Training logs, curves, and one failure review |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If you feel that this stage has a lot of content, first use this task card as your minimum goal. Once you can complete the easy beginner mode, you can keep learning forward; later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage Deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum Version | Portfolio Version |
 |---|---|---|
-| 训练脚本 | 跑通数据加载、前向传播、损失和优化 | 结构清晰，支持配置参数、保存模型和复现实验 |
-| 指标曲线 | 记录 loss 和 accuracy | 展示训练/验证曲线、过拟合判断和调参过程 |
-| 模型对比 | 比较一个基础模型和一个改进模型 | 说明 CNN、RNN、Transformer 或迁移学习的取舍 |
-| 失败样本 | 保存若干分类错误样本 | 分析数据质量、类别混淆、增强策略和模型限制 |
-| 实验报告 | 写清运行命令和结果 | 包含数据、模型、指标、曲线、错误分析和下一步 |
+| Training script | Runs data loading, forward propagation, loss, and optimization | Clear structure, supports config parameters, model saving, and experiment reproducibility |
+| Metric curves | Records loss and accuracy | Shows training/validation curves, overfitting judgment, and tuning process |
+| Model comparison | Compares a baseline model and an improved model | Explains the trade-offs of CNN, RNN, Transformer, or transfer learning |
+| Failed samples | Saves several misclassified samples | Analyzes data quality, class confusion, augmentation strategy, and model limitations |
+| Experiment report | Clearly writes down the run commands and results | Includes data, model, metrics, curves, error analysis, and next steps |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship with the AI Learning Assistant Capstone Project
 
-本阶段可以对应 AI 学习助手 v0.6：做一个文本或图像分类小实验，记录训练曲线、指标和失败样本。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can correspond to AI Learning Assistant v0.6: build a small text or image classification experiment, and record training curves, metrics, and failed samples. If you are learning along the capstone project path, it is recommended that by the end of this stage you submit at least one version note: what new capability was added in this stage, how to run it, what the sample input/output is, what problems were encountered, and what to improve next.
 
+## Stage Completion Criteria
 
-## 阶段通关标准
-
-| 通关层级 | 你需要做到什么 |
+| Completion Level | What You Need to Be Able to Do |
 |---|---|
-| 最低通关 | 能用 PyTorch 跑训练循环，理解 CNN、RNN、Transformer 和训练诊断。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum pass | Run the training loop with PyTorch, and understand CNN, RNN, Transformer, and training diagnostics. |
+| Recommended pass | Complete at least one runnable small project in this stage, and record the run method, sample input/output, and issues encountered in the README. |
+| Portfolio pass | Connect the outputs of this stage to the “AI Learning Assistant” capstone project, and leave screenshots, logs, evaluation samples, and a next-step plan. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。后面大模型、RAG 和多模态都会建立在这些表示学习概念上。
+After finishing this stage, you do not need to memorize every detail. More importantly, you should be able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. Large models, RAG, and multimodal models later on will all be built on these representation learning concepts.

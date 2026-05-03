@@ -1,260 +1,260 @@
 ---
-title: "1.4 Agent 能力分级"
+title: "1.4 Agent Capability Levels"
 sidebar_position: 3
-description: "用分层视角理解不同 Agent 系统的能力边界，避免把简单工作流说成全能智能体。"
+description: "Understand the capability boundaries of different Agent systems from a layered perspective, and avoid calling a simple workflow an all-powerful intelligent agent."
 keywords: [agent capability, tool use, planning, workflow, autonomy]
 ---
 
-# Agent 能力分级
+# Agent Capability Levels
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 用分层思路描述不同 Agent 的能力边界
-- 区分“会回答”、“会调用工具”、“会多步完成任务”之间的差异
-- 根据任务复杂度选择更合适的系统形态
-- 用一个小例子练习任务所需能力等级判断
-
----
-
-## 一、为什么要给 Agent 分级？
-
-### 1.1 因为“Agent”这个词太容易被说大
-
-有些系统只是：
-
-- 会调用一个工具
-
-有些系统则可以：
-
-- 多步规划
-- 记住状态
-- 协同多个工具
-
-如果都叫 Agent，就会混淆很多概念。
-
-### 1.2 分级的意义在于更诚实地描述系统能力
-
-它能帮助你回答：
-
-- 这个系统到底能做什么？
-- 它是稳定工作流，还是灵活智能体？
-- 它的问题更可能出在哪一层？
+- Describe the capability boundaries of different Agents using a layered approach
+- Distinguish the differences between “can answer,” “can use tools,” and “can complete tasks in multiple steps”
+- Choose a more suitable system form based on task complexity
+- Practice judging the required capability level for a task with a small example
 
 ---
 
-## 二、一个实用的能力分级框架
+## 1. Why do we need to grade Agents?
 
-### 2.1 L0：纯回答型
+### 1.1 Because the word “Agent” is too easy to overstate
 
-特点：
+Some systems only:
 
-- 能根据输入生成回答
-- 基本不主动调用工具
-- 更像聊天模型
+- Can call a single tool
 
-例子：
+Other systems can:
 
-- 普通问答机器人
-- 纯 Prompt 生成器
+- Plan multiple steps
+- Remember state
+- Coordinate multiple tools
 
-### 2.2 L1：单工具执行型
+If we call them all Agents, many concepts get mixed together.
 
-特点：
+### 1.2 The value of grading is to describe system capability more honestly
 
-- 能根据问题选择一个工具
-- 一次调用后直接回答
+It helps you answer:
 
-例子：
-
-- 查天气助手
-- 计算器助手
-- 单次检索问答
+- What exactly can this system do?
+- Is it a stable workflow or a flexible intelligent agent?
+- Which layer is the problem most likely in?
 
 ---
 
-## 三、再往上一层
+## 2. A practical capability grading framework
 
-### 3.1 L2：多步工具协同型
+### 2.1 L0: Pure response type
 
-特点：
+Features:
 
-- 会做两步以上动作
-- 能根据中间结果决定下一步
+- Generates answers based on input
+- Basically does not actively call tools
+- More like a chat model
 
-例子：
+Examples:
 
-- 先查订单，再查退款政策，再给结论
-- 先搜资料，再总结成报告
+- General Q&A bot
+- Pure Prompt generator
 
-### 3.2 L3：目标驱动型
+### 2.2 L1: Single-tool execution type
 
-特点：
+Features:
 
-- 接收一个较高层目标
-- 自己组织一段执行流程
-- 可能带状态管理和失败重试
+- Can choose one tool based on the question
+- Responds directly after one call
 
-例子：
+Examples:
 
-- 自动研究助理
-- 自动数据分析助手
-- 自动代码修复流程
-
----
-
-## 四、更高层能力通常意味着更高风险
-
-### 4.1 L4：长时运行 / 多 Agent / 强自治
-
-特点：
-
-- 能运行较长任务链
-- 可能调多个工具、多个子 Agent
-- 有记忆、计划、回顾机制
-
-这类系统听起来最酷，但也最难工程化。
-
-### 4.2 能力越高，不代表越适合你的任务
-
-因为能力提升往往伴随：
-
-- 成本更高
-- 调试更难
-- 出错路径更多
-
-所以正确思路通常不是“越高越好”，而是：
-
-> 用刚刚够用的那一级。
+- Weather lookup assistant
+- Calculator assistant
+- One-time retrieval Q&A
 
 ---
 
-## 五、一张能力分级速查表
+## 3. One level higher
 
-| 等级 | 核心能力 | 典型系统 |
+### 3.1 L2: Multi-step tool coordination type
+
+Features:
+
+- Performs two or more actions
+- Can decide the next step based on intermediate results
+
+Examples:
+
+- First check the order, then check the refund policy, then give a conclusion
+- First search for information, then summarize it into a report
+
+### 3.2 L3: Goal-driven type
+
+Features:
+
+- Receives a higher-level goal
+- Organizes an execution flow on its own
+- May include state management and failure retry
+
+Examples:
+
+- Automatic research assistant
+- Automatic data analysis assistant
+- Automatic code-fixing flow
+
+---
+
+## 4. Higher capability usually means higher risk
+
+### 4.1 L4: Long-running / multi-Agent / high autonomy
+
+Features:
+
+- Can run long task chains
+- May coordinate multiple tools and multiple sub-Agents
+- Has memory, planning, and reflection mechanisms
+
+These systems sound the coolest, but they are also the hardest to engineer.
+
+### 4.2 Higher capability does not mean better suited for your task
+
+Because improved capability often comes with:
+
+- Higher cost
+- Harder debugging
+- More possible failure paths
+
+So the right mindset is usually not “the higher, the better,” but:
+
+> Use the smallest level that is just enough.
+
+---
+
+## 5. A quick capability level reference table
+
+| Level | Core capability | Typical systems |
 |---|---|---|
-| L0 | 纯回答 | 聊天问答 |
-| L1 | 单工具调用 | 天气 / 计算 / 单次检索 |
-| L2 | 多步执行 | 先查再算、先搜再写 |
-| L3 | 目标驱动 | 研究助理、数据分析助手 |
-| L4 | 长时自治 / 多 Agent | 复杂自动化团队系统 |
+| L0 | Pure response | Chat Q&A |
+| L1 | Single tool call | Weather / calculation / one-time retrieval |
+| L2 | Multi-step execution | Check first and then calculate, search first and then write |
+| L3 | Goal-driven | Research assistant, data analysis assistant |
+| L4 | Long-running autonomy / multi-Agent | Complex automation team systems |
 
 ---
 
-## 六、一个小练习：给任务分等级
+## 6. A small exercise: assign levels to tasks
 
-### 6.1 可运行示例
+### 6.1 Runnable example
 
 ```python
 tasks = [
-    "回答：什么是 RAG？",
-    "查一下北京天气",
-    "先查退款政策，再判断我是否满足条件",
-    "根据销售数据自动生成周报并发邮件"
+    "Answer: What is RAG?",
+    "Check Beijing weather",
+    "First check the refund policy, then decide whether I qualify",
+    "Automatically generate a weekly report based on sales data and send an email"
 ]
 
 def recommend_level(task):
-    if "先查" in task and "再" in task:
+    if "first check" in task and "then" in task:
         return "L2"
-    if "自动生成周报" in task or "发邮件" in task:
+    if "automatically generate a weekly report" in task or "send an email" in task:
         return "L3"
-    if "查一下" in task:
+    if "check" in task:
         return "L1"
     return "L0"
 
 for task in tasks:
-    print(task, "-> 推荐能力等级:", recommend_level(task))
+    print(task, "-> recommended capability level:", recommend_level(task))
 ```
 
-这当然是简化版，但它能帮你建立一个非常实用的习惯：
+Of course, this is a simplified version, but it helps you build a very practical habit:
 
-> 先判断任务需要哪个能力等级，再决定系统怎么做。
-
----
-
-## 七、怎么从低一级往上升级？
-
-### 7.1 从 L0 到 L1
-
-关键是加上：
-
-- 工具接口
-- 参数生成
-- 工具结果回填
-
-### 7.2 从 L1 到 L2
-
-关键是加上：
-
-- 中间状态
-- 多步执行
-- 动作间依赖
-
-### 7.3 从 L2 到 L3
-
-关键是加上：
-
-- 任务拆解
-- 子目标管理
-- 错误恢复
-
-越往上，越像在做“小型操作系统”。
+> First determine which capability level the task needs, then decide how the system should do it.
 
 ---
 
-## 八、工程上怎么避免“能力吹过头”？
+## 7. How do you upgrade from a lower level?
 
-### 8.1 先给系统设边界
+### 7.1 From L0 to L1
 
-例如：
+The key is to add:
 
-- 最多执行几步
-- 最多调用几个工具
-- 哪些任务必须人工确认
+- Tool interfaces
+- Parameter generation
+- Filling tool results back into the response
 
-### 8.2 先用最小能力上线
+### 7.2 From L1 to L2
 
-很多系统一开始其实只需要：
+The key is to add:
 
-- L1 或 L2
+- Intermediate state
+- Multi-step execution
+- Dependencies between actions
 
-如果一上来就做 L4，往往会陷入：
+### 7.3 From L2 to L3
 
-- 太复杂
-- 太贵
-- 太不稳
+The key is to add:
 
----
+- Task decomposition
+- Sub-goal management
+- Error recovery
 
-## 九、初学者常见误区
-
-### 9.1 以为有工具调用就是高级 Agent
-
-会调一个工具，通常最多只是 L1。
-
-### 9.2 以为越多步骤越智能
-
-步骤变多，有时只是错误路径变多。
-
-### 9.3 不区分任务等级就乱堆架构
-
-这是很多 Agent 项目难落地的原因之一。
+The higher you go, the more it feels like building a “small operating system.”
 
 ---
 
-## 小结
+## 8. How do you avoid “overstating capability” in engineering?
 
-这一节最重要的认识是：
+### 8.1 Set boundaries for the system first
 
-> Agent 的能力不是一个开关，而是一条连续的等级带。
+For example:
 
-学会分级，你就更容易做出稳妥的架构判断，也更不容易被“全自动智能体”这种说法带偏。
+- How many steps can it execute at most?
+- How many tools can it call at most?
+- Which tasks must be confirmed by a human?
+
+### 8.2 Launch with the minimum necessary capability first
+
+Many systems actually only need:
+
+- L1 or L2
+
+If you jump straight to L4, you often end up with:
+
+- Too complex
+- Too expensive
+- Too unstable
 
 ---
 
-## 练习
+## 9. Common beginner misconceptions
 
-1. 自己列出 5 个任务，给它们分别判断更适合 L0、L1、L2 还是 L3。
-2. 想一想：你的某个真实项目，为什么不一定需要上到 L3 / L4？
-3. 如果一个系统经常调用错工具，它更像是哪个能力层级出了问题？
+### 9.1 Thinking tool use automatically means an advanced Agent
+
+Being able to call one tool is usually at most L1.
+
+### 9.2 Thinking more steps automatically means smarter
+
+More steps sometimes just means more error paths.
+
+### 9.3 Piling up architecture without distinguishing task levels
+
+This is one of the reasons many Agent projects are hard to ship.
+
+---
+
+## Summary
+
+The most important takeaway from this section is:
+
+> An Agent’s capability is not a switch; it is a continuous range of levels.
+
+Once you learn to grade capability, it becomes easier to make safe architectural decisions, and you are less likely to be misled by the phrase “fully autonomous intelligent agent.”
+
+---
+
+## Exercises
+
+1. Make a list of 5 tasks and decide whether each one is better suited for L0, L1, L2, or L3.
+2. Think about a real project of yours: why might it not need to go all the way to L3 / L4?
+3. If a system often calls the wrong tool, which capability layer is more likely to have the problem?

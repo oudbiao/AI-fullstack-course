@@ -1,80 +1,80 @@
 ---
-title: "9.3 运行时管理"
+title: "9.3 Runtime Management"
 sidebar_position: 50
-description: "从并发控制、超时、重试、熔断与指标观测出发，理解 Agent 上线后如何稳定运行。"
+description: "Understand how an Agent stays stable after deployment through concurrency control, timeouts, retries, circuit breaking, and metrics observability."
 keywords: [runtime management, concurrency, timeout, retry, circuit breaker, metrics]
 ---
 
-# 运行时管理
+# Runtime Management
 
-:::tip 本节定位
-本地 demo 只要“能跑一次”通常就算成功。  
-线上系统的要求完全不同：
+:::tip Section focus
+For a local demo, “it runs once” is usually good enough.
+Production systems have very different requirements:
 
-- 高峰期还能跑
-- 依赖抖动时还能稳
-- 延迟和成本还能控
+- It still runs under peak traffic
+- It stays stable when dependencies are flaky
+- It keeps latency and cost under control
 
-这就是运行时管理要解决的问题。
+That is what runtime management is here to solve.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解并发、超时、重试、熔断分别在防什么
-- 学会搭一个最小运行时管理器
-- 理解为什么运行指标和模型指标一样重要
-- 建立“系统稳定性优先于单次成功”的工程意识
-
----
-
-## 一、为什么 Agent 特别容易遇到运行时问题？
-
-### 1.1 一次请求往往不是一次调用
-
-Agent 常见链路包括：
-
-- 模型推理
-- 工具调用
-- 检索
-- 再推理
-
-这意味着一条用户请求可能包含多段子调用。  
-链路越长，运行时波动越容易被放大。
-
-### 1.2 上线后最先暴露的往往不是“答错”，而是“跑不稳”
-
-典型症状：
-
-- 高并发时超时变多
-- 上游暂时失败后重试风暴
-- 请求排队过长
-- 个别慢请求拖垮整体吞吐
-
-所以运行时管理本质上是在保护系统可用性。
+- Understand what concurrency, timeouts, retries, and circuit breakers are protecting against
+- Learn how to build a minimal runtime manager
+- Understand why runtime metrics are just as important as model metrics
+- Build an engineering mindset that prioritizes system stability over one-off success
 
 ---
 
-## 二、四个最关键的运行时机制
+## 1. Why are Agents especially prone to runtime problems?
 
-### 2.1 并发控制
+### 1.1 One request is often not one call
 
-限制同时执行的任务数，避免资源被瞬间打满。
+A typical Agent workflow includes:
 
-### 2.2 超时
+- Model inference
+- Tool calling
+- Retrieval
+- Another round of inference
 
-为每个步骤设边界，防止请求无限挂起。
+This means a single user request may contain several sub-calls.
+The longer the chain, the more runtime fluctuations are amplified.
 
-### 2.3 重试
+### 1.2 What shows up first after deployment is often not “wrong answers,” but “unstable execution”
 
-只对临时错误做有限重试，而不是所有错误都重来。
+Typical symptoms:
 
-### 2.4 熔断
+- More timeouts under high concurrency
+- Retry storms after temporary upstream failures
+- Requests queuing too long
+- A few slow requests dragging down overall throughput
 
-当某个依赖连续失败时，短期停止继续打它，避免把故障放大。
+So runtime management is essentially about protecting system availability.
 
 ---
 
-## 三、先跑一个最小运行时管理器
+## 2. The four most important runtime mechanisms
+
+### 2.1 Concurrency control
+
+Limit the number of tasks running at the same time so resources are not exhausted all at once.
+
+### 2.2 Timeouts
+
+Set a boundary for each step to prevent requests from hanging forever.
+
+### 2.3 Retries
+
+Retry only a limited number of times for temporary errors, instead of starting over for every error.
+
+### 2.4 Circuit breaking
+
+When a dependency keeps failing, stop calling it for a while to avoid amplifying the failure.
+
+---
+
+## 3. First, run a minimal runtime manager
 
 ```python
 import asyncio
@@ -186,104 +186,104 @@ async def main():
 asyncio.run(main())
 ```
 
-### 3.1 这段代码最该看哪几处？
+### 3.1 Which parts of this code should you pay the most attention to?
 
-- `Semaphore`：并发限制
-- `wait_for`：超时
-- `attempt > 0`：重试计数
-- `breaker_open`：熔断
+- `Semaphore`: concurrency limiting
+- `wait_for`: timeout
+- `attempt > 0`: retry counting
+- `breaker_open`: circuit breaking
 
-### 3.2 为什么这已经很接近真实运行时问题？
+### 3.2 Why is this already very close to real runtime problems?
 
-因为它覆盖了三类真实线上情况：
+Because it covers three real production scenarios:
 
-- 正常成功
-- 慢请求超时
-- 连续失败触发保护
-
----
-
-## 四、运行时指标该怎么读？
-
-优先看这几项：
-
-- `success / total`：成功率
-- `timeout / total`：超时率
-- `retry / total`：重试比
-- `rejected_by_breaker`：熔断拒绝量
-- `avg_latency_ms`：平均成功延迟
-
-如果超时率高，先查：
-
-- 上游慢不慢
-- 超时阈值是否太小
-- 并发是否太高导致排队
-
-如果重试比高，先查：
-
-- 是不是在重试不可恢复错误
-- 上游是否不稳定
+- Normal success
+- Slow requests timing out
+- Continuous failures triggering protection
 
 ---
 
-## 五、运行时优化最常见的方向
+## 4. How should runtime metrics be interpreted?
 
-### 5.1 限流和背压
+Start with these:
 
-当系统接近满载时，要主动：
+- `success / total`: success rate
+- `timeout / total`: timeout rate
+- `retry / total`: retry ratio
+- `rejected_by_breaker`: number of requests rejected by the circuit breaker
+- `avg_latency_ms`: average successful latency
 
-- 拒绝低优先级请求
-- 或排队上限控制
+If the timeout rate is high, check first:
 
-### 5.2 降级
+- Is the upstream service slow?
+- Is the timeout threshold too small?
+- Is concurrency too high, causing queueing?
 
-例如：
+If the retry ratio is high, check first:
 
-- 关闭高成本工具链
-- 切换到缓存结果
-- 返回更轻量的安全答复
-
-### 5.3 分依赖设置策略
-
-不同工具不应共用完全相同的：
-
-- 超时
-- 重试
-- 熔断阈值
-
-因为它们稳定性和成本不同。
+- Are you retrying errors that cannot be recovered?
+- Is the upstream service unstable?
 
 ---
 
-## 六、最常见误区
+## 5. The most common runtime optimization directions
 
-### 6.1 误区一：并发越高越好
+### 5.1 Rate limiting and backpressure
 
-并发太高可能直接把系统和上游一起压垮。
+When the system is close to saturation, you should actively:
 
-### 6.2 误区二：重试一定提升成功率
+- Reject low-priority requests
+- Or cap the queue length
 
-错误分类不对时，重试只会放大故障。
+### 5.2 Fallback and degradation
 
-### 6.3 误区三：只看平均延迟
+For example:
 
-高分位延迟和超时率往往更能反映真实体验。
+- Disable expensive tool chains
+- Switch to cached results
+- Return a lighter-weight safe response
+
+### 5.3 Use different policies for different dependencies
+
+Different tools should not share exactly the same:
+
+- Timeout
+- Retry
+- Circuit-breaker thresholds
+
+Because their stability and cost are different.
 
 ---
 
-## 小结
+## 6. Most common misconceptions
 
-这节最重要的是建立一个部署视角：
+### 6.1 Misconception 1: Higher concurrency is always better
 
-> **Agent 运行时管理的核心，不是让每次请求“尽量试到成功”，而是用并发、超时、重试和熔断把系统整体稳定性保护住。**
+Too much concurrency can directly overwhelm both your system and the upstream service.
 
-当这层补齐后，系统才算真正具备了上线基础。
+### 6.2 Misconception 2: Retries always improve success rate
+
+If error classification is wrong, retries will only amplify the failure.
+
+### 6.3 Misconception 3: Only look at average latency
+
+High-percentile latency and timeout rate often reflect the real user experience much better.
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例的 `max_concurrency` 改成 `1` 和 `3`，比较结果变化。
-2. 把 `timeout_sec` 调大，观察超时率会怎么变。
-3. 为什么说“重试次数”不能脱离“错误类型”单独设计？
-4. 想一想：如果某个工具特别贵，你会在运行时层加什么保护？
+The most important thing in this section is to build a deployment mindset:
+
+> **The core of Agent runtime management is not to keep trying until every request succeeds, but to protect overall system stability with concurrency control, timeouts, retries, and circuit breaking.**
+
+Once this layer is in place, the system truly has a foundation for production deployment.
+
+---
+
+## Exercises
+
+1. Change the example `max_concurrency` to `1` and `3`, and compare the results.
+2. Increase `timeout_sec` and observe how the timeout rate changes.
+3. Why can’t “number of retries” be designed independently of “error type”?
+4. Think about it: if a certain tool is especially expensive, what protection would you add at the runtime layer?

@@ -1,98 +1,98 @@
 ---
 sidebar_position: 12
-title: "角色路线选择：按目标学习 AI 全栈"
-description: "为 AI 应用工程师、RAG 工程师、Agent 开发者、模型工程方向和作品集求职者设计不同学习重点。"
-keywords: [AI应用工程师, RAG工程师, Agent开发, 模型工程, AI作品集路线]
+title: "Choosing a Role-Based Path: Learn the AI Full-Stack by Your Goal"
+description: "Different learning focuses designed for AI application engineers, RAG engineers, Agent developers, model engineering roles, and portfolio-based job seekers."
+keywords: [AI application engineer, RAG engineer, Agent development, model engineering, AI portfolio path]
 ---
 
-# 角色路线选择：按目标学习 AI 全栈
+# Choosing a Role-Based Path: Learn the AI Full-Stack by Your Goal
 
-![角色路线选择地图](/img/course/intro-role-based-paths-map.png)
+![Role-based path selection map](/img/course/intro-role-based-paths-map-en.png)
 
-## 本节定位
+## What This Section Is About
 
-同一套课程，不同学习目标的读法不一样。新人可以按 1～9 站顺序通关；有明确职业目标的人，可以围绕目标角色调整精读和快读范围。
+The same course should be read differently depending on your learning goal. New learners can follow lessons 1–9 in order; people with a clear career target can adjust how much they read in depth versus skim based on the role they want.
 
-这一页不是让你跳过基础，而是帮你判断：哪些内容必须掌握，哪些内容可以先知道位置，哪些项目最适合作为作品集。
+This page is not telling you to skip the fundamentals. It is helping you decide: which parts must be mastered, which parts only need to be understood at a high level for now, and which projects are best for a portfolio.
 
-## 30 秒选角色
+## Pick Your Role in 30 Seconds
 
-| 你更想做什么 | 优先路线 |
+| What do you most want to do | Priority path |
 |---|---|
-| 把 AI 接进产品或业务系统 | AI 应用工程师路线 |
-| 让模型稳定读公司资料、PDF、知识库 | RAG 工程师路线 |
-| 让 AI 拆任务、调工具、自动执行 | Agent 开发者路线 |
-| 训练、微调、评估、部署模型 | 模型工程路线 |
-| 准备求职、转行、展示能力 | 作品集求职路线 |
+| Connect AI to products or business systems | AI application engineer path |
+| Make models reliably read company docs, PDFs, and knowledge bases | RAG engineer path |
+| Let AI break down tasks, use tools, and execute automatically | Agent developer path |
+| Train, fine-tune, evaluate, and deploy models | Model engineering path |
+| Prepare for job hunting, career switching, and showcasing skills | Portfolio job-seeker path |
 
-## AI 应用工程师路线
+## AI Application Engineer Path
 
-AI 应用工程师的核心能力是把模型接入真实产品：能写后端接口，能调用模型，能处理文档和用户输入，能加日志、评估和部署说明。
+The core skill of an AI application engineer is integrating models into real products: you can write backend APIs, call models, handle documents and user input, and add logging, evaluation, and deployment notes.
 
-建议精读第 1、2、3、7、8、9 站，快速浏览第 4～6 站但不要完全跳过。因为即使你不训练模型，也需要理解数据、评估、向量、Embedding、模型成本和失败分析。
+It is recommended to read lessons 1, 2, 3, 7, 8, and 9 carefully, and skim lessons 4–6 without skipping them entirely. Even if you do not train models, you still need to understand data, evaluation, vectors, Embedding, model cost, and failure analysis.
 
-代表作品可以是一个带登录或简单前端的课程问答助手，支持文件上传、RAG 检索、引用展示、日志记录和基础评估。
+A representative project could be a course Q&A assistant with a login or simple frontend, supporting file upload, RAG retrieval, citation display, logging, and basic evaluation.
 
-## RAG 工程师路线
+## RAG Engineer Path
 
-RAG 工程师的核心能力是把外部知识稳定接入大模型。你需要理解文档解析、切分、Embedding、向量数据库、Hybrid Search、Reranking、Query Rewrite、GraphRAG、Multimodal RAG 和 RAGOps。
+The core skill of a RAG engineer is to reliably connect external knowledge to a large model. You need to understand document parsing, chunking, Embedding, vector databases, Hybrid Search, Reranking, Query Rewrite, GraphRAG, Multimodal RAG, and RAGOps.
 
-建议精读第 2、3、5、7、8 站，并在第 9 站补 Agentic RAG。第 12 站的多模态部分也值得学习，因为真实知识库常常包含 PDF、表格、图片和截图。
+It is recommended to read lessons 2, 3, 5, 7, and 8 carefully, and add Agentic RAG in lesson 9. The multimodal section in lesson 12 is also worth learning, because real knowledge bases often contain PDFs, tables, images, and screenshots.
 
-代表作品可以是一个带评估集的企业知识库 Demo：能展示检索片段、来源引用、召回质量、答案忠实度、失败样本和优化记录。
+A representative project could be an enterprise knowledge base demo with an evaluation set: it can show retrieved chunks, source citations, retrieval quality, answer faithfulness, failed examples, and optimization records.
 
-## Agent 开发者路线
+## Agent Developer Path
 
-Agent 开发者的核心能力不是“让模型自己想”，而是设计可控的任务执行系统。你需要理解 Prompt、工具调用、MCP、任务规划、记忆、工作流、多 Agent、评估、安全、部署和 AgentOps。
+The core skill of an Agent developer is not “letting the model think by itself,” but designing a controllable task execution system. You need to understand Prompt, tool calling, MCP, task planning, memory, workflows, multi-Agent systems, evaluation, safety, deployment, and AgentOps.
 
-建议精读第 7、8、9 站，同时回看第 2 站的 Python 工程能力和第 3 站的数据处理能力。Agent 经常需要调用代码、数据库、文件、搜索、RAG 和外部 API，所以基础工程能力非常重要。
+It is recommended to read lessons 7, 8, and 9 carefully, and also review the Python engineering skills in lesson 2 and the data processing skills in lesson 3. Agents often need to call code, databases, files, search, RAG, and external APIs, so basic engineering skills are very important.
 
-代表作品可以是一个研究助理 Agent：能拆解问题、检索资料、调用工具、生成报告、记录执行轨迹，并在高风险步骤请求人工确认。
+A representative project could be a research assistant Agent: it can break down questions, retrieve materials, call tools, generate reports, record execution traces, and request human confirmation for high-risk steps.
 
-## 模型工程路线
+## Model Engineering Path
 
-模型工程方向更关注模型内部机制、训练、微调、推理优化和部署。你需要更深入理解数学、机器学习、深度学习、Transformer、微调、LoRA / QLoRA、量化、蒸馏、小模型和混合部署。
+The model engineering direction focuses more on model internals, training, fine-tuning, inference optimization, and deployment. You need a deeper understanding of mathematics, machine learning, deep learning, Transformer, fine-tuning, LoRA / QLoRA, quantization, distillation, small models, and hybrid deployment.
 
-建议精读第 4、5、6、7 站，再进入第 8 站的模型部署章节。第 10～12 站可以按兴趣选择视觉、多模态或生成方向。
+It is recommended to read lessons 4, 5, 6, and 7 carefully, then move on to the model deployment section in lesson 8. Lessons 10–12 can be chosen based on interest: vision, multimodal, or generative directions.
 
-代表作品可以是一个模型对比实验：比较不同模型、不同量化方式、不同 Prompt 或微调方案在效果、延迟、成本上的差异，并写出实验报告。
+A representative project could be a model comparison experiment: compare different models, different quantization methods, and different Prompt or fine-tuning strategies in terms of performance, latency, and cost, and then write up an experiment report.
 
-## 作品集求职路线
+## Portfolio Job-Seeker Path
 
-作品集路线最重要的是持续产出，而不是把所有章节都读到最深。每个阶段都要留下一个能运行、能截图、能解释、能写进 README 的项目。
+For the portfolio path, the most important thing is continuous output, not reading every chapter in maximum depth. At each stage, you should leave behind a project that can run, can be screenshotted, can be explained, and can be written into a README.
 
-建议按路线一从 1 到 9 走，同时使用“贯穿项目：AI 学习助手成长路线”来串联成果。第 10～12 站选择一个方向做毕业项目即可，不需要所有方向都做深。
+It is recommended to follow path one from lesson 1 to 9, while using the “end-to-end project: AI learning assistant growth path” to connect the results. For lessons 10–12, choose one direction as your capstone project; you do not need to go deep in every direction.
 
-代表作品集可以包含：Python 小工具、数据分析报告、机器学习 baseline、深度学习实验、Prompt 助手、RAG 知识库、Agent 自动化助手和一个完整 AI 应用部署说明。
+A representative portfolio could include: a Python utility, a data analysis report, an ML baseline, a deep learning experiment, a Prompt assistant, a RAG knowledge base, an Agent automation assistant, and a complete AI application deployment guide.
 
-## 角色能力雷达
+## Role Skill Radar
 
-选择角色路线时，可以从六个维度判断自己当前最缺什么：编程实现、数据处理、模型理解、AI 应用工程、评估复盘、部署交付。不同角色的重点不同，但任何路线都不能完全跳过评估和工程化。
+When choosing a role path, you can judge what you lack most across six dimensions: programming implementation, data processing, model understanding, AI application engineering, evaluation and review, and deployment delivery. Different roles emphasize different things, but no path can completely skip evaluation and engineering.
 
-| 角色 | 必须拉满的能力 | 可以先略读的内容 | 最应该补的作品证据 |
+| Role | Must-have skills | Content you can skim first | Most important project evidence to add |
 |---|---|---|---|
-| AI 应用工程师 | API、Prompt、RAG、后端、日志、部署 | 深度模型训练细节 | 可运行应用、部署说明、错误处理 |
-| RAG 工程师 | 文档处理、检索、引用、评估、RAGOps | 多 Agent 协作细节 | chunks、retrieval logs、eval questions |
-| Agent 开发者 | 工具 schema、trace、权限、失败恢复 | 复杂模型训练 | tool logs、agent traces、安全边界 |
-| 模型工程方向 | 数学、ML、DL、Transformer、微调 | 前端展示细节 | 实验记录、指标对比、训练曲线 |
-| 作品集求职者 | README、演示、复盘、项目表达 | 冷门扩展专题 | 截图/GIF、评估表、失败样本、演示脚本 |
+| AI application engineer | API, Prompt, RAG, backend, logging, deployment | Deep model training details | Runnable app, deployment notes, error handling |
+| RAG engineer | document processing, retrieval, citations, evaluation, RAGOps | multi-Agent collaboration details | chunks, retrieval logs, eval questions |
+| Agent developer | tool schemas, traces, permissions, failure recovery | advanced model training | tool logs, agent traces, safety boundaries |
+| Model engineering path | mathematics, ML, DL, Transformer, fine-tuning | frontend presentation details | experiment logs, metric comparisons, training curves |
+| Portfolio job seeker | README, demo, review, project communication | niche advanced topics | screenshots/GIFs, evaluation tables, failure examples, demo script |
 
-## 每条路线的最低项目组合
+## Minimum Project Set for Each Path
 
-如果时间有限，不需要把所有项目都做大。下面是不同目标的最低项目组合，完成后再根据精力升级成标准版。
+If you have limited time, you do not need to make every project large. Below is the minimum project set for different goals. After completing it, you can upgrade to the standard version based on your energy and time.
 
-| 目标 | 最低项目组合 | 升级方向 |
+| Goal | Minimum project set | Upgrade direction |
 |---|---|---|
-| 转 AI 应用开发 | Python API 小项目 + Prompt 助手 + RAG 问答 + Agent 工具调用 | 加前端、部署、日志和评估集 |
-| 转 RAG/知识库方向 | 数据清洗项目 + 文档切块 Demo + RAG 问答 + RAG 评估报告 | 加 hybrid search、rerank 和 citation check |
-| 转 Agent/自动化方向 | 工具调用 Demo + 多步骤任务 Agent + 安全确认样例 | 加 trace replay、MCP、权限审计 |
-| 走模型工程 | ML baseline + DL 训练实验 + Transformer/微调对比 | 加训练诊断、成本分析、模型部署 |
-| 做综合作品集 | 数据分析 + ML baseline + RAG 助手 + Agent 助手 + 毕业项目 | 统一 README 风格和项目演示故事线 |
+| Switch to AI application development | Python API mini project + Prompt assistant + RAG Q&A + Agent tool calling | Add frontend, deployment, logging, and an evaluation set |
+| Switch to RAG / knowledge base work | data cleaning project + document chunking demo + RAG Q&A + RAG evaluation report | Add hybrid search, rerank, and citation check |
+| Switch to Agent / automation work | tool-calling demo + multi-step task Agent + safe confirmation examples | Add trace replay, MCP, and permission auditing |
+| Go into model engineering | ML baseline + DL training experiment + Transformer/fine-tuning comparison | Add training diagnostics, cost analysis, and model deployment |
+| Build a comprehensive portfolio | data analysis + ML baseline + RAG assistant + Agent assistant + capstone project | Unify README style and the project demo storyline |
 
-这些组合不是课程剪裁，而是优先级排序。基础章节决定你能不能自己排错，项目章节决定你能不能展示能力，评估和复盘决定项目是否可信。
+These combinations are not about cutting the course content down; they are about prioritizing. The fundamentals decide whether you can debug on your own, the project sections decide whether you can demonstrate ability, and evaluation and review decide whether the project is trustworthy.
 
-## 怎么选择
+## How to Choose
 
-如果你还不确定目标，先按 AI 应用工程师路线走。它覆盖面最稳，也最容易做出项目。等你在学习中发现自己更喜欢知识库、Agent、模型训练或多模态创作，再切换到对应路线深入。
+If you are still unsure about your target, start with the AI application engineer path. It has the most stable coverage and is the easiest way to build projects. Once you discover that you like knowledge bases, Agents, model training, or multimodal creation more, switch to the corresponding path and go deeper.
 
-无论选择哪条路线，都不要只收集工具名。每学一个技术，都要能回答：它解决什么问题，什么时候不用它，最小项目怎么做，如何评估，如何写进作品集。
+No matter which path you choose, do not just collect tool names. For every technology you learn, you should be able to answer: what problem does it solve, when should you not use it, how do you build the smallest project with it, how do you evaluate it, and how do you write it into your portfolio.

@@ -1,69 +1,69 @@
 ---
-title: "2.4 决策树"
+title: "2.4 Decision Trees"
 sidebar_position: 5
-description: "理解决策树的构建过程、信息增益与基尼指数、剪枝策略、决策树可视化，以及回归树"
-keywords: [决策树, 信息增益, 基尼指数, 剪枝, 回归树, CART, 可解释性]
+description: "Understand how decision trees are built, information gain and Gini index, pruning strategies, decision tree visualization, and regression trees"
+keywords: [decision tree, information gain, Gini index, pruning, regression tree, CART, interpretability]
 ---
 
-# 决策树
+# Decision Trees
 
-![决策树分裂路径图](/img/course/decision-tree-split-path.png)
+![Decision tree split path diagram](/img/course/decision-tree-split-path-en.png)
 
-:::tip 本节定位
-决策树是**最直觉、最易解释**的 ML 算法。它就像一个"20 个问题"游戏：通过一连串的是/否判断，把数据分类。更重要的是，决策树是后面集成学习（随机森林、XGBoost）的基础。
+:::tip Section Overview
+Decision trees are the **most intuitive and easiest-to-interpret** ML algorithm. They are like a "20 questions" game: classify data through a series of yes/no decisions. Even more importantly, decision trees are the foundation of later ensemble learning methods (Random Forest, XGBoost).
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解决策树的构建过程
-- 掌握信息增益、基尼指数（与第 4 站熵的概念衔接）
-- 理解剪枝策略（预剪枝、后剪枝）
-- 掌握决策树的可视化与解释性
-- 了解回归树
+- Understand how decision trees are built
+- Master information gain and Gini index (and connect them to the entropy concept from Station 4)
+- Understand pruning strategies (pre-pruning, post-pruning)
+- Master decision tree visualization and interpretability
+- Learn about regression trees
 
-## 先说一个很重要的学习预期
+## First, a very important learning expectation
 
-这一节很容易让新人一开始产生两个相反的感觉：
+This section is very likely to give beginners two opposite feelings at first:
 
-- “决策树这么像 if-else，应该特别简单”
-- “可一到熵、基尼、剪枝，好像又突然很难”
+- "Decision trees look just like if-else, so they should be really simple"
+- "But once entropy, Gini, and pruning show up, it suddenly feels hard"
 
-更适合第一遍的目标其实不是把所有公式一下吃透，而是先看顺这条主线：
+For a first pass, the goal is not to fully master every formula right away. Instead, it is better to follow this main thread:
 
-> **树会一步步长出规则，规则越细越容易把训练集记住，所以后面一定会自然走到复杂度控制。**
+> **A tree gradually grows rules step by step. The finer the rules become, the easier it is to memorize the training set, so complexity control naturally becomes necessary.**
 
-只要这条线先立住，后面的纯度、剪枝、随机森林都会更容易接上。
-
----
-
-## 先建立一张地图
-
-决策树很容易给新人一种“特别直观，所以应该不难”的错觉。  
-但真正开始做项目后，最常见的困惑反而是：
-
-- 为什么树一下就能把训练集学到很高分？
-- 为什么它又这么容易过拟合？
-- 为什么单棵树看起来好懂，但工业里大家更爱用随机森林和 Boosting？
-
-更稳的理解顺序是：
-
-![决策树学习主线图](/img/course/ch05-decision-tree-learning-flow.png)
-
-如果你先抓住这条线，后面的熵、基尼、剪枝和集成学习都会更顺。
+Once this line is clear, purity, pruning, and Random Forest will be much easier to connect later.
 
 ---
 
-## 一、决策树的直觉
+## First, build a map
 
-### 1.1 生活中的决策树
+Decision trees can easily create the illusion for beginners that "they are so intuitive, so they must not be hard."
+But in real projects, the most common confusion is actually:
+
+- Why can a tree learn the training set so well so quickly?
+- Why does it overfit so easily?
+- Why do single trees look easy to understand, but in industry people prefer Random Forest and boosting methods?
+
+A more stable order of understanding is:
+
+![Decision tree learning main flow chart](/img/course/ch05-decision-tree-learning-flow-en.png)
+
+If you first grasp this thread, the later parts about entropy, Gini, pruning, and ensemble learning will all connect more smoothly.
+
+---
+
+## 1. Intuition of decision trees
+
+### 1.1 Decision trees in daily life
 
 ```mermaid
 flowchart TD
-    A["今天出去玩吗？"] --> B{"天气好？"}
-    B -->|"是"| C{"有空？"}
-    B -->|"否"| D["不出去 🏠"]
-    C -->|"是"| E["出去玩 🎉"]
-    C -->|"否"| F["不出去 🏠"]
+    A["Are we going out today?"] --> B{"Is the weather good?"}
+    B -->|"Yes"| C{"Do you have time?"}
+    B -->|"No"| D["Don't go out 🏠"]
+    C -->|"Yes"| E["Go out and have fun 🎉"]
+    C -->|"No"| F["Don't go out 🏠"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -71,123 +71,123 @@ flowchart TD
     style F fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-决策树就是一系列的**if-else 判断**，每次根据一个特征的值把数据分成两（或多）组。
+A decision tree is a series of **if-else decisions**. Each time, it uses the value of one feature to split the data into two (or more) groups.
 
-### 1.2 机器学习中的决策树
+### 1.2 Decision trees in machine learning
 
-| 要素 | 说明 |
+| Element | Description |
 |------|------|
-| **根节点** | 最顶部的节点，包含所有数据 |
-| **内部节点** | 做判断的节点（按某个特征分裂） |
-| **叶节点** | 最终的决策结果（类别或数值） |
-| **分裂条件** | 如"花瓣长度 ≤ 2.5cm" |
-| **深度** | 从根到叶的最长路径 |
+| **Root node** | The top node, containing all data |
+| **Internal node** | A decision node that splits by a feature |
+| **Leaf node** | The final decision result (class or value) |
+| **Split condition** | For example, "petal length ≤ 2.5cm" |
+| **Depth** | The longest path from root to leaf |
 
-### 1.2.1 决策树为什么让人一看就懂？
+### 1.2.1 Why are decision trees so easy to understand at a glance?
 
-因为它把模型拆成了很多局部问题：
+Because they break the model into many local problems:
 
-- 先问一个问题
-- 根据答案走左边还是右边
-- 再问下一个问题
+- Ask one question first
+- Go left or right based on the answer
+- Then ask the next question
 
-这和线性回归、逻辑回归那种“把所有特征一次性揉进一个公式”很不一样。  
-所以决策树最大的教学价值是：
+This is very different from linear regression or logistic regression, where all features are mixed into one formula at once.
+So the biggest teaching value of decision trees is:
 
-- 它第一次让新人看见“模型在做判断”的过程
-- 它让“模型为什么这样判”变得能解释
-- 它也让“模型为什么会记住训练集”变得很直观
+- They let beginners see the process of a model "making decisions" for the first time
+- They make it explainable why the model made a certain prediction
+- They also make it intuitive why the model can memorize the training set
 
-### 1.2.2 一个更适合新人的类比
+### 1.2.2 A better analogy for beginners
 
-你可以先把决策树想成：
+You can think of a decision tree as:
 
-- 一个特别爱追问的面试官
+- an interviewer who loves asking follow-up questions
 
-它每一轮都会问：
+Each round, it asks:
 
-- “这个问题能不能把样本分得更开一点？”
+- "Can this question separate the samples a bit better?"
 
-如果能，就继续往下问；如果不能，就停在这里给结论。  
-所以树越长，本质上就是：
+If yes, it keeps going; if not, it stops and gives a conclusion.
+So when a tree grows deeper, what is happening in essence is:
 
-- 规则越问越细
-- 分类越分越开
-- 但也越容易把训练集的细节记住
+- the rules become more and more detailed
+- the classes become more and more separated
+- but it also becomes easier to memorize the details of the training set
 
-### 1.3 一个简单例子
+### 1.3 A simple example
 
 ```python
 from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 import matplotlib.pyplot as plt
 
-# 只用 2 个特征，方便可视化
+# Use only 2 features for easier visualization
 iris = load_iris()
-X = iris.data[:, 2:4]  # 花瓣长度和宽度
+X = iris.data[:, 2:4]  # petal length and width
 y = iris.target
 
-# 训练一棵浅层决策树
+# Train a shallow decision tree
 tree = DecisionTreeClassifier(max_depth=3, random_state=42)
 tree.fit(X, y)
 
-# 可视化决策树
+# Visualize the decision tree
 fig, ax = plt.subplots(figsize=(14, 8))
-plot_tree(tree, feature_names=['花瓣长度', '花瓣宽度'],
+plot_tree(tree, feature_names=['Petal Length', 'Petal Width'],
           class_names=iris.target_names, filled=True,
           rounded=True, fontsize=10, ax=ax)
-plt.title('鸢尾花决策树（max_depth=3）')
+plt.title('Iris Decision Tree (max_depth=3)')
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## 二、决策树如何"学习"？——分裂准则
+## 2. How does a decision tree "learn"? — Split criteria
 
-### 2.1 核心问题
+### 2.1 The core problem
 
-每个节点上，算法需要决定：
-1. **用哪个特征**分裂？
-2. **用什么阈值**分裂？
+At each node, the algorithm needs to decide:
+1. **Which feature** should be used for splitting?
+2. **What threshold** should be used for splitting?
 
-目标：让每次分裂后，子节点的数据尽可能**"纯"**（同类数据聚在一起）。
+Goal: make the data in each child node as **pure** as possible after each split.
 
-### 2.1.1 先别急着背公式，先记一句话
+### 2.1.1 Don’t rush to memorize formulas — first remember one sentence
 
-决策树每一步真正想做的事其实很简单：
+What a decision tree really wants to do at every step is very simple:
 
-> **找一个问题，让分开后的两堆数据比原来更整齐。**
+> **Find a question that makes the two groups after splitting more organized than before.**
 
-后面的信息增益和基尼指数，本质上都只是在量化“整齐了多少”。
+Information gain and Gini index are both ways to quantify how much more organized the data became.
 
-### 2.1.2 第一次学树模型时，最值得先记什么？
+### 2.1.2 What is most worth remembering the first time you learn tree models?
 
-比起一开始就背：
+Rather than memorizing:
 
-- 熵公式
-- 基尼公式
+- the entropy formula
+- the Gini formula
 
-更值得先记的是：
+It is more useful to remember:
 
-- 每次分裂都在追求更纯
-- 树一旦分太细，就会开始记住训练集
-- 所以后面一定会自然走到“复杂度控制”这一步
+- every split is trying to make the data purer
+- once a tree becomes too detailed, it starts memorizing the training set
+- so complexity control naturally becomes necessary later
 
-### 2.2 信息增益与熵
+### 2.2 Information gain and entropy
 
-:::info 与第 4 站的衔接
-你在第 4 站"2.4 信息论基础"中学过**熵**——它衡量一个集合的"不确定性"。决策树就是用熵来决定如何分裂。
+:::info Connection to Station 4
+In Station 4, "2.4 Basics of Information Theory," you learned about **entropy** — it measures the "uncertainty" of a set. Decision trees use entropy to decide how to split.
 :::
 
-**熵（Entropy）**：
+**Entropy**:
 
 > **H(S) = -Σ pk × log₂(pk)**
 
-- `pk` = 类别 k 在集合 S 中的比例
-- 熵越大 = 越"混乱"；熵 = 0 = 完全纯（只有一个类别）
+- `pk` = the proportion of class k in set S
+- Higher entropy = more "mixed"; entropy = 0 = completely pure (only one class)
 
-**信息增益**：分裂前后熵的减少量。
+**Information gain**: the reduction in entropy before and after splitting.
 
 > **IG(S, A) = H(S) - Σ (|Sv|/|S|) × H(Sv)**
 
@@ -195,105 +195,105 @@ plt.show()
 import numpy as np
 
 def entropy(y):
-    """计算熵"""
+    """Compute entropy"""
     classes, counts = np.unique(y, return_counts=True)
     probs = counts / len(y)
     return -np.sum(probs * np.log2(probs + 1e-10))
 
 def information_gain(y, y_left, y_right):
-    """计算信息增益"""
+    """Compute information gain"""
     n = len(y)
     return entropy(y) - (len(y_left)/n * entropy(y_left) + len(y_right)/n * entropy(y_right))
 
-# 示例：10 个样本
-y_parent = np.array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1])  # 5:5 混合
-print(f"父节点熵: {entropy(y_parent):.4f}")
+# Example: 10 samples
+y_parent = np.array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1])  # 5:5 mix
+print(f"Parent node entropy: {entropy(y_parent):.4f}")
 
-# 分裂方案 A：完美分裂
-y_left_a = np.array([0, 0, 0, 0, 0])  # 全 0
-y_right_a = np.array([1, 1, 1, 1, 1])  # 全 1
+# Split plan A: perfect split
+y_left_a = np.array([0, 0, 0, 0, 0])  # all 0
+y_right_a = np.array([1, 1, 1, 1, 1])  # all 1
 ig_a = information_gain(y_parent, y_left_a, y_right_a)
-print(f"方案 A（完美分裂）信息增益: {ig_a:.4f}")
+print(f"Plan A (perfect split) information gain: {ig_a:.4f}")
 
-# 分裂方案 B：很差的分裂
-y_left_b = np.array([0, 0, 1, 1, 1])   # 2:3 混合
-y_right_b = np.array([0, 0, 0, 1, 1])   # 3:2 混合
+# Split plan B: poor split
+y_left_b = np.array([0, 0, 1, 1, 1])   # 2:3 mix
+y_right_b = np.array([0, 0, 0, 1, 1])   # 3:2 mix
 ig_b = information_gain(y_parent, y_left_b, y_right_b)
-print(f"方案 B（差的分裂）信息增益: {ig_b:.4f}")
+print(f"Plan B (poor split) information gain: {ig_b:.4f}")
 ```
 
-### 2.3 基尼指数（Gini Impurity）
+### 2.3 Gini impurity
 
-另一种衡量"纯度"的指标，计算更快：
+Another measure of "purity" that is faster to compute:
 
 > **Gini(S) = 1 - Σ pk²**
 
-- Gini = 0 → 完全纯
-- Gini 最大 → 完全混乱
+- Gini = 0 → completely pure
+- Maximum Gini → completely mixed
 
 ```python
 def gini(y):
-    """计算基尼指数"""
+    """Compute Gini impurity"""
     classes, counts = np.unique(y, return_counts=True)
     probs = counts / len(y)
     return 1 - np.sum(probs ** 2)
 
-# 对比熵和基尼指数
+# Compare entropy and Gini
 p = np.linspace(0.01, 0.99, 100)
 entropy_vals = -p * np.log2(p) - (1-p) * np.log2(1-p)
 gini_vals = 2 * p * (1 - p)
 
 plt.figure(figsize=(8, 5))
-plt.plot(p, entropy_vals, 'b-', linewidth=2, label='熵 (Entropy)')
-plt.plot(p, gini_vals, 'r-', linewidth=2, label='基尼指数 (Gini)')
-plt.xlabel('正类比例 p')
-plt.ylabel('不纯度')
-plt.title('熵 vs 基尼指数')
+plt.plot(p, entropy_vals, 'b-', linewidth=2, label='Entropy')
+plt.plot(p, gini_vals, 'r-', linewidth=2, label='Gini')
+plt.xlabel('Positive class proportion p')
+plt.ylabel('Impurity')
+plt.title('Entropy vs Gini')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 2.4 sklearn 中的选择
+### 2.4 Choice in sklearn
 
-| 参数 | 选项 | 说明 |
+| Parameter | Option | Description |
 |------|------|------|
-| `criterion='gini'` | 基尼指数 | sklearn **默认**，计算快 |
-| `criterion='entropy'` | 信息增益 | 分裂更精确，但计算稍慢 |
+| `criterion='gini'` | Gini impurity | `sklearn` **default**, faster to compute |
+| `criterion='entropy'` | Information gain | Slightly more precise splitting, but a bit slower |
 
-实际使用中两者差异不大，默认用 `gini` 即可。
+In practice, the difference is usually small, so using `gini` by default is fine.
 
-### 2.5 第一次做项目时，`gini` 和 `entropy` 怎么选最稳？
+### 2.5 If I am doing a project for the first time, how should I choose between `gini` and `entropy`?
 
-如果你不是在专门做算法对比实验，第一次做项目时可以直接这样用：
+If you are not running a special algorithm comparison experiment, you can start like this in your first project:
 
-- 先用默认的 `gini`
-- 把主要精力放在 `max_depth`、`min_samples_leaf`、`ccp_alpha`
-- 如果你已经把这些都调过了，再考虑是否比较 `entropy`
+- Use the default `gini` first
+- Focus your main effort on `max_depth`, `min_samples_leaf`, and `ccp_alpha`
+- If you have already tuned those, then consider whether to compare `entropy`
 
-原因很简单：
+The reason is simple:
 
-- 分裂准则通常不是性能差异的主要来源
-- 树的复杂度控制，往往比“选哪种纯度公式”更重要
+- the split criterion is usually not the main source of performance differences
+- controlling tree complexity is often much more important than choosing which purity formula to use
 
-### 2.6 第一次调树模型时，最稳的默认顺序
+### 2.6 The safest default tuning order for tree models
 
-如果你第一次真正调树模型，建议先按下面顺序来：
+If you are tuning a tree model for the first time, it is recommended to follow this order:
 
-1. 先立一棵浅树做 baseline
-2. 先看 `max_depth`
-3. 再看 `min_samples_leaf`
-4. 再看 `ccp_alpha`
-5. 最后才去比较 `gini / entropy`
+1. Build a shallow tree as a baseline
+2. Check `max_depth` first
+3. Then check `min_samples_leaf`
+4. Then check `ccp_alpha`
+5. Only at the end compare `gini / entropy`
 
-这个顺序更稳，因为它优先解决的是：
+This order is more stable because it first addresses:
 
-- 树有没有长过头
-- 规则有没有细到开始记数据
+- whether the tree has grown too complex
+- whether the rules have become so detailed that they start memorizing the data
 
 ---
 
-## 三、决策边界可视化
+## 3. Visualizing the decision boundary
 
 ```python
 from sklearn.datasets import make_classification, make_moons
@@ -312,7 +312,7 @@ def plot_decision_boundary(ax, model, X, y, title):
     ax.set_title(title)
     ax.grid(True, alpha=0.3)
 
-# 不同深度的决策树
+# Decision trees with different depths
 X, y = make_moons(n_samples=300, noise=0.25, random_state=42)
 
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
@@ -321,65 +321,65 @@ depths = [1, 3, 5, None]
 for ax, depth in zip(axes, depths):
     tree = DecisionTreeClassifier(max_depth=depth, random_state=42)
     tree.fit(X, y)
-    label = f'深度不限' if depth is None else f'深度={depth}'
+    label = f'No depth limit' if depth is None else f'depth={depth}'
     plot_decision_boundary(ax, tree, X, y,
-                          f'{label}\n训练准确率: {tree.score(X, y):.1%}')
+                          f'{label}\nTraining accuracy: {tree.score(X, y):.1%}')
 
-plt.suptitle('决策树深度对决策边界的影响', fontsize=13)
+plt.suptitle('How decision tree depth affects the decision boundary', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-:::warning 决策树的过拟合
-不限深度的决策树会把每个训练样本都"记住"（训练准确率 100%），但决策边界会非常复杂。这就是过拟合——需要通过**剪枝**来控制。
+:::warning Overfitting in decision trees
+A decision tree with unlimited depth will "memorize" every training sample (training accuracy 100%), but the decision boundary becomes very complex. This is overfitting — and it needs to be controlled through **pruning**.
 :::
 
-### 3.1 第一次看到这张边界图，最该看什么？
+### 3.1 When you first see this boundary plot, what should you focus on?
 
-不是先看训练准确率，而是先看：
+Not on training accuracy first, but on:
 
-- 边界是不是开始变得非常碎
-- 一些孤立点是不是被单独切出一小块区域
-- 训练分数和测试分数是不是开始分叉
+- whether the boundary has become very fragmented
+- whether isolated points are being cut out into tiny separate regions
+- whether the training score and test score are starting to diverge
 
-这正是机器学习里特别重要的诊断思路：
+This is a very important machine learning diagnostic idea:
 
-- 不是只问“模型能不能学到”
-- 而是问“模型学到的是规律，还是样本噪声”
+- don’t just ask, "Can the model learn?"
+- ask, "Is the model learning patterns, or just sample noise?"
 
-![决策树过拟合与剪枝图](/img/course/ch05-tree-pruning-overfit-map.png)
+![Decision tree overfitting and pruning diagram](/img/course/ch05-tree-pruning-overfit-map-en.png)
 
-这张图要和上面的边界图一起看：树越深，越容易把孤立噪声切成单独小区域；剪枝不是“让模型变弱”，而是把过于细碎、只服务训练样本的分裂剪掉，让模型更像是在学规律。
+This diagram should be read together with the boundary plot above: the deeper the tree, the more likely it is to carve isolated noise into tiny separate regions; pruning is not about "making the model weaker," but about removing overly fragmented splits that only serve the training samples, so the model learns something closer to the real pattern.
 
 ---
 
-## 四、剪枝——控制复杂度
+## 4. Pruning — controlling complexity
 
-### 4.1 预剪枝（Pre-pruning）
+### 4.1 Pre-pruning
 
-**在构建过程中**限制树的生长：
+Limit tree growth **during construction**:
 
-| 参数 | 说明 | 默认值 |
+| Parameter | Description | Default |
 |------|------|--------|
-| `max_depth` | 最大深度 | None（不限） |
-| `min_samples_split` | 节点最少样本数才能分裂 | 2 |
-| `min_samples_leaf` | 叶子节点最少样本数 | 1 |
-| `max_leaf_nodes` | 最大叶节点数 | None（不限） |
+| `max_depth` | Maximum depth | None (unlimited) |
+| `min_samples_split` | Minimum number of samples required for a node to split | 2 |
+| `min_samples_leaf` | Minimum number of samples required at a leaf node | 1 |
+| `max_leaf_nodes` | Maximum number of leaf nodes | None (unlimited) |
 
-### 4.1.1 第一次调树模型时，更稳的顺序是什么？
+### 4.1.1 What is a safer order when tuning a tree model for the first time?
 
-新人第一次调决策树，很容易一口气改很多参数，最后不知道到底是谁在起作用。  
-更稳的顺序是：
+When beginners tune a decision tree for the first time, it is easy to change many parameters at once and then not know which one is actually responsible.
+A safer order is:
 
-1. 先只调 `max_depth`
-2. 再看是否需要调 `min_samples_leaf`
-3. 最后再看 `min_samples_split` 和 `ccp_alpha`
+1. Tune `max_depth` first
+2. Then check whether `min_samples_leaf` needs tuning
+3. Finally look at `min_samples_split` and `ccp_alpha`
 
-因为：
+Because:
 
-- `max_depth` 最直接决定树能长多复杂
-- `min_samples_leaf` 很适合抑制“为少数点单独切分”
-- 其他参数更像精细微调
+- `max_depth` directly controls how complex the tree can become
+- `min_samples_leaf` is very effective at preventing "splitting just for a few rare points"
+- the other parameters are more like fine adjustments
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -387,10 +387,10 @@ from sklearn.model_selection import train_test_split
 X, y = make_moons(n_samples=500, noise=0.3, random_state=42)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 对比不同深度
+# Compare different depths
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
 configs = [
-    (None, '不剪枝'),
+    (None, 'No pruning'),
     (3, 'max_depth=3'),
     (5, 'max_depth=5'),
     (10, 'max_depth=10'),
@@ -402,27 +402,27 @@ for ax, (depth, title) in zip(axes, configs):
     train_acc = tree.score(X_train, y_train)
     test_acc = tree.score(X_test, y_test)
     plot_decision_boundary(ax, tree, X_train, y_train,
-                          f'{title}\n训练: {train_acc:.1%}, 测试: {test_acc:.1%}')
+                          f'{title}\nTrain: {train_acc:.1%}, Test: {test_acc:.1%}')
 
-plt.suptitle('预剪枝对过拟合的控制', fontsize=13)
+plt.suptitle('How pre-pruning controls overfitting', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-### 4.2 后剪枝（Post-pruning）——代价复杂度剪枝
+### 4.2 Post-pruning — cost complexity pruning
 
-**先长成完全树，再回头"修剪"**。sklearn 使用 `ccp_alpha`（Cost Complexity Pruning）参数。
+**First grow a full tree, then go back and "trim" it.** In sklearn, this is done with the `ccp_alpha` (Cost Complexity Pruning) parameter.
 
 ```python
-# 找到最优的 ccp_alpha
+# Find the optimal ccp_alpha
 tree_full = DecisionTreeClassifier(random_state=42)
 tree_full.fit(X_train, y_train)
 
-# 获取不同 alpha 对应的子树
+# Get subtrees corresponding to different alpha values
 path = tree_full.cost_complexity_pruning_path(X_train, y_train)
 ccp_alphas = path.ccp_alphas
 
-# 对每个 alpha 训练一棵树
+# Train a tree for each alpha
 train_scores = []
 test_scores = []
 for alpha in ccp_alphas:
@@ -432,30 +432,30 @@ for alpha in ccp_alphas:
     test_scores.append(tree.score(X_test, y_test))
 
 plt.figure(figsize=(8, 5))
-plt.plot(ccp_alphas, train_scores, 'b-o', markersize=3, label='训练集')
-plt.plot(ccp_alphas, test_scores, 'r-o', markersize=3, label='测试集')
+plt.plot(ccp_alphas, train_scores, 'b-o', markersize=3, label='Training set')
+plt.plot(ccp_alphas, test_scores, 'r-o', markersize=3, label='Test set')
 plt.xlabel('ccp_alpha')
-plt.ylabel('准确率')
-plt.title('代价复杂度剪枝')
+plt.ylabel('Accuracy')
+plt.title('Cost complexity pruning')
 plt.legend()
 plt.grid(True, alpha=0.3)
 
-# 标注最优点
+# Mark the best point
 best_idx = np.argmax(test_scores)
 plt.axvline(x=ccp_alphas[best_idx], color='green', linestyle='--',
-            label=f'最优 alpha={ccp_alphas[best_idx]:.4f}')
+            label=f'Best alpha={ccp_alphas[best_idx]:.4f}')
 plt.legend()
 plt.show()
 
-print(f"最优 ccp_alpha: {ccp_alphas[best_idx]:.4f}")
-print(f"最优测试准确率: {test_scores[best_idx]:.1%}")
+print(f"Best ccp_alpha: {ccp_alphas[best_idx]:.4f}")
+print(f"Best test accuracy: {test_scores[best_idx]:.1%}")
 ```
 
 ---
 
-## 五、特征重要性
+## 5. Feature importance
 
-决策树天然提供**特征重要性**——表示每个特征对分类决策的贡献程度。
+Decision trees naturally provide **feature importance** — showing how much each feature contributes to the classification decision.
 
 ```python
 from sklearn.datasets import load_wine
@@ -467,15 +467,15 @@ X, y = wine.data, wine.target
 tree = DecisionTreeClassifier(max_depth=4, random_state=42)
 tree.fit(X, y)
 
-# 特征重要性
+# Feature importance
 importance = tree.feature_importances_
 sorted_idx = np.argsort(importance)
 
 plt.figure(figsize=(8, 6))
 plt.barh(range(len(sorted_idx)), importance[sorted_idx], color='steelblue')
 plt.yticks(range(len(sorted_idx)), np.array(wine.feature_names)[sorted_idx])
-plt.xlabel('特征重要性')
-plt.title('决策树的特征重要性（Wine 数据集）')
+plt.xlabel('Feature importance')
+plt.title('Feature importance of a decision tree (Wine dataset)')
 plt.grid(axis='x', alpha=0.3)
 plt.tight_layout()
 plt.show()
@@ -483,25 +483,25 @@ plt.show()
 
 ---
 
-## 六、回归树
+## 6. Regression trees
 
-决策树不只能做分类，也能做**回归**。
+Decision trees are not only for classification, they can also do **regression**.
 
-### 6.1 原理
+### 6.1 Principle
 
-分类树的叶节点输出**类别**；回归树的叶节点输出**数值**（该区域所有样本的平均值）。
+The leaf nodes of a classification tree output **classes**; the leaf nodes of a regression tree output **numerical values** (the average value of all samples in that region).
 
-### 6.2 示例
+### 6.2 Example
 
 ```python
 from sklearn.tree import DecisionTreeRegressor
 
-# 生成非线性数据
+# Generate nonlinear data
 np.random.seed(42)
 X_reg = np.sort(np.random.uniform(0, 10, 200)).reshape(-1, 1)
 y_reg = np.sin(X_reg.ravel()) + np.random.randn(200) * 0.3
 
-# 不同深度的回归树
+# Regression trees with different depths
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 depths = [2, 5, None]
 
@@ -514,112 +514,112 @@ for ax, depth in zip(axes, depths):
 
     ax.scatter(X_reg, y_reg, s=10, alpha=0.5, color='steelblue')
     ax.plot(X_test_reg, y_pred, 'r-', linewidth=2)
-    label = '不限' if depth is None else str(depth)
-    ax.set_title(f'深度={label}, R²={tree.score(X_reg, y_reg):.3f}')
+    label = 'No limit' if depth is None else str(depth)
+    ax.set_title(f'depth={label}, R²={tree.score(X_reg, y_reg):.3f}')
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('回归树的不同深度', fontsize=13)
+plt.suptitle('Regression trees with different depths', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-:::note 回归树 vs 线性回归
-回归树的预测是**阶梯状**的（每个区间输出一个常数），而不是平滑的。它天然可以拟合非线性数据，但也容易过拟合。
+:::note Regression tree vs linear regression
+A regression tree makes **step-like** predictions (each interval outputs a constant), rather than smooth ones. It can naturally fit nonlinear data, but it also overfits easily.
 :::
 
 ---
 
-## 七、决策树的优缺点
+## 7. Advantages and disadvantages of decision trees
 
-| 优点 | 缺点 |
+| Advantages | Disadvantages |
 |------|------|
-| 易于理解和解释（可视化） | 容易过拟合 |
-| 不需要特征缩放 | 对数据微小变化敏感 |
-| 可处理分类和回归 | 决策边界是轴对齐的 |
-| 可处理多类别问题 | 贪心算法，不保证全局最优 |
-| 隐式特征选择 | 单棵树表达能力有限 |
+| Easy to understand and explain (visualizable) | Prone to overfitting |
+| No feature scaling required | Sensitive to small changes in data |
+| Can handle both classification and regression | Decision boundaries are axis-aligned |
+| Can handle multiclass problems | Greedy algorithm, no guarantee of global optimum |
+| Implicit feature selection | A single tree has limited expressive power |
 
-:::info 解决缺点的方法
-决策树的多数缺点可以通过**集成学习**（下一节）来解决：
-- 多棵树投票 → 减少过拟合
-- 随机采样 → 减少对单个数据点的敏感性
+:::info How to address the drawbacks
+Most drawbacks of decision trees can be addressed with **ensemble learning** (next section):
+- Multiple trees vote together → reduce overfitting
+- Random sampling → reduce sensitivity to individual data points
 :::
 
-### 7.1 决策树什么时候特别值得先试？
+### 7.1 When is a decision tree especially worth trying first?
 
-虽然单棵树不一定是最终最强模型，但它在这些场景里很值得先试：
+Although a single tree is not always the strongest final model, it is very worth trying first in these scenarios:
 
-- 你特别需要可解释性
-- 你想快速判断哪些特征大概有用
-- 你怀疑特征和标签之间存在明显的分段规则
-- 你想先做一个很容易向业务方讲清楚的 baseline
+- You particularly need interpretability
+- You want to quickly judge which features are likely useful
+- You suspect there are clear segmented rules between features and labels
+- You want a baseline that is easy to explain to stakeholders
 
-它在课程里的价值，不只是一个算法，而是连接了两件很重要的事：
+Its value in this course is not just as an algorithm, but as a bridge between two very important things:
 
-- 可解释建模
-- 集成树模型的起点
+- interpretable modeling
+- the starting point of ensemble tree models
 
 ---
 
-## 九、第一次把决策树放进项目里，最稳的默认顺序
+## 9. The safest default order when putting a decision tree into a project for the first time
 
-第一次把决策树真正放进项目里，可以先按这个顺序：
+When you first use a decision tree in a real project, you can follow this order:
 
-1. 先把它当成可解释 baseline
-2. 先限制树深，别让它一上来无限长
-3. 先看训练分数和验证分数差距
-4. 再决定是继续调单棵树，还是进入随机森林 / Boosting
+1. Treat it as an interpretable baseline first
+2. Limit the tree depth first; do not let it grow without control
+3. Check the gap between training score and validation score
+4. Then decide whether to keep tuning the single tree or move on to Random Forest / boosting
 
-这样会比一上来直接跳到集成学习更稳，因为你先真的看懂了：
+This is more stable than jumping directly to ensemble learning, because first you actually understand:
 
-- 单棵树为什么直观
-- 单棵树为什么不稳
-- 集成学习到底是在补它什么短板
+- why a single tree is intuitive
+- why a single tree is unstable
+- what exactly ensemble learning is fixing
 
-:::info 连接后续
-- **下一节**：集成学习——把多棵决策树组合起来，效果远超单棵树
-- **第 4 站回顾**：熵和信息增益（2.4 节信息论）
+:::info Connect to later sections
+- **Next section**: Ensemble learning — combine multiple decision trees for performance far beyond a single tree
+- **Review Station 4**: Entropy and information gain (information theory in Section 2.4)
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key Point | Description |
 |------|------|
-| 核心思想 | 通过一系列判断条件将数据递归分割 |
-| 分裂准则 | 信息增益（熵）或基尼指数 |
-| 过拟合控制 | 预剪枝（限制深度/样本数）或后剪枝（ccp_alpha） |
-| 可解释性 | 可视化决策路径，输出特征重要性 |
-| 回归树 | 叶节点输出数值而非类别 |
+| Core idea | Recursively split data using a series of decision conditions |
+| Split criterion | Information gain (entropy) or Gini index |
+| Overfitting control | Pre-pruning (limit depth/sample counts) or post-pruning (`ccp_alpha`) |
+| Interpretability | Visualize decision paths and output feature importance |
+| Regression tree | Leaf nodes output numerical values instead of classes |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-如果只带走一句话，我希望你记住：
+If you only remember one sentence, I hope it is this:
 
-> **决策树的核心不是“会分裂”，而是它第一次把“模型复杂度”和“过拟合”这件事变得肉眼可见。**
+> **The core of a decision tree is not just "being able to split," but that it makes model complexity and overfitting visibly obvious for the first time.**
 
-所以真正重要的收获应该是：
+So the really important takeaways are:
 
-- 知道树为什么直观
-- 知道树为什么容易过拟合
-- 知道第一次调树模型该先动哪些参数
-- 知道为什么后面会自然走到随机森林和 Boosting
+- Know why trees are intuitive
+- Know why trees overfit easily
+- Know which parameters to adjust first when tuning a tree model
+- Know why Random Forest and boosting naturally come next
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：手动计算信息增益
+### Exercise 1: Manually compute information gain
 
-有 10 个样本：标签为 `[是,是,否,是,否,否,是,是,否,否]`（5 个"是"，5 个"否"）。按特征 A 分裂后，左子节点 = `[是,是,是,否]`，右子节点 = `[否,否,否,否,是,是]`。手动计算信息增益。
+There are 10 samples with labels `[yes,yes,no,yes,no,no,yes,yes,no,no]` (5 "yes", 5 "no"). After splitting by feature A, the left child node is `[yes,yes,yes,no]`, and the right child node is `[no,no,no,no,yes,yes]`. Manually compute the information gain.
 
-### 练习 2：深度调优
+### Exercise 2: Depth tuning
 
-用 `make_moons` 数据（noise=0.3），尝试不同的 `max_depth`（1~20），画出训练集和测试集准确率的变化曲线，找到最优深度。
+Using the `make_moons` dataset (noise=0.3), try different `max_depth` values (1~20), plot the curves of training and test accuracy, and find the best depth.
 
-### 练习 3：回归树 vs 线性回归
+### Exercise 3: Regression tree vs linear regression
 
-用 `y = sin(x) + 噪声` 生成数据，分别用 `LinearRegression`、`PolynomialFeatures(degree=5) + LinearRegression`、`DecisionTreeRegressor(max_depth=5)` 三种方法拟合，画出对比图。
+Generate data using `y = sin(x) + noise`, then fit it with `LinearRegression`, `PolynomialFeatures(degree=5) + LinearRegression`, and `DecisionTreeRegressor(max_depth=5)`. Plot a comparison chart.
 
-### 练习 4：特征重要性
+### Exercise 4: Feature importance
 
-用 `load_iris()` 训练决策树，画出特征重要性柱状图。尝试去掉不重要的特征后重新训练，看准确率是否下降。
+Use `load_iris()` to train a decision tree and plot a bar chart of feature importance. Try removing unimportant features and retraining to see whether accuracy drops.

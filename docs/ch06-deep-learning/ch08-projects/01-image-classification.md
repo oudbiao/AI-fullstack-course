@@ -1,82 +1,82 @@
 ---
-title: "8.2 项目：图像分类系统"
+title: "8.2 Project: Image Classification System"
 sidebar_position: 1
-description: "围绕一个真正可展示的图像分类项目，从选题、数据、baseline、训练、评估到演示方式，走完整条交付闭环。"
+description: "Work through a complete delivery loop for a real, demo-friendly image classification project, from topic selection, data, and baseline to training, evaluation, and presentation."
 keywords: [image classification project, CNN, confusion matrix, error analysis, computer vision]
 ---
 
-# 项目：图像分类系统
+# Project: Image Classification System
 
-:::tip 本节定位
-图像分类很适合作为第一个视觉项目，不是因为它最简单，而是因为它最容易把完整工程链路讲清楚：
+:::tip Section overview
+Image classification is a great first vision project, not because it is the easiest, but because it is the easiest way to explain the full engineering pipeline clearly:
 
-- 类别怎么定
-- 数据怎么组织
-- baseline 怎么做
-- 指标怎么看
-- 错误怎么分析
+- How to define the classes
+- How to organize the data
+- How to build a baseline
+- How to read the metrics
+- How to analyze mistakes
 
-这一节的目标不是做一个“能跑的模型”，而是做一个**能讲清楚的项目**。
+The goal of this section is not to build a model that “runs,” but to build a project that you can **explain clearly**.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会定义一个适合作品集展示的图像分类题目
-- 学会把数据、baseline、评估和错误分析串成闭环
-- 学会用最小可运行示例表达项目结构
-- 理解图像分类项目里最值得展示的是什么
-
----
-
-## 一、先别急着选模型，先把项目题目选对
-
-### 1.1 一个适合练手的题目通常有三个特征
-
-1. 类别边界清楚  
-   例如 `猫 / 狗 / 鸟`、`苹果叶片病害分类`、`垃圾分类`
-2. 数据能拿到  
-   不要一开始就选你根本没法收集样本的题目
-3. 错误能解释  
-   分错后你能说出可能原因，而不是只剩“模型不行”
-
-### 1.2 一个很稳的项目题目
-
-例如：
-
-> **做一个“宠物照片分类器”，把图片分成 `cat / dog / rabbit` 三类。**
-
-它的优点是：
-
-- 类别直观
-- 数据相对容易收集
-- 很适合做 confusion matrix 和错误样例分析
-
-### 1.3 不建议一开始就做的题目
-
-例如：
-
-- 上百类细粒度分类
-- 类别边界极其模糊
-- 数据严重不平衡但你还没准备好处理
+- Learn how to define an image classification problem that works well for a portfolio
+- Learn how to connect data, baseline, evaluation, and error analysis into a closed loop
+- Learn how to express the project structure with a minimal runnable example
+- Understand what is most worth showing in an image classification project
 
 ---
 
-## 二、项目最小闭环长什么样？
+## 1. Don’t rush to pick a model; first pick the right project topic
 
-一个最小但完整的图像分类项目，通常至少应包含：
+### 1.1 A good practice topic usually has three characteristics
 
-1. 题目与标签定义
-2. 数据集组织与划分
-3. baseline
-4. 训练与验证
-5. 评估与错误分析
-6. 演示方式
+1. Clear class boundaries
+   For example: `cat / dog / bird`, `apple leaf disease classification`, `garbage sorting`
+2. Accessible data
+   Don’t start with a topic for which you have no realistic way to collect samples
+3. Explainable mistakes
+   After a wrong prediction, you can describe possible reasons instead of ending with “the model is bad”
 
-如果这 6 件事都说清了，即使模型不复杂，项目也会很有说服力。
+### 1.2 A very stable project topic
+
+For example:
+
+> **Build a “pet photo classifier” that splits images into three classes: `cat / dog / rabbit`.**
+
+Its advantages are:
+
+- The classes are intuitive
+- The data is relatively easy to collect
+- It is very suitable for a confusion matrix and error sample analysis
+
+### 1.3 Topics not recommended for the beginning
+
+For example:
+
+- Hundreds of fine-grained classes
+- Extremely ambiguous class boundaries
+- Severe class imbalance before you are ready to handle it
 
 ---
 
-## 三、先看一个最小项目规划对象
+## 2. What does the minimum project loop look like?
+
+A minimal but complete image classification project should usually include at least:
+
+1. Problem and label definition
+2. Dataset organization and splitting
+3. Baseline
+4. Training and validation
+5. Evaluation and error analysis
+6. Demo method
+
+If you can explain all 6 parts clearly, the project will be convincing even if the model is not complicated.
+
+---
+
+## 3. First, look at a minimal project planning object
 
 ```python
 from dataclasses import dataclass, field
@@ -98,42 +98,42 @@ plan = CVProjectPlan(
     dataset_split={"train": 900, "val": 180, "test": 180},
     baseline="small_cnn",
     metrics=["accuracy", "confusion_matrix", "error_cases"],
-    risks=["类别不平衡", "背景泄漏", "标签噪声"],
+    risks=["class imbalance", "background leakage", "label noise"],
 )
 
 print(plan)
 ```
 
-### 3.1 这个对象为什么重要？
+### 3.1 Why is this object important?
 
-因为项目一开始最容易缺的，不是代码，而是边界。  
-这个最小对象逼你先说明：
+Because at the start of a project, what you lack most often is not code, but boundaries.
+This minimal object forces you to explain first:
 
-- 在做什么
-- 有哪些类别
-- 用什么 baseline
-- 用什么指标判断成败
+- What you are building
+- What classes you have
+- What baseline you will use
+- What metrics you will use to judge success
 
 ---
 
-## 四、先用一个“伪特征”基线理解项目评估
+## 4. Start by understanding project evaluation with a “pseudo-feature” baseline
 
-为了不引入额外依赖，我们用一个很小的 toy baseline 来模拟图像分类项目的验证流程。
+To avoid adding extra dependencies, we’ll use a tiny toy baseline to simulate the validation flow of an image classification project.
 
-这里假设每张图片已经有三个非常粗糙的统计特征：
+Here, we assume each image already has three very rough statistical features:
 
 - `fur`
 - `ear_shape`
 - `size`
 
-当然真实项目不会这么做，但它非常适合帮助你看懂：
+Of course, a real project would not do this, but it is very helpful for understanding:
 
-- 训练集
-- 类别原型
-- 预测
-- confusion matrix
+- the training set
+- class prototypes
+- prediction
+- the confusion matrix
 
-这条链。
+This chain.
 
 ```python
 train_data = [
@@ -149,7 +149,7 @@ test_data = [
     ("cat", [0.85, 0.75, 0.45]),
     ("dog", [0.65, 0.45, 0.85]),
     ("rabbit", [0.45, 0.85, 0.25]),
-    ("dog", [0.82, 0.72, 0.42]),  # 故意放一个更像 cat 的错误样本
+    ("dog", [0.82, 0.72, 0.42]),  # Intentionally add an error sample that looks more like cat
 ]
 
 
@@ -187,20 +187,20 @@ for gold, features in test_data:
     print(results[-1])
 ```
 
-### 4.1 为什么这个示例仍然有项目价值？
+### 4.1 Why does this example still have project value?
 
-因为项目最重要的不是库名，而是评估思路。  
-这个 toy baseline 已经让你看到：
+Because the most important thing in a project is not the library name, but the evaluation logic.
+This toy baseline already lets you see:
 
 - train -> prototype
 - test -> predict
 - gold vs pred
 
-这正是后面真正 CNN 项目也必须走的一条线。
+This is exactly the same line that a real CNN project must follow later.
 
 ---
 
-## 五、一个最小 confusion matrix 和错误分析
+## 5. A minimal confusion matrix and error analysis
 
 ```python
 labels = ["cat", "dog", "rabbit"]
@@ -222,106 +222,106 @@ error_cases = [row for row in results if row["gold"] != row["pred"]]
 print("\nerror cases:", error_cases)
 ```
 
-### 5.1 为什么 confusion matrix 对图像分类特别重要？
+### 5.1 Why is the confusion matrix especially important for image classification?
 
-因为总准确率只会告诉你：
+Because overall accuracy only tells you:
 
-- 对了多少
+- how many were correct
 
-但 confusion matrix 会告诉你：
+But the confusion matrix tells you:
 
-- 哪两类最容易混
+- which two classes are most often confused
 
-这正是你下一步改数据和改模型最需要的信息。
+That is exactly the information you need next when improving the data and the model.
 
-### 5.2 错误样例为什么比总分更值钱？
+### 5.2 Why are error samples more valuable than the overall score?
 
-因为你能真正去看：
+Because you can actually inspect whether:
 
-- 是不是背景误导了模型
-- 是不是某类照片角度不一致
-- 是不是标签标错了
+- the background misled the model
+- one class has inconsistent photo angles
+- some labels were incorrect
 
-这才是图像项目里最有洞察力的部分。
-
----
-
-## 六、真实项目里最该补的三层
-
-### 6.1 数据层
-
-你至少应该说明：
-
-- 每类大概多少图
-- train / val / test 怎么分
-- 有没有类别不平衡
-
-### 6.2 模型层
-
-很推荐先做两层 baseline：
-
-1. 小 CNN
-2. 迁移学习模型
-
-这样你才能说清：
-
-- 更复杂模型到底换来了什么
-
-### 6.3 展示层
-
-图像分类项目做作品集时，最值得展示的通常是：
-
-- 标签定义
-- confusion matrix
-- 典型正确样本
-- 典型错误样本
-
-而不只是贴一张“训练完成”的截图。
+This is the most insightful part of an image project.
 
 ---
 
-## 七、这个项目最容易踩的坑
+## 6. Three layers you should add in a real project
 
-### 7.1 只看总准确率
+### 6.1 Data layer
 
-你会很容易错过真正的问题分布。
+You should at least explain:
 
-### 7.2 类别定义太随意
+- Roughly how many images each class has
+- How train / val / test are split
+- Whether there is class imbalance
 
-如果类别边界本身模糊，模型和评估都会一起发虚。
+### 6.2 Model layer
 
-### 7.3 数据泄漏
+It is highly recommended to start with two baselines:
 
-如果相似图片同时出现在训练和测试，  
-结果会被高估。
+1. A small CNN
+2. A transfer learning model
+
+Then you can clearly explain:
+
+- What the more complex model actually buys you
+
+### 6.3 Presentation layer
+
+When turning an image classification project into a portfolio piece, the most valuable things to show are usually:
+
+- Label definition
+- Confusion matrix
+- Typical correct samples
+- Typical error samples
+
+Not just a screenshot saying “training completed.”
 
 ---
 
-## 小结
+## 7. The most common pitfalls in this project
 
-这节最重要的是建立一个项目意识：
+### 7.1 Looking only at overall accuracy
 
-> **图像分类项目真正有说服力的地方，不是模型名，而是你能否把类别边界、数据组织、baseline、confusion matrix 和错误分析讲成一个完整闭环。**
+You will very easily miss the real distribution of problems.
 
-只要这个闭环立住了，即使是一个小型项目，也会很像作品级课程。
+### 7.2 Defining classes too casually
+
+If the class boundaries are fuzzy to begin with, both the model and the evaluation will be unstable.
+
+### 7.3 Data leakage
+
+If similar images appear in both training and testing,
+the results will be overestimated.
+
+---
+
+## Summary
+
+The most important thing in this section is to build a project mindset:
+
+> **The real value of an image classification project is not the model name, but whether you can turn the class boundaries, data organization, baseline, confusion matrix, and error analysis into a complete closed loop.**
+
+Once that loop is in place, even a small project will feel like a portfolio-level course project.
 
 ---
 
 
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Run through the minimum loop | Can input, process, and output, while keeping one set of examples |
+| Standard version | Become a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failed sample analysis, and next-step directions |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not chase something large and complete from the beginning. Every time you upgrade the version, write into the README what new capability was added, how you verified it, and what problems still remain.
 
-## 练习
+## Exercises
 
-1. 把 toy 数据里的 `dog` 样本再加两条，看看 confusion matrix 会怎么变化。
-2. 如果 `cat` 和 `rabbit` 总混淆，你会优先查数据、标签还是模型？为什么？
-3. 想一想：为什么图像分类项目特别适合用 confusion matrix 做展示？
-4. 如果你要把这个项目做成作品集页面，你会优先放哪 4 块内容？
+1. Add two more `dog` samples to the toy data and see how the confusion matrix changes.
+2. If `cat` and `rabbit` are often confused, would you inspect the data, labels, or model first? Why?
+3. Think about it: why is image classification especially suitable for showing a confusion matrix?
+4. If you were turning this project into a portfolio page, which 4 sections would you place first?

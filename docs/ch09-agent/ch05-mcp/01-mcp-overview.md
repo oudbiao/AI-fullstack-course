@@ -1,122 +1,122 @@
 ---
-title: "5.2 MCP 协议概述"
+title: "5.2 MCP Protocol Overview"
 sidebar_position: 25
-description: "从为什么工具接入总是很乱，到 MCP 如何把客户端和工具服务器之间的交互标准化，建立对 MCP 的第一层直觉。"
+description: "From why tool integration always feels messy to how MCP standardizes interaction between clients and tool servers, building an initial intuition for MCP."
 keywords: [MCP, Model Context Protocol, tool protocol, client-server, JSON-RPC]
 ---
 
-# MCP 协议概述
+# MCP Protocol Overview
 
-:::tip 本节定位
-前面你已经学过：
+:::tip Section Overview
+You have already learned about:
 
 - Function Calling
-- 工具集成
-- Agent 系统架构
+- Tool Integration
+- Agent System Architecture
 
-这些能力都在回答同一个问题：
+All of these are answering the same question:
 
-> **模型怎样安全、稳定地接入外部工具？**
+> **How can a model safely and reliably connect to external tools?**
 
-MCP 的价值，在于把这件事继续往前推进一步：
+The value of MCP is that it pushes this one step further:
 
-> **把工具接入这件事做成更统一的协议。**
+> **It turns tool integration into a more unified protocol.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么单独写工具接入代码很快会变乱
-- 理解 MCP 想解决的核心问题
-- 分清 client、server、tool、transport 的角色
-- 看懂一个最小 MCP 风格消息示例
-- 建立对 MCP 适用场景和边界的正确直觉
-
----
-
-## 一、为什么会需要 MCP？
-
-### 1.1 先看“没有协议”时会发生什么
-
-如果你给一个 Agent 系统接 3 个工具：
-
-- 搜索
-- 文件系统
-- 数据库
-
-最容易出现的情况是：
-
-- 每个工具接口格式都不一样
-- 每个工具的参数描述方式不一样
-- 错误处理也各写各的
-- 换个客户端就要重写适配层
-
-一开始你可能觉得还能忍，但工具一多，系统很快会变成：
-
-> **每加一个工具，就多一堆胶水代码。**
-
-### 1.2 协议的意义是什么？
-
-协议的意义不是“让名字更高级”，而是：
-
-> **让不同系统能按一套共同规则交换信息。**
-
-你可以把它类比成：
-
-- USB 之于外设
-- HTTP 之于网页请求
-- SQL 之于数据库查询
-
-MCP 想做的，正是：
-
-> **工具接入世界里的“统一插口”。**
+- Understand why writing tool integration code on its own can quickly become messy
+- Understand the core problem MCP is trying to solve
+- Distinguish the roles of client, server, tool, and transport
+- Read a minimal MCP-style message example
+- Build the right intuition for MCP use cases and boundaries
 
 ---
 
-## 二、MCP 在回答什么问题？
+## 1. Why do we need MCP?
 
-可以先把它浓缩成三个问题：
+### 1.1 First, what happens when there is "no protocol"?
 
-1. 客户端怎么知道服务器上有哪些工具？
-2. 客户端怎么用统一格式调用这些工具？
-3. 工具调用结果和上下文怎么返回？
+If you connect 3 tools to an Agent system:
 
-也就是说，MCP 关心的不是某个具体工具，而是：
+- Search
+- File system
+- Database
 
-> **客户端和工具服务器之间怎样稳定沟通。**
+The most likely situation is:
+
+- Each tool has a different interface format
+- Each tool uses a different way to describe parameters
+- Error handling is implemented separately for each one
+- If you switch clients, you have to rewrite the adaptation layer
+
+At first, this may still feel manageable, but as tools increase, the system quickly becomes:
+
+> **Every time you add a tool, you also add a pile of glue code.**
+
+### 1.2 What is the purpose of a protocol?
+
+The purpose of a protocol is not to “make the name sound more advanced,” but to:
+
+> **Allow different systems to exchange information according to a shared set of rules.**
+
+You can compare it to:
+
+- USB for peripherals
+- HTTP for web requests
+- SQL for database queries
+
+What MCP wants to do is:
+
+> **Become the “universal port” for tool integration.**
 
 ---
 
-## 三、MCP 最核心的几个角色
+## 2. What problem is MCP answering?
+
+You can boil it down to three questions:
+
+1. How does the client know which tools are available on the server?
+2. How does the client call those tools in a unified format?
+3. How are tool call results and context returned?
+
+In other words, MCP is not about one specific tool. It is about:
+
+> **How the client and the tool server communicate reliably.**
+
+---
+
+## 3. The most important MCP roles
 
 ### 3.1 Client
 
-客户端是发起方。  
-它通常负责：
+The client is the initiator.
+It is usually responsible for:
 
-- 发现工具
-- 选择工具
-- 发起调用
-- 接收结果
+- Discovering tools
+- Selecting tools
+- Starting calls
+- Receiving results
 
-在实际系统里，client 常常是：
+In real systems, the client is often:
 
-- 一个 Agent 框架
-- 一个聊天客户端
-- 一个 IDE 插件
+- An Agent framework
+- A chat client
+- An IDE plugin
 
 ### 3.2 Server
 
-服务器是能力提供方。  
-它通常负责：
+The server is the capability provider.
+It is usually responsible for:
 
-- 暴露工具
-- 接收调用请求
-- 执行工具逻辑
-- 返回结果
+- Exposing tools
+- Receiving call requests
+- Executing tool logic
+- Returning results
 
 ### 3.3 Tool
 
-工具是 server 暴露出来的具体能力，比如：
+A tool is a concrete capability exposed by the server, such as:
 
 - `search_docs`
 - `read_file`
@@ -124,23 +124,23 @@ MCP 想做的，正是：
 
 ### 3.4 Transport
 
-传输层决定 client 和 server 怎么把消息传来传去。  
-例如：
+The transport layer determines how the client and server send messages back and forth.
+For example:
 
-- 标准输入输出
-- 本地进程通信
-- 网络连接
+- Standard input/output
+- Local process communication
+- Network connections
 
-一句话先记住：
+Remember this sentence first:
 
-> client 决定要不要用工具，server 负责把工具提供出来。 
+> The client decides whether to use a tool, and the server provides the tool.
 
 ---
 
-## 四、先看一个最小 MCP 风格消息
+## 4. First, look at a minimal MCP-style message
 
-MCP 风格的交互通常会有很明确的结构。  
-这里先用一个简化版 JSON-RPC 风格消息帮助你建立直觉。
+MCP-style interaction usually has a very clear structure.
+Here, we will use a simplified JSON-RPC-style message to build intuition.
 
 ```python
 request = {
@@ -155,8 +155,8 @@ response = {
     "id": 1,
     "result": {
         "tools": [
-            {"name": "search_docs", "description": "检索课程文档"},
-            {"name": "get_weather", "description": "查询天气"}
+            {"name": "search_docs", "description": "Search course documents"},
+            {"name": "get_weather", "description": "Query weather"}
         ]
     }
 }
@@ -165,164 +165,164 @@ print(request)
 print(response)
 ```
 
-### 4.2 这个例子最重要的不是字段名，而是结构感
+### 4.2 The most important thing in this example is not the field names, but the structure
 
-它在教你：
+It teaches you that:
 
-- 请求和响应是成对的
-- 每条消息都有明确的方法名
-- 结果字段不是随意文本，而是结构化数据
+- Requests and responses come in pairs
+- Each message has a clear method name
+- The result field is not arbitrary text, but structured data
 
-这就是协议带来的稳定性。
-
----
-
-## 五、为什么“工具发现”是个大问题？
-
-如果没有协议，客户端通常得提前写死：
-
-- 工具名
-- 参数格式
-- 返回格式
-
-这会导致：
-
-- 客户端和服务端强耦合
-- 一换工具集就得改代码
-
-而 MCP 的一个重要价值是：
-
-> **先发现，再调用。**
-
-也就是说，客户端不用事先把所有工具细节都写死，它可以通过协议去问：
-
-- 你有哪些工具？
-- 每个工具怎么描述？
-
-这让工具生态更灵活。
+This is the stability that a protocol brings.
 
 ---
 
-## 六、MCP 和 Function Calling 有什么关系？
+## 5. Why is “tool discovery” such a big deal?
 
-这两个概念很容易混在一起。
+Without a protocol, the client usually has to hard-code in advance:
 
-### 6.1 Function Calling 更像“模型层的结构化调用能力”
+- Tool names
+- Parameter formats
+- Return formats
 
-它关注的是：
+This leads to:
 
-- 模型能不能产出一个结构化调用意图
+- Strong coupling between client and server
+- Code changes every time the tool set changes
 
-例如：
+One important value of MCP is:
+
+> **Discover first, then call.**
+
+In other words, the client does not need to hard-code all tool details ahead of time. It can ask through the protocol:
+
+- What tools do you have?
+- How is each tool described?
+
+This makes the tool ecosystem more flexible.
+
+---
+
+## 6. What is the relationship between MCP and Function Calling?
+
+These two concepts are easy to mix up.
+
+### 6.1 Function Calling is more like a “structured calling ability at the model layer”
+
+It focuses on:
+
+- Whether the model can produce a structured calling intent
+
+For example:
 
 ```json
 {
   "name": "search_docs",
-  "arguments": {"query": "退款政策"}
+  "arguments": {"query": "refund policy"}
 }
 ```
 
-### 6.2 MCP 更像“系统层的工具接入协议”
+### 6.2 MCP is more like a “tool integration protocol at the system layer”
 
-它关注的是：
+It focuses on:
 
-- client 和 server 怎么发现工具
-- 怎么描述工具
-- 怎么调用工具
-- 怎么返回结果
+- How the client and server discover tools
+- How tools are described
+- How tools are called
+- How results are returned
 
-所以更准确地说：
+So more accurately:
 
-> Function Calling 解决“模型怎样发出结构化调用”，MCP 解决“系统怎样标准化接工具”。 
+> Function Calling solves “how the model emits a structured call,” while MCP solves “how the system standardizes tool integration.”
 
-它们可以一起用，但不等价。
-
----
-
-## 七、MCP 适合什么场景？
-
-### 7.1 特别适合
-
-- 工具种类很多
-- 客户端种类很多
-- 希望工具接入方式统一
-- 希望后续工具生态能扩展
-
-例如：
-
-- IDE 助手
-- 桌面 Agent
-- 企业内部工具平台
-
-### 7.2 不一定非要上 MCP 的情况
-
-如果你只是：
-
-- 一个小脚本
-- 两三个内置工具
-- 没有多客户端接入需求
-
-那直接写本地工具调用层也许已经够了。
-
-所以不要把 MCP 理解成“必须上”的东西，而要理解成：
-
-> 当工具生态和接入复杂度上来时，协议化会越来越值钱。 
+They can be used together, but they are not the same thing.
 
 ---
 
-## 八、一个更接地气的类比：MCP 像“工具插排”
+## 7. What scenarios is MCP good for?
 
-可以这样理解：
+### 7.1 Especially suitable for
 
-- tool 是一个个电器
-- client 是来用这些电器的人
-- MCP 像统一插排和接口标准
+- Lots of tool types
+- Lots of client types
+- A need for unified tool integration
+- A need to expand the tool ecosystem later
 
-如果没有统一插排：
+For example:
 
-- 每个电器接口都不一样
-- 每次接一个都要重新适配
+- IDE assistants
+- Desktop Agents
+- Internal enterprise tool platforms
 
-有了统一插排以后：
+### 7.2 Cases where you may not need MCP right away
 
-- 新电器更容易接入
-- 使用方不必每次重新学一套规则
+If you only have:
 
-这就是协议的工程价值。
+- A small script
+- Two or three built-in tools
+- No need for multiple client integrations
 
----
+Then a local tool-calling layer may already be enough.
 
-## 九、初学者最常踩的坑
+So do not think of MCP as something you “must” use. Instead, understand it as:
 
-### 9.1 以为 MCP 是某个具体工具库
-
-不是。  
-它首先是协议和交互约定。
-
-### 9.2 以为有了 MCP 就自动会用工具
-
-不会。  
-协议解决的是接入层，调用策略、权限、评估仍然要你自己做。
-
-### 9.3 把 MCP 和 Function Calling 混成一个概念
-
-两者相关，但层次不同。
+> When the tool ecosystem and integration complexity grow, protocol-based design becomes increasingly valuable.
 
 ---
 
-## 小结
+## 8. A more down-to-earth analogy: MCP is like a “tool power strip”
 
-这一节最重要的不是记住“协议”两个字，而是理解：
+You can think of it this way:
 
-> **MCP 的核心价值，是把客户端和工具服务器之间的发现、描述、调用和结果交换变成更统一的系统契约。**
+- A tool is like an appliance
+- The client is the person using these appliances
+- MCP is like a universal power strip and interface standard
 
-只要这个直觉建立起来，后面你学架构、server、client 和生态时，就不会只觉得是在看一堆接口名。
+Without a universal power strip:
+
+- Every appliance has a different connector
+- Every time you plug one in, you have to adapt again
+
+With a universal power strip:
+
+- New appliances are easier to connect
+- The user does not need to relearn a new set of rules each time
+
+That is the engineering value of a protocol.
 
 ---
 
-## 练习
+## 9. Common beginner mistakes
 
-1. 用自己的话解释 client、server、tool、transport 分别在扮演什么角色。
-2. 想一想：为什么“工具发现”这件事本身就值得被协议化？
-3. 如果你的系统只有 2 个固定工具，为什么暂时不一定要上 MCP？
-4. 用自己的话说明：MCP 和 Function Calling 的区别是什么？
+### 9.1 Thinking MCP is a specific tool library
+
+It is not.
+It is first and foremost a protocol and an interaction convention.
+
+### 9.2 Thinking that once you have MCP, tools will automatically work
+
+They will not.
+The protocol solves the integration layer. You still need to handle calling strategy, permissions, and evaluation yourself.
+
+### 9.3 Mixing up MCP and Function Calling as if they were the same thing
+
+They are related, but they are at different levels.
+
+---
+
+## Summary
+
+The most important thing in this section is not to memorize the word “protocol,” but to understand:
+
+> **The core value of MCP is to make discovery, description, calling, and result exchange between the client and the tool server into a more unified system contract.**
+
+Once you build this intuition, later when you learn architecture, servers, clients, and ecosystems, you will not just feel like you are looking at a pile of interface names.
+
+---
+
+## Exercises
+
+1. Explain in your own words the roles of client, server, tool, and transport.
+2. Think about why “tool discovery” itself is worth being standardized by a protocol.
+3. If your system only has 2 fixed tools, why might you not need MCP yet?
+4. Explain in your own words the difference between MCP and Function Calling.

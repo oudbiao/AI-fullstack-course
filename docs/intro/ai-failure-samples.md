@@ -1,145 +1,145 @@
 ---
 sidebar_position: 15
-title: "AI 应用失败样本库"
-description: "按 LLM API、Prompt、RAG、Agent 和部署分类整理常见失败现象、优先排查层和修复方向。"
-keywords: [AI失败样本, RAG排障, Agent排障, Prompt调试, LLM应用]
+title: "Failure Samples Library for AI Applications"
+description: "Organized common failure patterns, first-level debugging areas, and fix directions by LLM API, Prompt, RAG, Agent, and deployment."
+keywords: [AI failure samples, RAG debugging, Agent debugging, Prompt debugging, LLM applications]
 ---
 
-# AI 应用失败样本库
+# Failure Samples Library for AI Applications
 
-AI 应用项目最常见的问题不是“完全不能运行”，而是看起来能跑，但在某些输入下不稳定。失败样本库的作用是把这些问题分层记录下来，帮助你知道应该回到哪一层排查。
+The most common problem in AI application projects is not “it cannot run at all,” but that it seems to work and is still unstable for certain inputs. The purpose of a failure samples library is to record these issues by layer, so you know which layer to go back to for debugging.
 
-这个页面不是替代具体章节，而是一个索引。遇到问题时，先判断失败属于 LLM API、Prompt、RAG、Agent、工具、安全还是部署，再回到对应章节细查。
+This page is not a replacement for the individual chapters, but rather an index. When you run into a problem, first determine whether the failure belongs to the LLM API, Prompt, RAG, Agent, tool, safety, or deployment layer, then return to the corresponding chapter for a deeper check.
 
-## 一图读懂：失败样本怎么排查
+## Understand the debugging flow at a glance
 
 ```mermaid
 flowchart LR
-  A["保存真实输入"] --> B["对比预期和实际"]
-  B --> C["判断失败层级"]
-  C --> D["查看日志或 trace"]
-  D --> E["修复并加入回归测试"]
+  A["Save real input"] --> B["Compare expected vs. actual"]
+  B --> C["Identify the failure layer"]
+  C --> D["Check logs or trace"]
+  D --> E["Fix it and add a regression test"]
 ```
 
-| 失败层级 | 第一眼先看什么 |
+| Failure layer | What to look at first |
 |---|---|
-| LLM API | request_id、错误码、token、延迟 |
-| Prompt | raw output、schema、固定测试样本 |
-| RAG | top-k 检索结果、chunk、metadata、引用 |
-| Agent | tool call、observation、max_steps、权限 |
-| 部署 | 环境变量、依赖版本、日志和限流 |
+| LLM API | request_id, error code, token usage, latency |
+| Prompt | raw output, schema, fixed test samples |
+| RAG | top-k retrieval results, chunk, metadata, citations |
+| Agent | tool call, observation, max_steps, permissions |
+| Deployment | environment variables, dependency versions, logs, and rate limiting |
 
-## 怎么记录一个失败样本
+## How to record a failure sample
 
-建议每个失败样本至少包含这些字段：
+It is recommended that each failure sample include at least these fields:
 
-| 字段 | 说明 |
+| Field | Description |
 |---|---|
-| 用户输入 | 触发失败的真实问题或任务 |
-| 预期结果 | 系统本来应该输出什么或执行什么 |
-| 实际结果 | 系统实际怎么回答或怎么行动 |
-| 失败层级 | LLM API / Prompt / RAG / Agent / Tool / Safety / Deploy |
-| 相关日志 | request_id、trace、retrieved_docs、tool_call 等 |
-| 初步原因 | 你认为最可能的问题点 |
-| 修复动作 | 准备改什么 |
-| 回归测试 | 如何确认以后不会再犯 |
+| User input | The real question or task that triggered the failure |
+| Expected result | What the system should have output or done |
+| Actual result | How the system actually responded or acted |
+| Failure layer | LLM API / Prompt / RAG / Agent / Tool / Safety / Deploy |
+| Related logs | request_id, trace, retrieved_docs, tool_call, etc. |
+| Initial cause | The issue you think is most likely |
+| Fix action | What you plan to change |
+| Regression test | How to make sure it does not happen again |
 
-一个失败样本如果没有日志，就很难复盘；一个失败样本如果没有回归测试，就很容易下次再出现。
+If a failure sample has no logs, it is hard to review afterward. If it has no regression test, it is very likely to come back later.
 
-## LLM API 层失败
+## LLM API layer failures
 
-| 现象 | 优先排查 | 修复方向 |
+| Symptom | First priority to check | Fix direction |
 |---|---|---|
-| 请求偶发失败 | timeout、rate limit、网络错误、服务端错误 | 增加超时、有限重试、错误分类和 fallback |
-| 成本突然升高 | prompt_tokens、completion_tokens、上下文长度 | 压缩上下文、减少重复历史、记录 usage |
-| 延迟明显变慢 | 模型选择、top-k、重试次数、网络状态 | 限制重试、缓存结果、拆分同步和异步任务 |
-| 输出为空或格式异常 | raw output、错误码、响应解析逻辑 | 保留原始响应，统一响应结构 |
-| 不知道哪次调用出了问题 | request_id 和日志字段缺失 | 统一记录 model、prompt_version、latency、error |
+| Requests fail occasionally | timeout, rate limit, network errors, server-side errors | Increase timeout, add limited retries, error classification, and fallback |
+| Cost suddenly increases | prompt_tokens, completion_tokens, context length | Compress context, reduce repeated history, record usage |
+| Latency becomes noticeably slower | model choice, top-k, retry count, network status | Limit retries, cache results, split synchronous and asynchronous tasks |
+| Output is empty or the format is abnormal | raw output, error code, response parsing logic | Keep the raw response and unify the response structure |
+| You do not know which call went wrong | request_id and log fields are missing | Log model, prompt_version, latency, and error consistently |
 
-API 层失败通常先看日志，而不是先改 Prompt。如果连请求是否成功、用了多少 token、耗时多少都不知道，后面很难定位。
+For API layer failures, start with the logs instead of changing the Prompt first. If you do not even know whether the request succeeded, how many tokens were used, or how long it took, it will be very hard to locate the issue later.
 
-## Prompt / 结构化输出失败
+## Prompt / structured output failures
 
-| 现象 | 优先排查 | 修复方向 |
+| Symptom | First priority to check | Fix direction |
 |---|---|---|
-| JSON 解析失败 | 是否有额外解释文字、括号是否闭合 | 要求只输出 JSON，增加解析失败重试 |
-| 字段缺失 | schema 必填项是否清楚 | 在 Prompt 中列出 required 字段 |
-| 字段类型不稳定 | 数字、布尔、数组是否被写成文本 | 明确类型和示例，增加校验器 |
-| 分类标签漂移 | 枚举值是否固定 | 给出允许值，禁止自造分类 |
-| 改了 Prompt 后旧样本变差 | 没有固定测试集 | 建 Prompt 版本和回归测试样本 |
+| JSON parsing fails | whether there is extra explanatory text, whether brackets are balanced | Require JSON-only output and add retry on parse failure |
+| Missing fields | whether required schema items are clear | List required fields in the Prompt |
+| Unstable field types | whether numbers, booleans, or arrays are written as text | Make types and examples explicit, and add a validator |
+| Classification labels drift | whether enum values are fixed | Provide allowed values and forbid invented categories |
+| Old samples get worse after Prompt changes | no fixed test set | Create Prompt versions and regression test samples |
 
-Prompt 问题不要只靠“再写清楚一点”解决。更稳的做法是：schema、示例、校验、失败样本和回归测试一起做。
+Do not solve Prompt problems only by “writing it more clearly.” A more stable approach is to work on the schema, examples, validation, failure samples, and regression tests together.
 
-## RAG 层失败
+## RAG layer failures
 
-| 现象 | 优先排查 | 修复方向 |
+| Symptom | First priority to check | Fix direction |
 |---|---|---|
-| 知识库有答案但没命中 | chunk、query、embedding、关键词匹配 | 调整切块、加混合检索或 query rewrite |
-| 正确资料排得靠后 | top-k 原始结果、score、rerank 前后对比 | 增加 rerank，调整混合检索权重 |
-| 命中了资料但回答漏条件 | context packing、prompt、答案格式 | 保留关键条件，要求逐条引用 |
-| 引用和答案对不上 | source_refs、引用片段、claim | 做 citation check，禁止无证据结论 |
-| 版本或来源错 | metadata filter、source_origin、日期字段 | 加过滤条件和来源优先级 |
+| The knowledge base has the answer, but it is not retrieved | chunk, query, embedding, keyword matching | Adjust chunking, add hybrid retrieval, or use query rewrite |
+| Correct documents are ranked too low | top-k raw results, scores, comparison before and after reranking | Add reranking and adjust hybrid retrieval weights |
+| The right document is retrieved, but the answer misses conditions | context packing, prompt, answer format | Keep key conditions and require line-by-line citation |
+| Citations do not match the answer | source_refs, citation snippets, claims | Perform citation checks and forbid evidence-free conclusions |
+| Wrong version or source | metadata filter, source_origin, date fields | Add filtering conditions and source priority |
 
-RAG 失败最重要的是分清：是没有找对，还是找对了但没有用好。前者看检索日志，后者看 context 和生成约束。
+The key to RAG failures is to distinguish between “did not retrieve the right thing” and “retrieved the right thing but did not use it well.” For the first case, check retrieval logs. For the second case, check the context and generation constraints.
 
-## Agent / 工具层失败
+## Agent / tool layer failures
 
-| 现象 | 优先排查 | 修复方向 |
+| Symptom | First priority to check | Fix direction |
 |---|---|---|
-| Agent 选错工具 | 工具名、description、候选工具数量 | 改 schema，减少无关工具，加入工具选择日志 |
-| 工具参数错误 | arguments、参数校验、错误返回 | 增加校验器和结构化错误 |
-| Agent 一直循环 | max_steps、停止条件、observation 是否重复 | 设置最大步数、无新增信息时停止 |
-| 工具失败后直接崩溃 | safe_dispatch、retryable、fallback | 区分可重试和不可重试错误 |
-| 最终结果无法解释 | trace 缺失 | 记录 goal、step、action、arguments、observation、next_decision |
+| The Agent chooses the wrong tool | tool name, description, number of candidate tools | Change the schema, reduce irrelevant tools, and add tool-selection logs |
+| Wrong tool parameters | arguments, parameter validation, error return | Add a validator and structured errors |
+| The Agent keeps looping | max_steps, stopping conditions, whether the observation repeats | Set a maximum number of steps and stop when there is no new information |
+| The tool failure causes an immediate crash | safe_dispatch, retryable, fallback | Distinguish between retryable and non-retryable errors |
+| The final result is hard to explain | trace is missing | Record goal, step, action, arguments, observation, and next_decision |
 
-Agent 失败不要只看最终答案。真正要看的，是每一步为什么这样行动，以及观察结果如何影响下一步。
+For Agent failures, do not look only at the final answer. What really matters is why each step was taken and how the observation affected the next step.
 
-## 安全与权限失败
+## Safety and permission failures
 
-| 现象 | 优先排查 | 修复方向 |
+| Symptom | First priority to check | Fix direction |
 |---|---|---|
-| Agent 执行了不该执行的动作 | 工具权限、风险分级、人工确认 | 高风险工具默认确认或禁用 |
-| 外部文档诱导越权 | 是否把外部内容当成指令 | 标记外部内容不可信，工具层做权限限制 |
-| 日志泄露敏感信息 | 日志字段、脱敏策略 | API key、隐私数据和内部资料脱敏 |
-| 用户没有真正确认风险 | 确认文本是否清楚 | 展示动作、对象、参数、风险、回滚方式 |
-| 出问题后无法追责 | audit_log 缺失 | 记录 request_id、工具名、参数、确认人、结果 |
+| The Agent performed an action it should not have performed | tool permissions, risk levels, human confirmation | Require confirmation by default or disable high-risk tools |
+| External documents induced privilege escalation | whether external content is treated as instructions | Mark external content as untrusted and apply permission limits at the tool layer |
+| Logs leak sensitive information | log fields, masking strategy | Mask API keys, private data, and internal materials |
+| The user did not truly confirm the risk | whether the confirmation text is clear | Show the action, target, parameters, risk, and rollback method |
+| It is impossible to assign responsibility after an issue | audit_log is missing | Record request_id, tool name, parameters, confirmer, and result |
 
-安全问题不能只靠模型自觉。系统应该用权限、白名单、确认、审计和回滚来保证边界。
+Safety issues cannot rely on the model’s self-discipline alone. The system should use permissions, allowlists, confirmation, auditing, and rollback to enforce boundaries.
 
-## 部署与线上运行失败
+## Deployment and production runtime failures
 
-| 现象 | 优先排查 | 修复方向 |
+| Symptom | First priority to check | Fix direction |
 |---|---|---|
-| 本地能跑，线上失败 | 环境变量、依赖版本、路径、权限 | 写清部署配置，使用 `.env.example` |
-| API key 失效或泄露 | 密钥管理、日志、前端暴露 | 后端代理调用，日志脱敏，轮换密钥 |
-| 高并发下不稳定 | 限流、队列、超时、重试 | 加 rate limit、异步任务和降级策略 |
-| 线上成本不可控 | token 统计、缓存、用户配额 | 成本监控、请求限额、模型分级 |
-| 用户反馈无法进入改进 | 没有反馈字段和样本收集 | 保存 thumbs、纠错文本和失败样本 |
+| It runs locally but fails in production | environment variables, dependency versions, paths, permissions | Document deployment configuration clearly and use `.env.example` |
+| API key becomes invalid or leaks | secret management, logs, frontend exposure | Call through a backend proxy, mask logs, and rotate keys |
+| Instability under high concurrency | rate limiting, queues, timeouts, retries | Add rate limiting, asynchronous tasks, and fallback strategies |
+| Production costs are uncontrollable | token statistics, caching, user quotas | Add cost monitoring, request limits, and model tiers |
+| User feedback cannot be used for improvement | no feedback field or sample collection | Save thumbs, correction text, and failure samples |
 
-部署失败通常不是单纯代码问题，而是配置、权限、运行时和监控共同决定的。
+Deployment failures are often not just code problems. They are usually determined together by configuration, permissions, runtime behavior, and monitoring.
 
-## 失败样本复盘模板
+## Failure sample review template
 
 ```md
-## 失败样本标题
+## Failure Sample Title
 
-### 用户输入
+### User Input
 
-### 预期结果
+### Expected Result
 
-### 实际结果
+### Actual Result
 
-### 失败层级
+### Failure Layer
 
-### 相关日志
+### Related Logs
 
-### 初步原因
+### Initial Cause
 
-### 修复动作
+### Fix Action
 
-### 回归测试
+### Regression Test
 
-### 是否已解决
+### Resolved?
 ```
 
-建议每个阶段项目至少保留 3 个失败样本。作品集级项目最好能展示：修复前是什么，修复后指标或样例怎样变化，还有哪些失败没有解决。
+It is recommended to keep at least 3 failure samples for each project stage. For a portfolio-level project, it is best to show what things looked like before the fix, how the metrics or examples changed after the fix, and which failures still remain unresolved.

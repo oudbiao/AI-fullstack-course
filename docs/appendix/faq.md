@@ -1,126 +1,126 @@
 ---
-title: "常见问题"
+title: "Frequently Asked Questions"
 sidebar_position: 3
 ---
 
-# 常见问题
+# Frequently Asked Questions
 
-![FAQ 新人问题分流树](/img/course/appendix-faq-decision-tree.png)
+![FAQ Newcomer Question Decision Tree](/img/course/appendix-faq-decision-tree-en.png)
 
-![FAQ 焦虑重置与行动分流图](/img/course/appendix-faq-confidence-reset-map.png)
+![FAQ Anxiety Reset and Action Mapping Diagram](/img/course/appendix-faq-confidence-reset-map-en.png)
 
-:::tip 读图提示
-FAQ 的目的不是给你一个“唯一正确答案”，而是帮你把模糊焦虑拆成可行动问题。读图时先定位自己卡在数学、设备、时间、项目、论文还是求职，再回到对应章节补最小必要内容。
+:::tip Reading Guide
+The goal of the FAQ is not to give you one “single correct answer,” but to help you turn vague anxiety into actionable questions. When reading the diagrams, first locate whether you are stuck on math, hardware, time, projects, papers, or job hunting, then go back to the corresponding section and fill in only the minimum necessary content.
 :::
 
-这一页不讲概念，而是集中回答新人最常碰到的实际问题。你可以把它当成“遇到犹豫时先翻一页”的附录。
+This page does not explain concepts. Instead, it focuses on the practical questions that beginners ask most often. You can think of it as an appendix to consult first when you are feeling stuck.
 
-## 1. 数学不好能学 AI 吗？
+## 1. Can I learn AI if I’m not good at math?
 
-可以，而且大多数人都是边学边补的，不是先把数学学完才开始。
+Yes. In fact, most people learn math as they go rather than finishing math first and then starting.
 
-更适合新人的顺序是：
+A better order for beginners is:
 
-1. 先把 Python、数据处理、画图跑顺。
-2. 再回头看线性代数、概率统计在代码里到底用在哪里。
-3. 最后再补公式、推导和更抽象的理解。
+1. First get Python, data processing, and plotting working smoothly.
+2. Then look back and see where linear algebra and probability/statistics are actually used in code.
+3. Finally fill in formulas, derivations, and more abstract understanding.
 
-如果你一上来就被公式压住，通常不是你不适合，而是顺序不对。
+If formulas overwhelm you right away, it usually does not mean you are unsuitable. It usually means the sequence is wrong.
 
-一个更稳的办法是：
+A steadier approach is:
 
-- 学矩阵时，同时看 `NumPy` 的数组运算。
-- 学梯度下降时，同时看一个最小训练循环。
-- 学概率时，同时看分类任务里的损失函数和预测概率。
+- When learning matrices, also look at array operations in `NumPy`.
+- When learning gradient descent, also look at a minimal training loop.
+- When learning probability, also look at the loss function and predicted probabilities in classification tasks.
 
-你的目标不是先“会证明”，而是先“知道这个数学工具在模型里负责什么”。
+Your goal is not to “prove things” first. It is to first understand what role this math tool plays in the model.
 
-## 2. 需要买 GPU 吗？
+## 2. Do I need to buy a GPU?
 
-大多数新人一开始不需要。
+Most beginners do not need one at the start.
 
-| 学习站 | 主要任务 | 是否必须 GPU | 更现实的建议 |
+| Learning stage | Main tasks | GPU required? | More realistic advice |
 |---|---|---|---|
-| 1 开发者工具基础、2 Python 编程基础、3 数据分析与可视化 | 开发环境、Python、数据分析 | 不需要 | 个人电脑足够 |
-| 4 AI 数学最小必要基础、5 机器学习入门到实战 | 数学实验、传统机器学习 | 不需要 | 个人电脑足够 |
-| 6 深度学习与 Transformer 基础 | PyTorch、CNN、RNN、Transformer 基础 | 可选 | 先用 Colab 或云 GPU |
-| 7 大模型原理、Prompt 与微调 | LLM 原理、Prompt、微调理解 | 视实验而定 | 先读懂流程，再决定是否租卡 |
-| 8 LLM 应用开发与 RAG、9 AI Agent 与智能体系统 | RAG、Agent、应用工程 | 通常不必须 | CPU + API 就能做很多项目 |
-| 10 计算机视觉、11 自然语言处理、12 AIGC 与多模态 | 视觉、文本、多模态和生成式项目 | 视项目而定 | 训练和生成任务更适合云 GPU |
+| 1 Developer Tools Fundamentals, 2 Python Programming Basics, 3 Data Analysis and Visualization | Development environment, Python, data analysis | No | A personal computer is enough |
+| 4 Minimal Required Foundation in AI Math, 5 Introduction to Machine Learning and Practice | Math experiments, traditional machine learning | No | A personal computer is enough |
+| 6 Deep Learning and Transformer Fundamentals | PyTorch, CNN, RNN, Transformer basics | Optional | Start with Colab or a cloud GPU |
+| 7 LLM Principles, Prompt, and Fine-Tuning | LLM principles, Prompt, understanding fine-tuning | Depends on the experiment | First understand the workflow, then decide whether to rent a GPU |
+| 8 LLM Application Development and RAG, 9 AI Agent and Agent Systems | RAG, Agent, application engineering | Usually not required | You can build many projects with just CPU + API |
+| 10 Computer Vision, 11 Natural Language Processing, 12 AIGC and Multimodal | Vision, text, multimodal, and generative projects | Depends on the project | Training and generation tasks are better suited to cloud GPUs |
 
-如果你是第一次系统学习，优先级通常是：
+If this is your first systematic study, the usual priority is:
 
-1. 稳定的电脑环境
-2. 足够的内存和硬盘
-3. 能长期坚持的学习节奏
-4. 最后才是买显卡
+1. A stable computer setup
+2. Enough memory and disk space
+3. A learning pace you can keep up for the long term
+4. Only after that, buying a graphics card
 
-## 3. 所有阶段都要学吗？
+## 3. Do I have to study every stage?
 
-不一定，但主线建议尽量不断。
+Not necessarily, but it is recommended that you keep the main path going as much as possible.
 
-更实用的理解方式是：
+A more practical way to understand it is:
 
-- 1～6 学习站：主干课，建议绝大多数人都学
-- 7～9 学习站：大模型应用主线，帮助你从原理、RAG 走到 Agent 系统
-- 10～12 学习站：方向拓展与毕业项目，适合按兴趣选择 CV、NLP 或 AIGC 多模态方向
+- Learning stages 1–6: core foundation, recommended for most people
+- Learning stages 7–9: the main LLM application path, helping you move from principles and RAG to Agent systems
+- Learning stages 10–12: direction expansion and capstone projects, suitable for choosing CV, NLP, or AIGC multimodal directions based on interest
 
-如果你目标是“尽快做 AI 应用项目”，可以先走：
+If your goal is to “build AI application projects as soon as possible,” you can start with:
 
-`1 开发者工具基础 -> 2 Python 编程基础 -> 3 数据分析与可视化 -> 6 深度学习与 Transformer 基础 -> 8 LLM 应用开发与 RAG -> 9 AI Agent 与智能体系统`
+`1 Developer Tools Fundamentals -> 2 Python Programming Basics -> 3 Data Analysis and Visualization -> 6 Deep Learning and Transformer Fundamentals -> 8 LLM Application Development and RAG -> 9 AI Agent and Agent Systems`
 
-如果你目标是“模型原理更扎实”，可以走：
+If your goal is to build a stronger foundation in model principles, you can follow:
 
-`1～6 主干基础 -> 7 大模型原理、Prompt 与微调 -> 8 LLM 应用开发与 RAG -> 9 AI Agent 与智能体系统`
+`1–6 Core Foundations -> 7 LLM Principles, Prompt, and Fine-Tuning -> 8 LLM Application Development and RAG -> 9 AI Agent and Agent Systems`
 
-## 4. 一周学多少比较合理？
+## 4. How many hours per week is reasonable?
 
-比起“每天学多久”，更重要的是你能不能连续 12 周以上稳定推进。
+Compared with “how many hours a day,” what matters more is whether you can keep making steady progress for more than 12 weeks.
 
-| 每周时间 | 节奏建议 | 适合人群 |
+| Weekly time | Suggested pace | Suitable for |
 |---|---|---|
-| 4～6 小时 | 慢速但可长期坚持 | 在职、课业繁忙 |
-| 7～10 小时 | 比较理想 | 大多数自学者 |
-| 12～18 小时 | 进度快，但容易疲劳 | 有明确项目目标的人 |
+| 4–6 hours | Slow, but sustainable | Working adults, busy students |
+| 7–10 hours | Fairly ideal | Most self-learners |
+| 12–18 hours | Fast progress, but can be tiring | People with clear project goals |
 
-新人常见误区是第一周猛冲，第三周就断掉。更稳的方式是：
+A common beginner mistake is to go hard in the first week and then stop in the third. A more stable approach is:
 
-- 工作日每天 1 小时
-- 周末做 1 次复盘和 1 次代码练习
-- 每 2～3 周做一个小项目或实验总结
+- 1 hour per day on weekdays
+- 1 review session and 1 coding practice session on weekends
+- One small project or experiment summary every 2–3 weeks
 
-## 5. 什么时候开始做项目最合适？
+## 5. When is the best time to start doing projects?
 
-越早越好，但项目难度要跟阶段匹配。
+The earlier, the better, but the project difficulty should match your stage.
 
-比较合适的节奏是：
+A suitable pace is:
 
-- 学完 Python 基础后：做小脚本、小工具
-- 学完数据分析后：做数据清洗和可视化项目
-- 学完机器学习后：做一个完整分类或回归项目
-- 学完深度学习后：做训练闭环项目
-- 学到 RAG / Agent 后：做真正可展示的应用项目
+- After learning Python basics: small scripts and small tools
+- After learning data analysis: data cleaning and visualization projects
+- After learning machine learning: a complete classification or regression project
+- After learning deep learning: a training loop project
+- After learning RAG / Agent: a real application project that you can showcase
 
-不要把“项目”理解成一定要做大系统。对新人最有价值的是：
+Do not think of “projects” as necessarily large systems. For beginners, what matters most is:
 
-- 项目目标清楚
-- 输入输出明确
-- 能跑通最小闭环
-- 你自己讲得明白为什么这么做
+- The project goal is clear
+- The input and output are clear
+- You can run a minimal closed loop
+- You can explain why you did it that way
 
-## 6. 代码总是跑不起来怎么办？
+## 6. What should I do if my code keeps failing to run?
 
-先不要急着怀疑自己，大多数问题都出在环境、路径、依赖版本和输入数据。
+First, do not rush to doubt yourself. Most problems come from the environment, paths, dependency versions, and input data.
 
-你可以先按这个顺序排：
+You can troubleshoot in this order:
 
-1. 看报错的最后 10 行，不要只看第一行。
-2. 确认你是不是在正确的 Python 环境里。
-3. 确认依赖有没有装到当前环境。
-4. 确认文件路径、数据路径、模型路径是不是写对了。
-5. 把问题缩小成一个最小可复现示例。
+1. Look at the last 10 lines of the error message, not just the first line.
+2. Confirm that you are in the correct Python environment.
+3. Confirm that the dependencies are installed in the current environment.
+4. Confirm that the file paths, data paths, and model paths are correct.
+5. Reduce the problem to a minimal reproducible example.
 
-建议优先掌握这些排查命令：
+It is recommended to learn these troubleshooting commands first:
 
 ```bash
 python --version
@@ -131,61 +131,61 @@ pwd
 ls
 ```
 
-如果你还没形成排障习惯，可以同时看附录里的 [学习卡点救援](./troubleshooting.md)。
+If you have not yet built troubleshooting habits, you can also check the appendix [Learning Roadblock Rescue](./troubleshooting.md).
 
-## 7. 看不懂论文是不是就学不好 AI？
+## 7. If I don’t understand papers, does that mean I can’t learn AI well?
 
-不是。
+No.
 
-对新人来说，论文应该是“补充理解和拓展视野”，不是学习入口。
+For beginners, papers should be used to supplement understanding and broaden your perspective. They should not be the starting point for learning.
 
-更推荐的顺序是：
+A better order is:
 
-1. 先看教程，把任务、输入输出、评估方式搞清楚。
-2. 再看实现或最小代码。
-3. 最后带着问题去看论文。
+1. First read tutorials and understand the task, inputs and outputs, and evaluation method.
+2. Then read the implementation or minimal code.
+3. Finally, read the paper with your questions in mind.
 
-如果一开始就硬啃论文，很容易出现两个问题：
+If you start by forcing yourself to read papers, two problems often happen:
 
-- 只记住术语，没有任务直觉
-- 觉得自己什么都不会，从而越来越不敢动手
+- You only remember terminology and do not develop task intuition
+- You feel like you know nothing, and then become even less willing to try
 
-## 8. 学到什么程度可以开始找工作或接项目？
+## 8. How far do I need to learn before I can start looking for a job or taking projects?
 
-一个比较现实的标准不是“我是不是把所有知识学完了”，而是你是否具备下面这 4 个能力：
+A realistic standard is not “Have I learned everything?” but whether you have these four abilities:
 
-1. 能独立搭环境并跑通一个中等复杂度项目
-2. 能解释项目的数据流、模型选择、评估方式和失败案例
-3. 能读懂常见 Python / ML / LLM 工程代码
-4. 能把需求拆成可执行的小任务并逐步完成
+1. You can set up the environment independently and run a medium-complexity project
+2. You can explain the project’s data flow, model choice, evaluation method, and failure cases
+3. You can understand common Python / ML / LLM engineering code
+4. You can break requirements into executable small tasks and complete them step by step
 
-如果你已经有 2～3 个自己能讲清楚的项目，其实就可以开始准备简历和面试了，而不是等“全学完”。
+If you already have 2–3 projects that you can explain clearly, you can actually start preparing your resume and interview practice instead of waiting until “everything is learned.”
 
-## 9. 我总觉得自己学得慢，怎么办？
+## 9. I always feel like I’m learning too slowly. What should I do?
 
-这几乎是所有自学者都会经历的阶段。
+This is almost a stage every self-learner goes through.
 
-你真正应该比较的不是“别人一天学了多少”，而是：
+The real comparison should not be “How much did others learn in a day?” but:
 
-- 这个月的我是不是比上个月更能看懂代码
-- 我是不是开始能自己改示例，而不是只会复制
-- 我是不是越来越能把一个概念解释给别人听
+- Am I more able to understand code this month than last month?
+- Am I starting to modify examples on my own instead of only copying them?
+- Am I getting better at explaining a concept to someone else?
 
-如果这三个问题的答案越来越偏向“是”，你就在进步。
+If the answers to these questions are increasingly “yes,” then you are making progress.
 
-## 10. 遇到卡点时，先补哪三样最有效？
+## 10. When I get stuck, what are the three most useful things to strengthen first?
 
-如果你现在已经有点乱，最值得优先补的是：
+If things already feel a bit messy, the most valuable areas to strengthen first are:
 
-1. Python 基础和调试能力
-2. 数据处理和可视化能力
-3. 一个完整项目的最小闭环意识
+1. Python fundamentals and debugging ability
+2. Data processing and visualization ability
+3. The mindset of building a minimal closed loop for a complete project
 
-很多人以为自己缺的是“更高级的模型”，其实真正缺的是：
+Many people think what they lack is “more advanced models,” but what they really lack is:
 
-- 看懂输入输出
-- 会查错
-- 会拆问题
-- 会验证结果
+- Understanding inputs and outputs
+- Knowing how to find and fix errors
+- Knowing how to break problems apart
+- Knowing how to verify results
 
-这四件事补起来之后，后面的学习会顺很多。
+Once these four things are in place, the rest of the learning process becomes much smoother.

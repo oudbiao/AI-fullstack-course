@@ -1,53 +1,53 @@
 ---
-title: "5.1 学前导读：Seq2Seq 与注意力这一章到底在学什么"
+title: "5.1 Pre-class Guide: What Is This Chapter on Seq2Seq and Attention Really About?"
 sidebar_position: 0
-description: "先建立 Seq2Seq 章节的学习地图：编码器-解码器、注意力和机器翻译任务是怎样衔接的。"
-keywords: [Seq2Seq导读, attention导读, 机器翻译]
+description: "First build a learning map for the Seq2Seq chapter: how Encoder-Decoder, Attention, and machine translation tasks fit together."
+keywords: [Seq2Seq guide, attention guide, machine translation]
 ---
 
-# 学前导读：Seq2Seq 与注意力这一章到底在学什么
+# Pre-class Guide: What Is This Chapter on Seq2Seq and Attention Really About?
 
-## 本章定位
+## Chapter Overview
 
-这一章解决的是一个经典 NLP 问题：当输入和输出都是序列时，模型怎样把一段文本变成另一段文本。翻译、摘要、对话生成、纠错、标题生成，本质上都可以看成“序列到序列”的问题。
+This chapter tackles a classic NLP problem: when both the input and output are sequences, how does a model turn one piece of text into another? Translation, summarization, dialogue generation, error correction, and headline generation can all essentially be seen as “sequence-to-sequence” problems.
 
-它也是 RNN 时代通向 Transformer 的关键桥梁。你不需要把老式 Seq2Seq 当成未来项目的最终方案，但必须理解它为什么需要 Encoder-Decoder、为什么普通 RNN 会遗忘长距离信息、为什么 Attention 会成为后来 Transformer 的核心思想。
+It is also the key bridge from the RNN era to Transformer. You do not need to treat old-school Seq2Seq as the final solution for future projects, but you must understand why it needs an Encoder-Decoder, why ordinary RNNs forget long-range information, and why Attention later became the core idea behind Transformer.
 
-## 这一章在 NLP 路线中的位置
+## Where This Chapter Fits in the NLP Roadmap
 
-![Seq2Seq 与注意力章节学习顺序图](/img/course/ch11-seq2seq-chapter-flow.png)
+![Seq2Seq and Attention chapter learning order diagram](/img/course/ch11-seq2seq-chapter-flow-en.png)
 
-前面文本分类通常是“输入一段文本，输出一个标签”；序列标注是“输入一串 token，输出一串标签”；Seq2Seq 则进一步变成“输入一串 token，输出另一串 token”。这个变化会直接把你带到生成式模型的世界。
+In earlier text classification tasks, the model usually takes “a piece of text in and a label out”; sequence labeling is “a sequence of tokens in and a sequence of labels out”; Seq2Seq goes one step further: “a sequence of tokens in and another sequence of tokens out.” This shift takes you directly into the world of generative models.
 
-## 本章学习主线
+## Main Learning Path for This Chapter
 
-第一步理解 Encoder 把输入序列压缩成表示，Decoder 根据表示逐步生成输出。第二步理解为什么单个上下文向量会成为瓶颈：句子越长，信息越容易丢。第三步学习 Attention：Decoder 在每一步生成时，可以回看输入序列的不同位置。第四步通过机器翻译实践，把输入、输出、teacher forcing、解码和评估串起来。最后可以读 CTC 与 Deep Speech，理解语音识别里“输入输出没有逐帧对齐”时，序列模型怎样训练。
+First, understand how the Encoder compresses the input sequence into a representation, and how the Decoder uses that representation to generate the output step by step. Second, understand why a single context vector becomes a bottleneck: the longer the sentence, the easier it is to lose information. Third, learn Attention: at each generation step, the Decoder can look back at different positions in the input sequence. Fourth, practice with machine translation to connect input, output, teacher forcing, decoding, and evaluation. Finally, you can read about CTC and Deep Speech to understand how sequence models are trained in speech recognition when the input and output are not aligned frame by frame.
 
-## Seq2Seq、Attention 和 Transformer 的关系
+## The Relationship Between Seq2Seq, Attention, and Transformer
 
-| 概念 | 解决的问题 | 后续连接 |
+| Concept | Problem It Solves | What It Connects To Next |
 |---|---|---|
-| Encoder-Decoder | 输入输出长度不同，任务从分类变成生成 | 摘要、翻译、问答生成 |
-| Attention | Decoder 生成每个 token 时需要关注不同输入位置 | Transformer 的核心机制 |
-| Teacher Forcing | 训练时让模型看到正确历史输出，提升收敛 | 生成模型训练直觉 |
-| Beam Search | 推理时不只贪心选一个 token | LLM 解码策略的前置概念 |
+| Encoder-Decoder | Input and output have different lengths, turning the task from classification into generation | Summarization, translation, question answering generation |
+| Attention | The Decoder needs to focus on different input positions when generating each token | The core mechanism of Transformer |
+| Teacher Forcing | During training, let the model see the correct previous outputs to improve convergence | Intuition for training generative models |
+| Beam Search | During inference, do not just greedily pick one token | A prerequisite concept for LLM decoding strategies |
 
-学这一章时，重点不是记住某个老模型，而是理解生成式 NLP 的基本问题：训练时怎么对齐输入输出，推理时怎么一步步生成，生成结果怎么评估。
+When studying this chapter, the key is not to memorize some old model, but to understand the basic problems of generative NLP: how to align input and output during training, how to generate step by step during inference, and how to evaluate generated results.
 
-## 和大模型课程的连接
+## Connection to the LLM Course
 
-后面你学习 GPT、T5、Prompt、RAG 和 Agent 时，都会再次遇到本章的影子。GPT 是自回归生成，T5 把任务统一成 text-to-text，Prompt 本质上也是把任务改写成输入序列，让模型生成输出序列。理解 Seq2Seq 后，你会更容易明白为什么大模型可以做翻译、摘要、改写、问答和规划。
+Later, when you study GPT, T5, Prompt, RAG, and Agent, you will encounter the influence of this chapter again. GPT is autoregressive generation, T5 unifies tasks into text-to-text, and Prompt is essentially also a way of rewriting a task into an input sequence so the model can generate an output sequence. Once you understand Seq2Seq, it becomes much easier to see why LLMs can do translation, summarization, rewriting, question answering, and planning.
 
-## 本章小项目出口
+## Output of the Mini Project in This Chapter
 
-建议完成一个“小型文本改写或翻译实验”。基础版可以用现成模型或简化代码跑通中英短句翻译，记录输入输出。标准版可以对比贪心解码和 beam search 的结果差异。挑战版可以把课程段落做成“摘要生成”小实验，并记录哪些句子容易丢失关键信息。
+It is recommended that you complete a “small text rewriting or translation experiment.” In the basic version, you can use an existing model or simplified code to run through short Chinese-English sentence translation and record the inputs and outputs. In the standard version, compare the differences between greedy decoding and beam search. In the challenge version, turn course paragraphs into a “summarization generation” mini experiment and record which sentences are more likely to lose key information.
 
-README 至少写清楚：输入序列是什么，输出序列是什么，模型如何逐步生成，使用了什么解码策略，失败样本是什么，以及 Attention 为什么能缓解长句信息丢失。
+The README should at least clearly explain: what the input sequence is, what the output sequence is, how the model generates step by step, what decoding strategy is used, what the failure cases are, and why Attention can alleviate information loss in long sentences.
 
-## 常见误区
+## Common Misunderstandings
 
-不要把 Seq2Seq 只理解成机器翻译专用模型。它代表的是一类输入输出都是序列的建模方式。也不要以为 Attention 只是“加权平均”这么简单，它真正重要的是让生成过程具备动态对齐能力。最后，不要忽略推理阶段；很多生成问题不是训练代码写完就结束，解码策略会明显影响输出质量。
+Do not think of Seq2Seq as a model only for machine translation. It represents a type of modeling approach where both input and output are sequences. Also, do not assume Attention is just a simple “weighted average”; what really matters is that it gives the generation process dynamic alignment capability. Finally, do not ignore the inference stage; many generation problems are not finished once the training code works. The decoding strategy can significantly affect output quality.
 
-## 过关标准
+## Passing Criteria
 
-学完这一章后，你应该能解释 Encoder-Decoder 为什么出现，Attention 解决了什么瓶颈，机器翻译任务如何组织输入输出，以及这些概念怎样连接到 Transformer、T5 和后面的大模型应用。
+After finishing this chapter, you should be able to explain why Encoder-Decoder appeared, what bottleneck Attention solved, how machine translation tasks organize input and output, and how these concepts connect to Transformer, T5, and later LLM applications.

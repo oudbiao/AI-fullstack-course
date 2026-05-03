@@ -1,74 +1,74 @@
 ---
 sidebar_position: 0
-title: "30 分钟 AI 快速体验"
-description: "在正式学习前，用 Google Colab 快速体验图像识别、文本生成和图像生成，建立对 AI 能力的直观认识。"
-keywords: [AI快速体验, Google Colab, 图像识别, 文本生成, 图像生成, AI入门]
+title: "30-Minute AI Quick Experience"
+description: "Before formal study, quickly experience image recognition, text generation, and image generation with Google Colab to build an intuitive understanding of AI capabilities."
+keywords: [AI quick experience, Google Colab, image recognition, text generation, image generation, AI introduction]
 ---
 
-# 30 分钟 AI 快速体验
+# 30-Minute AI Quick Experience
 
-> **目标：** 在正式学习前，先亲手玩一下 AI，感受它能做什么  
-> **时间：** 30 分钟 ～ 1 小时  
-> **需要准备：** 一个 Google 账号（用来打开 Colab），其他什么都不用装
+> **Goal:** Before formal study, try AI hands-on first and see what it can do
+> **Time:** 30 minutes ~ 1 hour
+> **What you need:** A Google account (to open Colab). Nothing else needs to be installed.
 
-## 一图读懂：30 分钟体验路线
+## Understand the 30-minute experience at a glance
 
 ```mermaid
 flowchart LR
-  A["打开 Colab"] --> B["图像识别"]
-  B --> C["文本生成"]
-  C --> D["图像生成"]
-  D --> E["回到课程主线"]
+  A["Open Colab"] --> B["Image recognition"]
+  B --> C["Text generation"]
+  C --> D["Image generation"]
+  D --> E["Return to the main course path"]
 ```
 
-很多人学编程，一上来就啃语法、背概念，学了两周还不知道自己在干什么。我们反过来：先玩，再学。你先看看 AI 能干什么，再带着好奇心回到系统课程。
+Many people start learning programming by grinding through syntax and memorizing concepts, and after two weeks they still do not know what they are doing. We will do it the other way around: play first, learn later. First, see what AI can do, then return to the structured course with curiosity.
 
-## 只做这 3 件事
+## Just do these 3 things
 
-| 体验 | 你会看到什么 | 后面对应章节 |
+| Experience | What you will see | Corresponding chapter later |
 | --- | --- | --- |
-| 让 AI 识别图片 | 你给它一张照片，它告诉你照片里是什么 | 深度学习、计算机视觉 |
-| 和 AI 对话 | 你说一句话，它接着往下写 | Prompt 工程、大语言模型 |
-| 让 AI 画画 | 你用文字描述画面，它生成图片 | AIGC、多模态 |
+| Let AI recognize images | You give it a photo, and it tells you what is in the photo | Deep learning, computer vision |
+| Talk with AI | You say a sentence, and it continues writing | Prompt engineering, large language models |
+| Let AI draw | You describe a scene in words, and it generates an image | AIGC, multimodal |
 
-:::tip 不需要任何编程基础
-下面的代码你现在不需要理解，只需要复制粘贴运行就行。等你学完 2 Python 编程基础，回头再看这些代码，就会觉得非常简单。
+:::tip No programming background needed
+You do not need to understand the code below right now. Just copy, paste, and run it. After you finish 2 Python programming basics, come back and look at this code again—you will find it very simple.
 :::
 
 ---
 
-## 体验1：让 AI 看懂图片（10分钟）
+## Experience 1: Let AI understand images (10 minutes)
 
-### 第一步：打开 Google Colab
+### Step 1: Open Google Colab
 
-1. 在浏览器中打开 [Google Colab](https://colab.research.google.com)
-2. 新建一个笔记本，任选一种方式即可：
-   - 若首页有 **「新建笔记本」** 或 **「New notebook」** 按钮，点它
-   - 或点击顶部菜单 **文件 → 在云端硬盘中新建笔记本**（英文界面为 **File → New notebook**）
-3. 打开后你会看到一个类似记事本的界面，里面有一个可输入代码的方框（叫做「代码单元格」）
+1. Open [Google Colab](https://colab.research.google.com) in your browser
+2. Create a new notebook using either method:
+   - If you see a **"New notebook"** button on the homepage, click it
+   - Or click the top menu **File → New notebook**
+3. After opening it, you will see an interface similar to a notepad, with a box where you can enter code (called a "code cell")
 
-### 第二步：安装需要的库
+### Step 2: Install the required libraries
 
-在代码单元格里粘贴下面的代码，然后按 `Shift + Enter` 运行：
+Paste the following code into a code cell, then run it with `Shift + Enter`:
 
 ```python
 !pip install transformers torch pillow requests -q
 ```
 
-等大约 1 分钟，看到输出不报红色错误就行。
+Wait about 1 minute. As long as the output does not show red errors, you are good.
 
-:::tip 如果出现 `HF_TOKEN` 或 Hugging Face 登录提示
-运行后面代码时，可能会看到类似 **"The secret HF_TOKEN does not exist"** 的警告。**可以忽略**——本教程用的模型（如 `google/vit-base-patch16-224`、`gpt2`）都是公开的，不需要登录即可下载和使用，代码会正常跑完。
+:::tip If you see `HF_TOKEN` or a Hugging Face login prompt
+When you run the later code, you may see a warning such as **"The secret HF_TOKEN does not exist"**. **You can ignore it** — the models used in this tutorial (such as `google/vit-base-patch16-224` and `gpt2`) are public and can be downloaded and used without logging in, so the code will run normally.
 
-若想消除该警告（或以后要访问需登录的模型），可以：
-1. 打开 [Hugging Face → Settings → Access Tokens](https://huggingface.co/settings/tokens)，新建一个 Token（Read 权限即可）
-2. 在 Colab 左侧点击 **钥匙图标 🔑（Secrets）**，添加 Secret：名称填 `HF_TOKEN`，值填刚才复制的 Token
-3. 重启 Colab 会话：点击顶部 **代码执行程序** → **重启会话**（英文界面为 **Runtime → Restart runtime**）。中文版里没有「重新启动运行时」字样，选「重启会话」即可。重启后再重新运行单元格
+If you want to remove this warning (or later access models that require login), you can:
+1. Open [Hugging Face → Settings → Access Tokens](https://huggingface.co/settings/tokens) and create a new Token (Read permission is enough)
+2. In Colab, click the **key icon 🔑 (Secrets)** on the left and add a Secret: set the name to `HF_TOKEN`, and paste the Token value you copied
+3. Restart the Colab session: click **Runtime → Restart runtime**. In the Chinese interface, there is no wording for "Restart runtime"; choose **Restart session**. After restarting, run the cells again
 :::
 
-### 第三步：运行图像识别
+### Step 3: Run image recognition
 
-点击左上角的 **「+ 代码」** 新建一个单元格，粘贴以下代码并运行：
+Click **"+ Code"** in the upper-left corner to create a new cell, paste the following code, and run it:
 
 ```python
 from transformers import pipeline
@@ -76,38 +76,38 @@ from PIL import Image
 import requests
 import io
 
-# 加载一个图像分类模型（第一次运行要下载模型，稍等一下）
+# Load an image classification model (the first run will download the model, so wait a moment)
 classifier = pipeline("image-classification", model="google/vit-base-patch16-224")
 
-# 用一张网上的狗狗图片来测试（先下载字节再打开，避免 Colab 下网络导致的识别失败）
+# Use a dog image from the internet for testing (download bytes first, then open them to avoid recognition failures caused by Colab network issues)
 url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/YellowLabradorLooking_new.jpg/1200px-YellowLabradorLooking_new.jpg"
 resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
 resp.raise_for_status()
 image = Image.open(io.BytesIO(resp.content))
 
-# 让 AI 识别这张图片
+# Let AI recognize this image
 results = classifier(image)
 
-# 看看结果
-print("🤖 AI 认为这张图片是：")
+# Check the result
+print("🤖 AI thinks this image is:")
 for r in results[:3]:
-    print(f"  {r['label']:30s} 置信度: {r['score']:.1%}")
+    print(f"  {r['label']:30s} confidence: {r['score']:.1%}")
 ```
 
-### 你应该看到类似这样的输出
+### You should see output similar to this
 
 ```
-🤖 AI 认为这张图片是：
-  Labrador retriever              置信度: 95.6%
-  golden retriever                置信度: 1.0%
-  kuvasz                          置信度: 0.5%
+🤖 AI thinks this image is:
+  Labrador retriever              confidence: 95.6%
+  golden retriever                confidence: 1.0%
+  kuvasz                          confidence: 0.5%
 ```
 
-> 🎉 **想一想：** 你没有教 AI 什么是拉布拉多，也没有给它标注图片，它怎么就认出来了？因为这个模型已经在 1400 万张图片上"学习"过了。这种"先大规模学习、再识别新事物"的过程，就是**深度学习**的核心思想——也是本课程要教你的东西。
+> 🎉 **Think about it:** You did not teach AI what a Labrador is, and you did not label the image, so how did it recognize it? Because this model has already "learned" from 14 million images. This process of "learning at large scale first, then recognizing new things" is the core idea of **deep learning** — and it is exactly what this course will teach you.
 
-### 试试换成你自己的图片
+### Try using your own image
 
-把 `url` 换成任何网上图片的链接，看看 AI 能不能认出来：
+Replace `url` with a link to any image online and see whether AI can recognize it:
 
 ```python
 url = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg"
@@ -116,85 +116,85 @@ resp.raise_for_status()
 image = Image.open(io.BytesIO(resp.content))
 results = classifier(image)
 
-print("🤖 AI 认为这张图片是：")
+print("🤖 AI thinks this image is:")
 for r in results[:3]:
-    print(f"  {r['label']:30s} 置信度: {r['score']:.1%}")
+    print(f"  {r['label']:30s} confidence: {r['score']:.1%}")
 ```
 
 ---
 
-## 体验2：和 AI 对话（10分钟）
+## Experience 2: Talk with AI (10 minutes)
 
-### 方式A：在 Colab 里运行一个小模型（免费）
+### Option A: Run a small model in Colab (free)
 
-新建一个代码单元格，粘贴运行：
+Create a new code cell, paste, and run:
 
 ```python
 from transformers import pipeline
 
-# 加载一个文本生成模型
+# Load a text generation model
 generator = pipeline("text-generation", model="gpt2")
 
-# 给一个开头，让 AI 接着写
+# Give it a starting prompt and let AI continue writing
 prompt = "The future of artificial intelligence is"
 result = generator(prompt, max_length=80, num_return_sequences=1)
 
-print("📝 你给的开头：", prompt)
+print("📝 Your prompt:", prompt)
 print()
-print("🤖 AI 接着写：")
+print("🤖 AI continues writing:")
 print(result[0]['generated_text'])
 ```
 
-:::info 关于这个模型
-GPT-2 是 2019 年的模型，比现在的 ChatGPT 弱很多，生成的内容可能不太通顺。但它帮你理解了一个关键原理——AI 写文章其实就是不断预测"下一个最可能出现的词是什么"。ChatGPT 也是这个原理，只不过模型大了几百倍、训练数据多了几百倍。
+:::info About this model
+GPT-2 is a model from 2019, so it is much weaker than today’s ChatGPT. The generated content may not be very fluent. But it helps you understand a key principle — AI writing articles is actually just repeatedly predicting "what is the most likely next word?" ChatGPT uses the same principle, except the model is hundreds of times larger and trained on hundreds of times more data.
 :::
 
-### 方式B：直接体验最新大模型（推荐）
+### Option B: Try the latest large models directly (recommended)
 
-如果你想感受最强大的 AI 对话能力，打开以下任意一个（都免费）：
+If you want to experience the most powerful AI conversation capability, open any of the following (all free):
 
-| 产品 | 网址 | 特点 |
+| Product | URL | Features |
 |------|------|------|
-| **ChatGPT** | [chat.openai.com](https://chat.openai.com) | 全球最知名，英文能力最强 |
-| **Claude** | [claude.ai](https://claude.ai) | 长文本理解强，中文也不错 |
-| **通义千问** | [tongyi.aliyun.com](https://tongyi.aliyun.com) | 阿里出品，国内直接访问 |
-| **Kimi** | [kimi.moonshot.cn](https://kimi.moonshot.cn) | 支持超长上下文 |
-| **DeepSeek** | [chat.deepseek.com](https://chat.deepseek.com) | 开源模型，性价比高 |
+| **ChatGPT** | [chat.openai.com](https://chat.openai.com) | The most well-known globally, strongest in English |
+| **Claude** | [claude.ai](https://claude.ai) | Strong at long-text understanding, also good in Chinese |
+| **Tongyi Qianwen** | [tongyi.aliyun.com](https://tongyi.aliyun.com) | Made by Alibaba, directly accessible in China |
+| **Kimi** | [kimi.moonshot.cn](https://kimi.moonshot.cn) | Supports very long context |
+| **DeepSeek** | [chat.deepseek.com](https://chat.deepseek.com) | Open-source model, high cost performance |
 
-试着问它一个有挑战性的问题：
+Try asking it a challenging question:
 
 ```
-请用 Python 写一个函数，计算斐波那契数列的第 n 项。
-要求：
-1. 用递归实现一个版本
-2. 用动态规划实现一个版本
-3. 对比两种方式的效率差异
+Please write a Python function to compute the nth Fibonacci number.
+Requirements:
+1. Implement one version using recursion
+2. Implement one version using dynamic programming
+3. Compare the efficiency difference between the two approaches
 ```
 
-> 🎉 **想一想：** AI 不仅能聊天，还能写代码、翻译、总结文档、分析数据……在学完本课程后，你将能自己开发这样的 AI 应用，甚至构建能自主调用工具、自己做决策的 AI Agent。
+> 🎉 **Think about it:** AI can do much more than chat — it can write code, translate, summarize documents, analyze data, and more... After finishing this course, you will be able to build AI applications like this yourself, and even create AI Agents that can call tools on their own and make decisions independently.
 
 ---
 
-## 体验3：让 AI 画画（10分钟）
+## Experience 3: Let AI draw pictures (10 minutes)
 
-### 操作步骤（无需写代码）
+### Steps to try it out (no coding required)
 
-1. 打开以下任意一个 AI 绘画工具：
-   - [Hugging Face Spaces 上的 Stable Diffusion](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)
-   - [LiblibAI](https://www.liblib.art/)（国内可直接访问）
-   - 或搜索 "AI 在线绘画" 找其他工具
+1. Open any of the following AI image generation tools:
+   - [Stable Diffusion on Hugging Face Spaces](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)
+   - [LiblibAI](https://www.liblib.art/) (direct access in China)
+   - Or search for "AI online drawing" to find other tools
 
-2. 在输入框中输入英文描述词（叫做 **Prompt**）：
+2. Enter the English description in the input box (called a **Prompt**):
 
 ```
 a cute robot reading a book in a cozy library, digital art, warm lighting
 ```
 
-3. 点击 **Generate**，等待 10-30 秒
+3. Click **Generate** and wait 10–30 seconds
 
-4. AI 会为你生成一张全新的图片——这张图片世界上从未存在过，是 AI "想象"出来的
+4. AI will generate a brand-new image for you — an image that has never existed in the world before, imagined by AI
 
-### 更多 Prompt 可以试试
+### More Prompts to try
 
 ```
 a futuristic city at sunset, cyberpunk style, neon lights, rain
@@ -208,24 +208,24 @@ an astronaut riding a horse on the moon, oil painting style
 a traditional Chinese ink painting of mountains and rivers, misty, elegant
 ```
 
-:::tip Prompt 的奥秘
-你会发现，描述词写得越具体，生成的图片质量越高。这种用文字控制 AI 输出的技巧叫做 **Prompt Engineering（提示词工程）**，是本课程 7 大模型原理、Prompt 与微调的重要内容，也是当前 AI 行业最实用的技能之一。
+:::tip The secret of Prompts
+You will notice that the more specific your description is, the better the generated image becomes. This technique of controlling AI output with text is called **Prompt Engineering**, and it is an important part of the course’s 7 major model principles, Prompt, and fine-tuning content. It is also one of the most practical skills in today’s AI industry.
 :::
 
-> 🎉 **想一想：** 这就是 AIGC（AI Generated Content，AI 生成内容）。你只需要用文字描述想要的画面，AI 就能"画"出来。本课程的 12 AIGC 与多模态会教你这背后的扩散模型原理，以及如何微调模型生成你想要的风格。
+> 🎉 **Think about it:** This is AIGC (AI Generated Content). You only need to describe the scene you want in words, and AI can "draw" it. Chapter 12, AIGC and multimodal, will teach you the diffusion model principles behind this, as well as how to fine-tune models to generate the style you want.
 
 ---
 
-## ✅ 体验完成！回顾一下
+## ✅ Experience complete! Let’s review
 
-恭喜你完成了 AI 快速体验！花 30 分钟，你已经亲手感受了 AI 的三大核心能力：
+Congratulations on completing the AI quick experience! In just 30 minutes, you have personally experienced the three core capabilities of AI:
 
-| 你体验了什么 | 背后的技术 | 课程中哪里学 |
+| What you experienced | Underlying technology | Where you will learn it in the course |
 |------------|----------|------------|
-| 图像识别 | 卷积神经网络 + 预训练模型 | 6 深度学习与 Transformer 基础 + 10 计算机视觉 |
-| 文本对话 | 大语言模型 + Transformer 架构 | 7 大模型原理、Prompt 与微调 |
-| 图片生成 | 扩散模型（Diffusion Model） | 12 AIGC 与多模态 |
+| Image recognition | Convolutional Neural Networks + pre-trained models | 6 Deep Learning and Transformer Basics + 10 Computer Vision |
+| Text conversation | Large language models + Transformer architecture | 7 Large Model Principles, Prompt, and Fine-Tuning |
+| Image generation | Diffusion Model | 12 AIGC and Multimodal |
 
-:::note 术语不用记
-CNN、Transformer、Diffusion……这些词现在看着完全陌生没关系。等你一步步学过来，每一个都会变得清清楚楚。现在你只需要记住一件事——**这些你都能学会**。
+:::note No need to memorize the terms
+CNN, Transformer, Diffusion... It is totally fine if these words still feel unfamiliar right now. As you learn step by step, each one will become crystal clear. For now, just remember one thing — **you can learn all of this**.
 :::

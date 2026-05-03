@@ -1,128 +1,128 @@
 ---
 sidebar_position: 4
-title: "AI 学习助手剧情任务线"
-description: "把完整课程包装成训练 AI 学习助手的连续剧情任务，让每个阶段都有轻松、有目标、有作品证据的学习动机。"
-keywords: [AI学习助手, 剧情任务, 趣味学习, AI课程项目, 新手学习]
+title: "The AI Learning Assistant Story Quest Line"
+description: "Package the full course into a continuous story quest line for training an AI learning assistant, so each stage has an easy, goal-driven learning motivation with evidence of work."
+keywords: [AI learning assistant, story quests, fun learning, AI course project, beginner learning]
 ---
 
-# AI 学习助手剧情任务线
+# AI Learning Assistant Story Quest Line
 
-你可以把这门课想象成一个养成故事：你不是在机械地刷章节，而是在训练一名 AI 学习助手。最开始它什么都不会，只是一个空项目；随着你学习工具、Python、数据、模型、Prompt、RAG 和 Agent，它会一步步成长为能读资料、做计划、查问题、记录失败并帮助你复习的 AI 队友。
+You can think of this course as a growth story: you are not mechanically grinding through chapters, but training an AI learning assistant. At the beginning, it knows nothing and is just an empty project; as you learn tools, Python, data, models, Prompt, RAG, and Agent, it gradually grows into an AI teammate that can read materials, make plans, look up questions, record failures, and help you review.
 
-这条剧情线不会替代课程主线，而是给每个阶段一个更轻松的目标。学完一站，你就给助手解锁一个新能力。
+This story line does not replace the main course path. Instead, it gives each stage a lighter, more approachable goal. When you finish one stop, you unlock a new ability for the assistant.
 
-## 先看剧情四幕
+## First, look at the four acts of the story
 
-| 幕 | 助手发生什么变化 | 对应学习重点 |
+| Act | What changes in the assistant | Corresponding learning focus |
 |---|---|---|
-| 第一幕 | 从空项目变成会记录的工具 | 开发环境、Python、数据分析 |
-| 第二幕 | 开始拥有判断力 | 数学、机器学习、深度学习 |
-| 第三幕 | 会交流、会查资料、会做任务 | Prompt、RAG、Agent |
-| 第四幕 | 成为可展示产品 | CV、NLP、多模态、毕业项目 |
+| Act 1 | Goes from an empty project to a tool that can take notes | Development environment, Python, data analysis |
+| Act 2 | Starts to gain judgment | Math, machine learning, deep learning |
+| Act 3 | Can communicate, search for information, and complete tasks | Prompt, RAG, Agent |
+| Act 4 | Becomes a demo-ready product | CV, NLP, multimodal, capstone project |
 
-## 总剧情：从空白助手到 AI 队友
+## Main story: from a blank assistant to an AI teammate
 
 ```mermaid
 flowchart LR
-  A[出生：空项目] --> B[拥有记事本]
-  B --> C[看懂学习记录]
-  C --> D[理解相似与预测]
-  D --> E[会写计划和复盘]
-  E --> F[能查课程资料]
-  F --> G[能执行学习任务]
-  G --> H[能处理多模态资料]
+  A[Birth: empty project] --> B[Has a notebook]
+  B --> C[Understands learning records]
+  C --> D[Understands similarity and prediction]
+  D --> E[Can write plans and retrospectives]
+  E --> F[Can search course materials]
+  F --> G[Can execute learning tasks]
+  G --> H[Can handle multimodal materials]
 ```
 
-剧情任务的规则很简单：每阶段只做一个最小任务，留下一个可见证据。如果任务失败，也要留下失败样本，因为这正是 AI 工程能力的一部分。
+The rules of the story quests are very simple: in each stage, do only one minimum task and leave one visible piece of evidence. If the task fails, keep the failure sample too, because that is part of AI engineering skills.
 
-## 第一幕：唤醒助手
+## Act 1: Wake up the assistant
 
-| 阶段 | 剧情任务 | 学到的能力 | 任务证据 |
+| Stage | Story quest | Skills learned | Task evidence |
 |---|---|---|---|
-| 1 开发者工具基础 | 给助手搭建工作台 | 终端、目录、Git、环境 | 项目目录、第一次 commit、运行截图 |
-| 2 Python 编程基础 | 让助手拥有记事本 | 变量、函数、文件、异常、JSON | `tasks.json`、命令输出、错误处理样例 |
-| 3 数据分析与可视化 | 让助手看懂你的学习记录 | Pandas、清洗、统计、图表 | 学习时长图、完成率图、数据质量检查 |
+| 1 Development tools basics | Set up a workstation for the assistant | Terminal, directories, Git, environments | Project folder, first commit, run screenshot |
+| 2 Python programming basics | Give the assistant a notebook | Variables, functions, files, exceptions, JSON | `tasks.json`, command output, error-handling example |
+| 3 Data analysis and visualization | Help the assistant understand your learning records | Pandas, cleaning, statistics, charts | Study-time chart, completion-rate chart, data quality check |
 
-这一幕的目标是让新人快速获得“我真的做出了东西”的感觉。不要追求功能复杂，只要助手能稳定运行、保存数据、输出结果，就算过关。
+The goal of this act is to help beginners quickly feel, “I really made something.” Don’t pursue complex features. As long as the assistant runs stably, saves data, and outputs results, you pass.
 
-## 第二幕：让助手拥有判断力
+## Act 2: Give the assistant judgment
 
-| 阶段 | 剧情任务 | 学到的能力 | 任务证据 |
+| Stage | Story quest | Skills learned | Task evidence |
 |---|---|---|---|
-| 4 AI 数学基础 | 教助手理解相似、概率和变化 | 向量、概率、梯度、指标 | 小实验、指标解释、手算样例 |
-| 5 机器学习 | 让助手预测学习风险 | baseline、训练测试划分、分类、评估 | 指标表、错误样本、改进记录 |
-| 6 深度学习与 Transformer | 让助手认识训练失败 | 训练循环、loss、过拟合、Transformer 直觉 | loss 曲线、配置、失败样本 |
+| 4 AI math basics | Teach the assistant to understand similarity, probability, and change | Vectors, probability, gradients, metrics | Small experiments, metric explanations, hand-calculation examples |
+| 5 Machine learning | Let the assistant predict learning risk | baseline, train/test split, classification, evaluation | Metric table, error samples, improvement log |
+| 6 Deep learning and Transformer | Let the assistant recognize training failures | training loop, loss, overfitting, Transformer intuition | loss curve, config, failure samples |
 
-这一幕的重点不是把模型做得很强，而是让学习者知道模型判断从哪里来，为什么会错，怎么证明改进有效。
+The focus of this act is not to make the model very powerful, but to help learners understand where model judgments come from, why they can be wrong, and how to prove improvements are effective.
 
-## 第三幕：让助手学会交流和查资料
+## Act 3: Teach the assistant to communicate and search for information
 
-| 阶段 | 剧情任务 | 学到的能力 | 任务证据 |
+| Stage | Story quest | Skills learned | Task evidence |
 |---|---|---|---|
-| 7 大模型与 Prompt | 让助手会写学习计划和复盘卡 | Prompt、结构化输出、schema、评估 | Prompt 版本、固定输入输出、失败样本 |
-| 8 LLM 应用与 RAG | 让助手能读课程资料回答问题 | 文档切分、检索、引用、RAGOps | eval questions、retrieval logs、citation check |
-| 9 AI Agent | 让助手能拆解并执行学习任务 | 工具调用、trace、权限、停止条件 | agent trace、tool calls、安全边界说明 |
+| 7 Large models and Prompt | Let the assistant write study plans and review cards | Prompt, structured output, schema, evaluation | Prompt versions, fixed input/output, failure samples |
+| 8 LLM applications and RAG | Let the assistant read course materials and answer questions | document chunking, retrieval, citation, RAGOps | eval questions, retrieval logs, citation check |
+| 9 AI Agent | Let the assistant break down and execute learning tasks | tool calling, trace, permissions, stop conditions | agent trace, tool calls, safety boundary notes |
 
-这一幕会让助手从“会聊天”变成“会基于资料工作”。新人最容易混淆 Prompt、RAG 和 Agent，可以用剧情理解：Prompt 是会说话，RAG 是会查资料，Agent 是会分步做事。
+This act turns the assistant from “someone who can chat” into “someone who can work based on materials.” Beginners often confuse Prompt, RAG, and Agent. A story-based way to remember it is: Prompt means it can talk, RAG means it can look things up, and Agent means it can do things step by step.
 
-## 第四幕：毕业任务
+## Act 4: Graduation project
 
-| 阶段 | 剧情任务 | 学到的能力 | 任务证据 |
+| Stage | Story quest | Skills learned | Task evidence |
 |---|---|---|---|
-| 10 计算机视觉 | 让助手看懂截图或图片 | 图像读取、分类、OCR、可视化 | 输入图片、预测结果、失败图片 |
-| 11 自然语言处理 | 让助手理解文本任务 | 分类、抽取、摘要、标签体系 | 标注样例、指标、错误文本 |
-| 12 AIGC 与多模态 | 让助手生成可审核内容 | 图片、语音、视频、多模态工作流 | 素材来源、生成记录、人工审核 |
-| 毕业项目 | 让助手成为可展示产品 | 综合设计、部署、评估、复盘 | Demo、README、评估报告、演示脚本 |
+| 10 Computer vision | Let the assistant understand screenshots or images | image loading, classification, OCR, visualization | input image, prediction result, failed images |
+| 11 Natural language processing | Let the assistant understand text tasks | classification, extraction, summarization, label systems | labeled examples, metrics, error texts |
+| 12 AIGC and multimodal | Let the assistant generate content that can be reviewed | image, audio, video, multimodal workflows | source materials, generation records, human review |
+| Graduation project | Let the assistant become a demo-ready product | integrated design, deployment, evaluation, retrospection | Demo, README, evaluation report, presentation script |
 
-方向拓展不要求全做深。你可以根据毕业项目选择一个方向，把它接入 AI 学习助手，而不是同时做视觉、NLP 和多模态所有能力。
+You do not need to go deep in every direction. Based on your graduation project, you can choose one direction and integrate it into the AI learning assistant, instead of trying to build all visual, NLP, and multimodal capabilities at the same time.
 
-## 每个剧情任务的固定格式
+## Fixed format for each story quest
 
-建议每完成一个剧情任务，都在 README 或 `reports/improvement_record.md` 中写一段简短记录。
+It is recommended that after completing each story quest, you write a short note in the README or `reports/improvement_record.md`.
 
 ```md
-## 剧情任务：让助手拥有记事本
+## Story Quest: Give the assistant a notebook
 
-### 本次解锁能力
-助手可以新增、查看和完成学习任务，并保存到 JSON 文件。
+### Ability unlocked this time
+The assistant can add, view, and complete learning tasks, and save them to a JSON file.
 
-### 我学到的内容
-Python 函数、列表、字典、文件读写和异常处理。
+### What I learned
+Python functions, lists, dictionaries, file reading and writing, and exception handling.
 
-### 运行方式
-python main.py add "学习 Python 文件读写"
+### How to run
+python main.py add "Learn Python file reading and writing"
 
-### 成功证据
-生成了 tasks.json，并能再次读取。
+### Success evidence
+`tasks.json` was generated, and it can be read again.
 
-### 失败样本
-当 tasks.json 被手动改坏时，程序一开始会崩溃。
+### Failure sample
+When `tasks.json` is manually corrupted, the program crashes at first.
 
-### 修复记录
-增加 JSONDecodeError 处理，提示用户备份或重建文件。
+### Fix record
+Add `JSONDecodeError` handling and prompt the user to back up or rebuild the file.
 ```
 
-这个格式能让学习过程更像游戏存档。每次存档都有能力、证据、失败和修复，最后自然形成作品集。
+This format makes the learning process feel more like a game save. Each save includes abilities, evidence, failures, and fixes, and naturally builds into a portfolio.
 
-## 剧情里的 NPC 提示
+## NPC hints in the story
 
-学习时可以把常见角色想象成 NPC，它们会不断提醒你不同角度的问题。
+While learning, you can imagine common roles as NPCs. They will keep reminding you to think about the problem from different angles.
 
-| NPC | 它会问你什么 | 对应能力 |
+| NPC | What it asks you | Corresponding skill |
 |---|---|---|
-| 产品经理 | 这个助手到底帮谁解决什么问题 | 问题定义、用户场景 |
-| 测试同学 | 如果输入为空、错、坏，会发生什么 | 异常处理、测试样例 |
-| 数据侦探 | 数据从哪里来，能不能相信 | 数据清洗、质量检查 |
-| 模型教练 | baseline 是什么，指标是否可信 | 评估、误差分析 |
-| 安全官 | Agent 能不能做危险动作 | 权限、人工确认、安全边界 |
-| 面试官 | 你怎么证明项目真的有效 | README、演示、失败复盘 |
+| Product manager | Who exactly does this assistant help, and what problem does it solve | Problem definition, user scenarios |
+| Tester | What happens if the input is empty, wrong, or broken | Exception handling, test cases |
+| Data detective | Where does the data come from, and can it be trusted | Data cleaning, quality checks |
+| Model coach | What is the baseline, and are the metrics trustworthy | Evaluation, error analysis |
+| Safety officer | Can the Agent perform dangerous actions | Permissions, human confirmation, safety boundaries |
+| Interviewer | How can you prove the project really works | README, demo, failure retrospection |
 
-当你不知道下一步做什么时，就让其中一个 NPC 提问。能回答这些问题，说明项目越来越成熟。
+When you do not know what to do next, let one of these NPCs ask a question. If you can answer these questions, it means the project is becoming more mature.
 
-## 新手友好玩法
+## Beginner-friendly way to play
 
-第一遍不要追求满分通关。每个剧情任务只需要完成基础版：能运行、能截图、能记录一个失败。等主线跑通后，再回头把某些任务升级为标准版或作品集版。
+Do not aim for a perfect first run. For each story quest, you only need to complete the basic version: it runs, you can take a screenshot, and you record one failure. After the main path works end to end, come back and upgrade some tasks to a standard version or a portfolio version.
 
-如果你某一站学得很吃力，就把目标缩小为“给助手解锁一个最小能力”。比如 RAG 阶段不要一开始做企业知识库，只要让助手能读取 3 个 Markdown 文件并回答 5 个问题，就已经是实质进步。
+If you are struggling a lot at one stop, narrow the goal down to “unlock one minimum ability for the assistant.” For example, in the RAG stage, do not start by building an enterprise knowledge base. As long as the assistant can read 3 Markdown files and answer 5 questions, that is already meaningful progress.
 
-学习的成就感来自可见进度。每完成一个剧情任务，就给 README 增加一条版本记录，让你能清楚看到助手是怎样从空项目一步步长大的。
+The sense of achievement in learning comes from visible progress. Every time you complete a story quest, add one version note to the README so you can clearly see how the assistant grew step by step from an empty project.

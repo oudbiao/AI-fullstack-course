@@ -1,47 +1,47 @@
 ---
-title: "6.2 实战项目：多数据源整合分析"
+title: "6.2 Hands-on Project: Multi-Source Data Integration Analysis"
 sidebar_position: 26
-description: "从 CSV、JSON、SQLite 等多种来源获取数据，进行整合清洗、分组聚合、时间趋势分析，输出可视化报告"
-keywords: [多数据源, 数据整合, Pandas, 数据分析, 透视分析, 可视化仪表盘]
+description: "Fetch data from multiple sources such as CSV, JSON, and SQLite, perform integration and cleaning, grouping and aggregation, trend analysis over time, and output a visual report"
+keywords: [multi-source data, data integration, Pandas, data analysis, pivot analysis, visual dashboard]
 ---
 
-# 实战项目：多数据源整合分析
+# Hands-on Project: Multi-Source Data Integration Analysis
 
-![多数据源整合分析架构图](/img/course/ch03-multi-source-analysis-architecture.png)
+![Multi-source data integration analysis architecture diagram](/img/course/ch03-multi-source-analysis-architecture-en.png)
 
-:::tip 项目定位
-这是 3 数据分析与可视化的**毕业项目**。相比项目一（单数据集 EDA），本项目增加了**多来源数据整合**和**时间维度分析**，更接近真实的数据分析工作。
+:::tip Project Positioning
+This is the **capstone project** for 3 Data Analysis and Visualization. Compared with Project 1 (single-dataset EDA), this project adds **multi-source data integration** and **time-dimension analysis**, which is closer to real-world data analysis work.
 :::
 
-## 先建立一张地图
+## First, Build a Map
 
-这个项目最适合新人的理解顺序不是“先开始 merge”，而是先看清：
+For beginners, the most suitable way to understand this project is not “start merging first,” but to first clearly see:
 
 ```mermaid
 flowchart LR
-    A["读入多来源数据"] --> B["检查主键和字段"]
-    B --> C["先整合成一张宽表"]
-    C --> D["再做清洗和派生特征"]
-    D --> E["最后做分析和仪表盘"]
+    A["Read in multi-source data"] --> B["Check primary keys and fields"]
+    B --> C["Integrate into one wide table first"]
+    C --> D["Then clean and derive features"]
+    D --> E["Finally do analysis and dashboards"]
 ```
 
-所以这节真正想练的是：
+So what this section really wants you to practice is:
 
-- 多来源数据怎么进入同一张分析表
-- 什么时候该先检查键，什么时候才该开始分析
+- How multi-source data enters the same analysis table
+- When to check keys first, and when to start analyzing
 
-## 项目简介
+## Project Overview
 
-真实工作中，数据几乎不会整整齐齐地放在一个 CSV 里。你需要从 CSV、JSON、数据库等多个来源获取数据，先清洗整合，再分析。
+In real work, data is almost never neatly placed in one CSV file. You need to fetch data from multiple sources such as CSV, JSON, and databases, then clean and integrate it before analysis.
 
 ```mermaid
 flowchart TD
-    A["CSV 文件<br/>订单数据"] --> D["数据整合<br/>Pandas merge/concat"]
-    B["JSON 文件<br/>商品数据"] --> D
-    C["SQLite 数据库<br/>用户数据"] --> D
-    D --> E["数据清洗"]
-    E --> F["分析与可视化"]
-    F --> G["输出报告/仪表盘"]
+    A["CSV file<br/>order data"] --> D["Data integration<br/>Pandas merge/concat"]
+    B["JSON file<br/>product data"] --> D
+    C["SQLite database<br/>user data"] --> D
+    D --> E["Data cleaning"]
+    E --> F["Analysis and visualization"]
+    F --> G["Output report/dashboard"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -49,51 +49,51 @@ flowchart TD
     style G fill:#f3e5f5,stroke:#7b1fa2,color:#333
 ```
 
-### 一个更适合新人的总类比
+### A Better Beginner-Friendly Big Picture Analogy
 
-你可以把这个项目理解成：
+You can think of this project as:
 
-- 把来自不同部门的表格拼成一份能真正汇报的总表
+- Combining tables from different departments into one master table that can actually be used for reporting
 
-也就是说，这个项目真正难的地方不是：
+In other words, the real challenge in this project is not:
 
-- 会不会画图
+- Whether you can make charts
 
-而是：
+But rather:
 
-- 数据能不能先顺利对齐
-- 表和表之间能不能正确接上
+- Whether the data can be aligned smoothly first
+- Whether the tables can be connected correctly
 
-### 项目场景
+### Project Scenario
 
-你是一家**在线零售公司**的数据分析师。公司的数据分散在不同系统中：
+You are a data analyst for an **online retail company**. The company’s data is spread across different systems:
 
-| 数据来源 | 格式 | 内容 |
+| Data source | Format | Content |
 |---------|------|------|
-| 销售系统导出 | CSV | 订单记录（订单ID、用户ID、商品ID、数量、日期） |
-| 商品管理系统 API | JSON | 商品信息（商品ID、名称、类别、价格） |
-| 用户系统数据库 | SQLite | 用户信息（用户ID、姓名、城市、注册日期） |
+| Sales system export | CSV | Order records (order ID, user ID, product ID, quantity, date) |
+| Product management system API | JSON | Product information (product ID, name, category, price) |
+| User system database | SQLite | User information (user ID, name, city, registration date) |
 
-你的任务：整合这些数据，分析销售情况，输出一份有价值的分析报告。
+Your task: integrate these data, analyze sales performance, and produce a valuable analysis report.
 
-### 涉及知识点
+### Knowledge Areas Involved
 
-| 技能 | 对应章节 |
+| Skill | Corresponding chapter |
 |------|---------|
-| CSV/JSON 读写 | 第 3 章 3.2 节 |
-| Pandas merge 合并 | 第 3 章 3.7 节 |
-| 分组聚合与透视表 | 第 3 章 3.6 节 |
-| 时间序列处理 | 第 3 章 3.8 节 |
-| Matplotlib/Seaborn 可视化 | 第 4 章 |
-| SQLite 数据库操作 | 第 5 章 |
+| CSV/JSON read and write | Chapter 3, Section 3.2 |
+| Pandas merge | Chapter 3, Section 3.7 |
+| Grouping, aggregation, and pivot tables | Chapter 3, Section 3.6 |
+| Time series processing | Chapter 3, Section 3.8 |
+| Matplotlib/Seaborn visualization | Chapter 4 |
+| SQLite database operations | Chapter 5 |
 
 ---
 
-## 一、准备模拟数据
+## 1. Prepare Mock Data
 
-真实项目中数据是现成的，但为了学习，我们先用 Python 生成模拟数据。
+In real projects, data is already available. But for learning, we’ll first generate mock data with Python.
 
-### 1.1 生成订单数据（CSV）
+### 1.1 Generate Order Data (CSV)
 
 ```python
 import numpy as np
@@ -104,45 +104,45 @@ from datetime import datetime, timedelta
 
 np.random.seed(42)
 
-# ---------- 订单数据 ----------
+# ---------- Order data ----------
 n_orders = 2000
 order_dates = pd.date_range('2024-01-01', '2024-12-31', freq='h')
 order_dates = np.random.choice(order_dates, n_orders)
 
 orders = pd.DataFrame({
     'order_id': range(1, n_orders + 1),
-    'user_id': np.random.randint(1, 201, n_orders),       # 200 个用户
-    'product_id': np.random.randint(1, 51, n_orders),      # 50 个商品
+    'user_id': np.random.randint(1, 201, n_orders),       # 200 users
+    'product_id': np.random.randint(1, 51, n_orders),      # 50 products
     'quantity': np.random.choice([1, 1, 1, 2, 2, 3], n_orders),
     'order_date': order_dates
 })
 
-# 保存为 CSV
+# Save as CSV
 orders.to_csv('orders.csv', index=False)
-print(f"订单数据：{orders.shape}")
+print(f"Order data: {orders.shape}")
 orders.head()
 ```
 
-### 1.2 生成商品数据（JSON）
+### 1.2 Generate Product Data (JSON)
 
 ```python
-# ---------- 商品数据 ----------
-categories = ['电子产品', '服装', '食品', '家居', '图书']
+# ---------- Product data ----------
+categories = ['Electronics', 'Clothing', 'Food', 'Home', 'Books']
 products = []
 
 for i in range(1, 51):
     cat = np.random.choice(categories)
-    # 不同类别的价格区间不同
+    # Different categories have different price ranges
     price_ranges = {
-        '电子产品': (200, 5000),
-        '服装': (50, 800),
-        '食品': (10, 100),
-        '家居': (30, 500),
-        '图书': (20, 150),
+        'Electronics': (200, 5000),
+        'Clothing': (50, 800),
+        'Food': (10, 100),
+        'Home': (30, 500),
+        'Books': (20, 150),
     }
     low, high = price_ranges[cat]
     price = round(np.random.uniform(low, high), 2)
-    
+
     products.append({
         'product_id': i,
         'name': f'{cat}_{i:03d}',
@@ -150,48 +150,48 @@ for i in range(1, 51):
         'price': price
     })
 
-# 保存为 JSON
+# Save as JSON
 with open('products.json', 'w', encoding='utf-8') as f:
     json.dump(products, f, ensure_ascii=False, indent=2)
 
-print(f"商品数据：{len(products)} 个商品")
+print(f"Product data: {len(products)} products")
 pd.DataFrame(products).head()
 ```
 
-### 1.3 生成用户数据（SQLite）
+### 1.3 Generate User Data (SQLite)
 
 ```python
-# ---------- 用户数据 ----------
-cities = ['北京', '上海', '广州', '深圳', '杭州', '成都', '武汉', '南京', '重庆', '西安']
+# ---------- User data ----------
+cities = ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Hangzhou', 'Chengdu', 'Wuhan', 'Nanjing', 'Chongqing', 'Xi'an']
 
 users = pd.DataFrame({
     'user_id': range(1, 201),
-    'name': [f'用户_{i:03d}' for i in range(1, 201)],
+    'name': [f'User_{i:03d}' for i in range(1, 201)],
     'city': np.random.choice(cities, 200),
     'register_date': pd.date_range('2022-01-01', periods=200, freq='2D')
 })
 
-# 保存到 SQLite
+# Save to SQLite
 conn = sqlite3.connect('users.db')
 users.to_sql('users', conn, if_exists='replace', index=False)
 conn.close()
 
-print(f"用户数据：{users.shape}")
+print(f"User data: {users.shape}")
 users.head()
 ```
 
-:::info 数据文件清单
-运行上面的代码后，你会得到三个文件：
-- `orders.csv` — 2000 条订单记录
-- `products.json` — 50 个商品信息
-- `users.db` — SQLite 数据库，包含 200 个用户信息
+:::info Data File List
+After running the code above, you will get three files:
+- `orders.csv` — 2000 order records
+- `products.json` — 50 product records
+- `users.db` — SQLite database containing 200 users
 :::
 
 ---
 
-## 二、多源数据读取
+## 2. Read Multi-Source Data
 
-### 2.1 读取 CSV
+### 2.1 Read CSV
 
 ```python
 import pandas as pd
@@ -205,86 +205,84 @@ plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 sns.set_theme(style="whitegrid", font_scale=1.1)
 
-# 1. 读取 CSV
+# 1. Read CSV
 orders = pd.read_csv('orders.csv', parse_dates=['order_date'])
-print(f"订单数据：{orders.shape}")
+print(f"Order data: {orders.shape}")
 print(orders.dtypes)
 orders.head()
 ```
 
-### 2.2 读取 JSON
+### 2.2 Read JSON
 
 ```python
-# 2. 读取 JSON
+# 2. Read JSON
 with open('products.json', 'r', encoding='utf-8') as f:
     products_list = json.load(f)
 
 products = pd.DataFrame(products_list)
-print(f"\n商品数据：{products.shape}")
+print(f"\nProduct data: {products.shape}")
 products.head()
 ```
 
-也可以直接用 Pandas 读取：
+You can also read it directly with Pandas:
 
 ```python
-# Pandas 一行搞定
+# One line with Pandas
 products = pd.read_json('products.json')
 ```
 
-### 2.3 读取 SQLite
+### 2.3 Read SQLite
 
 ```python
-# 3. 读取 SQLite
+# 3. Read SQLite
 conn = sqlite3.connect('users.db')
 users = pd.read_sql_query("SELECT * FROM users", conn, parse_dates=['register_date'])
 conn.close()
 
-print(f"\n用户数据：{users.shape}")
+print(f"\nUser data: {users.shape}")
 users.head()
 ```
 
-### 2.4 数据概览
+### 2.4 Data Overview
 
 ```python
 print("=" * 50)
-print("数据源汇总")
+print("Data Source Summary")
 print("=" * 50)
-print(f"订单表：{orders.shape[0]} 行 × {orders.shape[1]} 列")
-print(f"商品表：{products.shape[0]} 行 × {products.shape[1]} 列")
-print(f"用户表：{users.shape[0]} 行 × {users.shape[1]} 列")
+print(f"Order table: {orders.shape[0]} rows × {orders.shape[1]} columns")
+print(f"Product table: {products.shape[0]} rows × {products.shape[1]} columns")
+print(f"User table: {users.shape[0]} rows × {users.shape[1]} columns")
 
-# 检查关联键
-print(f"\n订单中的用户ID范围：{orders['user_id'].min()} ~ {orders['user_id'].max()}")
-print(f"订单中的商品ID范围：{orders['product_id'].min()} ~ {orders['product_id'].max()}")
-print(f"用户表的用户ID范围：{users['user_id'].min()} ~ {users['user_id'].max()}")
-print(f"商品表的商品ID范围：{products['product_id'].min()} ~ {products['product_id'].max()}")
+# Check relationship keys
+print(f"\nUser ID range in orders: {orders['user_id'].min()} ~ {orders['user_id'].max()}")
+print(f"Product ID range in orders: {orders['product_id'].min()} ~ {orders['product_id'].max()}")
+print(f"User ID range in user table: {users['user_id'].min()} ~ {users['user_id'].max()}")
+print(f"Product ID range in product table: {products['product_id'].min()} ~ {products['product_id'].max()}")
 ```
 
-### 第一次做多源分析时，最该先问什么？
+### What Should You Ask First in Multi-Source Analysis?
 
-最值得先问这几个问题：
+The most important questions to ask first are:
 
-1. 这些表是靠哪个键连起来的？
-2. 键的范围和类型一致吗？
-3. 合并后会不会出现大量匹配不到的记录？
+1. Which key connects these tables?
+2. Are the key ranges and data types consistent?
+3. Will there be a large number of unmatched records after merging?
 
-这一步特别重要，因为很多后面看起来像“分析问题”的问题，  
-其实一开始就是合并没接对。
+This step is especially important because many problems that look like “analysis issues” later on
+are actually caused by incorrect merging at the beginning.
 
----
+## 3. Data Integration
 
-## 三、数据整合
+This is the **core step** of the project — merging three tables into one wide table.
 
-这是本项目的**核心步骤**——把三张表合并成一张宽表。
-
-### 3.1 整合策略
+### 3.1 Integration Strategy
 
 ```mermaid
 flowchart LR
-    O["orders 表"] -->|"product_id"| OP["orders + products"]
-    P["products 表"] --> OP
-    OP -->|"user_id"| FULL["完整宽表"]
-    U["users 表"] --> FULL
+    O["orders table"] -->|"product_id"| OP["orders + products"]
+    P["products table"] --> OP
+    OP -->|"user_id"| FULL["complete wide table"]
+    U["users table"] --> FULL
 
     style O fill:#e3f2fd,stroke:#1565c0,color:#333
     style P fill:#fff3e0,stroke:#e65100,color:#333
@@ -292,103 +290,101 @@ flowchart LR
     style FULL fill:#f3e5f5,stroke:#7b1fa2,color:#333
 ```
 
-### 3.2 合并操作
+### 3.2 Merge Operations
 
 ```python
-# 第一步：订单 + 商品信息
+# Step 1: orders + product information
 df = orders.merge(products, on='product_id', how='left')
-print(f"合并商品后：{df.shape}")
+print(f"After merging products: {df.shape}")
 
-# 第二步：+ 用户信息
+# Step 2: + user information
 df = df.merge(users, on='user_id', how='left')
-print(f"合并用户后：{df.shape}")
+print(f"After merging users: {df.shape}")
 
 df.head()
 ```
 
-### 3.3 计算关键指标
+### 3.3 Compute Key Metrics
 
 ```python
-# 订单金额 = 单价 × 数量
+# Order amount = unit price × quantity
 df['amount'] = df['price'] * df['quantity']
 
-# 提取时间维度
+# Extract time dimensions
 df['month'] = df['order_date'].dt.month
 df['weekday'] = df['order_date'].dt.day_name()
 df['quarter'] = df['order_date'].dt.quarter
 
-# 查看结果
-print(f"\n完整数据集：{df.shape[0]} 行 × {df.shape[1]} 列")
-print(f"总销售额：¥{df['amount'].sum():,.0f}")
-print(f"平均订单金额：¥{df['amount'].mean():,.0f}")
+# View results
+print(f"\nComplete dataset: {df.shape[0]} rows × {df.shape[1]} columns")
+print(f"Total sales: ¥{df['amount'].sum():,.0f}")
+print(f"Average order amount: ¥{df['amount'].mean():,.0f}")
 df[['order_id', 'name_x', 'category', 'quantity', 'price', 'amount', 'city', 'month']].head(10)
 ```
 
-:::warning 合并时注意列名冲突
-`orders` 和 `users` 都可能有 `name` 列。Pandas 会自动加后缀 `_x` 和 `_y`。建议合并前重命名，或者合并后处理：
+:::warning Watch Out for Column Name Conflicts When Merging
+`orders` and `users` may both have a `name` column. Pandas will automatically add suffixes `_x` and `_y`. It is recommended to rename columns before merging, or handle them after merging:
 ```python
-# 重命名避免混淆
+# Rename to avoid confusion
 df = df.rename(columns={'name_x': 'user_name', 'name_y': 'product_name'})
-# 或者合并前只选需要的列
+# Or select only the needed columns before merging
 users_slim = users[['user_id', 'city', 'register_date']]
 ```
 :::
 
-### 3.4 数据质量检查
+### 3.4 Data Quality Check
 
 ```python
-# 检查合并后的数据完整性
-print("=== 合并后数据质量检查 ===")
-print(f"总行数：{len(df)}")
-print(f"缺失值：")
+# Check data completeness after merging
+print("=== Data Quality Check After Merging ===")
+print(f"Total rows: {len(df)}")
+print(f"Missing values:")
 print(df.isnull().sum()[df.isnull().sum() > 0])
 
-# 如果有缺失值，说明某些 ID 在关联表中不存在
-# 检查孤立记录
+# If there are missing values, some IDs do not exist in the related tables
+# Check orphan records
 orphan_products = set(orders['product_id']) - set(products['product_id'])
 orphan_users = set(orders['user_id']) - set(users['user_id'])
-print(f"\n无法匹配的商品ID：{orphan_products if orphan_products else '无'}")
-print(f"无法匹配的用户ID：{orphan_users if orphan_users else '无'}")
+print(f"\nUnmatched product IDs: {orphan_products if orphan_products else 'None'}")
+print(f"Unmatched user IDs: {orphan_users if orphan_users else 'None'}")
 ```
 
-### 3.5 一个新人可直接照抄的整合检查表
+### 3.5 A Data Integration Checklist Beginners Can Copy Directly
 
-第一次做多源整合时，最稳的检查表通常是：
+When doing multi-source integration for the first time, the safest checklist is usually:
 
-1. 主键是否唯一、类型是否一致
-2. 合并后行数有没有异常变化
-3. 有没有出现大量匹配不到的孤立记录
-4. 合并后字段名有没有冲突或歧义
+1. Is the primary key unique, and is the data type consistent?
+2. Did the row count change abnormally after merging?
+3. Are there a lot of orphan records that could not be matched?
+4. Are there any column name conflicts or ambiguities after merging?
 
-这 4 项先检查完，再往后做分析，通常会稳很多。
+Check these 4 items first, and then move on to analysis. Things will usually be much more stable.
 
----
+## 4. Analysis 1: Sales Overview
 
-## 四、分析一：销售概览
-
-### 4.1 总体指标
+### 4.1 Overall Metrics
 
 ```python
 print("=" * 50)
-print("  2024 年销售概览")
+print("  2024 Sales Overview")
 print("=" * 50)
-print(f"  总订单数：{df['order_id'].nunique():,}")
-print(f"  总销售额：¥{df['amount'].sum():,.0f}")
-print(f"  平均客单价：¥{df.groupby('order_id')['amount'].sum().mean():,.0f}")
-print(f"  活跃用户数：{df['user_id'].nunique()}")
-print(f"  商品种类数：{df['product_id'].nunique()}")
+print(f"  Total orders: {df['order_id'].nunique():,}")
+print(f"  Total sales: ¥{df['amount'].sum():,.0f}")
+print(f"  Average order value: ¥{df.groupby('order_id')['amount'].sum().mean():,.0f}")
+print(f"  Active users: {df['user_id'].nunique()}")
+print(f"  Number of products: {df['product_id'].nunique()}")
 ```
 
-### 4.2 品类分析
+### 4.2 Category Analysis
 
 ```python
-# 各品类销售额和订单量
+# Sales and order volume by category
 cat_stats = df.groupby('category').agg(
-    销售额=('amount', 'sum'),
-    订单量=('order_id', 'count'),
-    平均单价=('price', 'mean'),
-    商品数=('product_id', 'nunique')
-).round(0).sort_values('销售额', ascending=False)
+    Sales=('amount', 'sum'),
+    Order_Count=('order_id', 'count'),
+    Average_Price=('price', 'mean'),
+    Product_Count=('product_id', 'nunique')
+).round(0).sort_values('Sales', ascending=False)
 
 print(cat_stats)
 ```
@@ -396,40 +392,40 @@ print(cat_stats)
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 品类销售额占比
+# Category sales share
 colors = ['#2196f3', '#ff9800', '#4caf50', '#f44336', '#9c27b0']
-axes[0].pie(cat_stats['销售额'], labels=cat_stats.index, autopct='%1.1f%%',
+axes[0].pie(cat_stats['Sales'], labels=cat_stats.index, autopct='%1.1f%%',
             colors=colors, startangle=90, pctdistance=0.85)
-axes[0].set_title('各品类销售额占比')
+axes[0].set_title('Sales Share by Category')
 
-# 品类订单量对比
-cat_stats['订单量'].plot(kind='barh', ax=axes[1], color=colors)
-axes[1].set_title('各品类订单量')
-axes[1].set_xlabel('订单数')
+# Compare order volume by category
+cat_stats['Order_Count'].plot(kind='barh', ax=axes[1], color=colors)
+axes[1].set_title('Order Volume by Category')
+axes[1].set_xlabel('Number of Orders')
 
 plt.tight_layout()
 plt.savefig('07_category.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 4.3 城市分析
+### 4.3 City Analysis
 
 ```python
-# Top 城市销售额
+# Top cities by sales
 city_stats = df.groupby('city').agg(
-    销售额=('amount', 'sum'),
-    订单量=('order_id', 'count'),
-    用户数=('user_id', 'nunique')
-).sort_values('销售额', ascending=False)
+    Sales=('amount', 'sum'),
+    Order_Count=('order_id', 'count'),
+    User_Count=('user_id', 'nunique')
+).sort_values('Sales', ascending=False)
 
 fig, ax = plt.subplots(figsize=(10, 5))
-city_stats['销售额'].plot(kind='bar', color='steelblue', ax=ax)
-ax.set_title('各城市销售额')
-ax.set_ylabel('销售额（元）')
+city_stats['Sales'].plot(kind='bar', color='steelblue', ax=ax)
+ax.set_title('Sales by City')
+ax.set_ylabel('Sales (CNY)')
 ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
 
-# 在柱子上标数字
-for i, v in enumerate(city_stats['销售额']):
+# Add labels on bars
+for i, v in enumerate(city_stats['Sales']):
     ax.text(i, v + v*0.01, f'¥{v:,.0f}', ha='center', va='bottom', fontsize=9)
 
 plt.tight_layout()
@@ -437,50 +433,50 @@ plt.savefig('08_city.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 4.4 这一步最值得先学到什么？
+### 4.4 What Is the Most Important Thing to Learn Here?
 
-最值得先学到的是：
+The most important thing to learn is:
 
-- 多源项目一旦整合成功，后面的分析其实就会越来越像单表分析
+- Once multi-source integration is successful, the later analysis becomes more and more like single-table analysis
 
-也就是说，这个项目真正的门槛常常不在图，而在：
+In other words, the real bottleneck in this project is often not the chart, but:
 
-- 合并前的数据理解
-- 合并时的键对齐
+- Understanding the data before merging
+- Aligning keys during merging
 
 ---
 
-## 五、分析二：时间趋势
+## 5. Analysis 2: Time Trends
 
-### 5.1 月度趋势
+### 5.1 Monthly Trend
 
 ```python
-# 按月汇总
+# Aggregate by month
 monthly = df.groupby('month').agg(
-    销售额=('amount', 'sum'),
-    订单量=('order_id', 'count')
+    Sales=('amount', 'sum'),
+    Order_Count=('order_id', 'count')
 ).reset_index()
 
 fig, ax1 = plt.subplots(figsize=(12, 5))
 
-# 双 Y 轴：销售额用柱状图，订单量用折线图
+# Dual Y-axis: sales as bars, order volume as a line
 color1 = 'steelblue'
 color2 = 'coral'
 
-bars = ax1.bar(monthly['month'], monthly['销售额'], color=color1, alpha=0.7, label='销售额')
-ax1.set_xlabel('月份')
-ax1.set_ylabel('销售额（元）', color=color1)
+bars = ax1.bar(monthly['month'], monthly['Sales'], color=color1, alpha=0.7, label='Sales')
+ax1.set_xlabel('Month')
+ax1.set_ylabel('Sales (CNY)', color=color1)
 ax1.tick_params(axis='y', labelcolor=color1)
 ax1.set_xticks(range(1, 13))
 
 ax2 = ax1.twinx()
-ax2.plot(monthly['month'], monthly['订单量'], color=color2, marker='o', linewidth=2, label='订单量')
-ax2.set_ylabel('订单量', color=color2)
+ax2.plot(monthly['month'], monthly['Order_Count'], color=color2, marker='o', linewidth=2, label='Order Volume')
+ax2.set_ylabel('Order Volume', color=color2)
 ax2.tick_params(axis='y', labelcolor=color2)
 
-ax1.set_title('月度销售趋势（2024年）')
+ax1.set_title('Monthly Sales Trend (2024)')
 
-# 合并图例
+# Merge legend
 lines1, labels1 = ax1.get_legend_handles_labels()
 lines2, labels2 = ax2.get_legend_handles_labels()
 ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
@@ -490,12 +486,12 @@ plt.savefig('09_monthly.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.2 周内分布
+### 5.2 Weekly Distribution
 
 ```python
-# 按星期几统计
+# Statistics by day of week
 weekday_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-weekday_cn = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+weekday_cn = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 weekday_stats = df.groupby('weekday')['amount'].agg(['sum', 'count']).reindex(weekday_order)
 weekday_stats.index = weekday_cn
@@ -503,13 +499,13 @@ weekday_stats.index = weekday_cn
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 weekday_stats['sum'].plot(kind='bar', color='mediumseagreen', ax=axes[0])
-axes[0].set_title('各星期的销售额')
-axes[0].set_ylabel('销售额（元）')
+axes[0].set_title('Sales by Day of Week')
+axes[0].set_ylabel('Sales (CNY)')
 axes[0].set_xticklabels(weekday_cn, rotation=0)
 
 weekday_stats['count'].plot(kind='bar', color='salmon', ax=axes[1])
-axes[1].set_title('各星期的订单量')
-axes[1].set_ylabel('订单数')
+axes[1].set_title('Order Volume by Day of Week')
+axes[1].set_ylabel('Number of Orders')
 axes[1].set_xticklabels(weekday_cn, rotation=0)
 
 plt.tight_layout()
@@ -517,20 +513,20 @@ plt.savefig('10_weekday.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 5.3 品类月度趋势
+### 5.3 Monthly Trend by Category
 
 ```python
-# 各品类的月度销售额
+# Monthly sales by category
 cat_monthly = df.groupby(['month', 'category'])['amount'].sum().reset_index()
 
 plt.figure(figsize=(12, 6))
 sns.lineplot(data=cat_monthly, x='month', y='amount', hue='category',
              marker='o', linewidth=2)
-plt.title('各品类月度销售趋势')
-plt.xlabel('月份')
-plt.ylabel('销售额（元）')
+plt.title('Monthly Sales Trend by Category')
+plt.xlabel('Month')
+plt.ylabel('Sales (CNY)')
 plt.xticks(range(1, 13))
-plt.legend(title='品类', bbox_to_anchor=(1.02, 1), loc='upper left')
+plt.legend(title='Category', bbox_to_anchor=(1.02, 1), loc='upper left')
 plt.tight_layout()
 plt.savefig('11_cat_monthly.png', dpi=150, bbox_inches='tight')
 plt.show()
@@ -538,17 +534,17 @@ plt.show()
 
 ---
 
-## 六、分析三：用户分析
+## 6. Analysis 3: User Analysis
 
-### 6.1 用户消费分层
+### 6.1 User Consumption Segmentation
 
-用 **RFM 模型** 的简化版对用户进行分层：
+Use a simplified version of the **RFM model** to segment users:
 
 ```mermaid
 flowchart LR
-    A["RFM 模型"] --> R["R — Recency<br/>最近一次消费"]
-    A --> F["F — Frequency<br/>消费频次"]
-    A --> M["M — Monetary<br/>消费总额"]
+    A["RFM model"] --> R["R — Recency<br/>Most recent purchase"]
+    A --> F["F — Frequency<br/>Purchase frequency"]
+    A --> M["M — Monetary<br/>Total spending"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style R fill:#fff3e0,stroke:#e65100,color:#333
@@ -557,80 +553,80 @@ flowchart LR
 ```
 
 ```python
-# 计算 RFM
-today = pd.Timestamp('2025-01-01')  # 参考日期
+# Compute RFM
+today = pd.Timestamp('2025-01-01')  # reference date
 
 rfm = df.groupby('user_id').agg(
-    Recency=('order_date', lambda x: (today - x.max()).days),     # 距今天数
-    Frequency=('order_id', 'nunique'),                             # 订单次数
-    Monetary=('amount', 'sum')                                     # 消费总额
+    Recency=('order_date', lambda x: (today - x.max()).days),     # days since last order
+    Frequency=('order_id', 'nunique'),                             # number of orders
+    Monetary=('amount', 'sum')                                     # total spending
 ).round(0)
 
 print(rfm.describe().round(1))
 rfm.head(10)
 ```
 
-### 6.2 用户分层可视化
+### 6.2 Visualize User Segments
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(16, 4))
 
 axes[0].hist(rfm['Recency'], bins=30, color='steelblue', edgecolor='white')
-axes[0].set_title('R：最近消费距今天数')
-axes[0].set_xlabel('天数')
+axes[0].set_title('R: Days Since Most Recent Purchase')
+axes[0].set_xlabel('Days')
 
 axes[1].hist(rfm['Frequency'], bins=20, color='coral', edgecolor='white')
-axes[1].set_title('F：消费频次')
-axes[1].set_xlabel('订单数')
+axes[1].set_title('F: Purchase Frequency')
+axes[1].set_xlabel('Number of Orders')
 
 axes[2].hist(rfm['Monetary'], bins=30, color='mediumseagreen', edgecolor='white')
-axes[2].set_title('M：消费总额')
-axes[2].set_xlabel('金额（元）')
+axes[2].set_title('M: Total Spending')
+axes[2].set_xlabel('Amount (CNY)')
 
 plt.tight_layout()
 plt.savefig('12_rfm.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-### 6.3 简单用户分群
+### 6.3 Simple User Segmentation
 
 ```python
-# 根据消费金额和频次将用户分为 4 个群体
-rfm['value_group'] = pd.qcut(rfm['Monetary'], q=4, labels=['低价值', '中低', '中高', '高价值'])
-rfm['freq_group'] = pd.qcut(rfm['Frequency'], q=3, labels=['低频', '中频', '高频'], duplicates='drop')
+# Divide users into 4 groups based on spending and frequency
+rfm['value_group'] = pd.qcut(rfm['Monetary'], q=4, labels=['Low Value', 'Lower-Mid', 'Upper-Mid', 'High Value'])
+rfm['freq_group'] = pd.qcut(rfm['Frequency'], q=3, labels=['Low Freq', 'Mid Freq', 'High Freq'], duplicates='drop')
 
-# 交叉表：价值 × 频次
+# Crosstab: value × frequency
 cross = pd.crosstab(rfm['value_group'], rfm['freq_group'], margins=True)
-print("用户分群交叉表：")
+print("User segmentation crosstab:")
 print(cross)
 ```
 
 ```python
-# 高价值用户的特征
-high_value = rfm[rfm['value_group'] == '高价值']
-print(f"\n高价值用户：{len(high_value)} 人")
-print(f"  平均消费：¥{high_value['Monetary'].mean():,.0f}")
-print(f"  平均频次：{high_value['Frequency'].mean():.1f} 次")
-print(f"  平均间隔：{high_value['Recency'].mean():.0f} 天")
+# Characteristics of high-value users
+high_value = rfm[rfm['value_group'] == 'High Value']
+print(f"\nHigh-value users: {len(high_value)}")
+print(f"  Average spending: ¥{high_value['Monetary'].mean():,.0f}")
+print(f"  Average frequency: {high_value['Frequency'].mean():.1f} orders")
+print(f"  Average recency: {high_value['Recency'].mean():.0f} days")
 ```
 
-### 6.4 城市 × 用户分层
+### 6.4 City × User Segmentation
 
 ```python
-# 合并 RFM 分群回到主表
+# Merge RFM segmentation back to the main table
 user_city = df.groupby('user_id')['city'].first().reset_index()
 rfm_city = rfm.reset_index().merge(user_city, on='user_id')
 
-# 各城市高价值用户占比
+# Share of high-value users in each city
 city_value = pd.crosstab(rfm_city['city'], rfm_city['value_group'], normalize='index') * 100
 
 plt.figure(figsize=(12, 6))
-city_value[['高价值', '中高']].plot(kind='barh', stacked=True, 
+city_value[['High Value', 'Upper-Mid']].plot(kind='barh', stacked=True,
                                     color=['#2196f3', '#90caf9'],
                                     figsize=(10, 6))
-plt.title('各城市中高/高价值用户占比')
-plt.xlabel('占比（%）')
-plt.legend(title='用户分群')
+plt.title('Share of Upper-Mid and High-Value Users by City')
+plt.xlabel('Share (%)')
+plt.legend(title='User Segment')
 plt.tight_layout()
 plt.savefig('13_city_value.png', dpi=150, bbox_inches='tight')
 plt.show()
@@ -638,76 +634,76 @@ plt.show()
 
 ---
 
-## 七、分析四：综合仪表盘
+## 7. Analysis 4: Comprehensive Dashboard
 
-把关键指标和图表整合到一张大图中：
+Integrate key metrics and charts into one large figure:
 
 ```python
 fig = plt.figure(figsize=(18, 14))
-fig.suptitle('2024 年在线零售分析仪表盘', fontsize=18, fontweight='bold', y=0.98)
+fig.suptitle('2024 Online Retail Analysis Dashboard', fontsize=18, fontweight='bold', y=0.98)
 
-# ---------- 1. 核心指标（文字） ----------
+# ---------- 1. Core metrics (text) ----------
 ax_text = fig.add_subplot(4, 3, (1, 3))
 ax_text.axis('off')
 
 metrics = [
-    (f"¥{df['amount'].sum():,.0f}", "总销售额"),
-    (f"{df['order_id'].nunique():,}", "总订单数"),
-    (f"{df['user_id'].nunique()}", "活跃用户"),
-    (f"¥{df.groupby('order_id')['amount'].sum().mean():,.0f}", "平均客单价"),
+    (f"¥{df['amount'].sum():,.0f}", "Total Sales"),
+    (f"{df['order_id'].nunique():,}", "Total Orders"),
+    (f"{df['user_id'].nunique()}", "Active Users"),
+    (f"¥{df.groupby('order_id')['amount'].sum().mean():,.0f}", "Average Order Value"),
 ]
 
 for i, (value, label) in enumerate(metrics):
     x_pos = 0.12 + i * 0.22
-    ax_text.text(x_pos, 0.6, value, fontsize=22, fontweight='bold', 
+    ax_text.text(x_pos, 0.6, value, fontsize=22, fontweight='bold',
                  color='#1565c0', ha='center', transform=ax_text.transAxes)
     ax_text.text(x_pos, 0.2, label, fontsize=12, color='#666',
                  ha='center', transform=ax_text.transAxes)
 
-# ---------- 2. 月度趋势 ----------
+# ---------- 2. Monthly trend ----------
 ax2 = fig.add_subplot(4, 3, (4, 6))
 monthly_amount = df.groupby('month')['amount'].sum()
 ax2.fill_between(monthly_amount.index, monthly_amount.values, alpha=0.3, color='steelblue')
 ax2.plot(monthly_amount.index, monthly_amount.values, color='steelblue', linewidth=2, marker='o')
-ax2.set_title('月度销售趋势', fontsize=13)
-ax2.set_xlabel('月份')
-ax2.set_ylabel('销售额')
+ax2.set_title('Monthly Sales Trend', fontsize=13)
+ax2.set_xlabel('Month')
+ax2.set_ylabel('Sales')
 ax2.set_xticks(range(1, 13))
 
-# ---------- 3. 品类饼图 ----------
+# ---------- 3. Category pie chart ----------
 ax3 = fig.add_subplot(4, 3, 7)
 cat_amount = df.groupby('category')['amount'].sum().sort_values(ascending=False)
 colors = ['#2196f3', '#ff9800', '#4caf50', '#f44336', '#9c27b0']
-ax3.pie(cat_amount, labels=cat_amount.index, autopct='%1.0f%%', 
+ax3.pie(cat_amount, labels=cat_amount.index, autopct='%1.0f%%',
         colors=colors, startangle=90, textprops={'fontsize': 9})
-ax3.set_title('品类销售占比', fontsize=13)
+ax3.set_title('Category Sales Share', fontsize=13)
 
-# ---------- 4. Top 商品 ----------
+# ---------- 4. Top products ----------
 ax4 = fig.add_subplot(4, 3, 8)
-# 使用 product_id 关联的 name 列（可能叫 name 或 product_name）
+# Use the name column associated with product_id (may be called name or product_name)
 product_col = 'name' if 'name' in df.columns else df.columns[df.columns.str.contains('name')][0]
 top_products = df.groupby('product_id')['amount'].sum().nlargest(8)
 product_names = products.set_index('product_id').loc[top_products.index, 'name']
 ax4.barh(product_names.values[::-1], top_products.values[::-1], color='coral')
-ax4.set_title('Top 8 热销商品', fontsize=13)
-ax4.set_xlabel('销售额')
+ax4.set_title('Top 8 Best-Selling Products', fontsize=13)
+ax4.set_xlabel('Sales')
 
-# ---------- 5. 城市对比 ----------
+# ---------- 5. City comparison ----------
 ax5 = fig.add_subplot(4, 3, 9)
 city_amount = df.groupby('city')['amount'].sum().sort_values(ascending=True)
 ax5.barh(city_amount.index, city_amount.values, color='mediumseagreen')
-ax5.set_title('城市销售排名', fontsize=13)
-ax5.set_xlabel('销售额')
+ax5.set_title('City Sales Ranking', fontsize=13)
+ax5.set_xlabel('Sales')
 
-# ---------- 6. 用户消费分布 ----------
+# ---------- 6. User spending distribution ----------
 ax6 = fig.add_subplot(4, 3, (10, 12))
 user_amount = df.groupby('user_id')['amount'].sum()
 ax6.hist(user_amount, bins=40, color='#7986cb', edgecolor='white', alpha=0.8)
-ax6.axvline(user_amount.mean(), color='red', linestyle='--', linewidth=2, label=f'均值: ¥{user_amount.mean():,.0f}')
-ax6.axvline(user_amount.median(), color='orange', linestyle='--', linewidth=2, label=f'中位数: ¥{user_amount.median():,.0f}')
-ax6.set_title('用户消费金额分布', fontsize=13)
-ax6.set_xlabel('消费总额（元）')
-ax6.set_ylabel('用户数')
+ax6.axvline(user_amount.mean(), color='red', linestyle='--', linewidth=2, label=f'Mean: ¥{user_amount.mean():,.0f}')
+ax6.axvline(user_amount.median(), color='orange', linestyle='--', linewidth=2, label=f'Median: ¥{user_amount.median():,.0f}')
+ax6.set_title('User Spending Distribution', fontsize=13)
+ax6.set_xlabel('Total Spending (CNY)')
+ax6.set_ylabel('Number of Users')
 ax6.legend()
 
 plt.tight_layout(rect=[0, 0, 1, 0.96])
@@ -717,118 +713,118 @@ plt.show()
 
 ---
 
-## 八、分析结论与建议
+## 8. Findings and Recommendations
 
-### 核心发现
+### Key Findings
 
 ```mermaid
 mindmap
-  root((分析结论))
-    销售表现
-      总额和订单量分布
-      品类差异明显
-      电子产品贡献最大
-    时间规律
-      月度有波动
-      工作日 vs 周末差异
-      季节性特征
-    用户洞察
-      少数用户贡献大部分收入
-      城市间差异显著
-      用户消费呈长尾分布
-    业务建议
-      聚焦高价值用户
-      拓展潜力城市
-      针对性品类促销
+  root((Analysis Conclusions))
+    Sales Performance
+      Total sales and order volume distribution
+      Clear differences across categories
+      Electronics contribute the most
+    Time Patterns
+      Monthly fluctuations
+      Weekday vs weekend differences
+      Seasonality
+    User Insights
+      A small number of users contribute most revenue
+      Significant differences between cities
+      Long-tail distribution of user spending
+    Business Recommendations
+      Focus on high-value users
+      Expand into potential cities
+      Category-specific promotions
 ```
 
-### 给公司的建议
+### Recommendations for the Company
 
-1. **高价值用户维护**：前 20% 用户贡献了大部分销售额，应建立 VIP 机制，提供专属服务
-2. **品类策略**：电子产品虽然单价高，但可以通过食品和图书引流，提高用户黏性
-3. **城市拓展**：分析各城市的渗透率，对于用户少但人均消费高的城市，值得加大推广
-4. **时间运营**：根据月度和周内趋势，合理安排促销活动和库存
-5. **用户增长**：关注新老用户的转化率，对低频用户发放优惠券激活
+1. **Retain high-value users**: The top 20% of users contribute most of the sales. A VIP mechanism should be created with exclusive services.
+2. **Category strategy**: Although electronics have high unit prices, food and books can be used to attract traffic and improve user stickiness.
+3. **City expansion**: Analyze the penetration rate of each city. For cities with fewer users but higher per-capita spending, it is worth increasing promotion efforts.
+4. **Time-based operations**: Arrange promotions and inventory reasonably according to monthly and weekly trends.
+5. **User growth**: Focus on conversion between new and existing users, and issue coupons to low-frequency users to reactivate them.
 
 ---
 
-## 九、项目总结与扩展
+## 9. Project Summary and Extension
 
-### 知识回顾
+### Knowledge Review
 
-| 步骤 | 用到的技能 | 对应代码 |
+| Step | Skills Used | Corresponding Code |
 |------|-----------|---------|
-| 数据读取 | `read_csv`, `read_json`, `read_sql_query` | 第二节 |
-| 数据合并 | `merge`（多表关联） | 第三节 |
-| 分组聚合 | `groupby`, `agg`, `pivot_table` | 第四~六节 |
-| 时间处理 | `dt.month`, `dt.day_name()`, `date_range` | 第五节 |
-| 可视化 | Matplotlib 子图、双 Y 轴、Seaborn | 全过程 |
+| Data reading | `read_csv`, `read_json`, `read_sql_query` | Section 2 |
+| Data merging | `merge` (multi-table relationship) | Section 3 |
+| Group aggregation | `groupby`, `agg`, `pivot_table` | Sections 4–6 |
+| Time processing | `dt.month`, `dt.day_name()`, `date_range` | Section 5 |
+| Visualization | Matplotlib subplots, dual Y-axis, Seaborn | Throughout |
 
-### 进阶挑战
+### Advanced Challenges
 
-**挑战 1：加入更多数据源**
+**Challenge 1: Add More Data Sources**
 
-从网络 API 获取数据（如天气数据），分析天气对销售的影响：
+Fetch data from a web API (such as weather data) and analyze the impact of weather on sales:
 
 ```python
-# 示例：模拟天气数据
+# Example: simulate weather data
 weather = pd.DataFrame({
     'date': pd.date_range('2024-01-01', '2024-12-31'),
     'temp': np.random.normal(20, 10, 366).clip(-5, 40),
-    'rain': np.random.choice([0, 0, 0, 1], 366)  # 0=晴 1=雨
+    'rain': np.random.choice([0, 0, 0, 1], 366)  # 0=sunny, 1=rainy
 })
 ```
 
-**挑战 2：用 Plotly 做交互式仪表盘**
+**Challenge 2: Use Plotly to Build an Interactive Dashboard**
 
 ```python
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-# 交互式月度趋势
-fig = px.line(monthly, x='month', y='销售额', 
-              title='月度销售趋势', markers=True)
+# Interactive monthly trend
+fig = px.line(monthly, x='month', y='sales',
+              title='Monthly Sales Trend', markers=True)
 fig.show()
 ```
 
-**挑战 3：自动生成 PDF 报告**
+**Challenge 3: Automatically Generate a PDF Report**
 
-研究 `matplotlib` 的 `PdfPages` 或 `reportlab` 库，自动生成 PDF 分析报告。
+Explore the `matplotlib` `PdfPages` or `reportlab` library to automatically generate a PDF analysis report.
 
-**挑战 4：使用真实数据集**
+**Challenge 4: Use a Real Dataset**
 
-到 [Kaggle](https://www.kaggle.com/datasets) 上找一个真实的电商数据集（如 [Brazilian E-Commerce](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)），重做这个项目。
+Find a real e-commerce dataset on [Kaggle](https://www.kaggle.com/datasets) (for example, [Brazilian E-Commerce](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)) and recreate this project.
 
 ---
 
-## 十、项目检查清单
+## 10. Project Checklist
 
-| 检查项 | 是否完成 |
+| Checklist Item | Completed |
 |--------|---------|
-| 从 CSV 读取订单数据 | ☐ |
-| 从 JSON 读取商品数据 | ☐ |
-| 从 SQLite 读取用户数据 | ☐ |
-| 用 merge 合并三张表 | ☐ |
-| 检查合并后的数据质量 | ☐ |
-| 完成销售概览分析（品类、城市） | ☐ |
-| 完成时间趋势分析（月度、周内） | ☐ |
-| 完成用户分析（RFM、分群） | ☐ |
-| 制作综合仪表盘（大图） | ☐ |
-| 写出至少 3 条分析结论 | ☐ |
-| 给出业务建议 | ☐ |
+| Read order data from CSV | ☐ |
+| Read product data from JSON | ☐ |
+| Read user data from SQLite | ☐ |
+| Merge the three tables with merge | ☐ |
+| Check the merged data quality | ☐ |
+| Complete sales overview analysis (category, city) | ☐ |
+| Complete time trend analysis (monthly, weekly) | ☐ |
+| Complete user analysis (RFM, segmentation) | ☐ |
+| Create a comprehensive dashboard (large figure) | ☐ |
+| Write at least 3 analysis conclusions | ☐ |
+| Provide business recommendations | ☐ |
 
-:::note 恭喜完成 3 数据分析与可视化！
-完成这两个项目，意味着你已经掌握了数据分析的完整工作流——从获取数据、清洗整合，到分析可视化和撰写报告。这些技能是进入**机器学习**阶段的坚实基础。
+:::note Congratulations on Completing 3 Data Analysis and Visualization!
+Completing these two projects means you have mastered the full data analysis workflow—from data acquisition and cleaning/integration to analysis, visualization, and report writing. These skills are a solid foundation for entering the **machine learning** stage.
 
-下一步，你将进入 4 AI 数学最小必要基础 和 5 机器学习入门到实战，把数据分析的能力升级为预测和建模的能力。
+Next, you will move on to 4 Minimum Essential Math for AI and 5 Introduction to Machine Learning to Practice, upgrading your data analysis skills into prediction and modeling skills.
 :::
 
-## 版本路线建议
+## Suggested Version Roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Get the minimal loop working | Can input, process, and output, while keeping one set of examples |
+| Standard version | Build a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge version | Approach portfolio quality | Add evaluation, comparison experiments, failed-sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Don’t try to make everything big and complete at the beginning. With every version upgrade, write “what new capability was added, how it was verified, and what problems remain” into the README.

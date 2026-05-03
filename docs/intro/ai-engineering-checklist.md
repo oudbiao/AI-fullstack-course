@@ -1,160 +1,160 @@
 ---
 sidebar_position: 13
-title: "AI 工程评估与上线清单"
-description: "面向 LLM、RAG、Agent 和多模态应用的工程化检查清单，覆盖评估、日志、监控、成本、安全、部署和作品集展示。"
-keywords: [AI工程化, LLMOps, RAGOps, AgentOps, AI评估, AI上线清单]
+title: "AI Engineering Evaluation and Launch Checklist"
+description: "An engineering checklist for LLM, RAG, Agent, and multimodal applications, covering evaluation, logging, monitoring, cost, security, deployment, and portfolio presentation."
+keywords: [AI engineering, LLMOps, RAGOps, AgentOps, AI evaluation, AI launch checklist]
 ---
 
-# AI 工程评估与上线清单
+# AI Engineering Evaluation and Launch Checklist
 
-## 本节定位
+## Where This Section Fits
 
-这一页是一张“从 Demo 到可用系统”的检查清单。它不替代具体章节，而是帮你在完成 RAG、Agent、多模态或完整 AI 应用项目时，检查项目是否已经具备基本工程质量。
+This page is a checklist for going “from a Demo to a usable system.” It does not replace the individual chapters. Instead, it helps you check whether your project has reached a basic level of engineering quality when you finish a RAG, Agent, multimodal, or full AI application project.
 
-很多 AI 项目看起来能跑，但不能复现、不能评估、不能定位错误、不能控制成本，也不能安全上线。真正有作品集价值的项目，应该让别人看得懂、跑得起来、查得到失败原因。
+Many AI projects look like they work, but they cannot be reproduced, evaluated, debugged, cost-controlled, or safely deployed. A truly portfolio-worthy project should be understandable, runnable, and debuggable by others.
 
-## 一图读懂：从 Demo 到可用系统
-
-```mermaid
-flowchart LR
-  A["问题边界"] --> B["评估集"]
-  B --> C["日志和 Trace"]
-  C --> D["成本和延迟"]
-  D --> E["权限和安全"]
-  E --> F["部署与作品集"]
-```
-
-| 如果只能先补一层 | 优先补什么 |
-|---|---|
-| RAG 项目 | 检索日志、引用检查、评估问题 |
-| Agent 项目 | trace、工具 schema、停止条件、权限 |
-| 多模态项目 | 素材来源、人工审核、导出限制 |
-| 部署项目 | `.env.example`、启动命令、错误日志 |
-
-## 一、问题和边界是否清楚
-
-项目上线前，先确认它解决的问题是否足够具体。不要只写“做一个 AI 助手”，而要写清楚：它面向谁，处理什么输入，输出什么结果，不负责什么，什么时候应该拒绝或交给人工。
-
-| 检查项 | 通过标准 |
-|---|---|
-| 目标用户 | 能说清楚谁会使用这个系统 |
-| 输入输出 | 能列出输入类型和输出格式 |
-| 任务边界 | 能说明哪些问题不处理 |
-| 成功标准 | 能说明什么结果算好 |
-| 失败处理 | 能说明失败时怎么提示或降级 |
-
-## 二、评估集是否存在
-
-没有评估集，就很难判断优化是否真的有效。Prompt 改了、检索策略改了、模型换了，如果没有固定测试问题，只能凭感觉判断。
-
-RAG 项目至少准备一组固定问题，标注期望命中的文档和理想答案。Agent 项目至少准备一组固定任务，记录是否完成、用了几步、调用了哪些工具、有没有越权。多模态项目至少准备一组图片、截图、PDF 或生成任务，记录人工检查标准。
-
-## 三、日志和 Trace 是否足够复盘
-
-AI 应用的错误经常不是单点错误，而是链路错误。日志不要只记录最终答案，还要记录关键中间过程。
+## One-Glance View: From Demo to a Usable System
 
 ```mermaid
 flowchart LR
-  A[用户输入] --> B[检索或工具调用]
-  B --> C[模型输入]
-  C --> D[模型输出]
-  D --> E[评估与日志]
+  A["Problem boundaries"] --> B["Evaluation set"]
+  B --> C["Logs and traces"]
+  C --> D["Cost and latency"]
+  D --> E["Permissions and security"]
+  E --> F["Deployment and portfolio"]
 ```
 
-一个可复盘的日志至少应该包含：用户问题、检索片段、Prompt 版本、模型名称、工具调用参数、返回结果、错误信息、Token 或成本、耗时、最终输出。
-
-## 四、成本和延迟是否可控
-
-AI 系统的成本来自多处：模型输入输出 Token、Embedding、重排、图像或视频生成、工具调用、向量数据库、服务器和日志存储。项目早期可以先粗略估算，但不能完全忽略。
-
-| 成本来源 | 应该记录什么 |
+| If you can only add one layer first | What to prioritize |
 |---|---|
-| LLM 调用 | 模型、输入输出 Token、调用次数 |
-| RAG | 文档数量、切片数量、检索次数、重排次数 |
-| Agent | 执行步数、工具调用次数、失败重试次数 |
-| 多模态 | 图片、音频、视频生成次数和单次耗时 |
-| 部署 | 服务器、数据库、存储和监控成本 |
+| RAG project | Retrieval logs, citation checks, evaluation questions |
+| Agent project | trace, tool schema, stop conditions, permissions |
+| Multimodal project | Source materials, human review, export restrictions |
+| Deployment project | `.env.example`, startup commands, error logs |
 
-## 五、权限和安全边界是否明确
+## 1. Are the Problem and Boundaries Clear?
 
-工具调用和 Agent 项目尤其需要权限边界。模型可以建议动作，但不应该默认拥有所有执行权限。高风险操作需要人工确认，例如删除文件、发送消息、提交订单、修改数据库、调用付费 API 或发布内容。
+Before launch, first confirm that the problem your project solves is specific enough. Do not just write “build an AI assistant.” Instead, make it clear: who it is for, what input it handles, what output it produces, what it is not responsible for, and when it should refuse or hand off to a human.
 
-安全检查至少包括：输入校验、输出格式校验、敏感信息处理、工具权限限制、人工确认、错误降级和审计日志。
-
-## 六、RAGOps 检查清单
-
-RAG 项目重点检查知识来源、检索质量和答案忠实度。
-
-| 检查项 | 通过标准 |
+| Check item | Pass criteria |
 |---|---|
-| 文档来源 | 每个答案能追溯到文档、页面或片段 |
-| 文档处理 | 能说明解析、清洗、切分和索引方式 |
-| 检索质量 | 能看到召回片段和相关性排序 |
-| 引用可信 | 答案中的关键事实能对应来源 |
-| 无答案处理 | 文档没有答案时不会硬编 |
-| 更新机制 | 文档变化后能重新索引或标记过期 |
+| Target user | Can clearly say who will use this system |
+| Input/output | Can list input types and output format |
+| Task boundaries | Can explain which problems are not handled |
+| Success criteria | Can explain what counts as a good result |
+| Failure handling | Can explain how failures are surfaced or degraded gracefully |
 
-## 七、AgentOps 检查清单
+## 2. Does an Evaluation Set Exist?
 
-Agent 项目重点检查执行轨迹、工具边界和失败恢复。
+Without an evaluation set, it is hard to tell whether an optimization actually works. If you change the Prompt, change the retrieval strategy, or switch models, then without fixed test questions, you can only judge by intuition.
 
-| 检查项 | 通过标准 |
+A RAG project should at least prepare a fixed set of questions, with the expected supporting documents and ideal answers annotated. An Agent project should at least prepare a fixed set of tasks, recording whether they were completed, how many steps were used, which tools were called, and whether any permission boundaries were crossed. A multimodal project should at least prepare a fixed set of images, screenshots, PDFs, or generation tasks, with human review criteria recorded.
+
+## 3. Are Logs and Traces Detailed Enough for Debugging?
+
+Errors in AI applications are often not single-point failures, but chain failures. Logs should not only record the final answer; they should also record the key intermediate steps.
+
+```mermaid
+flowchart LR
+  A[User input] --> B[Retrieval or tool call]
+  B --> C[Model input]
+  C --> D[Model output]
+  D --> E[Evaluation and logs]
+```
+
+A debuggable log should at least include: the user question, retrieved passages, Prompt version, model name, tool call parameters, return values, error messages, token count or cost, latency, and final output.
+
+## 4. Are Cost and Latency Under Control?
+
+The cost of an AI system comes from many places: model input/output tokens, Embedding, reranking, image or video generation, tool calls, vector databases, servers, and log storage. In the early stages of a project, you can estimate roughly, but you should not ignore it completely.
+
+| Cost source | What should be recorded |
 |---|---|
-| 目标边界 | Agent 知道什么时候停止 |
-| 工具 schema | 参数、返回值和错误信息清楚 |
-| 执行轨迹 | 能看到每一步计划、动作、观察和结果 |
-| 权限控制 | 高风险动作需要人工确认 |
-| 失败恢复 | 工具失败时能重试、降级或停止 |
-| 成本记录 | 能看到执行步数、调用次数和大致成本 |
+| LLM calls | Model, input/output tokens, number of calls |
+| RAG | Number of documents, number of chunks, number of retrievals, number of reranks |
+| Agent | Number of execution steps, number of tool calls, number of failed retries |
+| Multimodal | Number of image, audio, and video generations, and time per generation |
+| Deployment | Server, database, storage, and monitoring costs |
 
-## 八、多模态项目检查清单
+## 5. Are Permission and Security Boundaries Clear?
 
-多模态和 AIGC 项目重点检查素材、生成质量、人工编辑和合规。
+Tool-calling and Agent projects especially need clear permission boundaries. The model may suggest actions, but it should not automatically have permission to execute everything. High-risk actions require human confirmation, such as deleting files, sending messages, placing orders, modifying databases, calling paid APIs, or publishing content.
 
-| 检查项 | 通过标准 |
+Security checks should at least include: input validation, output format validation, sensitive information handling, tool permission restrictions, human confirmation, graceful failure degradation, and audit logs.
+
+## 6. RAGOps Checklist
+
+RAG projects should focus on knowledge sources, retrieval quality, and answer faithfulness.
+
+| Check item | Pass criteria |
 |---|---|
-| 输入质量 | 图片、音频、视频、PDF 是否清晰可解析 |
-| 输出可控 | 风格、尺寸、格式、用途有约束 |
-| 版本记录 | 多次生成结果能比较和回退 |
-| 人工编辑 | 用户能修改关键内容而不是完全依赖一次生成 |
-| 内容审核 | 有版权、肖像、敏感内容和事实性检查 |
-| 导出交付 | 最终结果能导出为可使用格式 |
+| Document sources | Every answer can be traced back to a document, page, or passage |
+| Document processing | Can explain parsing, cleaning, chunking, and indexing methods |
+| Retrieval quality | Can see retrieved passages and relevance ranking |
+| Citation trustworthiness | Key facts in the answer match the sources |
+| No-answer handling | Does not invent answers when the documents do not contain them |
+| Update mechanism | Can re-index or mark documents as stale after changes |
 
-## 九、作品集展示清单
+## 7. AgentOps Checklist
 
-如果项目要用于求职或展示，README 至少应该包含：项目目标、技术路线、运行方式、示例输入输出、截图或 GIF、评估方式、失败案例、改进计划和部署说明。
+Agent projects should focus on execution traces, tool boundaries, and failure recovery.
 
-不要只展示“成功截图”。一个好的 AI 工程作品，应该展示你如何定位问题、如何评估效果、如何控制风险、如何做取舍。
+| Check item | Pass criteria |
+|---|---|
+| Goal boundary | The Agent knows when to stop |
+| Tool schema | Parameters, return values, and error messages are clear |
+| Execution trace | Can see each step of planning, action, observation, and result |
+| Permission control | High-risk actions require human confirmation |
+| Failure recovery | Can retry, degrade gracefully, or stop when a tool fails |
+| Cost tracking | Can see execution steps, number of calls, and approximate cost |
 
-## 十、部署与生产化检查
+## 8. Multimodal Project Checklist
 
-AI 应用上线前，至少要从本地 Demo、可复现部署、线上运行和持续迭代四个层次检查。部署不是最后补一个命令，而是要让配置、日志、权限、成本和失败处理都能在新环境里工作。
+Multimodal and AIGC projects should focus on source materials, generation quality, human editing, and compliance.
 
-| 层次 | 检查项 | 通过标准 |
+| Check item | Pass criteria |
+|---|---|
+| Input quality | Images, audio, video, and PDFs are clear and parseable |
+| Output controllability | Style, size, format, and usage are constrained |
+| Version tracking | Multiple generation results can be compared and rolled back |
+| Human editing | Users can modify key content instead of relying entirely on one generation |
+| Content review | Includes checks for copyright, portrait rights, sensitive content, and factual accuracy |
+| Export delivery | Final results can be exported in a usable format |
+
+## 9. Portfolio Presentation Checklist
+
+If the project is meant for job hunting or presentation, the README should at least include: project goals, technical approach, how to run it, sample input/output, screenshots or GIFs, evaluation method, failure cases, improvement plan, and deployment instructions.
+
+Do not only show “success screenshots.” A good AI engineering project should show how you debugged problems, how you evaluated results, how you controlled risks, and how you made trade-offs.
+
+## 10. Deployment and Productionization Checklist
+
+Before launching an AI application, you should at least check it across four levels: local Demo, reproducible deployment, online operation, and continuous iteration. Deployment is not about adding one last command at the end. It is about making configuration, logs, permissions, costs, and failure handling all work in a new environment.
+
+| Level | Check item | Pass criteria |
 |---|---|---|
-| 本地 Demo | 依赖、环境变量、启动命令 | 新机器按 README 能跑通最小闭环 |
-| 可复现部署 | `.env.example`、配置文件、数据路径 | 不依赖个人电脑隐藏路径和手动复制文件 |
-| 线上运行 | 日志、限流、超时、降级、错误页 | 请求失败时能定位原因并给用户明确反馈 |
-| 持续迭代 | 评估集、反馈入口、版本记录 | Prompt、检索和模型变更能回归测试 |
+| Local Demo | Dependencies, environment variables, startup command | On a new machine, the minimal end-to-end flow runs according to the README |
+| Reproducible deployment | `.env.example`, config files, data paths | Does not depend on hidden personal paths or manually copied files |
+| Online operation | Logs, rate limiting, timeouts, degradation, error pages | When a request fails, the cause can be located and the user gets clear feedback |
+| Continuous iteration | Evaluation set, feedback entry, version records | Prompt, retrieval, and model changes can be regression-tested |
 
-生产化还要特别注意密钥安全。API key 不应该写进前端、日志、截图或公开仓库；如果项目需要展示，可以使用 `.env.example` 说明变量名，用演示 key 或 mock 模式跑通流程。
+Productionization also requires special attention to secret safety. API keys should not be written into the frontend, logs, screenshots, or public repositories. If the project needs to be shown publicly, use `.env.example` to explain variable names, and use a demo key or mock mode to get the flow working.
 
-## 十一、从 Demo 到作品集的上线材料
+## 11. Launch Materials from Demo to Portfolio
 
-如果你暂时没有真实服务器，也可以准备“准上线材料”。作品集里最重要的是让别人相信这个项目具备上线意识，而不是一定要承诺它已经承载真实用户。
+If you do not yet have a real server, you can still prepare “pre-launch materials.” In a portfolio, the most important thing is to show that the project has deployment awareness, not necessarily to promise that it is already serving real users.
 
-| 材料 | 说明 |
+| Material | Description |
 |---|---|
-| 部署架构图 | 前端、后端、模型 API、向量库、日志存储之间的关系 |
-| 环境变量说明 | 模型 key、数据库地址、向量库路径、端口和开关 |
-| 启动与回滚命令 | 如何启动、停止、清理缓存、回到上一版 |
-| 线上故障预案 | timeout、rate limit、key 失效、向量库不可用时怎么办 |
-| 成本估算 | 单次请求 token、平均延迟、日调用量和预算上限 |
+| Deployment architecture diagram | The relationships between frontend, backend, model API, vector store, and log storage |
+| Environment variable notes | Model key, database address, vector store path, ports, and feature flags |
+| Startup and rollback commands | How to start, stop, clear cache, and return to the previous version |
+| Online incident plan | What to do when timeout, rate limit, key expiration, or vector store unavailability happens |
+| Cost estimate | Tokens per request, average latency, daily request volume, and budget ceiling |
 
-这些材料会让项目从“能跑的 Demo”升级成“接近真实工程的 AI 应用”。
+These materials help upgrade the project from “a runnable Demo” to “an AI application close to real engineering.”
 
-## 十二、上线前最后一问
+## 12. The Final Question Before Launch
 
-上线前问自己一句话：如果这个系统明天回答错了、检索错了、工具调错了、成本突然升高了，我能不能知道是哪一层出了问题？
+Before going live, ask yourself one question: if this system answers incorrectly tomorrow, retrieves the wrong content, calls the wrong tool, or suddenly becomes much more expensive, can I tell which layer went wrong?
 
-如果答案是否定的，就先补评估、日志和边界。AI 工程的成熟度，不在于 Demo 多酷，而在于出错时能不能复盘和改进。
+If the answer is no, then add evaluation, logs, and boundaries first. The maturity of AI engineering is not about how cool the Demo looks, but whether you can debug and improve it when something goes wrong.

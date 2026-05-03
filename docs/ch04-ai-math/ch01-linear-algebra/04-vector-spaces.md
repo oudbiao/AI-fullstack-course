@@ -1,63 +1,63 @@
 ---
-title: "1.5 向量空间与线性变换【选修】"
+title: "1.5 Vector Spaces and Linear Transformations [Elective]"
 sidebar_position: 4
-description: "理解线性无关、基、维度、线性变换和 SVD 分解的直觉含义"
-keywords: [向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性变换]
+description: "Understand the intuitive meaning of linear independence, basis, dimension, linear transformations, and SVD decomposition"
+keywords: [vector spaces, linear independence, basis, dimension, SVD, singular value decomposition, linear transformation]
 ---
 
-# 向量空间与线性变换【选修】
+# Vector Spaces and Linear Transformations [Elective]
 
-![向量空间基向量张成示意图](/img/course/vector-space-basis-span.png)
+![Schematic of vector space basis vectors spanning a space](/img/course/vector-space-basis-span-en.png)
 
-:::info 选修章节
-本节内容帮助你**加深理解**。如果你只想快速上手 AI 项目，可以先跳过，后续遇到相关概念再回来看。
+:::info Elective Chapter
+This section is here to help you **build deeper understanding**. If you just want to get started quickly with AI projects, you can skip it for now and come back later when you encounter these concepts again.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解线性无关、基、维度的含义
-- 理解线性变换的矩阵表示
-- 直觉理解奇异值分解（SVD）
+- Understand the meaning of linear independence, basis, and dimension
+- Understand the matrix representation of linear transformations
+- Build intuition for singular value decomposition (SVD)
 
-## 先说一个很重要的学习预期
+## First, let’s set an important learning expectation
 
-这一节是选修，名字也更抽象，所以新人特别容易一上来就掉速。  
-你这节最重要的目标，不是把线性代数高级理论全部吃透，而是先建立一个更高层的视角：
+This section is elective, and the title is more abstract, so beginners often slow down right away.
+Your most important goal here is not to fully master every advanced theory in linear algebra, but to first build a higher-level perspective:
 
-- 前面那些向量、矩阵、特征值，到底在更大框架里分别是什么
-- 为什么“维度、基、线性无关”这些词会在后面的 AI 里反复出现
-- 为什么 SVD 会成为很多方法的底层工具
+- What the vectors, matrices, and eigenvalues from earlier sections really are in the bigger picture
+- Why terms like “dimension,” “basis,” and “linear independence” keep showing up later in AI
+- Why SVD becomes a foundational tool in many methods
 
-也就是说，这一节更像：
+In other words, this section is more like:
 
-> **把前面三节的直觉整理成一个更高层的理解框架。**
+> **A higher-level framework that organizes the intuition from the previous three sections.**
 
 ---
 
-## 这节和前面三节是什么关系？
+## How does this section relate to the previous three?
 
-如果你前面三节学的是“向量怎么表示、矩阵怎么变换、特征值怎么找特殊方向”，那这一节就是把这些内容抬高一个视角来重新看。
+If the previous three sections were about “how vectors are represented, how matrices transform, and how eigenvalues find special directions,” then this section raises the viewpoint and looks at all of that again from a broader angle.
 
-![向量空间高层理解图](/img/course/ch04-vector-space-high-level-map.png)
+![High-level view of vector spaces](/img/course/ch04-vector-space-high-level-map-en.png)
 
-所以这节课更像“加深理解的整理课”，不是必须第一时间全部吃透，但学懂之后，你会更知道前面那些概念为什么成立。
+So this lesson is more like a “deeper understanding and organization” lesson. You do not need to fully master it right away, but once you do understand it, you will better see why the earlier concepts make sense.
 
-## 一、线性无关——"不冗余"的向量
+## 1. Linear Independence — Vectors with "No Redundancy"
 
-### 1.1 什么是线性无关？
+### 1.1 What is linear independence?
 
-**直觉**：一组向量是"线性无关"的，意味着**每个向量都提供了独特的信息，没有谁是多余的**。
+**Intuition**: A set of vectors is “linearly independent” if **each vector contributes unique information, and none of them is unnecessary**.
 
-### 1.1.1 一个更适合新人的类比
+### 1.1.1 A beginner-friendly analogy
 
-可以先把“线性无关”想成团队分工：
+You can think of “linear independence” like team roles:
 
-- 如果团队里每个人都带来不同能力，那就是不冗余
-- 如果两个人做的是同一件事，其中一个其实就有点重复了
+- If everyone on the team brings a different ability, then there is no redundancy
+- If two people are doing the same thing, then one of them is somewhat repeated
 
-所以线性无关最值得先记的，不是严谨定义，而是这句：
+So the most important thing to remember about linear independence is not the formal definition, but this sentence:
 
-> **这组向量里，有没有谁其实是在重复别人已经表达过的信息。**
+> **In this set of vectors, is anyone just repeating information that someone else has already expressed?**
 
 ```python
 import numpy as np
@@ -66,19 +66,19 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
-# 线性无关的例子：向右 和 向上，方向完全不同
+# Example of linear independence: right and up, completely different directions
 v1 = np.array([1, 0])
 v2 = np.array([0, 1])
 
-# 线性相关的例子：v2 只是 v1 的 2 倍，方向完全一样
+# Example of linear dependence: v2 is just 2 times v1, same direction
 u1 = np.array([1, 2])
-u2 = np.array([2, 4])  # u2 = 2 * u1，冗余！
+u2 = np.array([2, 4])  # u2 = 2 * u1, redundant!
 ```
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-# 线性无关
+# Linear independence
 ax = axes[0]
 ax.quiver(0, 0, v1[0], v1[1], angles='xy', scale_units='xy', scale=1,
           color='steelblue', width=0.01, label='v1 = [1, 0]')
@@ -89,9 +89,9 @@ ax.set_ylim(-0.5, 2)
 ax.set_aspect('equal')
 ax.grid(True, alpha=0.3)
 ax.legend()
-ax.set_title('线性无关\n两个方向不同，无冗余')
+ax.set_title('Linear independence\nTwo different directions, no redundancy')
 
-# 线性相关
+# Linear dependence
 ax = axes[1]
 ax.quiver(0, 0, u1[0], u1[1], angles='xy', scale_units='xy', scale=1,
           color='steelblue', width=0.01, label='u1 = [1, 2]')
@@ -102,184 +102,184 @@ ax.set_ylim(-0.5, 5)
 ax.set_aspect('equal')
 ax.grid(True, alpha=0.3)
 ax.legend()
-ax.set_title('线性相关\nu2 = 2×u1，完全冗余')
+ax.set_title('Linear dependence\nu2 = 2×u1, completely redundant')
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 1.2 在 AI 中的意义
+### 1.2 Why this matters in AI
 
-| 场景 | 线性无关的意义 |
+| Scenario | Why linear independence matters |
 |------|--------------|
-| 特征工程 | 如果两个特征线性相关（如"温度(℃)"和"温度(℉)"），其中一个是冗余的 |
-| PCA 降维 | 主成分之间互相正交（线性无关），每个主成分都提供独特信息 |
-| 神经网络 | 如果权重矩阵的列线性相关，说明有些神经元是冗余的 |
+| Feature engineering | If two features are linearly dependent (for example, “temperature (°C)” and “temperature (°F)”), one of them is redundant |
+| PCA dimensionality reduction | Principal components are orthogonal to each other (linearly independent), and each one provides unique information |
+| Neural networks | If the columns of a weight matrix are linearly dependent, it means some neurons are redundant |
 
-### 1.3 用矩阵的秩判断
+### 1.3 Using matrix rank to judge it
 
-**矩阵的秩（rank）** = 矩阵中线性无关的行（或列）的最大数量。
+**Matrix rank** = the maximum number of linearly independent rows (or columns) in a matrix.
 
 ```python
-# 3 列线性无关
+# 3 columns are linearly independent
 A = np.array([[1, 0, 0],
               [0, 1, 0],
               [0, 0, 1]])
-print(f"A 的秩: {np.linalg.matrix_rank(A)}")  # 3（满秩）
+print(f"Rank of A: {np.linalg.matrix_rank(A)}")  # 3 (full rank)
 
-# 第 3 列 = 第 1 列 + 第 2 列，冗余！
+# The 3rd column = the 1st column + the 2nd column, redundant!
 B = np.array([[1, 0, 1],
               [0, 1, 1],
               [0, 0, 0]])
-print(f"B 的秩: {np.linalg.matrix_rank(B)}")  # 2（不是满秩）
+print(f"Rank of B: {np.linalg.matrix_rank(B)}")  # 2 (not full rank)
 ```
 
 ---
 
-## 二、基与维度——描述空间的"坐标系"
+## 2. Basis and Dimension — the "Coordinate System" of a Space
 
-### 2.1 基（Basis）
+### 2.1 Basis
 
-**基** = 一组线性无关的向量，它们能"张成"整个空间（即任何向量都能用它们的组合表示）。
+A **basis** = a set of linearly independent vectors that can “span” the entire space (that is, any vector can be expressed as a combination of them).
 
-### 2.1.1 基最值得先记住的，不是术语，而是作用
+### 2.1.1 The most important thing to remember about a basis is not the term, but its role
 
-你可以先把基理解成：
+You can think of a basis as:
 
-- 一套最小、够用、又不冗余的坐标系统
+- A minimal, sufficient, and non-redundant coordinate system
 
-也就是说：
+In other words:
 
-- 能表达所有目标
-- 又没有多余方向
+- It can represent everything you need
+- It does not contain extra directions
 
-这正是后面很多 AI 方法为什么总在找“更好的表示基”的原因。
+This is exactly why many AI methods are always looking for a “better basis for representation.”
 
-最常见的基是**标准基**：
+The most common basis is the **standard basis**:
 
 ```python
-# 二维空间的标准基
-e1 = np.array([1, 0])  # x 方向
-e2 = np.array([0, 1])  # y 方向
+# Standard basis in 2D space
+e1 = np.array([1, 0])  # x direction
+e2 = np.array([0, 1])  # y direction
 
-# 任何二维向量都可以用标准基表示
+# Any 2D vector can be represented using the standard basis
 v = np.array([3, 5])
 # v = 3 * e1 + 5 * e2
 
 print(f"v = {v[0]} × e1 + {v[1]} × e2 = {v[0]*e1 + v[1]*e2}")
 ```
 
-**非标准基也可以**：
+**A non-standard basis also works**:
 
 ```python
-# 换一组基
+# Change to another basis
 b1 = np.array([1, 1])
 b2 = np.array([1, -1])
 
-# v = [3, 5] 在新基下的坐标是？
+# What are the coordinates of v = [3, 5] in the new basis?
 # v = c1 * b1 + c2 * b2
-# 解方程组
+# Solve the system of equations
 B = np.column_stack([b1, b2])
 coords = np.linalg.solve(B, v)
-print(f"在新基下的坐标: {coords}")  # [4, -1]
-# 验证: 4*[1,1] + (-1)*[1,-1] = [4,4]+[-1,1] = [3,5] ✓
+print(f"Coordinates in the new basis: {coords}")  # [4, -1]
+# Check: 4*[1,1] + (-1)*[1,-1] = [4,4]+[-1,1] = [3,5] ✓
 ```
 
-### 2.2 维度（Dimension）
+### 2.2 Dimension
 
-**维度** = 基向量的个数 = 描述空间需要的最少坐标数。
+**Dimension** = the number of basis vectors = the minimum number of coordinates needed to describe a space.
 
-### 2.2.1 为什么“维度”在 AI 里会变成高频词？
+### 2.2.1 Why does “dimension” become such a frequent term in AI?
 
-因为 AI 里你经常会关心两件事：
+Because in AI, you often care about two things:
 
-- 当前表示到底有多少信息自由度
-- 有没有可能把维度压低，但尽量少丢信息
+- How many degrees of freedom the current representation actually has
+- Whether you can reduce the dimension while losing as little information as possible
 
-所以维度在 AI 里，不只是个几何词，  
-它常常意味着：
+So in AI, dimension is not just a geometric term.
+It often means:
 
-- 计算成本
-- 信息容量
-- 模型复杂度
+- Computational cost
+- Information capacity
+- Model complexity
 
-| 空间 | 维度 | 例子 |
+| Space | Dimension | Example |
 |------|------|------|
-| 直线 | 1 | 温度刻度 |
-| 平面 | 2 | 地图上的位置 |
-| 三维空间 | 3 | 现实世界的位置 |
-| 词向量空间 | 100~300 | 每个词的"语义坐标" |
-| 图片像素空间 | 几万~几百万 | 每个像素是一个维度 |
+| A line | 1 | Temperature scale |
+| A plane | 2 | Position on a map |
+| 3D space | 3 | Position in the real world |
+| Word vector space | 100~300 | A word’s “semantic coordinates” |
+| Image pixel space | tens of thousands to millions | Each pixel is a dimension |
 
-:::tip AI 中的维度
-AI 中经常说"高维空间"——一张 28×28 的手写数字图片就是 784 维空间中的一个点。PCA 的本质就是找到一组新的"基"（主成分），让我们能用更少的维度（比如 2 维）来近似表示这些数据。
+:::tip Dimensions in AI
+In AI, people often say “high-dimensional space” — a 28×28 handwritten digit image is a point in a 784-dimensional space. The essence of PCA is to find a new set of “basis vectors” (principal components) so that we can use fewer dimensions (for example, 2D) to approximately represent the data.
 :::
 
 ---
 
-## 三、线性变换的矩阵表示
+## 3. Matrix Representation of Linear Transformations
 
-### 3.1 线性变换 = 矩阵
+### 3.1 A linear transformation = a matrix
 
-一个很深刻的结论：**任何线性变换都可以用一个矩阵表示**。
+A very deep result: **any linear transformation can be represented by a matrix**.
 
-### 3.1.1 这一点为什么对 AI 特别重要？
+### 3.1.1 Why is this especially important for AI?
 
-因为它把很多看起来不同的事情，统一到了同一种表达里：
+Because it unifies many things that seem different into the same form of expression:
 
-- 旋转
-- 缩放
-- 投影
-- 一层神经网络
+- Rotation
+- Scaling
+- Projection
+- A neural network layer
 
-也就是说，很多 AI 里的“层”本质上都可以先看成：
+In other words, many “layers” in AI can be understood first as:
 
-- 某种线性变换 + 后续非线性处理
+- Some linear transformation + subsequent nonlinear processing
 
-什么是线性变换？满足两个条件的变换 T：
-1. T(a + b) = T(a) + T(b)（加法可以"搬进搬出"）
-2. T(ka) = k·T(a)（数乘可以"搬进搬出"）
+What is a linear transformation? A transformation T that satisfies two conditions:
+1. T(a + b) = T(a) + T(b) (addition can be “moved in and out”)
+2. T(ka) = k·T(a) (scalar multiplication can be “moved in and out”)
 
 ```python
-# 旋转、缩放、投影、剪切... 都是线性变换
+# Rotation, scaling, projection, shearing... all are linear transformations
 
-# 看看标准基向量变换后去了哪里，就知道矩阵是什么
-# 旋转 90° 的变换：
+# Look at where the standard basis vectors go, and you know the matrix
+# A 90° rotation:
 # e1 = [1, 0] → [0, 1]
 # e2 = [0, 1] → [-1, 0]
 
-# 把变换后的基向量排成列，就是变换矩阵！
+# Put the transformed basis vectors as columns, and you get the transformation matrix!
 R90 = np.array([[0, -1],
                 [1,  0]])
 
-# 验证
+# Verify
 print(R90 @ np.array([1, 0]))  # [0, 1] ✓
 print(R90 @ np.array([0, 1]))  # [-1, 0] ✓
 ```
 
-### 3.2 变换的组合 = 矩阵的乘法
+### 3.2 Composition of transformations = matrix multiplication
 
-先旋转 45°，再缩放 2 倍？只需要把两个矩阵相乘。
+Rotate by 45° first, then scale by 2? Just multiply the two matrices.
 
 ```python
-# 旋转 45°
+# Rotate 45°
 theta = np.radians(45)
 R45 = np.array([
     [np.cos(theta), -np.sin(theta)],
     [np.sin(theta),  np.cos(theta)]
 ])
 
-# 缩放 2 倍
+# Scale by 2
 S2 = np.array([
     [2, 0],
     [0, 2]
 ])
 
-# 先旋转再缩放 = S2 @ R45（注意：从右往左读！）
+# Rotate first, then scale = S2 @ R45 (note: read from right to left!)
 combined = S2 @ R45
-print(f"组合变换矩阵:\n{combined.round(3)}")
+print(f"Combined transformation matrix:\n{combined.round(3)}")
 
-# 对一个向量应用
+# Apply to a vector
 v = np.array([1, 0])
 result = combined @ v
 print(f"[1, 0] → {result.round(3)}")  # ≈ [1.414, 1.414]
@@ -287,65 +287,65 @@ print(f"[1, 0] → {result.round(3)}")  # ≈ [1.414, 1.414]
 
 ---
 
-## 四、SVD——矩阵分解的"瑞士军刀"
+## 4. SVD — the "Swiss Army Knife" of Matrix Decomposition
 
-### 4.1 什么是 SVD？
+### 4.1 What is SVD?
 
-**奇异值分解（SVD）** 是特征值分解的推广——它对**任意形状**的矩阵都适用（不限于方阵）。
+**Singular Value Decomposition (SVD)** is a generalization of eigenvalue decomposition — it applies to **matrices of any shape** (not limited to square matrices).
 
-### 4.1.1 一个更适合新人的类比
+### 4.1.1 A beginner-friendly analogy
 
-你可以先把 SVD 想成：
+You can think of SVD as:
 
-- 把一个复杂变换拆成几个更容易理解的小动作
+- Breaking a complicated transformation into several smaller actions that are easier to understand
 
-很像你把一个复杂机器拆开看：
+It is a lot like taking apart a machine to see how it works:
 
-1. 先怎么摆正
-2. 再怎么拉伸
-3. 最后怎么放回目标方向
+1. First, how it is oriented
+2. Then, how it stretches
+3. Finally, how it is rotated back toward the target direction
 
-这也是为什么它会成为那么多 AI 方法里的底层工具：
+That is also why it becomes a foundational tool in many AI methods:
 
-- 因为它不只是“能算”
-- 还很适合拿来解释结构
+- Because it is not only something you can compute
+- It is also very good for explaining structure
 
-SVD 把一个矩阵 M 分解为三个矩阵的乘积：
+SVD decomposes a matrix M into the product of three matrices:
 
-**M = U × S × V 的转置**
+**M = U × S × V transpose**
 
-其中：
-- U：左奇异向量（正交矩阵）
-- S：奇异值（对角矩阵，从大到小排列）
-- V 的转置：右奇异向量（正交矩阵）
+Where:
+- U: left singular vectors (orthogonal matrix)
+- S: singular values (diagonal matrix, sorted from large to small)
+- V transpose: right singular vectors (orthogonal matrix)
 
 ```python
-# 任意矩阵的 SVD
+# SVD of an arbitrary matrix
 M = np.array([
     [1, 2, 3],
     [4, 5, 6],
-])  # 2×3 矩阵
+])  # 2×3 matrix
 
 U, S, Vt = np.linalg.svd(M, full_matrices=False)
 
-print(f"U 的形状: {U.shape}")     # (2, 2)
-print(f"奇异值 S: {S.round(3)}")  # [9.508, 0.773]
-print(f"Vt 的形状: {Vt.shape}")   # (2, 3)
+print(f"Shape of U: {U.shape}")     # (2, 2)
+print(f"Singular values S: {S.round(3)}")  # [9.508, 0.773]
+print(f"Shape of Vt: {Vt.shape}")   # (2, 3)
 
-# 验证：M ≈ U @ diag(S) @ Vt
+# Verify: M ≈ U @ diag(S) @ Vt
 reconstructed = U @ np.diag(S) @ Vt
-print(f"\n重构误差: {np.linalg.norm(M - reconstructed):.10f}")  # ≈ 0
+print(f"\nReconstruction error: {np.linalg.norm(M - reconstructed):.10f}")  # ≈ 0
 ```
 
-### 4.2 SVD 的直觉
+### 4.2 The intuition behind SVD
 
-**SVD 把任何变换分解为三步**：
+**SVD decomposes any transformation into three steps**:
 
 ```mermaid
 flowchart LR
-    A["原始空间"] -->|"V 的转置<br/>旋转"| B["对齐到主轴"]
-    B -->|"S<br/>沿轴缩放"| C["缩放后"]
-    C -->|"U<br/>旋转到目标"| D["目标空间"]
+    A["Original space"] -->|"V transpose<br/>rotation"| B["Align with principal axes"]
+    B -->|"S<br/>scale along axes"| C["After scaling"]
+    C -->|"U<br/>rotate to target"| D["Target space"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -353,74 +353,74 @@ flowchart LR
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 4.3 SVD 的应用：图像压缩
+### 4.3 An SVD application: image compression
 
-SVD 最直观的应用——用更少的数据近似一张图片：
+The most intuitive application of SVD is using less data to approximate an image:
 
 ```python
 from sklearn.datasets import load_sample_image
 
-# 用一张灰度图做示例
-# 这里用随机数模拟一张灰度图
+# Use a grayscale image as an example
+# Here we use random numbers to simulate a grayscale image
 np.random.seed(42)
 image = np.random.randint(0, 256, (100, 150)).astype(float)
-# 加入一些结构（不是纯随机）
+# Add some structure (not pure randomness)
 for i in range(100):
     for j in range(150):
         image[i, j] = 128 + 50 * np.sin(i/10) * np.cos(j/15) + np.random.randn() * 20
 
-print(f"原始图片: {image.shape} = {image.size} 个值")
+print(f"Original image: {image.shape} = {image.size} values")
 
-# SVD 分解
+# SVD decomposition
 U, S, Vt = np.linalg.svd(image, full_matrices=False)
-print(f"奇异值个数: {len(S)}")
+print(f"Number of singular values: {len(S)}")
 
-# 用不同数量的奇异值重构
+# Reconstruct using different numbers of singular values
 fig, axes = plt.subplots(1, 4, figsize=(16, 4))
 
 for ax, k in zip(axes, [1, 5, 20, 100]):
-    # 只保留前 k 个奇异值
+    # Keep only the first k singular values
     reconstructed = U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :]
-    
-    # 压缩比 = 需要存储的数字数 / 原始数字数
+
+    # Compression ratio = number of stored values / original number of values
     original_size = image.size
     compressed_size = k * (U.shape[0] + 1 + Vt.shape[1])
     ratio = compressed_size / original_size * 100
-    
+
     ax.imshow(reconstructed, cmap='gray')
-    ax.set_title(f'k = {k}\n存储量: {ratio:.0f}%')
+    ax.set_title(f'k = {k}\nStorage: {ratio:.0f}%')
     ax.axis('off')
 
-plt.suptitle('SVD 图像压缩：用更少的奇异值近似', fontsize=13)
+plt.suptitle('SVD Image Compression: Approximate with Fewer Singular Values', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-**解读**：只用前 20 个奇异值（原来 100 个），就能很好地还原图片，存储量大幅减少。
+**Interpretation**: Using only the first 20 singular values (instead of the original 100) can already restore the image quite well, while greatly reducing storage.
 
-### 4.4 SVD 在 AI 中的应用
+### 4.4 Applications of SVD in AI
 
-| 应用 | 说明 |
+| Application | Explanation |
 |------|------|
-| 图像压缩 | 用少量奇异值近似原始图片 |
-| 推荐系统 | 矩阵分解（如 Netflix 推荐） |
-| NLP | 潜在语义分析（LSA）用 SVD 对词-文档矩阵降维 |
-| 数据降维 | SVD 是 PCA 的底层实现 |
-| 伪逆矩阵 | 解决超定/欠定方程组 |
+| Image compression | Approximate the original image with a small number of singular values |
+| Recommendation systems | Matrix factorization (for example, Netflix recommendations) |
+| NLP | Latent Semantic Analysis (LSA) uses SVD to reduce the dimensionality of word-document matrices |
+| Data dimensionality reduction | SVD is the underlying implementation of PCA |
+| Pseudo-inverse matrix | Solve overdetermined/underdetermined systems of equations |
 
-### 4.5 一个很适合初学者先记的判断表
+### 4.5 A beginner-friendly reference table
 
-| 当你看到这个词 | 先把它想成什么 |
+| When you see this term | Think of it first as |
 |------|------|
-| 线性无关 | 有没有信息冗余 |
-| 基 | 一套最小够用的坐标系统 |
-| 维度 | 这个表示到底有多少自由度 |
-| 秩 | 这组数据真正有效的信息维度 |
-| SVD | 把复杂矩阵拆成更容易理解的几个动作 |
+| Linear independence | Whether there is redundant information |
+| Basis | A minimal, sufficient coordinate system |
+| Dimension | How many coordinates are needed to describe it |
+| Rank | The number of truly effective information dimensions in the data |
+| SVD | Breaking a complex matrix into a few easier-to-understand actions |
 
-这个表特别适合新人，因为它能把一串容易发虚的术语，先压缩成几句可用的直觉。
+This table is especially useful for beginners because it compresses a series of intimidating terms into a few usable intuitions.
 
-### 4.6 再看一个最小“低秩近似”示例
+### 4.6 Another minimal example of "low-rank approximation"
 
 ```python
 M = np.array([
@@ -431,102 +431,100 @@ M = np.array([
 
 U, S, Vt = np.linalg.svd(M, full_matrices=False)
 
-# 只保留最大的 1 个奇异值
+# Keep only the largest singular value
 k = 1
 Mk = U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :]
 
-print("原矩阵:\n", np.round(M, 3))
-print("\n低秩近似:\n", np.round(Mk, 3))
-print("\n重构误差:", round(np.linalg.norm(M - Mk), 4))
+print("Original matrix:\n", np.round(M, 3))
+print("\nLow-rank approximation:\n", np.round(Mk, 3))
+print("\nReconstruction error:", round(np.linalg.norm(M - Mk), 4))
 ```
 
-这个例子很适合初学者，因为它会帮助你先看到：
+This example is especially good for beginners because it helps you first see:
 
-- SVD 不是只为了分解一个矩阵
-- 它还能告诉你：如果我只保留最重要的一部分结构，会丢掉多少信息
+- SVD is not only about decomposing a matrix
+- It can also tell you: if I keep only the most important part of the structure, how much information will I lose?
 
-这正是很多 AI 场景里：
+This is exactly the shared idea behind many AI scenarios:
 
-- 压缩
-- 降维
-- 近似表示
-
-背后的共通思想。
+- Compression
+- Dimensionality reduction
+- Approximate representation
 
 ---
 
-## 学到这里，下一步最值得带去哪里？
+## After learning this, where is the best place to go next?
 
-如果你已经把第 4 站读到这里，最值得带去后面的不是更多数学推导，而是这些问题：
+If you have read this fourth stop to the end, the most valuable thing to carry into the next sections is not more derivations, but these questions:
 
-1. 这些数学对象在机器学习里到底会怎样真的用起来？
-2. 什么时候向量会变成特征，矩阵会变成权重？
-3. 为什么概率、梯度和这些线代对象会在同一个模型里一起出现？
+1. How do these mathematical objects actually get used in machine learning?
+2. When does a vector become a feature, and a matrix become weights?
+3. Why do probability, gradients, and these linear algebra objects appear together in the same model?
 
-最适合接着看的通常是：
+The best follow-up readings are usually:
 
-- [第 5 站首页](../../ch05-machine-learning/index.md)
-- [数学如何真正流到机器学习](../../ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md)
+- [Chapter 5 Home](../../ch05-machine-learning/index.md)
+- [How Math Really Flows into Machine Learning](../../ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md)
 
-## 如果你现在觉得这节还是偏抽象，最值的抓手是什么？
+## If this section still feels abstract, what is the most useful thing to hold onto?
 
-最值得先抓的不是所有定义细节，而是这四句：
+The most important things to remember are not every single definition detail, but these four sentences:
 
-1. 线性无关 = 不冗余
-2. 基 = 最小够用的表示方式
-3. 维度 = 需要多少个坐标才能描述
-4. SVD = 拆开一个复杂矩阵变换
+1. Linear independence = no redundancy
+2. Basis = a minimal sufficient coordinate system
+3. Dimension = how many degrees of freedom are needed to describe it
+4. SVD = splitting apart a complex matrix transformation
 
-:::info 本章回顾
-线性代数四节课，你学到了：
-1. **向量**：AI 中的基本数据单元，余弦相似度衡量方向相似性
-2. **矩阵**：批量变换数据，神经网络每层的核心操作
-3. **特征值**：找到数据最重要的方向，PCA 降维
-4. **向量空间**（本节）：理解维度、基、SVD
+:::info Chapter Review
+Across the four linear algebra lessons, you learned:
+1. **Vectors**: the basic data unit in AI; cosine similarity measures directional similarity
+2. **Matrices**: transform data in batches; the core operation in each neural network layer
+3. **Eigenvalues**: find the most important directions in data; used in PCA dimensionality reduction
+4. **Vector spaces** (this section): understand dimension, basis, and SVD
 
-这些概念会在后续学习机器学习、深度学习、NLP 时反复出现。不用急着记住所有细节，随着后续的实践，理解会越来越深。
+These concepts will appear again and again when you continue learning machine learning, deep learning, and NLP. You do not need to memorize every detail right away; your understanding will deepen as you practice more later.
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 直觉 | NumPy |
+| Concept | Intuition | NumPy |
 |------|------|-------|
-| 线性无关 | 没有冗余的向量组 | `np.linalg.matrix_rank(A)` |
-| 基 | 描述空间的坐标系 | — |
-| 维度 | 需要多少个坐标 | `A.shape` |
-| 线性变换 | 矩阵乘法 | `A @ v` |
-| SVD | 任意矩阵 = 旋转 × 缩放 × 旋转 | `np.linalg.svd(A)` |
-| 矩阵的秩 | 有效维度数 | `np.linalg.matrix_rank(A)` |
+| Linear independence | A set of vectors with no redundancy | `np.linalg.matrix_rank(A)` |
+| Basis | A coordinate system for describing a space | — |
+| Dimension | How many coordinates are needed | `A.shape` |
+| Linear transformation | Matrix multiplication | `A @ v` |
+| SVD | Any matrix = rotation × scaling × rotation | `np.linalg.svd(A)` |
+| Matrix rank | Number of effective dimensions | `np.linalg.matrix_rank(A)` |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-- 线性无关最重要的直觉是“有没有信息冗余”
-- 基最重要的直觉是“最小够用的坐标系统”
-- 维度最重要的直觉是“这个表示到底要多少自由度”
-- SVD 最重要的直觉是“把复杂变换拆成更容易理解的几个动作”
+- The most important intuition for linear independence is “whether there is redundant information”
+- The most important intuition for a basis is “a minimal sufficient coordinate system”
+- The most important intuition for dimension is “how many degrees of freedom this representation needs”
+- The most important intuition for SVD is “breaking a complex transformation into a few easier-to-understand actions”
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：判断线性无关
+### Exercise 1: Determine linear independence
 
-以下三组向量，哪组是线性无关的？用 `np.linalg.matrix_rank()` 验证。
+Which of the following three sets of vectors are linearly independent? Verify with `np.linalg.matrix_rank()`.
 
 ```python
-# 第 1 组
+# Set 1
 g1 = np.array([[1, 2], [3, 6]])
 
-# 第 2 组
+# Set 2
 g2 = np.array([[1, 0], [0, 1]])
 
-# 第 3 组
+# Set 3
 g3 = np.array([[1, 2, 3], [4, 5, 6], [5, 7, 9]])
 ```
 
-### 练习 2：SVD 压缩
+### Exercise 2: SVD compression
 
-用 SVD 对 `np.random.randn(50, 80)` 做低秩近似，画出不同 k 值下的重构误差曲线。
+Use SVD to perform a low-rank approximation of `np.random.randn(50, 80)`, and plot the reconstruction error curve for different values of k.
 
 ```python
 M = np.random.randn(50, 80)
@@ -538,9 +536,9 @@ for k in range(1, 51):
     error = np.linalg.norm(M - reconstructed)
     errors.append(error)
 
-# 画图
+# Plot
 ```
 
-### 练习 3：变换组合
+### Exercise 3: Combining transformations
 
-构造两个 2×2 变换矩阵——先缩放 (x 放大 2 倍, y 不变)，再旋转 30°。把它们相乘得到组合矩阵，对一组三角形顶点做变换并画图。
+Construct two 2×2 transformation matrices — first scale (double x, keep y unchanged), then rotate by 30°. Multiply them to get the combined matrix, apply it to a set of triangle vertices, and plot the result.

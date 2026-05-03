@@ -1,182 +1,180 @@
 ---
-title: "3.4 数字人技术【选修】"
+title: "3.4 Digital Human Technology [Elective]"
 sidebar_position: 11
-description: "从文本、语音、驱动信号、口型同步到人物渲染，理解数字人为什么本质上是一个多模块系统。"
+description: "From text, speech, driving signals, and lip sync to character rendering, understand why digital humans are essentially a multi-module system."
 keywords: [digital human, avatar, lip sync, talking head, virtual human, audio-driven animation]
 ---
 
-# 数字人技术【选修】
+# Digital Human Technology [Elective]
 
-![数字人多模块同步图](/img/course/ch12-digital-human-sync-pipeline-map.png)
+![Digital human multi-module synchronization diagram](/img/course/ch12-digital-human-sync-pipeline-map-en.png)
 
-:::tip 读图提示
-数字人体验取决于多模块同步，而不是单独某个模型。读图时重点看脚本、TTS、口型同步、表情动作、身份一致性、审核和导出如何层层传递误差。
+:::tip Reading guide
+The digital human experience depends on multi-module synchronization, not on any single model. When reading the diagram, focus on how the script, TTS, lip sync, facial expressions and motion, identity consistency, moderation, and export pass errors along step by step.
 :::
 
-:::tip 本节定位
-很多人看到数字人时，第一反应是：
+:::tip Where this section fits
+When many people see a digital human, their first reaction is:
 
-> “这是不是一个特别强的视频生成模型？”
+> "Isn't this a particularly strong video generation model?"
 
-但更准确的理解通常是：
+But a more accurate understanding is usually:
 
-> **数字人更像一个多模块协作系统。**
+> **A digital human is more like a multi-module collaborative system.**
 
-因为它常常要同时处理：
+Because it often has to handle all of the following at the same time:
 
-- 文本
-- 语音
-- 口型
-- 表情
-- 人物渲染
+- Text
+- Speech
+- Lip movement
+- Facial expressions
+- Character rendering
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解数字人系统最核心的模块组成
-- 理解它为什么不只是“视频生成”
-- 看懂一个最小数字人工作流
-- 建立对数字人项目复杂度来源的正确直觉
+- Understand the core module structure of a digital human system
+- Understand why it is not just "video generation"
+- Read a minimal digital human workflow
+- Build the right intuition for where digital human project complexity comes from
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-数字人系统更适合按“文本 / 语音 / 口型 / 渲染”四层来理解：
+A digital human system is easier to understand in four layers: "text / speech / lip movement / rendering":
 
 ```mermaid
 flowchart LR
-    A["文本或脚本"] --> B["语音生成"]
-    B --> C["口型 / 面部动作驱动"]
-    C --> D["头像 / 人物渲染"]
-    D --> E["输出视频"]
+    A["Text or script"] --> B["Speech generation"]
+    B --> C["Lip / facial motion driving"]
+    C --> D["Avatar / character rendering"]
+    D --> E["Output video"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么数字人不是单一模型问题
-- 为什么它天然更像多模块协作系统
-
----
-
-## 一、数字人到底在做什么？
-
-### 1.1 最简单的理解
-
-数字人系统通常想完成的是：
-
-- 给定一段文字或语音
-- 让一个虚拟人物“像真人一样”说出来
-
-### 1.2 这听起来像视频生成，但为什么又不完全一样？
-
-因为数字人常常不只是要“生成一段视频”，还要保证：
-
-- 说话内容对得上
-- 口型对得上
-- 人物身份稳定
-- 表情和动作不太违和
-
-也就是说，它比普通视频生成更强调：
-
-> **人物一致性 + 语音驱动一致性。**
-
-### 1.3 一个更适合新人的总类比
-
-你可以把数字人系统理解成：
-
-- 一个虚拟主播制作流水线
-
-文字像脚本，  
-TTS 像配音，  
-口型同步像嘴部和表情驱动，  
-渲染则像最后把角色真正拍出来。
-
-这个类比很适合新人，因为它会帮助你先抓住：
-
-- 数字人不是“突然凭空生成一段视频”
-- 而是多个模块一起把内容演成视频
+- Why a digital human is not a single-model problem
+- Why it is naturally more like a multi-module collaboration system
 
 ---
 
-## 二、数字人系统为什么本质上是“多模块管线”？
+## 1. What exactly does a digital human do?
 
-一个很粗的工作流通常会是：
+### 1.1 The simplest explanation
 
-1. 文本生成或接收文本
-2. TTS 生成语音
-3. 根据语音驱动口型 / 面部动作
-4. 渲染虚拟形象
+A digital human system usually tries to do this:
+
+- Given a piece of text or speech
+- Let a virtual character "say it like a real person"
+
+### 1.2 This sounds like video generation, but why is it not exactly the same?
+
+Because a digital human often needs to do more than "generate a video." It also needs to make sure that:
+
+- The spoken content matches
+- The lip movements match
+- The character identity stays stable
+- The facial expressions and motions do not feel awkward
+
+In other words, it places more emphasis than normal video generation on:
+
+> **Character consistency + speech-driven consistency.**
+
+### 1.3 A better overall analogy for beginners
+
+You can think of a digital human system as:
+
+- A virtual livestream host production line
+
+Text is like the script,
+TTS is like voice acting,
+lip sync is like driving the mouth and facial expressions,
+and rendering is like filming the character in the final output.
+
+This analogy is very useful for beginners because it helps you first grasp that:
+
+- A digital human is not "a video that appears out of nowhere"
+- Instead, multiple modules work together to perform the content into a video
+
+---
+
+## 2. Why is a digital human system essentially a "multi-module pipeline"?
+
+A very rough workflow is usually:
+
+1. Generate or receive text
+2. Use TTS to generate speech
+3. Drive lip movement / facial motion based on the speech
+4. Render the virtual character
 
 ```python
 pipeline = ["text", "tts", "lip_sync", "avatar_render"]
 print(pipeline)
 ```
 
-这个简单列表最重要的作用是让你看到：
+The most important thing about this simple list is that it lets you see:
 
-> 数字人不是一个单一黑盒，而是一个链路系统。 
+> A digital human is not a single black box, but a chain system.
 
-### 2.1 一个很适合初学者先记的模块分工表
+### 2.1 A module breakdown table that beginners can remember first
 
-| 模块 | 最值得先记住的作用 |
+| Module | The most important thing to remember |
 |---|---|
-| 文本 / 脚本 | 决定要说什么 |
-| 语音生成 | 决定听起来像怎么说 |
-| 口型驱动 | 决定嘴型是否跟得上 |
-| 角色渲染 | 决定画面里这个人最终长什么样 |
+| Text / script | Decides what to say |
+| Speech generation | Decides how it sounds |
+| Lip driving | Decides whether the mouth keeps up |
+| Character rendering | Decides what the person finally looks like in the image |
 
-这个表很适合新人，因为它会把数字人从“炫酷词汇”重新拆成几个比较具体的模块。
-
----
-
-## 三、最关键的一步：口型同步（lip sync）
-
-### 3.1 为什么这是数字人体验的核心？
-
-因为用户对“嘴型不对”极其敏感。  
-哪怕语音很好、人物也好看，只要口型明显对不上，整个系统就会显得很假。
-
-### 3.2 这件事本质上在干什么？
-
-就是：
-
-- 输入一段语音
-- 预测对应的嘴部运动
-
-它是数字人系统里非常典型的“音频驱动视觉”任务。
+This table is useful for beginners because it breaks the digital human from a "cool buzzword" into several more concrete modules.
 
 ---
 
-## 四、为什么数字人对“身份一致性”要求更高？
+## 3. The most critical step: lip sync
 
-在普通视频生成里，用户可能更在意画面整体。  
-而数字人通常会聚焦到一个核心主体：
+### 3.1 Why is this the core of the digital human experience?
 
-- 同一张脸
-- 同一个角色
-- 同一个品牌形象
+Because users are extremely sensitive to "the mouth not matching."
+Even if the voice is great and the character looks good, once the lip movements are obviously off, the whole system feels fake.
 
-所以数字人任务天然对：
+### 3.2 What is this fundamentally doing?
 
-- 身份稳定
-- 细节一致
+It is:
 
-要求更高。
+- Taking a piece of speech as input
+- Predicting the corresponding mouth movements
 
-这也是为什么很多数字人系统会非常重视：
-
-- 专属角色建模
-- 头像驱动
-- 说话头（talking head）控制
+This is a very typical "audio-driven visual" task in digital human systems.
 
 ---
 
-## 五、一个最小“数字人系统状态”示意
+## 4. Why do digital humans have stricter requirements for "identity consistency"?
+
+In ordinary video generation, users may care more about the overall image.
+But a digital human usually focuses on one core subject:
+
+- The same face
+- The same character
+- The same brand image
+
+So digital human tasks naturally require more:
+
+- Identity stability
+- Detail consistency
+
+That is why many digital human systems place heavy emphasis on:
+
+- Dedicated character modeling
+- Avatar driving
+- Talking head control
+
+---
+
+## 5. A minimal "digital human system state" example
 
 ```python
 digital_human_request = {
-    "text": "欢迎来到 AI 全栈课程。",
+    "text": "Welcome to the AI full-stack course.",
     "speaker": "female_01",
     "avatar": "teacher_avatar_v1",
     "style": "formal"
@@ -185,26 +183,26 @@ digital_human_request = {
 print(digital_human_request)
 ```
 
-这个例子在教你：
+This example is teaching you that:
 
-- 输入不只是文本
-- 系统还需要角色、语音风格和表现方式
+- The input is not just text
+- The system also needs a character, a speech style, and a way of presenting itself
 
-这就是数字人项目为什么天然更像“产品系统”，而不是单一模型 demo。
+This is why digital human projects are naturally more like a "product system" than a single-model demo.
 
 ---
 
-## 六、一个更完整的工作流直觉
+## 6. A more complete workflow intuition
 
-假设一条数字人视频的生成过程可以粗略写成：
+Suppose the generation process for a digital human video can be roughly written as:
 
-1. 文本 -> 语音
-2. 语音 -> 嘴型 / 面部动作
-3. 人物模板 + 动作 -> 视频帧
+1. Text -> speech
+2. Speech -> mouth shape / facial motion
+3. Character template + motion -> video frames
 
 ```python
 workflow = {
-    "input_text": "欢迎来到 AI 全栈课程。",
+    "input_text": "Welcome to the AI full-stack course.",
     "audio": "generated_speech.wav",
     "face_motion": "lip_sync_features",
     "output_video": "teacher_avatar_video.mp4"
@@ -213,109 +211,109 @@ workflow = {
 print(workflow)
 ```
 
-这段代码不是在实现数字人，而是在帮你抓住一个重要事实：
+This code is not implementing a digital human. It is helping you grasp an important fact:
 
-> 数字人是“文本、语音、视觉渲染”的多级转换系统。 
+> A digital human is a multi-stage conversion system for "text, speech, and visual rendering."
 
-### 6.1 一个很适合初学者先记的项目检查表
+### 6.1 A project checklist that beginners can remember first
 
-| 你最该先检查什么 | 为什么重要 |
+| What should you check first? | Why it matters |
 |---|---|
-| 语音自然不自然 | 声音会直接影响拟人感 |
-| 口型是否跟上 | 用户对嘴型错位极敏感 |
-| 角色是否稳定 | 身份不稳会很出戏 |
-| 风格是否一致 | 语音、人物、文案不能像三套系统 |
+| Whether the voice sounds natural | Sound directly affects the sense of human likeness |
+| Whether the lip movements keep up | Users are extremely sensitive to mouth mismatch |
+| Whether the character stays stable | Identity instability is very distracting |
+| Whether the style is consistent | Speech, character, and copy should not feel like three separate systems |
 
-这个表很适合新人，因为它会帮助你把“数字人看起来怪怪的”重新拆成几个可定位的问题。
-
----
-
-## 七、为什么数字人项目很容易比想象中更难？
-
-### 7.1 模块之间的误差会层层叠加
-
-例如：
-
-- 文本生成不自然
-- TTS 语音生硬
-- 口型同步偏一点
-- 表情再不协调一点
-
-最后整体观感就会很差。
-
-### 7.2 用户对人脸天然更敏感
-
-人对“人脸”和“说话嘴型”的错位非常敏感，  
-这使得数字人项目经常比普通生成任务更难过关。
+This table is useful for beginners because it helps you break "the digital human looks weird" into several diagnosable problems.
 
 ---
 
-## 八、数字人为什么很有产品价值？
+## 7. Why do digital human projects often become harder than expected?
 
-因为它非常适合：
+### 7.1 Errors between modules accumulate layer by layer
 
-- 教学讲解
-- 客服导览
-- 营销主持
-- 多语言讲解
+For example:
 
-它的价值往往不在于“技术炫酷”，而在于：
+- The generated text is unnatural
+- The TTS voice sounds stiff
+- The lip sync is slightly off
+- The expressions are a bit uncoordinated
 
-> **能把语言内容包装成更有临场感的表达形式。**
+In the end, the overall impression becomes very poor.
 
----
+### 7.2 Users are naturally more sensitive to human faces
 
-## 九、一个很重要的工程判断
-
-很多数字人产品并不是追求“完全逼真”，而是追求：
-
-- 足够稳定
-- 足够自然
-- 足够低成本
-
-这很重要，因为一味追求超高拟真度，成本和复杂度会迅速上升。
-
-所以现实里你经常会看到：
-
-- 卡通风 avatar
-- 半写实形象
-- 轻量 talking head
-
-这背后很多时候是工程与产品取舍。
-
-## 如果把它做成项目或系统设计，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我做了一个数字人视频”
-
-而是：
-
-1. 文本如何进入工作流
-2. 语音、口型、渲染分别由什么模块负责
-3. 哪些地方最容易失真
-4. 你是怎样在稳定性、成本和拟真度之间取舍的
-
-这样别人会更容易看出：
-
-- 你理解的是数字人系统工程
-- 不只是视频生成 demo
+People are very sensitive to mismatches in "faces" and "speaking mouth movements."
+This makes digital human projects often harder to get right than ordinary generation tasks.
 
 ---
 
-## 小结
+## 8. Why are digital humans so valuable in products?
 
-这一节最重要的不是记住“数字人”三个字，而是理解：
+Because they are very suitable for:
 
-> **数字人系统本质上是一个把文本、语音、动作和人物渲染组合起来的多模块系统。**
+- Teaching and explanation
+- Customer service guidance
+- Marketing hosting
+- Multilingual explanations
 
-真正难的地方，不只是生成视频，而是让这些模块最后看起来像一个统一、可信的人物表现。
+Their value is often not in "technical flashiness," but in:
+
+> **Turning language content into a more present and immersive form of expression.**
 
 ---
 
-## 练习
+## 9. A very important engineering judgment
 
-1. 用自己的话解释：为什么数字人不能简单看成“普通视频生成”？
-2. 想一想：在数字人系统里，为什么口型同步会特别关键？
-3. 如果你要做一个教育类虚拟讲师，哪些模块是必不可少的？
-4. 用自己的话说明：为什么很多数字人产品更看重“稳定和成本”，而不是极致拟真？
+Many digital human products do not aim for "perfect realism." Instead, they aim for:
+
+- Enough stability
+- Enough naturalness
+- Enough low cost
+
+This is important, because if you blindly pursue ultra-high realism, cost and complexity will rise very quickly.
+
+So in practice you often see:
+
+- Cartoon-style avatars
+- Semi-realistic characters
+- Lightweight talking heads
+
+Behind this, there is often an engineering and product trade-off.
+
+## If you turn it into a project or system design, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- "I built a digital human video"
+
+But rather:
+
+1. How text enters the workflow
+2. Which modules are responsible for speech, lip movement, and rendering
+3. Where distortion is most likely to happen
+4. How you trade off stability, cost, and realism
+
+That way, others can more easily see:
+
+- You understand digital human system engineering
+- Not just a video generation demo
+
+---
+
+## Summary
+
+The most important thing in this section is not to memorize the phrase "digital human," but to understand that:
+
+> **A digital human system is essentially a multi-module system that combines text, speech, motion, and character rendering.**
+
+The real difficulty is not just generating a video, but making these modules finally look like one unified and believable character performance.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why can't a digital human be simply viewed as "ordinary video generation"?
+2. Think about it: in a digital human system, why is lip sync especially critical?
+3. If you wanted to build an educational virtual instructor, which modules would be essential?
+4. Explain in your own words: why do many digital human products care more about "stability and cost" than extreme realism?

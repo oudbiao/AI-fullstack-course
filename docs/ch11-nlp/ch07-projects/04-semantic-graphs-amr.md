@@ -1,165 +1,165 @@
 ---
-title: "7.5 语义图与 AMR：把句子变成结构化含义"
+title: "7.5 Semantic Graphs and AMR: Turning Sentences into Structured Meaning"
 sidebar_position: 4
-description: "理解语义图、AMR 和句法语义解析为什么重要，以及它们怎样连接到信息抽取、知识图谱和 RAG。"
-keywords: [AMR, 语义图, 语义解析, 信息抽取, 知识图谱]
+description: "Understand why semantic graphs, AMR, and syntactic-semantic parsing matter, and how they connect to information extraction, knowledge graphs, and RAG."
+keywords: [AMR, semantic graph, semantic parsing, information extraction, knowledge graph]
 ---
 
-# 语义图与 AMR：把句子变成结构化含义
+# Semantic Graphs and AMR: Turning Sentences into Structured Meaning
 
-![AMR 语义图理解地图](/img/course/ch11-amr-semantic-graph-map.png)
+![AMR semantic graph understanding map](/img/course/ch11-amr-semantic-graph-map-en.png)
 
-:::tip 本节定位
-文本不只是一串词。很多时候，我们真正想要的是句子背后的结构化含义。
+:::tip Where this section fits
+Text is not just a sequence of words. Often, what we really want is the structured meaning behind a sentence.
 
-AMR 这类语义图路线想回答的问题是：
+The semantic-graph approach represented by AMR tries to answer this question:
 
-> **能不能把一句话变成“谁做了什么、对谁做、在什么条件下做”的结构图？**
+> **Can we turn a sentence into a structural graph of “who did what to whom, and under what conditions”?**
 :::
 
-## 一、为什么需要语义图？
+## 1. Why do we need semantic graphs?
 
-普通文本表示常常像这样：
-
-```text
-乔布斯创立了苹果公司。
-```
-
-但信息抽取和知识库系统更想要这样的结构：
+Plain text representation often looks like this:
 
 ```text
-人物：乔布斯
-关系：创立
-组织：苹果公司
+Jobs founded Apple.
 ```
 
-如果再复杂一点，句子里可能有时间、地点、因果、条件、否定和指代。  
-这时简单的关键词匹配就不够了。
+But information extraction and knowledge-base systems want a structure more like this:
 
-语义图的目标是：
+```text
+Person: Jobs
+Relation: founded
+Organization: Apple
+```
 
-> **把自然语言里的含义，变成机器更容易操作的图结构。**
+If the sentence becomes more complex, it may contain time, place, cause, condition, negation, and reference.
+At that point, simple keyword matching is no longer enough.
 
-## 二、AMR 是什么？
+The goal of semantic graphs is:
 
-AMR 是 Abstract Meaning Representation，可以先理解为一种抽象语义图表示。
+> **To turn meaning in natural language into a graph structure that machines can operate on more easily.**
 
-它不只是标出实体，还会尝试表示事件和角色关系。
+## 2. What is AMR?
 
-例如“学生阅读论文”可以想象成：
+AMR stands for Abstract Meaning Representation. You can first think of it as a kind of abstract semantic graph representation.
+
+It does not just mark entities; it also tries to represent events and role relationships.
+
+For example, “The student reads the paper” can be imagined as:
 
 ```text
 read-01
-  ARG0: 学生
-  ARG1: 论文
+  ARG0: student
+  ARG1: paper
 ```
 
-这个结构表达的是：
+This structure expresses:
 
-- 核心事件是阅读
-- 谁在阅读：学生
-- 阅读对象是什么：论文
+- The core event is reading
+- Who is reading: the student
+- What is being read: the paper
 
-这比单纯分词更接近“句子真正想说什么”。
+This is much closer to “what the sentence is really trying to say” than simple word segmentation.
 
-## 三、语义图和信息抽取有什么关系？
+## 3. What is the relationship between semantic graphs and information extraction?
 
-信息抽取通常先做比较具体的任务：
+Information extraction usually starts with more specific tasks:
 
-- 抽实体
-- 抽关系
-- 抽事件
-- 抽属性
+- Entity extraction
+- Relation extraction
+- Event extraction
+- Attribute extraction
 
-语义图更像把这些结果组织成一张更完整的含义结构。
+Semantic graphs are more like a way to organize these results into a more complete meaning structure.
 
-| 任务 | 输出更像什么 |
+| Task | What the output looks like |
 |---|---|
-| NER | 哪些词是人名、组织、地点 |
-| 关系抽取 | A 和 B 有什么关系 |
-| 事件抽取 | 谁在什么时间做了什么 |
-| AMR / 语义图 | 整句话背后的角色和语义结构 |
+| NER | Which words are person names, organizations, or locations |
+| Relation extraction | What relationship A and B have |
+| Event extraction | Who did what at what time |
+| AMR / semantic graph | The roles and semantic structure behind the whole sentence |
 
-## 四、为什么它对 RAG 和知识库项目有用？
+## 4. Why is this useful for RAG and knowledge-base projects?
 
-你前面提到的“根据知识库自动写 Word 课件”项目，语义图思路很有帮助。
+The “automatically write Word course materials from a knowledge base” project you mentioned earlier can benefit a lot from semantic-graph ideas.
 
-因为课程材料里常常有：
+That is because course materials often contain:
 
-- 定义
-- 例题
-- 步骤
-- 条件
-- 注意事项
-- 前后因果
+- Definitions
+- Example problems
+- Steps
+- Conditions
+- Notes
+- Cause-and-effect relationships
 
-如果系统只做向量检索，可能会找到相似段落，但不一定理解结构。  
-如果能抽出结构化关系，就可以更稳地组织课件：
+If the system only does vector retrieval, it may find similar paragraphs, but it may not understand the structure.
+If it can extract structured relationships, it can organize course materials more reliably:
 
 ```text
-知识点 -> 定义 -> 例题 -> 解题步骤 -> 常见错误 -> 练习题
+Knowledge point -> Definition -> Example -> Solution steps -> Common mistakes -> Practice questions
 ```
 
-这就是语义图和信息抽取对知识库系统的价值。
+This is the value of semantic graphs and information extraction for knowledge-base systems.
 
-## 五、和句法解析、递归神经网络的关系
+## 5. Relationship to syntactic parsing and recurrent neural networks
 
-在 Transformer 成为主流之前，NLP 有很长时间都在研究句法结构和语义结构。
+Before Transformer became mainstream, NLP spent a long time studying syntactic structure and semantic structure.
 
-其中包括：
+This included:
 
-- 依存句法分析
-- 成分句法分析
-- 语义角色标注
-- 递归神经网络用于树结构表示的探索
+- Dependency parsing
+- Constituency parsing
+- Semantic role labeling
+- Explorations of recurrent neural networks for tree-structured representations
 
-这些工作共同说明一件事：
+Together, these works show one thing:
 
-> **文本理解不只是词向量相似，还包括结构关系。**
+> **Text understanding is not only about word-vector similarity, but also about structural relationships.**
 
-今天很多大模型已经能隐式处理大量结构，但在严肃知识库、法律、医学、教育课件生成里，显式结构仍然很有价值。
+Today, many large models can implicitly handle a lot of structure, but in serious knowledge bases, law, medicine, and educational content generation, explicit structure is still very valuable.
 
-## 六、一个最小结构化抽取示例
+## 6. A minimal example of structured extraction
 
-下面不是完整 AMR，只是模拟“把句子改写成结构”的感觉：
+The following is not a full AMR example. It is just a simulation of the feeling of “rewriting a sentence into structure”:
 
 ```python
-sentence = "吴恩达教授讲授机器学习课程"
+sentence = "Professor Andrew Ng teaches a machine learning course"
 
 semantic_graph = {
-    "event": "讲授",
-    "teacher": "吴恩达教授",
-    "topic": "机器学习课程",
+    "event": "teach",
+    "teacher": "Professor Andrew Ng",
+    "topic": "machine learning course",
 }
 
 for role, value in semantic_graph.items():
     print(role, "=>", value)
 ```
 
-它的重点是让你先看懂：
+The main point is for you to first understand:
 
-- 文本可以被拆成角色
-- 角色可以连接成图
-- 图结构可以服务后续生成和检索
+- Text can be broken into roles
+- Roles can be connected into a graph
+- Graph structures can support later generation and retrieval
 
-## 七、把历史节点分配到课程章节
+## 7. Assigning historical milestones to course chapters
 
-| 历史节点 | 解决的问题 | 对应课程章节 |
+| Historical milestone | Problem it solved | Corresponding course chapter |
 |---|---|---|
-| 句法解析 / 递归神经网络探索 | 树结构语言表示 | 7.5 本节、5.2 Seq2Seq 背景 |
-| AMR | 把句子含义表示成语义图 | 7.5 本节、7.4 信息抽取项目 |
-| 语义角色标注 | 谁对谁做了什么 | 7.4 信息抽取、知识图谱扩展 |
-| Knowledge Graph | 把抽取结果组织成可查询知识 | 第 8 章 RAG、知识库系统 |
+| Syntactic parsing / recurrent neural network explorations | Tree-structured language representation | Section 7.5, Section 5.2 Seq2Seq background |
+| AMR | Representing sentence meaning as a semantic graph | Section 7.5, Section 7.4 information extraction project |
+| Semantic role labeling | Who did what to whom | Section 7.4 information extraction, knowledge graph extensions |
+| Knowledge Graph | Organizing extracted results into queryable knowledge | Chapter 8 RAG, knowledge-base systems |
 
-## 八、学完这一节应该形成的直觉
+## 8. The intuition you should have after learning this section
 
-向量检索告诉你“哪段文本相似”，语义图更关心“这段文本里有哪些角色和关系”。
+Vector retrieval tells you “which text is similar,” while semantic graphs care more about “what roles and relationships exist in this text.”
 
-如果你要做教育课件、知识库问答或自动生成 Word 文档，这个区别非常重要：
+If you are building educational course materials, knowledge-base QA, or automatic Word document generation, this difference is very important:
 
-- 向量检索帮你找资料
-- 信息抽取帮你抓要点
-- 语义图帮你组织结构
-- 大模型帮你按模板生成内容
+- Vector retrieval helps you find materials
+- Information extraction helps you capture key points
+- Semantic graphs help you organize structure
+- Large models help you generate content according to templates
 
-这也是现代知识库应用越来越重视“检索 + 结构化 + 生成”的原因。
+This is also why modern knowledge-base applications increasingly value “retrieval + structure + generation.”

@@ -1,13 +1,13 @@
 ---
-title: "3.5 数据转换"
+title: "3.5 Data Transformation"
 sidebar_position: 13
-description: "掌握 apply、map、排序、排名和替换等数据转换方法"
+description: "Master data transformation methods such as apply, map, sorting, ranking, and replacement"
 ---
 
-# 数据转换
+# Data Transformation
 
-:::tip 本节定位
-很多新人学到这里时会开始有点乱：
+:::tip Section Overview
+Many beginners start to feel a bit confused when they get here:
 
 - `apply`
 - `map`
@@ -15,372 +15,372 @@ description: "掌握 apply、map、排序、排名和替换等数据转换方法
 - `rank`
 - `cut`
 
-这些名字都认识，但一到题目里就容易分不清谁该先上。
+You may know all these names, but once they show up in a problem, it’s easy to mix up which one to use first.
 
-所以这节最重要的不是再背函数，而是先建立一个判断：
+So the most important thing in this section is not memorizing more functions, but first building a clear judgment:
 
-> **我是想“改值”、"造新列"、"做排序排名"，还是“把连续值切成档位”。**
+> **Am I trying to “change values”, “create a new column”, “do sorting/ranking”, or “split continuous values into bins”?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 `apply`、`map`、`applymap` 的用法与区别
-- 学会排序（sort_values）和排名（rank）
-- 掌握数据替换与映射
+- Understand how `apply`, `map`, and `applymap` work and how they differ
+- Learn sorting (`sort_values`) and ranking (`rank`)
+- Master data replacement and mapping
 
 ---
 
-## 先建立一张地图
+## Build a mental map first
 
-数据转换更适合按“我要把这列变成什么”来理解：
+Data transformation is easier to understand by asking: “What do I want this column to become?”
 
-![Pandas 数据转换流水线](/img/course/ch03-pandas-transform-pipeline.png)
+![Pandas data transformation pipeline](/img/course/ch03-pandas-transform-pipeline-en.png)
 
-所以这节真正想解决的是：
+So what this section really aims to solve is:
 
-- 不同转换动作分别在补什么
-- 什么时候该先想到 `map`，什么时候该先想到 `apply`
+- What each transformation action is used for
+- When to think of `map` first, and when to think of `apply` first
 
-## apply：对行或列应用函数
+## apply: Apply a function to rows or columns
 
-`apply` 是 Pandas 最灵活的转换工具——可以把任意函数应用到每一行或每一列。
+`apply` is one of Pandas’ most flexible transformation tools — it can apply any function to each row or each column.
 
-### 一个更适合新人的总类比
+### A better beginner-friendly analogy
 
-你可以把数据转换理解成：
+You can think of data transformation as:
 
-- 给原始数据做“翻译、加工和重新标记”
+- “translating, processing, and relabeling” raw data
 
-有时候你只是想：
+Sometimes you just want to:
 
-- 把代码翻成中文
+- translate codes into English
 
-有时候你想：
+Sometimes you want to:
 
-- 根据一行里几列数据算一个新结果
+- calculate a new result from several columns in one row
 
-有时候你想：
+Sometimes you want to:
 
-- 把连续数字分成高、中、低三档
+- split continuous numbers into three levels: high, medium, and low
 
-这些动作看起来都叫“转换”，  
-但其实是不同类型的问题。
+All of these look like “transformations,”
+but they are actually different types of problems.
 
-### 对列（Series）应用
+### Apply to a column (Series)
 
 ```python
 import pandas as pd
 import numpy as np
 
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "王五", "赵六"],
-    "数学": [85, 92, 78, 95],
-    "英语": [90, 88, 72, 85]
+    "name": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu"],
+    "math": [85, 92, 78, 95],
+    "english": [90, 88, 72, 85]
 })
 
-# 对单列应用内置函数
-print(df["数学"].apply(np.sqrt))  # 每个成绩开方
+# Apply a built-in function to a single column
+print(df["math"].apply(np.sqrt))  # square root of each score
 
-# 对单列应用自定义函数
+# Apply a custom function to a single column
 def grade(score):
-    if score >= 90: return "优秀"
-    elif score >= 80: return "良好"
-    elif score >= 70: return "中等"
-    else: return "及格"
+    if score >= 90: return "excellent"
+    elif score >= 80: return "good"
+    elif score >= 70: return "average"
+    else: return "pass"
 
-df["数学等级"] = df["数学"].apply(grade)
+df["math_grade"] = df["math"].apply(grade)
 print(df)
 
-# 用 lambda 更简洁
-df["英语等级"] = df["英语"].apply(lambda x: "及格" if x >= 60 else "不及格")
+# Use lambda for a more concise expression
+df["english_grade"] = df["english"].apply(lambda x: "pass" if x >= 60 else "fail")
 ```
 
-### 对 DataFrame 按行应用
+### Apply to a DataFrame by row
 
 ```python
-# axis=1 表示对每一行操作
-df["总分"] = df[["数学", "英语"]].apply(np.sum, axis=1)
+# axis=1 means operate on each row
+df["total"] = df[["math", "english"]].apply(np.sum, axis=1)
 
-# 自定义行操作
+# Custom row operation
 def student_info(row):
-    return f"{row['姓名']}的数学{row['数学']}分"
+    return f"{row['name']}'s math score is {row['math']}"
 
-df["描述"] = df.apply(student_info, axis=1)
-print(df[["姓名", "描述"]])
+df["description"] = df.apply(student_info, axis=1)
+print(df[["name", "description"]])
 ```
 
-### 第一次学 `apply`，最该先记什么？
+### When learning `apply` for the first time, what should you remember first?
 
-最值得先记的是：
+The most important thing to remember is:
 
-> **`apply` 最适合做“现成方法不够时的自定义计算”。**
+> **`apply` is best for custom calculations when built-in methods are not enough.**
 
-也就是说，它不是第一反应就该上的工具，  
-而更像：
+In other words, it is not the first tool you should reach for,
+but more like something you use when:
 
-- 规则稍微复杂，没法直接靠一两个内置方法搞定时，再拿出来用
+- the rule is a bit complex and can’t be handled directly by one or two built-in methods
 
 ---
 
-## map：映射替换
+## map: mapping and replacement
 
-`map` 用于 Series，把旧值映射到新值：
+`map` is used on a Series to map old values to new values:
 
 ```python
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "王五"],
-    "性别": ["M", "F", "M"],
-    "部门代码": [1, 2, 1]
+    "name": ["Zhang San", "Li Si", "Wang Wu"],
+    "gender": ["M", "F", "M"],
+    "department_code": [1, 2, 1]
 })
 
-# 用字典映射
-df["性别中文"] = df["性别"].map({"M": "男", "F": "女"})
+# Map with a dictionary
+df["gender_cn"] = df["gender"].map({"M": "male", "F": "female"})
 
-# 部门代码映射
-dept_map = {1: "技术部", 2: "市场部", 3: "管理部"}
-df["部门名称"] = df["部门代码"].map(dept_map)
+# Department code mapping
+dept_map = {1: "Engineering", 2: "Marketing", 3: "Management"}
+df["department_name"] = df["department_code"].map(dept_map)
 
-# 用函数映射
-df["姓名长度"] = df["姓名"].map(len)
+# Map with a function
+df["name_length"] = df["name"].map(len)
 
 print(df)
 ```
 
-### 什么时候最适合先想到 `map`？
+### When is it best to think of `map` first?
 
-当你的脑子里想的是：
+When your brain is thinking about:
 
-- A 代码 -> A 名称
-- M / F -> 男 / 女
-- 月份缩写 -> 中文月份
+- code A -> name A
+- M / F -> male / female
+- month abbreviation -> month name
 
-这种“一个值对一个值”的翻译关系时，  
-通常就该先想到：
+In this kind of “one value maps to one value” translation relationship,
+you usually should think of:
 
 - `map`
 
-### map vs apply 的区别
+### Difference between `map` and `apply`
 
-| 特性 | `map` | `apply` |
+| Feature | `map` | `apply` |
 |------|-------|---------|
-| 作用对象 | 仅 Series | Series 或 DataFrame |
-| 支持字典映射 | ✅ | ❌ |
-| 支持函数 | ✅ | ✅ |
-| 按行操作 | ❌ | ✅（axis=1） |
+| Target object | Series only | Series or DataFrame |
+| Supports dictionary mapping | ✅ | ❌ |
+| Supports functions | ✅ | ✅ |
+| Row-wise operation | ❌ | ✅ (`axis=1`) |
 
 ---
 
-## replace：替换值
+## replace: replace values
 
 ```python
 df = pd.DataFrame({
-    "城市": ["BJ", "SH", "GZ", "SZ", "BJ"],
-    "等级": ["A", "B", "C", "A", "B"]
+    "city": ["BJ", "SH", "GZ", "SZ", "BJ"],
+    "level": ["A", "B", "C", "A", "B"]
 })
 
-# 单值替换
-df["城市"] = df["城市"].replace("BJ", "北京")
+# Replace a single value
+df["city"] = df["city"].replace("BJ", "Beijing")
 
-# 多值替换（字典）
-city_map = {"SH": "上海", "GZ": "广州", "SZ": "深圳"}
-df["城市"] = df["城市"].replace(city_map)
+# Replace multiple values (dictionary)
+city_map = {"SH": "Shanghai", "GZ": "Guangzhou", "SZ": "Shenzhen"}
+df["city"] = df["city"].replace(city_map)
 
 print(df)
 ```
 
-### `map` 和 `replace` 最容易混在哪里？
+### Where do `map` and `replace` get mixed up most easily?
 
-可以先这样记：
+A simple way to remember it is:
 
-- `map` 更像“做映射翻译”
-- `replace` 更像“把某些旧值直接换掉”
+- `map` is more like “mapping and translating”
+- `replace` is more like “directly swapping out old values”
 
-如果你的目标是：
+If your goal is:
 
-- 一整套编码转名称
+- converting a whole set of codes into names
 
-通常更像 `map`；  
-如果你只是想：
+that is usually more like `map`;
+if you just want to:
 
-- 把某个脏值替换掉
+- replace a dirty value
 
-通常更像 `replace`。
+that is usually more like `replace`.
 
 ---
 
-## 排序
+## Sorting
 
-### sort_values：按值排序
+### sort_values: sort by values
 
 ```python
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七"],
-    "年龄": [22, 28, 25, 35, 21],
-    "薪资": [15000, 22000, 18000, 35000, 12000]
+    "name": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu", "Qian Qi"],
+    "age": [22, 28, 25, 35, 21],
+    "salary": [15000, 22000, 18000, 35000, 12000]
 })
 
-# 按薪资升序
-print(df.sort_values("薪资"))
+# Sort by salary ascending
+print(df.sort_values("salary"))
 
-# 按薪资降序
-print(df.sort_values("薪资", ascending=False))
+# Sort by salary descending
+print(df.sort_values("salary", ascending=False))
 
-# 多列排序：先按年龄升序，年龄相同按薪资降序
-print(df.sort_values(["年龄", "薪资"], ascending=[True, False]))
+# Multi-column sort: first by age ascending, and if ages are the same, by salary descending
+print(df.sort_values(["age", "salary"], ascending=[True, False]))
 
-# 取前 3 名（推荐用 nlargest）
-print(df.nlargest(3, "薪资"))
+# Get top 3 (recommended: nlargest)
+print(df.nlargest(3, "salary"))
 
-# 取后 3 名
-print(df.nsmallest(3, "薪资"))
+# Get bottom 3
+print(df.nsmallest(3, "salary"))
 ```
 
-### sort_index：按索引排序
+### sort_index: sort by index
 
 ```python
-df_indexed = df.set_index("姓名")
-print(df_indexed.sort_index())           # 按姓名排序
+df_indexed = df.set_index("name")
+print(df_indexed.sort_index())           # sort by name
 print(df_indexed.sort_index(ascending=False))
 ```
 
 ---
 
-## rank：排名
+## rank: ranking
 
 ```python
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七"],
-    "成绩": [85, 92, 78, 92, 88]
+    "name": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu", "Qian Qi"],
+    "score": [85, 92, 78, 92, 88]
 })
 
-# 默认排名（相同值取平均排名）
-df["排名"] = df["成绩"].rank(ascending=False)
+# Default ranking (equal values get the average rank)
+df["rank"] = df["score"].rank(ascending=False)
 print(df)
-#    姓名  成绩   排名
-# 0  张三   85   4.0
-# 1  李四   92   1.5  ← 并列第 1 名，取 (1+2)/2
-# 2  王五   78   5.0
-# 3  赵六   92   1.5
-# 4  钱七   88   3.0
+#    name  score   rank
+# 0  Zhang San   85   4.0
+# 1  Li Si      92   1.5  ← tied for 1st, average of (1+2)
+# 2  Wang Wu    78   5.0
+# 3  Zhao Liu   92   1.5
+# 4  Qian Qi    88   3.0
 
-# 不同的排名策略
-df["最小排名"] = df["成绩"].rank(ascending=False, method="min")     # 并列取最小
-df["最大排名"] = df["成绩"].rank(ascending=False, method="max")     # 并列取最大
-df["密集排名"] = df["成绩"].rank(ascending=False, method="dense")   # 不跳号
-print(df[["姓名", "成绩", "排名", "最小排名", "密集排名"]])
+# Different ranking strategies
+df["min_rank"] = df["score"].rank(ascending=False, method="min")     # tied values take the smallest rank
+df["max_rank"] = df["score"].rank(ascending=False, method="max")     # tied values take the largest rank
+df["dense_rank"] = df["score"].rank(ascending=False, method="dense")   # no gaps in ranking
+print(df[["name", "score", "rank", "min_rank", "dense_rank"]])
 ```
 
-| method | 并列处理 | 示例(92,92) |
+| method | Tie handling | Example (92, 92) |
 |--------|---------|------------|
-| `average` | 取平均 | 1.5, 1.5 |
-| `min` | 取最小 | 1, 1 |
-| `max` | 取最大 | 2, 2 |
-| `dense` | 密集（不跳号） | 1, 1（下一个是 2） |
-| `first` | 按出现顺序 | 1, 2 |
+| `average` | Take the average | 1.5, 1.5 |
+| `min` | Take the minimum | 1, 1 |
+| `max` | Take the maximum | 2, 2 |
+| `dense` | Dense ranking (no gaps) | 1, 1 (next is 2) |
+| `first` | By order of appearance | 1, 2 |
 
-### 一个很适合初学者先记的选择表
+### A very practical choice table for beginners
 
-| 你现在想做什么 | 更稳的第一反应 |
+| What do you want to do now | Better first choice |
 |---|---|
-| 把代码翻成中文标签 | `map` |
-| 按一行里几列算新结果 | `apply(axis=1)` |
-| 找 Top N / 排序 | `sort_values` / `nlargest` |
-| 做排名 | `rank` |
-| 把连续值切成区间 | `cut` / `qcut` |
+| Translate codes into English labels | `map` |
+| Calculate a new result from several columns in one row | `apply(axis=1)` |
+| Find Top N / sort | `sort_values` / `nlargest` |
+| Rank values | `rank` |
+| Split continuous values into intervals | `cut` / `qcut` |
 
-这个表很适合新人，因为它会把“转换方法很多”重新压回成几个很常见的问题。
+This table is especially useful for beginners, because it turns “there are many transformation methods” back into a few very common problems.
 
 ---
 
-## 其他常用转换
+## Other common transformations
 
-### 值计数
+### Value counts
 
 ```python
 df = pd.DataFrame({
-    "部门": ["技术", "市场", "技术", "管理", "技术", "市场"]
+    "department": ["Engineering", "Marketing", "Engineering", "Management", "Engineering", "Marketing"]
 })
 
-# 每个值出现次数
-print(df["部门"].value_counts())
-# 技术    3
-# 市场    2
-# 管理    1
+# Count how many times each value appears
+print(df["department"].value_counts())
+# Engineering    3
+# Marketing      2
+# Management     1
 
-# 占比
-print(df["部门"].value_counts(normalize=True))
+# Proportion
+print(df["department"].value_counts(normalize=True))
 ```
 
-### 唯一值
+### Unique values
 
 ```python
-print(df["部门"].unique())     # ['技术' '市场' '管理']
-print(df["部门"].nunique())    # 3（唯一值个数）
+print(df["department"].unique())     # ['Engineering' 'Marketing' 'Management']
+print(df["department"].nunique())    # 3 (number of unique values)
 ```
 
-### 分箱（cut / qcut）
+### Binning (`cut` / `qcut`)
 
 ```python
 ages = pd.Series([18, 22, 25, 30, 35, 42, 55, 68])
 
-# 按固定区间分箱
+# Bin by fixed intervals
 bins = [0, 18, 30, 50, 100]
-labels = ["少年", "青年", "中年", "老年"]
+labels = ["teen", "young adult", "middle-aged", "senior"]
 age_group = pd.cut(ages, bins=bins, labels=labels)
 print(age_group)
 
-# 按分位数分箱（每组人数相近）
+# Bin by quantiles (each group has roughly the same number of people)
 quartile_group = pd.qcut(ages, q=4, labels=["Q1", "Q2", "Q3", "Q4"])
 print(quartile_group)
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 操作 | 方法 | 常见用途 |
+| Operation | Method | Common use |
 |------|------|---------|
-| 自定义转换 | `apply()` | 复杂的逐行/逐列计算 |
-| 值映射 | `map()` | 字典映射、编码转换 |
-| 值替换 | `replace()` | 修正错误值 |
-| 排序 | `sort_values()` | Top N、排行榜 |
-| 排名 | `rank()` | 成绩排名 |
-| 值计数 | `value_counts()` | 分类统计 |
-| 分箱 | `cut()` / `qcut()` | 年龄段、收入段 |
+| Custom transformation | `apply()` | Complex row-wise/column-wise calculations |
+| Value mapping | `map()` | Dictionary mapping, code conversion |
+| Value replacement | `replace()` | Fixing incorrect values |
+| Sorting | `sort_values()` | Top N, ranking lists |
+| Ranking | `rank()` | Score ranking |
+| Counting values | `value_counts()` | Category statistics |
+| Binning | `cut()` / `qcut()` | Age bands, income bands |
 
-## 这节最该带走什么
+## What should you take away from this section?
 
-- 数据转换最重要的不是函数名，而是先想清楚你要把数据变成什么
-- `map` 更像映射翻译，`apply` 更像自定义加工
-- 排序、排名和分箱，本质上都是在给数据重新组织表达方式
+- The most important thing in data transformation is not the function name, but first figuring out what you want the data to become
+- `map` is more like mapping and translation, while `apply` is more like custom processing
+- Sorting, ranking, and binning are all essentially ways of reorganizing how data is expressed
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：数据映射
+### Exercise 1: Data mapping
 
 ```python
-# 创建一份包含英文月份缩写的数据
-# 1. 把月份缩写映射为中文
-# 2. 把月份映射为季度（Q1, Q2, Q3, Q4）
+# Create data that contains English month abbreviations
+# 1. Map month abbreviations to month names
+# 2. Map months to quarters (Q1, Q2, Q3, Q4)
 ```
 
-### 练习 2：排名应用
+### Exercise 2: Ranking practice
 
 ```python
-# 创建 20 个学生的 3 科成绩 DataFrame
-# 1. 计算总分
-# 2. 按总分排名（密集排名）
-# 3. 按总分排序，取前 5 名
-# 4. 给每科成绩标注等级（优秀/良好/中等/及格/不及格）
+# Create a DataFrame with scores for 3 subjects for 20 students
+# 1. Calculate the total score
+# 2. Rank by total score (dense ranking)
+# 3. Sort by total score and take the top 5
+# 4. Label each subject score with a grade (excellent/good/average/pass/fail)
 ```
 
-### 练习 3：分箱练习
+### Exercise 3: Binning practice
 
 ```python
-# 有 100 个用户的消费金额数据
-# 1. 用 cut 把消费金额分为 "低消费/中消费/高消费" 三档
-# 2. 用 qcut 平均分成 5 组
-# 3. 统计每组的人数和平均消费
+# You have spending data for 100 users
+# 1. Use cut to divide spending into three levels: "low spending / medium spending / high spending"
+# 2. Use qcut to split them evenly into 5 groups
+# 3. Count the number of users and the average spending in each group
 ```

@@ -1,74 +1,74 @@
 ---
-title: "2.6 概率统计历史主线：Bayes、MLE、EM 与信息论"
+title: "2.6 Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory"
 sidebar_position: 9
-description: "把贝叶斯法则、最大似然估计、EM 算法和香农信息论放进同一条 AI 数学主线，理解它们分别解决什么问题。"
-keywords: [贝叶斯法则, 最大似然估计, EM算法, 香农信息论, AI数学历史]
+description: "Place Bayes' rule, maximum likelihood estimation, the EM algorithm, and Shannon information theory on one AI math timeline, and understand what problems each one solves."
+keywords: [Bayes' rule, maximum likelihood estimation, EM algorithm, Shannon information theory, AI math history]
 ---
 
-# 概率统计历史主线：Bayes、MLE、EM 与信息论
+# Historical Main Line of Probability and Statistics: Bayes, MLE, EM, and Information Theory
 
-![概率统计历史基础地图](/img/course/ch04-probability-history-foundations-map.png)
+![Historical foundation map of probability and statistics](/img/course/ch04-probability-history-foundations-map-en.png)
 
-:::tip 本节定位
-这一节不是额外背历史，而是帮你把概率统计里最容易散掉的概念串起来。
+:::tip Section overview
+This section is not about memorizing extra history. It is here to help you connect the probability and statistics ideas that are easiest to lose track of.
 
-你只需要先记住一句话：
+You only need to remember one sentence first:
 
-> **Bayes 让判断可以随证据更新，MLE 让参数可以从数据里反推，EM 让有隐藏信息的问题也能迭代逼近，Shannon 让不确定性可以被度量。**
+> **Bayes lets judgments update with evidence, MLE lets parameters be inferred from data, EM lets problems with hidden information be approximated iteratively, and Shannon lets uncertainty be measured.**
 :::
 
-## 一、为什么这些老概念今天还在 AI 里反复出现？
+## 1. Why do these old ideas still keep showing up in AI today?
 
-AI 模型看起来很现代，但底层一直在处理三个老问题：
+AI models may look modern, but underneath they have always been dealing with three classic problems:
 
-| 老问题 | 对应思想 | 今天在哪里出现 |
+| Old problem | Corresponding idea | Where it appears today |
 |---|---|---|
-| 新证据来了，判断要不要变？ | 贝叶斯法则 | 分类概率、诊断系统、推荐系统、RAG 置信度 |
-| 参数没人告诉我，怎样从数据里猜？ | 最大似然估计 MLE | 损失函数、逻辑回归、语言模型训练 |
-| 有些变量看不见，还能不能估计参数？ | EM 算法 | 聚类、主题模型、隐变量模型 |
-| 预测到底有多不确定？ | 信息论 | 熵、交叉熵、KL 散度、分类 loss |
+| New evidence arrives—should the judgment change? | Bayes' rule | Classification probabilities, diagnostic systems, recommender systems, RAG confidence |
+| Nobody tells me the parameters—how can I infer them from data? | Maximum likelihood estimation, MLE | Loss functions, logistic regression, language model training |
+| Some variables are invisible—can we still estimate the parameters? | EM algorithm | Clustering, topic models, latent variable models |
+| How uncertain is the prediction, really? | Information theory | Entropy, cross entropy, KL divergence, classification loss |
 
-所以这几个节点不是“数学课的古董”，而是很多现代算法仍在使用的底层语言。
+So these milestones are not “old relics from math class.” They are still the underlying language of many modern algorithms.
 
-## 二、Bayes：新证据来了，判断要更新
+## 2. Bayes: when new evidence arrives, the judgment updates
 
-贝叶斯法则最适合用“侦探更新判断”来理解。
+Bayes' rule is easiest to understand as “a detective updating a judgment.”
 
-一开始你有一个初始判断，叫先验。后来看到新证据，就要把判断更新成后验。
+At the beginning, you have an initial judgment, called the prior. Later, when new evidence appears, you update that judgment into the posterior.
 
 ```text
-先验判断 + 新证据 -> 更新后的判断
+prior judgment + new evidence -> updated judgment
 ```
 
-在 AI 项目里，这个直觉特别常见：
+In AI projects, this intuition shows up all the time:
 
-- 垃圾邮件检测：看到关键词后，邮件是垃圾邮件的概率变了吗？
-- 医疗辅助判断：看到新的检测结果后，某种疾病的可能性变了吗？
-- RAG 问答：检索证据足够强吗，还是应该回答“不确定”？
+- Spam detection: after seeing keywords, does the probability that an email is spam change?
+- Medical decision support: after seeing a new test result, does the likelihood of a disease change?
+- RAG question answering: is the retrieved evidence strong enough, or should the system answer “uncertain”?
 
-贝叶斯法则最重要的不是公式长什么样，而是这个习惯：
+The most important thing about Bayes' rule is not what the formula looks like, but this habit:
 
-> **不要把第一眼判断当成终局，证据会改变概率。**
+> **Do not treat your first impression as final. Evidence can change probabilities.**
 
-## 三、MLE：从数据倒推最可能的参数
+## 3. MLE: infer the most likely parameters from data
 
-最大似然估计回答的是另一个问题：
+Maximum likelihood estimation answers a different question:
 
-> **如果数据已经发生了，哪一组参数最像能生成这些数据？**
+> **If the data has already happened, which set of parameters is most likely to have generated it?**
 
-可以把 MLE 想成“反推案情”：
+You can think of MLE as “working backward from the clues”:
 
-| 侦探故事 | 统计推断 |
+| Detective story | Statistical inference |
 |---|---|
-| 现场留下了痕迹 | 我们观察到了数据 |
-| 不知道真正发生了什么 | 不知道真实参数 |
-| 找最能解释痕迹的故事 | 找最能解释数据的参数 |
+| Traces are left at the scene | We observe data |
+| We do not know what really happened | We do not know the true parameters |
+| Find the story that best explains the traces | Find the parameters that best explain the data |
 
-一个最小例子是抛硬币。你抛了 10 次，8 次正面。  
-那正面概率 `p` 最可能是多少？
+A minimal example is flipping a coin. You flip it 10 times and get heads 8 times.
+What is the most likely value of the heads probability `p`?
 
-直觉上是 `p = 0.8`。  
-MLE 做的就是把这件事数学化：
+Intuitively, it is `p = 0.8`.
+MLE turns this into mathematics:
 
 ```python
 import numpy as np
@@ -83,73 +83,73 @@ p_mle = p_values[np.argmax(likelihood)]
 print(round(p_mle, 2))
 ```
 
-这个思想会在第 5 章逻辑回归、第 6 章交叉熵、第 7 章语言模型训练中反复出现。
+This idea will appear again and again in Chapter 5 logistic regression, Chapter 6 cross entropy, and Chapter 7 language model training.
 
-## 四、EM：看不见的变量，也可以先猜再修
+## 4. EM: even invisible variables can be guessed first and then refined
 
-EM 算法解决的是更麻烦的情况：
+The EM algorithm solves a more difficult case:
 
-> **如果影响数据的某些原因是隐藏的，参数还能不能估计？**
+> **If some causes that affect the data are hidden, can we still estimate the parameters?**
 
-比如你看到一堆用户行为数据，但不知道用户背后属于哪类人群；或者看到一堆文本，但不知道每篇文章潜在主题是什么。
+For example, you may see a batch of user behavior data but not know which user group each user belongs to; or you may see a collection of texts but not know the latent topic of each article.
 
-EM 的直觉像两步循环：
+The intuition of EM is like a two-step loop:
 
-| 步骤 | 在做什么 | 类比 |
+| Step | What it does | Analogy |
 |---|---|---|
-| E-step | 先根据当前参数，猜隐藏变量可能是什么 | 先猜“这条线索属于哪个嫌疑人” |
-| M-step | 再根据猜出来的隐藏变量，更新参数 | 根据新分组重算每个嫌疑人的特征 |
+| E-step | First, using the current parameters, guess what the hidden variables might be | First guess which suspect a clue belongs to |
+| M-step | Then, based on the guessed hidden variables, update the parameters | Recompute each suspect's features based on the new grouping |
 
 ```text
-先猜隐藏信息 -> 更新参数 -> 再猜隐藏信息 -> 再更新参数
+guess hidden information first -> update parameters -> guess hidden information again -> update parameters again
 ```
 
-它告诉新人一件很重要的事：
+It tells beginners something very important:
 
-> **不是所有训练都能一步算出答案，很多模型是在不完整信息里迭代逼近。**
+> **Not all training problems can be solved in one step. Many models reach a solution by iterating toward it with incomplete information.**
 
-## 五、Shannon：不确定性也能被计算
+## 5. Shannon: uncertainty can also be computed
 
-1948 年，Shannon 的信息论把“信息量”和“熵”变成了可以计算的东西。  
-这对 AI 很关键，因为模型训练经常在问：
+In 1948, Shannon's information theory turned “information content” and “entropy” into quantities we can calculate.
+This is crucial for AI, because model training often asks:
 
-- 预测分布有多乱？
-- 模型预测和真实标签差多远？
-- 哪个 token 更意外？
+- How messy is the prediction distribution?
+- How far is the model's prediction from the true label?
+- Which token is more surprising?
 
-例如分类任务里的交叉熵，就可以理解为：
+For example, cross entropy in a classification task can be understood as:
 
-> **模型用自己的概率分布去解释真实答案时，付出了多少信息代价。**
+> **How much information cost the model pays when it uses its own probability distribution to explain the true answer.**
 
-这也是为什么你会在深度学习里不断看到：
+That is why you keep seeing this in deep learning:
 
 ```python
 loss = cross_entropy(prediction, label)
 ```
 
-它表面是一个 loss，背后连着信息论。
+It looks like a loss function on the surface, but underneath it is connected to information theory.
 
-## 六、把历史节点分配到课程章节
+## 6. Assigning historical milestones to course chapters
 
-| 历史节点 | 新人先懂哪句话 | 对应课程章节 |
+| Historical milestone | What a beginner should understand first | Corresponding course chapter |
 |---|---|---|
-| 贝叶斯法则 | 新证据会更新判断 | 2.2 概率基础、5.1 机器学习基础 |
-| 最大似然估计 | 找最能解释数据的参数 | 2.4 统计推断、5.2 监督学习 |
-| EM 算法 | 有隐藏变量时先猜再修 | 2.4 统计推断、5.3 无监督学习 |
-| Shannon 信息论 | 不确定性可以被度量 | 2.5 信息论、6.2 PyTorch loss |
-| MCMC / 贝叶斯推断 | 复杂后验可以用采样近似 | 选修扩展、概率推断背景 |
-| Pearl 因果 | 相关不等于因果 | 第 3 章数据分析、第 9 章决策系统背景 |
+| Bayes' rule | New evidence updates the judgment | 2.2 Probability foundations, 5.1 Machine learning basics |
+| Maximum likelihood estimation | Find the parameters that best explain the data | 2.4 Statistical inference, 5.2 Supervised learning |
+| EM algorithm | When there are hidden variables, guess first and then refine | 2.4 Statistical inference, 5.3 Unsupervised learning |
+| Shannon information theory | Uncertainty can be measured | 2.5 Information theory, 6.2 PyTorch loss |
+| MCMC / Bayesian inference | Complex posteriors can be approximated by sampling | Elective extension, background in probabilistic inference |
+| Pearl causality | Correlation is not the same as causation | Chapter 3 data analysis, Chapter 9 decision systems background |
 
-## 七、学完这一节应该形成的直觉
+## 7. The intuition you should have after learning this section
 
-这几条历史线其实在帮你建立 AI 的“判断语言”：
+These historical lines are really helping you build the “language of judgment” in AI:
 
-- Bayes 让你知道：判断会随证据变化
-- MLE 让你知道：训练可以看成从数据反推参数
-- EM 让你知道：隐藏信息可以通过迭代逼近
-- Shannon 让你知道：不确定性、错误和信息差可以量化
+- Bayes tells you that judgments change with evidence
+- MLE tells you that training can be seen as inferring parameters from data
+- EM tells you that hidden information can be approximated iteratively
+- Shannon tells you that uncertainty, error, and information gaps can be quantified
 
-当你以后看到 `probability`、`likelihood`、`entropy`、`cross entropy`、`KL divergence` 时，不要只把它们看成公式。  
-它们背后都在回答同一个问题：
+When you later see `probability`, `likelihood`, `entropy`, `cross entropy`, or `KL divergence`, do not think of them only as formulas.
+They are all answering the same question underneath:
 
-> **在不确定的世界里，模型怎样做出可计算、可更新、可优化的判断？**
+> **In an uncertain world, how does a model make judgments that are computable, updatable, and optimizable?**

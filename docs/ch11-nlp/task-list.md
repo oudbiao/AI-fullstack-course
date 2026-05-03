@@ -1,81 +1,80 @@
 ---
-title: "阶段学习任务单"
-description: "把自然语言处理方向阶段拆成可执行的学习任务、练习产出和通关标准。"
-keywords: [NLP, 文本分类, 信息抽取, 预训练模型, 学习任务单]
+title: "Stage Learning Task Sheet"
+description: "Break the natural language processing stage into actionable learning tasks, practice deliverables, and pass criteria."
+keywords: [NLP, text classification, information extraction, pre-trained models, learning task sheet]
 ---
 
-# 阶段学习任务单：自然语言处理
+# Stage Learning Task Sheet: Natural Language Processing
 
-这个阶段的目标是让你理解文本任务如何从清洗、表示、建模、评估走到真实应用。即使大模型已经很强，传统 NLP、文本标注、任务定义和错误分析仍然是做可靠文本系统的基础。
+The goal of this stage is to help you understand how text tasks move from cleaning, representation, and modeling to evaluation and real-world applications. Even though LLMs are already very powerful, traditional NLP, text annotation, task definition, and error analysis are still the foundation for building reliable text systems.
 
-## 本阶段必须完成的任务
+## Tasks you must complete in this stage
 
-| 任务 | 产出物 | 通过标准 |
+| Task | Deliverable | Pass Criteria |
 | --- | --- | --- |
-| 理解文本预处理 | 一个文本清洗脚本 | 能处理分词、大小写、停用词、标点和特殊字符 |
-| 完成文本表示实验 | 一份表示方法对比记录 | 能比较 BoW、TF-IDF、Embedding 和预训练模型表示 |
-| 完成文本分类任务 | 一个分类 Demo | 能说明标签、数据划分、指标和错误样本 |
-| 完成抽取或摘要练习 | 一个信息抽取/摘要样例 | 能说明字段边界、事实一致性和评估方式 |
-| 完成阶段项目 | 一个文本理解小项目 | 有输入输出、指标、失败样本和 README |
+| Understand text preprocessing | A text cleaning script | Can handle tokenization, casing, stop words, punctuation, and special characters |
+| Complete a text representation experiment | A comparison record of representation methods | Can compare BoW, TF-IDF, Embedding, and pre-trained model representations |
+| Complete a text classification task | A classification demo | Can explain labels, data splitting, metrics, and error samples |
+| Complete an extraction or summarization exercise | An information extraction/summarization example | Can explain field boundaries, factual consistency, and evaluation methods |
+| Complete the stage project | A small text understanding project | Has input/output, metrics, failure samples, and a README |
 
-## 推荐学习顺序
+## Recommended learning order
 
-先学习文本清洗和表示，再学习分类、序列标注、预训练模型和项目实践。不要只看模型名称，要关注文本任务的标签定义、样本边界、评估指标和错误类型。
+First learn text cleaning and representation, then learn classification, sequence labeling, pre-trained models, and project practice. Do not focus only on model names; pay attention to task label definitions, sample boundaries, evaluation metrics, and error types.
 
-NLP 项目特别容易出现“看起来通顺但事实不对”的问题。做摘要、问答、信息抽取时，要保留来源、证据和失败样本。
+NLP projects are especially prone to the problem of “sounds fluent but is factually wrong.” When doing summarization, question answering, or information extraction, keep the source, evidence, and failure samples.
 
-## 和 AI 学习助手项目的关系
+## Relationship to the AI learning assistant project
 
-本阶段可以为 AI 学习助手补充文本理解能力，例如对学习问题分类、抽取知识点、生成摘要、识别复习主题，或把学习日志转成结构化记录。
+This stage can add text understanding capabilities to the AI learning assistant, such as classifying learning questions, extracting key knowledge points, generating summaries, identifying review topics, or turning study logs into structured records.
 
-建议最小功能包括：输入一条学习问题，输出所属阶段、关键词、建议章节和置信度，并记录分类错误样本。
+A recommended minimum feature set is: input one learning question, output its stage, keywords, suggested chapter, and confidence score, and record misclassified samples.
 
-## 常见卡点
+## Common sticking points
 
-常见问题包括文本清洗过度导致信息丢失，标签边界不清导致模型混淆，类别不平衡导致准确率虚高，摘要遗漏关键条件，抽取字段类型不稳定。排查时先看原始文本、标签规则、错误样本和指标是否匹配任务目标。
+Common issues include over-cleaning text and losing information, unclear label boundaries that confuse the model, class imbalance that inflates accuracy, summaries that miss key conditions, and unstable field types in extraction. When troubleshooting, first check whether the raw text, label rules, error samples, and metrics match the task goal.
 
+## Easy mode / Standard mode / Challenge mode tasks
 
-## 轻松版 / 标准版 / 挑战版任务
-
-| 难度 | 你要完成什么 | 适合谁 |
+| Difficulty | What you need to complete | Who it is for |
 |---|---|---|
-| 轻松版 | 完成一组文本标签样例 | 第一遍学习、时间少或刚入门的学习者 |
-| 标准版 | 输出指标和错误文本 | 希望把本阶段放进作品集的学习者 |
-| 挑战版 | 重写标签边界并比较前后结果 | 已有基础、想做更强项目证据的学习者 |
+| Easy mode | Complete a set of text labeling examples | First-time learners, learners with limited time, or beginners |
+| Standard mode | Output metrics and error texts | Learners who want to include this stage in their portfolio |
+| Challenge mode | Redefine label boundaries and compare results before and after | Learners with a foundation who want stronger project evidence |
 
-## 本阶段徽章与 Boss 战
+## Stage badge and boss battle
 
-| 类型 | 内容 |
+| Type | Content |
 |---|---|
-| Boss 战 | 文本标签审判官 |
-| 可解锁徽章 | 标签设计师、文本错误分析师 |
-| 最小通关口号 | 先跑通、再解释、再记录失败 |
-| 证据保存建议 | 把截图、日志、失败样本或评估表保存到 `reports/`、`evals/` 或 `logs/` |
+| Boss Battle | The Text Label Judge |
+| Unlockable Badges | Label Designer, Text Error Analyst |
+| Minimum pass slogan | Get it running first, then explain it, then record failures |
+| Evidence saving suggestion | Save screenshots, logs, failure samples, or evaluation tables to `reports/`, `evals/`, or `logs/` |
 
-完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
+Completing Easy mode is enough to move forward; completing Standard mode is recommended before adding it to your portfolio; Challenge mode should only be done when you have extra bandwidth.
 
-## 阶段作品集交付物
+## Stage portfolio deliverables
 
-如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。
+If you want to turn your achievements from this stage into portfolio material, it is recommended to keep at least the following files or equivalent materials.
 
-| 交付物 | 说明 |
+| Deliverable | Description |
 | --- | --- |
-| `text_cleaning.py` | 文本清洗、分词、规范化和样例输出 |
-| `label_guide.md` | 标签定义、边界案例、正负例和标注规则 |
-| `classification_report.md` | 指标、混淆矩阵、错误样本和模型对比 |
-| `extraction_examples.jsonl` | 信息抽取或结构化输出样例 |
-| `README.md` | 项目目标、运行方式、输入输出、评估和限制 |
+| `text_cleaning.py` | Text cleaning, tokenization, normalization, and sample output |
+| `label_guide.md` | Label definitions, boundary cases, positive and negative examples, and annotation rules |
+| `classification_report.md` | Metrics, confusion matrix, error samples, and model comparisons |
+| `extraction_examples.jsonl` | Information extraction or structured output examples |
+| `README.md` | Project goals, how to run it, input/output, evaluation, and limitations |
 
-这些材料会让 NLP 项目从“模型能输出文本”升级成“任务定义清楚、评估可信、失败可复盘”。
+These materials will upgrade an NLP project from “the model can output text” to “the task definition is clear, the evaluation is trustworthy, and failures can be reviewed.”
 
-## 阶段通关问题
+## Stage pass questions
 
-学完后，你应该能回答这些问题：为什么文本清洗会影响模型效果，TF-IDF 和 Embedding 的区别是什么，文本分类为什么需要标签规则，摘要和抽取如何检查事实一致性，什么时候传统 NLP 方法比大模型更合适。
+After studying this stage, you should be able to answer these questions: Why does text cleaning affect model performance? What is the difference between TF-IDF and Embedding? Why does text classification need label rules? How do summarization and extraction check factual consistency? When is a traditional NLP method more suitable than an LLM?
 
-## 完成状态 Checklist
+## Completion status checklist
 
-- [ ] 我能完成一次文本清洗和表示方法对比。
-- [ ] 我能定义一个文本分类任务的标签和评估指标。
-- [ ] 我能完成一个分类、抽取、摘要或问答小项目。
-- [ ] 我记录了错误样本，并能解释失败来自数据、标签、模型还是生成。
-- [ ] 我能说明 NLP 能力如何支撑 RAG、Agent 或学习助手项目。
+- [ ] I can complete one round of text cleaning and representation-method comparison.
+- [ ] I can define the labels and evaluation metrics for a text classification task.
+- [ ] I can complete a small project in classification, extraction, summarization, or question answering.
+- [ ] I have recorded error samples and can explain whether the failure came from data, labels, the model, or generation.
+- [ ] I can explain how NLP capabilities support RAG, Agent, or learning assistant projects.

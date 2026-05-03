@@ -1,97 +1,96 @@
 ---
-title: "5.3 NLP 中的注意力机制"
+title: "5.3 Attention Mechanism in NLP"
 sidebar_position: 2
-description: "从 encoder-decoder 的信息瓶颈讲起，理解注意力如何让生成端动态查看输入不同位置。"
+description: "Starting from the information bottleneck in encoder-decoder models, understand how attention lets the generation side dynamically inspect different positions in the input."
 keywords: [attention, seq2seq, encoder decoder, alignment, NLP]
 ---
 
-# NLP 中的注意力机制
+# Attention Mechanism in NLP
 
-![Seq2Seq 注意力对齐图](/img/course/seq2seq-attention-alignment.png)
+![Seq2Seq Attention Alignment Diagram](/img/course/seq2seq-attention-alignment-en.png)
 
-:::tip 本节定位
-上一节我们提到 Seq2Seq 的一个典型问题：
+:::tip Section Overview
+In the previous section, we mentioned a typical problem in Seq2Seq:
 
-- 输入被压成一个固定向量后，长句子信息容易丢失
+- After the input is compressed into a fixed vector, information from long sentences is easily lost
 
-注意力机制解决的正是这个瓶颈：
+The attention mechanism solves exactly this bottleneck:
 
-> **生成每个输出词时，不必只靠一个固定表示，而是可以重新查看输入序列里最相关的位置。**
+> **When generating each output word, the model does not have to rely on only one fixed representation. Instead, it can re-check the most relevant positions in the input sequence.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解注意力机制出现的背景
-- 理解“对齐”和“加权聚合”的核心直觉
-- 通过可运行示例理解注意力权重和上下文向量
-- 建立注意力和后续 Transformer 之间的连接感
+- Understand the background for the emergence of attention mechanisms
+- Understand the core intuition of “alignment” and “weighted aggregation”
+- Use a runnable example to understand attention weights and context vectors
+- Build an intuitive connection between attention and the later Transformer
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-注意力机制这节最适合新人的理解顺序是：
+The most beginner-friendly learning order for this section is:
 
 ```mermaid
 flowchart LR
-    A["固定长度编码向量"] --> B["长句子容易丢信息"]
-    B --> C["解码时重新看输入"]
-    C --> D["给不同位置分不同权重"]
-    D --> E["得到上下文向量"]
+    A["Fixed-length encoded vector"] --> B["Long sentences easily lose information"]
+    B --> C["Re-check the input during decoding"]
+    C --> D["Assign different weights to different positions"]
+    D --> E["Get a context vector"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么固定向量会成为瓶颈
-- 为什么“动态看输入”会更自然
+- Why a fixed vector becomes a bottleneck
+- Why “dynamically looking at the input” is more natural
 
-### 一个更适合新人的总类比
+### A Better Overall Analogy for Beginners
 
-你可以把注意力理解成：
+You can think of attention as:
 
-- 做阅读理解时一边看题目，一边回原文找最相关的句子
+- While doing reading comprehension, you look at the question and go back to the original text to find the most relevant sentence
 
-如果没有注意力，  
-就像你只能在读完全文后的最后一秒，把整篇文章压成一个模糊印象再作答。  
-这当然会越来越吃力。
+Without attention,
+it is like you can only compress the whole article into a vague impression in the last second after reading it, and then answer the question.
+That quickly becomes exhausting.
 
-有了注意力之后，模型就更像是在做：
+With attention, the model is more like this:
 
-- 当前要生成这个词，我该回头重点看输入里的哪一块？
+- For the word I am generating now, which part of the input should I focus on?
 
-## 一、为什么 Seq2Seq 需要注意力？
+## 1. Why Does Seq2Seq Need Attention?
 
-### 1.1 固定长度编码容易丢信息
+### 1.1 Fixed-Length Encoding Easily Loses Information
 
-如果输入是：
+If the input is:
 
-- 很长的句子
-- 复杂的段落
+- a very long sentence
+- a complex paragraph
 
-只把它压成一个固定向量，  
-解码器后面会很吃力。
+then compressing it into a single fixed vector will make the decoder struggle later.
 
-### 1.2 解码器在不同时间步关注点应该不同
+### 1.2 The Decoder Should Focus on Different Things at Different Time Steps
 
-例如翻译时：
+For example, in translation:
 
-- 生成第 1 个词时关注输入前半
-- 生成后面的词时关注输入别的位置
+- When generating the first word, focus on the beginning of the input
+- When generating later words, focus on other positions in the input
 
-所以“整个输出过程只看同一个向量”并不自然。
+So “looking at the same vector for the entire output process” is not very natural.
 
-### 1.3 注意力的核心直觉
+### 1.3 The Core Intuition of Attention
 
-每次生成输出时，  
-都根据当前解码状态去问：
+Each time an output is generated,
+the model asks based on the current decoder state:
 
-- 输入序列里谁和我最相关？
+- Which parts of the input sequence are most relevant to me?
 
-然后把相关位置加权聚合成当前上下文。
+Then it aggregates the relevant positions with weights to form the current context.
 
 ---
 
-## 二、先跑一个最小注意力示例
+## 2. Run a Minimal Attention Example First
 
 ```python
 import math
@@ -127,30 +126,30 @@ print("weights:", weights)
 print("context:", [round(x, 4) for x in context])
 ```
 
-### 2.1 这段代码最该看什么？
+### 2.1 What Should You Focus on in This Code?
 
-三步最关键：
+The three key steps are:
 
-1. `query` 和每个 `encoder_state` 打分
-2. `softmax` 得到注意力权重
-3. 用权重对 encoder states 做加权平均
+1. Score `query` against each `encoder_state`
+2. Use `softmax` to get attention weights
+3. Use the weights to compute a weighted average of the encoder states
 
-### 2.2 为什么这已经体现了注意力本质？
+### 2.2 Why Does This Already Show the Essence of Attention?
 
-因为它回答了两个核心问题：
+Because it answers two core questions:
 
-- 该看谁
-- 看多少
+- Who should I look at?
+- How much should I look?
 
-这就是注意力最重要的直觉。
+That is the most important intuition behind attention.
 
-### 2.3 新人第一次学注意力，最该先记哪三件事？
+### 2.3 For a Beginner Learning Attention for the First Time, What Three Things Should You Remember First?
 
-1. `query` 代表当前想找什么
-2. `score` 代表每个输入位置和当前需求有多相关
-3. `weights` 经过 softmax 后，决定“每个位置看多少”
+1. `query` represents what you are currently looking for
+2. `score` represents how relevant each input position is to the current need
+3. `weights`, after softmax, determine “how much to look at” each position
 
-### 2.4 再看一个最小“输出词对输入词”的对齐示例
+### 2.4 Another Minimal Example of Alignment Between an Output Word and Input Words
 
 ```python
 source_tokens = ["i", "love", "nlp"]
@@ -161,99 +160,99 @@ for token, weight in zip(source_tokens, attention_weights):
     print({"source_token": token, "weight": weight})
 ```
 
-这个示例虽然比真实模型简单很多，  
-但很适合帮助新人先建立一个图像化感觉：
+Although this example is much simpler than a real model,
+it is very helpful for beginners to first build a visual sense:
 
-- 生成当前输出词时
-- 模型不是平均看所有输入
-- 而是会把更多注意力放到更相关的位置上
-
----
-
-## 三、注意力为什么会显著改善 Seq2Seq？
-
-### 3.1 它缓解了信息瓶颈
-
-输入不再只能通过一个固定向量传递给解码器。
-
-### 3.2 它让输入输出对齐更自然
-
-很多翻译任务本来就有“某个输出词大致对应输入哪些词”的结构。  
-注意力让这种对齐更容易学到。
-
-### 3.3 这也是从经典 Seq2Seq 走向 Transformer 的桥梁
-
-后面 Transformer 把注意力推广得更彻底，  
-但这节的直觉基础是一样的。
-
-### 3.4 第一次学这节时，最值得先看的不是公式，而是流程
-
-更稳的理解顺序通常是：
-
-1. 先看固定编码为什么会卡住
-2. 再看 query 在“问什么”
-3. 再看 score 和 weight 怎样分配注意力
-4. 最后再去看上下文向量怎么被算出来
-
-这样会比一上来就盯矩阵公式更容易稳住。
+- When generating the current output word
+- The model does not average over all input tokens equally
+- Instead, it puts more attention on more relevant positions
 
 ---
 
-## 四、最容易踩的坑
+## 3. Why Does Attention Significantly Improve Seq2Seq?
 
-### 4.1 误区一：注意力只是一个加权平均小技巧
+### 3.1 It Relieves the Information Bottleneck
 
-不止。  
-它改变了模型如何访问输入信息。
+The input no longer has to be passed to the decoder through only one fixed vector.
 
-### 4.2 误区二：有注意力就再也不会丢信息
+### 3.2 It Makes Input-Output Alignment More Natural
 
-不是。  
-长序列仍然会有难题，只是瓶颈被显著缓解。
+Many translation tasks already have a structure where “a certain output word roughly corresponds to some input words.”
+Attention makes this alignment easier to learn.
 
-### 4.3 误区三：注意力就是 Transformer
+### 3.3 It Is Also the Bridge from Classic Seq2Seq to Transformer
 
-注意力是更大的概念，Transformer 是在其上发展出的完整架构。
+Later, Transformer extends attention more thoroughly,
+but the intuitive foundation in this section is the same.
 
-## 如果把它做成笔记或项目，最值得展示什么
+### 3.4 When Learning This Section for the First Time, the Most Worthwhile Thing to Look at Is the Process, Not the Formula
 
-最值得展示的通常不是：
+A more stable learning order is usually:
 
-- 一行“用了 attention”
+1. First see why fixed encoding gets stuck
+2. Then see what the query is “asking for”
+3. Then see how scores and weights distribute attention
+4. Finally, look at how the context vector is computed
 
-而是：
-
-1. 输入序列
-2. 当前输出位置
-3. 各输入位置的权重
-4. 哪些位置被重点关注
-
-这样别人一眼就能看出：
-
-- 你理解的是注意力在“怎么对齐输入”
-- 不只是知道它是个热门词
-
-## 小结
-
-这节最重要的是建立一个桥接直觉：
-
-> **注意力机制让解码器在生成每一步时都能重新查看输入序列里最相关的位置，从而缓解固定编码向量的信息瓶颈。**
-
-只要这层理解清楚，你后面再学 Transformer 的自注意力就会轻松很多。
+This is usually easier than staring at matrix formulas from the start.
 
 ---
 
-## 这节最该带走什么
+## 4. The Most Common Pitfalls
 
-- 注意力不是小技巧，而是在改变模型访问输入信息的方式
-- 它最重要的价值是缓解固定编码的信息瓶颈
-- 这节一旦看懂，后面 Transformer 会顺很多
+### 4.1 Mistake 1: Attention Is Just a Weighted Average Trick
+
+Not quite.
+It changes how the model accesses input information.
+
+### 4.2 Mistake 2: With Attention, Nothing Is Ever Lost
+
+No.
+Long sequences still remain difficult; the bottleneck is just significantly reduced.
+
+### 4.3 Mistake 3: Attention Is the Same as Transformer
+
+Attention is a broader concept, and Transformer is a complete architecture developed on top of it.
+
+## If You Turn This Into Notes or a Project, What Is Most Worth Showing?
+
+What is most worth showing is usually not:
+
+- “attention was used” in one line
+
+but rather:
+
+1. The input sequence
+2. The current output position
+3. The weights for each input position
+4. Which positions received the most focus
+
+That way, others can immediately see:
+
+- You understand how attention aligns to the input
+- Not just that it is a buzzword
+
+## Summary
+
+The most important thing in this section is to build a bridging intuition:
+
+> **The attention mechanism lets the decoder re-check the most relevant positions in the input sequence at each generation step, thereby relieving the information bottleneck of a fixed encoded vector.**
+
+Once you understand this clearly, learning self-attention in Transformer later will become much easier.
 
 ---
 
-## 练习
+## What You Should Take Away from This Section
 
-1. 改一改 `query`，看看注意力权重会如何变化。
-2. 用自己的话解释：为什么 Seq2Seq 会需要“动态看输入”而不是只看固定向量？
-3. `weights` 为什么要经过 softmax？
-4. 想一想：这节的注意力和后面 Transformer 的自注意力，核心相同点是什么？
+- Attention is not a small trick; it changes how the model accesses input information
+- Its most important value is relieving the bottleneck of fixed encoding
+- Once you understand this section, Transformer will feel much smoother to learn
+
+---
+
+## Exercises
+
+1. Change `query` and see how the attention weights change.
+2. Explain in your own words: why does Seq2Seq need to “dynamically look at the input” instead of relying only on a fixed vector?
+3. Why do `weights` need to go through softmax?
+4. Think about it: what is the core similarity between the attention in this section and the self-attention in Transformer later?

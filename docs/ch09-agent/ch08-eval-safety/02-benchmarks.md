@@ -1,64 +1,64 @@
 ---
-title: "8.3 Agent 评估基准"
+title: "8.3 Agent Benchmarking"
 sidebar_position: 45
-description: "理解通用 benchmark 和自建业务评估集的区别，学会为自己的 Agent 项目设计更有用的评估基准。"
+description: "Understand the difference between general benchmarks and custom business evaluation sets, and learn how to design more useful evaluation benchmarks for your own Agent project."
 keywords: [agent benchmark, eval set, benchmark, SWE-bench, WebArena]
 ---
 
-# Agent 评估基准
+# Agent Benchmarking
 
-:::tip 本节定位
-Benchmark 可以帮你了解模型和 Agent 能力边界，但它不能替代你自己的项目评估集。真正上线时，最重要的是你的用户任务能不能稳定完成。
+:::tip Section Overview
+Benchmarks can help you understand the capability boundaries of a model or Agent, but they cannot replace your own project evaluation set. When it comes to production, the most important thing is whether your users’ tasks can be completed reliably.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解通用 benchmark 的价值和局限
-- 知道为什么业务 Agent 必须有自建评估集
-- 能设计一个小型项目 benchmark
-- 能避免为了刷榜而忽略真实任务
+- Understand the value and limitations of general benchmarks
+- Know why business Agents must have custom evaluation sets
+- Be able to design a small project benchmark
+- Avoid ignoring real tasks just to chase leaderboard scores
 
 ---
 
-## 一、Benchmark 解决什么问题
+## 1. What Problem Do Benchmarks Solve
 
-Benchmark 的作用是提供一组固定任务，让不同模型或系统可以比较。比如代码 Agent 可以看修 bug 能力，网页 Agent 可以看浏览器操作能力，工具 Agent 可以看多步骤调用能力。
+The purpose of a benchmark is to provide a fixed set of tasks so different models or systems can be compared. For example, a coding Agent can be evaluated on bug-fixing ability, a web Agent can be evaluated on browser operation ability, and a tool Agent can be evaluated on multi-step tool use.
 
 ```mermaid
 flowchart LR
-  A[固定任务集] --> B[统一评分]
-  B --> C[比较模型或系统]
-  C --> D[发现能力边界]
+  A[Fixed task set] --> B[Unified scoring]
+  B --> C[Compare models or systems]
+  C --> D[Find capability boundaries]
 ```
 
-它的价值在于可重复、可对比、能观察趋势。但它不一定代表你的真实业务。
+Its value lies in being repeatable, comparable, and useful for observing trends. But it does not necessarily represent your real business use case.
 
-## 二、常见 Agent benchmark 类型
+## 2. Common Types of Agent Benchmarks
 
-| 类型 | 评估重点 | 典型任务 |
+| Type | Evaluation Focus | Typical Tasks |
 |---|---|---|
-| 代码类 | 修改代码、修复测试、理解仓库 | issue 修复、单元测试通过 |
-| Web 类 | 浏览网页、填写表单、查找信息 | 多步骤浏览器任务 |
-| 工具调用类 | 选择工具、生成参数、处理结果 | API 调用、函数组合 |
-| 长任务类 | 计划、执行、恢复、总结 | 调研、分析、报告生成 |
+| Code-based | Modify code, fix tests, understand repositories | Fix issues, pass unit tests |
+| Web-based | Browse webpages, fill forms, find information | Multi-step browser tasks |
+| Tool-calling | Choose tools, generate parameters, handle results | API calls, function composition |
+| Long-horizon tasks | Plan, execute, recover, summarize | Research, analysis, report generation |
 
-学习这些 benchmark 时，重点不是记名字，而是看它们如何定义任务、输入、评分和失败。
+When learning these benchmarks, the key is not to memorize the names, but to understand how they define tasks, inputs, scoring, and failures.
 
-## 三、为什么还要自建项目评估集
+## 3. Why You Still Need a Custom Project Evaluation Set
 
-通用 benchmark 无法覆盖你的课程文档、你的工具权限、你的用户目标和你的业务边界。例如你的“AI 学习助手”需要回答课程问题、生成复习计划、引用章节来源、避免编造课程内容。这些都必须用自己的评估集来测。
+General benchmarks cannot cover your course docs, your tool permissions, your user goals, and your business constraints. For example, your “AI learning assistant” needs to answer course questions, generate study plans, cite chapter sources, and avoid inventing course content. All of these must be tested with your own evaluation set.
 
-自建评估集最少包含 20 条样本：10 条正常任务、5 条边界任务、3 条工具失败任务、2 条安全或权限任务。每条样本都应该有成功标准。
+A custom evaluation set should include at least 20 samples: 10 normal tasks, 5 boundary cases, 3 tool failure cases, and 2 safety or permission cases. Each sample should have clear success criteria.
 
-## 四、一个课程 Agent benchmark 示例
+## 4. An Example Benchmark for a Course Agent
 
 ```json
 {
   "id": "course_agent_008",
-  "task": "帮我制定一周 RAG 复习计划，并引用课程入口",
-  "expected_capabilities": ["检索课程文档", "生成计划", "给出来源"],
-  "must_include": ["RAG 基础", "检索策略", "RAG 评估"],
-  "must_not_do": ["编造不存在章节", "调用写文件工具"],
+  "task": "Help me create a one-week RAG study plan and cite the course entry point",
+  "expected_capabilities": ["retrieve course docs", "generate a plan", "provide sources"],
+  "must_include": ["RAG basics", "retrieval strategy", "RAG evaluation"],
+  "must_not_do": ["invent non-existent chapters", "call the write-file tool"],
   "scoring": {
     "coverage": 2,
     "source_accuracy": 2,
@@ -67,27 +67,27 @@ flowchart LR
 }
 ```
 
-这个例子比“回答是否满意”更可执行，因为它明确了必须包含什么、不能做什么、怎么打分。
+This example is more actionable than simply asking whether the answer is satisfactory, because it clearly defines what must be included, what must not be done, and how to score it.
 
-## 五、Benchmark 的局限
+## 5. Limitations of Benchmarks
 
-Benchmark 容易被过拟合。系统可能在固定任务上表现很好，但换成真实用户输入就不稳定。Benchmark 也可能忽略成本、延迟、安全和可维护性。对 Agent 来说，执行轨迹是否可解释，有时比最终分数更重要。
+Benchmarks are easy to overfit. A system may perform very well on fixed tasks, but become unstable when given real user input. Benchmarks may also ignore cost, latency, safety, and maintainability. For Agents, whether the execution trace is explainable is sometimes more important than the final score.
 
-## 六、推荐使用方式
+## 6. Recommended Way to Use Benchmarks
 
-先用通用 benchmark 建立能力直觉，再用自建评估集验证项目质量。每次改 Prompt、换模型、改工具 schema、加检索策略，都在同一套评估集上跑一遍。这样你才能知道改动是提升、退化还是只改变了输出风格。
+Start with general benchmarks to build intuition about capability, then use a custom evaluation set to validate project quality. Every time you change the Prompt, switch models, modify the tool schema, or add a retrieval strategy, run the same evaluation set again. That way, you can tell whether the change improved performance, made it worse, or only changed the output style.
 
-## 常见误区
+## Common Mistakes
 
-第一个误区是把 benchmark 分数当成上线质量。第二个误区是只测正常任务，不测失败和边界任务。第三个误区是评估样本太少，靠几个 demo 判断系统好坏。第四个误区是没有保存历史结果，导致无法比较版本变化。
+The first mistake is treating benchmark scores as production quality. The second is only testing normal tasks and not testing failures or boundary cases. The third is having too few evaluation samples and judging the system based on a few demos. The fourth is not saving historical results, which makes version comparison impossible.
 
-## 练习
+## Exercises
 
-1. 为你的课程问答助手设计 20 条 benchmark 样本。
-2. 给每条样本写 must_include、must_not_do 和评分规则。
-3. 设计 3 条工具失败场景，例如检索为空、API 超时、权限不足。
-4. 解释为什么 benchmark 不能替代线上监控。
+1. Design 20 benchmark samples for your course Q&A assistant.
+2. Write must_include, must_not_do, and scoring rules for each sample.
+3. Design 3 tool failure scenarios, such as empty retrieval results, API timeout, or insufficient permissions.
+4. Explain why benchmarks cannot replace production monitoring.
 
-## 过关标准
+## Passing Criteria
 
-学完本节后，你应该能解释通用 benchmark 和自建评估集的区别，能为自己的 Agent 项目设计小型 benchmark，并能用固定评估集比较不同模型、Prompt 和工具设计的效果。
+After completing this section, you should be able to explain the difference between general benchmarks and custom evaluation sets, design a small benchmark for your own Agent project, and use a fixed evaluation set to compare the effectiveness of different models, Prompts, and tool designs.

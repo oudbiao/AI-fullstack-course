@@ -1,18 +1,18 @@
 ---
 sidebar_position: 5
-title: "环境准备"
-description: "AI 全栈课程所需的电脑配置、Python、VS Code、Git、Jupyter、GPU 与大模型 API 环境准备说明。"
-keywords: [AI环境配置, Python环境, VS Code, Git, Jupyter, GPU, 大模型API]
+title: "Environment Setup"
+description: "Instructions for computer requirements and setting up Python, VS Code, Git, Jupyter, GPU, and large model API environments needed for the AI full-stack course."
+keywords: [AI environment setup, Python environment, VS Code, Git, Jupyter, GPU, large model API]
 ---
 
-# 环境准备
+# Environment Setup
 
-> **目标：** 确认你的电脑满足要求，了解需要安装的工具  
-> **说明：** 这里只做概览。每个工具的详细安装步骤在 1 开发者工具基础的对应章节里有手把手教程。
+> **Goal:** Make sure your computer meets the requirements and understand which tools need to be installed
+> **Note:** This is only an overview. Detailed installation steps for each tool are covered in the corresponding chapters of Part 1: Developer Tools Basics, with step-by-step tutorials.
 
 ---
 
-## 新人先装什么
+## What beginners should install first
 
 ```mermaid
 flowchart LR
@@ -20,221 +20,221 @@ flowchart LR
   B --> C["Git"]
   C --> D["Miniconda"]
   D --> E["Jupyter"]
-  E --> F["后续按章节补库"]
+  E --> F["Install additional packages later as needed by each chapter"]
 ```
 
-| 阶段 | 环境策略 |
+| Stage | Environment strategy |
 |---|---|
-| 1～5 站 | 普通电脑即可，先把 Python、VS Code、Git、Miniconda 配好 |
-| 6 站以后 | 需要深度学习时再考虑 Colab、云 GPU 或本地 GPU |
-| 8～9 站 | 重点补 API Key、向量库、日志和环境变量 |
-| 12 站 | 按多模态项目需要再补图像、音频、视频工具 |
+| Chapters 1–5 | A regular computer is enough. First set up Python, VS Code, Git, and Miniconda |
+| After Chapter 6 | Consider Colab, cloud GPUs, or a local GPU when you start needing deep learning |
+| Chapters 8–9 | Focus on API keys, vector databases, logging, and environment variables |
+| Chapter 12 | Add image, audio, and video tools as needed for multimodal projects |
 
-## 硬件要求
+## Hardware requirements
 
-### 1～5 学习站（工具 + Python + 数据分析 + 数学 + ML）
+### Learning Chapters 1–5 (Tools + Python + Data Analysis + Math + ML)
 
-任何能正常使用的电脑都行：
+Any computer that works normally is fine:
 
-| 配置项 | 最低要求 | 推荐配置 |
-|-------|---------|---------|
-| CPU | 任意双核 | 4 核以上 |
-| 内存 | 4GB | 8GB 以上 |
-| 硬盘 | 20GB 可用空间 | SSD，50GB 可用 |
-| GPU | **不需要** | 不需要 |
-| 操作系统 | Windows 10/11、macOS 10.15+、Ubuntu 20.04+ | 均可 |
+| Item | Minimum | Recommended |
+|-------|---------|-------------|
+| CPU | Any dual-core | 4 cores or more |
+| Memory | 4GB | 8GB or more |
+| Storage | 20GB free space | SSD, 50GB free |
+| GPU | **Not required** | Not required |
+| Operating system | Windows 10/11, macOS 10.15+, Ubuntu 20.04+ | Any of these |
 
 :::tip
-如果你的电脑很老，也不用担心。1～5 学习站的所有代码都可以在 [Google Colab](https://colab.research.google.com) 上运行，只需要一个浏览器。
+If your computer is very old, don’t worry. All code in Chapters 1–5 can run on [Google Colab](https://colab.research.google.com) with just a browser.
 :::
 
-### 6 深度学习与 Transformer 基础开始
+### Starting from Chapter 6: Deep Learning and Transformer Basics
 
-从 6 深度学习与 Transformer 基础开始训练神经网络，需要 GPU：
+To train neural networks starting in Chapter 6, you will need a GPU:
 
-| 方案 | 说明 | 费用 | 推荐度 |
+| Option | Description | Cost | Recommendation |
 |------|------|------|:---:|
-| **Google Colab** | 免费 T4 GPU，零配置 | 免费（Pro 版 $10/月） | ⭐⭐⭐⭐⭐ |
-| **AutoDL** | 国内云 GPU，按小时计费 | 约 2-3 元/小时 | ⭐⭐⭐⭐ |
-| **本地 NVIDIA GPU** | 显存 ≥ 8GB | 一次性投入 | ⭐⭐⭐ |
+| **Google Colab** | Free T4 GPU, zero setup | Free (Pro version $10/month) | ⭐⭐⭐⭐⭐ |
+| **AutoDL** | Cloud GPU service in China, billed by the hour | About 2–3 yuan/hour | ⭐⭐⭐⭐ |
+| **Local NVIDIA GPU** | VRAM ≥ 8GB | One-time investment | ⭐⭐⭐ |
 
-:::info 不用提前买 GPU
-学完 1～5 学习站大约需要 4-6 个月。到了 6 深度学习与 Transformer 基础再考虑 GPU 的事。课程在进入深度学习前有详细的[硬件与云资源指南](/appendix/hardware)。
+:::info No need to buy a GPU in advance
+It usually takes about 4–6 months to finish Chapters 1–5. Only when you reach Chapter 6: Deep Learning and Transformer Basics should you start thinking about a GPU. The course includes a detailed [hardware and cloud resources guide](/appendix/hardware) before you enter the deep learning section.
 :::
 
 ---
 
-## 软件清单
+## Software list
 
-以下是整个课程需要用到的软件，分阶段列出。**现在只需要安装前两项**，其他的到了对应阶段再装。
+Below is the software used throughout the course, listed by stage. **Right now, you only need to install the first two items**. The others can wait until you reach those stages.
 
-### 现在就需要安装的（1 开发者工具基础教你怎么装）
+### Needed now (Part 1: Developer Tools Basics shows you how to install them)
 
-| 软件 | 是什么 | 为什么需要 |
+| Software | What it is | Why you need it |
 |------|-------|----------|
-| **Python 3.10+** | 编程语言 | 所有代码都用 Python 写 |
-| **VS Code** | 代码编辑器 | 写代码、调试、查看文件 |
-| **Git** | 版本管理工具 | 管理代码、上传 GitHub |
-| **Miniconda** | Python 环境管理 | 创建隔离的虚拟环境，避免包冲突 |
+| **Python 3.10+** | Programming language | All code is written in Python |
+| **VS Code** | Code editor | Write code, debug, and browse files |
+| **Git** | Version control tool | Manage code and upload to GitHub |
+| **Miniconda** | Python environment manager | Create isolated virtual environments to avoid package conflicts |
 
-### 2 Python 编程基础需要的
+### Needed for Part 2: Python Programming Basics
 
-| 软件/库 | 用途 |
+| Software/Library | Purpose |
 |---------|------|
-| `requests` | 发送 HTTP 请求（爬虫、API 调用） |
-| `beautifulsoup4` | 解析 HTML（爬虫） |
-| `fastapi` + `uvicorn` | Web API 开发 |
+| `requests` | Send HTTP requests (web scraping, API calls) |
+| `beautifulsoup4` | Parse HTML (web scraping) |
+| `fastapi` + `uvicorn` | Develop Web APIs |
 
-### 3 数据分析与可视化需要的
+### Needed for Part 3: Data Analysis and Visualization
 
-| 软件/库 | 用途 |
+| Software/Library | Purpose |
 |---------|------|
-| **Jupyter Notebook** | 交互式编程环境（数据分析标配） |
-| `numpy` | 科学计算 |
-| `pandas` | 数据处理 |
-| `matplotlib` + `seaborn` | 数据可视化 |
+| **Jupyter Notebook** | Interactive programming environment (a must-have for data analysis) |
+| `numpy` | Scientific computing |
+| `pandas` | Data processing |
+| `matplotlib` + `seaborn` | Data visualization |
 
-### 6 深度学习与 Transformer 基础需要的
+### Needed for Part 6: Deep Learning and Transformer Basics
 
-| 软件/库 | 用途 |
+| Software/Library | Purpose |
 |---------|------|
-| `torch`（PyTorch） | 深度学习框架 |
-| `torchvision` | 图像相关工具 |
-| CUDA Toolkit（本地 GPU 用户） | GPU 加速 |
+| `torch` (PyTorch) | Deep learning framework |
+| `torchvision` | Image-related tools |
+| CUDA Toolkit (for local GPU users) | GPU acceleration |
 
-### 后续阶段按需安装的
+### Install as needed in later stages
 
-| 软件/库 | 阶段 | 用途 |
+| Software/Library | Stage | Purpose |
 |---------|------|------|
-| `transformers` | 7 / 11 | Hugging Face 预训练模型 |
-| `langchain` | 8 / 9 | 大模型应用开发框架 |
-| `docker` | 8 | 容器化部署 |
-| `chromadb` / `faiss` | 8 | 向量数据库 |
-| `openai` / `anthropic` | 8 | 大模型 API 调用 |
+| `transformers` | 7 / 11 | Hugging Face pretrained models |
+| `langchain` | 8 / 9 | Framework for building LLM applications |
+| `docker` | 8 | Containerized deployment |
+| `chromadb` / `faiss` | 8 | Vector databases |
+| `openai` / `anthropic` | 8 | Large model API calls |
 
 ---
 
-## 推荐环境方案
+## Recommended environment setup
 
-前面的课程可以按章节逐步装库。  
-但如果你想从 6 深度学习与 Transformer 基础一路学到 9 AI Agent 与智能体系统、12 AIGC 与多模态，更稳妥的做法是直接准备一套“课程示例环境”。
+For the earlier chapters, you can install packages gradually as each chapter requires them.
+But if you want to learn steadily from Chapter 6: Deep Learning and Transformer Basics all the way through Chapter 9: AI Agents and Intelligent Agent Systems, and Chapter 12: AIGC and Multimodality, a safer approach is to prepare a complete “course example environment” up front.
 
-仓库根目录已经补了两份依赖清单：
+Two dependency files have already been added to the repository root:
 
-| 文件 | 适用范围 |
+| File | Scope |
 |------|----------|
-| `requirements-course-core.txt` | 1～5 学习站 + 大部分传统机器学习 / 工程示例 |
-| `requirements-course-ai.txt` | 6 深度学习与 Transformer 基础之后常见的深度学习 / Transformers / LLM 工具依赖 |
+| `requirements-course-core.txt` | Chapters 1–5 + most traditional machine learning / engineering examples |
+| `requirements-course-ai.txt` | Common deep learning / Transformers / LLM dependencies needed after Chapter 6: Deep Learning and Transformer Basics |
 
-### 推荐安装顺序
+### Recommended installation order
 
-先创建一个新的 conda 环境：
+First create a new conda environment:
 
 ```bash
 conda create -n ai-course python=3.11 -y
 conda activate ai-course
 ```
 
-然后安装基础依赖：
+Then install the basic dependencies:
 
 ```bash
 pip install -r requirements-course-core.txt
 ```
 
-如果你准备学习 6 深度学习与 Transformer 基础及之后的内容，再安装 AI 相关依赖：
+If you are ready to study Chapter 6: Deep Learning and Transformer Basics and beyond, install the AI-related dependencies too:
 
 ```bash
 pip install -r requirements-course-ai.txt
 ```
 
-:::warning 关于 PyTorch
-`requirements-course-ai.txt` 里已经包含 `torch`。  
-如果你使用的是：
+:::warning About PyTorch
+`requirements-course-ai.txt` already includes `torch`.
+If you are using:
 
-- NVIDIA GPU
+- an NVIDIA GPU
 - Apple Silicon
-- 或特定 CUDA 版本
+- or a specific CUDA version
 
-更推荐先根据 PyTorch 官方安装说明装好与你机器匹配的版本，再安装这份文件里的其他库。
+it is better to first install the PyTorch version that matches your machine according to the official PyTorch installation instructions, and then install the other libraries in this file.
 :::
 
-### 一个更稳的实践
+### A more reliable practice
 
-后续课程页里的 `pip install ...` 仍然可以单独使用，  
-但如果你打算系统刷完整条主线，建议优先维护这一套统一环境，避免：
+The `pip install ...` commands in later course pages can still be used on their own,
+but if you plan to systematically work through the full main track, it is better to maintain one unified environment first. This helps avoid:
 
-- 每章单独装库造成版本打架
-- 代码示例能看懂但本地跑不起来
+- package version conflicts from installing dependencies separately in each chapter
+- situations where you understand the examples but cannot run them locally
 
 ---
 
-## Python 版本选择
+## Choosing a Python version
 
-**推荐 Python 3.11**。原因：
+**Python 3.11 is recommended.** Why?
 
-- 3.11 比 3.10 快 10-60%
-- 目前所有主流 AI 库都兼容 3.11
-- 3.12/3.13 太新，部分库可能还没适配
+- Python 3.11 is 10–60% faster than 3.10
+- All mainstream AI libraries currently support Python 3.11
+- Python 3.12/3.13 are too new, so some libraries may not be fully compatible yet
 
-:::warning 不要用 Python 3.8 或更低版本
-很多新版本的 AI 库已经不再支持 3.8/3.9。如果你电脑上已经有旧版 Python，不需要卸载，用 Miniconda 创建一个新的 3.11 环境就行（1 开发者工具基础会教你怎么做）。
+:::warning Do not use Python 3.8 or lower
+Many newer AI libraries no longer support Python 3.8/3.9. If you already have an older Python installed on your computer, you do not need to uninstall it. Just use Miniconda to create a new Python 3.11 environment (Part 1: Developer Tools Basics will show you how).
 :::
 
 ---
 
-## 操作系统相关说明
+## Operating system notes
 
-### Windows 用户
+### Windows users
 
-- 推荐安装 **Windows Terminal**（Windows 11 自带，Windows 10 去微软商店下载）
-- 命令行推荐用 **PowerShell** 或 **Git Bash**
-- 如果遇到 Python 包安装问题，优先考虑用 Miniconda
+- It is recommended to install **Windows Terminal** (built into Windows 11; download it from the Microsoft Store on Windows 10)
+- For the command line, **PowerShell** or **Git Bash** is recommended
+- If you run into Python package installation problems, use Miniconda first
 
-### macOS 用户
+### macOS users
 
-- 推荐安装 **Homebrew** 包管理器
-- macOS 自带 Python 2，不要用它。通过 Miniconda 安装 Python 3.11
-- Apple Silicon（M1/M2/M3/M4）的 PyTorch 支持已经很好，可以用 MPS 加速
+- It is recommended to install the **Homebrew** package manager
+- macOS includes Python 2 by default—do not use it. Install Python 3.11 through Miniconda
+- PyTorch support for Apple Silicon (M1/M2/M3/M4) is already very good, and you can use MPS acceleration
 
-### Linux（Ubuntu）用户
+### Linux (Ubuntu) users
 
-- 大部分 AI 工具对 Linux 支持最好
-- 推荐 Ubuntu 22.04 LTS
-- NVIDIA GPU 驱动安装可能需要一些额外步骤（1 开发者工具基础会覆盖）
+- Most AI tools work best on Linux
+- Ubuntu 22.04 LTS is recommended
+- Installing NVIDIA GPU drivers may require a few extra steps (covered in Part 1: Developer Tools Basics)
 
 ---
 
-## 网络环境
+## Network environment
 
-有些资源需要科学上网：
+Some resources require access to the global internet:
 
-| 资源 | 是否需要科学上网 | 替代方案 |
+| Resource | Global internet required? | Alternative |
 |------|:---:|---------|
-| Google Colab | 需要 | AutoDL、本地 Jupyter |
-| GitHub | 部分地区需要 | Gitee 作为镜像 |
-| HuggingFace | 部分地区需要 | HuggingFace 镜像站 |
-| PyPI（pip 源） | 不需要，但国外源慢 | 使用清华/阿里镜像 |
-| OpenAI API | 需要 | 国内大模型 API（通义千问、DeepSeek） |
+| Google Colab | Yes | AutoDL, local Jupyter |
+| GitHub | Required in some regions | Gitee as a mirror |
+| HuggingFace | Required in some regions | HuggingFace mirror site |
+| PyPI (pip sources) | No, but overseas mirrors may be slow | Use Tsinghua or Alibaba mirrors |
+| OpenAI API | Yes | Domestic LLM APIs (Qwen, DeepSeek) |
 
-### 配置 pip 国内镜像（推荐）
+### Configure a domestic pip mirror in China (recommended)
 
-如果你在国内，pip 安装包会很慢。运行以下命令一劳永逸地配好清华镜像：
+If you are in China, `pip` package installation can be very slow. Run the following command to configure the Tsinghua mirror once and for all:
 
 ```bash
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-配好后所有 `pip install` 都会从清华镜像下载，速度飞快。
+After that, all `pip install` commands will download from the Tsinghua mirror, which is much faster.
 
 ---
 
 
 
-:::tip 遇到环境问题不要怕
-配环境是每个开发者都要经历的"痛苦"。如果你卡住了：
-1. 把错误信息完整地复制下来
-2. 粘贴到 Google 搜索（英文搜索效果更好）
-3. 99% 的环境问题都有人遇到过，Stack Overflow 上一定有答案
-4. 实在搞不定，先用 Google Colab 继续学习，环境问题以后再解决
-5. 如果是第 5 章机器学习之后的课程代码跑不起来，优先检查你是否已经按上面的统一环境方案安装依赖
+:::tip Don’t be afraid of environment issues
+Setting up the environment is a “pain” every developer has to go through. If you get stuck:
+1. Copy the full error message
+2. Paste it into Google search (English search usually works better)
+3. 99% of environment issues have already happened to someone else, and Stack Overflow will almost certainly have an answer
+4. If nothing works, continue learning with Google Colab and solve the environment issues later
+5. If code in chapters after Chapter 5: Machine Learning Basics does not run, first check whether you have installed the dependencies according to the unified environment plan above
 :::

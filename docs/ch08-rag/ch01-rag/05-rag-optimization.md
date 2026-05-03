@@ -1,123 +1,123 @@
 ---
-title: "1.6 RAG 优化"
+title: "1.6 RAG Optimization"
 sidebar_position: 5
-description: "从切块、召回、上下文拼装到答案约束，理解 RAG 系统最常见的优化杠杆。"
+description: "Understand the most common optimization levers in a RAG system, from chunking and retrieval to context packing and answer constraints."
 keywords: [RAG optimization, chunking, top-k, rerank, prompt, context packing]
 ---
 
-# RAG 优化
+# RAG Optimization
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 识别 RAG 系统里最常见的优化点
-- 理解 chunk、top-k、rerank、prompt 对结果的影响
-- 学会做一个简单的上下文拼装策略
-- 建立“先找瓶颈，再调参数”的优化思路
+- Identify the most common optimization points in a RAG system
+- Understand how chunk, top-k, rerank, and prompt affect results
+- Learn how to build a simple context packing strategy
+- Develop an optimization mindset of “find the bottleneck first, then tune the parameters”
 
 ---
 
-## 一、优化前先定位问题出在哪一段
+## 1. First locate which stage has the problem before optimizing
 
-### 1.1 一个 RAG 系统通常有四段
+### 1.1 A RAG system usually has four stages
 
-可以粗略拆成：
+It can be roughly broken down into:
 
-1. 文档处理
-2. 检索召回
-3. 上下文拼装
-4. 生成回答
+1. Document processing
+2. Retrieval
+3. Context packing
+4. Answer generation
 
-如果回答效果差，你首先要问：
+If the answer quality is poor, you should first ask:
 
-- 是没找到对的资料？
-- 还是找到了但没塞进去？
-- 还是塞进去了但模型没用好？
+- Did it fail to find the right information?
+- Or did it find it but not include it?
+- Or did it include it, but the model did not use it well?
 
-### 1.2 不同问题，对应不同优化方向
+### 1.2 Different problems call for different optimization directions
 
-| 现象 | 常见问题点 |
+| Symptom | Common problem area |
 |---|---|
-| 明明有答案却没检索到 | 切块 / embedding / 检索策略 |
-| 检索到了但答案还是偏 | prompt / context packing / 模型总结 |
-| 回答很慢很贵 | top-k 过大 / 上下文太长 / 重排过多 |
+| There is clearly an answer, but it was not retrieved | Chunking / embedding / retrieval strategy |
+| The right content was retrieved, but the answer is still off | Prompt / context packing / model summarization |
+| The answer is slow and expensive | `top_k` too large / context too long / too much reranking |
 
-![RAG 优化分层排障漏斗图](/img/course/ch08-rag-optimization-debug-funnel-map.png)
+![RAG optimization layered troubleshooting funnel diagram](/img/course/ch08-rag-optimization-debug-funnel-map-en.png)
 
-:::tip 读图提示
-优化前先沿着漏斗定位：文档处理、召回、上下文拼装、生成约束。定位不到层级就同时改 chunk、top-k、rerank 和 prompt，通常只会把问题变得更难复现。
+:::tip Reading note
+Before optimizing, locate the issue along the funnel: document processing, retrieval, context packing, or generation constraints. If you cannot tell which layer is at fault, and you change chunk, top-k, rerank, and prompt all at once, you usually just make the problem harder to reproduce.
 :::
 
 ---
 
-## 二、从文档处理开始优化
+## 2. Start optimizing from document processing
 
-### 2.1 Chunk 大小不是越大越好
+### 2.1 Chunk size is not better just because it is larger
 
-chunk 太大：
+If chunks are too large:
 
-- 召回不精准
-- 上下文占用大
+- Retrieval becomes less precise
+- Context usage grows too much
 
-chunk 太小：
+If chunks are too small:
 
-- 信息容易被切碎
-- 证据不完整
+- Information gets split apart too easily
+- Evidence becomes incomplete
 
-所以常见优化不是“越大越保险”，而是找平衡。
+So the usual goal is not “the bigger the safer,” but finding a balance.
 
-### 2.2 保留结构信息经常很重要
+### 2.2 Preserving structural information is often important
 
-很多文档的价值不只在句子本身，还在：
+The value of many documents is not only in the sentences themselves, but also in:
 
-- 标题
-- 段落层级
-- 表格归属
-- 页面位置
+- Headings
+- Paragraph hierarchy
+- Table association
+- Page location
 
-如果清洗时把这些结构全抹掉，后面检索质量常常会变差。
-
----
-
-## 三、召回阶段最常调的几个杠杆
-
-### 3.1 `top_k`：不是越多越好
-
-很多人一开始觉得：
-
-> 多拿一些资料，总不会错吧？
-
-其实不一定。  
-`top_k` 太大时，可能会把无关内容也带进来，反而干扰模型。
-
-### 3.2 Rerank：先广撒网，再精筛
-
-当粗召回里混进了很多边缘内容时，rerank 很有帮助。  
-它不是单纯“多做一步”，而是在提高上下文质量密度。
+If you remove all of this structure during cleaning, retrieval quality often gets worse later.
 
 ---
 
-## 四、上下文拼装比很多人想的更重要
+## 3. A few of the most commonly tuned levers in retrieval
 
-### 4.1 模型不是“看到资料就一定会用”
+### 3.1 `top_k`: bigger is not always better
 
-即使召回到了正确内容，也可能出现：
+Many people initially think:
 
-- 关键证据埋在中间
-- 多个 chunk 顺序混乱
-- 信息重复太多
+> If we retrieve more materials, it should be safer, right?
 
-所以“把哪些块按什么顺序塞进去”本身就是优化点。
+Not necessarily.
+When `top_k` is too large, irrelevant content may be brought in as well, which can actually distract the model.
 
-### 4.2 一个可运行的上下文打包示例
+### 3.2 Rerank: cast a wide net first, then filter more carefully
+
+When coarse retrieval brings in a lot of borderline content, rerank is very helpful.
+It is not just “doing one more step”; it increases the density of useful context.
+
+---
+
+## 4. Context packing matters more than many people think
+
+### 4.1 The model does not automatically “use” information just because it sees it
+
+Even if the correct content is retrieved, you may still see:
+
+- Key evidence buried in the middle
+- Multiple chunks in a messy order
+- Too much repeated information
+
+So “which chunks to include, and in what order” is itself an optimization point.
+
+### 4.2 A runnable example of context packing
 
 ```python
 chunks = [
-    {"score": 0.95, "text": "退款政策：购买后 7 天内且学习进度低于 20% 可退款。"},
-    {"score": 0.80, "text": "证书说明：完成所有项目并通过测试后可获得证书。"},
-    {"score": 0.76, "text": "学习顺序：建议先学 Python，再学机器学习。"},
-    {"score": 0.72, "text": "补充条款：退款申请需提交订单信息。"}
+    {"score": 0.95, "text": "Refund policy: Within 7 days of purchase and if learning progress is below 20%, you can get a refund."},
+    {"score": 0.80, "text": "Certificate description: A certificate is awarded after completing all projects and passing the tests."},
+    {"score": 0.76, "text": "Learning order: It is recommended to learn Python first, then machine learning."},
+    {"score": 0.72, "text": "Additional terms: A refund request must include order information."}
 ]
 
 def pack_context(chunks, max_chars=60):
@@ -132,56 +132,56 @@ def pack_context(chunks, max_chars=60):
     return packed
 
 selected = pack_context(chunks, max_chars=60)
-print("最终塞进上下文的 chunk：")
+print("Chunks finally packed into the context:")
 for c in selected:
     print("-", c)
 ```
 
-这就是最简单的“上下文预算管理”。
+This is the simplest form of “context budget management.”
 
 ---
 
-## 五、生成阶段怎么优化？
+## 5. How do we optimize the generation stage?
 
-### 5.1 Prompt 要明确告诉模型“怎么用资料”
+### 5.1 The prompt should clearly tell the model how to use the materials
 
-很多时候不是资料没找到，而是模型没有被明确要求：
+Many times the problem is not that the materials were not found, but that the model was not clearly instructed to:
 
-- 只能依据给定资料回答
-- 证据不足时要承认不知道
-- 要引用来源
+- Answer only based on the provided materials
+- Admit when the evidence is insufficient
+- Cite the source
 
-一个常见的提示思路是：
+A common prompt idea is:
 
-> “请仅根据以下资料回答；如果资料不足，请明确说资料不足。”
+> “Please answer only according to the following materials; if the materials are insufficient, clearly say so.”
 
-### 5.2 引用来源能显著提升可控性
+### 5.2 Citing sources can significantly improve controllability
 
-让答案带上来源，通常有几个好处：
+Having the answer include sources usually has several benefits:
 
-- 用户更信任
-- 方便人工核查
-- 便于调试哪段资料生效了
+- Users trust it more
+- It is easier for humans to verify
+- It becomes easier to debug which document actually took effect
 
 ---
 
-## 六、一个简单的优化实验思路
+## 6. A simple way to think about optimization experiments
 
-### 6.1 不要一口气改五个参数
+### 6.1 Do not change five parameters at once
 
-建议按这种顺序：
+It is better to follow this order:
 
-1. 固定评估集
-2. 先设一个 baseline
-3. 一次只改一个变量
+1. Fix the evaluation set
+2. Set a baseline
+3. Change only one variable at a time
 
-例如：
+For example:
 
-- 先只改 chunk size
-- 再只改 top-k
-- 再只加 rerank
+- First change only chunk size
+- Then change only top-k
+- Then add rerank
 
-### 6.2 一个小型配置对比脚本
+### 6.2 A small configuration comparison script
 
 ```python
 configs = [
@@ -198,151 +198,151 @@ fake_scores = {
 
 for cfg in configs:
     key = (cfg["chunk_size"], cfg["top_k"])
-    print(cfg, "-> 评估得分", fake_scores[key])
+    print(cfg, "-> evaluation score", fake_scores[key])
 ```
 
-虽然这是玩具数据，但它表达了一个很重要的工程习惯：  
-**优化要靠对比实验，不靠感觉。**
+Although this is toy data, it expresses an important engineering habit:
+**Optimization should rely on comparison experiments, not intuition.**
 
-![RAG 优化实验闭环图](/img/course/ch08-rag-experiment-eval-loop-map.png)
+![RAG optimization experiment feedback loop diagram](/img/course/ch08-rag-experiment-eval-loop-map-en.png)
 
-:::tip 读图提示
-这张图的重点是“一次只改一个变量”。每轮都要固定评估集、记录 baseline、观察修复失败和新增失败，最后再决定是否保留改动。
+:::tip Reading note
+The key idea in this diagram is “change only one variable at a time.” In each round, fix the evaluation set, record the baseline, observe both fixed failures and new failures, and then decide whether to keep the change.
 :::
 
 ---
 
-## 七、RAG 优化经常会遇到的权衡
+## 7. Common trade-offs in RAG optimization
 
-### 7.1 质量 vs 成本
+### 7.1 Quality vs cost
 
-- 更大的 top-k：可能更全，但更贵
-- 更强的 reranker：可能更准，但更慢
+- Larger `top_k`: may be more complete, but more expensive
+- Stronger reranker: may be more accurate, but slower
 
-### 7.2 召回率 vs 精准率
+### 7.2 Recall vs precision
 
-- 召回过少：可能漏答案
-- 召回过多：可能引入噪声
+- Too little retrieval: may miss the answer
+- Too much retrieval: may introduce noise
 
-### 7.3 实时性 vs 稳定性
+### 7.3 Real-time performance vs stability
 
-- 实时查询新资料更灵活
-- 预处理得更充分通常更稳
+- Retrieving fresh information in real time is more flexible
+- More thorough preprocessing is usually more stable
 
-没有万能最优解，只有场景最优解。
+There is no universal best solution, only the best solution for a given scenario.
 
 ---
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，优化顺序最好怎么排？
+## 8. If your goal is a “courseware generation assistant driven by a knowledge base,” what optimization order is best?
 
-这类项目里，最容易犯的错是：
+A very common mistake in this kind of project is:
 
-- 一上来就换更大的模型
-- 或者一上来就把 top-k 拉得很大
+- Switching to a larger model right away
+- Or increasing `top_k` too much right away
 
-但更稳的默认顺序通常是：
+But a more stable default order is usually:
 
-1. 先看文档解析对不对
-2. 再看知识块是不是按概念 / 例题 / 练习分清了
-3. 再看检索有没有把对的内容召回
-4. 再看结构化输出和模板是不是把内容放对位置
-5. 最后才调模型和 prompt
+1. First check whether document parsing is correct
+2. Then check whether knowledge chunks are properly separated into concepts / examples / exercises
+3. Then check whether retrieval actually brings back the right content
+4. Then check whether structured output and templates place the content in the right positions
+5. Only at the end, tune the model and prompt
 
-你可以先把它压成一句话：
+You can compress this into one sentence:
 
-> **这类项目优先优化“找对”和“放对”，最后再优化“写得更漂亮”。**
+> **For this kind of project, prioritize optimizing “finding the right content” and “placing it correctly,” and only then optimize “writing it more beautifully.”**
 
-## 九、一个更像课件生成项目的最小优化检查表
+## 9. A minimal optimization checklist more like a courseware generation project
 
-| 现象 | 更值得先查哪里 |
+| Symptom | What should you check first |
 |---|---|
-| 主题对了但没有例题 | 文档解析 / 内容类型标注 |
-| 找到了例题但放进了知识点栏目 | schema / 模板映射 |
-| 资料很多但生成结果还是空 | 检索过滤条件 / top-k / context packing |
-| 内部文档明明有标准答案却被外部内容带偏 | 来源优先级策略 |
+| The topic is right, but there are no examples | Document parsing / content type labeling |
+| The example was found, but it was placed in the knowledge-point section | Schema / template mapping |
+| There is a lot of material, but the output is still empty | Retrieval filtering / top-k / context packing |
+| The internal docs clearly have the standard answer, but external content misleads the model | Source priority strategy |
 
-这张表特别适合新人，因为它会把“优化”重新压回到几个可以排查的层级。
-
----
-
-## 十、初学者常见误区
-
-### 10.1 一上来就换更大的模型
-
-很多 RAG 问题其实不是模型太弱，而是检索链路没调好。
-
-### 10.2 只看单次 Demo，不做稳定评估
-
-一次答对不代表系统稳定。
-
-### 10.3 把 top-k 一路调大
-
-更多上下文并不总是更好，尤其当上下文里混了太多无关块时。
+This table is especially useful for beginners because it pushes “optimization” back down into several layers that can actually be inspected.
 
 ---
 
-## RAG 优化排查矩阵
+## 10. Common beginner mistakes
 
-真正做优化时，最有用的不是记住很多技巧，而是能把现象定位到具体链路。
+### 10.1 Switching to a larger model right away
 
-| 现象 | 先看日志里的什么 | 优先尝试 | 不建议一开始做什么 |
+Many RAG problems are not because the model is too weak, but because the retrieval pipeline is not tuned well.
+
+### 10.2 Only looking at a single demo, without stable evaluation
+
+Getting one answer right does not mean the system is stable.
+
+### 10.3 Increasing `top_k` over and over
+
+More context is not always better, especially when the context contains too many irrelevant chunks.
+
+---
+
+## RAG Optimization Troubleshooting Matrix
+
+When doing optimization for real, the most useful skill is not memorizing many tricks, but being able to map the symptom to a specific pipeline stage.
+
+| Symptom | What to look at first in the logs | First thing to try | What not to do at the beginning |
 |---|---|---|---|
-| 正确资料完全没出现 | query、top-k 原始命中、chunk 文本 | 调整切块、关键词检索、query rewrite | 直接换更大生成模型 |
-| 正确资料出现但排得靠后 | 每个 chunk 的 score 和排序 | 加 rerank、调混合检索权重 | 盲目把 top-k 拉很大 |
-| 正确资料在 context 里但答案漏条件 | 最终 context、prompt、答案引用 | 调整 context packing、要求逐条引用 | 只改 embedding 模型 |
-| 答案引用了错误来源 | answer、source_refs、证据片段 | 做 citation check、限制引用格式 | 只看最终答案是否流畅 |
-| 延迟和成本突然升高 | top-k、rerank 数量、context 长度 | 限制候选数量、缓存、分层检索 | 同时增加 top-k 和模型大小 |
+| The correct material does not appear at all | Query, raw top-k hits, chunk text | Adjust chunking, keyword search, query rewrite | Directly switch to a larger generation model |
+| The correct material appears, but is ranked too low | Each chunk’s score and ranking | Add rerank, tune hybrid retrieval weights | Blindly increase top-k a lot |
+| The correct material is in the context, but the answer misses conditions | Final context, prompt, answer citations | Adjust context packing, require line-by-line citation | Only change the embedding model |
+| The answer cites the wrong source | Answer, `source_refs`, evidence snippets | Do citation checks, restrict citation format | Only check whether the final answer is fluent |
+| Latency and cost suddenly increase | `top_k`, rerank count, context length | Limit candidate count, caching, hierarchical retrieval | Increase top-k and model size at the same time |
 
-这张表的用法是：每次只选一个现象，找到对应日志，再决定改哪一个杠杆。不要在不知道问题在哪一层时同时改 chunk、embedding、top-k、rerank 和 prompt。
+How to use this table: pick one symptom at a time, find the matching logs, and then decide which lever to adjust. Do not change chunk, embedding, top-k, rerank, and prompt all at once when you do not yet know which layer the problem is in.
 
-## 一个固定的优化实验流程
+## A fixed optimization experiment workflow
 
-RAG 优化最好像做实验，而不是像调玄学参数。一个适合初学者的流程是：先固定 20～50 个评估问题，再跑 baseline，记录检索命中、答案正确、引用是否支持结论，然后一次只改一个变量。
+RAG optimization should feel like experimentation, not like tuning mysterious parameters. A beginner-friendly workflow is: first fix 20 to 50 evaluation questions, then run a baseline, record retrieval hits, answer correctness, and whether citations support the conclusion, and then change only one variable at a time.
 
-| 步骤 | 要产出的东西 | 判断标准 |
+| Step | Deliverable | Success criterion |
 |---|---|---|
-| 建 baseline | 当前配置、评估集、失败样本 | 能重复跑出同一批结果 |
-| 改一个变量 | 例如只改 chunk size 或只加 rerank | 其他配置保持不变 |
-| 对比指标 | Hit@k、答案正确率、引用真实性、平均延迟 | 至少一个关键指标变好，且副作用可接受 |
-| 看失败样本 | 新增失败和修复失败各列出来 | 知道为什么变好或变差 |
-| 决定是否保留 | 写一句结论 | 不是“感觉更好”，而是“在哪类问题上更好” |
+| Build a baseline | Current config, evaluation set, failure samples | Can reproduce the same batch of results |
+| Change one variable | For example, change only chunk size or add rerank | All other settings stay the same |
+| Compare metrics | Hit@k, answer accuracy, citation faithfulness, average latency | At least one key metric improves, and side effects are acceptable |
+| Review failure cases | List both new failures and fixed failures | Understand why it got better or worse |
+| Decide whether to keep it | Write one conclusion sentence | Not “it feels better,” but “it works better for which type of problem” |
 
-一个优化记录可以写成这样：
+An optimization record can look like this:
 
-| 实验 | 改动 | 改善 | 代价 | 结论 |
+| Experiment | Change | Improvement | Cost | Conclusion |
 |---|---|---|---|---|
-| baseline | 关键词检索，top-k=3 | 精确术语表现稳定 | 同义问法较弱 | 作为对照组保留 |
-| exp-1 | 加 query rewrite | 同义问法命中提升 | 少量错误改写 | 保留，但要记录改写日志 |
-| exp-2 | 加 rerank | 正确资料排序更靠前 | 延迟增加 | 如果延迟可接受，作为标准版本 |
+| baseline | Keyword search, top-k=3 | Stable on exact terminology | Weak on paraphrased questions | Keep as the control group |
+| exp-1 | Add query rewrite | Better hit rate on paraphrased questions | A few incorrect rewrites | Keep it, but log the rewrites |
+| exp-2 | Add rerank | Correct materials are ranked higher | Increased latency | If latency is acceptable, make it the standard version |
 
-## 成本、延迟和质量的取舍检查
+## Checking the trade-off between cost, latency, and quality
 
-RAG 系统不是只追求最高分。真实项目里还要考虑用户是否等得起、成本是否扛得住、结果是否稳定。
+A RAG system is not only about getting the highest score. In real projects, you also need to consider whether users can afford to wait, whether the cost is manageable, and whether the results are stable.
 
-| 优化动作 | 可能收益 | 可能代价 | 适合什么时候用 |
+| Optimization action | Possible benefit | Possible cost | When it is suitable |
 |---|---|---|---|
-| 增大 top-k | 减少漏召回 | 上下文更长、噪声更多、成本更高 | 正确资料经常没进入候选时 |
-| 加 rerank | 排序更准 | 延迟增加、实现复杂度增加 | 候选里有答案但排得靠后时 |
-| query rewrite | 口语问题更容易命中 | 可能把问题改偏 | 用户表达和文档表达差异大时 |
-| 更强 embedding | 语义召回更好 | 重建索引、成本上升 | baseline 证明语义召回是瓶颈时 |
-| 更严格 prompt | 幻觉更少 | 可能回答更保守 | 资料不足时也容易胡编时 |
+| Increase `top_k` | Reduce missed retrievals | Longer context, more noise, higher cost | When the correct material often does not enter the candidate set |
+| Add rerank | Better ranking accuracy | More latency, higher implementation complexity | When the answer is in the candidate set but ranked too low |
+| Query rewrite | Better matches for conversational questions | May distort the question | When user wording differs greatly from document wording |
+| Stronger embedding | Better semantic retrieval | Rebuild index, increased cost | When the baseline proves semantic retrieval is the bottleneck |
+| Stricter prompt | Fewer hallucinations | May make answers more conservative | When the model tends to make things up even when materials are insufficient |
 
-优化时可以记住一个原则：如果系统还没有检索日志和评估集，先不要急着上复杂组件。没有观测，就很难判断复杂组件到底是在解决问题，还是在制造新的不确定性。
-
----
-
-## 小结
-
-这一节最重要的认识是：
-
-> RAG 优化不是只改一个参数，而是在“召回质量、上下文质量、生成约束、成本速度”之间找平衡。
-
-真正有效的优化，通常从定位瓶颈开始，而不是盲目堆更多组件。
+When optimizing, remember one principle: if the system does not yet have retrieval logs and an evaluation set, do not rush to add complex components. Without observation, it is hard to tell whether a complex component is solving the problem or creating new uncertainty.
 
 ---
 
-## 练习
+## Summary
 
-1. 修改 `pack_context()` 里的 `max_chars`，观察被选中的 chunk 会如何变化。
-2. 自己构造一组不同的 `chunk_size / top_k` 配置，练习做小型对比实验。
-3. 想一想：如果系统总是“检索到了正确资料，但回答还是偏”，下一步你最该优化哪里？
+The most important takeaway in this section is:
+
+> RAG optimization is not just changing one parameter; it is about finding balance among retrieval quality, context quality, generation constraints, cost, and speed.
+
+Truly effective optimization usually starts by locating the bottleneck, not by blindly stacking more components.
+
+---
+
+## Exercises
+
+1. Change `max_chars` in `pack_context()` and observe how the selected chunks change.
+2. Create your own set of different `chunk_size / top_k` configurations and practice running small comparison experiments.
+3. Think about this: if the system always “retrieves the right material, but the answer is still off,” what should you optimize next?

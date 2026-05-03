@@ -1,70 +1,70 @@
 ---
-title: "1.5 流程控制"
+title: "1.5 Flow Control"
 sidebar_position: 5
-description: "掌握条件判断和循环结构"
+description: "Master conditional logic and loop structures"
 ---
 
-# 流程控制
+# Flow Control
 
-![Python 流程控制执行路径图](/img/course/ch02-control-flow-paths.png)
+![Python flow control execution path diagram](/img/course/ch02-control-flow-paths-en.png)
 
-## 本节定位
+## Where This Section Fits
 
-这一节学习让程序“做判断”和“重复执行”。条件判断和循环是所有自动化脚本、数据处理流程和模型训练代码的骨架，掌握它们后，你的代码就不再只是从上到下执行。
+In this section, you will learn how to make a program “make decisions” and “repeat actions.” Conditional logic and loops are the backbone of all automation scripts, data processing pipelines, and model training code. Once you understand them, your code will no longer just execute from top to bottom.
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 `if/elif/else` 条件判断
-- 掌握 `for` 循环和 `while` 循环
-- 学会使用 `break`、`continue` 控制循环
-- 能编写包含嵌套逻辑的程序
-
----
-
-## 什么是流程控制？
-
-到目前为止，你写的代码都是**从上到下一行一行执行**的。但真实的程序需要做判断、需要重复执行——这就是流程控制。
-
-想象你早上出门的决策过程：
-
-```
-如果 下雨了:
-    带伞
-否则如果 太阳很大:
-    戴帽子
-否则:
-    直接出门
-```
-
-这就是**条件判断**。
-
-再想象你背单词：
-
-```
-重复 100 次:
-    看一个新单词
-    记住它
-```
-
-这就是**循环**。
+- Master `if/elif/else` conditional logic
+- Master `for` loops and `while` loops
+- Learn to use `break` and `continue` to control loops
+- Be able to write programs with nested logic
 
 ---
 
-## 条件判断：if / elif / else
+## What Is Flow Control?
 
-### 基本的 if
+So far, the code you have written has all been executed **line by line from top to bottom**. But real programs need to make decisions and repeat actions — that is flow control.
+
+Imagine the decision process when you leave home in the morning:
+
+```
+If it is raining:
+    take an umbrella
+Otherwise if the sun is very strong:
+    wear a hat
+Otherwise:
+    just leave
+```
+
+This is **conditional logic**.
+
+Now imagine memorizing vocabulary words:
+
+```
+Repeat 100 times:
+    look at a new word
+    remember it
+```
+
+This is **a loop**.
+
+---
+
+## Conditional Logic: if / elif / else
+
+### Basic if
 
 ```python
 temperature = 35
 
 if temperature > 30:
-    print("今天很热，注意防暑！")
+    print("It's very hot today. Be careful of heatstroke!")
 ```
 
-**语法规则：**
-1. `if` 后面跟条件表达式
-2. 条件后面有一个**冒号 `:`**（很多新手会忘记）
-3. 条件成立时执行的代码需要**缩进 4 个空格**
+**Syntax rules:**
+1. `if` is followed by a condition expression
+2. The condition must end with a **colon `:`** (many beginners forget this)
+3. The code that runs when the condition is true must be **indented by 4 spaces**
 
 ### if...else
 
@@ -72,73 +72,73 @@ if temperature > 30:
 age = 15
 
 if age >= 18:
-    print("你已经成年了")
-    print("可以看这部电影")
+    print("You are an adult")
+    print("You can watch this movie")
 else:
-    print("你还未成年")
-    print("需要家长陪同")
+    print("You are not yet an adult")
+    print("A parent or guardian is required")
 ```
 
 ### if...elif...else
 
-`elif` 是 "else if" 的缩写，用来检查多个条件：
+`elif` is short for "else if" and is used to check multiple conditions:
 
 ```python
 score = 85
 
 if score >= 90:
-    grade = "A（优秀）"
+    grade = "A (Excellent)"
 elif score >= 80:
-    grade = "B（良好）"
+    grade = "B (Good)"
 elif score >= 70:
-    grade = "C（中等）"
+    grade = "C (Average)"
 elif score >= 60:
-    grade = "D（及格）"
+    grade = "D (Pass)"
 else:
-    grade = "F（不及格）"
+    grade = "F (Fail)"
 
-print(f"你的成绩: {score} 分，等级: {grade}")
-# 输出: 你的成绩: 85 分，等级: B（良好）
+print(f"Your score: {score}, grade: {grade}")
+# Output: Your score: 85, grade: B (Good)
 ```
 
-:::caution 注意执行顺序
-Python 从上到下依次检查每个条件，**一旦某个条件成立，就执行对应的代码块，然后跳过剩余所有的 elif 和 else**。所以条件的顺序很重要！
+:::caution Execution Order Matters
+Python checks each condition from top to bottom. **As soon as one condition is true, it runs that code block and skips all remaining `elif` and `else` blocks**. So the order of your conditions matters!
 
 ```python
 score = 95
 
-# 错误的顺序 ❌
+# Wrong order ❌
 if score >= 60:
-    print("及格")      # 95 >= 60 成立，直接执行这个
+    print("Pass")      # 95 >= 60 is true, so this runs immediately
 elif score >= 90:
-    print("优秀")      # 不会被执行！
+    print("Excellent") # This will not run!
 
-# 正确的顺序 ✅：从严到宽
+# Correct order ✅: from strict to broad
 if score >= 90:
-    print("优秀")      # 95 >= 90 成立，执行这个
+    print("Excellent") # 95 >= 90 is true, so this runs
 elif score >= 60:
-    print("及格")
+    print("Pass")
 ```
 :::
 
-### 条件判断的简写
+### Shortened conditional logic
 
 ```python
-# 三元表达式（一行搞定简单的 if-else）
+# Ternary expression (one line for a simple if-else)
 age = 20
-status = "成年" if age >= 18 else "未成年"
-print(status)  # 成年
+status = "Adult" if age >= 18 else "Minor"
+print(status)  # Adult
 
-# 等价于
+# Equivalent to:
 if age >= 18:
-    status = "成年"
+    status = "Adult"
 else:
-    status = "未成年"
+    status = "Minor"
 ```
 
-### 嵌套的 if
+### Nested if
 
-条件里面可以再套条件：
+You can put conditions inside other conditions:
 
 ```python
 has_ticket = True
@@ -146,39 +146,39 @@ age = 15
 
 if has_ticket:
     if age >= 18:
-        print("请入场")
+        print("Please enter")
     else:
-        print("未成年人需要家长陪同")
+        print("Minors need to be accompanied by a parent or guardian")
 else:
-    print("请先购票")
+    print("Please buy a ticket first")
 ```
 
-不过嵌套太多层会让代码难以阅读，通常不建议超过 3 层。
+However, too many levels of nesting make code hard to read, so it is usually not recommended to go beyond 3 levels.
 
 ---
 
-## for 循环
+## for Loops
 
-`for` 循环用来**遍历**一个序列（列表、字符串、范围等）中的每个元素。
+A `for` loop is used to **iterate over** each element in a sequence (lists, strings, ranges, etc.).
 
-### 遍历列表
+### Iterate over a list
 
 ```python
-fruits = ["苹果", "香蕉", "橙子", "葡萄"]
+fruits = ["apple", "banana", "orange", "grape"]
 
 for fruit in fruits:
-    print(f"我喜欢吃{fruit}")
+    print(f"I like eating {fruit}")
 
-# 输出:
-# 我喜欢吃苹果
-# 我喜欢吃香蕉
-# 我喜欢吃橙子
-# 我喜欢吃葡萄
+# Output:
+# I like eating apple
+# I like eating banana
+# I like eating orange
+# I like eating grape
 ```
 
-理解方式：`for fruit in fruits` 的意思是"对于 fruits 中的每一个 fruit，执行下面的代码"。
+The idea is: `for fruit in fruits` means "for each fruit in fruits, execute the code below."
 
-### 遍历字符串
+### Iterate over a string
 
 ```python
 word = "Python"
@@ -186,228 +186,228 @@ word = "Python"
 for char in word:
     print(char, end=" ")
 
-# 输出: P y t h o n
+# Output: P y t h o n
 ```
 
-### range() 函数
+### The range() function
 
-`range()` 生成一个数字序列，是 `for` 循环最常用的搭档：
+`range()` generates a sequence of numbers and is the most common partner for `for` loops:
 
 ```python
-# range(5) 生成 0, 1, 2, 3, 4
+# range(5) generates 0, 1, 2, 3, 4
 for i in range(5):
     print(i, end=" ")
-# 输出: 0 1 2 3 4
+# Output: 0 1 2 3 4
 
-# range(start, stop) 从 start 到 stop-1
+# range(start, stop) goes from start to stop-1
 for i in range(1, 6):
     print(i, end=" ")
-# 输出: 1 2 3 4 5
+# Output: 1 2 3 4 5
 
-# range(start, stop, step) 带步长
+# range(start, stop, step) with a step size
 for i in range(0, 10, 2):
     print(i, end=" ")
-# 输出: 0 2 4 6 8
+# Output: 0 2 4 6 8
 
-# 倒数
+# Count down
 for i in range(5, 0, -1):
     print(i, end=" ")
-# 输出: 5 4 3 2 1
+# Output: 5 4 3 2 1
 ```
 
-### 实际案例：计算 1 到 100 的和
+### Real example: sum from 1 to 100
 
 ```python
 total = 0
 for i in range(1, 101):
     total += i
-print(f"1 到 100 的和是: {total}")  # 5050
+print(f"The sum from 1 to 100 is: {total}")  # 5050
 ```
 
-### enumerate()：同时获取索引和值
+### enumerate(): get both index and value
 
 ```python
-students = ["张三", "李四", "王五"]
+students = ["Zhang San", "Li Si", "Wang Wu"]
 
-# 普通写法
+# Traditional way
 for i in range(len(students)):
-    print(f"第 {i+1} 名: {students[i]}")
+    print(f"Number {i+1}: {students[i]}")
 
-# 更 Pythonic 的写法：用 enumerate
+# More Pythonic way: use enumerate
 for i, name in enumerate(students):
-    print(f"第 {i+1} 名: {name}")
+    print(f"Number {i+1}: {name}")
 
-# 指定起始编号
+# Specify the starting number
 for i, name in enumerate(students, start=1):
-    print(f"第 {i} 名: {name}")
+    print(f"Number {i}: {name}")
 ```
 
 ---
 
-## while 循环
+## while Loops
 
-`while` 循环在**条件成立时**持续执行，直到条件不成立为止。
+A `while` loop keeps running **as long as the condition is true**, and stops when the condition becomes false.
 
-### 基本用法
+### Basic usage
 
 ```python
 count = 0
 
 while count < 5:
-    print(f"当前计数: {count}")
-    count += 1   # 别忘了更新条件！
+    print(f"Current count: {count}")
+    count += 1   # Don't forget to update the condition!
 
-print("循环结束")
+print("Loop ended")
 
-# 输出:
-# 当前计数: 0
-# 当前计数: 1
-# 当前计数: 2
-# 当前计数: 3
-# 当前计数: 4
-# 循环结束
+# Output:
+# Current count: 0
+# Current count: 1
+# Current count: 2
+# Current count: 3
+# Current count: 4
+# Loop ended
 ```
 
-:::caution 小心死循环！
-如果忘了更新条件变量，循环永远不会停止：
+:::caution Watch out for infinite loops!
+If you forget to update the condition variable, the loop will never stop:
 
 ```python
-# 死循环示例（不要运行！）
+# Infinite loop example (do not run!)
 count = 0
 while count < 5:
     print(count)
-    # 忘了 count += 1，count 永远是 0，循环永不结束
+    # Forgot count += 1, so count is always 0 and the loop never ends
 ```
 
-如果不小心陷入死循环，按 `Ctrl+C` 强制终止程序。
+If you accidentally get stuck in an infinite loop, press `Ctrl+C` to force-stop the program.
 :::
 
-### while 的典型场景
+### Typical use cases for while
 
-`while` 适合**不确定循环次数**的情况：
+`while` is suitable when the number of iterations is **unknown**:
 
 ```python
-# 场景：猜数字游戏
+# Scenario: number guessing game
 import random
 
 target = random.randint(1, 100)
 guess = 0
 attempts = 0
 
-print("我想了一个 1 到 100 的数字，猜猜看！")
+print("I have thought of a number from 1 to 100. Try to guess it!")
 
 while guess != target:
-    guess = int(input("你的猜测: "))
+    guess = int(input("Your guess: "))
     attempts += 1
 
     if guess < target:
-        print("太小了！")
+        print("Too small!")
     elif guess > target:
-        print("太大了！")
+        print("Too big!")
     else:
-        print(f"恭喜你猜对了！用了 {attempts} 次")
+        print(f"Congratulations, you guessed it! It took {attempts} tries")
 ```
 
-### for vs while 怎么选？
+### Which should you choose: for or while?
 
-| 场景 | 推荐 | 原因 |
+| Scenario | Recommended | Reason |
 |------|------|------|
-| 遍历列表/字符串 | `for` | 天然适合 |
-| 循环固定次数 | `for + range()` | 简洁明确 |
-| 不确定循环次数 | `while` | 灵活控制 |
-| 等待某个条件成立 | `while` | 自然直觉 |
+| Iterate over a list/string | `for` | Naturally suited |
+| Loop a fixed number of times | `for + range()` | Clear and concise |
+| Unknown number of iterations | `while` | Flexible control |
+| Wait until a condition is met | `while` | Intuitive |
 
-**经验法则：能用 `for` 就用 `for`，它更安全（不会死循环）。**
+**Rule of thumb: use `for` whenever possible; it is safer (it won’t become an infinite loop).**
 
 ---
 
-## break 和 continue
+## break and continue
 
-### break：立即终止循环
+### break: stop the loop immediately
 
 ```python
-# 找到第一个偶数就停下
+# Stop as soon as the first even number is found
 numbers = [1, 3, 7, 4, 9, 2]
 
 for num in numbers:
     if num % 2 == 0:
-        print(f"找到第一个偶数: {num}")
+        print(f"Found the first even number: {num}")
         break
-    print(f"{num} 不是偶数，继续找...")
+    print(f"{num} is not even, keep looking...")
 
-# 输出:
-# 1 不是偶数，继续找...
-# 3 不是偶数，继续找...
-# 7 不是偶数，继续找...
-# 找到第一个偶数: 4
+# Output:
+# 1 is not even, keep looking...
+# 3 is not even, keep looking...
+# 7 is not even, keep looking...
+# Found the first even number: 4
 ```
 
-### continue：跳过本次循环，继续下一次
+### continue: skip the current iteration and move to the next one
 
 ```python
-# 打印所有奇数，跳过偶数
+# Print all odd numbers, skip even numbers
 for i in range(1, 11):
     if i % 2 == 0:
-        continue   # 跳过偶数
+        continue   # Skip even numbers
     print(i, end=" ")
 
-# 输出: 1 3 5 7 9
+# Output: 1 3 5 7 9
 ```
 
-### break 和 continue 的区别
+### The difference between break and continue
 
 ```python
-# break：直接离开循环
+# break: leave the loop immediately
 for i in range(10):
     if i == 5:
-        break       # 循环到 5 就整个停了
+        break       # The loop stops completely at 5
     print(i, end=" ")
-# 输出: 0 1 2 3 4
+# Output: 0 1 2 3 4
 
-# continue：跳过当前，继续下一个
+# continue: skip the current item and go to the next one
 for i in range(10):
     if i == 5:
-        continue    # 跳过 5，继续 6, 7, 8, 9
+        continue    # Skip 5 and continue with 6, 7, 8, 9
     print(i, end=" ")
-# 输出: 0 1 2 3 4 6 7 8 9
+# Output: 0 1 2 3 4 6 7 8 9
 ```
 
 ---
 
-## 循环中的 else
+## else in Loops
 
-Python 的循环有一个独特的 `else` 子句——当循环**正常结束**（不是被 `break` 终止）时执行：
+Python loops have a unique `else` clause — it runs when the loop ends **normally** (that is, not stopped by `break`):
 
 ```python
-# 检查一个数是否是质数
+# Check whether a number is prime
 num = 17
 
 for i in range(2, num):
     if num % i == 0:
-        print(f"{num} 不是质数，可以被 {i} 整除")
+        print(f"{num} is not a prime number; it can be divided by {i}")
         break
 else:
-    # 循环没有被 break 终止，说明没有找到因子
-    print(f"{num} 是质数")
+    # The loop was not terminated by break, so no factor was found
+    print(f"{num} is a prime number")
 
-# 输出: 17 是质数
+# Output: 17 is a prime number
 ```
 
 ---
 
-## 嵌套循环
+## Nested Loops
 
-循环里面可以再套循环：
+You can put a loop inside another loop:
 
 ```python
-# 打印九九乘法表
+# Print the 9x9 multiplication table
 for i in range(1, 10):
     for j in range(1, i + 1):
         print(f"{j}×{i}={i*j}", end="\t")
-    print()   # 每行结束后换行
+    print()   # New line after each row
 ```
 
-输出：
+Output:
 
 ```
 1×1=1
@@ -419,14 +419,14 @@ for i in range(1, 10):
 
 ---
 
-## 综合案例
+## Comprehensive Examples
 
-### 案例 1：模拟 AI 模型训练过程
+### Example 1: Simulate an AI model training process
 
 ```python
 import random
 
-print("=== 开始训练模型 ===")
+print("=== Starting model training ===")
 print(f"{'Epoch':<10}{'Loss':<15}{'Accuracy':<15}{'Status'}")
 print("-" * 50)
 
@@ -434,37 +434,37 @@ loss = 2.5
 accuracy = 0.10
 
 for epoch in range(1, 21):
-    # 模拟训练：损失逐渐下降，准确率逐渐上升
+    # Simulate training: loss gradually decreases, accuracy gradually increases
     loss *= random.uniform(0.85, 0.95)
     accuracy = min(accuracy + random.uniform(0.03, 0.06), 1.0)
 
-    # 判断训练状态
+    # Determine training status
     if accuracy >= 0.95:
-        status = "✅ 达标"
+        status = "✅ Achieved"
     elif accuracy >= 0.80:
-        status = "📈 良好"
+        status = "📈 Good"
     else:
-        status = "🔄 训练中"
+        status = "🔄 Training"
 
     print(f"{epoch:<10}{loss:<15.4f}{accuracy:<15.2%}{status}")
 
-    # 如果准确率达到 98%，提前停止
+    # Stop early if accuracy reaches 98%
     if accuracy >= 0.98:
-        print(f"\n提前停止！在第 {epoch} 轮达到目标准确率")
+        print(f"\nEarly stopping! Target accuracy reached at epoch {epoch}")
         break
 else:
-    print(f"\n训练完成！最终准确率: {accuracy:.2%}")
+    print(f"\nTraining complete! Final accuracy: {accuracy:.2%}")
 ```
 
-### 案例 2：密码强度检查器
+### Example 2: Password strength checker
 
 ```python
-password = input("请输入密码: ")
+password = input("Please enter a password: ")
 
-has_upper = False    # 是否有大写字母
-has_lower = False    # 是否有小写字母
-has_digit = False    # 是否有数字
-has_special = False  # 是否有特殊字符
+has_upper = False    # Contains an uppercase letter
+has_lower = False    # Contains a lowercase letter
+has_digit = False    # Contains a digit
+has_special = False  # Contains a special character
 
 for char in password:
     if char.isupper():
@@ -476,7 +476,7 @@ for char in password:
     else:
         has_special = True
 
-# 计算强度分数
+# Calculate strength score
 score = 0
 if len(password) >= 8:
     score += 1
@@ -489,54 +489,54 @@ if has_digit:
 if has_special:
     score += 1
 
-# 输出结果
-print(f"\n密码强度: {'★' * score}{'☆' * (5 - score)} ({score}/5)")
+# Output result
+print(f"\nPassword strength: {'★' * score}{'☆' * (5 - score)} ({score}/5)")
 
 if score <= 2:
-    print("弱密码！建议加强")
+    print("Weak password! Consider strengthening it")
 elif score <= 4:
-    print("中等强度")
+    print("Medium strength")
 else:
-    print("强密码！")
+    print("Strong password!")
 ```
 
 ---
 
-## 动手练习
+## Hands-on Practice
 
-### 练习 1：FizzBuzz
+### Exercise 1: FizzBuzz
 
-这是经典的编程面试题：
+This is a classic programming interview question:
 
-打印 1 到 50 的数字，但是：
-- 如果数字能被 3 整除，打印 "Fizz"
-- 如果数字能被 5 整除，打印 "Buzz"
-- 如果数字同时能被 3 和 5 整除，打印 "FizzBuzz"
-- 其他情况打印数字本身
+Print the numbers from 1 to 50, but:
+- If a number is divisible by 3, print "Fizz"
+- If a number is divisible by 5, print "Buzz"
+- If a number is divisible by both 3 and 5, print "FizzBuzz"
+- Otherwise, print the number itself
 
 ```python
 for i in range(1, 51):
-    # 补充代码
+    # Fill in the code
     pass
 ```
 
-提示：先判断能否被 15 整除（3 和 5 的公倍数），再判断 3 和 5。
+Hint: First check whether the number is divisible by 15 (the common multiple of 3 and 5), then check 3 and 5 separately.
 
-### 练习 2：猜数字游戏（限制次数）
+### Exercise 2: Guess the Number Game (Limited Attempts)
 
-改进猜数字游戏：最多允许猜 7 次，超过就失败。
+Improve the guessing game: allow at most 7 guesses, and fail if the user goes over.
 
 ```python
 import random
 target = random.randint(1, 100)
 max_attempts = 7
 
-# 补充代码
+# Fill in the code
 ```
 
-### 练习 3：画三角形
+### Exercise 3: Draw a Triangle
 
-用循环打印以下图案：
+Use loops to print the following pattern:
 
 ```
 *
@@ -546,7 +546,7 @@ max_attempts = 7
 *****
 ```
 
-然后试着打印倒三角形：
+Then try printing an inverted triangle:
 
 ```
 *****
@@ -556,25 +556,25 @@ max_attempts = 7
 *
 ```
 
-### 练习 4：求质数
+### Exercise 4: Find Prime Numbers
 
-打印 1 到 100 之间的所有质数。
+Print all prime numbers between 1 and 100.
 
-提示：质数是大于 1 的自然数，且只能被 1 和自身整除。
+Hint: A prime number is a natural number greater than 1 that can only be divided by 1 and itself.
 
 ---
 
-## 小结
+## Summary
 
-| 语法 | 用途 | 关键点 |
+| Syntax | Purpose | Key Point |
 |------|------|--------|
-| `if/elif/else` | 条件判断 | 条件从上到下检查，冒号和缩进不能忘 |
-| `for...in` | 遍历序列 | 配合 `range()`、列表、字符串使用 |
-| `while` | 条件循环 | 注意更新条件，避免死循环 |
-| `break` | 终止循环 | 立即跳出整个循环 |
-| `continue` | 跳过本次 | 跳过当前迭代，继续下一次 |
-| `range()` | 生成数字序列 | `range(start, stop, step)` |
+| `if/elif/else` | Conditional logic | Conditions are checked from top to bottom; don’t forget the colon and indentation |
+| `for...in` | Iterate over a sequence | Used with `range()`, lists, and strings |
+| `while` | Conditional loop | Update the condition to avoid infinite loops |
+| `break` | Stop the loop | Exit the entire loop immediately |
+| `continue` | Skip this iteration | Skip the current iteration and move to the next one |
+| `range()` | Generate a sequence of numbers | `range(start, stop, step)` |
 
-:::tip 核心理解
-流程控制是编程的**骨架**。变量是数据，运算符是操作，而流程控制决定了"在什么条件下做什么"和"做多少次"。学会了流程控制，你就能写出有"逻辑"的程序了。
+:::tip Core Idea
+Flow control is the **skeleton** of programming. Variables are data, operators are actions, and flow control decides “what to do under which condition” and “how many times to do it.” Once you learn flow control, you can write programs that have real “logic.”
 :::

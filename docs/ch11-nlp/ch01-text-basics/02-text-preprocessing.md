@@ -1,131 +1,131 @@
 ---
-title: "1.3 文本预处理"
+title: "1.3 Text Preprocessing"
 sidebar_position: 2
-description: "从清洗、标准化、分词到保留关键信息，理解文本预处理为什么不是越重越好，而是任务驱动。"
+description: "From cleaning and normalization to tokenization and keeping key information, understand why text preprocessing is not about doing more, but about choosing what the task needs."
 keywords: [text preprocessing, tokenization, normalization, stopwords, regex, NLP]
 ---
 
-# 文本预处理
+# Text Preprocessing
 
-![文本预处理流水线图](/img/course/text-preprocessing-pipeline.png)
+![Text preprocessing pipeline diagram](/img/course/text-preprocessing-pipeline-en.png)
 
-:::tip 本节定位
-文本预处理最容易让新人误会成：
+:::tip Section overview
+Text preprocessing is most likely to be misunderstood by beginners as:
 
-- 一个固定流程
+- a fixed workflow
 
-但真实情况更像：
+But in reality, it is more like:
 
-- 一套按任务选择的整理工具
+- a set of organization tools chosen according to the task
 
-所以这节最重要的不是背步骤，而是先建立一个判断：
+So the most important thing in this section is not memorizing steps, but first building a judgment:
 
-> **你为什么要做这一步，它会保留什么，又会丢掉什么。**
+> **Why are you doing this step, what will it keep, and what will it remove?**
 :::
 
-## 学习目标
+## Learning objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解文本预处理到底在解决什么问题
-- 掌握清洗、标准化、分词、停用词等常见步骤
-- 写出一个可直接运行的预处理函数
-- 明白为什么预处理不是越重越好，而是任务驱动
+- Understand what text preprocessing is actually solving
+- Master common steps such as cleaning, normalization, tokenization, and stopword removal
+- Write a preprocessing function that can run directly
+- Understand why preprocessing is not about doing more, but about being task-driven
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-文本预处理更适合按“任务 -> 信息 -> 操作”的顺序理解：
+Text preprocessing is easier to understand in the order of “task -> information -> operation”:
 
 ```mermaid
 flowchart LR
-    A["任务类型"] --> B["哪些信息重要"]
-    B --> C["决定保留或清洗什么"]
-    C --> D["形成预处理流程"]
+    A["Task type"] --> B["Which information matters"]
+    B --> C["Decide what to keep or clean"]
+    C --> D["Form a preprocessing workflow"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么预处理不是越重越好
-- 为什么同样一条文本，在不同任务里会有不同处理方式
+- Why preprocessing is not about doing more
+- Why the same text can be processed differently in different tasks
 
-## 一、为什么文本要预处理？
+## 1. Why preprocess text?
 
-原始文本通常很“脏”：
+Raw text is usually very “dirty”:
 
-- 大小写不统一
-- 标点很多
-- 链接、数字、表情混在一起
-- 同一个意思可能有很多写法
+- Inconsistent capitalization
+- Lots of punctuation
+- Mixed links, numbers, and emojis
+- The same meaning may have many different ways of writing it
 
-你可以把文本预处理想成“洗菜”：
+You can think of text preprocessing as “washing vegetables”:
 
-- 不洗，模型很难直接下锅
-- 洗过头，又可能把营养一起洗掉
+- If you don’t wash them, the model is hard to cook with directly
+- If you wash too much, you may wash away the nutrients too
 
-所以预处理的核心不是“洗得越干净越好”，而是：
+So the core of preprocessing is not “the cleaner the better,” but:
 
-> **让文本更适合当前任务。**
+> **Make the text more suitable for the current task.**
 
-### 1.1 一个更适合新人的总类比
+### 1.1 A better analogy for beginners
 
-你可以把文本预处理想成：
+You can think of text preprocessing as:
 
-- 出门前整理背包
+- Organizing your backpack before going out
 
-如果你去爬山，带的东西会和去办公室不一样。  
-同样地：
+If you are going hiking, you will pack differently than if you are going to the office.
+Likewise:
 
-- 做情感分析时，否定词很重要
-- 做检索时，关键词覆盖更重要
-- 做命名实体识别时，大小写和格式信息可能很重要
+- In sentiment analysis, negation words matter a lot
+- In retrieval, keyword coverage matters more
+- In named entity recognition, capitalization and format information may matter a lot
 
-所以预处理不是：
+So preprocessing is not:
 
-- 永远固定一套动作
+- always the same fixed set of actions
 
-而是：
+But rather:
 
-- 看你准备去做什么任务
-
----
-
-## 二、预处理最常见的几步
-
-| 步骤 | 常见作用 |
-|---|---|
-| 小写化 | 统一英文大小写 |
-| 去链接 / 特殊符号 | 降低无意义噪声 |
-| 去多余空格 | 统一格式 |
-| 分词 | 拆成更小处理单位 |
-| 停用词处理 | 去掉高频低信息词 |
-| 数字 / 特殊模式标准化 | 统一某些规则模式 |
-
-但记住：
-
-- 这些步骤不是每次都全做
-- 也不是做得越多越好
-
-### 2.1 一个新人很值得先记住的判断表
-
-| 任务 | 最值得优先保留的信息 |
-|---|---|
-| 情感分析 | 否定词、情绪词、程度词 |
-| 检索 / RAG | 关键词、术语、数字、专有名词 |
-| NER | 大小写、格式、专名边界 |
-| 传统文本分类 | 稍重一点的清洗常常更常见 |
-
-这个表不是绝对规则，但它能帮新人先建立一个很重要的直觉：
-
-- 预处理是否合理，必须回到任务本身看
+- choose based on what task you are preparing for
 
 ---
 
-## 三、先跑一个最小预处理函数
+## 2. The most common preprocessing steps
 
-下面我们先用英文示例，因为英文更容易用标准库直接演示。  
-思路对中文同样适用，只是中文通常要借助更专业的切分工具。
+| Step | Common purpose |
+|---|---|
+| Lowercasing | Unify English capitalization |
+| Remove links / special symbols | Reduce meaningless noise |
+| Remove extra spaces | Standardize format |
+| Tokenization | Split into smaller processing units |
+| Stopword handling | Remove frequent, low-information words |
+| Normalize numbers / special patterns | Unify certain regular patterns |
+
+But remember:
+
+- These steps are not all applied every time
+- More steps does not mean better
+
+### 2.1 A judgment table worth remembering for beginners
+
+| Task | Information to prioritize keeping |
+|---|---|
+| Sentiment analysis | Negation words, emotion words, degree words |
+| Retrieval / RAG | Keywords, terms, numbers, proper nouns |
+| NER | Capitalization, format, entity boundaries |
+| Traditional text classification | Slightly stronger cleaning is often more common |
+
+This table is not an absolute rule, but it helps beginners build an important intuition:
+
+- Whether preprocessing is reasonable must be judged in the context of the task itself
+
+---
+
+## 3. Start with a minimal preprocessing function
+
+Here we will first use an English example, because English is easier to demonstrate with the standard library.
+The same idea applies to Chinese, except that Chinese usually relies on more specialized segmentation tools.
 
 ```python
 import re
@@ -134,13 +134,13 @@ stopwords = {"the", "is", "a", "an", "and", "to", "of", "in"}
 
 
 def preprocess(text):
-    text = text.lower()                          # 1. 小写化
-    text = re.sub(r"http\\S+", " ", text)        # 2. 去链接
-    text = re.sub(r"[^a-z0-9\\s]", " ", text)    # 3. 去特殊符号
-    text = re.sub(r"\\s+", " ", text).strip()    # 4. 合并多余空格
+    text = text.lower()                          # 1. Lowercase
+    text = re.sub(r"http\\S+", " ", text)        # 2. Remove links
+    text = re.sub(r"[^a-z0-9\\s]", " ", text)    # 3. Remove special symbols
+    text = re.sub(r"\\s+", " ", text).strip()    # 4. Collapse extra spaces
 
-    tokens = text.split()                        # 5. 简单分词
-    tokens = [t for t in tokens if t not in stopwords]  # 6. 去停用词
+    tokens = text.split()                        # 5. Simple tokenization
+    tokens = [t for t in tokens if t not in stopwords]  # 6. Remove stopwords
     return tokens
 
 
@@ -148,17 +148,17 @@ sample = "The movie is AMAZING, and the ending is full of surprises!"
 print(preprocess(sample))
 ```
 
-### 这个例子最想让你看到什么？
+### What should you notice from this example?
 
-文本预处理通常不是一个神秘大黑箱，  
-而是一连串很朴素的小步骤。
+Text preprocessing is usually not a mysterious black box,
+but a chain of very simple steps.
 
-真正关键的是：
+What really matters is:
 
-- 每一步为什么存在
-- 它是否真的适合当前任务
+- Why each step exists
+- Whether it really fits the current task
 
-### 3.1 再看一个“保留否定词”的最小对比
+### 3.1 A minimal contrast showing why keeping negation words matters
 
 ```python
 import re
@@ -180,112 +180,112 @@ print("keep_not :", preprocess_with_stopwords(sample, stopwords_keep_not))
 print("drop_not :", preprocess_with_stopwords(sample, stopwords_drop_not))
 ```
 
-这个例子很适合初学者，因为它会直接让你看到：
+This example is especially good for beginners because it shows directly that:
 
-- 一个看起来“不重要”的词
-- 其实可能正是决定语义方向的关键
+- a word that seems “not important”
+- may actually be the key to determining the direction of meaning
 
 ---
 
-## 四、小写化为什么常见？
+## 4. Why is lowercasing so common?
 
-### 1. 统一词形
+### 1. Unify word forms
 
-在英文里：
+In English:
 
 - `Apple`
 - `apple`
 - `APPLE`
 
-很多任务里可能都想当成同一个词。
+Many tasks may want to treat them as the same word.
 
-### 2. 但不是永远都该做
+### 2. But it should not always be done
 
-例如：
+For example:
 
-- 命名实体识别
-- 品牌名识别
+- Named entity recognition
+- Brand name recognition
 
-大小写本身可能就是重要信息。
+Capitalization itself may be important information.
 
-所以要记住：
+So remember:
 
-- 预处理一定要和任务绑定看
-
----
-
-## 五、分词为什么这么重要？
-
-### 1. 因为模型不直接处理“整句原文”
-
-它通常需要更小单位：
-
-- 词
-- 子词
-- 字
-
-### 2. 英文和中文情况不同
-
-英文天然有空格，  
-简单场景里可以直接 `split()`。
-
-中文没有天然空格，  
-分词问题会更复杂。
-
-例如：
-
-- “自然语言处理”
-
-到底切成：
-
-- 自然语言处理
-
-还是：
-
-- 自然 / 语言 / 处理
-
-会直接影响后续表示和模型效果。
-
-### 3. 一个简单中文切分意识
-
-即便现在不引入专业分词工具，你也要先建立一个判断：
-
-> **中文文本不是天然就有词边界。**
+- Preprocessing must always be considered together with the task
 
 ---
 
-## 六、停用词为什么有用，又为什么危险？
+## 5. Why is tokenization so important?
 
-### 1. 有用的地方
+### 1. Because models do not directly process the “entire original sentence”
 
-高频但区分度弱的词，例如：
+They usually need smaller units:
+
+- words
+- subwords
+- characters
+
+### 2. English and Chinese are different
+
+English naturally has spaces,
+so in simple cases you can use `split()` directly.
+
+Chinese does not have natural spaces,
+so tokenization becomes more complicated.
+
+For example:
+
+- “Natural language processing”
+
+Should it be split as:
+
+- Natural language processing
+
+or:
+
+- Natural / language / processing
+
+This directly affects downstream representations and model performance.
+
+### 3. A simple awareness for Chinese segmentation
+
+Even if we are not introducing a professional segmentation tool yet, you should first build this judgment:
+
+> **Chinese text does not naturally come with word boundaries.**
+
+---
+
+## 6. Why are stopwords useful, and why are they risky?
+
+### 1. Where they are useful
+
+High-frequency but low-discriminative words, such as:
 
 - the
 - is
 - and
 
-在很多传统模型里确实容易带来噪声。
+can indeed introduce noise in many traditional models.
 
-### 2. 危险的地方
+### 2. Where they are risky
 
-某些看似不起眼的词，可能非常关键。
+Some words that seem unimportant may be very critical.
 
-例如：
+For example:
 
 - `not good`
 
-如果把 `not` 去掉，语义就翻转了。
+If you remove `not`, the meaning flips.
 
-### 3. 所以停用词不是“必删项”
+### 3. So stopwords are not something you must always delete
 
-更合理的想法是：
+A more reasonable view is:
 
-- 它是一个可选操作
-- 是否使用取决于任务
+- It is an optional operation
+- Whether to use it depends on the task
 
 ---
 
-## 七、再看一个稍完整点的小练习
+## 7. Let’s look at a slightly more complete exercise
 
 ```python
 import re
@@ -310,112 +310,112 @@ texts = [
 ]
 
 for text in texts:
-    print("原文   :", text)
-    print("处理后 :", preprocess(text))
+    print("Original:", text)
+    print("Processed:", preprocess(text))
     print("-" * 30)
 ```
 
-### 这个例子真正值得关注什么？
+### What is really worth paying attention to here?
 
-你要看：
+You should look at:
 
-- 哪些信息被保留了
-- 哪些信息被删除了
-- 删除是否符合任务需要
+- What information was kept
+- What information was removed
+- Whether the removal matches the task requirements
 
-这比死记“预处理步骤表”更重要。
-
----
-
-## 八、传统模型和预训练模型的预处理思路为什么不同？
-
-### 1. 传统机器学习
-
-通常更依赖人工预处理，因为模型本身比较浅，  
-对噪声比较敏感。
-
-### 2. 预训练模型 / 大模型
-
-很多时候更依赖模型自带 tokenizer，  
-如果你在外面过度清洗，反而可能：
-
-- 破坏原始结构
-- 丢掉模型能利用的信息
-
-### 3. 一个很重要的判断
-
-不是所有 NLP 时代都用同一套预处理策略。
-
-### 8.1 第一次做 NLP 项目时，最稳的默认顺序
-
-更稳的顺序通常是：
-
-1. 先想清楚任务是什么
-2. 先写一个很轻的 baseline 预处理
-3. 先看输出里丢掉了什么信息
-4. 再决定要不要继续加规则
-
-这样会比一开始就堆很多正则和规则更容易看清问题。
+This is more important than memorizing a preprocessing step list.
 
 ---
 
-## 九、初学者常见误区
+## 8. Why are preprocessing strategies different for traditional models and pretrained models?
 
-### 1. 觉得预处理越多越高级
+### 1. Traditional machine learning
 
-不对。  
-删太多信息，效果反而可能更差。
+It usually relies more on manual preprocessing because the model itself is relatively shallow,
+and it is more sensitive to noise.
 
-### 2. 不区分任务就套同一套规则
+### 2. Pretrained models / large models
 
-文本分类、检索、NER、RAG 的预处理策略常常不同。
+In many cases, they rely more on the model’s built-in tokenizer,
+and if you over-clean on the outside, you may instead:
 
-### 3. 中文也直接 `split()`
+- damage the original structure
+- lose information the model could have used
 
-在很多任务里通常不够。
+### 3. A very important judgment
 
-## 如果把它做成项目，最值得展示什么
+Not all NLP eras use the same preprocessing strategy.
 
-最值得展示的通常不是：
+### 8.1 The safest default order when doing your first NLP project
 
-- 我用了多少正则
+A safer order is usually:
 
-而是：
+1. First clarify what the task is
+2. Write a lightweight baseline preprocessing pipeline
+3. Check what information is being removed
+4. Then decide whether to add more rules
 
-1. 原始文本长什么样
-2. 处理后文本长什么样
-3. 哪些信息被保留
-4. 哪些信息被删掉
-5. 这套处理为什么适合当前任务
-
-这样别人会更容易看出：
-
-- 你理解的是任务需求
-- 不只是机械清洗文本
+This is usually clearer than piling on a lot of regexes and rules from the start.
 
 ---
 
-## 小结
+## 9. Common beginner mistakes
 
-文本预处理最重要的不是“洗干净”，而是：
+### 1. Thinking more preprocessing means more advanced
 
-> **围绕任务，把文本整理成更适合当前模型处理的形式。**
+Not true.
+If you remove too much information, performance may get worse.
 
-下一节我们会继续往前走，解决另一个关键问题：
+### 2. Using the same rule set for every task
 
-> **文本怎么表示成数字？**
+Text classification, retrieval, NER, and RAG often need different preprocessing strategies.
 
-## 这节最该带走什么
+### 3. Using `split()` directly for Chinese
 
-- 文本预处理不是固定模板，而是任务驱动选择
-- 删掉的信息和保留的信息同样重要
-- 第一次做项目时，先做轻量 baseline，通常比重度清洗更稳
+In many tasks, that is usually not enough.
+
+## If you turn this into a project, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- how many regexes you used
+
+But rather:
+
+1. What the raw text looks like
+2. What the processed text looks like
+3. What information was kept
+4. What information was removed
+5. Why this processing is suitable for the current task
+
+This makes it easier for others to see that:
+
+- you understand the task requirements
+- you are not just mechanically cleaning text
 
 ---
 
-## 练习
+## Summary
 
-1. 给 `preprocess()` 再加一个数字替换逻辑，把所有数字替换成 `<num>`。
-2. 把 `not` 加进停用词，再观察情感句子会发生什么问题。
-3. 自己找 5 条短评论，跑一遍预处理，看看哪些信息被保留、哪些被删掉。
-4. 想一想：在 NER 场景里，小写化为什么可能反而有害？
+The most important thing in text preprocessing is not “cleaning it thoroughly,” but:
+
+> **Organize text into a form that is more suitable for the current model based on the task.**
+
+In the next section, we will keep moving forward and solve another key problem:
+
+> **How do we represent text as numbers?**
+
+## What you should take away from this section
+
+- Text preprocessing is not a fixed template, but a task-driven choice
+- The information you remove and the information you keep are equally important
+- When doing your first project, a lightweight baseline is usually more reliable than heavy cleaning
+
+---
+
+## Exercises
+
+1. Add a number-replacement rule to `preprocess()` so that all numbers are replaced with `<num>`.
+2. Add `not` to the stopwords list, then observe what problem appears in sentiment sentences.
+3. Find 5 short reviews yourself, run preprocessing on them, and see what information is kept and what is removed.
+4. Think about this: in an NER scenario, why might lowercasing be harmful?

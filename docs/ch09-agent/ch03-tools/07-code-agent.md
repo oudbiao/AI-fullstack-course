@@ -1,130 +1,130 @@
 ---
-title: "3.8 代码生成与执行 Agent"
+title: "3.8 Code Generation and Execution Agent"
 sidebar_position: 17
-description: "从读代码、做计划、改代码、跑验证到错误恢复，理解代码 Agent 为什么本质上是一个带执行回路的工程系统，而不只是“会写代码”。"
+description: "From reading code, making plans, editing code, running verification, to error recovery, understand why a code Agent is essentially an engineering system with an execution loop, not just something that “can write code.”"
 keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests]
 ---
 
-# 代码生成与执行 Agent
+# Code Generation and Execution Agent
 
-:::tip 本节定位
-很多人提到代码 Agent，第一反应是：
+:::tip Section Overview
+When many people hear “code Agent,” their first reaction is:
 
-- 它会自动写代码
+- It can automatically write code
 
-这当然是其中一部分。  
-但真正能工作的代码 Agent，远不只是“生成一段代码”。
+That is certainly part of it.
+But a code Agent that truly works is much more than “generating a piece of code.”
 
-它通常至少要完成一条闭环：
+It usually has to complete at least one closed loop:
 
-> **读上下文 -> 形成修改计划 -> 产出改动 -> 执行验证 -> 根据结果继续修。**
+> **Read context -> form a modification plan -> produce changes -> run verification -> keep fixing based on the results.**
 
-如果没有这条闭环，系统更像代码补全器，不像真正的代码 Agent。
+Without this closed loop, the system is more like a code completer than a true code Agent.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解代码 Agent 和普通代码生成的根本差别
-- 理解代码 Agent 的最小工作循环
-- 通过可运行示例理解“读-改-跑-验”为什么必须闭环
-- 理解沙箱、测试和回滚在代码 Agent 里为什么关键
-
----
-
-## 一、代码 Agent 和“让模型写代码”到底差在哪？
-
-### 1.1 普通代码生成更像一次性输出
-
-例如：
-
-- “帮我写个快速排序”
-
-模型输出一段代码后，  
-任务通常就结束了。
-
-### 1.2 代码 Agent 更像在一个真实仓库里工作
-
-它面对的任务更可能是：
-
-- 修一个 bug
-- 给函数补测试
-- 改配置
-- 看报错后再修第二轮
-
-也就是说，它必须处理：
-
-- 上下文
-- 版本状态
-- 运行反馈
-- 错误恢复
-
-### 1.3 一个类比：写样例答案 vs 真进项目修问题
-
-“生成代码”像面试时白板写题。  
-“代码 Agent”更像你真的进一个仓库里：
-
-- 先读项目
-- 找文件
-- 改一处
-- 跑测试
-- 看错误
-- 再修一轮
-
-两者难度完全不是一个层级。
+- Understand the fundamental difference between a code Agent and ordinary code generation
+- Understand the minimal working loop of a code Agent
+- Use a runnable example to understand why “read-edit-run-verify” must form a loop
+- Understand why sandboxing, tests, and rollback are critical in a code Agent
 
 ---
 
-## 二、代码 Agent 的最小闭环是什么？
+## 1. What is the real difference between a code Agent and “letting the model write code”?
 
-### 2.1 Read：先读上下文
+### 1.1 Ordinary code generation is more like a one-time output
 
-它通常需要知道：
+For example:
 
-- 相关文件在哪
-- 函数现在怎么写
-- 测试怎么组织
+- “Help me write quicksort”
 
-### 2.2 Plan：形成修改方案
+After the model outputs a piece of code,
+the task is usually over.
 
-例如：
+### 1.2 A code Agent is more like working in a real repository
 
-- 改实现
-- 补测试
-- 调配置
+The tasks it faces are more likely to be:
 
-### 2.3 Act：真正做改动
+- fixing a bug
+- adding tests for a function
+- changing configuration
+- seeing an error and then fixing it again
 
-这一步才是大家最容易想到的“写代码”。
+In other words, it must handle:
 
-### 2.4 Verify：执行验证
+- context
+- version state
+- runtime feedback
+- error recovery
 
-例如：
+### 1.3 An analogy: writing a sample answer vs. actually fixing a problem in a project
 
-- 跑单测
-- 跑脚本
-- 看输出
+“Generating code” is like solving a whiteboard interview problem.
+A “code Agent” is more like actually entering a repository and doing the work:
 
-### 2.5 Repair：根据反馈继续修
+- read the project first
+- find the files
+- make one change
+- run tests
+- inspect the errors
+- fix it again
 
-这也是代码 Agent 和普通生成器最大的差别之一：
-
-- 它会读执行反馈，再进入下一轮
+These are completely different levels of difficulty.
 
 ---
 
-## 三、先跑一个最小的“代码 Agent 闭环”示例
+## 2. What is the minimal closed loop of a code Agent?
 
-下面这个例子不会真的改文件，  
-但它会完整模拟一条非常重要的循环：
+### 2.1 Read: read the context first
 
-1. 发现函数实现有 bug
-2. 生成补丁函数
-3. 跑测试
-4. 如果测试通过，就接受改动
+It usually needs to know:
+
+- where the relevant files are
+- how the current function is written
+- how the tests are organized
+
+### 2.2 Plan: form a modification plan
+
+For example:
+
+- change the implementation
+- add tests
+- adjust configuration
+
+### 2.3 Act: actually make the changes
+
+This is the part most people immediately think of as “writing code.”
+
+### 2.4 Verify: run verification
+
+For example:
+
+- run unit tests
+- run scripts
+- inspect output
+
+### 2.5 Repair: keep fixing based on feedback
+
+This is also one of the biggest differences between a code Agent and a normal generator:
+
+- it reads execution feedback and then enters the next round
+
+---
+
+## 3. First, run a minimal “code Agent loop” example
+
+The example below does not really modify files,
+but it fully simulates a very important loop:
+
+1. detect a bug in a function implementation
+2. generate a patch function
+3. run tests
+4. if the tests pass, accept the change
 
 ```python
 def buggy_discount(price, discount_rate):
-    # 错误：把 8 折当成减 8
+    # Wrong: treats 20% off as subtracting 0.8
     return price - discount_rate
 
 
@@ -169,209 +169,207 @@ if failures:
         print("patch accepted")
 ```
 
-### 3.1 这段代码在真实世界里对应什么？
+### 3.1 What does this code correspond to in the real world?
 
-它对应的是代码 Agent 最核心的一条闭环：
+It corresponds to the most important closed loop in a code Agent:
 
-- 不是只产出代码
-- 而是要让代码接受验证
+- it does not just produce code
+- it must make the code pass verification
 
-这一步一旦缺失，  
-系统就很容易：
+Once this step is missing,
+the system can easily end up:
 
-- 写了看似合理的代码
-- 但根本不能跑
+- writing code that looks reasonable
+- but cannot run at all
 
-### 3.2 为什么 `run_tests` 比 `generate_patch` 更值得重视？
+### 3.2 Why is `run_tests` more important than `generate_patch`?
 
-因为真正把系统拉回现实的，  
-往往不是生成能力，而是验证能力。
+Because what pulls the system back to reality
+is often not generation ability, but verification ability.
 
-没有验证，代码 Agent 很容易停留在：
+Without verification, a code Agent can easily remain stuck at:
 
-- 看起来像对
+- looks right
 
-### 3.3 为什么这就是 Agent 而不只是“函数替换”？
+### 3.3 Why is this an Agent and not just a “function replacement”?
 
-因为它有：
+Because it has:
 
-- 当前状态
-- 候选动作
-- 外部反馈
-- 决策更新
+- current state
+- candidate actions
+- external feedback
+- decision updates
 
-这已经是一个最小的 agentic loop。
+That is already a minimal agentic loop.
 
-![代码 Agent 沙箱、测试与 Review 闭环图](/img/course/ch09-code-agent-sandbox-review-map.png)
+![Code Agent sandbox, test, and review closed-loop diagram](/img/course/ch09-code-agent-sandbox-review-map-en.png)
 
-:::tip 读图提示
-代码 Agent 的重点不是“会写代码”，而是能在沙箱里读上下文、生成 patch、跑测试、看失败、再修一轮。图中的 Verify 和 Review 是把想法拉回现实的关键。
+:::tip Reading the diagram
+The key point of a code Agent is not “it can write code,” but that it can read context in a sandbox, generate a patch, run tests, inspect failures, and then fix things again. Verify and Review in the diagram are the key steps that bring ideas back to reality.
 :::
 
 ---
 
-## 四、真实代码 Agent 还会多出哪些关键环节？
+## 4. What other key steps does a real code Agent include?
 
-### 4.1 文件定位与读取
+### 4.1 File location and reading
 
-真实仓库里首先要解决的是：
+In a real repository, the first problem is:
 
-- 改哪个文件
-- 看哪段实现
-- 哪些测试相关
+- which file to change
+- which part of the implementation to inspect
+- which tests are related
 
-### 4.2 Patch 形式而不是整文件重写
+### 4.2 Patch-based changes instead of rewriting the whole file
 
-更稳的做法通常是：
+A more stable approach is usually:
 
-- 生成 patch
-- 或局部 diff
+- generate a patch
+- or a local diff
 
-因为这样：
+Because this makes it:
 
-- 改动更小
-- 更容易 review
-- 更容易回滚
+- smaller in scope
+- easier to review
+- easier to roll back
 
-### 4.3 执行环境隔离
+### 4.3 Execution environment isolation
 
-代码 Agent 很多时候需要：
+A code Agent often needs to:
 
-- 跑代码
-- 跑测试
-- 读写文件
+- run code
+- run tests
+- read and write files
 
-这就涉及：
+This involves:
 
-- 沙箱
-- 权限边界
-- 超时
+- sandboxing
+- permission boundaries
+- timeouts
 
-### 4.4 回滚和重试
+### 4.4 Rollback and retry
 
-如果候选补丁跑挂了，  
-系统最好能：
+If a candidate patch fails,
+the system should ideally be able to:
 
-- 保留原始版本
-- 丢弃失败改动
-- 再试下一种修法
-
----
-
-## 五、为什么代码 Agent 特别依赖验证？
-
-### 5.1 因为代码任务往往有客观反馈
-
-相比纯文本任务，代码任务的一个巨大优势是：
-
-- 很多时候能跑出明确结果
-
-例如：
-
-- 测试是否通过
-- 程序是否报错
-- 输出是否符合预期
-
-### 5.2 这让代码 Agent 非常适合“试错式迭代”
-
-它可以：
-
-1. 先改一版
-2. 跑反馈
-3. 根据失败再修
-
-这也是为什么代码 Agent 往往是 Agent 系统里最容易形成强闭环的一类。
-
-### 5.3 但也不能过度乐观
-
-因为“测试通过”不一定等于：
-
-- 没有回归
-- 逻辑真的完备
-
-所以验证虽然很强，  
-但仍然不是万能。
+- keep the original version
+- discard the failed changes
+- try a different fix
 
 ---
 
-## 六、代码 Agent 最常见的失败点
+## 5. Why does a code Agent depend so heavily on verification?
 
-### 6.1 没读懂上下文就改
+### 5.1 Because code tasks often have objective feedback
 
-这会导致：
+Compared with pure text tasks, one huge advantage of code tasks is:
 
-- 改错文件
-- 改坏接口约定
-- 和现有风格冲突
+- in many cases, you can get a clear result by running them
 
-### 6.2 只修表面报错，不理解根因
+For example:
 
-典型表现是：
+- whether tests pass
+- whether the program crashes
+- whether the output matches expectations
 
-- 补一个 if
-- 压掉异常
-- 让测试“刚好过”
+### 5.2 This makes code Agents especially suitable for trial-and-error iteration
 
-但真正问题还在。
+They can:
 
-### 6.3 验证不充分
+1. make one version first
+2. run feedback
+3. fix based on failures
 
-例如只跑单个 happy path，  
-没有覆盖：
+That is also why code Agents are often one of the easiest types of Agent systems to build a strong closed loop around.
 
-- 边界输入
-- 回归风险
-- 相关模块
+### 5.3 But don’t be overly optimistic
+
+Because “tests pass” does not necessarily mean:
+
+- there are no regressions
+- the logic is truly complete
+
+So verification is powerful,
+but not magical.
 
 ---
 
-## 七、代码 Agent 在工程上最该守住什么？
+## 6. The most common failure points of code Agents
 
-### 7.1 可回滚
+### 6.1 Changing code without understanding the context
 
-任何自动改动都应该：
+This can lead to:
 
-- 能撤销
+- editing the wrong file
+- breaking interface contracts
+- conflicting with the existing style
 
-### 7.2 小步提交
+### 6.2 Fixing only the surface error without understanding the root cause
 
-越小的 patch 越容易：
+Typical signs include:
+
+- adding an `if`
+- suppressing an exception
+- making the test “just pass”
+
+But the real problem is still there.
+
+### 6.3 Inadequate verification
+
+For example, only running a single happy path,
+without covering:
+
+- edge cases
+- regression risk
+- related modules
+
+---
+
+## 7. What should a code Agent protect most in engineering practice?
+
+### 7.1 Rollback capability
+
+Any automatic change should:
+
+- be reversible
+
+### 7.2 Small-step commits
+
+The smaller the patch, the easier it is to:
 
 - review
-- 定位问题
-- 做下一轮修复
+- locate problems
+- do the next round of fixes
 
-### 7.3 明确边界
+### 7.3 Clear boundaries
 
-例如：
+For example:
 
-- 只能改指定目录
-- 只能跑某些命令
-- 高风险命令必须人工确认
-
----
-
-## 小结
-
-这节最重要的，不是把代码 Agent 理解成“会写代码的模型”，  
-而是理解它真正的闭环：
-
-> **代码 Agent 的核心，是围绕真实仓库上下文，在读、改、跑、验、再修之间形成稳定循环。**
-
-只要这条闭环理解清楚了，  
-你后面再看更复杂的：
-
-- 自动修 bug
-- 自动补测试
-- 自动重构
-
-都会知道它们真正难在哪。
+- only modify a specified directory
+- only run certain commands
+- high-risk commands must require manual confirmation
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例里的 `buggy_discount` 换成你自己的 bug 函数，再设计一版 patch。
-2. 为什么说代码 Agent 比普通代码生成更依赖“反馈闭环”？
-3. 想一想：如果没有测试，代码 Agent 还能依赖什么验证方式？
-4. 为什么 patch 越小，通常越适合代码 Agent？
+The most important thing in this section is not to understand a code Agent as “a model that can write code,”
+but to understand its real closed loop:
+
+> **The core of a code Agent is to form a stable loop between reading, editing, running, verifying, and fixing again within the context of a real repository.**
+
+Once this loop is clear,
+you will also understand what is truly difficult about more complex systems such as:
+
+- automatic bug fixing
+- automatic test generation
+- automatic refactoring
+
+---
+
+## Exercises
+
+1. Replace `buggy_discount` in the example with your own buggy function, then design a patch version.
+2. Why is a code Agent more dependent on a “feedback loop” than ordinary code generation?
+3. Think about this: if there are no tests, what other verification methods can a code Agent rely on?
+4. Why are smaller patches usually more suitable for a code Agent?

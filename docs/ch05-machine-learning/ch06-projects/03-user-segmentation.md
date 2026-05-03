@@ -1,129 +1,129 @@
 ---
-title: "6.4 项目：用户分群分析"
+title: "6.4 Project: User Segmentation Analysis"
 sidebar_position: 21
-description: "完整的聚类项目实战：RFM 模型、多种聚类算法对比、聚类结果解释与业务建议"
-keywords: [用户分群, 聚类, RFM, K-Means, 降维, 客户价值分析]
+description: "A complete hands-on clustering project: RFM model, comparison of multiple clustering algorithms, interpretation of clustering results, and business recommendations"
+keywords: [user segmentation, clustering, RFM, K-Means, dimensionality reduction, customer value analysis]
 ---
 
-# 项目三：用户分群分析（聚类问题）
+# Project 3: User Segmentation Analysis (Clustering Problem)
 
-![用户分群 RFM 聚类图](/img/course/user-segmentation-rfm.png)
+![User segmentation RFM clustering chart](/img/course/user-segmentation-rfm-en.png)
 
-:::tip 项目定位
-用户分群是**无监督学习最常见的商业应用**。本项目用 RFM 模型构建客户特征，通过聚类发现不同价值的客户群体，并给出营销建议。
+:::tip Project Positioning
+User segmentation is the **most common business application of unsupervised learning**. In this project, we use the RFM model to build customer features, discover customer groups with different values through clustering, and then provide marketing recommendations.
 :::
 
-## 项目概览
+## Project Overview
 
-| 信息 | 说明 |
+| Information | Description |
 |------|------|
-| 任务类型 | 聚类（无监督） |
-| 方法 | RFM 模型 + K-Means |
-| 评估指标 | 轮廓系数 |
-| 涉及技能 | 特征构造、标准化、降维、聚类、业务解读 |
+| Task type | Clustering (unsupervised) |
+| Method | RFM model + K-Means |
+| Evaluation metric | Silhouette score |
+| Skills involved | Feature engineering, standardization, dimensionality reduction, clustering, business interpretation |
 
-## 先说一个很重要的学习预期
+## First, let’s set a very important learning expectation
 
-这题最容易让新人掉进去的坑，不是聚类不会跑，而是项目会很容易做成：
+The easiest trap for beginners in this question is not that clustering won’t run, but that the project can easily turn into something like this:
 
-- 图很好看
-- 群组名字也起了
-- 但业务上其实不知道怎么用
+- The charts look great
+- The group names are also created
+- But in business terms, you still don’t know how to use it
 
-更适合第一遍先练会的，不是把聚类图画得更漂亮，而是：
+What is more worth practicing on the first pass is not making the clustering plot prettier, but:
 
-> **怎样把“群组结构”真正翻译成“可以行动的用户画像和策略”。**
+> **How to truly translate “group structure” into “actionable user personas and strategies.”**
 
-只要这条线先立住，这题就会更像真实项目，而不是一个可视化练习。
+As long as you establish that line first, this question will feel much more like a real project and less like a visualization exercise.
 
 ---
 
-## 先建立一张地图
+## Let’s build a map first
 
-这题最容易做成“图很好看，但解释很空”。  
-所以最稳的推进方式不是先跑聚类，而是先把“什么样的群才算有价值”想清楚。
+This task is easiest to make into “nice-looking charts, but hollow explanations.”
+So the safest way to proceed is not to run clustering first, but to first think through “what kind of groups count as valuable.”
 
 ```mermaid
 flowchart LR
-    A["先定义业务特征<br/>RFM"] --> B["再标准化并选 K"]
-    B --> C["再做聚类和可视化"]
-    C --> D["再命名群体"]
-    D --> E["最后给出行动建议"]
+    A["First define business features<br/>RFM"] --> B["Then standardize and choose K"]
+    B --> C["Then cluster and visualize"]
+    C --> D["Then name the groups"]
+    D --> E["Finally, give action recommendations"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-无监督项目最重要的不是“算法跑完了”，而是你能不能把聚类结果讲成一个可行动的用户画像故事。
+The most important thing in an unsupervised project is not that “the algorithm finished running,” but whether you can tell the clustering results as an actionable customer persona story.
 
-## 这题你真正要练什么
+## What you are really practicing in this task
 
-这个项目真正难的地方，不是跑出聚类标签，而是：
+The real difficulty of this project is not getting clustering labels, but:
 
-1. 用业务语言定义特征
-2. 判断 K 值是否合理
-3. 把聚类结果解释成“可以行动的用户群体”
+1. Defining features in business language
+2. Judging whether the K value is reasonable
+3. Interpreting clustering results as “actionable customer groups”
 
-## 这题第一版最该先确认什么
+## What should be confirmed first in the first version of this task
 
-第一次做这题时，最该先确认的是：
+When doing this task for the first time, the most important things to confirm first are:
 
-- 你选的特征是不是业务上真的有意义
-- 每个特征的方向是不是讲得通
-- 你最后到底打算按什么方式给群体命名
+- Whether the features you chose are truly meaningful in business terms
+- Whether the direction of each feature makes sense
+- How you ultimately plan to name the groups
 
-因为聚类项目里，后面所有“解释质量”的上限，往往在特征定义那一步就已经决定了。
+Because in a clustering project, the upper limit of all later “interpretation quality” is often already determined at the feature-definition step.
 
-## 一个更适合新人的类比
+## A more beginner-friendly analogy
 
-你可以先把这题想成：
+You can think of this task as:
 
-- 给一大批用户做“可执行的分层名单”
+- Creating an “actionable tiered list” for a large group of users
 
-重点不是：
+The key point is not:
 
-- 机器把人硬分成几类
+- The machine blindly dividing people into several categories
 
-而是：
+But rather:
 
-- 这些分层是否真的能帮助运营、营销或产品团队采取不同动作
+- Whether these tiers can truly help operations, marketing, or product teams take different actions
 
-所以这题里最值钱的部分，不是聚类本身，而是：
+So the most valuable parts of this task are not clustering itself, but:
 
-- 命名
-- 解释
-- 行动建议
+- Naming
+- Explaining
+- Action recommendations
 
-## 推荐推进顺序
+## Recommended workflow
 
-1. 先把 RFM 含义解释清楚
-2. 再做标准化和选 K
-3. 再做 PCA 可视化
-4. 最后再写群体命名和业务建议
+1. First explain the meaning of RFM clearly
+2. Then do standardization and choose K
+3. Then make PCA visualizations
+4. Finally, write group naming and business recommendations
 
-无监督项目最怕“图做出来了，但解释不出来”。
+Unsupervised projects are most afraid of “the chart is done, but the explanation is missing.”
 
-## 第一次做这题时，最稳的默认顺序
+## The safest default order for your first attempt
 
-如果你第一次做用户分群，建议按这个顺序：
+If this is your first time doing user segmentation, I recommend the following order:
 
-1. 先把业务目标说清楚
-2. 先确定画像特征为什么是 RFM
-3. 先做标准化和选 K
-4. 先给每个群做统计画像
-5. 再做 PCA 图辅助展示
-6. 最后才写群体命名和业务建议
+1. First clarify the business objective
+2. First confirm why RFM is used for the persona features
+3. First do standardization and choose K
+4. First create statistical profiles for each group
+5. Then use a PCA chart for presentation
+6. Only then write group naming and business recommendations
 
-这样会更稳，因为你先建立的是：
+This will be more stable because what you establish first is:
 
-- 特征语义
-- 聚类依据
-- 群体画像
-- 业务动作
+- Feature semantics
+- Clustering basis
+- Group profiles
+- Business actions
 
-这条完整链，而不是先被图带着走。
+This complete chain, instead of being led by the chart first.
 
-## Step 1：生成 RFM 数据
+## Step 1: Generate RFM data
 
 ```python
 import pandas as pd
@@ -135,40 +135,38 @@ n_customers = 1000
 
 df = pd.DataFrame({
     'customer_id': range(1, n_customers + 1),
-    'recency': np.random.exponential(30, n_customers).astype(int) + 1,       # 最近一次购买距今天数
-    'frequency': np.random.poisson(5, n_customers) + 1,                       # 购买频次
-    'monetary': np.random.exponential(200, n_customers).round(2) + 10,        # 总消费金额
+    'recency': np.random.exponential(30, n_customers).astype(int) + 1,       # Days since last purchase
+    'frequency': np.random.poisson(5, n_customers) + 1,                       # Purchase frequency
+    'monetary': np.random.exponential(200, n_customers).round(2) + 10,        # Total spending
 })
 
 print(df.describe())
 ```
 
-### RFM 简介
+### RFM introduction
 
-| 指标 | 含义 | 值大的含义 |
+| Metric | Meaning | What a larger value means |
 |------|------|-----------|
-| **R**ecency | 最近一次购买距今天数 | 越小越好（最近买过） |
-| **F**requency | 购买频次 | 越大越好（常客） |
-| **M**onetary | 总消费金额 | 越大越好（高消费） |
+| **R**ecency | Days since last purchase | Smaller is better (purchased more recently) |
+| **F**requency | Purchase frequency | Larger is better (repeat customer) |
+| **M**onetary | Total spending | Larger is better (high spender) |
 
-### Step 1.1 为什么 RFM 特别适合当第一个聚类项目
+### Step 1.1 Why RFM is especially suitable as a first clustering project
 
-因为它有两个很适合新人的优点：
+Because it has two advantages that are great for beginners:
 
-- 业务语义非常清楚
-- 后面的群体解释天然比较顺
+- The business semantics are very clear
+- The later group interpretation is naturally smoother
 
-也就是说，你不是在对一堆抽象数值做聚类，而是在对：
+In other words, you are not clustering a pile of abstract numbers, but segmenting based on three very intuitive behaviors:
 
-- 最近有没有来
-- 来得频不频繁
-- 花得多不多
-
-这三种很直观的行为做分群。
+- Whether they bought recently
+- How often they buy
+- How much they spend
 
 ---
 
-## Step 2：特征标准化与聚类
+## Step 2: Feature standardization and clustering
 
 ```python
 from sklearn.preprocessing import StandardScaler
@@ -178,7 +176,7 @@ features = ['recency', 'frequency', 'monetary']
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(df[features])
 
-# 肘部法选 K
+# Use the elbow method to choose K
 inertias = []
 sil_scores = []
 K_range = range(2, 9)
@@ -194,12 +192,12 @@ fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 axes[0].plot(K_range, inertias, 'bo-')
 axes[0].set_xlabel('K')
 axes[0].set_ylabel('Inertia')
-axes[0].set_title('肘部法')
+axes[0].set_title('Elbow Method')
 
 axes[1].plot(K_range, sil_scores, 'ro-')
 axes[1].set_xlabel('K')
-axes[1].set_ylabel('轮廓系数')
-axes[1].set_title('轮廓系数法')
+axes[1].set_ylabel('Silhouette Score')
+axes[1].set_title('Silhouette Score Method')
 
 plt.tight_layout()
 plt.show()
@@ -207,57 +205,57 @@ plt.show()
 
 ---
 
-## Step 3：聚类与可视化
+## Step 3: Clustering and visualization
 
 ```python
 from sklearn.decomposition import PCA
 
-# 选择最佳 K
+# Select the best K
 best_k = K_range[np.argmax(sil_scores)]
-print(f"最佳 K: {best_k}, 轮廓系数: {max(sil_scores):.4f}")
+print(f"Best K: {best_k}, Silhouette score: {max(sil_scores):.4f}")
 
 km = KMeans(n_clusters=best_k, random_state=42, n_init=10)
 df['cluster'] = km.fit_predict(X_scaled)
 
-# PCA 降维可视化
+# PCA dimensionality reduction visualization
 pca = PCA(n_components=2)
 X_2d = pca.fit_transform(X_scaled)
 
 plt.figure(figsize=(8, 6))
 scatter = plt.scatter(X_2d[:, 0], X_2d[:, 1], c=df['cluster'], cmap='Set2', s=15, alpha=0.6)
-plt.colorbar(scatter, label='聚类')
+plt.colorbar(scatter, label='Cluster')
 plt.xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.1%})')
 plt.ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.1%})')
-plt.title('用户分群（PCA 投影）')
+plt.title('User Segmentation (PCA Projection)')
 plt.show()
 ```
 
-### Step 3.1 PCA 图最该怎么解释
+### Step 3.1 How to interpret the PCA chart
 
-这张图的作用主要是帮助你：
+The main purpose of this chart is to help you:
 
-- 看群体是否大致有分开
-- 看是否存在明显离群群体
-- 辅助展示结果
+- See whether the groups are roughly separated
+- See whether there are obvious outlier groups
+- Support presentation of the results
 
-但它不是最终证据。  
-真正决定项目质量的，还是后面的：
+But it is not the final proof.
+What really determines project quality is still the later part:
 
-- 群体统计画像
-- 命名是否合理
-- 业务建议是否可执行
+- Group statistical profiles
+- Whether naming is reasonable
+- Whether business recommendations are actionable
 
 ---
 
-## Step 4：聚类结果解读
+## Step 4: Interpret the clustering results
 
 ```python
-# 各群体的 RFM 统计
+# RFM statistics for each group
 cluster_summary = df.groupby('cluster')[features].mean().round(1)
-cluster_summary['客户数'] = df.groupby('cluster').size()
+cluster_summary['Customer Count'] = df.groupby('cluster').size()
 print(cluster_summary)
 
-# 雷达图
+# Radar chart
 fig, axes = plt.subplots(1, best_k, figsize=(4*best_k, 4), subplot_kw=dict(polar=True))
 if best_k == 1:
     axes = [axes]
@@ -265,11 +263,11 @@ if best_k == 1:
 angles = np.linspace(0, 2*np.pi, len(features), endpoint=False).tolist()
 angles += angles[:1]
 
-# 归一化到 [0, 1] 以便比较
+# Normalize to [0, 1] for comparison
 from sklearn.preprocessing import MinMaxScaler
 mms = MinMaxScaler()
 radar_data = mms.fit_transform(cluster_summary[features])
-# recency 越小越好，翻转
+# Smaller recency is better, so flip it
 radar_data[:, 0] = 1 - radar_data[:, 0]
 
 for i, ax in enumerate(axes):
@@ -277,101 +275,101 @@ for i, ax in enumerate(axes):
     ax.fill(angles, values, alpha=0.25)
     ax.plot(angles, values, linewidth=2)
     ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(['近期活跃', '购买频次', '消费金额'])
-    ax.set_title(f'群体 {i}', pad=15)
+    ax.set_xticklabels(['Recent Activity', 'Purchase Frequency', 'Spending'])
+    ax.set_title(f'Group {i}', pad=15)
 
-plt.suptitle('各群体 RFM 雷达图', y=1.02, fontsize=13)
+plt.suptitle('RFM Radar Chart for Each Group', y=1.02, fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## Step 5：业务建议
+## Step 5: Business recommendations
 
 ```python
-# 根据聚类特征给出标签和建议
-print("\n=== 业务建议 ===")
+# Assign labels and recommendations based on clustering features
+print("\n=== Business Recommendations ===")
 for i in range(best_k):
     row = cluster_summary.loc[i]
     label = ""
     suggestion = ""
     if row['recency'] < cluster_summary['recency'].median() and row['monetary'] > cluster_summary['monetary'].median():
-        label = "高价值活跃客户"
-        suggestion = "VIP 服务、专属优惠，保持忠诚度"
+        label = "High-Value Active Customers"
+        suggestion = "VIP service, exclusive discounts, and loyalty retention"
     elif row['recency'] > cluster_summary['recency'].median() and row['monetary'] > cluster_summary['monetary'].median():
-        label = "高价值流失风险"
-        suggestion = "召回营销、个性化推荐"
+        label = "High-Value At-Risk Customers"
+        suggestion = "Win-back campaigns and personalized recommendations"
     elif row['frequency'] > cluster_summary['frequency'].median():
-        label = "高频低消客户"
-        suggestion = "提升客单价、交叉销售"
+        label = "High-Frequency Low-Spend Customers"
+        suggestion = "Increase average order value and cross-sell"
     else:
-        label = "低活跃客户"
-        suggestion = "低成本触达、优惠券激活"
+        label = "Low-Activity Customers"
+        suggestion = "Low-cost outreach and coupon activation"
 
-    print(f"  群体 {i} ({int(row['客户数'])} 人): {label}")
-    print(f"    建议: {suggestion}")
+    print(f"  Group {i} ({int(row['Customer Count'])} people): {label}")
+    print(f"    Recommendation: {suggestion}")
 ```
 
-### Step 5.1 给群体命名时，一个很实用的模板
+### Step 5.1 A very practical template for naming groups
 
-可以按下面这个模板来命名：
+You can use the following template for naming:
 
-- 先看活跃度
-- 再看价值
-- 最后看风险
+- First look at activity level
+- Then look at value
+- Finally look at risk
 
-比如：
+For example:
 
-- 高价值活跃客户
-- 高价值流失风险客户
-- 高频低客单客户
-- 低活跃待激活客户
+- High-Value Active Customers
+- High-Value At-Risk Customers
+- High-Frequency Low-AOV Customers
+- Low-Activity Customers to Reactivate
 
-这样命名的好处是，后续业务方一看就能知道怎么行动。
-
----
-
-## 项目交付时最好补上的内容
-
-- 一张选 K 曲线图
-- 一张 PCA 聚类可视化
-- 一张群体画像表
-- 一段“为什么这样命名这些群体”的解释
-
-## 一个更完整的项目交付结构
-
-1. 为什么选 RFM 做画像
-2. 怎么选 K
-3. 每个群的画像是什么
-4. 为什么这样命名
-5. 每个群对应什么策略
-6. 如果继续迭代，下一步还想补哪些特征
-
-## 做成作品集时，最值得展示什么
-
-- 选 K 的依据
-- 每个群的 RFM 画像表
-- 一张聚类可视化图
-- 一页群体命名与策略表
-- 一段你对“这个聚类是否真的有业务价值”的判断
+The advantage of this naming style is that business stakeholders can immediately see what action to take.
 
 ---
 
-## 项目检查清单
+## What is best to include in the project deliverable
 
-- [ ] 构建 RFM 特征
-- [ ] 标准化 + 肘部法/轮廓系数选 K
-- [ ] PCA 降维可视化聚类结果
-- [ ] 分析各群体的 RFM 特征
-- [ ] 给出可执行的业务建议
+- A K-selection curve chart
+- A PCA clustering visualization
+- A group profiling table
+- A paragraph explaining “why these groups were named this way”
 
-## 版本路线建议
+## A more complete project delivery structure
 
-| 版本 | 目标 | 交付重点 |
+1. Why RFM was chosen for persona modeling
+2. How K was selected
+3. What the profile of each group is
+4. Why they were named that way
+5. What strategy corresponds to each group
+6. If further iteration continues, what features should be added next
+
+## What is most worth showing in a portfolio
+
+- The basis for choosing K
+- The RFM profile table for each group
+- A clustering visualization chart
+- A one-page table of group names and strategies
+- A paragraph judging whether this clustering truly has business value
+
+---
+
+## Project checklist
+
+- [ ] Build RFM features
+- [ ] Standardize + use the elbow method / silhouette score to choose K
+- [ ] Use PCA to visualize clustering results
+- [ ] Analyze the RFM characteristics of each group
+- [ ] Provide actionable business recommendations
+
+## Suggested version roadmap
+
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic version | Complete the minimum closed loop | Can input, process, output, and retain one set of examples |
+| Standard version | Form a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge version | Close to portfolio quality | Add evaluation, comparison experiments, failure case analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first; do not chase a large all-in-one solution at the beginning. Every time you improve a version, be sure to write in the README: “What new capability was added, how was it verified, and what problems still remain.”

@@ -1,109 +1,109 @@
 ---
-title: "9.4 持久化与恢复"
+title: "9.4 Persistence and Recovery"
 sidebar_position: 51
-description: "从状态快照、事件日志、幂等执行和崩溃恢复讲起，理解 Agent 任务为什么必须具备可恢复能力。"
+description: "Starting from state snapshots, event logs, idempotent execution, and crash recovery, understand why Agent tasks must be recoverable."
 keywords: [persistence, recovery, checkpoint, event log, idempotency, resume, deployment]
 ---
 
-# 持久化与恢复
+# Persistence and Recovery
 
-:::tip 本节定位
-Agent 一旦开始处理长任务、多步流程或后台任务，一个问题就很快变得关键：
+:::tip Where this section fits
+Once an Agent starts handling long tasks, multi-step workflows, or background jobs, one problem quickly becomes critical:
 
-- 如果中途挂了怎么办？
+- What if it crashes halfway through?
 
-如果系统没有持久化和恢复能力，就会出现：
+If the system has no persistence and recovery capability, then:
 
-- 前面做过的步骤白做
-- 重复执行带来重复副作用
-- 用户只看到“任务消失了”
+- Work done earlier is wasted
+- Repeated execution causes repeated side effects
+- Users only see “the task disappeared”
 
-所以这节课的核心是：
+So the core idea of this lesson is:
 
-> **让任务在失败和重启后仍然能有状态地继续，而不是每次都从零开始。**
+> **Let tasks continue statefully after failures and restarts, instead of starting from zero every time.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解“持久化”和“恢复”在 Agent 任务中的意义
-- 学会区分状态快照和事件日志两类数据
-- 通过可运行示例实现最小 checkpoint + 恢复流程
-- 理解幂等在恢复链路里为什么重要
-
----
-
-## 一、为什么 Agent 特别需要可恢复能力？
-
-### 1.1 因为很多任务不是瞬时完成的
-
-例如：
-
-- 研究报告生成
-- 多工具审批流程
-- 多轮后台爬取与整理
-
-这类任务经常会跨越：
-
-- 多次调用
-- 多个步骤
-- 更长时间窗口
-
-### 1.2 没有恢复能力会带来什么问题？
-
-- 任务一中断就全部重来
-- 已执行动作可能被重复执行
-- 用户无法知道当前进度
-
-### 1.3 一个类比
-
-没有持久化的 Agent 像“断电就失忆”的工作站。  
-真正能上生产的系统，更像带自动保存和恢复点的 IDE。
+- Understand the meaning of “persistence” and “recovery” in Agent tasks
+- Learn to distinguish between state snapshots and event logs
+- Implement a minimal checkpoint + recovery flow with a runnable example
+- Understand why idempotency matters in the recovery path
 
 ---
 
-## 二、持久化到底在存什么？
+## 1. Why do Agents especially need recoverability?
 
-### 2.1 最核心的是任务状态
+### 1.1 Because many tasks are not completed instantly
 
-例如：
+For example:
 
-- 当前执行到哪一步
-- 哪些步骤已完成
-- 中间结果是什么
+- Research report generation
+- Multi-tool approval workflows
+- Multi-round background crawling and organization
 
-### 2.2 其次是事件日志
+These tasks often span:
 
-事件日志回答的是：
+- Multiple calls
+- Multiple steps
+- Longer time windows
 
-- 之前到底发生过什么
+### 1.2 What happens without recovery capability?
 
-例如：
+- If the task is interrupted, everything starts over
+- Already executed actions may be repeated
+- Users cannot tell the current progress
 
-- 调用了哪个工具
-- 收到了什么返回
-- 哪一步失败了
+### 1.3 An analogy
 
-### 2.3 快照和日志的区别
-
-可以先这样记：
-
-- `checkpoint / snapshot`：当前状态的压缩截面
-- `event log`：系统一路发生过的事件流水
-
-真实工程里两者常常配合使用。
+An Agent without persistence is like a workstation that “forgets everything when the power goes out.”
+A production-ready system is more like an IDE with auto-save and restore points.
 
 ---
 
-## 三、先跑一个最小恢复工作流
+## 2. What exactly is being persisted?
 
-下面这个示例会模拟一个三步任务：
+### 2.1 The most important thing is task state
 
-1. 读取资料
-2. 生成摘要
-3. 写入报告
+For example:
 
-系统会在每步后写 checkpoint。  
-如果在第 2 步故障，就从上一次 checkpoint 继续。
+- Which step execution is currently on
+- Which steps have been completed
+- What the intermediate results are
+
+### 2.2 Next comes the event log
+
+The event log answers:
+
+- What exactly happened before?
+
+For example:
+
+- Which tool was called
+- What response was received
+- Which step failed
+
+### 2.3 The difference between snapshots and logs
+
+You can remember it like this:
+
+- `checkpoint / snapshot`: a compressed slice of the current state
+- `event log`: the stream of events that happened along the way
+
+In real engineering, these two are often used together.
+
+---
+
+## 3. First, run a minimal recovery workflow
+
+The example below simulates a three-step task:
+
+1. Read materials
+2. Generate a summary
+3. Write the report
+
+The system writes a checkpoint after each step.
+If a failure occurs in step 2, it continues from the last checkpoint.
 
 ```python
 import copy
@@ -114,11 +114,11 @@ TASK_PLAN = ["load_data", "summarize", "write_report"]
 
 def execute_step(step, state):
     if step == "load_data":
-        state["data"] = ["退款规则", "发票规则", "地址修改规则"]
+        state["data"] = ["refund policy", "invoice policy", "address change policy"]
     elif step == "summarize":
-        state["summary"] = "；".join(state["data"])
+        state["summary"] = ";".join(state["data"])
     elif step == "write_report":
-        state["report"] = f"最终报告: {state['summary']}"
+        state["report"] = f"Final report: {state['summary']}"
     return state
 
 
@@ -172,62 +172,62 @@ for event in runner.event_log:
     print(event["type"], event["payload"])
 ```
 
-### 3.1 这个示例最值得学什么？
+### 3.1 What is the most important thing to learn from this example?
 
-它把恢复链路里最关键的三件事串起来了：
+It connects the three most important pieces in the recovery path:
 
-1. 每步完成后写 checkpoint
-2. 出错时保留 event log
-3. 重启后从上一次 checkpoint 接着跑
+1. Write a checkpoint after each step
+2. Keep an event log when errors happen
+3. After restart, continue from the last checkpoint
 
-### 3.2 为什么 checkpoint 不能只在任务结束时写？
+### 3.2 Why not write the checkpoint only at the end of the task?
 
-因为那样一旦任务中途崩溃，  
-你仍然什么都恢复不了。
+Because if the task crashes midway,
+you still cannot recover anything.
 
-所以长任务里更实用的是：
+So for long tasks, a more practical choice is:
 
-- 步骤级 checkpoint
+- Step-level checkpoints
 
-### 3.3 为什么 event log 很重要？
+### 3.3 Why is the event log important?
 
-checkpoint 只能告诉你“现在是什么状态”，  
-但它不能完整解释：
+A checkpoint can only tell you “what the current state is,”
+but it cannot fully explain:
 
-- 为什么会变成这个状态
-- 中间失败发生在哪
+- Why it became that state
+- Where the failure happened
 
-日志让你能做复盘和调试。
+Logs help with postmortems and debugging.
 
-![Agent Checkpoint、Event Log 与恢复图](/img/course/ch09-agent-persistence-checkpoint-eventlog-map.png)
+![Agent Checkpoint, Event Log, and Recovery Diagram](/img/course/ch09-agent-persistence-checkpoint-eventlog-map-en.png)
 
-:::tip 读图提示
-这张图把恢复分成两条线：checkpoint 负责“现在恢复到哪”，event log 负责“之前发生了什么”。长任务上线时，两者最好配合，而不是只存最终结果。
+:::tip Reading the diagram
+This diagram splits recovery into two paths: checkpoint handles “where to recover to now,” while event log handles “what happened before.” When long tasks go live, it is best to use both together rather than storing only the final result.
 :::
 
 ---
 
-## 四、幂等为什么是恢复链路的核心？
+## 4. Why is idempotency the core of the recovery path?
 
-### 4.1 什么叫幂等
+### 4.1 What does idempotent mean?
 
-幂等可以粗略理解成：
+Idempotency can be roughly understood as:
 
-- 同一个动作重复执行多次，结果仍然一致
+- Repeating the same action multiple times still produces the same result
 
-### 4.2 为什么恢复时特别需要它
+### 4.2 Why is it especially needed during recovery?
 
-如果系统在“写报告”之前崩了，你重启后可能不确定：
+If the system crashes before “writing the report,” after restarting you may not know:
 
-- 这一步到底做了没
+- Whether this step was actually completed
 
-如果动作不是幂等的，就会带来：
+If the action is not idempotent, it can lead to:
 
-- 重复写入
-- 重复扣费
-- 重复发消息
+- Duplicate writes
+- Duplicate charges
+- Duplicate messages
 
-### 4.3 一个简化例子
+### 4.3 A simplified example
 
 ```python
 processed = set()
@@ -244,96 +244,96 @@ print(send_email_once("task-1", "a@example.com"))
 print(send_email_once("task-1", "a@example.com"))
 ```
 
-这就是最简单的幂等保护思路。
+This is the simplest idea behind idempotency protection.
 
 ---
 
-## 五、恢复设计时最容易漏掉什么？
+## 5. What do people most often forget when designing recovery?
 
-### 5.1 状态只存“结果”，不存“进度”
+### 5.1 Storing only the “result,” not the “progress”
 
-如果你只存 summary，不存：
+If you only store the summary and do not store:
 
-- 当前到第几步
+- Which step you are currently on
 
-恢复时仍然很难继续。
+then recovery still remains difficult.
 
-### 5.2 只存 checkpoint，不存日志
+### 5.2 Storing only checkpoints, not logs
 
-这样能恢复，但不容易排查为什么失败。
+This allows recovery, but makes it hard to investigate why the failure happened.
 
-### 5.3 外部副作用没有幂等键
+### 5.3 External side effects have no idempotency key
 
-这会让恢复变得危险，  
-因为系统不确定重放是否会制造重复副作用。
-
----
-
-## 六、真实系统里通常怎么做？
-
-### 6.1 状态表
-
-保存：
-
-- 任务 id
-- 当前步骤
-- 当前状态快照
-- 更新时间
-
-### 6.2 事件表
-
-保存：
-
-- 事件类型
-- 时间
-- 输入输出摘要
-- 错误信息
-
-### 6.3 恢复器
-
-负责：
-
-- 重启时扫描未完成任务
-- 载入最近 checkpoint
-- 从安全位置继续
+This makes recovery risky,
+because the system cannot tell whether replaying will create duplicate side effects.
 
 ---
 
-## 七、最常见误区
+## 6. How is this usually done in real systems?
 
-### 7.1 误区一：只要有数据库就是“可恢复”
+### 6.1 State table
 
-不对。  
-关键是你有没有保存：
+Store:
 
-- 足够恢复的信息
+- Task id
+- Current step
+- Current state snapshot
+- Update time
 
-### 7.2 误区二：恢复就是“再跑一遍”
+### 6.2 Event table
 
-再跑一遍往往会带来重复副作用。  
-恢复不是重做，而是有状态继续。
+Store:
 
-### 7.3 误区三：只有超长任务才需要恢复
+- Event type
+- Time
+- Input/output summary
+- Error information
 
-只要任务包含外部副作用或多步执行，  
-恢复能力就很重要。
+### 6.3 Recovery service
 
----
+Responsible for:
 
-## 小结
-
-这节最重要的是建立一个生产级判断：
-
-> **Agent 的持久化与恢复，不是简单把结果写盘，而是围绕 checkpoint、事件日志和幂等机制，让任务在失败后还能安全继续。**
-
-只要这条链路设计清楚，  
-系统就从“偶尔能跑”的 demo，走向“失败后仍能继续”的生产系统。
+- Scanning unfinished tasks on restart
+- Loading the latest checkpoint
+- Continuing from a safe point
 
 ---
 
-## 练习
+## 7. Most common misconceptions
 
-1. 给示例增加一个 `retry_count` 字段，记录每步重试次数。
-2. 把 `write_report` 改成带外部副作用的动作，再思考幂等该怎么做。
-3. 为什么说 checkpoint 和 event log 在恢复里缺一不可？
-4. 如果任务特别长，你会选择每步 checkpoint，还是每几步 checkpoint？为什么？
+### 7.1 Misconception 1: If there is a database, then it is “recoverable”
+
+Not true.
+The key is whether you have stored:
+
+- Enough information to recover
+
+### 7.2 Misconception 2: Recovery just means “run it again”
+
+Running it again often causes duplicate side effects.
+Recovery is not redoing; it is continuing statefully.
+
+### 7.3 Misconception 3: Only very long tasks need recovery
+
+As long as a task includes external side effects or multi-step execution,
+recovery capability is important.
+
+---
+
+## Summary
+
+The most important thing in this lesson is to build a production-grade judgment:
+
+> **Persistence and recovery for an Agent is not simply writing the result to disk. It is about using checkpoints, event logs, and idempotency mechanisms to let a task continue safely after failures.**
+
+Once this chain is designed clearly,
+the system moves from a demo that “sometimes works” to a production system that can still continue after failures.
+
+---
+
+## Exercises
+
+1. Add a `retry_count` field to the example to record the number of retries for each step.
+2. Change `write_report` into an action with external side effects, then think about how idempotency should be implemented.
+3. Why do we say checkpoint and event log are both indispensable in recovery?
+4. If a task is especially long, would you choose a checkpoint after every step, or every few steps? Why?

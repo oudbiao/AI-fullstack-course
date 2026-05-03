@@ -1,126 +1,126 @@
 ---
-title: "3.5 迁移学习 🔧"
+title: "3.5 Transfer Learning 🔧"
 sidebar_position: 4
-description: "从为什么不从零训练开始，到冻结骨干、替换分类头和逐步微调，真正理解视觉里的迁移学习。"
-keywords: [迁移学习, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN]
+description: "From why we don’t start training from scratch, to freezing the backbone, replacing the classification head, and progressively fine-tuning—truly understanding transfer learning in vision."
+keywords: [transfer learning, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN]
 ---
 
-# 迁移学习
+# Transfer Learning
 
-:::tip 本节定位
-如果你现在已经知道 CNN 会提特征、经典架构怎么演进，那接下来非常自然的一个工程问题就是：
+:::tip Section Focus
+If you already know that CNNs extract features and how classic architectures evolve, then the next very natural engineering question is:
 
-> **我做自己的图像任务时，真的需要从零训练一整个 CNN 吗？**
+> **When I build my own image task, do I really need to train an entire CNN from scratch?**
 
-大多数时候，答案是否定的。  
-迁移学习就是在回答：怎样把别的任务上学到的视觉知识借过来。
+Most of the time, the answer is no.
+Transfer learning answers this question: how do we borrow visual knowledge learned on other tasks?
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么图像任务里迁移学习往往比从零训练更现实
-- 分清“固定特征提取器”和“微调”两种常见方式
-- 学会替换分类头、冻结骨干网络参数
-- 看懂一个真正能运行的小型迁移学习示例
-- 理解什么时候该只训头部，什么时候该解冻更多层
-
----
-
-## 一、为什么迁移学习几乎成了视觉任务默认选项？
-
-### 1.1 从零训练有多贵？
-
-如果你要从零训练一个像样的视觉模型，通常至少会遇到这些问题：
-
-- 数据不够多
-- 标注成本高
-- 训练时间长
-- 容易过拟合
-
-例如，你手里只有 2000 张图片，要分 5 类。  
-这在真实项目里已经不算特别少，但对从零训练一个深 CNN 来说，仍然很可能不够稳。
-
-### 1.2 预训练模型到底“预训练”了什么？
-
-一个在大规模图像数据上训练过的模型，通常已经学会了很多通用视觉特征：
-
-- 边缘
-- 纹理
-- 颜色组合
-- 部件形状
-- 常见物体模式
-
-这些能力不是“猫狗任务专属”的，而是很多图像任务都用得到的基础视觉知识。
-
-所以迁移学习的核心直觉是：
-
-> **先复用已经学到的底层视觉能力，再把最后几层调成适合你自己的任务。**
-
-### 1.3 一个帮助记忆的类比
-
-迁移学习很像请一个已经学过通用绘画技巧的人来帮你画专业插图：
-
-- 他不用从“怎么握笔”重新学起
-- 你只需要让他适应你的具体风格和题材
-
-这就是为什么视觉任务里迁移学习通常非常划算。
+- Understand why transfer learning is often more practical than training from scratch for image tasks
+- Distinguish between two common approaches: “fixed feature extractor” and “fine-tuning”
+- Learn how to replace the classification head and freeze backbone parameters
+- Read a small but fully runnable transfer learning example
+- Understand when to train only the head, and when to unfreeze more layers
 
 ---
 
-## 二、迁移学习最常见的两种方式
+## 1. Why has transfer learning become the default option for vision tasks?
 
-### 2.1 方式一：固定特征提取器（feature extractor）
+### 1.1 How expensive is training from scratch?
 
-做法：
+If you want to train a decent vision model from scratch, you will usually run into these problems:
 
-- 预训练骨干网络参数不动
-- 只训练最后的分类头
+- Not enough data
+- High labeling cost
+- Long training time
+- Easy to overfit
 
-优点：
+For example, suppose you only have 2,000 images and want to classify 5 classes.
+That is not especially small in a real project, but for training a deep CNN from scratch, it still may not be stable enough.
 
-- 快
-- 不容易把预训练能力训坏
-- 适合数据特别少的场景
+### 1.2 What exactly has a pretrained model “pretrained”?
 
-缺点：
+A model trained on large-scale image data has usually already learned many general visual features:
 
-- 适应新任务能力有限
+- Edges
+- Textures
+- Color combinations
+- Part shapes
+- Common object patterns
 
-### 2.2 方式二：微调（fine-tuning）
+These capabilities are not exclusive to “cat and dog tasks”; they are basic visual knowledge useful for many image tasks.
 
-做法：
+So the core intuition of transfer learning is:
 
-- 替换掉最后的分类头
-- 除了头部，逐步解冻一部分甚至全部骨干网络
+> **First reuse the low-level visual capabilities already learned, then adapt the last few layers to fit your own task.**
 
-优点：
+### 1.3 A helpful analogy
 
-- 更能适应目标任务
+Transfer learning is like asking someone who already knows general drawing skills to help create professional illustrations:
 
-缺点：
+- They do not need to relearn how to hold a pen
+- You only need them to adapt to your specific style and subject
 
-- 更容易过拟合
-- 训练更慢
-- 学习率更需要小心
+That is why transfer learning is usually such a good deal in vision tasks.
 
-### 2.3 一句话记忆
+---
 
-- 数据少：先倾向于固定特征提取器
-- 数据多 / 任务差异大：再考虑逐步微调
+## 2. The two most common transfer learning approaches
 
-![迁移学习冻结 backbone 与逐步微调决策图](/img/course/ch06-transfer-learning-freeze-finetune-map.png)
+### 2.1 Approach 1: Fixed feature extractor
 
-:::tip 读图提示
-读这张图时先问两件事：你的数据多不多，新任务和预训练任务像不像。数据少且任务相近，先冻结 backbone 只训 head；数据更多或任务差异更大，再逐步解冻后面层，并用更小学习率微调。
+Method:
+
+- Keep the pretrained backbone parameters unchanged
+- Train only the final classification head
+
+Advantages:
+
+- Fast
+- Less likely to damage pretrained capabilities
+- Suitable for very small datasets
+
+Disadvantages:
+
+- Limited ability to adapt to a new task
+
+### 2.2 Approach 2: Fine-tuning
+
+Method:
+
+- Replace the final classification head
+- In addition to the head, gradually unfreeze part or even all of the backbone
+
+Advantages:
+
+- Better adaptation to the target task
+
+Disadvantages:
+
+- Easier to overfit
+- Slower training
+- Requires more careful learning rate choices
+
+### 2.3 One-line memory trick
+
+- Small dataset: prefer a fixed feature extractor first
+- Large dataset / big task difference: consider progressive fine-tuning
+
+![Decision diagram for freezing the backbone and progressive fine-tuning in transfer learning](/img/course/ch06-transfer-learning-freeze-finetune-map-en.png)
+
+:::tip Reading hint
+When reading this diagram, first ask two questions: how much data do you have, and how similar is the new task to the pretrained task. If the data is small and the tasks are similar, freeze the backbone and train only the head first; if you have more data or the task is more different, gradually unfreeze later layers and fine-tune with a smaller learning rate.
 :::
 
 ---
 
-## 三、一个“可直接运行”的迁移学习玩具示例
+## 3. A “directly runnable” toy transfer learning example
 
-为了保证代码在没有外部模型下载的情况下也能跑通，我们自己模拟一个“已经预训练好的 backbone”。
+To make sure the code runs without downloading any external model, we will simulate a “pretrained backbone” ourselves.
 
-### 3.1 先定义一个小型 backbone
+### 3.1 First define a small backbone
 
 ```python
 import torch
@@ -143,14 +143,14 @@ class TinyBackbone(nn.Module):
         return x.flatten(1)
 ```
 
-这个 backbone 的输出是一个固定长度的特征向量。  
-这就和很多真实预训练模型的“骨干网络输出特征”很像。
+The output of this backbone is a fixed-length feature vector.
+This is very similar to the “feature output from the backbone” in many real pretrained models.
 
 ---
 
-## 四、先做“固定特征提取器”版本
+## 4. First build the “fixed feature extractor” version
 
-### 4.1 替换分类头并冻结 backbone
+### 4.1 Replace the classification head and freeze the backbone
 
 ```python
 import torch
@@ -168,7 +168,7 @@ class TransferClassifier(nn.Module):
 
 model = TransferClassifier(num_classes=3)
 
-# 冻结 backbone
+# Freeze the backbone
 for param in model.backbone.parameters():
     param.requires_grad = False
 
@@ -176,28 +176,28 @@ for name, param in model.named_parameters():
     print(name, "trainable =", param.requires_grad)
 ```
 
-### 4.2 你应该从输出里看到什么？
+### 4.2 What should you see in the output?
 
-你会发现：
+You will find that:
 
-- `backbone` 里的参数都不可训练
-- 只有 `head` 的参数在训练
+- All parameters in `backbone` are not trainable
+- Only the parameters in `head` are trainable
 
-这就是最标准的“只训头部”迁移学习。
+This is the standard “train only the head” form of transfer learning.
 
 ---
 
-## 五、做一个真正能训练的小型图像分类任务
+## 5. Build a small image classification task that can actually be trained
 
-### 5.1 用合成数据模拟一个小任务
+### 5.1 Use synthetic data to simulate a small task
 
-我们造 3 类简单图像：
+We create 3 simple image classes:
 
-- 竖线
-- 横线
-- 对角线
+- Vertical line
+- Horizontal line
+- Diagonal line
 
-这样可以不用外部数据集，也能把训练闭环跑通。
+This way, we do not need an external dataset, and we can still complete the training loop.
 
 ```python
 import numpy as np
@@ -206,11 +206,11 @@ import torch
 def make_image(label, size=12):
     img = np.zeros((size, size), dtype=np.float32)
 
-    if label == 0:  # 竖线
+    if label == 0:  # Vertical line
         img[:, size // 2] = 1.0
-    elif label == 1:  # 横线
+    elif label == 1:  # Horizontal line
         img[size // 2, :] = 1.0
-    else:  # 对角线
+    else:  # Diagonal line
         for i in range(size):
             img[i, i] = 1.0
 
@@ -231,7 +231,7 @@ print(X.shape, y.shape)
 
 ---
 
-## 六、完整训练：只训练头部
+## 6. Full training: train only the head
 
 ```python
 import torch
@@ -266,7 +266,7 @@ class TransferClassifier(nn.Module):
 
 model = TransferClassifier(num_classes=3)
 
-# 冻结 backbone
+# Freeze the backbone
 for param in model.backbone.parameters():
     param.requires_grad = False
 
@@ -286,27 +286,27 @@ for epoch in range(80):
         print(f"epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
 ```
 
-### 6.2 这段代码真正想让你学会什么？
+### 6.2 What is this code really teaching you?
 
-不是“冻结参数”这件语法本身，而是：
+Not the syntax of “freezing parameters” itself, but rather:
 
-> 迁移学习的第一步，常常不是重训整个模型，而是先看已有特征能不能已经支撑你的任务。 
+> In transfer learning, the first step is often not retraining the entire model. Instead, you first check whether the existing features are already enough to support your task.
 
 ---
 
-## 七、什么时候要进一步微调？
+## 7. When should you fine-tune further?
 
-### 7.1 一个很常见的下一步
+### 7.1 A very common next step
 
-如果只训头部效果不够好，可以考虑：
+If training only the head is not good enough, you can consider:
 
-- 解冻最后一个卷积块
-- 用更小学习率继续训练
+- Unfreezing the last convolution block
+- Continuing training with a smaller learning rate
 
-### 7.2 一个最小微调示例
+### 7.2 A minimal fine-tuning example
 
 ```python
-# 解冻最后一个卷积层
+# Unfreeze the last convolution layer
 for param in model.backbone.features[3].parameters():
     param.requires_grad = True
 
@@ -328,74 +328,74 @@ for epoch in range(40):
         print(f"finetune epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
 ```
 
-### 7.3 为什么微调通常要更小学习率？
+### 7.3 Why do we usually use a smaller learning rate for fine-tuning?
 
-因为 backbone 已经有一套“原来学到的特征”。  
-如果学习率太大，很容易把这些已经不错的表示一下子冲坏。
+Because the backbone already has a set of features learned from before.
+If the learning rate is too large, it is easy to destroy those already good representations.
 
-所以常见经验是：
+So a common rule of thumb is:
 
-- 头部学习率大一点
-- backbone 学习率小一点
-
----
-
-## 八、真实项目里迁移学习通常怎么做？
-
-### 8.1 最常见套路
-
-1. 选一个预训练 backbone
-2. 替换最后分类头
-3. 先只训头部
-4. 如果效果不够，再逐步解冻
-5. 持续看验证集表现
-
-### 8.2 为什么这套流程很流行？
-
-因为它兼顾了：
-
-- 训练速度
-- 稳定性
-- 最终效果
-
-这比“一上来全训”通常更稳。
+- Use a larger learning rate for the head
+- Use a smaller learning rate for the backbone
 
 ---
 
-## 九、初学者最常踩的坑
+## 8. How is transfer learning usually done in real projects?
 
-### 9.1 以为迁移学习就是“复制一个大模型”
+### 8.1 The most common workflow
 
-真正关键的是：
+1. Choose a pretrained backbone
+2. Replace the final classification head
+3. Train only the head first
+4. If results are not good enough, gradually unfreeze layers
+5. Keep watching validation performance
 
-- 哪些层冻结
-- 哪些层解冻
-- 学习率怎么配
+### 8.2 Why is this workflow so popular?
 
-### 9.2 一上来就全量微调
+Because it balances:
 
-这通常既慢又不稳，特别是在小数据任务上。
+- Training speed
+- Stability
+- Final performance
 
-### 9.3 忘记检查哪些参数在训练
-
-这是非常常见的错误。  
-训练前最好打印一遍 `requires_grad` 状态。
-
----
-
-## 小结
-
-这一节最重要的不是背“迁移学习”四个字，而是建立一个稳定工程直觉：
-
-> **先复用预训练模型已经学到的通用特征，再根据你的任务决定训头部、训局部还是训全部。**
-
-这也是为什么在很多现实视觉项目里，迁移学习不是技巧，而几乎是默认起点。
+It is usually much more reliable than “train everything from the beginning.”
 
 ---
 
-## 练习
+## 9. Common mistakes beginners make
 
-1. 把示例中的类别从 3 类扩展到 4 类，再设计一种新的图像模式。
-2. 比较“只训头部”和“再解冻一层”时的训练曲线。
-3. 打印模型里所有参数的 `requires_grad`，确认你真的知道哪些层在训练。
-4. 想一想：如果你的目标任务和原预训练任务差别非常大，为什么可能需要解冻更多层？
+### 9.1 Thinking transfer learning just means “copy a big model”
+
+What really matters is:
+
+- Which layers are frozen
+- Which layers are unfrozen
+- How the learning rates are set
+
+### 9.2 Fine-tuning everything right away
+
+This is often both slow and unstable, especially for small-data tasks.
+
+### 9.3 Forgetting to check which parameters are being trained
+
+This is a very common mistake.
+Before training, it is best to print the `requires_grad` status once.
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing the words “transfer learning,” but building a stable engineering intuition:
+
+> **First reuse the general features already learned by a pretrained model, then decide whether to train the head, part of the network, or the whole model based on your task.**
+
+That is also why in many real-world vision projects, transfer learning is not just a trick—it is almost the default starting point.
+
+---
+
+## Exercises
+
+1. Expand the number of classes in the example from 3 to 4, and design a new image pattern.
+2. Compare the training curves for “train only the head” and “unfreeze one more layer.”
+3. Print `requires_grad` for all model parameters to make sure you really know which layers are training.
+4. Think about this: if your target task is very different from the original pretrained task, why might you need to unfreeze more layers?

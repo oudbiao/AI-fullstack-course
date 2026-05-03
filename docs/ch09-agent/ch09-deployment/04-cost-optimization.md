@@ -1,105 +1,105 @@
 ---
-title: "9.5 成本优化"
+title: "9.5 Cost Optimization"
 sidebar_position: 52
-description: "从 token、模型路由、工具调用、缓存和重试开销出发，理解 Agent 成本为什么往往是“链路成本”而不是单次模型调用成本。"
+description: "From token usage, model routing, tool calls, caching, and retry overhead, understand why Agent cost is often a 'pipeline cost' rather than the cost of a single model call."
 keywords: [cost optimization, token cost, model routing, caching, retries, tool cost, deployment]
 ---
 
-# 成本优化
+# Cost Optimization
 
-:::tip 本节定位
-Agent 系统的成本，很多时候不是“调用一次模型多少钱”这么简单。  
-真正影响账单的，常常是整条链路：
+:::tip Section Overview
+The cost of an Agent system is often not as simple as “how much one model call costs.”
+What really affects the bill is usually the whole pipeline:
 
-- 多轮模型调用
-- 工具调用
-- 检索
-- 重试
-- 长上下文
+- Multiple model calls
+- Tool calls
+- Retrieval
+- Retries
+- Long context
 
-所以做成本优化时，关键不是只盯模型单价，而是：
+So when doing cost optimization, the key is not to focus only on the model price per call, but to:
 
-> **看清整条任务链里，钱到底花在哪。**
+> **Clearly see where the money is actually spent in the entire task chain.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Agent 成本的主要组成部分
-- 学会通过最小示例估算一次任务链路成本
-- 理解缓存、路由、截断和重试控制为什么能显著省钱
-- 建立“成本优化不是单点技巧，而是全链路策略”的意识
-
----
-
-## 一、Agent 的钱通常花在哪？
-
-### 1.1 模型 token 成本
-
-最直接的一层是：
-
-- 输入 token
-- 输出 token
-
-上下文越长、步骤越多，成本越高。
-
-### 1.2 工具和外部依赖成本
-
-例如：
-
-- 搜索 API
-- 向量检索
-- 第三方接口
-- 代码执行环境
-
-这些不一定按 token 计费，但都是真实成本。
-
-### 1.3 重试与失败成本
-
-失败不只是“没结果”，还意味着：
-
-- 已经花掉一次调用的钱
-- 还可能触发重试，继续加钱
-
-所以运行时策略和成本优化天然耦合。
+- Understand the main components of Agent cost
+- Learn how to estimate the cost of a task chain with a minimal example
+- Understand why caching, routing, truncation, and retry control can save a lot of money
+- Build the awareness that “cost optimization is not a single trick, but an end-to-end strategy”
 
 ---
 
-## 二、为什么 Agent 比普通聊天更容易“看不懂账单”？
+## 1. Where Does an Agent Usually Spend Money?
 
-### 2.1 因为一次用户请求背后可能拆成很多内部调用
+### 1.1 Model token cost
 
-例如用户只问一句：
+The most direct layer is:
 
-- “我这单能不能退款？”
+- Input tokens
+- Output tokens
 
-系统内部可能做了：
+The longer the context and the more steps there are, the higher the cost.
 
-1. 一次工具选择推理
-2. 一次订单状态查询
-3. 一次政策检索
-4. 一次金额计算
-5. 一次最终回答生成
+### 1.2 Tool and external dependency costs
 
-如果其中还带重试，成本会继续放大。
+For example:
 
-### 2.2 所以成本核算应该按“任务链”而不是“单调用”
+- Search API
+- Vector retrieval
+- Third-party APIs
+- Code execution environments
 
-这个视角非常关键：
+These may not be billed by token, but they are still real costs.
 
-- 用户看到的是 1 次请求
-- 系统内部跑的是 5-10 次动作
+### 1.3 Retry and failure costs
 
-成本优化必须围绕“整链路”。
+A failure does not just mean “no result”; it also means:
+
+- Money has already been spent on one call
+- A retry may be triggered, adding more cost
+
+So runtime strategy and cost optimization are naturally coupled.
 
 ---
 
-## 三、先跑一个最小成本估算器
+## 2. Why Is It Harder to “Read the Bill” for an Agent Than for a Normal Chat?
 
-这个示例会把一次 Agent 任务拆成几段成本：
+### 2.1 Because one user request may be broken into many internal calls
 
-- 模型 token 成本
-- 工具调用成本
-- 重试额外成本
+For example, a user asks only:
+
+- “Can I get a refund for this order?”
+
+The system may internally do:
+
+1. One tool-selection inference
+2. One order-status query
+3. One policy retrieval
+4. One amount calculation
+5. One final response generation
+
+If retries are involved, the cost grows even more.
+
+### 2.2 So cost accounting should be based on the “task chain,” not a single call
+
+This perspective is very important:
+
+- The user sees 1 request
+- The system actually runs 5–10 actions internally
+
+Cost optimization must focus on the entire chain.
+
+---
+
+## 3. First, Run a Minimal Cost Estimator
+
+This example breaks one Agent task into several cost parts:
+
+- Model token cost
+- Tool call cost
+- Extra retry cost
 
 ```python
 PRICES = {
@@ -154,76 +154,76 @@ print("baseline_cost =", task_cost(baseline_task))
 print("optimized_cost =", task_cost(optimized_task))
 ```
 
-### 3.1 这段代码最想让你看到什么？
+### 3.1 What is this code mainly trying to show you?
 
-不是某个具体价格，  
-而是成本的组成方式：
+Not a specific price,
+but how cost is composed:
 
-- 哪几次模型调用最贵
-- 哪些工具调用叠起来也不便宜
-- 优化后为什么会明显下降
+- Which model calls are the most expensive
+- Which tool calls also add up to a non-trivial amount
+- Why the cost drops significantly after optimization
 
-### 3.2 为什么“先小模型筛，再大模型精答”常常有效？
+### 3.2 Why is “use a small model to screen first, then let a large model answer precisely” often effective?
 
-因为很多请求并不需要最贵模型全程参与。  
-典型做法是：
+Because many requests do not need the most expensive model to participate throughout the whole process.
+A common pattern is:
 
-- 小模型做路由 / 过滤
-- 大模型只处理真正复杂部分
+- Small model for routing / filtering
+- Large model only for the truly complex parts
 
-### 3.3 为什么减少一次 `search_api` 也可能很值？
+### 3.3 Why can reducing one `search_api` call be so valuable?
 
-因为外部 API 单价有时并不低，  
-而且它还会增加延迟和重试风险。
+Because external API unit prices can sometimes be high,
+and they also increase latency and retry risk.
 
-![Agent 成本路由、缓存与预算控制图](/img/course/ch09-agent-cost-routing-cache-budget-map.png)
+![Agent cost routing, caching, and budget control diagram](/img/course/ch09-agent-cost-routing-cache-budget-map-en.png)
 
-:::tip 读图提示
-这张图把成本从“单次模型调用”扩展成“任务链路账单”：模型路由、上下文长度、工具调用、缓存命中、失败重试和预算上限都会影响最终成本。
+:::tip Reading Tip
+This diagram expands cost from a “single model call” to a “task-chain bill”: model routing, context length, tool calls, cache hits, failed retries, and budget limits all affect the final cost.
 :::
 
 ---
 
-## 四、成本优化最常见的五个方向
+## 4. Five Common Directions for Cost Optimization
 
-### 4.1 缩短上下文
+### 4.1 Shorten the context
 
-最直接的方法通常是：
+The most direct methods are usually:
 
-- 删掉无关历史
-- 压缩长上下文
-- 提前摘要
+- Remove irrelevant history
+- Compress long context
+- Summarize early
 
-### 4.2 模型分级路由
+### 4.2 Multi-tier model routing
 
-常见模式：
+Common pattern:
 
-- 简单请求 -> 小模型
-- 复杂请求 -> 大模型
+- Simple requests -> small model
+- Complex requests -> large model
 
-### 4.3 缓存
+### 4.3 Caching
 
-适合：
+Good for:
 
-- 高频重复问题
-- 只读工具结果
-- 固定政策类内容
+- Frequently repeated questions
+- Read-only tool results
+- Fixed policy content
 
-### 4.4 工具调用去重
+### 4.4 Deduplicate tool calls
 
-很多 Agent 的钱其实不是花在“该调用的工具”上，  
-而是花在：
+A lot of an Agent’s money is not actually spent on “necessary tool calls,”
+but on:
 
-- 重复查同样的东西
+- Re-checking the same thing repeatedly
 
-### 4.5 控制失败与重试
+### 4.5 Control failures and retries
 
-如果失败太多或重试太多，  
-账单会很快失真。
+If failures or retries happen too often,
+the bill can quickly become misleading.
 
 ---
 
-## 五、一个非常实用的缓存节省示例
+## 5. A Very Practical Example of Cache Savings
 
 ```python
 cache = {}
@@ -236,7 +236,7 @@ def cached_lookup(query, raw_cost=0.002):
     return {"source": "api", "cost": raw_cost}
 
 
-queries = ["退款政策", "退款政策", "证书规则", "退款政策"]
+queries = ["refund policy", "refund policy", "certificate rules", "refund policy"]
 total_cost = 0.0
 
 for query in queries:
@@ -247,53 +247,53 @@ for query in queries:
 print("total_cost =", total_cost)
 ```
 
-这段代码虽然简单，但已经非常接近真实工程的一个核心事实：
+Although this code is simple, it already reflects one core fact in real engineering:
 
-- 高频重复请求不做缓存，会持续烧钱
-
----
-
-## 六、成本优化最容易踩的坑
-
-### 6.1 误区一：只换更便宜模型就算优化
-
-如果链路设计不变、工具调用照样乱、重试依然失控，  
-模型单价下降也未必能救整体账单。
-
-### 6.2 误区二：一味追最低成本
-
-如果为了省钱导致：
-
-- 正确率显著下降
-- 延迟反而上升
-- 复杂请求答不出来
-
-那就不是真正的优化。
-
-### 6.3 误区三：不做“单请求成本画像”
-
-如果你不知道：
-
-- 哪类请求最贵
-- 贵在哪一段
-
-后面的优化基本只能盲猜。
+- If you do not cache high-frequency repeated requests, you will keep burning money
 
 ---
 
-## 小结
+## 6. The Most Common Cost Optimization Pitfalls
 
-这节最重要的是建立一个全链路成本观：
+### 6.1 Mistake 1: Thinking that switching to a cheaper model alone counts as optimization
 
-> **Agent 成本优化不是“把模型换便宜一点”这么简单，而是同时优化上下文长度、模型路由、工具调用、缓存命中和失败重试。**
+If the pipeline design does not change, tool calls remain messy, and retries are still out of control,
+a lower model price may not save the overall bill.
 
-当你开始按任务链拆成本，而不是只看单个模型调用时，优化才会真正有效。
+### 6.2 Mistake 2: Always chasing the lowest cost
+
+If saving money causes:
+
+- A significant drop in accuracy
+- Higher latency instead
+- Complex requests to fail
+
+then it is not real optimization.
+
+### 6.3 Mistake 3: Not building a per-request cost profile
+
+If you do not know:
+
+- Which types of requests are the most expensive
+- Where the expense is coming from
+
+then later optimization is basically blind guessing.
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例再加一条“重试导致额外模型调用”的成本，看看总价怎么变化。
-2. 想一想：哪些请求适合直接走缓存，哪些请求必须实时算？
-3. 为什么说模型分级路由通常比“统一用大模型”更适合生产系统？
-4. 如果某条链路正确率很高但成本异常高，你会先从哪一段查？
+The most important idea in this lesson is to build an end-to-end cost view:
+
+> **Agent cost optimization is not as simple as “make the model a bit cheaper.” It also means optimizing context length, model routing, tool calls, cache hits, and failed retries.**
+
+When you start breaking costs down by task chain instead of only looking at a single model call, optimization becomes truly effective.
+
+---
+
+## Exercises
+
+1. Add one more cost item for “extra model calls caused by retries” to the example, and see how the total changes.
+2. Think about which requests are suitable for direct cache hits, and which requests must be computed in real time.
+3. Why is multi-tier model routing usually more suitable for production systems than “always use a large model”?
+4. If a pipeline has very high accuracy but unusually high cost, which part would you inspect first?

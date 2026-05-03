@@ -1,67 +1,67 @@
 ---
-title: "4.1 学前导读：序列标注这一章到底在学什么"
+title: "4.1 Pre-class guide: What exactly do we learn in this chapter on sequence labeling?"
 sidebar_position: 0
-description: "先建立序列标注章的学习地图：NER、BiLSTM-CRF 和项目实践是怎样围绕词级标签任务展开的。"
-keywords: [序列标注导读, NER, BiLSTM-CRF]
+description: "First build a learning map for the sequence labeling chapter: how NER, BiLSTM-CRF, and project practice are organized around token-level tagging tasks."
+keywords: [sequence labeling guide, NER, BiLSTM-CRF]
 ---
 
-# 学前导读：序列标注这一章到底在学什么
+# Pre-class guide: What exactly do we learn in this chapter on sequence labeling?
 
-这一章解决的是：
+This chapter focuses on:
 
-> **不是给整句一个标签，而是给序列中的每个位置一个标签。**
+> **Not assigning one label to the whole sentence, but assigning one label to each position in the sequence.**
 
-## 历史背景：序列标注为什么会先从 HMM 走起？
+## Historical background: Why did sequence labeling start with HMM?
 
-如果你想知道这条线最早是怎么长出来的，可以先知道一个经典背景：
+If you want to know how this line of work first grew out, it helps to start with a classic background:
 
-- 在 Transformer 和 BiLSTM 之前，词性标注、分词、命名实体识别这类任务，长期大量依赖 `HMM / CRF` 这条统计序列建模路线。
+- Before Transformer and BiLSTM, tasks such as part-of-speech tagging, word segmentation, and named entity recognition relied heavily on the statistical sequence modeling approach of `HMM / CRF` for a long time.
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember is:
 
-> **序列标注这条主线，本来就是 NLP 历史上非常经典的一条“位置级预测”路线。**
+> **The main line of sequence labeling has always been a very classic “position-level prediction” approach in NLP history.**
 
-所以你后面看到的：
+So when you later see:
 
-- BIO 标注
+- BIO tagging
 - BiLSTM + CRF
 
-不是突然出现的新东西，而是在更老的统计序列建模主线上继续升级。
+these are not brand-new ideas that appeared out of nowhere, but continued upgrades on the older statistical sequence modeling line.
 
-如果想把这条历史线看得更完整，建议先读 [4.2 HMM、CRF 与序列标注历史主线](./04-hmm-crf-history.md)，再进入 NER 和 BiLSTM-CRF。
+If you want to understand this history more completely, it is recommended that you first read [4.2 HMM, CRF, and the historical main line of sequence labeling](./04-hmm-crf-history.md), and then move on to NER and BiLSTM-CRF.
 
-## 这一章的主线
+## The main thread of this chapter
 
-![序列标注章节学习顺序图](/img/course/ch11-sequence-labeling-chapter-flow.png)
+![Sequence labeling chapter learning flowchart](/img/course/ch11-sequence-labeling-chapter-flow-en.png)
 
-## 新人和进阶学习者怎么读
+## How beginners and advanced learners should read this chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus first on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering skills: pay attention to boundary cases, failure cases, evaluation methods, code reproducibility, and how this stage connects with the previous and next ones. After finishing, it is best to save the chapter’s content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested study time and difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Learning style | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick skim | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run through a minimal example and complete the chapter’s small project deliverable |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Chapter self-check questions
 
-| 自测问题 | 通过标准 |
+| Self-check question | Pass standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its role in the whole course in one sentence |
+| What are the minimal input and output? | Can clearly describe what the example needs as input and what result it will produce |
+| Where do common failure points happen? | Can list at least one cause of errors, poor results, or misunderstanding |
+| What can be preserved after learning it? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
+## Chapter small project deliverable
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the most core concept or tool in this chapter, and produce a small result that can run, be screenshotted, and be written into the README. It does not need to be complex, but it should clearly show what the input is, what the processing step is, and what the output result is.
 
-## 过关标准
+## Pass standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stages before and after it, and complete the minimal version of the chapter’s small project deliverable.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common error, one debugging process, or one result improvement, that means you are no longer just “reading the content,” but are turning this chapter into your own project experience.

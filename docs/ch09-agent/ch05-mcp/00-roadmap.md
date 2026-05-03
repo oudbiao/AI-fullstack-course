@@ -1,81 +1,81 @@
 ---
-title: "5.1 学前导读：MCP 这一章到底在学什么"
+title: "5.1 Pre-course Guide: What This MCP Chapter Is Really About"
 sidebar_position: 0
-description: "先建立 MCP 章节的学习地图：协议定位、Server、Client、工具资源提示词和生态集成怎样让 Agent 能力连接更统一。"
-keywords: [MCP导读, Model Context Protocol, Agent工具生态, MCP Server]
+description: "First build a learning map for the MCP chapter: protocol positioning, and how Server, Client, tools, resources, prompt templates, and ecosystem integration make Agent capabilities connect more consistently."
+keywords: [MCP guide, Model Context Protocol, Agent tool ecosystem, MCP Server]
 ---
 
-# 学前导读：MCP 这一章到底在学什么
+# Pre-course Guide: What This MCP Chapter Is Really About
 
-这一章解决的是：当工具、数据源和外部能力越来越多时，怎样用统一协议把它们更稳定地接入 Agent 和大模型应用。
+This chapter answers a key question: as tools, data sources, and external capabilities keep growing, how can we use a unified protocol to connect them to Agent and LLM applications more reliably?
 
-在前面的工具章节里，你已经知道 Agent 可以调用函数、API、检索系统和代码工具。但如果每个工具都用完全不同的接入方式，系统会很快变得难维护。MCP 这一章要帮助你理解：协议层为什么重要，以及它怎样让模型应用更容易连接外部上下文和能力。
+In the earlier tool chapters, you learned that Agent can call functions, APIs, retrieval systems, and code tools. But if every tool uses a completely different integration method, the system quickly becomes hard to maintain. This MCP chapter will help you understand why the protocol layer matters, and how it makes model applications easier to connect to external context and capabilities.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Overall Course
 
-你已经学过 Agent 工具调用和记忆系统。工具调用让 Agent 能执行动作，记忆系统让 Agent 能延续上下文。MCP 则进一步回答：这些工具、资源和上下文能不能用更统一的方式暴露给模型应用。
+You have already learned Agent tool calling and memory systems. Tool calling lets Agent perform actions, while memory systems let Agent continue context. MCP goes one step further: can these tools, resources, and contexts be exposed to model applications in a more unified way?
 
-可以把 MCP 理解成一种连接层。它不是替代 Agent，也不是替代工具本身，而是让不同工具和数据源用更标准的方式被发现、描述、调用和组合。
+You can think of MCP as a connection layer. It does not replace Agent, and it does not replace the tools themselves. Instead, it lets different tools and data sources be discovered, described, called, and combined in a more standard way.
 
-![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.png)
+![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：MCP 在大模型应用架构中处于哪一层；MCP Server 和 Client 分别负责什么；工具、资源、提示词模板这些能力如何被暴露；为什么协议化能降低集成复杂度；MCP 生态如何影响未来 Agent 应用开发方式。
+This chapter answers five questions: where MCP sits in the LLM application architecture; what MCP Server and Client are responsible for; how capabilities such as tools, resources, and prompt templates are exposed; why protocol-based design reduces integration complexity; and how the MCP ecosystem affects the future way Agent applications are developed.
 
-新人最容易误解的是：MCP 是某个具体工具或框架。更准确地说，它是一种协议和生态思路，重点不是某个单一功能，而是让模型应用连接外部能力时更标准、更可组合、更容易复用。
+The most common misunderstanding for beginners is thinking MCP is a specific tool or framework. More accurately, it is a protocol and ecosystem approach. The focus is not a single function, but making it more standard, more composable, and easier to reuse when model applications connect to external capabilities.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学 MCP 的概念和定位，知道它解决的是连接和标准化问题。然后看架构，分清 MCP Client、MCP Server、工具、资源和协议消息的角色。接着学习 Server 开发，理解如何把一个外部能力包装成可被调用的服务。再看 Client 集成，理解模型应用如何发现和使用这些能力。最后看 MCP 生态，知道它为什么会和 Agent、IDE、知识库、浏览器、数据库等场景结合。
+It is recommended to first learn MCP’s concept and positioning, so you understand that it solves connection and standardization problems. Then look at the architecture and clarify the roles of MCP Client, MCP Server, tools, resources, and protocol messages. Next, learn Server development and understand how to package an external capability into a service that can be called. After that, study Client integration and understand how model applications discover and use these capabilities. Finally, look at the MCP ecosystem and learn why it combines with Agent, IDEs, knowledge bases, browsers, databases, and other scenarios.
 
-![MCP 章节学习顺序图](/img/course/ch09-mcp-chapter-flow.png)
+![MCP chapter learning order diagram](/img/course/ch09-mcp-chapter-flow-en.png)
 
-## 学这一章时要抓住的主线
+## The Main Thread to Hold Onto in This Chapter
 
-这一章的主线可以概括为：MCP 把外部能力包装成模型应用可以统一发现和调用的上下文接口。
+The main thread of this chapter can be summarized as: MCP packages external capabilities into context interfaces that model applications can discover and call in a unified way.
 
-![MCP 能力接入桥接图](/img/course/ch09-mcp-capability-bridge.png)
+![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-en.png)
 
-看懂这条线后，你会知道 MCP 与 Function Calling 的关系：Function Calling 更关注模型如何发起结构化调用，MCP 更关注外部工具和上下文如何以统一协议接入应用。
+Once you understand this thread, you will know the relationship between MCP and Function Calling: Function Calling focuses more on how the model initiates structured calls, while MCP focuses more on how external tools and context are connected to applications through a unified protocol.
 
-## 这一章和后面章节的关系
+## How This Chapter Relates to Later Chapters
 
-MCP 会直接影响多 Agent、评估安全和部署。多个 Agent 如果共享工具生态，需要更清晰的能力边界；安全章节需要考虑 MCP Server 的权限、数据暴露和调用审计；部署章节需要考虑 MCP 服务的运行、认证、日志和故障处理。
+MCP will directly affect multi-Agent systems, evaluation, security, and deployment. If multiple Agents share a tool ecosystem, they need clearer capability boundaries. The security chapter needs to consider MCP Server permissions, data exposure, and call auditing. The deployment chapter needs to consider MCP service runtime, authentication, logs, and failure handling.
 
-如果这一章没学稳，后面常见的问题是：把 MCP 当成普通 API 调用；不知道 Server 和 Client 的职责边界；工具描述混乱导致模型误用；权限和资源暴露没有边界；生态集成很多但缺乏统一架构视角。
+If you do not learn this chapter well, common problems later are: treating MCP as a normal API call; not understanding the responsibility boundary between Server and Client; confusing tool descriptions and causing model misuse; exposing permissions and resources without boundaries; and having many ecosystem integrations but no unified architectural perspective.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can move on.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering thinking: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to the earlier and later stages. After reading, it is best to condense the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Method | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick browse | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum pass | 1–2 hours | Run through a minimal example and complete the chapter’s small project outcome |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one cause of errors, poor results, or misunderstanding |
+| What can you summarize after learning it? | You can write the chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Outcome for This Chapter
 
-学完这一章后，建议做一个“课程资料 MCP Server”设计或原型。它可以暴露课程文档检索工具、章节资源读取接口和常用学习计划提示词模板，让 Agent 能通过统一方式访问课程资料。
+After learning this chapter, it is recommended to design or prototype a “course materials MCP Server.” It can expose course document retrieval tools, chapter resource reading interfaces, and common study plan prompt templates, allowing Agent to access course materials in a unified way.
 
-项目重点是画清楚架构：MCP Server 提供哪些工具和资源，Client 如何连接，Agent 什么时候调用，返回结果如何进入下一步决策。
+The key point of the project is to clearly map the architecture: which tools and resources the MCP Server provides, how the Client connects, when Agent calls it, and how the returned results feed into the next decision.
 
-## 过关标准
+## Completion Criteria
 
-这一章结束时，你应该能解释 MCP 为什么出现，能区分 MCP Client 和 MCP Server，能说明工具、资源和提示词模板在 MCP 中的大致作用，能画出一个 MCP 接入 Agent 的最小架构图。
+By the end of this chapter, you should be able to explain why MCP appeared, distinguish between MCP Client and MCP Server, describe the general role of tools, resources, and prompt templates in MCP, and draw a minimal architecture diagram of MCP connected to Agent.
 
-如果你能把一个已有 API 或本地资料库设计成 MCP Server，并说明权限、输入参数、返回结果和失败处理，就说明你已经掌握了 MCP 的入门应用方式。
+If you can design an existing API or local knowledge base as an MCP Server and explain permissions, input parameters, returned results, and failure handling, then you have mastered the basic application of MCP.

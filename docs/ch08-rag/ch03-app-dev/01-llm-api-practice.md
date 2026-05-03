@@ -1,82 +1,82 @@
 ---
-title: "3.2 大模型 API 调用实践"
+title: "3.2 Practice with LLM API Calls"
 sidebar_position: 11
-description: "从最小聊天请求、参数设计、错误处理到封装客户端，真正理解怎样把大模型 API 接进应用。"
+description: "From the smallest chat request and parameter design to error handling and client wrapping, truly understand how to connect an LLM API into an application."
 keywords: [LLM API, chat completion, API client, prompt, response parsing, error handling]
 ---
 
-# 大模型 API 调用实践
+# Practice with LLM API Calls
 
-:::tip 本节定位
-很多人第一次做 LLM 应用时，停留在“我会调用一下接口”。  
-但真实开发里，真正重要的是：
+:::tip Section overview
+When many people build their first LLM application, they stop at “I can call the API.”
+But in real development, what really matters is:
 
-> **怎样把模型调用从一次性 demo，变成稳定、可维护的应用能力。**
+> **How to turn model calls from a one-off demo into a stable, maintainable application capability.**
 
-这一节就从最小请求开始，一步步把这件事讲透。
+In this section, we’ll start from the smallest request and explain it step by step.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解一个最小 LLM API 调用到底由哪些部分组成
-- 知道请求、响应、参数、错误处理分别扮演什么角色
-- 学会写一个最小但像样的 API 客户端封装
-- 明白为什么“会调接口”和“能做应用”之间还差很多
-
----
-
-## 一、为什么 API 调用是 LLM 应用开发的第一步？
-
-### 1.1 因为这是模型真正进入系统的入口
-
-你前面学的大多数概念，不管多强，最终到了应用里都要落到一件事：
-
-- 发请求
-- 拿结果
-- 继续处理
-
-所以 API 调用不是“基础杂活”，而是：
-
-> **大模型能力进入产品的接口层。**
-
-### 1.2 一个经常被忽略的问题
-
-很多人只在乎：
-
-- 能不能拿到回复
-
-但真实项目更关心：
-
-- 回复是不是稳定
-- 错误怎么处理
-- token 成本怎么控制
-- 多轮上下文怎么组织
-
-所以这一节的重点不是“会发个 HTTP 请求”，而是“会围绕一次模型调用设计应用代码”。
+- Understand what components make up the smallest LLM API call
+- Know the roles of requests, responses, parameters, and error handling
+- Learn how to write a minimal but practical API client wrapper
+- Understand why there is still a big gap between “can call the API” and “can build an application”
 
 ---
 
-## 二、一个最小聊天请求到底包含什么？
+## 1. Why is API calling the first step in LLM application development?
 
-最核心的一组要素通常包括：
+### 1.1 Because this is the entry point where the model actually enters the system
 
-- 模型名
-- 消息列表
-- 温度等参数
-- 返回内容
+Most of the concepts you’ve learned so far, no matter how powerful, eventually come down to one thing in an application:
 
-你可以先把它理解成：
+- Send a request
+- Get a result
+- Keep processing
 
-> **把任务说明、上下文和控制参数一起交给模型。**
+So API calls are not “basic chores”; they are:
 
-### 2.1 一个最小请求示意
+> **The interface layer through which LLM capabilities enter the product.**
+
+### 1.2 A question that is often overlooked
+
+Many people only care about:
+
+- Whether they can get a reply
+
+But real projects care more about:
+
+- Whether the reply is stable
+- How errors are handled
+- How token cost is controlled
+- How multi-turn context is organized
+
+So the focus of this section is not “how to send an HTTP request,” but “how to design application code around a model call.”
+
+---
+
+## 2. What does the smallest chat request contain?
+
+The most core set of elements usually includes:
+
+- Model name
+- Message list
+- Parameters such as temperature
+- Returned content
+
+You can think of it as:
+
+> **Sending task instructions, context, and control parameters to the model together.**
+
+### 2.1 A minimal request example
 
 ```python
 request = {
     "model": "demo-chat-model",
     "messages": [
-        {"role": "system", "content": "你是一个课程助手。"},
-        {"role": "user", "content": "退款政策是什么？"}
+        {"role": "system", "content": "You are a course assistant."},
+        {"role": "user", "content": "What is the refund policy?"}
     ],
     "temperature": 0.2
 }
@@ -84,33 +84,33 @@ request = {
 print(request)
 ```
 
-### 2.2 为什么 `messages` 是列表？
+### 2.2 Why is `messages` a list?
 
-因为聊天模型通常不是只看一条字符串，而是看：
+Because chat models usually do not look at just one string. They look at:
 
-- system 指令
-- user 提问
-- assistant 历史回答
+- system instructions
+- user questions
+- assistant history replies
 
-这样它才能更好理解多轮对话背景。
+This helps them better understand the context of multi-turn conversations.
 
 ---
 
-## 三、先做一个“离线 mock 客户端”
+## 3. Start with an “offline mock client”
 
-为了保证代码可直接运行，我们先不用真实网络请求，而是写一个最小模拟版 client。
+To make the code directly runnable, we won’t use a real network request yet. Instead, we’ll write a minimal mock client.
 
 ```python
 class MockLLMClient:
     def chat(self, messages, model="demo-chat-model", temperature=0.2):
         user_message = messages[-1]["content"]
 
-        if "退款" in user_message:
-            reply = "课程购买后 7 天内且学习进度低于 20% 可申请退款。"
-        elif "证书" in user_message:
-            reply = "完成所有必修项目并通过结课测试后，可以获得结业证书。"
+        if "refund" in user_message:
+            reply = "You can request a refund within 7 days of purchase if your learning progress is below 20%."
+        elif "certificate" in user_message:
+            reply = "You can receive a completion certificate after finishing all required tasks and passing the final test."
         else:
-            reply = "这是一个模拟回复。"
+            reply = "This is a simulated reply."
 
         return {
             "model": model,
@@ -124,49 +124,49 @@ class MockLLMClient:
 client = MockLLMClient()
 
 response = client.chat([
-    {"role": "system", "content": "你是课程助手。"},
-    {"role": "user", "content": "退款政策是什么？"}
+    {"role": "system", "content": "You are a course assistant."},
+    {"role": "user", "content": "What is the refund policy?"}
 ])
 
 print(response)
 ```
 
-### 3.2 为什么先做 mock 版？
+### 3.2 Why start with a mock version?
 
-因为这能让你先理解：
+Because it helps you first understand:
 
-- 输入结构长什么样
-- 输出结构长什么样
-- 你的业务逻辑该放在哪
+- What the input structure looks like
+- What the output structure looks like
+- Where your business logic should live
 
-而不必一开始就被联网、鉴权和 SDK 细节分散注意力。
+Without being distracted too early by networking, authentication, and SDK details.
 
 ---
 
-## 四、从“能调”走向“能用”
+## 4. From “can call” to “can use”
 
-### 4.1 为什么不能在业务代码里到处直接写 API 调用？
+### 4.1 Why not write API calls directly everywhere in business code?
 
-如果你每个地方都写：
+If you write this everywhere:
 
 ```python
 client.chat(...)
 ```
 
-久了会遇到这些问题：
+Over time, you’ll run into these problems:
 
-- 参数不统一
-- system prompt 到处散
-- 错误处理不一致
-- 后面很难切模型或切 provider
+- Inconsistent parameters
+- Scattered system prompts
+- Inconsistent error handling
+- Hard to switch models or providers later
 
-### 4.2 一个更像项目代码的封装
+### 4.2 A wrapper that looks more like real project code
 
 ```python
 class CourseAssistant:
     def __init__(self, llm_client):
         self.llm = llm_client
-        self.system_prompt = "你是一个课程助手，回答要准确、简洁。"
+        self.system_prompt = "You are a course assistant. Answer accurately and concisely."
 
     def ask(self, user_query):
         messages = [
@@ -177,59 +177,59 @@ class CourseAssistant:
 
 assistant = CourseAssistant(MockLLMClient())
 
-print(assistant.ask("证书怎么拿？"))
+print(assistant.ask("How do I get a certificate?"))
 ```
 
-### 4.3 这个封装在教你什么？
+### 4.3 What is this wrapper teaching you?
 
-它在教你：
+It is teaching you:
 
-> 模型调用通常应该藏在一个更稳定的应用层接口后面。 
+> Model calls should usually be hidden behind a more stable application-layer interface.
 
-这一步非常重要，因为后面你会不断加：
+This is very important, because later you will keep adding:
 
-- 业务 prompt
-- tool calling
-- logging
-- retry
+- Business prompts
+- Tool calling
+- Logging
+- Retry logic
 
 ---
 
-## 五、为什么响应解析同样重要？
+## 5. Why is response parsing equally important?
 
-你拿到模型输出后，通常不会直接就结束。  
-你还常常要继续做：
+After you get the model output, you usually do not stop there.
+You often still need to:
 
-- 展示给用户
-- 存数据库
-- 进工作流
-- 做后处理
+- Show it to the user
+- Save it to the database
+- Feed it into a workflow
+- Do post-processing
 
-所以你最好先习惯把响应拆出来看：
+So you should get used to separating the response first:
 
 ```python
-response = assistant.ask("退款政策是什么？")
+response = assistant.ask("What is the refund policy?")
 
 print("reply =", response["content"])
 print("usage =", response["usage"])
 ```
 
-这一步看似简单，但它在提醒你：
+This may look simple, but it reminds you:
 
-> 模型返回的不只是“文本”，还有很多有价值的元信息。 
+> The model returns not only “text,” but also a lot of valuable metadata.
 
 ---
 
-## 六、一个最关键的工程问题：错误处理
+## 6. One of the most important engineering problems: error handling
 
-真实调用里最常见的情况不是“永远成功”，而是：
+In real calls, the most common situation is not “always success,” but:
 
-- 超时
-- 限流
-- 网络异常
-- 服务端错误
+- Timeout
+- Rate limiting
+- Network exception
+- Server error
 
-### 6.1 一个最小错误处理示例
+### 6.1 A minimal error-handling example
 
 ```python
 class UnstableMockLLMClient:
@@ -242,7 +242,7 @@ class UnstableMockLLMClient:
             raise RuntimeError("temporary_api_error")
         return {
             "model": model,
-            "content": "重试后成功返回。",
+            "content": "Successfully returned after retry.",
             "usage": {"prompt_tokens": 20, "completion_tokens": 6}
         }
 
@@ -253,23 +253,23 @@ def safe_chat(client, messages):
         return {"error": str(e)}
 
 client = UnstableMockLLMClient()
-messages = [{"role": "user", "content": "你好"}]
+messages = [{"role": "user", "content": "Hello"}]
 
 print(safe_chat(client, messages))
 print(safe_chat(client, messages))
 ```
 
-### 6.2 为什么这一层一定要认真做？
+### 6.2 Why must this layer be taken seriously?
 
-因为一旦模型调用成了系统中间的一环，错误就不只是“用户没回复”，而是：
+Because once model calls become part of your system pipeline, an error is no longer just “the user didn’t get a reply.” It can mean:
 
-- 后面工作流可能全断
-- 日志和统计会失真
-- 用户体验会突然变差
+- The workflow downstream may break completely
+- Logs and metrics may become misleading
+- User experience may suddenly get worse
 
 ---
 
-## 七、一个真实感更强的重试示例
+## 7. A retry example with more realistic behavior
 
 ```python
 def retry_chat(client, messages, retries=2):
@@ -282,77 +282,77 @@ def retry_chat(client, messages, retries=2):
     return {"error": last_error}
 
 client = UnstableMockLLMClient()
-print(retry_chat(client, [{"role": "user", "content": "你好"}]))
+print(retry_chat(client, [{"role": "user", "content": "Hello"}]))
 ```
 
-这个例子在教你：
+This example teaches you:
 
-> API 调用一旦进了工程系统，重试往往不是加分项，而是基础能力。 
-
----
-
-## 八、真实项目里还要继续补哪些东西？
-
-当你从 mock 走向真实 API 时，通常还要补：
-
-- 鉴权
-- 模型切换
-- token 成本统计
-- 日志与 trace
-- timeout
-- provider 适配层
-
-所以真实项目里的 LLM API 层，通常既像：
-
-- 模型入口
-
-也像：
-
-- 一个运行时中间层
+> Once API calls enter an engineering system, retry is often not a bonus feature, but a basic capability.
 
 ---
 
-## 九、最常见的误区
+## 8. What else do real projects need to add?
 
-### 9.1 以为“拿到 content”就够了
+When you move from a mock client to a real API, you usually still need to add:
 
-其实 usage、错误结构、trace 信息也很重要。
+- Authentication
+- Model switching
+- Token cost tracking
+- Logging and tracing
+- Timeout
+- Provider adaptation layer
 
-### 9.2 业务代码里到处散着 `client.chat(...)`
+So the LLM API layer in a real project often serves both as:
 
-这会让后面维护很痛苦。
+- A model entry point
 
-### 9.3 没有统一错误处理
+and as:
 
-一到线上问题就很容易暴露出来。
+- A runtime middleware layer
 
 ---
 
-## LLM API 最小工程规范
+## 9. The most common misunderstandings
 
-当你开始把 API 调用接进真实项目时，可以先用下面这张表检查自己的封装是否够稳。
+### 9.1 Thinking “getting the content” is enough
 
-| 检查项 | 最低要求 | 为什么重要 |
+In fact, usage, error structure, and trace information are also important.
+
+### 9.2 Scattering `client.chat(...)` everywhere in business code
+
+This will make maintenance painful later.
+
+### 9.3 Having no unified error handling
+
+Production issues will be exposed very quickly.
+
+---
+
+## Minimal engineering standards for LLM API calls
+
+When you start connecting API calls into a real project, you can use the table below to check whether your wrapper is stable enough.
+
+| Check item | Minimum requirement | Why it matters |
 |---|---|---|
-| 配置管理 | API key、model、base_url 不写死在业务函数里 | 便于切换环境和保护密钥 |
-| 统一入口 | 所有模型调用经过同一个 client 或 service | 便于加日志、重试、限流和成本统计 |
-| 超时设置 | 每次请求都有 timeout | 防止一个请求卡住整个流程 |
-| 重试策略 | 只对临时错误重试，且有最大次数 | 防止无限重试和成本失控 |
-| 错误结构 | 失败时返回统一 error 对象 | 上层业务能稳定处理失败 |
-| usage 记录 | 记录 token、模型名、耗时 | 后续才能分析成本和性能 |
-| 原始输出保留 | 保存 raw output 或关键 trace | 出错时能复盘模型到底返回了什么 |
+| Configuration management | API key, model, and base_url are not hard-coded in business functions | Makes environment switching easier and protects secrets |
+| Unified entry point | All model calls go through the same client or service | Makes logging, retries, rate limiting, and cost tracking easier |
+| Timeout setting | Every request has a timeout | Prevents one request from blocking the whole flow |
+| Retry strategy | Retry only temporary errors and limit the maximum number of attempts | Prevents infinite retries and uncontrolled cost |
+| Error structure | Return a unified error object on failure | Upper-layer business code can handle failures consistently |
+| usage recording | Record token count, model name, and latency | Needed for later cost and performance analysis |
+| Raw output preservation | Save raw output or key traces | Helps diagnose what the model actually returned when something goes wrong |
 
-这张表的重点是让 API 层成为“稳定接口”，而不是散落在代码里的若干次模型请求。后面的 RAG、结构化输出、Function Calling 和 Agent 都会依赖这一层。
+The key point of this table is to make the API layer a “stable interface” rather than a collection of scattered model requests in the codebase. The later topics of RAG, structured output, Function Calling, and Agent all depend on this layer.
 
-![LLM API 稳健客户端闭环图](/img/course/ch08-llm-api-robust-client-loop-map.png)
+![LLM API robust client closed-loop diagram](/img/course/ch08-llm-api-robust-client-loop-map-en.png)
 
-:::tip 读图提示
-一次模型调用进入项目后，就不再只是 `client.chat()`。图里把配置、timeout、retry、统一响应、usage、日志和 raw output 放在同一圈，是为了提醒你 API 层要先变成稳定运行时。
+:::tip Reading guide
+Once a model call enters the project, it is no longer just `client.chat()`. In the diagram, configuration, timeout, retry, unified response, usage, logging, and raw output are placed in the same loop to remind you that the API layer should first become a stable runtime.
 :::
 
-## 一个更像真实项目的响应结构
+## A response structure that feels more like a real project
 
-建议你从一开始就让模型调用返回统一结构，而不是有时返回字符串、有时返回字典、有时抛异常。
+It is recommended that, from the beginning, you make model calls return a unified structure instead of sometimes a string, sometimes a dict, and sometimes an exception.
 
 ```python
 import time
@@ -386,44 +386,44 @@ def robust_chat(client, messages):
         return llm_response(ok=False, error=str(e), latency_ms=latency_ms)
 
 
-print(robust_chat(MockLLMClient(), [{"role": "user", "content": "退款政策是什么？"}]))
+print(robust_chat(MockLLMClient(), [{"role": "user", "content": "What is the refund policy?"}]))
 ```
 
-这个封装会让上层业务更容易判断：调用是否成功，内容在哪里，token 用了多少，失败原因是什么，请求花了多久。
+This wrapper makes it easier for upper-layer business code to determine whether the call succeeded, where the content is, how many tokens were used, what the failure reason was, and how long the request took.
 
-## API 调用日志应该记录什么
+## What should API call logs record?
 
-LLM 应用出问题时，如果没有日志，通常只能靠猜。建议至少记录这些字段：
+When an LLM application has problems, if there are no logs, you usually can only guess. At minimum, it is recommended to record these fields:
 
-| 字段 | 示例 | 用途 |
+| Field | Example | Purpose |
 |---|---|---|
-| `request_id` | `req_001` | 串联一次调用的上下文 |
-| `model` | `demo-chat-model` | 对比不同模型表现 |
-| `prompt_version` | `course_assistant_v1` | 追踪是哪版 prompt 出的问题 |
-| `input_preview` | `退款政策是什么` | 快速定位用户输入 |
-| `output_preview` | `课程购买后 7 天内...` | 快速查看模型输出 |
-| `prompt_tokens` | `42` | 成本分析 |
-| `completion_tokens` | `18` | 成本分析 |
-| `latency_ms` | `850` | 性能分析 |
-| `error` | `timeout` | 失败归因 |
+| `request_id` | `req_001` | Connect the context of one call |
+| `model` | `demo-chat-model` | Compare the performance of different models |
+| `prompt_version` | `course_assistant_v1` | Track which prompt version caused the issue |
+| `input_preview` | `What is the refund policy` | Quickly locate user input |
+| `output_preview` | `You can request a refund within 7 days...` | Quickly inspect model output |
+| `prompt_tokens` | `42` | Cost analysis |
+| `completion_tokens` | `18` | Cost analysis |
+| `latency_ms` | `850` | Performance analysis |
+| `error` | `timeout` | Failure attribution |
 
-注意日志里不要直接保存敏感信息。真实项目里应当对用户隐私、密钥、内部资料做脱敏或权限控制。
-
----
-
-## 小结
-
-这一节最重要的不是“会调用一次模型”，而是理解：
-
-> **大模型 API 调用真正的工程价值，在于把模型能力包装成可重复、可维护、可扩展的系统接口。**
-
-只要这个视角建立起来，后面你再学 LangChain、对话系统、Agent 工具层时，就会自然很多。
+Note that logs should not store sensitive information directly. In real projects, user privacy, secrets, and internal materials should be anonymized or access-controlled.
 
 ---
 
-## 练习
+## Summary
 
-1. 把 `MockLLMClient` 扩展成能处理“学习顺序”问题。
-2. 给 `CourseAssistant` 增加一个统一错误返回结构。
-3. 想一想：为什么真实项目里不应该让业务代码到处直接拼 `messages`？
-4. 用自己的话解释：为什么说“会调 API”和“会做 LLM 应用”之间还差了一层系统设计？
+The most important thing in this section is not “being able to call a model once,” but understanding:
+
+> **The real engineering value of LLM API calls is to package model capabilities into repeatable, maintainable, and scalable system interfaces.**
+
+Once you build this perspective, later learning about LangChain, dialogue systems, and Agent tool layers will feel much more natural.
+
+---
+
+## Exercises
+
+1. Extend `MockLLMClient` so that it can handle questions about the “learning sequence.”
+2. Add a unified error return structure to `CourseAssistant`.
+3. Think about why business code in a real project should not directly build `messages` everywhere.
+4. Explain in your own words: why do we say there is still a layer of system design between “being able to call the API” and “being able to build an LLM application”?

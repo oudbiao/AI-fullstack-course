@@ -1,37 +1,37 @@
 ---
-title: "2.2 数组基础"
+title: "2.2 Array Basics"
 sidebar_position: 3
-description: "掌握 NumPy 数组的创建方法、属性和数据类型"
+description: "Master NumPy array creation methods, attributes, and data types"
 ---
 
-# 数组基础
+# Array Basics
 
-![NumPy 数组 Shape 与 Axis 图](/img/course/ch03-numpy-array-shape-axis.png)
+![NumPy Array Shape and Axis Diagram](/img/course/ch03-numpy-array-shape-axis-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 掌握多种数组创建方式
-- 理解数组的核心属性（shape、dtype、ndim、size）
-- 了解 NumPy 的数据类型系统
-- 掌握数组的数据类型转换
+- Master multiple ways to create arrays
+- Understand the core array attributes (`shape`, `dtype`, `ndim`, `size`)
+- Learn NumPy's data type system
+- Master array data type conversion
 
 ---
 
-## 创建数组
+## Creating Arrays
 
-### 从 Python 列表创建
+### Creating from a Python List
 
-最基本的方式是用 `np.array()` 把 Python 列表转成 NumPy 数组：
+The most basic way is to use `np.array()` to convert a Python list into a NumPy array:
 
 ```python
 import numpy as np
 
-# 一维数组
+# 1D array
 a = np.array([1, 2, 3, 4, 5])
 print(a)         # [1 2 3 4 5]
 print(type(a))   # <class 'numpy.ndarray'>
 
-# 二维数组（矩阵）
+# 2D array (matrix)
 b = np.array([
     [1, 2, 3],
     [4, 5, 6]
@@ -40,7 +40,7 @@ print(b)
 # [[1 2 3]
 #  [4 5 6]]
 
-# 三维数组
+# 3D array
 c = np.array([
     [[1, 2], [3, 4]],
     [[5, 6], [7, 8]]
@@ -48,115 +48,115 @@ c = np.array([
 print(c.shape)  # (2, 2, 2)
 ```
 
-:::caution 常见错误
+:::caution Common Mistake
 ```python
-# ❌ 错误：嵌套列表长度不一致
-bad = np.array([[1, 2, 3], [4, 5]])  # 会报警告或创建 object 数组
+# ❌ Wrong: nested lists have inconsistent lengths
+bad = np.array([[1, 2, 3], [4, 5]])  # May raise a warning or create an object array
 
-# ✅ 正确：每一行长度必须相同
+# ✅ Correct: each row must have the same length
 good = np.array([[1, 2, 3], [4, 5, 6]])
 ```
 :::
 
-### 快捷创建函数
+### Quick Creation Functions
 
-NumPy 提供了大量快速创建数组的函数，不需要你手写每个元素：
+NumPy provides many fast ways to create arrays, so you do not need to write every element by hand:
 
 ```python
 import numpy as np
 
-# ========== 全 0 / 全 1 数组 ==========
+# ========== Arrays of all 0s / all 1s ==========
 zeros_1d = np.zeros(5)
 print(zeros_1d)  # [0. 0. 0. 0. 0.]
 
-zeros_2d = np.zeros((3, 4))   # 3 行 4 列
+zeros_2d = np.zeros((3, 4))   # 3 rows and 4 columns
 print(zeros_2d)
 # [[0. 0. 0. 0.]
 #  [0. 0. 0. 0.]
 #  [0. 0. 0. 0.]]
 
-ones_2d = np.ones((2, 3))     # 2 行 3 列
+ones_2d = np.ones((2, 3))     # 2 rows and 3 columns
 print(ones_2d)
 # [[1. 1. 1.]
 #  [1. 1. 1.]]
 
-# ========== 填充指定值 ==========
-fives = np.full((2, 3), 5)    # 全部填充 5
+# ========== Fill with a specified value ==========
+fives = np.full((2, 3), 5)    # Fill everything with 5
 print(fives)
 # [[5 5 5]
 #  [5 5 5]]
 
-# ========== 单位矩阵 ==========
-eye = np.eye(3)                # 3×3 单位矩阵
+# ========== Identity matrix ==========
+eye = np.eye(3)                # 3×3 identity matrix
 print(eye)
 # [[1. 0. 0.]
 #  [0. 1. 0.]
 #  [0. 0. 1.]]
 ```
 
-### 等差数列：arange 和 linspace
+### Arithmetic Sequences: `arange` and `linspace`
 
 ```python
-# arange：类似 Python 的 range，但返回 NumPy 数组
-a = np.arange(10)          # 0 到 9
+# arange: similar to Python's range, but returns a NumPy array
+a = np.arange(10)          # 0 to 9
 print(a)                    # [0 1 2 3 4 5 6 7 8 9]
 
-b = np.arange(2, 10, 2)    # 从 2 开始，到 10（不含），步长 2
+b = np.arange(2, 10, 2)    # Start at 2, stop before 10, step by 2
 print(b)                    # [2 4 6 8]
 
-c = np.arange(0, 1, 0.2)   # 支持小数步长！（range 不支持）
+c = np.arange(0, 1, 0.2)   # Supports decimal steps! (range does not)
 print(c)                    # [0.  0.2 0.4 0.6 0.8]
 
-# linspace：指定个数，自动计算步长
-d = np.linspace(0, 10, 5)   # 从 0 到 10（含），均匀取 5 个点
+# linspace: specify the number of points, and NumPy calculates the step automatically
+d = np.linspace(0, 10, 5)   # From 0 to 10 (inclusive), evenly sample 5 points
 print(d)                     # [ 0.   2.5  5.   7.5 10. ]
 
-e = np.linspace(0, 1, 11)   # 0 到 1 之间取 11 个点
+e = np.linspace(0, 1, 11)   # Sample 11 points between 0 and 1
 print(e)                     # [0.  0.1 0.2 ... 0.9 1. ]
 ```
 
-:::tip arange vs linspace
-- `arange(start, stop, step)`：你指定**步长**，NumPy 自动算出有多少个元素
-- `linspace(start, stop, num)`：你指定**元素个数**，NumPy 自动算出步长
+:::tip `arange` vs `linspace`
+- `arange(start, stop, step)`: you specify the **step size**, and NumPy calculates how many elements there are
+- `linspace(start, stop, num)`: you specify the **number of elements**, and NumPy calculates the step size
 
-画图的时候 `linspace` 更常用，因为你通常想控制采样点的数量。
+`linspace` is more commonly used in plotting because you usually want to control the number of sample points.
 :::
 
-### 创建随机数组
+### Creating Random Arrays
 
 ```python
-# 0~1 之间的均匀分布随机数
+# Uniformly distributed random numbers between 0 and 1
 rand = np.random.rand(3, 4)       # 3×4
 print(rand)
 
-# 标准正态分布随机数（均值0，标准差1）
+# Standard normal random numbers (mean 0, standard deviation 1)
 randn = np.random.randn(3, 4)     # 3×4
 
-# 指定范围的随机整数
-randint = np.random.randint(1, 100, size=(3, 4))  # 1~99 之间的 3×4 整数
+# Random integers within a specified range
+randint = np.random.randint(1, 100, size=(3, 4))  # 3×4 integers between 1 and 99
 print(randint)
 ```
 
-### 创建方法速查表
+### Quick Reference Table for Creation Methods
 
-| 函数 | 作用 | 示例 |
+| Function | Purpose | Example |
 |------|------|------|
-| `np.array()` | 从列表创建 | `np.array([1, 2, 3])` |
-| `np.zeros()` | 全 0 数组 | `np.zeros((3, 4))` |
-| `np.ones()` | 全 1 数组 | `np.ones((2, 3))` |
-| `np.full()` | 填充指定值 | `np.full((2, 3), 7)` |
-| `np.eye()` | 单位矩阵 | `np.eye(4)` |
-| `np.arange()` | 等差数列（指定步长） | `np.arange(0, 10, 2)` |
-| `np.linspace()` | 等差数列（指定个数） | `np.linspace(0, 1, 100)` |
-| `np.random.rand()` | 均匀随机数 [0, 1) | `np.random.rand(3, 4)` |
-| `np.random.randn()` | 标准正态分布 | `np.random.randn(3, 4)` |
-| `np.random.randint()` | 随机整数 | `np.random.randint(0, 10, (3, 4))` |
+| `np.array()` | Create from a list | `np.array([1, 2, 3])` |
+| `np.zeros()` | All-0 array | `np.zeros((3, 4))` |
+| `np.ones()` | All-1 array | `np.ones((2, 3))` |
+| `np.full()` | Fill with a specified value | `np.full((2, 3), 7)` |
+| `np.eye()` | Identity matrix | `np.eye(4)` |
+| `np.arange()` | Arithmetic sequence (specified step) | `np.arange(0, 10, 2)` |
+| `np.linspace()` | Arithmetic sequence (specified number of points) | `np.linspace(0, 1, 100)` |
+| `np.random.rand()` | Uniform random numbers in [0, 1) | `np.random.rand(3, 4)` |
+| `np.random.randn()` | Standard normal distribution | `np.random.randn(3, 4)` |
+| `np.random.randint()` | Random integers | `np.random.randint(0, 10, (3, 4))` |
 
 ---
 
-## 数组属性
+## Array Attributes
 
-每个 NumPy 数组都有一些重要属性，了解它们是后续操作的基础：
+Every NumPy array has some important attributes. Understanding them is the foundation for later operations:
 
 ```python
 import numpy as np
@@ -167,68 +167,68 @@ arr = np.array([
     [9, 10, 11, 12]
 ])
 
-print(f"形状 (shape):  {arr.shape}")    # (3, 4) → 3 行 4 列
-print(f"维度 (ndim):   {arr.ndim}")     # 2 → 二维数组
-print(f"元素总数 (size): {arr.size}")    # 12 → 3 × 4 = 12
-print(f"数据类型 (dtype): {arr.dtype}")  # int64
-print(f"每个元素字节数: {arr.itemsize}") # 8 → int64 占 8 字节
-print(f"总字节数: {arr.nbytes}")         # 96 → 12 × 8 = 96
+print(f"Shape:  {arr.shape}")    # (3, 4) → 3 rows and 4 columns
+print(f"ndim:   {arr.ndim}")     # 2 → 2D array
+print(f"Total elements (size): {arr.size}")    # 12 → 3 × 4 = 12
+print(f"Data type (dtype): {arr.dtype}")  # int64
+print(f"Bytes per element: {arr.itemsize}") # 8 → int64 takes 8 bytes
+print(f"Total bytes: {arr.nbytes}")         # 96 → 12 × 8 = 96
 ```
 
-### shape 的含义
+### What `shape` Means
 
-`shape` 是最常用的属性，它告诉你数组的"形状"：
+`shape` is one of the most commonly used attributes. It tells you the array's "shape":
 
 ```python
-# 一维数组
+# 1D array
 a = np.array([1, 2, 3])
-print(a.shape)      # (3,) → 3 个元素
+print(a.shape)      # (3,) → 3 elements
 
-# 二维数组
+# 2D array
 b = np.array([[1, 2, 3], [4, 5, 6]])
-print(b.shape)      # (2, 3) → 2 行 3 列
+print(b.shape)      # (2, 3) → 2 rows and 3 columns
 
-# 三维数组
+# 3D array
 c = np.ones((2, 3, 4))
-print(c.shape)      # (2, 3, 4) → 2 个 "3行4列的矩阵"
+print(c.shape)      # (2, 3, 4) → 2 "matrices with 3 rows and 4 columns"
 ```
 
-理解 shape 的方式：**从外到内，逐层数**。
+A good way to understand `shape` is: **count layer by layer from outside to inside**.
 
 ```
-三维数组 shape = (2, 3, 4)
+3D array shape = (2, 3, 4)
           ↓  ↓  ↓
-          │  │  └── 最内层：每行 4 个元素
-          │  └───── 中间层：每个矩阵 3 行
-          └──────── 最外层：共 2 个矩阵
+          │  │  └── Innermost layer: 4 elements per row
+          │  └───── Middle layer: 3 rows in each matrix
+          └──────── Outermost layer: 2 matrices in total
 ```
 
 ---
 
-## 数据类型（dtype）
+## Data Types (`dtype`)
 
-NumPy 数组中所有元素必须是同一类型。这也是它能快速运算的关键。
+All elements in a NumPy array must be of the same type. This is one of the reasons NumPy can run operations so quickly.
 
-### 常用数据类型
+### Common Data Types
 
-| dtype | 含义 | 示例值 | 常见场景 |
+| dtype | Meaning | Example Values | Common Use |
 |-------|------|--------|---------|
-| `int32` | 32位整数 | -2147483648 ~ 2147483647 | 计数、索引 |
-| `int64` | 64位整数（默认） | 更大范围 | 通用整数 |
-| `float32` | 32位浮点数 | 约7位有效数字 | 深度学习（节省显存） |
-| `float64` | 64位浮点数（默认） | 约15位有效数字 | 科学计算（高精度） |
-| `bool` | 布尔值 | True / False | 条件过滤 |
-| `str_` | 字符串 | "hello" | 文本标签（少用） |
+| `int32` | 32-bit integer | -2147483648 ~ 2147483647 | Counting, indexing |
+| `int64` | 64-bit integer (default) | Larger range | General integers |
+| `float32` | 32-bit floating point | About 7 significant digits | Deep learning (saves memory) |
+| `float64` | 64-bit floating point (default) | About 15 significant digits | Scientific computing (high precision) |
+| `bool` | Boolean | True / False | Conditional filtering |
+| `str_` | String | "hello" | Text labels (less common) |
 
-### 指定数据类型
+### Specifying a Data Type
 
 ```python
-# 自动推断类型
-a = np.array([1, 2, 3])         # int64（全是整数）
-b = np.array([1.0, 2.0, 3.0])   # float64（有小数点）
-c = np.array([1, 2.5, 3])       # float64（混合时自动向上转）
+# Let NumPy infer the type automatically
+a = np.array([1, 2, 3])         # int64 (all integers)
+b = np.array([1.0, 2.0, 3.0])   # float64 (contains decimal points)
+c = np.array([1, 2.5, 3])       # float64 (mixed types are promoted automatically)
 
-# 手动指定类型
+# Specify the type manually
 d = np.array([1, 2, 3], dtype=np.float32)
 print(d)        # [1. 2. 3.]
 print(d.dtype)  # float32
@@ -238,159 +238,159 @@ print(e)        # [0 0 0 0 0]
 print(e.dtype)  # int32
 ```
 
-### 类型转换：astype
+### Type Conversion: `astype`
 
 ```python
-# 整数转浮点数
+# Convert integers to floating-point numbers
 int_arr = np.array([1, 2, 3, 4])
 float_arr = int_arr.astype(np.float64)
 print(float_arr)        # [1. 2. 3. 4.]
 print(float_arr.dtype)  # float64
 
-# 浮点数转整数（直接截断，不是四舍五入！）
+# Convert floating-point numbers to integers (truncates directly, not rounding!)
 float_arr2 = np.array([1.7, 2.3, 3.9])
 int_arr2 = float_arr2.astype(np.int32)
-print(int_arr2)  # [1 2 3]  ← 注意：3.9 变成了 3，不是 4！
+print(int_arr2)  # [1 2 3]  ← Note: 3.9 becomes 3, not 4!
 
-# 布尔转换
+# Boolean conversion
 bool_arr = np.array([0, 1, 0, 2, -1]).astype(bool)
-print(bool_arr)  # [False  True False  True  True]  ← 0 是 False，非 0 是 True
+print(bool_arr)  # [False  True False  True  True]  ← 0 is False, non-zero is True
 ```
 
-:::caution float 转 int 的陷阱
-`astype(int)` 是**直接截断小数部分**，不是四舍五入。如果你需要四舍五入，先用 `np.round()`：
+:::caution The Truncation Trap When Converting Float to Int
+`astype(int)` **directly truncates the decimal part**, not round it. If you need rounding, use `np.round()` first:
 
 ```python
 arr = np.array([1.5, 2.3, 3.7])
-print(arr.astype(int))     # [1 2 3] ← 截断
-print(np.round(arr).astype(int))  # [2 2 4] ← 四舍五入后再转
+print(arr.astype(int))     # [1 2 3] ← truncation
+print(np.round(arr).astype(int))  # [2 2 4] ← round first, then convert
 ```
 :::
 
-### float32 vs float64：什么时候用哪个？
+### `float32` vs `float64`: When Should You Use Each?
 
 ```python
-# float64：默认，精度高
-a = np.array([1.0, 2.0, 3.0])  # 默认 float64，每个元素 8 字节
+# float64: default, high precision
+a = np.array([1.0, 2.0, 3.0])  # Default float64, 8 bytes per element
 
-# float32：省内存，深度学习常用
-b = np.array([1.0, 2.0, 3.0], dtype=np.float32)  # 每个元素 4 字节
+# float32: memory-saving, commonly used in deep learning
+b = np.array([1.0, 2.0, 3.0], dtype=np.float32)  # 4 bytes per element
 
-# 内存对比
+# Memory comparison
 big_f64 = np.random.rand(1000000)                        # float64
 big_f32 = np.random.rand(1000000).astype(np.float32)     # float32
-print(f"float64 占内存: {big_f64.nbytes / 1024 / 1024:.1f} MB")  # 7.6 MB
-print(f"float32 占内存: {big_f32.nbytes / 1024 / 1024:.1f} MB")  # 3.8 MB
+print(f"float64 memory usage: {big_f64.nbytes / 1024 / 1024:.1f} MB")  # 7.6 MB
+print(f"float32 memory usage: {big_f32.nbytes / 1024 / 1024:.1f} MB")  # 3.8 MB
 ```
 
-:::tip 实用建议
-- **数据分析**阶段：用默认的 float64，精度高，不用操心
-- **深度学习**阶段：模型参数和数据通常用 float32（甚至 float16），因为 GPU 显存很宝贵
-- 现在你只需要知道有这两种类型就行，后面深度学习阶段会深入讲
+:::tip Practical Advice
+- In the **data analysis** stage: use the default `float64`, which has high precision and needs no extra effort
+- In the **deep learning** stage: model parameters and data are usually `float32` (or even `float16`), because GPU memory is precious
+- For now, you only need to know that these two types exist; we will discuss them in more depth later in the deep learning section
 :::
 
 ---
 
-## 从已有数组创建
+## Creating Arrays from Existing Arrays
 
-有时候你需要基于已有数组的形状创建新数组：
+Sometimes you need to create new arrays based on the shape of an existing array:
 
 ```python
 original = np.array([[1, 2, 3], [4, 5, 6]])
 
-# 创建和 original 形状相同的全 0 数组
+# Create an all-0 array with the same shape as original
 z = np.zeros_like(original)
 print(z)
 # [[0 0 0]
 #  [0 0 0]]
 
-# 创建和 original 形状相同的全 1 数组
+# Create an all-1 array with the same shape as original
 o = np.ones_like(original)
 print(o)
 # [[1 1 1]
 #  [1 1 1]]
 
-# 创建和 original 形状相同的指定值数组
+# Create an array filled with a specified value with the same shape as original
 f = np.full_like(original, 99)
 print(f)
 # [[99 99 99]
 #  [99 99 99]]
 
-# 创建未初始化的数组（快但值随机）
+# Create an uninitialized array (fast, but values are random)
 e = np.empty_like(original)
-# ⚠️ 值是随机的，不要直接使用未赋值的 empty 数组！
+# ⚠️ The values are random; do not use an empty array before assigning values!
 ```
 
 ---
 
-## 小结
+## Summary
 
 ```mermaid
 mindmap
-  root((NumPy 数组基础))
-    创建数组
-      np.array 从列表创建
+  root((NumPy Array Basics))
+    Creating Arrays
+      np.array Create from a list
       np.zeros / ones / full
       np.arange / linspace
       np.random.rand / randn / randint
-      np.eye 单位矩阵
-    数组属性
-      shape 形状
-      ndim 维度
-      size 元素总数
-      dtype 数据类型
-    数据类型
+      np.eye Identity matrix
+    Array Attributes
+      shape Shape
+      ndim Dimension count
+      size Total elements
+      dtype Data type
+    Data Types
       int32 / int64
       float32 / float64
       bool
-      astype 类型转换
+      astype Type conversion
 ```
 
 ---
 
-## 动手练习
+## Hands-On Practice
 
-### 练习 1：创建各种数组
+### Exercise 1: Create Different Arrays
 
 ```python
 import numpy as np
 
-# 1. 创建一个包含 1 到 20 的一维数组
+# 1. Create a 1D array containing 1 to 20
 arr1 = ?
 
-# 2. 创建一个 4×5 的全零矩阵
+# 2. Create a 4×5 all-zero matrix
 arr2 = ?
 
-# 3. 创建一个 3×3 的矩阵，所有元素为 7
+# 3. Create a 3×3 matrix where all elements are 7
 arr3 = ?
 
-# 4. 创建一个从 0 到 2π (np.pi * 2) 之间均匀分布的 100 个点
+# 4. Create 100 evenly spaced points between 0 and 2π (np.pi * 2)
 arr4 = ?
 
-# 5. 创建一个 5×5 的随机整数矩阵（范围 1~50）
+# 5. Create a 5×5 random integer matrix (range 1~50)
 arr5 = ?
 ```
 
-### 练习 2：属性查看
+### Exercise 2: Check Attributes
 
-创建一个 shape 为 (3, 4, 5) 的全 1 数组，回答以下问题：
-1. 它的维度（ndim）是多少？
-2. 它有多少个元素（size）？
-3. 默认的 dtype 是什么？
-4. 把它转换成 int32 类型后，每个元素占多少字节？
+Create an all-1 array with shape `(3, 4, 5)` and answer the following questions:
+1. What is its dimension count (`ndim`)?
+2. How many elements does it have (`size`)?
+3. What is the default `dtype`?
+4. After converting it to `int32`, how many bytes does each element take?
 
-### 练习 3：类型转换
+### Exercise 3: Type Conversion
 
 ```python
-# 给定考试成绩（浮点数）
+# Given exam scores (floating-point numbers)
 scores = np.array([85.6, 92.3, 78.8, 95.1, 60.5, 73.9])
 
-# 1. 把成绩四舍五入到整数
+# 1. Round the scores to integers
 rounded = ?
 
-# 2. 判断每个成绩是否及格（>= 60），得到布尔数组
+# 2. Determine whether each score is passing (>= 60) to get a boolean array
 passed = ?
 
-# 3. 计算及格人数（提示：True 算 1，False 算 0）
+# 3. Calculate the number of passing scores (hint: True counts as 1, False counts as 0)
 pass_count = ?
 ```

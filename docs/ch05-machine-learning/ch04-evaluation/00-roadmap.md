@@ -1,63 +1,63 @@
 ---
-title: "4.1 学前导读：模型评估这一章到底在学什么"
+title: "4.1 Pre-study Guide: What Is This Evaluation Chapter Really About?"
 sidebar_position: 9
-description: "先建立模型评估章的学习地图：指标、交叉验证、偏差方差、超参数调优是怎样串成闭环的。"
-keywords: [模型评估导读, 交叉验证, 偏差方差, 超参数调优]
+description: "First build a learning map for the model evaluation chapter: how metrics, cross-validation, bias-variance, and hyperparameter tuning connect into a closed loop."
+keywords: [model evaluation guide, cross-validation, bias-variance, hyperparameter tuning]
 ---
 
-# 学前导读：模型评估这一章到底在学什么
+# Pre-study Guide: What Is This Evaluation Chapter Really About?
 
-![模型评估学习地图](/img/course/ml-evaluation-roadmap.png)
+![Model Evaluation Learning Map](/img/course/ml-evaluation-roadmap-en.png)
 
-很多新人学机器学习时会把注意力全部放在模型本身，但真正让项目稳定落地的，往往是评估。
+Many beginners focus all their attention on the model itself when learning machine learning, but what really makes a project stable in practice is evaluation.
 
-这一章解决的是：
+This chapter answers two questions:
 
-> **模型到底好不好，应该怎么看；分数不好时，应该怎么判断问题在哪。**
+> **How can you tell whether a model is good, and how should you judge where the problem is when the score is poor?**
 
-## 这一章四节之间的关系
+## How the Four Sections of This Chapter Relate to Each Other
 
-![模型评估章节关系图](/img/course/ch05-evaluation-chapter-flow.png)
+![Chapter Flow for Model Evaluation](/img/course/ch05-evaluation-chapter-flow-en.png)
 
-- 指标：先知道看什么分数
-- 交叉验证：再知道怎么更稳地估计分数
-- 偏差方差：再知道模型为什么会欠拟合或过拟合
-- 超参数调优：最后再知道怎么系统地改
+- Metrics: first learn which scores to look at
+- Cross-validation: then learn how to estimate scores more reliably
+- Bias-variance: then learn why a model underfits or overfits
+- Hyperparameter tuning: finally learn how to improve things systematically
 
-## 新人这一章最该带走什么
+## What Beginners Should Take Away from This Chapter
 
-- 不会再只盯着准确率一个指标
-- 知道为什么训练分高、测试分低不代表模型强
-- 知道调参前应先确认评估方法是不是对的
+- Stop looking at accuracy alone
+- Understand why a high training score and a low test score do not mean the model is strong
+- Know that before tuning, you should first confirm whether the evaluation method is correct
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, focus on the main storyline and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what goes in and what comes out, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+More experienced learners can use this chapter for review and engineering practice: pay attention to edge cases, failure examples, evaluation methods, code reproducibility, and how it connects to the stages before and after it. After finishing, it is best to turn the chapter content into notes in your own project README or experiment log.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick scan | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimal example and finish the chapter's small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | Can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | Can clearly describe what the example needs as input and what result it produces |
+| Where are the common failure points? | Can list at least one cause of an error, poor performance, or misunderstanding |
+| What can you preserve after learning it? | Can write this chapter's output into a project README, experiment log, or portfolio |
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the most core concept or tool in this chapter and create a small result that can run, be screenshotted, and be written into a README. It does not need to be complicated, but it should clearly show what the input is, what the process is, and what the output is.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects to the learning stages before and after it, and complete the minimum version of the chapter's small project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common error, one debugging process, or one result improvement, that means you are no longer just "reading the content"—you are turning this chapter into your own project experience.

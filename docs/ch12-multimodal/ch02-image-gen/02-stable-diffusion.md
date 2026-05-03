@@ -1,83 +1,83 @@
 ---
-title: "2.3 Stable Diffusion 架构"
+title: "2.3 Stable Diffusion Architecture"
 sidebar_position: 5
-description: "从 latent diffusion、VAE、文本编码器、U-Net 和 cross-attention 出发，理解 Stable Diffusion 为什么能把文生图真正做实用。"
+description: "Starting from latent diffusion, VAE, text encoders, U-Net, and cross-attention, understand why Stable Diffusion makes text-to-image generation practical in real engineering workflows."
 keywords: [Stable Diffusion, latent diffusion, VAE, U-Net, text encoder, cross-attention]
 ---
 
-# Stable Diffusion 架构
+# Stable Diffusion Architecture
 
-![Stable Diffusion 组件架构图](/img/course/stable-diffusion-components.png)
+![Stable Diffusion component architecture diagram](/img/course/stable-diffusion-components-en.png)
 
-:::tip 本节定位
-上一节我们已经知道扩散模型的核心是：
+:::tip Section Overview
+In the previous section, we learned that the core idea of diffusion models is:
 
-> 从噪声一步步恢复结构。
+> Recover structure step by step from noise.
 
-这一节要回答的是：
+This section answers:
 
-> **为什么 Stable Diffusion 能把这件事真正做得工程上可用？**
+> **Why can Stable Diffusion really make this practical in engineering?**
 
-答案的核心不只是“扩散”，还包括：
+The key is not just “diffusion”, but also:
 
 - latent space
-- 文本条件
+- text conditioning
 - U-Net
 - VAE
 - cross-attention
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Stable Diffusion 的整体模块分工
-- 理解为什么它不在像素空间扩散，而在 latent space 中扩散
-- 理解文本编码器、U-Net 和 VAE 分别负责什么
-- 理解 cross-attention 怎样把文本真正接进图像生成
-- 建立对 Stable Diffusion 整体工作流的系统地图
+- Understand the overall module responsibilities in Stable Diffusion
+- Understand why it diffuses in latent space instead of pixel space
+- Understand what the text encoder, U-Net, and VAE each do
+- Understand how cross-attention connects text to image generation
+- Build a system-level map of the Stable Diffusion workflow
 
 ---
 
-## 一、为什么原始扩散思路还不够“实用”？
+## 1. Why isn’t the original diffusion idea practical enough?
 
-### 1.1 一个最直观的问题：像素空间太大
+### 1.1 The most intuitive problem: pixel space is too large
 
-如果你直接在原始图像像素空间做扩散：
+If you diffuse directly in the original image pixel space:
 
-- 分辨率一大，张量就会非常大
-- 推理和训练都会很重
+- as resolution grows, the tensor becomes very large
+- both inference and training become expensive
 
-例如：
+For example:
 
 - `512 x 512 x 3`
 
-本身就已经是非常大的表示空间。
+is already a very large representation space.
 
-### 1.2 Stable Diffusion 的关键转向
+### 1.2 The key shift in Stable Diffusion
 
-它最重要的一步，就是：
+Its most important step is:
 
-> **不直接在原图像上扩散，而先把图像压缩进 latent space，再在那里做扩散。**
+> **Do not diffuse directly on the original image. First compress the image into latent space, and then diffuse there.**
 
-这个思路后来被称为：
+This idea is later called:
 
 - latent diffusion
 
-它极大提升了工程可行性。
+It greatly improves engineering feasibility.
 
 ---
 
-## 二、先把整体结构看一遍
+## 2. Let’s first look at the overall structure
 
 ```mermaid
 flowchart LR
-    A["文本 Prompt"] --> B["文本编码器"]
-    C["图像"] --> D["VAE Encoder"]
+    A["Text Prompt"] --> B["Text Encoder"]
+    C["Image"] --> D["VAE Encoder"]
     D --> E["Latent Space"]
     B --> F["U-Net + Cross-Attention"]
     E --> F
-    F --> G["去噪后的 Latent"]
+    F --> G["Denoised Latent"]
     G --> H["VAE Decoder"]
-    H --> I["输出图像"]
+    H --> I["Output Image"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -90,47 +90,47 @@ flowchart LR
     style I fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-可以先粗暴记成三大块：
+A simple way to remember it is to split it into three main parts:
 
-1. 文本编码器：把 prompt 变成条件表示
-2. U-Net：在 latent 中做去噪
-3. VAE：负责图像和 latent 之间的转换
+1. Text encoder: turns the prompt into a conditioning representation
+2. U-Net: performs denoising in latent space
+3. VAE: converts between image space and latent space
 
 ---
 
-## 三、VAE 在这里的角色到底是什么？
+## 3. What exactly is the role of the VAE here?
 
-### 3.1 它在这里更像压缩器，而不是主生成器
+### 3.1 It acts more like a compressor than the main generator
 
-在 Stable Diffusion 里，VAE 的核心作用是：
+In Stable Diffusion, the VAE mainly does this:
 
-- Encoder：把图像压成 latent
-- Decoder：把 latent 解码回图像
+- Encoder: compresses the image into a latent
+- Decoder: decodes the latent back into an image
 
-也就是说，它主要是在做：
+In other words, it mainly serves as a bridge between:
 
-> 图像空间和 latent 空间之间的桥接。 
+> image space and latent space.
 
-### 3.2 为什么这一步如此关键？
+### 3.2 Why is this step so important?
 
-因为扩散如果直接在原图空间里做，成本太高。  
-而 VAE 提供了一个更小、更抽象的中间空间。
+Because if diffusion is done directly in image space, the cost is too high.
+The VAE provides a much smaller and more abstract intermediate space.
 
-你可以把它理解成：
+You can think of it like this:
 
-> 不在巨大的高清画布上直接雕刻，而先压成一张小很多的“语义草图板”。 
+> Instead of carving directly on a huge high-resolution canvas, first compress it into a much smaller “semantic sketch board.”
 
-### 3.3 一个最小“压缩 / 展开”直觉示例
+### 3.3 A minimal intuition example for “compression / expansion”
 
 ```python
 import numpy as np
 
 image = np.random.randn(8, 8).astype(np.float32)
 
-# 用均值池化模拟压缩
+# Use average pooling to simulate compression
 latent = image.reshape(4, 2, 4, 2).mean(axis=(1, 3))
 
-# 用 repeat 模拟解码
+# Use repeat to simulate decoding
 reconstructed = np.repeat(np.repeat(latent, 2, axis=0), 2, axis=1)
 
 print("image shape        :", image.shape)
@@ -138,123 +138,121 @@ print("latent shape       :", latent.shape)
 print("reconstructed shape:", reconstructed.shape)
 ```
 
-这个例子当然不是 VAE，但它足够帮你抓住最核心的直觉：
+Of course, this example is not a VAE, but it is enough to help you grasp the core intuition:
 
-- latent 比原图小
-- latent 是更压缩的表示
+- latent is smaller than the original image
+- latent is a more compressed representation
 
 ---
 
-## 四、文本编码器为什么不可少？
+## 4. Why is the text encoder indispensable?
 
-### 4.1 prompt 不能直接被 U-Net 理解
+### 4.1 The prompt cannot be understood directly by the U-Net
 
-U-Net 处理的是数值张量，不会直接理解：
+The U-Net processes numeric tensors, and it cannot directly understand natural language such as:
 
-- “一只坐在窗边的橘猫”
+- “an orange cat sitting by the window”
 
-这种自然语言。
+### 4.2 So we need a text encoder first
 
-### 4.2 所以要先有文本编码器
+The text encoder turns the prompt into:
 
-文本编码器负责把 prompt 变成：
+- a set of semantic vectors
 
-- 一组语义向量
+You can think of it as:
 
-你可以先把它理解成：
+> **Translating language conditions into numeric conditions that the image generation pipeline can consume.**
 
-> **把语言条件翻译成图像生成流程能消费的数值条件。**
-
-### 4.3 一个简单示意
+### 4.3 A simple illustration
 
 ```python
 text_condition = {
-    "prompt": "一只坐在窗边的橘猫",
+    "prompt": "an orange cat sitting by the window",
     "embedding_shape": (77, 768)
 }
 
 print(text_condition)
 ```
 
-这里最重要的不是具体维度，而是理解：
+The most important thing here is not the exact dimensions, but understanding that:
 
-- prompt 会先变成向量
-- 后面的视觉主干会用到这些向量
-
----
-
-## 五、U-Net 为什么会成为扩散主干？
-
-### 5.1 U-Net 本来就擅长“多尺度信息处理”
-
-U-Net 的典型特征包括：
-
-- 编码路径：逐步压缩、提抽象特征
-- 解码路径：逐步恢复空间细节
-- 跳连：让细节信息别完全丢掉
-
-### 5.2 为什么这很适合去噪？
-
-因为去噪本身就需要：
-
-- 理解全局结构
-- 同时保住局部细节
-
-而 U-Net 正好很适合做这种事。
-
-所以在 Stable Diffusion 里，U-Net 的角色是：
-
-> **在 latent 空间里预测噪声，并逐步把噪声清掉。**
+- the prompt is first converted into vectors
+- the visual backbone later uses these vectors
 
 ---
 
-## 六、cross-attention 为什么这么关键？
+## 5. Why did U-Net become the backbone of diffusion?
 
-### 6.1 文字和图像不是天然就接上的
+### 5.1 U-Net is naturally good at multi-scale information processing
 
-如果你只有：
+Typical U-Net characteristics include:
 
-- 文本编码器
-- U-Net
+- encoder path: gradually compresses and extracts abstract features
+- decoder path: gradually restores spatial details
+- skip connections: help preserve details instead of losing them completely
 
-但没有明确机制让图像去“看”文本，那 prompt 的控制效果就会很弱。
+### 5.2 Why is this a good fit for denoising?
 
-### 6.2 cross-attention 的直觉
+Because denoising requires both:
 
-它的核心就是：
+- understanding global structure
+- preserving local details
 
-> 让图像去噪过程在更新自己时，参考文本条件。 
+And U-Net is very good at exactly this kind of task.
 
-也就是说，图像 latent 的更新不只是看自身状态，还会看：
+So in Stable Diffusion, the role of U-Net is:
 
-- prompt 提供的语义信号
+> **Predict noise in latent space and progressively remove it.**
 
-### 6.3 一个极简示意
+---
+
+## 6. Why is cross-attention so important?
+
+### 6.1 Text and images are not naturally connected
+
+If you only have:
+
+- a text encoder
+- a U-Net
+
+but no clear mechanism for the image to “look at” the text, then the prompt control effect will be weak.
+
+### 6.2 The intuition behind cross-attention
+
+Its core idea is:
+
+> Let the image denoising process refer to the text condition while updating itself.
+
+In other words, when the image latent is updated, it does not only look at its own state; it also looks at:
+
+- the semantic signals provided by the prompt
+
+### 6.3 A very simple illustration
 
 ```python
-latent_feature = "当前图像 latent 特征"
-text_feature = "橘猫 + 窗边 + 夕阳"
+latent_feature = "current image latent features"
+text_feature = "orange cat + window + sunset"
 
-fusion = f"{latent_feature} 在更新时参考 {text_feature}"
+fusion = f"{latent_feature} updates while referring to {text_feature}"
 print(fusion)
 ```
 
-虽然只是文字示意，但它已经抓住本质：
+Although this is only a textual illustration, it captures the essence:
 
-- self-attention 更像“自己看自己”
-- cross-attention 更像“图像看文本”
+- self-attention is more like “looking at yourself”
+- cross-attention is more like “the image looking at the text”
 
 ---
 
-## 七、把整个工作流串起来
+## 7. Putting the whole workflow together
 
-可以先把 Stable Diffusion 的主线压成这 5 步：
+You can compress the main Stable Diffusion flow into these 5 steps:
 
-1. prompt -> 文本编码器
-2. 随机初始化 latent 噪声
-3. U-Net 在文本条件下逐步去噪
-4. 得到更干净的 latent
-5. VAE Decoder 把 latent 解码成图像
+1. prompt -> text encoder
+2. randomly initialize latent noise
+3. U-Net performs step-by-step denoising under text conditioning
+4. obtain a cleaner latent
+5. VAE Decoder decodes the latent into an image
 
 ```python
 workflow = [
@@ -269,74 +267,74 @@ for step in workflow:
     print(step)
 ```
 
-这就是 Stable Diffusion 的最重要主线。
+This is the most important main workflow of Stable Diffusion.
 
 ---
 
-## 八、为什么它会成为文生图时代的重要架构？
+## 8. Why did it become such an important architecture for text-to-image generation?
 
-### 8.1 因为它兼顾了效果和工程可行性
+### 8.1 Because it balances quality and engineering feasibility
 
-相比直接像素扩散：
+Compared with direct pixel-space diffusion:
 
-- latent diffusion 更轻
-- 训练和推理更现实
+- latent diffusion is lighter
+- training and inference are more practical
 
-### 8.2 因为它很适合条件控制
+### 8.2 Because it is well suited for conditional control
 
-Stable Diffusion 天然很适合做：
+Stable Diffusion is naturally good for:
 
-- 文生图
-- 图像编辑
-- 局部修复
-- 风格控制
+- text-to-image generation
+- image editing
+- local inpainting
+- style control
 
-### 8.3 因为模块边界很清楚
+### 8.3 Because the module boundaries are clear
 
-这一点很重要：
+This is very important:
 
-- 文本编码器管语义
-- U-Net 管去噪
-- VAE 管空间转换
+- the text encoder handles semantics
+- the U-Net handles denoising
+- the VAE handles spatial conversion
 
-模块清楚，生态就更容易发展起来。
+Clear module responsibilities make it easier for an ecosystem to grow.
 
 ---
 
-## 九、最常见的误区
+## 9. Common misconceptions
 
-### 9.1 以为 Stable Diffusion 就是“一个大黑盒”
+### 9.1 Thinking Stable Diffusion is just “one big black box”
 
-其实它是多个模块协作：
+In fact, it is a collaboration of multiple modules:
 
-- 文本编码器
+- text encoder
 - U-Net
 - VAE
-- 条件注入机制
+- conditioning injection mechanism
 
-### 9.2 不理解 latent diffusion 的工程意义
+### 9.2 Not understanding the engineering value of latent diffusion
 
-这是它之所以“能用起来”的关键之一。
+This is one of the key reasons it can actually be used.
 
-### 9.3 只记模块名，不理解模块职责
+### 9.3 Memorizing module names without understanding their responsibilities
 
-这样后面学微调和应用时会很虚。
-
----
-
-## 小结
-
-这一节最重要的不是记住名词，而是抓住这条主线：
-
-> **Stable Diffusion 的核心，是在 latent space 中做条件扩散，其中 VAE 负责压缩与解码，文本编码器提供语义条件，U-Net 负责去噪，cross-attention 负责把文本真正接进图像生成过程。**
-
-理解了这条主线，后面你再看文生图应用、图像编辑和微调时，就会清楚很多。
+If you do this, later learning about fine-tuning and applications will feel very vague.
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么 Stable Diffusion 不直接在像素空间做扩散？
-2. 想一想：为什么文本编码器和 cross-attention 必须同时存在？
-3. 如果把 U-Net 换成普通小网络，为什么效果通常会很差？
-4. 用自己的话总结：VAE、U-Net、文本编码器各自负责什么？
+The most important thing in this section is not memorizing terminology, but grasping this main line:
+
+> **The core of Stable Diffusion is conditional diffusion in latent space, where the VAE handles compression and decoding, the text encoder provides semantic conditions, the U-Net handles denoising, and cross-attention connects text to the image generation process.**
+
+Once you understand this main line, text-to-image applications, image editing, and fine-tuning will make much more sense later.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why doesn’t Stable Diffusion diffuse directly in pixel space?
+2. Think about it: why do the text encoder and cross-attention need to exist at the same time?
+3. If you replace the U-Net with a small ordinary network, why is the result usually much worse?
+4. Summarize in your own words: what are the responsibilities of the VAE, U-Net, and text encoder?

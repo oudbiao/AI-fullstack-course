@@ -1,71 +1,71 @@
 ---
-title: "1.3 并发编程（含 asyncio）"
+title: "1.3 Concurrent Programming (Including asyncio)"
 sidebar_position: 10
-description: "从 I/O 密集任务讲起，理解线程、协程和 asyncio 在服务代码中的适用边界，并学会一个最小并发控制器。"
+description: "Start with I/O-bound tasks, understand the boundaries of threads, coroutines, and asyncio in service code, and learn a minimal concurrency controller."
 keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 ---
 
-# 并发编程（含 asyncio）
+# Concurrent Programming (Including asyncio)
 
-![asyncio 并发控制流程图](/img/course/elective-asyncio-concurrency-control.png)
+![asyncio concurrency control flowchart](/img/course/elective-asyncio-concurrency-control-en.png)
 
-![异步任务超时取消与限流图](/img/course/elective-asyncio-timeout-cancel-rate-limit-map.png)
+![async task timeout cancellation and rate limiting diagram](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-en.png)
 
-:::tip 读图提示
-并发不是越多越好。读图时重点看 event loop、semaphore、timeout、cancellation、retry 和 rate limit 如何共同保护上游服务，尤其适合 LLM API、RAG 抓取和 Agent 工具调用。
+:::tip Reading the Diagram
+More concurrency is not always better. When reading the diagram, focus on how the event loop, semaphore, timeout, cancellation, retry, and rate limit work together to protect upstream services, especially for LLM API calls, RAG scraping, and Agent tool invocations.
 :::
 
-:::tip 本节定位
-并发编程在 Python 里最容易被学成“API 记忆题”。  
-但对工程来说，更重要的问题其实是：
+:::tip Section Overview
+Concurrency is one of the easiest Python topics to turn into an “API memorization exercise.”
+But in real engineering, the more important question is actually:
 
-> **什么时候需要并发，什么时候会把事情搞得更复杂？**
+> **When do you need concurrency, and when does it just make things more complicated?**
 
-尤其在 AI 应用和服务侧，很多任务本质上是 I/O 密集型，这正是 `asyncio` 最擅长的场景。
+Especially in AI applications and service-side code, many tasks are fundamentally I/O-bound, which is exactly the kind of scenario `asyncio` is best at.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 I/O 密集和 CPU 密集任务的区别
-- 理解 `asyncio` 为什么适合很多服务场景
-- 学会用 `gather`、`Semaphore` 和超时控制组织并发
-- 建立“并发是工具，不是默认答案”的意识
+- Understand the difference between I/O-bound and CPU-bound tasks
+- Understand why `asyncio` is suitable for many service scenarios
+- Learn to use `gather`, `Semaphore`, and timeout control to organize concurrency
+- Build the mindset that “concurrency is a tool, not the default answer”
 
 ---
 
-## 一、为什么很多 Python 工程会走到 asyncio？
+## 1. Why do so many Python projects end up using asyncio?
 
-### 1.1 因为很多任务都在“等”
+### 1.1 Because many tasks are just “waiting”
 
-例如：
+For example:
 
-- 等 HTTP 返回
-- 等数据库返回
-- 等文件读取
+- waiting for an HTTP response
+- waiting for a database response
+- waiting for file reads
 
-这类任务真正占时间的不是 CPU 计算，  
-而是等待外部 I/O。
+For these tasks, the real time cost is not CPU computation,
+but waiting for external I/O.
 
-### 1.2 asyncio 的核心价值
+### 1.2 The core value of asyncio
 
-它允许你在等待一个任务时，  
-切去推进别的任务。
+It lets you move on to other tasks
+while one task is waiting.
 
-这特别适合：
+This is especially suitable for:
 
-- 爬取
-- API 编排
-- 多工具服务
-- 批量请求
+- scraping
+- API orchestration
+- multi-tool services
+- batch requests
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-同步代码像一个窗口一次只服务一个人。  
-异步代码更像取号排队，窗口在等某个人资料时还能先办别人的单。
+Synchronous code is like one counter serving one person at a time.
+Asynchronous code is more like taking a ticket and waiting in line: while the counter is waiting for one person’s documents, it can handle someone else’s request first.
 
 ---
 
-## 二、先看一个最小异步并发示例
+## 2. Let’s first look at a minimal asynchronous concurrency example
 
 ```python
 import asyncio
@@ -87,51 +87,51 @@ async def main():
 asyncio.run(main())
 ```
 
-### 2.1 这段代码真正想说明什么？
+### 2.1 What is this code really trying to show?
 
-它说明：
+It shows that:
 
-- 两个等待任务可以并发推进
+- two waiting tasks can proceed concurrently
 
-如果换成同步串行，  
-总耗时会更接近：
+If you switch to synchronous serial execution,
+the total time will be closer to:
 
 - `0.2 + 0.1`
 
-而不是：
+instead of:
 
 - `max(0.2, 0.1)`
 
-### 2.2 为什么这在 AI 应用里很常见？
+### 2.2 Why is this so common in AI applications?
 
-因为很多应用会同时做：
+Because many applications do all of these at the same time:
 
-- 检索
-- 调多个 API
-- 读写多个服务
+- retrieval
+- multiple API calls
+- reading and writing multiple services
 
-这些都不是重 CPU，而是重等待。
+These tasks are not CPU-heavy; they are waiting-heavy.
 
 ---
 
-## 三、为什么并发不是越多越好？
+## 3. Why is more concurrency not always better?
 
-### 3.1 并发过大可能把上游打崩
+### 3.1 Too much concurrency can overwhelm upstream services
 
-如果你一次发 1000 个请求，  
-也许不是更快，而是：
+If you send 1000 requests at once,
+it may not be faster; instead, you may get:
 
-- 被限流
-- 超时增加
-- 上游雪崩
+- rate limited
+- more timeouts
+- upstream cascading failures
 
-### 3.2 所以常常需要并发上限
+### 3.2 So you often need a concurrency limit
 
-最简单的做法之一就是：
+One of the simplest tools is:
 
 - `Semaphore`
 
-它能限制同时正在跑的任务数。
+It limits how many tasks can run at the same time.
 
 ```python
 import asyncio
@@ -157,23 +157,23 @@ async def main():
 asyncio.run(main())
 ```
 
-### 3.3 这段代码最值得学什么？
+### 3.3 What is the most important thing to learn from this code?
 
-并发不只是“能不能一起跑”，  
-还包括：
+Concurrency is not only about “can they run together,”
+but also about:
 
-- 一次放多少一起跑
+- how many should run together at once
 
-这正是很多线上服务的核心控制点。
+This is exactly one of the key control points in many production services.
 
 ---
 
-## 四、超时和取消为什么也很重要？
+## 4. Why are timeout and cancellation also important?
 
-### 4.1 没有超时，慢任务会一直挂着
+### 4.1 Without a timeout, slow tasks can hang forever
 
-这在外部依赖很多时非常危险。  
-最常见做法是：
+This is very dangerous when you depend on many external systems.
+A common approach is:
 
 - `asyncio.wait_for(...)`
 
@@ -197,83 +197,83 @@ async def main():
 asyncio.run(main())
 ```
 
-### 4.2 为什么这对 Agent 特别重要？
+### 4.2 Why is this especially important for Agent systems?
 
-因为 Agent 很多时候依赖：
+Because Agents often depend on:
 
-- 外部工具
-- 上游模型
-- 检索系统
+- external tools
+- upstream models
+- retrieval systems
 
-如果没有超时，系统很容易卡住整条链路。
-
----
-
-## 五、什么时候不该优先用 asyncio？
-
-### 5.1 纯 CPU 密集任务
-
-例如：
-
-- 大量数值计算
-- 图像批量变换
-
-这类任务更适合：
-
-- 多进程
-- 原生高性能库
-
-### 5.2 团队还没准备好接受异步复杂度
-
-异步代码会引入：
-
-- 调试复杂度
-- 状态管理难度
-
-如果场景不需要，不必强上。
-
-### 5.3 同步已经够简单够稳
-
-小脚本、小任务里，  
-同步有时反而更清晰。
+Without timeouts, the whole chain can easily get stuck.
 
 ---
 
-## 六、最常见误区
+## 5. When should you not prioritize asyncio?
 
-### 6.1 误区一：并发就是更快
+### 5.1 Pure CPU-bound tasks
 
-不一定。  
-关键看任务是不是 I/O 密集。
+For example:
 
-### 6.2 误区二：`async` 到处都该加
+- heavy numerical computation
+- large-scale image transformations
 
-异步是手段，不是风格标签。
+These tasks are better suited for:
 
-### 6.3 误区三：只会 `gather` 就算会 asyncio
+- multiprocessing
+- native high-performance libraries
 
-真实工程里更重要的常常是：
+### 5.2 Your team is not ready for asynchronous complexity yet
 
-- 限流
-- 超时
-- 错误处理
+Async code introduces:
 
----
+- debugging complexity
+- state management difficulty
 
-## 小结
+If the scenario does not need it, there is no need to force it.
 
-这节最重要的，不是把 `asyncio` 学成 API 清单，  
-而是建立一个实用判断：
+### 5.3 Synchronous code is already simple enough and stable enough
 
-> **如果任务主要在等待 I/O，那么异步并发通常能显著提升吞吐；但真正上线时，还必须配合并发上限、超时和错误控制。**
-
-只要这个判断稳住了，你后面再看服务端并发代码就会顺很多。
+For small scripts and small tasks,
+synchronous code can actually be clearer.
 
 ---
 
-## 练习
+## 6. The most common misconceptions
 
-1. 把 `Semaphore(2)` 改成 `Semaphore(1)` 和 `Semaphore(5)`，比较日志顺序变化。
-2. 想一想：为什么很多 Agent / API 编排任务天然适合 asyncio？
-3. 为什么说超时控制在异步系统里和 `gather` 一样重要？
-4. 举一个你觉得“不适合用 asyncio 优先解决”的任务例子。
+### 6.1 Misconception 1: concurrency always means faster
+
+Not necessarily.
+The key is whether the task is I/O-bound.
+
+### 6.2 Misconception 2: `async` should be added everywhere
+
+Async is a technique, not a style badge.
+
+### 6.3 Misconception 3: knowing `gather` means you know asyncio
+
+In real projects, what often matters more is:
+
+- rate limiting
+- timeouts
+- error handling
+
+---
+
+## Summary
+
+The most important takeaway from this section is not to memorize `asyncio` as a list of APIs,
+but to build a practical judgment:
+
+> **If a task is mainly waiting on I/O, asynchronous concurrency can usually improve throughput significantly; but in production, it must also be paired with concurrency limits, timeouts, and error control.**
+
+Once you have this judgment in place, service-side concurrency code will make much more sense later on.
+
+---
+
+## Exercises
+
+1. Change `Semaphore(2)` to `Semaphore(1)` and `Semaphore(5)`, and compare how the log order changes.
+2. Think about why many Agent / API orchestration tasks are naturally suitable for asyncio.
+3. Why is timeout control in asynchronous systems just as important as `gather`?
+4. Give one example of a task that you think is **not** suitable for solving with asyncio first.

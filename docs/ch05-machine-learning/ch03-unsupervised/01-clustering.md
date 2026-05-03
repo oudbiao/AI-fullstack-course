@@ -1,71 +1,72 @@
 ---
-title: "3.2 聚类算法"
+title: "3.2 Clustering Algorithms"
 sidebar_position: 7
-description: "掌握 K-Means、K-Means++、层次聚类、DBSCAN 等聚类算法，理解 K 值选择与聚类评估"
-keywords: [聚类, K-Means, DBSCAN, 层次聚类, 肘部法, 轮廓系数, 无监督学习]
+description: "Master clustering algorithms such as K-Means, K-Means++, hierarchical clustering, and DBSCAN, and understand how to choose K and evaluate clustering"
+keywords: [clustering, K-Means, DBSCAN, hierarchical clustering, elbow method, silhouette coefficient, unsupervised learning]
 ---
 
-# 聚类算法
+# Clustering Algorithms
 
-![K-Means 聚类中心迭代图](/img/course/clustering-kmeans-centroids.png)
+![K-Means clustering centroid iteration diagram](/img/course/clustering-kmeans-centroids-en.png)
 
-:::tip 本节定位
-聚类是无监督学习中最常用的任务——**在没有标签的情况下，自动把相似的数据分到一组**。客户分群、文档归类、图像分割等场景都离不开聚类。
+:::tip Section Overview
+Clustering is one of the most common tasks in unsupervised learning—**automatically grouping similar data together without labels**. It is essential in scenarios such as customer segmentation, document classification, and image segmentation.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 K-Means 聚类的原理与实现
-- 理解 K-Means++ 初始化策略
-- 了解层次聚类（凝聚与分裂）
-- 掌握 DBSCAN 密度聚类
-- 掌握 K 值选择方法与聚类评估指标
+- Understand the principle and implementation of K-Means clustering
+- Understand the K-Means++ initialization strategy
+- Learn hierarchical clustering (agglomerative and divisive)
+- Master DBSCAN density-based clustering
+- Master methods for choosing K and clustering evaluation metrics
 
-## 先说一个很重要的学习预期
+## First, Set an Important Learning Expectation
 
-这一节很容易让新人一开始发虚，因为它和前面的监督学习不一样：
+This section can feel a little intimidating for beginners at first, because it is different from the supervised learning you learned earlier:
 
-- 没有标签
-- 没有标准答案
-- 看起来像“分出来了”，但又不知道这样分算不算好
+- No labels
+- No standard answers
+- It may look like the data has been “grouped,” but it is not obvious whether the grouping is good
 
-更适合第一遍先学会的不是把所有聚类算法都背熟，而是先接受这件事：
+For your first pass, the most important thing is not to memorize every clustering algorithm, but to first accept this:
 
-> **聚类是在没有标签时，对数据结构提出一个可检验的假设。**
+> **Clustering is a testable hypothesis about data structure when labels are unavailable.**
 
-只要这条线先立住，你就不会把聚类误会成“自动得到唯一真相”。
-
----
-
-## 先建立一张地图
-
-聚类这一节最容易让新人发虚的地方在于：
-
-- 没有标签，不知道“学到了什么”
-- 算法很多，不知道应该先学哪一个
-- 画出来好像分组了，但不知道分得好不好
-
-更稳的理解顺序是：
-
-![聚类算法选择流程图](/img/course/ch05-clustering-decision-flow.png)
-
-所以聚类不是“让机器自动分组”这么简单，它本质上是在做：  
-**没有标签时，如何给数据找结构。**
+Once you hold onto that idea, you will not mistake clustering for “automatically discovering the one true answer.”
 
 ---
 
-## 一、聚类的直觉
+## First, Build a Map
 
-### 1.1 什么是聚类？
+The trickiest part of this section for beginners is usually:
 
-**聚类 = 把"相似的"放在一起，把"不同的"分开。**
+- No labels, so it is hard to know what has been “learned”
+- There are many algorithms, so it is unclear which one to study first
+- The plots look grouped, but it is hard to tell whether the grouping is good
+
+A more stable learning order is:
+
+![Clustering algorithm selection flowchart](/img/course/ch05-clustering-decision-flow-en.png)
+
+So clustering is not just “letting the machine group things automatically.”
+At its core, it is about:
+**how to find structure in data when labels are not available.**
+
+---
+
+## 1. Intuition for Clustering
+
+### 1.1 What Is Clustering?
+
+**Clustering = put “similar” things together and separate “different” things.**
 
 ```mermaid
 flowchart LR
-    D["一堆没有标签的数据"] --> C["聚类算法"]
-    C --> G1["群组 1"]
-    C --> G2["群组 2"]
-    C --> G3["群组 3"]
+    D["A pile of unlabeled data"] --> C["Clustering algorithm"]
+    C --> G1["Group 1"]
+    C --> G2["Group 2"]
+    C --> G3["Group 3"]
 
     style D fill:#e3f2fd,stroke:#1565c0,color:#333
     style G1 fill:#e8f5e9,stroke:#2e7d32,color:#333
@@ -73,131 +74,129 @@ flowchart LR
     style G3 fill:#fce4ec,stroke:#c62828,color:#333
 ```
 
-| 应用场景 | 数据 | 聚类目标 |
+| Use case | Data | Clustering goal |
 |---------|------|---------|
-| 客户分群 | 消费行为数据 | 找出高价值/低频/流失客户群 |
-| 文档归类 | 文本向量 | 按主题自动分类 |
-| 图像分割 | 像素颜色值 | 把图像分成前景/背景 |
-| 基因分析 | 基因表达数据 | 找出功能相似的基因组 |
+| Customer segmentation | Spending behavior data | Identify high-value / low-frequency / churn-risk customer groups |
+| Document grouping | Text embeddings | Automatically classify by topic |
+| Image segmentation | Pixel color values | Split an image into foreground/background |
+| Gene analysis | Gene expression data | Find gene groups with similar functions |
 
-### 1.2 聚类和分类真正差在哪？
+### 1.2 How Is Clustering Really Different from Classification?
 
-这两个词很像，但它们解决的是两种完全不同的问题：
+These two words look similar, but they solve two completely different problems:
 
-- **分类**：标签已知，目标是学会“怎么判”
-- **聚类**：标签未知，目标是发现“可能存在什么组”
+- **Classification**: labels are known; the goal is to learn “how to decide”
+- **Clustering**: labels are unknown; the goal is to discover “what groups may exist”
 
-所以第一次学聚类时，一定要接受一件事：
+So when you first learn clustering, you must accept one thing:
 
-- 聚类结果不是唯一标准答案
-- 它更像是一种“数据结构假设”
-- 你需要用指标和业务解释去判断这个假设是否有价值
+- Clustering results are not a single unique ground truth
+- It is more like a “hypothesis about data structure”
+- You need metrics and business interpretation to judge whether the hypothesis is useful
 
-### 1.2.1 一个更适合新人的类比
+### 1.2.1 A Better Analogy for Beginners
 
-你可以先把聚类想成：
+You can think of clustering as:
 
-- 第一次整理一大堆没有标签的杂物
+- Sorting a big pile of unlabeled miscellaneous items for the first time
 
-你会先按“看起来像一类”的直觉去分：
+You start by grouping things based on the intuition of “these seem like the same kind”:
 
-- 常用的放一堆
-- 不常用的放一堆
-- 特别杂乱的单独拿出来
+- Put commonly used items in one pile
+- Put rarely used items in another pile
+- Pull especially messy items out separately
 
-这时候你并不是在找唯一正确答案，  
-而是在找一种：
+At this point, you are not looking for the one correct answer,
+but for a grouping method that is:
 
-- 方便理解
-- 方便后续行动
-- 能被验证是否有用
+- easy to understand
+- useful for follow-up actions
+- verifiable
 
-的分组方式。
+![Clustering data shape and algorithm selection guide](/img/course/ch05-clustering-shape-selection-map-en.png)
 
-![聚类数据形状与算法选择图](/img/course/ch05-clustering-shape-selection-map.png)
+This diagram helps you avoid a common mistake: not every segmentation task is suited to K-Means. Round, similarly sized clusters are better for K-Means; curved shapes or noisy data are better candidates for DBSCAN; if you want to inspect hierarchical relationships, consider hierarchical clustering. First look at the data shape, then choose the algorithm.
 
-这张图要帮你避免一个常见误区：不是所有分群都适合 K-Means。圆团状、大小差不多的簇更适合 K-Means；形状弯曲、带噪声的数据可以先看 DBSCAN；想看层级关系时再考虑层次聚类。聚类先看数据形状，再选算法。
-
-### 1.3 生成演示数据
+### 1.3 Generate Demo Data
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_blobs
 
-# 生成 3 个簇的数据
+# Generate data with 3 clusters
 X, y_true = make_blobs(n_samples=300, centers=3, cluster_std=0.8, random_state=42)
 
 plt.figure(figsize=(8, 6))
 plt.scatter(X[:, 0], X[:, 1], s=30, alpha=0.7, color='gray')
-plt.title('未标注的数据——你能看出几个群组？')
-plt.xlabel('特征 1')
-plt.ylabel('特征 2')
+plt.title('Unlabeled data — how many groups can you see?')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
 ---
 
-## 二、K-Means 聚类
+## 2. K-Means Clustering
 
-### 2.1 算法原理
+### 2.1 Algorithm Principle
 
-K-Means 是最经典的聚类算法，步骤非常简单：
+K-Means is the most classic clustering algorithm, and its steps are very simple:
 
 ```mermaid
 flowchart TD
-    A["1. 随机选 K 个点作为初始质心"] --> B["2. 把每个数据分配到最近的质心"]
-    B --> C["3. 重新计算每个簇的质心（均值）"]
-    C --> D{"质心还在变化？"}
-    D -->|"是"| B
-    D -->|"否"| E["聚类完成"]
+    A["1. Randomly choose K points as initial centroids"] --> B["2. Assign each data point to the nearest centroid"]
+    B --> C["3. Recompute each cluster centroid (mean)"]
+    C --> D{"Are the centroids still changing?"}
+    D -->|"Yes"| B
+    D -->|"No"| E["Clustering complete"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-### 2.2 从零实现 K-Means
+### 2.2 Implement K-Means from Scratch
 
 ```python
 def kmeans_simple(X, k, max_iters=100):
-    """简易 K-Means 实现"""
+    """Simple K-Means implementation"""
     np.random.seed(42)
-    # 1. 随机初始化质心
+    # 1. Randomly initialize centroids
     idx = np.random.choice(len(X), k, replace=False)
     centroids = X[idx].copy()
 
     for iteration in range(max_iters):
-        # 2. 分配每个点到最近的质心
+        # 2. Assign each point to the nearest centroid
         distances = np.sqrt(((X[:, np.newaxis] - centroids) ** 2).sum(axis=2))
         labels = distances.argmin(axis=1)
 
-        # 3. 更新质心
+        # 3. Update centroids
         new_centroids = np.array([X[labels == i].mean(axis=0) for i in range(k)])
 
-        # 检查收敛
+        # Check convergence
         if np.allclose(centroids, new_centroids):
-            print(f"在第 {iteration+1} 轮收敛")
+            print(f"Converged in round {iteration+1}")
             break
         centroids = new_centroids
 
     return labels, centroids
 
-# 运行
+# Run
 labels, centroids = kmeans_simple(X, k=3)
 
-# 可视化
+# Visualize
 plt.figure(figsize=(8, 6))
 plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', s=30, alpha=0.7)
 plt.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='X', s=200,
-            edgecolors='black', linewidth=2, label='质心')
-plt.title('K-Means 聚类结果（手动实现）')
+            edgecolors='black', linewidth=2, label='Centroids')
+plt.title('K-Means Clustering Result (Manual Implementation)')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 2.3 用 sklearn 实现
+### 2.3 Implement with sklearn
 
 ```python
 from sklearn.cluster import KMeans
@@ -205,22 +204,22 @@ from sklearn.cluster import KMeans
 kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
 kmeans.fit(X)
 
-print(f"簇标签: {np.unique(kmeans.labels_)}")
-print(f"质心:\n{kmeans.cluster_centers_}")
-print(f"总惯性（SSE）: {kmeans.inertia_:.2f}")
+print(f"Cluster labels: {np.unique(kmeans.labels_)}")
+print(f"Centroids:\n{kmeans.cluster_centers_}")
+print(f"Total inertia (SSE): {kmeans.inertia_:.2f}")
 
-# 可视化
+# Visualize
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-# 聚类结果
+# Clustering result
 axes[0].scatter(X[:, 0], X[:, 1], c=kmeans.labels_, cmap='viridis', s=30, alpha=0.7)
 axes[0].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1],
                 c='red', marker='X', s=200, edgecolors='black', linewidth=2)
-axes[0].set_title('K-Means 聚类结果')
+axes[0].set_title('K-Means Clustering Result')
 
-# 与真实标签对比
+# Compare with true labels
 axes[1].scatter(X[:, 0], X[:, 1], c=y_true, cmap='viridis', s=30, alpha=0.7)
-axes[1].set_title('真实标签（用于对比）')
+axes[1].set_title('True Labels (for comparison)')
 
 for ax in axes:
     ax.grid(True, alpha=0.3)
@@ -229,7 +228,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 2.4 K-Means 的迭代过程可视化
+### 2.4 Visualizing the K-Means Iteration Process
 
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
@@ -239,68 +238,68 @@ idx = np.random.choice(len(X), 3, replace=False)
 centroids = X[idx].copy()
 
 for i, ax in enumerate(axes.ravel()):
-    # 分配
+    # Assign
     distances = np.sqrt(((X[:, np.newaxis] - centroids) ** 2).sum(axis=2))
     labels = distances.argmin(axis=1)
 
     ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', s=20, alpha=0.6)
     ax.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='X', s=200,
                edgecolors='black', linewidth=2)
-    ax.set_title(f'第 {i+1} 轮迭代')
+    ax.set_title(f'Iteration {i+1}')
     ax.grid(True, alpha=0.3)
 
-    # 更新质心
+    # Update centroids
     centroids = np.array([X[labels == j].mean(axis=0) for j in range(3)])
 
-plt.suptitle('K-Means 迭代过程', fontsize=13)
+plt.suptitle('K-Means Iteration Process', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## 三、K-Means++ 初始化
+## 3. K-Means++ Initialization
 
-### 3.1 为什么需要更好的初始化？
+### 3.1 Why Do We Need Better Initialization?
 
-普通 K-Means 随机选初始质心，可能选到很差的位置，导致：
-- 收敛慢
-- 结果不稳定
-- 陷入局部最优
+Plain K-Means randomly chooses initial centroids, which may pick poor starting positions and lead to:
+- Slower convergence
+- Unstable results
+- Local optima
 
-### 3.2 K-Means++ 策略
+### 3.2 K-Means++ Strategy
 
-**核心思想**：让初始质心尽可能分散。
+**Core idea**: make the initial centroids as spread out as possible.
 
-1. 随机选第 1 个质心
-2. 对于后续每个质心，选择**离已有质心最远**的点（概率正比于距离的平方）
-3. 重复直到选够 K 个
+1. Randomly choose the first centroid
+2. For each later centroid, choose the point **farthest from the existing centroids** (with probability proportional to the squared distance)
+3. Repeat until K centroids are selected
 
 ```python
-# sklearn 默认就是 K-Means++
+# sklearn uses K-Means++ by default
 kmeans_pp = KMeans(n_clusters=3, init='k-means++', random_state=42, n_init=10)
 kmeans_random = KMeans(n_clusters=3, init='random', random_state=0, n_init=1)
 
 kmeans_pp.fit(X)
 kmeans_random.fit(X)
 
-print(f"K-Means++ 惯性: {kmeans_pp.inertia_:.2f}")
-print(f"随机初始化惯性: {kmeans_random.inertia_:.2f}")
+print(f"K-Means++ inertia: {kmeans_pp.inertia_:.2f}")
+print(f"Random initialization inertia: {kmeans_random.inertia_:.2f}")
 ```
 
-:::info sklearn 默认
-sklearn 的 `KMeans` 默认使用 `init='k-means++'`，所以你平时不需要特别设置。`n_init=10` 表示运行 10 次取最好的结果。
+:::info sklearn Default
+`sklearn`'s `KMeans` uses `init='k-means++'` by default, so you usually do not need to set it manually. `n_init=10` means the algorithm runs 10 times and keeps the best result.
 :::
 
 ---
 
-## 四、如何选择 K 值？
+## 4. How Do You Choose K?
 
-K-Means 的最大问题：**需要事先指定 K**。常用两种方法来确定最优 K。
+The biggest issue with K-Means is that **you must specify K in advance**. Two common methods are used to determine the best K.
 
-### 4.1 肘部法（Elbow Method）
+### 4.1 Elbow Method
 
-计算不同 K 值下的 SSE（Sum of Squared Errors，即 `inertia_`），找"拐点"。
+Compute SSE (Sum of Squared Errors, i.e. `inertia_`) for different K values and look for the “elbow point.”
 
 ```python
 sse = []
@@ -313,37 +312,37 @@ for k in K_range:
 
 plt.figure(figsize=(8, 5))
 plt.plot(K_range, sse, 'bo-', markersize=8)
-plt.xlabel('K（簇的数量）')
-plt.ylabel('SSE（惯性）')
-plt.title('肘部法——选择最优 K')
+plt.xlabel('K (number of clusters)')
+plt.ylabel('SSE (inertia)')
+plt.title('Elbow Method — Choosing the Best K')
 plt.xticks(K_range)
 plt.grid(True, alpha=0.3)
 
-# 标注肘部
-plt.annotate('肘部 → K=3', xy=(3, sse[2]), xytext=(5, sse[2] + 200),
+# Annotate elbow
+plt.annotate('Elbow → K=3', xy=(3, sse[2]), xytext=(5, sse[2] + 200),
              arrowprops=dict(arrowstyle='->', color='red'),
              fontsize=12, color='red')
 plt.show()
 ```
 
-### 4.1.1 肘部法最容易误用的地方
+### 4.1.1 The Most Common Mistake with the Elbow Method
 
-肘部法很直观，但现实里经常不会出现一个特别明显的“肘”。  
-这时不要强行找唯一答案，而是把它当成：
+The elbow method is intuitive, but in real-world data there is often no clearly visible “elbow.”
+In that case, do not force a single answer. Treat it as:
 
-- 一个帮助你缩小候选范围的工具
+- A tool to narrow down the candidate range
 
-更稳的做法是：
+A more reliable approach is:
 
-- 先用肘部法把 `K` 缩到 2~4 个候选值
-- 再用轮廓系数和业务可解释性做第二轮判断
+- First use the elbow method to narrow K down to 2–4 candidate values
+- Then use the silhouette coefficient and business interpretability for a second round of judgment
 
-### 4.2 轮廓系数（Silhouette Score）
+### 4.2 Silhouette Score
 
-轮廓系数衡量每个样本的聚类质量，取值范围 [-1, 1]：
-- **接近 1**：样本与自己簇很紧密，与其他簇很远（好）
-- **接近 0**：样本在两个簇的边界上
-- **接近 -1**：样本可能被分错了
+The silhouette coefficient measures clustering quality for each sample, with values in [-1, 1]:
+- **Close to 1**: the sample is very close to its own cluster and far from other clusters (good)
+- **Close to 0**: the sample lies on the boundary between two clusters
+- **Close to -1**: the sample may be assigned to the wrong cluster
 
 ```python
 from sklearn.metrics import silhouette_score, silhouette_samples
@@ -354,19 +353,19 @@ for k in range(2, 11):
     labels = km.fit_predict(X)
     score = silhouette_score(X, labels)
     sil_scores.append(score)
-    print(f"K={k}: 轮廓系数 = {score:.4f}")
+    print(f"K={k}: silhouette score = {score:.4f}")
 
 plt.figure(figsize=(8, 5))
 plt.plot(range(2, 11), sil_scores, 'bo-', markersize=8)
-plt.xlabel('K（簇的数量）')
-plt.ylabel('轮廓系数')
-plt.title('轮廓系数——选择最优 K')
+plt.xlabel('K (number of clusters)')
+plt.ylabel('Silhouette score')
+plt.title('Silhouette Score — Choosing the Best K')
 plt.xticks(range(2, 11))
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 4.3 轮廓图可视化
+### 4.3 Silhouette Plot Visualization
 
 ```python
 from sklearn.metrics import silhouette_samples
@@ -387,107 +386,107 @@ for ax, k in zip(axes, [2, 3, 4]):
         ax.text(-0.05, y_lower + 0.5 * len(cluster_sil), str(i), fontsize=12)
         y_lower = y_upper + 10
 
-    ax.axvline(x=avg_score, color='red', linestyle='--', label=f'平均={avg_score:.3f}')
+    ax.axvline(x=avg_score, color='red', linestyle='--', label=f'Average={avg_score:.3f}')
     ax.set_title(f'K={k}')
-    ax.set_xlabel('轮廓系数')
-    ax.set_ylabel('样本')
+    ax.set_xlabel('Silhouette score')
+    ax.set_ylabel('Samples')
     ax.legend()
 
-plt.suptitle('不同 K 值的轮廓图', fontsize=13)
+plt.suptitle('Silhouette Plots for Different K Values', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-### 4.4 第一次做聚类项目时，更稳的顺序是什么？
+### 4.4 What Is the Safer Order for Your First Clustering Project?
 
-如果你是第一次把聚类用到真实项目里，可以按这个顺序走：
+If this is your first time applying clustering in a real project, you can follow this order:
 
-1. 先做特征标准化
-2. 先画二维投影或做基础统计，看数据是否大致有群
-3. 先跑 `K-Means` 当 baseline
-4. 再用肘部法和轮廓系数缩小 `K`
-5. 如果发现簇形状明显不规则或噪声很多，再试 `DBSCAN`
-6. 最后一定回到业务解释：每个簇到底代表什么
+1. First standardize the features
+2. Plot a 2D projection or basic statistics to see whether the data roughly forms groups
+3. Run `K-Means` as a baseline first
+4. Then use the elbow method and silhouette score to narrow down K
+5. If the cluster shapes are clearly irregular or there is a lot of noise, try `DBSCAN`
+6. Finally, always return to business interpretation: what does each cluster actually mean?
 
-这一步非常重要，因为聚类项目最容易陷入“分出了几类，但不知道这些类有什么意义”。
+This step is very important, because clustering projects most easily get stuck in “we found several classes, but we do not know what they mean.”
 
 ---
 
-## 五、层次聚类
+## 5. Hierarchical Clustering
 
-### 5.1 原理
+### 5.1 Principle
 
-层次聚类不需要预设 K 值，它构建一棵**树状图（Dendrogram）**：
+Hierarchical clustering does not require you to predefine K. It builds a **dendrogram**:
 
-**凝聚法（自底向上）**：
-1. 每个点作为一个簇
-2. 找最近的两个簇，合并
-3. 重复直到只剩一个簇
+**Agglomerative method (bottom-up)**:
+1. Treat each point as a cluster
+2. Find the two closest clusters and merge them
+3. Repeat until only one cluster remains
 
 ```python
 from sklearn.cluster import AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram, linkage
 
-# 用少量数据展示树状图
+# Use a small subset of data to show the dendrogram
 X_small = X[:50]
 
-# 计算层次结构
+# Compute the hierarchy
 linkage_matrix = linkage(X_small, method='ward')
 
 fig, axes = plt.subplots(1, 2, figsize=(15, 5))
 
-# 树状图
+# Dendrogram
 dendrogram(linkage_matrix, ax=axes[0], truncate_mode='level', p=5)
-axes[0].set_title('树状图（Dendrogram）')
-axes[0].set_xlabel('样本')
-axes[0].set_ylabel('距离')
+axes[0].set_title('Dendrogram')
+axes[0].set_xlabel('Samples')
+axes[0].set_ylabel('Distance')
 
-# 聚类结果
+# Clustering result
 agg = AgglomerativeClustering(n_clusters=3)
 labels_agg = agg.fit_predict(X)
 axes[1].scatter(X[:, 0], X[:, 1], c=labels_agg, cmap='viridis', s=30, alpha=0.7)
-axes[1].set_title('层次聚类结果 (K=3)')
+axes[1].set_title('Hierarchical Clustering Result (K=3)')
 axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 5.2 链接方法
+### 5.2 Linkage Methods
 
-| 方法 | 两个簇间的距离定义 | 特点 |
+| Method | How distance between two clusters is defined | Characteristics |
 |------|-------------------|------|
-| `ward` | 合并后 SSE 增量最小 | 最常用，倾向大小均匀的簇 |
-| `complete` | 最远点之间的距离 | 对异常值敏感 |
-| `average` | 所有点对的平均距离 | 折中方案 |
-| `single` | 最近点之间的距离 | 容易产生链式效应 |
+| `ward` | Minimum increase in SSE after merging | Most commonly used, tends to produce similarly sized clusters |
+| `complete` | Distance between the farthest points | Sensitive to outliers |
+| `average` | Average distance over all point pairs | A balanced compromise |
+| `single` | Distance between the nearest points | Prone to chaining effects |
 
 ---
 
-## 六、DBSCAN 密度聚类
+## 6. DBSCAN Density-Based Clustering
 
-### 6.1 K-Means 的局限
+### 6.1 The Limitation of K-Means
 
-K-Means 假设簇是**球形**的，对非球形数据效果很差：
+K-Means assumes clusters are **spherical**, so it performs poorly on non-spherical data:
 
 ```python
 from sklearn.datasets import make_moons, make_circles
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-# 半月形数据 + K-Means
+# Half-moon data + K-Means
 X_moons, y_moons = make_moons(n_samples=300, noise=0.1, random_state=42)
 km_moons = KMeans(n_clusters=2, random_state=42, n_init=10)
 labels_km = km_moons.fit_predict(X_moons)
 axes[0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
-axes[0].set_title('K-Means 在半月形数据上（失败）')
+axes[0].set_title('K-Means on Half-Moon Data (Failure)')
 
-# 同心圆数据 + K-Means
+# Concentric circles + K-Means
 X_circles, y_circles = make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)
 km_circles = KMeans(n_clusters=2, random_state=42, n_init=10)
 labels_km2 = km_circles.fit_predict(X_circles)
 axes[1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_km2, cmap='coolwarm', s=20)
-axes[1].set_title('K-Means 在同心圆数据上（失败）')
+axes[1].set_title('K-Means on Concentric Circles (Failure)')
 
 for ax in axes:
     ax.grid(True, alpha=0.3)
@@ -497,62 +496,62 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 6.2 DBSCAN 原理
+### 6.2 DBSCAN Principle
 
-DBSCAN（Density-Based Spatial Clustering of Applications with Noise）基于**密度**聚类：
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise) clusters based on **density**:
 
-| 概念 | 说明 |
+| Concept | Description |
 |------|------|
-| **eps** | 邻域半径 |
-| **min_samples** | 核心点所需的最少邻居数 |
-| **核心点** | 邻域内至少有 min_samples 个点 |
-| **边界点** | 在核心点邻域内，但自己不是核心点 |
-| **噪声点** | 既不是核心点也不在任何核心点邻域内 |
+| **eps** | Neighborhood radius |
+| **min_samples** | Minimum number of neighbors needed for a core point |
+| **Core point** | A point with at least min_samples points in its neighborhood |
+| **Border point** | In the neighborhood of a core point, but not itself a core point |
+| **Noise point** | Neither a core point nor in the neighborhood of any core point |
 
 ```mermaid
 flowchart TD
-    A["遍历每个未访问的点"] --> B{"邻域内点数<br/>≥ min_samples?"}
-    B -->|"是 → 核心点"| C["创建新簇，递归扩展"]
-    B -->|"否"| D{"在某个核心点<br/>邻域内？"}
-    D -->|"是"| E["边界点，加入该簇"]
-    D -->|"否"| F["噪声点"]
+    A["Traverse each unvisited point"] --> B{"Number of points in neighborhood<br/>≥ min_samples?"}
+    B -->|"Yes → core point"| C["Create a new cluster and expand recursively"]
+    B -->|"No"| D{"In the neighborhood of<br/>some core point?"}
+    D -->|"Yes"| E["Border point, add to that cluster"]
+    D -->|"No"| F["Noise point"]
 
     style C fill:#e8f5e9,stroke:#2e7d32,color:#333
     style E fill:#fff3e0,stroke:#e65100,color:#333
     style F fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 6.3 DBSCAN 实战
+### 6.3 DBSCAN in Practice
 
 ```python
 from sklearn.cluster import DBSCAN
 
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
-# 半月形数据
+# Half-moon data
 db_moons = DBSCAN(eps=0.2, min_samples=5)
 labels_db_moons = db_moons.fit_predict(X_moons)
 axes[0][0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_db_moons, cmap='viridis', s=20)
 n_noise = (labels_db_moons == -1).sum()
-axes[0][0].set_title(f'DBSCAN 半月形（噪声点: {n_noise}）')
+axes[0][0].set_title(f'DBSCAN Half-Moon (noise points: {n_noise})')
 
-# 同心圆数据
+# Concentric circles
 db_circles = DBSCAN(eps=0.15, min_samples=5)
 labels_db_circles = db_circles.fit_predict(X_circles)
 axes[0][1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_db_circles, cmap='viridis', s=20)
 n_noise = (labels_db_circles == -1).sum()
-axes[0][1].set_title(f'DBSCAN 同心圆（噪声点: {n_noise}）')
+axes[0][1].set_title(f'DBSCAN Concentric Circles (noise points: {n_noise})')
 
-# 普通数据
+# Normal data
 db_blobs = DBSCAN(eps=0.8, min_samples=5)
 labels_db_blobs = db_blobs.fit_predict(X)
 axes[1][0].scatter(X[:, 0], X[:, 1], c=labels_db_blobs, cmap='viridis', s=20)
 n_clusters = len(set(labels_db_blobs)) - (1 if -1 in labels_db_blobs else 0)
-axes[1][0].set_title(f'DBSCAN 球形数据（发现 {n_clusters} 个簇）')
+axes[1][0].set_title(f'DBSCAN Spherical Data (found {n_clusters} clusters)')
 
-# 对比 K-Means vs DBSCAN
+# Compare K-Means vs DBSCAN
 axes[1][1].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
-axes[1][1].set_title('K-Means 半月形（对比）')
+axes[1][1].set_title('K-Means Half-Moon (comparison)')
 
 for ax in axes.ravel():
     ax.grid(True, alpha=0.3)
@@ -561,10 +560,10 @@ plt.tight_layout()
 plt.show()
 ```
 
-### 6.4 DBSCAN 参数调优
+### 6.4 Tuning DBSCAN Parameters
 
 ```python
-# eps 的影响
+# Effect of eps
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
 eps_values = [0.1, 0.2, 0.5, 1.0]
 
@@ -574,57 +573,57 @@ for ax, eps in zip(axes, eps_values):
     n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise = (labels == -1).sum()
     ax.scatter(X_moons[:, 0], X_moons[:, 1], c=labels, cmap='viridis', s=20)
-    ax.set_title(f'eps={eps}\n簇: {n_clusters}, 噪声: {n_noise}')
+    ax.set_title(f'eps={eps}\nclusters: {n_clusters}, noise: {n_noise}')
     ax.grid(True, alpha=0.3)
 
-plt.suptitle('DBSCAN eps 参数的影响', fontsize=13)
+plt.suptitle('Effect of the DBSCAN eps Parameter', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
-### 6.5 DBSCAN 的优缺点
+### 6.5 Advantages and Disadvantages of DBSCAN
 
-| 优点 | 缺点 |
+| Advantages | Disadvantages |
 |------|------|
-| 不需要预设 K | 需要调 eps 和 min_samples |
-| 可以发现任意形状的簇 | 对高维数据效果差 |
-| 自动识别噪声点 | 不同密度的簇难以处理 |
-| 对异常值鲁棒 | 对参数敏感 |
+| No need to predefine K | Requires tuning `eps` and `min_samples` |
+| Can discover clusters of arbitrary shape | Performs poorly on high-dimensional data |
+| Automatically identifies noise points | Hard to handle clusters with different densities |
+| Robust to outliers | Sensitive to parameters |
 
-### 6.6 第一次选聚类算法时，怎么判断最稳？
+### 6.6 When Choosing a Clustering Algorithm for the First Time, What Is the Safest Way to Judge?
 
-可以先用下面这张小决策表：
+You can start with this simple decision table:
 
-| 你看到的数据特征 | 更适合先试什么 |
+| Data characteristics | What to try first |
 |---|---|
-| 大致是球形、样本量大 | `K-Means` |
-| 想看层次结构、数据量不大 | 层次聚类 |
-| 形状不规则、噪声明显 | `DBSCAN` |
+| Roughly spherical, large sample size | `K-Means` |
+| Want to see hierarchical structure, small dataset | Hierarchical clustering |
+| Irregular shapes, obvious noise | `DBSCAN` |
 
-如果还不确定，就先从 `K-Means` 起步。  
-原因不是它一定最好，而是：
+If you are still unsure, start with `K-Means`.
+The reason is not that it is always the best, but that:
 
-- 它最容易解释
-- 它最适合作为 baseline
-- 它会逼你先想清楚特征和 `K` 值
+- It is the easiest to explain
+- It works well as a baseline
+- It forces you to think clearly about features and the `K` value first
 
 ---
 
-## 七、聚类算法对比
+## 7. Comparison of Clustering Algorithms
 
 ```python
 from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
 from sklearn.datasets import make_blobs, make_moons, make_circles
 
 datasets = [
-    ("球形簇", make_blobs(n_samples=300, centers=3, cluster_std=0.8, random_state=42)),
-    ("半月形", make_moons(n_samples=300, noise=0.1, random_state=42)),
-    ("同心圆", make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)),
+    ("Spherical clusters", make_blobs(n_samples=300, centers=3, cluster_std=0.8, random_state=42)),
+    ("Half-moon", make_moons(n_samples=300, noise=0.1, random_state=42)),
+    ("Concentric circles", make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)),
 ]
 
 algorithms = [
     ("K-Means", lambda: KMeans(n_clusters=3 if True else 2, random_state=42, n_init=10)),
-    ("层次聚类", lambda: AgglomerativeClustering(n_clusters=3 if True else 2)),
+    ("Hierarchical clustering", lambda: AgglomerativeClustering(n_clusters=3 if True else 2)),
     ("DBSCAN", lambda: DBSCAN(eps=0.5, min_samples=5)),
 ]
 
@@ -635,12 +634,12 @@ for row, (data_name, (X_d, y_d)) in enumerate(datasets):
     for col, (algo_name, make_algo) in enumerate(algorithms):
         ax = axes[row][col]
 
-        if algo_name in ['K-Means', '层次聚类']:
+        if algo_name in ['K-Means', 'Hierarchical clustering']:
             algo = make_algo()
             algo.n_clusters = n_real
             labels = algo.fit_predict(X_d)
         else:
-            # 调整 DBSCAN eps
+            # Adjust DBSCAN eps
             eps_map = {0: 0.8, 1: 0.2, 2: 0.15}
             algo = DBSCAN(eps=eps_map[row], min_samples=5)
             labels = algo.fit_predict(X_d)
@@ -652,85 +651,85 @@ for row, (data_name, (X_d, y_d)) in enumerate(datasets):
             ax.set_ylabel(data_name, fontsize=12)
         ax.grid(True, alpha=0.3)
 
-plt.suptitle('三种聚类算法在不同数据上的表现', fontsize=14)
+plt.suptitle('Performance of Three Clustering Algorithms on Different Data', fontsize=14)
 plt.tight_layout()
 plt.show()
 ```
 
-| | K-Means | 层次聚类 | DBSCAN |
+| | K-Means | Hierarchical Clustering | DBSCAN |
 |---|---------|---------|--------|
-| 需要指定 K | 是 | 是 | 否 |
-| 簇形状 | 球形 | 球形/链状 | 任意形状 |
-| 噪声处理 | 差 | 差 | 好 |
-| 大数据 | 快 | 慢 | 中等 |
-| 适用场景 | 球形、大数据 | 需要层次结构 | 非规则形状、有噪声 |
+| Need to specify K | Yes | Yes | No |
+| Cluster shape | Spherical | Spherical / chain-like | Arbitrary |
+| Noise handling | Poor | Poor | Good |
+| Large data | Fast | Slow | Medium |
+| Best for | Spherical, large datasets | Need hierarchical structure | Irregular shapes, noisy data |
 
 ---
 
-## 九、第一次把聚类放进项目里，最稳的默认顺序
+## 9. Safest Default Order for Putting Clustering into a Project
 
-第一次把聚类真正放进项目里，可以先按这个顺序：
+When you first put clustering into a real project, you can follow this order:
 
-1. 先明确你为什么要分群
-2. 先做标准化
-3. 先用 K-Means 跑一个 baseline
-4. 再看轮廓系数和可视化
-5. 如果簇形状明显不规则，再考虑 DBSCAN
-6. 最后再回到业务解释：这些群组到底能不能指导行动
+1. First clarify why you want to segment the data
+2. Standardize the features
+3. Run `K-Means` first as a baseline
+4. Then check the silhouette score and visualizations
+5. If the cluster shapes are clearly irregular, consider `DBSCAN`
+6. Finally, return to business interpretation: can these groups actually guide action?
 
-这样更稳，因为你先建立的是：
+This is more stable because you first build:
 
-- 目标
-- baseline
-- 指标
-- 解释
+- the goal
+- the baseline
+- the metrics
+- the interpretation
 
-这条完整链，而不是只盯着“分成几类更好看”。
+That complete chain, rather than focusing only on “making the groups look nicer.”
 
-:::info 连接后续
-- **下一节**：降维算法——PCA、t-SNE、UMAP
-- **第 4 站回顾**：特征值与 PCA（1.3 节）
+:::info Connect to the Next Section
+- **Next section**: Dimensionality reduction algorithms — PCA, t-SNE, UMAP
+- **Recap of Stop 4**: Eigenvalues and PCA (Section 1.3)
 :::
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key Point | Description |
 |------|------|
-| K-Means | 最经典，分配到最近质心，迭代更新 |
-| K-Means++ | 更好的初始化，sklearn 默认 |
-| K 值选择 | 肘部法（SSE 拐点）+ 轮廓系数（越大越好） |
-| 层次聚类 | 不需预设 K，可看树状图 |
-| DBSCAN | 基于密度，可发现任意形状簇，自动标记噪声 |
+| K-Means | The classic algorithm, assigns to the nearest centroid and updates iteratively |
+| K-Means++ | Better initialization, default in sklearn |
+| Choosing K | Elbow method (SSE elbow) + silhouette score (higher is better) |
+| Hierarchical clustering | No need to predefine K, can inspect a dendrogram |
+| DBSCAN | Density-based, can find arbitrarily shaped clusters and automatically mark noise |
 
-## 这节最该带走什么
+## What Should You Take Away from This Section?
 
-如果只带走一句话，我希望你记住：
+If you only remember one sentence, I hope it is this:
 
-> **聚类不是在“自动得到真相”，而是在没有标签时，提出一个关于数据结构的可检验假设。**
+> **Clustering is not about “automatically finding the truth,” but about proposing a testable hypothesis about data structure when labels are unavailable.**
 
-所以真正的学习重点不是背更多算法名，而是学会：
+So the real learning goal is not to memorize more algorithm names, but to learn how to:
 
-- 先看数据形状
-- 再选算法
-- 再看指标
-- 最后回到业务解释这一步
+- Look at the data shape first
+- Then choose an algorithm
+- Then check the metrics
+- Finally explain the result in business terms
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：K 值选择
+### Exercise 1: Choosing K
 
-用 `make_blobs(centers=5)` 生成 5 个簇的数据，但假装不知道 K=5。用肘部法和轮廓系数找到最优 K。
+Use `make_blobs(centers=5)` to generate data with 5 clusters, but pretend you do not know that K=5. Use the elbow method and silhouette score to find the best K.
 
-### 练习 2：DBSCAN 调参
+### Exercise 2: DBSCAN Parameter Tuning
 
-用 `make_moons(noise=0.15)` 数据，尝试不同的 `eps`（0.05~1.0）和 `min_samples`（3~15）组合，画出 3×3 的子图网格，找到最优参数。
+Use `make_moons(noise=0.15)` data, try different combinations of `eps` (0.05~1.0) and `min_samples` (3~15), plot a 3×3 grid of subplots, and find the best parameters.
 
-### 练习 3：真实数据聚类
+### Exercise 3: Clustering Real Data
 
-用 sklearn 的 `load_iris()` 数据集（去掉标签），对比 K-Means、层次聚类、DBSCAN 的效果。用真实标签计算调整兰德指数（`adjusted_rand_score`）评估质量。
+Use sklearn’s `load_iris()` dataset (without labels), and compare the results of K-Means, hierarchical clustering, and DBSCAN. Use the true labels to compute the adjusted Rand index (`adjusted_rand_score`) for evaluation.
 
-### 练习 4：客户分群
+### Exercise 4: Customer Segmentation
 
-生成模拟的客户数据（消费金额、消费频次、最近消费天数），先标准化，再用 K-Means 聚类，分析每个群组的特征（用 Pandas groupby）。
+Generate simulated customer data (spending amount, purchase frequency, recency), standardize it first, then use K-Means for clustering, and analyze the characteristics of each group using Pandas `groupby`.

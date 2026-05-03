@@ -1,92 +1,92 @@
 ---
-title: "1.2 C++ 进阶"
+title: "1.2 Advanced C++"
 sidebar_position: 2
-description: "从 RAII、智能指针、抽象接口、移动语义到简单并发，理解部署工程里最常见的 C++ 进阶能力。"
+description: "From RAII, smart pointers, abstract interfaces, and move semantics to simple concurrency, understand the most common advanced C++ capabilities in deployment engineering."
 keywords: [C++, RAII, smart pointer, virtual, move semantics, threading, deployment]
 ---
 
-# C++ 进阶
+# Advanced C++
 
-:::tip 本节定位
-如果基础课解决的是“能看懂和写简单 C++”，  
-这一节解决的就是：
+:::tip Section Overview
+If the basic course solves “how to read and write simple C++,”
+this section solves:
 
-- 为什么部署代码里总有 `unique_ptr`
-- 为什么会有抽象类和虚函数
-- 为什么大家这么在意资源释放和对象所有权
+- Why deployment code always has `unique_ptr`
+- Why there are abstract classes and virtual functions
+- Why people care so much about resource cleanup and object ownership
 
-这些恰恰是部署工程里最常见、也最容易卡住 Python 背景同学的地方。
+These are exactly the most common and most likely pain points for students with a Python background in deployment engineering.
 :::
 
-![C++ RAII 与所有权地图](/img/course/elective-cpp-raii-ownership-map.png)
+![C++ RAII and Ownership Map](/img/course/elective-cpp-raii-ownership-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解 RAII 和智能指针为什么是部署代码高频概念
-- 理解抽象接口和多态在推理后端里的作用
-- 建立对移动语义的第一层直觉
-- 通过可编译示例掌握更像工程代码的组织方式
-
----
-
-## 一、为什么 C++ 进阶知识在部署里这么常见？
-
-### 1.1 因为部署场景经常管理外部资源
-
-例如：
-
-- 模型句柄
-- 文件句柄
-- GPU / 设备上下文
-- 网络连接
-
-这些资源一旦泄露，问题会比普通脚本更严重。
-
-### 1.2 因为部署系统很强调“谁拥有这个对象”
-
-例如：
-
-- 这个 runner 由谁创建？
-- 谁负责释放？
-- 能不能共享？
-
-这就是所有权问题。
-
-### 1.3 一个类比
-
-基础语法像学会开工具箱。  
-进阶部分更像学会：
-
-- 谁领工具
-- 谁保管工具
-- 用完谁归还
-
-在工程里，这往往比写一段算法更重要。
+- Understand why RAII and smart pointers are high-frequency concepts in deployment code
+- Understand the role of abstract interfaces and polymorphism in inference backends
+- Build an initial intuition for move semantics
+- Learn a more engineering-style code organization pattern through compilable examples
 
 ---
 
-## 二、RAII：为什么 C++ 喜欢“对象析构时自动释放资源”？
+## 1. Why are advanced C++ concepts so common in deployment?
 
-### 2.1 一句话理解
+### 1.1 Because deployment scenarios often manage external resources
 
-RAII 可以先粗略理解成：
+For example:
 
-> **把资源生命周期绑定到对象生命周期。**
+- Model handles
+- File handles
+- GPU / device contexts
+- Network connections
 
-对象创建时拿资源，  
-对象销毁时自动释放资源。
+Once these resources leak, the problem is often more serious than in a regular script.
 
-### 2.2 为什么这很适合部署代码？
+### 1.2 Because deployment systems care a lot about “who owns this object”
 
-因为部署里异常和提前返回很常见。  
-如果全靠手写：
+For example:
+
+- Who creates this runner?
+- Who is responsible for freeing it?
+- Can it be shared?
+
+This is an ownership problem.
+
+### 1.3 An analogy
+
+Basic syntax is like learning how to open a toolbox.
+The advanced part is more like learning:
+
+- Who takes the tools
+- Who keeps the tools
+- Who returns them after use
+
+In engineering, this is often more important than writing a piece of algorithm code.
+
+---
+
+## 2. RAII: Why does C++ like “automatically releasing resources when an object is destroyed”?
+
+### 2.1 A one-sentence understanding
+
+RAII can be roughly understood as:
+
+> **Binding a resource’s lifetime to an object’s lifetime.**
+
+When the object is created, it acquires the resource,
+and when the object is destroyed, it automatically releases the resource.
+
+### 2.2 Why is this so suitable for deployment code?
+
+Because exceptions and early returns are very common in deployment.
+If you rely entirely on manual:
 
 - `open`
 - `close`
 
-很容易漏掉清理。
+it is very easy to forget cleanup.
 
-### 2.3 一个简单示例
+### 2.3 A simple example
 
 ```cpp
 #include <iostream>
@@ -113,35 +113,35 @@ int main() {
 }
 ```
 
-这个例子虽然简单，但正好抓住 RAII 的关键感觉：
+Although this example is simple, it captures the key feeling of RAII very well:
 
-- 不必手动写 release 调用
-- 对象离开作用域时自动清理
+- No need to manually call release
+- Cleanup happens automatically when the object leaves scope
 
 ---
 
-## 三、智能指针：为什么部署代码里总看到 `unique_ptr`？
+## 3. Smart pointers: Why do we always see `unique_ptr` in deployment code?
 
-### 3.1 `unique_ptr`：独占所有权
+### 3.1 `unique_ptr`: exclusive ownership
 
-最常见也最值得先掌握的是：
+The most common and most important smart pointer to learn first is:
 
 - `std::unique_ptr`
 
-它表示：
+It means:
 
-- 一个对象只有一个明确拥有者
+- One object has one clearly defined owner
 
-### 3.2 为什么这在部署里特别常见？
+### 3.2 Why is this especially common in deployment?
 
-因为很多资源根本不适合被随便复制。  
-例如：
+Because many resources should not be copied casually.
+For example:
 
-- 模型 runner
-- 推理 session
-- 外部设备句柄
+- Model runners
+- Inference sessions
+- External device handles
 
-### 3.3 一个最常见的抽象接口 + `unique_ptr` 组合
+### 3.3 A very common combination: abstract interface + `unique_ptr`
 
 ```cpp
 #include <iostream>
@@ -171,37 +171,37 @@ int main() {
 }
 ```
 
-### 3.4 这个例子为什么非常像真实部署代码？
+### 3.4 Why does this example look very much like real deployment code?
 
-因为它展示了部署里很常见的三件事：
+Because it shows three things that are very common in deployment:
 
-1. 用抽象接口统一不同后端
-2. 用工厂函数创建具体实现
-3. 用 `unique_ptr` 管理生命周期
+1. Use an abstract interface to unify different backends
+2. Use a factory function to create the concrete implementation
+3. Use `unique_ptr` to manage the lifecycle
 
 ---
 
-## 四、移动语义为什么会被反复提到？
+## 4. Why is move semantics mentioned so often?
 
-### 4.1 因为大对象复制很贵
+### 4.1 Because copying large objects is expensive
 
-如果对象很大，例如：
+If an object is large, for example:
 
-- 大 buffer
-- 大向量
-- 模型包装对象
+- A large buffer
+- A large vector
+- A model wrapper object
 
-复制代价就会很明显。
+then the cost of copying becomes very noticeable.
 
-### 4.2 移动语义想做什么？
+### 4.2 What is move semantics trying to do?
 
-一句话说：
+In one sentence:
 
-> **能搬走就别整份复制。**
+> **If something can be moved, don’t copy the whole thing.**
 
-这会让资源转移更高效。
+This makes resource transfer more efficient.
 
-### 4.3 一个简单直觉示例
+### 4.3 A simple intuitive example
 
 ```cpp
 #include <iostream>
@@ -219,86 +219,86 @@ int main() {
 }
 ```
 
-你可以先记住：
+You can remember this first:
 
-- 现代 C++ 会尽量避免不必要的深拷贝
+- Modern C++ tries to avoid unnecessary deep copies as much as possible
 
-这里的直觉已经够用了。
+This intuition is enough for now.
 
 ---
 
-## 五、为什么抽象接口在推理后端里特别重要？
+## 5. Why are abstract interfaces especially important in inference backends?
 
-### 5.1 因为同一业务可能要接多个后端
+### 5.1 Because the same business logic may need multiple backends
 
-例如：
+For example:
 
-- CPU 版
-- GPU 版
+- CPU version
+- GPU version
 - ONNX Runtime
 - TensorRT
 
-### 5.2 如果没有统一接口会怎样？
+### 5.2 What happens if there is no unified interface?
 
-业务层会到处写：
+The business layer ends up writing all over the place:
 
 - if / else
-- 特殊分支
-- 后端差异逻辑
+- special-case branches
+- backend-specific logic
 
-很快变难维护。
+It quickly becomes hard to maintain.
 
-### 5.3 抽象接口的价值
+### 5.3 The value of an abstract interface
 
-它把差异压到实现层，  
-让业务层只面向统一能力编程。
+It pushes differences down into the implementation layer,
+so the business layer can program against a unified capability.
 
 ---
 
-## 六、最容易踩的坑
+## 6. The most common pitfalls
 
-### 6.1 误区一：一看到指针就全都害怕
+### 6.1 Mistake 1: Being afraid of every pointer
 
-现代 C++ 很多时候不鼓励你手写裸指针管理资源，  
-而是优先：
+Modern C++ often does not encourage you to manually manage resources with raw pointers,
+and instead prefers:
 
-- 智能指针
-- 值对象
+- Smart pointers
+- Value objects
 - RAII
 
-### 6.2 误区二：先学一堆模板元编程才算进阶
+### 6.2 Mistake 2: Thinking you must learn a lot of template metaprogramming before you can be “advanced”
 
-对部署工程来说，更先该掌握的是：
+For deployment engineering, what you should learn first is:
 
-- 资源管理
-- 接口抽象
-- 所有权
+- Resource management
+- Interface abstraction
+- Ownership
 
-### 6.3 误区三：`unique_ptr` 只是语法花样
+### 6.3 Mistake 3: Thinking `unique_ptr` is just a syntax trick
 
-不是。  
-它是在显式表达：
+It is not.
+It explicitly expresses:
 
-- 谁负责这个对象
+- Who is responsible for this object
 
-这对工程稳定性非常关键。
-
----
-
-## 小结
-
-这节最重要的，不是把 C++ 进阶学成语言研究，  
-而是先把部署工程里最常见的三件事搞明白：
-
-> **资源要自动释放、对象要明确所有权、后端差异要通过抽象接口隔离。**
-
-只要这三件事立住，后面再看更复杂的部署代码，你会轻松很多。
+That is very important for engineering stability.
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例里的 `CpuRunner` 再扩成一个 `MockGpuRunner`，体验抽象接口的价值。
-2. 为什么说 `unique_ptr` 很适合管理推理 runner 这类对象？
-3. 用自己的话解释：RAII 和“记得手动释放资源”有什么本质差别？
-4. 想一想：如果业务代码里到处判断后端类型，为什么会越来越难维护？
+The most important thing in this section is not to turn advanced C++ into a language theory course,
+but to first understand the three most common things in deployment engineering:
+
+> **Resources should be released automatically, object ownership should be explicit, and backend differences should be isolated through abstract interfaces.**
+
+Once these three things are clear, you will feel much more comfortable when reading more complex deployment code later.
+
+---
+
+## Exercises
+
+1. Extend `CpuRunner` in the example into a `MockGpuRunner` to experience the value of abstract interfaces.
+2. Why is `unique_ptr` well-suited for managing objects like inference runners?
+3. Explain in your own words: what is the essential difference between RAII and “remembering to release resources manually”?
+4. Think about this: if business code keeps checking backend types everywhere, why will it become harder and harder to maintain?

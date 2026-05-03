@@ -1,74 +1,74 @@
 ---
 sidebar_position: 18
-title: "阶段过渡指南：从基础到 AI 应用"
-description: "解释为什么要按开发工具、Python、数据分析、机器学习、深度学习、LLM、RAG、Agent 的顺序逐步推进。"
-keywords: [阶段过渡, 学习路线, AI全栈, 从Python到RAG, 从RAG到Agent]
+title: "Stage Transition Guide: From Basics to AI Applications"
+description: "Explains why the learning path should progress step by step in the order of development tools, Python, data analysis, machine learning, deep learning, LLM, RAG, and Agent."
+keywords: [stage transition, learning path, AI full stack, from Python to RAG, from RAG to Agent]
 ---
 
-# 阶段过渡指南：从基础到 AI 应用
+# Stage Transition Guide: From Basics to AI Applications
 
-AI 全栈学习最容易卡住的地方，不一定是某个知识点本身，而是不知道为什么突然要学下一个主题。这个页面用一条主线解释各阶段之间的关系，帮助你在切换阶段时知道自己正在补哪块能力。
+The place where AI full-stack learners most easily get stuck is not necessarily a specific concept itself, but not knowing why they suddenly need to learn the next topic. This page uses one main line to explain the relationship between each stage, helping you understand which capability you are filling in when you switch stages.
 
-## 一图看懂阶段为什么这样排
+## See at a glance why the stages are arranged this way
 
 ```mermaid
 flowchart LR
-  A["开发工具"] --> B["Python"]
-  B --> C["数据分析"]
-  C --> D["机器学习"]
-  D --> E["深度学习"]
-  E --> F["大模型"]
+  A["Development tools"] --> B["Python"]
+  B --> C["Data analysis"]
+  C --> D["Machine learning"]
+  D --> E["Deep learning"]
+  E --> F["LLM"]
   F --> G["RAG"]
   G --> H["Agent"]
-  H --> I["毕业项目"]
+  H --> I["Capstone project"]
 ```
 
-每次切换阶段前只问一句：下一阶段需要我新增哪种能力？如果答案说不清，先读本页对应过渡段，再做一个最小练习。
+Before switching to the next stage, ask just one question: what new capability does the next stage require me to add? If the answer is unclear, first read the corresponding transition section on this page, then do a minimum exercise.
 
-## 从开发工具到 Python
+## From development tools to Python
 
-开发工具阶段解决的是“你能不能稳定地写代码、运行代码、保存代码”。Python 阶段解决的是“你能不能用代码表达一个清晰流程”。如果开发环境、路径、依赖和 Git 没跑通，后面所有 AI 项目都会被环境问题打断。
+The development tools stage solves the question of whether you can write code, run code, and save code reliably. The Python stage solves the question of whether you can use code to express a clear workflow. If your development environment, paths, dependencies, and Git are not working properly, all later AI projects will be interrupted by environment issues.
 
-进入 Python 前，你至少应该能打开项目目录、运行一个脚本、提交一次 Git 记录。否则学习 Python 时遇到的很多问题，其实不是语法问题，而是环境问题。
+Before moving into Python, you should at least be able to open a project directory, run a script, and make one Git commit. Otherwise, many problems you encounter while learning Python are not really syntax problems, but environment problems.
 
-## 从 Python 到数据分析
+## From Python to data analysis
 
-Python 教你写流程，数据分析教你处理真实数据。AI 项目里的输入通常不是干净的单个变量，而是文件、表格、日志、文档和用户行为记录。数据分析阶段的价值是让你理解数据的形状、质量、分布和异常。
+Python teaches you how to write workflows, while data analysis teaches you how to handle real-world data. The inputs in AI projects are usually not clean single variables, but files, tables, logs, documents, and user activity records. The value of the data analysis stage is helping you understand the shape, quality, distribution, and anomalies of data.
 
-进入数据分析前，你应该能写函数、读写文件、使用列表和字典。进入机器学习前，你应该能用 Pandas 读取数据、清洗字段、做基础统计，并用图表解释现象。
+Before moving into data analysis, you should be able to write functions, read and write files, and use lists and dictionaries. Before moving into machine learning, you should be able to use Pandas to load data, clean fields, perform basic statistics, and explain patterns with charts.
 
-## 从数据分析到机器学习
+## From data analysis to machine learning
 
-数据分析回答“发生了什么”，机器学习尝试回答“能不能根据已有数据预测或分类”。这个过渡的关键是把数据表变成特征，把业务问题变成建模问题，把直觉结论变成可评估的模型。
+Data analysis answers “what happened,” while machine learning tries to answer “can we predict or classify based on the existing data?” The key to this transition is turning data tables into features, business problems into modeling problems, and intuitive conclusions into measurable models.
 
-如果你在机器学习阶段卡住，常见原因不是算法太难，而是数据理解不够。比如目标变量是什么、特征是否泄漏、训练集和测试集是否合理、指标是否匹配问题，这些都来自数据分析能力。
+If you get stuck in the machine learning stage, a common reason is not that the algorithms are too difficult, but that your understanding of the data is not enough. For example, what the target variable is, whether there is data leakage, whether the training set and test set are reasonable, and whether the metric matches the problem — all of these come from data analysis skills.
 
-## 从机器学习到深度学习
+## From machine learning to deep learning
 
-机器学习阶段主要训练你理解数据、特征、模型和评估。深度学习阶段进一步让模型自动学习表示，尤其适合图像、文本、语音和复杂序列。这个过渡的关键是从“手工特征 + 传统模型”转向“张量 + 神经网络 + 表示学习”。
+The machine learning stage mainly trains you to understand data, features, models, and evaluation. The deep learning stage further enables models to learn representations automatically, and is especially suitable for images, text, speech, and complex sequences. The key to this transition is moving from “manual features + traditional models” to “tensors + neural networks + representation learning.”
 
-进入深度学习前，你应该已经理解训练集/测试集、损失函数、过拟合、评估指标和 baseline。否则 PyTorch 代码即使跑起来，也很难判断模型到底学到了什么。
+Before entering deep learning, you should already understand train/test splits, loss functions, overfitting, evaluation metrics, and baselines. Otherwise, even if PyTorch code runs, it will be hard to judge what the model has actually learned.
 
-## 从深度学习到大模型
+## From deep learning to LLM
 
-深度学习让你理解神经网络训练，Transformer 让你理解现代大模型的架构基础。大模型阶段不要求你从零训练一个模型，但要求你理解 token、embedding、上下文、预训练、微调和对齐这些概念的作用。
+Deep learning helps you understand neural network training, while Transformer helps you understand the architectural foundation of modern LLMs. The LLM stage does not require you to train a model from scratch, but it does require you to understand the roles of concepts such as token, embedding, context, pretraining, fine-tuning, and alignment.
 
-如果你只想做应用，可以快读底层推导，但不要完全跳过 Transformer 和 embedding。因为 RAG、Prompt、微调、Agent 的很多问题都和这些基础概念有关。
+If you only want to build applications, you can skim the underlying derivations, but do not skip Transformer and embedding entirely. Many issues in RAG, Prompt, fine-tuning, and Agent are related to these foundational concepts.
 
-## 从大模型到 RAG
+## From LLM to RAG
 
-大模型本身有知识过期、幻觉、无法访问私有资料等限制。RAG 的作用是把外部知识库接入生成过程，让模型基于检索到的材料回答问题。这个过渡的关键是从“让模型凭记忆回答”转向“让模型基于来源回答”。
+LLMs themselves have limitations such as outdated knowledge, hallucinations, and inability to access private data. The role of RAG is to connect an external knowledge base to the generation process, allowing the model to answer questions based on retrieved materials. The key to this transition is moving from “let the model answer from memory” to “let the model answer based on sources.”
 
-进入 RAG 前，你应该理解 API 调用、文本切分、embedding、向量相似度和基本提示词。学习 RAG 时，要始终把检索和生成分开调试。
+Before entering RAG, you should understand API calls, text chunking, embeddings, vector similarity, and basic prompts. When learning RAG, always keep retrieval and generation separate for debugging.
 
-## 从 RAG 到 Agent
+## From RAG to Agent
 
-RAG 主要解决知识获取问题，Agent 进一步解决任务执行问题。RAG 回答“相关资料是什么、答案是什么”，Agent 处理“为了完成目标，应该分几步、调用哪些工具、如何记录状态、失败后如何恢复”。
+RAG mainly solves the problem of knowledge retrieval, while Agent further solves the problem of task execution. RAG answers “what related materials are there, and what is the answer,” while Agent handles “to complete a goal, how many steps should be taken, which tools should be called, how state should be recorded, and how to recover after failure.”
 
-进入 Agent 前，你应该已经理解 RAG、函数调用、日志、评估和安全边界。否则 Agent 很容易变成一个不可控的自动化脚本，出了问题也无法追踪。
+Before entering Agent, you should already understand RAG, function calling, logging, evaluation, and safety boundaries. Otherwise, Agent can easily become an uncontrollable automation script, and when something goes wrong, there is no way to trace it.
 
-## 从 Agent 到毕业项目
+## From Agent to the capstone project
 
-毕业项目不是把所有技术都塞进去，而是选择一个真实问题，组合合适技术形成稳定闭环。你可以从 AI 学习助手、企业知识库、数据分析 Agent、垂直领域助手或多模态工作流中选择一个方向。
+A capstone project is not about cramming in every technology, but about choosing a real problem and combining the right technologies to form a stable closed loop. You can choose one direction from AI learning assistants, enterprise knowledge bases, data analysis agents, vertical-domain assistants, or multimodal workflows.
 
-真正的通关标准是：项目能运行，流程能解释，效果能评估，失败能复盘，别人能按 README 复现。到这个阶段，学习重点从“学会某个知识点”转为“做出一个可信的系统”。
+The real pass standard is: the project can run, the workflow can be explained, the results can be evaluated, failures can be reviewed, and others can reproduce it according to the README. At this stage, the focus shifts from “learning a concept” to “building a trustworthy system.”

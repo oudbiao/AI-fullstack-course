@@ -1,141 +1,141 @@
 ---
 sidebar_position: 22
-title: "课程页面使用说明"
-description: "说明首页、阶段首页、学习指南、任务单、项目页和附录页面的分工，帮助学习者减少重复阅读。"
-keywords: [课程使用说明, 学习指南, 任务单, 阶段首页, AI课程结构]
+title: "Course Page Guide"
+description: "Explains the roles of the home page, stage home page, study guide, task sheet, project pages, and appendix pages to help learners avoid repetitive reading."
+keywords: [course guide, study guide, task sheet, stage home page, AI course structure]
 ---
 
-# 课程页面使用说明
+# Course Page Guide
 
-随着课程内容逐步丰富，同一个阶段里会出现阶段首页、学习指南、任务单、章节页和项目页。它们不是重复内容，而是服务于不同学习动作。你不需要每次都从头读完所有页面，可以按当前目标选择入口。
+As the course content becomes richer, each stage will include a stage home page, study guide, task sheet, chapter pages, and project pages. These are not duplicate content; they serve different learning actions. You do not need to read every page from start to finish each time. Instead, choose the entry point based on your current goal.
 
-## 一图读懂：页面怎么配合
+## One-Page Overview: How the Pages Work Together
 
 ```mermaid
 flowchart LR
-  A["首页和学习地图"] --> B["阶段首页"]
-  B --> C["任务单"]
-  C --> D["章节页"]
-  D --> E["项目页"]
-  E --> F["附录和排障"]
+  A["Home Page and Learning Map"] --> B["Stage Home Page"]
+  B --> C["Task Sheet"]
+  C --> D["Chapter Page"]
+  D --> E["Project Page"]
+  E --> F["Appendix and Troubleshooting"]
 ```
 
-| 当前目标 | 优先看哪里 |
+| Current goal | Where to look first |
 |---|---|
-| 不知道从哪开始 | 首页、快速体验、推荐学习路线 |
-| 准备进入新阶段 | 阶段首页、学习指南、任务单 |
-| 想快速推进项目 | 任务单、项目页、交付标准 |
-| 遇到报错或术语 | 排障索引、术语表、FAQ |
+| Not sure where to start | Home page, quick start, recommended learning path |
+| Preparing to enter a new stage | Stage home page, study guide, task sheet |
+| Want to move a project forward quickly | Task sheet, project page, delivery criteria |
+| Running into errors or unfamiliar terms | Troubleshooting index, glossary, FAQ |
 
-## 页面分工
+## Role of Each Page
 
-| 页面类型 | 主要作用 | 什么时候看 |
+| Page type | Main purpose | When to read it |
 | --- | --- | --- |
-| 首页 | 快速启动整门课 | 第一次进入课程，或不知道从哪里开始时 |
-| 学习地图 | 理解路线、项目、术语、排障和作品集要求 | 开始学习前，或需要重新规划路线时 |
-| 阶段首页 | 判断这个阶段学什么、为什么学、和前后阶段有什么关系 | 进入一个新阶段前 |
-| 学习指南 | 安排章节学习顺序和学习方法 | 准备系统学习某个阶段时 |
-| 阶段任务单 | 明确本阶段要完成的练习、项目和通关标准 | 学习过程中反复对照 |
-| 章节页 | 学具体概念、代码和实践方法 | 按学习顺序逐章阅读或查漏补缺时 |
-| 项目页 | 把知识点转成可运行作品 | 完成阶段练习或做作品集时 |
-| 附录与术语表 | 查概念、资源、排障和补充资料 | 遇到卡点或陌生词时 |
+| Home page | Quickly get started with the whole course | When entering the course for the first time, or when you do not know where to begin |
+| Learning map | Understand the roadmap, projects, terms, troubleshooting, and portfolio requirements | Before starting to learn, or when you need to re-plan your path |
+| Stage home page | Decide what this stage teaches, why it matters, and how it connects to previous and next stages | Before entering a new stage |
+| Study guide | Arrange the order and method for studying the chapters | When preparing to study a stage systematically |
+| Stage task sheet | Clarify the exercises, projects, and pass criteria for the stage | Revisit repeatedly during the learning process |
+| Chapter page | Learn specific concepts, code, and practical methods | Read chapter by chapter in order, or use it to fill knowledge gaps |
+| Project page | Turn what you learned into a runnable deliverable | When completing stage exercises or building portfolio work |
+| Appendix and glossary | Look up concepts, resources, troubleshooting, and extra references | When you hit a blocker or see unfamiliar terms |
 
-如果你是第一次学，建议顺序是：首页 → 快速体验 → AI 全栈能力地图 → 推荐学习路线 → 阶段首页 → 阶段任务单 → 章节页 → 项目页。之后每进入一个新阶段，都重复“阶段首页 + 任务单 + 章节 + 项目”的节奏。
+If this is your first time learning, the recommended order is: Home page → Quick Start → AI Full-Stack Capability Map → Recommended Learning Path → Stage Home Page → Stage Task Sheet → Chapter Pages → Project Pages. After that, for each new stage, repeat the rhythm of “Stage Home Page + Task Sheet + Chapters + Project.”
 
-## 如何避免重复阅读
+## How to Avoid Repetitive Reading
 
-如果你只是想快速推进，就优先看任务单和项目页。任务单告诉你最低要交付什么，项目页告诉你如何把知识点做成作品。如果某个任务做不出来，再回到对应章节补概念和代码。
+If you just want to move forward quickly, prioritize the task sheet and project page. The task sheet tells you the minimum deliverable, and the project page tells you how to turn the knowledge into a real artifact. If you cannot complete a task, go back to the relevant chapter to review the concept and code.
 
-如果你已经有相关经验，可以先看阶段首页和任务单，然后直接跳到项目页。比如你已经会 Python，就不必逐字阅读所有 Python 基础章节，而是完成命令行工具、文件读写和 API 小项目，确认没有关键缺口即可。
+If you already have relevant experience, you can first read the stage home page and task sheet, then jump directly to the project page. For example, if you already know Python, you do not need to read every Python basics chapter word for word. Instead, complete the command-line tool, file I/O, and API mini-projects, and confirm that there are no critical gaps.
 
-如果你正在准备作品集，就优先看项目路线、AI 学习助手成长路线、作品集验收清单和毕业项目设计指南。章节内容作为支撑，项目交付物才是主线。
+If you are preparing a portfolio, prioritize the project roadmap, AI learning assistant growth path, portfolio evaluation checklist, and graduation project design guide. Chapter content is support material; the project deliverables are the main thread.
 
-## 三类学习模式
+## Three Learning Modes
 
-快速体验模式适合想先跑起来的人。你只需要完成每个阶段任务单里的最小产出，不必深入所有理论。这个模式能帮助你尽快建立正反馈。
+The quick start mode is suitable for people who want to get something running first. You only need to complete the minimum output in each stage task sheet and do not need to go deep into every theory. This mode helps you build positive feedback quickly.
 
-系统学习模式适合想完整建立 AI 全栈能力的人。你应该按阶段首页和学习指南推进，每个阶段都完成任务单和至少一个阶段项目。
+The systematic learning mode is suitable for people who want to build complete AI full-stack capability. You should follow the stage home pages and study guides, complete the task sheet for each stage, and finish at least one stage project.
 
-作品集模式适合以求职、转型或展示为目标的人。你应该围绕一个连续项目迭代，把每阶段产出都沉淀到 README、实验记录、截图、测试集和失败样本里。
+The portfolio mode is suitable for people whose goal is job hunting, career transition, or showcasing their work. You should iterate around one continuous project and keep every stage’s output in the README, experiment log, screenshots, test set, and failure samples.
 
-## 页面维护原则
+## Page Maintenance Principles
 
-后续新增内容时，尽量保持这个分工。阶段首页负责定位，学习指南负责顺序，任务单负责交付，章节页负责知识，项目页负责作品，附录负责查阅。这样课程会随着内容增加而变丰富，而不是变混乱。
+When adding new content later, try to keep this division of responsibilities. The stage home page is for positioning, the study guide is for sequence, the task sheet is for delivery, the chapter pages are for knowledge, the project page is for the final work, and the appendix is for reference. This way, the course becomes richer as content grows, not more chaotic.
 
-## 阶段首页统一结构
+## Standard Structure for Stage Home Pages
 
-为了让每个阶段读起来更一致，阶段首页建议固定承担六件事：说明阶段定位，给出学习闯关地图，区分新手最小路线和进阶路线，列出本阶段学习路径，明确阶段项目和交付物，最后给出通关标准。
+To make each stage read more consistently, a stage home page should ideally handle six things: explain the stage focus, provide a learning challenge map, separate the beginner minimum path from the advanced path, list the stage learning route, clarify the stage project and deliverables, and finally provide the pass criteria.
 
-| 模块 | 作用 | 不应该写成什么 |
+| Module | Purpose | What not to write it as |
 |---|---|---|
-| 阶段定位 | 说明这一阶段解决什么问题 | 不要堆工具名 |
-| 学习闯关地图 | 用流程图展示知识如何串起来 | 不要替代详细章节 |
-| 新手/进阶路线 | 降低不同基础学习者的选择成本 | 不要让所有人做同样深度 |
-| 学习路径 | 告诉学习者先读哪章、后读哪章 | 不要把章节标题简单复制一遍 |
-| 阶段交付物 | 明确最小版和作品集版证据 | 不要只写“完成项目” |
-| 通关标准 | 判断是否可以进入下一阶段 | 不要用“看完课程”作为标准 |
+| Stage focus | Explain what problem this stage solves | Do not just list tool names |
+| Learning challenge map | Show how the knowledge connects through a flowchart | Do not replace detailed chapters |
+| Beginner/advanced path | Reduce decision cost for learners with different backgrounds | Do not make everyone learn to the same depth |
+| Learning route | Tell learners which chapter to read first and which to read next | Do not simply copy the chapter titles |
+| Stage deliverables | Clarify the minimum version and portfolio version evidence | Do not just write “complete the project” |
+| Pass criteria | Decide whether the learner can move to the next stage | Do not use “finished reading the course” as the criterion |
 
-如果某个阶段首页太短，优先补“新手最小通关路线”“阶段项目”“阶段交付物”和“阶段通关标准”。如果某个阶段首页太长，优先把细节迁移到学习指南、任务单或项目页。
+If a stage home page is too short, prioritize adding the “beginner minimum pass path,” “stage project,” “stage deliverables,” and “stage pass criteria.” If a stage home page is too long, move details into the study guide, task sheet, or project page.
 
-## 章节页统一收尾模板
+## Standard Closing Template for Chapter Pages
 
-具体章节页负责讲清一个知识点，但不要只停在“解释完概念”。为了让学习者每学一节都留下可验证动作，重点章节建议在末尾保留四个短模块。
+A chapter page should explain one concept clearly, but it should not stop at “the concept has been explained.” To help learners leave each lesson with a verifiable action, key chapter pages should keep four short modules at the end.
 
-| 收尾模块 | 作用 | 最小写法 |
+| Closing module | Purpose | Minimum format |
 |---|---|---|
-| 本节最小练习 | 把知识点变成一个可运行动作 | 给出 1 个命令、代码片段或检查任务 |
-| 常见失败点 | 告诉学习者哪里最容易错 | 列 2～4 个现象、原因和修复方向 |
-| 和阶段项目的关系 | 说明这一节会进入哪个项目能力 | 连接到任务单、项目页或贯穿项目版本 |
-| 进入下一节前检查 | 防止“看完但不会用” | 用 3 个问题确认是否能继续 |
+| Minimum exercise for this section | Turn the concept into an executable action | Provide 1 command, code snippet, or check task |
+| Common failure points | Tell learners where they are most likely to go wrong | List 2–4 symptoms, causes, and fix directions |
+| Relationship to the stage project | Explain which project capability this section supports | Connect it to the task sheet, project page, or an ongoing project version |
+| Check before moving to the next section | Prevent “I read it but still cannot use it” | Use 3 questions to confirm whether they can continue |
 
-章节内容很长时，收尾模块要短，不要变成新的大段讲解。它的目标是提醒学习者：这一节学完后，应该能跑什么、解释什么、记录什么。
+When chapter content is long, keep the closing modules short. Do not turn them into another large block of explanation. Their goal is to remind learners: after finishing this section, what should they be able to run, explain, and record?
 
-示例结构可以这样写：
+A sample structure can look like this:
 
 ~~~md
-## 本节最小练习
+## Minimum Exercise for This Section
 
-用本节方法处理一个最小样例，并保存输入、输出和运行命令。
+Use the method from this section to process a minimal example, and save the input, output, and run command.
 
-## 常见失败点
+## Common Failure Points
 
-| 现象 | 常见原因 | 修复方向 |
+| Symptom | Common cause | Fix direction |
 |---|---|---|
-| 示例跑不通 | 路径或依赖不一致 | 回到 README 检查运行目录和环境 |
+| The example does not run | Path or dependency mismatch | Go back to the README and check the working directory and environment |
 
-## 和阶段项目的关系
+## Relationship to the Stage Project
 
-本节能力会进入本阶段项目的某个模块，例如数据清洗、模型评估、Prompt 版本或 Agent trace。
+The capability from this section will be used in a module of the stage project, such as data cleaning, model evaluation, Prompt versioning, or Agent trace.
 
-## 进入下一节前检查
+## Check Before Moving to the Next Section
 
-你是否能独立复现本节示例？你是否能解释输出为什么是这样？你是否记录了一个失败或边界情况？
+Can you reproduce the example in this section on your own? Can you explain why the output looks like this? Have you recorded one failure case or boundary case?
 ~~~
 
-## 阅读标签：必读、项目查阅和选修深入
+## Reading Tags: Required, Project Reference, and Optional Deep Dive
 
-课程内容越来越多后，不应该让学习者误以为每一页都必须同等精读。建议后续维护章节时，为阶段首页、学习指南或章节列表增加三类标签。
+As the course grows, learners should not be led to believe that every page needs the same level of close reading. When maintaining chapters later, it is recommended to add three kinds of tags to the stage home page, study guide, or chapter list.
 
-| 标签 | 含义 | 适用页面 |
+| Tag | Meaning | Applicable pages |
 |---|---|---|
-| 必读 | 第一遍主线必须理解，否则后续会频繁卡住 | 基础概念、核心流程、关键评估方法 |
-| 项目查阅 | 做项目时再回来查，第一遍可以快速浏览 | API 参数、部署细节、框架对比、扩展技巧 |
-| 选修深入 | 有方向兴趣或作品集需要时再学 | 高级算法、前沿方法、复杂优化、行业专题 |
+| Required | Must be understood in the first pass; otherwise later learning will often get stuck | Basic concepts, core workflows, key evaluation methods |
+| Project reference | Come back to this when building a project; the first pass can be a quick skim | API parameters, deployment details, framework comparisons, extension tips |
+| Optional deep dive | Learn later if you are interested in the topic or need it for a portfolio | Advanced algorithms, frontier methods, complex optimization, industry topics |
 
-每个阶段首页可以增加一张“第一遍怎么读”的小表，把本阶段章节分成这三类。这样不删内容，也能降低学习压力。
+Each stage home page can add a small “How to Read It the First Time” table that divides the stage chapters into these three categories. This does not remove content, but it does reduce learning pressure.
 
-每次修改课程内容、导航或新增页面后，建议先在项目根目录运行：
+After each edit to course content, navigation, or new pages, it is recommended to run the following in the project root:
 
 ```bash
 npm run validate:docs
 ```
 
-这个命令会检查 Markdown 代码块、内部链接、sidebar 文档引用和 `sidebars.js` 语法。如果它失败，先根据 FAIL 输出修复问题，再继续提交。
+This command checks Markdown code blocks, internal links, sidebar document references, and the syntax of `sidebars.js`. If it fails, first fix the issues according to the FAIL output, then continue submitting.
 
-验证通过后，再运行：
+After validation passes, run:
 
 ```bash
 npm run clean
 ```
 
-这个命令会清理 Docusaurus 生成缓存和构建产物，避免 `.docusaurus` 或 `build` 中残留旧路径、旧页面或本地临时路径。完成这两步后，再执行 Git 提交会更稳。
+This command clears the Docusaurus-generated cache and build artifacts, preventing old paths, old pages, or local temporary paths from remaining in `.docusaurus` or `build`. After completing these two steps, making the Git commit will be more stable.

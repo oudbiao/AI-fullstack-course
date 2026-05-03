@@ -1,161 +1,161 @@
 ---
 sidebar_position: 3
-title: "学习策略建议"
-description: "介绍数学与机器学习交叉学习、项目驱动学习和螺旋式复习方法，帮助学习者更稳定地完成 AI 全栈课程。"
-keywords: [AI学习方法, 项目驱动学习, 数学学习, 机器学习学习路线, 自学AI]
+title: "Learning Strategy Recommendations"
+description: "Introduces cross-learning between mathematics and machine learning, project-driven learning, and spiral review methods to help learners complete the AI full-stack course more steadily."
+keywords: [AI learning methods, project-driven learning, math learning, machine learning learning path, self-learning AI]
 ---
 
-# 学习策略建议
+# Learning Strategy Recommendations
 
-> 方法对了，事半功倍。这页介绍三种经过实践验证的学习方法，**强烈建议在开始正式学习前读完。**
+> The right method can make you twice as effective with half the effort. This page introduces three learning methods that have been proven in practice. **Strongly recommended reading before you begin formal study.**
 
 ---
 
-## 先看总览：三种策略配合使用
+## First, the big picture: use all three strategies together
 
 ```mermaid
 flowchart LR
-  A["数学和 ML 交叉学"] --> B["用项目验证理解"]
-  B --> C["用社群和复盘保持反馈"]
-  C --> D["按时间盒稳定推进"]
+  A["Cross-learn mathematics and ML"] --> B["Validate understanding with projects"]
+  B --> C["Stay on track with community and reflection"]
+  C --> D["Make steady progress with timeboxing"]
 ```
 
-| 策略 | 解决什么问题 | 每周最小动作 |
+| Strategy | What problem it solves | Minimum weekly action |
 |---|---|---|
-| 数学 + ML 融合 | 避免数学学很久却看不到 AI 效果 | 学一个数学直觉，跑一个模型小例子 |
-| 项目驱动 | 避免只看教程、没有能力证据 | 每阶段留下一个可运行项目 |
-| 社群与复盘 | 避免一个人卡住太久 | 每周分享一个问题或一个结果 |
+| Math + ML integration | Avoid spending a long time on math without seeing AI results | Learn one math intuition, run one small model example |
+| Project-driven learning | Avoid only watching tutorials and having no proof of ability | Leave one runnable project at each stage |
+| Community + reflection | Avoid getting stuck alone for too long | Share one question or one result each week |
 
-## 策略一：数学 + 机器学习融合学习法
+## Strategy 1: Math + Machine Learning integrated learning
 
-### 为什么不能先学完数学再学 ML？
+### Why not finish math first and then learn ML?
 
-传统思路是"先把数学学扎实，再学机器学习"。听起来合理，但实际操作中有个致命问题：
+The traditional approach is: "Learn the math thoroughly first, then study machine learning." It sounds reasonable, but in practice there is a fatal problem:
 
-> 学了两个月数学，还没碰过 AI，激情消退、动力归零、直接放弃。
+> After studying math for two months without touching AI, your excitement fades, your motivation drops to zero, and you quit outright.
 
-我们的方案是：**数学学一章，立刻用 ML 实践一下**。学了向量和矩阵？马上去实现一个线性回归，看看向量运算是怎么计算出房价的。学了概率论？马上去看逻辑回归的损失函数，理解为什么要用交叉熵。
+Our approach is: **learn one chapter of math, then immediately practice it with ML**. Learned vectors and matrices? Go implement linear regression right away and see how vector operations calculate house prices. Learned probability theory? Go look at the loss function in logistic regression and understand why cross-entropy is used.
 
-### 具体怎么交叉学？
+### How exactly should you cross-learn?
 
-| 步骤 | 先学数学（4 AI 数学最小必要基础） | 然后做 ML（5 机器学习入门到实战） | 你会获得什么 |
+| Step | Learn math first (the 4 minimum essential AI math foundations) | Then do ML (from beginner to practical) | What you’ll gain |
 |:---:|---------|---------|----------|
-| **第 1 步** | 线性代数：向量、矩阵运算 | ML 基础 + 线性回归 | 用刚学的矩阵运算理解回归，马上有成就感 |
-| **第 2 步** | 概率与统计 | 逻辑回归 + 决策树 | 用贝叶斯定理理解分类，学以致用 |
-| **第 3 步** | 微积分与优化 | 集成学习 + 完整 ML 项目 | 理解梯度下降后，专注算法和实战 |
+| **Step 1** | Linear algebra: vectors, matrix operations | ML basics + linear regression | Understand regression using the matrix operations you just learned, and feel an immediate sense of accomplishment |
+| **Step 2** | Probability and statistics | Logistic regression + decision trees | Understand classification with Bayes’ theorem and apply what you learn |
+| **Step 3** | Calculus and optimization | Ensemble learning + complete ML project | After understanding gradient descent, focus on algorithms and hands-on practice |
 
-每学完数学的一章，课程里都有 **🔀 融合学习跳转** 指引，告诉你该跳到 ML 的哪个部分。
+After each math chapter, the course provides **🔀 integrated learning jump links** to tell you which ML section to jump to next.
 
-### 三条实操建议
+### Three practical tips
 
-**1. 不要追求 100% 理解数学**
+**1. Don’t aim for 100% understanding of math**
 
-AI 工程师需要的是"能用数学工具解决问题"，不是"能写出数学证明"。一个公式看了 3 遍还是不太懂？先记住它的**直觉含义**，用 NumPy 代码跑一遍看看结果，然后继续往前走。等你实践中用过几次之后，自然就懂了。
+What AI engineers need is "being able to use math tools to solve problems," not "being able to write mathematical proofs." If you’ve looked at a formula three times and still don’t fully get it, first remember its **intuitive meaning**, run it once in NumPy code to see the result, and then keep moving forward. After using it a few times in practice, it will become clear naturally.
 
-**2. 数学有困难？看这些视频**
+**2. Having trouble with math? Watch these videos**
 
-- **3Blue1Brown** 的线性代数和微积分系列（B 站搜"3b1b"有中文字幕）
-- 这是全世界最好的数学可视化教程，没有之一
-- 不需要全部看完，配合 4 AI 数学最小必要基础学到的章节看对应的视频就行
+- **3Blue1Brown**’s linear algebra and calculus series (search "3b1b" on Bilibili for Chinese subtitles)
+- This is the best math visualization tutorial in the world, no question
+- You don’t need to watch everything; just follow the corresponding videos for the chapters you’re learning in the 4 minimum essential AI math foundations section
 
-**3. 记住这句话**
+**3. Remember this sentence**
 
-> "我不需要成为数学家，我需要的是用数学解决 AI 问题。"
+> "I don’t need to become a mathematician. I need to use math to solve AI problems."
 
-这门课程的数学部分全部用代码 + 可视化的方式讲，不是在黑板上推公式。
+The math sections of this course are all taught with code + visualization, not by deriving formulas on a blackboard.
 
 ---
 
-## 策略二：项目驱动学习法
+## Strategy 2: Project-driven learning
 
-### 为什么项目比教程重要？
+### Why are projects more important than tutorials?
 
-一个残酷的事实：看 100 小时教程的效果，不如自己动手做 10 小时项目。
+A harsh truth: 100 hours of watching tutorials is less effective than 10 hours of hands-on projects.
 
-原因很简单——看教程的时候你的大脑处于"接收模式"（我懂了我懂了），但做项目的时候你的大脑处于"创造模式"（等等，这个 bug 怎么回事？这个参数为什么要这么设？）。只有创造模式才能真正把知识变成能力。
+The reason is simple — when you watch tutorials, your brain is in "receiving mode" ("I get it, I get it"), but when you build a project, your brain is in "creating mode" ("Wait, what’s causing this bug? Why should this parameter be set this way?"). Only creating mode can truly turn knowledge into ability.
 
-### 每个阶段的项目安排
+### Project arrangement for each stage
 
-本课程在每个阶段都安排了项目，你应该**认真做完每一个**：
+This course includes projects at every stage, and you should **carefully complete each one**:
 
-| 阶段 | 项目 | 你会收获什么 |
+| Stage | Project | What you’ll gain |
 |------|------|------------|
-| 1 开发者工具基础 | 配好开发环境 | 这本身就是你的第一个成就 |
-| 2 Python 编程基础 | 命令行工具、爬虫、Web API、AI API 体验 | Python 编程能力 + 4个作品 |
-| 3 数据分析与可视化 | 完整的 EDA 数据分析报告 | 数据分析能力 |
-| 4～5 AI 数学与机器学习 | 房价预测、客户流失预测、用户分群 | ML 建模全流程 |
-| 6 深度学习与 Transformer 基础 | 图像分类、文本情感分析 | PyTorch 实战能力 |
-| 8 LLM 应用开发与 RAG | 企业知识库问答系统（RAG） | 大模型应用开发能力 |
-| 9 AI Agent 与智能体系统 | 智能研究助手、数据分析 Agent | Agent 开发能力 |
+| 1 Developer tools basics | Set up your development environment | This is your first achievement in itself |
+| 2 Python programming basics | Command-line tools, web crawlers, Web API, AI API experience | Python programming ability + 4 completed works |
+| 3 Data analysis and visualization | A complete EDA data analysis report | Data analysis ability |
+| 4–5 AI math and machine learning | House price prediction, customer churn prediction, user segmentation | Full ML modeling workflow |
+| 6 Deep learning and Transformer basics | Image classification, text sentiment analysis | PyTorch practical skills |
+| 8 LLM application development and RAG | Enterprise knowledge base Q&A system (RAG) | LLM application development ability |
+| 9 AI Agent and intelligent agent systems | Intelligent research assistant, data analysis Agent | Agent development ability |
 
-### 做项目的方法论
+### How to approach projects
 
-做项目不是"照着教程抄一遍"。正确的方法是：
+Doing a project is not "copying the tutorial once." The correct approach is:
 
-1. **先自己想 10 分钟：** 拿到需求后，先想想大致思路，不要马上看答案
-2. **卡住了再看提示：** 每个项目都有分步提示，卡住的时候看一步，不要全看
-3. **跑通之后做优化：** 先让代码跑起来（哪怕很丑），然后再优化
-4. **写 README：** 每个项目都写一个 README，说清楚做了什么、用了什么技术、结果是什么。这是你未来求职作品集的素材
-5. **放到 GitHub 上：** 从第一个项目就开始积累你的 GitHub
+1. **Think for 10 minutes first:** After getting the requirements, think through the rough idea first. Don’t look at the answer immediately.
+2. **Check hints only after you get stuck:** Each project has step-by-step hints. When you’re stuck, look at one step at a time, not all of them at once.
+3. **Optimize after it runs:** First make the code run, even if it looks ugly, and then improve it.
+4. **Write a README:** For every project, write a README explaining what you built, what technologies you used, and what the results were. This becomes material for your future job portfolio.
+5. **Put it on GitHub:** Start building up your GitHub from the very first project.
 
-### 做完项目后的自检清单
+### Self-check list after finishing a project
 
-完成一个项目后，问自己：
+After completing a project, ask yourself:
 
-- [ ] 我能不看代码，用自己的话解释这个项目做了什么吗？
-- [ ] 如果数据换了，我能修改代码适应新数据吗？
-- [ ] 如果有人问我为什么选这个模型/方法，我能说出理由吗？
-- [ ] 我的代码有没有注释？别人能看懂吗？
+- [ ] Can I explain what this project does in my own words without looking at the code?
+- [ ] If the data changes, can I modify the code to adapt to the new data?
+- [ ] If someone asks why I chose this model/method, can I explain the reason?
+- [ ] Does my code have comments? Can others understand it?
 
 ---
 
-## 策略三：社群学习法
+## Strategy 3: Community learning
 
-### 为什么一个人学容易放弃？
+### Why is it easy to give up when learning alone?
 
-自学最大的敌人不是难，而是**孤独**。遇到 bug 没人问，学到瓶颈没人鼓励，看不到别人的进度没有参照物。加入学习社群可以解决这三个问题。
+The biggest enemy of self-study is not difficulty, but **loneliness**. When you hit a bug, there is no one to ask. When you reach a bottleneck, there is no encouragement. When you can’t see other people’s progress, you have no point of reference. Joining a learning community can solve these three problems.
 
-### 推荐的参与方式
+### Recommended ways to participate
 
-| 平台 | 怎么参与 | 你能得到什么 |
+| Platform | How to participate | What you can gain |
 |------|---------|------------|
-| **GitHub** | Star 相关项目、提 Issue、贡献代码 | 学习开源协作、建立作品集 |
-| **Kaggle** | 参加入门竞赛、学习优秀 Notebook | 真实数据集实战、最佳实践 |
-| **Discord** | 加入 HuggingFace、LangChain 社群 | 与全球开发者交流 |
-| **知乎 / B站** | 关注 AI 话题、看学习视频 | 中文资源、学习经验 |
-| **微信群** | 搜索 AI 学习群 | 互相答疑、分享资源 |
-| **Reddit** | r/learnmachinelearning | 国际视野、英文资源 |
+| **GitHub** | Star related projects, open Issues, contribute code | Learn open-source collaboration, build a portfolio |
+| **Kaggle** | Join beginner competitions, study excellent Notebooks | Hands-on real datasets, best practices |
+| **Discord** | Join the HuggingFace and LangChain communities | Communicate with developers around the world |
+| **Zhihu / Bilibili** | Follow AI topics, watch learning videos | Chinese-language resources, learning experiences |
+| **WeChat groups** | Search for AI learning groups | Ask questions and share resources with others |
+| **Reddit** | r/learnmachinelearning | International perspective, English resources |
 
-### 社群参与的节奏建议
+### Suggested rhythm for community participation
 
-不需要花太多时间在社群上。每周 2-3 小时就够了：
+You don’t need to spend too much time in communities. 2–3 hours per week is enough:
 
-- **每天：** 花 5 分钟浏览一下社群里的讨论，看看有没有有趣的话题
-- **每周：** 回答一个别人的问题（教是最好的学）
-- **每月：** 分享一次自己的学习进度或项目成果
+- **Every day:** Spend 5 minutes browsing discussions in the community and see whether there are any interesting topics
+- **Every week:** Answer one other person’s question (teaching is the best way to learn)
+- **Every month:** Share your learning progress or project results once
 
-:::tip 一个被验证有效的方法
-**费曼学习法：** 学完一个概念后，试着用简单的话解释给别人听（可以是社群里的人，也可以是橡皮鸭）。如果你解释不清楚，说明你还没真正理解。
+:::tip A proven effective method
+**Feynman learning method:** After learning a concept, try explaining it in simple words to someone else (it can be someone in the community or even a rubber duck). If you can’t explain it clearly, that means you haven’t truly understood it yet.
 :::
 
 ---
 
-## 附加策略：时间管理
+## Additional strategy: time management
 
-### 番茄工作法（推荐）
+### Pomodoro technique (recommended)
 
-- 学习 25 分钟 → 休息 5 分钟 → 学习 25 分钟 → 休息 5 分钟
-- 每 4 个番茄后休息 15-30 分钟
-- AI 学习涉及大量新概念，25 分钟一个单元刚刚好
+- Study for 25 minutes → rest for 5 minutes → study for 25 minutes → rest for 5 minutes
+- After every 4 Pomodoros, take a 15–30 minute break
+- AI learning involves many new concepts, and 25 minutes per unit is just right
 
-### 避免常见陷阱
+### Avoid common pitfalls
 
-| 陷阱 | 表现 | 解决方案 |
+| Pitfall | What it looks like | Solution |
 |------|------|---------|
-| **教程地狱** | 一个概念看了 5 个视频还在看 | 看完一个就动手写代码 |
-| **完美主义** | 一个 bug 卡了 3 小时 | 超过 30 分钟就搜索或问人 |
-| **收藏不看** | 收藏了 200 个教程，一个没看 | 只看当前阶段需要的 |
-| **跳跃学习** | 还没学走就想学跑 | 按阶段顺序来，别跳 |
-| **只看不练** | 看懂了 = 学会了 的错觉 | 关掉教程，自己从头写一遍 |
+| **Tutorial hell** | You’ve watched 5 videos on one concept and still keep watching | Write code as soon as you finish one tutorial |
+| **Perfectionism** | A bug has kept you stuck for 3 hours | If it takes more than 30 minutes, search or ask someone |
+| **Saving but never reading** | You’ve saved 200 tutorials and haven’t watched a single one | Only watch what you need for the current stage |
+| **Jumping around** | You want to run before you can walk | Follow the stages in order; don’t skip around |
+| **Watching without practice** | Thinking "I understood it" means "I learned it" | Close the tutorial and write it from scratch yourself |
 
 ---

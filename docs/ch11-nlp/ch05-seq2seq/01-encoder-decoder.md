@@ -1,122 +1,122 @@
 ---
-title: "5.2 Seq2Seq 模型"
+title: "5.2 Seq2Seq Models"
 sidebar_position: 1
-description: "从“输入一段文本，输出另一段文本”讲起，理解编码器-解码器为什么会成为翻译、摘要和改写任务的基础结构。"
+description: "Start from the idea of “input one piece of text, output another piece of text,” and understand why the encoder-decoder structure became the foundation for translation, summarization, and paraphrasing tasks."
 keywords: [seq2seq, encoder decoder, translation, summarization, text generation]
 ---
 
-# Seq2Seq 模型
+# Seq2Seq Models
 
-![Seq2Seq 编码器解码器瓶颈图](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.png)
+![Seq2Seq Encoder-Decoder Bottleneck Diagram](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map-en.png)
 
-:::tip 读图提示
-Seq2Seq 的核心难点是“把输入序列压进表示，再一步步生成输出序列”。读图时重点看 context vector 为什么会形成信息瓶颈，以及后面的 Attention 为什么会出现。
+:::tip Reading Guide
+The core challenge of Seq2Seq is “compress the input sequence into a representation, then generate the output sequence step by step.” When reading the diagram, focus on why the context vector creates an information bottleneck and why Attention appears later.
 :::
 
-:::tip 本节定位
-前面的分类和序列标注任务，输出通常还是“标签”。  
-而从这一章开始，我们进入另一类问题：
+:::tip Section Focus
+In the earlier classification and sequence labeling tasks, the output is usually still a “label.”
+But starting from this chapter, we move into another kind of problem:
 
-> **输入是一段文本，输出也是一段文本。**
+> **The input is a piece of text, and the output is also a piece of text.**
 
-例如：
+For example:
 
-- 翻译
-- 摘要
-- 改写
-- 问答生成
+- Translation
+- Summarization
+- Paraphrasing
+- Question-answer generation
 
-这类任务最经典的起点，就是 encoder-decoder 结构。
+The most classic starting point for these tasks is the encoder-decoder structure.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 Seq2Seq 和分类类任务的根本差别
-- 理解 encoder 和 decoder 各自负责什么
-- 通过可运行示例建立“编码再生成”的直觉
-- 理解 Seq2Seq 为什么成为很多生成任务的基础结构
+- Understand the fundamental difference between Seq2Seq and classification tasks
+- Understand what the encoder and decoder each do
+- Build an intuition for “encode first, then generate” through a runnable example
+- Understand why Seq2Seq became the basic structure for many generation tasks
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-Seq2Seq 这节最适合新人的理解顺序不是“先看模型细节”，而是先看清任务形态变了什么：
+For beginners, the best way to understand this section is not to “start with model details,” but to first see how the task shape changes:
 
 ```mermaid
 flowchart LR
-    A["输入一段文本"] --> B["编码器先读懂它"]
-    B --> C["内部表示"]
-    C --> D["解码器一步步生成输出"]
+    A["Input a piece of text"] --> B["The encoder reads and understands it first"]
+    B --> C["Internal representation"]
+    C --> D["The decoder generates the output step by step"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么“文本到文本”任务和分类任务根本不是一类问题
-- 为什么要把系统拆成 encoder 和 decoder 两部分
+- Why are “text-to-text” tasks fundamentally different from classification tasks?
+- Why do we split the system into encoder and decoder?
 
-## 一、Seq2Seq 在解决什么问题？
+## 1. What Problem Does Seq2Seq Solve?
 
-### 1.1 它不是“给整句打标签”
+### 1.1 It is not “assigning a label to the whole sentence”
 
-它更像：
+It is more like:
 
-- 输入一串 token
-- 输出另一串 token
+- Input a sequence of tokens
+- Output another sequence of tokens
 
-例如：
+For example:
 
-- “我爱学习” -> “I love studying”
+- “I love studying” -> “I enjoy learning”
 
-### 1.2 为什么普通分类器不适合做这类任务？
+### 1.2 Why are ordinary classifiers not suitable for this kind of task?
 
-因为分类器输出通常是固定集合里的一个标签。  
-而 Seq2Seq 任务的输出：
+Because classifier outputs are usually one label from a fixed set.
+But the output of a Seq2Seq task:
 
-- 长度不固定
-- 内容不固定
-- 生成过程有顺序依赖
+- Has variable length
+- Has variable content
+- Has sequential dependencies during generation
 
-### 1.3 一个类比
+### 1.3 An Analogy
 
-分类像给作文打一个分数。  
-Seq2Seq 更像把中文作文重新写成英文作文。
-
----
-
-## 二、编码器和解码器分别在做什么？
-
-### 2.1 编码器
-
-它负责：
-
-- 读入输入序列
-- 把输入压成内部表示
-
-### 2.2 解码器
-
-它负责：
-
-- 基于编码结果
-- 一步一步生成输出序列
-
-### 2.3 为什么要分成两部分？
-
-因为这类任务天然是：
-
-- 先理解输入
-- 再构造输出
-
-这和单纯分类不一样。
+Classification is like giving an essay a score.
+Seq2Seq is more like rewriting a Chinese essay into an English one.
 
 ---
 
-## 三、先跑一个“编码后生成”的最小示例
+## 2. What Do the Encoder and Decoder Do?
+
+### 2.1 Encoder
+
+It is responsible for:
+
+- Reading the input sequence
+- Compressing the input into an internal representation
+
+### 2.2 Decoder
+
+It is responsible for:
+
+- Using the encoded result
+- Generating the output sequence step by step
+
+### 2.3 Why split it into two parts?
+
+Because these tasks naturally work in this order:
+
+- First understand the input
+- Then construct the output
+
+This is different from plain classification.
+
+---
+
+## 3. Run a Minimal “Encode Then Generate” Example
 
 ```python
 translation_memory = {
-    "我": "I",
-    "爱": "love",
-    "学习": "study",
+    "I": "I",
+    "love": "love",
+    "study": "study",
 }
 
 
@@ -131,7 +131,7 @@ def decode(encoded):
     return output
 
 
-source = ["我", "爱", "学习"]
+source = ["I", "love", "study"]
 encoded = encode(source)
 target = decode(encoded)
 
@@ -139,114 +139,114 @@ print("encoded:", encoded)
 print("decoded:", target)
 ```
 
-### 3.1 这个例子最重要的启发是什么？
+### 3.1 What is the most important insight from this example?
 
-它说明 Seq2Seq 的核心流程是：
+It shows that the core flow of Seq2Seq is:
 
-1. 输入不直接变成最终答案
-2. 中间先过一层编码表示
-3. 再由解码器生成输出
+1. The input does not directly become the final answer
+2. There is first an intermediate encoded representation
+3. Then the decoder generates the output
 
-### 3.2 新人第一次学 Seq2Seq，最该先记什么？
+### 3.2 What should beginners remember first when learning Seq2Seq?
 
-最值得先记住的是：
+The most important things to remember first are:
 
-1. encoder 更像“先把输入读懂”
-2. decoder 更像“根据理解结果一步步写输出”
-3. 输出不是固定标签，而是一个有顺序的生成过程
-
----
-
-## 四、Seq2Seq 最常见的难点是什么？
-
-### 4.1 输入压缩过于粗糙
-
-早期 encoder-decoder 的一个典型问题是：
-
-- 整个输入被压成单个固定长度向量
-
-输入一长，信息容易丢失。
-
-### 4.2 输出是逐步生成的
-
-这意味着：
-
-- 前一步错了
-- 后面也容易跟着错
-
-### 4.3 这也是为什么后面会引入注意力机制
-
-注意力的核心目的之一，就是让解码器在生成时不必只依赖一个固定向量，  
-而是可以动态查看输入不同位置。
-
-### 4.4 这节和后面注意力机制的关系是什么？
-
-这节最该先立住的是：
-
-- Seq2Seq 的“编码 -> 解码”主线
-
-而下一节注意力要解决的，正是这里的核心瓶颈：
-
-- 固定长度表示太容易丢信息
+1. The encoder is more like “reading and understanding the input first”
+2. The decoder is more like “writing the output step by step based on the understanding”
+3. The output is not a fixed label, but a sequential generation process
 
 ---
 
-## 五、Seq2Seq 适合哪些任务？
+## 4. What Is the Most Common Difficulty in Seq2Seq?
 
-### 5.1 翻译
+### 4.1 The input is compressed too crudely
 
-典型输入输出映射任务。
+A classic problem in early encoder-decoder models is:
 
-### 5.2 摘要
+- The entire input is compressed into a single fixed-length vector
 
-输入长文，输出短文。
+When the input is long, information is easily lost.
 
-### 5.3 改写与问答生成
+### 4.2 The output is generated step by step
 
-输入与输出不是同一份文本，但有明确对应关系。
+This means:
 
----
+- If the previous step is wrong
+- The later steps are also likely to go wrong
 
-## 六、最容易踩的坑
+### 4.3 This is also why Attention was introduced later
 
-### 6.1 误区一：Seq2Seq 就只是“翻译模型”
+One of the core goals of Attention is to let the decoder, when generating, not rely only on one fixed vector,
+but dynamically look at different positions in the input.
 
-翻译只是最经典例子。  
-它本质上适用于更广的“文本到文本”任务。
+### 4.4 How is this section related to the Attention mechanism later?
 
-### 6.2 误区二：有编码器和解码器就已经足够
+What this section should first establish is:
 
-如果没有注意力和更强表示，长输入问题会很明显。
+- The main “encode -> decode” flow of Seq2Seq
 
-### 6.3 误区三：生成任务只要会输出就行
+And the next section on Attention is meant to solve the core bottleneck here:
 
-Seq2Seq 任务真正难的是：
-
-- 对输入忠实
-- 生成合理
-- 保持结构
-
-## 小结
-
-这节最重要的是把 Seq2Seq 理解成：
-
-> **一类先编码输入、再逐步生成输出的结构，它是翻译、摘要和很多文本生成任务的基础范式。**
-
-只要这个结构主线清楚，后面学注意力和 T5 时就会很自然。
+- Fixed-length representations lose information too easily
 
 ---
 
-## 这节最该带走什么
+## 5. What Tasks Is Seq2Seq Suitable For?
 
-- Seq2Seq 是“输入序列 -> 输出序列”的基础结构
-- encoder / decoder 是为了解决“先理解，再生成”
-- 注意力机制的出现，正是为了补 Seq2Seq 最核心的信息瓶颈
+### 5.1 Translation
+
+A classic input-output mapping task.
+
+### 5.2 Summarization
+
+Input a long article, output a short one.
+
+### 5.3 Paraphrasing and Question-Answer Generation
+
+The input and output are not the same text, but there is a clear correspondence between them.
 
 ---
 
-## 练习
+## 6. The Easiest Pitfalls to Fall Into
 
-1. 把示例里的词典扩成 5~10 个词，再试几个句子。
-2. 为什么说 Seq2Seq 的输出不是固定长度、也不是固定标签集？
-3. 想一想：如果输入非常长，为什么“只压成一个向量”会吃力？
-4. 用自己的话解释：encoder 和 decoder 各自负责什么？
+### 6.1 Misconception 1: Seq2Seq is just a “translation model”
+
+Translation is only the most classic example.
+In essence, it applies to a broader set of “text-to-text” tasks.
+
+### 6.2 Misconception 2: Having an encoder and decoder is already enough
+
+Without Attention and stronger representations, long-input problems become very obvious.
+
+### 6.3 Misconception 3: For generation tasks, being able to produce output is all that matters
+
+What is really hard in Seq2Seq tasks is:
+
+- Staying faithful to the input
+- Generating reasonable content
+- Preserving structure
+
+## Summary
+
+The most important thing in this section is to understand Seq2Seq as:
+
+> **A structure that first encodes the input and then generates the output step by step. It is the basic paradigm behind translation, summarization, and many text generation tasks.**
+
+As long as this main structure is clear, learning Attention and T5 later will feel very natural.
+
+---
+
+## What You Should Take Away
+
+- Seq2Seq is the basic structure for “input sequence -> output sequence”
+- The encoder / decoder design exists to solve “understand first, then generate”
+- The emergence of Attention was precisely to address the core information bottleneck in Seq2Seq
+
+---
+
+## Exercises
+
+1. Expand the dictionary in the example to 5–10 words, then try a few more sentences.
+2. Why is the output of Seq2Seq not fixed-length, and not from a fixed label set?
+3. Think about this: if the input is very long, why is “compressing it into only one vector” difficult?
+4. Explain in your own words: what does the encoder do, and what does the decoder do?

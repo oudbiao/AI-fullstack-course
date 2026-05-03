@@ -1,255 +1,255 @@
 ---
-title: "1.3 过渡：从经典机器学习到深度学习"
+title: "1.3 Transition: From Classical Machine Learning to Deep Learning"
 sidebar_position: 2
-description: "把第 5 站的线性模型、树模型、评估与特征工程，自然过渡到第 6 站的神经网络、PyTorch 和训练循环。"
-keywords: [机器学习到深度学习, 神经网络桥接, 从ML到DL, PyTorch桥接]
+description: "Naturally bridge the linear models, tree models, evaluation, and feature engineering from Station 5 to the neural networks, PyTorch, and training loops of Station 6."
+keywords: [machine learning to deep learning, neural network bridge, from ML to DL, PyTorch bridge]
 ---
 
-# 过渡：从经典机器学习到深度学习
+# Transition: From Classical Machine Learning to Deep Learning
 
-:::tip 本节定位
-这不是一篇新算法课，而是一页“过渡地图”。它的任务只有一个：让你从第 5 站进入第 6 站时，不会觉得像突然换了一门课。
+:::tip Section focus
+This is not a new algorithms lesson, but a “transition map.” It has only one job: when you move from Station 5 into Station 6, it should not feel like you suddenly switched to a different course.
 :::
 
-## 学习目标
+## Learning goals
 
-- 看清第 5 站和第 6 站到底是“断开”还是“递进”
-- 理解为什么传统 ML 后面还需要学神经网络
-- 看懂神经网络和传统模型在“数据、损失、优化、评估”上的共同骨架
-- 为后面的神经元、反向传播、PyTorch 训练循环建立心智桥梁
-
----
-
-## 先建立一张地图
-
-很多新人学完第 5 站会有两个典型疑问：
-
-- 既然线性回归、逻辑回归、树模型已经能做很多事，为什么还要学深度学习？
-- 到了第 6 站，为什么一下子多了层、梯度、反向传播、PyTorch 这些新东西？
-
-更稳的理解方式是先看这条演进线：
-
-![从机器学习到深度学习桥接图](/img/course/ch06-ml-to-dl-bridge-map.png)
-
-所以第 6 站不是推翻第 5 站，而是在第 5 站已经建立的建模思维上继续往前走。
+- See clearly whether Station 5 and Station 6 are “disconnected” or “progressive”
+- Understand why traditional ML still needs neural networks afterward
+- Recognize the shared structure of neural networks and traditional models in “data, loss, optimization, evaluation”
+- Build a mental bridge for neurons, backpropagation, and the PyTorch training loop
 
 ---
 
-## 一、第 5 站到底已经学会了什么
+## First, build a map
 
-第 5 站真正教会你的，不只是几个模型名，而是下面这条建模主线：
+After finishing Station 5, many beginners typically have two questions:
 
-1. 先判断任务类型
-2. 先立 baseline
-3. 再选指标
-4. 再做改进
-5. 最后做错误分析和复盘
+- If linear regression, logistic regression, and tree models can already do so much, why do we still need to learn deep learning?
+- When we get to Station 6, why do layers, gradients, backpropagation, and PyTorch suddenly appear all at once?
 
-这些东西到了第 6 站并不会消失。
+A more stable way to understand it is to first look at this evolution path:
 
-### 1.1 第 6 站真正新增的，不是“有没有评估”
+![Bridge diagram from machine learning to deep learning](/img/course/ch06-ml-to-dl-bridge-map-en.png)
 
-很多人会误以为到了深度学习就是另一套逻辑。  
-其实不是。第 6 站仍然会做这些事：
-
-- 还是要切训练集和验证集
-- 还是要看 loss 和指标
-- 还是要防过拟合
-- 还是要做错误分析
-
-真正新增的，是模型表示能力和训练方式。
+So Station 6 is not overthrowing Station 5; it is continuing forward based on the modeling mindset you already built in Station 5.
 
 ---
 
-## 二、为什么传统 ML 后面还要学神经网络
+## 1. What exactly have you already learned in Station 5?
 
-经典机器学习很强，但它也有一些很自然的边界。
+What Station 5 really taught you was not just a few model names, but the following modeling workflow:
 
-### 2.1 传统 ML 更依赖“手工表示”
+1. First determine the task type
+2. First establish a baseline
+3. Then choose metrics
+4. Then make improvements
+5. Finally do error analysis and review
 
-在第 5 站你已经反复做过这些事：
+None of these disappear in Station 6.
 
-- 手工构造特征
-- 做编码、缩放、筛选
-- 想办法把问题整理成模型更容易学的形式
+### 1.1 What Station 6 truly adds is not “whether there is evaluation”
 
-这件事非常重要，但也会带来一个限制：
+Many people mistakenly think deep learning uses a completely different logic.
+That is not the case. In Station 6, you still do the following:
 
-- 模型的上限，很多时候会被你的特征设计能力卡住
+- Split training and validation sets
+- Look at loss and metrics
+- Prevent overfitting
+- Do error analysis
 
-### 2.2 深度学习更强调“自动学表示”
+What is truly new is the model’s representational power and the training method.
 
-深度学习最强的一点，可以先朴素地理解成：
+---
 
-> **不只是学“怎么预测”，还在学“该怎么表示输入”。**
+## 2. Why we still need to learn neural networks after traditional ML
 
-比如：
+Classical machine learning is powerful, but it also has some very natural limits.
 
-- 图像里，CNN 会自己学边缘、纹理、局部模式
-- 文本里，神经网络会自己学词向量、上下文表示
-- 序列里，模型会自己学时间依赖或注意力关系
+### 2.1 Traditional ML relies more on “manual representation”
 
-这就是第 6 站真正补上的能力。
+In Station 5, you repeatedly did things like these:
 
-### 2.3 一个简单对照
+- Manually engineer features
+- Perform encoding, scaling, and selection
+- Try to organize the problem into a form that the model can learn more easily
 
-| 问题 | 第 5 站更常见做法 | 第 6 站更常见做法 |
+This is very important, but it also brings a limitation:
+
+- The upper bound of the model is often constrained by your feature engineering ability
+
+### 2.2 Deep learning emphasizes “learning representations automatically”
+
+The strongest point of deep learning can be understood simply as:
+
+> **It does not just learn “how to predict,” it also learns “how the input should be represented.”**
+
+For example:
+
+- In images, CNNs automatically learn edges, textures, and local patterns
+- In text, neural networks automatically learn embeddings and contextual representations
+- In sequences, models automatically learn temporal dependencies or attention relationships
+
+This is the capability that Station 6 really adds.
+
+### 2.3 A simple comparison
+
+| Problem | More common approach in Station 5 | More common approach in Station 6 |
 |---|---|---|
-| 图像分类 | 先手工提特征，再喂分类器 | 直接让 CNN 学特征 |
-| 文本分类 | TF-IDF / 手工统计特征 | 让网络学 embedding 和上下文 |
-| 复杂非线性关系 | 试树模型、集成学习 | 让多层网络直接表达复杂函数 |
+| Image classification | Manually extract features first, then feed them to a classifier | Let the CNN learn features directly |
+| Text classification | TF-IDF / manually crafted statistical features | Let the network learn embeddings and context |
+| Complex nonlinear relationships | Try tree models or ensemble learning | Let a deep network directly represent complex functions |
 
-这不是说第 6 站一定“取代”第 5 站，而是：
+This does not mean Station 6 will definitely “replace” Station 5. Rather:
 
-- 数据简单、样本不大、表格任务强时，第 5 站的方法仍然非常有价值
-- 数据复杂、非结构化、特征难手造时，第 6 站的方法优势会越来越明显
+- When data is simple, sample size is small, and tabular tasks are strong, Station 5 methods are still very valuable
+- When data is complex, unstructured, and hard to hand-engineer features for, the advantages of Station 6 methods become more and more obvious
 
 ---
 
-## 三、第 5 站和第 6 站的共同骨架其实没变
+## 3. The shared skeleton of Station 5 and Station 6 has not really changed
 
-看起来第 6 站新词很多，但训练一轮模型的骨架，其实和第 5 站仍然是一条线：
+Although Station 6 introduces many new terms, the skeleton of training one model is still the same line as in Station 5:
 
 ```mermaid
 flowchart LR
-    A["输入数据 X"] --> B["模型给出预测 y_hat"]
-    B --> C["计算损失 loss"]
-    C --> D["根据 loss 更新参数"]
-    D --> E["在验证集上看效果"]
+    A["Input data X"] --> B["The model produces prediction y_hat"]
+    B --> C["Compute loss"]
+    C --> D["Update parameters based on loss"]
+    D --> E["Check performance on the validation set"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-你可以把它和第 5 站对应起来：
+You can map it to Station 5 like this:
 
-| 第 5 站 | 第 6 站 |
+| Station 5 | Station 6 |
 |---|---|
-| 线性模型 / 树模型 | 神经网络 |
-| 指标和损失 | 指标和损失 |
-| `fit()` 背后完成训练 | 你会更显式地看到训练循环 |
-| 调参与评估 | 调参与评估 |
+| Linear models / tree models | Neural networks |
+| Metrics and loss | Metrics and loss |
+| Training completed behind `fit()` | You will see the training loop more explicitly |
+| Tuning and evaluation | Tuning and evaluation |
 
-所以第 6 站变化最大的地方不是“有没有训练”，而是：
+So the biggest change in Station 6 is not “whether there is training,” but:
 
-- 你开始更直观地看到训练过程是怎么一步步发生的
-
----
-
-## 四、第 6 站为什么会突然强调梯度和反向传播
-
-第 5 站里，很多模型训练细节是被库包起来的。  
-到了第 6 站，你会开始更直接面对：
-
-- 参数很多
-- 模型很多层
-- 需要一轮轮更新
-
-这时候就必须真正理解：
-
-- 损失是怎么来的
-- 梯度在表达什么
-- 参数为什么会更新
-
-### 4.1 可以先把反向传播理解成一句人话
-
-先不要急着背推导，先记住这句：
-
-> **前向传播负责“算结果”，反向传播负责“算每个参数该怎么改”。**
-
-这句话是第 6 站一整章的核心。
-
-### 4.2 第 5 站的优化思路其实已经埋下伏笔
-
-你在第 5 站已经见过：
-
-- 线性回归的损失
-- 梯度下降
-- 正则化
-- 交叉验证和过拟合
-
-所以第 6 站不是从零开始，而是把这些东西变得更显式：
-
-- 模型更深
-- 参数更多
-- 训练循环更清楚
+- You begin to see more directly how the training process happens step by step
 
 ---
 
-## 五、为什么第 6 站会引入 PyTorch
+## 4. Why Station 6 suddenly emphasizes gradients and backpropagation
 
-第 5 站里，`scikit-learn` 很适合新人，因为它把流程统一封装好了。  
-但到了深度学习，你会更需要：
+In Station 5, many training details are hidden inside libraries.
+In Station 6, you will start facing more directly:
 
-- 自定义网络结构
-- 自己控制前向和反向
-- 更灵活地组织训练循环
-- 和 GPU、更大模型、更复杂数据配合
+- Many parameters
+- Many layers
+- The need for iterative updates
 
-这就是 `PyTorch` 进场的原因。
+At this point, you must truly understand:
 
-### 5.1 先把 sklearn 和 PyTorch 的角色分清
+- Where the loss comes from
+- What gradients represent
+- Why parameters get updated
 
-| 工具 | 更擅长什么 |
+### 4.1 You can first understand backpropagation in plain language
+
+Don’t rush to memorize the derivation first. Remember this sentence first:
+
+> **Forward propagation computes the result, and backpropagation computes how each parameter should be changed.**
+
+This sentence is the core of the entire Station 6 chapter.
+
+### 4.2 The optimization thinking from Station 5 has already laid the groundwork
+
+In Station 5, you have already seen:
+
+- The loss of linear regression
+- Gradient descent
+- Regularization
+- Cross-validation and overfitting
+
+So Station 6 does not start from zero; it makes these things more explicit:
+
+- The model is deeper
+- There are more parameters
+- The training loop is clearer
+
+---
+
+## 5. Why Station 6 introduces PyTorch
+
+In Station 5, `scikit-learn` is very suitable for beginners because it wraps the workflow in a unified way.
+But in deep learning, you need more:
+
+- Custom network structures
+- Direct control over forward and backward passes
+- More flexible training loop organization
+- Compatibility with GPUs, larger models, and more complex data
+
+That is why `PyTorch` enters the stage.
+
+### 5.1 First, distinguish the roles of sklearn and PyTorch
+
+| Tool | What it is better at |
 |---|---|
-| `scikit-learn` | 经典 ML、统一接口、快速 baseline |
-| `PyTorch` | 深度学习、灵活定义网络、显式训练循环 |
+| `scikit-learn` | Classical ML, unified interface, fast baselines |
+| `PyTorch` | Deep learning, flexible network definition, explicit training loops |
 
-所以不要把它们理解成“谁替代谁”，而应该理解成：
+So do not think of them as “one replacing the other.” Instead, understand them like this:
 
-- 第 5 站先用 `sklearn` 建立机器学习工作流
-- 第 6 站再用 `PyTorch` 打开深度学习训练过程
+- Station 5 uses `sklearn` first to establish a machine learning workflow
+- Station 6 then uses `PyTorch` to open up the deep learning training process
 
-### 5.2 一句最重要的桥接理解
+### 5.2 The most important bridging understanding
 
-如果你已经理解了第 5 站里的：
+If you already understand the following in Station 5:
 
-- 数据
-- 模型
-- 损失
-- 评估
+- Data
+- Model
+- Loss
+- Evaluation
 
-那第 6 站你只是在多学一件事：
+Then in Station 6, you are only learning one more thing:
 
-> **如何更显式地控制“模型参数是怎么被更新出来的”。**
-
----
-
-## 六、进入第 6 站前，最推荐先记住哪几件事
-
-1. 第 6 站不是推翻第 5 站，而是建立在第 5 站之上
-2. 深度学习最大的新增能力，是自动学表示
-3. 第 5 站和第 6 站的训练骨架其实是一样的
-4. `PyTorch` 不是为了更难，而是为了让训练过程更可控
+> **How to control more explicitly how model parameters get updated.**
 
 ---
 
-## 七、进入第 6 站后，最稳的学习顺序
+## 6. What is most recommended to remember before entering Station 6
 
-如果你刚从第 5 站过来，建议按这个顺序走：
-
-1. 先读 [1.1 学前导读：神经网络基础这一章到底在学什么](./00-roadmap.md)  
-   先把神经元、前向、反向、优化器这些词的位置放对。
-
-2. 再读 [1.4 从神经元到多层感知机](./01-neurons-activation.md)  
-   先理解“一个神经元到底在做什么”。
-
-3. 然后进 [2.1 学前导读：PyTorch 这一章到底在学什么](../ch02-pytorch/00-roadmap.md)  
-   再把训练流程用 `Tensor / Autograd / Module / DataLoader / Training Loop` 串起来。
-
-这样会比一上来直接冲复杂网络结构更稳。
+1. Station 6 does not overturn Station 5; it is built on top of Station 5
+2. The biggest new capability of deep learning is learning representations automatically
+3. The training skeleton of Station 5 and Station 6 is actually the same
+4. `PyTorch` is not meant to be harder; it is meant to make the training process more controllable
 
 ---
 
-## 这节最该带走什么
+## 7. The most stable learning order after entering Station 6
 
-如果只带走一句话，我希望你记住：
+If you are just coming from Station 5, it is recommended to follow this order:
 
-> **第 6 站不是“另一门课”，而是第 5 站那条建模主线在更强表达能力和更显式训练过程上的自然延伸。**
+1. First read [1.1 Pre-course guide: what is this chapter on neural network basics really about](./00-roadmap.md)
+   First place the terms neuron, forward pass, backward pass, and optimizer in the right positions.
 
-所以最重要的收获应该是：
+2. Then read [1.4 From neurons to multilayer perceptrons](./01-neurons-activation.md)
+   First understand what “one neuron” is actually doing.
 
-- 知道为什么传统 ML 后面还需要深度学习
-- 知道深度学习真正新增的能力是什么
-- 知道为什么会出现反向传播和 PyTorch
-- 知道第 5 站和第 6 站其实仍然共享一套建模骨架
+3. Then move on to [2.1 Pre-course guide: what is this chapter on PyTorch really about](../ch02-pytorch/00-roadmap.md)
+   Then connect the training process using `Tensor / Autograd / Module / DataLoader / Training Loop`.
+
+This will be much more stable than jumping straight into complex network structures.
+
+---
+
+## What should you take away from this section?
+
+If you only take away one sentence, I hope you remember this:
+
+> **Station 6 is not “another course”; it is the natural extension of the modeling workflow from Station 5, with stronger representational power and a more explicit training process.**
+
+So the most important takeaways are:
+
+- Know why traditional ML still needs deep learning afterward
+- Know what new capability deep learning really adds
+- Know why backpropagation and PyTorch appear
+- Know that Station 5 and Station 6 still share the same modeling skeleton

@@ -1,122 +1,121 @@
 ---
-title: "7.1 学前导读：综合项目这一章到底该怎么学"
+title: "7.1 Pre-class Guide: How Should You Study This Chapter on Comprehensive Projects?"
 sidebar_position: 0
-description: "先建立 NLP 项目章的学习地图：问答、摘要和信息抽取如何按数据、任务边界、baseline、评估和结构化输出形成作品集闭环。"
-keywords: [NLP项目导读, QA, 摘要, 信息抽取, NLP作品集]
+description: "First build the learning map for the NLP project chapter: how question answering, summarization, and information extraction form a portfolio-ready loop through data, task boundaries, baselines, evaluation, and structured output."
+keywords: [NLP Project Guide, QA, Summarization, Information Extraction, NLP Portfolio]
 ---
 
-# 学前导读：综合项目这一章到底该怎么学
+# Pre-class Guide: How Should You Study This Chapter on Comprehensive Projects?
 
-这一章不是继续堆模型，而是把前面学过的文本表示、分类、序列标注、Seq2Seq、预训练模型和评估真正装进一个项目闭环。
+This chapter is not about stacking more models. Instead, it is about truly putting the text representation, classification, sequence labeling, Seq2Seq, pre-trained models, and evaluation you learned earlier into a complete project loop.
 
-NLP 项目的核心不是“用了哪个模型”，而是：文本从哪里来，标签或目标如何定义，任务边界是否清楚，模型输出是否可评估，错误样例能不能解释，最终结果能不能服务真实场景。
+The core of an NLP project is not “which model was used,” but: where the text comes from, how the labels or objectives are defined, whether the task boundaries are clear, whether the model output can be evaluated, whether error cases can be explained, and whether the final result can serve a real scenario.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Whole Course
 
-第 11 章自然语言处理（方向选修）前面已经学过文本基础、词向量、文本分类、序列标注、Seq2Seq 和预训练模型。综合项目是这一学习站的出口，要把这些能力放进问答、摘要、信息抽取或文本分类等实际任务里。
+In Chapter 11, Natural Language Processing (elective track), you have already learned text basics, word vectors, text classification, sequence labeling, Seq2Seq, and pre-trained models. The comprehensive project is the exit point of this learning station, where these abilities are applied to practical tasks such as question answering, summarization, information extraction, or text classification.
 
-从课程主线看，NLP 项目也是大模型阶段的前置训练。因为大模型应用里的 Prompt、RAG、结构化输出和 Agent 任务理解，都建立在文本处理、任务边界和评估意识之上。
+From the course roadmap, NLP projects are also preparation for the large model stage. This is because Prompt, RAG, structured output, and Agent task understanding in large model applications are all built on text processing, task boundaries, and evaluation awareness.
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Needs to Solve
 
-这一章要回答五个问题：如何把文本需求定义成分类、抽取、问答或摘要任务；如何准备文本数据、标签和评估集；如何建立 baseline；如何评估生成质量、抽取准确性或分类效果；如何处理模型幻觉、边界不清、标签歧义和结构化输出不稳定。
+This chapter answers five questions: how to define text requirements as classification, extraction, question answering, or summarization tasks; how to prepare text data, labels, and evaluation sets; how to build a baseline; how to evaluate generation quality, extraction accuracy, or classification performance; and how to handle model hallucination, unclear boundaries, label ambiguity, and unstable structured output.
 
-新人最容易犯的错误，是把所有文本任务都看成“让模型生成一段话”。实际上，分类输出类别，序列标注输出每个 token 或片段的标签，抽取输出结构化字段，摘要输出压缩后的文本，问答还要处理知识边界和拒答。
+A common mistake for beginners is to treat all text tasks as “asking the model to generate a paragraph.” In reality, classification outputs a category, sequence labeling outputs labels for each token or span, extraction outputs structured fields, summarization outputs compressed text, and question answering also has to handle knowledge boundaries and refusal.
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先做信息抽取或文本分类项目，因为它们更容易建立清晰标签和评估指标。然后做文本摘要，理解生成任务的压缩质量、事实一致性和可读性。最后做智能问答系统，把检索、上下文、拒答、引用和评估连接起来。
+It is recommended to start with an information extraction or text classification project, because they make it easier to establish clear labels and evaluation metrics. Then move on to text summarization to understand compression quality, factual consistency, and readability in generation tasks. Finally, build an intelligent question answering system that connects retrieval, context, refusal, citations, and evaluation.
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：NLP 项目要先分清任务边界，再决定数据、模型和评估方式。
+The main thread of this chapter can be summarized as: an NLP project should first clarify the task boundary, then decide the data, model, and evaluation method.
 
-![NLP 项目交付闭环图](/img/course/ch11-projects-delivery-loop.png)
+![NLP project delivery loop](/img/course/ch11-projects-delivery-loop-en.png)
 
-看懂这条线后，你会知道为什么 NLP 项目最怕任务定义模糊。如果标签不清、字段不清、知识范围不清，模型再强也很难稳定产出。
+Once you understand this line of thinking, you will know why unclear task definitions are the biggest danger in NLP projects. If the labels are unclear, the fields are unclear, or the knowledge scope is unclear, even a very strong model will struggle to produce stable results.
 
-## 三个项目分别在练什么
+## What the Three Projects Are Practicing
 
-| 项目 | 你真正要练什么 |
+| Project | What You Are Really Practicing |
 |---|---|
-| 智能问答系统 | 知识边界、检索、拒答和评估 |
-| 文本摘要系统 | 生成结果的压缩质量、事实一致性和可解释性 |
-| 信息抽取系统 | 从文本里稳定抽取结构化字段 |
-| 语义图与 AMR | 把句子背后的角色、关系和事件组织成结构图 |
+| Intelligent Question Answering System | Knowledge boundaries, retrieval, refusal, and evaluation |
+| Text Summarization System | Compression quality, factual consistency, and interpretability of generated results |
+| Information Extraction System | Stably extracting structured fields from text |
+| Semantic Graph and AMR | Organizing the roles, relations, and events behind a sentence into a structured graph |
 
-## 这一章和后面阶段的关系
+## The Relationship Between This Chapter and the Later Stages
 
-NLP 综合项目会直接连接大模型阶段。Prompt 工程里的结构化输出，RAG 里的文档切分和检索，Agent 里的任务理解和观察总结，本质上都需要 NLP 项目的任务边界、文本处理和评估能力。
+The NLP comprehensive project connects directly to the large model stage. Structured output in Prompt engineering, document chunking and retrieval in RAG, and task understanding and observation summarization in Agents all fundamentally require the task boundary, text processing, and evaluation abilities developed in NLP projects.
 
-如果这一章没学稳，后面常见的问题是：RAG 项目没有无答案处理；结构化输出字段混乱；摘要看起来流畅但事实不一致；信息抽取没有 schema；问答系统不能区分不知道和不该回答。
+If you do not learn this chapter well, common problems later will include: RAG projects that do not handle “no answer” cases; structured output with messy fields; summaries that sound fluent but are factually inconsistent; information extraction with no schema; and question answering systems that cannot distinguish “I don’t know” from “I should not answer.”
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimum project can run, you can move on.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Learners with more experience can use this chapter to fill in gaps and practice engineering skills: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and the connection between this chapter and the earlier and later stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Recommended Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick Overview | 20–30 minutes | Understand what problems this chapter solves and where it will be used later |
+| Minimum Pass | 1–2 hours | Run a minimal example and complete the chapter’s project exit |
+| In-depth Practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the entire course in one sentence |
+| What are the minimum input and output? | You can clearly state what the example needs as input and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can be preserved after learning? | You can write the chapter’s output into a project README, experiment notes, or portfolio |
 
-## 本章小项目出口
+## Chapter Project Exit
 
-学完这一章后，建议至少完成一个“可评估 NLP 项目”。最小版本可以是信息抽取：从简历、合同、课程文档或评论中抽取固定字段，并用准确率、召回率或人工检查评估。进阶版本可以做问答或摘要，并加入引用、拒答、事实一致性检查和错误案例分析。
+After finishing this chapter, it is recommended that you complete at least one “evaluatable NLP project.” The minimum version can be information extraction: extract fixed fields from resumes, contracts, course documents, or comments, and evaluate using accuracy, recall, or manual inspection. An advanced version can be question answering or summarization, with citations, refusal, factual consistency checks, and error case analysis added.
 
-作品集版本建议补充数据来源、任务定义、标签或 schema、baseline、评估样例、失败案例和下一步改进。
+For a portfolio version, it is recommended to include the data source, task definition, labels or schema, baseline, evaluation examples, failure cases, and next-step improvements.
 
+## Debug Detective Case
 
-## Debug 侦探案件
-
-| 案件 | 内容 |
+| Case | Content |
 |---|---|
-| 案件名 | 标签边界争议案 |
-| 案发现场 | 文本分类或抽取结果不稳定，人工也难判断标签。 |
-| 侦查步骤 | 重写标签定义，准备正例、反例和边界样例，再重新评估。 |
-| 结案证据 | 标签说明、错误文本、前后指标对比。 |
+| Case Name | Label Boundary Dispute Case |
+| Scene | Text classification or extraction results are unstable, and even humans find the labels hard to judge. |
+| Investigation Steps | Rewrite the label definition, prepare positive examples, negative examples, and boundary examples, then evaluate again. |
+| Closing Evidence | Label description, error texts, before-and-after metric comparison. |
 
-项目练习不要只保留成功截图。至少挑一个真实失败样本，按“现象、线索、嫌疑原因、侦查步骤、修复动作、回归检查”写进 `reports/failure_cases.md`，这样项目会更像真实工程作品。
+When doing project exercises, do not keep only screenshots of success. At minimum, pick one real failure sample and write it into `reports/failure_cases.md` using the structure “phenomenon, clues, suspected cause, investigation steps, fix action, regression check.” That will make the project feel more like a real engineering deliverable.
 
-## 项目交付物标准
+## Project Deliverable Standards
 
-每个 NLP 综合项目都建议按同一套作品集标准交付，而不是只展示模型输出的一段文本。最小交付物应该包括：一份 README、一条可复现运行命令、一组示例输入输出、标签或 schema 说明、一次失败样本分析，以及下一步改进计划。
+For each NLP comprehensive project, it is recommended to deliver according to the same portfolio standard, rather than only showing a paragraph of model output. The minimum deliverables should include: a README, one reproducible run command, a set of sample inputs and outputs, a label or schema description, one failure case analysis, and a next-step improvement plan.
 
-| 交付物 | 最低要求 | 进阶要求 |
+| Deliverable | Minimum Requirement | Advanced Requirement |
 |---|---|---|
-| README | 写清项目目标、运行方式、依赖和示例 | 增加任务边界、数据来源、方案取舍和复盘 |
-| 示例输入输出 | 至少保留 1 个完整文本案例 | 保留成功、失败、歧义和边界案例 |
-| 评估记录 | 写清准确率、召回率、F1 或人工评分 | 加入按标签、长度、领域和噪声类型的错误分析 |
-| 标签/schema 记录 | 说明分类标签、实体边界或输出字段 | 增加正负例、边界案例和标注一致性说明 |
-| 展示材料 | 截图或短 GIF 证明能运行 | 做成可讲解的文本理解项目页面 |
+| README | Clearly write the project goal, how to run it, dependencies, and examples | Add task boundaries, data sources, solution trade-offs, and a review summary |
+| Sample Input/Output | Keep at least 1 complete text case | Keep success, failure, ambiguity, and boundary cases |
+| Evaluation Record | Clearly write accuracy, recall, F1, or human scores | Add error analysis by label, length, domain, and noise type |
+| Label/schema Record | Explain classification labels, entity boundaries, or output fields | Add positive/negative examples, boundary cases, and annotation consistency notes |
+| Presentation Material | Screenshots or a short GIF proving it runs | Turn it into a text understanding project page that can be explained |
 
-做 NLP 项目时最重要的不是“输出看起来通顺”，而是能讲清楚：任务如何定义，标签或字段边界在哪里，输出是否由文本支持，失败样本说明了什么。
+The most important thing in an NLP project is not that “the output looks fluent,” but that you can clearly explain: how the task is defined, where the label or field boundaries are, whether the output is supported by the text, and what the failure cases tell you.
 
-## 过关标准
+## Passing Standard
 
-这一章结束时，你应该能区分文本分类、序列标注、信息抽取、摘要和问答任务，能为其中一个任务准备数据和评估方式，能建立 baseline，能用错误案例说明模型局限，能把输出整理成结构化项目报告。
+By the end of this chapter, you should be able to distinguish text classification, sequence labeling, information extraction, summarization, and question answering tasks; prepare data and evaluation methods for one of these tasks; build a baseline; explain model limitations with error cases; and organize the output into a structured project report.
 
-如果你能做出一个带任务定义、数据样例、评估指标、失败案例和改进方向的 NLP 项目，就达到了自然语言处理方向的作品集出口标准。
+If you can create an NLP project with task definition, data examples, evaluation metrics, failure cases, and improvement directions, then you have reached the portfolio exit standard for the natural language processing track.
 
-## 版本路线建议
+## Version Roadmap Suggestions
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Deliverable Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic Version | Run the minimum loop | Can input, can process, can output, and keep a set of examples |
+| Standard Version | Form a displayable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge Version | Close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to complete the basic version first. Do not chase something big and complete at the beginning. Every time you upgrade a version, write down “what new capability was added, how it was verified, and what problems remain” in the README.

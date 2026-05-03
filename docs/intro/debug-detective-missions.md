@@ -1,200 +1,200 @@
 ---
 sidebar_position: 6
-title: "Debug 侦探任务集"
-description: "用侦探破案的方式训练环境、Python、数据、Prompt、RAG、Agent 和部署排障能力，让错误变成有趣的学习线索。"
-keywords: [Debug, 排障任务, 侦探任务, AI工程错误, 新手练习]
+title: "Debug Detective Mission Set"
+description: "Train your environment, Python, data, Prompt, RAG, Agent, and deployment troubleshooting skills through detective-style cases, turning errors into fun learning clues."
+keywords: [Debug, troubleshooting tasks, detective missions, AI engineering errors, beginner practice]
 ---
 
-# Debug 侦探任务集
+# Debug Detective Mission Set
 
-![Debug 侦探任务集](/img/course/debug-detective-missions.png)
+![Debug Detective Mission Set](/img/course/debug-detective-missions-en.png)
 
-Debug 不是学习失败，而是工程学习真正开始的地方。很多新人觉得枯燥，是因为教程总展示成功路径；但真实项目里，最有价值的能力往往来自“为什么它没按预期工作”。
+Debug is not where learning fails; it is where engineering learning truly begins. Many beginners find it boring because tutorials only show the success path. But in real projects, the most valuable skill often comes from asking, “Why didn’t it work as expected?”
 
-这页把常见错误包装成侦探任务。每个任务都有案件、线索、嫌疑原因、侦查步骤、真相和修复记录。你可以先自己猜，再看建议排查方向。
+This page turns common errors into detective missions. Each mission includes the case, clues, suspected causes, investigation steps, the truth, and a repair record. You can guess first, then check the suggested debugging direction.
 
-## 先判断是哪类案件
+## First, identify which type of case it is
 
-| 现象 | 优先怀疑 |
+| Symptom | First things to suspect |
 |---|---|
-| 命令找不到、环境不一致 | 目录、PATH、依赖、虚拟环境 |
-| 文件能打开但程序读不懂 | 编码、格式、空文件、坏 JSON |
-| 数据列不存在或结论怪 | 列名、分隔符、缺失、重复、泄漏 |
-| 模型分数异常高或异常低 | 划分方式、baseline、指标、数据质量 |
-| LLM 输出格式漂移 | Prompt 约束、schema、校验和重试 |
-| RAG 答案没有来源 | 检索、chunk、metadata、引用检查 |
-| Agent 停不下来或越权 | 工具权限、最大步数、停止条件、人工确认 |
+| Command not found, environment inconsistent | Directory, PATH, dependencies, virtual environment |
+| File opens but the program cannot understand it | Encoding, format, empty file, broken JSON |
+| Data column missing or results look strange | Column names, separators, missing values, duplicates, leakage |
+| Model score is unusually high or unusually low | Split method, baseline, metrics, data quality |
+| LLM output format drifts | Prompt constraints, schema, validation, and retries |
+| RAG answer has no source | Retrieval, chunking, metadata, citation checks |
+| Agent does not stop or overreaches permissions | Tool permissions, max steps, stop conditions, human confirmation |
 
-## 侦探任务怎么玩
+## How to play the detective mission
 
-遇到案件时，不要急着看答案。先按这四步做：保存完整现象，提出 2～3 个嫌疑原因，用最小实验排除，最后把真相写成修复记录。
+When you hit a case, do not rush to the answer. Follow these four steps first: save the full symptom, propose 2–3 suspected causes, eliminate them with a minimal experiment, and finally write the truth into a repair record.
 
 ```mermaid
 flowchart LR
-  A[案发现场] --> B[收集线索]
-  B --> C[列嫌疑原因]
-  C --> D[最小实验]
-  D --> E[锁定真相]
-  E --> F[写入失败样本]
+  A[Crime scene] --> B[Collect clues]
+  B --> C[List suspected causes]
+  C --> D[Minimal experiment]
+  D --> E[Lock in the truth]
+  E --> F[Write failure sample]
 ```
 
-每个侦探任务都要留下一个证据文件，例如 `failure_cases.md`、`debug_notes.md`、`retrieval_logs.jsonl`、`agent_traces.jsonl` 或 README 中的一段排障记录。
+Each detective mission should leave behind an evidence file, such as `failure_cases.md`, `debug_notes.md`, `retrieval_logs.jsonl`, `agent_traces.jsonl`, or a troubleshooting note in the README.
 
-## 案件 1：失踪的命令
+## Case 1: The missing command
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | 终端输入 `python`、`pip`、`npm` 或 `docusaurus` 后提示 command not found |
-| 线索 | 同一台电脑上有时能运行，有时不能运行；换终端后现象不同 |
-| 嫌疑原因 | 命令没安装、PATH 没生效、不在项目根目录、虚拟环境没激活 |
-| 侦查步骤 | 运行 `pwd`、`which python`、`python --version`、`npm --version`，确认当前目录和工具位置 |
-| 真相方向 | 环境和路径问题，不是代码逻辑问题 |
-| 修复证据 | README 增加安装命令、运行目录和版本说明 |
+| Crime scene | After typing `python`, `pip`, `npm`, or `docusaurus` in the terminal, it says command not found |
+| Clues | It sometimes works on the same computer and sometimes does not; the behavior changes after switching terminals |
+| Suspected causes | Command not installed, PATH not taking effect, not in the project root, virtual environment not activated |
+| Investigation steps | Run `pwd`, `which python`, `python --version`, `npm --version` to confirm the current directory and tool locations |
+| Truth direction | It is an environment and path issue, not a code logic issue |
+| Repair evidence | Add installation commands, running directory, and version notes to the README |
 
-这个案件训练的是环境意识。新人第一关不是写复杂代码，而是知道自己在哪个目录、用哪个解释器、运行哪个命令。
+This case trains environment awareness. For beginners, the first step is not writing complex code, but knowing which directory you are in, which interpreter you are using, and which command you are running.
 
-## 案件 2：打不开的 JSON 宝箱
+## Case 2: The JSON treasure chest that won’t open
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | 程序读取 `tasks.json` 时报 `JSONDecodeError` |
-| 线索 | 文件存在，但打开后发现少了括号、多了逗号，或者是空文件 |
-| 嫌疑原因 | 文件被手动改坏、程序写入中断、把 JSONL 当 JSON 读 |
-| 侦查步骤 | 用最小脚本 `json.loads` 读取一小段内容，检查文件是否为空，确认格式是 JSON 还是 JSONL |
-| 真相方向 | 数据文件格式损坏，程序缺少异常处理 |
-| 修复证据 | 增加损坏文件提示、备份逻辑或重建逻辑 |
+| Crime scene | The program throws `JSONDecodeError` when reading `tasks.json` |
+| Clues | The file exists, but after opening it, you find a missing bracket, an extra comma, or an empty file |
+| Suspected causes | The file was manually broken, writing was interrupted, or JSONL was read as JSON |
+| Investigation steps | Use a minimal script with `json.loads` to read a small piece of content, check whether the file is empty, and confirm whether the format is JSON or JSONL |
+| Truth direction | The data file format is broken, and the program lacks exception handling |
+| Repair evidence | Add broken-file hints, backup logic, or rebuilding logic |
 
-这个案件训练的是输入防御。真实项目里，文件、接口和用户输入都可能坏掉，程序不能只在理想输入下工作。
+This case trains input defense. In real projects, files, APIs, and user input can all break, and the program must not only work on ideal input.
 
-## 案件 3：DataFrame 列名失踪案
+## Case 3: The missing DataFrame column
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | Pandas 报 `KeyError: 'minutes'` 或某列不存在 |
-| 线索 | CSV 打开看起来有这一列，但程序就是读不到 |
-| 嫌疑原因 | 列名有空格、大小写不同、分隔符错误、header 行读错、编码异常 |
-| 侦查步骤 | 打印 `df.columns.tolist()`，查看 `df.head()`，确认 `read_csv` 参数 |
-| 真相方向 | 数据读取和字段规范问题 |
-| 修复证据 | 增加列名清洗、数据字典和读取参数说明 |
+| Crime scene | Pandas raises `KeyError: 'minutes'` or says a column does not exist |
+| Clues | The CSV looks like it has that column, but the program cannot read it |
+| Suspected causes | Column name has spaces, different capitalization, wrong separator, wrong header row, or encoding issues |
+| Investigation steps | Print `df.columns.tolist()`, check `df.head()`, and confirm the `read_csv` parameters |
+| Truth direction | It is a data reading and field normalization problem |
+| Repair evidence | Add column cleaning, a data dictionary, and reading parameter documentation |
 
-这个案件训练的是数据第一眼检查。做分析前先看列名、行数、缺失和样例，比直接建模更重要。
+This case trains first-glance data inspection. Before analyzing, checking column names, row counts, missing values, and samples is more important than jumping straight into modeling.
 
-## 案件 4：高得离谱的模型分数
+## Case 4: A model score that is too good to be true
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | 模型准确率 99%，但换一点数据就不稳定 |
-| 线索 | 特征里可能包含答案，训练集和测试集有重复，切分发生在错误步骤之后 |
-| 嫌疑原因 | 数据泄漏、重复样本、目标变量进入特征、评估集太小 |
-| 侦查步骤 | 检查 train/test 是否先切分，删除可疑特征，训练 Dummy baseline，对比重复样本 |
-| 真相方向 | 分数不可信，不是模型真的很强 |
-| 修复证据 | 泄漏检查记录、baseline 指标、错误样本分析 |
+| Crime scene | The model accuracy is 99%, but it becomes unstable with slightly different data |
+| Clues | Features may include the answer, training and test sets may overlap, or the split happens after the wrong step |
+| Suspected causes | Data leakage, duplicate samples, target variable included in features, evaluation set too small |
+| Investigation steps | Check whether train/test were split first, remove suspicious features, train a Dummy baseline, and compare duplicate samples |
+| Truth direction | The score is not trustworthy; the model is not actually that strong |
+| Repair evidence | Leakage check records, baseline metrics, and bad sample analysis |
 
-这个案件训练的是评估警觉。好看的分数不一定是好模型，能解释分数来源才是能力。
+This case trains evaluation awareness. A nice-looking score does not always mean a good model; being able to explain where the score comes from is the real skill.
 
-## 案件 5：JSON 漂移事件
+## Case 5: The JSON drift incident
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | LLM 有时输出合法 JSON，有时多解释一句，有时少字段 |
-| 线索 | Prompt 只说“请输出 JSON”，但没有字段 schema、示例和校验 |
-| 嫌疑原因 | 约束不够、输出没有校验、没有失败重试、测试输入太少 |
-| 侦查步骤 | 固定 10 个输入，保存原始输出，用 JSON parser 和 schema 校验 |
-| 真相方向 | Prompt 不是一次性文案，而是需要测试的组件 |
-| 修复证据 | Prompt 版本表、schema 校验通过率、失败样本 |
+| Crime scene | The LLM sometimes outputs valid JSON, sometimes adds an explanation, and sometimes misses fields |
+| Clues | The Prompt only says “please output JSON,” but there is no field schema, example, or validation |
+| Suspected causes | Constraints are too weak, output is not validated, there is no failed retry, and the test inputs are too few |
+| Investigation steps | Fix 10 inputs, save the raw outputs, and validate with a JSON parser and schema |
+| Truth direction | Prompt is not a one-time copywriting task; it is a component that must be tested |
+| Repair evidence | Prompt version table, schema pass rate, and failure samples |
 
-这个案件训练的是 Prompt 工程的可靠性。一次成功不代表稳定，固定测试集才说明问题。
+This case trains Prompt engineering reliability. One success does not mean stability; only a fixed test set can show the real problem.
 
-## 案件 6：RAG 找不到证据
+## Case 6: RAG cannot find evidence
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | 用户问的问题明明在文档里，RAG 却答非所问或说不知道 |
-| 线索 | 检索结果没有命中正确 chunk，或者命中了但 metadata 丢失 |
-| 嫌疑原因 | 文档未导入、chunk 太大或太小、query 表达不匹配、top-k 太小、embedding 不适合 |
-| 侦查步骤 | 暂时关闭生成，只打印检索结果；用原文关键词检索；检查 chunk 内容和 metadata |
-| 真相方向 | 生成之前，检索已经失败 |
-| 修复证据 | retrieval_logs、chunk 样例、eval_questions、失败类型统计 |
+| Crime scene | The user asks something clearly covered in the docs, but the RAG system answers off-topic or says it does not know |
+| Clues | Retrieval did not hit the correct chunk, or it hit one but metadata was lost |
+| Suspected causes | Documents were not imported, chunk size is too large or too small, query wording does not match, top-k is too small, or the embedding is not suitable |
+| Investigation steps | Temporarily turn off generation and only print retrieval results; search using keywords from the original text; check chunk content and metadata |
+| Truth direction | Retrieval already failed before generation |
+| Repair evidence | `retrieval_logs`, chunk samples, `eval_questions`, and failure type statistics |
 
-这个案件训练的是 RAG 分层排查。先看检索，再看生成，再看引用，不要把所有问题都归因给模型。
+This case trains layered RAG debugging. Look at retrieval first, then generation, then citations. Do not blame everything on the model.
 
-## 案件 7：引用幻觉案
+## Case 7: The citation hallucination case
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | RAG 回答看起来正确，但引用片段并不能支持答案 |
-| 线索 | 答案可能来自模型常识，而不是检索资料；引用只是装饰 |
-| 嫌疑原因 | Prompt 没要求逐句依据，citation 粒度太粗，检索片段和答案没有对齐 |
-| 侦查步骤 | 对每个答案句子标注支持片段，增加 `citation_ok` 字段 |
-| 真相方向 | 有引用不等于有证据支持 |
-| 修复证据 | citation_check.csv、失败问题和修复 Prompt |
+| Crime scene | The RAG answer looks correct, but the cited passages do not actually support it |
+| Clues | The answer may come from the model’s general knowledge rather than the retrieved materials; the citation is just decoration |
+| Suspected causes | The Prompt does not require sentence-level grounding, citation granularity is too coarse, and the retrieved chunks do not align with the answer |
+| Investigation steps | Label the supporting passage for each answer sentence and add a `citation_ok` field |
+| Truth direction | Having a citation does not mean the answer is supported by evidence |
+| Repair evidence | `citation_check.csv`, failed questions, and the repaired Prompt |
 
-这个案件训练的是事实一致性。作品集里的 RAG 项目，必须能展示引用检查，而不是只展示答案。
+This case trains factual consistency. A portfolio RAG project must show citation checks, not just answers.
 
-## 案件 8：Agent 原地转圈案
+## Case 8: The Agent spinning in place
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | Agent 一直重复计划、调用同一个工具，迟迟不结束 |
-| 线索 | 每一步 thought 和 observation 很像，目标没有完成条件 |
-| 嫌疑原因 | 任务过宽、停止条件不清、工具返回不明确、没有最大步数 |
-| 侦查步骤 | 限制 3 步运行，打印 action、input、observation 和 done 判断 |
-| 真相方向 | Agent 缺少边界，不是模型需要更多自由 |
-| 修复证据 | agent_traces.jsonl、停止条件说明、失败前后 trace 对比 |
+| Crime scene | The Agent keeps repeating plans and calling the same tool without ever finishing |
+| Clues | The thought and observation at each step are very similar, and the goal has no completion condition |
+| Suspected causes | The task is too broad, the stop condition is unclear, the tool returns unclear results, or there is no max step limit |
+| Investigation steps | Limit the run to 3 steps, and print `action`, `input`, `observation`, and the `done` decision |
+| Truth direction | The Agent lacks boundaries; it is not that the model needs more freedom |
+| Repair evidence | `agent_traces.jsonl`, stop condition notes, and trace comparisons before and after the fix |
 
-这个案件训练的是可控 Agent 设计。Agent 越能行动，越需要边界。
+This case trains controllable Agent design. The more an Agent can act, the more it needs boundaries.
 
-## 案件 9：偷偷越权的工具
+## Case 9: The quietly over-privileged tool
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | Agent 调用了不该调用的删除、发送、写入或外部操作 |
-| 线索 | 工具描述没有风险等级，系统没有人工确认，测试只覆盖成功路径 |
-| 嫌疑原因 | 工具白名单太宽、权限没有分级、缺少 dry-run、没有审计日志 |
-| 侦查步骤 | 把工具按只读、写入、发送、删除分级，高风险工具默认人工确认 |
-| 真相方向 | 权限设计问题，不是单个 Prompt 能彻底解决 |
-| 修复证据 | 工具权限表、越权测试样例、人工确认截图或日志 |
+| Crime scene | The Agent called a delete, send, write, or external operation that it should not have called |
+| Clues | Tool descriptions have no risk levels, the system has no human confirmation, and tests only cover the success path |
+| Suspected causes | The tool allowlist is too broad, permissions are not tiered, there is no dry-run, and there are no audit logs |
+| Investigation steps | Classify tools into read-only, write, send, and delete levels; high-risk tools should require human confirmation by default |
+| Truth direction | It is a permission design problem, not something a single Prompt can fully solve |
+| Repair evidence | Tool permission table, over-privilege test cases, and human confirmation screenshots or logs |
 
-这个案件训练的是安全边界。作品集里的 Agent 项目如果能展示如何防止越权，会比只展示自动化更有说服力。
+This case trains safety boundaries. If a portfolio Agent project can show how it prevents over-privileged actions, it will be much more convincing than simply showing automation.
 
-## 案件 10：本地能跑，别人跑不了
+## Case 10: Works on my machine, not on yours
 
-| 项目 | 内容 |
+| Item | Content |
 |---|---|
-| 案发现场 | 你电脑上能跑，换同学或部署环境就失败 |
-| 线索 | README 漏了依赖、环境变量、数据文件、启动目录或版本 |
-| 嫌疑原因 | 隐式依赖、本地绝对路径、未提交样例数据、缺少 `.env.example` |
-| 侦查步骤 | 在干净目录重新 clone，按 README 从零运行 |
-| 真相方向 | 项目交付不完整，不是使用者不会用 |
-| 修复证据 | 更新 README、依赖文件、`.env.example`、启动日志 |
+| Crime scene | It works on your computer, but fails when a classmate or deployment environment tries it |
+| Clues | The README is missing dependencies, environment variables, data files, startup directory, or versions |
+| Suspected causes | Implicit dependencies, local absolute paths, sample data not committed, missing `.env.example` |
+| Investigation steps | Clone into a clean directory and run from scratch according to the README |
+| Truth direction | The project delivery is incomplete; it is not that the user does not know how to use it |
+| Repair evidence | Update the README, dependency files, `.env.example`, and startup logs |
 
-这个案件训练的是交付意识。能在自己电脑跑通只是第一步，别人能复现才是作品集项目。
+This case trains delivery awareness. Making it run on your own machine is only the first step; being reproducible by others is what makes it a portfolio project.
 
-## 侦探笔记模板
+## Detective notes template
 
 ```md
-## 案件：RAG 找不到证据
+## Case: RAG cannot find evidence
 
-### 案发现场
-用户问“Agent 和 RAG 有什么区别”，系统回答很泛，没有引用正确章节。
+### Crime scene
+The user asked “What is the difference between Agent and RAG?”, and the system gave a very general answer without citing the correct section.
 
-### 已知线索
-检索结果只命中了 RAG 章节，没有命中 Agent 章节。
+### Known clues
+The retrieval results only hit the RAG section and did not hit the Agent section.
 
-### 嫌疑原因
-导入文档范围太窄，metadata 没有保存 stage 信息，query 没有改写。
+### Suspected causes
+The document import range was too narrow, metadata did not preserve stage information, and the query was not rewritten.
 
-### 侦查步骤
-关闭生成，只打印 top-5 检索结果；用“Agent 工具调用”和“智能体”关键词重新检索。
+### Investigation steps
+Turn off generation and only print the top-5 retrieval results; search again using the keywords “Agent tool calling” and “agent”.
 
-### 真相
-索引只导入了 ch08-rag，没有导入 ch09-agent。
+### Truth
+The index only imported ch08-rag and did not import ch09-agent.
 
-### 修复
-扩大文档导入范围，并在 metadata 中保存 stage 和 title。
+### Fix
+Expand the document import range and save stage and title in metadata.
 
-### 回归检查
-把这个问题加入 eval_questions.csv。
+### Regression check
+Add this issue to eval_questions.csv.
 ```
 
-Debug 侦探任务的目标是让错误变得可玩、可查、可复盘。每破一个案，你就多一条真实工程经验。
+The goal of the Debug Detective Mission Set is to make errors playable, inspectable, and reviewable. Each time you solve a case, you gain one more piece of real engineering experience.

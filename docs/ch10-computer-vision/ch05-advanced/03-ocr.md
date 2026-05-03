@@ -1,91 +1,91 @@
 ---
-title: "5.4 OCR 文字识别【选修】"
+title: "5.4 OCR Text Recognition [Optional]"
 sidebar_position: 16
-description: "从文本检测、文本识别到版面理解，理解 OCR 为什么通常是一条多阶段流水线，而不是单一模型。"
+description: "From text detection and text recognition to layout understanding, learn why OCR is usually a multi-stage pipeline rather than a single model."
 keywords: [OCR, text detection, text recognition, document AI, layout analysis]
 ---
 
-# OCR 文字识别【选修】
+# OCR Text Recognition [Optional]
 
-![OCR 版面解析与文字识别流程图](/img/course/ocr-layout-recognition-pipeline.png)
+![OCR layout analysis and text recognition pipeline](/img/course/ocr-layout-recognition-pipeline-en.png)
 
-:::tip 本节定位
-OCR 很容易被说成一句话：
+:::tip Section Overview
+OCR is often explained in one sentence:
 
-- 把图片里的字识别出来
+- Recognize the text in an image
 
-但真实项目里，问题会更细：
+But in real projects, the problem is more detailed:
 
-- 字在哪里
-- 顺序是什么
-- 多栏版面怎么读
-- 倾斜和模糊怎么办
+- Where is the text?
+- What is the reading order?
+- How do we handle multi-column layouts?
+- What about tilt and blur?
 
-所以 OCR 更像一条流水线，而不是单个模型。
+So OCR is more like a pipeline than a single model.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 OCR 中“检测”和“识别”的区别
-- 理解文档版面为什么会进一步增加复杂度
-- 通过可运行示例建立 OCR 流水线直觉
-- 理解 OCR 在表单、票据、文档场景中的特殊难点
+- Understand the difference between “detection” and “recognition” in OCR
+- Understand why document layout further increases complexity
+- Build intuition for an OCR pipeline through a runnable example
+- Understand the special challenges of OCR in forms, receipts, and document scenarios
 
 ---
 
-## 先建立一张地图
+## First, Build a Mental Map
 
-OCR 这节最适合新人的理解顺序不是“先看识别结果”，而是先看清流水线：
+The best way for beginners to understand this OCR section is not to “look at the recognition result first,” but to first see the pipeline clearly:
 
 ```mermaid
 flowchart LR
-    A["图片 / 文档"] --> B["文本检测"]
-    B --> C["文本识别"]
-    C --> D["版面与结构理解"]
+    A["Image / Document"] --> B["Text Detection"]
+    B --> C["Text Recognition"]
+    C --> D["Layout and Structure Understanding"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么 OCR 不是单一模型
-- 为什么检测、识别、版面理解要拆开看
+- Why OCR is not a single model
+- Why detection, recognition, and layout understanding should be separated
 
-## 一、OCR 通常分哪几步？
+## 1. What Are the Usual Steps in OCR?
 
-### 1. 文本检测
+### 1. Text Detection
 
-先找出文字区域在哪里。
+First, find where the text regions are.
 
-### 2. 文本识别
+### 2. Text Recognition
 
-再把每块文字区域转成字符序列。
+Then, convert each text region into a character sequence.
 
-### 3. 版面与结构理解
+### 3. Layout and Structure Understanding
 
-在复杂文档场景里，还要回答：
+In complex document scenarios, you also need to answer:
 
-- 哪段先读
-- 哪段属于标题
-- 哪段属于表格或正文
+- Which part should be read first?
+- Which part is a title?
+- Which part belongs to a table or the main text?
 
-### 1.4 一个更适合新人的总类比
+### 1.4 A More Beginner-Friendly Overall Analogy
 
-你可以把 OCR 想成一个三人小组在处理一张发票：
+You can think of OCR as a three-person team handling an invoice:
 
-1. 第一个人先拿笔把所有文字圈出来
-2. 第二个人把每一块圈出来的文字读出来
-3. 第三个人再决定这些文字谁是标题、谁是金额、谁是日期
+1. The first person circles all the text with a pen
+2. The second person reads out each circled text region
+3. The third person decides which text is the title, which is the amount, and which is the date
 
-这样理解后，OCR 就不会再像：
+With this understanding, OCR no longer feels like:
 
-- 一个神秘的大模型黑盒
+- a mysterious black-box model
 
-而更像：
+but more like:
 
-- 一条有明确分工的流水线
+- a pipeline with clear responsibilities
 
 ---
 
-## 二、先看一个最小 OCR 流水线示例
+## 2. Let’s Look at a Minimal OCR Pipeline Example
 
 ```python
 image_blocks = [
@@ -109,62 +109,62 @@ print("regions:", regions)
 print("texts:", texts)
 ```
 
-### 2.1 这个例子最关键的地方是什么？
+### 2.1 What Is the Most Important Part of This Example?
 
-它清楚分开了：
+It clearly separates:
 
-- 找文字在哪里
-- 把文字读出来
+- where the text is
+- what the text says
 
-这正是 OCR 最基础的两阶段结构。
+This is the most basic two-stage structure of OCR.
 
-### 2.2 为什么很多 OCR 错误不在“识别字本身”？
+### 2.2 Why Do Many OCR Errors Not Come from the Recognition Model Itself?
 
-因为如果检测阶段就把文字框切错：
+Because if the detection stage cuts the text regions incorrectly:
 
-- 漏了一半
-- 顺序乱了
+- some text may be missed
+- the order may get mixed up
 
-后面的识别再强也没法完全补救。
+Even a strong recognition model cannot fully recover from that.
 
-### 2.3 新人第一次学 OCR，最该先记什么？
+### 2.3 What Should Beginners Remember First When Learning OCR?
 
-最值得先记住的是：
+The most important things to remember are:
 
-1. 检测负责“字在哪”
-2. 识别负责“字是什么”
-3. 文档场景里还常常要回答“先读哪、属于哪一块”
+1. Detection answers “where is the text?”
+2. Recognition answers “what is the text?”
+3. In document scenarios, you often also need to answer “what should be read first, and which block does it belong to?”
 
 ---
 
-## 三、OCR 为什么经常比想象中更难？
+## 3. Why Is OCR Often Harder Than It Seems?
 
-### 3.1 文字不总是规则排版
+### 3.1 Text Is Not Always in a Regular Layout
 
-可能会遇到：
+You may encounter:
 
-- 倾斜
-- 透视变形
-- 模糊
-- 遮挡
+- tilt
+- perspective distortion
+- blur
+- occlusion
 
-### 3.2 文档不总是单栏单行
+### 3.2 Documents Are Not Always Single-Column or Single-Line
 
-例如：
+For example:
 
-- 表格
-- 发票
-- 医疗单据
+- tables
+- invoices
+- medical forms
 
-这时“识别文字”只是第一步，  
-真正难的是结构理解。
+At this point, “recognizing text” is only the first step.
+The real challenge is structure understanding.
 
-### 3.3 字符级别错误会影响下游业务
+### 3.3 Character-Level Errors Can Affect Downstream Business Logic
 
-像编号、金额、日期这种字段，  
-识错一位就可能直接影响业务。
+Fields like numbers, amounts, and dates
+can directly impact business results if even one character is wrong.
 
-### 3.4 再看一个最小“阅读顺序恢复”示例
+### 3.4 Look at Another Minimal Example for “Reading Order Restoration”
 
 ```python
 lines = [
@@ -181,84 +181,84 @@ def restore_reading_order(lines):
 print(restore_reading_order(lines))
 ```
 
-这个例子很小，但它能帮新人先建立一个关键直觉：
+This example is very small, but it helps beginners build an important intuition:
 
-- OCR 做完识别，不代表任务结束
-- 文字顺序和结构恢复，常常同样重要
+- OCR is not finished just because recognition is done
+- Restoring text order and structure is often equally important
 
-![OCR 检测、识别与阅读顺序恢复图](/img/course/ch10-ocr-layout-reading-order-map.png)
+![OCR detection, recognition, and reading order restoration diagram](/img/course/ch10-ocr-layout-reading-order-map-en.png)
 
-:::tip 读图提示
-OCR 项目要分三层排查：文本检测有没有框准，文本识别有没有读对，版面结构有没有恢复顺序。票据、表格、双栏文档经常错在第三层。
+:::tip Reading Tip
+OCR projects should be debugged in three layers: whether text detection boxes are correct, whether text recognition is correct, and whether the layout structure and order are restored correctly. Receipts, tables, and two-column documents often fail at the third layer.
 :::
 
-## 四、一个新人可直接照抄的项目推进顺序
+## 4. A Project Progression Order Beginners Can Copy Directly
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先做清晰单栏小样本
-2. 再看倾斜和模糊样本
-3. 再补版面顺序和结构理解
-4. 最后再进入票据、表格这类更复杂文档
+1. Start with clean, single-column sample data
+2. Then look at tilted and blurry samples
+3. Then add layout order and structure understanding
+4. Finally move on to more complex documents such as receipts and tables
 
-这样会比一开始就做复杂票据系统更容易稳住。
+This is usually easier than starting with a complex receipt system right away.
 
-### 4.1 如果你要把 OCR 做成项目，最值得先选哪类题目？
+### 4.1 If You Want to Turn OCR into a Project, What Kind of Task Should You Choose First?
 
-更稳的起点通常是：
+A more stable starting point is usually:
 
-- 清晰票据字段抽取
-- 简单单栏文档识别
-- 少量固定模板表单
+- extracting fields from clear receipts
+- recognizing simple single-column documents
+- handling a small number of fixed-template forms
 
-这类题目的好处是：
+The advantages of these tasks are:
 
-- 检测区域更清楚
-- 业务字段更容易评估
-- 失败样本更容易分析
+- text regions are clearer
+- business fields are easier to evaluate
+- failure cases are easier to analyze
 
-### 4.2 如果把 OCR 做成项目，最值得先展示什么
+### 4.2 If You Turn OCR into a Project, What Should You Show First?
 
-更像真实项目的展示顺序通常是：
+A presentation order that feels closer to a real project is usually:
 
-1. 原图
-2. 文本检测框
-3. 识别后的文本块
-4. 恢复后的字段或阅读顺序
-5. 失败样本分析
+1. Original image
+2. Text detection boxes
+3. Recognized text blocks
+4. Restored fields or reading order
+5. Failure case analysis
 
-这样读者一眼就能看懂：
+In this way, readers can immediately see:
 
-- 是哪一步出了问题
-- 你的系统重点优化了哪一段流水线
+- which step went wrong
+- which part of the pipeline your system is mainly optimizing
 
 ---
 
-## 五、最容易踩的坑
+## 5. The Most Common Pitfalls
 
-### 5.1 只看识别准确率，不看检测质量
+### 5.1 Only Looking at Recognition Accuracy and Ignoring Detection Quality
 
-OCR 是多阶段流水线，前一步错会传给后一步。
+OCR is a multi-stage pipeline, and mistakes from one stage are passed to the next.
 
-### 5.2 只做字符识别，不做结构恢复
+### 5.2 Only Doing Character Recognition and Not Restoring Structure
 
-很多文档类项目真正要的是：
+What many document projects really need is:
 
-- 字段
-- 表格结构
-- 阅读顺序
+- fields
+- table structure
+- reading order
 
-### 5.3 忽略图像预处理
+### 5.3 Ignoring Image Preprocessing
 
-例如：
+For example:
 
-- 二值化
-- 去噪
-- 倾斜校正
+- binarization
+- denoising
+- skew correction
 
-在很多场景里非常重要。
+These are very important in many scenarios.
 
-### 5.4 一个更像真实项目的最小错误分桶表
+### 5.4 A Minimal Error Bucketing Table That Feels More Like a Real Project
 
 ```python
 errors = [
@@ -271,46 +271,46 @@ for item in errors:
     print(f"{item['type']}: {item['count']}")
 ```
 
-这个表虽然简单，但很像真实 OCR 项目里会做的第一步：
+Although this table is simple, it is very similar to the first step in a real OCR project:
 
-- 先分清错误主要来自检测、识别，还是结构恢复
+- first distinguish whether the main error comes from detection, recognition, or structure restoration
 
-不这样分，你就很容易：
+If you do not separate them like this, it is easy to:
 
-- 识别模型拼命换了一圈
-- 结果真正问题其实在检测或阅读顺序
-
----
-
-## 六、如果把它做成作品集，最值得展示什么
-
-- 原图
-- 检测框结果
-- 识别文本结果
-- 字段恢复结果
-- 一组典型失败样本
-
-这样会比只展示“识别出来了哪些字”更像真实文档 AI 项目。
+- keep replacing the recognition model over and over
+- only to find that the real problem was actually detection or reading order
 
 ---
 
-## 小结
+## 6. If You Turn This into a Portfolio Project, What Is Most Worth Showing?
 
-这节最重要的是建立一个流水线判断：
+- Original image
+- Detection box results
+- Recognized text results
+- Restored field results
+- A set of typical failure cases
 
-> **OCR 不是单一“识字模型”，而是一条包含文本检测、文本识别和版面理解的多阶段系统。**
+This will feel much more like a real document AI project than simply showing “which words were recognized.”
 
-只要这条线清楚了，后面你做票据、表单、文档理解项目就不会只盯识别模型本身。
+---
 
-## 这节最该带走什么
+## Summary
 
-- OCR 的核心是流水线，不是单点模型
-- 很多问题会在检测和结构层就已经决定上限
-- 文档类 OCR 项目特别值得单独分析版面和字段恢复
+The most important thing in this section is to build a pipeline-based understanding:
 
-## 练习
+> **OCR is not a single “text recognition model,” but a multi-stage system that includes text detection, text recognition, and layout understanding.**
 
-1. 给示例再加一个新文字块，思考阅读顺序该怎么恢复。
-2. 为什么检测阶段的错误会直接拖垮 OCR 最终效果？
-3. 想一想：表格票据和普通街景文字识别，哪一层难点差别最大？
-4. 如果金额字段总识错一位，你会先查检测、识别还是后处理？为什么？
+Once this pipeline is clear, you will not only focus on the recognition model itself when building receipt, form, or document understanding projects.
+
+## What Should You Take Away from This Section?
+
+- The core of OCR is a pipeline, not a single model
+- Many problems are already determined by the detection and structure stages
+- Document OCR projects are especially worth analyzing separately for layout and field restoration
+
+## Exercises
+
+1. Add one more text block to the example and think about how the reading order should be restored.
+2. Why do detection-stage errors directly hurt the final OCR result?
+3. Think about this: for table receipts and ordinary street-view text recognition, which layer has the biggest difference in difficulty?
+4. If an amount field is always off by one character, would you first check detection, recognition, or post-processing? Why?

@@ -1,75 +1,75 @@
 ---
-title: "3.3 LangChain 基础"
+title: "3.3 LangChain Basics"
 sidebar_position: 12
-description: "从为什么需要链式抽象，到 Prompt、模型、检索器和解析器怎样被串起来，建立对 LangChain 的第一层应用直觉。"
+description: "From why chain abstractions are needed, to how Prompt, models, retrievers, and parsers are connected, build your first application-level intuition for LangChain."
 keywords: [LangChain, chain, prompt template, output parser, retriever, LLM application]
 ---
 
-# LangChain 基础
+# LangChain Basics
 
-:::tip 本节定位
-很多人第一次看 LangChain，会觉得它只是“把模型调一下”。  
-但它真正想解决的问题其实更具体：
+:::tip Section Focus
+When many people first look at LangChain, they think it is just “tuning the model.”
+But the problem it is really trying to solve is more specific:
 
-> **当你的应用不再只是一次模型调用，而是多步组件组合时，怎样把它组织得更清楚？**
+> **When your application is no longer just one model call, but a combination of multiple steps and components, how do you organize it more clearly?**
 
-这就是 LangChain 的价值入口。
+That is where LangChain comes in.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 LangChain 这种链式抽象为什么会自然出现
-- 看懂 Prompt、模型、解析器、检索器在链中的位置
-- 用一个最小例子理解“上一步输出喂给下一步”的核心味道
-- 理解它为什么很适合做原型和线性工作流
+- Understand why a chain-style abstraction naturally appears
+- Read where Prompt, model, parser, and retriever sit in the chain
+- Use a minimal example to understand the core idea of “feeding the previous output into the next step”
+- Understand why it is especially suitable for prototypes and linear workflows
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-LangChain 这节最适合新人的理解顺序不是“先学框架 API”，而是先看清：
+For beginners, the best way to understand this section is not “learn the framework API first,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["真实应用不只调一次模型"] --> B["拆成多个小步骤"]
-    B --> C["每步都有清楚输入输出"]
-    C --> D["再按顺序串起来"]
+    A["Real applications do more than one model call"] --> B["Break it into multiple small steps"]
+    B --> C["Each step has clear input and output"]
+    C --> D["Then connect them in order"]
 ```
 
-所以这节真正想解决的是：
+So what this section is really trying to explain is:
 
-- 为什么链式抽象会自然出现
-- 它到底是在替你整理什么
+- Why chain abstractions naturally appear
+- What they are actually organizing for you
 
-## 一、为什么需要“链”这种抽象？
+## 1. Why Do We Need a “Chain” Abstraction?
 
-### 1.1 因为真实应用通常不只调一次模型
+### 1.1 Because real applications usually need more than one model call
 
-比如你想做一个小问答系统，可能就已经有这些步骤：
+For example, if you want to build a small question-answering system, you may already need these steps:
 
-1. 清理用户 query
-2. 检索文档
-3. 拼 prompt
-4. 调模型
-5. 格式化输出
+1. Clean the user query
+2. Retrieve documents
+3. Build the prompt
+4. Call the model
+5. Format the output
 
-如果你全手写在一个函数里，虽然也能跑，但很快会变得：
+If you write everything by hand in one function, it can still work, but it quickly becomes:
 
-- 不清楚
-- 不可复用
-- 不好调试
+- unclear
+- hard to reuse
+- hard to debug
 
-### 1.2 链式抽象到底在做什么？
+### 1.2 What does a chain abstraction actually do?
 
-它在说：
+It says:
 
-> **把每一步都做成一个职责明确的小组件，然后按顺序串起来。**
+> **Turn each step into a small component with a clear responsibility, then connect them in order.**
 
-这就是 LangChain 最核心的味道。
+That is the core LangChain feeling.
 
 ---
 
-## 二、一个最小链式示例
+## 2. A Minimal Chain Example
 
 ```python
 class SimpleChain:
@@ -85,14 +85,14 @@ def normalize_query(text):
     return text.strip().lower()
 
 def retrieve_docs(query):
-    if "退款" in query:
-        return {"query": query, "docs": ["课程购买后 7 天内可退款。"]}
+    if "refund" in query:
+        return {"query": query, "docs": ["Courses can be refunded within 7 days after purchase."]}
     return {"query": query, "docs": []}
 
 def format_answer(payload):
     if payload["docs"]:
-        return f"根据资料：{payload['docs'][0]}"
-    return "没有找到相关资料。"
+        return f"According to the materials: {payload['docs'][0]}"
+    return "No relevant information found."
 
 chain = SimpleChain([
     normalize_query,
@@ -100,53 +100,53 @@ chain = SimpleChain([
     format_answer
 ])
 
-print(chain.run("  退款政策是什么？ "))
+print(chain.run("  What is the refund policy? "))
 ```
 
-### 2.2 这段代码在教什么？
+### 2.2 What is this code teaching?
 
-它已经在教你 LangChain 最核心的一件事：
+It is already teaching you the most important thing in LangChain:
 
-> 每一步只关心自己的输入输出，整个系统通过串联完成任务。 
+> Each step only cares about its own input and output, and the whole system completes the task by chaining them together.
 
-这就是链式应用最核心的价值。
+That is the core value of chain-based applications.
 
 ---
 
-## 三、Prompt 在链里扮演什么角色？
+## 3. What Role Does Prompt Play in the Chain?
 
-### 3.1 Prompt 不是“附属文案”，而是一个组件
+### 3.1 Prompt is not “extra copy”; it is a component
 
-在很多链路里，Prompt 本身就是中间的一步：
+In many pipelines, Prompt itself is one of the intermediate steps:
 
-- 输入 query
-- 生成更清晰的提示模板
+- take the query
+- generate a clearer prompt template
 
-### 3.2 一个简单示意
+### 3.2 A simple example
 
 ```python
 def build_prompt(payload):
     docs = payload["docs"]
     query = payload["query"]
-    return f"请根据以下资料回答问题：资料={docs}，问题={query}"
+    return f"Please answer the question based on the following materials: materials={docs}, question={query}"
 
-payload = {"query": "退款政策是什么", "docs": ["课程购买后 7 天内可退款。"]}
+payload = {"query": "What is the refund policy", "docs": ["Courses can be refunded within 7 days after purchase."]}
 print(build_prompt(payload))
 ```
 
-这个例子在提醒你：
+This example is reminding you that:
 
-> Prompt 也可以被看作链里的一个中间变换节点。 
+> Prompt can also be viewed as an intermediate transformation node in the chain.
 
 ---
 
-## 四、再加上一个“模型”步骤
+## 4. Add a “Model” Step
 
-为了保证示例能离线运行，我们继续用 mock model。
+To keep the example runnable offline, we will continue using a mock model.
 
 ```python
 def mock_llm(prompt):
-    return f"模型输出：{prompt}"
+    return f"Model output: {prompt}"
 
 chain = SimpleChain([
     normalize_query,
@@ -155,47 +155,47 @@ chain = SimpleChain([
     mock_llm
 ])
 
-print(chain.run("退款政策是什么？"))
+print(chain.run("What is the refund policy?"))
 ```
 
-### 4.2 这一步最关键的收获
+### 4.2 The key takeaway from this step
 
-你会开始看到：
+You will start to see that:
 
-- 检索器
+- retriever
 - prompt builder
 - model
 
-其实都是链上的不同节点。
+are all just different nodes in the chain.
 
-这也是为什么 LangChain 会给人一种“组件拼装框架”的感觉。
+This is also why LangChain feels like a “component assembly framework.”
 
-![LangChain 组件流水线图](/img/course/ch08-langchain-component-pipeline-map.png)
+![LangChain component pipeline map](/img/course/ch08-langchain-component-pipeline-map-en.png)
 
-:::tip 读图提示
-LangChain 不是为了让代码显得高级，而是把 Prompt、Retriever、Model、Output Parser 这些节点的输入输出边界拆清楚。新人先看“数据怎样从一个节点流到下一个节点”。
+:::tip Reading Tip
+LangChain is not trying to make your code look fancy. It is about making the input-output boundaries of nodes like Prompt, Retriever, Model, and Output Parser clearer. As a beginner, first look at “how data flows from one node to the next.”
 :::
 
 ---
 
-## 五、输出解析器为什么也重要？
+## 5. Why Does the Output Parser Also Matter?
 
-很多人只关注输入 prompt 和模型输出，忽略了：
+Many people only focus on the input prompt and the model output, while ignoring this:
 
-> 模型输出后，系统还常常要继续做结构化处理。 
+> After the model outputs text, the system often still needs to perform structured processing.
 
-例如：
+For example:
 
-- 只取一部分字段
-- 转成 JSON
-- 映射到前端展示格式
+- keep only part of the fields
+- convert to JSON
+- map to a front-end display format
 
-### 一个最小示例
+### A Minimal Example
 
 ```python
 def output_parser(text):
     return {
-        "answer": text.replace("模型输出：", ""),
+        "answer": text.replace("Model output: ", ""),
         "ok": True
     }
 
@@ -207,98 +207,98 @@ chain = SimpleChain([
     output_parser
 ])
 
-print(chain.run("退款政策是什么？"))
+print(chain.run("What is the refund policy?"))
 ```
 
-这一步会让你更清楚地意识到：
+This step helps you more clearly realize that:
 
-> LangChain 的真正价值，常常在“把不同组件的边界拆清楚”。 
-
----
-
-## 六、为什么它特别适合做原型？
-
-因为很多早期 LLM 应用都很像：
-
-- 一条比较线性的流程
-- 几个组件依次执行
-
-例如：
-
-- 清理 query
-- 检索
-- 拼 prompt
-- 调模型
-- 解析结果
-
-这正是链式抽象最舒服的场景。
+> The real value of LangChain often lies in “making the boundaries between different components clear.”
 
 ---
 
-## 七、什么时候它会开始吃力？
+## 6. Why Is It Especially Good for Prototyping?
 
-如果你的流程开始变成：
+Because many early-stage LLM applications are very similar:
 
-- 如果检索失败就改写 query 再查一次
-- 如果答案不够稳就让 reviewer 再检查
-- 某些请求要走工具，某些请求不要
+- a fairly linear flow
+- several components executed one after another
 
-这种情况下，“一条直链”就会越来越勉强。
+For example:
 
-也就是说：
+- clean the query
+- retrieve
+- build the prompt
+- call the model
+- parse the result
 
-> 当系统开始有明显状态分支和回路时，链式抽象就可能不够了。 
-
-这也是为什么后面会需要 LangGraph 这种更图式的框架。
-
----
-
-## 八、一个很重要的工程提醒
-
-很多人学 LangChain 时最容易犯的错是：
-
-- 一开始就背一堆类名和接口
-
-但更稳的方式通常是：
-
-1. 先理解链式抽象在解决什么问题
-2. 再去看具体 API
-
-不然很容易变成：
-
-- 会写框架代码
-- 但不知道为什么要这么组织
-
-## 新人第一次用 LangChain 时最稳的方式
-
-更稳的顺序通常是：
-
-1. 先只做一条线性链路
-2. 先把每个节点输入输出打印清楚
-3. 再去加检索、解析器和更复杂组件
-4. 最后才考虑更复杂的图式工作流
+This is exactly the kind of scenario where a chain abstraction feels most natural.
 
 ---
 
-## 小结
+## 7. When Does It Start to Strain?
 
-这一节最重要的不是记住某个具体类，而是理解：
+If your workflow starts to become:
 
-> **LangChain 的核心价值，在于把“prompt、检索、模型、解析”这些高频组件组织成更清晰的线性工作流。**
+- if retrieval fails, rewrite the query and search again
+- if the answer is not stable enough, ask a reviewer to check it
+- some requests should use tools, others should not
 
-只要这个链式思维建立起来，后面你看真实框架接口时就会顺很多。
+In this case, a “single straight chain” becomes more and more awkward.
 
-## 这节最该带走什么
+In other words:
 
-- LangChain 不是在替代模型，而是在整理多步应用
-- 先理解链，再学框架，会比直接记 API 更稳
-- 它特别适合原型和线性工作流，但也不是所有复杂系统的终点
+> When the system starts to have obvious state branches and loops, chain abstraction may no longer be enough.
+
+That is also why frameworks like LangGraph are needed later on.
 
 ---
 
-## 练习
+## 8. A Very Important Engineering Reminder
 
-1. 给这个 `SimpleChain` 再加一步，把 query 改写得更适合检索。
-2. 用自己的话解释：为什么 Prompt 也可以被看作链里的一个组件？
-3. 想一想：当流程开始有复杂分支时，为什么链式抽象会吃力？
-4. 用自己的话说明：LangChain 最适合解决什么形状的问题？
+The most common mistake people make when learning LangChain is:
+
+- memorizing a bunch of class names and interfaces from the start
+
+But a more stable approach is usually:
+
+1. First understand what problem chain abstraction is solving
+2. Then look at the specific API
+
+Otherwise, it is easy to end up with:
+
+- knowing how to write framework code
+- but not knowing why it is organized that way
+
+## The Most Stable Way for Beginners to Use LangChain for the First Time
+
+A more reliable sequence is usually:
+
+1. Start with only one linear workflow
+2. Print the input and output of each node clearly
+3. Then add retrieval, parsers, and more complex components
+4. Only then consider more complex graph-style workflows
+
+---
+
+## Summary
+
+The most important thing in this section is not remembering a specific class, but understanding this:
+
+> **The core value of LangChain is organizing high-frequency components like prompt, retrieval, model, and parsing into a clearer linear workflow.**
+
+Once this chain mindset is in place, reading real framework APIs later will feel much smoother.
+
+## What Should You Take Away from This Section?
+
+- LangChain is not replacing the model; it is organizing multi-step applications
+- Understanding the chain first, then learning the framework, is more stable than memorizing APIs directly
+- It is especially suitable for prototypes and linear workflows, but it is not the end point for every complex system
+
+---
+
+## Exercises
+
+1. Add one more step to this `SimpleChain` to rewrite the query so it is better suited for retrieval.
+2. Explain in your own words: why can Prompt also be seen as a component in the chain?
+3. Think about it: when a workflow starts to have complex branches, why does chain abstraction become strained?
+4. Explain in your own words: what kind of problem shape is LangChain best suited to solve?

@@ -1,86 +1,86 @@
 ---
-title: "1.8 权重初始化"
+title: "1.8 Weight Initialization"
 sidebar_position: 7
-description: "理解权重初始化为什么重要、Xavier 和 He 初始化的原理与适用场景"
-keywords: [权重初始化, Xavier, Glorot, He, Kaiming, 梯度消失, 梯度爆炸]
+description: "Understand why weight initialization matters, and the principles and use cases of Xavier and He initialization"
+keywords: [weight initialization, Xavier, Glorot, He, Kaiming, vanishing gradients, exploding gradients]
 ---
 
-# 权重初始化
+# Weight Initialization
 
-:::tip 本节定位
-深度网络训练成败的一个关键因素是**权重初始化**。不好的初始化会导致梯度消失或梯度爆炸，让训练完全失败。好消息是：PyTorch 默认已经帮你选了合适的初始化。
+:::tip Section Overview
+One of the key factors in whether a deep network trains successfully is **weight initialization**. Bad initialization can cause vanishing or exploding gradients and make training fail completely. The good news is that PyTorch has already chosen a suitable default initialization for you.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么不能全零初始化
-- 理解 Xavier / Glorot 初始化
-- 理解 He / Kaiming 初始化
-- 观察初始化对训练的影响
+- Understand why all-zero initialization is not allowed
+- Understand Xavier / Glorot initialization
+- Understand He / Kaiming initialization
+- Observe the impact of initialization on training
 
 ---
 
-## 先建立一张地图
+## Build a Map First
 
-初始化这节最容易让新人觉得“像额外细节”，但它其实直接关系到模型能不能顺利开始学。
+The easiest way for beginners to view initialization is as “an extra detail,” but it actually directly affects whether a model can start learning smoothly.
 
-![权重初始化信号稳定图](/img/course/ch06-weight-init-signal-stability-map.png)
+![Weight initialization signal stability map](/img/course/ch06-weight-init-signal-stability-map-en.png)
 
-这节真正想解决的是：
+What this section really aims to solve is:
 
-- 为什么权重不能乱设
-- 为什么不同激活函数要搭不同初始化
-- 第一次写网络时，什么时候可以放心用 PyTorch 默认值
+- Why weights cannot be set arbitrarily
+- Why different activation functions need different initialization strategies
+- When you can safely use PyTorch defaults the first time you write a network
 
-## 这节和前面几节是怎么接上的
+## How This Connects to the Previous Sections
 
-如果你把前面几节串起来看，会发现这一节其实在回答一个很自然的问题：
+If you connect the previous sections together, you’ll see that this section is actually answering a very natural question:
 
-- 神经元会前向传播
-- 反向传播会把梯度传回来
-- 优化器会更新参数
+- Neurons perform forward propagation
+- Backpropagation sends gradients back
+- The optimizer updates parameters
 
-但这一切都有个前提：
+But all of this has one prerequisite:
 
-- 网络一开始的信号和梯度不能太离谱
+- The initial signals and gradients in the network must not be too extreme
 
-所以初始化其实是在回答：
+So initialization is really answering:
 
-> **模型训练开始前，第一步棋要怎么摆，后面整盘棋才不容易崩。**
+> **Before model training starts, how should the first move be made so the whole game doesn’t fall apart later?**
 
-## 一、为什么初始化很重要？
+## 1. Why Is Initialization Important?
 
-### 1.1 全零初始化的问题
+### 1.1 The Problem with All-Zero Initialization
 
-如果所有权重都是 0，那所有神经元计算结果完全一样，梯度也一样，**永远不会分化**——等于只有一个神经元。
+If all weights are 0, then all neurons produce exactly the same results and the gradients are also the same. They will **never diverge**—which is equivalent to having only one neuron.
 
-### 1.2 随机初始化也有坑
+### 1.2 Random Initialization Also Has Pitfalls
 
-- **太大**：激活值饱和 → 梯度消失（Sigmoid/Tanh）或梯度爆炸
-- **太小**：信号逐层衰减 → 梯度也衰减 → 训练极慢
+- **Too large**: activations saturate → vanishing gradients (Sigmoid/Tanh) or exploding gradients
+- **Too small**: signals weaken layer by layer → gradients also weaken → training becomes very slow
 
-### 1.2.1 一个更适合新人的直觉：先别让每层“太安静”或“太激动”
+### 1.2.1 A More Beginner-Friendly Intuition: Don’t Let Each Layer Be Too “Quiet” or Too “Excited”
 
-可以先把初始化想成给每层一个起跑姿势：
+You can think of initialization as giving each layer a starting posture:
 
-- 太小：像刚开始就没力气，信号一层层传着传着就没了
-- 太大：像一上来就用力过猛，输出和梯度都可能失控
+- Too small: like having no strength from the beginning, so the signal disappears as it passes through layer after layer
+- Too large: like using too much force right away, causing outputs and gradients to go out of control
 
-所以好初始化的目标非常朴素：
+So the goal of a good initialization is very simple:
 
-- 让前向信号别迅速衰减或爆炸
-- 让反向梯度也还能稳定传回来
+- Keep forward signals from quickly shrinking or exploding
+- Keep backward gradients stable enough to flow back
 
 ```python
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
-# 观察不同初始化下的激活值分布
+# Observe activation distributions under different initializations
 torch.manual_seed(42)
 
 def observe_activations(init_fn, title, activation=nn.Tanh()):
-    """观察 10 层网络中每层的激活值分布"""
+    """Observe the activation distribution of each layer in a 10-layer network"""
     layers = []
     for i in range(10):
         linear = nn.Linear(256, 256, bias=False)
@@ -90,7 +90,7 @@ def observe_activations(init_fn, title, activation=nn.Tanh()):
 
     model = nn.Sequential(*layers)
 
-    # 记录每层输出
+    # Record outputs of each layer
     x = torch.randn(200, 256)
     activations = []
     for i in range(0, len(layers), 2):
@@ -107,138 +107,138 @@ def observe_activations(init_fn, title, activation=nn.Tanh()):
     plt.tight_layout()
     plt.show()
 
-# 太小的初始化
+# Too-small initialization
 observe_activations(
     lambda w: nn.init.normal_(w, 0, 0.01),
-    '太小初始化 (std=0.01) + Tanh → 信号衰减'
+    'Too-small initialization (std=0.01) + Tanh → signal decay'
 )
 
-# 太大的初始化
+# Too-large initialization
 observe_activations(
     lambda w: nn.init.normal_(w, 0, 1.0),
-    '太大初始化 (std=1.0) + Tanh → 饱和'
+    'Too-large initialization (std=1.0) + Tanh → saturation'
 )
 ```
 
 ---
 
-## 二、Xavier / Glorot 初始化
+## 2. Xavier / Glorot Initialization
 
-### 2.1 核心思想
+### 2.1 Core Idea
 
-让每一层的**输入和输出的方差保持一致**，避免信号逐层放大或衰减。
+Keep the **variance of the input and output of each layer** consistent, so the signal does not grow or shrink from layer to layer.
 
-> **权重从 N(0, 2/(fan_in + fan_out)) 中采样**
+> **Sample weights from N(0, 2/(fan_in + fan_out))**
 >
-> fan_in = 输入维度, fan_out = 输出维度
+> fan_in = input dimension, fan_out = output dimension
 
-### 2.1.1 Xavier 最值得先记的，不是公式而是什么？
+### 2.1.1 What Is the Most Important Thing to Remember About Xavier, Besides the Formula?
 
-最值得先记的是它的目标：
+The most important thing to remember is its goal:
 
-- 尽量让每层输入输出的尺度不要差太多
+- Try to keep the scale of each layer’s input and output from being too different
 
-公式只是实现这个目标的一种方式。  
-所以第一次学时，先稳住这个直觉，比死记分母形式更重要。
+The formula is only one way to achieve that goal.
+So when learning it for the first time, holding on to this intuition is more important than memorizing the denominator exactly.
 
-### 2.2 适用：Sigmoid / Tanh
+### 2.2 Applicable to: Sigmoid / Tanh
 
 ```python
 observe_activations(
     lambda w: nn.init.xavier_normal_(w),
-    'Xavier 初始化 + Tanh → 信号稳定'
+    'Xavier initialization + Tanh → stable signals'
 )
 ```
 
 ---
 
-## 三、He / Kaiming 初始化
+## 3. He / Kaiming Initialization
 
-### 3.1 核心思想
+### 3.1 Core Idea
 
-Xavier 假设激活函数是线性的。但 ReLU 会把一半神经元置为 0，所以需要**更大的方差**来补偿。
+Xavier assumes the activation function is linear. But ReLU sets about half of the neurons to 0, so a **larger variance** is needed to compensate.
 
-> **权重从 N(0, 2/fan_in) 中采样**
+> **Sample weights from N(0, 2/fan_in)**
 
-### 3.1.1 He 初始化为什么会比 Xavier 更适合 ReLU？
+### 3.1.1 Why Is He Initialization More Suitable for ReLU Than Xavier?
 
-因为 ReLU 会把一部分信号直接截成 0。  
-如果还沿用更保守的初始化，信号就更容易一路衰减。
+Because ReLU directly cuts part of the signal to 0.
+If you still use a more conservative initialization, the signal is even more likely to decay all the way through.
 
-所以 He 初始化可以先朴素理解成：
+So a simple way to understand He initialization is:
 
-- 为了适应 ReLU 的“截断特性”，把起始方差稍微放大一点
+- To adapt to ReLU’s “truncation” behavior, slightly increase the initial variance
 
-### 3.2 适用：ReLU 及其变体
+### 3.2 Applicable to: ReLU and its variants
 
 ```python
 observe_activations(
     lambda w: nn.init.kaiming_normal_(w, mode='fan_in', nonlinearity='relu'),
-    'He 初始化 + ReLU → 信号稳定',
+    'He initialization + ReLU → stable signals',
     activation=nn.ReLU()
 )
 ```
 
 ---
 
-## 四、选择指南
+## 4. Selection Guide
 
-| 激活函数 | 推荐初始化 | PyTorch 函数 |
+| Activation Function | Recommended Initialization | PyTorch Function |
 |---------|-----------|-------------|
 | **Sigmoid / Tanh** | Xavier | `nn.init.xavier_normal_` |
 | **ReLU / Leaky ReLU** | He (Kaiming) | `nn.init.kaiming_normal_` |
 | **GELU / Swish** | He | `nn.init.kaiming_normal_` |
 
-### PyTorch 默认行为
+### PyTorch Default Behavior
 
 ```python
-# PyTorch 的 nn.Linear 默认使用 Kaiming Uniform
+# PyTorch's nn.Linear uses Kaiming Uniform by default
 linear = nn.Linear(256, 128)
-print(f"默认初始化范围: [{linear.weight.min():.4f}, {linear.weight.max():.4f}]")
+print(f"Default initialization range: [{linear.weight.min():.4f}, {linear.weight.max():.4f}]")
 
-# 手动指定初始化
+# Manually specify initialization
 nn.init.kaiming_normal_(linear.weight, mode='fan_in', nonlinearity='relu')
 nn.init.zeros_(linear.bias)
 ```
 
-:::info 好消息
-PyTorch 的 `nn.Linear` 默认使用 Kaiming Uniform 初始化，`nn.Conv2d` 也是。大多数情况下**你不需要手动初始化**——但理解原理能帮你诊断训练异常。
+:::info Good News
+PyTorch's `nn.Linear` uses Kaiming Uniform initialization by default, and so does `nn.Conv2d`. In most cases, **you do not need to initialize weights manually**—but understanding the principle can help you diagnose training issues.
 :::
 
-### 4.1 新人第一次做项目时到底要不要手动初始化？
+### 4.1 When You First Start a Project, Do You Need to Initialize Manually?
 
-大多数时候：
+Most of the time:
 
-- 不需要一开始就自己写初始化
-- 先用 PyTorch 默认值通常就够了
+- You do not need to write your own initialization from the start
+- Using PyTorch defaults is usually enough
 
-更值得手动初始化的情况通常是：
+Cases where manual initialization is more worth it usually include:
 
-- 你在做更深的网络实验
-- 你怀疑训练很不稳定
-- 你想系统比较不同初始化策略
+- You are experimenting with deeper networks
+- You suspect training is unstable
+- You want to systematically compare different initialization strategies
 
-所以这节最重要的不是“今天就手写很多初始化代码”，而是先知道：
+So the most important thing in this section is not “write a lot of initialization code today,” but rather to know:
 
-- 默认值为什么通常可用
-- 什么时候该怀疑初始化有问题
+- Why default values are usually usable
+- When to suspect initialization problems
 
-### 4.2 一个更稳的默认判断顺序
+### 4.2 A More Stable Default Decision Order
 
-如果你刚开始做项目，可以先按这个顺序判断：
+If you are just starting a project, you can judge things in this order:
 
-1. 先用 PyTorch 默认初始化
-2. 如果训练明显不稳，再看学习率和优化器
-3. 还不对，再去怀疑初始化和激活函数搭配
+1. Use PyTorch default initialization first
+2. If training is clearly unstable, check the learning rate and optimizer
+3. If it still does not work, then suspect the combination of initialization and activation function
 
-这样会比“一遇到问题就先改初始化”更稳，因为初始化虽然重要，但不一定总是第一嫌疑人。
+This is more stable than “whenever a problem appears, change the initialization first,” because initialization is important, but not always the first suspect.
 
 ---
 
-## 五、初始化对训练的影响
+## 5. The Impact of Initialization on Training
 
 ```python
-# 对比不同初始化的训练效果
+# Compare training results under different initializations
 from sklearn.datasets import make_moons
 
 X, y = make_moons(500, noise=0.2, random_state=42)
@@ -246,7 +246,7 @@ X_t = torch.FloatTensor(X)
 y_t = torch.LongTensor(y)
 
 init_methods = {
-    '全零': lambda w: nn.init.zeros_(w),
+    'All zeros': lambda w: nn.init.zeros_(w),
     'N(0, 0.01)': lambda w: nn.init.normal_(w, 0, 0.01),
     'N(0, 1.0)': lambda w: nn.init.normal_(w, 0, 1.0),
     'Xavier': lambda w: nn.init.xavier_normal_(w),
@@ -260,7 +260,7 @@ for name, init_fn in init_methods.items():
         nn.Linear(64, 64), nn.ReLU(),
         nn.Linear(64, 2),
     )
-    # 初始化
+    # Initialize
     for m in model:
         if isinstance(m, nn.Linear):
             init_fn(m.weight)
@@ -281,40 +281,40 @@ for name, init_fn in init_methods.items():
 
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
-plt.title('不同初始化方法的训练曲线')
+plt.title('Training curves for different initialization methods')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 5.1 如果训练一开始就不对劲，初始化是该怀疑的一项
+### 5.1 If Training Feels Wrong from the Start, Initialization Is One Thing to Suspect
 
-典型信号包括：
+Typical signals include:
 
-- loss 一开始就非常大
-- 很多层输出几乎全 0 或极度饱和
-- 梯度很快消失或爆炸
+- The loss is very large from the start
+- Many layer outputs are almost all 0 or extremely saturated
+- Gradients quickly vanish or explode
 
-当然，初始化不是唯一原因，但它常常是值得优先排查的一层。
+Of course, initialization is not the only cause, but it is often one of the first things worth checking.
 
 ---
 
-## 小结
+## Summary
 
-| 初始化 | 原理 | 适用 |
+| Initialization | Principle | Use Case |
 |--------|------|------|
-| **全零** | 所有神经元相同 | ❌ 永远不要用 |
-| **小随机** | 信号衰减 | ❌ 深层网络不适合 |
-| **大随机** | 梯度爆炸/饱和 | ❌ 不适合 |
-| **Xavier** | 保持输入输出方差 | Sigmoid / Tanh |
-| **He (Kaiming)** | ReLU 补偿 | **ReLU 系列（最常用）** |
+| **All zeros** | All neurons are the same | ❌ Never use |
+| **Small random** | Signal decay | ❌ Not suitable for deep networks |
+| **Large random** | Exploding gradients / saturation | ❌ Not suitable |
+| **Xavier** | Keep input/output variance stable | Sigmoid / Tanh |
+| **He (Kaiming)** | Compensation for ReLU | **ReLU family (most common)** |
 
 ```mermaid
 flowchart TD
-    Q["选择初始化"] --> A{"激活函数是？"}
-    A --> |"Sigmoid / Tanh"|X["Xavier 初始化"]
-    A --> |"ReLU / Leaky ReLU / GELU"|H["He 初始化"]
-    A --> |"不确定"|D["用 PyTorch 默认"]
+    Q["Choose initialization"] --> A{"What is the activation function?"}
+    A --> |"Sigmoid / Tanh"|X["Xavier initialization"]
+    A --> |"ReLU / Leaky ReLU / GELU"|H["He initialization"]
+    A --> |"Not sure"|D["Use PyTorch defaults"]
 
     style Q fill:#e3f2fd,stroke:#1565c0,color:#333
     style X fill:#fff3e0,stroke:#e65100,color:#333
@@ -322,24 +322,24 @@ flowchart TD
     style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
 ```
 
-## 这节最该带走什么
+## What You Should Take Away from This Section
 
-- 初始化不是装饰，而是在决定网络一开始能不能健康传播信号
-- Xavier 更偏向 Sigmoid / Tanh，He 更偏向 ReLU 系列
-- 第一次做项目时先用 PyTorch 默认值完全没问题，但要知道它背后的原理
+- Initialization is not decoration; it determines whether the network can start propagating signals healthily
+- Xavier is more suited to Sigmoid / Tanh, while He is more suited to ReLU-based activations
+- When you first start a project, using PyTorch defaults is completely fine, but you should understand the principle behind them
 
-如果再压成一句话，那就是：
+If we compress it into one sentence:
 
-> **初始化决定的是“训练能不能好好起跑”，而不是模型最后一定能跑多远。**
+> **Initialization determines whether training can get off to a good start, not whether the model will definitely go far in the end.**
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：深层网络对比
+### Exercise 1: Compare a Deep Network
 
-创建一个 20 层的 MLP（ReLU 激活），分别用全零、Xavier、He 初始化，观察前向传播后各层激活值的分布（打印均值和标准差）。
+Create a 20-layer MLP with ReLU activations. Use all-zero, Xavier, and He initialization respectively, and observe the distribution of activations after the forward pass (print the mean and standard deviation).
 
-### 练习 2：训练深层 MNIST
+### Exercise 2: Train Deep MNIST
 
-用 10 层 MLP 训练 MNIST，对比 He 初始化和默认初始化的训练速度和最终准确率。
+Use a 10-layer MLP to train MNIST, and compare the training speed and final accuracy of He initialization versus the default initialization.

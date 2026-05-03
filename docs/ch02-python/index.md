@@ -1,91 +1,91 @@
 ---
-title: "2 Python 编程基础"
+title: "2 Python Programming Fundamentals"
 sidebar_position: 0
-description: "从 Python 语法、数据结构、函数、模块、文件操作到 Web API 与 AI API 调用，建立 AI 全栈学习所需的编程能力。"
-keywords: [Python入门, Python基础, Python教程, 编程入门, AI API]
+description: "Build the programming skills needed for AI full-stack learning, from Python syntax, data structures, functions, modules, and file operations to Web API and AI API calls."
+keywords: [Python Basics, Python Fundamentals, Python Tutorial, Programming Basics, AI API]
 ---
 
-# 2 Python 编程基础
+# 2 Python Programming Fundamentals
 
-![Python 编程基础主视觉](/img/course/ch02-python-foundation.png)
+![Main visual for Python programming fundamentals](/img/course/ch02-python-foundation-en.png)
 
-这一阶段解决的是“能不能用代码描述问题、处理数据、调用服务”。后面的数据分析、机器学习、RAG、Agent 都会反复依赖 Python，所以这里的目标不是背语法，而是建立编程思维和调试习惯。
+This stage focuses on whether you can “describe problems with code, process data, and call services.” Data analysis, machine learning, RAG, and Agent work later will all rely on Python again and again, so the goal here is not to memorize syntax, but to build programming thinking and debugging habits.
 
-## 故事化导入：把 Python 当成你的第一把 AI 瑞士军刀
+## Story-Based Introduction: Treat Python as Your First AI Swiss Army Knife
 
-想象你正在经营一个小型“AI 工作室”：每天要整理任务、抓取资料、把数据保存成文件、给别人提供一个接口，最后还想接入大模型做一个小助手。Python 就是贯穿这些工作的工具箱。它一开始看起来只是变量、循环和函数，但每学一个语法点，后面都会变成一个真实能力：自动整理数据、批量处理文件、调用 API、封装服务。
+Imagine you are running a small “AI studio”: every day you need to organize tasks, scrape information, save data into files, provide an interface for others, and eventually connect an LLM to build a small assistant. Python is the toolkit that runs through all of this work. At first it may look like just variables, loops, and functions, but every syntax point you learn will later become a real capability: automatically organizing data, batch-processing files, calling APIs, and wrapping services.
 
-## 学习闯关地图
+## Learning Quest Map
 
-![Python 学习闯关地图](/img/course/ch02-learning-quest-map.png)
+![Python learning quest map](/img/course/ch02-learning-quest-map-en.png)
 
-## 互动练习：每学一章就问自己一个问题
+## Interactive Practice: Ask Yourself One Question After Each Chapter
 
-学基础语法时，问自己“这个知识点能不能帮我处理输入、产生输出”；学数据结构时，问自己“这组信息更适合用列表、字典还是文件保存”；学函数和模块时，问自己“这段逻辑以后会不会重复用”；学项目时，问自己“如果交给别人使用，他会不会知道怎么运行、怎么退出、哪里出错”。
+When learning basic syntax, ask yourself, “Can this knowledge help me handle input and produce output?” When learning data structures, ask yourself, “Is this set of information better stored in a list, a dictionary, or a file?” When learning functions and modules, ask yourself, “Will I use this logic repeatedly in the future?” When working on projects, ask yourself, “If someone else uses it, will they know how to run it, how to exit it, and where errors might happen?”
 
-## 项目彩蛋
+## Project Bonus
 
-完成本阶段后，你不只是“学过 Python”，而是可以把四个小项目整理成一个作品集：一个能保存任务的命令行工具、一个能采集网页数据的爬虫、一个能被别人调用的 Web API、一个能和 AI 对话的 API 程序。这四个作品连起来，就是后面做 RAG 和 Agent 的最小雏形。
+After completing this stage, you will not just have “learned Python”; you will be able to organize four small projects into a portfolio: a command-line tool that saves tasks, a web scraper that collects webpage data, a Web API that others can call, and an API program that talks with AI. These four works together form the smallest prototype of RAG and Agent work later on.
 
-## 阶段定位
+## Stage Positioning
 
-| 信息 | 说明 |
+| Item | Description |
 |---|---|
-| 适合对象 | 会一点编程但 Python 不系统，或希望用 Python 进入 AI 的学习者 |
-| 预估学时 | 90～130 小时 |
-| 前置要求 | 完成开发者工具基础，能使用终端和编辑器 |
-| 阶段产出 | 命令行工具、网页数据采集脚本、简单 Web API、AI API 体验项目 |
+| Suitable for | Learners who know a little programming but are not systematic with Python, or who want to enter AI with Python |
+| Estimated time | 90–130 hours |
+| Prerequisites | Complete the developer tools basics and be able to use the terminal and editor |
+| Stage output | Command-line tool, webpage data collection script, simple Web API, AI API practice project |
 
-## 新手最小通关路线
+## Minimum Path for Beginners
 
-新手先抓住变量、条件、循环、列表、字典、函数、文件读写和异常处理这些高频能力，不必一开始纠结所有高级语法。只要能独立完成命令行任务管理器，并能看懂爬虫、Web API、AI API 示例的主流程，就算完成最小通关。
+Beginners should first focus on high-frequency skills such as variables, conditions, loops, lists, dictionaries, functions, file reading/writing, and exception handling. There is no need to struggle with every advanced syntax point at the start. As long as you can independently complete a command-line task manager and understand the main flow of crawler, Web API, and AI API examples, you have completed the minimum path.
 
-## 进阶深入路线
+## Advanced Deep-Dive Path
 
-有经验的学习者可以重点关注模块拆分、类型注解、错误处理、代码质量和项目重构。进一步尝试把同一个功能分别写成脚本版、模块版和 API 版，体会 Python 从小工具走向工程项目的变化。
+Experienced learners can focus on module decomposition, type annotations, error handling, code quality, and project refactoring. Try writing the same feature as a script, as a module, and as an API, and feel how Python changes from a small utility into an engineering project.
 
-## 新人先做什么，进阶再做什么
+## What Beginners Should Do First, and What Advanced Learners Should Do Later
 
-新人第一次学这一阶段时，先围绕“输入 → 处理 → 输出”写小程序。变量、列表、字典、函数、文件和异常处理够你完成大部分入门项目，不需要一开始追求所有高级语法。
+When learning this stage for the first time, beginners should start by writing small programs around “input → processing → output.” Variables, lists, dictionaries, functions, files, and exception handling are enough to complete most beginner projects; you do not need to chase all advanced syntax at the beginning.
 
-有经验的学习者可以把重点放在工程化上：同一个功能如何拆成模块，异常怎样向上抛出，类型注解怎样让代码更清楚，脚本如何逐步演进成 API。你的目标是写出后面数据、模型和 LLM 项目都愿意复用的 Python 代码。
+Experienced learners can focus more on engineering: how to split one feature into modules, how exceptions are propagated upward, how type annotations make code clearer, and how a script gradually evolves into an API. Your goal is to write Python code that later data, model, and LLM projects are willing to reuse.
 
-## 为什么 Python 是 AI 主线语言
+## Why Python Is the Main AI Language
 
-Python 不是因为语法最强大才成为 AI 主流，而是因为它同时连接了数据处理、机器学习、深度学习、Web API、自动化脚本和大模型生态。你后面会用它读数据、训练模型、调用 LLM、构建 RAG、封装工具和写 Agent。
+Python became mainstream in AI not because its syntax is the most powerful, but because it connects data processing, machine learning, deep learning, Web APIs, automation scripts, and the LLM ecosystem at the same time. Later you will use it to read data, train models, call LLMs, build RAG, wrap tools, and write Agents.
 
-![Python AI 主线能力链](/img/course/ch02-python-ai-backbone.png)
+![Python AI backbone capability chain](/img/course/ch02-python-ai-backbone-en.png)
 
-## 本阶段学习路径
+## Learning Path for This Stage
 
-第一章学习 Python 语言基础，包括变量、类型、运算符、输入输出、流程控制、数据结构、函数和模块。你要重点理解“输入、处理、输出”这条主线。
+The first chapter covers Python language basics, including variables, types, operators, input/output, control flow, data structures, functions, and modules. You should focus on understanding the main thread of “input, processing, output.”
 
-第二章学习 Python 进阶，包括面向对象、异常处理、文件读写、函数式编程、迭代器生成器、类型注解和代码质量。你不需要一次记住所有高级语法，但要知道它们解决什么问题。
+The second chapter covers advanced Python topics, including object-oriented programming, exception handling, file I/O, functional programming, iterators and generators, type annotations, and code quality. You do not need to memorize all advanced syntax at once, but you should know what problems they solve.
 
-第三章进入实战项目。你会把前面的知识组合起来，完成命令行任务管理器、网页爬虫、Web API 和 AI API 快速体验。
+The third chapter moves into hands-on projects. You will combine the previous knowledge to complete a command-line task manager, a web scraper, a Web API, and a quick AI API demo.
 
-## 学完后你应该能做到
+## What You Should Be Able to Do After Learning This Stage
 
-- 能把一个小需求拆成函数、模块和文件
-- 能读写 JSON、CSV、文本等常见文件
-- 能安装并使用第三方库
-- 能看懂基础报错，并通过打印、断点或日志定位问题
-- 能调用外部 API，并处理请求参数、返回结果和异常情况
-- 能完成一个结构清晰的小型 Python 项目
+- Break a small requirement into functions, modules, and files
+- Read and write common file types such as JSON, CSV, and plain text
+- Install and use third-party libraries
+- Understand basic error messages and locate problems through print statements, breakpoints, or logs
+- Call external APIs and handle request parameters, return results, and exceptions
+- Complete a small Python project with a clear structure
 
-## 常见误区
+## Common Misconceptions
 
-不要试图把所有语法点一次性背熟。真正重要的是能在项目中反复使用它们。列表、字典、函数、文件操作、异常处理、第三方库调用，这些会比冷门语法更常用。
+Do not try to memorize every syntax point all at once. What matters most is being able to use them repeatedly in projects. Lists, dictionaries, functions, file operations, exception handling, and third-party library calls are much more useful than obscure syntax.
 
-也不要太早陷入“写得优雅”。第一遍更重要的是写出能运行、能解释、能改动的代码。等你做完几个项目，再逐步关注类型注解、模块拆分和代码风格。
+Also, do not get stuck too early on “writing elegant code.” The first priority is to write code that runs, can be explained, and can be modified. After you finish a few projects, then gradually pay more attention to type annotations, module decomposition, and coding style.
 
-## 编程错误剧场：代码跑不起来时先查哪里
+## Programming Error Theater: Where to Check First When Code Won’t Run
 
-如果程序报语法错误，先看报错行附近的括号、缩进和冒号；如果结果不对，先打印关键变量，确认输入、处理、输出每一步是否符合预期；如果文件读写失败，先检查路径、编码和文件是否存在；如果调用 API 失败，先看请求参数、状态码和返回错误信息。
+If your program raises a syntax error, first check the parentheses, indentation, and colons around the reported line; if the result is wrong, first print key variables and confirm whether each step of input, processing, and output matches expectations; if file reading/writing fails, first check the path, encoding, and whether the file exists; if API calling fails, first check the request parameters, status code, and returned error message.
 
-## 最小可运行实验：JSON 任务管理器
+## Minimum Runnable Experiment: JSON Task Manager
 
-本阶段最小实验是写一个能保存数据的命令行程序。它可以很简单：用列表保存任务，用 JSON 文件持久化，支持新增、查看和完成任务。这个实验会同时用到变量、列表、字典、函数、文件读写和异常处理。
+The minimum experiment for this stage is to write a command-line program that can save data. It can be very simple: use a list to store tasks, persist them with a JSON file, and support adding, viewing, and completing tasks. This experiment uses variables, lists, dictionaries, functions, file reading/writing, and exception handling at the same time.
 
 ```python
 import json
@@ -102,71 +102,70 @@ def save_tasks(tasks):
     DATA.write_text(json.dumps(tasks, ensure_ascii=False, indent=2), encoding="utf-8")
 
 tasks = load_tasks()
-tasks.append({"title": "学习 Python 文件读写", "done": False})
+tasks.append({"title": "Learn Python file I/O", "done": False})
 save_tasks(tasks)
 print(tasks)
 ```
 
-你不需要一开始做出完整 CLI。先证明程序能接收输入、保存状态、重新读取，再逐步加命令行参数和错误处理。
+You do not need to build a complete CLI right away. First prove that the program can accept input, save state, and read it back, then gradually add command-line arguments and error handling.
 
-## Python 失败案例库：先看输入、路径和数据结构
+## Python Failure Case Library: Check Input, Path, and Data Structure First
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Symptom | Common Cause | How to Locate | Fix Direction |
 |---|---|---|---|
-| 语法错误 | 缩进、括号、冒号或引号不匹配 | 看报错行和上一行 | 缩小代码范围，逐段运行 |
-| 文件找不到 | 当前运行目录和文件所在目录不同 | 打印 `Path.cwd()` | 使用相对项目根目录或明确路径 |
-| JSON 解析失败 | 文件为空、格式损坏或编码不一致 | 打开原文件检查内容 | 增加异常处理和默认空数据 |
-| 函数越写越乱 | 输入输出不清、全局变量太多 | 写下注释：参数是什么、返回什么 | 拆小函数，减少隐藏状态 |
+| Syntax error | Indentation, parentheses, colons, or quotes do not match | Check the reported line and the line above it | Narrow the code range and run it piece by piece |
+| File not found | The current working directory is different from the file location | Print `Path.cwd()` | Use the project root or specify the path clearly |
+| JSON parsing failed | The file is empty, malformed, or encoded inconsistently | Open the raw file and inspect the content | Add exception handling and a default empty value |
+| Functions become messy | Input/output is unclear and there are too many global variables | Write comments: what are the parameters, what is returned | Split into smaller functions and reduce hidden state |
 
-## 阶段验收 Rubric
+## Stage Assessment Rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Assessment Criteria | Portfolio Evidence |
 |---|---|---|
-| 最低通关 | 能写函数、读写文件、处理常见异常 | `todo_cli.py`、示例 JSON |
-| 推荐通关 | 能把脚本拆成模块，并写清运行命令 | 项目结构、README、示例输入输出 |
-| 作品集通关 | 能做出可复用的小工具或 API 入口 | 错误处理记录、测试样例、版本迭代说明 |
+| Minimum pass | Can write functions, read/write files, and handle common exceptions | `todo_cli.py`, sample JSON |
+| Recommended pass | Can split a script into modules and clearly document run commands | Project structure, README, sample input/output |
+| Portfolio pass | Can build a reusable small tool or API entry point | Error-handling notes, test cases, version iteration notes |
 
-## 阶段项目
+## Stage Projects
 
-基础版是完成命令行任务管理器，能添加、查看、完成、删除任务，并把数据保存到 JSON 文件。标准版继续完成网页爬虫和 Web API，把“获取数据、保存数据、对外提供接口”串起来。挑战版接入 AI API，做一个带多轮对话、异常处理和 Token 使用提示的小助手，并把四个项目整理成作品集。
+The basic version is to complete a command-line task manager that can add, view, complete, and delete tasks, and save data to a JSON file. The standard version continues with a web scraper and a Web API, connecting “data collection, data storage, and external interfaces.” The challenge version integrates an AI API to build a small assistant with multi-turn conversation, exception handling, and token usage prompts, and then organizes the four projects into a portfolio.
+
+If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Python Programming Without Getting Stuck Easily](./study-guide.md).
 
 
-如果你想看更细的学习节奏，可以阅读 [学习指南：Python 编程怎么学最不容易卡住](./study-guide.md)。
+## Fun Task Card for This Stage
 
-
-## 本阶段趣味任务卡
-
-| 玩法 | 本阶段任务 |
+| Playstyle | Task for This Stage |
 |---|---|
-| 剧情任务 | 让助手拥有记事本：能新增、查看、完成学习任务，并把数据安全保存到 JSON。 |
-| Boss 战 | **JSON 地牢管理员** |
-| 可解锁徽章 | JSON 驯服者、异常捕手 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | 一个能处理正常和异常输入的 CLI |
+| Story mission | Give the assistant a notebook: it can add, view, complete learning tasks, and safely save data to JSON. |
+| Boss fight | **The JSON Dungeon Manager** |
+| Unlockable badges | JSON Tamer, Exception Catcher |
+| Easy mode for beginners | Complete just one minimal input-to-output loop and keep a screenshot or command output first |
+| Portfolio evidence | A CLI that can handle both normal and abnormal input |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If this stage feels like a lot, treat this task card as your minimum target. Once you can complete the easy mode for beginners, you can keep learning; when you prepare a portfolio later, come back and upgrade to the standard and challenge versions.
 
-## 阶段交付物
+## Stage Deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum Version | Portfolio Version |
 |---|---|---|
-| 命令行工具 | 能添加、查看、完成和删除任务 | 支持 JSON 保存、错误处理和模块拆分 |
-| 文件读写练习 | 能读写文本、CSV 或 JSON | 有数据格式说明、异常处理和示例数据 |
-| API 调用脚本 | 能调用一个公开 Web API | 有参数校验、状态码处理和返回结构说明 |
-| Python 项目 README | 写清运行命令和示例输出 | 包含项目结构、依赖、输入输出和已知限制 |
-| 调试记录 | 记录至少 1 个报错和解决过程 | 形成常见错误、定位方法和复盘说明 |
+| Command-line tool | Can add, view, complete, and delete tasks | Supports JSON saving, error handling, and module decomposition |
+| File I/O exercise | Can read/write text, CSV, or JSON | Includes data format notes, exception handling, and sample data |
+| API calling script | Can call a public Web API | Includes parameter validation, status code handling, and return structure notes |
+| Python project README | Clearly states run commands and sample output | Includes project structure, dependencies, input/output, and known limitations |
+| Debugging record | Records at least 1 error and the fix process | Forms notes on common errors, locating methods, and postmortem review |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship to the AI Learning Assistant Continuous Project
 
-本阶段可以对应 AI 学习助手 v0.2：做一个命令行学习任务管理器，支持新增、查看、完成和保存 JSON。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can correspond to AI Learning Assistant v0.2: build a command-line learning task manager that supports adding, viewing, completing, and saving to JSON. If you are learning along the continuous project path, it is recommended that by the end of this stage you submit at least one version log: what capabilities were added in this stage, how to run it, what the sample input/output is, what problems were encountered, and what you plan to improve next.
 
 
-## 阶段通关标准
+## Stage Completion Criteria
 
-| 通关层级 | 你需要做到什么 |
+| Pass Level | What You Need to Do |
 |---|---|
-| 最低通关 | 能写函数、读写文件、调用模块，并完成一个命令行小项目。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum pass | Can write functions, read/write files, call modules, and complete a small command-line project. |
+| Recommended pass | Complete at least one runnable small project in this stage and document the run method, sample input/output, and problems encountered in the README. |
+| Portfolio pass | Connect the output of this stage to the continuous “AI Learning Assistant” project and leave screenshots, logs, evaluation samples, and a next-step plan. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。下一阶段会用 Python 处理数据、分析 CSV、连接数据库。
+After finishing this stage, you do not need to memorize every detail. More importantly, you should be able to explain clearly: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. The next stage will use Python for data processing, CSV analysis, and database connections.

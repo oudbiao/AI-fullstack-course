@@ -1,93 +1,93 @@
 ---
-title: "5.5 CTC 与 Deep Speech：语音识别里的序列对齐"
+title: "5.5 CTC and Deep Speech: Sequence Alignment in Speech Recognition"
 sidebar_position: 4
-description: "从 CTC 损失和 Deep Speech 理解自动语音识别为什么难，以及输入输出未对齐时模型怎样训练。"
-keywords: [CTC, Deep Speech, ASR, 语音识别, 序列对齐, NLP]
+description: "Understand why automatic speech recognition is hard from the CTC loss and Deep Speech, and how models are trained when inputs and outputs are not aligned."
+keywords: [CTC, Deep Speech, ASR, speech recognition, sequence alignment, NLP]
 ---
 
-# CTC 与 Deep Speech：语音识别里的序列对齐
+# CTC and Deep Speech: Sequence Alignment in Speech Recognition
 
-![CTC Deep Speech 语音识别对齐图](/img/course/ch11-ctc-deep-speech-asr-map.png)
+![CTC Deep Speech speech recognition alignment diagram](/img/course/ch11-ctc-deep-speech-asr-map-en.png)
 
-:::tip 本节定位
-这一节是 Seq2Seq 的扩展：它帮你理解语音识别为什么不能简单按“一帧音频对应一个字”训练。
+:::tip Where this section fits
+This section is an extension of Seq2Seq: it helps you understand why speech recognition cannot be trained by simply using “one audio frame corresponds to one character.”
 
-最核心的一句话是：
+The key idea is:
 
-> **CTC 解决的是输入很长、输出较短，而且两者没有精确对齐标注时，模型怎样仍然可以训练。**
+> **CTC solves the problem of training a model when the input is very long, the output is shorter, and the two are not precisely aligned in the labels.**
 :::
 
-## 一、语音识别为什么比文本分类更麻烦？
+## 1. Why is speech recognition more troublesome than text classification?
 
-文本分类通常是：
-
-```text
-一句话 -> 一个标签
-```
-
-机器翻译通常是：
+Text classification is usually:
 
 ```text
-一串 token -> 另一串 token
+one sentence -> one label
 ```
 
-但语音识别是：
+Machine translation is usually:
 
 ```text
-一长串音频帧 -> 一串文字
+one sequence of tokens -> another sequence of tokens
 ```
 
-问题在于：
-
-- 音频帧很多，文字 token 较少
-- 一个字会持续多个音频帧
-- 训练数据通常只告诉你整句转写，不告诉你每一帧对应哪个字
-
-这就是序列对齐难题。
-
-## 二、CTC 的核心直觉：允许模型先输出带空白和重复的路径
-
-CTC 引入了一个特殊符号 blank。  
-模型可以先输出一条更长的路径，然后通过“去重复、去 blank”得到最终文本。
-
-例如：
+But speech recognition is:
 
 ```text
-模型路径：_ 我 我 _ 爱 爱 _ AI _
-折叠结果：我 爱 AI
+a long sequence of audio frames -> a sequence of text
 ```
 
-这件事让模型不必提前知道：
+The problem is:
 
-- “我”到底从第几帧开始
-- “爱”到底持续多少帧
-- 哪些帧只是停顿或过渡
+- There are many audio frames, but only a few text tokens
+- One character may span multiple audio frames
+- Training data usually tells you only the full transcription, not which character corresponds to each frame
 
-它只需要学会：所有能折叠成正确文本的路径，整体概率要变大。
+This is the sequence alignment problem.
 
-## 三、Deep Speech 为什么是重要节点？
+## 2. The core intuition of CTC: let the model first output paths with blanks and repeats
 
-Deep Speech 代表了端到端语音识别进入深度学习时代的一条重要路线。
+CTC introduces a special symbol, blank.
+The model can first output a longer path, and then get the final text by “removing repeats and blanks.”
 
-传统 ASR 系统往往由很多模块组成：
+For example:
 
-- 声学模型
-- 发音词典
-- 语言模型
-- 解码器
+```text
+Model path: _ I I _ love love _ AI _
+Collapsed result: I love AI
+```
 
-Deep Speech 这类工作推动了更端到端的思路：
+This means the model does not need to know in advance:
 
-> **直接从音频特征学习到文本输出，把复杂流水线压进可训练模型里。**
+- Which frame “I” starts on
+- How long “love” lasts
+- Which frames are just pauses or transitions
 
-对初学者来说，不需要一开始复现完整 ASR 系统。  
-先理解它为什么重要就够了：
+It only needs to learn this: among all paths that collapse to the correct text, the overall probability should become larger.
 
-- 它让语音识别更像一个统一训练问题
-- CTC 让未对齐序列也能训练
-- 后来的 Whisper 等模型继续把语音识别推向更通用的预训练路线
+## 3. Why is Deep Speech an important milestone?
 
-## 四、一个极简折叠示例
+Deep Speech represents an important route into end-to-end speech recognition in the deep learning era.
+
+Traditional ASR systems often consist of many modules:
+
+- Acoustic model
+- Pronunciation lexicon
+- Language model
+- Decoder
+
+Work like Deep Speech pushed a more end-to-end approach:
+
+> **Learn text output directly from audio features, and compress a complex pipeline into a trainable model.**
+
+For beginners, you do not need to reproduce a full ASR system at the start.
+It is enough to understand why it matters:
+
+- It makes speech recognition look more like one unified training problem
+- CTC allows unaligned sequences to be trained
+- Later models like Whisper continue pushing speech recognition toward more general pretraining approaches
+
+## 4. A minimal collapse example
 
 ```python
 def ctc_collapse(path, blank="_"):
@@ -101,47 +101,47 @@ def ctc_collapse(path, blank="_"):
 
     return result
 
-path = ["_", "我", "我", "_", "爱", "爱", "_", "AI", "_"]
+path = ["_", "I", "I", "_", "love", "love", "_", "AI", "_"]
 print(ctc_collapse(path))
 ```
 
-输出会接近：
+The output will be close to:
 
 ```text
-['我', '爱', 'AI']
+['I', 'love', 'AI']
 ```
 
-这个例子不能替代 CTC 公式，但能帮你先建立直觉：
+This example cannot replace the CTC formula, but it can help you build intuition first:
 
-> **模型可以先给出帧级长路径，再折叠成最终短文本。**
+> **The model can first produce a long frame-level path, and then collapse it into the final short text.**
 
-## 五、CTC、Seq2Seq 和 Transformer ASR 的关系
+## 5. The relationship between CTC, Seq2Seq, and Transformer ASR
 
-| 方法 | 适合先怎么理解 |
+| Method | How to understand it first |
 |---|---|
-| CTC | 不知道输入输出精确对齐时，用所有可能路径训练 |
-| Seq2Seq Attention | Decoder 生成时动态关注输入位置 |
-| Transformer ASR | 用更强的注意力结构建模长音频上下文 |
-| Whisper | 大规模弱监督语音数据 + Transformer，让 ASR 更通用 |
+| CTC | Train with all possible paths when the input and output are not precisely aligned |
+| Seq2Seq Attention | The decoder dynamically attends to input positions while generating |
+| Transformer ASR | Model long audio context with a stronger attention structure |
+| Whisper | Large-scale weakly supervised speech data + Transformer, making ASR more general |
 
-这说明语音识别不是孤立方向，它和本章的 Seq2Seq、注意力、Transformer 都有连接。
+This shows that speech recognition is not an isolated topic; it is connected to Seq2Seq, attention, and Transformer in this chapter.
 
-## 六、把历史节点分配到课程章节
+## 6. Assigning historical milestones to course sections
 
-| 历史节点 | 解决的问题 | 对应课程章节 |
+| Historical milestone | Problem it solves | Corresponding course section |
 |---|---|---|
-| CTC | 输入输出未对齐时怎样训练序列模型 | 5.5 本节、5.2 Seq2Seq |
-| Deep Speech | 端到端深度语音识别路线 | 5.5 本节、12.3 语音与多模态 |
-| Seq2Seq Attention | 输出每一步动态对齐输入位置 | 5.3 NLP 注意力机制 |
-| Transformer ASR / Whisper | 大规模预训练语音识别 | 12 AIGC 与多模态扩展 |
+| CTC | How to train sequence models when input and output are not aligned | Section 5.5, Section 5.2 Seq2Seq |
+| Deep Speech | End-to-end deep learning approach for speech recognition | Section 5.5, Section 12.3 Speech and multimodality |
+| Seq2Seq Attention | Dynamically align input positions at each output step | Section 5.3 NLP attention mechanisms |
+| Transformer ASR / Whisper | Large-scale pretrained speech recognition | Section 12 AIGC and multimodal extensions |
 
-## 七、学完这一节应该形成的直觉
+## 7. The intuition you should have after this section
 
-语音识别最难的地方，不只是“声音转文字”，而是：
+The hardest part of speech recognition is not just “turning sound into text,” but:
 
-- 输入和输出长度不一样
-- 没有逐帧对齐标注
-- 语音中有停顿、拉长、重复和噪声
+- The input and output lengths are different
+- There are no frame-level alignment labels
+- Speech contains pauses, stretching, repetition, and noise
 
-CTC 的漂亮之处在于：  
-它没有强行要求人工标注每一帧，而是让模型自己在所有可能对齐路径中学习。
+The beauty of CTC is:
+It does not force humans to label every frame. Instead, it lets the model learn from all possible alignment paths on its own.

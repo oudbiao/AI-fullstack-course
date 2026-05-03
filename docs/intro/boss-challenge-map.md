@@ -1,191 +1,191 @@
 ---
 sidebar_position: 5
-title: "课程 Boss 战挑战地图"
-description: "把每个阶段的核心能力设计成轻量 Boss 战，用基础版、标准版和挑战版帮助学习者完成有趣又可验证的阶段验收。"
-keywords: [Boss战, AI学习挑战, 阶段验收, 趣味学习, 项目挑战]
+title: "Course Boss Battle Challenge Map"
+description: "Design the core capabilities of each stage as lightweight Boss battles, and use Basic, Standard, and Challenge versions to help learners complete fun and verifiable stage checkpoints."
+keywords: [Boss Battle, AI learning challenge, stage checkpoint, fun learning, project challenge]
 ---
 
-# 课程 Boss 战挑战地图
+# Course Boss Battle Challenge Map
 
-![课程 Boss 战挑战地图](/img/course/boss-challenge-map.png)
+![Course Boss Battle Challenge Map](/img/course/boss-challenge-map-en.png)
 
-Boss 战不是为了增加压力，而是为了让学习者知道“这一阶段到底要打通什么”。每个 Boss 都是一个小型综合挑战，要求你把本阶段最关键的能力串起来，留下能展示的证据。
+Boss battles are not meant to add pressure. They are meant to help learners understand “what exactly do I need to master in this stage?” Each Boss is a small, integrated challenge that requires you to connect the most important abilities from that stage and leave behind evidence you can show.
 
-Boss 战分三档：基础版保证新手能完成，标准版适合进入作品集，挑战版留给有余力的人。第一遍学习只需要打过基础版。
+Boss battles come in three levels: Basic guarantees beginners can complete it, Standard is suitable for a portfolio, and Challenge is for people who have extra capacity. For the first pass through the course, you only need to clear the Basic version.
 
-## 打 Boss 的 4 步流程
+## The 4-step process for defeating a Boss
 
 ```mermaid
 flowchart LR
-  A["选择基础版"] --> B["完成最小任务"]
-  B --> C["保存成功和失败证据"]
-  C --> D["写一段复盘"]
-  D --> E["需要作品集时再升级"]
+  A["Choose the Basic version"] --> B["Complete the minimum task"]
+  B --> C["Save success and failure evidence"]
+  C --> D["Write a reflection"]
+  D --> E["Upgrade only when you need a portfolio piece"]
 ```
 
-第一遍不要追求挑战版。Boss 战的价值不是炫技，而是让每一阶段都有一个能证明自己真的学会了的证据。
+On your first pass, do not chase the Challenge version. The value of a Boss battle is not showing off; it is making sure every stage has evidence that proves you truly learned it.
 
-## Boss 战总览
+## Boss Battle Overview
 
-| 阶段 | Boss 名称 | 核心能力 | 基础通关证据 |
+| Stage | Boss Name | Core Skill | Basic Pass Evidence |
 |---|---|---|---|
-| 1 开发者工具基础 | 工作台守门人 | 终端、环境、Git、README | 从空目录到一次 Git 提交 |
-| 2 Python 编程基础 | JSON 地牢管理员 | 函数、文件、异常、数据结构 | 一个能保存任务的 CLI |
-| 3 数据分析与可视化 | 脏数据侦探 | 清洗、统计、图表、解释 | 一份数据质量报告 |
-| 4 AI 数学基础 | 指标迷宫 | 向量、概率、loss、指标 | 一个可运行小实验 |
-| 5 机器学习 | Baseline 守门员 | 划分、baseline、评估、错误样本 | 一个可信 baseline |
-| 6 深度学习 | Shape 巨兽 | tensor、训练循环、loss、曲线 | 一次训练日志和曲线 |
-| 7 Prompt 与大模型 | JSON 漂移怪 | Prompt、schema、结构化输出 | 10 个固定输入输出测试 |
-| 8 RAG | 引用幻觉龙 | chunk、检索、引用、评估 | 10 个带引用问答样例 |
-| 9 Agent | 无限循环魔王 | 工具、trace、停止条件、权限 | 3 个可回放任务 trace |
-| 10～12 方向拓展 | 多模态混沌体 | 视觉、文本、多模态、审核 | 一个输入到输出完整案例 |
-| 毕业项目 | 最终产品 Boss | 综合设计、部署、评估、演示 | 可运行 Demo 和评估报告 |
+| 1 Developer Tools Basics | Workshop Gatekeeper | terminal, environment, Git, README | From an empty folder to one Git commit |
+| 2 Python Programming Basics | JSON Dungeon Keeper | functions, files, exceptions, data structures | A CLI that can save tasks |
+| 3 Data Analysis and Visualization | Dirty Data Detective | cleaning, statistics, charts, explanation | A data quality report |
+| 4 AI Math Basics | Metrics Maze | vectors, probability, loss, metrics | A runnable mini experiment |
+| 5 Machine Learning | Baseline Guardian | splitting, baseline, evaluation, error samples | A trustworthy baseline |
+| 6 Deep Learning | Shape Beast | tensor, training loop, loss, curves | One training log and curve |
+| 7 Prompt and Large Models | JSON Drift Monster | Prompt, schema, structured output | 10 fixed input-output tests |
+| 8 RAG | Citation Hallucination Dragon | chunk, retrieval, citation, evaluation | 10 Q&A examples with citations |
+| 9 Agent | Infinite Loop Demon King | tools, trace, stop condition, permissions | 3 replayable task traces |
+| 10–12 Direction Extensions | Multimodal Chaos Entity | vision, text, multimodal, review | One complete input-to-output case |
+| Graduation Project | Final Product Boss | integrated design, deployment, evaluation, demo | A runnable Demo and evaluation report |
 
-每个 Boss 战都要保留成功和失败证据。成功证明你能做，失败证明你能复盘。
+For every Boss battle, keep both success and failure evidence. Success proves you can do it; failure proves you can reflect on it.
 
-## Boss 1：工作台守门人
+## Boss 1: Workshop Gatekeeper
 
-这个 Boss 检查你是否真的拥有一个可复现开发环境。很多后续问题都来自第一站没打牢：不知道当前目录，不会看报错，不会提交版本，不会写运行命令。
+This Boss checks whether you truly have a reproducible development environment. Many later problems come from not having this first stop solid: not knowing the current directory, not reading errors, not committing versions, and not writing run commands.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 创建项目目录，写一个 `hello_ai.py` 并运行 | 终端能输出一句话 |
-| 标准版 | 增加 README、虚拟环境说明和 Git 提交 | 别人按 README 能复现 |
-| 挑战版 | 故意制造一个路径错误并写排障记录 | 有失败样本和修复记录 |
+| Basic | Create a project folder, write `hello_ai.py`, and run it | The terminal prints a sentence |
+| Standard | Add a README, virtual environment instructions, and a Git commit | Others can reproduce it by following the README |
+| Challenge | Deliberately create a path error and write a debugging record | There are failure samples and a fix record |
 
-通关后，你应该获得“终端生存”和“Git 存档”能力。
+After passing, you should have “terminal survival” and “Git archiving” skills.
 
-## Boss 2：JSON 地牢管理员
+## Boss 2: JSON Dungeon Keeper
 
-这个 Boss 检查你是否能写出一个真正保存数据的小程序。它不需要复杂界面，但必须能处理正常输入、空输入和坏文件。
+This Boss checks whether you can write a small program that really saves data. It does not need a complex interface, but it must handle normal input, empty input, and broken files.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 新增、查看、完成学习任务 | 数据能保存到 JSON |
-| 标准版 | 支持分类、搜索、异常处理 | 空文件和损坏 JSON 不会直接崩溃 |
-| 挑战版 | 写 3 个命令行测试样例 | 正常、异常、空输入都有记录 |
+| Basic | Add, view, and complete learning tasks | Data can be saved to JSON |
+| Standard | Support categories, search, and exception handling | Empty files and corrupted JSON do not crash immediately |
+| Challenge | Write 3 command-line test cases | Normal, exception, and empty input are all recorded |
 
-通关后，你应该能解释列表、字典、函数、文件读写和异常处理如何组成一个小工具。
+After passing, you should be able to explain how lists, dictionaries, functions, file read/write, and exception handling combine into a small tool.
 
-## Boss 3：脏数据侦探
+## Boss 3: Dirty Data Detective
 
-这个 Boss 检查你是否能把一份不完美的数据整理成可信结论。数据分析不是画图比赛，而是从数据质量开始。
+This Boss checks whether you can turn imperfect data into trustworthy conclusions. Data analysis is not a chart-making contest; it starts with data quality.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 检查缺失、重复和异常值 | 输出数据质量检查表 |
-| 标准版 | 清洗数据并画 2 张图 | 每张图有一句结论和局限 |
-| 挑战版 | 故意保留一个错误结论并解释为什么错 | 有清洗前后对比 |
+| Basic | Check for missing values, duplicates, and outliers | Output a data quality checklist |
+| Standard | Clean the data and draw 2 charts | Each chart has one sentence of conclusion and one limitation |
+| Challenge | Intentionally keep one wrong conclusion and explain why it is wrong | There is a before-and-after cleaning comparison |
 
-通关后，你应该能说清楚数据从哪里来，哪里不可信，结论边界是什么。
+After passing, you should be able to clearly explain where the data came from, what is not trustworthy, and what the conclusion boundaries are.
 
-## Boss 4：指标迷宫
+## Boss 4: Metrics Maze
 
-这个 Boss 检查你是否能把抽象数学概念变成可运行的小实验。你不需要成为数学家，但要能用代码解释模型里常见的量。
+This Boss checks whether you can turn abstract math concepts into runnable mini experiments. You do not need to become a mathematician, but you should be able to use code to explain common quantities in models.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 用代码计算两个向量的相似度 | 能解释结果大小代表什么 |
-| 标准版 | 比较概率、loss 或距离指标 | 有手算样例和代码样例 |
-| 挑战版 | 说明同一个问题用不同指标会得到什么差异 | 有指标选择理由 |
+| Basic | Use code to compute the similarity of two vectors | You can explain what the result size means |
+| Standard | Compare probability, loss, or distance metrics | There are hand-calculated examples and code examples |
+| Challenge | Explain what differences appear when the same problem uses different metrics | There is a reason for the metric choice |
 
-通关后，你应该不再害怕相似度、概率、loss 和评价指标这些词。
+After passing, you should no longer fear the words similarity, probability, loss, and evaluation metric.
 
-## Boss 5：Baseline 守门员
+## Boss 5: Baseline Guardian
 
-这个 Boss 检查你是否能判断模型结果是否可信。没有 baseline 的模型项目，很难说明真的有效。
+This Boss checks whether you can judge if model results are trustworthy. A model project without a baseline makes it hard to show that it really works.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 做 train/test 划分并训练 Dummy baseline | 输出 baseline 指标 |
-| 标准版 | 训练一个真实模型并和 baseline 对比 | 有指标表和错误样本 |
-| 挑战版 | 检查一次数据泄漏或类别不平衡 | 有泄漏检查记录 |
+| Basic | Split train/test data and train a Dummy baseline | Baseline metrics are output |
+| Standard | Train a real model and compare it with the baseline | There is a metrics table and error samples |
+| Challenge | Check for data leakage or class imbalance | There is a leakage check record |
 
-通关后，你应该能讲清楚模型有没有比“最笨方法”更好。
+After passing, you should be able to explain whether the model is better than the “dumbest method.”
 
-## Boss 6：Shape 巨兽
+## Boss 6: Shape Beast
 
-这个 Boss 检查你是否能跑通一次深度学习训练，并在出错时定位 shape、loss 或数据问题。
+This Boss checks whether you can complete a deep learning training run and locate shape, loss, or data issues when errors happen.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 跑通一个最小训练循环 | 有 loss 输出 |
-| 标准版 | 保存训练曲线和验证指标 | 能解释是否过拟合 |
-| 挑战版 | 故意制造 shape mismatch 并修复 | 有错误日志和修复记录 |
+| Basic | Run a minimal training loop | There is loss output |
+| Standard | Save training curves and validation metrics | You can explain whether overfitting is happening |
+| Challenge | Deliberately create a shape mismatch and fix it | There are error logs and a fix record |
 
-通关后，你应该知道深度学习项目不能只看最终分数，还要看训练过程。
+After passing, you should know that deep learning projects are not just about the final score; you also need to look at the training process.
 
-## Boss 7：JSON 漂移怪
+## Boss 7: JSON Drift Monster
 
-这个 Boss 检查你是否能让 LLM 稳定输出结构化结果。Prompt 项目最怕的是一次成功、十次漂移。
+This Boss checks whether you can make an LLM output structured results reliably. The biggest fear in Prompt projects is succeeding once and drifting ten times.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 设计一个输出 JSON 的 Prompt | 至少 5 次输出字段完整 |
-| 标准版 | 用 schema 校验 10 个固定输入 | 有通过率和失败样本 |
-| 挑战版 | 做 Prompt 版本对比 | 有版本表和改进记录 |
+| Basic | Design a Prompt that outputs JSON | At least 5 outputs have complete fields |
+| Standard | Use schema validation on 10 fixed inputs | There are pass rates and failure samples |
+| Challenge | Compare Prompt versions | There is a version table and improvement record |
 
-通关后，你应该把 Prompt 当成可测试组件，而不是一句神秘咒语。
+After passing, you should treat Prompt as a testable component, not a mysterious spell.
 
-## Boss 8：引用幻觉龙
+## Boss 8: Citation Hallucination Dragon
 
-这个 Boss 检查你是否能让 RAG 基于资料回答，并证明引用支持答案。
+This Boss checks whether you can make RAG answer based on documents and prove that citations support the answer.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 导入 3 个 Markdown 文档并回答 5 个问题 | 每个回答给出来源 |
-| 标准版 | 建 10 个评估问题并检查 citation_ok | 有检索日志和引用检查表 |
-| 挑战版 | 比较不同 chunk 或 top-k 策略 | 有失败类型统计 |
+| Basic | Import 3 Markdown documents and answer 5 questions | Each answer gives a source |
+| Standard | Build 10 evaluation questions and check citation_ok | There are retrieval logs and a citation check table |
+| Challenge | Compare different chunk or top-k strategies | There are statistics on failure types |
 
-通关后，你应该能区分“回答看起来对”和“回答有来源支持”。
+After passing, you should be able to tell the difference between “the answer looks right” and “the answer is supported by sources.”
 
-## Boss 9：无限循环魔王
+## Boss 9: Infinite Loop Demon King
 
-这个 Boss 检查你是否能设计可控 Agent。Agent 的难点不是会调用工具，而是能停止、能复盘、能限制权限。
+This Boss checks whether you can design a controllable Agent. The hard part of an Agent is not being able to call tools; it is being able to stop, reflect, and limit permissions.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 让 Agent 完成 3 个固定任务 | 每个任务有步骤记录 |
-| 标准版 | 保存 tool_calls 和 agent_traces | 能回放一次失败 |
-| 挑战版 | 增加高风险动作人工确认 | 有越权测试和安全说明 |
+| Basic | Make the Agent complete 3 fixed tasks | Each task has step records |
+| Standard | Save `tool_calls` and `agent_traces` | You can replay one failure |
+| Challenge | Add human confirmation for high-risk actions | There are privilege-escalation tests and safety notes |
 
-通关后，你应该能说明 Agent 什么时候该自动执行，什么时候必须停下来问人。
+After passing, you should be able to explain when an Agent should act automatically and when it must stop and ask a person.
 
-## 最终 Boss：可展示 AI 产品
+## Final Boss: Showable AI Product
 
-最终 Boss 不是把所有技术堆到一起，而是把一个清晰问题做成可运行、可评估、可演示的产品。
+The final Boss is not about stacking all technologies together. It is about turning a clear problem into a product that can run, be evaluated, and be demonstrated.
 
-| 难度 | 任务 | 通关条件 |
+| Difficulty | Task | Pass Condition |
 |---|---|---|
-| 基础版 | 本地可运行 Demo | README、示例输入输出齐全 |
-| 标准版 | 有评估集、日志、失败样本和演示脚本 | 能解释效果和限制 |
-| 挑战版 | 部署上线并做成本、安全和监控说明 | 有完整作品集页面 |
+| Basic | A Demo that runs locally | README and sample inputs/outputs are complete |
+| Standard | Has an evaluation set, logs, failure samples, and a demo script | You can explain the effect and limitations |
+| Challenge | Deploy it and explain cost, safety, and monitoring | There is a complete portfolio page |
 
-最终展示时，建议用“Boss 战通关记录”讲故事：我先打通环境，再做数据，再做模型，再做 RAG 和 Agent，最后把它们整合成一个产品。
+For the final presentation, it is recommended to tell the story with a “Boss battle clear record”: I first got the environment working, then did data, then models, then RAG and Agent, and finally integrated them into a product.
 
-## Boss 战记录模板
+## Boss Battle Record Template
 
 ```md
-## Boss 战：引用幻觉龙
+## Boss Battle: Citation Hallucination Dragon
 
-### 挑战目标
-让 RAG 回答 10 个课程问题，并检查引用是否支持答案。
+### Challenge Goal
+Make RAG answer 10 course questions and check whether citations support the answers.
 
-### 难度
-标准版。
+### Difficulty
+Standard.
 
-### 通关证据
-保存 eval_questions.csv、retrieval_logs.jsonl 和 citation_check.csv。
+### Pass Evidence
+Save `eval_questions.csv`, `retrieval_logs.jsonl`, and `citation_check.csv`.
 
-### 失败样本
-问题：Agent 和 RAG 有什么区别？
-失败：检索只命中了 RAG 页面，没有命中 Agent 页面。
+### Failure Sample
+Question: What is the difference between Agent and RAG?
+Failure: Retrieval only matched the RAG page and did not match the Agent page.
 
-### 修复动作
-扩大导入文档范围，并在 metadata 中保存 stage 信息。
+### Fix Action
+Expand the imported document scope and save stage information in metadata.
 
-### 下一次挑战
-比较不同 chunk size 对命中率的影响。
+### Next Challenge
+Compare how different chunk sizes affect the hit rate.
 ```
 
-Boss 战的意义是把学习变成一个个清晰关卡。每打过一关，你都获得一个可解释、可展示、可复盘的能力。
+The meaning of Boss battles is to turn learning into clear levels. Every time you clear a level, you gain a capability that is explainable, demonstrable, and reviewable.

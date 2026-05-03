@@ -1,385 +1,385 @@
 ---
-title: "3.3 数据选择与过滤"
+title: "3.3 Data Selection and Filtering"
 sidebar_position: 11
-description: "掌握 loc、iloc、布尔索引和 query 等数据筛选方法"
+description: "Master data filtering methods such as loc, iloc, boolean indexing, and query"
 ---
 
-# 数据选择与过滤
+# Data Selection and Filtering
 
-:::tip 本节定位
-很多新人第一次学 `Pandas` 时，最早会卡住的通常不是清洗，而是：
+:::tip Where this section fits
+When many beginners first learn `Pandas`, what usually blocks them is not cleaning, but:
 
-- 我到底怎么把想要的那部分数据挑出来？
+- How do I select the part of the data I actually want?
 
-所以这节最重要的不是记住所有写法，而是先建立一个判断：
+So the most important thing in this section is not memorizing every syntax pattern, but building this first question:
 
-> **我是按标签取、按位置取，还是按条件筛？**
+> **Am I selecting by label, by position, or by condition?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 掌握 `loc`（标签索引）和 `iloc`（位置索引）
-- 学会使用布尔索引进行条件过滤
-- 掌握 `query()` 方法
-- 学会多条件组合筛选
+- Master `loc` (label indexing) and `iloc` (position indexing)
+- Learn to use boolean indexing for conditional filtering
+- Master the `query()` method
+- Learn multi-condition filtering
 
 ---
 
-## 先建立一张地图
+## First, build a mental map
 
-数据选择与过滤更适合按“我要选谁”来理解：
+Data selection and filtering are easier to understand as “who do I want to select?”
 
-![Pandas 数据选择与过滤地图](/img/course/ch03-pandas-selection-filter-map.png)
+![Pandas Data Selection and Filtering Map](/img/course/ch03-pandas-selection-filter-map-en.png)
 
-所以这节真正想解决的是：
+So what this section really aims to solve is:
 
-- 不同场景下到底该先想到 `loc`、`iloc` 还是布尔索引
-- 为什么很多 `Pandas` 题的第一步都是“先把要看的数据选出来”
+- In different scenarios, should you think of `loc`, `iloc`, or boolean indexing first?
+- Why is the first step in so many `Pandas` problems to “select the data you need first”?
 
-## 准备示例数据
+## Prepare sample data
 
 ```python
 import pandas as pd
 import numpy as np
 
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七", "孙八"],
-    "年龄": [22, 28, 25, 35, 21, 30],
-    "部门": ["技术", "市场", "技术", "管理", "技术", "市场"],
-    "薪资": [15000, 18000, 22000, 35000, 12000, 20000],
-    "入职年份": [2023, 2020, 2021, 2018, 2024, 2019]
+    "Name": ["Alice", "Bob", "Charlie", "Diana", "Ethan", "Fiona"],
+    "Age": [22, 28, 25, 35, 21, 30],
+    "Department": ["Engineering", "Marketing", "Engineering", "Management", "Engineering", "Marketing"],
+    "Salary": [15000, 18000, 22000, 35000, 12000, 20000],
+    "HireYear": [2023, 2020, 2021, 2018, 2024, 2019]
 })
 print(df)
 ```
 
-### 一个更适合新人的总类比
+### A better analogy for beginners
 
-你可以把这一节理解成：
+You can think of this section as:
 
-- 在一张很大的表里找你真正要看的那几行几列
+- Finding the rows and columns you really want in a large table
 
-也就是说，这节最核心的不是“写法多”，而是：
+In other words, the core of this section is not “many syntax patterns,” but:
 
-- 先搞清你是按名字找
-- 还是按位置找
-- 还是按条件筛
+- First figure out whether you are searching by name
+- Or by position
+- Or filtering by condition
 
 ---
 
-## loc：标签索引
+## loc: label indexing
 
-`loc` 用**标签（名称）** 来定位数据，格式：`df.loc[行标签, 列标签]`
+`loc` uses **labels (names)** to locate data, with the format: `df.loc[row_label, column_label]`
 
-### 第一次学 `loc`，最该先记什么？
+### What should you remember first when learning `loc`?
 
-最值得先记的是：
+The most important thing to remember first is:
 
-> **`loc` 是按“名字和标签”在选。**
+> **`loc` selects by “name and label.”**
 
-也就是说，它更像：
+That means it is more like:
 
-- 我知道我要哪一列、哪一段标签范围
+- I know which column I want, and which label range I want
 
 ```python
-# 取单行
-print(df.loc[0])         # 第一行（标签为 0 的行）
+# Select a single row
+print(df.loc[0])         # The first row (the row with label 0)
 
-# 取多行
-print(df.loc[0:2])       # 标签 0 到 2（包含 2！）
+# Select multiple rows
+print(df.loc[0:2])       # Labels 0 to 2 (includes 2!)
 
-# 取特定行和列
-print(df.loc[0, "姓名"])          # "张三"
-print(df.loc[0:2, "姓名"])       # 前 3 行的姓名
-print(df.loc[0:2, ["姓名", "薪资"]])  # 前 3 行的姓名和薪资
+# Select specific rows and columns
+print(df.loc[0, "Name"])          # "Alice"
+print(df.loc[0:2, "Name"])        # Names in the first 3 rows
+print(df.loc[0:2, ["Name", "Salary"]])  # Names and salaries in the first 3 rows
 
-# 取所有行的某些列
-print(df.loc[:, ["姓名", "年龄"]])
+# Select certain columns from all rows
+print(df.loc[:, ["Name", "Age"]])
 
-# 条件筛选（最常用！）
-print(df.loc[df["年龄"] > 25])    # 年龄大于 25 的所有行
+# Conditional filtering (the most common use!)
+print(df.loc[df["Age"] > 25])    # All rows where age is greater than 25
 ```
 
 ---
 
-## iloc：位置索引
+## iloc: position indexing
 
-`iloc` 用**位置（整数）** 来定位数据，和 Python 列表的切片规则一致：
+`iloc` uses **position (integer)** to locate data, following the same slicing rules as Python lists:
 
-### 第一次学 `iloc`，最该先记什么？
+### What should you remember first when learning `iloc`?
 
-最值得先记的是：
+The most important thing to remember first is:
 
-> **`iloc` 是按“第几行第几列”在选。**
+> **`iloc` selects by “which row, which column.”**
 
-所以它更像：
+So it is more like:
 
-- 你拿着坐标去表里取值
+- You use coordinates to pick values from the table
 
 ```python
-# 取单行
-print(df.iloc[0])        # 第一行
+# Select a single row
+print(df.iloc[0])        # First row
 
-# 取多行（不包含末尾！和 Python 一致）
-print(df.iloc[0:3])      # 第 0、1、2 行
+# Select multiple rows (does not include the end, just like Python)
+print(df.iloc[0:3])      # Rows 0, 1, 2
 
-# 取特定位置
-print(df.iloc[0, 0])     # 第 0 行第 0 列 → "张三"
-print(df.iloc[0:3, 0:2]) # 前 3 行、前 2 列
-print(df.iloc[[0, 2, 4]])  # 第 0、2、4 行
+# Select specific positions
+print(df.iloc[0, 0])     # Row 0, column 0 → "Alice"
+print(df.iloc[0:3, 0:2]) # First 3 rows, first 2 columns
+print(df.iloc[[0, 2, 4]])  # Rows 0, 2, 4
 
-# 取最后一行
+# Select the last row
 print(df.iloc[-1])
 ```
 
-### loc vs iloc 对比
+### loc vs iloc comparison
 
-| 特性 | `loc` | `iloc` |
+| Feature | `loc` | `iloc` |
 |------|-------|--------|
-| 索引方式 | 标签（名称） | 位置（整数） |
-| 切片末尾 | **包含** | **不包含** |
-| 示例 | `df.loc[0:2]` → 3 行 | `df.iloc[0:2]` → 2 行 |
-| 条件筛选 | ✅ 支持 | ❌ 不支持 |
+| Indexing method | Label (name) | Position (integer) |
+| Slice end | **Included** | **Not included** |
+| Example | `df.loc[0:2]` → 3 rows | `df.iloc[0:2]` → 2 rows |
+| Conditional filtering | ✅ Supported | ❌ Not supported |
 
-:::caution 最常见的坑
-当索引是默认的 0, 1, 2... 时，`loc[0:2]` 返回 **3 行**，`iloc[0:2]` 返回 **2 行**。
+:::caution Most common pitfall
+When the index is the default 0, 1, 2..., `loc[0:2]` returns **3 rows**, while `iloc[0:2]` returns **2 rows**.
 
 ```python
-print(len(df.loc[0:2]))    # 3  （包含标签 2）
-print(len(df.iloc[0:2]))   # 2  （不包含位置 2）
+print(len(df.loc[0:2]))    # 3  (includes label 2)
+print(len(df.iloc[0:2]))   # 2  (does not include position 2)
 ```
 :::
 
-### 一个很适合初学者先记的选择表
+### A selection table that beginners can remember first
 
-| 你的想法 | 更稳的第一反应 |
+| What you are thinking | Safer first choice |
 |---|---|
-| 我知道列名或标签 | `loc` |
-| 我只知道第几行第几列 | `iloc` |
-| 我要按某个条件筛人或筛订单 | 布尔索引 |
-| 条件很长、想写得更像一句话 | `query()` |
+| I know the column name or label | `loc` |
+| I only know which row and column position | `iloc` |
+| I want to filter people or orders by a condition | Boolean indexing |
+| The condition is long and I want it to read more like a sentence | `query()` |
 
-这个表很适合新人，因为它会把“到底用哪个”直接变成一个可判断的问题。
+This table is especially good for beginners because it turns “which one should I use?” into a question you can actually answer.
 
 ---
 
-## 布尔索引：条件筛选
+## Boolean indexing: conditional filtering
 
-这是数据分析中**使用最频繁**的操作：
+This is the **most frequently used** operation in data analysis:
 
-### 为什么布尔索引这么重要？
+### Why is boolean indexing so important?
 
-因为真实分析题里你最常做的事情往往就是：
+Because in real analysis tasks, what you most often do is:
 
-- 找出金额大于某值的订单
-- 找出某部门的人
-- 找出满足两三个条件的子集
+- Find orders with amount greater than a certain value
+- Find people in a specific department
+- Find a subset that meets two or three conditions
 
-也就是说，很多分析真正开始的第一步，就是：
+In other words, in many analysis tasks, the first real step is:
 
-- 先筛出你要分析的那部分数据
+- First filter out the data you want to analyze
 
-### 单条件筛选
+### Single-condition filtering
 
 ```python
-# 薪资大于 20000 的员工
-high_salary = df[df["薪资"] > 20000]
+# Employees with salary greater than 20000
+high_salary = df[df["Salary"] > 20000]
 print(high_salary)
 
-# 部门是"技术"的员工
-tech = df[df["部门"] == "技术"]
+# Employees in the "Engineering" department
+tech = df[df["Department"] == "Engineering"]
 print(tech)
 
-# 年龄不等于 22 的员工
-print(df[df["年龄"] != 22])
+# Employees whose age is not 22
+print(df[df["Age"] != 22])
 ```
 
-### 多条件组合
+### Combining multiple conditions
 
 ```python
-# 技术部门且薪资大于 15000（用 & 表示 AND）
-result = df[(df["部门"] == "技术") & (df["薪资"] > 15000)]
+# Engineering department and salary greater than 15000 (use & for AND)
+result = df[(df["Department"] == "Engineering") & (df["Salary"] > 15000)]
 print(result)
 
-# 技术部门或管理部门（用 | 表示 OR）
-result = df[(df["部门"] == "技术") | (df["部门"] == "管理")]
+# Engineering department or management department (use | for OR)
+result = df[(df["Department"] == "Engineering") | (df["Department"] == "Management")]
 print(result)
 
-# 取反（用 ~ 表示 NOT）
-result = df[~(df["部门"] == "技术")]  # 非技术部门
+# Negation (use ~ for NOT)
+result = df[~(df["Department"] == "Engineering")]  # Non-engineering departments
 print(result)
 ```
 
-:::caution 多条件必须加括号
-和 NumPy 一样，每个条件必须加括号，用 `&` `|` `~` 而不是 `and` `or` `not`。
+:::caution Multiple conditions must use parentheses
+Just like with NumPy, every condition must be wrapped in parentheses. Use `&`, `|`, and `~` instead of `and`, `or`, and `not`.
 
 ```python
-# ❌ 错误
-df[df["年龄"] > 25 and df["薪资"] > 20000]
+# ❌ Wrong
+df[df["Age"] > 25 and df["Salary"] > 20000]
 
-# ✅ 正确
-df[(df["年龄"] > 25) & (df["薪资"] > 20000)]
+# ✅ Correct
+df[(df["Age"] > 25) & (df["Salary"] > 20000)]
 ```
 :::
 
-### isin：匹配多个值
+### isin: match multiple values
 
 ```python
-# 部门在 ["技术", "市场"] 中的员工
-result = df[df["部门"].isin(["技术", "市场"])]
+# Employees whose department is in ["Engineering", "Marketing"]
+result = df[df["Department"].isin(["Engineering", "Marketing"])]
 print(result)
 
-# 反向：不在这些部门中
-result = df[~df["部门"].isin(["技术", "市场"])]
-print(result)
-```
-
-### between：范围筛选
-
-```python
-# 年龄在 22~30 之间（包含两端）
-result = df[df["年龄"].between(22, 30)]
+# Reverse: not in these departments
+result = df[~df["Department"].isin(["Engineering", "Marketing"])]
 print(result)
 ```
 
-### 字符串条件
+### between: range filtering
 
 ```python
-# 姓名包含"三"
-result = df[df["姓名"].str.contains("三")]
-
-# 姓名以"张"开头
-result = df[df["姓名"].str.startswith("张")]
+# Ages between 22 and 30 (inclusive)
+result = df[df["Age"].between(22, 30)]
+print(result)
 ```
 
-### 第一次做筛选题时，最稳的默认顺序
+### String conditions
 
-更稳的顺序通常是：
+```python
+# Names containing "li"
+result = df[df["Name"].str.contains("li")]
 
-1. 先问自己按标签选、按位置选，还是按条件筛
-2. 条件简单时先用布尔索引
-3. 条件很长时再考虑 `query()`
-4. 最后再组合取列和取行
+# Names starting with "A"
+result = df[df["Name"].str.startswith("A")]
+```
 
-这样会比一上来就把几种写法混着用更不容易乱。
+### The safest default order when you first do filtering problems
+
+A safer order is usually:
+
+1. Ask yourself whether you are selecting by label, by position, or by condition
+2. Use boolean indexing first when the condition is simple
+3. Consider `query()` when the condition is long
+4. Finally, combine row selection and column selection
+
+This is usually less confusing than mixing several styles at once from the start.
 
 ---
 
-## query() 方法
+## The query() method
 
-`query()` 让你用更接近自然语言的方式筛选数据：
+`query()` lets you filter data in a way that feels closer to natural language:
 
 ```python
-# 等价于 df[df["薪资"] > 20000]
-result = df.query("薪资 > 20000")
+# Equivalent to df[df["Salary"] > 20000]
+result = df.query("Salary > 20000")
 print(result)
 
-# 多条件
-result = df.query("部门 == '技术' and 薪资 > 15000")
+# Multiple conditions
+result = df.query("Department == 'Engineering' and Salary > 15000")
 print(result)
 
-# 用变量
+# Using variables
 min_salary = 20000
-result = df.query("薪资 > @min_salary")  # @引用外部变量
+result = df.query("Salary > @min_salary")  # @ references an external variable
 print(result)
 
-# 范围查询
-result = df.query("22 <= 年龄 <= 30")
+# Range query
+result = df.query("22 <= Age <= 30")
 print(result)
 ```
 
-:::tip 什么时候用 query()？
-- 条件简单时：布尔索引 `df[df["col"] > 5]` 更直接
-- 条件复杂时：`query()` 更可读，尤其是多条件组合
-- 需要引用变量时：`query("col > @var")` 很方便
+:::tip When should you use query()?
+- For simple conditions: boolean indexing like `df[df["col"] > 5]` is more direct
+- For complex conditions: `query()` is more readable, especially with multiple conditions
+- When you need to reference variables: `query("col > @var")` is very convenient
 :::
 
 ---
 
-## 选择特定数据的方法总结
+## Summary of methods for selecting specific data
 
 ```mermaid
 flowchart TD
-    A["我要选什么？"] --> B{"按行还是按列？"}
-    B -->|"按列"| C["df['列名'] 或 df[['列1','列2']]"]
-    B -->|"按行"| D{"用什么定位？"}
-    D -->|"标签"| E["df.loc[标签]"]
-    D -->|"位置"| F["df.iloc[位置]"]
-    D -->|"条件"| G["df[条件] 或 df.query()"]
-    B -->|"行和列"| H["df.loc[行, 列] 或 df.iloc[行, 列]"]
+    A["What do I want to select?"] --> B{"By rows or by columns?"}
+    B -->|"Columns"| C["df['column'] or df[['col1','col2']]"]
+    B -->|"Rows"| D{"How to locate them?"}
+    D -->|"Label"| E["df.loc[label]"]
+    D -->|"Position"| F["df.iloc[position]"]
+    D -->|"Condition"| G["df[condition] or df.query()"]
+    B -->|"Rows and columns"| H["df.loc[row, col] or df.iloc[row, col]"]
 ```
 
-## 一个新人可直接照抄的数据选择检查表
+## A data selection checklist beginners can copy directly
 
-第一次做 `Pandas` 筛选题时，最稳的检查表通常是：
+When you first do a `Pandas` filtering problem, the safest checklist is usually:
 
-1. 我是想选列、选行，还是同时选行和列？
-2. 我是按标签、按位置，还是按条件？
-3. 条件有没有加括号？
-4. 结果是不是我以为的那几行几列？
+1. Am I selecting columns, rows, or both rows and columns?
+2. Am I selecting by label, by position, or by condition?
+3. Did I add parentheses to the conditions?
+4. Is the result really the rows and columns I expected?
 
-这 4 个问题答清楚后，很多筛选题都会顺很多。
+If you answer these 4 questions clearly, many filtering problems become much easier.
 
 ---
 
-## 实战：数据筛选
+## Practice: data filtering
 
 ```python
 import pandas as pd
 import numpy as np
 
-# 创建一份电商订单数据
+# Create a set of e-commerce order data
 np.random.seed(42)
 n = 100
 orders = pd.DataFrame({
-    "订单ID": range(1001, 1001 + n),
-    "客户": np.random.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
-    "商品类别": np.random.choice(["电子", "服装", "食品", "图书"], n),
-    "金额": np.random.randint(10, 500, n),
-    "数量": np.random.randint(1, 10, n),
-    "是否退货": np.random.choice([True, False], n, p=[0.1, 0.9])
+    "OrderID": range(1001, 1001 + n),
+    "Customer": np.random.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
+    "Category": np.random.choice(["Electronics", "Clothing", "Food", "Books"], n),
+    "Amount": np.random.randint(10, 500, n),
+    "Quantity": np.random.randint(1, 10, n),
+    "Returned": np.random.choice([True, False], n, p=[0.1, 0.9])
 })
 
-# 查看数据
+# View the data
 print(orders.head(10))
 print(orders.info())
 
-# 筛选练习
-# 1. 金额大于 300 的订单
-print(orders[orders["金额"] > 300])
+# Filtering practice
+# 1. Orders with amount greater than 300
+print(orders[orders["Amount"] > 300])
 
-# 2. Alice 购买的电子产品
-print(orders.query("客户 == 'Alice' and 商品类别 == '电子'"))
+# 2. Electronic products purchased by Alice
+print(orders.query("Customer == 'Alice' and Category == 'Electronics'"))
 
-# 3. 未退货且金额前 10 的订单
-not_returned = orders[~orders["是否退货"]]
-top10 = not_returned.nlargest(10, "金额")
-print(top10[["订单ID", "客户", "金额"]])
+# 3. Orders that have not been returned and are in the top 10 by amount
+not_returned = orders[~orders["Returned"]]
+top10 = not_returned.nlargest(10, "Amount")
+print(top10[["OrderID", "Customer", "Amount"]])
 ```
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：基本筛选
-
-```python
-# 用上面的 orders 数据
-# 1. 找出所有退货的订单
-# 2. 找出金额在 100~200 之间的订单数量
-# 3. 找出购买"图书"或"食品"类别的订单
-# 4. 找出 Bob 的非退货订单的平均金额
-```
-
-### 练习 2：综合筛选
+### Exercise 1: Basic filtering
 
 ```python
-# 1. 每个客户的最大订单金额是多少？（提示：先筛选再统计）
-# 2. 哪些客户有退货记录？
-# 3. 金额排名前 5% 的订单有哪些？（提示：用 quantile）
+# Use the orders data above
+# 1. Find all returned orders
+# 2. Find the number of orders with amounts between 100 and 200
+# 3. Find orders in the "Books" or "Food" category
+# 4. Find the average amount of Bob's non-returned orders
 ```
 
-## 这节最该带走什么
+### Exercise 2: Comprehensive filtering
 
-- `loc` 按标签，`iloc` 按位置，布尔索引按条件
-- 很多真实分析题，第一步都不是算，而是先筛
-- 先把“我要选谁”想清楚，再写代码，会比死记写法更稳
+```python
+# 1. What is the maximum order amount for each customer? (Hint: filter first, then aggregate)
+# 2. Which customers have return records?
+# 3. Which orders are in the top 5% by amount? (Hint: use quantile)
+```
+
+## What you should take away from this section
+
+- `loc` selects by label, `iloc` selects by position, and boolean indexing selects by condition
+- In many real analysis tasks, the first step is not calculation, but filtering
+- Before writing code, clearly think about “who do I want to select?” — that is more reliable than memorizing syntax

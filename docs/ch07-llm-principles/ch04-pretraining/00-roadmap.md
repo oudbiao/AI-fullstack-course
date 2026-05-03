@@ -1,54 +1,54 @@
 ---
-title: "4.1 学前导读：预训练技术这一章到底在学什么"
+title: "4.1 Pre-study Guide: What Is This Chapter on Pretraining Actually About?"
 sidebar_position: 0
-description: "先建立预训练技术章的学习地图：数据、目标函数和训练工程怎样共同决定预训练模型的能力。"
-keywords: [预训练技术导读, 预训练数据, 预训练目标, 训练工程]
+description: "First build a learning map for the pretraining chapter: how data, objective functions, and training engineering jointly determine a pretrained model's capabilities."
+keywords: [pretraining guide, pretraining data, pretraining objective, training engineering]
 ---
 
-# 学前导读：预训练技术这一章到底在学什么
+# Pre-study Guide: What Is This Chapter on Pretraining Actually About?
 
-## 本章定位
+## Chapter Positioning
 
-这一章解决的是一个核心问题：模型的通用能力到底从哪里来。前面你已经学过 Transformer 结构、Prompt 和大模型基础，但如果只知道“模型很大、数据很多”，仍然很难理解为什么同一个模型能写代码、总结文档、回答问题、做推理和适配不同任务。
+This chapter answers one core question: where does a model's general capability actually come from? You have already learned the Transformer architecture, Prompt, and the basics of large models. But if you only know that “the model is very large and the data is abundant,” it is still hard to understand why the same model can write code, summarize documents, answer questions, perform reasoning, and adapt to different tasks.
 
-预训练技术就是回答这个问题的关键。它把海量数据、训练目标、模型结构、算力工程和数据治理连接在一起，让模型先学到通用表示，再通过 Prompt、微调、RAG 或 Agent 被接入具体应用。
+Pretraining is the key to answering this question. It connects massive data, training objectives, model architecture, compute engineering, and data governance, allowing the model to first learn general representations and then be plugged into real applications through Prompt, fine-tuning, RAG, or Agent.
 
-## 这一章在整门课里的位置
+## Where This Chapter Fits in the Whole Course
 
-![预训练技术章节关系图](/img/course/ch07-pretraining-chapter-flow.png)
+![Diagram of pretraining chapter relationships](/img/course/ch07-pretraining-chapter-flow-en.png)
 
-这一章承接前面的 Transformer 深入，也为后面的 Prompt、微调、对齐和 LLM 应用做铺垫。你不需要真的从零训练一个大模型，但要能解释：数据如何影响能力边界，目标函数如何塑造模型行为，训练工程为什么决定成本、稳定性和可复现性。
+This chapter builds on the earlier deep dive into Transformer and also lays the groundwork for the later sections on Prompt, fine-tuning, alignment, and LLM applications. You do not need to actually train a large model from scratch, but you should be able to explain: how data affects capability boundaries, how the objective function shapes model behavior, and why training engineering determines cost, stability, and reproducibility.
 
-## 本章学习主线
+## Main Learning Path for This Chapter
 
-![预训练数据目标工程三角图](/img/course/ch07-pretraining-data-objective-engineering-map.png)
+![Triangle diagram of pretraining data, objective, and engineering](/img/course/ch07-pretraining-data-objective-engineering-map-en.png)
 
-学习时不要把这些内容当成论文名词清单，而要一直追问：这个设计解决了什么失败？例如，去重是为了减少记忆和数据泄漏，质量过滤是为了提升有效学习信号，混合精度是为了降低训练成本，检查点是为了防止长时间训练失败后无法恢复。
+When studying, do not treat these topics as a list of paper terms. Keep asking: what failure does this design solve? For example, deduplication reduces memorization and data leakage, quality filtering improves useful learning signals, mixed precision lowers training cost, and checkpoints prevent long training runs from becoming unrecoverable after a failure.
 
-## 本章各节怎么读
+## How to Read Each Section in This Chapter
 
-| 小节 | 重点问题 | 学完后应该能说清楚什么 |
+| Subsection | Key Question | What You Should Be Able to Explain After Learning |
 |---|---|---|
-| 预训练数据 | 模型到底从什么数据里学习 | 数据来源、清洗、去重、版权、安全和偏差怎样影响模型能力 |
-| 预训练方法 | 为什么模型靠预测任务能学到通用能力 | 自回归、掩码语言模型、多任务目标分别适合什么模型形态 |
-| 训练工程 | 为什么训练大模型是一项工程系统 | 分布式训练、显存、吞吐、检查点、日志和失败恢复的重要性 |
+| Pretraining Data | What data does the model actually learn from | How data sources, cleaning, deduplication, copyright, safety, and bias affect model capability |
+| Pretraining Methods | Why can predictive tasks teach general capabilities? | What kinds of model architectures are suited to autoregressive, masked language modeling, and multi-task objectives |
+| Training Engineering | Why is training a large model an engineering system? | The importance of distributed training, GPU memory, throughput, checkpoints, logging, and failure recovery |
 
-如果你是新人，第一遍只要抓住“数据决定上限，目标决定学习方式，工程决定能不能训完”。如果你已经有深度学习经验，可以重点看训练稳定性、数据治理和后续微调/RAG/对齐之间的边界。
+If you are new, in the first pass you only need to grasp: “data sets the upper bound, objectives determine how learning happens, and engineering determines whether training can finish.” If you already have deep learning experience, focus on training stability, data governance, and the boundaries between later fine-tuning, RAG, and alignment.
 
-## 常见误区
+## Common Mistakes
 
-第一个误区是以为预训练只是“把很多网页喂给模型”。真实预训练更像一条数据和工程流水线：采集、过滤、去重、分词、配比、训练、监控、评估，每一步都会影响最终模型。
+The first mistake is thinking pretraining is just “feeding a lot of web pages into the model.” Real pretraining is more like a data-and-engineering pipeline: collection, filtering, deduplication, tokenization, mixing, training, monitoring, and evaluation. Every step affects the final model.
 
-第二个误区是以为模型越大一定越好。模型大小只是因素之一，数据质量、训练目标、推理成本、部署环境和任务类型同样重要。一个课程问答助手未必需要最大模型，可能更需要好的 RAG、引用和评估集。
+The second mistake is thinking bigger models are always better. Model size is only one factor. Data quality, training objectives, inference cost, deployment environment, and task type are equally important. A course Q&A assistant may not need the largest model; it may need better RAG, citations, and evaluation sets.
 
-第三个误区是把预训练、微调、RAG 混在一起。预训练负责获得通用能力，微调用来改变或强化行为模式，RAG 用来接入外部知识。三者不是互相替代，而是解决不同层次的问题。
+The third mistake is mixing up pretraining, fine-tuning, and RAG. Pretraining is responsible for obtaining general capabilities, fine-tuning is used to change or strengthen behavioral patterns, and RAG is used to connect external knowledge. They do not replace one another; they solve different levels of problems.
 
-## 本章小项目出口
+## Output for the Mini Project in This Chapter
 
-本章不要求你训练大模型。建议做一个“预训练决策说明卡”：选择一个模型应用场景，例如课程问答助手、代码助手或学习计划助手，写清楚它需要什么数据、哪些数据不能用、是否需要微调、是否更适合 RAG、上线后要观察哪些质量指标。
+This chapter does not require you to train a large model. It is recommended to create a “pretraining decision card”: choose one model application scenario, such as a course Q&A assistant, coding assistant, or study-planning assistant, and clearly write down what data it needs, what data cannot be used, whether fine-tuning is needed, whether RAG is more suitable, and which quality metrics should be monitored after deployment.
 
-基础版只需要写一页 Markdown；标准版可以加一个数据清洗示例，比如去掉重复文本、过滤过短样本、统计 token 长度；挑战版可以比较两个小模型或两个 Prompt/RAG 配置，说明“预训练底座不同会带来哪些效果差异”。
+The basic version only needs one page of Markdown; the standard version can add a data-cleaning example, such as removing duplicate text, filtering out samples that are too short, and counting token lengths; the challenge version can compare two small models or two Prompt/RAG configurations and explain what differences in behavior come from different pretraining foundations.
 
-## 过关标准
+## Passing Criteria
 
-学完这一章后，你应该能用自己的话解释：为什么预训练能产生通用能力，为什么数据质量比单纯数据规模更重要，为什么训练工程决定模型能否稳定产出，以及为什么很多应用问题不应该靠重新预训练解决。
+After finishing this chapter, you should be able to explain in your own words: why pretraining can produce general capabilities, why data quality matters more than just data scale, why training engineering determines whether a model can be produced stably, and why many application problems should not be solved by retraining from scratch.

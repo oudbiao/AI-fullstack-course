@@ -1,89 +1,89 @@
 ---
-title: "1.4 线性判别分析"
+title: "1.4 Linear Discriminant Analysis"
 sidebar_position: 15
-description: "从“类内更紧、类间更远”的目标出发，理解 LDA 为什么既能做分类，也常被当作监督式降维方法。"
+description: "Starting from the goal of “tighter within-class, farther between-class,” understand why LDA can be used for classification and is also often treated as a supervised dimensionality reduction method."
 keywords: [LDA, linear discriminant analysis, dimensionality reduction, classification, classic ML]
 ---
 
-# 线性判别分析
+# Linear Discriminant Analysis
 
-:::tip 本节定位
-LDA 很容易和别的缩写混掉，  
-也很容易被误解成“又一个线性分类器”。
+:::tip Where this section fits
+LDA is easy to confuse with other acronyms,
+and it is also easy to misunderstand as “just another linear classifier.”
 
-更准确的理解是：
+A more accurate understanding is:
 
-> **LDA 关心的是怎样找到一个投影方向，让同类样本更聚、不同类样本更分开。**
+> **LDA is concerned with how to find a projection direction that makes samples from the same class cluster together and samples from different classes separate further apart.**
 
-所以它既能分类，也能作为一种监督式降维方法来看。
+So it can be used for classification, and it can also be viewed as a supervised dimensionality reduction method.
 :::
 
-![LDA 监督式投影直觉图](/img/course/elective-lda-projection-map.png)
+![LDA supervised projection intuition diagram](/img/course/elective-lda-projection-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解 LDA 的核心目标：类内紧凑、类间分离
-- 理解它和普通线性分类器的差别
-- 通过可运行示例看懂 LDA 的降维与分类效果
-- 建立何时尝试 LDA 的基本判断
-
----
-
-## 一、LDA 在解决什么问题？
-
-### 1.1 不只是“分开类别”
-
-LDA 的目标更具体：
-
-- 同一个类别内部尽量聚在一起
-- 不同类别之间尽量拉开
-
-### 1.2 为什么这比普通线性切分更有意思？
-
-因为它不只是找一条边界，  
-还在找一个“更有判别力的表示空间”。
-
-这意味着它除了能分类，还能做：
-
-- 监督式降维
-
-### 1.3 一个类比
-
-如果说 PCA 更像：
-
-- 找最能解释整体变化的方向
-
-那 LDA 更像：
-
-- 找最有利于区分类别的方向
+- Understand LDA’s core goal: compact within-class structure and separated between-class structure
+- Understand how it differs from a standard linear classifier
+- Use a runnable example to understand LDA’s dimensionality reduction and classification effects
+- Build a basic judgment for when to try LDA
 
 ---
 
-## 二、LDA 为什么常被当作“带标签的降维”？
+## 1. What problem is LDA solving?
 
-### 2.1 因为它用到了类别标签
+### 1.1 More than just “separating classes”
 
-PCA 不关心类别，只看整体方差。  
-LDA 会明确利用标签去问：
+LDA’s goal is more specific:
 
-- 哪个方向最利于分类？
+- Samples within the same class should be as close together as possible
+- Different classes should be as far apart as possible
 
-### 2.2 所以它很适合什么场景？
+### 1.2 Why is this more interesting than ordinary linear splitting?
 
-适合：
+Because it is not only looking for a boundary,
+it is also looking for a “more discriminative representation space.”
 
-- 你已经有监督标签
-- 想做更有判别力的低维表示
-- 或者想做一个轻量线性分类器
+That means in addition to classification, it can also be used for:
+
+- Supervised dimensionality reduction
+
+### 1.3 An analogy
+
+If PCA is more like:
+
+- Finding the direction that explains the overall variation best
+
+Then LDA is more like:
+
+- Finding the direction that is most helpful for distinguishing classes
 
 ---
 
-## 三、先跑一个最小可运行示例
+## 2. Why is LDA often treated as “label-aware dimensionality reduction”?
 
-这个例子会同时做两件事：
+### 2.1 Because it uses class labels
 
-1. 用 LDA 分类
-2. 把数据投影到更低维空间
+PCA does not care about classes; it only looks at overall variance.
+LDA explicitly uses labels to ask:
+
+- Which direction is most useful for classification?
+
+### 2.2 So what kinds of scenarios is it suitable for?
+
+It is suitable when:
+
+- You already have supervised labels
+- You want a lower-dimensional representation with stronger discriminative power
+- Or you want a lightweight linear classifier
+
+---
+
+## 3. First run a minimal executable example
+
+This example does two things at the same time:
+
+1. Use LDA for classification
+2. Project the data into a lower-dimensional space
 
 ```python
 import numpy as np
@@ -110,116 +110,116 @@ print("projection shape:", projection.shape)
 print("projected values:", projection.ravel().round(3).tolist())
 ```
 
-### 3.1 这段代码为什么比单纯 `predict` 更有价值？
+### 3.1 Why is this code more valuable than just `predict`?
 
-因为它让你同时看到：
+Because it lets you see both:
 
-- 分类输出
-- 投影后的低维表示
+- The classification output
+- The low-dimensional representation after projection
 
-这正好体现了 LDA 的双重价值：
+This nicely shows LDA’s dual value:
 
-- 能分类
-- 也能做监督式降维
+- It can classify
+- It can also perform supervised dimensionality reduction
 
-### 3.2 为什么 `n_components=1`？
+### 3.2 Why `n_components=1`?
 
-因为当前只有两类。  
-在这种情况下，LDA 最多只能投到：
+Because there are only two classes here.
+In this case, LDA can project to at most:
 
-- 1 个判别方向
+- 1 discriminative direction
 
-这也是它和类别数相关的一个特点。
-
----
-
-## 四、LDA 和 SVM / Logistic Regression 有什么不同？
-
-### 4.1 和 SVM 的差别
-
-SVM 更强调：
-
-- 间隔最大化
-
-LDA 更强调：
-
-- 类内方差小
-- 类间均值差异大
-
-### 4.2 和 Logistic Regression 的差别
-
-Logistic Regression 更像在学：
-
-- 条件概率边界
-
-LDA 更像先假设数据分布，再找更有区分力的方向。
-
-### 4.3 为什么这值得学？
-
-因为它让你看到：
-
-- 经典模型并不是只有一种“线性分类”思路
+This is one feature of LDA that depends on the number of classes.
 
 ---
 
-## 五、LDA 适合什么时候试？
+## 4. What is the difference between LDA and SVM / Logistic Regression?
 
-### 5.1 数据量不大，但类别结构比较清楚
+### 4.1 Difference from SVM
 
-LDA 在这类场景里可能很有用。
+SVM focuses more on:
 
-### 5.2 你需要更可解释的低维表示
+- Maximizing the margin
 
-例如：
+LDA focuses more on:
 
-- 先投影再可视化
-- 先投影再接简单分类器
+- Small within-class variance
+- Large differences between class means
 
-### 5.3 不太适合的情况
+### 4.2 Difference from Logistic Regression
 
-如果类别边界特别复杂、明显非线性，  
-LDA 往往就会比较吃力。
+Logistic Regression is more like learning:
+
+- Conditional probability boundaries
+
+LDA is more like first assuming a data distribution, then finding a direction that separates classes better.
+
+### 4.3 Why is this worth learning?
+
+Because it shows you:
+
+- Classical models are not all based on the same idea of “linear classification”
 
 ---
 
-## 六、最常见误区
+## 5. When is LDA worth trying?
 
-### 6.1 误区一：LDA 就只是另一个分类器
+### 5.1 When the dataset is not very large and the class structure is fairly clear
 
-不完整。  
-它的“判别式表示”价值同样重要。
+LDA can be very useful in this kind of scenario.
 
-### 6.2 误区二：有标签时就一定比 PCA 好
+### 5.2 When you need a more interpretable low-dimensional representation
 
-也不一定。  
-看任务目标和数据分布。
+For example:
 
-### 6.3 误区三：LDA 和主题模型里的 LDA 是一回事
+- Project first, then visualize
+- Project first, then feed into a simple classifier
 
-不是。  
-这里的 LDA 是：
+### 5.3 When it is less suitable
+
+If the class boundaries are very complex and clearly nonlinear,
+LDA will usually struggle.
+
+---
+
+## 6. Common misconceptions
+
+### 6.1 Misconception 1: LDA is just another classifier
+
+That is incomplete.
+Its value as a “discriminative representation” is also important.
+
+### 6.2 Misconception 2: If labels exist, LDA is always better than PCA
+
+Not necessarily.
+It depends on the task goal and the data distribution.
+
+### 6.3 Misconception 3: LDA here is the same as LDA in topic models
+
+It is not.
+The LDA here stands for:
 
 - Linear Discriminant Analysis
 
-不是主题模型里的：
+Not the topic-model LDA:
 
 - Latent Dirichlet Allocation
 
 ---
 
-## 小结
+## Summary
 
-这节最重要的是建立一个判断：
+The most important thing to establish in this section is:
 
-> **LDA 的核心价值在于利用标签找到更有判别力的投影方向，因此它既能做轻量分类，也能做监督式降维。**
+> **The core value of LDA is to use labels to find a more discriminative projection direction, so it can be used for lightweight classification and also for supervised dimensionality reduction.**
 
-一旦把这层理解清楚，它就不再只是一个容易混淆的缩写。
+Once you understand this, it is no longer just an easily confused acronym.
 
 ---
 
-## 练习
+## Exercises
 
-1. 把示例中的数据再加一个新类别，看看 `n_components` 会发生什么变化。
-2. 想一想：为什么说 LDA 更像“带标签的降维”？
-3. 如果类别边界非常弯曲、非线性明显，你还会优先试 LDA 吗？为什么？
-4. 用自己的话解释：LDA 和 PCA 最大的区别是什么？
+1. Add a new class to the example data and see how `n_components` changes.
+2. Think about why LDA is more like “label-aware dimensionality reduction.”
+3. If the class boundaries are very curved and clearly nonlinear, would you still try LDA first? Why?
+4. Explain in your own words: what is the biggest difference between LDA and PCA?

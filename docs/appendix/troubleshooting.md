@@ -1,36 +1,36 @@
 ---
-title: "学习卡点救援"
+title: "Learning Rescue for Stuck Points"
 sidebar_position: 5
 ---
 
-# 学习卡点救援
+# Learning Rescue for Stuck Points
 
-![学习卡点排障地图](/img/course/appendix-troubleshooting-rescue-map.png)
+![Troubleshooting map for learning stuck points](/img/course/appendix-troubleshooting-rescue-map-en.png)
 
-![卡点最小复现与求助流程图](/img/course/appendix-debug-mre-help-flow.png)
+![Flowchart for minimal reproduction and asking for help](/img/course/appendix-debug-mre-help-flow-en.png)
 
-:::tip 读图提示
-遇到问题先不要急着换路线。按“复现问题 -> 收集环境 -> 缩小输入 -> 记录报错 -> 提出具体问题”走一遍，很多卡点会从情绪问题变成可定位的工程问题。
+:::tip Reading guide
+When you run into a problem, don’t rush to change direction. Follow the steps “reproduce the problem -> collect the environment -> narrow the input -> record the error -> ask a specific question.” Many stuck points can shift from an emotional problem into an engineering problem that can be located and fixed.
 :::
 
-这页的目标不是解释理论，而是帮你在“卡住的时候尽快恢复推进”。很多学习中断，不是因为太难，而是因为一个小问题拖了太久。
+The goal of this page is not to explain theory, but to help you “get moving again as quickly as possible when you get stuck.” Many learning interruptions are not because the material is too hard, but because one small issue has dragged on for too long.
 
-## 1. 先判断你卡在哪一类
+## 1. First figure out what kind of problem you’re stuck on
 
-| 现象 | 最可能的问题类型 | 第一反应 |
+| Symptom | Most likely type of problem | First reaction |
 |---|---|---|
-| `ModuleNotFoundError` | 环境或依赖没装对 | 先查当前 Python 环境 |
-| 代码能跑但结果很怪 | 输入、标签或评估理解错了 | 先打印中间结果 |
-| 训练很慢或显存爆了 | batch 太大、模型太重、设备不匹配 | 先缩小实验规模 |
-| 一章看完还是不会做题 | 概念没有和代码绑定 | 回到最小例子重跑 |
-| 项目不知道怎么开始 | 题目太大，没有拆分 | 先画最小闭环 |
-| 学了很多但记不住 | 缺复盘和输出 | 做笔记和小总结 |
+| `ModuleNotFoundError` | Environment or dependencies not installed correctly | Check the current Python environment first |
+| Code runs but the result looks weird | Inputs, labels, or evaluation misunderstood | Print intermediate results first |
+| Training is very slow or GPU memory blows up | Batch too large, model too heavy, or device mismatch | Shrink the experiment scale first |
+| You finish a chapter but still don’t know how to solve the exercises | Concepts are not tied to code | Go back and rerun the minimal example |
+| You don’t know how to start a project | The task is too big and not broken down | Draw the smallest closed loop first |
+| You’ve learned a lot but can’t remember it | Lacking review and output | Take notes and write short summaries |
 
-## 2. 环境问题怎么查
+## 2. How to check environment issues
 
-环境问题最容易把人打懵，但其实很多都是重复问题。
+Environment problems are the easiest to make people feel stuck, but in fact many of them are repeated problems.
 
-先跑这一组命令：
+First run this set of commands:
 
 ```bash
 python --version
@@ -41,40 +41,40 @@ pwd
 ls
 ```
 
-如果你有 GPU，再补一条：
+If you have a GPU, add one more command:
 
 ```bash
 nvidia-smi
 ```
 
-### 2.1 最常见的环境问题
+### 2.1 The most common environment problems
 
-#### 问题一：包装了，但导入失败
+#### Problem 1: The package is installed, but import fails
 
-通常原因：
+Common reasons:
 
-- 你装到了别的 Python 环境
-- 终端和 IDE 用的不是同一个解释器
-- `pip` 指向的不是当前环境
+- You installed it in a different Python environment
+- The terminal and the IDE are not using the same interpreter
+- `pip` does not point to the current environment
 
-更稳的做法是：
+A more reliable way is:
 
 ```bash
 python -m pip install numpy
 python -m pip install pandas
 ```
 
-这样能减少“装错环境”的概率。
+This reduces the chance of installing into the wrong environment.
 
-#### 问题二：路径找不到
+#### Problem 2: Path not found
 
-先确认：
+First confirm:
 
-- 当前工作目录是不是你以为的那个目录
-- 相对路径是不是基于当前目录
-- 文件名大小写有没有写错
+- Is the current working directory the one you think it is?
+- Is the relative path based on the current directory?
+- Is the filename capitalization correct?
 
-可以先临时打印：
+You can temporarily print:
 
 ```python
 from pathlib import Path
@@ -83,149 +83,149 @@ print(Path.cwd())
 print(Path("data").exists())
 ```
 
-#### 问题三：版本冲突
+#### Problem 3: Version conflicts
 
-如果你已经开始反复遇到依赖问题，优先做两件事：
+If you keep running into dependency problems, prioritize two things:
 
-1. 把常用依赖写进统一环境文件
-2. 每个大方向尽量用独立虚拟环境
+1. Put commonly used dependencies into a unified environment file
+2. Use separate virtual environments for different major directions whenever possible
 
-不要把所有实验都塞在一个脏环境里。
+Don’t cram all experiments into one dirty environment.
 
-## 3. 代码能跑，但你不知道它是不是对的
+## 3. The code runs, but you don’t know whether it is correct
 
-这类问题比“直接报错”更危险。
+This kind of problem is more dangerous than a direct error.
 
-### 3.1 先查输入
+### 3.1 Check the inputs first
 
-你至少要确认：
+You should confirm at least:
 
-- 数据条数对不对
-- 输入 shape 对不对
-- 标签范围对不对
-- 有没有空值、乱码、重复样本
+- Is the number of data samples correct?
+- Is the input shape correct?
+- Is the label range correct?
+- Are there any missing values, garbled text, or duplicate samples?
 
-示例：
+Example:
 
 ```python
-print("样本数:", len(texts))
-print("前两条文本:", texts[:2])
-print("前两条标签:", labels[:2])
-print("标签集合:", sorted(set(labels)))
+print("Number of samples:", len(texts))
+print("First two texts:", texts[:2])
+print("First two labels:", labels[:2])
+print("Label set:", sorted(set(labels)))
 ```
 
-### 3.2 再查中间结果
+### 3.2 Then check intermediate results
 
-不要只看最终准确率。更重要的是：
+Don’t only look at the final accuracy. More important is:
 
-- 模型到底输出了什么
-- 概率是否合理
-- 中间特征是不是全 0 或全一样
+- What exactly is the model outputting?
+- Are the probabilities reasonable?
+- Are the intermediate features all zeros or all the same?
 
-### 3.3 最后查评估方式
+### 3.3 Finally check the evaluation method
 
-常见错误：
+Common mistakes:
 
-- 训练集和测试集混了
-- 类别极不平衡却只看准确率
-- 文本任务只看单条样例，不看整体错误分布
+- Training and test sets are mixed together
+- The classes are extremely imbalanced, but you only look at accuracy
+- For text tasks, you only inspect a single example and ignore the overall error distribution
 
-## 4. 训练不收敛怎么办
+## 4. What to do if training does not converge
 
-先别一下子怀疑模型结构，很多时候问题没那么复杂。
+Don’t rush to blame the model architecture. In many cases, the problem is not that complicated.
 
-可以按这个顺序查：
+You can check in this order:
 
-1. 先拿极小数据集试试能不能过拟合
-2. 再看学习率是不是太大或太小
-3. 再看损失函数和标签格式是不是匹配
-4. 最后才去怀疑模型结构和更复杂技巧
+1. Try a very small dataset to see whether it can overfit
+2. Check whether the learning rate is too large or too small
+3. Check whether the loss function matches the label format
+4. Only then suspect the model architecture and more advanced tricks
 
-如果一个模型连很小的一批数据都学不会，通常要先查：
+If a model cannot even learn a very small batch of data, you should usually check first:
 
-- 输入有没有喂错
-- 标签有没有错位
-- 损失函数是否选错
-- 优化器和学习率是否离谱
+- Whether the inputs are fed in correctly
+- Whether the labels are misaligned
+- Whether the loss function is chosen correctly
+- Whether the optimizer and learning rate are unreasonable
 
-## 5. 显存不够怎么办
+## 5. What to do if GPU memory is not enough
 
-最直接的顺序是：
+The most direct order is:
 
-1. 减小 `batch size`
-2. 降低输入尺寸
-3. 先关掉不必要的日志和缓存
-4. 用更小的模型或只训练头部
-5. 需要时再用梯度累积、混合精度
+1. Reduce `batch size`
+2. Reduce the input size
+3. Turn off unnecessary logging and caching first
+4. Use a smaller model or train only the head
+5. Use gradient accumulation or mixed precision when needed
 
-很多新人一上来就想“换更大显卡”，但先缩小实验规模通常更有效。
+Many beginners immediately think about “getting a bigger GPU,” but shrinking the experiment scale is usually more effective first.
 
-## 6. 项目不知道怎么落地怎么办
+## 6. What to do if you don’t know how to turn a project into something real
 
-如果你感觉“什么都会一点，但不知道怎么做项目”，通常是因为题目太大。
+If you feel like “I know a little bit of everything, but I don’t know how to build a project,” it is usually because the topic is too big.
 
-一个更稳的拆法是：
+A more reliable way to break it down is:
 
-### 6.1 先写一句话目标
+### 6.1 First write a one-sentence goal
 
-例如：
+For example:
 
-- 做一个能回答公司制度问题的知识库助手
-- 做一个能识别图片类别的小系统
-- 做一个能给文章生成摘要的工具
+- Build a knowledge base assistant that can answer company policy questions
+- Build a small system that can recognize image categories
+- Build a tool that can generate summaries for articles
 
-### 6.2 再拆成最小闭环
+### 6.2 Then break it into the smallest closed loop
 
-最小闭环一般只包含：
+A minimal closed loop usually contains only:
 
-1. 一个明确输入
-2. 一个可运行处理流程
-3. 一个可观察输出
-4. 一种基本评估方式
+1. One clear input
+2. One runnable processing pipeline
+3. One observable output
+4. One basic evaluation method
 
-### 6.3 最后再逐步补功能
+### 6.3 Then gradually add features
 
-常见补充项：
+Common additions include:
 
-- 日志
-- 错误处理
-- 缓存
-- 用户界面
-- 评估集
-- 部署
+- Logging
+- Error handling
+- Caching
+- User interface
+- Evaluation set
+- Deployment
 
-## 7. 学习很焦虑、总觉得跟不上怎么办
+## 7. What to do if you feel anxious about learning and always feel behind
 
-先记住一件事：AI 领域更新快，但基础能力更新没那么快。
+Remember one thing: the AI field changes fast, but core abilities do not change that fast.
 
-真正应该稳住的能力是：
+The abilities that really matter are:
 
-- 读代码
-- 查错
-- 拆问题
-- 做小闭环
-- 解释自己的方案
+- Reading code
+- Debugging
+- Breaking down problems
+- Building small closed loops
+- Explaining your own solution
 
-如果你已经在变得更会这五件事，就不算落后。
+If you are already getting better at these five things, you are not falling behind.
 
-## 8. 提问时怎样更容易得到有效帮助
+## 8. How to ask questions so it’s easier to get useful help
 
-不要只发一句“报错了，帮我看看”。更好的提问模板是：
+Don’t just send “There’s an error, please help me take a look.” A better question template is:
 
 ```text
-我在做什么：
-我期望看到什么：
-实际发生了什么：
-完整报错最后 20 行：
-我已经试过哪些方法：
-最小可复现代码：
+What I’m doing:
+What I expected to see:
+What actually happened:
+The last 20 lines of the full error:
+What I have already tried:
+Minimal reproducible code:
 ```
 
-这会让别人更容易帮你，也会逼你自己先把问题说清楚。
+This makes it easier for others to help you, and it also forces you to clarify the problem first.
 
-## 9. 一份最小复现模板
+## 9. A minimal reproducible template
 
-当你怀疑自己的大项目太乱时，先把问题缩成下面这种体量：
+When you suspect your big project is too messy, first shrink the problem to something like this:
 
 ```python
 def predict(x):
@@ -236,20 +236,20 @@ preds = [predict(x) for x in data]
 print(preds)
 ```
 
-然后一点点把真实逻辑加回来。这样做的意义是：你可以快速定位，到底是哪一层加进去后问题开始出现。
+Then add the real logic back little by little. The point is that you can quickly locate which layer, once added, caused the problem to appear.
 
-## 10. 什么时候该暂停，什么时候该硬啃？
+## 10. When should you pause, and when should you keep pushing?
 
-适合暂停的情况：
+Situations where it is appropriate to pause:
 
-- 你已经连续半小时都在乱试
-- 你开始机械复制命令，不知道自己在做什么
-- 你已经看不懂报错信息
+- You have been randomly trying things for more than half an hour
+- You are mechanically copying commands without knowing what you’re doing
+- You can no longer understand the error message
 
-适合继续硬啃的情况：
+Situations where it is appropriate to keep pushing:
 
-- 问题已经缩小到 1～2 个可验证假设
-- 你知道下一步要试什么
-- 你能解释每次修改的目的
+- The problem has been narrowed down to 1–2 verifiable hypotheses
+- You know what to try next
+- You can explain the purpose of each change
 
-真正高效的学习，不是一直顶着冲，而是知道什么时候该停下来整理。
+Real effective learning is not about always pushing forward blindly. It is about knowing when to stop and organize your thinking.

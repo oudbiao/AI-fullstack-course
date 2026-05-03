@@ -1,203 +1,203 @@
 ---
-title: "4.4 AI 法规与合规"
+title: "4.4 AI Regulations and Compliance"
 sidebar_position: 14
-description: "从法律不是技术附属品、合规视角到产品落地要求，建立对 AI 法规与合规问题更工程化的理解。"
+description: "Build a more engineering-oriented understanding of AI regulations and compliance, from the idea that law is not a side note to technology, to compliance perspectives and product implementation requirements."
 keywords: [AI regulation, compliance, risk classification, governance, audit, legal requirements]
 ---
 
-# AI 法规与合规
+# AI Regulations and Compliance
 
-![AI 合规工程转译图](/img/course/ch12-ai-regulation-engineering-translation-map.png)
+![AI Compliance Engineering Translation Map](/img/course/ch12-ai-regulation-engineering-translation-map-en.png)
 
-:::tip 读图提示
-合规要求最终会变成系统设计要求：数据权限、日志审计、风险分级、人工监督、内容标记和可追溯性。读图时重点看“法规语言”如何被翻译成“工程配置”。
+:::tip Reading the diagram
+Compliance requirements eventually become system design requirements: data permissions, log auditing, risk classification, human oversight, content labeling, and traceability. When reading the diagram, focus on how “regulatory language” is translated into “engineering configuration.”
 :::
 
-:::tip 本节定位
-讲法规最容易让人觉得离技术很远。  
-但一旦系统真的进入：
+:::tip What this section is about
+Talking about regulations can easily make people feel like it is far away from technology.
+But once a system actually enters:
 
-- 企业环境
-- 商业产品
-- 高风险行业
+- an enterprise environment
+- a commercial product
+- a high-risk industry
 
-你会很快发现：
+you will quickly discover:
 
-> **合规不是最后才补的一层，而是会反过来影响系统结构。**
+> **Compliance is not a layer added at the very end; it is something that can shape the system structure from the start.**
 
-这节课就是想把这个关系讲清楚。
+This lesson is here to make that relationship clear.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么 AI 合规问题会直接影响产品设计
-- 理解风险分级、审计、可追溯性这些关键词为什么重要
-- 学会把法规要求转译成系统要求
-- 建立“法规问题不是法务单独处理，而是技术也必须参与设计”的视角
+- Understand why AI compliance issues directly affect product design
+- Understand why keywords such as risk classification, auditing, and traceability matter
+- Learn how to translate regulatory requirements into system requirements
+- Build the perspective that “regulatory issues are not handled by legal alone; engineering must also participate in the design”
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-AI 法规与合规更适合按“法律要求 -> 系统能力 -> 工程落实”来理解：
+AI regulations and compliance are easier to understand as “legal requirements -> system capabilities -> engineering implementation”:
 
 ```mermaid
 flowchart LR
-    A["法规和合规要求"] --> B["风险分级 / 追溯 / 权限 / 人工确认"]
-    B --> C["系统设计和流程配置"]
+    A["Regulatory and compliance requirements"] --> B["Risk classification / traceability / permissions / human confirmation"]
+    B --> C["System design and process configuration"]
 ```
 
-所以这节真正想解决的是：
+So what this section is really trying to solve is:
 
-- 为什么法规问题会直接长进系统结构里
-- 为什么技术团队必须参与“合规翻译”
-
----
-
-## 一、为什么法规问题离工程师并不远？
-
-### 1.1 一个常见误解
-
-很多技术同学会下意识觉得：
-
-- 法规是法务的事
-- 模型是工程的事
-
-但实际项目里，这两者经常会直接相遇。
-
-### 1.2 为什么会相遇？
-
-因为很多法规要求本质上最后都会变成这些问题：
-
-- 你有没有日志
-- 你能不能追溯来源
-- 你有没有权限控制
-- 你能不能人工接管
-
-也就是说：
-
-> 法规要求最终经常会落成系统能力要求。 
-
-所以合规不是后置检查，而经常是架构输入。
-
-### 1.1 一个更适合新人的总类比
-
-你可以把合规理解成：
-
-- 产品上线前必须满足的一组“建筑规范”
-
-建筑规范不会直接告诉你砖怎么摆，  
-但它会规定：
-
-- 哪里必须留消防通道
-- 哪些地方必须加安全出口
-
-AI 合规也很像这样：
-
-- 它不是直接替你写代码
-- 但它会反过来限制你系统必须长成什么样
+- Why regulatory issues directly become part of system structure
+- Why technical teams must participate in “compliance translation”
 
 ---
 
-## 二、最常见的合规关注点有哪些？
+## 1. Why Are Regulatory Issues Not Far From Engineers?
 
-### 2.1 数据与隐私
+### 1.1 A Common Misunderstanding
 
-系统是否处理了：
+Many technical learners instinctively think:
 
-- 个人信息
-- 敏感信息
-- 企业内部数据
+- regulations are the legal team’s job
+- models are the engineering team’s job
 
-### 2.2 可追溯性
+But in real projects, these two often meet directly.
 
-系统是否能解释：
+### 1.2 Why Do They Meet?
 
-- 这条答案从哪来
-- 哪些数据被用过
-- 哪一步做了什么
+Because many regulatory requirements eventually become questions like these:
 
-### 2.3 风险分级
+- Do you have logs?
+- Can you trace the source?
+- Do you have permission control?
+- Can a human take over?
 
-不同系统风险等级不同。  
-并不是所有生成系统都要同样强的管控。
+In other words:
 
-### 2.4 人工监督与申诉机制
+> Regulatory requirements often end up becoming system capability requirements.
 
-在高风险场景里，系统通常不能完全自动闭环。
+So compliance is not a post-check; it is often an architecture input.
+
+### 1.1 A Better Analogy for Beginners
+
+You can think of compliance as:
+
+- a set of “building codes” that must be satisfied before a product can go live
+
+Building codes do not directly tell you how to place every brick,
+but they do specify:
+
+- where fire exits must be kept clear
+- where emergency exits must be installed
+
+AI compliance is very similar:
+
+- it does not directly write your code for you
+- but it does constrain what shape your system must take
 
 ---
 
-## 三、一个很实用的工程翻译思路
+## 2. What Are the Most Common Compliance Concerns?
 
-把法规要求翻成系统要求，通常可以这样看：
+### 2.1 Data and Privacy
 
-| 法规 / 合规问题 | 工程上会变成什么要求 |
+Does the system handle:
+
+- personal information
+- sensitive information
+- internal enterprise data
+
+### 2.2 Traceability
+
+Can the system explain:
+
+- where this answer came from
+- which data was used
+- what happened at each step
+
+### 2.3 Risk Classification
+
+Different systems have different risk levels.
+Not all generative systems need the same level of control.
+
+### 2.4 Human Oversight and Appeal Mechanisms
+
+In high-risk scenarios, the system usually cannot be fully automated end to end.
+
+---
+
+## 3. A Very Practical Way to Translate Requirements into Engineering
+
+When translating regulatory requirements into system requirements, you can usually think about them like this:
+
+| Regulatory / compliance issue | What it becomes in engineering |
 |---|---|
-| 数据保护 | 脱敏、权限控制、最小化留存 |
-| 可解释 / 可追溯 | 日志、trace、来源引用 |
-| 高风险决策限制 | 人工确认、双重审批、拒绝自动执行 |
-| 审计能力 | 操作记录、版本记录、请求留痕 |
+| Data protection | Data masking, access control, minimal retention |
+| Explainability / traceability | Logs, traces, source citations |
+| Restrictions on high-risk decisions | Human confirmation, dual approval, refusing automatic execution |
+| Audit capability | Operation records, version records, request traceability |
 
-这张表非常重要，因为它让“合规”从抽象词变成了可工程化的问题。
+This table is very important because it turns “compliance” from an abstract term into an engineering problem you can act on.
 
-### 3.1 一个很适合初学者先记的判断表
+### 3.1 A Beginner-Friendly Table to Remember First
 
-| 合规要求 | 技术侧最先该想到什么 |
+| Compliance requirement | What engineering should think of first |
 |---|---|
-| 数据保护 | 脱敏、权限、留存边界 |
-| 可追溯 | 日志、trace、引用来源 |
-| 高风险限制 | 审批流、人工确认、拒绝自动执行 |
-| 审计 | 版本记录、操作留痕、配置可回放 |
+| Data protection | Masking, permissions, retention boundaries |
+| Traceability | Logs, traces, source references |
+| High-risk restrictions | Approval flow, human confirmation, refusing automatic execution |
+| Audit | Version records, operation traces, replayable configuration |
 
-这个表很适合新人，因为它会把“法规词汇”重新翻成工程语言。
-
----
-
-## 四、为什么“可追溯性”几乎成了 AI 合规里的高频词？
-
-因为很多 AI 系统的问题不是“输出错了”这么简单，而是：
-
-- 你不知道它为什么错
-- 你不知道它用了什么数据
-- 你不知道是哪个模块出了问题
-
-所以合规上经常会非常看重：
-
-- 来源引用
-- 任务 trace
-- 决策日志
-
-你可以把它理解成：
-
-> 不只是系统要跑出来，还要能回头查出来。 
+This table is especially useful for beginners because it translates “regulatory vocabulary” back into engineering language.
 
 ---
 
-## 五、风险分级为什么对 AI 系统特别重要？
+## 4. Why Has “Traceability” Become Such a Frequent Term in AI Compliance?
 
-并不是所有 AI 应用都应该按同一种强度管控。
+Because many AI system problems are not just “the output is wrong,” but rather:
 
-例如：
+- you do not know why it is wrong
+- you do not know what data it used
+- you do not know which module caused the issue
 
-- 一个海报生成器
-- 一个医疗建议助手
+That is why compliance often places strong emphasis on:
 
-它们的风险显然不在一个量级。
+- source citations
+- task traces
+- decision logs
 
-所以一个很核心的思想是：
+You can think of it like this:
 
-> **治理和合规通常是分级的，不是“一刀切”的。**
-
-这会影响：
-
-- 是否需要人工确认
-- 是否允许自动决策
-- 是否要求更强审计
+> It is not enough for the system to run; you also need to be able to look back and find out what happened.
 
 ---
 
-## 六、一个最小“合规要求 -> 系统配置”示意
+## 5. Why Is Risk Classification So Important for AI Systems?
+
+Not all AI applications should be controlled with the same level of strictness.
+
+For example:
+
+- a poster generator
+- a medical advice assistant
+
+These two clearly do not carry the same level of risk.
+
+So one core idea is:
+
+> **Governance and compliance are usually tiered, not one-size-fits-all.**
+
+This affects:
+
+- whether human confirmation is required
+- whether automatic decisions are allowed
+- whether stronger auditing is required
+
+---
+
+## 6. A Minimal Illustration of “Compliance Requirements -> System Configuration”
 
 ```python
 compliance_config = {
@@ -210,121 +210,121 @@ compliance_config = {
 print(compliance_config)
 ```
 
-这个例子虽然简单，但在表达一个很重要的思路：
+Although this example is simple, it expresses a very important idea:
 
-> 合规要求最后经常会变成系统开关、策略和流程。 
-
----
-
-## 七、在 AIGC / Agent 场景里，哪些地方最容易碰到合规问题？
-
-### 7.1 检索和知识库
-
-如果系统会查内部文档，那就一定会涉及：
-
-- 权限边界
-- 来源范围
-
-### 7.2 工具调用
-
-如果系统会：
-
-- 发邮件
-- 改数据库
-- 调企业系统
-
-那自动执行风险会很快出现。
-
-### 7.3 生成内容
-
-如果系统会生成：
-
-- 面向用户的建议
-- 营销文案
-- 合同草稿
-
-那内容责任和误导风险就会上来。
+> Compliance requirements often end up becoming system switches, policies, and workflows.
 
 ---
 
-## 八、为什么“人类在环（human-in-the-loop）”会越来越重要？
+## 7. In AIGC / Agent Scenarios, Where Are Compliance Problems Most Likely to Appear?
 
-因为很多场景里，法规和合规最关心的不是：
+### 7.1 Retrieval and Knowledge Bases
 
-- 模型能不能输出
+If the system looks up internal documents, then it will definitely involve:
 
-而是：
+- permission boundaries
+- source scope
 
-- 最终关键动作是不是仍然有人能管住
+### 7.2 Tool Calls
 
-例如：
+If the system can:
 
-- 高风险审批
-- 对外正式发布
-- 涉及法律和财务的决定
+- send emails
+- modify databases
+- call enterprise systems
 
-这意味着：
+then the risk of automatic execution will appear quickly.
 
-> 很多系统设计上需要预留“人工接管点”。 
+### 7.3 Generated Content
 
-这既是合规要求，也是工程要求。
+If the system can generate:
 
-### 8.1 一个很适合初学者先记的分级思路
+- user-facing advice
+- marketing copy
+- contract drafts
 
-可以先把系统想成三类：
-
-1. 低风险：更多自动化
-2. 中风险：更强日志和审计
-3. 高风险：保留人工确认和接管点
-
-这个分级思路很重要，因为它能帮助你避免“一刀切治理”。
+then content responsibility and misinformation risk will rise.
 
 ---
 
-## 九、一个很重要的工程习惯
+## 8. Why Is “Human in the Loop” Becoming More and More Important?
 
-如果你在做高风险 AI 应用，建议养成这种思路：
+Because in many scenarios, what regulations and compliance care about most is not:
 
-1. 先问系统属于什么风险等级
-2. 再问需要哪些日志和追踪
-3. 再问哪些动作必须人工确认
-4. 最后再谈模型和工作流怎么实现
+- whether the model can produce output
 
-这会比“先把系统做完再补合规”稳得多。
+but rather:
 
-## 如果把它做成系统设计或治理文档，最值得展示什么
+- whether a human still has control over the final critical action
 
-最值得展示的通常不是：
+For example:
 
-- “我们满足合规”
+- high-risk approvals
+- official external releases
+- decisions involving legal and financial matters
 
-而是：
+This means:
 
-1. 风险等级怎么划
-2. 哪些能力是为了满足合规要求而加的
-3. 哪些动作必须人工确认
-4. 哪些日志和 trace 能支持审计
+> Many system designs need to leave room for “human takeover points.”
 
-这样别人会更容易看出：
+This is both a compliance requirement and an engineering requirement.
 
-- 你理解的是合规到工程的翻译过程
-- 不只是停留在政策层面
+### 8.1 A Beginner-Friendly Tiering Idea
 
----
+You can first think of systems in three categories:
 
-## 小结
+1. Low risk: more automation
+2. Medium risk: stronger logs and auditing
+3. High risk: human confirmation and takeover points are retained
 
-这一节最重要的不是背法规条文，而是理解：
-
-> **AI 法规与合规真正会落到技术侧的地方，通常是数据边界、日志追踪、权限控制和人工确认机制。**
-
-只要你开始这样看问题，合规就不再是“离工程很远的词”，而会变成你设计系统时必须正面考虑的一层。
+This tiering idea is important because it helps you avoid one-size-fits-all governance.
 
 ---
 
-## 练习
+## 9. A Very Important Engineering Habit
 
-1. 选一个你熟悉的 AI 系统，试着列出它在“数据、日志、权限、人工确认”四方面的要求。
-2. 想一想：为什么“可追溯性”会成为很多 AI 合规讨论里的核心词？
-3. 用自己的话解释：为什么说风险分级会直接影响系统设计？
-4. 试着把“合规”翻译成三个你能落到系统里的具体技术要求。
+If you are building a high-risk AI application, it is recommended that you develop this way of thinking:
+
+1. First ask what risk level the system belongs to
+2. Then ask what logs and tracing are needed
+3. Then ask which actions must be confirmed by a human
+4. Finally, think about how the model and workflow should be implemented
+
+This is much more reliable than “building the system first and adding compliance later.”
+
+## If You Turn This Into a System Design or Governance Document, What Is Most Worth Showing?
+
+What is most worth showing is usually not:
+
+- “We are compliant”
+
+but rather:
+
+1. How the risk level is classified
+2. Which capabilities were added to meet compliance requirements
+3. Which actions require human confirmation
+4. Which logs and traces can support auditing
+
+This makes it easier for others to see:
+
+- that you understand the translation process from compliance to engineering
+- not just the policy layer
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing legal text, but understanding:
+
+> **The parts of AI regulations and compliance that truly land on the technical side are usually data boundaries, log tracing, access control, and human confirmation mechanisms.**
+
+Once you start looking at the problem this way, compliance is no longer “a term far away from engineering,” but a layer you must actively consider when designing systems.
+
+---
+
+## Exercises
+
+1. Pick an AI system you are familiar with and try to list its requirements in the four areas of “data, logs, permissions, and human confirmation.”
+2. Think about why “traceability” has become a core term in many AI compliance discussions.
+3. Explain in your own words why risk classification directly affects system design.
+4. Try translating “compliance” into three specific technical requirements that you can implement in a system.

@@ -1,57 +1,57 @@
 ---
-title: "终端基础操作"
+title: "Basic Terminal Operations"
 sidebar_position: 2
-description: "掌握核心命令、路径概念、管道与环境变量"
+description: "Master core commands, path concepts, pipes, and environment variables"
 ---
 
-# 终端基础操作
+# Basic Terminal Operations
 
-![终端路径与命令执行关系图](/img/course/ch01-terminal-path-command-map.png)
+![Diagram of the relationship between terminal paths and command execution](/img/course/ch01-terminal-path-command-map-en.png)
 
-## 本节定位
+## Where this section fits
 
-这一节开始真正动手使用终端。你会先学会判断“我现在在哪个目录”，再掌握最常用的文件、目录、路径、管道和环境变量操作，为后面运行 Python、管理依赖和使用 Git 打基础。
+This is the section where you start using the terminal in a hands-on way. First, you’ll learn how to tell “which directory am I in right now?”, then you’ll master the most common operations for files, directories, paths, pipes, and environment variables. This will prepare you for running Python, managing dependencies, and using Git later on.
 
-## 学习目标
+## Learning objectives
 
-- 掌握 10+ 个核心命令，覆盖日常 90% 的操作
-- 理解绝对路径和相对路径
-- 学会使用管道和重定向
-- 理解环境变量的概念
+- Master 10+ core commands, covering 90% of everyday tasks
+- Understand absolute paths and relative paths
+- Learn how to use pipes and redirection
+- Understand the concept of environment variables
 
 ---
 
-## 打开终端
+## Open the terminal
 
-首先，找到并打开你的终端：
+First, find and open your terminal:
 
-| 操作系统 | 怎么打开 |
+| Operating system | How to open |
 |---------|---------|
-| **Windows** | 搜索 "PowerShell" 或 "Windows Terminal"，点击打开 |
-| **macOS** | `Command + 空格` 搜索 "Terminal"，回车打开 |
+| **Windows** | Search for "PowerShell" or "Windows Terminal" and click to open |
+| **macOS** | Press `Command + Space`, search for "Terminal", and press Enter |
 | **Linux** | `Ctrl + Alt + T` |
 
-你会看到一个窗口，里面有一个闪烁的光标，等着你输入命令。这就是终端。
+You’ll see a window with a blinking cursor waiting for your command. That is the terminal.
 
-:::info Windows 用户的选择
-Windows 有多种终端选项。推荐使用 **Windows Terminal**（可从微软商店免费安装），然后在里面选择 PowerShell 标签页。本教程的命令以 macOS/Linux 为主，Windows 下绝大部分命令相同，少数不同的地方会特别标注。
+:::info Windows users
+Windows has multiple terminal options. We recommend **Windows Terminal** (free to install from the Microsoft Store), then selecting the PowerShell tab inside it. The commands in this tutorial are mainly for macOS/Linux. Most commands are the same on Windows, and any exceptions will be noted clearly.
 :::
 
 ---
 
-## 第一部分：路径——你在哪里？
+## Part 1: Paths — where are you?
 
-命令行没有图形界面，你需要用文字告诉计算机"我要操作哪个文件夹里的东西"。这就是**路径**。
+The command line has no graphical interface, so you need to tell the computer in text which folder you want to work in. That is called a **path**.
 
-### 你现在在哪？
+### Where are you now?
 
 ```bash
 pwd
 ```
 
-`pwd` = **P**rint **W**orking **D**irectory（打印当前工作目录）
+`pwd` = **P**rint **W**orking **D**irectory
 
-输出可能是这样的：
+The output might look like this:
 
 ```
 /Users/zhangsan          # macOS
@@ -59,259 +59,259 @@ pwd
 C:\Users\zhangsan        # Windows PowerShell
 ```
 
-这就是你当前所在的文件夹，叫做**工作目录**。
+This is the folder you are currently in, called the **working directory**.
 
-### 绝对路径 vs 相对路径
+### Absolute path vs. relative path
 
 ```
 /Users/zhangsan/projects/ai-course/data/train.csv
 ```
 
-这是一个**绝对路径**——从根目录 `/` 开始，完整地描述了文件的位置。就像现实中的完整地址："中国北京市海淀区中关村大街1号"。
+This is an **absolute path** — it starts from the root directory `/` and fully describes the file’s location. It’s like a complete street address in real life.
 
 ```
 data/train.csv
 ```
 
-这是一个**相对路径**——相对于你当前所在的文件夹。如果你当前在 `/Users/zhangsan/projects/ai-course/`，那么 `data/train.csv` 就等于上面那个绝对路径。就像说"隔壁楼2层"。
+This is a **relative path** — it depends on the folder you are currently in. If you are in `/Users/zhangsan/projects/ai-course/`, then `data/train.csv` refers to the same file as the absolute path above. It’s like saying “the second floor of the building next door.”
 
-### 路径中的特殊符号
+### Special symbols in paths
 
-| 符号 | 含义 | 例子 |
+| Symbol | Meaning | Example |
 |------|------|------|
-| `/` | 根目录（所有文件的起点） | `cd /` |
-| `~` | 当前用户的主目录（Home） | `cd ~` 等于 `cd /Users/zhangsan` |
-| `.` | 当前目录 | `./run.py` 表示当前目录下的 run.py |
-| `..` | 上一级目录 | `cd ..` 回到上一层 |
+| `/` | Root directory (the starting point of all files) | `cd /` |
+| `~` | The current user’s home directory | `cd ~` is the same as `cd /Users/zhangsan` |
+| `.` | Current directory | `./run.py` means `run.py` in the current directory |
+| `..` | Parent directory | `cd ..` goes up one level |
 
-一个练习帮你理解：
+Here’s a small exercise to help you understand:
 
 ```bash
-# 假设你在 /Users/zhangsan/projects/ai-course
+# Suppose you are in /Users/zhangsan/projects/ai-course
 
-pwd                    # 输出: /Users/zhangsan/projects/ai-course
-cd ..                  # 回到上一级
-pwd                    # 输出: /Users/zhangsan/projects
-cd ~                   # 回到 Home 目录
-pwd                    # 输出: /Users/zhangsan
-cd ~/projects/ai-course  # 用绝对路径回去
-pwd                    # 输出: /Users/zhangsan/projects/ai-course
+pwd                    # Output: /Users/zhangsan/projects/ai-course
+cd ..                  # Go up one level
+pwd                    # Output: /Users/zhangsan/projects
+cd ~                   # Return to the Home directory
+pwd                    # Output: /Users/zhangsan
+cd ~/projects/ai-course  # Go back using an absolute path
+pwd                    # Output: /Users/zhangsan/projects/ai-course
 ```
 
 ---
 
-## 第二部分：核心命令
+## Part 2: Core commands
 
-以下命令是你每天都会用到的。先跟着敲一遍，不需要背，用多了自然就记住了。
+These are commands you will use every day. Type them along with the tutorial first—you don’t need to memorize them. The more you use them, the more natural they’ll become.
 
-### 导航命令
+### Navigation commands
 
-#### `cd` — 切换目录
+#### `cd` — change directory
 
 ```bash
-cd projects        # 进入 projects 文件夹
-cd ..              # 回到上一级
-cd ~               # 回到 Home 目录
-cd ~/Desktop       # 去桌面
-cd -               # 回到上一次所在的目录（很实用！）
+cd projects        # Enter the projects folder
+cd ..              # Go back to the parent directory
+cd ~               # Return to the Home directory
+cd ~/Desktop       # Go to the Desktop
+cd -               # Go back to the previous directory (very useful!)
 ```
 
-#### `ls` — 列出文件
+#### `ls` — list files
 
 ```bash
-ls                 # 列出当前目录下的文件和文件夹
-ls -l              # 详细列表（显示大小、日期、权限）
-ls -a              # 显示隐藏文件（以 . 开头的文件）
-ls -la             # 两者组合
-ls projects/       # 列出 projects 文件夹里的内容
+ls                 # List files and folders in the current directory
+ls -l              # Detailed list (shows size, date, permissions)
+ls -a              # Show hidden files (files starting with .)
+ls -la             # Combine both
+ls projects/       # List the contents of the projects folder
 ```
 
 :::note Windows PowerShell
-在 PowerShell 中，`ls` 同样可用（它是 `Get-ChildItem` 的别名）。`ls -la` 不行，用 `ls -Force` 显示隐藏文件。
+In PowerShell, `ls` also works (it is an alias for `Get-ChildItem`). `ls -la` does not work; use `ls -Force` to show hidden files.
 :::
 
-### 文件和文件夹操作
+### File and folder operations
 
-#### `mkdir` — 创建文件夹
+#### `mkdir` — create a folder
 
 ```bash
-mkdir my-project               # 创建一个文件夹
-mkdir -p a/b/c                 # 一次性创建多层嵌套的文件夹
+mkdir my-project               # Create a folder
+mkdir -p a/b/c                 # Create nested folders in one go
 ```
 
-#### `touch` — 创建空文件
+#### `touch` — create an empty file
 
 ```bash
-touch hello.py                 # 创建一个空的 Python 文件
-touch README.md                # 创建一个空的 Markdown 文件
+touch hello.py                 # Create an empty Python file
+touch README.md                # Create an empty Markdown file
 ```
 
 :::note Windows
-PowerShell 没有 `touch`，用 `New-Item hello.py` 代替。
+PowerShell does not have `touch`; use `New-Item hello.py` instead.
 :::
 
-#### `cp` — 复制
+#### `cp` — copy
 
 ```bash
-cp file.txt file_backup.txt          # 复制文件
-cp file.txt ~/Desktop/               # 复制到桌面
-cp -r my-folder/ my-folder-backup/   # 复制整个文件夹（-r 表示递归）
+cp file.txt file_backup.txt          # Copy a file
+cp file.txt ~/Desktop/               # Copy to the Desktop
+cp -r my-folder/ my-folder-backup/   # Copy an entire folder (`-r` means recursive)
 ```
 
-#### `mv` — 移动 / 重命名
+#### `mv` — move / rename
 
 ```bash
-mv old_name.py new_name.py       # 重命名文件
-mv file.txt ~/Desktop/           # 移动到桌面
-mv project/ ~/projects/          # 移动文件夹
+mv old_name.py new_name.py       # Rename a file
+mv file.txt ~/Desktop/           # Move to the Desktop
+mv project/ ~/projects/          # Move a folder
 ```
 
-#### `rm` — 删除
+#### `rm` — delete
 
 ```bash
-rm file.txt                  # 删除文件
-rm -r my-folder/             # 删除文件夹及其所有内容
+rm file.txt                  # Delete a file
+rm -r my-folder/             # Delete a folder and everything inside it
 ```
 
-:::warning 命令行删除没有回收站
-`rm` 删除的文件不会进回收站，直接就没了。操作前请确认你删对了东西。养成习惯：删除前先用 `ls` 看一眼。
+:::warning Deleted files from the command line do not go to the Recycle Bin
+Files deleted with `rm` do not go to the Recycle Bin—they are gone immediately. Please double-check before deleting. Build the habit of using `ls` to look first before removing anything.
 :::
 
-### 查看文件内容
+### View file contents
 
 ```bash
-cat file.txt          # 显示整个文件内容（适合小文件）
-head file.txt         # 显示文件前 10 行
-head -20 file.txt     # 显示前 20 行
-tail file.txt         # 显示文件最后 10 行
-tail -f log.txt       # 实时跟踪文件更新（看日志很有用）
+cat file.txt          # Display the entire file contents (good for small files)
+head file.txt         # Show the first 10 lines
+head -20 file.txt     # Show the first 20 lines
+tail file.txt         # Show the last 10 lines
+tail -f log.txt       # Follow file updates in real time (very useful for logs)
 ```
 
-### 搜索
+### Search
 
 ```bash
-grep "error" log.txt              # 在文件中搜索包含 "error" 的行
-grep -r "import torch" ./         # 在当前目录下所有文件中搜索
-grep -n "def train" model.py      # 搜索并显示行号
+grep "error" log.txt              # Search for lines containing "error" in a file
+grep -r "import torch" ./         # Search all files in the current directory
+grep -n "def train" model.py      # Search and show line numbers
 ```
 
-`grep` 是你未来 debug 的好帮手——在几十个文件里快速找到某个函数或变量在哪里被用到。
+`grep` will become a great debugging helper in the future — it helps you quickly find where a function or variable is used across dozens of files.
 
-### 其他实用命令
+### Other useful commands
 
 ```bash
-clear              # 清屏（或按 Ctrl + L）
-history            # 查看你之前执行过的所有命令
-which python       # 查看 python 命令的路径（排查环境问题常用）
-echo "hello"       # 输出一段文字
+clear              # Clear the screen (or press Ctrl + L)
+history            # View all the commands you’ve run before
+which python       # Show the path of the python command (often used to diagnose environment issues)
+echo "hello"       # Print some text
 ```
 
 ---
 
-## 第三部分：管道与重定向
+## Part 3: Pipes and redirection
 
-这两个概念是命令行真正强大的地方。
+These two concepts are where the command line becomes truly powerful.
 
-### 管道 `|`
+### Pipe `|`
 
-管道的意思是：把前一个命令的输出，作为后一个命令的输入。
+A pipe means: take the output of the previous command and use it as the input of the next command.
 
 ```bash
-# 列出所有文件，从中找到 .py 文件
+# List all files, then find .py files among them
 ls -la | grep ".py"
 
-# 查看历史命令中用过的 git 命令
+# Check the command history for git commands
 history | grep "git"
 
-# 统计当前目录下有多少个 Python 文件
+# Count how many Python files are in the current directory
 ls *.py | wc -l
 ```
 
-你可以把管道想象成工厂流水线：一个工序的产出是下一个工序的原料。
+You can think of a pipe as an assembly line in a factory: the output of one step becomes the input to the next.
 
-### 重定向 `>` 和 `>>`
+### Redirection `>` and `>>`
 
-把命令的输出保存到文件里，而不是显示在屏幕上：
+Save a command’s output to a file instead of showing it on the screen:
 
 ```bash
-# 把 ls 的结果保存到 filelist.txt（覆盖写入）
+# Save the output of ls to filelist.txt (overwrite)
 ls -la > filelist.txt
 
-# 把结果追加到文件末尾（不覆盖）
-echo "新的一行" >> notes.txt
+# Append output to the end of a file (do not overwrite)
+echo "A new line" >> notes.txt
 
-# 把 Python 脚本的输出保存到文件
+# Save the output of a Python script to a file
 python train.py > training_log.txt
 ```
 
-`>` 是覆盖，`>>` 是追加。实战中经常用来保存训练日志。
+`>` overwrites, while `>>` appends. In practice, these are often used to save training logs.
 
-### 组合使用
+### Using them together
 
 ```bash
-# 运行脚本，把正常输出和错误输出都保存到日志文件
+# Run a script and save both normal output and error output to a log file
 python train.py > log.txt 2>&1
 
-# 统计一个 Python 文件有多少行代码
+# Count how many lines of code are in a Python file
 cat model.py | wc -l
 
-# 找到所有包含 "TODO" 的文件，并统计数量
+# Find all files containing "TODO" and count them
 grep -r "TODO" ./ | wc -l
 ```
 
 ---
 
-## 第四部分：环境变量
+## Part 4: Environment variables
 
-环境变量是存储在系统中的一些"全局配置"，很多程序会读取它们来决定自己的行为。
+Environment variables are some “global settings” stored in the system. Many programs read them to decide how to behave.
 
-### 查看环境变量
+### View environment variables
 
 ```bash
-# 查看所有环境变量
+# View all environment variables
 env
 
-# 查看某一个环境变量的值
+# View the value of a specific environment variable
 echo $PATH
 echo $HOME
 ```
 
-### 最重要的环境变量：PATH
+### The most important environment variable: PATH
 
-`PATH` 决定了你在终端里输入一个命令时，系统去哪些目录里找这个命令。
+`PATH` determines which directories the system searches when you type a command in the terminal.
 
 ```bash
 echo $PATH
-# 输出类似: /usr/local/bin:/usr/bin:/bin:/Users/zhangsan/miniconda3/bin
+# Output might look like: /usr/local/bin:/usr/bin:/bin:/Users/zhangsan/miniconda3/bin
 ```
 
-这些路径用 `:` 分隔。当你输入 `python` 时，系统会依次在这些目录里找 `python` 这个文件，找到第一个就执行。
+These paths are separated by `:`. When you type `python`, the system looks for a file named `python` in each of these directories in order, and runs the first one it finds.
 
-如果你遇到 `command not found`（命令找不到），通常就是因为这个程序没在 `PATH` 的任何目录里。
+If you get `command not found`, it usually means the program is not in any directory listed in `PATH`.
 
-### 设置环境变量
+### Set environment variables
 
 ```bash
-# 临时设置（只在当前终端窗口有效）
+# Set temporarily (only valid in the current terminal window)
 export MY_API_KEY="your_api_key_here"
-echo $MY_API_KEY    # 输出: your_api_key_here
+echo $MY_API_KEY    # Output: your_api_key_here
 
-# 验证：关闭终端重新打开，MY_API_KEY 就没了
+# Verify: close the terminal and reopen it, and MY_API_KEY will be gone
 ```
 
 ```bash
-# 永久设置（写入配置文件）
-# macOS/Linux 用 zsh：
+# Set permanently (write to a configuration file)
+# For macOS/Linux with zsh:
 echo 'export MY_API_KEY="your_api_key_here"' >> ~/.zshrc
-source ~/.zshrc    # 立即生效
+source ~/.zshrc    # Take effect immediately
 
-# 如果用 bash：
+# If you use bash:
 echo 'export MY_API_KEY="your_api_key_here"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-:::info 为什么需要了解环境变量？
-在后续的学习中，你会经常用环境变量来存储 API Key（比如 OpenAI 的密钥）。这样做比把密钥写在代码里安全得多：
+:::info Why do you need to understand environment variables?
+In later lessons, you will often use environment variables to store API keys (for example, an OpenAI key). This is much safer than writing secrets directly in your code:
 
 ```python
 import os
@@ -321,79 +321,79 @@ api_key = os.environ.get("OPENAI_API_KEY")
 
 ---
 
-## 实操练习
+## Hands-on practice
 
-打开终端，依次完成以下操作：
+Open your terminal and complete the following steps in order:
 
 ```bash
-# 1. 确认你在哪
+# 1. Confirm where you are
 pwd
 
-# 2. 去到 Home 目录
+# 2. Go to the Home directory
 cd ~
 
-# 3. 创建一个学习项目文件夹
+# 3. Create a study project folder
 mkdir -p ai-study/ch02-python/terminal-practice
 
-# 4. 进入这个文件夹
+# 4. Enter this folder
 cd ai-study/ch02-python/terminal-practice
 
-# 5. 创建几个文件
+# 5. Create a few files
 touch hello.py notes.txt data.csv
 
-# 6. 查看创建的文件
+# 6. Check the files you created
 ls -la
 
-# 7. 往文件里写点东西
+# 7. Write some content into the files
 echo "print('Hello, AI!')" > hello.py
-echo "第一天学习笔记" > notes.txt
+echo "Day 1 study notes" > notes.txt
 
-# 8. 查看文件内容
+# 8. View the file contents
 cat hello.py
 cat notes.txt
 
-# 9. 复制 notes.txt 做个备份
+# 9. Copy notes.txt to make a backup
 cp notes.txt notes_backup.txt
 
-# 10. 确认备份成功
+# 10. Confirm the backup was created successfully
 ls
 
-# 11. 给 notes.txt 追加内容
-echo "学了 cd, ls, mkdir, touch, cp, cat 命令" >> notes.txt
+# 11. Append more content to notes.txt
+echo "Learned the cd, ls, mkdir, touch, cp, and cat commands" >> notes.txt
 cat notes.txt
 
-# 12. 搜索包含 "AI" 的文件
+# 12. Search for files containing "AI"
 grep -r "AI" ./
 
-# 13. 回到上一级目录
+# 13. Go back to the parent directory
 cd ..
 pwd
 ```
 
-如果所有步骤都成功了，恭喜你——你已经掌握了命令行最核心的操作。
+If everything worked, congratulations — you’ve already mastered the most essential command-line operations.
 
 ---
 
-## 常用命令速查表
+## Quick reference for common commands
 
-| 命令 | 用途 | 常用参数 |
+| Command | Purpose | Common options |
 |------|------|---------|
-| `pwd` | 显示当前目录 | |
-| `cd` | 切换目录 | `..` 上一级，`~` Home，`-` 上一次 |
-| `ls` | 列出文件 | `-l` 详细，`-a` 隐藏文件 |
-| `mkdir` | 创建文件夹 | `-p` 创建多层 |
-| `touch` | 创建空文件 | |
-| `cp` | 复制 | `-r` 复制文件夹 |
-| `mv` | 移动/重命名 | |
-| `rm` | 删除 | `-r` 删除文件夹 |
-| `cat` | 查看文件 | |
-| `head` / `tail` | 查看开头/结尾 | `-n 数字` 指定行数 |
-| `grep` | 搜索文本 | `-r` 递归，`-n` 行号 |
-| `echo` | 输出文字 | |
-| `clear` | 清屏 | |
-| `history` | 历史命令 | |
-| `which` | 查看命令路径 | |
+| `pwd` | Show current directory | |
+| `cd` | Change directory | `..` parent, `~` Home, `-` previous |
+| `ls` | List files | `-l` detailed, `-a` hidden files |
+| `mkdir` | Create a folder | `-p` create multiple levels |
+| `touch` | Create an empty file | |
+| `cp` | Copy | `-r` copy folders |
+| `mv` | Move / rename | |
+| `rm` | Delete | `-r` delete folders |
+| `cat` | View file contents | |
+| `head` / `tail` | View the beginning / end | `-n number` specify line count |
+| `grep` | Search text | `-r` recursive, `-n` line numbers |
+| `echo` | Print text | |
+| `clear` | Clear the screen | |
+| `history` | Command history | |
+| `which` | Show command path | |
 
-:::tip 记不住怎么办？
-这张表不需要背。用多了自然就记住了。初期可以打印出来贴在屏幕旁边，或者保存到手机里随时查。大部分命令输入 `命令 --help` 就能看到用法说明。
+:::tip Can’t remember them?
+You do not need to memorize this table. The more you use these commands, the more you’ll remember naturally. In the beginning, you can print it out and keep it next to your screen, or save it on your phone for quick reference. For most commands, typing `command --help` will show usage instructions.
 :::

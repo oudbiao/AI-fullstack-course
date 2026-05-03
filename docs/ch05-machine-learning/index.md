@@ -1,114 +1,114 @@
 ---
-title: "5 机器学习入门到实战"
+title: "5 Introduction to Machine Learning: From Basics to Practice"
 sidebar_position: 0
-description: "系统学习机器学习任务拆解、监督学习、无监督学习、模型评估、特征工程和 Scikit-learn 实战，完成完整建模闭环。"
-keywords: [机器学习, Scikit-learn, 监督学习, 无监督学习, 回归, 分类, 聚类]
+description: "Systematically learn machine learning task decomposition, supervised learning, unsupervised learning, model evaluation, feature engineering, and Scikit-learn practice to complete a full modeling loop."
+keywords: [machine learning, Scikit-learn, supervised learning, unsupervised learning, regression, classification, clustering]
 ---
 
-# 5 机器学习入门到实战
+# 5 Introduction to Machine Learning: From Basics to Practice
 
-![机器学习主视觉](/img/course/ch05-machine-learning.png)
+![Main visual for machine learning](/img/course/ch05-machine-learning-en.png)
 
-这一阶段解决的是“能不能把一个问题变成可训练、可评估、可改进的模型项目”。你会从数据出发，完成任务定义、baseline、训练、评估、特征工程和复盘。
+This stage is about solving the question: “Can a problem be turned into a trainable, evaluable, and improvable model project?” You will start from data and complete task definition, baseline creation, training, evaluation, feature engineering, and review.
 
-## 故事化导入：训练一名“会复盘的实习生”
+## Story-based introduction: Training an “intern who knows how to review”
 
-机器学习可以想象成训练一名实习生：你先给它一些历史案例，让它从案例里总结规律；再拿一部分没见过的案例考试，看它是否真的学会；如果成绩不好，就回头检查数据、特征、指标和模型。这个过程不是一次成功，而是不断试错、评估和改进。
+You can think of machine learning as training an intern: first, you give it some historical cases and let it summarize patterns from them; then you test it with cases it has never seen before to see whether it really learned; if the result is poor, you go back and inspect the data, features, metrics, and model. This process is not a one-shot success, but an ongoing cycle of trial, evaluation, and improvement.
 
-## 学习闯关地图
+## Learning quest map
 
-![机器学习学习闯关地图](/img/course/ch05-learning-quest-map.png)
+![Machine learning learning quest map](/img/course/ch05-learning-quest-map-en.png)
 
-## 互动练习：先猜，再训练，再复盘
+## Interactive exercise: Guess first, then train, then review
 
-每做一个机器学习任务，先在训练前写下自己的猜测：哪些特征可能有用，哪个指标最重要，模型可能在哪里出错。训练后再对照结果复盘。这样你不会只是“调用 fit 和 predict”，而是在练习 AI 工程师真正需要的建模判断力。
+For every machine learning task, before training, write down your own guesses: which features may be useful, which metric matters most, and where the model may fail. After training, compare the results and review them. In this way, you are not just “calling fit and predict”; you are practicing the modeling judgment that AI engineers really need.
 
-## 项目彩蛋
+## Project bonus content
 
-本阶段的彩蛋作品可以是一份“模型侦探报告”：不仅展示模型分数，还要解释数据从哪里来、为什么选择这个指标、baseline 有多强、错误样本有什么共同点、下一步怎么改。这样的报告比单纯贴一个准确率更像真实工作成果。
+The bonus project for this stage can be a “model detective report”: not only showing model scores, but also explaining where the data came from, why you chose this metric, how strong the baseline is, what common patterns appear in the error samples, and how to improve next. This kind of report feels much closer to real-world work than simply pasting an accuracy number.
 
-## 阶段定位
+## Stage overview
 
-| 信息 | 说明 |
+| Information | Description |
 |---|---|
-| 适合对象 | 已掌握 Python、数据分析和 AI 数学最小基础的学习者 |
-| 预估学时 | 120～160 小时 |
-| 前置要求 | 完成前三个阶段 |
-| 阶段产出 | 房价预测、客户流失预测、用户分群或 Kaggle 入门项目 |
+| Suitable for | Learners who have mastered Python, data analysis, and the minimum foundation in AI math |
+| Estimated study time | 120–160 hours |
+| Prerequisites | Complete the first three stages |
+| Stage deliverables | House price prediction, customer churn prediction, user segmentation, or a Kaggle starter project |
 
-## 新手最小通关路线
+## Beginner minimum path to completion
 
-新手先掌握分类、回归、聚类、训练集测试集、baseline、评估指标这些主干概念，不需要一开始背所有算法细节。只要能用 Scikit-learn 跑通一个完整建模流程，并解释模型分数代表什么，就算完成最小通关。
+Beginners should first master the core concepts of classification, regression, clustering, training set and test set, baseline, and evaluation metrics. You do not need to memorize every algorithm detail at the beginning. As long as you can use Scikit-learn to complete a full modeling workflow and explain what the model score means, you have achieved the minimum completion goal.
 
-## 进阶深入路线
+## Advanced path
 
-有经验的学习者可以重点深入特征工程、交叉验证、偏差方差、调参策略、数据泄漏和误差分析。进一步尝试把模型训练流程封装成 Pipeline，并比较多个模型在同一指标下的表现。
+Experienced learners can focus on feature engineering, cross-validation, bias and variance, hyperparameter tuning strategies, data leakage, and error analysis. You can also try wrapping the model training workflow into a Pipeline and compare the performance of multiple models under the same metric.
 
-## 机器学习在 AI 历史中的位置
+## Machine learning’s place in the history of AI
 
-机器学习把 AI 从“人类手写规则”推进到“机器从数据中学习规律”。专家系统时代依赖大量人工规则，而机器学习开始让模型通过数据自动拟合模式。今天的大模型很强，但数据划分、评估指标、过拟合、泛化、特征和误差分析这些机器学习思想仍然是 AI 工程的基础。
+Machine learning moved AI from “human-written rules” to “machines learning patterns from data.” The era of expert systems relied on large numbers of manual rules, while machine learning started to let models fit patterns automatically from data. Today’s large models are very powerful, but machine learning ideas such as data splits, evaluation metrics, overfitting, generalization, features, and error analysis are still the foundation of AI engineering.
 
-![机器学习建模主线闭环](/img/course/ch05-modeling-loop-backbone.png)
+![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone-en.png)
 
-如果你想按历史进程理解每次技术突破，可以先读 [1.2 机器学习历史突破主线](./ch01-ml-basics/04-history-breakthroughs.md)。它会把 Bayes、MLE、EM、线性模型、决策树、SVM、随机森林、Boosting、XGBoost 和 sklearn 分配到本章对应小节，让你知道每个算法为什么会出现。
+If you want to understand each technical breakthrough in historical order, you can first read [1.2 Main line of machine learning historical breakthroughs](./ch01-ml-basics/04-history-breakthroughs.md). It maps Bayes, MLE, EM, linear models, decision trees, SVM, random forests, boosting, XGBoost, and sklearn to the corresponding sections in this chapter, so you can understand why each algorithm appeared.
 
-## 新人先做什么，进阶再做什么
+## What beginners should do first, and what advanced learners should do later
 
-新人第一次学这一阶段时，先跑通一个最小分类或回归项目：划分数据、建 baseline、训练、预测、评估、写结论。不要急着比较很多模型，先学会判断分数是否可信。
+When beginners study this stage for the first time, they should first complete a minimum classification or regression project: split the data, build a baseline, train, predict, evaluate, and write conclusions. Do not rush to compare many models; first learn how to judge whether a score is trustworthy.
 
-有经验的学习者可以把重点放在误差分析和实验设计上：baseline 是否足够强，指标是否匹配目标，是否有数据泄漏，错误样本有什么模式。你的目标是写出别人能复现、能质疑、能继续优化的建模报告。
+Experienced learners can focus on error analysis and experiment design: whether the baseline is strong enough, whether the metric matches the goal, whether there is data leakage, and what pattern the errors show. Your goal is to write a modeling report that others can reproduce, question, and continue improving.
 
-## 本阶段学习路径
+## Learning path for this stage
 
-第一章学习机器学习基础概念，包括历史突破主线、任务类型、训练集和测试集、Scikit-learn 基本用法，以及数学如何流入机器学习。
+Chapter 1 covers the basic concepts of machine learning, including the main line of historical breakthroughs, task types, training and test sets, basic usage of Scikit-learn, and how mathematics enters machine learning.
 
-第二章学习监督学习，包括线性回归、逻辑回归、决策树和集成学习。你会理解分类和回归任务如何建模。
+Chapter 2 covers supervised learning, including linear regression, logistic regression, decision trees, and ensemble learning. You will understand how classification and regression tasks are modeled.
 
-第三章学习无监督学习，包括聚类、降维和异常检测。你会理解没有标签时如何发现结构。
+Chapter 3 covers unsupervised learning, including clustering, dimensionality reduction, and anomaly detection. You will understand how to discover structure when there are no labels.
 
-第四章学习模型评估与选择，包括指标、交叉验证、偏差方差和调参。这里决定你是否能判断模型到底好不好。
+Chapter 4 covers model evaluation and selection, including metrics, cross-validation, bias and variance, and hyperparameter tuning. This is where you decide whether you can really tell if a model is good.
 
-第五章学习特征工程。对很多真实表格数据项目来说，特征理解和处理比模型选择更重要。
+Chapter 5 covers feature engineering. For many real tabular-data projects, understanding and processing features is more important than choosing a model.
 
-第六章进入实战项目，把完整建模流程跑通。
+Chapter 6 moves into hands-on projects and runs through the full modeling workflow.
 
-## 学完后你应该能做到
+## What you should be able to do after learning
 
-- 能判断一个问题是分类、回归、聚类还是异常检测
-- 能用 Scikit-learn 建立 baseline 模型
-- 能合理划分训练集和测试集，避免数据泄漏
-- 能选择合适指标评估模型
-- 能做基础特征处理和模型改进
-- 能把模型结果整理成可解释的项目报告
+- Determine whether a problem is classification, regression, clustering, or anomaly detection
+- Build a baseline model with Scikit-learn
+- Split training and test sets correctly and avoid data leakage
+- Choose suitable metrics to evaluate models
+- Perform basic feature processing and model improvement
+- Organize model results into an interpretable project report
 
-## 常见误区
+## Common mistakes
 
-不要把机器学习学成模型名称大全。真正重要的是完整流程：问题怎么定义，数据怎么准备，第一版模型怎么做，指标怎么看，失败时先查哪一步。
+Do not turn machine learning into a catalog of model names. What really matters is the full workflow: how the problem is defined, how the data is prepared, how the first version of the model is built, how the metrics are read, and which step to check first when things fail.
 
-也不要一开始就追求复杂模型。很多项目应该先用简单 baseline，确认数据和评估没问题，再逐步尝试更复杂的方法。
+Also, do not pursue complex models at the very beginning. Many projects should start with a simple baseline to make sure the data and evaluation are correct, and then gradually try more complex methods.
 
-## 建模错误剧场：分数很高也可能不可信
+## Modeling failure theater: A high score may still be untrustworthy
 
-如果模型分数异常高，先怀疑数据泄漏、训练测试划分错误或目标列被间接放进特征；如果训练分数高但测试分数低，优先检查过拟合；如果所有模型都很差，先回头看标签质量、特征含义和指标选择，而不是马上换更复杂模型。
+If the model score is unusually high, first suspect data leakage, incorrect train-test splitting, or the target column being indirectly included in the features; if the training score is high but the test score is low, check overfitting first; if all models perform poorly, go back and inspect label quality, feature meaning, and metric choice instead of immediately switching to a more complex model.
 
-## 阶段复盘卡：从数据表到建模报告
+## Stage review card: From data table to modeling report
 
-学完这个阶段后，可以用下面这张表检查自己是不是已经把机器学习学成一条完整链路，而不是只记住了几个模型名。
+After finishing this stage, you can use the table below to check whether you have turned machine learning into a complete chain rather than just memorizing a few model names.
 
-| 复盘问题 | 你应该能回答什么 |
+| Review question | What you should be able to answer |
 |---|---|
-| 问题定义 | 这是分类、回归、聚类还是异常检测？为什么？ |
-| 数据准备 | 哪些列是特征，哪一列是标签，是否需要清洗或编码？ |
-| Baseline | 最简单的第一版模型是什么，分数大概是多少？ |
-| 指标选择 | 为什么用准确率、F1、MAE、RMSE 或其他指标？ |
-| 错误分析 | 模型主要错在哪些样本或场景？ |
-| 下一步优化 | 应该先改数据、特征、模型，还是评估方式？ |
+| Problem definition | Is this classification, regression, clustering, or anomaly detection? Why? |
+| Data preparation | Which columns are features, which column is the label, and do they need cleaning or encoding? |
+| Baseline | What is the simplest first model, and roughly what score does it get? |
+| Metric choice | Why use accuracy, F1, MAE, RMSE, or another metric? |
+| Error analysis | Which samples or scenarios does the model mainly get wrong? |
+| Next-step optimization | Should you improve the data, features, model, or evaluation method first? |
 
-这一阶段真正的出口，是你能写出一份别人看得懂的建模报告：它不仅有分数，还有问题定义、数据说明、baseline、指标、错误分析和下一步计划。
+The real output of this stage is being able to write a modeling report that others can understand: it should include not only the score, but also the problem definition, data description, baseline, metrics, error analysis, and next-step plan.
 
-## 最小可运行实验：先做一个可信 baseline
+## Minimum runnable experiment: Start with a trustworthy baseline
 
-本阶段最小实验是选择一个表格数据任务，先不追求高分，只完成数据划分、baseline 训练、指标计算和错误样本查看。你要证明模型结果来自正确流程，而不是数据泄漏或偶然运气。
+The minimum experiment for this stage is to choose a tabular-data task and, instead of chasing a high score, complete only data splitting, baseline training, metric calculation, and error sample inspection. You need to prove that the model result comes from the correct process, not from data leakage or luck.
 
 ```python
 from sklearn.model_selection import train_test_split
@@ -121,67 +121,64 @@ model.fit(X_train, y_train)
 print(classification_report(y_test, model.predict(X_test)))
 ```
 
-先有 baseline，再谈优化。没有 baseline 的模型分数，很难判断到底有没有进步。
+Start with a baseline, then talk about optimization. Without a baseline, it is hard to tell whether the model score has actually improved.
 
-## 机器学习失败案例库：先查数据和评估
+## Machine learning failure case library: Check the data and evaluation first
 
-| 现象 | 常见原因 | 定位方法 | 修复方向 |
+| Phenomenon | Common cause | How to locate it | How to fix it |
 |---|---|---|---|
-| 分数异常高 | 数据泄漏、划分错误、目标列进入特征 | 检查特征列表和切分方式 | 重新划分，移除泄漏特征 |
-| 训练好测试差 | 过拟合、样本少、特征噪声大 | 对比训练集和测试集指标 | 简化模型、正则化、增加数据 |
-| 所有模型都很差 | 标签质量差、特征弱、指标不合适 | 查看错误样本和标签定义 | 改数据、补特征、换指标 |
-| 结果无法复现 | 随机种子、依赖或数据版本未固定 | 重跑并比较数据版本 | 固定 seed、保存配置和数据说明 |
+| Abnormally high score | Data leakage, splitting errors, target column included in features | Check the feature list and splitting method | Split again and remove leaked features |
+| Good training, poor test | Overfitting, too few samples, noisy features | Compare training and test metrics | Simplify the model, add regularization, increase data |
+| All models perform poorly | Poor label quality, weak features, unsuitable metric | Inspect error samples and label definition | Improve the data, add features, change the metric |
+| Results are not reproducible | Random seed, dependency, or data version not fixed | Rerun and compare data versions | Fix the seed, save configuration and data notes |
 
-## 阶段验收 Rubric
+## Stage acceptance rubric
 
-| 等级 | 验收标准 | 作品集证据 |
+| Level | Acceptance criteria | Portfolio evidence |
 |---|---|---|
-| 最低通关 | 能训练 baseline 并解释指标 | 训练脚本、指标输出 |
-| 推荐通关 | 能做模型对比和错误分析 | 实验表、错误样本、特征说明 |
-| 作品集通关 | 能写出完整建模报告和迭代计划 | README、评估记录、复盘报告 |
+| Minimum pass | Can train a baseline and explain the metric | Training script, metric output |
+| Recommended pass | Can compare models and analyze errors | Experiment table, error samples, feature notes |
+| Portfolio pass | Can write a complete modeling report and iteration plan | README, evaluation records, review report |
 
-## 阶段项目
+## Stage projects
 
-基础版是完成一个表格数据 baseline 项目，包含数据划分、模型训练和基础指标。标准版需要加入特征处理、交叉验证、模型对比和误差分析，形成一份可解释的建模报告。挑战版可以选择 Kaggle 入门题或真实业务数据，加入实验记录、特征迭代和部署前的风险说明。
+The basic version is to complete a baseline project on tabular data, including data splitting, model training, and basic metrics. The standard version should add feature processing, cross-validation, model comparison, and error analysis, forming an interpretable modeling report. The challenge version can use a Kaggle starter task or real business data, adding experiment logs, feature iteration, and pre-deployment risk notes.
 
-如果你想看更细的学习顺序，可以阅读 [学习指南：机器学习怎么学最不容易学乱](./study-guide.md)。
+If you want to see a more detailed learning sequence, you can read [Study guide: How to learn machine learning without getting confused](./study-guide.md).
 
+## Fun task card for this stage
 
-
-
-## 本阶段趣味任务卡
-
-| 玩法 | 本阶段任务 |
+| Play style | Task for this stage |
 |---|---|
-| 剧情任务 | 让助手学会判断模型是否真的有效：先做 baseline，再比较模型、指标和错误样本。 |
-| Boss 战 | **Baseline 守门员** |
-| 可解锁徽章 | Baseline 守门员、泄漏侦查员 |
-| 新手轻松版 | 只完成一个最小输入到输出闭环，先留下运行截图或命令输出 |
-| 作品集证据 | baseline 指标表和错误样本 |
+| Story task | Teach the assistant how to judge whether a model is really effective: start with a baseline, then compare models, metrics, and error samples. |
+| Boss fight | **Baseline Gatekeeper** |
+| Unlockable badges | Baseline Gatekeeper, Leakage Detective |
+| Beginner easy mode | Complete only a minimal input-to-output loop and keep a runtime screenshot or command output |
+| Portfolio evidence | Baseline metric table and error samples |
 
-如果你觉得本阶段内容很多，先把这张任务卡当作最低目标。能完成新手轻松版，就可以继续往后学；以后准备作品集时，再回来升级标准版和挑战版。
+If you feel this stage contains a lot of content, first treat this task card as your minimum goal. Once you can complete the beginner easy mode, you can continue learning; later, when preparing your portfolio, come back and upgrade to the standard version and challenge version.
 
-## 阶段交付物
+## Stage deliverables
 
-| 交付物 | 最小版 | 作品集版 |
+| Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| Baseline 模型 | 完成一次训练和测试集评估 | 说明问题类型、数据划分、指标和 baseline 意义 |
-| 特征处理记录 | 做基础缺失值和类别编码 | 记录特征选择、变换理由和数据泄漏检查 |
-| 模型对比表 | 比较 2 个模型或参数 | 有交叉验证、指标解释和误差分析 |
-| 错误样本分析 | 列出几个预测错误样本 | 归因到数据、特征、模型或指标选择 |
-| 建模报告 | 写清运行命令和分数 | 展示问题定义、实验过程、结果、限制和下一步 |
+| Baseline model | Complete one training and test evaluation | Explain the problem type, data split, metric, and baseline meaning |
+| Feature processing record | Perform basic missing-value handling and category encoding | Record feature selection, transformation rationale, and data leakage checks |
+| Model comparison table | Compare 2 models or parameter settings | Include cross-validation, metric interpretation, and error analysis |
+| Error sample analysis | List several mispredicted samples | Attribute them to data, features, model, or metric choice |
+| Modeling report | Clearly write the runtime command and score | Show problem definition, experiment process, results, limitations, and next steps |
 
-## 和 AI 学习助手贯穿项目的关系
+## Relationship to the full AI learning assistant project
 
-本阶段可以对应 AI 学习助手 v0.5：预测学习任务延期风险，或把学习问题分类为环境、语法、数据、模型、RAG、Agent 等类型。 如果你正在按贯穿项目路线学习，建议本阶段结束时至少提交一次版本记录：本阶段新增了什么能力、如何运行、示例输入输出是什么、遇到了什么问题、下一步准备怎么改。
+This stage can correspond to AI Learning Assistant v0.5: predicting the risk of learning-task delays, or classifying learning problems into environment, syntax, data, model, RAG, Agent, and other types. If you are learning according to the end-to-end project path, it is recommended that by the end of this stage you submit at least one version note: what new capability was added in this stage, how to run it, what the sample input and output are, what problems were encountered, and how you plan to improve it next.
 
 
-## 阶段通关标准
+## Stage completion criteria
 
-| 通关层级 | 你需要做到什么 |
+| Completion level | What you need to do |
 |---|---|
-| 最低通关 | 能完成回归、分类、聚类项目，并解释特征、指标、过拟合和 baseline。 |
-| 推荐通关 | 完成本阶段至少一个可运行小项目，并在 README 中记录运行方式、示例输入输出和遇到的问题。 |
-| 作品集通关 | 把本阶段产出接入“AI 学习助手”贯穿项目，留下截图、日志、评估样例和下一步计划。 |
+| Minimum pass | Can complete regression, classification, and clustering projects, and explain features, metrics, overfitting, and baseline. |
+| Recommended pass | Complete at least one runnable mini-project in this stage and record the run method, sample input/output, and problems encountered in the README. |
+| Portfolio pass | Connect the output of this stage to the “AI Learning Assistant” end-to-end project, leaving screenshots, logs, evaluation samples, and a next-step plan. |
 
-学完本阶段后，不需要把所有细节都背下来。更重要的是能说清楚：本阶段解决什么问题，它和上一阶段的关系是什么，以及它会怎样支撑后续学习。下一阶段会进入神经网络和深度学习训练。
+After finishing this stage, you do not need to memorize every detail. What matters more is being able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it supports future learning. The next stage will move into neural networks and deep learning training.

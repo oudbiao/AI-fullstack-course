@@ -1,60 +1,60 @@
 ---
-title: "学习指南：LLM 应用开发与 RAG 怎么学最不容易学乱"
+title: "Study Guide: How to Learn LLM Application Development and RAG Without Getting Confused"
 sidebar_position: 1
-description: "给 AI 全栈新人的 LLM 应用学习指南：RAG、模型部署、应用开发、工程化、项目路线和验收标准。"
-keywords: [LLM 应用学习指南, RAG 怎么学, 向量数据库怎么学, LangChain 怎么学, 大模型工程]
+description: "A learning guide for AI full-stack beginners on LLM applications: RAG, model deployment, application development, engineering practices, project roadmap, and acceptance criteria."
+keywords: [LLM application study guide, how to learn RAG, how to learn vector databases, how to learn LangChain, large model engineering]
 ---
 
-# 学习指南：LLM 应用开发与 RAG 怎么学最不容易学乱
+# Study Guide: How to Learn LLM Application Development and RAG Without Getting Confused
 
-如果你来到 `8 LLM 应用开发与 RAG` 后觉得框架、数据库、部署和应用逻辑混在一起，先把系统分层。LLM 应用不是只调一个接口，而是把知识、模型、应用和工程接起来。
+If you reach `8 LLM Application Development and RAG` and feel that frameworks, databases, deployment, and application logic are all mixed together, first separate the system into layers. An LLM application is not just calling an API. It is about connecting knowledge, models, applications, and engineering.
 
-## 本阶段总原则
+## Overall Principles for This Stage
 
-LLM 应用第一遍要抓住四层：知识层负责资料进入系统，模型层负责生成和理解，应用层负责功能组织，工程层负责稳定运行。
+For LLM applications, the first thing to understand is the four layers: the knowledge layer is responsible for bringing data into the system, the model layer is responsible for generation and understanding, the application layer is responsible for organizing features, and the engineering layer is responsible for stable operation.
 
-![LLM 应用四层学习地图](/img/course/ch08-study-guide-four-layer-map.png)
+![LLM application four-layer learning map](/img/course/ch08-study-guide-four-layer-map-en.png)
 
-## 推荐学习顺序
+## Recommended Learning Order
 
-第一轮先学 RAG。你要知道文档如何解析、切分、向量化、检索、重排，并进入模型上下文。
+In the first round, learn RAG first. You need to understand how documents are parsed, chunked, vectorized, retrieved, reranked, and then passed into the model context.
 
-第二轮学模型部署和统一接口。你要理解云端 API、本地模型、推理服务和统一调用层的区别。
+In the second round, learn model deployment and unified interfaces. You need to understand the differences between cloud APIs, local models, inference services, and a unified calling layer.
 
-第三轮学应用开发。包括 LLM API、Function Calling、对话系统、文档解析、模板生成和 AI 辅助编码。
+In the third round, learn application development. This includes LLM API, Function Calling, dialog systems, document parsing, template generation, and AI-assisted coding.
 
-第四轮学工程化。异步、API 设计、日志、监控、错误处理、Docker 和部署应该在你跑通最小应用后再逐步加入。
+In the fourth round, learn engineering practices. Async, API design, logging, monitoring, error handling, Docker, and deployment should be added gradually after you have a minimal working application.
 
-第五轮做综合项目，把知识库、模型调用、应用功能和工程化连接起来。
+In the fifth round, build a comprehensive project that connects the knowledge base, model calls, application features, and engineering practices.
 
-## 建议学习节奏
+## Suggested Learning Pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content Type | Suggested Time | Learning Goal |
 |---|---|---|
-| RAG 基础 | 8～16 小时 | 跑通文档到答案的链路 |
-| 模型部署 | 4～8 小时 | 理解模型如何被稳定调用 |
-| 应用开发 | 8～16 小时 | 能封装对话、工具和结构化输出 |
-| 工程化 | 8～16 小时 | 能加入日志、错误处理和部署说明 |
-| 综合项目 | 16～32 小时 | 完成一个可展示的 LLM 应用 |
+| RAG basics | 8–16 hours | Run through the full path from documents to answers |
+| Model deployment | 4–8 hours | Understand how models are called reliably |
+| Application development | 8–16 hours | Be able to wrap chat, tools, and structured outputs |
+| Engineering practices | 8–16 hours | Be able to add logging, error handling, and deployment notes |
+| Comprehensive project | 16–32 hours | Complete an LLM application that can be showcased |
 
-## 阶段项目路线
+## Project Roadmap for Each Stage
 
-第一个项目建议做最小 RAG：准备几篇文档，切分、向量化、检索，并让模型基于资料回答。
+For your first project, it is recommended to build a minimal RAG system: prepare a few documents, chunk them, vectorize them, retrieve them, and let the model answer based on the materials.
 
-第二个项目建议做课程问答助手或个人知识库，加入来源引用、检索结果展示和反馈记录。
+For your second project, it is recommended to build a course Q&A assistant or a personal knowledge base, adding source citations, retrieval result display, and feedback records.
 
-第三个项目建议做企业知识库 Demo，加入多轮对话、权限设想、日志和评估样例。
+For your third project, it is recommended to build an enterprise knowledge base demo, adding multi-turn dialogue, permission design ideas, logs, and evaluation examples.
 
-## 常见卡点
+## Common Sticking Points
 
-最常见的卡点是以为接入向量数据库就完成了 RAG。真正影响效果的是文档质量、切分策略、检索召回、重排、提示组织和评估数据。
+The most common mistake is thinking that connecting a vector database means RAG is finished. What really affects the results is document quality, chunking strategy, retrieval recall, reranking, prompt organization, and evaluation data.
 
-第二个卡点是一上来就追框架。建议先手写最小 RAG，再学 LangChain、LlamaIndex 等框架。
+The second sticking point is chasing frameworks right away. It is recommended to hand-write a minimal RAG system first, and only then learn frameworks such as LangChain and LlamaIndex.
 
-第三个卡点是只做成功 Demo，不处理失败。真实应用必须考虑无答案、检索不到、模型超时、输出格式错误和成本过高。
+The third sticking point is only building successful demos and not handling failures. Real applications must consider no-answer cases, retrieval failures, model timeouts, output format errors, and excessive costs.
 
-## 过关标准
+## Completion Criteria
 
-学完本阶段后，你应该能独立完成一个 RAG 应用，能解释数据从文档到答案的完整路径，并能定位效果差可能发生在哪一层。
+After finishing this stage, you should be able to independently complete a RAG application, explain the full path from documents to answers, and identify which layer may be causing poor results.
 
-如果你能做出一个带来源引用、基础日志和简单评估样例的知识库助手，就可以进入 AI Agent 阶段。
+If you can build a knowledge base assistant with source citations, basic logs, and simple evaluation examples, you are ready to move on to the AI Agent stage.

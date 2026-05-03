@@ -1,29 +1,29 @@
 ---
-title: "1.5 迭代器与生成器"
+title: "1.5 Iterators and Generators"
 sidebar_position: 5
-description: "理解 Python 迭代协议和生成器的高效数据处理方式"
+description: "Understand Python's iteration protocol and the efficient data processing style of generators"
 ---
 
-# 迭代器与生成器
+# Iterators and Generators
 
-![生成器流式数据处理图](/img/course/ch02-generator-streaming-data.png)
+![Generator streaming data processing diagram](/img/course/ch02-generator-streaming-data-en.png)
 
-## 本节定位
+## Where this section fits
 
-这一节解释 for 循环背后的机制，并引入更省内存的数据处理方式。迭代器和生成器在处理大文件、流式数据、训练数据加载时很有价值，先理解思想，再掌握最常见的 yield 写法。
+This section explains the mechanism behind `for` loops and introduces more memory-efficient data processing methods. Iterators and generators are very useful when handling large files, streaming data, and training data loading. First understand the idea, then master the most common `yield` syntax.
 
-## 学习目标
+## Learning objectives
 
-- 理解迭代器协议（`__iter__` 和 `__next__`）
-- 掌握生成器函数（`yield`）的用法
-- 理解生成器表达式
-- 了解为什么生成器在处理大数据时非常重要
+- Understand the iterator protocol (`__iter__` and `__next__`)
+- Master generator functions (`yield`)
+- Understand generator expressions
+- Learn why generators are so important for big data
 
 ---
 
-## 什么是迭代？
+## What is iteration?
 
-你已经用过很多次 `for` 循环了：
+You have already used `for` loops many times:
 
 ```python
 for item in [1, 2, 3]:
@@ -36,47 +36,47 @@ for key in {"a": 1, "b": 2}:
     print(key)
 ```
 
-`for...in` 能遍历这些东西，是因为它们都是**可迭代对象（Iterable）**。那么问题来了：`for` 循环的背后到底发生了什么？
+`for...in` can iterate over these things because they are all **iterable objects (Iterable)**. So the question is: what actually happens behind a `for` loop?
 
 ---
 
-## 迭代器协议
+## The iterator protocol
 
-### 手动迭代
+### Manual iteration
 
-`for` 循环的本质是这样的：
+The essence of a `for` loop is this:
 
 ```python
 numbers = [10, 20, 30]
 
-# for 循环写法
+# for loop version
 for n in numbers:
     print(n)
 
-# 等价的手动写法
-iterator = iter(numbers)   # 1. 获取迭代器
-print(next(iterator))      # 2. 获取下一个元素 → 10
-print(next(iterator))      # 3. 获取下一个元素 → 20
-print(next(iterator))      # 4. 获取下一个元素 → 30
-# print(next(iterator))    # 5. 没有更多元素了 → 抛出 StopIteration
+# Equivalent manual version
+iterator = iter(numbers)   # 1. Get an iterator
+print(next(iterator))      # 2. Get the next element → 10
+print(next(iterator))      # 3. Get the next element → 20
+print(next(iterator))      # 4. Get the next element → 30
+# print(next(iterator))    # 5. No more elements → raises StopIteration
 ```
 
-**迭代器协议**：
-- `iter(对象)` → 获取迭代器
-- `next(迭代器)` → 获取下一个元素
-- 元素用完时抛出 `StopIteration` 异常
+**Iterator protocol**:
+- `iter(object)` → get an iterator
+- `next(iterator)` → get the next element
+- When the elements are exhausted, raise a `StopIteration` exception
 
-### 自定义迭代器
+### Custom iterator
 
 ```python
 class Countdown:
-    """倒计时迭代器"""
+    """Countdown iterator"""
 
     def __init__(self, start):
         self.current = start
 
     def __iter__(self):
-        return self   # 返回自身作为迭代器
+        return self   # Return self as the iterator
 
     def __next__(self):
         if self.current <= 0:
@@ -85,151 +85,151 @@ class Countdown:
         self.current -= 1
         return value
 
-# 使用
+# Use
 for num in Countdown(5):
     print(num, end=" ")
-# 输出: 5 4 3 2 1
+# Output: 5 4 3 2 1
 ```
 
-不过手写迭代器比较麻烦——接下来介绍的**生成器**是更简洁的方式。
+However, writing an iterator by hand is a bit cumbersome — the **generator** introduced next is a simpler approach.
 
 ---
 
-## 生成器函数（Generator）
+## Generator functions
 
-生成器是一种**特殊的迭代器**，用 `yield` 关键字代替 `return`。
+A generator is a **special iterator** that uses the `yield` keyword instead of `return`.
 
-### 基本用法
+### Basic usage
 
 ```python
 def countdown(n):
-    """倒计时生成器"""
+    """Countdown generator"""
     while n > 0:
-        yield n    # 暂停，返回 n，下次从这里继续
+        yield n    # Pause, return n, and continue from here next time
         n -= 1
 
-# 使用方式和迭代器一样
+# Use it the same way as an iterator
 for num in countdown(5):
     print(num, end=" ")
-# 输出: 5 4 3 2 1
+# Output: 5 4 3 2 1
 ```
 
-### yield vs return 的区别
+### `yield` vs `return`
 
 ```python
-# return：函数执行完毕，一次性返回所有结果
+# return: the function finishes execution and returns all results at once
 def get_squares_return(n):
     result = []
     for i in range(n):
         result.append(i ** 2)
     return result
 
-# yield：每次返回一个结果，暂停等待下次调用
+# yield: return one result at a time, then pause until the next call
 def get_squares_yield(n):
     for i in range(n):
         yield i ** 2
 
-# 使用效果一样
+# The final effect is the same
 print(list(get_squares_return(5)))  # [0, 1, 4, 9, 16]
 print(list(get_squares_yield(5)))   # [0, 1, 4, 9, 16]
 ```
 
-**关键区别：**
+**Key differences:**
 
-| 特点 | `return` | `yield` |
+| Feature | `return` | `yield` |
 |------|---------|---------|
-| 返回方式 | 一次返回所有 | 每次返回一个 |
-| 内存使用 | 全部加载到内存 | 按需生成，几乎不占内存 |
-| 执行方式 | 执行完毕 | 暂停/恢复 |
+| Return style | Returns everything at once | Returns one item at a time |
+| Memory usage | Loads everything into memory | Generates on demand, uses almost no memory |
+| Execution style | Finishes execution | Pauses/resumes |
 
-### 生成器的执行过程
+### How generators execute
 
 ```python
 def simple_gen():
-    print("第一步")
+    print("Step 1")
     yield 1
-    print("第二步")
+    print("Step 2")
     yield 2
-    print("第三步")
+    print("Step 3")
     yield 3
-    print("结束")
+    print("Done")
 
-gen = simple_gen()   # 创建生成器，但不执行任何代码
+gen = simple_gen()   # Create the generator, but do not execute any code yet
 
-print(next(gen))     # 执行到第一个 yield，打印"第一步"，返回 1
-print(next(gen))     # 从上次暂停处继续，打印"第二步"，返回 2
-print(next(gen))     # 打印"第三步"，返回 3
-# next(gen)          # 打印"结束"，然后抛出 StopIteration
+print(next(gen))     # Executes to the first yield, prints "Step 1", returns 1
+print(next(gen))     # Continues from the last paused point, prints "Step 2", returns 2
+print(next(gen))     # Prints "Step 3", returns 3
+# next(gen)          # Prints "Done", then raises StopIteration
 ```
 
-输出：
+Output:
 
 ```
-第一步
+Step 1
 1
-第二步
+Step 2
 2
-第三步
+Step 3
 3
 ```
 
 ---
 
-## 为什么需要生成器？—— 处理大数据
+## Why do we need generators? — Handling big data
 
-这是生成器最重要的应用场景。
+This is the most important use case for generators.
 
-### 问题：一次性加载太多数据
+### Problem: loading too much data at once
 
 ```python
-# 假设你要处理一个 10GB 的文件
-# 错误做法：一次性读入所有行
-lines = open("huge_file.txt").readlines()  # 💥 内存爆炸！
+# Suppose you need to process a 10GB file
+# Wrong approach: read all lines into memory at once
+lines = open("huge_file.txt").readlines()  # 💥 Memory explosion!
 
-# 正确做法：用生成器逐行处理
+# Correct approach: process line by line with a generator
 def read_large_file(filepath):
     with open(filepath, "r") as f:
-        for line in f:   # 文件对象本身就是迭代器，逐行读取
+        for line in f:   # The file object itself is an iterator and reads line by line
             yield line.strip()
 
 for line in read_large_file("huge_file.txt"):
-    process(line)  # 一次只有一行在内存中
+    process(line)  # Only one line is in memory at a time
 ```
 
-### 对比内存使用
+### Memory usage comparison
 
 ```python
 import sys
 
-# 列表：所有元素都在内存中
+# List: all elements are stored in memory
 big_list = [i ** 2 for i in range(1_000_000)]
-print(f"列表占用内存: {sys.getsizeof(big_list):,} 字节")  # ~8MB
+print(f"List memory usage: {sys.getsizeof(big_list):,} bytes")  # ~8MB
 
-# 生成器：只记住当前状态
+# Generator: only remembers the current state
 big_gen = (i ** 2 for i in range(1_000_000))
-print(f"生成器占用内存: {sys.getsizeof(big_gen):,} 字节")  # ~200 字节！
+print(f"Generator memory usage: {sys.getsizeof(big_gen):,} bytes")  # ~200 bytes!
 ```
 
-8MB vs 200 字节——差了 4 万倍！当数据量更大时（比如处理几百万条训练数据），这个差距就是"程序能跑"和"内存溢出崩溃"的区别。
+8MB vs 200 bytes — a difference of 40,000 times! When the data gets even larger (for example, processing millions of training samples), this gap is the difference between "the program runs" and "out-of-memory crash."
 
 ---
 
-## 生成器表达式
+## Generator expressions
 
-列表推导式的 `[]` 换成 `()`，就变成了**生成器表达式**：
+If you replace the `[]` in a list comprehension with `()`, it becomes a **generator expression**:
 
 ```python
-# 列表推导式 → 立即生成所有元素
+# List comprehension → generate all elements immediately
 squares_list = [x ** 2 for x in range(10)]
 
-# 生成器表达式 → 按需生成
+# Generator expression → generate on demand
 squares_gen = (x ** 2 for x in range(10))
 
 print(type(squares_list))  # <class 'list'>
 print(type(squares_gen))   # <class 'generator'>
 
-# 生成器表达式常用在函数参数中
-total = sum(x ** 2 for x in range(1000))  # 不需要额外的括号
+# Generator expressions are often used as function arguments
+total = sum(x ** 2 for x in range(1000))  # No extra parentheses needed
 print(total)
 
 max_score = max(s["score"] for s in students)
@@ -237,127 +237,127 @@ max_score = max(s["score"] for s in students)
 
 ---
 
-## 实用生成器模式
+## Practical generator patterns
 
-### 无限序列
+### Infinite sequence
 
 ```python
 def infinite_counter(start=0, step=1):
-    """无限计数器"""
+    """Infinite counter"""
     n = start
     while True:
         yield n
         n += step
 
-# 生成前 10 个偶数
+# Generate the first 10 even numbers
 counter = infinite_counter(0, 2)
 for _ in range(10):
     print(next(counter), end=" ")
 # 0 2 4 6 8 10 12 14 16 18
 ```
 
-### 数据管道
+### Data pipeline
 
-生成器可以链式组合，形成数据处理管道：
+Generators can be chained together to form a data processing pipeline:
 
 ```python
 def read_lines(filename):
-    """读取文件每一行"""
+    """Read each line from a file"""
     with open(filename) as f:
         for line in f:
             yield line.strip()
 
 def filter_comments(lines):
-    """过滤掉注释行"""
+    """Filter out comment lines"""
     for line in lines:
         if not line.startswith("#") and line:
             yield line
 
 def parse_numbers(lines):
-    """将每行转为数字"""
+    """Convert each line to a number"""
     for line in lines:
         try:
             yield float(line)
         except ValueError:
-            pass  # 跳过无法转换的行
+            pass  # Skip lines that cannot be converted
 
-# 管道组合：读取 → 过滤 → 转换
-# 内存中始终只有一行数据！
+# Pipeline composition: read → filter → transform
+# There is always only one line of data in memory!
 numbers = parse_numbers(filter_comments(read_lines("data.txt")))
 total = sum(numbers)
 ```
 
-### 批量处理
+### Batch processing
 
 ```python
 def batch(iterable, size):
-    """将数据分成固定大小的批次"""
+    """Split data into fixed-size batches"""
     batch_data = []
     for item in iterable:
         batch_data.append(item)
         if len(batch_data) == size:
             yield batch_data
             batch_data = []
-    if batch_data:  # 最后不满一批的数据
+    if batch_data:  # Remaining data that does not fill a full batch
         yield batch_data
 
-# 模拟训练数据的批量处理
+# Simulate batch processing for training data
 data = list(range(1, 11))  # [1, 2, 3, ..., 10]
 
 for b in batch(data, 3):
-    print(f"处理批次: {b}")
-# 处理批次: [1, 2, 3]
-# 处理批次: [4, 5, 6]
-# 处理批次: [7, 8, 9]
-# 处理批次: [10]
+    print(f"Processing batch: {b}")
+# Processing batch: [1, 2, 3]
+# Processing batch: [4, 5, 6]
+# Processing batch: [7, 8, 9]
+# Processing batch: [10]
 ```
 
 ---
 
-## itertools：迭代器工具箱
+## itertools: the iterator toolbox
 
-Python 标准库的 `itertools` 提供了很多实用的迭代器工具：
+Python's standard library `itertools` provides many useful iterator tools:
 
 ```python
 import itertools
 
-# chain：连接多个迭代器
+# chain: connect multiple iterators
 for item in itertools.chain([1, 2], [3, 4], [5, 6]):
     print(item, end=" ")  # 1 2 3 4 5 6
 
-# islice：切片迭代器（对生成器很有用）
+# islice: slice an iterator (very useful for generators)
 gen = (x ** 2 for x in range(100))
 first_five = list(itertools.islice(gen, 5))
 print(first_five)  # [0, 1, 4, 9, 16]
 
-# zip_longest：长度不等时填充
-names = ["张三", "李四", "王五"]
+# zip_longest: fill when lengths differ
+names = ["Zhang San", "Li Si", "Wang Wu"]
 scores = [85, 92]
-for name, score in itertools.zip_longest(names, scores, fillvalue="缺考"):
+for name, score in itertools.zip_longest(names, scores, fillvalue="Absent"):
     print(f"{name}: {score}")
-# 张三: 85, 李四: 92, 王五: 缺考
+# Zhang San: 85, Li Si: 92, Wang Wu: Absent
 
-# product：笛卡尔积
-for combo in itertools.product(["红", "蓝"], ["大", "小"]):
+# product: Cartesian product
+for combo in itertools.product(["red", "blue"], ["large", "small"]):
     print(combo)
-# ('红', '大'), ('红', '小'), ('蓝', '大'), ('蓝', '小')
+# ('red', 'large'), ('red', 'small'), ('blue', 'large'), ('blue', 'small')
 
-# count：无限计数
+# count: infinite counting
 for i in itertools.islice(itertools.count(10, 5), 5):
     print(i, end=" ")  # 10 15 20 25 30
 ```
 
 ---
 
-## 综合案例：AI 数据加载器
+## Comprehensive example: AI data loader
 
 ```python
 import random
 
 def data_loader(dataset, batch_size=32, shuffle=True):
     """
-    模拟 AI 训练的数据加载器。
-    用生成器实现，内存友好。
+    Simulate a data loader for AI training.
+    Implemented with a generator, so it is memory-friendly.
     """
     indices = list(range(len(dataset)))
 
@@ -369,77 +369,77 @@ def data_loader(dataset, batch_size=32, shuffle=True):
         batch_data = [dataset[i] for i in batch_indices]
         yield batch_data
 
-# 模拟数据集
+# Simulated dataset
 dataset = [f"sample_{i}" for i in range(100)]
 
-# 训练循环
+# Training loop
 for epoch in range(3):
     print(f"\n=== Epoch {epoch + 1} ===")
     for batch_idx, batch in enumerate(data_loader(dataset, batch_size=32)):
-        print(f"  Batch {batch_idx + 1}: {len(batch)} 个样本 "
-              f"(首个: {batch[0]}, 末个: {batch[-1]})")
+        print(f"  Batch {batch_idx + 1}: {len(batch)} samples "
+              f"(first: {batch[0]}, last: {batch[-1]})")
 ```
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：斐波那契生成器
+### Exercise 1: Fibonacci generator
 
 ```python
 def fibonacci(n=None):
     """
-    生成斐波那契数列。
-    如果 n 不为 None，生成前 n 个数。
-    如果 n 为 None，生成无限序列。
+    Generate the Fibonacci sequence.
+    If n is not None, generate the first n numbers.
+    If n is None, generate an infinite sequence.
     """
     pass
 
-# 测试
+# Test
 for num in fibonacci(10):
     print(num, end=" ")
-# 应该输出: 0 1 1 2 3 5 8 13 21 34
+# Should output: 0 1 1 2 3 5 8 13 21 34
 ```
 
-### 练习 2：文件搜索器
+### Exercise 2: File searcher
 
 ```python
 def search_files(directory, pattern):
     """
-    用生成器递归搜索目录中匹配模式的文件。
+    Recursively search for files matching the pattern in a directory using a generator.
     """
     pass
 
-# 使用示例
+# Example usage
 for filepath in search_files(".", "*.py"):
     print(filepath)
 ```
 
-### 练习 3：滑动窗口
+### Exercise 3: Sliding window
 
 ```python
 def sliding_window(data, window_size):
     """
-    生成滑动窗口。
+    Generate sliding windows.
 
-    输入: [1, 2, 3, 4, 5], window_size=3
-    输出: [1, 2, 3], [2, 3, 4], [3, 4, 5]
+    Input: [1, 2, 3, 4, 5], window_size=3
+    Output: [1, 2, 3], [2, 3, 4], [3, 4, 5]
     """
     pass
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 说明 | 关键点 |
+| Concept | Description | Key point |
 |------|------|--------|
-| **迭代器** | 实现了 `__iter__` 和 `__next__` 的对象 | `for` 循环的底层机制 |
-| **生成器函数** | 包含 `yield` 的函数 | 创建迭代器的简洁方式 |
-| **生成器表达式** | `(x for x in iterable)` | 列表推导式的惰性版本 |
-| **yield** | 暂停函数并返回值 | 下次调用时从暂停处继续 |
-| **itertools** | 标准库的迭代器工具箱 | `chain`, `islice`, `product` 等 |
+| **Iterator** | An object that implements `__iter__` and `__next__` | The underlying mechanism of `for` loops |
+| **Generator function** | A function containing `yield` | A concise way to create iterators |
+| **Generator expression** | `(x for x in iterable)` | The lazy version of a list comprehension |
+| **`yield`** | Pauses a function and returns a value | Resumes from the paused point on the next call |
+| **`itertools`** | The standard library iterator toolbox | `chain`, `islice`, `product`, and more |
 
-:::tip 核心理解
-生成器的本质是**惰性求值（Lazy Evaluation）**——不是一次算出所有结果，而是需要一个算一个。这就像自助餐厅和外卖的区别：列表像把整桌菜一次端来（占满整张桌子），生成器像一道一道上菜（桌上永远只有一盘）。在处理大数据集和数据流时，生成器是必不可少的工具。
+:::tip Core idea
+The essence of generators is **lazy evaluation** — instead of computing all results at once, compute them one by one as needed. It is like the difference between a buffet and takeout: a list is like having all the dishes brought to your table at once (filling up the whole table), while a generator is like serving one dish at a time (there is always only one plate on the table). When dealing with large datasets and data streams, generators are an essential tool.
 :::

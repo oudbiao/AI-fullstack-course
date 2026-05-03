@@ -1,83 +1,83 @@
 ---
-title: "5.6 Pipeline 与工作流"
+title: "5.6 Pipeline and Workflows"
 sidebar_position: 18
-description: "掌握 sklearn Pipeline、ColumnTransformer 处理混合类型数据、自定义 Transformer"
-keywords: [Pipeline, ColumnTransformer, Transformer, 特征工程流水线, sklearn]
+description: "Master sklearn Pipeline, ColumnTransformer for handling mixed-type data, and custom Transformer"
+keywords: [Pipeline, ColumnTransformer, Transformer, feature engineering pipeline, sklearn]
 ---
 
-# Pipeline 与工作流
+# Pipeline and Workflows
 
-![ColumnTransformer 与 Pipeline 工作流图](/img/course/column-transformer-pipeline.png)
+![ColumnTransformer and Pipeline workflow diagram](/img/course/column-transformer-pipeline-en.png)
 
-:::tip 本节定位
-真实项目中，数值特征、类别特征需要**不同的预处理**。本节教你用 `ColumnTransformer` + `Pipeline` 构建**完整的特征工程流水线**，一个对象搞定所有。
+:::tip Section overview
+In real projects, numeric features and categorical features often need **different preprocessing**. This section teaches you how to use `ColumnTransformer` + `Pipeline` to build a **complete feature engineering pipeline**, so one object can handle everything.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 掌握 ColumnTransformer 处理混合类型
-- 学会自定义 Transformer
-- 构建完整的特征工程流水线
+- Master ColumnTransformer for handling mixed data types
+- Learn how to create custom Transformers
+- Build a complete feature engineering pipeline
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-很多新人前面每一步都能单独做，但一到真实项目就会乱掉。Pipeline 解决的就是：
+Many beginners can do each step separately, but once they get to a real project, things get messy. Pipeline solves this problem:
 
-> **怎样把“数据处理 -> 特征工程 -> 模型训练”固化成一条稳定、可复现、不会泄漏的工作流。**
+> **How can we turn “data processing -> feature engineering -> model training” into a stable, reproducible, leak-free workflow?**
 
 ```mermaid
 flowchart LR
-    A["原始数据"] --> B["按列分流"]
-    B --> C["数值处理"]
-    B --> D["类别处理"]
-    B --> E["自定义特征"]
-    C --> F["合并"]
+    A["Raw data"] --> B["Split by column"]
+    B --> C["Numeric processing"]
+    B --> D["Categorical processing"]
+    B --> E["Custom features"]
+    C --> F["Merge"]
     D --> F
     E --> F
-    F --> G["模型训练 / 预测"]
+    F --> G["Model training / prediction"]
 ```
 
-### 一个更适合新人的总类比
+### A better overall analogy for beginners
 
-你可以把 Pipeline 理解成：
+You can think of a Pipeline as:
 
-- 把零散手工步骤装进一条自动装配线
+- Putting scattered manual steps into an automatic assembly line
 
-如果没有 Pipeline，你很容易变成：
+Without a Pipeline, you may end up doing this:
 
-- 手动补缺失值
-- 手动编码
-- 手动缩放
-- 手动把结果喂给模型
+- Manually filling missing values
+- Manually encoding categories
+- Manually scaling features
+- Manually feeding the result into the model
 
-这就很像：
+This is like:
 
-- 每次都拿纸记一遍流程，特别容易漏步骤
+- Writing the process on paper every time, which makes it very easy to miss a step
 
-而 Pipeline 的价值就在于：
+The value of a Pipeline is:
 
-- 把这条流程固定下来，训练和预测都走同一套规则
+- It fixes the workflow so training and prediction always follow the same rules
 
-## 为什么真实项目必须用 Pipeline
+## Why real projects must use Pipeline
 
-- 避免训练集和测试集处理方式不一致
-- 避免数据泄漏
-- 方便交叉验证和调参
-- 方便把整套流程复用到新数据上
+- Avoid inconsistent preprocessing between training and test sets
+- Avoid data leakage
+- Make cross-validation and hyperparameter tuning easier
+- Reuse the whole workflow on new data
 
-### 什么时候最容易踩坑？
+### When are you most likely to make mistakes?
 
-最常见的坑其实是：
+The most common mistake is:
 
-- 训练集手工做了一套处理
-- 测试集又手工做了另一套
+- Preprocessing the training set manually one way
+- Preprocessing the test set manually in a different way
 
-结果模型看见的根本不是同一种数据。  
-Pipeline 最重要的作用，就是防这种“流程跑歪但你自己没发现”的问题。
+As a result, the model does not see the same kind of data at all.
+The most important role of Pipeline is to prevent this kind of “the workflow drifted, but you didn’t notice” problem.
 
-## 一、ColumnTransformer——分列处理
+## 1. ColumnTransformer — process columns separately
 
 ```python
 import pandas as pd
@@ -90,23 +90,23 @@ from sklearn.pipeline import Pipeline
 
 df = sns.load_dataset('titanic').dropna(subset=['embarked'])
 
-# 定义特征
+# Define features
 num_features = ['age', 'fare']
 cat_features = ['sex', 'embarked', 'class']
 
-# 数值处理流水线
+# Numeric preprocessing pipeline
 num_pipeline = Pipeline([
     ('imputer', SimpleImputer(strategy='median')),
     ('scaler', StandardScaler()),
 ])
 
-# 类别处理流水线
+# Categorical preprocessing pipeline
 cat_pipeline = Pipeline([
     ('imputer', SimpleImputer(strategy='most_frequent')),
     ('encoder', OneHotEncoder(drop='first', sparse_output=False)),
 ])
 
-# 组合
+# Combine
 preprocessor = ColumnTransformer([
     ('num', num_pipeline, num_features),
     ('cat', cat_pipeline, cat_features),
@@ -115,68 +115,68 @@ preprocessor = ColumnTransformer([
 X = df[num_features + cat_features]
 y = df['survived']
 X_transformed = preprocessor.fit_transform(X)
-print(f"原始: {X.shape} → 处理后: {X_transformed.shape}")
+print(f"Raw: {X.shape} → After processing: {X_transformed.shape}")
 ```
 
-### 1.1 这个例子最值得先抓住什么？
+### 1.1 What is the most important thing to notice in this example?
 
-最值得先抓住的是：
+The most important thing to notice is:
 
-- 不同列，应该走不同处理线
+- Different columns should follow different processing paths
 
-也就是说：
+That means:
 
-- 数值列不要用类别编码的方法处理
-- 类别列也不要直接拿去做标准化
+- Numeric columns should not be processed with categorical encoding methods
+- Categorical columns should not be directly standardized
 
-很多新人第一次做表格数据时，问题不是模型没选对，  
-而是列处理方式一开始就混了。
+When many beginners first work with tabular data, the problem is often not the model choice,
+but that the column processing strategy is mixed up from the start.
 
 ---
 
-## 二、完整 Pipeline：预处理 + 模型
+## 2. Complete Pipeline: preprocessing + model
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 
-# 预处理 + 模型 一步到位
+# Preprocessing + model in one step
 full_pipeline = Pipeline([
     ('preprocessor', preprocessor),
     ('classifier', RandomForestClassifier(n_estimators=100, random_state=42)),
 ])
 
 scores = cross_val_score(full_pipeline, X, y, cv=5, scoring='accuracy')
-print(f"5 折 CV 准确率: {scores.mean():.4f} ± {scores.std():.4f}")
+print(f"5-fold CV accuracy: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 2.1 为什么 Pipeline 和交叉验证特别搭？
+### 2.1 Why do Pipeline and cross-validation work so well together?
 
-因为交叉验证的本质是：
+Because the essence of cross-validation is:
 
-- 每一折都重新训练一遍
+- Each fold is retrained from scratch
 
-如果你的预处理写在 Pipeline 里，  
-那每一折都会自动：
+If your preprocessing is written inside a Pipeline,
+then for each fold it will automatically:
 
-- 只在训练折里 fit
-- 再把同样规则应用到验证折
+- Fit only on the training fold
+- Apply the same rules to the validation fold
 
-这正是防止数据泄漏的关键。
+This is exactly the key to preventing data leakage.
 
-![真实表格数据 ColumnTransformer Pipeline 图](/img/course/ch05-columntransformer-real-table-pipeline.png)
+![ColumnTransformer Pipeline diagram for real tabular data](/img/course/ch05-columntransformer-real-table-pipeline-en.png)
 
-这张图把真实表格项目拆成三条线：数值列先补缺失再缩放，类别列先补缺失再编码，自定义特征也必须放进同一个 Pipeline。最后整体交给交叉验证或 GridSearch，这样每次训练、验证、预测都走同一套可复现流程。
+This diagram breaks a real tabular-data project into three paths: numeric columns are imputed first and then scaled, categorical columns are imputed first and then encoded, and custom features must also be included in the same Pipeline. Finally, the whole process is handed over to cross-validation or GridSearch, so training, validation, and prediction all follow the same reproducible workflow.
 
 ---
 
-## 三、自定义 Transformer
+## 3. Custom Transformer
 
 ```python
 from sklearn.base import BaseEstimator, TransformerMixin
 
 class FamilySizeTransformer(BaseEstimator, TransformerMixin):
-    """从 sibsp 和 parch 构造家庭大小特征"""
+    """Construct family size features from sibsp and parch"""
     def fit(self, X, y=None):
         return self
 
@@ -186,7 +186,7 @@ class FamilySizeTransformer(BaseEstimator, TransformerMixin):
         X['is_alone'] = (X['family_size'] == 1).astype(int)
         return X[['family_size', 'is_alone']]
 
-# 使用
+# Use it
 custom_features = ['sibsp', 'parch']
 full_preprocessor = ColumnTransformer([
     ('num', num_pipeline, num_features),
@@ -200,27 +200,27 @@ pipe = Pipeline([
 ])
 
 scores = cross_val_score(pipe, df[num_features + cat_features + custom_features], y, cv=5)
-print(f"含自定义特征: {scores.mean():.4f} ± {scores.std():.4f}")
+print(f"With custom features: {scores.mean():.4f} ± {scores.std():.4f}")
 ```
 
-### 3.1 自定义 Transformer 最适合什么时候上？
+### 3.1 When is a custom Transformer most useful?
 
-最适合在这种时候上：
+It is most useful when:
 
-- 你已经知道某个特征构造很有价值
-- 而且它需要被稳定复用到训练和预测中
+- You already know that a feature construction method is valuable
+- And it needs to be reliably reused during both training and prediction
 
-比如：
+For example:
 
-- 家庭大小
-- 是否独居
-- 每房间面积
+- Family size
+- Whether someone is alone
+- Area per room
 
-这时把它写成 Transformer，会比零散地到处复制代码稳很多。
+In these cases, writing it as a Transformer is much more stable than copying code around in different places.
 
 ---
 
-## 四、Pipeline + GridSearch
+## 4. Pipeline + GridSearch
 
 ```python
 from sklearn.model_selection import GridSearchCV
@@ -233,70 +233,70 @@ param_grid = {
 grid = GridSearchCV(pipe, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
 grid.fit(df[num_features + cat_features + custom_features], y)
 
-print(f"最佳参数: {grid.best_params_}")
-print(f"最佳 CV: {grid.best_score_:.4f}")
+print(f"Best parameters: {grid.best_params_}")
+print(f"Best CV score: {grid.best_score_:.4f}")
 ```
 
 ---
 
-## 新人最应该先掌握的最小流水线
+## The minimum pipeline beginners should master first
 
-如果你刚开始做 ML 项目，至少先学会把下面这条链写顺：
+If you are just starting with ML projects, at least learn to write the following chain smoothly:
 
-1. 缺失值填充
-2. 数值缩放
-3. 类别编码
-4. 模型训练
-5. 交叉验证
+1. Missing-value imputation
+2. Numeric scaling
+3. Categorical encoding
+4. Model training
+5. Cross-validation
 
-这条链一旦写顺，后面你再加复杂特征和调参都会轻松很多。
+Once you can write this chain fluently, adding more complex features and tuning hyperparameters will become much easier.
 
 ```mermaid
 flowchart LR
-    D["原始数据"] --> CT["ColumnTransformer"]
-    CT --> N["数值: 填充→标准化"]
-    CT --> C["类别: 填充→编码"]
-    CT --> CU["自定义: 特征构造"]
-    N --> M["合并"]
+    D["Raw data"] --> CT["ColumnTransformer"]
+    CT --> N["Numeric: impute → standardize"]
+    CT --> C["Categorical: impute → encode"]
+    CT --> CU["Custom: feature construction"]
+    N --> M["Merge"]
     C --> M
     CU --> M
-    M --> CL["分类器"]
-    CL --> R["预测"]
+    M --> CL["Classifier"]
+    CL --> R["Prediction"]
 
     style CT fill:#e3f2fd,stroke:#1565c0,color:#333
     style CL fill:#fff3e0,stroke:#e65100,color:#333
     style R fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-## 一个新人可直接照抄的工作流检查表
+## A workflow checklist beginners can copy directly
 
-第一次做表格项目时，最稳的检查表通常是：
+When you build a tabular-data project for the first time, the safest checklist is usually:
 
-1. 缺失值处理有没有写进 Pipeline
-2. 数值列和类别列有没有明确分开
-3. 交叉验证是不是跑在完整 Pipeline 上
-4. 自定义特征有没有跟着训练和预测一起走
+1. Is missing-value handling included in the Pipeline?
+2. Are numeric columns and categorical columns clearly separated?
+3. Is cross-validation running on the complete Pipeline?
+4. Are custom features flowing through training and prediction together?
 
-如果这 4 件事都做到位，  
-你的项目就已经比很多“能跑但不可复现”的版本稳很多。
+If you get all 4 of these right,
+your project is already much more stable than many versions that “run, but cannot be reproduced.”
 
 ---
 
-## 小结
+## Summary
 
-| 组件 | 说明 |
+| Component | Description |
 |------|------|
-| `Pipeline` | 串联多个步骤 |
-| `ColumnTransformer` | 对不同列用不同处理 |
-| 自定义 Transformer | 继承 `BaseEstimator` + `TransformerMixin` |
-| Pipeline + GridSearch | 预处理和模型一起调参 |
+| `Pipeline` | Chains multiple steps together |
+| `ColumnTransformer` | Applies different processing to different columns |
+| Custom Transformer | Inherits from `BaseEstimator` + `TransformerMixin` |
+| Pipeline + GridSearch | Tunes preprocessing and model together |
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：完整 Titanic Pipeline
+### Exercise 1: Complete Titanic Pipeline
 
-构建一个完整的 Pipeline（含数值处理、类别编码、自定义特征），对比随机森林和逻辑回归的效果。
+Build a complete Pipeline (including numeric processing, categorical encoding, and custom features), and compare the performance of Random Forest and Logistic Regression.
 
-### 练习 2：Pipeline 调参
+### Exercise 2: Pipeline hyperparameter tuning
 
-在练习 1 的 Pipeline 上用 GridSearchCV 同时调优预处理参数（如 PCA n_components）和模型参数。
+Use GridSearchCV on the Pipeline from Exercise 1 to tune both preprocessing parameters (such as PCA n_components) and model parameters at the same time.

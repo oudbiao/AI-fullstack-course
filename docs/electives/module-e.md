@@ -1,112 +1,112 @@
 ---
-title: "1.1 Web 前端基础速成"
+title: "1.1 Web Front-End Basics in Fast Track"
 sidebar_position: 5
-description: "面向 AI 产品场景快速补齐前端核心直觉：页面结构、状态更新、表单交互、异步请求和最小可用界面。"
+description: "Quickly build the core front-end intuition needed for AI product scenarios: page structure, state updates, form interaction, asynchronous requests, and a minimally usable interface."
 keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 ---
 
-# Web 前端基础速成
+# Web Front-End Basics in Fast Track
 
-![AI 前端交互栈图](/img/course/elective-ai-frontend-stack.png)
+![AI front-end interaction stack diagram](/img/course/elective-ai-frontend-stack-en.png)
 
-![AI 前端状态机与体验闭环图](/img/course/elective-ai-frontend-state-machine-map.png)
+![AI front-end state machine and experience loop diagram](/img/course/elective-ai-frontend-state-machine-map-en.png)
 
-:::tip 读图提示
-AI 前端不是结果展示页，而是要处理 idle、loading、streaming、success、error、retry、cancel 等状态。读图时把模型调用看成一次“不确定耗时”的交互流程。
+:::tip Reading the diagram
+An AI front end is not just a results display page. It needs to handle states such as idle, loading, streaming, success, error, retry, and cancel. When reading the diagram, think of model calls as an interaction flow with “uncertain latency.”
 :::
 
-:::tip 本节定位
-很多 AI 功能其实不是做不出来，而是“没有好界面承接”。  
-用户真正接触到的，通常不是模型本身，而是：
+:::tip Section focus
+Many AI features are not impossible to build — they just lack a good interface to sit on top of.
+What users actually interact with is usually not the model itself, but:
 
-- 输入框
-- 历史消息
-- 加载状态
-- 错误提示
+- input boxes
+- message history
+- loading states
+- error messages
 
-所以这节课不打算把前端讲成完整学科，而是优先补一条最实用主线：
+So this lesson is not meant to turn front-end development into a full discipline. Instead, it focuses on one very practical main line:
 
-> **怎样做出一个能让 AI 功能可交互、可理解、可迭代的最小前端。**
+> **How to build the smallest front end that makes AI features interactive, understandable, and easy to iterate on.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解前端在 AI 产品落地里的基本作用
-- 掌握 HTML / CSS / JS 的最小协作方式
-- 理解异步请求和状态更新的最小模式
-- 通过一个可运行静态页面例子建立界面组织直觉
-
----
-
-## 一、AI 产品为什么离不开前端？
-
-### 1.1 因为“模型能力”必须通过交互被看见
-
-再好的模型，如果没有一个清楚的界面承接，  
-用户也会觉得：
-
-- 反馈慢
-- 不知道系统在干嘛
-- 不知道结果是否可信
-
-### 1.2 前端最核心的价值
-
-不是把页面做花哨，  
-而是把下面这些状态表达清楚：
-
-- 当前输入是什么
-- 请求有没有发出去
-- 系统在加载还是出错
-- 输出结果该怎么看
-
-### 1.3 一个类比
-
-模型像引擎，前端像仪表盘和驾驶舱。  
-没有驾驶舱，再强的引擎用户也很难顺畅使用。
+- Understand the basic role of the front end in AI product implementation
+- Master the minimal collaboration pattern of HTML / CSS / JS
+- Understand the minimal pattern for asynchronous requests and state updates
+- Build interface intuition through a runnable static page example
 
 ---
 
-## 二、先建立最小前端心智模型
+## 1. Why AI products can’t do without the front end?
 
-### 2.1 HTML 负责结构
+### 1.1 Because “model capability” must be made visible through interaction
 
-例如：
+No matter how good the model is, if there is no clear interface to present it,
+users will still feel that:
 
-- 输入框
-- 按钮
-- 结果区域
+- it is slow to respond
+- they don’t know what the system is doing
+- they don’t know whether the result is trustworthy
 
-### 2.2 CSS 负责外观
+### 1.2 The core value of the front end
 
-例如：
+It is not to make the page flashy,
+but to express these states clearly:
 
-- 间距
-- 排版
-- 状态样式
+- what the current input is
+- whether the request has been sent
+- whether the system is loading or has failed
+- how the output should be read
 
-### 2.3 JavaScript 负责行为
+### 1.3 An analogy
 
-例如：
-
-- 监听点击
-- 发请求
-- 更新页面内容
-
-只要这三层关系理顺，  
-大多数入门 AI 页面你都能开始看懂。
+The model is like the engine, and the front end is like the dashboard and cockpit.
+Without the cockpit, even a very powerful engine is hard for users to operate smoothly.
 
 ---
 
-## 三、先跑一个最小 AI 页面
+## 2. First build a minimal front-end mental model
 
-下面这个例子会做一件非常典型的事：
+### 2.1 HTML handles structure
 
-- 输入问题
-- 点击按钮
-- 显示“加载中”
-- 再把结果渲染到页面
+For example:
 
-它用的是纯前端模拟，不依赖后端也能直接在浏览器里打开。
+- input box
+- button
+- result area
+
+### 2.2 CSS handles appearance
+
+For example:
+
+- spacing
+- layout
+- state styles
+
+### 2.3 JavaScript handles behavior
+
+For example:
+
+- listening to clicks
+- sending requests
+- updating page content
+
+As long as you understand how these three layers work together,
+you can start making sense of most beginner-friendly AI pages.
+
+---
+
+## 3. Run a minimal AI page first
+
+The example below does one very typical thing:
+
+- enter a question
+- click a button
+- show “loading”
+- then render the result on the page
+
+It uses pure front-end simulation, so it can be opened directly in the browser without relying on a back end.
 
 ```html
 <!doctype html>
@@ -172,11 +172,11 @@ AI 前端不是结果展示页，而是要处理 idle、loading、streaming、su
 </head>
 <body>
   <div class="container">
-    <h1>AI 功能最小页面</h1>
-    <textarea id="prompt" placeholder="输入一个问题，例如：退款规则是什么？"></textarea>
-    <button id="runBtn">提交</button>
-    <div id="status" class="status">等待输入</div>
-    <div id="result" class="result">结果会显示在这里</div>
+    <h1>Minimal Page for an AI Feature</h1>
+    <textarea id="prompt" placeholder="Enter a question, for example: What is the refund policy?"></textarea>
+    <button id="runBtn">Submit</button>
+    <div id="status" class="status">Waiting for input</div>
+    <div id="result" class="result">The result will appear here</div>
   </div>
 
   <script>
@@ -188,7 +188,7 @@ AI 前端不是结果展示页，而是要处理 idle、loading、streaming、su
     function fakeAiResponse(prompt) {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve("模拟回答：" + prompt + "。这里可以替换成真实接口返回。");
+          resolve("Simulated answer: " + prompt + ". This can later be replaced with a real API response.");
         }, 700);
       });
     }
@@ -196,21 +196,21 @@ AI 前端不是结果展示页，而是要处理 idle、loading、streaming、su
     runBtn.addEventListener("click", async () => {
       const prompt = promptInput.value.trim();
       if (!prompt) {
-        statusEl.textContent = "请先输入内容";
+        statusEl.textContent = "Please enter some content first";
         return;
       }
 
-      statusEl.textContent = "请求处理中...";
-      resultEl.textContent = "加载中...";
+      statusEl.textContent = "Request in progress...";
+      resultEl.textContent = "Loading...";
       runBtn.disabled = true;
 
       try {
         const answer = await fakeAiResponse(prompt);
-        statusEl.textContent = "请求完成";
+        statusEl.textContent = "Request completed";
         resultEl.textContent = answer;
       } catch (error) {
-        statusEl.textContent = "请求失败";
-        resultEl.textContent = "系统出错，请稍后再试。";
+        statusEl.textContent = "Request failed";
+        resultEl.textContent = "Something went wrong. Please try again later.";
       } finally {
         runBtn.disabled = false;
       }
@@ -220,37 +220,37 @@ AI 前端不是结果展示页，而是要处理 idle、loading、streaming、su
 </html>
 ```
 
-### 3.1 这个例子最值得学的是什么？
+### 3.1 What is the most valuable thing to learn from this example?
 
-它把前端最小闭环表达得很完整：
+It expresses the smallest front-end loop very clearly:
 
-1. 获取输入
-2. 触发动作
-3. 展示加载状态
-4. 更新结果区域
+1. get input
+2. trigger an action
+3. show loading state
+4. update the result area
 
-### 3.2 为什么“加载中”这么重要？
+### 3.2 Why is “loading” so important?
 
-很多 AI 请求不是瞬时返回。  
-如果前端没有任何反馈，用户会怀疑：
+Many AI requests do not return instantly.
+If the front end gives no feedback at all, users may wonder:
 
-- 是不是卡住了
-- 是不是没点到
+- did it freeze?
+- did I fail to click it?
 
-所以状态反馈本身就是体验的一部分。
+So state feedback itself is part of the experience.
 
-### 3.3 为什么这里先用 `fakeAiResponse`？
+### 3.3 Why use `fakeAiResponse` here first?
 
-因为它能让你先把前端流程理解清楚。  
-等后面有真实后端接口时，只要把这部分替换成 `fetch` 即可。
+Because it helps you understand the front-end flow first.
+When you later have a real back-end API, you only need to replace this part with `fetch`.
 
 ---
 
-## 四、从本地模拟到真实接口通常怎么走？
+## 4. How do you usually move from local simulation to a real API?
 
-### 4.1 用 `fetch` 发请求
+### 4.1 Use `fetch` to send requests
 
-最常见的下一步会是：
+The most common next step is:
 
 ```javascript
 const response = await fetch("/api/chat", {
@@ -261,60 +261,60 @@ const response = await fetch("/api/chat", {
 const data = await response.json();
 ```
 
-### 4.2 这时前端更需要关注什么？
+### 4.2 What should the front end pay more attention to at this point?
 
-- 请求是否成功
-- 返回是否为空
-- 错误如何展示
-- 用户是否能继续操作
+- whether the request succeeds
+- whether the response is empty
+- how errors should be displayed
+- whether the user can continue operating the page
 
-### 4.3 前端不只是“展示结果”
+### 4.3 The front end is not just for “showing results”
 
-它还在承担：
+It also takes care of:
 
-- 用户输入校验
-- 交互节奏设计
-- 异常提示
-
----
-
-## 五、AI 前端最容易踩的坑
-
-### 5.1 误区一：先做很复杂的 UI，再接后端
-
-更稳的顺序通常是：
-
-- 先最小可用
-- 再逐步增强
-
-### 5.2 误区二：没有加载态和错误态
-
-这会让体验很差，  
-而且问题难以定位。
-
-### 5.3 误区三：把前端当成“装饰层”
-
-对 AI 产品来说，前端其实承担了非常重要的：
-
-- 心智引导
-- 反馈表达
-- 信任建立
+- input validation
+- interaction pacing
+- exception prompts
 
 ---
 
-## 小结
+## 5. The most common pitfalls in AI front ends
 
-这节最重要的是建立一个非常实用的前端观：
+### 5.1 Mistake 1: Building a very complex UI before connecting the back end
 
-> **AI 前端的第一目标不是炫，而是把输入、处理中、结果和错误这四种状态表达清楚，让模型能力能被用户顺畅使用。**
+A more stable order is usually:
 
-只要这层理解稳了，后面你再学 React 或做更复杂产品，也会更自然。
+- start with the minimum usable version
+- then improve it step by step
+
+### 5.2 Mistake 2: No loading state or error state
+
+This makes the experience poor,
+and makes problems harder to locate.
+
+### 5.3 Mistake 3: Treating the front end as a “decorative layer”
+
+For AI products, the front end actually carries very important responsibilities:
+
+- guiding the user’s mental model
+- expressing feedback
+- building trust
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例加一个“清空输入框”按钮。
-2. 把 `fakeAiResponse` 改成随机返回成功或失败，练习错误态展示。
-3. 想一想：为什么 AI 产品里“加载反馈”比很多普通静态页面更重要？
-4. 你会如何把这个最小页面扩成聊天界面？
+The most important thing in this lesson is to build a very practical front-end perspective:
+
+> **The first goal of an AI front end is not to look dazzling, but to clearly express the four states of input, processing, result, and error, so that the model’s capabilities can be used smoothly by users.**
+
+Once this understanding is solid, learning React later or building more complex products will feel much more natural.
+
+---
+
+## Exercises
+
+1. Add a “clear input box” button to the example.
+2. Change `fakeAiResponse` so it randomly returns success or failure, and practice showing the error state.
+3. Think about this: why is “loading feedback” more important in AI products than in many ordinary static pages?
+4. How would you extend this minimal page into a chat interface?

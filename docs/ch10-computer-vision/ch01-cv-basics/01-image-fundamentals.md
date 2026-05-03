@@ -1,80 +1,80 @@
 ---
-title: "1.2 数字图像基础"
+title: "1.2 Digital Image Fundamentals"
 sidebar_position: 1
-description: "从像素、通道、颜色空间和图像格式开始，用最直观的方式理解计算机到底是怎样看图的。"
-keywords: [图像, 像素, RGB, HSV, 通道, 图像格式, 计算机视觉]
+description: "Starting from pixels, channels, color spaces, and image formats, understand how computers see images in the most intuitive way."
+keywords: [image, pixel, RGB, HSV, channel, image format, computer vision]
 ---
 
-# 数字图像基础
+# Digital Image Fundamentals
 
-![像素网格与 RGB 通道图](/img/course/cv-pixel-rgb-grid.png)
+![Pixel grid and RGB channel diagram](/img/course/cv-pixel-rgb-grid-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 理解图像的像素表示和颜色通道
-- 分清灰度图和彩色图的存储方式
-- 理解 RGB 与 HSV 的区别
-- 知道常见图像格式适合什么场景
-
----
-
-## 这节和第 6 站 CNN 主线是怎么接上的
-
-如果你刚学完卷积网络，可以先把这节理解成：
-
-- CNN 告诉你网络为什么适合看图
-- 这节开始把“图”这个输入对象本身拆开给你看
-
-所以这节不是在偏离模型主线，而是在补最关键的一层输入直觉：
-
-- 图像在计算机里到底是什么
-- 为什么通道、颜色空间、尺寸这些概念后面会反复出现
-
-## 一、计算机眼中的图片到底是什么？
-
-人看到一张猫的照片，会想到“这是一只猫”。  
-计算机看到的其实不是“猫”，而是一大堆数字。
-
-最简单的理解：
-
-> **图像 = 一个按位置排好的数字矩阵**
-
-你可以把它想成一个“灯光棋盘”：
-
-- 每个格子就是一个像素（pixel）
-- 每个像素里存着亮度或颜色数值
-- 所有像素排在一起，就组成了整张图
-
-### 1.1 第一次学视觉，最该先抓住什么？
-
-最该先抓住的不是“这张图是什么内容”，而是：
-
-> **对计算机来说，图像首先是一块按空间排列好的数字网格。**
-
-只要这句稳了，后面很多操作都会顺很多：
-
-- 卷积为什么按局部窗口滑动
-- 通道为什么能拆开处理
-- 检测和分割为什么还离不开像素空间
+- Understand pixel representation and color channels in images
+- Tell the difference between how grayscale images and color images are stored
+- Understand the difference between RGB and HSV
+- Know which common image formats are suitable for different scenarios
 
 ---
 
-## 二、像素：图像的最小单位
+## How this section connects to the CNN main track in Station 6
 
-### 2.1 灰度图
+If you just finished convolutional networks, you can first understand this section as:
 
-灰度图里，每个像素只需要一个数字表示亮度：
+- CNNs tell you why neural networks are suitable for image understanding
+- This section starts by breaking down the input object itself: the image
 
-- `0` 表示纯黑
-- `255` 表示纯白
-- 中间值表示不同程度的灰
+So this section is not drifting away from the model storyline. Instead, it is filling in the most important layer of input intuition:
+
+- What an image actually is inside a computer
+- Why concepts like channels, color spaces, and image size keep showing up later
+
+## 1. What is a picture in the eyes of a computer?
+
+When people see a photo of a cat, they think, “This is a cat.”
+What the computer actually sees is not “a cat,” but a bunch of numbers.
+
+The simplest way to think about it is:
+
+> **Image = a numerical matrix arranged by position**
+
+You can think of it as a “grid of lights”:
+
+- Each cell is a pixel
+- Each pixel stores a brightness or color value
+- All pixels together make up the whole image
+
+### 1.1 What should you focus on first when learning vision for the first time?
+
+What you should focus on first is not “what is in this image,” but:
+
+> **For a computer, an image is first a spatially arranged numeric grid.**
+
+Once this idea is solid, many operations become much easier to understand:
+
+- Why convolutions slide over local windows
+- Why channels can be processed separately
+- Why detection and segmentation still depend on pixel space
+
+---
+
+## 2. Pixels: the smallest unit of an image
+
+### 2.1 Grayscale images
+
+In a grayscale image, each pixel needs only one number to represent brightness:
+
+- `0` means pure black
+- `255` means pure white
+- Values in between represent different shades of gray
 
 ```python
 import numpy as np
 
-# 一个 5x5 的灰度图
+# A 5x5 grayscale image
 gray = np.array([
     [0,   50, 100, 150, 200],
     [30,  80, 130, 180, 230],
@@ -83,71 +83,71 @@ gray = np.array([
     [10,  40,  90, 140, 190]
 ], dtype=np.uint8)
 
-print("灰度图 shape:", gray.shape)
+print("Grayscale image shape:", gray.shape)
 print(gray)
 ```
 
-这里的 `shape` 是 `(5, 5)`，表示：
+Here, `shape` is `(5, 5)`, which means:
 
-- 高度 5
-- 宽度 5
+- Height 5
+- Width 5
 
-也就是说，这张图只有 25 个像素。
+In other words, this image has only 25 pixels.
 
-### 2.2 彩色图
+### 2.2 Color images
 
-彩色图一般使用 **RGB** 表示颜色：
+Color images are usually represented with **RGB**:
 
-- `R` = 红色强度
-- `G` = 绿色强度
-- `B` = 蓝色强度
+- `R` = red intensity
+- `G` = green intensity
+- `B` = blue intensity
 
-每个像素不再是一个数，而是三个数。
+Each pixel is no longer a single number, but three numbers.
 
 ```python
 import numpy as np
 
-# 一个 2x2 的 RGB 图像
+# A 2x2 RGB image
 rgb = np.array([
     [[255,   0,   0], [  0, 255,   0]],
     [[  0,   0, 255], [255, 255,   0]]
 ], dtype=np.uint8)
 
-print("RGB 图 shape:", rgb.shape)
+print("RGB image shape:", rgb.shape)
 print(rgb)
 ```
 
-这里 `shape = (2, 2, 3)`，表示：
+Here, `shape = (2, 2, 3)`, which means:
 
-- 高 2
-- 宽 2
-- 每个像素 3 个通道
+- Height 2
+- Width 2
+- 3 channels per pixel
 
-### 2.3 这一节最值得先养成的习惯
+### 2.3 The most useful habit to build first in this section
 
-看到图像数组时，先顺手问这三个问题：
+When you see an image array, ask these three questions:
 
-1. 它的 shape 是多少？
-2. 每一维分别代表什么？
-3. 通道是在最后一维，还是前一维？
+1. What is its shape?
+2. What does each dimension represent?
+3. Are the channels in the last dimension or the first dimension?
 
-这个习惯会直接帮你少掉很多视觉代码里的 shape 混乱。
+This habit will help you avoid a lot of shape confusion in vision code.
 
-![图像数组 Shape 与通道语义图](/img/course/ch10-image-array-shape-channel-map.png)
+![Image array shape and channel semantics diagram](/img/course/ch10-image-array-shape-channel-map-en.png)
 
-:::tip 读图提示
-这张图按 `height -> width -> channel` 读：灰度图通常是二维网格，RGB 图像多出颜色通道，模型训练前还会把 `uint8` 的 0-255 转成更稳定的浮点范围。
+:::tip Reading tip
+Read this figure as `height -> width -> channel`: grayscale images are usually a 2D grid, RGB images add a color channel, and before training, models also convert `uint8` values from 0-255 into a more stable floating-point range.
 :::
 
 ---
 
-## 三、通道是什么？
+## 3. What are channels?
 
-通道（channel）可以理解成“同一张图的不同颜色层”。
+A channel can be understood as a “different color layer” of the same image.
 
-类比一下：
+As an analogy:
 
-> 一张 RGB 图片，就像三张半透明薄膜叠在一起：一张红膜、一张绿膜、一张蓝膜。
+> An RGB image is like three semi-transparent sheets stacked together: one red sheet, one green sheet, and one blue sheet.
 
 ```python
 import numpy as np
@@ -161,41 +161,41 @@ red_channel = rgb[:, :, 0]
 green_channel = rgb[:, :, 1]
 blue_channel = rgb[:, :, 2]
 
-print("R 通道:\n", red_channel)
-print("G 通道:\n", green_channel)
-print("B 通道:\n", blue_channel)
+print("R channel:\n", red_channel)
+print("G channel:\n", green_channel)
+print("B channel:\n", blue_channel)
 ```
 
-在计算机视觉里，“拆通道”是非常常见的操作。
+In computer vision, “splitting channels” is a very common operation.
 
-比如：
+For example:
 
-- 只分析亮度
-- 只增强某种颜色
-- 先转灰度再做边缘检测
+- Analyze brightness only
+- Enhance a specific color only
+- Convert to grayscale first, then do edge detection
 
-### 3.1 通道最值得先记的，不是定义，而是“它能单独处理”
+### 3.1 What is most important to remember about channels is not the definition, but that they can be processed separately
 
-也就是说：
+In other words:
 
-- 彩色图不是一个整体黑箱
-- 它其实是多张“颜色层”叠起来
+- A color image is not a single black box
+- It is actually multiple “color layers” stacked together
 
-这件事很关键，因为后面很多视觉处理本质上都在做：
+This is important because many vision operations later are essentially doing:
 
-- 拆通道
-- 重组通道
-- 在某个通道上单独操作
+- Channel splitting
+- Channel recombination
+- Separate operations on one channel
 
 ---
 
-## 四、图像为什么常用 `uint8`？
+## 4. Why are images often stored as `uint8`?
 
-大多数图片像素值范围是 `0~255`，所以常用 `uint8` 存储：
+Most image pixel values are in the range `0~255`, so `uint8` is commonly used for storage:
 
-- `u` = unsigned，无符号
-- `int8` = 8 位整数
-- 能表示 `0~255`
+- `u` = unsigned
+- `int8` = 8-bit integer
+- It can represent `0~255`
 
 ```python
 import numpy as np
@@ -204,7 +204,7 @@ pixel = np.array([128, 200, 30], dtype=np.uint8)
 print(pixel, pixel.dtype)
 ```
 
-但在模型训练里，我们常常会把图像归一化到 `0~1`：
+But during model training, we often normalize images to `0~1`:
 
 ```python
 import numpy as np
@@ -215,49 +215,49 @@ pixel_normalized = pixel / 255.0
 print(pixel_normalized)
 ```
 
-### 为什么要归一化？
+### Why normalize?
 
-因为神经网络更喜欢数值尺度稳定的数据。  
-就像做饭时每种调料都得有合理量级，不能一个用“克”、另一个用“桶”。
+Because neural networks prefer data with stable numeric scales.
+It is like cooking: each seasoning needs a reasonable amount, and you cannot have one measured in “grams” while another is measured in “barrels.”
 
-### 4.1 为什么这一点和第 6 站训练主线直接相关？
+### 4.1 Why is this directly related to the training main track in Station 6?
 
-因为你在第 6 站已经见过：
+Because in Station 6, you already saw that:
 
-- 模型训练对输入尺度很敏感
-- 优化器和梯度会受数值范围影响
+- Model training is very sensitive to input scale
+- Optimizers and gradients are affected by numeric ranges
 
-所以图像归一化不是视觉里的小技巧，而是：
+So image normalization is not a small trick in vision. It is:
 
-- 视觉数据进入训练流程前的标准准备动作
+- A standard preparation step before visual data enters the training pipeline
 
 ---
 
-## 五、RGB 和 HSV 有什么区别？
+## 5. What is the difference between RGB and HSV?
 
-### 5.1 RGB：按“混多少红绿蓝”描述颜色
+### 5.1 RGB: describing colors by “how much red, green, and blue”
 
-RGB 很适合存图、显示图。  
-但它不太符合人类描述颜色的方式。
+RGB is very suitable for storing and displaying images.
+But it does not match how humans usually describe colors.
 
-比如人更习惯说：
+For example, people are more likely to say:
 
-- 这个颜色偏红
-- 饱和度高
-- 更亮一点
+- This color is more reddish
+- The saturation is high
+- Make it a little brighter
 
-这时 **HSV** 往往更直观：
+At this point, **HSV** is often more intuitive:
 
-- `H` = Hue，色相
-- `S` = Saturation，饱和度
-- `V` = Value，明度
+- `H` = Hue
+- `S` = Saturation
+- `V` = Value
 
-### 5.2 一个直接可运行的小例子
+### 5.2 A small example you can run directly
 
 ```python
 import colorsys
 
-# 红色像素，先把 0~255 映射到 0~1
+# Red pixel, first map 0~255 to 0~1
 r, g, b = 255 / 255, 80 / 255, 80 / 255
 h, s, v = colorsys.rgb_to_hsv(r, g, b)
 
@@ -267,23 +267,23 @@ print("S =", round(s, 3))
 print("V =", round(v, 3))
 ```
 
-### RGB 和 HSV 适合什么场景？
+### What are RGB and HSV good for?
 
-| 颜色空间 | 更适合什么 |
+| Color space | Best suited for |
 |---|---|
-| RGB | 存储、显示、神经网络输入 |
-| HSV | 颜色筛选、颜色分割、按“色调/亮度”处理图像 |
+| RGB | Storage, display, neural network input |
+| HSV | Color filtering, color segmentation, processing by “hue/brightness” |
 
-比如你要“找出画面里偏红的区域”，HSV 往往比 RGB 更方便。
+For example, if you want to “find reddish regions in an image,” HSV is often more convenient than RGB.
 
 ---
 
-## 六、把彩色图转成灰度图
+## 6. Convert a color image to grayscale
 
-灰度图并不是简单地把三个通道平均一下。  
-通常会按人眼对不同颜色敏感度加权。
+A grayscale image is not simply the average of the three channels.
+Usually, it is weighted according to how sensitive the human eye is to different colors.
 
-常见公式：
+A common formula is:
 
 > `gray = 0.299*R + 0.587*G + 0.114*B`
 
@@ -306,50 +306,50 @@ print(gray.astype(np.uint8))
 
 ---
 
-## 七、图像格式怎么选？
+## 7. How should you choose an image format?
 
-这是非常工程化但很实用的知识。
+This is very practical and engineering-oriented knowledge.
 
-| 格式 | 特点 | 常见用途 |
+| Format | Features | Common uses |
 |---|---|---|
-| JPG / JPEG | 有损压缩，体积小 | 照片、网页展示 |
-| PNG | 无损压缩，支持透明 | 图标、截图、UI 素材 |
-| WebP | 压缩效率高 | 现代网页图像 |
-| BMP | 基本不压缩，体积大 | 教学、底层处理 |
+| JPG / JPEG | Lossy compression, small file size | Photos, web display |
+| PNG | Lossless compression, supports transparency | Icons, screenshots, UI assets |
+| WebP | High compression efficiency | Modern web images |
+| BMP | Basically uncompressed, large file size | Teaching, low-level processing |
 
-### 一个非常实用的直觉
+### A very practical rule of thumb
 
-- 照片：优先 `JPG`
-- 需要透明背景：优先 `PNG`
-- 想兼顾质量和体积：考虑 `WebP`
+- Photos: prefer `JPG`
+- Need a transparent background: prefer `PNG`
+- Want a balance between quality and size: consider `WebP`
 
 ---
 
-## 八、为什么视觉任务总在说“分辨率”？
+## 8. Why do vision tasks always mention “resolution”?
 
-分辨率就是图像大小，比如：
+Resolution is the size of an image, such as:
 
 - `224 x 224`
 - `640 x 480`
 - `1920 x 1080`
 
-分辨率越高：
+The higher the resolution:
 
-- 细节越多
-- 计算量也越大
+- The more detail there is
+- The more computation is required
 
-这就像你看地图：
+It is like looking at a map:
 
-- 放大后更清楚
-- 但要处理的信息也更多
+- Zooming in makes it clearer
+- But there is also more information to process
 
-所以很多深度学习模型会先把图像缩放到固定大小。
+That is why many deep learning models first resize images to a fixed size.
 
 ---
 
-## 九、一个小实验：统计图像亮度
+## 9. A small experiment: count image brightness
 
-下面这个例子可以帮你快速建立“图像就是数值矩阵”的感觉。
+The following example can help you quickly build the feeling that “an image is just a numeric matrix.”
 
 ```python
 import numpy as np
@@ -360,54 +360,54 @@ gray = np.array([
     [200, 220, 240]
 ], dtype=np.uint8)
 
-print("最暗像素:", gray.min())
-print("最亮像素:", gray.max())
-print("平均亮度:", gray.mean())
+print("Darkest pixel:", gray.min())
+print("Brightest pixel:", gray.max())
+print("Average brightness:", gray.mean())
 ```
 
-这在视觉任务里很常见，比如：
+This is very common in vision tasks, for example:
 
-- 判断一张图是不是整体过暗
-- 做亮度归一化
-- 估计曝光情况
-
----
-
-## 十、初学者常见误区
-
-### 1. 以为图像是“对象”，不是“数组”
-
-对人来说是对象，对计算机来说先是数组。  
-先接受这一点，后面所有视觉算法都会顺很多。
-
-### 2. 混淆图像 shape
-
-不同库可能约定不同：
-
-- NumPy / OpenCV 常见 `H x W x C`
-- PyTorch 常见 `C x H x W`
-
-这是后面写模型时必须特别小心的点。
-
-### 3. 以为 RGB 和 HSV 只是换个名字
-
-不是。  
-它们是不同的颜色表示方式，适合的处理任务也不同。
+- Checking whether an image is too dark overall
+- Performing brightness normalization
+- Estimating exposure conditions
 
 ---
 
-## 小结
+## 10. Common beginner mistakes
 
-学完这节，你要建立一个关键直觉：
+### 1. Thinking an image is an “object,” not an “array”
 
-> **图像并不神秘，本质上就是带空间结构的数字矩阵。**
+To humans, it is an object; to a computer, it starts as an array.
+Once you accept this, many vision algorithms become much easier to understand.
 
-后面无论是 OpenCV 处理、卷积神经网络，还是目标检测，本质上都在处理这些有结构的数字。
+### 2. Confusing image shape
+
+Different libraries may use different conventions:
+
+- NumPy / OpenCV commonly use `H x W x C`
+- PyTorch commonly uses `C x H x W`
+
+This is something you must be especially careful about when writing models later.
+
+### 3. Thinking RGB and HSV are just different names
+
+They are not.
+They are different ways of representing color, and they are suitable for different processing tasks.
 
 ---
 
-## 练习
+## Summary
 
-1. 自己创建一个 `3x3` 的灰度图矩阵，统计它的最大值、最小值和平均值。
-2. 自己创建一个 `2x2x3` 的 RGB 图像，打印每个通道。
-3. 把一组 RGB 像素手工转成 `0~1` 浮点数，理解归一化的作用。
+After learning this section, you should build one key intuition:
+
+> **An image is not mysterious; at its core, it is a numeric matrix with spatial structure.**
+
+Whether it is OpenCV processing, convolutional neural networks, or object detection, the essence is always processing these structured numbers.
+
+---
+
+## Exercises
+
+1. Create your own `3x3` grayscale image matrix and compute its maximum, minimum, and average values.
+2. Create your own `2x2x3` RGB image and print each channel.
+3. Manually convert a set of RGB pixels into `0~1` floating-point values to understand the role of normalization.

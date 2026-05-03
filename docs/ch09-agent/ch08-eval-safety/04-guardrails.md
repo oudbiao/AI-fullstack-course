@@ -1,116 +1,114 @@
 ---
-title: "8.5 Guardrails 护栏机制"
+title: "8.5 Guardrails Protection Mechanism"
 sidebar_position: 47
-description: "从输入护栏、输出护栏、工具护栏到流程护栏，理解 guardrails 为什么更像多层系统约束，而不是一条规则。"
+description: "From input guardrails, output guardrails, and tool guardrails to workflow guardrails, understand why guardrails are more like multi-layer system constraints than a single rule."
 keywords: [guardrails, safety policy, input filter, output filter, tool guard, agent]
 ---
 
-# Guardrails 护栏机制
+# Guardrails Protection Mechanism
 
-![Agent 护栏分层图](/img/course/agent-guardrails-layers.png)
+![Agent Layered Guardrails Diagram](/img/course/agent-guardrails-layers-en.png)
 
-:::tip 本节定位
-很多团队会说：
+:::tip Section Overview
+Many teams say:
 
-- 我们加了护栏
+- We added guardrails
 
-但真正稳的系统里，护栏通常不是一条规则，而是多层约束一起工作。
+But in a truly robust system, guardrails are usually not a single rule; they are multiple layers of constraints working together.
 
-这节课的重点是：
+The key idea in this lesson is:
 
-> **把护栏看成系统设计，而不是单点拦截。**
+> **Think of guardrails as system design, not single-point interception.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 guardrails 的几种常见层次
-- 理解为什么输入、输出、工具和流程护栏各有作用
-- 通过可运行示例理解最小多层护栏
-- 建立“护栏是组合防线”的工程思维
+- Understand the common layers of guardrails
+- Understand why input, output, tool, and workflow guardrails each have their own role
+- Use a runnable example to understand a minimal multi-layer guardrail setup
+- Build an engineering mindset that treats guardrails as a combined defense line
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-Guardrails 这节最适合新人的理解顺序不是“加一条规则”，而是先看清：
+For beginners, the best way to understand this guardrails lesson is not “add one rule,” but first see clearly:
 
 ```mermaid
 flowchart LR
-    A["输入护栏"] --> B["输出护栏"]
-    B --> C["工具护栏"]
-    C --> D["流程护栏"]
+    A["Input Guardrails"] --> B["Output Guardrails"]
+    B --> C["Tool Guardrails"]
+    C --> D["Workflow Guardrails"]
 ```
 
-所以这节真正想解决的是：
+So what this lesson really aims to solve is:
 
-- 护栏为什么不能只放在一个位置
-- 多层约束怎样一起工作
+- Why guardrails cannot be placed in just one spot
+- How multi-layer constraints work together
 
-### 一个更适合新人的总类比
+### A More Beginner-Friendly Overall Analogy
 
-你可以把 Guardrails 理解成：
+You can think of Guardrails like:
 
-- 机场安检的多道关卡
+- Multiple checkpoints at an airport
 
-不是只在最后登机口查一次，  
-而是会在：
+Not just one check at the final boarding gate,
+but checks at different places such as:
 
-- 入口
-- 安检
-- 登机前
+- the entrance
+- security screening
+- before boarding
 
-不同位置各自做一层检查。
+This analogy is especially useful for beginners because it helps you first grasp:
 
-这个类比很适合新人，因为它会帮助你先抓住：
+- Guardrails are essentially layered defense lines
+- They are not a single universal rule
 
-- 护栏本质上是分层防线
-- 不是一条万能规则
+## 1. Why Can’t Guardrails Be Placed in Only One Spot?
 
-## 一、护栏为什么不能只放在一个位置？
+Because attacks and mistakes can come from:
 
-因为攻击和错误可能来自：
+- user input
+- model output
+- tool decisions
+- long-term state
 
-- 用户输入
-- 模型输出
-- 工具决策
-- 长期状态
-
-只在一个位置设防，通常会漏掉其他通道。
+If you only defend one place, you will usually miss other channels.
 
 ---
 
-## 二、四类常见护栏
+## 2. Four Common Types of Guardrails
 
-### 1. 输入护栏
+### 1. Input Guardrails
 
-拦截明显恶意请求。
+Block obviously malicious requests.
 
-### 2. 输出护栏
+### 2. Output Guardrails
 
-检查模型是否输出危险内容。
+Check whether the model outputs dangerous content.
 
-### 3. 工具护栏
+### 3. Tool Guardrails
 
-限制调用范围和参数合法性。
+Restrict the allowed scope of tool calls and the validity of parameters.
 
-### 4. 流程护栏
+### 4. Workflow Guardrails
 
-对高风险动作强制加人工确认或多步审批。
+Force human confirmation or multi-step approval for high-risk actions.
 
-### 2.1 一个很适合初学者先记的护栏表
+### 2.1 A Guardrail Table for Beginners to Remember First
 
-| 护栏层 | 最值得先记住的作用 |
+| Guardrail Layer | Most Important Thing to Remember |
 |---|---|
-| 输入护栏 | 明显恶意请求先拦一层 |
-| 输出护栏 | 输出别越界 |
-| 工具护栏 | 动作别乱调、参数别乱传 |
-| 流程护栏 | 高风险步骤别一步放行 |
+| Input guardrails | Block obvious malicious requests first |
+| Output guardrails | Don’t let output go out of bounds |
+| Tool guardrails | Don’t call actions arbitrarily or pass random parameters |
+| Workflow guardrails | Don’t approve high-risk steps in one shot |
 
-这个表很适合新人，因为它会把“多层护栏”重新压缩成四个可见位置。
+This table is helpful for beginners because it compresses “multi-layer guardrails” back into four visible positions.
 
 ---
 
-## 三、先跑一个最小多层护栏示例
+## 3. First, Run a Minimal Multi-Layer Guardrail Example
 
 ```python
 blocked_patterns = ["ignore previous instructions", "reveal system prompt"]
@@ -136,28 +134,28 @@ print("tool ok :", tool_guard("search_docs"))
 print("output ok:", output_guard("safe response"))
 ```
 
-### 3.1 这个示例最重要的地方是什么？
+### 3.1 What Is the Most Important Thing in This Example?
 
-它说明护栏通常不是一个 if，而是：
+It shows that guardrails are usually not a single if statement, but:
 
-- 输入一层
-- 工具一层
-- 输出一层
+- one layer for input
+- one layer for tools
+- one layer for output
 
-多层组合。
+A multi-layer combination.
 
-### 3.2 为什么“流程护栏”经常最容易被漏掉？
+### 3.2 Why Is “Workflow Guardrails” Often the Easiest to Miss?
 
-因为很多团队会优先想到过滤文本，  
-却忽略了高风险动作更适合走：
+Because many teams think first about filtering text,
+but overlook that high-risk actions are often better handled with:
 
-- 二次确认
-- 人工审批
-- 延迟执行
+- a second confirmation
+- human approval
+- delayed execution
 
-这类流程控制本身，就是护栏的一部分。
+This kind of process control is itself part of guardrails.
 
-### 3.3 再看一个最小“流程护栏”示例
+### 3.3 Another Minimal “Workflow Guardrail” Example
 
 ```python
 def process_guard(action, risk_level):
@@ -170,46 +168,46 @@ print(process_guard("refund_to_external_account", "high"))
 print(process_guard("search_policy", "low"))
 ```
 
-这个示例很适合初学者，因为它会提醒你：
+This example is especially good for beginners because it reminds you that:
 
-- 护栏不只是在看文字
-- 还在决定系统下一步能不能继续执行
+- Guardrails are not only about checking text
+- They also decide whether the system can continue to the next step
 
-## 四、一个新人可直接照抄的护栏设计顺序
+## 4. A Guardrail Design Order Beginners Can Copy Directly
 
-更建议这样做：
+It is better to do it this way:
 
-1. 先做输入护栏
-2. 再做工具权限和参数护栏
-3. 再做输出护栏
-4. 高风险动作最后再加流程护栏
+1. First build input guardrails
+2. Then build tool permission and parameter guardrails
+3. Then build output guardrails
+4. Finally add workflow guardrails for high-risk actions
 
-先把风险最大的环节兜住，比一下子写很多细规则更稳。
+Catching the riskiest parts first is more stable than writing lots of detailed rules all at once.
 
-## 五、如果你的目标是“知识库驱动的课件生成助手”，哪些护栏特别值得先做？
+## 5. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” Which Guardrails Are Worth Building First?
 
-这类项目里，真正危险的地方往往不是“模型说脏话”，  
-而是：
+In this kind of project, the truly dangerous part is often not “the model swears,”
+but:
 
-- 没有来源的内容被写进正式课件
-- 外部资料把内部标准内容带偏
-- 例题并不来自知识库却被当成“内部例题”
-- 用户一句模糊要求就直接导出正式 Word
+- content without a source gets written into formal courseware
+- external materials distort internal standard content
+- exercises are not from the knowledge base but are treated as “internal exercises”
+- a user’s vague request directly exports a formal Word file
 
-所以这类系统特别值得先做这几层护栏：
+So for this kind of system, these layers of guardrails are especially worth building first:
 
-| 护栏层 | 更适合拦什么 |
+| Guardrail Layer | What It Is Better At Blocking |
 |---|---|
-| 输入护栏 | 主题过于模糊、缺少必要条件 |
-| 知识护栏 | 内部资料优先、外部资料只能补充 |
-| 输出护栏 | 没有来源的内容不能进入正式文档 |
-| 流程护栏 | 正式导出前先预览或确认 |
+| Input guardrails | Topics that are too vague or missing necessary conditions |
+| Knowledge guardrails | Prioritize internal materials; external materials can only supplement |
+| Output guardrails | Content without sources cannot enter the formal document |
+| Workflow guardrails | Preview or confirmation before formal export |
 
-你可以先把这条线记成一句话：
+You can remember this line first:
 
-> **这类项目的护栏重点，不只是安全词过滤，而是“来源、优先级、导出流程”的稳定控制。**
+> **The guardrail focus in this kind of project is not just safety-word filtering, but stable control of “source, priority, and export workflow.”**
 
-### 5.1 一个更像课件生成系统的最小护栏示例
+### 5.1 A Minimal Guardrail Example That Feels More Like a Courseware Generation System
 
 ```python
 def knowledge_guard(item):
@@ -236,70 +234,70 @@ print(knowledge_guard(sample_1))
 print(knowledge_guard(sample_2))
 ```
 
-这个例子很适合新人，因为它会帮助你看到：
+This example is useful for beginners because it helps you see that:
 
-- 护栏并不只是在审“文本”
-- 也在审“这段内容可不可以进入最终成品”
+- Guardrails are not only checking “text”
+- They are also checking whether “this content can enter the final deliverable”
 
-## 如果把它做成项目或系统设计，最值得展示什么
+## If You Turn This Into a Project or System Design, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is usually most worth showing is not:
 
-- “我们加了安全规则”
+- “We added safety rules”
 
-而是：
+But rather:
 
-1. 哪些输入会被拦
-2. 哪些工具调用会被限制
-3. 哪些输出会被二次检查
-4. 哪些高风险动作必须人工确认
+1. Which inputs will be blocked
+2. Which tool calls will be restricted
+3. Which outputs will be checked again
+4. Which high-risk actions must be confirmed by a human
 
-这样别人会更容易看出：
+That way, other people can more easily see that:
 
-- 你理解的是多层系统护栏
-- 不只是加了一个关键词过滤器
-
----
-
-## 六、最常见误区
-
-### 6.1 护栏只做在输出端
-
-### 6.2 护栏规则太死，正常请求也大量误伤
-
-### 6.3 没有回归集就改护栏
-
-## 七、一个很实用的护栏检查清单
-
-可以先问自己：
-
-- 输入有没有最基础过滤
-- 工具有没有权限和参数检查
-- 输出有没有最小合规检查
-- 高风险动作有没有确认流程
-- 改动护栏后有没有回归集验证
-
-如果这五条里有明显缺口，系统风险通常就还不稳。
+- You understand multi-layer system guardrails
+- You did not just add a keyword filter
 
 ---
 
-## 小结
+## 6. Most Common Mistakes
 
-这节最重要的是建立一个判断：
+### 6.1 Putting Guardrails Only on the Output Side
 
-> **Guardrails 的本质不是单点过滤，而是围绕输入、输出、工具和流程做多层约束。**
+### 6.2 Making Guardrail Rules Too Rigid, Causing Many False Blocks of Normal Requests
 
-## 这节最该带走什么
+### 6.3 Changing Guardrails Without a Regression Set
 
-- 护栏不是一条规则，而是一组分层约束
-- 风险来自哪里，护栏就该布到哪里
-- 护栏过严和过松都会带来问题，所以一定要配回归集
+## 7. A Very Practical Guardrail Checklist
+
+You can ask yourself first:
+
+- Does the input have the most basic filtering?
+- Do tools have permission and parameter checks?
+- Does the output have minimal compliance checks?
+- Do high-risk actions have a confirmation flow?
+- After changing guardrails, do you have a regression set for validation?
+
+If there are obvious gaps in any of these five items, the system is usually still not stable enough.
 
 ---
 
-## 练习
+## Summary
 
-1. 给示例再加一个“人工确认层”条件。
-2. 为什么输入护栏和输出护栏都需要？
-3. 你当前系统里最缺哪一层护栏？
-4. 想一想：护栏过严会带来什么新问题？
+The most important thing in this lesson is to build one judgment:
+
+> **The essence of Guardrails is not single-point filtering, but multi-layer constraints around input, output, tools, and workflow.**
+
+## What You Should Take Away From This Lesson
+
+- Guardrails are not one rule, but a set of layered constraints
+- Where the risk comes from is where the guardrails should be placed
+- Both overly strict and overly loose guardrails create problems, so you must pair them with a regression set
+
+---
+
+## Exercises
+
+1. Add a “human confirmation layer” condition to the example.
+2. Why do both input guardrails and output guardrails need to exist?
+3. Which layer of guardrails is most missing in your current system?
+4. Think about it: what new problems can overly strict guardrails cause?

@@ -1,113 +1,113 @@
 ---
-title: "1.1 C++ 编程基础"
+title: "1.1 C++ Programming Basics"
 sidebar_position: 1
-description: "从变量、函数、引用、vector 和简单类出发，建立面向模型部署场景的 C++ 基础直觉。"
+description: "Build C++ intuition for model deployment scenarios, starting from variables, functions, references, vector, and simple classes."
 keywords: [C++, basics, vector, reference, function, class, deployment]
 ---
 
-# C++ 编程基础
+# C++ Programming Basics
 
-![C++ 运行与内存模型图](/img/course/elective-cpp-runtime-memory.png)
+![C++ runtime and memory model diagram](/img/course/elective-cpp-runtime-memory-en.png)
 
-:::tip 本节定位
-很多做 AI 应用的同学平时更熟悉 Python。  
-但一旦进入模型部署、推理服务、边缘设备或高性能模块，就很容易碰到 C++。
+:::tip Where this section fits
+Many students working on AI applications are more familiar with Python.
+But once you move into model deployment, inference services, edge devices, or high-performance modules, you will often run into C++.
 
-这节课不是按传统语言教材那样从头铺满语法，  
-而是站在“模型部署会用到什么”的角度，先把最常见的 C++ 基础补齐。
+This lesson does not try to cover every syntax rule from a traditional language textbook.
+Instead, it starts from the perspective of “what you need for model deployment” and fills in the most common C++ basics first.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么模型部署场景经常会接触 C++
-- 掌握变量、函数、引用、`std::vector` 和简单类这几块基础
-- 通过可编译示例建立“C++ 怎么组织数据和逻辑”的直觉
-- 知道后面进阶课为什么会继续讲 RAII、智能指针和抽象接口
-
----
-
-## 一、为什么模型部署会碰到 C++？
-
-### 1.1 因为它更接近底层执行环境
-
-常见场景包括：
-
-- 推理引擎 SDK
-- ONNX / TensorRT / OpenVINO 的底层接口
-- 高性能后处理模块
-- 边缘设备本地推理
-
-### 1.2 它不是“为了炫技”
-
-很多时候不是因为 C++ 更酷，  
-而是因为部署场景更关注：
-
-- 性能
-- 内存控制
-- 原生库集成
-
-### 1.3 一个现实目标
-
-对很多 AI 工程同学来说，  
-第一目标通常不是“精通所有 C++ 语法”，  
-而是：
-
-> **看懂基本代码，能写简单模块，能和部署链路接起来。**
+- Understand why C++ is often used in model deployment scenarios
+- Master the basics of variables, functions, references, `std::vector`, and simple classes
+- Build intuition for “how C++ organizes data and logic” through compilable examples
+- Understand why later advanced lessons will continue with RAII, smart pointers, and abstract interfaces
 
 ---
 
-## 二、先建立最常见的几个基本概念
+## 1. Why do we encounter C++ in model deployment?
 
-### 2.1 变量和类型
+### 1.1 Because it is closer to the underlying execution environment
 
-C++ 是静态类型语言。  
-你通常需要明确写出变量类型：
+Common scenarios include:
+
+- Inference engine SDKs
+- Low-level interfaces for ONNX / TensorRT / OpenVINO
+- High-performance post-processing modules
+- Local inference on edge devices
+
+### 1.2 It is not “just for showing off”
+
+Most of the time, C++ is not chosen because it is cooler.
+It is chosen because deployment scenarios care more about:
+
+- Performance
+- Memory control
+- Native library integration
+
+### 1.3 A realistic goal
+
+For many AI engineers,
+the first goal is usually not “master every C++ syntax rule,”
+but rather:
+
+> **Understand basic code, write simple modules, and connect them to the deployment pipeline.**
+
+---
+
+## 2. First, build a few of the most common basic concepts
+
+### 2.1 Variables and types
+
+C++ is a statically typed language.
+You usually need to write the variable type explicitly:
 
 - `int`
 - `float`
 - `bool`
 - `std::string`
 
-### 2.2 函数
+### 2.2 Functions
 
-函数需要声明：
+A function needs to declare:
 
-- 返回类型
-- 参数类型
+- Return type
+- Parameter types
 
-这会让接口更明确，也更利于编译器检查。
+This makes interfaces clearer and also helps the compiler check your code.
 
-### 2.3 引用
+### 2.3 References
 
-引用很常见，因为它能避免不必要拷贝。  
-尤其在处理大向量或张量时很重要。
+References are very common because they help avoid unnecessary copies.
+They are especially important when dealing with large vectors or tensors.
 
-例如：
+For example:
 
 - `const std::vector<float>& logits`
 
-表示：
+means:
 
-- 只读引用
-- 不复制整份数据
+- Read-only reference
+- Do not copy the entire dataset
 
 ### 2.4 `std::vector`
 
-在部署代码里你会经常看到它。  
-它可以先理解成：
+You will see it very often in deployment code.
+A simple way to think about it is:
 
-- “比 Python list 更类型固定的动态数组”
+- A dynamic array that is more type-specific than a Python list
 
 ---
 
-## 三、先跑一个真正和部署场景接近的 C++ 示例
+## 3. First, run a C++ example that is close to a deployment scenario
 
-下面这个例子会做一件非常典型的事：
+The example below does something very typical:
 
-- 给一组分类分数
-- 找出 top-1 类别
+- Takes a set of classification scores
+- Finds the top-1 category
 
-这比纯粹打印 `hello world` 更贴近模型后处理场景。
+This is closer to model post-processing than just printing `hello world`.
 
 ```cpp
 #include <iostream>
@@ -137,46 +137,46 @@ int main() {
 }
 ```
 
-编译方式：
+Compile command:
 
 ```bash
 c++ -std=c++17 demo.cpp -o demo
 ./demo
 ```
 
-### 3.1 这个例子最该看什么？
+### 3.1 What should you focus on first?
 
-先看三处：
+Look at these three parts first:
 
-1. `std::vector<float>`  
-   数据如何组织
-2. `const std::vector<float>&`  
-   为什么函数参数常用引用
-3. `argmax`  
-   最常见的部署后处理函数长什么样
+1. `std::vector<float>`
+   How the data is organized
+2. `const std::vector<float>&`
+   Why function parameters often use references
+3. `argmax`
+   What the most common deployment post-processing function looks like
 
-### 3.2 为什么这里强调引用？
+### 3.2 Why emphasize references here?
 
-因为如果直接按值传参：
+Because if you pass by value directly:
 
 - `std::vector<float> logits`
 
-函数调用时会复制整份数据。  
-在部署和推理路径里，这类不必要拷贝会很常见，也很浪费。
+the entire data will be copied when the function is called.
+In deployment and inference paths, this kind of unnecessary copy is common, and it wastes resources.
 
 ---
 
-## 四、类在部署代码里通常怎么出现？
+## 4. How do classes usually appear in deployment code?
 
-### 4.1 类不只是面向对象考试题
+### 4.1 Classes are not just for OOP exam questions
 
-在部署场景里，类经常用来表示：
+In deployment scenarios, classes are often used to represent:
 
-- 一个模型 runner
-- 一个 tokenizer
-- 一个后处理器
+- A model runner
+- A tokenizer
+- A post-processor
 
-### 4.2 一个简单类示例
+### 4.2 A simple class example
 
 ```cpp
 #include <iostream>
@@ -211,67 +211,67 @@ int main() {
 }
 ```
 
-这个例子想表达的是：
+What this example is trying to show is:
 
-- 类可以把配置和行为包在一起
+- A class can package configuration and behavior together
 
-这在部署系统里很常见。
-
----
-
-## 五、Python 背景同学最容易卡的地方
-
-### 5.1 编译
-
-Python 是解释执行，  
-C++ 通常先编译再运行。
-
-### 5.2 类型要提前写清楚
-
-这会让一开始感觉啰嗦，  
-但也能更早发现错误。
-
-### 5.3 内存和拷贝更值得注意
-
-在 Python 里很多拷贝细节没那么明显，  
-但在 C++ 和部署性能路径里，这会变得很关键。
+This is very common in deployment systems.
 
 ---
 
-## 六、常见误区
+## 5. The most common sticking points for students with a Python background
 
-### 6.1 误区一：只要会写 Python，就能直接无痛看懂 C++
+### 5.1 Compilation
 
-逻辑能迁移，  
-但类型、引用、所有权这些概念还是需要单独适应。
+Python runs by interpretation,
+while C++ is usually compiled before execution.
 
-### 6.2 误区二：基础语法没意义，直接上引擎就行
+### 5.2 Types need to be written clearly in advance
 
-没有变量、函数、类和引用这些基础，  
-后面很多部署 SDK 会看得非常吃力。
+This may feel verbose at first,
+but it can also help you catch errors earlier.
 
-### 6.3 误区三：C++ 基础课就该和 AI 完全无关
+### 5.3 Memory and copying deserve more attention
 
-对这门选修来说，更好的方式就是：
-
-- 直接围绕部署和推理路径来学
-
----
-
-## 小结
-
-这节最重要的，不是把 C++ 学成一门独立专业，  
-而是先建立一个部署友好的基础：
-
-> **看懂基本类型、函数、引用、vector 和简单类，已经足够支撑你继续进入模型部署和推理引擎的主线。**
-
-只要这几块稳住，后面很多“看起来很底层”的代码就不会那么吓人了。
+In Python, many copy details are not as visible.
+But in C++ and deployment performance paths, they become very important.
 
 ---
 
-## 练习
+## 6. Common misunderstandings
 
-1. 把 `argmax` 改成返回 top-2 下标，练一下 `vector` 操作。
-2. 试着把 `ThresholdFilter` 的阈值改成构造参数之外还能动态设置。
-3. 为什么说部署路径里“避免不必要拷贝”很重要？
-4. 用自己的话解释：`const std::vector<float>&` 为什么比按值传参更适合这里？
+### 6.1 Misunderstanding 1: If I can write Python, I should be able to understand C++ without effort
+
+The logic can transfer,
+but concepts like types, references, and ownership still need separate adjustment.
+
+### 6.2 Misunderstanding 2: Basic syntax is useless; just go straight to the engine
+
+Without the basics like variables, functions, classes, and references,
+many deployment SDKs will feel very difficult to read.
+
+### 6.3 Misunderstanding 3: A C++ basics course should be completely unrelated to AI
+
+For this elective, a better approach is:
+
+- Learn directly around the deployment and inference pipeline
+
+---
+
+## Summary
+
+The most important thing in this lesson is not to turn C++ into a standalone specialty,
+but to first build a deployment-friendly foundation:
+
+> **Being able to understand basic types, functions, references, vector, and simple classes is already enough to support your next step into model deployment and inference engines.**
+
+Once these parts are solid, many pieces of code that look “very low-level” later on will feel much less intimidating.
+
+---
+
+## Exercises
+
+1. Change `argmax` to return the top-2 indices, and practice `vector` operations.
+2. Try making the `ThresholdFilter` threshold dynamically settable in addition to the constructor parameter.
+3. Why is it important in deployment pipelines to “avoid unnecessary copies”?
+4. Explain in your own words: why is `const std::vector<float>&` more suitable here than passing by value?

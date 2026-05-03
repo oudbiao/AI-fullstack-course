@@ -1,90 +1,90 @@
 ---
-title: "10.2 项目：智能研究助手"
+title: "10.2 Project: Intelligent Research Assistant"
 sidebar_position: 54
-description: "围绕检索、阅读、引用和结构化总结，建立一个研究助手 Agent 的作品级项目闭环。"
+description: "Build a portfolio-quality research assistant Agent loop around retrieval, reading, citation, and structured summarization."
 keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 ---
 
-# 项目：智能研究助手
+# Project: Intelligent Research Assistant
 
-:::tip 本节定位
-研究助手项目很适合作为 Agent 作品集，不是因为它看起来高级，而是因为它天然要求系统同时做好：
+:::tip Section Focus
+The research assistant project is a great fit for an Agent portfolio, not because it looks advanced, but because it naturally requires the system to do all of the following well at the same time:
 
-- 检索
-- 阅读
-- 总结
-- 引用追踪
+- Retrieval
+- Reading
+- Summarization
+- Citation tracking
 
-只要其中一环松掉，结果就会变得“不可信”。  
-所以它非常适合练“可信 Agent”这条主线。
+If any one of these links breaks, the result becomes “untrustworthy.”
+That makes it an excellent project for practicing the core theme of “trustworthy Agents.”
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会把研究助手项目范围定得清楚
-- 学会把“检索 -> 阅读 -> 总结 -> 引用”串成闭环
-- 学会定义这个项目最关键的评估标准
-- 学会把它包装成一个有说服力的作品集项目
-
----
-
-## 一、先把项目范围定窄
-
-一个适合练手的研究助手项目，建议先做成：
-
-- 给定主题
-- 检索若干文档
-- 输出结构化摘要
-- 每条摘要带来源
-
-而不是一上来就做：
-
-- 自动写论文
-- 自动做综述
-
-### 为什么？
-
-因为对研究助手来说，“可信”比“花哨”更重要。
+- Learn how to define a clear scope for a research assistant project
+- Learn how to connect “retrieval -> reading -> summarization -> citation” into a closed loop
+- Learn how to define the most important evaluation criteria for this project
+- Learn how to package it as a convincing portfolio project
 
 ---
 
-## 二、作品级研究助手最小闭环长什么样？
+## 1. First, narrow the project scope
 
-1. 输入主题或问题
-2. 检索候选资料
-3. 选出最相关资料
-4. 生成结构化摘要
-5. 给出每条摘要来源
-6. 做错误分析和回归集
+A research assistant project that is good for practice should start as:
 
-只要这 6 步清楚，这个项目就很有作品集价值。
+- Given a topic
+- Retrieve several documents
+- Output a structured summary
+- Attach a source to each summary item
 
-![研究助手引用 Trace 图](/img/course/ch09-research-assistant-citation-trace-map.png)
+Rather than immediately trying to build:
 
-:::tip 读图提示
-研究助手最重要的不是“总结很流畅”，而是 claim 能回到 source。读图时按 retrieve、select、summarize、cite、verify 这条链路检查每条结论是否有证据。
+- Automatic paper writing
+- Automatic literature reviews
+
+### Why?
+
+Because for a research assistant, “trustworthy” matters more than “flashy.”
+
+---
+
+## 2. What does the minimal closed loop of a portfolio-grade research assistant look like?
+
+1. Input a topic or question
+2. Retrieve candidate materials
+3. Select the most relevant materials
+4. Generate a structured summary
+5. Provide a source for each summary item
+6. Perform error analysis and build a regression set
+
+As long as these 6 steps are clear, the project already has strong portfolio value.
+
+![Research assistant citation trace map](/img/course/ch09-research-assistant-citation-trace-map-en.png)
+
+:::tip Reading the Diagram
+The most important thing in a research assistant is not “the summary reads smoothly,” but whether each claim can be traced back to a source. When reading the diagram, check each conclusion along the chain of retrieve, select, summarize, cite, and verify to see whether it has evidence.
 :::
 
-## 三、推荐推进顺序
+## 3. Recommended progression order
 
-对新人来说，更稳的顺序通常是：
+For beginners, a more stable sequence is usually:
 
-1. 先把主题范围收窄
-2. 再做最简单检索 baseline
-3. 再补结构化总结
-4. 最后再补引用校验和失败案例展示
+1. Narrow the topic scope first
+2. Build the simplest retrieval baseline
+3. Add structured summarization
+4. Finally add citation validation and failure case demonstrations
 
-这样你才更容易把“可信研究助手”做成一个清楚闭环。
+This makes it easier to turn a “trustworthy research assistant” into a clear closed loop.
 
 ---
 
-## 四、先看一个最小研究助手示例
+## 4. Let’s first look at a minimal research assistant example
 
-下面这个例子会做三件事：
+This example does three things:
 
-1. 用关键词匹配模拟检索
-2. 生成结构化总结
-3. 给每条总结附来源
+1. Simulate retrieval with keyword matching
+2. Generate a structured summary
+3. Attach a source to each summary item
 
 ```python
 docs = [
@@ -139,44 +139,44 @@ for item in result:
     print(item)
 ```
 
-### 4.1 这个例子为什么比“项目骨架 dataclass”更有价值？
+### 4.1 Why is this example more valuable than a “project skeleton dataclass”?
 
-因为它已经体现出研究助手最关键的产品特征：
+Because it already reflects the most important product characteristic of a research assistant:
 
-- 结果不是一段黑盒总结
-- 每条结论都能回到来源
+- The result is not a black-box summary
+- Every conclusion can be traced back to a source
 
-### 4.2 为什么引用是这类项目的命门？
+### 4.2 Why is citation the make-or-break issue for this kind of project?
 
-因为没有来源，用户很难区分：
+Because without sources, users have a hard time telling whether:
 
-- 这是系统真的从文档里读出来的
-- 还是模型自己编的
+- The system really read it from the documents
+- Or the model just made it up
 
 ---
 
-## 五、这个项目最该怎么评估？
+## 5. How should this project be evaluated?
 
-### 5.1 检索质量
+### 5.1 Retrieval quality
 
-例如：
+For example:
 
-- 命中的文档是否真的相关
+- Are the retrieved documents actually relevant?
 
-### 5.2 总结质量
+### 5.2 Summary quality
 
-例如：
+For example:
 
-- 是否覆盖关键点
-- 是否过度概括
+- Does it cover the key points?
+- Does it over-generalize?
 
-### 5.3 引用准确性
+### 5.3 Citation accuracy
 
-这是研究助手特别重要的一层：
+This is a particularly important layer for a research assistant:
 
-- 每条 claim 是否真的能在引用来源里找到支持
+- Does each claim really have support in the cited source?
 
-### 5.4 一个最小评估数据结构
+### 5.4 A minimal evaluation data structure
 
 ```python
 eval_cases = [
@@ -201,162 +201,162 @@ for case in eval_cases:
 
 ---
 
-## 六、最容易踩的坑
+## 6. The easiest pitfalls to fall into
 
-### 6.1 检索对了，但总结丢了关键点
+### 6.1 Retrieval is correct, but the summary loses key points
 
-### 6.2 总结看起来通顺，但来源对不上
+### 6.2 The summary sounds smooth, but the sources do not match
 
-### 6.3 项目只展示一段“看起来很聪明”的回答
+### 6.3 The project only shows one answer that “looks smart”
 
-研究助手最值得展示的其实是：
+What is actually most worth showing in a research assistant is:
 
-- 查询词
-- 检索结果
-- 摘要条目
-- 引用来源
+- Query
+- Retrieval results
+- Summary items
+- Citation sources
 
-这条完整 trace。
+That complete trace.
 
 ---
 
-## 七、怎么把它打磨成作品级项目？
+## 7. How do you polish it into a portfolio-grade project?
 
-### 7.1 页面上分四栏展示
+### 7.1 Show four columns on the page
 
 - Query
 - Retrieved sources
 - Structured summary
 - Citations
 
-### 7.2 准备 5~10 个固定评估问题
+### 7.2 Prepare 5–10 fixed evaluation questions
 
-这样你可以稳定展示：
+This lets you consistently show:
 
 - before / after
-- 检索策略变更
-- 总结策略改进
+- retrieval strategy changes
+- summary strategy improvements
 
-### 7.3 单独列失败案例
+### 7.3 List failure cases separately
 
-例如：
+For example:
 
-- 检索到不相关文档
-- 正确文档被漏掉
-- 总结 claim 与引用不一致
-
----
-
-## 项目交付时最好补上的内容
-
-- 一张查询到引用的流程图
-- 一组检索结果与最终总结并排展示
-- 一组引用对不上或总结漏点的失败案例
-- 一段你对“可信输出”怎么定义的说明
+- Retrieved irrelevant documents
+- Missed the correct document
+- Summary claim does not match the citation
 
 ---
 
-## 作品集级 Agent 交付标准
+## What to include when delivering the project
 
-如果把研究助手作为 Agent 作品集，建议不要只展示最终摘要，而是展示“目标、工具、执行、引用、评估、安全边界”的完整闭环。
+- A flowchart from query to citation
+- Side-by-side display of retrieval results and the final summary
+- Failure cases where citations do not match or the summary misses important points
+- A short explanation of how you define “trustworthy output”
 
-| 交付项 | 最低要求 | 作品集级要求 |
+---
+
+## Portfolio-grade Agent delivery standards
+
+If you use the research assistant as an Agent portfolio project, do not just show the final summary. Instead, show the full closed loop of “goal, tools, execution, citations, evaluation, and safety boundaries.”
+
+| Deliverable | Minimum Requirement | Portfolio-Grade Requirement |
 |---|---|---|
-| 目标定义 | 能输入研究主题 | 明确适用范围、资料来源和不支持的任务 |
-| 工具清单 | 至少有检索或读取工具 | 写清工具用途、参数、返回值和权限边界 |
-| 执行 trace | 打印检索和总结过程 | 保存每一步 action、arguments、observation、next_decision |
-| 引用检查 | 每条摘要带来源 | 每个关键 claim 都能回到具体来源片段 |
-| 失败恢复 | 工具失败时给出错误 | 区分空结果、超时、引用不支持、总结漏点 |
-| 评估记录 | 准备少量测试问题 | 有固定评估集、baseline、失败样本和改进记录 |
-| 安全边界 | 不自动执行高风险动作 | 明确只读工具、人工确认、最大步数和成本限制 |
+| Goal definition | Can input a research topic | Clearly states scope, data sources, and unsupported tasks |
+| Tool list | At least one retrieval or reading tool | Clearly explains each tool’s purpose, parameters, return values, and permission boundaries |
+| Execution trace | Prints the retrieval and summarization process | Saves each step’s action, arguments, observation, and next decision |
+| Citation checking | Each summary item has a source | Every key claim can be traced to a specific source fragment |
+| Failure recovery | Returns an error when a tool fails | Distinguishes empty results, timeouts, unsupported citations, and missed summary points |
+| Evaluation records | Prepares a small set of test questions | Has a fixed evaluation set, baseline, failed samples, and improvement records |
+| Safety boundaries | Does not automatically execute high-risk actions | Clearly defines read-only tools, human confirmation, max steps, and cost limits |
 
-这张表会让项目从“能总结资料”升级成“可信、可追踪、可复盘的 Agent 系统”。
+This table upgrades the project from “can summarize materials” to a “trustworthy, traceable, and reviewable Agent system.”
 
-## 推荐 README 结构
+## Recommended README structure
 
-研究助手项目的 README 可以按下面顺序写：
+A research assistant project README can be written in the following order:
 
 ```text
 # Research Assistant Agent
 
-## 1. 项目目标
-说明它解决什么研究场景，以及不解决什么。
+## 1. Project Goal
+Explain what research scenario it solves and what it does not solve.
 
-## 2. 系统流程
-展示 query -> retrieval -> reading -> summary -> citation -> evaluation。
+## 2. System Flow
+Show query -> retrieval -> reading -> summary -> citation -> evaluation.
 
-## 3. 工具清单
-列出 search_docs、read_source、summarize、check_citation 等工具。
+## 3. Tool List
+List tools such as search_docs, read_source, summarize, and check_citation.
 
-## 4. 运行方式
-给出安装依赖、准备数据、运行示例和评估命令。
+## 4. How to Run
+Provide dependency installation, data preparation, example runs, and evaluation commands.
 
-## 5. 示例 Trace
-展示一次完整执行过程，而不只是最终答案。
+## 5. Example Trace
+Show one complete execution process instead of only the final answer.
 
-## 6. 评估结果
-展示检索命中、引用准确性、失败样本和改进记录。
+## 6. Evaluation Results
+Show retrieval hits, citation accuracy, failure samples, and improvement records.
 
-## 7. 安全与限制
-说明资料来源限制、引用风险、最大步数、人工确认边界。
+## 7. Safety and Limitations
+Explain source restrictions, citation risks, maximum steps, and human confirmation boundaries.
 ```
 
-README 最好让别人不用读源码，也能看懂系统做了什么、怎么验证、哪里还不可靠。
+The README should ideally let others understand what the system does, how it is validated, and where it is still unreliable without reading the source code.
 
-## 一个最小 Agent Trace 示例
+## A minimal Agent trace example
 
 ```text
-goal: 总结 RAG 和长上下文模型的差异
+goal: Summarize the differences between RAG and long-context models
 step 1: action=retrieve, arguments={query: "rag long context retrieval"}
-observation: 命中 d1, d2
+observation: matched d1, d2
 step 2: action=read_sources, arguments={source_ids: ["d1", "d2"]}
-observation: 读取到 grounding、precision、ranking 相关内容
+observation: read content related to grounding, precision, and ranking
 step 3: action=summarize_with_citations
-observation: 生成 3 条摘要，每条都有 source_id
+observation: generated 3 summary items, each with a source_id
 step 4: action=check_citations
-observation: 2 条通过，1 条引用证据不足
-final: 返回 2 条可信摘要，并标记 1 条需要人工复核
+observation: 2 passed, 1 had insufficient evidence
+final: return 2 trustworthy summaries and flag 1 for human review
 ```
 
-这个 trace 的价值在于：如果最终结果有问题，你可以回放到底是哪一步出错，而不是只盯着最终回答猜原因。
+The value of this trace is: if the final result has a problem, you can replay exactly which step went wrong, instead of only staring at the final answer and guessing.
 
-## 失败样本库
+## Failure case library
 
-研究助手最常见的失败不是“完全不能回答”，而是“看起来合理但不可信”。建议至少记录下面几类失败。
+The most common failure in a research assistant is not “completely unable to answer,” but “sounds reasonable yet is not trustworthy.” You should record at least the following failure types.
 
-| 失败类型 | 现象 | 可能原因 | 改进方向 |
+| Failure Type | Symptom | Possible Cause | Improvement Direction |
 |---|---|---|---|
-| 检索漏召回 | 关键资料没进入候选 | query 太窄、关键词不匹配、top-k 太小 | query rewrite、混合检索、扩大候选后 rerank |
-| 阅读不完整 | 命中文档对，但漏掉关键段落 | chunk 太小或 context packing 不合理 | parent-child retrieval、调整上下文拼装 |
-| 总结过度概括 | 摘要听起来对，但丢限制条件 | prompt 没要求保留条件 | 要求输出 claim、condition、source 三元组 |
-| 引用不支持 | claim 和 source 对不上 | 模型自由发挥或引用拼接错误 | citation check、逐条 claim 验证 |
-| 循环调用 | Agent 一直检索不停止 | 缺少停止条件 | 最大步数、无新增信息时停止 |
+| Retrieval miss | Key materials never enter the candidate set | query too narrow, keyword mismatch, top-k too small | query rewrite, hybrid retrieval, expand candidates then rerank |
+| Incomplete reading | The matched document is correct, but a key paragraph is missed | chunk too small or context packing is poor | parent-child retrieval, adjust context assembly |
+| Over-generalized summary | The summary sounds right but drops limiting conditions | the prompt does not require preserving conditions | require output as claim, condition, source triples |
+| Unsupported citation | The claim and source do not match | the model improvises or citation assembly is wrong | citation check, verify each claim one by one |
+| Looping calls | The Agent keeps retrieving and never stops | missing stopping condition | maximum steps, stop when no new information appears |
 
-把这些失败样本放进项目，会比只展示成功案例更能体现工程能力。
+Putting these failure cases into the project will show engineering ability much better than only showing success cases.
 
 ---
 
-## 小结
+## Summary
 
-这节最重要的是建立一个作品级判断：
+The most important idea in this section is to establish a portfolio-grade judgment:
 
-> **研究助手项目真正的亮点，不是“会总结”，而是“能把检索、总结和引用组织成可信、可追踪、可复核的输出”。**
+> **The real highlight of a research assistant project is not “it can summarize,” but “it can organize retrieval, summarization, and citation into output that is trustworthy, traceable, and reviewable.”**
 
-只要这点立住，这个项目就会很像一个成熟的 Agent 作品。
+Once that is in place, the project will feel much more like a mature Agent project.
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery Focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic | Get the minimal loop working | Can input, process, and output, while keeping a set of examples |
+| Standard | Turn it into a showcaseable project | Add configuration, logs, error handling, README, and screenshots |
+| Challenge | Approach portfolio quality | Add evaluation, comparison experiments, failure analysis, and a next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the basic version first. Do not try to make it large and complete from the beginning. Each time you level up, write into the README what new capability was added, how it was validated, and what problems remain.
 
-## 练习
+## Exercises
 
-1. 给示例再加一篇文档，让某个 query 出现“相关文档竞争”。
-2. 想一想：为什么研究助手里“引用准确性”比普通问答更关键？
-3. 如果某条总结很好看但来源对不上，你会算它成功吗？为什么？
-4. 如果你把这个项目做成作品集，首页最该展示哪 4 块？
+1. Add another document to the example so that a query creates “competition among relevant documents.”
+2. Think about why “citation accuracy” is more critical in a research assistant than in ordinary Q&A.
+3. If a summary looks great but the source does not match, would you count it as success? Why?
+4. If you turn this project into a portfolio piece, which 4 sections should the homepage show first?

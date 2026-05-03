@@ -1,139 +1,139 @@
 ---
-title: "1.6 梯度下降与优化器"
+title: "1.6 Gradient Descent and Optimizers"
 sidebar_position: 5
-description: "掌握 SGD、Mini-batch、Momentum、Adam、AdamW 等优化器和学习率调度策略"
-keywords: [优化器, SGD, Adam, AdamW, Momentum, 学习率, 学习率调度, CosineAnnealing]
+description: "Master optimizers and learning rate scheduling strategies such as SGD, Mini-batch, Momentum, Adam, and AdamW"
+keywords: [optimizer, SGD, Adam, AdamW, Momentum, learning rate, learning rate scheduling, CosineAnnealing]
 ---
 
-# 梯度下降与优化器
+# Gradient Descent and Optimizers
 
-![优化器路径对比图](/img/course/optimizer-comparison.png)
+![Optimizer path comparison](/img/course/optimizer-comparison-en.png)
 
-:::tip 本节定位
-在第 4 站我们学了基础梯度下降。现在深入了解深度学习中的各种优化器——**Adam 是你最常用的**，但理解背后的演化逻辑很重要。
+:::tip Where this section fits
+In Station 4, we learned basic gradient descent. Now let’s take a deeper look at the optimizers used in deep learning—**Adam is the one you’ll use most often**, but it’s important to understand how it evolved.
 :::
 
-## 学习目标
+## Learning Goals
 
-- 理解批梯度下降、小批量梯度下降、随机梯度下降的区别
-- 理解 Momentum 的直觉
-- 🔧 掌握 Adam / AdamW 的使用
-- 了解学习率调度策略
+- Understand the differences between batch gradient descent, mini-batch gradient descent, and stochastic gradient descent
+- Understand the intuition behind Momentum
+- 🔧 Master how to use Adam / AdamW
+- Learn learning rate scheduling strategies
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-优化器这节最容易让新人学乱，因为名字很多。更好的理解顺序是：
+This section on optimizers is one of the easiest places for beginners to get confused, because there are so many names. A better way to understand them is:
 
 ```mermaid
 flowchart LR
-    A["先知道梯度是什么"] --> B["SGD：最基础的更新方式"]
-    B --> C["Momentum：让更新更稳"]
-    C --> D["Adam / AdamW：更常用的自适应优化器"]
-    D --> E["学习率调度：让训练后期更稳"]
+    A["First know what a gradient is"] --> B["SGD: the most basic update method"]
+    B --> C["Momentum: makes updates more stable"]
+    C --> D["Adam / AdamW: more commonly used adaptive optimizers"]
+    D --> E["Learning rate scheduling: makes later training more stable"]
 ```
 
-所以这节真正想解决的不是“背优化器家族谱”，而是：
+So what this section is really trying to solve is not “memorizing the optimizer family tree,” but:
 
-- 参数到底怎么被更新
-- 为什么不同优化器会有不同训练表现
-- 第一次做项目时，应该先选哪个
+- How parameters are actually updated
+- Why different optimizers lead to different training behavior
+- Which one you should choose first in a project
 
-### 一个更适合新人的总类比
+### A Better Beginner-Friendly Analogy
 
-你可以把优化器理解成：
+You can think of optimizers like this:
 
-- 同样都知道目标在哪，但不同的人下山方式不同
+- Everyone knows where the goal is, but they descend the hill in different ways
 
-有的人：
+Some people:
 
-- 一步一步稳稳走
+- Walk step by step, steadily
 
-有的人：
+Some people:
 
-- 会保留惯性，别被小坑带偏
+- Keep momentum so they won’t be thrown off by small bumps
 
-有的人：
+Some people:
 
-- 还会根据当前坡度自动调节步子大小
+- Also automatically adjust step size based on the current slope
 
-所以优化器最重要的，不是“名字更高级”，而是：
+So the most important thing about an optimizer is not “whether its name sounds more advanced,” but:
 
-- 它到底用什么方式把梯度变成更新动作
+- How it turns gradients into update actions
 
-## 这节和前两节是怎么接上的
+## How This Section Connects to the Previous Two
 
-如果你刚学完“前向传播与反向传播”，可以先这样接：
+If you just finished “forward propagation and backpropagation,” here is a good way to connect the ideas:
 
-- 上一节已经解决了“梯度怎么来”
-- 这一节开始解决“梯度来了以后，参数到底怎么改”
+- The previous section solved “where gradients come from”
+- This section starts solving “after gradients arrive, how do parameters actually change?”
 
-所以优化器并不是一个额外插件，而是训练闭环里的最后一环：
+So an optimizer is not an extra plugin. It is the final step in the training loop:
 
 ```mermaid
 flowchart LR
-    A["前向传播"] --> B["损失"]
-    B --> C["反向传播得到梯度"]
-    C --> D["优化器根据梯度更新参数"]
+    A["Forward propagation"] --> B["Loss"]
+    B --> C["Backpropagation gets gradients"]
+    C --> D["Optimizer updates parameters based on gradients"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style D fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-![梯度到参数更新的优化器决策图](/img/course/ch06-optimizer-gradient-to-update-map.png)
+![Optimizer decision map from gradients to parameter updates](/img/course/ch06-optimizer-gradient-to-update-map-en.png)
 
-:::tip 读图提示
-这张图的读法很简单：梯度只告诉你“坡往哪边陡”，优化器负责把它变成具体走法。SGD 只按当前坡度走，Momentum 带一点惯性，Adam 会根据历史梯度自动调节每个方向的步子大小。
+:::tip How to read this diagram
+The reading is simple: gradients only tell you “which way is steepest,” and the optimizer turns that into a concrete way to move. SGD moves only according to the current slope, Momentum adds some inertia, and Adam automatically adjusts the step size in each direction based on historical gradients.
 :::
 
-## 一、三种梯度下降
+## 1. Three Types of Gradient Descent
 
-### 1.1 对比
+### 1.1 Comparison
 
-| 方式 | 每次用多少数据 | 优点 | 缺点 |
+| Method | How much data each update uses | Pros | Cons |
 |------|-------------|------|------|
-| **批梯度下降（BGD）** | 全部数据 | 稳定 | 慢、内存大 |
-| **随机梯度下降（SGD）** | 1 个样本 | 快、能跳出局部最优 | 噪声大、不稳定 |
-| **小批量梯度下降（Mini-batch）** | 一批（32/64/128） | **兼顾速度和稳定** | 需选 batch_size |
+| **Batch Gradient Descent (BGD)** | All data | Stable | Slow, memory-heavy |
+| **Stochastic Gradient Descent (SGD)** | 1 sample | Fast, can escape local minima | Noisy, unstable |
+| **Mini-batch Gradient Descent** | A batch (32/64/128) | **Balances speed and stability** | Need to choose `batch_size` |
 
-### 1.0.1 第一次看这三种方式，最该先记什么？
+### 1.0.1 What should you remember first when seeing these three methods?
 
-不要一开始去背名词定义，先抓住这句：
+Don’t start by memorizing the definitions. First, hold on to this sentence:
 
-> **它们的核心区别，只在于“每次更新参数时，用多少数据来估计梯度”。**
+> **The core difference is simply how much data is used to estimate the gradient each time parameters are updated.**
 
-一旦这句稳住了，后面很多现象就都能解释：
+Once that idea is clear, many other behaviors make sense:
 
-- 为什么 SGD 更抖
-- 为什么 BGD 更稳但更慢
-- 为什么深度学习里最常见的是 mini-batch
+- Why SGD is more jittery
+- Why BGD is more stable but slower
+- Why mini-batch is the most common choice in deep learning
 
-### 1.0.2 一个很适合初学者先记的选择表
+### 1.0.2 A Simple Memory Table for Beginners
 
-| 方式 | 最值得先记住的感觉 |
+| Method | The most important feeling to remember |
 |------|------|
-| BGD | 稳，但慢 |
-| SGD | 快，但抖 |
-| Mini-batch | 最常用的折中方案 |
+| BGD | Stable, but slow |
+| SGD | Fast, but jittery |
+| Mini-batch | The most common compromise |
 
-这个表很适合新人，因为它能把三种梯度下降先压缩成一个可用判断，而不是一串定义。
+This table is useful for beginners because it compresses the three gradient descent methods into one practical judgment instead of a pile of definitions.
 
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
 
 np.random.seed(42)
-# 生成数据: y = 3x + 2 + noise
+# Generate data: y = 3x + 2 + noise
 X = np.random.randn(200, 1)
 y = 3 * X + 2 + np.random.randn(200, 1) * 0.5
 
 def compute_loss(X, y, w, b):
     return np.mean((X * w + b - y) ** 2)
 
-# 对比三种方式
+# Compare three methods
 methods = {}
-for name, batch_size in [('BGD (全量)', len(X)), ('SGD (单样本)', 1), ('Mini-batch (32)', 32)]:
+for name, batch_size in [('BGD (full batch)', len(X)), ('SGD (single sample)', 1), ('Mini-batch (32)', 32)]:
     w, b = 0.0, 0.0
     lr = 0.05
     losses = []
@@ -154,7 +154,7 @@ for name, losses in methods.items():
     plt.plot(losses, label=name, linewidth=2)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
-plt.title('三种梯度下降对比')
+plt.title('Comparison of Three Types of Gradient Descent')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
@@ -162,37 +162,37 @@ plt.show()
 
 ---
 
-## 二、Momentum——带惯性的下降
+## 2. Momentum — Descent with Inertia
 
-### 2.1 直觉
+### 2.1 Intuition
 
-想象一个球从山坡滚下来。普通 SGD 每一步只看当前梯度方向。Momentum 让球**带上惯性**——即使遇到小坑也能滑过去。
+Imagine a ball rolling down a slope. Ordinary SGD only looks at the gradient direction at the current step. Momentum gives the ball **inertia**—even if it hits a small bump, it can keep sliding through.
 
 > **v = β × v + (1-β) × gradient**
 >
 > **w = w - lr × v**
 
-### 2.1.1 Momentum 到底在补 SGD 的什么短板？
+### 2.1.1 What shortcoming of SGD does Momentum fix?
 
-最值得先记住的不是公式，而是它在补一个很实际的问题：
+The most important thing to remember is not the formula, but the practical problem it solves:
 
-- SGD 每次只看当前梯度，容易左右摇摆
-- Momentum 会把前几步的方向也带进来
+- SGD only looks at the current gradient, so it can zigzag back and forth
+- Momentum also brings in the direction from previous steps
 
-所以你可以先把它理解成：
+So you can think of it like this:
 
-- SGD：只看眼前一步
-- Momentum：看眼前，也保留一点前进惯性
+- SGD: only looks at the current step
+- Momentum: looks at the current step, while keeping some forward inertia
 
 ```python
-# 对比 SGD 和 Momentum
+# Compare SGD and Momentum
 def optimize_2d(optimizer_fn, steps=100):
-    """在 f(x,y) = x² + 10y² 上优化"""
+    """Optimize f(x,y) = x² + 10y²"""
     x, y = np.array(5.0), np.array(5.0)
     path = [(x, y)]
     state = {}
     for _ in range(steps):
-        gx, gy = 2*x, 20*y  # 梯度
+        gx, gy = 2*x, 20*y  # gradient
         x, y, state = optimizer_fn(x, y, gx, gy, state)
         path.append((x, y))
     return np.array(path)
@@ -211,7 +211,7 @@ def momentum(x, y, gx, gy, state, lr=0.05, beta=0.9):
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 for ax, (name, fn) in zip(axes, [('SGD', sgd), ('Momentum', momentum)]):
     path = optimize_2d(fn, 50)
-    # 等高线
+    # Contours
     xx, yy = np.meshgrid(np.linspace(-6, 6, 100), np.linspace(-6, 6, 100))
     zz = xx**2 + 10*yy**2
     ax.contour(xx, yy, zz, levels=20, cmap='Blues', alpha=0.5)
@@ -219,28 +219,28 @@ for ax, (name, fn) in zip(axes, [('SGD', sgd), ('Momentum', momentum)]):
     ax.set_title(name)
     ax.set_xlim(-6, 6)
     ax.set_ylim(-6, 6)
-plt.suptitle('SGD vs Momentum 优化路径', fontsize=13)
+plt.suptitle('Optimization Paths: SGD vs Momentum', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
 
 ---
 
-## 三、Adam——最常用的优化器
+## 3. Adam — The Most Common Optimizer
 
-### 3.1 核心思想
+### 3.1 Core Idea
 
-Adam 结合了 Momentum（一阶动量）和 RMSProp（二阶动量）：
-- **一阶动量 m**：梯度的移动平均（方向）
-- **二阶动量 v**：梯度平方的移动平均（自适应学习率）
+Adam combines Momentum (first-order momentum) and RMSProp (second-order momentum):
+- **First-order momentum m**: moving average of gradients (direction)
+- **Second-order momentum v**: moving average of squared gradients (adaptive learning rate)
 
-### 3.2 PyTorch 中使用
+### 3.2 Using It in PyTorch
 
 ```python
 import torch
 import torch.nn as nn
 
-# 用 PyTorch 对比不同优化器
+# Compare different optimizers in PyTorch
 model_configs = {
     'SGD': lambda params: torch.optim.SGD(params, lr=0.01),
     'SGD+Momentum': lambda params: torch.optim.SGD(params, lr=0.01, momentum=0.9),
@@ -248,7 +248,7 @@ model_configs = {
     'AdamW': lambda params: torch.optim.AdamW(params, lr=0.01, weight_decay=0.01),
 }
 
-# 简单任务: 拟合 y = sin(x)
+# Simple task: fit y = sin(x)
 torch.manual_seed(42)
 X = torch.linspace(-3, 3, 200).unsqueeze(1)
 y = torch.sin(X)
@@ -275,77 +275,77 @@ for name, losses in results.items():
     plt.plot(losses, label=name, linewidth=2)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
-plt.title('不同优化器收敛速度对比')
+plt.title('Comparison of Convergence Speed Across Optimizers')
 plt.legend()
 plt.yscale('log')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-### 3.3 优化器选择指南
+### 3.3 Optimizer Selection Guide
 
-| 优化器 | 特点 | 使用场景 |
+| Optimizer | Features | Use cases |
 |--------|------|---------|
-| **SGD** | 简单、需调学习率 | 研究实验 |
-| **SGD+Momentum** | 加速收敛 | CV 经典模型 |
-| **Adam** | 自适应学习率、快速收敛 | **默认首选** |
-| **AdamW** | Adam + 解耦权重衰减 | **Transformer、大模型** |
-| **RMSProp** | 自适应学习率 | RNN |
+| **SGD** | Simple, requires learning rate tuning | Research experiments |
+| **SGD+Momentum** | Speeds up convergence | Classic CV models |
+| **Adam** | Adaptive learning rate, fast convergence | **Default first choice** |
+| **AdamW** | Adam + decoupled weight decay | **Transformer, large models** |
+| **RMSProp** | Adaptive learning rate | RNNs |
 
 :::info Adam vs AdamW
-Adam 把 L2 正则化混在梯度里。AdamW 把权重衰减单独做，效果更好。**现在大多数情况用 AdamW。**
+Adam mixes L2 regularization into the gradient. AdamW handles weight decay separately, which works better. **In most cases today, use AdamW.**
 :::
 
-### 3.4 新人第一次做项目时怎么选优化器？
+### 3.4 How should beginners choose an optimizer for their first project?
 
-如果你现在还不熟，最稳的起步方式通常是：
+If you’re still new, a very safe way to start is usually:
 
-- MLP / CNN 入门实验：先用 `Adam`
-- Transformer / 更现代模型：优先考虑 `AdamW`
-- 想研究更传统的优化行为：再去看 `SGD + Momentum`
+- For MLP / CNN beginner experiments: start with `Adam`
+- For Transformer / more modern models: prefer `AdamW`
+- If you want to study more traditional optimization behavior: look at `SGD + Momentum`
 
-先别把优化器选择想得太玄，第一轮最重要的是：
+At first, don’t overthink optimizer choice. In the first round, the most important things are:
 
-1. 模型能稳定训练
-2. loss 能正常下降
-3. 验证集表现别明显崩
+1. The model can train stably
+2. The loss decreases normally
+3. The validation set performance does not collapse
 
-### 3.5 为什么“学习率往往比优化器名字更重要”？
+### 3.5 Why is the learning rate often more important than the optimizer name?
 
-很多新人会把问题想成：
+Many beginners think about it like this:
 
-- “我是不是该把 Adam 换成更高级的优化器？”
+- “Should I replace Adam with a more advanced optimizer?”
 
-但真实训练里，更常见的情况是：
+But in real training, a more common situation is:
 
-- 优化器其实没大错
-- 真正出问题的是学习率太大或太小
+- The optimizer itself is mostly fine
+- The real problem is that the learning rate is too large or too small
 
-所以第一次排查训练不稳时，一个更稳的顺序通常是：
+So when you first debug unstable training, a more reliable order is usually:
 
-1. 先看学习率
-2. 再看 batch size
-3. 再看优化器
+1. Check the learning rate first
+2. Then check batch size
+3. Then check the optimizer
 
-### 3.6 一个新人很值得先记的优化器默认顺序
+### 3.6 A Default Optimizer Order Worth Remembering for Beginners
 
-第一次做项目时，更稳的默认顺序通常是：
+For your first project, a safer default order is usually:
 
-1. 先用 `Adam`
-2. 如果是 Transformer 或更现代的大模型结构，优先试 `AdamW`
-3. 如果你想研究更经典的优化行为，再看 `SGD + Momentum`
+1. Start with `Adam`
+2. If it’s a Transformer or a more modern large model, try `AdamW` first
+3. If you want to study classic optimization behavior, then look at `SGD + Momentum`
 
-这样会比一开始就纠结很多优化器名字更容易把训练先跑稳。
+This is usually much easier than getting stuck comparing a bunch of optimizer names before you can even get training running properly.
 
 ---
 
-## 四、学习率调度
+## 4. Learning Rate Scheduling
 
-### 4.1 为什么需要？
+### 4.1 Why Do We Need It?
 
-固定学习率有问题：太大 → 不收敛；太小 → 太慢。**学习率调度**让学习率随训练动态调整。
+A fixed learning rate has problems: too large → does not converge; too small → too slow. **Learning rate scheduling** adjusts the learning rate dynamically during training.
 
-### 4.2 常用策略
+### 4.2 Common Strategies
 
 ```python
 import torch.optim.lr_scheduler as lr_scheduler
@@ -354,7 +354,7 @@ model = nn.Linear(10, 1)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
 schedulers = {
-    'StepLR (每30步×0.1)': lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1),
+    'StepLR (×0.1 every 30 steps)': lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1),
     'CosineAnnealing': lr_scheduler.CosineAnnealingLR(optimizer, T_max=100),
 }
 
@@ -384,73 +384,73 @@ plt.show()
 
 ### 4.3 Warmup
 
-先用小学习率预热几步，再逐渐增大到正常值，最后缓慢降低。**Transformer 训练的标配。**
+First warm up with a small learning rate for a few steps, then gradually increase to the normal value, and finally decay slowly. **This is standard practice for Transformer training.**
 
-| 策略 | 说明 | 常用场景 |
+| Strategy | Description | Common use cases |
 |------|------|---------|
-| **StepLR** | 每 N 步乘以 γ | 简单任务 |
-| **CosineAnnealing** | 余弦曲线衰减 | CNN 训练 |
-| **Warmup + Cosine** | 先升后降 | **Transformer** |
-| **ReduceLROnPlateau** | 验证集不降时减 | 自适应 |
+| **StepLR** | Multiply by γ every N steps | Simple tasks |
+| **CosineAnnealing** | Decay along a cosine curve | CNN training |
+| **Warmup + Cosine** | Increase first, then decrease | **Transformer** |
+| **ReduceLROnPlateau** | Reduce when validation stops improving | Adaptive |
 
-### 4.4 一个新人可直接照抄的优化器选择顺序
+### 4.4 A Practical Optimizer Selection Order for Beginners
 
-第一次训练一个新任务时，你可以先这样试：
+When training a new task for the first time, you can try this:
 
-1. 先用 `Adam(lr=1e-3)` 或 `AdamW(lr=1e-3)`
-2. 如果训练震荡，再先降学习率
-3. 如果后期收敛慢，再考虑加调度器
-4. 如果想更认真做对比，再去试 `SGD + Momentum`
+1. Start with `Adam(lr=1e-3)` or `AdamW(lr=1e-3)`
+2. If training oscillates, lower the learning rate first
+3. If convergence is slow later on, consider adding a scheduler
+4. If you want a more serious comparison, try `SGD + Momentum`
 
-这样通常比一开始就在一堆优化器里横跳要稳得多。
+This is usually much more stable than jumping between many optimizers from the start.
 
-## 如果把它做成项目或实验记录，最值得展示什么
+## If You Turn This Into a Project or Experiment Log, What Is Most Worth Showing?
 
-最值得展示的通常不是：
+What is usually most worth showing is not:
 
-- 我试了 5 个优化器
+- I tried 5 optimizers
 
-而是：
+But rather:
 
-1. 你的默认起点是什么
-2. 学习率怎么调过
-3. 不同优化器下的 loss 曲线对比
-4. 你为什么最后保留某个优化器
+1. What your default starting point was
+2. How you adjusted the learning rate
+3. A comparison of loss curves under different optimizers
+4. Why you finally kept one optimizer
 
-这样别人会更容易看出：
+That makes it easier for others to see:
 
-- 你理解的是训练决策
-- 不只是机械换优化器名
+- You understand training decisions
+- You are not just mechanically swapping optimizer names
 
 ---
 
-## 小结
+## Summary
 
-| 概念 | 要点 |
+| Concept | Key point |
 |------|------|
-| Mini-batch SGD | 实际训练中最常用的梯度计算方式 |
-| Momentum | 给梯度加上惯性，加速收敛 |
-| Adam / AdamW | 自适应学习率，**首选优化器** |
-| 学习率调度 | 训练过程中动态调整学习率 |
+| Mini-batch SGD | The most commonly used way to compute gradients in real training |
+| Momentum | Adds inertia to gradients and speeds up convergence |
+| Adam / AdamW | Adaptive learning rate, **first-choice optimizer** |
+| Learning rate scheduling | Dynamically adjusts the learning rate during training |
 
-## 这节最该带走什么
+## What Should You Take Away Most from This Section?
 
-- 优化器本质上是在回答“参数怎么改”
-- 学习率通常比“换优化器名字”更重要
-- 第一次做项目时，先用一个稳妥默认值跑通，比追求最优更重要
+- An optimizer is fundamentally answering: “How should parameters change?”
+- The learning rate is often more important than “switching optimizer names”
+- For your first project, getting a stable default working is more important than chasing the best possible result
 
-如果把它再压成一句话，那就是：
+If we compress it into one sentence, it is this:
 
-> **梯度告诉你“往哪改”，优化器决定你“怎么改、改多快、改得稳不稳”。**
+> **Gradients tell you “where to update,” while the optimizer decides “how to update, how fast to update, and whether the update is stable.”**
 
 ---
 
-## 动手练习
+## Hands-on Exercises
 
-### 练习 1：优化器赛马
+### Exercise 1: Optimizer Race
 
-用 `make_moons` 数据集，训练一个 MLP（PyTorch），对比 SGD、SGD+Momentum、Adam、AdamW 的收敛速度和最终准确率。
+Use the `make_moons` dataset to train an MLP (PyTorch), and compare the convergence speed and final accuracy of SGD, SGD+Momentum, Adam, and AdamW.
 
-### 练习 2：学习率敏感性
+### Exercise 2: Learning Rate Sensitivity
 
-用 Adam 训练同一个模型，测试学习率 0.1, 0.01, 0.001, 0.0001 的效果，画出学习曲线对比。
+Train the same model with Adam, test learning rates 0.1, 0.01, 0.001, and 0.0001, and plot the learning curves for comparison.

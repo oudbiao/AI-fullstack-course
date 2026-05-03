@@ -1,133 +1,133 @@
 ---
 sidebar_position: 4
-title: "项目路线与作品集"
-description: "把 AI 全栈课程拆成可交付项目路线，从命令行工具、数据分析、机器学习模型到 RAG、Agent 和完整 AI 应用。"
-keywords: [AI项目, AI作品集, RAG项目, Agent项目, AI全栈项目]
+title: "Project Roadmap and Portfolio"
+description: "Break the AI full-stack course into a deliverable project roadmap, from command-line tools and data analysis to machine learning models, RAG, Agents, and complete AI applications."
+keywords: [AI projects, AI portfolio, RAG projects, Agent projects, AI full-stack projects]
 ---
 
-# 项目路线与作品集
+# Project Roadmap and Portfolio
 
-![项目作品集成长阶梯图](/img/course/intro-project-portfolio-roadmap.png)
+![Project portfolio growth ladder](/img/course/intro-project-portfolio-roadmap-en.png)
 
-学习 AI 最有效的方式不是一直看教程，而是不断完成可运行、可解释、可展示的小项目。项目会逼你面对真实问题：数据从哪里来，输入输出是什么，模型怎么接入，效果怎么评估，失败时怎么排查。
+The most effective way to learn AI is not to keep watching tutorials, but to keep building small projects that can run, be explained, and be shown to others. Projects force you to face real problems: where the data comes from, what the inputs and outputs are, how the model is integrated, how the results are evaluated, and how to troubleshoot when things fail.
 
-这套课程会把项目分成三个层次：阶段小项目、综合项目、毕业项目。
+This course breaks projects into three levels: stage projects, integrated projects, and capstone projects.
 
-## 先看图：项目怎么从练习变作品
+## First, look at the diagram: how projects grow from exercises into portfolio pieces
 
 ```mermaid
 flowchart LR
-  A["阶段小项目：能运行"] --> B["综合项目：能解释和评估"]
-  B --> C["毕业项目：能演示和复盘"]
-  C --> D["作品集：别人能复现和追问"]
+  A["Stage project: can run"] --> B["Integrated project: can explain and evaluate"]
+  B --> C["Capstone project: can demo and reflect"]
+  C --> D["Portfolio: others can reproduce and question"]
 ```
 
-| 层次 | 先做到什么 | 不要一开始追求什么 |
+| Level | What to achieve first | What not to chase at the beginning |
 |---|---|---|
-| 阶段小项目 | 有输入、输出、运行命令 | 功能很多、界面很漂亮 |
-| 综合项目 | 有指标、日志、失败样本 | 只展示一次成功截图 |
-| 毕业项目 | 有完整 README、评估和演示 | 把所有技术都塞进去 |
+| Stage project | Input, output, and a run command | Lots of features and a beautiful UI |
+| Integrated project | Metrics, logs, and failure cases | Only a single success screenshot |
+| Capstone project | A complete README, evaluation, and demo | Stuffing every technology into it |
 
-## 项目成长路线
+## Project growth roadmap
 
 ```mermaid
 flowchart TD
-  A[命令行学习助手] --> B[网页数据采集与整理]
-  B --> C[数据分析报告]
-  C --> D[机器学习预测模型]
-  D --> E[深度学习分类项目]
-  E --> F[LLM 聊天助手]
-  F --> G[RAG 知识库问答]
-  G --> H[工具调用型智能助手]
-  H --> I[带记忆的 AI Agent]
-  I --> J[完整 AI 应用部署]
+  A[Command-line learning assistant] --> B[Web data collection and organization]
+  B --> C[Data analysis report]
+  C --> D[Machine learning prediction model]
+  D --> E[Deep learning classification project]
+  E --> F[LLM chat assistant]
+  F --> G[RAG knowledge base Q&A]
+  G --> H[Tool-calling intelligent assistant]
+  H --> I[AI Agent with memory]
+  I --> J[Complete AI application deployment]
 ```
 
-## 第一组项目：编程与数据基础
+## First group of projects: programming and data fundamentals
 
-第一组项目的目标是让你熟悉开发流程，而不是追求复杂算法。
+The goal of the first group of projects is to help you become familiar with the development workflow, rather than chasing complex algorithms.
 
-你可以先做一个命令行待办工具或学习助手，练习 Python 输入输出、文件读写、参数解析和模块拆分。随后做一个网页数据采集项目，练习请求、解析、清洗和保存。再做一个数据分析报告，练习 Pandas、可视化和结论表达。
+You can start with a command-line to-do tool or learning assistant to practice Python input/output, file reading and writing, argument parsing, and module separation. Then build a web data collection project to practice requests, parsing, cleaning, and saving. After that, create a data analysis report to practice Pandas, visualization, and communicating conclusions.
 
-这一组项目完成后，你应该能独立完成一个“小而完整”的 Python 项目，并能把结果整理成文档或 Notebook。
+After completing this group of projects, you should be able to independently finish a “small but complete” Python project and organize the results into documentation or a Notebook.
 
-## 第二组项目：模型训练与评估
+## Second group of projects: model training and evaluation
 
-第二组项目的目标是理解模型如何从数据中学习规律。
+The goal of the second group of projects is to understand how models learn patterns from data.
 
-你可以做房价预测、客户流失预测、用户分群、异常检测等项目。每个项目都要包含数据理解、特征处理、训练集和测试集划分、模型训练、指标评估、误差分析和改进建议。
+You can build projects such as house price prediction, customer churn prediction, user segmentation, and anomaly detection. Each project should include data understanding, feature processing, train/test split, model training, metric evaluation, error analysis, and improvement suggestions.
 
-这一组项目完成后，你应该能解释一个机器学习项目的完整闭环，而不是只会调用 `fit()` 和 `predict()`。
+After completing this group of projects, you should be able to explain the full loop of a machine learning project, rather than only knowing how to call `fit()` and `predict()`.
 
-## 第三组项目：大模型应用
+## Third group of projects: LLM applications
 
-第三组项目的目标是把大模型接入真实任务。
+The goal of the third group of projects is to integrate LLMs into real tasks.
 
-你可以先做一个 LLM 聊天助手，练习 API 调用、Prompt 模板、对话上下文和结构化输出。然后做一个文档问答系统，练习文档解析、切分、Embedding、向量检索和 RAG。之后可以做一个课程问答助手、简历优化助手、资料整理助手或企业知识库 Demo。
+You can start with an LLM chat assistant to practice API calls, Prompt templates, conversation context, and structured output. Then build a document Q&A system to practice document parsing, chunking, Embedding, vector retrieval, and RAG. After that, you can build a course Q&A assistant, a resume optimization assistant, a knowledge organization assistant, or an enterprise knowledge base demo.
 
-这一组项目完成后，你应该能说清楚：大模型负责什么，检索系统负责什么，后端服务负责什么，评估数据如何设计。
+After completing this group of projects, you should be able to clearly explain: what the LLM is responsible for, what the retrieval system is responsible for, what the backend service is responsible for, and how the evaluation data is designed.
 
-## 第四组项目：AI Agent
+## Fourth group of projects: AI Agents
 
-第四组项目的目标是让 AI 从“回答问题”升级为“执行任务”。
+The goal of the fourth group of projects is to upgrade AI from “answering questions” to “executing tasks.”
 
-你可以做一个研究助手，让它根据主题拆解问题、检索资料、整理摘要。也可以做一个数据分析 Agent，让它读取数据、生成分析计划、调用 Python 工具、输出图表和结论。更进一步，可以做一个多 Agent 开发小组 Demo，让不同角色协作完成需求分析、编码、测试和文档。
+You can build a research assistant that breaks down questions by topic, retrieves materials, and organizes summaries. You can also build a data analysis Agent that reads data, generates an analysis plan, calls Python tools, and outputs charts and conclusions. Going further, you can build a multi-Agent development team demo where different roles collaborate to complete requirement analysis, coding, testing, and documentation.
 
-这一组项目完成后，你应该能理解 Agent 的核心难点：任务规划、工具选择、上下文管理、错误恢复、权限边界、成本控制和结果评估。
+After completing this group of projects, you should be able to understand the core challenges of Agents: task planning, tool selection, context management, error recovery, permission boundaries, cost control, and result evaluation.
 
-## 毕业项目建议
+## Capstone project suggestions
 
-毕业项目不一定要很大，但必须完整。一个好的毕业项目应该包含前端或交互入口、后端 API、模型调用、数据或知识库、日志记录、基础评估和部署说明。
+A capstone project does not have to be very large, but it must be complete. A good capstone project should include a frontend or interaction entry point, backend API, model calls, data or a knowledge base, logging, basic evaluation, and deployment instructions.
 
-可选方向包括：个人知识库助手、课程学习助手、招聘简历分析助手、行业报告生成助手、客服知识库、数据分析 Agent、自动化办公助手、多模态内容创作工具。
+Optional directions include: personal knowledge base assistant, course learning assistant, resume analysis assistant, industry report generation assistant, customer service knowledge base, data analysis Agent, office automation assistant, and multimodal content creation tools.
 
-## 作品集 README 模板
+## Portfolio README template
 
-每完成一个阶段项目，都建议为项目补一份 README。README 不需要很长，但要让别人快速知道这个项目解决什么问题、怎么运行、结果如何判断、下一步还能怎么改。
+Every time you finish a stage project, it is recommended that you add a README for the project. The README does not need to be long, but it should help others quickly understand what problem the project solves, how to run it, how to judge the results, and what improvements can be made next.
 
 ````md
-# 项目名称
+# Project Name
 
-## 项目目标
+## Project Goal
 
-这个项目解决什么问题？目标用户是谁？为什么值得做？
+What problem does this project solve? Who is the target user? Why is it worth building?
 
-## 输入与输出
+## Input and Output
 
-输入：用户需要提供什么数据、文本、图片、文档或问题？
-输出：系统会返回什么结果、图表、文件、答案或报告？
+Input: What data, text, images, documents, or questions does the user need to provide?
+Output: What results, charts, files, answers, or reports will the system return?
 
-## 技术路线
+## Technical Approach
 
-用 3～6 步说明核心流程，例如：读取数据 → 清洗 → 建模 → 评估 → 输出报告。
+Describe the core flow in 3 to 6 steps, for example: read data → clean → model → evaluate → output report.
 
-## 如何运行
+## How to Run
 
 ```bash
-# 安装依赖
+# Install dependencies
 pip install -r requirements.txt
 
-# 运行项目
+# Run the project
 python main.py
 ```
 
-## 结果展示
+## Results Display
 
-放关键截图、示例输出、指标表格或一段运行日志。不要只写“运行成功”，要让别人看到成功是什么样子。
+Include key screenshots, sample outputs, metric tables, or a short run log. Do not just write “ran successfully”; let others see what success looks like.
 
-## 评估方式
+## Evaluation Method
 
-说明你如何判断项目做得好不好。可以是准确率、F1、MAE、召回率、人工检查清单、固定测试问题集或失败样本分析。
+Explain how you determine whether the project is good or not. This can be accuracy, F1, MAE, recall, a manual checklist, a fixed test question set, or failure-case analysis.
 
-## 遇到的问题
+## Problems Encountered
 
-记录 2～3 个真实问题：环境错误、数据问题、模型效果差、接口失败、RAG 检索不到、Agent 工具调用失败等，并说明你怎么定位。
+Record 2 to 3 real problems: environment errors, data issues, poor model performance, API failures, RAG retrieval misses, Agent tool-calling failures, etc., and explain how you diagnosed them.
 
-## 下一步改进
+## Next Improvements
 
-写清楚如果继续做，你会优先改什么，例如补数据、换指标、加日志、优化 Prompt、加入部署、改进 UI。
+Clearly write down what you would improve first if you continued, such as adding more data, changing metrics, adding logs, optimizing the Prompt, adding deployment, or improving the UI.
 ````
 
-## 阶段作品怎么沉淀
+## How to turn stage projects into portfolio assets
 
-新人可以先保证每个项目都有“能运行 + 有说明 + 有结果截图”。有经验的学习者可以继续补“实验记录 + 错误分析 + 指标对比 + 部署说明”。如果你把每一站的 README 都按同一套模板整理，学完整门课后自然会得到一套完整的 AI 全栈作品集。
+Beginners can first make sure every project has “can run + has instructions + has result screenshots.” More experienced learners can continue to add “experiment logs + error analysis + metric comparisons + deployment instructions.” If you organize the README for each step using the same template, by the time you finish the course you will naturally have a complete AI full-stack portfolio.

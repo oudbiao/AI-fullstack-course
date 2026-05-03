@@ -1,116 +1,116 @@
 ---
-title: "2.4 语言模型基础"
+title: "2.4 Fundamentals of Language Models"
 sidebar_position: 6
-description: "从 n-gram 到 next token prediction，理解语言模型在做什么，以及它为什么会成为后面大模型的共同底座。"
+description: "From n-gram to next token prediction, understand what language models do and why they become the common foundation of later large models."
 keywords: [language model, next token prediction, n-gram, autoregressive, probability, NLP]
 ---
 
-# 语言模型基础
+# Fundamentals of Language Models
 
-![语言模型 next token 预测图](/img/course/ch11-language-model-next-token-stack.png)
+![Language model next token prediction diagram](/img/course/ch11-language-model-next-token-stack-en.png)
 
-:::tip 读图提示
-不要只把语言模型理解成“接龙”。读图时重点看前文上下文、候选 token 概率分布和采样/选择之间的关系：大模型很多生成能力都从这个训练目标扩展而来。
+:::tip Reading the diagram
+Don’t understand language models as just “word chaining.” When reading the diagram, focus on the relationship between the previous context, the candidate token probability distribution, and sampling/selection: many generation abilities in large models grow out of this training objective.
 :::
 
-:::tip 本节定位
-“语言模型”这个词后面会反复出现。  
-如果前面没有把最基本的直觉建立起来，后面学大模型时就很容易只剩流行词。
+:::tip Section focus
+The term “language model” will appear again and again later.
+If you don’t first build the most basic intuition, it’s very easy to end up with only buzzwords when learning large models later.
 
-这节课的目标是先讲清一件事：
+The goal of this lesson is to make one thing clear first:
 
-> **语言模型本质上是在预测：给定前面的文本，后面最可能出现什么。**
+> **At its core, a language model predicts: given the previous text, what is most likely to come next.**
 
-它表面上像一个简单任务，但后面很多能力都从这里长出来。
+It may look like a simple task on the surface, but many later capabilities grow from it.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解语言模型最基本的任务目标
-- 理解 n-gram 语言模型和现代神经语言模型之间的连续性
-- 通过可运行示例建立“预测下一个 token”的直觉
-- 理解为什么语言模型会成为后面大模型的共同基础
-
----
-
-## 一、语言模型到底在学什么？
-
-### 1.1 最基本的形式
-
-一句话讲，就是：
-
-- 给定前文，预测下一个 token
-
-例如：
-
-- “我 爱” -> 下一个词可能是 `AI`、`你`、`Python`
-
-### 1.2 为什么这个任务看起来简单却很强？
-
-因为要做好这件事，模型必须逐渐学会：
-
-- 词法搭配
-- 语法结构
-- 常见语义关系
-- 一些世界知识
-
-也就是说，  
-“预测下一个 token”虽然目标简单，  
-但背后会逼着模型学很多语言规律。
-
-### 1.3 一个类比
-
-语言模型像在玩“接龙”，  
-但这不是随便接，而是要接得：
-
-- 像人类语言
-- 像当前语境
-- 像合理延续
+- Understand the most basic task objective of language models
+- Understand the continuity between n-gram language models and modern neural language models
+- Build intuition for “predicting the next token” through a runnable example
+- Understand why language models become the shared foundation of later large models
 
 ---
 
-## 二、先从 n-gram 直觉开始
+## 1. What exactly does a language model learn?
 
-### 2.1 什么是 n-gram 语言模型？
+### 1.1 The most basic form
 
-它可以先理解成：
+In one sentence:
 
-- 只看前面很短的一小段历史
-- 用统计频次预测后面会出现什么
+- Given the previous text, predict the next token
 
-例如 bigram：
+For example:
 
-- 只看前 1 个词
+- “I love” -> the next word might be `AI`, `you`, `Python`
 
-trigram：
+### 1.2 Why does this task look simple but powerful?
 
-- 只看前 2 个词
+Because to do it well, the model must gradually learn:
 
-### 2.2 这种方法有什么好处？
+- lexical collocations
+- grammatical structure
+- common semantic relationships
+- some world knowledge
 
-- 直观
-- 可解释
-- 容易上手
+In other words,
+although “predict the next token” is a simple objective,
+it pushes the model to learn many language patterns underneath.
 
-### 2.3 它的局限也很明显
+### 1.3 An analogy
 
-- 看不到长距离依赖
-- 很容易稀疏
-- 泛化能力弱
+A language model is like playing a word chain game,
+but not just any continuation—it has to continue in a way that is:
 
-但它非常适合帮助新人建立语言模型的第一层直觉。
+- like human language
+- like the current context
+- like a reasonable extension
 
 ---
 
-## 三、先跑一个 bigram 示例
+## 2. Start with the n-gram intuition
+
+### 2.1 What is an n-gram language model?
+
+You can first understand it as:
+
+- only looking at a very short history
+- using statistical frequency to predict what comes next
+
+For example, bigram:
+
+- only looks at the previous 1 word
+
+trigram:
+
+- only looks at the previous 2 words
+
+### 2.2 What are the advantages of this method?
+
+- intuitive
+- interpretable
+- easy to get started with
+
+### 2.3 Its limitations are also obvious
+
+- cannot see long-distance dependencies
+- very sparse
+- weak generalization
+
+But it is very suitable for helping beginners build the first layer of intuition about language models.
+
+---
+
+## 3. Run a simple bigram example first
 
 ```python
 from collections import defaultdict, Counter
 
 corpus = [
-    "我 爱 AI",
-    "我 爱 Python",
-    "你 爱 NLP",
+    "I love AI",
+    "I love Python",
+    "You love NLP",
 ]
 
 stats = defaultdict(Counter)
@@ -123,57 +123,57 @@ for sent in corpus:
 print(dict(stats))
 ```
 
-### 3.1 这段代码最重要的价值是什么？
+### 3.1 What is the most important value of this code?
 
-它把语言模型最底层的逻辑掀开来看：
+It peels back the lowest-level logic of a language model:
 
-- 看到一个词后
-- 下一个词在训练语料里出现过多少次
+- after seeing a word
+- how many times each possible next word appeared in the training corpus
 
-### 3.2 为什么这已经像一个“语言模型”了？
+### 3.2 Why is this already like a “language model”?
 
-因为它已经在做：
+Because it is already doing:
 
-- 条件概率估计
+- conditional probability estimation
 
-例如看到：
+For example, after seeing:
 
-- `爱`
+- `love`
 
-后面接：
+the following words:
 
 - `AI`
 - `Python`
 - `NLP`
 
-各自概率不同。
+can each have different probabilities.
 
 ---
 
-## 四、怎么从统计模型走到神经语言模型？
+## 4. How do we move from statistical models to neural language models?
 
-### 4.1 核心任务没变
+### 4.1 The core task has not changed
 
-虽然模型架构后面变得越来越复杂，  
-但一个重要事实是：
+Although model architectures become more and more complex later,
+one important fact remains:
 
-- 目标函数常常还是“预测下一个 token”
+- the objective function is often still “predict the next token”
 
-### 4.2 变的是表示和泛化方式
+### 4.2 What changes is the representation and generalization
 
-神经语言模型不再只是查频次表，  
-而是会：
+Neural language models no longer just look up a frequency table,
+but instead:
 
-- 用向量表示 token
-- 用神经网络建模上下文
+- represent tokens as vectors
+- model context with neural networks
 
-这样它就能：
+This allows them to:
 
-- 看更长的历史
-- 学到更抽象的模式
-- 对没见过的组合有更强泛化
+- see longer histories
+- learn more abstract patterns
+- generalize better to unseen combinations
 
-### 4.3 一个简化的“预测分布”例子
+### 4.3 A simplified example of a “prediction distribution”
 
 ```python
 import math
@@ -194,84 +194,84 @@ def softmax(score_dict):
 print(softmax(scores))
 ```
 
-这不是完整神经网络，  
-但它已经在表达一件关键事：
+This is not a complete neural network,
+but it already expresses one key idea:
 
-- 模型不是只输出一个词
-- 而是在输出一个“下一词概率分布”
-
----
-
-## 五、为什么语言模型会成为大模型的共同底座？
-
-### 5.1 因为这个目标足够通用
-
-无论后面你是做：
-
-- 对话
-- 写作
-- 代码生成
-- 摘要
-
-很多能力都能从“语言延续能力”里长出来。
-
-### 5.2 因为它很适合大规模自监督学习
-
-你不需要人工标注“下一个词是什么”，  
-文本本身就天然带这个标签。
-
-这使得：
-
-- 海量文本
-- 自监督训练
-
-可以自然结合起来。
-
-### 5.3 这也是为什么后面会走向 GPT 这条线
-
-因为自回归语言建模：
-
-- 简洁
-- 统一
-- 可扩展
-
-这条路线后来成了大语言模型的重要主线之一。
+- the model does not output just one word
+- it outputs a “probability distribution over the next word”
 
 ---
 
-## 六、最容易踩的坑
+## 5. Why do language models become the common foundation of large models?
 
-### 6.1 误区一：语言模型只是“会接下一个词”
+### 5.1 Because this objective is general enough
 
-这个说法表面上对，  
-但低估了这个任务能逼模型学到的东西。
+Whether you later do:
 
-### 6.2 误区二：n-gram 没用，所以没必要学
+- conversation
+- writing
+- code generation
+- summarization
 
-n-gram 很有用，  
-因为它让你第一次真正看到语言模型在做什么。
+many capabilities can grow out of “language continuation ability.”
 
-### 6.3 误区三：只要会生成，就等于理解了语言
+### 5.2 Because it is well suited to large-scale self-supervised learning
 
-生成能力强不等于完全理解。  
-这也是后面为什么还要看推理、对齐和工具调用。
+You do not need human annotation for “what the next word is,”
+because the text itself naturally contains the label.
+
+This means:
+
+- massive text data
+- self-supervised training
+
+can be combined naturally.
+
+### 5.3 This is also why the later path leads to GPT
+
+Because autoregressive language modeling is:
+
+- simple
+- unified
+- scalable
+
+This path later became one of the important main lines of large language models.
 
 ---
 
-## 小结
+## 6. The most common pitfalls
 
-这节最重要的是建立一个很稳定的判断：
+### 6.1 Misconception 1: a language model is only “good at continuing the next word”
 
-> **语言模型最基础的任务，就是在给定前文时预测下一个 token；而正是这个看似简单的目标，构成了后面大模型很多能力的底座。**
+This statement is superficially true,
+but it underestimates how much the model can be pushed to learn by this task.
 
-只要这条主线清楚了，  
-你后面再看 GPT、预训练和生成模型时，就会自然很多。
+### 6.2 Misconception 2: n-gram is useless, so there is no need to learn it
+
+n-gram is very useful,
+because it lets you see for the first time what a language model is actually doing.
+
+### 6.3 Misconception 3: if it can generate, then it understands language
+
+Strong generation ability does not mean full understanding.
+That is also why later we still need to look at reasoning, alignment, and tool use.
 
 ---
 
-## 练习
+## Summary
 
-1. 自己再加几句语料，看看 `stats` 会怎么变。
-2. 为什么说 bigram 虽然简单，但已经抓到了语言模型的核心？
-3. 用自己的话解释：语言模型为什么天然适合大规模自监督训练？
-4. 想一想：为什么“会接下一个词”这件事，最后能长出对话和写作能力？
+The most important thing in this lesson is to form a stable judgment:
+
+> **The most basic task of a language model is to predict the next token given the previous context; and this seemingly simple objective is exactly what forms the foundation for many capabilities of later large models.**
+
+Once this main thread is clear,
+you will naturally find it much easier to understand GPT, pretraining, and generative models later.
+
+---
+
+## Exercises
+
+1. Add a few more sentences to the corpus and see how `stats` changes.
+2. Why can we say bigram is simple, yet it already captures the core of a language model?
+3. Explain in your own words: why is a language model naturally suited to large-scale self-supervised training?
+4. Think about it: why can the ability to “continue the next word” eventually grow into conversation and writing abilities?

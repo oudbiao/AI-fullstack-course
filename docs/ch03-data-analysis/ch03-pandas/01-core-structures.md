@@ -1,136 +1,136 @@
 ---
-title: "3.1 Pandas 核心数据结构"
+title: "3.1 Pandas Core Data Structures"
 sidebar_position: 9
-description: "认识 Series 和 DataFrame——Pandas 的两大基石"
+description: "Getting to know Series and DataFrame—the two pillars of Pandas"
 ---
 
-# Pandas 核心数据结构
+# Pandas Core Data Structures
 
-![Pandas DataFrame 结构图](/img/course/pandas-dataframe-structure.png)
+![Pandas DataFrame structure diagram](/img/course/pandas-dataframe-structure-en.png)
 
-:::tip 本节定位
-很多新人第一次学 `Pandas` 会觉得：
+:::tip Section overview
+When many beginners first learn `Pandas`, they feel that:
 
-- API 很多
-- DataFrame 看起来像表格，但又像代码对象
+- There are too many APIs
+- A DataFrame looks like a table, but also like a code object
 
-最稳的理解方式其实是：
+The most reliable way to understand it is actually:
 
-> **先把它看成“带标签的表格系统”，再慢慢去学它的操作。**
+> **First think of it as a “labeled table system,” then gradually learn its operations.**
 
-也就是说，这节最重要的不是记住所有属性，而是先知道：
+In other words, the most important thing in this section is not memorizing every attribute, but first knowing:
 
-- `Series` 像什么
-- `DataFrame` 像什么
-- 索引为什么会反复出现
+- What `Series` looks like
+- What `DataFrame` looks like
+- Why `Index` keeps showing up
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 Pandas 在数据分析中的地位
-- 掌握 Series 的创建和基本操作
-- 掌握 DataFrame 的创建和基本属性
-- 理解索引（Index）机制
+- Understand the role of Pandas in data analysis
+- Master Series creation and basic operations
+- Master DataFrame creation and basic attributes
+- Understand the Index mechanism
 
 ---
 
-## 先建立一张地图
+## First build a map
 
-第一次学 `Pandas`，最稳的顺序不是“直接背所有方法”，而是先看清：
+When learning `Pandas` for the first time, the safest order is not to “memorize all methods right away,” but to first see clearly:
 
 ```mermaid
 flowchart LR
-    A["Series：一列有标签的数据"] --> B["DataFrame：很多列组合成的表"]
-    B --> C["Index：行列的定位系统"]
-    C --> D["后面所有筛选、清洗、聚合都靠它们展开"]
+    A["Series: a labeled column of data"] --> B["DataFrame: a table made by combining many columns"]
+    B --> C["Index: the positioning system for rows and columns"]
+    C --> D["All later filtering, cleaning, and aggregation build on these"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么 `Pandas` 不只是“Python 版 Excel”
-- 为什么 `Series / DataFrame / Index` 会成为后面整章的底座
+- Why `Pandas` is not just “Excel in Python”
+- Why `Series / DataFrame / Index` become the foundation of the whole chapter
 
 ---
 
-## Pandas 是什么？
+## What is Pandas?
 
-如果说 NumPy 是 Python 数据科学的**引擎**，那 Pandas 就是**方向盘和仪表盘**——它让你能方便地操控和观察数据。
+If NumPy is the **engine** of Python data science, then Pandas is the **steering wheel and dashboard**—it lets you control and inspect data conveniently.
 
 ```mermaid
 flowchart LR
-    A["原始数据<br/>CSV / Excel / JSON / SQL"] --> B["Pandas<br/>读取 · 清洗 · 分析"]
-    B --> C["分析结果<br/>统计 · 可视化 · 报告"]
+    A["Raw data<br/>CSV / Excel / JSON / SQL"] --> B["Pandas<br/>read · clean · analyze"]
+    B --> C["Analysis results<br/>statistics · visualization · reports"]
 
     style B fill:#ff9800,color:#fff,stroke:#e65100
 ```
 
-Pandas 的核心能力：
+Core capabilities of Pandas:
 
-| 能力 | 说明 |
+| Capability | Description |
 |------|------|
-| 数据读写 | 一行代码读取 CSV、Excel、JSON、SQL |
-| 数据清洗 | 处理缺失值、重复值、异常值 |
-| 数据筛选 | 像 SQL 一样灵活地过滤和查询数据 |
-| 分组统计 | groupby 比纯 Python 循环快几十倍 |
-| 数据合并 | 像 SQL JOIN 一样合并多张表 |
+| Data I/O | Read CSV, Excel, JSON, SQL in one line |
+| Data cleaning | Handle missing values, duplicates, and outliers |
+| Data filtering | Filter and query data flexibly like SQL |
+| Grouped statistics | `groupby` is dozens of times faster than pure Python loops |
+| Data merging | Merge multiple tables like SQL JOIN |
 
-### 一个更适合新人的总类比
+### A better beginner-friendly analogy
 
-你可以把 `Pandas` 理解成：
+You can think of `Pandas` as:
 
-- 一个会记住“行和列标签”的智能表格
+- A smart spreadsheet that remembers row and column labels
 
-普通 `list` 更像：
+A regular `list` is more like:
 
-- 没有列名的原始数据堆
+- A pile of raw data with no column names
 
-`NumPy` 更像：
+`NumPy` is more like:
 
-- 适合高速数值计算的矩阵引擎
+- A matrix engine built for high-speed numerical computing
 
-`Pandas` 则更像：
+`Pandas` is more like:
 
-- 你真的开始在处理“字段、行记录、表结构”的地方
+- The place where you really start working with “fields, row records, and table structures”
 
-还记得第 1 章的预热练习吗？75 行纯 Python 代码做的事情，Pandas 5 行就搞定了。现在让我们正式学习它。
+Remember the warm-up exercise in Chapter 1? 75 lines of pure Python code did the job, while Pandas did it in just 5 lines. Now let’s formally learn it.
 
 ```python
 import pandas as pd
 import numpy as np
 
-print(pd.__version__)  # 如 2.2.0
+print(pd.__version__)  # e.g. 2.2.0
 ```
 
-:::tip 导入约定
-和 NumPy 用 `np` 一样，Pandas 统一简写为 `pd`。
+:::tip Import convention
+Just like NumPy uses `np`, Pandas is commonly abbreviated as `pd`.
 :::
 
 ---
 
-## Series：带标签的一维数组
+## Series: a one-dimensional array with labels
 
-**Series** 是 Pandas 最基本的数据结构——你可以把它理解为一个**带标签的 NumPy 数组**。
+**Series** is the most basic Pandas data structure—you can think of it as a **NumPy array with labels**.
 
-### 第一次看 Series，最该先抓住什么？
+### When you first see a Series, what should you focus on?
 
-最值得先抓住的是这句：
+The most important thing to grasp first is this sentence:
 
-> **Series = 一列数据 + 一套标签。**
+> **Series = one column of data + one set of labels.**
 
-只要这句稳住了，后面你看：
+Once this idea is solid, later on when you see:
 
-- 按标签取值
-- 按位置取值
-- 对整列做运算
+- Access by label
+- Access by position
+- Operations on an entire column
 
-都会顺很多。
+it will all feel much smoother.
 
-### 创建 Series
+### Creating a Series
 
 ```python
 import pandas as pd
 
-# 从列表创建（自动生成 0, 1, 2... 索引）
+# Create from a list (auto-generated 0, 1, 2... index)
 s1 = pd.Series([85, 92, 78, 95, 88])
 print(s1)
 # 0    85
@@ -140,225 +140,225 @@ print(s1)
 # 4    88
 # dtype: int64
 
-# 指定索引
+# Specify the index
 s2 = pd.Series(
     [85, 92, 78, 95, 88],
-    index=["语文", "数学", "英语", "物理", "化学"]
+    index=["Chinese", "Math", "English", "Physics", "Chemistry"]
 )
 print(s2)
-# 语文    85
-# 数学    92
-# 英语    78
-# 物理    95
-# 化学    88
+# Chinese      85
+# Math         92
+# English      78
+# Physics      95
+# Chemistry    88
 # dtype: int64
 
-# 从字典创建（键自动成为索引）
-scores = {"语文": 85, "数学": 92, "英语": 78, "物理": 95}
+# Create from a dictionary (keys automatically become the index)
+scores = {"Chinese": 85, "Math": 92, "English": 78, "Physics": 95}
 s3 = pd.Series(scores)
 print(s3)
 ```
 
-### Series 的结构
+### Structure of a Series
 
 ```
-索引 (Index)    值 (Values)
-───────────    ──────────
-语文            85
-数学            92
-英语            78
-物理            95
-化学            88
+Index        Values
+──────────   ──────────
+Chinese      85
+Math         92
+English      78
+Physics      95
+Chemistry    88
 ```
 
-每个 Series 都由两部分组成：
-- **索引（Index）**：标签，用来定位数据
-- **值（Values）**：实际数据，底层是 NumPy 数组
+Each Series consists of two parts:
+- **Index**: labels used to locate data
+- **Values**: the actual data, with the underlying storage being a NumPy array
 
-### 一个很适合初学者先记的对照表
+### A beginner-friendly comparison table to remember first
 
-| 你现在看到的东西 | 可以先把它想成什么 |
+| What you see now | What you can think of it as |
 |---|---|
-| `Series` | 一列带标签的数据 |
-| `Index` | 这列数据的“行名” |
-| `Values` | 真正存着的数据本体 |
+| `Series` | A labeled column of data |
+| `Index` | The “row name” of this column |
+| `Values` | The actual data itself |
 
-这个表很适合新人，因为它能把抽象名词重新压回成几个更直白的角色。
+This table is great for beginners because it turns abstract terms back into a few more concrete roles.
 
 ```python
-s = pd.Series([85, 92, 78], index=["语文", "数学", "英语"])
+s = pd.Series([85, 92, 78], index=["Chinese", "Math", "English"])
 
-print(s.index)    # Index(['语文', '数学', '英语'], dtype='object')
-print(s.values)   # [85 92 78]  ← 这是一个 NumPy 数组！
+print(s.index)    # Index(['Chinese', 'Math', 'English'], dtype='object')
+print(s.values)   # [85 92 78]  ← This is a NumPy array!
 print(s.dtype)    # int64
 print(s.shape)    # (3,)
 print(len(s))     # 3
 ```
 
-### Series 的访问
+### Accessing a Series
 
 ```python
-s = pd.Series([85, 92, 78, 95], index=["语文", "数学", "英语", "物理"])
+s = pd.Series([85, 92, 78, 95], index=["Chinese", "Math", "English", "Physics"])
 
-# 用标签索引
-print(s["数学"])      # 92
+# Access by label
+print(s["Math"])      # 92
 
-# 用位置索引
+# Access by position
 print(s.iloc[1])      # 92
 
-# 切片
-print(s["语文":"英语"])  # 标签切片（包含末尾！）
-# 语文    85
-# 数学    92
-# 英语    78
+# Slicing
+print(s["Chinese":"English"])  # Label slicing (includes the end!)
+# Chinese    85
+# Math       92
+# English    78
 
-# 布尔索引
+# Boolean indexing
 print(s[s >= 90])
-# 数学    92
-# 物理    95
+# Math       92
+# Physics    95
 ```
 
-:::caution 标签切片 vs 位置切片
-- **标签切片** `s["语文":"英语"]`：**包含**末尾
-- **位置切片** `s.iloc[0:2]`：**不包含**末尾（和 Python 列表一致）
+:::caution Label slicing vs positional slicing
+- **Label slicing** `s["Chinese":"English"]`: **includes** the end
+- **Positional slicing** `s.iloc[0:2]`: **does not include** the end (same as Python lists)
 
-这是新手容易混淆的地方。
+This is an easy place for beginners to get confused.
 :::
 
-### Series 的运算
+### Operations on a Series
 
 ```python
-s = pd.Series([85, 92, 78, 95], index=["语文", "数学", "英语", "物理"])
+s = pd.Series([85, 92, 78, 95], index=["Chinese", "Math", "English", "Physics"])
 
-# 向量化运算（和 NumPy 一样）
-print(s + 5)         # 每科加 5 分
-print(s * 1.1)       # 每科乘以 1.1
-print(s.mean())      # 87.5  平均分
-print(s.max())       # 95    最高分
-print(s.describe())  # 一键生成描述性统计
+# Vectorized operations (same idea as NumPy)
+print(s + 5)         # Add 5 points to each subject
+print(s * 1.1)       # Multiply each subject by 1.1
+print(s.mean())      # 87.5  Average score
+print(s.max())       # 95    Highest score
+print(s.describe())  # Generate descriptive statistics in one line
 ```
 
 ---
 
-## DataFrame：带标签的二维表格
+## DataFrame: a labeled two-dimensional table
 
-**DataFrame** 是 Pandas 的核心——你可以把它理解为一张**Excel 表格**，或者一个**由多个 Series 组成的字典**。
+**DataFrame** is the core of Pandas—you can think of it as an **Excel table**, or as a **dictionary of multiple Series**.
 
-### 第一次看 DataFrame，最该先记什么？
+### When you first see a DataFrame, what should you remember first?
 
-最值得先记住的是：
+The most important thing to remember is:
 
-> **DataFrame = 多列 Series 按同一套行索引拼起来的一张表。**
+> **DataFrame = multiple Series combined into one table using the same row index.**
 
-你可以先把它理解成：
+You can first think of it as:
 
-- 一张真正有列名和行号的数据表
+- A real data table with column names and row numbers
 
-而不是一堆数组拼在一起。
+rather than a bunch of arrays stuck together.
 
-### 创建 DataFrame
+### Creating a DataFrame
 
 ```python
-# 方法 1：从字典创建（最常用）
+# Method 1: Create from a dictionary (most common)
 data = {
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七"],
-    "年龄": [22, 25, 23, 28, 21],
-    "城市": ["北京", "上海", "广州", "深圳", "杭州"],
-    "薪资": [15000, 22000, 18000, 25000, 16000]
+    "Name": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu", "Qian Qi"],
+    "Age": [22, 25, 23, 28, 21],
+    "City": ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Hangzhou"],
+    "Salary": [15000, 22000, 18000, 25000, 16000]
 }
 df = pd.DataFrame(data)
 print(df)
-#    姓名  年龄  城市     薪资
-# 0  张三   22  北京  15000
-# 1  李四   25  上海  22000
-# 2  王五   23  广州  18000
-# 3  赵六   28  深圳  25000
-# 4  钱七   21  杭州  16000
+#         Name  Age       City  Salary
+# 0  Zhang San   22    Beijing   15000
+# 1      Li Si   25   Shanghai   22000
+# 2    Wang Wu   23  Guangzhou   18000
+# 3   Zhao Liu   28   Shenzhen   25000
+# 4    Qian Qi   21   Hangzhou   16000
 ```
 
 ```python
-# 方法 2：从列表的列表创建
+# Method 2: Create from a list of lists
 data = [
-    ["张三", 22, "北京"],
-    ["李四", 25, "上海"],
-    ["王五", 23, "广州"]
+    ["Zhang San", 22, "Beijing"],
+    ["Li Si", 25, "Shanghai"],
+    ["Wang Wu", 23, "Guangzhou"]
 ]
-df = pd.DataFrame(data, columns=["姓名", "年龄", "城市"])
+df = pd.DataFrame(data, columns=["Name", "Age", "City"])
 
-# 方法 3：从 NumPy 数组创建
+# Method 3: Create from a NumPy array
 arr = np.random.randint(60, 100, size=(5, 3))
-df = pd.DataFrame(arr, columns=["语文", "数学", "英语"])
+df = pd.DataFrame(arr, columns=["Chinese", "Math", "English"])
 
-# 方法 4：从 Series 字典创建
+# Method 4: Create from a dictionary of Series
 df = pd.DataFrame({
-    "数学": pd.Series([90, 85, 78], index=["张三", "李四", "王五"]),
-    "英语": pd.Series([88, 92, 75], index=["张三", "李四", "王五"])
+    "Math": pd.Series([90, 85, 78], index=["Zhang San", "Li Si", "Wang Wu"]),
+    "English": pd.Series([88, 92, 75], index=["Zhang San", "Li Si", "Wang Wu"])
 })
 ```
 
-### DataFrame 的结构
+### Structure of a DataFrame
 
 ```
-        列 (Columns)
+        Columns
         ↓
-索引 →  姓名   年龄   城市     薪资
+Index →  Name  Age  City    Salary
 (Index)
-  0     张三    22    北京    15000
-  1     李四    25    上海    22000
-  2     王五    23    广州    18000
-  3     赵六    28    深圳    25000
-  4     钱七    21    杭州    16000
+  0     Zhang San  22   Beijing  15000
+  1     Li Si      25   Shanghai  22000
+  2     Wang Wu    23   Guangzhou 18000
+  3     Zhao Liu   28   Shenzhen  25000
+  4     Qian Qi    21   Hangzhou  16000
 ```
 
-DataFrame = **行索引（Index）** + **列名（Columns）** + **数据（Values）**
+DataFrame = **row index (Index)** + **column names (Columns)** + **data (Values)**
 
-### 基本属性
+### Basic attributes
 
 ```python
 data = {
-    "姓名": ["张三", "李四", "王五", "赵六", "钱七"],
-    "年龄": [22, 25, 23, 28, 21],
-    "城市": ["北京", "上海", "广州", "深圳", "杭州"],
-    "薪资": [15000, 22000, 18000, 25000, 16000]
+    "Name": ["Zhang San", "Li Si", "Wang Wu", "Zhao Liu", "Qian Qi"],
+    "Age": [22, 25, 23, 28, 21],
+    "City": ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Hangzhou"],
+    "Salary": [15000, 22000, 18000, 25000, 16000]
 }
 df = pd.DataFrame(data)
 
-print(df.shape)      # (5, 4)  → 5 行 4 列
-print(df.columns)    # Index(['姓名', '年龄', '城市', '薪资'], dtype='object')
+print(df.shape)      # (5, 4)  → 5 rows, 4 columns
+print(df.columns)    # Index(['Name', 'Age', 'City', 'Salary'], dtype='object')
 print(df.index)      # RangeIndex(start=0, stop=5, step=1)
 print(df.dtypes)
-# 姓名    object    ← 字符串
-# 年龄     int64
-# 城市    object
-# 薪资     int64
-print(df.size)       # 20  → 5 × 4 = 20 个元素
-print(len(df))       # 5   → 行数
+# Name      object    ← string
+# Age        int64
+# City      object
+# Salary     int64
+print(df.size)       # 20  → 5 × 4 = 20 elements
+print(len(df))       # 5   → number of rows
 ```
 
-### 快速查看数据
+### Quickly inspect data
 
 ```python
-# 前 3 行
+# First 3 rows
 print(df.head(3))
 
-# 后 2 行
+# Last 2 rows
 print(df.tail(2))
 
-# 基本信息
+# Basic information
 print(df.info())
 # <class 'pandas.core.frame.DataFrame'>
 # RangeIndex: 5 entries, 0 to 4
 # Data columns (total 4 columns):
 #  #   Column  Non-Null Count  Dtype
 # ---  ------  --------------  -----
-#  0   姓名     5 non-null      object
-#  1   年龄     5 non-null      int64
-#  2   城市     5 non-null      object
-#  3   薪资     5 non-null      int64
+#  0   Name      5 non-null      object
+#  1   Age       5 non-null      int64
+#  2   City      5 non-null      object
+#  3   Salary    5 non-null      int64
 
-# 数值列的统计摘要
+# Summary statistics for numeric columns
 print(df.describe())
-#              年龄           薪资
+#              Age           Salary
 # count   5.000000      5.000000
 # mean   23.800000  19200.000000
 # std     2.774887   4147.288271
@@ -369,152 +369,152 @@ print(df.describe())
 # max    28.000000  25000.000000
 ```
 
-:::tip info() 和 describe() 是你的好朋友
-拿到一份新数据，第一件事就是跑 `df.info()` 和 `df.describe()`——它们能让你在几秒内了解数据的"全貌"。
+:::tip `info()` and `describe()` are your friends
+When you get a new dataset, the first thing to do is run `df.info()` and `df.describe()`—they can help you understand the overall picture of the data in just a few seconds.
 :::
 
-### 一个新人可直接照抄的“拿到新表先做什么”顺序
+### A beginner-friendly sequence for a new table
 
-更稳的顺序通常是：
+A safer workflow is usually:
 
-1. 先看 `df.head()`
-2. 再看 `df.info()`
-3. 再看 `df.describe()`
-4. 最后再开始筛选和清洗
+1. Check `df.head()`
+2. Check `df.info()`
+3. Check `df.describe()`
+4. Then start filtering and cleaning
 
-这样会比一上来就直接写复杂操作更不容易迷路。
+This is much less likely to make you lose your way than jumping straight into complex operations.
 
-### 访问列
+### Accessing columns
 
 ```python
-# 访问单列 → 返回 Series
-print(df["姓名"])
-# 0    张三
-# 1    李四
+# Access a single column → returns a Series
+print(df["Name"])
+# 0    Zhang San
+# 1        Li Si
 # ...
 
-# 也可以用点语法（列名不含空格且不与方法冲突时）
-print(df.年龄)
+# You can also use dot notation (when the column name has no spaces and does not conflict with methods)
+print(df.Age)
 
-# 访问多列 → 返回 DataFrame
-print(df[["姓名", "薪资"]])
-#    姓名     薪资
-# 0  张三  15000
-# 1  李四  22000
+# Access multiple columns → returns a DataFrame
+print(df[["Name", "Salary"]])
+#         Name  Salary
+# 0  Zhang San   15000
+# 1      Li Si   22000
 # ...
 ```
 
-### 为什么“先学会看列”这么重要？
+### Why is “learning to read columns first” so important?
 
-因为后面大多数 `Pandas` 工作都在做三件事：
+Because most Pandas work later on does three things:
 
-- 选列
-- 改列
-- 基于列做统计和组合
+- Select columns
+- Modify columns
+- Perform statistics and combinations based on columns
 
-所以第一次学 `Pandas`，与其急着记很多高阶方法，  
-不如先把“我怎么找到这列、它是什么类型、我能对它做什么”打稳。
+So when learning Pandas for the first time, instead of rushing to memorize lots of advanced methods,
+it’s better to first make sure you understand “How do I find this column, what type is it, and what can I do with it?”
 
-### 添加和删除列
+### Adding and deleting columns
 
 ```python
-# 添加新列
-df["税后薪资"] = df["薪资"] * 0.85
-print(df[["姓名", "薪资", "税后薪资"]])
+# Add a new column
+df["After-Tax Salary"] = df["Salary"] * 0.85
+print(df[["Name", "Salary", "After-Tax Salary"]])
 
-# 基于条件添加列
-df["薪资等级"] = np.where(df["薪资"] >= 20000, "高", "中")
-print(df[["姓名", "薪资", "薪资等级"]])
+# Add a column based on a condition
+df["Salary Level"] = np.where(df["Salary"] >= 20000, "High", "Medium")
+print(df[["Name", "Salary", "Salary Level"]])
 
-# 删除列
-df = df.drop(columns=["税后薪资"])  # 返回新 DataFrame
-# 或者
-# df.drop(columns=["税后薪资"], inplace=True)  # 原地修改
+# Delete a column
+df = df.drop(columns=["After-Tax Salary"])  # returns a new DataFrame
+# or
+# df.drop(columns=["After-Tax Salary"], inplace=True)  # modify in place
 ```
 
 ---
 
-## 索引（Index）的重要性
+## Why Index matters
 
-索引是 Pandas 区别于 NumPy 的关键特性。
+Index is the key feature that distinguishes Pandas from NumPy.
 
-### 设置索引
+### Setting the index
 
 ```python
 df = pd.DataFrame({
-    "姓名": ["张三", "李四", "王五"],
-    "年龄": [22, 25, 23],
-    "薪资": [15000, 22000, 18000]
+    "Name": ["Zhang San", "Li Si", "Wang Wu"],
+    "Age": [22, 25, 23],
+    "Salary": [15000, 22000, 18000]
 })
 
-# 把"姓名"列设为索引
-df_indexed = df.set_index("姓名")
+# Set the "Name" column as the index
+df_indexed = df.set_index("Name")
 print(df_indexed)
-#       年龄     薪资
-# 姓名
-# 张三    22  15000
-# 李四    25  22000
-# 王五    23  18000
+#             Age  Salary
+# Name
+# Zhang San    22   15000
+# Li Si        25   22000
+# Wang Wu      23   18000
 
-# 通过索引访问
-print(df_indexed.loc["李四"])
-# 年龄       25
-# 薪资    22000
+# Access by index
+print(df_indexed.loc["Li Si"])
+# Age        25
+# Salary    22000
 
-# 重置索引
+# Reset the index
 df_reset = df_indexed.reset_index()
-print(df_reset)  # 和原来一样
+print(df_reset)  # same as before
 ```
 
-### 索引对齐
+### Index alignment
 
-Pandas 的运算会**自动按索引对齐**——这是一个非常强大的特性：
+Pandas operations automatically **align by index**—this is a very powerful feature:
 
 ```python
-s1 = pd.Series({"语文": 85, "数学": 92, "英语": 78})
-s2 = pd.Series({"数学": 88, "英语": 82, "物理": 90})
+s1 = pd.Series({"Chinese": 85, "Math": 92, "English": 78})
+s2 = pd.Series({"Math": 88, "English": 82, "Physics": 90})
 
-# 自动按索引对齐相加
+# Automatically align by index when adding
 result = s1 + s2
 print(result)
-# 数学    180.0
-# 物理      NaN   ← s1 没有物理，结果为 NaN
-# 英语    160.0
-# 语文      NaN   ← s2 没有语文，结果为 NaN
+# English    160.0
+# Math       180.0
+# Physics      NaN   ← s1 does not have Physics, so the result is NaN
+# Chinese      NaN   ← s2 does not have Chinese, so the result is NaN
 ```
 
 ---
 
-## Series vs DataFrame 对比
+## Series vs DataFrame comparison
 
-| 特性 | Series | DataFrame |
+| Feature | Series | DataFrame |
 |------|--------|-----------|
-| 维度 | 一维 | 二维 |
-| 类比 | Excel 的一列 | 整张 Excel 表格 |
-| 创建 | `pd.Series([1,2,3])` | `pd.DataFrame({"a":[1,2]})` |
-| 访问列 | — | `df["列名"]` 返回 Series |
-| 索引 | 一个 Index | 行索引 + 列索引 |
+| Dimension | 1D | 2D |
+| Analogy | One column in Excel | An entire Excel table |
+| Creation | `pd.Series([1,2,3])` | `pd.DataFrame({"a":[1,2]})` |
+| Accessing a column | — | `df["column_name"]` returns a Series |
+| Index | One Index | Row index + column index |
 
 ---
 
-## 小结
+## Summary
 
 ```mermaid
 mindmap
-  root((Pandas 核心数据结构))
+  root((Pandas Core Data Structures))
     Series
-      带标签的一维数组
+      Labeled one-dimensional array
       index + values
-      像增强版的字典
+      Like an enhanced dictionary
     DataFrame
-      带标签的二维表格
+      Labeled two-dimensional table
       index + columns + values
-      像 Excel 表格
-    Index 索引
-      自动对齐
+      Like an Excel table
+    Index
+      Automatic alignment
       set_index / reset_index
-      标签访问
-    常用方法
+      Label-based access
+    Common methods
       head / tail
       info / describe
       shape / dtypes / columns
@@ -522,34 +522,34 @@ mindmap
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：创建 Series
+### Exercise 1: Create a Series
 
 ```python
-# 创建一个 Series 表示一周每天的步数
-# 索引用 "周一" 到 "周日"
-# 1. 打印平均步数
-# 2. 找出步数最多的一天
-# 3. 找出步数超过 8000 的天数
+# Create a Series representing daily step counts for one week
+# Use "Monday" to "Sunday" as the index
+# 1. Print the average step count
+# 2. Find the day with the most steps
+# 3. Find the days with more than 8000 steps
 ```
 
-### 练习 2：创建 DataFrame
+### Exercise 2: Create a DataFrame
 
 ```python
-# 创建一个学生成绩 DataFrame，包含：
-# 姓名、语文、数学、英语 四列，至少 5 个学生
-# 1. 添加一列"总分"
-# 2. 添加一列"平均分"
-# 3. 添加一列"等级"（平均分>=90优秀，>=80良好，>=70中等，其他及格）
-# 4. 用 describe() 查看数值列的统计信息
+# Create a student score DataFrame containing:
+# Name, Chinese, Math, English columns, at least 5 students
+# 1. Add a "Total" column
+# 2. Add an "Average" column
+# 3. Add a "Grade" column (Average>=90 Excellent, >=80 Good, >=70 Medium, otherwise Pass)
+# 4. Use describe() to view statistics for the numeric columns
 ```
 
-### 练习 3：索引操作
+### Exercise 3: Index operations
 
 ```python
-# 使用练习 2 的 DataFrame
-# 1. 把"姓名"设为索引
-# 2. 通过姓名查找某个学生的所有成绩
-# 3. 重置索引
+# Use the DataFrame from Exercise 2
+# 1. Set "Name" as the index
+# 2. Find a student's full scores by name
+# 3. Reset the index
 ```

@@ -1,179 +1,179 @@
 ---
-title: "5.2 注意力机制 🔧"
+title: "5.2 Attention Mechanism 🔧"
 sidebar_position: 1
-description: "从为什么需要注意力，到 Q/K/V、缩放点积、自注意力、多头和掩码，真正理解 Transformer 的心脏。"
+description: "From why attention is needed, to Q/K/V, scaled dot-product, self-attention, multi-head attention, and masks, truly understand the heart of Transformer."
 keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 ---
 
-# 注意力机制
+# Attention Mechanism
 
-![Self-Attention QKV 结构图](/img/course/self-attention-qkv.png)
+![Self-Attention QKV structure diagram](/img/course/self-attention-qkv-en.png)
 
-:::tip 本节定位
-如果说 RNN 是“按顺序边读边记”，那注意力机制就是另一种思路：
+:::tip Section overview
+If RNN is “reading and remembering step by step in order,” then attention is another way of thinking:
 
-> **读当前词时，直接回头看整句里最相关的部分。**
+> **When reading the current word, directly look back at the most relevant parts of the whole sentence.**
 
-这就是 Transformer 能崛起的根部原因之一。
+This is one of the fundamental reasons Transformer was able to rise.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么序列建模需要注意力机制
-- 用直觉理解 Query / Key / Value
-- 手算一个最小注意力例子
-- 理解 self-attention、multi-head 和 mask 的作用
-- 看懂 PyTorch 里的 `MultiheadAttention`
+- Understand why sequence modeling needs attention
+- Build an intuitive understanding of Query / Key / Value
+- Manually compute a minimal attention example
+- Understand the roles of self-attention, multi-head attention, and masks
+- Read PyTorch’s `MultiheadAttention`
 
-## 新人先掌握 / 进阶再理解
+## What beginners should focus on / what advanced learners should understand later
 
-如果你是新人，这一节先抓住一句话：注意力是在当前词需要理解自己时，回头看整句话里哪些词最相关。先别急着背 Q/K/V 公式，先理解“相关性打分 -> softmax 权重 -> 加权汇总”这条链。
+If you are a beginner, first focus on this one sentence: attention means that when the current word needs to understand itself, it looks back at which words in the whole sentence are most relevant. Don’t rush to memorize the Q/K/V formulas yet; first understand the chain of “relevance scoring -> softmax weights -> weighted aggregation.”
 
-如果你已经有经验，可以进一步关注：Q/K/V 的矩阵形状、为什么要除以 `sqrt(d_k)`、mask 如何防止偷看未来、多头注意力为什么能从多个子空间看关系。
+If you already have experience, you can further focus on: the matrix shapes of Q/K/V, why we divide by `sqrt(d_k)`, how masks prevent peeking into the future, and why multi-head attention can view relationships from multiple subspaces.
 
 ---
 
-## 历史背景：Transformer 来自哪篇论文？
+## Historical background: Where did Transformer come from?
 
-这一节最值得知道的历史节点是：
+The historical milestone worth knowing in this section is:
 
-| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+| Year | Paper | Key author(s) | What it most importantly solved |
 |---|---|---|---|
-| 2017 | *Attention Is All You Need* | Vaswani 等 | 用 self-attention 替代 RNN 主线，显著改善并行训练能力，并缩短长距离依赖的信息路径 |
+| 2017 | *Attention Is All You Need* | Vaswani et al. | Replaced the main RNN pipeline with self-attention, significantly improved parallel training, and shortened the information path for long-range dependencies |
 
-对新人来说，最值得先记的不是作者名，而是这句话：
+For beginners, what is most worth remembering is not the authors’ names, but this sentence:
 
-> **Transformer 之所以重要，不只是因为它“更强”，而是因为它把序列建模从“按顺序传”改成了“直接全局关联”。**
+> **Transformer matters not only because it is “stronger,” but because it changed sequence modeling from “passing information step by step” to “direct global association.”**
 
-所以这节课里你看到的注意力，不是一个局部小技巧，  
-而是整个 Transformer 路线真正的心脏。
-
----
-
-## 这节和 RNN 主线是怎么接上的
-
-### 先看一个故事：阅读理解时你不会只记最后一句
-
-想象你在做阅读理解，题目问：“文中‘他’指的是谁？”你不会只看这个字前面的最后一个词，而会回到整句话甚至整段里找线索。哪个名字、哪个动作和这个“他”最相关，你就会把注意力放到那里。
-
-RNN 更像按顺序把信息一站一站传下去，长距离信息容易变弱。注意力机制更像允许当前位置直接回头看所有位置，并给每个位置分配不同权重。这样模型就不必把整句话压进一个固定长度记忆里。
-
-如果你刚学完 RNN，可以先把这节理解成：
-
-- RNN 是“按顺序边读边记”
-- 注意力是“当前位直接去看全局最相关的部分”
-
-所以这节真正新增的关键，不是公式，而是：
-
-- 当前位不再只依赖一步步传下来的隐藏状态
-- 而是可以直接建立远距离关系
-
-## 一、为什么要有注意力机制？
-
-### 1.1 先看 Seq2Seq 的一个痛点
-
-早期的编码器-解码器结构常常这样做：
-
-1. 编码器把整句输入压成一个固定长度向量
-2. 解码器再根据这个向量生成输出
-
-问题是：
-
-> 一整句的所有信息都被塞进一个固定向量里，长句子特别容易丢信息。
-
-比如翻译这句话：
-
-> “这家餐厅虽然位置很偏，但因为老板特别热情、菜量很大、价格也合理，所以我还是愿意再去。”
-
-如果模型到生成最后半句时，还要回忆前面的“老板特别热情”，固定向量往往不够灵活。
-
-### 1.2 注意力的核心改进
-
-注意力机制说：
-
-> 不要把整句压成一个点。当前处理某一步时，直接去看整句里哪些部分最相关。
-
-这就像你答阅读理解时，不是把整篇文章全部背下来再答，而是：
-
-- 看到问题
-- 回到原文
-- 找最相关的句子
-
-这就是注意力的直觉。
-
-### 1.3 这一节最该先抓住的，不是 QKV，而是“为什么要变”
-
-也就是说，先别急着背 Q / K / V。  
-先把这个问题立住：
-
-- 如果固定长度向量会丢信息
-- 如果长依赖很难靠一步步传递
-
-那模型就需要一种更灵活的“随时回头看”的机制。
-
-这个问题立住了，后面的 QKV 才不会变成纯记忆题。
+So the attention you see in this lesson is not a small local trick,
+but the true heart of the entire Transformer path.
 
 ---
 
-## 二、Query / Key / Value 到底是什么？
+## How this connects to the RNN storyline
 
-这是很多人一开始最迷糊的地方。
+### First, a story: when reading comprehension asks you a pronoun question, you do not just remember the last sentence
 
-### 2.1 一个查资料的类比
+Imagine you are doing reading comprehension and the question asks: “Who does ‘he’ refer to in the passage?” You would not only look at the last word before it; you would go back to the whole sentence or even the whole paragraph for clues. Which name, which action, is most relevant to this “he”? That is where you focus your attention.
 
-你要在资料库里找信息：
+RNN is more like passing information along step by step, with long-range information becoming weaker over time. Attention mechanism is more like allowing the current position to directly look at all positions and assign different weights to them. In this way, the model does not need to squeeze the whole sentence into a fixed-length memory.
 
-- **Query（查询）**：你现在想找什么
-- **Key（索引）**：每条资料告诉系统“我大概和什么相关”
-- **Value（内容）**：真正要取出来用的信息
+If you just finished learning RNN, you can first understand this section as:
 
-注意力的过程可以理解成：
+- RNN is “reading and remembering step by step in order”
+- Attention is “the current position directly looks at the most relevant parts globally”
 
-1. 用 Query 去和所有 Key 做匹配
-2. 匹配越强，说明越相关
-3. 再按相关程度加权汇总对应的 Value
+So the key new idea in this section is not the formula, but:
 
-### 2.2 一句话版本
+- The current position no longer depends only on the hidden state passed in step by step
+- Instead, it can directly build long-distance relationships
 
-> **Q 负责提问，K 负责被匹配，V 负责提供内容。**
+## 1. Why do we need attention mechanism?
 
-### 2.3 第一次学 QKV，最容易卡住什么？
+### 1.1 First, look at a pain point of Seq2Seq
 
-通常不是记不住英文，而是：
+Early encoder-decoder structures often worked like this:
 
-- 不知道它们为什么要拆成 3 个角色
+1. The encoder compresses the entire input sentence into a fixed-length vector
+2. The decoder generates the output based on that vector
 
-一个更稳的理解方式是：
+The problem is:
 
-- `Q` 决定“我现在关心什么”
-- `K` 决定“我大概对应什么内容”
-- `V` 决定“真正被取出来混合的内容是什么”
+> All the information in a whole sentence gets stuffed into one fixed vector, so long sentences are very likely to lose information.
 
-你先把“角色分工”理解了，后面再看矩阵形式会容易很多。
+For example, when translating this sentence:
 
-![注意力 QKV 图书馆检索类比图](/img/course/ch06-attention-qkv-library-analogy-map.png)
+> “Although this restaurant is in a very remote location, because the owner is especially warm and friendly, the portions are generous, and the prices are reasonable, I’m still willing to go again.”
 
-:::tip 读图提示
-这张图用查资料来读：`Q` 是你当前要问的问题，`K` 是每条资料贴出的索引标签，`V` 是真正要取出来的内容。注意力先用 `Q` 和所有 `K` 打分，再按权重混合 `V`。
+If the model still needs to remember the earlier part “the owner is especially warm and friendly” when generating the end of the sentence, a fixed vector is often not flexible enough.
+
+### 1.2 The core improvement of attention
+
+Attention mechanism says:
+
+> Don’t compress the whole sentence into one point. When handling a certain step, directly look at which parts of the sentence are most relevant.
+
+This is like answering reading-comprehension questions not by memorizing the whole article, but by:
+
+- seeing the question
+- going back to the original text
+- finding the most relevant sentences
+
+That is the intuition behind attention.
+
+### 1.3 What you should understand first in this section is not QKV, but “why the change is needed”
+
+In other words, don’t rush to memorize Q / K / V.
+First establish this question:
+
+- If a fixed-length vector loses information
+- If long dependencies are hard to pass along step by step
+
+then the model needs a more flexible mechanism that can “look back anytime.”
+
+Once this problem is clear, QKV will not feel like pure memorization.
+
+---
+
+## 2. What exactly are Query / Key / Value?
+
+This is often the most confusing part for beginners.
+
+### 2.1 A search-and-retrieval analogy
+
+You want to find information in a database:
+
+- **Query**: what you are looking for right now
+- **Key**: the index saying “what I am generally related to”
+- **Value**: the actual information to retrieve and use
+
+The attention process can be understood as:
+
+1. Use Query to match against all Keys
+2. The stronger the match, the more relevant it is
+3. Then aggregate the corresponding Values according to relevance weights
+
+### 2.2 One-sentence version
+
+> **Q asks the question, K gets matched, and V provides the content.**
+
+### 2.3 What is easiest to get stuck on when learning QKV for the first time?
+
+Usually it is not the English terms that are hard to remember, but:
+
+- not knowing why they need to be split into 3 roles
+
+A more stable way to understand it is:
+
+- `Q` decides “what I care about right now”
+- `K` decides “what content I roughly correspond to”
+- `V` decides “what content is actually retrieved and mixed”
+
+Once you understand this role division, the matrix form will be much easier to read later.
+
+![Library retrieval analogy diagram for attention QKV](/img/course/ch06-attention-qkv-library-analogy-map-en.png)
+
+:::tip Reading guide
+Read this image as a search-and-retrieval story: `Q` is the question you are asking now, `K` is the index tag attached to each document, and `V` is the actual content to retrieve. Attention first scores `Q` against all `K`, then mixes `V` according to the weights.
 :::
 
 ---
 
-## 三、最小可运行例子：手算注意力
+## 3. Minimal runnable example: calculate attention by hand
 
-### 3.1 先直接看代码
+### 3.1 Start by looking at the code directly
 
 ```python
 import numpy as np
 
-# 假设一共有 3 个 token
+# Suppose there are 3 tokens
 X = np.array([
     [1.0, 0.0],   # token1
     [0.0, 1.0],   # token2
     [1.0, 1.0]    # token3
 ])
 
-# 为了教学简单，这里直接让 Q K V 都等于 X
+# For teaching simplicity, let Q, K, and V all equal X directly
 Q = X
 K = X
 V = X
@@ -193,130 +193,130 @@ print("weights =\n", np.round(weights, 3))
 print("output =\n", np.round(output, 3))
 ```
 
-### 3.2 第一行最重要：`Q @ K.T`
+### 3.2 The most important first line: `Q @ K.T`
 
-这一步是在算：
+This step calculates:
 
-> 当前 token 和其他 token 有多相关
+> How relevant the current token is to the other tokens
 
-如果两个向量方向更接近，点积通常会更大。
+If two vectors point in more similar directions, their dot product is usually larger.
 
-### 3.3 第二步：softmax
+### 3.3 Second step: softmax
 
-softmax 会把这些相关性分数变成概率分布：
+softmax turns these relevance scores into a probability distribution:
 
-- 加起来等于 1
-- 可以当作“关注程度”
+- They add up to 1
+- They can be treated as “attention strength”
 
-### 3.4 第三步：`weights @ V`
+### 3.4 Third step: `weights @ V`
 
-这一步是在说：
+This step says:
 
-> 不再只看当前 token 自己，而是按相关性，把所有 token 的信息加权混合进来。
+> Instead of only looking at the current token itself, mix information from all tokens by weighting them according to relevance.
 
-这就得到新的表示。
+This gives a new representation.
 
-### 3.5 这一步为什么是 Transformer 崛起的根部能力之一？
+### 3.5 Why is this one of the fundamental capabilities behind Transformer’s rise?
 
-因为它第一次非常自然地做到了一件事：
+Because for the first time it naturally does one thing very well:
 
-- 当前位的表示，不再只由自己决定
-- 而是由“自己 + 其他位置和自己的相关程度”共同决定
+- The representation of the current position is no longer determined only by itself
+- It is determined jointly by “itself + how relevant other positions are to it”
 
-这意味着模型能更灵活地建立：
+This means the model can build more flexibly:
 
-- 长距离依赖
-- 多位置交互
-- 全局上下文
+- long-range dependencies
+- multi-position interactions
+- global context
 
 ---
 
-## 四、为什么要“缩放”？
+## 4. Why do we need to “scale”?
 
-### 4.1 缩放点积注意力的公式
+### 4.1 The formula for scaled dot-product attention
 
-Transformer 里常见的是：
+In Transformer, the common formula is:
 
 > `Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V`
 
-这里的 `sqrt(d_k)` 就是缩放项。
+Here, `sqrt(d_k)` is the scaling term.
 
-### 4.2 为什么要除这个数？
+### 4.2 Why divide by this number?
 
-因为维度一大，点积数值会变大，softmax 可能过于尖锐：
+Because when the dimension becomes large, dot products can become large too, and softmax may become too sharp:
 
-- 一个位置权重特别大
-- 其他位置几乎都接近 0
+- one position gets a very large weight
+- other positions become almost 0
 
-这样训练会变得不稳定。
+This makes training unstable.
 
-所以要缩放一下，让分数更温和。
+So we scale it down to make the scores gentler.
 
-你可以把它理解成：
+You can think of it like this:
 
-> 向量维度越大，点积天然越“激动”，所以先给它降个温。
-
----
-
-## 五、什么是 Self-Attention？
-
-### 5.1 Self-Attention 的关键
-
-当 Query / Key / Value 都来自同一段输入时，就叫 self-attention。
-
-这意味着：
-
-> 序列中的每个位置，都可以去看同一序列里其他位置。
-
-比如句子：
-
-> “小王把球给了小李，因为他接得很稳。”
-
-这里“他”指的是谁？  
-要判断，就要看前面其他词。
-
-self-attention 能直接建这种关系。
-
-### 5.2 和 RNN 的区别
-
-RNN：
-
-- 顺着时间一步一步传
-
-self-attention：
-
-- 当前位直接看全局
-
-这也是 Transformer 更适合长距离依赖的原因之一。
-
-### 5.3 Self-Attention 最值得先记的，不是名字，而是能力边界
-
-最值得先记的是：
-
-- 它让每个位置都能直接看整段序列
-
-这句话很重要，因为它正好对应了 RNN 的短板：
-
-- RNN 更像一步步传消息
-- Self-Attention 更像一次性建立全局关联
+> The larger the vector dimension, the more “excited” the dot product becomes naturally, so we cool it down first.
 
 ---
 
-## 六、Mask 是干什么的？
+## 5. What is Self-Attention?
 
-### 6.1 为什么生成任务要 mask？
+### 5.1 The key idea of self-attention
 
-在语言生成里，预测当前位置时不能偷看未来词。
+When Query / Key / Value all come from the same input sequence, it is called self-attention.
 
-例如预测：
+This means:
 
-> “我爱 ___”
+> Every position in the sequence can look at other positions in the same sequence.
 
-如果模型已经偷看到了后面的真实答案，那训练就失真了。
+For example, in the sentence:
 
-所以 decoder self-attention 里常会加 **causal mask**。
+> “Xiao Wang gave the ball to Xiao Li because he caught it very steadily.”
 
-### 6.2 一个最小掩码示例
+Who does “he” refer to?
+To decide, you need to look at the other words before it.
+
+Self-attention can directly build this kind of relationship.
+
+### 5.2 The difference from RNN
+
+RNN:
+
+- passes information step by step over time
+
+Self-attention:
+
+- the current position looks at the global context directly
+
+This is one reason Transformer is better at long-range dependencies.
+
+### 5.3 What is most worth remembering about self-attention is not the name, but its capability boundary
+
+What is most worth remembering is:
+
+- It allows each position to directly look at the entire sequence
+
+This sentence is important because it exactly corresponds to the weakness of RNN:
+
+- RNN is more like passing messages step by step
+- Self-Attention is more like building global connections all at once
+
+---
+
+## 6. What is Mask used for?
+
+### 6.1 Why do generation tasks need a mask?
+
+In language generation, when predicting the current position, you must not peek at future words.
+
+For example, when predicting:
+
+> “I love ___”
+
+If the model has already peeked at the true answer later on, the training is no longer valid.
+
+So decoder self-attention often adds a **causal mask**.
+
+### 6.2 A minimal mask example
 
 ```python
 import numpy as np
@@ -327,7 +327,7 @@ scores = np.array([
     [0.8, 1.3, 2.2]
 ])
 
-# 下三角可见，上三角屏蔽
+# Lower triangle is visible, upper triangle is masked
 mask = np.array([
     [1, 0, 0],
     [1, 1, 0],
@@ -345,60 +345,60 @@ weights = np.apply_along_axis(softmax, 1, masked_scores)
 print("masked weights =\n", np.round(weights, 3))
 ```
 
-你会看到：
+You will see:
 
-- 第 1 个位置只能看自己
-- 第 2 个位置只能看前两个
-- 第 3 个位置才能看前三个
+- The 1st position can only see itself
+- The 2nd position can only see the first two
+- The 3rd position can see the first three
 
-### 6.3 为什么 mask 一定要提前理解？
+### 6.3 Why must mask be understood early?
 
-因为一旦进入生成任务，如果不理解 mask，你就很容易搞不清：
+Because once you enter generation tasks, if you do not understand masks, you will easily get confused about:
 
-- 为什么训练时不能偷看未来
-- 为什么 decoder 和 encoder 的注意力行为不一样
+- why training cannot peek at the future
+- why decoder attention behaves differently from encoder attention
 
-所以 mask 不是边角概念，它直接关系到“生成任务到底是不是在按规则训练”。
+So mask is not a side concept; it directly affects whether the generation task is being trained according to the rules.
 
-![Causal Mask 防止偷看未来图](/img/course/ch06-causal-mask-no-peeking-map.png)
+![Causal Mask prevents peeking into the future diagram](/img/course/ch06-causal-mask-no-peeking-map-en.png)
 
-:::tip 读图提示
-读这张图时看下三角矩阵：第 1 个位置只能看自己，第 2 个位置只能看自己和过去，后面位置同理。生成任务如果不加 causal mask，就等于考试时提前看到了后面的答案。
+:::tip Reading guide
+When reading this image, look at the lower-triangular matrix: the 1st position can only see itself, the 2nd position can only see itself and the past, and so on. If generation tasks do not use a causal mask, it is like seeing the answers to later questions before the exam.
 :::
 
 ---
 
-## 七、多头注意力为什么要“多头”？
+## 7. Why does multi-head attention need “multiple heads”?
 
-### 7.1 不是一个头不够算，而是一个头不够看全
+### 7.1 It is not that one head cannot compute enough, but that one head cannot see everything
 
-单个注意力头可能只学到一种关系。  
-多头注意力的思路是：
+A single attention head may only learn one type of relationship.
+The idea of multi-head attention is:
 
-> 让模型从多个子空间、多个角度同时看关系。
+> Let the model look at relationships from multiple subspaces and multiple angles at the same time.
 
-比如不同头可能分别更关注：
+For example, different heads may focus more on:
 
-- 语法关系
-- 位置关系
-- 主谓宾关系
-- 长距离依赖
+- syntactic relations
+- positional relations
+- subject-verb-object relations
+- long-range dependencies
 
-### 7.2 一个直觉类比
+### 7.2 An intuitive analogy
 
-多头注意力像开会时请来几种不同角色的人一起看问题：
+Multi-head attention is like inviting different people to a meeting to look at the problem together:
 
-- 有人看语法
-- 有人看语义
-- 有人看结构
+- someone looks at syntax
+- someone looks at semantics
+- someone looks at structure
 
-最后把这些观察拼起来，理解会更完整。
+Finally, these observations are combined, and the understanding becomes more complete.
 
 ---
 
-## 八、PyTorch 中的 `MultiheadAttention`
+## 8. `MultiheadAttention` in PyTorch
 
-### 8.1 最小可运行示例
+### 8.1 Minimal runnable example
 
 ```python
 import torch
@@ -422,104 +422,104 @@ print("output shape:", out.shape)
 print("weights shape:", weights.shape)
 ```
 
-### 8.2 输出 shape 怎么看？
+### 8.2 How do we read the output shapes?
 
 - `out.shape = [4, 2, 8]`
-  - 每个位置输出一个新的 8 维表示
+  - Each position outputs a new 8-dimensional representation
 
 - `weights.shape = [2, 4, 4]`
-  - 2 个 batch
-  - 每个 batch 里都是 `4x4` 的注意力矩阵
+  - 2 batches
+  - Each batch has a `4x4` attention matrix
 
-也就是说：
+That is to say:
 
-> 每个位置都在给序列中所有位置分配注意力权重。
-
----
-
-## 九、注意力机制真正解决了什么？
-
-可以总结成三句话：
-
-1. 不再依赖单一路径逐步传递信息
-2. 当前位可以直接利用全局上下文
-3. 更容易并行计算
-
-这三点一结合，Transformer 就变得非常强。
+> Each position assigns attention weights to all positions in the sequence.
 
 ---
 
-## 十、一个常见错误：把注意力权重当成“最终解释”
+## 9. What does attention mechanism really solve?
 
-注意力权重很直观，所以很多新人会下意识认为：权重高就等于模型“真正理解了原因”。这个理解要谨慎。
+You can summarize it in three sentences:
 
-注意力权重只能说明在这一层、这个头、这个位置的计算里，某些 token 被赋予了更高权重。它很适合帮助你理解信息混合过程，但不能简单等同于完整因果解释。
+1. It no longer relies on a single path to pass information step by step
+2. The current position can directly use global context
+3. It is easier to compute in parallel
+
+When these three points are combined, Transformer becomes extremely powerful.
+
+---
+
+## 10. A common mistake: treating attention weights as the “final explanation”
+
+Attention weights are very intuitive, so many beginners naturally think: a high weight means the model has “truly understood the reason.” Be careful with this understanding.
+
+Attention weights only show that in this layer, this head, and this position’s computation, certain tokens were given higher weights. They are very useful for helping you understand the information mixing process, but they cannot simply be equated with a complete causal explanation.
 
 ```mermaid
 flowchart LR
-    A["注意力权重高"] --> B["说明当前位置更多混合了该位置的信息"]
-    B --> C["有助于观察模型关注点"]
-    C --> D["但不等于完整推理原因"]
+    A["High attention weight"] --> B["Means the current position mixed more information from that position"]
+    B --> C["Useful for observing what the model focuses on"]
+    C --> D["But not equal to the complete reason for the reasoning"]
 ```
 
-所以第一次看 attention 可视化时，最稳的说法是：“这个头在这一层更关注这些位置”，而不是直接说“模型就是因为这个词才得出结论”。
+So the most reliable way to describe attention visualizations the first time you see them is: “this head focuses more on these positions in this layer,” rather than directly saying “the model drew its conclusion because of this word.”
 
 ---
 
-## 十一、这一节的学习闭环
+## 11. Learning loop for this section
 
-学完这一节后，可以用下面这张表自测：
+After finishing this section, you can self-check with the table below:
 
-| 层次 | 你应该能做到什么 |
+| Level | What you should be able to do |
 |---|---|
-| 直觉 | 能解释为什么注意力比固定向量更适合处理长句子 |
-| 代码 | 能读懂 `Q @ K.T`、softmax 和 `weights @ V` 的作用 |
-| 结构 | 能分清 self-attention、mask、multi-head 分别解决什么问题 |
-| 后续连接 | 能说明为什么 Transformer、大模型和多模态模型都离不开注意力 |
+| Intuition | Explain why attention is more suitable than a fixed vector for long sentences |
+| Code | Read the roles of `Q @ K.T`, softmax, and `weights @ V` |
+| Structure | Distinguish what self-attention, mask, and multi-head attention each solve |
+| Future connection | Explain why Transformer, large models, and multimodal models all rely on attention |
 
 ---
 
-## 十二、初学者最常踩的坑
+## 12. Common mistakes beginners make
 
-### 12.1 把 Q / K / V 当成三种“神秘变量”
+### 12.1 Treating Q / K / V as three “mysterious variables”
 
-其实先按“查询 / 索引 / 内容”理解就够了。
+It is enough at first to understand them as “query / index / content.”
 
-### 12.2 只看公式，不看矩阵形状
+### 12.2 Looking only at the formula and not at the matrix shapes
 
-注意力这类章节最容易在 shape 上翻车。  
-一定要盯住：
+Attention chapters are easiest to get wrong on shapes.
+Be sure to watch:
 
-- 序列长度
-- embedding 维度
-- 头数
+- sequence length
+- embedding dimension
+- number of heads
 
-### 12.3 以为注意力天然理解一切
+### 12.3 Thinking attention naturally understands everything
 
-注意力机制很强，但它不是“自动推理魔法”。  
-它本质上仍然是：
+The attention mechanism is powerful, but it is not “automatic reasoning magic.”
+Its essence is still:
 
-- 相关性打分
+- relevance scoring
 - softmax
-- 加权求和
+- weighted summation
 
-理解这一点，后面学 Transformer 会更踏实。
-
----
-
-## 小结
-
-这一节最关键的不是记住那条公式，而是抓住这个直觉：
-
-> **注意力机制让模型在当前时刻，能有选择地回头看整段输入中最相关的部分。**
-
-这正是 Transformer、大模型、多模态模型能大幅提升上下文建模能力的核心原因。
+Understanding this will make later Transformer learning much more solid.
 
 ---
 
-## 十三、练习
+## Summary
 
-1. 改一下最小注意力示例里的 `Q / K / V`，观察权重怎样变化。
-2. 把 mask 示例改成更长序列，看看未来位置如何被屏蔽。
-3. 用自己的话解释：为什么 self-attention 比单纯 RNN 更容易建模长距离依赖？
-4. 想一想：如果一个 token 对所有位置的注意力都差不多，这通常说明什么？
+The most important thing in this section is not memorizing the formula, but grasping this intuition:
+
+> **Attention mechanism allows the model, at the current moment, to selectively look back at the most relevant parts of the entire input.**
+
+This is exactly the core reason why Transformer, large models, and multimodal models can greatly improve context modeling ability.
+
+---
+
+## 13. Exercises
+
+1. Change `Q / K / V` in the minimal attention example and observe how the weights change.
+2. Modify the mask example to a longer sequence and see how future positions are blocked.
+3. Explain in your own words: why is self-attention easier than a plain RNN for modeling long-range dependencies?
+4. Think about it: if a token has almost the same attention to all positions, what does that usually mean?

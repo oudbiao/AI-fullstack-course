@@ -1,191 +1,191 @@
 ---
-title: "持续学习方法论"
+title: "Continuous Learning Methodology"
 sidebar_position: 4
 ---
 
-# AI 领域持续学习方法论
+# Continuous Learning Methodology in AI
 
-![持续学习三层飞轮图](/img/course/appendix-continuous-learning-flywheel.png)
+![Three-layer continuous learning flywheel diagram](/img/course/appendix-continuous-learning-flywheel-en.png)
 
-![论文 项目 知识库复盘循环图](/img/course/appendix-learning-paper-project-notes-loop.png)
+![Paper, project, knowledge base review loop diagram](/img/course/appendix-learning-paper-project-notes-loop-en.png)
 
-:::tip 读图提示
-持续学习最怕只收藏不沉淀。读图时把论文、代码实验、项目复盘和知识库卡片连成循环：每看一个新东西，都要回到“它能改进哪个项目或判断”。
+:::tip Reading the diagram
+The biggest trap in continuous learning is collecting without consolidating. When reading the diagram, connect papers, code experiments, project retrospectives, and knowledge base cards into a loop: every time you see something new, ask yourself, “Which project or decision can this improve?”
 :::
 
-AI 领域变化快，但“持续学习”不等于天天追新闻。真正有效的方法，是把基础、项目和前沿更新分层处理。
+The AI field changes quickly, but “continuous learning” does not mean following the news every day. The truly effective approach is to handle fundamentals, projects, and frontier updates in separate layers.
 
-## 1. 先分清三类学习
+## 1. First distinguish three types of learning
 
-### 1.1 基础学习
+### 1.1 Foundational learning
 
-这一层解决的是“长期不会过时的能力”，例如：
+This layer solves the problem of “skills that won’t go out of date anytime soon,” such as:
 
 - Python
-- 数据处理
-- 数学基础
-- 机器学习与深度学习核心概念
-- 工程调试和排障
+- Data processing
+- Math fundamentals
+- Core concepts of machine learning and deep learning
+- Engineering debugging and troubleshooting
 
-这类内容更新没有那么快，但决定你能不能接住后面的变化。
+This kind of content does not change very quickly, but it determines whether you can keep up with later changes.
 
-### 1.2 项目学习
+### 1.2 Project learning
 
-这一层解决的是“把知识变成系统”的能力，例如：
+This layer develops the ability to “turn knowledge into systems,” such as:
 
-- 做一个分类项目
-- 做一个 RAG 系统
-- 做一个 Agent 工作流
+- Building a classification project
+- Building a RAG system
+- Building an Agent workflow
 
-项目学习会逼你真正面对：
+Project learning forces you to face real-world issues:
 
-- 输入输出设计
-- 评估
-- 错误处理
-- 成本和稳定性
+- Input/output design
+- Evaluation
+- Error handling
+- Cost and stability
 
-### 1.3 前沿跟踪
+### 1.3 Frontier tracking
 
-这一层解决的是“知道行业在往哪走”。它重要，但不能反过来替代前两层。
+This layer helps you understand “where the industry is heading.” It matters, but it should not replace the first two layers.
 
-很多人学乱，就是因为把“跟热点”当成“在学习”。
+Many people end up learning in a messy way because they treat “following trends” as “learning.”
 
-## 2. 一个更稳的学习节奏
+## 2. A steadier learning rhythm
 
-下面这套节奏对大多数人比较友好：
+The following rhythm is friendly for most people:
 
-| 周期 | 重点 | 产出 |
+| Period | Focus | Output |
 |---|---|---|
-| 每天 | 课程或项目推进 | 代码、笔记、问题记录 |
-| 每周 | 一次复盘 | 本周学会了什么、卡在哪里 |
-| 每两周 | 一个小闭环 | 一个可运行实验或小项目 |
-| 每月 | 一次总结 | 知识地图、项目回顾、下月计划 |
+| Every day | Course or project progress | Code, notes, problem logs |
+| Every week | One review session | What you learned this week, where you got stuck |
+| Every two weeks | One small closed loop | A runnable experiment or small project |
+| Every month | One summary | Knowledge map, project review, next month’s plan |
 
-如果你只有碎片时间，更建议把目标压小，而不是停掉。
+If you only have fragmented time, it is better to shrink your goals than to stop altogether.
 
-## 3. 如何阅读论文而不被劝退
+## 3. How to read papers without getting discouraged
 
-新手最容易犯的错，是按正文顺序硬啃整篇论文。
+The most common mistake beginners make is forcing themselves to read an entire paper from top to bottom in order.
 
-更实用的顺序通常是：
+A more practical order is usually:
 
-1. 先看标题和摘要  
-   先知道论文想解决什么问题。
+1. Read the title and abstract first
+   Get a sense of what problem the paper is trying to solve.
 
-2. 再看图、表和实验结果  
-   先知道作者声称自己做成了什么。
+2. Then look at the figures, tables, and experimental results
+   See what the authors claim they achieved.
 
-3. 再看方法总览图  
-   先建立整体流程感。
+3. Then read the overview diagram of the method
+   Build a high-level sense of the workflow first.
 
-4. 最后再回到方法细节  
-   这时你才更容易理解模块意义。
+4. Finally go back to the method details
+   At this point, the meaning of each module is easier to understand.
 
-### 3.1 读论文时最值得记什么
+### 3.1 What is worth taking notes on when reading a paper
 
-不是把整篇抄一遍，而是记录：
+Do not copy the entire paper. Instead, record:
 
-- 这篇文章解决什么问题
-- 为什么之前的方法不够
-- 它最关键的改动是什么
-- 实验是怎么证明它有效的
-- 这和我当前项目有什么关系
+- What problem the paper solves
+- Why previous methods were not enough
+- What the key change is
+- How the experiments prove it works
+- How this relates to your current project
 
-你可以直接用下面这个模板：
+You can use the following template directly:
 
 ```text
-论文标题：
-任务：
-核心改动：
-最重要的一张图或一个实验：
-我现在最能用上的点：
-我还没看懂的地方：
+Paper title:
+Task:
+Core change:
+Most important figure or experiment:
+What I can use right now:
+What I still don’t understand:
 ```
 
-## 4. 如何跟踪前沿而不焦虑
+## 4. How to follow the frontier without feeling anxious
 
-更推荐“低频但稳定”的方式，而不是每天刷一堆信息流。
+A “low-frequency but consistent” approach is better than scrolling through a flood of updates every day.
 
-例如：
+For example:
 
-- 每周固定半小时看一次论文摘要或技术博客
-- 每月选 1～2 个真正相关的主题深入看
-- 看到有意思的内容，先收藏到自己的主题清单
+- Spend 30 minutes once a week reading paper abstracts or technical blogs
+- Each month, choose 1–2 truly relevant topics to explore more deeply
+- When you see something interesting, save it first into your own topic list
 
-你不需要什么都跟。真正值得跟的是：
+You do not need to follow everything. What is truly worth following is:
 
-- 和你当前项目直接相关
-- 和你目标岗位直接相关
-- 会影响你接下来三个月学习路线
+- Directly related to your current project
+- Directly related to your target role
+- Likely to affect your learning path over the next three months
 
-## 5. 如何把“看过”变成“会用”
+## 5. How to turn “I have seen it” into “I can use it”
 
-一个知识点只有进了项目，才更容易留下来。
+A concept is more likely to stick only after it enters a project.
 
-更好的做法是：
+A better approach is:
 
-1. 学一个概念
-2. 跑一个最小例子
-3. 改一个参数或输入
-4. 把它放进自己项目的小模块
-5. 写一句自己的理解
+1. Learn one concept
+2. Run a minimal example
+3. Change one parameter or input
+4. Put it into a small module in your own project
+5. Write one sentence of your own understanding
 
-如果你只停在第 1 步和第 2 步，记忆通常很快就会散掉。
+If you stop at step 1 or step 2, the memory usually fades quickly.
 
-## 6. 什么时候该回头复习
+## 6. When should you go back and review
 
-下面这些信号说明你该复习了：
+The following signals mean it is time to review:
 
-- 你能跑代码，但解释不清原理
-- 你会复制示例，但不会自己改
-- 你做项目时经常想不起前面学过什么
-- 你只能记住名词，连不到任务里
+- You can run the code, but cannot explain the principle clearly
+- You can copy examples, but cannot modify them yourself
+- When doing a project, you often cannot remember what you learned earlier
+- You can only remember terms, but cannot connect them to tasks
 
-复习时不要整章重看，优先做这三件事：
+When reviewing, do not reread the whole chapter. Prioritize these three things:
 
-1. 重画任务流程图
-2. 重跑最小例子
-3. 总结最常见错误
+1. Redraw the task workflow
+2. Rerun the minimal example
+3. Summarize the most common mistakes
 
-## 7. 怎样建立自己的知识库
+## 7. How to build your own knowledge base
 
-建议把笔记分成三层：
+It is recommended to divide your notes into three layers:
 
-### 7.1 概念层
+### 7.1 Concept layer
 
-记录一个概念是什么、和什么概念容易混淆。
+Record what a concept is and what it is easy to confuse with.
 
-### 7.2 代码层
+### 7.2 Code layer
 
-记录最小示例、常见坑和关键参数。
+Record minimal examples, common pitfalls, and key parameters.
 
-### 7.3 项目层
+### 7.3 Project layer
 
-记录你在真实项目里怎么用它、效果怎样、哪里踩坑。
+Record how you used it in a real project, how it performed, and where you ran into problems.
 
-这样的笔记会比单纯摘抄教程更有用，因为它是“你自己的可复用知识”。
+These notes will be much more useful than simply copying tutorials, because they become “your own reusable knowledge.”
 
-## 8. 如何避免“学了很多，却没有成果”
+## 8. How to avoid “I learned a lot, but have no results”
 
-最有效的办法是给每个阶段设置看得见的产出。
+The most effective method is to set visible outputs for each stage.
 
-例如：
+For example:
 
-- 学完数据分析：完成一份分析报告
-- 学完机器学习：完成一个分类项目
-- 学完深度学习：完成一个训练闭环实验
-- 学完 RAG：做一个能回答问题的知识库助手
-- 学完 Agent：做一个能调用工具的工作流系统
+- After learning data analysis: complete an analysis report
+- After learning machine learning: complete a classification project
+- After learning deep learning: complete a training loop experiment
+- After learning RAG: build a knowledge base assistant that can answer questions
+- After learning Agent: build a workflow system that can call tools
 
-有产出，学习才更容易沉淀。
+With outputs, learning is easier to consolidate.
 
-## 9. 一个现实可执行的长期策略
+## 9. A realistic and executable long-term strategy
 
-如果你不想被节奏拖垮，可以用这条主线：
+If you do not want the pace to wear you down, you can follow this main line:
 
-- 平时以课程和项目为主
-- 定期少量跟踪前沿
-- 只在需要时深读论文
-- 每个月固定做一次复盘
+- Focus mainly on courses and projects in daily learning
+- Track the frontier in small amounts on a regular basis
+- Read papers deeply only when needed
+- Do a fixed review once a month
 
-这样做的好处是：你既不会完全脱离行业变化，也不会被更新速度卷走。
+The benefit of this approach is that you will not completely drift away from industry changes, and you also will not get swept away by the speed of updates.

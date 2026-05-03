@@ -1,183 +1,183 @@
 ---
-title: "6.4 其他 PEFT 方法【选修】"
+title: "6.4 Other PEFT Methods [Optional]"
 sidebar_position: 21
-description: "从 Prompt Tuning、Prefix Tuning、Adapter 到 IA3，理解除了 LoRA 之外，参数高效微调还可以把可训练部分放在哪里。"
+description: "From Prompt Tuning and Prefix Tuning to Adapter and IA3, understand where the trainable part can be placed in parameter-efficient fine-tuning besides LoRA."
 keywords: [PEFT, prompt tuning, prefix tuning, adapter, IA3, finetuning]
 ---
 
-# 其他 PEFT 方法【选修】
+# Other PEFT Methods [Optional]
 
-:::tip 本节定位
-前一节我们已经知道了 LoRA 和 QLoRA 的主线：  
-不重训整个大模型，而是只训练少量增量参数。
+:::tip Section overview
+In the previous section, we already learned the main storyline of LoRA and QLoRA:
+instead of retraining the entire large model, we only train a small number of additional parameters.
 
-但 PEFT 不是只有 LoRA 一条路。真正该问的问题其实是：
+But PEFT is not only LoRA. The real question is actually:
 
-> **我们到底想把“可训练能力”放在模型的哪里？**
+> **Where exactly do we want to place the “trainable capability” in the model?**
 
-- 放在输入侧，可以变成 Prompt Tuning
-- 放在每一层的上下文前缀，可以变成 Prefix Tuning
-- 放在层与层之间的小模块，可以变成 Adapter
-- 放在中间激活的缩放系数上，可以变成 IA3
+- Put it on the input side, and it becomes Prompt Tuning
+- Put it in the context prefix of each layer, and it becomes Prefix Tuning
+- Put it in a small module between layers, and it becomes Adapter
+- Put it on the scaling factors of intermediate activations, and it becomes IA3
 
-这一节就是把这几条支线整理成一张能真正拿来选型的地图。
+This section organizes these branches into a map that you can really use for choosing an approach.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 Prompt Tuning、Prefix Tuning、Adapter、IA3 分别在改哪里
-- 知道这些方法和 LoRA 的核心差异
-- 跑通一个真正与 PEFT 主题相关的 Adapter 最小训练示例
-- 建立多任务、低显存、快速切换场景下的选型直觉
-
----
-
-## 一、为什么 LoRA 不是唯一答案？
-
-### 1.1 PEFT 真正想解决的不是“发明缩写”
-
-PEFT 的根问题很朴素：
-
-> **冻结大模型主体，只训练很小一部分参数，还能不能把模型拉向新任务？**
-
-只要这个目标不变，“训练哪一小部分参数”就会自然衍生出很多变体。
-
-所以这些方法之间最大的区别，不是名字，而是：
-
-- 可训练参数放在哪里
-- 它会影响模型的哪一段信息流
-- 训练成本、推理成本、可复用性分别怎样
-
-### 1.2 一个类比：给同一台电脑做轻量改造
-
-你可以把基础模型想成一台已经装好的电脑：
-
-- Prompt Tuning 像是给开机桌面多放几张“隐藏便签”
-- Prefix Tuning 像是给每个软件启动前都预先塞一点上下文
-- Adapter 像是在主板上插一个很小的扩展卡
-- IA3 像是在几个关键旋钮上加可调节的增益控制
-
-它们都不是重做整台电脑，  
-而是在不同位置加一层可调结构。
-
-### 1.3 为什么现实项目里会需要这些分支？
-
-因为工程上的约束并不完全一样：
-
-- 有的团队最在意显存
-- 有的团队最在意多任务热切换
-- 有的团队最在意推理时不要额外拖慢
-- 有的团队想让同一个底座挂很多领域适配器
-
-同样是 PEFT，最优方法未必相同。
+- Understand where Prompt Tuning, Prefix Tuning, Adapter, and IA3 each make changes
+- Know the core differences between these methods and LoRA
+- Run a minimal Adapter training example that is truly related to the PEFT topic
+- Build intuition for choosing methods in multi-task, low-memory, fast-switching scenarios
 
 ---
 
-## 二、先把 PEFT 家族地图理清楚
+## 1. Why isn’t LoRA the only answer?
 
-### 2.1 Prompt Tuning：把可训练部分放在输入前面
+### 1.1 What PEFT is really trying to solve is not “inventing acronyms”
 
-Prompt Tuning 的直觉是：
+The core problem of PEFT is very simple:
 
-> **不改模型层内部结构，而是在输入 embedding 前面接上一小段可训练“软提示”。**
+> **If we freeze the main body of a large model and train only a very small part of the parameters, can we still adapt the model to a new task?**
 
-这里的 prompt 不是你手写的自然语言，而是一组可训练向量。
+As long as this goal stays the same, “which small part of the parameters to train” will naturally lead to many variants.
 
-它的优点是：
+So the biggest difference between these methods is not their names, but:
 
-- 参数极少
-- 实现概念清晰
-- 适合任务数量很多、每个任务适配都要很轻的时候
+- Where the trainable parameters are placed
+- Which part of the model’s information flow they affect
+- How training cost, inference cost, and reusability compare
 
-它的局限是：
+### 1.2 An analogy: making lightweight modifications to the same computer
 
-- 对复杂任务的改造力度有限
-- 主要影响输入端，不像层内改造那样深入
+You can think of a base model as a computer that is already assembled:
 
-### 2.2 Prefix Tuning：给每一层加“前缀上下文”
+- Prompt Tuning is like putting a few hidden sticky notes on the desktop at startup
+- Prefix Tuning is like preloading some context before each software starts
+- Adapter is like plugging a tiny expansion card into the motherboard
+- IA3 is like adding adjustable gain controls to a few key knobs
 
-Prefix Tuning 比 Prompt Tuning 更进一步。
+None of these rebuild the whole computer.
+They all add a layer of adjustable structure at different positions.
 
-它不是只在输入最前面加向量，而是：
+### 1.3 Why do real projects need these branches?
 
-> **给 Transformer 每一层的注意力模块额外准备一段可训练的 key/value 前缀。**
+Because engineering constraints are not exactly the same:
 
-你可以把它理解成：
+- Some teams care most about memory usage
+- Some care most about fast task switching
+- Some care most about not slowing down inference
+- Some want to attach many domain adapters to the same base model
 
-- Prompt Tuning 更像只在开头塞一句“任务说明”
-- Prefix Tuning 则像是每一层在做注意力时，都能看到一段额外的上下文提示
+Even though they are all PEFT, the best method may not be the same.
 
-因此它通常比 Prompt Tuning 更有表达力。
+---
 
-### 2.3 Adapter：在层与层之间插小模块
+## 2. First, clarify the PEFT family map
 
-Adapter 的思路很适合新手理解，因为它最像“明确加了一个插件”。
+### 2.1 Prompt Tuning: put the trainable part in front of the input
 
-常见结构是：
+The intuition behind Prompt Tuning is:
 
-1. 原始隐藏状态先经过一个降维层
-2. 中间做非线性变换
-3. 再升回原来的维度
-4. 通过残差连接加回主干
+> **Instead of changing the internal structure of the model, attach a small set of trainable “soft prompts” before the input embedding.**
 
-也就是：
+Here, the prompt is not natural language that you manually write, but a set of trainable vectors.
 
-> **主干冻结，旁边多插一个很小的可训练旁路。**
+Its advantages are:
 
-它的工程优点很明显：
+- Extremely few parameters
+- Clear concept and easy to understand
+- Suitable when there are many tasks and each task adaptation should be very light
 
-- 不用大改原模型主体
-- 各个任务可以挂不同 adapter
-- 多任务切换时只换小模块即可
+Its limitations are:
 
-### 2.4 IA3：不学大矩阵，而学“缩放系数”
+- Limited ability to transform complex tasks
+- Mainly affects the input side, not as deep as layer-level modifications
 
-IA3 的思路更节制：
+### 2.2 Prefix Tuning: add “prefix context” to each layer
 
-> **不插小网络，也不学大增量，而是只学习少量的逐通道缩放向量。**
+Prefix Tuning goes one step further than Prompt Tuning.
 
-例如在注意力输出或前馈层激活上做：
+Instead of adding vectors only at the very beginning of the input, it:
 
-- 某些维度放大
-- 某些维度压低
+> **prepares an extra trainable key/value prefix for the attention module in each Transformer layer.**
 
-这意味着：
+You can think of it like this:
 
-- 参数更少
-- 训练更轻
-- 但可表达能力也相对更克制
+- Prompt Tuning is more like inserting a sentence of “task instructions” at the beginning
+- Prefix Tuning is like every layer can see an extra piece of contextual guidance when doing attention
 
-### 2.5 四种方法放在一起看
+So it usually has stronger expressiveness than Prompt Tuning.
 
-| 方法 | 可训练部分放在哪里 | 直觉 | 常见优点 | 常见局限 |
+### 2.3 Adapter: insert a small module between layers
+
+Adapter is easy for beginners to understand because it is most like “explicitly adding a plugin.”
+
+A common structure is:
+
+1. The original hidden state first goes through a down-projection layer
+2. A non-linear transformation is applied in the middle
+3. Then it is projected back to the original dimension
+4. It is added back to the main path through a residual connection
+
+In other words:
+
+> **Freeze the main path, and insert a tiny trainable side path next to it.**
+
+Its engineering advantages are very clear:
+
+- No major changes to the original model body
+- Different tasks can use different adapters
+- When switching tasks, you only need to swap the small module
+
+### 2.4 IA3: instead of learning a large matrix, learn “scaling coefficients”
+
+The idea behind IA3 is even more restrained:
+
+> **Instead of inserting a small network or learning a large increment, only learn a small number of per-channel scaling vectors.**
+
+For example, on attention outputs or feed-forward activations, it can:
+
+- Amplify some dimensions
+- Suppress some dimensions
+
+This means:
+
+- Fewer parameters
+- Lighter training
+- But also relatively more limited expressive power
+
+### 2.5 Looking at the four methods together
+
+| Method | Where the trainable part is placed | Intuition | Common advantages | Common limitations |
 |---|---|---|---|---|
-| Prompt Tuning | 输入 embedding 前 | 给模型塞一段软提示 | 参数极少 | 改造力度有限 |
-| Prefix Tuning | 每层注意力的 KV 前缀 | 每层都能看到额外上下文 | 表达力比软提示更强 | 实现复杂度更高 |
-| Adapter | 层间小瓶颈模块 | 插一个轻量插件 | 多任务切换方便 | 推理会多一小段计算 |
-| IA3 | 激活缩放向量 | 调关键通道的增益 | 参数极少、实现轻 | 对复杂变化的表达较弱 |
+| Prompt Tuning | Before the input embedding | Feed the model a soft prompt | Extremely few parameters | Limited transformation power |
+| Prefix Tuning | KV prefix in each layer’s attention | Each layer sees extra context | More expressive than soft prompts | Higher implementation complexity |
+| Adapter | Small bottleneck module between layers | Insert a lightweight plugin | Easy multi-task switching | Adds a little extra computation at inference |
+| IA3 | Activation scaling vector | Adjust the gain of key channels | Extremely few parameters, lightweight implementation | Weaker expressiveness for complex changes |
 
-![PEFT 方法可训练参数放置位置图](/img/course/ch07-peft-placement-family-map.png)
+![Diagram of where trainable parameters are placed in PEFT methods](/img/course/ch07-peft-placement-family-map-en.png)
 
-:::tip 读图提示
-这张图不要按方法名背，而要看“可训练部分放在哪里”：Prompt Tuning 放输入前，Prefix Tuning 放每层注意力 KV 前缀，Adapter 插层间小模块，IA3 调通道缩放。位置不同，成本、表达力和切换方式就不同。
+:::tip Reading tip
+Don’t memorize this figure by method name. Focus on “where the trainable part is placed”: Prompt Tuning is before the input, Prefix Tuning is the KV prefix of attention in each layer, Adapter inserts a small module between layers, and IA3 adjusts channel scaling. Different locations mean different costs, expressive power, and switching behavior.
 :::
 
 ---
 
-## 三、先跑一个真正和 PEFT 相关的 Adapter 示例
+## 3. First, run a real Adapter example related to PEFT
 
-下面这个例子会做一件非常具体的事：
+The example below will do something very specific:
 
-- 构造一个很小的文本分类任务
-- 冻结基础编码器
-- 只训练 Adapter 和分类头
+- Build a very small text classification task
+- Freeze the base encoder
+- Train only the Adapter and the classification head
 
-这样你能直接看到：
+This lets you directly see that:
 
-- 主模型没动
-- 少量参数照样能把任务学起来
+- The main model is unchanged
+- A small number of parameters can still learn the task
 
-:::info 运行提示
+:::info Run note
 ```bash
 pip install torch
 ```
@@ -281,41 +281,41 @@ with torch.no_grad():
         print(f"{text:22s} -> {label_names[pred]}")
 ```
 
-### 3.1 这段代码到底在教什么？
+### 3.1 What exactly does this code teach?
 
-它不是在教你“怎么做一个完整生产级微调”，而是在刻意把重点钉在 Adapter 本身：
+It is not teaching you how to build a complete production-grade fine-tuning system. Instead, it deliberately focuses on Adapter itself:
 
-- `FrozenBaseEncoder` 全部冻结
-- `adapter_down` 和 `adapter_up` 是新增小模块
-- `classifier` 负责把适配后的表示映射到标签
+- `FrozenBaseEncoder` is fully frozen
+- `adapter_down` and `adapter_up` are newly added small modules
+- `classifier` maps the adapted representation to labels
 
-真正关键的是这一句：
+The truly key line is this:
 
 ```python
 adapted = hidden + self.adapter_up(torch.tanh(self.adapter_down(hidden)))
 ```
 
-这就是典型的 Adapter 思路：
+This is the classic Adapter idea:
 
-- 主干表示先保留
-- 旁边走一个小瓶颈分支
-- 再以残差方式加回去
+- Keep the main representation
+- Add a small bottleneck branch beside it
+- Add it back in residual form
 
-### 3.2 为什么这比“只打印方法名”强得多？
+### 3.2 Why is this much better than “just printing the method name”?
 
-因为你现在能直接观察三件事：
+Because now you can directly observe three things:
 
-1. 可训练参数只占很小一部分
-2. 主模型不动，任务仍然能拟合
-3. 新增能力来自插入的小模块，而不是重训整网
+1. Only a very small part of the parameters is trainable
+2. The main model does not change, yet the task can still be fit
+3. The new capability comes from a small inserted module, not from retraining the whole network
 
-这三点正是 Adapter 的本体。
+These three points are the essence of Adapter.
 
 ---
 
-## 四、再看三个更短的结构示意
+## 4. Then look at three shorter structural illustrations
 
-### 4.1 Prompt Tuning：输入前面拼接软提示
+### 4.1 Prompt Tuning: concatenate soft prompts before the input
 
 ```python
 import torch
@@ -324,17 +324,17 @@ token_embeddings = torch.randn(1, 5, 8)
 soft_prompt = torch.randn(1, 3, 8, requires_grad=True)
 
 combined = torch.cat([soft_prompt, token_embeddings], dim=1)
-print("原始长度:", token_embeddings.shape[1])
-print("拼接后长度:", combined.shape[1])
+print("Original length:", token_embeddings.shape[1])
+print("Length after concatenation:", combined.shape[1])
 ```
 
-这里最该记住的是：
+The most important thing to remember here is:
 
-- soft prompt 本身不是可读文本
-- 它是一组训练出来的向量
-- 模型看到的是“额外输入 token 的 embedding”
+- The soft prompt is not readable text
+- It is a set of vectors learned during training
+- What the model sees is the embedding of “extra input tokens”
 
-### 4.2 Prefix Tuning：不是改输入长度，而是改每层注意力上下文
+### 4.2 Prefix Tuning: do not change the input length, change the context seen by attention in each layer
 
 ```python
 import torch
@@ -343,16 +343,16 @@ layer_keys = torch.randn(1, 4, 8)
 prefix_keys = torch.randn(1, 2, 8, requires_grad=True)
 
 all_keys = torch.cat([prefix_keys, layer_keys], dim=1)
-print("注意力原始 key 数量:", layer_keys.shape[1])
-print("加入 prefix 后 key 数量:", all_keys.shape[1])
+print("Original number of attention keys:", layer_keys.shape[1])
+print("Number of keys after adding prefix:", all_keys.shape[1])
 ```
 
-这个示意对应的直觉是：
+The intuition behind this illustration is:
 
-- 普通注意力只看原序列
-- Prefix Tuning 让每层注意力额外看到一段可训练前缀
+- Normal attention only sees the original sequence
+- Prefix Tuning lets each layer’s attention see an additional trainable prefix
 
-### 4.3 IA3：不是加模块，而是给关键通道乘缩放因子
+### 4.3 IA3: instead of adding a module, multiply key channels by scaling factors
 
 ```python
 import torch
@@ -365,114 +365,114 @@ print("before:", hidden)
 print("after :", scaled)
 ```
 
-IA3 的核心不是“变复杂”，而是“只在最关键的位置做轻量调节”。
+The core of IA3 is not “becoming more complex,” but “making lightweight adjustments only at the most important positions.”
 
 ---
 
-## 五、到底该怎么选？
+## 5. How should you choose?
 
-### 5.1 如果你最在意任务切换和模块化
+### 5.1 If you care most about task switching and modularity
 
-优先想到：
+Think first about:
 
 - Adapter
 
-因为它天然适合：
+Because it is naturally suitable for:
 
-- 一个底座模型
-- 挂很多小适配器
-- 按任务切换加载
+- One base model
+- Many small adapters attached to it
+- Loading different adapters for different tasks
 
-### 5.2 如果你最在意参数再少一点
+### 5.2 If you care most about having even fewer parameters
 
-可以先关注：
+You can first look at:
 
 - Prompt Tuning
 - IA3
 
-这类方法非常轻，但要注意：
+These methods are very lightweight, but keep in mind:
 
-- 参数更少不等于效果一定更好
-- 任务复杂时，表达能力可能不够
+- Fewer parameters does not automatically mean better results
+- For complex tasks, expressive power may not be enough
 
-### 5.3 如果你希望干预更深入一些
+### 5.3 If you want deeper intervention
 
-可以看：
+You can look at:
 
 - Prefix Tuning
 
-因为它影响的不只是输入最前面，而是每一层注意力读上下文的方式。
+Because it affects not only the very beginning of the input, but also how each layer’s attention reads context.
 
-### 5.4 如果你想要一个“默认优先尝试”的工业方案
+### 5.4 If you want a default industrial choice to try first
 
-现实里很多团队还是会先尝试：
+In practice, many teams still try:
 
 - LoRA / QLoRA
 
-原因很简单：
+The reason is simple:
 
-- 生态成熟
-- 工具链丰富
-- 社区经验多
+- Mature ecosystem
+- Rich tooling
+- Lots of community experience
 
-所以这节不是要你抛弃 LoRA，  
-而是让你知道：
+So this section is not asking you to abandon LoRA,
+but to let you know:
 
-> **LoRA 只是 PEFT 地图里最常用的一块，不是全部。**
-
----
-
-## 六、这些误区特别常见
-
-### 6.1 误区一：参数越少越高级
-
-不一定。  
-参数少意味着：
-
-- 训练便宜
-
-但也可能意味着：
-
-- 表达力更受限制
-
-### 6.2 误区二：方法名越多越说明自己懂了
-
-真正要会的是：
-
-- 它改哪里
-- 影响哪段信息流
-- 为什么适合当前任务
-
-### 6.3 误区三：把“可训练模块”当成唯一重点
-
-别忘了任务成败还强依赖：
-
-- 数据质量
-- 模板格式
-- 评估方式
-- 是否真的需要微调
+> **LoRA is only the most commonly used piece of the PEFT map, not the whole map.**
 
 ---
 
-## 小结
+## 6. These misconceptions are very common
 
-这一节最该带走的不是四个名词，而是一条主线：
+### 6.1 Misconception 1: fewer parameters always means more advanced
 
-> **PEFT 的本质，是在尽量不动大模型主体的前提下，选择一个合适的位置放入少量可训练能力。**
+Not necessarily.
+Fewer parameters mean:
 
-你以后再遇到新的 PEFT 变体时，也可以先用同样的问题去拆：
+- Cheaper training
 
-1. 它把可训练参数放在哪？
-2. 它会影响输入、层内还是层间？
-3. 它换来了什么工程收益，又牺牲了什么？
+But they can also mean:
 
-只要这三件事看清楚，方法名就不再会显得神秘。
+- More limited expressive power
+
+### 6.2 Misconception 2: the more method names you know, the more you understand
+
+What you really need to know is:
+
+- What does it change?
+- Which part of the information flow does it affect?
+- Why is it suitable for the current task?
+
+### 6.3 Misconception 3: treating the “trainable module” as the only thing that matters
+
+Don’t forget that success also depends heavily on:
+
+- Data quality
+- Prompt/template format
+- Evaluation method
+- Whether fine-tuning is really needed
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释 Prompt Tuning、Prefix Tuning、Adapter、IA3 分别改的是模型的哪一部分。
-2. 如果你要给一个底座模型同时适配 20 个不同业务任务，为什么 Adapter 往往很有吸引力？
-3. 把本节 Adapter 代码中的 `bottleneck_dim` 改大或改小，观察可训练参数数量怎么变化。
-4. 想一想：如果你的硬件很紧张，但任务又比较复杂，你会优先尝试哪种 PEFT 方法？为什么？
+What you should take away from this section is not the four names, but one main thread:
+
+> **The essence of PEFT is to insert a small amount of trainable capability at an appropriate location, while changing the large model body as little as possible.**
+
+When you encounter a new PEFT variant later, you can also break it down with the same questions:
+
+1. Where does it place the trainable parameters?
+2. Does it affect the input, the inside of a layer, or the space between layers?
+3. What engineering benefits does it bring, and what does it sacrifice?
+
+Once these three things are clear, method names will no longer feel mysterious.
+
+---
+
+## Exercises
+
+1. Explain in your own words which part of the model Prompt Tuning, Prefix Tuning, Adapter, and IA3 each modify.
+2. If you want to adapt one base model to 20 different business tasks at the same time, why is Adapter often attractive?
+3. Change `bottleneck_dim` in the Adapter code in this section to a larger or smaller value, and observe how the number of trainable parameters changes.
+4. Think about it: if your hardware is very limited but the task is fairly complex, which PEFT method would you try first? Why?

@@ -1,37 +1,37 @@
 ---
-title: "5.3 MCP 架构与核心概念"
+title: "5.3 MCP Architecture and Core Concepts"
 sidebar_position: 26
-description: "从 client-server 关系、工具暴露、消息流转到 transport，系统理解一个 MCP 系统内部是怎样工作的。"
+description: "From client-server relationships, tool exposure, and message flow to transport, build a systematic understanding of how an MCP system works internally."
 keywords: [MCP architecture, client, server, transport, tools, protocol flow]
 ---
 
-# MCP 架构与核心概念
+# MCP Architecture and Core Concepts
 
-![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.png)
+![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.png)
 
-:::tip 本节定位
-上一节我们已经知道 MCP 是“工具接入层的统一协议”。  
-这一节要继续往里走一步，回答：
+:::tip Section overview
+In the previous section, we learned that MCP is "a unified protocol for the tool access layer."
+In this section, we’ll take one more step inward and answer:
 
-> **一个 MCP 系统在结构上到底长什么样？**
+> **What does an MCP system look like structurally?**
 
-你会看到，这一章的重点不是抽象口号，而是：
+You’ll see that the focus of this chapter is not abstract slogans, but:
 
-- 消息怎么流
-- 谁负责什么
-- 系统怎样从“发现工具”走到“真正执行工具”
+- How messages flow
+- Who is responsible for what
+- How the system goes from "discovering tools" to "actually executing tools"
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 MCP 系统里的核心角色分工
-- 看懂一条完整的工具发现与调用链路
-- 理解 transport 在架构里的位置
-- 建立对“协议流”而不是“单个接口”的理解
+- Understand the core role split in an MCP system
+- Read a complete tool discovery and invocation flow
+- Understand where transport fits in the architecture
+- Build an understanding of the "protocol flow" rather than a "single interface"
 
 ---
 
-## 一、先把整张架构图看清楚
+## 1. First, Get a Clear View of the Whole Architecture
 
 ```mermaid
 flowchart LR
@@ -39,9 +39,9 @@ flowchart LR
     B --> C["MCP Server"]
     C --> D["Tools / Resources / Prompts"]
 
-    C --> E["本地工具逻辑"]
-    C --> F["外部服务"]
-    C --> G["文件系统 / 数据库"]
+    C --> E["Local tool logic"]
+    C --> F["External services"]
+    C --> G["File system / Database"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -52,126 +52,126 @@ flowchart LR
     style G fill:#fffde7,stroke:#f9a825,color:#333
 ```
 
-这张图里最值得记的不是节点名字，而是：
+What is most worth remembering in this diagram is not the node names, but this:
 
-> **Client 不直接操作底层世界，而是通过 MCP Server 这个统一入口拿能力。**
-
----
-
-## 二、Client 到底在做什么？
-
-Client 的职责通常包括：
-
-- 建立连接
-- 发现 server 暴露了哪些能力
-- 根据当前任务决定要不要调用
-- 发起请求并接收结果
-
-你可以把 client 理解成“使用者”。
-
-在真实系统里，它可能是：
-
-- IDE 插件
-- 聊天助手
-- 桌面 Agent
-- 工作流引擎
-
-它最核心的价值不是“自己会做事”，而是：
-
-> **知道什么时候该向 server 要什么能力。**
+> **The Client does not directly operate the underlying world; it gets capabilities through the MCP Server as a unified entry point.**
 
 ---
 
-## 三、Server 到底在做什么？
+## 2. What Exactly Does the Client Do?
 
-Server 的职责通常包括：
+The Client’s responsibilities usually include:
 
-- 描述和暴露能力
-- 接收 client 请求
-- 调用本地或外部工具
-- 返回结构化结果
+- Establishing a connection
+- Discovering which capabilities the server exposes
+- Deciding whether to call something based on the current task
+- Sending requests and receiving results
 
-换句话说，server 更像“能力提供方”。
+You can think of the client as the “user.”
 
-它相当于对外说：
+In a real system, it might be:
 
-- 我有什么工具
-- 每个工具怎么调用
-- 我支持怎样的上下文对象
+- An IDE plugin
+- A chat assistant
+- A desktop Agent
+- A workflow engine
 
-所以 server 是整个协议落地的核心承载体。
+Its core value is not that it “does everything itself,” but that it:
 
----
-
-## 四、Transport 为什么不能忽略？
-
-很多初学者会只盯着：
-
-- client
-- server
-
-但真正让两者能沟通的，是 transport。
-
-### 4.1 它在解决什么问题？
-
-简单说，它决定：
-
-> 这些协议消息到底通过什么通道传来传去。 
-
-例如：
-
-- 本地进程间通信
-- 标准输入输出
-- 网络连接
-
-### 4.2 为什么 transport 很重要？
-
-因为它会影响：
-
-- 延迟
-- 可靠性
-- 部署形态
-- 调试方式
-
-所以 transport 不是“顺手一选”的小细节，而是架构层的一部分。
+> **Knows when to ask the server for which capability.**
 
 ---
 
-## 五、MCP 系统里最常见的三类能力
+## 3. What Exactly Does the Server Do?
 
-虽然大家经常说“工具”，但更完整一点看，常见暴露内容可以理解成三类：
+The Server’s responsibilities usually include:
+
+- Describing and exposing capabilities
+- Receiving client requests
+- Calling local or external tools
+- Returning structured results
+
+In other words, the server is more like the “capability provider.”
+
+It is essentially saying to the outside world:
+
+- What tools I have
+- How each tool should be called
+- What kinds of context objects I support
+
+So the server is the core carrier of the protocol in practice.
+
+---
+
+## 4. Why Can’t We Ignore Transport?
+
+Many beginners focus only on:
+
+- the client
+- the server
+
+But what actually enables communication between them is transport.
+
+### 4.1 What problem does it solve?
+
+Simply put, it determines:
+
+> What channel these protocol messages use to move back and forth.
+
+For example:
+
+- Local inter-process communication
+- Standard input/output
+- Network connections
+
+### 4.2 Why is transport important?
+
+Because it affects:
+
+- Latency
+- Reliability
+- Deployment form
+- Debugging approach
+
+So transport is not a minor detail you choose casually; it is part of the architecture.
+
+---
+
+## 5. The Three Most Common Types of Capabilities in MCP
+
+Although people often say “tools,” if we look more completely, the commonly exposed content can be understood as three types:
 
 ### 5.1 Tools
 
-能被调用执行的能力。
+Capabilities that can be called and executed.
 
-例如：
+For example:
 
-- 搜索
-- 读文件
-- 查天气
+- Search
+- Read files
+- Check the weather
 
 ### 5.2 Resources
 
-更偏“可读取的信息源”。
+These are more like “readable information sources.”
 
-例如：
+For example:
 
-- 文档内容
-- 配置数据
-- 数据表快照
+- Document content
+- Configuration data
+- Database table snapshots
 
 ### 5.3 Prompts
 
-更偏“可复用的提示模板”。
+These are more like “reusable prompt templates.”
 
-这三类东西并不完全一样，但都属于“对外暴露可用能力”的范畴。
+These three things are not exactly the same, but they all belong to the category of “exposed capabilities.”
 
 ---
 
-## 六、一条完整消息流长什么样？
+## 6. What Does a Complete Message Flow Look Like?
 
-### 6.1 先发现工具
+### 6.1 First, Discover the Tools
 
 ```python
 list_request = {
@@ -186,8 +186,8 @@ list_response = {
     "id": 1,
     "result": {
         "tools": [
-            {"name": "search_docs", "description": "搜索课程文档"},
-            {"name": "get_weather", "description": "查询天气"}
+            {"name": "search_docs", "description": "Search course documents"},
+            {"name": "get_weather", "description": "Query the weather"}
         ]
     }
 }
@@ -196,7 +196,7 @@ print(list_request)
 print(list_response)
 ```
 
-### 6.2 再调用工具
+### 6.2 Then, Call the Tool
 
 ```python
 call_request = {
@@ -205,7 +205,7 @@ call_request = {
     "method": "tools/call",
     "params": {
         "name": "search_docs",
-        "arguments": {"query": "退款政策"}
+        "arguments": {"query": "refund policy"}
     }
 }
 
@@ -213,7 +213,7 @@ call_response = {
     "jsonrpc": "2.0",
     "id": 2,
     "result": {
-        "content": [{"type": "text", "text": "课程购买后 7 天内且学习进度低于 20% 可退款。"}]
+        "content": [{"type": "text", "text": "A purchase can be refunded within 7 days if learning progress is below 20%."}]
     }
 }
 
@@ -221,63 +221,63 @@ print(call_request)
 print(call_response)
 ```
 
-### 6.3 这两步真正说明了什么？
+### 6.3 What Do These Two Steps Really Show?
 
-它说明 MCP 不是单纯“调一个函数”，而是先有：
+They show that MCP is not just “calling a function.” Instead, it has:
 
-1. 能力发现
-2. 能力调用
+1. Capability discovery
+2. Capability invocation
 
-这样 client 才不需要把所有工具细节都写死。
+This way, the client does not need to hard-code all tool details.
 
-![MCP 工具发现与调用消息流图](/img/course/ch09-mcp-host-client-server-message-flow-map.png)
+![MCP tool discovery and invocation message flow diagram](/img/course/ch09-mcp-host-client-server-message-flow-map-en.png)
 
-:::tip 读图提示
-这张图按消息顺序看：Host 里的 Client 先向 Server 请求 tools/list，拿到能力清单后再发起 tools/call。MCP 的价值在于让“发现能力”和“调用能力”有统一协议。
+:::tip Reading guide
+Read this diagram in message order: the Client in the Host first requests `tools/list` from the Server, then sends `tools/call` after getting the capability list. The value of MCP is that “discovering capabilities” and “calling capabilities” share one unified protocol.
 :::
 
 ---
 
-## 七、为什么说 MCP 是“解耦层”？
+## 7. Why Is MCP Called a “Decoupling Layer”?
 
-### 7.1 没有 MCP 时
+### 7.1 Without MCP
 
-客户端通常得直接知道：
+The client usually has to know directly:
 
-- 工具怎么命名
-- 参数怎么写
-- 返回结果长什么样
+- How tools are named
+- How parameters are written
+- What the return result looks like
 
-这会导致 client 和 tool provider 强耦合。
+This creates tight coupling between the client and the tool provider.
 
-### 7.2 有了 MCP 以后
+### 7.2 With MCP
 
-client 更多依赖的是：
+The client relies more on:
 
-- 统一协议
-- 统一发现方式
-- 统一调用方式
+- A unified protocol
+- A unified discovery method
+- A unified invocation method
 
-这让系统形成一种更清晰的分层：
+This gives the system a clearer layering:
 
-- 上层做任务编排
-- 下层做能力提供
+- The upper layer handles task orchestration
+- The lower layer provides capabilities
 
-所以你可以把 MCP 理解成：
+So you can think of MCP as:
 
-> **工具生态里的适配层和解耦层。**
+> **An adaptation layer and a decoupling layer in the tool ecosystem.**
 
 ---
 
-## 八、一个最小的架构模拟
+## 8. A Minimal Architecture Simulation
 
-下面用纯 Python 模拟一个极简的 MCP 交互过程。
+Below is a very simple MCP interaction simulated in pure Python.
 
 ```python
 class MockMCPServer:
     def __init__(self):
         self.tools = {
-            "search_docs": lambda query: f"检索结果: {query}"
+            "search_docs": lambda query: f"Search result: {query}"
         }
 
     def list_tools(self):
@@ -302,53 +302,53 @@ server = MockMCPServer()
 client = MockMCPClient(server)
 
 print(client.discover())
-print(client.call("search_docs", {"query": "退款政策"}))
+print(client.call("search_docs", {"query": "refund policy"}))
 ```
 
-### 8.2 这个例子很小，但非常有教学价值
+### 8.2 This example is small, but very valuable for learning
 
-因为它已经体现了三层分工：
+Because it already shows the three-layer division of labor:
 
-- client 负责请求
-- server 负责能力暴露
-- tool 负责具体执行
+- The client handles requests
+- The server exposes capabilities
+- The tool performs the actual work
 
-只要这三层分工想清楚，后面再看更真实的 MCP 系统就会稳很多。
-
----
-
-## 九、最常见的架构误区
-
-### 9.1 把 server 当成工具本身
-
-server 不是工具，而是：
-
-> 工具的协议化出口。 
-
-### 9.2 觉得 transport 可有可无
-
-transport 直接影响部署和稳定性。
-
-### 9.3 以为 MCP 自动解决权限和策略问题
-
-不会。  
-它解决的是“统一接入”，不是“自动治理”。
+As long as you understand this three-part division clearly, it will be much easier to study more realistic MCP systems later.
 
 ---
 
-## 小结
+## 9. The Most Common Architectural Misunderstandings
 
-这一节最重要的不是记住 client/server 这几个词，而是看懂：
+### 9.1 Treating the server as the tool itself
 
-> **MCP 架构的核心，是让能力提供方和能力使用方通过统一消息流和统一边界发生关系。**
+The server is not the tool. It is:
 
-只要这条流动逻辑清楚，后面再学 server 开发、client 集成和生态实践时，就不容易发虚。
+> The protocol-facing gateway for tools.
+
+### 9.2 Thinking transport is optional
+
+Transport directly affects deployment and stability.
+
+### 9.3 Assuming MCP automatically solves permissions and policy issues
+
+It does not.
+It solves “unified access,” not “automatic governance.”
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么 client 和 server 的职责必须分开？
-2. 想一想：如果 transport 换掉，为什么上层调用逻辑最好尽量不变？
-3. 给 `MockMCPServer` 再加一个 `get_weather` 工具。
-4. 用自己的话解释：为什么说 MCP 是“解耦层”，而不是“工具本身”？
+The most important thing in this section is not memorizing the words client/server, but understanding this:
+
+> **The core of MCP architecture is to let capability providers and capability consumers relate to each other through a unified message flow and a unified boundary.**
+
+Once this flow logic is clear, you’ll feel much more grounded when later learning server development, client integration, and ecosystem practices.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why must the responsibilities of the client and server be separated?
+2. Think about this: if transport changes, why is it best for the upper-layer calling logic to stay as unchanged as possible?
+3. Add a `get_weather` tool to `MockMCPServer`.
+4. Explain in your own words: why is MCP called a “decoupling layer,” rather than the “tool itself”?

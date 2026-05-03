@@ -1,125 +1,123 @@
 ---
-title: "4.4 分割实战"
+title: "4.4 Segmentation Practice"
 sidebar_position: 13
-description: "围绕一个道路场景或医疗区域分割任务，建立最小分割项目的标签、评估与展示闭环。"
+description: "Build a closed loop of labels, evaluation, and presentation for a minimal segmentation project around a road scene or medical region segmentation task."
 keywords: [segmentation practice, semantic segmentation project, mask, IoU, computer vision]
 ---
 
-# 分割实战
+# Segmentation Practice
 
-:::tip 本节定位
-分割项目最大的挑战常常不是模型名，  
-而是：
+:::tip Section Overview
+The biggest challenge in a segmentation project is often not the model name,
+but:
 
-- mask 标注质量
-- 类别不平衡
-- 评估方式是否合理
+- mask annotation quality
+- class imbalance
+- whether the evaluation method is reasonable
 
-所以这一节的重点，是把一个最小分割项目的骨架讲清楚。
+So the main goal of this section is to clearly explain the framework of a minimal segmentation project.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 学会定义一个最小分割项目
-- 理解 mask 数据和指标的基本组织方式
-- 通过可运行示例建立项目评估直觉
-- 学会展示分割项目里最重要的结果
+- Learn how to define a minimal segmentation project
+- Understand the basic organization of mask data and metrics
+- Build intuition for project evaluation through a runnable example
+- Learn how to present the most important results in a segmentation project
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-如果你刚学完语义分割和实例分割，这一节最自然的续接就是：
+If you just finished learning semantic segmentation and instance segmentation, the most natural continuation in this section is:
 
-- 前面你已经知道 mask 和 IoU 这些对象在干什么
-- 这一节开始问“如果把它做成一个真正项目，哪些环节最容易先出问题”
+- You already know what objects like mask and IoU are doing
+- Now we ask, “If we turn this into a real project, which parts are most likely to go wrong first?”
 
-所以这节真正重要的不是新网络，而是：
+So what really matters in this section is not a new network, but:
 
-- mask 标注
-- 类别定义
-- 评估方式
-- 失败样本展示
+- mask annotation
+- class definition
+- evaluation method
+- failure sample presentation
 
-分割实战这节最适合新人的理解顺序不是“直接训一个模型”，而是先看清项目闭环：
+For beginners, the best order for understanding this section is not “train a model directly,” but to first understand the project loop:
 
 ```mermaid
 flowchart LR
-    A["定义任务和类别"] --> B["准备 mask 数据"]
-    B --> C["先做 baseline"]
-    C --> D["按 IoU 评估"]
-    D --> E["分析失败样本"]
+    A["Define the task and classes"] --> B["Prepare mask data"]
+    B --> C["Build a baseline first"]
+    C --> D["Evaluate with IoU"]
+    D --> E["Analyze failure samples"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 分割项目到底该怎么推进
-- 除了模型之外，项目真正容易出问题的环节在哪里
+- How should a segmentation project move forward?
+- Besides the model, where are the places most likely to fail in a project?
 
-### 一个更适合新人的总类比
+### A More Beginner-Friendly Overall Analogy
 
-你可以把分割项目想成：
+You can think of a segmentation project as:
 
-- 给一批地图做精细涂色
+- carefully coloring a batch of maps
 
-难点不只是“能不能涂上颜色”，而是：
+The difficulty is not just “can you color it at all,” but:
 
-- 每一块边界是不是涂准了
-- 小区域有没有被漏掉
-- 大家是不是按同一套标准在涂
+- Is each boundary colored accurately?
+- Were small regions missed?
+- Is everyone following the same standard while coloring?
 
-这样理解后，为什么分割项目会特别依赖：
+Once you think about it this way, it becomes much easier to understand why segmentation projects depend so much on:
 
-- mask 质量
-- 边界标准
-- 失败样本分析
+- mask quality
+- boundary standards
+- failure sample analysis
 
-就会自然很多。
+## 1. How Do You Define the Project Problem?
 
-## 一、项目问题怎么定？
+A very suitable segmentation project for practice is:
 
-一个很适合练手的分割项目是：
+- road scene segmentation
 
-- 道路场景分割
+Or:
 
-或：
+- medical region segmentation
 
-- 医疗区域分割
+Shared characteristics:
 
-共同特点：
+- clear mask labels
+- region boundaries matter
+- IoU is meaningful
 
-- mask 标签清楚
-- 区域边界重要
-- IoU 指标有意义
+### 1.1 When a Beginner Does a Segmentation Project for the First Time, How Should They Choose a Task?
 
-### 1.1 新人第一次做分割项目，题目怎么选更稳？
+A more stable task usually has these characteristics:
 
-更稳的题目通常有这几个特点：
+- not too many classes
+- relatively clear region boundaries
+- failure samples that are easy to understand visually
 
-- 类别数不要太多
-- 区域边界相对清楚
-- 失败样本容易肉眼看懂
+So when you do a project for the first time,
+“fewer classes, strong boundaries, easy to explain” is usually more important than “the task looks cooler.”
 
-所以第一次做项目时，  
-“少类别、强边界、好解释”通常比“任务看起来更炫”更重要。
+### 1.2 Why Is “Clear Boundaries” So Important?
 
-### 1.2 为什么“边界清楚”这件事这么重要？
+Because many of the hard parts in segmentation tasks are concentrated in:
 
-因为分割任务的很多难点都集中在：
+- boundaries
+- small regions
+- places where classes are mixed together
 
-- 边界
-- 小区域
-- 类别混杂处
+If you start with a task whose boundaries are especially blurry and whose annotation standards are unstable,
+it will be hard to tell:
 
-如果一开始就选一个边界特别模糊、标注标准也不稳定的任务，
-你会很难判断：
-
-- 是模型不行
-- 还是标签本身就不稳
+- whether the model is poor
+- or whether the labels themselves are unstable
 
 ---
 
-## 二、先跑一个最小分割项目评估示例
+## 2. First Run a Minimal Segmentation Project Evaluation Example
 
 ```python
 pred_masks = [
@@ -152,58 +150,58 @@ print("ious:", [round(x, 4) for x in ious])
 print("mean_iou:", round(mean_iou, 4))
 ```
 
-### 2.1 这个示例最想表达什么？
+### 2.1 What Is This Example Trying to Show?
 
-分割项目最终最重要的通常不是：
+The most important thing in a segmentation project is usually not:
 
-- 某一张图看起来还行
+- whether one image looks okay
 
-而是：
+but:
 
-- 一组样本整体表现怎样
+- how the whole set of samples performs
 
-所以项目里通常都要汇总：
+So projects usually need to summarize:
 
 - per-sample IoU
 - mean IoU
 
-### 2.2 为什么分割项目特别需要“逐样本回看”？
+### 2.2 Why Do Segmentation Projects Especially Need to “Review Sample by Sample”?
 
-因为均值非常容易掩盖问题。
+Because averages can easily hide problems.
 
-例如：
+For example:
 
-- 大区域类别分得不错
-- 小区域目标全错
+- the large regions are segmented well
+- the small target regions are completely wrong
 
-这时平均分可能看着还行，但项目其实并不稳。
+In that case, the average score may still look acceptable, but the project is actually not stable.
 
-### 2.3 第一次做分割项目时，最值得先分哪几类失败？
+### 2.3 When Doing a Segmentation Project for the First Time, Which Types of Failures Are Most Worth Separating First?
 
-一个很实用的失败分类方式是：
+A very practical failure categorization is:
 
-1. 边界错  
-   轮廓大致对，但边缘很粗糙。
+1. Boundary errors
+   The overall outline is roughly correct, but the edges are rough.
 
-2. 小类别漏掉  
-   大背景分得不错，小目标却总缺。
+2. Missing small classes
+   The large background is segmented well, but small targets are often missed.
 
-3. 类别混淆  
-   两类区域彼此粘在一起。
+3. Class confusion
+   Two region classes are stuck together.
 
-这三类一分开，你会更容易决定：
+Once you separate these three types, it becomes much easier to decide:
 
-- 该补数据
-- 该改损失
-- 还是该改模型输入分辨率
+- whether to add more data
+- whether to change the loss function
+- or whether to change the model input resolution
 
-![分割项目失败样本分桶图](/img/course/ch10-segmentation-practice-failure-buckets-map.png)
+![Failure sample bucket diagram for a segmentation project](/img/course/ch10-segmentation-practice-failure-buckets-map-en.png)
 
-:::tip 读图提示
-分割项目最怕只看平均分。这张图把失败样本拆成边界错、小类别漏掉和类别混淆，让你能把下一步优化动作对应到具体问题。
+:::tip Reading Tip
+The biggest danger in a segmentation project is only looking at the average score. This diagram breaks failure samples into boundary errors, missing small classes, and class confusion, so you can match the next optimization step to the specific problem.
 :::
 
-### 2.4 再看一个最小“项目检查表”示例
+### 2.4 Another Minimal Example of a “Project Checklist”
 
 ```python
 checklist = {
@@ -216,114 +214,114 @@ checklist = {
 
 def next_step(checklist):
     if not checklist["classes_defined"]:
-        return "先把类别定义收窄。"
+        return "First narrow down the class definitions."
     if not checklist["mask_quality_checked"]:
-        return "先抽样检查 mask 标注质量。"
+        return "First sample-check the mask annotation quality."
     if not checklist["baseline_ready"]:
-        return "先做最小 baseline。"
+        return "First build a minimal baseline."
     if not checklist["failure_buckets_defined"]:
-        return "先把失败样本分桶。"
-    return "可以继续做针对性优化。"
+        return "First bucket the failure samples."
+    return "You can continue with targeted optimization."
 
 
 print(next_step(checklist))
 ```
 
-这个例子很小，但很适合帮助新人理解：
+This example is very small, but it is great for helping beginners understand:
 
-- 项目不是只看模型训练跑没跑
-- 还要看项目骨架有没有搭完整
+- A project is not just about whether model training runs
+- You also need to see whether the project framework is complete
 
 ---
 
-## 三、分割项目最容易踩的坑
+## 3. The Most Common Pitfalls in Segmentation Projects
 
-### 3.1 mask 标注边界不一致
+### 3.1 Inconsistent Mask Annotation Boundaries
 
-这会让训练和评估一起受污染。
+This will contaminate both training and evaluation.
 
-### 3.2 类别太不平衡
+### 3.2 Severe Class Imbalance
 
-小区域类别经常被主背景淹没。
+Small-region classes are often overwhelmed by the main background.
 
-### 3.3 只看均值，不看失败样本
+### 3.3 Only Looking at the Average, Not the Failure Samples
 
-均值可能掩盖一些特别糟的案例。
+The average may hide some especially bad cases.
 
-### 3.4 只展示成功样本，不展示边界失败
+### 3.4 Only Showing Success Cases, Not Boundary Failures
 
-分割项目最容易“看起来不错”，  
-因为彩色 mask 图本身就很有视觉冲击力。  
-但如果你不展示：
+Segmentation projects are especially easy to make “look good,”
+because colored mask images are visually impressive by themselves.
+But if you do not show:
 
-- 边界失败
-- 小目标漏检
-- 类别混淆
+- boundary failures
+- missed small targets
+- class confusion
 
-就很难判断这个项目到底哪里还不稳。
+it becomes hard to tell where the project is still unstable.
 
-## 四、一个新人可直接照抄的推进顺序
+## 4. A Recommended Workflow for Beginners to Follow
 
-更建议这样做：
+A better approach is:
 
-1. 先明确类别定义
-2. 再抽样检查 mask 标注
-3. 先做一个最小 baseline
-4. 再统一评估 IoU
-5. 最后挑失败样本单独分析
+1. First define the classes clearly
+2. Then sample-check the mask annotations
+3. Build a minimal baseline first
+4. Evaluate IoU in a unified way
+5. Finally, analyze the failure samples separately
 
-这样会比一上来就换模型更有效。
+This is much more effective than immediately switching models.
 
-### 4.1 如果把它做成作品集，最值得展示什么？
+### 4.1 If You Turn It into a Portfolio Project, What Is Most Worth Showing?
 
-比起只贴一张彩色 mask 图，更值得展示的是：
+Rather than only pasting a colorful mask image, it is more valuable to show:
 
-- 原图 / GT / 预测三联图
+- original image / ground truth / prediction triplet
 - per-class IoU
-- 几类典型失败样本
-- 你怎么解释这些失败
-- 下一步你会先改哪里
+- several typical failure samples
+- how you explain these failures
+- what you would improve next
 
-### 4.2 如果你第一次做这类项目，最稳的默认目标
+### 4.2 If This Is Your First Time Doing This Kind of Project, What Is the Safest Default Goal?
 
-第一次做时，最推荐的不是追求：
+When doing it for the first time, it is not recommended to chase:
 
-- 很多类别
-- 很复杂的模型
-- 很炫的可视化
+- many classes
+- a very complex model
+- flashy visualizations
 
-而是先做到：
+Instead, first aim to achieve:
 
-1. 类别定义清楚
-2. mask 质量可解释
-3. baseline 能稳定跑通
-4. IoU 和失败样本能讲清楚
+1. Clear class definitions
+2. Interpretable mask quality
+3. A baseline that runs stably
+4. Clear explanations of IoU and failure samples
 
-做到这四件事，项目就已经很像真正的项目了。
-
----
-
-## 小结
-
-这节最重要的是建立一个项目意识：
-
-> **分割项目的核心，不只是模型训练，还包括 mask 标签质量、IoU 评估和失败样本分析。**
-
-## 这节最该带走什么
-
-- 分割项目首先是数据和评估项目，其次才是模型项目
-- mask 标注质量会直接决定上限
-- 失败样本分析在分割项目里尤其重要
-
-如果再压成一句话，那就是：
-
-> **分割项目真正的难点，不只是让模型会画 mask，而是让每一类区域的边界、覆盖和错误都能被清楚解释。**
+If you can do these four things, the project already feels much more like a real project.
 
 ---
 
-## 练习
+## Summary
 
-1. 再构造一组 `pred_masks` 和 `gt_masks`，观察 `mean_iou` 如何变化。
-2. 为什么分割项目里 mask 标注标准尤其重要？
-3. 如果某类目标区域很小，为什么 IoU 会特别敏感？
-4. 你会怎样把一个分割项目做成作品集页面？
+The most important thing in this section is to build a project mindset:
+
+> **The core of a segmentation project is not just model training, but also mask label quality, IoU evaluation, and failure sample analysis.**
+
+## What You Should Take Away from This Section
+
+- A segmentation project is first a data and evaluation project, and only then a model project
+- Mask annotation quality directly determines the upper bound
+- Failure sample analysis is especially important in segmentation projects
+
+If we compress it into one sentence, it is:
+
+> **The real challenge in a segmentation project is not just making the model draw masks, but making the boundaries, coverage, and errors of each region clearly explainable.**
+
+---
+
+## Exercises
+
+1. Build another set of `pred_masks` and `gt_masks`, and observe how `mean_iou` changes.
+2. Why is the mask annotation standard especially important in segmentation projects?
+3. If a certain class covers a very small region, why is IoU especially sensitive?
+4. How would you turn a segmentation project into a portfolio page?

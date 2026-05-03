@@ -1,80 +1,80 @@
 ---
 title: "4.4 BiLSTM + CRF"
 sidebar_position: 3
-description: "理解为什么序列标注任务常用 BiLSTM + CRF，以及它如何同时利用上下文表示和标签转移约束。"
-keywords: [BiLSTM, CRF, 序列标注, NER, 命名实体识别]
+description: "Understand why sequence labeling tasks often use BiLSTM + CRF, and how it uses both contextual representations and label transition constraints."
+keywords: [BiLSTM, CRF, sequence labeling, NER, named entity recognition]
 ---
 
 # BiLSTM + CRF
 
-![BiLSTM CRF 标签路径解码图](/img/course/ch11-bilstm-crf-label-path-map.png)
+![BiLSTM CRF label path decoding diagram](/img/course/ch11-bilstm-crf-label-path-map-en.png)
 
-:::tip 读图提示
-BiLSTM 负责给每个 token 做上下文表示，CRF 负责在所有可能标签路径里挑最合理的一条。读图时重点看“单点得分”和“标签转移约束”怎样一起决定最终 BIO 序列。
+:::tip Reading guide
+BiLSTM is responsible for building contextual representations for each token, while CRF is responsible for choosing the most reasonable path among all possible label paths. When reading the diagram, focus on how “local scores” and “label transition constraints” work together to determine the final BIO sequence.
 :::
 
-:::tip 本节定位
-NER 不是给每个 token 独立分类那么简单。标签之间有约束，例如 `I-PER` 通常不能凭空出现在句首。BiLSTM + CRF 的价值，就是同时看上下文和标签序列是否合法。
+:::tip Where this section fits
+NER is not as simple as classifying each token independently. There are constraints between labels—for example, `I-PER` usually should not appear at the beginning of a sentence out of nowhere. The value of BiLSTM + CRF is that it considers both the context and whether the label sequence is valid.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 BiLSTM 在序列标注中负责什么
-- 理解 CRF 为什么能建模标签转移约束
-- 知道 BIO 标签体系下哪些预测是不合理的
-- 能解释 BiLSTM + CRF 和普通 token 分类的差异
+- Understand what BiLSTM does in sequence labeling
+- Understand why CRF can model label transition constraints
+- Know which predictions are unreasonable under the BIO labeling scheme
+- Explain the difference between BiLSTM + CRF and ordinary token classification
 
 ---
 
-## 先看整体结构
+## First, look at the overall structure
 
 ```mermaid
 flowchart LR
-  A[Token 序列] --> B[Embedding]
-  B --> C[BiLSTM 上下文表示]
-  C --> D[每个位置的标签得分]
-  D --> E[CRF 标签转移约束]
-  E --> F[最优标签序列]
+  A[Token sequence] --> B[Embedding]
+  B --> C[BiLSTM contextual representations]
+  C --> D[Label scores at each position]
+  D --> E[CRF label transition constraints]
+  E --> F[Optimal label sequence]
 ```
 
-BiLSTM 负责理解上下文，CRF 负责选择整体最合理的标签路径。两者结合后，模型不只是问“这个 token 像不像实体”，还会问“这一整串标签连起来是否合理”。
+BiLSTM is responsible for understanding context, and CRF is responsible for selecting the most reasonable overall label path. Combined, the model does not just ask, “Does this token look like an entity?” It also asks, “Is this entire sequence of labels reasonable when connected together?”
 
-## 一、为什么普通 token 分类不够
+## 1. Why ordinary token classification is not enough
 
-假设使用 BIO 标签体系：`B-PER` 表示人名开头，`I-PER` 表示人名内部，`O` 表示非实体。如果模型独立预测每个 token，就可能输出这样的标签：
+Suppose we use the BIO labeling scheme: `B-PER` means the beginning of a person name, `I-PER` means the inside of a person name, and `O` means non-entity. If the model predicts each token independently, it may output labels like this:
 
 ```text
-我   爱   北京
-O   I-LOC B-LOC
+I   love   Beijing
+O   I-LOC  B-LOC
 ```
 
-这里 `I-LOC` 出现在实体开头位置，通常是不合理的。普通分类器很难显式约束这种标签转移，而 CRF 可以学习标签之间的转移分数。
+Here, `I-LOC` appears at the beginning of an entity, which is usually unreasonable. An ordinary classifier has difficulty explicitly constraining this kind of label transition, while CRF can learn transition scores between labels.
 
-## 二、BiLSTM 负责上下文表示
+## 2. BiLSTM is responsible for contextual representations
 
-LSTM 可以按顺序读取文本，BiLSTM 则同时从左到右和从右到左读取。这样每个 token 的表示都包含前后文信息。
+An LSTM reads text sequentially, while a BiLSTM reads it from left to right and from right to left at the same time. In this way, the representation of each token includes information from both the left and right context.
 
-例如“苹果”在不同句子里可能是水果，也可能是公司。BiLSTM 的作用就是让当前位置看到周围词，从而减少歧义。
+For example, “apple” may refer to a fruit in one sentence and a company in another. The role of BiLSTM is to let the current token see the surrounding words, thereby reducing ambiguity.
 
-## 三、CRF 负责整体解码
+## 3. CRF is responsible for global decoding
 
-CRF 会同时考虑两类分数：每个位置属于某个标签的发射分数，以及标签之间的转移分数。最终预测时，它不是逐个位置贪心选择，而是寻找整条序列总分最高的标签路径。
+CRF considers two kinds of scores at the same time: the emission score for how likely each position is to have a certain label, and the transition score between labels. During final prediction, it does not greedily choose labels one position at a time, but instead searches for the label path with the highest total score for the whole sequence.
 
 ```mermaid
 flowchart TD
-  A[发射分数：每个 token 像哪个标签] --> C[序列总分]
-  B[转移分数：标签接标签是否合理] --> C
-  C --> D[Viterbi 解码找最优路径]
+  A[Emission scores: which label each token looks like] --> C[Total sequence score]
+  B[Transition scores: whether adjacent labels are reasonable] --> C
+  C --> D[Viterbi decoding finds the optimal path]
 ```
 
-这就是为什么 CRF 特别适合 NER、词性标注、分词这类标签之间有结构约束的任务。
+This is why CRF is especially suitable for tasks with structural constraints between labels, such as NER, part-of-speech tagging, and word segmentation.
 
-## 四、一个最小直觉例子
+## 4. A minimal intuition example
 
 ```python
 labels = ["B-PER", "I-PER", "O", "B-LOC", "I-LOC"]
 
-# 简化版：人为定义一些不合理转移
+# Simplified: manually define some invalid transitions
 invalid_transitions = {
     ("O", "I-PER"),
     ("O", "I-LOC"),
@@ -86,26 +86,26 @@ path = ["O", "I-LOC", "B-LOC"]
 
 for a, b in zip(path, path[1:]):
     if (a, b) in invalid_transitions:
-        print("不合理转移:", a, "->", b)
+        print("Invalid transition:", a, "->", b)
 ```
 
-真实 CRF 不是靠手写规则，而是从训练数据中学习哪些标签转移更合理。这个例子只是帮助你建立“标签之间有关系”的直觉。
+In a real CRF, these are not hand-written rules. Instead, it learns from training data which label transitions are more reasonable. This example is only meant to help you build the intuition that labels are related to each other.
 
-## 五、和 BERT token classification 的关系
+## 5. Relationship with BERT token classification
 
-现代 NER 经常直接用 BERT 加线性分类层，也可以在 BERT 后面接 CRF。BERT 的上下文表示能力通常强于 BiLSTM，但 CRF 对标签约束仍然有价值，尤其在数据量较小、标签格式严格、实体边界容易错的任务里。
+Modern NER often uses BERT with a linear classification layer, and CRF can also be added after BERT. BERT’s contextual representation ability is usually stronger than BiLSTM’s, but CRF is still valuable for label constraints, especially in tasks with small amounts of data, strict label formats, and entity boundary errors.
 
-## 常见误区
+## Common misconceptions
 
-第一个误区是把 CRF 当成过时模型。它不一定是最强方案，但标签约束思想仍然重要。第二个误区是只看 token 级准确率，不看实体级 F1。NER 最终关心的是实体边界和类型是否完整正确。第三个误区是忽略 BIO 标注一致性，导致训练数据本身就有非法标签序列。
+The first misconception is that CRF is an outdated model. It is not necessarily the strongest solution, but the idea of label constraints is still important. The second misconception is looking only at token-level accuracy and ignoring entity-level F1. What NER ultimately cares about is whether the entity boundaries and types are both completely correct. The third misconception is ignoring BIO labeling consistency, which makes the training data itself contain invalid label sequences.
 
-## 练习
+## Exercises
 
-1. 写出一句中文句子的 BIO 标签，并检查是否存在非法 `I-*` 开头。
-2. 比较“逐 token 分类”和“整体序列解码”的差异。
-3. 思考：为什么实体级 F1 比 token accuracy 更适合 NER？
-4. 如果用 BERT 做 NER，还需不需要 CRF？列出支持和反对理由。
+1. Write the BIO labels for a Chinese sentence and check whether there is any invalid `I-*` at the beginning.
+2. Compare the difference between “token-by-token classification” and “global sequence decoding.”
+3. Think about why entity-level F1 is more suitable than token accuracy for NER.
+4. If you use BERT for NER, do you still need CRF? List reasons for and against it.
 
-## 过关标准
+## Passing criteria
 
-学完本节后，你应该能解释 BiLSTM 和 CRF 各自负责什么，能识别 BIO 标签中的非法转移，能说明为什么序列标注要考虑标签之间的依赖，并能把这个思想迁移到后续的结构化信息抽取任务。
+After learning this section, you should be able to explain what BiLSTM and CRF are each responsible for, identify invalid transitions in BIO labels, explain why sequence labeling needs to consider dependencies between labels, and transfer this idea to later structured information extraction tasks.

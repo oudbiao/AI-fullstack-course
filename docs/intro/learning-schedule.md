@@ -1,105 +1,105 @@
 ---
 sidebar_position: 11
-title: "学习节奏规划：4 周、8 周、12 周怎么推进"
-description: "为不同时间投入的学习者提供 4 周快速应用路线、8 周作品集路线和 12 周完整路线，明确每周学习重点和交付物。"
-keywords: [AI学习计划, AI全栈学习节奏, 作品集路线, RAG学习计划, Agent学习计划]
+title: "Planning Your Learning Pace: How to Progress in 4, 8, or 12 Weeks"
+description: "Provides a 4-week fast application path, an 8-week portfolio path, and a 12-week full path for learners with different time commitments, with clear weekly learning priorities and deliverables."
+keywords: [AI learning plan, AI full-stack learning pace, portfolio path, RAG learning plan, Agent learning plan]
 ---
 
-# 学习节奏规划：4 周、8 周、12 周怎么推进
+# Planning Your Learning Pace: How to Progress in 4, 8, or 12 Weeks
 
-## 本节定位
+## What This Section Is About
 
-这套课程内容很多，如果只按文章数量推进，很容易越学越散。更好的方式是按时间盒学习：每周只抓一个主线目标，并留下一个能展示的交付物。
+This course contains a lot of content. If you move forward only by article count, it is very easy to end up learning in a scattered way. A better approach is to learn in time boxes: focus on one main goal each week and leave with a deliverable you can show.
 
-这一页不是规定唯一节奏，而是给你三种可执行计划：4 周快速应用路线、8 周作品集路线和 12 周完整路线。你可以根据自己的时间和基础选择一种。
+This page does not define the only valid pace. Instead, it offers three practical plans: a 4-week fast application path, an 8-week portfolio path, and a 12-week full path. You can choose one based on your available time and background.
 
-## 先选节奏
+## Choose a Pace First
 
 ```mermaid
 flowchart LR
-  A["已有开发经验"] --> B["4 周快速应用"]
-  C["想做作品集"] --> D["8 周作品集"]
-  E["完全新人或想系统学"] --> F["12 周完整路线"]
+  A["Already have development experience"] --> B["4-week fast application"]
+  C["Want to build a portfolio"] --> D["8-week portfolio"]
+  E["Complete beginner or want a systematic path"] --> F["12-week full path"]
 ```
 
-| 你现在的情况 | 建议节奏 |
+| Your current situation | Recommended pace |
 |---|---|
-| 已经会编程，只想快速做 RAG/Agent 原型 | 4 周路线 |
-| 想转 AI 应用、需要稳定作品集 | 8 周路线 |
-| 新人、基础不系统、容易被环境和数据卡住 | 12 周路线 |
+| You already know how to code and just want to quickly build a RAG/Agent prototype | 4-week path |
+| You want to switch to AI applications and need a solid portfolio | 8-week path |
+| You are a beginner, your foundation is not systematic, and you often get stuck on environment or data issues | 12-week path |
 
-## 4 周快速应用路线
+## 4-Week Fast Application Path
 
-这条路线适合已有编程经验、想尽快做出 LLM / RAG / Agent 原型的人。它会跳过很多细节，但不能跳过评估、日志和边界。
+This path is suitable for people who already have programming experience and want to quickly build an LLM / RAG / Agent prototype. It skips many details, but it cannot skip evaluation, logging, and boundaries.
 
-| 周次 | 学习重点 | 交付物 |
+| Week | Learning focus | Deliverable |
 |---|---|---|
-| 第 1 周 | 快速浏览 1～6 站，补 Python、数据、模型和 Transformer 最小概念 | 一个能运行的 Python 项目骨架和 README |
-| 第 2 周 | 精读第 7～8 站，完成 Prompt 助手和最小 RAG | 带来源引用的课程问答 Demo |
-| 第 3 周 | 精读第 9 站，完成最小 Agent 和工具调用 Trace | 一个能拆解任务、调用工具、记录轨迹的 Agent |
-| 第 4 周 | 补工程化、评估、成本、安全和部署说明 | 项目 README、评估集、失败样本和部署说明 |
+| Week 1 | Quickly review stations 1 to 6; cover the minimum concepts of Python, data, models, and Transformer | A runnable Python project skeleton and README |
+| Week 2 | Read stations 7 to 8 carefully; complete a Prompt assistant and a minimal RAG | A course Q&A demo with source citations |
+| Week 3 | Read station 9 carefully; complete a minimal Agent and tool-calling trace | An Agent that can break down tasks, call tools, and record its trace |
+| Week 4 | Fill in engineering, evaluation, cost, security, and deployment notes | Project README, evaluation set, failure samples, and deployment notes |
 
-4 周路线的目标不是“学完所有内容”，而是快速得到一个能讲清楚的 AI 应用作品。适合面试前冲刺、已有开发经验转 AI 应用、或者先验证自己是否喜欢这个方向。
+The goal of the 4-week path is not to “learn everything,” but to quickly produce an AI application project you can clearly explain. It is suitable for a job-hunting sprint, for experienced developers transitioning into AI applications, or for validating whether you like this direction.
 
-## 8 周作品集路线
+## 8-Week Portfolio Path
 
-这条路线适合大多数想转向 AI 应用、RAG 或 Agent 开发的人。它强调每两周形成一个阶段作品，最后串成一个完整作品集。
+This path is suitable for most people who want to move into AI applications, RAG, or Agent development. It emphasizes producing a stage project every two weeks and then connecting them into a complete portfolio.
 
-| 周次 | 学习重点 | 交付物 |
+| Week | Learning focus | Deliverable |
 |---|---|---|
-| 第 1 周 | 第 1～2 站：环境、Git、Python 基础 | 命令行学习助手 v0.2 |
-| 第 2 周 | 第 3 站：数据分析与可视化 | 学习数据分析报告和图表 |
-| 第 3 周 | 第 4～5 站：数学直觉和机器学习 | 学习任务分类或进度预测 baseline |
-| 第 4 周 | 第 6 站：深度学习与 Transformer | 一个小型训练实验和训练曲线 |
-| 第 5 周 | 第 7 站：大模型原理、Prompt 与微调 | Prompt 助手、Prompt 版本和失败样本 |
-| 第 6 周 | 第 8 站：RAG 和应用开发 | 带引用、日志和评估集的 RAG 助手 |
-| 第 7 周 | 第 9 站：Agent 系统 | 带工具调用、Trace 和权限边界的 Agent |
-| 第 8 周 | 工程化收尾与方向选修预研 | 作品集 README、截图、部署说明和下一步计划 |
+| Week 1 | Stations 1 to 2: environment, Git, Python basics | Command-line learning assistant v0.2 |
+| Week 2 | Station 3: data analysis and visualization | Learning data analysis report and charts |
+| Week 3 | Stations 4 to 5: math intuition and machine learning | Learning task classification or progress prediction baseline |
+| Week 4 | Station 6: deep learning and Transformer | A small training experiment and training curves |
+| Week 5 | Station 7: LLM principles, Prompt, and fine-tuning | Prompt assistant, Prompt versions, and failure samples |
+| Week 6 | Station 8: RAG and application development | A RAG assistant with citations, logs, and an evaluation set |
+| Week 7 | Station 9: Agent systems | An Agent with tool calls, traces, and permission boundaries |
+| Week 8 | Engineering wrap-up and exploration of next directions | Portfolio README, screenshots, deployment notes, and next-step plan |
 
-8 周路线最重要的是持续沉淀。每周结束时，都要更新 README：本周新增了什么能力，怎么运行，示例输入输出是什么，失败样本是什么，下一步准备怎么改。
+The most important thing in the 8-week path is steady accumulation. At the end of each week, update the README: what new capability you added, how to run it, what the sample inputs and outputs are, what the failure samples are, and what you plan to improve next.
 
-## 12 周完整路线
+## 12-Week Full Path
 
-这条路线适合新人或希望系统补全基础的人。它会更稳地覆盖编程、数据、模型、大模型应用、RAG、Agent 和多模态方向。
+This path is suitable for beginners or for people who want to systematically fill in their foundations. It covers programming, data, models, LLM applications, RAG, Agent, and multimodal directions more thoroughly and steadily.
 
-| 周次 | 学习重点 | 交付物 |
+| Week | Learning focus | Deliverable |
 |---|---|---|
-| 第 1 周 | 第 1 站：开发者工具基础 | Git 仓库、环境截图、项目目录 |
-| 第 2 周 | 第 2 站：Python 编程基础 | 命令行工具或简单 API |
-| 第 3 周 | 第 3 站：数据分析与可视化 | 数据清洗、分析图表和结论 |
-| 第 4 周 | 第 4 站：AI 数学最小基础 | 向量、概率、梯度概念卡和小实验 |
-| 第 5 周 | 第 5 站：机器学习 | baseline、指标、错误样本分析 |
-| 第 6 周 | 第 6 站：深度学习与 Transformer | 训练实验、loss 曲线和复盘 |
-| 第 7 周 | 第 7 站：LLM 原理、Prompt 与微调 | Prompt 助手和 Prompt 评估记录 |
-| 第 8 周 | 第 8 站：RAG 基础 | 最小 RAG、来源引用和检索日志 |
-| 第 9 周 | 第 8 站进阶：RAGOps 与工程化 | 评估集、失败样本、成本记录和部署说明 |
-| 第 10 周 | 第 9 站：Agent 基础与工具 | 最小 Agent、工具 schema 和执行轨迹 |
-| 第 11 周 | 第 9 站进阶：AgentOps 与安全 | 权限边界、人工确认、失败恢复和评估任务集 |
-| 第 12 周 | 第 12 站：多模态或方向毕业项目 | 多模态学习助手、创意工作台或方向作品集 |
+| Week 1 | Station 1: basics of developer tools | Git repository, environment screenshots, project directory |
+| Week 2 | Station 2: Python programming basics | Command-line tool or simple API |
+| Week 3 | Station 3: data analysis and visualization | Data cleaning, analysis charts, and conclusions |
+| Week 4 | Station 4: minimum AI math foundation | Concepts cards and small experiments for vectors, probability, and gradients |
+| Week 5 | Station 5: machine learning | Baseline, metrics, and error sample analysis |
+| Week 6 | Station 6: deep learning and Transformer | Training experiment, loss curve, and review |
+| Week 7 | Station 7: LLM principles, Prompt, and fine-tuning | Prompt assistant and Prompt evaluation notes |
+| Week 8 | Station 8: RAG basics | Minimal RAG, source citations, and retrieval logs |
+| Week 9 | Station 8 advanced: RAGOps and engineering | Evaluation set, failure samples, cost records, and deployment notes |
+| Week 10 | Station 9: Agent basics and tools | Minimal Agent, tool schema, and execution trace |
+| Week 11 | Station 9 advanced: AgentOps and security | Permission boundaries, human confirmation, failure recovery, and evaluation task set |
+| Week 12 | Station 12: multimodal or capstone project in your chosen direction | Multimodal learning assistant, creative workspace, or direction-specific portfolio project |
 
-12 周路线适合从零建立体系。它的关键不是每天学很多，而是每周都有一个可以保存下来的成果。
+The 12-week path is suitable for building a system from scratch. The key is not to learn a huge amount every day, but to have one result each week that you can save.
 
-## 每周复盘模板
+## Weekly Review Template
 
-每周结束时，建议用下面 6 个问题复盘，不要只写“学了某某章节”。
+At the end of each week, it is recommended that you review your progress using the six questions below. Do not just write “I studied chapter X.”
 
-| 复盘问题 | 示例回答方向 |
+| Review question | Example direction for an answer |
 |---|---|
-| 本周解决了什么问题？ | 从不能处理文档，到能做带来源 RAG 回答 |
-| 我新增了什么能力？ | 文档切分、检索、引用、评估集 |
-| 我跑通了什么代码？ | `python -m src.rag.demo` |
-| 我遇到什么失败？ | 检索召回了不相关片段 |
-| 我怎么定位？ | 打印 top-k 片段，发现 chunk 太短 |
-| 下周优先改什么？ | 增加 Hybrid Search 和固定评估集 |
+| What problem did I solve this week? | From not being able to handle documents to being able to answer with RAG and citations |
+| What new ability did I add? | Document chunking, retrieval, citations, evaluation set |
+| What code did I get running? | `python -m src.rag.demo` |
+| What failure did I encounter? | Retrieval returned irrelevant passages |
+| How did I diagnose it? | Printed the top-k passages and found the chunks were too short |
+| What should I prioritize fixing next week? | Add Hybrid Search and a fixed evaluation set |
 
-## 不同基础的人怎么调整
+## How to Adjust for Different Backgrounds
 
-如果你已经会 Python，可以把第 1～2 周压缩成几天，把更多时间留给第 8～9 站。如果你做过机器学习，可以快速浏览第 4～6 站，但不要跳过评估、训练曲线和错误样本，因为这些能力会在 RAG 和 Agent 评估中继续出现。
+If you already know Python, you can compress weeks 1 to 2 into a few days and leave more time for stations 8 to 9. If you have done machine learning before, you can quickly skim stations 4 to 6, but do not skip evaluation, training curves, or error samples, because these skills will continue to matter in RAG and Agent evaluation.
 
-如果你完全是新人，不要因为 4 周路线看起来快就强行选择它。新人更适合 12 周路线，因为 AI 应用工程真正卡住的地方往往不是模型名，而是环境、数据格式、接口错误、日志、评估和项目边界。
+If you are a complete beginner, do not choose the 4-week path just because it looks fast. Beginners are usually better suited to the 12-week path, because the real bottlenecks in AI application engineering are often not model names, but environment setup, data formats, interface errors, logs, evaluation, and project boundaries.
 
-## 过关标准
+## Passing Criteria
 
-无论选择哪条路线，最终至少应该留下四类材料：一个能运行的项目仓库，一份能说明项目目标和运行方式的 README，一组评估或测试样例，一份失败样本和改进记录。
+No matter which path you choose, you should end up with at least four types of materials: a runnable project repository, a README that explains the project goal and how to run it, a set of evaluation or test cases, and a record of failure samples and improvements.
 
-如果你能把这些材料讲清楚，就说明你不是只“看过课程”，而是已经把课程变成了自己的项目经验。
+If you can explain these materials clearly, it means you have not just “looked through the course,” but have already turned the course into your own project experience.

@@ -1,165 +1,165 @@
 ---
-title: "9.2 Agent 部署架构"
+title: "9.2 Agent Deployment Architecture"
 sidebar_position: 49
-description: "从 API 网关、任务编排、工具层、状态存储到观测系统，理解一个可上线的 Agent 服务通常由哪些模块组成。"
+description: "From API gateways, task orchestration, tool layers, state storage, to observability systems, understand what modules a production-ready Agent service usually consists of."
 keywords: [deployment architecture, agent architecture, api gateway, orchestrator, queue, storage, observability]
 ---
 
-# Agent 部署架构
+# Agent Deployment Architecture
 
-:::tip 本节定位
-很多 Agent 项目一开始只有一段脚本：
+:::tip Section overview
+Many Agent projects start as just a script:
 
-- 收请求
-- 调模型
-- 打印答案
+- Receive a request
+- Call the model
+- Print the answer
 
-但真正上线时，我们通常需要的不是“一个脚本”，而是一套架构。
+But when it goes to production, what we usually need is not “a script,” but an architecture.
 
-因为上线后必须同时面对：
+Because after launch, the system must handle all of the following at the same time:
 
-- 并发
-- 状态
-- 工具依赖
-- 日志审计
-- 故障恢复
+- Concurrency
+- State
+- Tool dependencies
+- Log auditing
+- Fault recovery
 
-这一节要建立的就是这张架构地图。
+What we want to build in this section is that architecture map.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解 Agent 部署架构的核心模块分层
-- 理解为什么“模型服务”只是其中一层
-- 通过可运行示例掌握请求在架构中的流转
-- 建立从 demo 到生产系统的整体视角
+- Understand the layered structure of the core modules in an Agent deployment architecture
+- Understand why “model service” is only one layer
+- Master how requests flow through the architecture with a runnable example
+- Build an overall view from demo to production system
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-Agent 部署架构更适合按“请求从哪进、决策在哪做、状态存哪、怎么观测”来理解：
+An Agent deployment architecture is easier to understand by asking: “Where does the request enter, where are decisions made, where is state stored, and how is it observed?”
 
 ```mermaid
 flowchart LR
-    A["接入层"] --> B["编排层"]
-    B --> C["执行层"]
-    C --> D["状态与存储层"]
-    B --> E["观测层"]
+    A["Access layer"] --> B["Orchestration layer"]
+    B --> C["Execution layer"]
+    C --> D["State and storage layer"]
+    B --> E["Observability layer"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么一个脚本和一个可上线系统之间会多出这么多层
-- 为什么模型服务只是执行层的一部分
-
----
-
-## 一、一个可上线的 Agent 系统通常包含哪些层？
-
-### 1.1 接入层
-
-负责：
-
-- 接 HTTP / WebSocket / 内部 RPC 请求
-- 做认证、限流、路由
-
-### 1.2 编排层
-
-负责：
-
-- 选择工作流
-- 调模型
-- 决定工具调用
-- 管理任务状态
-
-这一层通常就是 Agent 的“大脑外壳”。
-
-### 1.3 执行层
-
-负责：
-
-- 实际工具调用
-- 模型推理服务
-- 检索服务
-- 外部 API 调用
-
-### 1.4 状态与存储层
-
-负责：
-
-- 会话状态
-- 长期记忆
-- 任务 checkpoint
-- 日志与审计
-
-### 1.5 观测层
-
-负责：
-
-- 指标
-- trace
-- 错误告警
-
-### 1.6 一个更适合新人的总类比
-
-你可以把 Agent 部署架构理解成：
-
-- 一家公司接待客户、分派任务、找员工执行、做记录、再回头看运营报表
-
-如果所有事都塞给一个人做，  
-短期当然能跑起来，  
-但一旦并发、状态、工具和故障都来了，系统就会很快失控。
-
-这个类比很适合新人，因为它会帮助你先抓住：
-
-- 分层不是为了复杂
-- 而是为了把不同责任拆开
+- Why does a script turn into so many layers once it becomes a production system?
+- Why is the model service only part of the execution layer?
 
 ---
 
-## 二、为什么“模型 API + 几个工具”还不够叫架构？
+## 1. What layers does a production-ready Agent system usually include?
 
-### 2.1 因为缺少状态边界
+### 1.1 Access layer
 
-一旦任务变长，系统必须明确回答：
+Responsible for:
 
-- 当前进行到哪一步
-- 上一步结果是什么
-- 失败后如何恢复
+- Receiving HTTP / WebSocket / internal RPC requests
+- Authentication, rate limiting, and routing
 
-### 2.2 因为缺少执行边界
+### 1.2 Orchestration layer
 
-模型不应该直接承担：
+Responsible for:
 
-- 权限控制
-- 超时策略
-- 工具审计
+- Selecting the workflow
+- Calling the model
+- Deciding when to call tools
+- Managing task state
 
-这些更适合由架构层负责。
+This layer is often the “outer brain” of the Agent.
 
-### 2.3 因为缺少观测边界
+### 1.3 Execution layer
 
-如果线上出问题却无法回答：
+Responsible for:
 
-- 卡在哪个工具
-- 哪类请求最慢
-- 哪类链路最容易失败
+- Actual tool calls
+- Model inference services
+- Retrieval services
+- External API calls
 
-那系统就很难长期维护。
+### 1.4 State and storage layer
+
+Responsible for:
+
+- Session state
+- Long-term memory
+- Task checkpoints
+- Logs and auditing
+
+### 1.5 Observability layer
+
+Responsible for:
+
+- Metrics
+- Traces
+- Error alerts
+
+### 1.6 A more beginner-friendly analogy
+
+You can think of an Agent deployment architecture like this:
+
+- A company receives customers, assigns tasks, asks employees to do the work, keeps records, and then checks the operations report later
+
+If you try to make one person do everything,
+it may work for a short time,
+but once concurrency, state, tools, and failures show up, the system will quickly lose control.
+
+This analogy is especially useful for beginners because it helps you first understand:
+
+- Layering is not for complexity
+- It is for separating different responsibilities
 
 ---
 
-## 三、先看一个最小架构流转示例
+## 2. Why isn’t “model API + a few tools” enough to be called an architecture?
 
-这个示例不会真的起服务，  
-但它会非常清楚地展示请求怎样在架构中流动：
+### 2.1 Because there is no state boundary
 
-1. 接入层接收请求
-2. 编排层选择工具
-3. 执行层调用工具
-4. 存储层记录状态
-5. 观测层打 trace
+Once a task becomes longer, the system must clearly answer:
+
+- Which step are we on now?
+- What was the result of the previous step?
+- How do we recover after a failure?
+
+### 2.2 Because there is no execution boundary
+
+The model should not directly take on:
+
+- Permission control
+- Timeout policies
+- Tool auditing
+
+These are more suitable for the architecture layer to handle.
+
+### 2.3 Because there is no observability boundary
+
+If something goes wrong in production but you cannot answer:
+
+- Which tool is the bottleneck?
+- Which type of request is the slowest?
+- Which path fails most often?
+
+then the system will be very hard to maintain over time.
+
+---
+
+## 3. First, let’s look at a minimal architecture flow example
+
+This example does not actually start a service,
+but it very clearly shows how a request flows through the architecture:
+
+1. The access layer receives the request
+2. The orchestration layer selects the tool
+3. The execution layer calls the tool
+4. The storage layer records the state
+5. The observability layer records the trace
 
 ```python
 def gateway(request):
@@ -171,14 +171,14 @@ def gateway(request):
 
 
 def orchestrator(envelope):
-    if "退款" in envelope["message"]:
+    if "refund" in envelope["message"]:
         return {"workflow": "refund_flow", "tool": "search_policy"}
     return {"workflow": "default_flow", "tool": "none"}
 
 
 def tool_executor(tool_name, message):
     if tool_name == "search_policy":
-        return {"policy_text": "退款需满足 7 天内且学习进度低于 20%。"}
+        return {"policy_text": "Refunds must be within 7 days and the learning progress must be below 20%."}
     return {"note": "no_tool_used"}
 
 
@@ -194,7 +194,7 @@ def trace_logger(request_id, stage, payload):
     return {"request_id": request_id, "stage": stage, "payload": payload}
 
 
-request = {"request_id": "req-001", "user_id": "u-01", "message": "请告诉我退款规则"}
+request = {"request_id": "req-001", "user_id": "u-01", "message": "Please tell me the refund policy"}
 
 envelope = gateway(request)
 trace = [trace_logger(envelope["request_id"], "gateway", envelope)]
@@ -212,66 +212,66 @@ for item in trace:
     print(item)
 ```
 
-### 3.1 这段代码真正想教什么？
+### 3.1 What is this code really teaching?
 
-不是“写几个函数”，  
-而是让你脑子里出现清晰分层：
+Not “how to write a few functions,”
+but to help you form a clear mental layering:
 
-- 请求入口
-- 决策逻辑
-- 工具执行
-- 状态保存
-- 跟踪记录
+- Request entry
+- Decision logic
+- Tool execution
+- State persistence
+- Trace logging
 
-这几个层一旦分清，架构就开始稳定。
+Once these layers are clearly separated, the architecture starts to stabilize.
 
-### 3.2 为什么编排层和执行层要分开？
+### 3.2 Why should the orchestration layer and execution layer be separated?
 
-因为：
+Because:
 
-- 编排层负责“决定”
-- 执行层负责“做事”
+- The orchestration layer is responsible for “deciding”
+- The execution layer is responsible for “doing the work”
 
-两者混在一起，后面很难做：
+If the two are mixed together, it becomes difficult later to do:
 
-- 安全控制
-- 独立扩缩容
-- 调试
+- Security control
+- Independent scaling
+- Debugging
 
-### 3.3 为什么状态存储不能只是日志？
+### 3.3 Why can’t state storage be just logs?
 
-因为日志更像“发生过什么”。  
-真正的状态还包括：
+Because logs are more like “what happened.”
+True state also includes:
 
-- 当前步骤
-- 当前上下文
-- 是否可恢复
+- Current step
+- Current context
+- Whether recovery is possible
 
-它比日志更偏“可继续执行”。
+It is more about “can continue execution” than just “has happened.”
 
-### 3.4 一个很适合初学者先记的分层表
+### 3.4 A beginner-friendly layer table to remember first
 
-| 层 | 最值得先记住的职责 |
+| Layer | Most important responsibility to remember |
 |---|---|
-| 接入层 | 收请求、做认证和限流 |
-| 编排层 | 决定该走哪条链路 |
-| 执行层 | 真正调模型和工具 |
-| 状态层 | 记住当前任务进行到哪 |
-| 观测层 | 让你知道系统哪里出问题 |
+| Access layer | Receive requests, handle authentication and rate limiting |
+| Orchestration layer | Decide which path to follow |
+| Execution layer | Actually call models and tools |
+| State layer | Remember where the current task is |
+| Observability layer | Tell you where the system is having problems |
 
-这个表很适合新人，因为它会把“架构层次很多”重新压回成五个很清楚的角色。
+This table is great for beginners because it compresses “there are many architecture layers” back into five very clear roles.
 
-![Agent 部署架构分层数据流图](/img/course/ch09-agent-runtime-state-queue-map.png)
+![Layered data flow diagram of Agent deployment architecture](/img/course/ch09-agent-runtime-state-queue-map-en.png)
 
-:::tip 读图提示
-这张图适合按请求流读：接入层收请求，编排层决定流程，任务队列削峰，执行层调模型和工具，状态层保存 checkpoint，观测层记录 trace 和告警。
+:::tip Reading the diagram
+This diagram is best read as a request flow: the access layer receives the request, the orchestration layer decides the process, the task queue smooths spikes, the execution layer calls models and tools, the state layer saves checkpoints, and the observability layer records traces and alerts.
 :::
 
 ---
 
-## 四、一个更常见的生产架构长什么样？
+## 4. What does a more common production architecture look like?
 
-通常可以抽象成下面这条链：
+It can usually be abstracted into the following chain:
 
 ```mermaid
 flowchart LR
@@ -285,116 +285,116 @@ flowchart LR
     E --> I["External APIs / DB / Search"]
 ```
 
-这张图里的关键点是：
+The key points in this diagram are:
 
-- 模型服务只是执行层的一部分
-- 工具系统通常是独立执行层
-- 状态和观测都应作为独立支撑层存在
-
----
-
-## 五、什么时候需要队列和异步 worker？
-
-### 5.1 长任务
-
-例如：
-
-- 生成长报告
-- 多阶段数据整理
-- 多工具异步流程
-
-### 5.2 不适合阻塞用户请求的任务
-
-例如：
-
-- 批量总结
-- 周报生成
-- 长链路分析
-
-### 5.3 为什么队列有帮助？
-
-它能带来：
-
-- 异步解耦
-- 限流缓冲
-- 失败重试
-
-但代价是：
-
-- 系统更复杂
-- 状态管理更难
-
-### 5.4 第一次做部署设计时，最稳的默认顺序
-
-更稳的顺序通常是：
-
-1. 先分清接入、编排、执行三层
-2. 先把状态写入点想清楚
-3. 先把 trace 和 metrics 补上
-4. 最后再决定是否真的要引入队列和异步 worker
-
-这样会比一开始就上很多中间件更容易把系统主线立住。
+- The model service is only part of the execution layer
+- The tool system is usually an independent execution layer
+- State and observability should both exist as independent support layers
 
 ---
 
-## 六、最容易踩的架构误区
+## 5. When do you need queues and asynchronous workers?
 
-### 6.1 误区一：所有逻辑都塞进一个服务
+### 5.1 Long-running tasks
 
-开始时简单，后期会变成：
+For example:
 
-- 工具执行和编排耦合
-- 扩容困难
-- 观测困难
+- Generating long reports
+- Multi-stage data organization
+- Multi-tool asynchronous workflows
 
-### 6.2 误区二：有数据库就算有状态架构
+### 5.2 Tasks that should not block the user request
 
-数据库只是存储手段。  
-真正关键是你有没有想清楚：
+For example:
 
-- 存什么
-- 什么时候写
-- 谁来恢复
+- Batch summarization
+- Weekly report generation
+- Long-chain analysis
 
-### 6.3 误区三：上线后再补 trace 和 metrics
+### 5.3 Why are queues helpful?
 
-没有观测，出了问题几乎只能靠猜。
+They can provide:
 
-## 如果把它做成项目或系统设计，最值得展示什么
+- Asynchronous decoupling
+- Rate-limiting buffers
+- Retry on failure
 
-最值得展示的通常不是：
+But the tradeoff is:
 
-- 一张堆满服务名的架构图
+- The system becomes more complex
+- State management becomes harder
 
-而是：
+### 5.4 The safest default order when designing deployment for the first time
 
-1. 请求是怎么穿过各层的
-2. 哪一层负责决策，哪一层负责执行
-3. 状态在哪写、为什么写
-4. 出错时 trace 怎样帮助你定位问题
+A safer order is usually:
 
-这样别人会更容易看出：
+1. First separate the access, orchestration, and execution layers
+2. First make the state write points clear
+3. First add trace and metrics
+4. Only then decide whether you really need queues and asynchronous workers
 
-- 你理解的是架构分层逻辑
-- 不只是画了一张图
-
----
-
-## 小结
-
-这节最重要的不是记住多少基础设施名字，  
-而是建立一张清楚的上线地图：
-
-> **一个可上线的 Agent 系统，至少要分清接入、编排、执行、状态和观测五层；模型只是其中一层，而不是全部。**
-
-只要这张地图在脑子里立住，  
-你后面做运行时、恢复、成本和生产实践时，就会更顺。
+This makes it easier to establish the main architecture path than introducing lots of middleware from the start.
 
 ---
 
-## 练习
+## 6. The most common architecture mistakes
 
-1. 把示例里的 `search_policy` 再扩成需要两个工具配合的流程，观察哪一层最适合做状态汇总。
-2. 如果你要支持长任务异步执行，你会把队列放在哪一层？为什么？
-3. 为什么说“模型服务”不能等同于“Agent 架构”？
-4. 想一想：你的当前项目最缺的是接入层、执行层，还是观测层？
+### 6.1 Mistake 1: Put all logic into one service
+
+It may be simple at the beginning, but later it becomes:
+
+- Tool execution tightly coupled with orchestration
+- Hard to scale
+- Hard to observe
+
+### 6.2 Mistake 2: Having a database means you have a stateful architecture
+
+A database is only a storage method.
+What really matters is whether you have thought through:
+
+- What to store
+- When to write
+- Who will recover it
+
+### 6.3 Mistake 3: Adding trace and metrics only after launch
+
+Without observability, when something goes wrong, you can almost only guess.
+
+## If you turn it into a project or system design, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- A diagram full of service names
+
+But rather:
+
+1. How the request flows through each layer
+2. Which layer is responsible for decision-making and which for execution
+3. Where state is written and why
+4. How traces help you locate problems when errors happen
+
+This makes it easier for others to see:
+
+- That you understand the logic of architectural layering
+- Not just that you drew a diagram
+
+---
+
+## Summary
+
+What matters most in this section is not memorizing how many infrastructure names there are,
+but building a clear deployment map:
+
+> **A production-ready Agent system should at least clearly separate the access, orchestration, execution, state, and observability layers; the model is only one layer of it, not the whole thing.**
+
+Once this map is firmly in your mind,
+you will have a much smoother time later when dealing with runtime, recovery, cost, and production practices.
+
+---
+
+## Exercises
+
+1. Expand `search_policy` in the example into a workflow that requires two tools to cooperate, and observe which layer is most suitable for state aggregation.
+2. If you want to support asynchronous execution for long-running tasks, where would you place the queue? Why?
+3. Why can’t “model service” be treated as the same thing as “Agent architecture”?
+4. Think about it: which part is your current project missing most, the access layer, execution layer, or observability layer?

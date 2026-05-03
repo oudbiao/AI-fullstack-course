@@ -1,71 +1,71 @@
 ---
 sidebar_position: 14
-title: "全课程能力评估与通关标准"
-description: "把 AI 全栈课程拆成可检查的能力等级、阶段验收、项目证据和复盘标准，帮助学习者知道什么时候可以进入下一阶段。"
-keywords: [AI课程评估, 通关标准, 能力评估, 项目验收, AI全栈]
+title: "Full-Course Competency Assessment and Passing Standards"
+description: "Break the AI full-stack course into checkable skill levels, phase checkpoints, project evidence, and review standards, so learners know when they are ready to move to the next stage."
+keywords: [AI course assessment, passing standards, competency assessment, project review, AI full-stack]
 ---
 
-# 全课程能力评估与通关标准
+# Full-Course Competency Assessment and Passing Standards
 
-这页用来回答一个核心问题：学到什么程度才算真正掌握？AI 全栈学习不能只用“看完章节”判断进度，更应该看你能不能解释概念、跑通代码、完成项目、评估结果、复盘失败，并把这些证据整理成可展示成果。
+This page answers one core question: how much do you need to learn before you can truly say you’ve mastered it? In AI full-stack learning, progress should not be judged only by “finishing the chapters.” It should also be judged by whether you can explain concepts, run code successfully, complete projects, evaluate results, review failures, and organize this evidence into something you can show.
 
-## 一图读懂：掌握程度怎么升级
+## One Diagram to Understand Skill Progression
 
 ```mermaid
 flowchart LR
-  A["了解级：能说出用途"] --> B["实操级：能跑通示例"]
-  B --> C["项目级：能完成小项目"]
-  C --> D["工程级：能评估和迭代"]
+  A["Understanding level: can state the use case"] --> B["Hands-on level: can run the example"]
+  B --> C["Project level: can complete a small project"]
+  C --> D["Engineering level: can evaluate and iterate"]
 ```
 
-第一遍学习不要求每一章都到工程级，但每个主阶段至少要有一个项目达到项目级。RAG、Agent 和毕业项目则要尽量接近工程级。
+In the first pass through the course, not every chapter needs to reach engineering level. But each major stage should have at least one project at project level. For RAG, Agent, and the capstone project, you should aim as close to engineering level as possible.
 
-## 四级能力标准
+## Four-Level Competency Standards
 
-| 等级 | 状态 | 能力表现 | 典型证据 |
+| Level | Status | Ability Demonstration | Typical Evidence |
 |---|---|---|---|
-| 了解级 | 看懂概念 | 能说出这个技术解决什么问题 | 学习笔记、概念图、关键术语解释 |
-| 实操级 | 跑通最小闭环 | 能独立运行示例并修改关键参数 | 可运行脚本、命令记录、截图 |
-| 项目级 | 做出完整小项目 | 有输入、处理流程、输出、异常处理和 README | 项目仓库、示例输入输出、结果说明 |
-| 工程级 | 能评估和迭代 | 有 baseline、指标、日志、失败样本和改进记录 | 评估表、日志、失败样本、复盘报告 |
+| Understanding level | Understands the concept | Can explain what problem the technology solves | Study notes, concept map, explanation of key terms |
+| Hands-on level | Runs the minimal loop | Can independently run the example and adjust key parameters | Runnable scripts, command records, screenshots |
+| Project level | Builds a complete small project | Has input, processing flow, output, error handling, and a README | Project repository, sample input/output, result explanation |
+| Engineering level | Can evaluate and iterate | Has a baseline, metrics, logs, failure samples, and improvement records | Evaluation table, logs, failure samples, review report |
 
-学习早期不需要每一章都达到工程级，但每个主阶段至少要有一个项目达到项目级。进入 RAG、Agent 和毕业项目后，评估、日志和失败样本应该成为默认要求。
+In the early stages, not every chapter needs to reach engineering level. But each major stage should have at least one project at project level. Once you enter RAG, Agent, and the capstone project, evaluation, logs, and failure samples should become the default requirements.
 
-## 阶段通关矩阵
+## Phase Passing Matrix
 
-| 阶段 | 最低通关标准 | 推荐通关标准 | 进入下一阶段前要确认 |
+| Phase | Minimum Passing Standard | Recommended Passing Standard | What to Confirm Before Moving On |
 |---|---|---|---|
-| 1 开发者工具基础 | 能使用命令行、Git 和开发环境运行项目 | 能创建仓库、提交代码、写清运行说明 | 不再依赖复制粘贴路径和命令 |
-| 2 Python 编程基础 | 能写函数、读写文件、处理异常 | 能把脚本拆成模块并做一个小 API 或 CLI | 能独立排查常见 Python 报错 |
-| 3 数据分析与可视化 | 能读取数据、清洗、统计和画图 | 能写一份有结论的数据分析报告 | 能解释数据质量如何影响结论 |
-| 4 AI 数学基础 | 能解释向量、概率、梯度的直觉 | 能用小实验展示数学概念如何影响模型 | 不把公式当成黑箱记忆 |
-| 5 机器学习 | 能训练 baseline 并看懂指标 | 能做特征处理、模型对比和错误分析 | 能区分训练效果、泛化效果和数据问题 |
-| 6 深度学习与 Transformer | 能跑通训练循环并看曲线 | 能分析过拟合、欠拟合和迁移学习结果 | 能理解 Transformer 为什么适合序列建模 |
-| 7 大模型与 Prompt | 能设计可复用 Prompt 并比较输出 | 能做结构化输出、版本记录和回归样本 | 不再只凭感觉判断 Prompt 好坏 |
-| 8 LLM 应用与 RAG | 能完成带来源引用的问答原型 | 有切块、检索日志、评估集和失败样本 | 能判断失败来自检索、生成还是引用 |
-| 9 AI Agent | 能定义工具并完成多步骤任务 | 有 trace、工具日志、权限边界和安全测试 | 能说明 Agent 何时应该停止和确认 |
-| 10 计算机视觉 | 能完成图像分类、检测或 OCR 实验 | 有数据标注、指标、错误样本和可视化结果 | 能解释视觉模型失败来自数据、标注还是模型 |
-| 11 自然语言处理 | 能完成文本分类、抽取或摘要任务 | 能比较传统 NLP、深度学习和 LLM 方案 | 能说明文本表示、标签边界和评估方式 |
-| 12 AIGC 与多模态 | 能完成一个图片、语音、视频或多模态理解实验 | 有输入素材、生成/理解流程、质量标准和人工审核 | 不把生成效果只交给主观感觉判断 |
-| 毕业项目 | 能运行完整 AI 应用 | 有部署说明、评估报告、失败复盘和演示脚本 | 能在 3 分钟内讲清架构、指标、限制和下一步 |
+| 1 Developer Tools Basics | Can use the command line, Git, and the development environment to run projects | Can create a repository, commit code, and write clear run instructions | No longer depends on copy-pasting paths and commands |
+| 2 Python Programming Basics | Can write functions, read and write files, and handle exceptions | Can split scripts into modules and build a small API or CLI | Can independently troubleshoot common Python errors |
+| 3 Data Analysis and Visualization | Can read data, clean it, perform statistics, and create charts | Can write a data analysis report with conclusions | Can explain how data quality affects conclusions |
+| 4 AI Math Foundations | Can explain the intuition behind vectors, probability, and gradients | Can use small experiments to show how math concepts affect models | Does not memorize formulas as a black box |
+| 5 Machine Learning | Can train a baseline and understand metrics | Can do feature processing, model comparison, and error analysis | Can distinguish training performance, generalization performance, and data issues |
+| 6 Deep Learning and Transformer | Can run the training loop and read the curves | Can analyze overfitting, underfitting, and transfer learning results | Can understand why Transformer is suitable for sequence modeling |
+| 7 Large Models and Prompt | Can design reusable Prompts and compare outputs | Can do structured output, version tracking, and regression samples | No longer judges Prompt quality purely by intuition |
+| 8 LLM Applications and RAG | Can complete a Q&A prototype with source citations | Has chunking, retrieval logs, evaluation sets, and failure samples | Can tell whether a failure comes from retrieval, generation, or citation |
+| 9 AI Agent | Can define tools and complete multi-step tasks | Has traces, tool logs, permission boundaries, and safety tests | Can explain when the Agent should stop and ask for confirmation |
+| 10 Computer Vision | Can complete image classification, detection, or OCR experiments | Has data labeling, metrics, error samples, and visualization results | Can explain whether vision model failures come from data, labels, or the model |
+| 11 Natural Language Processing | Can complete text classification, extraction, or summarization tasks | Can compare traditional NLP, deep learning, and LLM solutions | Can explain text representation, label boundaries, and evaluation methods |
+| 12 AIGC and Multimodal | Can complete an image, speech, video, or multimodal understanding experiment | Has input materials, generation/understanding flow, quality standards, and human review | Does not judge generation quality only by subjective feeling |
+| Capstone Project | Can run a complete AI application | Has deployment instructions, an evaluation report, failure review, and a demo script | Can clearly explain the architecture, metrics, limitations, and next steps in 3 minutes |
 
-## 每阶段复盘问题
+## Review Questions for Each Stage
 
-每完成一个阶段，不要只问“我看完了吗”，而要问：我能不能用自己的话解释这一阶段解决了什么问题；我是否亲手跑过一个最小项目；我是否留下了 README、运行命令和示例输出；我是否记录过至少一个失败样本；如果下周重新运行项目，我是否还能复现结果。
+After completing each stage, do not only ask, “Have I finished watching it?” Instead, ask: Can I explain in my own words what problem this stage solves? Have I personally run at least one minimal project? Have I kept a README, run commands, and sample output? Have I recorded at least one failure sample? If I reran the project next week, could I still reproduce the result?
 
-如果这些问题里有两项以上答不上来，建议先补项目证据，再进入下一阶段。课程进度不是越快越好，而是每一步都能留下可验证成果。
+If you cannot answer two or more of these questions, it is recommended that you first build up the project evidence before moving to the next stage. Course progress is not about going faster; it is about leaving verifiable results at every step.
 
-## AI 应用阶段的额外验收
+## Additional Acceptance Criteria for AI Application Stages
 
-从 Prompt、RAG、Agent 开始，项目不能只看“回答是否像样”。AI 应用项目还要检查模型调用是否有错误处理，Prompt 是否有版本，RAG 是否能展示来源和检索日志，Agent 是否有工具边界和执行轨迹，系统是否能记录成本、延迟和失败原因。
+Starting from Prompt, RAG, and Agent, projects should not be judged only by whether “the answer looks okay.” AI application projects should also check whether model calls have error handling, whether the Prompt has versioning, whether RAG can show sources and retrieval logs, whether the Agent has tool boundaries and execution traces, and whether the system can record cost, latency, and failure reasons.
 
-| 项目类型 | 必须保留的证据 | 不合格信号 |
+| Project Type | Required Evidence to Keep | Unqualified Signals |
 |---|---|---|
-| Prompt 项目 | Prompt 版本、固定输入、输出对比、失败样本 | 只展示一次成功输出 |
-| RAG 项目 | chunks、retrieval logs、eval questions、citation check | 答案有引用但引用不支持结论 |
-| Agent 项目 | tool schema、agent trace、max_steps、安全边界 | Agent 做了什么说不清，失败无法回放 |
-| 部署项目 | 环境变量说明、启动命令、日志、错误处理 | 只能在个人电脑上运行 |
+| Prompt project | Prompt versions, fixed inputs, output comparisons, failure samples | Only shows one successful output |
+| RAG project | chunks, retrieval logs, eval questions, citation check | The answer has citations, but the citations do not support the conclusion |
+| Agent project | tool schema, agent trace, max_steps, safety boundaries | It is unclear what the Agent did, and failures cannot be replayed |
+| Deployment project | environment variable documentation, startup commands, logs, error handling | Can only run on a personal computer |
 
-## 最终判断标准
+## Final Judgment Criteria
 
-当你能把一个项目从问题定义讲到运行方式，从技术路线讲到评估结果，从成功样本讲到失败样本，再从当前限制讲到下一步迭代，就说明它已经接近作品集级。真正的 AI 全栈能力不是知道多少工具名，而是能把问题、数据、模型、工程、评估和复盘连接成一个稳定闭环。
+When you can explain a project from problem definition to how it runs, from technical approach to evaluation results, from successful samples to failure samples, and then from current limitations to the next iteration plan, it means the project is approaching portfolio quality. Real AI full-stack ability is not about knowing how many tool names you can list; it is about connecting the problem, data, model, engineering, evaluation, and review into a stable closed loop.

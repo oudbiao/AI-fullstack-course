@@ -1,240 +1,239 @@
 ---
-title: "6.3 BERT 系列"
+title: "6.3 BERT Series"
 sidebar_position: 17
-description: "从双向上下文、Masked Language Model 到微调方式，真正理解 BERT 在现代 NLP 中解决了什么问题。"
-keywords: [BERT, MLM, 双向编码器, 预训练, Transformer Encoder, NLP]
+description: "From bidirectional context and Masked Language Modeling to fine-tuning methods, truly understand what BERT solves in modern NLP."
+keywords: [BERT, MLM, bidirectional encoder, pretraining, Transformer Encoder, NLP]
 ---
 
-# BERT 系列
+# BERT Series
 
-![BERT Masked Language Model 图](/img/course/bert-masked-language-model.png)
+![BERT Masked Language Model](/img/course/bert-masked-language-model-en.png)
 
-:::tip 本节定位
-BERT 是现代 NLP 进入“预训练大一统时代”的关键节点之一。  
-很多今天你看到的大模型概念，虽然形态已经演化，但不少理解基础都能从 BERT 身上找到。
+:::tip Section focus
+BERT is one of the key milestones that brought modern NLP into the “pretraining for everything” era.
+Many concepts in today’s large models have evolved in form, but quite a few of the underlying ideas can be traced back to BERT.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解 BERT 为什么会成为 NLP 的里程碑
-- 说清楚 BERT 和 GPT 这类自回归模型的核心区别
-- 掌握 `[CLS]`、`[SEP]`、`[MASK]`、双向上下文这些关键概念
-- 看懂一个最小 BERT 输入示例
-- 理解 BERT 常见的微调方式
+- Understand why BERT became a milestone in NLP
+- Clearly explain the core difference between BERT and autoregressive models like GPT
+- Master key concepts such as `[CLS]`, `[SEP]`, `[MASK]`, and bidirectional context
+- Read a minimal BERT input example
+- Understand common fine-tuning methods for BERT
 
-## 历史背景：BERT 来自哪篇论文？
+## Background: Which paper did BERT come from?
 
-这一节最关键的历史节点是：
+The most important historical milestone in this section is:
 
-| 年份 | 论文 | 关键作者 | 它最重要地解决了什么 |
+| Year | Paper | Key Authors | What it solved most importantly |
 |---|---|---|---|
-| 2018 | *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding* | Devlin 等 | 把双向 Transformer 预训练 + 微调做成现代 NLP 理解任务的主线 |
+| 2018 | *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding* | Devlin et al. | Made bidirectional Transformer pretraining + fine-tuning the main path for modern NLP understanding tasks |
 
-对新人来说，最值得先记的是：
+For beginners, the most important thing to remember first is:
 
-- BERT 不是“又一个模型名”
-- 它代表的是一种非常重要的范式变化：
+- BERT is not “just another model name”
+- It represents a very important paradigm shift:
 
-> **先在海量文本上做通用预训练，再把同一个底座微调到不同任务上。**
+> **First do general pretraining on massive text, then fine-tune the same base model for different tasks.**
 
-这也是为什么你今天学大模型时，很多“先预训练、再适配”的感觉，会在 BERT 这里看到非常清楚的雏形。
-
----
-
-## 一、BERT 到底解决了什么问题？
-
-### 1.1 先看老问题：词义依赖上下文
-
-单词不是总有固定意思。
-
-例如英文里的 `bank`：
-
-- “river bank” 是河岸
-- “bank account” 是银行
-
-中文里也一样：
-
-- “苹果很好吃” 里的苹果是水果
-- “苹果发布了新设备” 里的苹果是公司
-
-如果模型只能给每个词一个固定向量，就会很吃力。
-
-### 1.2 BERT 的关键突破
-
-BERT 的核心贡献之一是：
-
-> **让一个词的表示真正依赖上下文。**
-
-也就是说，同一个词在不同句子里，可以得到不同的表示。
-
-这就是“上下文化表示（contextual representation）”。
-
-### 1.3 一个更适合新人的总类比
-
-你可以把 BERT 理解成：
-
-- 一个读句子时会前后都看的“精读型选手”
-
-它不像早期静态词向量那样只给词发一个固定名片，  
-而更像：
-
-- 同一个词放在不同句子里，会重新理解它现在扮演的角色
-
-这就是为什么 BERT 特别适合理解类任务。
+That is also why, when you learn large models today, many ideas about “pretrain first, then adapt” can be seen very clearly in BERT as an early prototype.
 
 ---
 
-## 二、为什么 BERT 会被称为“双向”模型？
+## 1. What problem did BERT actually solve?
 
-### 2.1 双向是什么意思？
+### 1.1 First, the old problem: word meaning depends on context
 
-看一句话：
+Words do not always have a fixed meaning.
 
-> “我昨天在银行旁边散步”
+For example, the English word `bank`:
 
-理解“银行”时，人并不会只看前面的“我昨天在”，也会看后面的“旁边散步”。
+- “river bank” means the riverbank
+- “bank account” means a financial bank
 
-BERT 的重要特点就是：
+The same is true in another English example:
 
-> 当前 token 的表示，同时利用左边和右边的上下文。
+- “I ate an apple” — apple means the fruit
+- “Apple released a new device” — Apple means the company
 
-### 2.2 和 GPT 的核心区别
+If a model can only give each word a fixed vector, it will struggle.
 
-粗略地说：
+### 1.2 BERT’s key breakthrough
 
-- **BERT**：更偏理解，双向看上下文
-- **GPT**：更偏生成，只看左边历史
+One of BERT’s core contributions is:
 
-所以：
+> **Making a word’s representation truly depend on context.**
 
-- 做分类、抽取、匹配时，BERT 很强
-- 做续写、对话、生成时，GPT 路线更自然
+In other words, the same word can get different representations in different sentences.
+
+This is called a “contextual representation.”
+
+### 1.3 A better analogy for beginners
+
+You can think of BERT as:
+
+- a “careful reader” that looks both before and after when reading a sentence
+
+Unlike early static word vectors, which only give a word one fixed business card, it is more like:
+
+- when the same word appears in different sentences, BERT re-understands the role it is playing now
+
+That is why BERT is especially suitable for understanding tasks.
 
 ---
 
-## 三、BERT 的输入到底长什么样？
+## 2. Why is BERT called a “bidirectional” model?
 
-### 3.1 三个特别常见的特殊 token
+### 2.1 What does bidirectional mean?
 
-| token | 作用 |
+Consider the sentence:
+
+> “I took a walk next to the bank yesterday”
+
+When understanding “bank,” people do not only look at the left context “I took a walk next to the,” but also the right context “yesterday.”
+
+BERT’s important feature is:
+
+> The representation of the current token uses both left and right context at the same time.
+
+### 2.2 The core difference from GPT
+
+Roughly speaking:
+
+- **BERT**: more focused on understanding, reads context bidirectionally
+- **GPT**: more focused on generation, looks only at left history
+
+So:
+
+- For classification, extraction, and matching tasks, BERT is very strong
+- For continuation, dialogue, and generation, the GPT route is more natural
+
+---
+
+## 3. What does BERT input actually look like?
+
+### 3.1 Three very common special tokens
+
+| token | role |
 |---|---|
-| `[CLS]` | 句子级任务的聚合位置 |
-| `[SEP]` | 句子分隔符 |
-| `[MASK]` | 预训练时被遮住的位置 |
+| `[CLS]` | Aggregation position for sentence-level tasks |
+| `[SEP]` | Sentence separator |
+| `[MASK]` | Position hidden during pretraining |
 
-### 3.2 一个最小输入例子
+### 3.2 A minimal input example
 
 ```python
-tokens = ["[CLS]", "我", "爱", "自", "然", "语", "言", "处", "理", "[SEP]"]
+tokens = ["[CLS]", "I", "love", "natural", "language", "processing", "[SEP]"]
 print(tokens)
-print("序列长度:", len(tokens))
+print("sequence length:", len(tokens))
 ```
 
-如果是句对任务，比如问句匹配：
+For sentence-pair tasks, such as question matching:
 
 ```python
 tokens = [
-    "[CLS]", "今", "天", "天", "气", "怎", "么", "样", "[SEP]",
-    "北", "京", "今", "天", "会", "下", "雨", "吗", "[SEP]"
+    "[CLS]", "How", "is", "the", "weather", "today", "[SEP]",
+    "Will", "it", "rain", "in", "Beijing", "today", "[SEP]"
 ]
 print(tokens)
 ```
 
-### 3.3 一个很适合初学者先记的输入结构表
+### 3.3 A beginner-friendly input structure table
 
-| 组件 | 最值得先记住的作用 |
+| Component | Most important thing to remember |
 |---|---|
-| `[CLS]` | 句子级任务的聚合位置 |
-| `[SEP]` | 句子边界分隔 |
-| `[MASK]` | 预训练时要恢复的位置 |
+| `[CLS]` | Aggregation position for sentence-level tasks |
+| `[SEP]` | Sentence boundary separator |
+| `[MASK]` | Position to be recovered during pretraining |
 
-这个表特别适合新人，因为它会把 BERT 输入从“神秘 token 串”重新变成几个能解释的部件。
+This table is especially helpful for beginners because it turns BERT input from a “mysterious token string” into a few understandable parts.
 
 ---
 
-## 四、BERT 预训练时在做什么？
+## 4. What does BERT do during pretraining?
 
-### 4.1 最经典任务：Masked Language Modeling
+### 4.1 The classic task: Masked Language Modeling
 
-BERT 最经典的训练目标是 MLM，也就是：
+BERT’s most classic training objective is MLM, which means:
 
-> 把句子中的一部分 token 遮住，让模型根据上下文猜回来。
+> Hide some tokens in a sentence and let the model guess them back from context.
 
-例如：
+For example:
 
-> “我爱 [MASK] 语言处理”
+> “I love [MASK] language processing”
 
-模型要根据前后文猜 `[MASK]` 是什么。
+The model must infer what `[MASK]` is from the surrounding context.
 
-### 4.2 一个最小可运行示例
+### 4.2 A minimal runnable example
 
 ```python
-tokens = ["[CLS]", "我", "爱", "[MASK]", "语", "言", "处", "理", "[SEP]"]
+tokens = ["[CLS]", "I", "love", "[MASK]", "language", "processing", "[SEP]"]
 mask_index = tokens.index("[MASK]")
 
-candidates = ["自", "学", "看"]
+candidates = ["natural", "machine", "deep"]
 
 print("tokens =", tokens)
 print("mask index =", mask_index)
-print("候选填空 =", candidates)
+print("candidate fill-ins =", candidates)
 ```
 
-这个例子虽然不是在真正训练模型，但已经在教你：
+This example is not actually training a model, but it already teaches you:
 
-- `[MASK]` 的位置是明确的
-- 模型的任务是恢复被遮住的信息
-- 当前词的预测依赖双向上下文
+- the `[MASK]` position is explicit
+- the model’s job is to recover the hidden information
+- predictions at the current position depend on bidirectional context
 
-### 4.3 为什么这件事很重要？
+### 4.3 Why is this important?
 
-因为它迫使模型真正去理解：
+Because it forces the model to truly understand:
 
-- 左边说了什么
-- 右边说了什么
-- 当前被遮住的位置该是什么
+- what is said on the left
+- what is said on the right
+- what should go in the hidden position
 
-这让 BERT 非常擅长“理解型任务”。
+This makes BERT very good at understanding tasks.
 
-### 4.4 第一次学 BERT 时，最稳的默认顺序
+### 4.4 The safest default learning order for BERT
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先理解双向上下文到底在补什么
-2. 先看 `[CLS] / [SEP] / [MASK]` 这几个最常见 token
-3. 再看 MLM 在训练时要求模型学什么
-4. 最后再看微调是怎么接分类头的
+1. First understand what bidirectional context is filling in
+2. Then look at the most common tokens: `[CLS] / [SEP] / [MASK]`
+3. Then see what MLM asks the model to learn during training
+4. Finally look at how fine-tuning attaches a classification head
 
-这样会比一上来就盯论文细节和大模型参数更容易稳住主线。
+This is easier than jumping straight into paper details and large-model parameters.
 
 ---
 
-## 五、BERT 的输入不只有 token
+## 5. BERT input is not just tokens
 
 ### 5.1 Token Embedding
 
-每个 token 会先变成向量。
+Each token is first turned into a vector.
 
 ### 5.2 Position Embedding
 
-模型还要知道顺序，所以要加位置编码。
+The model also needs to know the order, so positional encoding must be added.
 
 ### 5.3 Segment Embedding
 
-在句对任务里，模型还要知道“哪些 token 属于句子 A，哪些属于句子 B”。
+For sentence-pair tasks, the model also needs to know “which tokens belong to sentence A” and “which tokens belong to sentence B”.
 
-你可以把 BERT 的输入想成三部分相加：
+You can think of BERT input as the sum of three parts:
 
-> `最终输入表示 = token embedding + position embedding + segment embedding`
+> `final input representation = token embedding + position embedding + segment embedding`
 
-这一步很重要，因为 Transformer 本身不自带序列顺序感。
+This step is important because Transformer itself does not inherently contain sequence-order awareness.
 
 ---
 
-## 六、一个真正可运行的离线 BERT 示例
+## 6. A truly runnable offline BERT example
 
-下面这个示例不需要下载预训练权重，只需要安装 `transformers` 和 `torch`，就可以本地随机初始化一个小型 BERT，主要用来帮助你理解输入输出形状。
+The example below does not require downloading pretrained weights. You only need to install `transformers` and `torch`, and you can initialize a small random BERT locally. It is mainly here to help you understand input/output shapes.
 
-:::info 运行环境
+:::info Runtime environment
 ```bash
 pip install torch transformers
 ```
@@ -255,7 +254,7 @@ config = BertConfig(
 model = BertModel(config)
 
 input_ids = torch.tensor([
-    [1, 5, 8, 9, 2, 0, 0],   # 一条较短样本，后面补 0
+    [1, 5, 8, 9, 2, 0, 0],   # a shorter sample, padded with 0s at the end
     [1, 7, 6, 3, 4, 2, 0]
 ])
 
@@ -270,158 +269,158 @@ print("last_hidden_state shape:", outputs.last_hidden_state.shape)
 print("pooler_output shape    :", outputs.pooler_output.shape)
 ```
 
-### 6.2 输出怎么理解？
+### 6.2 How should we understand the outputs?
 
 - `last_hidden_state`
   - shape: `[batch, seq_len, hidden_size]`
-  - 每个 token 都有一个上下文化表示
+  - each token has a contextual representation
 
 - `pooler_output`
   - shape: `[batch, hidden_size]`
-  - 通常可理解为整句摘要表示之一
+  - usually can be understood as one kind of whole-sentence summary representation
 
-这也解释了为什么 BERT 适合：
+This also explains why BERT is suitable for:
 
-- token 级任务：看 `last_hidden_state`
-- 句子级任务：看 `[CLS]` 或句级表示
+- token-level tasks: use `last_hidden_state`
+- sentence-level tasks: use `[CLS]` or sentence-level representations
 
 ---
 
-## 七、BERT 怎么拿来做分类？
+## 7. How do we use BERT for classification?
 
-### 7.1 典型套路
+### 7.1 Typical workflow
 
-最常见的做法是：
+The most common approach is:
 
-1. 输入句子
-2. 经过 BERT
-3. 拿 `[CLS]` 或句子表示
-4. 接一个线性分类头
+1. Input a sentence
+2. Pass it through BERT
+3. Take `[CLS]` or a sentence representation
+4. Attach a linear classification head
 
-这就是经典的 fine-tuning 方式。
+This is the classic fine-tuning approach.
 
-### 7.2 一个概念级的小例子
+### 7.2 A small conceptual example
 
 ```python
 import torch
 from torch import nn
 
-# 假设这是 BERT 输出的 [CLS] 表示
+# Assume this is the [CLS] representation output by BERT
 cls_embedding = torch.randn(4, 32)  # batch=4, hidden=32
 
-# 接一个分类头
+# Attach a classification head
 classifier = nn.Linear(32, 2)
 logits = classifier(cls_embedding)
 
 print("logits shape:", logits.shape)
 ```
 
-这段代码很简单，但它教你一个很重要的事实：
+This code is very simple, but it teaches you something very important:
 
-> BERT 往往不是任务的终点，而是“强表示层”。
+> BERT is often not the end of a task, but a powerful representation layer.
 
-### 7.3 如果把 BERT 放进项目里，最值得先展示什么
+### 7.3 What is most worth showing when BERT is used in a project
 
-最值得展示的通常不是：
+What is usually most worth showing is not:
 
-- “我用了 BERT”
+- “I used BERT”
 
-而是：
+but rather:
 
-1. 输入文本长什么样
-2. `[CLS]` 表示怎么接分类头
-3. 它比传统表示或轻模型好在什么地方
-4. 哪些错例它仍然会错
+1. What the input text looks like
+2. How the `[CLS]` representation connects to the classification head
+3. What it does better than traditional representations or lighter models
+4. Which failure cases it still gets wrong
 
-这样别人会更容易看出：
+That way, other people can more easily see:
 
-- 你理解的是 BERT 在任务链里的角色
-- 不只是换了个模型名
-
----
-
-## 八、BERT 适合哪些任务？
-
-### 8.1 特别适合
-
-- 文本分类
-- 句对匹配
-- 命名实体识别
-- 抽取式问答
-
-### 8.2 不那么自然的地方
-
-BERT 本身不是为了长文本自由生成设计的。  
-如果任务重点是：
-
-- 长对话生成
-- 续写
-- 大段文本创作
-
-那 GPT 路线通常更自然。
+- you understand BERT’s role in the task pipeline
+- you did more than just change the model name
 
 ---
 
-## 九、BERT 为什么后来不再是唯一主角？
+## 8. What tasks is BERT good for?
 
-### 9.1 原因不是它没用，而是生态继续往前走了
+### 8.1 Especially suitable for
 
-后面 NLP 和 LLM 发展出了：
+- Text classification
+- Sentence-pair matching
+- Named entity recognition
+- Extractive question answering
 
-- 更大规模的预训练
-- 更强的生成模型
-- 更统一的任务接口
+### 8.2 Where it is less natural
 
-所以今天很多应用更常讨论 GPT、T5、Llama 这类路线。
+BERT itself was not designed for free-form long-text generation.
+If the task focus is:
 
-### 9.2 但 BERT 仍然非常值得学
+- long conversation generation
+- continuation
+- large-scale text creation
 
-因为它能帮你真正理解：
-
-- 上下文化表示
-- encoder-only 模型
-- 预训练 + 微调范式
-- token 级和句子级任务的区别
-
-这些都是后面继续学大模型的重要地基。
+then the GPT route is usually more natural.
 
 ---
 
-## 十、初学者最常踩的坑
+## 9. Why is BERT no longer the only main character?
 
-### 10.1 把 BERT 和 GPT 混成一个东西
+### 9.1 The reason is not that BERT is useless, but that the ecosystem kept moving forward
 
-它们都很重要，但训练目标和擅长任务并不一样。
+Later NLP and LLM development brought:
 
-### 10.2 以为 `[CLS]` 是“天然最佳句向量”
+- larger-scale pretraining
+- stronger generative models
+- more unified task interfaces
 
-在很多任务里它好用，但并不是放之四海皆准。
+So today, many applications more often discuss GPT, T5, and Llama-style routes.
 
-### 10.3 只知道“用 BERT 做分类”，不知道它到底学了什么
+### 9.2 But BERT is still very worth learning
 
-真正要掌握的是：
+Because it helps you truly understand:
 
-- 为什么它是双向的
-- 为什么 MLM 有效
-- 为什么它更适合理解任务
+- contextual representations
+- encoder-only models
+- the pretraining + fine-tuning paradigm
+- the difference between token-level and sentence-level tasks
 
----
-
-## 小结
-
-这一节最重要的不是记住 BERT 的全称，而是抓住三件事：
-
-1. BERT 是双向上下文建模的代表
-2. 它通过 MLM 学会“基于上下文理解 token”
-3. 它非常适合理解型任务和微调范式
-
-理解了这三点，你后面再学 GPT、T5、LLM 时，很多差异就会自然清楚。
+These are all important foundations for learning large models later.
 
 ---
 
-## 练习
+## 10. Common beginner mistakes
 
-1. 自己构造一个带 `[MASK]` 的中文句子，写出你认为最合理的候选词。
-2. 把离线 BERT 示例里的 `hidden_size` 改成 64，再看输出 shape 怎样变化。
-3. 想一想：为什么“我爱 [MASK] 语言处理”这种训练目标，能让模型学会双向理解？
-4. 用自己的话解释：BERT 和 GPT 在“看上下文”的方式上有什么核心差别？
+### 10.1 Mixing up BERT and GPT as if they were the same thing
+
+They are both important, but their training objectives and strengths are not the same.
+
+### 10.2 Thinking `[CLS]` is “naturally the best sentence vector”
+
+It is useful in many tasks, but it is not a universal best choice.
+
+### 10.3 Only knowing “use BERT for classification” without knowing what it actually learns
+
+What you really need to master is:
+
+- why it is bidirectional
+- why MLM works
+- why it is better suited to understanding tasks
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing BERT’s full name, but grasping these three points:
+
+1. BERT is a representative model of bidirectional context modeling
+2. It learns to “understand tokens from context” through MLM
+3. It is very suitable for understanding tasks and the fine-tuning paradigm
+
+Once you understand these three points, many differences will become naturally clear when you later learn GPT, T5, and LLMs.
+
+---
+
+## Exercises
+
+1. Create a sentence with `[MASK]` by yourself, and write the candidate word(s) you think are most reasonable.
+2. Change `hidden_size` in the offline BERT example to 64, then see how the output shape changes.
+3. Think about this: why can a training objective like “I love [MASK] language processing” help the model learn bidirectional understanding?
+4. Explain in your own words: what is the core difference between BERT and GPT in the way they “look at context”?

@@ -1,119 +1,119 @@
 ---
-title: "1.5 边缘设备部署"
+title: "1.5 Edge Device Deployment"
 sidebar_position: 5
-description: "从内存、电源、延迟、离线能力和模型体积出发，理解边缘部署为什么和云端部署是两套完全不同的工程约束。"
+description: "Understand why edge deployment and cloud deployment are two completely different sets of engineering constraints from the perspectives of memory, power, latency, offline capability, and model size."
 keywords: [edge deployment, Jetson, Raspberry Pi, memory budget, latency, offline inference]
 ---
 
-# 边缘设备部署
+# Edge Device Deployment
 
-:::tip 本节定位
-边缘设备部署最容易被低估的地方是：
+:::tip Section Overview
+The easiest thing to underestimate in edge device deployment is:
 
-- 它不是“把云端服务搬到小机器上”
+- It is not “moving a cloud service onto a small machine”
 
-边缘环境常见约束包括：
+Common constraints in edge environments include:
 
-- 内存更小
-- 功耗更敏感
-- 网络不稳定
-- 升级和排障更困难
+- Less memory
+- More sensitive power consumption
+- Unstable network
+- More difficult upgrades and troubleshooting
 
-所以真正要学会的是：
+So what you really need to learn is:
 
-> **在受限设备上做出“足够可用”的系统，而不是追求桌面机上的完美形态。**
+> **Build a system that is “good enough” on constrained devices, rather than chasing the perfect form on a desktop machine.**
 :::
 
-![边缘部署约束决策图](/img/course/elective-edge-deployment-constraint-map.png)
+![Edge deployment constraint decision map](/img/course/elective-edge-deployment-constraint-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解边缘部署和云端部署的核心差异
-- 学会从内存、功耗、延迟和离线能力四个维度评估方案
-- 通过可运行示例理解设备筛选和模型适配思路
-- 建立做边缘部署时的优先级判断
-
----
-
-## 一、边缘部署到底难在哪？
-
-### 1.1 设备资源通常远小于服务器
-
-常见限制包括：
-
-- 可用内存小
-- CPU / GPU 算力有限
-- 电源预算有限
-
-这意味着很多在云端“默认可以”的方案，到了边缘端会直接不现实。
-
-### 1.2 网络不一定可靠
-
-边缘设备常常位于：
-
-- 工厂
-- 门店
-- 摄像头节点
-- 车载或移动场景
-
-一旦网络抖动，系统仍要有基本能力。  
-这就是为什么边缘部署很重视：
-
-- 本地推理
-- 缓存
-- 离线 fallback
-
-### 1.3 运维成本往往更高
-
-服务器挂了还可以远程重启、灰度、扩容。  
-边缘设备一旦出问题，排障成本往往更高。
-
-所以边缘系统常常更看重：
-
-- 稳定
-- 可预测
-- 少折腾
+- Understand the core differences between edge deployment and cloud deployment
+- Learn how to evaluate a solution from four dimensions: memory, power, latency, and offline capability
+- Understand device selection and model adaptation through runnable examples
+- Build a sense of priority when making edge deployment decisions
 
 ---
 
-## 二、边缘设备选型时先看什么？
+## 1. What exactly makes edge deployment difficult?
 
-### 2.1 内存预算
+### 1.1 Device resources are usually much smaller than servers
 
-这是第一道门槛。  
-模型、运行时、输入缓存、服务本身都会吃内存。
+Common limitations include:
 
-### 2.2 功耗预算
+- Less available memory
+- Limited CPU / GPU compute
+- Limited power budget
 
-边缘设备不只是“能跑”，还要看：
+This means many solutions that are “default okay” in the cloud become unrealistic at the edge.
 
-- 能不能长期稳定运行
-- 散热能不能扛住
+### 1.2 The network is not always reliable
 
-### 2.3 目标延迟
+Edge devices are often located in:
 
-不同任务对延迟要求完全不同：
+- Factories
+- Retail stores
+- Camera nodes
+- Vehicle-mounted or mobile scenarios
 
-- 门禁识别：可能要求更实时
-- 批量统计：可以慢一点
+Once the network becomes unstable, the system still needs basic capabilities.
+That is why edge deployment pays close attention to:
 
-### 2.4 是否必须离线
+- Local inference
+- Caching
+- Offline fallback
 
-如果场景要求：
+### 1.3 Operations and maintenance cost is often higher
 
-- 断网仍可工作
+If a server goes down, you can usually restart it remotely, roll out gradually, or scale up.
+If an edge device has a problem, troubleshooting is often much more costly.
 
-那模型和依赖设计都会变得更不同。
+So edge systems usually care more about:
+
+- Stability
+- Predictability
+- Fewer moving parts
 
 ---
 
-## 三、先跑一个设备与模型适配示例
+## 2. What should you look at first when choosing edge devices?
 
-下面这个例子会模拟：
+### 2.1 Memory budget
 
-1. 一组设备资源约束
-2. 一组模型部署需求
-3. 自动筛出能跑得动的组合
+This is the first threshold.
+The model, runtime, input cache, and the service itself all consume memory.
+
+### 2.2 Power budget
+
+An edge device is not just about “can it run”; you also need to ask:
+
+- Can it run stably for a long time?
+- Can the cooling system handle it?
+
+### 2.3 Target latency
+
+Different tasks have completely different latency requirements:
+
+- Access control recognition: may require more real-time performance
+- Batch statistics: can be a bit slower
+
+### 2.4 Whether offline operation is required
+
+If the scenario requires:
+
+- Working even when disconnected from the internet
+
+then the model and dependency design will be very different.
+
+---
+
+## 3. First, run a device-model compatibility example
+
+The following example simulates:
+
+1. A set of device resource constraints
+2. A set of model deployment requirements
+3. Automatically filtering out combinations that can run
 
 ```python
 devices = [
@@ -142,93 +142,92 @@ for device in devices:
     print(device["name"], "->", candidates)
 ```
 
-### 3.1 这段代码最重要的地方是什么？
+### 3.1 What is the most important thing about this code?
 
-不是公式本身，  
-而是它帮你建立了一种筛选顺序：
+It is not the formula itself.
+It is the way it helps you establish a screening order:
 
-1. 先看资源能不能装下
-2. 再看功耗扛不扛得住
-3. 最后看延迟达不达标
+1. First, check whether the resources can fit
+2. Then, check whether the power budget can handle it
+3. Finally, check whether the latency meets the target
 
-### 3.2 为什么“能放进去”不等于“适合部署”？
+### 3.2 Why does “can fit” not mean “good for deployment”?
 
-比如模型勉强能加载，  
-但：
+For example, a model may barely load, but:
 
-- 延迟太高
-- 功耗太高
-- 长时间运行不稳定
+- The latency is too high
+- The power consumption is too high
+- It becomes unstable after running for a long time
 
-那它仍然不是好方案。
-
----
-
-## 四、边缘部署时最常见的优化方向
-
-### 4.1 模型缩小
-
-常见方式：
-
-- 量化
-- 小模型蒸馏
-- 更轻架构
-
-### 4.2 运行时优化
-
-例如：
-
-- 选合适推理引擎
-- 减少不必要预处理
-- 限制输入分辨率
-
-### 4.3 系统级优化
-
-例如：
-
-- 本地缓存结果
-- 断网时只保留关键功能
-- 降低后台日志和调试开销
+In that case, it is still not a good solution.
 
 ---
 
-## 五、边缘部署最容易踩的坑
+## 4. The most common optimization directions for edge deployment
 
-### 5.1 误区一：先选模型，再想设备
+### 4.1 Make the model smaller
 
-更稳的顺序通常是：
+Common methods:
 
-- 先看设备约束
-- 再选模型和引擎
+- Quantization
+- Model distillation
+- A lighter architecture
 
-### 5.2 误区二：只测单次推理，不测长时间运行
+### 4.2 Optimize the runtime
 
-很多系统是：
+For example:
 
-- 跑一次没事
-- 连续跑半小时开始变慢或过热
+- Choose the right inference engine
+- Reduce unnecessary preprocessing
+- Limit the input resolution
 
-### 5.3 误区三：默认边缘设备总能联网
+### 4.3 Optimize at the system level
 
-很多真实场景里，  
-离线能力不是可选项，而是基础要求。
+For example:
 
----
-
-## 小结
-
-这节最重要的是建立一个边缘视角：
-
-> **边缘部署首先是资源和稳定性问题，其次才是模型效果问题。**
-
-只有先把内存、功耗、延迟和离线能力一起看，  
-方案才会靠谱。
+- Cache results locally
+- Keep only core functions when offline
+- Reduce background logging and debugging overhead
 
 ---
 
-## 练习
+## 5. Common pitfalls in edge deployment
 
-1. 调整示例里的 `latency_target_ms`，看哪些模型组合会被淘汰。
-2. 如果设备只有 4GB 内存，你会优先改模型、改输入分辨率，还是改引擎？为什么？
-3. 想一想：为什么边缘部署里“长时间稳定运行”比“单次 benchmark 很亮眼”更重要？
-4. 如果网络经常中断，你会优先给系统补哪两项能力？
+### 5.1 Mistake 1: Choose the model first, then think about the device
+
+A more stable order is usually:
+
+- First look at device constraints
+- Then choose the model and inference engine
+
+### 5.2 Mistake 2: Only test single inference, not long-term running
+
+Many systems are like this:
+
+- No problem when run once
+- Start slowing down or overheating after running continuously for half an hour
+
+### 5.3 Mistake 3: Assume edge devices are always online
+
+In many real-world scenarios,
+offline capability is not optional — it is a basic requirement.
+
+---
+
+## Summary
+
+The most important thing in this section is to build an edge perspective:
+
+> **Edge deployment is first a resource and stability problem, and only then a model performance problem.**
+
+Only by considering memory, power, latency, and offline capability together
+can a solution be truly reliable.
+
+---
+
+## Exercises
+
+1. Adjust `latency_target_ms` in the example and see which model combinations are filtered out.
+2. If the device only has 4GB of memory, would you prioritize changing the model, changing the input resolution, or changing the engine? Why?
+3. Think about this: why is “long-term stable operation” more important in edge deployment than a flashy single benchmark result?
+4. If the network is frequently interrupted, which two capabilities would you prioritize adding to the system?

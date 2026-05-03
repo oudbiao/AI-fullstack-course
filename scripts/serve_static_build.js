@@ -4,9 +4,24 @@ const fs = require("fs");
 const http = require("http");
 const path = require("path");
 
-const root = path.resolve(process.env.STATIC_ROOT || "build");
-const host = process.env.HOST || "127.0.0.1";
-const port = Number(process.env.PORT || 3000);
+function readOption(name, fallback) {
+  const prefix = `--${name}=`;
+  const inlineValue = process.argv.find((arg) => arg.startsWith(prefix));
+  if (inlineValue) {
+    return inlineValue.slice(prefix.length);
+  }
+
+  const optionIndex = process.argv.indexOf(`--${name}`);
+  if (optionIndex !== -1 && process.argv[optionIndex + 1]) {
+    return process.argv[optionIndex + 1];
+  }
+
+  return fallback;
+}
+
+const root = path.resolve(readOption("root", process.env.STATIC_ROOT || "build"));
+const host = readOption("host", process.env.HOST || "127.0.0.1");
+const port = Number(readOption("port", process.env.PORT || 3000));
 
 const contentTypes = {
   ".html": "text/html; charset=utf-8",

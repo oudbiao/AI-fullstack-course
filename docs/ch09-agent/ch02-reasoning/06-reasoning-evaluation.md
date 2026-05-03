@@ -1,135 +1,135 @@
 ---
-title: "2.7 推理评估与优化"
+title: "2.7 Reasoning Evaluation and Optimization"
 sidebar_position: 10
-description: "从“答案对不对”进一步走向“过程稳不稳、工具用得值不值、步骤有没有浪费”，建立 Agent 推理系统的评估与优化闭环。"
+description: "Move beyond “Is the answer correct?” to “Is the process stable, is the tool usage worthwhile, and are there unnecessary steps?”, and build a closed-loop evaluation and optimization workflow for Agent reasoning systems."
 keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, tool efficiency]
 ---
 
-# 推理评估与优化
+# Reasoning Evaluation and Optimization
 
-:::tip 本节定位
-推理系统最容易犯的错误之一是：
+:::tip Section Overview
+One of the most common mistakes in reasoning systems is:
 
-- 看起来过程很漂亮
-- 但最后答案不对
+- The process looks beautiful
+- But the final answer is wrong
 
-或者反过来：
+Or the other way around:
 
-- 最后答案偶尔对了
-- 但过程又长又贵，完全不可复现
+- The final answer is sometimes correct
+- But the process is long, expensive, and completely unreproducible
 
-所以这一节要解决的是：
+So this section is here to answer:
 
-> **推理系统到底该怎么评估，才能知道它是真有能力，还是只是在“偶尔答对”。**
+> **How should we evaluate a reasoning system so we can tell whether it truly has ability, or is just “getting it right by chance sometimes”?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解推理系统不能只看最终答案准确率
-- 理解过程质量、工具效率和成本为什么也要评估
-- 通过可运行示例看懂一组常见推理指标
-- 学会围绕评估结果做针对性优化
-
----
-
-## 一、为什么推理评估比普通 QA 更复杂？
-
-### 1.1 因为推理系统不只是输出一个文本
-
-一个推理 Agent 往往还会产生：
-
-- 多步 trace
-- 工具调用记录
-- 中间状态
-- 最终答案
-
-所以它不是单点输出问题，  
-而是过程型系统问题。
-
-### 1.2 只看最终准确率会漏掉很多信息
-
-例如两个系统都答对了 80%：
-
-- 系统 A 平均 3 步，几乎不乱调工具
-- 系统 B 平均 9 步，经常重复查，成本翻倍
-
-如果只看 accuracy，  
-你会觉得它们差不多；  
-但工程上，它们完全不是一个水平。
-
-### 1.3 一个类比：不仅要看是否到达终点，还要看怎么到的
-
-如果两辆车都到达终点：
-
-- 一辆稳稳开到
-- 一辆一路绕路、急刹、险些出事
-
-你不会说它们表现一样。  
-推理系统也是同理。
+- Understand why reasoning systems cannot be judged only by final answer accuracy
+- Understand why process quality, tool efficiency, and cost also need evaluation
+- Learn common reasoning metrics through a runnable example
+- Learn how to optimize in a targeted way based on evaluation results
 
 ---
 
-## 二、推理系统最常看的四类指标
+## 1. Why is reasoning evaluation more complex than ordinary QA?
 
-### 2.1 最终结果指标
+### 1.1 Because a reasoning system does not just output a single text
 
-最常见的是：
+A reasoning Agent often also produces:
+
+- multi-step trace
+- tool call records
+- intermediate states
+- final answer
+
+So this is not a single-point output problem,
+but a process-oriented system problem.
+
+### 1.2 Looking only at final accuracy misses a lot of information
+
+For example, two systems are both 80% correct:
+
+- System A averages 3 steps and almost never uses tools unnecessarily
+- System B averages 9 steps, often repeats searches, and has double the cost
+
+If you only look at accuracy,
+you may think they are about the same;
+but in engineering terms, they are at completely different levels.
+
+### 1.3 An analogy: not only whether you reached the destination, but also how you got there
+
+If two cars both reach the destination:
+
+- one drives there smoothly
+- the other takes a winding route, brakes hard, and nearly causes an accident
+
+You would not say they performed the same.
+The same applies to reasoning systems.
+
+---
+
+## 2. The four most common types of metrics for reasoning systems
+
+### 2.1 Final outcome metrics
+
+The most common ones are:
 
 - answer accuracy
 - exact match
 - pass rate
 
-这回答的是：
+These answer:
 
-- 最终结论对不对
+- Is the final conclusion correct?
 
-### 2.2 过程质量指标
+### 2.2 Process quality metrics
 
-例如：
+For example:
 
-- 是否漏关键步骤
-- 是否自相矛盾
-- 是否有无效循环
+- Were any critical steps missed?
+- Are there contradictions?
+- Is there any useless looping?
 
-这回答的是：
+These answer:
 
-- 过程是否可依赖
+- Is the process reliable?
 
-### 2.3 工具使用指标
+### 2.3 Tool usage metrics
 
-例如：
+For example:
 
-- 工具成功率
-- 重复调用率
-- 无必要调用率
+- tool success rate
+- repeated call rate
+- unnecessary call rate
 
-这回答的是：
+These answer:
 
-- 工具有没有被合理使用
+- Are tools being used properly?
 
-### 2.4 成本与效率指标
+### 2.4 Cost and efficiency metrics
 
-例如：
+For example:
 
-- 平均步数
-- 平均延迟
-- 平均 token 成本
+- average number of steps
+- average latency
+- average token cost
 
-这回答的是：
+These answer:
 
-- 系统值不值得上线
+- Is the system worth deploying?
 
 ---
 
-## 三、先跑一个真正有用的评估脚本
+## 3. First, run a truly useful evaluation script
 
-下面这段代码会比较两个 agent 的 trace 质量。  
-它会统计：
+The code below compares the trace quality of two agents.
+It counts:
 
-- 最终答案准确率
-- 平均步数
-- 工具成功率
-- 重复工具调用率
+- final answer accuracy
+- average number of steps
+- tool success rate
+- repeated tool call rate
 
 ```python
 agent_a = [
@@ -143,8 +143,8 @@ agent_a = [
     },
     {
         "id": "case_2",
-        "expected": "3-7个工作日",
-        "final_answer": "3-7个工作日",
+        "expected": "3-7 working days",
+        "final_answer": "3-7 working days",
         "trace": [
             {"tool": "search_policy", "ok": True},
         ],
@@ -164,8 +164,8 @@ agent_b = [
     },
     {
         "id": "case_2",
-        "expected": "3-7个工作日",
-        "final_answer": "5-10个工作日",
+        "expected": "3-7 working days",
+        "final_answer": "5-10 working days",
         "trace": [
             {"tool": "search_policy", "ok": False},
             {"tool": "search_policy", "ok": True},
@@ -200,182 +200,182 @@ print("agent_a:", evaluate_agent(agent_a))
 print("agent_b:", evaluate_agent(agent_b))
 ```
 
-### 3.1 这段代码最值得带走什么？
+### 3.1 What is the most important takeaway from this code?
 
-最重要的不是某个公式，  
-而是它展示了一种思路：
+The most important thing is not a formula,
+but the way of thinking it shows:
 
-> **同一个系统，至少要同时看答案质量、过程长度和工具表现。**
+> **For the same system, you should at least look at answer quality, process length, and tool performance at the same time.**
 
-只有三者一起看，  
-你才知道系统到底是真的稳，还是只是偶然答对。
+Only by looking at all three together
+can you know whether the system is truly stable or just occasionally getting the right answer.
 
-### 3.2 为什么 `agent_b` 看起来不一定差很多，但工程上其实更差？
+### 3.2 Why does `agent_b` not necessarily look much worse at first glance, but is actually worse in engineering terms?
 
-因为它可能会出现：
+Because it may have:
 
-- 步数更长
-- 重复工具调用更多
-- 工具失败后需要补救
+- more steps
+- more repeated tool calls
+- a need for recovery after tool failures
 
-即使最终个别 case 答对了，  
-代价也更高。
+Even if it gets some individual cases right in the end,
+the cost is still higher.
 
-### 3.3 为什么重复调用率值得单独看？
+### 3.3 Why is repeated call rate worth tracking separately?
 
-因为很多 Agent 常见问题不是“完全不会”，  
-而是：
+Because many Agent problems are not “completely incapable,”
+but rather:
 
-- 不够果断
-- 重复试同一个工具
-- 做了很多没必要的动作
+- not decisive enough
+- repeatedly trying the same tool
+- doing many unnecessary actions
 
-这会直接拖慢系统、抬高成本。
+This directly slows the system down and increases cost.
 
-![Agent 推理失败类型诊断图](/img/course/ch09-reasoning-eval-failure-taxonomy-map.png)
+![Agent reasoning failure taxonomy diagram](/img/course/ch09-reasoning-eval-failure-taxonomy-map-en.png)
 
-:::tip 读图提示
-评估时不要只问“答案错了没”。这张图把失败拆到 intent、plan、tool、observation、stop condition 和 final answer，方便你定位到底是哪一层出了问题。
+:::tip Reading guide
+When evaluating, do not only ask “Was the answer wrong?” This diagram breaks failures down into intent, plan, tool, observation, stop condition, and final answer, making it easier to locate which layer went wrong.
 :::
 
 ---
 
-## 四、评估时不能只看“有没有答对”
+## 4. Evaluation should not only ask “Was the answer correct?”
 
-### 4.1 对答案类任务，看正确率
+### 4.1 For answer-based tasks, look at accuracy
 
-例如：
+For example:
 
-- 数学题
-- 规则问答
-- 明确检索题
+- math problems
+- rule-based Q&A
+- clear retrieval questions
 
-### 4.2 对过程类任务，看步骤是否合理
+### 4.2 For process-based tasks, look at whether the steps are reasonable
 
-例如：
+For example:
 
-- 是否漏关键步骤
-- 是否提前下结论
-- 是否先查再算
+- Were any critical steps missed?
+- Was the conclusion drawn too early?
+- Was it checked before calculating?
 
-### 4.3 对 Agent 类任务，看动作是否划算
+### 4.3 For Agent tasks, look at whether the actions are worthwhile
 
-例如：
+For example:
 
-- 有没有不必要的工具调用
-- 有没有工具失败后死循环
-- 有没有在够用的信息下及时停止
+- Were there unnecessary tool calls?
+- Was there an endless loop after tool failure?
+- Did it stop in time when enough information was available?
 
-停止时机本身也是能力的一部分。
-
----
-
-## 五、拿到评估结果后，该怎么优化？
-
-### 5.1 如果准确率低
-
-优先看：
-
-- 问题理解是否错
-- 工具选择是否错
-- observation 整合是否错
-
-### 5.2 如果准确率还行，但步数太长
-
-优先看：
-
-- 是否重复调用工具
-- 是否该提早 stop
-- 是否可以合并步骤
-
-### 5.3 如果工具成功率低
-
-优先看：
-
-- schema 是否写清楚
-- 参数生成是否稳定
-- observation 是否足够结构化
-
-### 5.4 如果不同题型表现差异很大
-
-就应该按题型分桶分析。  
-例如：
-
-- 算术题
-- 政策检索题
-- 多约束规划题
-
-这样才能做针对性优化。
+The timing of stopping is itself part of the capability.
 
 ---
 
-## 六、评估样本该怎么设计？
+## 5. After getting evaluation results, how should you optimize?
 
-### 6.1 不要只放容易题
+### 5.1 If accuracy is low
 
-否则系统很容易显得“都挺好”。  
-你应该刻意加入：
+Prioritize checking:
 
-- 容易误判的题
-- 需要多步工具配合的题
-- 很容易无限循环的题
+- whether the problem was misunderstood
+- whether the tool choice was wrong
+- whether the observations were integrated incorrectly
 
-### 6.2 最好覆盖失败模式
+### 5.2 If accuracy is acceptable but the number of steps is too high
 
-例如：
+Prioritize checking:
 
-- 需要 stop 却不停
-- 不该调工具却乱调
-- 工具失败后不会恢复
+- whether tools are being called repeatedly
+- whether it should stop earlier
+- whether steps can be merged
 
-### 6.3 固定评估集要长期保留
+### 5.3 If tool success rate is low
 
-这样每次改 prompt、改策略、改工具后，  
-你才能进行可比的 before / after 对比。
+Prioritize checking:
 
----
+- whether the schema is clearly defined
+- whether parameter generation is stable
+- whether observations are sufficiently structured
 
-## 七、常见误区
+### 5.4 If performance differs a lot across task types
 
-### 7.1 误区一：最终答案对就说明系统没问题
+You should do bucketed analysis by task type.
+For example:
 
-不一定。  
-它可能只是：
+- arithmetic tasks
+- policy retrieval tasks
+- multi-constraint planning tasks
 
-- 过程非常低效
-- 成本过高
-- 稳定性差
-
-### 7.2 误区二：指标越多越好
-
-指标不是收集癖。  
-关键是：
-
-- 指标能不能解释问题
-- 指标能不能指导优化
-
-### 7.3 误区三：没有固定 benchmark 也能靠感觉迭代
-
-只靠主观感觉，  
-很容易把系统改得越来越不可控。
+Only then can you make targeted improvements.
 
 ---
 
-## 小结
+## 6. How should evaluation samples be designed?
 
-这节最重要的，不是多记几个指标名，  
-而是建立一条评估闭环：
+### 6.1 Do not include only easy questions
 
-> **推理系统要同时评估最终答案、过程质量、工具使用和成本效率，然后根据具体短板做针对性优化。**
+Otherwise, the system will easily look like “it’s all pretty good.”
+You should deliberately include:
 
-当你真正按这条闭环做迭代时，  
-Agent 系统才会从“偶尔能跑”的 demo，走向“能解释、能改进、能上线”的系统。
+- questions that are easy to misjudge
+- questions that require multi-step tool coordination
+- questions that can easily lead to endless loops
+
+### 6.2 It is best to cover failure modes
+
+For example:
+
+- keeps going when it should stop
+- calls tools randomly when it should not
+- cannot recover after a tool failure
+
+### 6.3 Keep the fixed evaluation set for the long term
+
+That way, every time you change the prompt, strategy, or tools,
+you can make a meaningful before / after comparison.
 
 ---
 
-## 练习
+## 7. Common misconceptions
 
-1. 给示例中的 `agent_b` 再添加一个 case，看看指标会怎样变化。
-2. 为什么说“最终答案正确率”不足以完整评估一个推理 Agent？
-3. 想一想：如果你的系统经常重复调用同一工具，最先会查哪一层？
-4. 为你的一个 Agent 任务设计一组至少 3 个核心指标，并解释它们为什么有价值。
+### 7.1 Misconception 1: If the final answer is correct, the system has no problems
+
+Not necessarily.
+It may simply be:
+
+- very inefficient in the process
+- too expensive
+- unstable
+
+### 7.2 Misconception 2: More metrics are always better
+
+Metrics are not a collection hobby.
+What matters is:
+
+- can the metric explain the problem?
+- can the metric guide optimization?
+
+### 7.3 Misconception 3: You can iterate by instinct even without a fixed benchmark
+
+If you rely only on subjective feeling,
+it is very easy to make the system more and more uncontrollable.
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing a few metric names,
+but building an evaluation loop:
+
+> **A reasoning system should evaluate final answers, process quality, tool usage, and cost efficiency at the same time, and then make targeted improvements based on the specific weaknesses.**
+
+When you truly iterate using this loop,
+the Agent system can grow from a demo that “sometimes works” into a system that is explainable, improvable, and ready for production.
+
+---
+
+## Exercises
+
+1. Add one more case to `agent_b` in the example and see how the metrics change.
+2. Why is “final answer accuracy” not enough to fully evaluate a reasoning Agent?
+3. Think about this: if your system often calls the same tool repeatedly, which layer would you inspect first?
+4. Design at least 3 core metrics for one of your Agent tasks, and explain why they are valuable.

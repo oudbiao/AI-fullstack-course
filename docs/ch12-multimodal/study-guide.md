@@ -1,60 +1,60 @@
 ---
-title: "学习指南：多模态与 AIGC 怎么学最不容易学乱"
+title: "Study Guide: How to Learn Multimodal and AIGC Without Getting Lost"
 sidebar_position: 1
-description: "给 AI 全栈新人的多模态与 AIGC 学习指南：多模态基础、图像生成、视频语音、数字人、项目路线和验收标准。"
-keywords: [AIGC 学习指南, 多模态怎么学, 扩散模型怎么学, 图像生成怎么学, Stable Diffusion]
+description: "A multimodal and AIGC study guide for AI full-stack beginners: multimodal basics, image generation, video and speech, digital humans, project roadmap, and acceptance criteria."
+keywords: [AIGC study guide, how to learn multimodal, how to learn diffusion models, how to learn image generation, Stable Diffusion]
 ---
 
-# 学习指南：多模态与 AIGC 怎么学最不容易学乱
+# Study Guide: How to Learn Multimodal and AIGC Without Getting Lost
 
-如果你来到 `第 12 章 AIGC 与多模态` 后觉得图像、语音、视频、数字人和各种新模型很散，先不要追所有 Demo。多模态第一遍要理解不同模态如何进入同一个系统。
+If you reach `Chapter 12: AIGC and Multimodal` and feel that images, speech, video, digital humans, and all kinds of new models are scattered all over the place, don’t rush to follow every Demo. On your first pass through multimodal learning, you should understand how different modalities enter the same system.
 
-## 本阶段总原则
+## Core principle for this stage
 
-多模态与 AIGC 要抓住一条系统线：不同模态被编码成表示，模型完成理解或生成，最后接入创作、编辑、审核和交付工作流。
+Multimodal and AIGC learning should follow one system-level thread: different modalities are encoded into representations, the model performs understanding or generation, and the result is connected to creative, editing, review, and delivery workflows.
 
-![多模态学习指南工作流图](/img/course/ch12-study-guide-modal-workflow-map.png)
+![Multimodal study guide workflow diagram](/img/course/ch12-study-guide-modal-workflow-map-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先学多模态基础。你要理解图文对齐、视觉语言模型、多模态输入输出和典型应用。
+In the first round, learn the multimodal basics first. You need to understand image-text alignment, vision-language models, multimodal input and output, and typical applications.
 
-第二轮学图像生成。重点理解扩散模型、Stable Diffusion、提示词、ControlNet、LoRA 和常见工作流。
+In the second round, learn image generation. Focus on understanding diffusion models, Stable Diffusion, prompts, ControlNet, LoRA, and common workflows.
 
-第三轮学视频生成与语音生成。理解时序内容为什么更复杂，以及 TTS、数字人、视频生成如何组合。
+In the third round, learn video generation and speech generation. Understand why temporal content is more complex, and how TTS, digital humans, and video generation can be combined.
 
-第四轮学前沿趋势与伦理。AIGC 直接涉及版权、肖像、偏见、虚假内容和监管边界，不能只看技术效果。
+In the fourth round, learn frontier trends and ethics. AIGC directly involves copyright, portrait rights, bias, misinformation, and regulatory boundaries, so you cannot look only at technical results.
 
-第五轮做综合项目，把生成能力组织成一个可用的创意工作流。
+In the fifth round, build a comprehensive project that organizes generation capabilities into a usable creative workflow.
 
-## 建议学习节奏
+## Suggested learning pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| 多模态基础 | 4～8 小时 | 理解不同模态如何对齐 |
-| 图像生成 | 8～16 小时 | 跑通一个图像生成工作流 |
-| 视频 / 语音 / 数字人 | 8～20 小时 | 理解时序生成和资产流转 |
-| 伦理与合规 | 3～6 小时 | 建立内容安全和版权意识 |
-| 综合项目 | 16～32 小时 | 完成一个生成式产品原型 |
+| Multimodal basics | 4–8 hours | Understand how different modalities are aligned |
+| Image generation | 8–16 hours | Get one image generation workflow running end to end |
+| Video / speech / digital humans | 8–20 hours | Understand temporal generation and asset flow |
+| Ethics and compliance | 3–6 hours | Build awareness of content safety and copyright |
+| Comprehensive project | 16–32 hours | Complete a generative product prototype |
 
-## 阶段项目路线
+## Stage project roadmap
 
-第一个项目建议做图像生成工作流，例如根据主题生成海报、封面或课程配图。
+For the first project, it is recommended to build an image generation workflow, such as generating posters, covers, or course illustrations based on a theme.
 
-第二个项目建议做图文多模态问答，例如上传图片并让模型解释、分类或生成说明。
+For the second project, it is recommended to build an image-text multimodal Q&A system, such as uploading an image and having the model explain, classify, or generate a description.
 
-第三个项目可以做创意内容平台原型：输入主题，生成文案、配图、语音或视频脚本，并加入审核和导出流程。
+For the third project, you can build a prototype of a creative content platform: input a topic, generate copy, images, speech, or video scripts, and add review and export flows.
 
-## 常见卡点
+## Common stumbling blocks
 
-最常见的卡点是追新模型而不理解工作流。生成式产品不是一个模型就够了，还需要提示、素材、控制条件、后处理、审核和交付。
+The most common stumbling block is chasing new models without understanding the workflow. A generative product is not just one model; it also needs prompts, materials, control conditions, post-processing, review, and delivery.
 
-第二个卡点是忽视版权和肖像风险。AIGC 项目从一开始就要考虑素材来源、授权、人物肖像和内容安全。
+The second stumbling block is ignoring copyright and portrait-right risks. From the very beginning of an AIGC project, you need to consider material sources, authorization, portrait rights, and content safety.
 
-第三个卡点是把多模态理解成“图片加文字”。真正的多模态系统要考虑不同模态之间如何对齐、引用、编辑和共同完成任务。
+The third stumbling block is thinking of multimodal as “images plus text.” A real multimodal system must consider how different modalities align, reference each other, be edited, and work together to complete tasks.
 
-## 过关标准
+## Passing criteria
 
-学完本阶段后，你应该能解释一个多模态系统如何接收文本、图像、语音或视频，并完成理解或生成。
+After finishing this stage, you should be able to explain how a multimodal system receives text, images, speech, or video, and completes understanding or generation.
 
-如果你能做出一个带输入、生成、编辑、审核和导出步骤的 AIGC 小产品原型，就达到了方向入门标准。
+If you can build a small AIGC product prototype with input, generation, editing, review, and export steps, then you have reached the entry-level standard for this direction.

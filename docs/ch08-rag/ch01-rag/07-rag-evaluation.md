@@ -1,125 +1,125 @@
 ---
-title: "1.8 RAG 评估"
+title: "1.8 RAG Evaluation"
 sidebar_position: 7
-description: "理解 RAG 评估为什么要同时看检索和回答，并用一个玩具数据集计算简单指标。"
+description: "Understand why RAG evaluation must consider both retrieval and answers, and compute simple metrics on a toy dataset."
 keywords: [RAG evaluation, hit@k, exact match, faithfulness, retrieval evaluation]
 ---
 
-# RAG 评估
+# RAG Evaluation
 
-![RAG 评估三角图](/img/course/rag-evaluation-triangle.png)
+![RAG evaluation triangle diagram](/img/course/rag-evaluation-triangle-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解为什么 RAG 不能只凭单次 Demo 判断好坏
-- 分清检索评估和回答评估的不同目标
-- 使用一个小型样例计算简单指标
-- 建立“先做评估，再做优化”的工程习惯
-
----
-
-## 一、为什么 RAG 特别需要评估？
-
-### 1.1 因为它不是单一模块
-
-RAG 不是单个模型，而是至少包含：
-
-1. 文档处理
-2. 检索
-3. 上下文拼装
-4. 生成回答
-
-任何一环出错，最终答案都可能变差。
-
-### 1.2 所以不能只问“答对了吗”
-
-你还得问：
-
-- 是没检索到？
-- 还是检索到了但没用好？
-- 还是回答语言组织不好？
-
-这就是为什么 RAG 评估必须分层看。
+- Understand why you cannot judge RAG quality from a single demo alone
+- Distinguish the different goals of retrieval evaluation and answer evaluation
+- Compute simple metrics on a small sample
+- Build the engineering habit of “evaluate first, then optimize”
 
 ---
 
-## 二、第一层：检索评估
+## 1. Why does RAG especially need evaluation?
 
-### 2.1 最常见的直觉指标：Hit@k
+### 1.1 Because it is not a single module
 
-Hit@k 的意思很简单：
+RAG is not one model. It usually includes at least:
 
-> 正确证据有没有出现在前 k 个检索结果里？
+1. Document processing
+2. Retrieval
+3. Context assembly
+4. Answer generation
 
-如果用户问题的正确证据在 top-3 里，就算 hit。
+If any step goes wrong, the final answer can get worse.
 
-### 2.2 为什么这个指标很重要？
+### 1.2 So you cannot just ask, “Was the answer correct?”
 
-因为如果正确资料根本没召回，后面的生成几乎不可能稳定答对。
+You also need to ask:
 
-所以：
+- Was the right evidence not retrieved?
+- Or was it retrieved but not used well?
+- Or was the answer simply poorly written?
 
-> 检索评估是 RAG 评估的地基。
+That is why RAG evaluation must be viewed in layers.
 
 ---
 
-## 三、第二层：回答评估
+## 2. The first layer: retrieval evaluation
 
-### 3.1 只看“语句通顺”远远不够
+### 2.1 The most common intuitive metric: Hit@k
 
-回答评估至少要关注：
+Hit@k is very simple:
 
-- 答案对不对
-- 有没有依据
-- 有没有胡编
+> Did the correct evidence appear in the top k retrieval results?
 
-### 3.2 常见维度
+If the correct evidence for the user’s question is in the top 3, that counts as a hit.
 
-| 维度 | 关注点 |
+### 2.2 Why is this metric important?
+
+Because if the correct material is not retrieved at all, the generation step is almost impossible to get right consistently.
+
+So:
+
+> Retrieval evaluation is the foundation of RAG evaluation.
+
+---
+
+## 3. The second layer: answer evaluation
+
+### 3.1 Looking only at whether the response sounds fluent is far from enough
+
+Answer evaluation should at least consider:
+
+- Whether the answer is correct
+- Whether it has evidence behind it
+- Whether it is hallucinated
+
+### 3.2 Common dimensions
+
+| Dimension | What it focuses on |
 |---|---|
-| Correctness | 答案事实是否正确 |
-| Faithfulness | 是否基于给定资料 |
-| Relevance | 是否回答了用户问题 |
-| Completeness | 关键信息是否答全 |
+| Correctness | Whether the facts in the answer are correct |
+| Faithfulness | Whether it is based on the given materials |
+| Relevance | Whether it answers the user’s question |
+| Completeness | Whether it includes all key information |
 
-在业务里，不同维度的重要性不一样。
+In real business scenarios, different dimensions matter differently.
 
-![RAG 分层评估仪表盘图](/img/course/ch08-rag-evaluation-layered-dashboard-map.png)
+![Layered RAG evaluation dashboard diagram](/img/course/ch08-rag-evaluation-layered-dashboard-map-en.png)
 
-:::tip 读图提示
-不要只看最终答案分数。先看 retrieval 层有没有命中，再看 generation 层是否完整正确，最后看 citation 层是否真的支撑结论。
+:::tip Reading tip
+Do not look only at the final answer score. First check whether the retrieval layer hit the right material, then whether the generation layer is complete and correct, and finally whether the citation layer truly supports the conclusion.
 :::
 
 ---
 
-## 四、一个最小评估数据集
+## 4. A minimal evaluation dataset
 
-下面我们手工构造一份迷你评估集。
+Below we manually construct a tiny evaluation set.
 
 ```python
 dataset = [
     {
-        "question": "多久内可以退款？",
-        "gold_doc": "退款政策",
-        "gold_answer": "课程购买后 7 天内可申请退款"
+        "question": "How long after purchase can I request a refund?",
+        "gold_doc": "Refund Policy",
+        "gold_answer": "A refund can be requested within 7 days after course purchase"
     },
     {
-        "question": "怎么获得证书？",
-        "gold_doc": "证书说明",
-        "gold_answer": "完成项目并通过测试后可获得证书"
+        "question": "How do I get a certificate?",
+        "gold_doc": "Certificate Guide",
+        "gold_answer": "You can get a certificate after completing the project and passing the test"
     }
 ]
 
 predictions = [
     {
-        "retrieved_docs": ["退款政策", "学习顺序"],
-        "answer": "课程购买后 7 天内可申请退款"
+        "retrieved_docs": ["Refund Policy", "Learning Order"],
+        "answer": "A refund can be requested within 7 days after course purchase"
     },
     {
-        "retrieved_docs": ["学习顺序", "证书说明"],
-        "answer": "完成项目并通过测试后可获得证书"
+        "retrieved_docs": ["Learning Order", "Certificate Guide"],
+        "answer": "You can get a certificate after completing the project and passing the test"
     }
 ]
 
@@ -129,28 +129,28 @@ print(predictions)
 
 ---
 
-## 五、计算一个简单的 Hit@k
+## 5. Computing a simple Hit@k
 
-### 5.1 可运行示例
+### 5.1 Runnable example
 
 ```python
 dataset = [
     {
-        "question": "多久内可以退款？",
-        "gold_doc": "退款政策"
+        "question": "How long after purchase can I request a refund?",
+        "gold_doc": "Refund Policy"
     },
     {
-        "question": "怎么获得证书？",
-        "gold_doc": "证书说明"
+        "question": "How do I get a certificate?",
+        "gold_doc": "Certificate Guide"
     }
 ]
 
 predictions = [
     {
-        "retrieved_docs": ["退款政策", "学习顺序"]
+        "retrieved_docs": ["Refund Policy", "Learning Order"]
     },
     {
-        "retrieved_docs": ["学习顺序", "证书说明"]
+        "retrieved_docs": ["Learning Order", "Certificate Guide"]
     }
 ]
 
@@ -163,41 +163,41 @@ hit_at_2 = hits / len(dataset)
 print("Hit@2 =", round(hit_at_2, 4))
 ```
 
-如果正确文档都在前 2 个结果里，这个值就是 `1.0`。
+If the correct document appears in the top 2 results for every item, the value is `1.0`.
 
-### 5.2 这个指标的局限
+### 5.2 The limitation of this metric
 
-它只能告诉你“有没有召回到”，却不能告诉你：
+It can only tell you whether the right document was retrieved. It cannot tell you:
 
-- 排在第几
-- 回答是否真的正确
+- Where it ranked
+- Whether the final answer is actually correct
 
-所以它只是第一步。
+So it is only the first step.
 
 ---
 
-## 六、计算一个简单的答案正确率
+## 6. Computing a simple answer accuracy score
 
-### 6.1 最简单的 Exact Match 思路
+### 6.1 The simplest Exact Match idea
 
-在结构化短答案场景里，可以先用最朴素的方法：
+In structured short-answer scenarios, you can start with the most straightforward method:
 
 ```python
 dataset = [
     {
-        "gold_answer": "课程购买后 7 天内可申请退款"
+        "gold_answer": "A refund can be requested within 7 days after course purchase"
     },
     {
-        "gold_answer": "完成项目并通过测试后可获得证书"
+        "gold_answer": "You can get a certificate after completing the project and passing the test"
     }
 ]
 
 predictions = [
     {
-        "answer": "课程购买后 7 天内可申请退款"
+        "answer": "A refund can be requested within 7 days after course purchase"
     },
     {
-        "answer": "完成项目并通过测试后可获得证书"
+        "answer": "You can get a certificate after completing the project and passing the test"
     }
 ]
 
@@ -210,126 +210,126 @@ exact_match = correct / len(dataset)
 print("Exact Match =", round(exact_match, 4))
 ```
 
-### 6.2 但真实场景往往没这么简单
+### 6.2 But real-world scenarios are often not that simple
 
-因为同一个正确答案可能有很多不同表述方式。  
-所以线上系统常常还会引入：
+The same correct answer can have many different phrasings.
+So online systems often also introduce:
 
-- 语义匹配
+- Semantic matching
 - LLM-as-a-judge
-- 人工抽检
+- Manual sampling and review
 
 ---
 
-## 七、Faithfulness：回答有没有根据？
+## 7. Faithfulness: is the answer supported by evidence?
 
-### 7.1 这比“答得像不像”更重要
+### 7.1 This is more important than “does it sound plausible?”
 
-一个回答可能写得很流畅，但如果它不是基于检索资料得出的，风险就很高。
+An answer may read very fluently, but if it was not derived from the retrieved materials, the risk is high.
 
-### 7.2 一个简化版检查思路
+### 7.2 A simplified checking idea
 
-下面这个示例很粗糙，但能帮助你理解“回答是否被证据支持”的概念。
+The example below is very rough, but it helps you understand the concept of whether an answer is supported by evidence.
 
 ```python
-evidence = "课程购买后 7 天内可申请退款"
-answer = "课程购买后 7 天内可申请退款"
+evidence = "A refund can be requested within 7 days after course purchase"
+answer = "A refund can be requested within 7 days after course purchase"
 
 faithful = answer in evidence or evidence in answer
-print("是否被证据支持:", faithful)
+print("Supported by evidence:", faithful)
 ```
 
-真实系统里当然不会只用这种字符串判断，但思路是对的：
+Real systems of course do not rely only on string matching, but the idea is correct:
 
-> 回答应该尽量能在检索证据里找到支撑。
+> The answer should be supported by the retrieval evidence as much as possible.
 
-![Faithfulness 与引用真实性检查图](/img/course/ch08-faithfulness-citation-check-map.png)
+![Faithfulness and citation authenticity check diagram](/img/course/ch08-faithfulness-citation-check-map-en.png)
 
-:::tip 读图提示
-把答案拆成几个关键结论，再逐条连回 evidence。能连上的是 supported，连不上的是 unsupported，这比“答案听起来很顺”更可靠。
+:::tip Reading tip
+Split the answer into a few key conclusions, then link each one back to the evidence. What can be linked is supported; what cannot be linked is unsupported. This is more reliable than “the answer sounds fluent.”
 :::
 
 ---
 
-## 八、评估集应该怎么构建？
+## 8. How should the evaluation set be built?
 
-### 8.1 最小可用评估集
+### 8.1 Minimal usable evaluation set
 
-至少包含：
+It should include at least:
 
-- 用户问题
-- 标准答案
-- 正确证据文档或证据片段
+- The user question
+- The reference answer
+- The correct evidence document or evidence snippet
 
-### 8.2 评估集最好覆盖不同难度
+### 8.2 The evaluation set should cover different difficulty levels
 
-比如：
+For example:
 
-- 简单事实问答
-- 同义表达问法
-- 跨段落问题
-- 容易混淆的问题
+- Simple factual Q&A
+- Questions with paraphrased wording
+- Cross-paragraph questions
+- Easy-to-confuse questions
 
-如果评估集太单一，优化结果很容易失真。
-
----
-
-## 九、线上评估也很重要
-
-### 9.1 离线评估不能代表全部
-
-线下数据集再好，也不可能完全覆盖真实用户问题。
-
-### 9.2 常见线上信号
-
-例如：
-
-- 用户追问率
-- 用户纠错率
-- 点赞 / 点踩
-- 人工质检抽样
-
-一个成熟的 RAG 系统，通常是“离线评估 + 线上反馈”一起看。
+If the evaluation set is too narrow, optimization results can be misleading.
 
 ---
 
-## 十、如果你的目标是“知识库驱动的课件生成助手”，评估集应该多看什么？
+## 9. Online evaluation is also important
 
-这类项目和普通问答系统不太一样。  
-你不只是关心“答案像不像”，还要关心：
+### 9.1 Offline evaluation cannot represent everything
 
-- 主题资料有没有找对
-- 例题有没有抽对
-- 最终栏目有没有放对位置
-- 来源能不能回溯
+No matter how good the offline dataset is, it cannot fully cover real user questions.
 
-所以更适合这类项目的评估表，通常至少要多一层：
+### 9.2 Common online signals
 
-| 维度 | 更像在看什么 |
+For example:
+
+- Follow-up question rate
+- User correction rate
+- Likes / dislikes
+- Manual quality inspection samples
+
+A mature RAG system is usually evaluated with both offline evaluation and online feedback.
+
+---
+
+## 10. If your goal is a “knowledge-base-driven courseware generation assistant,” what should the evaluation set focus on?
+
+This kind of project is not quite the same as a normal Q&A system.
+You are not only concerned with whether the answer sounds right. You also need to care about:
+
+- Whether the topic materials were retrieved correctly
+- Whether the practice questions were selected correctly
+- Whether the final section was placed in the right position
+- Whether the source can be traced back
+
+So the evaluation table that fits this kind of project usually needs at least one more layer:
+
+| Dimension | What it is closer to checking |
 |---|---|
-| 主题命中 | 这个主题的核心资料有没有找到 |
-| 例题召回 | 适合作为讲解例题的材料有没有找到 |
-| 结构正确性 | 概念、例题、练习有没有放进对的栏目 |
-| 来源完整性 | 最终生成结果能不能回溯到原始资料 |
+| Topic hit | Whether the core materials for this topic were found |
+| Example retrieval | Whether materials suitable as teaching examples were found |
+| Structural correctness | Whether concepts, examples, and exercises were placed in the right sections |
+| Source completeness | Whether the final output can be traced back to the original materials |
 
-你可以先把它理解成：
+You can think of it like this:
 
-> **课件生成项目的评估，不只是“答对”，而是“找对、放对、引对”。**
+> **Evaluation for a courseware generation project is not just “answering correctly,” but “finding correctly, placing correctly, and citing correctly.”**
 
-## 十一、一个更像课件生成项目的最小评估样例
+## 11. A minimal evaluation example that looks more like a courseware generation project
 
 ```python
 dataset = [
     {
-        "topic": "折扣应用题",
-        "gold_concepts": ["折扣 = 原价 × 折扣率"],
-        "gold_examples": ["商品原价 100 元，打 8 折后价格是多少？"],
+        "topic": "Discount word problems",
+        "gold_concepts": ["Discount = original price × discount rate"],
+        "gold_examples": ["If a product costs 100 yuan and is discounted to 80%, what is the final price?"],
     }
 ]
 
 prediction = {
-    "concepts": ["折扣 = 原价 × 折扣率"],
-    "examples": ["商品原价 100 元，打 8 折后价格是多少？"],
+    "concepts": ["Discount = original price × discount rate"],
+    "examples": ["If a product costs 100 yuan and is discounted to 80%, what is the final price?"],
     "source_refs": [{"doc_id": "word_001", "page_or_slide": 3}],
 }
 
@@ -337,109 +337,109 @@ print(dataset[0])
 print(prediction)
 ```
 
-这个例子虽然很小，但会帮助新人先建立一个评估直觉：
+This example is very small, but it helps beginners build the right evaluation intuition:
 
-- 这类系统最终评估对象往往不是“单句答案”
-- 而是一整个结构化结果
-
----
-
-## 十二、初学者常见误区
-
-### 12.1 只看一两个成功案例
-
-Demo 可以激励人，但不能代替评估。
-
-### 12.2 只评回答，不评检索
-
-这样你很难定位问题究竟出在哪一层。
-
-### 12.3 一边改系统，一边没固定评估集
-
-没有固定评估集，就很难判断到底是优化还是随机波动。
+- The final object of evaluation is often not a single sentence answer
+- It is an entire structured result
 
 ---
 
-## RAG 项目评估指标总表
+## 12. Common beginner mistakes
 
-做 RAG 项目时，不要只看“回答像不像”。更稳的做法是把评估拆成检索、生成、引用和系统四层。
+### 12.1 Only looking at one or two successful cases
 
-| 层级 | 指标 | 说明 |
+A demo can be encouraging, but it cannot replace evaluation.
+
+### 12.2 Evaluating only the answer, not the retrieval
+
+Then it becomes hard to locate which layer caused the problem.
+
+### 12.3 Changing the system without a fixed evaluation set
+
+Without a fixed evaluation set, it is hard to tell whether you improved the system or just saw random fluctuation.
+
+---
+
+## RAG project evaluation metrics summary
+
+When working on a RAG project, do not just look at whether the answer sounds right. A more reliable approach is to split evaluation into four layers: retrieval, generation, citation, and system.
+
+| Layer | Metric | Description |
 |---|---|---|
-| 检索层 | 命中率、Recall@K、MRR | 正确资料有没有被找出来，排得靠不靠前 |
-| 生成层 | 答案正确率、完整性、一致性 | 模型有没有基于资料回答，是否遗漏关键条件 |
-| 引用层 | 引用覆盖率、引用真实性 | 答案中的关键结论是否能追溯到来源 |
-| 系统层 | 延迟、成本、失败率 | 能否稳定、可承受地服务真实用户 |
+| Retrieval layer | Hit rate, Recall@K, MRR | Whether the correct material was found and how high it ranked |
+| Generation layer | Answer accuracy, completeness, consistency | Whether the model answered based on the material and whether it missed key conditions |
+| Citation layer | Citation coverage, citation faithfulness | Whether the key conclusions in the answer can be traced to sources |
+| System layer | Latency, cost, failure rate | Whether it can serve real users stably and at an acceptable cost |
 
-最小评估集建议先准备 20～50 个问题，每个问题都写上标准答案、应命中文档和关键引用。这样你优化 chunk、embedding、rerank、query rewrite 时，才知道是系统真的变好，还是只是个别样例看起来更顺眼。
+For a minimal evaluation set, it is recommended to prepare 20–50 questions first, and for each question, write down the reference answer, the document that should be hit, and the key citations. That way, when you optimize chunking, embedding, reranking, or query rewriting, you can tell whether the system truly got better or whether only a few examples happened to look nicer.
 
-## 分层失败归因表
+## Layered failure attribution table
 
-评估的价值不只是算一个总分，而是帮助你知道下一步该改哪里。下面这张表可以放在实验记录里，每次失败都先归因到一层。
+The value of evaluation is not just producing a total score. It is also about helping you know what to fix next. You can put the table below into your experiment log and attribute every failure to a layer first.
 
-| 失败现象 | 归因层级 | 应该检查 | 下一步动作 |
+| Failure symptom | Attribution layer | What to check | Next action |
 |---|---|---|---|
-| 正确文档没有进入 top-k | 检索层 | query、chunk、embedding、关键词匹配 | 调整切块、加混合检索或 query rewrite |
-| 正确文档进了 top-k 但没进最终 context | 上下文层 | context packing、去重、长度限制 | 调整排序、压缩或打包策略 |
-| context 里有证据但回答漏掉关键条件 | 生成层 | prompt、答案格式、模型是否按证据回答 | 要求逐条基于证据回答并保留限制条件 |
-| 答案结论正确但引用不支持 | 引用层 | source_refs、引用片段、答案句子 | 做引用真实性检查，禁止无证据引用 |
-| 离线评估好但用户仍频繁追问 | 产品层 | 真实问题分布、评估集覆盖度 | 补充线上问题到评估集 |
+| The correct document did not enter the top-k | Retrieval layer | Query, chunking, embedding, keyword matching | Adjust chunking, add hybrid retrieval, or use query rewrite |
+| The correct document entered the top-k but not the final context | Context layer | Context packing, deduplication, length limits | Adjust ranking, compression, or packing strategy |
+| The context contains evidence but the answer misses key conditions | Generation layer | Prompt, answer format, whether the model follows evidence | Require step-by-step evidence-based answering and preserve constraints |
+| The answer conclusion is correct but the citation does not support it | Citation layer | `source_refs`, citation snippets, answer sentences | Perform citation authenticity checks and forbid unsupported citations |
+| Offline evaluation looks good but users still ask follow-up questions frequently | Product layer | Real question distribution, evaluation-set coverage | Add online questions to the evaluation set |
 
-如果你只看“最终答对率”，这些问题会被混在一起。分层归因能让优化动作更明确：检索错就不要先调 prompt，引用错就不要只看答案是否通顺。
+If you only look at “final answer accuracy,” these issues will be mixed together. Layered attribution makes optimization actions clearer: if retrieval is wrong, do not start by tuning the prompt; if citations are wrong, do not only check whether the answer is fluent.
 
-## 一个可直接复制的评估记录模板
+## A reusable evaluation record template
 
-做 RAG 项目时，建议每次评估都保留一份固定格式。即使一开始只有十几条问题，也比只看单次 Demo 稳定得多。
+When working on a RAG project, it is recommended to keep a fixed format for every evaluation round. Even if you start with only a dozen questions, this is much more stable than looking at a single demo.
 
-| 字段 | 示例 | 用途 |
+| Field | Example | Purpose |
 |---|---|---|
-| `question` | 课程多久内可以退款？ | 用户问题 |
-| `gold_doc` | 退款政策 | 应该命中的资料 |
-| `gold_answer` | 课程购买后 7 天内可申请退款 | 标准答案或关键事实 |
-| `retrieved_docs` | 退款政策, 学习顺序 | 实际命中的文档 |
-| `answer` | 7 天内可申请退款 | 系统回答 |
-| `citation_ok` | true | 引用是否支持答案 |
-| `failure_type` | none / retrieval / generation / citation | 失败归因 |
-| `notes` | 命中正确，回答完整 | 人工备注 |
+| `question` | How long after purchase can I request a refund? | User question |
+| `gold_doc` | Refund Policy | The material that should be hit |
+| `gold_answer` | A refund can be requested within 7 days after course purchase | Reference answer or key fact |
+| `retrieved_docs` | Refund Policy; Learning Order | Documents actually retrieved |
+| `answer` | Refund can be requested within 7 days | System answer |
+| `citation_ok` | true | Whether the citation supports the answer |
+| `failure_type` | none / retrieval / generation / citation | Failure attribution |
+| `notes` | Correct hit and supported by citation | Manual notes |
 
-最小 CSV 可以长这样：
+A minimal CSV can look like this:
 
 ```csv
 question,gold_doc,gold_answer,retrieved_docs,answer,citation_ok,failure_type,notes
-课程多久内可以退款？,退款政策,课程购买后 7 天内可申请退款,"退款政策;学习顺序",课程购买后 7 天内可申请退款,true,none,命中正确且引用支持
-怎么获得证书？,证书说明,完成项目并通过测试后可获得证书,"学习顺序;证书说明",完成项目后可获得证书,false,generation,漏掉通过测试这个关键条件
+How long after purchase can I request a refund?,Refund Policy,A refund can be requested within 7 days after course purchase,"Refund Policy;Learning Order",A refund can be requested within 7 days after course purchase,true,none,Correct hit and supported by citation
+How do I get a certificate?,Certificate Guide,You can get a certificate after completing the project and passing the test,"Learning Order;Certificate Guide",You can get a certificate after completing the project,false,generation,Missing the key condition of passing the test
 ```
 
-这个模板的重点不是字段多，而是每条样本都能回答三个问题：应该命中什么，实际命中了什么，最终答案有没有被证据支持。
+The key point of this template is not the number of fields, but that each sample can answer three questions: what should have been hit, what was actually hit, and whether the final answer was supported by evidence.
 
-## 课件生成 RAG 的验收 Rubric
+## Acceptance rubric for courseware-generation RAG
 
-如果项目目标是生成课件或学习材料，评估不能只停留在问答层。下面这个 rubric 可以作为作品集项目的验收表。
+If the project goal is to generate courseware or learning materials, evaluation should not stop at the Q&A level. The rubric below can be used as an acceptance checklist for a portfolio project.
 
-| 等级 | 检索要求 | 生成要求 | 引用要求 |
+| Level | Retrieval requirement | Generation requirement | Citation requirement |
 |---|---|---|---|
-| 练习级 | 能命中主题相关资料 | 能生成基本回答或片段 | 能显示来源文件名 |
-| 项目级 | 能按 topic 和 content_type 召回概念、例题、练习 | 能按固定栏目组织输出 | 每个关键栏目有来源 |
-| 作品集级 | 有固定评估集和失败样本 | 能解释哪些失败来自检索、生成或模板 | 关键结论可逐条追溯到原文 |
-| 面试级 | 能比较 baseline、混合检索、rerank 等策略 | 能说明质量、成本、延迟取舍 | 能做引用真实性抽检和改进记录 |
+| Practice level | Can hit topic-related materials | Can generate basic answers or snippets | Can display the source filename |
+| Project level | Can retrieve concepts, examples, and exercises by topic and content type | Can organize output into fixed sections | Each key section has a source |
+| Portfolio level | Has a fixed evaluation set and failure samples | Can explain which failures came from retrieval, generation, or templates | Key conclusions can be traced line by line to the source text |
+| Interview level | Can compare baseline, hybrid retrieval, reranking, and other strategies | Can explain the trade-offs among quality, cost, and latency | Can perform citation authenticity spot checks and record improvements |
 
-这个表可以直接放进项目 README。它会让别人看到：你不是只做了一个“能回答问题”的 Demo，而是在用工程方式评估一个知识库驱动系统。
-
----
-
-## 小结
-
-这一节最重要的认识是：
-
-> RAG 评估不是锦上添花，而是系统迭代的方向盘。
-
-没有评估，你就只能凭感觉优化；  
-有了评估，你才能知道问题在哪、改动有没有真正带来收益。
+You can put this table directly into your project README. It shows that you did not just build a “can answer questions” demo, but are evaluating a knowledge-base-driven system with an engineering mindset.
 
 ---
 
-## 练习
+## Summary
 
-1. 给评估集再加 3 条问题，自己手工写出 `gold_doc` 和 `gold_answer`。
-2. 修改 `predictions`，故意让一条回答错误，重新计算 Hit@k 和 Exact Match。
-3. 想一想：如果 Hit@k 很高，但最终答案依然经常错，说明问题更可能出在哪一层？
+The most important takeaway from this section is:
+
+> RAG evaluation is not a nice-to-have; it is the steering wheel of system iteration.
+
+Without evaluation, you can only optimize by feel.
+With evaluation, you can know where the problem is and whether a change truly brought improvement.
+
+---
+
+## Exercises
+
+1. Add 3 more questions to the evaluation set, and manually write `gold_doc` and `gold_answer` for them.
+2. Modify `predictions` so that one answer is wrong on purpose, then recompute Hit@k and Exact Match.
+3. Think about this: if Hit@k is very high but the final answer is still often wrong, which layer is the problem more likely to be in?

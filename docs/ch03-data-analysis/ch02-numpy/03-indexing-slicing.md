@@ -1,50 +1,50 @@
 ---
-title: "2.3 数组索引与切片"
+title: "2.3 Array Indexing and Slicing"
 sidebar_position: 4
-description: "掌握 NumPy 数组的多种访问方式：基本索引、布尔索引、花式索引"
+description: "Master the various ways to access NumPy arrays: basic indexing, boolean indexing, and fancy indexing"
 ---
 
-# 数组索引与切片
+# Array Indexing and Slicing
 
-![NumPy 索引切片地图](/img/course/ch03-numpy-indexing-slicing-map.png)
+![NumPy Indexing and Slicing Map](/img/course/ch03-numpy-indexing-slicing-map-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 掌握一维和多维数组的基本索引与切片
-- 学会使用布尔索引进行条件筛选
-- 了解花式索引（Fancy Indexing）
-- 理解视图（View）与拷贝（Copy）的区别
+- Master basic indexing and slicing for 1D and multi-dimensional arrays
+- Learn how to use boolean indexing for conditional filtering
+- Understand Fancy Indexing
+- Understand the difference between View and Copy
 
 ---
 
-## 一维数组的索引与切片
+## Indexing and Slicing 1D Arrays
 
-一维数组的索引和 Python 列表基本一致：
+Indexing in 1D arrays is basically the same as in Python lists:
 
 ```python
 import numpy as np
 
 arr = np.array([10, 20, 30, 40, 50, 60, 70, 80])
 
-# ===== 基本索引 =====
-print(arr[0])     # 10   第一个元素
-print(arr[3])     # 40   第四个元素
-print(arr[-1])    # 80   最后一个元素
-print(arr[-2])    # 70   倒数第二个
+# ===== Basic indexing =====
+print(arr[0])     # 10   first element
+print(arr[3])     # 40   fourth element
+print(arr[-1])    # 80   last element
+print(arr[-2])    # 70   second-to-last element
 
-# ===== 切片 [start:stop:step] =====
-print(arr[2:5])    # [30 40 50]    索引 2 到 4
-print(arr[:3])     # [10 20 30]    前 3 个
-print(arr[5:])     # [60 70 80]    从索引 5 到末尾
-print(arr[::2])    # [10 30 50 70] 每隔一个取一个
-print(arr[::-1])   # [80 70 60 50 40 30 20 10] 反转
+# ===== Slicing [start:stop:step] =====
+print(arr[2:5])    # [30 40 50]    indices 2 to 4
+print(arr[:3])     # [10 20 30]    first 3 elements
+print(arr[5:])     # [60 70 80]    from index 5 to the end
+print(arr[::2])    # [10 30 50 70] take every other element
+print(arr[::-1])   # [80 70 60 50 40 30 20 10] reverse
 ```
 
 ---
 
-## 二维数组的索引与切片
+## Indexing and Slicing 2D Arrays
 
-二维数组使用 `[行, 列]` 的方式访问：
+2D arrays are accessed using `[row, column]`:
 
 ```python
 matrix = np.array([
@@ -55,125 +55,125 @@ matrix = np.array([
 ])
 ```
 
-### 访问单个元素
+### Access a Single Element
 
 ```python
-print(matrix[0, 0])    # 1    第 0 行第 0 列
-print(matrix[1, 2])    # 7    第 1 行第 2 列
-print(matrix[-1, -1])  # 16   最后一行最后一列
+print(matrix[0, 0])    # 1    row 0, column 0
+print(matrix[1, 2])    # 7    row 1, column 2
+print(matrix[-1, -1])  # 16   last row, last column
 ```
 
-### 访问整行/整列
+### Access an Entire Row/Column
 
 ```python
-print(matrix[0])       # [1 2 3 4]     第 0 行（整行）
-print(matrix[0, :])    # [1 2 3 4]     同上，更明确的写法
+print(matrix[0])       # [1 2 3 4]     row 0 (entire row)
+print(matrix[0, :])    # [1 2 3 4]     same as above, more explicit
 
-print(matrix[:, 0])    # [ 1  5  9 13]  第 0 列（整列）
-print(matrix[:, -1])   # [ 4  8 12 16]  最后一列
+print(matrix[:, 0])    # [ 1  5  9 13]  column 0 (entire column)
+print(matrix[:, -1])   # [ 4  8 12 16]  last column
 ```
 
-### 行列切片
+### Row and Column Slicing
 
 ```python
-# 取前 2 行、前 3 列
+# Get the first 2 rows and first 3 columns
 sub = matrix[:2, :3]
 print(sub)
 # [[1 2 3]
 #  [5 6 7]]
 
-# 取第 1~2 行、第 2~3 列
+# Get rows 1~2 and columns 2~3
 sub2 = matrix[1:3, 2:4]
 print(sub2)
 # [[ 7  8]
 #  [11 12]]
 
-# 每隔一行取（第 0、2 行）
+# Take every other row (rows 0 and 2)
 sub3 = matrix[::2]
 print(sub3)
 # [[ 1  2  3  4]
 #  [ 9 10 11 12]]
 ```
 
-### 图解二维索引
+### Visual Guide to 2D Indexing
 
 ```
-matrix = 
-     列0  列1  列2  列3
-行0 [  1    2    3    4 ]
-行1 [  5    6    7    8 ]
-行2 [  9   10   11   12 ]
-行3 [ 13   14   15   16 ]
+matrix =
+     Col 0  Col 1  Col 2  Col 3
+Row 0 [  1    2    3    4 ]
+Row 1 [  5    6    7    8 ]
+Row 2 [  9   10   11   12 ]
+Row 3 [ 13   14   15   16 ]
 
-matrix[1, 2]      → 7        （第 1 行第 2 列）
-matrix[:2, :3]    → [[1,2,3], [5,6,7]]  （前 2 行，前 3 列）
-matrix[:, 1]      → [2, 6, 10, 14]      （所有行，第 1 列）
+matrix[1, 2]      → 7        (row 1, column 2)
+matrix[:2, :3]    → [[1,2,3], [5,6,7]]  (first 2 rows, first 3 columns)
+matrix[:, 1]      → [2, 6, 10, 14]      (all rows, column 1)
 ```
 
 ---
 
-## 布尔索引：条件筛选
+## Boolean Indexing: Conditional Filtering
 
-这是 NumPy 最强大的功能之一——用条件表达式直接筛选数据！
+This is one of NumPy's most powerful features — use conditional expressions to filter data directly!
 
-### 基本原理
+### Basic Idea
 
 ```python
 arr = np.array([15, 23, 8, 42, 31, 5, 19, 27])
 
-# 第一步：条件表达式生成布尔数组
+# Step 1: a condition expression generates a boolean array
 mask = arr > 20
 print(mask)      # [False  True False  True  True False False  True]
 
-# 第二步：用布尔数组作为索引，筛选出 True 对应的元素
+# Step 2: use the boolean array as an index to select elements where the value is True
 result = arr[mask]
 print(result)    # [23 42 31 27]
 
-# 通常合并成一行
+# Usually combined into one line
 print(arr[arr > 20])    # [23 42 31 27]
 ```
 
-### 常用条件筛选
+### Common Filtering Examples
 
 ```python
 scores = np.array([85, 92, 78, 65, 95, 43, 88, 72, 55, 90])
 
-# 及格成绩（>= 60）
+# Passing scores (>= 60)
 print(scores[scores >= 60])    # [85 92 78 65 95 88 72 90]
 
-# 优秀成绩（>= 90）
+# Excellent scores (>= 90)
 print(scores[scores >= 90])    # [92 95 90]
 
-# 不及格成绩（< 60）
+# Failing scores (< 60)
 print(scores[scores < 60])     # [43 55]
 
-# 60~80 之间的成绩（多条件用 & 连接，每个条件加括号）
+# Scores between 60 and 80 (combine multiple conditions with &, and add parentheses around each condition)
 print(scores[(scores >= 60) & (scores <= 80)])  # [78 65 72]
 
-# 低于 60 或高于 90 的成绩（多条件用 | 连接）
+# Scores below 60 or above 90 (combine multiple conditions with |)
 print(scores[(scores < 60) | (scores > 90)])    # [92 95 43 55]
 
-# 取反（~）
-print(scores[~(scores >= 60)])  # [43 55]  等价于 scores[scores < 60]
+# Negation (~)
+print(scores[~(scores >= 60)])  # [43 55]  equivalent to scores[scores < 60]
 ```
 
-:::caution 多条件的语法
-NumPy 中多条件组合**不能用** Python 的 `and` / `or`，必须用：
-- `&` 代替 `and`（且）
-- `|` 代替 `or`（或）
-- `~` 代替 `not`（非）
-- 每个条件**必须加括号**
+:::caution Syntax for Multiple Conditions
+When combining conditions in NumPy, you **cannot** use Python's `and` / `or`. You must use:
+- `&` instead of `and` (and)
+- `|` instead of `or` (or)
+- `~` instead of `not` (not)
+- **Parentheses are required** around each condition
 
 ```python
-# ❌ 错误写法
+# ❌ Wrong
 arr[arr > 5 and arr < 20]
 
-# ✅ 正确写法
+# ✅ Correct
 arr[(arr > 5) & (arr < 20)]
 ```
 :::
 
-### 布尔索引在二维数组中的应用
+### Boolean Indexing with 2D Arrays
 
 ```python
 matrix = np.array([
@@ -182,40 +182,40 @@ matrix = np.array([
     [88, 72, 90]
 ])
 
-# 找出所有大于 80 的成绩
+# Find all scores greater than 80
 print(matrix[matrix > 80])   # [85 92 95 88 90]
-# 注意：结果变成了一维数组！
+# Note: the result becomes a 1D array!
 
-# 把不及格的成绩改成 60（条件赋值）
+# Change failing scores to 60 (conditional assignment)
 matrix[matrix < 60] = 60
 print(matrix)
 # [[85 92 78]
-#  [65 95 60]   ← 43 被改成了 60
+#  [65 95 60]   ← 43 was changed to 60
 #  [88 72 90]]
 ```
 
 ---
 
-## 花式索引（Fancy Indexing）
+## Fancy Indexing
 
-花式索引允许你用**整数数组**作为索引，一次取出多个指定位置的元素：
+Fancy indexing lets you use an **integer array** as the index to retrieve multiple elements at specific positions at once:
 
-### 一维花式索引
+### Fancy Indexing in 1D
 
 ```python
 arr = np.array([10, 20, 30, 40, 50, 60, 70])
 
-# 取出索引 1、3、5 的元素
+# Get elements at indices 1, 3, 5
 print(arr[[1, 3, 5]])     # [20 40 60]
 
-# 可以重复取
+# Repeated selection is allowed
 print(arr[[0, 0, 2, 2]])  # [10 10 30 30]
 
-# 可以用任意顺序
+# Any order is allowed
 print(arr[[6, 4, 2, 0]])  # [70 50 30 10]
 ```
 
-### 二维花式索引
+### Fancy Indexing in 2D
 
 ```python
 matrix = np.array([
@@ -224,12 +224,12 @@ matrix = np.array([
     [9,  10, 11, 12]
 ])
 
-# 取第 0 行和第 2 行
+# Get row 0 and row 2
 print(matrix[[0, 2]])
 # [[ 1  2  3  4]
 #  [ 9 10 11 12]]
 
-# 取特定位置：(0,1), (1,2), (2,3) 三个元素
+# Get specific positions: the three elements (0,1), (1,2), (2,3)
 rows = [0, 1, 2]
 cols = [1, 2, 3]
 print(matrix[rows, cols])   # [ 2  7 12]
@@ -237,115 +237,115 @@ print(matrix[rows, cols])   # [ 2  7 12]
 
 ---
 
-## 视图（View）vs 拷贝（Copy）
+## View vs Copy
 
-这是新手容易踩的坑——NumPy 切片返回的是**视图**，不是副本！
+This is a common beginner trap — NumPy slicing returns a **view**, not a copy!
 
-### 视图：修改会影响原数组
+### View: Changes Affect the Original Array
 
 ```python
 arr = np.array([1, 2, 3, 4, 5])
 
-# 切片是视图
+# Slicing returns a view
 sub = arr[1:4]
 print(sub)       # [2 3 4]
 
-# 修改 sub 会影响 arr！
+# Changing sub also changes arr!
 sub[0] = 99
 print(sub)       # [99  3  4]
-print(arr)       # [ 1 99  3  4  5]  ← 原数组也变了！
+print(arr)       # [ 1 99  3  4  5]  ← the original array changed too!
 ```
 
-### 拷贝：互不影响
+### Copy: Independent from the Original
 
 ```python
 arr = np.array([1, 2, 3, 4, 5])
 
-# 使用 copy() 创建独立副本
+# Use copy() to create an independent copy
 sub = arr[1:4].copy()
 print(sub)       # [2 3 4]
 
-# 修改 sub 不会影响 arr
+# Changing sub does not affect arr
 sub[0] = 99
 print(sub)       # [99  3  4]
-print(arr)       # [1 2 3 4 5]  ← 原数组不受影响
+print(arr)       # [1 2 3 4 5]  ← the original array is unchanged
 ```
 
-### 什么时候是视图？什么时候是拷贝？
+### When Is It a View? When Is It a Copy?
 
-| 操作 | 返回类型 | 示例 |
+| Operation | Return Type | Example |
 |------|---------|------|
-| 切片 | **视图** | `arr[2:5]` |
-| 布尔索引 | **拷贝** | `arr[arr > 3]` |
-| 花式索引 | **拷贝** | `arr[[1, 3, 5]]` |
-| `.copy()` | **拷贝** | `arr[2:5].copy()` |
-| `.reshape()` | **视图**（通常） | `arr.reshape(2, 3)` |
+| Slicing | **View** | `arr[2:5]` |
+| Boolean indexing | **Copy** | `arr[arr > 3]` |
+| Fancy indexing | **Copy** | `arr[[1, 3, 5]]` |
+| `.copy()` | **Copy** | `arr[2:5].copy()` |
+| `.reshape()` | **View** (usually) | `arr.reshape(2, 3)` |
 
-:::tip 实用建议
-如果你不确定某个操作返回视图还是拷贝，又不想意外修改原数组，就加 `.copy()`——安全第一。
+:::tip Practical Advice
+If you're not sure whether an operation returns a view or a copy, and you don't want to accidentally modify the original array, add `.copy()` — safety first.
 
 ```python
-safe_sub = arr[1:4].copy()  # 永远安全
+safe_sub = arr[1:4].copy()  # always safe
 ```
 :::
 
 ---
 
-## 实战示例：用索引分析数据
+## Hands-on Example: Analyzing Data with Indexing
 
-回到 Titanic 的场景，用 NumPy 索引来分析数据：
+Back to the Titanic scenario, let's use NumPy indexing to analyze the data:
 
 ```python
 import numpy as np
 
-# 模拟 10 位乘客的数据
+# Simulated data for 10 passengers
 ages = np.array([22, 38, 26, 35, 35, np.nan, 54, 2, 27, 14])
 fares = np.array([7.25, 71.28, 7.92, 53.10, 8.05, 8.46, 51.86, 21.08, 11.13, 30.07])
 survived = np.array([0, 1, 1, 1, 0, 0, 0, 0, 1, 1])
 
-# 找出幸存者的平均票价
+# Find the average fare of survivors
 survivor_fares = fares[survived == 1]
-print(f"幸存者平均票价: ${np.mean(survivor_fares):.2f}")
+print(f"Average fare of survivors: ${np.mean(survivor_fares):.2f}")
 
-# 找出年龄大于 30 的乘客票价（需要排除 NaN）
-valid_mask = ~np.isnan(ages)  # 排除 NaN
+# Find fares for passengers older than 30 (exclude NaN first)
+valid_mask = ~np.isnan(ages)  # exclude NaN
 age_mask = ages > 30
 combined_mask = valid_mask & age_mask
-print(f"30 岁以上乘客票价: {fares[combined_mask]}")
+print(f"Fares for passengers over 30: {fares[combined_mask]}")
 
-# 找出票价最高的 3 位乘客的索引
-top3_indices = np.argsort(fares)[-3:][::-1]  # 排序后取最后 3 个，反转
-print(f"票价 Top 3 的索引: {top3_indices}")
-print(f"对应票价: {fares[top3_indices]}")
+# Find the indices of the 3 passengers with the highest fares
+top3_indices = np.argsort(fares)[-3:][::-1]  # sort, take the last 3, then reverse
+print(f"Top 3 fare indices: {top3_indices}")
+print(f"Corresponding fares: {fares[top3_indices]}")
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 索引方式 | 语法 | 返回类型 | 适用场景 |
+| Indexing Method | Syntax | Return Type | Use Case |
 |---------|------|---------|---------|
-| 基本索引 | `arr[i]`, `arr[i, j]` | 元素值 | 获取单个元素 |
-| 切片 | `arr[start:stop:step]` | 视图 | 获取连续区域 |
-| 布尔索引 | `arr[arr > 5]` | 拷贝 | 条件筛选 |
-| 花式索引 | `arr[[1, 3, 5]]` | 拷贝 | 取不连续位置 |
+| Basic indexing | `arr[i]`, `arr[i, j]` | Element value | Get a single element |
+| Slicing | `arr[start:stop:step]` | View | Get a continuous region |
+| Boolean indexing | `arr[arr > 5]` | Copy | Conditional filtering |
+| Fancy indexing | `arr[[1, 3, 5]]` | Copy | Get non-contiguous positions |
 
 ---
 
-## 动手练习
+## Practice
 
-### 练习 1：基本切片
+### Exercise 1: Basic Slicing
 
 ```python
 arr = np.arange(1, 21)  # [1, 2, 3, ..., 20]
 
-# 1. 取出前 5 个元素
-# 2. 取出所有奇数位置的元素（索引 1, 3, 5, ...）
-# 3. 取出最后 3 个元素
-# 4. 反转数组
+# 1. Get the first 5 elements
+# 2. Get all elements at odd positions (indices 1, 3, 5, ...)
+# 3. Get the last 3 elements
+# 4. Reverse the array
 ```
 
-### 练习 2：二维切片
+### Exercise 2: 2D Slicing
 
 ```python
 matrix = np.arange(1, 26).reshape(5, 5)
@@ -356,23 +356,23 @@ print(matrix)
 #  [16 17 18 19 20]
 #  [21 22 23 24 25]]
 
-# 1. 取出中间 3×3 的子矩阵
-# 2. 取出第 2 列的所有元素
-# 3. 取出对角线元素 [1, 7, 13, 19, 25]（提示：用花式索引）
+# 1. Get the middle 3×3 submatrix
+# 2. Get all elements in the second column
+# 3. Get the diagonal elements [1, 7, 13, 19, 25] (hint: use fancy indexing)
 ```
 
-### 练习 3：布尔索引实战
+### Exercise 3: Boolean Indexing in Practice
 
 ```python
-# 某班 20 位学生的数学成绩
+# Math scores for 20 students in a class
 math_scores = np.array([
     78, 92, 65, 88, 45, 95, 72, 81, 56, 90,
     83, 67, 94, 73, 85, 60, 98, 77, 69, 87
 ])
 
-# 1. 找出所有不及格（< 60）的成绩
-# 2. 找出 80~90 之间（含）的成绩
-# 3. 计算及格学生的平均分
-# 4. 把所有不及格的成绩改成 60
-# 5. 计算修改后的平均分
+# 1. Find all failing scores (< 60)
+# 2. Find all scores between 80 and 90 (inclusive)
+# 3. Compute the average score of passing students
+# 4. Change all failing scores to 60
+# 5. Compute the updated average score
 ```

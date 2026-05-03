@@ -1,116 +1,116 @@
 ---
-title: "Pandas 导读：这一章到底在学什么"
+title: "Pandas Introduction: What Is This Chapter Really About?"
 sidebar_position: 8
-description: "给第一次学 Pandas 的新人一张总地图：DataFrame、读写、筛选、清洗、转换、聚合、合并和时间序列如何串成数据分析工作流。"
-keywords: [Pandas导读, DataFrame, 数据处理, 数据清洗, groupby, Pandas怎么学]
+description: "A roadmap for first-time Pandas learners: how DataFrame, reading and writing, filtering, cleaning, transformation, aggregation, merging, and time series fit together into a data analysis workflow."
+keywords: [Pandas introduction, DataFrame, data processing, data cleaning, groupby, how to learn Pandas]
 ---
 
-# Pandas 导读：这一章到底在学什么
+# Pandas Introduction: What Is This Chapter Really About?
 
-这一章解决的是：拿到一张真实数据表后，怎样用代码把它读进来、看清楚、整理干净、筛选出来、统计汇总，并交给后面的可视化、机器学习或业务分析。
+This chapter answers a practical question: once you get a real-world data table, how do you use code to read it in, understand it clearly, organize it, filter it, summarize it, and hand it off to visualization, machine learning, or business analysis?
 
-很多新人第一次学 `Pandas` 时会觉得每个函数都能看懂一点，但放到真实分析题里还是不知道先做什么。这很正常，因为 `Pandas` 真正难的地方从来不只是 API，而是你能不能把“读数据 → 清洗 → 筛选 → 聚合 → 合并 → 输出结果”串成一个顺手的数据工作流。
+Many beginners feel that they can understand each `Pandas` function on its own, but still do not know what to do first when facing a real analysis task. That is completely normal, because the hardest part of `Pandas` is never just the API. The real challenge is whether you can connect “read data → clean → filter → aggregate → merge → output results” into a smooth data workflow.
 
-## 这一章在整个课程里的位置
+## Where This Chapter Fits in the Course
 
-第 2 站是数据分析与可视化，而 `Pandas` 是这一阶段的主心骨。前面的 NumPy 更像底层计算能力，Pandas 更像现实数据工作台：它处理有列名、有缺失值、有类别字段、有时间字段、有脏数据的表格。
+The second stage is data analysis and visualization, and `Pandas` is the backbone of this stage. The earlier NumPy is more like a low-level computing capability, while Pandas is more like a real-world data workstation: it handles tables with column names, missing values, categorical fields, time fields, and messy data.
 
-如果 Pandas 学顺了，后面的可视化、EDA、机器学习特征准备、项目分析都会顺很多。因为真实项目里，模型和图表之前通常都有大量表格整理工作。
+If you get comfortable with Pandas, the later parts of visualization, EDA, machine learning feature preparation, and project analysis will all go much more smoothly. In real projects, there is usually a lot of table preparation work before models and charts.
 
-![Pandas 数据处理路线图](/img/course/ch03-pandas-roadmap.png)
+![Pandas data processing roadmap](/img/course/ch03-pandas-roadmap-en.png)
 
-## 这一章真正要解决的问题
+## The Real Problems This Chapter Solves
 
-这一章要回答五个问题：`DataFrame` 到底是什么；数据怎样从 CSV、Excel、JSON 等文件读入；如何选择、过滤和清洗数据；如何用 `groupby` 做按类别、按时间、按部门的统计；如何把多张表合并成一张可分析的数据表。
+This chapter answers five questions: what exactly `DataFrame` is; how data is read from CSV, Excel, JSON, and other files; how to select, filter, and clean data; how to use `groupby` for category-based, time-based, or department-based statistics; and how to merge multiple tables into one analyzable dataset.
 
-新人最容易犯的错误，是一上来就背函数。更稳的方式是先想数据流：我现在手里有什么表，我要得到什么结果，中间需要清洗、筛选、转换、聚合还是合并。
+The easiest mistake for beginners is to start by memorizing functions. A more reliable approach is to think in terms of data flow: what tables do I have now, what result do I want, and do I need cleaning, filtering, transformation, aggregation, or merging in between?
 
-## 新人推荐学习顺序
+## Recommended Learning Order for Beginners
 
-建议先学核心数据结构，把 `Series / DataFrame / Index` 看顺。然后学数据读写和选择过滤，先做到“读得进来、挑得出来”。接着学数据清洗，把缺失值、重复值、类型错误和字符串问题处理到能放心分析。再学 `groupby`，把真正的统计主线抓住。最后学数据转换、合并和时间序列，处理更复杂的业务表格。
+It is recommended to start with the core data structures and get `Series / DataFrame / Index` straight. Then learn data reading/writing and selection/filtering so you can “read it in” and “pick out what you need.” Next, learn data cleaning to handle missing values, duplicates, type issues, and string problems so the data is safe to analyze. After that, learn `groupby` to grasp the main statistical workflow. Finally, learn data transformation, merging, and time series to handle more complex business tables.
 
 ```mermaid
 flowchart TD
-  A[先理解 DataFrame] --> B[读入和导出数据]
-  B --> C[选择与过滤]
-  C --> D[数据清洗]
-  D --> E[数据转换]
-  E --> F[分组聚合]
-  F --> G[多表合并]
-  G --> H[时间序列分析]
+  A[First understand DataFrame] --> B[Read and export data]
+  B --> C[Select and filter]
+  C --> D[Data cleaning]
+  D --> E[Data transformation]
+  E --> F[Group and aggregate]
+  F --> G[Merge multiple tables]
+  G --> H[Time series analysis]
 ```
 
-## 学这一章时要抓住的主线
+## The Main Thread to Focus on in This Chapter
 
-这一章的主线可以概括为：Pandas 最重要的不是 API 多，而是数据流要顺。
+The main idea of this chapter can be summarized like this: the most important thing about Pandas is not having lots of APIs, but making the data flow smooth.
 
 ```mermaid
 flowchart LR
-  A[读进来] --> B[看结构]
-  B --> C[选数据]
-  C --> D[清洗]
-  D --> E[变换]
-  E --> F[统计]
-  F --> G[合并]
-  G --> H[输出给图表或模型]
+  A[Read it in] --> B[Inspect the structure]
+  B --> C[Select data]
+  C --> D[Clean]
+  D --> E[Transform]
+  E --> F[Statistical summarize]
+  F --> G[Merge]
+  G --> H[Output for charts or models]
 ```
 
-如果你每一步都能说清楚“输入是什么、输出是什么、为什么要这样处理”，Pandas 就不会变成函数碎片。
+If you can clearly explain at each step “what the input is, what the output is, and why you handle it this way,” then Pandas will not feel like a pile of disconnected functions.
 
-## 这一章 8 节课分别在解决什么
+## What the 8 Lessons in This Chapter Solve
 
-| 章节 | 它最该帮你解决什么问题 |
+| Section | The main problem it should help you solve |
 |---|---|
-| [3.1 Pandas 核心数据结构](./01-core-structures.md) | 先搞懂 `Series / DataFrame / Index` 到底是什么 |
-| [3.2 数据读写](./02-read-write.md) | 把 CSV / Excel / JSON 读进来、导出去 |
-| [3.3 数据选择与过滤](./03-selection-filter.md) | 真正开始“挑出我想要的那部分数据” |
-| [3.4 数据清洗](./04-data-cleaning.md) | 处理缺失值、重复值、异常值和格式问题 |
-| [3.5 数据转换](./05-data-transform.md) | 在列和列之间做变换、映射和派生 |
-| [3.6 分组与聚合](./06-groupby.md) | 做“按部门 / 按月份 / 按类别”的统计分析 |
-| [3.7 数据合并](./07-merge.md) | 把多张表拼起来 |
-| [3.8 时间序列](./08-time-series.md) | 让表格开始按时间维度工作 |
+| [3.1 Pandas Core Data Structures](./01-core-structures.md) | First understand what `Series / DataFrame / Index` actually are |
+| [3.2 Data Reading and Writing](./02-read-write.md) | Read CSV / Excel / JSON files in and export them out |
+| [3.3 Data Selection and Filtering](./03-selection-filter.md) | Start truly “picking out the part of the data I want” |
+| [3.4 Data Cleaning](./04-data-cleaning.md) | Handle missing values, duplicates, outliers, and formatting issues |
+| [3.5 Data Transformation](./05-data-transform.md) | Transform, map, and derive values across columns |
+| [3.6 Grouping and Aggregation](./06-groupby.md) | Do statistical analysis by department / month / category |
+| [3.7 Data Merging](./07-merge.md) | Stitch multiple tables together |
+| [3.8 Time Series](./08-time-series.md) | Make tables work along the time dimension |
 
-## 这一章和后面阶段的关系
+## How This Chapter Connects to Later Stages
 
-Pandas 是后面很多能力的输入层。可视化需要它整理数据，机器学习需要它准备特征，RAG 和 Agent 项目也常常需要它读取表格、分析日志或处理评估数据。
+Pandas is the input layer for many later capabilities. Visualization needs it to organize data, machine learning needs it to prepare features, and RAG and Agent projects often need it to read tables, analyze logs, or process evaluation data.
 
-如果这一章没学稳，后面常见的问题是：图表画不出来不是因为可视化不会，而是数据没整理好；机器学习分数差不是模型问题，而是字段类型、缺失值或数据泄漏没处理好；Agent 数据分析工具能跑，但表格逻辑错了。
+If you do not learn this chapter solidly, common problems later are: charts not rendering because visualization is hard, but because the data was not organized well; poor machine learning scores not because the model is bad, but because field types, missing values, or data leakage were not handled; or an Agent data analysis tool runs, but the table logic is wrong.
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+When beginners study this chapter for the first time, they should focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Learners with experience can use this chapter for gap-filling and engineering practice: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the sections before and after it. After reading, it is best to turn what you learned into your own project README or lab notes.
 
-## 学习时间与难度建议
+## Suggested Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Learning mode | Suggested time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimum completion | 1–2 hours | Run a minimal example and finish the chapter’s small project deliverable |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check question | Passing standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+| What problem does this chapter solve? | You can explain its place in the whole course in one sentence |
+| What are the minimum input and output? | You can explain what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
+| What can you retain after learning it? | You can write this chapter’s output into a project README, lab notes, or portfolio |
 
-## 本章小项目出口
+## Small Project Deliverable for This Chapter
 
-学完这一章后，建议做一个“小型销售数据清洗与分析”。输入一份包含订单、用户、商品和时间字段的表格，完成数据读入、字段检查、缺失值处理、类型转换、按月份和品类聚合、关键指标输出，并保存一份可供可视化使用的干净数据表。
+After finishing this chapter, it is recommended to do a “small sales data cleaning and analysis” project. Start with a table containing order, user, product, and time fields. Complete data reading, field checking, missing-value handling, type conversion, monthly and category-level aggregation, key metric output, and save a clean dataset that can be used for visualization.
 
-项目重点不是函数用得多，而是能把每一步整理成清晰数据流。
+The key point of the project is not using many functions, but being able to organize each step into a clear data flow.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能拿到一张表后先查看结构，能完成读写、筛选、清洗、转换、分组聚合和简单多表合并，能解释 `groupby`、`merge`、`loc/iloc` 各自在数据流中的作用。
+By the end of this chapter, you should be able to inspect the structure of a table first, complete reading/writing, filtering, cleaning, transformation, grouping and aggregation, and simple multi-table merging, and explain the role of `groupby`, `merge`, and `loc/iloc` in the data flow.
 
-如果你能把一份原始表格处理成干净分析表，并说明每一步为什么这样做，就达到了数据分析阶段的 Pandas 入门标准。
+If you can turn a raw table into a clean analysis table and explain why each step was done, then you have reached the beginner level standard for Pandas in the data analysis stage.
 
-## 学到这里，下一步怎么读最顺
+## What to Read Next for the Smoothest Progress
 
-建议先读 Pandas 核心数据结构、数据读写、数据选择与过滤、数据清洗、分组与聚合。等这几篇顺了，再继续看数据转换、数据合并和时间序列。
+It is recommended to read Pandas core data structures, data reading/writing, data selection and filtering, data cleaning, and grouping and aggregation first. Once those feel comfortable, continue with data transformation, data merging, and time series.

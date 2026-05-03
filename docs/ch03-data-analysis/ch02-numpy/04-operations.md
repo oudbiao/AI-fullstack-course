@@ -1,64 +1,64 @@
 ---
-title: "2.4 数组运算"
+title: "2.4 Array Operations"
 sidebar_position: 5
-description: "掌握向量化运算、广播机制和聚合函数"
+description: "Master vectorized operations, broadcasting, and aggregation functions"
 ---
 
-# 数组运算
+# Array Operations
 
-![NumPy 广播与向量化运算图](/img/course/ch03-numpy-broadcasting-vectorization.png)
+![NumPy Broadcasting and Vectorization Diagram](/img/course/ch03-numpy-broadcasting-vectorization-en.png)
 
-## 学习目标
+## Learning Objectives
 
-- 理解向量化运算的概念和优势
-- 掌握元素级运算和通用函数（ufunc）
-- 理解广播机制（Broadcasting）的规则
-- 熟练使用聚合函数进行统计计算
+- Understand the concept and advantages of vectorized operations
+- Master element-wise operations and universal functions (ufuncs)
+- Understand the rules of Broadcasting
+- Use aggregation functions confidently for statistical calculations
 
 ---
 
-## 向量化运算：告别循环
+## Vectorized Operations: Say Goodbye to Loops
 
-**向量化运算**是 NumPy 的核心思想——对整个数组进行操作，不用写循环。
+**Vectorized operations** are a core idea in NumPy — operate on the entire array without writing loops.
 
-### 纯 Python vs NumPy
+### Pure Python vs NumPy
 
 ```python
 import numpy as np
 
-# 纯 Python：逐个计算
+# Pure Python: compute one by one
 prices = [100, 200, 300, 400, 500]
 discounted = []
 for p in prices:
     discounted.append(p * 0.8)
 print(discounted)  # [80.0, 160.0, 240.0, 320.0, 400.0]
 
-# NumPy：一行搞定
+# NumPy: one line does it all
 prices = np.array([100, 200, 300, 400, 500])
 discounted = prices * 0.8
 print(discounted)  # [ 80. 160. 240. 320. 400.]
 ```
 
-### 元素级运算
+### Element-wise Operations
 
-NumPy 数组的算术运算是**逐元素**进行的：
+Arithmetic operations on NumPy arrays are performed **element by element**:
 
 ```python
 a = np.array([1, 2, 3, 4])
 b = np.array([10, 20, 30, 40])
 
-print(a + b)     # [11 22 33 44]    对应位置相加
+print(a + b)     # [11 22 33 44]    add corresponding elements
 print(a - b)     # [ -9 -18 -27 -36]
-print(a * b)     # [ 10  40  90 160]  对应位置相乘（不是矩阵乘法！）
+print(a * b)     # [ 10  40  90 160]  multiply corresponding elements (not matrix multiplication!)
 print(a / b)     # [0.1 0.1 0.1 0.1]
-print(a ** 2)    # [ 1  4  9 16]      平方
-print(b % 3)     # [1 2 0 1]          取余
-print(b // 3)    # [ 3  6 10 13]      整除
+print(a ** 2)    # [ 1  4  9 16]      square
+print(b % 3)     # [1 2 0 1]          remainder
+print(b // 3)    # [ 3  6 10 13]      integer division
 ```
 
-### 与标量运算
+### Operations with Scalars
 
-数组和单个数字（标量）运算时，会自动把标量应用到每个元素：
+When an array is operated on with a single number (a scalar), NumPy automatically applies the scalar to every element:
 
 ```python
 arr = np.array([10, 20, 30, 40])
@@ -69,7 +69,7 @@ print(arr / 10)   # [1. 2. 3. 4.]
 print(1 / arr)    # [0.1  0.05 0.033 0.025]
 ```
 
-### 比较运算
+### Comparison Operations
 
 ```python
 arr = np.array([15, 23, 8, 42, 31])
@@ -81,82 +81,82 @@ print(arr != 8)      # [ True  True False  True  True]
 
 ---
 
-## 通用函数（ufunc）
+## Universal Functions (ufuncs)
 
-NumPy 提供了大量的**通用函数**，可以对数组中每个元素应用数学运算：
+NumPy provides many **universal functions** that apply mathematical operations to each element in an array:
 
-### 常用数学函数
+### Common Mathematical Functions
 
 ```python
 arr = np.array([1, 4, 9, 16, 25])
 
-# 平方根
+# Square root
 print(np.sqrt(arr))     # [1. 2. 3. 4. 5.]
 
-# 绝对值
+# Absolute value
 neg = np.array([-3, -1, 0, 2, 5])
 print(np.abs(neg))      # [3 1 0 2 5]
 
-# 幂运算
-print(np.power(arr, 0.5))  # 和 sqrt 一样
+# Power
+print(np.power(arr, 0.5))  # same as sqrt
 
-# 指数和对数
-print(np.exp([0, 1, 2]))      # [1.    2.718 7.389]  e 的幂
-print(np.log([1, np.e, 10]))   # [0.    1.    2.303]  自然对数
-print(np.log10([1, 10, 100]))  # [0. 1. 2.]           以 10 为底
-print(np.log2([1, 2, 8, 64]))  # [0. 1. 3. 6.]       以 2 为底
+# Exponential and logarithms
+print(np.exp([0, 1, 2]))      # [1.    2.718 7.389]  e raised to a power
+print(np.log([1, np.e, 10]))   # [0.    1.    2.303]  natural logarithm
+print(np.log10([1, 10, 100]))  # [0. 1. 2.]           base 10
+print(np.log2([1, 2, 8, 64]))  # [0. 1. 3. 6.]       base 2
 ```
 
-### 三角函数
+### Trigonometric Functions
 
 ```python
-# 创建 0 到 2π 的角度
+# Create angles from 0 to 2π
 angles = np.linspace(0, 2 * np.pi, 5)  # [0, π/2, π, 3π/2, 2π]
 
-print(np.sin(angles))  # [ 0.  1.  0. -1.  0.]  ← 正弦
-print(np.cos(angles))  # [ 1.  0. -1.  0.  1.]  ← 余弦
+print(np.sin(angles))  # [ 0.  1.  0. -1.  0.]  ← sine
+print(np.cos(angles))  # [ 1.  0. -1.  0.  1.]  ← cosine
 ```
 
-### 取整函数
+### Rounding Functions
 
 ```python
 arr = np.array([1.2, 2.5, 3.7, -1.3, -2.8])
 
-print(np.floor(arr))    # [ 1.  2.  3. -2. -3.]  向下取整
-print(np.ceil(arr))     # [ 2.  3.  4. -1. -2.]  向上取整
-print(np.round(arr))    # [ 1.  2.  4. -1. -3.]  四舍五入
-print(np.trunc(arr))    # [ 1.  2.  3. -1. -2.]  截断小数
+print(np.floor(arr))    # [ 1.  2.  3. -2. -3.]  round down
+print(np.ceil(arr))     # [ 2.  3.  4. -1. -2.]  round up
+print(np.round(arr))    # [ 1.  2.  4. -1. -3.]  round to nearest
+print(np.trunc(arr))    # [ 1.  2.  3. -1. -2.]  truncate decimals
 ```
 
-### 两个数组间的运算
+### Operations Between Two Arrays
 
 ```python
 a = np.array([3, 5, 7, 9])
 b = np.array([1, 4, 2, 8])
 
-print(np.maximum(a, b))  # [3 5 7 9]   对应位置取较大值
-print(np.minimum(a, b))  # [1 4 2 8]   对应位置取较小值
-print(np.where(a > b, a, b))  # 同 maximum，但更灵活
+print(np.maximum(a, b))  # [3 5 7 9]   take the larger value at each position
+print(np.minimum(a, b))  # [1 4 2 8]   take the smaller value at each position
+print(np.where(a > b, a, b))  # same as maximum, but more flexible
 ```
 
 ---
 
-## 广播机制（Broadcasting）
+## Broadcasting
 
-当两个形状不同的数组运算时，NumPy 会自动"广播"较小的数组，使它们形状兼容。
+When arrays with different shapes are operated on, NumPy automatically "broadcasts" the smaller array so their shapes become compatible.
 
-### 最简单的例子
+### The Simplest Example
 
 ```python
 arr = np.array([1, 2, 3])
 
-# 标量 + 数组 → 标量被广播成 [10, 10, 10]
+# scalar + array → scalar is broadcast to [10, 10, 10]
 print(arr + 10)   # [11 12 13]
 ```
 
-这其实就是广播——NumPy 把 `10` 扩展成了 `[10, 10, 10]`，然后逐元素相加。
+This is broadcasting in action — NumPy expands `10` to `[10, 10, 10]`, then adds element by element.
 
-### 二维数组 + 一维数组
+### 2D Array + 1D Array
 
 ```python
 matrix = np.array([
@@ -167,7 +167,7 @@ matrix = np.array([
 
 row = np.array([10, 20, 30])
 
-# row 被广播到每一行
+# row is broadcast to every row
 result = matrix + row
 print(result)
 # [[11 22 33]
@@ -175,22 +175,22 @@ print(result)
 #  [17 28 39]]
 ```
 
-广播的过程可以这样理解：
+You can think about broadcasting like this:
 
 ```
-matrix:         row (广播前):      row (广播后):
+matrix:         row (before broadcasting):      row (after broadcasting):
 [[1, 2, 3],    [10, 20, 30]  →   [[10, 20, 30],
  [4, 5, 6],                        [10, 20, 30],
  [7, 8, 9]]                        [10, 20, 30]]
 ```
 
-### 列向量 + 行向量
+### Column Vector + Row Vector
 
 ```python
-col = np.array([[1], [2], [3]])    # shape: (3, 1) 列向量
-row = np.array([10, 20, 30])       # shape: (3,)   行向量
+col = np.array([[1], [2], [3]])    # shape: (3, 1) column vector
+row = np.array([10, 20, 30])       # shape: (3,)   row vector
 
-# 两者都被广播
+# both are broadcast
 result = col + row
 print(result)
 # [[11 21 31]
@@ -198,44 +198,44 @@ print(result)
 #  [13 23 33]]
 ```
 
-### 广播规则
+### Broadcasting Rules
 
 ```mermaid
 flowchart TD
-    A["两个数组形状不同？"] -->|是| B["从末尾对齐维度"]
-    B --> C{"每个维度是否满足？<br/>1. 相等<br/>2. 其中一个为 1"}
-    C -->|全部满足| D["广播成功 ✅<br/>维度为 1 的被复制扩展"]
-    C -->|有不满足| E["广播失败 ❌<br/>报 ValueError"]
-    A -->|否| F["形状相同，直接运算"]
+    A["Are the two array shapes different?"] -->|Yes| B["Align dimensions from the end"]
+    B --> C{"Does each dimension satisfy:<br/>1. equal<br/>2. one of them is 1"}
+    C -->|All satisfied| D["Broadcast succeeds ✅<br/>Dimensions of 1 are copied and expanded"]
+    C -->|Any not satisfied| E["Broadcast fails ❌<br/>Raises ValueError"]
+    A -->|No| F["Shapes are the same, operate directly"]
 ```
 
-简单记忆：**维度从后往前比，要么相等，要么其中一个是 1。**
+Simple rule to remember: **Compare dimensions from back to front — they must either be equal, or one of them must be 1.**
 
 ```python
-# ✅ 可以广播
-# (3, 4) + (4,)     → (3, 4)     最后一维都是 4
-# (3, 4) + (1, 4)   → (3, 4)     第一维 3 和 1 → 广播成 3
-# (3, 1) + (1, 4)   → (3, 4)     两个维度都广播
+# ✅ Can broadcast
+# (3, 4) + (4,)     → (3, 4)     the last dimension is 4 in both
+# (3, 4) + (1, 4)   → (3, 4)     first dimension 3 and 1 → broadcast to 3
+# (3, 1) + (1, 4)   → (3, 4)     both dimensions are broadcast
 
-# ❌ 不能广播
-# (3, 4) + (3,)     → 报错！最后一维 4 ≠ 3，且都不是 1
+# ❌ Cannot broadcast
+# (3, 4) + (3,)     → error! last dimension 4 ≠ 3, and neither is 1
 ```
 
-### 广播的实际应用
+### Real-World Uses of Broadcasting
 
 ```python
-# 标准化数据：每列减去该列的均值
+# Standardize data: subtract the mean of each column from that column
 data = np.array([
     [85, 170, 60],
     [92, 180, 75],
     [78, 165, 55],
     [90, 175, 70]
-])  # 4 个学生：成绩、身高、体重
+])  # 4 students: score, height, weight
 
-# 计算每列均值
+# Compute the mean of each column
 col_mean = data.mean(axis=0)        # [86.25 172.5  65.  ]  shape: (3,)
 
-# 广播：(4, 3) - (3,) → (4, 3)
+# Broadcasting: (4, 3) - (3,) → (4, 3)
 centered = data - col_mean
 print(centered)
 # [[-1.25 -2.5  -5.  ]
@@ -246,31 +246,31 @@ print(centered)
 
 ---
 
-## 聚合函数
+## Aggregation Functions
 
-聚合函数把一组数据"汇总"成一个或一组值：
+Aggregation functions "summarize" a group of data into one value or a small set of values:
 
-### 常用聚合函数
+### Common Aggregation Functions
 
 ```python
 arr = np.array([4, 7, 2, 9, 1, 5, 8, 3, 6])
 
-print(np.sum(arr))      # 45    总和
-print(np.mean(arr))     # 5.0   均值
-print(np.median(arr))   # 5.0   中位数
-print(np.std(arr))      # 2.58  标准差
-print(np.var(arr))      # 6.67  方差
-print(np.min(arr))      # 1     最小值
-print(np.max(arr))      # 9     最大值
-print(np.argmin(arr))   # 4     最小值的索引
-print(np.argmax(arr))   # 3     最大值的索引
-print(np.cumsum(arr))   # [ 4 11 13 22 23 28 36 39 45]  累积和
-print(np.cumprod(arr[:5]))  # [  4  28  56 504 504]  累积积
+print(np.sum(arr))      # 45    total
+print(np.mean(arr))     # 5.0   mean
+print(np.median(arr))   # 5.0   median
+print(np.std(arr))      # 2.58  standard deviation
+print(np.var(arr))      # 6.67  variance
+print(np.min(arr))      # 1     minimum
+print(np.max(arr))      # 9     maximum
+print(np.argmin(arr))   # 4     index of minimum
+print(np.argmax(arr))   # 3     index of maximum
+print(np.cumsum(arr))   # [ 4 11 13 22 23 28 36 39 45]  cumulative sum
+print(np.cumprod(arr[:5]))  # [  4  28  56 504 504]  cumulative product
 ```
 
-### 按轴（axis）聚合
+### Aggregation Along an Axis
 
-对于多维数组，`axis` 参数控制沿哪个方向聚合：
+For multi-dimensional arrays, the `axis` parameter controls which direction to aggregate along:
 
 ```python
 matrix = np.array([
@@ -279,139 +279,139 @@ matrix = np.array([
     [7, 8, 9]
 ])
 
-# 不指定 axis：对所有元素聚合
+# No axis specified: aggregate all elements
 print(np.sum(matrix))          # 45
 
-# axis=0：沿行方向（按列聚合）—— 上下压缩
+# axis=0: along the row direction (aggregate by column) — compress top to bottom
 print(np.sum(matrix, axis=0))  # [12 15 18]
 
-# axis=1：沿列方向（按行聚合）—— 左右压缩
+# axis=1: along the column direction (aggregate by row) — compress left to right
 print(np.sum(matrix, axis=1))  # [ 6 15 24]
 ```
 
-`axis` 的理解方式——**axis=0 消灭行，axis=1 消灭列**：
+A helpful way to understand `axis` — **axis=0 removes rows, axis=1 removes columns**:
 
 ```
-原始 (3, 3):
+Original (3, 3):
 [[1, 2, 3],
  [4, 5, 6],
  [7, 8, 9]]
 
-axis=0 (消灭行 → 结果 shape=(3,)):
+axis=0 (remove rows → result shape=(3,)):
 [1+4+7, 2+5+8, 3+6+9] = [12, 15, 18]
 
-axis=1 (消灭列 → 结果 shape=(3,)):
+axis=1 (remove columns → result shape=(3,)):
 [1+2+3, 4+5+6, 7+8+9] = [6, 15, 24]
 ```
 
-### 实战：成绩分析
+### Practice: Grade Analysis
 
 ```python
-# 5 个学生的 3 科成绩
+# Scores for 5 students in 3 subjects
 scores = np.array([
-    [85, 92, 78],   # 学生 1：语文、数学、英语
-    [90, 88, 95],   # 学生 2
-    [72, 65, 80],   # 学生 3
-    [95, 98, 92],   # 学生 4
-    [60, 55, 70]    # 学生 5
+    [85, 92, 78],   # Student 1: Chinese, Math, English
+    [90, 88, 95],   # Student 2
+    [72, 65, 80],   # Student 3
+    [95, 98, 92],   # Student 4
+    [60, 55, 70]    # Student 5
 ])
 
-subjects = ["语文", "数学", "英语"]
+subjects = ["Chinese", "Math", "English"]
 
-# 每个学生的总分
+# Total score for each student
 total = np.sum(scores, axis=1)
-print("每个学生的总分:", total)   # [255 273 217 285 185]
+print("Total score for each student:", total)   # [255 273 217 285 185]
 
-# 每个学生的平均分
+# Average score for each student
 avg_per_student = np.mean(scores, axis=1)
-print("每个学生的平均分:", avg_per_student)
+print("Average score for each student:", avg_per_student)
 
-# 每科的平均分
+# Average score for each subject
 avg_per_subject = np.mean(scores, axis=0)
 for sub, avg in zip(subjects, avg_per_subject):
-    print(f"  {sub}平均分: {avg:.1f}")
+    print(f"  {sub} average score: {avg:.1f}")
 
-# 全班最高分是谁的哪科
+# Who got the highest score, and in which subject
 max_idx = np.unravel_index(np.argmax(scores), scores.shape)
-print(f"最高分: {scores[max_idx]} (学生{max_idx[0]+1}的{subjects[max_idx[1]]})")
+print(f"Highest score: {scores[max_idx]} (Student {max_idx[0]+1}'s {subjects[max_idx[1]]})")
 
-# 哪个学生的总分最高
+# Which student has the highest total score
 best_student = np.argmax(total)
-print(f"总分最高: 学生{best_student + 1}, 总分 {total[best_student]}")
+print(f"Highest total score: Student {best_student + 1}, total {total[best_student]}")
 ```
 
 ---
 
-## np.where：条件选择
+## np.where: Conditional Selection
 
-`np.where` 是 NumPy 版的三元表达式：
+`np.where` is NumPy's version of the ternary expression:
 
 ```python
 arr = np.array([85, 42, 91, 67, 55, 78])
 
-# 及格的标记为 "PASS"，不及格标记为 "FAIL"
+# Mark passing scores as "PASS" and failing scores as "FAIL"
 result = np.where(arr >= 60, "PASS", "FAIL")
 print(result)  # ['PASS' 'FAIL' 'PASS' 'PASS' 'FAIL' 'PASS']
 
-# 不及格的补到 60
+# Raise failing scores to 60
 adjusted = np.where(arr >= 60, arr, 60)
 print(adjusted)  # [85 60 91 67 60 78]
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 类别 | 内容 | 示例 |
+| Category | Content | Example |
 |------|------|------|
-| 向量化运算 | 整个数组一起运算，不用循环 | `arr * 2`, `a + b` |
-| 通用函数 | 逐元素的数学函数 | `np.sqrt()`, `np.exp()`, `np.log()` |
-| 广播 | 不同形状的数组自动扩展 | `(3,4) + (4,)` → `(3,4)` |
-| 聚合函数 | 汇总统计 | `np.sum()`, `np.mean()`, `np.std()` |
-| axis 参数 | 控制聚合方向 | `axis=0` 按列，`axis=1` 按行 |
-| np.where | 条件选择 | `np.where(arr > 0, arr, 0)` |
+| Vectorized operations | Operate on the whole array at once, no loops needed | `arr * 2`, `a + b` |
+| Universal functions | Element-wise mathematical functions | `np.sqrt()`, `np.exp()`, `np.log()` |
+| Broadcasting | Automatically expand arrays with different shapes | `(3,4) + (4,)` → `(3,4)` |
+| Aggregation functions | Statistical summaries | `np.sum()`, `np.mean()`, `np.std()` |
+| `axis` parameter | Controls aggregation direction | `axis=0` by column, `axis=1` by row |
+| `np.where` | Conditional selection | `np.where(arr > 0, arr, 0)` |
 
 ---
 
-## 动手练习
+## Hands-On Exercises
 
-### 练习 1：向量化计算
+### Exercise 1: Vectorized Calculation
 
 ```python
-# 计算华氏温度转摄氏温度
-# 公式：C = (F - 32) × 5/9
+# Convert Fahrenheit to Celsius
+# Formula: C = (F - 32) × 5/9
 fahrenheit = np.array([32, 68, 100, 212, 72, 98.6])
 
-# 用向量化运算一行完成转换
+# Complete the conversion in one line using vectorized operations
 celsius = ?
 ```
 
-### 练习 2：广播练习
+### Exercise 2: Broadcasting Practice
 
 ```python
-# 3 个商品的原价
+# Original prices of 3 products
 prices = np.array([100, 200, 300])
 
-# 3 种折扣率（列向量）
+# 3 discount rates (column vector)
 discounts = np.array([[0.9], [0.8], [0.7]])
 
-# 用广播计算每个商品在每种折扣下的价格（3×3 矩阵）
+# Use broadcasting to calculate the price of each product under each discount (3×3 matrix)
 final_prices = ?
-# 预期结果：
+# Expected result:
 # [[ 90. 180. 270.]
 #  [ 80. 160. 240.]
 #  [ 70. 140. 210.]]
 ```
 
-### 练习 3：成绩统计
+### Exercise 3: Grade Statistics
 
 ```python
-# 生成 50 个学生的随机成绩（40~100 之间）
+# Generate random scores for 50 students (between 40 and 100)
 np.random.seed(42)
 scores = np.random.randint(40, 101, size=50)
 
-# 1. 计算均值、中位数、标准差
-# 2. 找出最高分、最低分和它们的位置
-# 3. 统计各分数段人数：不及格(<60)、及格(60-69)、中等(70-79)、良好(80-89)、优秀(90+)
-# 4. 计算及格率
+# 1. Compute the mean, median, and standard deviation
+# 2. Find the highest score, lowest score, and their positions
+# 3. Count how many students fall into each range: failing (<60), passing (60-69), average (70-79), good (80-89), excellent (90+)
+# 4. Calculate the passing rate
 ```

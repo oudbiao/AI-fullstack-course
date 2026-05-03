@@ -1,141 +1,141 @@
 ---
-title: "7.3 Agent 间通信"
+title: "7.3 Communication Between Agents"
 sidebar_position: 39
-description: "从消息格式、同步与异步、共享状态到失败重试，系统理解多 Agent 之间到底怎样通信。"
+description: "Build a systematic understanding of how multiple Agents communicate, from message format, synchronous vs. asynchronous communication, and shared state to failure retries."
 keywords: [multi-agent communication, message passing, event bus, shared state, async, protocol]
 ---
 
-# Agent 间通信
+# Communication Between Agents
 
-:::tip 本节定位
-如果说上一节是在回答“这些 Agent 应该怎样分工”，那这一节就在回答：
+:::tip Section Overview
+If the previous section answered “How should these Agents split up the work?”, then this section answers:
 
-> **分好工以后，它们到底怎样把信息传来传去？**
+> **After the work is divided, how do they actually pass information back and forth?**
 
-很多多 Agent 系统最后出问题，不是因为个体 Agent 不够聪明，而是因为通信设计太弱。
+In many multi-Agent systems, the final failure is not because each individual Agent is not smart enough, but because the communication design is too weak.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解多 Agent 通信为什么是系统成败关键
-- 分清消息传递、共享状态、事件总线三类常见通信方式
-- 看懂一个最小事件总线示例
-- 理解同步通信和异步通信的工程差别
-
----
-
-## 一、为什么通信会成为多 Agent 系统的核心问题？
-
-### 1.1 多 Agent 最大的风险不是“不会干活”，而是“互相没对齐”
-
-即使每个 Agent 单独都很强，系统也可能因为通信设计差而出问题：
-
-- 重复劳动
-- 消息丢失
-- 信息理解不一致
-- 任务已经完成还在继续讨论
-
-### 1.2 一个很直观的类比
-
-多 Agent 很像一个小团队协作：
-
-- 分工只是第一步
-- 真正决定效率的，往往是开会、交接、同步、回传这些沟通机制
-
-这就是为什么通信不是“附属模块”，而是核心结构。
+- Understand why communication is a key factor in whether a multi-Agent system succeeds or fails
+- Distinguish between three common communication patterns: message passing, shared state, and event bus
+- Read a minimal event bus example
+- Understand the engineering differences between synchronous and asynchronous communication
 
 ---
 
-## 二、最常见的三种通信方式
+## 1. Why Does Communication Become the Core Problem in Multi-Agent Systems?
 
-### 2.1 直接消息传递（message passing）
+### 1.1 The Biggest Risk in Multi-Agent Systems Is Not “Not Doing the Work,” but “Not Staying Aligned”
 
-一个 Agent 明确给另一个 Agent 发消息。
+Even if each Agent is strong on its own, the system can still fail because of poor communication design:
 
-优点：
+- Repeated work
+- Lost messages
+- Inconsistent understanding of information
+- Continuing to discuss a task after it has already been completed
 
-- 简单
-- 清晰
-- 好追踪
+### 1.2 A Very Intuitive Analogy
 
-缺点：
+A multi-Agent system is a lot like a small team working together:
 
-- Agent 之间耦合比较强
+- Division of labor is only the first step
+- What often determines efficiency is the communication mechanism: meetings, handoffs, synchronization, and feedback
 
-### 2.2 共享状态（shared state / blackboard）
-
-所有 Agent 都往一个共享工作区写入和读取信息。
-
-优点：
-
-- 不需要每次显式点对点发送
-- 很适合多方协同观察同一个任务状态
-
-缺点：
-
-- 更容易写乱
-- 权限和冲突更难控
-
-### 2.3 事件总线（event bus）
-
-Agent 不一定直接知道彼此，而是把消息发到总线，由订阅者接收。
-
-优点：
-
-- 更解耦
-- 更适合复杂系统
-
-缺点：
-
-- 调试更复杂
+That is why communication is not an “extra module” — it is a core structure.
 
 ---
 
-## 三、先看最简单的点对点消息传递
+## 2. Three of the Most Common Communication Patterns
 
-### 3.1 一个最小示例
+### 2.1 Direct Message Passing
+
+One Agent explicitly sends a message to another Agent.
+
+Pros:
+
+- Simple
+- Clear
+- Easy to trace
+
+Cons:
+
+- The coupling between Agents is relatively strong
+
+### 2.2 Shared State / Blackboard
+
+All Agents write to and read from one shared workspace.
+
+Pros:
+
+- No need for explicit point-to-point messaging every time
+- Very suitable for multiple parties collaboratively observing the same task state
+
+Cons:
+
+- Easier to get messy
+- Harder to control permissions and conflicts
+
+### 2.3 Event Bus
+
+Agents do not necessarily know each other directly; instead, they publish messages to a bus, and subscribers receive them.
+
+Pros:
+
+- More decoupled
+- Better for complex systems
+
+Cons:
+
+- More difficult to debug
+
+---
+
+## 3. Start with the Simplest Point-to-Point Message Passing
+
+### 3.1 A Minimal Example
 
 ```python
 message = {
     "from": "planner",
     "to": "worker",
     "type": "task_assignment",
-    "content": "请整理退款政策的关键条件"
+    "content": "Please summarize the key conditions of the refund policy"
 }
 
 print(message)
 ```
 
-### 3.2 为什么这已经很重要？
+### 3.2 Why Is This Already Important?
 
-因为它把通信的几个关键元素都显式化了：
+Because it makes the key elements of communication explicit:
 
-- 谁发的
-- 发给谁
-- 消息类型
-- 消息内容
+- Who sent it
+- Who it was sent to
+- Message type
+- Message content
 
-这比“随便传一段自然语言”稳很多。
+This is much more robust than “just passing some natural language.”
 
 ---
 
-## 四、消息格式为什么要标准化？
+## 4. Why Should Message Formats Be Standardized?
 
-### 4.1 一个坏消息格式
+### 4.1 A Bad Message Format
 
 ```python
-bad_message = "帮我做这个任务"
+bad_message = "Help me do this task"
 print(bad_message)
 ```
 
-问题在于：
+The problem is:
 
-- 不知道谁发的
-- 不知道任务类型
-- 不知道上下文
-- 不知道下一步怎么处理
+- You do not know who sent it
+- You do not know the task type
+- You do not know the context
+- You do not know what to do next
 
-### 4.2 一个更稳的消息结构
+### 4.2 A More Reliable Message Structure
 
 ```python
 good_message = {
@@ -144,26 +144,26 @@ good_message = {
     "type": "search_request",
     "task_id": "task_001",
     "payload": {
-        "query": "退款政策"
+        "query": "refund policy"
     }
 }
 
 print(good_message)
 ```
 
-这才更像一个能进入系统流水线的消息。
+This is much closer to a message that can enter a system pipeline.
 
-![Agent 间通信契约图](/img/course/ch09-multi-agent-communication-contract-map.png)
+![Agent communication contract diagram](/img/course/ch09-multi-agent-communication-contract-map-en.png)
 
-:::tip 读图提示
-多 Agent 通信不要只传一句自然语言。图里每条消息都要有 sender、receiver、type、task_id、payload 和 status，这样系统才能追踪、重试和定位责任。
+:::tip Reading the Diagram
+Do not send only one sentence of natural language in multi-Agent communication. In the diagram, every message should include sender, receiver, type, task_id, payload, and status, so the system can trace, retry, and assign responsibility.
 :::
 
 ---
 
-## 五、一个最小事件总线示例
+## 5. A Minimal Event Bus Example
 
-### 5.1 可运行代码
+### 5.1 Runnable Code
 
 ```python
 from collections import defaultdict
@@ -180,13 +180,13 @@ class EventBus:
             handler(payload)
 
 def planner_handler(payload):
-    print("[planner] 收到结果:", payload)
+    print("[planner] received result:", payload)
 
 def worker_handler(payload):
-    print("[worker] 收到任务:", payload)
+    print("[worker] received task:", payload)
     result = {
         "task_id": payload["task_id"],
-        "summary": f"已完成对 {payload['query']} 的检索"
+        "summary": f"Finished retrieving information about {payload['query']}"
     }
     bus.publish("task_done", result)
 
@@ -196,40 +196,40 @@ bus.subscribe("task_done", planner_handler)
 
 bus.publish("task_assignment", {
     "task_id": "task_001",
-    "query": "退款政策"
+    "query": "refund policy"
 })
 ```
 
-### 5.2 这段代码真正教了什么？
+### 5.2 What Does This Code Actually Teach?
 
-它教你：
+It teaches you:
 
-- 通信不一定非要点对点耦合
-- 可以通过事件类型来解耦
-- 完成消息和结果消息可以走同一套基础设施
+- Communication does not have to be point-to-point coupled
+- You can decouple components through event types
+- Completion messages and result messages can use the same underlying infrastructure
 
-这已经非常接近真实系统的通信主线了。
+This is already very close to the communication backbone of a real system.
 
 ---
 
-## 六、共享状态：什么时候更适合？
+## 6. Shared State: When Is It More Suitable?
 
-### 6.1 一个很典型的场景
+### 6.1 A Very Typical Scenario
 
-如果多个 Agent 都围绕同一个任务工作，比如：
+If multiple Agents are working around the same task, such as:
 
-- planner 写计划
-- retriever 写资料
-- writer 生成草稿
-- reviewer 写评审意见
+- `planner` writing the plan
+- `retriever` collecting materials
+- `writer` generating a draft
+- `reviewer` writing review comments
 
-这时很多信息都可以放在共享工作区里。
+Then much of the information can be placed in a shared workspace.
 
-### 6.2 一个最小示例
+### 6.2 A Minimal Example
 
 ```python
 shared_state = {
-    "goal": "完成退款政策总结",
+    "goal": "Complete the refund policy summary",
     "plan": [],
     "evidence": [],
     "draft": None,
@@ -237,99 +237,99 @@ shared_state = {
 }
 
 # planner
-shared_state["plan"] = ["查政策", "整理要点", "输出总结"]
+shared_state["plan"] = ["check policy", "organize key points", "output summary"]
 
 # retriever
-shared_state["evidence"].append("购买后 7 天内且学习进度低于 20% 可退款")
+shared_state["evidence"].append("Refunds are available within 7 days after purchase if study progress is below 20%")
 
 # writer
-shared_state["draft"] = "退款条件包括时间限制和学习进度限制。"
+shared_state["draft"] = "Refund conditions include time limits and study progress limits."
 
 print(shared_state)
 ```
 
-### 6.3 这种方式的优缺点
+### 6.3 Pros and Cons of This Approach
 
-优点：
+Pros:
 
-- 大家都能看同一块黑板
-- 状态更集中
+- Everyone can see the same blackboard
+- The state is more centralized
 
-缺点：
+Cons:
 
-- 谁能写什么要控制
-- 很容易出现覆盖冲突
-
----
-
-## 七、同步通信和异步通信怎么理解？
-
-### 7.1 同步通信
-
-一个 Agent 发出请求后，要等对方回复，自己才能继续。
-
-优点：
-
-- 简单
-- 容易理解
-
-缺点：
-
-- 容易堵塞
-
-### 7.2 异步通信
-
-发出消息后先继续做别的事，等对方完成后再回来处理结果。
-
-优点：
-
-- 更灵活
-- 更适合复杂系统和高并发
-
-缺点：
-
-- 状态管理更复杂
-
-### 7.3 一个很实用的工程直觉
-
-如果你的任务链很短、流程很清楚，先同步。  
-如果任务很长、等待时间不稳定，再考虑异步。
+- You need to control who can write what
+- Conflicts are easy to create
 
 ---
 
-## 八、Agent 间通信最常见的失败点
+## 7. How Should We Understand Synchronous and Asynchronous Communication?
 
-### 8.1 消息格式不统一
+### 7.1 Synchronous Communication
 
-今天叫 `task_id`，明天叫 `id`，后天叫 `job_id`，系统会越来越乱。
+After an Agent sends a request, it must wait for the other side to reply before it can continue.
 
-### 8.2 消息发出去了，但没人处理
+Pros:
 
-这是事件系统里很常见的问题：
+- Simple
+- Easy to understand
 
-- 发布了
-- 但没有订阅者
+Cons:
 
-### 8.3 多个 Agent 理解同一条消息的方式不同
+- Can easily block progress
 
-例如：
+### 7.2 Asynchronous Communication
 
-- 一个 Agent 觉得这是“检索请求”
-- 另一个 Agent 觉得这是“总结请求”
+After sending a message, the Agent continues doing other work first, and handles the result later when the other side finishes.
 
-这就会导致系统跑偏。
+Pros:
 
-### 8.4 没有超时和重试
+- More flexible
+- Better for complex systems and high concurrency
 
-如果一个 Agent 卡住，整个系统可能就一直等下去。
+Cons:
+
+- More complex state management
+
+### 7.3 A Very Practical Engineering Rule of Thumb
+
+If your task chain is short and the process is clear, start with synchronous communication.
+If the task is long and waiting time is unstable, then consider asynchronous communication.
 
 ---
 
-## 九、真实系统里怎样让通信更稳？
+## 8. The Most Common Failure Points in Agent-to-Agent Communication
 
-### 9.1 统一消息协议
+### 8.1 Inconsistent Message Formats
 
-至少统一：
+Today it is called `task_id`, tomorrow `id`, and the day after `job_id` — the system will quickly become messy.
+
+### 8.2 A Message Was Sent, but Nobody Handles It
+
+This is a very common issue in event systems:
+
+- It was published
+- But there are no subscribers
+
+### 8.3 Multiple Agents Interpret the Same Message Differently
+
+For example:
+
+- One Agent thinks it is a “retrieval request”
+- Another Agent thinks it is a “summary request”
+
+This will cause the system to drift off course.
+
+### 8.4 No Timeouts or Retries
+
+If one Agent gets stuck, the whole system may keep waiting forever.
+
+---
+
+## 9. How Can Real Systems Make Communication More Reliable?
+
+### 9.1 Unify the Message Protocol
+
+At minimum, standardize:
 
 - `from`
 - `to`
@@ -337,37 +337,37 @@ print(shared_state)
 - `task_id`
 - `payload`
 
-### 9.2 统一状态追踪
+### 9.2 Unify State Tracking
 
-每条任务最好都有唯一 ID，便于：
+Each task should ideally have a unique ID to make it easier to:
 
-- 追踪完整链路
-- 回放
-- 排错
+- Trace the full chain
+- Replay
+- Debug
 
-### 9.3 统一超时和失败策略
+### 9.3 Unify Timeout and Failure Policies
 
-例如：
+For example:
 
-- 超时自动回退
-- 失败转人工
-- 多次重试后终止
-
----
-
-## 小结
-
-这一节最重要的不是记住“消息传递、事件总线、共享状态”这些词，而是理解：
-
-> **多 Agent 通信的关键，不只是把消息发出去，而是让消息结构稳定、责任清晰、失败可控。**
-
-只有通信层做稳了，多 Agent 系统才不会因为“组织混乱”而把模型能力浪费掉。
+- Automatic fallback after timeout
+- Escalate to a human on failure
+- Stop after multiple retries
 
 ---
 
-## 练习
+## Summary
 
-1. 给事件总线示例再加一个 `reviewer_handler`，让它订阅 `task_done`。
-2. 设计一份你自己的统一消息协议，至少包含 `type`、`task_id` 和 `payload`。
-3. 想一想：什么时候你会更倾向于共享状态，而不是点对点消息？
-4. 用自己的话解释：为什么多 Agent 系统里，通信设计往往和任务分工同样重要？
+The most important thing in this section is not memorizing the terms “message passing,” “event bus,” and “shared state,” but understanding this:
+
+> **The key to multi-Agent communication is not just sending messages out, but making the message structure stable, responsibilities clear, and failures controllable.**
+
+Only when the communication layer is solid can a multi-Agent system avoid wasting model capability due to organizational chaos.
+
+---
+
+## Exercises
+
+1. Add a `reviewer_handler` to the event bus example and make it subscribe to `task_done`.
+2. Design your own unified message protocol. It should include at least `type`, `task_id`, and `payload`.
+3. Think about it: when would you prefer shared state over point-to-point messaging?
+4. Explain in your own words: why is communication design often just as important as task division in a multi-Agent system?

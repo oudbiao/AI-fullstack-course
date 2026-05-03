@@ -1,51 +1,51 @@
 ---
-title: "2.8 实用技巧"
+title: "2.8 Practical Tips"
 sidebar_position: 6
-description: "从设备切换、随机种子、AMP、梯度裁剪到 checkpoint，掌握 PyTorch 训练中最常见也最实用的工程技巧。"
-keywords: [PyTorch, AMP, 混合精度, 梯度裁剪, checkpoint, device, reproducibility]
+description: "From device switching, random seeds, and AMP to gradient clipping and checkpoints, master the most common and practical engineering techniques in PyTorch training."
+keywords: [PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device, reproducibility]
 ---
 
-# 实用技巧
+# Practical Tips
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 正确处理 CPU / GPU 设备切换
-- 使用随机种子提升实验可复现性
-- 理解混合精度训练和梯度裁剪的作用
-- 会保存和恢复模型 checkpoint
-- 建立一份 PyTorch 调试检查清单
+- Handle CPU / GPU device switching correctly
+- Use random seeds to improve experiment reproducibility
+- Understand the role of mixed precision training and gradient clipping
+- Save and restore model checkpoints
+- Build a PyTorch debugging checklist
 
 ---
 
-## 一、先解决最常见的工程问题
+## 1. Start by Solving the Most Common Engineering Problems
 
-### 1.1 设备切换：先别假设你一定有 GPU
+### 1.1 Device Switching: Don’t Assume You Always Have a GPU
 
-很多初学者会直接把代码写死成 `cuda()`，结果在没有 GPU 的机器上直接报错。
+Many beginners hard-code their code with `cuda()`, which immediately causes errors on machines without a GPU.
 
-更稳妥的写法是：
+A safer way is:
 
 ```python
 import torch
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-print("当前设备:", device)
+print("Current device:", device)
 
 x = torch.tensor([[1.0, 2.0], [3.0, 4.0]]).to(device)
 print(x)
-print("张量所在设备:", x.device)
+print("Tensor device:", x.device)
 ```
 
-你可以把 `device` 理解成“训练发生在哪张工作台上”：
+You can think of `device` as “which workbench the training happens on”:
 
-- CPU：普通桌面
-- GPU：并行运算的大工作台
+- CPU: a regular desk
+- GPU: a large workbench for parallel computation
 
-### 1.2 固定随机种子：让实验尽量可复现
+### 1.2 Fix the Random Seed: Make Experiments as Reproducible as Possible
 
-训练不稳定时，第一件事往往不是改模型，而是先固定随机性。
+When training is unstable, the first thing to do is often not to change the model, but to fix randomness first.
 
 ```python
 import random
@@ -66,40 +66,40 @@ set_seed(42)
 print(torch.randn(3))
 ```
 
-如果两次打印结果一样，说明这部分随机性被固定住了。
+If the two outputs are the same, it means this part of the randomness has been fixed.
 
-:::info 为什么“尽量”而不是“绝对”？
-有些 GPU 算子和并行细节仍然可能引入微小差异，所以可复现通常是“更接近”，不是“绝对一模一样”。
+:::info Why “as much as possible” and not “absolutely”?
+Some GPU operators and parallel execution details may still introduce tiny differences, so reproducibility is usually “closer to identical,” not “exactly identical.”
 :::
 
 ---
 
-## 二、让训练过程更稳
+## 2. Make the Training Process More Stable
 
-### 2.1 `train()`、`eval()` 和 `no_grad()` 要形成肌肉记忆
+### 2.1 `train()`, `eval()`, and `no_grad()` Should Become Muscle Memory
 
-训练与验证最容易写乱的地方，不是模型结构，而是模式切换。
+The easiest place to get confused during training and validation is not the model structure, but mode switching.
 
-标准习惯：
+Standard practice:
 
 ```python
-model.train()   # 训练前
+model.train()   # before training
 ...
-model.eval()    # 验证 / 推理前
+model.eval()    # before validation / inference
 with torch.no_grad():
     ...
 ```
 
-你可以把它理解成：
+You can think of it this way:
 
-- `train()`：模型进入“练习模式”
-- `eval()`：模型进入“考试模式”
-- `no_grad()`：考试时不做反向传播草稿，节省内存
+- `train()`: the model enters “practice mode”
+- `eval()`: the model enters “exam mode”
+- `no_grad()`: no need to draft backpropagation during the exam, which saves memory
 
-### 2.2 梯度裁剪：防止梯度突然爆掉
+### 2.2 Gradient Clipping: Prevent Gradients from Suddenly Exploding
 
-在 RNN、Transformer 或较深网络里，梯度有时会变得很大，导致训练不稳定。  
-梯度裁剪就是“给梯度设一个上限”。
+In RNNs, Transformers, or deeper networks, gradients can sometimes become very large, making training unstable.
+Gradient clipping is like “setting an upper limit for gradients.”
 
 ```python
 import torch
@@ -132,24 +132,24 @@ before = grad_norm(model)
 torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 after = grad_norm(model)
 
-print("裁剪前梯度范数:", round(before, 4))
-print("裁剪后梯度范数:", round(after, 4))
+print("Gradient norm before clipping:", round(before, 4))
+print("Gradient norm after clipping:", round(after, 4))
 ```
 
-这就像给下坡的自行车加个限速器，避免冲得太猛。
+It is like adding a speed limiter to a bicycle going downhill to prevent it from going too fast.
 
 ---
 
-## 三、让训练更快
+## 3. Make Training Faster
 
-### 3.1 混合精度训练（AMP）：更省显存、更快
+### 3.1 Mixed Precision Training (AMP): Less Memory, More Speed
 
-AMP 的核心思想是：
+The core idea of AMP is:
 
-> 在合适的地方用更低精度计算，以换取更快速度和更低显存占用。
+> Use lower precision in the right places to gain faster speed and lower memory usage.
 
-它尤其适合 GPU 训练。  
-为了保证下面代码在没有 GPU 的机器上也能直接运行，我们写成“有 GPU 就启用，没有就正常训练”。
+It is especially suitable for GPU training.
+To make sure the code below can run directly even on machines without a GPU, we write it so that it enables AMP when a GPU is available and trains normally otherwise.
 
 ```python
 import torch
@@ -173,7 +173,7 @@ if device == "cuda":
         scaler.scale(loss).backward()
         scaler.step(optimizer)
         scaler.update()
-    print("已使用 AMP 在 GPU 上完成 3 步训练")
+    print("Completed 3 training steps on GPU with AMP")
 else:
     for _ in range(3):
         optimizer.zero_grad()
@@ -181,37 +181,37 @@ else:
         loss = loss_fn(pred, y)
         loss.backward()
         optimizer.step()
-    print("当前无 GPU，使用普通精度完成 3 步训练")
+    print("No GPU available; completed 3 training steps with standard precision")
 ```
 
-### 3.2 Batch 太大怎么办？
+### 3.2 What If the Batch Is Too Large?
 
-如果你经常遇到显存不够：
+If you often run out of memory:
 
-1. 先减小 `batch_size`
-2. 再考虑 AMP
-3. 再考虑梯度累积
+1. First reduce `batch_size`
+2. Then consider AMP
+3. Then consider gradient accumulation
 
-梯度累积的直觉是：
+The intuition behind gradient accumulation is:
 
-> 虽然一次吃不下大 batch，但可以分几口吃完，再统一更新一次。
+> Even if you cannot fit a large batch at once, you can eat it in several bites and then update the model once.
 
 ---
 
-## 四、保存和恢复训练进度
+## 4. Save and Restore Training Progress
 
-### 4.1 为什么 checkpoint 很重要？
+### 4.1 Why Are Checkpoints So Important?
 
-训练随时可能因为这些原因中断：
+Training can be interrupted for many reasons:
 
-- 断电
-- Notebook 超时
-- GPU 被回收
-- 程序报错
+- Power outage
+- Notebook timeout
+- GPU being reclaimed
+- Program error
 
-checkpoint 就像“游戏存档”。
+A checkpoint is like a “game save file.”
 
-### 4.2 一个最小可运行示例
+### 4.2 A Minimal Runnable Example
 
 ```python
 import torch
@@ -222,16 +222,16 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
 checkpoint_path = "demo_checkpoint.pt"
 
-# 保存
+# Save
 torch.save({
     "model_state_dict": model.state_dict(),
     "optimizer_state_dict": optimizer.state_dict(),
     "epoch": 5
 }, checkpoint_path)
 
-print("checkpoint 已保存:", checkpoint_path)
+print("Checkpoint saved:", checkpoint_path)
 
-# 恢复
+# Restore
 new_model = nn.Linear(2, 1)
 new_optimizer = torch.optim.SGD(new_model.parameters(), lr=0.1)
 
@@ -239,28 +239,28 @@ ckpt = torch.load(checkpoint_path, map_location="cpu")
 new_model.load_state_dict(ckpt["model_state_dict"])
 new_optimizer.load_state_dict(ckpt["optimizer_state_dict"])
 
-print("恢复的 epoch:", ckpt["epoch"])
+print("Restored epoch:", ckpt["epoch"])
 ```
 
-真实项目里，通常会额外保存：
+In real projects, you usually also save:
 
-- 最优验证集指标
-- 训练配置
+- Best validation metric
+- Training configuration
 - tokenizer / label mapping
 
 ---
 
-## 五、调试时先看哪里？
+## 5. Where Should You Look When Debugging?
 
-### 5.1 形状（shape）永远排第一
+### 5.1 Shape Always Comes First
 
-PyTorch 里很多 bug，本质上都不是“模型太难”，而是：
+In PyTorch, many bugs are not really because “the model is too hard,” but because:
 
-- shape 不对
-- dtype 不对
-- device 不一致
+- the shape is wrong
+- the dtype is wrong
+- the device is inconsistent
 
-训练前建议多打几行：
+Before training, it is a good idea to print a few more lines:
 
 ```python
 print("x shape:", x.shape)
@@ -269,35 +269,35 @@ print("x dtype:", x.dtype)
 print("x device:", x.device)
 ```
 
-### 5.2 训练不下降时的检查顺序
+### 5.2 What Is the Check Order When Training Does Not Decrease?
 
-可以按这个顺序查：
+You can check in this order:
 
-1. 数据有没有读对
-2. 标签有没有对齐
-3. loss 有没有算对
-4. `optimizer.zero_grad()` 有没有写
-5. `backward()` 和 `step()` 顺序对不对
-6. 学习率是不是太大或太小
+1. Whether the data was loaded correctly
+2. Whether the labels are aligned correctly
+3. Whether the loss is computed correctly
+4. Whether `optimizer.zero_grad()` was written
+5. Whether the order of `backward()` and `step()` is correct
+6. Whether the learning rate is too large or too small
 
-### 5.3 看到 `nan` 怎么办？
+### 5.3 What Should You Do When You See `nan`?
 
-常见原因有：
+Common causes include:
 
-- 学习率太大
-- 输入尺度过大
-- 梯度爆炸
-- 除零或 `log(0)` 等数值问题
+- Learning rate too large
+- Input values too large
+- Gradient explosion
+- Numerical issues such as division by zero or `log(0)`
 
-最实用的第一反应：
+The most practical first response is:
 
-1. 降低学习率
-2. 打印 loss 和参数范围
-3. 打开梯度裁剪
+1. Lower the learning rate
+2. Print the loss and parameter ranges
+3. Enable gradient clipping
 
 ---
 
-## 六、一份适合保存的训练模板
+## 6. A Training Template Worth Saving
 
 ```python
 model.train()
@@ -320,26 +320,26 @@ with torch.no_grad():
         val_loss = loss_fn(pred, batch_y)
 ```
 
-这个模板不花哨，但非常实用。
+This template is not flashy, but it is very practical.
 
 ---
 
-## 小结
+## Summary
 
-这节课最重要的不是新 API，而是训练工程直觉：
+The most important thing in this lesson is not a new API, but training engineering intuition:
 
-- 设备别写死
-- 随机种子先固定
-- `train / eval / no_grad` 要分清
-- 大梯度要会裁
-- 训练进度要会存
+- Do not hard-code the device
+- Fix the random seed first
+- Distinguish clearly between `train / eval / no_grad`
+- Know how to clip large gradients
+- Know how to save training progress
 
-很多模型训练卡住，不是因为算法不会，而是这些“小工程细节”没处理好。
+When many model training jobs get stuck, it is not because the algorithm is unknown, but because these “small engineering details” were not handled well.
 
 ---
 
-## 练习
+## Exercises
 
-1. 给你自己的 PyTorch 训练代码加上 `device` 处理，确保 CPU 和 GPU 都能跑。
-2. 在现有训练循环里加上梯度裁剪，打印裁剪前后的梯度范数。
-3. 加一个 checkpoint 存档逻辑，并在中断后尝试恢复。
+1. Add `device` handling to your own PyTorch training code to make sure it can run on both CPU and GPU.
+2. Add gradient clipping to your existing training loop and print the gradient norm before and after clipping.
+3. Add a checkpoint saving mechanism and try restoring after an interruption.

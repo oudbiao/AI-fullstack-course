@@ -1,146 +1,145 @@
 ---
-title: "3.3 深度学习文本分类"
+title: "3.3 Deep Learning Text Classification"
 sidebar_position: 8
-description: "从 embedding + pooling 讲起，理解深度学习文本分类为什么比传统方法更能处理语义与上下文。"
+description: "Starting from embedding + pooling, understand why deep learning text classification handles semantics and context better than traditional methods."
 keywords: [deep text classification, embedding, pooling, neural classifier, NLP]
 ---
 
-# 深度学习文本分类
+# Deep Learning Text Classification
 
-![神经文本分类结构图](/img/course/ch11-neural-classification-embedding-pooling-map.png)
+![Neural text classification structure](/img/course/ch11-neural-classification-embedding-pooling-map-en.png)
 
-:::tip 读图提示
-深度文本分类可以先看成一条很朴素的链路：token id 进入 embedding，句子经过 pooling 变成整体向量，再交给分类头输出概率。先抓住这条主线，再看 CNN、RNN、Transformer 会轻松很多。
+:::tip Reading guide
+You can first think of deep text classification as a very straightforward pipeline: token ids go into an embedding, the sentence is turned into an overall vector through pooling, and then a classification head outputs probabilities. If you first grasp this main path, it will be much easier to understand CNNs, RNNs, and Transformers later.
 :::
 
-:::tip 本节定位
-传统文本分类已经能解决很多问题，  
-但一旦任务开始依赖：
+:::tip Where this section fits
+Traditional text classification can already solve many problems,
+but once a task starts depending on:
 
-- 语义相近表达
-- 多义词
-- 上下文信息
+- semantically similar expressions
+- polysemous words
+- contextual information
 
-传统特征方法就容易显得吃力。
+traditional feature-based methods can start to feel strained.
 
-这时深度学习文本分类的价值就会开始显现：
+That is where the value of deep learning text classification becomes visible:
 
-> **它不只看显式词频，还能学习更连续、更抽象的文本表示。**
+> **It does not only look at explicit word frequency, but can also learn more continuous and more abstract text representations.**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解深度学习文本分类和传统方法的核心差别
-- 理解 embedding、pooling、分类头这条最小深度分类链路
-- 通过可运行示例建立“神经文本分类器”第一层直觉
-- 理解为什么表示学习会改变分类效果上限
+- Understand the core difference between deep learning text classification and traditional methods
+- Understand the minimal deep classification pipeline of embedding, pooling, and the classification head
+- Build an initial intuition for a “neural text classifier” through a runnable example
+- Understand why representation learning changes the upper bound of classification performance
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-深度学习文本分类更适合按“输入怎么流动”来理解：
+Deep learning text classification is easier to understand if you think in terms of “how the input flows”:
 
 ```mermaid
 flowchart LR
     A["token"] --> B["embedding"]
-    B --> C["pooling / 编码"]
-    C --> D["句子表示"]
-    D --> E["分类头"]
+    B --> C["pooling / encoding"]
+    C --> D["sentence representation"]
+    D --> E["classification head"]
 ```
 
-所以这节真正想解决的是：
+So the real questions this section wants to answer are:
 
-- 神经文本分类器到底比传统方法多了哪一层能力
-- 为什么“先学表示，再做分类”会改变效果上限
+- What extra capability does a neural text classifier have compared with traditional methods?
+- Why does “learn the representation first, then classify” change the performance ceiling?
 
 ---
 
-## 一、深度学习文本分类到底比传统方法多了什么？
+## 1. What does deep learning text classification add beyond traditional methods?
 
-### 1.1 它不再完全依赖手工特征
+### 1.1 It no longer relies entirely on hand-crafted features
 
-传统方法更像：
+Traditional methods are more like:
 
-- 先手工定义文本特征
-- 再训练分类器
+- define text features by hand first
+- then train a classifier
 
-深度方法更像：
+Deep methods are more like:
 
-- 一边学表示
-- 一边学分类
+- learn the representation and the classification at the same time
 
-### 1.2 最基础链路其实并不复杂
+### 1.2 The most basic pipeline is actually not complicated
 
-最小深度文本分类器通常可以拆成：
+The smallest deep text classifier can usually be broken into:
 
 1. token -> embedding
-2. 对一串 token 表示做聚合
-3. 接线性分类头
+2. aggregate a sequence of token representations
+3. connect a linear classification head
 
-### 1.3 一个类比
+### 1.3 An analogy
 
-传统方法像先把句子拆成关键词表格，再做判断。  
-深度方法更像先把句子编码成一个连续语义表示，再做判断。
+Traditional methods are like first turning a sentence into a table of keywords, then making a judgment.
+Deep methods are more like first encoding the sentence into a continuous semantic representation, then making a judgment.
 
-### 1.4 一个更适合新人的总类比
+### 1.4 A more beginner-friendly overall analogy
 
-你也可以把两类方法理解成：
+You can also think of the two methods like this:
 
-- 传统方法像填勾选表
-- 深度方法像先把一句话听懂个大概，再给结论
+- Traditional methods are like checking boxes on a form
+- Deep methods are like first getting the gist of a sentence, then drawing a conclusion
 
-前者更依赖：
+The former depends more on:
 
-- 你事先设计好要看哪些特征
+- which features you decide to inspect in advance
 
-后者更强调：
+The latter emphasizes more:
 
-- 模型能不能自己学到哪些表达彼此接近
+- whether the model can learn which expressions are similar to each other on its own
 
 ---
 
-## 二、最常见的最小神经文本分类器长什么样？
+## 2. What does the most common minimal neural text classifier look like?
 
-### 2.1 Embedding 层
+### 2.1 Embedding layer
 
-把 token id 变成向量。
+Convert token ids into vectors.
 
 ### 2.2 Pooling
 
-把一串 token 表示合成一个句子表示。  
-最简单的是：
+Combine a sequence of token representations into one sentence representation.
+The simplest one is:
 
-- 平均池化
+- average pooling
 
-### 2.3 分类头
+### 2.3 Classification head
 
-用一个线性层把句子表示映射到类别分数。
+Use a linear layer to map the sentence representation to class scores.
 
-这个结构虽然简单，  
-但已经比纯词袋更能利用连续表示。
+Even though this structure is simple,
+it already uses continuous representations better than a pure bag-of-words model.
 
 ---
 
-## 三、先跑一个纯 Python 神经文本分类器前向示例
+## 3. Run a pure Python forward-pass example of a neural text classifier
 
-这段代码不会训练参数，  
-但它会完整演示：
+This code does not train any parameters,
+but it fully demonstrates:
 
 - token id -> embedding
 - pooling
-- 线性打分
+- linear scoring
 
-这样你能真正看懂“神经文本分类器”的最小骨架。
+This way, you can truly understand the minimal skeleton of a “neural text classifier.”
 
 ```python
 vocab = {
-    "退款": 0,
-    "发票": 1,
-    "密码": 2,
-    "申请": 3,
-    "开具": 4,
-    "重置": 5,
+    "refund": 0,
+    "invoice": 1,
+    "password": 2,
+    "apply": 3,
+    "issue": 4,
+    "reset": 5,
 }
 
 embedding_table = {
@@ -172,7 +171,7 @@ def dot(a, b):
     return sum(x * y for x, y in zip(a, b))
 
 
-tokens = ["退款", "申请"]
+tokens = ["refund", "apply"]
 token_ids = encode(tokens)
 token_vectors = [embedding_table[token_id] for token_id in token_ids]
 sentence_vector = mean_pool(token_vectors)
@@ -190,28 +189,28 @@ print("scores:", scores)
 print("prediction:", prediction)
 ```
 
-### 3.1 这个例子为什么比直接 `nn.Sequential` 更有用？
+### 3.1 Why is this example more useful than directly using `nn.Sequential`?
 
-因为它把三个关键步骤拆开了：
+Because it separates the three key steps:
 
 1. embedding
 2. pooling
 3. classification
 
-这能帮你先理解结构，再去看更复杂框架实现。
+This helps you understand the structure first, and then move on to more complex framework implementations.
 
-### 3.2 为什么 pooling 这么关键？
+### 3.2 Why is pooling so important?
 
-因为分类最终通常需要一个句级表示。  
-如果没有 pooling，你只有一串 token 向量，还很难直接接分类头。
+Because classification usually needs a sentence-level representation.
+Without pooling, you only have a sequence of token vectors, and it is still hard to connect that directly to a classification head.
 
-### 3.3 再看一个最小“同类表达更容易靠近”示例
+### 3.3 Let’s look at another minimal example where “similar expressions are easier to bring closer”
 
 ```python
 sentences = {
-    "退款申请": [0.85, 0.75, 0.15],
-    "退货处理": [0.82, 0.72, 0.18],
-    "密码重置": [0.12, 0.15, 0.92],
+    "refund request": [0.85, 0.75, 0.15],
+    "return handling": [0.82, 0.72, 0.18],
+    "password reset": [0.12, 0.15, 0.92],
 }
 
 
@@ -219,122 +218,122 @@ def l1_distance(a, b):
     return round(sum(abs(x - y) for x, y in zip(a, b)), 4)
 
 
-print("退款申请 vs 退货处理:", l1_distance(sentences["退款申请"], sentences["退货处理"]))
-print("退款申请 vs 密码重置:", l1_distance(sentences["退款申请"], sentences["密码重置"]))
+print("refund request vs return handling:", l1_distance(sentences["refund request"], sentences["return handling"]))
+print("refund request vs password reset:", l1_distance(sentences["refund request"], sentences["password reset"]))
 ```
 
-这个例子很适合新人，因为它能让你更直观地感受到：
+This example is very suitable for beginners because it helps you feel more intuitively that:
 
-- 如果句子表示学得合理
-- 同类表达应该更容易靠近
+- if sentence representations are learned well
+- similar expressions should be easier to bring closer together
 
 ---
 
-## 四、深度方法为什么常常能比传统方法更强？
+## 4. Why can deep methods often outperform traditional methods?
 
-### 4.1 能利用连续语义关系
+### 4.1 They can use continuous semantic relationships
 
-如果“退款申请”和“退款处理”词面不同但语义接近，  
-embedding 更可能把它们拉近。
+If “refund request” and “refund processing” have different surface forms but similar meanings,
+embedding is more likely to pull them closer together.
 
-### 4.2 能更自然处理上下文
+### 4.2 They can handle context more naturally
 
-即使是简单模型，也已经比纯词袋更接近“表示学习”路线。
+Even simple models are already closer to a “representation learning” approach than pure bag-of-words methods.
 
-### 4.3 还能继续叠更强结构
+### 4.3 They can also be extended with stronger structures
 
-后面你可以继续往上接：
+Later, you can keep building on top of this with:
 
 - CNN
 - RNN
 - Transformer
 
-这就是深度分类和传统分类的扩展性差别。
+That is the difference in extensibility between deep classification and traditional classification.
 
 ---
 
-## 五、什么时候深度文本分类特别值得用？
+## 5. When is deep text classification especially worth using?
 
-### 5.1 表达方式比较多样
+### 5.1 There are many ways to express the same thing
 
-同一意图会有很多说法时，  
-深度方法往往更有优势。
+When the same intent can be phrased in many different ways,
+deep methods often have an advantage.
 
-### 5.2 语义比显式关键词更重要
+### 5.2 Semantics matter more than explicit keywords
 
-如果仅靠关键词很难分，  
-深度表示通常更值得尝试。
+If keywords alone are not enough to separate classes,
+deep representations are usually worth trying.
 
-### 5.3 你愿意承担更高训练成本
+### 5.3 You are willing to accept higher training cost
 
-相比传统方法，  
-深度方法通常意味着：
+Compared with traditional methods,
+deep methods usually mean:
 
-- 更多训练资源
-- 更复杂调试
+- more training resources
+- more complex debugging
 
-### 5.4 第一次做文本分类项目时，最稳的默认顺序
+### 5.4 The most stable default order when building your first text classification project
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先做传统 baseline
-2. 再上最小 embedding + pooling 模型
-3. 先看错例是不是开始更稳
-4. 最后再考虑更强结构或预训练模型
+1. Start with a traditional baseline
+2. Then use the minimal embedding + pooling model
+3. Check whether the mistakes are already becoming more stable
+4. Finally consider stronger architectures or pretrained models
 
-这样会比一开始就追很复杂的网络更容易看清收益从哪里来。
-
----
-
-## 六、最常见误区
-
-### 6.1 误区一：深度方法一定全面优于传统方法
-
-不一定。  
-小数据、短文本、规则感强的任务里，传统方法可能已经很好。
-
-### 6.2 误区二：有 embedding 就自动理解上下文了
-
-最小 embedding + pooling 结构已经比词袋强，  
-但并不等于最强上下文理解。
-
-### 6.3 误区三：只看模型结构，不看数据
-
-数据质量和标签定义仍然非常关键。
-
-## 如果把它做成项目，最值得展示什么
-
-最值得展示的通常不是：
-
-- 只是写一句“用了深度学习模型”
-
-而是：
-
-1. 传统 baseline 和深度 baseline 的对比
-2. 文本如何变成句子向量
-3. 哪类表达在深度模型下更容易判对
-4. 失败样本里还有哪些问题没解决
-
-这样别人会更容易看出：
-
-- 你理解的是“表示学习为什么有用”
-- 不只是换了个模型名
+This makes it much easier to see where the gains are coming from than starting with a very complex network right away.
 
 ---
 
-## 小结
+## 6. Common misconceptions
 
-这节最重要的是把深度学习文本分类理解成：
+### 6.1 Misconception 1: Deep methods are always better than traditional methods
 
-> **先学习文本的连续表示，再在其上做分类，因此它比传统词袋方法更适合处理语义相近、表达多样、上下文更复杂的任务。**
+Not necessarily.
+For small data, short texts, or tasks with strong rules, traditional methods may already work very well.
 
-只要这个直觉建立起来，后面你再学 BERT 分类和更大预训练模型，就会顺很多。
+### 6.2 Misconception 2: Having embedding automatically means understanding context
+
+The minimal embedding + pooling structure is already stronger than bag-of-words,
+but it is not the same as the strongest form of contextual understanding.
+
+### 6.3 Misconception 3: Only look at the model structure, not the data
+
+Data quality and label definitions are still extremely important.
+
+## If you turn this into a project, what is most worth showing?
+
+What is usually most worth showing is not:
+
+- just saying “we used a deep learning model”
+
+but rather:
+
+1. the comparison between the traditional baseline and the deep baseline
+2. how text becomes sentence vectors
+3. which kinds of expressions are easier to classify correctly with the deep model
+4. what problems still remain in the failure cases
+
+That makes it easier for others to see:
+
+- that you understand why representation learning is useful
+- not just that you changed the model name
 
 ---
 
-## 练习
+## Summary
 
-1. 把示例里的 `tokens` 改成 `["发票", "开具"]`，看看分类结果如何变化。
-2. 为什么说 pooling 是从 token 表示走向句子分类的关键一步？
-3. 用自己的话解释：深度分类方法相比传统词袋方法，多出来的核心能力是什么？
-4. 想一想：在什么任务里你仍然会优先试传统基线，而不是直接上深度模型？
+The most important takeaway from this section is to understand deep learning text classification as:
+
+> **First learn a continuous representation of text, then classify on top of it. Therefore, it is better than traditional bag-of-words methods for tasks with similar semantics, diverse expressions, and more complex context.**
+
+Once this intuition is established, learning BERT classification and larger pretrained models later will feel much smoother.
+
+---
+
+## Exercises
+
+1. Change `tokens` in the example to `["invoice", "issue"]` and see how the classification result changes.
+2. Why is pooling a key step in moving from token representations to sentence classification?
+3. Explain in your own words: what is the core capability that deep classification methods add beyond traditional bag-of-words methods?
+4. Think about it: in what kinds of tasks would you still prefer trying a traditional baseline first instead of jumping straight to a deep model?

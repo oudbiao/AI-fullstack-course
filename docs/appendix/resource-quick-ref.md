@@ -1,24 +1,24 @@
 ---
-title: "学习资源速查"
+title: "Learning Resources Quick Reference"
 sidebar_position: 6
-description: "常用环境命令、模型路线、评估指标、RAG 与 Agent 设计要点的速查页。"
+description: "A quick reference page for common environment commands, model approaches, evaluation metrics, and key points for RAG and Agent design."
 ---
 
-# 学习资源速查
+# Learning Resources Quick Reference
 
-![AI 项目速查总览图](/img/course/appendix-project-quick-reference-map.png)
+![AI Project Quick Reference Overview](/img/course/appendix-project-quick-reference-map-en.png)
 
-![AI 项目速查排障索引图](/img/course/appendix-quick-ref-debug-index-map.png)
+![AI Project Quick Reference Troubleshooting Index](/img/course/appendix-quick-ref-debug-index-map-en.png)
 
-:::tip 读图提示
-速查页适合“正在做项目时快速定位”。读图时先判断问题属于环境、数据、训练、评估、RAG、Agent、Prompt 还是前端，再跳到对应检查项，不要从头翻整本书。
+:::tip Reading Guide
+This quick reference is best for “locating things quickly while working on a project.” When reading it, first determine whether the problem is about the environment, data, training, evaluation, RAG, Agent, Prompt, or frontend, then jump to the relevant checklist. Don’t start from the beginning and reread the whole book.
 :::
 
-这页不是完整教程，而是一份“需要时快速翻”的工具页。适合放在浏览器收藏夹或项目旁边随时查。
+This page is not a complete tutorial. It is a “look it up quickly when needed” tool page. It’s a good idea to keep it in your browser bookmarks or nearby your project for quick access.
 
-## 1. 环境与仓库命令速查
+## 1. Quick Reference for Environment and Repository Commands
 
-### 1.1 Python 环境
+### 1.1 Python Environment
 
 ```bash
 conda create -n ai-course python=3.11 -y
@@ -26,13 +26,13 @@ conda activate ai-course
 pip install -r requirements-course-core.txt
 ```
 
-如果你要跑后半段 AI 示例，再补：
+If you want to run the AI examples in the later sections, also install:
 
 ```bash
 pip install -r requirements-course-ai.txt
 ```
 
-### 1.2 先确认自己在哪个环境
+### 1.2 First Confirm Which Environment You Are In
 
 ```bash
 python --version
@@ -41,7 +41,7 @@ pip --version
 pip list
 ```
 
-### 1.3 文档站点命令
+### 1.3 Documentation Site Commands
 
 ```bash
 npm install
@@ -49,9 +49,9 @@ npm run start
 npm run build
 ```
 
-## 2. 排障第一组命令
+## 2. First Set of Troubleshooting Commands
 
-大多数环境问题，先跑下面这些再说：
+For most environment issues, run the following first:
 
 ```bash
 pwd
@@ -62,126 +62,126 @@ pip --version
 pip list
 ```
 
-如果你在用 GPU：
+If you are using a GPU:
 
 ```bash
 nvidia-smi
 ```
 
-## 3. 常见任务先选什么 baseline
+## 3. Which Baseline to Choose First for Common Tasks
 
-| 任务 | 最先建议的 baseline | 为什么 |
+| Task | Recommended baseline to try first | Why |
 |---|---|---|
-| 表格分类 / 回归 | 线性模型、树模型 | 简单、快、容易解释 |
-| 文本分类 | `TF-IDF + LogisticRegression` | 强 baseline，便于理解 |
-| 图像分类 | 迁移学习 | 小数据更现实 |
-| 命名实体识别 | 规则 / 词典基线，再上序列模型 | 先确认任务定义 |
-| 文档问答 | 关键词检索或 BM25，再做 RAG | 先看检索值不值 |
-| 企业知识库 | 单轮问答 + 引用来源 | 先做可验证闭环 |
-| Agent 工具调用 | 单 Agent + 少量工具 | 先稳，再复杂化 |
+| Tabular classification / regression | Linear models, tree-based models | Simple, fast, easy to explain |
+| Text classification | `TF-IDF + LogisticRegression` | A strong baseline and easy to understand |
+| Image classification | Transfer learning | More realistic for small datasets |
+| Named entity recognition | Rules / dictionary baseline, then sequence models | First confirm the task definition |
+| Document Q&A | Keyword retrieval or BM25, then RAG | First see whether retrieval is worth it |
+| Enterprise knowledge base | Single-turn Q&A + cited sources | Start with a verifiable closed loop |
+| Agent tool calling | Single Agent + a small number of tools | Start stable, then add complexity |
 
-很多项目做不下去，不是因为模型不够强，而是因为 baseline 都没立住。
+Many projects get stuck not because the model is too weak, but because the baseline was never established.
 
-## 4. 常见评估指标速查
+## 4. Quick Reference for Common Evaluation Metrics
 
-### 4.1 分类任务
+### 4.1 Classification Tasks
 
-| 指标 | 什么时候看 | 提醒 |
+| Metric | When to use | Reminder |
 |---|---|---|
-| Accuracy | 类别比较均衡时 | 失衡数据时会误导 |
-| Precision | 误报代价高时 | 关注“报出来的有多少是真的” |
-| Recall | 漏报代价高时 | 医疗、安全类很重要 |
-| F1 | 需要兼顾 Precision / Recall | 常用综合指标 |
+| Accuracy | When classes are relatively balanced | Can be misleading on imbalanced data |
+| Precision | When false positives are costly | Focus on “of the predicted positives, how many are correct” |
+| Recall | When false negatives are costly | Very important in medical and safety-related tasks |
+| F1 | When you need to balance Precision / Recall | A commonly used overall metric |
 
-### 4.2 回归任务
+### 4.2 Regression Tasks
 
-| 指标 | 什么时候看 | 提醒 |
+| Metric | When to use | Reminder |
 |---|---|---|
-| MAE | 想看平均绝对误差 | 对异常值相对稳 |
-| MSE / RMSE | 想更重罚大误差 | 对异常值更敏感 |
-| R² | 想看整体拟合解释度 | 不要单独使用 |
+| MAE | When you want to see average absolute error | Relatively robust to outliers |
+| MSE / RMSE | When large errors should be penalized more | More sensitive to outliers |
+| R² | When you want to see overall fit/explained variance | Do not use it alone |
 
-### 4.3 检索与问答
+### 4.3 Retrieval and Question Answering
 
-| 指标 | 作用 |
+| Metric | Purpose |
 |---|---|
-| Hit@K | 正确文档有没有在前 K 个结果里 |
-| MRR | 正确答案排得靠不靠前 |
-| 引用正确率 | 回答是否真的基于召回内容 |
-| 人工评估 | 最终可用性是否过关 |
+| Hit@K | Whether the correct document appears in the top K results |
+| MRR | Whether the correct answer ranks near the top |
+| Citation accuracy | Whether the answer is truly based on the retrieved content |
+| Human evaluation | Whether the final usability meets the bar |
 
-## 5. 训练过程常看哪些信号
+## 5. Signals to Watch During Training
 
-| 现象 | 你该优先怀疑什么 |
+| Phenomenon | What you should suspect first |
 |---|---|
-| 训练 loss 不降 | 学习率、标签、损失函数、输入格式 |
-| 训练很好，验证很差 | 过拟合、数据泄漏、分布不一致 |
-| 准确率一直不动 | 特征太弱、标签有问题、模型根本没学到 |
-| 显存爆掉 | batch 太大、输入太长、模型太大 |
-| 结果极不稳定 | 数据量太小、随机性过高、实验没固定种子 |
+| Training loss does not decrease | Learning rate, labels, loss function, input format |
+| Training is good but validation is poor | Overfitting, data leakage, distribution mismatch |
+| Accuracy does not change | Features are too weak, labels are wrong, or the model is not learning at all |
+| Out of memory on GPU | Batch too large, inputs too long, model too big |
+| Results are extremely unstable | Dataset too small, too much randomness, experiments without fixed seeds |
 
-## 6. 做 RAG 时优先检查什么
+## 6. What to Check First When Doing RAG
 
-### 6.1 最小闭环
+### 6.1 Minimal Closed Loop
 
-1. 文档能不能正确切分
-2. 检索能不能召回对的片段
-3. 生成时有没有带来源
-4. 答案是否真的用到了召回内容
+1. Can the documents be split correctly?
+2. Can retrieval bring back the right chunks?
+3. Is the source included during generation?
+4. Does the answer truly use the retrieved content?
 
-### 6.2 高频坑位
+### 6.2 Common Pitfalls
 
-| 问题 | 优先检查 |
+| Problem | First thing to check |
 |---|---|
-| 回答像胡说 | 检索没召回到相关片段 |
-| 回答泛泛而谈 | chunk 太大，信息太散 |
-| 经常答错权限内容 | 缺少权限过滤 |
-| 速度太慢 | 检索层、模型层、网络调用分别测 |
-| 成本太高 | 缓存、缩短上下文、降低不必要调用 |
+| The answer sounds made up | Retrieval did not bring back relevant chunks |
+| The answer is vague | The chunk size is too large and the information is too scattered |
+| It often answers restricted content incorrectly | Missing permission filtering |
+| It is too slow | Measure the retrieval layer, model layer, and network calls separately |
+| Cost is too high | Cache, shorten context, reduce unnecessary calls |
 
-## 7. 做 Agent 时优先检查什么
+## 7. What to Check First When Doing Agent Work
 
-### 7.1 先从简单结构开始
+### 7.1 Start with a Simple Structure
 
-更稳的顺序通常是：
+A more stable progression is usually:
 
-1. 单轮问答
-2. 单 Agent + 单工具
-3. 单 Agent + 多工具
-4. 有状态工作流
-5. 多 Agent 协作
+1. Single-turn Q&A
+2. Single Agent + single tool
+3. Single Agent + multiple tools
+4. Stateful workflow
+5. Multi-Agent collaboration
 
-### 7.2 工具层要检查的 5 件事
+### 7.2 Five Things to Check in the Tool Layer
 
-1. 工具描述是否清楚
-2. 参数 schema 是否严格
-3. 错误是否能回传
-4. 高风险操作是否受限
-5. 是否有日志可追踪
+1. Are the tool descriptions clear?
+2. Is the parameter schema strict?
+3. Can errors be returned properly?
+4. Are high-risk operations restricted?
+5. Are there logs for tracing?
 
-## 8. Prompt 设计速查
+## 8. Quick Reference for Prompt Design
 
-一个更稳的 Prompt 通常至少包含：
+A more stable Prompt usually includes at least:
 
-- 角色：你希望模型扮演什么
-- 任务：它具体要做什么
-- 输入：会收到什么内容
-- 输出：格式必须怎样
-- 约束：不要做什么
+- Role: what you want the model to act as
+- Task: what it specifically needs to do
+- Input: what it will receive
+- Output: what format it must use
+- Constraints: what it should not do
 
-一个简单模板：
+A simple template:
 
 ```text
-你是一个____。
-你的任务是____。
-输入会包含____。
-请按以下格式输出____。
-如果信息不足，请明确说明，不要编造。
+You are a ____.
+Your task is ____.
+The input will include ____.
+Please output in the following format ____.
+If the information is insufficient, clearly say so. Do not make things up.
 ```
 
-## 9. 常见 Python 调试动作
+## 9. Common Python Debugging Actions
 
-### 9.1 看输入
+### 9.1 Inspect the Input
 
 ```python
 print(type(x))
@@ -189,7 +189,7 @@ print(len(data))
 print(data[:2])
 ```
 
-### 9.2 看中间结果
+### 9.2 Inspect Intermediate Results
 
 ```python
 print("shape:", tensor.shape)
@@ -197,14 +197,14 @@ print("mean:", tensor.mean().item())
 print("min/max:", tensor.min().item(), tensor.max().item())
 ```
 
-### 9.3 看预测
+### 9.3 Inspect Predictions
 
 ```python
 for text, pred in list(zip(texts, preds))[:5]:
     print(text, "->", pred)
 ```
 
-## 10. 一个最小训练循环骨架
+## 10. A Minimal Training Loop Skeleton
 
 ```python
 for epoch in range(num_epochs):
@@ -217,38 +217,38 @@ for epoch in range(num_epochs):
         optimizer.step()
 ```
 
-这 6 行最该看懂的是：
+The 6 lines most worth understanding here are:
 
-- 数据从哪里来
-- 前向传播做了什么
-- 损失怎么定义
-- 梯度怎么反传
-- 参数什么时候更新
+- Where the data comes from
+- What the forward pass does
+- How the loss is defined
+- How gradients are backpropagated
+- When parameters are updated
 
-## 11. 项目做不下去时，回到这张图
+## 11. When the Project Gets Stuck, Come Back to This Map
 
-| 你现在的问题 | 更适合先补什么 |
+| Your current problem | What to add first |
 |---|---|
-| 看不懂代码 | Python 和调试 |
-| 结果不稳定 | 数据和评估 |
-| 不知道选什么模型 | baseline 和任务定义 |
-| 做不成完整系统 | 最小闭环、接口和状态设计 |
-| 学了很多但记不住 | 小项目、复盘和输出 |
+| You can’t understand the code | Python and debugging |
+| The results are unstable | Data and evaluation |
+| You don’t know which model to choose | Baselines and task definition |
+| You can’t build a complete system | Minimal closed loop, interface, and state design |
+| You’ve learned a lot but still can’t remember it | Small projects, review, and output |
 
-## 12. 什么时候该查速查页，什么时候该回正文
+## 12. When to Check This Quick Reference and When to Go Back to the Main Text
 
-适合查速查页：
+Good times to check the quick reference:
 
-- 忘了命令
-- 忘了评估指标区别
-- 忘了项目第一步该做什么
-- 想快速定位一个问题大概在哪
+- You forgot a command
+- You forgot the difference between evaluation metrics
+- You forgot the first step in a project
+- You want to quickly locate where a problem roughly is
 
-适合回正文：
+Good times to go back to the main text:
 
-- 你根本不知道一个概念是什么
-- 你需要系统理解一条完整主线
-- 你要写项目报告或讲解
-- 你需要知道为什么，而不只是怎么做
+- You do not even know what a concept is
+- You need systematic understanding of a complete main thread
+- You need to write a project report or give an explanation
+- You need to know why, not just how
 
-这页最好和正文一起用：先靠正文建立理解，再靠速查页提高推进效率。
+This page works best together with the main text: first use the main text to build understanding, then use the quick reference to move faster.

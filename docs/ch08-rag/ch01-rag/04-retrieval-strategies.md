@@ -1,106 +1,106 @@
 ---
-title: "1.5 检索策略"
+title: "1.5 Retrieval Strategies"
 sidebar_position: 4
-description: "理解关键词检索、向量检索、混合检索、重排和查询改写等常见策略，知道怎样把“找资料”这一步做得更准。"
+description: "Understand common strategies such as keyword retrieval, vector retrieval, hybrid retrieval, reranking, and query rewriting, and learn how to make the “find the materials” step more accurate."
 keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, sparse retrieval]
 ---
 
-# 检索策略
+# Retrieval Strategies
 
-![Hybrid Search 与 Rerank 流程图](/img/course/hybrid-search-rerank-flow.png)
+![Hybrid Search and Rerank Flowchart](/img/course/hybrid-search-rerank-flow-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 理解检索策略为什么直接决定 RAG 质量
-- 分清关键词检索、向量检索和混合检索
-- 理解 rerank、query rewrite 这些常见增强手段
-- 用一个可运行例子体验混合检索的思路
-
----
-
-## 一、检索不是“只有一个 top-k”
-
-### 1.1 关键词检索：适合找明确词项
-
-关键词检索更像“查目录”。
-
-它擅长：
-
-- 精确术语
-- 产品名
-- 报错码
-- 法条编号
-
-例如用户问：
-
-> “错误码 403 是什么？”
-
-这种场景关键词检索往往很强。
-
-### 1.2 向量检索：适合找语义相近内容
-
-向量检索更像“按意思找相似”。
-
-它擅长：
-
-- 同义表达
-- 改写后的问题
-- 用户口语化提问
-
-例如：
-
-> “怎么退课？”
-
-和：
-
-> “课程购买后 7 天内可申请退款”
-
-虽然词不一样，但向量检索有机会把它们连起来。
+- Understand why retrieval strategy directly determines RAG quality
+- Distinguish between keyword retrieval, vector retrieval, and hybrid retrieval
+- Understand common enhancement methods such as rerank and query rewrite
+- Experience the idea of hybrid retrieval with a runnable example
 
 ---
 
-## 二、为什么很多项目最后都走向混合检索？
+## 1. Retrieval Is Not “Only One top-k”
 
-### 2.1 因为关键词和语义各有盲区
+### 1.1 Keyword Retrieval: Good for Finding Exact Terms
 
-只用关键词：
+Keyword retrieval is more like “looking something up in a catalog.”
 
-- 容易漏掉语义近但措辞不同的内容
+It is good at:
 
-只用向量：
+- Exact terminology
+- Product names
+- Error codes
+- Legal article numbers
 
-- 有时会忽略特别关键的专有词
+For example, when a user asks:
 
-所以很多系统会做：
+> “What does error code 403 mean?”
 
-> **关键词分数 + 向量分数 = 混合分数**
+In this scenario, keyword retrieval is often very strong.
 
-### 2.2 这很像“同时看字面和意思”
+### 1.2 Vector Retrieval: Good for Finding Semantically Similar Content
 
-人类找资料时也会这样：
+Vector retrieval is more like “finding similar meaning.”
 
-- 先看有没有明确关键词
-- 再判断是不是在说同一件事
+It is good at:
 
-混合检索就是把这两种判断合起来。
+- Synonyms
+- Paraphrased questions
+- Casual user questions
 
-![关键词检索与向量检索盲区图](/img/course/ch08-hybrid-retrieval-blindspot-map.png)
+For example:
 
-:::tip 读图提示
-左边看“字面命中”，右边看“语义接近”。Hybrid Search 的价值不是复杂，而是让报错码、专有名词和口语化问题各有通道，不把所有压力都丢给 embedding。
+> “How do I drop a course?”
+
+and:
+
+> “A refund can be requested within 7 days after purchasing the course”
+
+Although the words are different, vector retrieval has a chance to connect them.
+
+---
+
+## 2. Why Do Many Projects Eventually Move Toward Hybrid Retrieval?
+
+### 2.1 Because Keywords and Semantics Each Have Blind Spots
+
+If you only use keyword retrieval:
+
+- You may miss content that is semantically close but phrased differently
+
+If you only use vector retrieval:
+
+- You may sometimes ignore very important domain-specific terms
+
+So many systems do this:
+
+> **Keyword score + vector score = hybrid score**
+
+### 2.2 This Is Like Looking at Both the Literal Words and the Meaning
+
+Humans do the same thing when searching for materials:
+
+- First, check whether there are clear keywords
+- Then, judge whether it is talking about the same thing
+
+Hybrid retrieval combines these two judgments.
+
+![Blind Spot Map for Keyword Retrieval and Vector Retrieval](/img/course/ch08-hybrid-retrieval-blindspot-map-en.png)
+
+:::tip Reading Tip
+The left side looks for “literal matches,” while the right side looks for “semantic similarity.” The value of Hybrid Search is not complexity, but giving error codes, proper nouns, and casual questions each their own path, instead of putting all the pressure on embeddings.
 :::
 
 ---
 
-## 三、一个最小可运行的混合检索示例
+## 3. A Minimal Runnable Hybrid Retrieval Example
 
-下面这个例子里：
+In the example below:
 
-- `keyword_score` 模拟关键词匹配
-- `vector_score` 模拟语义相似度
-- 最后把两者做加权组合
+- `keyword_score` simulates keyword matching
+- `vector_score` simulates semantic similarity
+- Finally, the two are combined with weights
 
 ```python
 import math
@@ -111,22 +111,22 @@ import numpy as np
 docs = [
     {
         "id": "d1",
-        "text": "课程购买后 7 天内可申请退款",
+        "text": "A refund can be requested within 7 days after purchasing the course",
         "vector": np.array([0.95, 0.10, 0.05])
     },
     {
         "id": "d2",
-        "text": "完成所有项目并通过测试后可获得证书",
+        "text": "You can earn a certificate after completing all projects and passing the test",
         "vector": np.array([0.10, 0.95, 0.10])
     },
     {
         "id": "d3",
-        "text": "建议先学 Python，再学机器学习和深度学习",
+        "text": "It is recommended to learn Python first, then machine learning and deep learning",
         "vector": np.array([0.20, 0.30, 0.95])
     }
 ]
 
-query = "怎么申请退课退款"
+query = "How do I apply for a course refund?"
 query_vector = np.array([0.90, 0.10, 0.10])
 
 def tokenize(text):
@@ -151,229 +151,227 @@ for hybrid, kw, vec, doc_id, text in sorted(results, reverse=True):
     print(doc_id, "hybrid=", round(hybrid, 4), "kw=", kw, "vec=", round(vec, 4), "->", text)
 ```
 
-这个例子虽然简化，但已经很接近真实系统的核心思路。
+Although simplified, this example is already very close to the core idea of a real system.
 
 ---
 
-## 四、Rerank：先粗召回，再精排序
+## 4. Rerank: First Recall Roughly, Then Sort Precisely
 
-### 4.1 为什么要 rerank？
+### 4.1 Why Do We Need Rerank?
 
-很多系统不会一开始就追求“第一次就排准”，而是：
+Many systems do not try to “rank correctly on the first try.” Instead, they do this:
 
-1. 先用较便宜的方法召回一批候选
-2. 再用更强但更贵的方法重排
+1. Use a cheaper method to recall a set of candidates
+2. Use a stronger but more expensive method to rerank them
 
-这就叫 rerank。
+This is called rerank.
 
-### 4.2 一个直觉比喻
+### 4.2 An Intuitive Analogy
 
-像找工作时：
+It is like screening resumes when hiring:
 
-- 第一轮按关键词筛简历
-- 第二轮再认真看候选人是否真的合适
+- The first round filters resumes by keywords
+- The second round carefully checks whether the candidate is really a good fit
 
-RAG 也是一样。
+RAG works the same way.
 
 ---
 
-## 五、Query Rewrite：用户问题往往不够“适合检索”
+## 5. Query Rewrite: User Questions Are Often Not Good Retrieval Queries
 
-### 5.1 用户提问不一定是好检索词
+### 5.1 User Questions Are Not Always Good Search Terms
 
-用户可能会说：
+A user might say:
 
-> “我这个情况还能退吗？”
+> “Can I still refund in my case?”
 
-但知识库里写的是：
+But the knowledge base says:
 
-> “购买后 7 天内且学习进度低于 20% 可退款”
+> “Refunds are available if the purchase was made within 7 days and learning progress is below 20%”
 
-这时系统常常会先把问题改写得更适合检索。
+At this point, the system often rewrites the question into something more suitable for retrieval.
 
-### 5.2 一个玩具版查询改写
+### 5.2 A Toy Query Rewrite Example
 
 ```python
 def rewrite_query(query):
     replacements = {
-        "退课": "退款",
-        "退掉课程": "退款",
-        "拿证": "证书",
-        "毕业证": "证书"
+        "drop a course": "refund",
+        "cancel the course": "refund",
+        "earn a certificate": "certificate",
+        "graduation certificate": "certificate"
     }
     new_query = query
     for old, new in replacements.items():
         new_query = new_query.replace(old, new)
     return new_query
 
-queries = ["怎么退课", "我想拿证", "退掉课程可以吗"]
+queries = ["How do I drop a course?", "I want to earn a certificate", "Can I cancel the course?"]
 
 for q in queries:
     print(q, "->", rewrite_query(q))
 ```
 
-真实系统里，query rewrite 可能由 LLM 来完成。
+In real systems, query rewrite may be done by an LLM.
 
-![Query Rewrite 与 Rerank 双阶段漏斗图](/img/course/ch08-rerank-query-rewrite-funnel-map.png)
+![Two-Stage Funnel Diagram for Query Rewrite and Rerank](/img/course/ch08-rerank-query-rewrite-funnel-map-en.png)
 
-:::tip 读图提示
-Query Rewrite 发生在检索前，负责把用户问题变得更容易查；Rerank 发生在粗召回后，负责把候选重新排准。它们一个改入口，一个改排序，不要混成同一件事。
+:::tip Reading Tip
+Query Rewrite happens before retrieval and makes the user question easier to search. Rerank happens after rough recall and makes the candidates more accurately ordered. One changes the input, the other changes the ranking. Do not mix them up as the same thing.
 :::
 
 ---
 
-## 六、还有哪些常见检索增强策略？
+## 6. What Other Common Retrieval Enhancement Strategies Are There?
 
 ### 6.1 Multi-query
 
-把一个问题改写成多个等价问法，再分别检索，合并结果。
+Rewrite one question into multiple equivalent questions, retrieve separately, and merge the results.
 
-### 6.2 Metadata filter
+### 6.2 Metadata Filter
 
-先按业务条件缩小范围，再做语义检索。
+First narrow the scope by business conditions, then do semantic retrieval.
 
-### 6.3 Parent-child retrieval
+### 6.3 Parent-child Retrieval
 
-先检索小 chunk，再回到更大块或原文段落。
+First retrieve small chunks, then go back to a larger section or the original passage.
 
-### 6.4 Self-query retrieval
+### 6.4 Self-query Retrieval
 
-让模型自动判断需要哪些过滤条件和检索字段。
-
----
-
-## 七、怎么选检索策略？
-
-### 7.1 如果你有大量专有名词
-
-更要重视：
-
-- 关键词检索
-- 混合检索
-- 元数据过滤
-
-### 7.2 如果用户表达特别口语化
-
-更要重视：
-
-- 向量检索
-- query rewrite
-- rerank
-
-### 7.3 如果知识库结构化程度高
-
-可以考虑：
-
-- 先路由
-- 再定向检索
-- 最后重排
+Let the model automatically decide which filtering conditions and retrieval fields are needed.
 
 ---
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，检索策略该怎么想？
+## 7. How Should You Choose a Retrieval Strategy?
 
-这类项目里，检索不只是“找到相关内容”，  
-而是更像在做两层选择：
+### 7.1 If You Have Many Proper Nouns
 
-1. 先决定从内部资料找，还是从外部资料补
-2. 再决定要找知识点、例题，还是练习题
+You should pay more attention to:
 
-所以很适合先把检索条件写成这种样子：
+- Keyword retrieval
+- Hybrid retrieval
+- Metadata filtering
 
-| 条件 | 它在帮你控制什么 |
+### 7.2 If Users Speak Very Casually
+
+You should pay more attention to:
+
+- Vector retrieval
+- Query rewrite
+- Rerank
+
+### 7.3 If Your Knowledge Base Is Highly Structured
+
+You can consider:
+
+- Routing first
+- Targeted retrieval next
+- Reranking last
+
+---
+
+## 8. If Your Goal Is a “Knowledge-Base-Driven Courseware Generation Assistant,” How Should You Think About Retrieval Strategy?
+
+In this kind of project, retrieval is not just about “finding relevant content,”
+but more like making two layers of choices:
+
+1. First decide whether to search internal materials or supplement with external materials
+2. Then decide whether to search for concepts, example problems, or practice questions
+
+So it is a good idea to express retrieval conditions like this first:
+
+| Condition | What It Helps You Control |
 |---|---|
-| `topic` | 当前主题 |
-| `content_type` | 概念 / 例题 / 练习 |
-| `source_origin` | 内部资料 / 外部资料 |
-| `grade` | 年级或适用对象 |
+| `topic` | Current topic |
+| `content_type` | Concept / Example / Practice |
+| `source_origin` | Internal materials / External materials |
+| `grade` | Grade level or target audience |
 
-你可以先把这条线记成一句话：
+You can remember this line first:
 
-> **课件生成项目里的检索，不只是“找相关”，而是“按栏目找对资料”。**
+> **Retrieval in a courseware generation project is not just “find related content,” but “find the right materials by category.”**
 
-一个最小过滤示例可以先写成：
+A minimal filtering example can be written like this first:
 
 ```python
 items = [
-    {"topic": "折扣应用题", "content_type": "concept", "source_origin": "internal", "text": "折扣 = 原价 × 折扣率"},
-    {"topic": "折扣应用题", "content_type": "example", "source_origin": "internal", "text": "商品原价 100 元，打 8 折后是多少元？"},
-    {"topic": "折扣应用题", "content_type": "note", "source_origin": "external", "text": "外部资料补充：折扣常见误区。"},
+    {"topic": "discount word problems", "content_type": "concept", "source_origin": "internal", "text": "Discount = original price × discount rate"},
+    {"topic": "discount word problems", "content_type": "example", "source_origin": "internal", "text": "If a product costs 100 yuan and is discounted by 20%, how much is it?"},
+    {"topic": "discount word problems", "content_type": "note", "source_origin": "external", "text": "External material supplement: common misconceptions about discounts."},
 ]
 
 hits = [
     x for x in items
-    if x["topic"] == "折扣应用题" and x["content_type"] in {"concept", "example"}
+    if x["topic"] == "discount word problems" and x["content_type"] in {"concept", "example"}
 ]
 
 for hit in hits:
     print(hit)
 ```
 
-这个例子特别适合新人，因为它会让你先看到：
+This example is especially suitable for beginners, because it lets you see first that:
 
-- metadata filter 往往比“换更大的模型”更先见效
-
----
-
-## 九、初学者常见误区
-
-### 9.1 只测向量检索，不测关键词检索
-
-很多企业场景里，关键词检索并不弱，甚至是基础盘。
-
-### 9.2 检索策略一开始就做太复杂
-
-建议先从：
-
-1. 一个 baseline
-2. 一个明确评估集
-3. 一次只改一个策略
-
-开始。
-
-### 9.3 只看召回，不看最终回答
-
-检索分数高，不代表最终答案一定更好。  
-因为生成阶段也会影响表现。
+- metadata filter often works before “using a bigger model”
 
 ---
 
-## 检索策略调参表
+## 9. Common Beginner Mistakes
 
-调检索时，不要只说“效果不好”，要把现象映射到可以调整的杠杆。
+### 9.1 Testing Only Vector Retrieval, Not Keyword Retrieval
 
-| 现象 | 优先调整 | 为什么 |
+In many enterprise scenarios, keyword retrieval is not weak at all, and may even be the foundation.
+
+### 9.2 Making the Retrieval Strategy Too Complex at the Start
+
+It is recommended to start with:
+
+1. A baseline
+2. A clear evaluation set
+3. Changing only one strategy at a time
+
+### 9.3 Looking Only at Recall, Not at the Final Answer
+
+A high retrieval score does not mean the final answer will definitely be better.
+Because the generation stage also affects performance.
+
+---
+
+## Retrieval Strategy Tuning Table
+
+When tuning retrieval, do not just say “the result is not good.” Map the phenomenon to adjustable levers.
+
+| Phenomenon | Priority Adjustment | Why |
 |---|---|---|
-| 明确术语、报错码搜不到 | 增加关键词检索或混合检索 | 向量检索可能弱化精确词 |
-| 用户口语化问题搜不到 | query rewrite、multi-query、向量检索 | 用户表达和文档表达不一致 |
-| top-k 里相关内容排得靠后 | rerank | 粗召回能找到，但排序不够准 |
-| 检索结果主题对但版本错 | metadata filter | 需要按版本、日期、来源缩小范围 |
-| 答案需要跨多个片段 | parent-child retrieval 或更合理的 chunk | 小 chunk 命中但上下文不足 |
+| Exact terms and error codes cannot be found | Add keyword retrieval or hybrid retrieval | Vector retrieval may weaken exact terms |
+| Casual user questions cannot be found | Query rewrite, multi-query, vector retrieval | User expressions and document expressions do not match |
+| Relevant content is ranked too low in top-k | Rerank | Rough recall can find it, but the ranking is not accurate enough |
+| The retrieved result has the right topic but the wrong version | Metadata filter | You need to narrow the scope by version, date, or source |
+| The answer needs to combine multiple passages | Parent-child retrieval or better chunking | Small chunks match, but the context is not enough |
 
-这张表适合和评估集一起使用。每次只改一个策略，然后记录 Hit@k、MRR、引用质量和失败样本变化。
+This table is best used together with an evaluation set. Change only one strategy each time, then record Hit@k, MRR, citation quality, and changes in failure cases.
 
-## 一个检索实验记录模板
+## A Retrieval Experiment Log Template
 
-| 实验 | 策略 | top-k | 是否 rerank | 结果 | 结论 |
+| Experiment | Strategy | top-k | Rerank? | Result | Conclusion |
 |---|---|---:|---|---|---|
-| baseline | 关键词 | 3 | 否 | 能命中精确词，漏掉同义问法 | 适合报错和术语 |
-| exp-1 | 向量 | 3 | 否 | 同义问法更好，专有词有时不准 | 需要保留关键词通道 |
-| exp-2 | 混合 | 5 | 是 | 整体最好，但延迟增加 | 可作为标准版本 |
+| baseline | Keyword | 3 | No | Exact terms can be found, but synonymous questions are missed | Suitable for error codes and terminology |
+| exp-1 | Vector | 3 | No | Synonymous questions work better, but proper nouns are sometimes inaccurate | Need to keep the keyword channel |
+| exp-2 | Hybrid | 5 | Yes | Best overall, but latency increases | Can be used as the standard version |
 
-检索优化的关键不是一次找到完美策略，而是让每次改动都有记录、有指标、有失败样本。
+The key to retrieval optimization is not finding the perfect strategy at once, but making sure every change has records, metrics, and failure cases.
 
-## 小结
+## Summary
 
-这节课最关键的认识是：
+The most important takeaway from this lesson is:
 
-> RAG 的“找资料”不是机械步骤，而是一个可以不断设计和优化的系统环节。
+> In RAG, “finding materials” is not a mechanical step, but a system component that can be continuously designed and optimized.
 
-很多时候，检索策略升级带来的收益，比换一个更大的模型还直接。
+In many cases, upgrading the retrieval strategy brings more direct gains than switching to a larger model.
 
 ---
 
-## 练习
+## Exercises
 
-1. 修改混合检索示例里的权重，比较关键词权重更高和向量权重更高时排序变化。
-2. 给文档再加一条包含“退课”字样的句子，观察关键词检索优势。
-3. 自己设计一个更丰富的 `rewrite_query()` 规则表。
+1. Modify the weights in the hybrid retrieval example and compare how the ranking changes when keyword weight is higher versus when vector weight is higher.
+2. Add another sentence containing the phrase “drop a course” to the documents, and observe the advantage of keyword retrieval.
+3. Design a richer `rewrite_query()` rule table on your own.

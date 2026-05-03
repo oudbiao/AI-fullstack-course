@@ -1,72 +1,72 @@
 ---
-title: "1.1 纯 Python 处理数据"
+title: "1.1 Pure Python for Data Processing"
 sidebar_position: 1
-description: "用纯 Python 处理真实数据集，亲身体会为什么需要 NumPy 和 Pandas"
+description: "Work with real datasets using pure Python and experience firsthand why NumPy and Pandas are needed"
 ---
 
-# 预热：纯 Python 处理数据
+# Warm-up: Processing Data with Pure Python
 
-## 学习目标
+## Learning Objectives
 
-- 用纯 Python（csv 模块 + 字典 + 列表）处理真实数据集
-- 亲身体会纯 Python 处理数据的**痛点**
-- 理解为什么需要专门的数据分析工具（NumPy、Pandas）
-- 为后续学习建立直觉和动力
-
----
-
-## 为什么要做这个预热？
-
-你可能会想："我已经会 Python 了，直接学 NumPy 和 Pandas 不就行了？"
-
-不急。先来做一个小实验。
-
-这就像学开车之前先骑一次自行车走 20 公里——只有亲身体验过"自行车太慢太累"，你才会真正珍惜汽车的价值。
-
-**本节的目标：用纯 Python 处理一份真实数据，然后你会说出那句话——"有没有更简单的方法？！"**
+- Process a real dataset using pure Python (`csv` module + dictionaries + lists)
+- Experience the **pain points** of data processing with pure Python firsthand
+- Understand why specialized data analysis tools (NumPy, Pandas) are needed
+- Build intuition and motivation for the lessons ahead
 
 ---
 
-## 数据分析的全景图
+## Why do this warm-up?
 
-在动手之前，先看看数据分析的典型流程：
+You might be thinking: "I already know Python. Why not just learn NumPy and Pandas directly?"
 
-![纯 Python 数据处理痛点图](/img/course/ch03-pure-python-data-flow.png)
+No rush. Let’s do a small experiment first.
 
-今天我们用**纯 Python** 走完前四步。后面学了 NumPy 和 Pandas，你会发现同样的事情代码量能少 **5-10 倍**。
+It’s like riding a bicycle for 20 kilometers before learning to drive a car — only after you’ve personally experienced how "slow and tiring" a bicycle can be will you truly appreciate the value of a car.
+
+**The goal of this section: process a real dataset using pure Python, and then you’ll say that sentence — "Isn’t there an easier way?!"**
 
 ---
 
-## 认识我们的数据集：Titanic
+## The big picture of data analysis
 
-我们使用经典的 **Titanic（泰坦尼克号）数据集**——这是数据科学入门最常用的数据集。
+Before we start coding, let’s look at the typical data analysis workflow:
 
-每一行代表一位乘客，包含以下信息：
+![Pain points of pure Python data processing](/img/course/ch03-pure-python-data-flow-en.png)
 
-| 字段 | 含义 | 示例值 |
+Today we’ll use **pure Python** to complete the first four steps. After we learn NumPy and Pandas, you’ll see that the same tasks can take **5–10x less code**.
+
+---
+
+## Meet our dataset: Titanic
+
+We’ll use the classic **Titanic** dataset — one of the most common datasets for data science beginners.
+
+Each row represents one passenger and contains the following information:
+
+| Field | Meaning | Example Value |
 |------|------|--------|
-| `PassengerId` | 乘客编号 | 1 |
-| `Survived` | 是否幸存（0=遇难, 1=幸存） | 0 |
-| `Pclass` | 船舱等级（1=头等, 2=二等, 3=三等） | 3 |
-| `Name` | 姓名 | Braund, Mr. Owen Harris |
-| `Sex` | 性别 | male |
-| `Age` | 年龄 | 22 |
-| `SibSp` | 船上的兄弟姐妹/配偶数 | 1 |
-| `Parch` | 船上的父母/子女数 | 0 |
-| `Ticket` | 船票号 | A/5 21171 |
-| `Fare` | 票价 | 7.25 |
-| `Cabin` | 船舱号 | C85 |
-| `Embarked` | 登船港口（C/Q/S） | S |
+| `PassengerId` | Passenger ID | 1 |
+| `Survived` | Whether they survived (0 = died, 1 = survived) | 0 |
+| `Pclass` | Ticket class (1 = first, 2 = second, 3 = third) | 3 |
+| `Name` | Name | Braund, Mr. Owen Harris |
+| `Sex` | Sex | male |
+| `Age` | Age | 22 |
+| `SibSp` | Number of siblings/spouses aboard | 1 |
+| `Parch` | Number of parents/children aboard | 0 |
+| `Ticket` | Ticket number | A/5 21171 |
+| `Fare` | Fare | 7.25 |
+| `Cabin` | Cabin number | C85 |
+| `Embarked` | Port of embarkation (C/Q/S) | S |
 
 ---
 
-## 第一步：准备数据
+## Step 1: Prepare the data
 
-首先，让我们创建一份用于练习的小型 Titanic 数据。把以下代码保存并运行，它会生成一个 `titanic_sample.csv` 文件：
+First, let’s create a small Titanic dataset for practice. Save and run the following code, and it will generate a `titanic_sample.csv` file:
 
 ```python
 # create_sample_data.py
-# 创建一份小型 Titanic 样本数据
+# Create a small Titanic sample dataset
 
 csv_content = """PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked
 1,0,3,"Braund, Mr. Owen Harris",male,22,1,0,A/5 21171,7.25,,S
@@ -103,26 +103,26 @@ csv_content = """PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Far
 with open("titanic_sample.csv", "w", encoding="utf-8") as f:
     f.write(csv_content)
 
-print("✅ titanic_sample.csv 已创建！（30 条记录）")
+print("✅ titanic_sample.csv has been created! (30 records)")
 ```
 
-运行这段代码后，你的目录下会多出一个 `titanic_sample.csv` 文件。
+After running this code, you’ll see a new `titanic_sample.csv` file in your directory.
 
-:::tip 也可以用真实数据
-如果你想挑战完整数据集（891 条记录），可以从 [Kaggle Titanic 页面](https://www.kaggle.com/c/titanic/data) 下载 `train.csv`。本教程的代码对两者都适用。
+:::tip You can also use the real dataset
+If you want to challenge yourself with the full dataset (891 records), you can download `train.csv` from the [Kaggle Titanic page](https://www.kaggle.com/c/titanic/data). The code in this tutorial works for both.
 :::
 
 ---
 
-## 第二步：读取 CSV 文件
+## Step 2: Read the CSV file
 
-### 任务：把 CSV 文件读取为 Python 数据结构
+### Task: Read the CSV file into Python data structures
 
 ```python
 import csv
 
 def read_csv(filename):
-    """读取 CSV 文件，返回字典列表"""
+    """Read a CSV file and return a list of dictionaries"""
     passengers = []
 
     with open(filename, "r", encoding="utf-8") as f:
@@ -132,22 +132,22 @@ def read_csv(filename):
 
     return passengers
 
-# 读取数据
+# Read the data
 passengers = read_csv("titanic_sample.csv")
 
-# 看看第一条数据长什么样
-print(f"共读取 {len(passengers)} 条记录\n")
-print("第一位乘客的信息：")
+# Take a look at the first record
+print(f"Loaded {len(passengers)} records in total\n")
+print("Information for the first passenger:")
 for key, value in passengers[0].items():
     print(f"  {key}: {value}")
 ```
 
-输出：
+Output:
 
 ```
-共读取 30 条记录
+Loaded 30 records in total
 
-第一位乘客的信息：
+Information for the first passenger:
   PassengerId: 1
   Survived: 0
   Pclass: 3
@@ -162,23 +162,23 @@ for key, value in passengers[0].items():
   Embarked: S
 ```
 
-:::caution 第一个痛点：所有数据都是字符串！
-注意看——`Age` 是 `"22"` 不是 `22`，`Survived` 是 `"0"` 不是 `0`。CSV 读出来的**全部是字符串**！要做数学运算，每个字段都得手动转换类型。
+:::caution First pain point: all data is stored as strings!
+Notice that `Age` is `"22"` instead of `22`, and `Survived` is `"0"` instead of `0`. Everything read from CSV is a **string**! To do any math, you have to convert every field manually.
 :::
 
 ---
 
-## 第三步：数据清洗与类型转换
+## Step 3: Data cleaning and type conversion
 
-在分析之前，我们需要把字符串转成正确的类型，并处理缺失值：
+Before analysis, we need to convert strings to the correct types and handle missing values:
 
 ```python
 def clean_data(passengers):
-    """清洗数据：类型转换 + 缺失值处理"""
+    """Clean the data: type conversion + missing value handling"""
     cleaned = []
 
     for p in passengers:
-        # 尝试转换 Age（有些乘客没有年龄数据）
+        # Try to convert Age (some passengers have no age data)
         age = None
         if p["Age"] and p["Age"].strip():
             try:
@@ -186,7 +186,7 @@ def clean_data(passengers):
             except ValueError:
                 age = None
 
-        # 转换 Fare
+        # Convert Fare
         fare = 0.0
         if p["Fare"] and p["Fare"].strip():
             try:
@@ -200,7 +200,7 @@ def clean_data(passengers):
             "pclass": int(p["Pclass"]),
             "name": p["Name"],
             "sex": p["Sex"],
-            "age": age,             # 可能是 None
+            "age": age,             # May be None
             "sibsp": int(p["SibSp"]),
             "parch": int(p["Parch"]),
             "fare": fare,
@@ -212,32 +212,32 @@ def clean_data(passengers):
 
 passengers = clean_data(passengers)
 
-# 验证清洗结果
+# Verify the cleaning result
 p = passengers[0]
-print(f"姓名: {p['name']}")
-print(f"年龄: {p['age']} (类型: {type(p['age']).__name__})")
-print(f"票价: {p['fare']} (类型: {type(p['fare']).__name__})")
-print(f"幸存: {p['survived']} (类型: {type(p['survived']).__name__})")
+print(f"Name: {p['name']}")
+print(f"Age: {p['age']} (type: {type(p['age']).__name__})")
+print(f"Fare: {p['fare']} (type: {type(p['fare']).__name__})")
+print(f"Survived: {p['survived']} (type: {type(p['survived']).__name__})")
 
-# 检查有多少人缺少年龄数据
+# Check how many passengers are missing age data
 missing_age = sum(1 for p in passengers if p["age"] is None)
-print(f"\n缺少年龄数据的乘客: {missing_age} 人")
+print(f"\nPassengers missing age data: {missing_age}")
 ```
 
-看到这里你可能已经感觉到了——**光是把数据读出来并清洗干净，就写了几十行代码。** 而且这只是一个小数据集！
+By now you may already be feeling it — **just reading and cleaning the data took dozens of lines of code.** And this is only a small dataset!
 
 ---
 
-## 第四步：数据分析任务
+## Step 4: Data analysis tasks
 
-现在数据干净了，让我们做几个分析任务。
+Now that the data is clean, let’s do a few analysis tasks.
 
-### 任务 1：统计不同性别的生存率
+### Task 1: Count survival rates by gender
 
 ```python
 def survival_rate_by_gender(passengers):
-    """统计不同性别的生存率"""
-    # 分别统计男性和女性的总人数和幸存人数
+    """Count survival rates by gender"""
+    # Count total and survived passengers for males and females separately
     stats = {}
 
     for p in passengers:
@@ -247,9 +247,9 @@ def survival_rate_by_gender(passengers):
         stats[sex]["total"] += 1
         stats[sex]["survived"] += p["survived"]
 
-    # 计算生存率
-    print("=== 不同性别的生存率 ===")
-    print(f"{'性别':<10}{'总人数':<10}{'幸存人数':<10}{'生存率'}")
+    # Calculate survival rates
+    print("=== Survival Rate by Gender ===")
+    print(f"{'Gender':<10}{'Total':<10}{'Survived':<10}{'Survival Rate'}")
     print("-" * 40)
 
     for sex, data in stats.items():
@@ -259,58 +259,58 @@ def survival_rate_by_gender(passengers):
 survival_rate_by_gender(passengers)
 ```
 
-输出：
+Output:
 
 ```
-=== 不同性别的生存率 ===
-性别        总人数      幸存人数    生存率
+=== Survival Rate by Gender ===
+Gender    Total     Survived  Survival Rate
 ----------------------------------------
 male      14        3         21.4%
 female    16        13        81.2%
 ```
 
-**历史事实：** "女士和孩子优先"的规则在泰坦尼克号沉没时确实被执行了——女性生存率远高于男性。
+**Historical fact:** The “women and children first” rule was indeed enforced when the Titanic sank — women had a much higher survival rate than men.
 
-### 任务 2：找出票价最高的前 5 位乘客
+### Task 2: Find the top 5 passengers with the highest fares
 
 ```python
 def top_fare_passengers(passengers, n=5):
-    """找出票价最高的前 n 位乘客"""
-    # 按票价排序（需要手动写排序逻辑）
+    """Find the top n passengers with the highest fares"""
+    # Sort by fare (you have to write the sorting logic manually)
     sorted_passengers = sorted(passengers, key=lambda p: p["fare"], reverse=True)
 
-    print(f"\n=== 票价最高的前 {n} 位乘客 ===")
-    print(f"{'排名':<6}{'姓名':<35}{'舱位':<6}{'票价'}")
+    print(f"\n=== Top {n} Passengers by Fare ===")
+    print(f"{'Rank':<6}{'Name':<35}{'Class':<6}{'Fare'}")
     print("-" * 60)
 
     for i, p in enumerate(sorted_passengers[:n], 1):
-        pclass_name = {1: "头等", 2: "二等", 3: "三等"}[p["pclass"]]
+        pclass_name = {1: "First", 2: "Second", 3: "Third"}[p["pclass"]]
         print(f"{i:<6}{p['name']:<35}{pclass_name:<6}${p['fare']:.2f}")
 
 top_fare_passengers(passengers)
 ```
 
-输出：
+Output:
 
 ```
-=== 票价最高的前 5 位乘客 ===
-排名    姓名                                 舱位    票价
+=== Top 5 Passengers by Fare ===
+Rank  Name                               Class  Fare
 ------------------------------------------------------------
-1     Fortune, Mr. Charles Alexander       头等    $263.00
-2     Cumings, Mrs. John Bradley           头等    $71.28
-3     Futrelle, Mrs. Jacques Heath         头等    $53.10
-4     McCarthy, Mr. Timothy J              头等    $51.86
-5     Sloper, Mr. William Thompson         头等    $35.50
+1     Fortune, Mr. Charles Alexander     First  $263.00
+2     Cumings, Mrs. John Bradley         First  $71.28
+3     Futrelle, Mrs. Jacques Heath       First  $53.10
+4     McCarthy, Mr. Timothy J            First  $51.86
+5     Sloper, Mr. William Thompson       First  $35.50
 ```
 
-### 任务 3：按船舱等级分组统计平均年龄
+### Task 3: Group by class and calculate average age
 
-这个任务最能体现纯 Python 处理数据的痛苦：
+This task shows most clearly how painful pure Python data processing can be:
 
 ```python
 def avg_age_by_class(passengers):
-    """按船舱等级分组统计平均年龄"""
-    # 第一步：按船舱等级分组
+    """Group by ticket class and calculate average age"""
+    # Step 1: group by ticket class
     groups = {}  # {pclass: [age1, age2, ...]}
 
     for p in passengers:
@@ -318,13 +318,13 @@ def avg_age_by_class(passengers):
         if pclass not in groups:
             groups[pclass] = []
 
-        # 只统计有年龄数据的乘客
+        # Only include passengers with age data
         if p["age"] is not None:
             groups[pclass].append(p["age"])
 
-    # 第二步：计算每组的统计量
-    print("\n=== 各船舱等级的年龄统计 ===")
-    print(f"{'舱位':<10}{'人数':<10}{'平均年龄':<12}{'最大年龄':<12}{'最小年龄'}")
+    # Step 2: calculate statistics for each group
+    print("\n=== Age Statistics by Ticket Class ===")
+    print(f"{'Class':<10}{'Count':<10}{'Average Age':<12}{'Max Age':<12}{'Min Age'}")
     print("-" * 55)
 
     for pclass in sorted(groups.keys()):
@@ -333,28 +333,28 @@ def avg_age_by_class(passengers):
             avg = sum(ages) / len(ages)
             max_age = max(ages)
             min_age = min(ages)
-            pclass_name = {1: "头等舱", 2: "二等舱", 3: "三等舱"}[pclass]
+            pclass_name = {1: "First Class", 2: "Second Class", 3: "Third Class"}[pclass]
             print(f"{pclass_name:<10}{len(ages):<10}{avg:<12.1f}{max_age:<12.0f}{min_age:.0f}")
 
 avg_age_by_class(passengers)
 ```
 
-输出：
+Output:
 
 ```
-=== 各船舱等级的年龄统计 ===
-舱位        人数      平均年龄      最大年龄      最小年龄
+=== Age Statistics by Ticket Class ===
+Class       Count     Average Age Max Age     Min Age
 -------------------------------------------------------
-头等舱      5         39.4        58          19
-二等舱      4         34.5        55          14
-三等舱      14        19.4        39          2
+First Class  5         39.4        58          19
+Second Class 4         34.5        55          14
+Third Class  14        19.4        39          2
 ```
 
-### 任务 4：计算各登船港口的平均票价
+### Task 4: Calculate average fare by embarkation port
 
 ```python
 def avg_fare_by_embarked(passengers):
-    """计算各登船港口的平均票价"""
+    """Calculate the average fare for each embarkation port"""
     port_names = {"S": "Southampton", "C": "Cherbourg", "Q": "Queenstown"}
     groups = {}
 
@@ -366,8 +366,8 @@ def avg_fare_by_embarked(passengers):
             groups[port] = []
         groups[port].append(p["fare"])
 
-    print("\n=== 各登船港口的票价统计 ===")
-    print(f"{'港口':<20}{'人数':<10}{'平均票价':<15}{'总票价'}")
+    print("\n=== Fare Statistics by Embarkation Port ===")
+    print(f"{'Port':<20}{'Count':<10}{'Average Fare':<15}{'Total Fare'}")
     print("-" * 55)
 
     for port, fares in sorted(groups.items()):
@@ -381,183 +381,183 @@ avg_fare_by_embarked(passengers)
 
 ---
 
-## 第五步：感受痛点
+## Step 5: Feel the pain points
 
-让我们回顾一下，用纯 Python 做这些分析，我们遇到了哪些问题：
+Let’s review the problems we encountered when doing these analyses with pure Python:
 
 ```mermaid
 mindmap
-  root((纯 Python<br/>处理数据的痛点))
-    类型转换
-      CSV 读出来全是字符串
-      每个字段都要手动转
-      缺失值处理繁琐
-    分组统计
-      手写循环和字典
-      代码量大且重复
-      每换一个维度就要重写
-    排序和筛选
-      每次都要写 sorted + lambda
-      多条件筛选需要嵌套 if
-    缺少便捷函数
-      求均值要 sum/len
-      没有现成的中位数函数
-      没有一键去重和计数
-    可视化
-      纯 Python 无法直接画图
-      需要额外的可视化库
+  root((Pain points of<br/>pure Python data processing))
+    Type conversion
+      Everything from CSV is a string
+      Every field must be converted manually
+      Missing value handling is tedious
+    Group statistics
+      Handwritten loops and dictionaries
+      Lots of repeated code
+      Need to rewrite for each new dimension
+    Sorting and filtering
+      Need sorted + lambda every time
+      Multi-condition filtering requires nested if statements
+    No convenient functions
+      Need sum/len for averages
+      No built-in median function
+      No one-click deduplication and counting
+    Visualization
+      Pure Python cannot plot directly
+      Extra visualization libraries are needed
 ```
 
-### 痛点总结表
+### Pain point summary table
 
-| 痛点 | 纯 Python 的做法 | 写多少代码 |
+| Pain point | Pure Python approach | How much code |
 |------|-----------------|-----------|
-| 读取 CSV | `csv.DictReader` + 手动类型转换 | ~30 行 |
-| 按性别统计生存率 | 手写字典分组 + 循环计算 | ~15 行 |
-| 排序取前 N | `sorted()` + 切片 + 格式化输出 | ~10 行 |
-| 按舱位分组算均值 | 手写字典分组 + 手动过滤缺失值 + 手动计算 | ~20 行 |
+| Read CSV | `csv.DictReader` + manual type conversion | ~30 lines |
+| Calculate survival rate by gender | Handwritten dictionary grouping + loop-based calculation | ~15 lines |
+| Sort and take top N | `sorted()` + slicing + formatted output | ~10 lines |
+| Group by class and compute mean | Handwritten dictionary grouping + manual missing-value filtering + manual calculation | ~20 lines |
 
-**总计：** 大约 75-100 行代码，才完成了 4 个简单的分析任务。
+**Total:** About 75–100 lines of code to complete 4 simple analysis tasks.
 
 ---
 
-## 第六步：预告——同样的任务，Pandas 需要多少代码？
+## Step 6: Preview — how much code would Pandas need for the same tasks?
 
-先别急着学 Pandas 的语法，只看看效果对比：
+Don’t rush into Pandas syntax yet. Just look at the comparison in results:
 
 ```python
-# ⚠️ 这是预告！后面会详细学习每一行的含义
+# ⚠️ This is a preview! We will learn each line in detail later
 
 import pandas as pd
 
-# 读取 + 自动类型转换（1 行，替代你写的 30 行）
+# Read + automatic type conversion (1 line, replacing your 30 lines)
 df = pd.read_csv("titanic_sample.csv")
 
-# 按性别统计生存率（1 行，替代你写的 15 行）
+# Survival rate by gender (1 line, replacing your 15 lines)
 print(df.groupby("Sex")["Survived"].mean())
 
-# 票价最高的前 5 位（1 行，替代你写的 10 行）
+# Top 5 passengers by fare (1 line, replacing your 10 lines)
 print(df.nlargest(5, "Fare")[["Name", "Pclass", "Fare"]])
 
-# 按舱位分组算平均年龄（1 行，替代你写的 20 行）
+# Average age by class (1 line, replacing your 20 lines)
 print(df.groupby("Pclass")["Age"].mean())
 
-# 各港口平均票价（1 行）
+# Average fare by port (1 line)
 print(df.groupby("Embarked")["Fare"].mean())
 ```
 
-**5 行 Pandas 代码 = 75 行纯 Python 代码。**
+**5 lines of Pandas code = 75 lines of pure Python code.**
 
-而且 Pandas 还**自动处理了类型转换和缺失值**，你一行额外代码都不用写。
+And Pandas also **handles type conversion and missing values automatically**, so you don’t need to write any extra code.
 
-### 代码量对比
+### Code length comparison
 
 ```mermaid
 xychart-beta
-    title "代码行数对比：纯 Python vs Pandas"
-    x-axis ["读取数据", "性别生存率", "票价Top5", "分组均值", "总计"]
-    y-axis "代码行数" 0 --> 100
+    title "Code Lines Comparison: Pure Python vs Pandas"
+    x-axis ["Read data", "Gender survival rate", "Top 5 fares", "Grouped mean", "Total"]
+    y-axis "Number of code lines" 0 --> 100
     bar [30, 15, 10, 20, 75]
     bar [1, 1, 1, 1, 5]
 ```
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：统计幸存者和遇难者的平均票价
+### Exercise 1: Calculate the average fare for survivors and non-survivors
 
-用纯 Python 计算：
-- 幸存者的平均票价
-- 遇难者的平均票价
-- 两者的差异
+Use pure Python to compute:
+- The average fare for survivors
+- The average fare for non-survivors
+- The difference between them
 
 ```python
 def avg_fare_by_survival(passengers):
-    """统计幸存者和遇难者的平均票价"""
-    # 提示：和按性别分组类似
-    # survived == 1 的是幸存者，survived == 0 的是遇难者
-    pass  # 补充代码
+    """Calculate the average fare for survivors and non-survivors"""
+    # Hint: similar to grouping by gender
+    # survived == 1 means survived, survived == 0 means did not survive
+    pass  # Fill in the code
 
 avg_fare_by_survival(passengers)
 ```
 
-想一想：票价（船舱等级）和生存率之间有什么关系？
+Think about it: what is the relationship between fare (ticket class) and survival rate?
 
-### 练习 2：找出所有儿童乘客（年龄 < 18）
+### Exercise 2: Find all child passengers (age < 18)
 
 ```python
 def find_children(passengers):
-    """找出所有 18 岁以下的乘客"""
-    # 注意：要处理 age 为 None 的情况
+    """Find all passengers under 18 years old"""
+    # Note: handle the case where age is None
     children = []
-    # 补充代码
+    # Fill in the code
 
-    print(f"共有 {len(children)} 名儿童乘客：")
+    print(f"There are {len(children)} child passengers:")
     for c in children:
-        status = "幸存" if c["survived"] else "遇难"
-        print(f"  {c['name']}, {c['age']:.0f}岁, {status}")
+        status = "survived" if c["survived"] else "did not survive"
+        print(f"  {c['name']}, {c['age']:.0f} years old, {status}")
 
-    # 计算儿童的生存率
-    # 补充代码
+    # Calculate the survival rate for children
+    # Fill in the code
 
 find_children(passengers)
 ```
 
-### 练习 3：综合统计表
+### Exercise 3: Summary statistics table
 
-生成一个综合统计表，格式如下：
-
-```
-=== 泰坦尼克号数据综合统计 ===
-总乘客数: 30
-幸存人数: 16 (53.3%)
-平均年龄: 26.8 岁
-平均票价: $31.23
-男性人数: 14 (46.7%)
-女性人数: 16 (53.3%)
-缺失年龄: 7 人 (23.3%)
-缺失船舱: 21 人 (70.0%)
-```
-
-### 挑战练习：交叉分析
-
-统计**每个舱位等级中，男女的生存率**（2 个维度的交叉统计）：
+Generate a summary statistics table in the following format:
 
 ```
-=== 各舱位等级男女生存率 ===
-        男性生存率    女性生存率
-头等舱   33.3%       100.0%
-二等舱   50.0%       100.0%
-三等舱   0.0%        62.5%
+=== Titanic Summary Statistics ===
+Total passengers: 30
+Survived: 16 (53.3%)
+Average age: 26.8 years old
+Average fare: $31.23
+Male passengers: 14 (46.7%)
+Female passengers: 16 (53.3%)
+Missing age: 7 (23.3%)
+Missing cabin: 21 (70.0%)
 ```
 
-提示：你需要同时按两个字段（pclass + sex）分组。试试看需要写多少行代码。
+### Challenge exercise: Cross-analysis
+
+Calculate the **survival rate for males and females within each ticket class** (cross-tabulation of 2 dimensions):
+
+```
+=== Survival Rate by Gender Within Each Class ===
+        Male Survival Rate  Female Survival Rate
+First   33.3%              100.0%
+Second  50.0%              100.0%
+Third   0.0%               62.5%
+```
+
+Hint: you need to group by two fields at the same time (`pclass` + `sex`). Try it and see how many lines of code it takes.
 
 ---
 
-## 本节完整代码
+## Complete code for this section
 
-把上面所有代码整合到一个文件中：
+Combine all the code above into one file:
 
 ```python
 """
-纯 Python 数据分析预热练习
-数据集：Titanic（泰坦尼克号）
-目标：体会纯 Python 处理数据的痛点，为学习 NumPy/Pandas 做铺垫
+Pure Python Data Analysis Warm-up
+Dataset: Titanic
+Goal: Experience the pain points of data processing with pure Python and prepare for NumPy/Pandas
 """
 
 import csv
 
 
 def read_csv(filename: str) -> list[dict]:
-    """读取 CSV 文件"""
+    """Read a CSV file"""
     with open(filename, "r", encoding="utf-8") as f:
         return [dict(row) for row in csv.DictReader(f)]
 
 
 def clean_data(passengers: list[dict]) -> list[dict]:
-    """数据清洗：类型转换 + 缺失值处理"""
+    """Data cleaning: type conversion + missing value handling"""
     cleaned = []
     for p in passengers:
         age = None
@@ -589,10 +589,10 @@ def clean_data(passengers: list[dict]) -> list[dict]:
 
 
 def analyze(passengers: list[dict]) -> None:
-    """执行所有分析任务"""
+    """Run all analysis tasks"""
 
-    # 任务 1：性别生存率
-    print("=== 不同性别的生存率 ===")
+    # Task 1: Gender survival rate
+    print("=== Survival Rate by Gender ===")
     gender_stats = {}
     for p in passengers:
         sex = p["sex"]
@@ -605,14 +605,14 @@ def analyze(passengers: list[dict]) -> None:
         rate = data["survived"] / data["total"] * 100
         print(f"  {sex}: {data['survived']}/{data['total']} ({rate:.1f}%)")
 
-    # 任务 2：票价 Top 5
-    print(f"\n=== 票价最高的前 5 位 ===")
+    # Task 2: Top 5 fares
+    print(f"\n=== Top 5 Passengers by Fare ===")
     sorted_by_fare = sorted(passengers, key=lambda p: p["fare"], reverse=True)
     for i, p in enumerate(sorted_by_fare[:5], 1):
         print(f"  {i}. {p['name'][:30]:<32} ${p['fare']:.2f}")
 
-    # 任务 3：各舱位平均年龄
-    print(f"\n=== 各舱位平均年龄 ===")
+    # Task 3: Average age by class
+    print(f"\n=== Average Age by Class ===")
     class_ages = {}
     for p in passengers:
         pc = p["pclass"]
@@ -624,51 +624,51 @@ def analyze(passengers: list[dict]) -> None:
     for pc in sorted(class_ages.keys()):
         ages = class_ages[pc]
         avg = sum(ages) / len(ages) if ages else 0
-        label = {1: "头等舱", 2: "二等舱", 3: "三等舱"}[pc]
-        print(f"  {label}: {avg:.1f} 岁 ({len(ages)} 人)")
+        label = {1: "First Class", 2: "Second Class", 3: "Third Class"}[pc]
+        print(f"  {label}: {avg:.1f} years old ({len(ages)} passengers)")
 
 
 if __name__ == "__main__":
     raw = read_csv("titanic_sample.csv")
     passengers = clean_data(raw)
-    print(f"共加载 {len(passengers)} 条数据\n")
+    print(f"Loaded {len(passengers)} records in total\n")
     analyze(passengers)
 ```
 
 ---
 
-## 小结
+## Summary
 
-| 要点 | 说明 |
+| Key point | Explanation |
 |------|------|
-| CSV 读出来全是字符串 | 每个字段都需要手动 `int()` / `float()` 转换 |
-| 缺失值处理很繁琐 | 要逐个判断空值，用 try/except 防止转换出错 |
-| 分组统计代码量大 | 每次分组都要手写字典 + 循环 |
-| 统计函数不够用 | 没有现成的均值、中位数、标准差等函数 |
-| 代码复用性差 | 换一个维度分组，整段代码要重写 |
+| CSV data comes in as strings | Every field requires manual `int()` / `float()` conversion |
+| Missing value handling is tedious | You must check for empty values one by one and use `try/except` to avoid conversion errors |
+| Group statistics require a lot of code | Every grouping task needs handwritten dictionaries and loops |
+| Basic statistics functions are lacking | There are no built-in mean, median, standard deviation, etc. helpers |
+| Poor code reusability | If the grouping dimension changes, you often need to rewrite the whole block |
 
-:::tip 核心体会
-这个预热练习的目的不是让你背下这些代码，而是让你**亲手感受痛点**。记住这些痛苦的感觉——接下来学 NumPy 和 Pandas 时，每学到一个新功能，你都会想："啊，这就是我之前想要的！"
+:::tip Core takeaway
+The purpose of this warm-up is not for you to memorize the code, but to **personally feel the pain points**. Remember this painful feeling — when you later learn NumPy and Pandas, every new feature will make you think: "Ah, that’s exactly what I wanted!"
 
-这种"先苦后甜"的学习方式，会让你理解得更深、记得更牢。
+This “suffer first, enjoy later” learning style will help you understand more deeply and remember more firmly.
 :::
 
 ---
 
-## 接下来学什么？
+## What’s next?
 
-下面的学习路线是这样的：
+The learning path looks like this:
 
 ```mermaid
 flowchart TD
-    A["✅ 第1章：纯 Python 预热（你在这里）"] --> B["第2章：NumPy 科学计算"]
-    B --> C["第3章：Pandas 数据处理"]
-    C --> D["第4章：数据可视化"]
-    D --> E["第6章：实战项目"]
+    A["✅ Chapter 1: Pure Python Warm-up (you are here)"] --> B["Chapter 2: NumPy for Scientific Computing"]
+    B --> C["Chapter 3: Pandas for Data Processing"]
+    C --> D["Chapter 4: Data Visualization"]
+    D --> E["Chapter 6: Hands-on Projects"]
 
-    B -- "解决痛点" --> B1["高效数组运算<br/>不用写循环<br/>向量化计算"]
-    C -- "解决痛点" --> C1["1 行读取 CSV<br/>自动类型转换<br/>1 行分组统计"]
-    D -- "解决痛点" --> D1["用图表呈现数据<br/>直观发现规律"]
+    B -- "Solves pain points" --> B1["Efficient array operations<br/>No loops needed<br/>Vectorized computation"]
+    C -- "Solves pain points" --> C1["Read CSV in 1 line<br/>Automatic type conversion<br/>Grouped stats in 1 line"]
+    D -- "Solves pain points" --> D1["Present data with charts<br/>Discover patterns intuitively"]
 
     style A fill:#4caf50,color:#fff
     style B fill:#2196f3,color:#fff
@@ -677,4 +677,4 @@ flowchart TD
     style E fill:#ff9800,color:#fff
 ```
 
-准备好了吗？让我们进入 NumPy 的世界！
+Ready? Let’s enter the world of NumPy!

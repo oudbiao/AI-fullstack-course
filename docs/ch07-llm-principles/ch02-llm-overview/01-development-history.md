@@ -1,123 +1,123 @@
 ---
-title: "2.2 大模型发展历程"
+title: "2.2 Development History of Large Models"
 sidebar_position: 5
-description: "从规则系统、统计语言模型、RNN、Transformer 到大语言模型，梳理语言模型演进的主线。"
-keywords: [LLM 历史, 语言模型, n-gram, RNN, Transformer, GPT]
+description: "Trace the main evolution of language models from rule-based systems, statistical language models, and RNNs to Transformer and large language models."
+keywords: [LLM history, language model, n-gram, RNN, Transformer, GPT]
 ---
 
-# 大模型发展历程
+# Development History of Large Models
 
-![大模型发展时间线图](/img/course/llm-history-timeline.png)
+![Large Model Development Timeline](/img/course/llm-history-timeline-en.png)
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+After completing this section, you will be able to:
 
-- 理解大模型不是凭空出现的，而是 NLP 长期演进的结果
-- 说清楚从规则系统到 Transformer 的关键转折
-- 理解“为什么是 Transformer 把大模型时代真正推起来了”
-- 通过一个小例子感受早期语言模型的工作方式
-
----
-
-## 一、先把全景图记住
-
-语言模型的发展可以先粗略记成这 5 个阶段：
-
-1. 规则系统时代
-2. 统计语言模型时代
-3. 神经网络语言模型时代
-4. Transformer 时代
-5. 大模型与指令对齐时代
-
-你可以把它理解成一条不断升级的“自动补全”路线：
-
-- 先靠人工规则
-- 再靠统计频率
-- 再靠神经网络学表示
-- 再靠 Transformer 学长距离上下文
-- 最后靠规模化训练和对齐技术变得更实用
-
-### 1.1 如果你想先被这条历史线吸引住，先记三个画面
-
-这条发展史最容易让初学者有感觉的，通常不是概念，而是三个画面：
-
-1. 早期系统像一本厚厚的规则手册  
-   能做事，但特别依赖人写规则。
-
-2. Transformer 出来时像一次公开宣告  
-   `Attention Is All You Need` 这个标题，本身就像在说：
-   “也许序列建模不需要再被 RNN 绑住了。”
-
-3. GPT-3 之后，很多人第一次直观感受到  
-   原来“只做下一个 token 预测”这件事，放到足够大规模后，真的会长出很像通用能力的现象。
-
-所以这条历史线最吸引人的地方在于：
-
-> **很多今天看起来理所当然的能力，当年都不是慢慢加上去的，而是经过了好几次路线切换。**
+- Understand that large models did not appear out of nowhere, but are the result of the long evolution of NLP
+- Explain the key turning points from rule-based systems to Transformer
+- Understand why Transformer truly propelled the era of large models
+- Experience how early language models worked through a small example
 
 ---
 
-## 二、规则系统：最早的“人工语言智能”
+## 1. First, Remember the Big Picture
 
-在早期 NLP 里，人们经常手写规则：
+The development of language models can be roughly divided into these 5 stages:
 
-- 如果句子里出现“订票”，归类到出行
-- 如果出现“天气”，归类到天气查询
+1. The rule-based system era
+2. The statistical language model era
+3. The neural network language model era
+4. The Transformer era
+5. The large model and instruction alignment era
 
-优点是：
+You can think of it as an “autocomplete” path that keeps upgrading:
 
-- 简单
-- 可解释
-- 小任务启动快
+- First, it relied on manual rules
+- Then, it relied on statistical frequency
+- Then, neural networks learned representations
+- Then, Transformer learned long-range context
+- Finally, large-scale training and alignment techniques made it more practical
 
-缺点是：
+### 1.1 If You Want to Be Drawn Into This History First, Remember Three Scenes
 
-- 写起来费劲
-- 一变场景就容易失效
-- 很难覆盖复杂表达
+For beginners, the most memorable parts of this history are usually not the concepts, but these three scenes:
 
-这就像你训练一个新人客服，全靠一本厚厚的“话术规则手册”。  
-能用，但上限不高。
+1. Early systems were like a thick rule manual
+   They could do the job, but they depended heavily on people writing rules.
 
-### 2.1 为什么很多人后来会觉得这条路“注定很累”？
+2. When Transformer appeared, it felt like a public announcement
+   The title `Attention Is All You Need` itself seemed to say:
+   “Maybe sequence modeling no longer needs to be tied to RNN.”
 
-因为它太依赖人先把世界拆给机器看。  
-只要场景一复杂，维护成本就会迅速上升：
+3. After GPT-3, many people intuitively felt for the first time
+   that doing only next token prediction, when scaled up enough, could really give rise to what looks like general capability.
 
-- 表达方式一变，规则就可能漏
-- 场景一扩，规则就越写越厚
+So the most fascinating part of this history is:
 
-所以早期规则系统最有代表性的气氛就是：
-
-- 它真的能用
-- 但人会越来越强烈地意识到，这条路很难扩展到开放世界
+> **Many abilities that look obvious today were not added gradually back then, but emerged through several shifts in direction.**
 
 ---
 
-## 三、统计语言模型：开始用“出现频率”预测下一个词
+## 2. Rule-Based Systems: The Earliest “Artificial Language Intelligence”
 
-统计语言模型的核心想法是：
+In early NLP, people often wrote rules by hand:
 
-> **一个词后面接什么，跟前面出现过什么词有关。**
+- If the sentence contains “book a ticket,” classify it as travel
+- If it contains “weather,” classify it as weather inquiry
 
-比如：
+The advantages are:
 
-- “今天 天气 很” 后面很可能接 “好”
-- “我 喜欢 吃” 后面可能接 “面” 或 “饭”
+- Simple
+- Interpretable
+- Quick to start for small tasks
 
-这就是经典的 `n-gram` 思路。
+The disadvantages are:
 
-### 一个最小可运行例子：二元语言模型
+- Tedious to write
+- Easy to break when the scenario changes
+- Hard to cover complex expressions
+
+It is like training a new customer service agent using only a thick “conversation rules manual.”
+It works, but the ceiling is not high.
+
+### 2.1 Why Did Many People Later Feel This Path Was “Doomed to Be Exhausting”?
+
+Because it depends too much on humans first breaking the world down for the machine.
+Once the scenario becomes complex, the maintenance cost rises quickly:
+
+- If the expression changes, the rule may miss it
+- If the scenario expands, the rulebook gets thicker and thicker
+
+So the most typical feeling around early rule-based systems was:
+
+- They really did work
+- But people increasingly realized that this path was hard to scale to the open world
+
+---
+
+## 3. Statistical Language Models: Starting to Predict the Next Word by “Frequency of Occurrence”
+
+The core idea of statistical language models is:
+
+> **What word comes next depends on what words appeared before it.**
+
+For example:
+
+- “Today the weather is very” is likely followed by “good”
+- “I like to eat” may be followed by “noodles” or “rice”
+
+This is the classic `n-gram` idea.
+
+### A Minimal Runnable Example: Bigram Language Model
 
 ```python
 from collections import defaultdict, Counter
 
 corpus = [
-    "我 喜欢 学 AI",
-    "我 喜欢 学 Python",
-    "你 喜欢 学 NLP",
-    "我 喜欢 做 项目"
+    "I like learning AI",
+    "I like learning Python",
+    "You like learning NLP",
+    "I like doing projects"
 ]
 
 next_word_counter = defaultdict(Counter)
@@ -133,265 +133,265 @@ def suggest_next(word):
         return []
     return candidates.most_common()
 
-print("“我” 后面常见的词:", suggest_next("我"))
-print("“喜欢” 后面常见的词:", suggest_next("喜欢"))
-print("“学” 后面常见的词:", suggest_next("学"))
+print("Common words after “I”:", suggest_next("I"))
+print("Common words after “like”:", suggest_next("like"))
+print("Common words after “learning”:", suggest_next("learning"))
 ```
 
-这个思路已经很像“预测下一个词”了。  
-但它的局限也很明显：
+This idea is already very close to “predict the next word.”
+But its limitations are also obvious:
 
-- 只能看很短的上下文
-- 词组合一多，统计就很稀疏
-- 没法真正理解语义
+- It can only look at very short context
+- As word combinations increase, the statistics become sparse
+- It cannot truly understand semantics
 
-### 3.1 为什么这一代方法仍然非常重要？
+### 3.1 Why Is This Generation of Methods Still Very Important?
 
-因为它第一次让 NLP 主线真正从：
+Because it was the first time NLP truly moved from:
 
-- 人写规则
+- Humans writing rules
 
-走向：
+to:
 
-- 让数据自己告诉系统“什么更常见、什么更合理”
+- Letting data tell the system what is more common and more reasonable
 
-也就是说，这一代虽然今天看起来不够强，  
-但它非常像一块过渡踏板：
+In other words, although it does not look powerful by today’s standards,
+it was very much a stepping stone:
 
-> **先把语言问题从“规则题”变成“统计题”。**
+> **It first turned language problems from “rule problems” into “statistical problems.”**
 
 ---
 
-## 四、神经网络语言模型：开始学“表示”
+## 4. Neural Network Language Models: Starting to Learn Representations
 
-后来，人们不满足于“只统计词频”，开始让神经网络自己学习词和上下文表示。
+Later, people were no longer satisfied with “just counting word frequencies,” and began letting neural networks learn representations of words and context.
 
-这带来了几个重要变化：
+This brought several important changes:
 
-- 词不再只是离散编号，而有了向量表示
-- 模型开始能学习语义相近性
-- 语言建模不再只靠硬统计
+- Words were no longer just discrete IDs; they had vector representations
+- Models could start learning semantic similarity
+- Language modeling no longer relied only on hard statistics
 
-这一阶段的重要路线包括：
+Important directions in this stage included:
 
 - Word2Vec / GloVe
 - RNN
 - LSTM / GRU
 
-### 它们解决了什么？
+### What Did They Solve?
 
-比如：
+For example:
 
-- `king` 和 `queen` 会更接近
-- “今天下雨，我没带伞，所以我被淋湿了” 这种句子，可以利用更长的上下文
+- `king` and `queen` became closer in representation
+- Sentences like “It rained today, I didn’t bring an umbrella, so I got wet” could use longer context
 
-但问题也还在：
+But the problems were still there:
 
-- 序列很长时，RNN 很难处理
-- 训练效率不高
-- 长距离依赖依然困难
+- RNNs struggled with very long sequences
+- Training efficiency was not high
+- Long-range dependencies remained difficult
 
-### 4.1 这一代为什么会让很多人重新兴奋起来？
+### 4.1 Why Did This Generation Make Many People Excited Again?
 
-因为从这里开始，语言模型不再只是：
+Because starting from here, language models were no longer just:
 
-- 数一数哪个词后面常接哪个词
+- Counting which words commonly follow which words
 
-而是开始真的学到：
+Instead, they began to truly learn:
 
-- 词和词之间的关系
-- 上下文里的语义结构
+- Relationships between words
+- Semantic structure in context
 
-所以这一代的吸引力在于：
+So the appeal of this generation was:
 
-> **语言开始不只是一串符号，而是第一次真正“进入表示空间”。**
+> **Language was no longer just a string of symbols; for the first time, it really entered a representation space.**
 
 ---
 
-## 五、Transformer：真正改变局面的关键拐点
+## 5. Transformer: The Key Turning Point That Truly Changed the Game
 
-Transformer 的核心突破，是注意力机制（Attention）。
+The core breakthrough of Transformer is the attention mechanism.
 
-你可以把它想成：
+You can think of it like this:
 
-> 读一句话时，不再只能按顺序一点点传递记忆，而是可以直接看“当前词和所有词之间的关系”。
+> When reading a sentence, instead of passing memory forward step by step in order, you can directly look at the relationships between the current word and all other words.
 
-这就像：
+This is like:
 
-- RNN 更像逐句读书，边读边记
-- Transformer 更像摊开整页，同时圈重点
+- RNNs reading a book sentence by sentence, remembering as they go
+- Transformer spreading the whole page out and circling the key points all at once
 
-它的优势非常关键：
+Its advantages are crucial:
 
-- 更适合并行训练
-- 更擅长处理长上下文
-- 更容易扩展到超大规模
+- More suitable for parallel training
+- Better at handling long context
+- Easier to scale to very large sizes
 
-这正是为什么后来 GPT、BERT 这些模型能快速崛起。
+This is exactly why models like GPT and BERT were able to rise so quickly later on.
 
-### 5.1.1 这篇论文为什么会让人一下子记住？
+### 5.1.1 Why Did This Paper Stick in People’s Minds So Quickly?
 
-一部分原因当然是技术本身，  
-但还有一部分原因，是标题真的太有“时代切换感”了：
+Part of the reason is, of course, the technique itself,
+but another part is that the title really gives off a strong “era shift” feeling:
 
 - `Attention Is All You Need`
 
-它不像传统论文那样保守，  
-而是带着一种很强的判断：
+It is not as conservative as traditional papers,
+but carries a very strong judgment:
 
-- 也许整个序列建模主线都要换了
+- Maybe the whole main line of sequence modeling needs to change
 
-后来历史证明，这种判断不是口号，  
-而是真的改写了后面大模型时代的底座。
-
----
-
-## 六、预训练模型时代：先通读海量文本，再做具体任务
-
-这一阶段的核心思想是：
-
-1. 先在海量语料上做通用预训练
-2. 再迁移到具体任务
-
-这比过去“每个任务从零训练一个模型”高效得多。
-
-典型代表有：
-
-- BERT：偏理解
-- GPT：偏生成
-- T5：统一文本到文本框架
-
-这带来了一个非常重要的变化：
-
-> 模型开始具备越来越强的“通用语言能力”。
+History later proved that this was not just a slogan,
+but something that genuinely rewrote the foundation of the large model era that followed.
 
 ---
 
-## 七、大语言模型时代：规模带来能力跃迁
+## 6. The Pretraining Model Era: First Read Massive Amounts of Text, Then Do Specific Tasks
 
-当模型参数、数据量、计算资源都大幅提升后，出现了我们今天常说的大语言模型（LLM）。
+The core idea of this stage is:
 
-大模型时代的几个关键词：
+1. First perform general pretraining on massive corpora
+2. Then transfer to specific tasks
 
-- 更大的参数规模
-- 更长的上下文
-- 更强的生成能力
-- 指令跟随能力
-- 工具使用能力
+This is much more efficient than training a model from scratch for every task.
 
-这一阶段，模型不再只是“做分类器”，而是越来越像一个通用文本接口：
+Typical representatives include:
 
-- 写代码
-- 总结文档
-- 翻译
-- 问答
-- 推理
-- 调用工具
+- BERT: more focused on understanding
+- GPT: more focused on generation
+- T5: unified text-to-text framework
 
-### 7.1 GPT-3 为什么会被很多人当成一个“气氛转折点”？
+This brought a very important change:
 
-因为 GPT-3 给很多人的感觉，不只是：
-
-- 模型变大了
-
-而是：
-
-- 有些能力开始不像单点功能，而像一种更通用的语言接口
-
-它让很多人第一次强烈意识到：
-
-- 也许参数规模、数据规模、训练范式这几件事叠加起来，会把“语言模型”推成更像平台级能力的东西
-
-所以 GPT-3 对很多人来说，不只是论文节点，  
-而更像：
-
-> **“大模型时代真的开始了”的情绪节点。**
+> Models began to have increasingly strong “general language abilities.”
 
 ---
 
-## 八、为什么“光大还不够”？
+## 7. The Large Language Model Era: Scale Brings a Leap in Capability
 
-模型变大后，能力是更强了，但也会出现问题：
+When model parameters, data volume, and compute resources increase greatly, we get what we now call large language models (LLMs).
 
-- 不一定懂用户意图
-- 不一定按要求回答
-- 可能输出有害或不稳定内容
+Key words in the large model era:
 
-所以后来又发展出一整套“对齐”技术：
+- Larger parameter scale
+- Longer context
+- Stronger generation ability
+- Instruction-following ability
+- Tool-using ability
 
-- 指令微调
-- 偏好学习
+In this stage, the model is no longer just “a classifier,” but more and more like a general-purpose text interface:
+
+- Write code
+- Summarize documents
+- Translate
+- Answer questions
+- Reason
+- Call tools
+
+### 7.1 Why Did GPT-3 Become a “Turning Point in the Atmosphere” for Many People?
+
+Because GPT-3 made many people feel not just that:
+
+- The model got bigger
+
+but that:
+
+- Some abilities started to feel less like isolated features and more like a more general language interface
+
+It made many people strongly realize for the first time that:
+
+- Perhaps model scale, data scale, and training paradigm, when combined, can push “language models” into something more like platform-level capability
+
+So for many people, GPT-3 was not just a paper milestone,
+but more like:
+
+> **The emotional milestone that said “the large model era has really begun.”**
+
+---
+
+## 8. Why “Bigger” Alone Is Not Enough
+
+After models became larger, they were stronger, but problems also appeared:
+
+- They may not understand user intent
+- They may not answer as requested
+- They may produce harmful or unstable content
+
+So later, an entire set of alignment techniques was developed:
+
+- Instruction tuning
+- Preference learning
 - RLHF
-- 安全对齐
+- Safety alignment
 
-这就像：
+It is like this:
 
-> 模型先靠海量读书变聪明，再靠人类反馈学会“更像一个会配合的助手”。
+> The model first becomes smarter by reading massive amounts of text, then learns to be more like a cooperative assistant through human feedback.
 
-### 8.1 为什么这一步会让很多人突然意识到“训练目标不等于产品目标”？
+### 8.1 Why Did This Step Make Many People Suddenly Realize That “Training Objectives Are Not the Same as Product Objectives”?
 
-因为 GPT-3 之后，大家已经看到：
+Because after GPT-3, everyone had already seen that:
 
-- 模型可以很强
-- 但“强”不自动等于“好用”
+- Models can be very powerful
+- But being “powerful” does not automatically mean “useful”
 
-它可能：
+It may:
 
-- 不够听指令
-- 不够稳
-- 不够符合人类期望
+- Not follow instructions well enough
+- Not be stable enough
+- Not match human expectations well enough
 
-所以对齐阶段真正带来的不是又一个术语，  
-而是一种很重要的行业共识：
+So what the alignment stage really brought was not just another term,
+but a very important industry consensus:
 
-> **模型能力和模型行为，不是同一件事。**
+> **Model capability and model behavior are not the same thing.**
 
 ---
 
-## 九、今天的大模型为什么不只属于 NLP？
+## 9. Why Do Today’s Large Models Belong to More Than Just NLP?
 
-因为 Transformer 和大模型方法后来扩展到了更多模态：
+Because Transformer and large model methods later expanded to more modalities:
 
-- 图像
-- 语音
-- 视频
-- 多模态
+- Images
+- Speech
+- Video
+- Multimodal data
 
-再进一步，就出现了：
+Further on, we got:
 
 - RAG
 - Agent
-- 工具调用
-- 多模态问答
+- Tool calling
+- Multimodal Q&A
 
-所以“大模型发展史”其实不是 NLP 的一个小分支，而是后面整个 AI 应用工程的前史。
+So the “development history of large models” is not just a small branch of NLP, but the prehistory of the entire AI application engineering landscape that followed.
 
 ---
 
-## 十、一张时间线速记表
+## 10. A Quick Timeline Table
 
-| 阶段 | 核心思路 | 局限 |
+| Stage | Core Idea | Limitation |
 |---|---|---|
-| 规则系统 | 人写规则 | 泛化差、维护难 |
-| 统计语言模型 | 用频率预测 | 稀疏、看不远 |
-| RNN/LSTM | 用神经网络建模序列 | 长距离依赖仍难 |
-| Transformer | 用注意力看全局关系 | 训练成本高 |
-| 大语言模型 | 规模化预训练 + 对齐 | 成本、安全、幻觉问题 |
+| Rule-based systems | Humans write rules | Poor generalization, hard to maintain |
+| Statistical language models | Predict with frequency | Sparse data, short context |
+| RNN/LSTM | Model sequences with neural networks | Long-range dependencies are still hard |
+| Transformer | Use attention to capture global relationships | Training cost is high |
+| Large language models | Scaled pretraining + alignment | Cost, safety, hallucination issues |
 
 ---
 
-## 小结
+## Summary
 
-这一节最重要的不是背年份，而是看懂一条主线：
+The most important thing in this section is not memorizing dates, but understanding one main line:
 
-> **语言模型一路都在解决同一个问题：怎样更好地利用上下文，预测和理解语言。**
+> **Language models have always been solving the same problem: how to better use context to predict and understand language.**
 
-规则不够灵活，统计不够深，RNN 不够远，Transformer 才真正把规模化语言建模推到了今天的大模型阶段。
+Rules were not flexible enough, statistics were not deep enough, RNNs could not look far enough, and Transformer was what truly pushed large-scale language modeling into today’s large model era.
 
 ---
 
-## 练习
+## Exercises
 
-1. 修改上面的 `corpus`，加入更多句子，观察 `n-gram` 的预测结果怎么变化。
-2. 思考：为什么只靠 “当前词 -> 下一个词” 的统计，很难理解长文章？
-3. 用你自己的话解释一下：Transformer 相比 RNN，到底强在哪。
+1. Modify the `corpus` above by adding more sentences, and observe how the `n-gram` prediction results change.
+2. Think about it: why is it hard to understand a long article using only statistics of “current word -> next word”?
+3. Explain in your own words: what exactly makes Transformer stronger than RNN?

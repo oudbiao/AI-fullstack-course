@@ -1,195 +1,195 @@
 ---
 sidebar_position: 12
-title: "AI 职业方向探索指南"
-description: "探索 AI 工程师的六大职业方向：机器学习工程师、数据科学家、CV 工程师、NLP 工程师、AI 应用开发和 AIGC 创作者，找到适合自己的发展路线。"
-keywords: [AI职业方向, 机器学习工程师, 数据科学家, AI就业, AI工程师]
+title: "AI Career Path Exploration Guide"
+description: "Explore the six major career paths for AI engineers: Machine Learning Engineer, Data Scientist, CV Engineer, NLP Engineer, AI Application Development, and AIGC Creator, and find the path that suits you best."
+keywords: [AI career paths, Machine Learning Engineer, Data Scientist, AI jobs, AI Engineer]
 ---
 
-# 职业方向探索指南
+# Career Path Exploration Guide
 
-> **建议阅读时机：** 完成 3 数据分析与可视化后（那时你已经有了 Python 和数据分析的基础，能更好地理解各方向的差异）  
-> **阅读时间：** 20-30 分钟  
-> **目标：** 了解 AI 行业的主要职业方向，评估哪个方向最适合你，制定有针对性的学习计划
+> **Recommended time to read:** After completing 3 Data Analysis and Visualization (by then, you will have a foundation in Python and data analysis, which helps you better understand the differences between each path)
+> **Reading time:** 20-30 minutes
+> **Goal:** Understand the main career paths in the AI industry, evaluate which one suits you best, and create a targeted learning plan
 
 ---
 
-## 先别急着选岗位
+## Don’t rush to choose a role
 
 ```mermaid
 flowchart LR
-  A["先完成基础主线"] --> B["观察自己喜欢什么任务"]
-  B --> C["选择一个方向做项目"]
-  C --> D["用作品集验证方向"]
-  D --> E["再补岗位要求"]
+  A["Finish the core learning path first"] --> B["Notice which tasks you enjoy"]
+  B --> C["Choose one direction to build a project"]
+  C --> D["Validate the direction with your portfolio"]
+  D --> E["Then fill in the job requirements"]
 ```
 
-| 如果你更喜欢 | 可以重点关注 |
+| If you prefer | Focus on |
 |---|---|
-| 做产品、接 API、解决业务问题 | 大模型应用工程师、AI Agent 工程师 |
-| 数据、指标、实验和模型效果 | 数据科学、机器学习、模型工程 |
-| 图像、视频、视觉检测 | CV 工程师、多模态方向 |
-| 文本理解、抽取、搜索和问答 | NLP、RAG 工程师 |
+| Building products, connecting APIs, solving business problems | LLM Application Engineer, AI Agent Engineer |
+| Data, metrics, experiments, and model performance | Data Science, Machine Learning, Model Engineering |
+| Images, video, and visual detection | CV Engineer, Multimodal direction |
+| Text understanding, extraction, search, and Q&A | NLP, RAG Engineer |
 
-## 第一部分：AI 职业方向全景
+## Part 1: The AI career landscape
 
-### 七大主流方向一览
+### Seven mainstream directions at a glance
 
-| 方向 | 一句话概括 | 核心技术栈 | 月薪范围 | 岗位量 | 入行门槛 |
+| Direction | One-sentence summary | Core tech stack | Monthly salary range | Job volume | Entry barrier |
 |------|----------|----------|---------|:---:|:---:|
-| **大模型应用工程师** | 用大模型做产品 | Python、大模型 API、RAG、LangChain | 20-50K | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
-| **AI Agent 工程师** | 造能自主做事的 AI | LangGraph、MCP、Function Calling | 25-60K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| **CV 工程师** | 让 AI 看懂图像和视频 | PyTorch、OpenCV、YOLO | 20-45K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| **NLP 工程师** | 让 AI 理解和生成文本 | Transformers、BERT、微调 | 22-50K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| **AIGC 工程师** | 用 AI 生成图像/视频/音乐 | Stable Diffusion、ComfyUI | 25-55K | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **AI 算法研究员** | 改进算法、发论文 | 深度学习、高等数学、论文复现 | 30-80K | ⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **MLOps / 部署工程师** | 让模型稳定跑在生产环境 | Docker、K8s、TensorRT、ONNX | 22-48K | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **LLM Application Engineer** | Build products with LLMs | Python, LLM APIs, RAG, LangChain | 20-50K | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| **AI Agent Engineer** | Build AI that can act autonomously | LangGraph, MCP, Function Calling | 25-60K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **CV Engineer** | Enable AI to understand images and video | PyTorch, OpenCV, YOLO | 20-45K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **NLP Engineer** | Enable AI to understand and generate text | Transformers, BERT, fine-tuning | 22-50K | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **AIGC Engineer** | Use AI to generate images, video, and music | Stable Diffusion, ComfyUI | 25-55K | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **AI Algorithm Researcher** | Improve algorithms and publish papers | Deep learning, advanced math, paper reproduction | 30-80K | ⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **MLOps / Deployment Engineer** | Keep models running reliably in production | Docker, K8s, TensorRT, ONNX | 22-48K | ⭐⭐⭐ | ⭐⭐⭐⭐ |
 
-:::tip 2025 年趋势
-**大模型应用** 和 **Agent 开发** 是近年增长很快的方向。CV 和 NLP 岗位相对成熟稳定，竞争也更激烈。AIGC 方向前景广阔但岗位数会随行业和地区变化。
+:::tip 2025 trend
+**LLM applications** and **Agent development** have grown rapidly in recent years. CV and NLP roles are relatively mature and stable, but competition is also more intense. The AIGC path has broad potential, but the number of openings varies by industry and region.
 :::
 
-### 各方向的典型工作日
+### A typical workday in each direction
 
-想象一下你入职后的一天，看看哪个让你觉得"这我可以干一辈子"：
+Imagine your day after joining the company and see which one makes you think, “I could do this for life”:
 
-**🔵 大模型应用工程师的一天**
+**🔵 A day in the life of an LLM Application Engineer**
 
-| 时间 | 做什么 |
+| Time | What you do |
 |------|-------|
-| 09:00 | 优化 RAG 系统的检索召回率，调整文本分块策略 |
-| 11:00 | 调试 Prompt 模板，让大模型输出更稳定的 JSON 格式 |
-| 14:00 | 分析用户反馈中的 badcase，定位是检索问题还是生成问题 |
-| 16:00 | 评估 DeepSeek 和 Qwen 的效果差异，准备模型切换方案 |
+| 09:00 | Optimize the retrieval recall of a RAG system and adjust the text chunking strategy |
+| 11:00 | Debug Prompt templates to make the LLM output a more stable JSON format |
+| 14:00 | Analyze bad cases from user feedback and identify whether the issue is retrieval or generation |
+| 16:00 | Compare the performance of DeepSeek and Qwen, and prepare a model migration plan |
 
-**🟢 CV 工程师的一天**
+**🟢 A day in the life of a CV Engineer**
 
-| 时间 | 做什么 |
+| Time | What you do |
 |------|-------|
-| 09:00 | 训练目标检测模型，尝试新的数据增强策略 |
-| 11:00 | 清洗和标注数据集，处理一批检测错误的 badcase |
-| 14:00 | 用 TensorRT 优化模型推理速度，准备部署到边缘设备 |
-| 16:00 | 阅读 YOLOv11 的论文，评估是否值得升级 |
+| 09:00 | Train an object detection model and try a new data augmentation strategy |
+| 11:00 | Clean and label the dataset, and handle a batch of bad cases from detection errors |
+| 14:00 | Use TensorRT to optimize inference speed and prepare for deployment on edge devices |
+| 16:00 | Read the YOLOv11 paper and evaluate whether an upgrade is worth it |
 
-**🟡 AI Agent 工程师的一天**
+**🟡 A day in the life of an AI Agent Engineer**
 
-| 时间 | 做什么 |
+| Time | What you do |
 |------|-------|
-| 09:00 | 设计一个新的 Agent 工作流：接收用户需求 → 拆解任务 → 调用工具 → 汇总结果 |
-| 11:00 | 开发 MCP Server，让 Agent 能查询公司内部数据库 |
-| 14:00 | 调试多 Agent 协作系统，解决 Agent 之间信息传递丢失的问题 |
-| 16:00 | 优化 Token 消耗和响应速度，一个请求从 15 秒降到了 3 秒 |
+| 09:00 | Design a new Agent workflow: receive user needs → break down tasks → call tools → summarize results |
+| 11:00 | Develop an MCP Server so the Agent can query the company’s internal database |
+| 14:00 | Debug a multi-Agent collaboration system and solve information loss between Agents |
+| 16:00 | Optimize token usage and response speed, reducing one request from 15 seconds to 3 seconds |
 
 ---
 
-## 第二部分：方向适配自测
+## Part 2: Self-check for direction fit
 
-用下面的问题找到你的倾向。不需要严格评分，凭直觉选就好。
+Use the questions below to find your tendency. No need to score strictly—just follow your intuition.
 
-### 测试 A：你对什么最感兴趣？
+### Test A: What are you most interested in?
 
-- [ ] 让 AI 能理解需求、解决问题、完成任务 → **大模型应用 / Agent**
-- [ ] 让 AI 能"看懂"图片和视频 → **CV**
-- [ ] 让 AI 能理解和生成人类语言 → **NLP**
-- [ ] 让 AI 创作图片、视频、音乐 → **AIGC**
-- [ ] 研究新算法，追求 SOTA → **算法研究**
-- [ ] 让模型跑得又快又稳 → **MLOps / 部署**
+- [ ] Helping AI understand requirements, solve problems, and complete tasks → **LLM Application / Agent**
+- [ ] Helping AI “understand” images and video → **CV**
+- [ ] Helping AI understand and generate human language → **NLP**
+- [ ] Creating images, video, and music with AI → **AIGC**
+- [ ] Researching new algorithms and pursuing SOTA → **Algorithm research**
+- [ ] Making models run fast and reliably → **MLOps / Deployment**
 
-### 测试 B：你更喜欢哪种工作方式？
+### Test B: Which working style do you prefer?
 
-- [ ] 快速迭代，尽快看到产品效果 → **应用开发方向**（大模型应用、Agent）
-- [ ] 深入钻研，优化每一个细节 → **算法 / 部署方向**
-- [ ] 解决实际业务问题，跟产品和业务方密切合作 → **应用 / Agent**
-- [ ] 探索未知，追求前沿 → **研究 / AIGC**
+- [ ] Fast iteration and seeing product results quickly → **Application development** (LLM applications, Agent)
+- [ ] Going deep and optimizing every detail → **Algorithm / deployment**
+- [ ] Solving real business problems and working closely with product and business teams → **Application / Agent**
+- [ ] Exploring the unknown and pursuing cutting-edge work → **Research / AIGC**
 
-### 测试 C：你的背景情况
+### Test C: Your background
 
-- [ ] 数学好，喜欢推导 → 任何方向都行，算法研究也可以
-- [ ] 数学一般，但理解力强 → 大多数方向均可（数学够用就行）
-- [ ] 数学弱，但动手能力强 → **应用开发方向**最友好（框架和工具帮你封装了大部分数学）
-- [ ] 零编程基础 → 别急着选方向，先学完 2 Python 编程基础再说
+- [ ] Good at math and like derivations → Any direction works; algorithm research is also possible
+- [ ] Average at math, but strong at understanding → Most directions are fine (as long as the math is enough)
+- [ ] Weak at math, but strong at hands-on work → **Application development** is the most beginner-friendly (frameworks and tools package most of the math for you)
+- [ ] No programming background at all → Don’t rush to choose a direction; finish 2 Python Programming Basics first
 
-### 结果参考
+### Result reference
 
-| 你的选择倾向 | 推荐方向 | 在课程中的重点 |
+| Your tendency | Recommended direction | Focus in this course |
 |------------|---------|-------------|
-| 应用类选项最多 | 大模型应用 + Agent | 重点投入 8 LLM 应用开发与 RAG、9 AI Agent 与智能体系统 |
-| 视觉类选项最多 | CV | 重点投入 10 计算机视觉，多做项目 |
-| 语言类选项最多 | NLP + 大模型 | 重点投入 11 自然语言处理、7 大模型原理、Prompt 与微调 |
-| 创意类选项最多 | AIGC | 重点投入 12 AIGC 与多模态 |
-| 研究类选项最多 | 算法研究 | 数学要学扎实，多读论文 |
-| 工程类选项最多 | MLOps / 部署 | 学完主线后重点投入选修模块 A |
+| Mostly application-oriented choices | LLM Application + Agent | Focus on 8 LLM Application Development and RAG, 9 AI Agent and Intelligent Agent Systems |
+| Mostly vision-oriented choices | CV | Focus on 10 Computer Vision and do more projects |
+| Mostly language-oriented choices | NLP + LLMs | Focus on 11 Natural Language Processing, 7 LLM Principles, Prompt, and fine-tuning |
+| Mostly creative choices | AIGC | Focus on 12 AIGC and multimodal |
+| Mostly research-oriented choices | Algorithm research | Build a strong math foundation and read more papers |
+| Mostly engineering-oriented choices | MLOps / Deployment | After finishing the core path, focus on Elective Module A |
 
-:::info 选不出来也没关系
-很多人在学到 6 深度学习与 Transformer 基础之后才真正明确方向。1～6 学习站是大多数方向的共同基础，不存在"选错方向浪费时间"的问题。先学起来，边学边感受。
+:::info It’s okay if you can’t choose yet
+Many people only truly clarify their direction after learning 6 Deep Learning and Transformer Basics. Stages 1–6 are the common foundation for most directions, so there is no such thing as “choosing the wrong direction and wasting time.” Start learning first, and figure it out as you go.
 :::
 
 ---
 
-## 第三部分：制定你的学习计划
+## Part 3: Create your learning plan
 
-### 四个示例计划
+### Four example plans
 
-根据你的目标和时间，选择最接近的一个：
+Choose the one that is closest to your goal and available time:
 
-#### 计划 1：大模型应用工程师（最快就业，推荐）
-
-```
-1 开发者工具基础 → 2 Python 编程基础 → 3 数据分析与可视化 → 4 AI 数学（够用即可）→
-5 机器学习 → 6 深度学习（重点 Transformer）→ 7 大模型原理 → 8 LLM 应用开发与 RAG（重点）→ 9 AI Agent（重点）→ 求职
-```
-
-- **时间：** 全职 8-10 个月
-- **核心竞争力：** RAG 系统、Prompt 工程、Agent 开发
-- **适合人群：** 想快速进入 AI 行业的人
-
-#### 计划 2：CV 工程师
+#### Plan 1: LLM Application Engineer (fastest to employment, recommended)
 
 ```
-1 开发者工具基础 → 2 Python 编程基础 → 3 数据分析与可视化 → 4 AI 数学（融合学习）→
-5 机器学习 → 6 深度学习 → 10 计算机视觉（重点，3-4 个项目）→ 部署方向 → 求职
+1 Developer Tool Basics → 2 Python Programming Basics → 3 Data Analysis and Visualization → 4 AI Math (just enough) →
+5 Machine Learning → 6 Deep Learning (focus on Transformer) → 7 LLM Principles → 8 LLM Application Development and RAG (focus) → 9 AI Agent (focus) → Job search
 ```
 
-- **时间：** 全职 10-12 个月
-- **核心竞争力：** 目标检测、图像分割、模型部署
-- **适合人群：** 对图像处理感兴趣，喜欢可视化的成就感
+- **Time:** 8-10 months full-time
+- **Core strengths:** RAG systems, Prompt engineering, Agent development
+- **Best for:** People who want to enter the AI industry quickly
 
-#### 计划 3：全栈 AI 工程师（最强竞争力）
-
-```
-全部主线阶段 + 选修模块 A（部署）+ 选修模块 E（前端）→ 求职高级岗位
-```
-
-- **时间：** 全职 16-20 个月
-- **核心竞争力：** 从算法到产品的全链路能力
-- **适合人群：** 有充足时间、追求最强竞争力
-
-#### 计划 4：快速转行（已有 Python 基础）
+#### Plan 2: CV Engineer
 
 ```
-1 开发者工具基础（快速过）→ 2 Python 编程基础（快速过）→ 3 数据分析与可视化 → 4 AI 数学、5 机器学习（重点实践）→
-6 深度学习 → 7 大模型原理 → 8 LLM 应用开发与 RAG → 9 AI Agent → 求职
+1 Developer Tool Basics → 2 Python Programming Basics → 3 Data Analysis and Visualization → 4 AI Math (learn in parallel) →
+5 Machine Learning → 6 Deep Learning → 10 Computer Vision (focus, 3-4 projects) → Deployment path → Job search
 ```
 
-- **时间：** 全职 6-8 个月
-- **适合人群：** 已有 Python 和数据分析基础，想快速转 AI
+- **Time:** 10-12 months full-time
+- **Core strengths:** Object detection, image segmentation, model deployment
+- **Best for:** People interested in image processing and who enjoy the sense of accomplishment from visual results
 
-### 月度目标参考（全职学习·计划1）
+#### Plan 3: Full-stack AI Engineer (strongest competitiveness)
 
-| 月份 | 学习阶段 | 目标 | 关键产出 |
+```
+All core stages + Elective Module A (deployment) + Elective Module E (frontend) → Apply for senior positions
+```
+
+- **Time:** 16-20 months full-time
+- **Core strengths:** End-to-end capability from algorithms to products
+- **Best for:** People with enough time who want the strongest competitiveness
+
+#### Plan 4: Fast career switch (already have Python basics)
+
+```
+1 Developer Tool Basics (quick pass) → 2 Python Programming Basics (quick pass) → 3 Data Analysis and Visualization → 4 AI Math, 5 Machine Learning (focus on practice) →
+6 Deep Learning → 7 LLM Principles → 8 LLM Application Development and RAG → 9 AI Agent → Job search
+```
+
+- **Time:** 6-8 months full-time
+- **Best for:** People who already have a Python and data analysis foundation and want to switch into AI quickly
+
+### Monthly target reference (full-time study · Plan 1)
+
+| Month | Learning stage | Goal | Key output |
 |:---:|---------|------|---------|
-| 第 1 月 | 1 开发者工具基础、2 Python 编程基础 | 熟练 Python | 爬虫项目、Web API |
-| 第 2-3 月 | 3 数据分析与可视化 | 掌握数据分析 | 完整数据分析报告 |
-| 第 4-6 月 | 4 AI 数学、5 机器学习、6 深度学习 | 理解 ML/DL 原理 | 房价预测、图像分类项目 |
-| 第 7-9 月 | 7 大模型原理、8 LLM 应用开发与 RAG | 掌握大模型应用 | RAG 应用、微调项目 |
-| 第 10 月 | 9 AI Agent 与智能体系统 | 掌握 Agent 开发 | Agent 项目 + 作品集 |
+| Month 1 | 1 Developer Tool Basics, 2 Python Programming Basics | Become proficient in Python | Web scraping project, Web API |
+| Month 2-3 | 3 Data Analysis and Visualization | Master data analysis | Complete data analysis report |
+| Month 4-6 | 4 AI Math, 5 Machine Learning, 6 Deep Learning | Understand ML/DL principles | House price prediction, image classification project |
+| Month 7-9 | 7 LLM Principles, 8 LLM Application Development and RAG | Master LLM applications | RAG application, fine-tuning project |
+| Month 10 | 9 AI Agent and Intelligent Agent Systems | Master Agent development | Agent project + portfolio |
 
-### 每周时间分配模板（兼职·每周 15-20 小时）
+### Weekly time allocation template (part-time · 15-20 hours per week)
 
-| 时间 | 内容 | 方式 |
+| Time | Content | Method |
 |------|------|------|
-| 周一至周五晚（每天 2h） | 理论 + 代码练习 | 看教程 + 跟着敲代码 |
-| 周六上午（3-4h） | 集中学新知识 | 深入学习本周重点 |
-| 周六下午（2-3h） | 项目实践 | 做课程项目或 Kaggle |
-| 周日上午（2-3h） | 复习 + 笔记 | 整理代码、写学习笔记 |
+| Monday to Friday evenings (2h per day) | Theory + coding practice | Watch tutorials + code along |
+| Saturday morning (3-4h) | Focused learning of new knowledge | Deep dive into this week’s key points |
+| Saturday afternoon (2-3h) | Project practice | Build course projects or do Kaggle |
+| Sunday morning (2-3h) | Review + notes | Organize code and write study notes |
 
 ---

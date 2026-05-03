@@ -1,131 +1,131 @@
 ---
-title: "2.3 高性能推理服务"
+title: "2.3 High-Performance Inference Serving"
 sidebar_position: 9
-description: "从吞吐、延迟、批处理和队列开始，建立对高性能推理服务为什么和“单次跑模型”完全不是一回事的理解。"
+description: "Start with throughput, latency, batching, and queues to build an understanding of why high-performance inference serving is completely different from just “running the model once.”"
 keywords: [inference server, batching, throughput, latency, queue, serving]
 ---
 
-# 高性能推理服务
+# High-Performance Inference Serving
 
-:::tip 本节定位
-如果上一节讲的是：
+:::tip Section Overview
+If the previous section was about:
 
-- 模型能不能在本地跑
+- whether the model can run locally
 
-这一节讲的就是更现实的一层：
+then this section is about a more realistic layer:
 
-> **模型能不能在线上稳定扛住请求。**
+> **Can the model reliably handle requests in production?**
 
-这也是很多项目从 demo 走向生产时，第一次真正撞墙的地方。
+This is also the first real wall many projects hit when they move from demo to production.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解吞吐、延迟、批处理、队列这些推理服务关键词
-- 理解为什么“能跑”不等于“能服务”
-- 看懂一个最小批处理推理服务思路
-- 建立对推理服务优化问题的第一层直觉
+- Understand inference serving keywords such as throughput, latency, batching, and queues
+- Understand why “it can run” does not mean “it can serve”
+- Read a minimal batching-based inference service design
+- Build your first intuition for inference serving optimization problems
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-推理服务更适合按“请求怎么进来、怎么排队、怎么合批、怎么返回”来理解：
+Inference serving is easier to understand by thinking in terms of “how requests come in, how they queue, how they are batched, and how results are returned”:
 
 ```mermaid
 flowchart LR
-    A["请求进入"] --> B["排队"]
-    B --> C["合批"]
-    C --> D["模型执行"]
-    D --> E["返回结果"]
+    A["Request arrives"] --> B["Queue"]
+    B --> C["Batching"]
+    C --> D["Model execution"]
+    D --> E["Return results"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么单次跑通模型和服务化完全不是一回事
-- 为什么推理服务天然是排队、批次和资源平衡问题
-
----
-
-## 一、为什么本地推理和推理服务是两回事？
-
-### 1.1 本地推理关心的是“出不出结果”
-
-例如：
-
-- 一条 prompt 能不能答
-- 一张图能不能生成
-
-### 1.2 推理服务关心的是“同一时间能扛多少请求”
-
-一旦上线，你要面对的是：
-
-- 多个请求同时到来
-- 流量波峰
-- 资源限制
-- 超时
-
-所以推理服务的核心问题变成：
-
-> **怎样在资源有限的情况下平衡速度和吞吐。**
-
-### 1.3 一个更适合新人的总类比
-
-你可以把推理服务理解成：
-
-- 餐厅后厨出餐
-
-本地推理更像：
-
-- 自己在家做一份饭，能不能做出来
-
-推理服务更像：
-
-- 中午高峰一下来很多单
-- 厨房怎么排队、怎么拼单、怎么别让客人等太久
-
-这个类比很适合新人，因为它会帮助你先抓住：
-
-- 推理服务本质上是流量组织问题
+- Why successfully running a model once is completely different from serving it
+- Why inference serving is naturally a problem of queuing, batching, and resource balance
 
 ---
 
-## 二、先分清两个最重要的词
+## 1. Why Are Local Inference and Inference Serving Different?
+
+### 1.1 Local inference cares about “does it produce an output?”
+
+For example:
+
+- Can a prompt get an answer?
+- Can an image be generated?
+
+### 1.2 Inference serving cares about “how many requests can it handle at the same time?”
+
+Once you go online, you have to deal with:
+
+- multiple requests arriving at once
+- traffic spikes
+- resource limits
+- timeouts
+
+So the core question of inference serving becomes:
+
+> **How do you balance speed and throughput when resources are limited?**
+
+### 1.3 A Better Analogy for Beginners
+
+You can think of inference serving as:
+
+- a restaurant kitchen serving meals
+
+Local inference is more like:
+
+- cooking one meal at home and asking whether you can make it
+
+Inference serving is more like:
+
+- a lunch rush with lots of orders coming in at once
+- how the kitchen queues orders, combines them, and keeps customers from waiting too long
+
+This analogy is useful for beginners because it helps you first grasp:
+
+- inference serving is fundamentally a traffic-organization problem
+
+---
+
+## 2. First, Distinguish the Two Most Important Terms
 
 ### 2.1 Latency
 
-一次请求要等多久。
+How long one request has to wait.
 
 ### 2.2 Throughput
 
-单位时间能处理多少请求。
+How many requests can be handled per unit of time.
 
-这两个指标往往互相拉扯。
+These two metrics often trade off against each other.
 
-例如：
+For example:
 
-- batch 变大，吞吐可能更高
-- 但单请求等待时间可能也会更长
+- if the batch gets larger, throughput may increase
+- but the waiting time for a single request may also get longer
 
-所以推理服务不是“单项越高越好”，而是平衡问题。
+So inference serving is not about making one metric as high as possible, but about finding a balance.
 
 ---
 
-## 三、为什么批处理（batching）会特别重要？
+## 3. Why Is Batching So Important?
 
-### 3.1 一个直觉理解
+### 3.1 An Intuitive View
 
-如果 8 个请求几乎同时进来，你可以：
+If 8 requests arrive almost at the same time, you can:
 
-- 一个个单独跑
+- run them one by one separately
 
-也可以：
+or you can:
 
-- 合成一个 batch 一起跑
+- combine them into one batch and run them together
 
-后者通常能更高效利用硬件。
+The second approach is usually more efficient on hardware.
 
-### 3.2 一个最小示意
+### 3.2 A Minimal Example
 
 ```python
 requests = [12, 8, 15]
@@ -136,47 +136,47 @@ for r in requests:
     print("needs", num_batches, "batches")
 ```
 
-### 3.3 这段代码在教什么？
+### 3.3 What Is This Code Teaching?
 
-它在教你：
+It is teaching you:
 
-> 推理服务不是按“一个请求”思考，而更像按“队列和批次”思考。 
+> Inference serving is not about thinking in terms of “one request,” but more like thinking in terms of “queues and batches.”
 
-### 3.4 一个很适合初学者先记的判断表
+### 3.4 A Simple Decision Table for Beginners
 
-| 现象 | 更值得先看哪一层 |
+| Phenomenon | Which Layer Is More Worth Checking First? |
 |---|---|
-| 单请求很快，但整体扛不住 | 吞吐和批处理 |
-| 响应慢，但 GPU 不满 | 队列和 batch 组织 |
-| 请求很多时突然超时 | 队列长度和并发控制 |
-| 单次 benchmark 很好，线上还是差 | 服务层调度而不是模型本身 |
+| A single request is fast, but the system cannot handle the overall load | Throughput and batching |
+| Responses are slow, but the GPU is not fully utilized | Queueing and batch organization |
+| Requests suddenly time out when traffic increases | Queue length and concurrency control |
+| A single benchmark looks great, but production is still bad | Service-layer scheduling, not the model itself |
 
-这个表很适合新人，因为它会把“推理服务慢”重新拆成几个更具体的排查方向。
+This table is useful for beginners because it breaks “slow inference serving” into several more concrete directions for investigation.
 
-![推理服务队列与批处理图](/img/course/ch08-inference-serving-queue-batch-map.png)
+![Inference serving queue and batching diagram](/img/course/ch08-inference-serving-queue-batch-map-en.png)
 
-:::tip 读图提示
-请求不是直接冲进模型，而是先排队、再合批、再执行。batch 能提高吞吐，但也会增加等待，所以服务化调优永远是在 latency 和 throughput 之间取平衡。
+:::tip Reading Guide
+Requests do not go straight into the model. They first queue up, then get batched, and then are executed. Batching can improve throughput, but it also increases waiting time, so serving optimization is always about balancing latency and throughput.
 :::
 
 ---
 
-## 四、为什么队列是高性能服务的基础部件？
+## 4. Why Are Queues a Core Component of High-Performance Serving?
 
-### 4.1 因为请求不会整齐地来
+### 4.1 Because Requests Do Not Arrive in a Neat Order
 
-真实流量往往是：
+Real traffic often has:
 
-- 有波峰
-- 有波谷
-- 有突发
+- peaks
+- valleys
+- bursts
 
-如果没有队列，系统很容易：
+Without a queue, the system can easily:
 
-- 突然爆掉
-- 请求直接丢失
+- suddenly crash
+- drop requests directly
 
-### 4.2 一个最小队列示例
+### 4.2 A Minimal Queue Example
 
 ```python
 from collections import deque
@@ -191,37 +191,37 @@ while queue:
     print("run batch:", batch)
 ```
 
-这个例子很简单，但已经说明：
+This example is simple, but it already shows:
 
-- 请求先排队
-- 再按批次执行
+- requests are queued first
+- then they are executed in batches
 
-这就是很多推理服务最基本的行为模式。
-
----
-
-## 五、并发和批处理不是一回事
-
-这是很多初学者最容易混的地方。
-
-### 5.1 并发
-
-多个请求在系统里同时推进。
-
-### 5.2 批处理
-
-多个请求在模型层合成一个 batch 一起算。
-
-所以可以记成：
-
-- 并发是调度层问题
-- 批处理是模型执行层问题
-
-这两个常常一起出现，但并不等价。
+This is the most basic behavior pattern of many inference services.
 
 ---
 
-## 六、一个最小推理服务主循环
+## 5. Concurrency and Batching Are Not the Same Thing
+
+This is one of the easiest places for beginners to get confused.
+
+### 5.1 Concurrency
+
+Multiple requests move through the system at the same time.
+
+### 5.2 Batching
+
+Multiple requests are combined into one batch at the model layer and computed together.
+
+So you can remember it like this:
+
+- concurrency is a scheduling-layer problem
+- batching is a model-execution-layer problem
+
+These two often appear together, but they are not the same.
+
+---
+
+## 6. A Minimal Inference Service Main Loop
 
 ```python
 from collections import deque
@@ -243,122 +243,122 @@ while queue:
         print(item, "->", result)
 ```
 
-### 6.2 这段代码为什么重要？
+### 6.2 Why Is This Code Important?
 
-因为它已经包含了一个高性能推理服务最关键的骨架：
+Because it already includes the most important skeleton of a high-performance inference service:
 
-- 入队
-- 合批
-- 推理
-- 回传结果
+- enqueue
+- batch
+- infer
+- return results
 
-这条链才是“服务”的本体。
+This chain is the actual essence of “serving.”
 
-### 6.3 第一次做推理服务时，最稳的默认顺序
+### 6.3 The Safest Default Order When You Build an Inference Service for the First Time
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先让单请求稳定返回
-2. 再引入队列
-3. 再做合批
-4. 最后再调 batch 大小和资源利用率
+1. Make sure a single request can return reliably
+2. Then introduce a queue
+3. Then add batching
+4. Finally tune batch size and resource utilization
 
-这样会比一开始就追“最大吞吐”更容易把系统做稳。
-
----
-
-## 七、为什么高性能推理服务永远在做平衡？
-
-你通常会在这些维度之间取舍：
-
-- batch 大一点，吞吐更高
-- batch 小一点，响应更快
-- 常驻模型更快，但更占资源
-- 更多实例更稳，但更贵
-
-这意味着：
-
-> **推理服务的优化不是绝对值优化，而是业务约束下的平衡优化。**
+This is usually much easier than chasing “maximum throughput” from the start.
 
 ---
 
-## 八、真实服务里最值得盯的指标
+## 7. Why Is High-Performance Inference Serving Always About Balance?
 
-至少通常要看：
+You usually have to trade off among these dimensions:
 
-- 平均延迟
-- P95 / P99 延迟
-- 队列长度
-- batch 利用率
-- 错误率
-- GPU / CPU 利用率
+- larger batch size means higher throughput
+- smaller batch size means faster response
+- keeping the model resident is faster, but uses more resources
+- more instances are more stable, but cost more
 
-这些指标会告诉你：
+This means:
 
-- 当前瓶颈是在请求侧
-- 还是在 batch 组织侧
-- 还是在模型执行侧
+> **Inference serving optimization is not absolute optimization, but balanced optimization under business constraints.**
 
-### 8.1 一个很适合初学者先记的监控表
+---
 
-| 指标 | 最值得先回答什么问题 |
+## 8. The Metrics Worth Watching in Real Services
+
+At a minimum, you usually want to monitor:
+
+- average latency
+- P95 / P99 latency
+- queue length
+- batch utilization
+- error rate
+- GPU / CPU utilization
+
+These metrics tell you:
+
+- whether the bottleneck is on the request side
+- or on batching
+- or on model execution
+
+### 8.1 A Simple Monitoring Table for Beginners
+
+| Metric | What Question Should You Ask First? |
 |---|---|
-| 平均 / P95 延迟 | 用户到底等了多久 |
-| 队列长度 | 请求是不是在堆积 |
-| batch 利用率 | 有没有真正把硬件吃满 |
-| GPU / CPU 利用率 | 瓶颈在模型执行还是别处 |
+| Average / P95 latency | How long did users actually wait? |
+| Queue length | Are requests piling up? |
+| Batch utilization | Are we really making full use of the hardware? |
+| GPU / CPU utilization | Is the bottleneck in model execution or somewhere else? |
 
-这个表很适合新人，因为它会把“监控很多指标”重新变成几个更直观的问题。
-
----
-
-## 九、最常见的误区
-
-### 9.1 只看单次推理 benchmark
-
-线上服务真正重要的是整体流量下的表现。
-
-### 9.2 一上来把 batch 调很大
-
-吞吐也许变高了，但延迟可能被拖垮。
-
-### 9.3 只会跑模型，不会看队列和资源利用
-
-这会让你很难真正理解系统瓶颈在哪里。
+This table is useful for beginners because it turns “monitor many metrics” into a few more intuitive questions.
 
 ---
 
-## 小结
+## 9. The Most Common Mistakes
 
-这一节最重要的不是记住某个推理服务名词，而是理解：
+### 9.1 Only Looking at a Single Inference Benchmark
 
-> **高性能推理服务的核心，是把模型调用从“单次执行”变成“能在真实流量里平衡吞吐、延迟和资源使用的系统”。**
+What really matters in production is performance under overall traffic.
 
-这也是它和“本地跑通模型”本质上完全不同的地方。
+### 9.2 Setting the Batch Size Very Large Right Away
 
-## 如果把它做成项目或系统设计，最值得展示什么
+Throughput may go up, but latency may get dragged down.
 
-最值得展示的通常不是：
+### 9.3 Being Able to Run the Model, But Not Knowing How to Inspect Queues and Resource Utilization
 
-- “模型能并发跑”
-
-而是：
-
-1. 请求怎么排队和合批
-2. 你是怎样平衡吞吐和延迟的
-3. 线上最关键的监控指标是什么
-4. 什么时候瓶颈在队列，什么时候瓶颈在模型执行
-
-这样别人会更容易看出：
-
-- 你理解的是服务化推理
-- 不只是会调用模型
+This makes it very hard to truly understand where the system bottleneck is.
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么 batching 和 concurrency 不是一回事？
-2. 想一想：如果你的产品要求很低延迟，你会倾向大 batch 还是小 batch？
-3. 设计一份最小推理服务监控指标清单。
-4. 为什么说推理服务真正难的是“平衡”，而不是单项做到极致？
+The most important thing in this section is not memorizing a specific inference-serving term, but understanding:
+
+> **The core of high-performance inference serving is turning model calls from “single executions” into a system that can balance throughput, latency, and resource usage under real traffic.**
+
+That is also the fundamental difference from simply “getting the model to run locally.”
+
+## If You Turn This Into a Project or System Design, What Is Most Worth Showing?
+
+What is most worth showing is usually not:
+
+- “the model can run concurrently”
+
+but rather:
+
+1. How requests are queued and batched
+2. How you balance throughput and latency
+3. What the most important production monitoring metrics are
+4. When the bottleneck is the queue, and when it is model execution
+
+That way, other people can more easily see that:
+
+- you understand serving-based inference
+- you are not just able to call a model
+
+---
+
+## Exercises
+
+1. Explain in your own words: why are batching and concurrency not the same thing?
+2. Think about this: if your product requires very low latency, would you prefer a large batch or a small batch?
+3. Design a minimal monitoring checklist for an inference service.
+4. Why do we say the real challenge of inference serving is “balance,” not pushing one metric to the extreme?

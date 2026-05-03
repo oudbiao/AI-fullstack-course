@@ -1,92 +1,92 @@
 ---
-title: "7.5 多 Agent 实战模式"
+title: "7.5 Multi-Agent Practical Patterns"
 sidebar_position: 41
-description: "从研究型、写作型、开发型到审核型协作，理解多 Agent 在真实任务中的几种常见组合方式。"
+description: "From research-oriented, writing-oriented, and development-oriented collaboration to review-oriented collaboration, understand several common ways Multi-Agent systems are combined in real tasks."
 keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent collaboration]
 ---
 
-# 多 Agent 实战模式
+# Multi-Agent Practical Patterns
 
-:::tip 本节定位
-前面我们已经讲了：
+:::tip Section Overview
+We have already covered:
 
-- 多 Agent 架构模式
-- Agent 间通信
-- 任务分配与协调
+- Multi-Agent architecture patterns
+- Communication between Agents
+- Task assignment and coordination
 
-这一节要把这些东西落到更像“真实项目”的场景上：
+In this section, we will apply these ideas to scenarios that feel more like “real projects”:
 
-> **多 Agent 在实际任务里，最常怎么组合？**
+> **In practical tasks, how are multiple Agents usually combined?**
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解几种高频多 Agent 实战模式
-- 学会根据任务目标选择更合适的协作方式
-- 看懂一个小型多 Agent 工作流示例
-- 理解“模式”为什么比“多开几个 Agent”更重要
-
----
-
-## 一、为什么要讲“实战模式”？
-
-### 1.1 因为真实系统通常不是纯理论架构
-
-很多项目不会说：
-
-- “我要一个 peer-to-peer 多 Agent 系统”
-
-它更常说：
-
-- “我要一个研究助理团队”
-- “我要一个写作 + 审核工作流”
-- “我要一个代码开发小组”
-
-也就是说，真实项目更像“任务组织形态”，而不只是抽象架构名。
-
-### 1.2 所以学实战模式的意义是什么？
-
-它能帮你从：
-
-- 抽象结构理解
-
-走向：
-
-- 具体产品落地
+- Understand several high-frequency Multi-Agent practical patterns
+- Learn how to choose a more suitable collaboration style based on task goals
+- Read a small Multi-Agent workflow example
+- Understand why “patterns” matter more than simply “adding more Agents”
 
 ---
 
-## 二、模式一：研究型协作
+## 1. Why talk about “practical patterns”?
 
-### 2.1 典型分工
+### 1.1 Because real systems are usually not pure theoretical architectures
 
-- Planner：拆问题
-- Researcher：检索资料
-- Synthesizer：整合结果
+Many projects do not say:
 
-### 2.2 适合什么任务？
+- “I want a peer-to-peer Multi-Agent system”
 
-- 做背景调研
-- 收集材料
-- 输出结构化报告
+They are more likely to say:
 
-### 2.3 一个最小示例
+- “I want a research assistant team”
+- “I want a writing + review workflow”
+- “I want a software development team”
+
+In other words, real projects are more like “task organization forms” than abstract architecture names.
+
+### 1.2 So what is the point of learning practical patterns?
+
+It helps you move from:
+
+- understanding abstract structures
+
+to:
+
+- implementing concrete products
+
+---
+
+## 2. Pattern 1: Research Collaboration
+
+### 2.1 Typical division of work
+
+- Planner: breaks down the problem
+- Researcher: retrieves information
+- Synthesizer: integrates the results
+
+### 2.2 What tasks is it good for?
+
+- Background research
+- Collecting materials
+- Producing structured reports
+
+### 2.3 A minimal example
 
 ```python
 def planner(query):
-    return ["收集退款政策", "整理时间条件", "形成结论"]
+    return ["collect refund policy", "organize time conditions", "form a conclusion"]
 
 def researcher(task):
     docs = {
-        "收集退款政策": "课程购买后 7 天内且学习进度低于 20% 可退款。",
-        "整理时间条件": "关键条件包括时间范围和学习进度。"
+        "collect refund policy": "After course purchase, you can get a refund within 7 days if learning progress is below 20%.",
+        "organize time conditions": "Key conditions include the time window and learning progress."
     }
-    return docs.get(task, "未找到资料")
+    return docs.get(task, "No information found")
 
 def synthesizer(items):
-    return "结论：" + " ".join(items)
+    return "Conclusion: " + " ".join(items)
 
-plan = planner("退款政策是什么")
+plan = planner("What is the refund policy?")
 materials = [researcher(task) for task in plan[:-1]]
 answer = synthesizer(materials)
 
@@ -95,51 +95,51 @@ print(materials)
 print(answer)
 ```
 
-这个模式的关键是：
+The key idea of this pattern is:
 
-> 先发散搜集，再统一收敛。 
+> First expand to collect information, then converge to summarize it.
 
 ---
 
-## 三、模式二：写作 + 审核
+## 3. Pattern 2: Writing + Review
 
-### 3.1 最经典也最实用的模式之一
+### 3.1 One of the most classic and practical patterns
 
-分工通常是：
+The usual division of work is:
 
-- Writer：先写初稿
-- Reviewer：检查问题
-- Reviser：按意见修订
+- Writer: writes the first draft
+- Reviewer: checks for issues
+- Reviser: revises based on feedback
 
-### 3.2 为什么这个模式特别常见？
+### 3.2 Why is this pattern so common?
 
-因为很多任务天然就适合：
+Because many tasks are naturally suited to:
 
-- 生成
-- 检查
-- 再修正
+- generation
+- checking
+- correction
 
-例如：
+For example:
 
-- 报告撰写
-- 答案生成
-- 代码文档
+- report writing
+- answer generation
+- code documentation
 
-### 3.3 一个最小示例
+### 3.3 A minimal example
 
 ```python
 def writer(topic):
-    return f"初稿：{topic} 的核心是 7 天内可退款。"
+    return f"Draft: The key point of {topic} is that refunds are available within 7 days."
 
 def reviewer(draft):
-    if "7 天内" in draft:
-        return "建议补充学习进度条件。"
-    return "时间条件缺失。"
+    if "within 7 days" in draft:
+        return "Suggest adding the learning progress condition."
+    return "Missing the time condition."
 
 def reviser(draft, review):
     return draft + " " + review
 
-draft = writer("退款政策")
+draft = writer("refund policy")
 review = reviewer(draft)
 final = reviser(draft, review)
 
@@ -148,88 +148,88 @@ print(review)
 print(final)
 ```
 
-这个模式最大的好处是：
+The biggest advantage of this pattern is:
 
-> 它把“生成能力”和“纠错能力”分开了。 
+> It separates “generation ability” from “error-correction ability”.
 
 ---
 
-## 四、模式三：开发团队模式
+## 4. Pattern 3: Development Team Mode
 
-### 4.1 一个很常见的 AI 开发团队抽象
+### 4.1 A common abstraction for an AI development team
 
-例如：
+For example:
 
-- PM / Planner：定义需求
-- Coder：写实现
-- Reviewer：做代码检查
-- Tester：验证结果
+- PM / Planner: defines requirements
+- Coder: writes the implementation
+- Reviewer: checks the code
+- Tester: verifies whether the result meets expectations
 
-### 4.2 为什么这个模式在 AI coding 场景里很常见？
+### 4.2 Why is this pattern so common in AI coding scenarios?
 
-因为软件开发天然就已经有这种角色分工。  
-多 Agent 只是把它程序化、自动化了。
+Because software development already has this kind of role division.
+Multi-Agent simply makes it programmatic and automated.
 
-### 4.3 一个最小示例
+### 4.3 A minimal example
 
 ```python
 workflow = [
-    {"agent": "planner", "task": "定义要实现的功能"},
-    {"agent": "coder", "task": "写出实现代码"},
-    {"agent": "reviewer", "task": "检查逻辑问题"},
-    {"agent": "tester", "task": "验证输出是否符合预期"}
+    {"agent": "planner", "task": "define the feature to implement"},
+    {"agent": "coder", "task": "write the implementation code"},
+    {"agent": "reviewer", "task": "check for logic issues"},
+    {"agent": "tester", "task": "verify whether the output meets expectations"}
 ]
 
 for step in workflow:
     print(step["agent"], "->", step["task"])
 ```
 
-这个模式的关键不是“角色好听”，而是：
+The key point of this pattern is not that the roles sound impressive, but that:
 
-> 每一层都能捕捉不同类型的问题。 
-
----
-
-## 五、模式四：双重核验 / 高风险审核模式
-
-### 5.1 什么时候需要？
-
-如果任务风险较高，比如：
-
-- 法律建议
-- 医疗辅助
-- 金融判断
-
-那么很多时候不能只让一个 Agent 单独产出结论。
-
-### 5.2 常见做法
-
-- 一个 Agent 生成答案
-- 另一个 Agent 做事实核查
-- 还有一个 Agent 检查风险与合规
-
-这类模式虽然更慢，但更稳。
+> each layer can catch different types of problems.
 
 ---
 
-## 六、一个小型多 Agent 工作流示例
+## 5. Pattern 4: Double Verification / High-Risk Review
+
+### 5.1 When is it needed?
+
+If the task is high risk, such as:
+
+- legal advice
+- medical assistance
+- financial decision-making
+
+then in many cases, you should not let just one Agent produce the conclusion by itself.
+
+### 5.2 Common approach
+
+- One Agent generates the answer
+- Another Agent performs fact-checking
+- A third Agent checks risk and compliance
+
+This kind of pattern is slower, but more stable.
+
+---
+
+## 6. A Small Multi-Agent Workflow Example
 
 ```python
 def planner(query):
     return ["retrieve", "write", "review"]
 
 def retriever(query):
-    return "检索结果：退款需满足时间与进度条件。"
+    return "Retrieval result: refunds require both time and progress conditions."
 
 def writer(material):
-    return f"回答草稿：{material}"
+    return f"Answer draft: {material}"
 
 def reviewer(draft):
-    if "进度条件" in draft:
-        return {"approved": True, "comment": "信息较完整"}
-    return {"approved": False, "comment": "遗漏关键条件"}
+    if "progress conditions" in draft:
+        return {"approved": True, "comment": "The information is fairly complete"}
+    return {"approved": False, "comment": "Missing a key condition"}
 
-query = "退款政策是什么？"
+query = "What is the refund policy?"
 steps = planner(query)
 material = retriever(query)
 draft = writer(material)
@@ -240,80 +240,80 @@ print("draft  :", draft)
 print("review :", review)
 ```
 
-这段代码虽然很小，但已经体现了实战模式最核心的味道：
+Although this code is small, it already shows the core feel of practical patterns:
 
-- 先规划
-- 再执行
-- 再评审
-
----
-
-## 七、怎样选合适的实战模式？
-
-### 7.1 如果任务重点在搜资料
-
-优先考虑：
-
-- 研究型协作
-
-### 7.2 如果任务重点在内容质量
-
-优先考虑：
-
-- 写作 + 审核
-
-### 7.3 如果任务重点在工程落地
-
-优先考虑：
-
-- 开发团队模式
-
-### 7.4 如果任务风险高
-
-优先考虑：
-
-- 双重核验 / 高风险审核模式
-
-所以真正重要的问题不是：
-
-> “哪个模式最酷？”
-
-而是：
-
-> “哪个模式最符合当前任务的失败风险和目标结构？” 
+- plan first
+- execute next
+- review afterward
 
 ---
 
-## 八、初学者最常踩的坑
+## 7. How do you choose the right practical pattern?
 
-### 8.1 把模式和角色数量绑定死
+### 7.1 If the task mainly involves finding information
 
-不是“3 个 Agent 就一定是某模式”。  
-关键是职责关系，不是数量。
+Prefer:
 
-### 8.2 为了看起来复杂而堆模式
+- research collaboration
 
-很多任务用单 Agent 或两 Agent 已经足够。
+### 7.2 If the task mainly involves content quality
 
-### 8.3 没有明确评价标准
+Prefer:
 
-如果你不知道“这个模式为什么比另一个模式更好”，那系统迭代会很难推进。
+- writing + review
+
+### 7.3 If the task mainly involves engineering delivery
+
+Prefer:
+
+- development team mode
+
+### 7.4 If the task is high risk
+
+Prefer:
+
+- double verification / high-risk review
+
+So the real question is not:
+
+> “Which pattern is the coolest?”
+
+but:
+
+> “Which pattern best fits the current task’s failure risk and goal structure?”
 
 ---
 
-## 小结
+## 8. Common Beginner Pitfalls
 
-这一节最重要的不是背“研究型”“开发型”这些标签，而是理解：
+### 8.1 Tying patterns to a fixed number of roles
 
-> **多 Agent 实战模式的价值，在于把抽象协作结构映射到真实任务目标。**
+It is not “3 Agents must mean one specific pattern.”
+The key is the responsibility relationship, not the number.
 
-当你能把任务形状和协作模式对应起来，多 Agent 才会真正从概念走向产品。
+### 8.2 Adding patterns just to look complex
+
+For many tasks, a single Agent or two Agents is already enough.
+
+### 8.3 Not having clear evaluation criteria
+
+If you do not know why one pattern is better than another, system iteration will be hard to move forward.
 
 ---
 
-## 练习
+## Summary
 
-1. 选一个你熟悉的任务，判断它更像研究型、写作审核型还是开发团队型。
-2. 给本节的小型工作流再加一个 `reviser` Agent，让它根据 review 修改 draft。
-3. 想一想：高风险任务为什么更需要“生成 + 核查 + 风险审查”的组合？
-4. 用自己的话解释：为什么说多 Agent 的重点不是角色数量，而是协作结构？
+The most important point in this section is not memorizing labels like “research-oriented” or “development-oriented,” but understanding:
+
+> **The value of Multi-Agent practical patterns is in mapping abstract collaboration structures to real task goals.**
+
+When you can match task shape with collaboration pattern, Multi-Agent will truly move from concept to product.
+
+---
+
+## Exercises
+
+1. Choose a task you are familiar with and judge whether it is more like research collaboration, writing + review, or a development team.
+2. Add a `reviser` Agent to the small workflow in this section so that it modifies the draft based on the review.
+3. Think about this: why do high-risk tasks need a combination of “generation + verification + risk review”?
+4. Explain in your own words: why is the focus of Multi-Agent not the number of roles, but the collaboration structure?

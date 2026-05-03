@@ -1,100 +1,100 @@
 ---
-title: "9.2 项目：智能安防系统"
+title: "9.2 Project: Intelligent Security System"
 sidebar_position: 18
-description: "围绕一个可展示的安防检测系统，从目标定义、规则、告警去重、评估到展示方式，建立作品级视觉项目闭环。"
+description: "Build a portfolio-level vision project loop around a demo-ready security detection system, covering goal definition, rules, alert deduplication, evaluation, and presentation."
 keywords: [security detection, surveillance, alerting, tracking, false alarm, vision project]
 ---
 
-# 项目：智能安防系统
+# Project: Intelligent Security System
 
-:::tip 本节定位
-安防项目很容易做成“检测到人就画框”的 demo。  
-但真正能交付的安防系统，关注的通常不是框本身，而是：
+:::tip Section focus
+Security projects are very easy to turn into a demo that just “draws a box when a person is detected.”
+But a real deployable security system usually cares less about the box itself and more about:
 
-- 告警准不准
-- 会不会重复报警
-- 时延够不够低
-- 误报会不会把人烦死
+- Whether alerts are accurate
+- Whether repeated alarms happen
+- Whether latency is low enough
+- Whether false alarms will annoy people to death
 
-所以这节课的重点是把它做成一个**作品级系统项目**，而不是单次检测展示。
+So the focus of this lesson is to turn it into a **portfolio-level system project**, not just a one-off detection demo.
 :::
 
-## 学习目标
+## Learning objectives
 
-- 学会定义一个可交付的安防检测任务边界
-- 学会把检测、规则、告警和去重串成一条闭环
-- 学会设计最基础的评估与失败分析
-- 学会把这个项目做成有说服力的作品集展示
-
----
-
-## 一、先把项目题目定义清楚
-
-一个适合练手、又很像真实业务的题目可以是：
-
-> **做一个“禁区入侵告警系统”，输入监控帧序列，输出“是否触发告警 + 告警发生在哪一帧”。**
-
-这个题目好在：
-
-- 目标简单
-- 业务意义清楚
-- 很容易解释误报和漏报
-
-### 为什么不建议一开始就做很大？
-
-例如：
-
-- 同时做烟火检测、摔倒检测、安全帽检测、车辆识别
-
-这种范围太大，项目容易只剩功能堆叠，没有一个清楚主线。
+- Learn how to define the boundary of a deployable security detection task
+- Learn how to connect detection, rules, alerts, and deduplication into a closed loop
+- Learn how to design the most basic evaluation and failure analysis
+- Learn how to turn this project into a convincing portfolio presentation
 
 ---
 
-## 二、作品级安防项目最小闭环长什么样？
+## 1. First, define the project topic clearly
 
-1. 定义监控目标和禁区
-2. 做检测
-3. 把检测框映射成告警逻辑
-4. 做去重 / 跟踪
-5. 评估告警质量
-6. 展示成功与失败案例
+A good practice topic that also feels very close to real business use cases is:
 
-如果只做前两步，那更像模型 demo；  
-做到后面几步，才更像一个系统项目。
+> **Build a “restricted-area intrusion alert system” that takes a sequence of surveillance frames and outputs “whether an alert is triggered + which frame the alert occurs in.”**
 
-### 2.1 一张更像真实系统的告警闭环图
+This topic is good because:
+
+- The goal is simple
+- The business meaning is clear
+- It is easy to explain false positives and false negatives
+
+### Why not start with something too big?
+
+For example:
+
+- Detecting smoke/fire, falling down, safety helmets, and vehicles all at once
+
+That scope is too large, and the project can easily become a pile of features without a clear main line.
+
+---
+
+## 2. What does the minimum closed loop of a portfolio-level security project look like?
+
+1. Define the surveillance target and restricted area
+2. Run detection
+3. Map detection boxes to alert logic
+4. Do deduplication / tracking
+5. Evaluate alert quality
+6. Show success and failure cases
+
+If you only do the first two steps, it looks more like a model demo;
+once you get to the later steps, it starts to look like a real system project.
+
+### 2.1 A flowchart that looks more like a real system
 
 ```mermaid
 flowchart LR
-    A["视频流"] --> B["目标检测"]
-    B --> C["规则判断"]
-    C --> D["告警触发"]
-    D --> E["去重 / 跟踪"]
-    E --> F["人工确认或日志留存"]
-    F --> G["失败样本复盘"]
+    A["Video stream"] --> B["Object detection"]
+    B --> C["Rule checking"]
+    C --> D["Alert trigger"]
+    D --> E["Deduplication / tracking"]
+    E --> F["Manual review or log retention"]
+    F --> G["Failure sample review"]
     G --> A
 ```
 
-这张图很重要，因为它提醒你：
+This diagram is important because it reminds you:
 
-- 安防系统真正交付的是告警体验
-- 不是单张图上的框
+- What a security system really delivers is the alert experience
+- Not the box on a single image
 
-![安防检测、规则、跟踪与告警去重图](/img/course/ch10-security-detection-alert-dedup-map.png)
+![Security detection, rule checking, tracking, and alert deduplication diagram](/img/course/ch10-security-detection-alert-dedup-map-en.png)
 
-:::tip 读图提示
-安防项目的输出不是“画框”，而是可信告警。读图时重点看检测结果如何进入规则判断，track_id 如何避免重复报警，最后再进入人工确认、日志和失败复盘。
+:::tip Reading guide
+The output of a security project is not “drawing boxes,” but reliable alerts. When reading the diagram, focus on how detection results enter rule checking, how `track_id` avoids repeated alarms, and how the results finally flow into manual review, logs, and failure review.
 :::
 
 ---
 
-## 三、先跑一个“检测 -> 告警 -> 去重”的最小闭环
+## 3. Start with a minimal “detection -> alert -> deduplication” closed loop
 
-下面这个示例会做三件非常关键的事：
+The example below does three very important things:
 
-1. 读取逐帧检测结果
-2. 判断是否进入危险区域
-3. 对同一目标的连续多帧命中做告警去重
+1. Reads frame-by-frame detection results
+2. Checks whether the object enters the dangerous area
+3. Deduplicates alerts for continuous hits of the same target across multiple frames
 
 ```python
 detections = [
@@ -138,37 +138,37 @@ alerts = build_alerts(detections, danger_zone)
 print(alerts)
 ```
 
-### 3.1 这个例子为什么比“检测到人就报警”强得多？
+### 3.1 Why is this example much stronger than “alert when a person is detected”?
 
-因为它已经体现了安防系统里最重要的一层工程判断：
+Because it already reflects one of the most important engineering judgments in security systems:
 
-- 同一个人连续 3 帧都在禁区
-- 不能报警 3 次
+- If the same person is inside the restricted area for 3 consecutive frames
+- You should not alert 3 times
 
-### 3.2 为什么 `track_id` 很重要？
+### 3.2 Why is `track_id` so important?
 
-没有跟踪信息，你很难判断：
+Without tracking information, it is hard to tell:
 
-- 这是同一个人
-- 还是三个不同的人
+- Whether this is the same person
+- Or three different people
 
-所以安防项目从“检测”走向“系统”，  
-往往就卡在这一层。
+So in security projects, the jump from “detection” to “system”
+often gets stuck at this layer.
 
 ---
 
-## 四、一个作品级项目最该怎么评估？
+## 4. How should a portfolio-level project be evaluated?
 
-### 4.1 不是只看检测精度
+### 4.1 Don’t look only at detection accuracy
 
-安防项目更应该至少拆成两层评估：
+Security projects should be evaluated in at least two layers:
 
-1. 检测层  
-   目标有没有找到
-2. 告警层  
-   告警触发是否合理
+1. Detection layer
+   Did we find the object?
+2. Alert layer
+   Was the alert triggered reasonably?
 
-### 4.2 最小告警评估示例
+### 4.2 A minimal alert evaluation example
 
 ```python
 pred_alerts = [
@@ -191,16 +191,16 @@ def alert_recall(pred_alerts, gold_alerts):
 print("alert_recall:", round(alert_recall(pred_alerts, gold_alerts), 4))
 ```
 
-### 4.3 为什么“告警层指标”比 mAP 更像项目价值？
+### 4.3 Why are “alert-layer metrics” more like project value than mAP?
 
-因为实际交付给用户的不是框，而是：
+Because what users actually receive is not boxes, but:
 
-- 告警
+- Alerts
 
-如果检测很准但告警策略很糟，  
-项目实际体验仍然会很差。
+If detection is very accurate but the alert strategy is terrible,
+the real user experience will still be poor.
 
-### 4.4 再看一个最小“告警疲劳”示例
+### 4.4 Another minimal example: “alert fatigue”
 
 ```python
 alerts_per_hour = [1, 2, 18, 3, 21]
@@ -208,135 +208,133 @@ alerts_per_hour = [1, 2, 18, 3, 21]
 
 def alert_fatigue(hours):
     too_many = sum(1 for x in hours if x >= 10)
-    return "告警过密，用户很可能开始忽略系统" if too_many >= 2 else "告警密度初步可接受"
+    return "Alerts are too frequent; users will probably start ignoring the system" if too_many >= 2 else "Alert density is initially acceptable"
 
 
 print(alert_fatigue(alerts_per_hour))
 ```
 
-这个例子想强调的不是精确公式，而是一个很真实的系统问题：
+What this example wants to emphasize is not an exact formula, but a very real system problem:
 
-- 告警不是越多越好
-- 误报太多会让用户逐渐不相信系统
-
----
-
-## 五、安防项目最值得展示的失败案例
-
-### 5.1 误报
-
-例如：
-
-- 背景人像海报被识别成真人
-
-### 5.2 漏报
-
-例如：
-
-- 光线很暗时漏掉入侵者
-
-### 5.3 重复报警
-
-例如：
-
-- 同一个目标每帧都触发一次
-
-### 5.4 为什么这些要单独展示？
-
-因为这类失败恰好最能体现：
-
-- 系统设计是否成熟
+- More alerts are not always better
+- Too many false alarms will gradually make users stop trusting the system
 
 ---
 
-## 六、怎么把这个项目做成作品级展示？
+## 5. The failure cases most worth showing in a security project
 
-建议页面至少展示：
+### 5.1 False positives
 
-1. 任务定义
-2. 危险区域示意图
-3. 检测结果和告警结果的对比
-4. 一条连续视频片段中的告警轨迹
-5. 误报 / 漏报 / 重复报警分析
+For example:
 
-这样它就不再像“检测 demo”，而更像完整安防系统。
+- A person poster in the background is detected as a real person
 
-### 6.1 第一次做这类项目时，最稳的默认顺序
+### 5.2 Missed detections
 
-更稳的顺序通常是：
+For example:
 
-1. 先把目标收窄成一种告警
-2. 先做单摄像头、单场景 baseline
-3. 先把禁区和规则画清楚
-4. 再补去重和简单跟踪
-5. 最后再做告警质量分析
+- An intruder is missed under low-light conditions
 
-这样会比一开始就做：
+### 5.3 Repeated alerts
 
-- 多摄像头
-- 多告警类型
-- 多规则联动
+For example:
 
-更容易把项目做完整。
+- The same target triggers an alert in every frame
 
-### 6.2 如果把它做成作品集，最值得强调什么
+### 5.4 Why show these separately?
 
-最值得强调的通常不是：
+Because these failures are exactly what best reveals:
 
-- 模型有多花哨
-
-而是：
-
-1. 你的告警规则为什么这样设计
-2. 你怎么处理重复报警
-3. 误报和漏报主要来自哪里
-4. 你的系统边界是什么
-
-这会让项目更像真实业务系统，而不是一个视觉 demo。
+- Whether the system design is mature
 
 ---
 
-## 七、最常见误区
+## 6. How do you turn this project into a portfolio-level presentation?
 
-### 7.1 只看模型精度，不看告警体验
+Your page should ideally show:
 
-### 7.2 没有去重逻辑
+1. Task definition
+2. A diagram of the dangerous area
+3. A comparison between detection results and alert results
+4. The alert track in a continuous video segment
+5. Analysis of false positives / false negatives / repeated alerts
 
-### 7.3 只展示成功视频
+Then it will no longer feel like a “detection demo,” but more like a complete security system.
+
+### 6.1 The safest default sequence when building this kind of project for the first time
+
+A more stable order is usually:
+
+1. Narrow the goal down to one type of alert
+2. Start with a single-camera, single-scenario baseline
+3. Draw the restricted area and rules clearly
+4. Add deduplication and simple tracking
+5. Finally, analyze alert quality
+
+This is much easier than starting with:
+
+- Multiple cameras
+- Multiple alert types
+- Multiple linked rules
+
+### 6.2 If you turn it into a portfolio piece, what should you emphasize most?
+
+What is usually most worth emphasizing is not:
+
+- How fancy the model is
+
+But rather:
+
+1. Why you designed the alert rules that way
+2. How you handled repeated alerts
+3. Where false positives and false negatives mainly came from
+4. What the boundary of your system is
+
+This makes the project feel like a real business system, not just a vision demo.
 
 ---
 
-## 小结
+## 7. Most common mistakes
 
-这节最重要的是建立一个作品级判断：
+### 7.1 Only looking at model accuracy, not alert experience
 
-> **安防系统的价值，不在于它能画出多少框，而在于它能否把检测结果稳定、低误报地转成可信告警。**
+### 7.2 No deduplication logic
 
-只要这一层做扎实，这个项目就会非常像真实业务系统。
+### 7.3 Only showing successful videos
 
-## 这节最该带走什么
+---
 
-- 安防项目真正交付的是告警，而不是检测框
-- 去重、跟踪和规则判断，往往和模型本身一样重要
-- 一个像样的作品级安防项目，必须展示误报、漏报和告警体验
+## Summary
+
+The most important thing in this lesson is to build a portfolio-level judgment:
+
+> **The value of a security system is not how many boxes it can draw, but whether it can reliably convert detection results into trustworthy alerts with low false positives.**
+
+Once this layer is solid, the project will feel very close to a real business system.
+
+## What you should take away from this lesson
+
+- What a security project truly delivers is alerts, not detection boxes
+- Deduplication, tracking, and rule checking are often just as important as the model itself
+- A credible portfolio-level security project must show false positives, false negatives, and alert experience
 
 ---
 
 
 
-## 版本路线建议
+## Suggested version roadmap
 
-| 版本 | 目标 | 交付重点 |
+| Version | Goal | Delivery focus |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| Basic | Get the minimal loop working | Can input, process, output, and keep one set of examples |
+| Standard | Become a presentable project | Add configuration, logging, error handling, README, and screenshots |
+| Challenge | Close to portfolio quality | Add evaluation, comparison experiments, failure sample analysis, and next-step roadmap |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+It is recommended to finish the Basic version first; don’t chase an all-in-one solution from the start. Each time you move up a version, write in the README what new capability was added, how it was verified, and what problems still remain.
 
-## 练习
+## Exercises
 
-1. 给示例再加一个 `helmet` 类别，并设计“未戴安全帽”告警。
-2. 想一想：为什么安防项目比普通检测项目更需要跟踪和去重？
-3. 如果误报很多，你会先查数据、模型还是告警逻辑？为什么？
-4. 如果把这个项目做成作品集，你最想突出哪一条完整视频 trace？
+1. Add a `helmet` category to the example and design an “no helmet” alert.
+2. Think about it: Why do security projects need tracking and deduplication more than ordinary detection projects?
+3. If there are many false positives, would you check the data, the model, or the alert logic first? Why?
+4. If you turn this project into a portfolio piece, which complete video trace would you most want to highlight?

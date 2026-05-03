@@ -1,211 +1,211 @@
 ---
-title: "1.2 NLP 概述"
+title: "1.2 NLP Overview"
 sidebar_position: 1
-description: "从任务、流程、难点和最小示例出发，建立自然语言处理的整体地图，并理解它为什么会成为后面大模型与 Agent 的基础。"
-keywords: [NLP, 自然语言处理, 文本分类, 信息抽取, 机器翻译, 语言模型]
+description: "Build an overall map of natural language processing from tasks, workflows, challenges, and a minimal example, and understand why it becomes the foundation for later LLMs and Agents."
+keywords: [NLP, natural language processing, text classification, information extraction, machine translation, language model]
 ---
 
-# NLP 概述
+# NLP Overview
 
-![NLP 任务全景图](/img/course/ch11-nlp-task-landscape-map.png)
+![NLP task landscape map](/img/course/ch11-nlp-task-landscape-map-en.png)
 
-:::tip 读图提示
-先把 NLP 看成“文本 -> 可计算结构或结果”的总流程：同一段文本可以走分类、抽取、生成、检索问答等不同任务，后面所有模型都在服务这些任务边界。
+:::tip Reading guide
+First think of NLP as the overall process of “text -> computable structure or result”: the same piece of text can go through different tasks such as classification, extraction, generation, and retrieval-based QA, and all later models serve these task boundaries.
 :::
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 说清楚 NLP 在解决什么问题
-- 了解 NLP 里最常见的几类任务
-- 理解一条最基础的 NLP 流程
-- 明白为什么文本处理往往比表格和图像更“拧巴”
-- 通过最小示例建立“文本 -> 结构化结果”的直觉
-
----
-
-## 一、NLP 到底在做什么？
-
-NLP 是 Natural Language Processing，自然语言处理。
-
-说得更直白一点：
-
-> **NLP 就是让计算机处理人类语言。**
-
-这里的“语言”包括很多形式：
-
-- 聊天消息
-- 评论
-- 新闻
-- 合同
-- 工单
-- 邮件
-- 搜索词
-- 会议纪要
-
-它最终想解决的，不只是“识别文字”，而是更进一步：
-
-- 理解意思
-- 提取信息
-- 生成回答
-- 完成任务
+- Explain what problems NLP solves
+- Understand the most common kinds of tasks in NLP
+- Understand a basic NLP workflow
+- Know why text processing is often more “awkward” than tables and images
+- Build intuition for “text -> structured result” through a minimal example
 
 ---
 
-## 二、NLP 里最常见的任务有哪些？
+## 1. What is NLP actually doing?
 
-你可以先把 NLP 任务分成四大类来看：
+NLP stands for Natural Language Processing.
 
-### 1. 整句判断类
+Put more plainly:
 
-输入一段文本，输出一个整体结果。
+> **NLP is about making computers process human language.**
 
-例如：
+“Language” here includes many forms:
 
-- 文本分类  
-  “这是退款问题还是发票问题？”
-- 情感分析  
-  “这条评论是正面还是负面？”
+- Chat messages
+- Comments
+- News articles
+- Contracts
+- Support tickets
+- Emails
+- Search queries
+- Meeting notes
 
-### 2. 片段定位类
+What it ultimately aims to solve is not just “recognizing words,” but going further:
 
-输入一段文本，输出其中某些关键片段。
-
-例如：
-
-- 命名实体识别  
-  从 “张三在北京工作” 中抽出 `张三` 和 `北京`
-- 信息抽取  
-  从公告里抽出时间、地点、人物
-
-### 3. 文本到文本类
-
-输入一段文本，输出另一段文本。
-
-例如：
-
-- 机器翻译
-- 文本摘要
-- 改写
-- 问答生成
-
-### 4. 交互式与系统类
-
-输入不一定只是单轮文本，可能还包括状态、历史和工具结果。
-
-例如：
-
-- 聊天机器人
-- RAG 问答系统
-- Agent
-
-这类任务会把前面几种能力组合起来。
+- Understanding meaning
+- Extracting information
+- Generating answers
+- Completing tasks
 
 ---
 
-## 三、为什么文本处理通常比表格数据更难？
+## 2. What are the most common tasks in NLP?
 
-### 1. 文本有歧义
+You can first think of NLP tasks in four major categories:
 
-一句话可能有多种解释。
+### 1. Sentence-level judgment
 
-例如：
+Input: a piece of text; output: one overall result.
 
-> “这个手机不便宜，但拍照是真的能打。”
+For example:
 
-如果只看 “不便宜”，很容易误判成负面；  
-但整句其实更偏正向评价。
+- Text classification
+  “Is this a refund issue or an invoice issue?”
+- Sentiment analysis
+  “Is this review positive or negative?”
 
-### 2. 文本强依赖上下文
+### 2. Span localization
 
-很多词单独看并不重要，放进上下文后才有具体意思。
+Input: a piece of text; output: some key spans within it.
 
-例如：
+For example:
+
+- Named entity recognition
+  Extract `John Smith` and `Beijing` from “John Smith works in Beijing”
+- Information extraction
+  Extract time, place, and people from an announcement
+
+### 3. Text-to-text
+
+Input: a piece of text; output: another piece of text.
+
+For example:
+
+- Machine translation
+- Text summarization
+- Paraphrasing
+- Question answering generation
+
+### 4. Interactive and system-level tasks
+
+Input is not necessarily just single-turn text; it may also include state, history, and tool outputs.
+
+For example:
+
+- Chatbots
+- RAG question-answering systems
+- Agents
+
+These tasks combine the capabilities above.
+
+---
+
+## 3. Why is text processing usually harder than tabular data?
+
+### 1. Text is ambiguous
+
+One sentence can have multiple interpretations.
+
+For example:
+
+> “This phone is not cheap, but the camera is really strong.”
+
+If you only look at “not cheap,” it is easy to misjudge it as negative;
+but the whole sentence is actually more of a positive evaluation.
+
+### 2. Text depends heavily on context
+
+Many words do not mean much on their own; they gain specific meaning in context.
+
+For example:
 
 - `bank`
-  既可能是银行，也可能是河岸
+  can mean a financial institution or the side of a river
 
-### 3. 文本表达不统一
+### 3. Text expression is not standardized
 
-用户描述同一个意思，可能有很多写法。
+Users may describe the same thing in many different ways.
 
-例如：
+For example:
 
-- “怎么退钱”
-- “退款怎么弄”
-- “这单还能退吗”
+- “How do I get a refund?”
+- “How do I handle a refund?”
+- “Can I still refund this order?”
 
-这些文本词面差异很大，但意图接近。
+These texts look very different on the surface, but their intent is similar.
 
-### 4. 文本天然非结构化
+### 4. Text is naturally unstructured
 
-表格数据往往有明确列含义：
+Tabular data often has clear column meanings:
 
-- 年龄
-- 收入
-- 城市
+- Age
+- Income
+- City
 
-但文本通常是人随手写的自由表达。  
-模型必须先把它变成可计算结构。
+But text is usually free-form human expression.
+The model must first turn it into a computable structure.
 
 ---
 
-## 四、NLP 的典型处理流程长什么样？
+## 4. What does a typical NLP workflow look like?
 
-最基础的一条线可以先理解成：
+The most basic pipeline can be understood as:
 
 ```mermaid
 flowchart LR
-    A["原始文本"] --> B["预处理"]
-    B --> C["文本表示"]
-    C --> D["模型"]
-    D --> E["结果 / 结构化输出"]
+    A["Raw text"] --> B["Preprocessing"]
+    B --> C["Text representation"]
+    C --> D["Model"]
+    D --> E["Result / structured output"]
 ```
 
-这条线的每一段都很重要：
+Each step here matters:
 
-- 预处理  
-  把脏文本整理得更适合当前任务
-- 文本表示  
-  把文字变成数字
-- 模型  
-  学习输入和目标之间的关系
-- 输出  
-  变成标签、答案、摘要或实体片段
+- Preprocessing
+  Clean up noisy text so it fits the current task better
+- Text representation
+  Convert words into numbers
+- Model
+  Learn the relationship between inputs and targets
+- Output
+  Turn it into labels, answers, summaries, or entity spans
 
-后面 11 自然语言处理（方向选修）的大部分课程，其实都在围绕这条线往下展开。
+Most of the later chapters in Chapter 11 Natural Language Processing (elective track) are actually built by expanding this pipeline step by step.
 
 ---
 
-## 五、先跑一个最小 NLP 示例
+## 5. Let’s run a minimal NLP example
 
-下面这个例子非常简单，但它已经完整体现了 NLP 的核心流程：
+The example below is very simple, but it already fully shows the core NLP workflow:
 
-1. 输入是文本
-2. 做一点最小预处理
-3. 用规则识别意图
-4. 输出结构化结果
+1. The input is text
+2. Do a minimal amount of preprocessing
+3. Use rules to recognize intent
+4. Output a structured result
 
 ```python
 import re
 
 texts = [
-    "帮我查一下今天北京天气",
-    "请帮我订一张去上海的机票",
-    "计算一下 25 乘以 4 是多少",
-    "明天深圳会下雨吗",
+    "Help me check today's weather in Beijing",
+    "Please help me book a flight to Shanghai",
+    "Calculate what 25 times 4 is",
+    "Will it rain in Shenzhen tomorrow",
 ]
 
 
 def classify_intent(text):
     text = re.sub(r"\s+", "", text)
 
-    if "天气" in text or "下雨" in text:
+    if "weather" in text or "rain" in text:
         return "weather_query"
-    if "机票" in text or "订票" in text:
+    if "flight" in text or "book_ticket" in text:
         return "ticket_booking"
-    if "计算" in text or "乘以" in text:
+    if "calculate" in text or "times" in text:
         return "calculation"
     return "unknown"
 
@@ -214,125 +214,125 @@ for text in texts:
     print(text, "->", classify_intent(text))
 ```
 
-### 这个例子真正想让你抓住什么？
+### What should you really take away from this example?
 
-它说明 NLP 的最小闭环其实很朴素：
+It shows that the smallest NLP loop is actually quite straightforward:
 
-- 输入是自然语言
-- 系统从里面识别模式
-- 最后输出结构化结果
+- The input is natural language
+- The system recognizes patterns in it
+- The final output is structured
 
-哪怕这里只用了规则，也已经是一个最基础的 NLP 系统。
+Even though this example only uses rules, it is already the most basic NLP system.
 
 ---
 
-## 六、NLP 的三条主要发展路线
+## 6. Three major development paths in NLP
 
-### 1. 规则系统
+### 1. Rule-based systems
 
-靠人工规则写逻辑。
+Use manually written rules and logic.
 
-优点：
+Pros:
 
-- 可解释
-- 小任务起步快
+- Easy to explain
+- Quick to start for small tasks
 
-缺点：
+Cons:
 
-- 难维护
-- 泛化差
+- Hard to maintain
+- Poor generalization
 
-### 2. 传统机器学习
+### 2. Traditional machine learning
 
-先做特征，再训练分类器。
+First design features, then train a classifier.
 
-例如：
+For example:
 
 - BoW
 - TF-IDF
 - SVM
-- 逻辑回归
+- Logistic regression
 
-### 3. 深度学习与预训练模型
+### 3. Deep learning and pre-trained models
 
-让模型直接学习表示和上下文关系。
+Let the model learn representations and contextual relationships directly.
 
-例如：
+For example:
 
 - RNN / LSTM
 - Transformer
 - BERT
 - GPT
 
-所以你后面学的很多内容，本质上都在回答同一个问题：
+So many things you will learn later are essentially answering the same question:
 
-> **怎样让机器越来越稳定地处理人类语言？**
+> **How can we make machines process human language more and more reliably?**
 
 ---
 
-## 七、为什么 NLP 会和大模型、RAG、Agent 强相关？
+## 7. Why is NLP so closely related to LLMs, RAG, and Agents?
 
-因为大语言模型本质上仍然是在处理文本。  
-如果你不了解这些基础概念：
+Because LLMs are still fundamentally processing text.
+If you do not understand these basic concepts:
 
 - token
-- 语义表示
-- 上下文
-- 分类
-- 抽取
-- 生成
+- semantic representation
+- context
+- classification
+- extraction
+- generation
 
-那后面学 LLM、RAG、Agent 时就很容易只停留在：
+then when you later learn about LLMs, RAG, and Agents, it is easy to stop at:
 
-- 会调 API
+- Knowing how to call an API
 
-而不是：
+instead of:
 
-- 真正理解它们在做什么
+- Really understanding what they are doing
 
-所以 11 自然语言处理（方向选修）不是绕路，而是在铺后面的底。
-
----
-
-## 八、初学者最常见的误区
-
-### 1. 以为 NLP 就等于聊天机器人
-
-聊天只是 NLP 的一个应用场景，不是全部。
-
-### 2. 以为预处理只是细枝末节
-
-很多任务里，预处理质量会直接影响结果上限。
-
-### 3. 以为只有深度学习才算 NLP
-
-规则系统和传统机器学习在很多中小任务里依然很有价值。
-
-### 4. 以为文本“看懂了”就等于机器也能直接处理
-
-对机器来说，文本必须先被转换成可计算形式。
+So Chapter 11 Natural Language Processing (elective track) is not a detour; it is laying the foundation for what comes next.
 
 ---
 
-## 小结
+## 8. Common beginner misconceptions
 
-这节课最该记住的一句话是：
+### 1. Thinking NLP is the same as chatbots
 
-> **NLP 的本质，是把自然语言变成可计算、可建模、可推理的对象。**
+Chat is only one application scenario of NLP, not the whole field.
 
-后面你会看到：
+### 2. Thinking preprocessing is just a minor detail
 
-- 预处理解决“怎么整理文本”
-- 文本表示解决“怎么把文本变成数字”
-- 模型解决“怎么从数字中学出规律”
+In many tasks, preprocessing quality directly affects the upper bound of performance.
 
-只要这张地图在脑子里先立住，11 自然语言处理（方向选修）后面的内容就不容易乱。
+### 3. Thinking only deep learning counts as NLP
+
+Rule-based systems and traditional machine learning are still very valuable in many small and medium-sized tasks.
+
+### 4. Thinking that if humans “understand” text, machines can process it directly
+
+For machines, text must first be converted into a computable form.
 
 ---
 
-## 练习
+## Summary
 
-1. 用自己的话解释：为什么文本处理往往比表格数据更难？
-2. 把示例里的规则再扩成一个 `hotel_booking` 意图分类。
-3. 想一想：聊天机器人为什么只是 NLP 的一个应用，不是全部？
-4. 你能否把一个你熟悉的 AI 产品，拆解成它背后用到的 NLP 任务？
+The most important sentence to remember from this lesson is:
+
+> **The essence of NLP is turning natural language into something computable, modelable, and reason-able.**
+
+Later you will see:
+
+- Preprocessing solves “how to organize text”
+- Text representation solves “how to turn text into numbers”
+- Models solve “how to learn patterns from numbers”
+
+As long as this map is clear in your mind, the later content in Chapter 11 Natural Language Processing (elective track) will be much easier to follow.
+
+---
+
+## Exercises
+
+1. Explain in your own words: why is text processing often harder than tabular data?
+2. Extend the rule in the example to add a `hotel_booking` intent classification.
+3. Think about it: why is a chatbot only one application of NLP, not the whole field?
+4. Can you break down one AI product you are familiar with into the NLP tasks it uses behind the scenes?

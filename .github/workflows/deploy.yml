@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           timeout: 60s
-          command_timeout: 60m
+          command_timeout: 120m
           script: |
             set -e
             
@@ -37,6 +37,12 @@ jobs:
             else
               COMPOSE="docker-compose"
             fi
+
+            cleanup_preflight() {
+              docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+            }
+
+            trap cleanup_preflight EXIT
             
             # 初始化 git 仓库（如果不存在）
             if [ ! -d .git ]; then
@@ -57,7 +63,7 @@ jobs:
 
             # 3. 预热验证新镜像。验证失败时不替换线上容器，旧容器继续服务
             echo "🧪 预热验证新镜像..."
-            docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+            cleanup_preflight
             docker run -d --name ai-fullstack-course-preflight --network proxy-net ai-fullstack-course:latest
             PREFLIGHT_READY=0
             for i in $(seq 1 18); do
@@ -71,10 +77,9 @@ jobs:
             if [ "$PREFLIGHT_READY" -eq 0 ]; then
               echo "❌ 新镜像预热失败，保留旧容器继续服务"
               docker logs --tail=50 ai-fullstack-course-preflight || true
-              docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
               exit 1
             fi
-            docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+            cleanup_preflight
             
             # 4. 构建和预热都成功后再替换容器，降低线上不可用时间
             echo "🔁 替换线上容器..."
@@ -95,6 +100,8 @@ jobs:
             if [ "$READY" -eq 0 ]; then
               echo "⚠️  应用启动超时，请检查日志"
               $COMPOSE logs --tail=30 ai-course
+              docker ps -a
+              docker system df
               exit 1
             fi
             

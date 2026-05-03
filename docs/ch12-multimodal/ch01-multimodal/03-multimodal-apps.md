@@ -1,67 +1,67 @@
 ---
-title: "1.4 多模态应用开发"
+title: "1.4 Multimodal Application Development"
 sidebar_position: 3
-description: "从真实产品形态和工程链路出发，理解多模态应用如何把图像、文本、语音等输入组合成可用系统。"
+description: "Starting from real product forms and engineering pipelines, understand how multimodal applications combine image, text, speech, and other inputs into usable systems."
 keywords: [multimodal app, OCR, screenshot assistant, image-text product, workflow]
 ---
 
-# 多模态应用开发
+# Multimodal Application Development
 
-![多模态应用工程链路图](/img/course/ch12-multimodal-app-engineering-loop.png)
+![Multimodal application engineering pipeline diagram](/img/course/ch12-multimodal-app-engineering-loop-en.png)
 
-:::tip 读图提示
-多模态应用不是“模型能看图”就结束。读图时重点看输入质量、OCR/VLM 分工、检索或工具调用、用户反馈、失败兜底和隐私合规如何组成真实产品链路。
+:::tip Reading Guide
+Multimodal applications do not end when “the model can see images.” When reading this diagram, focus on how input quality, OCR/VLM responsibilities, retrieval or tool calls, user feedback, failure fallback, and privacy compliance come together into a real product pipeline.
 :::
 
-## 学习目标
+## Learning Objectives
 
-完成本节后，你将能够：
+By the end of this section, you will be able to:
 
-- 识别常见多模态应用的产品形态
-- 理解多模态应用的基本工程链路
-- 跑通一个“图像信息 + 文本问题”的玩具应用
-- 知道多模态系统上线时要重点关注哪些工程问题
+- Identify common product forms of multimodal applications
+- Understand the basic engineering pipeline of multimodal applications
+- Run a toy application for “image information + text question”
+- Know which engineering issues matter most when deploying multimodal systems
 
 ---
 
-## 一、多模态应用到底长什么样？
+## 1. What Do Multimodal Applications Actually Look Like?
 
-### 1.1 不是“为了炫酷而加图片”，而是输入真的更完整
+### 1.1 It’s not “adding images for coolness”; it’s about having more complete input
 
-很多任务如果只给文字，信息其实是不完整的。
+For many tasks, text alone is actually incomplete.
 
-比如：
+For example:
 
-- 截图报错分析
-- 发票识别与问答
-- 商品图搜索
-- 图片审核
-- 文档拍照解析
+- Screenshot error analysis
+- Invoice recognition and Q&A
+- Product image search
+- Image moderation
+- Document photo parsing
 
-这些都天然适合多模态。
+These are all naturally suited to multimodal applications.
 
-### 1.2 常见产品形态
+### 1.2 Common product forms
 
-| 形态 | 用户输入 | 系统输出 |
+| Form | User input | System output |
 |---|---|---|
-| 截图助手 | 截图 + 问题 | 错误解释 / 操作建议 |
-| 图文客服 | 商品图 + 用户咨询 | 商品说明 / 售后建议 |
-| 文档理解 | 发票 / 合同图片 + 问题 | 关键信息抽取 / 答案 |
-| 教学助手 | 题目图片 + 学生提问 | 解析与提示 |
+| Screenshot assistant | Screenshot + question | Error explanation / action suggestions |
+| Image-text customer support | Product image + user inquiry | Product description / after-sales advice |
+| Document understanding | Invoice / contract image + question | Key information extraction / answer |
+| Teaching assistant | Problem image + student question | Explanation and hints |
 
 ---
 
-## 二、多模态应用的基本工程链路
+## 2. The Basic Engineering Pipeline for Multimodal Applications
 
-### 2.1 一条很常见的处理流水线
+### 2.1 A very common processing pipeline
 
 ```mermaid
 flowchart LR
-    A["用户上传图片 / 音频 / 文本"] --> B["预处理"]
-    B --> C["特征提取 / OCR / 编码"]
-    C --> D["多模态模型或工作流"]
-    D --> E["结果后处理"]
-    E --> F["最终展示给用户"]
+    A["User uploads image / audio / text"] --> B["Preprocessing"]
+    B --> C["Feature extraction / OCR / encoding"]
+    C --> D["Multimodal model or workflow"]
+    D --> E["Result post-processing"]
+    E --> F["Final display to the user"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -71,23 +71,23 @@ flowchart LR
     style F fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 2.2 为什么很多多模态应用不是“一个模型全包”？
+### 2.2 Why are many multimodal applications not “one model does everything”?
 
-因为真实系统常常会混合多个模块：
+Because real systems often combine multiple modules:
 
 - OCR
-- 图像分类
+- Image classification
 - VLM
-- 规则判断
-- 数据库查询
+- Rule-based logic
+- Database queries
 
-所以多模态应用经常不是“纯模型产品”，而是“多模块协作产品”。
+So multimodal applications are often not “pure model products,” but rather “multi-module collaboration products.”
 
 ---
 
-## 三、一个可运行的玩具版截图助手
+## 3. A Runnable Toy Screenshot Assistant
 
-为了保证代码直接能跑，我们用结构化的图像信息来模拟视觉模块输出。
+To make sure the code runs directly, we use structured image information to simulate the output of a vision module.
 
 ```python
 image_info = {
@@ -102,51 +102,51 @@ def multimodal_assistant(image_info, user_question):
 
     if image_info["type"] == "screenshot" and image_info["has_text"]:
         if "401" in image_info["ocr_text"] or "unauthorized" in image_info["ocr_text"].lower():
-            if "怎么解决" in user_question or "what should i do" in user_question:
-                return "这更像鉴权失败问题，优先检查 API Key、登录状态或权限配置。"
-            return "截图中的核心错误是：401 Unauthorized。"
+            if "how do i fix it" in user_question or "what should i do" in user_question:
+                return "This looks like an authentication failure. Check the API Key, login status, or permission settings first."
+            return "The core error in the screenshot is: 401 Unauthorized."
 
-    return "当前无法从这张图和问题中提取足够信息。"
+    return "I can’t extract enough information from this image and question right now."
 
-print(multimodal_assistant(image_info, "这是什么错误？"))
-print(multimodal_assistant(image_info, "怎么解决？"))
+print(multimodal_assistant(image_info, "What error is this?"))
+print(multimodal_assistant(image_info, "How do I fix it?"))
 ```
 
-这个例子虽然是玩具版，但已经体现了多模态应用的真实味道：
+Even though this is a toy example, it already reflects the real feel of multimodal applications:
 
-- 图像提供视觉上下文
-- OCR 提供文字内容
-- 用户问题决定回答角度
-
----
-
-## 四、多模态应用为什么经常要配 OCR？
-
-### 4.1 因为很多“看图问题”，其实同时也是“读图问题”
-
-例如：
-
-- 报错截图
-- 合同拍照
-- 发票图片
-- 表单截图
-
-这些场景里，如果不做 OCR，模型会丢掉很多关键文字信息。
-
-### 4.2 OCR 和 VLM 的分工
-
-你可以先这样理解：
-
-- OCR：把图里的字读出来
-- VLM：把图像内容和问题一起理解
-
-很多工程里，两者一起用比单独依赖某一个更稳。
+- The image provides visual context
+- OCR provides the text content
+- The user question determines the angle of the answer
 
 ---
 
-## 五、一个图文商品助手的小例子
+## 4. Why Do Multimodal Applications Often Need OCR?
 
-下面这个例子模拟“图片特征 + 文本需求”一起做判断。
+### 4.1 Because many “look at the image” problems are also “read the image” problems
+
+For example:
+
+- Error screenshots
+- Contract photos
+- Invoice images
+- Form screenshots
+
+In these scenarios, if you don’t do OCR, the model will miss a lot of key text information.
+
+### 4.2 The division of labor between OCR and VLM
+
+You can think of it like this:
+
+- OCR: reads the text in the image
+- VLM: understands the image content together with the question
+
+In many engineering setups, using both together is more robust than relying on either one alone.
+
+---
+
+## 5. A Small Example of an Image-Text Product Assistant
+
+The example below simulates making a judgment using both “image features + text requirements.”
 
 ```python
 product_image_feature = {
@@ -159,138 +159,138 @@ def match_product(image_feature, user_text):
     user_text = user_text.lower()
 
     if image_feature["category"] == "shoes":
-        if "跑步" in user_text or "run" in user_text:
-            return "这张图更像运动鞋，适合推荐跑步相关商品。"
-        if "通勤" in user_text or "office" in user_text:
-            return "这双鞋偏运动风，通勤场景可能不是最佳匹配。"
+        if "run" in user_text:
+            return "This image looks more like sports shoes, so it may be suitable for running-related recommendations."
+        if "office" in user_text:
+            return "These shoes have a sporty style and may not be the best match for a commuting scenario."
 
-    return "需要更多图文信息才能进一步判断。"
+    return "More image and text information is needed to make a further judgment."
 
-print(match_product(product_image_feature, "我想找一双适合跑步的鞋"))
-print(match_product(product_image_feature, "上班通勤穿合适吗"))
+print(match_product(product_image_feature, "I want a pair of shoes suitable for running"))
+print(match_product(product_image_feature, "Are they suitable for commuting to work?"))
 ```
 
-这类图文协同，在电商、推荐、客服里都很常见。
+This kind of image-text collaboration is very common in e-commerce, recommendation systems, and customer support.
 
 ---
 
-## 六、真实系统里最常见的工程问题
+## 6. The Most Common Engineering Problems in Real Systems
 
-### 6.1 输入质量问题
+### 6.1 Input quality issues
 
-例如：
+For example:
 
-- 图片模糊
-- 截图不完整
-- OCR 识别错字
-- 图像分辨率太低
+- Blurry images
+- Incomplete screenshots
+- OCR misreads
+- Low image resolution
 
-### 6.2 延迟与成本问题
+### 6.2 Latency and cost issues
 
-多模态模型通常比纯文本更重。  
-所以要特别关注：
+Multimodal models are usually heavier than pure text models.
+So you especially need to pay attention to:
 
-- 推理延迟
-- 并发能力
-- 每次请求成本
+- Inference latency
+- Concurrency capacity
+- Cost per request
 
-### 6.3 隐私与数据合规
+### 6.3 Privacy and data compliance
 
-很多图像里可能包含：
+Many images may contain:
 
-- 人脸
-- 身份证
-- 公司内部截图
-- 合同内容
+- Faces
+- ID cards
+- Internal company screenshots
+- Contract content
 
-所以多模态应用往往比纯文本应用更容易碰到隐私要求。
+So multimodal applications are often more likely than pure text applications to run into privacy requirements.
 
 ---
 
-## 七、一个很实用的产品设计习惯
+## 7. A Very Practical Product Design Habit
 
-### 7.1 别让模型独自承担所有责任
+### 7.1 Don’t let the model carry all the responsibility alone
 
-成熟系统经常会加这些机制：
+Mature systems often add mechanisms like:
 
-- 低置信度提示
-- 人工复核入口
-- 来源展示
-- 无法识别时主动要求补图
+- Low-confidence warnings
+- Manual review entry points
+- Source display
+- Requesting additional images when recognition fails
 
-### 7.2 一个简单的失败兜底思路
+### 7.2 A simple fallback idea
 
 ```python
 def safe_multimodal_reply(image_info, user_question):
-    if not image_info.get("has_text") and "错误" in user_question:
-        return "这张图里没有识别到足够文字，请上传更清晰的完整截图。"
+    if not image_info.get("has_text") and "error" in user_question:
+        return "No enough text was recognized in this image. Please upload a clearer, complete screenshot."
     return multimodal_assistant(image_info, user_question)
 
-print(safe_multimodal_reply({"type": "screenshot", "has_text": False}, "这是什么错误"))
+print(safe_multimodal_reply({"type": "screenshot", "has_text": False}, "What error is this?"))
 ```
 
-很多时候，一个好的兜底提示，比勉强给出错误答案更有价值。
+Often, a good fallback prompt is more valuable than forcing out a wrong answer.
 
 ---
 
-## 八、什么时候值得做多模态应用？
+## 8. When Is It Worth Building a Multimodal Application?
 
-### 8.1 很值得的信号
+### 8.1 Strong signs that it is worth it
 
-如果你的用户问题经常依赖这些信息：
+If your users’ questions often depend on:
 
-- 图片内容
-- 版面结构
-- 屏幕状态
-- 视觉上下文
+- Image content
+- Layout structure
+- Screen state
+- Visual context
 
-那多模态就非常值得。
+Then multimodal is very worthwhile.
 
-### 8.2 不一定值得的信号
+### 8.2 Signs that it may not be worth it
 
-如果你的任务本质上只是：
+If your task is essentially just:
 
-- FAQ 文本问答
-- 文本搜索
-- 文本总结
+- FAQ text Q&A
+- Text search
+- Text summarization
 
-那先把纯文本链路做好，通常更划算。
-
----
-
-## 九、初学者常见误区
-
-### 9.1 以为多模态应用一定要直接上最复杂模型
-
-很多时候：
-
-- OCR + 文本模型
-- 图片分类器 + 规则系统
-
-就已经能解决不少问题。
-
-### 9.2 以为能看图就代表系统“懂场景”
-
-多模态模型能提取信息，不代表天然懂业务规则。
-
-### 9.3 忽略失败场景设计
-
-模糊图、低光照、截断截图，都是线上高频情况。
+Then it is usually more cost-effective to first build a strong pure-text pipeline.
 
 ---
 
-## 小结
+## 9. Common Beginner Misconceptions
 
-这一节最重要的认识是：
+### 9.1 Thinking multimodal applications must directly use the most complex model
 
-> 多模态应用不是“把图片喂给模型”这么简单，而是把视觉输入、文本问题、工程流程和失败兜底一起组织成可用系统。
+In many cases:
 
-真正好用的多模态产品，往往赢在系统设计，而不只是模型本身。
+- OCR + a text model
+- An image classifier + a rule system
+
+Can already solve quite a few problems.
+
+### 9.2 Thinking “can see images” means the system automatically “understands the scenario”
+
+A multimodal model can extract information, but that does not mean it naturally understands business rules.
+
+### 9.3 Ignoring failure-scenario design
+
+Blurry images, low light, and cropped screenshots are all common high-frequency production cases.
 
 ---
 
-## 练习
+## Summary
 
-1. 给玩具版截图助手再加一种错误类型，比如 `404 Not Found`。
-2. 给商品助手再增加一个图片属性，比如 `material`，并扩展匹配逻辑。
-3. 想一想：如果用户上传的是模糊截图，系统应如何提示用户补充信息？
+The most important takeaway from this section is:
+
+> Multimodal applications are not as simple as “feeding images into a model.” They are about organizing visual input, text questions, engineering workflows, and failure fallback into a usable system.
+
+Truly useful multimodal products often win through system design, not just the model itself.
+
+---
+
+## Exercises
+
+1. Add another error type to the toy screenshot assistant, such as `404 Not Found`.
+2. Add another image attribute to the product assistant, such as `material`, and extend the matching logic.
+3. Think about this: if the user uploads a blurry screenshot, how should the system prompt the user to provide more information?

@@ -1,93 +1,93 @@
 ---
-title: "2.3 PyTorch 基础"
+title: "2.3 PyTorch Basics"
 sidebar_position: 1
-description: "从张量、形状、索引、广播到和 NumPy 的关系，打牢 PyTorch 的第一层基础。"
-keywords: [PyTorch, tensor, 张量, shape, broadcasting, numpy]
+description: "Build a solid first layer of PyTorch fundamentals, from tensors, shapes, and indexing to broadcasting and its relationship with NumPy."
+keywords: [PyTorch, tensor, tensor, shape, broadcasting, numpy]
 ---
 
-# PyTorch 基础
+# PyTorch Basics
 
-## 学习目标
+## Learning Objectives
 
-- 理解什么是 `Tensor`
-- 掌握张量的创建、形状、数据类型和常用运算
-- 理解 PyTorch 和 NumPy 的关系
-- 能独立读懂最基本的张量操作代码
+- Understand what a `Tensor` is
+- Master tensor creation, shapes, data types, and common operations
+- Understand the relationship between PyTorch and NumPy
+- Be able to read the most basic tensor operation code independently
 
 ---
 
-## 先建立一张地图
+## First, Build a Map
 
-这一节不要把它看成“PyTorch 语法表”，更适合的理解顺序是：
+Don’t treat this section as a “PyTorch syntax table.” A better way to think about it is:
 
-![PyTorch Tensor 生命周期图](/img/course/ch06-pytorch-tensor-lifecycle-map.png)
+![PyTorch Tensor lifecycle map](/img/course/ch06-pytorch-tensor-lifecycle-map-en.png)
 
-也就是说，这一节真正要打稳的是：
+In other words, what you really need to solidify here is:
 
-- 你能不能把数据装进 PyTorch
-- 你能不能看懂张量形状
-- 你能不能安全地做最基础的运算
+- Can you put data into PyTorch?
+- Can you read tensor shapes?
+- Can you safely perform the most basic operations?
 
-## 这节和第 5 站、NumPy 是怎么接上的
+## How This Section Connects to Stop 5 and NumPy
 
-如果你是从第 5 站过来，可以先把这一节理解成：
+If you’re coming from Stop 5, you can first understand this section like this:
 
-- 第 5 站里 `X`、`y`、矩阵乘法这些东西，到这里都还在
-- 只是现在它们要进入一个更适合深度学习训练的容器：`Tensor`
+- The `X`, `y`, and matrix multiplication from Stop 5 are still here
+- The difference is that now they enter a container more suitable for deep learning training: `Tensor`
 
-如果你熟悉 NumPy，也可以先这样记：
+If you’re already familiar with NumPy, you can remember it this way:
 
-- `Tensor` 很像 `ndarray`
-- 但它还能上 GPU，还能参与自动求导
+- `Tensor` is very similar to `ndarray`
+- But it can also run on GPU and participate in automatic differentiation
 
-所以这一节不是在学“全新数学”，而是在学：
+So this section is not about learning “brand-new math,” but about:
 
-- 同样的数据对象，换一种更适合训练神经网络的表达方式
+- Expressing the same data objects in a way that is more suitable for training neural networks
 
-## 一、张量到底是什么？
+## 1. What Exactly Is a Tensor?
 
-最实用的理解方式是：
+The most practical way to understand it is:
 
-> **张量 = 能在 CPU / GPU 上计算的多维数组**
+> **Tensor = a multi-dimensional array that can be computed on CPU / GPU**
 
-如果你学过 NumPy，可以先把它想成“升级版 `ndarray`”：
+If you’ve studied NumPy, you can think of it as an “upgraded `ndarray`”:
 
-- 能做数值运算
-- 能放到 GPU 上
-- 能参与自动求导
+- It can perform numerical operations
+- It can be moved to the GPU
+- It can participate in automatic differentiation
 
-类比一下：
+By analogy:
 
-| 概念 | 类比 |
+| Concept | Analogy |
 |---|---|
-| 标量（0 维） | 一个数字 |
-| 向量（1 维） | 一排数字 |
-| 矩阵（2 维） | 一张表 |
-| 张量（更高维） | 一叠表 / 一批图片 / 一段视频 |
+| Scalar (0D) | A single number |
+| Vector (1D) | A row of numbers |
+| Matrix (2D) | A table |
+| Tensor (higher dimensions) | A stack of tables / a batch of images / a video clip |
 
-在深度学习里，几乎所有数据最后都会变成张量：
+In deep learning, almost all data eventually becomes a tensor:
 
-- 一张灰度图：`[高度, 宽度]`
-- 一张彩色图：`[通道, 高度, 宽度]`
-- 一批图片：`[批大小, 通道, 高度, 宽度]`
-- 一批句子的词向量：`[批大小, 序列长度, 向量维度]`
+- A grayscale image: `[height, width]`
+- A color image: `[channels, height, width]`
+- A batch of images: `[batch_size, channels, height, width]`
+- A batch of sentence embeddings: `[batch_size, seq_len, embedding_dim]`
 
-### 1.1 第一次看张量时，最该先问什么？
+### 1.1 What Should You Ask First When You See a Tensor?
 
-先不要急着问 API，先问这三个问题：
+Don’t rush to ask about the API. First ask these three questions:
 
-1. 它装的是什么数据？
-2. 每一维分别代表什么？
-3. 后面这份数据会被送到哪一层？
+1. What data does it contain?
+2. What does each dimension represent?
+3. Which layer will this data be sent to next?
 
-这会让你从一开始就把“形状”和“语义”绑在一起。
+This helps you connect “shape” and “meaning” from the very beginning.
 
 ---
 
-## 二、创建张量
+## 2. Creating Tensors
 
-:::info 运行环境
-下面的代码可以直接运行。若本地未安装：
+:::info Runtime Environment
+The following code can be run directly. If PyTorch is not installed locally:
 
 ```bash
 pip install torch
@@ -97,15 +97,15 @@ pip install torch
 ```python
 import torch
 
-# 从 Python 列表创建
+# Create from a Python list
 scores = torch.tensor([88, 92, 76, 95])
 print(scores)
 
-# 指定数据类型
+# Specify data type
 prices = torch.tensor([12.5, 19.9, 8.8], dtype=torch.float32)
 print(prices.dtype)
 
-# 常见的初始化方式
+# Common initialization methods
 zeros = torch.zeros((2, 3))
 ones = torch.ones((2, 3))
 randn = torch.randn((2, 3))
@@ -119,11 +119,11 @@ print("arange:", arange)
 
 ---
 
-## 三、形状、维度和数据类型
+## 3. Shape, Dimensions, and Data Types
 
-初学深度学习，最容易卡住的不是公式，而是**形状（shape）**。
+When you’re learning deep learning, what trips you up most often is not formulas, but **shape**.
 
-你可以把 `shape` 理解成“这个数据盒子有几层、每层装多少个元素”。
+You can think of `shape` as “how many layers this data box has, and how many elements each layer contains.”
 
 ```python
 import torch
@@ -133,60 +133,60 @@ X = torch.tensor([
     [4.0, 5.0, 6.0]
 ])
 
-print("张量:\n", X)
+print("tensor:\n", X)
 print("shape:", X.shape)       # torch.Size([2, 3])
-print("ndim:", X.ndim)         # 2 维
+print("ndim:", X.ndim)         # 2 dimensions
 print("dtype:", X.dtype)       # float32
-print("元素总数:", X.numel())   # 6
+print("total elements:", X.numel())   # 6
 ```
 
-### 一个非常重要的习惯
+### A Very Important Habit
 
-写模型前，先问自己：
+Before writing a model, ask yourself:
 
-1. 这个张量每一维是什么意思？
-2. 当前形状对不对？
-3. 下一层会期待什么形状？
+1. What does each dimension of this tensor mean?
+2. Is the current shape correct?
+3. What shape will the next layer expect?
 
-很多训练报错，本质上都是 shape 不匹配。
+Many training errors are, at their core, shape mismatches.
 
-### 3.1 一个更稳的“看张量四步法”
+### 3.1 A More Reliable “4-Step Tensor Check”
 
-以后你拿到任何张量，都建议先做这四步检查：
+Whenever you get a tensor, it’s a good idea to check it in these four steps:
 
-1. 看 `shape`
-2. 看 `dtype`
-3. 想清每一维的语义
-4. 想清下一步要做什么运算
+1. Look at `shape`
+2. Look at `dtype`
+3. Clarify the meaning of each dimension
+4. Clarify what operation you’ll do next
 
-比如：
+For example:
 
 ```python
 print(X.shape, X.dtype)
 print("meaning: [batch, features]")
 ```
 
-这个习惯会帮你少掉非常多莫名其妙的报错。
+This habit will save you from a lot of mysterious errors.
 
-### 一个新人最该养成的记录方式
+### A Recording Habit Beginners Should Build
 
-建议你第一次接触 PyTorch 时，看到张量就顺手记一句：
+When you first start using PyTorch, it’s a good idea to jot down a sentence whenever you see a tensor:
 
 ```python
 print("shape:", X.shape, "| meaning: [batch, features]")
 ```
 
-把“形状”和“语义”一起写出来，会比单看 `torch.Size(...)` 清楚很多。
+Writing the “shape” and the “meaning” together is much clearer than looking at `torch.Size(...)` alone.
 
-![PyTorch 张量 shape 语义速查图](/img/course/ch06-tensor-shape-meaning-map.png)
+![Quick reference map for PyTorch tensor shapes and meanings](/img/course/ch06-tensor-shape-meaning-map-en.png)
 
-:::tip 读图提示
-这张图可以当作 shape 速查：表格数据常见 `[batch, features]`，图像常见 `[batch, channels, height, width]`，文本序列常见 `[batch, seq_len, embedding_dim]`。先说清每一维含义，再写模型，报错会少很多。
+:::tip Reading Tip
+You can use this diagram as a quick shape reference: tabular data commonly uses `[batch, features]`, images commonly use `[batch, channels, height, width]`, and text sequences commonly use `[batch, seq_len, embedding_dim]`. First clarify the meaning of each dimension, then write the model, and you’ll get far fewer errors.
 :::
 
 ---
 
-## 四、索引、切片、变形
+## 4. Indexing, Slicing, and Reshaping
 
 ```python
 import torch
@@ -197,40 +197,40 @@ X = torch.tensor([
     [70, 80, 90]
 ])
 
-print("第 0 行:", X[0])
-print("第 1 行第 2 列:", X[1, 2])
-print("前两行:\n", X[:2])
-print("第 2 列:", X[:, 1])
+print("row 0:", X[0])
+print("row 1, column 2:", X[1, 2])
+print("first two rows:\n", X[:2])
+print("column 2:", X[:, 1])
 
-# 变形
+# Reshape
 flat = X.reshape(9)
 grid = flat.reshape(3, 3)
 
-print("拉平:", flat)
-print("重新变回 3x3:\n", grid)
+print("flattened:", flat)
+print("back to 3x3:\n", grid)
 ```
 
-### `reshape` 的直觉
+### Intuition for `reshape`
 
-就像你把一盒积木重新摆放：
+It’s like rearranging a box of building blocks:
 
-- 元素个数不能变
-- 只是换了一种组织方式
+- The number of elements cannot change
+- You’re only changing how they are organized
 
-### 4.1 `reshape` 时新人最容易踩的坑
+### 4.1 A Common Pitfall for Beginners with `reshape`
 
-最常见的误区是：
+The most common misunderstanding is:
 
-- 以为 `reshape` 会改变数据内容
+- Thinking `reshape` changes the actual data content
 
-其实它通常只是在改变“怎么看这批元素”。  
-所以更稳的习惯是每次 `reshape` 后都问一句：
+In fact, it usually just changes how you view the same set of elements.
+So a safer habit is to ask after every `reshape`:
 
-- 现在每一维是什么意思？
+- What does each dimension mean now?
 
 ---
 
-## 五、张量运算
+## 5. Tensor Operations
 
 ```python
 import torch
@@ -238,17 +238,17 @@ import torch
 a = torch.tensor([1.0, 2.0, 3.0])
 b = torch.tensor([4.0, 5.0, 6.0])
 
-print("加法:", a + b)
-print("减法:", a - b)
-print("逐元素乘法:", a * b)
-print("平方:", a ** 2)
-print("求和:", a.sum())
-print("均值:", a.mean())
+print("addition:", a + b)
+print("subtraction:", a - b)
+print("element-wise multiplication:", a * b)
+print("square:", a ** 2)
+print("sum:", a.sum())
+print("mean:", a.mean())
 ```
 
-### 矩阵乘法
+### Matrix Multiplication
 
-深度学习里最常见的运算之一就是矩阵乘法：
+One of the most common operations in deep learning is matrix multiplication:
 
 ```python
 import torch
@@ -263,35 +263,35 @@ Y = X @ W
 print(Y)
 ```
 
-这和你在第 4 站学的线性代数是同一件事。  
-神经网络里的很多层，本质上都是“张量做线性变换，再过一个非线性函数”。
+This is the same linear algebra you learned at Stop 4.
+Many layers in neural networks are essentially “tensor linear transformations followed by a nonlinear function.”
 
-### 5.1 看到 `@` 时，脑子里最好立刻跳出的是什么？
+### 5.1 When You See `@`, What Should Immediately Come to Mind?
 
-最值得先跳出来的是：
+The first thing worth thinking is:
 
-- 这通常不是普通算术
-- 这是“把一批输入按权重重新组合”
+- This is usually not ordinary arithmetic
+- This is “recombining a batch of inputs according to weights”
 
-也就是说，一旦你在网络代码里看到：
+In other words, when you see:
 
 ```python
 X @ W
 ```
 
-就可以先理解成：
+you can first understand it as:
 
-- 当前这一层正在把输入变成新的表示
+- This layer is transforming the input into a new representation
 
 ---
 
-## 六、广播机制
+## 6. Broadcasting
 
-广播是 PyTorch 里一个特别省代码的机制。
+Broadcasting is a very code-saving mechanism in PyTorch.
 
-它的直觉是：
+The intuition is:
 
-> “如果两个张量形状不完全一样，但差得不多，PyTorch 会自动帮你扩展。”
+> “If two tensors don’t have exactly the same shape but are close enough, PyTorch will automatically expand them for you.”
 
 ```python
 import torch
@@ -306,33 +306,33 @@ bonus = torch.tensor([5.0, 5.0, 5.0])
 print(scores + bonus)
 ```
 
-这里 `bonus` 的 shape 是 `[3]`，`scores` 的 shape 是 `[2, 3]`。  
-PyTorch 会自动把 `bonus` 当成每一行都加一次。
+Here `bonus` has shape `[3]`, and `scores` has shape `[2, 3]`.
+PyTorch automatically treats `bonus` as being added to each row.
 
-### 广播的常见用法
+### Common Uses of Broadcasting
 
-- 给一批样本统一加偏置
-- 对图像做归一化
-- 对 batch 中每个特征做缩放
+- Adding a shared bias to a batch of samples
+- Normalizing images
+- Scaling each feature in a batch
 
-### 6.1 广播为什么既方便又危险？
+### 6.1 Why Is Broadcasting Both Convenient and Risky?
 
-方便是因为它很省代码。  
-危险是因为：
+It’s convenient because it saves a lot of code.
+It’s risky because:
 
-- 有时候代码能跑
-- 但广播的方向不是你以为的那个方向
+- Sometimes the code runs
+- But the broadcasting direction is not the one you expected
 
-所以广播场景里，最稳的习惯是：
+So in broadcasting scenarios, the safest habit is:
 
-- 先写出两个张量的 shape
-- 再明确“谁在被扩展”
+- First write down the shapes of both tensors
+- Then make it clear which one is being expanded
 
 ---
 
-## 七、和 NumPy 互转
+## 7. Converting Between NumPy and PyTorch
 
-NumPy 和 PyTorch 的关系非常近，所以互转很常见。
+NumPy and PyTorch are very closely related, so converting between them is common.
 
 ```python
 import numpy as np
@@ -347,21 +347,21 @@ back_to_numpy = tensor.numpy()
 print("Tensor -> NumPy:\n", back_to_numpy)
 ```
 
-### 什么时候用 NumPy，什么时候用 PyTorch？
+### When Should You Use NumPy, and When Should You Use PyTorch?
 
-- 数据分析、传统数值实验：NumPy 很方便
-- 需要训练神经网络、自动求导、GPU：PyTorch 更合适
+- For data analysis and traditional numerical experiments: NumPy is convenient
+- For training neural networks, automatic differentiation, and GPU usage: PyTorch is more suitable
 
 ---
 
-## 八、一个小例子：计算学生总成绩和平均分
+## 8. A Small Example: Calculating Students’ Total Scores and Averages
 
-这个例子没有“深度学习味”，但非常适合练张量思维。
+This example doesn’t feel very “deep learning”-like, but it’s great for practicing tensor thinking.
 
 ```python
 import torch
 
-# 3 个学生，4 门课
+# 3 students, 4 subjects
 scores = torch.tensor([
     [85.0, 92.0, 78.0, 90.0],
     [76.0, 88.0, 91.0, 84.0],
@@ -372,75 +372,75 @@ student_totals = scores.sum(dim=1)
 student_means = scores.mean(dim=1)
 subject_means = scores.mean(dim=0)
 
-print("每位学生总分:", student_totals)
-print("每位学生平均分:", student_means)
-print("每门课程平均分:", subject_means)
+print("total score for each student:", student_totals)
+print("average score for each student:", student_means)
+print("average score for each subject:", subject_means)
 ```
 
-这里你已经用到了张量最重要的思维之一：  
-**“沿着哪一维做计算？”**
+Here you’re already using one of the most important tensor-thinking ideas:
+**“Along which dimension should the calculation be performed?”**
 
-- `dim=1` 表示按行聚合
-- `dim=0` 表示按列聚合
-
----
-
-## 九、初学者最容易犯的错
-
-### 1. 忽略 shape
-
-很多人只看数字，不看张量形状。  
-结果是代码“看起来像对的”，一运行就维度报错。
-
-### 2. 把 `*` 当成矩阵乘法
-
-在 PyTorch 里：
-
-- `*` 是逐元素乘法
-- `@` 才是矩阵乘法
-
-### 3. 不清楚 dtype
-
-有些模型需要 `float32`，标签有时又要 `long`。  
-类型不对，损失函数可能直接报错。
-
-### 4. 只看值，不看“值的意义”
-
-最常见的初学者问题不是不会写代码，而是：
-
-- 张量打印出来了
-- 但不知道这一维代表 batch、特征、通道，还是类别
-
-一旦语义没跟上，后面 `Linear`、`Conv`、`Loss` 都会开始混乱。
+- `dim=1` means aggregate by rows
+- `dim=0` means aggregate by columns
 
 ---
 
-## 小结
+## 9. Common Mistakes Beginners Make
 
-这一节最重要的不是记住多少 API，而是建立三个基本反应：
+### 1. Ignoring shape
 
-1. 看到数据先看 `shape`
-2. 看到运算先区分“逐元素”还是“矩阵乘法”
-3. 知道深度学习里的输入、参数、输出，本质上都是张量
+Many people only look at the numbers and not the tensor shape.
+As a result, the code seems correct at a glance, but throws a dimension error when run.
 
-接下来我们就要让这些张量“自己知道该往哪里改”了，这就是自动求导。
+### 2. Treating `*` as matrix multiplication
 
-## 这节最该带走什么
+In PyTorch:
 
-如果只带走一句话，我希望你记住：
+- `*` is element-wise multiplication
+- `@` is matrix multiplication
 
-> **PyTorch 基础这一节真正要练的，不是语法熟练度，而是你能不能把“张量的 shape、语义和运算方式”稳稳对上。**
+### 3. Not Being Clear About `dtype`
 
-因为后面大多数深度学习代码问题，最后都会落回这三件事：
+Some models require `float32`, while labels sometimes need `long`.
+If the type is wrong, the loss function may fail immediately.
+
+### 4. Looking at the values but not their meaning
+
+The most common beginner problem is not inability to write code, but:
+
+- The tensor prints out
+- But you don’t know whether a dimension represents batch, features, channels, or classes
+
+Once the semantics are unclear, `Linear`, `Conv`, and `Loss` all start to feel confusing.
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing how many APIs you know, but building three basic instincts:
+
+1. When you see data, first check `shape`
+2. When you see an operation, first distinguish between “element-wise” and “matrix multiplication”
+3. Know that inputs, parameters, and outputs in deep learning are all tensors at their core
+
+Next, we’ll make these tensors “know how to change themselves,” and that is automatic differentiation.
+
+## What You Should Take Away from This Section
+
+If you only remember one sentence, I hope it is this:
+
+> **What you really need to practice in the PyTorch basics section is not syntax fluency, but whether you can reliably match up a tensor’s shape, meaning, and operation style.**
+
+Because most deep learning code problems later on eventually come back to these three things:
 
 - shape
 - dtype
-- 运算含义
+- what the operation means
 
 ---
 
-## 练习
+## Exercises
 
-1. 新建一个形状为 `(2, 3, 4)` 的随机张量，并打印它的 `shape`、`ndim`、`numel()`。
-2. 创建一个 `3x3` 张量，把它 reshape 成 `1x9` 和 `9x1`。
-3. 自己构造两个可以相乘的矩阵，用 `@` 试一次矩阵乘法。
+1. Create a random tensor with shape `(2, 3, 4)` and print its `shape`, `ndim`, and `numel()`.
+2. Create a `3x3` tensor and reshape it into `1x9` and `9x1`.
+3. Construct two matrices that can be multiplied, and try matrix multiplication with `@`.

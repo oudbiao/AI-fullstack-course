@@ -1,89 +1,89 @@
 ---
-title: "4.1 学前导读：RNN 与序列模型这一章到底在学什么"
+title: "4.1 Pre-class Guide: What Exactly Will We Learn in the RNN and Sequence Models Chapter?"
 sidebar_position: 0
-description: "先建立序列模型章节的学习地图：RNN、LSTM/GRU 和序列建模实战是怎么衔接的。"
-keywords: [RNN导读, LSTM, GRU, 序列建模]
+description: "Build the learning map for the sequence models chapter first: how RNN, LSTM/GRU, and sequence modeling practice connect with one another."
+keywords: [RNN guide, LSTM, GRU, sequence modeling]
 ---
 
-# 学前导读：RNN 与序列模型这一章到底在学什么
+# Pre-class Guide: What Exactly Will We Learn in the RNN and Sequence Models Chapter?
 
-这一章解决的是：
+This chapter answers the question:
 
-> **当输入不再是固定长度表格，而是一串有先后顺序的信息时，模型该怎么学。**
+> **When the input is no longer a fixed-length table, but a sequence of information with an order, how should the model learn?**
 
-## 先建立一张桥接线
+## First, Build a Bridge
 
-如果你是从前面的 MLP、CNN 过来的，这一章最关键的变化不是“模型名字变了”，而是：
+If you are coming from the earlier MLP and CNN chapters, the most important change in this chapter is not that “the model name changed,” but that:
 
-- 输入开始带时间顺序
-- 前面的信息会影响后面的理解
+- The input now has a time order
+- Earlier information affects later understanding
 
-更稳的理解方式是：
+A more stable way to understand this is:
 
-![RNN 序列模型章节关系图](/img/course/ch06-rnn-chapter-flow.png)
+![RNN sequence model chapter relationship diagram](/img/course/ch06-rnn-chapter-flow-en.png)
 
-所以这一章真正新增的核心，是：
+So the real core added in this chapter is:
 
-> **模型开始显式处理“过去的信息如何流到现在”。**
+> **The model begins to explicitly handle “how past information flows into the present.”**
 
-## 这一章的主线
+## The Main Thread of This Chapter
 
-## 这一章更适合新人的学习顺序
+## A Better Learning Order for Beginners in This Chapter
 
-1. 先把“序列为什么比静态输入更难”搞懂  
-   先立住顺序和上下文这件事。
+1. First, understand why sequences are harder than static inputs
+   Start by grasping order and context.
 
-2. 再看 RNN 基础  
-   先把隐藏状态和时间展开看懂。
+2. Then look at the basics of RNN
+   First understand hidden states and time unrolling.
 
-3. 然后看 LSTM / GRU  
-   这时你再看门控为什么会出现，就不会只剩公式。
+3. Then study LSTM / GRU
+   By then, when you look at why gates appear, you will not be left with only formulas.
 
-4. 最后做序列建模实战  
-   真正把“一个序列怎么喂进模型、怎么预测”走一遍。
+4. Finally, do sequence modeling practice
+   Walk through how to feed a sequence into a model and how to make predictions.
 
-## 这一章最该先抓住什么
+## What You Should Focus on First in This Chapter
 
-- 序列难点不在“数据更多”，而在“前后有关联”
-- 隐藏状态是 RNN 最核心的引入
-- LSTM / GRU 是在补普通 RNN 容易忘信息的短板
-- 这一章是在为后面的注意力和 Transformer 铺路
+- The difficulty with sequences is not “more data,” but “relationships between before and after”
+- Hidden state is the most important introduction in RNN
+- LSTM / GRU are designed to make up for the weakness of ordinary RNNs, which easily forget information
+- This chapter is laying the groundwork for attention and Transformer later on
 
-## 新人最容易卡住的地方
+## Where Beginners Get Stuck Most Easily
 
-- 只会背 hidden state 名字，不知道它到底在记什么
-- 把时间步和 batch 维混掉
-- 看不懂序列任务里输入输出为什么会有很多种形式
-- 还没搞懂 RNN 的边界，就急着冲 Transformer
+- Memorizing the name hidden state without knowing what it is actually storing
+- Mixing up the time step and batch dimensions
+- Not understanding why sequence tasks can have so many input-output formats
+- Rushing into Transformer before really understanding the boundaries of RNN
 
-## 新人和进阶学习者怎么读
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+For beginners, when learning this chapter for the first time, focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a chance to fill gaps and practice engineering skills: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the previous and next stages. After reading, it is best to turn the content of this chapter into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick browse | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal completion | 1–2 hours | Run a minimal example and finish the chapter’s small project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its position in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
+| Where are the common failure points? | You can list at least one reason for an error, poor performance, or misunderstanding |
+| What can you keep after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
+## Small Project Exit Task for This Chapter
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended that you complete a minimal exercise: choose the core concept or tool of this chapter and create a small result that can run, can be screenshot, and can be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing flow is, and what the output result is.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects to the chapters before and after it, and you should be able to complete the smallest version of the chapter’s small project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common mistake, one debugging process, or one result improvement, that means you are no longer just “reading the content” — you are turning this chapter into your own project experience.

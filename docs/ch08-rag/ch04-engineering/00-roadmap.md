@@ -1,66 +1,66 @@
 ---
-title: "4.1 学前导读：工程化这一章到底在学什么"
+title: "4.1 Pre-Class Guide: What Is This Engineering Chapter Really About?"
 sidebar_position: 0
-description: "先建立工程化章节的学习地图：异步、API、日志监控和部署怎样共同决定 LLM 系统能否真正上线。"
-keywords: [LLM工程导读, 异步编程, API设计, 日志监控, Docker]
+description: "First build a learning map for the engineering chapter: how async programming, APIs, logging/monitoring, and deployment together determine whether an LLM system can truly go live."
+keywords: [LLM engineering guide, asynchronous programming, API design, logging and monitoring, Docker]
 ---
 
-# 学前导读：工程化这一章到底在学什么
+# Pre-Class Guide: What Is This Engineering Chapter Really About?
 
-这一章解决的是：
+This chapter answers the question:
 
-> **一个能跑的 LLM 应用，怎样变成一个能上线、能排障、能维护的系统。**
+> **How do you turn a working LLM application into a system that can be deployed, troubleshooted, and maintained?**
 
-## 这一章的主线
+## The Main Thread of This Chapter
 
-![LLM 工程化章节学习顺序图](/img/course/ch08-engineering-chapter-flow.png)
+![LLM engineering chapter learning sequence diagram](/img/course/ch08-engineering-chapter-flow-en.png)
 
-## LLMOps 精讲：把大模型应用当成长期运行的软件
+## LLMOps Deep Dive: Treating Large Model Applications as Long-Running Software
 
-LLM 应用上线后，最大的风险不是“某一次调用失败”，而是 Prompt 改了、模型版本变了、文档更新了、用户问题变了、成本突然升高了，却没有人知道是哪一层出了问题。LLMOps 要解决的就是可评估、可观测、可回滚、可持续改进。
+After an LLM application goes live, the biggest risk is not “one failed call.” It is that the Prompt changes, the model version changes, the documents are updated, user questions change, or costs suddenly rise — and no one knows which layer caused the problem. LLMOps is about making systems evaluable, observable, rollback-friendly, and continuously improvable.
 
-![LLMOps Trace 复盘闭环图](/img/course/ch08-llmops-trace-loop.png)
+![LLMOps trace review closed-loop diagram](/img/course/ch08-llmops-trace-loop-en.png)
 
-| 方向 | 解决的问题 | 本章关注点 |
+| Direction | Problem It Solves | Focus of This Chapter |
 |---|---|---|
-| Prompt 版本管理 | Prompt 改动后效果无法比较 | 记录版本、变更原因、适用任务和失败样本 |
-| 评估集 | 优化只能凭感觉 | 固定测试问题、理想答案、评分标准和回归测试 |
-| LLM-as-Judge | 人工评审成本高 | 用模型辅助评分，但保留人工抽查和标准答案 |
-| Trace | 链路错误难复盘 | 记录输入、检索、Prompt、模型输出、工具结果和最终答案 |
-| 成本监控 | Token、重排、Embedding 和工具调用成本不透明 | 记录调用次数、Token、耗时和单次任务成本 |
-| Guardrails | 输出格式、安全边界和权限容易失控 | 输入校验、输出校验、敏感信息处理和人工确认 |
-| Drift Monitoring | 系统长期运行后质量变化 | 关注模型版本、文档版本和用户问题分布变化 |
-| AI CI/CD | 更新应用后不知道是否退化 | 把评估集、格式检查和关键链路测试放进发布流程 |
+| Prompt version management | After a Prompt changes, its effect cannot be compared | Record versions, reasons for changes, applicable tasks, and failing samples |
+| Evaluation set | Optimization relies only on intuition | Fix test questions, ideal answers, scoring criteria, and regression tests |
+| LLM-as-Judge | Manual review is too costly | Use a model to assist scoring, but keep human spot checks and reference answers |
+| Trace | Hard to review failures in the chain | Record inputs, retrieval, Prompt, model output, tool results, and final answer |
+| Cost monitoring | Token, reranking, Embedding, and tool-call costs are opaque | Record call counts, tokens, latency, and per-task cost |
+| Guardrails | Output format, safety boundaries, and permissions can easily get out of control | Input validation, output validation, sensitive information handling, and human confirmation |
+| Drift Monitoring | Quality changes after the system runs for a long time | Watch for changes in model version, document version, and user-question distribution |
+| AI CI/CD | After updates, you do not know whether the app regressed | Put the evaluation set, format checks, and key path tests into the release process |
 
-学这一章时，可以把目标设成“我能不能解释一次失败”。如果系统答错了，应该能查到：用户问了什么、检索到了什么、Prompt 是哪个版本、模型返回了什么、工具有没有失败、耗时和成本是多少、最终为什么输出这个结果。
-## 新人和进阶学习者怎么读
+When studying this chapter, you can set the goal as: “Can I explain one failure?” If the system answers incorrectly, you should be able to trace: what the user asked, what was retrieved, which Prompt version was used, what the model returned, whether any tool failed, the latency and cost, and why the final output became what it was.
+## How Beginners and Advanced Learners Should Read This Chapter
 
-新人第一次学这一章时，先抓住异步、API、日志监控和部署这条主线。你不需要一次掌握完整 LLMOps 平台，只要能为最小应用加入错误处理、请求日志、成本记录和部署说明，就可以继续往后走。
+If you are learning this chapter for the first time, first focus on the main thread of async programming, APIs, logging/monitoring, and deployment. You do not need to master a complete LLMOps platform at once. As long as you can add error handling, request logs, cost tracking, and deployment instructions to a minimal application, you can keep moving forward.
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+Experienced learners can treat this chapter as a way to fill gaps and practice engineering: pay attention to edge cases, failure examples, evaluation methods, code reproducibility, and the connections between the earlier and later stages. After finishing, it is best to distill this chapter’s content into your own project README or experiment notes.
 
-## 学习时间与难度建议
+## Suggested Study Time and Difficulty
 
-| 学习方式 | 建议投入 | 目标 |
+| Study Mode | Suggested Time | Goal |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| Quick scan | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
+| Minimal pass | 1–2 hours | Run a minimal example and complete this chapter’s project exit task |
+| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
 
-## 本章自测问题
+## Self-Check Questions for This Chapter
 
-| 自测问题 | 通过标准 |
+| Self-Check Question | Passing Standard |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
+| What are the minimum input and output? | You can clearly state what input the example needs and what result it will produce |
+| Where are the common failure points? | You can list at least one cause of errors, poor performance, or misunderstanding |
+| What can you leave behind after learning it? | You can write this chapter’s output into a project README, experiment log, or portfolio |
+## Chapter Project Exit Task
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+After finishing this chapter, it is recommended to complete a minimal exercise: choose the core concept or tool of this chapter and create a small result that can run, be screenshotted, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing flow is, and what the output result is.
 
-## 过关标准
+## Passing Criteria
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it connects to the preceding and following learning stops, and complete the minimal version of this chapter’s project exit task.
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+If you can also record one common error, one debugging process, or one result improvement, then it means you are no longer just “looking at the content” — you are turning this chapter into your own project experience.

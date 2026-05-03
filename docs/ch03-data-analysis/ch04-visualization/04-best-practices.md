@@ -1,126 +1,126 @@
 ---
-title: "4.4 可视化最佳实践"
+title: "4.4 Visualization Best Practices"
 sidebar_position: 20
-description: "学会选图、配色、避坑，让你的图表专业又清晰"
+description: "Learn how to choose charts, use color well, and avoid common pitfalls so your charts are professional and clear"
 ---
 
-# 可视化最佳实践
+# Visualization Best Practices
 
-![图表选择决策树](/img/course/chart-selection-decision-tree.png)
+![Chart selection decision tree](/img/course/chart-selection-decision-tree-en.png)
 
-:::tip 本节定位
-很多新人学可视化时，会把注意力放在：
+:::tip Section focus
+When many beginners learn visualization, they focus on:
 
-- 颜色好不好看
-- 样式够不够炫
+- whether the colors look nice
+- whether the style looks flashy enough
 
-但真正更重要的问题其实是：
+But the really important question is:
 
-> **这张图有没有让人更快看懂，而不是更容易被带偏。**
+> **Does this chart help people understand faster, rather than make it easier to be misled?**
 
-所以这节最重要的不是“美化”，而是：
+So the most important things in this section are not “beautification,” but:
 
-- 选图
-- 减少干扰
-- 诚实表达
+- choosing the right chart
+- reducing distractions
+- communicating honestly
 :::
 
-## 学习目标
+## Learning objectives
 
-- 掌握图表类型的选择策略
-- 了解配色原则和色盲友好设计
-- 理解"数据墨水比"概念
-- 识别并避免常见的可视化误导
+- Master strategies for choosing chart types
+- Understand color principles and color-blind-friendly design
+- Understand the concept of “data-ink ratio”
+- Identify and avoid common visualization misleading techniques
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-可视化最佳实践更适合按“表达目标 -> 选图 -> 减干扰 -> 防误导”来理解：
+It’s easier to understand visualization best practices in the order “communication goal -> chart choice -> reduce distractions -> prevent misleading”:
 
 ```mermaid
 flowchart LR
-    A["我想表达什么"] --> B["选对图"]
-    B --> C["配好色和布局"]
-    C --> D["去掉多余装饰"]
-    D --> E["确认没有误导"]
+    A["What do I want to express?"] --> B["Choose the right chart"]
+    B --> C["Use good colors and layout"]
+    C --> D["Remove unnecessary decoration"]
+    D --> E["Make sure it is not misleading"]
 ```
 
-所以这节真正想解决的是：
+So what this section really wants to solve is:
 
-- 为什么图画出来不等于图就清楚
-- 为什么很多坏图的问题不是代码，而是表达逻辑
+- why making a chart does not automatically make it clear
+- why many bad charts are not a code problem, but a communication-logic problem
 
 ---
 
-## 为什么要学最佳实践？
+## Why learn best practices?
 
-> 同样的数据，好的可视化让人一秒看懂，差的可视化让人越看越迷糊，甚至被误导。
+> With the same data, good visualization lets people understand it in one second, while bad visualization makes people more and more confused, or even misleads them.
 
 ```mermaid
 flowchart LR
-    A["原始数据"] --> B{"可视化"}
-    B -->|好的实践| C["清晰 · 准确 · 美观<br/>读者快速理解"]
-    B -->|差的实践| D["混乱 · 误导 · 丑陋<br/>读者一头雾水"]
+    A["Raw data"] --> B{"Visualization"}
+    B -->|Good practice| C["Clear · Accurate · Beautiful<br/>Readers understand quickly"]
+    B -->|Poor practice| D["Messy · Misleading · Ugly<br/>Readers are confused"]
 
     style C fill:#e8f5e9,stroke:#2e7d32,color:#333
     style D fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 一个更适合新人的总类比
+### A better beginner-friendly analogy
 
-你可以把一张图理解成：
+You can think of a chart as:
 
-- 一次很短的汇报
+- a very short presentation
 
-好的图像一个表达清楚的汇报：
+A good chart is like a clear presentation:
 
-- 一开口就知道重点在哪
+- you immediately know the key point
 
-差的图则像：
+A bad chart is like:
 
-- 话很多
-- 装饰很多
-- 但听完还是不知道重点
+- too much talk
+- too much decoration
+- but after hearing it, you still do not know the key point
 
-所以最佳实践最重要的不是“好看”，而是：
+So the most important thing in best practices is not “looking nice,” but:
 
-- 信息表达有没有更省力
+- whether the information is easier to understand
 
 ---
 
-## 一、图表类型选择指南
+## 1. Chart type selection guide
 
-### 核心原则：先问自己"我要展示什么？"
+### Core principle: first ask yourself, “What do I want to show?”
 
 ```mermaid
 flowchart TD
-    Q["我要展示什么？"]
+    Q["What do I want to show?"]
 
-    Q --> T["趋势变化"]
-    Q --> C["类别对比"]
-    Q --> R["关系/相关"]
-    Q --> D["数据分布"]
-    Q --> P["占比/构成"]
+    Q --> T["Trend change"]
+    Q --> C["Category comparison"]
+    Q --> R["Relationship / correlation"]
+    Q --> D["Data distribution"]
+    Q --> P["Proportion / composition"]
 
-    T --> T1["折线图<br/>适合时间序列"]
-    T --> T2["面积图<br/>强调累积"]
+    T --> T1["Line chart<br/>Suitable for time series"]
+    T --> T2["Area chart<br/>Emphasizes accumulation"]
 
-    C --> C1["柱状图<br/>最常用"]
-    C --> C2["条形图<br/>标签长时用"]
-    C --> C3["雷达图<br/>多维评分"]
+    C --> C1["Bar chart<br/>Most commonly used"]
+    C --> C2["Horizontal bar chart<br/>Use when labels are long"]
+    C --> C3["Radar chart<br/>Multidimensional scoring"]
 
-    R --> R1["散点图<br/>两变量关系"]
-    R --> R2["热力图<br/>矩阵关系"]
-    R --> R3["气泡图<br/>三变量关系"]
+    R --> R1["Scatter plot<br/>Relationship between two variables"]
+    R --> R2["Heatmap<br/>Matrix relationships"]
+    R --> R3["Bubble chart<br/>Relationship among three variables"]
 
-    D --> D1["直方图<br/>查看频次"]
-    D --> D2["箱线图<br/>分布+异常值"]
-    D --> D3["小提琴图<br/>分布形状"]
+    D --> D1["Histogram<br/>Check frequency"]
+    D --> D2["Box plot<br/>Distribution + outliers"]
+    D --> D3["Violin plot<br/>Distribution shape"]
 
-    P --> P1["饼图<br/>少类别占比"]
-    P --> P2["堆叠柱状图<br/>多类别占比"]
-    P --> P3["树状图<br/>层级占比"]
+    P --> P1["Pie chart<br/>Few-category proportions"]
+    P --> P2["Stacked bar chart<br/>Multi-category proportions"]
+    P --> P3["Treemap<br/>Hierarchical proportions"]
 
     style Q fill:#e3f2fd,stroke:#1565c0,color:#333
     style T fill:#fff3e0,stroke:#e65100,color:#333
@@ -130,234 +130,234 @@ flowchart TD
     style P fill:#fce4ec,stroke:#c62828,color:#333
 ```
 
-### 详细选择对照表
+### Detailed chart selection table
 
-| 我的目标 | 推荐图表 | 不推荐 | 说明 |
-|---------|---------|--------|------|
-| 展示时间趋势 | 折线图 | 饼图 | 折线图天然适合连续变化 |
-| 比较几个类别 | 柱状图 | 饼图（大于 6 类） | 柱子高度一眼对比 |
-| 看两变量关系 | 散点图 | 折线图 | 散点直观显示分布和趋势 |
-| 查看数据分布 | 直方图/箱线图 | 折线图 | 直方图显示频次分布 |
-| 展示占比 | 饼图（少类别）/ 堆叠柱状图 | 3D 饼图 | 3D 饼图会扭曲面积 |
-| 比较分布差异 | 箱线图/小提琴图 | 只用均值柱状图 | 均值柱状图丢失分布信息 |
-| 展示相关性矩阵 | 热力图 | 表格 | 颜色编码比数字直观 |
+| My goal | Recommended chart | Not recommended | Explanation |
+|---------|-------------------|-----------------|-------------|
+| Show time trend | Line chart | Pie chart | Line charts are naturally suited to continuous change |
+| Compare several categories | Bar chart | Pie chart (more than 6 categories) | Bar heights are easy to compare at a glance |
+| See the relationship between two variables | Scatter plot | Line chart | Scatter plots show distribution and trends more directly |
+| Check data distribution | Histogram / box plot | Line chart | Histograms show frequency distribution |
+| Show proportion | Pie chart (few categories) / stacked bar chart | 3D pie chart | 3D pie charts distort area |
+| Compare distribution differences | Box plot / violin plot | Only mean-value bar chart | Mean bars lose distribution information |
+| Show a correlation matrix | Heatmap | Table | Color coding is more intuitive than numbers |
 
-### 一张新人很值得先记住的“画图前五问”
+### Five questions worth remembering before you start drawing
 
-在真正开始画图前，先问自己：
+Before you actually start making a chart, ask yourself:
 
-1. 我要表达趋势、对比、分布，还是关系？
-2. 这张图是给自己探索，还是给别人汇报？
-3. 读者最应该一眼看到什么？
-4. 哪些装饰其实可以删掉？
-5. 这张图有没有可能误导别人？
+1. Am I showing trend, comparison, distribution, or relationship?
+2. Is this chart for my own exploration, or for reporting to others?
+3. What should the reader notice first?
+4. Which decorations can actually be removed?
+5. Could this chart mislead people?
 
-这 5 个问题比很多绘图库参数都更重要。
+These 5 questions are more important than many plotting library parameters.
 
 ---
 
-## 二、配色原则
+## 2. Color principles
 
-### 1. 颜色的三种用法
+### 1. Three uses of color
 
-| 用法 | 场景 | 示例 |
-|------|------|------|
-| **分类**（定性色） | 区分不同类别 | 男/女用不同颜色 |
-| **顺序**（连续色） | 表示数值大小 | 温度从蓝到红 |
-| **发散**（两端色） | 有中心值的数据 | 相关系数 -1 到 1 |
+| Use | Scenario | Example |
+|------|---------|------|
+| **Categorical** (qualitative color) | Distinguish different categories | Male/female in different colors |
+| **Sequential** (continuous color) | Represent magnitude | Temperature from blue to red |
+| **Diverging** (two-sided color) | Data with a center value | Correlation coefficients from -1 to 1 |
 
-### 2. 推荐配色方案
+### 2. Recommended color palettes
 
 ```python
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# === 分类色（区分类别）===
-# Matplotlib 默认色板（Tab10）
-# 颜色: 蓝、橙、绿、红、紫、棕、粉、灰、黄绿、青
-# 适合：最多 10 个类别
+# === Categorical colors (distinguish categories)===
+# Matplotlib default palette (Tab10)
+# Colors: blue, orange, green, red, purple, brown, pink, gray, yellow-green, cyan
+# Suitable for: up to 10 categories
 
-# Seaborn 色板
-sns.color_palette("Set2")       # 柔和色调
-sns.color_palette("colorblind") # 色盲友好！
+# Seaborn palettes
+sns.color_palette("Set2")       # Soft tones
+sns.color_palette("colorblind") # Color-blind-friendly!
 
-# === 顺序色（表示大小）===
-# 从浅到深
-# "Blues", "Greens", "Reds", "YlOrRd"（黄-橙-红）
+# === Sequential colors (show magnitude)===
+# From light to dark
+# "Blues", "Greens", "Reds", "YlOrRd" (yellow-orange-red)
 
-# === 发散色（有中心值）===
-# "RdBu_r"（红-白-蓝）——相关系数常用
-# "RdYlGn"（红-黄-绿）——表现好/差
+# === Diverging colors (has a center value)===
+# "RdBu_r" (red-white-blue) — often used for correlation coefficients
+# "RdYlGn" (red-yellow-green) — shows good/bad
 ```
 
-### 3. 色盲友好设计
+### 3. Color-blind-friendly design
 
-全球约 8% 的男性有色觉障碍（最常见的是红绿色盲）。
+About 8% of men worldwide have color vision deficiency (the most common is red-green color blindness).
 
-**避免的组合：**
+**Combinations to avoid:**
 
-| 避免 | 原因 | 替代方案 |
-|------|------|---------|
-| 红 + 绿 | 红绿色盲无法区分 | 蓝 + 橙 |
-| 仅靠颜色区分 | 色盲看不出差异 | 颜色 + 形状/线型 |
+| Avoid | Why | Alternative |
+|------|-----|-------------|
+| Red + green | People with red-green color blindness cannot distinguish them | Blue + orange |
+| Relying only on color | Color-blind readers cannot see the difference | Color + shape / line style |
 
-**推荐做法：**
+**Recommended practice:**
 
 ```python
-# 使用色盲友好的色板
+# Use a color-blind-friendly palette
 sns.set_palette("colorblind")
 
-# 或者用不同的标记形状 + 颜色
-markers = ["o", "s", "^", "D"]  # 圆、方、三角、菱形
-linestyles = ["-", "--", ":", "-."]  # 实线、虚线、点线、点划线
+# Or use different marker shapes + colors
+markers = ["o", "s", "^", "D"]  # Circle, square, triangle, diamond
+linestyles = ["-", "--", ":", "-."]  # Solid, dashed, dotted, dash-dot
 
-# 示例：用颜色 + 线型 双重编码
+# Example: dual encoding with color + line style
 fig, ax = plt.subplots()
 for i, (style, marker) in enumerate(zip(linestyles, markers)):
     ax.plot(range(10), [x + i*2 for x in range(10)],
-            linestyle=style, marker=marker, label=f"系列 {i+1}")
+            linestyle=style, marker=marker, label=f"Series {i+1}")
 ax.legend()
 plt.show()
 ```
 
-:::tip 双重编码
-不要只靠颜色传递信息，同时使用**形状、线型、标签、图案**来辅助区分，这样即使打印成黑白也能看懂。
+:::tip Dual encoding
+Do not rely on color alone to convey information. Use **shape, line style, labels, and patterns** together to help distinguish series, so the chart can still be understood even when printed in black and white.
 :::
 
 ---
 
-## 三、数据墨水比
+## 3. Data-ink ratio
 
-### 什么是数据墨水比？
+### What is the data-ink ratio?
 
-这个概念来自可视化大师 **Edward Tufte**：
+This concept comes from visualization master **Edward Tufte**:
 
-> **数据墨水比 = 用于展示数据的墨水 / 图表上所有的墨水**
+> **Data-ink ratio = ink used to display data / all ink used in the chart**
 
-简单说：**去掉一切不必要的装饰，让每一滴墨水都为数据服务。**
+Simply put: **remove all unnecessary decoration so that every drop of ink serves the data.**
 
-### 减少"图表垃圾"
+### Reduce “chart junk”
 
 ```mermaid
 flowchart TD
-    A["一张图表上的元素"] --> B["数据墨水<br/>（有意义的）"]
-    A --> C["非数据墨水<br/>（可以去掉的）"]
+    A["Elements in a chart"] --> B["Data ink<br/>（meaningful）"]
+    A --> C["Non-data ink<br/>（can be removed）"]
 
-    B --> B1["数据点/线/柱"]
-    B --> B2["有意义的标签"]
-    B --> B3["必要的坐标轴"]
+    B --> B1["Data points / lines / bars"]
+    B --> B2["Meaningful labels"]
+    B --> B3["Necessary axes"]
 
-    C --> C1["3D 效果"]
-    C --> C2["多余的网格线"]
-    C --> C3["花哨的背景"]
-    C --> C4["不必要的边框"]
-    C --> C5["装饰性图案"]
+    C --> C1["3D effects"]
+    C --> C2["Excessive grid lines"]
+    C --> C3["Fancy background"]
+    C --> C4["Unnecessary borders"]
+    C --> C5["Decorative patterns"]
 
     style B fill:#e8f5e9,stroke:#2e7d32,color:#333
     style C fill:#ffebee,stroke:#c62828,color:#333
 ```
 
-### 实际对比
+### Practical comparison
 
-**不好的做法（低数据墨水比）：**
+**Bad practice (low data-ink ratio):**
 
 ```python
-# ❌ 过度装饰
+# ❌ Over-decorated
 fig, ax = plt.subplots(figsize=(8, 5))
 values = [25, 40, 30, 55, 45]
 categories = ["A", "B", "C", "D", "E"]
 
 ax.bar(categories, values, color="skyblue", edgecolor="navy", linewidth=2, hatch="//")
-ax.set_facecolor("#f0f0f0")          # 背景色
-ax.grid(True, linewidth=2, alpha=1)  # 粗重的网格
-ax.set_title("销售数据", fontsize=20, fontweight="bold",
+ax.set_facecolor("#f0f0f0")          # Background color
+ax.grid(True, linewidth=2, alpha=1)  # Heavy grid
+ax.set_title("Sales Data", fontsize=20, fontweight="bold",
              fontstyle="italic", color="red")
-# 过多的装饰让数据不突出
+# Too much decoration makes the data less prominent
 plt.show()
 ```
 
-**好的做法（高数据墨水比）：**
+**Good practice (high data-ink ratio):**
 
 ```python
-# ✅ 简洁清晰
+# ✅ Clean and clear
 fig, ax = plt.subplots(figsize=(8, 5))
 
 bars = ax.bar(categories, values, color="#4CAF50", width=0.6)
 
-# 直接在柱子上标数值（减少对坐标轴的依赖）
+# Put values directly on the bars (reduces dependence on the axis)
 for bar, val in zip(bars, values):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
             str(val), ha="center", fontsize=12)
 
-ax.set_title("销售数据", fontsize=14)
-ax.spines["top"].set_visible(False)     # 去掉上边框
-ax.spines["right"].set_visible(False)   # 去掉右边框
-ax.set_ylabel("销售额")
+ax.set_title("Sales Data", fontsize=14)
+ax.spines["top"].set_visible(False)     # Remove top border
+ax.spines["right"].set_visible(False)   # Remove right border
+ax.set_ylabel("Sales")
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 简化清单
+### Simplification checklist
 
-| 元素 | 是否保留 | 原因 |
-|------|---------|------|
-| 上/右边框 | 去掉 | 无信息量 |
-| 密集网格 | 去掉或淡化 | 用 `alpha=0.2` |
-| 3D 效果 | 去掉 | 扭曲比例 |
-| 数据标签 | 按需 | 有时比坐标轴更直观 |
-| 图例 | 按需 | 只有一个系列时不需要 |
-| 背景色 | 白底 | 最不干扰 |
+| Element | Keep? | Reason |
+|------|------|------|
+| Top/right borders | Remove | No information value |
+| Dense grid lines | Remove or soften | Use `alpha=0.2` |
+| 3D effects | Remove | Distort proportions |
+| Data labels | As needed | Sometimes more intuitive than the axis |
+| Legend | As needed | Not needed when there is only one series |
+| Background color | White background | Least distracting |
 
-### 一个很适合初学者先记的最小清爽模板
+### A minimal clean template that beginners can remember first
 
-如果你一时还拿不准怎么让图更“专业”，可以先默认这样做：
+If you are not sure how to make a chart look more “professional,” you can start with these defaults:
 
-1. 白底
-2. 去掉上、右边框
-3. 网格线淡一点
-4. 标题只说重点
-5. 少用夸张颜色
+1. White background
+2. Remove top and right borders
+3. Make grid lines lighter
+4. Let the title say only the key point
+5. Use fewer exaggerated colors
 
-这样做出来的图，通常已经会比很多“努力装饰”的版本更清楚。
+Charts made this way are usually already clearer than many “carefully decorated” versions.
 
 ---
 
-## 四、常见可视化误导
+## 4. Common visualization misleading techniques
 
-### 误导 1：截断 Y 轴
+### Misleading 1: Truncating the Y-axis
 
-三个产品的销量分别是 98、99、100，数据几乎一样。但如果 Y 轴不从 0 开始：
+The sales of three products are 98, 99, and 100 — almost the same. But if the Y-axis does not start at 0:
 
-**截断 Y 轴（从 97 开始）—— 看起来差异巨大：**
-
-```mermaid
-xychart-beta
-    title "截断 Y 轴（从 97 开始）"
-    x-axis ["产品 A", "产品 B", "产品 C"]
-    y-axis "销量" 97 --> 101
-    bar [98, 99, 100]
-```
-
-C 的柱子看起来是 A 的 **3 倍高**！但实际只多了 2%。
-
-**Y 轴从 0 开始 —— 真实比例：**
+**Truncated Y-axis (starting from 97) — looks like a huge difference:**
 
 ```mermaid
 xychart-beta
-    title "Y 轴从 0 开始（真实比例）"
-    x-axis ["产品 A", "产品 B", "产品 C"]
-    y-axis "销量" 0 --> 110
+    title "Truncated Y-axis (starts at 97)"
+    x-axis ["Product A", "Product B", "Product C"]
+    y-axis "Sales" 97 --> 101
     bar [98, 99, 100]
 ```
 
-从 0 开始后，三个柱子几乎一样高——这才是数据的真实面貌。
+Product C looks **3 times taller** than Product A! But in reality it is only 2% higher.
 
-:::tip 关键结论
-**Y 轴不从 0 开始**会让微小差异看起来天差地别。新闻媒体中这种误导手法非常常见，大家要学会识别！
+**Y-axis starts at 0 — true proportions:**
+
+```mermaid
+xychart-beta
+    title "Y-axis starts at 0 (true proportions)"
+    x-axis ["Product A", "Product B", "Product C"]
+    y-axis "Sales" 0 --> 110
+    bar [98, 99, 100]
+```
+
+When the axis starts at 0, the three bars are almost the same height — that is the true picture of the data.
+
+:::tip Key takeaway
+**Not starting the Y-axis at 0** can make tiny differences look huge. This kind of misleading technique is very common in news media, so learn to spot it!
 :::
 
-**代码实现对比：**
+**Code comparison:**
 
 ```python
 import matplotlib.pyplot as plt
@@ -365,168 +365,168 @@ import matplotlib.pyplot as plt
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
 data = [98, 99, 100]
-labels = ["产品 A", "产品 B", "产品 C"]
+labels = ["Product A", "Product B", "Product C"]
 
-# ❌ 误导：截断 Y 轴
+# ❌ Misleading: truncated Y-axis
 axes[0].bar(labels, data, color="#F44336")
-axes[0].set_ylim(97, 101)  # Y 轴从 97 开始！
-axes[0].set_title("❌ 截断 Y 轴（从 97 开始）")
-axes[0].set_ylabel("销量")
+axes[0].set_ylim(97, 101)  # Y-axis starts at 97!
+axes[0].set_title("❌ Truncated Y-axis (starts at 97)")
+axes[0].set_ylabel("Sales")
 
-# ✅ 正确：从 0 开始
+# ✅ Correct: start at 0
 axes[1].bar(labels, data, color="#4CAF50")
 axes[1].set_ylim(0, 110)
-axes[1].set_title("✅ Y 轴从 0 开始")
-axes[1].set_ylabel("销量")
+axes[1].set_title("✅ Y-axis starts at 0")
+axes[1].set_ylabel("Sales")
 
 plt.tight_layout()
 plt.show()
 ```
 
-:::caution 什么时候可以不从 0 开始？
-折线图关注**变化趋势**时可以截断 Y 轴（因为读者看的是线的走势），但柱状图（柱子面积代表数量）**必须从 0 开始**。
+:::caution When can you avoid starting at 0?
+For line charts that focus on **trend changes**, you can truncate the Y-axis (because readers are looking at the line’s movement). But bar charts, where bar area represents quantity, **must start at 0**.
 :::
 
-### 误导 2：3D 饼图
+### Misleading 2: 3D pie charts
 
-3D 饼图会让靠近观众的部分看起来更大：
+3D pie charts make the part closer to the viewer look larger:
 
 ```python
-# ❌ 3D 饼图
-# matplotlib 虽然没有真正的 3D 饼图，但展示概念：
-# 前方的扇区因为透视被放大，后方的被缩小
-# 导致读者对比例产生错误判断
+# ❌ 3D pie chart
+# Matplotlib does not actually have a real 3D pie chart, but this shows the idea:
+# slices in front appear larger due to perspective, and slices in back appear smaller
+# causing readers to judge proportions incorrectly
 
-# ✅ 正确做法：用 2D 饼图或柱状图代替
+# ✅ Correct approach: use a 2D pie chart or a bar chart instead
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
 labels = ["Python", "Java", "JS", "C++"]
 sizes = [35, 25, 25, 15]
 
 axes[0].pie(sizes, labels=labels, autopct="%1.0f%%")
-axes[0].set_title("2D 饼图（清晰）")
+axes[0].set_title("2D Pie Chart (clear)")
 
 axes[1].barh(labels, sizes, color=["#4CAF50", "#2196F3", "#FFC107", "#FF5722"])
-axes[1].set_xlabel("占比 (%)")
-axes[1].set_title("柱状图（更精确的对比）")
+axes[1].set_xlabel("Proportion (%)")
+axes[1].set_title("Bar Chart (more precise comparison)")
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 误导 3：双 Y 轴陷阱
+### Misleading 3: Dual Y-axis trap
 
 ```python
-# ❌ 双 Y 轴可能暗示不存在的相关性
+# ❌ Dual Y-axes may suggest a correlation that does not really exist
 fig, ax1 = plt.subplots(figsize=(8, 5))
 
 months = range(1, 13)
 temp = [5, 7, 12, 18, 23, 28, 30, 29, 24, 17, 10, 6]
 ice_cream = [20, 25, 35, 50, 70, 90, 95, 88, 60, 40, 22, 18]
 
-ax1.plot(months, temp, "r-", label="气温")
-ax1.set_ylabel("气温 (°C)", color="r")
+ax1.plot(months, temp, "r-", label="Temperature")
+ax1.set_ylabel("Temperature (°C)", color="r")
 
 ax2 = ax1.twinx()
-ax2.plot(months, ice_cream, "b-", label="冰淇淋销量")
-ax2.set_ylabel("冰淇淋销量", color="b")
+ax2.plot(months, ice_cream, "b-", label="Ice cream sales")
+ax2.set_ylabel("Ice cream sales", color="b")
 
-ax1.set_title("气温 vs 冰淇淋销量")
+ax1.set_title("Temperature vs Ice Cream Sales")
 plt.show()
 
-# 这里确实有相关性，但双 Y 轴的尺度可以随意调整
-# 让两条线看起来完美重合或完全无关
-# 用散点图展示相关性更诚实
+# There is indeed a correlation here, but the scale of dual Y-axes can be adjusted arbitrarily
+# making the two lines look perfectly aligned or completely unrelated
+# A scatter plot is a more honest way to show correlation
 ```
 
-### 误导 4：不当的面积/大小映射
+### Misleading 4: Incorrect area/size mapping
 
 ```python
-# ❌ 用直径而非面积表示数量
-# 如果 A = 100, B = 200
-# 直径翻倍 → 面积变为 4 倍 → 读者觉得 B 是 A 的 4 倍
+# ❌ Using diameter instead of area to represent quantity
+# If A = 100, B = 200
+# doubling the diameter -> area becomes 4 times larger -> readers think B is 4 times A
 
-# ✅ 正确做法：用面积映射数值
+# ✅ Correct approach: map values to area
 import numpy as np
 
 values = [100, 200, 300]
-# 面积正比于数值，所以半径应该正比于 sqrt(数值)
-sizes = [v * 2 for v in values]  # 面积正比
+# Area should be proportional to the value, so radius should be proportional to sqrt(value)
+sizes = [v * 2 for v in values]  # Area proportional
 ```
 
-### 常见误导总结
+### Summary of common misleading techniques
 
-| 误导方式 | 为什么误导 | 正确做法 |
+| Misleading method | Why it misleads | Correct approach |
 |---------|-----------|---------|
-| 截断 Y 轴 | 夸大差异 | 柱状图从 0 开始 |
-| 3D 饼图 | 扭曲面积比例 | 用 2D 饼图或柱状图 |
-| 双 Y 轴 | 可操纵视觉相关 | 用散点图或分开画 |
-| 面积误用 | 大小感知偏差 | 面积正比于数值 |
-| 选择性展示 | 隐藏不利数据 | 展示完整数据 |
-| 颜色误导 | 鲜艳色强调小数据 | 中性色为主 |
+| Truncated Y-axis | Exaggerates differences | Bar charts start at 0 |
+| 3D pie chart | Distorts area proportions | Use 2D pie charts or bar charts |
+| Dual Y-axis | Allows visual correlation to be manipulated | Use scatter plots or separate charts |
+| Incorrect area usage | Distorts size perception | Make area proportional to the value |
+| Selective display | Hides unfavorable data | Show complete data |
+| Color manipulation | Bright colors emphasize small data | Use neutral colors as the main palette |
 
 ---
 
-## 五、完整检查清单
+## 5. Full checklist
 
-每次做完图表后，用这个清单检查一遍：
+After finishing a chart, check it with this list:
 
 ```
-☐ 图表类型是否合适？（折线 vs 柱状 vs 散点…）
-☐ 标题是否清晰表达了图表要说的事？
-☐ 坐标轴是否有标签和单位？
-☐ Y 轴起始值是否合理？（柱状图从 0 开始）
-☐ 图例是否必要且清晰？
-☐ 颜色是否色盲友好？
-☐ 是否去掉了不必要的装饰？（3D 效果、花哨背景）
-☐ 数据标签是否有助于理解？
-☐ 字号是否足够大？（别人能看清吗？）
-☐ 数据展示是否诚实？（没有误导？）
+☐ Is the chart type appropriate? (line vs. bar vs. scatter...)
+☐ Does the title clearly express what the chart is saying?
+☐ Do the axes have labels and units?
+☐ Is the Y-axis start value reasonable? (bar charts should start at 0)
+☐ Is the legend necessary and clear?
+☐ Are the colors color-blind-friendly?
+☐ Have unnecessary decorations been removed? (3D effects, fancy backgrounds)
+☐ Do the data labels help understanding?
+☐ Is the font large enough? (Can others read it clearly?)
+☐ Is the data presentation honest? (No misleading tricks?)
 ```
 
-### 第一次做汇报图时，最稳的默认顺序
+### The safest default order for your first reporting chart
 
-更稳的顺序通常是：
+A more stable order is usually:
 
-1. 先选对图
-2. 再把标题和坐标轴说清楚
-3. 再减掉多余装饰
-4. 最后再检查有没有误导
+1. Choose the right chart first
+2. Then make the title and axes clear
+3. Then remove extra decoration
+4. Finally, check whether anything is misleading
 
-这样会比一开始就纠结配色和阴影更不容易跑偏。
+This is less likely to go off track than worrying about colors and shadows from the very beginning.
 
 ---
 
-## 六、从"能用"到"好用"的模板
+## 6. From “usable” to “easy to use” templates
 
-### 极简专业模板
+### Minimal professional template
 
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
 
 def professional_style(ax):
-    """一键设置专业风格"""
+    """One-click professional styling"""
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.grid(True, axis="y", alpha=0.2, linestyle="--")
     ax.tick_params(labelsize=10)
 
-# 使用模板
+# Use the template
 fig, ax = plt.subplots(figsize=(8, 5))
 
-categories = ["产品 A", "产品 B", "产品 C", "产品 D", "产品 E"]
+categories = ["Product A", "Product B", "Product C", "Product D", "Product E"]
 values = [42, 38, 55, 29, 47]
 
 bars = ax.bar(categories, values, color="#1976D2", width=0.6)
 
-# 数据标签
+# Data labels
 for bar, val in zip(bars, values):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1,
-            f"{val}万", ha="center", fontsize=11)
+            f"{val}k", ha="center", fontsize=11)
 
-ax.set_title("2024 年各产品销售额", fontsize=14, pad=15)
-ax.set_ylabel("销售额（万元）")
+ax.set_title("2024 Sales of Each Product", fontsize=14, pad=15)
+ax.set_ylabel("Sales (ten thousand yuan)")
 ax.set_ylim(0, max(values) * 1.15)
 
 professional_style(ax)
@@ -534,126 +534,126 @@ plt.tight_layout()
 plt.show()
 ```
 
-### Seaborn 极简模板
+### Seaborn minimal template
 
 ```python
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# 全局设置
+# Global settings
 sns.set_theme(
-    style="ticks",                         # 极简刻度风格
-    palette="colorblind",                   # 色盲友好
+    style="ticks",                         # Minimal tick style
+    palette="colorblind",                   # Color-blind-friendly
     rc={
         "figure.figsize": (8, 5),
-        "axes.spines.top": False,           # 去掉上边框
-        "axes.spines.right": False,         # 去掉右边框
+        "axes.spines.top": False,           # Remove top border
+        "axes.spines.right": False,         # Remove right border
         "font.size": 11,
     }
 )
 
-# 之后所有 sns/plt 图表都会使用这个风格
+# All later sns/plt charts will use this style
 ```
 
 ---
 
-## 小结
+## Summary
 
 ```mermaid
 mindmap
-  root(("可视化<br/>最佳实践"))
-    选对图
-      趋势→折线图
-      对比→柱状图
-      关系→散点图
-      分布→直方图/箱线图
-      占比→饼图/堆叠柱状图
-    配好色
-      分类色区分类别
-      顺序色表示大小
-      发散色表示偏离
-      色盲友好
-      双重编码
-    减装饰
-      高数据墨水比
-      去掉 3D 效果
-      去掉多余边框
-      淡化网格
-    不误导
-      Y轴从0开始
-      面积正比数值
-      完整展示数据
-      慎用双Y轴
+  root(("Visualization<br/>Best Practices"))
+    Choose the right chart
+      Trend→Line chart
+      Comparison→Bar chart
+      Relationship→Scatter plot
+      Distribution→Histogram/box plot
+      Proportion→Pie chart/stacked bar chart
+    Use color well
+      Categorical colors distinguish categories
+      Sequential colors show magnitude
+      Diverging colors show deviation
+      Color-blind-friendly
+      Dual encoding
+    Reduce decoration
+      High data-ink ratio
+      Remove 3D effects
+      Remove unnecessary borders
+      Soften grids
+    Do not mislead
+      Start Y-axis at 0
+      Area proportional to value
+      Show data completely
+      Be careful with dual Y-axes
 ```
 
-**核心三句话：**
+**Three core sentences:**
 
-1. **选对图表** —— 让数据决定图表类型，不是反过来
-2. **少即是多** —— 去掉一切不为数据服务的元素
-3. **诚实展示** —— 不夸大、不隐瞒、不误导
+1. **Choose the right chart** — let the data decide the chart type, not the other way around
+2. **Less is more** — remove everything that does not serve the data
+3. **Present honestly** — do not exaggerate, hide, or mislead
 
-## 这节最该带走什么
+## What you should take away from this section
 
-- 最佳实践的核心不是“更美”，而是“更清楚、更诚实”
-- 选对图，比加很多样式重要得多
-- 可视化最怕的不是不够花，而是让人看错重点
+- The core of best practices is not “prettier,” but “clearer and more honest”
+- Choosing the right chart matters much more than adding lots of styling
+- The biggest visualization danger is not being flashy enough, but making people focus on the wrong thing
 
 ---
 
-## 动手练习
+## Hands-on exercises
 
-### 练习 1：改造一张"丑图"
+### Exercise 1: Improve an “ugly chart”
 
 ```python
-# 下面这张图有很多问题，请改造成专业版本：
+# The chart below has many problems. Please transform it into a professional version:
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
 data = [45, 52, 38, 67, 41]
-labels = ["北京", "上海", "广州", "深圳", "杭州"]
+labels = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Hangzhou"]
 
 ax.bar(labels, data, color=["red", "green", "blue", "yellow", "purple"],
        edgecolor="black", linewidth=3, hatch="xxx")
-ax.set_ylim(30, 70)  # Y 轴截断！
+ax.set_ylim(30, 70)  # Truncated Y-axis!
 ax.set_facecolor("#cccccc")
 ax.grid(True, linewidth=3)
 ax.set_title("SALES DATA!!!", fontsize=24, color="red")
 plt.show()
 
-# 问题清单：
-# 1. Y 轴不从 0 开始（误导）
-# 2. 配色花哨不统一
-# 3. 背景色干扰
-# 4. 网格太粗
-# 5. 标题不清晰
-# 6. 边框多余
-# 请逐一修正！
+# Problem list:
+# 1. Y-axis does not start at 0 (misleading)
+# 2. Colors are flashy and inconsistent
+# 3. Background color is distracting
+# 4. Grid is too thick
+# 5. Title is unclear
+# 6. Borders are unnecessary
+# Please fix them one by one!
 ```
 
-### 练习 2：选图练习
+### Exercise 2: Chart selection practice
 
 ```
-请为以下场景选择合适的图表类型并说明理由：
+Please choose the appropriate chart type for each scenario and explain why:
 
-1. 展示某公司 2018-2024 年的年收入变化
-2. 比较 5 个城市的平均房价
-3. 分析广告投入与销售额的关系
-4. 查看 1000 名员工的年龄分布
-5. 展示公司各部门的人员占比（4 个部门）
-6. 比较三组实验数据的分布差异
+1. Show the annual revenue change of a company from 2018 to 2024
+2. Compare the average housing prices of 5 cities
+3. Analyze the relationship between advertising spending and sales
+4. Check the age distribution of 1,000 employees
+5. Show the employee proportion of each department in a company (4 departments)
+6. Compare the distribution differences among three groups of experimental data
 ```
 
-### 练习 3：色盲友好改造
+### Exercise 3: Color-blind-friendly redesign
 
 ```python
-# 将下面的图表改造为色盲友好版本
-# 要求：使用色盲安全色板 + 不同线型/标记 双重编码
+# Transform the following chart into a color-blind-friendly version
+# Requirement: use a color-blind-safe palette + dual encoding with different line styles/markers
 
 fig, ax = plt.subplots()
 x = range(10)
-ax.plot(x, [i**1.5 for i in x], color="red", label="模型 A")
-ax.plot(x, [i**1.3 for i in x], color="green", label="模型 B")
-ax.plot(x, [i**1.1 for i in x], color="red", alpha=0.5, label="模型 C")  # 和 A 太像！
+ax.plot(x, [i**1.5 for i in x], color="red", label="Model A")
+ax.plot(x, [i**1.3 for i in x], color="green", label="Model B")
+ax.plot(x, [i**1.1 for i in x], color="red", alpha=0.5, label="Model C")  # Too similar to A!
 ax.legend()
 plt.show()
 ```

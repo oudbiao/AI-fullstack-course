@@ -1,62 +1,62 @@
 ---
-title: "学习指南：深度学习与 Transformer 基础怎么学最不容易学乱"
+title: "Study Guide: How to Learn Deep Learning and Transformer Basics Without Getting Confused"
 sidebar_position: 1
-description: "给 AI 全栈新人的深度学习学习指南：神经网络、PyTorch、CNN、RNN、Attention、Transformer、项目路线和验收标准。"
-keywords: [深度学习学习指南, PyTorch 怎么学, CNN 怎么学, Transformer 怎么学, Attention]
+description: "A deep learning study guide for AI full-stack beginners: neural networks, PyTorch, CNN, RNN, Attention, Transformer, project roadmap, and acceptance criteria."
+keywords: [deep learning study guide, how to learn PyTorch, how to learn CNN, how to learn Transformer, Attention]
 ---
 
-# 学习指南：深度学习与 Transformer 基础怎么学最不容易学乱
+# Study Guide: How to Learn Deep Learning and Transformer Basics Without Getting Confused
 
-如果你来到 `第 6 章 深度学习与 Transformer 基础` 后觉得代码变长、模型变多，先把注意力放回训练闭环。深度学习第一遍最重要的是知道数据如何经过模型、损失和梯度更新参数。
+If you reach `Chapter 6 Deep Learning and Transformer Basics` and feel that the code is getting longer and the models are getting more numerous, first bring your attention back to the training loop. On your first pass through deep learning, the most important thing is to understand how data flows through the model, how the loss is computed, and how gradients update parameters.
 
-## 本阶段总原则
+## Core principle for this stage
 
-深度学习要抓住一条主线：数据进入网络，前向传播得到输出，损失函数衡量差距，反向传播计算梯度，优化器更新参数。
+Deep learning follows one main thread: data enters the network, forward propagation produces outputs, the loss function measures the gap, backpropagation computes gradients, and the optimizer updates parameters.
 
-![深度学习学习指南训练闭环](/img/course/ch06-study-guide-training-loop.png)
+![Deep learning study guide training loop](/img/course/ch06-study-guide-training-loop-en.png)
 
-## 推荐学习顺序
+## Recommended learning order
 
-第一轮先学历史突破和神经网络基础。重点理解感知器为什么出现、XOR 为什么让单层模型受挫、反向传播为什么重要，再理解神经元、激活函数、前向传播、反向传播、损失函数、优化器和正则化。
+In the first round, learn the historical breakthroughs and neural network basics. Focus on understanding why the perceptron appeared, why XOR challenged single-layer models, and why backpropagation matters. Then understand neurons, activation functions, forward propagation, backpropagation, loss functions, optimizers, and regularization.
 
-第二轮学 PyTorch。不要只复制代码，要知道张量、自动求导、`nn.Module`、Dataset、DataLoader 和训练循环分别负责什么。
+In the second round, learn PyTorch. Do not just copy code; understand what tensors, automatic differentiation, `nn.Module`, Dataset, DataLoader, and the training loop each do.
 
-第三轮学 CNN。图像分类最直观，适合第一次把网络结构和任务联系起来。
+In the third round, learn CNNs. Image classification is the most intuitive and is a good way to connect network structures with tasks for the first time.
 
-第四轮学 RNN 和序列模型。它们帮助你理解序列任务，也为 Transformer 的出现提供历史背景。
+In the fourth round, learn RNNs and sequence models. They will help you understand sequence tasks and also provide historical context for the emergence of Transformer.
 
-第五轮学 Attention 和 Transformer。这是进入大模型主线前最关键的桥。
+In the fifth round, learn Attention and Transformer. This is the most important bridge before entering the main line of large models.
 
-生成模型和训练技巧可以作为扩展，不必在第一遍全部吃透。
+Generative models and training techniques can be treated as extensions; you do not need to fully master them in the first pass.
 
-## 建议学习节奏
+## Suggested learning pace
 
-| 内容类型 | 建议时间 | 学习目标 |
+| Content type | Suggested time | Learning goal |
 |---|---|---|
-| 神经网络基础 | 3～6 小时 | 能解释训练闭环 |
-| PyTorch 基础 | 6～10 小时 | 能写最小训练循环 |
-| CNN / RNN | 4～8 小时 | 能理解不同数据结构对应的网络 |
-| Transformer | 4～8 小时 | 能解释 Attention 的基本直觉 |
-| 项目页 | 10～20 小时 | 完成一个可训练、可评估的小模型 |
+| Neural network basics | 3–6 hours | Be able to explain the training loop |
+| PyTorch basics | 6–10 hours | Be able to write a minimal training loop |
+| CNN / RNN | 4–8 hours | Be able to understand which network fits which data structure |
+| Transformer | 4–8 hours | Be able to explain the basic intuition of Attention |
+| Project section | 10–20 hours | Complete a small model that can be trained and evaluated |
 
-## 阶段项目路线
+## Stage project roadmap
 
-第一个项目建议做手写数字或小型图像分类，练习 Dataset、DataLoader、CNN、训练和评估。
+For your first project, I recommend handwritten digit recognition or a small image classification task to practice Dataset, DataLoader, CNN, training, and evaluation.
 
-第二个项目建议做文本情感分类，练习序列输入、Embedding 和基础文本模型。
+For your second project, I recommend text sentiment classification to practice sequence inputs, Embedding, and basic text models.
 
-第三个项目可以做 Transformer 结构阅读或小实验，重点理解 Attention 输入输出和上下文建模。
+For your third project, you can do a Transformer architecture reading exercise or a small experiment, with a focus on understanding the input/output of Attention and context modeling.
 
-## 常见卡点
+## Common sticking points
 
-最常见的卡点是 loss、梯度和优化器串不起来。你可以用一个极小模型和几条样本，打印每一步的输入、输出、loss 和参数变化。
+The most common sticking point is not being able to connect loss, gradients, and the optimizer. You can use a very small model and a few samples to print the input, output, loss, and parameter changes at each step.
 
-第二个卡点是 PyTorch 代码模板太长。建议先写最小训练循环，再逐步封装函数，不要一开始就追求工程化。
+The second sticking point is that the PyTorch code template feels too long. It is better to start by writing the minimal training loop and then gradually wrap functions; do not pursue engineering polish from the beginning.
 
-第三个卡点是模型效果不好。先查数据、标签、学习率、loss 是否下降，再考虑换模型。
+The third sticking point is poor model performance. First check the data, labels, learning rate, and whether the loss is decreasing, then consider changing the model.
 
-## 过关标准
+## Passing criteria
 
-学完本阶段后，你应该能从零写出一个 PyTorch 训练脚本，训练一个简单模型，画出 loss 变化，并解释模型为什么这样更新。
+After completing this stage, you should be able to write a PyTorch training script from scratch, train a simple model, plot the loss curve, and explain why the model updates in that way.
 
-如果你能说清楚 CNN、RNN、Transformer 分别解决什么问题，就可以进入大模型原理阶段。
+If you can clearly explain what problems CNNs, RNNs, and Transformer each solve, you are ready to move on to the principles of large models.

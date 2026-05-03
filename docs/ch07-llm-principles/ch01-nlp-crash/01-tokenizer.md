@@ -1,166 +1,164 @@
 ---
-title: "1.2 分词与 Tokenizer"
+title: "1.2 Tokenization and Tokenizer"
 sidebar_position: 1
-description: "从“模型为什么不能直接读文字”讲起，理解词级、字级、子词级分词的取舍，以及 padding、truncation、special tokens 在工程里为什么重要。"
+description: "Start with “why models can’t read text directly,” and understand the trade-offs between word-level, character-level, and subword-level tokenization, as well as why padding, truncation, and special tokens matter in practice."
 keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation]
 ---
 
-# 分词与 Tokenizer
+# Tokenization and Tokenizer
 
-![Tokenizer 子词切分流程图](/img/course/tokenizer-subword-flow.png)
+![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow-en.png)
 
-:::tip 本节定位
-很多人第一次学大模型时，会把注意力全放在模型结构上。  
-但真正把文本送进模型之前，还有一道绕不过去的门：
+:::tip Where This Section Fits
+When many people first learn about large models, they put all their attention on model architecture.
+But before text can actually be sent into a model, there is another unavoidable step:
 
-> **文字到底要被切成什么单位，模型才能处理？**
+> **What units should text be split into so the model can process it?**
 
-这就是 tokenizer。
+That is what a tokenizer does.
 
-如果这一步没想明白，后面你看到的：
+If this step is not clear, later on these terms will all feel like a pile of jargon:
 
 - `input_ids`
 - `attention_mask`
 - context length
-- token 成本
+- token cost
 
-都会像一堆零碎术语。
-
-这节课的目标，就是把 tokenizer 从“工具黑盒”拉回到它最本质的位置。
+The goal of this lesson is to bring the tokenizer back from a “black-box tool” to its most fundamental role.
 :::
 
-## 学习目标
+## Learning Objectives
 
-- 理解为什么模型不能直接吃原始字符串
-- 区分字级、词级、子词级分词的核心差异
-- 理解 special tokens、padding、truncation 在工程中的作用
-- 通过可运行示例看懂 tokenizer 是怎样把文本变成 `input_ids` 的
+- Understand why models cannot directly consume raw strings
+- Distinguish the key differences between character-level, word-level, and subword-level tokenization
+- Understand the role of special tokens, padding, and truncation in practice
+- See through a runnable example how a tokenizer turns text into `input_ids`
 
 ---
 
-## 一、为什么模型不能直接读文字？
+## 1. Why Can’t a Model Read Text Directly?
 
-### 1.1 模型最终处理的是数字，不是字符本身
+### 1.1 What a model ultimately processes is numbers, not characters themselves
 
-神经网络本质上只能处理数值张量。  
-而人类输入给模型的，通常是：
+Neural networks fundamentally can only process numerical tensors.
+But what humans feed into a model is usually:
 
-- 中文句子
-- 英文段落
-- 代码
-- 混合标点和表情
+- Chinese sentences
+- English paragraphs
+- code
+- mixed punctuation and emojis
 
-模型并不认识“退款”“password”“hello”这些词的肉眼形状。  
-它需要先经过两步：
+A model does not recognize the visual shape of words like “refund”, “password”, or “hello”.
+It first needs two steps:
 
-1. 把文本切成一个个 token
-2. 把 token 映射成整数 id
+1. Split text into tokens
+2. Map tokens to integer IDs
 
-所以 tokenizer 做的不是“简单切词”，  
-而是：
+So what a tokenizer does is not just “simple word splitting”;
+it is:
 
-> **把人类语言变成模型可处理离散符号序列的第一层接口。**
+> **the first interface that turns human language into a discrete symbol sequence the model can process.**
 
-### 1.2 一个类比：把文章翻译成机器能编号的积木
+### 1.2 An analogy: translating an article into numbered building blocks for a machine
 
-你可以把 tokenizer 想成仓库管理员。
+You can think of a tokenizer as a warehouse manager.
 
-原始文本像一大段还没整理的货物。  
-tokenizer 要先决定：
+Raw text is like a large pile of unsorted goods.
+The tokenizer must first decide:
 
-- 每块积木的大小是什么
-- 每块积木编号是多少
+- what size each building block should be
+- what number each block should have
 
-之后模型看到的就不再是“文章”，而是：
+After that, the model no longer sees “an article,” but something like:
 
 - `[101, 2057, 2024, 2172, 102]`
 
-如果积木切得太碎，会变得很长；  
-如果切得太粗，又会有很多词不认识。
+If the blocks are split too finely, the sequence becomes very long;
+if they are split too coarsely, many words will be unknown.
 
 ---
 
-## 二、最常见的三种切法
+## 2. The Three Most Common Splitting Methods
 
-### 2.1 字级 / 字符级：最稳，但序列会变长
+### 2.1 Character-level: safest, but sequences become long
 
-最简单的思路是：
+The simplest idea is:
 
-- 一个字或一个字符算一个 token
+- treat one character as one token
 
-优点是：
+The advantages are:
 
-- 几乎不会有 OOV 问题
-- 不认识的词也能拆开表示
+- almost no OOV problem
+- even unseen words can still be represented by splitting them
 
-缺点是：
+The disadvantages are:
 
-- 序列很长
-- 语义粒度太细
-- 模型需要自己花更多层去组合词义
+- sequences become long
+- semantic granularity is too fine
+- the model must spend more layers combining meanings
 
-例如中文里：
+For example, in English:
 
-- “退款规则” -> `退 / 款 / 规 / 则`
+- “refund policy” -> `r / e / f / u / n / d / p / o / l / i / c / y`
 
-### 2.2 词级：语义直观，但 OOV 会严重
+### 2.2 Word-level: intuitive meaning, but serious OOV issues
 
-另一种思路是：
+Another approach is:
 
-- 一个完整单词算一个 token
+- treat one complete word as one token
 
-优点是：
+The advantages are:
 
-- 粒度自然
-- 词义直观
+- natural granularity
+- intuitive word meaning
 
-缺点是：
+The disadvantages are:
 
-- 新词、拼写变体、专有名词很多
-- 词表会非常大
+- many new words, spelling variants, and proper nouns
+- the vocabulary can become very large
 
-例如英文里：
+For example, in English:
 
-- `refund` 很常见
-- 但 `refundability`、`refund-processing` 可能就很容易变成未知词
+- `refund` is common
+- but `refundability` or `refund-processing` may easily become unknown words
 
-### 2.3 子词级：现实里最常见的折中
+### 2.3 Subword-level: the most common practical compromise
 
-现代大模型里最常见的是：
+What modern large models most commonly use is:
 
 - subword tokenizer
 
-也就是把词拆成“高频片段”。
+That is, words are broken into “frequent fragments.”
 
-例如：
+For example:
 
 - `transformers` -> `transform` + `ers`
 - `tokenization` -> `token` + `ization`
 
-这种方法的好处是：
+The benefits of this approach are:
 
-- 词表不必无限大
-- 新词能由已有子词拼出来
-- 序列长度和 OOV 问题之间取得平衡
+- the vocabulary does not need to grow without bound
+- new words can be composed from existing subwords
+- it balances sequence length and OOV issues
 
-这也是为什么 BPE、WordPiece、SentencePiece 这类方法会这么重要。
+This is also why methods like BPE, WordPiece, and SentencePiece are so important.
 
-![Tokenizer 粒度取舍图](/img/course/ch07-tokenizer-granularity-tradeoff-map.png)
+![Tokenizer Granularity Trade-off Diagram](/img/course/ch07-tokenizer-granularity-tradeoff-map-en.png)
 
-:::tip 读图提示
-这张图建议从左到右看：字符级最稳但序列最长，词级语义直观但 OOV 风险高，子词级在词表大小、序列长度和新词覆盖之间折中。Tokenizer 不是“怎么切好看”，而是在做成本和表达能力的平衡。
+:::tip Reading Tip
+It is best to read this diagram from left to right: character-level is the safest but produces the longest sequences, word-level has intuitive meaning but high OOV risk, and subword-level strikes a balance among vocabulary size, sequence length, and coverage of new words. A tokenizer is not about “what looks neat”; it is about balancing cost and expressiveness.
 :::
 
 ---
 
-## 三、先跑一个真正说明问题的 tokenizer 示例
+## 3. Let’s Run a Real Tokenizer Example That Shows the Problem Clearly
 
-下面这段代码不会复刻完整工业 tokenizer，  
-但它会非常清楚地演示三件事：
+The code below does not reproduce a full industrial tokenizer,
+but it clearly demonstrates three things:
 
-1. 词级切分
-2. 子词级切分
-3. token 到 id 的映射、padding 和 truncation
+1. Word-level splitting
+2. Subword-level splitting
+3. Mapping tokens to IDs, padding, and truncation
 
 ```python
 import re
@@ -242,175 +240,175 @@ for text in examples:
     print("attention_mask:", attention_mask)
 ```
 
-### 3.1 这段代码最该看哪几行？
+### 3.1 Which lines in this code matter most?
 
-重点看三处：
+Focus on three parts:
 
-1. `word_tokenize`  
-   说明原始字符串如何先被切成词
-2. `subword_tokenize`  
-   说明词不在词表里时，如何贪心拆成子词
-3. `encode`  
-   说明 special tokens、padding、truncation 是怎么加进去的
+1. `word_tokenize`
+   Shows how the raw string is first split into words
+2. `subword_tokenize`
+   Shows how a word is greedily split into subwords when it is not in the vocabulary
+3. `encode`
+   Shows how special tokens, padding, and truncation are added
 
-### 3.2 为什么 `Transformers` 会被拆成多个子词？
+### 3.2 Why is `Transformers` split into multiple subwords?
 
-因为词表里没有完整的 `transformers`，  
-但有：
+Because the vocabulary does not contain the full word `transformers`,
+but it does contain:
 
 - `transform`
 - `##er`
 - `##s`
 
-所以它仍然能被表示出来。
+So it can still be represented.
 
-这正是子词 tokenizer 的关键优势：
+This is the key advantage of a subword tokenizer:
 
-- 新词不一定要整个都在词表里
+- a new word does not have to be fully present in the vocabulary
 
-### 3.3 `attention_mask` 是干什么的？
+### 3.3 What is `attention_mask` for?
 
-因为 batch 里的句子长度通常不同。  
-为了凑成统一张量，我们会在短句后面补 `[PAD]`。
+Because sentences in a batch usually have different lengths.
+To make them into a single tensor, we pad shorter sentences with `[PAD]`.
 
-但模型不能把这些 pad 位当成真实内容，  
-所以要用 `attention_mask` 告诉它：
+But the model should not treat those pad positions as real content,
+so `attention_mask` tells it:
 
-- `1` 是真实 token
-- `0` 是 padding
+- `1` means a real token
+- `0` means padding
 
-![Tokenizer 到 input_ids 与 attention_mask 图](/img/course/ch07-tokenizer-inputids-mask-length-map.png)
+![Tokenizer to input_ids and attention_mask Diagram](/img/course/ch07-tokenizer-inputids-mask-length-map-en.png)
 
-:::tip 读图提示
-读这张图时把流程分成四步：原文先切成 tokens，再映射成 `input_ids`，短句用 `[PAD]` 补齐，最后用 `attention_mask` 告诉模型哪些位置是真内容。很多 batch 报错和效果异常，都和这条链没看清有关。
+:::tip Reading Tip
+When reading this diagram, break the process into four steps: the original text is first split into tokens, then mapped to `input_ids`, shorter sequences are padded with `[PAD]`, and finally `attention_mask` tells the model which positions are real content. Many batch errors and strange results come from not understanding this chain clearly.
 :::
 
 ---
 
-## 四、为什么 tokenizer 会直接影响成本和效果？
+## 4. Why Does a Tokenizer Directly Affect Cost and Performance?
 
-### 4.1 同一句话切得越碎，token 数就越多
+### 4.1 The more finely a sentence is split, the more tokens it has
 
-token 越多意味着：
+More tokens means:
 
-- 上下文更容易用完
-- 推理成本更高
-- API 计费更贵
+- context is used up more quickly
+- inference cost is higher
+- API billing is more expensive
 
-所以 tokenizer 不是纯理论问题，  
-它也会直接影响工程成本。
+So a tokenizer is not just a theoretical issue;
+it also directly affects engineering cost.
 
-### 4.2 词表太小和太大都不好
+### 4.2 Neither a vocabulary that is too small nor too large is good
 
-如果词表太小：
+If the vocabulary is too small:
 
-- 很多词会被切得很碎
+- many words will be split too finely
 
-如果词表太大：
+If the vocabulary is too large:
 
-- embedding 表会更大
-- 稀有词会更多
-- 训练数据利用率未必更好
+- the embedding table becomes larger
+- there will be more rare words
+- data utilization during training may not actually improve
 
-现实中 tokenizer 设计就是在这些因素之间找平衡。
+In practice, tokenizer design is about finding balance among these factors.
 
-### 4.3 不同语言会带来不同挑战
+### 4.3 Different languages bring different challenges
 
-例如：
+For example:
 
-- 英文天然有空格，分词相对容易
-- 中文没有空格，切分粒度更敏感
-- 代码里还会混入驼峰命名、下划线、符号
+- English naturally has spaces, so tokenization is relatively easy
+- Chinese has no spaces, so segmentation granularity is more sensitive
+- Code also mixes camelCase names, underscores, and symbols
 
-所以 tokenizer 往往会针对训练语料的语言特征做适配。
+So tokenizers are often adapted to the language characteristics of the training corpus.
 
 ---
 
-## 五、special tokens 为什么总在出现？
+## 5. Why Do Special Tokens Keep Appearing?
 
-### 5.1 `[CLS]`、`[SEP]`、`[PAD]` 不只是装饰
+### 5.1 `[CLS]`, `[SEP]`, and `[PAD]` are not just decoration
 
-这些特殊 token 一般承担明确功能：
+These special tokens usually serve clear functions:
 
-- `[CLS]`：句子级表示的起点
-- `[SEP]`：分隔多个片段
-- `[PAD]`：对齐 batch 长度
+- `[CLS]`: the starting point for sentence-level representation
+- `[SEP]`: separates multiple segments
+- `[PAD]`: aligns batch lengths
 
-不同模型的具体符号可能不同，  
-但思想很接近。
+Different models may use different exact symbols,
+but the idea is very similar.
 
-### 5.2 Chat 模型里的 system / user / assistant 其实也是类似思路
+### 5.2 In chat models, system / user / assistant are also based on the same idea
 
-到了聊天模型时代，你会看到更多特殊标记，例如：
+In the era of chat models, you will see more special markers, such as:
 
 - `<|system|>`
 - `<|user|>`
 - `<|assistant|>`
 
-它们本质上也是在用特殊 token 告诉模型：
+They are also fundamentally special tokens that tell the model:
 
-- 这一段是谁说的
-- 对话结构怎么分隔
+- who is speaking in this part
+- how the dialogue structure is separated
 
-所以 chat template 其实也是 tokenizer 生态的一部分。
-
----
-
-## 六、最容易踩的坑
-
-### 6.1 误区一：tokenizer 只是预处理细节
-
-不是。  
-它直接影响：
-
-- token 数量
-- 词表规模
-- OOV 处理
-- 下游模板格式
-
-### 6.2 误区二：只要能切开就行
-
-真正重要的是：
-
-- 切得是否稳定
-- 是否适配语料
-- 是否兼顾长度和语义粒度
-
-### 6.3 误区三：中文就一定按“词”切最好
-
-不一定。  
-很多现代模型仍然采用：
-
-- 字级
-- 子词级
-- SentencePiece 一类统一分词
-
-关键还是看训练目标和数据分布。
+So a chat template is actually part of the tokenizer ecosystem as well.
 
 ---
 
-## 小结
+## 6. The Easiest Pitfalls to Fall Into
 
-这节最重要的不是背下 BPE 或 WordPiece 这些名字，  
-而是抓住一条主线：
+### 6.1 Mistake 1: Thinking the tokenizer is just a preprocessing detail
 
-> **Tokenizer 的本质，是把原始文本切成模型可处理的离散单位，并在词表大小、未知词问题和序列长度之间做工程权衡。**
+It is not.
+It directly affects:
 
-只要这条主线建立起来，  
-你后面再看：
+- token count
+- vocabulary size
+- OOV handling
+- downstream template format
+
+### 6.2 Mistake 2: Thinking that as long as it can be split, that is enough
+
+What really matters is:
+
+- whether the splitting is stable
+- whether it fits the corpus
+- whether it balances length and semantic granularity
+
+### 6.3 Mistake 3: Thinking Chinese should always be segmented by “words” for the best result
+
+Not necessarily.
+Many modern models still use:
+
+- character-level
+- subword-level
+- unified tokenization methods like SentencePiece
+
+The key is still the training objective and data distribution.
+
+---
+
+## Summary
+
+The most important thing in this lesson is not memorizing the names BPE or WordPiece,
+but understanding one main idea:
+
+> **The essence of a tokenizer is to split raw text into discrete units the model can process, while making engineering trade-offs among vocabulary size, unknown-word handling, and sequence length.**
+
+Once this main idea is clear,
+when you later see:
 
 - input ids
 - attention mask
 - context length
-- prompt 模板
+- prompt templates
 
-就不会把它们当成零碎概念了。
+you will no longer treat them as disconnected concepts.
 
 ---
 
-## 练习
+## Exercises
 
-1. 把示例里的词表删掉 `transform` 或 `##ization`，看看哪些词会退化成 `[UNK]`。
-2. 为什么说子词 tokenizer 是词级和字级之间的折中？
-3. 把 `max_length` 改短，观察 truncation 对输出有什么影响。
-4. 想一想：如果你的语料里代码特别多，tokenizer 设计最可能先碰到什么问题？
+1. Remove `transform` or `##ization` from the vocabulary in the example and see which words degrade into `[UNK]`.
+2. Why is a subword tokenizer a compromise between word-level and character-level tokenization?
+3. Change `max_length` to a smaller value and observe how truncation affects the output.
+4. Think about this: if your corpus contains a lot of code, what problem would a tokenizer design most likely run into first?

@@ -1,123 +1,123 @@
 ---
-title: "3.3 语音合成"
+title: "3.3 Speech Synthesis"
 sidebar_position: 10
-description: "从文本到语音、声学模型、声码器到多说话人控制，建立对 TTS 为什么能把文字变成自然语音的第一层直觉。"
+description: "Build an initial intuition for why TTS can turn text into natural speech, from text-to-speech, acoustic models, vocoders, to multi-speaker control."
 keywords: [TTS, text to speech, vocoder, speech synthesis, voice cloning, speaker control]
 ---
 
-# 语音合成
+# Speech Synthesis
 
-![TTS 文本到语音生成链路图](/img/course/ch12-tts-text-to-speech-pipeline-map.png)
+![TTS text-to-speech generation pipeline diagram](/img/course/ch12-tts-text-to-speech-pipeline-map-en.png)
 
-:::tip 读图提示
-TTS 不是把字逐个读出来。读图时重点看文本规范化、音素/韵律、声学特征、vocoder、音色和实时性如何共同决定“像不像人在说话”。
+:::tip Reading tip
+TTS is not about reading characters one by one. When reading this diagram, focus on how text normalization, phonemes/prosody, acoustic features, the vocoder, voice timbre, and real-time performance work together to determine how “human-like” the speech sounds.
 :::
 
-:::tip 本节定位
-如果说视频生成在解决“连续视觉”，那语音合成在解决的是：
+:::tip Section overview
+If video generation is about solving “continuous visuals,” then speech synthesis is about solving:
 
-> **如何把一段文字变成听起来自然、稳定、可控的声音。**
+> **How do you turn a piece of text into a voice that sounds natural, stable, and controllable?**
 
-这件事听起来很直观，但真正做起来并不简单，因为语音不只是“发音”，还包括：
+It sounds intuitive, but it is not simple in practice, because speech is not just “pronunciation”; it also includes:
 
-- 节奏
-- 音高
-- 停顿
-- 情绪
+- rhythm
+- pitch
+- pauses
+- emotion
 :::
 
-## 学习目标
+## Learning goals
 
-- 理解语音合成为什么比“文本转声音文件”复杂得多
-- 理解 TTS 系统通常要拆成哪些模块
-- 看懂一个最小的文本到语音流程示意
-- 理解多说话人、情感控制和语音克隆分别在解决什么问题
+- Understand why speech synthesis is much more complex than “text to audio”
+- Understand what modules a TTS system is usually broken into
+- Read a minimal text-to-speech pipeline diagram
+- Understand what multi-speaker, emotion control, and voice cloning each try to solve
 
 ---
 
-## 先建立一张地图
+## First, build a map
 
-TTS 这节最适合新人的理解顺序不是“文字直接变声音”，而是先看清：
+For beginners, the best way to understand this section is not “text directly becomes audio,” but first to see clearly:
 
 ```mermaid
 flowchart LR
-    A["文本"] --> B["文本处理"]
-    B --> C["声学表示"]
+    A["Text"] --> B["Text processing"]
+    B --> C["Acoustic representation"]
     C --> D["Vocoder"]
-    D --> E["波形音频"]
+    D --> E["Waveform audio"]
 ```
 
-所以这节真正想解决的是：
+So what this section is really trying to answer is:
 
-- 为什么 TTS 是多阶段生成任务
-- 为什么它既像语言任务，也像音频生成任务
+- Why TTS is a multi-stage generation task
+- Why it is both a language task and an audio generation task
 
-### 一个更适合新人的总类比
+### A better beginner-friendly analogy
 
-你可以把 TTS 理解成：
+You can think of TTS as:
 
-- 一位配音演员在录音棚里工作
+- A voice actor working in a recording studio
 
-他不是只看文字就机械念出来，  
-还会自然处理：
+They do not just look at text and read it out mechanically,
+but naturally handle:
 
-- 哪里停顿
-- 哪个词要重读
-- 语气该平静还是兴奋
+- where to pause
+- which word to stress
+- whether the tone should be calm or excited
 
-这个类比很适合新人，因为它会帮助你先抓住：
+This analogy is especially helpful for beginners, because it helps you first grasp:
 
-- TTS 的真正目标不是“发出声音”
-- 而是“发出像人在说话的声音”
+- The real goal of TTS is not “making sound”
+- It is “making sound that feels like a person speaking”
 
-## 一、语音合成到底在做什么？
+## 1. What exactly does speech synthesis do?
 
-### 1.1 不是简单把字一个个读出来
+### 1.1 It is not just reading characters out one by one
 
-如果你真的机械地把文字逐个字念出来，结果通常会非常生硬。  
-自然语音里包含的东西远比“文字内容”多，例如：
+If you mechanically read the text character by character, the result will usually sound very stiff.
+Natural speech contains much more than just the text content, for example:
 
-- 断句
-- 重音
-- 语气
-- 说话速度
-- 情绪
+- phrasing
+- stress
+- tone
+- speaking speed
+- emotion
 
-所以 TTS 的真正问题不是：
+So the real problem in TTS is not:
 
-> “能不能发出声音”
+> “Can it make sound?”
 
-而是：
+but:
 
-> “能不能发出像人说话那样的声音”
+> “Can it make speech that sounds like a person?”
 
-### 1.2 一个很重要的直觉
+### 1.2 A very important intuition
 
-语音合成本质上是在做：
+At its core, speech synthesis does:
 
-- 文本理解
-- 发音建模
-- 声学特征生成
-- 波形重建
+- text understanding
+- pronunciation modeling
+- acoustic feature generation
+- waveform reconstruction
 
-也就是说，它不是一层转换，而是一个多阶段生成问题。
+In other words, it is not a single conversion step, but a multi-stage generation problem.
 
 ---
 
-## 二、一个最小 TTS 流程长什么样？
+## 2. What does a minimal TTS pipeline look like?
 
-可以先把它粗略理解成这几步：
+You can roughly think of it as these steps:
 
-1. 文本预处理
-2. 生成中间声学表示
-3. 通过声码器变成波形
+1. Text preprocessing
+2. Generate an intermediate acoustic representation
+3. Turn it into waveform through a vocoder
 
 ```mermaid
 flowchart LR
-    A["文本"] --> B["文本处理 / 编码"]
-    B --> C["声学表示"]
-    C --> D["声码器 Vocoder"]
-    D --> E["波形音频"]
+    A["Text"] --> B["Text processing / encoding"]
+    B --> C["Acoustic representation"]
+    C --> D["Vocoder"]
+    D --> E["Waveform audio"]
 
     style A fill:#e3f2fd,stroke:#1565c0,color:#333
     style B fill:#fff3e0,stroke:#e65100,color:#333
@@ -126,63 +126,63 @@ flowchart LR
     style E fill:#e8f5e9,stroke:#2e7d32,color:#333
 ```
 
-这个流程图最重要的作用是让你先建立一个正确认知：
+The most important thing about this diagram is that it helps you build the right mental model:
 
-> 语音合成不是一步，而是多层管线。
+> Speech synthesis is not a one-step process, but a multi-layer pipeline.
 
-### 2.1 一个很适合初学者先记的模块表
+### 2.1 A module table that beginners should remember first
 
-| 模块 | 最值得先记住的作用 |
+| Module | Most important thing to remember |
 |---|---|
-| 文本处理 | 把文字整理成更适合发音的表示 |
-| 声学表示 | 描述“应该怎么说” |
-| Vocoder | 把声学表示真正变成波形 |
+| Text processing | Organizes text into a form that is easier to pronounce |
+| Acoustic representation | Describes “how it should be spoken” |
+| Vocoder | Turns the acoustic representation into actual waveform |
 
-这个表很适合新人，因为它会把 TTS 从“一个黑盒”重新拆成三层比较清楚的职责。
-
----
-
-## 三、为什么文本处理这一步不能省？
-
-### 3.1 因为文字本身并不等于发音信息
-
-例如同样一句话，不同场景下停顿和语气可能不同：
-
-- “你来了。”
-- “你来了？”
-
-仅仅字面很像，但语音表达完全不同。
-
-### 3.2 文本处理通常在做什么？
-
-- 分词 / 音素映射
-- 数字读法转换
-- 标点和停顿处理
-- 语气特征提示
-
-也就是说，TTS 系统首先要把“文字”翻译成“更接近发音的表示”。
+This table is useful for beginners because it breaks TTS, which can feel like a black box, into three clearer responsibilities.
 
 ---
 
-## 四、声学表示是什么？
+## 3. Why can’t we skip text processing?
 
-### 4.1 为什么不直接从文字到波形？
+### 3.1 Because text itself is not the same as pronunciation information
 
-直接从文本一步生成波形是很难的，因为波形非常长、非常细、非常敏感。
+For example, the same sentence may have different pauses and tone in different situations:
 
-所以很多 TTS 系统会先生成一种中间表示，例如：
+- “You’re here.”
+- “You’re here?”
 
-- mel spectrogram（梅尔频谱）
+The words are very similar, but the spoken expression is completely different.
 
-你可以先把它理解成：
+### 3.2 What does text processing usually do?
 
-> **声音的一张“频率热力图”。**
+- Tokenization / phoneme mapping
+- Number reading conversion
+- Punctuation and pause handling
+- Tone feature hints
 
-### 4.2 一个直觉示意
+In other words, the TTS system first needs to translate “text” into a representation that is closer to pronunciation.
+
+---
+
+## 4. What is an acoustic representation?
+
+### 4.1 Why not go directly from text to waveform?
+
+It is hard to generate waveform directly from text in one step, because waveform data is very long, very detailed, and very sensitive.
+
+So many TTS systems first generate an intermediate representation, such as:
+
+- mel spectrogram
+
+You can think of it as:
+
+> **A “heatmap” of the sound’s frequencies.**
+
+### 4.2 An intuitive example
 
 ```python
 tts_pipeline = {
-    "input": "你好，欢迎来到 AI 全栈课程。",
+    "input": "Hello, welcome to the AI full-stack course.",
     "intermediate": "mel_spectrogram",
     "output": "waveform"
 }
@@ -190,43 +190,43 @@ tts_pipeline = {
 print(tts_pipeline)
 ```
 
-这个例子虽然只是结构示意，但它已经说明：
+Although this example is only a structural illustration, it already shows:
 
-- 文本不是直接变成声音
-- 中间还有一层更适合建模的表示
-
----
-
-## 五、Vocoder（声码器）在做什么？
-
-### 5.1 它的角色很像“把频谱翻译成真正能听的声音”
-
-如果说前面模块生成的是一种“声学蓝图”，那 vocoder 就负责把蓝图真正变成波形。
-
-### 5.2 一个很实用的理解
-
-可以先记成：
-
-- 声学模型：决定“该说成什么样”
-- Vocoder：决定“怎样把它真的发出来”
-
-这两个模块经常会分别设计和优化。
+- Text does not become sound directly
+- There is an intermediate representation that is easier to model
 
 ---
 
-## 六、一个最小“多说话人控制”示意
+## 5. What does the vocoder do?
 
-很多现代语音合成系统不只会“读文字”，还会控制：
+### 5.1 Its role is a bit like “translating a frequency map into actual audible sound”
 
-- 说话人
-- 语速
-- 情绪
+If the earlier modules generate a kind of “acoustic blueprint,” then the vocoder is responsible for turning that blueprint into waveform.
 
-例如：
+### 5.2 A very practical way to understand it
+
+You can remember it like this:
+
+- Acoustic model: decides “what it should sound like”
+- Vocoder: decides “how to actually produce it”
+
+These two modules are often designed and optimized separately.
+
+---
+
+## 6. A minimal multi-speaker control example
+
+Many modern speech synthesis systems do not just “read text”; they also control:
+
+- speaker
+- speaking speed
+- emotion
+
+For example:
 
 ```python
 tts_config = {
-    "text": "欢迎来到课程学习。",
+    "text": "Welcome to the course.",
     "speaker": "female_voice_01",
     "speed": 1.0,
     "emotion": "neutral"
@@ -235,134 +235,134 @@ tts_config = {
 print(tts_config)
 ```
 
-### 6.2 这个例子在教什么？
+### 6.2 What is this example teaching?
 
-它在教你：
+It is teaching you:
 
-> TTS 的输入经常不只是文本，还会包括“怎么说”的控制条件。
+> The input to TTS is often not just text, but also control conditions for “how to speak.”
 
-这也是现代语音合成比早期系统更强大的地方之一。
+This is one of the reasons modern speech synthesis is much more powerful than early systems.
 
-### 6.3 一个很适合初学者先记的选择表
+### 6.3 A beginner-friendly decision table
 
-| 用户需求 | TTS 系统更该优先控制什么 |
+| User need | What the TTS system should prioritize |
 |---|---|
-| 想换音色 | speaker |
-| 想更快或更慢 | speed |
-| 想更像客服或播音 | style / emotion |
-| 想模仿某个人 | voice cloning / speaker adaptation |
+| Want a different voice timbre | speaker |
+| Want it faster or slower | speed |
+| Want it more like customer support or a broadcaster | style / emotion |
+| Want to imitate a specific person | voice cloning / speaker adaptation |
 
-这个表很适合新人，因为它会把“可控 TTS”重新变成几个具体旋钮。
-
----
-
-## 七、为什么说语音合成比想象中更像生成任务？
-
-因为它也有这些典型生成难点：
-
-- 结果要自然
-- 结果要稳定
-- 结果要可控
-
-而且它和图像生成一样，也会面临：
-
-- 风格控制
-- 个性化
-- 质量与速度权衡
-
-所以你可以把 TTS 理解成：
-
-> 一个音频世界里的生成模型问题。
+This table is useful for beginners because it turns “controllable TTS” into a few concrete knobs.
 
 ---
 
-## 八、TTS 真实产品里最重要的几个方向
+## 7. Why is speech synthesis more like a generation task than you might think?
 
-### 8.1 多说话人
+Because it also has these typical generation challenges:
 
-系统能不能切换不同音色。
+- The output must sound natural
+- The output must be stable
+- The output must be controllable
 
-### 8.2 情感与韵律控制
+And like image generation, it also faces:
 
-系统能不能表达：
+- style control
+- personalization
+- trade-offs between quality and speed
 
-- 开心
-- 冷静
-- 严肃
+So you can think of TTS as:
 
-### 8.3 语音克隆
-
-系统能不能学习某个特定人的声音特征。
-
-### 8.4 实时性
-
-如果是对话助手，延迟会非常关键。
+> A generation model problem in the audio world.
 
 ---
 
-## 九、初学者第一次学 TTS 最该先记什么
+## 8. The most important directions in real TTS products
 
-最值得先记住的是：
+### 8.1 Multi-speaker
 
-1. 文本不等于发音信息
-2. 声学表示是中间层，不是可有可无
-3. Vocoder 决定的是“怎么真正发出来”
+Can the system switch between different voice timbres?
 
----
+### 8.2 Emotion and prosody control
 
-## 十、初学者最常踩的坑
+Can the system express:
 
-### 10.1 以为 TTS 就是“把字读出来”
+- happiness
+- calmness
+- seriousness
 
-实际上它更像“生成自然说话过程”。
+### 8.3 Voice cloning
 
-### 10.2 只关注音色，不关注节奏和停顿
+Can the system learn the voice characteristics of a specific person?
 
-很多“不自然”的根源其实在韵律，而不是音色本身。
+### 8.4 Real-time performance
 
-### 10.3 以为 TTS 天然就是实时的
-
-很多高质量模型并不一定能做到很低延迟。
-
-## 如果把它做成项目或系统设计，最值得展示什么
-
-最值得展示的通常不是：
-
-- “我把文字转成了音频”
-
-而是：
-
-1. 文本如何进入 TTS 流程
-2. 用了哪些控制条件
-3. 哪一层在决定自然度，哪一层在决定最终音质
-4. 延迟和质量之间怎么取舍
-
-这样别人会更容易看出：
-
-- 你理解的是 TTS 工作流
-- 不只是调了一个配音接口
+If this is a conversational assistant, latency becomes very important.
 
 ---
 
-## 小结
+## 9. What should beginners remember first when learning TTS?
 
-这一节最重要的不是记住某个 TTS 模型名字，而是建立这个直觉：
+The most important things to remember first are:
 
-> **语音合成的本质，是把文字和说话控制信息，逐步变成自然、可听、可控的声音波形。**
-
-理解了这条主线，后面你再看数字人、配音系统和语音助手时，就会清楚很多。
-
-## 这节最该带走什么
-
-- TTS 不是把文字朗读出来那么简单
-- 它本质上是一条文本到声学再到波形的生成链路
-- “自然、稳定、可控”比“能发声”更接近真实产品要求
+1. Text is not the same as pronunciation information
+2. Acoustic representation is an intermediate layer, not optional
+3. The vocoder decides how it is actually turned into sound
 
 ---
 
-## 练习
+## 10. Common mistakes beginners make
 
-1. 用自己的话解释：为什么 TTS 不能简单理解成“把字一个个念出来”？
-2. 想一想：为什么很多 TTS 系统会把“说话人、语速、情绪”也当作输入？
-3. 如果你在做实时语音助手，为什么 TTS 延迟会成为关键工程指标？
-4. 用自己的话说明：声学模型和 vocoder 分别更像在解决什么问题？
+### 10.1 Thinking TTS just means “reading text aloud”
+
+In fact, it is more like “generating a natural speaking process.”
+
+### 10.2 Only paying attention to voice timbre, not rhythm and pauses
+
+A lot of “unnaturalness” actually comes from prosody, not timbre itself.
+
+### 10.3 Thinking TTS is naturally real-time
+
+Many high-quality models are not necessarily low-latency.
+
+## If you turn this into a project or system design, what is most worth showing?
+
+What is most worth showing is usually not:
+
+- “I converted text into audio”
+
+but:
+
+1. How text enters the TTS pipeline
+2. What control conditions are used
+3. Which layer determines naturalness and which layer determines final audio quality
+4. How the trade-off between latency and quality is handled
+
+That way, others can more easily see:
+
+- You understand the TTS workflow
+- You did not just wire up a voice-generation API
+
+---
+
+## Summary
+
+The most important thing in this section is not memorizing a specific TTS model name, but building this intuition:
+
+> **The essence of speech synthesis is to gradually turn text and speech control information into natural, audible, and controllable waveform audio.**
+
+Once you understand this main idea, video avatars, dubbing systems, and voice assistants will make much more sense.
+
+## What you should take away from this section
+
+- TTS is not as simple as reading text aloud
+- It is essentially a generation pipeline from text to acoustics to waveform
+- “Natural, stable, and controllable” is closer to the real product requirement than just “being able to make sound”
+
+---
+
+## Exercises
+
+1. In your own words, explain why TTS cannot be simply understood as “reading characters one by one.”
+2. Think about why many TTS systems treat “speaker, speaking speed, and emotion” as input too.
+3. If you are building a real-time voice assistant, why would TTS latency become a key engineering metric?
+4. In your own words, explain what problem the acoustic model and the vocoder are each more like solving.

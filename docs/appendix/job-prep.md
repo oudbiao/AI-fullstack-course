@@ -1,210 +1,210 @@
 ---
-title: "求职准备清单"
+title: "Job Search Preparation Checklist"
 sidebar_position: 7
 ---
 
-# 求职准备清单
+# Job Search Preparation Checklist
 
-![求职准备漏斗图](/img/course/appendix-job-prep-funnel.png)
+![Job search preparation funnel diagram](/img/course/appendix-job-prep-funnel-en.png)
 
-![AI 求职作品集故事线图](/img/course/appendix-job-portfolio-storyline-map.png)
+![AI job portfolio storyline map](/img/course/appendix-job-portfolio-storyline-map-en.png)
 
-:::tip 读图提示
-求职项目不要只堆技术名词。读图时按“岗位目标 -> 用户问题 -> 技术方案 -> 指标结果 -> 失败复盘 -> README/面试表达”串成故事线，面试官更容易看懂你的真实能力。
+:::tip Reading Guide
+When reviewing job-search projects, do not just pile up technical buzzwords. Read them as a storyline in this order: “job target -> user problem -> technical solution -> metric results -> failure review -> README/interview explanation.” This makes it easier for interviewers to understand your real abilities.
 :::
 
-这一页不是让你“学完再找工作”，而是帮你把学习过程逐步转换成能投递、能面试、能讲清楚的成果。
+This page is not telling you to “finish learning before looking for a job.” Instead, it helps you gradually turn your learning process into results that you can apply with, interview with, and explain clearly.
 
-## 1. 先判断你想投什么岗位
+## 1. First, figure out which role you want to apply for
 
-不同方向，准备重点不同。
+Different directions require different priorities in preparation.
 
-| 岗位方向 | 更看重什么 | 你应该重点准备什么 |
+| Role direction | What matters more | What you should focus on preparing |
 |---|---|---|
-| AI / 算法工程 | 模型理解、训练、评估 | 机器学习、深度学习、实验项目 |
-| LLM 应用工程 | 产品闭环、RAG、Agent、后端工程 | 项目完整度、接口设计、日志和评估 |
-| 数据科学 / 数据分析 | 数据处理、统计、建模、可视化 | SQL、Python、分析报告、业务表达 |
-| AI 产品 / 技术产品 | 场景理解、需求拆解、评估与协作 | 项目方案、产品判断、沟通能力 |
+| AI / Algorithm Engineering | Model understanding, training, evaluation | Machine learning, deep learning, experimental projects |
+| LLM Application Engineering | Product loop, RAG, Agent, backend engineering | Project completeness, API design, logs and evaluation |
+| Data Science / Data Analysis | Data processing, statistics, modeling, visualization | SQL, Python, analysis reports, business communication |
+| AI Product / Technical Product | Scenario understanding, requirement decomposition, evaluation and collaboration | Project proposals, product judgment, communication skills |
 
-如果你是新人，不要试图同时准备所有方向，先选一个主目标更有效。
+If you are a beginner, do not try to prepare for every direction at once. Choosing one main target first is more effective.
 
-## 2. 简历里最有分量的东西是什么
+## 2. What matters most in a resume
 
-对大多数新人来说，最有价值的通常不是“看过多少课”，而是下面三样：
+For most beginners, the most valuable things are usually not “how many courses you watched,” but these three things:
 
-1. 2～3 个你能讲清楚的项目
-2. 一套稳定的技术栈和工具链
-3. 明确可验证的结果
+1. 2–3 projects you can explain clearly
+2. A stable tech stack and toolchain
+3. Clearly verifiable results
 
-项目比“学过 XXX、了解 XXX”更有说服力，因为项目能同时展示：
+Projects are more convincing than saying “I studied XXX” or “I know XXX,” because projects can show all of these at the same time:
 
-- 动手能力
-- 排障能力
-- 取舍能力
-- 表达能力
+- Hands-on ability
+- Debugging ability
+- Trade-off judgment
+- Communication ability
 
-## 3. 项目怎么选才对求职有帮助
+## 3. How to choose projects that actually help with job hunting
 
-比起做很大的题目，更重要的是做“边界清楚”的题目。
+Instead of making very large projects, it is more important to make projects with clear boundaries.
 
-更合适的项目通常满足这些条件：
+A better project usually has these qualities:
 
-- 有明确输入输出
-- 有 baseline
-- 有评估方式
-- 有失败案例
-- 有你自己的改进点
+- Clear inputs and outputs
+- A baseline
+- An evaluation method
+- Failure cases
+- Your own improvement points
 
-例如：
+For example:
 
-- 图像分类系统
-- 文本分类 / 情感分析项目
-- 企业知识库问答系统
-- 智能助手或 Agent 工作流
-- 数据分析 Agent
+- Image classification system
+- Text classification / sentiment analysis project
+- Enterprise knowledge base Q&A system
+- Intelligent assistant or Agent workflow
+- Data analysis Agent
 
-## 4. 简历项目应该怎么写
+## 4. How to write project experience on your resume
 
-不要只写“使用了某某框架完成某项目”。更好的写法是：
+Do not just write, “Used some framework to complete a project.” A better format is:
 
-### 4.1 先写问题
+### 4.1 Start with the problem
 
-项目解决什么问题？面向谁？输入输出是什么？
+What problem does the project solve? Who is it for? What are the inputs and outputs?
 
-### 4.2 再写你的方案
+### 4.2 Then write your solution
 
-你做了哪些模块？为什么这样设计？
+What modules did you build? Why did you design it that way?
 
-### 4.3 最后写结果
+### 4.3 Finally, write the results
 
-结果可以是：
+Results can include:
 
-- 指标提升
-- 处理速度提升
-- 召回质量改善
-- 用户体验变好
-- 部署或维护成本下降
+- Improved metrics
+- Faster processing speed
+- Better recall quality
+- Improved user experience
+- Lower deployment or maintenance cost
 
-### 4.4 一个简历表述对比
+### 4.4 A resume wording comparison
 
-不够好的写法：
-
-```text
-使用 Python 和 LangChain 做了一个知识库问答系统。
-```
-
-更好的写法：
+A weaker version:
 
 ```text
-基于 Python 构建企业知识库问答系统，完成文档切分、向量检索、权限过滤和答案引用链路；
-设计评估集对比不同 chunk 策略，减少误召回并提升答案可追溯性。
+Used Python and LangChain to build a knowledge base Q&A system.
 ```
 
-第二种写法更能体现你真的做过。
+A better version:
 
-## 5. GitHub 项目页怎么准备
+```text
+Built an enterprise knowledge base Q&A system based on Python, completing document chunking, vector retrieval, permission filtering, and answer citation tracing;
+designed an evaluation set to compare different chunking strategies, reducing false retrievals and improving answer traceability.
+```
 
-一个能加分的项目仓库，至少应包含：
+The second version shows much more clearly that you actually built something.
+
+## 5. How to prepare your GitHub project page
+
+A project repository that can add points should at least include:
 
 - `README`
-- 运行方法
-- 项目结构说明
-- 示例输入输出
-- 截图或效果图
-- 已知问题和后续计划
+- How to run it
+- Project structure explanation
+- Example inputs and outputs
+- Screenshots or demo images
+- Known issues and future plans
 
-如果别人点开你的仓库，3 分钟内应该能知道：
+If someone opens your repository, they should be able to know within 3 minutes:
 
-- 这是干什么的
-- 怎么跑
-- 你做了哪些关键部分
-- 效果大概怎样
+- What it is for
+- How to run it
+- Which key parts you built
+- Roughly how well it works
 
-## 6. 面试前要补哪些基础
+## 6. What basics should you review before interviews
 
-### 6.1 通用基础
+### 6.1 General basics
 
-- Python 基础
-- 数据结构与常见复杂度意识
-- Git、环境管理、常见命令行操作
-- HTTP / API 基础
+- Python basics
+- Data structures and awareness of common time complexity
+- Git, environment management, common command-line operations
+- HTTP / API basics
 
-### 6.2 机器学习 / 深度学习基础
+### 6.2 Machine learning / deep learning basics
 
-- 常见任务和指标
-- 过拟合与欠拟合
-- 训练集、验证集、测试集
-- 优化器、学习率、损失函数
+- Common tasks and metrics
+- Overfitting and underfitting
+- Training set, validation set, test set
+- Optimizers, learning rate, loss functions
 
-### 6.3 LLM / Agent 方向基础
+### 6.3 LLM / Agent basics
 
-- Prompt、RAG、Fine-tuning 的区别
-- 向量检索和 chunking 的作用
-- 工具调用为什么需要 schema 和校验
-- Agent 为什么需要状态、记忆和监控
+- The differences between Prompt, RAG, and Fine-tuning
+- The role of vector retrieval and chunking
+- Why tool calling needs schema and validation
+- Why Agent needs state, memory, and monitoring
 
-## 7. 项目面试时最常被问什么
+## 7. What are the most common questions in project interviews
 
-高频问题通常不是“你用了哪个框架”，而是：
+The most frequent questions are usually not “Which framework did you use?” but:
 
-- 为什么选这个方案
-- 有没有 baseline
-- 遇到过什么失败
-- 怎么评估效果
-- 如果线上出问题，你先查什么
+- Why did you choose this solution?
+- Did you have a baseline?
+- What failures did you run into?
+- How did you evaluate the results?
+- If something goes wrong in production, what would you check first?
 
-所以准备时要能讲清：
+So when preparing, you should be able to explain clearly:
 
-1. 你的项目目标
-2. 你的最小闭环
-3. 你的关键设计
-4. 你的评估方法
-5. 你的失败案例和改进方向
+1. Your project goal
+2. Your minimum working loop
+3. Your key design choices
+4. Your evaluation method
+5. Your failure cases and improvement directions
 
-## 8. 一份投递前自查清单
+## 8. A pre-application checklist
 
-- 我的简历是否能在 30 秒内看懂主线
-- 我是否至少有 2 个能深聊的项目
-- 我的 GitHub 是否有 README 和运行说明
-- 我是否能口头解释自己的项目架构
-- 我是否能说出一个做错过但后来修正的问题
-- 我是否知道目标岗位更看重什么
+- Can my resume be understood within 30 seconds?
+- Do I have at least 2 projects I can discuss in depth?
+- Does my GitHub include a README and run instructions?
+- Can I explain my project architecture out loud?
+- Can I describe one mistake I made and later fixed?
+- Do I know what the target role values most?
 
-如果这 6 条里大多数还不稳，优先补项目和表达，而不是继续无止境囤知识。
+If most of these 6 items are still not solid, prioritize projects and communication instead of endlessly collecting more knowledge.
 
-## 9. 一个四周求职冲刺建议
+## 9. A four-week job-search sprint plan
 
-### 第 1 周
+### Week 1
 
-- 定岗位方向
-- 梳理已有项目
-- 选 2～3 个作为主打项目
+- Decide on the role direction
+- Organize existing projects
+- Pick 2–3 as your main projects
 
-### 第 2 周
+### Week 2
 
-- 补 README、截图、运行方式
-- 重写简历项目描述
-- 开始准备项目讲解稿
+- Add README, screenshots, and run instructions
+- Rewrite project descriptions on the resume
+- Start preparing a project presentation script
 
-### 第 3 周
+### Week 3
 
-- 刷通用基础题
-- 针对岗位补 ML / LLM / 工程基础
-- 做模拟面试
+- Practice general fundamentals questions
+- Add ML / LLM / engineering fundamentals based on the role
+- Do mock interviews
 
-### 第 4 周
+### Week 4
 
-- 开始投递
-- 记录常被问到的问题
-- 根据反馈继续修项目和表达
+- Start applying
+- Record questions that come up often
+- Keep improving projects and presentation based on feedback
 
-## 10. 最重要的一件事
+## 10. The most important thing
 
-对新人来说，求职准备不是把知识背完，而是把“学习痕迹”整理成“别人能看懂的成果”。
+For beginners, job-search preparation is not about memorizing all the knowledge. It is about turning “traces of learning” into “results that others can understand.”
 
-你最终拿出去竞争的，不是你看过多少资料，而是：
+What you are ultimately competing with is not how many materials you have read, but:
 
-- 你做过什么
-- 你理解到什么程度
-- 你能不能讲清楚
-- 你能不能继续把事情做下去
+- What you have built
+- How deeply you understand it
+- Whether you can explain it clearly
+- Whether you can keep getting things done

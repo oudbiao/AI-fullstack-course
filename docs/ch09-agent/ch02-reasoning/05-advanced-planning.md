@@ -1,123 +1,123 @@
 ---
-title: "2.6 高级规划策略【选修】"
+title: "2.6 Advanced Planning Strategies [Optional]"
 sidebar_position: 9
-description: "从线性任务清单进一步走向 DAG、并行调度、关键路径和重规划，理解高级规划为什么更像任务图管理而不只是“多列几个步骤”。"
+description: "Move beyond a linear task list toward DAGs, parallel scheduling, critical paths, and replanning, and understand why advanced planning is more like task graph management than just “listing a few more steps.”"
 keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critical path]
 ---
 
-# 高级规划策略【选修】
+# Advanced Planning Strategies [Optional]
 
-:::tip 本节定位
-上一节的 Plan-and-Execute 已经把长任务拆成了顺序步骤。  
-但真实复杂任务往往不是一条直线，而更像一张图：
+:::tip Section overview
+The Plan-and-Execute approach in the previous section already split long tasks into sequential steps.
+But real complex tasks are often not a straight line — they look more like a graph:
 
-- 有些步骤必须先做
-- 有些步骤可以并行
-- 有些步骤失败后要回滚或重规划
+- Some steps must happen first
+- Some steps can run in parallel
+- Some steps need rollback or replanning after failure
 
-所以这节会再往前走一步：
+So in this section, we will take one more step forward:
 
-> **高级规划不是把清单写得更长，而是把任务关系建成图。**
+> **Advanced planning is not about writing a longer checklist; it is about turning task relationships into a graph.**
 :::
 
-## 学习目标
+## Learning objectives
 
-- 理解为什么复杂任务需要依赖图，而不只是线性步骤
-- 理解并行、关键路径、资源限制在规划中的作用
-- 通过可运行示例看懂一个最小 DAG 调度器
-- 理解高级规划和普通 Plan-and-Execute 的差别
-
----
-
-## 一、为什么线性计划有时不够？
-
-### 1.1 因为现实任务里很多步骤并不是“先 A 再 B 再 C”
-
-例如做一份调研报告时，  
-你可能需要：
-
-- 收集产品资料
-- 收集用户反馈
-- 读取历史数据
-
-这些步骤并不一定要严格串行。  
-如果硬写成直线，  
-计划会显得：
-
-- 冗长
-- 低效
-- 难以表达真实依赖
-
-### 1.2 高级规划最核心的问题
-
-不是“列多少步骤”，  
-而是：
-
-- 哪些步骤依赖哪些前置条件
-- 哪些可以并行
-- 哪些是关键路径
-
-也就是说，高级规划的对象更像：
-
-- 任务图
-
-### 1.3 一个类比：施工图而不是办事清单
-
-普通计划像待办清单。  
-高级规划更像施工图：
-
-- 哪些工序能同时开工
-- 哪些工序必须等验收
-- 哪些工序拖慢会影响全局
+- Understand why complex tasks need dependency graphs instead of just linear steps
+- Understand the role of parallelism, critical paths, and resource limits in planning
+- Use a runnable example to understand a minimal DAG scheduler
+- Understand the difference between advanced planning and ordinary Plan-and-Execute
 
 ---
 
-## 二、高级规划里最常见的三个概念
+## 1. Why is a linear plan sometimes not enough?
 
-### 2.1 依赖关系
+### 1.1 Because in real tasks, many steps are not “A first, then B, then C”
 
-如果任务 B 必须等待任务 A 产出结果，  
-那就有：
+For example, when preparing a research report,
+you may need to:
+
+- Gather product materials
+- Gather user feedback
+- Read historical data
+
+These steps do not necessarily have to be done strictly in sequence.
+If you force them into a straight line,
+the plan will feel:
+
+- Too long
+- Inefficient
+- Hard to express real dependencies
+
+### 1.2 The most important problem in advanced planning
+
+It is not “how many steps to list,”
+but rather:
+
+- Which steps depend on which prerequisites
+- Which steps can run in parallel
+- Which steps are on the critical path
+
+In other words, the object of advanced planning is more like:
+
+- A task graph
+
+### 1.3 An analogy: a construction blueprint, not a to-do list
+
+An ordinary plan is like a checklist.
+Advanced planning is more like a construction blueprint:
+
+- Which tasks can start at the same time
+- Which tasks must wait for inspection or approval
+- Which tasks, if delayed, affect the whole project
+
+---
+
+## 2. Three concepts you will see most often in advanced planning
+
+### 2.1 Dependencies
+
+If task B must wait for the result of task A,
+then we have:
 
 - `A -> B`
 
-例如：
+For example:
 
-- 先抓取数据，再清洗数据
-- 先完成统计，再写报告
+- First fetch data, then clean data
+- First complete analysis, then write the report
 
-### 2.2 并行性
+### 2.2 Parallelism
 
-如果两个任务互不依赖，  
-它们理论上可以同时做。
+If two tasks do not depend on each other,
+they can, in theory, be done at the same time.
 
-这意味着：
+This means:
 
-- 总耗时可能缩短
-- 但调度会更复杂
+- Total time may be reduced
+- But scheduling becomes more complex
 
-### 2.3 关键路径
+### 2.3 Critical path
 
-关键路径指的是：
+The critical path is:
 
-- 决定总耗时的那条最长依赖链
+- The longest dependency chain that determines the total execution time
 
-很多任务不是所有步骤都同样重要。  
-真正拖慢整体进度的，往往是关键路径上的节点。
+Not all tasks are equally important.
+The nodes that actually slow down the overall progress are often the ones on the critical path.
 
 ---
 
-## 三、先跑一个真正的 DAG 调度示例
+## 3. First, run a real DAG scheduling example
 
-下面这段代码会做一件很有代表性的事：
+The code below does something very representative:
 
-- 给定任务依赖和持续时间
-- 在 2 个 worker 限制下做调度
-- 输出每个时间点在跑什么
+- Given task dependencies and durations
+- Schedule tasks with a limit of 2 workers
+- Output what is running at each time point
 
-这会帮助你建立高级规划最重要的直觉：
+This will help you build the most important intuition in advanced planning:
 
-- 计划不只是顺序，还是资源和依赖的组合
+- A plan is not just a sequence; it is a combination of resources and dependencies
 
 ```python
 tasks = {
@@ -136,14 +136,14 @@ def schedule(task_graph, workers=2):
     time = 0
 
     while len(completed) < len(task_graph):
-        # 先完成这一时刻结束的任务
+        # First, finish the tasks that end at this time point
         just_finished = [task for task, end_time in running if end_time == time]
         if just_finished:
             for task in just_finished:
                 completed.add(task)
             running = [(task, end_time) for task, end_time in running if end_time != time]
 
-        # 找出当前可执行任务
+        # Find currently executable tasks
         available = []
         for task, meta in task_graph.items():
             if task in completed:
@@ -153,7 +153,7 @@ def schedule(task_graph, workers=2):
             if all(dep in completed for dep in meta["deps"]):
                 available.append(task)
 
-        # 分配空闲 worker
+        # Assign idle workers
         free_slots = workers - len(running)
         for task in available[:free_slots]:
             end_time = time + task_graph[task]["duration"]
@@ -180,165 +180,163 @@ for item in timeline:
     print(item)
 ```
 
-### 3.1 这段代码最该看什么？
+### 3.1 What should you focus on in this code?
 
-重点不是细节语法，  
-而是这三件事：
+The key is not the syntax details,
+but these three things:
 
-1. 任务不是线性列表，而是 `deps` 图
-2. 只有依赖满足的任务才能进入 `available`
-3. worker 数量会限制并发度
+1. Tasks are not a linear list, but a `deps` graph
+2. Only tasks whose dependencies are satisfied can enter `available`
+3. The number of workers limits concurrency
 
-这三件事合在一起，  
-就是高级规划最核心的现实约束。
+Together, these three things
+form the most important real-world constraints in advanced planning.
 
-### 3.2 为什么 `draft_report` 一定要最后？
+### 3.2 Why must `draft_report` be last?
 
-因为它依赖：
+Because it depends on:
 
 - `summarize_policy`
 - `analyze_cases`
 
-所以哪怕你有更多 worker，  
-在前置结果没出来之前，它也不能开始。
+So even if you have more workers,
+it still cannot start before its prerequisites are ready.
 
-这说明高级规划不是“任务越多越能并行”，  
-而要看依赖图本身。
+This shows that advanced planning is not “the more tasks, the more parallelism.”
+It depends on the structure of the dependency graph itself.
 
-### 3.3 如果 worker 从 2 改成 1，会发生什么？
+### 3.3 What happens if you change workers from 2 to 1?
 
-你会看到计划明显更长。  
-这能帮助你理解：
+You will see that the plan becomes much longer.
+This helps you understand:
 
-- 规划不只是逻辑问题
-- 也是资源问题
+- Planning is not only a logic problem
+- It is also a resource problem
 
-![高级规划 DAG、并行与关键路径图](/img/course/ch09-advanced-planning-dag-critical-path-map.png)
+![Advanced planning DAG, parallelism, and critical path diagram](/img/course/ch09-advanced-planning-dag-critical-path-map-en.png)
 
-:::tip 读图提示
-这张图把“任务清单”升级成“任务图”：节点表示步骤，箭头表示依赖，粗线表示关键路径。新人可以先问自己：哪些能并行，哪些必须等前置结果完成？
+:::tip Reading guide
+This diagram upgrades a “task list” into a “task graph”: nodes represent steps, arrows represent dependencies, and the thick line represents the critical path. Beginners can start by asking themselves: which tasks can run in parallel, and which ones must wait for prerequisite results?
 :::
 
 ---
 
-## 四、什么时候需要高级规划，而不是普通计划？
+## 4. When do you need advanced planning instead of ordinary planning?
 
-### 4.1 当任务天然是图结构
+### 4.1 When the task is naturally graph-shaped
 
-例如：
+For example:
 
-- 调研报告
-- 多源数据汇总
-- 复杂代码改造
-- 多步骤业务审批
+- Research reports
+- Multi-source data aggregation
+- Complex code refactoring
+- Multi-step business approvals
 
-### 4.2 当并行能明显带来收益
+### 4.2 When parallelism can clearly bring benefits
 
-如果任务里有很多独立前置步骤，  
-高级规划能帮你看清：
+If the task has many independent prerequisite steps,
+advanced planning can help you see:
 
-- 哪些任务该并行
-- 哪些等待是不可避免的
+- Which tasks should run in parallel
+- Which waiting times are unavoidable
 
-### 4.3 当失败恢复和重规划变得重要
+### 4.3 When failure recovery and replanning become important
 
-复杂任务里经常会出现：
+In complex tasks, you often encounter:
 
-- 某个节点失败
-- 新观察推翻原计划
-- 某些前置条件不再成立
+- A node fails
+- New observations overturn the original plan
+- Some prerequisites are no longer valid
 
-这时系统不仅要“有计划”，  
-还要能：
+At this point, the system not only needs to “have a plan,”
+but also needs to be able to:
 
-- 局部重算
-- 局部回滚
-- 局部重规划
-
----
-
-## 五、为什么说高级规划更像“图搜索”而不是“列清单”？
-
-### 5.1 因为路径不一定唯一
-
-很多复杂任务并没有唯一解法。  
-你可能有：
-
-- 多种任务拆法
-- 多种资源分配方式
-- 多种执行顺序
-
-### 5.2 因为要考虑代价函数
-
-有时你要优化的是：
-
-- 总耗时
-- 总成本
-- 风险最小
-
-不同目标会选出不同的计划。
-
-### 5.3 因为“最佳计划”会随着环境变化
-
-如果某个工具慢了、某个资源不可用了，  
-原先最优的图可能就不再最优。
-
-这也是为什么高级规划常常离不开：
-
-- 动态调度
-- 在线重规划
+- Recompute locally
+- Roll back locally
+- Replan locally
 
 ---
 
-## 六、工程上最容易踩的坑
+## 5. Why is advanced planning more like “graph search” than “listing tasks”?
 
-### 6.1 误区一：依赖图画出来就万事大吉
+### 5.1 Because there is not always only one path
 
-图只是开始。  
-你还得定义：
+Many complex tasks do not have a unique solution.
+You may have:
 
-- 节点输入输出
-- 失败处理
-- 节点重试策略
+- Multiple ways to break down tasks
+- Multiple resource allocation strategies
+- Multiple execution orders
 
-### 6.2 误区二：并行越多越好
+### 5.2 Because you need to consider an objective function
 
-并行会带来：
+Sometimes what you want to optimize is:
 
-- 调度复杂度
-- 资源竞争
-- 状态同步问题
+- Total time
+- Total cost
+- Minimum risk
 
-并不是无限开并发就更优。
+Different goals will produce different plans.
 
-### 6.3 误区三：高级规划一定比简单计划更高级
+### 5.3 Because the “best plan” changes with the environment
 
-如果任务本身很短、很固定，  
-上高级规划反而会显得过度设计。
+If one tool becomes slow or one resource is unavailable,
+the previously optimal graph may no longer be optimal.
 
----
+That is also why advanced planning often relies on:
 
-## 小结
-
-这节最重要的，不是记住 `DAG` 这个词，  
-而是建立一个更现实的判断：
-
-> **当任务涉及依赖、并行和资源限制时，规划的核心就不再是写一个长清单，而是把任务组织成图，并围绕图做调度。**
-
-这层理解一旦建立，  
-你后面再看：
-
-- 多 Agent 协同
-- 工作流编排
-- 调度器设计
-
-都会更自然。
+- Dynamic scheduling
+- Online replanning
 
 ---
 
-## 练习
+## 6. Common pitfalls in engineering practice
 
-1. 把示例中的 worker 数改成 `1` 和 `3`，比较时间线差异。
-2. 给任务图再加一个 `review_report` 节点，挂在 `draft_report` 后面，观察调度变化。
-3. 为什么说“能并行”不等于“应该并行到极致”？
-4. 想一个你熟悉的复杂任务，把它尝试画成一个依赖图。
+### 6.1 Mistake 1: Thinking that drawing the dependency graph solves everything
+
+The graph is only the beginning.
+You still need to define:
+
+- Node inputs and outputs
+- Failure handling
+- Node retry strategies
+
+### 6.2 Mistake 2: More parallelism is always better
+
+Parallelism brings:
+
+- Scheduling complexity
+- Resource contention
+- State synchronization issues
+
+Opening unlimited concurrency is not necessarily better.
+
+### 6.3 Mistake 3: Advanced planning is always more advanced than simple planning
+
+If the task itself is short and fixed,
+using advanced planning may actually be overengineering.
+
+---
+
+## Summary
+
+The most important thing in this section is not remembering the word `DAG`,
+but building a more realistic judgment:
+
+> **When a task involves dependencies, parallelism, and resource constraints, the core of planning is no longer writing a long checklist. It is organizing the tasks into a graph and scheduling around that graph.**
+
+Once you build this understanding,
+the following topics will feel much more natural:
+
+- Multi-Agent collaboration
+- Workflow orchestration
+- Scheduler design
+
+---
+
+## Exercises
+
+1. Change the number of workers in the example to `1` and `3`, and compare the differences in the timeline.
+2. Add a `review_report` node to the task graph, place it after `draft_report`, and observe how the schedule changes.
+3. Why does “can run in parallel” not mean “should be parallelized to the extreme”?
+4. Think of a complex task you are familiar with and try to draw it as a dependency graph.
