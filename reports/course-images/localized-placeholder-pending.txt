@@ -1,6 +1,3 @@
-ch06-vae-latent-continuity-sampling-map-en.png
-ch06-weight-init-signal-stability-map-en.png
-ch06-xor-single-layer-limit-map-en.png
 ch07-advanced-prompt-technique-decision-map-en.png
 ch07-alignment-app-safety-map-en.png
 ch07-alignment-chapter-flow-en.png
