@@ -1025,3 +1025,8 @@
 {"at": "2026-05-03T07:56:10.190478+00:00", "filename": "ch10-security-detection-alert-dedup-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T07:57:49.648557+00:00", "filename": "ch10-segmentation-chapter-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T07:59:31.311823+00:00", "filename": "ch10-segmentation-practice-failure-buckets-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:01:45.179840+00:00", "filename": "ch10-semantic-segmentation-iou-boundary-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:03:22.245472+00:00", "filename": "ch10-study-guide-output-granularity-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:05:03.579897+00:00", "filename": "ch10-video-frame-tracking-temporal-window-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:07:11.512771+00:00", "filename": "ch10-visual-task-progression-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:08:41.529387+00:00", "filename": "ch10-yolo-threshold-nms-map-en.png", "locale": "en", "status": "generated"}

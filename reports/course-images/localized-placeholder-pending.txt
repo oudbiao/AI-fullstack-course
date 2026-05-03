@@ -1,8 +1,3 @@
-ch10-semantic-segmentation-iou-boundary-map-en.png
-ch10-study-guide-output-granularity-map-en.png
-ch10-video-frame-tracking-temporal-window-map-en.png
-ch10-visual-task-progression-map-en.png
-ch10-yolo-threshold-nms-map-en.png
 ch11-amr-semantic-graph-map-en.png
 ch11-bilstm-crf-label-path-map-en.png
 ch11-classification-chapter-flow-en.png
