@@ -1,11 +1,3 @@
-feature-construction-workshop-en.png
-feature-engineering-roadmap-en.png
-feature-preprocessing-pipeline-en.png
-feature-selection-methods-en.png
-feature-type-target-map-en.png
-finetuning-alignment-pipeline-en.png
-function-calling-workflow-en.png
-gan-adversarial-loop-en.png
 git-four-areas-en.png
 gpt-autoregressive-generation-en.png
 gradient-contour-field-en.png
