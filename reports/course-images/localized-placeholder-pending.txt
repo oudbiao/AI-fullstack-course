@@ -1,11 +1,3 @@
-ch09-projects-route-map-en.png
-ch09-reasoning-chapter-flow-en.png
-ch09-reasoning-eval-failure-taxonomy-map-en.png
-ch09-research-assistant-citation-trace-map-en.png
-ch09-rl-agent-breakthroughs-map-en.png
-ch09-study-guide-minimal-agent-loop-en.png
-ch09-tool-control-loop-en.png
-ch09-tool-description-quality-map-en.png
 ch09-tool-safety-permission-sandbox-map-en.png
 ch09-tool-schema-validation-guardrail-map-en.png
 ch09-tools-action-layer-map-en.png
