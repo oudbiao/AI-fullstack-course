@@ -1,11 +1,3 @@
-ch05-anomaly-detection-decision-flow-en.png
-ch05-anomaly-method-comparison-map-en.png
-ch05-basics-chapter-flow-en.png
-ch05-bias-variance-action-map-en.png
-ch05-clustering-decision-flow-en.png
-ch05-clustering-shape-selection-map-en.png
-ch05-columntransformer-real-table-pipeline-en.png
-ch05-cross-validation-stability-flow-en.png
 ch05-cv-leakage-safe-pipeline-map-en.png
 ch05-data-split-leakage-guardrail-en.png
 ch05-decision-tree-learning-flow-en.png
