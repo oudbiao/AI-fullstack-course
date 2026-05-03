@@ -1,10 +1,3 @@
-ch07-lora-qlora-low-rank-memory-map-en.png
-ch07-next-token-generation-loop-map-en.png
-ch07-nlp-crash-chapter-flow-en.png
-ch07-peft-placement-family-map-en.png
-ch07-pretraining-chapter-flow-en.png
-ch07-pretraining-data-governance-funnel-en.png
-ch07-pretraining-data-objective-engineering-map-en.png
 ch07-pretraining-engineering-production-line-en.png
 ch07-pretraining-objective-comparison-map-en.png
 ch07-project-method-choice-loop-en.png
