@@ -1,11 +1,3 @@
-ch08-llm-api-robust-client-loop-map-en.png
-ch08-llm-app-capability-loop-en.png
-ch08-llmops-trace-loop-en.png
-ch08-local-model-api-decision-map-en.png
-ch08-model-serving-decision-map-en.png
-ch08-observability-logs-metrics-trace-map-en.png
-ch08-project-delivery-loop-en.png
-ch08-project-learning-order-map-en.png
 ch08-projects-route-map-en.png
 ch08-rag-core-chapter-flow-en.png
 ch08-rag-data-to-answer-pipeline-en.png

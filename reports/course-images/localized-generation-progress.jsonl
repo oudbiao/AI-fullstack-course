@@ -915,3 +915,11 @@
 {"at": "2026-05-03T04:40:39.612343+00:00", "filename": "ch08-inference-serving-queue-batch-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:41:48.955098+00:00", "filename": "ch08-langchain-component-pipeline-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T04:43:09.748628+00:00", "filename": "ch08-learning-quest-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:44:58.258230+00:00", "filename": "ch08-llm-api-robust-client-loop-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:46:22.020966+00:00", "filename": "ch08-llm-app-capability-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:48:56.823139+00:00", "filename": "ch08-llmops-trace-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:50:10.084574+00:00", "filename": "ch08-local-model-api-decision-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:51:20.953337+00:00", "filename": "ch08-model-serving-decision-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:54:10.850036+00:00", "filename": "ch08-observability-logs-metrics-trace-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:55:30.580796+00:00", "filename": "ch08-project-delivery-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:56:56.972625+00:00", "filename": "ch08-project-learning-order-map-en.png", "locale": "en", "status": "generated"}
