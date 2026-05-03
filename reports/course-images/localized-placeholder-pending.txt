@@ -1,11 +1,3 @@
-ch10-3d-depth-disparity-pointcloud-map-en.png
-ch10-advanced-vision-route-map-en.png
-ch10-augmentation-invariance-risk-map-en.png
-ch10-classic-detectors-shared-feature-map-en.png
-ch10-classification-architecture-evolution-map-en.png
-ch10-classification-chapter-flow-en.png
-ch10-classification-training-diagnosis-map-en.png
-ch10-computer-vision-en.png
 ch10-cv-basics-chapter-flow-en.png
 ch10-detection-chapter-flow-en.png
 ch10-detection-output-iou-error-map-en.png
