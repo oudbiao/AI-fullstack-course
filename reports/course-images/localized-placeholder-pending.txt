@@ -1,11 +1,3 @@
-ch12-multimodal-aigc-en.png
-ch12-multimodal-app-engineering-loop-en.png
-ch12-multimodal-chapter-flow-en.png
-ch12-multimodal-rag-agent-bridge-en.png
-ch12-multimodal-system-backbone-en.png
-ch12-projects-delivery-loop-en.png
-ch12-sd-application-mode-selector-map-en.png
-ch12-sd-finetuning-route-choice-map-en.png
 ch12-study-guide-modal-workflow-map-en.png
 ch12-tts-text-to-speech-pipeline-map-en.png
 ch12-video-gen-chapter-flow-en.png
