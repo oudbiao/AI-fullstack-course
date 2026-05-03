@@ -852,3 +852,10 @@
 {"at": "2026-05-03T03:11:22.174326+00:00", "filename": "ch07-context-window-budget-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T03:12:42.883013+00:00", "filename": "ch07-contextual-embedding-sense-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T03:13:55.600817+00:00", "filename": "ch07-data-labeling-flywheel-review-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:17:12.737148+00:00", "filename": "ch07-domain-finetune-evaluation-board-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:18:27.766609+00:00", "filename": "ch07-dpo-rlhf-shortcut-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:19:42.439133+00:00", "filename": "ch07-efficient-attention-bottleneck-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:20:55.617521+00:00", "filename": "ch07-embedding-onehot-dense-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:22:07.683323+00:00", "filename": "ch07-finetune-decision-rag-prompt-peft-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:23:39.552081+00:00", "filename": "ch07-finetuning-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:24:54.605652+00:00", "filename": "ch07-finetuning-decision-loop-en.png", "locale": "en", "status": "generated"}
