@@ -1,11 +1,3 @@
-pytorch-training-loop-en.png
-rag-document-answer-loop-en.png
-rag-evaluation-triangle-en.png
-react-reason-act-observe-loop-en.png
-regularization-overfitting-controls-en.png
-rlhf-three-stage-loop-en.png
-rnn-unrolled-hidden-state-en.png
-seaborn-statistical-plots-en.png
 self-attention-qkv-en.png
 semantic-segmentation-mask-en.png
 seq2seq-attention-alignment-en.png

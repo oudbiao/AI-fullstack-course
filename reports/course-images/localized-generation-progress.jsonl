@@ -1191,3 +1191,11 @@
 {"at": "2026-05-03T13:16:23.744221+00:00", "filename": "probability-distribution-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T13:17:48.738246+00:00", "filename": "prompt-before-after-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T13:19:37.040080+00:00", "filename": "pytorch-autograd-graph-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:22:11.722961+00:00", "filename": "pytorch-training-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:23:44.367845+00:00", "filename": "rag-document-answer-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:25:30.282974+00:00", "filename": "rag-evaluation-triangle-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:27:19.521382+00:00", "filename": "react-reason-act-observe-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:29:11.861560+00:00", "filename": "regularization-overfitting-controls-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:30:58.103138+00:00", "filename": "rlhf-three-stage-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:32:47.828571+00:00", "filename": "rnn-unrolled-hidden-state-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:34:36.217749+00:00", "filename": "seaborn-statistical-plots-en.png", "locale": "en", "status": "generated"}
