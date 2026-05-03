@@ -1199,3 +1199,10 @@
 {"at": "2026-05-03T13:30:58.103138+00:00", "filename": "rlhf-three-stage-loop-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T13:32:47.828571+00:00", "filename": "rnn-unrolled-hidden-state-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T13:34:36.217749+00:00", "filename": "seaborn-statistical-plots-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:37:42.046394+00:00", "filename": "self-attention-qkv-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:39:46.853520+00:00", "filename": "semantic-segmentation-mask-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:43:08.221672+00:00", "filename": "seq2seq-attention-alignment-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:45:14.923265+00:00", "filename": "sklearn-estimator-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:48:47.709650+00:00", "filename": "sql-table-join-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:50:34.399155+00:00", "filename": "stable-diffusion-components-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T13:52:36.545931+00:00", "filename": "supervised-learning-roadmap-en.png", "locale": "en", "status": "generated"}

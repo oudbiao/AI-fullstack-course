@@ -1,10 +1,3 @@
-self-attention-qkv-en.png
-semantic-segmentation-mask-en.png
-seq2seq-attention-alignment-en.png
-sklearn-estimator-pipeline-en.png
-sql-table-join-map-en.png
-stable-diffusion-components-en.png
-supervised-learning-roadmap-en.png
 template-doc-generation-pipeline-en.png
 text-classification-pipeline-en.png
 text-preprocessing-pipeline-en.png
