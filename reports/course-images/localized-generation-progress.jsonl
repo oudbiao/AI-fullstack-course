@@ -1009,3 +1009,11 @@
 {"at": "2026-05-03T07:22:37.930344+00:00", "filename": "ch10-classification-chapter-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T07:23:59.507126+00:00", "filename": "ch10-classification-training-diagnosis-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T07:25:23.962444+00:00", "filename": "ch10-computer-vision-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:27:35.564883+00:00", "filename": "ch10-cv-basics-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:29:00.531857+00:00", "filename": "ch10-detection-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:30:45.923145+00:00", "filename": "ch10-detection-output-iou-error-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:34:41.308968+00:00", "filename": "ch10-detection-practice-eval-buckets-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:38:20.602792+00:00", "filename": "ch10-face-recognition-threshold-pipeline-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:40:01.321031+00:00", "filename": "ch10-image-array-shape-channel-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:41:29.318525+00:00", "filename": "ch10-image-processing-operation-decision-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T07:43:08.063354+00:00", "filename": "ch10-instance-segmentation-count-mask-map-en.png", "locale": "en", "status": "generated"}

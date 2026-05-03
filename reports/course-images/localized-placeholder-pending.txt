@@ -1,11 +1,3 @@
-ch10-cv-basics-chapter-flow-en.png
-ch10-detection-chapter-flow-en.png
-ch10-detection-output-iou-error-map-en.png
-ch10-detection-practice-eval-buckets-map-en.png
-ch10-face-recognition-threshold-pipeline-map-en.png
-ch10-image-array-shape-channel-map-en.png
-ch10-image-processing-operation-decision-map-en.png
-ch10-instance-segmentation-count-mask-map-en.png
 ch10-learning-quest-map-en.png
 ch10-medical-imaging-risk-review-map-en.png
 ch10-ocr-layout-reading-order-map-en.png
