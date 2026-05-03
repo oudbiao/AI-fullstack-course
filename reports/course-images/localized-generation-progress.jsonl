@@ -880,3 +880,11 @@
 {"at": "2026-05-03T03:52:16.760258+00:00", "filename": "ch07-prompt-chapter-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T03:53:14.434801+00:00", "filename": "ch07-prompt-iteration-loop-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T03:54:26.468004+00:00", "filename": "ch07-prompt-spec-three-layer-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:55:58.645431+00:00", "filename": "ch07-rlhf-reward-kl-loop-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:57:07.073804+00:00", "filename": "ch07-scale-cost-knobs-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:58:23.346344+00:00", "filename": "ch07-structured-output-contract-validation-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T03:59:47.157150+00:00", "filename": "ch07-study-guide-evolution-line-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:00:57.375871+00:00", "filename": "ch07-tokenizer-granularity-tradeoff-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:02:21.699580+00:00", "filename": "ch07-tokenizer-inputids-mask-length-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:03:54.578559+00:00", "filename": "ch07-train-inference-cost-split-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T04:05:17.497488+00:00", "filename": "ch07-transformer-block-dataflow-map-en.png", "locale": "en", "status": "generated"}

@@ -1,11 +1,3 @@
-ch07-rlhf-reward-kl-loop-map-en.png
-ch07-scale-cost-knobs-map-en.png
-ch07-structured-output-contract-validation-map-en.png
-ch07-study-guide-evolution-line-en.png
-ch07-tokenizer-granularity-tradeoff-map-en.png
-ch07-tokenizer-inputids-mask-length-map-en.png
-ch07-train-inference-cost-split-map-en.png
-ch07-transformer-block-dataflow-map-en.png
 ch07-transformer-cost-task-map-en.png
 ch07-transformer-deep-chapter-flow-en.png
 ch08-advanced-rag-architecture-selection-map-en.png
