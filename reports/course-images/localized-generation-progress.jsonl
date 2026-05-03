@@ -1110,3 +1110,11 @@
 {"at": "2026-05-03T10:31:11.475963+00:00", "filename": "elective-ai-security-threat-regression-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T10:32:53.141295+00:00", "filename": "elective-asyncio-concurrency-control-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T10:34:26.076416+00:00", "filename": "elective-asyncio-timeout-cancel-rate-limit-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:36:39.088171+00:00", "filename": "elective-classic-ml-module-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:38:11.350299+00:00", "filename": "elective-cpp-deployment-module-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:39:37.863872+00:00", "filename": "elective-cpp-raii-ownership-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:41:16.027857+00:00", "filename": "elective-cpp-runtime-memory-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:42:52.374017+00:00", "filename": "elective-decorator-crosscutting-layers-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:44:24.145919+00:00", "filename": "elective-deployment-project-delivery-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:45:49.137008+00:00", "filename": "elective-edge-deployment-constraint-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T10:47:22.027760+00:00", "filename": "elective-generator-stream-pipeline-en.png", "locale": "en", "status": "generated"}

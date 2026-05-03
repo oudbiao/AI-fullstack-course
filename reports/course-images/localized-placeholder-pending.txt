@@ -1,11 +1,3 @@
-elective-classic-ml-module-map-en.png
-elective-cpp-deployment-module-map-en.png
-elective-cpp-raii-ownership-map-en.png
-elective-cpp-runtime-memory-en.png
-elective-decorator-crosscutting-layers-en.png
-elective-deployment-project-delivery-loop-en.png
-elective-edge-deployment-constraint-map-en.png
-elective-generator-stream-pipeline-en.png
 elective-inference-engine-hardware-en.png
 elective-inference-engine-selection-matrix-en.png
 elective-knn-neighbor-voting-en.png
