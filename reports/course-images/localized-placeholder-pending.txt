@@ -1,11 +1,3 @@
-ml-study-loop-en.png
-ml-task-checklist-en.png
-mle-likelihood-curve-en.png
-mlp-neuron-activation-en.png
-multi-agent-message-flow-en.png
-multimodal-alignment-fusion-en.png
-neural-network-forward-backward-en.png
-object-detection-output-en.png
 ocr-layout-recognition-pipeline-en.png
 optimizer-comparison-en.png
 pandas-dataframe-structure-en.png
