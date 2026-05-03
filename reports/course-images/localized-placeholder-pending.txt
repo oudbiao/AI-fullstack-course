@@ -1,11 +1,3 @@
-ch09-mcp-server-tool-contract-map-en.png
-ch09-memory-chapter-flow-en.png
-ch09-memory-engineering-lifecycle-map-en.png
-ch09-memory-layer-selection-map-en.png
-ch09-memory-write-retrieve-loop-en.png
-ch09-multi-agent-chapter-flow-en.png
-ch09-multi-agent-communication-contract-map-en.png
-ch09-multi-agent-coordination-cost-map-en.png
 ch09-multi-agent-coordination-map-en.png
 ch09-multi-agent-dev-team-delivery-map-en.png
 ch09-multi-agent-pattern-selection-map-en.png
