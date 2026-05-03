@@ -800,3 +800,12 @@
 {"at": "2026-05-03T01:36:39.085599+00:00", "filename": "ch05-threshold-roc-pr-curve-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T01:38:28.682532+00:00", "filename": "ch05-tree-pruning-overfit-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T01:39:51.410722+00:00", "filename": "ch05-unsupervised-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:42:13.816177+00:00", "filename": "ch06-attention-qkv-library-analogy-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:43:47.902785+00:00", "filename": "ch06-autograd-gradient-lifecycle-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:45:28.727053+00:00", "filename": "ch06-backprop-error-responsibility-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:46:41.124717+00:00", "filename": "ch06-causal-mask-no-peeking-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:48:10.455046+00:00", "filename": "ch06-cnn-channel-spatial-tradeoff-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:49:51.636753+00:00", "filename": "ch06-cnn-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:51:05.078276+00:00", "filename": "ch06-cnn-receptive-field-growth-map-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch06-cnn-receptive-field-growth-map-en.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-03T01:52:52.025696+00:00", "filename": "ch06-conv-stride-padding-size-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:54:14.981240+00:00", "filename": "ch06-cnn-receptive-field-growth-map-en.png", "locale": "en", "status": "generated"}

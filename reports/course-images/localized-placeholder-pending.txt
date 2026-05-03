@@ -1,11 +1,3 @@
-ch06-attention-qkv-library-analogy-map-en.png
-ch06-autograd-gradient-lifecycle-map-en.png
-ch06-backprop-error-responsibility-map-en.png
-ch06-causal-mask-no-peeking-map-en.png
-ch06-cnn-channel-spatial-tradeoff-map-en.png
-ch06-cnn-chapter-flow-en.png
-ch06-cnn-receptive-field-growth-map-en.png
-ch06-conv-stride-padding-size-map-en.png
 ch06-deep-learning-en.png
 ch06-deep-learning-project-cycle-en.png
 ch06-dl-history-breakthrough-map-en.png
