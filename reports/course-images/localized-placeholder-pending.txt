@@ -1,11 +1,3 @@
-ch11-amr-semantic-graph-map-en.png
-ch11-bilstm-crf-label-path-map-en.png
-ch11-classification-chapter-flow-en.png
-ch11-ctc-deep-speech-asr-map-en.png
-ch11-embeddings-chapter-flow-en.png
-ch11-hmm-crf-sequence-history-map-en.png
-ch11-information-extraction-schema-pipeline-map-en.png
-ch11-language-model-next-token-stack-en.png
 ch11-learning-quest-map-en.png
 ch11-machine-translation-error-analysis-map-en.png
 ch11-ner-project-entity-eval-loop-en.png

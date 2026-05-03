@@ -1030,3 +1030,11 @@
 {"at": "2026-05-03T08:05:03.579897+00:00", "filename": "ch10-video-frame-tracking-temporal-window-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:07:11.512771+00:00", "filename": "ch10-visual-task-progression-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T08:08:41.529387+00:00", "filename": "ch10-yolo-threshold-nms-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:10:57.194893+00:00", "filename": "ch11-amr-semantic-graph-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:15:59.703629+00:00", "filename": "ch11-bilstm-crf-label-path-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:17:14.724285+00:00", "filename": "ch11-classification-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:18:31.742893+00:00", "filename": "ch11-ctc-deep-speech-asr-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:19:57.349141+00:00", "filename": "ch11-embeddings-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:21:25.500200+00:00", "filename": "ch11-hmm-crf-sequence-history-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:23:07.542684+00:00", "filename": "ch11-information-extraction-schema-pipeline-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T08:24:31.616666+00:00", "filename": "ch11-language-model-next-token-stack-en.png", "locale": "en", "status": "generated"}
