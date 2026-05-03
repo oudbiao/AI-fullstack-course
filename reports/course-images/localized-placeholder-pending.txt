@@ -1,11 +1,3 @@
-math-to-ml-bridge-en.png
-matplotlib-figure-axes-en.png
-matrix-linear-transform-grid-en.png
-mcp-host-client-server-en.png
-ml-basics-roadmap-en.png
-ml-evaluation-roadmap-en.png
-ml-modeling-loop-en.png
-ml-projects-roadmap-en.png
 ml-study-loop-en.png
 ml-task-checklist-en.png
 mle-likelihood-curve-en.png
