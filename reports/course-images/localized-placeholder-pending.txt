@@ -1,11 +1,3 @@
-ch06-regularization-overfit-action-map-en.png
-ch06-rnn-chapter-flow-en.png
-ch06-rnn-hidden-state-rolling-memory-map-en.png
-ch06-rnn-long-dependency-vanishing-map-en.png
-ch06-sklearn-to-pytorch-shift-map-en.png
-ch06-study-guide-training-loop-en.png
-ch06-tensor-shape-meaning-map-en.png
-ch06-training-diagnosis-dashboard-map-en.png
 ch06-training-loop-backbone-en.png
 ch06-training-loop-order-guardrail-en.png
 ch06-training-tips-chapter-flow-en.png

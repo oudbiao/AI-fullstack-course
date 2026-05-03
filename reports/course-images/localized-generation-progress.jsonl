@@ -825,3 +825,11 @@
 {"at": "2026-05-03T02:21:30.508554+00:00", "filename": "ch06-projects-portfolio-loop-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T02:22:52.432727+00:00", "filename": "ch06-pytorch-chapter-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T02:26:10.892326+00:00", "filename": "ch06-pytorch-tensor-lifecycle-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:28:32.883789+00:00", "filename": "ch06-regularization-overfit-action-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:30:07.427614+00:00", "filename": "ch06-rnn-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:31:34.958806+00:00", "filename": "ch06-rnn-hidden-state-rolling-memory-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:33:12.178947+00:00", "filename": "ch06-rnn-long-dependency-vanishing-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:35:01.035824+00:00", "filename": "ch06-sklearn-to-pytorch-shift-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:36:23.322050+00:00", "filename": "ch06-study-guide-training-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:38:02.024266+00:00", "filename": "ch06-tensor-shape-meaning-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T02:40:15.653636+00:00", "filename": "ch06-training-diagnosis-dashboard-map-en.png", "locale": "en", "status": "generated"}
