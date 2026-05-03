@@ -1,11 +1,3 @@
-ch08-rag-optimization-debug-funnel-map-en.png
-ch08-rag-position-bridge-en.png
-ch08-rag-system-backbone-en.png
-ch08-ragops-improvement-loop-en.png
-ch08-rerank-query-rewrite-funnel-map-en.png
-ch08-study-guide-four-layer-map-en.png
-ch08-template-schema-to-render-map-en.png
-ch08-unified-api-provider-gateway-map-en.png
 ch08-vector-record-metadata-filter-map-en.png
 ch09-advanced-planning-dag-critical-path-map-en.png
 ch09-agent-action-loop-trace-map-en.png
