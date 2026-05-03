@@ -1078,3 +1078,11 @@
 {"at": "2026-05-03T09:38:20.926918+00:00", "filename": "ch12-study-guide-modal-workflow-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T09:40:02.934971+00:00", "filename": "ch12-tts-text-to-speech-pipeline-map-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T09:41:55.029516+00:00", "filename": "ch12-video-gen-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:44:06.706021+00:00", "filename": "chain-rule-backprop-graph-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:45:17.972798+00:00", "filename": "chart-selection-decision-tree-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:46:43.281432+00:00", "filename": "clustering-kmeans-centroids-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:48:06.839906+00:00", "filename": "cnn-convolution-kernel-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:52:01.484011+00:00", "filename": "cnn-feature-map-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:53:23.107009+00:00", "filename": "column-transformer-pipeline-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:54:39.814988+00:00", "filename": "confusion-matrix-error-cost-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T09:56:01.285948+00:00", "filename": "contextual-embedding-comparison-en.png", "locale": "en", "status": "generated"}

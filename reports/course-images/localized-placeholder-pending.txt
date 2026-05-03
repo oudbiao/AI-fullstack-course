@@ -1,11 +1,3 @@
-chain-rule-backprop-graph-en.png
-chart-selection-decision-tree-en.png
-clustering-kmeans-centroids-en.png
-cnn-convolution-kernel-en.png
-cnn-feature-map-pipeline-en.png
-column-transformer-pipeline-en.png
-confusion-matrix-error-cost-en.png
-contextual-embedding-comparison-en.png
 courseware-assistant-workflow-en.png
 creative-platform-workflow-en.png
 cross-validation-kfold-en.png
