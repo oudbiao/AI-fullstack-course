@@ -772,3 +772,12 @@
 {"at": "2026-05-03T00:44:27.496976+00:00", "filename": "ch05-ensemble-error-correction-lab-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T00:45:58.454309+00:00", "filename": "ch05-evaluation-chapter-flow-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T00:49:18.451670+00:00", "filename": "ch05-feature-engineering-chapter-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T00:51:22.866693+00:00", "filename": "ch05-feature-leakage-red-flags-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T00:53:28.575745+00:00", "filename": "ch05-feature-understanding-workflow-en.png", "locale": "en", "status": "error", "error": "Image API request failed with HTTP 502 for ch05-feature-understanding-workflow-en.png: {\"error\":{\"message\":\"Upstream request failed\",\"type\":\"upstream_error\"}}"}
+{"at": "2026-05-03T00:54:56.141541+00:00", "filename": "ch05-hyperparameter-tuning-workflow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T00:56:17.109764+00:00", "filename": "ch05-learning-curve-diagnosis-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T00:59:40.163361+00:00", "filename": "ch05-learning-quest-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:01:26.739122+00:00", "filename": "ch05-linear-regression-learning-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:02:46.585017+00:00", "filename": "ch05-linear-regression-residual-diagnostics-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:04:31.130776+00:00", "filename": "ch05-logistic-classification-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-03T01:05:59.802783+00:00", "filename": "ch05-feature-understanding-workflow-en.png", "locale": "en", "status": "generated"}

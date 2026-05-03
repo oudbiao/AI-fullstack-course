@@ -1,11 +1,3 @@
-ch05-feature-leakage-red-flags-map-en.png
-ch05-feature-understanding-workflow-en.png
-ch05-hyperparameter-tuning-workflow-en.png
-ch05-learning-curve-diagnosis-map-en.png
-ch05-learning-quest-map-en.png
-ch05-linear-regression-learning-flow-en.png
-ch05-linear-regression-residual-diagnostics-en.png
-ch05-logistic-classification-flow-en.png
 ch05-logistic-threshold-tradeoff-en.png
 ch05-machine-learning-en.png
 ch05-math-to-ml-training-map-en.png
