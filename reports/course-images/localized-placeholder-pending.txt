@@ -1,11 +1,3 @@
-ch06-training-loop-backbone-en.png
-ch06-training-loop-order-guardrail-en.png
-ch06-training-tips-chapter-flow-en.png
-ch06-transfer-learning-freeze-finetune-map-en.png
-ch06-transformer-block-role-map-en.png
-ch06-transformer-chapter-flow-en.png
-ch06-transformer-global-context-map-en.png
-ch06-transformer-representation-refinement-map-en.png
 ch06-vae-latent-continuity-sampling-map-en.png
 ch06-weight-init-signal-stability-map-en.png
 ch06-xor-single-layer-limit-map-en.png
