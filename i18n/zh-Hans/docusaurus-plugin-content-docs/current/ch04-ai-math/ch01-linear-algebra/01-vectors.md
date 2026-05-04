@@ -49,6 +49,19 @@ keywords: [向量, 点积, 余弦相似度, NumPy, 线性代数, AI数学]
 - 前半部分解决“一个对象怎样写成向量”
 - 后半部分解决“两个向量怎样比较是否相似”
 
+## 随手查的小词典
+
+| 术语 | 含义 | 新人为什么需要知道 |
+|---|---|---|
+| `scalar` | 标量，也就是一个单独的数，比如 `2` 或 `0.5` | 数乘就是“用一个数整体缩放向量”。 |
+| `dimension` | 维度，也就是向量里有多少个分量 | `[90, 85, 92]` 有 3 个数字，所以是 3 维。 |
+| `shape` | NumPy 对数组结构的描述 | `(3,)`、`(1, 3)`、`(3, 1)` 都有 3 个数字，但在乘法里行为不同。 |
+| `norm` | 范数，也就是向量长度 | `np.linalg.norm(a)` 用来计算向量有多长、强度多大。 |
+| `NLP` | Natural Language Processing，自然语言处理 | 文本向量、词向量是 AI 中最常见的向量例子之一。 |
+| `vector database` | 向量数据库，专门存储和搜索向量的数据库 | 很多 RAG 和语义搜索系统都靠它做检索。 |
+
+这张表不是让你背单词，而是当作安全网。后面代码再次出现这些词时，回来对照它和当前操作的关系即可。
+
 ## 一、向量是什么？
 
 ### 1.1 直觉理解
@@ -449,8 +462,12 @@ def cosine_similarity(a, b):
     dot_product = np.dot(a, b)
     norm_a = np.linalg.norm(a)
     norm_b = np.linalg.norm(b)
+    if norm_a == 0 or norm_b == 0:
+        raise ValueError("零向量没有方向，无法计算余弦相似度。")
     return dot_product / (norm_a * norm_b)
 ```
+
+这里检查零向量很重要，因为长度为 `0` 的向量没有方向。余弦相似度比较的是方向，如果除以 0，就会得到误导性的结果或运行警告。
 
 余弦相似度的取值范围：
 
@@ -478,12 +495,12 @@ print(f"Bob vs Charlie:   {cosine_similarity(bob, charlie):.4f}")
 
 输出：
 ```
-Alice vs Bob:     0.9750
-Alice vs Charlie: 0.5054
-Bob vs Charlie:   0.4251
+Alice vs Bob:     0.9761
+Alice vs Charlie: 0.5825
+Bob vs Charlie:   0.5600
 ```
 
-**解读**：Alice 和 Bob 的偏好非常相似（0.98 接近 1），而 Charlie 和他们的口味很不同。这就是推荐系统的基本原理——找到和你口味相似的人，把他们喜欢的东西推荐给你。
+**解读**：Alice 和 Bob 的偏好非常相似（0.98 接近 1）。Charlie 和他们的方向没那么一致，但也不是完全相反。这就是推荐系统的基本思路：先比较偏好方向，再把相近用户或相近物品喜欢的内容推荐给你。
 
 ### 4.3 余弦相似度在 AI 中的应用
 
@@ -569,6 +586,14 @@ scores.sort(key=lambda x: x[1], reverse=True)
 
 for name, sim in scores:
     print(f"{name}: {sim:.4f}")
+```
+
+预期输出：
+
+```text
+文档C：深度学习基础: 0.9964
+文档A：机器学习入门: 0.9922
+文档B：旅行攻略: 0.3333
 ```
 
 你会发现，相似度最高的通常是语义方向更接近查询的文档。

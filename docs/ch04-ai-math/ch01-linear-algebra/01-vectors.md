@@ -49,6 +49,19 @@ You can understand this lesson as:
 - The first half answers “how to write an object as a vector”
 - The second half answers “how to compare whether two vectors are similar”
 
+## Terms to Keep Handy
+
+| Term | What it means | Why beginners often need it |
+|---|---|---|
+| `scalar` | A single number, such as `2` or `0.5` | Scalar multiplication means “use one number to scale the whole vector.” |
+| `dimension` | The number of components in a vector | `[90, 85, 92]` has 3 dimensions because it has 3 numbers. |
+| `shape` | NumPy’s description of array structure | `(3,)`, `(1, 3)`, and `(3, 1)` all hold 3 numbers but behave differently in multiplication. |
+| `norm` | Vector length | `np.linalg.norm(a)` tells you how long or strong a vector is. |
+| `NLP` | Natural Language Processing | Text vectors and word vectors are important examples of vectors in AI. |
+| `vector database` | A database optimized for storing and searching vectors | It powers retrieval in many RAG and semantic search systems. |
+
+Read this table as a safety net, not as vocabulary to memorize. When a later code example uses one of these words, return here and reconnect it to the current operation.
+
 ## 1. What Is a Vector?
 
 ### 1.1 Intuitive Understanding
@@ -449,8 +462,12 @@ def cosine_similarity(a, b):
     dot_product = np.dot(a, b)
     norm_a = np.linalg.norm(a)
     norm_b = np.linalg.norm(b)
+    if norm_a == 0 or norm_b == 0:
+        raise ValueError("Cosine similarity is undefined for zero vectors.")
     return dot_product / (norm_a * norm_b)
 ```
+
+The zero-vector check matters because a vector with length `0` has no direction. Cosine similarity compares direction, so dividing by a zero length would produce a misleading result or a runtime warning.
 
 The range of cosine similarity is:
 
@@ -478,12 +495,12 @@ print(f"Bob vs Charlie:   {cosine_similarity(bob, charlie):.4f}")
 
 Output:
 ```
-Alice vs Bob:     0.9750
-Alice vs Charlie: 0.5054
-Bob vs Charlie:   0.4251
+Alice vs Bob:     0.9761
+Alice vs Charlie: 0.5825
+Bob vs Charlie:   0.5600
 ```
 
-**Interpretation**: Alice and Bob have very similar preferences (0.98 is close to 1), while Charlie has very different tastes from them. This is the basic idea behind recommendation systems — find people with tastes similar to yours and recommend what they like.
+**Interpretation**: Alice and Bob have very similar preferences (0.98 is close to 1). Charlie is less aligned with both of them, but not completely opposite. This is the basic idea behind recommendation systems — compare preference directions first, then recommend items liked by nearby users or nearby items.
 
 ### 4.3 Applications of Cosine Similarity in AI
 
@@ -569,6 +586,14 @@ scores.sort(key=lambda x: x[1], reverse=True)
 
 for name, sim in scores:
     print(f"{name}: {sim:.4f}")
+```
+
+Expected output:
+
+```text
+Document C: Deep Learning Basics: 0.9964
+Document A: Machine Learning Basics: 0.9922
+Document B: Travel Guide: 0.3333
 ```
 
 You will find that the document with the highest similarity is usually the one whose semantic direction is closest to the query.
