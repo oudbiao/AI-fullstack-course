@@ -1,6 +1,6 @@
 ---
-title: "1.2 机器学习历史突破主线"
-sidebar_position: 1
+title: "1.6 机器学习历史突破主线"
+sidebar_position: 5
 description: "按历史进程理解机器学习的重要突破：贝叶斯、最大似然、EM、决策树、SVM、随机森林、Boosting、XGBoost 和 sklearn 工程化分别解决了什么问题。"
 keywords: [机器学习历史, ML突破, 贝叶斯, 最大似然, EM, 决策树, SVM, 随机森林, XGBoost]
 ---
@@ -22,6 +22,10 @@ keywords: [机器学习历史, ML突破, 贝叶斯, 最大似然, EM, 决策树,
 
 机器学习的历史可以先理解成一条从“人工写规则”走向“用数据学习规律”的路线。
 
+![机器学习从规则到工程流程的历史漫画](/img/course/ch05-ml-history-rules-to-workflow-comic.png)
+
+可以把这张漫画看成一条问题链：人工规则太脆弱，概率方法让不确定性可建模，线性模型让训练变具体，树、SVM、集成方法增强结构和稳定性，最后 sklearn 把这些想法变成可复现的工程流程。
+
 早期 AI 很依赖人工规则。人类专家把知识写成 if-else 或符号规则，系统按规则推理。这个思路在规则清楚的场景里有用，但一旦任务变复杂，规则就会爆炸。比如判断一封邮件是不是垃圾邮件，你很难把所有规则提前写完。
 
 机器学习的关键转向是：不要直接手写规则，而是准备数据、定义目标、选择模型，让模型自己从案例里学规律。第 5 章要训练的不是“背算法名”，而是这套建模思维：
@@ -32,6 +36,23 @@ keywords: [机器学习历史, ML突破, 贝叶斯, 最大似然, EM, 决策树,
 | 从单次拟合到评估 | 学会 train/test、指标和泛化 |
 | 从单模型到模型族 | 能比较 baseline、树模型、集成方法 |
 | 从手写流程到工程化 | 用 sklearn、Pipeline 和报告复盘项目 |
+
+### 1.1 这一页的关键词先拆开
+
+| 关键词 | 全称 / 含义 | 给新人的解释 |
+|---|---|---|
+| `AI` | Artificial Intelligence，人工智能 | 更大的目标：让机器表现出智能行为 |
+| `ML` | Machine Learning，机器学习 | AI 的一个分支，让模型从数据中学习规律，而不是只执行手写规则 |
+| `MLE` | Maximum Likelihood Estimation，最大似然估计 | 选择一组参数，让已经观察到的数据“最可能发生” |
+| `EM` | Expectation-Maximization，期望最大化 | 在“猜隐藏信息”和“更新参数”之间反复迭代 |
+| `SVM` | Support Vector Machine，支持向量机 | 偏好两类样本之间有更宽、更稳定间隔的分类器 |
+| `CART` | Classification and Regression Trees，分类与回归树 | 系统化构建分类树和回归树的方法 |
+| `Bagging` | Bootstrap Aggregating，自助采样聚合 | 并行训练很多模型，再投票或平均 |
+| `Boosting` | 串行纠错式集成 | 一个模型接一个模型训练，后面的模型重点修正前面的错误 |
+| `GBDT` | Gradient Boosting Decision Tree，梯度提升决策树 | 用很多小树逐步改进预测的 Boosting 家族 |
+| `XGBoost` | Extreme Gradient Boosting | 一种速度快、工程化成熟的 GBDT 类实现 |
+| `baseline` | 第一个合理对照模型 | 先用简单模型做参照，后续模型要能超过它才算有进步 |
+| `Pipeline` | 可复现的流程链 | 把预处理、训练、预测按同一顺序连接起来 |
 
 ## 二、突破一：贝叶斯、最大似然和 EM 让“不确定性”可以被建模
 

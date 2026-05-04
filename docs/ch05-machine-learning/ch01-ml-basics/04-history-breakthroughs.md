@@ -1,6 +1,6 @@
 ---
-title: "1.2 Main Thread of Major Breakthroughs in Machine Learning History"
-sidebar_position: 1
+title: "1.6 Main Thread of Major Breakthroughs in Machine Learning History"
+sidebar_position: 5
 description: "Understand the major breakthroughs in machine learning through historical development: what Bayes, maximum likelihood, EM, decision trees, SVM, random forests, Boosting, XGBoost, and sklearn engineering each solved."
 keywords: [machine learning history, ML breakthroughs, Bayes, maximum likelihood, EM, decision trees, SVM, random forest, XGBoost]
 ---
@@ -22,6 +22,10 @@ This section is not about memorizing years. Instead, it helps you understand:
 
 You can first understand the history of machine learning as a path from “handwritten rules” to “learning patterns from data.”
 
+![Machine learning history from rules to workflow comic](/img/course/ch05-ml-history-rules-to-workflow-comic-en.png)
+
+Read the comic as a problem chain: handwritten rules became too brittle, probability made uncertainty usable, linear models made training concrete, trees/SVM/ensembles improved structure and stability, and sklearn turned these ideas into a repeatable workflow.
+
 Early AI relied heavily on manual rules. Human experts wrote knowledge as if-else logic or symbolic rules, and the system reasoned according to those rules. This approach works in scenarios with clear rules, but once the task becomes complex, the rules explode in number. For example, if you want to determine whether an email is spam, it is very hard to write out all the rules in advance.
 
 The key shift in machine learning is: instead of writing rules directly, prepare data, define the objective, choose a model, and let the model learn patterns from examples by itself. What Chapter 5 trains is not “memorizing algorithm names,” but this modeling mindset:
@@ -32,6 +36,23 @@ The key shift in machine learning is: instead of writing rules directly, prepare
 | From one-time fitting to evaluation | Learn train/test, metrics, and generalization |
 | From a single model to model families | Compare baseline, tree models, and ensemble methods |
 | From handwritten workflows to engineering | Use sklearn, Pipeline, and reports to review projects |
+
+### 1.1 Keyword decoder for this history page
+
+| Keyword | Full name / meaning | Beginner-friendly explanation |
+|---|---|---|
+| `AI` | Artificial Intelligence | The broader goal: make machines show intelligent behavior |
+| `ML` | Machine Learning | A branch of AI where models learn patterns from data instead of only following handwritten rules |
+| `MLE` | Maximum Likelihood Estimation | Choose the parameters that make the observed data look most likely |
+| `EM` | Expectation-Maximization | Alternate between guessing hidden information and updating parameters |
+| `SVM` | Support Vector Machine | A classifier that prefers a wide, stable margin between classes |
+| `CART` | Classification and Regression Trees | A systematic way to build decision trees for classification and regression |
+| `Bagging` | Bootstrap Aggregating | Train many models in parallel on sampled data, then vote or average |
+| `Boosting` | Sequential error correction | Train models one after another, each focusing more on previous mistakes |
+| `GBDT` | Gradient Boosting Decision Tree | A Boosting family that improves predictions with many small trees |
+| `XGBoost` | Extreme Gradient Boosting | A fast, production-friendly implementation of GBDT-style ideas |
+| `baseline` | First reasonable comparison model | A simple model you beat before claiming progress |
+| `Pipeline` | Reproducible chain of steps | Keeps preprocessing, training, and prediction connected in the same order |
 
 ## 2. Breakthrough 1: Bayes, maximum likelihood, and EM made “uncertainty” modelable
 
