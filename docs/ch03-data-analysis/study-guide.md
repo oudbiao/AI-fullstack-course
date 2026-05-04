@@ -13,7 +13,7 @@ If you arrive at `02 Data Analysis and Visualization` and feel like there are to
 
 The first time you learn data analysis, focus on one main flow: read the data in, understand the fields first, then clean and organize it, then do statistical analysis, and finally use charts to present conclusions.
 
-![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-en.png)
+![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-vertical-en.png)
 
 ## The beginner mental model: a data detective workflow
 
@@ -34,16 +34,16 @@ If you get lost, return to this sentence: **read the table, understand the colum
 
 | Term | Plain explanation |
 |---|---|
-| `CSV` | A plain text table file; each row is a record, each comma separates columns |
-| `JSON` | A nested data format often used by APIs and web services |
+| `CSV` (Comma-Separated Values) | A plain text table file; each row is a record, each comma separates columns |
+| `JSON` (JavaScript Object Notation) | A nested data format often used by APIs and web services |
 | `DataFrame` | A Pandas table with rows, columns, column names, and indexes |
 | `Series` | One column of a Pandas DataFrame |
 | `Index` | The row labels of a DataFrame; sometimes meaningful, sometimes just row numbers |
 | `shape` | The size of the data, usually `(rows, columns)` |
-| `dtype` | The data type of a column or array, such as integer, float, string, or datetime |
+| `dtype` (data type) | The data type of a column or array, such as integer, float, string, or datetime |
 | `missing value` | Empty or unknown data, usually represented by `NaN` or `None` |
 | `outlier` | A value that is unusually far away from most data |
-| `EDA` | Exploratory Data Analysis: first-pass exploration before modeling |
+| `EDA` (Exploratory Data Analysis) | First-pass exploration before modeling |
 | `groupby` | Split data by category, apply statistics to each group, then combine results |
 | `merge` / `join` | Combine tables by shared keys, such as user ID or product ID |
 | `axis` | The direction of an operation; in tables, `axis=0` usually means down rows and `axis=1` across columns |

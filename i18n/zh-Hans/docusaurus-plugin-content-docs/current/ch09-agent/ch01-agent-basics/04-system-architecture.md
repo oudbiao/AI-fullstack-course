@@ -148,12 +148,38 @@ flowchart LR
 - 执行循环
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def tool_weather(city):
     data = {"北京": "晴 22 度", "上海": "多云 25 度"}
     return data.get(city, "暂无该城市天气")
 
 def tool_calc(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 TOOLS = {
     "weather": tool_weather,
@@ -233,11 +259,37 @@ print("最终答案:", answer)
 ### 6.2 一个最简单的护栏例子
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def safe_eval(expression):
     allowed_chars = set("0123456789+-*/(). ")
     if not set(expression) <= allowed_chars:
         return "表达式包含不允许的字符"
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 print(safe_eval("3 * (4 + 5)"))
 print(safe_eval("__import__('os').system('rm -rf /')"))

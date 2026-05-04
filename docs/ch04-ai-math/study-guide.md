@@ -35,13 +35,13 @@ When a formula looks intimidating, first translate it into model language:
 | Matrix | A batch of rows, or a machine that transforms vectors | neural network layers, attention weights |
 | Dot product | How much two directions agree | cosine similarity, attention scores |
 | Norm | Length or strength | distance, regularization, gradient clipping |
-| PCA | Rotate the coordinate system and keep the most informative axes | dimensionality reduction, visualization |
-| SVD | Split a complex matrix into rotate-scale-rotate | compression, recommendation systems, PCA |
-| MLE | Choose parameters that best explain observed data | loss functions, logistic regression |
-| MAP | MLE plus prior belief | regularization, weight decay |
+| PCA (Principal Component Analysis) | Rotate the coordinate system and keep the most informative axes | dimensionality reduction, visualization |
+| SVD (Singular Value Decomposition) | Split a complex matrix into rotate-scale-rotate | compression, recommendation systems, PCA |
+| MLE (Maximum Likelihood Estimation) | Choose parameters that best explain observed data | loss functions, logistic regression |
+| MAP (Maximum A Posteriori estimation) | MLE plus prior belief | regularization, weight decay |
 | Entropy | Uncertainty or surprise | classification loss, language models |
-| KL divergence | How different two probability distributions are | distillation, variational models |
-| GD / SGD | Walk downhill on the loss surface | model training, optimizers |
+| KL divergence (Kullback-Leibler divergence) | How different two probability distributions are | distillation, variational models |
+| GD / SGD (Gradient Descent / Stochastic Gradient Descent) | Walk downhill on the loss surface | model training, optimizers |
 
 If you can say the right side out loud, you are already learning the useful part. The precise derivation can come later.
 

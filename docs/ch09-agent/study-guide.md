@@ -27,6 +27,30 @@ In the fourth round, learn memory systems. Short-term memory, long-term memory, 
 
 In the fifth round, learn MCP, frameworks, multi-Agent, evaluation, security, and deployment. Use frameworks only after you understand the system layers.
 
+## Decision Map: When Not to Use an Agent First
+
+Beginners often reach for an Agent too early. A safer rule is to first ask whether the problem really needs a goal-driven execution loop.
+
+| Problem type | First choice | Why |
+|---|---|---|
+| Fixed process, fully known steps | Workflow | The program can already decide every step in advance |
+| Need fresh or citable knowledge | RAG | First connect external knowledge instead of letting the model guess |
+| One-off structured action such as classification or extraction | Prompt / Function Calling | A full Agent loop is unnecessary |
+| Repeated goal-driven actions with tool use and state updates | Agent | This is where Agent systems are strongest |
+
+If you really do need an Agent, pass three safety gates first:
+
+1. Are permissions minimized?
+2. Is there a maximum step limit?
+3. Can every step be logged and manually taken over?
+
+## Upgrade Order: Single Agent Before Multi-Agent
+
+1. Make a single Agent solid first
+2. Connect tools and memory next
+3. Add MCP or a framework after the loop is stable
+4. Only then consider multi-Agent collaboration
+
 ## Suggested learning pace
 
 | Content type | Suggested time | Learning goal |

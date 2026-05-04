@@ -130,6 +130,32 @@ Agent 需要：
 3. 最后整合出答案
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def search_policy(topic):
     policies = {
         "refund": "未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。",
@@ -138,7 +164,7 @@ def search_policy(topic):
 
 
 def calculator(expression):
-    return str(eval(expression, {"__builtins__": {}}, {}))
+    return str(safe_calculate(expression))
 
 
 def policy(state):

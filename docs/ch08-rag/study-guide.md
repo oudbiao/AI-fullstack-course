@@ -27,6 +27,27 @@ In the fourth round, learn engineering practices. Async, API design, logging, mo
 
 In the fifth round, build a comprehensive project that connects the knowledge base, model calls, application features, and engineering practices.
 
+## Decision Map: Prompt, RAG, Fine-tuning, or Agent?
+
+Beginners often try to solve every problem with a single technique. A better rule is to first ask what kind of gap you are trying to close.
+
+| Problem type | First choice | Why |
+|---|---|---|
+| Need to express a task clearly or constrain the output format | Prompt | The model already knows the task; it mainly needs better instructions |
+| Need fresh, citable, or organization-specific knowledge | RAG | The answer should come from external documents, not model memory |
+| Need stable behavior, tone, or formatting across many examples | Fine-tuning | The pattern should be learned into the model itself |
+| Need repeated goal-driven actions, tool use, and state updates | Agent | The system must decide the next action after each observation |
+
+A simple RAG failure diagnosis ladder is:
+
+1. Did the documents get parsed and chunked well?
+2. Did retrieval actually find the right pieces?
+3. Did reranking or context packing drop the evidence?
+4. Did the model ignore the evidence when answering?
+5. Did the evaluation data reflect the real user task?
+
+If the answer is still vague after all five checks, the issue is usually not “RAG is broken.” More often, the current problem should first be solved by prompt design, data cleanup, or a narrower task scope.
+
 ## Suggested Learning Pace
 
 | Content Type | Suggested Time | Learning Goal |

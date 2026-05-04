@@ -132,6 +132,32 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 ### 3.1 最小可运行示例
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def search_docs(keyword):
     docs = {
         "退款": "课程购买后 7 天内可申请退款",
@@ -140,7 +166,7 @@ def search_docs(keyword):
     return docs.get(keyword, "未找到相关文档")
 
 def calculator(expression):
-    return eval(expression, {"__builtins__": {}})
+    return safe_calculate(expression)
 
 def get_user_status(user_id):
     mock_db = {
@@ -230,11 +256,37 @@ for call in calls:
 一个简单的安全计算器示例：
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def safe_calculator(expression):
     allowed = set("0123456789+-*/(). ")
     if not set(expression) <= allowed:
         return {"error": "invalid_expression"}
-    return {"result": eval(expression, {"__builtins__": {}})}
+    return {"result": safe_calculate(expression)}
 
 print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))

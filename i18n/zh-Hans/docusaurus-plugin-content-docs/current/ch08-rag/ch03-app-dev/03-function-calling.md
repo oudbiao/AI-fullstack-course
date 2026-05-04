@@ -112,6 +112,32 @@ keywords: [Function Calling, Tool Calling, schema, 参数校验, LLM 工具调�
 ### 3.1 定义两个工具
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def get_weather(city):
     data = {
         "Beijing": {"temperature": 22, "condition": "sunny"},
@@ -120,7 +146,7 @@ def get_weather(city):
     return data.get(city, {"error": "city_not_found"})
 
 def calculate(expression):
-    return {"result": eval(expression, {"__builtins__": {}})}
+    return {"result": safe_calculate(expression)}
 ```
 
 ### 3.2 定义“模型输出”的调用结构
@@ -274,6 +300,32 @@ def mock_llm_tool_selector(user_query):
 ### 6.2 再接上执行器
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def get_weather(city):
     data = {
         "Beijing": {"temperature": 22, "condition": "sunny"},
@@ -282,7 +334,7 @@ def get_weather(city):
     return data.get(city, {"error": "city_not_found"})
 
 def calculate(expression):
-    return {"result": eval(expression, {"__builtins__": {}})}
+    return {"result": safe_calculate(expression)}
 
 def dispatch(call):
     if call["name"] == "get_weather":

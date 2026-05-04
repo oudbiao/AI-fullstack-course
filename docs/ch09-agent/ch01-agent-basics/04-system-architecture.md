@@ -148,12 +148,38 @@ In the example below, we explicitly write out:
 - an execution loop
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def tool_weather(city):
     data = {"Beijing": "Sunny, 22°C", "Shanghai": "Cloudy, 25°C"}
     return data.get(city, "No weather information available for this city")
 
 def tool_calc(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 TOOLS = {
     "weather": tool_weather,
@@ -233,11 +259,37 @@ So common guardrails in real systems include:
 ### 6.2 The simplest guardrail example
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def safe_eval(expression):
     allowed_chars = set("0123456789+-*/(). ")
     if not set(expression) <= allowed_chars:
         return "The expression contains disallowed characters"
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 print(safe_eval("3 * (4 + 5)"))
 print(safe_eval("__import__('os').system('rm -rf /')"))

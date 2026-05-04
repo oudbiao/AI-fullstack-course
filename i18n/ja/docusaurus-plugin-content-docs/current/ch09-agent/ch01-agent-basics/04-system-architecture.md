@@ -153,12 +153,38 @@ Agent の本質は、「1回だけ回答する」ことではありません。
 - 実行ループ
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def tool_weather(city):
     data = {"北京": "晴れ 22 度", "上海": "くもり 25 度"}
     return data.get(city, "この都市の天気はまだありません")
 
 def tool_calc(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 TOOLS = {
     "weather": tool_weather,
@@ -238,11 +264,37 @@ print("最終回答:", answer)
 ### 6.2 とても簡単なガードレールの例
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def safe_eval(expression):
     allowed_chars = set("0123456789+-*/(). ")
     if not set(expression) <= allowed_chars:
         return "式に許可されていない文字が含まれています"
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 print(safe_eval("3 * (4 + 5)"))
 print(safe_eval("__import__('os').system('rm -rf /')"))

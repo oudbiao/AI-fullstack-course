@@ -194,6 +194,32 @@ This step is not a “nice-to-have”; it is a basic line of defense for any pro
 ### 5.1 Define the tools first
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def search_course_policy(keyword):
     docs = {
         "refund": "You can apply for a refund within 7 days after purchase and if your learning progress is below 20%.",
@@ -202,7 +228,7 @@ def search_course_policy(keyword):
     return docs.get(keyword, "No related policy found")
 
 def calculate(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 ```
 
 ### 5.2 Define the dispatcher and validation

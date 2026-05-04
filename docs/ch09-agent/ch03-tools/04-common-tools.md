@@ -132,6 +132,32 @@ In real systems, tools are often not scattered everywhere, but registered in one
 ### 3.1 Minimal runnable example
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def search_docs(keyword):
     docs = {
         "refund": "You can apply for a refund within 7 days after purchasing the course",
@@ -140,7 +166,7 @@ def search_docs(keyword):
     return docs.get(keyword, "No relevant document found")
 
 def calculator(expression):
-    return eval(expression, {"__builtins__": {}})
+    return safe_calculate(expression)
 
 def get_user_status(user_id):
     mock_db = {
@@ -230,11 +256,37 @@ Key concerns:
 A simple safe calculator example:
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def safe_calculator(expression):
     allowed = set("0123456789+-*/(). ")
     if not set(expression) <= allowed:
         return {"error": "invalid_expression"}
-    return {"result": eval(expression, {"__builtins__": {}})}
+    return {"result": safe_calculate(expression)}
 
 print(safe_calculator("3 * (4 + 5)"))
 print(safe_calculator("__import__('os').system('rm -rf /')"))

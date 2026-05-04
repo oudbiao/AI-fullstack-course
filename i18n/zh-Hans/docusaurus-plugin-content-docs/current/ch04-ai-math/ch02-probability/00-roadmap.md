@@ -7,7 +7,7 @@ keywords: [概率导读, 统计导读, 概率分布, 贝叶斯, MLE, 信息论]
 
 # 学前导读：概率与统计这章到底在学什么
 
-![概率与统计学习地图](/img/course/ch04-probability-roadmap.png)
+![概率与统计学习地图](/img/course/ch04-probability-roadmap-vertical.png)
 
 对新人来说，这一章最容易出现的问题不是“公式不会算”，而是学着学着不知道这些概念到底和 AI 有什么关系。
 

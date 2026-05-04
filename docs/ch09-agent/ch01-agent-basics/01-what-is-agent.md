@@ -235,6 +235,32 @@ You can read this diagram as a timeline: after the goal enters the system, the A
 To make the principle clearer, let’s not use a real large model yet. Instead, we’ll write a “rule-based Agent.”
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def tool_weather(city):
     fake_weather = {
         "Beijing": "Sunny, 22°C",
@@ -244,7 +270,7 @@ def tool_weather(city):
     return fake_weather.get(city, "No weather data available for this city")
 
 def tool_calculate(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 def tool_search_docs(keyword):
     docs = {

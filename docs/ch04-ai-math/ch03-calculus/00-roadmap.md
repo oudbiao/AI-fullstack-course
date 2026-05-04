@@ -7,7 +7,7 @@ keywords: [calculus guide, optimization guide, derivatives, gradients, gradient 
 
 # Pre-study Guide: What Is This Chapter on Calculus and Optimization Really About?
 
-![Calculus and Optimization Learning Map](/img/course/ch04-calculus-roadmap-en.png)
+![Calculus and Optimization Learning Map](/img/course/ch04-calculus-roadmap-vertical-en.png)
 
 If linear algebra tells you “how data and transformations are represented,” then this chapter answers:
 

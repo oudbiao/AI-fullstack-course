@@ -7,7 +7,7 @@ keywords: [Linear Algebra Guide, AI Math Guide, Vectors, Matrices, Eigenvalues, 
 
 # Pre-class Guide: What Is This Linear Algebra Chapter Actually About?
 
-![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-en.png)
+![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-vertical-en.png)
 
 :::tip Don’t rush to memorize formulas
 For beginners, the most important thing in this chapter is not proving theorems, but first building a map:

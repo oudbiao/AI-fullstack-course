@@ -194,6 +194,32 @@ print(validate_tool_call({"name": "search_course_policy", "arguments": {}}))
 ### 5.1 先定义工具
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def search_course_policy(keyword):
     docs = {
         "退款": "课程购买后 7 天内且学习进度低于 20% 可申请退款。",
@@ -202,7 +228,7 @@ def search_course_policy(keyword):
     return docs.get(keyword, "未找到相关政策")
 
 def calculate(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 ```
 
 ### 5.2 定义调度器和校验

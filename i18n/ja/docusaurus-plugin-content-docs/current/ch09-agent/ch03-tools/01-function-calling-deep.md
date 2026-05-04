@@ -194,6 +194,32 @@ print(validate_tool_call({"name": "search_course_policy", "arguments": {}}))
 ### 5.1 まずツールを定義する
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def search_course_policy(keyword):
     docs = {
         "返金": "コース購入後 7 日以内で、学習進捗が 20% 未満なら返金申請が可能です。",
@@ -202,7 +228,7 @@ def search_course_policy(keyword):
     return docs.get(keyword, "関連する規約が見つかりませんでした")
 
 def calculate(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 ```
 
 ### 5.2 スケジューラと検証を定義する

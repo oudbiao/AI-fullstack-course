@@ -7,7 +7,7 @@ keywords: [probability guide, statistics guide, probability distribution, Bayes,
 
 # Pre-reading guide: What is this chapter on probability and statistics really about?
 
-![Probability and statistics learning map](/img/course/ch04-probability-roadmap-en.png)
+![Probability and statistics learning map](/img/course/ch04-probability-roadmap-vertical-en.png)
 
 For beginners, the biggest problem in this chapter is not “I can’t calculate the formulas,” but rather that as you keep learning, you lose sight of what these concepts have to do with AI.
 

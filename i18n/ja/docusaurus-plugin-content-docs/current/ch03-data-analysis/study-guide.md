@@ -13,7 +13,7 @@ keywords: [データ分析 学習ガイド, NumPy の学び方, Pandas の学び
 
 データ分析の最初の1周は、1本の主線だけを追います。データを読み込んだら、まず項目を理解し、次に整えて整理し、そのあと統計的に分析し、最後に図表で結論を表現します。
 
-![データ分析学習ガイドの最小ループ](/img/course/ch03-study-guide-data-loop-ja.png)
+![データ分析学習ガイドの最小ループ](/img/course/ch03-study-guide-data-loop-vertical-ja.png)
 
 ## 初心者向けの考え方：データ探偵として調べる
 
@@ -34,16 +34,16 @@ keywords: [データ分析 学習ガイド, NumPy の学び方, Pandas の学び
 
 | 用語 | やさしい説明 |
 |---|---|
-| `CSV` | テキスト形式の表ファイル。1行が1レコードで、カンマで列を区切る |
-| `JSON` | API や Web サービスでよく使われる入れ子構造のデータ形式 |
+| `CSV` (Comma-Separated Values) | テキスト形式の表ファイル。1行が1レコードで、カンマで列を区切る |
+| `JSON` (JavaScript Object Notation) | API や Web サービスでよく使われる入れ子構造のデータ形式 |
 | `DataFrame` | Pandas の表。行、列、列名、インデックスを持つ |
 | `Series` | DataFrame の1列 |
 | `Index` | DataFrame の行ラベル。意味がある場合も、ただの行番号の場合もある |
 | `shape` | データの大きさ。通常は `(行数, 列数)` |
-| `dtype` | 整数、浮動小数点、文字列、日時などのデータ型 |
+| `dtype` (data type) | 整数、浮動小数点、文字列、日時などのデータ型 |
 | `missing value` | 欠損値。多くの場合 `NaN` や `None` で表される |
 | `outlier` | 多くの値から大きく離れた外れ値 |
-| `EDA` | 探索的データ分析。モデリング前の最初の調査 |
+| `EDA` (Exploratory Data Analysis) | 探索的データ分析。モデリング前の最初の調査 |
 | `groupby` | カテゴリごとに分け、各グループへ統計処理を行い、結果をまとめる |
 | `merge` / `join` | ユーザー ID や商品 ID など共通キーで表を結合する |
 | `axis` | 処理の方向。表では `axis=0` は行方向、`axis=1` は列方向を指すことが多い |

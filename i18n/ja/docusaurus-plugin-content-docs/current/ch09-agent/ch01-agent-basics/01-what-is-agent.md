@@ -239,6 +239,32 @@ flowchart LR
 原理を分かりやすくするために、まずは本物の大規模モデルを使わず、「ルール版 Agent」を書いてみます。
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 def tool_weather(city):
     fake_weather = {
         "北京": "晴れ、22 度",
@@ -248,7 +274,7 @@ def tool_weather(city):
     return fake_weather.get(city, "その都市の天気データはまだありません")
 
 def tool_calculate(expression):
-    return str(eval(expression, {"__builtins__": {}}))
+    return str(safe_calculate(expression))
 
 def tool_search_docs(keyword):
     docs = {

@@ -103,6 +103,32 @@ The following code shows the full process:
 5. Final answer
 
 ```python
+import ast
+import operator
+
+OPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+
+def safe_calculate(expression):
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in OPS:
+            return OPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError("unsupported_expression")
+
+    return visit(ast.parse(expression, mode="eval"))
+
+
 TOOLS = {
     "get_order_status": lambda order_id: {
         "order_id": order_id,
@@ -114,7 +140,7 @@ TOOLS = {
         "policy_text": "Unshipped orders can be refunded directly. The money will be returned to the original payment method, usually within 3 to 7 business days."
     },
     "calculator": lambda expression: {
-        "result": eval(expression, {"__builtins__": {}}, {})
+        "result": safe_calculate(expression)
     },
 }
 

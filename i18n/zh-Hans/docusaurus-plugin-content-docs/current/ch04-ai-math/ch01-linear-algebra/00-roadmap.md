@@ -7,7 +7,7 @@ keywords: [线性代数导读, AI数学导读, 向量, 矩阵, 特征值, PCA]
 
 # 学前导读：线性代数这章到底在学什么
 
-![线性代数学习地图](/img/course/ch04-linear-algebra-roadmap.png)
+![线性代数学习地图](/img/course/ch04-linear-algebra-roadmap-vertical.png)
 
 :::tip 先别急着背公式
 对新人来说，这一章最重要的不是证明定理，而是先建立一张地图：
