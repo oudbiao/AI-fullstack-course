@@ -68,6 +68,12 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 
 只要这 6 步清楚，你的项目就已经很有说服力。
 
+![垂直领域微调项目闭环图](/img/course/ch07-domain-finetune-closed-loop.png)
+
+:::tip 读图提示
+这张图建议从上往下读：先收窄任务，再把原始知识整理成 SFT 样本，训练前先比较 baseline，用固定评估集检查效果，最后才判断微调是否值得付出额外成本。
+:::
+
 ## 三、推荐推进顺序
 
 对新人来说，更稳的顺序通常是：
@@ -78,6 +84,19 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 4. 最后才做微调和 before/after 对比
 
 这样项目才更像“判断之后的微调”，而不是“为了微调而微调”。
+
+### 3.1 读代码前先看懂几个项目词
+
+| 术语 | 新人友好解释 | 在本节里的作用 |
+|---|---|---|
+| LLM | Large Language Model，大语言模型，会按 token 逐步预测和生成文本 | 本项目要调整的就是 LLM 在垂直领域任务里的行为 |
+| Prompt | 推理时发给模型的指令、上下文和约束 | 它是第一个 baseline，因为成本比训练低 |
+| RAG | Retrieval-Augmented Generation，检索增强生成，回答前先从外部资料里找相关内容 | 当模型缺少最新知识或私有资料时，优先考虑它 |
+| 微调 | 在任务专属样本上继续训练模型 | 当模型需要稳定风格、格式或判断模式时更有价值 |
+| SFT | Supervised Fine-Tuning，监督微调，用人工或可靠数据整理出的输入/输出样本训练模型 | 它告诉模型“好答案应该长什么样” |
+| baseline | 在复杂方法之前先做的最简单对比系统 | 防止没有证据就说“效果提升了” |
+| 评估集 | 一组固定测试问题，不能拿来训练 | 用来判断新方案是否真的能处理没见过的样例 |
+| 覆盖率 | 答案覆盖了多少个必须出现的政策点 | 把“看起来不错”变成更可度量的分数 |
 
 ---
 
@@ -90,24 +109,29 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 - 两个 baseline
 - 评估规则
 
+这段代码只使用 Python 标准库。可以保存为 `domain_finetune_demo.py`，然后运行 `python domain_finetune_demo.py`。
+
 ```python
 raw_records = [
     {
         "intent": "refund_unshipped",
         "question": "订单还没发货，可以直接退款吗？",
         "policy_points": ["未发货可直接申请退款", "退款原路返回", "到账时间 3 到 7 个工作日"],
+        "evaluation_keywords": [["未发货"], ["原路"], ["3 到 7", "工作日"]],
         "answer": "可以。如果订单尚未发货，您可以直接申请退款，款项会原路退回，通常 3 到 7 个工作日到账。",
     },
     {
         "intent": "change_address",
         "question": "收货地址填错了，还能改吗？",
         "policy_points": ["未出库可修改地址", "已出库需联系人工客服"],
+        "evaluation_keywords": [["未出库"], ["人工客服", "已出库"]],
         "answer": "如果订单尚未出库，您可以在订单详情页修改地址；若已经出库，请联系人工客服处理。",
     },
     {
         "intent": "invoice",
         "question": "发票什么时候可以开？",
         "policy_points": ["订单完成后可申请", "电子发票发送到邮箱"],
+        "evaluation_keywords": [["订单完成"], ["电子发票", "邮箱"]],
         "answer": "订单完成后可在发票中心申请开具，电子发票会发送到您预留的邮箱。",
     },
 ]
@@ -141,13 +165,23 @@ def retrieval_baseline(question, records):
     return best["answer"]
 
 
+def tokenize(text):
+    punctuation = "，。！？；：“”‘’、（）()[]{}"
+    words = [char.strip(punctuation) for char in text]
+    return {word for word in words if word}
+
+
 def overlap(a, b):
-    return len(set(a) & set(b))
+    return len(tokenize(a) & tokenize(b))
 
 
-def coverage(answer, policy_points):
-    covered = sum(point[:4] in answer or point in answer for point in policy_points)
-    return round(covered / len(policy_points), 3)
+def coverage(answer, required_keyword_groups):
+    matched = [
+        group
+        for group in required_keyword_groups
+        if any(keyword in answer for keyword in group)
+    ]
+    return round(len(matched) / len(required_keyword_groups), 3)
 
 
 sft_dataset = [build_sft_record(row) for row in raw_records]
@@ -157,10 +191,21 @@ generic_answer = generic_baseline(sample["question"])
 retrieval_answer = retrieval_baseline(sample["question"], raw_records)
 
 print("question:", sample["question"])
-print("generic  :", generic_answer, "coverage=", coverage(generic_answer, sample["policy_points"]))
-print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sample["policy_points"]))
+print("generic  :", generic_answer, "coverage=", coverage(generic_answer, sample["evaluation_keywords"]))
+print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sample["evaluation_keywords"]))
 print("sft_sample:", sft_dataset[0])
 ```
+
+预期输出形态大致如下：
+
+```text
+question: 订单还没发货，可以直接退款吗？
+generic  : 一般可以申请退款，具体以订单状态为准。 coverage= 0.0
+retrieval: 可以。如果订单尚未发货，您可以直接申请退款... coverage= 1.0
+sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [...]}
+```
+
+这段小代码的重点不是做一个生产级检索系统，而是让对比变得可见：通用回答听起来礼貌，但缺少必须覆盖的政策细节；领域相关回答则可以用固定政策点检查。
 
 ### 4.1 这个例子为什么比纯“项目规划对象”更值钱？
 
@@ -190,6 +235,18 @@ print("sft_sample:", sft_dataset[0])
 否则你后面很难说清：
 
 - 微调到底提升了什么
+
+### 4.3 如果检索已经很好，什么时候还值得微调？
+
+检索回答的是“模型应该看到哪些知识”，微调回答的是另一个问题：“模型看到输入后应该形成怎样的稳定行为”。如果检索已经能找到正确政策，微调仍然可能在这些场景里有价值：助手必须始终保持固定语气、稳定判断意图、输出严格 JSON schema，或反复执行某种固定推理模式。
+
+| 场景 | 更适合先用什么 | 原因 |
+|---|---|---|
+| 答案依赖私有资料或经常变化的知识 | RAG | 更新文档通常比重新训练更安全 |
+| 答案必须保持稳定风格或结构 | 微调 | 模型会学习重复出现的输出模式 |
+| 任务定义本身还不清楚 | 先重写任务和 Prompt | 用混乱样本训练，只会把混乱固化 |
+| 输出必须被代码稳定解析 | 先用 Prompt + schema，再看是否需要微调 | schema 约束能暴露问题到底在表达还是行为 |
+| baseline 已经通过评估 | 保留简单方案 | 简单可靠的系统通常更容易维护 |
 
 ---
 

@@ -68,6 +68,12 @@ This topic is good because:
 
 As long as these 6 steps are clear, your project will already be very convincing.
 
+![Vertical domain fine-tuning closed loop](/img/course/ch07-domain-finetune-closed-loop-en.png)
+
+:::tip How to read this loop
+Read the picture from top to bottom: narrow the task first, turn raw knowledge into SFT samples, compare baselines before training, evaluate with a fixed test set, and only then decide whether fine-tuning is worth the extra cost.
+:::
+
 ## 3. Recommended implementation order
 
 For beginners, a more reliable order is usually:
@@ -78,6 +84,19 @@ For beginners, a more reliable order is usually:
 4. Finally fine-tune and compare before/after results
 
 That way, the project feels like “fine-tuning after judgment,” rather than “fine-tuning for the sake of fine-tuning.”
+
+### 3.1 Key project words before you read the code
+
+| Term | Beginner-friendly meaning | Why it matters here |
+|---|---|---|
+| LLM | Large Language Model, a model that predicts and generates text token by token | The project is about changing how an LLM behaves on a narrow domain task |
+| Prompt | The instruction and context you send to the model at inference time | It is the first baseline because it costs less than training |
+| RAG | Retrieval-Augmented Generation, which retrieves external documents before answering | It is useful when the model lacks current or private knowledge |
+| Fine-tuning | Additional training on task-specific examples | It is useful when the model must follow a stable style, format, or decision pattern |
+| SFT | Supervised Fine-Tuning, training with input/output examples written by humans or curated from reliable data | It teaches the model what a good answer should look like |
+| Baseline | The simplest comparison system you build before the advanced method | It prevents you from claiming improvement without evidence |
+| Evaluation set | A fixed set of test questions that you do not train on | It tells you whether the new method really improves unseen cases |
+| Coverage | How many required policy points are included in the answer | It turns “looks good” into a more measurable score |
 
 ---
 
@@ -90,24 +109,29 @@ The example below shows:
 - Two baselines
 - Evaluation rules
 
+The code uses only the Python standard library. Save it as `domain_finetune_demo.py` and run `python domain_finetune_demo.py`.
+
 ```python
 raw_records = [
     {
         "intent": "refund_unshipped",
         "question": "My order hasn’t shipped yet. Can I refund it directly?",
         "policy_points": ["Unshipped orders can be refunded directly", "Refunds are returned to the original payment method", "It usually takes 3 to 7 business days"],
+        "evaluation_keywords": [["not shipped", "unshipped"], ["original payment method", "payment method"], ["3 to 7", "business days"]],
         "answer": "Yes. If the order has not shipped yet, you can request a refund directly. The payment will be returned to the original payment method, and it usually arrives within 3 to 7 business days.",
     },
     {
         "intent": "change_address",
         "question": "I entered the wrong shipping address. Can I still change it?",
         "policy_points": ["Address can be changed before warehouse dispatch", "If already dispatched, contact human support"],
+        "evaluation_keywords": [["not been dispatched", "before warehouse dispatch"], ["human support", "already dispatched"]],
         "answer": "If the order has not been dispatched from the warehouse yet, you can change the address on the order details page. If it has already been dispatched, please contact human support.",
     },
     {
         "intent": "invoice",
         "question": "When can I request an invoice?",
         "policy_points": ["Can be requested after the order is completed", "E-invoice will be sent to email"],
+        "evaluation_keywords": [["order is completed", "after the order"], ["e-invoice", "email"]],
         "answer": "After the order is completed, you can request an invoice from the invoice center. The e-invoice will be sent to your registered email address.",
     },
 ]
@@ -141,13 +165,24 @@ def retrieval_baseline(question, records):
     return best["answer"]
 
 
+def tokenize(text):
+    punctuation = ".,?!'\";:()[]{}"
+    words = [word.strip(punctuation).lower() for word in text.split()]
+    return {word for word in words if word}
+
+
 def overlap(a, b):
-    return len(set(a) & set(b))
+    return len(tokenize(a) & tokenize(b))
 
 
-def coverage(answer, policy_points):
-    covered = sum(point[:4] in answer or point in answer for point in policy_points)
-    return round(covered / len(policy_points), 3)
+def coverage(answer, required_keyword_groups):
+    normalized_answer = answer.lower()
+    matched = [
+        group
+        for group in required_keyword_groups
+        if any(keyword.lower() in normalized_answer for keyword in group)
+    ]
+    return round(len(matched) / len(required_keyword_groups), 3)
 
 
 sft_dataset = [build_sft_record(row) for row in raw_records]
@@ -157,10 +192,21 @@ generic_answer = generic_baseline(sample["question"])
 retrieval_answer = retrieval_baseline(sample["question"], raw_records)
 
 print("question:", sample["question"])
-print("generic  :", generic_answer, "coverage=", coverage(generic_answer, sample["policy_points"]))
-print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sample["policy_points"]))
+print("generic  :", generic_answer, "coverage=", coverage(generic_answer, sample["evaluation_keywords"]))
+print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sample["evaluation_keywords"]))
 print("sft_sample:", sft_dataset[0])
 ```
+
+Expected output shape:
+
+```text
+question: My order hasn’t shipped yet. Can I refund it directly?
+generic  : In general, you can request a refund, depending on the order status. coverage= 0.0
+retrieval: Yes. If the order has not shipped yet, you can request a refund directly... coverage= 1.0
+sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [...]}
+```
+
+The point is not that this tiny retrieval baseline is production-ready. The point is to make the comparison visible: a generic answer sounds polite but misses required policy details, while a domain-aware answer can be checked against a fixed list of required points.
 
 ### 4.1 Why is this example more valuable than a pure “project plan” object?
 
@@ -190,6 +236,18 @@ At minimum, it is recommended to compare:
 Otherwise, it will be hard to explain later:
 
 - What exactly did fine-tuning improve?
+
+### 4.3 If retrieval already works, when is fine-tuning still worth it?
+
+Retrieval answers the question “which knowledge should the model see?” Fine-tuning answers a different question: “how should the model behave after seeing the input?” If retrieval already finds the correct policy text, fine-tuning may still be valuable when the assistant must always follow a fixed tone, classify intents consistently, output a strict JSON schema, or apply a repeated reasoning pattern.
+
+| Situation | Better first choice | Reason |
+|---|---|---|
+| The answer needs private or frequently changing knowledge | RAG | Updating documents is safer than retraining the model |
+| The answer must follow a stable style or structure | Fine-tuning | The model learns the repeated output pattern |
+| The task definition is unclear | Rewrite the task and Prompt | Training on unclear examples only preserves confusion |
+| The output must be parseable by code | Prompt + schema first, then fine-tuning if still unstable | Schema constraints reveal whether the problem is wording or model behavior |
+| The baseline already passes evaluation | Keep the simpler method | A simpler reliable system is usually easier to maintain |
 
 ---
 

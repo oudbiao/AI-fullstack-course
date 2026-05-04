@@ -68,6 +68,12 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 
 この 6 ステップがはっきりしていれば、プロジェクトはかなり説得力のあるものになります。
 
+![垂直領域ファインチューニング・プロジェクトの閉ループ図](/img/course/ch07-domain-finetune-closed-loop-ja.png)
+
+:::tip 図の見方
+この図は上から下へ読んでください。まずタスクを絞り、元知識を SFT サンプルに変え、学習前に baseline を比較し、固定評価セットで確認し、そのうえでファインチューニングの追加コストに見合うかを判断します。
+:::
+
 ## 三、おすすめの進め方
 
 初心者にとって、より安定しやすい順番は通常こうです。
@@ -78,6 +84,19 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 4. 最後にファインチューニングと before/after 比較を行う
 
 こうすると、プロジェクトが「何となく微調整したもの」ではなく、「判断した上で微調整したもの」に見えます。
+
+### 3.1 コードを読む前に押さえたいプロジェクト用語
+
+| 用語 | 初心者向けの意味 | この節での役割 |
+|---|---|---|
+| LLM | Large Language Model、大規模言語モデル。token を1つずつ予測しながら文章を生成するモデル | このプロジェクトでは、LLM の領域タスクでの振る舞いを調整する |
+| Prompt | 推論時にモデルへ渡す指示、文脈、制約 | 训练より低コストなので、最初の baseline になる |
+| RAG | Retrieval-Augmented Generation、回答前に外部資料を検索してから生成する方法 | 最新知識や社内資料が足りないときに役立つ |
+| ファインチューニング | タスク専用サンプルでモデルを追加学習すること | 文体、形式、判断パターンを安定させたいときに価値がある |
+| SFT | Supervised Fine-Tuning、整理済みの入力/出力例で行う教師あり微調整 | モデルに「良い回答の形」を教える |
+| baseline | 高度な方法の前に作る、最も簡単な比較対象 | 根拠なしに「改善した」と言わないために必要 |
+| 評価セット | 学習には使わない固定のテスト質問セット | 新しい方法が未見のケースにも効くかを確認する |
+| coverage | 必須ポリシー点をどれだけ回答に含めたか | 「良さそう」を、より測れるスコアに変える |
 
 ---
 
@@ -90,24 +109,29 @@ keywords: [domain finetuning, SFT, baseline, evaluation, vertical assistant, pro
 - 2 種類の baseline
 - 評価ルール
 
+このコードは Python 標準ライブラリだけで動きます。`domain_finetune_demo.py` として保存し、`python domain_finetune_demo.py` で実行できます。
+
 ```python
 raw_records = [
     {
         "intent": "refund_unshipped",
         "question": "注文がまだ発送されていませんが、そのまま返金できますか？",
         "policy_points": ["未発送なら直接返金申請できる", "返金は元の支払い方法に戻る", "着金は通常 3〜7 営業日"],
+        "evaluation_keywords": [["未発送", "発送されていない"], ["元の支払い方法"], ["3〜7", "営業日"]],
         "answer": "はい。注文がまだ発送されていない場合は、そのまま返金を申請できます。代金は元の支払い方法に返金され、通常 3〜7 営業日で反映されます。",
     },
     {
         "intent": "change_address",
         "question": "受け取り住所を間違えました。変更できますか？",
         "policy_points": ["出庫前なら住所変更可能", "出庫後は有人サポートに連絡"],
+        "evaluation_keywords": [["出庫前"], ["有人サポート", "出庫済み"]],
         "answer": "注文がまだ出庫前であれば、注文詳細ページから住所を変更できます。すでに出庫済みの場合は、有人サポートまでご連絡ください。",
     },
     {
         "intent": "invoice",
         "question": "請求書はいつ発行できますか？",
         "policy_points": ["注文完了後に申請可能", "電子請求書はメール送付"],
+        "evaluation_keywords": [["注文完了"], ["電子請求書", "メール"]],
         "answer": "注文完了後に請求書センターから発行を申請できます。電子請求書は登録済みのメールアドレスに送信されます。",
     },
 ]
@@ -141,13 +165,23 @@ def retrieval_baseline(question, records):
     return best["answer"]
 
 
+def tokenize(text):
+    punctuation = "、。！？；：「」『』（）()[]{}"
+    words = [char.strip(punctuation) for char in text]
+    return {word for word in words if word}
+
+
 def overlap(a, b):
-    return len(set(a) & set(b))
+    return len(tokenize(a) & tokenize(b))
 
 
-def coverage(answer, policy_points):
-    covered = sum(point[:4] in answer or point in answer for point in policy_points)
-    return round(covered / len(policy_points), 3)
+def coverage(answer, required_keyword_groups):
+    matched = [
+        group
+        for group in required_keyword_groups
+        if any(keyword in answer for keyword in group)
+    ]
+    return round(len(matched) / len(required_keyword_groups), 3)
 
 
 sft_dataset = [build_sft_record(row) for row in raw_records]
@@ -157,10 +191,21 @@ generic_answer = generic_baseline(sample["question"])
 retrieval_answer = retrieval_baseline(sample["question"], raw_records)
 
 print("question:", sample["question"])
-print("generic  :", generic_answer, "coverage=", coverage(generic_answer, sample["policy_points"]))
-print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sample["policy_points"]))
+print("generic  :", generic_answer, "coverage=", coverage(generic_answer, sample["evaluation_keywords"]))
+print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sample["evaluation_keywords"]))
 print("sft_sample:", sft_dataset[0])
 ```
+
+想定される出力の形は、次のようになります。
+
+```text
+question: 注文がまだ発送されていませんが、そのまま返金できますか？
+generic  : 一般的には返金申請は可能です。詳細は注文状況によります。 coverage= 0.0
+retrieval: はい。注文がまだ発送されていない場合は... coverage= 1.0
+sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [...]}
+```
+
+この小さなコードの目的は、本番レベルの検索システムを作ることではありません。比較を見える形にすることです。汎用回答は丁寧に聞こえても、必須のポリシー詳細を落とすことがあります。一方、領域に合った回答は、固定した必須点に照らして確認できます。
 
 ### 4.1 この例が、単なる「プロジェクト案」より価値がある理由
 
@@ -190,6 +235,18 @@ print("sft_sample:", sft_dataset[0])
 これがないと、あとで次のことを説明しにくくなります。
 
 - ファインチューニングで、何がどれだけ改善したのか
+
+### 4.3 検索がすでに強いなら、いつファインチューニングする価値があるのか？
+
+検索が答えるのは「モデルにどの知識を見せるべきか」です。ファインチューニングが答えるのは別の問いで、「入力を見たあと、モデルがどんな安定した振る舞いをするべきか」です。検索で正しいポリシーを見つけられる場合でも、文体を常にそろえる、意図分類を安定させる、厳密な JSON schema を出す、同じ推論パターンを何度も使う、といった場面ではファインチューニングが価値を持つことがあります。
+
+| 状況 | まず選びたい方法 | 理由 |
+|---|---|---|
+| 回答が社内資料や頻繁に変わる知識に依存する | RAG | 文書更新のほうが再学習より安全 |
+| 回答の文体や構造を安定させたい | ファインチューニング | モデルが繰り返し出る出力パターンを学ぶ |
+| タスク定義そのものがあいまい | 先にタスクと Prompt を書き直す | あいまいなサンプルで学習すると、混乱を固定してしまう |
+| 出力をコードで安定して解析したい | まず Prompt + schema、その後必要ならファインチューニング | schema 制約で、問題が表現なのか振る舞いなのか見えやすくなる |
+| baseline がすでに評価を通っている | より単純な方法を残す | 単純で信頼できるシステムのほうが保守しやすい |
 
 ---
 
