@@ -50,7 +50,7 @@ What this section really wants to solve is:
 - Why the test set should not be used to try parameters repeatedly
 - Why the search space itself is a design problem
 
-### 0.1 A more beginner-friendly analogy
+### 1.1 A more beginner-friendly analogy
 
 You can first think of tuning as:
 
@@ -512,7 +512,7 @@ print(f"\nImprovement: {rs.score(X_test, y_test) - baseline.score(X_test, y_test
 
 ---
 
-## What is the easiest thing to overlook when doing tuning for the first time?
+## 7. What is the easiest thing to overlook when doing tuning for the first time?
 
 What is most often overlooked is:
 
@@ -522,7 +522,7 @@ Because once you start using the test set to guide tuning,
 the test set is no longer “final unknown data,”
 and your evaluation will start to become optimistically biased.
 
-## 8.5 For your first tuning experiment, what is the safest default order?
+## 8. For your first tuning experiment, what is the safest default order?
 
 If you are tuning for the first time, it is recommended to follow this order:
 
@@ -534,7 +534,7 @@ If you are tuning for the first time, it is recommended to follow this order:
 
 This order is more stable than opening a huge search space right away, and it also makes it easier to know where the improvement came from.
 
-## If you still feel confused after learning this section, what should you focus on first?
+## 9. If you still feel confused after learning this section, what should you focus on first?
 
 If tuning still feels easy to get lost in, what is most worth focusing on is not all the differences between tools, but these three sentences:
 

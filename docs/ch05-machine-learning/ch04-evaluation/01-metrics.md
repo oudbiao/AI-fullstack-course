@@ -388,6 +388,10 @@ So in regression, a more mature habit is:
 - Also ask “how much does it miss on average?”
 - Then ask “is there any systematic bias in the errors?”
 
+![Regression metrics and residual diagnosis comic](/img/course/ch05-regression-error-residual-comic-en.png)
+
+This diagram turns the regression side of evaluation into a picture: MAE tells you the average miss, MSE exaggerates large mistakes, RMSE keeps the same unit as the target, and the residual plot tells you whether the model still has an obvious pattern to learn.
+
 ### 5.3 Visualization: residual analysis
 
 ```python

@@ -413,7 +413,7 @@ plt.show()
 
 ---
 
-## 10. The safest default sequence for the first time you add cross-validation to a project
+## 8. The safest default sequence for the first time you add cross-validation to a project
 
 When you first add cross-validation into a project workflow, you can follow this sequence:
 
