@@ -20,6 +20,25 @@ When you train a classification model with `CrossEntropyLoss`, the word "entropy
 - Understand KL divergence — the "distance" from one distribution to another
 - Compute and visualize everything with Python
 
+## Terms to Decode Before the Formulas
+
+Information theory terms can sound abstract, but most of them answer very concrete questions:
+
+| Term | Meaning | Beginner-friendly question |
+|---|---|---|
+| `bit` | Unit of information when using `log2` | How many yes/no questions would this information be worth? |
+| `nat` | Unit of information when using natural log `ln` | The unit most deep learning loss functions use internally |
+| `log2` | Logarithm base 2 | Used when we want answers in bits |
+| `entropy` | Average uncertainty of a distribution | Before seeing the answer, how uncertain are we on average? |
+| `cross-entropy` | Cost of predicting distribution Q when truth is P | How expensive is it to use the model's prediction to explain the truth? |
+| `KL divergence` | Extra cost from using Q instead of P | How much extra cost do we pay because the model distribution is wrong? |
+| `logits` | Raw model scores before probability conversion | The unnormalized scores a neural network outputs before softmax |
+| `softmax` | Converts logits into probabilities | Turn raw class scores into a probability distribution that sums to 1 |
+| `perplexity` | `2 ** cross_entropy` when cross-entropy uses bits | A language-model metric; lower usually means the model is less confused |
+| `RLHF` / `PPO` | Reinforcement Learning from Human Feedback / Proximal Policy Optimization | Training methods that use KL to keep a fine-tuned model from drifting too far |
+
+This lesson uses `log2` for information-theory intuition in **bits**. Many deep learning libraries use the natural logarithm, so their loss values are in **nats**. The shape and optimization meaning are the same; only the unit changes.
+
 ## Historical Background: What Is the Most Important Starting Point for This Section?
 
 The most important historical milestone in this section is:
@@ -138,6 +157,22 @@ plt.show()
 | 0.25 | 2 bits | Guessing a two-digit binary number |
 | 0.01 | 6.64 bits | Very surprising, so it carries a lot of information |
 
+If you run the formula directly:
+
+```python
+for p in [1.0, 0.5, 0.25, 0.01]:
+    print(f"p={p:>4}: information={-np.log2(p):.4f} bits")
+```
+
+Expected output:
+
+```text
+p= 1.0: information=-0.0000 bits
+p= 0.5: information=1.0000 bits
+p=0.25: information=2.0000 bits
+p=0.01: information=6.6439 bits
+```
+
 ---
 
 ## 2. Entropy — Average Uncertainty
@@ -201,6 +236,17 @@ print(f"Entropy of a certain event: {h3:.3f} bit")  # 0.0
 h4 = entropy([1/6]*6)
 print(f"Entropy of a fair die: {h4:.3f} bit")  # 2.585
 ```
+
+Expected output:
+
+```text
+Entropy of a fair coin: 1.000 bit
+Entropy of an unfair coin (0.9, 0.1): 0.469 bit
+Entropy of a certain event: -0.000 bit
+Entropy of a fair die: 2.585 bit
+```
+
+`-0.000` appears because of floating-point rounding. Conceptually, the entropy is exactly 0.
 
 ### 2.3 Visualization: How Coin Entropy Changes with p
 
@@ -278,6 +324,15 @@ print(f"Cross-entropy, poor prediction:   {cross_entropy(P, Q_bad):.4f}")
 print(f"Cross-entropy, wrong prediction: {cross_entropy(P, Q_wrong):.4f}")
 ```
 
+Expected output:
+
+```text
+Entropy of P:        1.1568
+Cross-entropy, good prediction:   1.1672
+Cross-entropy, poor prediction:   1.5952
+Cross-entropy, wrong prediction: 3.0219
+```
+
 ### 3.3 Cross-Entropy as a Loss Function
 
 In classification tasks, **minimizing cross-entropy = making the model's predictions as close as possible to the true distribution**.
@@ -308,12 +363,14 @@ for name, y_pred in predictions.items():
 ```
 
 Output:
-```
+```text
 Perfect prediction   → cross-entropy loss ≈ 0.0000
-Good prediction      → cross-entropy loss ≈ 0.1643
-Poor prediction      → cross-entropy loss ≈ 0.6365
+Good prediction      → cross-entropy loss ≈ 0.1525
+Poor prediction      → cross-entropy loss ≈ 0.5108
 Completely wrong     → cross-entropy loss ≈ 2.3026
 ```
+
+This block uses `np.log`, the natural logarithm, so the unit is nats. That matches what most deep learning frameworks use for cross-entropy loss.
 
 ### 3.4 Visualization: Prediction Accuracy vs. Loss
 
@@ -377,6 +434,14 @@ print("Model prediction:", dict(zip(labels, pred_probs)))
 print("Cross-entropy loss:", round(loss, 4))
 ```
 
+Expected output:
+
+```text
+Correct class: dog
+Model prediction: {'cat': 0.1, 'dog': 0.7, 'bird': 0.2}
+Cross-entropy loss: 0.3567
+```
+
 This example is especially good for beginners because it brings abstract distribution language back to the most familiar classification setting:
 
 - Who is the correct answer?
@@ -426,6 +491,14 @@ print(f"KL(P || Q2): {kl_divergence(P, Q2):.4f} (Q2 is far from P)")
 print(f"KL(P || P):  {kl_divergence(P, P):.4f} (P with itself)")
 ```
 
+Expected output:
+
+```text
+KL(P || Q1): 0.0105 (Q1 is close to P)
+KL(P || Q2): 0.4384 (Q2 is far from P)
+KL(P || P):  0.0000 (P with itself)
+```
+
 ### 4.2 Properties of KL Divergence
 
 | Property | Description |
@@ -442,6 +515,14 @@ Q = [0.33, 0.33, 0.34]
 print(f"KL(P || Q) = {kl_divergence(P, Q):.4f}")
 print(f"KL(Q || P) = {kl_divergence(Q, P):.4f}")
 print("They are not equal!")
+```
+
+Expected output:
+
+```text
+KL(P || Q) = 0.4384
+KL(Q || P) = 0.4807
+They are not equal!
 ```
 
 ### 4.3 Visualization: How KL Divergence Changes with Distribution Difference
@@ -512,6 +593,15 @@ print(f"KL divergence:        {kl:.4f}")
 print(f"H(P) + KL =     {h + kl:.4f}")  # = cross-entropy ✓
 ```
 
+Expected output:
+
+```text
+Entropy H(P):        1.1568
+Cross-entropy H(P,Q):  1.2796
+KL divergence:        0.1228
+H(P) + KL =     1.2796
+```
+
 :::info Why do we use cross-entropy instead of KL divergence for classification?
 Because during training, the true distribution P is fixed (the labels do not change), so H(P) is a constant. Minimizing cross-entropy H(P,Q) is equivalent to minimizing KL(P||Q). But cross-entropy is easier to compute — you do not need to know H(P).
 :::
@@ -552,7 +642,7 @@ In these four lessons on probability and statistics, you learned:
 
 These concepts appear again and again in machine learning, deep learning, and large language models.
 
-**🔀 Integrated learning jump**: It is recommended that you now go to **Station 5 · 2.2 Logistic Regression + 2.3 Decision Trees** — use the probability and information theory knowledge you just learned to understand the loss functions and information gain of classification algorithms.
+**Integrated learning jump**: It is recommended that you now go to **Station 5 · 2.2 Logistic Regression + 2.3 Decision Trees** — use the probability and information theory knowledge you just learned to understand the loss functions and information gain of classification algorithms.
 :::
 
 ---
@@ -582,10 +672,91 @@ Compute the entropy of the following distributions and explain which one is the 
 2. [0.97, 0.01, 0.01, 0.01] (almost certain)
 3. [0.4, 0.3, 0.2, 0.1] (non-uniform)
 
+Reference implementation:
+
+```python
+distributions = [
+    [0.25, 0.25, 0.25, 0.25],
+    [0.97, 0.01, 0.01, 0.01],
+    [0.4, 0.3, 0.2, 0.1],
+]
+
+for probs in distributions:
+    print(f"{probs} -> entropy={entropy(probs):.4f} bits")
+```
+
+Expected output:
+
+```text
+[0.25, 0.25, 0.25, 0.25] -> entropy=2.0000 bits
+[0.97, 0.01, 0.01, 0.01] -> entropy=0.2419 bits
+[0.4, 0.3, 0.2, 0.1] -> entropy=1.8464 bits
+```
+
+The first distribution is the most uncertain because all four outcomes are equally likely.
+
 ### Exercise 2: Cross-Entropy Loss
 
 For a three-class problem: the true label is class 2 (one-hot: [0, 1, 0]), and the model outputs softmax probabilities [0.1, 0.7, 0.2]. Compute the cross-entropy loss. If the model output changes to [0.05, 0.9, 0.05], how will the loss change?
 
+Reference implementation:
+
+```python
+P = np.array([0, 1, 0])
+Q1 = np.array([0.1, 0.7, 0.2])
+Q2 = np.array([0.05, 0.9, 0.05])
+
+loss1 = -np.sum(P * np.log(Q1))
+loss2 = -np.sum(P * np.log(Q2))
+
+print(f"Loss with [0.1, 0.7, 0.2]: {loss1:.4f} nats")
+print(f"Loss with [0.05, 0.9, 0.05]: {loss2:.4f} nats")
+```
+
+Expected output:
+
+```text
+Loss with [0.1, 0.7, 0.2]: 0.3567 nats
+Loss with [0.05, 0.9, 0.05]: 0.1054 nats
+```
+
+The second prediction gives more probability to the correct class, so the loss becomes smaller.
+
 ### Exercise 3: Visualize KL Divergence
 
 Draw a graph showing how KL(P||Q) changes when the true distribution P = [0.6, 0.3, 0.1] is fixed and Q changes along some parameter (for example, q1 from 0.1 to 0.9).
+
+Reference implementation:
+
+```python
+P = np.array([0.6, 0.3, 0.1])
+q1_values = np.linspace(0.1, 0.9, 200)
+kl_values = []
+
+for q1 in q1_values:
+    # Keep the remaining probability split in a 3:1 ratio.
+    Q = np.array([q1, (1 - q1) * 0.75, (1 - q1) * 0.25])
+    kl_values.append(kl_divergence(P, Q))
+
+plt.figure(figsize=(8, 5))
+plt.plot(q1_values, kl_values, color="steelblue", linewidth=2)
+plt.axvline(x=0.6, color="red", linestyle="--", label="Q = P")
+plt.xlabel("q1")
+plt.ylabel("KL(P || Q)")
+plt.title("KL divergence is smallest when Q matches P")
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show()
+
+for q1 in [0.1, 0.6, 0.9]:
+    Q = np.array([q1, (1 - q1) * 0.75, (1 - q1) * 0.25])
+    print(f"q1={q1:.1f}, Q={Q.round(3)}, KL={kl_divergence(P, Q):.4f}")
+```
+
+Expected output:
+
+```text
+q1=0.1, Q=[0.1   0.675 0.225], KL=1.0830
+q1=0.6, Q=[0.6 0.3 0.1], KL=-0.0000
+q1=0.9, Q=[0.9   0.075 0.025], KL=0.4490
+```
