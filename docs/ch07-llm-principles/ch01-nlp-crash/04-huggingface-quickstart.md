@@ -321,7 +321,27 @@ Later, you will also encounter:
 
 They are all built on top of this most basic chain.
 
-### 5.3 Because it fits the pattern of “experiment first, then go deeper”
+![HuggingFace terms map](/img/course/ch07-huggingface-terms-map-en.png)
+
+:::tip How to read the terms map
+Read the core chain first: text becomes `input_ids` and `attention_mask`, a batch is sent into the model, `forward` runs the computation, and outputs such as hidden states or logits come back. Tools like `pipeline`, `Trainer`, and `DataCollator` are convenience layers around that chain, not a different magic system.
+:::
+
+### 5.3 A Quick Glossary for Common HuggingFace Terms
+
+| Term | What it is | Why it matters here |
+|---|---|---|
+| `pipeline` | A high-level wrapper for common tasks | Good for quick demos, but it hides tokenizer/model details |
+| `Trainer` | A training helper that manages training loops, evaluation, and checkpoints | Useful after you understand the manual workflow |
+| `DataCollator` | A helper that pads and packs samples into batches | Prevents many batch-shape and padding mistakes |
+| `AutoModelForCausalLM` | A model class for next-token generation | Common for GPT-style decoder-only language models |
+| `logits` | Raw prediction scores before probabilities | Used to choose classes or the next token |
+
+If a name starts with `Auto`, you can read it as:
+
+- “Choose the matching class automatically based on the model configuration.”
+
+### 5.4 Because it fits the pattern of “experiment first, then go deeper”
 
 Often, you do not implement everything from scratch first,
 but instead run a standard interface to get things working,

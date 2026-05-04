@@ -7,7 +7,7 @@ keywords: [LLM study guide, how to learn Transformer, how to learn Prompt, how t
 
 # Study Guide: How to Learn LLM Principles, Prompt, and Fine-Tuning Without Getting Confused
 
-If you arrive at `06 LLM Principles, Prompt, and Fine-Tuning` and feel overwhelmed by the terminology, don’t rush to model leaderboards. First, you need to understand where LLM capabilities come from and how those capabilities are controlled and adapted.
+If you arrive at `7 LLM Principles, Prompt, and Fine-Tuning` and feel overwhelmed by the terminology, don’t rush to model leaderboards. First, you need to understand where LLM capabilities come from and how those capabilities are controlled and adapted.
 
 ## Core principle for this stage
 

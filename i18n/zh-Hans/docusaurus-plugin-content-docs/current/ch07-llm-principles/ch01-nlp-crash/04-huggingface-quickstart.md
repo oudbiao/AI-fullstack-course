@@ -321,7 +321,27 @@ print(outputs.last_hidden_state.shape)
 
 它们都建立在这条最基础的链上。
 
-### 5.3 因为它非常贴合“先实验，再深入”
+![HuggingFace 术语地图](/img/course/ch07-huggingface-terms-map.png)
+
+:::tip 术语图怎么看
+先看主链路：文本变成 `input_ids` 和 `attention_mask`，再组成 batch 喂给 model，`forward` 执行计算，最后得到 hidden states 或 logits。`pipeline`、`Trainer`、`DataCollator` 都是围绕这条链路的便利封装，不是另一套神秘系统。
+:::
+
+### 5.3 常见 HuggingFace 术语速查
+
+| 术语 | 它是什么 | 这里为什么重要 |
+|---|---|---|
+| `pipeline` | 常见任务的高层封装 | 适合快速演示，但会隐藏 tokenizer 和 model 细节 |
+| `Trainer` | 管理训练循环、评估和 checkpoint 的训练助手 | 适合在你理解手写流程后使用 |
+| `DataCollator` | 把样本补齐并打包成 batch 的工具 | 可以减少很多 shape、padding 相关错误 |
+| `AutoModelForCausalLM` | 用于预测下一个 token 的模型类 | 常用于 GPT 风格的 decoder-only 语言模型 |
+| `logits` | 概率之前的原始预测分数 | 后续会用它来选类别或下一个 token |
+
+看到以 `Auto` 开头的类名时，可以先这样理解：
+
+- “根据模型配置，自动选择匹配的类。”
+
+### 5.4 因为它非常贴合“先实验，再深入”
 
 很多时候你不是先自己从零实现一切，
 而是先跑通一个标准接口，

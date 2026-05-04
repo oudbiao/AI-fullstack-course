@@ -317,7 +317,27 @@ print(outputs.last_hidden_state.shape)
 
 これらはすべて、この基本の流れの上に成り立っています。
 
-### 5.3 「まず試して、あとで深く理解する」に向いているから
+![HuggingFace 用語マップ](/img/course/ch07-huggingface-terms-map-ja.png)
+
+:::tip 用語マップの見方
+まず主な流れを見ます。テキストが `input_ids` と `attention_mask` になり、batch として model に渡され、`forward` が計算を実行し、hidden states や logits が返ってきます。`pipeline`、`Trainer`、`DataCollator` は、この流れを便利にするためのラッパーであり、別の魔法ではありません。
+:::
+
+### 5.3 HuggingFace でよく見る用語の早見表
+
+| 用語 | 何か | ここでなぜ重要か |
+|---|---|---|
+| `pipeline` | よく使うタスク向けの高レベルラッパー | すぐ試せるが、tokenizer と model の細部は隠れる |
+| `Trainer` | 学習ループ、評価、checkpoint を管理する補助クラス | 手書きの流れを理解したあとに使うと読みやすい |
+| `DataCollator` | サンプルを padding して batch にまとめる補助ツール | shape や padding のミスを減らせる |
+| `AutoModelForCausalLM` | 次の token を予測するためのモデルクラス | GPT 系の decoder-only 言語モデルでよく使う |
+| `logits` | 確率に変換する前の生の予測スコア | クラスや次の token を選ぶ前段階になる |
+
+`Auto` で始まるクラス名は、まず次のように読むとよいです。
+
+- 「モデル設定に合わせて、適切なクラスを自動で選ぶ」
+
+### 5.4 「まず試して、あとで深く理解する」に向いているから
 
 多くの場合、最初から全部をゼロから実装するのではなく、  
 まず標準的なインターフェースを動かし、  
