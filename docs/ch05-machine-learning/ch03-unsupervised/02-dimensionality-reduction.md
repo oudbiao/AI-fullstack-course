@@ -51,6 +51,24 @@ A more stable learning sequence is:
 
 Separating “for modeling” from “for visualization” is the most important first step in this section.
 
+![PCA intuition comic](/img/course/ch05-pca-intuition-comic-en.png)
+
+Read this comic as the main story of the section: PCA is not “delete a few columns.” It rotates the coordinate system, keeps the directions that explain the most variation, and gives you a smaller representation that may be faster and less noisy. t-SNE and UMAP answer a different question: “Can I see the structure better?”
+
+### Keyword Decoder Before You Start
+
+| Term | Beginner-friendly meaning | Why it matters here |
+|---|---|---|
+| PCA | Principal Component Analysis; a linear method that creates new axes from old features | Usually the safest first tool for preprocessing and compression |
+| PC1 / PC2 | The first and second principal components | They are new axes, not original columns |
+| `n_components` | How many dimensions you want after reduction | Controls the compression strength |
+| `explained_variance_ratio_` | The share of variance kept by each principal component | Helps decide whether 2, 10, 30, or 40 components are enough |
+| Scree Plot | A plot of explained variance by component count | Helps find where extra components stop adding much value |
+| t-SNE | t-distributed Stochastic Neighbor Embedding; a nonlinear visualization method | Useful for seeing local neighborhoods, not for downstream features |
+| UMAP | Uniform Manifold Approximation and Projection; a nonlinear reduction method | Often faster than t-SNE and sometimes usable as feature extraction |
+| `perplexity` | Roughly how many neighbors t-SNE pays attention to | Changes the shape of the visualization, so you should test several values |
+| `fit_transform()` | Learn the reduction rule and immediately apply it to the data | Common pattern in sklearn preprocessing code |
+
 ---
 
 ## 1. Why do we need dimensionality reduction?
@@ -84,7 +102,7 @@ flowchart TD
 | Approach | Method | Description |
 |------|------|------|
 | **Feature selection** | Pick important features | Keep a subset of the original features |
-| **Feature extraction** | Generate new features | Transform original features into fewer new features (PCA, t-SNE) |
+| **Feature extraction** | Generate new features | Transform original features into fewer new features. PCA is the classic modeling-friendly example; t-SNE is mainly for visualization |
 
 ### 1.3 The easiest point to confuse when learning dimensionality reduction for the first time
 
@@ -171,6 +189,16 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected output:
+
+```text
+Original data: 1797 samples, 64 features
+After dimensionality reduction: (1797, 2)
+Retained variance ratio: 21.6%
+```
+
+This result is a good reminder: forcing 64 pixel features down to 2 dimensions is excellent for visualization, but it keeps only about one fifth of the variance. Do not assume that a 2D PCA plot contains enough information for a high-quality classifier.
+
 ### 2.3 Explained variance ratio analysis
 
 **Key question**: How many principal components should we keep?
@@ -217,6 +245,13 @@ plt.show()
 
 print(f"Keeping 90% of the variance requires {n_90} principal components (out of the original 64)")
 print(f"Keeping 95% of the variance requires {n_95} principal components (out of the original 64)")
+```
+
+Expected output:
+
+```text
+Keeping 90% of the variance requires 31 principal components (out of the original 64)
+Keeping 95% of the variance requires 40 principal components (out of the original 64)
 ```
 
 ### 2.3.1 How do you decide between keeping 90% or 95%?
@@ -285,6 +320,19 @@ plt.tight_layout()
 plt.show()
 ```
 
+Example output on a typical laptop:
+
+```text
+PC=  2 | Accuracy: 51.7% | Training time: 0.015s
+PC=  5 | Accuracy: 81.9% | Training time: 0.013s
+PC= 10 | Accuracy: 88.6% | Training time: 0.013s
+PC= 20 | Accuracy: 94.4% | Training time: 0.010s
+PC= 30 | Accuracy: 96.1% | Training time: 0.009s
+PC= 64 | Accuracy: 97.2% | Training time: 0.009s
+```
+
+Training time depends on your machine, so do not memorize the seconds. The important pattern is the trade-off: too few components lose information; more components usually recover accuracy but reduce compression.
+
 ### 2.4.1 PCA is not just about compressing dimensions
 
 PCA often provides three kinds of value in projects:
@@ -329,8 +377,9 @@ t-SNE (t-distributed Stochastic Neighbor Embedding) is a nonlinear dimensionalit
 from sklearn.manifold import TSNE
 
 # t-SNE dimensionality reduction
-tsne = TSNE(n_components=2, random_state=42, perplexity=30)
+tsne = TSNE(n_components=2, random_state=42, perplexity=30, max_iter=1000)
 X_tsne = tsne.fit_transform(X_scaled)
+print(f"t-SNE result shape: {X_tsne.shape}")
 
 # PCA vs t-SNE comparison
 fig, axes = plt.subplots(1, 2, figsize=(16, 6))
@@ -353,6 +402,14 @@ plt.tight_layout()
 plt.show()
 ```
 
+Expected output:
+
+```text
+t-SNE result shape: (1797, 2)
+```
+
+`max_iter` means the maximum number of optimization iterations. In recent sklearn versions, `max_iter` is the recommended parameter name; older tutorials may use `n_iter`, which was kept for compatibility in older versions.
+
 ### 3.4 The perplexity parameter
 
 `perplexity` controls the number of "neighbors" t-SNE pays attention to and affects the visualization:
@@ -362,8 +419,9 @@ fig, axes = plt.subplots(1, 4, figsize=(20, 4))
 perplexities = [5, 15, 30, 50]
 
 for ax, perp in zip(axes, perplexities):
-    tsne = TSNE(n_components=2, perplexity=perp, random_state=42)
+    tsne = TSNE(n_components=2, perplexity=perp, random_state=42, max_iter=1000)
     X_t = tsne.fit_transform(X_scaled)
+    print(f"perplexity={perp}: result shape = {X_t.shape}")
     ax.scatter(X_t[:, 0], X_t[:, 1], c=y, cmap='tab10', s=8, alpha=0.6)
     ax.set_title(f'perplexity = {perp}')
     ax.grid(True, alpha=0.3)
@@ -371,6 +429,15 @@ for ax, perp in zip(axes, perplexities):
 plt.suptitle('The effect of the t-SNE perplexity parameter', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+Expected output:
+
+```text
+perplexity=5: result shape = (1797, 2)
+perplexity=15: result shape = (1797, 2)
+perplexity=30: result shape = (1797, 2)
+perplexity=50: result shape = (1797, 2)
 ```
 
 :::warning t-SNE Notes
@@ -423,6 +490,7 @@ try:
 
     reducer = umap.UMAP(n_components=2, random_state=42)
     X_umap = reducer.fit_transform(X_scaled)
+    print(f"UMAP result shape: {X_umap.shape}")
 
     # Compare three methods
     fig, axes = plt.subplots(1, 3, figsize=(18, 5))
@@ -446,6 +514,14 @@ try:
 except ImportError:
     print("Please install umap-learn first: python -m pip install --upgrade umap-learn")
 ```
+
+Expected output after installing `umap-learn`:
+
+```text
+UMAP result shape: (1797, 2)
+```
+
+If you see the installation message instead, the code is still behaving correctly. It means the optional package is not installed in your current Python environment.
 
 ### 4.3 UMAP parameters
 
