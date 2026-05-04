@@ -74,7 +74,7 @@ flowchart LR
     style L fill:#fce4ec,stroke:#c62828,color:#333
 ```
 
-### 1.0.1 During Forward Propagation, Which Four Things Should You Focus on First?
+### 1.1 During Forward Propagation, Which Four Things Should You Focus on First?
 
 When you read network forward code for the first time, you can start by focusing only on these four kinds of variables:
 
@@ -353,7 +353,7 @@ flowchart TD
 
 **PyTorch automatically builds and traverses this computational graph** — this is the essence of `autograd`.
 
-### 4.3 Which Steps Do Beginners Usually Get Stuck on in This Section?
+### 4.2 Which Steps Do Beginners Usually Get Stuck on in This Section?
 
 - Not understanding what `z`, `a`, and `loss` each represent
 - Not knowing why the gradient direction must flow from back to front
@@ -367,7 +367,7 @@ If you can now clearly explain:
 
 then you have already learned this section very well.
 
-### 4.2 Numerical Verification
+### 4.3 Numerical Verification
 
 Use a small perturbation to verify whether the gradient is correct:
 

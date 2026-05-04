@@ -64,7 +64,8 @@ In Station 5, you learned that L2 regularization (weight decay) is used directly
 import torch
 import torch.nn as nn
 
-# AdamW includes weight decay
+# A tiny standalone model makes the example runnable on its own
+model = nn.Linear(10, 1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 ```
 

@@ -64,7 +64,8 @@ flowchart LR
 import torch
 import torch.nn as nn
 
-# AdamW 自带权重衰减
+# 先定义一个可独立运行的小模型，方便示例直接复现
+model = nn.Linear(10, 1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 ```
 

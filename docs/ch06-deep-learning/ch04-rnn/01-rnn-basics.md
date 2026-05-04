@@ -66,6 +66,16 @@ So the difficulty in sequence tasks is not “there is more data,” but:
 
 > **Earlier information affects how later information is understood.**
 
+### 1.2 Why is MLP not good at this problem?
+
+An MLP can map a fixed-length vector to an output, but it does not naturally remember:
+
+- the relationship between the 1st word and the 8th word
+- the relationship between the current value and the past trend
+- what was seen before and what should be kept now
+
+It is like forcing yourself to “forget everything” every time you read a new sentence, which naturally makes long sequences hard to understand.
+
 ### 1.3 When learning RNNs for the first time, don’t start with the formula
 
 Instead, start by holding on to this sentence:
@@ -77,16 +87,6 @@ Once this idea is stable, it becomes much easier to understand why we need:
 - hidden state
 - time unrolling
 - LSTM / GRU
-
-### 1.2 Why is MLP not good at this problem?
-
-An MLP can map a fixed-length vector to an output, but it does not naturally remember:
-
-- the relationship between the 1st word and the 8th word
-- the relationship between the current value and the past trend
-- what was seen before and what should be kept now
-
-It is like forcing yourself to “forget everything” every time you read a new sentence, which naturally makes long sequences hard to understand.
 
 ---
 

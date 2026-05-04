@@ -97,7 +97,7 @@ The reading is simple: gradients only tell you “which way is steepest,” and 
 | **Stochastic Gradient Descent (SGD)** | 1 sample | Fast, can escape local minima | Noisy, unstable |
 | **Mini-batch Gradient Descent** | A batch (32/64/128) | **Balances speed and stability** | Need to choose `batch_size` |
 
-### 1.0.1 What should you remember first when seeing these three methods?
+### 1.1 What should you remember first when seeing these three methods?
 
 Don’t start by memorizing the definitions. First, hold on to this sentence:
 
@@ -109,7 +109,7 @@ Once that idea is clear, many other behaviors make sense:
 - Why BGD is more stable but slower
 - Why mini-batch is the most common choice in deep learning
 
-### 1.0.2 A Simple Memory Table for Beginners
+### 1.2 A Simple Memory Table for Beginners
 
 | Method | The most important feeling to remember |
 |------|------|

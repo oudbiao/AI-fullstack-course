@@ -64,7 +64,8 @@ flowchart LR
 import torch
 import torch.nn as nn
 
-# AdamW には weight decay が標準で入っている
+# 単独で実行できるように、小さなモデルを先に定義する
+model = nn.Linear(10, 1)
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 ```
 

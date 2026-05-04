@@ -70,15 +70,6 @@ So:
 
 What matters most is not “how many numbers it has,” but “how those numbers sit next to each other in space.”
 
-### 1.3 What you should focus on first in this section is not the kernel itself
-
-Focus first on these two “whys”:
-
-1. Why can’t we just flatten the image directly?
-2. Why must local neighborhood relationships be preserved?
-
-Once these two points are clear, concepts like convolution kernels, stride, and padding will no longer feel like pure memorization.
-
 ### 1.2 What exactly does convolution solve?
 
 Convolution does two especially important things:
@@ -102,6 +93,15 @@ For example:
 - Edges
 - Corner points
 - Textures
+
+### 1.3 What you should focus on first in this section is not the kernel itself
+
+Focus first on these two “whys”:
+
+1. Why can’t we just flatten the image directly?
+2. Why must local neighborhood relationships be preserved?
+
+Once these two points are clear, concepts like convolution kernels, stride, and padding will no longer feel like pure memorization.
 
 ---
 

@@ -2,7 +2,7 @@
 title: "2.3 PyTorch Basics"
 sidebar_position: 1
 description: "Build a solid first layer of PyTorch fundamentals, from tensors, shapes, and indexing to broadcasting and its relationship with NumPy."
-keywords: [PyTorch, tensor, tensor, shape, broadcasting, numpy]
+keywords: [PyTorch, tensor, shape, broadcasting, numpy]
 ---
 
 # PyTorch Basics
@@ -28,11 +28,11 @@ In other words, what you really need to solidify here is:
 - Can you read tensor shapes?
 - Can you safely perform the most basic operations?
 
-## How This Section Connects to Stop 5 and NumPy
+## How This Section Connects to Station 5 and NumPy
 
-If you’re coming from Stop 5, you can first understand this section like this:
+If you’re coming from Station 5, you can first understand this section like this:
 
-- The `X`, `y`, and matrix multiplication from Stop 5 are still here
+- The `X`, `y`, and matrix multiplication from Station 5 are still here
 - The difference is that now they enter a container more suitable for deep learning training: `Tensor`
 
 If you’re already familiar with NumPy, you can remember it this way:
@@ -263,7 +263,7 @@ Y = X @ W
 print(Y)
 ```
 
-This is the same linear algebra you learned at Stop 4.
+This is the same linear algebra you learned at Station 4.
 Many layers in neural networks are essentially “tensor linear transformations followed by a nonlinear function.”
 
 ### 5.1 When You See `@`, What Should Immediately Come to Mind?
