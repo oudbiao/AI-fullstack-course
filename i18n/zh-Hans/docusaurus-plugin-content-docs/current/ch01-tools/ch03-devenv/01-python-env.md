@@ -57,6 +57,28 @@ pip install torch==2.1     # 项目 B 能跑了，但 torch 被升级到 2.1
 
 把虚拟环境想象成手机上的**多用户/工作空间**。每个用户有自己独立安装的 App，互不干扰。你可以在"工作用户"里装钉钉，在"个人用户"里装游戏，它们之间完全隔离。
 
+### 你应该保留的环境心智模型
+
+Python 项目出错时，不要一上来就全部重装。先检查下面四件事是否指向同一个项目：
+
+```mermaid
+flowchart LR
+    A["项目文件夹"] --> B["选中的 Python 解释器"]
+    B --> C["pip 把包安装进这个环境"]
+    C --> D["VS Code / Jupyter 使用同一个解释器"]
+    D --> E["代码能成功 import 依赖"]
+```
+
+| 要检查什么 | 命令或查看位置 | 你希望看到什么 |
+|---|---|---|
+| 当前目录 | `pwd` | 自己在项目文件夹里 |
+| 当前 Python | `which python` | 路径指向目标环境 |
+| pip 安装位置 | `python -m pip --version` | pip 属于同一个 Python 环境 |
+| VS Code 解释器 | `Python: Select Interpreter` | 选择的是同一个环境 |
+| Jupyter Kernel | Notebook 的 kernel 选择器 | 使用的是项目对应环境 |
+
+大多数“明明安装了却 import 失败”的问题，都是这些链路中某一环指到了别的地方。
+
 ---
 
 ## 安装 Miniconda

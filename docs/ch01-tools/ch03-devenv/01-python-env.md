@@ -57,6 +57,28 @@ When you switch projects, just switch environments. The two sides won’t affect
 
 Think of a virtual environment like **multiple users/workspaces** on a phone. Each user has their own independently installed apps, and they don’t interfere with each other. You can install DingTalk in your “work” user and games in your “personal” user, and they remain completely isolated.
 
+### The mental model you should keep
+
+When a Python project fails, do not immediately reinstall everything. First check whether these four things point to the same project:
+
+```mermaid
+flowchart LR
+    A["Project folder"] --> B["Selected Python interpreter"]
+    B --> C["pip installs packages into this environment"]
+    C --> D["VS Code / Jupyter uses the same interpreter"]
+    D --> E["Your code imports packages successfully"]
+```
+
+| What to check | Command or place to look | What you want to see |
+|---|---|---|
+| Current folder | `pwd` | You are inside the project folder |
+| Current Python | `which python` | The path points to the intended environment |
+| pip target | `python -m pip --version` | pip belongs to the same environment as Python |
+| VS Code interpreter | `Python: Select Interpreter` | It selects the same environment |
+| Jupyter kernel | Notebook kernel selector | It uses the same environment as the project |
+
+Most “I installed it but cannot import it” errors are caused by one of these links pointing somewhere else.
+
 ---
 
 ## Install Miniconda

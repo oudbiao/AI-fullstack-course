@@ -14,7 +14,7 @@ In this section, we’ll configure VS Code into a development tool that works we
 
 ## Learning objectives
 
-- Install VS Code and switch it to Simplified Chinese
+- Install VS Code and choose the interface language you prefer
 - Install essential extensions for Python development
 - Learn to use the built-in terminal in VS Code
 - Master 10 of the most commonly used shortcuts
@@ -86,13 +86,13 @@ sudo apt install code
 
 ---
 
-## Switch to Chinese
+## Interface Language (Optional)
 
 1. Open VS Code
 2. Press `Ctrl + Shift + X` (`Cmd + Shift + X` on macOS) to open the Extensions panel
-3. Search for **Chinese (Simplified)**
+3. Search for the language pack you prefer, such as **English Language Pack**, **Chinese (Simplified)**, or **Japanese Language Pack**
 4. Click **Install**
-5. Restart VS Code, and the interface will switch to Chinese
+5. Restart VS Code, and the interface will switch to that language
 
 ---
 
@@ -108,12 +108,14 @@ Open the Extensions panel (the square icon on the left sidebar, or press `Ctrl/C
 | **Pylance** | Python intelligent suggestions, type checking | `ms-python.vscode-pylance` |
 | **Jupyter** | Run notebooks in VS Code | `ms-toolsai.jupyter` |
 | **GitLens** | Enhanced Git features, see who changed which line | `eamodio.gitlens` |
+| **Black Formatter** | Format Python code consistently | `ms-python.black-formatter` |
 
 ### Recommended extensions
 
 | Extension | Purpose |
 |-------|------|
 | **autoDocstring** | Automatically generate Python function docstrings |
+| **Ruff** | Fast linting and import cleanup for Python |
 | **indent-rainbow** | Use colors to distinguish indentation levels |
 | **Error Lens** | Show error messages directly at the end of code lines |
 | **Material Icon Theme** | More attractive file icons |
@@ -298,9 +300,16 @@ Or edit `settings.json` directly (`Ctrl/Cmd + Shift + P` → "Open Settings JSON
     "editor.minimap.enabled": false,
     "python.terminal.activateEnvironment": true,
     "editor.formatOnSave": true,
-    "python.formatting.provider": "black"
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.analysis.typeCheckingMode": "basic"
 }
 ```
+
+:::tip Why not use older Python formatting settings?
+Older tutorials often show `"python.formatting.provider": "black"`. Newer VS Code Python tooling uses formatter extensions instead. If format-on-save does not work, first check that **Black Formatter** is installed and that the selected interpreter is your project environment.
+:::
 
 ---
 

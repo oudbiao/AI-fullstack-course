@@ -193,6 +193,33 @@ Markdown Cell 里可以写：
 
 ---
 
+## Kernel 状态：Notebook Bug 的隐藏来源
+
+Notebook 看起来像文档，但运行起来更像一个小程序。**Kernel** 是 Notebook 背后的 Python 进程，它会记住你前面创建过的变量，即使创建变量的 Cell 已经被移动、删除，或者不在当前视线里。
+
+```mermaid
+flowchart LR
+    A["Cell 1：导入库"] --> B["Cell 2：加载数据"]
+    B --> C["Cell 3：创建变量"]
+    C --> D["Cell 4：画图或训练"]
+    K["Kernel 记忆"] -. "保存变量" .- C
+    K -. "后续 Cell 可以继续使用" .- D
+```
+
+这很强大，但也容易坑新手：Notebook 能跑通，可能只是因为你刚才按了某个特殊顺序运行 Cell，并不代表这个文件从上到下是完整可复现的。
+
+### 可靠 Notebook 规则
+
+在你相信一个 Notebook、分享给别人、或者把它整理成教程前，请做一次检查：
+
+1. 保存文件。
+2. 选择 **Restart Kernel and Run All Cells**。
+3. 如果中途报错，就继续修，直到它能从第一个 Cell 到最后一个 Cell 自动跑完。
+
+把 import、配置、数据加载放在前面；把实验和图表放在后面。你可以把它理解成 Notebook 版的“项目还能不能完整构建”。
+
+---
+
 ## 快捷键
 
 Jupyter 有两种模式：

@@ -108,12 +108,14 @@ sudo apt install code
 | **Pylance** | Python 智能提示、类型检查 | `ms-python.vscode-pylance` |
 | **Jupyter** | 在 VS Code 里运行 Notebook | `ms-toolsai.jupyter` |
 | **GitLens** | 增强 Git 功能，看谁改了哪一行 | `eamodio.gitlens` |
+| **Black Formatter** | 统一格式化 Python 代码 | `ms-python.black-formatter` |
 
 ### 推荐扩展
 
 | 扩展名 | 作用 |
 |-------|------|
 | **autoDocstring** | 自动生成 Python 函数文档字符串 |
+| **Ruff** | 快速检查 Python 代码并清理 import |
 | **indent-rainbow** | 用颜色区分缩进层级 |
 | **Error Lens** | 把错误信息直接显示在代码行末 |
 | **Material Icon Theme** | 更好看的文件图标 |
@@ -298,9 +300,16 @@ data5 = load("file5.csv")
     "editor.minimap.enabled": false,
     "python.terminal.activateEnvironment": true,
     "editor.formatOnSave": true,
-    "python.formatting.provider": "black"
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.analysis.typeCheckingMode": "basic"
 }
 ```
+
+:::tip 为什么不用旧版 Python 格式化配置？
+很多旧教程会写 `"python.formatting.provider": "black"`，但新版 VS Code Python 工具链更推荐使用独立格式化扩展。如果保存时没有自动格式化，先检查 **Black Formatter** 是否已安装，再确认当前解释器是不是你的项目环境。
+:::
 
 ---
 

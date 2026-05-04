@@ -398,6 +398,22 @@ git commit -m "Remove .env file from Git"
 
 Git provides several different “safety nets,” and you choose one based on how far you want to go back.
 
+:::warning Practice undo commands only in the practice repository first
+Undo commands are useful, but some of them intentionally discard changes. Before using them in a real project, run `git status` and `git diff`, and make sure you know which changes will be kept and which will be lost.
+:::
+
+For beginners, use this order of thinking:
+
+```mermaid
+flowchart TD
+    A["Something looks wrong"] --> B["Run git status"]
+    B --> C["Run git diff"]
+    C --> D{"Have you committed it?"}
+    D -->|"No, not staged"| E["git restore file<br/>discard local edits"]
+    D -->|"Staged but not committed"| F["git restore --staged file<br/>keep edits, unstage"]
+    D -->|"Committed"| G["Prefer a new fixing commit<br/>or use reset only in practice"]
+```
+
 ### Scenario 1: You changed a file but have not run add yet, and want to restore it
 
 ```bash
@@ -437,6 +453,8 @@ git reset HEAD~1
 # Undo the most recent commit and discard all changes (full rollback, use with caution)
 git reset --hard HEAD~1
 ```
+
+For the first few weeks, treat `git reset --hard` as an emergency command, not a daily command. In team projects, rewriting history may also affect other people, so the safer habit is often to make a new commit that fixes the mistake.
 
 ### Example: A Complete Undo Flow
 

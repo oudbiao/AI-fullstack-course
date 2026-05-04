@@ -193,6 +193,33 @@ Code, charts, and text explanations are all in one file. That is the charm of Ju
 
 ---
 
+## Kernel State: The Hidden Source of Notebook Bugs
+
+A Notebook looks like a document, but it behaves more like a small running program. The **kernel** is the Python process behind the Notebook. It remembers variables you created earlier, even if the Cell that created them is now above, below, or already deleted.
+
+```mermaid
+flowchart LR
+    A["Cell 1: import libraries"] --> B["Cell 2: load data"]
+    B --> C["Cell 3: create variables"]
+    C --> D["Cell 4: plot or train"]
+    K["Kernel memory"] -. "stores variables" .- C
+    K -. "later cells can reuse them" .- D
+```
+
+This is powerful, but it creates a common beginner trap: the Notebook may work because you ran Cells in a special order, not because the file is complete from top to bottom.
+
+### The reliable Notebook rule
+
+Before you trust a Notebook, share it, or turn it into a tutorial, run this check:
+
+1. Save the file.
+2. Choose **Restart Kernel and Run All Cells**.
+3. If anything fails, fix the Notebook until it can run from the first Cell to the last Cell without manual intervention.
+
+Put imports, configuration, and data-loading code near the top. Put experiments and charts after that. Treat this as the Notebook version of "does the project still build?"
+
+---
+
 ## Shortcuts
 
 Jupyter has two modes:

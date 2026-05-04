@@ -86,11 +86,11 @@ sudo apt install code
 
 ---
 
-## 日本語設定
+## 表示言語の設定
 
 1. VS Code を開く
 2. `Ctrl + Shift + X`（macOS では `Cmd + Shift + X`）を押して、拡張機能パネルを開く
-3. **Chinese (Simplified)** を検索する
+3. **Japanese Language Pack** を検索する
 4. **Install** をクリックしてインストールする
 5. VS Code を再起動すると、画面が日本語になります
 
@@ -108,12 +108,14 @@ sudo apt install code
 | **Pylance** | Python の賢い補完、型チェック | `ms-python.vscode-pylance` |
 | **Jupyter** | VS Code で Notebook を実行する | `ms-toolsai.jupyter` |
 | **GitLens** | Git 機能を強化し、誰がどの行を変更したか見やすくする | `eamodio.gitlens` |
+| **Black Formatter** | Python コードの整形をそろえる | `ms-python.black-formatter` |
 
 ### おすすめ拡張
 
 | 拡張名 | 役割 |
 |-------|------|
 | **autoDocstring** | Python 関数の docstring を自動生成する |
+| **Ruff** | Python コードの高速チェックと import 整理を行う |
 | **indent-rainbow** | インデントの階層を色で見分けやすくする |
 | **Error Lens** | エラー情報をコード行の末尾に直接表示する |
 | **Material Icon Theme** | ファイルアイコンを見やすくする |
@@ -298,9 +300,16 @@ data5 = load("file5.csv")
     "editor.minimap.enabled": false,
     "python.terminal.activateEnvironment": true,
     "editor.formatOnSave": true,
-    "python.formatting.provider": "black"
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.analysis.typeCheckingMode": "basic"
 }
 ```
+
+:::tip 古い Python フォーマット設定を使わない理由
+古いチュートリアルでは `"python.formatting.provider": "black"` と書かれていることがありますが、現在の VS Code Python ツールではフォーマッタ拡張を使う形が推奨されます。保存時に整形されない場合は、まず **Black Formatter** が入っているか、次に選択中のインタープリタがプロジェクト環境かを確認しましょう。
+:::
 
 ---
 

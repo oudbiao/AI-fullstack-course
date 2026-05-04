@@ -473,6 +473,72 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "ch01-ai-workstation-comic.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "开发者工具 AI 工作站漫画指导图",
+        "suggested_page": "docs/ch01-tools/index.md",
+        "alt": "开发者工具 AI 工作站漫画：新人把终端、Python 环境、VS Code、Jupyter 和 Git 组装成可复现的 AI 学习工作台。",
+        "prompt": """
+制作一页 9:16 竖版中文科普漫画，标题：“第一章：搭建 AI 学习工作站”。
+像真正漫画书内页，不是海报；适合 AI 全栈课程新人导读。画面清晰、不拥挤，6 格分镜，统一温暖科技感。
+
+第 1 格：新人站在凌乱桌面前，桌上有散乱文件、报错窗口和问号。气泡：“我不是不会 AI，是环境总坏。”
+第 2 格：终端像控制台点亮，旁白：“终端负责发出可重复命令。”小标签：“路径、命令、输出。”
+第 3 格：Python 环境像独立实验室，多个项目放在不同透明盒子里。短句：“每个项目一个环境。”
+第 4 格：VS Code 和 Jupyter 像两块操作面板：一个写工程代码，一个做实验笔记。短句：“工程与探索各司其职。”
+第 5 格：Git 像游戏存档机，把 README、代码和运行记录保存成时间节点。成功点标签：“能回看、能恢复、能展示。”
+第 6 格：工作站变整洁，新人把第一个 ai-learning-lab 推到云端。问题标签：“不要混环境、不要乱删、不要忘记提交。”箭头：“下一章：开始写 Python 程序。”
+
+底部历史意义/学习意义：“稳定工具链，让后面的 Python、数据、模型、RAG 和 Agent 都能真正跑起来。”
+所有文字必须是简体中文，短句、清晰、融入气泡、小黑板、旁白框和标签牌。不要乱码，不要英文水印，不要真实 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch01-ai-workstation-comic-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Developer Tools AI Workstation Comic Guide",
+        "suggested_page": "docs/ch01-tools/index.md",
+        "alt": "Developer tools AI workstation comic: a beginner assembles terminal, Python environment, VS Code, Jupyter, and Git into a reproducible AI learning workstation.",
+        "prompt": """
+Create one 9:16 vertical English educational comic page titled: “Chapter 1: Build Your AI Learning Workstation”.
+It should look like a real comic-book learning page, not a poster. Beginner-friendly, warm tech style, clear layout, 6 panels, not crowded.
+
+Panel 1: A beginner stands at a messy desk with scattered files, error windows, and question marks. Speech bubble: “Maybe AI is not the problem. My setup keeps breaking.”
+Panel 2: The terminal lights up like a control console. Narration: “Terminal: repeatable commands.” Small labels: “path, command, output.”
+Panel 3: Python environments appear as separate transparent labs for different projects. Short line: “One project, one environment.”
+Panel 4: VS Code and Jupyter appear as two work panels: one for engineering code, one for experiments and notes. Short line: “Build in VS Code. Explore in Jupyter.”
+Panel 5: Git appears as a game save machine, saving README, code, and run logs into timeline checkpoints. Success label: “review, restore, showcase.”
+Panel 6: The workstation becomes clean. The beginner pushes the first ai-learning-lab to the cloud. Problem label: “Don’t mix environments. Don’t delete blindly. Don’t forget commits.” Arrow: “Next: write Python programs.”
+
+Bottom learning meaning: “A stable toolchain lets Python, data, models, RAG, and Agents actually run.”
+All visible text must be natural English, short, clear, and integrated into speech bubbles, blackboards, narration boxes, and labels. No gibberish, no watermark, no real logos.
+""".strip(),
+    },
+    {
+        "filename": "ch01-ai-workstation-comic-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "開発者ツール AI 作業台漫画ガイド",
+        "suggested_page": "docs/ch01-tools/index.md",
+        "alt": "開発者ツール AI 作業台漫画：初心者がターミナル、Python 環境、VS Code、Jupyter、Git を組み合わせて再現可能な AI 学習作業台を作る。",
+        "prompt": """
+9:16 縦長の日本語教育漫画を 1 ページ作成してください。タイトル：「第1章：AI 学習作業台を作る」。
+ポスターではなく、本物の漫画教材の1ページのようにしてください。初心者向け、温かいテック感、6 コマ、見やすく、詰め込みすぎない構成。
+
+第 1 コマ：初心者が散らかった机の前に立っている。机には散乱したファイル、エラー画面、疑問符。吹き出し：「AI が難しい前に、環境がすぐ壊れる。」
+第 2 コマ：ターミナルが操作コンソールのように光る。ナレーション：「ターミナル：再現できる命令。」小ラベル：「パス、コマンド、出力。」
+第 3 コマ：Python 環境がプロジェクトごとの透明な実験室として描かれる。短句：「1 プロジェクト、1 環境。」
+第 4 コマ：VS Code と Jupyter が2つの操作パネルとして並ぶ。片方は工程コード、片方は実験ノート。短句：「VS Code で作る。Jupyter で試す。」
+第 5 コマ：Git がゲームのセーブ装置のように、README、コード、実行ログを時間軸に保存する。成功ラベル：「見返せる、戻せる、見せられる。」
+第 6 コマ：作業台が整い、初心者が最初の ai-learning-lab をクラウドへ push する。問題ラベル：「環境を混ぜない。むやみに消さない。コミットを忘れない。」矢印：「次：Python プログラムを書く。」
+
+下部の学習意味：「安定したツールチェーンがあるから、Python、データ、モデル、RAG、Agent が本当に動く。」
+画像内の文字はすべて自然な日本語にしてください。短く、読みやすく、吹き出し・黒板・ナレーション枠・ラベルに自然に入れてください。文字化け、透かし、実在ロゴは禁止。
+""".strip(),
+    },
+    {
         "filename": "ch01-task-list-workflow.png",
         "size": "1536x1024",
         "quality": "medium",

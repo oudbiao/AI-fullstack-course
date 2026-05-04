@@ -15,6 +15,12 @@ This stage is about whether you can write code, run code, and save code reliably
 
 Before you start writing models and applications, set up your workstation properly. The terminal is like a console, Git is like an archive system, the Python environment is like a lab, and VS Code and Jupyter are like two different operating panels. The goal of this tools stage is not to learn a lot of commands, but to make sure that when you encounter a project later, you can create, run, save, and restore it on your own.
 
+![AI workstation comic guide for developer tools](/img/course/ch01-ai-workstation-comic-en.png)
+
+:::tip Read this comic as a workflow
+This stage is easier if you treat the tools as one workstation instead of five separate topics: the terminal sends repeatable commands, the Python environment isolates experiments, VS Code organizes project code, Jupyter records explorations, and Git saves every stable checkpoint.
+:::
+
 ## Learning roadmap
 
 ```mermaid
@@ -57,6 +63,20 @@ If you already have development experience, focus on environment isolation, Git 
 When beginners study this stage for the first time, keep the goal as small as possible: open the terminal, enter the project directory, run a Python file, install one dependency, and make one Git commit. Do not be intimidated by command parameters. First build the habit of checking paths, reading errors, and understanding the current environment when problems occur.
 
 Learners with experience can focus on reproducibility: how to isolate environments for different projects, how to write run steps in the README, how to record dependency versions, and how Git history helps with rollbacks. Your goal is not just to “know how to use tools,” but to make sure every AI project later can be rerun by someone else.
+
+## Safety rules before you run commands
+
+Tools are powerful because they can change files, environments, and repositories quickly. The beginner rule is simple: **practice risky commands only inside the practice repository created for this chapter.**
+
+| Situation | Safer habit |
+|---|---|
+| Before deleting files | Run `pwd` and `ls` first, then confirm you are inside the practice folder |
+| Before installing packages | Confirm the active Python environment with `which python` or `conda info --envs` |
+| Before committing | Run `git status` and read what will be recorded |
+| Before undoing Git history | Prefer `git status`, `git diff`, and `git restore --staged` first; avoid destructive rollback unless you know what will be lost |
+| Before sharing code | Make sure `.env`, API keys, large data, and model weights are ignored |
+
+This is not meant to make you afraid of tools. It is the opposite: once you have these small checks, the terminal and Git become much less mysterious.
 
 ## Why learn tools first
 

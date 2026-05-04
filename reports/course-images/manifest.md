@@ -27,6 +27,9 @@
 | `boss-challenge-map.png` | 课程 Boss 战挑战地图 | `docs/intro/boss-challenge-map.md` | 课程 Boss 战挑战地图：工作台守门人、JSON 地牢管理员、脏数据侦探、引用幻觉龙和无限循环魔王。 |
 | `debug-detective-missions.png` | Debug 侦探任务集 | `docs/intro/debug-detective-missions.md` | Debug 侦探任务集：学习者像侦探一样收集线索、定位错误并写下修复记录。 |
 | `ch01-tools-foundation.png` | 开发者工具基础主视觉 | `docs/ch01-tools/index.md` | 开发者工具基础主视觉：终端、Git、编辑器和 Python 环境组成稳定工作台。 |
+| `ch01-ai-workstation-comic.png` | 开发者工具 AI 工作站漫画指导图 | `docs/ch01-tools/index.md` | 开发者工具 AI 工作站漫画：新人把终端、Python 环境、VS Code、Jupyter 和 Git 组装成可复现的 AI 学习工作台。 |
+| `ch01-ai-workstation-comic-en.png` | Developer Tools AI Workstation Comic Guide | `docs/ch01-tools/index.md` | Developer tools AI workstation comic: a beginner assembles terminal, Python environment, VS Code, Jupyter, and Git into a reproducible AI learning workstation. |
+| `ch01-ai-workstation-comic-ja.png` | 開発者ツール AI 作業台漫画ガイド | `docs/ch01-tools/index.md` | 開発者ツール AI 作業台漫画：初心者がターミナル、Python 環境、VS Code、Jupyter、Git を組み合わせて再現可能な AI 学習作業台を作る。 |
 | `ch01-task-list-workflow.png` | 开发者工具阶段任务链 | `docs/ch01-tools/task-list.md` | 开发者工具阶段任务链：终端、项目目录、Python 环境、编辑器、Git 和远程仓库串成完整工作流。 |
 | `ch01-cli-automation-workflow.png` | 命令行自动化工作流图 | `docs/ch01-tools/ch01-terminal/01-why-cli.md` | 命令行自动化工作流图：命令行把文件操作、环境管理、脚本运行、远程服务器和 Git 自动化串起来。 |
 | `ch01-package-manager-flow.png` | 包管理器安装依赖流程图 | `docs/ch01-tools/ch01-terminal/03-package-managers.md` | 包管理器安装依赖流程图：输入安装命令后，包管理器查找软件、下载依赖、安装并统一更新。 |
