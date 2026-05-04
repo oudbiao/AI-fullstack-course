@@ -25,6 +25,26 @@ In the second round, study probability and statistics. Focus on understanding pr
 
 In the third round, study calculus and optimization. Focus on understanding derivatives, partial derivatives, gradients, the chain rule, and gradient descent. You do not need to derive very complicated formulas at the beginning, but you should know why models can keep improving step by step.
 
+## Formula-to-intuition translator
+
+When a formula looks intimidating, first translate it into model language:
+
+| Term | First intuition | Where you will see it later |
+|---|---|---|
+| Vector | A row of features, or the coordinates of meaning | embeddings, similarity search, model inputs |
+| Matrix | A batch of rows, or a machine that transforms vectors | neural network layers, attention weights |
+| Dot product | How much two directions agree | cosine similarity, attention scores |
+| Norm | Length or strength | distance, regularization, gradient clipping |
+| PCA | Rotate the coordinate system and keep the most informative axes | dimensionality reduction, visualization |
+| SVD | Split a complex matrix into rotate-scale-rotate | compression, recommendation systems, PCA |
+| MLE | Choose parameters that best explain observed data | loss functions, logistic regression |
+| MAP | MLE plus prior belief | regularization, weight decay |
+| Entropy | Uncertainty or surprise | classification loss, language models |
+| KL divergence | How different two probability distributions are | distillation, variational models |
+| GD / SGD | Walk downhill on the loss surface | model training, optimizers |
+
+If you can say the right side out loud, you are already learning the useful part. The precise derivation can come later.
+
 ## Suggested study pace
 
 | Content type | Suggested time | Learning goal |

@@ -86,7 +86,8 @@ You **perform one experiment only**, and the result is either "success" (1) or "
 p = 0.6  # unfair coin, 60% chance of heads
 
 # Simulate 10000 times
-samples = np.random.binomial(1, p, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.binomial(1, p, 10000)
 print(f"Proportion of heads: {samples.mean():.3f}")  # ≈ 0.6
 
 fig, ax = plt.subplots(figsize=(6, 4))
@@ -115,7 +116,8 @@ x = np.arange(0, n + 1)
 pmf = stats.binom.pmf(x, n, p)
 
 # Simulation
-samples = np.random.binomial(n, p, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.binomial(n, p, 10000)
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
@@ -175,7 +177,8 @@ Every value has exactly the same probability of occurring.
 
 ```python
 # Uniform distribution U(0, 1)
-samples = np.random.uniform(0, 1, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.uniform(0, 1, 10000)
 
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.hist(samples, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
@@ -287,10 +290,11 @@ This is why the normal distribution appears everywhere in nature and data scienc
 fig, axes = plt.subplots(2, 3, figsize=(16, 10))
 
 # Three completely different original distributions
+rng = np.random.default_rng(seed=42)
 distributions = [
-    ('Uniform distribution', lambda n: np.random.uniform(0, 1, n)),
-    ('Exponential distribution', lambda n: np.random.exponential(1, n)),
-    ('Binomial distribution', lambda n: np.random.binomial(10, 0.3, n)),
+    ('Uniform distribution', lambda n: rng.uniform(0, 1, n)),
+    ('Exponential distribution', lambda n: rng.exponential(1, n)),
+    ('Binomial distribution', lambda n: rng.binomial(10, 0.3, n)),
 ]
 
 for col, (name, dist_func) in enumerate(distributions):
@@ -330,8 +334,9 @@ plt.show()
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
 
 # Use the exponential distribution (highly skewed) for the experiment
+rng = np.random.default_rng(seed=42)
 for ax, n in zip(axes, [1, 5, 30, 100]):
-    means = [np.random.exponential(1, n).mean() for _ in range(10000)]
+    means = [rng.exponential(1, n).mean() for _ in range(10000)]
     ax.hist(means, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
 
     x = np.linspace(min(means), max(means), 100)
@@ -354,12 +359,12 @@ Usually when n ≥ 30, the Central Limit Theorem works quite well. That is why m
 
 | Distribution | Type | Parameters | Typical scenario | NumPy generation |
 |------|------|------|---------|-----------|
-| Bernoulli | Discrete | p (success probability) | Binary classification labels | `np.random.binomial(1, p)` |
-| Binomial | Discrete | n, p | Number of successes in n trials | `np.random.binomial(n, p)` |
-| Poisson | Discrete | λ (average rate) | Rare event counting | `np.random.poisson(lam)` |
-| Uniform | Continuous | a, b (range) | Random initialization | `np.random.uniform(a, b)` |
-| Normal | Continuous | μ, σ (mean, standard deviation) | Noise, weight initialization | `np.random.normal(mu, sigma)` |
-| Exponential | Continuous | λ (rate) | Time between events | `np.random.exponential(1/lam)` |
+| Bernoulli | Discrete | p (success probability) | Binary classification labels | `rng.binomial(1, p)` |
+| Binomial | Discrete | n, p | Number of successes in n trials | `rng.binomial(n, p)` |
+| Poisson | Discrete | λ (average rate) | Rare event counting | `rng.poisson(lam)` |
+| Uniform | Continuous | a, b (range) | Random initialization | `rng.uniform(a, b)` |
+| Normal | Continuous | μ, σ (mean, standard deviation) | Noise, weight initialization | `rng.normal(mu, sigma)` |
+| Exponential | Continuous | λ (rate) | Time between events | `rng.exponential(1/lam)` |
 
 ---
 

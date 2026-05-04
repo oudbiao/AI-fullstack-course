@@ -192,6 +192,7 @@ MLE 的答案其实很简单：**p = 正面次数 / 总次数 = 8/10 = 0.8**
 
 ```python
 # 真实的 p = 0.6
+rng = np.random.default_rng(seed=42)
 true_p = 0.6
 n_experiments = [10, 50, 100, 500, 2000]
 
@@ -199,7 +200,7 @@ fig, axes = plt.subplots(1, len(n_experiments), figsize=(20, 4))
 
 for ax, n in zip(axes, n_experiments):
     # 抛 n 次硬币
-    heads = np.random.binomial(n, true_p)
+    heads = rng.binomial(n, true_p)
 
     # 似然函数
     p_vals = np.linspace(0.01, 0.99, 500)
@@ -347,16 +348,16 @@ flowchart TD
 
 ```python
 # 模拟 A/B 测试
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # A 组：蓝色按钮，真实点击率 10%
 n_a = 1000
-clicks_a = np.random.binomial(n_a, 0.10)
+clicks_a = rng.binomial(n_a, 0.10)
 rate_a = clicks_a / n_a
 
 # B 组：绿色按钮，真实点击率 12%（真的更好）
 n_b = 1000
-clicks_b = np.random.binomial(n_b, 0.12)
+clicks_b = rng.binomial(n_b, 0.12)
 rate_b = clicks_b / n_b
 
 print(f"A 组点击率: {rate_a:.1%} ({clicks_a}/{n_a})")
@@ -388,14 +389,14 @@ else:
 
 ```python
 # 模拟：如果 A 和 B 真的没有差异（都是 10%），会看到多大的差异？
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_simulations = 10000
 simulated_diffs = []
 
 for _ in range(n_simulations):
     # 两组用同样的概率 10%
-    sim_a = np.random.binomial(1000, 0.10) / 1000
-    sim_b = np.random.binomial(1000, 0.10) / 1000
+    sim_a = rng.binomial(1000, 0.10) / 1000
+    sim_b = rng.binomial(1000, 0.10) / 1000
     simulated_diffs.append(sim_b - sim_a)
 
 simulated_diffs = np.array(simulated_diffs)

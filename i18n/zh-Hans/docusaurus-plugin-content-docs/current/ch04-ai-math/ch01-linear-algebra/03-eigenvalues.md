@@ -202,8 +202,9 @@ for i in range(len(eigenvalues)):
 
 ```python
 # 协方差矩阵（对称矩阵的典型例子）
-data = np.random.randn(100, 2)
-data[:, 1] = data[:, 0] * 0.8 + np.random.randn(100) * 0.3  # 制造相关性
+rng = np.random.default_rng(seed=42)
+data = rng.normal(size=(100, 2))
+data[:, 1] = data[:, 0] * 0.8 + rng.normal(size=100) * 0.3  # 制造相关性
 
 cov_matrix = np.cov(data.T)
 print(f"协方差矩阵（对称）:\n{cov_matrix.round(3)}")
@@ -275,10 +276,10 @@ PCA（主成分分析）的核心思想：
 
 ```python
 # 生成有明显主方向的 2D 数据
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
-x = np.random.randn(n)
-y = 0.6 * x + np.random.randn(n) * 0.3  # y 和 x 有关联
+x = rng.normal(size=n)
+y = 0.6 * x + rng.normal(size=n) * 0.3  # y 和 x 有关联
 data = np.column_stack([x, y])
 
 # 计算协方差矩阵
@@ -340,6 +341,10 @@ plt.show()
 
 在实际项目中，我们通常直接用 scikit-learn 的 PCA：
 
+```bash
+python -m pip install --upgrade scikit-learn
+```
+
 ```python
 from sklearn.decomposition import PCA
 from sklearn.datasets import load_iris
@@ -395,9 +400,9 @@ PCA 中最关键的指标——前 k 个特征值占总特征值的比例：
 
 ```python
 # 模拟一个高维数据集
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_features = 20
-X = np.random.randn(200, n_features)
+X = rng.normal(size=(200, n_features))
 # 让前几个特征有很强的信号
 X[:, :3] = X[:, :3] * 5
 
@@ -495,6 +500,12 @@ A = np.array([[3, 1],
 ### 练习 3：PCA 实战
 
 使用 scikit-learn 的 `load_digits()` 手写数字数据集（64 维），用 PCA 降到 2 维并可视化，看看不同数字能否区分开。
+
+如果你还没有安装 scikit-learn，先运行：
+
+```bash
+python -m pip install --upgrade scikit-learn
+```
 
 ```python
 from sklearn.datasets import load_digits

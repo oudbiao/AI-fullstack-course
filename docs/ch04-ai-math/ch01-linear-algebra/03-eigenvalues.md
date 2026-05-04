@@ -202,8 +202,9 @@ In AI, we often encounter **symmetric matrices** (such as covariance matrices). 
 
 ```python
 # Covariance matrix (a typical example of a symmetric matrix)
-data = np.random.randn(100, 2)
-data[:, 1] = data[:, 0] * 0.8 + np.random.randn(100) * 0.3  # create correlation
+rng = np.random.default_rng(seed=42)
+data = rng.normal(size=(100, 2))
+data[:, 1] = data[:, 0] * 0.8 + rng.normal(size=100) * 0.3  # create correlation
 
 cov_matrix = np.cov(data.T)
 print(f"Covariance matrix (symmetric):\n{cov_matrix.round(3)}")
@@ -275,10 +276,10 @@ This is easier to understand than starting with "eigendecomposition of the covar
 
 ```python
 # Generate 2D data with a clear main direction
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
-x = np.random.randn(n)
-y = 0.6 * x + np.random.randn(n) * 0.3  # y is related to x
+x = rng.normal(size=n)
+y = 0.6 * x + rng.normal(size=n) * 0.3  # y is related to x
 data = np.column_stack([x, y])
 
 # Compute covariance matrix
@@ -340,6 +341,10 @@ plt.show()
 
 In real projects, we usually use PCA from scikit-learn directly:
 
+```bash
+python -m pip install --upgrade scikit-learn
+```
+
 ```python
 from sklearn.decomposition import PCA
 from sklearn.datasets import load_iris
@@ -395,9 +400,9 @@ The most important indicator in PCA — the ratio of the first k eigenvalues to 
 
 ```python
 # Simulate a high-dimensional dataset
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_features = 20
-X = np.random.randn(200, n_features)
+X = rng.normal(size=(200, n_features))
 # Give the first few features strong signal
 X[:, :3] = X[:, :3] * 5
 
@@ -495,6 +500,12 @@ For the matrix `A = [[1, 2], [0, 3]]`, draw:
 ### Exercise 3: PCA practice
 
 Use scikit-learn's `load_digits()` handwritten digit dataset (64 dimensions), reduce it to 2 dimensions with PCA, and visualize it to see whether different digits can be separated.
+
+If you have not installed scikit-learn yet, run:
+
+```bash
+python -m pip install --upgrade scikit-learn
+```
 
 ```python
 from sklearn.datasets import load_digits

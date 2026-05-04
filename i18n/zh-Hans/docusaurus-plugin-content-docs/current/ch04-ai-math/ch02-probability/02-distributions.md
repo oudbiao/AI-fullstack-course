@@ -86,7 +86,8 @@ plt.rcParams['axes.unicode_minus'] = False
 p = 0.6  # 不公平硬币，正面概率 60%
 
 # 模拟 10000 次
-samples = np.random.binomial(1, p, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.binomial(1, p, 10000)
 print(f"正面比例: {samples.mean():.3f}")  # ≈ 0.6
 
 fig, ax = plt.subplots(figsize=(6, 4))
@@ -115,7 +116,8 @@ x = np.arange(0, n + 1)
 pmf = stats.binom.pmf(x, n, p)
 
 # 模拟
-samples = np.random.binomial(n, p, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.binomial(n, p, 10000)
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
@@ -175,7 +177,8 @@ print(f"来 10+ 个客人的概率: {1 - stats.poisson.cdf(9, lambda_):.4f}")
 
 ```python
 # 均匀分布 U(0, 1)
-samples = np.random.uniform(0, 1, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.uniform(0, 1, 10000)
 
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.hist(samples, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
@@ -287,10 +290,11 @@ plt.show()
 fig, axes = plt.subplots(2, 3, figsize=(16, 10))
 
 # 三种完全不同的原始分布
+rng = np.random.default_rng(seed=42)
 distributions = [
-    ('均匀分布', lambda n: np.random.uniform(0, 1, n)),
-    ('指数分布', lambda n: np.random.exponential(1, n)),
-    ('二项分布', lambda n: np.random.binomial(10, 0.3, n)),
+    ('均匀分布', lambda n: rng.uniform(0, 1, n)),
+    ('指数分布', lambda n: rng.exponential(1, n)),
+    ('二项分布', lambda n: rng.binomial(10, 0.3, n)),
 ]
 
 for col, (name, dist_func) in enumerate(distributions):
@@ -330,8 +334,9 @@ plt.show()
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
 
 # 用指数分布（非常偏斜）做实验
+rng = np.random.default_rng(seed=42)
 for ax, n in zip(axes, [1, 5, 30, 100]):
-    means = [np.random.exponential(1, n).mean() for _ in range(10000)]
+    means = [rng.exponential(1, n).mean() for _ in range(10000)]
     ax.hist(means, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
 
     x = np.linspace(min(means), max(means), 100)
@@ -354,12 +359,12 @@ plt.show()
 
 | 分布 | 类型 | 参数 | 典型场景 | NumPy 生成 |
 |------|------|------|---------|-----------|
-| 伯努利 | 离散 | p（成功概率） | 二分类标签 | `np.random.binomial(1, p)` |
-| 二项 | 离散 | n, p | n 次实验成功次数 | `np.random.binomial(n, p)` |
-| 泊松 | 离散 | λ（平均次数） | 稀有事件计数 | `np.random.poisson(lam)` |
-| 均匀 | 连续 | a, b（范围） | 随机初始化 | `np.random.uniform(a, b)` |
-| 正态 | 连续 | μ, σ（均值, 标准差） | 噪声、权重初始化 | `np.random.normal(mu, sigma)` |
-| 指数 | 连续 | λ（速率） | 事件间隔时间 | `np.random.exponential(1/lam)` |
+| 伯努利 | 离散 | p（成功概率） | 二分类标签 | `rng.binomial(1, p)` |
+| 二项 | 离散 | n, p | n 次实验成功次数 | `rng.binomial(n, p)` |
+| 泊松 | 离散 | λ（平均次数） | 稀有事件计数 | `rng.poisson(lam)` |
+| 均匀 | 连续 | a, b（范围） | 随机初始化 | `rng.uniform(a, b)` |
+| 正态 | 连续 | μ, σ（均值, 标准差） | 噪声、权重初始化 | `rng.normal(mu, sigma)` |
+| 指数 | 连续 | λ（速率） | 事件间隔时间 | `rng.exponential(1/lam)` |
 
 ---
 

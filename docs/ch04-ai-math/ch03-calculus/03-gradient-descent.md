@@ -202,10 +202,10 @@ Use gradient descent to fit y = wx + b and find the best w and b.
 
 ```python
 # Generate data: y = 2x + 3 + noise
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 100
-X = np.random.uniform(-5, 5, n)
-y_true = 2 * X + 3 + np.random.randn(n) * 1.5
+X = rng.uniform(-5, 5, n)
+y_true = 2 * X + 3 + rng.normal(size=n) * 1.5
 
 plt.figure(figsize=(8, 5))
 plt.scatter(X, y_true, alpha=0.5, s=30, color='steelblue')
@@ -334,7 +334,8 @@ Use **only one sample** to compute the gradient at each step.
 
 ```python
 # SGD: use only 1 sample each time
-i = np.random.randint(0, n)
+rng = np.random.default_rng(seed=42)
+i = rng.integers(0, n)
 dw = 2 * (w * X[i] + b - y_true[i]) * X[i]
 ```
 
@@ -344,8 +345,9 @@ Use a small batch of data at each step (for example, 32 samples) — **the most 
 
 ```python
 # Mini-batch SGD
+rng = np.random.default_rng(seed=42)
 batch_size = 32
-indices = np.random.choice(n, batch_size, replace=False)
+indices = rng.choice(n, batch_size, replace=False)
 X_batch = X[indices]
 y_batch = y_true[indices]
 dw = (2/batch_size) * np.sum((w * X_batch + b - y_batch) * X_batch)
@@ -362,6 +364,7 @@ dw = (2/batch_size) * np.sum((w * X_batch + b - y_batch) * X_batch)
 ```python
 # Compare convergence curves of the three methods
 fig, ax = plt.subplots(figsize=(10, 5))
+rng = np.random.default_rng(seed=42)
 
 for method, batch_size, color in [('BGD', n, 'steelblue'),
                                     ('Mini-batch(32)', 32, 'coral'),
@@ -374,7 +377,7 @@ for method, batch_size, color in [('BGD', n, 'steelblue'),
         if batch_size == n:
             idx = np.arange(n)
         else:
-            idx = np.random.choice(n, batch_size, replace=False)
+            idx = rng.choice(n, batch_size, replace=False)
 
         X_b, y_b = X[idx], y_true[idx]
         y_pred = w * X_b + b
@@ -503,7 +506,8 @@ Modify the code in Section 4.3, train with lr=0.001, 0.01, 0.1, and 0.5 respecti
 Use gradient descent to fit y = ax² + bx + c and find the best a, b, and c. Data:
 ```python
 X = np.linspace(-3, 3, 100)
-y = 0.5 * X**2 - 2 * X + 1 + np.random.randn(100) * 0.5
+rng = np.random.default_rng(seed=42)
+y = 0.5 * X**2 - 2 * X + 1 + rng.normal(size=100) * 0.5
 ```
 
 ### Exercise 3: Visualize 2D gradient descent

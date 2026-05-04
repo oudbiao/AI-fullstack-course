@@ -142,9 +142,9 @@ plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
 # 模拟抛硬币
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_flips = 10000
-results = np.random.choice(['正面', '反面'], size=n_flips)
+results = rng.choice(['正面', '反面'], size=n_flips)
 
 # 随着抛的次数增加，正面比例趋近 0.5
 cumulative_ratio = np.cumsum(results == '正面') / np.arange(1, n_flips + 1)
@@ -228,17 +228,17 @@ print(f"喜欢编程的人中，也喜欢数学的比例: {p_math_given_code:.1%
 
 ```python
 # 用 NumPy 模拟数据
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 10000
 
 # 天气：晴(0.7) / 雨(0.3)
-weather = np.random.choice(['晴', '雨'], n, p=[0.7, 0.3])
+weather = rng.choice(['晴', '雨'], n, p=[0.7, 0.3])
 
 # 带伞概率取决于天气
 umbrella = np.where(
     weather == '雨',
-    np.random.choice(['带', '不带'], n, p=[0.8, 0.2]),  # 下雨时 80% 会带伞
-    np.random.choice(['带', '不带'], n, p=[0.1, 0.9])   # 晴天时 10% 会带伞
+    rng.choice(['带', '不带'], n, p=[0.8, 0.2]),  # 下雨时 80% 会带伞
+    rng.choice(['带', '不带'], n, p=[0.1, 0.9])   # 晴天时 10% 会带伞
 )
 
 # 联合概率表
@@ -351,17 +351,17 @@ flowchart LR
 
 ```python
 # 蒙特卡洛模拟
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_sim = 1_000_000
 
 # 1. 每个人是否有病
-has_disease = np.random.random(n_sim) < p_disease
+has_disease = rng.random(n_sim) < p_disease
 
 # 2. 每个人的检测结果
 test_positive = np.where(
     has_disease,
-    np.random.random(n_sim) < p_positive_if_disease,  # 有病
-    np.random.random(n_sim) < p_positive_if_healthy    # 没病
+    rng.random(n_sim) < p_positive_if_disease,  # 有病
+    rng.random(n_sim) < p_positive_if_healthy    # 没病
 )
 
 # 3. 在检测阳性的人中，有病的比例
@@ -427,9 +427,10 @@ p_both_heads = p_head * p_head
 print(f"两次都正面: {p_both_heads}")  # 0.25
 
 # 模拟验证
+rng = np.random.default_rng(seed=42)
 n = 100000
-coin1 = np.random.random(n) < 0.5
-coin2 = np.random.random(n) < 0.5
+coin1 = rng.random(n) < 0.5
+coin2 = rng.random(n) < 0.5
 both = (coin1 & coin2).mean()
 print(f"模拟结果: {both:.4f}")  # ≈ 0.25
 ```
@@ -489,7 +490,7 @@ print(f"邮件包含 '免费'+'中奖'+'点击' 是垃圾邮件的概率: {p_spa
 
 | 概念 | 直觉 | 公式/代码 |
 |------|------|----------|
-| 概率 | 不确定性的度量（0~1） | `np.random.random() < p` |
+| 概率 | 不确定性的度量（0~1） | `rng.random() < p` |
 | 条件概率 | 已知 B 发生时 A 的概率 | P(A\|B) = P(A且B) / P(B) |
 | 联合概率 | A 和 B 同时发生的概率 | `pd.crosstab(normalize=True)` |
 | 贝叶斯定理 | 用证据更新信念 | 后验 = 先验 × 似然 / 归一化 |

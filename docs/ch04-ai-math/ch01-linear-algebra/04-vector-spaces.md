@@ -358,16 +358,14 @@ flowchart LR
 The most intuitive application of SVD is using less data to approximate an image:
 
 ```python
-from sklearn.datasets import load_sample_image
-
 # Use a grayscale image as an example
 # Here we use random numbers to simulate a grayscale image
-np.random.seed(42)
-image = np.random.randint(0, 256, (100, 150)).astype(float)
+rng = np.random.default_rng(seed=42)
+image = rng.integers(0, 256, (100, 150)).astype(float)
 # Add some structure (not pure randomness)
 for i in range(100):
     for j in range(150):
-        image[i, j] = 128 + 50 * np.sin(i/10) * np.cos(j/15) + np.random.randn() * 20
+        image[i, j] = 128 + 50 * np.sin(i/10) * np.cos(j/15) + rng.normal() * 20
 
 print(f"Original image: {image.shape} = {image.size} values")
 
@@ -524,10 +522,11 @@ g3 = np.array([[1, 2, 3], [4, 5, 6], [5, 7, 9]])
 
 ### Exercise 2: SVD compression
 
-Use SVD to perform a low-rank approximation of `np.random.randn(50, 80)`, and plot the reconstruction error curve for different values of k.
+Use SVD to perform a low-rank approximation of a `50×80` random matrix, and plot the reconstruction error curve for different values of k.
 
 ```python
-M = np.random.randn(50, 80)
+rng = np.random.default_rng(seed=42)
+M = rng.normal(size=(50, 80))
 U, S, Vt = np.linalg.svd(M, full_matrices=False)
 
 errors = []

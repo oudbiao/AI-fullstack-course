@@ -358,16 +358,14 @@ flowchart LR
 SVD のいちばん分かりやすい応用は、少ないデータで画像を近似することです。
 
 ```python
-from sklearn.datasets import load_sample_image
-
 # グレースケール画像の例
 # ここではランダム数でグレースケール画像を模擬する
-np.random.seed(42)
-image = np.random.randint(0, 256, (100, 150)).astype(float)
+rng = np.random.default_rng(seed=42)
+image = rng.integers(0, 256, (100, 150)).astype(float)
 # 少し構造を入れる（完全なランダムではない）
 for i in range(100):
     for j in range(150):
-        image[i, j] = 128 + 50 * np.sin(i/10) * np.cos(j/15) + np.random.randn() * 20
+        image[i, j] = 128 + 50 * np.sin(i/10) * np.cos(j/15) + rng.normal() * 20
 
 print(f"元画像: {image.shape} = {image.size} 個の値")
 
@@ -524,10 +522,11 @@ g3 = np.array([[1, 2, 3], [4, 5, 6], [5, 7, 9]])
 
 ### 練習 2：SVD 圧縮
 
-`np.random.randn(50, 80)` に SVD で低ランク近似を行い、k の値ごとの再構成誤差の曲線を描いてください。
+`50×80` のランダム行列に SVD で低ランク近似を行い、k の値ごとの再構成誤差の曲線を描いてください。
 
 ```python
-M = np.random.randn(50, 80)
+rng = np.random.default_rng(seed=42)
+M = rng.normal(size=(50, 80))
 U, S, Vt = np.linalg.svd(M, full_matrices=False)
 
 errors = []

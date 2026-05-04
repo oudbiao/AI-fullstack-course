@@ -517,7 +517,8 @@ X = np.array([
 print(f"输入 X: {X.shape}")  # (3, 4)
 
 # 权重矩阵：从 4 个特征映射到 2 个输出
-W = np.random.randn(4, 2) * 0.5
+rng = np.random.default_rng(seed=42)
+W = rng.normal(size=(4, 2)) * 0.5
 print(f"权重 W: {W.shape}")  # (4, 2)
 
 # 偏置
@@ -545,22 +546,22 @@ print(f"\n最终输出:\n{output.round(3)}")
 
 ```python
 # 模拟 3 层神经网络
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
-X = np.random.randn(5, 10)  # 5 个样本，10 个特征
+X = rng.normal(size=(5, 10))  # 5 个样本，10 个特征
 
 # 第 1 层：10 → 8
-W1 = np.random.randn(10, 8) * 0.3
+W1 = rng.normal(size=(10, 8)) * 0.3
 h1 = relu(X @ W1)
 print(f"第 1 层输出: {h1.shape}")  # (5, 8)
 
 # 第 2 层：8 → 4
-W2 = np.random.randn(8, 4) * 0.3
+W2 = rng.normal(size=(8, 4)) * 0.3
 h2 = relu(h1 @ W2)
 print(f"第 2 层输出: {h2.shape}")  # (5, 4)
 
 # 第 3 层（输出层）：4 → 2
-W3 = np.random.randn(4, 2) * 0.3
+W3 = rng.normal(size=(4, 2)) * 0.3
 output = h2 @ W3  # 输出层通常不用 ReLU
 print(f"最终输出:   {output.shape}")  # (5, 2)
 ```
@@ -625,7 +626,8 @@ A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
 I = np.eye(2)                          # 单位矩阵
 Z = np.zeros((3, 4))                   # 全零矩阵
-R = np.random.randn(3, 4)              # 随机矩阵
+rng = np.random.default_rng(seed=42)
+R = rng.normal(size=(3, 4))            # 随机矩阵
 
 # ========== 基本运算 ==========
 print("加法:\n", A + B)

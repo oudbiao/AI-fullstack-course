@@ -177,9 +177,6 @@ flowchart LR
 ### 2.2 順伝播（Forward Pass）
 
 ```python
-# シンプルな2層ネットワーク
-np.random.seed(42)
-
 # 入力と目標値
 x = 2.0
 target = 1.0
@@ -375,14 +372,14 @@ PyTorch は順伝播のときに各操作を自動で記録して計算グラフ
 import matplotlib.pyplot as plt
 
 # データ
-np.random.seed(42)
-X_data = np.random.uniform(-2, 2, 50)
-y_data = X_data ** 2 + np.random.randn(50) * 0.3  # y = x² + ノイズ
+rng = np.random.default_rng(seed=42)
+X_data = rng.uniform(-2, 2, 50)
+y_data = X_data ** 2 + rng.normal(size=50) * 0.3  # y = x² + ノイズ
 
 # 2層ネットワークのパラメータ
-w1 = np.random.randn()
+w1 = rng.normal()
 b1 = 0.0
-w2 = np.random.randn()
+w2 = rng.normal()
 b2 = 0.0
 
 lr = 0.01
@@ -510,6 +507,12 @@ y = (2x + 1)³ について、連鎖律を使って dy/dx を求め、x=1 で確
 ### 練習3：手計算と自動計算を比べる
 
 もし PyTorch をすでにインストールしているなら、`torch.autograd` を使って第2節のすべてのパラメータの勾配を計算し、手計算の結果と比べてみましょう。
+
+`import torch` が失敗する場合は、先に PyTorch をインストールしてください。CPU または macOS の簡単な環境なら、通常は次で動きます。
+
+```bash
+python -m pip install --upgrade torch
+```
 
 ```python
 import torch

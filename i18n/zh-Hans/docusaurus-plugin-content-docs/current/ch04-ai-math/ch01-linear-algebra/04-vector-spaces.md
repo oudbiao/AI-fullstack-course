@@ -358,16 +358,14 @@ flowchart LR
 SVD 最直观的应用——用更少的数据近似一张图片：
 
 ```python
-from sklearn.datasets import load_sample_image
-
 # 用一张灰度图做示例
 # 这里用随机数模拟一张灰度图
-np.random.seed(42)
-image = np.random.randint(0, 256, (100, 150)).astype(float)
+rng = np.random.default_rng(seed=42)
+image = rng.integers(0, 256, (100, 150)).astype(float)
 # 加入一些结构（不是纯随机）
 for i in range(100):
     for j in range(150):
-        image[i, j] = 128 + 50 * np.sin(i/10) * np.cos(j/15) + np.random.randn() * 20
+        image[i, j] = 128 + 50 * np.sin(i/10) * np.cos(j/15) + rng.normal() * 20
 
 print(f"原始图片: {image.shape} = {image.size} 个值")
 
@@ -526,10 +524,11 @@ g3 = np.array([[1, 2, 3], [4, 5, 6], [5, 7, 9]])
 
 ### 练习 2：SVD 压缩
 
-用 SVD 对 `np.random.randn(50, 80)` 做低秩近似，画出不同 k 值下的重构误差曲线。
+用 SVD 对一个 `50×80` 随机矩阵做低秩近似，画出不同 k 值下的重构误差曲线。
 
 ```python
-M = np.random.randn(50, 80)
+rng = np.random.default_rng(seed=42)
+M = rng.normal(size=(50, 80))
 U, S, Vt = np.linalg.svd(M, full_matrices=False)
 
 errors = []

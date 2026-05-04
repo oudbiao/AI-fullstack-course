@@ -177,9 +177,6 @@ flowchart LR
 ### 2.2 前向传播（Forward Pass）
 
 ```python
-# 简单的两层网络
-np.random.seed(42)
-
 # 输入和目标
 x = 2.0
 target = 1.0
@@ -375,14 +372,14 @@ PyTorch 在前向传播时自动记录每一步操作（构建计算图），然
 import matplotlib.pyplot as plt
 
 # 数据
-np.random.seed(42)
-X_data = np.random.uniform(-2, 2, 50)
-y_data = X_data ** 2 + np.random.randn(50) * 0.3  # y = x² + 噪声
+rng = np.random.default_rng(seed=42)
+X_data = rng.uniform(-2, 2, 50)
+y_data = X_data ** 2 + rng.normal(size=50) * 0.3  # y = x² + 噪声
 
 # 两层网络参数
-w1 = np.random.randn()
+w1 = rng.normal()
 b1 = 0.0
-w2 = np.random.randn()
+w2 = rng.normal()
 b2 = 0.0
 
 lr = 0.01
@@ -510,6 +507,12 @@ flowchart LR
 ### 练习 3：对比手动 vs 自动
 
 如果你已经安装了 PyTorch，用 `torch.autograd` 计算第二节中所有参数的梯度，和手算结果对比。
+
+如果 `import torch` 失败，请先安装 PyTorch。对于简单 CPU 或 macOS 环境，通常可以运行：
+
+```bash
+python -m pip install --upgrade torch
+```
 
 ```python
 import torch

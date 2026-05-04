@@ -176,9 +176,6 @@ flowchart LR
 ### 2.2 Forward Pass
 
 ```python
-# A simple two-layer network
-np.random.seed(42)
-
 # Input and target
 x = 2.0
 target = 1.0
@@ -374,14 +371,14 @@ Put the forward pass + backward pass + parameter update together to train a two-
 import matplotlib.pyplot as plt
 
 # Data
-np.random.seed(42)
-X_data = np.random.uniform(-2, 2, 50)
-y_data = X_data ** 2 + np.random.randn(50) * 0.3  # y = x² + noise
+rng = np.random.default_rng(seed=42)
+X_data = rng.uniform(-2, 2, 50)
+y_data = X_data ** 2 + rng.normal(size=50) * 0.3  # y = x² + noise
 
 # Two-layer network parameters
-w1 = np.random.randn()
+w1 = rng.normal()
 b1 = 0.0
-w2 = np.random.randn()
+w2 = rng.normal()
 b2 = 0.0
 
 lr = 0.01
@@ -509,6 +506,12 @@ Change the two-layer network in Section 4 to have 3 hidden neurons (w1 becomes 3
 ### Exercise 3: Compare Manual vs. Automatic
 
 If you have PyTorch installed, use `torch.autograd` to compute the gradients of all parameters in Section 2, and compare them with your manual results.
+
+If `import torch` fails, install PyTorch first. For a simple CPU or macOS setup, this usually works:
+
+```bash
+python -m pip install --upgrade torch
+```
 
 ```python
 import torch

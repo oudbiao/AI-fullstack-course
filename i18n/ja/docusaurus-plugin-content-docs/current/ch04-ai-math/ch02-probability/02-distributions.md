@@ -86,7 +86,8 @@ plt.rcParams['axes.unicode_minus'] = False
 p = 0.6  # 偏ったコイン、表が出る確率 60%
 
 # 10000回シミュレーション
-samples = np.random.binomial(1, p, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.binomial(1, p, 10000)
 print(f"表の割合: {samples.mean():.3f}")  # ≈ 0.6
 
 fig, ax = plt.subplots(figsize=(6, 4))
@@ -115,7 +116,8 @@ x = np.arange(0, n + 1)
 pmf = stats.binom.pmf(x, n, p)
 
 # シミュレーション
-samples = np.random.binomial(n, p, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.binomial(n, p, 10000)
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
@@ -175,7 +177,8 @@ print(f"10人以上来る確率: {1 - stats.poisson.cdf(9, lambda_):.4f}")
 
 ```python
 # 均一分布 U(0, 1)
-samples = np.random.uniform(0, 1, 10000)
+rng = np.random.default_rng(seed=42)
+samples = rng.uniform(0, 1, 10000)
 
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.hist(samples, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
@@ -288,10 +291,11 @@ plt.show()
 fig, axes = plt.subplots(2, 3, figsize=(16, 10))
 
 # まったく異なる3つの元の分布
+rng = np.random.default_rng(seed=42)
 distributions = [
-    ('均一分布', lambda n: np.random.uniform(0, 1, n)),
-    ('指数分布', lambda n: np.random.exponential(1, n)),
-    ('二項分布', lambda n: np.random.binomial(10, 0.3, n)),
+    ('均一分布', lambda n: rng.uniform(0, 1, n)),
+    ('指数分布', lambda n: rng.exponential(1, n)),
+    ('二項分布', lambda n: rng.binomial(10, 0.3, n)),
 ]
 
 for col, (name, dist_func) in enumerate(distributions):
@@ -331,8 +335,9 @@ plt.show()
 fig, axes = plt.subplots(1, 4, figsize=(18, 4))
 
 # 指数分布（かなり偏っている）で実験
+rng = np.random.default_rng(seed=42)
 for ax, n in zip(axes, [1, 5, 30, 100]):
-    means = [np.random.exponential(1, n).mean() for _ in range(10000)]
+    means = [rng.exponential(1, n).mean() for _ in range(10000)]
     ax.hist(means, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
     
     x = np.linspace(min(means), max(means), 100)
@@ -356,12 +361,12 @@ plt.show()
 
 | 分布 | 種類 | パラメータ | 典型的な場面 | NumPy 生成 |
 |------|------|------|---------|-----------|
-| ベルヌーイ | 離散 | p（成功確率） | 二値分類ラベル | `np.random.binomial(1, p)` |
-| 二項 | 離散 | n, p | n 回の実験で成功した回数 | `np.random.binomial(n, p)` |
-| ポアソン | 離散 | λ（平均回数） | まれな事象の回数 | `np.random.poisson(lam)` |
-| 均一 | 連続 | a, b（範囲） | ランダム初期化 | `np.random.uniform(a, b)` |
-| 正規 | 連続 | μ, σ（平均, 標準偏差） | ノイズ、重みの初期化 | `np.random.normal(mu, sigma)` |
-| 指数 | 連続 | λ（率） | 事象間の時間間隔 | `np.random.exponential(1/lam)` |
+| ベルヌーイ | 離散 | p（成功確率） | 二値分類ラベル | `rng.binomial(1, p)` |
+| 二項 | 離散 | n, p | n 回の実験で成功した回数 | `rng.binomial(n, p)` |
+| ポアソン | 離散 | λ（平均回数） | まれな事象の回数 | `rng.poisson(lam)` |
+| 均一 | 連続 | a, b（範囲） | ランダム初期化 | `rng.uniform(a, b)` |
+| 正規 | 連続 | μ, σ（平均, 標準偏差） | ノイズ、重みの初期化 | `rng.normal(mu, sigma)` |
+| 指数 | 連続 | λ（率） | 事象間の時間間隔 | `rng.exponential(1/lam)` |
 
 ---
 

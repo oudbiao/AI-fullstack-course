@@ -532,7 +532,8 @@ X = np.array([
 print(f"入力 X: {X.shape}")  # (3, 4)
 
 # 重み行列：4特徴量から2出力へ写す
-W = np.random.randn(4, 2) * 0.5
+rng = np.random.default_rng(seed=42)
+W = rng.normal(size=(4, 2)) * 0.5
 print(f"重み W: {W.shape}")  # (4, 2)
 
 # バイアス
@@ -560,22 +561,22 @@ print(f"\n最終出力:\n{output.round(3)}")
 
 ```python
 # 3層ニューラルネットワークをまねる
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
-X = np.random.randn(5, 10)  # 5サンプル、10特徴量
+X = rng.normal(size=(5, 10))  # 5サンプル、10特徴量
 
 # 第1層：10 → 8
-W1 = np.random.randn(10, 8) * 0.3
+W1 = rng.normal(size=(10, 8)) * 0.3
 h1 = relu(X @ W1)
 print(f"第1層の出力: {h1.shape}")  # (5, 8)
 
 # 第2層：8 → 4
-W2 = np.random.randn(8, 4) * 0.3
+W2 = rng.normal(size=(8, 4)) * 0.3
 h2 = relu(h1 @ W2)
 print(f"第2層の出力: {h2.shape}")  # (5, 4)
 
 # 第3層（出力層）：4 → 2
-W3 = np.random.randn(4, 2) * 0.3
+W3 = rng.normal(size=(4, 2)) * 0.3
 output = h2 @ W3  # 出力層では通常 ReLU を使わない
 print(f"最終出力:   {output.shape}")  # (5, 2)
 ```
@@ -641,7 +642,8 @@ A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
 I = np.eye(2)                          # 単位行列
 Z = np.zeros((3, 4))                   # 全要素0の行列
-R = np.random.randn(3, 4)              # ランダム行列
+rng = np.random.default_rng(seed=42)
+R = rng.normal(size=(3, 4))            # ランダム行列
 
 # ========== 基本演算 ==========
 print("足し算:\n", A + B)

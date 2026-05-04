@@ -517,7 +517,8 @@ X = np.array([
 print(f"Input X: {X.shape}")  # (3, 4)
 
 # Weight matrix: map 4 features to 2 outputs
-W = np.random.randn(4, 2) * 0.5
+rng = np.random.default_rng(seed=42)
+W = rng.normal(size=(4, 2)) * 0.5
 print(f"Weight W: {W.shape}")  # (4, 2)
 
 # Bias
@@ -545,22 +546,22 @@ print(f"\nFinal output:\n{output.round(3)}")
 
 ```python
 # Simulate a 3-layer neural network
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
-X = np.random.randn(5, 10)  # 5 samples, 10 features
+X = rng.normal(size=(5, 10))  # 5 samples, 10 features
 
 # Layer 1: 10 → 8
-W1 = np.random.randn(10, 8) * 0.3
+W1 = rng.normal(size=(10, 8)) * 0.3
 h1 = relu(X @ W1)
 print(f"Layer 1 output: {h1.shape}")  # (5, 8)
 
 # Layer 2: 8 → 4
-W2 = np.random.randn(8, 4) * 0.3
+W2 = rng.normal(size=(8, 4)) * 0.3
 h2 = relu(h1 @ W2)
 print(f"Layer 2 output: {h2.shape}")  # (5, 4)
 
 # Layer 3 (output layer): 4 → 2
-W3 = np.random.randn(4, 2) * 0.3
+W3 = rng.normal(size=(4, 2)) * 0.3
 output = h2 @ W3  # output layers usually do not use ReLU
 print(f"Final output:   {output.shape}")  # (5, 2)
 ```
@@ -625,7 +626,8 @@ A = np.array([[1, 2], [3, 4]])
 B = np.array([[5, 6], [7, 8]])
 I = np.eye(2)                          # identity matrix
 Z = np.zeros((3, 4))                   # all-zero matrix
-R = np.random.randn(3, 4)              # random matrix
+rng = np.random.default_rng(seed=42)
+R = rng.normal(size=(3, 4))            # random matrix
 
 # ========== Basic operations ==========
 print("Addition:\n", A + B)

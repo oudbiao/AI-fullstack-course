@@ -142,9 +142,9 @@ plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
 # Simulate coin flips
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_flips = 10000
-results = np.random.choice(['Heads', 'Tails'], size=n_flips)
+results = rng.choice(['Heads', 'Tails'], size=n_flips)
 
 # As the number of flips increases, the proportion of heads approaches 0.5
 cumulative_ratio = np.cumsum(results == 'Heads') / np.arange(1, n_flips + 1)
@@ -227,17 +227,17 @@ But they have different denominators, so they are fundamentally different questi
 
 ```python
 # Simulate data with NumPy
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 10000
 
 # Weather: sunny (0.7) / rainy (0.3)
-weather = np.random.choice(['Sunny', 'Rainy'], n, p=[0.7, 0.3])
+weather = rng.choice(['Sunny', 'Rainy'], n, p=[0.7, 0.3])
 
 # Probability of carrying an umbrella depends on the weather
 umbrella = np.where(
     weather == 'Rainy',
-    np.random.choice(['Carry', 'No carry'], n, p=[0.8, 0.2]),  # 80% carry an umbrella when rainy
-    np.random.choice(['Carry', 'No carry'], n, p=[0.1, 0.9])   # 10% carry an umbrella when sunny
+    rng.choice(['Carry', 'No carry'], n, p=[0.8, 0.2]),  # 80% carry an umbrella when rainy
+    rng.choice(['Carry', 'No carry'], n, p=[0.1, 0.9])   # 10% carry an umbrella when sunny
 )
 
 # Joint probability table
@@ -350,17 +350,17 @@ This is the core of Bayes: **continuously updating your belief with new evidence
 
 ```python
 # Monte Carlo simulation
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_sim = 1_000_000
 
 # 1. Whether each person has the disease
-has_disease = np.random.random(n_sim) < p_disease
+has_disease = rng.random(n_sim) < p_disease
 
 # 2. Each person's test result
 test_positive = np.where(
     has_disease,
-    np.random.random(n_sim) < p_positive_if_disease,  # Have disease
-    np.random.random(n_sim) < p_positive_if_healthy    # No disease
+    rng.random(n_sim) < p_positive_if_disease,  # Have disease
+    rng.random(n_sim) < p_positive_if_healthy    # No disease
 )
 
 # 3. Among those who test positive, the proportion who are sick
@@ -426,9 +426,10 @@ p_both_heads = p_head * p_head
 print(f"Both flips are heads: {p_both_heads}")  # 0.25
 
 # Simulation check
+rng = np.random.default_rng(seed=42)
 n = 100000
-coin1 = np.random.random(n) < 0.5
-coin2 = np.random.random(n) < 0.5
+coin1 = rng.random(n) < 0.5
+coin2 = rng.random(n) < 0.5
 both = (coin1 & coin2).mean()
 print(f"Simulated result: {both:.4f}")  # ≈ 0.25
 ```
@@ -488,7 +489,7 @@ These three questions will naturally lead you to:
 
 | Concept | Intuition | Formula / Code |
 |------|------|----------|
-| Probability | A measure of uncertainty (0~1) | `np.random.random() < p` |
+| Probability | A measure of uncertainty (0~1) | `rng.random() < p` |
 | Conditional probability | Probability of A given B has occurred | P(A\|B) = P(A and B) / P(B) |
 | Joint probability | Probability of A and B happening together | `pd.crosstab(normalize=True)` |
 | Bayes' theorem | Updating beliefs with evidence | Posterior = Prior × Likelihood / Normalization |

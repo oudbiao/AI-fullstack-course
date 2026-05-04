@@ -192,6 +192,7 @@ In other words, MLE is the common language behind many training objectives.
 
 ```python
 # True p = 0.6
+rng = np.random.default_rng(seed=42)
 true_p = 0.6
 n_experiments = [10, 50, 100, 500, 2000]
 
@@ -199,7 +200,7 @@ fig, axes = plt.subplots(1, len(n_experiments), figsize=(20, 4))
 
 for ax, n in zip(axes, n_experiments):
     # Toss the coin n times
-    heads = np.random.binomial(n, true_p)
+    heads = rng.binomial(n, true_p)
 
     # Likelihood function
     p_vals = np.linspace(0.01, 0.99, 500)
@@ -347,16 +348,16 @@ flowchart TD
 
 ```python
 # Simulate an A/B test
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # Group A: blue button, true click-through rate 10%
 n_a = 1000
-clicks_a = np.random.binomial(n_a, 0.10)
+clicks_a = rng.binomial(n_a, 0.10)
 rate_a = clicks_a / n_a
 
 # Group B: green button, true click-through rate 12% (really better)
 n_b = 1000
-clicks_b = np.random.binomial(n_b, 0.12)
+clicks_b = rng.binomial(n_b, 0.12)
 rate_b = clicks_b / n_b
 
 print(f"Group A click-through rate: {rate_a:.1%} ({clicks_a}/{n_a})")
@@ -388,14 +389,14 @@ else:
 
 ```python
 # Simulation: if A and B really had no difference (both 10%), how large a difference would we see?
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_simulations = 10000
 simulated_diffs = []
 
 for _ in range(n_simulations):
     # Both groups use the same probability of 10%
-    sim_a = np.random.binomial(1000, 0.10) / 1000
-    sim_b = np.random.binomial(1000, 0.10) / 1000
+    sim_a = rng.binomial(1000, 0.10) / 1000
+    sim_b = rng.binomial(1000, 0.10) / 1000
     simulated_diffs.append(sim_b - sim_a)
 
 simulated_diffs = np.array(simulated_diffs)
