@@ -21,6 +21,24 @@ In fact, this chapter is really solving the same kind of problem:
 - Understand where each section of this chapter fits in AI
 - Know which intuitions beginners should grasp first, before looking at formulas
 
+## Decode the abbreviations before reading
+
+This chapter has many short English terms. Do not try to memorize them as isolated words. First connect each one to the question it answers:
+
+| Term | Full name | Question it answers in AI |
+|---|---|---|
+| `PDF` | Probability Density Function | For a continuous value, where is probability concentrated? |
+| `PMF` | Probability Mass Function | For discrete choices, how much probability does each choice get? |
+| `CDF` | Cumulative Distribution Function | What is the probability of being less than or equal to a value? |
+| `MLE` | Maximum Likelihood Estimation | Which parameters make the observed data most likely? |
+| `MAP` | Maximum A Posteriori | Which parameters are most likely after combining data and prior belief? |
+| `EM` | Expectation-Maximization | How can we estimate hidden variables and parameters by alternating two steps? |
+| `KL` | Kullback-Leibler divergence | How far is one probability distribution from another? |
+| `A/B testing` | Controlled comparison experiment | Is version A or version B actually better, rather than just lucky? |
+| `loss` | Training objective value | How wrong is the model, and what should optimization reduce? |
+
+You do not need all formal definitions now. The useful first habit is: whenever you see a probability term, ask **“What uncertainty is it trying to measure or reduce?”**
+
 ## First, an important learning expectation
 
 Probability and statistics are not the kind of topics you can “finish learning” in just a few lessons.
@@ -49,6 +67,13 @@ You can remember this chapter as four questions:
 3. Statistical inference: After seeing data, how do we infer the parameters and conclusions behind it?
 4. Information theory: How uncertain is the model’s prediction, and how far is it from the true distribution?
 
+The learning path is intentionally ordered this way:
+
+- Probability gives you the vocabulary of uncertainty
+- Distributions turn many random outcomes into a visible shape
+- Inference turns observed data into estimated parameters or decisions
+- Information theory turns uncertainty into a training signal, such as cross-entropy loss
+
 ---
 
 ## 2. How this chapter relates to AI
@@ -69,6 +94,13 @@ For example:
 - `CrossEntropyLoss` actually comes from information theory
 - `MLE` is actually asking, “Which parameters best explain this data?”
 - `Bayes` is actually asking, “Once we have new evidence, how do we update our judgment?”
+
+One small but important distinction:
+
+- **Probability** usually starts from a known model and asks what data or event may happen
+- **Statistics** usually starts from observed data and asks what model, parameter, or conclusion is reasonable
+
+Machine learning constantly moves between the two. During training, it uses data to estimate parameters; during prediction, it uses those parameters to output probabilities.
 
 ## 3. Why is AI especially inseparable from this chapter?
 
@@ -133,9 +165,20 @@ A beginner-friendly pace could be:
 
 This way of learning is much more stable than “memorizing a pile of symbols first.”
 
+## 6. A minimal runnable thread for this chapter
+
+If you want one tiny project that connects the whole chapter, use a binary classifier example:
+
+1. Use probability to describe “spam” vs “not spam”
+2. Use a distribution to describe how likely different word counts are
+3. Use inference to estimate model parameters from a small dataset
+4. Use cross-entropy to measure whether the model is becoming less wrong
+
+The later lessons will show the pieces separately. If you can explain this four-step loop, you already understand why probability and statistics are not optional in AI.
+
 ---
 
-## 6. After finishing this chapter, what should you at least be able to do?
+## 7. After finishing this chapter, what should you at least be able to do?
 
 - When you see a model’s probability output, you will not treat it as an “absolute conclusion”
 - You know what conditional probability, Bayes updates, and distributions are each saying
@@ -175,6 +218,7 @@ More experienced learners can treat this chapter as a chance to fill gaps and do
 | What are the minimum input and output? | Can clearly describe what the example needs as input and what result it produces |
 | Where are the common failure points? | Can list at least one reason for an error, poor results, or misunderstanding |
 | What can you preserve after learning it? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
+
 ## Chapter small project exit task
 
 After finishing this chapter, it is recommended that you complete a minimum exercise: choose the most core concept or tool from this chapter, and create a small result that can run, be screenshotted, and be written into a README. It does not need to be complex, but it should be able to show what the input is, what the processing steps are, and what the output result is.

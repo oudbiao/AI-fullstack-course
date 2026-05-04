@@ -20,6 +20,23 @@ AI is essentially about making decisions in "uncertainty." A model does not outp
 - Understand Bayes' theorem through classic examples
 - Use Python simulations to verify probability formulas
 
+## Terms to Decode Before the Formulas
+
+Probability notation becomes much less scary when each symbol has a plain-language meaning:
+
+| Term | Meaning | How to read it in this lesson |
+|---|---|---|
+| `P(A)` | Probability of event A | How likely is A before knowing extra information? |
+| `P(A\|B)` | Conditional probability | After B is known, how likely is A? |
+| `P(A and B)` | Joint probability | How likely are A and B to happen together? |
+| `prior` | Prior probability | What we believed before seeing new evidence |
+| `likelihood` | Evidence probability under a hypothesis | If the hypothesis were true, how likely is this evidence? |
+| `posterior` | Updated probability | What we believe after combining prior and evidence |
+| `normalization` | Make probabilities sum to 1 | The denominator that keeps the final answer a valid probability |
+| `Monte Carlo` | Simulation by random sampling | Run many random trials to check whether a formula makes sense |
+
+For code in this lesson, the main dependency is **NumPy**. The plotting examples also use **Matplotlib**. To keep the examples easy to run, the joint probability table below uses only NumPy instead of adding a `pandas` dependency.
+
 ## Historical Background: Where Did Bayes' Rule Come From?
 
 The most important historical milestone in this section is:
@@ -161,6 +178,18 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected text check:
+
+```python
+print(f"Final proportion of heads after {n_flips} flips: {cumulative_ratio[-1]:.4f}")
+```
+
+Example output with `seed=42`:
+
+```text
+Final proportion of heads after 10000 flips: 0.5061
+```
+
 **Law of Large Numbers**: The more experiments you run, the closer the frequency gets to the true probability. This is why deep learning needs "big data."
 
 ---
@@ -209,6 +238,13 @@ p_math_given_code = n_both / n_code
 print(f"Among students who like programming, the proportion who also like math: {p_math_given_code:.1%}")  # 60%
 ```
 
+Expected output:
+
+```text
+Among students who like math, the proportion who also like programming: 50.0%
+Among students who like programming, the proportion who also like math: 60.0%
+```
+
 **Note**: P(A|B) and P(B|A) are usually not equal!
 
 ### 2.2.1 This Is One of the Easiest Pitfalls for Beginners
@@ -240,14 +276,32 @@ umbrella = np.where(
     rng.choice(['Carry', 'No carry'], n, p=[0.1, 0.9])   # 10% carry an umbrella when sunny
 )
 
-# Joint probability table
-import pandas as pd
-df = pd.DataFrame({'Weather': weather, 'Umbrella': umbrella})
-joint = pd.crosstab(df['Weather'], df['Umbrella'], normalize=True)
+# Joint probability table without extra dependencies
+weather_labels = ['Sunny', 'Rainy']
+umbrella_labels = ['Carry', 'No carry']
+joint = np.array([
+    [((weather == w) & (umbrella == u)).mean() for u in umbrella_labels]
+    for w in weather_labels
+])
+
 print("Joint probability table:")
-print(joint.round(3))
+print("          Carry  No carry")
+for label, row in zip(weather_labels, joint):
+    print(f"{label:>6}   {row[0]:.3f}    {row[1]:.3f}")
 print(f"\nMarginal probability P(rainy): {(weather == 'Rainy').mean():.3f}")
 print(f"Marginal probability P(carry umbrella): {(umbrella == 'Carry').mean():.3f}")
+```
+
+Expected output with `seed=42`:
+
+```text
+Joint probability table:
+          Carry  No carry
+ Sunny   0.068    0.637
+ Rainy   0.235    0.059
+
+Marginal probability P(rainy): 0.294
+Marginal probability P(carry umbrella): 0.304
 ```
 
 | | Carry | No carry | Total (marginal probability) |
@@ -255,6 +309,8 @@ print(f"Marginal probability P(carry umbrella): {(umbrella == 'Carry').mean():.3
 | Sunny | 0.07 | 0.63 | 0.70 |
 | Rainy | 0.24 | 0.06 | 0.30 |
 | Total | 0.31 | 0.69 | 1.00 |
+
+The table is slightly different from the ideal values because it is simulated. With more samples, it will get closer to the theoretical table.
 
 ---
 
@@ -291,6 +347,14 @@ print(f"P(Have disease|Positive): {p_disease_if_positive:.4f}")  # ≈ 0.0194
 print(f"Approximately {p_disease_if_positive:.1%}")             # ≈ 1.9%
 ```
 
+Expected output:
+
+```text
+P(Positive): 0.0509
+P(Have disease|Positive): 0.0194
+Approximately 1.9%
+```
+
 **Result: only about 2%!** Even if the test is positive, the probability that you actually have the disease is only 2%.
 
 ### 3.3 Why Is It So Low?
@@ -314,6 +378,17 @@ print(f"  People who test positive: {total_positive:.0f}")
 print(f"    Of which true positives: {true_positive:.0f}")
 print(f"    Of which false positives: {false_positive:.0f}")
 print(f"  Proportion of truly sick among positive results: {true_positive/total_positive:.1%}")
+```
+
+Expected output:
+
+```text
+Out of 10000 people:
+  People with the disease: 10
+  People who test positive: 509
+    Of which true positives: 10
+    Of which false positives: 500
+  Proportion of truly sick among positive results: 1.9%
 ```
 
 ```mermaid
@@ -373,6 +448,16 @@ print(f"Formula result: {p_disease_if_positive:.4f}")
 print(f"Difference: {abs(simulated_probability - p_disease_if_positive):.6f}")
 ```
 
+Expected output with `seed=42`:
+
+```text
+Simulated result P(Have disease|Positive): 0.0194
+Formula result: 0.0194
+Difference: 0.000012
+```
+
+Simulation is not a replacement for the formula. It is a learning tool: it helps you see that the formula matches what happens after many random trials.
+
 ---
 
 ## 4. Applications of Bayes' Theorem in AI
@@ -396,6 +481,12 @@ p_free = p_free_given_spam * p_spam + p_free_given_ham * (1 - p_spam)
 p_spam_given_free = p_free_given_spam * p_spam / p_free
 print(f"Probability that an email containing 'free' is spam: {p_spam_given_free:.1%}")
 # ≈ 87.3%
+```
+
+Expected output:
+
+```text
+Probability that an email containing 'free' is spam: 87.3%
 ```
 
 ### 4.2 More AI Applications
@@ -434,9 +525,18 @@ both = (coin1 & coin2).mean()
 print(f"Simulated result: {both:.4f}")  # ≈ 0.25
 ```
 
+Expected output:
+
+```text
+Both flips are heads: 0.25
+Simulated result: 0.2512
+```
+
 ### 5.2 The Independence Assumption in AI
 
 Naive Bayes is called "naive" because it **assumes all features are independent** (although in reality they often are not, the method still works surprisingly well).
+
+This assumption is not literally true for natural language. For example, “free” and “winner” often appear together in spam. But the assumption makes the calculation much simpler, and the simplified model is often good enough as a baseline. A **baseline** is a simple first model used to check whether more complex methods are truly improving things.
 
 ```python
 # Naive Bayes: assume each word appears independently
@@ -461,6 +561,14 @@ for word, (p_word_spam, p_word_ham) in words.items():
 p_spam_given_words = score_spam / (score_spam + score_ham)
 print(f"Probability that an email containing 'free' + 'winner' + 'click' is spam: {p_spam_given_words:.1%}")
 ```
+
+Expected output:
+
+```text
+Probability that an email containing 'free' + 'winner' + 'click' is spam: 100.0%
+```
+
+The result is extremely close to 100% because the example probabilities are intentionally exaggerated for teaching. In real systems, you would usually apply smoothing, evaluate on held-out data, and avoid treating one output as absolute truth.
 
 ---
 
@@ -491,7 +599,7 @@ These three questions will naturally lead you to:
 |------|------|----------|
 | Probability | A measure of uncertainty (0~1) | `rng.random() < p` |
 | Conditional probability | Probability of A given B has occurred | P(A\|B) = P(A and B) / P(B) |
-| Joint probability | Probability of A and B happening together | `pd.crosstab(normalize=True)` |
+| Joint probability | Probability of A and B happening together | NumPy boolean masks such as `(A & B).mean()` |
 | Bayes' theorem | Updating beliefs with evidence | Posterior = Prior × Likelihood / Normalization |
 | Independence | No mutual influence | P(A and B) = P(A) × P(B) |
 
@@ -513,12 +621,84 @@ From a standard 52-card deck, draw one card at random:
 
 Use Python to simulate and verify 100000 trials.
 
+Reference implementation:
+
+```python
+rng = np.random.default_rng(seed=42)
+n_trials = 100000
+
+suits = np.array(['hearts', 'diamonds', 'clubs', 'spades'])
+ranks = np.array(['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'])
+deck = [(suit, rank) for suit in suits for rank in ranks]
+
+indices = rng.integers(0, len(deck), size=n_trials)
+draws = [deck[i] for i in indices]
+
+is_hearts = np.array([suit == 'hearts' for suit, rank in draws])
+is_red = np.array([suit in {'hearts', 'diamonds'} for suit, rank in draws])
+is_ace = np.array([rank == 'A' for suit, rank in draws])
+
+print(f"P(hearts): {is_hearts.mean():.3f}")
+print(f"P(hearts | red): {(is_hearts & is_red).sum() / is_red.sum():.3f}")
+print(f"P(A | hearts): {(is_ace & is_hearts).sum() / is_hearts.sum():.3f}")
+```
+
+Expected output with `seed=42`:
+
+```text
+P(hearts): 0.250
+P(hearts | red): 0.501
+P(A | hearts): 0.076
+```
+
 ### Exercise 2: Bayes Update
 
 A factory has two production lines, A and B. Line A produces 60% of the products, and line B produces 40%. The defect rate of A is 2%, and the defect rate of B is 5%.
 
 If a randomly selected product is found to be defective, what is the probability that it came from production line B?
 
+Reference implementation:
+
+```python
+p_a = 0.6
+p_b = 0.4
+p_defective_given_a = 0.02
+p_defective_given_b = 0.05
+
+p_defective = p_defective_given_a * p_a + p_defective_given_b * p_b
+p_b_given_defective = p_defective_given_b * p_b / p_defective
+
+print(f"P(line B | defective): {p_b_given_defective:.1%}")
+```
+
+Expected output:
+
+```text
+P(line B | defective): 62.5%
+```
+
 ### Exercise 3: Simulate Bayes' Theorem
 
 Modify the disease testing example by changing the incidence rate to 1% (instead of 0.1%), and see how the probability of having the disease after a positive test changes. Verify it using both simulation and the formula.
+
+Formula check:
+
+```python
+p_disease = 0.01
+p_positive_if_disease = 0.99
+p_positive_if_healthy = 0.05
+
+p_positive = (p_positive_if_disease * p_disease +
+              p_positive_if_healthy * (1 - p_disease))
+p_disease_if_positive = p_positive_if_disease * p_disease / p_positive
+
+print(f"P(Have disease|Positive) when incidence is 1%: {p_disease_if_positive:.1%}")
+```
+
+Expected output:
+
+```text
+P(Have disease|Positive) when incidence is 1%: 16.7%
+```
+
+This is much higher than 1.9%, because the prior probability is no longer as tiny. Bayes' theorem is sensitive to the prior, which is exactly why base rates matter so much in real-world diagnosis and risk scoring.
