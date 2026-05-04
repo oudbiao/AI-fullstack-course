@@ -99,6 +99,15 @@ print("Shape of X:", X.shape)
 print(X)
 ```
 
+Expected output:
+
+```text
+Shape of X: (3, 3)
+[[120.   3.  15.]
+ [ 80.   2.   8.]
+ [150.   4.  20.]]
+```
+
 Here:
 
 - Rows = samples
@@ -118,11 +127,21 @@ pred = X @ w + b
 print("Predictions:", pred)
 ```
 
+Expected output:
+
+```text
+Predictions: [470. 326. 585.]
+```
+
 The most important thing here is not the code, but realizing that:
 
 - `X` is the data
 - `w` is the model parameters learned by the model
 - `X @ w + b` is summing up the “effect of features” into a prediction
+
+:::info Decode the symbols
+`X @ w` means matrix multiplication in Python. `@` is not a special ML trick; it is the operator that multiplies the feature matrix by the weight vector. `b` is the intercept, a base value added to every prediction.
+:::
 
 ### 1.4 Where does linear algebra appear later in Station 5?
 
@@ -166,10 +185,19 @@ print("Linear score z:", z)
 print("Probability output:", np.round(prob, 4))
 ```
 
+Expected output:
+
+```text
+Linear score z: [-2.  -0.5  0.   1.   3. ]
+Probability output: [0.1192 0.3775 0.5    0.7311 0.9526]
+```
+
 Here, `prob` is compressing the “linear score” into the `0~1` range.
 So you can understand the role of probability and statistics here as:
 
 - Helping us turn model outputs into “interpretable uncertainty”
+
+`z` is often called a logit in classification: it is a raw score before probability conversion. The sigmoid function is like a soft gate that turns any real number into a value between 0 and 1.
 
 ### 2.2 Why are loss functions related to probability?
 
@@ -250,6 +278,14 @@ print("Learned b:", round(b, 4))
 print("Final loss:", round(loss, 6))
 ```
 
+Expected output:
+
+```text
+Learned w: 1.9654
+Learned b: 1.1604
+Final loss: 0.007272
+```
+
 What matters most in this example is not the formulas themselves, but these 4 steps:
 
 1. Predict first
@@ -258,6 +294,8 @@ What matters most in this example is not the formulas themselves, but these 4 st
 4. Update the parameters
 
 These 4 steps are the prototype of the training loop in later deep learning.
+
+`lr` means learning rate. It controls how large each update step is. If it is too small, learning is slow; if it is too large, the parameters may overshoot the better point.
 
 ### 3.3 Where does calculus appear later in Station 5?
 
@@ -277,6 +315,10 @@ So the most important role of calculus here is:
 ## 4. Putting the three lines together
 
 If you break down one smallest machine learning training cycle, it is actually the following steps:
+
+![Machine learning math training loop comic](/img/course/ch05-math-training-loop-comic-en.png)
+
+Read this image from top to bottom: the table becomes `X`, the knobs become `w`, the gap becomes `loss`, and the downhill path becomes gradient descent. This is the same story as the code above, just drawn as a training loop.
 
 ```mermaid
 flowchart LR
