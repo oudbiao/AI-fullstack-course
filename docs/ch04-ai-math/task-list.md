@@ -10,6 +10,17 @@ keywords: [AI mathematics, linear algebra, probability and statistics, gradient 
 
 The goal of this stage is not to turn math into an exam subject, but to help you understand the core intuitions behind AI models. You need to understand how vectors represent samples, how matrices represent transformations, how probability expresses uncertainty, and how gradients guide model updates.
 
+## Terms Used in This Task Sheet
+
+| Term | Full name | What it means here |
+|---|---|---|
+| `ML` | Machine Learning | Use data to train a model that can make predictions or decisions |
+| `RAG` | Retrieval-Augmented Generation | Retrieve relevant documents first, then let a model answer with that context |
+| `LLM` | Large Language Model | A large text model such as GPT-style models that predicts and generates tokens |
+| `Notebook` | Jupyter Notebook | A file that mixes code, charts, notes, and outputs for learning experiments |
+
+If you are new, do not try to master all these engineering directions at once. Treat them as “where this math will be used later.”
+
 ## Required tasks for this stage
 
 | Task | Deliverable | Pass Criteria |
@@ -25,6 +36,18 @@ The goal of this stage is not to turn math into an exam subject, but to help you
 First learn vectors and matrices, then probability and statistics, and finally calculus and optimization. Do not start by pursuing rigorous proofs. In the first pass, focus on building intuition for “what these concepts do inside a model.”
 
 When learning math, it is recommended to pair each concept with a small experiment. For example, use vector similarity to explain retrieval, use probability distributions to explain classification confidence, and use gradient descent to explain why a model improves gradually.
+
+## Minimum Experiment Template
+
+Every math experiment in this stage can follow the same small structure:
+
+1. Write the concept in one sentence
+2. Create a tiny numeric example
+3. Draw one chart or print one comparison table
+4. Explain what changed and why
+5. Record one misunderstanding you avoided
+
+For example, a vector similarity experiment does not need to be large. Three text vectors, one cosine similarity table, and one short explanation are already enough for a first pass.
 
 ## Relationship to the AI Learning Assistant project
 

@@ -42,6 +42,17 @@ If the previous three sections were about “how vectors are represented, how ma
 
 So this lesson is more like a “deeper understanding and organization” lesson. You do not need to fully master it right away, but once you do understand it, you will better see why the earlier concepts make sense.
 
+### Acronyms and Notation to Decode Before Going Deeper
+
+| Term | Full name | Beginner-friendly meaning |
+|---|---|---|
+| `SVD` | Singular Value Decomposition | Split a matrix into directions, strengths, and reconstruction steps |
+| `PCA` | Principal Component Analysis | Find the most important directions in data and keep fewer dimensions |
+| `NLP` | Natural Language Processing | AI methods for text and language |
+| `LSA` | Latent Semantic Analysis | A classic text method that uses SVD to find hidden topic structure |
+| `V^T` / `Vt` | V transpose | Flip rows and columns of `V`; NumPy often names it `Vt` |
+| Low-rank approximation | Approximation with fewer effective dimensions | Keep only the most important singular values and drop weaker details |
+
 ## 1. Linear Independence — Vectors with "No Redundancy"
 
 ### 1.1 What is linear independence?
@@ -310,14 +321,18 @@ That is also why it becomes a foundational tool in many AI methods:
 - Because it is not only something you can compute
 - It is also very good for explaining structure
 
+![SVD intuition: directions, strengths, and reconstruction](/img/course/ch04-svd-intuition-vertical-en.png)
+
 SVD decomposes a matrix M into the product of three matrices:
 
-**M = U × S × V transpose**
+**M = U × S × V^T**
 
 Where:
 - U: left singular vectors (orthogonal matrix)
 - S: singular values (diagonal matrix, sorted from large to small)
-- V transpose: right singular vectors (orthogonal matrix)
+- V^T: V transpose, the transpose of the right singular vector matrix
+
+In NumPy, `np.linalg.svd()` returns `U, S, Vt`. Notice that `S` is returned as a one-dimensional list of singular values, so when reconstructing the matrix you usually write `np.diag(S)` to turn it into a diagonal matrix.
 
 ```python
 # SVD of an arbitrary matrix

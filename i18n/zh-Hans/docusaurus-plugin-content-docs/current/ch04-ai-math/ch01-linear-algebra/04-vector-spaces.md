@@ -42,6 +42,17 @@ keywords: [向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性
 
 所以这节课更像“加深理解的整理课”，不是必须第一时间全部吃透，但学懂之后，你会更知道前面那些概念为什么成立。
 
+### 先把这些缩写和记号看懂
+
+| 术语 | 英文全称 | 新人理解 |
+|---|---|---|
+| `SVD` | Singular Value Decomposition | 奇异值分解，把矩阵拆成方向、强弱和重构步骤 |
+| `PCA` | Principal Component Analysis | 主成分分析，找出数据中最重要的方向，并用更少维度表示 |
+| `NLP` | Natural Language Processing | 自然语言处理，处理文本和语言的 AI 方法 |
+| `LSA` | Latent Semantic Analysis | 潜在语义分析，用 SVD 寻找文本中的隐藏主题结构 |
+| `V^T` / `Vt` | V transpose | V 的转置，把 V 的行和列互换；NumPy 里常写作 `Vt` |
+| 低秩近似 | Low-rank approximation | 只保留最重要的奇异值，丢掉较弱细节，用更少信息近似原矩阵 |
+
 ## 一、线性无关——"不冗余"的向量
 
 ### 1.1 什么是线性无关？
@@ -310,14 +321,18 @@ print(f"[1, 0] → {result.round(3)}")  # ≈ [1.414, 1.414]
 - 因为它不只是“能算”
 - 还很适合拿来解释结构
 
+![SVD 直觉：方向、强弱和重构](/img/course/ch04-svd-intuition-vertical.png)
+
 SVD 把一个矩阵 M 分解为三个矩阵的乘积：
 
-**M = U × S × V 的转置**
+**M = U × S × V^T**
 
 其中：
 - U：左奇异向量（正交矩阵）
 - S：奇异值（对角矩阵，从大到小排列）
-- V 的转置：右奇异向量（正交矩阵）
+- V^T：V 的转置，也就是右奇异向量矩阵的转置
+
+在 NumPy 里，`np.linalg.svd()` 返回的是 `U, S, Vt`。注意 `S` 返回的是一维奇异值列表，所以重构矩阵时通常要写 `np.diag(S)`，先把它变成对角矩阵。
 
 ```python
 # 任意矩阵的 SVD
