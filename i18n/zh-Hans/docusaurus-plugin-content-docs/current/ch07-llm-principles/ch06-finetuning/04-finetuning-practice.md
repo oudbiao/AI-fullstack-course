@@ -82,6 +82,16 @@ keywords: [finetuning, sft, dataset formatting, training plan, validation, llmop
 
 别小看这个决定，它会直接影响你后面的数据清洗和模板格式。
 
+### 1.4 动训练脚本前，先理解几个术语
+
+| 术语 | 新人友好的解释 | 在这里为什么重要 |
+|---|---|---|
+| SFT | Supervised Fine-Tuning，监督微调，用高质量输入输出样本继续训练模型 | 这是本节主要讨论的微调方式 |
+| `messages` | 由 `system`、`user`、`assistant` 多个角色组成的聊天样本 | 它更贴近很多对话模型训练和服务时的格式 |
+| `prompt/completion` | 更简单的输入 prompt + 目标答案格式 | 适合单轮任务或一些旧数据格式 |
+| 验证集 | 不参与训练、专门用来检查效果的保留样本 | 用来估计模型是否真的泛化，而不是只记住训练样本 |
+| 数据泄漏 | 相同或同源样本同时出现在训练集和验证集 | 会让验证分数看起来比真实能力更好 |
+
 ---
 
 ## 二、训练前最容易被忽略的三件事
@@ -228,6 +238,12 @@ print(json.dumps(train_records[0], ensure_ascii=False, indent=2))
 - 工单
 - 产品线
 
+![微调工程闭环漫画](/img/course/ch07-finetuning-engineering-loop.png)
+
+:::tip 读图提示
+把这张图当成一条工程流水线，而不是一个“训练魔法按钮”：健康的微调项目先定义任务和 baseline，再准备无泄漏数据，训练时监控指标，上线时做灰度和回滚，最后把失败样本变成下一轮数据。
+:::
+
 ---
 
 ## 四、训练格式不只是“长得像对话”
@@ -271,6 +287,8 @@ print(build_loss_mask(messages))
 而是在帮你理解：
 
 > **训练时不是所有 token 都要一起算 loss。**
+
+在真实 SFT 管道里，tokenizer 会先把 messages 变成 token ID，训练器通常再构造 label mask。`system` 和 `user` token 是条件输入，告诉模型当前任务和上下文；`assistant` token 才是模型要学习的目标行为。assistant-only loss 的作用，就是让模型学习“怎样回答”，而不是把训练信号浪费在背用户问题上。
 
 ### 4.2 如果格式规则不稳定，模型会学到“脏模式”
 
@@ -378,6 +396,17 @@ print("best checkpoint =", best)
 - 通用训练指标
 - 业务指标
 
+### 5.3 容易读错的训练计划术语
+
+| 术语 | 含义 | 为什么影响项目 |
+|---|---|---|
+| Micro batch size | 单个设备一次小型前向/反向计算处理的样本数 | 主要受 GPU 显存限制 |
+| Gradient accumulation | 多个 micro batch 的梯度先累积，再做一次优化器更新 | 显存有限时，可以模拟更大的 batch |
+| Effective batch size | `micro_batch_size * gradient_accumulation * GPU 数量` | 会影响学习率选择和梯度稳定性 |
+| Warmup steps | 训练初期学习率逐步升高的步数 | 降低训练刚开始时的不稳定 |
+| Checkpoint | 某个训练步保存下来的模型状态 | 方便比较版本、继续训练或回滚 |
+| Canary traffic | 先把少量真实流量打到新模型上 | 全量发布前降低上线风险 |
+
 ---
 
 ## 六、训练中到底该盯什么？
@@ -419,6 +448,8 @@ print("best checkpoint =", best)
 - 训练轮数过多
 - 学习率过高
 - 样本风格太单一
+
+灾难性遗忘指的是：模型在狭窄微调任务上变好，但丢掉了一些原本会的通用能力。一个简单的检查方式是保留一小组“通用能力检查集”，例如摘要、推理、代码、安全边界样例，并在每个重要 checkpoint 后和任务验证集一起跑。
 
 ---
 

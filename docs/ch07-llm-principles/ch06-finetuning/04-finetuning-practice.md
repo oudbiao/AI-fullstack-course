@@ -82,6 +82,16 @@ so the most common unit is:
 
 Do not underestimate this decision. It will directly affect your later data cleaning and template format.
 
+### 1.4 Terms worth understanding before touching training scripts
+
+| Term | Beginner-friendly meaning | Why it matters here |
+|---|---|---|
+| SFT | Supervised Fine-Tuning: continue training with high-quality input-output examples | It is the main fine-tuning style used in this lesson |
+| `messages` | A chat-style sample made of `system`, `user`, and `assistant` turns | It matches how many chat models are trained and served |
+| `prompt/completion` | A simpler pair: input prompt plus target answer | Useful for single-turn tasks or older dataset formats |
+| Validation set | Held-out samples not used for training | It estimates whether the model generalizes beyond the training examples |
+| Leakage | Similar or same-source samples appearing in both train and validation sets | It makes validation scores look better than the real ability |
+
 ---
 
 ## 2. Three things that are easy to ignore before training
@@ -228,6 +238,12 @@ So the splitting unit should usually be as close as possible to the real general
 - Ticket
 - Product line
 
+![Fine-tuning engineering workflow comic](/img/course/ch07-finetuning-engineering-loop-en.png)
+
+:::tip How to read this workflow
+Read this as an engineering assembly line, not as a magic training button. A healthy fine-tuning project starts from task definition and baselines, then prepares leak-free data, trains with monitoring, deploys with canary and rollback, and turns failure cases into the next round of data.
+:::
+
 ---
 
 ## 4. Training format is not just “looks like a conversation”
@@ -271,6 +287,8 @@ This is not meant to reproduce a real tokenizer,
 but to help you understand:
 
 > **During training, not all tokens should contribute to the loss.**
+
+In a real SFT pipeline, the tokenizer turns messages into token IDs, and the trainer usually builds a label mask. Tokens from `system` and `user` tell the model what condition it is under; tokens from `assistant` are the target behavior to learn. This is why assistant-only loss helps the model learn how to answer, instead of wasting training signal on copying the user question.
 
 ### 4.2 If the formatting rules are unstable, the model will learn “dirty patterns”
 
@@ -378,6 +396,17 @@ you should usually consider at least:
 - General training metrics
 - Business metrics
 
+### 5.3 Training-plan terms that are easy to misread
+
+| Term | What it means | Why it affects the project |
+|---|---|---|
+| Micro batch size | Number of samples processed by one device in one small forward/backward pass | Limited by GPU memory |
+| Gradient accumulation | Accumulate gradients over several micro batches before one optimizer update | Lets you simulate a larger batch when memory is limited |
+| Effective batch size | `micro_batch_size * gradient_accumulation * num_gpus` | It affects learning-rate choice and gradient stability |
+| Warmup steps | Early steps where the learning rate gradually increases | Reduces instability at the beginning of training |
+| Checkpoint | A saved model state at a certain training step | Lets you compare versions, resume training, or roll back |
+| Canary traffic | Sending only a small portion of real traffic to the new model first | Reduces deployment risk before a full release |
+
 ---
 
 ## 6. What should you actually monitor during training?
@@ -419,6 +448,8 @@ This usually means:
 - Too many training epochs
 - Learning rate is too high
 - The sample style is too uniform
+
+Catastrophic forgetting means the model improves on the narrow fine-tuning task but loses some broad abilities it used to have. A simple way to catch it is to keep a small “general ability check set,” such as summarization, reasoning, coding, and safety examples, and run it together with the task validation set after each important checkpoint.
 
 ---
 
