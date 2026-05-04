@@ -22,6 +22,17 @@ Customer churn prediction is one of the **most classic business ML applications*
 | Evaluation metrics | F1, AUC, recall |
 | Skills involved | Imbalance handling, Pipeline, business analysis |
 
+## Key Terms Before You Read the Code
+
+- **Recall** asks: among customers who really churned, how many did we catch? It matters when missing a churn customer is expensive.
+- **Precision** asks: among customers we flagged as high-risk, how many truly churned? It matters when retention actions are costly.
+- **F1** is the harmonic mean of precision and recall. It is useful when you need one balanced number, but it hides the business trade-off.
+- **ROC (Receiver Operating Characteristic)** shows how recall changes as the false-positive rate changes across thresholds.
+- **AUC (Area Under the Curve)** summarizes the ROC curve into one number. A higher AUC means the model ranks churn customers ahead of retained customers more reliably.
+- **SMOTE (Synthetic Minority Over-sampling Technique)** creates synthetic minority-class samples. It can help imbalanced data, but it must be applied only inside the training split or cross-validation fold.
+- **`class_weight`** tells the model to penalize minority-class mistakes more heavily without creating synthetic samples.
+- **Threshold** is the probability cutoff for predicting churn. Moving it lower usually increases recall but also increases false alarms.
+
 ## First, let’s set an important learning expectation
 
 This problem is very easy for beginners to fall into “model comparison” right away:

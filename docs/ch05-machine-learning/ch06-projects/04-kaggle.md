@@ -19,6 +19,14 @@ Kaggle is the world’s largest data science competition platform. By joining a 
 - Learn how to participate in a beginner-level competition (Titanic)
 - Learn techniques from high-quality Notebooks
 
+## Key Terms Before You Read the Code
+
+- **Notebook** means an online or local interactive document, usually Jupyter-style, where text, code, output, and charts are written together.
+- **Leaderboard** is Kaggle’s public ranking table. It is useful feedback, but overusing it can make you overfit the public test set.
+- **Submission file** is the CSV file you upload for scoring. Its column names and row order must match the competition rules exactly.
+- **Public score vs. local validation**: the public score comes from Kaggle’s hidden labels, while local validation comes from your own split. If they disagree, your validation setup may be unreliable.
+- **Baseline** is the first simple model used as a comparison point. Without a baseline, you cannot tell whether later changes truly improved the project.
+
 ---
 
 ## First, Build a Map

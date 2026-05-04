@@ -22,6 +22,17 @@ keywords: [房价预测, 回归, EDA, 特征工程, XGBoost, 模型融合, Kaggl
 | 评估指标 | RMSE、R² |
 | 涉及技能 | EDA、特征工程、多模型对比、调参 |
 
+## 读代码前先认识几个关键术语
+
+- **EDA（Exploratory Data Analysis，探索性数据分析）**：建模前先看分布、缺失值、异常值和相关性。本项目里，EDA 帮你先知道自己到底在预测什么样的房价分布。
+- **RMSE（Root Mean Squared Error，均方根误差）**：衡量平均预测误差，单位和目标值一致。越小越好，并且会更重地惩罚大错误。
+- **R²（决定系数）**：衡量模型解释了多少目标值波动。越接近 1 越好，但要和 RMSE 一起看，不能只看一个数字。
+- **GBDT（Gradient Boosting Decision Tree，梯度提升决策树）**：一种树模型集成方法，会一棵接一棵训练小树，让后面的树去修正前面模型的错误。
+
+:::note 运行提示
+`fetch_california_housing()` 第一次运行时可能会下载数据，之后会缓存到本地。如果你的环境不能联网，可以先在有网络的环境运行一次，或者换成结构类似的本地房价 CSV。
+:::
+
 ---
 
 ## 先建立一张地图
@@ -104,7 +115,7 @@ from sklearn.datasets import fetch_california_housing
 # 加载数据
 data = fetch_california_housing()
 df = pd.DataFrame(data.data, columns=data.feature_names)
-df['MedHouseVal'] = data.target  # 房价中位数（万美元）
+df['MedHouseVal'] = data.target  # 房价中位数（10 万美元）
 
 print(f"数据形状: {df.shape}")
 print(df.describe())
@@ -113,7 +124,7 @@ print(df.describe())
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 df['MedHouseVal'].hist(bins=50, ax=axes[0], color='steelblue', edgecolor='white')
 axes[0].set_title('房价分布')
-axes[0].set_xlabel('房价中位数（万美元）')
+axes[0].set_xlabel('房价中位数（10 万美元）')
 
 # 相关性
 corr = df.corr()['MedHouseVal'].drop('MedHouseVal').sort_values()

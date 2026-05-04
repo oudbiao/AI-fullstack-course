@@ -22,6 +22,15 @@ User segmentation is the **most common business application of unsupervised lear
 | Evaluation metric | Silhouette score |
 | Skills involved | Feature engineering, standardization, dimensionality reduction, clustering, business interpretation |
 
+## Key Terms Before You Read the Code
+
+- **RFM (Recency, Frequency, Monetary)** is a customer-value framework: how recently a customer purchased, how often they purchased, and how much they spent.
+- **K-Means** is a clustering algorithm that groups samples by distance to cluster centers. It is simple and fast, but it needs you to choose `K`, the number of groups.
+- **K** means the number of clusters. In business segmentation, `K` should be chosen by both metrics and whether the groups can be explained.
+- **Standardization** puts features onto comparable scales. Without it, `monetary` may dominate `recency` and `frequency` simply because the number is larger.
+- **PCA (Principal Component Analysis)** compresses high-dimensional features into fewer axes for visualization. It helps you draw the groups, but it does not replace business interpretation.
+- **Silhouette score** measures whether samples are closer to their own group than to other groups. Higher is usually better, but a business-useless cluster is still not a good cluster.
+
 ## First, let’s set a very important learning expectation
 
 The easiest trap for beginners in this question is not that clustering won’t run, but that the project can easily turn into something like this:

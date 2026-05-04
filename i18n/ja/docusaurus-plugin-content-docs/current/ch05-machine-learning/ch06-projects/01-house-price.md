@@ -22,6 +22,17 @@ keywords: [住宅価格予測, 回帰, EDA, 特徴量エンジニアリング, X
 | 評価指標 | RMSE、R² |
 | 関連スキル | EDA、特徴量エンジニアリング、複数モデル比較、チューニング |
 
+## コードを読む前に押さえる用語
+
+- **EDA（Exploratory Data Analysis、探索的データ分析）**：モデルを作る前に、分布、欠損値、外れ値、相関を見ることです。このプロジェクトでは、まずどんな住宅価格分布を予測するのかを理解します。
+- **RMSE（Root Mean Squared Error、二乗平均平方根誤差）**：平均的な予測誤差を、目的変数と同じ単位で表します。小さいほどよく、大きな誤差をより強く罰します。
+- **R²（決定係数）**：モデルが目的変数のばらつきをどれくらい説明できているかを表します。1 に近いほど良いですが、RMSE と一緒に見る必要があります。
+- **GBDT（Gradient Boosting Decision Tree、勾配ブースティング決定木）**：複数の小さな決定木を順番に学習し、後の木が前の木の誤りを補正していくアンサンブル手法です。
+
+:::note 実行時の注意
+`fetch_california_housing()` は、初回実行時にデータセットをダウンロードし、その後ローカルにキャッシュすることがあります。オフライン環境では、先にネットワークのある環境で一度実行するか、似た構造のローカル CSV に置き換えてください。
+:::
+
 ---
 
 ## まずは全体像をつかもう
@@ -104,7 +115,7 @@ from sklearn.datasets import fetch_california_housing
 # データを読み込む
 data = fetch_california_housing()
 df = pd.DataFrame(data.data, columns=data.feature_names)
-df['MedHouseVal'] = data.target  # 住宅価格の中央値（1万ドル単位）
+df['MedHouseVal'] = data.target  # 住宅価格の中央値（10万ドル単位）
 
 print(f"データ形状: {df.shape}")
 print(df.describe())
@@ -113,7 +124,7 @@ print(df.describe())
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 df['MedHouseVal'].hist(bins=50, ax=axes[0], color='steelblue', edgecolor='white')
 axes[0].set_title('住宅価格の分布')
-axes[0].set_xlabel('住宅価格の中央値（1万ドル単位）')
+axes[0].set_xlabel('住宅価格の中央値（10万ドル単位）')
 
 # 相関
 corr = df.corr()['MedHouseVal'].drop('MedHouseVal').sort_values()

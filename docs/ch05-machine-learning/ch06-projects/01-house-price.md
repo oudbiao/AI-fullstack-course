@@ -22,6 +22,17 @@ This is your **first complete ML regression project**. You will go through the f
 | Evaluation metrics | RMSE, R² |
 | Skills involved | EDA, feature engineering, multi-model comparison, tuning |
 
+## Key Terms Before You Read the Code
+
+- **EDA (Exploratory Data Analysis)** means looking at distributions, missing values, outliers, and correlations before modeling. In this project, EDA tells us what kind of price distribution we are trying to predict.
+- **RMSE (Root Mean Squared Error)** measures the average prediction error in the same unit as the target. Smaller is better, and large mistakes are punished more heavily.
+- **R² (coefficient of determination)** tells us how much variation in the target the model explains. Closer to 1 is better, but it should always be read together with RMSE.
+- **GBDT (Gradient Boosting Decision Tree)** is a tree-based ensemble method that builds many small trees one after another, with each new tree trying to fix previous errors.
+
+:::note Running note
+`fetch_california_housing()` may download the dataset the first time you run it, then cache it locally. If your environment is offline, run this once with network access first, or replace it with a local CSV that has similar numeric housing features.
+:::
+
 ---
 
 ## First, Build a Map
