@@ -98,16 +98,42 @@ importance = model.feature_importances_
 特征选择最容易犯的错是只看“选出来的特征看起来合理”，却不验证模型是否更稳。正确做法是比较 baseline 和选择后的模型。
 
 ```python
+from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import roc_auc_score
+from sklearn.feature_selection import SelectKBest, f_classif
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
+cancer = load_breast_cancer(as_frame=True)
+X = cancer.data
+y = cancer.target
+
+X_train, X_val, y_train, y_val = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+baseline_model = Pipeline([
+    ("scaler", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=5000)),
+])
 baseline_model.fit(X_train, y_train)
 baseline_auc = roc_auc_score(y_val, baseline_model.predict_proba(X_val)[:, 1])
 
-selected_model.fit(X_train_selected, y_train)
-selected_auc = roc_auc_score(y_val, selected_model.predict_proba(X_val_selected)[:, 1])
+selected_model = Pipeline([
+    ("selector", SelectKBest(score_func=f_classif, k=10)),
+    ("scaler", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=5000)),
+])
+selected_model.fit(X_train, y_train)
+selected_auc = roc_auc_score(y_val, selected_model.predict_proba(X_val)[:, 1])
 
-print("baseline", baseline_auc)
-print("selected", selected_auc)
+selected_names = X.columns[selected_model.named_steps["selector"].get_support()].tolist()
+
+print(f"Baseline AUC: {baseline_auc:.4f}")
+print(f"Selected-feature AUC: {selected_auc:.4f}")
+print("Selected features:", selected_names)
 ```
 
 如果特征变少后效果差不多，但训练更快、解释更清楚、上线依赖更少，那也可能是更好的方案。

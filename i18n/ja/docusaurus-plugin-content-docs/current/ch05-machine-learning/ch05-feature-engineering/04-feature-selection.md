@@ -98,16 +98,42 @@ importance = model.feature_importances_
 特徴選択で最も起こりやすいミスは、「選んだ特徴がそれらしく見える」ことだけを見て、モデルが本当に安定して良くなったかを検証しないことです。正しいやり方は、baseline と特徴選択後のモデルを比較することです。
 
 ```python
+from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import roc_auc_score
+from sklearn.feature_selection import SelectKBest, f_classif
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
+cancer = load_breast_cancer(as_frame=True)
+X = cancer.data
+y = cancer.target
+
+X_train, X_val, y_train, y_val = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+baseline_model = Pipeline([
+    ("scaler", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=5000)),
+])
 baseline_model.fit(X_train, y_train)
 baseline_auc = roc_auc_score(y_val, baseline_model.predict_proba(X_val)[:, 1])
 
-selected_model.fit(X_train_selected, y_train)
-selected_auc = roc_auc_score(y_val, selected_model.predict_proba(X_val_selected)[:, 1])
+selected_model = Pipeline([
+    ("selector", SelectKBest(score_func=f_classif, k=10)),
+    ("scaler", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=5000)),
+])
+selected_model.fit(X_train, y_train)
+selected_auc = roc_auc_score(y_val, selected_model.predict_proba(X_val)[:, 1])
 
-print("baseline", baseline_auc)
-print("selected", selected_auc)
+selected_names = X.columns[selected_model.named_steps["selector"].get_support()].tolist()
+
+print(f"Baseline AUC: {baseline_auc:.4f}")
+print(f"Selected-feature AUC: {selected_auc:.4f}")
+print("Selected features:", selected_names)
 ```
 
 特徴が少なくなっても性能がほぼ同じで、学習が速くなり、説明しやすくなり、本番での依存も減るなら、それはより良い案である可能性があります。

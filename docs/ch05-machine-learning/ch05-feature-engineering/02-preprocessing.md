@@ -35,6 +35,31 @@ flowchart LR
 
 This diagram shows a common order, not a fixed workflow. For example, tree models usually do not rely heavily on standardization, while linear models, KNN, SVM, and neural networks usually need scaling more.
 
+## Reusable Setup for the Examples Below
+
+To make the code blocks below runnable on their own, we will use one tiny mixed-type sample dataset. It includes missing values, numeric columns, and categorical columns.
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+df = pd.DataFrame({
+    "age": [25, np.nan, 39, 51, 45, np.nan, 33, 60],
+    "income": [50000, 62000, np.nan, 120000, 85000, 76000, 54000, 200000],
+    "amount": [80, 95, 120, 10000, 110, 130, 70, 150],
+    "city": ["A", "B", "A", "C", None, "B", "D", "A"],
+    "gender": ["F", "M", "F", "M", "F", None, "M", "F"],
+    "target": [0, 1, 0, 1, 0, 1, 0, 1],
+})
+
+X = df[["age", "income", "amount", "city", "gender"]]
+y = df["target"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+```
+
 ## 1. Missing Value Handling
 
 Missing values are sometimes dirty data, and sometimes a signal in themselves. For example, “the user did not fill in company” may mean an ordinary individual user; “a health metric is missing” may just be a system entry issue. Before handling missing values, ask first: why is it missing?
@@ -78,9 +103,11 @@ Standardization solves the problem of large differences in feature scale. For ex
 ```python
 from sklearn.preprocessing import StandardScaler
 
+numeric_cols = ["age", "income", "amount"]
 scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+X_train_scaled = scaler.fit_transform(X_train[numeric_cols])
+X_test_scaled = scaler.transform(X_test[numeric_cols])
+print(X_train_scaled[:2])
 ```
 
 Note that you should only `fit` on the training set, then `transform` the test set. If you fit the scaler on all the data, you leak test-set information into the training process.
@@ -95,6 +122,7 @@ from sklearn.preprocessing import OneHotEncoder
 encoder = OneHotEncoder(handle_unknown="ignore")
 X_train_cat = encoder.fit_transform(X_train[["city"]])
 X_test_cat = encoder.transform(X_test[["city"]])
+print(X_train_cat.shape, X_test_cat.shape)
 ```
 
 Ordered categories can be encoded with Ordinal Encoding, such as education level or clothing size categories like small, medium, and large. But do not casually map unordered categories to 0, 1, 2, or the model may think there is an order relationship between them.
@@ -112,7 +140,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
 
-num_features = ["age", "income"]
+num_features = ["age", "income", "amount"]
 cat_features = ["city", "gender"]
 
 preprocess = ColumnTransformer([
@@ -132,6 +160,7 @@ model = Pipeline([
 ])
 
 model.fit(X_train, y_train)
+print(model.score(X_test, y_test))
 ```
 
 ## Common Mistakes

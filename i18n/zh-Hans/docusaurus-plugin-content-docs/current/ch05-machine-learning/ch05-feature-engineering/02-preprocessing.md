@@ -35,6 +35,31 @@ flowchart LR
 
 这张图只是常见顺序，不是死流程。比如树模型通常不强依赖标准化，而线性模型、KNN、SVM、神经网络通常更需要缩放。
 
+## 给下面示例准备一份可直接运行的数据
+
+为了让后面的代码块能单独运行，我们先准备一份很小的混合类型样本数据。它同时包含缺失值、数值列和类别列。
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+df = pd.DataFrame({
+    "age": [25, np.nan, 39, 51, 45, np.nan, 33, 60],
+    "income": [50000, 62000, np.nan, 120000, 85000, 76000, 54000, 200000],
+    "amount": [80, 95, 120, 10000, 110, 130, 70, 150],
+    "city": ["A", "B", "A", "C", None, "B", "D", "A"],
+    "gender": ["F", "M", "F", "M", "F", None, "M", "F"],
+    "target": [0, 1, 0, 1, 0, 1, 0, 1],
+})
+
+X = df[["age", "income", "amount", "city", "gender"]]
+y = df["target"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+```
+
 ## 一、缺失值处理
 
 缺失值有时是脏数据，有时本身就是信号。比如“用户没有填写公司”可能代表普通个人用户；“体检指标缺失”可能只是系统录入问题。处理前要先问：为什么缺失。
@@ -78,9 +103,11 @@ print(outliers.head())
 ```python
 from sklearn.preprocessing import StandardScaler
 
+numeric_cols = ["age", "income", "amount"]
 scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+X_train_scaled = scaler.fit_transform(X_train[numeric_cols])
+X_test_scaled = scaler.transform(X_test[numeric_cols])
+print(X_train_scaled[:2])
 ```
 
 注意只能在训练集上 `fit`，再对测试集 `transform`。如果你在全量数据上 fit scaler，就把测试集信息泄漏进训练过程了。
@@ -95,6 +122,7 @@ from sklearn.preprocessing import OneHotEncoder
 encoder = OneHotEncoder(handle_unknown="ignore")
 X_train_cat = encoder.fit_transform(X_train[["city"]])
 X_test_cat = encoder.transform(X_test[["city"]])
+print(X_train_cat.shape, X_test_cat.shape)
 ```
 
 有序类别可以用 Ordinal Encoding，例如学历、小中大尺码。但不要把无序类别随便编码成 0、1、2，否则模型可能误以为类别之间有大小关系。
@@ -112,7 +140,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
 
-num_features = ["age", "income"]
+num_features = ["age", "income", "amount"]
 cat_features = ["city", "gender"]
 
 preprocess = ColumnTransformer([
@@ -132,6 +160,7 @@ model = Pipeline([
 ])
 
 model.fit(X_train, y_train)
+print(model.score(X_test, y_test))
 ```
 
 ## 常见误区

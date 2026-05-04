@@ -98,16 +98,42 @@ Note that feature importance is not absolute truth. Different models, different 
 The easiest mistake in feature selection is to only look at whether the selected features “seem reasonable,” without verifying whether the model is actually more stable. The correct approach is to compare the baseline model with the model after feature selection.
 
 ```python
+from sklearn.datasets import load_breast_cancer
 from sklearn.metrics import roc_auc_score
+from sklearn.feature_selection import SelectKBest, f_classif
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
+cancer = load_breast_cancer(as_frame=True)
+X = cancer.data
+y = cancer.target
+
+X_train, X_val, y_train, y_val = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+
+baseline_model = Pipeline([
+    ("scaler", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=5000)),
+])
 baseline_model.fit(X_train, y_train)
 baseline_auc = roc_auc_score(y_val, baseline_model.predict_proba(X_val)[:, 1])
 
-selected_model.fit(X_train_selected, y_train)
-selected_auc = roc_auc_score(y_val, selected_model.predict_proba(X_val_selected)[:, 1])
+selected_model = Pipeline([
+    ("selector", SelectKBest(score_func=f_classif, k=10)),
+    ("scaler", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=5000)),
+])
+selected_model.fit(X_train, y_train)
+selected_auc = roc_auc_score(y_val, selected_model.predict_proba(X_val)[:, 1])
 
-print("baseline", baseline_auc)
-print("selected", selected_auc)
+selected_names = X.columns[selected_model.named_steps["selector"].get_support()].tolist()
+
+print(f"Baseline AUC: {baseline_auc:.4f}")
+print(f"Selected-feature AUC: {selected_auc:.4f}")
+print("Selected features:", selected_names)
 ```
 
 If fewer features produce similar performance but faster training, clearer interpretation, and fewer production dependencies, that may be the better solution.

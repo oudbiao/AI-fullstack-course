@@ -250,7 +250,7 @@ These features often look more like decision variables than the raw fields thems
 
 ---
 
-## 6. Don’t Forget These Three Things After Feature Construction
+## 5. Don’t Forget These Three Things After Feature Construction
 
 1. Check whether the dimensionality has exploded
 2. Check whether cross-validation scores actually improved
@@ -268,7 +268,7 @@ When you build features for the first time, the safest checklist is usually:
 If you cannot answer these four questions clearly,
 the feature usually is not worth keeping right away.
 
-## 7. If You Put This Section Into a Project, What Is Most Worth Showing?
+## 6. If You Put This Section Into a Project, What Is Most Worth Showing?
 
 - A comparison between the raw features and the new features
 - Why the new features make business sense

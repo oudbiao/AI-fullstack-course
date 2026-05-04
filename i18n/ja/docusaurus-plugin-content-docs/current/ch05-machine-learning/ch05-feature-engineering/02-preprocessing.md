@@ -35,6 +35,31 @@ flowchart LR
 
 この図はあくまでよくある順番であって、固定の手順ではありません。たとえば木系モデルは通常、標準化にあまり依存しませんが、線形モデル、KNN、SVM、ニューラルネットワークはスケーリングがより重要になることが多いです。
 
+## ここからの例をそのまま実行できるように準備する
+
+後半のコードを単独で動かせるように、まずは小さな混合型データセットを用意します。欠損値、数値列、カテゴリ列がすべて入っています。
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+df = pd.DataFrame({
+    "age": [25, np.nan, 39, 51, 45, np.nan, 33, 60],
+    "income": [50000, 62000, np.nan, 120000, 85000, 76000, 54000, 200000],
+    "amount": [80, 95, 120, 10000, 110, 130, 70, 150],
+    "city": ["A", "B", "A", "C", None, "B", "D", "A"],
+    "gender": ["F", "M", "F", "M", "F", None, "M", "F"],
+    "target": [0, 1, 0, 1, 0, 1, 0, 1],
+})
+
+X = df[["age", "income", "amount", "city", "gender"]]
+y = df["target"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+```
+
 ## 一、欠損値処理
 
 欠損値は、汚れたデータである場合もあれば、それ自体が情報になっている場合もあります。たとえば「ユーザーが会社名を入力していない」ことは一般個人ユーザーを意味するかもしれませんし、「健診項目が欠けている」ことは単なるシステム入力ミスかもしれません。処理する前に、まず「なぜ欠損しているのか」を考えましょう。
@@ -78,9 +103,11 @@ print(outliers.head())
 ```python
 from sklearn.preprocessing import StandardScaler
 
+numeric_cols = ["age", "income", "amount"]
 scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+X_train_scaled = scaler.fit_transform(X_train[numeric_cols])
+X_test_scaled = scaler.transform(X_test[numeric_cols])
+print(X_train_scaled[:2])
 ```
 
 注意: `fit` は必ず訓練集だけで行い、そのあとでテスト集に `transform` します。全データで scaler を `fit` すると、テスト集の情報が学習に漏れてしまいます。
@@ -95,6 +122,7 @@ from sklearn.preprocessing import OneHotEncoder
 encoder = OneHotEncoder(handle_unknown="ignore")
 X_train_cat = encoder.fit_transform(X_train[["city"]])
 X_test_cat = encoder.transform(X_test[["city"]])
+print(X_train_cat.shape, X_test_cat.shape)
 ```
 
 順序があるカテゴリには Ordinal Encoding が使えます。たとえば学歴や S / M / L のサイズです。ただし、順序のないカテゴリを適当に 0、1、2 に変換してはいけません。モデルが「数値が大きいほど上位」と誤解する可能性があります。
@@ -112,7 +140,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
 
-num_features = ["age", "income"]
+num_features = ["age", "income", "amount"]
 cat_features = ["city", "gender"]
 
 preprocess = ColumnTransformer([
@@ -132,6 +160,7 @@ model = Pipeline([
 ])
 
 model.fit(X_train, y_train)
+print(model.score(X_test, y_test))
 ```
 
 ## よくある間違い
