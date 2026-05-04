@@ -29,6 +29,25 @@ In the fourth round, study model evaluation and selection. Metrics, cross-valida
 
 In the fifth round, study feature engineering and projects. In many tabular data projects, feature processing matters more than switching models.
 
+## Modeling-term translator for beginners
+
+When machine learning terms start to feel like a vocabulary test, translate them into project actions first:
+
+| Term | First intuition | What you should do in code or reports |
+|---|---|---|
+| Feature | The input column the model can look at | Decide whether it is numeric, categorical, time-based, or text |
+| Label / target | The answer the model should learn to predict | Keep it separate from the features and avoid leakage |
+| Baseline | The simplest model or rule to beat | Train it first before chasing complex models |
+| Metric | The ruler used to judge the model | Choose accuracy, F1, AUC, MAE, RMSE, or silhouette based on the task |
+| Train / validation / test | Learn, choose, and final-check data splits | Never let test-set information leak into preprocessing |
+| Overfitting | The model memorizes training data too much | Compare train and test scores, simplify or regularize |
+| Underfitting | The model is too weak to learn the pattern | Add useful features or try a more expressive model |
+| Cross-validation | Repeatedly test on different splits | Use it when one split may be unstable |
+| Pipeline | Preprocessing and model packaged together | Prevent leakage and make experiments reproducible |
+| Hyperparameter | A human-chosen setting before training | Tune it with validation or cross-validation, not the test set |
+
+If you can explain these terms as project actions, you are no longer only learning APIs; you are learning how to run a modeling investigation.
+
 ## Suggested Learning Pace
 
 | Content Type | Suggested Time | Learning Goal |

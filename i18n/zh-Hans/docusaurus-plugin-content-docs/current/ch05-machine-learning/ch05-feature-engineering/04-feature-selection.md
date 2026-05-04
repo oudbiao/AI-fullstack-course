@@ -59,6 +59,8 @@ selected_cols = X_train.columns[selector.get_support()]
 print(selected_cols)
 ```
 
+如果你想公平地评估特征选择，不要先在全量数据上 `fit`。应该把它放进交叉验证流程或 `Pipeline` 里，让每一折都只基于自己的训练子集来选特征。
+
 过滤法速度快，适合初筛；缺点是容易忽略特征之间的组合效果。
 
 ## 三、包裹法：用模型效果反复试

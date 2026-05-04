@@ -89,15 +89,15 @@ flowchart TD
 import numpy as np
 
 # 模拟：3 个准确率 70% 的独立模型
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 10000
-true_labels = np.random.randint(0, 2, n)
+true_labels = rng.integers(0, 2, n)
 
 # 每个模型独立预测
 accs = []
 for _ in range(3):
     # 70% 概率正确
-    correct = np.random.random(n) < 0.7
+    correct = rng.random(n) < 0.7
     pred = np.where(correct, true_labels, 1 - true_labels)
     accs.append(pred)
 
@@ -180,12 +180,12 @@ flowchart LR
 
 ```python
 # 自助采样（Bootstrap）的直觉
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 data = np.arange(1, 11)  # 原始数据: [1, 2, ..., 10]
 
 print("原始数据:", data)
 for i in range(3):
-    sample = np.random.choice(data, size=len(data), replace=True)
+    sample = rng.choice(data, size=len(data), replace=True)
     print(f"自助样本 {i+1}: {sorted(sample)}")
     # 注意：有些数据重复了，有些没被选中
 ```
@@ -385,9 +385,9 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.tree import DecisionTreeRegressor
 
 # 用回归问题直观理解"拟合残差"
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 X_demo = np.linspace(0, 10, 100).reshape(-1, 1)
-y_demo = np.sin(X_demo.ravel()) + np.random.randn(100) * 0.2
+y_demo = np.sin(X_demo.ravel()) + rng.normal(size=100) * 0.2
 
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
 

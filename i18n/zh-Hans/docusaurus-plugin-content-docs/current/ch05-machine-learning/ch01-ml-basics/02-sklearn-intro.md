@@ -82,7 +82,7 @@ flowchart TD
 ### 1.2 安装
 
 ```bash
-pip install scikit-learn
+python -m pip install --upgrade scikit-learn
 ```
 
 ```python

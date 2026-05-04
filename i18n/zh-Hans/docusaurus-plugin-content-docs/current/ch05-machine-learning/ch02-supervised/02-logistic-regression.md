@@ -282,7 +282,6 @@ plt.show()
 
 ```python
 # 用梯度下降从零实现逻辑回归
-np.random.seed(42)
 
 # 生成简单数据
 from sklearn.datasets import make_classification

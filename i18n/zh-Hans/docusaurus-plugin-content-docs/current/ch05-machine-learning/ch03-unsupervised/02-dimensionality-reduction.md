@@ -413,11 +413,11 @@ UMAP（Uniform Manifold Approximation and Projection）是比 t-SNE 更快、更
 ### 4.2 UMAP 实战
 
 ```bash
-pip install umap-learn
+python -m pip install --upgrade umap-learn
 ```
 
 ```python
-# UMAP 需要安装: pip install umap-learn
+# UMAP 需要安装: python -m pip install --upgrade umap-learn
 try:
     import umap
 
@@ -444,7 +444,7 @@ try:
     plt.show()
 
 except ImportError:
-    print("请先安装 umap-learn: pip install umap-learn")
+    print("请先安装 umap-learn: python -m pip install --upgrade umap-learn")
 ```
 
 ### 4.3 UMAP 参数

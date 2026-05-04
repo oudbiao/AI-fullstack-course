@@ -288,7 +288,6 @@ plt.show()
 
 ```python
 # 勾配降下法でロジスティック回帰をゼロから実装する
-np.random.seed(42)
 
 # シンプルなデータを生成
 from sklearn.datasets import make_classification

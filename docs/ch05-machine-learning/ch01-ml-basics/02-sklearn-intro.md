@@ -82,7 +82,7 @@ The most important thing is not “having many algorithms,” but:
 ### 1.2 Installation
 
 ```bash
-pip install scikit-learn
+python -m pip install --upgrade scikit-learn
 ```
 
 ```python

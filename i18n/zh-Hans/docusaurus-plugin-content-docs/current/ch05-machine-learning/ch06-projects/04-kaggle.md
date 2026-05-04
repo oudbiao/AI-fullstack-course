@@ -177,7 +177,7 @@ for name, model in models.items():
 | 超参数调优 | GridSearch / Optuna | 小幅 |
 | 模型融合 | Stacking / Blending | 小幅但稳定 |
 
-### 3.3 Kaggle 最容易让新人踩的坑
+### 3.2 Kaggle 最容易让新人踩的坑
 
 - 在公开榜单上反复试，结果过拟合排行榜
 - 没有本地交叉验证，只盯线上分数
@@ -190,7 +190,7 @@ for name, model in models.items():
 - 每次只改一个主要因素
 - 把每次提交都做成一条实验记录
 
-### 3.2 学习优秀 Notebook
+### 3.3 学习优秀 Notebook
 
 | 看什么 | 为什么 |
 |--------|--------|

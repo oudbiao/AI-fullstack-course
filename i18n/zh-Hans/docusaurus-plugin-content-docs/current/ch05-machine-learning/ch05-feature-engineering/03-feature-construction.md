@@ -222,12 +222,12 @@ print(df_small)
 
 ```python
 # 房价数据的领域特征示例
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 house = pd.DataFrame({
-    'area': np.random.uniform(50, 200, 100),
-    'rooms': np.random.randint(1, 6, 100),
-    'floor': np.random.randint(1, 30, 100),
-    'age': np.random.randint(0, 30, 100),
+    'area': rng.uniform(50, 200, 100),
+    'rooms': rng.integers(1, 6, 100),
+    'floor': rng.integers(1, 30, 100),
+    'age': rng.integers(0, 30, 100),
 })
 
 # 领域特征

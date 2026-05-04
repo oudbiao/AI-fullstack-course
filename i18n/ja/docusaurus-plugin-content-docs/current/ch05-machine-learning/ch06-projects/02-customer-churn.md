@@ -189,7 +189,7 @@ print(f"AUC: {roc_auc_score(y_test, rf_weighted.predict_proba(X_test)[:,1]):.4f}
 ### SMOTE によるオーバーサンプリング
 
 ```python
-# pip install imbalanced-learn
+# python -m pip install --upgrade imbalanced-learn
 try:
     from imblearn.over_sampling import SMOTE
     from imblearn.pipeline import Pipeline as ImbPipeline
@@ -204,7 +204,7 @@ try:
     print("\nSMOTE + ランダムフォレスト:")
     print(classification_report(y_test, y_pred_smote, target_names=['継続', '離脱']))
 except ImportError:
-    print("imbalanced-learn をインストールしてください: pip install imbalanced-learn")
+    print("imbalanced-learn をインストールしてください: python -m pip install --upgrade imbalanced-learn")
 ```
 
 ---

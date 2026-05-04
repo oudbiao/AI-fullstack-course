@@ -66,9 +66,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 模拟数据：面积 → 价格
-np.random.seed(42)
-X = np.random.uniform(50, 200, 30)    # 面积（平方米）
-y = 2.5 * X + 50 + np.random.randn(30) * 30  # 价格（万元）
+rng = np.random.default_rng(seed=42)
+X = rng.uniform(50, 200, 30)    # 面积（平方米）
+y = 2.5 * X + 50 + rng.normal(size=30) * 30  # 价格（万元）
 
 plt.figure(figsize=(8, 5))
 plt.scatter(X, y, color='steelblue', s=50, alpha=0.7)
@@ -273,7 +273,6 @@ MSE 对 w 和 b 的梯度：
 
 ```python
 # 梯度下降求解线性回归
-np.random.seed(42)
 
 # 参数初始化
 w_gd = 0.0
@@ -369,13 +368,13 @@ from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd
 
 # 模拟多特征房价数据
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
 data = pd.DataFrame({
-    '面积': np.random.uniform(50, 200, n),
-    '房间数': np.random.randint(1, 6, n),
-    '楼层': np.random.randint(1, 30, n),
-    '距地铁(km)': np.random.uniform(0.1, 5, n),
+    '面积': rng.uniform(50, 200, n),
+    '房间数': rng.integers(1, 6, n),
+    '楼层': rng.integers(1, 30, n),
+    '距地铁(km)': rng.uniform(0.1, 5, n),
 })
 # 真实关系 + 噪声
 data['价格'] = (2.5 * data['面积']
@@ -383,7 +382,7 @@ data['价格'] = (2.5 * data['面积']
                + 2 * data['楼层']
                - 20 * data['距地铁(km)']
                + 50
-               + np.random.randn(n) * 30)
+               + rng.normal(size=n) * 30)
 
 print(data.head())
 print(f"\n数据形状: {data.shape}")
@@ -448,9 +447,9 @@ plt.show()
 
 ```python
 # 生成非线性数据
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 X_nl = np.linspace(-3, 3, 50)
-y_nl = 0.5 * X_nl**2 - X_nl + 2 + np.random.randn(50) * 0.8
+y_nl = 0.5 * X_nl**2 - X_nl + 2 + rng.normal(size=50) * 0.8
 
 # 线性回归强行拟合
 lr = LinearRegression()

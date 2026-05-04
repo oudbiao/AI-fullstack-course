@@ -413,11 +413,11 @@ UMAP (Uniform Manifold Approximation and Projection) is a dimensionality reducti
 ### 4.2 UMAP in practice
 
 ```bash
-pip install umap-learn
+python -m pip install --upgrade umap-learn
 ```
 
 ```python
-# UMAP requires installation: pip install umap-learn
+# UMAP requires installation: python -m pip install --upgrade umap-learn
 try:
     import umap
 
@@ -444,7 +444,7 @@ try:
     plt.show()
 
 except ImportError:
-    print("Please install umap-learn first: pip install umap-learn")
+    print("Please install umap-learn first: python -m pip install --upgrade umap-learn")
 ```
 
 ### 4.3 UMAP parameters
@@ -491,7 +491,7 @@ This order is the safest because it starts with the easiest method to explain.
 
 ---
 
-## 7. The safest default order when putting dimensionality reduction into a project for the first time
+## 6. The safest default order when putting dimensionality reduction into a project for the first time
 
 When you first put dimensionality reduction into a real project, you can follow this order:
 

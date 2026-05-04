@@ -313,9 +313,10 @@ from sklearn.model_selection import TimeSeriesSplit
 import numpy as np
 
 # 時系列データのシミュレーション
+rng = np.random.default_rng(seed=42)
 n = 100
 X_ts = np.arange(n).reshape(-1, 1)
-y_ts = np.sin(X_ts.ravel() / 10) + np.random.randn(n) * 0.1
+y_ts = np.sin(X_ts.ravel() / 10) + rng.normal(size=n) * 0.1
 
 tscv = TimeSeriesSplit(n_splits=5)
 

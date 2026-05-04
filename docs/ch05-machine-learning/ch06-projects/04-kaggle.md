@@ -177,7 +177,7 @@ If you can do these four things, you have already learned the most important par
 | Hyperparameter tuning | GridSearch / Optuna | Small |
 | Model ensembling | Stacking / Blending | Small but stable |
 
-### 3.3 Common Pitfalls for Beginners on Kaggle
+### 3.2 Common Pitfalls for Beginners on Kaggle
 
 - Repeatedly trying things on the public leaderboard and overfitting to it
 - Having no local cross-validation and only watching the online score
@@ -190,7 +190,7 @@ So a safer approach is:
 - Change only one major factor at a time
 - Turn every submission into an experiment record
 
-### 3.2 Learn from High-Quality Notebooks
+### 3.3 Learn from High-Quality Notebooks
 
 | What to Look At | Why |
 |--------|--------|

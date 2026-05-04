@@ -59,6 +59,8 @@ selected_cols = X_train.columns[selector.get_support()]
 print(selected_cols)
 ```
 
+If you want to evaluate feature selection fairly, do not fit it on the full dataset first. Put it inside the cross-validation workflow or the `Pipeline`, so each fold selects features only from its own training split.
+
 Filter methods are fast and suitable for initial screening; their downside is that they can easily miss interactions between features.
 
 ## 3. Wrapper Methods: Repeatedly Test with Model Performance

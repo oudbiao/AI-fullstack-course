@@ -282,7 +282,6 @@ plt.show()
 
 ```python
 # Implement logistic regression from scratch with gradient descent
-np.random.seed(42)
 
 # Generate simple data
 from sklearn.datasets import make_classification

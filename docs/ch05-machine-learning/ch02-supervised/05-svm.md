@@ -108,6 +108,15 @@ There are two especially important points here:
 - `StandardScaler()` is very important because SVM is fairly sensitive to feature scale
 - `kernel="rbf"` means using a common nonlinear kernel
 
+For beginners, the two parameters that look most mysterious are `C` and `gamma`. You can first remember them like this:
+
+| Parameter | Beginner intuition | Too small | Too large |
+|---|---|---|---|
+| `C` | How strictly the model punishes classification mistakes | Boundary is wider but may underfit | Boundary tries hard to classify every training point, easier to overfit |
+| `gamma` | How far each sample’s influence reaches in the RBF kernel | Boundary is smoother and broader | Boundary becomes very wiggly around samples |
+
+So a practical first habit is: use `StandardScaler()`, start with `C=1.0` and `gamma="scale"`, then tune them with cross-validation instead of looking only at the training score.
+
 ## 6. How do we choose between SVM, logistic regression, and tree models?
 
 | Model | What it is more like doing | How a beginner can understand it |

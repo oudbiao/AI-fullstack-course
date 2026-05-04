@@ -497,9 +497,9 @@ plt.show()
 from sklearn.tree import DecisionTreeRegressor
 
 # 生成非线性数据
-np.random.seed(42)
-X_reg = np.sort(np.random.uniform(0, 10, 200)).reshape(-1, 1)
-y_reg = np.sin(X_reg.ravel()) + np.random.randn(200) * 0.3
+rng = np.random.default_rng(seed=42)
+X_reg = np.sort(rng.uniform(0, 10, 200)).reshape(-1, 1)
+y_reg = np.sin(X_reg.ravel()) + rng.normal(size=200) * 0.3
 
 # 不同深度的回归树
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))

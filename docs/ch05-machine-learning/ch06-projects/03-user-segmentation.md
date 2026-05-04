@@ -130,14 +130,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n_customers = 1000
 
 df = pd.DataFrame({
     'customer_id': range(1, n_customers + 1),
-    'recency': np.random.exponential(30, n_customers).astype(int) + 1,       # Days since last purchase
-    'frequency': np.random.poisson(5, n_customers) + 1,                       # Purchase frequency
-    'monetary': np.random.exponential(200, n_customers).round(2) + 10,        # Total spending
+    'recency': rng.exponential(30, n_customers).astype(int) + 1,       # Days since last purchase
+    'frequency': rng.poisson(5, n_customers) + 1,                       # Purchase frequency
+    'monetary': rng.exponential(200, n_customers).round(2) + 10,        # Total spending
 })
 
 print(df.describe())

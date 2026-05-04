@@ -221,12 +221,12 @@ This example is especially good for beginners because it helps you first see tha
 
 ```python
 # Example of domain features for housing data
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 house = pd.DataFrame({
-    'area': np.random.uniform(50, 200, 100),
-    'rooms': np.random.randint(1, 6, 100),
-    'floor': np.random.randint(1, 30, 100),
-    'age': np.random.randint(0, 30, 100),
+    'area': rng.uniform(50, 200, 100),
+    'rooms': rng.integers(1, 6, 100),
+    'floor': rng.integers(1, 30, 100),
+    'age': rng.integers(0, 30, 100),
 })
 
 # Domain features

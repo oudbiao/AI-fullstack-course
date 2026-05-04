@@ -118,15 +118,15 @@ flowchart LR
 import numpy as np
 import matplotlib.pyplot as plt
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 正常数据：二维高斯分布
 n_normal = 300
-X_normal = np.random.randn(n_normal, 2) * 1.5 + [5, 5]
+X_normal = rng.normal(size=(n_normal, 2)) * 1.5 + [5, 5]
 
 # 异常数据：随机散布
 n_anomaly = 15
-X_anomaly = np.random.uniform(0, 12, (n_anomaly, 2))
+X_anomaly = rng.uniform(0, 12, (n_anomaly, 2))
 
 # 合并
 X_all = np.vstack([X_normal, X_anomaly])
@@ -160,7 +160,8 @@ plt.show()
 from scipy import stats
 
 # 一维示例
-data_1d = np.concatenate([np.random.randn(200) * 2 + 10, [25, -5, 30]])
+rng = np.random.default_rng(seed=42)
+data_1d = np.concatenate([rng.normal(size=200) * 2 + 10, [25, -5, 30]])
 
 z_scores = np.abs(stats.zscore(data_1d))
 threshold = 3

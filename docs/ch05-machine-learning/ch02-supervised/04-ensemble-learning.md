@@ -89,15 +89,15 @@ Every model makes mistakes, but **different models often make different mistakes
 import numpy as np
 
 # Simulation: 3 independent models with 70% accuracy
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 10000
-true_labels = np.random.randint(0, 2, n)
+true_labels = rng.integers(0, 2, n)
 
 # Each model predicts independently
 accs = []
 for _ in range(3):
     # 70% chance of being correct
-    correct = np.random.random(n) < 0.7
+    correct = rng.random(n) < 0.7
     pred = np.where(correct, true_labels, 1 - true_labels)
     accs.append(pred)
 
@@ -180,12 +180,12 @@ When reading this diagram, first distinguish the two ways of “getting stronger
 
 ```python
 # Intuition for bootstrap sampling
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 data = np.arange(1, 11)  # Original data: [1, 2, ..., 10]
 
 print("Original data:", data)
 for i in range(3):
-    sample = np.random.choice(data, size=len(data), replace=True)
+    sample = rng.choice(data, size=len(data), replace=True)
     print(f"Bootstrap sample {i+1}: {sorted(sample)}")
     # Note: some values are repeated, and some are not selected
 ```
@@ -385,9 +385,9 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.tree import DecisionTreeRegressor
 
 # Use a regression problem to intuitively understand "fitting residuals"
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 X_demo = np.linspace(0, 10, 100).reshape(-1, 1)
-y_demo = np.sin(X_demo.ravel()) + np.random.randn(100) * 0.2
+y_demo = np.sin(X_demo.ravel()) + rng.normal(size=100) * 0.2
 
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
 

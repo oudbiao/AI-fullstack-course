@@ -250,9 +250,9 @@ axes[0].set_title(f'Grid Search ({len(grid_points)} points)\nOnly searches grid 
 axes[0].grid(True, alpha=0.3)
 
 # Random Search search space
-np.random.seed(42)
-rand_n = np.random.randint(50, 500, 20)
-rand_d = np.random.choice([3, 5, 10, 15, 20], 20)
+rng = np.random.default_rng(seed=42)
+rand_n = rng.integers(50, 500, 20)
+rand_d = rng.choice([3, 5, 10, 15, 20], 20)
 axes[1].scatter(rand_n, rand_d, s=100, color='coral', zorder=5)
 axes[1].set_xlabel('n_estimators')
 axes[1].set_ylabel('max_depth')

@@ -187,7 +187,7 @@ print(f"AUC: {roc_auc_score(y_test, rf_weighted.predict_proba(X_test)[:,1]):.4f}
 ### SMOTE 过采样
 
 ```python
-# pip install imbalanced-learn
+# python -m pip install --upgrade imbalanced-learn
 try:
     from imblearn.over_sampling import SMOTE
     from imblearn.pipeline import Pipeline as ImbPipeline
@@ -202,7 +202,7 @@ try:
     print("\nSMOTE + 随机森林:")
     print(classification_report(y_test, y_pred_smote, target_names=['留存', '流失']))
 except ImportError:
-    print("请安装 imbalanced-learn: pip install imbalanced-learn")
+    print("请安装 imbalanced-learn: python -m pip install --upgrade imbalanced-learn")
 ```
 
 ---

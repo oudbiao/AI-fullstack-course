@@ -271,10 +271,10 @@ ML でとても重要な考え方のひとつは、**学習データでモデル
 import numpy as np
 
 # データセットのシミュレーション
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 100
-X = np.random.randn(n, 3)
-y = np.random.randint(0, 2, n)
+X = rng.normal(size=(n, 3))
+y = rng.integers(0, 2, n)
 
 # 通常は 80% を学習、20% をテストに使う
 from sklearn.model_selection import train_test_split
@@ -376,9 +376,9 @@ flowchart LR
 ```python
 import matplotlib.pyplot as plt
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 x = np.linspace(0, 1, 20)
-y = np.sin(2 * np.pi * x) + np.random.randn(20) * 0.3
+y = np.sin(2 * np.pi * x) + rng.normal(size=20) * 0.3
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 x_smooth = np.linspace(0, 1, 200)

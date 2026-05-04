@@ -89,15 +89,15 @@ flowchart TD
 import numpy as np
 
 # シミュレーション: 3つの独立したモデルが、それぞれ 70% の精度を持つ
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 10000
-true_labels = np.random.randint(0, 2, n)
+true_labels = rng.integers(0, 2, n)
 
 # 各モデルの独立予測
 accs = []
 for _ in range(3):
     # 70% の確率で正解
-    correct = np.random.random(n) < 0.7
+    correct = rng.random(n) < 0.7
     pred = np.where(correct, true_labels, 1 - true_labels)
     accs.append(pred)
 
@@ -180,12 +180,12 @@ flowchart LR
 
 ```python
 # ブートストラップサンプリングのイメージ
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 data = np.arange(1, 11)  # 元データ: [1, 2, ..., 10]
 
 print("元データ:", data)
 for i in range(3):
-    sample = np.random.choice(data, size=len(data), replace=True)
+    sample = rng.choice(data, size=len(data), replace=True)
     print(f"ブートストラップサンプル {i+1}: {sorted(sample)}")
     # 注意: 同じデータが重複し、選ばれないデータもあります
 ```
@@ -387,9 +387,9 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.tree import DecisionTreeRegressor
 
 # 回帰問題で「残差を学習する」感覚をつかむ
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 X_demo = np.linspace(0, 10, 100).reshape(-1, 1)
-y_demo = np.sin(X_demo.ravel()) + np.random.randn(100) * 0.2
+y_demo = np.sin(X_demo.ravel()) + rng.normal(size=100) * 0.2
 
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
 

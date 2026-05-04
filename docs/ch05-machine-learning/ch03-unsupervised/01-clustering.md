@@ -159,11 +159,11 @@ flowchart TD
 ### 2.2 Implement K-Means from Scratch
 
 ```python
-def kmeans_simple(X, k, max_iters=100):
+def kmeans_simple(X, k, max_iters=100, seed=42):
     """Simple K-Means implementation"""
-    np.random.seed(42)
+    rng = np.random.default_rng(seed)
     # 1. Randomly initialize centroids
-    idx = np.random.choice(len(X), k, replace=False)
+    idx = rng.choice(len(X), k, replace=False)
     centroids = X[idx].copy()
 
     for iteration in range(max_iters):
@@ -233,8 +233,8 @@ plt.show()
 ```python
 fig, axes = plt.subplots(2, 3, figsize=(15, 9))
 
-np.random.seed(42)
-idx = np.random.choice(len(X), 3, replace=False)
+rng = np.random.default_rng(seed=42)
+idx = rng.choice(len(X), 3, replace=False)
 centroids = X[idx].copy()
 
 for i, ax in enumerate(axes.ravel()):

@@ -66,9 +66,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Simulated data: area → price
-np.random.seed(42)
-X = np.random.uniform(50, 200, 30)    # Area (square meters)
-y = 2.5 * X + 50 + np.random.randn(30) * 30  # Price (10,000 yuan)
+rng = np.random.default_rng(seed=42)
+X = rng.uniform(50, 200, 30)    # Area (square meters)
+y = 2.5 * X + 50 + rng.normal(size=30) * 30  # Price (10,000 yuan)
 
 plt.figure(figsize=(8, 5))
 plt.scatter(X, y, color='steelblue', s=50, alpha=0.7)
@@ -273,7 +273,6 @@ The gradients of MSE with respect to w and b are:
 
 ```python
 # Solve linear regression with gradient descent
-np.random.seed(42)
 
 # Parameter initialization
 w_gd = 0.0
@@ -369,13 +368,13 @@ from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd
 
 # Simulated multi-feature house price data
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
 data = pd.DataFrame({
-    'Area': np.random.uniform(50, 200, n),
-    'Rooms': np.random.randint(1, 6, n),
-    'Floor': np.random.randint(1, 30, n),
-    'DistanceToSubway(km)': np.random.uniform(0.1, 5, n),
+    'Area': rng.uniform(50, 200, n),
+    'Rooms': rng.integers(1, 6, n),
+    'Floor': rng.integers(1, 30, n),
+    'DistanceToSubway(km)': rng.uniform(0.1, 5, n),
 })
 # True relationship + noise
 data['Price'] = (2.5 * data['Area']
@@ -383,7 +382,7 @@ data['Price'] = (2.5 * data['Area']
                + 2 * data['Floor']
                - 20 * data['DistanceToSubway(km)']
                + 50
-               + np.random.randn(n) * 30)
+               + rng.normal(size=n) * 30)
 
 print(data.head())
 print(f"\nData shape: {data.shape}")
@@ -448,9 +447,9 @@ plt.show()
 
 ```python
 # Generate nonlinear data
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 X_nl = np.linspace(-3, 3, 50)
-y_nl = 0.5 * X_nl**2 - X_nl + 2 + np.random.randn(50) * 0.8
+y_nl = 0.5 * X_nl**2 - X_nl + 2 + rng.normal(size=50) * 0.8
 
 # Force a linear regression fit
 lr = LinearRegression()

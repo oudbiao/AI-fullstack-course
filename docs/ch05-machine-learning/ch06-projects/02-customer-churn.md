@@ -187,7 +187,7 @@ Because only then can you tell the difference between:
 ### SMOTE oversampling
 
 ```python
-# pip install imbalanced-learn
+# python -m pip install --upgrade imbalanced-learn
 try:
     from imblearn.over_sampling import SMOTE
     from imblearn.pipeline import Pipeline as ImbPipeline
@@ -202,7 +202,7 @@ try:
     print("\nSMOTE + Random Forest:")
     print(classification_report(y_test, y_pred_smote, target_names=['Retained', 'Churn']))
 except ImportError:
-    print("Please install imbalanced-learn: pip install imbalanced-learn")
+    print("Please install imbalanced-learn: python -m pip install --upgrade imbalanced-learn")
 ```
 
 ---

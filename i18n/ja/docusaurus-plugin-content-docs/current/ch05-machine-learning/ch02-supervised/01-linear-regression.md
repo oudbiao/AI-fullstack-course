@@ -66,9 +66,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 模擬データ：面積 → 価格
-np.random.seed(42)
-X = np.random.uniform(50, 200, 30)    # 面積（平方メートル）
-y = 2.5 * X + 50 + np.random.randn(30) * 30  # 価格（万元）
+rng = np.random.default_rng(seed=42)
+X = rng.uniform(50, 200, 30)    # 面積（平方メートル）
+y = 2.5 * X + 50 + rng.normal(size=30) * 30  # 価格（万元）
 
 plt.figure(figsize=(8, 5))
 plt.scatter(X, y, color='steelblue', s=50, alpha=0.7)
@@ -273,7 +273,6 @@ MSE の w と b に対する勾配は次のとおりです。
 
 ```python
 # 勾配降下法で線形回帰を解く
-np.random.seed(42)
 
 # パラメータ初期化
 w_gd = 0.0
@@ -366,13 +365,13 @@ from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd
 
 # 多特徴量の家賃データを模擬する
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
 data = pd.DataFrame({
-    '面積': np.random.uniform(50, 200, n),
-    '部屋数': np.random.randint(1, 6, n),
-    '階数': np.random.randint(1, 30, n),
-    '駅までの距離(km)': np.random.uniform(0.1, 5, n),
+    '面積': rng.uniform(50, 200, n),
+    '部屋数': rng.integers(1, 6, n),
+    '階数': rng.integers(1, 30, n),
+    '駅までの距離(km)': rng.uniform(0.1, 5, n),
 })
 # 真の関係 + ノイズ
 data['価格'] = (2.5 * data['面積']
@@ -380,7 +379,7 @@ data['価格'] = (2.5 * data['面積']
                + 2 * data['階数']
                - 20 * data['駅までの距離(km)']
                + 50
-               + np.random.randn(n) * 30)
+               + rng.normal(size=n) * 30)
 
 print(data.head())
 print(f"\nデータ形状: {data.shape}")
@@ -445,9 +444,9 @@ plt.show()
 
 ```python
 # 非線形データを生成
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 X_nl = np.linspace(-3, 3, 50)
-y_nl = 0.5 * X_nl**2 - X_nl + 2 + np.random.randn(50) * 0.8
+y_nl = 0.5 * X_nl**2 - X_nl + 2 + rng.normal(size=50) * 0.8
 
 # 線形回帰で無理やりフィット
 lr = LinearRegression()

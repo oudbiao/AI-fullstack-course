@@ -134,11 +134,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
 
 # Generate nonlinear data
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 30
-X = np.sort(np.random.uniform(-3, 3, n))
+X = np.sort(rng.uniform(-3, 3, n))
 y_true_func = lambda x: np.sin(x)
-y = y_true_func(X) + np.random.randn(n) * 0.3
+y = y_true_func(X) + rng.normal(size=n) * 0.3
 
 x_plot = np.linspace(-3.5, 3.5, 200)
 
@@ -152,9 +152,9 @@ configs = [
 for ax, (deg, title) in zip(axes, configs):
     # Train multiple times on different data subsets to observe variance
     for seed in range(10):
-        np.random.seed(seed)
-        X_sample = np.sort(np.random.uniform(-3, 3, n))
-        y_sample = y_true_func(X_sample) + np.random.randn(n) * 0.3
+        rng = np.random.default_rng(seed)
+        X_sample = np.sort(rng.uniform(-3, 3, n))
+        y_sample = y_true_func(X_sample) + rng.normal(size=n) * 0.3
 
         model = make_pipeline(PolynomialFeatures(deg, include_bias=False), LinearRegression())
         model.fit(X_sample.reshape(-1, 1), y_sample)
@@ -335,9 +335,9 @@ from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import cross_val_score
 
 # Nonlinear data
-np.random.seed(42)
-X_nl = np.sort(np.random.uniform(-3, 3, 100)).reshape(-1, 1)
-y_nl = np.sin(X_nl.ravel()) + np.random.randn(100) * 0.3
+rng = np.random.default_rng(seed=42)
+X_nl = np.sort(rng.uniform(-3, 3, 100)).reshape(-1, 1)
+y_nl = np.sin(X_nl.ravel()) + rng.normal(size=100) * 0.3
 
 # High-degree polynomial + different regularization strengths
 alphas = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100]

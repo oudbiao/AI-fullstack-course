@@ -228,7 +228,6 @@ print("概率输出:", np.round(prob, 4))
 ```python
 import numpy as np
 
-np.random.seed(42)
 x = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
 y = np.array([3.2, 5.1, 7.0, 8.9, 11.1])  # 大致接近 2x + 1
 
