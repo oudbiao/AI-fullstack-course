@@ -51,7 +51,22 @@ So this lesson is more like a “deeper understanding and organization” lesson
 | `NLP` | Natural Language Processing | AI methods for text and language |
 | `LSA` | Latent Semantic Analysis | A classic text method that uses SVD to find hidden topic structure |
 | `V^T` / `Vt` | V transpose | Flip rows and columns of `V`; NumPy often names it `Vt` |
+| `rank` | Matrix rank | How many independent directions a matrix really contains |
+| `basis` | Basis vectors | A minimal set of non-redundant coordinate directions |
+| `span` | Span of vectors | Everything you can reach by mixing the given vectors |
+| `orthogonal` | Perpendicular / independent directions | Directions that do not overlap; in AI this often means cleaner separation of information |
+| `full_matrices=False` | Compact SVD mode | Ask NumPy to return only the useful part of `U` and `Vt`, so reconstruction shapes are easier to multiply |
+| `np.linalg` | NumPy linear algebra module | The part of NumPy that contains matrix tools such as rank, solve, eigenvalues, and SVD |
 | Low-rank approximation | Approximation with fewer effective dimensions | Keep only the most important singular values and drop weaker details |
+
+**Code setup for this lesson**: the snippets are written in a notebook style. If you run them in order, the later blocks can reuse `np`, `plt`, and variables defined earlier. If you copy one block into a fresh `.py` file, add these imports first:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+`np` is the standard short alias for **NumPy**, the Python library for arrays and linear algebra. `plt` is the common alias for **Matplotlib pyplot**, the plotting tool used for diagrams.
 
 ## 1. Linear Independence — Vectors with "No Redundancy"
 
@@ -145,6 +160,15 @@ B = np.array([[1, 0, 1],
 print(f"Rank of B: {np.linalg.matrix_rank(B)}")  # 2 (not full rank)
 ```
 
+Expected output:
+
+```text
+Rank of A: 3
+Rank of B: 2
+```
+
+Here, “full rank” means no column is wasted. Matrix `B` has three columns, but only two independent directions, so its effective information dimension is 2.
+
 ---
 
 ## 2. Basis and Dimension — the "Coordinate System" of a Space
@@ -180,6 +204,12 @@ v = np.array([3, 5])
 print(f"v = {v[0]} × e1 + {v[1]} × e2 = {v[0]*e1 + v[1]*e2}")
 ```
 
+Expected output:
+
+```text
+v = 3 × e1 + 5 × e2 = [3 5]
+```
+
 **A non-standard basis also works**:
 
 ```python
@@ -195,6 +225,14 @@ coords = np.linalg.solve(B, v)
 print(f"Coordinates in the new basis: {coords}")  # [4, -1]
 # Check: 4*[1,1] + (-1)*[1,-1] = [4,4]+[-1,1] = [3,5] ✓
 ```
+
+Expected output:
+
+```text
+Coordinates in the new basis: [ 4. -1.]
+```
+
+This is the key idea: the vector did not move, but its coordinates changed because we described it using a different coordinate system. This is why “representation” is such a big word in AI.
 
 ### 2.2 Dimension
 
@@ -268,6 +306,15 @@ print(R90 @ np.array([1, 0]))  # [0, 1] ✓
 print(R90 @ np.array([0, 1]))  # [-1, 0] ✓
 ```
 
+Expected output:
+
+```text
+[0 1]
+[-1  0]
+```
+
+The matrix is fully determined by where it sends the basis vectors. That is why a matrix is not just a table of numbers; it is a compact description of a transformation.
+
 ### 3.2 Composition of transformations = matrix multiplication
 
 Rotate by 45° first, then scale by 2? Just multiply the two matrices.
@@ -295,6 +342,17 @@ v = np.array([1, 0])
 result = combined @ v
 print(f"[1, 0] → {result.round(3)}")  # ≈ [1.414, 1.414]
 ```
+
+Expected output:
+
+```text
+Combined transformation matrix:
+[[ 1.414 -1.414]
+ [ 1.414  1.414]]
+[1, 0] → [1.414 1.414]
+```
+
+Read `S2 @ R45 @ v` from right to left: the vector is rotated first, then scaled. This “rightmost operation happens first” rule also appears in neural network code when multiple matrix operations are chained.
 
 ---
 
@@ -334,6 +392,12 @@ Where:
 
 In NumPy, `np.linalg.svd()` returns `U, S, Vt`. Notice that `S` is returned as a one-dimensional list of singular values, so when reconstructing the matrix you usually write `np.diag(S)` to turn it into a diagonal matrix.
 
+`full_matrices=False` tells NumPy to return the compact form. For a beginner, this is usually the friendliest choice because the shapes line up directly:
+
+- `U`: `(rows, number_of_singular_values)`
+- `np.diag(S)`: `(number_of_singular_values, number_of_singular_values)`
+- `Vt`: `(number_of_singular_values, columns)`
+
 ```python
 # SVD of an arbitrary matrix
 M = np.array([
@@ -351,6 +415,18 @@ print(f"Shape of Vt: {Vt.shape}")   # (2, 3)
 reconstructed = U @ np.diag(S) @ Vt
 print(f"\nReconstruction error: {np.linalg.norm(M - reconstructed):.10f}")  # ≈ 0
 ```
+
+Expected output:
+
+```text
+Shape of U: (2, 2)
+Singular values S: [9.508 0.773]
+Shape of Vt: (2, 3)
+
+Reconstruction error: 0.0000000000
+```
+
+The first singular value is much larger than the second one, so the matrix has one very strong direction and one weaker correction direction. This “strong structure first, details later” idea is exactly why SVD is useful for compression and dimensionality reduction.
 
 ### 4.2 The intuition behind SVD
 
@@ -388,6 +464,11 @@ print(f"Original image: {image.shape} = {image.size} values")
 U, S, Vt = np.linalg.svd(image, full_matrices=False)
 print(f"Number of singular values: {len(S)}")
 
+for k in [1, 5, 20, 100]:
+    compressed_size = k * (U.shape[0] + 1 + Vt.shape[1])
+    ratio = compressed_size / image.size * 100
+    print(f"k={k:3d}, stored values ≈ {ratio:5.1f}% of the original")
+
 # Reconstruct using different numbers of singular values
 fig, axes = plt.subplots(1, 4, figsize=(16, 4))
 
@@ -409,7 +490,18 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Interpretation**: Using only the first 20 singular values (instead of the original 100) can already restore the image quite well, while greatly reducing storage.
+Expected text output:
+
+```text
+Original image: (100, 150) = 15000 values
+Number of singular values: 100
+k=  1, stored values ≈   1.7% of the original
+k=  5, stored values ≈   8.4% of the original
+k= 20, stored values ≈  33.5% of the original
+k=100, stored values ≈ 167.3% of the original
+```
+
+**Interpretation**: Using only the first 20 singular values can already restore the main structure of the image while using far fewer stored numbers. When `k=100`, you keep every singular value, so reconstruction is best, but storing `U`, `S`, and `Vt` separately can be larger than storing the original image directly. Compression only makes sense when `k` is much smaller than the original rank.
 
 ### 4.4 Applications of SVD in AI
 
@@ -420,6 +512,12 @@ plt.show()
 | NLP | Latent Semantic Analysis (LSA) uses SVD to reduce the dimensionality of word-document matrices |
 | Data dimensionality reduction | SVD is the underlying implementation of PCA |
 | Pseudo-inverse matrix | Solve overdetermined/underdetermined systems of equations |
+
+In real projects, the practical question is usually not “Can SVD reconstruct perfectly?” but:
+
+> **How many important directions should I keep before the approximation becomes too blurry or too lossy?**
+
+This question appears again in model compression, embedding compression, recommendation systems, and search systems.
 
 ### 4.5 A beginner-friendly reference table
 
@@ -453,10 +551,27 @@ print("\nLow-rank approximation:\n", np.round(Mk, 3))
 print("\nReconstruction error:", round(np.linalg.norm(M - Mk), 4))
 ```
 
+Expected output:
+
+```text
+Original matrix:
+ [[5.  4.8 0.1]
+ [4.9 5.1 0.2]
+ [0.2 0.1 4.9]]
+
+Low-rank approximation:
+ [[4.895 4.894 0.294]
+ [4.997 4.997 0.3  ]
+ [0.297 0.297 0.018]]
+
+Reconstruction error: 4.8961
+```
+
 This example is especially good for beginners because it helps you first see:
 
 - SVD is not only about decomposing a matrix
 - It can also tell you: if I keep only the most important part of the structure, how much information will I lose?
+- If `k` is too small, the approximation keeps the strongest pattern but may erase an important smaller pattern
 
 This is exactly the shared idea behind many AI scenarios:
 
@@ -533,6 +648,19 @@ g2 = np.array([[1, 0], [0, 1]])
 
 # Set 3
 g3 = np.array([[1, 2, 3], [4, 5, 6], [5, 7, 9]])
+
+for name, matrix in {"g1": g1, "g2": g2, "g3": g3}.items():
+    rank = np.linalg.matrix_rank(matrix)
+    dimension = matrix.shape[0]
+    print(f"{name}: rank={rank}, dimension={dimension}, independent={rank == dimension}")
+```
+
+Expected output:
+
+```text
+g1: rank=1, dimension=2, independent=False
+g2: rank=2, dimension=2, independent=True
+g3: rank=2, dimension=3, independent=False
 ```
 
 ### Exercise 2: SVD compression
@@ -550,9 +678,59 @@ for k in range(1, 51):
     error = np.linalg.norm(M - reconstructed)
     errors.append(error)
 
-# Plot
+plt.plot(range(1, 51), errors, marker="o")
+plt.xlabel("k: number of singular values kept")
+plt.ylabel("Reconstruction error")
+plt.title("SVD reconstruction error decreases as k grows")
+plt.grid(alpha=0.3)
+plt.show()
 ```
+
+Expected result: the curve goes downward. Keeping more singular values preserves more information, so reconstruction error decreases.
 
 ### Exercise 3: Combining transformations
 
 Construct two 2×2 transformation matrices — first scale (double x, keep y unchanged), then rotate by 30°. Multiply them to get the combined matrix, apply it to a set of triangle vertices, and plot the result.
+
+```python
+theta = np.radians(30)
+scale = np.array([[2, 0], [0, 1]])
+rotate = np.array([
+    [np.cos(theta), -np.sin(theta)],
+    [np.sin(theta),  np.cos(theta)],
+])
+
+# First scale, then rotate: rightmost operation happens first.
+combined = rotate @ scale
+
+triangle = np.array([
+    [0, 0],
+    [1, 0],
+    [0.5, 1],
+    [0, 0],
+])
+transformed = triangle @ combined.T
+
+print("Combined matrix:\n", np.round(combined, 3))
+print("Transformed vertices:\n", np.round(transformed, 3))
+
+plt.plot(triangle[:, 0], triangle[:, 1], "o-", label="original")
+plt.plot(transformed[:, 0], transformed[:, 1], "o-", label="transformed")
+plt.axis("equal")
+plt.grid(alpha=0.3)
+plt.legend()
+plt.show()
+```
+
+Expected text output:
+
+```text
+Combined matrix:
+ [[ 1.732 -0.5  ]
+ [ 1.     0.866]]
+Transformed vertices:
+ [[0.    0.   ]
+ [1.732 1.   ]
+ [0.366 1.366]
+ [0.    0.   ]]
+```

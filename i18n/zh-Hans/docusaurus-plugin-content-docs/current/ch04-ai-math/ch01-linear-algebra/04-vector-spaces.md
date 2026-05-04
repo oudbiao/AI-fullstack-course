@@ -51,7 +51,22 @@ keywords: [向量空间, 线性无关, 基, 维度, SVD, 奇异值分解, 线性
 | `NLP` | Natural Language Processing | 自然语言处理，处理文本和语言的 AI 方法 |
 | `LSA` | Latent Semantic Analysis | 潜在语义分析，用 SVD 寻找文本中的隐藏主题结构 |
 | `V^T` / `Vt` | V transpose | V 的转置，把 V 的行和列互换；NumPy 里常写作 `Vt` |
+| `rank` | Matrix rank | 矩阵真正包含多少个相互独立的方向 |
+| `basis` | Basis vectors | 一组最小、不冗余、足够描述空间的坐标方向 |
+| `span` | Span of vectors | 用给定向量不断组合，所有能够到达的位置 |
+| `orthogonal` | Perpendicular / independent directions | 方向互不重叠；在 AI 里常表示信息分得更干净 |
+| `full_matrices=False` | Compact SVD mode | 让 NumPy 只返回有用的紧凑部分，后续矩阵形状更容易相乘 |
+| `np.linalg` | NumPy linear algebra module | NumPy 里的线性代数工具区，包含秩、解方程、特征值和 SVD 等函数 |
 | 低秩近似 | Low-rank approximation | 只保留最重要的奇异值，丢掉较弱细节，用更少信息近似原矩阵 |
+
+**本节代码运行前提**：下面的代码按 Notebook 风格编写。如果你按顺序运行，后面的代码块可以复用前面定义过的 `np`、`plt` 和变量。如果你把某一段单独复制到新的 `.py` 文件里，请先加上：
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+`np` 是 **NumPy** 的常用缩写，NumPy 是 Python 里处理数组和线性代数的基础库。`plt` 是 **Matplotlib pyplot** 的常用缩写，用来画图和做可视化。
 
 ## 一、线性无关——"不冗余"的向量
 
@@ -145,6 +160,15 @@ B = np.array([[1, 0, 1],
 print(f"B 的秩: {np.linalg.matrix_rank(B)}")  # 2（不是满秩）
 ```
 
+预期输出：
+
+```text
+A 的秩: 3
+B 的秩: 2
+```
+
+这里的“满秩”可以先理解为：没有哪一列是浪费的。矩阵 `B` 虽然有 3 列，但真正独立的方向只有 2 个，所以有效信息维度是 2。
+
 ---
 
 ## 二、基与维度——描述空间的"坐标系"
@@ -180,6 +204,12 @@ v = np.array([3, 5])
 print(f"v = {v[0]} × e1 + {v[1]} × e2 = {v[0]*e1 + v[1]*e2}")
 ```
 
+预期输出：
+
+```text
+v = 3 × e1 + 5 × e2 = [3 5]
+```
+
 **非标准基也可以**：
 
 ```python
@@ -195,6 +225,14 @@ coords = np.linalg.solve(B, v)
 print(f"在新基下的坐标: {coords}")  # [4, -1]
 # 验证: 4*[1,1] + (-1)*[1,-1] = [4,4]+[-1,1] = [3,5] ✓
 ```
+
+预期输出：
+
+```text
+在新基下的坐标: [ 4. -1.]
+```
+
+这就是最关键的直觉：向量本身没有移动，只是我们换了一套坐标系统来描述它。也正因为这样，“表示”才会成为 AI 里特别重要的词。
 
 ### 2.2 维度（Dimension）
 
@@ -268,6 +306,15 @@ print(R90 @ np.array([1, 0]))  # [0, 1] ✓
 print(R90 @ np.array([0, 1]))  # [-1, 0] ✓
 ```
 
+预期输出：
+
+```text
+[0 1]
+[-1  0]
+```
+
+一个矩阵由“它把基向量送到哪里”完全决定。所以矩阵不只是数字表，它是一个变换的紧凑说明书。
+
 ### 3.2 变换的组合 = 矩阵的乘法
 
 先旋转 45°，再缩放 2 倍？只需要把两个矩阵相乘。
@@ -295,6 +342,17 @@ v = np.array([1, 0])
 result = combined @ v
 print(f"[1, 0] → {result.round(3)}")  # ≈ [1.414, 1.414]
 ```
+
+预期输出：
+
+```text
+组合变换矩阵:
+[[ 1.414 -1.414]
+ [ 1.414  1.414]]
+[1, 0] → [1.414 1.414]
+```
+
+读 `S2 @ R45 @ v` 时要从右往左理解：向量先旋转，再缩放。这个“最右边先执行”的规则，在后面神经网络连续矩阵运算里也会反复出现。
 
 ---
 
@@ -334,6 +392,12 @@ SVD 把一个矩阵 M 分解为三个矩阵的乘积：
 
 在 NumPy 里，`np.linalg.svd()` 返回的是 `U, S, Vt`。注意 `S` 返回的是一维奇异值列表，所以重构矩阵时通常要写 `np.diag(S)`，先把它变成对角矩阵。
 
+`full_matrices=False` 会让 NumPy 返回紧凑形式。对初学者来说，这通常最友好，因为矩阵形状可以直接对齐：
+
+- `U`：`(行数, 奇异值个数)`
+- `np.diag(S)`：`(奇异值个数, 奇异值个数)`
+- `Vt`：`(奇异值个数, 列数)`
+
 ```python
 # 任意矩阵的 SVD
 M = np.array([
@@ -351,6 +415,18 @@ print(f"Vt 的形状: {Vt.shape}")   # (2, 3)
 reconstructed = U @ np.diag(S) @ Vt
 print(f"\n重构误差: {np.linalg.norm(M - reconstructed):.10f}")  # ≈ 0
 ```
+
+预期输出：
+
+```text
+U 的形状: (2, 2)
+奇异值 S: [9.508 0.773]
+Vt 的形状: (2, 3)
+
+重构误差: 0.0000000000
+```
+
+第一个奇异值明显大于第二个，说明这个矩阵有一个很强的主方向，以及一个较弱的修正方向。“先保留强结构，再补细节”正是 SVD 能做压缩和降维的核心原因。
 
 ### 4.2 SVD 的直觉
 
@@ -388,6 +464,11 @@ print(f"原始图片: {image.shape} = {image.size} 个值")
 U, S, Vt = np.linalg.svd(image, full_matrices=False)
 print(f"奇异值个数: {len(S)}")
 
+for k in [1, 5, 20, 100]:
+    compressed_size = k * (U.shape[0] + 1 + Vt.shape[1])
+    ratio = compressed_size / image.size * 100
+    print(f"k={k:3d}, 存储量约为原图的 {ratio:5.1f}%")
+
 # 用不同数量的奇异值重构
 fig, axes = plt.subplots(1, 4, figsize=(16, 4))
 
@@ -409,7 +490,18 @@ plt.tight_layout()
 plt.show()
 ```
 
-**解读**：只用前 20 个奇异值（原来 100 个），就能很好地还原图片，存储量大幅减少。
+预期文本输出：
+
+```text
+原始图片: (100, 150) = 15000 个值
+奇异值个数: 100
+k=  1, 存储量约为原图的   1.7%
+k=  5, 存储量约为原图的   8.4%
+k= 20, 存储量约为原图的  33.5%
+k=100, 存储量约为原图的 167.3%
+```
+
+**解读**：只保留前 20 个奇异值，就已经可以还原图片的主要结构，同时存储数字明显变少。当 `k=100` 时，你保留了全部奇异值，重构效果最好，但单独存储 `U`、`S`、`Vt` 反而可能比直接存原图更大。所以“压缩”只有在 `k` 明显小于原始秩时才有意义。
 
 ### 4.4 SVD 在 AI 中的应用
 
@@ -420,6 +512,12 @@ plt.show()
 | NLP | 潜在语义分析（LSA）用 SVD 对词-文档矩阵降维 |
 | 数据降维 | SVD 是 PCA 的底层实现 |
 | 伪逆矩阵 | 解决超定/欠定方程组 |
+
+在真实项目里，最常问的问题通常不是“能不能完美重构”，而是：
+
+> **在画面变得太糊、信息损失太大之前，我应该保留多少个重要方向？**
+
+这个问题会在模型压缩、Embedding 压缩、推荐系统和搜索系统里不断出现。
 
 ### 4.5 一个很适合初学者先记的判断表
 
@@ -453,10 +551,27 @@ print("\n低秩近似:\n", np.round(Mk, 3))
 print("\n重构误差:", round(np.linalg.norm(M - Mk), 4))
 ```
 
+预期输出：
+
+```text
+原矩阵:
+ [[5.  4.8 0.1]
+ [4.9 5.1 0.2]
+ [0.2 0.1 4.9]]
+
+低秩近似:
+ [[4.895 4.894 0.294]
+ [4.997 4.997 0.3  ]
+ [0.297 0.297 0.018]]
+
+重构误差: 4.8961
+```
+
 这个例子很适合初学者，因为它会帮助你先看到：
 
 - SVD 不是只为了分解一个矩阵
 - 它还能告诉你：如果我只保留最重要的一部分结构，会丢掉多少信息
+- 如果 `k` 太小，近似会保留最强模式，但也可能抹掉一个重要的小模式
 
 这正是很多 AI 场景里：
 
@@ -535,6 +650,19 @@ g2 = np.array([[1, 0], [0, 1]])
 
 # 第 3 组
 g3 = np.array([[1, 2, 3], [4, 5, 6], [5, 7, 9]])
+
+for name, matrix in {"g1": g1, "g2": g2, "g3": g3}.items():
+    rank = np.linalg.matrix_rank(matrix)
+    dimension = matrix.shape[0]
+    print(f"{name}: rank={rank}, dimension={dimension}, independent={rank == dimension}")
+```
+
+预期输出：
+
+```text
+g1: rank=1, dimension=2, independent=False
+g2: rank=2, dimension=2, independent=True
+g3: rank=2, dimension=3, independent=False
 ```
 
 ### 练习 2：SVD 压缩
@@ -552,9 +680,59 @@ for k in range(1, 51):
     error = np.linalg.norm(M - reconstructed)
     errors.append(error)
 
-# 画图
+plt.plot(range(1, 51), errors, marker="o")
+plt.xlabel("k：保留的奇异值个数")
+plt.ylabel("重构误差")
+plt.title("SVD 重构误差会随 k 增大而下降")
+plt.grid(alpha=0.3)
+plt.show()
 ```
+
+预期结果：曲线整体向下。保留的奇异值越多，保留的信息越多，重构误差越小。
 
 ### 练习 3：变换组合
 
 构造两个 2×2 变换矩阵——先缩放 (x 放大 2 倍, y 不变)，再旋转 30°。把它们相乘得到组合矩阵，对一组三角形顶点做变换并画图。
+
+```python
+theta = np.radians(30)
+scale = np.array([[2, 0], [0, 1]])
+rotate = np.array([
+    [np.cos(theta), -np.sin(theta)],
+    [np.sin(theta),  np.cos(theta)],
+])
+
+# 先缩放，再旋转：最右边的操作先发生。
+combined = rotate @ scale
+
+triangle = np.array([
+    [0, 0],
+    [1, 0],
+    [0.5, 1],
+    [0, 0],
+])
+transformed = triangle @ combined.T
+
+print("组合矩阵:\n", np.round(combined, 3))
+print("变换后的顶点:\n", np.round(transformed, 3))
+
+plt.plot(triangle[:, 0], triangle[:, 1], "o-", label="原始三角形")
+plt.plot(transformed[:, 0], transformed[:, 1], "o-", label="变换后三角形")
+plt.axis("equal")
+plt.grid(alpha=0.3)
+plt.legend()
+plt.show()
+```
+
+预期文本输出：
+
+```text
+组合矩阵:
+ [[ 1.732 -0.5  ]
+ [ 1.     0.866]]
+变换后的顶点:
+ [[0.    0.   ]
+ [1.732 1.   ]
+ [0.366 1.366]
+ [0.    0.   ]]
+```
