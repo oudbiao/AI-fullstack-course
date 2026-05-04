@@ -168,6 +168,17 @@ IA3 の考え方は、さらに控えめです。
 この図は、手法名で覚えるのではなく、「学習可能な部分がどこにあるか」を見るのが大切です。Prompt Tuning は入力前、Prefix Tuning は各層の注意機構の KV プレフィックス、Adapter は層間の小モジュール、IA3 はチャネルのスケーリングを調整します。場所が違えば、コスト、表現力、切り替え方も変わります。
 :::
 
+### 2.6 PEFT ファミリーの小さな用語集
+
+| 用語 | 初学者向けの説明 |
+|---|---|
+| PEFT | Parameter-Efficient Fine-Tuning。少数のパラメータだけを学習してモデルを適応させる方法 |
+| Soft prompt | 人間が読む自然言語ではなく、学習可能なベクトル |
+| KV prefix | attention が参照できる、追加の学習可能な key/value ベクトル |
+| Bottleneck | パラメータ数を抑えるために、いったん低次元に落としてから戻す小さなモジュール |
+| Residual connection | 小さな適応結果を元の hidden state に足し戻す接続 |
+| Activation scaling | 一部の hidden dimension を、学習可能な係数で強めたり弱めたりすること |
+
 ---
 
 ## 三、まずは PEFT に本当に関係する Adapter の例を動かしてみよう

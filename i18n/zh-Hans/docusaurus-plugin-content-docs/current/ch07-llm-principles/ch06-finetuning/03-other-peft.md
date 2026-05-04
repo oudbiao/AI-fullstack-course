@@ -162,6 +162,17 @@ IA3 的思路更节制：
 这张图不要按方法名背，而要看“可训练部分放在哪里”：Prompt Tuning 放输入前，Prefix Tuning 放每层注意力 KV 前缀，Adapter 插层间小模块，IA3 调通道缩放。位置不同，成本、表达力和切换方式就不同。
 :::
 
+### 2.6 PEFT 家族小词典
+
+| 术语 | 新人友好的解释 |
+|---|---|
+| PEFT | Parameter-Efficient Fine-Tuning，参数高效微调，只训练一小部分参数来适配任务 |
+| Soft prompt | 可训练向量，不是人能直接读懂的自然语言提示词 |
+| KV prefix | 额外可训练的 key/value 向量，让注意力层可以参考 |
+| Bottleneck | 先降维再升维的小模块，用来限制参数量 |
+| Residual connection | 把小改动结果加回原隐藏状态，避免完全替换主干信息 |
+| Activation scaling | 用可学习系数放大或压低某些隐藏维度 |
+
 ---
 
 ## 三、先跑一个真正和 PEFT 相关的 Adapter 示例

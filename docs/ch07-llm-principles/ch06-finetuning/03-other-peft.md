@@ -162,6 +162,17 @@ This means:
 Don’t memorize this figure by method name. Focus on “where the trainable part is placed”: Prompt Tuning is before the input, Prefix Tuning is the KV prefix of attention in each layer, Adapter inserts a small module between layers, and IA3 adjusts channel scaling. Different locations mean different costs, expressive power, and switching behavior.
 :::
 
+### 2.6 A small glossary for the PEFT family
+
+| Term | Beginner-friendly explanation |
+|---|---|
+| PEFT | Parameter-Efficient Fine-Tuning: adapt a model by training only a small part of the parameters |
+| Soft prompt | Trainable vectors, not readable natural-language instructions |
+| KV prefix | Extra trainable key/value vectors that attention can look at |
+| Bottleneck | A small down-projection then up-projection module that limits parameter count |
+| Residual connection | Add the small adaptation result back to the original hidden state |
+| Activation scaling | Multiply some hidden dimensions by learned factors to amplify or suppress them |
+
 ---
 
 ## 3. First, run a real Adapter example related to PEFT

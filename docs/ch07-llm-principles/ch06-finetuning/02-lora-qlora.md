@@ -105,9 +105,28 @@ where:
 
 This is the core reason it is called “low-rank.”
 
+### 2.3 Symbols and acronyms in this section
+
+| Term | Meaning | Why it matters |
+|---|---|---|
+| LoRA | Low-Rank Adaptation | Instead of changing the full weight matrix, it learns a small low-rank update |
+| QLoRA | Quantized LoRA | It keeps the LoRA adapter trainable while loading the base model in lower precision |
+| Rank `r` | The small inner dimension of `A @ B` | A larger rank can express more changes, but costs more memory and compute |
+| `W` | The original frozen weight matrix | Keeping it frozen reduces training cost and makes adapters easier to manage |
+| `ΔW` | The learned weight increment | This is the small task-specific change LoRA adds on top of the base model |
+| Quantization | Storing weights with fewer bits, such as 4-bit | It reduces memory usage, especially when the base model is large |
+
 ---
 
 ## 3. A Minimal LoRA Matrix Illustration
+
+:::info Run note
+This example uses PyTorch. If your local environment does not have it yet, install it first:
+
+```bash
+pip install torch
+```
+:::
 
 ```python
 import torch

@@ -105,9 +105,28 @@ LoRA 的思路是：
 
 这就是“低秩”的核心来源。
 
+### 2.3 本节里的符号和缩写
+
+| 术语 | 含义 | 为什么重要 |
+|---|---|---|
+| LoRA | Low-Rank Adaptation，低秩适配 | 不直接改完整权重矩阵，而是学习一个小型低秩增量 |
+| QLoRA | Quantized LoRA，量化版 LoRA | 让 LoRA adapter 仍可训练，同时用更低精度加载基础模型 |
+| Rank `r` | `A @ B` 中间较小的维度 | rank 越大，表达能力越强，但显存和计算也更高 |
+| `W` | 原始冻结权重矩阵 | 冻结它可以降低训练成本，也方便管理 adapter |
+| `ΔW` | 学出来的权重增量 | 这是 LoRA 加在基础模型上的任务特定变化 |
+| Quantization | 量化，用更少 bit 存储权重，例如 4-bit | 尤其在基础模型很大时，可以明显降低显存占用 |
+
 ---
 
 ## 三、一个最小 LoRA 矩阵示意
+
+:::info 运行提示
+这个示例使用 PyTorch。如果本地环境还没有安装，需要先执行：
+
+```bash
+pip install torch
+```
+:::
 
 ```python
 import torch
