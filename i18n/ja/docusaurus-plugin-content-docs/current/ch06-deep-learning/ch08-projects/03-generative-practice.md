@@ -33,6 +33,12 @@ keywords: [generative project, GAN, VAE, generation quality, diversity, evaluati
 
 生成プロジェクトで初心者がいちばん混乱しやすいのは、モデルは確かに動いているのに、「これって良い結果なの？」が分からないことです。
 
+![生成モデルプロジェクトの評価ループ](/img/course/ch06-project-generative-eval-loop-ja.png)
+
+:::tip 図の読み方
+生成プロジェクトでは、最高に見えるサンプルだけを見ないようにします。checkpoint ごとの変化を追い、品質と多様性を一緒に比較し、失敗例も残すことで、単なる画像ギャラリーではなく評価ストーリーになります。
+:::
+
 ```mermaid
 flowchart LR
     A["生成モデルを学習する"] --> B["生成品質を見る"]

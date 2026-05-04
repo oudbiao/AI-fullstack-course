@@ -74,6 +74,12 @@ keywords: [image classification project, CNN, confusion matrix, error analysis, 
 
 この6つがきちんと説明できれば、モデルが複雑でなくても、プロジェクトとして十分説得力があります。
 
+![画像分類プロジェクトの閉ループ](/img/course/ch06-project-image-classification-loop-ja.png)
+
+:::tip 図の読み方
+上から順に読みます。ラベルでタスクの境界を決め、データ分割で評価の信頼性を守り、小さな CNN baseline で動く起点を作り、指標で全体結果を見て、エラー例から次にデータを直すかモデルを直すかを判断します。
+:::
+
 ---
 
 ## 三、まずは最小のプロジェクト計画オブジェクトを見てみよう

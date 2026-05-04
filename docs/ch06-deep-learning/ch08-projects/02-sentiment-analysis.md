@@ -68,6 +68,12 @@ This topic is especially suitable because the user text, label boundaries, and b
 
 If these 5 steps are all clear, your project is usually already much closer to a portfolio-grade project than “just training a model.”
 
+![Sentiment analysis project closed loop](/img/course/ch06-project-sentiment-analysis-loop-en.png)
+
+:::tip How to read this diagram
+Read it as an error-driven loop: define the label boundary first, build a small baseline, run predictions, group wrong cases by error type, and only then decide whether to add rules, data, or a stronger model.
+:::
+
 ## 3. Recommended Progression Order
 
 For beginners, the safer order is usually:

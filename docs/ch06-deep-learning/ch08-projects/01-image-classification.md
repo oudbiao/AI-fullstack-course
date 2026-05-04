@@ -74,6 +74,12 @@ A minimal but complete image classification project should usually include at le
 
 If you can explain all 6 parts clearly, the project will be convincing even if the model is not complicated.
 
+![Image classification project closed loop](/img/course/ch06-project-image-classification-loop-en.png)
+
+:::tip How to read this diagram
+Read it from top to bottom: labels define the task boundary, data splitting protects evaluation, the CNN baseline gives you a runnable starting point, metrics show the overall result, and error cases tell you what to improve next.
+:::
+
 ---
 
 ## 3. First, look at a minimal project planning object

@@ -33,6 +33,12 @@ keywords: [generative project, GAN, VAE, generation quality, diversity, evaluati
 
 生成项目最容易让新人困惑的地方是：模型明明跑起来了，但你不知道自己到底做得算不算好。
 
+![生成模型项目评估闭环](/img/course/ch06-project-generative-eval-loop.png)
+
+:::tip 读图方式
+生成项目不能只看最好看的样本。要按 checkpoint 观察变化，同时比较质量和多样性，并保留失败样本，这样项目才有评估故事，而不是只有图片展示。
+:::
+
 ```mermaid
 flowchart LR
     A["训练生成模型"] --> B["看生成质量"]

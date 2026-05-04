@@ -74,6 +74,12 @@ keywords: [image classification project, CNN, confusion matrix, error analysis, 
 
 如果这 6 件事都说清了，即使模型不复杂，项目也会很有说服力。
 
+![图像分类项目闭环](/img/course/ch06-project-image-classification-loop.png)
+
+:::tip 读图方式
+从上往下读：标签先确定任务边界，数据划分保护评估可信度，CNN baseline 给你一个可运行起点，指标展示整体结果，错误样本告诉你下一步该改数据还是改模型。
+:::
+
 ---
 
 ## 三、先看一个最小项目规划对象

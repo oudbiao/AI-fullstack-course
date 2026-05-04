@@ -70,6 +70,12 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 
 この 5 ステップがはっきりしていれば、あなたのプロジェクトは「ただモデルを学習しただけ」より、かなり作品らしくなります。
 
+![感情分析プロジェクトの閉ループ](/img/course/ch06-project-sentiment-analysis-loop-ja.png)
+
+:::tip 図の読み方
+これは「エラーから改善する」ループとして読みます。まずラベル境界を決め、小さな baseline を作り、予測を実行し、誤りを種類ごとに分けてから、ルール追加・データ追加・より強いモデルのどれを選ぶか判断します。
+:::
+
 ## 三、進め方のおすすめ順序
 
 初心者にとって、より安定しやすい順序は次の通りです。

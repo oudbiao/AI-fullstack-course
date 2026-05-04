@@ -68,6 +68,12 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 
 如果这 5 步都清楚，你的项目通常就已经比“只训个模型”更像作品级了。
 
+![情感分析项目闭环](/img/course/ch06-project-sentiment-analysis-loop.png)
+
+:::tip 读图方式
+把它看成“错误驱动”的项目循环：先定义标签边界，再做小 baseline，跑预测，把错例按类型归桶，最后再决定是加规则、补数据，还是换更强模型。
+:::
+
 ## 三、推荐推进顺序
 
 对新人来说，更稳的顺序通常是：

@@ -33,6 +33,12 @@ The main goal of this section is to explain the most basic evaluation and presen
 
 The most confusing part of a generative project for beginners is this: the model is clearly running, but you do not know whether the result is actually good.
 
+![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-en.png)
+
+:::tip How to read this diagram
+For generative projects, do not look only at the best sample. Track checkpoints, compare quality and diversity together, and keep failure samples so the project has an evaluation story rather than only a gallery.
+:::
+
 ```mermaid
 flowchart LR
     A["Train generative model"] --> B["Check generation quality"]
