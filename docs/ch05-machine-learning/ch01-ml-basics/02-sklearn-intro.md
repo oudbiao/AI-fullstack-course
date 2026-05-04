@@ -90,6 +90,14 @@ import sklearn
 print(sklearn.__version__)
 ```
 
+Expected output will be a version number, for example:
+
+```text
+1.8.0
+```
+
+`scikit-learn` is the package name you install with `pip`. `sklearn` is the module name you import in Python. If `import sklearn` fails after installation, first check that `pip` and `python` point to the same environment.
+
 ---
 
 ## 2. Scikit-learn’s design philosophy
@@ -97,6 +105,8 @@ print(sklearn.__version__)
 ### 2.1 Unified API — one trick that works everywhere
 
 The strongest part of Scikit-learn is this: **all algorithms follow the same API pattern**. Whether it is linear regression, a decision tree, or SVM, the usage style is the same.
+
+The following block is a workflow template. It will run after you create `X_train`, `X_test`, `y_train`, and `y_test` in a complete example.
 
 ```python
 # No matter which algorithm you use, the code structure is the same:
@@ -143,6 +153,18 @@ If you only remember three actions for now, remember these:
 - `score`: give you a basic result first
 
 These three actions are the smallest closed loop you will see most often in Chapter 5.
+
+### 2.1.2 Decode the API terms before they become scary
+
+| Term | What it is | Why it matters here |
+|---|---|---|
+| `API` | Application Programming Interface: the methods and inputs a library exposes | sklearn feels easy because many models share the same `fit`, `predict`, and `score` API |
+| `Estimator` | An object that learns from data | Usually has `fit`, then `predict` or `score` |
+| `Transformer` | An object that learns transformation parameters and changes data shape or scale | Usually has `fit`, `transform`, and `fit_transform` |
+| `Pipeline` | An ordered chain of preprocessing steps and a model | Keeps training and prediction on the same path and reduces data leakage mistakes |
+| `hyperparameter` | A setting chosen before training starts | Examples: `max_depth`, `n_neighbors`, `C`, `random_state` |
+| `parameter` | A value learned during `fit` | Examples: tree split rules, scaler mean and standard deviation, linear weights |
+| `attribute_` | A learned sklearn attribute whose name ends with `_` | Examples: `classes_`, `mean_`, `feature_importances_`; it exists only after `fit` |
 
 ### 2.2 Three core roles
 
@@ -196,8 +218,15 @@ from sklearn.tree import DecisionTreeClassifier
 # Create an Estimator (hyperparameters can be passed in)
 model = DecisionTreeClassifier(max_depth=3, random_state=42)
 
-# View hyperparameters
-print(model.get_params())
+# View a few hyperparameters
+params = model.get_params()
+print(params["criterion"], params["max_depth"], params["random_state"])
+```
+
+Expected output:
+
+```text
+gini 3 42
 ```
 
 ### 3.2 Complete example
@@ -237,7 +266,22 @@ score = model.score(X_test, y_test)
 print(f"\nAccuracy: {score:.1%}")
 
 # View learned attributes (underscore suffix = only available after training)
-print(f"\nFeature importances: {model.feature_importances_}")
+print(f"\nFeature importances: {np.round(model.feature_importances_, 4)}")
+```
+
+Expected output:
+
+```text
+Feature names: ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+Class names: ['setosa' 'versicolor' 'virginica']
+Data shape: X=(150, 4), y=(150,)
+
+First 10 predictions: [1 0 2 1 1 0 1 2 1 1]
+First 10 ground truth values: [1 0 2 1 1 0 1 2 1 1]
+
+Accuracy: 100.0%
+
+Feature importances: [0.     0.     0.9346 0.0654]
 ```
 
 :::note Attributes after fit
@@ -275,8 +319,21 @@ print("Predicted class:", model.predict(X_test[:3]))
 proba = model.predict_proba(X_test[:3])
 print("Prediction probabilities:")
 for i, p in enumerate(proba):
-    print(f"  Sample {i}: {dict(zip(target_names, np.round(p, 3)))}")
+    readable = {str(name): float(prob) for name, prob in zip(target_names, np.round(p, 3))}
+    print(f"  Sample {i}: {readable}")
 ```
+
+Expected output:
+
+```text
+Predicted class: [1 0 2]
+Prediction probabilities:
+  Sample 0: {'setosa': 0.004, 'versicolor': 0.828, 'virginica': 0.168}
+  Sample 1: {'setosa': 0.947, 'versicolor': 0.053, 'virginica': 0.0}
+  Sample 2: {'setosa': 0.0, 'versicolor': 0.002, 'virginica': 0.998}
+```
+
+`predict` gives the most likely class. `predict_proba` gives the model’s confidence distribution across classes. In real projects, probabilities are useful when you need thresholds, ranking, risk scoring, or manual review queues.
 
 ---
 
@@ -296,6 +353,13 @@ age = np.array([25, 35, 45])                # smaller values
 print(f"Salary mean: {salary.mean():.0f}, standard deviation: {salary.std():.0f}")
 print(f"Age mean: {age.mean():.0f}, standard deviation: {age.std():.0f}")
 # Salary values are much larger than age values → if used directly, the model may be dominated by salary
+```
+
+Expected output:
+
+```text
+Salary mean: 83333, standard deviation: 28674
+Age mean: 35, standard deviation: 8
 ```
 
 ### 4.2 StandardScaler standardization
@@ -318,8 +382,8 @@ scaler = StandardScaler()
 
 # fit: learn mean and standard deviation
 scaler.fit(X)
-print(f"Learned mean: {scaler.mean_}")
-print(f"Learned standard deviation: {scaler.scale_}")
+print(f"Learned mean: {np.round(scaler.mean_, 2).tolist()}")
+print(f"Learned standard deviation: {np.round(scaler.scale_, 4).tolist()}")
 
 # transform: transform the data using the learned parameters
 X_scaled = scaler.transform(X)
@@ -327,6 +391,30 @@ print(f"\nBefore standardization:\n{X}")
 print(f"\nAfter standardization:\n{np.round(X_scaled, 2)}")
 print(f"\nMean after standardization: {X_scaled.mean(axis=0).round(2)}")    # close to 0
 print(f"Standard deviation after standardization: {X_scaled.std(axis=0).round(2)}")     # close to 1
+```
+
+Expected output:
+
+```text
+Learned mean: [80000.0, 34.6]
+Learned standard deviation: [24494.8974, 7.3919]
+
+Before standardization:
+[[ 50000     25]
+ [ 80000     35]
+ [120000     45]
+ [ 60000     28]
+ [ 90000     40]]
+
+After standardization:
+[[-1.22 -1.3 ]
+ [ 0.    0.05]
+ [ 1.63  1.41]
+ [-0.82 -0.89]
+ [ 0.41  0.73]]
+
+Mean after standardization: [-0. -0.]
+Standard deviation after standardization: [1. 1.]
 ```
 
 ### 4.2.1 Why do we need to `fit` before `transform` for standardization too?
@@ -374,6 +462,19 @@ print("MinMaxScaler normalization:")
 print(np.round(X_minmax, 2))
 print(f"Minimum values: {X_minmax.min(axis=0)}")  # [0, 0]
 print(f"Maximum values: {X_minmax.max(axis=0)}")  # [1, 1]
+```
+
+Expected output:
+
+```text
+MinMaxScaler normalization:
+[[0.   0.  ]
+ [0.43 0.5 ]
+ [1.   1.  ]
+ [0.14 0.15]
+ [0.57 0.75]]
+Minimum values: [0. 0.]
+Maximum values: [1. 1.]
 ```
 
 ---
@@ -520,6 +621,12 @@ score = pipe.score(X_test, y_test)
 print(f"Pipeline accuracy: {score:.1%}")
 ```
 
+Expected output:
+
+```text
+Pipeline accuracy: 100.0%
+```
+
 ```mermaid
 flowchart LR
     subgraph Pipeline
@@ -548,7 +655,14 @@ pipe.fit(X_train, y_train)
 print(f"Accuracy: {pipe.score(X_test, y_test):.1%}")
 
 # View step names
-print(f"Steps: {pipe.named_steps}")
+print(f"Steps: {list(pipe.named_steps.keys())}")
+```
+
+Expected output:
+
+```text
+Accuracy: 100.0%
+Steps: ['standardscaler', 'decisiontreeclassifier']
 ```
 
 ### 6.4 Benefits of Pipeline
@@ -593,6 +707,16 @@ loaded_model = joblib.load("iris_model.joblib")
 print(f"Accuracy after loading: {loaded_model.score(X_test, y_test):.1%}")
 ```
 
+Expected output:
+
+```text
+Training accuracy: 100.0%
+Model saved as iris_model.joblib
+Accuracy after loading: 100.0%
+```
+
+This code creates a local file named `iris_model.joblib`. In a real project, keep the saved file together with the training code, dependency versions, and feature definitions.
+
 ### 7.2 Using pickle
 
 ```python
@@ -607,6 +731,12 @@ with open("iris_model.pkl", "rb") as f:
     loaded_model = pickle.load(f)
 
 print(f"Accuracy after loading with pickle: {loaded_model.score(X_test, y_test):.1%}")
+```
+
+Expected output:
+
+```text
+Accuracy after loading with pickle: 100.0%
 ```
 
 :::tip joblib vs pickle
@@ -684,6 +814,18 @@ plt.tight_layout()
 plt.show()
 ```
 
+Example terminal output before the chart appears:
+
+```text
+Wine dataset: 178 samples, 13 features, 3 classes
+Decision Tree | Train: 100.0% | Test: 94.4%
+Logistic Regression | Train: 100.0% | Test: 100.0%
+KNN (k=5)  | Train: 98.6% | Test: 94.4%
+SVM        | Train: 100.0% | Test: 100.0%
+```
+
+Do not blindly choose the model with the highest training score. In this example, the test score matters more because it better simulates unseen data.
+
 ---
 
 ## 9. sklearn API quick reference
@@ -723,6 +865,10 @@ plt.show()
 ## 10. A common mistake: preprocessing on the full dataset first
 
 Many beginners, when using sklearn for the first time, standardize the full dataset first and then split it into training and test sets. This looks convenient, but it leaks information from the test set into the training workflow too early.
+
+![sklearn Pipeline leakage-safe training comic](/img/course/ch05-sklearn-pipeline-leakage-comic-en.png)
+
+Read the comic as a safety checklist: `fit` learns, `transform` applies, and `Pipeline` keeps the train/test boundary from being crossed accidentally.
 
 ```mermaid
 flowchart LR

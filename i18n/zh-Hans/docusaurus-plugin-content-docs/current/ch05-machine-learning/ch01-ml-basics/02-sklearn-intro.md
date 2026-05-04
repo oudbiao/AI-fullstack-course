@@ -90,6 +90,14 @@ import sklearn
 print(sklearn.__version__)
 ```
 
+预期输出会是一个版本号，例如：
+
+```text
+1.8.0
+```
+
+`scikit-learn` 是通过 `pip` 安装时使用的包名，`sklearn` 是在 Python 代码里导入时使用的模块名。如果安装后 `import sklearn` 仍然失败，先检查 `pip` 和 `python` 是否指向同一个环境。
+
 ---
 
 ## 二、Scikit-learn 的设计哲学
@@ -97,6 +105,8 @@ print(sklearn.__version__)
 ### 2.1 统一 API——一招鲜吃遍天
 
 Scikit-learn 最厉害的地方是：**所有算法都遵循同一套 API 模式**。不管是线性回归、决策树还是 SVM，使用方法都一样。
+
+下面这段是工作流模板。等你在完整示例里创建好 `X_train`、`X_test`、`y_train`、`y_test` 后，它就可以运行。
 
 ```python
 # 无论什么算法，代码结构都一样：
@@ -143,6 +153,18 @@ for name, model in models.items():
 - `score`：先给你一个最基础的结果
 
 这三个动作是第 5 站最常出现的最小闭环。
+
+### 2.1.2 先拆开 API 术语，后面就不吓人
+
+| 术语 | 它是什么 | 在本节为什么重要 |
+|---|---|---|
+| `API` | Application Programming Interface，应用程序编程接口，也就是库暴露给你的方法名和输入格式 | sklearn 容易上手，是因为很多模型共享 `fit`、`predict`、`score` 这一套 API |
+| `Estimator` | 能从数据中学习的对象 | 通常先 `fit`，再 `predict` 或 `score` |
+| `Transformer` | 能学习变换参数，并改变数据形状或尺度的对象 | 通常有 `fit`、`transform`、`fit_transform` |
+| `Pipeline` | 把预处理步骤和模型按顺序串起来的链条 | 让训练和预测走同一路径，减少数据泄漏和手工接线错误 |
+| `hyperparameter` | 训练开始前由人设置的参数 | 例如 `max_depth`、`n_neighbors`、`C`、`random_state` |
+| `parameter` | `fit` 过程中从数据里学到的值 | 例如树的分裂规则、标准化的均值和标准差、线性模型权重 |
+| `attribute_` | sklearn 中以下划线 `_` 结尾的学习后属性 | 例如 `classes_`、`mean_`、`feature_importances_`，只有 `fit` 后才存在 |
 
 ### 2.2 三大核心角色
 
@@ -196,8 +218,15 @@ from sklearn.tree import DecisionTreeClassifier
 # 创建 Estimator（可以传超参数）
 model = DecisionTreeClassifier(max_depth=3, random_state=42)
 
-# 查看超参数
-print(model.get_params())
+# 查看几个超参数
+params = model.get_params()
+print(params["criterion"], params["max_depth"], params["random_state"])
+```
+
+预期输出：
+
+```text
+gini 3 42
 ```
 
 ### 3.2 完整示例
@@ -237,7 +266,22 @@ score = model.score(X_test, y_test)
 print(f"\n准确率: {score:.1%}")
 
 # 查看学到的属性（下划线结尾 = 训练后才有）
-print(f"\n特征重要性: {model.feature_importances_}")
+print(f"\n特征重要性: {np.round(model.feature_importances_, 4)}")
+```
+
+预期输出：
+
+```text
+特征名: ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+类别名: ['setosa' 'versicolor' 'virginica']
+数据形状: X=(150, 4), y=(150,)
+
+前 10 个预测: [1 0 2 1 1 0 1 2 1 1]
+前 10 个真实: [1 0 2 1 1 0 1 2 1 1]
+
+准确率: 100.0%
+
+特征重要性: [0.     0.     0.9346 0.0654]
 ```
 
 :::note fit 之后的属性
@@ -275,8 +319,21 @@ print("预测类别:", model.predict(X_test[:3]))
 proba = model.predict_proba(X_test[:3])
 print("预测概率:")
 for i, p in enumerate(proba):
-    print(f"  样本 {i}: {dict(zip(target_names, np.round(p, 3)))}")
+    readable = {str(name): float(prob) for name, prob in zip(target_names, np.round(p, 3))}
+    print(f"  样本 {i}: {readable}")
 ```
+
+预期输出：
+
+```text
+预测类别: [1 0 2]
+预测概率:
+  样本 0: {'setosa': 0.004, 'versicolor': 0.828, 'virginica': 0.168}
+  样本 1: {'setosa': 0.947, 'versicolor': 0.053, 'virginica': 0.0}
+  样本 2: {'setosa': 0.0, 'versicolor': 0.002, 'virginica': 0.998}
+```
+
+`predict` 给出最可能的类别，`predict_proba` 给出模型对各个类别的信心分布。真实项目中，如果你要设置阈值、排序、风险评分或人工复核队列，概率会比单个类别更有用。
 
 ---
 
@@ -296,6 +353,13 @@ age = np.array([25, 35, 45])                 # 十位级
 print(f"薪资均值: {salary.mean():.0f}, 标准差: {salary.std():.0f}")
 print(f"年龄均值: {age.mean():.0f}, 标准差: {age.std():.0f}")
 # 薪资的数值远大于年龄 → 如果直接用，模型可能被薪资主导
+```
+
+预期输出：
+
+```text
+薪资均值: 83333, 标准差: 28674
+年龄均值: 35, 标准差: 8
 ```
 
 ### 4.2 StandardScaler 标准化
@@ -318,8 +382,8 @@ scaler = StandardScaler()
 
 # fit: 学习均值和标准差
 scaler.fit(X)
-print(f"学到的均值: {scaler.mean_}")
-print(f"学到的标准差: {scaler.scale_}")
+print(f"学到的均值: {np.round(scaler.mean_, 2).tolist()}")
+print(f"学到的标准差: {np.round(scaler.scale_, 4).tolist()}")
 
 # transform: 用学到的参数变换数据
 X_scaled = scaler.transform(X)
@@ -327,6 +391,30 @@ print(f"\n标准化前:\n{X}")
 print(f"\n标准化后:\n{np.round(X_scaled, 2)}")
 print(f"\n标准化后均值: {X_scaled.mean(axis=0).round(2)}")    # 接近 0
 print(f"标准化后标准差: {X_scaled.std(axis=0).round(2)}")     # 接近 1
+```
+
+预期输出：
+
+```text
+学到的均值: [80000.0, 34.6]
+学到的标准差: [24494.8974, 7.3919]
+
+标准化前:
+[[ 50000     25]
+ [ 80000     35]
+ [120000     45]
+ [ 60000     28]
+ [ 90000     40]]
+
+标准化后:
+[[-1.22 -1.3 ]
+ [ 0.    0.05]
+ [ 1.63  1.41]
+ [-0.82 -0.89]
+ [ 0.41  0.73]]
+
+标准化后均值: [-0. -0.]
+标准化后标准差: [1. 1.]
 ```
 
 ### 4.2.1 为什么标准化也要先 `fit` 再 `transform`？
@@ -374,6 +462,19 @@ print("MinMaxScaler 归一化:")
 print(np.round(X_minmax, 2))
 print(f"最小值: {X_minmax.min(axis=0)}")  # [0, 0]
 print(f"最大值: {X_minmax.max(axis=0)}")  # [1, 1]
+```
+
+预期输出：
+
+```text
+MinMaxScaler 归一化:
+[[0.   0.  ]
+ [0.43 0.5 ]
+ [1.   1.  ]
+ [0.14 0.15]
+ [0.57 0.75]]
+最小值: [0. 0.]
+最大值: [1. 1.]
 ```
 
 ---
@@ -520,6 +621,12 @@ score = pipe.score(X_test, y_test)
 print(f"Pipeline 准确率: {score:.1%}")
 ```
 
+预期输出：
+
+```text
+Pipeline 准确率: 100.0%
+```
+
 ```mermaid
 flowchart LR
     subgraph Pipeline
@@ -548,7 +655,14 @@ pipe.fit(X_train, y_train)
 print(f"准确率: {pipe.score(X_test, y_test):.1%}")
 
 # 查看步骤名
-print(f"步骤: {pipe.named_steps}")
+print(f"步骤: {list(pipe.named_steps.keys())}")
+```
+
+预期输出：
+
+```text
+准确率: 100.0%
+步骤: ['standardscaler', 'decisiontreeclassifier']
 ```
 
 ### 6.4 Pipeline 的好处
@@ -593,6 +707,16 @@ loaded_model = joblib.load("iris_model.joblib")
 print(f"加载后准确率: {loaded_model.score(X_test, y_test):.1%}")
 ```
 
+预期输出：
+
+```text
+训练准确率: 100.0%
+模型已保存为 iris_model.joblib
+加载后准确率: 100.0%
+```
+
+这段代码会在本地生成 `iris_model.joblib` 文件。真实项目里，保存模型时最好同时保留训练代码、依赖版本和特征定义，否则以后很难稳定复现。
+
 ### 7.2 使用 pickle
 
 ```python
@@ -607,6 +731,12 @@ with open("iris_model.pkl", "rb") as f:
     loaded_model = pickle.load(f)
 
 print(f"pickle 加载后准确率: {loaded_model.score(X_test, y_test):.1%}")
+```
+
+预期输出：
+
+```text
+pickle 加载后准确率: 100.0%
 ```
 
 :::tip joblib vs pickle
@@ -684,6 +814,18 @@ plt.tight_layout()
 plt.show()
 ```
 
+图表出现前，终端大致会输出：
+
+```text
+Wine 数据集: 178 样本, 13 特征, 3 类别
+决策树        | 训练: 100.0% | 测试: 94.4%
+逻辑回归       | 训练: 100.0% | 测试: 100.0%
+KNN (k=5)  | 训练: 98.6% | 测试: 94.4%
+SVM        | 训练: 100.0% | 测试: 100.0%
+```
+
+不要盲目选择训练集分数最高的模型。这个例子里，测试集分数更重要，因为它更接近模型面对未知数据时的表现。
+
 ---
 
 ## 九、sklearn API 速查表
@@ -723,6 +865,10 @@ plt.show()
 ## 十、一个常见错误：先在全量数据上做预处理
 
 很多新人第一次做 sklearn 项目，会先对完整数据集做标准化，再切分训练集和测试集。这个写法看起来方便，但会把测试集的信息提前泄漏给训练流程。
+
+![sklearn Pipeline 防数据泄漏训练漫画](/img/course/ch05-sklearn-pipeline-leakage-comic.png)
+
+可以把这张漫画当成安全检查清单：`fit` 负责学习，`transform` 负责应用，`Pipeline` 负责守住训练集和测试集之间的边界。
 
 ```mermaid
 flowchart LR

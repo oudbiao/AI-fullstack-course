@@ -90,6 +90,14 @@ import sklearn
 print(sklearn.__version__)
 ```
 
+期待される出力はバージョン番号です。たとえば次のようになります。
+
+```text
+1.8.0
+```
+
+`scikit-learn` は `pip` でインストールするときのパッケージ名です。`sklearn` は Python コードで import するときのモジュール名です。インストール後に `import sklearn` が失敗する場合は、まず `pip` と `python` が同じ環境を指しているか確認してください。
+
 ---
 
 ## 二、Scikit-learn の設計思想
@@ -97,6 +105,8 @@ print(sklearn.__version__)
 ### 2.1 統一 API —— ひとつ覚えれば全部に使える
 
 Scikit-learn の強みは、**すべてのアルゴリズムが同じ API パターンに従う**ことです。線形回帰でも、決定木でも、SVM でも、使い方は同じです。
+
+次のコードはワークフローのテンプレートです。完全な例の中で `X_train`、`X_test`、`y_train`、`y_test` を作ったあとに実行できます。
 
 ```python
 # どんなアルゴリズムでも、コード構造は同じです：
@@ -143,6 +153,18 @@ for name, model in models.items():
 - `score`：まずは基本的な結果を見る
 
 この 3 つは、第 5 ステップで最もよく出てくる最小の閉ループです。
+
+### 2.1.2 API 用語を先にほどいておく
+
+| 用語 | 何を指すか | この節でなぜ重要か |
+|---|---|---|
+| `API` | Application Programming Interface。ライブラリが提供するメソッド名や入力形式 | sklearn は多くのモデルが同じ `fit`、`predict`、`score` API を共有するため学びやすい |
+| `Estimator` | データから学習するオブジェクト | 多くの場合 `fit` のあとに `predict` や `score` を使う |
+| `Transformer` | 変換用パラメータを学び、データの形やスケールを変えるオブジェクト | 多くの場合 `fit`、`transform`、`fit_transform` を持つ |
+| `Pipeline` | 前処理手順とモデルを順番につなげたもの | 学習と予測を同じ経路にし、データリークや手作業ミスを減らす |
+| `hyperparameter` | 学習開始前に人が決める設定値 | 例：`max_depth`、`n_neighbors`、`C`、`random_state` |
+| `parameter` | `fit` の中でデータから学ばれる値 | 例：木の分岐ルール、標準化の平均と標準偏差、線形モデルの重み |
+| `attribute_` | sklearn で末尾に `_` が付く学習後属性 | 例：`classes_`、`mean_`、`feature_importances_`。`fit` 後だけ存在する |
 
 ### 2.2 3つのコア役割
 
@@ -196,8 +218,15 @@ from sklearn.tree import DecisionTreeClassifier
 # Estimator を作成する（ハイパーパラメータを渡せる）
 model = DecisionTreeClassifier(max_depth=3, random_state=42)
 
-# ハイパーパラメータを確認する
-print(model.get_params())
+# いくつかのハイパーパラメータを確認する
+params = model.get_params()
+print(params["criterion"], params["max_depth"], params["random_state"])
+```
+
+期待される出力：
+
+```text
+gini 3 42
 ```
 
 ### 3.2 完全な例
@@ -237,7 +266,22 @@ score = model.score(X_test, y_test)
 print(f"\n正解率: {score:.1%}")
 
 # 学習後にできる属性を見る（末尾の _ = 学習後のみ存在）
-print(f"\n特徴量の重要度: {model.feature_importances_}")
+print(f"\n特徴量の重要度: {np.round(model.feature_importances_, 4)}")
+```
+
+期待される出力：
+
+```text
+特徴名: ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+クラス名: ['setosa' 'versicolor' 'virginica']
+データ形状: X=(150, 4), y=(150,)
+
+最初の 10 個の予測: [1 0 2 1 1 0 1 2 1 1]
+最初の 10 個の正解: [1 0 2 1 1 0 1 2 1 1]
+
+正解率: 100.0%
+
+特徴量の重要度: [0.     0.     0.9346 0.0654]
 ```
 
 :::note fit の後に使える属性
@@ -277,8 +321,21 @@ print("予測クラス:", model.predict(X_test[:3]))
 proba = model.predict_proba(X_test[:3])
 print("予測確率:")
 for i, p in enumerate(proba):
-    print(f"  サンプル {i}: {dict(zip(target_names, np.round(p, 3)))}")
+    readable = {str(name): float(prob) for name, prob in zip(target_names, np.round(p, 3))}
+    print(f"  サンプル {i}: {readable}")
 ```
+
+期待される出力：
+
+```text
+予測クラス: [1 0 2]
+予測確率:
+  サンプル 0: {'setosa': 0.004, 'versicolor': 0.828, 'virginica': 0.168}
+  サンプル 1: {'setosa': 0.947, 'versicolor': 0.053, 'virginica': 0.0}
+  サンプル 2: {'setosa': 0.0, 'versicolor': 0.002, 'virginica': 0.998}
+```
+
+`predict` は最も可能性の高いクラスを返します。`predict_proba` は、各クラスに対するモデルの確信度の分布を返します。実務では、しきい値設定、ランキング、リスクスコア、人による確認キューを作るときに確率が役立ちます。
 
 ---
 
@@ -298,6 +355,13 @@ age = np.array([25, 35, 45])                # 2桁台
 print(f"給与の平均: {salary.mean():.0f}, 標準偏差: {salary.std():.0f}")
 print(f"年齢の平均: {age.mean():.0f}, 標準偏差: {age.std():.0f}")
 # 給与の値が年齢よりはるかに大きい → そのまま使うと、モデルが給与に引っ張られる可能性がある
+```
+
+期待される出力：
+
+```text
+給与の平均: 83333, 標準偏差: 28674
+年齢の平均: 35, 標準偏差: 8
 ```
 
 ### 4.2 StandardScaler による標準化
@@ -320,8 +384,8 @@ scaler = StandardScaler()
 
 # fit: 平均と標準偏差を学習する
 scaler.fit(X)
-print(f"学習した平均: {scaler.mean_}")
-print(f"学習した標準偏差: {scaler.scale_}")
+print(f"学習した平均: {np.round(scaler.mean_, 2).tolist()}")
+print(f"学習した標準偏差: {np.round(scaler.scale_, 4).tolist()}")
 
 # transform: 学習したパラメータでデータを変換する
 X_scaled = scaler.transform(X)
@@ -329,6 +393,30 @@ print(f"\n標準化前:\n{X}")
 print(f"\n標準化後:\n{np.round(X_scaled, 2)}")
 print(f"\n標準化後の平均: {X_scaled.mean(axis=0).round(2)}")    # 0 に近い
 print(f"標準化後の標準偏差: {X_scaled.std(axis=0).round(2)}")     # 1 に近い
+```
+
+期待される出力：
+
+```text
+学習した平均: [80000.0, 34.6]
+学習した標準偏差: [24494.8974, 7.3919]
+
+標準化前:
+[[ 50000     25]
+ [ 80000     35]
+ [120000     45]
+ [ 60000     28]
+ [ 90000     40]]
+
+標準化後:
+[[-1.22 -1.3 ]
+ [ 0.    0.05]
+ [ 1.63  1.41]
+ [-0.82 -0.89]
+ [ 0.41  0.73]]
+
+標準化後の平均: [-0. -0.]
+標準化後の標準偏差: [1. 1.]
 ```
 
 ### 4.2.1 なぜ標準化も先に `fit` してから `transform` するのか？
@@ -376,6 +464,19 @@ print("MinMaxScaler による正規化:")
 print(np.round(X_minmax, 2))
 print(f"最小値: {X_minmax.min(axis=0)}")  # [0, 0]
 print(f"最大値: {X_minmax.max(axis=0)}")  # [1, 1]
+```
+
+期待される出力：
+
+```text
+MinMaxScaler による正規化:
+[[0.   0.  ]
+ [0.43 0.5 ]
+ [1.   1.  ]
+ [0.14 0.15]
+ [0.57 0.75]]
+最小値: [0. 0.]
+最大値: [1. 1.]
 ```
 
 ---
@@ -522,6 +623,12 @@ score = pipe.score(X_test, y_test)
 print(f"Pipeline の正解率: {score:.1%}")
 ```
 
+期待される出力：
+
+```text
+Pipeline の正解率: 100.0%
+```
+
 ```mermaid
 flowchart LR
     subgraph Pipeline
@@ -550,7 +657,14 @@ pipe.fit(X_train, y_train)
 print(f"正解率: {pipe.score(X_test, y_test):.1%}")
 
 # 手順名を確認する
-print(f"手順: {pipe.named_steps}")
+print(f"手順: {list(pipe.named_steps.keys())}")
+```
+
+期待される出力：
+
+```text
+正解率: 100.0%
+手順: ['standardscaler', 'decisiontreeclassifier']
 ```
 
 ### 6.4 Pipeline のメリット
@@ -595,6 +709,16 @@ loaded_model = joblib.load("iris_model.joblib")
 print(f"読み込み後の正解率: {loaded_model.score(X_test, y_test):.1%}")
 ```
 
+期待される出力：
+
+```text
+訓練後の正解率: 100.0%
+モデルを iris_model.joblib として保存しました
+読み込み後の正解率: 100.0%
+```
+
+このコードはローカルに `iris_model.joblib` というファイルを作ります。実務では、保存したモデルだけでなく、学習コード、依存ライブラリのバージョン、特徴量定義も一緒に管理すると再現しやすくなります。
+
 ### 7.2 pickle を使う
 
 ```python
@@ -609,6 +733,12 @@ with open("iris_model.pkl", "rb") as f:
     loaded_model = pickle.load(f)
 
 print(f"pickle 読み込み後の正解率: {loaded_model.score(X_test, y_test):.1%}")
+```
+
+期待される出力：
+
+```text
+pickle 読み込み後の正解率: 100.0%
 ```
 
 :::tip joblib と pickle の違い
@@ -686,6 +816,18 @@ plt.tight_layout()
 plt.show()
 ```
 
+グラフが表示される前に、ターミナルにはおおよそ次のように出力されます。
+
+```text
+Wine データセット: 178 サンプル, 13 特徴量, 3 クラス
+決定木        | 訓練: 100.0% | テスト: 94.4%
+ロジスティック回帰 | 訓練: 100.0% | テスト: 100.0%
+KNN (k=5)  | 訓練: 98.6% | テスト: 94.4%
+SVM        | 訓練: 100.0% | テスト: 100.0%
+```
+
+訓練データのスコアが最も高いモデルを、そのまま選んではいけません。この例では、未知データに近い状況を表すテストスコアのほうが重要です。
+
 ---
 
 ## 九、sklearn API 早見表
@@ -725,6 +867,10 @@ plt.show()
 ## 十、よくある間違い：全データに先に前処理をかける
 
 初心者が sklearn で最初にやりがちなミスは、データ全体に標準化をかけてから訓練データとテストデータを分けることです。これだと、テストデータの情報が先に学習側へ漏れてしまいます。
+
+![sklearn Pipeline データリーク防止学習漫画](/img/course/ch05-sklearn-pipeline-leakage-comic-ja.png)
+
+この漫画は安全チェックリストとして読めます。`fit` は学ぶ、`transform` は適用する、そして `Pipeline` は訓練データとテストデータの境界をうっかり越えないように守ります。
 
 ```mermaid
 flowchart LR
