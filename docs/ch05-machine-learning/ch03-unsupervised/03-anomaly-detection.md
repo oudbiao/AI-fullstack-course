@@ -46,6 +46,23 @@ A more stable order of understanding is:
 
 So the most important thing in anomaly detection is not memorizing model names first, but understanding what “anomaly” actually means in your case.
 
+![Anomaly detection alert threshold comic](/img/course/ch05-anomaly-alert-threshold-comic-en.png)
+
+Read this comic as the main warning for the section: anomaly detection is not simply “find strange points.” A point becomes important when it is strange enough to trigger a useful action. That is why thresholds, `contamination`, false positives, false negatives, and business cost are part of the modeling problem, not afterthoughts.
+
+### Keyword Decoder Before You Start
+
+| Term | Beginner-friendly meaning | Why it matters here |
+|---|---|---|
+| anomaly / outlier | A sample that does not fit the normal pattern | The same point may be harmless in one business and urgent in another |
+| threshold | The cutoff where you decide “alert” vs “ignore” | Moving it changes false positives and false negatives |
+| false positive | A normal point incorrectly flagged as anomalous | Too many false alarms make users ignore the system |
+| false negative | A real anomaly missed by the model | In fraud, security, or equipment monitoring, this can be very costly |
+| `contamination` | Your estimated anomaly ratio | Many sklearn anomaly models use it to decide how many points to flag |
+| `decision_function()` | A score where higher usually means more normal for many sklearn detectors | Useful for drawing score heatmaps and tuning thresholds |
+| `fit_predict()` | Train the detector and immediately output labels | In these examples, `1` means normal and `-1` means anomaly |
+| LOF | Local Outlier Factor; compares a point with its local neighbors | Good when “abnormal” depends on local density |
+
 ---
 
 ## 1. Overview of anomaly detection
@@ -131,6 +148,11 @@ X_anomaly = rng.uniform(0, 12, (n_anomaly, 2))
 X_all = np.vstack([X_normal, X_anomaly])
 y_true = np.array([1] * n_normal + [-1] * n_anomaly)  # 1=normal, -1=anomaly
 
+print(f"Total samples: {X_all.shape[0]}")
+print(f"Normal samples: {n_normal}")
+print(f"Injected anomalies: {n_anomaly}")
+print(f"True anomaly ratio: {n_anomaly / len(X_all):.1%}")
+
 plt.figure(figsize=(8, 6))
 plt.scatter(X_normal[:, 0], X_normal[:, 1], s=20, alpha=0.6, label='Normal', color='steelblue')
 plt.scatter(X_anomaly[:, 0], X_anomaly[:, 1], s=80, marker='x', color='red',
@@ -142,6 +164,17 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+Expected output:
+
+```text
+Total samples: 315
+Normal samples: 300
+Injected anomalies: 15
+True anomaly ratio: 4.8%
+```
+
+In real projects, you usually do not know the true anomaly ratio. Here we know it only because this is synthetic data, which makes it useful for learning and evaluation.
 
 ---
 
@@ -165,6 +198,8 @@ data_1d = np.concatenate([rng.normal(size=200) * 2 + 10, [25, -5, 30]])
 z_scores = np.abs(stats.zscore(data_1d))
 threshold = 3
 anomalies = z_scores > threshold
+print(f"Z-score anomalies found: {anomalies.sum()}")
+print("Z-score anomaly values:", np.round(data_1d[anomalies], 2).tolist())
 
 plt.figure(figsize=(10, 4))
 plt.scatter(range(len(data_1d)), data_1d, c=['red' if a else 'steelblue' for a in anomalies],
@@ -177,6 +212,13 @@ plt.title(f'Z-score Anomaly Detection ({anomalies.sum()} anomalies found)')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+Expected output:
+
+```text
+Z-score anomalies found: 3
+Z-score anomaly values: [25.0, -5.0, 30.0]
 ```
 
 ### 2.2 IQR method
@@ -194,6 +236,10 @@ IQR = Q3 - Q1
 lower = Q1 - 1.5 * IQR
 upper = Q3 + 1.5 * IQR
 anomalies_iqr = (data_1d < lower) | (data_1d > upper)
+print(f"Q1={Q1:.2f}, Q3={Q3:.2f}, IQR={IQR:.2f}")
+print(f"Lower={lower:.2f}, Upper={upper:.2f}")
+print(f"IQR anomalies found: {anomalies_iqr.sum()}")
+print("IQR anomaly values:", np.round(data_1d[anomalies_iqr], 2).tolist())
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
@@ -213,6 +259,17 @@ axes[1].grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+Q1=8.68, Q3=11.13, IQR=2.45
+Lower=5.01, Upper=14.80
+IQR anomalies found: 4
+IQR anomaly values: [15.83, 25.0, -5.0, 30.0]
+```
+
+Notice that IQR finds one more point than Z-score here. This is not a bug; the two methods define “far away” differently.
 
 ### 2.3 Z-score vs IQR
 
@@ -281,6 +338,7 @@ iso = IsolationForest(
     random_state=42
 )
 y_pred_iso = iso.fit_predict(X_all)  # 1=normal, -1=anomaly
+print(f"Isolation Forest detected: {(y_pred_iso == -1).sum()}")
 
 # Visualization
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -310,6 +368,18 @@ from sklearn.metrics import classification_report
 print("Isolation Forest evaluation:")
 print(classification_report(y_true, y_pred_iso, target_names=['Anomaly(-1)', 'Normal(1)']))
 ```
+
+Expected output excerpt:
+
+```text
+Isolation Forest detected: 16
+              precision    recall  f1-score   support
+
+ Anomaly(-1)       0.75      0.80      0.77        15
+   Normal(1)       0.99      0.99      0.99       300
+```
+
+The detector flags 16 points while we injected 15 anomalies. That difference is exactly why anomaly detection is a threshold-and-cost problem: a few extra alerts may be acceptable in fraud monitoring, but annoying in a user-facing notification system.
 
 ### 3.3 Key parameters
 
@@ -344,6 +414,7 @@ from sklearn.svm import OneClassSVM
 # One-Class SVM
 ocsvm = OneClassSVM(kernel='rbf', gamma='auto', nu=0.05)  # nu ≈ anomaly ratio
 y_pred_svm = ocsvm.fit_predict(X_all)
+print(f"One-Class SVM detected: {(y_pred_svm == -1).sum()}")
 
 # Visualization
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -367,6 +438,14 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+One-Class SVM detected: 60
+```
+
+This result is intentionally useful for learning: with `gamma='auto'` on this toy data, One-Class SVM is much more aggressive than Isolation Forest. Do not treat `nu=0.05` as a guarantee that exactly 5% of points will be flagged; it is a constraint-like parameter, not a magic percentage switch.
 
 ### 4.2 Key parameters
 
@@ -397,6 +476,7 @@ from sklearn.neighbors import LocalOutlierFactor
 # LOF
 lof = LocalOutlierFactor(n_neighbors=20, contamination=0.05)
 y_pred_lof = lof.fit_predict(X_all)
+print(f"LOF detected: {(y_pred_lof == -1).sum()}")
 
 # Visualization
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -405,6 +485,7 @@ colors_lof = ['red' if p == -1 else 'steelblue' for p in y_pred_lof]
 # LOF score (the larger the absolute value, the more anomalous)
 lof_scores = -lof.negative_outlier_factor_
 sizes = 20 + (lof_scores - lof_scores.min()) / (lof_scores.max() - lof_scores.min()) * 200
+print(f"LOF score range: {lof_scores.min():.2f} to {lof_scores.max():.2f}")
 
 ax.scatter(X_all[:, 0], X_all[:, 1], c=colors_lof, s=sizes, alpha=0.6,
            edgecolors='white', linewidth=0.5)
@@ -414,6 +495,15 @@ ax.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+LOF detected: 16
+LOF score range: 0.96 to 3.21
+```
+
+LOF scores are most useful as relative signals. A larger score means “this point looks less like its local neighborhood,” not necessarily “this point is globally far away.”
 
 ### 5.3 Key parameters
 
@@ -454,12 +544,21 @@ for ax, (name, model) in zip(axes, methods.items()):
     colors = ['red' if p == -1 else 'steelblue' for p in y_pred]
     ax.scatter(X_all[:, 0], X_all[:, 1], c=colors, s=20, alpha=0.7)
     n_anomalies = (y_pred == -1).sum()
+    print(f"{name}: {n_anomalies} anomalies detected")
     ax.set_title(f'{name}\n{n_anomalies} anomalies detected')
     ax.grid(True, alpha=0.3)
 
 plt.suptitle('Comparison of Three Anomaly Detection Methods', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+Expected output:
+
+```text
+Isolation Forest: 16 anomalies detected
+One-Class SVM: 60 anomalies detected
+LOF: 16 anomalies detected
 ```
 
 | | Statistical methods | Isolation Forest | One-Class SVM | LOF |
@@ -528,6 +627,20 @@ plt.tight_layout()
 plt.show()
 ```
 
+Expected output excerpt:
+
+```text
+Normal samples: 4823
+Anomalous samples: 177
+
+              precision    recall  f1-score   support
+
+      Normal      0.968     0.953     0.960      4823
+     Anomaly      0.096     0.136     0.112       177
+```
+
+This simulated fraud example is deliberately hard: overall accuracy looks high because normal samples dominate, but anomaly precision and recall are weak. In anomaly detection, always inspect minority-class metrics and the confusion matrix.
+
 ---
 
 ## 8. How should you choose a method?
@@ -568,7 +681,7 @@ This is more stable than jumping straight to advanced models, because you first 
 
 ---
 
-## 10. The safest default order when bringing anomaly detection into a project for the first time
+## 9. The safest default order when bringing anomaly detection into a project for the first time
 
 When you first put anomaly detection into a real project, you can follow this order:
 

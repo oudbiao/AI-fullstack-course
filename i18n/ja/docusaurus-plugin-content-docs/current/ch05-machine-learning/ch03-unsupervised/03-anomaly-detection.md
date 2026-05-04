@@ -47,6 +47,23 @@ keywords: [異常検知, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, 外
 
 つまり、異常検知でいちばん大事なのは、まずモデル名を覚えることではなく、「自分にとっての異常とは何か」をはっきりさせることです。
 
+![異常検知の警報しきい値マンガ](/img/course/ch05-anomaly-alert-threshold-comic-ja.png)
+
+このマンガは、この節の大事な注意点を表しています。異常検知は単に「変な点を探す」作業ではありません。その点が、行動を起こすほど重要かどうかを判断する必要があります。だから、しきい値、`contamination`、誤検知、見逃し、業務コストは、最後のおまけではなく、モデル設計そのものの一部です。
+
+### 始める前のキーワード解説
+
+| 用語 | 初心者向けの意味 | この節での役割 |
+|---|---|---|
+| anomaly / outlier | 正常パターンに合わないサンプル | 同じ点でも、業務によって無害な揺れにも緊急リスクにもなる |
+| しきい値 | 「警報を出す」か「無視する」かを決める境界 | 動かすと誤検知と見逃しが変わる |
+| 誤検知 false positive | 正常な点を異常と判定してしまうこと | 多すぎると、ユーザーが警報を信じなくなる |
+| 見逃し false negative | 本当の異常を見逃してしまうこと | 不正検知、セキュリティ、機器監視では大きな損失になることがある |
+| `contamination` | 想定する異常割合 | 多くの sklearn 異常検知モデルで、どのくらいの点を異常扱いするかに関係する |
+| `decision_function()` | 異常スコア。多くの sklearn 検知器では大きいほど正常寄り | スコアのヒートマップやしきい値調整に使える |
+| `fit_predict()` | 検知器を学習し、そのままラベルを出す処理 | 本節の例では `1` が正常、`-1` が異常 |
+| LOF | Local Outlier Factor、局所外れ値因子 | 異常かどうかが局所密度に依存する場合に役立つ |
+
 ---
 
 ## 一、異常検知の概要
@@ -138,6 +155,11 @@ X_anomaly = rng.uniform(0, 12, (n_anomaly, 2))
 X_all = np.vstack([X_normal, X_anomaly])
 y_true = np.array([1] * n_normal + [-1] * n_anomaly)  # 1=正常, -1=異常
 
+print(f"Total samples: {X_all.shape[0]}")
+print(f"Normal samples: {n_normal}")
+print(f"Injected anomalies: {n_anomaly}")
+print(f"True anomaly ratio: {n_anomaly / len(X_all):.1%}")
+
 plt.figure(figsize=(8, 6))
 plt.scatter(X_normal[:, 0], X_normal[:, 1], s=20, alpha=0.6, label='正常', color='steelblue')
 plt.scatter(X_anomaly[:, 0], X_anomaly[:, 1], s=80, marker='x', color='red',
@@ -149,6 +171,17 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+期待される出力：
+
+```text
+Total samples: 315
+Normal samples: 300
+Injected anomalies: 15
+True anomaly ratio: 4.8%
+```
+
+実際のプロジェクトでは、本当の異常割合は分からないことが多いです。ここで分かるのは、人工的に作った学習用データだからです。そのため、学習と評価に使いやすくなっています。
 
 ---
 
@@ -172,6 +205,8 @@ data_1d = np.concatenate([rng.normal(size=200) * 2 + 10, [25, -5, 30]])
 z_scores = np.abs(stats.zscore(data_1d))
 threshold = 3
 anomalies = z_scores > threshold
+print(f"Z-score anomalies found: {anomalies.sum()}")
+print("Z-score anomaly values:", np.round(data_1d[anomalies], 2).tolist())
 
 plt.figure(figsize=(10, 4))
 plt.scatter(range(len(data_1d)), data_1d, c=['red' if a else 'steelblue' for a in anomalies],
@@ -184,6 +219,13 @@ plt.title(f'Z-score 異常検知（{anomalies.sum()} 個の異常を検出）')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+期待される出力：
+
+```text
+Z-score anomalies found: 3
+Z-score anomaly values: [25.0, -5.0, 30.0]
 ```
 
 ### 2.2 IQR 法
@@ -201,6 +243,10 @@ IQR = Q3 - Q1
 lower = Q1 - 1.5 * IQR
 upper = Q3 + 1.5 * IQR
 anomalies_iqr = (data_1d < lower) | (data_1d > upper)
+print(f"Q1={Q1:.2f}, Q3={Q3:.2f}, IQR={IQR:.2f}")
+print(f"Lower={lower:.2f}, Upper={upper:.2f}")
+print(f"IQR anomalies found: {anomalies_iqr.sum()}")
+print("IQR anomaly values:", np.round(data_1d[anomalies_iqr], 2).tolist())
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
@@ -220,6 +266,17 @@ axes[1].grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+Q1=8.68, Q3=11.13, IQR=2.45
+Lower=5.01, Upper=14.80
+IQR anomalies found: 4
+IQR anomaly values: [15.83, 25.0, -5.0, 30.0]
+```
+
+ここでは IQR が Z-score より 1 つ多く検出しています。これはバグではありません。2つの方法が「どのくらい離れたら異常か」を違うルールで決めているからです。
 
 ### 2.3 Z-score と IQR の比較
 
@@ -288,6 +345,7 @@ iso = IsolationForest(
     random_state=42
 )
 y_pred_iso = iso.fit_predict(X_all)  # 1=正常, -1=異常
+print(f"Isolation Forest detected: {(y_pred_iso == -1).sum()}")
 
 # 可視化
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -317,6 +375,18 @@ from sklearn.metrics import classification_report
 print("Isolation Forest の評価:")
 print(classification_report(y_true, y_pred_iso, target_names=['異常(-1)', '正常(1)']))
 ```
+
+期待される出力の一部：
+
+```text
+Isolation Forest detected: 16
+              precision    recall  f1-score   support
+
+      異常(-1)      0.75      0.80      0.77        15
+       正常(1)      0.99      0.99      0.99       300
+```
+
+15 個の異常を入れましたが、モデルは 16 個を異常として検出しました。この違いこそ、異常検知がしきい値とコストの問題である理由です。不正検知では少し多めの警報が許容されることもありますが、ユーザー向け通知では誤検知が多いと迷惑になります。
 
 ### 3.3 重要なパラメータ
 
@@ -351,6 +421,7 @@ from sklearn.svm import OneClassSVM
 # One-Class SVM
 ocsvm = OneClassSVM(kernel='rbf', gamma='auto', nu=0.05)  # nu ≈ 異常割合
 y_pred_svm = ocsvm.fit_predict(X_all)
+print(f"One-Class SVM detected: {(y_pred_svm == -1).sum()}")
 
 # 可視化
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -374,6 +445,14 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+One-Class SVM detected: 60
+```
+
+この結果は学習上とても役に立ちます。この玩具データと `gamma='auto'` では、One-Class SVM は Isolation Forest よりかなり積極的に異常を出します。`nu=0.05` は「必ず 5% だけ検出する」という魔法のスイッチではなく、制約に近いパラメータです。
 
 ### 4.2 重要なパラメータ
 
@@ -404,6 +483,7 @@ from sklearn.neighbors import LocalOutlierFactor
 # LOF
 lof = LocalOutlierFactor(n_neighbors=20, contamination=0.05)
 y_pred_lof = lof.fit_predict(X_all)
+print(f"LOF detected: {(y_pred_lof == -1).sum()}")
 
 # 可視化
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -412,6 +492,7 @@ colors_lof = ['red' if p == -1 else 'steelblue' for p in y_pred_lof]
 # LOF スコア（絶対値が大きいほど異常）
 lof_scores = -lof.negative_outlier_factor_
 sizes = 20 + (lof_scores - lof_scores.min()) / (lof_scores.max() - lof_scores.min()) * 200
+print(f"LOF score range: {lof_scores.min():.2f} to {lof_scores.max():.2f}")
 
 ax.scatter(X_all[:, 0], X_all[:, 1], c=colors_lof, s=sizes, alpha=0.6,
            edgecolors='white', linewidth=0.5)
@@ -421,6 +502,15 @@ ax.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+LOF detected: 16
+LOF score range: 0.96 to 3.21
+```
+
+LOF スコアは、相対的な信号として見るのが自然です。スコアが大きいほど「その点は周囲の近傍に似ていない」という意味であり、必ずしも全体空間で最も遠い点という意味ではありません。
 
 ### 5.3 重要なパラメータ
 
@@ -461,12 +551,21 @@ for ax, (name, model) in zip(axes, methods.items()):
     colors = ['red' if p == -1 else 'steelblue' for p in y_pred]
     ax.scatter(X_all[:, 0], X_all[:, 1], c=colors, s=20, alpha=0.7)
     n_anomalies = (y_pred == -1).sum()
+    print(f"{name}: {n_anomalies} anomalies detected")
     ax.set_title(f'{name}\n{n_anomalies} 個の異常を検出')
     ax.grid(True, alpha=0.3)
 
 plt.suptitle('3つの異常検知手法の比較', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+期待される出力：
+
+```text
+Isolation Forest: 16 anomalies detected
+One-Class SVM: 60 anomalies detected
+LOF: 16 anomalies detected
 ```
 
 | | 統計手法 | Isolation Forest | One-Class SVM | LOF |
@@ -535,6 +634,20 @@ plt.tight_layout()
 plt.show()
 ```
 
+期待される出力の一部：
+
+```text
+正常サンプル: 4823
+異常サンプル: 177
+
+              precision    recall  f1-score   support
+
+          正常      0.968     0.953     0.960      4823
+          異常      0.096     0.136     0.112       177
+```
+
+この不正検知のシミュレーションは、あえて難しくしています。正常サンプルが多いため全体の正解率は高く見えますが、異常クラスの precision と recall は弱いです。異常検知では、少数クラスの指標と混同行列を必ず確認しましょう。
+
 ---
 
 ## 八、どうやって方法を選ぶか？
@@ -576,7 +689,7 @@ flowchart TD
 
 ---
 
-## 十、最初に異常検知をプロジェクトへ入れるときの、いちばん安定なデフォルト順
+## 九、最初に異常検知をプロジェクトへ入れるときの、いちばん安定なデフォルト順
 
 実際に異常検知をプロジェクトへ入れるときは、まず次の順番で進めるとよいです。
 

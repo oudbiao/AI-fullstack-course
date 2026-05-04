@@ -47,6 +47,23 @@ keywords: [异常检测, Isolation Forest, One-Class SVM, LOF, Z-score, IQR, 离
 
 所以异常检测最重要的不是先记模型名，而是先把“你眼里的异常到底是什么”想清楚。
 
+![异常检测报警阈值漫画](/img/course/ch05-anomaly-alert-threshold-comic.png)
+
+这张漫画是本节的核心提醒：异常检测不是简单地“找奇怪点”。一个点是否重要，取决于它是否异常到值得触发行动。所以阈值、`contamination`、误报、漏报和业务代价，都是建模问题的一部分，不是最后才补一句的附属内容。
+
+### 开始前先解码几个关键词
+
+| 术语 | 新人友好的解释 | 在本节里的作用 |
+|---|---|---|
+| anomaly / outlier | 不符合正常模式的样本 | 同一个点在不同业务里，可能是无害波动，也可能是紧急风险 |
+| 阈值 | 决定“报警”还是“忽略”的分界线 | 调整它会改变误报和漏报 |
+| 误报 false positive | 正常点被错判成异常 | 太多误报会让用户不再信任系统 |
+| 漏报 false negative | 真异常被模型漏掉 | 在欺诈、安全、设备监控里可能代价很高 |
+| `contamination` | 你预估的异常比例 | 很多 sklearn 异常检测模型用它决定大概要标多少点 |
+| `decision_function()` | 异常检测分数，很多 sklearn 检测器里通常越大越正常 | 可用于画分数热图和调阈值 |
+| `fit_predict()` | 训练检测器并直接输出标签 | 本节例子里 `1` 表示正常，`-1` 表示异常 |
+| LOF | Local Outlier Factor，局部离群因子 | 当“异常”取决于局部密度时很有用 |
+
 ---
 
 ## 一、异常检测概述
@@ -132,6 +149,11 @@ X_anomaly = rng.uniform(0, 12, (n_anomaly, 2))
 X_all = np.vstack([X_normal, X_anomaly])
 y_true = np.array([1] * n_normal + [-1] * n_anomaly)  # 1=正常, -1=异常
 
+print(f"Total samples: {X_all.shape[0]}")
+print(f"Normal samples: {n_normal}")
+print(f"Injected anomalies: {n_anomaly}")
+print(f"True anomaly ratio: {n_anomaly / len(X_all):.1%}")
+
 plt.figure(figsize=(8, 6))
 plt.scatter(X_normal[:, 0], X_normal[:, 1], s=20, alpha=0.6, label='正常', color='steelblue')
 plt.scatter(X_anomaly[:, 0], X_anomaly[:, 1], s=80, marker='x', color='red',
@@ -143,6 +165,17 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+预期输出：
+
+```text
+Total samples: 315
+Normal samples: 300
+Injected anomalies: 15
+True anomaly ratio: 4.8%
+```
+
+真实项目里，你通常不知道真正的异常比例。这里知道它，只是因为我们在用人工生成的教学数据，方便学习和评估。
 
 ---
 
@@ -166,6 +199,8 @@ data_1d = np.concatenate([rng.normal(size=200) * 2 + 10, [25, -5, 30]])
 z_scores = np.abs(stats.zscore(data_1d))
 threshold = 3
 anomalies = z_scores > threshold
+print(f"Z-score anomalies found: {anomalies.sum()}")
+print("Z-score anomaly values:", np.round(data_1d[anomalies], 2).tolist())
 
 plt.figure(figsize=(10, 4))
 plt.scatter(range(len(data_1d)), data_1d, c=['red' if a else 'steelblue' for a in anomalies],
@@ -178,6 +213,13 @@ plt.title(f'Z-score 异常检测（发现 {anomalies.sum()} 个异常）')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+预期输出：
+
+```text
+Z-score anomalies found: 3
+Z-score anomaly values: [25.0, -5.0, 30.0]
 ```
 
 ### 2.2 IQR 方法
@@ -195,6 +237,10 @@ IQR = Q3 - Q1
 lower = Q1 - 1.5 * IQR
 upper = Q3 + 1.5 * IQR
 anomalies_iqr = (data_1d < lower) | (data_1d > upper)
+print(f"Q1={Q1:.2f}, Q3={Q3:.2f}, IQR={IQR:.2f}")
+print(f"Lower={lower:.2f}, Upper={upper:.2f}")
+print(f"IQR anomalies found: {anomalies_iqr.sum()}")
+print("IQR anomaly values:", np.round(data_1d[anomalies_iqr], 2).tolist())
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
@@ -214,6 +260,17 @@ axes[1].grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+预期输出：
+
+```text
+Q1=8.68, Q3=11.13, IQR=2.45
+Lower=5.01, Upper=14.80
+IQR anomalies found: 4
+IQR anomaly values: [15.83, 25.0, -5.0, 30.0]
+```
+
+注意 IQR 在这里比 Z-score 多找到了一个点，这不是错误，而是因为两种方法对“离得太远”的定义不同。
 
 ### 2.3 Z-score vs IQR
 
@@ -282,6 +339,7 @@ iso = IsolationForest(
     random_state=42
 )
 y_pred_iso = iso.fit_predict(X_all)  # 1=正常, -1=异常
+print(f"Isolation Forest detected: {(y_pred_iso == -1).sum()}")
 
 # 可视化
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -311,6 +369,18 @@ from sklearn.metrics import classification_report
 print("Isolation Forest 评估:")
 print(classification_report(y_true, y_pred_iso, target_names=['异常(-1)', '正常(1)']))
 ```
+
+预期输出节选：
+
+```text
+Isolation Forest detected: 16
+              precision    recall  f1-score   support
+
+      异常(-1)      0.75      0.80      0.77        15
+       正常(1)      0.99      0.99      0.99       300
+```
+
+我们注入了 15 个异常，但模型标出了 16 个点。这正好说明异常检测是“阈值和代价”的问题：在欺诈监控里，多几个提醒可能能接受；但在面向用户的通知系统里，误报太多会很烦。
 
 ### 3.3 关键参数
 
@@ -345,6 +415,7 @@ from sklearn.svm import OneClassSVM
 # One-Class SVM
 ocsvm = OneClassSVM(kernel='rbf', gamma='auto', nu=0.05)  # nu ≈ 异常比例
 y_pred_svm = ocsvm.fit_predict(X_all)
+print(f"One-Class SVM detected: {(y_pred_svm == -1).sum()}")
 
 # 可视化
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -368,6 +439,14 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 ```
+
+预期输出：
+
+```text
+One-Class SVM detected: 60
+```
+
+这个结果很适合学习：在这组玩具数据和 `gamma='auto'` 下，One-Class SVM 比 Isolation Forest 激进很多。不要把 `nu=0.05` 理解成“一定只标 5% 的点”，它更像约束参数，不是魔法百分比开关。
 
 ### 4.2 关键参数
 
@@ -398,6 +477,7 @@ from sklearn.neighbors import LocalOutlierFactor
 # LOF
 lof = LocalOutlierFactor(n_neighbors=20, contamination=0.05)
 y_pred_lof = lof.fit_predict(X_all)
+print(f"LOF detected: {(y_pred_lof == -1).sum()}")
 
 # 可视化
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -406,6 +486,7 @@ colors_lof = ['red' if p == -1 else 'steelblue' for p in y_pred_lof]
 # LOF 分数（绝对值越大越异常）
 lof_scores = -lof.negative_outlier_factor_
 sizes = 20 + (lof_scores - lof_scores.min()) / (lof_scores.max() - lof_scores.min()) * 200
+print(f"LOF score range: {lof_scores.min():.2f} to {lof_scores.max():.2f}")
 
 ax.scatter(X_all[:, 0], X_all[:, 1], c=colors_lof, s=sizes, alpha=0.6,
            edgecolors='white', linewidth=0.5)
@@ -415,6 +496,15 @@ ax.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+预期输出：
+
+```text
+LOF detected: 16
+LOF score range: 0.96 to 3.21
+```
+
+LOF 分数更适合作相对信号来看。分数越大，表示“这个点越不像它周围的邻居”，不一定表示它在全局空间里离所有点都很远。
 
 ### 5.3 关键参数
 
@@ -455,12 +545,21 @@ for ax, (name, model) in zip(axes, methods.items()):
     colors = ['red' if p == -1 else 'steelblue' for p in y_pred]
     ax.scatter(X_all[:, 0], X_all[:, 1], c=colors, s=20, alpha=0.7)
     n_anomalies = (y_pred == -1).sum()
+    print(f"{name}: {n_anomalies} anomalies detected")
     ax.set_title(f'{name}\n检测到 {n_anomalies} 个异常')
     ax.grid(True, alpha=0.3)
 
 plt.suptitle('三种异常检测方法对比', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+预期输出：
+
+```text
+Isolation Forest: 16 anomalies detected
+One-Class SVM: 60 anomalies detected
+LOF: 16 anomalies detected
 ```
 
 | | 统计方法 | Isolation Forest | One-Class SVM | LOF |
@@ -529,6 +628,20 @@ plt.tight_layout()
 plt.show()
 ```
 
+预期输出节选：
+
+```text
+正常样本: 4823
+异常样本: 177
+
+              precision    recall  f1-score   support
+
+          正常      0.968     0.953     0.960      4823
+          异常      0.096     0.136     0.112       177
+```
+
+这个模拟欺诈例子故意比较难：整体准确率看起来很高，是因为正常样本占多数；但异常类的 precision 和 recall 都很弱。异常检测一定要看少数类指标和混淆矩阵。
+
 ---
 
 ## 八、如何选择方法？
@@ -569,7 +682,7 @@ flowchart TD
 
 ---
 
-## 十、第一次把异常检测放进项目里，最稳的默认顺序
+## 九、第一次把异常检测放进项目里，最稳的默认顺序
 
 第一次把异常检测真正放进项目里，可以先按这个顺序：
 
