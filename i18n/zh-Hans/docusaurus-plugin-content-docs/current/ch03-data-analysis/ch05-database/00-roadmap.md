@@ -47,6 +47,18 @@ keywords: [数据库导读, 关系型数据库, SQL, sqlite, Pandas和数据库]
 - 数据为什么不会永远安安静静躺在 CSV 里
 - 当数据开始长期保存、多人使用、需要查询和权限时，系统为什么会自然长出数据库
 
+## 这一章会反复看到的术语
+
+| 术语 | 英文全称 | 先记住什么 |
+|---|---|---|
+| `SQL` | Structured Query Language | 结构化查询语言，用来向数据库提问 |
+| `SQLite` | SQLite database engine | 很适合新人的轻量数据库，通常存成一个本地文件 |
+| `DBA` | Database Administrator | 数据库管理员，负责数据库运维、安全、备份和性能 |
+| `RAG` | Retrieval-Augmented Generation | 检索增强生成，AI 回答前先检索外部资料的一种应用模式 |
+| `AI Agent` | Artificial Intelligence Agent | 人工智能智能体，能规划步骤、使用工具，并保留一定任务状态或记忆 |
+
+这一章不要求你变成 `DBA`。目标要小得多，也更适合本课程：知道数据库会在真实数据和 AI 项目里出现在哪里，并且不再把它当成神秘黑盒。
+
 ## 为什么 3 数据分析与可视化会在后面补数据库？
 
 因为对新人来说，更稳的顺序通常是：

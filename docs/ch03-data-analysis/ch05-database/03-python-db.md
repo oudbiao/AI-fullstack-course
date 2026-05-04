@@ -53,6 +53,21 @@ So what this section really wants to solve is:
 - How Python and databases are connected
 - Why this step becomes the real entry point for many data projects
 
+![Python, SQL, SQLite, and Pandas safe collaboration workflow](/img/course/ch03-python-database-safety-vertical-en.png)
+
+### Acronyms and Terms to Understand First
+
+| Term | Full name | Beginner-friendly meaning |
+|---|---|---|
+| `DB` | Database | A long-term place for storing structured data |
+| `SQL` | Structured Query Language | The language used to ask tables questions |
+| `CRUD` | Create, Read, Update, Delete | The four basic operations most applications perform on data |
+| `SQLite` | SQLite database engine | A lightweight database stored in one file, ideal for learning and small tools |
+| `ORM` | Object-Relational Mapping | A way to operate database rows through Python objects instead of writing every SQL statement manually |
+| `SQL injection` | SQL injection attack | A security problem where malicious input changes the meaning of your SQL |
+
+Do not worry if these terms feel dense at first. In this lesson, your main goal is to understand one safe loop: Python connects to the database, sends SQL safely, receives rows, and hands the result to Pandas for analysis.
+
 ## The `sqlite3` Standard Library
 
 Python comes with the `sqlite3` module, so you do not need to install anything. It works out of the box.
@@ -311,11 +326,12 @@ df_top = pd.read_sql_query(
 )
 print(df_top)
 
-# Method 3: read_sql_table (read the whole table)
-df_all = pd.read_sql_table("students", conn)  # SQLAlchemy is required
-
 conn.close()
 ```
+
+:::tip Why not use `read_sql_table()` here?
+`pd.read_sql_query()` works directly with a normal `sqlite3` connection, so it is the safest first choice for beginners. `pd.read_sql_table()` requires a SQLAlchemy engine and is introduced in the SQLAlchemy section below.
+:::
 
 ### Write a DataFrame to a Database
 

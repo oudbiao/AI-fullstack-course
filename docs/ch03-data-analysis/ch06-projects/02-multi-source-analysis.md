@@ -30,6 +30,8 @@ So what this section really wants you to practice is:
 - How multi-source data enters the same analysis table
 - When to check keys first, and when to start analyzing
 
+![Multi-source data integration key-check workflow](/img/course/ch03-multi-source-integration-vertical-en.png)
+
 ## Project Overview
 
 In real work, data is almost never neatly placed in one CSV file. You need to fetch data from multiple sources such as CSV, JSON, and databases, then clean and integrate it before analysis.
@@ -75,6 +77,20 @@ You are a data analyst for an **online retail company**. The company’s data is
 | User system database | SQLite | User information (user ID, name, city, registration date) |
 
 Your task: integrate these data, analyze sales performance, and produce a valuable analysis report.
+
+### Acronyms and Terms to Understand First
+
+| Term | Full name | Beginner-friendly meaning |
+|---|---|---|
+| `CSV` | Comma-Separated Values | A plain-text table format, often exported from business systems |
+| `JSON` | JavaScript Object Notation | A structured text format commonly returned by APIs |
+| `API` | Application Programming Interface | A doorway for one system to provide data or capabilities to another system |
+| `ID` | Identifier | A stable value used to recognize one user, product, order, or record |
+| `PK` | Primary Key | The unique ID of a row in its own table |
+| `FK` | Foreign Key | An ID that points to a row in another table |
+| `RFM` | Recency, Frequency, Monetary | A classic user segmentation method based on recent purchase, purchase frequency, and total spending |
+
+In this project, the most important engineering habit is to check `ID / PK / FK` before merging. Many analysis errors are not caused by charts or statistics, but by joining the wrong rows together.
 
 ### Knowledge Areas Involved
 

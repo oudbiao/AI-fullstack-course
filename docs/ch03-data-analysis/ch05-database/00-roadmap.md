@@ -47,6 +47,18 @@ So what this chapter really wants to solve is:
 - Why data does not always stay quietly in a CSV file
 - When data needs to be stored long-term, used by multiple people, and queried with permissions, why the system naturally grows into a database
 
+## Terms You Will See in This Database Chapter
+
+| Term | Full name | What to remember first |
+|---|---|---|
+| `SQL` | Structured Query Language | A language for asking databases questions |
+| `SQLite` | SQLite database engine | A beginner-friendly database stored in one local file |
+| `DBA` | Database Administrator | A specialist responsible for database operation, security, backup, and performance |
+| `RAG` | Retrieval-Augmented Generation | An AI application pattern that retrieves external documents before generating an answer |
+| `AI Agent` | Artificial Intelligence Agent | A system that can plan steps, use tools, and keep some task state or memory |
+
+You do not need to become a `DBA` in this chapter. The goal is much smaller and more useful for this course: understand where databases appear in real data and AI projects, and stop treating them as a mysterious black box.
+
 ## Why does Chapter 3, Data Analysis and Visualization, add databases later?
 
 Because for beginners, the more stable order is usually:

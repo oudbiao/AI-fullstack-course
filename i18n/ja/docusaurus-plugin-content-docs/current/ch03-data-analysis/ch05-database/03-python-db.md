@@ -53,6 +53,21 @@ flowchart LR
 - Python とデータベースをどうつなぐか
 - なぜここが多くのデータプロジェクトの入り口になるのか
 
+![Python、SQL、SQLite、Pandas の安全な連携フロー](/img/course/ch03-python-database-safety-vertical-ja.png)
+
+### まず理解しておきたい略語
+
+| 用語 | 英語の正式名称 | 初学者向けの意味 |
+|---|---|---|
+| `DB` | Database | 構造化データを長期保存する場所 |
+| `SQL` | Structured Query Language | 表に質問するための言語 |
+| `CRUD` | Create, Read, Update, Delete | 作成・読み取り・更新・削除。アプリがよく行う基本操作 |
+| `SQLite` | SQLite database engine | 1つのファイルに保存できる軽量データベース。学習や小さなツールに向いている |
+| `ORM` | Object-Relational Mapping | Python オブジェクトでデータベースの行を操作し、SQL を直接書く量を減らす考え方 |
+| `SQL injection` | SQL injection attack | 悪意ある入力によって SQL の意味を書き換えられるセキュリティ問題 |
+
+最初は用語が多く感じるかもしれませんが、この節ではまず 1 つの安全な流れをつかめば十分です。Python がデータベースに接続し、安全に SQL を送り、行を受け取り、Pandas に渡して分析します。
+
 ## sqlite3 標準ライブラリ
 
 Python には `sqlite3` モジュールが標準で入っているので、インストール不要でそのまま使えます。
@@ -318,11 +333,12 @@ df_top = pd.read_sql_query(
 )
 print(df_top)
 
-# 方法 3：read_sql_table（テーブル全体を読む）
-df_all = pd.read_sql_table("students", conn)  # SQLAlchemy が必要
-
 conn.close()
 ```
+
+:::tip ここで `read_sql_table()` を使わない理由
+`pd.read_sql_query()` は通常の `sqlite3` 接続でそのまま使えるため、初学者にとって一番安全な最初の選択です。`pd.read_sql_table()` には SQLAlchemy engine が必要なので、下の SQLAlchemy 節で改めて扱います。
+:::
 
 ### DataFrame をデータベースに書き込む
 

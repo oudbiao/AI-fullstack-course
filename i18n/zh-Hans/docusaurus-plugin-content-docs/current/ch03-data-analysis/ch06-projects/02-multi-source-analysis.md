@@ -30,6 +30,8 @@ flowchart LR
 - 多来源数据怎么进入同一张分析表
 - 什么时候该先检查键，什么时候才该开始分析
 
+![多数据源整合中的键检查流程](/img/course/ch03-multi-source-integration-vertical.png)
+
 ## 项目简介
 
 真实工作中，数据几乎不会整整齐齐地放在一个 CSV 里。你需要从 CSV、JSON、数据库等多个来源获取数据，先清洗整合，再分析。
@@ -75,6 +77,20 @@ flowchart TD
 | 用户系统数据库 | SQLite | 用户信息（用户ID、姓名、城市、注册日期） |
 
 你的任务：整合这些数据，分析销售情况，输出一份有价值的分析报告。
+
+### 先把这些缩写看懂
+
+| 术语 | 英文全称 | 新人理解 |
+|---|---|---|
+| `CSV` | Comma-Separated Values | 逗号分隔值，一种常见的纯文本表格格式 |
+| `JSON` | JavaScript Object Notation | JavaScript 对象表示法，API 常返回这种结构化文本 |
+| `API` | Application Programming Interface | 应用程序接口，一个系统向另一个系统提供数据或能力的入口 |
+| `ID` | Identifier | 标识符，用来稳定识别用户、商品、订单或记录 |
+| `PK` | Primary Key | 主键，本表中唯一识别一行的 ID |
+| `FK` | Foreign Key | 外键，指向另一张表中某一行的 ID |
+| `RFM` | Recency, Frequency, Monetary | 用户分层方法，分别看最近消费、消费频率和消费金额 |
+
+这个项目里最重要的工程习惯是：合并前先检查 `ID / PK / FK`。很多分析错误不是图表或统计造成的，而是表在一开始就接错了行。
 
 ### 涉及知识点
 
