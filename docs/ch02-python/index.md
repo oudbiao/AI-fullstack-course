@@ -27,6 +27,27 @@ When learning basic syntax, ask yourself, “Can this knowledge help me handle i
 
 After completing this stage, you will not just have “learned Python”; you will be able to organize four small projects into a portfolio: a command-line tool that saves tasks, a web scraper that collects webpage data, a Web API that others can call, and an API program that talks with AI. These four works together form the smallest prototype of RAG and Agent work later on.
 
+## Acronym and Keyword Map for This Stage
+
+You will meet many English abbreviations in Python and AI tutorials. Do not memorize them as isolated words. Read each one as a small capability:
+
+| Term | Full name | Beginner meaning | Where you use it |
+|---|---|---|---|
+| AI | Artificial Intelligence | Software that performs tasks that look intelligent, such as understanding text or recognizing images | The whole course |
+| API | Application Programming Interface | A doorway that lets one program call another program | Web API and AI API projects |
+| CLI | Command-Line Interface | A text-based interface where users type commands | Task manager project |
+| I/O | Input/Output | Data entering a program and results leaving a program | `input()`, `print()`, files, APIs |
+| JSON | JavaScript Object Notation | A lightweight text format for nested data | Saving tasks, API responses |
+| CSV | Comma-Separated Values | A table saved as plain text | Data files and reports |
+| HTTP | HyperText Transfer Protocol | The request-response rule used by browsers and web APIs | Web scraper and FastAPI |
+| HTML | HyperText Markup Language | The tag-based structure of a web page | Web scraper parsing |
+| SDK | Software Development Kit | A library that wraps an API so you can call it more easily | OpenAI SDK and cloud APIs |
+| LLM | Large Language Model | A model trained on large-scale text that can generate and understand language | AI API project |
+| RAG | Retrieval-Augmented Generation | Letting an LLM look up external knowledge before answering | Later knowledge-base projects |
+| Agent | AI system that plans steps and uses tools | An assistant that can search, call APIs, and act through code | Later Agent projects |
+
+When a later article uses one of these terms, pause for one second and ask: **is this about data, an interface, a model, or a workflow?** That small habit prevents vocabulary from becoming fog.
+
 ## Stage Positioning
 
 | Item | Description |

@@ -538,8 +538,13 @@ target = random.randint(1, 100)
 max_attempts = 7
 
 for attempt in range(1, max_attempts + 1):
-    guess = target if attempt == 1 else 1
-    print(f"第 {attempt} 次：{guess}")
+    raw = input(f"第 {attempt}/{max_attempts} 次，请输入你的猜测：")
+
+    if not raw.isdigit():
+        print("请输入整数。")
+        continue
+
+    guess = int(raw)
     if guess == target:
         print("猜对了！")
         break
@@ -550,6 +555,10 @@ for attempt in range(1, max_attempts + 1):
 else:
     print(f"失败，答案是 {target}。")
 ```
+
+:::tip 如何减少调试挫败感
+学习流程控制时，交互和随机数会让调试变难。你可以先把 `target = random.randint(1, 100)` 临时改成 `target = 42`，分别测试“太小、太大、猜对”三个分支，确认逻辑没问题后再改回随机版本。
+:::
 
 ### 练习 3：画三角形
 

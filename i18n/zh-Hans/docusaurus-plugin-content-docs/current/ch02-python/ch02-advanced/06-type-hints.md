@@ -307,10 +307,10 @@ example.py:4: error: Argument 1 to "add" has incompatible type "str"; expected "
 | 扩展 | 功能 |
 |------|------|
 | **Pylance** | 类型检查和智能提示（VS Code 自带推荐） |
-| **Ruff** | 实时代码检查 |
-| **Black Formatter** | 保存时自动格式化 |
+| **Ruff** | 实时代码检查，也可以负责格式化 |
+| **Black Formatter** | 如果团队选择 Black 作为格式化器，就用它保存时自动格式化 |
 
-推荐在 VS Code 设置中添加：
+新项目为了减少工具数量，可以让 Ruff 同时负责检查和格式化。在 VS Code 设置中添加：
 
 ```json
 {
@@ -321,6 +321,8 @@ example.py:4: error: Argument 1 to "add" has incompatible type "str"; expected "
     }
 }
 ```
+
+如果团队已经统一使用 Black，就让 Black Formatter 做默认格式化器，Ruff 只负责 lint 和 import 清理。不要让 Ruff 和 Black 同时抢同一批 Python 文件的默认格式化职责。
 
 ---
 

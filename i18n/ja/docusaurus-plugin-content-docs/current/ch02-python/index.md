@@ -27,6 +27,27 @@ keywords: [Python入門, Python基礎, Pythonチュートリアル, プログラ
 
 この段階を終えると、あなたは単に「Python を学んだ人」ではなく、4 つの小さなプロジェクトを作品集としてまとめられるようになります。つまり、タスクを保存できるコマンドラインツール、Web データを収集できるクローラー、他の人が呼び出せる Web API、AI と会話できる API プログラムです。この 4 つをつなげると、後で RAG や Agent を作るときの最小の原型になります。
 
+## この段階の英語略語とキーワードマップ
+
+Python と AI の教材では、英語の略語が何度も出てきます。単語として丸暗記するのではなく、それぞれを小さな能力として読みましょう。
+
+| 用語 | 正式名称 | 初心者向けの意味 | この段階で使う場所 |
+|---|---|---|---|
+| AI | Artificial Intelligence、人工知能 | 文章理解や画像認識など、知的に見える処理を行うソフトウェア | コース全体 |
+| API | Application Programming Interface | あるプログラムが別のプログラムを呼び出すための入口 | Web API と AI API プロジェクト |
+| CLI | Command-Line Interface | ユーザーが文字コマンドで操作する画面 | タスク管理ツール |
+| I/O | Input/Output、入出力 | データがプログラムに入り、結果が外へ出る流れ | `input()`、`print()`、ファイル、API |
+| JSON | JavaScript Object Notation | 入れ子のデータを保存しやすい軽量テキスト形式 | タスク保存、API レスポンス |
+| CSV | Comma-Separated Values | 表をプレーンテキストで保存する形式 | データファイルとレポート |
+| HTTP | HyperText Transfer Protocol | ブラウザや Web API が使うリクエスト・レスポンスのルール | クローラーと FastAPI |
+| HTML | HyperText Markup Language | Web ページのタグ構造 | クローラーでのページ解析 |
+| SDK | Software Development Kit | API を呼び出しやすく包んだライブラリ | OpenAI SDK とクラウド API |
+| LLM | Large Language Model、大規模言語モデル | 大量のテキストで学習し、言語を理解・生成できるモデル | AI API プロジェクト |
+| RAG | Retrieval-Augmented Generation、検索拡張生成 | LLM が回答前に外部知識を検索して使う方法 | 後続の知識ベースプロジェクト |
+| Agent | エージェント、智能体 | 手順を計画し、道具を呼び出し、タスクを進める AI システム | 後続の Agent プロジェクト |
+
+後の文章でこれらの用語を見たら、1 秒だけ立ち止まって、**これはデータ、インターフェース、モデル、ワークフローのどれを指しているのか**と考えてください。その小さな習慣だけで、用語の霧がかなり晴れます。
+
 ## 段階の位置づけ
 
 | 情報 | 説明 |

@@ -538,8 +538,13 @@ target = random.randint(1, 100)
 max_attempts = 7
 
 for attempt in range(1, max_attempts + 1):
-    guess = target if attempt == 1 else 1
-    print(f"Attempt {attempt}: {guess}")
+    raw = input(f"Attempt {attempt}/{max_attempts}, enter your guess: ")
+
+    if not raw.isdigit():
+        print("Please enter an integer.")
+        continue
+
+    guess = int(raw)
     if guess == target:
         print("Correct!")
         break
@@ -550,6 +555,10 @@ for attempt in range(1, max_attempts + 1):
 else:
     print(f"Failed. The answer was {target}.")
 ```
+
+:::tip How to test this without frustration
+When you are learning flow control, interaction can make debugging harder. First change `target = random.randint(1, 100)` to `target = 42`, test the three branches "too small / too large / correct," and then switch back to the random version.
+:::
 
 ### Exercise 3: Draw a Triangle
 

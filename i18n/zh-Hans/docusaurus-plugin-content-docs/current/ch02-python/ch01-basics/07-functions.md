@@ -548,8 +548,12 @@ def guess_number_game(min_val=1, max_val=100, max_attempts=7):
     target = random.randint(min_val, max_val)
     print(f"请猜一个介于 {min_val} 和 {max_val} 之间的数字")
     for attempt in range(1, max_attempts + 1):
-        guess = target if attempt == 1 else min_val
-        print(f"第 {attempt} 次猜测：{guess}")
+        raw = input(f"第 {attempt}/{max_attempts} 次：")
+        if not raw.isdigit():
+            print("请输入整数。")
+            continue
+
+        guess = int(raw)
         if guess == target:
             print("猜对了！")
             return True
@@ -564,6 +568,8 @@ def guess_number_game(min_val=1, max_val=100, max_attempts=7):
 guess_number_game()
 guess_number_game(1, 50, 5)  # 范围更小，次数更少
 ```
+
+如果你想稳定测试，可以先把 `target = random.randint(min_val, max_val)` 临时改成 `target = 42`。确认函数逻辑没问题后，再改回随机版本。
 
 ---
 

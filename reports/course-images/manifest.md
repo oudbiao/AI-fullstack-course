@@ -601,7 +601,9 @@
 | `ch02-function-call-scope.png` | 函数调用、参数与作用域图 | `docs/ch02-python/ch01-basics/07-functions.md` | 函数调用、参数与作用域图：调用函数时参数进入局部作用域，return 把结果交回调用者。 |
 | `ch02-oop-class-object-map.png` | 类、对象、属性与方法关系图 | `docs/ch02-python/ch02-advanced/01-oop.md` | 类、对象、属性与方法关系图：类像蓝图，对象是实例，属性保存状态，方法定义行为。 |
 | `ch02-exception-flow.png` | 异常处理执行流程图 | `docs/ch02-python/ch02-advanced/02-exceptions.md` | 异常处理执行流程图：try 中出错会进入 except，没有出错可进入 else，finally 总会执行清理。 |
-| `ch02-ai-api-request-response.png` | AI API 请求响应链路图 | `docs/ch02-python/ch03-projects/04-ai-api-experience.md` | AI API 请求响应链路图：用户输入经过 Python 客户端发出请求，模型返回结果，程序处理错误、重试和展示。 |
+| `ch02-ai-api-request-response.png` | AI API 请求响应竖版漫画 | `docs/ch02-python/ch03-projects/04-ai-api-experience.md` | AI API 请求响应竖版漫画：用户输入通过 Python OpenAI SDK 调用 Responses API，模型返回 output_text，程序处理错误、成本和展示。 |
+| `ch02-ai-api-request-response-en.png` | AI API request-response vertical comic | `docs/ch02-python/ch03-projects/04-ai-api-experience.md` | Vertical comic explaining a Python OpenAI SDK call to the Responses API, from user input to output_text, usage, cost, and error handling. |
+| `ch02-ai-api-request-response-ja.png` | AI API リクエスト・レスポンス縦型マンガ | `i18n/ja/docusaurus-plugin-content-docs/current/ch02-python/ch03-projects/04-ai-api-experience.md` | Python OpenAI SDK から Responses API を呼び、output_text、usage、コスト、エラー処理までを説明する日本語縦型マンガ。 |
 | `ch03-numpy-array-shape-axis.png` | NumPy 数组 Shape 与 Axis 图 | `docs/ch03-data-analysis/ch02-numpy/02-array-basics.md` | NumPy 数组 Shape 与 Axis 图：一维、二维、三维数组通过 shape 和 axis 描述结构与运算方向。 |
 | `ch03-numpy-broadcasting-vectorization.png` | NumPy 广播与向量化运算图 | `docs/ch03-data-analysis/ch02-numpy/04-operations.md` | NumPy 广播与向量化运算图：小数组沿维度自动扩展，批量运算替代手写循环。 |
 | `ch03-pandas-groupby-split-apply-combine.png` | Pandas GroupBy 分组聚合流程图 | `docs/ch03-data-analysis/ch03-pandas/06-groupby.md` | Pandas GroupBy 分组聚合流程图：原始表先按字段拆分，再分别聚合，最后组合成结果表。 |

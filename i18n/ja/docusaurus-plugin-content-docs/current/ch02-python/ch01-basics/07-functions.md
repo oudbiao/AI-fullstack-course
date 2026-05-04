@@ -548,8 +548,12 @@ def guess_number_game(min_val=1, max_val=100, max_attempts=7):
     target = random.randint(min_val, max_val)
     print(f"{min_val} から {max_val} までの数字を予想してください")
     for attempt in range(1, max_attempts + 1):
-        guess = target if attempt == 1 else min_val
-        print(f"{attempt} 回目の予想: {guess}")
+        raw = input(f"{attempt}/{max_attempts} 回目: ")
+        if not raw.isdigit():
+            print("整数を入力してください。")
+            continue
+
+        guess = int(raw)
         if guess == target:
             print("正解です！")
             return True
@@ -564,6 +568,8 @@ def guess_number_game(min_val=1, max_val=100, max_attempts=7):
 guess_number_game()
 guess_number_game(1, 50, 5)  # 範囲を狭くして、回数を少なくする
 ```
+
+安定してテストしたい場合は、`target = random.randint(min_val, max_val)` を一時的に `target = 42` に変えてください。関数の動きが確認できたら、ランダム版に戻します。
 
 ---
 

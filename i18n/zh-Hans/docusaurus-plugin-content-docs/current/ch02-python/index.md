@@ -27,6 +27,27 @@ keywords: [Python入门, Python基础, Python教程, 编程入门, AI API]
 
 完成本阶段后，你不只是“学过 Python”，而是可以把四个小项目整理成一个作品集：一个能保存任务的命令行工具、一个能采集网页数据的爬虫、一个能被别人调用的 Web API、一个能和 AI 对话的 API 程序。这四个作品连起来，就是后面做 RAG 和 Agent 的最小雏形。
 
+## 本阶段英文缩写与关键词地图
+
+Python 和 AI 教程里会不断出现英文缩写。不要把它们当作孤立单词死记，而要把每个词看成一种能力：
+
+| 术语 | 全称 | 新手理解 | 本阶段哪里会用 |
+|---|---|---|---|
+| AI | Artificial Intelligence，人工智能 | 让软件完成看起来像智能的任务，例如理解文字、识别图片 | 整门课程 |
+| API | Application Programming Interface，应用程序接口 | 一个程序调用另一个程序的“门口” | Web API 和 AI API 项目 |
+| CLI | Command-Line Interface，命令行界面 | 用户通过输入文字命令操作程序 | 任务管理器项目 |
+| I/O | Input/Output，输入/输出 | 数据进入程序，结果从程序出来 | `input()`、`print()`、文件、API |
+| JSON | JavaScript Object Notation | 适合保存嵌套数据的轻量文本格式 | 保存任务、API 返回结果 |
+| CSV | Comma-Separated Values，逗号分隔值 | 用纯文本保存的表格 | 数据文件和报表 |
+| HTTP | HyperText Transfer Protocol，超文本传输协议 | 浏览器和 Web API 使用的请求-响应规则 | 爬虫和 FastAPI |
+| HTML | HyperText Markup Language，超文本标记语言 | 网页的标签结构 | 爬虫解析网页 |
+| SDK | Software Development Kit，软件开发工具包 | 把 API 包装得更容易调用的库 | OpenAI SDK 和云服务 API |
+| LLM | Large Language Model，大语言模型 | 在海量文本上训练、能理解和生成语言的模型 | AI API 项目 |
+| RAG | Retrieval-Augmented Generation，检索增强生成 | 让大模型回答前先查外部资料 | 后续知识库项目 |
+| Agent | 智能体 | 能规划步骤、调用工具、完成任务的 AI 系统 | 后续 Agent 项目 |
+
+后面文章再遇到这些词时，先停一秒问自己：**它是在说数据、接口、模型，还是工作流？** 这个小习惯能让术语不再像雾一样糊住。
+
 ## 阶段定位
 
 | 信息 | 说明 |

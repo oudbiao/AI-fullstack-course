@@ -307,10 +307,10 @@ Install the following extensions in VS Code to see code quality issues **in real
 | Extension | Feature |
 |------|------|
 | **Pylance** | Type checking and smart hints (recommended by VS Code by default) |
-| **Ruff** | Real-time code checking |
-| **Black Formatter** | Auto-format on save |
+| **Ruff** | Real-time code checking and optional formatting |
+| **Black Formatter** | Auto-format on save if you prefer Black as the formatter |
 
-It is recommended to add the following to your VS Code settings:
+For new projects, using Ruff for both linting and formatting keeps the toolchain simple. Add the following to your VS Code settings:
 
 ```json
 {
@@ -321,6 +321,8 @@ It is recommended to add the following to your VS Code settings:
     }
 }
 ```
+
+If your team already standardizes on Black, keep Black Formatter as the default formatter and use Ruff only for linting/import cleanup. Do not set Ruff and Black as competing default formatters for the same Python files.
 
 ---
 

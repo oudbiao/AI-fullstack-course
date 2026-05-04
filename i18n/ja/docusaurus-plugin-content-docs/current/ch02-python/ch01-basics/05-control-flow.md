@@ -538,8 +538,13 @@ target = random.randint(1, 100)
 max_attempts = 7
 
 for attempt in range(1, max_attempts + 1):
-    guess = target if attempt == 1 else 1
-    print(f"{attempt} 回目: {guess}")
+    raw = input(f"{attempt}/{max_attempts} 回目、予想を入力してください: ")
+
+    if not raw.isdigit():
+        print("整数を入力してください。")
+        continue
+
+    guess = int(raw)
     if guess == target:
         print("正解です！")
         break
@@ -550,6 +555,10 @@ for attempt in range(1, max_attempts + 1):
 else:
     print(f"失敗です。答えは {target} でした。")
 ```
+
+:::tip デバッグで疲れないために
+制御フローを学んでいる段階では、対話入力とランダム値があるとデバッグが少し難しくなります。まず `target = random.randint(1, 100)` を一時的に `target = 42` に変え、「小さすぎる、大きすぎる、正解」の 3 つの分岐を確認してから、ランダム版に戻しましょう。
+:::
 
 ### 練習3: 三角形を描く
 

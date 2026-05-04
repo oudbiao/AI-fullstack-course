@@ -548,8 +548,12 @@ def guess_number_game(min_val=1, max_val=100, max_attempts=7):
     target = random.randint(min_val, max_val)
     print(f"Guess a number between {min_val} and {max_val}")
     for attempt in range(1, max_attempts + 1):
-        guess = target if attempt == 1 else min_val
-        print(f"Attempt {attempt}: guessed {guess}")
+        raw = input(f"Attempt {attempt}/{max_attempts}: ")
+        if not raw.isdigit():
+            print("Please enter an integer.")
+            continue
+
+        guess = int(raw)
         if guess == target:
             print("Correct!")
             return True
@@ -564,6 +568,8 @@ def guess_number_game(min_val=1, max_val=100, max_attempts=7):
 guess_number_game()
 guess_number_game(1, 50, 5)  # Smaller range, fewer attempts
 ```
+
+If you want deterministic testing, temporarily replace `target = random.randint(min_val, max_val)` with `target = 42`. After confirming the function works, change it back to the random version.
 
 ---
 

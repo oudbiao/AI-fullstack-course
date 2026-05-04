@@ -81,6 +81,13 @@ current_lr = initial_lr * (decay ** epochs)
 print(f"Learning rate at epoch {epochs}: {current_lr:.6f}")  # 0.000769
 ```
 
+:::info AI training terms in this example
+- **epoch**: one full pass through the training data. If you have 1,000 samples, one epoch means the model has seen all 1,000 samples once.
+- **batch**: a small group of samples processed together. With `batch_size = 32`, the model learns from 32 samples at a time instead of all samples at once.
+- **learning rate (`lr`)**: the step size used when updating model parameters. Too large may make training unstable; too small may learn very slowly.
+- **decay**: gradually shrinking a value, often used to reduce the learning rate as training progresses.
+:::
+
 ### Two forms of division
 
 This is a common point of confusion for beginners:

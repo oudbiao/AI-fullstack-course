@@ -58,6 +58,9 @@ DEFAULT_REQUEST_TIMEOUT = int(os.environ.get("OPENAI_IMAGE_TIMEOUT", "180"))
 DEFAULT_IMAGE_RETRIES = int(os.environ.get("OPENAI_IMAGE_RETRIES", "2"))
 FALLBACK_PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAFgwJ/lLwVRwAAAABJRU5ErkJggg=="
 
+# Course illustrations should prefer 1024x1792 vertical comic/explainer pages.
+# They read better on mobile and keep zh/en/ja variants visually consistent.
+# Use landscape only when a wide architecture map or comparison table is clearly easier to read.
 IMAGE_JOBS: list[dict[str, Any]] = [
     {
         "filename": "ai-fullstack-hero.png",
@@ -8507,17 +8510,68 @@ Backprop 示例连接多层网络训练困难到 gradient flow；Transformer 示
     },
     {
         "filename": "ch02-ai-api-request-response.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "AI API 请求响应链路图",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "AI API 请求响应竖版漫画",
         "suggested_page": "docs/ch02-python/ch03-projects/04-ai-api-experience.md",
-        "alt": "AI API 请求响应链路图：用户输入经过 Python 客户端发出请求，模型返回结果，程序处理错误、重试和展示。",
+        "alt": "AI API 请求响应竖版漫画：用户输入通过 Python OpenAI SDK 调用 Responses API，模型返回 output_text，程序处理错误、成本和展示。",
         "prompt": """
-一张适合 Python AI API 项目课的系统流程图，主题是“一次 AI API 调用从输入到输出发生了什么”。
-画面表现用户输入、Python 客户端、请求 payload、网络调用、AI 服务、响应结果、错误处理、重试、最终展示结果的链路。
-重点突出 API key 保护、请求参数、超时、错误处理、日志和成本意识。
-风格现代、产品工程感、适合新人第一次连接 AI 服务。
-不要出现真实品牌 logo，不要生成密集小字或乱码文字。
+制作一页 9:16 竖版中文科普漫画，主题：“一次 OpenAI Responses API 调用发生了什么”。
+像真正的课程漫画页，适合 Python 新手，6 个清晰分镜，文字短句，气泡、代码卡片、小黑板和错误标签分散排版，不要把文字堆在一起。
+
+第 1 格：学习者输入问题。气泡：“请用一句话介绍 Python。”标签：“用户输入”。
+第 2 格：Python 程序创建 OpenAI 客户端。代码卡片只写关键行：client = OpenAI()。旁白：“SDK 会读取 OPENAI_API_KEY”。
+第 3 格：请求卡片展示 Responses API：model、instructions、input、max_output_tokens。小黑板：“API = 程序之间的调用门”。
+第 4 格：网络箭头把请求送到 AI 服务，旁边有锁和计时器。标签：“保护 Key”“设置超时”“记录日志”。
+第 5 格：模型返回 response.output_text，并显示 usage：input tokens、output tokens、cost。旁白：“拿到文本，也要看成本”。
+第 6 格：程序把结果展示给用户；旁边红色小卡片：“错误处理：超时、限流、Key 错误、网络失败”。箭头：“失败要提示、重试或退出”。
+
+底部总结：“历史意义/工程意义：你不是在训练模型，而是在用 Python 安全地调用一个已经训练好的模型服务。”
+所有文字必须是简体中文，OpenAI、Responses API、SDK、Token、output_text 可以保留英文术语。不要乱码，不要真实品牌 logo，不要水印。
+""".strip(),
+    },
+    {
+        "filename": "ch02-ai-api-request-response-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "AI API request-response vertical comic",
+        "suggested_page": "docs/ch02-python/ch03-projects/04-ai-api-experience.md",
+        "alt": "Vertical comic explaining a Python OpenAI SDK call to the Responses API, from user input to output_text, usage, cost, and error handling.",
+        "prompt": """
+Create one 9:16 vertical English educational comic page titled: "One OpenAI Responses API Call, Step by Step".
+Make it look like a real beginner-friendly course comic page, with 6 clean panels, short labels, speech bubbles, code cards, a mini blackboard, arrows, and small engineering warning tags. Do not crowd the page.
+
+Panel 1: A learner types a prompt. Speech bubble: "Introduce Python in one sentence." Label: "User input".
+Panel 2: A Python program creates the OpenAI client. Code card: client = OpenAI(). Caption: "The SDK reads OPENAI_API_KEY."
+Panel 3: A request card for Responses API shows: model, instructions, input, max_output_tokens. Mini blackboard: "API = a doorway between programs."
+Panel 4: A secure network arrow sends the request to the AI service. Add a lock and timer. Tags: "Protect the key", "Set timeout", "Log safely".
+Panel 5: The model returns response.output_text and usage: input tokens, output tokens, cost. Caption: "Get text, then check usage."
+Panel 6: The app shows the answer to the user. Red small card: "Handle errors: timeout, rate limit, bad key, network failure." Arrow: "Fail gracefully: explain, retry, or exit."
+
+Bottom summary: "Engineering meaning: you are not training a model; you are safely calling a trained model service from Python."
+All text must be clear English. Keep OpenAI, Responses API, SDK, Token, output_text as technical terms. No gibberish, no real logos, no watermark.
+""".strip(),
+    },
+    {
+        "filename": "ch02-ai-api-request-response-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "AI API リクエスト・レスポンス縦型マンガ",
+        "suggested_page": "i18n/ja/docusaurus-plugin-content-docs/current/ch02-python/ch03-projects/04-ai-api-experience.md",
+        "alt": "Python OpenAI SDK から Responses API を呼び、output_text、usage、コスト、エラー処理までを説明する日本語縦型マンガ。",
+        "prompt": """
+9:16 縦長の日本語教育マンガページを作成。タイトル：「OpenAI Responses API 呼び出しの流れ」。
+Python 初心者向けの本物の講義マンガのように、6コマ構成、短いラベル、吹き出し、コードカード、小黒板、矢印、注意ラベルを使う。文字を詰め込まない。
+
+1コマ目：学習者が質問を入力。吹き出し：「Python を一文で紹介して」。ラベル：「ユーザー入力」。
+2コマ目：Python プログラムが OpenAI クライアントを作る。コードカード：client = OpenAI()。説明：「SDK が OPENAI_API_KEY を読む」。
+3コマ目：Responses API のリクエストカード：model、instructions、input、max_output_tokens。小黒板：「API = プログラム同士の入り口」。
+4コマ目：安全なネットワーク矢印で AI サービスへ送る。鍵とタイマーを描く。ラベル：「Key を守る」「timeout を設定」「安全にログ」。
+5コマ目：モデルが response.output_text と usage を返す：input tokens、output tokens、cost。説明：「返答と使用量を確認」。
+6コマ目：アプリが回答を表示。赤いカード：「エラー処理：timeout、rate limit、Key エラー、通信失敗」。矢印：「分かりやすく失敗する、再試行する、終了する」。
+
+下部まとめ：「工学的な意味：モデルを訓練しているのではなく、Python から訓練済みモデルサービスを安全に呼び出している。」
+文字は自然な日本語。OpenAI、Responses API、SDK、Token、output_text は技術用語として残す。文字化け、実在ロゴ、透かしは禁止。
 """.strip(),
     },
     {
