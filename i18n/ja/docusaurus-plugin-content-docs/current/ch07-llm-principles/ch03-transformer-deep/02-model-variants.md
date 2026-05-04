@@ -140,6 +140,22 @@ Encoder-Decoder の代表例は次の通りです。
 
 つまり MoE は、「スケールアップのためのバリエーション」と考えるとわかりやすいです。
 
+![MoE の token ルーティングと expert 活性化図](/img/course/ch07-moe-token-routing-map-ja.png)
+
+:::tip 図の読み方
+token の視点で MoE を見てください。各 token はまずルーターに入り、ルーターが複数の Expert FFN にスコアを付け、上位 top-k の expert だけを動かします。だから MoE は総パラメータを増やしつつ、token ごとの実際の計算量を dense FFN より抑えられます。
+:::
+
+### 2.5 初学者が飛ばさないほうがよい MoE 用語
+
+| 用語 | やさしい意味 | なぜ重要か |
+|---|---|---|
+| Router | token が使う expert を決めるモジュール | token ごとの計算経路を決める |
+| Top-k | スコアが高い k 個の expert だけを選ぶこと | token ごとに動かす expert 数を制御する |
+| 負荷分散 | 一部の expert に token が集中しすぎないようにすること | 偏ると一部が過負荷になり、他の expert が使われにくい |
+| Expert FFN | expert プール内の前向きネットワーク | MoE は dense FFN 部分を置き換えたり拡張したりすることが多い |
+| 活性化計算量 | 1つの token が実際に使うパラメータと計算 | 総パラメータ数とは別の概念 |
+
 ---
 
 ## 三、まずは本当に意味のある構造差の例を動かしてみよう

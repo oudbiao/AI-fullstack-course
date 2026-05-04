@@ -136,6 +136,22 @@ The main goal of this is:
 
 So MoE is more like a “scaling strategy variant.”
 
+![MoE token routing and expert activation diagram](/img/course/ch07-moe-token-routing-map-en.png)
+
+:::tip How to read the MoE diagram
+Read MoE from the token’s point of view. Each token first enters a router, the router scores multiple expert FFNs, and only the top-k experts are activated for that token. This is why MoE can have many total parameters while keeping the active compute per token smaller than a dense FFN.
+:::
+
+### 2.5 MoE terms beginners should not skip
+
+| Term | Plain meaning | Why it matters |
+|---|---|---|
+| Router | The module that decides which experts a token should use | It determines the computation path of each token |
+| Top-k | Select only the highest-scoring k experts | It controls how many experts are active per token |
+| Load balance | Prevent too many tokens from going to the same expert | Without it, some experts overload while others do almost nothing |
+| Expert FFN | A feed-forward subnetwork inside the expert pool | MoE usually replaces or expands the dense FFN part |
+| Active compute | The parameters actually used for one token | This is different from total parameter count |
+
 ---
 
 ## 3. First, run a truly instructive example of structural differences
