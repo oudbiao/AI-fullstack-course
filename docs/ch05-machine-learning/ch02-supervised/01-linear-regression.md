@@ -51,7 +51,15 @@ A more stable learning order is:
 
 ![Linear regression learning flowchart](/img/course/ch05-linear-regression-learning-flow-en.png)
 
+![Linear regression intuition comic](/img/course/ch05-linear-regression-intuition-comic-en.png)
+
+Read this comic before the formulas: the line is an adjustable ruler, residuals are the vertical gaps from points to the line, MSE turns those gaps into a training objective, and regularization is the brake that stops a flexible model from bending too much.
+
 If you first grasp this line, all the formulas later will be easier to connect to a clear problem.
+
+:::tip Run setup first
+This section uses `numpy`, `matplotlib`, `pandas`, and `scikit-learn`. If your environment is new, run `python -m pip install -r requirements-course-core.txt` from the project root first. `pandas` is the table-processing library used for the multivariate example below.
+:::
 
 ---
 
@@ -137,6 +145,17 @@ So when beginners do regression projects for the first time, it is good to remem
 - Use `MSE / RMSE` by default
 - If you suspect many outliers, then consider `MAE`
 
+### 1.3.1 Keyword decoder for regression metrics
+
+| Term | What it means | Why it matters |
+|---|---|---|
+| `baseline` | The first simple model used for comparison | You need a starting point before claiming a better model is really better |
+| `residual` | `true value - predicted value` | Residual plots reveal patterns that a single score can hide |
+| `MSE` | Mean Squared Error | Penalizes large errors strongly; useful as an optimization target |
+| `RMSE` | Root Mean Squared Error | Square root of MSE; returns to the same unit as the target |
+| `MAE` | Mean Absolute Error | More robust when outliers should not dominate |
+| `R²` | Proportion of target variation explained by the model | Useful for a quick fit-quality summary, but not enough for diagnosis |
+
 ```python
 def mse_loss(y_true, y_pred):
     """Mean squared error"""
@@ -159,6 +178,14 @@ for ax, (w, b, title) in zip(axes, params):
 
 plt.tight_layout()
 plt.show()
+```
+
+In this example, the middle line usually has the smallest MSE:
+
+```text
+Slope too small: MSE ≈ 28463
+Just right: MSE ≈ 575
+Slope too large: MSE ≈ 14502
 ```
 
 ---
@@ -198,6 +225,14 @@ plt.title('Solving Linear Regression with the Normal Equation')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+Expected output:
+
+```text
+X_b shape: (30, 2)
+Intercept b = 57.36
+Slope w = 2.47
 ```
 
 ### 2.3 Pros and cons of the normal equation
@@ -331,6 +366,15 @@ plt.tight_layout()
 plt.show()
 ```
 
+Expected output:
+
+```text
+Gradient descent result: w = 2.86, b = 0.29
+Normal equation result: w = 2.47, b = 57.36
+```
+
+Notice that this simple gradient-descent demo does not fully match the normal equation yet because `X` is large and the learning rate is deliberately tiny. This is a teaching choice: it lets you see the update loop without numerical explosion. In real projects, standardize features before gradient descent so the update steps are easier to tune.
+
 ---
 
 ## 4. Multivariate Linear Regression
@@ -407,6 +451,22 @@ print(f"  Intercept: {model.intercept_:.2f}")
 y_pred = model.predict(X_test)
 print(f"\nMSE: {mean_squared_error(y_test, y_pred):.2f}")
 print(f"R² Score: {r2_score(y_test, y_pred):.4f}")
+```
+
+Expected output will be close to:
+
+```text
+Data shape: (200, 5)
+
+Model parameters:
+  Area: 2.52
+  Rooms: 31.38
+  Floor: 1.78
+  DistanceToSubway(km): -21.83
+  Intercept: 48.11
+
+MSE: 860.36
+R² Score: 0.9328
 ```
 
 ### 4.3 R² score
@@ -493,6 +553,16 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected output for the feature expansion:
+
+```text
+Original features: [-3.         -2.87755102 -2.75510204]
+Polynomial features:
+[[-3.          9.        ]
+ [-2.87755102  8.28029988]
+ [-2.75510204  7.59058726]]
+```
+
 ### 5.3 Polynomial degree and overfitting
 
 ```python
@@ -567,6 +637,8 @@ flowchart LR
 
 **Intuition**: Penalize large parameters → simpler model → reduced overfitting.
 
+For regularized linear models, feature scale matters. If one feature has much larger numeric values than another, the penalty will not treat them fairly. That is why the code below uses `Pipeline(PolynomialFeatures -> StandardScaler -> Ridge/Lasso/ElasticNet)`.
+
 ### 6.2 Three types of regularization
 
 | Method | Penalty term | Effect |
@@ -578,12 +650,13 @@ flowchart LR
 ### 6.3 Ridge regression (L2 regularization)
 
 ```python
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 
 # Compare high-degree polynomial + Ridge
-poly = PolynomialFeatures(degree=10, include_bias=False)
-X_p = poly.fit_transform(X_nl.reshape(-1, 1))
-X_s = poly.transform(x_smooth.reshape(-1, 1))
+X_base = X_nl.reshape(-1, 1)
+X_smooth_base = x_smooth.reshape(-1, 1)
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 alphas = [0, 0.1, 10]
@@ -591,12 +664,20 @@ titles = ['No regularization (α=0)', 'Ridge α=0.1', 'Ridge α=10']
 
 for ax, alpha, title in zip(axes, alphas, titles):
     if alpha == 0:
-        model = LinearRegression()
+        model = make_pipeline(
+            PolynomialFeatures(degree=10, include_bias=False),
+            StandardScaler(),
+            LinearRegression()
+        )
     else:
-        model = Ridge(alpha=alpha)
+        model = make_pipeline(
+            PolynomialFeatures(degree=10, include_bias=False),
+            StandardScaler(),
+            Ridge(alpha=alpha)
+        )
 
-    model.fit(X_p, y_nl)
-    y_s = np.clip(model.predict(X_s), -10, 20)
+    model.fit(X_base, y_nl)
+    y_s = np.clip(model.predict(X_smooth_base), -10, 20)
 
     ax.scatter(X_nl, y_nl, color='steelblue', s=20, alpha=0.6)
     ax.plot(x_smooth, y_s, 'r-', linewidth=2)
@@ -615,25 +696,32 @@ plt.show()
 from sklearn.linear_model import Lasso
 
 # Lasso can make some parameters zero → automatic feature selection
-poly = PolynomialFeatures(degree=10, include_bias=False)
-X_p = poly.fit_transform(X_nl.reshape(-1, 1))
+ridge = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    Ridge(alpha=1.0)
+)
+ridge.fit(X_base, y_nl)
 
-# Compare Ridge and Lasso parameters
-ridge = Ridge(alpha=1.0)
-ridge.fit(X_p, y_nl)
+lasso = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    Lasso(alpha=0.1, max_iter=20000)
+)
+lasso.fit(X_base, y_nl)
 
-lasso = Lasso(alpha=0.1, max_iter=10000)
-lasso.fit(X_p, y_nl)
+ridge_coef = ridge.named_steps["ridge"].coef_
+lasso_coef = lasso.named_steps["lasso"].coef_
 
 # Visualize parameters
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-axes[0].bar(range(len(ridge.coef_)), np.abs(ridge.coef_), color='steelblue')
+axes[0].bar(range(len(ridge_coef)), np.abs(ridge_coef), color='steelblue')
 axes[0].set_title('Ridge parameters (all non-zero)')
 axes[0].set_xlabel('Feature index')
 axes[0].set_ylabel('|parameter value|')
 
-axes[1].bar(range(len(lasso.coef_)), np.abs(lasso.coef_), color='coral')
+axes[1].bar(range(len(lasso_coef)), np.abs(lasso_coef), color='coral')
 axes[1].set_title('Lasso parameters (some are zero → feature selection)')
 axes[1].set_xlabel('Feature index')
 axes[1].set_ylabel('|parameter value|')
@@ -645,8 +733,15 @@ plt.tight_layout()
 plt.show()
 
 # See which features Lasso kept
-print("Lasso coefficients:", np.round(lasso.coef_, 4))
-print(f"Number of non-zero coefficients: {np.sum(lasso.coef_ != 0)} / {len(lasso.coef_)}")
+print("Lasso coefficients:", np.round(lasso_coef, 4))
+print(f"Number of non-zero coefficients: {np.sum(lasso_coef != 0)} / {len(lasso_coef)}")
+```
+
+Expected output:
+
+```text
+Lasso coefficients: [-1.5605  1.1533 -0.      0.1151 -0.      0.     -0.      0.     -0.      0.    ]
+Number of non-zero coefficients: 3 / 10
 ```
 
 ### 6.5 Elastic Net
@@ -656,11 +751,23 @@ from sklearn.linear_model import ElasticNet
 
 # Elastic Net = a mix of L1 and L2
 # l1_ratio controls the ratio of L1 and L2 (1.0 = pure Lasso, 0.0 = pure Ridge)
-en = ElasticNet(alpha=0.1, l1_ratio=0.5, max_iter=10000)
-en.fit(X_p, y_nl)
+en = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    ElasticNet(alpha=0.1, l1_ratio=0.5, max_iter=20000)
+)
+en.fit(X_base, y_nl)
+en_coef = en.named_steps["elasticnet"].coef_
 
-print("Elastic Net coefficients:", np.round(en.coef_, 4))
-print(f"Number of non-zero coefficients: {np.sum(en.coef_ != 0)} / {len(en.coef_)}")
+print("Elastic Net coefficients:", np.round(en_coef, 4))
+print(f"Number of non-zero coefficients: {np.sum(en_coef != 0)} / {len(en_coef)}")
+```
+
+Expected output:
+
+```text
+Elastic Net coefficients: [-1.3582  0.8776 -0.2011  0.3548 -0.      0.0579 -0.      0.     -0.      0.    ]
+Number of non-zero coefficients: 5 / 10
 ```
 
 ### 6.6 Summary of regularization comparison
@@ -730,6 +837,18 @@ ax.grid(axis='y', alpha=0.3)
 plt.xticks(rotation=15)
 plt.tight_layout()
 plt.show()
+```
+
+Example terminal output:
+
+```text
+Dataset: 442 samples, 10 features
+Feature names: ['age', 'sex', 'bmi', 'bp', 's1', 's2', 's3', 's4', 's5', 's6']
+Linear Regression | MSE: 2900.2 | R²: 0.4526
+Ridge α=1      | MSE: 2892.0 | R²: 0.4541
+Ridge α=10     | MSE: 2875.8 | R²: 0.4572
+Lasso α=0.1    | MSE: 2884.6 | R²: 0.4555
+Lasso α=1      | MSE: 2824.6 | R²: 0.4669
 ```
 
 ### 7.1 After finishing this section, what should you do next?

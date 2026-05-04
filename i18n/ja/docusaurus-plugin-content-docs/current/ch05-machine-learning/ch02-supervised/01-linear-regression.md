@@ -51,7 +51,15 @@ keywords: [線形回帰, 最小二乗法, 勾配降下法, 正則化, Ridge, Las
 
 ![線形回帰の学習主線図](/img/course/ch05-linear-regression-learning-flow-ja.png)
 
+![線形回帰の直感漫画](/img/course/ch05-linear-regression-intuition-comic-ja.png)
+
+数式に入る前に、この漫画を読んでください。直線は調整できる定規、残差は点から直線までの縦の距離、MSE はその距離を学習目標に変えるもの、正則化は柔軟すぎるモデルが曲がりすぎないようにするブレーキです。
+
 この線を先につかめば、以後の数式も「何のための式か」が見えやすくなります。
+
+:::tip 先に実行環境を準備する
+この節では `numpy`、`matplotlib`、`pandas`、`scikit-learn` を使います。新しい環境なら、まずプロジェクトルートで `python -m pip install -r requirements-course-core.txt` を実行してください。`pandas` は、下の多変量回帰例で表形式データを扱うためのライブラリです。
+:::
 
 ---
 
@@ -137,6 +145,17 @@ plt.show()
 - まずは `MSE / RMSE` を基本にする
 - 外れ値が多そうなら `MAE` も見る
 
+### 1.3.1 回帰指標のキーワードを先にほどく
+
+| 用語 | 意味 | なぜ重要か |
+|---|---|---|
+| `baseline` | 最初に作るシンプルな比較モデル | 出発点がないと、後のモデルが本当に良くなったか判断しにくい |
+| `residual` | `正解値 - 予測値`、残差 | 残差プロットは、1 つのスコアでは見えないパターンを見せてくれる |
+| `MSE` | Mean Squared Error、平均二乗誤差 | 大きな誤差を強く罰し、最適化目標としてよく使う |
+| `RMSE` | Root Mean Squared Error、平方根平均二乗誤差 | MSE の平方根で、目的変数と同じ単位に戻る |
+| `MAE` | Mean Absolute Error、平均絶対誤差 | 外れ値に支配されたくないときに比較的安定する |
+| `R²` | モデルが目的変数の変動をどれだけ説明できるか | フィットの概要を見るには便利だが、診断の代わりにはならない |
+
 ```python
 def mse_loss(y_true, y_pred):
     """平均二乗誤差"""
@@ -159,6 +178,14 @@ for ax, (w, b, title) in zip(axes, params):
 
 plt.tight_layout()
 plt.show()
+```
+
+この例では、真ん中の線がたいてい最も小さい MSE になります。
+
+```text
+傾きが小さすぎる: MSE ≈ 28463
+ちょうどよい: MSE ≈ 575
+傾きが大きすぎる: MSE ≈ 14502
 ```
 
 ---
@@ -198,6 +225,14 @@ plt.title('正規方程式による線形回帰の解法')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+期待される出力：
+
+```text
+X_b の形状: (30, 2)
+切片 b = 57.36
+傾き w = 2.47
 ```
 
 ### 2.3 正規方程式の長所と短所
@@ -331,6 +366,15 @@ plt.tight_layout()
 plt.show()
 ```
 
+期待される出力：
+
+```text
+勾配降下法の結果: w = 2.86, b = 0.29
+正規方程式の結果: w = 2.47, b = 57.36
+```
+
+この簡単な勾配降下法のデモは、まだ正規方程式の結果に完全には一致していません。`X` の値が大きく、学習率をわざと小さくしているからです。これは学習用の選択です。まず更新ループを安全に見るためで、実務では勾配降下の前に特徴量を標準化するのが基本です。
+
 ---
 
 ## 四、多変量線形回帰
@@ -404,6 +448,22 @@ print(f"  切片: {model.intercept_:.2f}")
 y_pred = model.predict(X_test)
 print(f"\nMSE: {mean_squared_error(y_test, y_pred):.2f}")
 print(f"R² Score: {r2_score(y_test, y_pred):.4f}")
+```
+
+期待される出力はおおよそ次のようになります。
+
+```text
+データ形状: (200, 5)
+
+モデルパラメータ:
+  面積: 2.52
+  部屋数: 31.38
+  階数: 1.78
+  駅までの距離(km): -21.83
+  切片: 48.11
+
+MSE: 860.36
+R² Score: 0.9328
 ```
 
 ### 4.3 R² スコア
@@ -490,6 +550,16 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+特徴量展開の期待出力：
+
+```text
+元の特徴量: [-3.         -2.87755102 -2.75510204]
+多項式特徴量:
+[[-3.          9.        ]
+ [-2.87755102  8.28029988]
+ [-2.75510204  7.59058726]]
+```
+
 ### 5.3 多項式の次数と過学習
 
 ```python
@@ -564,6 +634,8 @@ flowchart LR
 
 **直感**：大きなパラメータに罰を与える → モデルがシンプルになる → 過学習を減らせる。
 
+正則化付きの線形モデルでは、特徴量のスケールがとても重要です。片方の特徴量だけ数値が大きいと、ペナルティが公平に働きません。そのため、下のコードでは `Pipeline(PolynomialFeatures -> StandardScaler -> Ridge/Lasso/ElasticNet)` を使います。
+
 ### 6.2 3 種類の正則化
 
 | 方法 | ペナルティ項 | 効果 |
@@ -575,12 +647,13 @@ flowchart LR
 ### 6.3 Ridge 回帰（L2 正則化）
 
 ```python
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 
 # 高次多項式 + Ridge の比較
-poly = PolynomialFeatures(degree=10, include_bias=False)
-X_p = poly.fit_transform(X_nl.reshape(-1, 1))
-X_s = poly.transform(x_smooth.reshape(-1, 1))
+X_base = X_nl.reshape(-1, 1)
+X_smooth_base = x_smooth.reshape(-1, 1)
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 alphas = [0, 0.1, 10]
@@ -588,12 +661,20 @@ titles = ['正則化なし (α=0)', 'Ridge α=0.1', 'Ridge α=10']
 
 for ax, alpha, title in zip(axes, alphas, titles):
     if alpha == 0:
-        model = LinearRegression()
+        model = make_pipeline(
+            PolynomialFeatures(degree=10, include_bias=False),
+            StandardScaler(),
+            LinearRegression()
+        )
     else:
-        model = Ridge(alpha=alpha)
+        model = make_pipeline(
+            PolynomialFeatures(degree=10, include_bias=False),
+            StandardScaler(),
+            Ridge(alpha=alpha)
+        )
 
-    model.fit(X_p, y_nl)
-    y_s = np.clip(model.predict(X_s), -10, 20)
+    model.fit(X_base, y_nl)
+    y_s = np.clip(model.predict(X_smooth_base), -10, 20)
 
     ax.scatter(X_nl, y_nl, color='steelblue', s=20, alpha=0.6)
     ax.plot(x_smooth, y_s, 'r-', linewidth=2)
@@ -612,25 +693,32 @@ plt.show()
 from sklearn.linear_model import Lasso
 
 # Lasso は一部のパラメータを 0 にできる → 自動特徴選択
-poly = PolynomialFeatures(degree=10, include_bias=False)
-X_p = poly.fit_transform(X_nl.reshape(-1, 1))
+ridge = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    Ridge(alpha=1.0)
+)
+ridge.fit(X_base, y_nl)
 
-# Ridge と Lasso のパラメータを比較
-ridge = Ridge(alpha=1.0)
-ridge.fit(X_p, y_nl)
+lasso = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    Lasso(alpha=0.1, max_iter=20000)
+)
+lasso.fit(X_base, y_nl)
 
-lasso = Lasso(alpha=0.1, max_iter=10000)
-lasso.fit(X_p, y_nl)
+ridge_coef = ridge.named_steps["ridge"].coef_
+lasso_coef = lasso.named_steps["lasso"].coef_
 
 # パラメータを可視化
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-axes[0].bar(range(len(ridge.coef_)), np.abs(ridge.coef_), color='steelblue')
+axes[0].bar(range(len(ridge_coef)), np.abs(ridge_coef), color='steelblue')
 axes[0].set_title('Ridge パラメータ（すべて非ゼロ）')
 axes[0].set_xlabel('特徴量番号')
 axes[0].set_ylabel('|パラメータ値|')
 
-axes[1].bar(range(len(lasso.coef_)), np.abs(lasso.coef_), color='coral')
+axes[1].bar(range(len(lasso_coef)), np.abs(lasso_coef), color='coral')
 axes[1].set_title('Lasso パラメータ（一部が 0 → 特徴選択）')
 axes[1].set_xlabel('特徴量番号')
 axes[1].set_ylabel('|パラメータ値|')
@@ -642,8 +730,15 @@ plt.tight_layout()
 plt.show()
 
 # Lasso がどの特徴を残したか確認
-print("Lasso パラメータ:", np.round(lasso.coef_, 4))
-print(f"非ゼロパラメータ数: {np.sum(lasso.coef_ != 0)} / {len(lasso.coef_)}")
+print("Lasso パラメータ:", np.round(lasso_coef, 4))
+print(f"非ゼロパラメータ数: {np.sum(lasso_coef != 0)} / {len(lasso_coef)}")
+```
+
+期待される出力：
+
+```text
+Lasso パラメータ: [-1.5605  1.1533 -0.      0.1151 -0.      0.     -0.      0.     -0.      0.    ]
+非ゼロパラメータ数: 3 / 10
 ```
 
 ### 6.5 Elastic Net
@@ -653,11 +748,23 @@ from sklearn.linear_model import ElasticNet
 
 # Elastic Net = L1 + L2 の混合
 # l1_ratio は L1 と L2 の比率を制御する（1.0 = 純 Lasso、0.0 = 純 Ridge）
-en = ElasticNet(alpha=0.1, l1_ratio=0.5, max_iter=10000)
-en.fit(X_p, y_nl)
+en = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    ElasticNet(alpha=0.1, l1_ratio=0.5, max_iter=20000)
+)
+en.fit(X_base, y_nl)
+en_coef = en.named_steps["elasticnet"].coef_
 
-print("Elastic Net パラメータ:", np.round(en.coef_, 4))
-print(f"非ゼロパラメータ数: {np.sum(en.coef_ != 0)} / {len(en.coef_)}")
+print("Elastic Net パラメータ:", np.round(en_coef, 4))
+print(f"非ゼロパラメータ数: {np.sum(en_coef != 0)} / {len(en_coef)}")
+```
+
+期待される出力：
+
+```text
+Elastic Net パラメータ: [-1.3582  0.8776 -0.2011  0.3548 -0.      0.0579 -0.      0.     -0.      0.    ]
+非ゼロパラメータ数: 5 / 10
 ```
 
 ### 6.6 正則化の比較まとめ
@@ -727,6 +834,18 @@ ax.grid(axis='y', alpha=0.3)
 plt.xticks(rotation=15)
 plt.tight_layout()
 plt.show()
+```
+
+ターミナルの出力例：
+
+```text
+データセット: 442 サンプル, 10 特徴量
+特徴量名: ['age', 'sex', 'bmi', 'bp', 's1', 's2', 's3', 's4', 's5', 's6']
+線形回帰        | MSE: 2900.2 | R²: 0.4526
+Ridge α=1     | MSE: 2892.0 | R²: 0.4541
+Ridge α=10    | MSE: 2875.8 | R²: 0.4572
+Lasso α=0.1   | MSE: 2884.6 | R²: 0.4555
+Lasso α=1     | MSE: 2824.6 | R²: 0.4669
 ```
 
 ### 7.1 この節を終えたら、次に何をすべきか？

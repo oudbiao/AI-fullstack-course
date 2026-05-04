@@ -51,7 +51,15 @@ keywords: [线性回归, 最小二乘法, 梯度下降, 正则化, Ridge, Lasso,
 
 ![线性回归学习主线图](/img/course/ch05-linear-regression-learning-flow.png)
 
+![线性回归直觉漫画](/img/course/ch05-linear-regression-intuition-comic.png)
+
+先看这张漫画再看公式：直线是一把可以调的尺子，残差是数据点到直线的垂直距离，MSE 把这些距离变成训练目标，正则化则像刹车，防止复杂模型过度弯曲。
+
 如果你先抓住这条线，后面所有公式都会更容易落到一个明确的问题上。
+
+:::tip 先准备运行环境
+本节会用到 `numpy`、`matplotlib`、`pandas` 和 `scikit-learn`。如果你的环境是新建的，请先在项目根目录执行 `python -m pip install -r requirements-course-core.txt`。`pandas` 是下面多元回归示例里用来处理表格数据的库。
+:::
 
 ---
 
@@ -137,6 +145,17 @@ plt.show()
 - 默认先用 `MSE / RMSE`
 - 如果你怀疑异常值很多，再去看 `MAE`
 
+### 1.3.1 回归指标关键词先拆开
+
+| 术语 | 它是什么意思 | 为什么重要 |
+|---|---|---|
+| `baseline` | 第一个简单对照模型 | 没有起点，就很难判断后续模型是否真的变好 |
+| `residual` | `真实值 - 预测值`，残差 | 残差图能暴露单个分数看不到的模式 |
+| `MSE` | Mean Squared Error，均方误差 | 强烈惩罚大误差，常用作优化目标 |
+| `RMSE` | Root Mean Squared Error，均方根误差 | MSE 开方后回到目标值原单位 |
+| `MAE` | Mean Absolute Error，平均绝对误差 | 不希望异常值过度主导时更稳 |
+| `R²` | 模型解释目标波动的比例 | 适合快速概览拟合质量，但不能替代诊断 |
+
 ```python
 def mse_loss(y_true, y_pred):
     """均方误差"""
@@ -159,6 +178,14 @@ for ax, (w, b, title) in zip(axes, params):
 
 plt.tight_layout()
 plt.show()
+```
+
+这个例子中，中间那条线通常 MSE 最小：
+
+```text
+斜率太小: MSE ≈ 28463
+刚刚好: MSE ≈ 575
+斜率太大: MSE ≈ 14502
 ```
 
 ---
@@ -198,6 +225,14 @@ plt.title('正规方程求解线性回归')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+预期输出：
+
+```text
+X_b 形状: (30, 2)
+截距 b = 57.36
+斜率 w = 2.47
 ```
 
 ### 2.3 正规方程的优缺点
@@ -331,6 +366,15 @@ plt.tight_layout()
 plt.show()
 ```
 
+预期输出：
+
+```text
+梯度下降结果: w = 2.86, b = 0.29
+正规方程结果: w = 2.47, b = 57.36
+```
+
+注意，这个简单梯度下降示例还没有完全追上正规方程结果，因为 `X` 的数值较大，而学习率故意设置得很小。这样做是为了教学安全：先看清更新循环，避免数值直接发散。真实项目中，做梯度下降前通常要先标准化特征。
+
 ---
 
 ## 四、多元线性回归
@@ -407,6 +451,22 @@ print(f"  截距: {model.intercept_:.2f}")
 y_pred = model.predict(X_test)
 print(f"\nMSE: {mean_squared_error(y_test, y_pred):.2f}")
 print(f"R² Score: {r2_score(y_test, y_pred):.4f}")
+```
+
+预期输出大致如下：
+
+```text
+数据形状: (200, 5)
+
+模型参数:
+  面积: 2.52
+  房间数: 31.38
+  楼层: 1.78
+  距地铁(km): -21.83
+  截距: 48.11
+
+MSE: 860.36
+R² Score: 0.9328
 ```
 
 ### 4.3 R² 分数
@@ -493,6 +553,16 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+特征扩展的预期输出：
+
+```text
+原始特征: [-3.         -2.87755102 -2.75510204]
+多项式特征:
+[[-3.          9.        ]
+ [-2.87755102  8.28029988]
+ [-2.75510204  7.59058726]]
+```
+
 ### 5.3 多项式阶数与过拟合
 
 ```python
@@ -567,6 +637,8 @@ flowchart LR
 
 **直觉**：惩罚大的参数 → 模型更简单 → 减少过拟合。
 
+对带正则化的线性模型来说，特征尺度非常重要。如果一个特征数值特别大，另一个特征数值特别小，惩罚项就不会公平地看待它们。所以后面的代码使用 `Pipeline(PolynomialFeatures -> StandardScaler -> Ridge/Lasso/ElasticNet)`。
+
 ### 6.2 三种正则化
 
 | 方法 | 惩罚项 | 效果 |
@@ -578,12 +650,13 @@ flowchart LR
 ### 6.3 Ridge 回归（L2 正则化）
 
 ```python
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 
 # 用高阶多项式 + Ridge 对比
-poly = PolynomialFeatures(degree=10, include_bias=False)
-X_p = poly.fit_transform(X_nl.reshape(-1, 1))
-X_s = poly.transform(x_smooth.reshape(-1, 1))
+X_base = X_nl.reshape(-1, 1)
+X_smooth_base = x_smooth.reshape(-1, 1)
 
 fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 alphas = [0, 0.1, 10]
@@ -591,12 +664,20 @@ titles = ['无正则化 (α=0)', 'Ridge α=0.1', 'Ridge α=10']
 
 for ax, alpha, title in zip(axes, alphas, titles):
     if alpha == 0:
-        model = LinearRegression()
+        model = make_pipeline(
+            PolynomialFeatures(degree=10, include_bias=False),
+            StandardScaler(),
+            LinearRegression()
+        )
     else:
-        model = Ridge(alpha=alpha)
+        model = make_pipeline(
+            PolynomialFeatures(degree=10, include_bias=False),
+            StandardScaler(),
+            Ridge(alpha=alpha)
+        )
 
-    model.fit(X_p, y_nl)
-    y_s = np.clip(model.predict(X_s), -10, 20)
+    model.fit(X_base, y_nl)
+    y_s = np.clip(model.predict(X_smooth_base), -10, 20)
 
     ax.scatter(X_nl, y_nl, color='steelblue', s=20, alpha=0.6)
     ax.plot(x_smooth, y_s, 'r-', linewidth=2)
@@ -615,25 +696,32 @@ plt.show()
 from sklearn.linear_model import Lasso
 
 # Lasso 能让部分参数变为零 → 自动特征选择
-poly = PolynomialFeatures(degree=10, include_bias=False)
-X_p = poly.fit_transform(X_nl.reshape(-1, 1))
+ridge = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    Ridge(alpha=1.0)
+)
+ridge.fit(X_base, y_nl)
 
-# 对比 Ridge 和 Lasso 的参数
-ridge = Ridge(alpha=1.0)
-ridge.fit(X_p, y_nl)
+lasso = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    Lasso(alpha=0.1, max_iter=20000)
+)
+lasso.fit(X_base, y_nl)
 
-lasso = Lasso(alpha=0.1, max_iter=10000)
-lasso.fit(X_p, y_nl)
+ridge_coef = ridge.named_steps["ridge"].coef_
+lasso_coef = lasso.named_steps["lasso"].coef_
 
 # 可视化参数
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-axes[0].bar(range(len(ridge.coef_)), np.abs(ridge.coef_), color='steelblue')
+axes[0].bar(range(len(ridge_coef)), np.abs(ridge_coef), color='steelblue')
 axes[0].set_title('Ridge 参数（全部非零）')
 axes[0].set_xlabel('特征序号')
 axes[0].set_ylabel('|参数值|')
 
-axes[1].bar(range(len(lasso.coef_)), np.abs(lasso.coef_), color='coral')
+axes[1].bar(range(len(lasso_coef)), np.abs(lasso_coef), color='coral')
 axes[1].set_title('Lasso 参数（部分为零 → 特征选择）')
 axes[1].set_xlabel('特征序号')
 axes[1].set_ylabel('|参数值|')
@@ -645,8 +733,15 @@ plt.tight_layout()
 plt.show()
 
 # 看看 Lasso 保留了哪些特征
-print("Lasso 参数:", np.round(lasso.coef_, 4))
-print(f"非零参数个数: {np.sum(lasso.coef_ != 0)} / {len(lasso.coef_)}")
+print("Lasso 参数:", np.round(lasso_coef, 4))
+print(f"非零参数个数: {np.sum(lasso_coef != 0)} / {len(lasso_coef)}")
+```
+
+预期输出：
+
+```text
+Lasso 参数: [-1.5605  1.1533 -0.      0.1151 -0.      0.     -0.      0.     -0.      0.    ]
+非零参数个数: 3 / 10
 ```
 
 ### 6.5 Elastic Net
@@ -656,11 +751,23 @@ from sklearn.linear_model import ElasticNet
 
 # Elastic Net = L1 + L2 的混合
 # l1_ratio 控制 L1 和 L2 的比例（1.0 = 纯 Lasso，0.0 = 纯 Ridge）
-en = ElasticNet(alpha=0.1, l1_ratio=0.5, max_iter=10000)
-en.fit(X_p, y_nl)
+en = make_pipeline(
+    PolynomialFeatures(degree=10, include_bias=False),
+    StandardScaler(),
+    ElasticNet(alpha=0.1, l1_ratio=0.5, max_iter=20000)
+)
+en.fit(X_base, y_nl)
+en_coef = en.named_steps["elasticnet"].coef_
 
-print("Elastic Net 参数:", np.round(en.coef_, 4))
-print(f"非零参数个数: {np.sum(en.coef_ != 0)} / {len(en.coef_)}")
+print("Elastic Net 参数:", np.round(en_coef, 4))
+print(f"非零参数个数: {np.sum(en_coef != 0)} / {len(en_coef)}")
+```
+
+预期输出：
+
+```text
+Elastic Net 参数: [-1.3582  0.8776 -0.2011  0.3548 -0.      0.0579 -0.      0.     -0.      0.    ]
+非零参数个数: 5 / 10
 ```
 
 ### 6.6 正则化对比总结
@@ -730,6 +837,18 @@ ax.grid(axis='y', alpha=0.3)
 plt.xticks(rotation=15)
 plt.tight_layout()
 plt.show()
+```
+
+终端示例输出：
+
+```text
+数据集: 442 样本, 10 特征
+特征名: ['age', 'sex', 'bmi', 'bp', 's1', 's2', 's3', 's4', 's5', 's6']
+线性回归        | MSE: 2900.2 | R²: 0.4526
+Ridge α=1     | MSE: 2892.0 | R²: 0.4541
+Ridge α=10    | MSE: 2875.8 | R²: 0.4572
+Lasso α=0.1   | MSE: 2884.6 | R²: 0.4555
+Lasso α=1     | MSE: 2824.6 | R²: 0.4669
 ```
 
 ### 7.1 做完这节，下一步该怎么走？
