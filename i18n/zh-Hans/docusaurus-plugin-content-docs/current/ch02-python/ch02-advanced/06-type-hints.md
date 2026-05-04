@@ -121,7 +121,8 @@ def find_student(name: str) -> Optional[dict]:
 
 # Python 3.10+ 可以用更简洁的写法
 def find_student(name: str) -> dict | None:
-    ...
+    students = {"张三": {"age": 20}, "李四": {"age": 21}}
+    return students.get(name)
 ```
 
 ### Union：多种可能的类型
@@ -137,7 +138,9 @@ def process(data: Union[str, list]) -> str:
 
 # Python 3.10+ 的简洁写法
 def process(data: str | list) -> str:
-    ...
+    if isinstance(data, list):
+        return ", ".join(str(item) for item in data)
+    return data
 ```
 
 ### Callable：函数类型
@@ -331,7 +334,7 @@ PEP 8 是 Python 官方的代码风格指南，以下是最重要的几条：
 # 变量和函数：小写加下划线（snake_case）
 student_name = "张三"
 def calculate_average(scores):
-    pass
+    return sum(scores) / len(scores)
 
 # 类：首字母大写（PascalCase）
 class DataProcessor:
@@ -376,9 +379,13 @@ x = 1+2          # ❌
 items = [1, 2, 3]     # ✅
 items = [1,2,3]        # ❌
 
-# 函数参数的默认值不加空格
+# 函数参数的默认值不加空格。
+# 第二种写法语法上能运行，但不符合 PEP 8 推荐风格。
 def func(x=10):       # ✅
-def func(x = 10):     # ❌
+    return x
+
+def func_not_recommended(x = 10):  # ❌ 只是风格不推荐
+    return x
 ```
 
 ### 每行长度
@@ -400,7 +407,12 @@ def complex_function(
     param3: float = 0.0,
     param4: bool = True,
 ) -> dict:
-    pass
+    return {
+        "param1": param1,
+        "param2": param2,
+        "param3": param3,
+        "param4": param4,
+    }
 ```
 
 ---

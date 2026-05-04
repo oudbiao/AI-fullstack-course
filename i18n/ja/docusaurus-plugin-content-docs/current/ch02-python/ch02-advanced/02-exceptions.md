@@ -422,13 +422,38 @@ except KeyError as e:
 ### 練習 1：安全な計算機
 
 ```python
-def safe_calculator():
-    """すべての可能なエラーに対応できる、安全な四則演算機"""
-    # 1. 2つの数字を取得する（不正入力を処理する）
-    # 2. 演算子を取得する（+、-、*、/）
-    # 3. 結果を計算する（ゼロ除算を処理する）
-    # 4. 続けるかどうかを確認する
-    pass
+def safe_calculator(inputs=None):
+    """不正入力とゼロ除算を処理できる、安全な四則演算機。"""
+    inputs = iter(inputs or ["10", "0", "/", "n"])
+
+    while True:
+        try:
+            a = float(next(inputs) if inputs else input("1つ目の数値: "))
+            b = float(next(inputs) if inputs else input("2つ目の数値: "))
+            op = next(inputs) if inputs else input("演算子（+、-、*、/）: ")
+
+            if op == "+":
+                result = a + b
+            elif op == "-":
+                result = a - b
+            elif op == "*":
+                result = a * b
+            elif op == "/":
+                result = a / b
+            else:
+                raise ValueError(f"未対応の演算子です: {op}")
+
+            print(f"結果: {result}")
+        except ZeroDivisionError:
+            print("ゼロで割ることはできません。")
+        except ValueError as error:
+            print(f"入力が不正です: {error}")
+        except StopIteration:
+            break
+
+        again = next(inputs, "n") if inputs else input("続けますか？(y/n): ")
+        if again.lower() != "y":
+            break
 
 safe_calculator()
 ```
@@ -437,10 +462,17 @@ safe_calculator()
 
 ```python
 def read_file_safely(filename):
-    """ファイルの内容を安全に読み取る"""
-    # ファイルが存在しない、権限がない、などを処理する
-    # ファイルの内容または None を返す
-    pass
+    """ファイルの内容を安全に読み取る。"""
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"ファイルが見つかりません: {filename}")
+    except PermissionError:
+        print(f"読み取り権限がありません: {filename}")
+    except OSError as error:
+        print(f"読み取りに失敗しました: {error}")
+    return None
 
 content = read_file_safely("test.txt")
 if content:
@@ -451,14 +483,20 @@ if content:
 
 ```python
 def convert_to_numbers(data_list):
-    """
-    文字列のリストを数値のリストに変換する。
-    変換できない要素は None に置き換え、エラーメッセージを記録する。
+    """文字列を数値に変換し、失敗理由も残す。"""
+    numbers = []
+    errors = []
+    for item in data_list:
+        try:
+            numbers.append(float(item))
+        except ValueError:
+            numbers.append(None)
+            errors.append(f"{item} を変換できません")
+    return numbers, errors
 
-    入力: ["10", "20.5", "abc", "30", "xyz"]
-    出力: ([10.0, 20.5, None, 30.0, None], ["abc を変換できません", "xyz を変換できません"])
-    """
-    pass
+values, errors = convert_to_numbers(["10", "20.5", "abc", "30", "xyz"])
+print(values)
+print(errors)
 ```
 
 ---

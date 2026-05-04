@@ -140,7 +140,7 @@ Add Reranking, Query Rewrite, Agent study planning, and multimodal PDF understan
 
 ## Example evaluation file
 
-```json
+```jsonl
 {"id":"q001","question":"Why does a RAG project need an evaluation set?","expected_sources":["ai-engineering-checklist.md"],"ideal_points":["compare optimization results","avoid judging by feel","record failure samples"]}
 {"id":"q002","question":"Why should high-risk Agent actions require human confirmation?","expected_sources":["ai-engineering-checklist.md","ch09-agent/index.md"],"ideal_points":["permission boundaries","audit logs","avoid automatically executing dangerous actions"]}
 ```

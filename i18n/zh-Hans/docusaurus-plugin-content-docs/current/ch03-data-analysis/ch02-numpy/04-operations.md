@@ -380,23 +380,27 @@ print(adjusted)  # [85 60 91 67 60 78]
 ```python
 # 计算华氏温度转摄氏温度
 # 公式：C = (F - 32) × 5/9
+import numpy as np
+
 fahrenheit = np.array([32, 68, 100, 212, 72, 98.6])
 
 # 用向量化运算一行完成转换
-celsius = ?
+celsius = (fahrenheit - 32) * 5 / 9
 ```
 
 ### 练习 2：广播练习
 
 ```python
 # 3 个商品的原价
+import numpy as np
+
 prices = np.array([100, 200, 300])
 
 # 3 种折扣率（列向量）
 discounts = np.array([[0.9], [0.8], [0.7]])
 
 # 用广播计算每个商品在每种折扣下的价格（3×3 矩阵）
-final_prices = ?
+final_prices = discounts * prices
 # 预期结果：
 # [[ 90. 180. 270.]
 #  [ 80. 160. 240.]

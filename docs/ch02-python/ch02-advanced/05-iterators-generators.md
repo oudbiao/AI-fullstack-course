@@ -388,29 +388,28 @@ for epoch in range(3):
 
 ```python
 def fibonacci(n=None):
-    """
-    Generate the Fibonacci sequence.
-    If n is not None, generate the first n numbers.
-    If n is None, generate an infinite sequence.
-    """
-    pass
+    """Generate Fibonacci numbers. If n is None, generate forever."""
+    count = 0
+    a, b = 0, 1
+    while n is None or count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
 
-# Test
 for num in fibonacci(10):
     print(num, end=" ")
-# Should output: 0 1 1 2 3 5 8 13 21 34
+# 0 1 1 2 3 5 8 13 21 34
 ```
 
 ### Exercise 2: File searcher
 
 ```python
-def search_files(directory, pattern):
-    """
-    Recursively search for files matching the pattern in a directory using a generator.
-    """
-    pass
+from pathlib import Path
 
-# Example usage
+def search_files(directory, pattern):
+    """Recursively yield files matching pattern."""
+    yield from Path(directory).rglob(pattern)
+
 for filepath in search_files(".", "*.py"):
     print(filepath)
 ```
@@ -419,13 +418,12 @@ for filepath in search_files(".", "*.py"):
 
 ```python
 def sliding_window(data, window_size):
-    """
-    Generate sliding windows.
+    """Yield fixed-size sliding windows."""
+    for index in range(len(data) - window_size + 1):
+        yield data[index:index + window_size]
 
-    Input: [1, 2, 3, 4, 5], window_size=3
-    Output: [1, 2, 3], [2, 3, 4], [3, 4, 5]
-    """
-    pass
+for window in sliding_window([1, 2, 3, 4, 5], 3):
+    print(window)
 ```
 
 ---

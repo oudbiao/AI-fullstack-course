@@ -356,19 +356,19 @@ mindmap
 import numpy as np
 
 # 1. Create a 1D array containing 1 to 20
-arr1 = ?
+arr1 = np.arange(1, 21)
 
 # 2. Create a 4×5 all-zero matrix
-arr2 = ?
+arr2 = np.zeros((4, 5))
 
 # 3. Create a 3×3 matrix where all elements are 7
-arr3 = ?
+arr3 = np.full((3, 3), 7)
 
 # 4. Create 100 evenly spaced points between 0 and 2π (np.pi * 2)
-arr4 = ?
+arr4 = np.linspace(0, np.pi * 2, 100)
 
 # 5. Create a 5×5 random integer matrix (range 1~50)
-arr5 = ?
+arr5 = np.random.randint(1, 51, size=(5, 5))
 ```
 
 ### Exercise 2: Check Attributes
@@ -386,11 +386,11 @@ Create an all-1 array with shape `(3, 4, 5)` and answer the following questions:
 scores = np.array([85.6, 92.3, 78.8, 95.1, 60.5, 73.9])
 
 # 1. Round the scores to integers
-rounded = ?
+rounded = np.rint(scores).astype(int)
 
 # 2. Determine whether each score is passing (>= 60) to get a boolean array
-passed = ?
+passed = scores >= 60
 
 # 3. Calculate the number of passing scores (hint: True counts as 1, False counts as 0)
-pass_count = ?
+pass_count = passed.sum()
 ```

@@ -262,9 +262,9 @@ print("b.grad:", b.grad)
 
 这时就可以用：
 
-```python
+```text
 with torch.no_grad():
-    ...
+    # inference or parameter update code goes here
 ```
 
 它的作用是：
@@ -277,9 +277,9 @@ with torch.no_grad():
 
 你会发现很多手写更新代码里都包着：
 
-```python
+```text
 with torch.no_grad():
-    ...
+    # inference or parameter update code goes here
 ```
 
 原因是：

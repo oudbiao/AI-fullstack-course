@@ -362,7 +362,8 @@ Right now the data is stored in memory, so it disappears when the server restart
 @app.get("/tasks/search")
 def search_tasks(keyword: str):
     """Search tasks by keyword"""
-    pass
+    keyword_lower = keyword.lower()
+    return [task for task in tasks if keyword_lower in task.title.lower()]
 ```
 
 ### Challenge 3: Add pagination

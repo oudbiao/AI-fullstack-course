@@ -335,7 +335,7 @@ print(f"PI = {PI}")
 
 ```python
 if __name__ == "__main__":
-    # 代码...
+    print("这个文件正在被直接运行。")
 ```
 
 这是什么意思？
@@ -490,17 +490,18 @@ if __name__ == "__main__":
 ```python
 def count_words(text):
     """统计英文文本的单词数"""
-    pass
+    return len(text.split())
 
 def reverse_words(text):
     """反转每个单词的顺序（不是字母）"""
     # "hello world" → "world hello"
-    pass
+    return " ".join(reversed(text.split()))
 
 def is_palindrome(text):
     """判断是否是回文（忽略空格和大小写）"""
     # "A man a plan a canal Panama" → True
-    pass
+    normalized = "".join(text.lower().split())
+    return normalized == normalized[::-1]
 ```
 
 然后在另一个文件中导入并测试。

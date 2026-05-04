@@ -262,9 +262,9 @@ But during inference, evaluation, or manual parameter updates, we often **do not
 
 In that case, we can use:
 
-```python
+```text
 with torch.no_grad():
-    ...
+    # inference or parameter update code goes here
 ```
 
 Its effects are:
@@ -277,9 +277,9 @@ Its effects are:
 
 You will find that many hand-written update snippets are wrapped in:
 
-```python
+```text
 with torch.no_grad():
-    ...
+    # inference or parameter update code goes here
 ```
 
 The reason is:

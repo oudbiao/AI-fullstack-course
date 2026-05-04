@@ -487,17 +487,25 @@ Create a `Book` class:
 
 ```python
 class Book:
-    # Attributes: title, author, pages, current_page (default 0)
-    # Methods:
-    #   read(pages) —— read n pages and update current_page
-    #   progress() —— return reading progress as a percentage
-    #   __str__() —— return book information
-    pass
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+        self.current_page = 0
+
+    def read(self, pages):
+        self.current_page = min(self.current_page + pages, self.pages)
+
+    def progress(self):
+        return self.current_page / self.pages * 100
+
+    def __str__(self):
+        return f"{self.title} by {self.author}: {self.current_page}/{self.pages} pages"
 
 # Test
 book = Book("Python Basics", "Zhang San", 300)
 book.read(50)
-print(book.progress())  # Should display 16.7%
+print(f"{book.progress():.1f}%")  # 16.7%
 print(book)
 ```
 
@@ -510,12 +518,28 @@ class Product:
         self.price = price
 
 class ShoppingCart:
-    # Methods:
-    #   add(product, quantity) —— add a product
-    #   remove(product_name) —— remove a product
-    #   total() —— calculate the total price
-    #   __str__() —— print cart contents
-    pass
+    def __init__(self):
+        self.items = {}
+
+    def add(self, product, quantity=1):
+        self.items[product.name] = self.items.get(product.name, [product, 0])
+        self.items[product.name][1] += quantity
+
+    def remove(self, product_name):
+        self.items.pop(product_name, None)
+
+    def total(self):
+        return sum(product.price * quantity for product, quantity in self.items.values())
+
+    def __str__(self):
+        lines = [f"{product.name} x {quantity}" for product, quantity in self.items.values()]
+        return "\n".join(lines) or "Shopping cart is empty"
+
+cart = ShoppingCart()
+cart.add(Product("Keyboard", 199), 2)
+cart.add(Product("Mouse", 99), 1)
+print(cart)
+print(f"Total: {cart.total()}")
 ```
 
 ### Exercise 3: Zoo
@@ -524,18 +548,28 @@ Implement this using inheritance:
 
 ```python
 class Animal:
-    # Base class: name, age, speak()
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def speak(self):
+        return "..."
 
 class Dog(Animal):
-    # speak() → "Woof woof"
+    def speak(self):
+        return "Woof woof"
 
 class Cat(Animal):
-    # speak() → "Meow meow"
+    def speak(self):
+        return "Meow meow"
 
 class Duck(Animal):
-    # speak() → "Quack quack"
+    def speak(self):
+        return "Quack quack"
 
-# Create a list of animals and use a loop to make them all speak()
+animals = [Dog("Buddy", 3), Cat("Mimi", 2), Duck("Ducky", 1)]
+for animal in animals:
+    print(f"{animal.name}: {animal.speak()}")
 ```
 
 ---

@@ -288,10 +288,10 @@ loss が各パラメータに対してどんな勾配を持つかを計算しま
 
 そのため、通常は次のように書きます。
 
-```python
+```text
 model.eval()
 with torch.no_grad():
-    ...
+    # validation / inference code goes here
 ```
 
 理由は2つあります。

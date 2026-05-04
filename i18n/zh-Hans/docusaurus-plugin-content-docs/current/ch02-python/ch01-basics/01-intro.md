@@ -289,8 +289,11 @@ Python 用**缩进**（通常是 4 个空格）来表示代码块，而不是像
 if True:
     print("缩进了 4 个空格")
     print("同一个代码块")
+```
 
-# 错误 ❌ —— 会报 IndentationError
+下面这个例子是故意写错的，会报 `IndentationError`：
+
+```text
 if True:
 print("没有缩进，Python 会报错")
 ```

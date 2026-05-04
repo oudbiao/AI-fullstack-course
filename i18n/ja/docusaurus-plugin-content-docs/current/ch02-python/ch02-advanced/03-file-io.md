@@ -407,17 +407,27 @@ gb.export_csv()
 ### 練習 1: ファイル統計ツール
 
 ```python
-def file_stats(filename):
-    """
-    ファイル情報を集計する:
-    - 総行数
-    - 総文字数（改行を除く）
-    - 総単語数
-    - 最も長い行とその行番号
-    """
-    pass
+from pathlib import Path
 
-# テスト用ファイルを作成して集計する
+def file_stats(filename):
+    """行数、文字数、単語数、最長行の情報を返す。"""
+    path = Path(filename)
+    lines = path.read_text(encoding="utf-8").splitlines()
+    longest_index, longest_line = max(
+        enumerate(lines, start=1),
+        key=lambda item: len(item[1]),
+        default=(0, ""),
+    )
+    return {
+        "lines": len(lines),
+        "characters": sum(len(line) for line in lines),
+        "words": sum(len(line.split()) for line in lines),
+        "longest_line_number": longest_index,
+        "longest_line": longest_line,
+    }
+
+Path("sample.txt").write_text("hello world\nthis is Python\n", encoding="utf-8")
+print(file_stats("sample.txt"))
 ```
 
 ### 練習 2: 日記帳プログラム
@@ -430,17 +440,30 @@ def file_stats(filename):
 ### 練習 3: 設定ファイルマネージャー
 
 ```python
+import json
+from pathlib import Path
+
+DEFAULT_CONFIG = {"theme": "light", "language": "ja", "page_size": 20}
+
 def load_config(filename="config.json"):
-    """設定ファイルを読み込む。存在しない場合はデフォルト設定を作る"""
-    pass
+    """設定ファイルを読み込む。存在しない場合はデフォルト設定を作る。"""
+    path = Path(filename)
+    if not path.exists():
+        save_config(DEFAULT_CONFIG.copy(), filename)
+    return json.loads(path.read_text(encoding="utf-8"))
 
 def save_config(config, filename="config.json"):
-    """設定をファイルに保存する"""
-    pass
+    """設定をファイルに保存する。"""
+    Path(filename).write_text(json.dumps(config, indent=2), encoding="utf-8")
 
 def update_config(key, value, filename="config.json"):
-    """特定の設定項目を更新する"""
-    pass
+    """特定の設定項目を更新する。"""
+    config = load_config(filename)
+    config[key] = value
+    save_config(config, filename)
+    return config
+
+print(update_config("theme", "dark"))
 ```
 
 ---

@@ -487,17 +487,25 @@ print(f"当前模型总数: {AIModel.model_count}")
 
 ```python
 class Book:
-    # 属性：title（书名）、author（作者）、pages（页数）、current_page（当前页，默认0）
-    # 方法：
-    #   read(pages) —— 读 n 页，更新当前页
-    #   progress() —— 返回阅读进度百分比
-    #   __str__() —— 返回书的信息
-    pass
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+        self.current_page = 0
+
+    def read(self, pages):
+        self.current_page = min(self.current_page + pages, self.pages)
+
+    def progress(self):
+        return self.current_page / self.pages * 100
+
+    def __str__(self):
+        return f"{self.title}，作者：{self.author}，进度：{self.current_page}/{self.pages} 页"
 
 # 测试
 book = Book("Python 入门", "张三", 300)
 book.read(50)
-print(book.progress())  # 应该显示 16.7%
+print(f"{book.progress():.1f}%")  # 16.7%
 print(book)
 ```
 
@@ -510,12 +518,28 @@ class Product:
         self.price = price
 
 class ShoppingCart:
-    # 方法：
-    #   add(product, quantity) —— 添加商品
-    #   remove(product_name) —— 删除商品
-    #   total() —— 计算总价
-    #   __str__() —— 打印购物车内容
-    pass
+    def __init__(self):
+        self.items = {}
+
+    def add(self, product, quantity=1):
+        self.items[product.name] = self.items.get(product.name, [product, 0])
+        self.items[product.name][1] += quantity
+
+    def remove(self, product_name):
+        self.items.pop(product_name, None)
+
+    def total(self):
+        return sum(product.price * quantity for product, quantity in self.items.values())
+
+    def __str__(self):
+        lines = [f"{product.name} x {quantity}" for product, quantity in self.items.values()]
+        return "\n".join(lines) or "购物车为空"
+
+cart = ShoppingCart()
+cart.add(Product("键盘", 199), 2)
+cart.add(Product("鼠标", 99), 1)
+print(cart)
+print(f"总价：{cart.total()}")
 ```
 
 ### 练习 3：动物园
@@ -524,18 +548,28 @@ class ShoppingCart:
 
 ```python
 class Animal:
-    # 基类：name, age, speak()
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def speak(self):
+        return "..."
 
 class Dog(Animal):
-    # speak() → "汪汪"
+    def speak(self):
+        return "汪汪"
 
 class Cat(Animal):
-    # speak() → "喵喵"
+    def speak(self):
+        return "喵喵"
 
 class Duck(Animal):
-    # speak() → "嘎嘎"
+    def speak(self):
+        return "嘎嘎"
 
-# 创建一个动物列表，用循环让它们都 speak()
+animals = [Dog("小黑", 3), Cat("咪咪", 2), Duck("小鸭", 1)]
+for animal in animals:
+    print(f"{animal.name}: {animal.speak()}")
 ```
 
 ---

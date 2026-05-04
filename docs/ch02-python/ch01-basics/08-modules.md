@@ -335,7 +335,7 @@ You may have seen this mysterious pattern in other people’s code:
 
 ```python
 if __name__ == "__main__":
-    # code...
+    print("This file is being run directly.")
 ```
 
 What does it mean?
@@ -490,17 +490,18 @@ Create a `string_tools.py` module containing the following functions:
 ```python
 def count_words(text):
     """Count the number of words in an English text"""
-    pass
+    return len(text.split())
 
 def reverse_words(text):
     """Reverse the order of words, not letters"""
     # "hello world" → "world hello"
-    pass
+    return " ".join(reversed(text.split()))
 
 def is_palindrome(text):
     """Determine whether the text is a palindrome (ignore spaces and case)"""
     # "A man a plan a canal Panama" → True
-    pass
+    normalized = "".join(text.lower().split())
+    return normalized == normalized[::-1]
 ```
 
 Then import and test it in another file.

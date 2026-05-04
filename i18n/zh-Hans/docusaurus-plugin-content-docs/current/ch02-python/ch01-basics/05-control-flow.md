@@ -516,8 +516,14 @@ else:
 
 ```python
 for i in range(1, 51):
-    # 补充代码
-    pass
+    if i % 15 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
 ```
 
 提示：先判断能否被 15 整除（3 和 5 的公倍数），再判断 3 和 5。

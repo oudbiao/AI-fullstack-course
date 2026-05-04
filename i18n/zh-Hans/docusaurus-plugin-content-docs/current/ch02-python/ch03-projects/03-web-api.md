@@ -362,7 +362,8 @@ class TaskCreate(BaseModel):
 @app.get("/tasks/search")
 def search_tasks(keyword: str):
     """按关键词搜索任务"""
-    pass
+    keyword_lower = keyword.lower()
+    return [task for task in tasks if keyword_lower in task.title.lower()]
 ```
 
 ### 挑战 3：添加分页

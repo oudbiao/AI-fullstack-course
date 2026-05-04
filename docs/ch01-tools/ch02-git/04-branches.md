@@ -299,7 +299,7 @@ git merge bob/update-model
 
 Open `src/model.py`, and you will see Git marking the conflict like this:
 
-```python
+```text
 import torch
 import torch.nn as nn
 

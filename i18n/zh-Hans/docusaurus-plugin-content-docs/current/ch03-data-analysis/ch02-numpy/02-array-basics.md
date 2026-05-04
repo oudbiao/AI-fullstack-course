@@ -356,19 +356,19 @@ mindmap
 import numpy as np
 
 # 1. 创建一个包含 1 到 20 的一维数组
-arr1 = ?
+arr1 = np.arange(1, 21)
 
 # 2. 创建一个 4×5 的全零矩阵
-arr2 = ?
+arr2 = np.zeros((4, 5))
 
 # 3. 创建一个 3×3 的矩阵，所有元素为 7
-arr3 = ?
+arr3 = np.full((3, 3), 7)
 
 # 4. 创建一个从 0 到 2π (np.pi * 2) 之间均匀分布的 100 个点
-arr4 = ?
+arr4 = np.linspace(0, np.pi * 2, 100)
 
 # 5. 创建一个 5×5 的随机整数矩阵（范围 1~50）
-arr5 = ?
+arr5 = np.random.randint(1, 51, size=(5, 5))
 ```
 
 ### 练习 2：属性查看
@@ -386,11 +386,11 @@ arr5 = ?
 scores = np.array([85.6, 92.3, 78.8, 95.1, 60.5, 73.9])
 
 # 1. 把成绩四舍五入到整数
-rounded = ?
+rounded = np.rint(scores).astype(int)
 
 # 2. 判断每个成绩是否及格（>= 60），得到布尔数组
-passed = ?
+passed = scores >= 60
 
 # 3. 计算及格人数（提示：True 算 1，False 算 0）
-pass_count = ?
+pass_count = passed.sum()
 ```

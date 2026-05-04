@@ -121,7 +121,8 @@ def find_student(name: str) -> Optional[dict]:
 
 # Python 3.10+ can use a shorter syntax
 def find_student(name: str) -> dict | None:
-    ...
+    students = {"Zhang San": {"age": 20}, "Li Si": {"age": 21}}
+    return students.get(name)
 ```
 
 ### Union: Multiple Possible Types
@@ -137,7 +138,9 @@ def process(data: Union[str, list]) -> str:
 
 # Shorter syntax in Python 3.10+
 def process(data: str | list) -> str:
-    ...
+    if isinstance(data, list):
+        return ", ".join(str(item) for item in data)
+    return data
 ```
 
 ### Callable: Function Types
@@ -331,7 +334,7 @@ PEP 8 is the official Python style guide. Here are the most important rules:
 # Variables and functions: lowercase with underscores (snake_case)
 student_name = "Zhang San"
 def calculate_average(scores):
-    pass
+    return sum(scores) / len(scores)
 
 # Classes: CapitalizedWords (PascalCase)
 class DataProcessor:
@@ -376,9 +379,13 @@ x = 1+2          # ❌
 items = [1, 2, 3]     # ✅
 items = [1,2,3]        # ❌
 
-# No spaces around default values in function parameters
+# No spaces around default values in function parameters.
+# The second style is valid Python, but not recommended by PEP 8.
 def func(x=10):       # ✅
-def func(x = 10):     # ❌
+    return x
+
+def func_not_recommended(x = 10):  # ❌ style only
+    return x
 ```
 
 ### Line Length
@@ -400,7 +407,12 @@ def complex_function(
     param3: float = 0.0,
     param4: bool = True,
 ) -> dict:
-    pass
+    return {
+        "param1": param1,
+        "param2": param2,
+        "param3": param3,
+        "param4": param4,
+    }
 ```
 
 ---

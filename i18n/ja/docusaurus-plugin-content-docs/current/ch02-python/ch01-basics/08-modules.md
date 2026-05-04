@@ -335,7 +335,7 @@ print(f"PI = {PI}")
 
 ```python
 if __name__ == "__main__":
-    # コード...
+    print("このファイルは直接実行されています。")
 ```
 
 これはどういう意味でしょうか？
@@ -490,17 +490,18 @@ if __name__ == "__main__":
 ```python
 def count_words(text):
     """英語テキストの単語数を数える"""
-    pass
+    return len(text.split())
 
 def reverse_words(text):
     """各単語の順番を逆にする（文字の順番ではない）"""
     # "hello world" → "world hello"
-    pass
+    return " ".join(reversed(text.split()))
 
 def is_palindrome(text):
     """回文かどうかを判定する（空白と大文字小文字を無視する）"""
     # "A man a plan a canal Panama" → True
-    pass
+    normalized = "".join(text.lower().split())
+    return normalized == normalized[::-1]
 ```
 
 その後、別のファイルで import してテストしてみましょう。

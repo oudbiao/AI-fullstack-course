@@ -288,10 +288,10 @@ The goal of validation is not learning, but checking model performance.
 
 So we usually write this:
 
-```python
+```text
 model.eval()
 with torch.no_grad():
-    ...
+    # validation / inference code goes here
 ```
 
 There are two reasons:

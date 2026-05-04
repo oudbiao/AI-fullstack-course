@@ -362,7 +362,8 @@ class TaskCreate(BaseModel):
 @app.get("/tasks/search")
 def search_tasks(keyword: str):
     """キーワードでタスクを検索する"""
-    pass
+    keyword_lower = keyword.lower()
+    return [task for task in tasks if keyword_lower in task.title.lower()]
 ```
 
 ### チャレンジ3：ページネーションを追加する

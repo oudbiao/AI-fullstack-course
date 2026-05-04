@@ -487,17 +487,25 @@ print(f"現在のモデル総数: {AIModel.model_count}")
 
 ```python
 class Book:
-    # 属性：title（書名）、author（著者）、pages（ページ数）、current_page（現在ページ、初期値は0）
-    # メソッド：
-    #   read(pages) —— n ページ読む。現在ページを更新する
-    #   progress() —— 読書の進捗率を返す
-    #   __str__() —— 書籍情報を返す
-    pass
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+        self.current_page = 0
+
+    def read(self, pages):
+        self.current_page = min(self.current_page + pages, self.pages)
+
+    def progress(self):
+        return self.current_page / self.pages * 100
+
+    def __str__(self):
+        return f"{self.title} / {self.author}: {self.current_page}/{self.pages} ページ"
 
 # テスト
 book = Book("Python入門", "山田太郎", 300)
 book.read(50)
-print(book.progress())  # 16.7% と表示されるはず
+print(f"{book.progress():.1f}%")  # 16.7%
 print(book)
 ```
 
@@ -510,12 +518,28 @@ class Product:
         self.price = price
 
 class ShoppingCart:
-    # メソッド：
-    #   add(product, quantity) —— 商品を追加する
-    #   remove(product_name) —— 商品を削除する
-    #   total() —— 合計金額を計算する
-    #   __str__() —— ショッピングカートの内容を表示する
-    pass
+    def __init__(self):
+        self.items = {}
+
+    def add(self, product, quantity=1):
+        self.items[product.name] = self.items.get(product.name, [product, 0])
+        self.items[product.name][1] += quantity
+
+    def remove(self, product_name):
+        self.items.pop(product_name, None)
+
+    def total(self):
+        return sum(product.price * quantity for product, quantity in self.items.values())
+
+    def __str__(self):
+        lines = [f"{product.name} x {quantity}" for product, quantity in self.items.values()]
+        return "\n".join(lines) or "カートは空です"
+
+cart = ShoppingCart()
+cart.add(Product("キーボード", 199), 2)
+cart.add(Product("マウス", 99), 1)
+print(cart)
+print(f"合計: {cart.total()}")
 ```
 
 ### 練習 3：動物園
@@ -524,18 +548,28 @@ class ShoppingCart:
 
 ```python
 class Animal:
-    # 基底クラス：name, age, speak()
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def speak(self):
+        return "..."
 
 class Dog(Animal):
-    # speak() → "ワンワン"
+    def speak(self):
+        return "ワンワン"
 
 class Cat(Animal):
-    # speak() → "ニャーニャー"
+    def speak(self):
+        return "ニャーニャー"
 
 class Duck(Animal):
-    # speak() → "ガーガー"
+    def speak(self):
+        return "ガーガー"
 
-# 動物のリストを作り、ループでそれぞれに speak() させる
+animals = [Dog("クロ", 3), Cat("ミミ", 2), Duck("ダック", 1)]
+for animal in animals:
+    print(f"{animal.name}: {animal.speak()}")
 ```
 
 ---

@@ -380,23 +380,27 @@ print(adjusted)  # [85 60 91 67 60 78]
 ```python
 # Convert Fahrenheit to Celsius
 # Formula: C = (F - 32) × 5/9
+import numpy as np
+
 fahrenheit = np.array([32, 68, 100, 212, 72, 98.6])
 
 # Complete the conversion in one line using vectorized operations
-celsius = ?
+celsius = (fahrenheit - 32) * 5 / 9
 ```
 
 ### Exercise 2: Broadcasting Practice
 
 ```python
 # Original prices of 3 products
+import numpy as np
+
 prices = np.array([100, 200, 300])
 
 # 3 discount rates (column vector)
 discounts = np.array([[0.9], [0.8], [0.7]])
 
 # Use broadcasting to calculate the price of each product under each discount (3×3 matrix)
-final_prices = ?
+final_prices = discounts * prices
 # Expected result:
 # [[ 90. 180. 270.]
 #  [ 80. 160. 240.]

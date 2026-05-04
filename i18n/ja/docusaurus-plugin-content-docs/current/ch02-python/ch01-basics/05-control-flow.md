@@ -516,8 +516,14 @@ else:
 
 ```python
 for i in range(1, 51):
-    # コードを補完してください
-    pass
+    if i % 15 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
 ```
 
 ヒント: まず 15 で割り切れるか（3 と 5 の公倍数）を判定し、その後で 3 と 5 を判定します。

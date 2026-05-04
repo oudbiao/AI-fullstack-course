@@ -288,10 +288,10 @@ for x_row, y_row in zip(test_x, test_pred):
 
 所以我们一般会这样写：
 
-```python
+```text
 model.eval()
 with torch.no_grad():
-    ...
+    # validation / inference code goes here
 ```
 
 原因有两个：

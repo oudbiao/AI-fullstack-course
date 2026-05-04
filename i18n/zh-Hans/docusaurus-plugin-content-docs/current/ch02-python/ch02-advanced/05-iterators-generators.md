@@ -388,29 +388,28 @@ for epoch in range(3):
 
 ```python
 def fibonacci(n=None):
-    """
-    生成斐波那契数列。
-    如果 n 不为 None，生成前 n 个数。
-    如果 n 为 None，生成无限序列。
-    """
-    pass
+    """生成斐波那契数。n 为 None 时生成无限序列。"""
+    count = 0
+    a, b = 0, 1
+    while n is None or count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
 
-# 测试
 for num in fibonacci(10):
     print(num, end=" ")
-# 应该输出: 0 1 1 2 3 5 8 13 21 34
+# 0 1 1 2 3 5 8 13 21 34
 ```
 
 ### 练习 2：文件搜索器
 
 ```python
-def search_files(directory, pattern):
-    """
-    用生成器递归搜索目录中匹配模式的文件。
-    """
-    pass
+from pathlib import Path
 
-# 使用示例
+def search_files(directory, pattern):
+    """递归生成匹配 pattern 的文件路径。"""
+    yield from Path(directory).rglob(pattern)
+
 for filepath in search_files(".", "*.py"):
     print(filepath)
 ```
@@ -419,13 +418,12 @@ for filepath in search_files(".", "*.py"):
 
 ```python
 def sliding_window(data, window_size):
-    """
-    生成滑动窗口。
+    """生成固定大小的滑动窗口。"""
+    for index in range(len(data) - window_size + 1):
+        yield data[index:index + window_size]
 
-    输入: [1, 2, 3, 4, 5], window_size=3
-    输出: [1, 2, 3], [2, 3, 4], [3, 4, 5]
-    """
-    pass
+for window in sliding_window([1, 2, 3, 4, 5], 3):
+    print(window)
 ```
 
 ---

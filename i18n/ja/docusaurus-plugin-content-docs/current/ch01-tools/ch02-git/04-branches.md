@@ -299,7 +299,7 @@ git merge bob/update-model
 
 `src/model.py` を開くと、Git がコンフリクト箇所を示しています。
 
-```python
+```text
 import torch
 import torch.nn as nn
 

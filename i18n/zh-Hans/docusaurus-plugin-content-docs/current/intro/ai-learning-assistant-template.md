@@ -140,7 +140,7 @@ python -m src.app.cli
 
 ## 评估文件示例
 
-```json
+```jsonl
 {"id":"q001","question":"RAG 项目为什么需要评估集？","expected_sources":["ai-engineering-checklist.md"],"ideal_points":["比较优化效果","避免凭感觉判断","记录失败样本"]}
 {"id":"q002","question":"Agent 高风险动作为什么要人工确认？","expected_sources":["ai-engineering-checklist.md","ch09-agent/index.md"],"ideal_points":["权限边界","审计日志","避免自动执行危险操作"]}
 ```

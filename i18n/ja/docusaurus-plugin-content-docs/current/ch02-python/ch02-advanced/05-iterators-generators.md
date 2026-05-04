@@ -388,29 +388,28 @@ for epoch in range(3):
 
 ```python
 def fibonacci(n=None):
-    """
-    フィボナッチ数列を生成する。
-    n が None でなければ、最初の n 個を生成する。
-    n が None なら、無限列を生成する。
-    """
-    pass
+    """フィボナッチ数を生成する。n が None なら無限に生成する。"""
+    count = 0
+    a, b = 0, 1
+    while n is None or count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
 
-# テスト
 for num in fibonacci(10):
     print(num, end=" ")
-# 出力例: 0 1 1 2 3 5 8 13 21 34
+# 0 1 1 2 3 5 8 13 21 34
 ```
 
 ### 練習 2: ファイル検索器
 
 ```python
-def search_files(directory, pattern):
-    """
-    ジェネレータを使って、ディレクトリ内でパターンに一致するファイルを再帰的に検索する。
-    """
-    pass
+from pathlib import Path
 
-# 使用例
+def search_files(directory, pattern):
+    """pattern に一致するファイルパスを再帰的に生成する。"""
+    yield from Path(directory).rglob(pattern)
+
 for filepath in search_files(".", "*.py"):
     print(filepath)
 ```
@@ -419,13 +418,12 @@ for filepath in search_files(".", "*.py"):
 
 ```python
 def sliding_window(data, window_size):
-    """
-    スライディングウィンドウを生成する。
+    """固定サイズのスライディングウィンドウを生成する。"""
+    for index in range(len(data) - window_size + 1):
+        yield data[index:index + window_size]
 
-    入力: [1, 2, 3, 4, 5], window_size=3
-    出力: [1, 2, 3], [2, 3, 4], [3, 4, 5]
-    """
-    pass
+for window in sliding_window([1, 2, 3, 4, 5], 3):
+    print(window)
 ```
 
 ---

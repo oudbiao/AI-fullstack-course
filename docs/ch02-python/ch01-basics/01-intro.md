@@ -289,8 +289,11 @@ Python uses **indentation** (usually 4 spaces) to indicate code blocks, instead 
 if True:
     print("Indented by 4 spaces")
     print("Same code block")
+```
 
-# Incorrect ❌ — will raise IndentationError
+The following example is intentionally wrong and will raise `IndentationError`:
+
+```text
 if True:
 print("Not indented, Python will raise an error")
 ```

@@ -121,7 +121,8 @@ def find_student(name: str) -> Optional[dict]:
 
 # Python 3.10+ では、より簡潔に書ける
 def find_student(name: str) -> dict | None:
-    ...
+    students = {"张三": {"age": 20}, "李四": {"age": 21}}
+    return students.get(name)
 ```
 
 ### Union: 複数の型を受け付ける
@@ -137,7 +138,9 @@ def process(data: Union[str, list]) -> str:
 
 # Python 3.10+ の簡潔な書き方
 def process(data: str | list) -> str:
-    ...
+    if isinstance(data, list):
+        return ", ".join(str(item) for item in data)
+    return data
 ```
 
 ### Callable: 関数の型
@@ -331,7 +334,7 @@ PEP 8 は Python の公式コーディング規約です。特に大切なポイ
 # 変数と関数: 小文字 + アンダースコア（snake_case）
 student_name = "张三"
 def calculate_average(scores):
-    pass
+    return sum(scores) / len(scores)
 
 # クラス: 先頭を大文字（PascalCase）
 class DataProcessor:
@@ -376,9 +379,13 @@ x = 1+2         # ❌
 items = [1, 2, 3]     # ✅
 items = [1,2,3]       # ❌
 
-# 関数引数のデフォルト値の前後にはスペースを入れない
+# 関数引数のデフォルト値の前後にはスペースを入れない。
+# 2 つ目は構文としては動きますが、PEP 8 では推奨されません。
 def func(x=10):       # ✅
-def func(x = 10):     # ❌
+    return x
+
+def func_not_recommended(x = 10):  # ❌ スタイル上は非推奨
+    return x
 ```
 
 ### 1 行の長さ
@@ -400,7 +407,12 @@ def complex_function(
     param3: float = 0.0,
     param4: bool = True,
 ) -> dict:
-    pass
+    return {
+        "param1": param1,
+        "param2": param2,
+        "param3": param3,
+        "param4": param4,
+    }
 ```
 
 ---

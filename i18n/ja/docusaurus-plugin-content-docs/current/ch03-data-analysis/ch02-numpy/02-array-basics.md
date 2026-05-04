@@ -356,19 +356,19 @@ mindmap
 import numpy as np
 
 # 1. 1 から 20 までを含む 1次元配列を作成する
-arr1 = ?
+arr1 = np.arange(1, 21)
 
 # 2. 4×5 の全ゼロ行列を作成する
-arr2 = ?
+arr2 = np.zeros((4, 5))
 
 # 3. 3×3 の行列を作成し、すべての要素を 7 にする
-arr3 = ?
+arr3 = np.full((3, 3), 7)
 
 # 4. 0 から 2π (np.pi * 2) の間で均等に分布した 100 個の点を作成する
-arr4 = ?
+arr4 = np.linspace(0, np.pi * 2, 100)
 
 # 5. 5×5 のランダムな整数行列を作成する（範囲 1〜50）
-arr5 = ?
+arr5 = np.random.randint(1, 51, size=(5, 5))
 ```
 
 ### 練習 2: 属性を確認する
@@ -386,11 +386,11 @@ shape が (3, 4, 5) の全 1 配列を作成し、次の質問に答えてくだ
 scores = np.array([85.6, 92.3, 78.8, 95.1, 60.5, 73.9])
 
 # 1. 点数を四捨五入して整数にする
-rounded = ?
+rounded = np.rint(scores).astype(int)
 
 # 2. 各点数が合格かどうか（>= 60）を判定し、bool 配列を得る
-passed = ?
+passed = scores >= 60
 
 # 3. 合格人数を求める（ヒント: True は 1、False は 0 として数えられる）
-pass_count = ?
+pass_count = passed.sum()
 ```

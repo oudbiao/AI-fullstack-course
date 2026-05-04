@@ -422,13 +422,38 @@ except KeyError as e:
 ### 练习 1：安全的计算器
 
 ```python
-def safe_calculator():
-    """安全的四则运算器，能处理所有可能的错误"""
-    # 1. 获取两个数字（处理非法输入）
-    # 2. 获取运算符（+、-、*、/）
-    # 3. 计算结果（处理除以零）
-    # 4. 询问是否继续
-    pass
+def safe_calculator(inputs=None):
+    """安全的四则运算器，能处理非法输入和除以零。"""
+    inputs = iter(inputs or ["10", "0", "/", "n"])
+
+    while True:
+        try:
+            a = float(next(inputs) if inputs else input("第一个数字："))
+            b = float(next(inputs) if inputs else input("第二个数字："))
+            op = next(inputs) if inputs else input("运算符（+、-、*、/）：")
+
+            if op == "+":
+                result = a + b
+            elif op == "-":
+                result = a - b
+            elif op == "*":
+                result = a * b
+            elif op == "/":
+                result = a / b
+            else:
+                raise ValueError(f"不支持的运算符：{op}")
+
+            print(f"结果：{result}")
+        except ZeroDivisionError:
+            print("不能除以零。")
+        except ValueError as error:
+            print(f"输入不合法：{error}")
+        except StopIteration:
+            break
+
+        again = next(inputs, "n") if inputs else input("是否继续？(y/n)：")
+        if again.lower() != "y":
+            break
 
 safe_calculator()
 ```
@@ -437,10 +462,17 @@ safe_calculator()
 
 ```python
 def read_file_safely(filename):
-    """安全地读取文件内容"""
-    # 处理文件不存在、权限不足等情况
-    # 返回文件内容或 None
-    pass
+    """安全地读取文件内容。"""
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"文件不存在：{filename}")
+    except PermissionError:
+        print(f"没有权限读取：{filename}")
+    except OSError as error:
+        print(f"读取失败：{error}")
+    return None
 
 content = read_file_safely("test.txt")
 if content:
@@ -451,14 +483,20 @@ if content:
 
 ```python
 def convert_to_numbers(data_list):
-    """
-    将字符串列表转换为数字列表。
-    无法转换的元素用 None 替代，并记录错误信息。
+    """把字符串转换成数字，同时保留失败原因。"""
+    numbers = []
+    errors = []
+    for item in data_list:
+        try:
+            numbers.append(float(item))
+        except ValueError:
+            numbers.append(None)
+            errors.append(f"{item} 无法转换")
+    return numbers, errors
 
-    输入: ["10", "20.5", "abc", "30", "xyz"]
-    输出: ([10.0, 20.5, None, 30.0, None], ["abc 无法转换", "xyz 无法转换"])
-    """
-    pass
+values, errors = convert_to_numbers(["10", "20.5", "abc", "30", "xyz"])
+print(values)
+print(errors)
 ```
 
 ---

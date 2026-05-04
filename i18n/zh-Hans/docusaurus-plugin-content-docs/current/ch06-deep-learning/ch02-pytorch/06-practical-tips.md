@@ -82,12 +82,12 @@ print(torch.randn(3))
 
 标准习惯：
 
-```python
+```text
 model.train()   # 训练前
-...
+# 这里写训练代码
 model.eval()    # 验证 / 推理前
 with torch.no_grad():
-    ...
+    # 这里写验证 / 推理代码
 ```
 
 你可以把它理解成：

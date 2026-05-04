@@ -407,17 +407,27 @@ gb.export_csv()
 ### Exercise 1: File statistics tool
 
 ```python
-def file_stats(filename):
-    """
-    Count file information:
-    - Total number of lines
-    - Total number of characters (excluding newline characters)
-    - Total number of words
-    - Longest line and its line number
-    """
-    pass
+from pathlib import Path
 
-# Create a test file and analyze it
+def file_stats(filename):
+    """Return line, character, word, and longest-line statistics."""
+    path = Path(filename)
+    lines = path.read_text(encoding="utf-8").splitlines()
+    longest_index, longest_line = max(
+        enumerate(lines, start=1),
+        key=lambda item: len(item[1]),
+        default=(0, ""),
+    )
+    return {
+        "lines": len(lines),
+        "characters": sum(len(line) for line in lines),
+        "words": sum(len(line.split()) for line in lines),
+        "longest_line_number": longest_index,
+        "longest_line": longest_line,
+    }
+
+Path("sample.txt").write_text("hello world\nthis is Python\n", encoding="utf-8")
+print(file_stats("sample.txt"))
 ```
 
 ### Exercise 2: Diary app
@@ -430,17 +440,30 @@ Write a simple diary app:
 ### Exercise 3: Configuration file manager
 
 ```python
+import json
+from pathlib import Path
+
+DEFAULT_CONFIG = {"theme": "light", "language": "en", "page_size": 20}
+
 def load_config(filename="config.json"):
-    """Load a configuration file, or create a default config if it does not exist"""
-    pass
+    """Load a configuration file, or create a default config if it does not exist."""
+    path = Path(filename)
+    if not path.exists():
+        save_config(DEFAULT_CONFIG.copy(), filename)
+    return json.loads(path.read_text(encoding="utf-8"))
 
 def save_config(config, filename="config.json"):
-    """Save the config to a file"""
-    pass
+    """Save the config to a file."""
+    Path(filename).write_text(json.dumps(config, indent=2), encoding="utf-8")
 
 def update_config(key, value, filename="config.json"):
-    """Update a configuration item"""
-    pass
+    """Update a configuration item."""
+    config = load_config(filename)
+    config[key] = value
+    save_config(config, filename)
+    return config
+
+print(update_config("theme", "dark"))
 ```
 
 ---

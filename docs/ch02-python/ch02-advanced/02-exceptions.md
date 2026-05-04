@@ -422,13 +422,38 @@ except KeyError as e:
 ### Exercise 1: Safe calculator
 
 ```python
-def safe_calculator():
-    """A safe calculator that can handle all possible errors"""
-    # 1. Get two numbers (handle invalid input)
-    # 2. Get an operator (+, -, *, /)
-    # 3. Compute the result (handle division by zero)
-    # 4. Ask whether to continue
-    pass
+def safe_calculator(inputs=None):
+    """A safe calculator that can handle invalid input and division by zero."""
+    inputs = iter(inputs or ["10", "0", "/", "n"])
+
+    while True:
+        try:
+            a = float(next(inputs) if inputs else input("First number: "))
+            b = float(next(inputs) if inputs else input("Second number: "))
+            op = next(inputs) if inputs else input("Operator (+, -, *, /): ")
+
+            if op == "+":
+                result = a + b
+            elif op == "-":
+                result = a - b
+            elif op == "*":
+                result = a * b
+            elif op == "/":
+                result = a / b
+            else:
+                raise ValueError(f"Unsupported operator: {op}")
+
+            print(f"Result: {result}")
+        except ZeroDivisionError:
+            print("Cannot divide by zero.")
+        except ValueError as error:
+            print(f"Invalid input: {error}")
+        except StopIteration:
+            break
+
+        again = next(inputs, "n") if inputs else input("Continue? (y/n): ")
+        if again.lower() != "y":
+            break
 
 safe_calculator()
 ```
@@ -437,10 +462,17 @@ safe_calculator()
 
 ```python
 def read_file_safely(filename):
-    """Safely read file contents"""
-    # Handle file not found, permission denied, and other cases
-    # Return the file content or None
-    pass
+    """Safely read file contents."""
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"File not found: {filename}")
+    except PermissionError:
+        print(f"No permission to read: {filename}")
+    except OSError as error:
+        print(f"Read failed: {error}")
+    return None
 
 content = read_file_safely("test.txt")
 if content:
@@ -451,14 +483,20 @@ if content:
 
 ```python
 def convert_to_numbers(data_list):
-    """
-    Convert a list of strings into a list of numbers.
-    Replace elements that cannot be converted with None, and record error messages.
+    """Convert strings to numbers; keep errors for later inspection."""
+    numbers = []
+    errors = []
+    for item in data_list:
+        try:
+            numbers.append(float(item))
+        except ValueError:
+            numbers.append(None)
+            errors.append(f"{item} cannot be converted")
+    return numbers, errors
 
-    Input: ["10", "20.5", "abc", "30", "xyz"]
-    Output: ([10.0, 20.5, None, 30.0, None], ["abc cannot be converted", "xyz cannot be converted"])
-    """
-    pass
+values, errors = convert_to_numbers(["10", "20.5", "abc", "30", "xyz"])
+print(values)
+print(errors)
 ```
 
 ---

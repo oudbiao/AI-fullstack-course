@@ -380,23 +380,27 @@ print(adjusted)  # [85 60 91 67 60 78]
 ```python
 # 華氏温度を摂氏温度に変換する
 # 公式：C = (F - 32) × 5/9
+import numpy as np
+
 fahrenheit = np.array([32, 68, 100, 212, 72, 98.6])
 
 # ベクトル化演算で 1 行で変換する
-celsius = ?
+celsius = (fahrenheit - 32) * 5 / 9
 ```
 
 ### 練習 2：ブロードキャストの練習
 
 ```python
 # 3 つの商品の元の価格
+import numpy as np
+
 prices = np.array([100, 200, 300])
 
 # 3 種類の割引率（列ベクトル）
 discounts = np.array([[0.9], [0.8], [0.7]])
 
 # ブロードキャストを使って、各商品が各割引率のときの価格を計算する（3×3 行列）
-final_prices = ?
+final_prices = discounts * prices
 # 期待結果：
 # [[ 90. 180. 270.]
 #  [ 80. 160. 240.]

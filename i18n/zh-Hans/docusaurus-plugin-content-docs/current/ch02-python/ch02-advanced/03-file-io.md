@@ -407,17 +407,27 @@ gb.export_csv()
 ### 练习 1：文件统计工具
 
 ```python
-def file_stats(filename):
-    """
-    统计文件信息：
-    - 总行数
-    - 总字符数（不含换行符）
-    - 总单词数
-    - 最长的行及其行号
-    """
-    pass
+from pathlib import Path
 
-# 创建一个测试文件并统计
+def file_stats(filename):
+    """返回行数、字符数、单词数和最长行信息。"""
+    path = Path(filename)
+    lines = path.read_text(encoding="utf-8").splitlines()
+    longest_index, longest_line = max(
+        enumerate(lines, start=1),
+        key=lambda item: len(item[1]),
+        default=(0, ""),
+    )
+    return {
+        "lines": len(lines),
+        "characters": sum(len(line) for line in lines),
+        "words": sum(len(line.split()) for line in lines),
+        "longest_line_number": longest_index,
+        "longest_line": longest_line,
+    }
+
+Path("sample.txt").write_text("hello world\nthis is Python\n", encoding="utf-8")
+print(file_stats("sample.txt"))
 ```
 
 ### 练习 2：日记本程序
@@ -430,17 +440,30 @@ def file_stats(filename):
 ### 练习 3：配置文件管理器
 
 ```python
+import json
+from pathlib import Path
+
+DEFAULT_CONFIG = {"theme": "light", "language": "zh-Hans", "page_size": 20}
+
 def load_config(filename="config.json"):
-    """加载配置文件，如果不存在则创建默认配置"""
-    pass
+    """加载配置文件，如果不存在则创建默认配置。"""
+    path = Path(filename)
+    if not path.exists():
+        save_config(DEFAULT_CONFIG.copy(), filename)
+    return json.loads(path.read_text(encoding="utf-8"))
 
 def save_config(config, filename="config.json"):
-    """保存配置到文件"""
-    pass
+    """保存配置到文件。"""
+    Path(filename).write_text(json.dumps(config, indent=2), encoding="utf-8")
 
 def update_config(key, value, filename="config.json"):
-    """更新某个配置项"""
-    pass
+    """更新某个配置项。"""
+    config = load_config(filename)
+    config[key] = value
+    save_config(config, filename)
+    return config
+
+print(update_config("theme", "dark"))
 ```
 
 ---

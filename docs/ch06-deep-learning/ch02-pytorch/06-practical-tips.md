@@ -82,12 +82,12 @@ The easiest place to get confused during training and validation is not the mode
 
 Standard practice:
 
-```python
+```text
 model.train()   # before training
-...
+# training code goes here
 model.eval()    # before validation / inference
 with torch.no_grad():
-    ...
+    # validation / inference code goes here
 ```
 
 You can think of it this way:

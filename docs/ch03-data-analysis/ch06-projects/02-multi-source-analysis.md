@@ -162,7 +162,7 @@ pd.DataFrame(products).head()
 
 ```python
 # ---------- User data ----------
-cities = ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Hangzhou', 'Chengdu', 'Wuhan', 'Nanjing', 'Chongqing', 'Xi'an']
+cities = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Hangzhou", "Chengdu", "Wuhan", "Nanjing", "Chongqing", "Xi'an"]
 
 users = pd.DataFrame({
     'user_id': range(1, 201),

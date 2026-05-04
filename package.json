@@ -24,7 +24,7 @@
     "images:dry-run": "python3 scripts/generate_course_images.py --dry-run",
     "images:placeholders": "python3 scripts/generate_course_images.py --ensure-placeholders",
     "images:generate": "python3 scripts/generate_course_images.py",
-    "validate:docs": "python3 validate_markdown_fences.py && python3 validate_internal_links.py && python3 validate_sidebars.py && python3 validate_course_structure.py && node -c sidebars.js"
+    "validate:docs": "python3 validate_markdown_fences.py && python3 validate_internal_links.py && python3 validate_sidebars.py && python3 validate_course_structure.py && python3 scripts/audit_code_blocks.py && node -c sidebars.js"
   },
   "dependencies": {
     "@docusaurus/core": "^3.7.0",
