@@ -39,6 +39,20 @@ So the most important thing in this section is not memorizing the matrix definit
 - Why matrix multiplication can process a batch of samples at once
 - Why you keep seeing `X @ W` all over deep learning code
 
+## Terms and Code Assumptions to Keep Handy
+
+| Term | What it means | Why it matters here |
+|---|---|---|
+| `batch` | A group of samples processed together | A matrix often stores one batch: rows are samples, columns are features. |
+| `feature` | One measurable input column, such as area or age | Matrix columns usually correspond to features. |
+| `shape` | NumPy’s array size description | Matrix multiplication works only when the inner dimensions match. |
+| `bias` / `b` | A learnable offset added after multiplication | `X @ W + b` lets a model shift the output, not only rotate or scale it. |
+| `ReLU` | Rectified Linear Unit activation | It changes negative values to `0` and keeps positive values, adding nonlinearity. |
+| `determinant` | A number describing whether a square matrix collapses space | If it is `0`, the matrix has no inverse. |
+| `singular matrix` | A matrix with no inverse | It loses information during transformation, so the original input cannot be recovered. |
+
+Unless a snippet explicitly says otherwise, assume it needs `import numpy as np`. Plotting examples also need `import matplotlib.pyplot as plt`.
+
 ## 1. What is a matrix?
 
 ### 1.1 Two ways to understand it
@@ -240,6 +254,14 @@ W = np.array([
 
 Z = X @ W
 print(Z.round(2))
+```
+
+Expected output:
+
+```text
+[[0.5 2. ]
+ [1.1 5. ]
+ [1.7 8. ]]
 ```
 
 You can understand it row by row:
@@ -492,6 +514,12 @@ y = x @ w + b
 print(round(y, 4))
 ```
 
+Expected output:
+
+```text
+-0.08
+```
+
 If we do not compute just 1 sample, but a whole batch at once, it naturally becomes:
 
 `Z = X @ W + b`
@@ -537,10 +565,25 @@ print(f"Output after activation: {output.shape}")  # (3, 2)
 print(f"\nFinal output:\n{output.round(3)}")
 ```
 
+Expected output with `seed=42`:
+
+```text
+Input X: (3, 4)
+Weight W: (4, 2)
+Linear output Z: (3, 2)
+Output after activation: (3, 2)
+
+Final output:
+[[0.684 0.   ]
+ [0.    0.   ]
+ [0.158 0.   ]]
+```
+
 **Explanation**:
 - 3 samples (3 rows), each with 4 features (4 columns)
 - The weight matrix W is 4×2, mapping 4D features to 2D
 - Matrix multiplication processes all samples at once — this is the power of **batch computation**
+- The bias `b` has shape `(2,)`. NumPy automatically adds it to every row of `Z`; this is called broadcasting.
 
 ### 5.4 Multi-layer network = chained matrix multiplications
 
