@@ -65,6 +65,11 @@ NOTEBOOK_MAGIC_RE = re.compile(r"^\s*(!|%%?)[A-Za-z0-9_]")
 PLACEHOLDER_RE = re.compile(
     r"(?im)^\s*(pass|todo\b|#\s*todo\b|//\s*todo\b|\.\.\.)\s*$"
 )
+INLINE_PLACEHOLDER_RE = re.compile(
+    r"(?im)(pass\s*#|#\s*(fill in the code|add code here|补充代码|这里填代码|这里填写|这里补充|ここにコードを追加|コードを補完してください|ここを書き足す)|#.*\.\.\..*(code|logic|training|processing)|#.*(code|logic|training|processing).*\.\.\.)"
+)
+ELLIPSIS_ASSIGN_RE = re.compile(r"(?m)^\s*[\w.]+\s*=\s*\.\.\.\s*$")
+ELLIPSIS_STUB_RE = re.compile(r"(?m)^\s*(?:async\s+def|def|class)\b.*:\s*\.\.\.\s*$")
 OUTPUT_MARKER_RE = re.compile(
     r"(?im)^\s*(output|输出|実行結果|结果|結果)\s*:?\s*$"
 )
@@ -200,6 +205,19 @@ def check_python(block: CodeBlock) -> list[Finding]:
             )
         )
 
+    if INLINE_PLACEHOLDER_RE.search(code) or ELLIPSIS_ASSIGN_RE.search(code) or ELLIPSIS_STUB_RE.search(code):
+        if is_intentional_placeholder_example(code):
+            return findings
+        findings.append(
+            Finding(
+                "warn",
+                block.path,
+                block.start_line,
+                block.lang,
+                "inline placeholder comment or ellipsis assignment found; consider completing the snippet",
+            )
+        )
+
     if is_fragment_python(code):
         findings.append(
             Finding(
@@ -226,6 +244,25 @@ def check_python(block: CodeBlock) -> list[Finding]:
         )
 
     return findings
+
+
+def is_intentional_placeholder_example(code: str) -> bool:
+    lowered = code.lower()
+    markers = [
+        "# bad practice",
+        "# good practice",
+        "no return",
+        "style only",
+        "print(result)                 # none",
+        "pass   # and does nothing at all!",
+        "pass   # 而且还什么都不做！",
+        "pass   # しかも何もしない！",
+        "3.333...",
+        "keep looking...",
+        "继续找...",
+        "继续找…",
+    ]
+    return any(marker in lowered for marker in markers)
 
 
 def is_intentional_empty_body(tree: ast.AST, line: int) -> bool:

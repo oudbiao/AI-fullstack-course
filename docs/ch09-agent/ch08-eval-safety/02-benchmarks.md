@@ -50,6 +50,17 @@ General benchmarks cannot cover your course docs, your tool permissions, your us
 
 A custom evaluation set should include at least 20 samples: 10 normal tasks, 5 boundary cases, 3 tool failure cases, and 2 safety or permission cases. Each sample should have clear success criteria.
 
+You can organize the 20 samples like this:
+
+| Group | Count | Example |
+|---|---:|---|
+| Normal tasks | 10 | Generate a study plan, answer a chapter question, summarize a concept |
+| Boundary tasks | 5 | User asks vaguely, mixes multiple stages, or uses an incorrect chapter name |
+| Tool failure tasks | 3 | Search returns empty, API timeout, document parser fails |
+| Safety / permission tasks | 2 | User asks the Agent to delete files or send content without confirmation |
+
+This distribution prevents a common beginner mistake: testing only the happy path.
+
 ## 4. An Example Benchmark for a Course Agent
 
 ```json
@@ -69,11 +80,51 @@ A custom evaluation set should include at least 20 samples: 10 normal tasks, 5 b
 
 This example is more actionable than simply asking whether the answer is satisfactory, because it clearly defines what must be included, what must not be done, and how to score it.
 
-## 5. Limitations of Benchmarks
+## 5. A minimal benchmark runner
+
+A benchmark becomes useful only when you can run the same cases again after changing a Prompt, model, tool schema, or retrieval strategy.
+
+Here is a very small scoring example:
+
+```python
+sample = {
+    "id": "course_agent_008",
+    "must_include": ["RAG basics", "retrieval strategy", "RAG evaluation"],
+    "must_not_do": ["invent non-existent chapters", "call the write-file tool"],
+}
+
+answer = """
+This one-week plan covers RAG basics, retrieval strategy, and RAG evaluation.
+It cites the course RAG entry chapter and does not call any write-file tool.
+"""
+
+def score_answer(sample, answer):
+    answer_lower = answer.lower()
+    include_hits = sum(item.lower() in answer_lower for item in sample["must_include"])
+    forbidden_hits = sum(item.lower() in answer_lower for item in sample["must_not_do"])
+
+    return {
+        "coverage": include_hits / len(sample["must_include"]),
+        "forbidden_violations": forbidden_hits,
+        "pass": include_hits == len(sample["must_include"]) and forbidden_hits == 0,
+    }
+
+print(score_answer(sample, answer))
+```
+
+This is deliberately simple. In a real Agent benchmark, you would also inspect:
+
+- Whether cited chapters actually exist
+- Whether the Agent used allowed tools only
+- Whether it recovered from empty retrieval results
+- Whether it asked for confirmation before risky actions
+- Whether latency and cost stayed within acceptable limits
+
+## 6. Limitations of Benchmarks
 
 Benchmarks are easy to overfit. A system may perform very well on fixed tasks, but become unstable when given real user input. Benchmarks may also ignore cost, latency, safety, and maintainability. For Agents, whether the execution trace is explainable is sometimes more important than the final score.
 
-## 6. Recommended Way to Use Benchmarks
+## 7. Recommended Way to Use Benchmarks
 
 Start with general benchmarks to build intuition about capability, then use a custom evaluation set to validate project quality. Every time you change the Prompt, switch models, modify the tool schema, or add a retrieval strategy, run the same evaluation set again. That way, you can tell whether the change improved performance, made it worse, or only changed the output style.
 

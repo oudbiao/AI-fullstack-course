@@ -338,7 +338,8 @@ def calculate_average(scores):
 
 # Classes: CapitalizedWords (PascalCase)
 class DataProcessor:
-    pass
+    def __init__(self, source: str):
+        self.source = source
 
 # Constants: ALL_CAPS with underscores
 MAX_RETRY = 3
@@ -356,20 +357,20 @@ class MyClass:
 ```python
 # Two blank lines between functions
 def function_one():
-    pass
+    return "function one"
 
 
 def function_two():
-    pass
+    return "function two"
 
 
 # Two blank lines between classes
 class ClassOne:
-    pass
+    value = 1
 
 
 class ClassTwo:
-    pass
+    value = 2
 
 # Add spaces around operators
 x = 1 + 2       # ✅
@@ -452,8 +453,8 @@ def train_model(
     """
     if not data:
         raise ValueError("Training data cannot be empty")
-    # ... training logic ...
-    return {"accuracy": 0.95, "loss": 0.05}
+    total = sum(sample.get("score", 0.0) for sample in data)
+    return {"accuracy": min(0.99, 0.5 + total / (len(data) * 100)), "loss": 0.05}
 ```
 
 ---

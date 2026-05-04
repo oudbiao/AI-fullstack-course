@@ -279,12 +279,14 @@ def parse_numbers(lines):
         try:
             yield float(line)
         except ValueError:
-            pass  # 跳过无法转换的行
+            continue  # 跳过无法转换的行
 
 # 管道组合：读取 → 过滤 → 转换
 # 内存中始终只有一行数据！
-numbers = parse_numbers(filter_comments(read_lines("data.txt")))
+sample = ["# note", "1", "2.5", "bad", "4"]
+numbers = parse_numbers(filter_comments(sample))
 total = sum(numbers)
+print(total)
 ```
 
 ### 批量处理

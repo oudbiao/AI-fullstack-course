@@ -62,6 +62,21 @@ This structure expresses:
 
 This is much closer to “what the sentence is really trying to say” than simple word segmentation.
 
+For beginners, the easiest way to read this structure is:
+
+```mermaid
+flowchart LR
+    E["read-01<br/>event"] --> A0["ARG0<br/>who reads?<br/>student"]
+    E --> A1["ARG1<br/>what is read?<br/>paper"]
+```
+
+`ARG0` and `ARG1` do not mean “first word” and “second word.” They mean semantic roles. In many simple event sentences, you can first read them as:
+
+- `ARG0`: the doer of the action
+- `ARG1`: the thing affected by the action
+
+This small shift is important: semantic graphs care less about word order and more about meaning.
+
 ## 3. What is the relationship between semantic graphs and information extraction?
 
 Information extraction usually starts with more specific tasks:
@@ -142,7 +157,51 @@ The main point is for you to first understand:
 - Roles can be connected into a graph
 - Graph structures can support later generation and retrieval
 
-## 7. Assigning historical milestones to course chapters
+## 7. From a sentence to courseware structure
+
+If your goal is to generate teaching materials from a knowledge base, a semantic graph can become an intermediate layer between “retrieved paragraph” and “final Word document.”
+
+Here is a very small example:
+
+```python
+sentence = "The chain rule helps neural networks compute gradients layer by layer."
+
+semantic_graph = {
+    "concept": "chain rule",
+    "function": "compute gradients",
+    "scenario": "neural networks",
+    "method": "layer by layer",
+}
+
+courseware_block = {
+    "title": semantic_graph["concept"],
+    "definition": "A rule for decomposing the derivative of a composite function.",
+    "why_it_matters": f"It helps {semantic_graph['scenario']} {semantic_graph['function']}.",
+    "teaching_hint": f"Explain it as passing gradient signals {semantic_graph['method']}.",
+}
+
+for key, value in courseware_block.items():
+    print(f"{key}: {value}")
+```
+
+The workflow becomes clearer:
+
+```mermaid
+flowchart LR
+    A["Retrieved paragraph"] --> B["Extract roles and relations"]
+    B --> C["Semantic graph"]
+    C --> D["Courseware template"]
+    D --> E["Definition + example + common mistake + practice"]
+```
+
+This is why AMR is useful even if you do not implement a full AMR parser right away. It teaches you to ask better structural questions:
+
+- What is the concept?
+- What action or relation is being described?
+- Who or what participates in that relation?
+- What condition, cause, or result is attached?
+
+## 8. Assigning historical milestones to course chapters
 
 | Historical milestone | Problem it solved | Corresponding course chapter |
 |---|---|---|
@@ -151,7 +210,7 @@ The main point is for you to first understand:
 | Semantic role labeling | Who did what to whom | Section 7.4 information extraction, knowledge graph extensions |
 | Knowledge Graph | Organizing extracted results into queryable knowledge | Chapter 8 RAG, knowledge-base systems |
 
-## 8. The intuition you should have after learning this section
+## 9. The intuition you should have after learning this section
 
 Vector retrieval tells you “which text is similar,” while semantic graphs care more about “what roles and relationships exist in this text.”
 

@@ -511,12 +511,22 @@ Change the two-layer network in Section 4 to have 3 hidden neurons (w1 becomes 3
 If you have PyTorch installed, use `torch.autograd` to compute the gradients of all parameters in Section 2, and compare them with your manual results.
 
 ```python
-# Hint
 import torch
 
 x = torch.tensor(2.0)
 w1 = torch.tensor(0.5, requires_grad=True)
-# ... add code here ...
-# loss.backward()
-# print(w1.grad)
+b1 = torch.tensor(0.1, requires_grad=True)
+w2 = torch.tensor(-0.3, requires_grad=True)
+b2 = torch.tensor(0.2, requires_grad=True)
+
+h = torch.relu(w1 * x + b1)
+y = w2 * h + b2
+loss = (y - 1.0) ** 2
+loss.backward()
+
+print("loss =", loss.item())
+print("w1.grad =", w1.grad.item())
+print("b1.grad =", b1.grad.item())
+print("w2.grad =", w2.grad.item())
+print("b2.grad =", b2.grad.item())
 ```

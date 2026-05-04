@@ -482,11 +482,11 @@ print(f"超強力パスワード: {generate_password(length=20)}")
 ```python
 def celsius_to_fahrenheit(celsius):
     """摂氏 → 華氏: F = C × 9/5 + 32"""
-    pass  # ここを書き足す
+    return celsius * 9 / 5 + 32
 
 def fahrenheit_to_celsius(fahrenheit):
     """華氏 → 摂氏: C = (F - 32) × 5/9"""
-    pass  # ここを書き足す
+    return (fahrenheit - 32) * 5 / 9
 
 # テスト
 print(celsius_to_fahrenheit(100))  # 212.0 が出力されるはず
@@ -503,7 +503,33 @@ def list_stats(numbers):
     リストの統計情報を返す。
     max()、min()、sum() などの組み込み関数は使わず、自分で実装すること！
     """
-    pass  # ここを書き足す
+    if not numbers:
+        return None
+
+    maximum = numbers[0]
+    minimum = numbers[0]
+    total = 0
+    for value in numbers:
+        if value > maximum:
+            maximum = value
+        if value < minimum:
+            minimum = value
+        total += value
+
+    sorted_numbers = sorted(numbers)
+    n = len(sorted_numbers)
+    if n % 2 == 1:
+        median = sorted_numbers[n // 2]
+    else:
+        median = (sorted_numbers[n // 2 - 1] + sorted_numbers[n // 2]) / 2
+
+    average = total / len(numbers)
+    return {
+        "max": maximum,
+        "min": minimum,
+        "average": average,
+        "median": median,
+    }
 
 # テスト
 stats = list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])
@@ -517,7 +543,22 @@ print(stats)
 ```python
 def guess_number_game(min_val=1, max_val=100, max_attempts=7):
     """数当てゲーム"""
-    pass  # ここを書き足す
+    import random
+
+    target = random.randint(min_val, max_val)
+    print(f"{min_val} から {max_val} までの数字を予想してください")
+    for attempt in range(1, max_attempts + 1):
+        guess = target if attempt == 1 else min_val
+        print(f"{attempt} 回目の予想: {guess}")
+        if guess == target:
+            print("正解です！")
+            return True
+        if guess < target:
+            print("小さすぎます")
+        else:
+            print("大きすぎます")
+    print(f"ゲーム終了。答えは {target} でした。")
+    return False
 
 # ゲームを実行
 guess_number_game()

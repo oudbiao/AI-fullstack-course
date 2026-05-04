@@ -477,7 +477,14 @@ def avg_fare_by_survival(passengers):
     """统计幸存者和遇难者的平均票价"""
     # 提示：和按性别分组类似
     # survived == 1 的是幸存者，survived == 0 的是遇难者
-    pass  # 补充代码
+    groups = {0: [], 1: []}
+    for p in passengers:
+        groups[p["survived"]].append(p["fare"])
+
+    for survived, fares in groups.items():
+        label = "幸存者" if survived else "遇难者"
+        average = sum(fares) / len(fares) if fares else 0
+        print(f"{label}: {average:.2f}")
 
 avg_fare_by_survival(passengers)
 ```
@@ -491,7 +498,10 @@ def find_children(passengers):
     """找出所有 18 岁以下的乘客"""
     # 注意：要处理 age 为 None 的情况
     children = []
-    # 补充代码
+    for p in passengers:
+        age = p.get("age")
+        if age is not None and age < 18:
+            children.append(p)
 
     print(f"共有 {len(children)} 名儿童乘客：")
     for c in children:
@@ -499,7 +509,11 @@ def find_children(passengers):
         print(f"  {c['name']}, {c['age']:.0f}岁, {status}")
 
     # 计算儿童的生存率
-    # 补充代码
+    if children:
+        survival_rate = sum(1 for c in children if c["survived"]) / len(children) * 100
+        print(f"儿童生存率: {survival_rate:.1f}%")
+    else:
+        print("儿童生存率: 无数据")
 
 find_children(passengers)
 ```

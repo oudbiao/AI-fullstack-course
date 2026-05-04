@@ -79,7 +79,81 @@ The most practical method early on is human scoring. You can use a 1–5 scale t
 | Safety boundary | Overreach or no confirmation | High-risk actions have confirmation and fallback |
 | Cost efficiency | Obvious waste | Reasonable number of steps and tokens |
 
-## 5. Using Evaluation Results to Improve the System
+## 5. A Replayable Evaluation Record
+
+For Agent systems, a score without a trace is hard to improve. A better evaluation record should keep both the final score and the execution path.
+
+```json
+{
+  "task_id": "rag_review_001",
+  "run_id": "prompt_v3_model_a_2026_05_04",
+  "task_success": true,
+  "human_score": 4,
+  "steps": 5,
+  "tool_calls": [
+    {"tool": "search_docs", "ok": true, "reason": "found RAG chapters"},
+    {"tool": "write_plan", "ok": true, "reason": "generated weekly plan"}
+  ],
+  "safety_events": [],
+  "cost_usd": 0.08,
+  "main_issue": "sources were cited, but chapter links were not specific enough"
+}
+```
+
+The reason for saving this structure is simple:
+
+- `task_success` tells you whether the user goal was achieved
+- `steps` tells you whether the Agent was efficient
+- `tool_calls` tells you whether the tool route was correct
+- `safety_events` tells you whether risky behavior happened
+- `main_issue` tells you what to improve next
+
+You can start with a very small analysis script:
+
+```python
+runs = [
+    {
+        "task_id": "rag_review_001",
+        "task_success": True,
+        "human_score": 4,
+        "steps": 5,
+        "tool_calls": [
+            {"tool": "search_docs", "ok": True},
+            {"tool": "write_plan", "ok": True},
+        ],
+        "cost_usd": 0.08,
+    },
+    {
+        "task_id": "rag_review_002",
+        "task_success": False,
+        "human_score": 2,
+        "steps": 9,
+        "tool_calls": [
+            {"tool": "search_docs", "ok": False},
+            {"tool": "search_docs", "ok": False},
+        ],
+        "cost_usd": 0.19,
+    },
+]
+
+total = len(runs)
+success_rate = sum(run["task_success"] for run in runs) / total
+average_score = sum(run["human_score"] for run in runs) / total
+average_steps = sum(run["steps"] for run in runs) / total
+tool_calls = [call for run in runs for call in run["tool_calls"]]
+tool_failure_rate = sum(not call["ok"] for call in tool_calls) / len(tool_calls)
+
+print(f"success_rate: {success_rate:.0%}")
+print(f"average_score: {average_score:.1f}/5")
+print(f"average_steps: {average_steps:.1f}")
+print(f"tool_failure_rate: {tool_failure_rate:.0%}")
+```
+
+This is already enough to answer a practical question:
+
+> Did the new Prompt really improve the Agent, or did it only make the answer look nicer?
+
+## 6. Using Evaluation Results to Improve the System
 
 The purpose of evaluation is not scoring itself, but guiding improvement. If tool selection mistakes are common, improve tool descriptions and routing strategy first. If plans are often incomplete, improve the planning Prompt or state representation first. If costs are too high, check for repeated tool calls or overly long context. If safety issues are common, add permission checks, confirmation steps, and refusal policies.
 

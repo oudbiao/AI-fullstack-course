@@ -725,13 +725,13 @@ try:
     models["XGBoost"] = xgb.XGBClassifier(n_estimators=100, random_state=42,
                                             eval_metric='mlogloss')
 except ImportError:
-    pass
+    print("XGBoost is not installed; skip this model.")
 
 try:
     import lightgbm as lgb
     models["LightGBM"] = lgb.LGBMClassifier(n_estimators=100, random_state=42, verbose=-1)
 except ImportError:
-    pass
+    print("LightGBM is not installed; skip this model.")
 
 # Cross-validation evaluation
 results = {}

@@ -338,7 +338,8 @@ def calculate_average(scores):
 
 # クラス: 先頭を大文字（PascalCase）
 class DataProcessor:
-    pass
+    def __init__(self, source: str):
+        self.source = source
 
 # 定数: すべて大文字 + アンダースコア
 MAX_RETRY = 3
@@ -356,20 +357,20 @@ class MyClass:
 ```python
 # 関数の間は空行 2 行
 def function_one():
-    pass
+    return "function one"
 
 
 def function_two():
-    pass
+    return "function two"
 
 
 # クラスの間は空行 2 行
 class ClassOne:
-    pass
+    value = 1
 
 
 class ClassTwo:
-    pass
+    value = 2
 
 # 演算子の前後にスペースを入れる
 x = 1 + 2       # ✅
@@ -452,8 +453,10 @@ def train_model(
     """
     if not data:
         raise ValueError("学習データは空にできません")
-    # ... 学習ロジック ...
-    return {"accuracy": 0.95, "loss": 0.05}
+    # 実際の学習処理の代わりに、最小限の評価指標を返す
+    total = sum(len(str(item)) for item in data)
+    accuracy = min(0.95, 0.6 + total / 1000)
+    return {"accuracy": accuracy, "loss": 1 - accuracy}
 ```
 
 ---

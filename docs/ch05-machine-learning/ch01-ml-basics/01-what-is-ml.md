@@ -462,7 +462,18 @@ Use scikit-learn’s `load_wine()` dataset to train a decision tree classifier a
 
 ```python
 from sklearn.datasets import load_wine
-# Your code...
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+wine = load_wine()
+X_train, X_test, y_train, y_test = train_test_split(
+    wine.data, wine.target, test_size=0.2, random_state=42, stratify=wine.target
+)
+
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
+accuracy = model.score(X_test, y_test)
+print(f"Test accuracy: {accuracy:.3f}")
 ```
 
 ### Exercise 3: Observe Overfitting

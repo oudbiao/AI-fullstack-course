@@ -45,6 +45,21 @@ keywords: [CTC, Deep Speech, ASR, 语音识别, 序列对齐, NLP]
 
 这就是序列对齐难题。
 
+可以先把困难想象成这样：
+
+```mermaid
+flowchart LR
+    A["音频帧 1"] --> M["语音模型"]
+    B["音频帧 2"] --> M
+    C["音频帧 3"] --> M
+    D["音频帧 4"] --> M
+    M --> P["_ 我 我 爱"]
+    P --> CTC["CTC 折叠<br/>合并重复 + 删除 blank"]
+    CTC --> T["我 爱"]
+```
+
+模型看到的是很多很短的时间片，标签只给最终句子。CTC 就是在这两者之间搭桥。
+
 ## 二、CTC 的核心直觉：允许模型先输出带空白和重复的路径
 
 CTC 引入了一个特殊符号 blank。
@@ -115,7 +130,49 @@ print(ctc_collapse(path))
 
 > **模型可以先给出帧级长路径，再折叠成最终短文本。**
 
-## 五、CTC、Seq2Seq 和 Transformer ASR 的关系
+## 五、一个可以运行的极简对齐搜索
+
+CTC 的关键不是“只有一条正确路径”，而是很多路径都可以折叠成同一个文本。训练时，CTC 会把这些合法路径的概率合起来看。
+
+下面这个小程序会枚举哪些短路径可以变成 `["我", "爱"]`：
+
+```python
+from itertools import product
+
+def ctc_collapse(path, blank="_"):
+    result = []
+    prev = None
+
+    for token in path:
+        if token != blank and token != prev:
+            result.append(token)
+        prev = token
+
+    return result
+
+vocab = ["_", "我", "爱"]
+target = ["我", "爱"]
+valid_paths = []
+
+for path in product(vocab, repeat=4):
+    if ctc_collapse(path) == target:
+        valid_paths.append(path)
+
+print("合法路径数量:", len(valid_paths))
+for path in valid_paths[:8]:
+    print(path, "->", ctc_collapse(path))
+```
+
+初学 CTC 时，最重要的是形成这个感觉：
+
+- 模型不需要一开始就知道精确帧边界
+- 重复 token 可以表示某个声音持续更久
+- blank 可以表示停顿和过渡
+- 所有能折叠成正确文本的路径都会被奖励
+
+所以 CTC 不是让人类逐帧标注，而是让模型自己在许多可能对齐里分配概率。
+
+## 六、CTC、Seq2Seq 和 Transformer ASR 的关系
 
 | 方法 | 适合先怎么理解 |
 |---|---|
@@ -126,7 +183,7 @@ print(ctc_collapse(path))
 
 这说明语音识别不是孤立方向，它和本章的 Seq2Seq、注意力、Transformer 都有连接。
 
-## 六、把历史节点分配到课程章节
+## 七、把历史节点分配到课程章节
 
 | 历史节点 | 解决的问题 | 对应课程章节 |
 |---|---|---|
@@ -135,7 +192,7 @@ print(ctc_collapse(path))
 | Seq2Seq Attention | 输出每一步动态对齐输入位置 | 5.3 NLP 注意力机制 |
 | Transformer ASR / Whisper | 大规模预训练语音识别 | 12 AIGC 与多模态扩展 |
 
-## 七、学完这一节应该形成的直觉
+## 八、学完这一节应该形成的直觉
 
 语音识别最难的地方，不只是“声音转文字”，而是：
 

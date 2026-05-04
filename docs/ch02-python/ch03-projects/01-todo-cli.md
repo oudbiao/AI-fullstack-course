@@ -306,12 +306,40 @@ class TaskManager:
         self.tasks: list[Task] = []
         self.load()
 
-    def add(self, title: str, priority: str = "medium") -> None: ...
-    def complete(self, index: int) -> None: ...
-    def delete(self, index: int) -> None: ...
-    def search(self, keyword: str) -> list[Task]: ...
-    def save(self) -> None: ...
-    def load(self) -> None: ...
+    def add(self, title: str, priority: str = "medium") -> None:
+        self.tasks.append(Task(title, priority))
+
+    def complete(self, index: int) -> None:
+        self.tasks[index].done = True
+
+    def delete(self, index: int) -> None:
+        self.tasks.pop(index)
+
+    def search(self, keyword: str) -> list[Task]:
+        return [task for task in self.tasks if keyword.lower() in task.title.lower()]
+
+    def save(self) -> None:
+        import json
+        from pathlib import Path
+
+        Path(self.filename).write_text(
+            json.dumps([task.__dict__ for task in self.tasks], ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+
+    def load(self) -> None:
+        import json
+        from pathlib import Path
+
+        path = Path(self.filename)
+        if not path.exists():
+            return
+        data = json.loads(path.read_text(encoding="utf-8"))
+        self.tasks = []
+        for item in data:
+            task = Task(item["title"], item.get("priority", "medium"))
+            task.done = item.get("done", False)
+            self.tasks.append(task)
 ```
 
 ---

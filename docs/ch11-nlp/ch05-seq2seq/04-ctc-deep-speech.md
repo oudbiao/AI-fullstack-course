@@ -45,6 +45,21 @@ The problem is:
 
 This is the sequence alignment problem.
 
+You can picture the difficulty like this:
+
+```mermaid
+flowchart LR
+    A["audio frame 1"] --> M["speech model"]
+    B["audio frame 2"] --> M
+    C["audio frame 3"] --> M
+    D["audio frame 4"] --> M
+    M --> P["_ I I love"]
+    P --> CTC["CTC collapse<br/>merge repeats + remove blanks"]
+    CTC --> T["I love"]
+```
+
+The model sees many small time slices. The label only says the final sentence. CTC is the bridge between these two worlds.
+
 ## 2. The core intuition of CTC: let the model first output paths with blanks and repeats
 
 CTC introduces a special symbol, blank.
@@ -115,7 +130,49 @@ This example cannot replace the CTC formula, but it can help you build intuition
 
 > **The model can first produce a long frame-level path, and then collapse it into the final short text.**
 
-## 5. The relationship between CTC, Seq2Seq, and Transformer ASR
+## 5. A tiny alignment search you can run
+
+The key idea is not that there is only one correct frame-level path. Instead, many paths can collapse into the same text. CTC training sums the probability of all valid paths.
+
+The following toy program enumerates short paths that can become `["I", "love"]`:
+
+```python
+from itertools import product
+
+def ctc_collapse(path, blank="_"):
+    result = []
+    prev = None
+
+    for token in path:
+        if token != blank and token != prev:
+            result.append(token)
+        prev = token
+
+    return result
+
+vocab = ["_", "I", "love"]
+target = ["I", "love"]
+valid_paths = []
+
+for path in product(vocab, repeat=4):
+    if ctc_collapse(path) == target:
+        valid_paths.append(path)
+
+print("number of valid paths:", len(valid_paths))
+for path in valid_paths[:8]:
+    print(path, "->", ctc_collapse(path))
+```
+
+When beginners first see CTC, the most important realization is:
+
+- The model is allowed to be uncertain about exact frame boundaries
+- Repeated tokens can represent a sound lasting longer
+- Blank tokens can represent pauses and transitions
+- Training rewards all paths that collapse to the correct transcript
+
+So CTC is not asking humans to label every frame. It is asking the model to distribute probability over many possible alignments.
+
+## 6. The relationship between CTC, Seq2Seq, and Transformer ASR
 
 | Method | How to understand it first |
 |---|---|
@@ -126,7 +183,7 @@ This example cannot replace the CTC formula, but it can help you build intuition
 
 This shows that speech recognition is not an isolated topic; it is connected to Seq2Seq, attention, and Transformer in this chapter.
 
-## 6. Assigning historical milestones to course sections
+## 7. Assigning historical milestones to course sections
 
 | Historical milestone | Problem it solves | Corresponding course section |
 |---|---|---|
@@ -135,7 +192,7 @@ This shows that speech recognition is not an isolated topic; it is connected to 
 | Seq2Seq Attention | Dynamically align input positions at each output step | Section 5.3 NLP attention mechanisms |
 | Transformer ASR / Whisper | Large-scale pretrained speech recognition | Section 12 AIGC and multimodal extensions |
 
-## 7. The intuition you should have after this section
+## 8. The intuition you should have after this section
 
 The hardest part of speech recognition is not just “turning sound into text,” but:
 

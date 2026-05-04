@@ -333,10 +333,15 @@ import numpy as np
 
 arr = np.arange(1, 101)  # 1 から 100
 
-# ここにコードを追加：
-# total = ?
-# average = ?
-# max_val = ?
-# min_val = ?
-# square_sum = ?
+total = arr.sum()
+average = arr.mean()
+max_val = arr.max()
+min_val = arr.min()
+square_sum = (arr ** 2).sum()
+
+print("total =", total)
+print("average =", average)
+print("max =", max_val)
+print("min =", min_val)
+print("square_sum =", square_sum)
 ```

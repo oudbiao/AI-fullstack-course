@@ -310,14 +310,21 @@ import time
 # 不用装饰器的做法：每个函数都要加计时代码
 def train_model():
     start = time.time()
-    # ... 训练逻辑 ...
+    # 这里模拟一次训练循环，真实项目里可以替换成模型训练代码
+    epochs = 3
+    for epoch in range(epochs):
+        time.sleep(0.25)
+        print(f"第 {epoch + 1}/{epochs} 轮：训练中...")
     time.sleep(1)
     end = time.time()
     print(f"train_model 耗时: {end - start:.2f}秒")
 
 def process_data():
     start = time.time()
-    # ... 处理逻辑 ...
+    # 这里模拟一次数据预处理流程
+    records = ["原始1", "原始2", "原始3"]
+    cleaned = [record.replace("原始", "清洗后") for record in records]
+    print("清洗结果:", cleaned)
     time.sleep(0.5)
     end = time.time()
     print(f"process_data 耗时: {end - start:.2f}秒")

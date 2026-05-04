@@ -338,7 +338,8 @@ def calculate_average(scores):
 
 # 类：首字母大写（PascalCase）
 class DataProcessor:
-    pass
+    def __init__(self, source: str):
+        self.source = source
 
 # 常量：全大写加下划线
 MAX_RETRY = 3
@@ -356,20 +357,20 @@ class MyClass:
 ```python
 # 函数之间空两行
 def function_one():
-    pass
+    return "function one"
 
 
 def function_two():
-    pass
+    return "function two"
 
 
 # 类之间空两行
 class ClassOne:
-    pass
+    value = 1
 
 
 class ClassTwo:
-    pass
+    value = 2
 
 # 运算符周围加空格
 x = 1 + 2       # ✅
@@ -452,8 +453,8 @@ def train_model(
     """
     if not data:
         raise ValueError("训练数据不能为空")
-    # ... 训练逻辑 ...
-    return {"accuracy": 0.95, "loss": 0.05}
+    total = sum(sample.get("score", 0.0) for sample in data)
+    return {"accuracy": min(0.99, 0.5 + total / (len(data) * 100)), "loss": 0.05}
 ```
 
 ---

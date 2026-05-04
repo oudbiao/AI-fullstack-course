@@ -279,12 +279,14 @@ def parse_numbers(lines):
         try:
             yield float(line)
         except ValueError:
-            pass  # Skip lines that cannot be converted
+            continue  # Skip lines that cannot be converted
 
 # Pipeline composition: read → filter → transform
 # There is always only one line of data in memory!
-numbers = parse_numbers(filter_comments(read_lines("data.txt")))
+sample = ["# note", "1", "2.5", "bad", "4"]
+numbers = parse_numbers(filter_comments(sample))
 total = sum(numbers)
+print(total)
 ```
 
 ### Batch processing

@@ -512,12 +512,22 @@ flowchart LR
 如果你已经安装了 PyTorch，用 `torch.autograd` 计算第二节中所有参数的梯度，和手算结果对比。
 
 ```python
-# 提示
 import torch
 
 x = torch.tensor(2.0)
 w1 = torch.tensor(0.5, requires_grad=True)
-# ... 补充代码 ...
-# loss.backward()
-# print(w1.grad)
+b1 = torch.tensor(0.1, requires_grad=True)
+w2 = torch.tensor(-0.3, requires_grad=True)
+b2 = torch.tensor(0.2, requires_grad=True)
+
+h = torch.relu(w1 * x + b1)
+y = w2 * h + b2
+loss = (y - 1.0) ** 2
+loss.backward()
+
+print("loss =", loss.item())
+print("w1.grad =", w1.grad.item())
+print("b1.grad =", b1.grad.item())
+print("w2.grad =", w2.grad.item())
+print("b2.grad =", b2.grad.item())
 ```

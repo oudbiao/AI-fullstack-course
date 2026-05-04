@@ -310,14 +310,21 @@ import time
 # デコレータを使わない場合：各関数に計測コードを入れる必要がある
 def train_model():
     start = time.time()
-    # ... 学習ロジック ...
+    # ここでは簡単な学習ループを模擬する。実際のプロジェクトではモデル学習に置き換えられる
+    epochs = 3
+    for epoch in range(epochs):
+        time.sleep(0.25)
+        print(f"{epoch + 1}/{epochs} エポック: 学習中...")
     time.sleep(1)
     end = time.time()
     print(f"train_model の実行時間: {end - start:.2f}秒")
 
 def process_data():
     start = time.time()
-    # ... 処理ロジック ...
+    # ここではデータ前処理を簡単に模擬する
+    records = ["元データ1", "元データ2", "元データ3"]
+    cleaned = [record.replace("元データ", "整形後") for record in records]
+    print("整形結果:", cleaned)
     time.sleep(0.5)
     end = time.time()
     print(f"process_data の実行時間: {end - start:.2f}秒")

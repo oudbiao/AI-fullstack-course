@@ -310,14 +310,21 @@ import time
 # Without decorators: each function needs timing code
 def train_model():
     start = time.time()
-    # ... training logic ...
+    # In a real project, this might call a model training loop or API.
+    epochs = 3
+    for epoch in range(epochs):
+        time.sleep(0.25)
+        print(f"epoch {epoch + 1}/{epochs}: training...")
     time.sleep(1)
     end = time.time()
     print(f"train_model took: {end - start:.2f} seconds")
 
 def process_data():
     start = time.time()
-    # ... processing logic ...
+    # Here we simulate an ETL-style preprocessing step.
+    records = ["raw-1", "raw-2", "raw-3"]
+    cleaned = [record.replace("raw", "clean") for record in records]
+    print("cleaned records:", cleaned)
     time.sleep(0.5)
     end = time.time()
     print(f"process_data took: {end - start:.2f} seconds")

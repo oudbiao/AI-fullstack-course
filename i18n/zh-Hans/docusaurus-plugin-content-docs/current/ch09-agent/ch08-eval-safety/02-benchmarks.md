@@ -50,6 +50,17 @@ flowchart LR
 
 自建评估集最少包含 20 条样本：10 条正常任务、5 条边界任务、3 条工具失败任务、2 条安全或权限任务。每条样本都应该有成功标准。
 
+可以按下面这种方式拆分 20 条样本：
+
+| 分组 | 数量 | 示例 |
+|---|---:|---|
+| 正常任务 | 10 | 生成学习计划、回答章节问题、总结概念 |
+| 边界任务 | 5 | 用户说得很模糊、混合多个阶段、写错章节名 |
+| 工具失败任务 | 3 | 检索为空、API 超时、文档解析失败 |
+| 安全 / 权限任务 | 2 | 用户要求删除文件，或未确认就发送内容 |
+
+这样拆分可以避免一个常见新手问题：只测顺利情况，不测失败情况。
+
 ## 四、一个课程 Agent benchmark 示例
 
 ```json
@@ -69,11 +80,50 @@ flowchart LR
 
 这个例子比“回答是否满意”更可执行，因为它明确了必须包含什么、不能做什么、怎么打分。
 
-## 五、Benchmark 的局限
+## 五、一个最小 benchmark 运行器
+
+Benchmark 真正有用的前提是：当你改 Prompt、换模型、改工具 schema 或加检索策略之后，能用同一批样本重新跑一遍。
+
+下面是一个非常小的评分例子：
+
+```python
+sample = {
+    "id": "course_agent_008",
+    "must_include": ["RAG 基础", "检索策略", "RAG 评估"],
+    "must_not_do": ["编造不存在章节", "调用写文件工具"],
+}
+
+answer = """
+这份一周计划覆盖 RAG 基础、检索策略和 RAG 评估。
+它引用了课程中的 RAG 入口章节，并且没有调用写文件工具。
+"""
+
+def score_answer(sample, answer):
+    include_hits = sum(item in answer for item in sample["must_include"])
+    forbidden_hits = sum(item in answer for item in sample["must_not_do"])
+
+    return {
+        "coverage": include_hits / len(sample["must_include"]),
+        "forbidden_violations": forbidden_hits,
+        "pass": include_hits == len(sample["must_include"]) and forbidden_hits == 0,
+    }
+
+print(score_answer(sample, answer))
+```
+
+这个例子故意保持简单。真实 Agent benchmark 还要继续检查：
+
+- 引用的章节是否真实存在
+- Agent 是否只用了允许的工具
+- 检索为空时是否能恢复
+- 高风险动作前是否请求确认
+- 延迟和成本是否在可接受范围内
+
+## 六、Benchmark 的局限
 
 Benchmark 容易被过拟合。系统可能在固定任务上表现很好，但换成真实用户输入就不稳定。Benchmark 也可能忽略成本、延迟、安全和可维护性。对 Agent 来说，执行轨迹是否可解释，有时比最终分数更重要。
 
-## 六、推荐使用方式
+## 七、推荐使用方式
 
 先用通用 benchmark 建立能力直觉，再用自建评估集验证项目质量。每次改 Prompt、换模型、改工具 schema、加检索策略，都在同一套评估集上跑一遍。这样你才能知道改动是提升、退化还是只改变了输出风格。
 

@@ -482,11 +482,11 @@ print(f"超强密码: {generate_password(length=20)}")
 ```python
 def celsius_to_fahrenheit(celsius):
     """摄氏度 → 华氏度: F = C × 9/5 + 32"""
-    pass  # 补充代码
+    return celsius * 9 / 5 + 32
 
 def fahrenheit_to_celsius(fahrenheit):
     """华氏度 → 摄氏度: C = (F - 32) × 5/9"""
-    pass  # 补充代码
+    return (fahrenheit - 32) * 5 / 9
 
 # 测试
 print(celsius_to_fahrenheit(100))  # 应该输出 212.0
@@ -503,7 +503,33 @@ def list_stats(numbers):
     返回列表的统计信息。
     不要使用 max()、min()、sum() 内置函数，自己实现！
     """
-    pass  # 补充代码
+    if not numbers:
+        return None
+
+    maximum = numbers[0]
+    minimum = numbers[0]
+    total = 0
+    for value in numbers:
+        if value > maximum:
+            maximum = value
+        if value < minimum:
+            minimum = value
+        total += value
+
+    sorted_numbers = sorted(numbers)
+    n = len(sorted_numbers)
+    if n % 2 == 1:
+        median = sorted_numbers[n // 2]
+    else:
+        median = (sorted_numbers[n // 2 - 1] + sorted_numbers[n // 2]) / 2
+
+    average = total / len(numbers)
+    return {
+        "max": maximum,
+        "min": minimum,
+        "average": average,
+        "median": median,
+    }
 
 # 测试
 stats = list_stats([3, 1, 4, 1, 5, 9, 2, 6, 5])
@@ -517,7 +543,22 @@ print(stats)
 ```python
 def guess_number_game(min_val=1, max_val=100, max_attempts=7):
     """猜数字游戏"""
-    pass  # 补充代码
+    import random
+
+    target = random.randint(min_val, max_val)
+    print(f"请猜一个介于 {min_val} 和 {max_val} 之间的数字")
+    for attempt in range(1, max_attempts + 1):
+        guess = target if attempt == 1 else min_val
+        print(f"第 {attempt} 次猜测：{guess}")
+        if guess == target:
+            print("猜对了！")
+            return True
+        if guess < target:
+            print("太小了")
+        else:
+            print("太大了")
+    print(f"游戏结束，答案是 {target}。")
+    return False
 
 # 运行游戏
 guess_number_game()

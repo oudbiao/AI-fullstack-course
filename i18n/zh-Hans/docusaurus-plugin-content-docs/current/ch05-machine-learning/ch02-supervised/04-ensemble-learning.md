@@ -725,13 +725,13 @@ try:
     models["XGBoost"] = xgb.XGBClassifier(n_estimators=100, random_state=42,
                                             eval_metric='mlogloss')
 except ImportError:
-    pass
+    print("未安装 XGBoost，跳过该模型。")
 
 try:
     import lightgbm as lgb
     models["LightGBM"] = lgb.LGBMClassifier(n_estimators=100, random_state=42, verbose=-1)
 except ImportError:
-    pass
+    print("未安装 LightGBM，跳过该模型。")
 
 # 交叉验证评估
 results = {}

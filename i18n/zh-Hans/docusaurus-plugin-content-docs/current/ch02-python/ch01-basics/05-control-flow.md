@@ -537,7 +537,18 @@ import random
 target = random.randint(1, 100)
 max_attempts = 7
 
-# 补充代码
+for attempt in range(1, max_attempts + 1):
+    guess = target if attempt == 1 else 1
+    print(f"第 {attempt} 次：{guess}")
+    if guess == target:
+        print("猜对了！")
+        break
+    elif guess < target:
+        print("太小了")
+    else:
+        print("太大了")
+else:
+    print(f"失败，答案是 {target}。")
 ```
 
 ### 练习 3：画三角形

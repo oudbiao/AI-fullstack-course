@@ -45,6 +45,21 @@ keywords: [CTC, Deep Speech, ASR, 音声認識, 系列アラインメント, NLP
 
 これが系列アラインメントの難しさです。
 
+まずは、次のようにイメージすると分かりやすいです。
+
+```mermaid
+flowchart LR
+    A["音声フレーム 1"] --> M["音声モデル"]
+    B["音声フレーム 2"] --> M
+    C["音声フレーム 3"] --> M
+    D["音声フレーム 4"] --> M
+    M --> P["_ 我 我 爱"]
+    P --> CTC["CTC 折りたたみ<br/>重複をまとめる + blank を削除"]
+    CTC --> T["我 爱"]
+```
+
+モデルが見るのは細かい時間スライスで、ラベルとして与えられるのは最終的な文だけです。CTC は、この2つをつなぐ橋になります。
+
 ## 二、CTC の核心的な直感：空白と繰り返しを含む経路をまず出してよい
 
 CTC は、blank という特別な記号を導入します。  
@@ -115,7 +130,49 @@ print(ctc_collapse(path))
 
 > **モデルはまずフレーム単位の長い経路を出し、その後に折りたたんで最終的な短いテキストにすることができる。**
 
-## 五、CTC、Seq2Seq、Transformer ASR の関係
+## 五、実行できる小さなアラインメント探索
+
+CTC の重要な点は、「正しい経路が1つだけある」のではなく、多くの経路が同じテキストに折りたためることです。CTC の学習では、それらの有効な経路の確率をまとめて考えます。
+
+次の小さなプログラムは、`["我", "爱"]` になる短い経路を列挙します。
+
+```python
+from itertools import product
+
+def ctc_collapse(path, blank="_"):
+    result = []
+    prev = None
+
+    for token in path:
+        if token != blank and token != prev:
+            result.append(token)
+        prev = token
+
+    return result
+
+vocab = ["_", "我", "爱"]
+target = ["我", "爱"]
+valid_paths = []
+
+for path in product(vocab, repeat=4):
+    if ctc_collapse(path) == target:
+        valid_paths.append(path)
+
+print("有効な経路数:", len(valid_paths))
+for path in valid_paths[:8]:
+    print(path, "->", ctc_collapse(path))
+```
+
+CTC を初めて学ぶときに大事なのは、次の感覚です。
+
+- モデルは最初から正確なフレーム境界を知る必要がない
+- 繰り返し token は、音が長く続くことを表せる
+- blank は、休止や遷移を表せる
+- 正しい文字列に折りたためるすべての経路が学習で評価される
+
+つまり CTC は、人間に1フレームずつラベルを付けさせるのではなく、モデル自身に多くの可能なアラインメントへ確率を配分させる方法です。
+
+## 六、CTC、Seq2Seq、Transformer ASR の関係
 
 | 方法 | まずどう理解するとよいか |
 |---|---|
@@ -126,7 +183,7 @@ print(ctc_collapse(path))
 
 これは、音声認識が独立した分野ではなく、この章の Seq2Seq、attention、Transformer とつながっていることを示しています。
 
-## 六、歴史的な節目をコースの章に対応づける
+## 七、歴史的な節目をコースの章に対応づける
 
 | 歴史的な節目 | 解決した問題 | 対応するコース章 |
 |---|---|---|
@@ -135,7 +192,7 @@ print(ctc_collapse(path))
 | Seq2Seq Attention | 出力の各ステップで入力位置を動的にアラインする | 5.3 NLP の attention 機構 |
 | Transformer ASR / Whisper | 大規模事前学習による音声認識 | 12 AIGC とマルチモーダル拡張 |
 
-## 七、この節を学び終えたときに持っておきたい直感
+## 八、この節を学び終えたときに持っておきたい直感
 
 音声認識で本当に難しいのは、単に「音を文字にする」ことではなく、次の点です。
 

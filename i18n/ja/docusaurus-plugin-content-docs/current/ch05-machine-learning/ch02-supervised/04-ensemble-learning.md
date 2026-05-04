@@ -727,13 +727,13 @@ try:
     models["XGBoost"] = xgb.XGBClassifier(n_estimators=100, random_state=42,
                                             eval_metric='mlogloss')
 except ImportError:
-    pass
+    print("XGBoost は未インストールのため、このモデルはスキップします。")
 
 try:
     import lightgbm as lgb
     models["LightGBM"] = lgb.LGBMClassifier(n_estimators=100, random_state=42, verbose=-1)
 except ImportError:
-    pass
+    print("LightGBM は未インストールのため、このモデルはスキップします。")
 
 # 交差検証で評価
 results = {}

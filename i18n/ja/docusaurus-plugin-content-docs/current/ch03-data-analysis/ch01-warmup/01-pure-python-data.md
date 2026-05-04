@@ -477,7 +477,14 @@ def avg_fare_by_survival(passengers):
     """生存者と死亡者の平均料金を集計する"""
     # ヒント：性別ごとの集計と同じ考え方です
     # survived == 1 が生存者、survived == 0 が死亡者です
-    pass  # コードを追加する
+    groups = {0: [], 1: []}
+    for p in passengers:
+        groups[p["survived"]].append(p["fare"])
+
+    for survived, fares in groups.items():
+        label = "生存者" if survived else "死亡者"
+        average = sum(fares) / len(fares) if fares else 0
+        print(f"{label}: {average:.2f}")
 
 avg_fare_by_survival(passengers)
 ```
@@ -491,7 +498,10 @@ def find_children(passengers):
     """18 歳未満の乗客を見つける"""
     # age が None の場合に注意する
     children = []
-    # コードを追加する
+    for p in passengers:
+        age = p.get("age")
+        if age is not None and age < 18:
+            children.append(p)
 
     print(f"子ども乗客は全部で {len(children)} 人です：")
     for c in children:
@@ -499,7 +509,11 @@ def find_children(passengers):
         print(f"  {c['name']}, {c['age']:.0f}歳, {status}")
 
     # 子どもの生存率を計算する
-    # コードを追加する
+    if children:
+        survival_rate = sum(1 for c in children if c["survived"]) / len(children) * 100
+        print(f"子どもの生存率: {survival_rate:.1f}%")
+    else:
+        print("子どもの生存率: データなし")
 
 find_children(passengers)
 ```

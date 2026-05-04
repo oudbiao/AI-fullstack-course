@@ -477,7 +477,14 @@ def avg_fare_by_survival(passengers):
     """Calculate the average fare for survivors and non-survivors"""
     # Hint: similar to grouping by gender
     # survived == 1 means survived, survived == 0 means did not survive
-    pass  # Fill in the code
+    groups = {0: [], 1: []}
+    for p in passengers:
+        groups[p["survived"]].append(p["fare"])
+
+    for survived, fares in groups.items():
+        label = "Survived" if survived else "Did not survive"
+        average = sum(fares) / len(fares) if fares else 0
+        print(f"{label}: {average:.2f}")
 
 avg_fare_by_survival(passengers)
 ```
@@ -491,7 +498,10 @@ def find_children(passengers):
     """Find all passengers under 18 years old"""
     # Note: handle the case where age is None
     children = []
-    # Fill in the code
+    for p in passengers:
+        age = p.get("age")
+        if age is not None and age < 18:
+            children.append(p)
 
     print(f"There are {len(children)} child passengers:")
     for c in children:
@@ -499,7 +509,11 @@ def find_children(passengers):
         print(f"  {c['name']}, {c['age']:.0f} years old, {status}")
 
     # Calculate the survival rate for children
-    # Fill in the code
+    if children:
+        survival_rate = sum(1 for c in children if c["survived"]) / len(children) * 100
+        print(f"Child survival rate: {survival_rate:.1f}%")
+    else:
+        print("Child survival rate: N/A")
 
 find_children(passengers)
 ```

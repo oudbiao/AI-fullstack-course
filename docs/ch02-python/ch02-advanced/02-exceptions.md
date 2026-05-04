@@ -119,6 +119,8 @@ try:
     print(f"Result: {result}")
 except (ValueError, ZeroDivisionError) as e:
     print(f"An error occurred: {e}")
+else:
+    print("Input was valid and division succeeded.")
 ```
 
 ### Getting exception information
@@ -139,6 +141,8 @@ try:
     result = risky_operation()
 except Exception as e:
     print(f"An unexpected error occurred: {type(e).__name__}: {e}")
+else:
+    print(f"Operation succeeded: {result}")
 ```
 
 :::caution Do not overuse `except Exception`
@@ -199,7 +203,8 @@ file = None
 try:
     file = open("data.txt", "r")
     data = file.read()
-    # Process data...
+    data = data.strip()
+    print(data)
 except FileNotFoundError:
     print("File not found")
 finally:

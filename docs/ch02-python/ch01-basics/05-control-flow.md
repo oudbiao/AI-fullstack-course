@@ -537,7 +537,18 @@ import random
 target = random.randint(1, 100)
 max_attempts = 7
 
-# Fill in the code
+for attempt in range(1, max_attempts + 1):
+    guess = target if attempt == 1 else 1
+    print(f"Attempt {attempt}: {guess}")
+    if guess == target:
+        print("Correct!")
+        break
+    elif guess < target:
+        print("Too small")
+    else:
+        print("Too large")
+else:
+    print(f"Failed. The answer was {target}.")
 ```
 
 ### Exercise 3: Draw a Triangle

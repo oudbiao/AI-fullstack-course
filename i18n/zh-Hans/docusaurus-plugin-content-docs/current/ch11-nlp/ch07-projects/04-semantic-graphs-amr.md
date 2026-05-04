@@ -62,6 +62,21 @@ read-01
 
 这比单纯分词更接近“句子真正想说什么”。
 
+对初学者来说，最容易的读法是：
+
+```mermaid
+flowchart LR
+    E["read-01<br/>事件"] --> A0["ARG0<br/>谁在读？<br/>学生"]
+    E --> A1["ARG1<br/>读什么？<br/>论文"]
+```
+
+`ARG0` 和 `ARG1` 不是“第一个词”和“第二个词”，而是语义角色。在很多简单事件句里，可以先这样理解：
+
+- `ARG0`：动作的发出者
+- `ARG1`：动作影响的对象
+
+这个小转变很重要：语义图不只看词序，更关心含义。
+
 ## 三、语义图和信息抽取有什么关系？
 
 信息抽取通常先做比较具体的任务：
@@ -142,7 +157,51 @@ for role, value in semantic_graph.items():
 - 角色可以连接成图
 - 图结构可以服务后续生成和检索
 
-## 七、把历史节点分配到课程章节
+## 七、从一句话到课件结构
+
+如果目标是从知识库生成教学材料，语义图可以成为“检索段落”和“最终 Word 文档”之间的一层中间结构。
+
+看一个很小的例子：
+
+```python
+sentence = "链式法则帮助神经网络逐层计算梯度。"
+
+semantic_graph = {
+    "concept": "链式法则",
+    "function": "计算梯度",
+    "scenario": "神经网络",
+    "method": "逐层",
+}
+
+courseware_block = {
+    "title": semantic_graph["concept"],
+    "definition": "用于拆解复合函数导数的规则。",
+    "why_it_matters": f"它帮助{semantic_graph['scenario']}{semantic_graph['function']}。",
+    "teaching_hint": f"可以把它讲成梯度信号{semantic_graph['method']}向前一层传递。",
+}
+
+for key, value in courseware_block.items():
+    print(f"{key}: {value}")
+```
+
+流程会变得更清楚：
+
+```mermaid
+flowchart LR
+    A["检索到的段落"] --> B["抽取角色和关系"]
+    B --> C["语义图"]
+    C --> D["课件模板"]
+    D --> E["定义 + 例题 + 易错点 + 练习"]
+```
+
+所以，即使你暂时不实现完整 AMR 解析器，AMR 也能训练你问更结构化的问题：
+
+- 这里讲的概念是什么？
+- 这里描述了什么动作或关系？
+- 哪些对象参与了这个关系？
+- 有没有条件、原因或结果？
+
+## 八、把历史节点分配到课程章节
 
 | 历史节点 | 解决的问题 | 对应课程章节 |
 |---|---|---|
@@ -151,7 +210,7 @@ for role, value in semantic_graph.items():
 | 语义角色标注 | 谁对谁做了什么 | 7.4 信息抽取、知识图谱扩展 |
 | Knowledge Graph | 把抽取结果组织成可查询知识 | 第 8 章 RAG、知识库系统 |
 
-## 八、学完这一节应该形成的直觉
+## 九、学完这一节应该形成的直觉
 
 向量检索告诉你“哪段文本相似”，语义图更关心“这段文本里有哪些角色和关系”。
 
