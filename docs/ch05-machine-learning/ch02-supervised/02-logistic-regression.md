@@ -43,11 +43,26 @@ For beginners, the best way to understand this section is not “linear regressi
 
 ![Logistic Regression Classification Flow Diagram](/img/course/ch05-logistic-classification-flow-en.png)
 
+![Logistic Regression Probability Learning Comic](/img/course/ch05-logistic-probability-comic-en.png)
+
 What this section really needs to explain is:
 
 - Why classification tasks cannot directly use linear regression
 - Is logistic regression learning probabilities, or learning boundaries?
 - Why does it become the bridge to neural networks later?
+
+### Keyword Decoder
+
+| Term | What it means in this section | Why it matters in real projects |
+|------|------|------|
+| `logit` | The raw score `z = wᵀx + b` before Sigmoid | It is not yet a probability, so you should not compare it directly with business thresholds |
+| `Sigmoid` | A squashing function that maps any real number to `(0, 1)` | It turns a raw score into a probability-like value |
+| `BCE` | Binary Cross-Entropy, the loss for binary probability prediction | It strongly punishes confident wrong predictions |
+| `OvR` | One-vs-Rest, one binary classifier per class | Useful when you want to understand or control multi-class classification as several yes/no questions |
+| `Softmax` | A function that turns several scores into probabilities that sum to 1 | Common for multi-class classification and neural networks |
+| `threshold` | The probability cutoff used to turn probability into a class | Changing it trades recall against false alarms |
+| `solver` | The numerical optimizer used by sklearn to find the parameters | Some optimizers support different regularization styles |
+| `C` | Inverse regularization strength in sklearn logistic regression | Smaller `C` means stronger regularization and usually simpler coefficients |
 
 ## 1. From Regression to Classification
 
@@ -76,7 +91,7 @@ So the first thing logistic regression really solves is not “changing the boun
 
 - **making the output into a probability first**
 
-### 1.1.1 A more beginner-friendly analogy
+### 1.2.1 A more beginner-friendly analogy
 
 You can think of it like this:
 
@@ -116,6 +131,19 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.ylim(-0.05, 1.05)
 plt.show()
+
+for value in [-8, -2, 0, 2, 8]:
+    print(f"z={value:>2}: σ(z)={sigmoid(value):.4f}")
+```
+
+Expected output:
+
+```text
+z=-8: σ(z)=0.0003
+z=-2: σ(z)=0.1192
+z= 0: σ(z)=0.5000
+z= 2: σ(z)=0.8808
+z= 8: σ(z)=0.9997
 ```
 
 Properties of Sigmoid:
@@ -219,6 +247,16 @@ print(f"Intercept: b = {model.intercept_[0]:.4f}")
 print(f"Accuracy: {model.score(X, y):.1%}")
 ```
 
+Expected output:
+
+```text
+Weights: w = [ 1.818 -0.409]
+Intercept: b = 0.1873
+Accuracy: 84.0%
+```
+
+The black contour line is the `0.5` probability boundary. Points on one side have `P(y=1|x) >= 0.5`; points on the other side have `P(y=1|x) < 0.5`.
+
 ---
 
 ## 3. Loss Function — Cross-Entropy
@@ -276,7 +314,30 @@ for ax in axes:
 
 plt.tight_layout()
 plt.show()
+
+examples = [
+    (np.array([1]), np.array([0.9])),
+    (np.array([1]), np.array([0.1])),
+    (np.array([0]), np.array([0.1])),
+    (np.array([0]), np.array([0.9])),
+]
+for y_true, y_prob in examples:
+    print(
+        f"true={y_true[0]}, predicted probability={y_prob[0]:.1f}, "
+        f"loss={binary_cross_entropy(y_true, y_prob):.4f}"
+    )
 ```
+
+Expected output:
+
+```text
+true=1, predicted probability=0.9, loss=0.1054
+true=1, predicted probability=0.1, loss=2.3026
+true=0, predicted probability=0.1, loss=0.1054
+true=0, predicted probability=0.9, loss=2.3026
+```
+
+This is the most important intuition: cross-entropy does not only ask “right or wrong.” It asks, “how much probability did you assign to the true answer?”
 
 ### 3.4 Implement logistic regression from scratch
 
@@ -336,6 +397,16 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected output:
+
+```text
+Training complete: w = [ 2.101 -0.201], b = -0.0519
+Final loss: 0.3577
+Training accuracy: 86.0%
+```
+
+Read this loop as five small steps: compute the score, convert it to probability, measure the probability error with BCE, compute gradients, and nudge `w` and `b`. That same pattern will reappear in neural networks: forward pass, loss, backward pass, parameter update.
+
 ---
 
 ## 4. Multi-Class Extensions
@@ -350,7 +421,7 @@ A more stable sequence is usually:
 
 1. First understand binary logistic regression
 2. Then understand multi-class as “a group of binary classifiers” or a Softmax probability distribution
-3. Finally go back to sklearn and look at implementation details such as `multinomial`
+3. Finally go back to sklearn and look at implementation details such as `Softmax`, `OvR`, and the optimizer
 
 ```mermaid
 flowchart TD
@@ -390,6 +461,14 @@ print(f"Softmax probabilities: {probs.round(3)}")
 print(f"Sum of probabilities: {probs.sum():.4f}")
 ```
 
+Expected output:
+
+```text
+Raw scores: [2.  1.  0.5]
+Softmax probabilities: [0.629 0.231 0.14 ]
+Sum of probabilities: 1.0000
+```
+
 ### 4.4 sklearn Multi-class Practice
 
 ```python
@@ -397,6 +476,8 @@ from sklearn.datasets import load_iris
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -405,16 +486,19 @@ iris = load_iris()
 X, y = iris.data, iris.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Multi-class logistic regression
-# multi_class='multinomial' uses Softmax
-# multi_class='ovr' uses One-vs-Rest
-model = LogisticRegression(multi_class='multinomial', max_iter=200, random_state=42)
+# Multi-class logistic regression.
+# Modern sklearn automatically uses a suitable multi-class objective
+# when the solver supports it. Scaling keeps the optimization stable.
+model = make_pipeline(
+    StandardScaler(),
+    LogisticRegression(max_iter=500, random_state=42)
+)
 model.fit(X_train, y_train)
 
 # Evaluate
 y_pred = model.predict(X_test)
 print("Classification report:")
-print(classification_report(y_test, y_pred, target_names=iris.target_names))
+print(classification_report(y_test, y_pred, target_names=iris.target_names, zero_division=0))
 
 # Confusion matrix
 cm = confusion_matrix(y_test, y_pred)
@@ -439,6 +523,25 @@ plt.tight_layout()
 plt.show()
 ```
 
+Expected output:
+
+```text
+Classification report:
+              precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        10
+  versicolor       1.00      1.00      1.00         9
+   virginica       1.00      1.00      1.00        11
+
+    accuracy                           1.00        30
+   macro avg       1.00      1.00      1.00        30
+weighted avg       1.00      1.00      1.00        30
+```
+
+:::tip Modern sklearn note
+Older tutorials often show `multi_class='multinomial'` or `multi_class='ovr'`. In recent sklearn versions, the default multi-class behavior is already suitable for normal multi-class logistic regression. If you explicitly want One-vs-Rest behavior, use `OneVsRestClassifier(LogisticRegression(...))` so your intent is clear.
+:::
+
 ### 4.5 Predicted probabilities
 
 ```python
@@ -446,10 +549,23 @@ plt.show()
 proba = model.predict_proba(X_test[:5])
 print("Predicted probabilities for the first 5 samples:")
 for i, p in enumerate(proba):
-    pred_class = iris.target_names[y_pred[i]]
-    true_class = iris.target_names[y_test[i]]
-    print(f"  Sample {i}: {dict(zip(iris.target_names, np.round(p, 3)))} "
+    pred_class = str(iris.target_names[y_pred[i]])
+    true_class = str(iris.target_names[y_test[i]])
+    probability_map = {
+        str(name): float(round(probability, 3))
+        for name, probability in zip(iris.target_names, p)
+    }
+    print(f"  Sample {i}: {probability_map} "
           f"→ Prediction: {pred_class}, True: {true_class}")
+```
+
+Expected output:
+
+```text
+Predicted probabilities for the first 5 samples:
+  Sample 0: {'setosa': 0.011, 'versicolor': 0.876, 'virginica': 0.113} → Prediction: versicolor, True: versicolor
+  Sample 1: {'setosa': 0.964, 'versicolor': 0.036, 'virginica': 0.0} → Prediction: setosa, True: setosa
+  Sample 2: {'setosa': 0.0, 'versicolor': 0.003, 'virginica': 0.997} → Prediction: virginica, True: virginica
 ```
 
 ---
@@ -466,6 +582,8 @@ In sklearn’s logistic regression, the `C` parameter controls the regularizatio
 from sklearn.datasets import make_classification
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 
 # Generate data
 X, y = make_classification(n_samples=300, n_features=20, n_informative=5,
@@ -478,10 +596,14 @@ train_scores = []
 test_scores = []
 
 for C in C_values:
-    model = LogisticRegression(C=C, max_iter=1000, random_state=42)
+    model = make_pipeline(
+        StandardScaler(),
+        LogisticRegression(C=C, max_iter=1000, random_state=42)
+    )
     model.fit(X_train, y_train)
     train_scores.append(model.score(X_train, y_train))
     test_scores.append(model.score(X_test, y_test))
+    print(f"C={C:>6}: train={train_scores[-1]:.3f}, test={test_scores[-1]:.3f}")
 
 plt.figure(figsize=(8, 5))
 plt.plot(C_values, train_scores, 'bo-', label='Training Set')
@@ -495,27 +617,48 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected output:
+
+```text
+C= 0.001: train=0.796, test=0.750
+C=  0.01: train=0.850, test=0.783
+C=   0.1: train=0.850, test=0.783
+C=     1: train=0.867, test=0.767
+C=    10: train=0.867, test=0.767
+C=   100: train=0.867, test=0.767
+```
+
 ### 5.2 L1 vs L2 regularization
 
 ```python
 # L1 regularization → sparse parameters (feature selection)
 # L2 regularization → shrink parameters (default)
+# In sklearn 1.8+, use l1_ratio instead of the deprecated penalty parameter.
 
-model_l1 = LogisticRegression(penalty='l1', solver='saga', C=1.0, max_iter=5000, random_state=42)
-model_l2 = LogisticRegression(penalty='l2', C=1.0, max_iter=5000, random_state=42)
+model_l1 = make_pipeline(
+    StandardScaler(),
+    LogisticRegression(l1_ratio=1.0, solver='saga', C=1.0, max_iter=5000, random_state=42)
+)
+model_l2 = make_pipeline(
+    StandardScaler(),
+    LogisticRegression(l1_ratio=0.0, solver='saga', C=1.0, max_iter=5000, random_state=42)
+)
 
 model_l1.fit(X_train, y_train)
 model_l2.fit(X_train, y_train)
 
+coef_l1 = model_l1.named_steps["logisticregression"].coef_[0]
+coef_l2 = model_l2.named_steps["logisticregression"].coef_[0]
+
 fig, axes = plt.subplots(1, 2, figsize=(12, 4))
 
-axes[0].bar(range(20), np.abs(model_l1.coef_[0]), color='coral')
-axes[0].set_title(f'L1 Regularization (non-zero parameters: {np.sum(model_l1.coef_[0] != 0)}/20)')
+axes[0].bar(range(20), np.abs(coef_l1), color='coral')
+axes[0].set_title(f'L1 Regularization (non-zero parameters: {np.sum(coef_l1 != 0)}/20)')
 axes[0].set_xlabel('Feature Index')
 axes[0].set_ylabel('|Parameter Value|')
 
-axes[1].bar(range(20), np.abs(model_l2.coef_[0]), color='steelblue')
-axes[1].set_title(f'L2 Regularization (non-zero parameters: {np.sum(model_l2.coef_[0] != 0)}/20)')
+axes[1].bar(range(20), np.abs(coef_l2), color='steelblue')
+axes[1].set_title(f'L2 Regularization (non-zero parameters: {np.sum(coef_l2 != 0)}/20)')
 axes[1].set_xlabel('Feature Index')
 axes[1].set_ylabel('|Parameter Value|')
 
@@ -525,9 +668,22 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 
+print(f"L1 non-zero parameters: {np.sum(coef_l1 != 0)}/20")
+print(f"L2 non-zero parameters: {np.sum(coef_l2 != 0)}/20")
 print(f"L1 test accuracy: {model_l1.score(X_test, y_test):.1%}")
 print(f"L2 test accuracy: {model_l2.score(X_test, y_test):.1%}")
 ```
+
+Expected output:
+
+```text
+L1 non-zero parameters: 9/20
+L2 non-zero parameters: 20/20
+L1 test accuracy: 76.7%
+L2 test accuracy: 76.7%
+```
+
+L1 is like asking the model to keep only a few useful knobs. L2 is like asking it to keep all knobs, but avoid turning any one knob too hard. This is why L1 often helps feature selection, while L2 is the safer default for stable baselines.
 
 ### 5.3 When you do a classification project for the first time, why is logistic regression still especially worth trying first?
 
@@ -575,6 +731,14 @@ for ax, (title, (X_d, y_d)) in zip(axes, datasets):
 plt.suptitle('Decision Boundaries of Logistic Regression (Linear Separators)', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+Typical result:
+
+```text
+Linearly separable: about 86.5%
+Moons: about 85.0%
+Circles: about 50.5%
 ```
 
 :::note Limitation of Logistic Regression
