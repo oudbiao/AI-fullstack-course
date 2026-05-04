@@ -286,7 +286,8 @@ data = [
 df = pd.DataFrame(data, columns=["姓名", "年龄", "城市"])
 
 # 方法 3：从 NumPy 数组创建
-arr = np.random.randint(60, 100, size=(5, 3))
+rng = np.random.default_rng(seed=42)
+arr = rng.integers(60, 100, size=(5, 3))
 df = pd.DataFrame(arr, columns=["语文", "数学", "英语"])
 
 # 方法 4：从 Series 字典创建

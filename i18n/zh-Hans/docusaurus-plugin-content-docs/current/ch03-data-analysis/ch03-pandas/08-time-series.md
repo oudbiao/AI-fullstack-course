@@ -142,11 +142,11 @@ pd.date_range("2024-01-01", "2024-12-31", freq="W")  # 每周
 
 ```python
 # 模拟 2024 年每天的销售数据
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 dates = pd.date_range("2024-01-01", periods=365, freq="D")
 sales = pd.DataFrame({
     "日期": dates,
-    "销售额": np.random.randint(5000, 20000, 365) + \
+    "销售额": rng.integers(5000, 20000, 365) + \
               np.sin(np.arange(365) * 2 * np.pi / 365) * 3000  # 加入季节性
 })
 sales = sales.set_index("日期")
@@ -159,7 +159,7 @@ print(sales.shape)  # (365, 1)
 ```python
 df = pd.DataFrame({
     "日期": pd.date_range("2024-01-01", periods=100, freq="D"),
-    "销量": np.random.randint(10, 100, 100)
+    "销量": rng.integers(10, 100, 100)
 })
 
 # 用 dt 访问器提取日期组件
@@ -320,7 +320,7 @@ df["注册至今天数"] = (pd.Timestamp.now() - df["注册时间"]).dt.days
 import pandas as pd
 import numpy as np
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 创建 2 年的日销售数据
 dates = pd.date_range("2023-01-01", "2024-12-31", freq="D")
@@ -332,7 +332,7 @@ sales = pd.DataFrame({
         10000 +                                    # 基础值
         np.sin(np.arange(n) * 2 * np.pi / 365) * 3000 +  # 季节性
         np.arange(n) * 5 +                         # 增长趋势
-        np.random.normal(0, 1000, n)               # 随机波动
+        rng.normal(0, 1000, n)                     # 随机波动
     ).astype(int)
 }).set_index("日期")
 

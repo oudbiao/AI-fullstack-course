@@ -125,17 +125,24 @@ print(e)                     # [0.  0.1 0.2 ... 0.9 1. ]
 ### ランダム配列を作成する
 
 ```python
+# 新しい NumPy コードでは default_rng() を優先する
+rng = np.random.default_rng(seed=42)
+
 # 0〜1 の一様分布の乱数
-rand = np.random.rand(3, 4)       # 3×4
+rand = rng.random((3, 4))       # 3×4
 print(rand)
 
 # 標準正規分布の乱数（平均0、標準偏差1）
-randn = np.random.randn(3, 4)     # 3×4
+randn = rng.standard_normal((3, 4))     # 3×4
 
 # 指定範囲のランダムな整数
-randint = np.random.randint(1, 100, size=(3, 4))  # 1〜99 の 3×4 整数
+randint = rng.integers(1, 100, size=(3, 4))  # 1〜99 の 3×4 整数
 print(randint)
 ```
+
+:::tip なぜここでは `default_rng()` を使うのか？
+古い教材では `np.random.rand()` や `np.random.randint()` をよく見ます。今も動きますが、グローバルな乱数状態に依存します。`np.random.default_rng()` は独立した乱数生成器を作るため、大きなプロジェクトで再現しやすく安全です。
+:::
 
 ### 作成方法の早見表
 
@@ -148,9 +155,9 @@ print(randint)
 | `np.eye()` | 単位行列 | `np.eye(4)` |
 | `np.arange()` | 等差数列（刻み幅を指定） | `np.arange(0, 10, 2)` |
 | `np.linspace()` | 等差数列（要素数を指定） | `np.linspace(0, 1, 100)` |
-| `np.random.rand()` | 一様乱数 [0, 1) | `np.random.rand(3, 4)` |
-| `np.random.randn()` | 標準正規分布 | `np.random.randn(3, 4)` |
-| `np.random.randint()` | ランダム整数 | `np.random.randint(0, 10, (3, 4))` |
+| `rng.random()` | 一様乱数 [0, 1) | `rng.random((3, 4))` |
+| `rng.standard_normal()` | 標準正規分布 | `rng.standard_normal((3, 4))` |
+| `rng.integers()` | ランダム整数 | `rng.integers(0, 10, size=(3, 4))` |
 
 ---
 
@@ -277,8 +284,9 @@ a = np.array([1.0, 2.0, 3.0])  # デフォルトは float64、各要素 8 バイ
 b = np.array([1.0, 2.0, 3.0], dtype=np.float32)  # 各要素 4 バイト
 
 # メモリ比較
-big_f64 = np.random.rand(1000000)                        # float64
-big_f32 = np.random.rand(1000000).astype(np.float32)     # float32
+rng = np.random.default_rng(seed=42)
+big_f64 = rng.random(1_000_000)                          # float64
+big_f32 = rng.random(1_000_000).astype(np.float32)       # float32
 print(f"float64 のメモリ使用量: {big_f64.nbytes / 1024 / 1024:.1f} MB")  # 7.6 MB
 print(f"float32 のメモリ使用量: {big_f32.nbytes / 1024 / 1024:.1f} MB")  # 3.8 MB
 ```
@@ -332,7 +340,7 @@ mindmap
       np.array リストから作成
       np.zeros / ones / full
       np.arange / linspace
-      np.random.rand / randn / randint
+      rng.random / standard_normal / integers
       np.eye 単位行列
     配列の属性
       shape 形状
@@ -368,7 +376,8 @@ arr3 = np.full((3, 3), 7)
 arr4 = np.linspace(0, np.pi * 2, 100)
 
 # 5. 5×5 のランダムな整数行列を作成する（範囲 1〜50）
-arr5 = np.random.randint(1, 51, size=(5, 5))
+rng = np.random.default_rng(seed=42)
+arr5 = rng.integers(1, 51, size=(5, 5))
 ```
 
 ### 練習 2: 属性を確認する

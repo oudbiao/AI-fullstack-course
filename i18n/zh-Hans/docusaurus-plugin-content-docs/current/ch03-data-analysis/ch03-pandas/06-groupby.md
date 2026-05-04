@@ -347,15 +347,15 @@ print(ct2)  # 每行占比（各部门中初级/高级的比例）
 import pandas as pd
 import numpy as np
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
 
 orders = pd.DataFrame({
-    "月份": np.random.choice(["1月", "2月", "3月", "4月"], n),
-    "区域": np.random.choice(["华东", "华南", "华北", "西南"], n),
-    "商品": np.random.choice(["手机", "电脑", "耳机", "平板"], n),
-    "销量": np.random.randint(1, 50, n),
-    "单价": np.random.choice([99, 299, 999, 2999, 5999], n)
+    "月份": rng.choice(["1月", "2月", "3月", "4月"], n),
+    "区域": rng.choice(["华东", "华南", "华北", "西南"], n),
+    "商品": rng.choice(["手机", "电脑", "耳机", "平板"], n),
+    "销量": rng.integers(1, 50, n),
+    "单价": rng.choice([99, 299, 999, 2999, 5999], n)
 })
 orders["金额"] = orders["销量"] * orders["单价"]
 

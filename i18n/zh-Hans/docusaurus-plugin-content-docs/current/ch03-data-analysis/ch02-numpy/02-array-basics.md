@@ -125,17 +125,24 @@ print(e)                     # [0.  0.1 0.2 ... 0.9 1. ]
 ### 创建随机数组
 
 ```python
+# 新 NumPy 代码优先使用 default_rng()
+rng = np.random.default_rng(seed=42)
+
 # 0~1 之间的均匀分布随机数
-rand = np.random.rand(3, 4)       # 3×4
+rand = rng.random((3, 4))       # 3×4
 print(rand)
 
 # 标准正态分布随机数（均值0，标准差1）
-randn = np.random.randn(3, 4)     # 3×4
+randn = rng.standard_normal((3, 4))     # 3×4
 
 # 指定范围的随机整数
-randint = np.random.randint(1, 100, size=(3, 4))  # 1~99 之间的 3×4 整数
+randint = rng.integers(1, 100, size=(3, 4))  # 1~99 之间的 3×4 整数
 print(randint)
 ```
+
+:::tip 为什么这里用 `default_rng()`？
+很多旧教程会写 `np.random.rand()` 和 `np.random.randint()`，它们仍然能运行，但依赖全局随机状态。`np.random.default_rng()` 会创建独立的随机数生成器，在大项目里更容易复现，也更安全。
+:::
 
 ### 创建方法速查表
 
@@ -148,9 +155,9 @@ print(randint)
 | `np.eye()` | 单位矩阵 | `np.eye(4)` |
 | `np.arange()` | 等差数列（指定步长） | `np.arange(0, 10, 2)` |
 | `np.linspace()` | 等差数列（指定个数） | `np.linspace(0, 1, 100)` |
-| `np.random.rand()` | 均匀随机数 [0, 1) | `np.random.rand(3, 4)` |
-| `np.random.randn()` | 标准正态分布 | `np.random.randn(3, 4)` |
-| `np.random.randint()` | 随机整数 | `np.random.randint(0, 10, (3, 4))` |
+| `rng.random()` | 均匀随机数 [0, 1) | `rng.random((3, 4))` |
+| `rng.standard_normal()` | 标准正态分布 | `rng.standard_normal((3, 4))` |
+| `rng.integers()` | 随机整数 | `rng.integers(0, 10, size=(3, 4))` |
 
 ---
 
@@ -277,8 +284,9 @@ a = np.array([1.0, 2.0, 3.0])  # 默认 float64，每个元素 8 字节
 b = np.array([1.0, 2.0, 3.0], dtype=np.float32)  # 每个元素 4 字节
 
 # 内存对比
-big_f64 = np.random.rand(1000000)                        # float64
-big_f32 = np.random.rand(1000000).astype(np.float32)     # float32
+rng = np.random.default_rng(seed=42)
+big_f64 = rng.random(1_000_000)                          # float64
+big_f32 = rng.random(1_000_000).astype(np.float32)       # float32
 print(f"float64 占内存: {big_f64.nbytes / 1024 / 1024:.1f} MB")  # 7.6 MB
 print(f"float32 占内存: {big_f32.nbytes / 1024 / 1024:.1f} MB")  # 3.8 MB
 ```
@@ -332,7 +340,7 @@ mindmap
       np.array 从列表创建
       np.zeros / ones / full
       np.arange / linspace
-      np.random.rand / randn / randint
+      rng.random / standard_normal / integers
       np.eye 单位矩阵
     数组属性
       shape 形状
@@ -368,7 +376,8 @@ arr3 = np.full((3, 3), 7)
 arr4 = np.linspace(0, np.pi * 2, 100)
 
 # 5. 创建一个 5×5 的随机整数矩阵（范围 1~50）
-arr5 = np.random.randint(1, 51, size=(5, 5))
+rng = np.random.default_rng(seed=42)
+arr5 = rng.integers(1, 51, size=(5, 5))
 ```
 
 ### 练习 2：属性查看

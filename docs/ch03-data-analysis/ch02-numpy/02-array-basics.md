@@ -125,17 +125,24 @@ print(e)                     # [0.  0.1 0.2 ... 0.9 1. ]
 ### Creating Random Arrays
 
 ```python
+# New NumPy code should prefer default_rng()
+rng = np.random.default_rng(seed=42)
+
 # Uniformly distributed random numbers between 0 and 1
-rand = np.random.rand(3, 4)       # 3×4
+rand = rng.random((3, 4))       # 3×4
 print(rand)
 
 # Standard normal random numbers (mean 0, standard deviation 1)
-randn = np.random.randn(3, 4)     # 3×4
+randn = rng.standard_normal((3, 4))     # 3×4
 
 # Random integers within a specified range
-randint = np.random.randint(1, 100, size=(3, 4))  # 3×4 integers between 1 and 99
+randint = rng.integers(1, 100, size=(3, 4))  # 3×4 integers between 1 and 99
 print(randint)
 ```
+
+:::tip Why use `default_rng()` here?
+Older tutorials often use `np.random.rand()` and `np.random.randint()`. They still work, but they rely on global random state. `np.random.default_rng()` creates an independent random generator, which is easier to reproduce and safer in larger projects.
+:::
 
 ### Quick Reference Table for Creation Methods
 
@@ -148,9 +155,9 @@ print(randint)
 | `np.eye()` | Identity matrix | `np.eye(4)` |
 | `np.arange()` | Arithmetic sequence (specified step) | `np.arange(0, 10, 2)` |
 | `np.linspace()` | Arithmetic sequence (specified number of points) | `np.linspace(0, 1, 100)` |
-| `np.random.rand()` | Uniform random numbers in [0, 1) | `np.random.rand(3, 4)` |
-| `np.random.randn()` | Standard normal distribution | `np.random.randn(3, 4)` |
-| `np.random.randint()` | Random integers | `np.random.randint(0, 10, (3, 4))` |
+| `rng.random()` | Uniform random numbers in [0, 1) | `rng.random((3, 4))` |
+| `rng.standard_normal()` | Standard normal distribution | `rng.standard_normal((3, 4))` |
+| `rng.integers()` | Random integers | `rng.integers(0, 10, size=(3, 4))` |
 
 ---
 
@@ -277,8 +284,9 @@ a = np.array([1.0, 2.0, 3.0])  # Default float64, 8 bytes per element
 b = np.array([1.0, 2.0, 3.0], dtype=np.float32)  # 4 bytes per element
 
 # Memory comparison
-big_f64 = np.random.rand(1000000)                        # float64
-big_f32 = np.random.rand(1000000).astype(np.float32)     # float32
+rng = np.random.default_rng(seed=42)
+big_f64 = rng.random(1_000_000)                          # float64
+big_f32 = rng.random(1_000_000).astype(np.float32)       # float32
 print(f"float64 memory usage: {big_f64.nbytes / 1024 / 1024:.1f} MB")  # 7.6 MB
 print(f"float32 memory usage: {big_f32.nbytes / 1024 / 1024:.1f} MB")  # 3.8 MB
 ```
@@ -332,7 +340,7 @@ mindmap
       np.array Create from a list
       np.zeros / ones / full
       np.arange / linspace
-      np.random.rand / randn / randint
+      rng.random / standard_normal / integers
       np.eye Identity matrix
     Array Attributes
       shape Shape
@@ -368,7 +376,8 @@ arr3 = np.full((3, 3), 7)
 arr4 = np.linspace(0, np.pi * 2, 100)
 
 # 5. Create a 5×5 random integer matrix (range 1~50)
-arr5 = np.random.randint(1, 51, size=(5, 5))
+rng = np.random.default_rng(seed=42)
+arr5 = rng.integers(1, 51, size=(5, 5))
 ```
 
 ### Exercise 2: Check Attributes

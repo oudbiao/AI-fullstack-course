@@ -139,11 +139,11 @@ pd.date_range("2024-01-01", "2024-12-31", freq="W")  # 毎週
 
 ```python
 # 2024年の日次売上データをシミュレーション
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 dates = pd.date_range("2024-01-01", periods=365, freq="D")
 sales = pd.DataFrame({
     "日付": dates,
-    "売上": np.random.randint(5000, 20000, 365) + \
+    "売上": rng.integers(5000, 20000, 365) + \
               np.sin(np.arange(365) * 2 * np.pi / 365) * 3000  # 季節性を追加
 })
 sales = sales.set_index("日付")
@@ -156,7 +156,7 @@ print(sales.shape)  # (365, 1)
 ```python
 df = pd.DataFrame({
     "日付": pd.date_range("2024-01-01", periods=100, freq="D"),
-    "販売数": np.random.randint(10, 100, 100)
+    "販売数": rng.integers(10, 100, 100)
 })
 
 # dt アクセサで日付の要素を取り出す
@@ -317,7 +317,7 @@ df["登録から今日までの日数"] = (pd.Timestamp.now() - df["登録日時
 import pandas as pd
 import numpy as np
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 2年分の日次売上データを作成
 dates = pd.date_range("2023-01-01", "2024-12-31", freq="D")
@@ -329,7 +329,7 @@ sales = pd.DataFrame({
         10000 +                                    # 基本値
         np.sin(np.arange(n) * 2 * np.pi / 365) * 3000 +  # 季節性
         np.arange(n) * 5 +                         # 成長トレンド
-        np.random.normal(0, 1000, n)               # ランダムな変動
+        rng.normal(0, 1000, n)                     # ランダムな変動
     ).astype(int)
 }).set_index("日付")
 

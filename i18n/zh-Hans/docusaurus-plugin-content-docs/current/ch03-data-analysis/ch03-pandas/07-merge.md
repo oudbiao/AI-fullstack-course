@@ -295,11 +295,8 @@ flowchart TD
 
 ```python
 import pandas as pd
-import numpy as np
 
 # 创建三张表
-np.random.seed(42)
-
 # 学生表
 students = pd.DataFrame({
     "学号": [1, 2, 3, 4, 5],

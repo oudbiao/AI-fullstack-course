@@ -249,8 +249,8 @@ NumPy provides a rich set of statistical functions:
 ### Descriptive Statistics
 
 ```python
-np.random.seed(42)
-data = np.random.normal(loc=75, scale=10, size=100)  # Scores of 100 students
+rng = np.random.default_rng(seed=42)
+data = rng.normal(loc=75, scale=10, size=100)  # Scores of 100 students
 
 print("=== Descriptive Statistics ===")
 print(f"Mean (mean):     {np.mean(data):.2f}")
@@ -265,7 +265,8 @@ print(f"Range (ptp):      {np.ptp(data):.2f}")   # max - min
 ### Percentiles
 
 ```python
-data = np.random.normal(loc=75, scale=10, size=1000)
+rng = np.random.default_rng(seed=42)
+data = rng.normal(loc=75, scale=10, size=1000)
 
 # Percentiles
 print(f"25th percentile: {np.percentile(data, 25):.2f}")
@@ -283,11 +284,11 @@ print(f"Interquartile range (IQR): {iqr:.2f}")
 ### Correlation Coefficient
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # Height and weight are usually positively correlated
-height = np.random.normal(170, 8, 100)
-weight = height * 0.6 - 30 + np.random.normal(0, 5, 100)  # Approximate linear relationship + noise
+height = rng.normal(170, 8, 100)
+weight = height * 0.6 - 30 + rng.normal(0, 5, 100)  # Approximate linear relationship + noise
 
 # Compute the correlation coefficient matrix
 corr_matrix = np.corrcoef(height, weight)
@@ -302,7 +303,8 @@ print(f"Correlation coefficient: {corr_matrix[0, 1]:.4f}")  # ≈ 0.7~0.9 (posit
 ### Histogram Statistics
 
 ```python
-scores = np.random.normal(75, 10, 200)
+rng = np.random.default_rng(seed=42)
+scores = rng.normal(75, 10, 200)
 
 # Count how many scores fall into each range
 bins = [0, 60, 70, 80, 90, 100]
@@ -433,11 +435,11 @@ n_days = 250
 ### Exercise 3: Score Analysis
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # Generate scores for 200 students
-math_scores = np.random.normal(75, 12, 200).clip(0, 100)    # Math
-english_scores = np.random.normal(78, 10, 200).clip(0, 100)  # English
+math_scores = rng.normal(75, 12, 200).clip(0, 100)    # Math
+english_scores = rng.normal(78, 10, 200).clip(0, 100)  # English
 
 # 1. Compute the mean, standard deviation, and median for each subject
 # 2. Compute the correlation coefficient between the two subjects

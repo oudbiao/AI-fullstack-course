@@ -404,8 +404,8 @@ extra_scores = np.array([[70], [65], [80], [75], [90], [85], [78], [72], [88]])
 
 ```python
 # 一年 365 天的温度数据（假数据）
-np.random.seed(42)
-daily_temps = np.random.uniform(low=-5, high=38, size=360)  # 取 360 天方便分割
+rng = np.random.default_rng(seed=42)
+daily_temps = rng.uniform(low=-5, high=38, size=360)  # 取 360 天方便分割
 
 # 1. 重组成 12 个月 × 30 天
 # 2. 计算每月平均温度

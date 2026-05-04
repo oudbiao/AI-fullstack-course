@@ -249,8 +249,8 @@ NumPy には、豊富な統計関数があります。
 ### 記述統計
 
 ```python
-np.random.seed(42)
-data = np.random.normal(loc=75, scale=10, size=100)  # 100 人の学生の成績
+rng = np.random.default_rng(seed=42)
+data = rng.normal(loc=75, scale=10, size=100)  # 100 人の学生の成績
 
 print("=== 記述統計 ===")
 print(f"平均 (mean):     {np.mean(data):.2f}")
@@ -265,7 +265,8 @@ print(f"範囲 (ptp):      {np.ptp(data):.2f}")   # max - min
 ### パーセンタイル
 
 ```python
-data = np.random.normal(loc=75, scale=10, size=1000)
+rng = np.random.default_rng(seed=42)
+data = rng.normal(loc=75, scale=10, size=1000)
 
 # パーセンタイル
 print(f"25 パーセンタイル: {np.percentile(data, 25):.2f}")
@@ -283,11 +284,11 @@ print(f"四分位範囲 (IQR): {iqr:.2f}")
 ### 相関係数
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 身長と体重は通常、正の相関があります
-height = np.random.normal(170, 8, 100)
-weight = height * 0.6 - 30 + np.random.normal(0, 5, 100)  # おおよその線形関係 + ノイズ
+height = rng.normal(170, 8, 100)
+weight = height * 0.6 - 30 + rng.normal(0, 5, 100)  # おおよその線形関係 + ノイズ
 
 # 相関係数行列を計算
 corr_matrix = np.corrcoef(height, weight)
@@ -302,7 +303,8 @@ print(f"相関係数: {corr_matrix[0, 1]:.4f}")  # ≈ 0.7~0.9（正の相関）
 ### ヒストグラム統計
 
 ```python
-scores = np.random.normal(75, 10, 200)
+rng = np.random.default_rng(seed=42)
+scores = rng.normal(75, 10, 200)
 
 # 各点数帯の人数を集計
 bins = [0, 60, 70, 80, 90, 100]
@@ -433,11 +435,11 @@ n_days = 250
 ### 練習 3：成績分析
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 200 人の学生の成績を生成する
-math_scores = np.random.normal(75, 12, 200).clip(0, 100)    # 数学
-english_scores = np.random.normal(78, 10, 200).clip(0, 100)  # 英語
+math_scores = rng.normal(75, 12, 200).clip(0, 100)    # 数学
+english_scores = rng.normal(78, 10, 200).clip(0, 100)  # 英語
 
 # 1. それぞれの科目の平均、標準偏差、中央値を計算する
 # 2. 2 科目の相関係数を計算する

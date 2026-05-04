@@ -249,8 +249,8 @@ NumPy 提供了丰富的统计函数：
 ### 描述性统计
 
 ```python
-np.random.seed(42)
-data = np.random.normal(loc=75, scale=10, size=100)  # 100 个学生的成绩
+rng = np.random.default_rng(seed=42)
+data = rng.normal(loc=75, scale=10, size=100)  # 100 个学生的成绩
 
 print("=== 描述性统计 ===")
 print(f"均值 (mean):     {np.mean(data):.2f}")
@@ -265,7 +265,8 @@ print(f"极差 (ptp):      {np.ptp(data):.2f}")   # max - min
 ### 百分位数
 
 ```python
-data = np.random.normal(loc=75, scale=10, size=1000)
+rng = np.random.default_rng(seed=42)
+data = rng.normal(loc=75, scale=10, size=1000)
 
 # 百分位数
 print(f"25th 百分位: {np.percentile(data, 25):.2f}")
@@ -283,11 +284,11 @@ print(f"四分位距 (IQR): {iqr:.2f}")
 ### 相关系数
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 身高和体重通常正相关
-height = np.random.normal(170, 8, 100)
-weight = height * 0.6 - 30 + np.random.normal(0, 5, 100)  # 近似线性关系 + 噪声
+height = rng.normal(170, 8, 100)
+weight = height * 0.6 - 30 + rng.normal(0, 5, 100)  # 近似线性关系 + 噪声
 
 # 计算相关系数矩阵
 corr_matrix = np.corrcoef(height, weight)
@@ -302,7 +303,8 @@ print(f"相关系数: {corr_matrix[0, 1]:.4f}")  # ≈ 0.7~0.9（正相关）
 ### 直方图统计
 
 ```python
-scores = np.random.normal(75, 10, 200)
+rng = np.random.default_rng(seed=42)
+scores = rng.normal(75, 10, 200)
 
 # 统计各分数段人数
 bins = [0, 60, 70, 80, 90, 100]
@@ -433,11 +435,11 @@ n_days = 250
 ### 练习 3：成绩分析
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 生成 200 个学生的成绩
-math_scores = np.random.normal(75, 12, 200).clip(0, 100)    # 数学
-english_scores = np.random.normal(78, 10, 200).clip(0, 100)  # 英语
+math_scores = rng.normal(75, 12, 200).clip(0, 100)    # 数学
+english_scores = rng.normal(78, 10, 200).clip(0, 100)  # 英语
 
 # 1. 分别计算两科的均值、标准差、中位数
 # 2. 计算两科的相关系数

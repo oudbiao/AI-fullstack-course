@@ -95,7 +95,7 @@ Not for forcing interactivity into every single scenario.
 
 ```python
 # Install
-# pip install plotly
+# python -m pip install --upgrade plotly
 
 # Plotly Express: quick charting (recommended)
 import plotly.express as px
@@ -299,7 +299,7 @@ This table is especially useful for beginners because it brings “interactive c
 fig.write_html("my_chart.html")
 
 # Save as a static image (requires kaleido)
-# pip install kaleido
+# python -m pip install --upgrade kaleido
 fig.write_image("my_chart.png", scale=2)
 fig.write_image("my_chart.svg")
 ```
@@ -335,7 +335,7 @@ Common tools:
 A simple Dash example (just for awareness):
 
 ```python
-# pip install dash
+# python -m pip install --upgrade dash
 from dash import Dash, html, dcc
 import plotly.express as px
 

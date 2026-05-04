@@ -231,10 +231,10 @@ For example:
 ### Z-score Method
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 df = pd.DataFrame({
     "Salary": np.concatenate([
-        np.random.normal(20000, 5000, 97),  # normal data
+        rng.normal(20000, 5000, 97),  # normal data
         np.array([100000, 150000, 200000])    # outliers
     ])
 })

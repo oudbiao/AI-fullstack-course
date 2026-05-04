@@ -142,11 +142,11 @@ many things become hard to do naturally:
 
 ```python
 # Simulate daily sales data for 2024
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 dates = pd.date_range("2024-01-01", periods=365, freq="D")
 sales = pd.DataFrame({
     "Date": dates,
-    "Sales": np.random.randint(5000, 20000, 365) + \
+    "Sales": rng.integers(5000, 20000, 365) + \
               np.sin(np.arange(365) * 2 * np.pi / 365) * 3000  # Add seasonality
 })
 sales = sales.set_index("Date")
@@ -159,7 +159,7 @@ print(sales.shape)  # (365, 1)
 ```python
 df = pd.DataFrame({
     "Date": pd.date_range("2024-01-01", periods=100, freq="D"),
-    "Sales": np.random.randint(10, 100, 100)
+    "Sales": rng.integers(10, 100, 100)
 })
 
 # Use the dt accessor to extract date components
@@ -320,7 +320,7 @@ df["Days Since Signup"] = (pd.Timestamp.now() - df["Signup Time"]).dt.days
 import pandas as pd
 import numpy as np
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # Create 2 years of daily sales data
 dates = pd.date_range("2023-01-01", "2024-12-31", freq="D")
@@ -332,7 +332,7 @@ sales = pd.DataFrame({
         10000 +                                    # Base value
         np.sin(np.arange(n) * 2 * np.pi / 365) * 3000 +  # Seasonality
         np.arange(n) * 5 +                         # Growth trend
-        np.random.normal(0, 1000, n)               # Random fluctuation
+        rng.normal(0, 1000, n)                     # Random fluctuation
     ).astype(int)
 }).set_index("Date")
 

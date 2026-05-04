@@ -96,7 +96,7 @@ flowchart LR
 
 ```python
 # インストール
-# pip install plotly
+# python -m pip install --upgrade plotly
 
 # Plotly Express：素早くグラフを作る（おすすめ）
 import plotly.express as px
@@ -303,7 +303,7 @@ fig.show()
 fig.write_html("my_chart.html")
 
 # 静的画像として保存（kaleido のインストールが必要）
-# pip install kaleido
+# python -m pip install --upgrade kaleido
 fig.write_image("my_chart.png", scale=2)
 fig.write_image("my_chart.svg")
 ```
@@ -339,7 +339,7 @@ fig.write_image("my_chart.svg")
 簡単な Dash の例です（雰囲気だけ知ればOKです）。
 
 ```python
-# pip install dash
+# python -m pip install --upgrade dash
 from dash import Dash, html, dcc
 import plotly.express as px
 

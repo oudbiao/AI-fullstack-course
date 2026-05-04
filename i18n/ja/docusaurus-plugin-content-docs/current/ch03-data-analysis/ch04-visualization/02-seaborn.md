@@ -95,7 +95,7 @@ flowchart LR
 
 ```python
 # インストール
-# pip install seaborn
+# python -m pip install --upgrade seaborn
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -221,10 +221,10 @@ plt.show()
 
 ```python
 # 疑似的な実験データ: 各 x に複数の y 値がある
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 data = pd.DataFrame({
     "step": np.tile(np.arange(1, 51), 10),
-    "accuracy": np.tile(np.linspace(0.5, 0.95, 50), 10) + np.random.normal(0, 0.03, 500),
+    "accuracy": np.tile(np.linspace(0.5, 0.95, 50), 10) + rng.normal(0, 0.03, 500),
     "model": np.repeat(["モデル A", "モデル B"], 250)
 })
 

@@ -328,15 +328,15 @@ import pandas as pd
 import numpy as np
 
 # EC注文データを作成する
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 100
 orders = pd.DataFrame({
     "orderID": range(1001, 1001 + n),
-    "customer": np.random.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
-    "product_category": np.random.choice(["electronics", "clothing", "food", "books"], n),
-    "amount": np.random.randint(10, 500, n),
-    "quantity": np.random.randint(1, 10, n),
-    "is_returned": np.random.choice([True, False], n, p=[0.1, 0.9])
+    "customer": rng.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
+    "product_category": rng.choice(["electronics", "clothing", "food", "books"], n),
+    "amount": rng.integers(10, 500, n),
+    "quantity": rng.integers(1, 10, n),
+    "is_returned": rng.choice([True, False], n, p=[0.1, 0.9])
 })
 
 # データを確認する

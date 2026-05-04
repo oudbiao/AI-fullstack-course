@@ -231,10 +231,10 @@ df.drop_duplicates(subset=["姓名"], keep="last")  # 保留最后一条
 ### Z-score 方法
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 df = pd.DataFrame({
     "薪资": np.concatenate([
-        np.random.normal(20000, 5000, 97),  # 正常数据
+        rng.normal(20000, 5000, 97),  # 正常数据
         np.array([100000, 150000, 200000])    # 异常值
     ])
 })

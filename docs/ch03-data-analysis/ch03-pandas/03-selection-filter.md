@@ -328,15 +328,15 @@ import pandas as pd
 import numpy as np
 
 # Create a set of e-commerce order data
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 100
 orders = pd.DataFrame({
     "OrderID": range(1001, 1001 + n),
-    "Customer": np.random.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
-    "Category": np.random.choice(["Electronics", "Clothing", "Food", "Books"], n),
-    "Amount": np.random.randint(10, 500, n),
-    "Quantity": np.random.randint(1, 10, n),
-    "Returned": np.random.choice([True, False], n, p=[0.1, 0.9])
+    "Customer": rng.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
+    "Category": rng.choice(["Electronics", "Clothing", "Food", "Books"], n),
+    "Amount": rng.integers(10, 500, n),
+    "Quantity": rng.integers(1, 10, n),
+    "Returned": rng.choice([True, False], n, p=[0.1, 0.9])
 })
 
 # View the data

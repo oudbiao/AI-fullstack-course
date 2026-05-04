@@ -286,7 +286,8 @@ data = [
 df = pd.DataFrame(data, columns=["Name", "Age", "City"])
 
 # Method 3: Create from a NumPy array
-arr = np.random.randint(60, 100, size=(5, 3))
+rng = np.random.default_rng(seed=42)
+arr = rng.integers(60, 100, size=(5, 3))
 df = pd.DataFrame(arr, columns=["Chinese", "Math", "English"])
 
 # Method 4: Create from a dictionary of Series

@@ -167,7 +167,7 @@ When saving, use `encoding="utf-8-sig"` (UTF-8 with a BOM header), and Excel wil
 ## Reading and Writing Excel Files
 
 ```python
-# Read Excel (requires the openpyxl library: pip install openpyxl)
+# Read Excel (requires the openpyxl library: python -m pip install --upgrade openpyxl)
 df = pd.read_excel("data.xlsx")
 
 # Read a specific worksheet

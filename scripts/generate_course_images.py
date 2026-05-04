@@ -60,7 +60,9 @@ FALLBACK_PNG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQ
 
 # Course illustrations should prefer 1024x1792 vertical comic/explainer pages.
 # They read better on mobile and keep zh/en/ja variants visually consistent.
-# Use landscape only when a wide architecture map or comparison table is clearly easier to read.
+# Use landscape only by adding an explicit `allow_landscape: True` to a job.
+DEFAULT_COURSE_IMAGE_SIZE = "1024x1792"
+DEFAULT_COURSE_IMAGE_QUALITY = "high"
 IMAGE_JOBS: list[dict[str, Any]] = [
     {
         "filename": "ai-fullstack-hero.png",
@@ -9442,9 +9444,9 @@ HOMEPAGE_HISTORY_COMIC_FILENAMES = {
 }
 
 for job in IMAGE_JOBS:
-    if job["filename"] in HOMEPAGE_HISTORY_COMIC_FILENAMES:
-        job["size"] = "1024x1792"
-        job["quality"] = "high"
+    if not job.get("allow_landscape"):
+        job["size"] = DEFAULT_COURSE_IMAGE_SIZE
+        job["quality"] = DEFAULT_COURSE_IMAGE_QUALITY
 
 
 def parse_args() -> argparse.Namespace:

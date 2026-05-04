@@ -83,7 +83,7 @@ print(result)  # [11 22 33 44 55]
 
 ```bash
 # 用 pip 安装
-pip install numpy
+python -m pip install --upgrade numpy
 
 # 或用 conda 安装
 conda install numpy
@@ -287,7 +287,8 @@ print(f"总元素: {matrix.size}")  # 9
 import numpy as np
 
 # 模拟一张 4×4 的彩色图片（实际图片可能是 1920×1080×3）
-image = np.random.randint(0, 256, size=(4, 4, 3), dtype=np.uint8)
+rng = np.random.default_rng(seed=42)
+image = rng.integers(0, 256, size=(4, 4, 3), dtype=np.uint8)
 print(f"图片形状: {image.shape}")  # (4, 4, 3)  → 4 行 × 4 列 × 3 个颜色通道(RGB)
 print(f"总像素值: {image.size}")   # 48 个数字
 ```

@@ -411,8 +411,8 @@ final_prices = discounts * prices
 
 ```python
 # Generate random scores for 50 students (between 40 and 100)
-np.random.seed(42)
-scores = np.random.randint(40, 101, size=50)
+rng = np.random.default_rng(seed=42)
+scores = rng.integers(40, 101, size=50)
 
 # 1. Compute the mean, median, and standard deviation
 # 2. Find the highest score, lowest score, and their positions

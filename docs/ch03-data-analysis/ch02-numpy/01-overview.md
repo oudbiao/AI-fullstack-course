@@ -83,7 +83,7 @@ If you use Miniconda / Anaconda, NumPy is usually already installed. If not:
 
 ```bash
 # Install with pip
-pip install numpy
+python -m pip install --upgrade numpy
 
 # Or install with conda
 conda install numpy
@@ -287,7 +287,8 @@ For example, an RGB color image in a computer is a NumPy array:
 import numpy as np
 
 # Simulate a 4×4 color image (a real image might be 1920×1080×3)
-image = np.random.randint(0, 256, size=(4, 4, 3), dtype=np.uint8)
+rng = np.random.default_rng(seed=42)
+image = rng.integers(0, 256, size=(4, 4, 3), dtype=np.uint8)
 print(f"Image shape: {image.shape}")  # (4, 4, 3)  → 4 rows × 4 columns × 3 color channels (RGB)
 print(f"Total pixel values: {image.size}")   # 48 numbers
 ```

@@ -95,7 +95,7 @@ flowchart LR
 
 ```python
 # 安装
-# pip install plotly
+# python -m pip install --upgrade plotly
 
 # Plotly Express：快速绑图（推荐）
 import plotly.express as px
@@ -299,7 +299,7 @@ fig.show()
 fig.write_html("my_chart.html")
 
 # 保存为静态图片（需安装 kaleido）
-# pip install kaleido
+# python -m pip install --upgrade kaleido
 fig.write_image("my_chart.png", scale=2)
 fig.write_image("my_chart.svg")
 ```
@@ -335,7 +335,7 @@ fig.write_image("my_chart.svg")
 一个简单的 Dash 示例（了解即可）：
 
 ```python
-# pip install dash
+# python -m pip install --upgrade dash
 from dash import Dash, html, dcc
 import plotly.express as px
 

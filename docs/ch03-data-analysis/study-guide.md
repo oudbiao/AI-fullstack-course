@@ -15,6 +15,41 @@ The first time you learn data analysis, focus on one main flow: read the data in
 
 ![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-en.png)
 
+## The beginner mental model: a data detective workflow
+
+Think of every dataset as a case file. The goal is not to "use Pandas" or "draw charts"; the goal is to turn messy evidence into a conclusion that someone can trust.
+
+| Step | Question to ask | Common tools |
+|---|---|---|
+| Read | Where does the data come from? | `read_csv()`, `read_excel()`, SQL |
+| Inspect | What do the rows and columns mean? | `head()`, `info()`, `shape`, `dtypes` |
+| Clean | Is anything missing, duplicated, inconsistent, or extreme? | `isna()`, `drop_duplicates()`, `fillna()`, filtering |
+| Transform | What new fields or summaries do I need? | column calculation, `assign()`, `groupby()` |
+| Visualize | Which chart answers the question most directly? | bar, line, scatter, histogram, box plot |
+| Explain | What changed, what was found, and what are the limits? | Notebook notes, report paragraphs, chart captions |
+
+If you get lost, return to this sentence: **read the table, understand the columns, clean the obvious problems, summarize the important groups, then draw only the charts that answer a real question.**
+
+## Core words you must understand before memorizing APIs
+
+| Term | Plain explanation |
+|---|---|
+| `CSV` | A plain text table file; each row is a record, each comma separates columns |
+| `JSON` | A nested data format often used by APIs and web services |
+| `DataFrame` | A Pandas table with rows, columns, column names, and indexes |
+| `Series` | One column of a Pandas DataFrame |
+| `Index` | The row labels of a DataFrame; sometimes meaningful, sometimes just row numbers |
+| `shape` | The size of the data, usually `(rows, columns)` |
+| `dtype` | The data type of a column or array, such as integer, float, string, or datetime |
+| `missing value` | Empty or unknown data, usually represented by `NaN` or `None` |
+| `outlier` | A value that is unusually far away from most data |
+| `EDA` | Exploratory Data Analysis: first-pass exploration before modeling |
+| `groupby` | Split data by category, apply statistics to each group, then combine results |
+| `merge` / `join` | Combine tables by shared keys, such as user ID or product ID |
+| `axis` | The direction of an operation; in tables, `axis=0` usually means down rows and `axis=1` across columns |
+| `vectorization` | Let NumPy/Pandas operate on many values at once instead of writing Python loops |
+| `broadcasting` | NumPy automatically aligns small arrays with larger arrays when shapes are compatible |
+
 ## Recommended learning order
 
 In the first round, do some pure Python data processing warm-up to feel why specialized tools are needed.

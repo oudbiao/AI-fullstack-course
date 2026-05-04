@@ -345,15 +345,15 @@ print(ct2)  # Row-wise proportions (the share of Junior/Senior within each depar
 import pandas as pd
 import numpy as np
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
 
 orders = pd.DataFrame({
-    "Month": np.random.choice(["Jan", "Feb", "Mar", "Apr"], n),
-    "Region": np.random.choice(["East China", "South China", "North China", "Southwest"], n),
-    "Product": np.random.choice(["Phone", "Computer", "Headphones", "Tablet"], n),
-    "SalesVolume": np.random.randint(1, 50, n),
-    "UnitPrice": np.random.choice([99, 299, 999, 2999, 5999], n)
+    "Month": rng.choice(["Jan", "Feb", "Mar", "Apr"], n),
+    "Region": rng.choice(["East China", "South China", "North China", "Southwest"], n),
+    "Product": rng.choice(["Phone", "Computer", "Headphones", "Tablet"], n),
+    "SalesVolume": rng.integers(1, 50, n),
+    "UnitPrice": rng.choice([99, 299, 999, 2999, 5999], n)
 })
 orders["Amount"] = orders["SalesVolume"] * orders["UnitPrice"]
 

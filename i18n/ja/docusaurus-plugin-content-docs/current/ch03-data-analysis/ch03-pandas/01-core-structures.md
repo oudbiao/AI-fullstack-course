@@ -288,7 +288,8 @@ data = [
 df = pd.DataFrame(data, columns=["名前", "年齢", "都市"])
 
 # 方法 3：NumPy 配列から作成
-arr = np.random.randint(60, 100, size=(5, 3))
+rng = np.random.default_rng(seed=42)
+arr = rng.integers(60, 100, size=(5, 3))
 df = pd.DataFrame(arr, columns=["国語", "数学", "英語"])
 
 # 方法 4：Series の辞書から作成

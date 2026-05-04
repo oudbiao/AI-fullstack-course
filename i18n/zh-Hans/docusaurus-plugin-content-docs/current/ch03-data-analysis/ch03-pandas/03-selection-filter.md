@@ -328,15 +328,15 @@ import pandas as pd
 import numpy as np
 
 # 创建一份电商订单数据
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 100
 orders = pd.DataFrame({
     "订单ID": range(1001, 1001 + n),
-    "客户": np.random.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
-    "商品类别": np.random.choice(["电子", "服装", "食品", "图书"], n),
-    "金额": np.random.randint(10, 500, n),
-    "数量": np.random.randint(1, 10, n),
-    "是否退货": np.random.choice([True, False], n, p=[0.1, 0.9])
+    "客户": rng.choice(["Alice", "Bob", "Charlie", "Diana", "Eve"], n),
+    "商品类别": rng.choice(["电子", "服装", "食品", "图书"], n),
+    "金额": rng.integers(10, 500, n),
+    "数量": rng.integers(1, 10, n),
+    "是否退货": rng.choice([True, False], n, p=[0.1, 0.9])
 })
 
 # 查看数据

@@ -233,10 +233,10 @@ df.drop_duplicates(subset=["氏名"], keep="last")  # 最後の1件を残す
 ### Z-score 法
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 df = pd.DataFrame({
     "給与": np.concatenate([
-        np.random.normal(20000, 5000, 97),  # 正常データ
+        rng.normal(20000, 5000, 97),  # 正常データ
         np.array([100000, 150000, 200000])    # 外れ値
     ])
 })

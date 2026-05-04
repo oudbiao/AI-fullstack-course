@@ -347,15 +347,15 @@ print(ct2)  # 各行の割合（各部署内での初級/上級の比率）
 import pandas as pd
 import numpy as np
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 n = 200
 
 orders = pd.DataFrame({
-    "月": np.random.choice(["1月", "2月", "3月", "4月"], n),
-    "地域": np.random.choice(["東日本", "西日本", "北日本", "南日本"], n),
-    "商品": np.random.choice(["スマホ", "PC", "イヤホン", "タブレット"], n),
-    "販売数": np.random.randint(1, 50, n),
-    "単価": np.random.choice([99, 299, 999, 2999, 5999], n)
+    "月": rng.choice(["1月", "2月", "3月", "4月"], n),
+    "地域": rng.choice(["東日本", "西日本", "北日本", "南日本"], n),
+    "商品": rng.choice(["スマホ", "PC", "イヤホン", "タブレット"], n),
+    "販売数": rng.integers(1, 50, n),
+    "単価": rng.choice([99, 299, 999, 2999, 5999], n)
 })
 orders["売上"] = orders["販売数"] * orders["単価"]
 

@@ -295,11 +295,8 @@ As long as you think through these 4 questions first, many `merge / concat` prob
 
 ```python
 import pandas as pd
-import numpy as np
 
 # Create three tables
-np.random.seed(42)
-
 # Student table
 students = pd.DataFrame({
     "Student ID": [1, 2, 3, 4, 5],

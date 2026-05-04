@@ -404,8 +404,8 @@ extra_scores = np.array([[70], [65], [80], [75], [90], [85], [78], [72], [88]])
 
 ```python
 # 1年365日の気温データ（ダミーデータ）
-np.random.seed(42)
-daily_temps = np.random.uniform(low=-5, high=38, size=360)  # 分割しやすいように360日を使う
+rng = np.random.default_rng(seed=42)
+daily_temps = rng.uniform(low=-5, high=38, size=360)  # 分割しやすいように360日を使う
 
 # 1. 12 か月 × 30 日に再構成する
 # 2. 各月の平均気温を計算する

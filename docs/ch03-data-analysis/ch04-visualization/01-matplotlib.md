@@ -82,7 +82,7 @@ but also to build an intuition for:
 
 ```python
 # Install (usually already included)
-# pip install matplotlib
+# python -m pip install --upgrade matplotlib
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -287,11 +287,11 @@ plt.show()
 **Best for:** observing the relationship between two variables
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # Simulate height and weight data
-height = np.random.normal(170, 8, 100)
-weight = height * 0.65 - 40 + np.random.normal(0, 5, 100)
+height = rng.normal(170, 8, 100)
+weight = height * 0.65 - 40 + rng.normal(0, 5, 100)
 
 fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -321,8 +321,8 @@ plt.show()
 **Best for:** viewing the distribution of data
 
 ```python
-np.random.seed(42)
-scores = np.random.normal(75, 12, 500)  # Scores of 500 students
+rng = np.random.default_rng(seed=42)
+scores = rng.normal(75, 12, 500)  # Scores of 500 students
 
 fig, ax = plt.subplots(figsize=(8, 5))
 
@@ -501,10 +501,11 @@ axes[0, 0].set_title("Line Chart")
 axes[0, 1].bar(["A", "B", "C"], [3, 7, 5])
 axes[0, 1].set_title("Bar Chart")
 
-axes[1, 0].scatter(np.random.rand(50), np.random.rand(50))
+rng = np.random.default_rng(seed=42)
+axes[1, 0].scatter(rng.random(50), rng.random(50))
 axes[1, 0].set_title("Scatter Plot")
 
-axes[1, 1].hist(np.random.randn(200), bins=15)
+axes[1, 1].hist(rng.standard_normal(200), bins=15)
 axes[1, 1].set_title("Histogram")
 
 fig.suptitle("Four Basic Chart Types", fontsize=16, fontweight="bold")

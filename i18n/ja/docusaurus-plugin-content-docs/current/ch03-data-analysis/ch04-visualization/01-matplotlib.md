@@ -83,7 +83,7 @@ flowchart LR
 
 ```python
 # インストール（通常はすでに入っています）
-# pip install matplotlib
+# python -m pip install --upgrade matplotlib
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -289,11 +289,11 @@ plt.show()
 **適した場面：** 2 つの変数の関係を観察するとき
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 身長と体重のデータをシミュレーション
-height = np.random.normal(170, 8, 100)
-weight = height * 0.65 - 40 + np.random.normal(0, 5, 100)
+height = rng.normal(170, 8, 100)
+weight = height * 0.65 - 40 + rng.normal(0, 5, 100)
 
 fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -323,8 +323,8 @@ plt.show()
 **適した場面：** データの分布を確認するとき
 
 ```python
-np.random.seed(42)
-scores = np.random.normal(75, 12, 500)  # 500 人の学生の成績
+rng = np.random.default_rng(seed=42)
+scores = rng.normal(75, 12, 500)  # 500 人の学生の成績
 
 fig, ax = plt.subplots(figsize=(8, 5))
 
@@ -503,10 +503,11 @@ axes[0, 0].set_title("折れ線グラフ")
 axes[0, 1].bar(["A", "B", "C"], [3, 7, 5])
 axes[0, 1].set_title("棒グラフ")
 
-axes[1, 0].scatter(np.random.rand(50), np.random.rand(50))
+rng = np.random.default_rng(seed=42)
+axes[1, 0].scatter(rng.random(50), rng.random(50))
 axes[1, 0].set_title("散布図")
 
-axes[1, 1].hist(np.random.randn(200), bins=15)
+axes[1, 1].hist(rng.standard_normal(200), bins=15)
 axes[1, 1].set_title("ヒストグラム")
 
 fig.suptitle("4 種類の基本グラフ", fontsize=16, fontweight="bold")

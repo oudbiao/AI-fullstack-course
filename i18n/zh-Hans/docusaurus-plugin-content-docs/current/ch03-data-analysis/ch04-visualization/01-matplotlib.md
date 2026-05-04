@@ -82,7 +82,7 @@ flowchart LR
 
 ```python
 # 安装（通常已预装）
-# pip install matplotlib
+# python -m pip install --upgrade matplotlib
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -287,11 +287,11 @@ plt.show()
 **适合场景：** 观察两个变量之间的关系
 
 ```python
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # 模拟身高和体重数据
-height = np.random.normal(170, 8, 100)
-weight = height * 0.65 - 40 + np.random.normal(0, 5, 100)
+height = rng.normal(170, 8, 100)
+weight = height * 0.65 - 40 + rng.normal(0, 5, 100)
 
 fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -321,8 +321,8 @@ plt.show()
 **适合场景：** 查看数据的分布情况
 
 ```python
-np.random.seed(42)
-scores = np.random.normal(75, 12, 500)  # 500 个学生的成绩
+rng = np.random.default_rng(seed=42)
+scores = rng.normal(75, 12, 500)  # 500 个学生的成绩
 
 fig, ax = plt.subplots(figsize=(8, 5))
 
@@ -501,10 +501,11 @@ axes[0, 0].set_title("折线图")
 axes[0, 1].bar(["A", "B", "C"], [3, 7, 5])
 axes[0, 1].set_title("柱状图")
 
-axes[1, 0].scatter(np.random.rand(50), np.random.rand(50))
+rng = np.random.default_rng(seed=42)
+axes[1, 0].scatter(rng.random(50), rng.random(50))
 axes[1, 0].set_title("散点图")
 
-axes[1, 1].hist(np.random.randn(200), bins=15)
+axes[1, 1].hist(rng.standard_normal(200), bins=15)
 axes[1, 1].set_title("直方图")
 
 fig.suptitle("四种基本图表", fontsize=16, fontweight="bold")

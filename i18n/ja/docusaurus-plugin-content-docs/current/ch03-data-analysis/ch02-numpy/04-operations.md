@@ -411,8 +411,8 @@ final_prices = discounts * prices
 
 ```python
 # 50 人の学生のランダムな成績を生成する（40〜100 の範囲）
-np.random.seed(42)
-scores = np.random.randint(40, 101, size=50)
+rng = np.random.default_rng(seed=42)
+scores = rng.integers(40, 101, size=50)
 
 # 1. 平均、中央値、標準偏差を計算する
 # 2. 最高点、最低点とその位置を見つける

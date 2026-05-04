@@ -168,7 +168,7 @@ df.to_csv("output.tsv", index=False, sep="\t")
 ## Excel ファイルの読み書き
 
 ```python
-# Excel を読む（openpyxl ライブラリが必要：pip install openpyxl）
+# Excel を読む（openpyxl ライブラリが必要：python -m pip install --upgrade openpyxl）
 df = pd.read_excel("data.xlsx")
 
 # 特定のシートを読む

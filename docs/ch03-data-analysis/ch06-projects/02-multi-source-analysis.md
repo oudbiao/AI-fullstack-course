@@ -102,18 +102,18 @@ import json
 import sqlite3
 from datetime import datetime, timedelta
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # ---------- Order data ----------
 n_orders = 2000
 order_dates = pd.date_range('2024-01-01', '2024-12-31', freq='h')
-order_dates = np.random.choice(order_dates, n_orders)
+order_dates = rng.choice(order_dates, n_orders)
 
 orders = pd.DataFrame({
     'order_id': range(1, n_orders + 1),
-    'user_id': np.random.randint(1, 201, n_orders),       # 200 users
-    'product_id': np.random.randint(1, 51, n_orders),      # 50 products
-    'quantity': np.random.choice([1, 1, 1, 2, 2, 3], n_orders),
+    'user_id': rng.integers(1, 201, n_orders),       # 200 users
+    'product_id': rng.integers(1, 51, n_orders),      # 50 products
+    'quantity': rng.choice([1, 1, 1, 2, 2, 3], n_orders),
     'order_date': order_dates
 })
 
@@ -131,7 +131,7 @@ categories = ['Electronics', 'Clothing', 'Food', 'Home', 'Books']
 products = []
 
 for i in range(1, 51):
-    cat = np.random.choice(categories)
+    cat = rng.choice(categories)
     # Different categories have different price ranges
     price_ranges = {
         'Electronics': (200, 5000),
@@ -141,7 +141,7 @@ for i in range(1, 51):
         'Books': (20, 150),
     }
     low, high = price_ranges[cat]
-    price = round(np.random.uniform(low, high), 2)
+    price = round(rng.uniform(low, high), 2)
 
     products.append({
         'product_id': i,
@@ -167,7 +167,7 @@ cities = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Hangzhou", "Chengdu",
 users = pd.DataFrame({
     'user_id': range(1, 201),
     'name': [f'User_{i:03d}' for i in range(1, 201)],
-    'city': np.random.choice(cities, 200),
+    'city': rng.choice(cities, 200),
     'register_date': pd.date_range('2022-01-01', periods=200, freq='2D')
 })
 
@@ -768,10 +768,11 @@ Fetch data from a web API (such as weather data) and analyze the impact of weath
 
 ```python
 # Example: simulate weather data
+rng = np.random.default_rng(seed=42)
 weather = pd.DataFrame({
     'date': pd.date_range('2024-01-01', '2024-12-31'),
-    'temp': np.random.normal(20, 10, 366).clip(-5, 40),
-    'rain': np.random.choice([0, 0, 0, 1], 366)  # 0=sunny, 1=rainy
+    'temp': rng.normal(20, 10, 366).clip(-5, 40),
+    'rain': rng.choice([0, 0, 0, 1], 366)  # 0=sunny, 1=rainy
 })
 ```
 

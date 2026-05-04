@@ -409,7 +409,7 @@ SQLAlchemy is the most popular database toolkit in Python. It supports multiple 
 
 ```python
 # Install
-# pip install sqlalchemy
+# python -m pip install --upgrade sqlalchemy
 
 from sqlalchemy import create_engine
 import pandas as pd

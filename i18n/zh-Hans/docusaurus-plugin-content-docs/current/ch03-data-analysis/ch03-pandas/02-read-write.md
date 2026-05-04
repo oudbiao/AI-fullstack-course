@@ -167,7 +167,7 @@ df.to_csv("output.tsv", index=False, sep="\t")
 ## 读写 Excel 文件
 
 ```python
-# 读取 Excel（需要 openpyxl 库：pip install openpyxl）
+# 读取 Excel（需要 openpyxl 库：python -m pip install --upgrade openpyxl）
 df = pd.read_excel("data.xlsx")
 
 # 读取指定工作表

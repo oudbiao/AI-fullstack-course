@@ -411,8 +411,8 @@ final_prices = discounts * prices
 
 ```python
 # 生成 50 个学生的随机成绩（40~100 之间）
-np.random.seed(42)
-scores = np.random.randint(40, 101, size=50)
+rng = np.random.default_rng(seed=42)
+scores = rng.integers(40, 101, size=50)
 
 # 1. 计算均值、中位数、标准差
 # 2. 找出最高分、最低分和它们的位置

@@ -404,8 +404,8 @@ extra_scores = np.array([[70], [65], [80], [75], [90], [85], [78], [72], [88]])
 
 ```python
 # Temperature data for 365 days in a year (dummy data)
-np.random.seed(42)
-daily_temps = np.random.uniform(low=-5, high=38, size=360)  # Use 360 days for easier splitting
+rng = np.random.default_rng(seed=42)
+daily_temps = rng.uniform(low=-5, high=38, size=360)  # Use 360 days for easier splitting
 
 # 1. Reorganize into 12 months × 30 days
 # 2. Calculate the average temperature for each month

@@ -102,18 +102,18 @@ import json
 import sqlite3
 from datetime import datetime, timedelta
 
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 
 # ---------- 注文データ ----------
 n_orders = 2000
 order_dates = pd.date_range('2024-01-01', '2024-12-31', freq='h')
-order_dates = np.random.choice(order_dates, n_orders)
+order_dates = rng.choice(order_dates, n_orders)
 
 orders = pd.DataFrame({
     'order_id': range(1, n_orders + 1),
-    'user_id': np.random.randint(1, 201, n_orders),       # 200 人のユーザー
-    'product_id': np.random.randint(1, 51, n_orders),      # 50 商品
-    'quantity': np.random.choice([1, 1, 1, 2, 2, 3], n_orders),
+    'user_id': rng.integers(1, 201, n_orders),       # 200 人のユーザー
+    'product_id': rng.integers(1, 51, n_orders),      # 50 商品
+    'quantity': rng.choice([1, 1, 1, 2, 2, 3], n_orders),
     'order_date': order_dates
 })
 
@@ -131,7 +131,7 @@ categories = ['電子製品', '衣類', '食品', '家具', '書籍']
 products = []
 
 for i in range(1, 51):
-    cat = np.random.choice(categories)
+    cat = rng.choice(categories)
     # カテゴリごとに価格帯が異なる
     price_ranges = {
         '電子製品': (200, 5000),
@@ -141,7 +141,7 @@ for i in range(1, 51):
         '書籍': (20, 150),
     }
     low, high = price_ranges[cat]
-    price = round(np.random.uniform(low, high), 2)
+    price = round(rng.uniform(low, high), 2)
     
     products.append({
         'product_id': i,
@@ -167,7 +167,7 @@ cities = ['北京', '上海', '广州', '深圳', '杭州', '成都', '武汉', 
 users = pd.DataFrame({
     'user_id': range(1, 201),
     'name': [f'ユーザー_{i:03d}' for i in range(1, 201)],
-    'city': np.random.choice(cities, 200),
+    'city': rng.choice(cities, 200),
     'register_date': pd.date_range('2022-01-01', periods=200, freq='2D')
 })
 
@@ -772,10 +772,11 @@ mindmap
 
 ```python
 # 例：モックの天気データ
+rng = np.random.default_rng(seed=42)
 weather = pd.DataFrame({
     'date': pd.date_range('2024-01-01', '2024-12-31'),
-    'temp': np.random.normal(20, 10, 366).clip(-5, 40),
-    'rain': np.random.choice([0, 0, 0, 1], 366)  # 0=晴れ 1=雨
+    'temp': rng.normal(20, 10, 366).clip(-5, 40),
+    'rain': rng.choice([0, 0, 0, 1], 366)  # 0=晴れ 1=雨
 })
 ```
 
