@@ -20,6 +20,24 @@ keywords: [最大似然估计, MLE, MAP, 假设检验, A/B测试, 统计推断, 
 - 理解假设检验和 p 值（A/B 测试思维）
 - 用 Python 实现 MLE
 
+## 推断前先解码这些术语
+
+统计推断里有很多缩写，最好把它们当成一个流程来理解，而不是孤立背定义：
+
+| 术语 | 全称/含义 | 新人可以先问什么问题 |
+|---|---|---|
+| `MLE` | Maximum Likelihood Estimation，最大似然估计 | 哪组参数最能让已经看到的数据变得合理？ |
+| `MAP` | Maximum A Posteriori，最大后验估计 | 同时考虑数据和先验后，哪组参数最可信？ |
+| `EM` | Expectation-Maximization，期望最大化 | 有隐藏变量时，怎样一边猜隐藏量，一边更新参数？ |
+| `likelihood` | 似然 | 如果这个参数是真的，看到这批数据有多合理？ |
+| `log-likelihood` | 对数似然 | 用加法处理很多很小的概率，比直接连乘更稳定 |
+| `prior` | 先验 | 看到当前数据之前，我们原本相信什么？ |
+| `posterior` | 后验 | 结合数据和先验之后，我们更新成什么判断？ |
+| `p-value` | 零假设下的尾部概率 | 如果真的没有差异，当前结果有多不寻常？ |
+| `CI` | Confidence interval，置信区间 | 未知量比较可能落在哪个范围里？ |
+
+特别提醒：p 值 **不是** “零假设为真的概率”。它是在“假设零假设为真”的前提下，观察到当前这么极端结果的概率。
+
 ## 历史背景：MLE 和 EM 各自是怎么来的？
 
 这一节里有两个特别值得知道的历史节点：
@@ -172,6 +190,12 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+预期输出：
+
+```text
+MLE 估计: p = 0.800
+```
+
 ### 1.3 MLE 的数学直觉
 
 MLE 的答案其实很简单：**p = 正面次数 / 总次数 = 8/10 = 0.8**
@@ -208,6 +232,7 @@ for ax, n in zip(axes, n_experiments):
     ll = np.exp(ll - ll.max())  # 归一化
 
     p_mle = heads / n
+    print(f"n={n:4d}, 正面={heads:4d}, MLE={p_mle:.3f}")
 
     ax.plot(p_vals, ll, color='steelblue', linewidth=2)
     ax.axvline(x=true_p, color='green', linestyle='--', label=f'真实 p={true_p}')
@@ -219,6 +244,16 @@ for ax, n in zip(axes, n_experiments):
 plt.suptitle('数据越多，MLE 越准、越确定（曲线越窄）', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+使用 `seed=42` 时，预期输出：
+
+```text
+n=  10, 正面=   5, MLE=0.500
+n=  50, 正面=  31, MLE=0.620
+n= 100, 正面=  69, MLE=0.690
+n= 500, 正面= 318, MLE=0.636
+n=2000, 正面=1212, MLE=0.606
 ```
 
 **解读**：数据越多，似然函数的峰越窄、越接近真实值。这就是"大数据"的力量。
@@ -268,7 +303,7 @@ prior = stats.beta.pdf(p_values, a=5, b=5)  # 以 0.5 为中心的先验
 
 # 后验 ∝ 似然 × 先验
 posterior = likelihood * prior
-posterior = posterior / np.trapz(posterior, p_values)  # 归一化
+posterior = posterior / np.trapezoid(posterior, p_values)  # 归一化
 
 # 找最大值
 p_mle = p_values[np.argmax(likelihood)]
@@ -279,11 +314,11 @@ print(f"MAP: p = {p_map:.3f}")
 
 # 可视化
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(p_values, likelihood / np.trapz(likelihood, p_values),
+ax.plot(p_values, likelihood / np.trapezoid(likelihood, p_values),
         '--', color='coral', linewidth=2, label='似然函数')
-ax.plot(p_values, prior / np.trapz(prior, p_values),
+ax.plot(p_values, prior / np.trapezoid(prior, p_values),
         '--', color='green', linewidth=2, label='先验')
-ax.plot(p_values, posterior, color='steelblue', width=0.01, label='后验')
+ax.plot(p_values, posterior, color='steelblue', linewidth=2, label='后验')
 ax.axvline(x=p_mle, color='coral', linestyle=':', alpha=0.7, label=f'MLE = {p_mle:.2f}')
 ax.axvline(x=p_map, color='steelblue', linestyle=':', alpha=0.7, label=f'MAP = {p_map:.2f}')
 ax.set_xlabel('p')
@@ -294,9 +329,16 @@ ax.grid(True, alpha=0.3)
 plt.show()
 ```
 
+预期输出：
+
+```text
+MLE: p = 0.990
+MAP: p = 0.637
+```
+
 **解读**：
-- MLE 给出 p=1.0（完全被少量数据带偏）
-- MAP 给出 p≈0.69（在数据和先验之间折中）
+- MLE 给出接近 p=1.0 的结果（完全被少量数据带偏）
+- MAP 给出 p≈0.64（在数据和先验之间折中）
 - 随着数据增多，MAP 和 MLE 会趋于一致
 
 ### 2.3 MLE vs MAP
@@ -344,11 +386,13 @@ flowchart TD
 - p 值小（比如 0.01）→ "如果真没差异，这种结果几乎不可能出现" → 差异是真实的
 - p 值大（比如 0.3）→ "就算没有真实差异，这种结果也很常见" → 可能只是随机波动
 
+措辞上要小心：p 值并不能证明备择假设一定为真。它只是在告诉你，在零假设成立时，当前结果是否“不寻常”。真实产品里还要同时检查样本量、实验设计、业务收益，以及有没有一次性跑太多检验。
+
 ### 3.4 A/B 测试实战
 
 ```python
 # 模拟 A/B 测试
-rng = np.random.default_rng(seed=42)
+rng = np.random.default_rng(seed=2)
 
 # A 组：蓝色按钮，真实点击率 10%
 n_a = 1000
@@ -385,11 +429,23 @@ else:
     print("→ p >= 0.05，差异不显著，可能是随机波动。")
 ```
 
+使用 `seed=2` 时，预期输出：
+
+```text
+A 组点击率: 10.3% (103/1000)
+B 组点击率: 12.9% (129/1000)
+差异: 2.6%
+
+z 统计量: 1.816
+p 值: 0.0347
+→ p < 0.05，差异显著！B 版确实更好。
+```
+
 ### 3.5 用模拟理解 p 值
 
 ```python
 # 模拟：如果 A 和 B 真的没有差异（都是 10%），会看到多大的差异？
-rng = np.random.default_rng(seed=42)
+rng = np.random.default_rng(seed=2)
 n_simulations = 10000
 simulated_diffs = []
 
@@ -421,6 +477,18 @@ plt.title('p 值的直觉：观测到的差异有多"不寻常"？')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+如果想做数值检查，可以加一行：
+
+```python
+print(f"模拟 p 值: {p_sim:.4f}")
+```
+
+使用 `seed=2` 时，预期输出：
+
+```text
+模拟 p 值: 0.0262
 ```
 
 ---
@@ -460,6 +528,14 @@ log_likelihood = np.mean(
 )
 print(f"对数似然: {log_likelihood:.4f}")
 print(f"交叉熵 = -对数似然: {-log_likelihood:.4f}")
+```
+
+预期输出：
+
+```text
+交叉熵损失: 0.2530
+对数似然: -0.2530
+交叉熵 = -对数似然: 0.2530
 ```
 
 :::info 为什么这很重要？
@@ -519,10 +595,87 @@ flowchart LR
 2. 画出似然函数
 3. 如果先验是 Beta(10, 10)，MAP 估计是多少？
 
+参考实现：
+
+```python
+n = 100
+k = 62
+p_vals = np.linspace(0.01, 0.99, 1000)
+
+likelihood = p_vals**k * (1 - p_vals)**(n - k)
+p_mle = p_vals[np.argmax(likelihood)]
+
+prior = stats.beta.pdf(p_vals, 10, 10)
+posterior = likelihood * prior
+posterior = posterior / np.trapezoid(posterior, p_vals)
+p_map = p_vals[np.argmax(posterior)]
+
+print(f"MLE 估计: {p_mle:.3f}")
+print(f"Beta(10, 10) 先验下的 MAP 估计: {p_map:.3f}")
+```
+
+预期输出：
+
+```text
+MLE 估计: 0.620
+Beta(10, 10) 先验下的 MAP 估计: 0.602
+```
+
 ### 练习 2：A/B 测试
 
 模拟一个 A/B 测试：A 组（n=500）真实转化率 8%，B 组（n=500）真实转化率 8%（没有差异）。运行 1000 次实验，统计有多少次 p 值小于 0.05（这就是"假阳率"，理论上应该约 5%）。
 
+参考实现：
+
+```python
+rng = np.random.default_rng(seed=42)
+false_positives = 0
+n_runs = 1000
+
+for _ in range(n_runs):
+    clicks_a = rng.binomial(500, 0.08)
+    clicks_b = rng.binomial(500, 0.08)
+    rate_a = clicks_a / 500
+    rate_b = clicks_b / 500
+
+    p_pool = (clicks_a + clicks_b) / 1000
+    se = np.sqrt(p_pool * (1 - p_pool) * (1/500 + 1/500))
+    if se == 0:
+        continue
+
+    z = (rate_b - rate_a) / se
+    p_value = 2 * (1 - norm.cdf(abs(z)))  # 双侧检验
+    false_positives += p_value < 0.05
+
+print(f"假阳率: {false_positives / n_runs:.1%} ({false_positives}/{n_runs})")
+```
+
+使用 `seed=42` 时，预期输出：
+
+```text
+假阳率: 3.9% (39/1000)
+```
+
 ### 练习 3：MLE 估计正态分布
 
 从 N(5, 2) 生成 200 个样本，用 MLE 估计均值和标准差（正态分布的 MLE：均值=样本均值，标准差=样本标准差），和真实值对比。
+
+参考实现：
+
+```python
+rng = np.random.default_rng(seed=42)
+samples = rng.normal(5, 2, 200)
+
+mu_hat = samples.mean()
+sigma_hat = np.sqrt(((samples - mu_hat) ** 2).mean())
+
+print(f"估计均值: {mu_hat:.3f}（真实均值: 5）")
+print(f"估计标准差: {sigma_hat:.3f}（真实标准差: 2）")
+```
+
+预期输出：
+
+```text
+估计均值: 4.939（真实均值: 5）
+估计标准差: 1.759（真实标准差: 2）
+```

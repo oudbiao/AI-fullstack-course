@@ -20,6 +20,24 @@ In the previous section, we learned about various probability distributions. But
 - Understand hypothesis testing and p-values (A/B testing mindset)
 - Implement MLE in Python
 
+## Terms to Decode Before Inference
+
+Statistical inference has many compact terms. Read them as a workflow rather than as isolated definitions:
+
+| Term | Full name / meaning | Beginner-friendly question |
+|---|---|---|
+| `MLE` | Maximum Likelihood Estimation | Which parameters make the observed data most likely? |
+| `MAP` | Maximum A Posteriori | Which parameters are most plausible after combining data and prior belief? |
+| `EM` | Expectation-Maximization | If some variables are hidden, how can we alternately guess them and update parameters? |
+| `likelihood` | Probability of data under a parameter | If this parameter were true, how likely would this dataset be? |
+| `log-likelihood` | Log of likelihood | A numerically stable way to add many probability terms instead of multiplying tiny numbers |
+| `prior` | Belief before seeing current data | What did we believe before this dataset? |
+| `posterior` | Belief after seeing data | What do we believe after combining data and prior? |
+| `p-value` | Tail probability under the null hypothesis | If there were no real difference, how unusual is the observed result? |
+| `CI` | Confidence interval | A range of plausible values for an unknown quantity |
+
+Important warning: a p-value is **not** “the probability that the null hypothesis is true.” It is the probability of seeing a result this extreme **assuming the null hypothesis were true**.
+
 ## Historical Background: How Did MLE and EM Come About?
 
 There are two especially important historical milestones in this section:
@@ -172,6 +190,12 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected output:
+
+```text
+MLE estimate: p = 0.800
+```
+
 ### 1.3 Mathematical intuition behind MLE
 
 The answer from MLE is actually very simple: **p = number of heads / total number of tosses = 8/10 = 0.8**
@@ -208,6 +232,7 @@ for ax, n in zip(axes, n_experiments):
     ll = np.exp(ll - ll.max())  # Normalize
 
     p_mle = heads / n
+    print(f"n={n:4d}, heads={heads:4d}, MLE={p_mle:.3f}")
 
     ax.plot(p_vals, ll, color='steelblue', linewidth=2)
     ax.axvline(x=true_p, color='green', linestyle='--', label=f'True p={true_p}')
@@ -219,6 +244,16 @@ for ax, n in zip(axes, n_experiments):
 plt.suptitle('More data means a more accurate and more certain MLE (the curve becomes narrower)', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+Expected output with `seed=42`:
+
+```text
+n=  10, heads=   5, MLE=0.500
+n=  50, heads=  31, MLE=0.620
+n= 100, heads=  69, MLE=0.690
+n= 500, heads= 318, MLE=0.636
+n=2000, heads=1212, MLE=0.606
 ```
 
 **Interpretation**: The more data you have, the narrower the peak of the likelihood function and the closer it gets to the true value. This is the power of "big data."
@@ -268,7 +303,7 @@ prior = stats.beta.pdf(p_values, a=5, b=5)  # Prior centered at 0.5
 
 # Posterior ∝ likelihood × prior
 posterior = likelihood * prior
-posterior = posterior / np.trapz(posterior, p_values)  # Normalize
+posterior = posterior / np.trapezoid(posterior, p_values)  # Normalize
 
 # Find the maximum
 p_mle = p_values[np.argmax(likelihood)]
@@ -279,11 +314,11 @@ print(f"MAP: p = {p_map:.3f}")
 
 # Visualization
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(p_values, likelihood / np.trapz(likelihood, p_values),
+ax.plot(p_values, likelihood / np.trapezoid(likelihood, p_values),
         '--', color='coral', linewidth=2, label='Likelihood function')
-ax.plot(p_values, prior / np.trapz(prior, p_values),
+ax.plot(p_values, prior / np.trapezoid(prior, p_values),
         '--', color='green', linewidth=2, label='Prior')
-ax.plot(p_values, posterior, color='steelblue', width=0.01, label='Posterior')
+ax.plot(p_values, posterior, color='steelblue', linewidth=2, label='Posterior')
 ax.axvline(x=p_mle, color='coral', linestyle=':', alpha=0.7, label=f'MLE = {p_mle:.2f}')
 ax.axvline(x=p_map, color='steelblue', linestyle=':', alpha=0.7, label=f'MAP = {p_map:.2f}')
 ax.set_xlabel('p')
@@ -294,9 +329,16 @@ ax.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected output:
+
+```text
+MLE: p = 0.990
+MAP: p = 0.637
+```
+
 **Interpretation**:
-- MLE gives p = 1.0 (completely biased by very little data)
-- MAP gives p≈0.69 (a compromise between data and prior)
+- MLE gives p close to 1.0 (completely biased by very little data)
+- MAP gives p≈0.64 (a compromise between data and prior)
 - As the amount of data increases, MAP and MLE will converge
 
 ### 2.3 MLE vs MAP
@@ -344,11 +386,13 @@ flowchart TD
 - Small p-value (for example, 0.01) → "If there were really no difference, this result would almost never happen" → the difference is real
 - Large p-value (for example, 0.3) → "Even if there were no real difference, this result would still be common" → it may just be random fluctuation
 
+Be careful with wording: p-value does not prove the alternative hypothesis. It only tells you whether the observed result is unusual under the null hypothesis. In real products, you should also check sample size, experiment design, business impact, and whether you ran many tests at once.
+
 ### 3.4 A/B testing in practice
 
 ```python
 # Simulate an A/B test
-rng = np.random.default_rng(seed=42)
+rng = np.random.default_rng(seed=2)
 
 # Group A: blue button, true click-through rate 10%
 n_a = 1000
@@ -385,11 +429,23 @@ else:
     print("→ p >= 0.05, the difference is not significant and may be due to random fluctuation.")
 ```
 
+Expected output with `seed=2`:
+
+```text
+Group A click-through rate: 10.3% (103/1000)
+Group B click-through rate: 12.9% (129/1000)
+Difference: 2.6%
+
+z statistic: 1.816
+p-value: 0.0347
+→ p < 0.05, the difference is significant! Version B is indeed better.
+```
+
 ### 3.5 Understanding p-values through simulation
 
 ```python
 # Simulation: if A and B really had no difference (both 10%), how large a difference would we see?
-rng = np.random.default_rng(seed=42)
+rng = np.random.default_rng(seed=2)
 n_simulations = 10000
 simulated_diffs = []
 
@@ -421,6 +477,18 @@ plt.title('Intuition for p-values: how "unusual" is the observed difference?')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+```
+
+Add this line if you want a numeric check:
+
+```python
+print(f"Simulation p-value: {p_sim:.4f}")
+```
+
+Expected output with `seed=2`:
+
+```text
+Simulation p-value: 0.0262
 ```
 
 ---
@@ -460,6 +528,14 @@ log_likelihood = np.mean(
 )
 print(f"Log-likelihood: {log_likelihood:.4f}")
 print(f"Cross-entropy = -log-likelihood: {-log_likelihood:.4f}")
+```
+
+Expected output:
+
+```text
+Cross-entropy loss: 0.2530
+Log-likelihood: -0.2530
+Cross-entropy = -log-likelihood: 0.2530
 ```
 
 :::info Why is this important?
@@ -519,10 +595,87 @@ Toss a coin 100 times and get 62 heads.
 2. Plot the likelihood function
 3. If the prior is Beta(10, 10), what is the MAP estimate?
 
+Reference implementation:
+
+```python
+n = 100
+k = 62
+p_vals = np.linspace(0.01, 0.99, 1000)
+
+likelihood = p_vals**k * (1 - p_vals)**(n - k)
+p_mle = p_vals[np.argmax(likelihood)]
+
+prior = stats.beta.pdf(p_vals, 10, 10)
+posterior = likelihood * prior
+posterior = posterior / np.trapezoid(posterior, p_vals)
+p_map = p_vals[np.argmax(posterior)]
+
+print(f"MLE estimate: {p_mle:.3f}")
+print(f"MAP estimate with Beta(10, 10): {p_map:.3f}")
+```
+
+Expected output:
+
+```text
+MLE estimate: 0.620
+MAP estimate with Beta(10, 10): 0.602
+```
+
 ### Exercise 2: A/B Testing
 
 Simulate an A/B test: Group A (n=500) has a true conversion rate of 8%, and Group B (n=500) has a true conversion rate of 8% (no difference). Run 1000 experiments and count how many times the p-value is less than 0.05 (this is the "false positive rate," which should be about 5% in theory).
 
+Reference implementation:
+
+```python
+rng = np.random.default_rng(seed=42)
+false_positives = 0
+n_runs = 1000
+
+for _ in range(n_runs):
+    clicks_a = rng.binomial(500, 0.08)
+    clicks_b = rng.binomial(500, 0.08)
+    rate_a = clicks_a / 500
+    rate_b = clicks_b / 500
+
+    p_pool = (clicks_a + clicks_b) / 1000
+    se = np.sqrt(p_pool * (1 - p_pool) * (1/500 + 1/500))
+    if se == 0:
+        continue
+
+    z = (rate_b - rate_a) / se
+    p_value = 2 * (1 - norm.cdf(abs(z)))  # two-sided test
+    false_positives += p_value < 0.05
+
+print(f"False positive rate: {false_positives / n_runs:.1%} ({false_positives}/{n_runs})")
+```
+
+Expected output with `seed=42`:
+
+```text
+False positive rate: 3.9% (39/1000)
+```
+
 ### Exercise 3: MLE for a Normal Distribution
 
 Generate 200 samples from N(5, 2), use MLE to estimate the mean and standard deviation (for a normal distribution, the MLE is: mean = sample mean, standard deviation = sample standard deviation), and compare with the true values.
+
+Reference implementation:
+
+```python
+rng = np.random.default_rng(seed=42)
+samples = rng.normal(5, 2, 200)
+
+mu_hat = samples.mean()
+sigma_hat = np.sqrt(((samples - mu_hat) ** 2).mean())
+
+print(f"Estimated mean: {mu_hat:.3f} (true mean: 5)")
+print(f"Estimated std: {sigma_hat:.3f} (true std: 2)")
+```
+
+Expected output:
+
+```text
+Estimated mean: 4.939 (true mean: 5)
+Estimated std: 1.759 (true std: 2)
+```
