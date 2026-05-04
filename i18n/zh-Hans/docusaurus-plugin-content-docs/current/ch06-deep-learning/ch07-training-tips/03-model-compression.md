@@ -33,6 +33,12 @@ keywords: [model compression, quantization, pruning, distillation, deployment]
 
 模型压缩更适合从部署问题反推，而不是从方法名出发：
 
+![模型压缩取舍图](/img/course/ch06-model-compression-tradeoff.png)
+
+:::tip 读图提示
+从上往下读。先找部署瓶颈，再选压缩路径，最后重新测大小、延迟和准确率。只有任务压缩后还能正常工作，这个取舍才有意义。
+:::
+
 ```mermaid
 flowchart LR
     A["部署痛点"] --> B["内存不够 -> 量化"]

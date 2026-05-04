@@ -438,6 +438,12 @@ Features:
 
 The original Transformer paper mainly introduced an encoder-decoder stack for sequence-to-sequence tasks such as machine translation. Modern large language models usually use a decoder-only stack optimized for next-token prediction and large-scale pretraining. The backbone is still Transformer, but the design choices are different.
 
+![Early Transformer vs modern LLM decoder visual comparison](/img/course/ch06-transformer-early-modern-decoder-en.png)
+
+:::tip How to read this diagram
+Read it from top to bottom. The left side shows the original post-norm encoder-decoder design; the right side shows the modern pre-norm decoder-only pattern. The names changed because large models need more stable training, lower inference cost, and better long-context behavior.
+:::
+
 ```mermaid
 flowchart TD
     A["Early Transformer<br/>Attention -> Add & Norm -> FFN -> Add & Norm"] --> B["LayerNorm"]

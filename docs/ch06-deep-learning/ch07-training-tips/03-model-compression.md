@@ -33,6 +33,12 @@ So the key idea in this lesson is not memorizing terms, but building a very prac
 
 Model compression is better understood by starting from deployment problems, not from method names:
 
+![Model compression trade-off map](/img/course/ch06-model-compression-tradeoff-en.png)
+
+:::tip Reading the diagram
+Start from the top. First find the deployment bottleneck, then choose a compression path, then measure size, latency, and accuracy again. Compression is only useful if the task still works after the trade-off.
+:::
+
 ```mermaid
 flowchart LR
     A["Deployment pain points"] --> B["Not enough memory -> Quantization"]

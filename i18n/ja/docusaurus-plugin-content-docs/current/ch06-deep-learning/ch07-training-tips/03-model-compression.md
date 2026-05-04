@@ -33,6 +33,12 @@ keywords: [model compression, quantization, pruning, distillation, deployment]
 
 モデル圧縮は、方法名から考えるよりも、デプロイの問題から逆算すると理解しやすいです。
 
+![モデル圧縮のトレードオフ図](/img/course/ch06-model-compression-tradeoff-ja.png)
+
+:::tip 図の読み方
+上から下へ読んでください。まずデプロイ上のボトルネックを見つけ、次に圧縮方法を選び、最後にサイズ・遅延・精度をもう一度測ります。圧縮してもタスクが動くなら、そのトレードオフには意味があります。
+:::
+
 ```mermaid
 flowchart LR
     A["デプロイ上の課題"] --> B["メモリ不足 -> 量子化"]

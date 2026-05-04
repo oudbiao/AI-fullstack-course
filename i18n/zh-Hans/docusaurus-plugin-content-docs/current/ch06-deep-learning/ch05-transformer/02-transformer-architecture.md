@@ -440,6 +440,12 @@ Decoder Block 通常会多一个模块：
 
 最早的 Transformer 论文，主要是把它当作序列到序列任务的编码器-解码器架构来使用，比如机器翻译。现代大语言模型通常使用 decoder-only 结构，并且优化的是“下一个 token 预测”和大规模预训练。骨架还是 Transformer，但设计选择已经不一样了。
 
+![早期 Transformer 与现代 LLM decoder 视觉对比图](/img/course/ch06-transformer-early-modern-decoder.png)
+
+:::tip 读图提示
+从上往下读这张图。左边是原版 post-norm 的 encoder-decoder 思路，右边是现代 pre-norm 的 decoder-only 思路。名字变多不是为了炫技，而是为了解决更深模型训练稳定性、推理成本和长上下文能力这些真实问题。
+:::
+
 ```mermaid
 flowchart TD
     A["早期 Transformer<br/>Attention -> Add & Norm -> FFN -> Add & Norm"] --> B["LayerNorm"]
