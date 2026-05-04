@@ -53,6 +53,23 @@ So clustering is not just “letting the machine group things automatically.”
 At its core, it is about:
 **how to find structure in data when labels are not available.**
 
+![Clustering hypothesis comic](/img/course/ch05-clustering-hypothesis-comic-en.png)
+
+Read this comic from top to bottom: clustering starts from an unlabeled pile of data, proposes one possible grouping, checks whether that grouping is compact and separated, and finally asks whether the groups mean anything in the real project. That last step matters because a beautiful plot can still be useless if nobody can act on the groups.
+
+### Keyword Decoder Before You Start
+
+| Term | Beginner-friendly meaning | Why it matters here |
+|---|---|---|
+| `cluster` | A group of data points that look similar under the chosen features | The whole section is about how to form and interpret these groups |
+| `centroid` | The center point of a cluster, usually the average of its members | K-Means repeatedly moves centroids until the groups stop changing |
+| `inertia_` / SSE | Sum of Squared Errors; a measure of how spread out points are inside clusters | Lower is usually more compact, but always decreases when K increases |
+| `silhouette_score` | A score that checks both compactness and separation | It helps you compare candidate K values, not prove a perfect answer |
+| `eps` | The neighborhood radius in DBSCAN | Too small creates many tiny clusters; too large merges everything |
+| `min_samples` | Minimum nearby points needed to become a dense core point | It controls how strict DBSCAN is about calling an area “dense” |
+| `dendrogram` | A tree diagram showing how clusters merge step by step | It makes hierarchical clustering easier to inspect visually |
+| `baseline` | A simple first model used as a comparison point | K-Means is often the baseline before trying more complex clustering |
+
 ---
 
 ## 1. Intuition for Clustering
@@ -127,6 +144,9 @@ from sklearn.datasets import make_blobs
 # Generate data with 3 clusters
 X, y_true = make_blobs(n_samples=300, centers=3, cluster_std=0.8, random_state=42)
 
+print(f"X shape: {X.shape}")
+print(f"Hidden true groups: {np.unique(y_true)}")
+
 plt.figure(figsize=(8, 6))
 plt.scatter(X[:, 0], X[:, 1], s=30, alpha=0.7, color='gray')
 plt.title('Unlabeled data — how many groups can you see?')
@@ -135,6 +155,15 @@ plt.ylabel('Feature 2')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+Expected output:
+
+```text
+X shape: (300, 2)
+Hidden true groups: [0 1 2]
+```
+
+`y_true` is only used here because this is a synthetic teaching dataset. In a real clustering project, labels are usually unavailable, so you must rely on metrics, visualization, and domain interpretation.
 
 ---
 
@@ -183,7 +212,9 @@ def kmeans_simple(X, k, max_iters=100, seed=42):
     return labels, centroids
 
 # Run
-labels, centroids = kmeans_simple(X, k=3)
+labels, centroids = kmeans_simple(X, k=3, seed=2)
+print("Centroids rounded:")
+print(np.round(centroids, 2))
 
 # Visualize
 plt.figure(figsize=(8, 6))
@@ -196,6 +227,18 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+Expected output:
+
+```text
+Converged in round 2
+Centroids rounded:
+[[-2.61  9.04]
+ [-6.88 -6.96]
+ [ 4.73  2.  ]]
+```
+
+The exact cluster numbers may change because cluster IDs are arbitrary. What matters is not whether a group is called `0` or `1`, but whether nearby points are grouped consistently.
+
 ### 2.3 Implement with sklearn
 
 ```python
@@ -205,7 +248,7 @@ kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
 kmeans.fit(X)
 
 print(f"Cluster labels: {np.unique(kmeans.labels_)}")
-print(f"Centroids:\n{kmeans.cluster_centers_}")
+print(f"Centroids rounded:\n{np.round(kmeans.cluster_centers_, 2)}")
 print(f"Total inertia (SSE): {kmeans.inertia_:.2f}")
 
 # Visualize
@@ -227,6 +270,19 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+Cluster labels: [0 1 2]
+Centroids rounded:
+[[-2.61  9.04]
+ [-6.88 -6.96]
+ [ 4.73  2.  ]]
+Total inertia (SSE): 362.79
+```
+
+`fit()` means “learn the centroids from data.” `labels_` stores the final group assignment for every row, and `cluster_centers_` stores the learned centroids.
 
 ### 2.4 Visualizing the K-Means Iteration Process
 
@@ -287,6 +343,15 @@ print(f"K-Means++ inertia: {kmeans_pp.inertia_:.2f}")
 print(f"Random initialization inertia: {kmeans_random.inertia_:.2f}")
 ```
 
+Expected output:
+
+```text
+K-Means++ inertia: 362.79
+Random initialization inertia: 5482.74
+```
+
+The random run can start from unlucky centroids and end with a much larger inertia. This is why modern `sklearn` uses K-Means++ by default.
+
 :::info sklearn Default
 `sklearn`'s `KMeans` uses `init='k-means++'` by default, so you usually do not need to set it manually. `n_init=10` means the algorithm runs 10 times and keeps the best result.
 :::
@@ -310,6 +375,8 @@ for k in K_range:
     km.fit(X)
     sse.append(km.inertia_)
 
+print("SSE by K:", [round(value, 2) for value in sse])
+
 plt.figure(figsize=(8, 5))
 plt.plot(K_range, sse, 'bo-', markersize=8)
 plt.xlabel('K (number of clusters)')
@@ -323,6 +390,12 @@ plt.annotate('Elbow → K=3', xy=(3, sse[2]), xytext=(5, sse[2] + 200),
              arrowprops=dict(arrowstyle='->', color='red'),
              fontsize=12, color='red')
 plt.show()
+```
+
+Expected output:
+
+```text
+SSE by K: [20120.54, 5526.51, 362.79, 318.07, 273.36, 233.6, 200.97, 172.85, 149.96, 139.27]
 ```
 
 ### 4.1.1 The Most Common Mistake with the Elbow Method
@@ -397,6 +470,8 @@ plt.tight_layout()
 plt.show()
 ```
 
+If the silhouette plot for a cluster contains many values near 0 or below 0, that cluster probably overlaps with another cluster. If most bars are long and positive, the grouping is cleaner.
+
 ### 4.4 What Is the Safer Order for Your First Clustering Project?
 
 If this is your first time applying clustering in a real project, you can follow this order:
@@ -444,6 +519,8 @@ axes[0].set_ylabel('Distance')
 # Clustering result
 agg = AgglomerativeClustering(n_clusters=3)
 labels_agg = agg.fit_predict(X)
+print(f"Linkage matrix shape: {linkage_matrix.shape}")
+print(f"Hierarchical cluster labels: {np.unique(labels_agg)}")
 axes[1].scatter(X[:, 0], X[:, 1], c=labels_agg, cmap='viridis', s=30, alpha=0.7)
 axes[1].set_title('Hierarchical Clustering Result (K=3)')
 axes[1].grid(True, alpha=0.3)
@@ -451,6 +528,15 @@ axes[1].grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+Linkage matrix shape: (49, 4)
+Hierarchical cluster labels: [0 1 2]
+```
+
+The linkage matrix has 49 rows because 50 small samples require 49 merge steps to become one tree. This is the meaning of “hierarchical”: you can cut the tree at different heights and get different numbers of clusters.
 
 ### 5.2 Linkage Methods
 
@@ -478,6 +564,7 @@ fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 X_moons, y_moons = make_moons(n_samples=300, noise=0.1, random_state=42)
 km_moons = KMeans(n_clusters=2, random_state=42, n_init=10)
 labels_km = km_moons.fit_predict(X_moons)
+print(f"K-Means half-moon labels: {np.unique(labels_km)}")
 axes[0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
 axes[0].set_title('K-Means on Half-Moon Data (Failure)')
 
@@ -485,6 +572,7 @@ axes[0].set_title('K-Means on Half-Moon Data (Failure)')
 X_circles, y_circles = make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)
 km_circles = KMeans(n_clusters=2, random_state=42, n_init=10)
 labels_km2 = km_circles.fit_predict(X_circles)
+print(f"K-Means circle labels: {np.unique(labels_km2)}")
 axes[1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_km2, cmap='coolwarm', s=20)
 axes[1].set_title('K-Means on Concentric Circles (Failure)')
 
@@ -495,6 +583,15 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+K-Means half-moon labels: [0 1]
+K-Means circle labels: [0 1]
+```
+
+This output is intentionally misleading: K-Means does produce two labels, but the plot shows those labels cut through the curved shapes. A runnable result is not automatically a good clustering result.
 
 ### 6.2 DBSCAN Principle
 
@@ -528,26 +625,34 @@ from sklearn.cluster import DBSCAN
 
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
+def cluster_noise_summary(labels):
+    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+    n_noise = int((labels == -1).sum())
+    return n_clusters, n_noise
+
 # Half-moon data
 db_moons = DBSCAN(eps=0.2, min_samples=5)
 labels_db_moons = db_moons.fit_predict(X_moons)
 axes[0][0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_db_moons, cmap='viridis', s=20)
-n_noise = (labels_db_moons == -1).sum()
+n_clusters, n_noise = cluster_noise_summary(labels_db_moons)
 axes[0][0].set_title(f'DBSCAN Half-Moon (noise points: {n_noise})')
+print(f"DBSCAN half-moon: clusters={n_clusters}, noise={n_noise}")
 
 # Concentric circles
 db_circles = DBSCAN(eps=0.15, min_samples=5)
 labels_db_circles = db_circles.fit_predict(X_circles)
 axes[0][1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_db_circles, cmap='viridis', s=20)
-n_noise = (labels_db_circles == -1).sum()
+n_clusters, n_noise = cluster_noise_summary(labels_db_circles)
 axes[0][1].set_title(f'DBSCAN Concentric Circles (noise points: {n_noise})')
+print(f"DBSCAN circles: clusters={n_clusters}, noise={n_noise}")
 
 # Normal data
 db_blobs = DBSCAN(eps=0.8, min_samples=5)
 labels_db_blobs = db_blobs.fit_predict(X)
 axes[1][0].scatter(X[:, 0], X[:, 1], c=labels_db_blobs, cmap='viridis', s=20)
-n_clusters = len(set(labels_db_blobs)) - (1 if -1 in labels_db_blobs else 0)
+n_clusters, n_noise = cluster_noise_summary(labels_db_blobs)
 axes[1][0].set_title(f'DBSCAN Spherical Data (found {n_clusters} clusters)')
+print(f"DBSCAN spherical: clusters={n_clusters}, noise={n_noise}")
 
 # Compare K-Means vs DBSCAN
 axes[1][1].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
@@ -559,6 +664,16 @@ for ax in axes.ravel():
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+DBSCAN half-moon: clusters=2, noise=0
+DBSCAN circles: clusters=5, noise=0
+DBSCAN spherical: clusters=3, noise=5
+```
+
+This is also a useful warning: DBSCAN handles the half-moon shape well here, but the same parameters do not automatically solve every shape. For the concentric circles, `eps=0.15` is too strict and splits the rings into more groups.
 
 ### 6.4 Tuning DBSCAN Parameters
 
@@ -572,6 +687,7 @@ for ax, eps in zip(axes, eps_values):
     labels = db.fit_predict(X_moons)
     n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise = (labels == -1).sum()
+    print(f"eps={eps}: clusters={n_clusters}, noise={n_noise}")
     ax.scatter(X_moons[:, 0], X_moons[:, 1], c=labels, cmap='viridis', s=20)
     ax.set_title(f'eps={eps}\nclusters: {n_clusters}, noise: {n_noise}')
     ax.grid(True, alpha=0.3)
@@ -580,6 +696,17 @@ plt.suptitle('Effect of the DBSCAN eps Parameter', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+eps=0.1: clusters=20, noise=86
+eps=0.2: clusters=2, noise=0
+eps=0.5: clusters=1, noise=0
+eps=1.0: clusters=1, noise=0
+```
+
+Think of `eps` like the radius of a flashlight. If the light circle is too small, every dense area breaks apart; if it is too large, separate groups are swallowed into one.
 
 ### 6.5 Advantages and Disadvantages of DBSCAN
 
@@ -622,9 +749,9 @@ datasets = [
 ]
 
 algorithms = [
-    ("K-Means", lambda: KMeans(n_clusters=3 if True else 2, random_state=42, n_init=10)),
-    ("Hierarchical clustering", lambda: AgglomerativeClustering(n_clusters=3 if True else 2)),
-    ("DBSCAN", lambda: DBSCAN(eps=0.5, min_samples=5)),
+    ("K-Means", lambda n_clusters: KMeans(n_clusters=n_clusters, random_state=42, n_init=10)),
+    ("Hierarchical clustering", lambda n_clusters: AgglomerativeClustering(n_clusters=n_clusters)),
+    ("DBSCAN", lambda _: None),
 ]
 
 fig, axes = plt.subplots(3, 3, figsize=(15, 14))
@@ -635,8 +762,7 @@ for row, (data_name, (X_d, y_d)) in enumerate(datasets):
         ax = axes[row][col]
 
         if algo_name in ['K-Means', 'Hierarchical clustering']:
-            algo = make_algo()
-            algo.n_clusters = n_real
+            algo = make_algo(n_real)
             labels = algo.fit_predict(X_d)
         else:
             # Adjust DBSCAN eps
@@ -666,7 +792,7 @@ plt.show()
 
 ---
 
-## 9. Safest Default Order for Putting Clustering into a Project
+## 8. Safest Default Order for Putting Clustering into a Project
 
 When you first put clustering into a real project, you can follow this order:
 

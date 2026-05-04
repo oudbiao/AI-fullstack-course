@@ -54,6 +54,23 @@ keywords: [クラスタリング, K-Means, DBSCAN, 階層クラスタリング, 
 つまり、クラスタリングは単に「機械にグループ分けさせる」ことではなく、  
 **ラベルがないときに、データの構造をどう見つけるか**を考える作業です。
 
+![クラスタリングは仮説であることを説明するマンガ](/img/course/ch05-clustering-hypothesis-comic-ja.png)
+
+このマンガは上から順に読んでください。クラスタリングは、まずラベルのないデータを見て、ひとつの分け方を仮説として作り、その分け方が「クラスタ内でまとまり、クラスタ間で離れているか」を確認し、最後に実務上の意味があるかを考えます。見た目がきれいな図でも、行動につながらなければ良いクラスタリングとは言えません。
+
+### 始める前のキーワード解説
+
+| 用語 | 初心者向けの意味 | この節での役割 |
+|---|---|---|
+| `cluster` | 選んだ特徴量の上で似ているデータ点のグループ | この節のアルゴリズムは、すべてこのグループを作り、説明するために使う |
+| `centroid` | クラスタの中心点。多くの場合、そのクラスタ内データの平均 | K-Means は重心を何度も動かし、分け方が安定するまで繰り返す |
+| `inertia_` / SSE | クラスタ内のばらつきの合計。誤差平方和 | 小さいほどまとまりやすいが、K を増やすと自然に下がる |
+| `silhouette_score` | クラスタ内のまとまりとクラスタ間の離れ具合を同時に見る指標 | 候補となる K を比較する助けになるが、唯一の正解を証明するものではない |
+| `eps` | DBSCAN の近傍半径 | 小さすぎると細かく分かれ、大きすぎると全部まとまってしまう |
+| `min_samples` | 密な中心点になるために必要な近傍点の最小数 | DBSCAN が「ここは十分に密か」を判断する厳しさを決める |
+| `dendrogram` | クラスタが段階的に統合される様子を表す木構造の図 | 階層クラスタリングの過程を視覚的に確認できる |
+| `baseline` | 比較用に最初に作るシンプルな基準モデル | K-Means は、より複雑なクラスタリングを試す前の基準としてよく使われる |
+
 ---
 
 ## 一、クラスタリングの直感
@@ -87,7 +104,7 @@ flowchart LR
 似た言葉ですが、解く問題はまったく違います。
 
 - **分類**：ラベルが分かっている。どう判定するかを学ぶ
-- **クラスタリング**：ラベルが分かっていない。どんな समूहがありそうかを見つける
+- **クラスタリング**：ラベルが分かっていない。どんなグループがありそうかを見つける
 
 だから、クラスタリングを学ぶときは次の点を受け入れることが大事です。
 
@@ -129,6 +146,9 @@ from sklearn.datasets import make_blobs
 # 3 つのクラスタを持つデータを生成
 X, y_true = make_blobs(n_samples=300, centers=3, cluster_std=0.8, random_state=42)
 
+print(f"X shape: {X.shape}")
+print(f"Hidden true groups: {np.unique(y_true)}")
+
 plt.figure(figsize=(8, 6))
 plt.scatter(X[:, 0], X[:, 1], s=30, alpha=0.7, color='gray')
 plt.title('ラベルのないデータ——いくつのグループに見える？')
@@ -137,6 +157,15 @@ plt.ylabel('特徴量 2')
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+期待される出力：
+
+```text
+X shape: (300, 2)
+Hidden true groups: [0 1 2]
+```
+
+ここで `y_true` を使えるのは、人工的に作った学習用データだからです。実際のクラスタリングではラベルがないことが多いため、指標、可視化、業務上の解釈を組み合わせて結果を判断します。
 
 ---
 
@@ -185,7 +214,9 @@ def kmeans_simple(X, k, max_iters=100, seed=42):
     return labels, centroids
 
 # 実行
-labels, centroids = kmeans_simple(X, k=3)
+labels, centroids = kmeans_simple(X, k=3, seed=2)
+print("Centroids rounded:")
+print(np.round(centroids, 2))
 
 # 可視化
 plt.figure(figsize=(8, 6))
@@ -198,6 +229,18 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
+期待される出力：
+
+```text
+2 回目で収束しました
+Centroids rounded:
+[[-2.61  9.04]
+ [-6.88 -6.96]
+ [ 4.73  2.  ]]
+```
+
+クラスタ番号そのものには固定の意味はありません。同じグループが `0` と呼ばれることも、`1` と呼ばれることもあります。大事なのは、近い点が安定して同じグループに入ることです。
+
 ### 2.3 sklearn で実装する
 
 ```python
@@ -207,7 +250,7 @@ kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
 kmeans.fit(X)
 
 print(f"クラスタラベル: {np.unique(kmeans.labels_)}")
-print(f"重心:\n{kmeans.cluster_centers_}")
+print(f"丸めた重心:\n{np.round(kmeans.cluster_centers_, 2)}")
 print(f"総慣性（SSE）: {kmeans.inertia_:.2f}")
 
 # 可視化
@@ -229,6 +272,19 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+クラスタラベル: [0 1 2]
+丸めた重心:
+[[-2.61  9.04]
+ [-6.88 -6.96]
+ [ 4.73  2.  ]]
+総慣性（SSE）: 362.79
+```
+
+`fit()` は「データから重心を学習する」という意味です。`labels_` には各行がどのクラスタに属するかが入り、`cluster_centers_` には学習された重心座標が入ります。
 
 ### 2.4 K-Means の反復過程を可視化する
 
@@ -290,6 +346,15 @@ print(f"K-Means++ の慣性: {kmeans_pp.inertia_:.2f}")
 print(f"ランダム初期化の慣性: {kmeans_random.inertia_:.2f}")
 ```
 
+期待される出力：
+
+```text
+K-Means++ の慣性: 362.79
+ランダム初期化の慣性: 5482.74
+```
+
+ランダム初期化では、運悪く悪い位置から始まることがあります。その場合、最終的な慣性がかなり大きくなります。だから現在の `sklearn` は K-Means++ をデフォルトにしています。
+
 :::info sklearn のデフォルト
 sklearn の `KMeans` は、デフォルトで `init='k-means++'` を使います。そのため、ふつうは自分で設定しなくても大丈夫です。`n_init=10` は 10 回実行して、最も良い結果を採用するという意味です。
 :::
@@ -313,6 +378,8 @@ for k in K_range:
     km.fit(X)
     sse.append(km.inertia_)
 
+print("SSE by K:", [round(value, 2) for value in sse])
+
 plt.figure(figsize=(8, 5))
 plt.plot(K_range, sse, 'bo-', markersize=8)
 plt.xlabel('K（クラスタ数）')
@@ -326,6 +393,12 @@ plt.annotate('肘 → K=3', xy=(3, sse[2]), xytext=(5, sse[2] + 200),
              arrowprops=dict(arrowstyle='->', color='red'),
              fontsize=12, color='red')
 plt.show()
+```
+
+期待される出力：
+
+```text
+SSE by K: [20120.54, 5526.51, 362.79, 318.07, 273.36, 233.6, 200.97, 172.85, 149.96, 139.27]
 ```
 
 ### 4.1.1 エルボー法でよくある誤用
@@ -401,6 +474,8 @@ plt.tight_layout()
 plt.show()
 ```
 
+あるクラスタのシルエット図に 0 に近い値や 0 未満の値が多い場合、そのクラスタは他のクラスタと重なっている可能性があります。多くのバーが長く、正の方向に伸びているほど、分け方はより明確です。
+
 ### 4.4 初めてクラスタリングを使うとき、より安定した順番は？
 
 実際のプロジェクトで初めてクラスタリングを使うなら、次の順番がおすすめです。
@@ -448,6 +523,8 @@ axes[0].set_ylabel('距離')
 # クラスタリング結果
 agg = AgglomerativeClustering(n_clusters=3)
 labels_agg = agg.fit_predict(X)
+print(f"Linkage matrix shape: {linkage_matrix.shape}")
+print(f"Hierarchical cluster labels: {np.unique(labels_agg)}")
 axes[1].scatter(X[:, 0], X[:, 1], c=labels_agg, cmap='viridis', s=30, alpha=0.7)
 axes[1].set_title('階層クラスタリング結果 (K=3)')
 axes[1].grid(True, alpha=0.3)
@@ -455,6 +532,15 @@ axes[1].grid(True, alpha=0.3)
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+Linkage matrix shape: (49, 4)
+Hierarchical cluster labels: [0 1 2]
+```
+
+`linkage_matrix` が 49 行なのは、50 個の小さなサンプルを 1 本の木にまとめるために 49 回の統合が必要だからです。これが「階層的」という意味です。木をどの高さで切るかによって、クラスタ数を変えられます。
 
 ### 5.2 リンク方法
 
@@ -482,6 +568,7 @@ fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 X_moons, y_moons = make_moons(n_samples=300, noise=0.1, random_state=42)
 km_moons = KMeans(n_clusters=2, random_state=42, n_init=10)
 labels_km = km_moons.fit_predict(X_moons)
+print(f"K-Means half-moon labels: {np.unique(labels_km)}")
 axes[0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
 axes[0].set_title('K-Means を半月形データに適用（失敗）')
 
@@ -489,6 +576,7 @@ axes[0].set_title('K-Means を半月形データに適用（失敗）')
 X_circles, y_circles = make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)
 km_circles = KMeans(n_clusters=2, random_state=42, n_init=10)
 labels_km2 = km_circles.fit_predict(X_circles)
+print(f"K-Means circle labels: {np.unique(labels_km2)}")
 axes[1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_km2, cmap='coolwarm', s=20)
 axes[1].set_title('K-Means を同心円データに適用（失敗）')
 
@@ -499,6 +587,15 @@ for ax in axes:
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+K-Means half-moon labels: [0 1]
+K-Means circle labels: [0 1]
+```
+
+この出力は少し注意が必要です。K-Means は確かに 2 つのラベルを出しますが、図を見ると曲がった形をうまく分けられていません。コードが動くことと、良いクラスタリングであることは同じではありません。
 
 ### 6.2 DBSCAN の原理
 
@@ -532,26 +629,34 @@ from sklearn.cluster import DBSCAN
 
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
+def cluster_noise_summary(labels):
+    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+    n_noise = int((labels == -1).sum())
+    return n_clusters, n_noise
+
 # 半月形データ
 db_moons = DBSCAN(eps=0.2, min_samples=5)
 labels_db_moons = db_moons.fit_predict(X_moons)
 axes[0][0].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_db_moons, cmap='viridis', s=20)
-n_noise = (labels_db_moons == -1).sum()
+n_clusters, n_noise = cluster_noise_summary(labels_db_moons)
 axes[0][0].set_title(f'DBSCAN 半月形（ノイズ点: {n_noise}）')
+print(f"DBSCAN half-moon: clusters={n_clusters}, noise={n_noise}")
 
 # 同心円データ
 db_circles = DBSCAN(eps=0.15, min_samples=5)
 labels_db_circles = db_circles.fit_predict(X_circles)
 axes[0][1].scatter(X_circles[:, 0], X_circles[:, 1], c=labels_db_circles, cmap='viridis', s=20)
-n_noise = (labels_db_circles == -1).sum()
+n_clusters, n_noise = cluster_noise_summary(labels_db_circles)
 axes[0][1].set_title(f'DBSCAN 同心円（ノイズ点: {n_noise}）')
+print(f"DBSCAN circles: clusters={n_clusters}, noise={n_noise}")
 
 # 通常のデータ
 db_blobs = DBSCAN(eps=0.8, min_samples=5)
 labels_db_blobs = db_blobs.fit_predict(X)
 axes[1][0].scatter(X[:, 0], X[:, 1], c=labels_db_blobs, cmap='viridis', s=20)
-n_clusters = len(set(labels_db_blobs)) - (1 if -1 in labels_db_blobs else 0)
+n_clusters, n_noise = cluster_noise_summary(labels_db_blobs)
 axes[1][0].set_title(f'DBSCAN 球状データ（{n_clusters} 個のクラスタを発見）')
+print(f"DBSCAN spherical: clusters={n_clusters}, noise={n_noise}")
 
 # K-Means と DBSCAN の比較
 axes[1][1].scatter(X_moons[:, 0], X_moons[:, 1], c=labels_km, cmap='coolwarm', s=20)
@@ -563,6 +668,16 @@ for ax in axes.ravel():
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+DBSCAN half-moon: clusters=2, noise=0
+DBSCAN circles: clusters=5, noise=0
+DBSCAN spherical: clusters=3, noise=5
+```
+
+ここから分かるのは、DBSCAN がこの半月形データにはよく合う一方で、同じパラメータがどんな形にも自動で合うわけではないということです。同心円の例では `eps=0.15` が厳しすぎて、円が複数の小さなクラスタに分かれています。
 
 ### 6.4 DBSCAN のパラメータ調整
 
@@ -576,6 +691,7 @@ for ax, eps in zip(axes, eps_values):
     labels = db.fit_predict(X_moons)
     n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise = (labels == -1).sum()
+    print(f"eps={eps}: clusters={n_clusters}, noise={n_noise}")
     ax.scatter(X_moons[:, 0], X_moons[:, 1], c=labels, cmap='viridis', s=20)
     ax.set_title(f'eps={eps}\nクラスタ数: {n_clusters}, ノイズ: {n_noise}')
     ax.grid(True, alpha=0.3)
@@ -584,6 +700,17 @@ plt.suptitle('DBSCAN の eps パラメータの影響', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
+
+期待される出力：
+
+```text
+eps=0.1: clusters=20, noise=86
+eps=0.2: clusters=2, noise=0
+eps=0.5: clusters=1, noise=0
+eps=1.0: clusters=1, noise=0
+```
+
+`eps` は懐中電灯で照らす半径のように考えると分かりやすいです。半径が小さすぎると密な場所が細かく切れ、半径が大きすぎると別々のグループまでひとつに飲み込まれます。
 
 ### 6.5 DBSCAN の長所と短所
 
@@ -628,9 +755,9 @@ datasets = [
 ]
 
 algorithms = [
-    ("K-Means", lambda: KMeans(n_clusters=3 if True else 2, random_state=42, n_init=10)),
-    ("階層クラスタリング", lambda: AgglomerativeClustering(n_clusters=3 if True else 2)),
-    ("DBSCAN", lambda: DBSCAN(eps=0.5, min_samples=5)),
+    ("K-Means", lambda n_clusters: KMeans(n_clusters=n_clusters, random_state=42, n_init=10)),
+    ("階層クラスタリング", lambda n_clusters: AgglomerativeClustering(n_clusters=n_clusters)),
+    ("DBSCAN", lambda _: None),
 ]
 
 fig, axes = plt.subplots(3, 3, figsize=(15, 14))
@@ -641,8 +768,7 @@ for row, (data_name, (X_d, y_d)) in enumerate(datasets):
         ax = axes[row][col]
 
         if algo_name in ['K-Means', '階層クラスタリング']:
-            algo = make_algo()
-            algo.n_clusters = n_real
+            algo = make_algo(n_real)
             labels = algo.fit_predict(X_d)
         else:
             # DBSCAN の eps を調整
@@ -672,7 +798,7 @@ plt.show()
 
 ---
 
-## 九、初めてクラスタリングをプロジェクトに入れるときの、最も安定した順番
+## 八、初めてクラスタリングをプロジェクトに入れるときの、最も安定した順番
 
 実際のプロジェクトでクラスタリングを使うときは、次の順番が安定です。
 
