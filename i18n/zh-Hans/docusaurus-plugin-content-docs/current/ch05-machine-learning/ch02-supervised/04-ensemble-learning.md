@@ -56,7 +56,23 @@ keywords: [集成学习, 随机森林, Bagging, Boosting, GBDT, XGBoost, LightGB
 
 ![集成学习 Bagging Boosting 对比图](/img/course/ch05-ensemble-bagging-boosting-flow.png)
 
+![集成学习家族漫画](/img/course/ch05-ensemble-family-comic.png)
+
 只要你先把“并行投票”和“串行纠错”这两条主线分清，后面的模型名字就不容易乱。
+
+### 术语解码
+
+| 术语 | 在这里是什么意思 | 实际作用 |
+|------|------|------|
+| `ensemble` | 把多个模型组合成一个预测系统 | 降低单个模型弱点主导结果的风险 |
+| `Bagging` | Bootstrap Aggregating，并行训练多个模型 | 通常降低方差，让树模型更稳定 |
+| `Bootstrap` | 有放回采样 | 为每棵树制造不同的训练视角 |
+| `Boosting` | 串行训练，后一轮重点修正前一轮错误 | 通常提升准确率，但更需要防过拟合 |
+| `GBDT` | Gradient Boosting Decision Tree | 一轮轮加入小树拟合残差 |
+| `XGBoost` | eXtreme Gradient Boosting | 快速、带正则化、工程优化过的 GBDT 实现 |
+| `LightGBM` | Light Gradient Boosting Machine | 高速 Boosting 框架，适合大规模表格数据 |
+| `CatBoost` | Categorical Boosting | 对类别特征处理很强的 Boosting 框架 |
+| `Stacking` | 把基础模型预测当作新特征训练元模型 | 很强，但交叉验证不当容易数据泄漏 |
 
 ---
 
@@ -111,6 +127,17 @@ print(f"模型 2 准确率: {np.mean(accs[1] == true_labels):.1%}")
 print(f"模型 3 准确率: {np.mean(accs[2] == true_labels):.1%}")
 print(f"投票集成准确率: {np.mean(ensemble_pred == true_labels):.1%}")
 ```
+
+预期输出：
+
+```text
+模型 1 准确率: 70.2%
+模型 2 准确率: 69.2%
+模型 3 准确率: 69.8%
+投票集成准确率: 77.7%
+```
+
+这个小模拟展示了集成学习的核心承诺：如果多个模型犯错位置不完全一样，投票结果可能比任何单个投票者更准。
 
 ### 1.3 两大流派
 
@@ -186,9 +213,20 @@ data = np.arange(1, 11)  # 原始数据: [1, 2, ..., 10]
 print("原始数据:", data)
 for i in range(3):
     sample = rng.choice(data, size=len(data), replace=True)
-    print(f"自助样本 {i+1}: {sorted(sample)}")
+    print(f"自助样本 {i+1}: {[int(x) for x in sorted(sample)]}")
     # 注意：有些数据重复了，有些没被选中
 ```
+
+预期输出：
+
+```text
+原始数据: [ 1  2  3  4  5  6  7  8  9 10]
+自助样本 1: [1, 1, 1, 3, 5, 5, 7, 7, 8, 9]
+自助样本 2: [2, 5, 6, 6, 8, 8, 8, 8, 9, 10]
+自助样本 3: [2, 4, 5, 5, 6, 6, 7, 8, 9, 10]
+```
+
+关键点是“有放回”：某一行可以出现多次，另一行也可能完全没出现。这正是随机森林让每棵树彼此不同的方式。
 
 ### 2.2 随机森林（Random Forest）
 
@@ -248,6 +286,15 @@ plt.tight_layout()
 plt.show()
 ```
 
+预期输出：
+
+```text
+单棵决策树 | 训练: 100.0% | 测试: 82.0%
+随机森林   | 训练: 100.0% | 测试: 88.0%
+```
+
+两个模型都可能记住训练集，但随机森林通常会得到更平滑、更不脆弱的边界，因为很多棵树会一起投票。
+
 ### 2.3 随机森林的关键超参数
 
 | 参数 | 说明 | 推荐 |
@@ -300,6 +347,7 @@ for n in n_trees:
     rf.fit(X_train, y_train)
     train_scores.append(rf.score(X_train, y_train))
     test_scores.append(rf.score(X_test, y_test))
+    print(f"n_estimators={n:>3}: 训练={train_scores[-1]:.1%}, 测试={test_scores[-1]:.1%}")
 
 plt.figure(figsize=(8, 5))
 plt.plot(n_trees, train_scores, 'bo-', label='训练集')
@@ -311,6 +359,19 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+预期输出：
+
+```text
+n_estimators=  1: 训练=95.0%, 测试=84.0%
+n_estimators=  5: 训练=97.8%, 测试=88.0%
+n_estimators= 10: 训练=99.5%, 测试=88.0%
+n_estimators= 30: 训练=99.8%, 测试=88.0%
+n_estimators= 50: 训练=99.8%, 测试=88.0%
+n_estimators=100: 训练=100.0%, 测试=88.0%
+```
+
+树的数量足够后，表现通常会趋于稳定。继续加树可能让结果更平稳，但不会保证准确率一直上升。
 
 ---
 
@@ -348,6 +409,12 @@ ada.fit(X_train, y_train)
 print(f"AdaBoost | 训练: {ada.score(X_train, y_train):.1%} | 测试: {ada.score(X_test, y_test):.1%}")
 ```
 
+预期输出：
+
+```text
+AdaBoost | 训练: 93.5% | 测试: 89.0%
+```
+
 ### 3.2 GBDT（梯度提升决策树）
 
 **思路**：每棵新树拟合的不是原始标签，而是前面所有树的**残差**（预测误差）。
@@ -376,6 +443,12 @@ gbdt = GradientBoostingClassifier(
 )
 gbdt.fit(X_train, y_train)
 print(f"GBDT | 训练: {gbdt.score(X_train, y_train):.1%} | 测试: {gbdt.score(X_test, y_test):.1%}")
+```
+
+预期输出：
+
+```text
+GBDT | 训练: 98.0% | 测试: 90.0%
 ```
 
 ### 3.3 GBDT 回归——直觉理解
@@ -408,17 +481,32 @@ for i in range(6):
 
     # 更新预测
     current_pred += learning_rate * tree_pred
+    mse = np.mean((y_demo - current_pred) ** 2)
 
     ax.scatter(X_demo, y_demo, s=10, alpha=0.5, color='steelblue')
     ax.plot(X_demo, current_pred, 'r-', linewidth=2, label=f'当前预测')
-    ax.set_title(f'第 {i+1} 棵树后\nMSE={np.mean((y_demo - current_pred)**2):.4f}')
+    ax.set_title(f'第 {i+1} 棵树后\nMSE={mse:.4f}')
     ax.legend(fontsize=8)
     ax.grid(True, alpha=0.3)
+    print(f"第 {i+1} 棵树后: MSE={mse:.4f}")
 
 plt.suptitle('GBDT 逐步拟合残差', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
+
+预期输出：
+
+```text
+第 1 棵树后: MSE=0.2314
+第 2 棵树后: MSE=0.1635
+第 3 棵树后: MSE=0.1031
+第 4 棵树后: MSE=0.0782
+第 5 棵树后: MSE=0.0462
+第 6 棵树后: MSE=0.0381
+```
+
+这就是“纠错”过程的可视化：每棵新树不是从头再做一遍任务，而是专门盯着当前集成模型还没拟合好的部分。
 
 ---
 
@@ -459,13 +547,16 @@ xgb_model = xgb.XGBClassifier(
     max_depth=4,
     learning_rate=0.1,
     random_state=42,
-    use_label_encoder=False,
     eval_metric='mlogloss',
 )
 xgb_model.fit(X_train, y_train)
 
 print(f"XGBoost | 训练: {xgb_model.score(X_train, y_train):.1%} | 测试: {xgb_model.score(X_test, y_test):.1%}")
 ```
+
+:::note 可选依赖
+`xgboost`、`lightgbm` 和 `catboost` 都是可选包，不包含在课程最小运行环境中。学到这一节时再按需安装即可。新版 XGBoost 已经不需要很多旧教程里的 `use_label_encoder=False` 参数。
+:::
 
 ### 4.3 XGBoost 关键超参数
 
@@ -676,6 +767,12 @@ stack.fit(X_train, y_train)
 print(f"Stacking | 训练: {stack.score(X_train, y_train):.1%} | 测试: {stack.score(X_test, y_test):.1%}")
 ```
 
+预期输出：
+
+```text
+Stacking | 训练: 95.0% | 测试: 89.0%
+```
+
 ### 6.3 为什么 Stacking 不是新人第一步？
 
 因为 Stacking 虽然可能更强，但它对实验设计要求更高：
@@ -770,6 +867,19 @@ plt.tight_layout()
 plt.show()
 ```
 
+未安装可选包时的预期输出：
+
+```text
+未安装 XGBoost，跳过该模型。
+未安装 LightGBM，跳过该模型。
+决策树         | CV: 91.5% ± 1.8% | 测试: 94.4%
+随机森林       | CV: 97.9% ± 2.9% | 测试: 100.0%
+AdaBoost     | CV: 92.2% ± 3.5% | 测试: 94.4%
+GBDT         | CV: 92.2% ± 2.7% | 测试: 94.4%
+```
+
+这张表应该被理解为“比较方法”，而不是永恒排名。换一个数据集，赢家可能会变，所以真正重要的习惯是在同一个验证协议下比较模型。
+
 ---
 
 ## 八、如何选择算法？
@@ -796,15 +906,16 @@ flowchart TD
 ```
 
 :::tip 实用建议
-1. **第一选择**：先用 LightGBM 或 XGBoost 跑一个 baseline
-2. **调参顺序**：`n_estimators` → `learning_rate` → `max_depth` → 正则化参数
-3. **早停**：一定要用 `early_stopping_rounds`
-4. **竞赛冲分**：多个模型 Stacking
+1. **第一个 baseline**：先用逻辑回归、单棵树或随机森林拿到可解释 baseline
+2. **追求更高上限**：验证集稳定后，再试 XGBoost 或 LightGBM
+3. **调参顺序**：`n_estimators` → `learning_rate` → `max_depth` → 正则化参数
+4. **早停**：有验证集时，Boosting 模型尽量使用早停
+5. **竞赛冲分**：单模型实验可靠后，再考虑 Stacking
 :::
 
 ---
 
-## 十、第一次把集成学习放进项目里，最稳的默认顺序
+## 九、第一次把集成学习放进项目里，最稳的默认顺序
 
 第一次把集成学习放进项目里，可以先按这个顺序：
 

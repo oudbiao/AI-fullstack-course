@@ -56,7 +56,23 @@ If you try to remember them by tool name from the start, it becomes very fragmen
 
 ![Ensemble Learning Bagging vs Boosting Comparison](/img/course/ch05-ensemble-bagging-boosting-flow-en.png)
 
+![Ensemble Learning Family Comic](/img/course/ch05-ensemble-family-comic-en.png)
+
 As long as you first separate the two main lines—“parallel voting” and “sequential error correction”—the model names later on won’t get mixed up so easily.
+
+### Keyword Decoder
+
+| Term | What it means here | Practical role |
+|------|------|------|
+| `ensemble` | A group of models combined into one prediction system | Reduces the risk that one model’s weakness dominates the result |
+| `Bagging` | Bootstrap Aggregating: train models in parallel on sampled data | Usually reduces variance and makes trees more stable |
+| `Bootstrap` | Sampling with replacement | Creates different training views for each tree |
+| `Boosting` | Train models sequentially so later models focus on earlier errors | Usually improves accuracy, but needs stronger overfitting control |
+| `GBDT` | Gradient Boosting Decision Tree | Adds small trees that fit residual errors round by round |
+| `XGBoost` | eXtreme Gradient Boosting | A fast, regularized, engineering-optimized GBDT implementation |
+| `LightGBM` | Light Gradient Boosting Machine | A very fast boosting framework, especially useful on large tabular data |
+| `CatBoost` | Categorical Boosting | A boosting framework with strong categorical-feature handling |
+| `Stacking` | Use base-model predictions as features for a meta-model | Powerful, but easy to leak data if cross-validation is done incorrectly |
 
 ---
 
@@ -111,6 +127,17 @@ print(f"Model 2 accuracy: {np.mean(accs[1] == true_labels):.1%}")
 print(f"Model 3 accuracy: {np.mean(accs[2] == true_labels):.1%}")
 print(f"Ensemble voting accuracy: {np.mean(ensemble_pred == true_labels):.1%}")
 ```
+
+Expected output:
+
+```text
+Model 1 accuracy: 70.2%
+Model 2 accuracy: 69.2%
+Model 3 accuracy: 69.8%
+Ensemble voting accuracy: 77.7%
+```
+
+This toy simulation shows the core promise of ensembles: if the models make partly independent mistakes, voting can be more accurate than any single voter.
 
 ### 1.3 Two major schools
 
@@ -186,9 +213,20 @@ data = np.arange(1, 11)  # Original data: [1, 2, ..., 10]
 print("Original data:", data)
 for i in range(3):
     sample = rng.choice(data, size=len(data), replace=True)
-    print(f"Bootstrap sample {i+1}: {sorted(sample)}")
+    print(f"Bootstrap sample {i+1}: {[int(x) for x in sorted(sample)]}")
     # Note: some values are repeated, and some are not selected
 ```
+
+Expected output:
+
+```text
+Original data: [ 1  2  3  4  5  6  7  8  9 10]
+Bootstrap sample 1: [1, 1, 1, 3, 5, 5, 7, 7, 8, 9]
+Bootstrap sample 2: [2, 5, 6, 6, 8, 8, 8, 8, 9, 10]
+Bootstrap sample 3: [2, 4, 5, 5, 6, 6, 7, 8, 9, 10]
+```
+
+The important detail is “with replacement”: one row can appear multiple times, and another row may not appear at all. That is how Random Forest makes trees different from each other.
 
 ### 2.2 Random Forest
 
@@ -248,6 +286,15 @@ plt.tight_layout()
 plt.show()
 ```
 
+Expected output:
+
+```text
+Single Decision Tree | Train: 100.0% | Test: 82.0%
+Random Forest        | Train: 100.0% | Test: 88.0%
+```
+
+Both models can memorize the training set, but Random Forest usually produces a smoother, less fragile boundary because many trees vote together.
+
 ### 2.3 Key hyperparameters of Random Forest
 
 | Parameter | Description | Recommendation |
@@ -300,6 +347,7 @@ for n in n_trees:
     rf.fit(X_train, y_train)
     train_scores.append(rf.score(X_train, y_train))
     test_scores.append(rf.score(X_test, y_test))
+    print(f"n_estimators={n:>3}: train={train_scores[-1]:.1%}, test={test_scores[-1]:.1%}")
 
 plt.figure(figsize=(8, 5))
 plt.plot(n_trees, train_scores, 'bo-', label='Training set')
@@ -311,6 +359,19 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
+
+Expected output:
+
+```text
+n_estimators=  1: train=95.0%, test=84.0%
+n_estimators=  5: train=97.8%, test=88.0%
+n_estimators= 10: train=99.5%, test=88.0%
+n_estimators= 30: train=99.8%, test=88.0%
+n_estimators= 50: train=99.8%, test=88.0%
+n_estimators=100: train=100.0%, test=88.0%
+```
+
+After enough trees, performance often stabilizes. Adding more trees may make the result less noisy, but it does not guarantee higher accuracy forever.
 
 ---
 
@@ -348,6 +409,12 @@ ada.fit(X_train, y_train)
 print(f"AdaBoost | Train: {ada.score(X_train, y_train):.1%} | Test: {ada.score(X_test, y_test):.1%}")
 ```
 
+Expected output:
+
+```text
+AdaBoost | Train: 93.5% | Test: 89.0%
+```
+
 ### 3.2 GBDT (Gradient Boosting Decision Tree)
 
 **Idea**: Each new tree fits not the original labels, but the **residuals** (prediction errors) of all previous trees.
@@ -376,6 +443,12 @@ gbdt = GradientBoostingClassifier(
 )
 gbdt.fit(X_train, y_train)
 print(f"GBDT | Train: {gbdt.score(X_train, y_train):.1%} | Test: {gbdt.score(X_test, y_test):.1%}")
+```
+
+Expected output:
+
+```text
+GBDT | Train: 98.0% | Test: 90.0%
 ```
 
 ### 3.3 GBDT Regression — intuitive understanding
@@ -408,17 +481,32 @@ for i in range(6):
 
     # Update predictions
     current_pred += learning_rate * tree_pred
+    mse = np.mean((y_demo - current_pred) ** 2)
 
     ax.scatter(X_demo, y_demo, s=10, alpha=0.5, color='steelblue')
     ax.plot(X_demo, current_pred, 'r-', linewidth=2, label=f'Current prediction')
-    ax.set_title(f'After tree {i+1}\nMSE={np.mean((y_demo - current_pred)**2):.4f}')
+    ax.set_title(f'After tree {i+1}\nMSE={mse:.4f}')
     ax.legend(fontsize=8)
     ax.grid(True, alpha=0.3)
+    print(f"After tree {i+1}: MSE={mse:.4f}")
 
 plt.suptitle('GBDT Step-by-Step Residual Fitting', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+After tree 1: MSE=0.2314
+After tree 2: MSE=0.1635
+After tree 3: MSE=0.1031
+After tree 4: MSE=0.0782
+After tree 5: MSE=0.0462
+After tree 6: MSE=0.0381
+```
+
+This is the “error correction” story made visible: each new tree does not restart the task; it focuses on what the current ensemble still gets wrong.
 
 ---
 
@@ -459,13 +547,16 @@ xgb_model = xgb.XGBClassifier(
     max_depth=4,
     learning_rate=0.1,
     random_state=42,
-    use_label_encoder=False,
     eval_metric='mlogloss',
 )
 xgb_model.fit(X_train, y_train)
 
 print(f"XGBoost | Train: {xgb_model.score(X_train, y_train):.1%} | Test: {xgb_model.score(X_test, y_test):.1%}")
 ```
+
+:::note Optional dependency
+`xgboost`, `lightgbm`, and `catboost` are optional packages, so they are not included in the minimal course runtime. Install them only when you reach this section. Recent XGBoost versions no longer need the old `use_label_encoder=False` parameter that appears in many older tutorials.
+:::
 
 ### 4.3 Key hyperparameters of XGBoost
 
@@ -676,6 +767,12 @@ stack.fit(X_train, y_train)
 print(f"Stacking | Train: {stack.score(X_train, y_train):.1%} | Test: {stack.score(X_test, y_test):.1%}")
 ```
 
+Expected output:
+
+```text
+Stacking | Train: 95.0% | Test: 89.0%
+```
+
 ### 6.3 Why isn’t Stacking the first step for beginners?
 
 Because although Stacking can be stronger, it has higher requirements for experimental design:
@@ -770,6 +867,19 @@ plt.tight_layout()
 plt.show()
 ```
 
+Expected output without optional packages:
+
+```text
+XGBoost is not installed; skip this model.
+LightGBM is not installed; skip this model.
+Decision Tree | CV: 91.5% ± 1.8% | Test: 94.4%
+Random Forest | CV: 97.9% ± 2.9% | Test: 100.0%
+AdaBoost     | CV: 92.2% ± 3.5% | Test: 94.4%
+GBDT         | CV: 92.2% ± 2.7% | Test: 94.4%
+```
+
+Treat this table as a comparison pattern, not a universal ranking. On a different dataset, the winner may change, so the correct habit is to compare models under the same validation protocol.
+
 ---
 
 ## 8. How to choose an algorithm?
@@ -796,15 +906,16 @@ flowchart TD
 ```
 
 :::tip Practical Advice
-1. **First choice**: Start with LightGBM or XGBoost to get a baseline
-2. **Tuning order**: `n_estimators` → `learning_rate` → `max_depth` → regularization parameters
-3. **Early stopping**: Be sure to use `early_stopping_rounds`
-4. **Competition boosting**: Stack multiple models
+1. **First baseline**: Use Logistic Regression, a single tree, or Random Forest to get an interpretable baseline
+2. **Higher ceiling**: Try XGBoost or LightGBM after your validation split is stable
+3. **Tuning order**: `n_estimators` → `learning_rate` → `max_depth` → regularization parameters
+4. **Early stopping**: Use early stopping for Boosting models whenever you have a validation set
+5. **Competition boosting**: Consider Stacking only after single-model experiments are reliable
 :::
 
 ---
 
-## 10. The Safest Default Order for Bringing Ensemble Learning into a Project for the First Time
+## 9. The Safest Default Order for Bringing Ensemble Learning into a Project for the First Time
 
 When you introduce ensemble learning into a project for the first time, you can follow this order:
 
