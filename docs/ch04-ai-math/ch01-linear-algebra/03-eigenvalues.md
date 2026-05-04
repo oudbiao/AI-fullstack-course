@@ -45,6 +45,19 @@ So the real problem this lesson solves is not "memorize the definition," but:
 - How to find the most important direction among many changes
 - Why PCA can compress data while losing little information
 
+## Terms That Make This Section Less Scary
+
+| Term | Plain-English meaning | Why it matters |
+|---|---|---|
+| `λ` / `lambda` | The stretch factor for an eigenvector | If `λ = 3`, that direction becomes 3 times longer after transformation. |
+| `np.linalg.eig` | NumPy function for eigenvalues and eigenvectors | It returns two objects: eigenvalues first, eigenvectors second. |
+| `eigenvectors[:, i]` | The i-th eigenvector | NumPy stores eigenvectors by column, not by row. This is easy to miss. |
+| covariance matrix | A matrix describing how features vary together | PCA finds important directions from this matrix. |
+| `eigvalsh` | Eigenvalue function for symmetric/Hermitian matrices | Covariance matrices are symmetric, so this function is faster and more stable for eigenvalues only. |
+| PCA | Principal Component Analysis | A dimensionality reduction method that keeps directions with the most variance. |
+
+When reading the formulas, keep one sentence in mind: eigenvectors are directions, eigenvalues are how strong those directions are.
+
 ## 1. Intuition
 
 ### 1.1 "Special directions" in matrix transformations
@@ -180,6 +193,17 @@ print("Eigenvectors:\n", eigenvectors)
 # 2nd eigenvector (corresponding to λ=2): eigenvectors[:, 1]
 ```
 
+Expected output:
+
+```text
+Eigenvalues: [5. 2.]
+Eigenvectors:
+ [[ 0.89442719 -0.70710678]
+ [ 0.4472136   0.70710678]]
+```
+
+The sign of an eigenvector may flip in different environments, for example `[0.707, -0.707]` instead of `[-0.707, 0.707]`. That is still the same direction line, so it is not an error.
+
 ### 2.2 Verify: A × v = λ × v
 
 ```python
@@ -195,6 +219,8 @@ for i in range(len(eigenvalues)):
     print(f"  λ * v  = {right.round(6)}")
     print(f"  Equal? {np.allclose(left, right)}")  # True
 ```
+
+This verification is more important than the raw numbers. If `A @ v` and `λ * v` are almost equal, the pair really satisfies the eigenvector definition.
 
 ### 2.3 Special properties of symmetric matrices
 
@@ -294,6 +320,15 @@ eigenvectors = eigenvectors[:, idx]
 print(f"Eigenvalues: {eigenvalues.round(3)}")
 print(f"Variance ratio: {(eigenvalues / eigenvalues.sum() * 100).round(1)}%")
 ```
+
+Expected output with `seed=42`:
+
+```text
+Eigenvalues: [1.06  0.068]
+Variance ratio: [94.  6.]%
+```
+
+This means the first principal direction keeps about 94% of the variation in this toy dataset, so reducing from 2D to 1D loses relatively little information.
 
 ### 3.4 Visualization: directions found by PCA
 
