@@ -196,6 +196,18 @@ RLHF 则更像在继续教它：
 这张图建议按角色读：SFT 先让模型会答，偏好对训练 Reward Model，策略模型朝高奖励方向更新，Reference Model 和 KL penalty 防止它为了刷分跑偏。RLHF 重，不是因为名字复杂，而是因为这条链里同时维护多个模型角色。
 :::
 
+### 2.5 让 RLHF 不再神秘的术语
+
+| 术语 | 直白解释 | 为什么重要 |
+|---|---|---|
+| RLHF | Reinforcement Learning from Human Feedback，基于人类反馈的强化学习 | 把人类偏好比较变成训练信号 |
+| Preference pair | 同一个 prompt 的两个回答：`chosen` 和 `rejected` | 通常比让人类打绝对分更容易标注 |
+| Reward model | 给 prompt-answer 对打分的模型 | 在策略优化时像一个学出来的裁判 |
+| Policy model | 真正生成答案的模型 | 它会朝人类更偏好的行为方向更新 |
+| Reference model | 冻结的参考模型或 baseline 模型 | 防止策略模型为了追奖励跑得太远 |
+| PPO | Proximal Policy Optimization，经典 RLHF 中常见的强化学习算法 | 用来让策略模型朝更高奖励更新 |
+| KL penalty | 惩罚当前策略和参考模型差太远 | 防止 reward hacking 或风格崩塌 |
+
 ---
 
 ## 三、先跑一个真正有关的奖励模型示例

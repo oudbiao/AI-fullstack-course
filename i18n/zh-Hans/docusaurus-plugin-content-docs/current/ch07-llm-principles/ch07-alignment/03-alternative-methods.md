@@ -68,6 +68,12 @@ RLHF 很重要，但它不是唯一答案。
 前者主要在简化训练目标，
 后者主要在降低“全靠人工偏好数据”的成本。
 
+![对齐方法选择地图](/img/course/ch07-alignment-method-map.png)
+
+:::tip 读图提示
+读这张图时可以从“我们想降低哪种成本或复杂度”出发：RLHF 保留完整偏好优化链路；DPO 直接用 chosen/rejected 偏好对优化策略；RLAIF 改变反馈来源；Constitutional AI 先把规则写清楚，再做批评和修订。
+:::
+
 ---
 
 ## 二、先把几条主流路线放进一张图里
@@ -130,6 +136,16 @@ Constitutional AI 的思路很适合新人建立直觉：
 - 显式原则
 - 自我审查
 - 可解释的规则来源
+
+### 2.5 替代对齐方法速查表
+
+| 方法 | 核心想法 | 想减少或移除什么 |
+|---|---|---|
+| DPO | Direct Preference Optimization，直接偏好优化 | 移除单独奖励模型和显式 RL 链路 |
+| IPO | Identity Preference Optimization | 用不同目标和正则视角重写偏好学习 |
+| ORPO | Odds Ratio Preference Optimization | 把监督学习和偏好对比合进一个目标 |
+| RLAIF | Reinforcement Learning from AI Feedback，基于 AI 反馈的强化学习 | 用 AI 裁判降低对人工偏好标注的依赖 |
+| Constitutional AI | 用规则指导自我批评和修订 | 把原则显式写出来，再用批评/修订塑造行为 |
 
 ---
 

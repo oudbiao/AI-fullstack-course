@@ -211,6 +211,17 @@ This table is very worth remembering, because many later RLHF methods, rule-base
 When reading this diagram, pay attention to the triangular tension: Helpful means useful, Honest means admitting boundaries, and Harmless means blocking risk. Alignment is not just refusing everything, nor is it helping at all costs. It is about finding balance among the three for different requests, and implementing that balance through evaluation, policy, and guardrails.
 :::
 
+### 2.6 Alignment terms that beginners should not skip
+
+| Term | Plain meaning | In real systems |
+|---|---|---|
+| HHH | Helpful, Honest, Harmless | A compact way to remember the three main alignment goals |
+| Guardrail | A rule, filter, permission boundary, or review step around the model | Prevents risky inputs, outputs, or tool actions from becoming real-world harm |
+| Over-refusal | Refusing safe and reasonable requests too often | Makes the model safer-looking but less useful |
+| Sycophancy | The model agrees with the user too much, even when the user is wrong | Can make wrong assumptions sound validated |
+| Hallucination | Output that sounds fluent but is unsupported or false | Especially dangerous when users expect facts, sources, or policy guidance |
+| Escalation | Handing a case to a human or stricter workflow | Useful for policy-sensitive, ambiguous, or high-risk requests |
+
 ---
 
 ## 3. Where does the risk actually come from?

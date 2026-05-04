@@ -68,6 +68,12 @@ Later methods can roughly be divided into two categories:
 The former mainly simplifies the training objective,
 while the latter mainly reduces the cost of relying entirely on human preference data.
 
+![Alignment method map](/img/course/ch07-alignment-method-map-en.png)
+
+:::tip How to read this map
+Read the map from “what cost or complexity are we trying to reduce?” RLHF keeps the full preference-optimization chain, DPO shortens it by optimizing from chosen/rejected pairs directly, RLAIF changes the feedback source, and Constitutional AI makes rules explicit before critique and revision.
+:::
+
 ---
 
 ## 2. Let’s first put the main approaches into one picture
@@ -130,6 +136,16 @@ It emphasizes:
 - explicit principles
 - self-review
 - explainable rule sources
+
+### 2.5 A quick glossary of alternative alignment methods
+
+| Method | Full idea | What it tries to remove or reduce |
+|---|---|---|
+| DPO | Direct Preference Optimization | Removes the separate reward model and explicit RL loop |
+| IPO | Identity Preference Optimization | Rewrites preference learning with a different objective and regularization view |
+| ORPO | Odds Ratio Preference Optimization | Combines supervised learning and preference contrast in one objective |
+| RLAIF | Reinforcement Learning from AI Feedback | Reduces dependence on human preference labeling by using AI judges |
+| Constitutional AI | Rule-guided critique and revision | Makes principles explicit, then uses critique/revision to shape behavior |
 
 ---
 

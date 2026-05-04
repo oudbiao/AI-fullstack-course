@@ -197,6 +197,18 @@ RLHF でよく使う工程上の直感は、まず次のように覚えるとよ
 この図は、役割ごとに読むのがおすすめです。SFT でまずモデルが答えられるようにし、嗜好ペアで Reward Model を学習し、ポリシーモデルが高報酬方向へ更新されます。Reference Model と KL penalty は、スコアを取りに行きすぎて軌道を外れるのを防ぎます。RLHF が重いのは名前が複雑だからではなく、この流れの中で複数のモデル役割を同時に保つ必要があるからです。
 :::
 
+### 2.5 RLHF の流れを分かりやすくする用語
+
+| 用語 | わかりやすい意味 | なぜ重要か |
+|---|---|---|
+| RLHF | Reinforcement Learning from Human Feedback。人間のフィードバックを使う強化学習 | 人間の嗜好比較を学習信号に変える |
+| Preference pair | 同じ prompt に対する 2 つの回答、`chosen` と `rejected` | 絶対点を付けるより、人間が比較しやすい |
+| Reward model | prompt-answer ペアにスコアを付けるモデル | policy 最適化中の「学習済みの採点者」になる |
+| Policy model | 実際に回答を生成するモデル | 好ましい振る舞いへ向けて更新される対象 |
+| Reference model | 凍結された参照モデル、または baseline モデル | 報酬を追いすぎて policy が大きくずれるのを防ぐ |
+| PPO | Proximal Policy Optimization。古典的な RLHF でよく使われる強化学習手法 | policy model を高報酬方向へ更新するために使われる |
+| KL penalty | 参照モデルから離れすぎることへの罰則 | reward hacking や文体崩壊を防ぐ |
+
 ## 三、まずは本当に関係のある報酬モデルの例を動かしてみる
 
 以下の例では、本物の大きなニューラルネットワークを学習するわけではありません。  

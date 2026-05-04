@@ -194,6 +194,18 @@ This table is especially useful for beginners, because it breaks RLHF back down 
 It is best to read this diagram by role: SFT first teaches the model how to answer, preference pairs train the Reward Model, the policy model updates toward higher reward, and the Reference Model plus KL penalty prevent it from drifting while chasing scores. RLHF is heavy not because the name is complicated, but because this chain maintains multiple model roles at once.
 :::
 
+### 2.5 RLHF terms that make the pipeline less mysterious
+
+| Term | Plain meaning | Why it matters |
+|---|---|---|
+| RLHF | Reinforcement Learning from Human Feedback | Turns human preference comparisons into a training signal |
+| Preference pair | Two answers to the same prompt: `chosen` and `rejected` | Easier for humans to label than an absolute score |
+| Reward model | A model that scores prompt-answer pairs | Acts like a learned judge during policy optimization |
+| Policy model | The model that actually generates answers | This is the model being updated toward preferred behavior |
+| Reference model | A frozen copy or baseline model | Prevents the policy from drifting too far while chasing reward |
+| PPO | Proximal Policy Optimization | A reinforcement learning method often used in classic RLHF pipelines |
+| KL penalty | A penalty for moving too far from the reference model | Keeps optimization from becoming reward hacking or style collapse |
+
 ---
 
 ## 3. First Run a Truly Relevant Reward Model Example
