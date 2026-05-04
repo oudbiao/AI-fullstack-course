@@ -17,6 +17,29 @@ keywords: [probability distribution, normal distribution, binomial distribution,
 - Build an intuitive understanding of the Central Limit Theorem — why the normal distribution appears everywhere
 - Use Python to generate and visualize different distributions
 
+## Terms to Decode Before Plotting
+
+This lesson introduces several distribution words that look compact but carry a lot of meaning:
+
+| Term | Full name / meaning | Beginner-friendly interpretation |
+|---|---|---|
+| `random variable` | A variable whose value is uncertain | The thing we observe, such as clicks, height, dice result, or number of customers |
+| `PMF` | Probability Mass Function | For discrete values, how much probability is assigned to each value |
+| `PDF` | Probability Density Function | For continuous values, where probability density is high or low |
+| `CDF` | Cumulative Distribution Function | Probability that the value is less than or equal to a threshold |
+| `μ` / `mu` | Mean | The center or average location of a distribution |
+| `σ` / `sigma` | Standard deviation | How spread out the distribution is |
+| `λ` / `lambda_` | Rate or average count | In Poisson, the average number of events in a fixed interval |
+| `SciPy stats` | Statistical functions in SciPy | A Python toolbox for probability distributions, PMF, PDF, and CDF |
+
+If you run this file locally, install the three libraries used by the examples:
+
+```bash
+python3 -m pip install numpy matplotlib scipy
+```
+
+The examples use `lambda_` instead of `lambda` because `lambda` is a Python keyword for anonymous functions.
+
 ## First, a very important learning expectation
 
 This section is not meant to turn every distribution into an "exam cheat sheet."
@@ -72,6 +95,8 @@ plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 ```
 
+`stats` is the distribution module from SciPy. In this lesson, it saves us from manually writing formulas for binomial, Poisson, and normal distributions, so we can focus on intuition.
+
 ---
 
 ## 2. Discrete distributions
@@ -100,6 +125,12 @@ ax.set_ylim(0, 1)
 plt.show()
 ```
 
+Expected output with `seed=42`:
+
+```text
+Proportion of heads: 0.605
+```
+
 **Application in AI**: labels for binary classification tasks follow a Bernoulli distribution (0 or 1).
 
 ### 2.2 Binomial distribution — the sum of multiple Bernoulli trials
@@ -118,6 +149,9 @@ pmf = stats.binom.pmf(x, n, p)
 # Simulation
 rng = np.random.default_rng(seed=42)
 samples = rng.binomial(n, p, 10000)
+print(f"Expected heads n*p: {n*p:.1f}")
+print(f"Most likely number of heads: {x[pmf.argmax()]}")
+print(f"Simulated mean: {samples.mean():.3f}")
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
@@ -135,6 +169,14 @@ axes[1].set_title(f'Binomial Distribution B(n={n}, p={p}) (10,000 simulations)')
 
 plt.tight_layout()
 plt.show()
+```
+
+Expected output with `seed=42`:
+
+```text
+Expected heads n*p: 10.0
+Most likely number of heads: 10
+Simulated mean: 9.984
 ```
 
 **Key parameters**:
@@ -165,6 +207,14 @@ print(f"Probability of 5 customers: {stats.poisson.pmf(5, lambda_):.4f}")
 print(f"Probability of 10+ customers: {1 - stats.poisson.cdf(9, lambda_):.4f}")
 ```
 
+Expected output:
+
+```text
+Probability of 0 customers: 0.0067
+Probability of 5 customers: 0.1755
+Probability of 10+ customers: 0.0318
+```
+
 **Application in AI**: the number of rare words in a text, website traffic volume, anomaly detection.
 
 ---
@@ -179,6 +229,8 @@ Every value has exactly the same probability of occurring.
 # Uniform distribution U(0, 1)
 rng = np.random.default_rng(seed=42)
 samples = rng.uniform(0, 1, 10000)
+print(f"Uniform sample mean: {samples.mean():.3f}")
+print(f"Uniform sample min/max: {samples.min():.3f}/{samples.max():.3f}")
 
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.hist(samples, bins=50, density=True, color='steelblue', edgecolor='white', alpha=0.7)
@@ -190,9 +242,18 @@ ax.legend()
 plt.show()
 ```
 
+Expected output with `seed=42`:
+
+```text
+Uniform sample mean: 0.497
+Uniform sample min/max: 0.000/1.000
+```
+
 **Application in AI**: random weight initialization, random sampling, random transformations in data augmentation.
 
 ### 3.2 Normal distribution (Gaussian distribution) — the most important distribution
+
+Normal distribution is often called a **Gaussian distribution**. `stats.norm.pdf(x, mu, sigma)` returns the height of the bell curve at `x`. For continuous distributions, the height itself is not a probability; the probability is the area under the curve across an interval.
 
 ```mermaid
 flowchart LR
@@ -240,6 +301,15 @@ print("68-95-99.7 rule:")
 for k, pct in [(1, '68.3%'), (2, '95.4%'), (3, '99.7%')]:
     area = stats.norm.cdf(mu + k*sigma) - stats.norm.cdf(mu - k*sigma)
     print(f"  Within μ ± {k}σ: {area:.1%} of the data (theoretical {pct})")
+```
+
+Expected output:
+
+```text
+68-95-99.7 rule:
+  Within μ ± 1σ: 68.3% of the data (theoretical 68.3%)
+  Within μ ± 2σ: 95.4% of the data (theoretical 95.4%)
+  Within μ ± 3σ: 99.7% of the data (theoretical 99.7%)
 ```
 
 ```python
@@ -319,11 +389,20 @@ for col, (name, dist_func) in enumerate(distributions):
     axes[1, col].set_title(f'Distribution of sample means (n={n_samples})')
     axes[1, col].set_ylabel('Probability density')
     axes[1, col].legend()
+    print(f"{name}: mean of sample means={means.mean():.3f}, std={means.std():.3f}")
 
 plt.suptitle('Central Limit Theorem: No matter what the original distribution is, sample means tend toward a normal distribution',
              fontsize=14, y=1.01)
 plt.tight_layout()
 plt.show()
+```
+
+Expected output with `seed=42`:
+
+```text
+Uniform distribution: mean of sample means=0.500, std=0.053
+Exponential distribution: mean of sample means=0.999, std=0.182
+Binomial distribution: mean of sample means=3.005, std=0.262
 ```
 
 **Interpretation**: No matter whether the original data is uniform, skewed, or discrete, as long as you take the average of enough samples, the distribution will become normal.
@@ -396,6 +475,9 @@ These questions will naturally lead you to:
 | Probability distribution | The "map of possibilities" for a random variable |
 | Discrete distribution | Takes a finite set of values, each with a definite probability |
 | Continuous distribution | Takes any value, described with a probability density function |
+| PMF | Probability assigned to each discrete value |
+| PDF | Density curve for continuous values; probabilities are areas under the curve |
+| CDF | Accumulated probability up to a value |
 | Normal distribution | The most important distribution — a bell curve determined by μ and σ |
 | Central Limit Theorem | Sample means tend toward a normal distribution, regardless of the original distribution |
 
@@ -411,10 +493,79 @@ These questions will naturally lead you to:
 
 In a 2×3 subplot grid, plot Bernoulli, binomial, Poisson, uniform, normal, and exponential distributions.
 
+Reference implementation:
+
+```python
+rng = np.random.default_rng(seed=42)
+fig, axes = plt.subplots(2, 3, figsize=(15, 8))
+axes = axes.ravel()
+
+axes[0].bar([0, 1], [0.4, 0.6], color=["coral", "steelblue"])
+axes[0].set_title("Bernoulli(p=0.6)")
+
+x = np.arange(0, 21)
+axes[1].bar(x, stats.binom.pmf(x, 20, 0.5), color="steelblue")
+axes[1].set_title("Binomial(n=20, p=0.5)")
+
+x = np.arange(0, 16)
+axes[2].bar(x, stats.poisson.pmf(x, 5), color="mediumseagreen")
+axes[2].set_title("Poisson(lambda=5)")
+
+samples = rng.uniform(0, 1, 10000)
+axes[3].hist(samples, bins=40, density=True, color="steelblue", alpha=0.7)
+axes[3].set_title("Uniform(0, 1)")
+
+x = np.linspace(-4, 4, 300)
+axes[4].plot(x, stats.norm.pdf(x), color="black")
+axes[4].set_title("Normal(0, 1)")
+
+samples = rng.exponential(1, 10000)
+axes[5].hist(samples, bins=40, density=True, color="orange", alpha=0.7)
+axes[5].set_title("Exponential(scale=1)")
+
+plt.tight_layout()
+plt.show()
+```
+
 ### Exercise 2: Verify 68-95-99.7
 
 Generate 100000 height data points from N(170, 5) (mean 170 cm, standard deviation 5 cm), and verify what proportion of people have heights between 160 and 180 cm (±2σ).
 
+Reference implementation:
+
+```python
+rng = np.random.default_rng(seed=42)
+heights = rng.normal(170, 5, 100000)
+within = ((heights >= 160) & (heights <= 180)).mean()
+print(f"Height within 160-180 cm: {within:.1%}")
+```
+
+Expected output:
+
+```text
+Height within 160-180 cm: 95.4%
+```
+
 ### Exercise 3: Central Limit Theorem experiment
 
 Use dice (uniform distribution from 1 to 6) to perform a Central Limit Theorem experiment: roll the dice 1 time, 10 times, 50 times, and 200 times, compute the average each time, repeat each group 10000 times, and plot the distribution of the averages.
+
+Reference implementation:
+
+```python
+rng = np.random.default_rng(seed=42)
+for n_rolls in [1, 10, 50, 200]:
+    means = rng.integers(1, 7, size=(10000, n_rolls)).mean(axis=1)
+    print(f"Dice n={n_rolls}: mean={means.mean():.3f}, std={means.std():.3f}")
+```
+
+Expected output:
+
+```text
+Dice n=1: mean=3.475, std=1.704
+Dice n=10: mean=3.503, std=0.541
+Dice n=50: mean=3.499, std=0.241
+Dice n=200: mean=3.500, std=0.120
+```
+
+The mean stays close to 3.5, while the standard deviation of the averages becomes smaller. That is the Central Limit Theorem becoming visible in code.
