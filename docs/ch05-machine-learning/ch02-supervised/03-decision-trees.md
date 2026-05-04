@@ -49,7 +49,23 @@ A more stable order of understanding is:
 
 ![Decision tree learning main flow chart](/img/course/ch05-decision-tree-learning-flow-en.png)
 
+![Decision tree learning and pruning comic](/img/course/ch05-decision-tree-learning-comic-en.png)
+
 If you first grasp this thread, the later parts about entropy, Gini, pruning, and ensemble learning will all connect more smoothly.
+
+### Keyword Decoder
+
+| Term | What it means here | How to use it in practice |
+|------|------|------|
+| `node` | A point in the tree where data is held or split | Inspect nodes to explain why a prediction went down a certain path |
+| `root node` | The first node containing all training samples | The root split is often the most important global rule |
+| `leaf node` | The final node that outputs a class or value | Small leaves often signal that the tree may be memorizing rare cases |
+| `entropy` | A measure of label uncertainty | Lower entropy after a split means the child groups are cleaner |
+| `Gini` | Another impurity measure used by CART trees | The sklearn default; usually a safe first choice |
+| `max_depth` | The maximum number of split levels | Tune it first because it directly controls tree complexity |
+| `min_samples_leaf` | Minimum samples allowed in a leaf | Helps avoid tiny leaves that only explain a few noisy points |
+| `ccp_alpha` | Cost-complexity pruning strength | Use it for post-pruning after a full tree is grown |
+| `CART` | Classification and Regression Trees | The family of tree algorithms used by sklearn decision trees |
 
 ---
 
@@ -139,7 +155,25 @@ plot_tree(tree, feature_names=['Petal Length', 'Petal Width'],
 plt.title('Iris Decision Tree (max_depth=3)')
 plt.tight_layout()
 plt.show()
+
+print(f"Training accuracy: {tree.score(X, y):.1%}")
+print(f"Tree depth: {tree.get_depth()}")
+print(f"Leaf nodes: {tree.get_n_leaves()}")
+print(f"Root split feature: Petal Length")
+print(f"Root threshold: {tree.tree_.threshold[0]:.2f}")
 ```
+
+Expected output:
+
+```text
+Training accuracy: 97.3%
+Tree depth: 3
+Leaf nodes: 5
+Root split feature: Petal Length
+Root threshold: 2.45
+```
+
+The root split tells a story: the tree first asks about petal length because that single question already separates many iris samples well.
 
 ---
 
@@ -222,6 +256,16 @@ ig_b = information_gain(y_parent, y_left_b, y_right_b)
 print(f"Plan B (poor split) information gain: {ig_b:.4f}")
 ```
 
+Expected output:
+
+```text
+Parent node entropy: 1.0000
+Plan A (perfect split) information gain: 1.0000
+Plan B (poor split) information gain: 0.0290
+```
+
+Plan A is valuable because it turns two mixed groups into two pure groups. Plan B barely improves order, so a tree should prefer Plan A.
+
 ### 2.3 Gini impurity
 
 Another measure of "purity" that is faster to compute:
@@ -252,7 +296,20 @@ plt.title('Entropy vs Gini')
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
+
+for labels in [y_parent, y_left_a, y_left_b]:
+    print(f"Gini={gini(labels):.4f}, Entropy={entropy(labels):.4f}")
 ```
+
+Expected output:
+
+```text
+Gini=0.5000, Entropy=1.0000
+Gini=0.0000, Entropy=-0.0000
+Gini=0.4800, Entropy=0.9710
+```
+
+Both Gini and entropy are asking the same practical question: “how mixed are the labels in this node?” The exact numbers differ, but the ranking is often similar.
 
 ### 2.4 Choice in sklearn
 
@@ -324,10 +381,21 @@ for ax, depth in zip(axes, depths):
     label = f'No depth limit' if depth is None else f'depth={depth}'
     plot_decision_boundary(ax, tree, X, y,
                           f'{label}\nTraining accuracy: {tree.score(X, y):.1%}')
+    print(f"{label}: training accuracy {tree.score(X, y):.1%}, "
+          f"leaves {tree.get_n_leaves()}, depth {tree.get_depth()}")
 
 plt.suptitle('How decision tree depth affects the decision boundary', fontsize=13)
 plt.tight_layout()
 plt.show()
+```
+
+Expected output:
+
+```text
+depth=1: training accuracy 81.0%, leaves 2, depth 1
+depth=3: training accuracy 90.0%, leaves 6, depth 3
+depth=5: training accuracy 94.7%, leaves 14, depth 5
+No depth limit: training accuracy 100.0%, leaves 33, depth 9
 ```
 
 :::warning Overfitting in decision trees
@@ -403,11 +471,24 @@ for ax, (depth, title) in zip(axes, configs):
     test_acc = tree.score(X_test, y_test)
     plot_decision_boundary(ax, tree, X_train, y_train,
                           f'{title}\nTrain: {train_acc:.1%}, Test: {test_acc:.1%}')
+    print(f"{title}: train={train_acc:.1%}, test={test_acc:.1%}, "
+          f"leaves={tree.get_n_leaves()}")
 
 plt.suptitle('How pre-pruning controls overfitting', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+No pruning: train=100.0%, test=82.0%, leaves=43
+max_depth=3: train=90.0%, test=89.0%, leaves=6
+max_depth=5: train=94.8%, test=90.0%, leaves=13
+max_depth=10: train=99.2%, test=82.0%, leaves=39
+```
+
+Notice the key diagnostic: the unpruned tree has the best training score but not the best test score. That gap is the visible footprint of overfitting.
 
 ### 4.2 Post-pruning — cost complexity pruning
 
@@ -449,7 +530,18 @@ plt.show()
 
 print(f"Best ccp_alpha: {ccp_alphas[best_idx]:.4f}")
 print(f"Best test accuracy: {test_scores[best_idx]:.1%}")
+print(f"Best tree leaves: {DecisionTreeClassifier(ccp_alpha=ccp_alphas[best_idx], random_state=42).fit(X_train, y_train).get_n_leaves()}")
 ```
+
+Expected output:
+
+```text
+Best ccp_alpha: 0.0040
+Best test accuracy: 91.0%
+Best tree leaves: 7
+```
+
+`ccp_alpha` is like a pruning price: every extra split must justify its complexity. If a split only helps a few training samples, pruning removes it.
 
 ---
 
@@ -479,7 +571,29 @@ plt.title('Feature importance of a decision tree (Wine dataset)')
 plt.grid(axis='x', alpha=0.3)
 plt.tight_layout()
 plt.show()
+
+top_features = sorted(
+    zip(wine.feature_names, importance),
+    key=lambda item: item[1],
+    reverse=True
+)[:5]
+for name, score in top_features:
+    print(f"{name}: {score:.3f}")
+print(f"Training accuracy: {tree.score(X, y):.1%}")
 ```
+
+Expected output:
+
+```text
+proline: 0.390
+od280/od315_of_diluted_wines: 0.319
+flavanoids: 0.144
+hue: 0.059
+magnesium: 0.034
+Training accuracy: 98.9%
+```
+
+Feature importance is useful for explanation, but it is not the same as causality. It says which features the tree used most for splitting, not which features truly caused the label.
 
 ---
 
@@ -517,11 +631,23 @@ for ax, depth in zip(axes, depths):
     label = 'No limit' if depth is None else str(depth)
     ax.set_title(f'depth={label}, R²={tree.score(X_reg, y_reg):.3f}')
     ax.grid(True, alpha=0.3)
+    print(f"depth={label}: R2={tree.score(X_reg, y_reg):.3f}, "
+          f"leaves={tree.get_n_leaves()}")
 
 plt.suptitle('Regression trees with different depths', fontsize=13)
 plt.tight_layout()
 plt.show()
 ```
+
+Expected output:
+
+```text
+depth=2: R2=0.604, leaves=4
+depth=5: R2=0.895, leaves=31
+depth=No limit: R2=1.000, leaves=200
+```
+
+The unlimited regression tree gives every sample its own tiny region, so the training `R²` becomes perfect. That is exactly why it may generalize poorly.
 
 :::note Regression tree vs linear regression
 A regression tree makes **step-like** predictions (each interval outputs a constant), rather than smooth ones. It can naturally fit nonlinear data, but it also overfits easily.
@@ -561,7 +687,7 @@ Its value in this course is not just as an algorithm, but as a bridge between tw
 
 ---
 
-## 9. The safest default order when putting a decision tree into a project for the first time
+## 8. The safest default order when putting a decision tree into a project for the first time
 
 When you first use a decision tree in a real project, you can follow this order:
 
