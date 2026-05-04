@@ -432,6 +432,59 @@ Features:
 
 - Flexible input and output
 
+---
+
+## 10. Early Transformer vs Modern LLM Decoder
+
+The original Transformer paper mainly introduced an encoder-decoder stack for sequence-to-sequence tasks such as machine translation. Modern large language models usually use a decoder-only stack optimized for next-token prediction and large-scale pretraining. The backbone is still Transformer, but the design choices are different.
+
+```mermaid
+flowchart TD
+    A["Early Transformer<br/>Attention -> Add & Norm -> FFN -> Add & Norm"] --> B["LayerNorm"]
+    B --> C["Absolute / sinusoidal positional encoding"]
+    C --> D["Standard Multi-Head Attention"]
+    D --> E["Often encoder-decoder"]
+    F["Modern LLM decoder<br/>RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add"] --> G["Pre-norm style"]
+    G --> H["RoPE"]
+    H --> I["GQA / MQA"]
+    I --> J["SwiGLU FFN"]
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#333
+    style F fill:#fff3e0,stroke:#e65100,color:#333
+```
+
+### 10.1 What beginners should remember first
+
+| Part | Early Transformer | Modern LLM decoder | Why it changed |
+|---|---|---|---|
+| Normalization | LayerNorm | RMSNorm (Root Mean Square Normalization) | Simpler normalization often works well in large decoder stacks |
+| Block order | Attention -> Add & Norm -> FFN -> Add & Norm | RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add | Pre-norm makes deep training more stable |
+| Position information | Absolute / sinusoidal positional encoding | RoPE (Rotary Positional Embedding) | Better relative-position behavior and longer-context use |
+| Attention heads | Standard Multi-Head Attention | GQA / MQA (Grouped-Query / Multi-Query Attention) | Lower KV-cache cost and faster inference |
+| FFN | Standard FFN, often ReLU/GELU | SwiGLU FFN | Stronger gating and better scaling behavior |
+| Common architecture | Encoder-decoder | Decoder-only | Next-token prediction is easier to scale for LLMs |
+
+### 10.2 Plain-language explanations of the acronyms
+
+- **RMSNorm**: normalize by the root mean square of the features, without subtracting the mean
+- **RoPE**: rotate position information into the attention space so the model feels order more naturally
+- **GQA**: let multiple query groups share key/value heads
+- **MQA**: let many query heads share a single key/value set
+- **SwiGLU**: a gated feed-forward block that uses a Swish-style gate to control information flow
+
+### 10.3 Why modern LLM decoders changed the block design
+
+These changes are not cosmetic. They solve practical scaling problems:
+
+- Deep models need more stable gradients, so pre-norm is attractive
+- Long contexts need better position handling, so RoPE is often preferred
+- Inference cost matters, so GQA/MQA reduce KV-cache pressure
+- Large-scale generation needs stronger nonlinear blocks, so SwiGLU often replaces a simpler FFN
+
+If you remember only one sentence, remember this:
+
+> Early Transformer showed how to build a strong sequence-to-sequence block, while modern LLM decoders show how to scale that block to very large language models.
+
 ## If You Turn This Into Notes or a Project, What Is Most Worth Showing?
 
 What is usually most worth showing is not:
@@ -458,18 +511,18 @@ That question almost directly determines what it is good at.
 
 ---
 
-## 10. Common Beginner Pitfalls
+## 11. Common Beginner Pitfalls
 
-### 10.1 Mistaking Transformer for “Just Attention”
+### 11.1 Mistaking Transformer for “Just Attention”
 
 Attention is important, but it is not everything.
 Residual connections, normalization, and FFN are all key to making the architecture work reliably.
 
-### 10.2 Focusing Only on Shape and Ignoring Information Flow
+### 11.2 Focusing Only on Shape and Ignoring Information Flow
 
 Many times the shape does not change, but the semantic representation is being rebuilt layer by layer.
 
-### 10.3 Not Knowing the Difference Between Encoder and Decoder
+### 11.3 Not Knowing the Difference Between Encoder and Decoder
 
 This will keep you confused when you later look at BERT, GPT, and T5.
 
@@ -482,6 +535,12 @@ The most important thing in this section is not memorizing the diagram, but gras
 > **A Transformer Block = attention builds relationships + residual connections preserve information + normalization stabilizes training + FFN performs nonlinear processing.**
 
 With this main idea in mind, when you later study specific models like BERT, GPT, and T5, you can immediately see how they are trimmed and extended within this larger framework.
+
+If you go one step further, you should also be able to separate the original Transformer block from the modern LLM decoder block:
+
+> **Early Transformer = LayerNorm + absolute position + standard multi-head attention + encoder-decoder structure.**
+>
+> **Modern LLM decoder = pre-norm + RMSNorm + RoPE + GQA/MQA + SwiGLU + decoder-only structure.**
 
 ---
 

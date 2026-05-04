@@ -434,6 +434,59 @@ Decoder Block 通常会多一个模块：
 
 - 输入输出都很灵活
 
+---
+
+## 十、早期 Transformer 与现代 LLM decoder 的对比
+
+最早的 Transformer 论文，主要是把它当作序列到序列任务的编码器-解码器架构来使用，比如机器翻译。现代大语言模型通常使用 decoder-only 结构，并且优化的是“下一个 token 预测”和大规模预训练。骨架还是 Transformer，但设计选择已经不一样了。
+
+```mermaid
+flowchart TD
+    A["早期 Transformer<br/>Attention -> Add & Norm -> FFN -> Add & Norm"] --> B["LayerNorm"]
+    B --> C["绝对位置编码 / 正弦位置编码"]
+    C --> D["普通 Multi-Head Attention"]
+    D --> E["常见于 encoder-decoder"]
+    F["现代 LLM decoder<br/>RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add"] --> G["pre-norm 风格"]
+    G --> H["RoPE"]
+    H --> I["GQA / MQA"]
+    I --> J["SwiGLU FFN"]
+
+    style A fill:#e3f2fd,stroke:#1565c0,color:#333
+    style F fill:#fff3e0,stroke:#e65100,color:#333
+```
+
+### 10.1 初学者最该记住的快速对照
+
+| 部分 | 早期 Transformer | 现代 LLM decoder | 为什么会这样演进 |
+|---|---|---|---|
+| 归一化 | LayerNorm | RMSNorm（Root Mean Square Normalization） | 更简单的归一化方式，在大型 decoder 堆栈里常常更合适 |
+| Block 顺序 | Attention -> Add & Norm -> FFN -> Add & Norm | RMSNorm -> Attention -> Add -> RMSNorm -> FFN -> Add | pre-norm 让非常深的训练更稳定 |
+| 位置信息 | 绝对位置编码 / 正弦位置编码 | RoPE（Rotary Positional Embedding） | 更适合相对位置和更长上下文 |
+| Attention 头 | 普通 Multi-Head Attention | GQA / MQA（Grouped-Query / Multi-Query Attention） | 降低 KV cache 成本，让推理更快 |
+| FFN | 普通 FFN，常见 ReLU/GELU | SwiGLU FFN | 门控更强，扩展效果更好 |
+| 常见结构 | encoder-decoder | decoder-only | 下一个 token 预测更适合大规模预训练 |
+
+### 10.2 这些缩写用大白话解释
+
+- **RMSNorm**：只按特征的均方根做归一化，不再显式减均值
+- **RoPE**：把位置信息“旋转”进注意力空间，让模型更自然地感知顺序
+- **GQA**：多个 query 组共享 key/value 头
+- **MQA**：很多 query 头共享一组 key/value
+- **SwiGLU**：带门控的前馈模块，用 Swish 风格的门来控制信息流
+
+### 10.3 为什么现代 LLM decoder 要这样改
+
+这些变化不是“换个名字”，而是为了解决扩展时的现实问题：
+
+- 模型更深了，所以更需要稳定梯度，pre-norm 更合适
+- 上下文更长了，所以更需要好的位置处理，RoPE 更常见
+- 推理成本更敏感了，所以 GQA/MQA 可以减轻 KV cache 压力
+- 生成任务规模更大了，所以 SwiGLU 这类更强的非线性模块更常见
+
+如果只记一句话，可以记成：
+
+> 早期 Transformer 主要是在说明如何搭一个强的序列到序列块；现代 LLM decoder 主要是在说明如何把这个块扩展到超大语言模型。
+
 ## 如果把它做成笔记或项目，最值得展示什么
 
 最值得展示的通常不是：
@@ -460,18 +513,18 @@ Decoder Block 通常会多一个模块：
 
 ---
 
-## 十、初学者最常踩的坑
+## 十一、初学者最常踩的坑
 
-### 10.1 把 Transformer 误解成“只有注意力”
+### 11.1 把 Transformer 误解成“只有注意力”
 
 注意力很重要，但不是全部。
 残差、归一化、FFN 都是架构能跑稳的关键。
 
-### 10.2 只盯着 shape，不理解信息流
+### 11.2 只盯着 shape，不理解信息流
 
 很多时候 shape 不变，但语义表示已经在层层重构。
 
-### 10.3 不知道 encoder / decoder 的差异
+### 11.3 不知道 encoder / decoder 的差异
 
 这会让你后面看 BERT、GPT、T5 时一直混。
 
@@ -484,6 +537,12 @@ Decoder Block 通常会多一个模块：
 > **Transformer Block = 注意力建关系 + 残差保信息 + 归一化稳训练 + FFN 做非线性加工。**
 
 有了这条主线，后面你看 BERT、GPT、T5 这些具体模型时，就能马上定位它们是在这个大框架上怎样裁剪和扩展的。
+
+如果再往前一步，还要能分清原版 Transformer 块和现代 LLM decoder 块：
+
+> **早期 Transformer = LayerNorm + 绝对位置 + 普通多头注意力 + encoder-decoder。**
+>
+> **现代 LLM decoder = pre-norm + RMSNorm + RoPE + GQA/MQA + SwiGLU + decoder-only。**
 
 ---
 
