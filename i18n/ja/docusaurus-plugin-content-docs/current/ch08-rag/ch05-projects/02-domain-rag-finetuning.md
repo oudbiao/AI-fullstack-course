@@ -120,6 +120,16 @@ flowchart LR
 
 ## 四、最小限のナレッジベースと検索器
 
+:::note 依存関係
+この例では、軽量な TF-IDF 検索器として `scikit-learn` を使います。ローカルで実行したい場合は、先にインストールしてください。
+
+```bash
+pip install scikit-learn
+```
+
+環境にすでに入っている場合は、この手順は不要です。
+:::
+
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity

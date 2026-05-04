@@ -120,6 +120,16 @@ flowchart LR
 
 ## 四、一个最小知识库和检索器
 
+:::note 依赖说明
+这个示例使用 `scikit-learn` 来实现一个轻量级的 TF-IDF 检索器。如果你想在本地运行，请先安装：
+
+```bash
+pip install scikit-learn
+```
+
+如果你的环境里已经安装好了这个包，就可以跳过。
+:::
+
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity

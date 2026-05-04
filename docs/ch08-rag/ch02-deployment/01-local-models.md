@@ -273,6 +273,8 @@ Then GPU or a more specialized runtime is more realistic.
 
 ## 5. A minimal local inference flow
 
+### 5.1 Why start with a mock runtime?
+
 Here we will not use a real large model yet. Instead, we will write a mock runtime to make the “load -> infer -> return” flow clear.
 
 ```python
@@ -337,7 +339,7 @@ That way, others can more easily see:
 
 ---
 
-## Seven. The real challenge is not “generation succeeds,” but “stable long-term operation”
+## 6. The real challenge is not “generation succeeds,” but “stable long-term operation”
 
 Once you reach a real system, you will encounter these more practical issues:
 
@@ -360,11 +362,11 @@ But that brings:
 
 So you will find:
 
-> The real difficulty of local model runtime is not “making it succeed once,” but “making it live like a service.”**
+> The real difficulty of local model runtime is not “making it succeed once,” but “making it live like a service.”
 
 ---
 
-## Eight. When is a local model especially worth it?
+## 7. When is a local model especially worth it?
 
 ### 7.1 A very good fit
 
@@ -384,7 +386,7 @@ In these cases, a cloud model may actually be more appropriate.
 
 ---
 
-## Eight. A very practical checklist for deciding
+## 8. A very practical checklist for deciding
 
 Before deciding to run locally, you can ask:
 
@@ -397,7 +399,7 @@ If these questions are answered clearly, the local model approach usually will n
 
 ---
 
-## Nine. Common beginner mistakes
+## 9. Common beginner mistakes
 
 ### 9.1 Looking only at model parameters, not the runtime
 

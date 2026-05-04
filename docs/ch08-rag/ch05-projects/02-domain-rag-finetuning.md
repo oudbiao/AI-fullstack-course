@@ -120,6 +120,16 @@ This makes the system more explainable and easier to iterate on.
 
 ## 4. A minimal knowledge base and retriever
 
+:::note Dependency
+This example uses `scikit-learn` for a lightweight TF-IDF retriever. If you want to run it locally, install it first:
+
+```bash
+pip install scikit-learn
+```
+
+If the package is already installed in your environment, you can skip this step.
+:::
+
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
