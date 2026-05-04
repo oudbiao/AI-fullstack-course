@@ -27,6 +27,21 @@ When learning vectors, try drawing two 2D arrows and observe that the smaller th
 
 The bonus for this stage is not a big project, but a set of “math mini-experiments”: vector similarity visualization, probability distribution observation, and gradient descent demonstration. Later, when you study recommendation systems, Embedding, neural networks, and Transformer, you will keep finding that these mini-experiments were already appearing inside real AI models.
 
+## Terms You Will See Repeatedly
+
+| Term | Full name | What it means in this stage |
+|---|---|---|
+| `ML` | Machine Learning | Models learn patterns from data and use them to make predictions or decisions. |
+| `DL` | Deep Learning | A branch of ML that uses multi-layer neural networks to learn features automatically. |
+| `RAG` | Retrieval-Augmented Generation | Retrieve relevant documents first, then let a language model answer with that evidence. |
+| `LLM` | Large Language Model | A model trained on massive text data to predict and generate tokens, such as GPT-style models. |
+| `Embedding` | Vector representation | Turn text, images, users, or items into vectors so the model can compare similarity. |
+| `Transformer` | Attention-based model architecture | The architecture behind most modern LLMs; it relies heavily on vectors, matrices, and attention scores. |
+| `NumPy` | Numerical Python | A Python library for arrays, vectors, matrices, and fast numerical computation. |
+| `Notebook` | Jupyter Notebook | A file that mixes code, charts, notes, and outputs, useful for learning experiments. |
+
+You do not need to master all these topics now. The point is to know where the math will reappear later, so each formula has a future use instead of feeling like isolated exam material.
+
 ## Stage Positioning
 
 | Information | Description |
@@ -93,6 +108,18 @@ a = np.array([1, 1, 0])
 b = np.array([1, 0.8, 0.2])
 cosine = a @ b / (np.linalg.norm(a) * np.linalg.norm(b))
 print(cosine)
+```
+
+To run this minimum example, save it as `math_similarity_demo.py` and execute:
+
+```bash
+python math_similarity_demo.py
+```
+
+The output should be close to:
+
+```text
+0.9819805060619657
 ```
 
 If you can explain why this number can represent “similarity,” then later understanding Embedding, retrieval, and recommendation will become much easier.

@@ -85,9 +85,21 @@ In other words, linear algebra in AI is not just “background knowledge,” but
 
 ---
 
-## How should beginners study this chapter?
+## 4. Tiny Glossary Before You Start
 
-### 4.1 First: really understand vectors
+| Term | What it means here | Why it appears in this chapter |
+|---|---|---|
+| `RAG` | Retrieval-Augmented Generation: retrieve documents before generation | Retrieval needs vector similarity. |
+| `PCA` | Principal Component Analysis | It uses principal directions to compress or visualize data. |
+| `X @ W + b` | Matrix multiplication plus bias | This is the basic shape of many neural network layers. |
+| Dot product | Multiply matching positions and add them up | It is the core operation behind similarity and matrix multiplication. |
+| Cosine similarity | Compare the angle between two vectors | It is commonly used when vector length should not dominate similarity. |
+
+If these terms still feel unfamiliar, do not pause the course to memorize them. Treat this table as a pocket dictionary and return to it whenever the same word appears again.
+
+## 5. How should beginners study this chapter?
+
+### 5.1 First: really understand vectors
 
 At minimum, you should understand:
 
@@ -95,7 +107,7 @@ At minimum, you should understand:
 - What vector length, dot product, and cosine similarity each measure
 - Why RAG, recommendation systems, and word vectors all use similarity
 
-### 4.2 Second: treat matrices as “batch processing machines”
+### 5.2 Second: treat matrices as “batch processing machines”
 
 At minimum, you should understand:
 
@@ -103,7 +115,7 @@ At minimum, you should understand:
 - Matrix multiplication is really “dot products between rows and columns”
 - Why one layer of a neural network can be written as `X @ W + b`
 
-### 4.3 Third: treat eigenvalues as “special directions”
+### 5.3 Third: treat eigenvalues as “special directions”
 
 At minimum, you should understand:
 
@@ -111,7 +123,7 @@ At minimum, you should understand:
 - But some special directions are only stretched or shrunk
 - PCA is about finding the directions along which the data varies the most
 
-### 4.4 Fourth: treat vector spaces as an optional deepening step
+### 5.4 Fourth: treat vector spaces as an optional deepening step
 
 This section is more like “elevating the previous content to a higher perspective.”
 
@@ -124,7 +136,7 @@ If your current goal is to quickly learn machine learning and deep learning, you
 
 to the level where you can explain them and verify them with code, and then keep moving forward.
 
-### 4.5 A more beginner-friendly reading order
+### 5.5 A more beginner-friendly reading order
 
 It is recommended that you read each section in this order:
 
@@ -193,6 +205,23 @@ print("Single student's overall score:", round(single_score, 2))
 all_scores = students @ weights
 print("All students' overall scores:", all_scores.round(2))
 ```
+
+Run it with:
+
+```bash
+python linear_algebra_minimum_demo.py
+```
+
+Expected output:
+
+```text
+Single student vector: [90 85 92]
+Sample matrix shape: (3, 3)
+Single student's overall score: 89.8
+All students' overall scores: [89.8 75.6 91.8]
+```
+
+If your output differs, first check whether the weights still sum to `1.0`, whether the sample matrix is still shape `(3, 3)`, and whether you used `@` for matrix/vector multiplication rather than `*` for element-by-element multiplication.
 
 ---
 
