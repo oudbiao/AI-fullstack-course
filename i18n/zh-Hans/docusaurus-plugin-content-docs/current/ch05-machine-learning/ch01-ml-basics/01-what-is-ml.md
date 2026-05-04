@@ -34,6 +34,10 @@ keywords: [机器学习, 监督学习, 无监督学习, 强化学习, AI, 工作
 
 如果这张图你看懂了，后面第 5 站很多章节都会突然顺起来。
 
+![机器学习第一判断漫画](/img/course/ch05-ml-first-decision-comic.png)
+
+可以把这张漫画当成快速入门检查表：如果规则能写清楚，普通程序可能就够了；如果规律藏在大量案例里，机器学习就开始有价值。然后再判断你有没有标签、输出是类别还是数值、评估指标能不能证明模型真的有用。
+
 ---
 
 ## 一、机器学习到底是什么？
@@ -107,6 +111,20 @@ def is_spam_traditional(email):
 - 什么时候适合传统编程
 - 什么时候应该交给模型去学
 - 为什么数据质量会直接决定模型上限
+
+### 1.5 新人应该提前拆开的术语
+
+| 术语 | 它是什么 | 在本章为什么重要 |
+|---|---|---|
+| `ML` | Machine Learning 的缩写 | 你会在图、文件名和项目记录里反复看到 |
+| `model` | 学到的规则或函数 | 训练完成后被保存、复用、拿去预测的就是模型 |
+| `algorithm` | 学习方法 | 决策树、逻辑回归、K-Means 在训练前都是算法 |
+| `training` | 从数据中学习的过程 | 在代码里通常发生在调用 `fit` 的时候 |
+| `inference` | 用训练好的模型处理新数据 | 在 sklearn 里通常对应 `predict` 或 `predict_proba` |
+| `baseline` | 最简单、最先做出来的对照结果 | 它能告诉你后面的优化是不是真的有效 |
+| `metric` | 衡量模型成败的尺子 | Accuracy、F1、MAE、RMSE 回答的是不同评估问题 |
+
+对新人来说，最重要的是先区分 `algorithm` 和 `model`：算法是学习配方，模型是这个配方看过数据以后训练出来的结果。
 
 ---
 
@@ -287,6 +305,13 @@ print(f"训练集: {X_train.shape[0]} 个样本")
 print(f"测试集: {X_test.shape[0]} 个样本")
 ```
 
+预期输出：
+
+```text
+训练集: 80 个样本
+测试集: 20 个样本
+```
+
 ```mermaid
 flowchart LR
     D["全部数据<br/>100 个样本"]
@@ -342,7 +367,22 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"测试集准确率: {accuracy:.1%}")
 ```
 
+预期输出：
+
+```text
+数据集: 150 个样本, 4 个特征, 3 个类别
+测试集准确率: 100.0%
+```
+
 **只用几行代码就完成了一个完整的 ML 项目！** 接下来的章节会逐步深入每个环节。
+
+如果这段代码报错 `ModuleNotFoundError: No module named 'sklearn'`，先安装本章依赖：
+
+```bash
+python -m pip install --upgrade scikit-learn
+```
+
+这里 `scikit-learn` 是安装包名，`sklearn` 是 Python 代码里的导入模块名。
 
 ---
 
@@ -359,6 +399,8 @@ print(f"测试集准确率: {accuracy:.1%}")
 | 欠拟合 | Underfitting | 模型太简单，连训练数据都学不好 |
 | 泛化 | Generalization | 模型在新数据上表现好的能力 |
 | 超参数 | Hyperparameter | 需要人为设定的参数（如学习率、树深度） |
+| 数据泄漏 | Data leakage | 测试集或未来信息意外进入训练流程，让分数看起来虚高 |
+| 验证集 | Validation Set | 最终测试前，用来选择模型或超参数的数据 |
 
 ### 过拟合 vs 欠拟合
 
@@ -462,8 +504,27 @@ plt.show()
 
 ```python
 from sklearn.datasets import load_wine
-# 你的代码...
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+wine = load_wine()
+X_train, X_test, y_train, y_test = train_test_split(
+    wine.data, wine.target, test_size=0.2, random_state=42, stratify=wine.target
+)
+
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
+accuracy = model.score(X_test, y_test)
+print(f"Test accuracy: {accuracy:.3f}")
 ```
+
+在当前 sklearn 版本上，预期输出约为：
+
+```text
+Test accuracy: 0.944
+```
+
+如果 sklearn 版本或数据切分设置不同，结果可能有轻微变化。这里最重要的是流程：加载数据、划分数据、只在训练集训练、在测试集评估。
 
 ### 练习 3：观察过拟合
 

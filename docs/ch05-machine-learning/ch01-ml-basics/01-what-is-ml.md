@@ -34,6 +34,10 @@ The most important task in this article is not memorizing the definition, but fi
 
 If you understand this diagram, many chapters later in Stage 5 will suddenly start making sense.
 
+![Machine learning first decision comic](/img/course/ch05-ml-first-decision-comic-en.png)
+
+Use this comic as a quick entry checklist: if rules can be written clearly, normal programming may be enough; if the rule is hidden in many examples, machine learning becomes useful. Then decide whether you have labels, whether the output is a category or a number, and whether the evaluation metric can prove the model is useful.
+
 ---
 
 ## 1. What Exactly Is Machine Learning?
@@ -107,6 +111,20 @@ Once you understand that, many questions become easier to judge:
 - When traditional programming is suitable
 - When to let a model learn
 - Why data quality directly determines the upper limit of a model’s performance
+
+### 1.5 Terms Beginners Should Decode Early
+
+| Term | What it is | Why it matters in this chapter |
+|---|---|---|
+| `ML` | Short for Machine Learning | You will see it in diagrams, filenames, and project notes |
+| `model` | The learned rule or function | It is the thing produced by training and reused for prediction |
+| `algorithm` | The learning method | A decision tree, logistic regression, or K-Means is an algorithm before training |
+| `training` | The process of learning from data | In code, this usually happens when you call `fit` |
+| `inference` | Using a trained model on new data | In sklearn, this usually appears as `predict` or `predict_proba` |
+| `baseline` | The simplest first result to beat | It tells you whether later improvements are real or just noise |
+| `metric` | The measurement rule for success | Accuracy, F1, MAE, and RMSE answer different evaluation questions |
+
+For beginners, the most important distinction is `algorithm` vs. `model`: the algorithm is the learning recipe, while the model is the trained result after the recipe has seen data.
 
 ---
 
@@ -287,6 +305,13 @@ print(f"Training set: {X_train.shape[0]} samples")
 print(f"Test set: {X_test.shape[0]} samples")
 ```
 
+Expected output:
+
+```text
+Training set: 80 samples
+Test set: 20 samples
+```
+
 ```mermaid
 flowchart LR
     D["All data<br/>100 samples"]
@@ -342,7 +367,22 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Test set accuracy: {accuracy:.1%}")
 ```
 
+Expected output:
+
+```text
+Dataset: 150 samples, 4 features, 3 classes
+Test set accuracy: 100.0%
+```
+
 **You can complete a full ML project with just a few lines of code!** The next chapters will gradually dive into each part.
+
+If this code fails with `ModuleNotFoundError: No module named 'sklearn'`, install the chapter dependency first:
+
+```bash
+python -m pip install --upgrade scikit-learn
+```
+
+Here, `scikit-learn` is the package name you install, while `sklearn` is the module name you import in Python code.
 
 ---
 
@@ -359,6 +399,8 @@ print(f"Test set accuracy: {accuracy:.1%}")
 | Underfitting | Underfitting | The model is too simple and cannot even learn the training data well |
 | Generalization | Generalization | The ability of a model to perform well on new data |
 | Hyperparameter | Hyperparameter | A parameter set by humans, such as learning rate or tree depth |
+| Data leakage | Data leakage | Test or future information accidentally enters training, making the score look better than it really is |
+| Validation set | Validation Set | Data used to choose models or hyperparameters before the final test |
 
 ### Overfitting vs. Underfitting
 
@@ -475,6 +517,14 @@ model.fit(X_train, y_train)
 accuracy = model.score(X_test, y_test)
 print(f"Test accuracy: {accuracy:.3f}")
 ```
+
+Expected output on a current sklearn version:
+
+```text
+Test accuracy: 0.944
+```
+
+Your exact result may change slightly if the sklearn version or split settings change. What matters here is the workflow: load data, split data, train on the training set, and evaluate on the test set.
 
 ### Exercise 3: Observe Overfitting
 
