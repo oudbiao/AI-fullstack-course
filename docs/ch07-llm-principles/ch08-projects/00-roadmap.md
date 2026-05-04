@@ -1,7 +1,7 @@
 ---
 title: "8.1 Pre-Class Guide: How Should You Actually Study This Capstone Project Chapter?"
 sidebar_position: 0
-description: "First, build the learning map for Chapter 8A: how domain tasks choose between Prompt, RAG, and fine-tuning, and how data, training, evaluation, and presentation form a complete LLM project loop."
+description: "First, build the learning map for the Stage 7 project chapter: how domain tasks choose between Prompt, RAG, and fine-tuning, and how data, training, evaluation, and presentation form a complete LLM project loop."
 keywords: [LLM project guide, domain fine-tuning, Prompt, RAG, LLM evaluation]
 ---
 
@@ -13,7 +13,7 @@ The most important skill in an LLM project is not blindly fine-tuning when you s
 
 ## Where This Chapter Fits in the Course
 
-The theme of Phase 8A is understanding where LLM capabilities come from, and how Prompt, fine-tuning, and alignment affect model behavior. The capstone project is the exit point of this phase, and it should help you turn these concepts into verifiable engineering decisions.
+The theme of Stage 7 is understanding where LLM capabilities come from, and how Prompt, fine-tuning, and alignment affect model behavior. The capstone project is the exit point of this stage, and it should help you turn these concepts into verifiable engineering decisions.
 
 You need to prove that you can center a project around a clear domain task, design a baseline, compare Prompt, RAG, or fine-tuning approaches, prepare samples, record results, and explain why you chose a certain path.
 
@@ -45,7 +45,7 @@ If you choose a domain fine-tuning project, pay special attention to data qualit
 
 ## How This Chapter Connects to Later Stages
 
-This chapter directly leads into Phase 8B on LLM application development and RAG. The solution-selection ability you build here will later expand into knowledge-base Q&A, intelligent assistants, tool calling, and Agent systems.
+This chapter directly leads into Stage 8 on LLM application development and RAG. The solution-selection ability you build here will later expand into knowledge-base Q&A, intelligent assistants, tool calling, and Agent systems.
 
 If you do not learn this chapter solidly, common problems later will be: adding frameworks whenever you see a problem; mixing fine-tuning, RAG, and Prompt into one category; having no evaluation set; being unable to explain why a solution works; and presenting only the final answer without failure analysis or trade-off reasoning.
 

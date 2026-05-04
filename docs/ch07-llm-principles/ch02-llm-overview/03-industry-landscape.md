@@ -7,6 +7,12 @@ keywords: [LLM industry, open-source models, closed-source models, API, inferenc
 
 # LLM Industry Landscape
 
+![LLM industry landscape layer map](/img/course/ch07-llm-industry-landscape-map-en.png)
+
+:::tip How to read this map
+Read it as a stack: the model layer provides the engine, the platform layer makes the engine usable and observable, and the application layer turns capability into user-facing workflows. Open-source and closed-source APIs are not “good vs bad”; they are different trade-offs among control, cost, latency, privacy, and operations.
+:::
+
 ## Learning Objectives
 
 After completing this section, you will be able to:
@@ -52,6 +58,16 @@ What they usually do includes:
 - Agent / workflow development frameworks
 
 Without the platform layer, many teams would struggle to put models into production reliably, even if they already had the model.
+
+### 1.3 Beginner glossary: words that appear often in the platform layer
+
+| Term | What it means | Why it matters |
+|---|---|---|
+| API | A standard interface for calling a model or service | Lets your application request model results without managing the model internals |
+| Inference | Running the model to produce an output | This is what happens every time a user asks a question |
+| Vector database | A database optimized for storing and searching embeddings | It is often used as the retrieval layer in RAG systems |
+| Monitoring | Observing latency, errors, cost, and output quality over time | Production systems need this to detect problems early |
+| Evaluation | Measuring whether outputs meet task requirements | It prevents teams from judging models only by feeling |
 
 ---
 

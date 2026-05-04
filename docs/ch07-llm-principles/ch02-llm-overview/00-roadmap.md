@@ -37,7 +37,7 @@ This thread helps you distinguish between “the model’s own capabilities” a
 
 ## The Relationship Between This Chapter and Later Chapters
 
-This chapter is the map page for Stage 8A. The later Transformer deep dive will explain the underlying structure, the pre-training chapter will explain where capabilities come from, the Prompt chapter will explain how to call those capabilities more effectively, the fine-tuning chapter will explain how to change model behavior, and the alignment chapter will explain why models need to better match human intent.
+This chapter is the map page for Stage 7. The later Transformer deep dive will explain the underlying structure, the pre-training chapter will explain where capabilities come from, the Prompt chapter will explain how to call those capabilities more effectively, the fine-tuning chapter will explain how to change model behavior, and the alignment chapter will explain why models need to better match human intent.
 
 If you do not learn this chapter well, the problems that often show up later are: treating Prompt, fine-tuning, RAG, and Agent as if they were all the same kind of thing that “makes the model stronger”; looking only at model leaderboards without knowing whether your application really needs knowledge updates, output-format stability, reasoning ability, or tool execution; or worrying too early about open-source vs. closed-source without first defining the needs of the scenario.
 
