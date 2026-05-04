@@ -237,6 +237,12 @@ This is more stable than starting with something like:
 
 because the most basic task specification has already been established.
 
+![Prompt as a three-layer task brief comic](/img/course/ch07-prompt-task-brief-comic-en.png)
+
+:::tip How to read this comic
+Read it like a small workplace story: a vague request makes the model guess; a clear task brief gives it the goal, the delivery format, and the boundaries. This is why a good Prompt is less like a magic phrase and more like an assignment card.
+:::
+
 ---
 
 ## 4. A Minimal Prompt Specification Example
@@ -294,7 +300,7 @@ This diagram breaks Prompt into three layers: task goal, output format, and cons
 
 ---
 
-## 5. A Example That Really Shows the Difference
+## 5. An Example That Really Shows the Difference
 
 ### 5.1 Vague Version
 
@@ -339,6 +345,16 @@ Although these capabilities are more complex, they all depend on the same premis
 - The behavioral constraints must be clear
 
 So Prompt basics are not an isolated chapter, but the foundation for many system capabilities that come later.
+
+### 6.1 Terms You Will Keep Seeing Later
+
+| Term | Beginner-friendly meaning | Why it connects back to Prompt basics |
+|---|---|---|
+| Prompt | The instruction, context, examples, and constraints sent to the model | It is the model’s task brief, so unclear wording creates unclear behavior |
+| Structured output | Output that follows a predictable format such as JSON, a table, or fixed fields | A product often needs parseable data, not just a nice paragraph |
+| Function Calling | A mechanism that lets the model choose a tool or function and fill in arguments | The model must understand the task boundary and the required parameters |
+| RAG | Retrieval-Augmented Generation: first retrieve external materials, then answer based on them | The Prompt tells the model how to use retrieved sources and avoid unsupported claims |
+| Agent | A system where the model plans, calls tools, observes results, and continues acting | Every step needs clear goals, allowed actions, and stopping rules |
 
 ---
 

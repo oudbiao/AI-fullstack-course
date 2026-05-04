@@ -134,6 +134,15 @@ This table is very beginner-friendly because it turns a “list of techniques”
 When you read this diagram, do not stack techniques blindly. First identify the problem type: if the label boundary is blurry, add few-shot; if the format is unstable, add structural constraints; if the steps are complex, split them explicitly; if conditions are often missed, add self-check. The core of advanced Prompting is matching the problem, not making the Prompt look fancier.
 :::
 
+### 2.5 Four terms that are easy to confuse
+
+| Term | What it means | When to use it |
+|---|---|---|
+| Zero-shot | Give the task directly without examples | Use it first when the task is simple and the label boundary is clear |
+| Few-shot | Provide a few input-output examples before the real task | Use it when definitions are not enough and the model needs examples to imitate |
+| Role prompting | Ask the model to work in a certain role or style | Use it to control tone, perspective, or professional boundary, not to replace task clarity |
+| Self-check | Ask the model to verify constraints before final output | Use it when missing fields, format errors, or unsupported facts are common |
+
 ---
 
 ## 3. When is role setting helpful?

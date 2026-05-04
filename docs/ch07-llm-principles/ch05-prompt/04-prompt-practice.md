@@ -258,6 +258,12 @@ Change only one variable at a time, for example:
 
 This is very similar to tuning model hyperparameters.
 
+![Prompt debugging loop comic](/img/course/ch07-prompt-debug-loop-en.png)
+
+:::tip How to read this loop
+Prompt debugging should feel like engineering, not guessing. Prepare test cases, change only one layer at a time, run the same cases again, compare pass/fail results, then record the Prompt version and failure samples. Regression means old cases should still pass after the new change.
+:::
+
 ---
 
 ## 9. A Small Prompt Evaluation Example

@@ -92,6 +92,16 @@ keywords: [structured output, JSON, schema, validation, prompt engineering, LLM]
 
 所以在 LLM 应用里，JSON 通常是结构化输出的第一选择。
 
+### 2.3 写 schema 前先理解几个术语
+
+| 术语 | 直白解释 | 实际作用 |
+|---|---|---|
+| JSON | 由对象、数组、字符串、数字、布尔值和 null 组成的轻量数据格式 | 让模型输出能被程序用 `json.loads()` 解析 |
+| Schema | 输出应有的形状，包括字段名、字段类型、可选值和必填字段 | 它是 Prompt 和下游程序之间的契约 |
+| Field | 一个有名字的数据项，例如 `intent` 或 `confidence` | 字段名稳定，后端代码才能不用猜就读取结果 |
+| Validation | 程序检查输出是否可解析、字段是否完整、类型是否正确 | 在坏输出破坏后续流程前拦住它 |
+| Enum | 固定可选值集合，例如 `refund_policy / certificate / other` | 防止模型发明很多相似但不一致的标签 |
+
 ---
 
 ## 三、结构化输出最核心的设计点是什么？

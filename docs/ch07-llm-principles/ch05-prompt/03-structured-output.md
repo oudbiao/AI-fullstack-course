@@ -92,6 +92,16 @@ Because it satisfies all of these at the same time:
 
 So in LLM applications, JSON is usually the first choice for structured output.
 
+### 2.3 Terms you should understand before writing schemas
+
+| Term | Plain meaning | Practical use |
+|---|---|---|
+| JSON | A lightweight data format made of objects, arrays, strings, numbers, booleans, and null | It lets the model output something a program can parse with `json.loads()` |
+| Schema | The expected shape of the output: field names, field types, allowed values, and required fields | It is the contract between the Prompt and the downstream program |
+| Field | One named piece of data, such as `intent` or `confidence` | Stable field names let backend code read the result without guessing |
+| Validation | Program checks that the output is parseable, complete, and typed correctly | It catches bad model output before it breaks the next workflow |
+| Enum | A fixed set of allowed values, such as `refund_policy / certificate / other` | It prevents the model from inventing many similar labels |
+
 ---
 
 ## 3. What Is the Most Core Design Point of Structured Output?
