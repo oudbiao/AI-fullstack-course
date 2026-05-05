@@ -312,6 +312,7 @@ const sidebars = {
                 "ch05-machine-learning/ch01-ml-basics/history-breakthroughs",
                 "ch05-machine-learning/ch01-ml-basics/what-is-ml",
                 "ch05-machine-learning/ch01-ml-basics/sklearn-intro",
+                "ch05-machine-learning/ch01-ml-basics/sklearn-matplotlib-workshop",
                 "ch05-machine-learning/ch01-ml-basics/math-to-ml-bridge",
               ],
             },

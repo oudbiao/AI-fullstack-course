@@ -1,6 +1,6 @@
 ---
-title: "1.5 How Mathematics Really Flows into Machine Learning"
-sidebar_position: 4
+title: "1.6 How Mathematics Really Flows into Machine Learning"
+sidebar_position: 5
 description: "Connect the linear algebra, probability and statistics, and calculus from Station 4 to machine learning at Station 5: from matrices, loss, and probability to gradient descent."
 keywords: [math to machine learning, linear algebra, probability and statistics, calculus, gradient descent, machine learning bridge]
 ---
