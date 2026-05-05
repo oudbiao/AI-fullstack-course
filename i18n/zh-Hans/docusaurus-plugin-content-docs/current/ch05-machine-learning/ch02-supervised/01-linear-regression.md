@@ -263,6 +263,10 @@ X_b 形状: (30, 2)
 
 ## 三、求解方法二：梯度下降
 
+![正规方程与梯度下降求解路线对比](/img/course/ch05-linear-regression-solver-choice.png)
+
+正规方程和梯度下降不是在解决两个不同的问题。它们都是通向同一个 MSE 最小点的路线。正规方程适合特征数较少时直接算答案；梯度下降是一点点走向答案，当数据、特征规模变大，或者后面要衔接神经网络训练时，它会更自然。特征缩放会让这条迭代路线安全得多。
+
 ### 3.1 与第 4 站的衔接
 
 在第 4 站微积分章节，你已经学过梯度下降的原理。现在把它应用到线性回归：
@@ -374,6 +378,45 @@ plt.show()
 ```
 
 注意，这个简单梯度下降示例还没有完全追上正规方程结果，因为 `X` 的数值较大，而学习率故意设置得很小。这样做是为了教学安全：先看清更新循环，避免数值直接发散。真实项目中，做梯度下降前通常要先标准化特征。
+
+### 3.4 更稳的版本：先标准化，再做梯度下降
+
+下面这段代码仍然使用同一份数据，但先对 `X` 做标准化。训练结束后再把参数换回原始尺度，就会和正规方程结果对齐：
+
+```python
+X_mean = X.mean()
+X_std = X.std()
+X_scaled = (X - X_mean) / X_std
+
+w_scaled = 0.0
+b_scaled = 0.0
+lr = 0.1
+epochs = 1000
+
+for epoch in range(epochs):
+    y_pred = w_scaled * X_scaled + b_scaled
+    loss = mse_loss(y, y_pred)
+
+    dw = -2 * np.mean(X_scaled * (y - y_pred))
+    db = -2 * np.mean(y - y_pred)
+
+    w_scaled -= lr * dw
+    b_scaled -= lr * db
+
+# 把 y = w_scaled * ((x - mean) / std) + b_scaled 换回 y = w*x + b
+w_original = w_scaled / X_std
+b_original = b_scaled - w_scaled * X_mean / X_std
+
+print(f"标准化梯度下降: w = {w_original:.2f}, b = {b_original:.2f}, loss = {loss:.2f}")
+```
+
+预期输出：
+
+```text
+标准化梯度下降: w = 2.47, b = 57.36, loss = 561.73
+```
+
+这是一条很重要的经验：当梯度下降看起来不稳定或慢得离谱时，第一嫌疑人往往是特征尺度，而不是梯度下降这个思想本身。
 
 ---
 
@@ -615,6 +658,10 @@ degree 越高，训练集 R² 越接近 1，但模型在新数据上可能表现
 - 模型太简单会欠拟合
 - 模型太复杂会过拟合
 - 模型效果不是只看训练集
+
+![多项式复杂度与正则化直觉图](/img/course/ch05-linear-regression-complexity-regularization.png)
+
+进入公式前，先从上到下读这张图：多项式特征像油门，让模型更灵活；正则化像刹车，防止参数为了追噪声变得过大。真正该选的不是训练集曲线最漂亮的模型，而是在验证集或测试集上仍然稳定的模型。
 
 ---
 

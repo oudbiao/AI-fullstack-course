@@ -263,6 +263,10 @@ But if you move into these scenarios, it becomes more natural to switch to gradi
 
 ## 3. Solution Method 2: Gradient Descent
 
+![Normal equation versus gradient descent solver choice](/img/course/ch05-linear-regression-solver-choice-en.png)
+
+The normal equation and gradient descent are not solving two different problems. They are two roads toward the same MSE minimum. The normal equation computes the answer directly when the feature count is small; gradient descent walks toward the answer step by step and becomes more natural when data, features, or later neural-network training get larger. Feature scaling makes that iterative road much safer.
+
 ### 3.1 Connection to Station 4
 
 In the calculus chapter of Station 4, you already learned the principle of gradient descent. Now apply it to linear regression:
@@ -374,6 +378,45 @@ Normal equation result: w = 2.47, b = 57.36
 ```
 
 Notice that this simple gradient-descent demo does not fully match the normal equation yet because `X` is large and the learning rate is deliberately tiny. This is a teaching choice: it lets you see the update loop without numerical explosion. In real projects, standardize features before gradient descent so the update steps are easier to tune.
+
+### 3.4 Safer version: standardize first, then run gradient descent
+
+The code below uses the same data but standardizes `X` first. After converting the learned parameters back to the original scale, the result matches the normal equation:
+
+```python
+X_mean = X.mean()
+X_std = X.std()
+X_scaled = (X - X_mean) / X_std
+
+w_scaled = 0.0
+b_scaled = 0.0
+lr = 0.1
+epochs = 1000
+
+for epoch in range(epochs):
+    y_pred = w_scaled * X_scaled + b_scaled
+    loss = mse_loss(y, y_pred)
+
+    dw = -2 * np.mean(X_scaled * (y - y_pred))
+    db = -2 * np.mean(y - y_pred)
+
+    w_scaled -= lr * dw
+    b_scaled -= lr * db
+
+# Convert y = w_scaled * ((x - mean) / std) + b_scaled back to y = w*x + b
+w_original = w_scaled / X_std
+b_original = b_scaled - w_scaled * X_mean / X_std
+
+print(f"Scaled gradient descent: w = {w_original:.2f}, b = {b_original:.2f}, loss = {loss:.2f}")
+```
+
+Expected output:
+
+```text
+Scaled gradient descent: w = 2.47, b = 57.36, loss = 561.73
+```
+
+This is a very important lesson: when gradient descent looks unstable or painfully slow, the first suspect is often feature scale, not the idea of gradient descent itself.
 
 ---
 
@@ -615,6 +658,10 @@ So the most valuable teaching point of polynomial regression is not “it can dr
 - too simple a model underfits
 - too complex a model overfits
 - model performance is not judged by the training set alone
+
+![Polynomial complexity and regularization intuition](/img/course/ch05-linear-regression-complexity-regularization-en.png)
+
+Read the image from top to bottom before jumping into formulas: polynomial features are the accelerator that makes the model more flexible, while regularization is the brake that stops the weights from chasing noise. The right model is not the one with the prettiest training curve, but the one that still performs well on validation or test data.
 
 ---
 
