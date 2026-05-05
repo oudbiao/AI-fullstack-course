@@ -489,6 +489,7 @@ const sidebars = {
                 "ch07-llm-principles/ch02-llm-overview/development-history",
                 "ch07-llm-principles/ch02-llm-overview/core-concepts",
                 "ch07-llm-principles/ch02-llm-overview/industry-landscape",
+                "ch07-llm-principles/ch02-llm-overview/llm-call-workbench",
               ],
             },
             {

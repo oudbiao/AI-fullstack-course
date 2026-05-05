@@ -25,7 +25,7 @@ For beginners, the most important thing in this chapter is not memorizing the re
 
 ## Recommended Learning Order for Beginners
 
-It is recommended that you first look at the development history and understand that large models did not appear out of nowhere—they evolved step by step from statistical NLP, word embeddings, Transformer, pre-training, instruction fine-tuning, and human-feedback alignment. Then study the core concepts and place terms like parameters, token, context, embedding, reasoning, hallucination, and alignment in the right positions. Finally, look at the industry landscape to understand the trade-offs among open-source vs. closed-source, cloud vs. local, and general-purpose vs. vertical-domain models.
+It is recommended that you first look at the development history and understand that large models did not appear out of nowhere—they evolved step by step from statistical NLP, word embeddings, Transformer, pre-training, instruction fine-tuning, and human-feedback alignment. Then study the core concepts and place terms like parameters, token, context, embedding, reasoning, hallucination, and alignment in the right positions. Next, look at the industry landscape to understand the trade-offs among open-source vs. closed-source, cloud vs. local, and general-purpose vs. vertical-domain models. Finally, finish the hands-on LLM call workbench so these concepts become an executable request, validation, and retry workflow.
 
 ![Large model capability stack and application ecosystem diagram](/img/course/ch07-llm-capability-stack-en.png)
 
@@ -68,7 +68,7 @@ More experienced learners can use this chapter as a checkup and an engineering p
 
 After finishing this chapter, it is recommended that you create a “model selection cheat sheet.” Choose three large models you often hear about and compare them from the perspectives of model type, calling method, context length, suitable scenarios, limitations, and cost. This small project is not about being perfectly complete; it is about training yourself to view models through a unified coordinate system.
 
-You can also write a minimal LLM API call example, record the input prompt, output result, token or cost information, and explain that this call is only the model layer of a “large model application system,” not a complete product.
+You can also write a minimal LLM API call example, record the input prompt, output result, token or cost information, and explain that this call is only the model layer of a “large model application system,” not a complete product. The hands-on workbench in this chapter gives you a safe starting point: first run the offline simulator, then optionally replace the fake model response with a real Responses API call.
 
 ## Completion Criteria
 
