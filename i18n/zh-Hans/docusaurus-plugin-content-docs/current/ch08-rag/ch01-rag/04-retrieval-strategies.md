@@ -88,6 +88,10 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 ![关键词检索与向量检索盲区图](/img/course/ch08-hybrid-retrieval-blindspot-map.png)
 
+![检索策略对比图](/img/course/ch08-retrieval-strategy-comparison-map-v2.png)
+
+BM25 是一种经典的关键词排序方法。很多混合检索都会把 BM25 风格的分数和向量相似度结合起来，再交给 rerank 做最终排序。
+
 :::tip 读图提示
 左边看“字面命中”，右边看“语义接近”。Hybrid Search 的价值不是复杂，而是让报错码、专有名词和口语化问题各有通道，不把所有压力都丢给 embedding。
 :::

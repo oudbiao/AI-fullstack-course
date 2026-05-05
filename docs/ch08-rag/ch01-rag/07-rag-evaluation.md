@@ -88,6 +88,10 @@ In real business scenarios, different dimensions matter differently.
 
 ![Layered RAG evaluation dashboard diagram](/img/course/ch08-rag-evaluation-layered-dashboard-map-en.png)
 
+![RAG evaluation loop map](/img/course/ch08-rag-evaluation-loop-map-v2-en.png)
+
+Good evaluation is a loop, not a one-time test: test set -> retrieval -> answer -> citation -> failure analysis -> fix -> re-evaluate.
+
 :::tip Reading tip
 Do not look only at the final answer score. First check whether the retrieval layer hit the right material, then whether the generation layer is complete and correct, and finally whether the citation layer truly supports the conclusion.
 :::

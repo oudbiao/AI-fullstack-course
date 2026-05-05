@@ -72,6 +72,10 @@ Attach information to each chunk, such as:
 
 Turn text chunks into vectors that can be used for similarity retrieval.
 
+![Document processing pipeline for RAG](/img/course/ch08-document-processing-pipeline-map-v2-en.png)
+
+OCR, short for Optical Character Recognition, is the step that turns scanned pages or screenshots into text before cleaning and chunking.
+
 ---
 
 ## 3. Why is chunking so important?

@@ -45,6 +45,10 @@ This actually implies multiple actions:
 
 At this point, “retrieving only once” is often not enough.
 
+![Advanced RAG architecture decision map](/img/course/ch08-advanced-rag-architecture-decision-map-v2-en.png)
+
+The main lesson in this map is simple: use the lightest architecture that actually solves the failure, not the most complicated one you can name.
+
 ---
 
 ## 2. Routing-Based RAG: Decide Where to Search First

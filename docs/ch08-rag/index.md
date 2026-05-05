@@ -19,6 +19,12 @@ If you only chat with a general-purpose large model, it knows public knowledge l
 
 ![RAG learning quest map](/img/course/ch08-learning-quest-map-en.png)
 
+## One picture for the main loop
+
+![How RAG works from question to evidence](/img/course/ch08-rag-basics-workflow-map-v2-en.png)
+
+This picture shows the loop we will keep reusing in this chapter: ask, retrieve, and answer with evidence.
+
 ## Interactive exercise: start by improving a “bad answer”
 
 When doing RAG, deliberately pick a question the system answers badly, then trace the cause: is the answer missing from the original document, was important information split apart during chunking, did retrieval fail to recall it, did the Prompt fail to request citations, or did the model ignore the context? Each time you locate a problem, you are learning how to debug real LLM applications.

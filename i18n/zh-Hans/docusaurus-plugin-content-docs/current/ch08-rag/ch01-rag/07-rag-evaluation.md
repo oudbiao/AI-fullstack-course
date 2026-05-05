@@ -88,6 +88,10 @@ Hit@k 的意思很简单：
 
 ![RAG 分层评估仪表盘图](/img/course/ch08-rag-evaluation-layered-dashboard-map.png)
 
+![RAG 评估闭环图](/img/course/ch08-rag-evaluation-loop-map-v2.png)
+
+好的评估不是做一次就完，而是一个循环：测试集 -> 检索 -> 回答 -> 引用 -> 分析失败 -> 修正 -> 再评估。
+
 :::tip 读图提示
 不要只看最终答案分数。先看 retrieval 层有没有命中，再看 generation 层是否完整正确，最后看 citation 层是否真的支撑结论。
 :::

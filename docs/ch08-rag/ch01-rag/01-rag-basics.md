@@ -76,6 +76,12 @@ With RAG, the system becomes more like:
 - Find evidence first
 - Then answer based on that evidence
 
+### At a glance: the full loop
+
+![RAG basics workflow map](/img/course/ch08-rag-basics-workflow-map-v2-en.png)
+
+This is the loop you will trace again and again in the RAG chapter: ask, retrieve, check evidence, then answer with sources.
+
 ## 1. Why Do We Need RAG?
 
 You can think of an LLM as "someone who has read a lot of books."

@@ -88,6 +88,10 @@ Hybrid retrieval combines these two judgments.
 
 ![Blind Spot Map for Keyword Retrieval and Vector Retrieval](/img/course/ch08-hybrid-retrieval-blindspot-map-en.png)
 
+![Retrieval strategy comparison map](/img/course/ch08-retrieval-strategy-comparison-map-v2-en.png)
+
+BM25 is a classic keyword-ranking method. Many hybrid search systems combine a BM25-style score with vector similarity, then let reranking polish the final order.
+
 :::tip Reading Tip
 The left side looks for “literal matches,” while the right side looks for “semantic similarity.” The value of Hybrid Search is not complexity, but giving error codes, proper nouns, and casual questions each their own path, instead of putting all the pressure on embeddings.
 :::

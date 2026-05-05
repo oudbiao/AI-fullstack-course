@@ -48,6 +48,10 @@ A simple RAG failure diagnosis ladder is:
 
 If the answer is still vague after all five checks, the issue is usually not “RAG is broken.” More often, the current problem should first be solved by prompt design, data cleanup, or a narrower task scope.
 
+![Prompt, RAG, Fine-tune, and Agent decision map](/img/course/ch08-study-guide-method-choice-map-en.png)
+
+The safest rule is to start with the simplest tool that closes the gap, then upgrade only when the simpler choice cannot solve the real problem.
+
 ## Suggested Learning Pace
 
 | Content Type | Suggested Time | Learning Goal |

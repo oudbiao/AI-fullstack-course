@@ -45,6 +45,10 @@ keywords: [advanced RAG, router, multi-hop, agentic rag, graph rag, structured r
 
 这时“只检索一次”往往不够。
 
+![高级 RAG 架构选型图](/img/course/ch08-advanced-rag-architecture-decision-map-v2.png)
+
+这张图的核心意思很简单：先用最轻的架构解决真正的失败点，而不是一上来就堆最复杂的方案。
+
 ---
 
 ## 二、路由式 RAG：先决定去哪里查

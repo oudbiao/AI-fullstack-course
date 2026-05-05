@@ -88,6 +88,10 @@ Hit@k の意味はとてもシンプルです。
 
 ![RAG の階層評価ダッシュボード図](/img/course/ch08-rag-evaluation-layered-dashboard-map-ja.png)
 
+![RAG 評価の閉ループ図](/img/course/ch08-rag-evaluation-loop-map-v2.png)
+
+よい評価は 1 回で終わるものではなく、テストセット -> 検索 -> 回答 -> 引用 -> 失敗分析 -> 修正 -> 再評価、というループです。
+
 :::tip 図の読み方
 最終回答のスコアだけを見ないでください。まず retrieval 層でヒットしているかを見て、次に generation 層で正しく完全かを見ます。最後に citation 層で、その結論を本当に支えているかを確認します。
 :::
