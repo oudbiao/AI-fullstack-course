@@ -419,12 +419,16 @@ Standard deviation after standardization: [1. 1.]
 
 ### 4.2.1 Why do we need to `fit` before `transform` for standardization too?
 
+![StandardScaler fit versus transform comic](/img/course/ch05-standard-scaler-fit-transform-en.png)
+
 Because a scaler also needs to “learn first”:
 
 - It must first learn the mean and standard deviation of each column from the training data
 - Then it can use those parameters to transform both the training set and the test set
 
 That is also why many preprocessing steps are, in essence, a process of “learning parameters from the training data.”
+
+The most important beginner rule is: `fit` is allowed to look at training data because it learns parameters; `transform` only applies those learned parameters. If the test set also participates in `fit`, your evaluation is no longer a fair simulation of new data.
 
 ### 4.3 The `fit_transform` shortcut
 
@@ -680,6 +684,10 @@ Steps: ['standardscaler', 'decisiontreeclassifier']
 
 A trained model should be **saved** so it can be used later directly, without retraining.
 
+![joblib model persistence workflow comic](/img/course/ch05-model-persistence-joblib-en.png)
+
+In sklearn projects, the safest habit is to save the whole `Pipeline` whenever preprocessing is part of the workflow. That way, new data will pass through the same scaler, encoder, feature selector, and model in the same order.
+
 ### 7.1 Using joblib (recommended)
 
 ```python
@@ -717,6 +725,8 @@ Accuracy after loading: 100.0%
 
 This code creates a local file named `iris_model.joblib`. In a real project, keep the saved file together with the training code, dependency versions, and feature definitions.
 
+`joblib` is not just “a file format.” It is a Python serialization tool often used with sklearn because many sklearn objects contain NumPy arrays. Serialization means turning an in-memory Python object into bytes that can be saved to disk and loaded later.
+
 ### 7.2 Using pickle
 
 ```python
@@ -743,6 +753,7 @@ Accuracy after loading with pickle: 100.0%
 - **joblib** is more efficient for objects that contain many NumPy arrays (recommended for sklearn models)
 - **pickle** is part of the Python standard library and is more general
 - Models saved by either one can **only be loaded with the same sklearn version** (version mismatch may cause errors)
+- Never load `pickle` or `joblib` files from an untrusted source, because loading can execute code
 :::
 
 ---

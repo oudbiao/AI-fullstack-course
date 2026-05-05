@@ -419,12 +419,16 @@ print(f"标准化后标准差: {X_scaled.std(axis=0).round(2)}")     # 接近 1
 
 ### 4.2.1 为什么标准化也要先 `fit` 再 `transform`？
 
+![StandardScaler fit 与 transform 图解](/img/course/ch05-standard-scaler-fit-transform.png)
+
 因为标准化器也需要“先学习”：
 
 - 它要先从训练数据里学出每一列的均值和标准差
 - 然后才能拿这些参数去变换训练集和测试集
 
 这也是为什么很多预处理步骤，本质上也属于“从训练数据学参数”的过程。
+
+新人最该记住的规则是：`fit` 可以看训练数据，因为它要学习参数；`transform` 只是套用已经学到的参数。如果测试集也参与了 `fit`，评估就不再像是在模拟真实的新数据。
 
 ### 4.3 fit_transform 快捷方法
 
@@ -680,6 +684,10 @@ print(f"步骤: {list(pipe.named_steps.keys())}")
 
 训练好的模型需要**保存**下来，以后可以直接使用，不用重新训练。
 
+![joblib 模型持久化流程漫画](/img/course/ch05-model-persistence-joblib.png)
+
+在 sklearn 项目里，只要预处理也是工作流的一部分，最稳的习惯就是保存整个 `Pipeline`。这样新数据进入系统时，会按同样顺序经过同一个标准化器、编码器、特征选择器和模型。
+
 ### 7.1 使用 joblib（推荐）
 
 ```python
@@ -717,6 +725,8 @@ print(f"加载后准确率: {loaded_model.score(X_test, y_test):.1%}")
 
 这段代码会在本地生成 `iris_model.joblib` 文件。真实项目里，保存模型时最好同时保留训练代码、依赖版本和特征定义，否则以后很难稳定复现。
 
+`joblib` 不只是“一个文件格式”。它是 Python 中常用于 sklearn 的序列化工具，因为很多 sklearn 对象内部包含 NumPy 数组。序列化的意思是：把内存里的 Python 对象变成可以写入磁盘、以后再加载回来的字节数据。
+
 ### 7.2 使用 pickle
 
 ```python
@@ -743,6 +753,7 @@ pickle 加载后准确率: 100.0%
 - **joblib** 对包含大量 NumPy 数组的对象更高效（推荐用于 sklearn 模型）
 - **pickle** 是 Python 标准库，更通用
 - 两者保存的模型**只能在相同 sklearn 版本**下加载（版本不匹配可能报错）
+- 不要加载来源不可信的 `pickle` 或 `joblib` 文件，因为加载过程可能执行代码
 :::
 
 ---
