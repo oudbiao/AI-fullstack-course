@@ -84,7 +84,19 @@ def route_query(query):
     return "default"
 
 def retrieve_simple(query, docs):
-    return [doc for doc in docs if any(word in doc for word in query)]
+    query_lower = query.lower()
+    keywords = []
+
+    if "返金" in query_lower:
+        keywords.extend(["返金", "返金ポリシー"])
+    if "証明書" in query_lower:
+        keywords.extend(["証明書", "証明書ポリシー"])
+    if "ログイン" in query_lower or "401" in query_lower or "api" in query_lower:
+        keywords.extend(["ログイン", "401", "api"])
+    if not keywords:
+        keywords = query_lower.split()
+
+    return [doc for doc in docs if any(keyword in doc.lower() for keyword in keywords)]
 
 queries = ["どうやって返金しますか", "401 エラーはどう対処しますか"]
 

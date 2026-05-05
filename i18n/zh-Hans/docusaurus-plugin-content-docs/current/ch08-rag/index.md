@@ -126,16 +126,21 @@ RAGOps 关注的是 RAG 系统上线后的质量维护。一个合格的 RAG 项
 学这一阶段时，建议先做一个最小可运行实验，不急着接 LangChain 或复杂向量库。准备 5～10 段课程文本，先用关键词重叠或简单 Embedding 模拟检索，再打印每一步结果：用户问题、改写后的查询、召回片段、排序分数、最终 Prompt 和答案来源。
 
 ```python
+import re
+
 questions = ["RAG 项目为什么需要评估集？"]
 docs = [
     {"id": "ragops", "text": "RAGOps 需要记录文档来源、检索片段、引用、成本和失败日志。"},
     {"id": "agentops", "text": "AgentOps 关注执行轨迹、工具权限、失败恢复和人工确认。"},
 ]
 
+def tokenize(text):
+    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+
 query = questions[0]
 hits = sorted(
     docs,
-    key=lambda d: len(set(query) & set(d["text"])),
+    key=lambda d: len(set(tokenize(query)) & set(tokenize(d["text"]))),
     reverse=True,
 )
 

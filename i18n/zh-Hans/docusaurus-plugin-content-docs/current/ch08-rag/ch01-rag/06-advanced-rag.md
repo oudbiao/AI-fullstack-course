@@ -84,7 +84,19 @@ def route_query(query):
     return "default"
 
 def retrieve_simple(query, docs):
-    return [doc for doc in docs if any(word in doc for word in query)]
+    query_lower = query.lower()
+    keywords = []
+
+    if "退款" in query_lower:
+        keywords.extend(["退款", "退款政策"])
+    if "证书" in query_lower:
+        keywords.extend(["证书", "证书政策"])
+    if "登录" in query_lower or "401" in query_lower or "API" in query_lower:
+        keywords.extend(["登录", "401", "API"])
+    if not keywords:
+        keywords = query_lower.split()
+
+    return [doc for doc in docs if any(keyword in doc.lower() for keyword in keywords)]
 
 queries = ["怎么退款", "401 报错怎么处理"]
 

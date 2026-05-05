@@ -285,7 +285,7 @@ chunks = [
 ]
 
 def tokenize(text):
-    return re.findall(r"[\\w\\u4e00-\\u9fff]+", text.lower())
+    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
 
 vocab = sorted(set(token for chunk in chunks for token in tokenize(chunk)))
 vocab_index = {word: idx for idx, word in enumerate(vocab)}

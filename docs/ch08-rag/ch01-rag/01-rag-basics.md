@@ -195,7 +195,7 @@ documents = [
 ]
 
 def tokenize(text):
-    return re.findall(r"[\\w\\u4e00-\\u9fff]+", text.lower())
+    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
 
 def overlap_score(query, doc_text):
     query_tokens = tokenize(query)

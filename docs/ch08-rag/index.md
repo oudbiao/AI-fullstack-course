@@ -126,16 +126,21 @@ For the first pass, it’s best to hand-code the minimal RAG first, then connect
 When learning this stage, it’s a good idea to first build a minimal runnable experiment and not rush into LangChain or a complex vector database. Prepare 5–10 course text snippets, simulate retrieval with keyword overlap or a simple Embedding approach, then print each step: user question, rewritten query, recalled chunks, ranking scores, final Prompt, and answer sources.
 
 ```python
+import re
+
 questions = ["Why does a RAG project need an evaluation set?"]
 docs = [
     {"id": "ragops", "text": "RAGOps needs to record document sources, retrieval chunks, citations, cost, and failure logs."},
     {"id": "agentops", "text": "AgentOps focuses on execution traces, tool permissions, failure recovery, and human confirmation."},
 ]
 
+def tokenize(text):
+    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+
 query = questions[0]
 hits = sorted(
     docs,
-    key=lambda d: len(set(query) & set(d["text"])),
+    key=lambda d: len(set(tokenize(query)) & set(tokenize(d["text"]))),
     reverse=True,
 )
 

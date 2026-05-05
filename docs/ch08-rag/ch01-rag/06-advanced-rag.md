@@ -84,7 +84,19 @@ def route_query(query):
     return "default"
 
 def retrieve_simple(query, docs):
-    return [doc for doc in docs if any(word in doc for word in query)]
+    query_lower = query.lower()
+    keywords = []
+
+    if "refund" in query_lower:
+        keywords.extend(["refund", "refund policy"])
+    if "certificate" in query_lower:
+        keywords.extend(["certificate", "certificate policy"])
+    if "login" in query_lower or "401" in query_lower or "api" in query_lower:
+        keywords.extend(["login", "401", "api"])
+    if not keywords:
+        keywords = query_lower.split()
+
+    return [doc for doc in docs if any(keyword in doc.lower() for keyword in keywords)]
 
 queries = ["how to get a refund", "how to handle a 401 error"]
 

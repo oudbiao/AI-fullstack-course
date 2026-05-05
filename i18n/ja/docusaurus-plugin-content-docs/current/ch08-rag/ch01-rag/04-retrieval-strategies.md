@@ -130,7 +130,7 @@ query = "講座をやめて返金したい"
 query_vector = np.array([0.90, 0.10, 0.10])
 
 def tokenize(text):
-    return re.findall(r"[\\w\\u4e00-\\u9fff]+", text.lower())
+    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
 
 def keyword_score(query, text):
     q = Counter(tokenize(query))
