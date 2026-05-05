@@ -95,6 +95,12 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 ```python
 from collections import Counter
 
+
+def tokenize(text):
+    # 为了不引入中文分词依赖，这个最小示例先按字切分。
+    return list(text)
+
+
 train_data = [
     ("这门课讲得很清楚", "positive"),
     ("案例很多，学起来很顺", "positive"),
@@ -113,16 +119,20 @@ positive_words = Counter()
 negative_words = Counter()
 
 for text, label in train_data:
-    tokens = list(text)
+    tokens = tokenize(text)
     if label == "positive":
         positive_words.update(tokens)
     else:
         negative_words.update(tokens)
 
+# 补一点透明的小词典种子，保证否定词示例里有可翻转的情感词。
+positive_words.update(list("清楚推荐系统值得") * 2)
+negative_words.update(list("乱快差糟") * 2)
+
 
 def predict(text):
     score = 0
-    for token in text:
+    for token in tokenize(text):
         score += positive_words[token]
         score -= negative_words[token]
     return "positive" if score >= 0 else "negative", score
@@ -141,6 +151,8 @@ for text, gold in test_data:
 
 - 为什么判成正面
 - 为什么判成负面
+- `tokenize` 做了什么：它把原始文本切成 baseline 能统计的最小单位
+- 为什么补一点小词典：它让示例保持简单，同时让否定规则有明确的情感词可以翻转
 
 这让你能真正做“错误分析”，而不是只盯一个数字。
 
@@ -168,13 +180,21 @@ negation_words = {"不", "没", "无"}
 
 def predict_with_negation(text):
     score = 0
-    chars = list(text)
-    for idx, token in enumerate(chars):
+    negate_window = 0
+
+    for token in tokenize(text):
+        if token in negation_words:
+            # 简化处理：否定词后面 2 个字内，遇到第一个有情感分的字就翻转。
+            negate_window = 2
+            continue
+
         token_score = positive_words[token] - negative_words[token]
 
-        # 如果前一个字是否定词，就把当前情感方向翻一下
-        if idx > 0 and chars[idx - 1] in negation_words:
+        if negate_window > 0 and token_score != 0:
             token_score *= -1
+            negate_window -= 1
+        elif negate_window > 0:
+            negate_window -= 1
 
         score += token_score
 
@@ -198,6 +218,8 @@ for text, gold in extra_cases:
 - baseline 为什么会错
 - 一种具体补丁会修掉哪类错误
 - 错误分析怎样真正反过来推动方案升级
+
+这里最重要的工程细节是：规则粒度必须和切分粒度一致。如果 baseline 按字统计，否定规则也要围绕“字”或短窗口来写；如果 baseline 按词统计，就应该先接入分词器，再按词写规则。
 
 ---
 

@@ -97,6 +97,12 @@ keywords: [sentiment analysis project, text classification, baseline, negation, 
 ```python
 from collections import Counter
 
+
+def tokenize(text):
+    # 外部の形態素解析器に依存しないため、この最小例では文字単位で分割します。
+    return list(text)
+
+
 train_data = [
     ("この授業はとてもわかりやすい", "positive"),
     ("事例が多くて学びやすい", "positive"),
@@ -115,7 +121,7 @@ positive_words = Counter()
 negative_words = Counter()
 
 for text, label in train_data:
-    tokens = list(text)
+    tokens = tokenize(text)
     if label == "positive":
         positive_words.update(tokens)
     else:
@@ -124,7 +130,7 @@ for text, label in train_data:
 
 def predict(text):
     score = 0
-    for token in text:
+    for token in tokenize(text):
         score += positive_words[token]
         score -= negative_words[token]
     return "positive" if score >= 0 else "negative", score
@@ -143,6 +149,7 @@ for text, gold in test_data:
 
 - なぜポジティブと判定されたのか
 - なぜネガティブと判定されたのか
+- `tokenize` が何をしているか：生のテキストを baseline が数えられる単位に分ける
 
 これによって、本当の意味で「エラー分析」ができます。  
 ただ数字を眺めるだけではありません。
@@ -166,20 +173,22 @@ for text, gold in test_data:
 - **ルールの補修で、どのタイプのエラー分布が変わるのか**
 
 ```python
-negation_words = {"ない", "ぬ", "ず"}
+negative_phrase_penalties = {
+    "おすすめしない": 4,
+    "わかりにくい": 4,
+    "ではない": 3,
+    "ない": 2,
+}
 
 
 def predict_with_negation(text):
-    score = 0
-    chars = list(text)
-    for idx, token in enumerate(chars):
-        token_score = positive_words[token] - negative_words[token]
+    _, score = predict(text)
 
-        # もし1つ前の文字が否定詞なら、現在の感情の向きを反転させる
-        if idx > 0 and chars[idx - 1] in negation_words:
-            token_score *= -1
-
-        score += token_score
+    # 日本語では「ない」が前後の語とまとまって意味を作ることが多いので、
+    # ここでは依存ライブラリなしで理解しやすい phrase rule にします。
+    for phrase, penalty in negative_phrase_penalties.items():
+        if phrase in text:
+            score -= penalty
 
     return "positive" if score >= 0 else "negative", score
 
@@ -201,6 +210,8 @@ for text, gold in extra_cases:
 - baseline がなぜ間違えるのか
 - 具体的な補修で、どの種類のミスが減るのか
 - エラー分析が、どうやって次の改善につながるのか
+
+ここで大事なのは、ルールの粒度と分割方法をそろえることです。文字単位で数えているのに、語レベルの否定ルールだけを書くと、ルールが静かに効かなくなります。実務では形態素解析器や tokenizer を使い、同じ単位で特徴量とルールを設計します。
 
 ---
 

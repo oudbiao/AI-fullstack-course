@@ -95,6 +95,14 @@ It is certainly not strong, but it is very suitable for explaining the project l
 ```python
 from collections import Counter
 
+
+def tokenize(text):
+    cleaned = text.lower()
+    for char in ",.!?":
+        cleaned = cleaned.replace(char, "")
+    return cleaned.split()
+
+
 train_data = [
     ("This course explains things very clearly", "positive"),
     ("There are lots of examples, so it is easy to learn", "positive"),
@@ -113,16 +121,20 @@ positive_words = Counter()
 negative_words = Counter()
 
 for text, label in train_data:
-    tokens = list(text)
+    tokens = tokenize(text)
     if label == "positive":
         positive_words.update(tokens)
     else:
         negative_words.update(tokens)
 
+# Add a few transparent seed words so the negation examples have sentiment words to flip.
+positive_words.update(["clear"] * 3 + ["recommended"] * 4 + ["systematic"] * 6)
+negative_words.update(["messy"] * 2 + ["confusing"] * 2)
+
 
 def predict(text):
     score = 0
-    for token in text:
+    for token in tokenize(text):
         score += positive_words[token]
         score -= negative_words[token]
     return "positive" if score >= 0 else "negative", score
@@ -141,6 +153,8 @@ Because it is easy to explain:
 
 - Why it was judged positive
 - Why it was judged negative
+- What `tokenize` does: it turns raw text into word units that the baseline can count
+- Why a tiny seed lexicon is useful: it keeps the demo small while giving the rule clear sentiment words to operate on
 
 This lets you do real error analysis, instead of staring at just one number.
 
@@ -168,13 +182,19 @@ negation_words = {"not", "no", "never"}
 
 def predict_with_negation(text):
     score = 0
-    chars = list(text)
-    for idx, token in enumerate(chars):
+    negate_next_sentiment_word = False
+
+    for token in tokenize(text):
+        if token in negation_words:
+            negate_next_sentiment_word = True
+            continue
+
         token_score = positive_words[token] - negative_words[token]
 
-        # If the previous character is a negation word, flip the sentiment direction
-        if idx > 0 and chars[idx - 1] in negation_words:
+        # If a negation word appeared, flip the next sentiment-bearing token.
+        if negate_next_sentiment_word and token_score != 0:
             token_score *= -1
+            negate_next_sentiment_word = False
 
         score += token_score
 
@@ -198,6 +218,8 @@ but that it helps you clearly see for the first time:
 - Why the baseline makes mistakes
 - What kind of mistakes a specific patch can fix
 - How error analysis can genuinely drive the solution upgrade
+
+The important engineering detail is that the rule and the tokenizer must use the same granularity. If the baseline counts words, then `not` should also be detected as a word. If the baseline counts characters, a word-level negation rule will silently stop working.
 
 ---
 
