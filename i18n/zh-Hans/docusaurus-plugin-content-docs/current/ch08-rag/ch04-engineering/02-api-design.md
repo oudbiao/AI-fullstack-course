@@ -23,6 +23,21 @@ keywords: [API design, service design, idempotency, request schema, response sch
 - 理解幂等性、错误返回、trace_id、版本管理这些服务化关键概念
 - 看懂一个最小 API 处理闭环
 
+## 新人术语桥
+
+API 设计会难，很多时候不是代码难，而是这些词没建立直觉：
+
+| 术语 | 新人理解 | 在本节里的作用 |
+|---|---|---|
+| `API` | Application Programming Interface，应用程序接口，也就是一个程序稳定调用另一个程序的方式 | 其他代码依赖的服务入口 |
+| `endpoint` | 具体可调用的地址，比如 `/api/v1/chat` | 把某个能力暴露成 URL 路径 |
+| `schema` | 规定哪些字段允许出现、哪些字段必须出现的规则 | 让请求和响应结构可预测 |
+| `payload` | 请求里携带的数据主体 | 在本节里通常是用户问题和相关元数据 |
+| `trace_id` | 追踪一条请求的唯一 ID | 把 API 日志、检索日志、模型日志和错误串起来 |
+| `idempotency` | 幂等性，同一个请求重复调用不会产生失控副作用 | 超时或网络失败后重试时尤其重要 |
+
+不要只把它们当成术语背下来。真实系统里，这些词对应的是前端、后端、日志、评估和部署能够协作的关键零件。
+
 ---
 
 ## 一、为什么 API 设计不是“随便包个 JSON”？
@@ -279,32 +294,32 @@ print(api_info)
 :::info 运行环境
 ```bash
 pip install fastapi uvicorn
+uvicorn app:app --reload
 ```
 :::
 
 ```python
 from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+
+class ChatRequest(BaseModel):
+    query: str = Field(min_length=1)
+    session_id: str | None = None
+
 
 app = FastAPI()
 
 @app.post("/api/v1/chat")
-def chat(payload: dict):
-    if "query" not in payload or not payload["query"].strip():
-        return {
-            "trace_id": "trace_demo_002",
-            "error": {
-                "code": "INVALID_ARGUMENT",
-                "message": "query 不能为空"
-            }
-        }
-
+def chat(payload: ChatRequest):
     return {
         "trace_id": "trace_demo_002",
-        "answer": f"系统回复：{payload['query']}"
+        "answer": f"系统回复：{payload.query}",
+        "session_id": payload.session_id,
     }
 ```
 
-这段代码虽然简单，但已经非常接近真实服务的最小雏形。
+这段代码虽然简单，但比直接接收 `dict` 更接近真实服务，因为 `ChatRequest` 是请求 schema。FastAPI 会在业务逻辑运行前先校验 payload。真实生产环境里，你通常还会继续补认证、统一错误、日志记录和真正的 trace_id 生成器。
 
 ---
 

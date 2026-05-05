@@ -24,6 +24,20 @@ Asynchronous programming is about solving this problem of “the CPU is not busy
 - Understand why concurrency limits and timeout control are important
 - Read an asynchronous call example that is closer to a real-world scenario
 
+## Beginner terminology bridge
+
+Before reading the code, it helps to clarify a few words that appear often in engineering discussions:
+
+| Term | What it means in this section | Why it matters |
+|---|---|---|
+| `I/O` | Input / Output, such as network requests, database queries, file reads, and API calls | These steps often spend most of their time waiting rather than computing |
+| `coroutine` | A task that can pause at `await` and resume later | It lets Python switch to other waiting tasks instead of blocking the whole flow |
+| `scheduler` | The part of the event loop that decides which coroutine should continue next | It is the “traffic controller” that makes async concurrency possible |
+| `Semaphore` | A concurrency gate that limits how many tasks can run at the same time | It prevents your app from overwhelming APIs, databases, or model services |
+| `timeout` | A maximum waiting time for an operation | It prevents one stuck upstream call from dragging down the whole request |
+
+The beginner mental model is: async code does not make one slow external service faster; it helps the application avoid wasting time while waiting for that service.
+
 ---
 
 ## First, build a map

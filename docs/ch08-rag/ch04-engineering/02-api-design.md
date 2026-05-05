@@ -23,6 +23,21 @@ This section is here to answer that question.
 - Understand key service concepts such as idempotency, error returns, `trace_id`, and version management
 - Read and understand a minimal API processing loop
 
+## Beginner terminology bridge
+
+API design becomes much easier once these words are no longer mysterious:
+
+| Term | Beginner meaning | In this lesson |
+|---|---|---|
+| `API` | Application Programming Interface, a stable way for one program to call another program | The service entry point that other code depends on |
+| `endpoint` | A specific callable address, such as `/api/v1/chat` | The URL path where a capability is exposed |
+| `schema` | A rule that defines which fields are allowed and required | It keeps request and response structures predictable |
+| `payload` | The data body sent with a request | In this lesson, it is usually the user query and related metadata |
+| `trace_id` | A unique ID for following one request through the system | It helps connect API logs, retrieval logs, model logs, and errors |
+| `idempotency` | Repeating the same request does not create uncontrolled side effects | It matters when retries happen after timeouts or network failures |
+
+Do not memorize these as vocabulary only. In a real system, these terms are the pieces that let frontend, backend, logs, evaluation, and deployment cooperate.
+
 ---
 
 ## 1. Why API design is not “just wrapping some JSON”
@@ -279,32 +294,32 @@ If you want to see a style closer to a real backend, take a look at this minimal
 :::info Runtime Environment
 ```bash
 pip install fastapi uvicorn
+uvicorn app:app --reload
 ```
 :::
 
 ```python
 from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+
+class ChatRequest(BaseModel):
+    query: str = Field(min_length=1)
+    session_id: str | None = None
+
 
 app = FastAPI()
 
 @app.post("/api/v1/chat")
-def chat(payload: dict):
-    if "query" not in payload or not payload["query"].strip():
-        return {
-            "trace_id": "trace_demo_002",
-            "error": {
-                "code": "INVALID_ARGUMENT",
-                "message": "query cannot be empty"
-            }
-        }
-
+def chat(payload: ChatRequest):
     return {
         "trace_id": "trace_demo_002",
-        "answer": f"System reply: {payload['query']}"
+        "answer": f"System reply: {payload.query}",
+        "session_id": payload.session_id,
     }
 ```
 
-Although this code is simple, it is already very close to the smallest real-world service prototype.
+Although this code is simple, it is already closer to a real service because `ChatRequest` is a request schema. FastAPI uses it to validate the payload before your business logic runs. In production, you would usually add authentication, structured errors, logging, and a real trace ID generator.
 
 ---
 

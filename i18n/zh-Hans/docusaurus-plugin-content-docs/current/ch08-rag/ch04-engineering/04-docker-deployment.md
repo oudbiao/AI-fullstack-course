@@ -32,6 +32,21 @@ keywords: [Docker, containerization, deployment, Dockerfile, Compose, service de
 - 看懂一个小型 Docker Compose 启动方式
 - 理解容器化不是部署的终点，而是部署的起点
 
+## 新人术语桥
+
+Docker 一开始吓人，很多时候只是名词太多。先把这些词分开：
+
+| 术语 | 新人理解 | 为什么重要 |
+|---|---|---|
+| `image` | 镜像，打包好的运行模板，像“菜谱 + 食材包” | 先构建镜像，再从镜像启动容器 |
+| `container` | 容器，从镜像启动出来的运行实例 | 真正对外提供服务的是它 |
+| `Dockerfile` | 构建镜像的说明书 | 记录基础镜像、依赖、文件和启动命令 |
+| `port` | 服务接收请求的门口 | `-p 8000:8000` 是把宿主机端口映射到容器端口 |
+| `environment variable` | 环境变量，从代码外部注入的配置 | API key、模型名、运行模式不应该写死在代码里 |
+| `Compose` | 一次启动多个相关容器的工具 | 应用需要向量库、Redis、Postgres 时尤其有用 |
+
+核心不是死记 Docker 命令，而是让运行环境可复现。
+
 ---
 
 ## 一、为什么要容器化？

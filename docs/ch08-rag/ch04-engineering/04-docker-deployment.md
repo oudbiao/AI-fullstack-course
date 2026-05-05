@@ -32,6 +32,21 @@ to:
 - Read a small Docker Compose startup example
 - Understand that containerization is not the end of deployment, but the starting point
 
+## Beginner terminology bridge
+
+Docker becomes much less intimidating once the nouns are separated:
+
+| Term | Beginner meaning | Why it matters |
+|---|---|---|
+| `image` | A packaged runtime template, like a recipe plus ingredients | You build it once and run containers from it |
+| `container` | A running instance created from an image | This is the actual process serving requests |
+| `Dockerfile` | The build recipe for an image | It records the base image, dependencies, files, and startup command |
+| `port` | The doorway where a service listens for requests | `-p 8000:8000` maps the host port to the container port |
+| `environment variable` | Configuration injected from outside the code | API keys, model names, and runtime modes should not be hardcoded |
+| `Compose` | A tool for starting multiple related containers together | Useful when the app needs a vector database, Redis, or Postgres |
+
+The core idea is not “learn Docker commands by heart,” but “make the runtime environment reproducible.”
+
 ---
 
 ## 1. Why containerize?

@@ -24,6 +24,20 @@ The value of logging and monitoring is not “record a few more things,” but:
 - Understand which metrics are most worth monitoring in an LLM system
 - Read a minimal example of logs + monitoring
 
+## Beginner terminology bridge
+
+Observability is easier if you separate these terms early:
+
+| Term | What it answers | Example in an LLM app |
+|---|---|---|
+| `log` | What happened at one moment? | Retrieval started, model call failed, export completed |
+| `metric` | What is the overall trend? | Error rate, P95 latency, average token cost |
+| `trace` | What path did one request follow? | API -> retrieval -> model -> template rendering -> response |
+| `P95 / P99` | How slow are the slowest 5% or 1% of requests? | More useful than average latency when users complain about occasional slowness |
+| `observability` | Can we understand system behavior from the outside? | The combination of logs, metrics, traces, dashboards, and alerts |
+
+For beginners, the key distinction is: logs are individual events, metrics are aggregated numbers, and traces connect the steps of one request.
+
 ---
 
 ## First, build a mental map
