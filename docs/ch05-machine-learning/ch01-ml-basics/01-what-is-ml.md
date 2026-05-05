@@ -343,6 +343,12 @@ So from this section onward, you should build a habit:
 
 ### 3.3 A Minimal Complete Example
 
+Before reading the code, look at the whole loop first:
+
+![Minimal machine learning project loop](/img/course/ch05-minimal-ml-project-loop-en.png)
+
+This diagram is the smallest useful ML project shape: define the problem, prepare `X` and `y`, train a model, evaluate it with a metric, then decide what to improve. The code below is intentionally tiny so you can connect each line to one step in the picture instead of getting lost in framework details.
+
 ```python
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -383,6 +389,19 @@ python -m pip install --upgrade scikit-learn
 ```
 
 Here, `scikit-learn` is the package name you install, while `sklearn` is the module name you import in Python code.
+
+Read the code with this mapping in mind:
+
+| Code keyword | What it means | Why it matters |
+|---|---|---|
+| `load_iris()` | Loads a built-in toy dataset | It gives us a safe first dataset without downloading files |
+| `X` | Feature matrix, the input columns | The model learns patterns from these values |
+| `y` | Target vector, the correct answers | Supervised learning needs labels to learn |
+| `train_test_split` | Splits data into learning and checking parts | It prevents us from judging the model on examples it already saw |
+| `fit` | Trains the model | This is where the algorithm becomes a trained model |
+| `predict` | Uses the trained model on new inputs | This is the inference step used in real applications |
+| `accuracy_score` | Calculates the percentage of correct predictions | It turns model behavior into a measurable result |
+| `random_state` | Fixes the random split or model randomness | It makes the example reproducible when learners run it again |
 
 ---
 

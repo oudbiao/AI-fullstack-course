@@ -343,6 +343,12 @@ flowchart LR
 
 ### 3.3 一个最小的完整例子
 
+先别急着看代码，先看完整闭环：
+
+![最小机器学习项目闭环](/img/course/ch05-minimal-ml-project-loop.png)
+
+这张图就是一个最小可用 ML 项目的形状：定义问题，准备 `X` 和 `y`，训练模型，用指标评估，再决定下一步改哪里。下面的代码故意写得很小，是为了让你把每一行都对应到图里的一个步骤，而不是一上来就被框架细节淹没。
+
 ```python
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -383,6 +389,19 @@ python -m pip install --upgrade scikit-learn
 ```
 
 这里 `scikit-learn` 是安装包名，`sklearn` 是 Python 代码里的导入模块名。
+
+可以按下面这张表读代码：
+
+| 代码关键词 | 它是什么意思 | 为什么重要 |
+|---|---|---|
+| `load_iris()` | 加载一个内置的玩具数据集 | 不需要下载文件，就能安全完成第一次练习 |
+| `X` | 特征矩阵，也就是输入列 | 模型从这些数值里学习规律 |
+| `y` | 目标向量，也就是标准答案 | 监督学习需要标签才能学习 |
+| `train_test_split` | 把数据分成学习部分和检查部分 | 避免用模型已经看过的样本来评价模型 |
+| `fit` | 训练模型 | 算法在这里变成训练好的模型 |
+| `predict` | 用训练好的模型处理新输入 | 这就是实际应用中的推理步骤 |
+| `accuracy_score` | 计算预测正确的比例 | 把模型表现变成一个可度量的结果 |
+| `random_state` | 固定随机切分或模型随机性 | 让新人反复运行时能得到一致结果 |
 
 ---
 
