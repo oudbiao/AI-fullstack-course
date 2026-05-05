@@ -419,9 +419,20 @@ AdaBoost | Train: 93.5% | Test: 89.0%
 
 **Idea**: Each new tree fits not the original labels, but the **residuals** (prediction errors) of all previous trees.
 
+![GBDT residual correction comic](/img/course/ch05-ensemble-gbdt-residual-correction-en.png)
+
+Read this picture before reading the formula. The first tree gives a rough answer. The model then asks, “where am I still wrong?” Those remaining errors are called **residuals**. The next tree does not try to solve the whole task again; it learns a small correction. After many rounds, the ensemble becomes the sum of many small repairs.
+
 > **Fm(x) = Fm-1(x) + η × hm(x)**
 
 Here, `hm(x)` is the residual fitted by the m-th tree, and `η` is the learning rate.
+
+Term notes for beginners:
+
+- **GBDT** means **Gradient Boosting Decision Tree**. It is a boosting method where the weak learners are usually shallow decision trees.
+- **Residual** means the part the current model still predicts incorrectly. In regression, a simple residual is `true value - current prediction`.
+- **Learning rate** controls how much of the new tree’s correction is added each round. A smaller value is slower but often more stable.
+- **`n_estimators`** is the number of trees added to the ensemble.
 
 ### 3.2.1 The most important intuition to remember about GBDT
 
@@ -687,6 +698,8 @@ print(f"CatBoost | Train: {cat_model.score(X_train, y_train):.1%} | Test: {cat_m
 
 ### 5.3 Comparison of the three major Boosting frameworks
 
+![Boosting toolkit model choice comic](/img/course/ch05-ensemble-boosting-toolkit-en.png)
+
 | | XGBoost | LightGBM | CatBoost |
 |---|---------|----------|----------|
 | Developer | Tianqi Chen | Microsoft | Yandex |
@@ -695,6 +708,12 @@ print(f"CatBoost | Train: {cat_model.score(X_train, y_train):.1%} | Test: {cat_m
 | Categorical features | Need encoding | Native support | Best support |
 | Default performance | Good | Good | Usually best |
 | Kaggle usage | Very common | Very common | Fairly common |
+
+Do not read this comparison as “one model is always better.” A safer reading is:
+
+- **XGBoost** is a strong and stable default when you want a reliable first Boosting model.
+- **LightGBM** is often attractive when the table is large and training speed matters.
+- **CatBoost** is often attractive when the data has many categorical columns such as city, device type, user plan, or product category.
 
 ### 5.4 When you do your first tabular-data project, which model is the safest choice?
 
@@ -725,6 +744,17 @@ This way, you won’t turn this section into a flat list of many model names.
 ### 6.1 Principle
 
 Use the prediction results of multiple different models as **new features**, and then train another model to make the final prediction.
+
+![Stacking leakage-safe workflow comic](/img/course/ch05-ensemble-stacking-leakage-safe-en.png)
+
+The danger in Stacking is **data leakage**. If a base model predicts the same rows it was trained on, the prediction may be unrealistically good because the model has already “seen the answers.” `StackingClassifier(cv=5)` avoids this by using cross-validation to create **out-of-fold predictions**: each training row is predicted by base models that were trained on other folds.
+
+Quick vocabulary:
+
+- **CV** means **cross-validation**. It splits data into folds so we can train on some folds and validate on another fold.
+- **Out-of-fold prediction** means a prediction for a row made by a model that did not train on that row.
+- **Meta learner** means the final combiner model that learns from base-model predictions.
+- **Leakage** means information from the answer or future data sneaks into training, making evaluation look better than reality.
 
 ```mermaid
 flowchart TD
