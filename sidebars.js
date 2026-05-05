@@ -408,6 +408,7 @@ const sidebars = {
                 "ch06-deep-learning/ch02-pytorch/data-loading",
                 "ch06-deep-learning/ch02-pytorch/training-loop",
                 "ch06-deep-learning/ch02-pytorch/practical-tips",
+                "ch06-deep-learning/ch02-pytorch/pytorch-matplotlib-workshop",
               ],
             },
             {
