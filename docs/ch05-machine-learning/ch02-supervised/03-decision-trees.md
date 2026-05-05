@@ -208,6 +208,10 @@ It is more useful to remember:
 - once a tree becomes too detailed, it starts memorizing the training set
 - so complexity control naturally becomes necessary later
 
+![Decision tree split criteria: entropy, Gini, and information gain](/img/course/ch05-decision-tree-split-criteria-en.png)
+
+Read this picture before the formulas: a split is good when it turns a mixed parent node into cleaner child nodes. Entropy and Gini are just two ways to score "how mixed" a node is, and information gain measures how much that mixedness dropped after the split.
+
 ### 2.2 Information gain and entropy
 
 :::info Connection to Station 4
