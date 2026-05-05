@@ -427,6 +427,10 @@ This diagram should be read together with the boundary plot above: the deeper th
 
 ## 4. Pruning — controlling complexity
 
+![Decision tree pruning and tuning order](/img/course/ch05-decision-tree-pruning-order-en.png)
+
+Read this image before tuning a tree: a perfect training score is not a victory if the boundary is fragmented and the validation score drops. Pruning is the habit of keeping broad patterns while removing branches that only explain noise. For beginners, tune `max_depth` first, then `min_samples_leaf`, then `ccp_alpha`; compare `gini` and `entropy` only after the tree complexity is under control.
+
 ### 4.1 Pre-pruning
 
 Limit tree growth **during construction**:
@@ -604,6 +608,10 @@ Feature importance is useful for explanation, but it is not the same as causalit
 ## 6. Regression trees
 
 Decision trees are not only for classification, they can also do **regression**.
+
+![Regression tree step prediction intuition](/img/course/ch05-decision-tree-regression-tree-en.png)
+
+The key difference is in the leaf output: a classification tree leaf outputs a class, while a regression tree leaf outputs the average target value of samples in that region. Because each region outputs one constant value, regression-tree predictions naturally look like stairs rather than smooth curves.
 
 ### 6.1 Principle
 
