@@ -26,6 +26,10 @@ You can first understand the history of machine learning as a path from “handw
 
 Read the comic as a problem chain: handwritten rules became too brittle, probability made uncertainty usable, linear models made training concrete, trees/SVM/ensembles improved structure and stability, and sklearn turned these ideas into a repeatable workflow.
 
+![Machine learning breakthrough relay comic](/img/course/ch05-ml-breakthrough-relay-en.png)
+
+This relay view is useful because every breakthrough hands the baton to the next one. Probability methods made uncertainty usable; linear models made training visible; trees and SVMs made structure and boundaries clearer; ensembles made unstable models stronger; sklearn finally made the whole process reproducible.
+
 Early AI relied heavily on manual rules. Human experts wrote knowledge as if-else logic or symbolic rules, and the system reasoned according to those rules. This approach works in scenarios with clear rules, but once the task becomes complex, the rules explode in number. For example, if you want to determine whether an email is spam, it is very hard to write out all the rules in advance.
 
 The key shift in machine learning is: instead of writing rules directly, prepare data, define the objective, choose a model, and let the model learn patterns from examples by itself. What Chapter 5 trains is not “memorizing algorithm names,” but this modeling mindset:
