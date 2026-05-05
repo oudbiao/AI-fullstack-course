@@ -419,6 +419,10 @@ plt.show()
 
 ## 四、多分类扩展
 
+![OvR 与 Softmax 多分类逻辑回归对比图](/img/course/ch05-logistic-multiclass-ovr-softmax.png)
+
+先看图，再看实现：OvR 会把 K 分类问题拆成 K 个“是不是这个类”的二分类器，所以多个分数不一定加起来等于 1；Softmax 则一次输出归一化后的概率分布，各类别概率可以直接比较。新人项目里通常先使用下面的 sklearn pipeline，只有当你明确想采用 OvR 策略时，再显式使用 OvR 包装器。
+
 ### 4.1 One-vs-Rest（OvR）
 
 对于 K 个类别，训练 K 个二分类器，每个分类器判断"是这个类 vs 不是这个类"。
@@ -579,6 +583,10 @@ for i, p in enumerate(proba):
 ---
 
 ## 五、正则化与超参数
+
+![逻辑回归正则化概念图](/img/course/ch05-logistic-regularization-concepts.png)
+
+调参数前先看这张图：`C` 控制模型能把权重推到多大，但它是正则化强度的倒数，`C` 越小，正则化越强。`L2` 通常会收缩所有系数，是稳定的默认选择；`L1` 可以把部分系数压到 0，适合需要稀疏、可解释模型的场景。`l1_ratio` 则用来混合这两种行为。
 
 ### 5.1 C 参数
 

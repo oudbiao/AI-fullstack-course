@@ -419,6 +419,10 @@ Read this loop as five small steps: compute the score, convert it to probability
 
 ## 4. Multi-Class Extensions
 
+![OvR versus Softmax multi-class logistic regression](/img/course/ch05-logistic-multiclass-ovr-softmax-en.png)
+
+Before reading the implementation, use the image to separate the two mental models. OvR turns a K-class problem into K yes/no classifiers, so its scores do not have to sum to 1. Softmax produces one normalized probability distribution, so the class probabilities are directly comparable. In most beginner projects, you can start with the sklearn pipeline below and only reach for an explicit OvR wrapper when that strategy is part of your design.
+
 ### 4.1 One-vs-Rest (OvR)
 
 For K classes, train K binary classifiers, each one deciding “this class vs. not this class.”
@@ -579,6 +583,10 @@ Predicted probabilities for the first 5 samples:
 ---
 
 ## 5. Regularization and Hyperparameters
+
+![Logistic regression regularization concepts](/img/course/ch05-logistic-regularization-concepts-en.png)
+
+Read this picture before tuning parameters. `C` controls how hard the model is allowed to push its weights, but it is an inverse strength: smaller `C` means stronger regularization. `L2` usually shrinks every coefficient and is a stable default; `L1` can push some coefficients to zero and is useful when you want a sparse, more interpretable model. `l1_ratio` mixes these two behaviors.
 
 ### 5.1 The C parameter
 
