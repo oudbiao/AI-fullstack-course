@@ -93,6 +93,17 @@ Multiply the change rates of each step = the overall change rate.
 
 ### 1.3 Calculation Example
 
+![Step-by-step chain rule calculation example](/img/course/ch04-chain-rule-calculation-example-en.png)
+
+Before looking at the code, read this example as a small assembly line:
+
+- `u = 3x + 2` is the inner step, so it tells us how `u` changes when `x` changes
+- `y = u²` is the outer step, so it tells us how `y` changes when `u` changes
+- `dy_dx` means “how much the final output `y` changes if the original input `x` changes a little”
+- `numerical_derivative` is a safety check: it estimates the slope by moving `x` a tiny bit left and right
+
+So the code below is not just computing an answer. It is showing the same idea three ways: decomposition, formula, and numerical verification.
+
 ```python
 import numpy as np
 
@@ -128,7 +139,15 @@ print(f"  Numerical check: dy/dx = {dy_dx_numerical:.4f}")
 
 ### 1.4 Multi-layer chain rule
 
+![Multi-layer chain rule path for sin(exp(x squared))](/img/course/ch04-chain-rule-multilayer-en.png)
+
 What if there are even more nested layers? The same idea still works, layer by layer:
+
+- First compute forward values: `a`, then `b`, then `y`
+- Then compute local derivatives: `da_dx`, `db_da`, and `dy_db`
+- Finally multiply the derivatives along the path from output back to input
+
+This is the exact mental model you will reuse in neural networks: a deep model is a longer path, not a completely different kind of math.
 
 ```python
 # y = sin(exp(x²))
@@ -174,6 +193,17 @@ flowchart LR
 ```
 
 ### 2.2 Forward Pass
+
+![Forward pass saves intermediate values for backpropagation](/img/course/ch04-chain-rule-forward-pass-en.png)
+
+**Forward pass** means “compute from input to prediction to loss.” In this tiny network, the important point is not the size of the model, but the habit of saving intermediate values:
+
+- `z1` is the result before the activation function
+- `h` is the hidden representation after `ReLU`
+- `y` is the prediction
+- `loss` measures how wrong the prediction is
+
+These values become the breadcrumbs used by the backward pass.
 
 ```python
 # Input and target
@@ -221,7 +251,20 @@ So a very stable way to understand it is:
 
 ### 2.3 Backward Pass
 
+![Backward pass sends gradients from loss back to parameters](/img/course/ch04-chain-rule-backward-pass-en.png)
+
 **Starting from the loss, compute the gradient of each parameter layer by layer:**
+
+Read symbols like `dL_dw1` as “how sensitive the loss `L` is to parameter `w1`.” If the absolute value is large, changing that parameter has a large effect on the loss. If it is close to zero, that parameter currently has little influence.
+
+The backward pass is therefore a responsibility assignment process:
+
+- Start with the loss
+- Ask how the loss depends on the output
+- Ask how the output depends on each earlier value
+- Keep multiplying local derivatives until every parameter gets its gradient
+
+The `ReLU` gate is especially important: if `z1 <= 0`, the gradient through that path becomes 0.
 
 ```python
 # --- Backward pass ---
@@ -259,6 +302,18 @@ print(f"dL/db1 = dL/dz1 × 1 = {dL_db1:.4f}")
 ```
 
 ### 2.4 Update Parameters with the Gradients
+
+![Parameter update with gradients and learning rate](/img/course/ch04-chain-rule-parameter-update-en.png)
+
+After backpropagation, gradients are not the final goal. They are instructions for how to update the parameters.
+
+The update rule is:
+
+```text
+new parameter = old parameter - learning rate × gradient
+```
+
+`lr` means **learning rate**. It controls how large each update step is. A very small `lr` learns slowly; a very large `lr` may jump past the good region and make the loss worse.
 
 ```python
 lr = 0.1
@@ -365,9 +420,22 @@ Manually computing the gradients of 4 parameters is already tedious. GPT-3 has 1
 
 ## 4. Full Example: Training a Small Network
 
+![Full training loop for a small neural network](/img/course/ch04-chain-rule-full-training-loop-en.png)
+
 Put the forward pass + backward pass + parameter update together to train a two-layer network:
 
+This complete example is the smallest version of an AI training loop:
+
+1. Read one data point
+2. Run the forward pass to make a prediction
+3. Compute the loss
+4. Run the backward pass to compute gradients
+5. Update parameters and repeat for many `epoch`s
+
+An `epoch` means one full pass over the training data. The list `losses` records whether training is generally moving in the right direction.
+
 ```python
+import numpy as np
 import matplotlib.pyplot as plt
 
 # Data
