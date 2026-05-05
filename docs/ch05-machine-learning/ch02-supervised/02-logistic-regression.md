@@ -107,6 +107,10 @@ So the key upgrade in logistic regression is not that the model suddenly becomes
 
 - It starts turning the output into a “confidence level” rather than a raw score
 
+![Logistic regression score probability threshold pipeline](/img/course/ch05-logistic-score-probability-threshold-en.png)
+
+Read this image before the formula: logistic regression first calculates a raw `logit`, then Sigmoid turns that raw score into a probability, and only after that does the threshold turn the probability into a class. This separation matters in real projects because you can keep the same probability model but move the threshold when the business cost of false alarms and missed positives changes.
+
 ### 1.3 Sigmoid function — compress to [0, 1]
 
 > **σ(z) = 1 / (1 + e⁻ᶻ)**
@@ -277,6 +281,10 @@ Cross-entropy is more like asking:
 > **Did you assign a high enough probability to the true class?**
 
 ### 3.3 Binary Cross-Entropy
+
+![Binary cross entropy intuition for logistic regression](/img/course/ch05-logistic-bce-intuition-en.png)
+
+The image shows the most important behavior first: BCE is gentle when the model gives high probability to the true label, but it becomes very large when the model is confident and wrong. That is why BCE is a better teacher for probability classification than simply asking whether the final class is right or wrong.
 
 > **BCE = -(1/n) × Σ[ yi × log(p̂i) + (1-yi) × log(1-p̂i) ]**
 
