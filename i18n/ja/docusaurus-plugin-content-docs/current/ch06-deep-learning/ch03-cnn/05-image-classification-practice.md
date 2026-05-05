@@ -17,6 +17,12 @@ keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic
 > 画像分類プロジェクトを、最初から最後まで一通りやり切れるようになること。
 :::
 
+![CNN 画像分類の実践ループ](/img/course/ch06-cnn-image-classification-practice-loop-ja.png)
+
+:::tip この図の読み方
+コードを実行する前に、まず図で流れを確認しましょう。合成画像とラベルを確認し、テンソル形状 `N x C x H x W` を追い、最後に CNN、損失、検証曲線、誤分類確認をひとつの閉じたループとしてつなげます。
+:::
+
 ## 学習目標
 
 - 最小構成で学習できる画像分類タスクを作る

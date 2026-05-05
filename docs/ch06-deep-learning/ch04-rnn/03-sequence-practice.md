@@ -18,6 +18,12 @@ In this section, we will turn those ideas into a small project:
 > **Given a sequence, predict the next value.**
 :::
 
+![RNN time-series sliding window practice loop](/img/course/ch06-rnn-sliding-window-practice-loop-en.png)
+
+:::tip How to use this picture
+Before reading the LSTM code, use this picture to trace the data first: a continuous series becomes many sliding-window samples, each sample becomes `[batch, seq_len, input_size]`, and validation must stay in time order to avoid future leakage.
+:::
+
 ## Learning Goals
 
 - Learn how to split a continuous sequence into training samples

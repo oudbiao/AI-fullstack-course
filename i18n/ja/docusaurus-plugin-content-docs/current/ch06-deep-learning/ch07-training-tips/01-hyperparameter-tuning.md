@@ -20,6 +20,12 @@ keywords: [hyperparameter tuning, learning rate, batch size, regularization, sea
 この授業では、その考え方をしっかり説明します。
 :::
 
+![深層学習の調整と診断ルート](/img/course/ch06-training-tuning-diagnosis-route-ja.png)
+
+:::tip この図の読み方
+この図をデバッグのガードレールとして使いましょう。まず曲線を読み、安定した順番で調整し、1回の実験では1つだけ変えます。ログを残すことで、次の行動を推測ではなく証拠にもとづいて決められます。
+:::
+
 ## 学習目標
 
 - どのハイパーパラメータを先に調整すべきかを理解する

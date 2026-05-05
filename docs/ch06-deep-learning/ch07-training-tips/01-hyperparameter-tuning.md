@@ -20,6 +20,12 @@ In fact, a more reliable approach is:
 This lesson will explain that clearly.
 :::
 
+![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-en.png)
+
+:::tip How to use this picture
+Use this route as a debugging guardrail: read the curves first, tune in a stable order, change only one thing per experiment, and keep logs so the next action is based on evidence instead of guessing.
+:::
+
 ## Learning objectives
 
 - Understand which hyperparameters are worth tuning first

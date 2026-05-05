@@ -18,6 +18,12 @@ keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 > **ある系列を与えて、後ろの値を予測する。**
 :::
 
+![RNN 時系列スライディングウィンドウの実践ループ](/img/course/ch06-rnn-sliding-window-practice-loop-ja.png)
+
+:::tip この図の読み方
+LSTM のコードを読む前に、まず図でデータの流れを追いましょう。連続系列は多くのスライディングウィンドウのサンプルになり、各サンプルは `[batch, seq_len, input_size]` になります。検証は時間順を守り、未来情報の漏れを防ぎます。
+:::
+
 ## 学習目標
 
 - 連続した系列を学習用サンプルに分割できるようになる

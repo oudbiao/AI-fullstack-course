@@ -20,6 +20,12 @@ keywords: [hyperparameter tuning, learning rate, batch size, regularization, sea
 这节课会把这件事讲实。
 :::
 
+![深度学习调参和诊断路线](/img/course/ch06-training-tuning-diagnosis-route.png)
+
+:::tip 怎样读这张图
+把这张图当成调试护栏：先读训练曲线，再按稳定顺序调参，每次实验只改一项，并保留日志，让下一步动作基于证据，而不是猜。
+:::
+
 ## 学习目标
 
 - 理解哪些超参数最值得先调

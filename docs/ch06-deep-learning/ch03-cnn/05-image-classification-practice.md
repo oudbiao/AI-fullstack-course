@@ -17,6 +17,12 @@ This section does not aim for “large model performance”; it aims for somethi
 > To help you complete an image classification project end to end.
 :::
 
+![CNN image classification practice loop](/img/course/ch06-cnn-image-classification-practice-loop-en.png)
+
+:::tip How to use this picture
+Read the picture before running the code: first confirm the synthetic images and labels, then track the tensor shape `N x C x H x W`, and finally connect the CNN, loss, validation curve, and error inspection into one complete loop.
+:::
+
 ## Learning Objectives
 
 - Build a minimal trainable image classification task

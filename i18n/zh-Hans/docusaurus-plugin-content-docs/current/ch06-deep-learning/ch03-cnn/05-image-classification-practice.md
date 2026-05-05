@@ -17,6 +17,12 @@ keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic
 > 让你完整走通一次图像分类项目。
 :::
 
+![CNN 图像分类实操闭环](/img/course/ch06-cnn-image-classification-practice-loop.png)
+
+:::tip 怎样读这张图
+先看图再跑代码：先确认合成图像和标签，再跟踪张量形状 `N x C x H x W`，最后把 CNN、损失函数、验证曲线和错例检查串成一个完整闭环。
+:::
+
 ## 学习目标
 
 - 构造一个最小可训练的图像分类任务

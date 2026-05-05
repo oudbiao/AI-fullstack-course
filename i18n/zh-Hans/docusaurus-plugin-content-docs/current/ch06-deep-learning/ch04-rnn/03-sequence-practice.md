@@ -18,6 +18,12 @@ keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 > **给一段序列，预测后面的值。**
 :::
 
+![RNN 时间序列滑动窗口实操闭环](/img/course/ch06-rnn-sliding-window-practice-loop.png)
+
+:::tip 怎样读这张图
+在读 LSTM 代码前，先顺着图看数据：连续序列会被切成很多滑动窗口样本，每个样本会变成 `[batch, seq_len, input_size]`，验证集必须保持时间顺序，避免未来信息泄漏。
+:::
+
 ## 学习目标
 
 - 学会把连续序列切成训练样本
