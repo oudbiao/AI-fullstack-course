@@ -253,6 +253,10 @@ That is the core intuition of gradient descent.
 The following example does only one thing:
 Using the simplest linear relationship `y = wx + b`, it shows how parameters are learned step by step.
 
+![Gradient descent four-step training loop](/img/course/ch05-gradient-descent-four-step-loop-en.png)
+
+Read the picture before the code: every loop first makes a prediction, then measures how wrong it was, then calculates the direction to improve, and finally nudges `w` and `b`. The code below is just this picture written in NumPy.
+
 ```python
 import numpy as np
 

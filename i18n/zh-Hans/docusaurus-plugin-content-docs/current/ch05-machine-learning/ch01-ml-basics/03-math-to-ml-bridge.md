@@ -253,6 +253,10 @@ print("概率输出:", np.round(prob, 4))
 下面这个例子只做一件事：
 用最简单的线性关系 `y = wx + b`，看参数怎么被一点点学出来。
 
+![梯度下降四步训练循环](/img/course/ch05-gradient-descent-four-step-loop.png)
+
+先看图再看代码：每一轮循环都是先做预测，再衡量错了多少，再计算往哪边改，最后轻轻调整 `w` 和 `b`。下面的 NumPy 代码，就是把这张图写成程序。
+
 ```python
 import numpy as np
 
