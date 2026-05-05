@@ -178,7 +178,7 @@ labels = [
 ]
 
 clf = make_pipeline(
-    CountVectorizer(token_pattern=r"(?u)\\b\\w+\\b"),
+    CountVectorizer(token_pattern=r"(?u)\b\w+\b"),
     LogisticRegression(max_iter=200),
 )
 
@@ -213,7 +213,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 
 clf_tfidf = make_pipeline(
-    TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b"),
+    TfidfVectorizer(token_pattern=r"(?u)\b\w+\b"),
     LogisticRegression(max_iter=200),
 )
 

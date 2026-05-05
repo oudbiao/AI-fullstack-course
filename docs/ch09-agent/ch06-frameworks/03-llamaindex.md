@@ -160,12 +160,14 @@ then without a good indexing and retrieval layer, even a very strong model will 
 
 ### 5.2 A minimal retrieval example
 
+If you want to run this snippet locally, install `scikit-learn` first.
+
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 node_texts = [node["text"] for node in nodes]
-vectorizer = TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b")
+vectorizer = TfidfVectorizer(token_pattern=r"(?u)\b\w+\b")
 index_matrix = vectorizer.fit_transform(node_texts)
 
 def retrieve(query):

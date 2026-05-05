@@ -104,11 +104,11 @@ def chain_reason_answer(text):
     original, discount, minus = map(int, re.findall(r"\d+", text))
 
     steps = []
-    discounted_price = original * (discount / 10)
-    steps.append(f"まず割引後の価格を計算する：{original} * {discount}/10 = {discounted_price}")
+    discounted_price = original * (1 - discount / 100)
+    steps.append(f"まず割引後の価格を計算する：{original} * (1 - {discount}/100) = {discounted_price}")
 
     final_price = discounted_price - minus
-    steps.append(f"次に割引を引く：{discounted_price} - {minus} = {final_price}")
+    steps.append(f"次に追加の {minus} 円を引く：{discounted_price} - {minus} = {final_price}")
 
     return final_price, steps
 

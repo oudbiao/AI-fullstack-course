@@ -106,11 +106,11 @@ def chain_reason_answer(text):
     original, discount, minus = map(int, re.findall(r"\d+", text))
 
     steps = []
-    discounted_price = original * (discount / 10)
-    steps.append(f"先算折扣价：{original} * {discount}/10 = {discounted_price}")
+    discounted_price = original * (1 - discount / 100)
+    steps.append(f"先算折扣价：{original} * (1 - {discount}/100) = {discounted_price}")
 
     final_price = discounted_price - minus
-    steps.append(f"再减优惠：{discounted_price} - {minus} = {final_price}")
+    steps.append(f"再减额外的 {minus} 元：{discounted_price} - {minus} = {final_price}")
 
     return final_price, steps
 

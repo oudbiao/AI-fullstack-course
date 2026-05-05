@@ -133,7 +133,7 @@ knowledge_base = [
 
 
 def tokenize(text):
-    return set(text.replace("?", "").replace("?", ""))
+    return set(text.replace("？", "").replace("?", ""))
 
 
 def answer_question(user_query):

@@ -160,12 +160,14 @@ print(nodes)
 
 ### 5.2 一个最小检索示例
 
+如果你想在本地运行这段代码，先安装 `scikit-learn`。
+
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 node_texts = [node["text"] for node in nodes]
-vectorizer = TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b")
+vectorizer = TfidfVectorizer(token_pattern=r"(?u)\b\w+\b")
 index_matrix = vectorizer.fit_transform(node_texts)
 
 def retrieve(query):

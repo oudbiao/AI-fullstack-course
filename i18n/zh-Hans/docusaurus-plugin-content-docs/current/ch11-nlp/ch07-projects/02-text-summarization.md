@@ -149,7 +149,7 @@ article = """
 
 
 def split_sentences(text):
-    parts = re.split(r"[。！？\\n]+", text)
+    parts = re.split(r"[。！？\n]+", text)
     return [p.strip() for p in parts if p.strip()]
 
 

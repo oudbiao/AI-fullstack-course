@@ -148,7 +148,7 @@ print("frames:", frames)
 print("clips :", clips)
 ```
 
-### 4.2 What is this example teaching?
+### 4.1 What is this example teaching?
 
 It is teaching you that:
 

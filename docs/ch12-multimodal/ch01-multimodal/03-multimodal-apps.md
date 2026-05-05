@@ -223,7 +223,7 @@ Mature systems often add mechanisms like:
 ```python
 def safe_multimodal_reply(image_info, user_question):
     if not image_info.get("has_text") and "error" in user_question:
-        return "No enough text was recognized in this image. Please upload a clearer, complete screenshot."
+        return "Not enough text was recognized in this image. Please upload a clearer, complete screenshot."
     return multimodal_assistant(image_info, user_question)
 
 print(safe_multimodal_reply({"type": "screenshot", "has_text": False}, "What error is this?"))

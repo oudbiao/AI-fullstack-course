@@ -36,6 +36,8 @@ flowchart TD
 
 学習率が大きすぎると、loss が上下に振れたり、発散したりすることがあります。逆に学習率が小さすぎると、学習がとても遅くなり、モデルが何も学べていないように見えます。初心者のうちは、まずよくあるデフォルト値から始めて、学習曲線を観察するとよいです。
 
+この節のコードをローカルで動かす場合は、先に `torch`、`torchvision`、`scikit-learn` をインストールしてください。
+
 ```python
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)

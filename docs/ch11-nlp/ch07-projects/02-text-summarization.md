@@ -149,7 +149,7 @@ If the learning goal is AI application engineering, understanding data processin
 
 
 def split_sentences(text):
-    parts = re.split(r"[。！？\\n]+", text)
+    parts = re.split(r"[。！？\n]+", text)
     return [p.strip() for p in parts if p.strip()]
 
 

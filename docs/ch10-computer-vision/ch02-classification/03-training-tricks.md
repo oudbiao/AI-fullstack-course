@@ -36,6 +36,8 @@ flowchart TD
 
 If the learning rate is too large, the loss may oscillate or even diverge; if it is too small, training will be very slow, and the model may look like it is not learning anything. When you are starting out, begin with a common default value and then observe the training curve.
 
+If you want to run the code snippets in this section locally, install `torch`, `torchvision`, and `scikit-learn` first.
+
 ```python
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)

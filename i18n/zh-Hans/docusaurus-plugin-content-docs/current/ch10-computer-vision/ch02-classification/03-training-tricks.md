@@ -36,6 +36,8 @@ flowchart TD
 
 学习率太大，loss 可能震荡甚至发散；学习率太小，训练会非常慢，模型看起来像没学到东西。初学时可以先从一个常见默认值开始，再观察训练曲线。
 
+如果你想在本地运行本节代码，请先安装 `torch`、`torchvision` 和 `scikit-learn`。
+
 ```python
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.1)

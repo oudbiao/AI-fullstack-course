@@ -235,6 +235,14 @@ tts_config = {
 print(tts_config)
 ```
 
+### 6.1 What is this example showing?
+
+It is showing a very important beginner idea:
+
+> TTS input is often not just text, but also control conditions for “how to speak.”
+
+This is one of the reasons modern speech synthesis is much more powerful than early systems.
+
 ### 6.2 What is this example teaching?
 
 It is teaching you:

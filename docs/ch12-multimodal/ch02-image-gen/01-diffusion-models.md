@@ -234,7 +234,7 @@ Because the noise is added by you during training, the supervision signal comes 
 
 So the problem becomes a fairly clear supervised learning task.
 
-### 5.4 Why is this the key turning point for understanding diffusion models?
+### 5.3 Why is this the key turning point for understanding diffusion models?
 
 Because many beginners, when first learning diffusion models, mistakenly think:
 
@@ -246,7 +246,7 @@ But a more accurate understanding is:
 
 Once this view is stable, it becomes much easier to understand Stable Diffusion, conditional generation, and image editing later on.
 
-### 5.3 A minimal “learning objective” example
+### 5.4 A minimal “learning objective” example
 
 ```python
 import numpy as np

@@ -80,7 +80,7 @@ In other words:
 
 So compliance is not a post-check; it is often an architecture input.
 
-### 1.1 A Better Analogy for Beginners
+### 1.3 A Better Analogy for Beginners
 
 You can think of compliance as:
 

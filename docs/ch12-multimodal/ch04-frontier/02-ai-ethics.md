@@ -109,7 +109,7 @@ This shows that:
 
 > Models do not automatically become fairer than humans; they often inherit and even amplify existing biases.
 
-### 2.4 A Risk Table Worth Remembering First
+### 2.3 A Risk Table Worth Remembering First
 
 | Risk Type | Most Important Question to Ask First |
 |---|---|
@@ -121,7 +121,7 @@ This shows that:
 
 This table is great for beginners because it turns “ethics and safety” back into a few concrete questions that can be checked.
 
-### 2.3 Why Is This Hard?
+### 2.4 Why Is This Hard?
 
 Because it is usually not a “clear error,” but instead:
 

@@ -160,12 +160,14 @@ print(nodes)
 
 ### 5.2 最小の検索例
 
+このコードをローカルで実行するなら、先に `scikit-learn` をインストールしてください。
+
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 node_texts = [node["text"] for node in nodes]
-vectorizer = TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b")
+vectorizer = TfidfVectorizer(token_pattern=r"(?u)\b\w+\b")
 index_matrix = vectorizer.fit_transform(node_texts)
 
 def retrieve(query):

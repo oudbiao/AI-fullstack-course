@@ -41,7 +41,7 @@ Once you understand this thread, you will see that ethics and compliance are not
 
 ## How This Chapter Relates to Later Chapters
 
-Frontier trends and ethics directly affect the final AIGC capstone project. An creative content platform should not only generate copy, images, voice, and video scripts; it should also record material sources, limit high-risk generation, add content moderation, warn about copyright and portrait risks, and provide users with explainable export results.
+Frontier trends and ethics directly affect the final AIGC capstone project. A creative content platform should not only generate copy, images, voice, and video scripts; it should also record material sources, limit high-risk generation, add content moderation, warn about copyright and portrait risks, and provide users with explainable export results.
 
 If you do not learn this chapter well, common problems later include: showing only generation results without any risk boundaries; using materials with unclear sources; generating real people or voices without an authorization assumption; lacking content review and labeling; and making a project look flashy but unsuitable for real product scenarios.
 
