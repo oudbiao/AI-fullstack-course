@@ -31,6 +31,21 @@ So it is especially suitable for training these system capabilities to work toge
 - Learn how to design internal knowledge base and external material supplementation separately
 - Learn how to turn this project into a portfolio-quality system with a product feel
 
+## Beginner terminology bridge
+
+This project crosses document processing, retrieval, generation, and export. Clarify these terms first:
+
+| Term | Beginner meaning | Role in this project |
+|---|---|---|
+| `ingestion` | Bringing files into the system and preparing them for processing | PDF / Word / PPT materials enter the pipeline here |
+| `example extraction` | Identifying worked examples, exercises, definitions, and formulas from documents | Courseware needs examples, not just paragraphs |
+| `schema` | A stable data structure that defines the courseware output | Keeps retrieval, generation, and template export aligned |
+| `template rendering` | Filling structured content into a Word or PPT template | Separates content generation from document formatting |
+| `source_refs` | Source references kept with each generated section or item | Lets the final Word draft explain where the content came from |
+| `internal vs external materials` | Internal materials are trusted course assets; external materials are supplements | Prevents external sources from overriding the main teaching skeleton |
+
+The core judgment is: the model should not directly “write a Word file.” It should help build a structured courseware object that the template layer can render reliably.
+
 ---
 
 ## First, Build a Map

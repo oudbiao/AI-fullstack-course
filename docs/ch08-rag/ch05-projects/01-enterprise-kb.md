@@ -28,6 +28,20 @@ So the most important thing for this kind of project is not “whether it looks 
 - Learn how to build a showcaseable project loop with a minimal retriever
 - Learn how to present the project around error analysis and traceability
 
+## Beginner terminology bridge
+
+Enterprise knowledge-base projects use several words that sound simple but have strict engineering meaning:
+
+| Term | Beginner meaning | Why it matters in this project |
+|---|---|---|
+| `permission filtering` | Remove documents the current user is not allowed to see before retrieval or answering | Prevents the system from leaking internal content |
+| `citation` | A source reference attached to the answer | Lets users verify where the answer came from |
+| `metadata` | Extra fields attached to a chunk, such as source file, department, visibility, page, or version | Makes filtering, debugging, and citation possible |
+| `SOP` | Standard Operating Procedure, a fixed internal workflow document | Many enterprise answers are not just facts, but process rules |
+| `traceability` | The ability to follow an answer back to the original document and processing path | This is what makes the project trustworthy instead of just fluent |
+
+The key idea is: an enterprise knowledge base is not only a search problem. It is also a permission, evidence, and audit problem.
+
 ---
 
 ## 1. Why is enterprise knowledge base Q&A harder than ordinary FAQ?

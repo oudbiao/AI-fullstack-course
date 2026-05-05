@@ -27,6 +27,21 @@ At this point, RAG and fine-tuning are usually not a replacement relationship, b
 - Design an explainable RAG + fine-tuning project plan
 - Run a minimal combined project scaffold
 
+## Beginner terminology bridge
+
+Before mixing RAG and fine-tuning, separate the training terms clearly:
+
+| Term | Beginner meaning | What it should solve |
+|---|---|---|
+| `fine-tuning` | Continue training a base model on task examples | Make behavior, format, and domain style more stable |
+| `SFT` | Supervised Fine-Tuning, training with input-output examples written or curated by humans | Teach the model what a good answer should look like |
+| `LoRA` | Low-Rank Adaptation, a lightweight fine-tuning method that trains small adapter weights | Reduce training cost while adapting model behavior |
+| `QLoRA` | Quantized LoRA, LoRA combined with lower-precision model loading | Make fine-tuning possible on smaller hardware |
+| `domain adaptation` | Making the system fit a specific field or business context | Usually needs both domain knowledge and domain behavior |
+| `eval set` | A fixed set of test questions and expected checks | Prevents you from judging improvement by one good-looking example |
+
+The practical rule is: do not use fine-tuning to memorize frequently changing documents. Use RAG for changing knowledge, and use fine-tuning or SFT examples for stable behavior.
+
 ---
 
 ## 1. Why combine RAG and fine-tuning?
