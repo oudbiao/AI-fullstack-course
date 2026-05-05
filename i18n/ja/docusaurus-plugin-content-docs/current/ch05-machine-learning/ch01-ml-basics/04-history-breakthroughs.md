@@ -1,5 +1,5 @@
 ---
-title: "1.6 機械学習の歴史的ブレークスルーの流れ"
+title: "1.2 機械学習の歴史的ブレークスルーの流れ"
 sidebar_position: 5
 description: "歴史の流れに沿って機械学習の重要なブレークスルーを理解する：ベイズ、最尤法、EM、決定木、SVM、ランダムフォレスト、Boosting、XGBoost、そして sklearn の工程化がそれぞれ何を解決したのか。"
 keywords: [機械学習の歴史, MLブレークスルー, ベイズ, 最尤法, EM, 決定木, SVM, ランダムフォレスト, XGBoost]

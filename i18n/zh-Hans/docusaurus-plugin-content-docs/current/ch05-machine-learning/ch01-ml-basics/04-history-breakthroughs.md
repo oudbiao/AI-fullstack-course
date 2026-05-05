@@ -1,5 +1,5 @@
 ---
-title: "1.6 机器学习历史突破主线"
+title: "1.2 机器学习历史突破主线"
 sidebar_position: 5
 description: "按历史进程理解机器学习的重要突破：贝叶斯、最大似然、EM、决策树、SVM、随机森林、Boosting、XGBoost 和 sklearn 工程化分别解决了什么问题。"
 keywords: [机器学习历史, ML突破, 贝叶斯, 最大似然, EM, 决策树, SVM, 随机森林, XGBoost]
