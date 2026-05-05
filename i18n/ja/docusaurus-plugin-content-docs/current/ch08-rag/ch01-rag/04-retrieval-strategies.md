@@ -88,7 +88,7 @@ keywords: [retrieval, hybrid search, rerank, query rewrite, dense retrieval, spa
 
 ![キーワード検索とベクトル検索の盲点図](/img/course/ch08-hybrid-retrieval-blindspot-map-ja.png)
 
-![検索戦略の比較図](/img/course/ch08-retrieval-strategy-comparison-map-v2.png)
+![検索戦略の比較図](/img/course/ch08-retrieval-strategy-comparison-map-v2-ja.png)
 
 BM25 は、古典的なキーワード順位付けの方法です。多くのハイブリッド検索では、BM25 風のスコアとベクトル類似度を組み合わせ、最後に rerank で並び順を整えます。
 

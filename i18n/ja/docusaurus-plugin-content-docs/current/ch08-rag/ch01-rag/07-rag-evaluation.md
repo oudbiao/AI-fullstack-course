@@ -88,7 +88,7 @@ Hit@k の意味はとてもシンプルです。
 
 ![RAG の階層評価ダッシュボード図](/img/course/ch08-rag-evaluation-layered-dashboard-map-ja.png)
 
-![RAG 評価の閉ループ図](/img/course/ch08-rag-evaluation-loop-map-v2.png)
+![RAG 評価の閉ループ図](/img/course/ch08-rag-evaluation-loop-map-v2-ja.png)
 
 よい評価は 1 回で終わるものではなく、テストセット -> 検索 -> 回答 -> 引用 -> 失敗分析 -> 修正 -> 再評価、というループです。
 

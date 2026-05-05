@@ -69,6 +69,12 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 
 > **タスク説明、コンテキスト、制御パラメータをまとめてモデルに渡す。**
 
+![LLM API 呼び出しのメンタルモデル](/img/course/ch08-llm-api-call-mental-model-ja.png)
+
+:::tip 図の読み方
+この図は「1 行の呼び出し」ではなく、実行時の閉ループとして読んでください。`API` はアプリケーション用のインターフェース、`endpoint` はサービスの住所、`JSON` はネットワークで送る構造化データ形式、`usage` は token 使用量を記録して後からコストや性能を分析するための情報です。
+:::
+
 ### 2.1 最小リクエストのイメージ
 
 ```python

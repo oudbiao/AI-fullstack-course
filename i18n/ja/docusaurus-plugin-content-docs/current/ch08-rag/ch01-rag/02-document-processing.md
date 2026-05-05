@@ -72,6 +72,12 @@ keywords: [chunking, 文書分割, ベクトル化, metadata, RAG preprocessing]
 
 テキストブロックを、類似度検索に使えるベクトルへ変換します。
 
+![RAG の文書処理パイプライン](/img/course/ch08-document-processing-pipeline-map-v2-ja.png)
+
+:::tip 図の読み方
+まず「元資料」から「知識チャンク」へ変わる流れを見てください。PDF、Word、PPT はそのまま答えになるのではなく、クリーニング、分割、メタデータ付与、ベクトル化、保存という段階を通ります。OCR は Optical Character Recognition の略で、スキャン画像や写真の中の文字を読み取る技術です。
+:::
+
 ---
 
 ## 三、なぜ分割がそんなに重要なのか？

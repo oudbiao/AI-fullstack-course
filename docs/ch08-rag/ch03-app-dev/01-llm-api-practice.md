@@ -69,6 +69,12 @@ You can think of it as:
 
 > **Sending task instructions, context, and control parameters to the model together.**
 
+![LLM API call mental model](/img/course/ch08-llm-api-call-mental-model-en.png)
+
+:::tip Reading guide
+Read this diagram as a runtime loop instead of a single line of code. `API` means an application interface, `endpoint` means the service address, `JSON` is the structured data format sent over the network, and `usage` records token consumption so later cost and performance analysis are possible.
+:::
+
 ### 2.1 A minimal request example
 
 ```python

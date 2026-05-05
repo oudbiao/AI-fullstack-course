@@ -72,6 +72,12 @@ keywords: [chunking, 文档切块, 向量化, metadata, RAG preprocessing]
 
 把文本块变成可做相似度检索的向量。
 
+![RAG 文档处理流水线](/img/course/ch08-document-processing-pipeline-map-v2.png)
+
+:::tip 读图提示
+先看“原始资料”到“知识块”的变化：PDF、Word、PPT 不会直接变成答案，而是要经过清洗、切块、元数据补全、向量化和入库。OCR 是 Optical Character Recognition 的缩写，意思是“光学字符识别”，专门把扫描件或图片里的文字识别出来。
+:::
+
 ---
 
 ## 三、切块为什么这么重要？

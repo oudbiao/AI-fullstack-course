@@ -1,6 +1,6 @@
 ---
-title: "3.7 ドキュメント解析と知識抽出"
-sidebar_position: 16
+title: "3.8 ドキュメント解析と知識抽出"
+sidebar_position: 17
 description: "PDF、Word、PPT からスキャン画像の OCR まで、ナレッジベース型アプリがなぜまず文書を構造化された知識に解析する必要があるのかを理解します。単なるプレーンテキスト抽出だけでは足りません。"
 keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction]
 ---

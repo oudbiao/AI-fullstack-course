@@ -1,6 +1,6 @@
 ---
-title: "3.8 Template-Based Document Generation (Word / PPT)"
-sidebar_position: 17
+title: "3.9 Template-Based Document Generation (Word / PPT)"
+sidebar_position: 18
 description: "From structured output and template filling to Word/PPT generation, understand why knowledge-base generation systems are best built by producing structure first and then rendering it into documents."
 keywords: [word generation, ppt generation, template, docx, pptx, structured output]
 ---

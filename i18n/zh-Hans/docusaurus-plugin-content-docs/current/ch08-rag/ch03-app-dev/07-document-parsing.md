@@ -1,6 +1,6 @@
 ---
-title: "3.7 文档解析与知识抽取"
-sidebar_position: 16
+title: "3.8 文档解析与知识抽取"
+sidebar_position: 17
 description: "从 PDF、Word、PPT 到扫描件 OCR，理解知识库型应用为什么必须先把文档解析成结构化知识，而不是只抽出纯文本。"
 keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction]
 ---

@@ -1,6 +1,6 @@
 ---
 title: "3.7 大模型辅助编程"
-sidebar_position: 6
+sidebar_position: 16
 description: "学习如何把大模型作为编程助手使用：生成、解释、重构、测试、调试，以及如何避免盲目信任。"
 keywords: [AI辅助编程, 代码生成, 代码审查, 测试, 调试, LLM开发]
 ---

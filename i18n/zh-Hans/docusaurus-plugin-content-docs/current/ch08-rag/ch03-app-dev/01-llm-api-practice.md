@@ -69,6 +69,12 @@ keywords: [LLM API, chat completion, API client, prompt, response parsing, error
 
 > **把任务说明、上下文和控制参数一起交给模型。**
 
+![LLM API 调用心智模型](/img/course/ch08-llm-api-call-mental-model.png)
+
+:::tip 读图提示
+不要把这张图看成“一行调用代码”，而要看成一个运行闭环。`API` 是应用程序接口，`endpoint` 是服务地址，`JSON` 是网络传输里常用的结构化数据格式，`usage` 记录 token 用量，方便后续做成本和性能分析。
+:::
+
 ### 2.1 一个最小请求示意
 
 ```python

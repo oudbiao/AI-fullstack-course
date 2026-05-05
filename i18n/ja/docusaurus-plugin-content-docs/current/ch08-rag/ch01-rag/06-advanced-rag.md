@@ -45,7 +45,7 @@ keywords: [advanced RAG, router, multi-hop, agentic rag, graph rag, structured r
 
 このとき、「1回だけ検索する」では足りないことが多いです。
 
-![高度な RAG アーキテクチャの選択図](/img/course/ch08-advanced-rag-architecture-decision-map-v2.png)
+![高度な RAG アーキテクチャの選択図](/img/course/ch08-advanced-rag-architecture-decision-map-v2-ja.png)
 
 この図のポイントはとてもシンプルです。いきなり一番複雑な構成にするのではなく、本当に失敗している部分を最小の構成で直すことです。
 

@@ -1,6 +1,6 @@
 ---
-title: "3.7 Document Parsing and Knowledge Extraction"
-sidebar_position: 16
+title: "3.8 Document Parsing and Knowledge Extraction"
+sidebar_position: 17
 description: "From PDF, Word, and PPT to OCR for scanned files, understand why knowledge-base applications must first parse documents into structured knowledge rather than extracting plain text only."
 keywords: [document parsing, PDF, Word, PPT, OCR, chunking, metadata, knowledge extraction]
 ---

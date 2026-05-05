@@ -1,6 +1,6 @@
 ---
-title: "3.8 模板化文档生成（Word / PPT）"
-sidebar_position: 17
+title: "3.9 模板化文档生成（Word / PPT）"
+sidebar_position: 18
 description: "从结构化输出、模板填充到 Word/PPT 生成，理解为什么知识库型生成系统最好先产出结构，再渲染成文档。"
 keywords: [word generation, ppt generation, template, docx, pptx, structured output]
 ---

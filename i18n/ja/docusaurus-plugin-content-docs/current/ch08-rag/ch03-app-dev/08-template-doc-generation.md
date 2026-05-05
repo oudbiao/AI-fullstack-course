@@ -1,6 +1,6 @@
 ---
-title: "3.8 テンプレート化文書生成（Word / PPT）"
-sidebar_position: 17
+title: "3.9 テンプレート化文書生成（Word / PPT）"
+sidebar_position: 18
 description: "構造化出力、テンプレートへの入力、Word/PPT 生成までを通して、知識ベース型の生成システムでは、まず構造を出してから文書として描画するのがよい理由を理解する。"
 keywords: [word generation, ppt generation, template, docx, pptx, structured output]
 ---

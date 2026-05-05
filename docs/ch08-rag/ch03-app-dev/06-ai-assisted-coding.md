@@ -1,6 +1,6 @@
 ---
 title: "3.7 AI-Assisted Programming with Large Models"
-sidebar_position: 6
+sidebar_position: 16
 description: "Learn how to use large models as programming assistants: generation, explanation, refactoring, testing, debugging, and how to avoid blind trust."
 keywords: [AI-assisted programming, code generation, code review, testing, debugging, LLM development]
 ---
