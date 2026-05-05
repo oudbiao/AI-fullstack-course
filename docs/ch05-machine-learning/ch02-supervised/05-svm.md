@@ -177,7 +177,11 @@ There are two especially important points here:
 
 ## 6. Why feature scaling matters so much
 
+![SVM feature scaling comic](/img/course/ch05-svm-feature-scaling-en.png)
+
 SVM relies on distances and similarities. If one feature is measured in tiny units and another feature is measured in huge units, the huge-scale feature can dominate the boundary.
+
+Read the picture as a practical warning: before scaling, the model may think the feature measured from `0` to `1000` is much more important than the feature measured from `0` to `10`, simply because its numbers are larger. `StandardScaler` does not change the meaning of the rows; it changes the coordinate system so distance-based models can compare features more fairly.
 
 ```python
 X_scaled = X.copy()
@@ -248,6 +252,8 @@ In real projects, use cross-validation rather than one lucky train/test split to
 ## 8. How to understand `C` and `gamma`
 
 For beginners, the two parameters that look most mysterious are `C` and `gamma`. You can first remember them like this:
+
+![SVM C and gamma boundary control comic](/img/course/ch05-svm-c-gamma-boundary-en.png)
 
 | Parameter | Beginner intuition | Too small | Too large |
 |---|---|---|---|

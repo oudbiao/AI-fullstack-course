@@ -177,7 +177,11 @@ total support vectors: 79
 
 ## 六、为什么特征缩放特别重要？
 
+![SVM 特征缩放漫画](/img/course/ch05-svm-feature-scaling.png)
+
 SVM 依赖距离和相似度。如果一个特征单位很小，另一个特征单位特别大，大尺度特征就可能主导边界。
+
+读这张图时，把它当成一个实操提醒：如果一个特征范围是 `0` 到 `1000`，另一个特征范围是 `0` 到 `10`，模型可能只是因为数值大，就把前者看得更重要。`StandardScaler` 不会改变每一行样本的业务含义，而是改变坐标系，让基于距离的模型更公平地比较不同特征。
 
 ```python
 X_scaled = X.copy()
@@ -248,6 +252,8 @@ kernel=rbf   : train=90.7%, test=90.7%, support_vectors=79
 ## 八、如何理解 `C` 和 `gamma`
 
 对新人来说，最容易看不懂的是 `C` 和 `gamma` 两个参数。可以先这样记：
+
+![SVM 的 C 和 gamma 边界控制漫画](/img/course/ch05-svm-c-gamma-boundary.png)
 
 | 参数 | 新人直觉 | 太小时 | 太大时 |
 |---|---|---|---|
