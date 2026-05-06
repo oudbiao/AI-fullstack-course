@@ -26,6 +26,7 @@ Alignment is not an isolated technique, but a set of methods that connect model 
 | Alignment Problems | Why capable models can still be hard to use | Hallucination, sycophancy, overreach, bias, and unstable outputs |
 | RLHF | How to train model behavior using human preferences | The general process of SFT, reward models, and reinforcement learning |
 | Alternative Methods | Why methods like DPO and RLAIF emerged | The engineering cost of alignment methods and alternative approaches |
+| Safety Evaluation Lab | How to test whether alignment really improved | Fixed test cases, HHH scoring, refusal boundaries, and failure notes |
 
 While learning, do not get stuck in formula details. Instead, focus on how human preferences are collected, how model behaviors are compared, how safety boundaries are injected, and how evaluation determines whether alignment has really improved.
 
@@ -37,7 +38,7 @@ Many application problems cannot be solved by Prompt alone. For example, a custo
 
 ## What You Will Build in This Chapter
 
-This chapter does not require you to train RLHF yourself. A good practice is to build a “model behavior comparison log”: design 10 questions that are likely to cause problems, such as ambiguous requests, conflicting instructions, missing sources, overreaching tool requests, and safety-boundary requests, then compare the differences in responses from different Prompts or different models. For the basic version, write it as a Markdown table; for the standard version, add scoring dimensions such as helpfulness, honesty, boundary awareness, and citation reliability; for the challenge version, connect it to the later RAG or Agent evaluation set.
+This chapter does not require you to train RLHF yourself. A good practice is to build a “model behavior comparison log”: design 10 questions that are likely to cause problems, such as ambiguous requests, conflicting instructions, missing sources, overreaching tool requests, and safety-boundary requests, then compare the differences in responses from different Prompts or different models. For the basic version, write it as a Markdown table; for the standard version, add scoring dimensions such as helpfulness, honesty, boundary awareness, and citation reliability; for the challenge version, connect it to the later RAG or Agent evaluation set. After that, run a small safety evaluation lab with fixed cases so you can see whether the model is too permissive, too restrictive, or just inconsistent.
 
 ## Common Misconceptions
 

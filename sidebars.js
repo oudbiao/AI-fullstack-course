@@ -527,6 +527,7 @@ const sidebars = {
                 "ch07-llm-principles/ch07-alignment/alignment-problem",
                 "ch07-llm-principles/ch07-alignment/rlhf",
                 "ch07-llm-principles/ch07-alignment/alternative-methods",
+                "ch07-llm-principles/ch07-alignment/safety-evaluation-lab",
               ],
             },
             {
