@@ -433,6 +433,10 @@
 | `ch11-ctc-deep-speech-asr-map.png` | CTC Deep Speech 语音识别对齐图 | `docs/ch11-nlp/ch05-seq2seq/04-ctc-deep-speech.md` | CTC Deep Speech 语音识别对齐图：长音频帧经过模型输出带 blank 和重复的路径，再折叠成最终文字。 |
 | `ch11-pretrained-chapter-flow.png` | 预训练语言模型章节学习顺序图 | `docs/ch11-nlp/ch06-pretrained/00-roadmap.md` | 预训练语言模型章节学习顺序图：预训练范式、BERT、GPT、T5 和 Transformers 库逐步连接。 |
 | `ch11-projects-delivery-loop.png` | NLP 项目交付闭环图 | `docs/ch11-nlp/ch07-projects/00-roadmap.md` | NLP 项目交付闭环图：任务定义、标签或 schema、数据样例、模型或 Prompt、评估指标、错误文本、事实检查和项目 README 形成闭环。 |
+| `ch11-workshop-text-to-artifacts-pipeline-map.png` | 第十一章 NLP 实操工作坊端到端产物流水线图 | `docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md` | NLP 实操工作坊端到端产物流水线图：原始文本、token、TF-IDF、分类、检索问答、摘要、抽取、指标和失败报告形成可复现闭环。 |
+| `ch11-workshop-tfidf-classification-map.png` | 第十一章 NLP 实操工作坊 TF-IDF 分类图 | `docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md` | NLP 实操工作坊 TF-IDF 分类图：tokenize、IDF 权重、文本向量、标签质心、相似度、margin 和混淆矩阵解释分类 baseline。 |
+| `ch11-workshop-retrieval-summary-extraction-map.png` | 第十一章 NLP 实操工作坊检索摘要抽取图 | `docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md` | NLP 实操工作坊检索摘要抽取图：notes.jsonl 支持 retrieval QA，source text 支持 extractive summary，study logs 支持 schema extraction。 |
+| `ch11-workshop-failure-debug-map.png` | 第十一章 NLP 实操工作坊失败样本排查图 | `docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md` | NLP 实操工作坊失败样本排查图：低 margin、错标签、弱证据、字段不匹配和无依据回答进入 failure_cases.md。 |
 | `ch11-amr-semantic-graph-map.png` | AMR 语义图理解地图 | `docs/ch11-nlp/ch07-projects/04-semantic-graphs-amr.md` | AMR 语义图理解地图：句子被解析成事件、角色、实体和关系图，连接信息抽取、知识图谱、RAG 和课件生成。 |
 | `ch11-nlp-task-landscape-map.png` | NLP 任务全景图 | `docs/ch11-nlp/ch01-text-basics/01-nlp-overview.md` | NLP 任务全景图：raw text 经过 preprocessing、representation 后分流到 classification、extraction、generation、retrieval QA 和 evaluation。 |
 | `ch11-language-model-next-token-stack.png` | 语言模型 next token 预测图 | `docs/ch11-nlp/ch02-embeddings/03-language-models.md` | 语言模型 next token 预测图：context tokens 进入 language model，输出 next token probability distribution，再通过 sampling 或 greedy decoding 生成下一个 token。 |

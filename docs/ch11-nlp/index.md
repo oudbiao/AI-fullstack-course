@@ -127,6 +127,8 @@ The key to an NLP project is not producing a fluent paragraph, but whether the t
 
 The basic version is to complete a text classification project, including text cleaning, feature representation, training, and evaluation. The standard version should add information extraction, summarization, or question answering tasks, and compare the effects of different models or prompting methods. The challenge version can be a review understanding assistant or a domain document extraction system that outputs sentiment, entities, topics, and representative sample analysis.
 
+If you want one guided baseline before choosing a larger project, start with [Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). It gives you a local script that produces data files, TF-IDF classification, retrieval QA, extractive summaries, information extraction outputs, metrics, and a failure report.
+
 If you want a more detailed learning rhythm, you can read [Study Guide: The Least Confusing Way to Learn Natural Language Processing](./study-guide.md).
 
 

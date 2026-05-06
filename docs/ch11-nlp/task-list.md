@@ -34,6 +34,8 @@ A recommended minimum feature set is: input one learning question, output its st
 
 Common issues include over-cleaning text and losing information, unclear label boundaries that confuse the model, class imbalance that inflates accuracy, summaries that miss key conditions, and unstable field types in extraction. When troubleshooting, first check whether the raw text, label rules, error samples, and metrics match the task goal.
 
+For a guided first run, complete [Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). Use its `nlp_workshop_run/outputs/`, `reports/*.json`, and `reports/failure_cases.md` as the minimum evidence for this stage.
+
 ## Easy mode / Standard mode / Challenge mode tasks
 
 | Difficulty | What you need to complete | Who it is for |

@@ -54,6 +54,8 @@ If you do not learn this chapter well, common problems later will include: RAG p
 
 When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimum project can run, you can move on.
 
+The recommended first runnable example is [Hands-on: Build a Reproducible NLP Mini Pipeline](./05-hands-on-nlp-workshop.md). Run it before the larger project pages if you want a concrete baseline for text data, tokenization, TF-IDF, classification, retrieval QA, summarization, extraction, metrics, and failure analysis.
+
 Learners with more experience can use this chapter to fill in gaps and practice engineering skills: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and the connection between this chapter and the earlier and later stages. After reading, it is best to turn the chapter content into your own project README or experiment notes.
 
 ## Recommended Study Time and Difficulty

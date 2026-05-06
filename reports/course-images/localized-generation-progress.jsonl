@@ -1264,3 +1264,13 @@
 {"at": "2026-05-06T06:48:16.068751+00:00", "filename": "ch10-workshop-metrics-iou-confusion-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T06:53:08.264680+00:00", "filename": "ch10-workshop-failure-debug-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T06:54:53.848862+00:00", "filename": "ch10-workshop-synthetic-dataset-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T07:30:48.948893+00:00", "filename": "ch11-workshop-text-to-artifacts-pipeline-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T07:32:23.505545+00:00", "filename": "ch11-workshop-tfidf-classification-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T07:33:33.875960+00:00", "filename": "ch11-workshop-retrieval-summary-extraction-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T07:35:15.631784+00:00", "filename": "ch11-workshop-failure-debug-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T07:40:22.314850+00:00", "filename": "ch11-workshop-text-to-artifacts-pipeline-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T07:53:12.442244+00:00", "filename": "ch11-workshop-tfidf-classification-map-ja.png", "locale": "ja", "status": "error", "error": "Image API network error for ch11-workshop-tfidf-classification-map-ja.png."}
+{"at": "2026-05-06T07:54:34.940734+00:00", "filename": "ch11-workshop-retrieval-summary-extraction-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T08:07:24.666560+00:00", "filename": "ch11-workshop-failure-debug-map-ja.png", "locale": "ja", "status": "error", "error": "Image API network error for ch11-workshop-failure-debug-map-ja.png."}
+{"at": "2026-05-06T08:09:20.138571+00:00", "filename": "ch11-workshop-tfidf-classification-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T08:17:35.359280+00:00", "filename": "ch11-workshop-failure-debug-map-ja.png", "locale": "ja", "status": "generated"}

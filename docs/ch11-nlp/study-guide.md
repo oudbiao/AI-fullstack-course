@@ -45,6 +45,8 @@ For your second project, it is recommended to do information extraction, such as
 
 For your third project, you can build a question-answering system or text summarization project, combining traditional NLP thinking with pre-trained models.
 
+Before choosing a larger project, run the [reproducible NLP mini pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). It is the baseline exercise for this stage: one script, local text data, tokenization, TF-IDF, classification, retrieval QA, summarization, extraction, metrics, and failure cases.
+
 ## Common stumbling blocks
 
 The most common stumbling block is jumping straight to large models and ignoring text representation. Even when using an LLM, you still need to understand token, context, text cleaning, and evaluation.

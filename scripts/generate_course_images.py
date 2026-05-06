@@ -6208,6 +6208,66 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
+        "filename": "ch11-workshop-text-to-artifacts-pipeline-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十一章 NLP 实操工作坊端到端产物流水线图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",
+        "alt": "NLP 实操工作坊端到端产物流水线图：原始文本、token、TF-IDF、分类、检索问答、摘要、抽取、指标和失败报告形成可复现闭环。",
+        "prompt": """
+一张适合第十一章自然语言处理实操工作坊的竖版流程图，主题是“从 raw text 到可复现 NLP 项目证据”。
+画面从上到下展示 raw text、tokenization、TF-IDF vectors、classification、retrieval QA、summarization、information extraction、metrics、failure_cases.md、README。
+强调先看图，再运行 Python 脚本，再检查 outputs 和 reports。
+风格像文本工程流水线、课程实操路线图和项目证据看板结合，新手友好但工程感明确。
+文字不是主体；标准术语保留英文，例如 raw text、tokenization、TF-IDF、classification、retrieval QA、summarization、information extraction、metrics、failure_cases.md、README。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-workshop-tfidf-classification-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十一章 NLP 实操工作坊 TF-IDF 分类图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",
+        "alt": "NLP 实操工作坊 TF-IDF 分类图：tokenize、IDF 权重、文本向量、标签质心、相似度、margin 和混淆矩阵解释分类 baseline。",
+        "prompt": """
+一张适合第十一章 NLP 实操工作坊的 TF-IDF 文本分类图，主题是“先用透明 baseline 看懂文本如何变成标签”。
+画面展示 sentence 进入 tokenize，变成 tokens，再进入 TF-IDF weighting，形成 vector；多个训练样本形成 label centroid，测试文本通过 cosine similarity 选择 predicted label。
+旁边展示 score、margin、confusion matrix、classification_predictions.csv。
+风格像可视化实验台和文本分类仪表盘结合，适合新人理解代码执行顺序。
+文字不是主体；标准术语保留英文，例如 tokenize、tokens、TF-IDF、vector、label centroid、cosine similarity、score、margin、confusion matrix、classification_predictions.csv。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-workshop-retrieval-summary-extraction-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十一章 NLP 实操工作坊检索摘要抽取图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",
+        "alt": "NLP 实操工作坊检索摘要抽取图：notes.jsonl 支持 retrieval QA，source text 支持 extractive summary，study logs 支持 schema extraction。",
+        "prompt": """
+一张适合第十一章 NLP 实操工作坊的三任务流程图，主题是“同一批文本能力如何分成 retrieval QA、summarization、information extraction 三种输出”。
+画面分成三条竖向支线：notes.jsonl -> retrieve evidence -> answer/refuse；source text -> choose source sentences -> summary_outputs.md；study log -> regex/schema -> extraction_predictions.jsonl。
+底部汇总到 metrics 和 failure_cases.md。
+风格像三通道文本处理流水线、对比式教学图和项目交付看板结合。
+文字不是主体；标准术语保留英文，例如 notes.jsonl、retrieve evidence、answer/refuse、source sentences、summary_outputs.md、regex、schema、extraction_predictions.jsonl、metrics、failure_cases.md。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch11-workshop-failure-debug-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十一章 NLP 实操工作坊失败样本排查图",
+        "suggested_page": "docs/ch11-nlp/ch07-projects/05-hands-on-nlp-workshop.md",
+        "alt": "NLP 实操工作坊失败样本排查图：低 margin、错标签、弱证据、字段不匹配和无依据回答进入 failure_cases.md。",
+        "prompt": """
+一张适合第十一章 NLP 实操工作坊的失败样本排查图，主题是“文本项目最有价值的证据来自边界样本和失败样本”。
+画面展示 failure_cases.md 收集 low margin、wrong label、weak evidence、unsupported answer、field mismatch、over cleaning、unclear schema 等问题。
+旁边画出排查顺序：inspect raw text、check tokens、check label guide、check source evidence、check schema、adjust threshold、rerun regression。
+风格像文本错误样本墙、排查清单和项目复盘板结合。
+文字不是主体；标准术语保留英文，例如 failure_cases.md、low margin、wrong label、weak evidence、unsupported answer、field mismatch、raw text、tokens、label guide、schema、threshold、rerun regression。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch11-amr-semantic-graph-map.png",
         "size": "1536x1024",
         "quality": "medium",

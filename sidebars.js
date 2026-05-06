@@ -818,6 +818,7 @@ const sidebars = {
                 "ch11-nlp/ch07-projects/text-summarization",
                 "ch11-nlp/ch07-projects/information-extraction",
                 "ch11-nlp/ch07-projects/semantic-graphs-amr",
+                "ch11-nlp/ch07-projects/hands-on-nlp-workshop",
               ],
             },
           ],
