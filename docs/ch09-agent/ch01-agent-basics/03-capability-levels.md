@@ -7,6 +7,8 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 # Agent Capability Levels
 
+![Agent capability level ladder](/img/course/ch09-capability-level-ladder-map-en.png)
+
 ## Learning Objectives
 
 After completing this section, you will be able to:

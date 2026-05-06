@@ -7,6 +7,8 @@ keywords: [tool strategy, Agent, routing, retry, fallback, verification, tool po
 
 # 工具调用策略
 
+![工具调用策略路由图](/img/course/ch09-tool-strategy-routing-map.png)
+
 :::tip 本节定位
 上一节你已经知道怎样把工具安全地接到模型后面。
 这一节要继续往前走一步：

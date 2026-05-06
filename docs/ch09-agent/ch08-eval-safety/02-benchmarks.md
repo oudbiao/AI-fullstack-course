@@ -7,6 +7,8 @@ keywords: [agent benchmark, eval set, benchmark, SWE-bench, WebArena]
 
 # Agent Benchmarking
 
+![Agent benchmark and custom eval set comparison](/img/course/ch09-agent-benchmark-custom-eval-map-en.png)
+
 :::tip Section Overview
 Benchmarks can help you understand the capability boundaries of a model or Agent, but they cannot replace your own project evaluation set. When it comes to production, the most important thing is whether your users’ tasks can be completed reliably.
 :::

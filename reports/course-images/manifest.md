@@ -349,6 +349,14 @@
 | `ch09-workshop-tool-schema-permission-map.png` | 第九章 Agent 工作坊工具 Schema 与权限图 | `docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md` | Agent 工作坊工具 Schema 与权限图：工具调用先过 required、type、unknown argument 校验，再按 read_only、write_limited 风险决定是否需要人工批准。 |
 | `ch09-workshop-trace-jsonl-replay-map.png` | 第九章 Agent 工作坊 Trace JSONL 复盘图 | `docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md` | Agent 工作坊 Trace JSONL 复盘图：每一步记录 run_id、step、thought、action、arguments、observation 和 next_decision，支持事后 replay。 |
 | `ch09-workshop-evaluation-scorecard-map.png` | 第九章 Agent 工作坊评估计分卡图 | `docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md` | Agent 工作坊评估计分卡图：EVAL_CASES 固定运行 safe plan、approval block、no evidence 三类任务，并汇总 PASS、FAIL 与 passed 计数。 |
+| `ch09-capability-level-ladder-map.png` | 第九章 Agent 能力分级阶梯图 | `docs/ch09-agent/ch01-agent-basics/03-capability-levels.md` | Agent 能力分级阶梯图：L0 回答、L1 单工具、L2 多步骤工具、L3 目标驱动、L4 长周期高自治，并标出能力越高风险越高。 |
+| `ch09-reasoning-state-checkpoint-map.png` | 第九章 LLM 推理与中间状态图 | `docs/ch09-agent/ch02-reasoning/01-llm-reasoning.md` | LLM 推理与中间状态图：复杂任务需要拆解、保存中间状态、检查约束、逐步得到结论，而不是只凭记忆直接回答。 |
+| `ch09-tool-strategy-routing-map.png` | 第九章 工具调用策略路由图 | `docs/ch09-agent/ch03-tools/03-tool-strategies.md` | 工具调用策略路由图：先判断是否需要工具，再选择工具、校验参数、执行、验证结果，失败时进入 retry、fallback 或停止。 |
+| `ch09-short-term-memory-window-map.png` | 第九章 短期记忆窗口与状态图 | `docs/ch09-agent/ch04-memory/02-short-term-memory.md` | 短期记忆窗口与状态图：当前任务只保留必要上下文、运行状态和摘要，避免把全部历史无限塞进上下文窗口。 |
+| `ch09-mcp-client-server-message-flow-map.png` | 第九章 MCP 客户端服务器消息流图 | `docs/ch09-agent/ch05-mcp/01-mcp-overview.md` | MCP 客户端服务器消息流图：Agent 通过 MCP client 发现 tools/resources/prompts，再用统一消息格式调用 MCP server。 |
+| `ch09-multi-agent-collaboration-run-map.png` | 第九章 多 Agent 协作实操运行图 | `docs/ch09-agent/ch07-multi-agent/06-multi-agent-practice.md` | 多 Agent 协作实操运行图：Planner、Retriever、Writer、Reviewer 分工处理同一个任务，通过共享状态和检查点汇总结果。 |
+| `ch09-agent-benchmark-custom-eval-map.png` | 第九章 Agent Benchmark 与自定义评估集图 | `docs/ch09-agent/ch08-eval-safety/02-benchmarks.md` | Agent Benchmark 与自定义评估集图：通用 benchmark 可比较趋势，但生产项目还需要 normal、boundary、tool failure、safety 四类自定义样本。 |
+| `ch09-runtime-management-protection-map.png` | 第九章 Agent 运行时管理防护图 | `docs/ch09-agent/ch09-deployment/02-runtime-management.md` | Agent 运行时管理防护图：并发限制、timeout、retry、circuit breaker 和 metrics 共同保护生产 Agent 的稳定性。 |
 | `ch09-agent-boundary-workflow-chatbot-map.png` | 工作流、聊天机器人与 Agent 边界图 | `docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md` | 工作流、聊天机器人与 Agent 边界图：固定步骤、对话回复和目标驱动的持续决策三种系统边界对比。 |
 | `ch09-agent-action-loop-trace-map.png` | Agent 行动闭环与 Trace 图 | `docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md` | Agent 行动闭环与 Trace 图：用户目标进入决策器，产生行动，工具返回观察，状态更新并留下可复盘 trace。 |
 | `ch09-agent-system-architecture-dataflow-map.png` | Agent 系统架构数据流图 | `docs/ch09-agent/ch01-agent-basics/04-system-architecture.md` | Agent 系统架构数据流图：Planner、Tool Layer、Memory、State、Guardrails、Observability 组成生产 Agent 数据流。 |

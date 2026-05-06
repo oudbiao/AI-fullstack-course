@@ -7,6 +7,8 @@ keywords: [agent benchmark, eval set, benchmark, SWE-bench, WebArena]
 
 # Agent 評価ベンチマーク
 
+![Agent ベンチマークとカスタム評価セットの比較図](/img/course/ch09-agent-benchmark-custom-eval-map-ja.png)
+
 :::tip この節の位置づけ
 Benchmark は、モデルや Agent の能力の限界を理解するのに役立ちますが、自分のプロジェクト用の評価セットの代わりにはなりません。実際に本番で大切なのは、ユーザーのタスクを安定して完了できるかどうかです。
 :::

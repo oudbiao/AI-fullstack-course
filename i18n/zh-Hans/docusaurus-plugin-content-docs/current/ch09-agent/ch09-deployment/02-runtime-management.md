@@ -7,6 +7,8 @@ keywords: [runtime management, concurrency, timeout, retry, circuit breaker, met
 
 # 运行时管理
 
+![Agent 运行时管理防护图](/img/course/ch09-runtime-management-protection-map.png)
+
 :::tip 本节定位
 本地 demo 只要“能跑一次”通常就算成功。
 线上系统的要求完全不同：

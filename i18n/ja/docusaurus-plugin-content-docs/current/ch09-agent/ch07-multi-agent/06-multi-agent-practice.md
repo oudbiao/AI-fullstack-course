@@ -7,6 +7,8 @@ keywords: [multi-agent project, planner, retriever, writer, reviewer, workflow, 
 
 # 実践：マルチ Agent 協調システム
 
+![マルチ Agent 協調実践の実行図](/img/course/ch09-multi-agent-collaboration-run-map-ja.png)
+
 :::tip この節の位置づけ
 この節は本章のまとめとなるプロジェクトです。  
 ここまでで、すでに次の内容を学んできました。

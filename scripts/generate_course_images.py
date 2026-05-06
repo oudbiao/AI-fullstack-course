@@ -5018,6 +5018,129 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
+        "filename": "ch09-capability-level-ladder-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 Agent 能力分级阶梯图",
+        "suggested_page": "docs/ch09-agent/ch01-agent-basics/03-capability-levels.md",
+        "alt": "Agent 能力分级阶梯图：L0 回答、L1 单工具、L2 多步骤工具、L3 目标驱动、L4 长周期高自治，并标出能力越高风险越高。",
+        "prompt": """
+一张适合第九章 Agent 能力分级小节的竖版阶梯教学图，主题是“不要把所有系统都叫高级 Agent”。
+画面用从下到上的 5 层阶梯表现 L0 response only、L1 single tool、L2 multi-step tools、L3 goal-driven、L4 long-running / multi-agent / high autonomy。
+每一层旁边画出小图标：回答气泡、单个工具、工具链、目标旗帜、长期任务看板；右侧用风险温度条表现 autonomy 和 risk 逐级上升。
+底部加一个新人提示区：choose the smallest sufficient level。
+文字不是主体；标准术语保留英文，例如 L0、L1、L2、L3、L4、response only、single tool、multi-step tools、goal-driven、high autonomy、risk。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-reasoning-state-checkpoint-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 LLM 推理与中间状态图",
+        "suggested_page": "docs/ch09-agent/ch02-reasoning/01-llm-reasoning.md",
+        "alt": "LLM 推理与中间状态图：复杂任务需要拆解、保存中间状态、检查约束、逐步得到结论，而不是只凭记忆直接回答。",
+        "prompt": """
+一张适合第九章 LLM 推理能力小节的竖版流程图，主题是“reasoning 不是直接背答案，而是维护 intermediate state”。
+画面上半部分对比 memory lookup 与 reasoning path：左侧直接问答，右侧 complex goal -> decompose -> intermediate state -> constraint check -> next step -> conclusion。
+画面下半部分展示新人常见卡点：忘记前一步、跳过约束、工具结果没有写回 state、最后答案无法追溯。
+风格像漫画式思考过程和调试检查点结合。
+文字不是主体；标准术语保留英文，例如 memory lookup、reasoning path、complex goal、decompose、intermediate state、constraint check、next step、conclusion。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-tool-strategy-routing-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 工具调用策略路由图",
+        "suggested_page": "docs/ch09-agent/ch03-tools/03-tool-strategies.md",
+        "alt": "工具调用策略路由图：先判断是否需要工具，再选择工具、校验参数、执行、验证结果，失败时进入 retry、fallback 或停止。",
+        "prompt": """
+一张适合第九章工具调用策略小节的竖版决策树图，主题是“有工具不等于会用工具”。
+画面表现用户任务进入 routing policy：no tool、single tool、multi-step tools、fallback；每条路径都包含 argument validation、execute、verify result、stop condition。
+重点画出失败分支：tool error -> retry with limit；low confidence -> fallback；unsafe action -> permission gate；loop too long -> stop。
+风格像任务路由控制台、流程卡片和新人提示便签结合。
+文字不是主体；标准术语保留英文，例如 routing policy、no tool、single tool、multi-step tools、fallback、argument validation、verify result、retry limit、permission gate、stop condition。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-short-term-memory-window-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 短期记忆窗口与状态图",
+        "suggested_page": "docs/ch09-agent/ch04-memory/02-short-term-memory.md",
+        "alt": "短期记忆窗口与状态图：当前任务只保留必要上下文、运行状态和摘要，避免把全部历史无限塞进上下文窗口。",
+        "prompt": """
+一张适合第九章短期记忆小节的竖版教学图，主题是“short-term memory 是当前任务的 working memory”。
+画面从上到下展示 user turns、recent conversation window、runtime state、temporary results、summary memory、model context window。
+左侧画出错误做法：把 all history 全塞进 context，导致 token overflow、lost focus、high cost；右侧画出正确做法：keep recent turns、store state、summarize old steps、drop noise。
+风格像工作台、窗口裁剪和状态白板结合，适合新人理解上下文窗口不是无限的。
+文字不是主体；标准术语保留英文，例如 short-term memory、working memory、recent turns、runtime state、temporary results、summary memory、context window、token overflow。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-mcp-client-server-message-flow-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 MCP 客户端服务器消息流图",
+        "suggested_page": "docs/ch09-agent/ch05-mcp/01-mcp-overview.md",
+        "alt": "MCP 客户端服务器消息流图：Agent 通过 MCP client 发现 tools/resources/prompts，再用统一消息格式调用 MCP server。",
+        "prompt": """
+一张适合第九章 MCP 概述小节的竖版协议流程图，主题是“MCP 把工具集成从胶水代码变成统一 client-server 协议”。
+画面表现 Agent App、MCP client、transport、MCP server、tools、resources、prompts。
+用分步骤箭头表现 initialize、list tools/resources/prompts、call tool、return result、update Agent state。
+旁边对比 no protocol 的混乱接口和 MCP 的统一消息格式。
+风格像协议时序图和课程漫画结合，新人友好但工程感明确。
+文字不是主体；标准术语保留英文，例如 MCP、client、server、transport、tools、resources、prompts、initialize、list tools、call tool、result。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-multi-agent-collaboration-run-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 多 Agent 协作实操运行图",
+        "suggested_page": "docs/ch09-agent/ch07-multi-agent/06-multi-agent-practice.md",
+        "alt": "多 Agent 协作实操运行图：Planner、Retriever、Writer、Reviewer 分工处理同一个任务，通过共享状态和检查点汇总结果。",
+        "prompt": """
+一张适合第九章多 Agent 实操小节的竖版协作流程图，主题是“多 Agent 不是多人聊天，而是有角色、状态和交付物的协作系统”。
+画面展示一个用户任务进入 shared task board，然后依次或并行分配给 Planner、Retriever、Writer、Reviewer。
+每个角色产出明确 artifact：plan、evidence、draft、review notes；最终由 aggregator 形成 final answer。
+强调 shared state、handoff、checkpoint、quality gate，避免角色互相覆盖。
+风格像项目看板、流水线和漫画协作场景结合。
+文字不是主体；标准术语保留英文，例如 Planner、Retriever、Writer、Reviewer、shared state、handoff、checkpoint、quality gate、artifact、aggregator。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-agent-benchmark-custom-eval-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 Agent Benchmark 与自定义评估集图",
+        "suggested_page": "docs/ch09-agent/ch08-eval-safety/02-benchmarks.md",
+        "alt": "Agent Benchmark 与自定义评估集图：通用 benchmark 可比较趋势，但生产项目还需要 normal、boundary、tool failure、safety 四类自定义样本。",
+        "prompt": """
+一张适合第九章 Agent Benchmark 小节的竖版对比图，主题是“通用 benchmark 不能替代你的项目 eval set”。
+画面左侧是 general benchmark：fixed tasks、unified scoring、leaderboard、trend comparison。
+画面右侧是 custom project eval set：normal tasks、boundary cases、tool failures、safety / permission cases、business success criteria。
+中间用桥梁说明：use benchmark for capability boundary, use custom eval for production readiness。
+风格像考试成绩单与产品验收清单对比，新人一眼能明白不要只追 leaderboard。
+文字不是主体；标准术语保留英文，例如 general benchmark、custom eval set、fixed tasks、unified scoring、leaderboard、normal tasks、boundary cases、tool failures、safety cases、production readiness。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-runtime-management-protection-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 Agent 运行时管理防护图",
+        "suggested_page": "docs/ch09-agent/ch09-deployment/02-runtime-management.md",
+        "alt": "Agent 运行时管理防护图：并发限制、timeout、retry、circuit breaker 和 metrics 共同保护生产 Agent 的稳定性。",
+        "prompt": """
+一张适合第九章运行时管理小节的竖版生产防护图，主题是“Agent 上线后最先崩的常常不是答案，而是运行稳定性”。
+画面展示 user requests 进入 runtime manager，依次经过 queue、concurrency limit、timeout、retry with backoff、circuit breaker、metrics。
+右侧画出危险路径：retry storm、slow dependency、queue buildup、cost spike；左侧画出保护结果：stable latency、bounded cost、degraded but alive。
+风格像生产控制台、告警仪表盘和流程式防护墙结合。
+文字不是主体；标准术语保留英文，例如 runtime manager、queue、concurrency limit、timeout、retry with backoff、circuit breaker、metrics、retry storm、cost spike。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch09-agent-boundary-workflow-chatbot-map.png",
         "size": "1536x1024",
         "quality": "medium",

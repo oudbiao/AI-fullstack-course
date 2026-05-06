@@ -7,6 +7,8 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 # Agent 能力分级
 
+![Agent 能力分级阶梯图](/img/course/ch09-capability-level-ladder-map.png)
+
 ## 学习目标
 
 完成本节后，你将能够：

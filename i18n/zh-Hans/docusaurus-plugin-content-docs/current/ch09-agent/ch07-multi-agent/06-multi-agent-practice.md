@@ -7,6 +7,8 @@ keywords: [multi-agent project, planner, retriever, writer, reviewer, workflow, 
 
 # 实战：多 Agent 协作系统
 
+![多 Agent 协作实操运行图](/img/course/ch09-multi-agent-collaboration-run-map.png)
+
 :::tip 本节定位
 这一节是本章的收口项目。
 前面你已经学过：

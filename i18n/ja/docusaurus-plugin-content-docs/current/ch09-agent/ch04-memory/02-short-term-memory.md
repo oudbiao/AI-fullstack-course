@@ -7,6 +7,8 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 # 短期記憶
 
+![短期記憶のコンテキストウィンドウと実行状態図](/img/course/ch09-short-term-memory-window-map-ja.png)
+
 :::tip この節の位置づけ
 「Agent の記憶」と聞くと、多くの人はまず「長期保存」を思い浮かべます。  
 でも、実際のシステムでは、最初に体験を左右するのは、むしろ短期記憶です。

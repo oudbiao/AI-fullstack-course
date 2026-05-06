@@ -7,6 +7,8 @@ keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, age
 
 # LLM Reasoning Capability
 
+![LLM reasoning and intermediate state checkpoints](/img/course/ch09-reasoning-state-checkpoint-map-en.png)
+
 :::tip Section Overview
 When many people first encounter Agents, they naturally think of large models as:
 

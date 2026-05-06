@@ -7,6 +7,8 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 # 短期记忆
 
+![短期记忆上下文窗口与运行状态图](/img/course/ch09-short-term-memory-window-map.png)
+
 :::tip 本节定位
 很多人一提“Agent 记忆”，脑子里先想到“长期存档”。
 但真实系统里，最先决定体验的，往往反而是短期记忆：

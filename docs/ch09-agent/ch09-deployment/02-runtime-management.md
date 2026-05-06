@@ -7,6 +7,8 @@ keywords: [runtime management, concurrency, timeout, retry, circuit breaker, met
 
 # Runtime Management
 
+![Agent runtime management protection map](/img/course/ch09-runtime-management-protection-map-en.png)
+
 :::tip Section focus
 For a local demo, “it runs once” is usually good enough.
 Production systems have very different requirements:

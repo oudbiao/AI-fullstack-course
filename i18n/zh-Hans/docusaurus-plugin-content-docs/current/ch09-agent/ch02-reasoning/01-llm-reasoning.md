@@ -7,6 +7,8 @@ keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, age
 
 # LLM 推理能力
 
+![LLM 推理与中间状态检查点图](/img/course/ch09-reasoning-state-checkpoint-map.png)
+
 :::tip 本节定位
 很多人第一次接触 Agent 时，会自然地把大模型理解成：
 
