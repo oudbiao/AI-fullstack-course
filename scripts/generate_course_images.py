@@ -557,6 +557,83 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch01-hands-on-workstation-route.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 1 章工作台实操路线图",
+        "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
+        "alt": "第 1 章工作台实操路线图：终端、项目骨架、Python 检查脚本、VS Code、Jupyter、Git commit 和证据报告组成完整练习。",
+        "prompt": """
+一张 9:16 竖版中文教学流程图，主题是“第 1 章：从空文件夹到可复现 AI 学习工作台”。
+画面从上到下分成 7 个大步骤：open terminal、create ai-learning-lab、write workstation_check.py、run Python check、open VS Code、review in Jupyter、commit evidence。
+每一步都有清晰图标：终端窗口、文件夹树、Python 脚本、报告文件、编辑器面板、Notebook cell、Git commit 节点。
+重点表达这是跟着做的路线，不是概念海报；让新人先看图再照着命令操作。
+文字少而大，中文标签为主，必要技术词保留英文，例如 terminal、Python、VS Code、Jupyter、Git、commit、reports。不要真实品牌 logo，不要乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-hands-on-terminal-git-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "终端 Python Git 最小执行循环",
+        "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
+        "alt": "终端 Python Git 最小执行循环：进入项目目录，运行 Python 脚本，生成报告，查看 git status，add 并 commit。",
+        "prompt": """
+一张 9:16 竖版中文教学图，主题是“终端、Python、Git 的最小执行循环”。
+画面像分步骤漫画流程：1 pwd/ls 确认当前目录，2 python3 src/workstation_check.py 运行脚本，3 reports 生成 JSON 和 Markdown，4 git status 查看变化，5 git add 选择文件，6 git commit 保存检查点。
+用箭头连接每一步，并在旁边用小放大镜突出“当前目录”“解释器”“未跟踪文件”“提交消息”这四个新人最容易卡住的检查点。
+风格清爽、实操感强、像命令行课程练习卡。
+文字少而大，命令和技术词保留英文，例如 pwd、ls、python3、git status、git add、git commit。不要真实品牌 logo，不要乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-hands-on-env-editor-notebook-flow.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "环境 编辑器 Notebook 协作流程图",
+        "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
+        "alt": "环境、编辑器与 Notebook 协作流程图：同一个项目环境被终端、VS Code 和 Jupyter 共享，脚本生成报告，Notebook 读取报告。",
+        "prompt": """
+一张 9:16 竖版中文教学流程图，主题是“同一个项目环境如何连接终端、VS Code 和 Jupyter”。
+画面中心是 ai-learning-lab 项目文件夹，连接到一个 Python interpreter/virtual environment。
+左侧是终端运行 src/workstation_check.py，右侧是 VS Code 选择同一个解释器，下方是 Jupyter Notebook 读取 reports/workstation-check.json 并显示结果。
+加入一个错误对比角落：如果 VS Code 或 Jupyter 选错解释器，就出现 import error 或 file not found 警示。
+重点帮助新人理解“不是三个工具各跑各的，而是都应该对齐到同一个项目环境”。
+中文标签为主，保留 VS Code、Jupyter、Python interpreter、reports/workstation-check.json 等技术词。不要真实品牌 logo，不要乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-hands-on-debug-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 1 章工作台常见错误排查图",
+        "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
+        "alt": "第 1 章工作台常见错误排查图：命令找不到、路径错误、解释器不一致、Git 仓库缺失和 Notebook 路径错误分别对应检查命令。",
+        "prompt": """
+一张 9:16 竖版中文排错地图，主题是“第 1 章工作台问题先定位断在哪里”。
+画面从顶部错误提示流向 6 张故障卡片：command not found、No such file or directory、ModuleNotFoundError、fatal not a git repository、wrong interpreter、Notebook cannot find report。
+每张卡片连接到一个检查动作：python --version、pwd + ls、which python + python -m pip --version、git status、Python: Select Interpreter、Path.cwd()。
+底部汇总成一句行动原则：保存完整命令、完整输出、修复记录到 learning-log。
+风格像新人排障速查表，清晰、流程式、非装饰。
+文字少而大；命令和错误名保留英文，说明标签用中文。不要真实品牌 logo，不要乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch01-hands-on-portfolio-pack.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 1 章作品集证据包",
+        "suggested_page": "docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md",
+        "alt": "第 1 章作品集证据包：README、工作台检查脚本、JSON 报告、Markdown 报告、学习日志、终端输出和 Git 提交历史共同证明环境可复现。",
+        "prompt": """
+一张 9:16 竖版中文作品集证据包图，主题是“第 1 章完成后应该留下哪些可检查证据”。
+画面中心是 ai-learning-lab 文件夹，里面清楚展示 README.md、src/workstation_check.py、reports/workstation-check.json、reports/workstation-report.md、notes/learning-log.md、screenshots、Git history。
+用箭头说明证据链：run command 生成 reports，reports 进入 README，Git commit 保存版本，learning-log 记录错误和修复。
+重点表达“能运行 + 有记录 + 可复现”才是工具章的真实产出。
+中文标签为主，必要文件名和 Git/README/reports 等技术词保留英文。不要真实品牌 logo，不要乱码小字。
+""".strip(),
+    },
+    {
         "filename": "ch01-cli-automation-workflow.png",
         "size": "1536x1024",
         "quality": "medium",

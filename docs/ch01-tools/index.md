@@ -155,6 +155,8 @@ If you can complete this chain independently, then when you later study Python, 
 
 The basic version is to create an `ai-learning-lab` learning repository, including a runnable `hello_ai.py`, one Git commit, and a command log. The standard version should add Python environment instructions, dependency installation steps, VS Code or Jupyter usage notes, and push the repository to a remote platform. The challenge version can organize it as the portfolio root directory for the following 12 learning stations, and pre-design folders such as `scripts/`, `notebooks/`, `projects/`, and `notes/` so that the results of the whole course can be continuously accumulated.
 
+If you want a fully guided route, follow [1.4 Follow-Along Workshop: Build a Reproducible AI Learning Lab](ch04-workshop/01-hands-on-tools-workshop.md). It turns the stage project into a step-by-step local repository with a runnable Python check script, Git commits, troubleshooting notes, and report files.
+
 If you want to see a more detailed learning rhythm, you can read [Stage Learning Task List: Developer Tools Fundamentals](task-list.md).
 
 ## Fun task card for this stage
@@ -189,7 +191,7 @@ This stage can correspond to AI Learning Assistant v0.1: create the repository, 
 | Completion level | What you need to do |
 |---|---|
 | Minimum pass | Independently use the terminal, Git, editor, and Python/Jupyter environment. |
-| Recommended pass | Complete at least one runnable mini-project in this stage, and record the run method, sample input/output, and problems encountered in the README. |
+| Recommended pass | Complete at least one runnable mini-project in this stage, preferably the 1.4 follow-along workshop, and record the run method, sample input/output, and problems encountered in the README. |
 | Portfolio pass | Connect the output of this stage to the “AI Learning Assistant” integrated project, leaving screenshots, logs, evaluation samples, and a next-step plan. |
 
 After finishing this stage, you do not need to memorize every detail. What matters more is being able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. The next stage will use these tools to write Python programs and save project code.

@@ -19,10 +19,11 @@ The goal of this stage is not to memorize every command, but to give you the bas
 | Configure VS Code or an equivalent editor | A project screenshot or setup notes | You can open the project, run files, and view terminal output |
 | Master the basic Git workflow | At least 3 commit records | You can explain the role of add, commit, status, and log |
 | Connect to a remote repository | A remote repository URL or screenshot | You can push and confirm the file exists remotely |
+| Complete the integrated workstation workshop | `ai-learning-lab` with reports and Git history | You can rerun the Chapter 1 workshop script and explain the generated evidence |
 
 ## Recommended learning order
 
-First learn the terminal and file operations, then configure the Python environment, then learn the editor, and finally learn Git. Do not get stuck on complex branching models at the beginning. First make sure you can follow the main workflow of “edit files locally, commit, and push.”
+First learn the terminal and file operations, then configure the Python environment, then learn the editor, and finally learn Git. Do not get stuck on complex branching models at the beginning. First make sure you can follow the main workflow of “edit files locally, commit, and push.” After that, complete [1.4 Follow-Along Workshop](ch04-workshop/01-hands-on-tools-workshop.md) to connect the tools into one runnable project.
 
 If you run into environment issues, prioritize recording the original error message, operating system, Python version, execution directory, and the full command. In later learning on RAG, Agent, and deployment, many problems still come down to environment, paths, and dependencies.
 
@@ -54,7 +55,7 @@ The most common problems include running commands in the wrong directory, mixed-
 | Difficulty | What you need to complete | Who it is for |
 |---|---|---|
 | Easy | Run a Python file and complete one Git commit | First-time learners, learners with limited time, or beginners |
-| Standard | Add a README, virtual environment notes, and command logs | Learners who want to include this stage in their portfolio |
+| Standard | Complete the 1.4 workshop, then add a README, environment notes, and command logs | Learners who want to include this stage in their portfolio |
 | Challenge | Intentionally create path or command errors and write troubleshooting notes | Learners with a foundation who want stronger project evidence |
 
 ## Stage badge and boss battle
@@ -92,4 +93,5 @@ After finishing this stage, you should be able to answer these questions: which 
 - [ ] I can create, run, and modify a Python file.
 - [ ] I can use Git to check status, commit changes, and understand the meaning of commit records.
 - [ ] I have already created the project skeleton, README, and run screenshots for the AI Learning Assistant.
+- [ ] I have completed the 1.4 follow-along workshop or an equivalent reproducible workstation project.
 - [ ] I have recorded at least one environment or path issue, along with my troubleshooting process.

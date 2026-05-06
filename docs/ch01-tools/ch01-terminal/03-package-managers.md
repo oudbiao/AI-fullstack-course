@@ -108,7 +108,7 @@ The output will look something like:
 
 ```
 .
-└── ch02-python
+└── ch01-tools
     └── terminal-practice
         ├── data.csv
         ├── hello.py

@@ -124,6 +124,13 @@ const sidebars = {
                 "ch01-tools/ch03-devenv/jupyter",
               ],
             },
+            {
+              type: "category",
+              label: "1.4 Hands-on Workshop",
+              items: [
+                "ch01-tools/ch04-workshop/hands-on-tools-workshop",
+              ],
+            },
           ],
         },
         {

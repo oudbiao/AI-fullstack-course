@@ -1357,3 +1357,13 @@
 {"at": "2026-05-06T17:56:08.434450+00:00", "filename": "ch02-hands-on-error-debug-map-ja.png", "locale": "ja", "status": "error", "error": "Image API network error for ch02-hands-on-error-debug-map-ja.png."}
 {"at": "2026-05-06T17:57:49.061479+00:00", "filename": "ch02-hands-on-evidence-pack-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T18:02:57.724411+00:00", "filename": "ch02-hands-on-error-debug-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T18:26:11.481426+00:00", "filename": "ch01-hands-on-workstation-route-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T18:27:28.486699+00:00", "filename": "ch01-hands-on-terminal-git-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T18:28:44.234205+00:00", "filename": "ch01-hands-on-env-editor-notebook-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T18:32:08.444652+00:00", "filename": "ch01-hands-on-debug-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T18:34:59.136208+00:00", "filename": "ch01-hands-on-portfolio-pack-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T18:39:45.368958+00:00", "filename": "ch01-hands-on-workstation-route-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T18:44:32.639023+00:00", "filename": "ch01-hands-on-terminal-git-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T18:49:23.708007+00:00", "filename": "ch01-hands-on-env-editor-notebook-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T18:50:32.489028+00:00", "filename": "ch01-hands-on-debug-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T18:53:52.448590+00:00", "filename": "ch01-hands-on-portfolio-pack-ja.png", "locale": "ja", "status": "generated"}

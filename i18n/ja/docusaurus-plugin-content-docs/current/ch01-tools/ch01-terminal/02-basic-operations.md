@@ -333,10 +333,10 @@ pwd
 cd ~
 
 # 3. 学習用プロジェクトフォルダを作成
-mkdir -p ai-study/ch02-python/terminal-practice
+mkdir -p ai-study/ch01-tools/terminal-practice
 
 # 4. そのフォルダへ移動
-cd ai-study/ch02-python/terminal-practice
+cd ai-study/ch01-tools/terminal-practice
 
 # 5. いくつかファイルを作成
 touch hello.py notes.txt data.csv

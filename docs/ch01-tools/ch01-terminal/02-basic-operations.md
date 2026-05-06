@@ -333,10 +333,10 @@ pwd
 cd ~
 
 # 3. Create a study project folder
-mkdir -p ai-study/ch02-python/terminal-practice
+mkdir -p ai-study/ch01-tools/terminal-practice
 
 # 4. Enter this folder
-cd ai-study/ch02-python/terminal-practice
+cd ai-study/ch01-tools/terminal-practice
 
 # 5. Create a few files
 touch hello.py notes.txt data.csv
