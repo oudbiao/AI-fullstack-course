@@ -75,7 +75,7 @@ def build_payload(user_task, max_output_tokens=600, temperature=0.3):
     remaining = CONTEXT_LIMIT - used_tokens - max_output_tokens
 
     payload = {
-        "model": "gpt-5",
+        "model": "gpt-5.5",
         "instructions": instructions,
         "input": input_text,
         "text": {"format": {"type": "json_object"}},
@@ -160,7 +160,7 @@ Expected output shape:
 ```text
 used input tokens estimate: 36
 remaining output room     : 3460
-request model             : gpt-5
+request model             : gpt-5.5
 
 attempt: 1
 validation: era_0_missing_['summary']
@@ -226,24 +226,24 @@ class Timeline(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5"),
-    instructions=(
-        "You are a teaching assistant. Return a concise beginner-friendly "
-        "AI history timeline."
-    ),
-    input="Create a four-era AI development timeline for beginners.",
+    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
+    input=[
+        {
+            "role": "system",
+            "content": (
+                "You are a teaching assistant. Return a concise beginner-friendly "
+                "AI history timeline."
+            ),
+        },
+        {
+            "role": "user",
+            "content": "Create a four-era AI development timeline for beginners.",
+        },
+    ],
     text_format=Timeline,
 )
 
-for output in response.output:
-    if output.type != "message":
-        continue
-    for item in output.content:
-        if item.type == "refusal":
-            print("refusal:", item.refusal)
-            continue
-        if item.parsed:
-            print(item.parsed.model_dump())
+print(response.output_parsed.model_dump())
 ```
 
 :::info Why this uses Responses API

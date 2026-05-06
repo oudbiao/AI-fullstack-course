@@ -12,6 +12,7 @@ The goal of this stage is to help you understand why LLMs can generate text, how
 
 | Task | Deliverable | Pass criteria |
 | --- | --- | --- |
+| Run the full Chapter 7 hands-on workshop | Terminal output from `llm_stage_workshop.py` | Can explain tokens, prompt versions, validation failures, and solution routes from one run |
 | Understand the basic principles of LLMs | An LLM workflow diagram | Can explain the relationship between token, context, probability-based generation, and Transformer |
 | Complete Prompt fundamentals practice | A set of Prompt comparison samples | Can compare how role, context, examples, and constraints affect outputs |
 | Complete structured output | A JSON output demo | Can define fields, validate types, and handle parsing failures |
@@ -20,7 +21,7 @@ The goal of this stage is to help you understand why LLMs can generate text, how
 
 ## Recommended learning order
 
-First understand token, context, and generation mechanisms, then learn Prompt fundamentals, advanced Prompting, structured output, and the boundary of fine-tuning. On your first pass, don’t rush to train a model. First make sure you can “call and constrain model outputs reliably.”
+First run the full Chapter 7 hands-on workshop once, then understand token, context, and generation mechanisms. After that, learn Prompt fundamentals, advanced Prompting, structured output, and the boundary of fine-tuning. On your first pass, don’t rush to train a model. First make sure you can “call and constrain model outputs reliably.”
 
 Every time you change a Prompt, you should record the version and test samples. Prompt engineering is not about writing a longer sentence based on intuition; it is about controlling variables, comparing outputs, recording failures, and locking in effective changes.
 
@@ -64,6 +65,7 @@ If you want to preserve the results of this stage in your portfolio, it is recom
 | `prompt_eval_cases.csv` | Fixed inputs, expected output points, actual outputs, and scores |
 | `structured_output_schema.json` | Structured output fields, types, required items, and enum values |
 | `failure_cases.md` | Samples such as JSON parsing failures, missing fields, hallucinations, and style drift |
+| `llm_stage_workshop_output.txt` | Output from the full Chapter 7 hands-on workshop, including pass rates and failure reasons |
 | `README.md` | Project goals, how to run it, Prompt versions, evaluation results, and limitations |
 
 These materials will upgrade a Prompt project from “I can write prompts” to “I can turn model outputs into a stable, testable, and maintainable application interface.”
@@ -75,6 +77,7 @@ After finishing this stage, you should be able to answer these questions: why to
 ## Completion checklist
 
 - [ ] I can explain the basic process of LLM text generation and context limits.
+- [ ] I can run the full Chapter 7 hands-on workshop and explain each printed section.
 - [ ] I can design a Prompt with a role, task, constraints, and examples.
 - [ ] I can make the model output structured JSON and handle parsing failures.
 - [ ] I can record Prompt versions and compare results with fixed samples.

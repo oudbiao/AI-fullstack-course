@@ -120,6 +120,8 @@ The real exit point of this stage is not being able to recite many model names, 
 
 The basic version is to complete a Prompt comparison experiment and record the differences in performance between plain prompts, role prompts, step-by-step prompts, and structured output. The standard version requires building a Prompt Experiment Atlas around the same task and comparing stability, format control, cost, and error types. The challenge version can design a domain fine-tuning plan or a minimal fine-tuning experiment, explaining the data source, labeling rules, training method, evaluation approach, and safety risks.
 
+If you want one guided route before choosing a project, start with [Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md). It gives you a runnable offline workflow that connects tokens, prompt versions, structured output validation, solution choice, and failure evidence in one place.
+
 If you want a more detailed learning rhythm, you can read [Learning Guide: How to Learn LLM Principles Without Getting Confused](./study-guide.md).
 
 
@@ -144,6 +146,7 @@ If you feel there is a lot of content in this stage, first treat this task card 
 | Prompt comparison experiment | Compare plain prompts, role prompts, and step-by-step prompts | Include fixed inputs, output comparisons, version records, and failure samples |
 | Structured output sample | Make the model output JSON or a table | Include schema, parsing validation, error retries, and regression samples |
 | Task adaptation decision | Explain when to use Prompt, RAG, or fine-tuning | Include a decision table, cost estimate, and applicable boundaries |
+| Full chapter hands-on workflow | Run the offline workshop and save the output | Include prompt version pass rates, failure reasons, and solution-route notes |
 | Fine-tuning plan | Write down the data source and labeling ideas | Include training method, evaluation set, safety risks, and alternatives |
 | README/report | Show the experimental inputs and outputs | Explain Prompt versions, metrics, failure types, and next steps |
 

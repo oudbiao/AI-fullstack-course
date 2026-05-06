@@ -76,6 +76,8 @@ More experienced learners can treat this chapter as a chance to fill gaps and pr
 
 After finishing this chapter, it is recommended to complete a “domain task LLM solution comparison project.” The project should include at least task definition, sample data, Prompt baseline, failure analysis, improvement plan, evaluation results, and a conclusion.
 
+If you need a guided starter before designing your own domain project, run [Hands-on: Full Chapter 7 Workshop](./03-stage-hands-on-workshop.md) first. It gives you a complete offline practice loop with fixed cases, prompt-version pass rates, structured-output failures, and solution-route notes.
+
 The minimum version can compare just two Prompt versions; the advanced version can compare Prompt, RAG, and a small-scale fine-tuning run; the portfolio version should clearly explain method trade-offs, evaluation metrics, failure cases, and next steps.
 
 Before you close the project, it is also a good idea to use the Deliverables Kit page as a checklist for README structure, evaluation records, failure notes, screenshots, and next steps. A project becomes more convincing when the handoff is easy to understand and easy to reproduce.

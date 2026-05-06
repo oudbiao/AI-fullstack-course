@@ -17,6 +17,8 @@ On the first pass, focus on one evolution path: text is split into tokens, token
 
 ## Recommended learning order
 
+In the zero round, run [Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) once. Do not worry about understanding every detail yet. The goal is to see the whole loop from tokens to prompt evaluation and solution choice.
+
 In the first round, quickly fill in the core NLP basics. At minimum, you should understand tokenizer, embedding, language models, and basic HuggingFace usage.
 
 In the second round, study the LLM overview and development history. The key is not to memorize model names, but to understand how scale, data, architecture, and alignment work together to drive capability changes.
@@ -40,6 +42,8 @@ In the fifth round, study fine-tuning and alignment. Focus on when fine-tuning i
 ## Stage project roadmap
 
 For the first project, it is recommended to do a Prompt comparison experiment. Choose one task and compare a basic prompt, role prompt, step-by-step prompt, few-shot prompt, and structured output.
+
+If you do not know where to start, use the full Chapter 7 workshop as your starter project. Save its output, explain why each prompt version passes or fails, then extend the sample set to your own learning assistant task.
 
 For the second project, it is recommended to do a structured output task, such as converting natural language into JSON, tables, or function arguments.
 
