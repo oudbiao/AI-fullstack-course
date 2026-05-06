@@ -260,6 +260,7 @@ const sidebars = {
           items: [
             "ch04-ai-math/study-guide",
             "ch04-ai-math/task-list",
+            "ch04-ai-math/hands-on-math-workshop",
             {
               type: "category",
               label: "4.1 Linear Algebra in Practice",

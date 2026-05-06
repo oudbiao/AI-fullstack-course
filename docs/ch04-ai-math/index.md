@@ -27,6 +27,8 @@ When learning vectors, try drawing two 2D arrows and observe that the smaller th
 
 The bonus for this stage is not a big project, but a set of “math mini-experiments”: vector similarity visualization, probability distribution observation, and gradient descent demonstration. Later, when you study recommendation systems, Embedding, neural networks, and Transformer, you will keep finding that these mini-experiments were already appearing inside real AI models.
 
+If you want to follow one complete runnable route first, start with [Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md). It combines vector similarity, probability simulation, entropy/loss, gradient descent, SVG charts, and a reusable evidence folder.
+
 ## Terms You Will See Repeatedly
 
 | Term | Full name | What it means in this stage |
@@ -144,6 +146,8 @@ If you can explain why this number can represent “similarity,” then later un
 ## Stage Projects
 
 The basic version is to complete three minimum experiments: 2D vector similarity, random data distribution observation, and gradient descent for a one-variable function. The standard version requires drawing the experiments as charts and using text to explain what action each mathematical concept corresponds to in the model. The challenge version can be an interactive math notebook where learners change parameters and observe how vector angles, distribution shapes, and optimization paths change.
+
+For a guided implementation, run [Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md) and save the generated `ch04_math_workshop_evidence` folder as your first project artifact.
 
 If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn AI Math Foundations Without Giving Up](./study-guide.md).
 

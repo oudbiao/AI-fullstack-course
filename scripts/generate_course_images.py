@@ -1628,6 +1628,77 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch04-hands-on-math-workshop-route.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 4 章 AI 数学实操工作坊路线图",
+        "suggested_page": "docs/ch04-ai-math/hands-on-math-workshop.md",
+        "alt": "第 4 章数学实操工作坊路线图：小数字、向量相似度、概率模拟、熵与 loss、梯度下降和证据包组成可跟做路线。",
+        "prompt": """
+一张竖版、漫画式、流程式的第 4 章 AI 数学实操工作坊路线图，主题是“把公式变成可运行证据”。
+画面从上到下分成 6 个清晰步骤：small numbers、vector similarity、probability simulation、entropy and loss、gradient descent、evidence pack。
+每一步像课程卡片，有小型终端、CSV 文件、SVG 图和学习笔记图标，用箭头串起来，强调新人可以一步步跟着做。
+文字不是主体；标准术语保留英文，例如 vector similarity、probability simulation、entropy、loss、gradient descent、evidence pack。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch04-hands-on-vector-similarity-flow.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "向量相似度证据流图",
+        "suggested_page": "docs/ch04-ai-math/hands-on-math-workshop.md",
+        "alt": "向量相似度证据流图：query vector 与 topic vectors 经过 dot、norm、cosine similarity 和 distance 后输出最相似主题。",
+        "prompt": """
+一张竖版教学流程图，主题是“向量相似度不是公式背诵，而是回答哪个对象更像”。
+画面上方是 query vector，下面分三条 topic vector 支线；每条支线经过 dot product、norm、cosine similarity、distance 四个小检查点。
+底部输出 ranking table，并标出 best match。旁边用箭头解释它会出现在 embedding retrieval、recommendation、RAG similarity 中。
+文字不是主体；标准术语保留英文，例如 query vector、topic vector、dot product、norm、cosine similarity、distance、best match、embedding。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch04-hands-on-probability-simulation-flow.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "概率模拟与不确定性流程图",
+        "suggested_page": "docs/ch04-ai-math/hands-on-math-workshop.md",
+        "alt": "概率模拟与不确定性流程图：true probability、random samples、batch rate、running rate 和 expected probability 展示采样波动。",
+        "prompt": """
+一张竖版分步骤图，主题是“概率要通过重复样本观察，不是看一次结果”。
+画面展示 true probability 进入 random sampler，产生多个 batch cards；每个 batch 计算 batch_rate，随后进入 running_rate 折线图。
+用一条虚线表示 expected probability，显示观测比例围绕它上下波动并逐渐稳定。
+文字不是主体；标准术语保留英文，例如 true probability、random samples、batch_rate、running_rate、expected probability、uncertainty、sample size。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch04-hands-on-gradient-descent-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "梯度下降执行循环图",
+        "suggested_page": "docs/ch04-ai-math/hands-on-math-workshop.md",
+        "alt": "梯度下降执行循环图：x 进入 loss function，计算 gradient，乘 learning rate，更新 x 并重复直到 loss 下降。",
+        "prompt": """
+一张竖版循环流程图，主题是“梯度下降是模型训练的最小节奏”。
+画面表现参数 x 进入 loss function，输出 loss；再计算 gradient，乘 learning_rate，得到 update step，回到新的 x。
+旁边有小型 loss curve，从高到低下降；再用几个点展示 step 0、step 1、step 2 到 final。
+文字不是主体；标准术语保留英文，例如 x、loss function、gradient、learning_rate、update step、loss curve、final loss。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch04-hands-on-evidence-pack.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 4 章数学证据包图",
+        "suggested_page": "docs/ch04-ai-math/hands-on-math-workshop.md",
+        "alt": "第 4 章数学证据包图：README、vector_similarity.csv、probability_simulation.csv、gradient_descent.csv、math_cards.md 和 SVG 图组成可复盘证据。",
+        "prompt": """
+一张竖版作品集证据包图，主题是“跑完数学工作坊后要留下什么，才能证明自己真的会用”。
+画面中心是 ch04_math_workshop_evidence 文件夹，里面有 README.md、vector_similarity.csv、probability_simulation.csv、gradient_descent.csv、math_cards.md、vector_similarity.svg、probability_simulation.svg、gradient_descent.svg。
+每个文件连接到用途：rerun command、similarity evidence、uncertainty evidence、optimization trace、model-language cards、visual review。
+底部展示 reviewer 可以回答三个问题：what was calculated、what changed、what model idea it supports。
+文字不是主体；标准术语保留英文，例如 README.md、CSV、SVG、math_cards.md、reviewer、evidence。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch05-machine-learning.png",
         "size": "1536x1024",
         "quality": "medium",

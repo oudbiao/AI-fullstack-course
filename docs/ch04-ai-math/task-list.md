@@ -31,6 +31,8 @@ If you are new, do not try to master all these engineering directions at once. T
 | Understand gradient descent | A parameter update visualization experiment | Can explain learning rate, gradient direction, and the convergence process |
 | Complete the stage project | A small math-intuition visualization project | Can connect math concepts to ML, RAG, or LLM scenarios |
 
+Recommended first run: [Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md). It covers the vector, probability, entropy/loss, and gradient tasks in one runnable script and saves the evidence folder automatically.
+
 ## Recommended learning order
 
 First learn vectors and matrices, then probability and statistics, and finally calculus and optimization. Do not start by pursuing rigorous proofs. In the first pass, focus on building intuition for “what these concepts do inside a model.”

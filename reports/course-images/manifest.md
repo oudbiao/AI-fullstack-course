@@ -108,6 +108,11 @@
 | `math-study-loop.png` | AI 数学学习循环图 | `docs/ch04-ai-math/study-guide.md` | AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。 |
 | `math-task-checklist.png` | 数学最小通关任务单图 | `docs/ch04-ai-math/task-list.md` | 数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。 |
 | `ch04-probability-history-foundations-map.png` | 概率统计历史基础地图 | `docs/ch04-ai-math/ch02-probability/05-history-foundations.md` | 概率统计历史基础地图：Bayes 更新证据，MLE 从数据反推参数，EM 处理隐藏变量，Shannon 信息论度量不确定性。 |
+| `ch04-hands-on-math-workshop-route.png` | 第 4 章 AI 数学实操工作坊路线图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 第 4 章数学实操工作坊路线图：小数字、向量相似度、概率模拟、熵与 loss、梯度下降和证据包组成可跟做路线。 |
+| `ch04-hands-on-vector-similarity-flow.png` | 向量相似度证据流图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 向量相似度证据流图：query vector 与 topic vectors 经过 dot、norm、cosine similarity 和 distance 后输出最相似主题。 |
+| `ch04-hands-on-probability-simulation-flow.png` | 概率模拟与不确定性流程图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 概率模拟与不确定性流程图：true probability、random samples、batch rate、running rate 和 expected probability 展示采样波动。 |
+| `ch04-hands-on-gradient-descent-loop.png` | 梯度下降执行循环图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 梯度下降执行循环图：x 进入 loss function，计算 gradient，乘 learning rate，更新 x 并重复直到 loss 下降。 |
+| `ch04-hands-on-evidence-pack.png` | 第 4 章数学证据包图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 第 4 章数学证据包图：README、vector_similarity.csv、probability_simulation.csv、gradient_descent.csv、math_cards.md 和 SVG 图组成可复盘证据。 |
 | `ch05-machine-learning.png` | 机器学习主视觉 | `docs/ch05-machine-learning/index.md` | 机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。 |
 | `ch05-learning-quest-map.png` | 机器学习学习闯关地图 | `docs/ch05-machine-learning/index.md` | 机器学习学习闯关地图：定义问题、准备数据、建立 baseline、选择指标、训练模型、错误分析和建模报告。 |
 | `ch05-modeling-loop-backbone.png` | 机器学习建模主线闭环 | `docs/ch05-machine-learning/index.md` | 机器学习建模主线闭环：业务问题、任务定义、数据准备、baseline、指标评估、特征工程、模型改进和误差分析。 |

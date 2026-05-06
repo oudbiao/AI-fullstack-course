@@ -64,6 +64,8 @@ The third small experiment is to use a simple function to demonstrate gradient d
 
 These projects are not complicated, but they help connect formulas with code.
 
+For a single guided version of all three, run [Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md). It creates CSV logs, SVG charts, math cards, and a README in one evidence folder.
+
 ## Common sticking points
 
 The most common sticking point is trying to learn math “thoroughly” before moving into machine learning. For AI learning, this usually slows you down. You should first build the minimum intuition, then come back and fill in the details when you encounter specific models later.
