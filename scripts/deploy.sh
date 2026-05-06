@@ -18,6 +18,24 @@ else
   COMPOSE="docker-compose"
 fi
 
+cleanup_preflight() {
+  docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+}
+
+cleanup_docker_space() {
+  echo "📦 Docker 磁盘占用（清理前）:"
+  docker system df || true
+  echo "🧹 构建前清理停止容器、未使用镜像和构建缓存..."
+  cleanup_preflight
+  docker container prune -f || true
+  docker image prune -a -f || true
+  docker builder prune -a -f || true
+  echo "📦 Docker 磁盘占用（清理后）:"
+  docker system df || true
+}
+
+trap cleanup_preflight EXIT
+
 # 1. 拉取最新代码
 echo "📥 拉取最新代码..."
 if [ ! -d .git ]; then
@@ -30,12 +48,15 @@ git checkout master 2>/dev/null || git checkout main 2>/dev/null || true
 git pull origin master 2>/dev/null || git pull origin main 2>/dev/null || true
 
 # 2. 先构建新镜像，旧容器继续服务
+echo "🧹 清理本地构建产物..."
+rm -rf node_modules build
+cleanup_docker_space
 echo "🔨 构建 Docker 镜像（构建期间旧容器仍在服务）..."
 $COMPOSE build ai-course
 
 # 3. 预热验证新镜像。验证失败时不替换线上容器，旧容器继续服务
 echo "🧪 预热验证新镜像..."
-docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+cleanup_preflight
 docker run -d --name ai-fullstack-course-preflight --network proxy-net ai-fullstack-course:latest
 PREFLIGHT_READY=0
 for i in $(seq 1 18); do
@@ -49,7 +70,7 @@ done
 if [ "$PREFLIGHT_READY" -eq 0 ]; then
   echo "❌ 新镜像预热失败，保留旧容器继续服务"
   docker logs --tail=50 ai-fullstack-course-preflight || true
-  docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+  cleanup_preflight
   exit 1
 fi
 
@@ -63,29 +84,29 @@ echo "🌐 检查多语言构建产物..."
 if ! check_preflight_html "/" 'name="docusaurus_locale" content="en"'; then
   echo "❌ 根路径不是英文默认语言，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
-  docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+  cleanup_preflight
   exit 1
 fi
 if ! check_preflight_html "/" 'href="/zh-Hans/"' || ! check_preflight_html "/" 'href="/ja/"'; then
   echo "❌ 根路径语言切换链接缺失，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
-  docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+  cleanup_preflight
   exit 1
 fi
 if ! check_preflight_html "/zh-Hans/" 'name="docusaurus_locale" content="zh-Hans"'; then
   echo "❌ 中文路径构建异常，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
-  docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+  cleanup_preflight
   exit 1
 fi
 if ! check_preflight_html "/ja/" 'name="docusaurus_locale" content="ja"'; then
   echo "❌ 日文路径构建异常，停止替换线上容器"
   docker logs --tail=50 ai-fullstack-course-preflight || true
-  docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+  cleanup_preflight
   exit 1
 fi
 echo "✅ 多语言构建检查通过"
-docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
+cleanup_preflight
 
 # 4. 构建和预热都成功后再替换容器，降低线上不可用时间
 echo "🔁 替换线上容器..."

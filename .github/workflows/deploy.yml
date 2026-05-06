@@ -42,6 +42,18 @@ jobs:
               docker rm -f ai-fullstack-course-preflight >/dev/null 2>&1 || true
             }
 
+            cleanup_docker_space() {
+              echo "📦 Docker 磁盘占用（清理前）:"
+              docker system df || true
+              echo "🧹 构建前清理停止容器、未使用镜像和构建缓存..."
+              cleanup_preflight
+              docker container prune -f || true
+              docker image prune -a -f || true
+              docker builder prune -a -f || true
+              echo "📦 Docker 磁盘占用（清理后）:"
+              docker system df || true
+            }
+
             trap cleanup_preflight EXIT
             
             # 初始化 git 仓库（如果不存在）
@@ -58,6 +70,7 @@ jobs:
             # 2. 先构建新镜像，旧容器继续服务。不要使用 --no-cache，否则文档/图片更新会导致每次都全量重装依赖
             echo "🧹 清理本地构建产物..."
             rm -rf node_modules build
+            cleanup_docker_space
             echo "🔨 构建 Docker 镜像（构建期间旧容器仍在服务）..."
             $COMPOSE build ai-course
 
