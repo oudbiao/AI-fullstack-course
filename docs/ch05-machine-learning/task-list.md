@@ -16,6 +16,7 @@ The goal of this stage is to help you understand the full machine learning proje
 | --- | --- | --- |
 | Build ML problem awareness | A problem definition note | Can distinguish classification, regression, clustering, and anomaly detection |
 | Run an sklearn baseline end to end | A minimal training script | Can complete train/test split, fit, predict, and score |
+| Complete the guided evidence workshop | A generated `ml_workshop_run/` evidence pack | Can rerun the script and explain `model_comparison.csv`, `threshold_review.csv`, `error_samples.csv`, and `leakage_check.md` |
 | Complete feature engineering | A feature processing log | Can explain missing values, categorical variables, standardization, and leakage risks |
 | Complete model evaluation | A metric comparison table | Can explain the use cases of accuracy, recall, F1, AUC, or RMSE |
 | Complete the stage project | A reproducible experiment project | Includes README, data description, metrics, failure cases, and improvement plan |
@@ -23,6 +24,8 @@ The goal of this stage is to help you understand the full machine learning proje
 ## Recommended learning order
 
 First learn the basic machine learning concepts and the sklearn workflow, then learn supervised learning, unsupervised learning, evaluation methods, and feature engineering. Do not leave feature engineering until the very end, because in real projects model performance often depends first on the data and features.
+
+When you need a concrete path, use [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md) as the task sheet's runnable checkpoint.
 
 For every algorithm you learn, always ask three questions at the same time: what is its input, what does it output, and in what situations might it fail. This is more useful than remembering the algorithm name by itself.
 

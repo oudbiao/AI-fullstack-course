@@ -2229,6 +2229,81 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch05-hands-on-ml-workshop-route.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 5 章机器学习实操工作坊路线图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "第 5 章机器学习实操工作坊路线图：从数据表到 baseline、Pipeline、模型评估、阈值复盘、错误分析和 README 证据包。",
+        "prompt": """
+一张适合第 5 章机器学习综合实操工作坊的竖版路线图，主题是“从数据表到可复现 ML 证据包”。
+画面从上到下分成 7 个可跟做步骤：define task、split data、baseline、Pipeline、metrics、error analysis、README evidence。
+旁边小卡片显示 Dummy baseline、Logistic Regression、Random Forest、threshold review、leakage check。
+风格像跟做课程的分步骤漫画流程，竖版、清晰、适合新人。
+文字不是主体；标准术语保留英文，例如 baseline、Pipeline、F1、AUC、threshold、error samples、README。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-evidence-pipeline.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "机器学习实操证据流水线图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "机器学习实操证据流水线图：generated table、schema、model comparison、threshold review、error samples、leakage check 和 README 串成证据链。",
+        "prompt": """
+一张适合机器学习实操页的竖版证据流水线图，主题是“每一步都落到可检查文件”。
+画面表现 generated table、schema.json、model_comparison.csv、best_model_metrics.json、threshold_review.csv、error_samples.csv、leakage_check.md、experiment_log.md、README.md 串成证据链。
+用箭头强调从数据、训练、评估、阈值、错误分析到作品集交付的流转。
+风格像文件夹流程图和课程漫画结合，竖版、分步骤、清楚实用。
+文字不是主体；标准术语和文件名保留英文。中文只用短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-code-execution-sequence.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "ML 工作坊代码执行顺序图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "ML 工作坊代码执行顺序图：main 函数依次重置目录、生成数据、划分数据、构建 Pipeline、训练模型、保存报告和打印结果。",
+        "prompt": """
+一张竖版代码执行顺序图，主题是“main() 如何串起完整 ML 项目”。
+步骤从上到下：reset workspace、make dataset、train/test split、build ColumnTransformer、train Dummy/Logistic/RandomForest、cross_validate、choose best、threshold table、error samples、reports、print expected output。
+画面像代码调用栈和流程看板结合，突出每个函数输出的文件。
+风格清晰、适合新人跟着代码运行和定位卡点。
+文字不是主体；函数名、API、文件名保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-debug-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "ML 工作坊常见错误排查闭环图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "ML 工作坊常见错误排查闭环图：先查环境、泄漏、随机种子、类别不平衡、未知类别和阈值，再回到证据文件。",
+        "prompt": """
+一张竖版常见错误排查闭环图，主题是“先查泄漏、再查指标、再查阈值和错误样本”。
+故障卡片包括：ModuleNotFoundError、leakage high score、unstable split、accuracy high F1 poor、unknown category、low recall。
+每个故障卡连到动作：install packages、remove target from X、set random_state、check confusion matrix、handle_unknown ignore、review threshold_review.csv。
+风格像排错流程漫画和工程检查表结合，红色警示但不吓人，适合新人。
+文字不是主体；错误名、API、文件名保留英文。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-portfolio-pack.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "机器学习作品集证据包图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "机器学习作品集证据包图：README、运行命令、baseline 指标、模型对比、阈值复盘、错误样本、泄漏检查和下一步计划组成可复现交付。",
+        "prompt": """
+一张竖版作品集证据包图，主题是“第 5 章项目交付要让别人能复现、能质疑、能继续改”。
+画面像一个打开的项目文件夹和作品集页面，文件夹卡片包括 README、run command、baseline metrics、model comparison、threshold review、error samples、leakage check、next steps。
+强调证据不是装饰，而是项目交付的一部分。
+风格专业、干净、有作品集质感，适合放在实操课程末尾。
+文字不是主体；标准术语和文件名保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch05-project-report-storyboard.png",
         "size": "1536x1024",
         "quality": "medium",

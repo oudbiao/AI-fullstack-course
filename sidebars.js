@@ -370,6 +370,7 @@ const sidebars = {
                 "ch05-machine-learning/ch06-projects/customer-churn",
                 "ch05-machine-learning/ch06-projects/user-segmentation",
                 "ch05-machine-learning/ch06-projects/kaggle",
+                "ch05-machine-learning/ch06-projects/hands-on-ml-workshop",
               ],
             },
           ],

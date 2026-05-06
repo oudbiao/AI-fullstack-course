@@ -25,6 +25,10 @@ This chapter answers five questions: how to define a real-world problem as a reg
 
 The most common mistake beginners make is treating the project chapter as “just running the code.” A real project is not about getting a model to run. It is about clearly explaining why the problem is defined this way, why this metric was chosen, why this improvement worked, where the model fails, and what should be done next.
 
+:::info Guided practice before the larger projects
+If this project loop still feels abstract, run [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./05-hands-on-ml-workshop.md) first. It gives you one complete, runnable rehearsal before the house price, churn, segmentation, and Kaggle projects.
+:::
+
 ## Recommended Learning Order for Beginners
 
 It is recommended that you start with house price prediction, because regression tasks make it easiest to understand “predicting a continuous value.” Then move on to customer churn prediction, focusing on classification metrics, imbalanced data, and business thresholds. Next, do user segmentation analysis to understand how unsupervised projects explain results. Finally, do Kaggle competition practice to put data processing, modeling, evaluation, and submission into a real evaluation environment.

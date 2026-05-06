@@ -150,6 +150,11 @@
 | `ch05-search-space-budget-map.png` | 超参数搜索空间与预算图 | `docs/ch05-machine-learning/ch04-evaluation/04-hyperparameter-tuning.md` | 超参数搜索空间与预算图：参数维度越多组合越爆炸，先从关键超参数和可控预算开始，再逐步扩大搜索范围。 |
 | `ch05-feature-leakage-red-flags-map.png` | 特征泄漏红旗检查图 | `docs/ch05-machine-learning/ch05-feature-engineering/01-feature-understanding.md` | 特征泄漏红旗检查图：预测时刻之后才产生、由目标派生、与目标几乎完美相关或只在线下存在的字段都是高风险特征。 |
 | `ch05-columntransformer-real-table-pipeline.png` | 真实表格数据 ColumnTransformer Pipeline 图 | `docs/ch05-machine-learning/ch05-feature-engineering/05-pipeline.md` | 真实表格数据 ColumnTransformer Pipeline 图：数值、类别和自定义特征分流处理后合并，再和模型一起进入交叉验证或 GridSearch。 |
+| `ch05-hands-on-ml-workshop-route.png` | 第 5 章机器学习实操工作坊路线图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | 第 5 章机器学习实操工作坊路线图：从数据表到 baseline、Pipeline、模型评估、阈值复盘、错误分析和 README 证据包。 |
+| `ch05-hands-on-evidence-pipeline.png` | 机器学习实操证据流水线图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | 机器学习实操证据流水线图：generated table、schema、model comparison、threshold review、error samples、leakage check 和 README 串成证据链。 |
+| `ch05-hands-on-code-execution-sequence.png` | ML 工作坊代码执行顺序图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | ML 工作坊代码执行顺序图：main 函数依次重置目录、生成数据、划分数据、构建 Pipeline、训练模型、保存报告和打印结果。 |
+| `ch05-hands-on-debug-loop.png` | ML 工作坊常见错误排查闭环图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | ML 工作坊常见错误排查闭环图：先查环境、泄漏、随机种子、类别不平衡、未知类别和阈值，再回到证据文件。 |
+| `ch05-hands-on-portfolio-pack.png` | 机器学习作品集证据包图 | `docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md` | 机器学习作品集证据包图：README、运行命令、baseline 指标、模型对比、阈值复盘、错误样本、泄漏检查和下一步计划组成可复现交付。 |
 | `ch05-project-report-storyboard.png` | 机器学习项目报告故事板 | `docs/ch05-machine-learning/ch06-projects/00-roadmap.md` | 机器学习项目报告故事板：问题定义、数据说明、baseline、指标、模型对比、错误分析、结论和下一步计划组成作品集报告。 |
 | `ml-basics-roadmap.png` | 机器学习基础学习地图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础学习地图：问题定义、数据、模型、训练、评估和复盘组成入门主线。 |
 | `math-to-ml-bridge.png` | 数学到机器学习桥梁图 | `docs/ch05-machine-learning/ch01-ml-basics/03-math-to-ml-bridge.md` | 数学到机器学习桥梁图：线性代数组织数据，概率统计定义不确定性，微积分指导参数更新。 |

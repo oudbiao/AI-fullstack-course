@@ -58,6 +58,10 @@ When beginners study this stage for the first time, they should first complete a
 
 Experienced learners can focus on error analysis and experiment design: whether the baseline is strong enough, whether the metric matches the goal, whether there is data leakage, and what pattern the errors show. Your goal is to write a modeling report that others can reproduce, question, and continue improving.
 
+:::info Hands-on checkpoint
+If you want one guided run before choosing a larger project, start with [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md). It creates a local dataset, baseline, Pipeline, model comparison, threshold review, error samples, leakage notes, and README evidence.
+:::
+
 ## Learning path for this stage
 
 Chapter 1 covers the basic concepts of machine learning, including the main line of historical breakthroughs, task types, training and test sets, basic usage of Scikit-learn, and how mathematics enters machine learning.
@@ -143,6 +147,8 @@ Start with a baseline, then talk about optimization. Without a baseline, it is h
 ## Stage projects
 
 The basic version is to complete a baseline project on tabular data, including data splitting, model training, and basic metrics. The standard version should add feature processing, cross-validation, model comparison, and error analysis, forming an interpretable modeling report. The challenge version can use a Kaggle starter task or real business data, adding experiment logs, feature iteration, and pre-deployment risk notes.
+
+For a step-by-step project rehearsal, use [Hands-on Workshop: Build a Reproducible ML Evidence Pack](./ch06-projects/05-hands-on-ml-workshop.md) before the house price, churn, segmentation, or Kaggle projects.
 
 If you want to see a more detailed learning sequence, you can read [Study guide: How to learn machine learning without getting confused](./study-guide.md).
 
