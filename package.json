@@ -9,7 +9,7 @@
     "dev:en": "docusaurus start --host 0.0.0.0 --no-open --locale en",
     "dev:ja": "docusaurus start --host 0.0.0.0 --no-open --locale ja",
     "build": "docusaurus build && node scripts/strip_build_null_bytes.js build && node scripts/merge_localized_sitemaps.js build",
-    "build:docker": "DOCUSAURUS_SSR_CONCURRENCY=1 docusaurus build --no-minify && node scripts/strip_build_null_bytes.js build && node scripts/merge_localized_sitemaps.js build",
+    "build:docker": "node scripts/build_docker_low_memory.js",
     "build:en": "docusaurus build --locale en && node scripts/strip_build_null_bytes.js build",
     "build:ja": "docusaurus build --locale ja && node scripts/strip_build_null_bytes.js build",
     "swizzle": "docusaurus swizzle",
