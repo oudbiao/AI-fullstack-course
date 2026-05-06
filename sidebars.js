@@ -499,6 +499,7 @@ const sidebars = {
               items: [
                 "ch07-llm-principles/ch03-transformer-deep/roadmap",
                 "ch07-llm-principles/ch03-transformer-deep/architecture-review",
+                "ch07-llm-principles/ch03-transformer-deep/modern-decoder-block",
                 "ch07-llm-principles/ch03-transformer-deep/model-variants",
                 "ch07-llm-principles/ch03-transformer-deep/efficient-attention",
                 "ch07-llm-principles/ch03-transformer-deep/scale-computation",
