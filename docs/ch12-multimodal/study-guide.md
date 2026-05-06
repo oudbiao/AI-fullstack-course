@@ -45,6 +45,8 @@ For the second project, it is recommended to build an image-text multimodal Q&A 
 
 For the third project, you can build a prototype of a creative content platform: input a topic, generate copy, images, speech, or video scripts, and add review and export flows.
 
+Before choosing a larger capstone, run the [reproducible multimodal creative package](./ch05-projects/02-hands-on-multimodal-workshop.md). It is the baseline exercise for this stage: one script, a creative brief, prompt versions, generated SVG assets, storyboard, safety review, export preview, and failure cases.
+
 ## Common stumbling blocks
 
 The most common stumbling block is chasing new models without understanding the workflow. A generative product is not just one model; it also needs prompts, materials, control conditions, post-processing, review, and delivery.

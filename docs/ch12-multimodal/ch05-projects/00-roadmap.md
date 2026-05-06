@@ -49,6 +49,8 @@ If this chapter is not solidly learned, common project problems are: many featur
 
 When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the smallest project runs, you can move on.
 
+The recommended first runnable example is [Hands-on: Build a Reproducible Multimodal Creative Package](./02-hands-on-multimodal-workshop.md). Run it before the larger creative platform page if you want a concrete baseline for brief intake, prompt records, asset versions, storyboard export, safety review, and failure analysis.
+
 Experienced learners can use this chapter for gap-filling and engineering practice: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects to the earlier and later stages. After reading, it is best to add the chapter’s content to your own project README or experiment notes.
 
 ## Suggested Study Time and Difficulty

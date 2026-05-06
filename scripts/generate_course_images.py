@@ -6604,6 +6604,66 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
+        "filename": "ch12-workshop-creative-package-pipeline-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十二章多模态创意包实操流水线图",
+        "suggested_page": "docs/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
+        "alt": "多模态创意包实操流水线图：creative brief、Prompt 版本、SVG 资产、storyboard、asset manifest、safety review、export preview 和 failure cases 形成可复现闭环。",
+        "prompt": """
+一张适合第十二章 AIGC 与多模态实操工作坊的竖版流程图，主题是“从 creative brief 到可交付多模态内容包”。
+画面从上到下展示 creative brief、prompt plan、SVG visual assets、storyboard、timeline、asset manifest、safety review、failure_cases.md、export_preview.html。
+强调先看图，再运行 Python 脚本，再检查 prompts、assets、outputs 和 reports。
+风格像创意产品流水线、课程实操路线图和资产管理看板结合，新手友好但工程感明确。
+文字不是主体；标准术语保留英文，例如 creative brief、prompt plan、SVG assets、storyboard、timeline、asset manifest、safety review、failure_cases.md、export_preview.html。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-workshop-prompt-asset-version-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十二章多模态 Prompt 到资产版本记录图",
+        "suggested_page": "docs/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
+        "alt": "多模态 Prompt 到资产版本记录图：creative brief 拆成 scene prompt、negative prompt、size、style、asset id、source 和 license。",
+        "prompt": """
+一张适合第十二章多模态实操工作坊的 Prompt 与资产版本图，主题是“生成结果不是孤立文件，必须能追溯到 Prompt 和版本记录”。
+画面展示 creative brief 拆成 scene_01、scene_02、scene_03，每个 scene 有 prompt、negative prompt、size、style、asset id、source、license、review status。
+旁边展示 prompt_plan.json、prompt_versions.md、assets/scene_*.svg、asset_manifest.csv 之间的关系。
+风格像版本控制时间线和创意资产管理系统结合，适合新人理解文件如何对应。
+文字不是主体；标准术语保留英文，例如 creative brief、scene prompt、negative prompt、size、style、asset id、source、license、review status、prompt_plan.json、asset_manifest.csv。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-workshop-review-export-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十二章多模态审核与导出流程图",
+        "suggested_page": "docs/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
+        "alt": "多模态审核与导出流程图：asset manifest、source、license、portrait risk、contrast、safety review、storyboard、export preview 共同决定能否交付。",
+        "prompt": """
+一张适合第十二章 AIGC 实操工作坊的审核与导出图，主题是“能生成不等于能发布，review/export 是工作流的一部分”。
+画面展示 assets 进入 review gate，检查 source、license、portrait risk、contrast、sensitive content、export limits，通过后进入 storyboard、timeline、content package、export_preview.html。
+底部展示人工确认和 failed assets 回到 revision loop。
+风格像内容审核闸门、导出流水线和产品发布 checklist 结合。
+文字不是主体；标准术语保留英文，例如 review gate、source、license、portrait risk、contrast、sensitive content、export limits、storyboard、timeline、content package、export_preview.html、revision loop。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch12-workshop-failure-debug-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十二章多模态失败样本排查图",
+        "suggested_page": "docs/ch12-multimodal/ch05-projects/02-hands-on-multimodal-workshop.md",
+        "alt": "多模态失败样本排查图：低对比度、缺少来源、授权不清、人像风险、Prompt 版本丢失和不可导出资产进入 failure_cases.md。",
+        "prompt": """
+一张适合第十二章多模态实操工作坊的失败样本排查图，主题是“AIGC 项目的失败不只是不好看，也可能是不可追溯、不可审核、不可导出”。
+画面展示 failure_cases.md 收集 low contrast、missing source、unclear license、portrait risk、lost prompt version、unsupported export、incoherent storyboard 等问题。
+旁边画出排查顺序：inspect brief、check prompt version、check asset manifest、check safety review、open export preview、choose fix action、rerun regression。
+风格像多模态资产错误墙、审核清单和项目复盘板结合。
+文字不是主体；标准术语保留英文，例如 failure_cases.md、low contrast、missing source、unclear license、portrait risk、prompt version、asset manifest、safety review、export preview、rerun regression。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch12-multimodal-app-engineering-loop.png",
         "size": "1536x1024",
         "quality": "medium",

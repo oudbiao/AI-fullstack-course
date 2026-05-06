@@ -155,6 +155,8 @@ When presenting in an interview or portfolio, do not only show that “the resul
 
 The basic version is to complete an image generation or multimodal Q&A demo that can take a topic and produce a displayable result. The standard version needs prompt templates, result filtering, manual editing, and export workflows. The challenge version can be an AI creative workspace that chains copywriting, visuals, storyboards, voice scripts, review, and delivery into the final capstone of the whole course.
 
+If you want one guided baseline before choosing a larger capstone, start with [Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md). It gives you a local script that produces a creative brief, prompt records, SVG visual assets, storyboard files, review reports, failure cases, and an export preview.
+
 If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Multimodal and AIGC Without Getting Confused](./study-guide.md).
 
 

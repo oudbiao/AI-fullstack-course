@@ -1274,3 +1274,11 @@
 {"at": "2026-05-06T08:07:24.666560+00:00", "filename": "ch11-workshop-failure-debug-map-ja.png", "locale": "ja", "status": "error", "error": "Image API network error for ch11-workshop-failure-debug-map-ja.png."}
 {"at": "2026-05-06T08:09:20.138571+00:00", "filename": "ch11-workshop-tfidf-classification-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T08:17:35.359280+00:00", "filename": "ch11-workshop-failure-debug-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T09:17:23.007301+00:00", "filename": "ch12-workshop-creative-package-pipeline-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T09:25:43.140781+00:00", "filename": "ch12-workshop-prompt-asset-version-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T09:28:27.112223+00:00", "filename": "ch12-workshop-review-export-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T09:39:30.698165+00:00", "filename": "ch12-workshop-failure-debug-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T09:51:04.836527+00:00", "filename": "ch12-workshop-creative-package-pipeline-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T09:52:46.234486+00:00", "filename": "ch12-workshop-prompt-asset-version-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T09:55:40.292726+00:00", "filename": "ch12-workshop-review-export-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T10:03:57.815048+00:00", "filename": "ch12-workshop-failure-debug-map-ja.png", "locale": "ja", "status": "generated"}

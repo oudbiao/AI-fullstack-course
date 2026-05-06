@@ -34,6 +34,8 @@ The recommended minimum features are: input a course screenshot or PDF page, ext
 
 Common issues include blurry images causing understanding errors, messy PDF table parsing, image generation that does not fit the use case, video storyboards that are not coherent, unclear source materials, and generated results that cannot be exported or reused. When troubleshooting, first check the quality of the original input, Prompt versions, generation parameters, human screening, and review records.
 
+For a guided first run, complete [Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md). Use its `multimodal_workshop_run/prompts/`, `assets/`, `outputs/export_preview.html`, and `reports/safety_review.md` as the minimum evidence for this stage.
+
 
 ## Easy version / Standard version / Challenge version tasks
 

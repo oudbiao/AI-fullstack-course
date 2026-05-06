@@ -861,6 +861,7 @@ const sidebars = {
                 "ch12-multimodal/ch04-frontier/ai-regulations",
                 "ch12-multimodal/ch05-projects/roadmap",
                 "ch12-multimodal/ch05-projects/creative-platform",
+                "ch12-multimodal/ch05-projects/hands-on-multimodal-workshop",
               ],
             },
           ],
