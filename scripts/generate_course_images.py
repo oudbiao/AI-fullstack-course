@@ -8628,6 +8628,81 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
+        "filename": "elective-workshop-route-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "选修模块实操路线图",
+        "suggested_page": "docs/electives/hands-on-elective-workshop.md",
+        "alt": "选修模块实操路线图：从选择 A-F 方向，到运行代码、生成证据、修复失败和整理作品集。",
+        "prompt": """
+一张适合选修模块总实操页的竖版课程路线图，主题是“选修不是额外阅读，而是把一个方向做成可交付证据”。
+画面从上到下分成 5 个清晰步骤：choose track、run workshop、inspect artifacts、fix failure、portfolio evidence。
+旁边用六张小卡片表示 Module A C++ deployment、Module B advanced Python、Module C classic ML、Module D safety、Module E frontend、Module F product。
+风格像新人可以照着操作的漫画式流程课页，线条清楚，步骤编号大，强调先选方向再动手。
+文字不是主体；标准术语保留英文，例如 Module A、deployment、pipeline、KNN、red team、dashboard、RICE、README。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-workshop-evidence-pipeline.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "选修实操证据包流水线图",
+        "suggested_page": "docs/electives/hands-on-elective-workshop.md",
+        "alt": "选修实操证据包流水线图：需求、模块任务、可运行代码、输出文件、评估报告和作品集 README 连接成证据链。",
+        "prompt": """
+一张适合选修模块实操课的竖版证据流水线图，主题是“每个选修知识点最后都要落到一个可检查文件”。
+画面表现 requirement card 进入 module task registry，然后流向 runnable code、CSV/JSON/HTML/Markdown artifacts、readiness report、failure cases、portfolio README。
+用小图标区分 CSV、JSON、HTML、Markdown 和 dashboard，突出证据不是截图，而是可以复跑、检查、提交的文件。
+风格像工程发布流水线和学习笔记结合，清晰、分步骤、适合新人跟做。
+文字不是主体；标准术语保留英文，例如 task registry、artifact、readiness score、failure cases、README、re-run。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-workshop-code-execution-sequence.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "选修实操代码执行顺序图",
+        "suggested_page": "docs/electives/hands-on-elective-workshop.md",
+        "alt": "选修实操代码执行顺序图：reset workspace、run module A-F、generate dashboard、build readiness report 和 print expected output 依次发生。",
+        "prompt": """
+一张适合选修模块实操代码讲解的竖版执行顺序图，主题是“main 函数怎样把 A-F 六个选修方向串成一次完整运行”。
+画面从上到下展示 reset workspace、write module_tasks.json、run module A deployment、run module B pipeline、run module C KNN、run module D red team、run module F RICE、run module E dashboard、build readiness report、print output。
+每一步旁边放一个简短输出文件或结果标签，让新人知道代码不是黑盒。
+风格像代码执行时间线和漫画式调试图结合，步骤清楚、箭头明确。
+文字不是主体；标准术语保留英文，例如 main()、reset_workspace、module-a、KNN、red team、RICE、dashboard、readiness_score.json。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-workshop-debug-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "选修实操常见错误排查闭环图",
+        "suggested_page": "docs/electives/hands-on-elective-workshop.md",
+        "alt": "选修实操常见错误排查闭环图：找不到文件、输出为空、指标不达标、红队失败和浏览器打不开都进入定位、修复、复跑闭环。",
+        "prompt": """
+一张适合选修模块实操课的竖版错误排查图，主题是“卡住时先定位证据断在哪一层，再修复和复跑”。
+画面表现 5 个常见故障卡片：file not found、empty output、low score、red-team failure、dashboard not opening。
+每张故障卡片连接到定位动作：check path、print intermediate data、inspect CSV/JSON、add regression case、open HTML locally，然后回到 re-run workshop。
+风格像故障排查漫画和工程 runbook，友好但专业，适合基础薄弱的学习者。
+文字不是主体；标准术语保留英文，例如 file not found、empty output、low score、red-team failure、dashboard、re-run。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "elective-workshop-portfolio-pack.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "选修实操作品集证据包图",
+        "suggested_page": "docs/electives/hands-on-elective-workshop.md",
+        "alt": "选修实操作品集证据包图：README、运行命令、指标、失败案例、截图、改进计划和下一步任务组成可展示作品。",
+        "prompt": """
+一张适合选修模块收尾练习的竖版作品集证据包图，主题是“完成选修后要留下别人能复现、能检查、能相信的材料”。
+画面像一个整洁的项目文件夹，里面有 README、run command、metrics table、failure cases、dashboard screenshot、next action、commit note 七张卡片。
+强调作品集不是只说学过，而是展示代码、输出、评估、风险和下一步改进。
+风格像项目交付清单和教学漫画结合，竖版、分步骤、清楚。
+文字不是主体；标准术语保留英文，例如 README、run command、metrics、failure cases、dashboard、next action、commit。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "appendix-ai-main-relay-map.png",
         "size": "1536x1024",
         "quality": "medium",

@@ -12,6 +12,10 @@ description: "古典的機械学習の補足モジュール全体の概要。学
 
 ![古典的 ML 補足アルゴリズムモジュールマップ](/img/course/elective-classic-ml-module-map-ja.png)
 
+:::info 実践チェックポイント
+このモジュールを作品集の証拠に変える流れを先に見たい場合は、[選択モジュール実践ワークショップ](../hands-on-elective-workshop)を実行し、Module C の KNN baseline 出力を確認してください。
+:::
+
 ## 学習目標
 
 - 古典的機械学習補足モジュールが学習全体の流れの中でどこにあるのかを理解する

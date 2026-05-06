@@ -11,6 +11,10 @@ keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 
 ![AI フロントエンドの状態マシンと体験の閉ループ図](/img/course/elective-ai-frontend-state-machine-map-ja.png)
 
+:::info 実践チェックポイント
+このモジュールを作品集の証拠に変える流れを先に見たい場合は、[選択モジュール実践ワークショップ](./hands-on-elective-workshop)を実行し、生成された Module E ダッシュボードを開いてください。
+:::
+
 :::tip 図の見方
 AI フロントエンドは結果を表示するだけのページではなく、idle、loading、streaming、success、error、retry、cancel などの状態を扱います。図を見るときは、モデル呼び出しを「所要時間が不確定な」インタラクションの流れとして捉えましょう。
 :::

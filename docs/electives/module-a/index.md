@@ -12,6 +12,10 @@ To truly move a trained model into inference and deployment environments, you ne
 
 ![C++ and Model Deployment module learning map](/img/course/elective-cpp-deployment-module-map-en.png)
 
+:::info Hands-on checkpoint
+If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](../hands-on-elective-workshop) first and inspect the Module A deployment score output.
+:::
+
 ## Learning Goals
 
 - Understand where the C++ and Model Deployment module fits in the overall learning path

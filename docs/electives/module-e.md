@@ -11,6 +11,10 @@ keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 
 ![AI front-end state machine and experience loop diagram](/img/course/elective-ai-frontend-state-machine-map-en.png)
 
+:::info Hands-on checkpoint
+If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](./hands-on-elective-workshop) first and open the generated Module E dashboard.
+:::
+
 :::tip Reading the diagram
 An AI front end is not just a results display page. It needs to handle states such as idle, loading, streaming, success, error, retry, and cancel. When reading the diagram, think of model calls as an interaction flow with “uncertain latency.”
 :::

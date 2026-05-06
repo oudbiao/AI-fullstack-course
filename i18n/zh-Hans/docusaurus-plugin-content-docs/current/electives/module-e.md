@@ -11,6 +11,10 @@ keywords: [frontend, HTML, CSS, JavaScript, fetch, UI, AI product]
 
 ![AI 前端状态机与体验闭环图](/img/course/elective-ai-frontend-state-machine-map.png)
 
+:::info 实操检查点
+如果你想先看到本模块怎样变成作品集证据，请先运行[选修模块实操工作坊](./hands-on-elective-workshop)，再打开生成的 Module E 仪表盘。
+:::
+
 :::tip 读图提示
 AI 前端不是结果展示页，而是要处理 idle、loading、streaming、success、error、retry、cancel 等状态。读图时把模型调用看成一次“不确定耗时”的交互流程。
 :::

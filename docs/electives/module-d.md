@@ -11,6 +11,10 @@ keywords: [AI safety, red teaming, threat model, eval, jailbreak, prompt injecti
 
 ![AI Security Threat Modeling and Regression Set Diagram](/img/course/elective-ai-security-threat-regression-map-en.png)
 
+:::info Hands-on checkpoint
+If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](./hands-on-elective-workshop) first and inspect the Module D red-team report.
+:::
+
 :::tip Reading guide
 Red team testing is not about writing a few extreme prompts to scare yourself. Instead, you start by modeling assets, attack surfaces, and failure consequences, then turn failure samples into a regression suite. When reading the diagram, focus on “how do we prevent the same problem from happening again after we find it?”
 :::

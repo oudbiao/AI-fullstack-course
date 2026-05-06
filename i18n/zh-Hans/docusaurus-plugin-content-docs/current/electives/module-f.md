@@ -11,6 +11,10 @@ keywords: [AI product design, product thinking, evaluation, cost, UX, product st
 
 ![AI 产品实验与指标闭环图](/img/course/elective-ai-product-experiment-metrics-loop.png)
 
+:::info 实操检查点
+如果你想先看到本模块怎样变成作品集证据，请先运行[选修模块实操工作坊](./hands-on-elective-workshop)，再检查 Module F 的产品画布。
+:::
+
 :::tip 读图提示
 产品判断不能停在“这个 AI 功能很酷”。读图时把用户问题、假设、MVP、成功指标、风险边界、实验反馈和迭代放在一起看，才能判断功能是否真的值得继续做。
 :::

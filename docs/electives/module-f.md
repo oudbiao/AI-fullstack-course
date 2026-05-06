@@ -11,6 +11,10 @@ keywords: [AI product design, product thinking, evaluation, cost, UX, product st
 
 ![AI Product Experiment and Metrics Loop](/img/course/elective-ai-product-experiment-metrics-loop-en.png)
 
+:::info Hands-on checkpoint
+If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](./hands-on-elective-workshop) first and inspect the Module F product canvas.
+:::
+
 :::tip Reading guide
 Product decisions should not stop at “this AI feature is cool.” When reading the diagram, look at the user problem, hypothesis, MVP, success metrics, risk boundaries, experiment feedback, and iteration together to judge whether the feature is truly worth continuing.
 :::

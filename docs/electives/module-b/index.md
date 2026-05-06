@@ -12,6 +12,10 @@ These topics are not here to show off. They are here to help your future enginee
 
 ![Advanced Python Topics Module Map](/img/course/elective-python-advanced-module-map-en.png)
 
+:::info Hands-on checkpoint
+If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](../hands-on-elective-workshop) first and inspect the Module B pipeline trace output.
+:::
+
 ## Learning Objectives
 
 - Understand where the Advanced Python module fits in the overall learning path

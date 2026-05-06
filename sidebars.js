@@ -873,6 +873,7 @@ const sidebars = {
       label: "📦 Elective Modules",
       collapsed: true,
       items: [
+        "electives/hands-on-elective-workshop",
         {
           type: "category",
           label: "Module A: C++ and Model Deployment",

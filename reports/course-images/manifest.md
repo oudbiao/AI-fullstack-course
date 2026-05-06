@@ -608,6 +608,11 @@
 | `elective-ai-security-threat-regression-map.png` | AI 安全威胁建模与回归集图 | `docs/electives/module-d.md` | AI 安全威胁建模与回归集图：assets、attack surface、failure impact、red team cases、guardrail fix 和 regression suite 形成持续安全闭环。 |
 | `elective-ai-frontend-state-machine-map.png` | AI 前端状态机与体验闭环图 | `docs/electives/module-e.md` | AI 前端状态机与体验闭环图：idle、loading、streaming、success、error、retry、cancel 和 feedback 组成 AI 产品交互体验。 |
 | `elective-ai-product-experiment-metrics-loop.png` | AI 产品实验与指标闭环图 | `docs/electives/module-f.md` | AI 产品实验与指标闭环图：user problem、hypothesis、MVP、success metrics、risk boundary、feedback 和 iteration 决定 AI 功能是否继续投入。 |
+| `elective-workshop-route-map.png` | 选修模块实操路线图 | `docs/electives/hands-on-elective-workshop.md` | 选修模块实操路线图：从选择 A-F 方向，到运行代码、生成证据、修复失败和整理作品集。 |
+| `elective-workshop-evidence-pipeline.png` | 选修实操证据包流水线图 | `docs/electives/hands-on-elective-workshop.md` | 选修实操证据包流水线图：需求、模块任务、可运行代码、输出文件、评估报告和作品集 README 连接成证据链。 |
+| `elective-workshop-code-execution-sequence.png` | 选修实操代码执行顺序图 | `docs/electives/hands-on-elective-workshop.md` | 选修实操代码执行顺序图：reset workspace、run module A-F、generate dashboard、build readiness report 和 print expected output 依次发生。 |
+| `elective-workshop-debug-loop.png` | 选修实操常见错误排查闭环图 | `docs/electives/hands-on-elective-workshop.md` | 选修实操常见错误排查闭环图：找不到文件、输出为空、指标不达标、红队失败和浏览器打不开都进入定位、修复、复跑闭环。 |
+| `elective-workshop-portfolio-pack.png` | 选修实操作品集证据包图 | `docs/electives/hands-on-elective-workshop.md` | 选修实操作品集证据包图：README、运行命令、指标、失败案例、截图、改进计划和下一步任务组成可展示作品。 |
 | `appendix-ai-main-relay-map.png` | AI 主线接力总地图 | `docs/appendix/ai-milestones.md` | AI 主线接力总地图：概率信息论、早期神经网络、经典机器学习、深度学习复兴、Transformer 大模型、RAG Agent 和多模态 AIGC 接力演进。 |
 | `appendix-ai-history-comic-turning-points.png` | AI 历史转折多格漫画 | `docs/appendix/ai-milestones.md` | AI 历史转折多格漫画：感知器希望、XOR 冷却、反向传播复兴、AlexNet 点火、Transformer 换轨和 Agent 工程化组成六格剧情。 |
 | `appendix-ai-paper-problem-solution-impact-chain.png` | AI 论文问题方法影响因果链图 | `docs/appendix/ai-milestones.md` | AI 论文问题方法影响因果链图：old bottleneck、new method、new capability 和 project impact 帮新人读懂论文为什么重要。 |

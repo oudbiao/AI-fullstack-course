@@ -12,6 +12,10 @@ These algorithms are still very valuable in many small- to medium-sized data tas
 
 ![Module map for supplementary classic ML algorithms](/img/course/elective-classic-ml-module-map-en.png)
 
+:::info Hands-on checkpoint
+If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](../hands-on-elective-workshop) first and inspect the Module C KNN baseline output.
+:::
+
 ## Learning Objectives
 
 - Understand the role of the supplementary classic machine learning module in the overall learning path

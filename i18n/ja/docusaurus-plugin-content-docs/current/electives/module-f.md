@@ -11,6 +11,10 @@ keywords: [AI product design, product thinking, evaluation, cost, UX, product st
 
 ![AI 製品の実験と指標のループ図](/img/course/elective-ai-product-experiment-metrics-loop-ja.png)
 
+:::info 実践チェックポイント
+このモジュールを作品集の証拠に変える流れを先に見たい場合は、[選択モジュール実践ワークショップ](./hands-on-elective-workshop)を実行し、Module F のプロダクトキャンバスを確認してください。
+:::
+
 :::tip 図の見方
 プロダクトの判断は、「このAI機能はすごい」で止まってはいけません。図を見るときは、ユーザーの問題、仮説、MVP、成功指標、リスクの境界、実験のフィードバック、反復をまとめて見ることで、その機能を本当に続ける価値があるかを判断できます。
 :::
