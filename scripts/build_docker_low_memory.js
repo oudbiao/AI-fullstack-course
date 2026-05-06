@@ -8,6 +8,24 @@ const projectRoot = path.resolve(__dirname, "..");
 const locales = ["en", "zh-Hans", "ja"];
 const finalBuildDir = path.join(projectRoot, "build");
 const tempRoot = path.join(projectRoot, ".tmp-docker-build");
+const dockerBuildOldSpace = process.env.DOCKER_BUILD_NODE_OLD_SPACE || "1536";
+
+function getNodeOptions() {
+  const baseOptions = (process.env.NODE_OPTIONS || "")
+    .split(/\s+/)
+    .filter(
+      (option) =>
+        option &&
+        !option.startsWith("--max-old-space-size=") &&
+        option !== "--expose-gc",
+    );
+
+  // Per-locale builds keep peak memory lower, but Docusaurus still needs
+  // enough heap for one locale's server and client bundles.
+  return [...baseOptions, `--max-old-space-size=${dockerBuildOldSpace}`, "--expose-gc"].join(
+    " ",
+  );
+}
 
 function run(command, args, extraEnv = {}) {
   const result = spawnSync(command, args, {
@@ -16,13 +34,7 @@ function run(command, args, extraEnv = {}) {
     env: {
       ...process.env,
       DOCUSAURUS_SSR_CONCURRENCY: "1",
-      NODE_OPTIONS: [
-        process.env.NODE_OPTIONS || "",
-        "--max-old-space-size=1024",
-        "--expose-gc",
-      ]
-        .filter(Boolean)
-        .join(" "),
+      NODE_OPTIONS: getNodeOptions(),
       ...extraEnv,
     },
   });
