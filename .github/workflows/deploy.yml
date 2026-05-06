@@ -79,6 +79,35 @@ jobs:
               docker logs --tail=50 ai-fullstack-course-preflight || true
               exit 1
             fi
+
+            check_preflight_html() {
+              path="$1"
+              expected="$2"
+              docker run --rm --network proxy-net curlimages/curl:latest -sf --connect-timeout 5 "http://ai-fullstack-course-preflight:3000${path}" | grep -Fq "$expected"
+            }
+
+            echo "🌐 检查多语言构建产物..."
+            if ! check_preflight_html "/" 'name="docusaurus_locale" content="en"'; then
+              echo "❌ 根路径不是英文默认语言，停止替换线上容器"
+              docker logs --tail=50 ai-fullstack-course-preflight || true
+              exit 1
+            fi
+            if ! check_preflight_html "/" 'href="/zh-Hans/"' || ! check_preflight_html "/" 'href="/ja/"'; then
+              echo "❌ 根路径语言切换链接缺失，停止替换线上容器"
+              docker logs --tail=50 ai-fullstack-course-preflight || true
+              exit 1
+            fi
+            if ! check_preflight_html "/zh-Hans/" 'name="docusaurus_locale" content="zh-Hans"'; then
+              echo "❌ 中文路径构建异常，停止替换线上容器"
+              docker logs --tail=50 ai-fullstack-course-preflight || true
+              exit 1
+            fi
+            if ! check_preflight_html "/ja/" 'name="docusaurus_locale" content="ja"'; then
+              echo "❌ 日文路径构建异常，停止替换线上容器"
+              docker logs --tail=50 ai-fullstack-course-preflight || true
+              exit 1
+            fi
+            echo "✅ 多语言构建检查通过"
             cleanup_preflight
             
             # 4. 构建和预热都成功后再替换容器，降低线上不可用时间

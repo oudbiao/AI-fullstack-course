@@ -7,7 +7,6 @@ const path = require("path");
 const projectRoot = path.resolve(__dirname, "..");
 const locales = ["en", "zh-Hans", "ja"];
 const finalBuildDir = path.join(projectRoot, "build");
-const tempRoot = path.join(projectRoot, ".tmp-docker-build");
 const dockerBuildOldSpace = process.env.DOCKER_BUILD_NODE_OLD_SPACE || "1536";
 
 function getNodeOptions() {
@@ -20,8 +19,9 @@ function getNodeOptions() {
         option !== "--expose-gc",
     );
 
-  // Per-locale builds keep peak memory lower, but Docusaurus still needs
-  // enough heap for one locale's server and client bundles.
+  // Disable minification in the build command and keep SSR concurrency low.
+  // This keeps Docker builds lighter while letting Docusaurus generate correct
+  // locale paths and language-switch links in one i18n-aware build.
   return [...baseOptions, `--max-old-space-size=${dockerBuildOldSpace}`, "--expose-gc"].join(
     " ",
   );
@@ -51,20 +51,32 @@ function removeDirectory(relativePath) {
   });
 }
 
-function copyDirectoryContents(sourceDir, targetDir) {
-  if (!fs.existsSync(sourceDir)) {
-    return;
+function assertFileContains(relativePath, expectedText) {
+  const filePath = path.join(projectRoot, relativePath);
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Missing expected build file: ${relativePath}`);
   }
-  fs.mkdirSync(targetDir, { recursive: true });
-  for (const entry of fs.readdirSync(sourceDir, { withFileTypes: true })) {
-    const sourcePath = path.join(sourceDir, entry.name);
-    const targetPath = path.join(targetDir, entry.name);
-    if (entry.isDirectory()) {
-      fs.cpSync(sourcePath, targetPath, { recursive: true });
-    } else if (entry.isFile()) {
-      fs.copyFileSync(sourcePath, targetPath);
-    }
+
+  const content = fs.readFileSync(filePath, "utf8");
+  if (!content.includes(expectedText)) {
+    throw new Error(`Expected ${relativePath} to contain: ${expectedText}`);
   }
+}
+
+function validateLocaleOutput() {
+  const checks = [
+    ["build/index.html", 'name="docusaurus_locale" content="en"'],
+    ["build/index.html", 'href="/zh-Hans/"'],
+    ["build/index.html", 'href="/ja/"'],
+    ["build/zh-Hans/index.html", 'name="docusaurus_locale" content="zh-Hans"'],
+    ["build/ja/index.html", 'name="docusaurus_locale" content="ja"'],
+  ];
+
+  for (const [relativePath, expectedText] of checks) {
+    assertFileContains(relativePath, expectedText);
+  }
+
+  console.log("[build:docker] Locale output validation passed");
 }
 
 function forceGarbageCollection() {
@@ -76,19 +88,20 @@ function forceGarbageCollection() {
 removeDirectory("build");
 removeDirectory(".docusaurus");
 removeDirectory(".tmp-docker-build");
-fs.mkdirSync(tempRoot, { recursive: true });
 
-for (const locale of locales) {
-  console.log(`\n[build:docker] Building locale: ${locale}`);
-  const localeOutDir = path.join(tempRoot, locale);
-  removeDirectory(path.relative(projectRoot, localeOutDir));
-  run("npx", ["docusaurus", "build", "--locale", locale, "--out-dir", localeOutDir, "--no-minify"]);
-  copyDirectoryContents(localeOutDir, finalBuildDir);
-  removeDirectory(path.relative(projectRoot, localeOutDir));
-  removeDirectory(".docusaurus");
-  forceGarbageCollection();
-}
+console.log(`\n[build:docker] Building locales: ${locales.join(", ")}`);
+const localeArgs = locales.flatMap((locale) => ["--locale", locale]);
+run("npx", [
+  "docusaurus",
+  "build",
+  ...localeArgs,
+  "--out-dir",
+  finalBuildDir,
+  "--no-minify",
+]);
+removeDirectory(".docusaurus");
+forceGarbageCollection();
 
 run("node", ["scripts/strip_build_null_bytes.js", "build"]);
 run("node", ["scripts/merge_localized_sitemaps.js", "build"]);
-removeDirectory(".tmp-docker-build");
+validateLocaleOutput();
