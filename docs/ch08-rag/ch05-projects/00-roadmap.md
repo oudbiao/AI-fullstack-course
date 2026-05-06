@@ -45,6 +45,7 @@ Once you understand this line, you will know that project demos should not only 
 | RAG + fine-tuning integrated system | How knowledge enhancement and behavior adaptation combine |
 | Intelligent Q&A assistant | How retrieval, session state, and tool calling form a product pipeline |
 | Knowledge-base-driven courseware generation assistant | Document parsing, example extraction, structured output, and template-based document generation |
+| Full hands-on RAG workshop | The minimum runnable loop that connects chunks, retrieval, permissions, citations, traces, and evaluation |
 
 ## The Relationship Between This Chapter and Later Stages
 
@@ -79,6 +80,8 @@ Learners with more experience can treat this chapter as a chance to fill gaps an
 
 After finishing this chapter, it is recommended that you complete at least one “knowledge base assistant with source citations.” The project should include document import, chunking, vectorization, retrieval, context assembly, model response, source display, no-answer handling, and a simple evaluation set.
 
+If you do not yet have a runnable baseline, start with [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./05-stage-hands-on-workshop.md). It gives you the smallest reproducible version of the chapter exit project before you add a real vector database or model API.
+
 An advanced version can add multi-turn dialogue, user feedback, Function Calling, document parsing, and template-based export. For a portfolio version, it is recommended to add an architecture diagram, key code explanations, evaluation examples, failure cases, and deployment instructions.
 
 ## Project Deliverable Template
@@ -95,6 +98,7 @@ For this chapter, do not submit just a “Demo that can answer questions.” To 
 | Failure cases | List at least 3 incorrect examples, and judge whether the issue is chunking, retrieval, context, or generation |
 | Evaluation samples | Prepare a fixed set of test questions to compare results before and after optimization |
 | Deployment instructions | Explain how to run it, which environment variables are needed, and how to reproduce the Demo |
+| Hands-on baseline | Save the workshop script output and one small extension, such as a new document, new eval case, or retrieval log |
 
 The purpose of this template is to make your project understandable, reproducible, and evaluable by others—not just something that happened to run once on your own machine.
 

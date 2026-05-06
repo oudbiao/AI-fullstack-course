@@ -46,6 +46,8 @@ A bonus project for this stage could be a “course materials Q&A assistant” o
 
 Beginners should first hand-code a minimal RAG: prepare documents, chunk text, generate embeddings, retrieve chunks, organize the Prompt, and generate answers with sources. As long as you can identify whether poor RAG performance comes from the documents, chunking, retrieval, prompting, or the model, you’ve completed the minimum path.
 
+For a guided first pass, complete [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It gives you one runnable script that covers chunks, metadata, retrieval, permissions, citations, no-answer handling, traces, and a small evaluation set.
+
 ## Advanced learning path
 
 Experienced learners can go deeper into reranking, multi-path retrieval, query rewriting, evaluation set construction, logging and monitoring, access control, and deployment. You can also try packaging RAG as an API or a small app, and add feedback collection and cost statistics.
@@ -97,6 +99,8 @@ Chapter 3 teaches large model application development, including LLM API, LangCh
 Chapter 4 teaches engineering practices, including asynchronous programming, API design, logging and monitoring, and Docker deployment.
 
 Chapter 5 moves into a comprehensive project, combining the knowledge base, model calls, application interfaces, and engineering practices.
+
+If you want to learn by doing before reading every project page in detail, run the hands-on workshop in Chapter 5. It acts as the practical spine of this stage: first reproduce the output, then return to the RAG, API, Function Calling, logging, and deployment sections to replace one simple component at a time.
 
 ## What you should be able to do after finishing
 
@@ -155,6 +159,8 @@ for hit in hits[:2]:
 ```
 
 The point of this experiment is not how powerful the algorithm is, but to let learners see for the first time that “retrieval results can be inspected.” Once the minimal chain is working, you can replace it with vector models, Hybrid Search, Reranking, Query Rewrite, and evaluation sets.
+
+The longer follow-along version of this experiment is in [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). Use it as the minimum runnable project before you build a portfolio RAG assistant.
 
 ## RAG failure case library: locate problems by symptom
 

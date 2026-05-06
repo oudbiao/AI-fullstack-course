@@ -17,6 +17,7 @@ The goal of this phase is to help you integrate a large model into a real applic
 | Build vector retrieval | A minimal retrieval demo | Can retrieve relevant document fragments from a question |
 | Complete RAG Q&A | A course Q&A prototype | Answers include source citations and can explain the retrieval basis |
 | Complete RAG evaluation | A test set and evaluation table | Can record hit rate, answer quality, citation quality, and failure samples |
+| Complete the hands-on workshop | `rag_app_workshop.py` output and one added eval case | Can reproduce the expected output, explain each stage, and extend it safely |
 
 ## Recommended Learning Order
 
@@ -65,6 +66,7 @@ If you want to turn this phase’s results into portfolio material, it is recomm
 | `eval_questions.csv` | Fixed evaluation questions, ground-truth answers, expected documents to hit, and key citations |
 | `failure_cases.md` | Samples of retrieval failures, generation failures, citation failures, metadata failures, etc. |
 | `rag_config.md` | Configuration records such as chunk_size, overlap, top-k, rerank, and prompt_version |
+| `rag_app_workshop_output.txt` | Output from [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md), plus notes about one change you made |
 | `README.md` | Run commands, example inputs and outputs, evaluation results, and improvement plans |
 
 These files do not need to be complete at the very beginning, but they will help turn your RAG project from “can answer” into “can explain, can evaluate, and can review.”
@@ -79,4 +81,5 @@ After learning this phase, you should be able to answer these questions: what li
 - [ ] I can explain the relationship between document chunking, embedding, vector retrieval, and answer generation.
 - [ ] I can inspect the retrieved original text fragments, rather than only the final answer.
 - [ ] I have completed a RAG Q&A prototype with source citations.
+- [ ] I have completed the Chapter 8 hands-on workshop and added at least one new document or evaluation case.
 - [ ] I have a fixed set of evaluation questions and have recorded samples of retrieval failures, citation failures, or generation failures.

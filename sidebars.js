@@ -605,6 +605,7 @@ const sidebars = {
                 "ch08-rag/ch05-projects/domain-rag-finetuning",
                 "ch08-rag/ch05-projects/intelligent-assistant",
                 "ch08-rag/ch05-projects/courseware-assistant",
+                "ch08-rag/ch05-projects/stage-hands-on-workshop",
               ],
             },
           ],

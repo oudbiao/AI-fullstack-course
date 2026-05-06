@@ -66,6 +66,8 @@ The safest rule is to start with the simplest tool that closes the gap, then upg
 
 For your first project, it is recommended to build a minimal RAG system: prepare a few documents, chunk them, vectorize them, retrieve them, and let the model answer based on the materials.
 
+Before expanding the project, complete [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It is the recommended practical bridge between reading concepts and building a portfolio knowledge base assistant.
+
 For your second project, it is recommended to build a course Q&A assistant or a personal knowledge base, adding source citations, retrieval result display, and feedback records.
 
 For your third project, it is recommended to build an enterprise knowledge base demo, adding multi-turn dialogue, permission design ideas, logs, and evaluation examples.
@@ -82,4 +84,4 @@ The third sticking point is only building successful demos and not handling fail
 
 After finishing this stage, you should be able to independently complete a RAG application, explain the full path from documents to answers, and identify which layer may be causing poor results.
 
-If you can build a knowledge base assistant with source citations, basic logs, and simple evaluation examples, you are ready to move on to the AI Agent stage.
+If you can run the hands-on workshop, add one document and one evaluation case, and then build a knowledge base assistant with source citations, basic logs, and simple evaluation examples, you are ready to move on to the AI Agent stage.
