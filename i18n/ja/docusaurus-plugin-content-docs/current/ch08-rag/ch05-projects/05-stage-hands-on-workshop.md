@@ -64,6 +64,10 @@ touch rag_app_workshop.py
 
 実際のプロジェクトでは、文書は Markdown、PDF、Word、PPT、HTML、データベースなどから来ます。この入門ワークショップでは、流れを見やすくするために 4 つのインメモリ文書を使います。各文書には最初からメタデータがあります。後の引用、ログ、権限チェック、評価がすべてそれに依存するからです。
 
+完全なスクリプトを写す前に、次の図で `chunk_documents()` だけを追いかけてください。後でコードを見るときは、`DOCUMENTS` から `sentences`、そして各 chunk レコードへ視線を移します。大事なのは、`source` と `roles` を各 chunk と一緒に持ち運ぶことです。検索と権限チェックが安全になります。
+
+![RAG ワークショップ chunk_documents 実行順序図](/img/course/ch08-workshop-chunk-execution-flow-map-ja.png)
+
 次のコードを `rag_app_workshop.py` にコピーしてください。
 
 ```python
@@ -306,6 +310,10 @@ passed: 3/3
 
 出力が一致すれば、第 8 章の最小ループはもう動いています。資料が入り、chunk が作られ、検索され、権限フィルタが動き、引用付き回答が生成され、評価で振る舞いが確認されています。
 
+評価部分はこの図で読みます。`evaluate()` は感覚で回答品質を判定しません。`EVAL_CASES` を 1 件ずつ実行し、`status` と citations を確認して、PASS/FAIL を数えます。`private_block` は citation がなくても PASS です。期待される動きが `blocked_by_permission` だからです。
+
+![RAG ワークショップ evaluate PASS/FAIL フロー図](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-ja.png)
+
 ## Step 4：パイプラインとしてコードを読む
 
 ![RAG 基礎ワークフロー図](/img/course/ch08-rag-basics-workflow-map-v2-ja.png)
@@ -327,6 +335,10 @@ passed: 3/3
 ## Step 5：権限と引用の振る舞いを見る
 
 ![企業ナレッジベースの権限と引用図](/img/course/ch08-enterprise-kb-permission-citation-map-ja.png)
+
+ここで `retrieve()` 内部の分岐に注目します。キーワードに一致した chunk が、そのまま証拠になるわけではありません。まずロールチェックを通る必要があります。一致していても、このユーザーが見られない private chunk は `blocked_hits` に入り、answer context には入りません。
+
+![RAG ワークショップ retrieve 権限分岐図](/img/course/ch08-workshop-retrieve-permission-branch-map-ja.png)
 
 この文書を見てください。
 

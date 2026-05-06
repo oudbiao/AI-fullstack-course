@@ -64,6 +64,10 @@ You only need Python 3.10 or newer. This first script uses only the Python stand
 
 In a real project, documents may come from Markdown, PDF, Word, PPT, HTML, or databases. In this first workshop, we use four in-memory documents so the flow is easy to see. Each document already has metadata, because later citations, logs, permission checks, and evaluation all depend on it.
 
+Before copying the full script, use the next diagram to follow only `chunk_documents()`. When you read the code, move your eyes from `DOCUMENTS` to `sentences`, then to each chunk record. The key habit is that `source` and `roles` travel with every chunk; retrieval and permission checks are safer when metadata is not reconstructed later.
+
+![RAG workshop chunk_documents execution flow map](/img/course/ch08-workshop-chunk-execution-flow-map-en.png)
+
 Copy this into `rag_app_workshop.py`:
 
 ```python
@@ -306,6 +310,10 @@ passed: 3/3
 
 If your output matches, you have already completed the minimum Chapter 8 loop: data enters, chunks are created, retrieval happens, permission filtering runs, an answer is produced with citation, and evaluation verifies the behavior.
 
+Read the evaluation part with this diagram. `evaluate()` does not judge answer quality by feeling; it runs each item in `EVAL_CASES`, checks `status`, checks citations, then counts pass/fail. Notice that `private_block` passes even with no citation because the expected behavior is `blocked_by_permission`.
+
+![RAG workshop evaluation PASS/FAIL flow map](/img/course/ch08-workshop-evaluation-pass-fail-flow-map-en.png)
+
 ## Step 4: Read the Code Like a Pipeline
 
 ![RAG basics workflow map](/img/course/ch08-rag-basics-workflow-map-v2-en.png)
@@ -327,6 +335,10 @@ The current retrieval is deliberately simple. It is not a replacement for embedd
 ## Step 5: Observe Permission and Citation Behavior
 
 ![Enterprise knowledge base permission and citation map](/img/course/ch08-enterprise-kb-permission-citation-map-en.png)
+
+Now zoom into the decision branch inside `retrieve()`. A matched chunk is not automatically evidence. It first has to pass the role check. If it matches but is private for this user, it goes to `blocked_hits`, not into the answer context.
+
+![RAG workshop retrieve permission branch map](/img/course/ch08-workshop-retrieve-permission-branch-map-en.png)
 
 Look at this document:
 

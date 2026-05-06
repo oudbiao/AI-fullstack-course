@@ -4073,6 +4073,52 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch08-workshop-chunk-execution-flow-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第八章 RAG 工作坊 chunk_documents 执行顺序图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md",
+        "alt": "RAG 工作坊 chunk_documents 执行顺序图：DOCUMENTS 进入句子切分，按窗口组成 chunk，写入 chunk_id、source、roles 和 text。",
+        "prompt": """
+一张适合第八章 RAG 实操工作坊的竖版流程教学图，主题是“chunk_documents() 怎样把文档变成可检索片段”。
+画面用 5 个纵向步骤表现：DOCUMENTS list、split sentences、group by sentences_per_chunk、create chunk record、append to chunks。
+每个 chunk record 画成卡片，卡片字段包含 chunk_id、doc_id、title、source、roles、text；强调 source 和 roles 会跟着 chunk 走。
+风格像漫画式代码执行顺序图和教学流程卡片结合，新手友好，适合先看图再看代码。
+文字不是主体；标准术语保留英文，例如 DOCUMENTS、chunk_documents()、sentences_per_chunk、chunk_id、source、roles、text。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-workshop-retrieve-permission-branch-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第八章 RAG 工作坊 retrieve 权限分支图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md",
+        "alt": "RAG 工作坊 retrieve 权限分支图：query 命中 chunk 后先检查 score，再按 roles 分到 allowed_hits、blocked_hits 或 no_evidence。",
+        "prompt": """
+一张适合第八章 RAG 实操工作坊的竖版分支流程图，主题是“retrieve() 先检索，再按权限分流”。
+画面表现 query 进入 keyword_score，score = 0 的 chunk 被丢弃；score > 0 的 chunk 进入 permission check。
+permission check 分成三条清晰路径：public or role allowed -> allowed_hits；matched but role blocked -> blocked_hits；no matched allowed chunks -> no_evidence 或 blocked_by_permission。
+特别突出 private roadmap 例子：public user 命中了 internal.md#roadmap，但进入 blocked_hits，不能进入 answer context。
+风格像工程调试分支图和漫画路牌结合，新手一眼能看懂 allowed_hits 与 blocked_hits 的区别。
+文字不是主体；标准术语保留英文，例如 retrieve()、keyword_score、score、roles、allowed_hits、blocked_hits、no_evidence、blocked_by_permission、answer context。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch08-workshop-evaluation-pass-fail-flow-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第八章 RAG 工作坊 evaluate 评测流转图",
+        "suggested_page": "docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md",
+        "alt": "RAG 工作坊 evaluate 评测流转图：EVAL_CASES 逐条运行 rag_answer，检查 status_ok 和 citation_ok，汇总 PASS、FAIL 和 passed 计数。",
+        "prompt": """
+一张适合第八章 RAG 实操工作坊的竖版评测流程图，主题是“evaluate() 把一次 Demo 变成可重复检查”。
+画面用 6 个步骤表现：EVAL_CASES、run rag_answer、compare expected_status、check expected_source in citations、mark PASS or FAIL、summary passed/total。
+用三张小测试卡片示例 refund_window、api_key_setup、private_block；其中 private_block 显示 blocked_by_permission 且 citations = none 也可以 PASS。
+风格像测试看板、代码流程图和学习卡片结合，强调评估不是主观感觉，而是固定问题集。
+文字不是主体；标准术语保留英文，例如 EVAL_CASES、rag_answer()、expected_status、expected_source、citations、PASS、FAIL、passed/total。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch08-rag-layer-failure-debug-map.png",
         "size": "1536x1024",
         "quality": "medium",

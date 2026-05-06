@@ -282,6 +282,9 @@
 | `ch08-projects-route-map.png` | LLM 应用综合项目路线图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用综合项目路线图：文档资料、解析切分向量化、RAG 检索、LLM 调用、应用功能、日志评估错误处理、部署展示逐步连接。 |
 | `ch08-project-learning-order-map.png` | LLM 应用项目学习顺序图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目学习顺序图：知识库问答、文档到答案链路、来源引用评估、智能问答助手、会话状态工具调用、RAG 微调组合和课件生成应用逐步升级。 |
 | `ch08-project-delivery-loop.png` | LLM 应用项目交付闭环图 | `docs/ch08-rag/ch05-projects/00-roadmap.md` | LLM 应用项目交付闭环图：用户任务、意图判断、RAG 检索或直接模型调用、结构化输出、校验引用、日志反馈、评估迭代形成作品集闭环。 |
+| `ch08-workshop-chunk-execution-flow-map.png` | 第八章 RAG 工作坊 chunk_documents 执行顺序图 | `docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md` | RAG 工作坊 chunk_documents 执行顺序图：DOCUMENTS 进入句子切分，按窗口组成 chunk，写入 chunk_id、source、roles 和 text。 |
+| `ch08-workshop-retrieve-permission-branch-map.png` | 第八章 RAG 工作坊 retrieve 权限分支图 | `docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md` | RAG 工作坊 retrieve 权限分支图：query 命中 chunk 后先检查 score，再按 roles 分到 allowed_hits、blocked_hits 或 no_evidence。 |
+| `ch08-workshop-evaluation-pass-fail-flow-map.png` | 第八章 RAG 工作坊 evaluate 评测流转图 | `docs/ch08-rag/ch05-projects/05-stage-hands-on-workshop.md` | RAG 工作坊 evaluate 评测流转图：EVAL_CASES 逐条运行 rag_answer，检查 status_ok 和 citation_ok，汇总 PASS、FAIL 和 passed 计数。 |
 | `ch08-rag-layer-failure-debug-map.png` | RAG 分层故障定位图 | `docs/ch08-rag/ch01-rag/01-rag-basics.md` | RAG 分层故障定位图：从文档切块、检索召回、上下文拼装到生成回答逐层定位问题。 |
 | `ch08-chunk-size-overlap-tradeoff-map.png` | Chunk 大小与 overlap 取舍图 | `docs/ch08-rag/ch01-rag/02-document-processing.md` | Chunk 大小与 overlap 取舍图：chunk 太大召回不精准，太小证据不完整，overlap 缓解边界信息被切断。 |
 | `ch08-courseware-chunk-metadata-schema-map.png` | 课件知识块元数据 schema 图 | `docs/ch08-rag/ch01-rag/02-document-processing.md` | 课件知识块元数据 schema 图：topic、content_type、source_origin、page_or_slide 等字段支撑概念、例题和练习的稳定组装。 |

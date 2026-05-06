@@ -1222,3 +1222,10 @@
 {"at": "2026-05-03T14:18:37.926169+00:00", "filename": "vision-language-model-architecture-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T14:20:29.363991+00:00", "filename": "word2vec-embedding-neighborhood-en.png", "locale": "en", "status": "generated"}
 {"at": "2026-05-03T14:22:25.749906+00:00", "filename": "yolo-grid-detection-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T03:21:54.009034+00:00", "filename": "ch08-workshop-chunk-execution-flow-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T03:31:19.357870+00:00", "filename": "ch08-workshop-retrieve-permission-branch-map-en.png", "locale": "en", "status": "error", "error": "Image API network error for ch08-workshop-retrieve-permission-branch-map-en.png."}
+{"at": "2026-05-06T03:32:38.865768+00:00", "filename": "ch08-workshop-evaluation-pass-fail-flow-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T03:38:13.703406+00:00", "filename": "ch08-workshop-retrieve-permission-branch-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T03:39:30.001794+00:00", "filename": "ch08-workshop-chunk-execution-flow-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T03:41:07.051439+00:00", "filename": "ch08-workshop-retrieve-permission-branch-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T03:43:02.158464+00:00", "filename": "ch08-workshop-evaluation-pass-fail-flow-map-ja.png", "locale": "ja", "status": "generated"}

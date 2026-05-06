@@ -64,6 +64,10 @@ touch rag_app_workshop.py
 
 真实项目里的文档可能来自 Markdown、PDF、Word、PPT、HTML 或数据库。这个入门工作坊先用 4 份内存文档，让你看清主流程。每份文档已经带有元数据，因为后面的引用、日志、权限检查和评估都会依赖它。
 
+复制完整脚本前，先用下一张图只盯住 `chunk_documents()`。等会读代码时，视线从 `DOCUMENTS` 移到 `sentences`，再移到每条 chunk 记录。关键习惯是：`source` 和 `roles` 要跟着每个 chunk 一起走，后面检索和权限检查才安全。
+
+![RAG 工作坊 chunk_documents 执行顺序图](/img/course/ch08-workshop-chunk-execution-flow-map.png)
+
 把下面代码复制到 `rag_app_workshop.py`：
 
 ```python
@@ -306,6 +310,10 @@ passed: 3/3
 
 如果你的输出一致，说明你已经跑通第 8 章最小闭环：资料进入系统，生成 chunk，执行检索，完成权限过滤，给出带引用答案，并用评估样例验证行为。
 
+请用这张图读评估部分。`evaluate()` 不是靠感觉判断答案好坏，而是逐条运行 `EVAL_CASES`，检查 `status`，检查 citations，再统计 PASS/FAIL。注意 `private_block` 没有 citation 也可以 PASS，因为预期行为就是 `blocked_by_permission`。
+
+![RAG 工作坊 evaluate PASS/FAIL 流程图](/img/course/ch08-workshop-evaluation-pass-fail-flow-map.png)
+
 ## Step 4：像看流水线一样读代码
 
 ![RAG 基础工作闭环图](/img/course/ch08-rag-basics-workflow-map-v2.png)
@@ -327,6 +335,10 @@ passed: 3/3
 ## Step 5：观察权限和引用行为
 
 ![企业知识库权限与引用图](/img/course/ch08-enterprise-kb-permission-citation-map.png)
+
+现在把视角放大到 `retrieve()` 里的分支判断。命中关键词的 chunk 还不能自动成为证据，它必须先通过角色检查。如果命中了但当前用户无权访问，它会进入 `blocked_hits`，而不是进入 answer context。
+
+![RAG 工作坊 retrieve 权限分支图](/img/course/ch08-workshop-retrieve-permission-branch-map.png)
 
 看这份文档：
 
