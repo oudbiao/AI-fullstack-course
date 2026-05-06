@@ -68,6 +68,8 @@ Chapter 4 teaches visualization. You will use charts to express distributions, t
 
 Chapter 5 databases are optional, but if you want to work on real applications or enterprise data projects, it is recommended that you at least understand relational databases and the basics of SQL.
 
+Chapter 6 is where you turn the scattered skills into visible evidence. If you want one course page to follow from start to finish, do [6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline](./ch06-projects/03-hands-on-data-workshop.md): it creates dirty CSV data, cleans it, writes SQLite, generates a chart, and outputs a report.
+
 ## What you should be able to do after finishing this stage
 
 - Read common data files such as CSV, Excel, and JSON
@@ -147,6 +149,7 @@ If this stage feels like a lot, treat this task card as your minimum target firs
 | Visualization results | Draw 3–5 key charts | Each chart includes the question, conclusion, and misleading-risk notes |
 | Analysis report | Write 3 conclusions | Can connect business questions, future modeling, and data limitations |
 | Reproducibility notes | Clearly state data source and how to run | Includes data dictionary, dependencies, random seed, or version records |
+| Reproducible workshop evidence | Run the 6.3 pipeline and keep the generated files | Includes raw data, clean data, cleaning log, SQLite database, SVG chart, and HTML report |
 
 ## Relationship with the AI learning assistant throughout the project
 

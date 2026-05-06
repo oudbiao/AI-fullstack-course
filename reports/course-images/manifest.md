@@ -76,6 +76,11 @@
 | `ch03-relational-database-foundation.png` | 关系型数据库基础图 | `docs/ch03-data-analysis/ch05-database/01-relational-db.md` | 关系型数据库基础图：数据库、表、行、列、主键、外键、索引和权限共同支撑可靠数据管理。 |
 | `ch03-python-database-bridge.png` | Python 与数据库协作桥梁图 | `docs/ch03-data-analysis/ch05-database/03-python-db.md` | Python 与数据库协作桥梁图：Python 连接数据库、执行 SQL、取回结果、交给 Pandas 分析并写回数据。 |
 | `ch03-database-design-erd-normalization.png` | 数据库设计与范式图 | `docs/ch03-data-analysis/ch05-database/04-db-design.md` | 数据库设计与范式图：实体拆表、主键外键、范式、索引和查询场景共同减少重复和维护风险。 |
+| `ch03-hands-on-data-workshop-route.png` | 第 3 章跟做数据工作坊路线图 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 第 3 章跟做数据工作坊路线图：脏 CSV 经过清洗、分组统计、SQLite 查询、图表和报告，形成可复现证据。 |
+| `ch03-hands-on-cleaning-pipeline.png` | 学习日志数据清洗与校验流水线 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 学习日志数据清洗与校验流水线：缺失分钟、负数分钟、重复记录和主题大小写问题被检查、修复或记录。 |
+| `ch03-hands-on-groupby-sql-flow.png` | 分组统计与 SQLite 查询数据流 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 分组统计与 SQLite 查询数据流：清洗后的学习记录按 topic 聚合，并写入 SQLite 用 SQL 查询 Top 主题。 |
+| `ch03-hands-on-chart-report-flow.png` | 图表与报告输出流程 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 图表与报告输出流程：分组统计结果生成 SVG 条形图，并嵌入 HTML 报告形成可检查结论。 |
+| `ch03-hands-on-evidence-pack.png` | 数据分析作品集证据包清单 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 数据分析作品集证据包清单：脚本、原始数据、清洗数据、清洗日志、数据库、图表、报告和复盘说明组成可信交付。 |
 | `ch04-ai-math.png` | AI 数学基础主视觉 | `docs/ch04-ai-math/index.md` | AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。 |
 | `ch04-learning-quest-map.png` | AI 数学学习闯关地图 | `docs/ch04-ai-math/index.md` | AI 数学学习闯关地图：向量、矩阵、概率、损失、梯度和优化逐步连接到模型训练。 |
 | `ch04-ai-math-backbone.png` | AI 数学最小必要主线图 | `docs/ch04-ai-math/index.md` | AI 数学最小必要主线图：线性代数负责表示，概率统计负责不确定性，微积分负责损失和优化。 |

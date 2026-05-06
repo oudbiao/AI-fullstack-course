@@ -1180,6 +1180,66 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch03-hands-on-data-workshop-route.png",
+        "title": "第 3 章跟做数据工作坊路线图",
+        "suggested_page": "docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md",
+        "alt": "第 3 章跟做数据工作坊路线图：脏 CSV 经过清洗、分组统计、SQLite 查询、图表和报告，形成可复现证据。",
+        "prompt": """
+制作一张 9:16 竖版课程图解，主题是“第 3 章跟着做：从脏 CSV 到可信数据报告”。
+画面像漫画式流程课页，按从上到下 6 个步骤展示：原始学习日志 CSV、清洗与记录、按主题分组统计、写入 SQLite、生成 SVG 图表、输出 HTML 报告。
+每个步骤都要有清楚的图标、箭头和小型界面卡片，让新人一眼看出这是可以照着操作的实操路线。
+文字可以使用极短中文标签：原始 CSV、清洗、分组、SQLite、图表、报告。不要生成真实品牌 logo，不要水印，不要乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-hands-on-cleaning-pipeline.png",
+        "title": "学习日志数据清洗与校验流水线",
+        "suggested_page": "docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md",
+        "alt": "学习日志数据清洗与校验流水线：缺失分钟、负数分钟、重复记录和主题大小写问题被检查、修复或记录。",
+        "prompt": """
+制作一张 9:16 竖版教学流程图，主题是“数据清洗不是随便删除，而是检查、处理、记录、复核”。
+画面展示一张学习记录表进入清洗工作台，表里有四种新人常见问题：minutes 为空、minutes 为负数、topic 有多余空格和大小写不一致、重复记录。
+中间用分步骤卡片表现：读取 CSV、标准化 topic、验证 minutes、去重、写 cleaning_log.json、输出 clean CSV。
+风格清晰、像数据诊断漫画分镜，适合放在代码前帮助理解执行顺序。允许极短中文标签，但不要密集小字、乱码或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch03-hands-on-groupby-sql-flow.png",
+        "title": "分组统计与 SQLite 查询数据流",
+        "suggested_page": "docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md",
+        "alt": "分组统计与 SQLite 查询数据流：清洗后的学习记录按 topic 聚合，并写入 SQLite 用 SQL 查询 Top 主题。",
+        "prompt": """
+制作一张 9:16 竖版流程对比图，主题是“同一份干净数据，可以用 Python 分组，也可以用 SQLite 查询”。
+画面上半部分展示 clean_learning_log.csv 被按 topic 分成 Python、Pandas、Visualization、SQL、RAG 五组，计算学习分钟和平均信心值。
+画面下半部分展示同一份数据进入 SQLite 表 learning_logs，再通过 SQL 查询得到 Top 3 主题。
+重点表现“groupby”和“SQL GROUP BY”其实都在回答按类别汇总的问题。使用少量中文标签，保留 SQL、SQLite、GROUP BY 等标准技术词。不要真实品牌 logo，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch03-hands-on-chart-report-flow.png",
+        "title": "图表与报告输出流程",
+        "suggested_page": "docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md",
+        "alt": "图表与报告输出流程：分组统计结果生成 SVG 条形图，并嵌入 HTML 报告形成可检查结论。",
+        "prompt": """
+制作一张 9:16 竖版分步骤图解，主题是“从统计结果到可展示报告”。
+画面展示 topic summary 表格进入 SVG 条形图生成器，生成 topic_minutes.svg，再被嵌入 report.html，最终形成包含总时长、清洗行数、Top 主题和结论的报告。
+需要突出“图表不是装饰，而是让结论可检查”的教学重点。构图像新人跟做课程截图流，包含表格、条形图、浏览器报告三个视觉层次。
+可使用极短中文标签：统计表、SVG 图表、HTML 报告、结论。不要真实品牌 logo，不要水印，不要乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch03-hands-on-evidence-pack.png",
+        "title": "数据分析作品集证据包清单",
+        "suggested_page": "docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md",
+        "alt": "数据分析作品集证据包清单：脚本、原始数据、清洗数据、清洗日志、数据库、图表、报告和复盘说明组成可信交付。",
+        "prompt": """
+制作一张 9:16 竖版教学清单图，主题是“数据分析作品集不只放图表，还要放证据包”。
+画面像整洁的项目文件夹展开图，包含 learning_log_pipeline.py、raw CSV、clean CSV、cleaning_log.json、SQLite database、SVG chart、HTML report、short notes 八类材料。
+每类材料用图标和小卡片表示，并用箭头说明它们从原始数据一路形成可信结论。
+风格专业但新人友好，像作品集交付清单。可以使用短中文标签，保留文件名和 SQLite、CSV、SVG、HTML 等标准词。不要真实品牌 logo，不要乱码。
+""".strip(),
+    },
+    {
         "filename": "ch04-ai-math.png",
         "size": "1536x1024",
         "quality": "medium",

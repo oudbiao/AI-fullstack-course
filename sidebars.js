@@ -241,6 +241,7 @@ const sidebars = {
               items: [
                 "ch03-data-analysis/ch06-projects/eda-project",
                 "ch03-data-analysis/ch06-projects/multi-source-analysis",
+                "ch03-data-analysis/ch06-projects/hands-on-data-workshop",
               ],
             },
           ],

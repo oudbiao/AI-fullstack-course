@@ -62,6 +62,8 @@ In the fourth round, learn visualization. First learn how to choose the right ch
 
 In the fifth round, do an EDA project and connect reading, cleaning, analysis, visualization, and conclusion writing into a complete report.
 
+If you want a guided path before choosing your own dataset, first complete [6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline](./ch06-projects/03-hands-on-data-workshop.md). It gives you a fixed input, expected output, generated files, and troubleshooting checklist, so you can practice the whole loop without guessing what to do next.
+
 ## Suggested learning pace
 
 | Content type | Suggested time | Learning goal |
@@ -69,6 +71,7 @@ In the fifth round, do an EDA project and connect reading, cleaning, analysis, v
 | NumPy basics | 1–2 hours | Understand arrays, shape, and vectorization |
 | Pandas processing page | 2–4 hours | Be able to filter, clean, aggregate, and merge |
 | Visualization page | 1–3 hours | Be able to choose the right chart and explain it |
+| 6.3 guided workshop | 1–2 hours | Run one complete CSV cleaning, SQLite, chart, and report pipeline |
 | Project page | 6–12 hours | Complete a readable data analysis report |
 
 ## Stage project roadmap
