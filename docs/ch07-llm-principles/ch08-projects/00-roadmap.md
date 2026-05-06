@@ -78,6 +78,8 @@ After finishing this chapter, it is recommended to complete a “domain task LLM
 
 The minimum version can compare just two Prompt versions; the advanced version can compare Prompt, RAG, and a small-scale fine-tuning run; the portfolio version should clearly explain method trade-offs, evaluation metrics, failure cases, and next steps.
 
+Before you close the project, it is also a good idea to use the Deliverables Kit page as a checklist for README structure, evaluation records, failure notes, screenshots, and next steps. A project becomes more convincing when the handoff is easy to understand and easy to reproduce.
+
 
 ## Debug Detective Case
 

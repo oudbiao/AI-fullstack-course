@@ -536,6 +536,7 @@ const sidebars = {
               items: [
                 "ch07-llm-principles/ch08-projects/roadmap",
                 "ch07-llm-principles/ch08-projects/domain-finetuning",
+                "ch07-llm-principles/ch08-projects/deliverables-kit",
               ],
             },
           ],
