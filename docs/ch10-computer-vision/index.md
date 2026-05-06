@@ -124,6 +124,8 @@ Vision projects must keep the input image, processed result, and prediction visu
 
 The basic version is to complete an image classification project, including data preparation, training, and basic evaluation. The standard version should add data augmentation, error sample analysis, and visualization of prediction results. The challenge version can be an object detection or segmentation project, with annotation formats, mAP/IoU metrics, inference demos, and scenario-based application descriptions.
 
+If you want one guided baseline before choosing a larger direction, start with [Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md). It gives you a local script that generates images, masks, boxes, metrics, prediction visualizations, and a failure report.
+
 If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Computer Vision Without Getting Confused](./study-guide.md).
 
 

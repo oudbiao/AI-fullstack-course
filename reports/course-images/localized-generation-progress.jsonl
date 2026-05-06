@@ -1255,3 +1255,12 @@
 {"at": "2026-05-06T05:28:04.566449+00:00", "filename": "ch09-multi-agent-collaboration-run-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T05:30:39.732914+00:00", "filename": "ch09-agent-benchmark-custom-eval-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T05:32:03.493339+00:00", "filename": "ch09-runtime-management-protection-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T06:17:01.753495+00:00", "filename": "ch10-workshop-vision-pipeline-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T06:21:43.658881+00:00", "filename": "ch10-workshop-synthetic-dataset-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T06:23:36.809853+00:00", "filename": "ch10-workshop-metrics-iou-confusion-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T06:25:11.083607+00:00", "filename": "ch10-workshop-failure-debug-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T06:33:02.113494+00:00", "filename": "ch10-workshop-vision-pipeline-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T06:45:52.193583+00:00", "filename": "ch10-workshop-synthetic-dataset-map-ja.png", "locale": "ja", "status": "error", "error": "Image API network error for ch10-workshop-synthetic-dataset-map-ja.png."}
+{"at": "2026-05-06T06:48:16.068751+00:00", "filename": "ch10-workshop-metrics-iou-confusion-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T06:53:08.264680+00:00", "filename": "ch10-workshop-failure-debug-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T06:54:53.848862+00:00", "filename": "ch10-workshop-synthetic-dataset-map-ja.png", "locale": "ja", "status": "generated"}

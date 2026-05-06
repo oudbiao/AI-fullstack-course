@@ -34,6 +34,8 @@ A recommended minimum feature set is: upload or read a lecture slide screenshot,
 
 Common issues include incorrect image paths, confusion between BGR/RGB color channels, too few training samples, class imbalance, inaccurate bounding-box annotations, only looking at Demo images instead of real inputs, and treating vision model outputs as absolute truth. When debugging, first inspect the original image, preprocessing results, annotations, and error samples.
 
+For a guided first run, complete [Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md). Use its `cv_workshop_run/data/labels.csv`, `outputs/`, and `reports/failure_cases.md` as the minimum evidence for this stage.
+
 
 ## Easy / Standard / Challenge Tasks
 

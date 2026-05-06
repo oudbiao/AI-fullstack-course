@@ -762,6 +762,7 @@ const sidebars = {
                 "ch10-computer-vision/ch06-projects/roadmap",
                 "ch10-computer-vision/ch06-projects/security-detection",
                 "ch10-computer-vision/ch06-projects/medical-imaging",
+                "ch10-computer-vision/ch06-projects/hands-on-vision-workshop",
               ],
             },
           ],

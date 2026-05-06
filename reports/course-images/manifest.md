@@ -398,6 +398,10 @@
 | `ch10-segmentation-chapter-flow.png` | 图像分割章节学习顺序图 | `docs/ch10-computer-vision/ch04-segmentation/00-roadmap.md` | 图像分割章节学习顺序图：语义分割、实例分割和分割实战逐步连接，突出像素级 mask 输出。 |
 | `ch10-advanced-vision-route-map.png` | 高级视觉方向选择地图 | `docs/ch10-computer-vision/ch05-advanced/00-roadmap.md` | 高级视觉方向选择地图：OCR、人脸、视频、3D 视觉和多模态行业项目逐步连接，帮助学习者选择作品方向。 |
 | `ch10-projects-delivery-loop.png` | 视觉项目交付闭环图 | `docs/ch10-computer-vision/ch06-projects/00-roadmap.md` | 视觉项目交付闭环图：场景需求、任务定义、数据收集、标注规范、训练验证、指标评估、可视化结果、失败案例分析和项目交付形成闭环。 |
+| `ch10-workshop-vision-pipeline-map.png` | 第十章视觉实操工作坊完整流水线图 | `docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md` | 视觉实操工作坊完整流水线图：合成数据集、预处理、分类、检测框、分割 mask、指标评估、错误样本报告形成可复现闭环。 |
+| `ch10-workshop-synthetic-dataset-map.png` | 第十章视觉实操工作坊合成数据集图 | `docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md` | 视觉实操工作坊合成数据集图：脚本自动生成 circle、square、triangle 图像、mask、标签、bbox 和 challenge 样本。 |
+| `ch10-workshop-metrics-iou-confusion-map.png` | 第十章视觉实操工作坊指标评估图 | `docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md` | 视觉实操工作坊指标评估图：classification accuracy、confusion matrix、box IoU、mask IoU 和 predictions.csv 共同解释模型表现。 |
+| `ch10-workshop-failure-debug-map.png` | 第十章视觉实操工作坊失败样本排查图 | `docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md` | 视觉实操工作坊失败样本排查图：低置信度、低 box IoU、低 mask IoU、遮挡、小目标和低对比度样本进入 failure_cases.md。 |
 | `ch10-image-array-shape-channel-map.png` | 图像数组 Shape 与通道语义图 | `docs/ch10-computer-vision/ch01-cv-basics/01-image-fundamentals.md` | 图像数组 Shape 与通道语义图：灰度图二维矩阵、RGB 图三维张量、height width channel、uint8 到 float normalization。 |
 | `ch10-opencv-bgr-coordinate-crop-map.png` | OpenCV BGR、坐标与裁剪顺序图 | `docs/ch10-computer-vision/ch01-cv-basics/02-opencv-basics.md` | OpenCV BGR、坐标与裁剪顺序图：BGR 与 RGB 转换、图像数组先 y 后 x、crop 写作 y1:y2 x1:x2。 |
 | `ch10-image-processing-operation-decision-map.png` | 经典图像处理操作选择图 | `docs/ch10-computer-vision/ch01-cv-basics/03-image-processing.md` | 经典图像处理操作选择图：去噪用 blur，高斯滤波，边缘检测，阈值化，形态学开闭运算形成像素规则流水线。 |

@@ -5714,6 +5714,66 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
+        "filename": "ch10-workshop-vision-pipeline-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十章视觉实操工作坊完整流水线图",
+        "suggested_page": "docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md",
+        "alt": "视觉实操工作坊完整流水线图：合成数据集、预处理、分类、检测框、分割 mask、指标评估、错误样本报告形成可复现闭环。",
+        "prompt": """
+一张适合第十章计算机视觉实操工作坊的竖版流程图，主题是“从一张图像到可复现视觉项目闭环”。
+画面从上到下展示 synthetic dataset、preprocessing、classification、bounding box detection、segmentation mask、metrics、failure report、portfolio evidence。
+强调先看图，再运行 Python 脚本，再检查 outputs 和 reports。
+风格像课程工作坊路线图和视觉项目看板结合，新手友好但工程感明确。
+文字不是主体；标准术语保留英文，例如 synthetic dataset、preprocessing、classification、bounding box、segmentation mask、metrics、failure report、outputs、reports。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-workshop-synthetic-dataset-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十章视觉实操工作坊合成数据集图",
+        "suggested_page": "docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md",
+        "alt": "视觉实操工作坊合成数据集图：脚本自动生成 circle、square、triangle 图像、mask、标签、bbox 和 challenge 样本。",
+        "prompt": """
+一张适合第十章视觉实操工作坊的数据准备图，主题是“离线合成数据集让新人不用下载数据也能跑完整 CV 流程”。
+画面展示 Python script 生成 circle、square、triangle 三类样本，同时生成 image、mask、label、bbox、challenge 字段，并写入 labels.csv。
+旁边展示 train split 和 test split，以及 blurred、occluded、small_object、low_contrast 四种故意设计的难例。
+风格像数据集工厂、图像样本墙和标注表结合。
+文字不是主体；标准术语保留英文，例如 synthetic dataset、circle、square、triangle、mask、label、bbox、labels.csv、train split、test split、challenge。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-workshop-metrics-iou-confusion-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十章视觉实操工作坊指标评估图",
+        "suggested_page": "docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md",
+        "alt": "视觉实操工作坊指标评估图：classification accuracy、confusion matrix、box IoU、mask IoU 和 predictions.csv 共同解释模型表现。",
+        "prompt": """
+一张适合第十章视觉实操工作坊的评估指标图，主题是“视觉项目不能只看一张成功截图，要同时看分类、检测和分割指标”。
+画面表现 prediction rows 进入 metric panel：classification accuracy、confusion matrix、box IoU、mask IoU、confidence、mean metrics。
+展示 ground truth box 与 predicted box 计算 IoU，GT mask 与 predicted mask 计算 mask IoU，并写入 metrics.json 和 predictions.csv。
+风格像评估仪表盘、表格和重叠区域示意图结合。
+文字不是主体；标准术语保留英文，例如 classification accuracy、confusion matrix、box IoU、mask IoU、confidence、metrics.json、predictions.csv。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch10-workshop-failure-debug-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第十章视觉实操工作坊失败样本排查图",
+        "suggested_page": "docs/ch10-computer-vision/ch06-projects/03-hands-on-vision-workshop.md",
+        "alt": "视觉实操工作坊失败样本排查图：低置信度、低 box IoU、低 mask IoU、遮挡、小目标和低对比度样本进入 failure_cases.md。",
+        "prompt": """
+一张适合第十章视觉实操工作坊的失败样本排查图，主题是“视觉项目最有价值的证据往往来自失败样本”。
+画面展示 failure_cases.md 收集 low confidence、low box IoU、low mask IoU、occluded、small_object、low_contrast、blurred 等样本。
+旁边画出排查顺序：inspect original image、check preprocessing、check annotation、compare prediction visualization、choose fix action、rerun regression。
+风格像视觉错误样本墙、侦查清单和项目复盘板结合。
+文字不是主体；标准术语保留英文，例如 failure_cases.md、low confidence、box IoU、mask IoU、occluded、small_object、low_contrast、preprocessing、annotation、rerun regression。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch10-image-array-shape-channel-map.png",
         "size": "1536x1024",
         "quality": "medium",

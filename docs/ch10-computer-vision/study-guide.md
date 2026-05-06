@@ -44,6 +44,8 @@ For your second project, it is recommended to do object detection, such as helme
 
 For your third project, you can do image segmentation or OCR, depending on your direction, and choose medical imaging, document recognition, or industrial quality inspection.
 
+Before choosing a larger project, run the [reproducible vision mini pipeline](./ch06-projects/03-hands-on-vision-workshop.md). It is the baseline exercise for this stage: one script, synthetic images, classification, boxes, masks, metrics, and failure cases.
+
 ## Common sticking points
 
 The most common sticking point is mixing up classification, detection, and segmentation. You can first ask what the output is: a single category, multiple boxes, or a category for every pixel.
