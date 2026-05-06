@@ -7,7 +7,7 @@ keywords: [LLM hands-on workshop, prompt evaluation, structured output, fine-tun
 
 # Hands-on: Full Chapter 7 Workshop
 
-This workshop is the practical thread for the whole chapter. If you feel the chapter has many concepts, run this page once from top to bottom. You will not train a large model here. Instead, you will build the smallest repeatable workflow that connects tokens, request payloads, prompt versions, structured output validation, evaluation, and the Prompt/RAG/fine-tuning decision.
+This workshop is the practical thread for the whole chapter. If you feel the chapter has many concepts, run this page once from top to bottom. You will not train a large model here. Instead, you will build the smallest repeatable workflow that connects tokens, request payloads, prompt versions, structured output validation, evaluation, the Prompt/RAG/fine-tuning decision, and a small evidence pack you can review afterward.
 
 :::tip Learning rhythm
 Follow this order on each step: look at the picture, run or read the code, then check the printed result. If a concept is still vague, come back to the picture and trace the data flow with your finger.
@@ -21,7 +21,8 @@ By the end, you will have one runnable Python file that can:
 2. Compare three prompt versions on fixed test cases.
 3. Validate whether model-like output is real JSON with required fields.
 4. Decide whether a task should start with Prompt, structured output, RAG, or a fine-tuning plan.
-5. Produce output that can be saved as project evidence.
+5. Save token traces, prompt evaluation results, route decisions, failure cases, and a README into one local evidence folder.
+6. Explain the output like an engineer: what failed, why it failed, and what you would change next.
 
 The code intentionally uses only the Python standard library. That keeps the first run friendly for beginners and also makes the engineering idea clear before you connect a real model API.
 
@@ -53,6 +54,28 @@ Finally, do not jump to fine-tuning. First decide what kind of problem you actua
 
 For risky tasks, add behavior evaluation and human review boundaries.
 
+Now use these workshop-specific diagrams as your running checklist.
+
+![Chapter 7 hands-on workshop route](/img/course/ch07-hands-on-workshop-route-en.png)
+
+This is the route you will follow in the file: tokens, payloads, prompt versions, validation, route choice, and evidence.
+
+![Prompt payload and validation loop](/img/course/ch07-hands-on-payload-validation-loop-en.png)
+
+Every model-like answer must pass through a parser and field/type checks before the program trusts it.
+
+![Chapter 7 workshop code execution trace](/img/course/ch07-hands-on-code-execution-trace-en.png)
+
+When the script runs, it first builds traces, then evaluates prompts, then chooses solution routes, then saves files.
+
+![Prompt, RAG, and fine-tuning route ladder](/img/course/ch07-hands-on-route-decision-ladder-en.png)
+
+Do not jump to fine-tuning. Look at the failure type first and choose the cheapest reliable route.
+
+![Chapter 7 portfolio evidence pack](/img/course/ch07-hands-on-portfolio-evidence-pack-en.png)
+
+The final folder is part of the lesson: it makes the run reproducible and reviewable.
+
 ## 3. Create the project folder
 
 Create a small local folder for this workshop:
@@ -64,14 +87,18 @@ cd ch07_hands_on
 
 Then create a file named `llm_stage_workshop.py`.
 
+After you run it, the script will also create a folder named `ch07_workshop_evidence`. If the folder already exists, the files inside it will be overwritten with the newest run.
+
 ## 4. Paste and run the workshop code
 
 Save the following code into `llm_stage_workshop.py`:
 
 ```python
+import csv
 import json
 import math
 import hashlib
+from pathlib import Path
 
 
 SAMPLES = [
@@ -93,6 +120,7 @@ SAMPLES = [
 ]
 
 INTENTS = {"learning_plan", "structured_output", "solution_choice"}
+EVIDENCE_DIR = Path("ch07_workshop_evidence")
 
 
 def simple_tokenize(text):
@@ -124,7 +152,7 @@ def infer_intent(text):
 
 def build_payload(case, prompt_version):
     base = {
-        "model": "gpt-5.5",
+        "model": "gpt-5.2",
         "input": case["user_input"],
         "max_output_tokens": 180,
         "temperature": 0.2,
@@ -201,30 +229,113 @@ def solution_route(text):
     return "Prompt first"
 
 
-def main():
-    print("STEP 1: Token and vector trace")
+def build_token_trace():
+    rows = []
     for case in SAMPLES:
         tokens = simple_tokenize(case["user_input"])
-        print(f"{case['id']} tokens={tokens[:8]} ids={[stable_token_id(t) for t in tokens[:8]]} vector={tiny_embedding(tokens)}")
+        rows.append(
+            {
+                "case_id": case["id"],
+                "tokens": tokens,
+                "token_ids": [stable_token_id(token) for token in tokens],
+                "tiny_embedding": tiny_embedding(tokens),
+            }
+        )
+    return rows
 
-    print("\nSTEP 2: Prompt version evaluation")
+
+def evaluate_prompt_versions():
+    rows = []
     for version in ["v1_goal_only", "v2_json_contract", "v3_json_with_boundary"]:
-        passed = 0
-        failures = []
         for case in SAMPLES:
             payload = build_payload(case, version)
             raw = fake_model(payload, case)
             ok, reason, data = validate_output(raw)
             correct_intent = ok and data["intent"] == case["expected_intent"]
-            if correct_intent:
-                passed += 1
-            else:
-                failures.append(f"{case['id']}:{reason}")
-        print(f"{version}: {passed}/{len(SAMPLES)} passed; failures={failures or ['none']}")
+            if ok and not correct_intent:
+                reason = f"wrong_intent: {data['intent']} != {case['expected_intent']}"
+            rows.append(
+                {
+                    "prompt_version": version,
+                    "case_id": case["id"],
+                    "passed": correct_intent,
+                    "reason": "ok" if correct_intent else reason,
+                    "raw_output": raw,
+                }
+            )
+    return rows
 
+
+def build_route_decisions():
+    return [
+        {
+            "case_id": case["id"],
+            "user_input": case["user_input"],
+            "first_route": solution_route(case["user_input"]),
+        }
+        for case in SAMPLES
+    ]
+
+
+def save_evidence(token_rows, eval_rows, route_rows):
+    EVIDENCE_DIR.mkdir(exist_ok=True)
+    token_path = EVIDENCE_DIR / "token_trace.json"
+    eval_path = EVIDENCE_DIR / "prompt_eval.csv"
+    route_path = EVIDENCE_DIR / "route_decisions.json"
+    failure_path = EVIDENCE_DIR / "failure_cases.md"
+    readme_path = EVIDENCE_DIR / "README.md"
+
+    token_path.write_text(json.dumps(token_rows, indent=2, ensure_ascii=False), encoding="utf-8")
+    route_path.write_text(json.dumps(route_rows, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    with eval_path.open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=["prompt_version", "case_id", "passed", "reason", "raw_output"])
+        writer.writeheader()
+        writer.writerows(eval_rows)
+
+    failures = [row for row in eval_rows if not row["passed"]]
+    failure_lines = ["# Failure Cases", ""]
+    for row in failures:
+        failure_lines.append(f"- {row['prompt_version']} / {row['case_id']}: {row['reason']}")
+    failure_path.write_text("\n".join(failure_lines) + "\n", encoding="utf-8")
+
+    passed_v3 = sum(row["passed"] for row in eval_rows if row["prompt_version"] == "v3_json_with_boundary")
+    readme_path.write_text(
+        "# Chapter 7 LLM Workshop Evidence\n\n"
+        "Run command: `python llm_stage_workshop.py`\n\n"
+        f"Best prompt version: v3_json_with_boundary ({passed_v3}/{len(SAMPLES)} passed)\n\n"
+        "Review `failure_cases.md` before deciding whether to change Prompt, add RAG, or plan fine-tuning.\n",
+        encoding="utf-8",
+    )
+    return [token_path, eval_path, route_path, failure_path, readme_path]
+
+
+def main():
+    token_rows = build_token_trace()
+    print("STEP 1: Token and vector trace")
+    for row in token_rows:
+        print(
+            f"{row['case_id']} tokens={row['tokens'][:8]} "
+            f"ids={row['token_ids'][:8]} vector={row['tiny_embedding']}"
+        )
+
+    eval_rows = evaluate_prompt_versions()
+    print("\nSTEP 2: Prompt version evaluation")
+    for version in ["v1_goal_only", "v2_json_contract", "v3_json_with_boundary"]:
+        version_rows = [row for row in eval_rows if row["prompt_version"] == version]
+        passed = sum(row["passed"] for row in version_rows)
+        failures = [f"{row['case_id']}:{row['reason']}" for row in version_rows if not row["passed"]]
+        print(f"{version}: {passed}/{len(version_rows)} passed; failures={failures or ['none']}")
+
+    route_rows = build_route_decisions()
     print("\nSTEP 3: Solution route check")
-    for case in SAMPLES:
-        print(f"{case['id']} -> {solution_route(case['user_input'])}")
+    for row in route_rows:
+        print(f"{row['case_id']} -> {row['first_route']}")
+
+    saved_files = save_evidence(token_rows, eval_rows, route_rows)
+    print("\nSTEP 4: Evidence files")
+    for path in saved_files:
+        print(path.as_posix())
 
 
 if __name__ == "__main__":
@@ -256,6 +367,13 @@ STEP 3: Solution route check
 case_1 -> Prompt first
 case_2 -> Structured output
 case_3 -> Prompt eval first, then fine-tuning plan
+
+STEP 4: Evidence files
+ch07_workshop_evidence/token_trace.json
+ch07_workshop_evidence/prompt_eval.csv
+ch07_workshop_evidence/route_decisions.json
+ch07_workshop_evidence/failure_cases.md
+ch07_workshop_evidence/README.md
 ```
 
 ## 6. What each step means
@@ -268,6 +386,7 @@ case_3 -> Prompt eval first, then fine-tuning plan
 | `v2_json_contract` | JSON helps, but missing fields and wrong enum values still break the workflow | Structured output validation |
 | `v3_json_with_boundary` | Adding allowed values, types, and review rules makes the result testable | Prompt iteration and schema design |
 | `solution_route` | Different problems need different first moves | Prompt, RAG, structured output, fine-tuning boundaries |
+| `ch07_workshop_evidence` | The run is saved as files that can be inspected, compared, and shared | Reproducible project evidence |
 
 ## 7. Beginner troubleshooting
 
@@ -277,6 +396,7 @@ case_3 -> Prompt eval first, then fine-tuning plan
 | Output differs in spacing | Python may print lists with small formatting differences | Focus on pass counts and failure reasons |
 | `invalid_json` appears | The simulated model returned natural language, not JSON | This is intentional for `v1_goal_only` |
 | `missing_fields` appears | The output contract was not strict enough | Compare `v2_json_contract` with `v3_json_with_boundary` |
+| Evidence files are not created | You ran the script in a read-only folder or stopped before `STEP 4` | Run it in a normal project folder and check that `STEP 4` printed file paths |
 | You want a real model call | The workshop is offline by design | First finish this page, then use the LLM Call Workbench optional API section |
 
 ## 8. Optional: replace the fake model later
@@ -284,7 +404,7 @@ case_3 -> Prompt eval first, then fine-tuning plan
 After the offline workflow is clear, you can replace `fake_model()` with a real model call. For current OpenAI text-generation work, prefer the Responses API and structured outputs instead of copying old chat-completion examples.
 
 :::info Model names change
-This workshop uses `gpt-5.5` in payload examples because the current OpenAI model docs list GPT-5.5 as the latest entry. For production code, keep `OPENAI_MODEL` configurable and check the official [OpenAI Models](https://platform.openai.com/docs/models), [Responses API](https://platform.openai.com/docs/api-reference/responses/create), and [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) docs before publishing.
+This workshop uses `gpt-5.2` in payload examples because the current OpenAI model docs list GPT-5.2 as the newest frontier model. For production code, keep `OPENAI_MODEL` configurable and check the official [OpenAI Models](https://platform.openai.com/docs/models), [Responses API](https://platform.openai.com/docs/api-reference/responses/create), and [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) docs before publishing.
 :::
 
 A real structured-output call can look like this:
@@ -305,7 +425,7 @@ class RouteResult(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
+    model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
     input=[
         {
             "role": "system",
@@ -328,23 +448,30 @@ print(response.output_parsed.model_dump())
 Run the real version only after installing dependencies and setting your key:
 
 ```bash
-pip install openai pydantic
+pip install --upgrade openai pydantic
 export OPENAI_API_KEY="your_api_key_here"
 python real_route_call.py
 ```
 
-## 9. Portfolio evidence to save
+## 9. Read the evidence pack
 
-For the minimum version, save the terminal output from `llm_stage_workshop.py`.
+The script now saves the minimum portfolio version automatically. Open the folder after the run:
 
-For the portfolio version, add:
+```bash
+ls ch07_workshop_evidence
+```
+
+You should see:
 
 | File | What to put inside |
 |---|---|
-| `README.md` | What the workshop does, how to run it, and what the output means |
-| `prompt_versions.md` | Differences among `v1_goal_only`, `v2_json_contract`, and `v3_json_with_boundary` |
-| `failure_cases.md` | Why `v1` fails JSON parsing and why `v2` fails on `case_3` |
-| `decision_table.md` | Which tasks start with Prompt, structured output, RAG, or fine-tuning |
+| `README.md` | Run command, best prompt version, and the next review step |
+| `token_trace.json` | Tokens, token ids, and tiny vectors for every case |
+| `prompt_eval.csv` | One row per prompt version and test case, including pass/fail reason |
+| `route_decisions.json` | Which first route each case should use |
+| `failure_cases.md` | The failures you should inspect before changing Prompt, adding RAG, or planning fine-tuning |
+
+Open `failure_cases.md` first. It tells you why `v1` is not machine-readable and why `v2` is still not strict enough. That is the habit this chapter is trying to build: never decide based on one impressive answer; decide from repeatable failures and saved evidence.
 
 ## 10. Exit checklist
 

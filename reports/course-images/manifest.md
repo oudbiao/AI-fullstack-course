@@ -274,6 +274,11 @@
 | `ch07-rlhf-reward-kl-loop-map.png` | RLHF 奖励模型与 KL 约束闭环图 | `docs/ch07-llm-principles/ch07-alignment/02-rlhf.md` | RLHF 奖励与 KL 图：偏好对训练 Reward Model，策略模型朝高奖励更新，同时 Reference Model 和 KL penalty 防止模型跑偏。 |
 | `ch07-dpo-rlhf-shortcut-map.png` | DPO 相比 RLHF 的偏好优化捷径图 | `docs/ch07-llm-principles/ch07-alignment/03-alternative-methods.md` | DPO 与 RLHF 对比图：RLHF 长链需要奖励模型和 PPO，DPO 直接用 chosen/rejected 偏好对优化策略边距。 |
 | `ch07-domain-finetune-evaluation-board-map.png` | 垂直领域微调项目评估看板图 | `docs/ch07-llm-principles/ch08-projects/01-domain-finetuning.md` | 垂直领域微调项目评估看板图：任务边界、SFT 数据、Prompt/RAG baseline、评估规则、before/after 和失败样例组成作品级微调项目看板。 |
+| `ch07-hands-on-workshop-route.png` | 第 7 章 LLM 实操工作坊路线图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | 第 7 章 LLM 实操工作坊路线图：tokens、payload、Prompt 版本、结构化校验、方案选择和证据包组成一条可跟做路线。 |
+| `ch07-hands-on-payload-validation-loop.png` | Prompt payload 与结构化校验闭环图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | Prompt payload 与结构化校验闭环图：instructions、input、model、temperature 组成请求，输出经过 JSON parser、field check、type check 和 retry/human review。 |
+| `ch07-hands-on-code-execution-trace.png` | 第 7 章工作坊代码执行顺序图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | 第 7 章工作坊代码执行顺序图：main 依次执行 build_token_trace、evaluate_prompt_versions、build_route_decisions、save_evidence 并打印 STEP 1 到 STEP 4。 |
+| `ch07-hands-on-route-decision-ladder.png` | Prompt、RAG 与微调路线阶梯图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | Prompt、RAG 与微调路线阶梯图：先看失败类型，格式问题用结构化输出，知识问题用 RAG，稳定行为问题再评估微调。 |
+| `ch07-hands-on-portfolio-evidence-pack.png` | 第 7 章作品集证据包图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | 第 7 章作品集证据包图：README、token_trace.json、prompt_eval.csv、route_decisions.json 和 failure_cases.md 组成可复现 LLM 工程证据。 |
 | `ch08-rag-engineering.png` | LLM 应用与 RAG 主视觉 | `docs/ch08-rag/index.md` | LLM 应用与 RAG 主视觉：文档处理、向量库、检索、Prompt、API 和日志组成知识库系统。 |
 | `ch08-learning-quest-map.png` | RAG 学习闯关地图 | `docs/ch08-rag/index.md` | RAG 学习闯关地图：准备文档、切分、Embedding、向量库、检索、Prompt、生成带来源答案、评估和优化逐步连接。 |
 | `ch08-rag-system-backbone.png` | RAG 应用系统主干图 | `docs/ch08-rag/index.md` | RAG 应用系统主干图：用户问题经过查询改写、向量检索、文档召回、重排、上下文拼接、LLM 生成、引用评估和日志记录。 |

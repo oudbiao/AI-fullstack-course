@@ -75,7 +75,7 @@ def build_payload(user_task, max_output_tokens=600, temperature=0.3):
     remaining = CONTEXT_LIMIT - used_tokens - max_output_tokens
 
     payload = {
-        "model": "gpt-5.5",
+        "model": "gpt-5.2",
         "instructions": instructions,
         "input": input_text,
         "text": {"format": {"type": "json_object"}},
@@ -160,7 +160,7 @@ run_workbench("Explain AI history with simple language.")
 ```text
 used input tokens estimate: 36
 remaining output room     : 3460
-request model             : gpt-5.5
+request model             : gpt-5.2
 
 attempt: 1
 validation: era_0_missing_['summary']
@@ -202,7 +202,7 @@ Payload には `model`、`instructions`、`input`、`text.format`、`max_output_
 API key がある場合は、公式 OpenAI Python SDK と現代的な Responses API で同じ考え方を試せます。まずオフラインのワークベンチを理解してから実行しましょう。
 
 ```bash
-pip install openai pydantic
+pip install --upgrade openai pydantic
 export OPENAI_API_KEY="your_api_key_here"
 python real_responses_call.py
 ```
@@ -226,7 +226,7 @@ class Timeline(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
+    model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
     input=[
         {
             "role": "system",

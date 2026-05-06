@@ -3972,6 +3972,80 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch07-hands-on-workshop-route.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 7 章 LLM 实操工作坊路线图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+        "alt": "第 7 章 LLM 实操工作坊路线图：tokens、payload、Prompt 版本、结构化校验、方案选择和证据包组成一条可跟做路线。",
+        "prompt": """
+一张竖版、漫画式、流程式的第 7 章 LLM 实操工作坊路线图，主题是“从一句用户请求到可复盘证据包”。
+画面从上到下分成 6 个步骤：token trace、request payload、prompt versions、JSON validation、route decision、evidence pack。
+每一步都像课程卡片，有箭头连接，旁边有小型终端窗口和文件夹图标，强调用户可以一步一步跟着做。
+文字不是主体；标准术语保留英文，例如 token trace、payload、Prompt v1/v2/v3、JSON validation、RAG、fine-tuning、evidence pack。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-hands-on-payload-validation-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Prompt payload 与结构化校验闭环图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+        "alt": "Prompt payload 与结构化校验闭环图：instructions、input、model、temperature 组成请求，输出经过 JSON parser、field check、type check 和 retry/human review。",
+        "prompt": """
+一张竖版流程图，主题是“模型回答不能直接进业务流程，必须先通过结构化校验”。
+上半部分展示 request payload 卡片，字段包括 model、instructions、input、max_output_tokens、temperature、prompt_version。
+中间展示 model-like output 进入 JSON parser，然后经过 field check、type check、enum check、range check。
+下半部分分成两条结果：valid output -> workflow；invalid output -> failure reason -> prompt revision / retry / human review。
+文字不是主体；标准术语保留英文，例如 request payload、JSON parser、field check、type check、enum check、retry、human review。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-hands-on-code-execution-trace.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 7 章工作坊代码执行顺序图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+        "alt": "第 7 章工作坊代码执行顺序图：main 依次执行 build_token_trace、evaluate_prompt_versions、build_route_decisions、save_evidence 并打印 STEP 1 到 STEP 4。",
+        "prompt": """
+一张竖版代码执行顺序图，主题是“main 函数如何一步步生成第 7 章证据包”。
+画面像代码走查漫画：main() 从顶部开始，依次进入 build_token_trace()、evaluate_prompt_versions()、build_route_decisions()、save_evidence()。
+右侧对应打印区域：STEP 1 token/vector、STEP 2 prompt evaluation、STEP 3 route check、STEP 4 evidence files。
+底部展示 ch07_workshop_evidence 文件夹包含 token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md、README.md。
+文字不是主体；标准术语保留英文，例如 main()、build_token_trace、evaluate_prompt_versions、save_evidence、STEP 1、prompt_eval.csv。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-hands-on-route-decision-ladder.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Prompt、RAG 与微调路线阶梯图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+        "alt": "Prompt、RAG 与微调路线阶梯图：先看失败类型，格式问题用结构化输出，知识问题用 RAG，稳定行为问题再评估微调。",
+        "prompt": """
+一张竖版对比式路线阶梯图，主题是“不要一开始就 fine-tuning，要先根据失败类型选择路线”。
+阶梯从低成本到高成本：Prompt first、Structured output、RAG first、Prompt eval then fine-tuning plan。
+每一级旁边放一个失败症状卡片：unclear instruction、invalid JSON、missing source/latest policy、stable brand tone failure。
+用箭头表现从 failure_cases.md 回到 route decision，再选择下一步。
+文字不是主体；标准术语保留英文，例如 Prompt first、Structured output、RAG first、fine-tuning plan、failure_cases.md、route decision。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch07-hands-on-portfolio-evidence-pack.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 7 章作品集证据包图",
+        "suggested_page": "docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md",
+        "alt": "第 7 章作品集证据包图：README、token_trace.json、prompt_eval.csv、route_decisions.json 和 failure_cases.md 组成可复现 LLM 工程证据。",
+        "prompt": """
+一张竖版作品集证据包图，主题是“跑完工作坊后要留下什么，别人才能复现你的判断”。
+画面中心是 ch07_workshop_evidence 文件夹，里面清楚展示 README.md、token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md 五个文件。
+每个文件连到一个用途：how to run、token evidence、prompt scorecard、method choice、failure review。
+底部展示 reviewer 看证据包后能回答三个问题：what was tested、what failed、what changes next。
+文字不是主体；标准术语保留英文，例如 README.md、token_trace.json、prompt_eval.csv、route_decisions.json、failure_cases.md、reviewer。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch08-rag-engineering.png",
         "size": "1536x1024",
         "quality": "medium",
