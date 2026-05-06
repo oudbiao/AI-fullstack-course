@@ -40,6 +40,9 @@ keywords: [NLP速成导读, tokenizer, embedding, HuggingFace]
 4. 最后看 Hugging Face
    再把前面这些对象真正落到库调用上。
 
+5. 跑 Tokenizer 与 Embedding 实验室
+   用一个可运行例子把 token、`input_ids`、`attention_mask`、embedding 和相似度连起来。
+
 ## 这一章最该先抓住什么
 
 - 这一章不是重学 NLP，而是在给大模型主线补最小可用文本底座
@@ -70,7 +73,7 @@ keywords: [NLP速成导读, tokenizer, embedding, HuggingFace]
 | 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
 ## 本章小项目出口
 
-学完这一章后，建议完成一个最小练习：选择一个本章最核心的概念或工具，做出一个可以运行、可以截图、可以写进 README 的小成果。它不需要复杂，但要能说明输入是什么、处理过程是什么、输出结果是什么。
+学完这一章后，建议完成 Tokenizer 与 Embedding 实验室，并把打印结果保存到学习笔记里。它不需要复杂，但要能说明输入是什么、怎样变成 `input_ids`、mask 怎样工作，以及最终向量怎样被比较。
 
 ## 过关标准
 

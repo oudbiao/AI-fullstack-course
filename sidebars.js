@@ -485,6 +485,7 @@ const sidebars = {
                 "ch07-llm-principles/ch01-nlp-crash/embeddings",
                 "ch07-llm-principles/ch01-nlp-crash/pretrained-models",
                 "ch07-llm-principles/ch01-nlp-crash/huggingface-quickstart",
+                "ch07-llm-principles/ch01-nlp-crash/tokenizer-embedding-lab",
                 "ch07-llm-principles/ch02-llm-overview/roadmap",
                 "ch07-llm-principles/ch02-llm-overview/development-history",
                 "ch07-llm-principles/ch02-llm-overview/core-concepts",

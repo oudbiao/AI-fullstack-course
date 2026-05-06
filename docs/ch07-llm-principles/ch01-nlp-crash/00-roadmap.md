@@ -40,6 +40,9 @@ Once you learn this chapter solidly, it will be much easier to understand LLM tr
 4. Finally, look at Hugging Face
    Then map all of the above concepts to actual library calls.
 
+5. Run the tokenizer and embedding lab
+   Connect tokens, `input_ids`, `attention_mask`, embeddings, and similarity in one runnable example.
+
 ## What You Should Focus on First
 
 - This chapter is not about relearning NLP, but about adding the minimum usable text foundation for the LLM track
@@ -70,7 +73,7 @@ Experienced learners can treat this chapter as a chance to fill gaps and practic
 | What can you document after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
 ## Small Project Outcome for This Chapter
 
-After finishing this chapter, it is recommended that you complete a minimum exercise: choose the most core concept or tool from this chapter and create something runnable, screenshot-ready, and ready to be included in a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output result is.
+After finishing this chapter, it is recommended that you complete the tokenizer and embedding lab, then save the printed output into your notes. It does not need to be complex, but it should clearly show what the input is, how it becomes `input_ids`, how the mask works, and how the final vectors can be compared.
 
 ## Passing Standard
 
