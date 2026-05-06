@@ -45,6 +45,10 @@ The dataset is synthetic and generated locally, so you do not need to download a
 | Error analysis | Save mispredicted samples |
 | Portfolio evidence | Save README, metrics, error samples, and leakage notes |
 
+![Train/test split hands-on guardrail](/img/course/ch05-hands-on-data-split-lab-en.png)
+
+Read the diagram before you run the script. The target column `delayed` is the answer the model is trying to learn. It must stay out of `X`. The training split is where preprocessing and model parameters are learned; the test split is held back for the final check. If you mix these roles, the score may look good while the project is already broken.
+
 ---
 
 ## 2. Evidence Flow: From Data to Report
@@ -117,6 +121,8 @@ This workshop uses stable scikit-learn APIs such as `Pipeline`, `ColumnTransform
 
 ![Machine learning workshop code execution sequence](/img/course/ch05-hands-on-code-execution-sequence-en.png)
 
+This is the order you will follow: create a clean folder, copy one script, run it once, then inspect the generated evidence. Do not edit the model first. The first run is your reference point.
+
 ### 4.1 Create a Clean Folder
 
 ```bash
@@ -125,6 +131,8 @@ cd ch05-ml-workshop
 ```
 
 ### 4.2 Create `ml_workshop.py`
+
+![ColumnTransformer and Pipeline training flow](/img/course/ch05-hands-on-pipeline-training-flow-en.png)
 
 Copy the code below into `ml_workshop.py`.
 
@@ -474,15 +482,60 @@ ml_workshop_run/outputs/error_samples.csv
 ml_workshop_run/reports/leakage_check.md
 ```
 
+### 4.4 Verify the Generated Evidence
+
+Before interpreting any score, confirm that the evidence files were actually created.
+
+```bash
+find ml_workshop_run -maxdepth 2 -type f | sort
+```
+
+Expected output:
+
+```text
+ml_workshop_run/README.md
+ml_workshop_run/data/learning_tasks.csv
+ml_workshop_run/data/schema.json
+ml_workshop_run/outputs/best_model_metrics.json
+ml_workshop_run/outputs/classification_report.txt
+ml_workshop_run/outputs/error_samples.csv
+ml_workshop_run/outputs/model_comparison.csv
+ml_workshop_run/outputs/threshold_review.csv
+ml_workshop_run/reports/experiment_log.md
+ml_workshop_run/reports/leakage_check.md
+```
+
 ---
 
 ## 5. Read the Output Step by Step
+
+![Threshold and metric decision lab](/img/course/ch05-hands-on-threshold-decision-lab-en.png)
 
 ### 5.1 Start with the baseline
 
 Open `ml_workshop_run/outputs/model_comparison.csv`.
 
 The `Dummy baseline` usually gets `f1 = 0`. This is not a failure. It is the floor. If a real model cannot beat this floor, your data, feature design, metric, or task definition is not ready.
+
+Use this quick reader so you are not guessing from the raw CSV:
+
+```bash
+python - <<'PY'
+import pandas as pd
+
+comparison = pd.read_csv("ml_workshop_run/outputs/model_comparison.csv")
+print(comparison[["model", "test_f1", "test_recall", "test_auc"]].to_string(index=False))
+PY
+```
+
+Expected output:
+
+```text
+              model  test_f1  test_recall  test_auc
+Logistic Regression    0.821        0.941     0.934
+      Random Forest    0.571        0.471     0.871
+     Dummy baseline    0.000        0.000     0.500
+```
 
 ### 5.2 Check the real model
 
@@ -501,7 +554,40 @@ Open `ml_workshop_run/outputs/threshold_review.csv`.
 
 For a delay-risk model, recall may matter more than precision: if the goal is to help learners early, missing high-risk learners may be more expensive than sending a few extra reminders. A threshold is therefore a project decision, not just a model default.
 
+Run this small decision helper. It chooses the best row whose recall is at least `0.90`, then prints the trade-off in plain text.
+
+```bash
+python - <<'PY'
+import pandas as pd
+
+thresholds = pd.read_csv("ml_workshop_run/outputs/threshold_review.csv")
+choice = thresholds[thresholds["recall"] >= 0.90].sort_values(
+    ["f1", "precision"],
+    ascending=False,
+).iloc[0]
+
+print(f"chosen_threshold={choice.threshold:.2f}")
+print(
+    f"precision={choice.precision:.3f} "
+    f"recall={choice.recall:.3f} "
+    f"f1={choice.f1:.3f} "
+    f"flagged={int(choice.flagged_students)}"
+)
+PY
+```
+
+Expected output:
+
+```text
+chosen_threshold=0.50
+precision=0.727 recall=0.941 f1=0.821 flagged=22
+```
+
+If your business goal changes, change the rule. For example, `recall >= 0.80` may be enough for a low-cost reminder system, while a medical or safety workflow may require a much stricter recall target and human review.
+
 ### 5.4 Inspect the errors
+
+![Error analysis bucket review](/img/course/ch05-hands-on-error-bucket-review-en.png)
 
 Open `ml_workshop_run/outputs/error_samples.csv`.
 
@@ -512,6 +598,40 @@ Ask:
 - Do the features describe the real reason for delay, or are important signals missing?
 
 Error analysis turns the project from “a score” into “an investigation.”
+
+Use a second quick reader to bucket the wrong predictions:
+
+```bash
+python - <<'PY'
+import pandas as pd
+
+errors = pd.read_csv("ml_workshop_run/outputs/error_samples.csv")
+errors["error_type"] = errors.apply(
+    lambda row: "false_negative" if row.actual_delayed == 1 else "false_positive",
+    axis=1,
+)
+
+print(errors["error_type"].value_counts().to_string())
+print("--- by track ---")
+print(errors.groupby(["error_type", "track"]).size().to_string())
+PY
+```
+
+Expected output:
+
+```text
+error_type
+false_positive    6
+false_negative    1
+--- by track ---
+error_type      track
+false_negative  data     1
+false_positive  app      2
+                data     3
+                model    1
+```
+
+Read this as a to-do list, not as blame. False positives may mean the model is too cautious. False negatives are usually more urgent when the product goal is early help.
 
 ### 5.5 Read the leakage check
 
@@ -544,6 +664,8 @@ That is why this example uses `ColumnTransformer` inside `Pipeline`.
 
 ![Machine learning portfolio evidence pack](/img/course/ch05-hands-on-portfolio-pack-en.png)
 
+![Experiment rerun loop for the ML workshop](/img/course/ch05-hands-on-rerun-experiment-loop-en.png)
+
 Upgrade the workshop in small steps:
 
 1. Replace the synthetic dataset with a CSV from your own project.
@@ -552,6 +674,28 @@ Upgrade the workshop in small steps:
 4. Add a confusion matrix plot or threshold curve.
 5. Write one paragraph explaining the top 3 error patterns.
 6. Add a “what I would improve next” section to `README.md`.
+
+Do one tiny iteration before you leave this page. Append an experiment note, then rerun the script after you change exactly one thing, such as `max_depth=8` for the random forest.
+
+```bash
+python - <<'PY'
+from pathlib import Path
+
+log_path = Path("ml_workshop_run/reports/experiment_log.md")
+log = log_path.read_text(encoding="utf-8")
+log += "\n| v2 | Try RandomForest max_depth=8 | Compare CV F1 and test F1 after rerun | Keep only if both stay stable |\n"
+log_path.write_text(log, encoding="utf-8")
+print(log_path.read_text(encoding="utf-8"))
+PY
+```
+
+Expected output includes this new row:
+
+```text
+| v2 | Try RandomForest max_depth=8 | Compare CV F1 and test F1 after rerun | Keep only if both stay stable |
+```
+
+This is the habit you want from Chapter 5: change one variable, rerun, compare evidence, then decide. Random experimentation is not yet modeling practice; recorded experimentation is.
 
 ### Portfolio Checklist
 

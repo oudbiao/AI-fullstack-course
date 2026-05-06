@@ -1367,3 +1367,15 @@
 {"at": "2026-05-06T18:49:23.708007+00:00", "filename": "ch01-hands-on-env-editor-notebook-flow-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T18:50:32.489028+00:00", "filename": "ch01-hands-on-debug-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T18:53:52.448590+00:00", "filename": "ch01-hands-on-portfolio-pack-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T23:05:22.489761+00:00", "filename": "ch05-hands-on-data-split-lab-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T23:06:30.440229+00:00", "filename": "ch05-hands-on-pipeline-training-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T23:07:40.318813+00:00", "filename": "ch05-hands-on-threshold-decision-lab-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T23:08:57.020665+00:00", "filename": "ch05-hands-on-error-bucket-review-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T23:10:19.149400+00:00", "filename": "ch05-hands-on-rerun-experiment-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T23:19:16.399918+00:00", "filename": "ch05-hands-on-data-split-lab-ja.png", "locale": "ja", "status": "error", "error": "Image API network error for ch05-hands-on-data-split-lab-ja.png."}
+{"at": "2026-05-06T23:20:35.829687+00:00", "filename": "ch05-hands-on-pipeline-training-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T23:22:05.326723+00:00", "filename": "ch05-hands-on-threshold-decision-lab-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T23:24:06.697115+00:00", "filename": "ch05-hands-on-error-bucket-review-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T23:32:23.675755+00:00", "filename": "ch05-hands-on-rerun-experiment-loop-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T23:44:40.656860+00:00", "filename": "ch05-hands-on-data-split-lab-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 524 for ch05-hands-on-data-split-lab-ja.png: <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>airoads.org | 524: A timeout occurred</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Compat"}
+{"at": "2026-05-06T23:50:13+00:00", "filename": "ch05-hands-on-data-split-lab-ja.png", "locale": "ja", "status": "generated"}

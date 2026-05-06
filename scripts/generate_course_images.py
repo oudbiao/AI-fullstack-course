@@ -2527,6 +2527,85 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch05-hands-on-data-split-lab.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "训练测试划分实操护栏图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "训练测试划分实操护栏图：target 列留作答案，X 特征进入 train/test split，训练集 fit 预处理和模型，测试集只做最终验收。",
+        "prompt": """
+一张适合第 5 章机器学习实操工作坊的竖版教学图，主题是“先把数据角色分清楚，再训练模型”。
+画面从一张 learning_tasks.csv 数据表开始，突出 target column delayed 作为答案，其他列进入 X features。
+随后数据进入 train/test split：train split 用来 fit imputer、scaler、encoder 和 model；test split 被放在带锁的 final check 区域，只用于最后 evaluate。
+用红色警示卡表现错误做法：target enters X、fit scaler on all data、tune on test set。
+风格像分步骤漫画流程和数据科学白板结合，竖版、清晰、适合新手跟做。
+文字不是主体；标准术语保留英文，例如 X、y、target、train/test split、fit、evaluate、leakage。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-pipeline-training-flow.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "ColumnTransformer 与 Pipeline 训练流程图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "ColumnTransformer 与 Pipeline 训练流程图：数值列和类别列分别预处理后合并，再进入 Dummy、Logistic Regression 和 Random Forest 比较。",
+        "prompt": """
+一张适合机器学习综合实操的竖版流程图，主题是“Pipeline 把预处理和模型训练绑在一起，避免手滑泄漏”。
+画面展示 numeric features 进入 median imputer 和 StandardScaler，categorical features 进入 most_frequent imputer 和 OneHotEncoder(handle_unknown ignore)，两路汇入 ColumnTransformer。
+ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Regression、Random Forest，最后进入 cross_validate 和 model_comparison.csv。
+强调同一套 Pipeline 在训练、验证和测试中复用。
+风格像工程流水线和课程漫画结合，模块分明、竖版。
+文字不是主体；API 和文件名保留英文，例如 ColumnTransformer、Pipeline、StandardScaler、OneHotEncoder、cross_validate、model_comparison.csv。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-threshold-decision-lab.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "阈值与指标决策实验图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "阈值与指标决策实验图：概率输出经过不同 threshold 后改变 precision、recall、F1 和 flagged_students。",
+        "prompt": """
+一张适合第 5 章实操工作坊的竖版决策实验图，主题是“阈值不是默认值，而是项目选择”。
+画面上方是 Logistic Regression 输出的一排 probability scores；中间有可移动 threshold slider，展示 0.30、0.50、0.70 三个位置。
+每个位置连接到小指标卡：Precision、Recall、F1、flagged_students，表现阈值降低时召回提高但误报增加，阈值升高时预测更谨慎但漏报可能增加。
+底部展示业务规则卡：choose recall target first。
+风格像交互式仪表盘和教学漫画结合，竖版、清楚。
+文字不是主体；标准术语保留英文，例如 probability、threshold、Precision、Recall、F1、flagged_students。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-error-bucket-review.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "错误样本分桶复盘图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "错误样本分桶复盘图：error_samples.csv 被分成 false positive 和 false negative，再按 track、study_mode 和特征模式复盘。",
+        "prompt": """
+一张适合机器学习实操页的竖版错误分析图，主题是“不要只看分数，要把错例分桶”。
+画面从 error_samples.csv 文件进入 error analysis table，分成 false positive 和 false negative 两个桶。
+每个桶继续连接到 track、study_mode、high quiz low practice、many forum questions 等小标签，最后输出 next feature idea、threshold adjustment、data quality check 三类行动。
+强调错误样本是下一轮实验的入口。
+风格像侦探看板和数据表复盘结合，竖版、清晰、新手友好。
+文字不是主体；标准术语和文件名保留英文，例如 error_samples.csv、false positive、false negative、track、study_mode、next action。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch05-hands-on-rerun-experiment-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "机器学习实验复跑闭环图",
+        "suggested_page": "docs/ch05-machine-learning/ch06-projects/05-hands-on-ml-workshop.md",
+        "alt": "机器学习实验复跑闭环图：一次只改一个变量，rerun script，比较 CV/Test 指标，记录 experiment_log，再决定保留或回滚。",
+        "prompt": """
+一张适合第 5 章工作坊结尾的竖版实验闭环图，主题是“记录过的复跑才是建模实践”。
+画面从 experiment idea 开始，进入 change one variable，例如 max_depth=8 或 threshold target；随后 rerun script，compare CV F1 and test F1，inspect errors，update experiment_log.md，最后分支为 keep 或 rollback。
+底部展示 README next steps 和 portfolio evidence。
+风格像项目迭代看板和数据科学实验日志结合，竖版、专业但新手友好。
+文字不是主体；标准术语和文件名保留英文，例如 experiment_log.md、change one variable、rerun、CV F1、test F1、keep、rollback。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch05-hands-on-code-execution-sequence.png",
         "size": "1024x1792",
         "quality": "high",
