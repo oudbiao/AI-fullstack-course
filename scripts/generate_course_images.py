@@ -2906,6 +2906,81 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch06-hands-on-dl-workshop-route.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第 6 章 PyTorch 实操工作坊路线图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "第 6 章 PyTorch 实操工作坊路线图：从 shape trace、Dataset、DataLoader、baseline、CNN、训练曲线、checkpoint 到 README 证据包。",
+        "prompt": """
+一张适合第 6 章深度学习综合实操工作坊的竖版路线图，主题是“从 tensor shape 到 PyTorch 训练证据包”。
+画面从上到下分成 8 个可跟做步骤：shape trace、Dataset、DataLoader、Flatten baseline、Tiny CNN、training loop、validation curve、checkpoint + README evidence。
+旁边小卡片显示 CrossEntropyLoss、Adam、loss_curve.png、model_comparison.csv、error_samples.csv。
+风格像跟做课程的分步骤漫画流程，竖版、清晰、适合新人。
+文字不是主体；标准术语保留英文，例如 tensor、Dataset、DataLoader、CNN、loss、validation、checkpoint、README。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-training-evidence-pipeline.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "深度学习训练证据流水线图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "深度学习训练证据流水线图：training_log、model comparison、confusion matrix、review samples、loss curve、checkpoint 和 README 串成证据链。",
+        "prompt": """
+一张适合 PyTorch 实操页的竖版证据流水线图，主题是“训练不是 done，而是每一步都有证据”。
+画面表现 synthetic images、shape_trace.md、training_log.csv、model_comparison.csv、confusion_matrix.csv、error_samples.csv、loss_curve.png、best_model.pt、README.md 串成训练证据链。
+用箭头强调从数据、训练、验证、复盘样本、曲线到作品集交付的流转。
+风格像训练控制台、文件夹流程图和课程漫画结合，竖版、分步骤、清楚实用。
+文字不是主体；标准术语和文件名保留英文。中文只用短提示。不要整段英文说明、乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-code-execution-sequence.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "PyTorch 工作坊代码执行顺序图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "PyTorch 工作坊代码执行顺序图：main 函数依次重置目录、生成数据、划分数据、构建 DataLoader、训练 baseline 和 CNN、评估、保存曲线和报告。",
+        "prompt": """
+一张竖版代码执行顺序图，主题是“main() 如何串起完整 PyTorch 项目”。
+步骤从上到下：reset workspace、build synthetic dataset、random_split、DataLoader、shape trace、train Flatten baseline、train Tiny CNN、validate、predict samples、plot loss curve、save checkpoint、write README。
+画面像代码调用栈和训练看板结合，突出每个函数输出的文件。
+风格清晰、适合新人跟着代码运行和定位卡点。
+文字不是主体；函数名、API、文件名保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-shape-debug-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "PyTorch shape 与训练排错闭环图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "PyTorch shape 与训练排错闭环图：先查 tensor shape、label format、loss curve、validation gap 和 batch size，再回到证据文件。",
+        "prompt": """
+一张竖版常见错误排查闭环图，主题是“PyTorch 出错时先查 shape、loss 和曲线”。
+故障卡片包括：ModuleNotFoundError、Expected 4D input to conv2d、Target size error、loss not decreasing、overfitting、out of memory。
+每个故障卡连到动作：install torch、print batch shape、check CrossEntropyLoss labels、lower learning rate、compare train/val curves、reduce BATCH_SIZE。
+风格像排错流程漫画和工程检查表结合，红色警示但不吓人，适合新人。
+文字不是主体；错误名、API、文件名保留英文。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-portfolio-pack.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "深度学习作品集证据包图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "深度学习作品集证据包图：运行命令、shape trace、训练日志、loss 曲线、模型对比、checkpoint、复盘样本和下一步计划组成可复现交付。",
+        "prompt": """
+一张竖版作品集证据包图，主题是“第 6 章项目交付要让别人能复现、能诊断、能继续改”。
+画面像一个打开的深度学习项目文件夹和作品集页面，文件夹卡片包括 run command、shape trace、training_log.csv、loss_curve.png、model comparison、checkpoint、review samples、debug checklist、next steps。
+强调训练证据不是装饰，而是项目交付的一部分。
+风格专业、干净、有作品集质感，适合放在实操课程末尾。
+文字不是主体；标准术语和文件名保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch06-neuron-linear-activation-gate.png",
         "size": "1536x1024",
         "quality": "medium",

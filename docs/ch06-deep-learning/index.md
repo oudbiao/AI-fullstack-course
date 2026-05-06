@@ -58,6 +58,10 @@ When beginners learn this stage for the first time, they should first understand
 
 Experienced learners can focus on training diagnostics: how to detect overfitting, how learning rate affects the curve, when data augmentation and regularization are useful, and why Transformer changed sequence modeling. Your goal is to be able to explain why a training run succeeded or failed.
 
+:::info Hands-on checkpoint
+If you want one guided run before choosing a larger deep learning project, start with [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md). It creates a local dataset, baseline, CNN, training logs, validation curves, checkpoint, shape trace, review samples, and README evidence.
+:::
+
 ## Learning Path for This Stage
 
 Chapter 1 covers neural network basics and the main thread of historical breakthroughs. You will understand perceptrons, XOR limitations, backpropagation, neurons, activation functions, forward propagation, backpropagation, optimizers, regularization, and parameter initialization.
@@ -125,6 +129,8 @@ If you can plot the training loss and validation loss, and explain why they chan
 ## Stage Projects
 
 The basic version is to train a simple image classification or text sentiment classification model that can complete data loading, training, and evaluation. The standard version should add a validation set, metric curves, overfitting analysis, and model save/load. The challenge version can compare CNN, RNN, Transformer, or transfer learning approaches, and write an experiment report explaining why the model got better or worse.
+
+For a step-by-step PyTorch rehearsal, complete [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md) before the image classification, sentiment analysis, or generative model projects.
 
 If you want a more detailed learning rhythm, you can read [Study Guide: The Easiest Way to Learn Deep Learning Basics Without Getting Confused](./study-guide.md).
 

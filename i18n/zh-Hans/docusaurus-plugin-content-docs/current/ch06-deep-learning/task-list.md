@@ -14,6 +14,7 @@ keywords: [深度学习, PyTorch, Transformer, CNN, 学习任务单]
 | --- | --- | --- |
 | 理解神经网络训练闭环 | 一个手写训练流程图 | 能解释前向传播、损失、反向传播和参数更新 |
 | 跑通 PyTorch 基础 | 一个最小训练脚本 | 能使用 Dataset、DataLoader、nn.Module 和 optimizer |
+| 完成引导式 PyTorch 证据包工作坊 | 生成的 `deep_learning_workshop_run/` 证据包 | 能复跑脚本，并解释 `training_log.csv`、`model_comparison.csv`、`loss_curve.png` 和 `shape_trace.md` |
 | 完成图像或文本小任务 | 一个可运行训练项目 | 能记录训练曲线、验证指标和错误样本 |
 | 理解 Attention 与 Transformer | 一份结构说明笔记 | 能解释 Query、Key、Value、Self-Attention 和位置编码 |
 | 完成阶段项目 | 一个深度学习实践项目 | 有训练日志、指标、可复现命令和复盘 |
@@ -21,6 +22,8 @@ keywords: [深度学习, PyTorch, Transformer, CNN, 学习任务单]
 ## 推荐学习顺序
 
 先理解神经网络训练过程，再学习 PyTorch 基础，然后学习 CNN/RNN/Attention/Transformer。不要把 Transformer 当成孤立公式，它本质上是在处理序列信息、上下文关系和并行计算效率。
+
+当你需要一个具体可运行检查点时，可以在大项目之前先做 [实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md)。
 
 写 PyTorch 代码时，优先关注数据形状。大多数初学错误都和 tensor shape、batch 维度、loss 输入格式、device 不一致有关。每写一个模块，都建议打印一次输入输出形状。
 

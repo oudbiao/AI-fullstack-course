@@ -29,6 +29,8 @@ keywords: [深度学习学习指南, PyTorch 怎么学, CNN 怎么学, Transform
 
 生成模型和训练技巧可以作为扩展，不必在第一遍全部吃透。
 
+进入更大的项目之前，建议先完成 [实操工作坊：构建 PyTorch 训练证据包](./ch08-projects/04-hands-on-dl-workshop.md)。它会把抽象训练循环变成一个可运行脚本，并生成日志、曲线、checkpoint、shape trace 和复盘样本。
+
 ## 建议学习节奏
 
 | 内容类型 | 建议时间 | 学习目标 |
@@ -40,6 +42,8 @@ keywords: [深度学习学习指南, PyTorch 怎么学, CNN 怎么学, Transform
 | 项目页 | 10～20 小时 | 完成一个可训练、可评估的小模型 |
 
 ## 阶段项目路线
+
+在选择更大的项目主题前，建议先跑一遍 [PyTorch 证据包工作坊](./ch08-projects/04-hands-on-dl-workshop.md)。把它当作热身：你会生成数据、追踪 shape、训练 baseline、训练 CNN、做验证、保存曲线，并写出项目证据。
 
 第一个项目建议做手写数字或小型图像分类，练习 Dataset、DataLoader、CNN、训练和评估。
 

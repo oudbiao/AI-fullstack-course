@@ -458,6 +458,7 @@ const sidebars = {
                 "ch06-deep-learning/ch08-projects/image-classification",
                 "ch06-deep-learning/ch08-projects/sentiment-analysis",
                 "ch06-deep-learning/ch08-projects/generative-practice",
+                "ch06-deep-learning/ch08-projects/hands-on-dl-workshop",
               ],
             },
           ],

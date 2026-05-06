@@ -198,6 +198,11 @@
 | `ch06-training-tips-chapter-flow.png` | 深度学习训练技巧章节关系图 | `docs/ch06-deep-learning/ch07-training-tips/00-roadmap.md` | 深度学习训练技巧章节关系图：模型能跑起来后，通过超参数调优、训练监控诊断和模型压缩走向稳定训练与落地。 |
 | `ch06-projects-portfolio-loop.png` | 深度学习项目作品集路线图 | `docs/ch06-deep-learning/ch08-projects/00-roadmap.md` | 深度学习项目作品集路线图：图像分类、文本情感分析和生成模型项目连接到训练曲线、错误分析和作品集输出。 |
 | `ch06-deep-learning-project-cycle.png` | 深度学习项目训练复盘闭环图 | `docs/ch06-deep-learning/ch08-projects/00-roadmap.md` | 深度学习项目训练复盘闭环图：任务定义、数据集准备、DataLoader、模型结构、训练循环、验证评估、调整数据模型超参数、保存模型和作品集输出。 |
+| `ch06-hands-on-dl-workshop-route.png` | 第 6 章 PyTorch 实操工作坊路线图 | `docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md` | 第 6 章 PyTorch 实操工作坊路线图：从 shape trace、Dataset、DataLoader、baseline、CNN、训练曲线、checkpoint 到 README 证据包。 |
+| `ch06-hands-on-training-evidence-pipeline.png` | 深度学习训练证据流水线图 | `docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md` | 深度学习训练证据流水线图：training_log、model comparison、confusion matrix、review samples、loss curve、checkpoint 和 README 串成证据链。 |
+| `ch06-hands-on-code-execution-sequence.png` | PyTorch 工作坊代码执行顺序图 | `docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md` | PyTorch 工作坊代码执行顺序图：main 函数依次重置目录、生成数据、划分数据、构建 DataLoader、训练 baseline 和 CNN、评估、保存曲线和报告。 |
+| `ch06-hands-on-shape-debug-loop.png` | PyTorch shape 与训练排错闭环图 | `docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md` | PyTorch shape 与训练排错闭环图：先查 tensor shape、label format、loss curve、validation gap 和 batch size，再回到证据文件。 |
+| `ch06-hands-on-portfolio-pack.png` | 深度学习作品集证据包图 | `docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md` | 深度学习作品集证据包图：运行命令、shape trace、训练日志、loss 曲线、模型对比、checkpoint、复盘样本和下一步计划组成可复现交付。 |
 | `ch06-neuron-linear-activation-gate.png` | 神经元线性打分与激活门图 | `docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md` | 神经元线性打分与激活门图：输入特征先经过加权求和 z=x·w+b，再经过 ReLU、Sigmoid 等激活函数形成输出。 |
 | `ch06-xor-single-layer-limit-map.png` | XOR 单层感知机局限图 | `docs/ch06-deep-learning/ch01-nn-basics/01-neurons-activation.md` | XOR 单层感知机局限图：AND 可以被一条直线分开，XOR 四个点无法被单条线性边界分开，多层网络可以组合出非线性边界。 |
 | `ch06-backprop-error-responsibility-map.png` | 反向传播误差责任分摊图 | `docs/ch06-deep-learning/ch01-nn-basics/02-forward-backward.md` | 反向传播误差责任分摊图：loss 从输出层向隐藏层回传，把误差责任分配给 W2、b2、W1、b1 等参数梯度。 |

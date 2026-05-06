@@ -27,6 +27,10 @@ This chapter answers five questions: how to prepare datasets and data loaders fo
 
 The most common mistake beginners make is caring only about “whether the code finished running.” Deep learning projects should care more about: Did training converge? Did the validation set improve? What patterns appear in the error samples? When the model fails, is it a data problem, a model problem, or a training setup problem?
 
+:::info Guided practice before the larger projects
+If this project loop still feels abstract, run [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./04-hands-on-dl-workshop.md) first. It gives you one complete, runnable rehearsal before the image classification, sentiment analysis, and generative model projects.
+:::
+
 ## Recommended Learning Order for Beginners
 
 It is recommended to start with image classification because it is the best way to understand data augmentation, CNNs, transfer learning, and training curves. Then do text sentiment analysis to connect text data, tokens, embeddings, sequence models, and classification evaluation. Finally, practice with generative models, focusing on output quality, diversity, stability, and presentation.

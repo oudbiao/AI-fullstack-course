@@ -14,6 +14,7 @@ The goal of this phase is to help you understand how neural networks are trained
 | --- | --- | --- |
 | Understand the neural network training loop | A hand-drawn training flowchart | Can explain forward propagation, loss, backpropagation, and parameter updates |
 | Get PyTorch basics working | A minimal training script | Can use Dataset, DataLoader, nn.Module, and optimizer |
+| Complete the guided PyTorch evidence workshop | A generated `deep_learning_workshop_run/` evidence pack | Can rerun the script and explain `training_log.csv`, `model_comparison.csv`, `loss_curve.png`, and `shape_trace.md` |
 | Complete a small image or text task | A runnable training project | Can record training curves, validation metrics, and failure cases |
 | Understand Attention and Transformer | A notes document explaining the structure | Can explain Query, Key, Value, Self-Attention, and positional encoding |
 | Complete the phase project | A deep learning practice project | Includes training logs, metrics, reproducible commands, and reflections |
@@ -21,6 +22,8 @@ The goal of this phase is to help you understand how neural networks are trained
 ## Recommended learning order
 
 First understand the neural network training process, then learn PyTorch basics, and then learn CNN/RNN/Attention/Transformer. Don’t treat Transformer as an isolated formula. At its core, it handles sequence information, contextual relationships, and parallel computing efficiency.
+
+When you need a concrete runnable checkpoint, use [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md) before starting a larger project.
 
 When writing PyTorch code, pay close attention to data shapes. Most beginner mistakes are related to tensor shapes, batch dimensions, loss input formats, and device mismatches. Every time you write a module, it is a good idea to print the input and output shapes once.
 

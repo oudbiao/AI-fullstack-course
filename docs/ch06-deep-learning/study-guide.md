@@ -29,6 +29,8 @@ In the fifth round, learn Attention and Transformer. This is the most important 
 
 Generative models and training techniques can be treated as extensions; you do not need to fully master them in the first pass.
 
+Before larger projects, complete [Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md). It turns the abstract training loop into one runnable script plus logs, curves, checkpoint, shape trace, and review samples.
+
 ## Suggested learning pace
 
 | Content type | Suggested time | Learning goal |
@@ -40,6 +42,8 @@ Generative models and training techniques can be treated as extensions; you do n
 | Project section | 10–20 hours | Complete a small model that can be trained and evaluated |
 
 ## Stage project roadmap
+
+Before choosing a larger topic, run the [PyTorch evidence-pack workshop](./ch08-projects/04-hands-on-dl-workshop.md) once. Treat it as a warm-up: you will create data, trace shapes, train a baseline, train a CNN, validate, save curves, and write project evidence.
 
 For your first project, I recommend handwritten digit recognition or a small image classification task to practice Dataset, DataLoader, CNN, training, and evaluation.
 
