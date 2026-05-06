@@ -707,6 +707,7 @@ const sidebars = {
                 "ch09-agent/ch10-projects/research-assistant",
                 "ch09-agent/ch10-projects/data-analysis-agent",
                 "ch09-agent/ch10-projects/multi-agent-dev-team",
+                "ch09-agent/ch10-projects/stage-hands-on-workshop",
               ],
             },
           ],

@@ -55,6 +55,8 @@ If you do not learn this chapter solidly, common problems are: the Agent has no 
 
 When beginners study this chapter for the first time, they should first focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can keep moving forward.
 
+The recommended first runnable example is [Hands-on: Build a Traceable Single-Agent Assistant](./04-stage-hands-on-workshop.md). Run it before the larger project pages if you want a concrete baseline for planning, tools, trace, permission blocking, and evaluation.
+
 Experienced learners can treat this chapter as a chance to fill gaps and practice engineering: pay attention to boundary conditions, failure cases, evaluation methods, code reproducibility, and how it connects to earlier and later stages. After reading, it is best to distill this chapter into your own project README or experiment notes.
 
 ## Suggested study time and difficulty

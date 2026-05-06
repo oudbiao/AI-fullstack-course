@@ -54,6 +54,8 @@ keywords: [AI Agent, 工具调用, MCP, 多Agent, 学习任务单]
 
 完成轻松版就可以继续前进；完成标准版才建议写进作品集；挑战版只在你有余力时再做。
 
+如果你想先跟着跑通一次，请完成 [实操：构建一个可追踪的单 Agent 助手](./ch10-projects/04-stage-hands-on-workshop.md)。把里面的 `agent_workshop.py`、`logs/agent_traces.jsonl` 和小评估输出，作为本阶段最低交付证据。
+
 ## 阶段作品集交付物
 
 如果你想把本阶段成果沉淀到作品集，建议至少保留下面这些文件或等价材料。

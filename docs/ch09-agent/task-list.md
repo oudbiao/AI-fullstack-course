@@ -53,6 +53,8 @@ Common issues include unclear tool descriptions that lead to wrong calls, an Age
 
 Once you complete the easy version, you can move on. The standard version is the one recommended for your portfolio. The challenge version should only be done if you have extra capacity.
 
+For a guided first run, complete [Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md). Use its `agent_workshop.py`, `logs/agent_traces.jsonl`, and mini evaluation output as the minimum evidence for this phase.
+
 ## Phase Portfolio Deliverables
 
 If you want to turn the results of this phase into portfolio material, it is recommended to keep at least the following files or equivalent materials.

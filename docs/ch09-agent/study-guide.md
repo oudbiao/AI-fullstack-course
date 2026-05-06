@@ -65,6 +65,8 @@ If you really do need an Agent, pass three safety gates first:
 
 For the first project, it is recommended to build a research assistant. Given a topic, the Agent breaks down the problem, retrieves materials, organizes summaries, and outputs a structured report.
 
+Before choosing among the larger projects, run the [traceable single-Agent workshop](./ch10-projects/04-stage-hands-on-workshop.md). It is the baseline exercise for this stage: one Agent, a few tools, permission checks, trace logs, and fixed evaluation cases.
+
 For the second project, it is recommended to build a data analysis Agent. It can read data, make an analysis plan, call Python tools, and generate charts and conclusions.
 
 For the third project, you can build a multi-Agent development team demo, where different roles collaborate on requirements analysis, code generation, testing, and documentation.

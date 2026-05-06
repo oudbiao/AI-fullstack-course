@@ -1229,3 +1229,13 @@
 {"at": "2026-05-06T03:39:30.001794+00:00", "filename": "ch08-workshop-chunk-execution-flow-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T03:41:07.051439+00:00", "filename": "ch08-workshop-retrieve-permission-branch-map-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T03:43:02.158464+00:00", "filename": "ch08-workshop-evaluation-pass-fail-flow-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T04:28:25.641266+00:00", "filename": "ch09-workshop-single-agent-loop-flow-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T04:29:50.560788+00:00", "filename": "ch09-workshop-tool-schema-permission-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T04:30:57.143920+00:00", "filename": "ch09-workshop-trace-jsonl-replay-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T04:32:02.140984+00:00", "filename": "ch09-workshop-evaluation-scorecard-map-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-06T04:32:32.816259+00:00", "filename": "ch09-workshop-single-agent-loop-flow-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 429 for ch09-workshop-single-agent-loop-flow-map-ja.png: {\"error\":{\"message\":\"Concurrency limit exceeded for user, please retry later\",\"type\":\"rate_limit_error\"}}"}
+{"at": "2026-05-06T04:32:58.740883+00:00", "filename": "ch09-workshop-tool-schema-permission-map-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 500 for ch09-workshop-tool-schema-permission-map-ja.png: {\"code\":\"INTERNAL_ERROR\",\"message\":\"Failed to validate API key\"}"}
+{"at": "2026-05-06T04:34:47.347717+00:00", "filename": "ch09-workshop-trace-jsonl-replay-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T04:35:56.067191+00:00", "filename": "ch09-workshop-evaluation-scorecard-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T04:38:25.318733+00:00", "filename": "ch09-workshop-single-agent-loop-flow-map-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-06T04:41:07.839697+00:00", "filename": "ch09-workshop-tool-schema-permission-map-ja.png", "locale": "ja", "status": "generated"}

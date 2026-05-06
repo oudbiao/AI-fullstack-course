@@ -213,6 +213,8 @@ When presenting in an interview or portfolio, do not show only one successful co
 
 The basic version is to implement a research assistant that can break a topic into questions, call material tools, and generate structured summaries. The standard version should add execution logs, failure retries, result self-checks, and simple memory. The challenge version can be a data analysis Agent or a multi-Agent development team, with permission boundaries, cost control, evaluation samples, and recovery mechanisms.
 
+If you want to run one concrete baseline before choosing a bigger project, start with [Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md). It gives you a runnable single-Agent loop, tool schema validation, permission blocking, JSONL trace logs, and evaluation cases.
+
 If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Agent Systems Without Getting Confused](./study-guide.md).
 
 ## Relationship to the end-to-end AI learning assistant project

@@ -345,6 +345,10 @@
 | `ch09-projects-route-map.png` | Agent 综合项目路线图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 综合项目路线图：用户目标、任务规划、工具调用、观察结果、状态记忆、评估安全检查、是否完成、结果交付和过程记录形成项目闭环。 |
 | `ch09-project-learning-order-map.png` | Agent 项目学习顺序图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 项目学习顺序图：先做研究助手，练习检索引用总结，再做数据分析 Agent 练习工具调用结果解释，最后做多 Agent 开发团队练习角色分工协调审查。 |
 | `ch09-project-delivery-loop.png` | Agent 项目交付闭环图 | `docs/ch09-agent/ch10-projects/00-roadmap.md` | Agent 项目交付闭环图：任务输入、计划列表、执行步骤、工具调用日志、观察中间结果、失败处理、最终输出、评估复盘和部署演示形成作品集闭环。 |
+| `ch09-workshop-single-agent-loop-flow-map.png` | 第九章 Agent 工作坊单 Agent 执行循环图 | `docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md` | Agent 工作坊单 Agent 执行循环图：goal 进入状态，planner 选择工具，tool 返回 observation，state 更新并写入 trace，直到 done check。 |
+| `ch09-workshop-tool-schema-permission-map.png` | 第九章 Agent 工作坊工具 Schema 与权限图 | `docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md` | Agent 工作坊工具 Schema 与权限图：工具调用先过 required、type、unknown argument 校验，再按 read_only、write_limited 风险决定是否需要人工批准。 |
+| `ch09-workshop-trace-jsonl-replay-map.png` | 第九章 Agent 工作坊 Trace JSONL 复盘图 | `docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md` | Agent 工作坊 Trace JSONL 复盘图：每一步记录 run_id、step、thought、action、arguments、observation 和 next_decision，支持事后 replay。 |
+| `ch09-workshop-evaluation-scorecard-map.png` | 第九章 Agent 工作坊评估计分卡图 | `docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md` | Agent 工作坊评估计分卡图：EVAL_CASES 固定运行 safe plan、approval block、no evidence 三类任务，并汇总 PASS、FAIL 与 passed 计数。 |
 | `ch09-agent-boundary-workflow-chatbot-map.png` | 工作流、聊天机器人与 Agent 边界图 | `docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md` | 工作流、聊天机器人与 Agent 边界图：固定步骤、对话回复和目标驱动的持续决策三种系统边界对比。 |
 | `ch09-agent-action-loop-trace-map.png` | Agent 行动闭环与 Trace 图 | `docs/ch09-agent/ch01-agent-basics/01-what-is-agent.md` | Agent 行动闭环与 Trace 图：用户目标进入决策器，产生行动，工具返回观察，状态更新并留下可复盘 trace。 |
 | `ch09-agent-system-architecture-dataflow-map.png` | Agent 系统架构数据流图 | `docs/ch09-agent/ch01-agent-basics/04-system-architecture.md` | Agent 系统架构数据流图：Planner、Tool Layer、Memory、State、Guardrails、Observability 组成生产 Agent 数据流。 |

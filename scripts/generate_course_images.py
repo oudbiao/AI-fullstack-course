@@ -4958,6 +4958,66 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
+        "filename": "ch09-workshop-single-agent-loop-flow-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 Agent 工作坊单 Agent 执行循环图",
+        "suggested_page": "docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md",
+        "alt": "Agent 工作坊单 Agent 执行循环图：goal 进入状态，planner 选择工具，tool 返回 observation，state 更新并写入 trace，直到 done check。",
+        "prompt": """
+一张适合第九章 Agent 实操工作坊的竖版流程教学图，主题是“一个可控单 Agent 怎样从目标执行到完成”。
+画面用 6 个纵向步骤表现：goal input、state、planner decision、tool call、observation、state update + trace、done check。
+突出 beginner workflow：先看图，再看 Python 代码，再看命令输出。
+风格像漫画式代码执行顺序图和 AgentOps 控制台结合，新手友好。
+文字不是主体；标准术语保留英文，例如 goal、state、planner、tool call、observation、trace、done check。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-workshop-tool-schema-permission-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 Agent 工作坊工具 Schema 与权限图",
+        "suggested_page": "docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md",
+        "alt": "Agent 工作坊工具 Schema 与权限图：工具调用先过 required、type、unknown argument 校验，再按 read_only、write_limited 风险决定是否需要人工批准。",
+        "prompt": """
+一张适合第九章 Agent 实操工作坊的竖版分步骤图，主题是“tool call 不能直接执行，必须先校验 schema 和权限”。
+画面表现 tool name、arguments 进入 validation：required fields、type check、unknown argument；通过后进入 permission gate：read_only 直接执行，write_limited 需要 human approval，destructive 默认禁用。
+突出 publish_report 被 blocked_by_approval 的例子。
+风格像安全检查站、代码 schema 卡片和漫画路牌结合。
+文字不是主体；标准术语保留英文，例如 tool schema、required、type check、unknown argument、read_only、write_limited、human approval、blocked_by_approval。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-workshop-trace-jsonl-replay-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 Agent 工作坊 Trace JSONL 复盘图",
+        "suggested_page": "docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md",
+        "alt": "Agent 工作坊 Trace JSONL 复盘图：每一步记录 run_id、step、thought、action、arguments、observation 和 next_decision，支持事后 replay。",
+        "prompt": """
+一张适合第九章 Agent 实操工作坊的竖版调试图，主题是“trace 让 Agent 的每一步可以复盘”。
+画面表现 agent_traces.jsonl 文件，每一行是 JSON record，字段包括 run_id、step、thought、action、arguments、observation、next_decision。
+旁边展示 replay 流程：read JSONL、group by run_id、inspect failed step、fix tool schema or permission、rerun eval。
+风格像日志查看器、侦探白板和教学卡片结合，强调不是只看最终答案。
+文字不是主体；标准术语保留英文，例如 agent_traces.jsonl、run_id、step、thought、action、arguments、observation、next_decision、replay。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch09-workshop-evaluation-scorecard-map.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "第九章 Agent 工作坊评估计分卡图",
+        "suggested_page": "docs/ch09-agent/ch10-projects/04-stage-hands-on-workshop.md",
+        "alt": "Agent 工作坊评估计分卡图：EVAL_CASES 固定运行 safe plan、approval block、no evidence 三类任务，并汇总 PASS、FAIL 与 passed 计数。",
+        "prompt": """
+一张适合第九章 Agent 实操工作坊的竖版评估流程图，主题是“Agent 不能只展示成功 Demo，要用固定任务集评估”。
+画面用三张测试卡片展示 safe_learning_plan、publish_without_approval、unknown_topic；每张卡片进入 run_agent，比较 expected_status 与 actual status。
+底部汇总 PASS、FAIL、passed/total，并提示检查 completion、permission、no_evidence 三类行为。
+风格像测试看板、成绩单和执行 trace 图结合，适合新人理解评估。
+文字不是主体；标准术语保留英文，例如 EVAL_CASES、run_agent、expected_status、actual status、PASS、FAIL、passed/total、permission、no_evidence。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch09-agent-boundary-workflow-chatbot-map.png",
         "size": "1536x1024",
         "quality": "medium",
