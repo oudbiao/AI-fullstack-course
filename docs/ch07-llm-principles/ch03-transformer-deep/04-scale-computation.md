@@ -1,6 +1,6 @@
 ---
-title: "3.5 Model Scale and Computation"
-sidebar_position: 11
+title: "3.6 Model Scale and Computation"
+sidebar_position: 12
 description: "Understand why large models get bigger by looking at parameters, context length, KV cache, training token count, and throughput, and what costs they are racing against."
 keywords: [scaling, parameters, flops, kv cache, context length, throughput, scaling laws]
 ---

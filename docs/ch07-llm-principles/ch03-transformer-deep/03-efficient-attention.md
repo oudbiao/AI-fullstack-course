@@ -1,6 +1,6 @@
 ---
-title: "3.4 Efficient Attention Mechanisms"
-sidebar_position: 10
+title: "3.5 Efficient Attention Mechanisms"
+sidebar_position: 11
 description: "Starting from the O(n^2) pressure brought by long contexts, understand how sliding windows, KV cache, MQA/GQA, and FlashAttention each optimize a different kind of bottleneck."
 keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context]
 ---

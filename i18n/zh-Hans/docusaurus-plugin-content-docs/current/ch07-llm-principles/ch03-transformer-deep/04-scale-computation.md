@@ -1,6 +1,6 @@
 ---
-title: "3.5 模型规模与计算"
-sidebar_position: 11
+title: "3.6 模型规模与计算"
+sidebar_position: 12
 description: "从参数量、上下文长度、KV cache、训练 token 数和吞吐量等维度理解，大模型“做大”到底在和哪些成本赛跑。"
 keywords: [scaling, parameters, flops, kv cache, context length, throughput, scaling laws]
 ---

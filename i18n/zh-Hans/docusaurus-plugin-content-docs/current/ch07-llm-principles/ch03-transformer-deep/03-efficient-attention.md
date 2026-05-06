@@ -1,6 +1,6 @@
 ---
-title: "3.4 高效注意力机制"
-sidebar_position: 10
+title: "3.5 高效注意力机制"
+sidebar_position: 11
 description: "从长上下文带来的 O(n^2) 压力讲起，理解滑动窗口、KV cache、MQA/GQA、FlashAttention 等方法分别在优化哪一类瓶颈。"
 keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context]
 ---

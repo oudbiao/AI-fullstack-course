@@ -24,6 +24,7 @@ The Transformer deep dive is the backbone of the large-model theory section. Lat
 | Section | Key question | What you should be able to explain after learning it |
 |---|---|---|
 | Architecture review and deep dive | Why does each component in a Transformer exist? | The role of Attention, FFN, residual connections, and LayerNorm |
+| Original Transformer vs modern decoder | How did the 2017 block evolve into modern LLM decoder blocks? | Pre-norm, RMSNorm, RoPE, GQA/MQA, and SwiGLU |
 | Model architecture variants | What are the differences among Encoder-only, Decoder-only, and Encoder-Decoder? | Why BERT, GPT, and T5 are suited to different tasks |
 | Efficient attention mechanisms | Why are long texts expensive? | What problems sparse attention, linear attention, and FlashAttention solve |
 | Model scale and computation | How do parameters, memory, throughput, and context affect each other? | Why deploying large models is an engineering trade-off |

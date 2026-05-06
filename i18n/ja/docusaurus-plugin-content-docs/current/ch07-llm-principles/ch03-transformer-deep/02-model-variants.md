@@ -1,6 +1,6 @@
 ---
-title: "3.3 主流な大規模モデルアーキテクチャのバリエーション"
-sidebar_position: 9
+title: "3.4 主流な大規模モデルアーキテクチャのバリエーション"
+sidebar_position: 10
 description: "Encoder-only、Decoder-only、Encoder-Decoder から MoE まで、さまざまな大規模モデルのアーキテクチャが、なぜ異なるタスクごとに別々の分岐をたどるのかを理解します。"
 keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 ---

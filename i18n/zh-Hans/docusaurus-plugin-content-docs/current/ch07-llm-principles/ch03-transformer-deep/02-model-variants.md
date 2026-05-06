@@ -1,6 +1,6 @@
 ---
-title: "3.3 主流大模型架构变体"
-sidebar_position: 9
+title: "3.4 主流大模型架构变体"
+sidebar_position: 10
 description: "从 Encoder-only、Decoder-only、Encoder-Decoder 到 MoE，理解不同大模型架构为什么会针对不同任务走出不同分支。"
 keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 ---

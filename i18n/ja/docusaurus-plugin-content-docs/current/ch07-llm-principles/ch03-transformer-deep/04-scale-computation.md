@@ -1,6 +1,6 @@
 ---
-title: "3.5 モデル規模と計算"
-sidebar_position: 11
+title: "3.6 モデル規模と計算"
+sidebar_position: 12
 description: "パラメータ数、コンテキスト長、KV cache、学習 token 数、スループットなどの観点から、大規模モデルを「大きくする」ことが、いったいどんなコストと競争しているのかを理解する。"
 keywords: [scaling, parameters, flops, kv cache, context length, throughput, scaling laws]
 ---

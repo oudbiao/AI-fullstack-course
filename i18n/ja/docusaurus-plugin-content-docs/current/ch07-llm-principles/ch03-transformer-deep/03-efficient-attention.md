@@ -1,6 +1,6 @@
 ---
-title: "3.4 効率的な注意力機構"
-sidebar_position: 10
+title: "3.5 効率的な注意力機構"
+sidebar_position: 11
 description: "長いコンテキストによる O(n^2) の負荷から始めて、スライディングウィンドウ、KV cache、MQA/GQA、FlashAttention などがそれぞれどの種類のボトルネックを改善するのかを理解します。"
 keywords: [efficient attention, sliding window, flash attention, kv cache, gqa, mqa, long context]
 ---

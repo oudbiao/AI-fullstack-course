@@ -1,6 +1,6 @@
 ---
-title: "3.3 Mainstream Variants of Large Model Architectures"
-sidebar_position: 9
+title: "3.4 Mainstream Variants of Large Model Architectures"
+sidebar_position: 10
 description: "From Encoder-only, Decoder-only, and Encoder-Decoder to MoE, understand why different large model architectures branch out for different tasks."
 keywords: [BERT, GPT, T5, encoder-only, decoder-only, encoder-decoder, MoE]
 ---
