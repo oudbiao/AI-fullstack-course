@@ -406,6 +406,25 @@ The harder parts are:
 - whether they cover edge cases
 - whether the revisions are actually better
 
+## 8. A practical method-selection cheat sheet
+
+When you are choosing an alignment method for a project, ask four questions first:
+
+| Question | If the answer is yes, lean toward |
+|---|---|
+| Do you already have high-quality human preference pairs? | DPO / ORPO / IPO |
+| Is human labeling too expensive for the current team? | RLAIF |
+| Do you want the rules to be explicit and reviewable? | Constitutional AI |
+| Do you have the budget and team maturity for the most complete pipeline? | RLHF |
+
+This is not a law. It is a practical shortcut.
+
+The most useful habit is to connect method choice with evaluation:
+
+- If the method reduces cost, make sure it does not break safety behavior.
+- If the method increases explainability, make sure it still improves real user outcomes.
+- If the method simplifies training, make sure the fixed test set still passes.
+
 ---
 
 ## Summary
