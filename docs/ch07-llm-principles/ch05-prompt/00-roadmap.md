@@ -27,7 +27,7 @@ The easiest thing for beginners to overlook is that a Prompt is not something yo
 
 ## Recommended Learning Order for Beginners
 
-It is recommended to first learn basic Prompting: clearly describe the task, context, constraints, and output format. Then learn advanced techniques such as few-shot examples, step-by-step decomposition, role setting, reflection checks, and boundary explanations. Next, focus on structured output, because most product features cannot accept only a paragraph of natural language; they need stable fields, formats, and parseable results. Finally, practice Prompting with real examples, test, record failures, and iterate.
+It is recommended to first learn basic Prompting: clearly describe the task, context, constraints, and output format. Then learn advanced techniques such as few-shot examples, step-by-step decomposition, role setting, reflection checks, and boundary explanations. Next, focus on structured output, because most product features cannot accept only a paragraph of natural language; they need stable fields, formats, and parseable results. Finally, practice Prompting with real examples, and use the Prompt Evaluation Lab to keep test cases fixed, compare prompt versions, record failures, and iterate.
 
 ![Prompt iteration test closed loop diagram](/img/course/ch07-prompt-iteration-loop-en.png)
 
@@ -70,7 +70,7 @@ Experienced learners can treat this chapter as a chance to fill gaps and practic
 
 After finishing this chapter, it is recommended to build a “course content structured extraction Prompt.” Input a piece of course documentation, and let the model output the chapter topic, learning objectives, prerequisite knowledge, key concepts, practice suggestions, and risk reminders, with the output required to be in JSON or a Markdown table.
 
-The focus of the project is not to make the model answer beautifully, but to test whether the output is stable: are all fields complete, is the format parseable, will it honestly mark missing information, and can it stay consistent after several different documents?
+The focus of the project is not to make the model answer beautifully, but to test whether the output is stable: are all fields complete, is the format parseable, will it honestly mark missing information, and can it stay consistent after several different documents? Use the evaluation-lab method from this chapter: keep the same input set, change only one Prompt layer at a time, and record the pass rate plus failure notes.
 
 ## Passing Criteria
 

@@ -516,6 +516,7 @@ const sidebars = {
                 "ch07-llm-principles/ch05-prompt/advanced-prompting",
                 "ch07-llm-principles/ch05-prompt/structured-output",
                 "ch07-llm-principles/ch05-prompt/prompt-practice",
+                "ch07-llm-principles/ch05-prompt/prompt-evaluation-lab",
                 "ch07-llm-principles/ch06-finetuning/roadmap",
                 "ch07-llm-principles/ch06-finetuning/finetuning-overview",
                 "ch07-llm-principles/ch06-finetuning/lora-qlora",
