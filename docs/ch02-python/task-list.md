@@ -18,6 +18,7 @@ The goal of this stage is to help you clearly express the input, processing, and
 | Become familiar with data structures | A data organization script | Can choose between list, dict, set, and tuple and explain why |
 | Write functions | A small program split into multiple functions | Each function has a clear responsibility, with inputs and return values |
 | Work with files | A script that reads and writes text or JSON | Can save results to a file and read them back |
+| Complete the guided CLI workshop | Output from the 2.5 learning assistant | Can run commands, save JSON, mark tasks done, show stats, and export a report |
 | Finish the stage project | A command-line tool | Can explain how to run it and show example output in the README |
 
 ## Recommended learning order
@@ -66,6 +67,7 @@ If you want to turn the results of this stage into portfolio material, it is rec
 | `api_demo.py` | A Web API calling exercise, including error handling and response parsing |
 | `README.md` | Run commands, example input/output, project structure, and known limitations |
 | `debug_notes.md` | Record at least 2 Python errors, their causes, and the fix process |
+| `ch02_output/` | Output from the 2.5 workshop, including `tasks.json` and `learning_report.md` |
 
 These materials will turn the Python stage from “syntax practice” into project evidence that shows you can independently write small tools, debug them, and explain their structure.
 
@@ -78,5 +80,6 @@ After finishing this stage, you should be able to answer these questions: when s
 - [ ] I can use variables, conditionals, loops, and functions to write a complete small program.
 - [ ] I can use list and dict to organize tasks, questions, or learning records.
 - [ ] I can read and write text, JSON, or JSONL files.
+- [ ] I have run the 2.5 guided CLI assistant and can explain each generated file.
 - [ ] I have completed a command-line learning assistant or an equivalent small tool.
 - [ ] I can explain the differences between print, return, function parameters, and file paths.

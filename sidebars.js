@@ -168,6 +168,7 @@ const sidebars = {
                 "ch02-python/ch03-projects/web-scraper",
                 "ch02-python/ch03-projects/web-api",
                 "ch02-python/ch03-projects/ai-api-experience",
+                "ch02-python/ch03-projects/hands-on-python-workshop",
               ],
             },
           ],

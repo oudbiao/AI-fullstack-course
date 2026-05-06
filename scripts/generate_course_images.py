@@ -848,6 +848,66 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
+        "filename": "ch02-hands-on-python-workshop-route.png",
+        "title": "第 2 章 Python 跟做工作坊路线图",
+        "suggested_page": "docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md",
+        "alt": "第 2 章 Python 跟做工作坊路线图：终端命令、argparse、任务对象、JSON 保存、统计和报告导出组成完整小工具。",
+        "prompt": """
+制作一张 9:16 竖版课程图解，主题是“第 2 章跟着做：从 Python 语法到本地学习任务助手”。
+画面像漫画式实操路线页，从上到下展示 6 个步骤：创建项目文件夹、编写 CLI 脚本、解析命令、保存 tasks.json、显示统计、导出 learning_report.md。
+重点让新人看懂变量、函数、列表字典、文件、异常和类型标注如何组合成一个能运行的小工具。
+可使用极短中文标签：建文件夹、写脚本、解析命令、保存 JSON、统计、导出报告。不要真实品牌 logo，不要水印，不要乱码小字。
+""".strip(),
+    },
+    {
+        "filename": "ch02-hands-on-cli-command-flow.png",
+        "title": "CLI 命令执行流程图",
+        "suggested_page": "docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md",
+        "alt": "CLI 命令执行流程图：用户输入 add/list/done/stats/export，argparse 解析后分发到对应函数执行。",
+        "prompt": """
+制作一张 9:16 竖版分步骤图解，主题是“命令行程序如何从用户输入走到函数执行”。
+画面展示终端里输入 add、list、done、stats、export，进入 argparse 解析器，变成 Namespace 参数，再分发到 add_task、list_tasks、complete_task、show_stats、export_report 函数。
+用箭头表现代码执行顺序，让新手理解 CLI 不是魔法，而是“输入文本 → 解析 → 调用函数 → 输出结果”。
+可以保留 argparse、Namespace、function、CLI 等技术词，配少量中文标签。不要真实品牌 logo，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch02-hands-on-json-persistence-flow.png",
+        "title": "JSON 文件持久化流程图",
+        "suggested_page": "docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md",
+        "alt": "JSON 文件持久化流程图：Task 对象列表通过 asdict 转成 JSON，写入 tasks.json，下次启动再读回对象。",
+        "prompt": """
+制作一张 9:16 竖版教学图，主题是“为什么保存到 JSON 后程序重启还记得任务”。
+画面展示 Task dataclass 对象列表，通过 asdict 变成普通 dict/list，再由 json.dumps 写入 tasks.json；下一次程序启动时 json.loads 读回，再变成 Task 对象。
+需要突出“内存数据”和“磁盘文件”的前后对比：程序运行时在内存，程序退出后靠 JSON 文件保存状态。
+使用少量中文标签，保留 dataclass、asdict、json.dumps、json.loads、tasks.json 等技术词。不要真实品牌 logo，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch02-hands-on-error-debug-map.png",
+        "title": "Python CLI 常见错误与调试地图",
+        "suggested_page": "docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md",
+        "alt": "Python CLI 常见错误与调试地图：命令找不到、任务 id 不存在、JSON 损坏、路径错误和空数据分别对应不同检查点。",
+        "prompt": """
+制作一张 9:16 竖版错误排查漫画流程图，主题是“Python 小工具跑不起来时先查哪里”。
+画面分成 5 个新人常见卡点：python3 找不到、任务 id 不存在、tasks.json 损坏、文件路径不对、报告为空。
+每个卡点旁边给出视觉化检查动作：看版本、先 list、修 JSON、打印 Path.cwd、先 seed/add 再 export。
+风格像故障诊断地图，清晰、温和、不吓人。可使用短中文标签和少量技术词，不要真实品牌 logo，不要乱码。
+""".strip(),
+    },
+    {
+        "filename": "ch02-hands-on-evidence-pack.png",
+        "title": "Python 项目作品集证据包",
+        "suggested_page": "docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md",
+        "alt": "Python 项目作品集证据包：脚本、tasks.json、learning_report.md、终端输出、README 和调试记录共同证明项目可运行。",
+        "prompt": """
+制作一张 9:16 竖版作品集清单图，主题是“Python 阶段不要只说会语法，要留下可运行证据”。
+画面像一个整洁项目文件夹展开，包含 learning_assistant_cli.py、tasks.json、learning_report.md、terminal output、README.md、debug_notes.md 六类材料。
+用箭头表示从运行命令到保存数据、导出报告、记录错误，形成可检查的项目证据。
+风格专业但新人友好，适合课程页结尾。可以保留文件名和 CLI、JSON、README 等标准词。不要真实品牌 logo，不要乱码。
+""".strip(),
+    },
+    {
         "filename": "ch03-data-visualization.png",
         "size": "1536x1024",
         "quality": "medium",

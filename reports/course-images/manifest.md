@@ -52,6 +52,11 @@
 | `ch02-todo-cli-architecture.png` | 命令行任务管理器架构图 | `docs/ch02-python/ch03-projects/01-todo-cli.md` | 命令行任务管理器架构图：用户命令被解析后读取 tasks.json，修改任务列表并保存结果。 |
 | `ch02-web-scraper-pipeline.png` | 网络爬虫数据采集流程图 | `docs/ch02-python/ch03-projects/02-web-scraper.md` | 网络爬虫数据采集流程图：HTTP 请求获取网页，解析 HTML，清洗结构化数据并保存。 |
 | `ch02-web-api-request-response.png` | Web API 请求响应架构图 | `docs/ch02-python/ch03-projects/03-web-api.md` | Web API 请求响应架构图：客户端发送请求，FastAPI 路由接收，函数处理后返回 JSON 响应。 |
+| `ch02-hands-on-python-workshop-route.png` | 第 2 章 Python 跟做工作坊路线图 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | 第 2 章 Python 跟做工作坊路线图：终端命令、argparse、任务对象、JSON 保存、统计和报告导出组成完整小工具。 |
+| `ch02-hands-on-cli-command-flow.png` | CLI 命令执行流程图 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | CLI 命令执行流程图：用户输入 add/list/done/stats/export，argparse 解析后分发到对应函数执行。 |
+| `ch02-hands-on-json-persistence-flow.png` | JSON 文件持久化流程图 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | JSON 文件持久化流程图：Task 对象列表通过 asdict 转成 JSON，写入 tasks.json，下次启动再读回对象。 |
+| `ch02-hands-on-error-debug-map.png` | Python CLI 常见错误与调试地图 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | Python CLI 常见错误与调试地图：命令找不到、任务 id 不存在、JSON 损坏、路径错误和空数据分别对应不同检查点。 |
+| `ch02-hands-on-evidence-pack.png` | Python 项目作品集证据包 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | Python 项目作品集证据包：脚本、tasks.json、learning_report.md、终端输出、README 和调试记录共同证明项目可运行。 |
 | `ch03-data-visualization.png` | 数据分析与可视化主视觉 | `docs/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
 | `ch03-learning-quest-map.png` | 数据分析学习闯关地图 | `docs/ch03-data-analysis/index.md` | 数据分析学习闯关地图：原始数据经过字段观察、清洗、聚合、可视化、解释和报告输出。 |
 | `ch03-data-analysis-backbone.png` | 数据分析主线闭环 | `docs/ch03-data-analysis/index.md` | 数据分析主线闭环：获取数据、理解字段、清洗异常、转换聚合、可视化探索并服务建模或业务决策。 |

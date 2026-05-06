@@ -85,6 +85,8 @@ The second chapter covers advanced Python topics, including object-oriented prog
 
 The third chapter moves into hands-on projects. You will combine the previous knowledge to complete a command-line task manager, a web scraper, a Web API, and a quick AI API demo.
 
+If you want one page that connects the whole stage into a follow-along flow, do [2.5 Follow-Along Workshop: Build a Local Learning Task Assistant](./ch03-projects/05-hands-on-python-workshop.md). It uses only the Python standard library to practice CLI commands, JSON saving, error handling, statistics, and report export.
+
 ## What You Should Be Able to Do After Learning This Stage
 
 - Break a small requirement into functions, modules, and files
@@ -175,6 +177,7 @@ If this stage feels like a lot, treat this task card as your minimum target. Onc
 | API calling script | Can call a public Web API | Includes parameter validation, status code handling, and return structure notes |
 | Python project README | Clearly states run commands and sample output | Includes project structure, dependencies, input/output, and known limitations |
 | Debugging record | Records at least 1 error and the fix process | Forms notes on common errors, locating methods, and postmortem review |
+| Follow-along workshop evidence | Run the 2.5 CLI assistant and keep generated output | Includes script, JSON data, Markdown report, terminal output, and error-handling notes |
 
 ## Relationship to the AI Learning Assistant Continuous Project
 

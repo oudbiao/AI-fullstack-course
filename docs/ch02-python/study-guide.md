@@ -23,6 +23,8 @@ In the second round, build code organization skills: object-oriented programming
 
 In the third round, move into projects: a command-line task manager, a web crawler, a Web API, and a quick AI API experiment. Projects will force you to connect syntax, files, exceptions, third-party libraries, and debugging skills.
 
+Before you choose your own project variation, complete [2.5 Follow-Along Workshop: Build a Local Learning Task Assistant](./ch03-projects/05-hands-on-python-workshop.md). It gives you fixed commands, expected output, generated files, and a debugging checklist, so you can practice the full Python project loop without guessing the next step.
+
 ## Suggested Learning Rhythm
 
 | Content Type | Suggested Time | Learning Goal |
@@ -30,6 +32,7 @@ In the third round, move into projects: a command-line task manager, a web crawl
 | Basic syntax pages | 1–2 hours | Be able to type the examples by hand and change them to get new results |
 | Data structures and functions | 2–4 hours | Be able to break repeated logic into functions |
 | Advanced organization pages | 2–4 hours | Be able to understand files, classes, exceptions, and module relationships |
+| 2.5 guided workshop | 1–2 hours | Build and run one complete CLI, JSON, statistics, and report workflow |
 | Project pages | 4–8 hours | Be able to run them independently and make small changes |
 
 ## Stage Project Roadmap
