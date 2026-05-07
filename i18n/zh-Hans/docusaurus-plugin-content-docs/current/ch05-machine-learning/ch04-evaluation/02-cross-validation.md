@@ -1,470 +1,215 @@
 ---
 title: "5.4.3 交叉验证"
-sidebar_position: 11
-description: "掌握留出法、K 折交叉验证、分层 K 折、留一法和时间序列交叉验证"
-keywords: [交叉验证, K折, 分层K折, 留一法, 时间序列, Hold-out, cross_val_score]
+sidebar_position: 3
+description: "一节跟着操作的交叉验证课程：单次切分波动、StratifiedKFold、多指标 cross_validate、防泄漏 Pipeline 和什么时候不能 shuffle"
+keywords: [交叉验证, K-Fold, StratifiedKFold, cross_validate, 数据泄漏, Pipeline, 模型评估]
 ---
 
 # 5.4.3 交叉验证
 
 ![K 折交叉验证切分图](/img/course/cross-validation-kfold.png)
 
-:::tip 本节定位
-只用一次 train/test 分割来评估模型，结果可能受**随机划分**的影响很大。交叉验证让每个数据都有机会被用作训练和测试，给出更**稳定、可靠**的评估结果。
+:::tip 本节概览
+单次 train-test 切分只是一个快照。交叉验证会在多个验证折上测试模型，从而得到更稳定的估计。
 :::
 
-## 学习目标
+## 你会做出什么
 
-- 理解留出法的局限性
-- 掌握 K 折交叉验证
-- 掌握分层 K 折交叉验证
-- 了解留一法和时间序列交叉验证
-- 会用 `cross_val_score` 和 `cross_validate`
+本节会演示：
 
-## 先说一个很重要的学习预期
-
-这一节最容易让新人误会的地方，是把交叉验证理解成：
-
-- “多跑几次平均一下”
-
-但更值得第一遍先学会的其实是：
-
-> **交叉验证是在更稳地估计模型的泛化能力。**
-
-也就是说，这节的重点不是先记住多少 split 类名，而是先知道：
-
-- 为什么一次划分不够
-- 为什么不同任务要配不同切法
-- 为什么评估设计本身也是建模的一部分
-
----
-
-## 先建立一张地图
-
-交叉验证这节最适合新人的理解顺序不是“记不同 split 类名”，而是先看清它到底在解决什么问题：
+- 为什么单次 train-test 切分会有噪声；
+- 分类任务如何使用 `StratifiedKFold`；
+- 如何用 `cross_validate` 同时评估多个指标；
+- 为什么预处理必须放进 `Pipeline`；
+- 什么时候随机 K-Fold 是错的，尤其是时间序列。
 
 ![交叉验证稳定评估流程图](/img/course/ch05-cross-validation-stability-flow.png)
 
-这节真正想解决的是：
+## 环境准备
 
-- 为什么一次随机划分不够可信
-- 为什么评估方法本身也要匹配任务类型
+```bash
+python -m pip install -U scikit-learn numpy
+```
 
-## 一、留出法的问题
+## 运行完整实验
 
-### 一次划分够吗？
+新建 `cv_lab.py`：
 
 ```python
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
 import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
-iris = load_iris()
-X, y = iris.data, iris.target
 
-# 不同 random_state 导致不同结果
-scores = []
-for seed in range(50):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
-    model = DecisionTreeClassifier(max_depth=3, random_state=42)
+X, y = load_breast_cancer(return_X_y=True)
+
+print("single_split_variance")
+for seed in [1, 2, 3, 4, 5]:
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.25, random_state=seed, stratify=y
+    )
+    model = Pipeline([
+        ("scale", StandardScaler()),
+        ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+    ])
     model.fit(X_train, y_train)
-    scores.append(model.score(X_test, y_test))
+    print(f"seed={seed} accuracy={accuracy_score(y_test, model.predict(X_test)):.3f}")
 
-import matplotlib.pyplot as plt
-
-plt.figure(figsize=(10, 4))
-plt.bar(range(50), scores, color='steelblue', alpha=0.7)
-plt.axhline(y=np.mean(scores), color='red', linestyle='--', label=f'平均: {np.mean(scores):.3f}')
-plt.xlabel('随机种子')
-plt.ylabel('准确率')
-plt.title(f'50 次不同划分的准确率（标准差: {np.std(scores):.3f}）')
-plt.legend()
-plt.grid(axis='y', alpha=0.3)
-plt.show()
-
-print(f"最低: {min(scores):.3f}, 最高: {max(scores):.3f}, 差距: {max(scores)-min(scores):.3f}")
-```
-
-:::warning 问题
-一次划分的结果**不稳定**——不同的随机种子可能差异很大。我们需要更可靠的评估方式。
-:::
-
-### 一个更适合新人的判断标准
-
-如果你现在还在想：
-
-- “我这次随机划分分数不错，应该就可以了吧？”
-
-那这节要帮你建立的就是：
-
-- **一次分数不重要，稳定分数才重要**
-
-### 一个更适合新人的类比
-
-你可以先把交叉验证想成：
-
-- 不要只考一次就定水平
-- 而是换几套题、多考几轮，再看平均发挥
-
-这样你得到的就不是：
-
-- “这次刚好考得不错”
-
-而是：
-
-- “整体水平大概就在这里”
-
----
-
-## 二、K 折交叉验证
-
-### 原理
-
-把数据分成 K 份，每次用 1 份做测试、其余 K-1 份做训练。重复 K 次，取平均。
-
-```mermaid
-flowchart TD
-    D["全部数据分成 5 份"] --> R1["第1轮: fold1 测试, fold2-5 训练"]
-    D --> R2["第2轮: fold2 测试, fold1,3-5 训练"]
-    D --> R3["第3轮: fold3 测试, fold1-2,4-5 训练"]
-    D --> R4["第4轮: fold4 测试, fold1-3,5 训练"]
-    D --> R5["第5轮: fold5 测试, fold1-4 训练"]
-    R1 --> AVG["取 5 轮分数的平均 ± 标准差"]
-    R2 --> AVG
-    R3 --> AVG
-    R4 --> AVG
-    R5 --> AVG
-
-    style D fill:#e3f2fd,stroke:#1565c0,color:#333
-    style AVG fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### sklearn 实现
-
-```python
-from sklearn.model_selection import cross_val_score, KFold
-from sklearn.tree import DecisionTreeClassifier
-
-model = DecisionTreeClassifier(max_depth=3, random_state=42)
-
-# 最简单的用法
-scores = cross_val_score(model, X, y, cv=5, scoring='accuracy')
-print(f"5 折交叉验证:")
-print(f"  每折分数: {scores}")
-print(f"  平均: {scores.mean():.4f} ± {scores.std():.4f}")
-```
-
-### 手动控制 KFold
-
-```python
-from sklearn.model_selection import KFold
-
-kf = KFold(n_splits=5, shuffle=True, random_state=42)
-
-# 可视化每折的划分
-fig, axes = plt.subplots(5, 1, figsize=(12, 6), sharex=True)
-
-for fold, (train_idx, test_idx) in enumerate(kf.split(X)):
-    ax = axes[fold]
-    ax.scatter(train_idx, [0]*len(train_idx), c='steelblue', s=3, label='训练')
-    ax.scatter(test_idx, [0]*len(test_idx), c='red', s=10, label='测试')
-    ax.set_ylabel(f'折 {fold+1}')
-    ax.set_yticks([])
-    if fold == 0:
-        ax.legend(loc='upper right', ncol=2)
-
-axes[-1].set_xlabel('样本索引')
-plt.suptitle('5 折交叉验证的数据划分', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-### K 值怎么选？
-
-| K 值 | 优点 | 缺点 |
-|------|------|------|
-| K=3 | 速度快 | 方差大，不够稳定 |
-| **K=5** | **常用默认值** | **平衡了速度和稳定性** |
-| **K=10** | **更稳定** | **速度稍慢** |
-| K=n（留一法） | 最稳定 | 非常慢 |
-
-### 第一次做项目时怎么选最稳？
-
-一个够稳的顺序通常是：
-
-- 入门项目：先用 `cv=5`
-- 想更稳一点：再看 `cv=10`
-- 样本很少：再考虑 LOO
-
-所以很多时候不是值越大越好，而是：
-
-- 先用一个够稳、计算也能接受的值
-
----
-
-## 三、分层 K 折交叉验证
-
-### 为什么需要分层？
-
-普通 KFold 随机划分，可能导致某一折的类别比例与整体不同（尤其不平衡数据）。
-
-**分层 KFold 保证每折的类别比例与整体一致。**
-
-```python
-from sklearn.model_selection import StratifiedKFold
-
-# 模拟不平衡数据
-from sklearn.datasets import make_classification
-X_imb, y_imb = make_classification(n_samples=100, n_features=5,
-                                     weights=[0.9, 0.1], random_state=42)
-
-print(f"正类比例: {y_imb.mean():.1%}")
-
-# 对比 KFold 和 StratifiedKFold
-kf = KFold(n_splits=5, shuffle=True, random_state=42)
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-print("\n普通 KFold 每折正类比例:")
-for fold, (_, test_idx) in enumerate(kf.split(X_imb)):
-    print(f"  折 {fold+1}: {y_imb[test_idx].mean():.1%}")
-
-print("\n分层 StratifiedKFold 每折正类比例:")
-for fold, (_, test_idx) in enumerate(skf.split(X_imb, y_imb)):
-    print(f"  折 {fold+1}: {y_imb[test_idx].mean():.1%}")
-```
-
-### sklearn 中的默认行为
-
-```python
-# cross_val_score 对分类任务默认使用 StratifiedKFold
-# 你可以显式指定
-from sklearn.model_selection import cross_val_score
-
-scores = cross_val_score(
-    DecisionTreeClassifier(max_depth=3, random_state=42),
-    X_imb, y_imb,
-    cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-    scoring='f1'
+print("cross_validation_lab")
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+model = Pipeline([
+    ("scale", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+])
+result = cross_validate(
+    model,
+    X,
+    y,
+    cv=cv,
+    scoring=["accuracy", "precision", "recall", "f1"],
 )
-print(f"分层 5 折 F1: {scores.mean():.4f} ± {scores.std():.4f}")
+for i, score in enumerate(result["test_accuracy"], start=1):
+    print(f"fold={i} accuracy={score:.3f}")
+print(
+    "summary "
+    f"accuracy={np.mean(result['test_accuracy']):.3f}+/-{np.std(result['test_accuracy']):.3f} "
+    f"precision={np.mean(result['test_precision']):.3f} "
+    f"recall={np.mean(result['test_recall']):.3f} "
+    f"f1={np.mean(result['test_f1']):.3f}"
+)
 ```
 
-:::info 最佳实践
-- **分类任务**：始终使用 `StratifiedKFold`（`cross_val_score` 默认就是）
-- **回归任务**：使用普通 `KFold`
-- **时间序列**：使用 `TimeSeriesSplit`
-:::
+运行：
 
-### 这节最该先记住的一句话
+```bash
+python cv_lab.py
+```
 
-> **评估切法也属于建模设计的一部分。**
+预期输出：
 
-也就是说，切分方法错了，后面模型分数就可能从一开始就失真。
+```text
+single_split_variance
+seed=1 accuracy=0.965
+seed=2 accuracy=0.972
+seed=3 accuracy=0.986
+seed=4 accuracy=0.972
+seed=5 accuracy=0.979
+cross_validation_lab
+fold=1 accuracy=0.974
+fold=2 accuracy=0.947
+fold=3 accuracy=0.965
+fold=4 accuracy=0.991
+fold=5 accuracy=0.991
+summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
+```
+
+## 为什么一次切分不够
+
+同一个模型在不同随机切分下分数不同：
+
+```text
+seed=1 accuracy=0.965
+seed=3 accuracy=0.986
+```
+
+这两个数字都不是假的，只是不同快照。交叉验证真正想问的是：在多个快照上，平均表现是多少，波动有多大？
+
+## Stratified K-Fold
+
+分类任务优先使用 `StratifiedKFold`。它会尽量保持每个 fold 的类别比例接近整体数据，尤其适合不平衡分类。
+
+```python
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+```
+
+`K=5` 是实用默认值：
+
+- 比单次切分稳定；
+- 比 10 折在大数据上更省；
+- 容易向团队解释。
+
+## 使用防泄漏 Pipeline
 
 ![交叉验证防泄漏 Pipeline 图](/img/course/ch05-cv-leakage-safe-pipeline-map.png)
 
-这张图最重要的地方是：每一折都必须在训练折里 `fit` 预处理器，再把同样规则 `transform` 到验证折。不要先对全量数据标准化、PCA 或特征选择，再做交叉验证；那样验证折的信息已经提前泄漏进训练流程。
-
----
-
-## 四、留一法（LOO）
-
-**Leave-One-Out**：每次只留 1 个样本做测试，其余 n-1 个做训练。重复 n 次。
+安全模式是：
 
 ```python
-from sklearn.model_selection import LeaveOneOut, cross_val_score
-
-# 用小数据集演示（LOO 在大数据集上太慢）
-from sklearn.datasets import load_iris
-X_small, y_small = load_iris(return_X_y=True)
-
-loo = LeaveOneOut()
-model = DecisionTreeClassifier(max_depth=3, random_state=42)
-
-scores = cross_val_score(model, X_small, y_small, cv=loo)
-print(f"LOO 交叉验证:")
-print(f"  总轮数: {len(scores)}")
-print(f"  平均准确率: {scores.mean():.4f}")
+Pipeline([
+    ("scale", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+])
 ```
 
-| 优点 | 缺点 |
-|------|------|
-| 训练数据量最大化 | 计算开销大（n 次训练） |
-| 评估偏差最小 | 方差可能较大 |
-| | 大数据集上不实用 |
+交叉验证时，每个 fold 的 scaler 只能在该 fold 的训练部分上 fit。如果先对全量数据缩放再做 CV，验证 fold 的信息就泄漏进训练了。
 
----
+## 读平均值和波动
 
-## 五、时间序列交叉验证
+summary 比单个 fold 更有用：
 
-### 为什么不能随机划分？
-
-时间序列数据有**时间顺序**——用未来数据训练去预测过去，是"数据泄漏"。
-
-### TimeSeriesSplit
-
-```python
-from sklearn.model_selection import TimeSeriesSplit
-import numpy as np
-
-# 模拟时间序列数据
-rng = np.random.default_rng(seed=42)
-n = 100
-X_ts = np.arange(n).reshape(-1, 1)
-y_ts = np.sin(X_ts.ravel() / 10) + rng.normal(size=n) * 0.1
-
-tscv = TimeSeriesSplit(n_splits=5)
-
-fig, axes = plt.subplots(5, 1, figsize=(12, 8), sharex=True)
-
-for fold, (train_idx, test_idx) in enumerate(tscv.split(X_ts)):
-    ax = axes[fold]
-    ax.scatter(train_idx, y_ts[train_idx], c='steelblue', s=10, label='训练')
-    ax.scatter(test_idx, y_ts[test_idx], c='red', s=20, label='测试')
-    ax.set_ylabel(f'折 {fold+1}')
-    if fold == 0:
-        ax.legend(loc='upper left', ncol=2)
-
-axes[-1].set_xlabel('时间步')
-plt.suptitle('时间序列交叉验证（训练集逐步扩大）', fontsize=13)
-plt.tight_layout()
-plt.show()
+```text
+summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 ```
 
----
+可以这样读：
 
-## 六、cross_validate——更丰富的输出
+- 平均 accuracy 约为 `0.974`；
+- fold 之间波动约为 `0.017`；
+- recall 很高，如果漏掉正类代价高，这一点很重要。
 
-```python
-from sklearn.model_selection import cross_validate
-from sklearn.ensemble import RandomForestClassifier
+如果标准差很大，可能说明模型不稳定、数据太少，或某些 fold 特别难。
 
-model = RandomForestClassifier(n_estimators=50, random_state=42)
+## 什么时候 K-Fold 是错的
 
-# cross_validate 比 cross_val_score 返回更多信息
-results = cross_validate(
-    model, X, y, cv=5,
-    scoring=['accuracy', 'f1_macro'],
-    return_train_score=True
-)
+下面这些情况不要随机 shuffle：
 
-print("5 折交叉验证详细结果:")
-print(f"  训练准确率: {results['train_accuracy'].mean():.4f} ± {results['train_accuracy'].std():.4f}")
-print(f"  测试准确率: {results['test_accuracy'].mean():.4f} ± {results['test_accuracy'].std():.4f}")
-print(f"  测试 F1:    {results['test_f1_macro'].mean():.4f} ± {results['test_f1_macro'].std():.4f}")
-print(f"  每折耗时:   {results['fit_time'].mean():.3f}s")
-```
+- 时间序列数据；
+- 同一个用户、会话、设备的多行数据可能同时出现在训练和验证；
+- 样本按患者、客户、文档或实验分组；
+- 未来信息会泄漏到过去。
 
-### 为什么 `cross_validate` 比 `cross_val_score` 更适合项目？
+要使用符合真实部署的数据切分：`TimeSeriesSplit`、group split，或按时间保留最后一段作为 holdout。
 
-因为项目里你经常不只关心：
+## 实用选择指南
 
-- 一个平均分
+| 情况 | 使用 |
+|---|---|
+| 基础分类 | `StratifiedKFold(n_splits=5, shuffle=True)` |
+| 回归 | `KFold(n_splits=5, shuffle=True)` |
+| 时间序列 | `TimeSeriesSplit` 或按时间验证 |
+| 同一实体出现多次 | group-aware splitting |
+| 超参数调优 | nested CV 或最终 untouched test set |
 
-你还会关心：
+给有经验的读者：模型选择结束后，保留一个没有参与调参的最终 holdout 或接近生产的 backtest。
 
-- 训练集和验证集差距
-- 多个指标一起看
-- 每折耗时
+## 常见排查清单
 
-这会让你的实验更像真正的模型评估，而不只是跑个数字。
+| 现象 | 可能原因 | 修复方式 |
+|---|---|---|
+| CV 分数远高于测试分数 | 泄漏或过度调参 | 把预处理放进 pipeline；保留最终 holdout |
+| fold 分数波动很大 | 数据少或存在困难分群 | 检查 fold 构成和分群指标 |
+| 某个分类 fold 没有正类 | 没有 stratify | 使用 `StratifiedKFold` |
+| 时间序列模型好得不正常 | 未来数据泄漏 | 按时间验证 |
+| CV 太慢 | fold 太多或模型太重 | 先减少 fold 或使用更快基线 |
 
----
+## 练习
 
-## 七、综合对比
+1. 把 `n_splits` 改成 `3` 和 `10`。均值和标准差怎么变？
+2. 去掉单次切分里的 `stratify=y`。分数是否更不稳定？
+3. 在 scoring 列表里加入 `roc_auc`。
+4. 故意把 `StandardScaler()` 移到 pipeline 外面，然后解释为什么不安全。
+5. 为“每个用户有多行事件”的数据设计验证切分。
 
-```python
-from sklearn.model_selection import cross_val_score
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
+## 过关检查
 
-models = {
-    '决策树': DecisionTreeClassifier(max_depth=5, random_state=42),
-    '逻辑回归': LogisticRegression(max_iter=1000, random_state=42),
-    '随机森林': RandomForestClassifier(n_estimators=100, random_state=42),
-    'SVM': SVC(random_state=42),
-}
+你能解释下面几点，就完成本节：
 
-results = {}
-for name, model in models.items():
-    scores = cross_val_score(model, X, y, cv=10, scoring='accuracy')
-    results[name] = scores
-    print(f"{name:10s} | {scores.mean():.4f} ± {scores.std():.4f}")
-
-# 箱线图对比
-fig, ax = plt.subplots(figsize=(8, 5))
-data = [results[name] for name in models]
-bp = ax.boxplot(data, labels=models.keys(), patch_artist=True)
-
-colors = ['steelblue', 'coral', 'seagreen', 'gold']
-for patch, color in zip(bp['boxes'], colors):
-    patch.set_facecolor(color)
-    patch.set_alpha(0.7)
-
-ax.set_ylabel('准确率')
-ax.set_title('10 折交叉验证对比（箱线图）')
-ax.grid(axis='y', alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## 八、第一次把交叉验证放进项目里，最稳的默认顺序
-
-第一次把交叉验证真正放进项目流程时，可以先按这个顺序：
-
-1. 先做一次最小 baseline
-2. 再用 `cv=5` 看一个平均分和标准差
-3. 如果是分类任务，默认优先 `StratifiedKFold`
-4. 如果是时间序列，立即切到 `TimeSeriesSplit`
-5. 最后再把交叉验证接进调参流程
-
-这样你就不会把交叉验证学成一个孤立 API，
-而会更自然地把它放进：
-
-- baseline
-- 模型比较
-- 调参
-
-这整条评估主线里。
-
----
-
-## 小结
-
-| 方法 | 说明 | 适用 |
-|------|------|------|
-| **Hold-out** | 一次 train/test 划分 | 快速实验 |
-| **K-Fold** | K 次划分取平均 | 通用（K=5 或 10） |
-| **Stratified K-Fold** | 保持类别比例的 K-Fold | 分类（默认） |
-| **LOO** | 每次留 1 个样本 | 小数据集 |
-| **TimeSeriesSplit** | 按时间顺序划分 | 时间序列 |
-
-:::info 连接后续
-- **下一节**：偏差-方差权衡——为什么交叉验证和单次评估结果不同
-- **4.4 节**：超参数调优——用交叉验证来选最优参数
-:::
-
-## 这节最该带走什么
-
-- 交叉验证的核心不是“多跑几次”，而是“更稳地估计模型泛化能力”
-- 切分方法必须和任务类型匹配
-- 如果评估没设计好，后面很多模型比较都会失去意义
-
-## 动手练习
-
-### 练习 1：K 值对比
-
-用 Iris 数据集和决策树，对比 K=3, 5, 10, 20 的交叉验证结果（平均准确率和标准差）。K 越大，标准差越小吗？
-
-### 练习 2：多指标评估
-
-用 `cross_validate` 在乳腺癌数据集上同时评估 accuracy、precision、recall、f1，返回训练集和测试集分数。哪个模型过拟合最严重？
-
-### 练习 3：分层 vs 非分层
-
-创建一个严重不平衡的数据集（正负比 9:1），对比 `KFold` 和 `StratifiedKFold` 的评估结果差异。
+- 单次 train-test 切分只是一个快照；
+- K-Fold 估计平均表现和波动；
+- 分类任务通常应使用 stratified folds；
+- 预处理必须放进 pipeline；
+- 验证策略必须匹配真实部署的数据流。

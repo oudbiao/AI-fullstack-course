@@ -1,8 +1,8 @@
 ---
 title: "5.4.3 Cross-Validation"
-sidebar_position: 11
-description: "Master hold-out validation, K-Fold cross-validation, stratified K-Fold, leave-one-out, and time series cross-validation"
-keywords: [cross-validation, KFold, stratified KFold, leave-one-out, time series, Hold-out, cross_val_score]
+sidebar_position: 3
+description: "A hands-on cross-validation lesson: single split variance, StratifiedKFold, multi-metric cross_validate, leakage-safe pipelines, and when not to shuffle"
+keywords: [cross-validation, K-Fold, StratifiedKFold, cross_validate, data leakage, Pipeline, model evaluation]
 ---
 
 # 5.4.3 Cross-Validation
@@ -10,459 +10,206 @@ keywords: [cross-validation, KFold, stratified KFold, leave-one-out, time series
 ![K-Fold cross-validation split diagram](/img/course/cross-validation-kfold-en.png)
 
 :::tip Section Overview
-If you evaluate a model with only one train/test split, the result can be heavily affected by the **random split**. Cross-validation gives each data point a chance to be used for both training and testing, producing more **stable and reliable** evaluation results.
+A single train-test split is a snapshot. Cross-validation gives you a more stable estimate by testing the model across several different validation folds.
 :::
 
-## Learning Objectives
+## What You Will Build
 
-- Understand the limitations of hold-out validation
-- Master K-Fold cross-validation
-- Master stratified K-Fold cross-validation
-- Learn about leave-one-out and time series cross-validation
-- Use `cross_val_score` and `cross_validate`
+This lesson shows:
 
-## First, set a very important learning expectation
-
-The easiest place for beginners to misunderstand this section is to think of cross-validation as:
-
-- “Run it a few more times and average it out”
-
-But what is even more worth learning first is:
-
-> **Cross-validation is a way to estimate a model’s generalization ability more reliably.**
-
-In other words, the key point of this section is not to memorize how many split class names there are, but to first understand:
-
-- Why one split is not enough
-- Why different tasks need different splitting strategies
-- Why evaluation design is also part of modeling
-
----
-
-## First, build a map
-
-For beginners, the best way to understand this section is not to “memorize different split class names,” but to first see what problem cross-validation is actually solving:
+- why one train-test split can be noisy;
+- how to use `StratifiedKFold` for classification;
+- how to evaluate several metrics with `cross_validate`;
+- why preprocessing must stay inside `Pipeline`;
+- when random K-Fold is wrong, especially for time series.
 
 ![Cross-validation stable evaluation flowchart](/img/course/ch05-cross-validation-stability-flow-en.png)
 
-What this section is really trying to solve is:
+## Setup
 
-- Why one random split is not trustworthy enough
-- Why the evaluation method must match the task type
+```bash
+python -m pip install -U scikit-learn numpy
+```
 
-## Problems with hold-out validation
+## Run the Complete Lab
 
-### Is one split enough?
+Create `cv_lab.py`:
 
 ```python
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
 import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import StratifiedKFold, cross_validate, train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
-iris = load_iris()
-X, y = iris.data, iris.target
 
-# Different random_state values lead to different results
-scores = []
-for seed in range(50):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
-    model = DecisionTreeClassifier(max_depth=3, random_state=42)
+X, y = load_breast_cancer(return_X_y=True)
+
+print("single_split_variance")
+for seed in [1, 2, 3, 4, 5]:
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.25, random_state=seed, stratify=y
+    )
+    model = Pipeline([
+        ("scale", StandardScaler()),
+        ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+    ])
     model.fit(X_train, y_train)
-    scores.append(model.score(X_test, y_test))
+    print(f"seed={seed} accuracy={accuracy_score(y_test, model.predict(X_test)):.3f}")
 
-import matplotlib.pyplot as plt
-
-plt.figure(figsize=(10, 4))
-plt.bar(range(50), scores, color='steelblue', alpha=0.7)
-plt.axhline(y=np.mean(scores), color='red', linestyle='--', label=f'Average: {np.mean(scores):.3f}')
-plt.xlabel('Random seed')
-plt.ylabel('Accuracy')
-plt.title(f'Accuracy across 50 different splits (std: {np.std(scores):.3f})')
-plt.legend()
-plt.grid(axis='y', alpha=0.3)
-plt.show()
-
-print(f"Min: {min(scores):.3f}, Max: {max(scores):.3f}, Gap: {max(scores)-min(scores):.3f}")
-```
-
-:::warning Problem
-The result of one split is **unstable** — different random seeds can lead to very different results. We need a more reliable evaluation method.
-:::
-
-### A better rule of thumb for beginners
-
-If you are still thinking:
-
-- “This random split gave me a good score, so it should be fine, right?”
-
-Then what this section wants to help you build is this idea:
-
-- **One score is not important; a stable score is.**
-
-### A beginner-friendly analogy
-
-You can think of cross-validation like this:
-
-- Don’t judge someone based on just one exam
-- Instead, give several different exams and then look at the average performance
-
-What you get is not:
-
-- “They happened to do well this time”
-
-but rather:
-
-- “Their overall level is probably around here”
-
----
-
-## K-Fold cross-validation
-
-### Principle
-
-Split the data into K parts. Each time, use 1 part for testing and the remaining K-1 parts for training. Repeat K times and take the average.
-
-```mermaid
-flowchart TD
-    D["Split all data into 5 parts"] --> R1["Round 1: fold1 for testing, fold2-5 for training"]
-    D --> R2["Round 2: fold2 for testing, fold1,3-5 for training"]
-    D --> R3["Round 3: fold3 for testing, fold1-2,4-5 for training"]
-    D --> R4["Round 4: fold4 for testing, fold1-3,5 for training"]
-    D --> R5["Round 5: fold5 for testing, fold1-4 for training"]
-    R1 --> AVG["Take the average ± std of the 5 scores"]
-    R2 --> AVG
-    R3 --> AVG
-    R4 --> AVG
-    R5 --> AVG
-
-    style D fill:#e3f2fd,stroke:#1565c0,color:#333
-    style AVG fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### sklearn implementation
-
-```python
-from sklearn.model_selection import cross_val_score, KFold
-from sklearn.tree import DecisionTreeClassifier
-
-model = DecisionTreeClassifier(max_depth=3, random_state=42)
-
-# The simplest usage
-scores = cross_val_score(model, X, y, cv=5, scoring='accuracy')
-print(f"5-Fold cross-validation:")
-print(f"  Scores per fold: {scores}")
-print(f"  Mean: {scores.mean():.4f} ± {scores.std():.4f}")
-```
-
-### Manually controlling KFold
-
-```python
-from sklearn.model_selection import KFold
-
-kf = KFold(n_splits=5, shuffle=True, random_state=42)
-
-# Visualize the split for each fold
-fig, axes = plt.subplots(5, 1, figsize=(12, 6), sharex=True)
-
-for fold, (train_idx, test_idx) in enumerate(kf.split(X)):
-    ax = axes[fold]
-    ax.scatter(train_idx, [0]*len(train_idx), c='steelblue', s=3, label='Training')
-    ax.scatter(test_idx, [0]*len(test_idx), c='red', s=10, label='Testing')
-    ax.set_ylabel(f'Fold {fold+1}')
-    ax.set_yticks([])
-    if fold == 0:
-        ax.legend(loc='upper right', ncol=2)
-
-axes[-1].set_xlabel('Sample index')
-plt.suptitle('5-Fold cross-validation data split', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-### How should you choose K?
-
-| K value | Advantage | Disadvantage |
-|------|------|------|
-| K=3 | Fast | High variance, not stable enough |
-| **K=5** | **Common default** | **Balances speed and stability** |
-| **K=10** | **More stable** | **Slightly slower** |
-| K=n (leave-one-out) | Most stable | Very slow |
-
-### What is the safest choice for your first project?
-
-A reasonably stable sequence is usually:
-
-- Beginner project: start with `cv=5`
-- Want something a bit more stable: try `cv=10`
-- Very small sample size: consider LOO
-
-So in many cases, bigger is not better. Instead:
-
-- Start with a value that is stable enough and still computationally acceptable
-
----
-
-## Stratified K-Fold cross-validation
-
-### Why do we need stratification?
-
-Standard KFold splits data randomly, which may cause the class ratio in one fold to differ from the overall dataset, especially with imbalanced data.
-
-**Stratified KFold ensures that the class ratio in each fold matches the overall ratio.**
-
-```python
-from sklearn.model_selection import StratifiedKFold
-
-# Simulate imbalanced data
-from sklearn.datasets import make_classification
-X_imb, y_imb = make_classification(n_samples=100, n_features=5,
-                                     weights=[0.9, 0.1], random_state=42)
-
-print(f"Positive class ratio: {y_imb.mean():.1%}")
-
-# Compare KFold and StratifiedKFold
-kf = KFold(n_splits=5, shuffle=True, random_state=42)
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-print("\nPositive class ratio in each fold with standard KFold:")
-for fold, (_, test_idx) in enumerate(kf.split(X_imb)):
-    print(f"  Fold {fold+1}: {y_imb[test_idx].mean():.1%}")
-
-print("\nPositive class ratio in each fold with StratifiedKFold:")
-for fold, (_, test_idx) in enumerate(skf.split(X_imb, y_imb)):
-    print(f"  Fold {fold+1}: {y_imb[test_idx].mean():.1%}")
-```
-
-### Default behavior in sklearn
-
-```python
-# cross_val_score uses StratifiedKFold by default for classification tasks
-# You can also specify it explicitly
-from sklearn.model_selection import cross_val_score
-
-scores = cross_val_score(
-    DecisionTreeClassifier(max_depth=3, random_state=42),
-    X_imb, y_imb,
-    cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-    scoring='f1'
+print("cross_validation_lab")
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+model = Pipeline([
+    ("scale", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+])
+result = cross_validate(
+    model,
+    X,
+    y,
+    cv=cv,
+    scoring=["accuracy", "precision", "recall", "f1"],
 )
-print(f"Stratified 5-Fold F1: {scores.mean():.4f} ± {scores.std():.4f}")
+for i, score in enumerate(result["test_accuracy"], start=1):
+    print(f"fold={i} accuracy={score:.3f}")
+print(
+    "summary "
+    f"accuracy={np.mean(result['test_accuracy']):.3f}+/-{np.std(result['test_accuracy']):.3f} "
+    f"precision={np.mean(result['test_precision']):.3f} "
+    f"recall={np.mean(result['test_recall']):.3f} "
+    f"f1={np.mean(result['test_f1']):.3f}"
+)
 ```
 
-:::info Best practice
-- **Classification tasks**: always use `StratifiedKFold` (`cross_val_score` does this by default)
-- **Regression tasks**: use standard `KFold`
-- **Time series**: use `TimeSeriesSplit`
-:::
+Run it:
 
-### The one sentence you should remember most from this section
+```bash
+python cv_lab.py
+```
 
-> **The evaluation split strategy is also part of model design.**
+Expected output:
 
-In other words, if the split method is wrong, the model scores later on may already be distorted from the start.
+```text
+single_split_variance
+seed=1 accuracy=0.965
+seed=2 accuracy=0.972
+seed=3 accuracy=0.986
+seed=4 accuracy=0.972
+seed=5 accuracy=0.979
+cross_validation_lab
+fold=1 accuracy=0.974
+fold=2 accuracy=0.947
+fold=3 accuracy=0.965
+fold=4 accuracy=0.991
+fold=5 accuracy=0.991
+summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
+```
+
+## Why One Split Is Not Enough
+
+The same model gets different scores with different random splits:
+
+```text
+seed=1 accuracy=0.965
+seed=3 accuracy=0.986
+```
+
+Neither number is fake. They are just different snapshots. Cross-validation asks: "Across several snapshots, what is the average performance and how much does it vary?"
+
+## Stratified K-Fold
+
+For classification, use `StratifiedKFold` first. It keeps the class ratio similar in each fold, which is especially important for imbalanced datasets.
+
+```python
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+```
+
+Use `K=5` as a practical default:
+
+- less noisy than one split;
+- cheaper than 10-fold on large data;
+- easy to explain to teammates.
+
+## Use a Leakage-Safe Pipeline
 
 ![Cross-validation leakage-safe pipeline diagram](/img/course/ch05-cv-leakage-safe-pipeline-map-en.png)
 
-The most important part of this figure is: for each fold, you must `fit` the preprocessor on the training fold, then `transform` the validation fold using the same rules. Do not standardize, apply PCA, or perform feature selection on the full dataset first and then do cross-validation; otherwise, information from the validation fold has already leaked into the training process.
-
----
-
-## Leave-One-Out (LOO)
-
-**Leave-One-Out**: each time, leave 1 sample for testing and use the other n-1 samples for training. Repeat n times.
+This is the safe pattern:
 
 ```python
-from sklearn.model_selection import LeaveOneOut, cross_val_score
-
-# Use a small dataset for demonstration (LOO is too slow on large datasets)
-from sklearn.datasets import load_iris
-X_small, y_small = load_iris(return_X_y=True)
-
-loo = LeaveOneOut()
-model = DecisionTreeClassifier(max_depth=3, random_state=42)
-
-scores = cross_val_score(model, X_small, y_small, cv=loo)
-print(f"LOO cross-validation:")
-print(f"  Total rounds: {len(scores)}")
-print(f"  Mean accuracy: {scores.mean():.4f}")
+Pipeline([
+    ("scale", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=2000, random_state=42)),
+])
 ```
 
-| Advantage | Disadvantage |
-|------|------|
-| Maximizes training data | High computational cost (n training runs) |
-| Lowest evaluation bias | Variance may be high |
-| | Not practical for large datasets |
+During cross-validation, each fold must fit its scaler only on that fold's training portion. If you scale all data before CV, information from validation folds leaks into training.
 
----
+## Read Mean and Variance
 
-## Time series cross-validation
+The summary is more useful than one fold:
 
-### Why can’t we split randomly?
-
-Time series data has **temporal order** — training on future data to predict the past is “data leakage.”
-
-### TimeSeriesSplit
-
-```python
-from sklearn.model_selection import TimeSeriesSplit
-import numpy as np
-
-# Simulate time series data
-rng = np.random.default_rng(seed=42)
-n = 100
-X_ts = np.arange(n).reshape(-1, 1)
-y_ts = np.sin(X_ts.ravel() / 10) + rng.normal(size=n) * 0.1
-
-tscv = TimeSeriesSplit(n_splits=5)
-
-fig, axes = plt.subplots(5, 1, figsize=(12, 8), sharex=True)
-
-for fold, (train_idx, test_idx) in enumerate(tscv.split(X_ts)):
-    ax = axes[fold]
-    ax.scatter(train_idx, y_ts[train_idx], c='steelblue', s=10, label='Training')
-    ax.scatter(test_idx, y_ts[test_idx], c='red', s=20, label='Testing')
-    ax.set_ylabel(f'Fold {fold+1}')
-    if fold == 0:
-        ax.legend(loc='upper left', ncol=2)
-
-axes[-1].set_xlabel('Time step')
-plt.suptitle('Time series cross-validation (training set grows step by step)', fontsize=13)
-plt.tight_layout()
-plt.show()
+```text
+summary accuracy=0.974+/-0.017 precision=0.968 recall=0.992 f1=0.979
 ```
 
----
+Read it as:
 
-## `cross_validate` — richer output
+- average accuracy is about `0.974`;
+- fold-to-fold variation is about `0.017`;
+- recall is very high, which matters if missing positives is costly.
 
-```python
-from sklearn.model_selection import cross_validate
-from sklearn.ensemble import RandomForestClassifier
+If standard deviation is large, the model may be unstable, the dataset may be small, or some folds may contain harder cases.
 
-model = RandomForestClassifier(n_estimators=50, random_state=42)
+## When K-Fold Is Wrong
 
-# cross_validate returns more information than cross_val_score
-results = cross_validate(
-    model, X, y, cv=5,
-    scoring=['accuracy', 'f1_macro'],
-    return_train_score=True
-)
+Do not shuffle randomly when:
 
-print("Detailed results for 5-Fold cross-validation:")
-print(f"  Training accuracy: {results['train_accuracy'].mean():.4f} ± {results['train_accuracy'].std():.4f}")
-print(f"  Testing accuracy:  {results['test_accuracy'].mean():.4f} ± {results['test_accuracy'].std():.4f}")
-print(f"  Testing F1:        {results['test_f1_macro'].mean():.4f} ± {results['test_f1_macro'].std():.4f}")
-print(f"  Time per fold:     {results['fit_time'].mean():.3f}s")
-```
+- the data is time series;
+- rows from the same user/session/device can appear in both train and validation;
+- examples are grouped by patient, customer, document, or experiment;
+- future information would leak into the past.
 
-### Why is `cross_validate` more suitable for projects than `cross_val_score`?
+Use a split that matches the real deployment situation: `TimeSeriesSplit`, group splits, or a chronological holdout.
 
-Because in real projects, you often care about more than just:
+## Practical Choice Guide
 
-- one average score
+| Situation | Use |
+|---|---|
+| Basic classification | `StratifiedKFold(n_splits=5, shuffle=True)` |
+| Regression | `KFold(n_splits=5, shuffle=True)` |
+| Time series | `TimeSeriesSplit` or chronological validation |
+| Same entity appears many times | group-aware splitting |
+| Hyperparameter tuning | nested CV or a final untouched test set |
 
-You may also care about:
+For experienced readers: after model selection, keep one final holdout set or production-like backtest that was not used during tuning.
 
-- the gap between training and validation sets
-- multiple metrics at the same time
-- the time cost of each fold
+## Practical Debugging Checklist
 
-This makes your experiment feel more like real model evaluation, not just number crunching.
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| CV score much higher than test score | leakage or over-tuning | put preprocessing in pipeline; keep final holdout |
+| Fold scores vary wildly | small data or hard segments | inspect fold composition and segment metrics |
+| Classification fold has no positives | non-stratified split | use `StratifiedKFold` |
+| Time-series model looks too good | future data leaked | validate chronologically |
+| CV takes too long | too many folds or heavy model | use fewer folds or faster baseline first |
 
----
+## Practice
 
-## Comprehensive comparison
+1. Change `n_splits` to `3` and `10`. How do mean and standard deviation change?
+2. Remove `stratify=y` from the single split. Does the score become less stable?
+3. Add `roc_auc` to the scoring list.
+4. Move `StandardScaler()` outside the pipeline intentionally, then explain why that is unsafe.
+5. Design a validation split for user events where each user has many rows.
 
-```python
-from sklearn.model_selection import cross_val_score
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
+## Pass Check
 
-models = {
-    'Decision Tree': DecisionTreeClassifier(max_depth=5, random_state=42),
-    'Logistic Regression': LogisticRegression(max_iter=1000, random_state=42),
-    'Random Forest': RandomForestClassifier(n_estimators=100, random_state=42),
-    'SVM': SVC(random_state=42),
-}
+You are done when you can explain:
 
-results = {}
-for name, model in models.items():
-    scores = cross_val_score(model, X, y, cv=10, scoring='accuracy')
-    results[name] = scores
-    print(f"{name:10s} | {scores.mean():.4f} ± {scores.std():.4f}")
-
-# Boxplot comparison
-fig, ax = plt.subplots(figsize=(8, 5))
-data = [results[name] for name in models]
-bp = ax.boxplot(data, labels=models.keys(), patch_artist=True)
-
-colors = ['steelblue', 'coral', 'seagreen', 'gold']
-for patch, color in zip(bp['boxes'], colors):
-    patch.set_facecolor(color)
-    patch.set_alpha(0.7)
-
-ax.set_ylabel('Accuracy')
-ax.set_title('10-Fold cross-validation comparison (boxplot)')
-ax.grid(axis='y', alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## The safest default sequence for the first time you add cross-validation to a project
-
-When you first add cross-validation into a project workflow, you can follow this sequence:
-
-1. Start with a minimal baseline
-2. Use `cv=5` to get an average score and standard deviation
-3. For classification tasks, prioritize `StratifiedKFold` by default
-4. For time series, switch to `TimeSeriesSplit` immediately
-5. Finally, connect cross-validation to the hyperparameter tuning workflow
-
-In this way, you will not learn cross-validation as an isolated API,
-but will more naturally place it into the full evaluation pipeline of:
-
-- baseline
-- model comparison
-- hyperparameter tuning
-
----
-
-## Summary
-
-| Method | Description | Use case |
-|------|------|------|
-| **Hold-out** | One train/test split | Quick experiments |
-| **K-Fold** | Average over K splits | General-purpose (K=5 or 10) |
-| **Stratified K-Fold** | K-Fold that preserves class ratios | Classification (default) |
-| **LOO** | Leave 1 sample out each time | Small datasets |
-| **TimeSeriesSplit** | Split in chronological order | Time series |
-
-:::info What comes next
-- **Next section**: Bias-variance tradeoff — why cross-validation and single-split evaluation can give different results
-- **Section 4.4**: Hyperparameter tuning — using cross-validation to choose the best parameters
-:::
-
-## What should you take away from this section?
-
-- The core of cross-validation is not “running it more times,” but “estimating model generalization more reliably”
-- The splitting strategy must match the task type
-- If evaluation is not designed well, many later model comparisons lose their meaning
-
-## Hands-on exercises
-
-### Exercise 1: Compare different K values
-
-Use the Iris dataset and a decision tree to compare cross-validation results for K=3, 5, 10, and 20 (mean accuracy and standard deviation). Does the standard deviation get smaller as K increases?
-
-### Exercise 2: Multi-metric evaluation
-
-Use `cross_validate` on the breast cancer dataset to evaluate accuracy, precision, recall, and f1 at the same time, returning both training and testing scores. Which model shows the most severe overfitting?
-
-### Exercise 3: Stratified vs non-stratified
-
-Create a severely imbalanced dataset (positive:negative = 9:1) and compare the evaluation results of `KFold` and `StratifiedKFold`.
+- one train-test split is only one snapshot;
+- K-Fold estimates average performance and variability;
+- classification should usually use stratified folds;
+- preprocessing must be inside the pipeline;
+- validation strategy must match deployment data flow.
