@@ -1,7 +1,7 @@
 ---
 title: "11 Natural Language Processing (Elective Track)"
 sidebar_position: 0
-description: "Learn the core techniques of Natural Language Processing, including text representation, word vectors, text classification, sequence labeling, Seq2Seq, attention, and pretrained language models."
+description: "Learn NLP through the practical path from raw text to tokens, representations, classification, extraction, generation, evaluation, and pretrained models."
 keywords: [NLP, Natural Language Processing, Transformer, BERT, word vectors, text classification, HuggingFace]
 ---
 
@@ -9,142 +9,117 @@ keywords: [NLP, Natural Language Processing, Transformer, BERT, word vectors, te
 
 ![Natural Language Processing hero visual](/img/course/ch11-nlp-en.png)
 
-This stage is about “how to get a model to handle text.” In the era of LLMs, many NLP basics are wrapped into LLMs, but if you want a deeper understanding of large models, text tasks, information extraction, search, and question-answering systems, NLP is still very important.
+This elective chapter answers: **how does raw text become something a model can classify, extract, search, or generate from?** LLMs hide many NLP steps, but Prompt, RAG, Agent memory, retrieval, evaluation, and information extraction still depend on NLP thinking.
 
-## Story-based introduction: Teaching the model to understand the twists and turns of human language
+## 11.0.1 See the Text-To-Task Pipeline
 
-Text is neither as neat as tables nor as fixed as images made of pixels. A word can change meaning depending on context, and a sentence may contain sentiment, entities, relationships, and intent. The goal of NLP is to turn these seemingly loose words into representations that models can compute with, compare, classify, and generate.
+![Text to NLP task pipeline](/img/course/ch11-text-to-task-pipeline-en.svg)
 
-## Interactive exercise: Break one sentence into three layers of information
+Use this as the chapter map.
 
-Pick a user review, first identify its sentiment, then find any person names, product names, or locations in it, and finally think about the intent it is really trying to express. Sentiment classification, named entity recognition, and intent recognition correspond to different tasks in NLP. This kind of practice helps you break “reading text” into problems that can be modeled.
+| Step | What happens | Practical check |
+|---|---|---|
+| Raw text | user reviews, logs, documents, chat, contracts | What is the source and language? |
+| Cleaning | normalize casing, punctuation, special characters | Did cleaning remove important meaning? |
+| Tokenization | split text into words, subwords, or tokens | Are domain terms split correctly? |
+| Representation | BoW, TF-IDF, embedding, contextual vector | Which representation fits the task and data size? |
+| Task output | label, entity, summary, answer, retrieval result | Is the output schema clear? |
+| Evaluation | metric, error sample, factual check | Can failures be reviewed? |
 
-## Project bonus
+## 11.0.2 Learning Order And Task List
 
-The bonus project for this stage can be a “review understanding assistant”: after inputting a batch of reviews, the system automatically identifies sentiment, extracts keywords, summarizes themes, and provides representative examples. It connects naturally to traditional NLP and can also evolve into LLM-based text analysis and RAG document understanding.
+First understand the text workflow, then study model families.
 
-## Stage positioning
+| Step | Read | Do | Evidence to keep |
+|---|---|---|---|
+| 11.1 | Text basics and preprocessing | clean, tokenize, normalize, inspect examples | cleaning script and before/after samples |
+| 11.2 | Embeddings and language models | compare BoW, TF-IDF, embeddings, contextual meaning | representation notes |
+| 11.3 | Text classification | build a small label task | label guide, metrics, errors |
+| 11.4 | Sequence labeling | understand NER and token-level fields | entity examples and boundary cases |
+| 11.5 | Seq2Seq and attention | understand generation and translation history | summary or translation notes |
+| 11.6 | Pretrained models | compare BERT, GPT, T5, Transformers usage | model choice note |
+| 11.7 | Stage project | run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md) | data files, metrics, extraction outputs, failure report |
 
-| Information | Description |
-|---|---|
-| Suitable for | Learners who have completed the basics of deep learning and want to go deeper into text tasks, large model principles, or NLP |
-| Estimated study time | 120–180 hours |
-| Prerequisites | Complete the basics of deep learning and Transformer |
-| Stage output | Text classification, question-answering system, text summarization, or information extraction project |
+## 11.0.3 First Runnable Loop: Labels, Rules, And Evaluation
 
-## The minimum beginner path
+This zero-dependency script is intentionally simple. It teaches the core NLP project habit: define labels, predict on fixed samples, and save errors.
 
-Beginners should first understand the main ideas behind text cleaning, tokenization, tokens, word vectors, text classification, and pretrained models. You do not need to master every traditional NLP model at the start. As long as you can complete a text classification or keyword extraction project and explain how text becomes model input, you have completed the minimum path.
-
-## Advanced path
-
-More experienced learners can go deeper into contextual representations, sequence labeling, Seq2Seq, BERT, GPT, T5, and the Transformers toolchain. You can also try comparing traditional methods, deep learning methods, and LLM methods on the same text task.
-
-## What is the relationship between NLP and large models?
-
-NLP is one of the important sources of large models. Concepts such as tokens, embeddings, language models, Seq2Seq, attention, and pretrained models all continue to exist in large models. Learning NLP is not about staying with old methods; it is about understanding the technical foundation that came before large models.
-
-![NLP to LLM technical backbone diagram](/img/course/ch11-nlp-to-llm-backbone-en.png)
-
-## What should beginners do first, and what should advanced learners do later?
-
-When beginners learn this stage for the first time, they should first focus on the main line of text tasks: tokenization, representation, classification, extraction, generation, and evaluation. Do not get stuck on model names at the beginning; first understand how input text becomes computable features.
-
-Experienced learners can focus on task boundaries and evaluation: whether the label system is clear, how to judge whether extraction results are correct, how to evaluate generation tasks, and how to choose between traditional NLP and large-model solutions.
-
-## Learning path for this stage
-
-Section 11.1 covers the basics of text processing, including the NLP map, text preprocessing, and text representation.
-
-Section 11.2 covers word embeddings and language models, helping you understand the basic ideas behind word vectors, contextual representations, and language models.
-
-Section 11.3 covers text classification, which is an entry-level project for many business text tasks.
-
-Section 11.4 covers sequence labeling, including named entity recognition and methods such as BiLSTM-CRF.
-
-Section 11.5 covers Seq2Seq and attention, helping you understand the important historical path for machine translation and generation tasks.
-
-Section 11.6 covers pretrained language models, including BERT, GPT, T5, and the Transformers library.
-
-Section 11.7 completes a comprehensive NLP project.
-
-## What you should be able to do after finishing
-
-- Explain how text becomes a representation that a model can process
-- Understand the differences between word vectors, contextual representations, and language models
-- Complete a text classification, sequence labeling, or summarization project
-- Explain the general differences among pretrained models such as BERT, GPT, and T5
-- Better understand tokenizer, embedding, and contextual modeling in large models
-
-## Common misconceptions
-
-Do not assume that LLMs make NLP completely unnecessary. LLMs make many tasks easier, but text cleaning, task definition, labeling formats, evaluation metrics, information extraction, and semantic retrieval still rely on NLP thinking.
-
-Also, do not get trapped in the details of traditional methods at the beginning. On your first pass, focus on “how text is represented, how tasks are modeled, and how pretraining changes the paradigm.”
-
-## NLP failure theater: Check labels and boundaries first for text tasks
-
-If a classification model keeps confusing similar categories, first check whether the label definitions overlap. If extraction results miss information, check the annotation rules and text segmentation. If generated content is fluent but unreliable, you must add fact checking, citations, or human review.
-
-## Minimum runnable experiment: Turn text into evaluable fields
-
-The minimum experiment for this stage can start with text classification or information extraction: prepare 20 short texts, define 2–3 labels or fields, use rules, traditional models, or an LLM to output structured results, and record whether the predictions are correct.
+Create `ch11_text_eval.py` and run it with Python 3.10 or later.
 
 ```python
 samples = [
-    {"text": "RAG failed to retrieve the correct document", "label": "retrieval"},
-    {"text": "The JSON output is missing a required field", "label": "format"},
+    {"text": "RAG failed to retrieve the correct document", "expected": "retrieval"},
+    {"text": "The JSON output is missing a required field", "expected": "format"},
+    {"text": "The answer sounds fluent but cites no source", "expected": "citation"},
 ]
 
-for item in samples:
-    print(item["text"], "=>", item["label"])
+rules = {
+    "retrieval": ["retrieve", "document", "chunk"],
+    "format": ["json", "field", "schema"],
+    "citation": ["cite", "source", "evidence"],
+}
+
+
+def predict_label(text: str) -> str:
+    text = text.lower()
+    scores = {
+        label: sum(keyword in text for keyword in keywords)
+        for label, keywords in rules.items()
+    }
+    return max(scores, key=scores.get)
+
+
+correct = 0
+for row in samples:
+    pred = predict_label(row["text"])
+    ok = pred == row["expected"]
+    correct += int(ok)
+    print(f"pred={pred:<9} expected={row['expected']:<9} ok={ok} text={row['text']}")
+
+print(f"accuracy={correct}/{len(samples)}")
 ```
 
-The key to an NLP project is not producing a fluent paragraph, but whether the task boundaries, label definitions, field schema, and evaluation method are clear.
+Expected output:
 
-## NLP failure case library: Check labels, fields, and factual evidence first
+```text
+pred=retrieval expected=retrieval ok=True text=RAG failed to retrieve the correct document
+pred=format    expected=format    ok=True text=The JSON output is missing a required field
+pred=citation  expected=citation  ok=True text=The answer sounds fluent but cites no source
+accuracy=3/3
+```
 
-| Phenomenon | Common cause | How to locate it | Fix direction |
-|---|---|---|---|
-| Confusing classification categories | Overlapping label definitions or too few samples | Check the confusion matrix and error examples | Rewrite the label instructions and add boundary cases |
-| Unstable extracted fields | Unclear schema or fuzzy text boundaries | Compare the original text and the extracted JSON | Add field definitions, positive/negative examples, and validation rules |
-| Fluent but inaccurate summaries | Generated content drifts away from the original text | Annotate the source of each sentence | Add citation checks and factual consistency checks |
-| Question answering guesses when it does not know | Missing knowledge boundaries and refusal rules | Prepare questions with no answer | Add no-answer handling and human review |
+Operation tip: add a confusing sample such as "the document source field is missing." If the rule system fails, write down whether the problem is label overlap, keyword coverage, or unclear task definition. The same thinking applies when you later use BERT, GPT, or an LLM.
 
+## 11.0.4 Choose The NLP Task By Output
 
-## Stage projects
+![NLP task output map](/img/course/ch11-nlp-task-output-map-en.svg)
 
-The basic version is to complete a text classification project, including text cleaning, feature representation, training, and evaluation. The standard version should add information extraction, summarization, or question answering tasks, and compare the effects of different models or prompting methods. The challenge version can be a review understanding assistant or a domain document extraction system that outputs sentiment, entities, topics, and representative sample analysis.
+Do not choose a model before you know the output.
 
-If you want one guided baseline before choosing a larger project, start with [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md). It gives you a local script that produces data files, TF-IDF classification, retrieval QA, extractive summaries, information extraction outputs, metrics, and a failure report.
-
-If you want a more detailed learning rhythm, you can read [11.0 Study Guide: The Least Confusing Way to Learn Natural Language Processing](./study-guide.md).
-
-
-
-
-
-## Stage deliverables
-
-| Deliverable | Minimum version | Portfolio version |
+| Desired output | Task | What to evaluate |
 |---|---|---|
-| Text classification project | Can complete cleaning, training, and evaluation | Has label definitions, confusion matrix, error samples, and improvement directions |
-| Information extraction examples | Can extract entities, keywords, or structured fields | Has annotation rules, boundary cases, and consistency checks |
-| Summarization/question-answering experiment | Can generate a summary or answer text questions | Has fact checks, citation basis, and failure samples |
-| Model comparison record | Compare traditional methods and pretrained models | Explain differences in performance, cost, data size, and applicable scenarios |
-| Project README | Clearly describe inputs, outputs, and run commands | Show task definitions, evaluation metrics, examples, and limitations |
+| one category per text | classification | accuracy, F1, confusion matrix |
+| entities or fields | extraction / sequence labeling | precision, recall, field validity |
+| new text based on source | summarization / generation | factual consistency, coverage, citations |
+| answer from documents | QA / retrieval | hit rate, answer quality, source support |
+| model behavior comparison | pretrained model experiment | quality, cost, latency, data requirement |
 
-## Relationship to the AI learning assistant across the project
+## 11.0.5 Common Failures
 
-This stage can add traditional NLP capabilities to the AI learning assistant: text classification, information extraction, summarization, and pretrained model comparison. If you are learning according to the cross-stage project path, it is recommended that by the end of this stage you submit at least one version record: what new capabilities were added, how to run it, what the sample inputs and outputs are, what problems were encountered, and what you plan to improve next.
+- Jumping to LLMs before defining labels or fields.
+- Cleaning text so aggressively that meaning is lost.
+- Mixing classification, extraction, retrieval, and generation outputs.
+- Evaluating generated summaries only by fluency, not factual consistency.
+- Reporting metrics without error samples or boundary cases.
 
+## 11.0.6 Pass Check
 
-## Stage completion criteria
+Before leaving this elective, you should be able to:
 
-| Completion level | What you need to do |
-|---|---|
-| Minimum pass | Understand text representation, sequence labeling, Seq2Seq, and pretrained models. |
-| Recommended pass | Complete at least one runnable mini-project for this stage, and record the run method, sample inputs and outputs, and issues encountered in the README. |
-| Portfolio pass | Integrate the outputs of this stage into the “AI learning assistant” cross-stage project, leaving screenshots, logs, evaluation samples, and next-step plans. |
+- explain cleaning, tokenization, representation, task output, and evaluation;
+- run the text evaluation script and add at least one confusing sample;
+- write label definitions, field schema, boundary cases, and failure examples;
+- choose classification, extraction, summarization, QA, retrieval, or pretrained-model comparison by output type;
+- run the reproducible NLP mini pipeline and keep metrics plus failure cases.
 
-After finishing this stage, you do not need to memorize every detail. What matters more is that you can clearly explain: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. Prompt, RAG, and Agent will all repeatedly use these NLP concepts later.
+For a printable checklist, use [11.0 Learning Checklist](./study-guide.md). For the guided project, start with [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md).

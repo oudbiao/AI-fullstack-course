@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="820" viewBox="0 0 720 820" role="img" aria-labelledby="title desc">
+  <title id="title">NLP 任务输出图</title>
+  <desc id="desc">按输出类型展示 NLP 任务：分类、抽取、生成、问答检索和预训练模型对比。</desc>
+  <style>.title{font:700 30px Arial,sans-serif;fill:#0f172a}.sub{font:400 17px Arial,sans-serif;fill:#475569}.label{font:700 20px Arial,sans-serif;fill:#111827}.text{font:400 15px Arial,sans-serif;fill:#374151}</style>
+  <rect width="720" height="820" fill="#fff7ed"/>
+  <text x="360" y="58" text-anchor="middle" class="title">按输出选择 NLP 任务</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">期望输出没说清前，不要先选模型。</text>
+  <g transform="translate(86 128)"><rect width="548" height="88" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="28" y="35" class="label">类别标签</text><text x="28" y="62" class="text">分类：accuracy、F1、混淆矩阵。</text></g>
+  <g transform="translate(86 240)"><rect width="548" height="88" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="28" y="35" class="label">实体或字段 JSON</text><text x="28" y="62" class="text">抽取 / NER：precision、recall、字段校验。</text></g>
+  <g transform="translate(86 352)"><rect width="548" height="88" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="28" y="35" class="label">生成文本</text><text x="28" y="62" class="text">摘要 / 生成：事实一致性和覆盖率。</text></g>
+  <g transform="translate(86 464)"><rect width="548" height="88" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="28" y="35" class="label">带证据答案</text><text x="28" y="62" class="text">问答 / 检索：命中率、答案质量、来源支撑。</text></g>
+  <g transform="translate(86 576)"><rect width="548" height="88" rx="18" fill="#fce7f3" stroke="#db2777" stroke-width="2"/><text x="28" y="35" class="label">模型行为对比</text><text x="28" y="62" class="text">传统、预训练或 LLM：质量、成本、延迟。</text></g>
+</svg>
