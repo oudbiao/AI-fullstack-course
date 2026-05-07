@@ -129,6 +129,14 @@ for file in files:
     print(file, "->", route_parser(file))
 ```
 
+Expected output:
+
+```text
+lesson_1.pdf -> pdf_text_or_ocr
+chapter_2.docx -> word_parser
+course_outline.pptx -> ppt_parser
+```
+
 The most important value of this example is:
 
 - it helps you build the idea of “routing” in your mind
@@ -169,6 +177,13 @@ chunks = [
 
 for chunk in chunks:
     print(chunk)
+```
+
+Expected output:
+
+```text
+{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': 'Word Problem: Discount Calculation', 'page_or_slide': 3, 'content': 'A store gives a 20% discount on a 100 yuan item. What is the new price?', 'content_type': 'example'}
+{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': 'Key Takeaways', 'page_or_slide': 8, 'content': 'Discount = Original price × discount rate.', 'content_type': 'concept'}
 ```
 
 This example is especially helpful for beginners because it shows:
@@ -232,6 +247,12 @@ parsed_doc = {
 print(parsed_doc["sections"][0]["chunks"][1]["text"])
 ```
 
+Expected output:
+
+```text
+An item costs 100 yuan. What is the price after a 20% discount?
+```
+
 The point of this schema is not that it is “beautifully designed,” but that:
 
 - retrieval can filter on something later
@@ -289,11 +310,78 @@ for sample in samples:
     print(guess_content_type(sample), "->", sample)
 ```
 
+Expected output:
+
+```text
+example -> Example 1: An item costs 100 yuan. What is the price after a 20% discount?
+exercise -> Exercise: A shirt costs 80 yuan. What is the price after a 30% discount?
+concept -> Formula: Discount = Original price × discount rate
+```
+
 This minimal rule-based version is not perfect,
 but it is very helpful for beginners to understand:
 
 - “example extraction” is not magic
 - it is essentially document content classification
+
+## Hands-on: Turn Simulated Pages into Knowledge Chunks
+
+Now connect routing, section detection, metadata, and content typing into one runnable mini pipeline. This still uses simulated page text, but the output shape is close to what you would store before embedding.
+
+```python
+def guess_content_type(text):
+    if "Example" in text or "Solution:" in text:
+        return "example"
+    if "Exercise" in text or "Think about it" in text:
+        return "exercise"
+    if "Definition" in text or "Formula" in text:
+        return "concept"
+    return "paragraph"
+
+
+def build_chunks(doc_id, source_type, pages):
+    chunks = []
+    section_title = "Untitled"
+
+    for page_no, lines in pages:
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith("#"):
+                section_title = line.lstrip("#").strip()
+                continue
+
+            chunks.append({
+                "chunk_id": f"{doc_id}_c{len(chunks) + 1}",
+                "doc_id": doc_id,
+                "source_type": source_type,
+                "section_title": section_title,
+                "page_or_slide": page_no,
+                "content": line,
+                "content_type": guess_content_type(line),
+            })
+
+    return chunks
+
+
+pages = [
+    (1, ["# Basic Discount Concepts", "Formula: Discount = Original price × discount rate"]),
+    (2, ["Example 1: A 100 yuan item has a 20% discount. What is the new price?"]),
+]
+
+for chunk in build_chunks("math_doc_001", "docx", pages):
+    print(chunk)
+```
+
+Expected output:
+
+```text
+{'chunk_id': 'math_doc_001_c1', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': 'Basic Discount Concepts', 'page_or_slide': 1, 'content': 'Formula: Discount = Original price × discount rate', 'content_type': 'concept'}
+{'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': 'Basic Discount Concepts', 'page_or_slide': 2, 'content': 'Example 1: A 100 yuan item has a 20% discount. What is the new price?', 'content_type': 'example'}
+```
+
+This is the smallest useful ingestion loop: every chunk carries content, structure, source, page, and type. Retrieval and courseware generation become much easier once this shape is stable.
 
 ## Why do scanned files bring OCR into the pipeline?
 

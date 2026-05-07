@@ -46,7 +46,7 @@ flowchart LR
 - なぜナレッジベースプロジェクトは「ファイル内容を抜き出して終わり」ではないのか
 - なぜ見出しの階層、ページ番号、章、例題が後の検索品質に影響するのか
 
-## 一、なぜ文書解析は思ったより難しいのか？
+## なぜ文書解析は思ったより難しいのか？
 
 理由は、ファイル形式ごとの問題がまったく違うからです。
 
@@ -62,7 +62,7 @@ flowchart LR
 3. 見出し、ページ番号、章は残っているか？
 4. どれが例題、定義、本文、注釈なのか？
 
-## 二、初心者向けの分かりやすい比喩
+## 初心者向けの分かりやすい比喩
 
 文書解析は、こう考えるとイメージしやすいです。
 
@@ -80,7 +80,7 @@ flowchart LR
 
 こうしておけば、後でシステムが「このテーマの例題を探して」と聞かれたときに、ちゃんと探しやすくなります。
 
-## 三、ファイルタイプごとのよくある問題
+## ファイルタイプごとのよくある問題
 
 | ファイルタイプ | よくある問題 |
 |---|---|
@@ -100,7 +100,7 @@ flowchart LR
 ファイルがシステムに入ったら、まずルーティングします。テキスト PDF、スキャン PDF、DOCX、PPTX では問題が違うからです。実際に保存する前に、本文順、見出し階層、ページ番号、内容タイプを復元する必要があります。単に長いプレーンテキストを抜き出すだけではありません。
 :::
 
-## 四、最小構成の文書解析ワークフローの例
+## 最小構成の文書解析ワークフローの例
 
 以下の例は、実際のサードパーティライブラリに依存しません。  
 ただし、「文書タイプごとに解析ルートを分ける」という考え方を先に分かりやすく示します。
@@ -130,6 +130,14 @@ for file in files:
     print(file, "->", route_parser(file))
 ```
 
+想定出力：
+
+```text
+lesson_1.pdf -> pdf_text_or_ocr
+chapter_2.docx -> word_parser
+course_outline.pptx -> ppt_parser
+```
+
 この例でいちばん大事なのは、
 
 - まず「ルーティング」があると意識すること
@@ -140,7 +148,7 @@ for file in files:
 - これはどのファイルか
 - どの解析パスを通すべきか
 
-## 五、実際のシステムに近い知識ブロックはどう見えるか？
+## 実際のシステムに近い知識ブロックはどう見えるか？
 
 本当にナレッジベースに入れるべきものは、ただの
 
@@ -172,6 +180,13 @@ for chunk in chunks:
     print(chunk)
 ```
 
+想定出力：
+
+```text
+{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': '応用問題：割引計算', 'page_or_slide': 3, 'content': 'お店が 100 元の商品を 8 折にしたら、いくらになりますか？', 'content_type': 'example'}
+{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': '知識ポイントのまとめ', 'page_or_slide': 8, 'content': '割引 = 元の価格 × 割引率。', 'content_type': 'concept'}
+```
+
 この例は初心者に特に向いています。なぜなら、
 
 - 本当に価値があるのは「文字だけを取ること」ではない
@@ -179,7 +194,7 @@ for chunk in chunks:
 
 と分かるからです。
 
-## 六、実際のプロジェクトに近い解析結果の schema
+## 実際のプロジェクトに近い解析結果の schema
 
 初めてこの種のシステムを作るときに抜けやすいのは、次の3つです。
 
@@ -235,6 +250,12 @@ parsed_doc = {
 print(parsed_doc["sections"][0]["chunks"][1]["text"])
 ```
 
+想定出力：
+
+```text
+商品の元の価格が 100 元で、8 折にしたらいくらになりますか？
+```
+
 この schema の意味は、「見た目をきれいにすること」ではありません。  
 大事なのは次の点です。
 
@@ -242,7 +263,7 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 - 後で教材を生成するときに、どこが概念でどこが例題か分かる
 - 後で引用元をたどるときに、どのページから来たか分かる
 
-## 七、なぜ「内容タイプ」がとても重要なのか？
+## なぜ「内容タイプ」がとても重要なのか？
 
 あなたのプロジェクトは普通の Q&A ではなく、  
 次のことをしたいからです。
@@ -260,7 +281,7 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 
 後で教材生成をするときに、とても扱いやすくなります。
 
-## 八、最小の「例題抽出」例
+## 最小の「例題抽出」例
 
 あなたのプロジェクトでは、1つの文がどのページにあるか分かるだけでは足りません。  
 できるだけ次の区別も必要です。
@@ -293,13 +314,80 @@ for sample in samples:
     print(guess_content_type(sample), "->", sample)
 ```
 
+想定出力：
+
+```text
+example -> 例1：商品原価が 100 元で、8 折にしたらいくらになりますか？
+exercise -> 練習：服の元の価格が 80 元で、7 折にしたらいくらになりますか？
+concept -> 公式：割引 = 元の価格 × 割引率
+```
+
 この最小ルール版は完璧ではありませんが、  
 初心者にとってはとても大事です。
 
 - 「例題抽出」は魔法ではない
 - 本質的には、文書内容の分類をしているだけ
 
-## 九、スキャン文書でなぜ OCR が必要になるのか？
+## 実践：模擬ページを知識ブロックに変換する
+
+ここでは、ルーティング、章の検出、メタデータ、内容タイプ判定を 1 つの小さなパイプラインにつなぎます。まだ模擬ページのテキストですが、出力の形は embedding 前に保存したい構造にかなり近いです。
+
+```python
+def guess_content_type(text):
+    if "例" in text or "解：" in text:
+        return "example"
+    if "練習" in text or "思考題" in text:
+        return "exercise"
+    if "定義" in text or "公式" in text:
+        return "concept"
+    return "paragraph"
+
+
+def build_chunks(doc_id, source_type, pages):
+    chunks = []
+    section_title = "無題の章"
+
+    for page_no, lines in pages:
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith("#"):
+                section_title = line.lstrip("#").strip()
+                continue
+
+            chunks.append({
+                "chunk_id": f"{doc_id}_c{len(chunks) + 1}",
+                "doc_id": doc_id,
+                "source_type": source_type,
+                "section_title": section_title,
+                "page_or_slide": page_no,
+                "content": line,
+                "content_type": guess_content_type(line),
+            })
+
+    return chunks
+
+
+pages = [
+    (1, ["# 割引の基本概念", "公式：割引 = 元の価格 × 割引率"]),
+    (2, ["例1：商品の元の価格が 100 元で、8 折にしたらいくらになりますか？"]),
+]
+
+for chunk in build_chunks("math_doc_001", "docx", pages):
+    print(chunk)
+```
+
+想定出力：
+
+```text
+{'chunk_id': 'math_doc_001_c1', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '割引の基本概念', 'page_or_slide': 1, 'content': '公式：割引 = 元の価格 × 割引率', 'content_type': 'concept'}
+{'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '割引の基本概念', 'page_or_slide': 2, 'content': '例1：商品の元の価格が 100 元で、8 折にしたらいくらになりますか？', 'content_type': 'example'}
+```
+
+これが最小限に役立つ投入ループです。各 chunk が内容、構造、出典、ページ、タイプを持つようになると、検索と教材生成はかなり作りやすくなります。
+
+## スキャン文書でなぜ OCR が必要になるのか？
 
 スキャン版 PDF や画像ページは、そもそも文字ファイルではなく、
 
@@ -323,7 +411,7 @@ for sample in samples:
 関連する内容は以下も参照してください。
 - [10.5.4 OCR 文字認識](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-## 十、最初に作るときの、いちばん安全な範囲設定
+## 最初に作るときの、いちばん安全な範囲設定
 
 初回開発で失敗しやすい理由は、技術が難しすぎるからではなく、  
 最初にサポート範囲を広げすぎるからです。
@@ -342,7 +430,7 @@ for sample in samples:
 
 ことです。
 
-## 十一、初心者がそのまま使える解析チェックリスト
+## 初心者がそのまま使える解析チェックリスト
 
 初めてナレッジベース用の文書解析を作るとき、  
 いちばん安定したチェックリストは次のとおりです。
@@ -356,7 +444,7 @@ for sample in samples:
 
 この6項目は、「先にベクトルデータベースを入れる」ことより優先度が高いです。
 
-## 十二、これをプロジェクトとして見せるなら、何を見せるべきか？
+## これをプロジェクトとして見せるなら、何を見せるべきか？
 
 見せる価値が高いのは、たいてい次のようなものです。
 

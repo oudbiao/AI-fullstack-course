@@ -46,7 +46,7 @@ flowchart LR
 - 为什么知识库项目不是“把文件内容抠出来就结束”
 - 为什么标题层级、页码、章节和例题都会影响后面检索质量
 
-## 一、为什么文档解析经常比想象中更难？
+## 为什么文档解析经常比想象中更难？
 
 因为不同文档格式的问题完全不一样：
 
@@ -62,7 +62,7 @@ flowchart LR
 3. 标题、页码、章节还在吗？
 4. 哪些内容是例题、定义、正文、备注？
 
-## 二、一个更适合新人的总类比
+## 一个更适合新人的总类比
 
 你可以把文档解析理解成：
 
@@ -80,7 +80,7 @@ flowchart LR
 
 这样后面系统问“我要找哪个主题的例题”时，才有可能真的找得准。
 
-## 三、不同文件类型最常见的问题
+## 不同文件类型最常见的问题
 
 | 文件类型 | 最常见的问题 |
 |---|---|
@@ -99,7 +99,7 @@ flowchart LR
 文件进入系统后先路由：文本 PDF、扫描 PDF、DOCX、PPTX 的问题不同。真正入库前要恢复正文顺序、标题层级、页码和内容类型，而不是只抽一大段纯文本。
 :::
 
-## 四、一个最小文档解析工作流示例
+## 一个最小文档解析工作流示例
 
 下面这个例子不依赖真实第三方库，
 但会把“不同文档类型走不同解析路线”这件事先讲清楚。
@@ -129,6 +129,14 @@ for file in files:
     print(file, "->", route_parser(file))
 ```
 
+预期输出：
+
+```text
+lesson_1.pdf -> pdf_text_or_ocr
+chapter_2.docx -> word_parser
+course_outline.pptx -> ppt_parser
+```
+
 这个示例最重要的价值是：
 
 - 先让你脑子里有“路由”这件事
@@ -139,7 +147,7 @@ for file in files:
 - 这是什么文件
 - 该走哪条解析链
 
-## 五、一个更像真实系统的知识块长什么样？
+## 一个更像真实系统的知识块长什么样？
 
 真正送进知识库的，不应该只是：
 
@@ -171,12 +179,19 @@ for chunk in chunks:
     print(chunk)
 ```
 
+预期输出：
+
+```text
+{'doc_id': 'word_001', 'source_type': 'docx', 'section_title': '应用题：折扣计算', 'page_or_slide': 3, 'content': '商店对 100 元商品打 8 折，问现价是多少？', 'content_type': 'example'}
+{'doc_id': 'ppt_002', 'source_type': 'pptx', 'section_title': '知识点总结', 'page_or_slide': 8, 'content': '折扣 = 原价 × 折扣率。', 'content_type': 'concept'}
+```
+
 这个例子特别适合初学者，因为它会帮助你先看到：
 
 - 真正有价值的不是“只拿到字”
 - 而是把字放回来源、章节、页码和内容类型里
 
-## 六、一个更像真实项目的解析结果 schema
+## 一个更像真实项目的解析结果 schema
 
 第一次做这类系统时，最容易少掉的是：
 
@@ -232,13 +247,19 @@ parsed_doc = {
 print(parsed_doc["sections"][0]["chunks"][1]["text"])
 ```
 
+预期输出：
+
+```text
+商品原价 100 元，打 8 折后是多少元？
+```
+
 这个 schema 的意义不是“设计得特别漂亮”，而是：
 
 - 后面检索时有东西可筛
 - 后面生成课件时知道哪里是概念、哪里是例题
 - 后面做引用回溯时知道内容从哪一页来
 
-## 七、为什么“内容类型”特别重要？
+## 为什么“内容类型”特别重要？
 
 因为你的项目不是普通问答，
 而是要做：
@@ -256,7 +277,7 @@ print(parsed_doc["sections"][0]["chunks"][1]["text"])
 
 后面生成课件时就会稳很多。
 
-## 八、一个最小“例题抽取”示例
+## 一个最小“例题抽取”示例
 
 对你的项目来说，只知道一段话属于哪一页还不够，
 还要尽量分清：
@@ -289,13 +310,80 @@ for sample in samples:
     print(guess_content_type(sample), "->", sample)
 ```
 
+预期输出：
+
+```text
+example -> 例1：商品原价 100 元，打 8 折后是多少元？
+exercise -> 练习：一件衣服原价 80 元，打 7 折后是多少元？
+concept -> 公式：折扣 = 原价 × 折扣率
+```
+
 这个最小规则版虽然不完美，
 但特别适合新人理解：
 
 - “例题抽取”不是魔法
 - 它本质上是在做文档内容分类
 
-## 九、扫描件为什么会把 OCR 拉进来？
+## 动手做：把模拟页面转换成知识块
+
+现在把路由、章节识别、元数据和内容类型串成一个可运行的小管线。这里仍然用模拟页面文本，但输出结构已经接近真正 embedding 前应该保存的形状。
+
+```python
+def guess_content_type(text):
+    if "例" in text or "解：" in text:
+        return "example"
+    if "练习" in text or "思考题" in text:
+        return "exercise"
+    if "定义" in text or "公式" in text:
+        return "concept"
+    return "paragraph"
+
+
+def build_chunks(doc_id, source_type, pages):
+    chunks = []
+    section_title = "未命名章节"
+
+    for page_no, lines in pages:
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith("#"):
+                section_title = line.lstrip("#").strip()
+                continue
+
+            chunks.append({
+                "chunk_id": f"{doc_id}_c{len(chunks) + 1}",
+                "doc_id": doc_id,
+                "source_type": source_type,
+                "section_title": section_title,
+                "page_or_slide": page_no,
+                "content": line,
+                "content_type": guess_content_type(line),
+            })
+
+    return chunks
+
+
+pages = [
+    (1, ["# 折扣基础概念", "公式：折扣 = 原价 × 折扣率"]),
+    (2, ["例1：商品原价 100 元，打 8 折后是多少元？"]),
+]
+
+for chunk in build_chunks("math_doc_001", "docx", pages):
+    print(chunk)
+```
+
+预期输出：
+
+```text
+{'chunk_id': 'math_doc_001_c1', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '折扣基础概念', 'page_or_slide': 1, 'content': '公式：折扣 = 原价 × 折扣率', 'content_type': 'concept'}
+{'chunk_id': 'math_doc_001_c2', 'doc_id': 'math_doc_001', 'source_type': 'docx', 'section_title': '折扣基础概念', 'page_or_slide': 2, 'content': '例1：商品原价 100 元，打 8 折后是多少元？', 'content_type': 'example'}
+```
+
+这就是最小可用的入库闭环：每个 chunk 都带着内容、结构、来源、页码和类型。这个形状稳定之后，后面的检索和课件生成都会容易很多。
+
+## 扫描件为什么会把 OCR 拉进来？
 
 因为扫描版 PDF 或图片页本质上不是文字文件，而是：
 
@@ -316,7 +404,7 @@ for sample in samples:
 对应课程可以回看：
 - [10.5.4 OCR 文字识别](../../ch10-computer-vision/ch05-advanced/03-ocr.md)
 
-## 十、第一次做这个模块时，最稳的范围控制
+## 第一次做这个模块时，最稳的范围控制
 
 第一次开发时，最容易失败的原因不是技术太难，
 而是支持范围一下子开太大。
@@ -333,7 +421,7 @@ for sample in samples:
 - 你可以先把结构和 schema 跑顺
 - 不会一开始就被 OCR 识别问题拖住
 
-## 十一、一个新人可直接照抄的解析检查表
+## 一个新人可直接照抄的解析检查表
 
 第一次做知识库文档解析时，最稳的检查表通常是：
 
@@ -346,7 +434,7 @@ for sample in samples:
 
 这 6 项比“先上向量库”更优先。
 
-## 十二、如果把它做成项目，最值得展示什么？
+## 如果把它做成项目，最值得展示什么？
 
 最值得展示的通常不是：
 
