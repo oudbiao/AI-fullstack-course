@@ -15,7 +15,7 @@ keywords: [コンピュータビジョン, OpenCV, 画像分類, 物体検出, Y
 
 ## 出力粒度で視覚タスクを見る
 
-![視覚タスク出力粒度の階段](/img/course/ch10-vision-task-granularity-ladder-ja.svg)
+![視覚タスク出力粒度の階段](/img/course/ch10-vision-task-granularity-ladder-ja.png)
 
 同じ画像に3つの質問をします。
 
@@ -87,7 +87,7 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 
 ## 視覚結果をデバッグする
 
-![視覚パイプラインと失敗レビューのループ](/img/course/ch10-vision-pipeline-loop-ja.svg)
+![視覚パイプラインと失敗レビューのループ](/img/course/ch10-vision-pipeline-loop-ja.png)
 
 視覚モデルが間違えたら、まず入力とラベルを確認し、そのあとモデル構造を疑います。
 

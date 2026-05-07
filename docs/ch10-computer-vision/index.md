@@ -15,7 +15,7 @@ If your main track is LLM apps and Agents, you can return later. If you care abo
 
 ## See Vision Tasks By Output Granularity
 
-![Vision task granularity ladder](/img/course/ch10-vision-task-granularity-ladder-en.svg)
+![Vision task granularity ladder](/img/course/ch10-vision-task-granularity-ladder-en.png)
 
 Ask three questions about the same image:
 
@@ -87,7 +87,7 @@ Operation tip: change `width`, `height`, or the RGB formula. If the saved image 
 
 ## Debug Vision Results
 
-![Vision pipeline and failure review loop](/img/course/ch10-vision-pipeline-loop-en.svg)
+![Vision pipeline and failure review loop](/img/course/ch10-vision-pipeline-loop-en.png)
 
 When a vision model is wrong, inspect the input and labels before blaming the architecture.
 
