@@ -1,404 +1,215 @@
 ---
-title: "6.5.2 Attention Mechanism 🔧"
+title: "6.5.2 Attention Mechanism"
 sidebar_position: 1
-description: "From why attention is needed, to Q/K/V, scaled dot-product, self-attention, multi-head attention, and masks, truly understand the heart of Transformer."
+description: "Learn attention by computing Q/K/V scores, softmax weights, causal masks, and PyTorch MultiheadAttention shapes."
 keywords: [Attention, Self-Attention, QKV, Transformer, Multi-Head, Mask]
 ---
 
 # 6.5.2 Attention Mechanism
 
-![Self-Attention QKV structure diagram](/img/course/self-attention-qkv-en.png)
-
-:::tip Section overview
-If RNN is “reading and remembering step by step in order,” then attention is another way of thinking:
-
-> **When reading the current word, directly look back at the most relevant parts of the whole sentence.**
-
-This is one of the fundamental reasons Transformer was able to rise.
+:::tip Section Overview
+RNNs pass information step by step. Attention lets one token look directly at other tokens and decide which ones matter. This is the core shift behind Transformers.
 :::
 
-## Learning objectives
+## Learning Objectives
 
-- Understand why sequence modeling needs attention
-- Build an intuitive understanding of Query / Key / Value
-- Manually compute a minimal attention example
-- Understand the roles of self-attention, multi-head attention, and masks
-- Read PyTorch’s `MultiheadAttention`
-
-## What beginners should focus on / what advanced learners should understand later
-
-If you are a beginner, first focus on this one sentence: attention means that when the current word needs to understand itself, it looks back at which words in the whole sentence are most relevant. Don’t rush to memorize the Q/K/V formulas yet; first understand the chain of “relevance scoring -> softmax weights -> weighted aggregation.”
-
-If you already have experience, you can further focus on: the matrix shapes of Q/K/V, why we divide by `sqrt(d_k)`, how masks prevent peeking into the future, and why multi-head attention can view relationships from multiple subspaces.
+- Explain why attention helps with long-range dependencies.
+- Understand Query, Key, and Value through a retrieval analogy.
+- Compute scaled dot-product attention by hand.
+- Apply a causal mask that prevents future peeking.
+- Read `nn.MultiheadAttention` shapes in PyTorch.
 
 ---
 
-## Historical background: Where did Transformer come from?
+## Look at Q/K/V First
 
-The historical milestone worth knowing in this section is:
+![Self-Attention QKV structure diagram](/img/course/self-attention-qkv-en.png)
 
-| Year | Paper | Key author(s) | What it most importantly solved |
-|---|---|---|---|
-| 2017 | *Attention Is All You Need* | Vaswani et al. | Replaced the main RNN pipeline with self-attention, significantly improved parallel training, and shortened the information path for long-range dependencies |
+Attention is a weighted retrieval operation:
 
-For beginners, what is most worth remembering is not the authors’ names, but this sentence:
+```text
+Q asks -> K matches -> softmax makes weights -> V provides content -> weighted sum
+```
 
-> **Transformer matters not only because it is “stronger,” but because it changed sequence modeling from “passing information step by step” to “direct global association.”**
-
-So the attention you see in this lesson is not a small local trick,
-but the true heart of the entire Transformer path.
-
----
-
-## How this connects to the RNN storyline
-
-### First, a story: when reading comprehension asks you a pronoun question, you do not just remember the last sentence
-
-Imagine you are doing reading comprehension and the question asks: “Who does ‘he’ refer to in the passage?” You would not only look at the last word before it; you would go back to the whole sentence or even the whole paragraph for clues. Which name, which action, is most relevant to this “he”? That is where you focus your attention.
-
-RNN is more like passing information along step by step, with long-range information becoming weaker over time. Attention mechanism is more like allowing the current position to directly look at all positions and assign different weights to them. In this way, the model does not need to squeeze the whole sentence into a fixed-length memory.
-
-If you just finished learning RNN, you can first understand this section as:
-
-- RNN is “reading and remembering step by step in order”
-- Attention is “the current position directly looks at the most relevant parts globally”
-
-So the key new idea in this section is not the formula, but:
-
-- The current position no longer depends only on the hidden state passed in step by step
-- Instead, it can directly build long-distance relationships
-
-## Why do we need attention mechanism?
-
-### First, look at a pain point of Seq2Seq
-
-Early encoder-decoder structures often worked like this:
-
-1. The encoder compresses the entire input sentence into a fixed-length vector
-2. The decoder generates the output based on that vector
-
-The problem is:
-
-> All the information in a whole sentence gets stuffed into one fixed vector, so long sentences are very likely to lose information.
-
-For example, when translating this sentence:
-
-> “Although this restaurant is in a very remote location, because the owner is especially warm and friendly, the portions are generous, and the prices are reasonable, I’m still willing to go again.”
-
-If the model still needs to remember the earlier part “the owner is especially warm and friendly” when generating the end of the sentence, a fixed vector is often not flexible enough.
-
-### The core improvement of attention
-
-Attention mechanism says:
-
-> Don’t compress the whole sentence into one point. When handling a certain step, directly look at which parts of the sentence are most relevant.
-
-This is like answering reading-comprehension questions not by memorizing the whole article, but by:
-
-- seeing the question
-- going back to the original text
-- finding the most relevant sentences
-
-That is the intuition behind attention.
-
-### What you should understand first in this section is not QKV, but “why the change is needed”
-
-In other words, don’t rush to memorize Q / K / V.
-First establish this question:
-
-- If a fixed-length vector loses information
-- If long dependencies are hard to pass along step by step
-
-then the model needs a more flexible mechanism that can “look back anytime.”
-
-Once this problem is clear, QKV will not feel like pure memorization.
-
----
-
-## What exactly are Query / Key / Value?
-
-This is often the most confusing part for beginners.
-
-### A search-and-retrieval analogy
-
-You want to find information in a database:
-
-- **Query**: what you are looking for right now
-- **Key**: the index saying “what I am generally related to”
-- **Value**: the actual information to retrieve and use
-
-The attention process can be understood as:
-
-1. Use Query to match against all Keys
-2. The stronger the match, the more relevant it is
-3. Then aggregate the corresponding Values according to relevance weights
-
-### One-sentence version
-
-> **Q asks the question, K gets matched, and V provides the content.**
-
-### What is easiest to get stuck on when learning QKV for the first time?
-
-Usually it is not the English terms that are hard to remember, but:
-
-- not knowing why they need to be split into 3 roles
-
-A more stable way to understand it is:
-
-- `Q` decides “what I care about right now”
-- `K` decides “what content I roughly correspond to”
-- `V` decides “what content is actually retrieved and mixed”
-
-Once you understand this role division, the matrix form will be much easier to read later.
+The retrieval analogy:
 
 ![Library retrieval analogy diagram for attention QKV](/img/course/ch06-attention-qkv-library-analogy-map-en.png)
 
-:::tip Reading guide
-Read this image as a search-and-retrieval story: `Q` is the question you are asking now, `K` is the index tag attached to each document, and `V` is the actual content to retrieve. Attention first scores `Q` against all `K`, then mixes `V` according to the weights.
-:::
+| Role | Intuition | In attention |
+|---|---|---|
+| Query `Q` | what am I looking for? | current token’s question |
+| Key `K` | what does each item match? | index used for scoring |
+| Value `V` | what content should be returned? | information that gets mixed |
 
----
+One sentence:
 
-## Minimal runnable example: calculate attention by hand
+```text
+Q scores against K, then the resulting weights mix V.
+```
 
-### Start by looking at the code directly
+## Why Attention Was Needed
+
+In older sequence models, distant information had to travel through many recurrent steps or be compressed into one fixed vector. Attention shortens the path:
+
+```text
+current token -> directly scores every token -> selects useful context
+```
+
+This gives three practical advantages:
+
+- direct long-range connections;
+- better parallel training than step-by-step RNNs;
+- a visible matrix of token-to-token mixing weights.
+
+## Lab 1: Compute Attention by Hand
+
+For teaching, set `Q = K = V = X`.
 
 ```python
 import numpy as np
 
-# Suppose there are 3 tokens
-X = np.array([
-    [1.0, 0.0],   # token1
-    [0.0, 1.0],   # token2
-    [1.0, 1.0]    # token3
-])
+X = np.array(
+    [
+        [1.0, 0.0],
+        [0.0, 1.0],
+        [1.0, 1.0],
+    ]
+)
 
-# For teaching simplicity, let Q, K, and V all equal X directly
-Q = X
-K = X
-V = X
+Q = K = V = X
 
 scores = Q @ K.T
 scaled_scores = scores / np.sqrt(K.shape[1])
 
+
 def softmax(row):
     e = np.exp(row - row.max())
     return e / e.sum()
+
 
 weights = np.apply_along_axis(softmax, 1, scaled_scores)
 output = weights @ V
 
-print("scores =\n", np.round(scores, 3))
-print("weights =\n", np.round(weights, 3))
-print("output =\n", np.round(output, 3))
+print("attention_lab")
+print("scores")
+print(np.round(scores, 3))
+print("weights")
+print(np.round(weights, 3))
+print("output")
+print(np.round(output, 3))
 ```
 
-### The most important first line: `Q @ K.T`
+Expected output:
 
-This step calculates:
+```text
+attention_lab
+scores
+[[1. 0. 1.]
+ [0. 1. 1.]
+ [1. 1. 2.]]
+weights
+[[0.401 0.198 0.401]
+ [0.198 0.401 0.401]
+ [0.248 0.248 0.503]]
+output
+[[0.802 0.599]
+ [0.599 0.802]
+ [0.752 0.752]]
+```
 
-> How relevant the current token is to the other tokens
+Read the three steps:
 
-If two vectors point in more similar directions, their dot product is usually larger.
+| Step | Code | Meaning |
+|---|---|---|
+| score | `Q @ K.T` | how strongly each token matches each token |
+| normalize | `softmax(...)` | convert scores into weights that sum to 1 |
+| mix | `weights @ V` | combine token content according to weights |
 
-### Second step: softmax
+## Why Divide by `sqrt(d_k)`?
 
-softmax turns these relevance scores into a probability distribution:
+The Transformer formula is:
 
-- They add up to 1
-- They can be treated as “attention strength”
+```text
+Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V
+```
 
-### Third step: `weights @ V`
+When vectors have many dimensions, dot products can become large. Large scores make softmax too sharp, so one token gets almost all weight. Dividing by `sqrt(d_k)` cools the scores down and helps training stay stable.
 
-This step says:
+## Self-Attention
 
-> Instead of only looking at the current token itself, mix information from all tokens by weighting them according to relevance.
+Self-attention means `Q`, `K`, and `V` all come from the same sequence. Every token can look at every token in that same sequence.
 
-This gives a new representation.
+Example question:
 
-### Why is this one of the fundamental capabilities behind Transformer’s rise?
+```text
+"Alex gave Sam the notebook because he trusted him."
+```
 
-Because for the first time it naturally does one thing very well:
+To understand “he” and “him,” the current token needs other tokens. Self-attention gives a direct path to them.
 
-- The representation of the current position is no longer determined only by itself
-- It is determined jointly by “itself + how relevant other positions are to it”
+## Lab 2: Causal Mask
 
-This means the model can build more flexibly:
+Generation tasks must not look at future tokens. A causal mask keeps only the lower triangle visible.
 
-- long-range dependencies
-- multi-position interactions
-- global context
-
----
-
-## Why do we need to “scale”?
-
-### The formula for scaled dot-product attention
-
-In Transformer, the common formula is:
-
-> `Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V`
-
-Here, `sqrt(d_k)` is the scaling term.
-
-### Why divide by this number?
-
-Because when the dimension becomes large, dot products can become large too, and softmax may become too sharp:
-
-- one position gets a very large weight
-- other positions become almost 0
-
-This makes training unstable.
-
-So we scale it down to make the scores gentler.
-
-You can think of it like this:
-
-> The larger the vector dimension, the more “excited” the dot product becomes naturally, so we cool it down first.
-
----
-
-## What is Self-Attention?
-
-### The key idea of self-attention
-
-When Query / Key / Value all come from the same input sequence, it is called self-attention.
-
-This means:
-
-> Every position in the sequence can look at other positions in the same sequence.
-
-For example, in the sentence:
-
-> “Xiao Wang gave the ball to Xiao Li because he caught it very steadily.”
-
-Who does “he” refer to?
-To decide, you need to look at the other words before it.
-
-Self-attention can directly build this kind of relationship.
-
-### The difference from RNN
-
-RNN:
-
-- passes information step by step over time
-
-Self-attention:
-
-- the current position looks at the global context directly
-
-This is one reason Transformer is better at long-range dependencies.
-
-### What is most worth remembering about self-attention is not the name, but its capability boundary
-
-What is most worth remembering is:
-
-- It allows each position to directly look at the entire sequence
-
-This sentence is important because it exactly corresponds to the weakness of RNN:
-
-- RNN is more like passing messages step by step
-- Self-Attention is more like building global connections all at once
-
----
-
-## What is Mask used for?
-
-### Why do generation tasks need a mask?
-
-In language generation, when predicting the current position, you must not peek at future words.
-
-For example, when predicting:
-
-> “I love ___”
-
-If the model has already peeked at the true answer later on, the training is no longer valid.
-
-So decoder self-attention often adds a **causal mask**.
-
-### A minimal mask example
+![Causal Mask prevents peeking into the future diagram](/img/course/ch06-causal-mask-no-peeking-map-en.png)
 
 ```python
 import numpy as np
 
-scores = np.array([
-    [2.0, 1.0, 0.5],
-    [1.2, 2.1, 0.7],
-    [0.8, 1.3, 2.2]
-])
+scores = np.array(
+    [
+        [2.0, 1.0, 0.5],
+        [1.2, 2.1, 0.7],
+        [0.8, 1.3, 2.2],
+    ]
+)
 
-# Lower triangle is visible, upper triangle is masked
-mask = np.array([
-    [1, 0, 0],
-    [1, 1, 0],
-    [1, 1, 1]
-])
-
+mask = np.tril(np.ones_like(scores))
 masked_scores = np.where(mask == 1, scores, -1e9)
+
 
 def softmax(row):
     e = np.exp(row - row.max())
     return e / e.sum()
 
+
 weights = np.apply_along_axis(softmax, 1, masked_scores)
 
-print("masked weights =\n", np.round(weights, 3))
+print("mask_lab")
+print(np.round(weights, 3))
 ```
 
-You will see:
+Expected output:
 
-- The 1st position can only see itself
-- The 2nd position can only see the first two
-- The 3rd position can see the first three
+```text
+mask_lab
+[[1.    0.    0.   ]
+ [0.289 0.711 0.   ]
+ [0.149 0.246 0.605]]
+```
 
-### Why must mask be understood early?
+Read it:
 
-Because once you enter generation tasks, if you do not understand masks, you will easily get confused about:
+- position 1 sees only itself;
+- position 2 sees positions 1 and 2;
+- position 3 sees positions 1, 2, and 3.
 
-- why training cannot peek at the future
-- why decoder attention behaves differently from encoder attention
+No future answers are visible.
 
-So mask is not a side concept; it directly affects whether the generation task is being trained according to the rules.
+## Multi-Head Attention
 
-![Causal Mask prevents peeking into the future diagram](/img/course/ch06-causal-mask-no-peeking-map-en.png)
+One attention head can learn one type of relationship. Multi-head attention lets the model inspect several relationship spaces in parallel.
 
-:::tip Reading guide
-When reading this image, look at the lower-triangular matrix: the 1st position can only see itself, the 2nd position can only see itself and the past, and so on. If generation tasks do not use a causal mask, it is like seeing the answers to later questions before the exam.
-:::
+Different heads may focus on:
 
----
+- nearby position patterns;
+- subject/object relationships;
+- repeated terms;
+- long-range references.
 
-## Why does multi-head attention need “multiple heads”?
+The heads are concatenated and projected back into one representation.
 
-### It is not that one head cannot compute enough, but that one head cannot see everything
-
-A single attention head may only learn one type of relationship.
-The idea of multi-head attention is:
-
-> Let the model look at relationships from multiple subspaces and multiple angles at the same time.
-
-For example, different heads may focus more on:
-
-- syntactic relations
-- positional relations
-- subject-verb-object relations
-- long-range dependencies
-
-### An intuitive analogy
-
-Multi-head attention is like inviting different people to a meeting to look at the problem together:
-
-- someone looks at syntax
-- someone looks at semantics
-- someone looks at structure
-
-Finally, these observations are combined, and the understanding becomes more complete.
-
----
-
-## `MultiheadAttention` in PyTorch
-
-### Minimal runnable example
+## Lab 3: PyTorch `MultiheadAttention`
 
 ```python
 import torch
@@ -406,120 +217,75 @@ from torch import nn
 
 torch.manual_seed(42)
 
-# seq_len=4, batch=2, embed_dim=8
-x = torch.randn(4, 2, 8)
+attention = nn.MultiheadAttention(embed_dim=8, num_heads=2, batch_first=True)
+tokens = torch.randn(1, 4, 8)
+output, weights = attention(tokens, tokens, tokens)
 
-attn = nn.MultiheadAttention(
-    embed_dim=8,
-    num_heads=2,
-    batch_first=False
-)
-
-out, weights = attn(x, x, x)
-
-print("input shape :", x.shape)
-print("output shape:", out.shape)
-print("weights shape:", weights.shape)
+print("mha_lab")
+print("tokens:", tuple(tokens.shape))
+print("output:", tuple(output.shape))
+print("weights:", tuple(weights.shape))
+print("row0_sum:", round(float(weights[0, 0].sum().detach()), 4))
 ```
 
-### How do we read the output shapes?
+Expected output:
 
-- `out.shape = [4, 2, 8]`
-  - Each position outputs a new 8-dimensional representation
-
-- `weights.shape = [2, 4, 4]`
-  - 2 batches
-  - Each batch has a `4x4` attention matrix
-
-That is to say:
-
-> Each position assigns attention weights to all positions in the sequence.
-
----
-
-## What does attention mechanism really solve?
-
-You can summarize it in three sentences:
-
-1. It no longer relies on a single path to pass information step by step
-2. The current position can directly use global context
-3. It is easier to compute in parallel
-
-When these three points are combined, Transformer becomes extremely powerful.
-
----
-
-## A common mistake: treating attention weights as the “final explanation”
-
-Attention weights are very intuitive, so many beginners naturally think: a high weight means the model has “truly understood the reason.” Be careful with this understanding.
-
-Attention weights only show that in this layer, this head, and this position’s computation, certain tokens were given higher weights. They are very useful for helping you understand the information mixing process, but they cannot simply be equated with a complete causal explanation.
-
-```mermaid
-flowchart LR
-    A["High attention weight"] --> B["Means the current position mixed more information from that position"]
-    B --> C["Useful for observing what the model focuses on"]
-    C --> D["But not equal to the complete reason for the reasoning"]
+```text
+mha_lab
+tokens: (1, 4, 8)
+output: (1, 4, 8)
+weights: (1, 4, 4)
+row0_sum: 1.0
 ```
 
-So the most reliable way to describe attention visualizations the first time you see them is: “this head focuses more on these positions in this layer,” rather than directly saying “the model drew its conclusion because of this word.”
+Shape reading:
 
----
+| Tensor | Shape | Meaning |
+|---|---|---|
+| `tokens` | `[1, 4, 8]` | batch 1, 4 tokens, embedding size 8 |
+| `output` | `[1, 4, 8]` | each token gets a new context-aware representation |
+| `weights` | `[1, 4, 4]` | each query token assigns weights over 4 key tokens |
 
-## Learning loop for this section
+## Attention Weights Are Not a Full Explanation
 
-After finishing this section, you can self-check with the table below:
+Attention weights are useful, but do not overclaim them.
 
-| Level | What you should be able to do |
+They tell you:
+
+```text
+in this layer/head, this query mixed more value from those key positions
+```
+
+They do not automatically prove:
+
+```text
+the model made the final decision because of that token
+```
+
+Use attention weights as a debugging and inspection tool, not as complete causal explanation.
+
+## Common Mistakes
+
+| Mistake | Fix |
 |---|---|
-| Intuition | Explain why attention is more suitable than a fixed vector for long sentences |
-| Code | Read the roles of `Q @ K.T`, softmax, and `weights @ V` |
-| Structure | Distinguish what self-attention, mask, and multi-head attention each solve |
-| Future connection | Explain why Transformer, large models, and multimodal models all rely on attention |
-
----
-
-## Common mistakes beginners make
-
-### Treating Q / K / V as three “mysterious variables”
-
-It is enough at first to understand them as “query / index / content.”
-
-### Looking only at the formula and not at the matrix shapes
-
-Attention chapters are easiest to get wrong on shapes.
-Be sure to watch:
-
-- sequence length
-- embedding dimension
-- number of heads
-
-### Thinking attention naturally understands everything
-
-The attention mechanism is powerful, but it is not “automatic reasoning magic.”
-Its essence is still:
-
-- relevance scoring
-- softmax
-- weighted summation
-
-Understanding this will make later Transformer learning much more solid.
-
----
-
-## Summary
-
-The most important thing in this section is not memorizing the formula, but grasping this intuition:
-
-> **Attention mechanism allows the model, at the current moment, to selectively look back at the most relevant parts of the entire input.**
-
-This is exactly the core reason why Transformer, large models, and multimodal models can greatly improve context modeling ability.
-
----
+| treating Q/K/V as mysterious variables | read them as question / index / content |
+| forgetting shape meaning | track `[batch, seq_len, embed_dim]` and attention `[batch, query, key]` |
+| using no mask in generation | apply causal mask so future tokens are hidden |
+| applying `softmax` on the wrong dimension | normalize over key positions |
+| treating attention as reasoning magic | remember score -> softmax -> weighted sum |
 
 ## Exercises
 
-1. Change `Q / K / V` in the minimal attention example and observe how the weights change.
-2. Modify the mask example to a longer sequence and see how future positions are blocked.
-3. Explain in your own words: why is self-attention easier than a plain RNN for modeling long-range dependencies?
-4. Think about it: if a token has almost the same attention to all positions, what does that usually mean?
+1. Change the third token in Lab 1 to `[2.0, 0.0]`. How do weights change?
+2. Extend the mask lab to a `4 x 4` matrix.
+3. Change `num_heads` from `2` to `1` in Lab 3. Which shapes stay the same?
+4. Explain why attention is easier than a plain RNN for long-distance token interactions.
+5. Describe one case where attention weights are useful but not a full explanation.
+
+## Key Takeaways
+
+- Attention lets tokens directly select relevant context.
+- Q/K/V split scoring from content retrieval.
+- Scaled dot-product attention is score, softmax, weighted sum.
+- Causal masks prevent future peeking in generation.
+- Multi-head attention views relationships from several subspaces.
