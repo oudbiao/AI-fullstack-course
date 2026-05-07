@@ -1,102 +1,35 @@
 ---
-title: "6.0 Study Guide and Task Sheet: How to Learn Deep Learning and Transformer Basics Without Getting Confused"
+title: "6.0 Study Guide and Task Sheet: Deep Learning and Transformer Basics"
 sidebar_position: 1
-description: "A deep learning study guide for AI full-stack beginners: neural networks, PyTorch, CNN, RNN, Attention, Transformer, project roadmap, and acceptance criteria."
-keywords: [deep learning study guide, how to learn PyTorch, how to learn CNN, how to learn Transformer, Attention]
+description: "A short printable checklist for Chapter 6 after the main guide has been merged into the chapter entry page."
+keywords: [deep learning study guide, PyTorch, CNN, Transformer, Attention]
 ---
 
-# 6.0 Study Guide and Task Sheet: How to Learn Deep Learning and Transformer Basics Without Getting Confused
-
-If you reach `Chapter 6 Deep Learning and Transformer Basics` and feel that the code is getting longer and the models are getting more numerous, first bring your attention back to the training loop. On your first pass through deep learning, the most important thing is to understand how data flows through the model, how the loss is computed, and how gradients update parameters.
-
-## Core principle for this stage
-
-Deep learning follows one main thread: data enters the network, forward propagation produces outputs, the loss function measures the gap, backpropagation computes gradients, and the optimizer updates parameters.
+# 6.0 Study Guide and Task Sheet: Deep Learning and Transformer Basics
 
 ![Deep learning study guide training loop](/img/course/ch06-study-guide-training-loop-en.png)
 
-## Tasks You Must Complete in This Stage
+The main study route is now in [Chapter 6 entry](./). Use this page only as a quick checklist while you practice.
 
-Use this table as the practical path through Chapter 6. The main goal is not to memorize every architecture; it is to make a small model train, record what happened, and explain why it failed or improved.
+## 6.0.1 One-Line Mental Model
 
-| Task | Deliverable | Passing Criteria |
-|---|---|---|
-| Understand the neural network training loop | A hand-drawn or screenshot-based training flowchart | Can explain forward propagation, loss, backpropagation, and parameter updates |
-| Get PyTorch basics working | A minimal training script | Can use Dataset, DataLoader, `nn.Module`, loss, and optimizer |
-| Complete the guided PyTorch evidence workshop | A generated `deep_learning_workshop_run/` evidence pack | Can rerun the script and explain `training_log.csv`, `model_comparison.csv`, `loss_curve.png`, and `shape_trace.md` |
-| Complete a small image or text task | A runnable training project | Can record training curves, validation metrics, and failure cases |
-| Understand Attention and Transformer | A structure note | Can explain Query, Key, Value, Self-Attention, and positional encoding |
-| Complete one stage project | A deep learning practice project | Includes training logs, metrics, reproducible commands, and reflections |
+```text
+batch data -> model forward -> loss -> backward gradients -> optimizer step -> curves
+```
 
-## Recommended learning order
+If the code feels long, find these six steps first.
 
-In the first round, learn the historical breakthroughs and neural network basics. Focus on understanding why the perceptron appeared, why XOR challenged single-layer models, and why backpropagation matters. Then understand neurons, activation functions, forward propagation, backpropagation, loss functions, optimizers, and regularization.
+## 6.0.2 Practice Checklist
 
-In the second round, learn PyTorch. Do not just copy code; understand what tensors, automatic differentiation, `nn.Module`, Dataset, DataLoader, and the training loop each do.
-
-In the third round, learn CNNs. Image classification is the most intuitive and is a good way to connect network structures with tasks for the first time.
-
-In the fourth round, learn RNNs and sequence models. They will help you understand sequence tasks and also provide historical context for the emergence of Transformer.
-
-In the fifth round, learn Attention and Transformer. This is the most important bridge before entering the main line of large models.
-
-Generative models and training techniques can be treated as extensions; you do not need to fully master them in the first pass.
-
-Before larger projects, complete [6.8.5 Hands-on Workshop: Build a PyTorch Training Evidence Pack](./ch08-projects/04-hands-on-dl-workshop.md). It turns the abstract training loop into one runnable script plus logs, curves, checkpoint, shape trace, and review samples.
-
-## Suggested learning pace
-
-| Content type | Suggested time | Learning goal |
-|---|---|---|
-| Neural network basics | 3–6 hours | Be able to explain the training loop |
-| PyTorch basics | 6–10 hours | Be able to write a minimal training loop |
-| CNN / RNN | 4–8 hours | Be able to understand which network fits which data structure |
-| Transformer | 4–8 hours | Be able to explain the basic intuition of Attention |
-| Project section | 10–20 hours | Complete a small model that can be trained and evaluated |
-
-## Stage project roadmap
-
-Before choosing a larger topic, run the [6.8.5 PyTorch evidence-pack workshop](./ch08-projects/04-hands-on-dl-workshop.md) once. Treat it as a warm-up: you will create data, trace shapes, train a baseline, train a CNN, validate, save curves, and write project evidence.
-
-For your first project, I recommend handwritten digit recognition or a small image classification task to practice Dataset, DataLoader, CNN, training, and evaluation.
-
-For your second project, I recommend text sentiment classification to practice sequence inputs, Embedding, and basic text models.
-
-For your third project, you can do a Transformer architecture reading exercise or a small experiment, with a focus on understanding the input/output of Attention and context modeling.
-
-## Common sticking points
-
-The most common sticking point is not being able to connect loss, gradients, and the optimizer. You can use a very small model and a few samples to print the input, output, loss, and parameter changes at each step.
-
-The second sticking point is that the PyTorch code template feels too long. It is better to start by writing the minimal training loop and then gradually wrap functions; do not pursue engineering polish from the beginning.
-
-The third sticking point is poor model performance. First check the data, labels, learning rate, and whether the loss is decreasing, then consider changing the model.
-
-## Stage Portfolio Deliverables
-
-![Deep learning training evidence pipeline](/img/course/ch06-hands-on-training-evidence-pipeline-en.png)
-
-If you want this stage to become a portfolio item, keep at least these files or equivalent evidence.
-
-| Deliverable | Description |
+| Check | Evidence |
 |---|---|
-| `train.py` | A PyTorch training script containing Dataset, DataLoader, model, loss, and optimizer |
-| `config.yaml` | Experiment configuration such as learning rate, batch size, epoch, and model structure |
-| `training_log.csv` | Loss, metrics, time cost, and validation results for each epoch |
-| `curves/` | Training curves, validation curves, confusion matrices, or prediction visualizations |
-| `failure_cases.md` | Error samples, overfitting/underfitting patterns, and improvement actions |
-| `README.md` | Data description, run commands, model results, limitations, and reflections |
+| I can explain forward, loss, backward, optimizer | training-loop note |
+| I can run a minimal PyTorch script | `train.py` |
+| I can print tensor shapes through a model | shape trace |
+| I can compare training and validation curves | curve image or CSV |
+| I can explain what Attention changes | attention note |
+| I can finish the evidence-pack workshop | `deep_learning_workshop_run/` |
 
-## Stage Completion Questions
+## 6.0.3 Ready To Continue
 
-After completing this stage, you should be able to write a PyTorch training script from scratch, train a simple model, plot the loss curve, and explain why the model updates in that way.
-
-Before moving to Chapter 7, check that you can answer these questions:
-
-- Why do we need backpropagation?
-- What does the optimizer update?
-- What problems do Dataset and DataLoader solve respectively?
-- Why can Attention model context?
-- What is the relationship between Transformer and later large models?
-
-If you can answer these and clearly explain what problems CNNs, RNNs, and Transformer each solve, you are ready to move on to the principles of large models.
+Continue to Chapter 7 when you can train one small model, save the training log, inspect failure cases, and explain why the model improved or failed.

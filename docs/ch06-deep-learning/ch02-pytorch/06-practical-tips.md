@@ -280,6 +280,8 @@ You can check in this order:
 5. Whether the order of `backward()` and `step()` is correct
 6. Whether the learning rate is too large or too small
 
+![PyTorch training debug check order](/img/course/ch06-pytorch-debug-check-order-en.svg)
+
 ### What Should You Do When You See `nan`?
 
 Common causes include:

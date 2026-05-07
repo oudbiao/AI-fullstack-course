@@ -281,6 +281,8 @@ print("x device:", x.device)
 5. `backward()` と `step()` の順番が正しいか
 6. 学習率が大きすぎたり小さすぎたりしないか
 
+![PyTorch 学習デバッグの確認順序図](/img/course/ch06-pytorch-debug-check-order-ja.svg)
+
 ### `nan` が出たらどうする？
 
 よくある原因は次の通りです。

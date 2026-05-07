@@ -280,6 +280,8 @@ print("x device:", x.device)
 5. `backward()` 和 `step()` 顺序对不对
 6. 学习率是不是太大或太小
 
+![PyTorch 训练调试检查顺序图](/img/course/ch06-pytorch-debug-check-order.svg)
+
 ### 看到 `nan` 怎么办？
 
 常见原因有：
