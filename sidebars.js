@@ -410,7 +410,6 @@ const sidebars = {
           link: { type: "doc", id: "ch07-llm-principles/index" },
           items: [
             "ch07-llm-principles/study-guide",
-            "ch07-llm-principles/task-list",
             {
               type: "category",
               label: "7.1-7.2 NLP and LLM Crash Course",
