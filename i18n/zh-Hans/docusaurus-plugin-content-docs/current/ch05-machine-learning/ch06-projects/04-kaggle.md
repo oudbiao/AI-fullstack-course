@@ -187,7 +187,7 @@ for name, model in models.items():
 
 ### Kaggle 最容易让新人踩的坑
 
-![Kaggle 本地验证与排行榜闭环](/img/course/ch05-kaggle-validation-leaderboard-loop.svg)
+![Kaggle 本地验证与排行榜闭环](/img/course/ch05-kaggle-validation-leaderboard-loop.png)
 
 - 在公开榜单上反复试，结果过拟合排行榜
 - 没有本地交叉验证，只盯线上分数

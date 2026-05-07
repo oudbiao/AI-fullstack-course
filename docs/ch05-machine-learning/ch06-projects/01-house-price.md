@@ -298,7 +298,7 @@ print(f"Best parameters: {rs.best_params_}")
 
 ## Step 5: Result Analysis
 
-![House price residual review map](/img/course/ch05-house-price-residual-review-map-en.svg)
+![House price residual review map](/img/course/ch05-house-price-residual-review-map-en.png)
 
 ```python
 # Prediction vs actual

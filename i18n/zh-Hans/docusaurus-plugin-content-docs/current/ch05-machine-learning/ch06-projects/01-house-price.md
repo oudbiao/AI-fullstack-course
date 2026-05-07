@@ -298,7 +298,7 @@ print(f"最佳参数: {rs.best_params_}")
 
 ## Step 5：结果分析
 
-![房价残差复盘图](/img/course/ch05-house-price-residual-review-map.svg)
+![房价残差复盘图](/img/course/ch05-house-price-residual-review-map.png)
 
 ```python
 # 预测 vs 实际

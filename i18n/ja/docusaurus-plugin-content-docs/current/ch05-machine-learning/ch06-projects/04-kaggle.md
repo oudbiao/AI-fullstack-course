@@ -187,7 +187,7 @@ for name, model in models.items():
 
 ### Kaggle で初心者が特にハマりやすい落とし穴
 
-![Kaggle のローカル検証とリーダーボードのループ](/img/course/ch05-kaggle-validation-leaderboard-loop-ja.svg)
+![Kaggle のローカル検証とリーダーボードのループ](/img/course/ch05-kaggle-validation-leaderboard-loop-ja.png)
 
 - 公開リーダーボードで何度も試し、結果としてランキングに過学習してしまう
 - ローカルでの交差検証をせず、オンラインのスコアだけを見る
