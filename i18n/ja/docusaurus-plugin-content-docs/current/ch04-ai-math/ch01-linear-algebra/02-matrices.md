@@ -199,6 +199,8 @@ print(C)
 
 ### 行列積のサイズのルール
 
+![行列積のサイズルール図解](/img/course/ch04-matrix-multiplication-shape-rule-ja.svg)
+
 ```mermaid
 flowchart LR
     A["A<br/>m × n"] --> C["C<br/>m × p"]

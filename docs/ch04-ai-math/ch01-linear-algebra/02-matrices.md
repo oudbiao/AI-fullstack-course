@@ -196,6 +196,8 @@ print(C)
 
 ### Size rules for matrix multiplication
 
+![Matrix multiplication shape rule diagram](/img/course/ch04-matrix-multiplication-shape-rule-en.svg)
+
 ```mermaid
 flowchart LR
     A["A<br/>m × n"] --> C["C<br/>m × p"]

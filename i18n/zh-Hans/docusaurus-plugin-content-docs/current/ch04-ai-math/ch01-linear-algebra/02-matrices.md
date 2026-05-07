@@ -196,6 +196,8 @@ print(C)
 
 ### 矩阵乘法的尺寸规则
 
+![矩阵乘法尺寸规则图解](/img/course/ch04-matrix-multiplication-shape-rule.svg)
+
 ```mermaid
 flowchart LR
     A["A<br/>m × n"] --> C["C<br/>m × p"]

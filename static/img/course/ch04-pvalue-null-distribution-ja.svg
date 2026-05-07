@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">帰無仮説のもとでの p-value</title>
+  <desc id="desc">p-value は、帰無仮説が正しいと仮定したとき、観測結果以上に極端な結果が出る尾部面積。</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+  <text x="48" y="58" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#0f172a">p-value：H0 が正しいなら、この結果はどれほど珍しい？</text>
+  <text x="48" y="92" font-family="Arial, sans-serif" font-size="18" fill="#475569">本当は差がない A/B テストを何度もシミュレーションし、観測差と比べます。</text>
+  <g transform="translate(90 130)">
+    <rect x="0" y="0" width="780" height="312" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+    <path d="M70 250H720" stroke="#334155" stroke-width="2"/>
+    <path d="M70 250C150 245 185 210 225 150C270 82 345 48 415 74C480 98 520 158 555 205C596 256 650 255 720 250" fill="none" stroke="#2563eb" stroke-width="5"/>
+    <path d="M560 250C594 215 621 205 650 224C674 240 694 249 720 250L720 250Z" fill="#ef4444" opacity="0.28"/>
+    <path d="M560 70V250" stroke="#ef4444" stroke-width="4" stroke-dasharray="10 8"/>
+    <text x="518" y="58" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#b91c1c">観測された差</text>
+    <text x="585" y="172" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#b91c1c">p-value</text>
+    <text x="228" y="286" font-family="Arial, sans-serif" font-size="18" fill="#334155">H0 のもとで想定される差：A と B は同じ</text>
+    <text x="86" y="230" font-family="Arial, sans-serif" font-size="17" fill="#1d4ed8">よくある</text>
+    <text x="626" y="230" font-family="Arial, sans-serif" font-size="17" fill="#b91c1c">まれな尾部</text>
+  </g>
+  <g transform="translate(138 474)">
+    <circle cx="0" cy="0" r="8" fill="#2563eb"/>
+    <text x="18" y="6" font-family="Arial, sans-serif" font-size="18" fill="#0f172a">尾部面積が大きい：偶然かもしれない</text>
+    <circle cx="392" cy="0" r="8" fill="#ef4444"/>
+    <text x="410" y="6" font-family="Arial, sans-serif" font-size="18" fill="#0f172a">尾部面積が小さい：H0 では珍しい</text>
+  </g>
+</svg>

@@ -381,6 +381,8 @@ flowchart TD
 
 ### Intuition for p-values
 
+![p-value null distribution diagram](/img/course/ch04-pvalue-null-distribution-en.svg)
+
 **p-value = the probability of getting a difference this large (or larger) just by random fluctuation, assuming there is no real difference.**
 
 - Small p-value (for example, 0.01) → "If there were really no difference, this result would almost never happen" → the difference is real

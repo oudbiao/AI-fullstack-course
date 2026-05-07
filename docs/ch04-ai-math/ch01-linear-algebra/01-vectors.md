@@ -276,6 +276,8 @@ plt.show()
 
 ### Vector Length (Magnitude / Norm)
 
+![Vector norm and unit vector diagram](/img/course/ch04-vector-norm-unit-vector-en.svg)
+
 The **length** of a vector (also called **magnitude** or **norm**) is calculated using the Pythagorean theorem:
 
 For vector a = [a1, a2], length = square root of (a1 squared + a2 squared)
