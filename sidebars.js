@@ -658,7 +658,6 @@ const sidebars = {
           link: { type: "doc", id: "ch10-computer-vision/index" },
           items: [
             "ch10-computer-vision/study-guide",
-            "ch10-computer-vision/task-list",
             {
               type: "category",
               label: "10.1-10.2 CV Basics and Image Classification",
