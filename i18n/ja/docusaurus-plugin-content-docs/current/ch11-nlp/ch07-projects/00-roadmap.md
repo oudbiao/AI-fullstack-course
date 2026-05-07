@@ -22,7 +22,7 @@ keywords: [NLPプロジェクト導入, QA, 要約, 情報抽出, NLP作品集]
 
 ## 作品集に残す証拠
 
-![NLP プロジェクトの証拠パック](/img/course/ch11-nlp-evidence-pack-ja.svg)
+![NLP プロジェクトの証拠パック](/img/course/ch11-nlp-evidence-pack-ja.png)
 
 よい NLP プロジェクトは、自然な出力を 1 つ見せるだけでは足りません。なぜそのタスクなのか、何を入力し、何を出力し、どう評価したのかを残します。
 

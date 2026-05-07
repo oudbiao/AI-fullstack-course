@@ -9,7 +9,7 @@ keywords: [NLP checklist, text classification, information extraction, BERT, GPT
 
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 11 entry page](./index.md).
 
-![NLP portfolio evidence pack](/img/course/ch11-nlp-evidence-pack-en.svg)
+![NLP portfolio evidence pack](/img/course/ch11-nlp-evidence-pack-en.png)
 
 ## Two-Hour First Pass
 

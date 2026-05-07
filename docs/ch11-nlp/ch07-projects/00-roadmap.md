@@ -13,7 +13,7 @@ An NLP project is not a fluent paragraph. It is a clear task boundary, data sour
 
 ![NLP project delivery loop](/img/course/ch11-projects-delivery-loop-en.png)
 
-![NLP evidence pack diagram](/img/course/ch11-nlp-evidence-pack-en.svg)
+![NLP evidence pack diagram](/img/course/ch11-nlp-evidence-pack-en.png)
 
 ![Workshop text to artifacts pipeline map](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-en.png)
 

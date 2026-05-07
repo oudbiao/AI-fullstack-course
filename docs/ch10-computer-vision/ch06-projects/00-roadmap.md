@@ -15,7 +15,7 @@ A computer vision project is not “I used a model.” It is a loop of data, ann
 
 ![Closed-loop delivery diagram for vision projects](/img/course/ch10-projects-delivery-loop-en.png)
 
-![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-en.svg)
+![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-en.png)
 
 Start with classification if you need the fastest complete loop. Move to detection for boxes, segmentation for masks, and OCR/video/3D for specialized scenarios.
 

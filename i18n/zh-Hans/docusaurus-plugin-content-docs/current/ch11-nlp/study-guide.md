@@ -9,7 +9,7 @@ keywords: [NLP 检查表, 文本分类, 信息抽取, BERT, GPT, 文本评估]
 
 这页当成可打印检查表使用。需要完整讲解时，回到 [第 11 章入口页](./index.md)。
 
-![NLP 作品集证据包](/img/course/ch11-nlp-evidence-pack.svg)
+![NLP 作品集证据包](/img/course/ch11-nlp-evidence-pack.png)
 
 ## 两小时快速通读
 

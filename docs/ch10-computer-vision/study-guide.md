@@ -9,7 +9,7 @@ keywords: [Computer vision checklist, image classification, object detection, im
 
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 10 entry page](./index.md).
 
-![Vision portfolio evidence pack](/img/course/ch10-vision-evidence-pack-en.svg)
+![Vision portfolio evidence pack](/img/course/ch10-vision-evidence-pack-en.png)
 
 ## Two-Hour First Pass
 

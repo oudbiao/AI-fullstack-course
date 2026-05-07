@@ -9,7 +9,7 @@ keywords: [NLP チェックリスト, テキスト分類, 情報抽出, BERT, GP
 
 このページは印刷用チェックリストとして使います。詳しい説明が必要なときは、[第 11 章入口ページ](./index.md) に戻ってください。
 
-![NLP ポートフォリオ証拠パック](/img/course/ch11-nlp-evidence-pack-ja.svg)
+![NLP ポートフォリオ証拠パック](/img/course/ch11-nlp-evidence-pack-ja.png)
 
 ## 2時間の初回通読
 

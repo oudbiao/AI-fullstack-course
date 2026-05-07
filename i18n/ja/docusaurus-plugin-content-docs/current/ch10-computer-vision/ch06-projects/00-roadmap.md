@@ -15,7 +15,7 @@ Computer vision project は「model を使った」だけではありません�
 
 ![Vision projects の closed-loop delivery diagram](/img/course/ch10-projects-delivery-loop-ja.png)
 
-![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-ja.svg)
+![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-ja.png)
 
 最速で complete loop を作るなら classification から始めます。boxes が必要なら detection、masks が必要なら segmentation、OCR/video/3D は specialized scenarios に使います。
 

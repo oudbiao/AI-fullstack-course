@@ -9,7 +9,7 @@ keywords: [AIGC checklist, multimodal checklist, image generation, multimodal RA
 
 Use this page as a printable checklist. If you need the full explanation, return to the [Chapter 12 entry page](./index.md).
 
-![Multimodal portfolio evidence pack](/img/course/ch12-multimodal-evidence-pack-en.svg)
+![Multimodal portfolio evidence pack](/img/course/ch12-multimodal-evidence-pack-en.png)
 
 ## Two-Hour First Pass
 

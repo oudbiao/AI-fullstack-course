@@ -1,968 +1,203 @@
 ---
-title: "5.1.3 Scikit-learn 框架入门"
+title: "5.1.3 Scikit-learn 跟做：fit、transform、Pipeline"
 sidebar_position: 3
-description: "掌握 Scikit-learn 的设计哲学与核心 API 模式（Estimator、Transformer、Pipeline），学会数据集加载、模型训练与持久化"
+description: "一节紧凑的 Scikit-learn 实操课：一次跑通 fit、transform、predict、score、Pipeline、模型对比和模型保存。"
 keywords: [Scikit-learn, sklearn, Estimator, Transformer, Pipeline, fit, predict, 机器学习框架]
 ---
 
-# 5.1.3 Scikit-learn 框架入门
+# 5.1.3 Scikit-learn 跟做：fit、transform、Pipeline
 
-![Scikit-learn Estimator 与 Pipeline 图](/img/course/sklearn-estimator-pipeline.png)
+![Scikit-learn Estimator 与 Pipeline 图解](/img/course/sklearn-estimator-pipeline.png)
 
-:::tip 本节定位
-Scikit-learn 是 Python 机器学习的**事实标准库**。几乎所有经典 ML 任务都可以用它来完成。掌握 sklearn 的 API 模式，后续学任何算法都会非常顺畅。
-:::
+Scikit-learn 是经典机器学习最常用的 Python 库。本页刻意压短：先看流程图，再跑一个完整脚本。
 
-## 学习目标
+## 先看工作流
 
-- 理解 Scikit-learn 的设计哲学与统一 API
-- 掌握 Estimator、Transformer、Pipeline 三大核心概念
-- 学会加载和生成数据集
-- 完成从训练到预测的完整流程
-- 学会保存和加载模型
+![统一的 sklearn fit-predict 工作流](/img/course/ch05-sklearn-fit-predict-loop.png)
 
----
+大多数 sklearn 工作都是这个闭环：
 
-## 新人先掌握 / 进阶再理解
-
-如果你是新人，这一节先抓住一句话：sklearn 最重要的是统一工作流，不是某个单独算法。先把 `fit`、`transform`、`predict`、`score` 这几个动作和“训练、变换、预测、评估”对应起来。
-
-如果你已经有经验，可以进一步关注：如何用 Pipeline 避免数据泄漏，如何把预处理和模型一起保存，如何用统一 API 做模型对比和调参。
-
----
-
-## 先建立一张地图
-
-这一节最重要的不是“学一个库”，而是建立一个非常稳定的机器学习操作习惯。
-
-对新人来说，`scikit-learn` 最有价值的地方在于：
-
-- 它把很多不同算法统一成同一套接口
-- 它让你可以把注意力先放在建模流程，而不是语法差异
-
-更稳的心智模型是：
-
-![sklearn fit predict 统一流程图](/img/course/ch05-sklearn-fit-predict-loop.png)
-
-如果这条线装进脑子里，后面你换任何经典 ML 模型都不会特别慌。
-
----
-
-## 一、为什么是 Scikit-learn？
-
-### sklearn 在 ML 生态中的位置
-
-```mermaid
-flowchart TD
-    NP["NumPy<br/>数值计算基础"] --> SK["Scikit-learn<br/>经典机器学习"]
-    PD["Pandas<br/>数据处理"] --> SK
-    SP["SciPy<br/>科学计算"] --> SK
-    SK --> PT["PyTorch / TensorFlow<br/>深度学习"]
-
-    style SK fill:#e3f2fd,stroke:#1565c0,color:#333
-    style PT fill:#fff3e0,stroke:#e65100,color:#333
+```text
+加载数据 -> 划分训练/测试 -> 在训练集 fit -> 在测试集 predict -> score -> 保存证据
 ```
 
-| 特点 | 说明 |
-|------|------|
-| **统一的 API** | 所有算法用同样的 `fit` / `predict` / `transform` |
-| **丰富的算法** | 分类、回归、聚类、降维、预处理一应俱全 |
-| **优秀的文档** | 每个算法都有详细文档和示例 |
-| **活跃的社区** | 全球最流行的 ML 库之一 |
-| **生产就绪** | 可直接用于真实项目 |
+先记住四个动词：
 
-### 对新人来说，sklearn 最重要的价值是什么？
+| 动词 | 含义 | 常见对象 |
+|---|---|---|
+| `fit` | 从训练数据学习参数 | estimator 或 transformer |
+| `transform` | 应用学到的预处理 | transformer |
+| `predict` | 产出标签或数值 | estimator |
+| `score` | 返回一个快速指标 | estimator 或 pipeline |
 
-最重要的不是“算法多”，而是：
+## 三个角色
 
-- 你不用每换一个模型就重学一套接口
-- 你可以专心比较模型，而不是被库的差异打断
-- 你会更容易理解“训练、预测、评估”其实是一条统一流程
+![sklearn Pipeline 组件拆解](/img/course/ch05-sklearn-pipeline-anatomy.png)
 
-### 安装
+| 角色 | 做什么 | 例子 |
+|---|---|---|
+| Estimator | 学习并预测 | `LogisticRegression`、`DecisionTreeClassifier` |
+| Transformer | 改变数据形状、尺度或表示 | `StandardScaler`、`OneHotEncoder`、`PCA` |
+| Pipeline | 把预处理和模型串成可复用流程 | scaler -> classifier |
+
+新手规则：**预处理只能在训练集上 fit**。`Pipeline` 可以自动帮你遵守这个顺序。
+
+## 安装与检查
 
 ```bash
-python -m pip install --upgrade scikit-learn
-```
-
-```python
+python -m pip install --upgrade scikit-learn joblib
+python - <<'PY'
 import sklearn
 print(sklearn.__version__)
+PY
 ```
 
-预期输出会是一个版本号，例如：
+预期输出是版本号，例如：
 
 ```text
 1.8.0
 ```
 
-`scikit-learn` 是通过 `pip` 安装时使用的包名，`sklearn` 是在 Python 代码里导入时使用的模块名。如果安装后 `import sklearn` 仍然失败，先检查 `pip` 和 `python` 是否指向同一个环境。
+`scikit-learn` 是安装包名，`sklearn` 是 Python 里的导入名。
 
----
+## 跑完整流程
 
-## 二、Scikit-learn 的设计哲学
-
-### 统一 API——一招鲜吃遍天
-
-Scikit-learn 最厉害的地方是：**所有算法都遵循同一套 API 模式**。不管是线性回归、决策树还是 SVM，使用方法都一样。
-
-下面这段是工作流模板。等你在完整示例里创建好 `X_train`、`X_test`、`y_train`、`y_test` 后，它就可以运行。
+新建 `ch05_sklearn_workflow.py`。
 
 ```python
-# 无论什么算法，代码结构都一样：
-from sklearn.xxx import SomeModel
+from pathlib import Path
 
-model = SomeModel(超参数)      # 创建模型
-model.fit(X_train, y_train)   # 训练
-y_pred = model.predict(X_test) # 预测
-score = model.score(X_test, y_test)  # 评估
-```
-
-看几个具体例子——注意代码结构的一致性：
-
-```python
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
-
-# 方法完全一样！只是换个模型名
-models = {
-    "决策树": DecisionTreeClassifier(),
-    "逻辑回归": LogisticRegression(),
-    "SVM": SVC(),
-    "KNN": KNeighborsClassifier(),
-}
-
-for name, model in models.items():
-    model.fit(X_train, y_train)
-    score = model.score(X_test, y_test)
-    print(f"{name}: {score:.1%}")
-```
-
-:::info 统一 API 的好处
-你只需要学一次 `fit` / `predict` / `score`，就能使用 sklearn 中的所有算法。换模型就像换零件一样简单。
-:::
-
-### 新人第一次最该先记哪三个动作？
-
-如果现在只记三个动作，那就记住：
-
-- `fit`：学习
-- `predict`：预测
-- `score`：先给你一个最基础的结果
-
-这三个动作是第 5 站最常出现的最小闭环。
-
-### 先拆开 API 术语，后面就不吓人
-
-| 术语 | 它是什么 | 在本节为什么重要 |
-|---|---|---|
-| `API` | Application Programming Interface，应用程序编程接口，也就是库暴露给你的方法名和输入格式 | sklearn 容易上手，是因为很多模型共享 `fit`、`predict`、`score` 这一套 API |
-| `Estimator` | 能从数据中学习的对象 | 通常先 `fit`，再 `predict` 或 `score` |
-| `Transformer` | 能学习变换参数，并改变数据形状或尺度的对象 | 通常有 `fit`、`transform`、`fit_transform` |
-| `Pipeline` | 把预处理步骤和模型按顺序串起来的链条 | 让训练和预测走同一路径，减少数据泄漏和手工接线错误 |
-| `hyperparameter` | 训练开始前由人设置的参数 | 例如 `max_depth`、`n_neighbors`、`C`、`random_state` |
-| `parameter` | `fit` 过程中从数据里学到的值 | 例如树的分裂规则、标准化的均值和标准差、线性模型权重 |
-| `attribute_` | sklearn 中以下划线 `_` 结尾的学习后属性 | 例如 `classes_`、`mean_`、`feature_importances_`，只有 `fit` 后才存在 |
-
-### 三大核心角色
-
-```mermaid
-flowchart LR
-    E["Estimator<br/>估计器"] --> T["Transformer<br/>转换器"]
-    T --> P["Pipeline<br/>流水线"]
-
-    E2["fit() / predict()<br/>训练和预测"] -.-> E
-    T2["fit() / transform()<br/>数据变换"] -.-> T
-    P2["串联多个步骤<br/>一键执行"] -.-> P
-
-    style E fill:#e3f2fd,stroke:#1565c0,color:#333
-    style T fill:#fff3e0,stroke:#e65100,color:#333
-    style P fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-| 角色 | 核心方法 | 做什么 | 例子 |
-|------|---------|--------|------|
-| **Estimator** | `fit()`, `predict()` | 从数据中学习，然后做预测 | 决策树、线性回归、SVM |
-| **Transformer** | `fit()`, `transform()` | 从数据中学参数，然后变换数据 | 标准化、PCA、独热编码 |
-| **Pipeline** | 串联以上两者 | 把多个步骤串成流水线 | 标准化 → PCA → 分类器 |
-
-![sklearn Pipeline 组件拆解图](/img/course/ch05-sklearn-pipeline-anatomy.png)
-
-这张图可以当作 sklearn 的“零件说明书”：Transformer 负责把数据整理好，Estimator 负责学习规律，Pipeline 负责保证训练和预测走同一条路。新人只要先把这三个角色分清，后面换模型、换预处理步骤时就不会乱。
-
-### 怎么用一句话记住这三个角色？
-
-可以直接这样记：
-
-- `Estimator`：负责学规律和做预测
-- `Transformer`：负责把数据变成更适合学习的样子
-- `Pipeline`：负责把这些步骤串起来，避免手工乱接
-
----
-
-## 三、Estimator——学习与预测
-
-### 核心方法
-
-```python
-# Estimator 是所有"能学习"的对象的基类
-# 所有 Estimator 必须实现：
-#   fit(X, y)       — 从数据中学习
-#   predict(X)      — 对新数据做预测
-#   score(X, y)     — 评估预测质量
-
-from sklearn.tree import DecisionTreeClassifier
-
-# 创建 Estimator（可以传超参数）
-model = DecisionTreeClassifier(max_depth=3, random_state=42)
-
-# 查看几个超参数
-params = model.get_params()
-print(params["criterion"], params["max_depth"], params["random_state"])
-```
-
-预期输出：
-
-```text
-gini 3 42
-```
-
-### 完整示例
-
-```python
+from joblib import dump, load
 from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-import numpy as np
-
-# 加载数据
-iris = load_iris()
-X, y = iris.data, iris.target
-feature_names = iris.feature_names
-target_names = iris.target_names
-
-print(f"特征名: {feature_names}")
-print(f"类别名: {target_names}")
-print(f"数据形状: X={X.shape}, y={y.shape}")
-
-# 划分数据
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-# 创建并训练模型
-model = DecisionTreeClassifier(max_depth=3, random_state=42)
-model.fit(X_train, y_train)
-
-# 预测
-y_pred = model.predict(X_test)
-print(f"\n前 10 个预测: {y_pred[:10]}")
-print(f"前 10 个真实: {y_test[:10]}")
-
-# 评估
-score = model.score(X_test, y_test)
-print(f"\n准确率: {score:.1%}")
-
-# 查看学到的属性（下划线结尾 = 训练后才有）
-print(f"\n特征重要性: {np.round(model.feature_importances_, 4)}")
-```
-
-预期输出：
-
-```text
-特征名: ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
-类别名: ['setosa' 'versicolor' 'virginica']
-数据形状: X=(150, 4), y=(150,)
-
-前 10 个预测: [1 0 2 1 1 0 1 2 1 1]
-前 10 个真实: [1 0 2 1 1 0 1 2 1 1]
-
-准确率: 100.0%
-
-特征重要性: [0.     0.     0.9346 0.0654]
-```
-
-:::note fit 之后的属性
-在 sklearn 中，以下划线 `_` 结尾的属性（如 `feature_importances_`）是**训练后才有的**。调用 `fit()` 之前访问会报错。这是 sklearn 的命名约定。
-:::
-
-### `fit` 到底“学”了什么？
-
-这是一个特别值得先想清楚的问题。
-
-不同模型在 `fit` 时学的东西不同，比如：
-
-- 线性回归在学参数 `w, b`
-- 决策树在学分裂规则
-- 标准化器在学均值和标准差
-
-所以 `fit` 的本质不是“执行一下函数”，而是：
-
-> **从训练数据里提炼出一组后面要复用的参数或规则。**
-
-### 预测概率
-
-对于分类问题，很多模型还支持 `predict_proba()`：
-
-```python
 from sklearn.linear_model import LogisticRegression
-
-model = LogisticRegression(max_iter=200, random_state=42)
-model.fit(X_train, y_train)
-
-# predict 返回类别
-print("预测类别:", model.predict(X_test[:3]))
-
-# predict_proba 返回每个类别的概率
-proba = model.predict_proba(X_test[:3])
-print("预测概率:")
-for i, p in enumerate(proba):
-    readable = {str(name): float(prob) for name, prob in zip(target_names, np.round(p, 3))}
-    print(f"  样本 {i}: {readable}")
-```
-
-预期输出：
-
-```text
-预测类别: [1 0 2]
-预测概率:
-  样本 0: {'setosa': 0.004, 'versicolor': 0.828, 'virginica': 0.168}
-  样本 1: {'setosa': 0.947, 'versicolor': 0.053, 'virginica': 0.0}
-  样本 2: {'setosa': 0.0, 'versicolor': 0.002, 'virginica': 0.998}
-```
-
-`predict` 给出最可能的类别，`predict_proba` 给出模型对各个类别的信心分布。真实项目中，如果你要设置阈值、排序、风险评分或人工复核队列，概率会比单个类别更有用。
-
----
-
-## 四、Transformer——数据变换
-
-### 为什么需要数据变换？
-
-很多 ML 算法对数据的**尺度敏感**。比如一个特征的范围是 [0, 1]，另一个是 [0, 1000000]，后者会"压制"前者。
-
-```python
-import numpy as np
-
-# 问题演示：特征尺度差异巨大
-salary = np.array([50000, 80000, 120000])   # 万元级
-age = np.array([25, 35, 45])                 # 十位级
-
-print(f"薪资均值: {salary.mean():.0f}, 标准差: {salary.std():.0f}")
-print(f"年龄均值: {age.mean():.0f}, 标准差: {age.std():.0f}")
-# 薪资的数值远大于年龄 → 如果直接用，模型可能被薪资主导
-```
-
-预期输出：
-
-```text
-薪资均值: 83333, 标准差: 28674
-年龄均值: 35, 标准差: 8
-```
-
-### StandardScaler 标准化
-
-```python
-from sklearn.preprocessing import StandardScaler
-import numpy as np
-
-# 创建示例数据
-X = np.array([
-    [50000, 25],
-    [80000, 35],
-    [120000, 45],
-    [60000, 28],
-    [90000, 40],
-])
-
-# 创建 Transformer
-scaler = StandardScaler()
-
-# fit: 学习均值和标准差
-scaler.fit(X)
-print(f"学到的均值: {np.round(scaler.mean_, 2).tolist()}")
-print(f"学到的标准差: {np.round(scaler.scale_, 4).tolist()}")
-
-# transform: 用学到的参数变换数据
-X_scaled = scaler.transform(X)
-print(f"\n标准化前:\n{X}")
-print(f"\n标准化后:\n{np.round(X_scaled, 2)}")
-print(f"\n标准化后均值: {X_scaled.mean(axis=0).round(2)}")    # 接近 0
-print(f"标准化后标准差: {X_scaled.std(axis=0).round(2)}")     # 接近 1
-```
-
-预期输出：
-
-```text
-学到的均值: [80000.0, 34.6]
-学到的标准差: [24494.8974, 7.3919]
-
-标准化前:
-[[ 50000     25]
- [ 80000     35]
- [120000     45]
- [ 60000     28]
- [ 90000     40]]
-
-标准化后:
-[[-1.22 -1.3 ]
- [ 0.    0.05]
- [ 1.63  1.41]
- [-0.82 -0.89]
- [ 0.41  0.73]]
-
-标准化后均值: [-0. -0.]
-标准化后标准差: [1. 1.]
-```
-
-### 为什么标准化也要先 `fit` 再 `transform`？
-
-![StandardScaler fit 与 transform 图解](/img/course/ch05-standard-scaler-fit-transform.png)
-
-因为标准化器也需要“先学习”：
-
-- 它要先从训练数据里学出每一列的均值和标准差
-- 然后才能拿这些参数去变换训练集和测试集
-
-这也是为什么很多预处理步骤，本质上也属于“从训练数据学参数”的过程。
-
-新人最该记住的规则是：`fit` 可以看训练数据，因为它要学习参数；`transform` 只是套用已经学到的参数。如果测试集也参与了 `fit`，评估就不再像是在模拟真实的新数据。
-
-### fit_transform 快捷方法
-
-```python
-# fit + transform 合一步（训练集常用）
-X_scaled = scaler.fit_transform(X)
-
-# 注意：测试集只能用 transform（不能 fit，要用训练集的参数）
-# X_test_scaled = scaler.transform(X_test)  ← 用训练集学到的参数变换测试集
-```
-
-:::warning 关键区别
-- **训练集**：用 `fit_transform()` — 学习参数并变换
-- **测试集**：只用 `transform()` — 用训练集的参数变换
-- **错误做法**：对测试集也用 `fit_transform()` → 数据泄漏！
-:::
-
-### 常用 Transformer
-
-| Transformer | 做什么 | 公式/说明 |
-|------------|--------|----------|
-| `StandardScaler` | 标准化 | `(x - 均值) / 标准差` → 均值0, 标准差1 |
-| `MinMaxScaler` | 归一化 | `(x - min) / (max - min)` → 缩放到 [0, 1] |
-| `LabelEncoder` | 标签编码 | 把类别变成数字（猫→0, 狗→1） |
-| `OneHotEncoder` | 独热编码 | 猫→[1,0], 狗→[0,1] |
-| `PCA` | 降维 | 减少特征数量（第 4 站学过） |
-
-```python
-from sklearn.preprocessing import MinMaxScaler
-
-# MinMaxScaler 归一化到 [0, 1]
-mm_scaler = MinMaxScaler()
-X_minmax = mm_scaler.fit_transform(X)
-print("MinMaxScaler 归一化:")
-print(np.round(X_minmax, 2))
-print(f"最小值: {X_minmax.min(axis=0)}")  # [0, 0]
-print(f"最大值: {X_minmax.max(axis=0)}")  # [1, 1]
-```
-
-预期输出：
-
-```text
-MinMaxScaler 归一化:
-[[0.   0.  ]
- [0.43 0.5 ]
- [1.   1.  ]
- [0.14 0.15]
- [0.57 0.75]]
-最小值: [0. 0.]
-最大值: [1. 1.]
-```
-
----
-
-## 五、数据集——加载与生成
-
-### 内置真实数据集
-
-sklearn 自带多个经典数据集，非常适合学习和实验：
-
-```python
-from sklearn import datasets
-
-# ===== 小规模数据集（直接加载到内存） =====
-iris = datasets.load_iris()         # 鸢尾花分类（150 样本，4 特征，3 类别）
-wine = datasets.load_wine()         # 葡萄酒分类（178 样本，13 特征，3 类别）
-digits = datasets.load_digits()     # 手写数字（1797 样本，64 特征，10 类别）
-boston = datasets.load_diabetes()    # 糖尿病回归（442 样本，10 特征）
-
-# 查看数据集结构
-print("Iris 数据集:")
-print(f"  特征矩阵形状: {iris.data.shape}")
-print(f"  标签形状: {iris.target.shape}")
-print(f"  特征名: {iris.feature_names}")
-print(f"  类别名: {iris.target_names}")
-print(f"  描述: {iris.DESCR[:200]}...")
-```
-
-### 生成模拟数据
-
-有时需要"定制化"数据来理解算法行为：
-
-```python
-from sklearn.datasets import make_classification, make_regression, make_blobs
-import matplotlib.pyplot as plt
-
-fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-
-# 1. 生成分类数据
-X, y = make_classification(
-    n_samples=200, n_features=2, n_informative=2,
-    n_redundant=0, n_clusters_per_class=1, random_state=42
-)
-axes[0].scatter(X[:, 0], X[:, 1], c=y, cmap='coolwarm', s=20, alpha=0.7)
-axes[0].set_title('make_classification\n（分类数据）')
-
-# 2. 生成回归数据
-X_reg, y_reg = make_regression(
-    n_samples=200, n_features=1, noise=20, random_state=42
-)
-axes[1].scatter(X_reg, y_reg, s=20, alpha=0.7, color='steelblue')
-axes[1].set_title('make_regression\n（回归数据）')
-
-# 3. 生成聚类数据
-X_blob, y_blob = make_blobs(
-    n_samples=200, centers=4, cluster_std=0.8, random_state=42
-)
-axes[2].scatter(X_blob[:, 0], X_blob[:, 1], c=y_blob, cmap='viridis', s=20, alpha=0.7)
-axes[2].set_title('make_blobs\n（聚类数据）')
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-### 常用数据生成函数
-
-| 函数 | 用途 | 关键参数 |
-|------|------|---------|
-| `make_classification` | 分类数据 | `n_samples`, `n_features`, `n_classes` |
-| `make_regression` | 回归数据 | `n_samples`, `n_features`, `noise` |
-| `make_blobs` | 聚类数据 | `n_samples`, `centers`, `cluster_std` |
-| `make_moons` | 半月形数据 | `n_samples`, `noise` |
-| `make_circles` | 同心圆数据 | `n_samples`, `noise` |
-
-```python
-from sklearn.datasets import make_moons, make_circles
-
-fig, axes = plt.subplots(1, 2, figsize=(10, 4))
-
-X_m, y_m = make_moons(n_samples=300, noise=0.15, random_state=42)
-axes[0].scatter(X_m[:, 0], X_m[:, 1], c=y_m, cmap='coolwarm', s=20)
-axes[0].set_title('make_moons（半月形）')
-
-X_c, y_c = make_circles(n_samples=300, noise=0.08, factor=0.5, random_state=42)
-axes[1].scatter(X_c[:, 0], X_c[:, 1], c=y_c, cmap='coolwarm', s=20)
-axes[1].set_title('make_circles（同心圆）')
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-    ax.set_aspect('equal')
-
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## 六、Pipeline——把一切串起来
-
-### 为什么需要 Pipeline？
-
-在真实项目中，数据处理和模型训练往往是多个步骤：
-
-```python
-# 没有 Pipeline 的写法（容易出错）
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)  # 容易忘记只用 transform
-
-model = DecisionTreeClassifier()
-model.fit(X_train_scaled, y_train)
-score = model.score(X_test_scaled, y_test)
-```
-
-问题：步骤多了容易**遗漏或搞混**。Pipeline 把所有步骤打包在一起：
-
-### 创建 Pipeline
-
-```python
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
 
-# 加载数据
-X, y = load_iris(return_X_y=True)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# 创建 Pipeline：标准化 → 决策树
-pipe = Pipeline([
-    ("scaler", StandardScaler()),           # 步骤1：标准化
-    ("classifier", DecisionTreeClassifier(max_depth=3, random_state=42)),  # 步骤2：分类
-])
-
-# 一步搞定训练（自动依次执行 fit_transform → fit）
-pipe.fit(X_train, y_train)
-
-# 一步搞定预测（自动依次执行 transform → predict）
-score = pipe.score(X_test, y_test)
-print(f"Pipeline 准确率: {score:.1%}")
-```
-
-预期输出：
-
-```text
-Pipeline 准确率: 100.0%
-```
-
-```mermaid
-flowchart LR
-    subgraph Pipeline
-        S["StandardScaler<br/>fit_transform / transform"] --> C["DecisionTreeClassifier<br/>fit / predict"]
-    end
-
-    TR["训练数据"] --> S
-    C --> PR["预测结果"]
-
-    style S fill:#e3f2fd,stroke:#1565c0,color:#333
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-```
-
-### make_pipeline 快捷方式
-
-```python
-from sklearn.pipeline import make_pipeline
-
-# 自动命名步骤（用类名小写）
-pipe = make_pipeline(
-    StandardScaler(),
-    DecisionTreeClassifier(max_depth=3, random_state=42)
+iris = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    iris.data,
+    iris.target,
+    test_size=0.25,
+    random_state=42,
+    stratify=iris.target,
 )
 
-pipe.fit(X_train, y_train)
-print(f"准确率: {pipe.score(X_test, y_test):.1%}")
-
-# 查看步骤名
-print(f"步骤: {list(pipe.named_steps.keys())}")
-```
-
-预期输出：
-
-```text
-准确率: 100.0%
-步骤: ['standardscaler', 'decisiontreeclassifier']
-```
-
-### Pipeline 的好处
-
-| 好处 | 说明 |
-|------|------|
-| **防止数据泄漏** | 自动确保 fit 只在训练集上执行 |
-| **代码简洁** | 把多个步骤封装成一个对象 |
-| **方便调参** | 配合 GridSearchCV 对所有步骤统一调参 |
-| **方便部署** | 保存一个 Pipeline 对象就包含了所有预处理步骤 |
-
----
-
-## 七、模型持久化——保存和加载
-
-训练好的模型需要**保存**下来，以后可以直接使用，不用重新训练。
-
-![joblib 模型持久化流程漫画](/img/course/ch05-model-persistence-joblib.png)
-
-在 sklearn 项目里，只要预处理也是工作流的一部分，最稳的习惯就是保存整个 `Pipeline`。这样新数据进入系统时，会按同样顺序经过同一个标准化器、编码器、特征选择器和模型。
-
-### 使用 joblib（推荐）
-
-```python
-import joblib
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-
-# 训练模型
-X, y = load_iris(return_X_y=True)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-pipe = make_pipeline(StandardScaler(), DecisionTreeClassifier(max_depth=3, random_state=42))
-pipe.fit(X_train, y_train)
-print(f"训练准确率: {pipe.score(X_test, y_test):.1%}")
-
-# 保存模型
-joblib.dump(pipe, "iris_model.joblib")
-print("模型已保存为 iris_model.joblib")
-
-# 加载模型
-loaded_model = joblib.load("iris_model.joblib")
-print(f"加载后准确率: {loaded_model.score(X_test, y_test):.1%}")
-```
-
-预期输出：
-
-```text
-训练准确率: 100.0%
-模型已保存为 iris_model.joblib
-加载后准确率: 100.0%
-```
-
-这段代码会在本地生成 `iris_model.joblib` 文件。真实项目里，保存模型时最好同时保留训练代码、依赖版本和特征定义，否则以后很难稳定复现。
-
-`joblib` 不只是“一个文件格式”。它是 Python 中常用于 sklearn 的序列化工具，因为很多 sklearn 对象内部包含 NumPy 数组。序列化的意思是：把内存里的 Python 对象变成可以写入磁盘、以后再加载回来的字节数据。
-
-### 使用 pickle
-
-```python
-import pickle
-
-# 保存
-with open("iris_model.pkl", "wb") as f:
-    pickle.dump(pipe, f)
-
-# 加载
-with open("iris_model.pkl", "rb") as f:
-    loaded_model = pickle.load(f)
-
-print(f"pickle 加载后准确率: {loaded_model.score(X_test, y_test):.1%}")
-```
-
-预期输出：
-
-```text
-pickle 加载后准确率: 100.0%
-```
-
-:::tip joblib vs pickle
-- **joblib** 对包含大量 NumPy 数组的对象更高效（推荐用于 sklearn 模型）
-- **pickle** 是 Python 标准库，更通用
-- 两者保存的模型**只能在相同 sklearn 版本**下加载（版本不匹配可能报错）
-- 不要加载来源不可信的 `pickle` 或 `joblib` 文件，因为加载过程可能执行代码
-:::
-
----
-
-## 八、综合实战：多模型对比
-
-把前面学的串起来，用同一份数据对比多个模型：
-
-```python
-from sklearn.datasets import load_wine
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-import matplotlib.pyplot as plt
-
-# 1. 准备数据
-X, y = load_wine(return_X_y=True)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-print(f"Wine 数据集: {X.shape[0]} 样本, {X.shape[1]} 特征, {len(set(y))} 类别")
-
-# 2. 定义多个模型（全部使用 Pipeline + 标准化）
 models = {
-    "决策树": make_pipeline(StandardScaler(), DecisionTreeClassifier(max_depth=5, random_state=42)),
-    "逻辑回归": make_pipeline(StandardScaler(), LogisticRegression(max_iter=1000, random_state=42)),
-    "KNN (k=5)": make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=5)),
-    "SVM": make_pipeline(StandardScaler(), SVC(random_state=42)),
+    "logistic": Pipeline([
+        ("scale", StandardScaler()),
+        ("model", LogisticRegression(max_iter=1000, random_state=42)),
+    ]),
+    "tree": Pipeline([
+        ("model", DecisionTreeClassifier(max_depth=3, random_state=42)),
+    ]),
+    "knn": Pipeline([
+        ("scale", StandardScaler()),
+        ("model", KNeighborsClassifier(n_neighbors=5)),
+    ]),
 }
 
-# 3. 训练并评估
-results = {}
-for name, model in models.items():
-    model.fit(X_train, y_train)
-    train_score = model.score(X_train, y_train)
-    test_score = model.score(X_test, y_test)
-    results[name] = {"train": train_score, "test": test_score}
-    print(f"{name:10s} | 训练: {train_score:.1%} | 测试: {test_score:.1%}")
+scores = {}
+for name, pipe in models.items():
+    pipe.fit(X_train, y_train)
+    pred = pipe.predict(X_test)
+    scores[name] = accuracy_score(y_test, pred)
+    print(f"{name:<8} accuracy={scores[name]:.3f}")
 
-# 4. 可视化对比
-fig, ax = plt.subplots(figsize=(10, 5))
-x = range(len(results))
-train_scores = [v["train"] for v in results.values()]
-test_scores = [v["test"] for v in results.values()]
+best_name = max(scores, key=scores.get)
+best_model = models[best_name]
+print(f"best={best_name}")
+print("first_prediction=", iris.target_names[best_model.predict(X_test[:1])][0])
+print("report_for_best:")
+print(classification_report(
+    y_test,
+    best_model.predict(X_test),
+    target_names=iris.target_names,
+    zero_division=0,
+))
 
-bars1 = ax.bar([i - 0.2 for i in x], train_scores, 0.35, label='训练集', color='steelblue')
-bars2 = ax.bar([i + 0.2 for i in x], test_scores, 0.35, label='测试集', color='coral')
-
-ax.set_xticks(list(x))
-ax.set_xticklabels(results.keys())
-ax.set_ylabel('准确率')
-ax.set_title('多模型对比（Wine 数据集）')
-ax.set_ylim(0.7, 1.05)
-ax.legend()
-
-# 添加数值标签
-for bar in bars1:
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
-            f'{bar.get_height():.1%}', ha='center', fontsize=9)
-for bar in bars2:
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
-            f'{bar.get_height():.1%}', ha='center', fontsize=9)
-
-ax.grid(axis='y', alpha=0.3)
-plt.tight_layout()
-plt.show()
+output_path = Path("iris_pipeline.joblib")
+dump(best_model, output_path)
+reloaded = load(output_path)
+print("reloaded_prediction=", iris.target_names[reloaded.predict(X_test[:1])][0])
 ```
 
-图表出现前，终端大致会输出：
+运行：
+
+```bash
+python ch05_sklearn_workflow.py
+```
+
+预期输出：
 
 ```text
-Wine 数据集: 178 样本, 13 特征, 3 类别
-决策树        | 训练: 100.0% | 测试: 94.4%
-逻辑回归       | 训练: 100.0% | 测试: 100.0%
-KNN (k=5)  | 训练: 98.6% | 测试: 94.4%
-SVM        | 训练: 100.0% | 测试: 100.0%
+logistic accuracy=0.921
+tree     accuracy=0.895
+knn      accuracy=0.921
+best=logistic
+first_prediction= setosa
+report_for_best:
+              precision    recall  f1-score   support
+
+      setosa       1.00      1.00      1.00        12
+  versicolor       0.86      0.92      0.89        13
+   virginica       0.92      0.85      0.88        13
+
+    accuracy                           0.92        38
+   macro avg       0.92      0.92      0.92        38
+weighted avg       0.92      0.92      0.92        38
+
+reloaded_prediction= setosa
 ```
 
-不要盲目选择训练集分数最高的模型。这个例子里，测试集分数更重要，因为它更接近模型面对未知数据时的表现。
+不同 sklearn 版本在分数相同的时候，可能选择不同的最佳模型。这没关系。关键证据是：每个模型都能 fit、predict、score，并且保存后的 Pipeline 重新加载后仍能预测。
 
----
+## Pipeline 为什么能避免常见错误
 
-## 九、sklearn API 速查表
+![StandardScaler fit 与 transform 对比漫画](/img/course/ch05-standard-scaler-fit-transform.png)
 
-### 核心方法
+错误流程：
 
-| 方法 | 所属 | 说明 |
-|------|------|------|
-| `fit(X, y)` | Estimator | 从数据中学习 |
-| `predict(X)` | Estimator | 对新数据做预测 |
-| `predict_proba(X)` | 分类器 | 返回预测概率 |
-| `score(X, y)` | Estimator | 评估模型（分类→准确率，回归→R²） |
-| `transform(X)` | Transformer | 用学到的参数变换数据 |
-| `fit_transform(X)` | Transformer | fit + transform 合一步 |
-| `get_params()` | 所有 | 查看超参数 |
-| `set_params()` | 所有 | 修改超参数 |
-
-### 常用模块
-
-| 模块 | 说明 |
-|------|------|
-| `sklearn.datasets` | 数据集加载与生成 |
-| `sklearn.model_selection` | 数据划分、交叉验证、调参 |
-| `sklearn.preprocessing` | 数据预处理（标准化、编码） |
-| `sklearn.linear_model` | 线性模型（线性回归、逻辑回归） |
-| `sklearn.tree` | 决策树 |
-| `sklearn.ensemble` | 集成方法（随机森林、梯度提升） |
-| `sklearn.svm` | 支持向量机 |
-| `sklearn.neighbors` | 近邻算法 |
-| `sklearn.cluster` | 聚类算法 |
-| `sklearn.decomposition` | 降维（PCA） |
-| `sklearn.metrics` | 评估指标 |
-| `sklearn.pipeline` | Pipeline |
-
----
-
-## 十、一个常见错误：先在全量数据上做预处理
-
-很多新人第一次做 sklearn 项目，会先对完整数据集做标准化，再切分训练集和测试集。这个写法看起来方便，但会把测试集的信息提前泄漏给训练流程。
-
-![sklearn Pipeline 防数据泄漏训练漫画](/img/course/ch05-sklearn-pipeline-leakage-comic.png)
-
-可以把这张漫画当成安全检查清单：`fit` 负责学习，`transform` 负责应用，`Pipeline` 负责守住训练集和测试集之间的边界。
-
-```mermaid
-flowchart LR
-    A["完整数据"] --> B["先 fit_transform 标准化"]
-    B --> C["再切分训练 / 测试"]
-    C --> D["测试集信息已经泄漏"]
-
-    E["先切分训练 / 测试"] --> F["只在训练集 fit"]
-    F --> G["训练集和测试集都 transform"]
-    G --> H["评估更可信"]
+```text
+在全部数据上 fit scaler -> 再切分 -> 评估
 ```
 
-更稳的默认做法是：先切分数据，再让 Pipeline 在训练集上 `fit`，最后在测试集上评估。这样预处理参数只来自训练集，测试集才像真正没见过的新数据。
+为什么错：测试集已经影响了预处理，所以分数会偏乐观。
 
-## 十一、这一节的学习闭环
+正确流程：
 
-| 层次 | 你应该能做到什么 |
-|---|---|
-| 直觉 | 能解释 sklearn 为什么把很多模型统一成 `fit / predict / score` |
-| 代码 | 能跑通加载数据、切分、训练、预测、评估的完整流程 |
-| 工程 | 能用 Pipeline 把预处理和模型串起来，并避免数据泄漏 |
-| 项目 | 能保存模型，并用统一 API 对比多个模型效果 |
+```text
+先切分 -> 只在训练集 fit scaler -> transform 测试集 -> 评估
+```
 
----
+用 `Pipeline([("scale", StandardScaler()), ("model", ...)])` 可以让训练和预测都走同一条安全路径。
 
-## 小结
+## 常见错误
 
-| 要点 | 说明 |
-|------|------|
-| 统一 API | 所有模型都用 `fit` / `predict` / `score` |
-| Estimator | 能学习和预测的对象 |
-| Transformer | 能变换数据的对象（如 StandardScaler） |
-| Pipeline | 把预处理和模型串成流水线 |
-| 数据集 | `load_*` 加载真实数据，`make_*` 生成模拟数据 |
-| 模型保存 | `joblib.dump()` / `joblib.load()` |
+| 现象 | 先检查 | 常见修复 |
+|---|---|---|
+| `ModuleNotFoundError: sklearn` | 当前 Python 环境 | 用 `python -m pip install scikit-learn` 安装 |
+| 每次分数不同 | 没有固定 `random_state` | 给数据切分和支持的模型设置 `random_state=42` |
+| 测试分数很好，真实效果差 | 数据泄漏 | 用 `Pipeline`，并先切分再 fit 预处理 |
+| 保存或加载模型失败 | 缺少 `joblib` 或路径不对 | 安装 `joblib`，打印 `Path.cwd()` |
+| 模型对比不公平 | 预处理路径不同 | 把每个模型都放进可比较的 `Pipeline` |
 
-## 这节最该带走什么
+## 练习
 
-如果只带走一句话，我希望你记住：
+1. 把 `test_size` 从 `0.25` 改成 `0.2`，记录分数变化。
+2. 把 `KNeighborsClassifier(n_neighbors=5)` 改成 `n_neighbors=3`。
+3. 按同样 Pipeline 模式再加入一个模型，比如 `SVC`。
+4. 保存终端输出和 `iris_pipeline.joblib` 作为证据。
 
-> **Scikit-learn 最宝贵的不是具体某个算法，而是它把“训练、变换、预测、评估”统一成了一套可复用工作流。**
+## 通关检查
 
-所以学完这节，最重要的不是记住多少模块名，而是能稳定说出：
+能解释下面五件事，就可以继续下一节：
 
-- 什么时候该 `fit`
-- 什么时候该 `transform`
-- 什么时候该 `predict`
-- 为什么 `Pipeline` 会让项目更稳
-
-:::info 连接后续
-- **第 2 章**：深入学习具体算法——线性回归、逻辑回归、决策树、集成方法
-- **第 4 章**：模型评估——怎样科学地比较和选择模型
-- **第 5 章**：特征工程——用 Pipeline 实现完整的数据处理流程
-:::
-
----
-
-## 动手练习
-
-### 练习 1：探索数据集
-
-加载 `load_digits()` 数据集，回答：
-- 有多少个样本？多少个特征？多少个类别？
-- 每个特征代表什么？（提示：查看 `digits.DESCR`）
-- 用 Matplotlib 画出前 20 个手写数字（提示：`plt.imshow(digits.images[i], cmap='gray')`）
-
-### 练习 2：多模型 Pipeline 对比
-
-用 `make_moons()` 数据生成非线性分类数据，对比以下 4 个模型的表现：
-- 逻辑回归
-- 决策树
-- KNN
-- SVM（使用 RBF 核）
-
-所有模型都用 Pipeline 包含 StandardScaler。
-
-### 练习 3：数据生成与可视化
-
-使用 `make_classification` 生成不同难度的分类数据（通过调节 `n_informative` 和 `class_sep` 参数），观察数据分布的变化，并用决策树分类器观察准确率的变化。
-
-### 练习 4：模型保存与加载
-
-1. 用 Wine 数据集训练一个 SVM 模型
-2. 用 joblib 保存模型
-3. 用 joblib 加载模型
-4. 验证加载后的模型预测结果是否一致
+- `fit`、`transform`、`predict`、`score` 分别做什么；
+- 为什么预处理只能从训练数据学习；
+- 为什么 `Pipeline` 比手动预处理更安全；
+- 如何用同一份 train/test split 对比两个模型；
+- 如何保存并重新加载最终模型。
