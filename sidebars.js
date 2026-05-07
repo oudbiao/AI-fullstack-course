@@ -760,7 +760,6 @@ const sidebars = {
           link: { type: "doc", id: "ch12-multimodal/index" },
           items: [
             "ch12-multimodal/study-guide",
-            "ch12-multimodal/task-list",
             {
               type: "category",
               label: "12.1-12.3 Multimodal, Image, and Video Generation",
