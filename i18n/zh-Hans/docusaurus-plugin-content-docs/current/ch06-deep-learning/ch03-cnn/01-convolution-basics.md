@@ -1,542 +1,340 @@
 ---
-title: "6.3.2 卷积操作原理 🔧"
+title: "6.3.2 卷积基础"
 sidebar_position: 1
-description: "从图像局部模式、卷积核、步长、填充到感受野，真正理解 CNN 的第一步到底在做什么。"
-keywords: [卷积, 卷积核, CNN, stride, padding, 感受野, 图像特征]
+description: "通过手算和 PyTorch 学会卷积：kernel、局部模式、stride、padding、channel、输出 shape 和感受野。"
+keywords: [convolution, 卷积, 卷积核, CNN, stride, padding, receptive field, 图像特征]
 ---
 
-# 6.3.2 卷积操作原理
-
-![CNN 卷积核滑动示意图](/img/course/cnn-convolution-kernel.png)
+# 6.3.2 卷积基础
 
 :::tip 本节定位
-如果说前面的神经元、MLP 让你学会了“神经网络会算什么”，那卷积这节就是在回答另一个更关键的问题：
-
-> **神经网络怎样高效地看图？**
-
-这一节是整条 CV 主线的起点。后面你学分类、检测、分割，都会反复用到这里的直觉。
+卷积是 CNN 看图像的方式，它不会过早把空间结构压平成一长串数字。本页先看图，再手算卷积，最后用 `nn.Conv2d` 验证同样的概念。
 :::
 
 ## 学习目标
 
-- 理解为什么图像任务不能直接粗暴地用全连接层解决
-- 直觉理解卷积核、局部连接、参数共享
-- 手算一个最小卷积示例，真正看懂每个输出值怎么来的
-- 掌握 `stride`、`padding` 和输出尺寸计算
-- 理解多通道卷积和感受野
-- 能看懂 PyTorch 中最基础的 `Conv2d`
+- 解释为什么太早 flatten 图像很浪费。
+- 手算一个卷积输出值。
+- 理解 kernel、stride、padding、channel 和 feature map。
+- 用 PyTorch 验证输出 shape。
+- 解释为什么堆叠卷积会扩大感受野。
 
 ---
 
-## 这节和前面 MLP 主线是怎么接上的
+## 先看滑动窗口
 
-如果你刚学完 MLP，可以先把这节理解成：
+![CNN 卷积核滑动图](/img/course/cnn-convolution-kernel.png)
 
-- MLP 已经告诉你“网络会算什么”
-- 卷积这一节开始回答“网络怎样更合适地看图”
+按这个顺序读图：
 
-也就是说，这一节不是在推翻“线性层 + 激活函数”，而是在改进输入组织方式：
+```text
+小窗口 -> 和 kernel 逐元素相乘 -> 求和 -> 一个输出值 -> 滑动并重复
+```
 
-- 不再把图片粗暴拉平成长向量
-- 而是让网络按局部窗口、带着空间结构去看
+卷积核就是一个小型模式检测器。它不是一次看完整张图，而是扫描局部区域，并把得分写进 feature map。
 
-这正是视觉任务里最重要的结构变化。
+## 为什么不先把图像 flatten？
 
-## 一、为什么图像任务需要卷积？
+一张 `32 x 32` 灰度图有 `1024` 个像素。如果接一个输出为 `512` 的全连接层，需要：
 
-### 先看一个“直接展平”的问题
+```text
+1024 * 512 = 524288 个权重
+```
 
-假设你有一张 `32 x 32` 的灰度图。
+一张 `224 x 224 x 3` 彩色图有 `150528` 个输入值。朴素全连接层参数会爆炸，而且会忽略像素的位置关系。
 
-如果把它直接展平成一个向量，再送进全连接层：
+卷积解决两个问题：
 
-- 输入维度是 `32 * 32 = 1024`
-- 如果下一层有 512 个神经元，就需要 `1024 * 512 = 524288` 个权重
+| 过早 flatten 的问题 | 卷积的做法 |
+|---|---|
+| 附近像素的空间关系丢失 | 看局部窗口 |
+| 每个位置都需要单独权重 | 同一个 kernel 到处复用 |
+| 参数数量增长很快 | 在整张图上共享参数 |
 
-如果图片再大一点，比如 `224 x 224 x 3`：
+两个核心术语：
 
-- 输入维度变成 `150528`
-- 参数量会瞬间爆炸
+- 局部连接：每个输出只看一小块区域；
+- 参数共享：同一个 kernel 扫描多个位置。
 
-更糟糕的是，展平以后，图像原本最重要的东西被破坏了：
-
-- 邻近像素之间的关系
-- 边缘、纹理、局部图案
-- 空间结构
-
-也就是说：
-
-> **图片不是普通表格数据。**
-
-它最值钱的不是“有多少数字”，而是“这些数字怎样在空间上挨在一起”。
-
-### 卷积到底解决了什么？
-
-卷积做了两件特别重要的事：
-
-1. 只看局部区域，而不是一次看整张图
-2. 同一组参数在整张图上滑动复用
-
-这两个设计分别对应：
-
-- **局部连接**
-- **参数共享**
-
-你可以把卷积理解成：
-
-> **拿一个小模板，在图片上滑来滑去，专门找某种局部模式。**
-
-比如：
-
-- 竖线
-- 横线
-- 边缘
-- 角点
-- 纹理
-
-### 这一节最该先盯住的，不是卷积核长什么样
-
-而是先盯住这两个“为什么”：
-
-1. 为什么不能直接展平
-2. 为什么局部邻近关系必须保住
-
-只要这两个点稳了，后面卷积核、步长、填充这些概念才不会变成纯记忆题。
-
----
-
-## 二、卷积核是什么？
-
-### 一个最容易理解的类比
-
-卷积核（kernel / filter）就像一张很小的“透明模板”。
-
-你把它盖在图片的一小块区域上：
-
-- 对应位置相乘
-- 再把结果加起来
-
-得到一个分数。
-
-这个分数可以理解成：
-
-> 这块区域有多像卷积核正在寻找的模式。
-
-### 最小可运行示例：手工做一次卷积
+## 实验 1：手算卷积
 
 ```python
 import numpy as np
 
-# 4x4 图像
-image = np.array([
-    [1, 2, 0, 0],
-    [5, 3, 0, 4],
-    [2, 1, 3, 1],
-    [0, 2, 1, 2]
-], dtype=np.float32)
+image = np.array(
+    [
+        [1, 2, 0, 0],
+        [5, 3, 0, 4],
+        [2, 1, 3, 1],
+        [0, 2, 1, 2],
+    ],
+    dtype=np.float32,
+)
 
-# 2x2 卷积核
-kernel = np.array([
-    [1, 0],
-    [0, -1]
-], dtype=np.float32)
+kernel = np.array(
+    [
+        [1, 0],
+        [0, -1],
+    ],
+    dtype=np.float32,
+)
 
 out = np.zeros((3, 3), dtype=np.float32)
-
 for i in range(3):
     for j in range(3):
-        patch = image[i:i + 2, j:j + 2]
+        patch = image[i : i + 2, j : j + 2]
         out[i, j] = np.sum(patch * kernel)
 
-print("image =\n", image)
-print("kernel =\n", kernel)
-print("output =\n", out)
+print("manual_conv_lab")
+print(out)
 ```
 
-### 第一个输出值是怎么来的？
-
-左上角的 `2x2` patch 是：
+预期输出：
 
 ```text
-[[1, 2],
- [5, 3]]
+manual_conv_lab
+[[-2.  2. -4.]
+ [ 4.  0. -1.]
+ [ 0.  0.  1.]]
 ```
 
-卷积核是：
+左上角输出值：
 
 ```text
-[[ 1, 0],
- [ 0,-1]]
+patch = [[1, 2],
+         [5, 3]]
+
+kernel = [[ 1,  0],
+          [ 0, -1]]
+
+score = 1*1 + 2*0 + 5*0 + 3*(-1) = -2
 ```
 
-逐元素相乘：
+这就是卷积的核心计算。
 
-```text
-[[ 1*1, 2*0],
- [ 5*0, 3*(-1)]]
-```
+## 实验 2：把 kernel 当边缘检测器
 
-求和：
-
-```text
-1 + 0 + 0 - 3 = -2
-```
-
-所以输出左上角就是 `-2`。
-
-这就是卷积最核心的计算。
-
-### 卷积核最值得先记的，不是“它会滑”，而是“它在找模式”
-
-一个更适合新人的说法是：
-
-- 一个卷积核就是一个小模式探测器
-
-不同卷积核可能更容易对这些模式有反应：
-
-- 边缘
-- 方向变化
-- 小纹理
-- 局部角点
-
-所以卷积层真正做的不是“把图像乘来乘去”，而是：
-
-> **一层层把低级局部模式提出来，交给后面的层继续组合。**
-
----
-
-## 三、卷积为什么能检测边缘？
-
-### 因为它本质上在比较局部差异
-
-如果一个卷积核专门设计成“左边减右边”或“上边减下边”，它就会对边界特别敏感。
-
-例如下面这个核：
-
-```text
-[[ 1,  0],
- [ 0, -1]]
-```
-
-它会对“左上亮、右下暗”这类局部结构有反应。
-
-如果图像某块区域很平滑、像素差不多，卷积结果往往接近 0。
-如果局部变化很剧烈，卷积结果就会比较大。
-
-### 再看一个边缘核
+这个横向 kernel 会比较相邻像素从左到右的变化。
 
 ```python
 import numpy as np
 
-image = np.array([
-    [0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1],
-    [0, 0, 1, 1, 1],
-    [0, 0, 1, 1, 1],
-    [0, 0, 0, 0, 0]
-], dtype=np.float32)
+image = np.array(
+    [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1],
+        [0, 0, 1, 1, 1],
+        [0, 0, 1, 1, 1],
+        [0, 0, 0, 0, 0],
+    ],
+    dtype=np.float32,
+)
 
-kernel = np.array([
-    [-1, 1]
-], dtype=np.float32)
+kernel = np.array([[-1, 1]], dtype=np.float32)
 
 out = np.zeros((5, 4), dtype=np.float32)
 for i in range(5):
     for j in range(4):
-        patch = image[i:i + 1, j:j + 2]
+        patch = image[i : i + 1, j : j + 2]
         out[i, j] = np.sum(patch * kernel)
 
-print("output =\n", out)
+print("edge_lab")
+print(out)
 ```
 
-你会看到在“0 变 1”的边界附近，输出最明显。
+预期输出：
 
----
+```text
+edge_lab
+[[0. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 0. 0.]]
+```
 
-## 四、Stride 和 Padding 到底是什么？
+`1` 出现在图像从 `0` 变成 `1` 的边界位置。这也是为什么早期 CNN 层经常学到类似边缘的滤波器。
 
-### Stride：每次滑几步
+## Stride、Padding 和输出尺寸
 
-`stride` 可以理解成卷积核在图片上移动的步长。
+![卷积 stride padding 和输出尺寸变化图](/img/course/ch06-conv-stride-padding-size-map.png)
 
-- `stride = 1`：每次挪 1 格
-- `stride = 2`：每次挪 2 格
+| 术语 | 含义 | 影响 |
+|---|---|---|
+| `kernel_size` | 窗口大小 | kernel 越大，看见的局部区域越大 |
+| `stride` | 每次移动多远 | stride 越大，输出越小 |
+| `padding` | 给输入周围加边框 | 保留边缘信息并控制尺寸 |
 
-步长越大：
+单个空间维度的输出尺寸：
 
-- 输出更小
-- 计算更快
-- 细节丢失更多
+```text
+output = floor((input + 2*padding - kernel_size) / stride) + 1
+```
 
-### Padding：先在图像边缘补一圈
+例子：
 
-如果不做 padding，卷积核滑到边缘时就会停下来，输出尺寸会变小。
+```text
+input=6, kernel_size=3, padding=1, stride=2
+output = floor((6 + 2*1 - 3) / 2) + 1 = 3
+```
 
-padding 的作用是：
-
-- 保留边缘信息
-- 控制输出尺寸
-
-最常见的是补 0，也叫 zero padding。
-
-### 第一次学 stride 和 padding，最容易乱在哪？
-
-最容易乱的点通常不是公式本身，而是：
-
-- 不知道它们是在控制“看得多细”和“输出有多大”
-
-一个更稳的记法是：
-
-- `stride` 更像“每次滑多远”
-- `padding` 更像“边缘要不要先补一圈”
-
-所以它们本质上都在影响两件事：
-
-- 信息保留多少
-- 计算量和输出尺寸怎么变
-
-![卷积 stride padding 与输出尺寸变化图](/img/course/ch06-conv-stride-padding-size-map.png)
-
-:::tip 读图提示
-读这张图时，把 `stride` 看成滑动步子，把 `padding` 看成边缘补框。步子越大，输出越小；padding 越多，边缘信息保留越多。输出尺寸公式只是这两个动作的结果。
-:::
-
-### 输出尺寸公式
-
-对于二维卷积：
-
-> `output = floor((input + 2*padding - kernel_size) / stride) + 1`
-
-例如：
-
-- 输入宽高：`6`
-- 卷积核：`3`
-- padding：`1`
-- stride：`2`
-
-则输出尺寸：
-
-> `floor((6 + 2*1 - 3) / 2) + 1 = floor(5/2) + 1 = 2 + 1 = 3`
-
-### 可运行示例：验证输出尺寸
+用 PyTorch 验证：
 
 ```python
 import torch
 from torch import nn
 
-x = torch.randn(1, 1, 6, 6)  # batch=1, channel=1, H=6, W=6
-
+x = torch.randn(1, 1, 6, 6)
 conv = nn.Conv2d(
     in_channels=1,
     out_channels=2,
     kernel_size=3,
     stride=2,
-    padding=1
+    padding=1,
 )
-
 y = conv(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("size_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
 ```
 
-输出里你会看到高宽都变成 `3`。
+预期输出：
 
----
+```text
+size_lab
+input: (1, 1, 6, 6)
+output: (1, 2, 3, 3)
+```
 
-## 五、多通道卷积：彩色图片怎么处理？
+shape 按 `[batch, channels, height, width]` 读。
 
-### 灰度图和 RGB 图的区别
+## 多通道卷积
 
-灰度图 shape 往往是：
+彩色图像有三个输入通道：红、绿、蓝。PyTorch 中一批 RGB 图像通常是：
 
-- `H x W`
+```text
+[batch, 3, height, width]
+```
 
-RGB 图在深度学习里常写成：
+RGB 图像上的 `3 x 3` 卷积核实际 shape 是：
 
-- `C x H x W`
+```text
+[out_channels, in_channels, kernel_height, kernel_width]
+```
 
-其中：
-
-- `C = 3`
-- 分别对应 R/G/B 三个通道
-
-### 卷积核也会“长出通道”
-
-如果输入是 RGB 图，那么一个卷积核不再只是 `3 x 3`，而是：
-
-> `3 x 3 x 3`
-
-也就是：
-
-- 对红通道看一个 `3x3`
-- 对绿通道看一个 `3x3`
-- 对蓝通道看一个 `3x3`
-
-最后把三个通道的结果加起来，再加偏置，得到一个输出值。
-
-### 多个卷积核 = 多个输出通道
-
-如果你有 16 个卷积核，就会得到 16 张特征图。
-这就是为什么 `Conv2d` 里会写：
-
-- `in_channels`
-- `out_channels`
+运行：
 
 ```python
 import torch
 from torch import nn
 
-x = torch.randn(2, 3, 32, 32)  # batch=2, RGB 图像
+x = torch.randn(2, 3, 32, 32)
 conv = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=3, padding=1)
 y = conv(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("channel_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
+print("weight:", tuple(conv.weight.shape))
+print("bias:", tuple(conv.bias.shape))
 ```
 
-这里输出 shape 会是：
+预期输出：
 
-- `[2, 8, 32, 32]`
+```text
+channel_lab
+input: (2, 3, 32, 32)
+output: (2, 8, 32, 32)
+weight: (8, 3, 3, 3)
+bias: (8,)
+```
 
-也就是：
+解释：
 
-- 2 张图片
-- 每张图片提取出 8 个通道的特征图
+- `2`：batch 里有两张图；
+- `3`：RGB 输入通道；
+- `8`：八个学到的输出 feature map；
+- `(8, 3, 3, 3)`：八个 kernel，每个都看三个输入通道。
 
----
+## 感受野：CNN 如何随深度看得更大
 
-## 六、感受野：为什么深层网络能看到更大范围？
+![CNN 感受野逐层增长图](/img/course/ch06-cnn-receptive-field-growth-map.png)
 
-### 感受野的直觉
+一层 `3 x 3` 卷积只能看很小的局部区域。如果堆叠多层，后面的特征会间接依赖原图中更大的区域。
 
-感受野（receptive field）指的是：
+直觉：
 
-> 输出中的一个位置，能“看到”原图多大范围。
+| 层深度 | 常学到什么 |
+|---|---|
+| 浅层 | 边缘、颜色变化、纹理 |
+| 中层 | 角点、简单形状、部件 |
+| 深层 | 更大的物体部件和语义模式 |
 
-一个 `3x3` 卷积层，看见的只是局部 `3x3`。
+这就是 CNN 适合图像的原因：小局部线索可以逐层组合成更大的视觉概念。
 
-但如果连续堆叠多层：
-
-- 第一层看 `3x3`
-- 第二层基于第一层结果再看 `3x3`
-
-那么第二层实际就间接看到了更大的原图范围。
-
-### 为什么这很重要？
-
-因为图像理解通常有层级：
-
-- 浅层：边缘、纹理
-- 中层：角点、局部形状
-- 深层：物体部件、整体语义
-
-卷积网络之所以强，不是因为“卷积这个动作神奇”，而是因为：
-
-> **小局部特征可以一层层组合成更抽象的大模式。**
-
-![CNN 感受野逐层变大的特征组合图](/img/course/ch06-cnn-receptive-field-growth-map.png)
-
-:::tip 读图提示
-这张图从浅到深看：第一层只看小边缘，第二层组合成局部形状，后面层逐渐看到更大的物体部件。CNN 的强点不是单个卷积核，而是局部模式能一层层组合成更高级语义。
-:::
-
----
-
-## 七、PyTorch 里的卷积层到底在做什么？
-
-### 最基础的 `Conv2d`
+## 基础 `Conv2d` 检查清单
 
 ```python
 import torch
 from torch import nn
 
 x = torch.randn(1, 1, 8, 8)
-
 conv = nn.Conv2d(
     in_channels=1,
     out_channels=4,
     kernel_size=3,
     stride=1,
-    padding=1
+    padding=1,
 )
-
 y = conv(x)
 
-print("输入 shape :", x.shape)
-print("输出 shape :", y.shape)
-print("权重 shape :", conv.weight.shape)
-print("偏置 shape :", conv.bias.shape)
+print("conv2d_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
+print("weight:", tuple(conv.weight.shape))
+print("bias:", tuple(conv.bias.shape))
 ```
 
-这里：
+预期输出：
 
-- `out_channels=4` 表示有 4 个卷积核
-- `conv.weight.shape = [4, 1, 3, 3]`
-  - 4 个输出通道
-  - 每个核看 1 个输入通道
-  - 核大小 `3x3`
-
-### 卷积层后面为什么常接激活函数？
-
-和 MLP 一样：
-
-- 卷积先做线性变换
-- 激活函数再引入非线性
-
-典型写法：
-
-```python
-nn.Conv2d(...)
-nn.ReLU()
+```text
+conv2d_lab
+input: (1, 1, 8, 8)
+output: (1, 4, 8, 8)
+weight: (4, 1, 3, 3)
+bias: (4,)
 ```
 
----
+读任何 `Conv2d` 时，先问：
 
-## 八、初学者最常见的坑
+1. 输入 shape `[N, C, H, W]` 是什么？
+2. `in_channels` 是否等于输入的 `C`？
+3. `out_channels` 会创建多少个 feature map？
+4. `kernel_size`、`stride`、`padding` 会怎样改变 `H` 和 `W`？
 
-### 把卷积当成“魔法特征提取器”
+## 常见错误
 
-卷积不是魔法，本质上就是：
-
-- 小窗口
-- 逐元素乘法
-- 求和
-- 滑动
-
-### 搞混 shape
-
-最常见错误之一就是搞混：
-
-- `H x W x C`
-- `C x H x W`
-
-在 PyTorch 里，通常是：
-
-- `N x C x H x W`
-
-### 不知道输出尺寸怎么算
-
-很多报错不是模型不会，而是尺寸不匹配。
-所以 `kernel_size / stride / padding` 的尺寸计算一定要会。
-
----
-
-## 小结
-
-这一节最重要的不是记住“卷积”两个字，而是建立三个稳定直觉：
-
-1. 图像任务需要保留空间结构，所以不能简单展平后暴力全连接
-2. 卷积核是在整张图上重复寻找局部模式
-3. 多层卷积让模型从局部特征逐步组合出更高级的视觉理解
-
-理解了这三点，你后面学 CNN 结构、经典架构、目标检测时，就不会把卷积层当黑盒。
-
----
+| 错误 | 为什么有问题 | 修复 |
+|---|---|---|
+| 在 PyTorch 里用 `[H, W, C]` | PyTorch 期待 `[N, C, H, W]` | 从图像库转换时用 `permute` |
+| `in_channels` 写错 | `Conv2d` 接不上输入 | 层前打印 `x.shape` |
+| 忘记 padding | feature map 意外变小 | 计算输出尺寸或打印 shape |
+| 把卷积当魔法 | 很难调试 feature | 记住 patch * kernel -> sum |
+| 太早 flatten | 空间结构丢失 | 先用 conv block，再接 classifier head |
 
 ## 练习
 
-1. 把本节的 `2x2` 卷积核改成别的数值，观察输出怎样变化。
-2. 自己手算一个输出位置，再和代码结果对比。
-3. 用 PyTorch 改写一个 `kernel_size=5`、`stride=2` 的卷积层，验证输出尺寸。
-4. 想一想：如果图片中的物体整体平移一点点，卷积为什么通常比全连接更稳？
+1. 改变手写 `2 x 2` kernel，观察输出如何变化。
+2. 手算实验 1 的 `out[1, 0]`，和输出对照。
+3. 把 size lab 里的 `stride` 改成 `1`，输出 shape 变成什么？
+4. 把 channel lab 里的 `out_channels` 改成 `16`，哪些 shape 会变？
+5. 用 `permute` 把图像样式张量从 `[N, H, W, C]` 转成 `[N, C, H, W]`。
+
+## 小结
+
+- 卷积比过早 flatten 更能保留局部空间结构。
+- kernel 是在不同位置共享的小型模式检测器。
+- `stride` 和 `padding` 控制 kernel 如何移动，以及输出尺寸如何变化。
+- 多通道卷积会综合多个输入通道的信息。
+- 堆叠卷积层会扩大感受野，并建立视觉层级。

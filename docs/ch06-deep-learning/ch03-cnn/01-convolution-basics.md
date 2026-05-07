@@ -1,542 +1,340 @@
 ---
-title: "6.3.2 Principles of Convolution Operations 🔧"
+title: "6.3.2 Convolution Basics"
 sidebar_position: 1
-description: "From local image patterns, convolution kernels, stride, and padding to receptive fields — the first real step toward understanding what CNNs actually do."
+description: "Learn convolution by hand and in PyTorch: kernels, local patterns, stride, padding, channels, output shapes, and receptive fields."
 keywords: [convolution, convolution kernel, CNN, stride, padding, receptive field, image features]
 ---
 
-# 6.3.2 Principles of Convolution Operations
+# 6.3.2 Convolution Basics
 
-![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel-en.png)
-
-:::tip Where this section fits
-If the earlier neurons and MLP sections taught you “what a neural network can compute,” then this convolution section answers an even more important question:
-
-> **How do neural networks look at images efficiently?**
-
-This section is the starting point of the entire CV storyline. Later, when you study classification, detection, and segmentation, you’ll keep coming back to the intuition here.
+:::tip Section Overview
+Convolution is how CNNs look at images without flattening away spatial structure. This page starts with a picture, then computes a convolution by hand, then verifies the same ideas with `nn.Conv2d`.
 :::
 
 ## Learning Objectives
 
-- Understand why image tasks cannot be solved directly with a fully connected layer in a naive way
-- Build an intuitive understanding of convolution kernels, local connections, and parameter sharing
-- Manually compute a minimal convolution example and truly see where each output value comes from
-- Master `stride`, `padding`, and output size calculation
-- Understand multi-channel convolution and receptive fields
-- Be able to read the most basic `Conv2d` in PyTorch
+- Explain why flattening an image too early is wasteful.
+- Compute one convolution output value by hand.
+- Understand kernel, stride, padding, channel, and feature map.
+- Verify output shapes with PyTorch.
+- Explain why stacking convolutions grows the receptive field.
 
 ---
 
-## How this connects to the earlier MLP storyline
+## Look at the Sliding Window First
 
-If you just finished learning MLPs, you can think of this section as:
+![CNN convolution kernel sliding illustration](/img/course/cnn-convolution-kernel-en.png)
 
-- MLP already taught you “what the network can compute”
-- This convolution section starts answering “how the network should look at images more appropriately”
+Read the picture like this:
 
-In other words, this section is not overthrowing “linear layer + activation function.” It is improving how the input is organized:
+```text
+small window -> multiply by kernel -> sum -> one output value -> slide and repeat
+```
 
-- No longer flattening the image into a long vector in a rough, naive way
-- Instead, letting the network look through local windows while preserving spatial structure
+A convolution kernel is a small pattern detector. It does not look at the whole image at once. It scans local regions and writes a score into a feature map.
 
-That is the most important structural change in vision tasks.
+## Why Not Flatten the Image First?
 
-## Why do image tasks need convolution?
+A `32 x 32` grayscale image has `1024` pixels. A fully connected layer with `512` outputs would need:
 
-### First, let’s look at the problem with “just flattening”
+```text
+1024 * 512 = 524288 weights
+```
 
-Suppose you have a `32 x 32` grayscale image.
+A `224 x 224 x 3` color image has `150528` input values. A naive fully connected layer explodes in parameters and ignores where pixels are located.
 
-If you directly flatten it into a vector and feed it into a fully connected layer:
+Convolution fixes two problems:
 
-- The input dimension is `32 * 32 = 1024`
-- If the next layer has 512 neurons, you need `1024 * 512 = 524288` weights
+| Problem with early flattening | Convolution idea |
+|---|---|
+| nearby pixels lose their spatial relationship | look at local windows |
+| every position needs separate weights | reuse the same kernel everywhere |
+| parameter count grows quickly | share parameters across the image |
 
-If the image is a bit larger, for example `224 x 224 x 3`:
+The two core terms are:
 
-- The input dimension becomes `150528`
-- The number of parameters explodes instantly
+- local connection: each output looks at a small area;
+- parameter sharing: the same kernel scans many positions.
 
-Even worse, after flattening, the most important structure in the image gets destroyed:
-
-- Relationships between nearby pixels
-- Edges, textures, and local patterns
-- Spatial structure
-
-So:
-
-> **An image is not ordinary tabular data.**
-
-What matters most is not “how many numbers it has,” but “how those numbers sit next to each other in space.”
-
-### What exactly does convolution solve?
-
-Convolution does two especially important things:
-
-1. It looks only at local regions instead of the whole image at once
-2. It reuses the same set of parameters as it slides across the whole image
-
-These two design choices correspond to:
-
-- **Local connection**
-- **Parameter sharing**
-
-You can think of convolution as:
-
-> **Taking a small template and sliding it across the image to look for a certain local pattern.**
-
-For example:
-
-- Vertical lines
-- Horizontal lines
-- Edges
-- Corner points
-- Textures
-
-### What you should focus on first in this section is not the kernel itself
-
-Focus first on these two “whys”:
-
-1. Why can’t we just flatten the image directly?
-2. Why must local neighborhood relationships be preserved?
-
-Once these two points are clear, concepts like convolution kernels, stride, and padding will no longer feel like pure memorization.
-
----
-
-## What is a convolution kernel?
-
-### The easiest analogy to understand
-
-A convolution kernel (kernel / filter) is like a tiny “transparent template.”
-
-You place it over a small region of the image:
-
-- Multiply corresponding values
-- Then add them up
-
-You get a score.
-
-You can think of that score as:
-
-> How much this region matches the pattern the kernel is looking for.
-
-### Minimal runnable example: doing a convolution by hand
+## Lab 1: Compute Convolution by Hand
 
 ```python
 import numpy as np
 
-# 4x4 image
-image = np.array([
-    [1, 2, 0, 0],
-    [5, 3, 0, 4],
-    [2, 1, 3, 1],
-    [0, 2, 1, 2]
-], dtype=np.float32)
+image = np.array(
+    [
+        [1, 2, 0, 0],
+        [5, 3, 0, 4],
+        [2, 1, 3, 1],
+        [0, 2, 1, 2],
+    ],
+    dtype=np.float32,
+)
 
-# 2x2 convolution kernel
-kernel = np.array([
-    [1, 0],
-    [0, -1]
-], dtype=np.float32)
+kernel = np.array(
+    [
+        [1, 0],
+        [0, -1],
+    ],
+    dtype=np.float32,
+)
 
 out = np.zeros((3, 3), dtype=np.float32)
-
 for i in range(3):
     for j in range(3):
-        patch = image[i:i + 2, j:j + 2]
+        patch = image[i : i + 2, j : j + 2]
         out[i, j] = np.sum(patch * kernel)
 
-print("image =\n", image)
-print("kernel =\n", kernel)
-print("output =\n", out)
+print("manual_conv_lab")
+print(out)
 ```
 
-### How is the first output value computed?
-
-The top-left `2x2` patch is:
+Expected output:
 
 ```text
-[[1, 2],
- [5, 3]]
+manual_conv_lab
+[[-2.  2. -4.]
+ [ 4.  0. -1.]
+ [ 0.  0.  1.]]
 ```
 
-The convolution kernel is:
+Top-left output value:
 
 ```text
-[[ 1, 0],
- [ 0,-1]]
+patch = [[1, 2],
+         [5, 3]]
+
+kernel = [[ 1,  0],
+          [ 0, -1]]
+
+score = 1*1 + 2*0 + 5*0 + 3*(-1) = -2
 ```
 
-Element-wise multiplication:
+That is the whole core of convolution.
 
-```text
-[[ 1*1, 2*0],
- [ 5*0, 3*(-1)]]
-```
+## Lab 2: Use a Kernel as an Edge Detector
 
-Summing them:
-
-```text
-1 + 0 + 0 - 3 = -2
-```
-
-So the top-left output value is `-2`.
-
-That is the core computation of convolution.
-
-### The most important thing to remember about convolution kernels is not “they slide,” but “they search for patterns”
-
-A better beginner-friendly way to say it is:
-
-- A convolution kernel is a small pattern detector
-
-Different kernels may respond more strongly to these patterns:
-
-- Edges
-- Direction changes
-- Small textures
-- Local corners
-
-So what a convolution layer really does is not “multiply the image around,” but:
-
-> **Extract low-level local patterns layer by layer, and hand them to later layers for further combination.**
-
----
-
-## Why can convolution detect edges?
-
-### Because it is essentially comparing local differences
-
-If a convolution kernel is designed to do “left minus right” or “top minus bottom,” it becomes especially sensitive to boundaries.
-
-For example, this kernel:
-
-```text
-[[ 1,  0],
- [ 0, -1]]
-```
-
-responds to local structures like “bright in the upper-left, dark in the lower-right.”
-
-If a region of the image is smooth and the pixel values are similar, the convolution result is often close to 0.
-If the local change is sharp, the convolution result becomes larger.
-
-### Let’s look at another edge kernel
+This horizontal kernel compares neighboring pixels from left to right.
 
 ```python
 import numpy as np
 
-image = np.array([
-    [0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1],
-    [0, 0, 1, 1, 1],
-    [0, 0, 1, 1, 1],
-    [0, 0, 0, 0, 0]
-], dtype=np.float32)
+image = np.array(
+    [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1],
+        [0, 0, 1, 1, 1],
+        [0, 0, 1, 1, 1],
+        [0, 0, 0, 0, 0],
+    ],
+    dtype=np.float32,
+)
 
-kernel = np.array([
-    [-1, 1]
-], dtype=np.float32)
+kernel = np.array([[-1, 1]], dtype=np.float32)
 
 out = np.zeros((5, 4), dtype=np.float32)
 for i in range(5):
     for j in range(4):
-        patch = image[i:i + 1, j:j + 2]
+        patch = image[i : i + 1, j : j + 2]
         out[i, j] = np.sum(patch * kernel)
 
-print("output =\n", out)
+print("edge_lab")
+print(out)
 ```
 
-You’ll see that the output is most obvious near the boundary where the values change from `0` to `1`.
+Expected output:
 
----
+```text
+edge_lab
+[[0. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 0. 0.]]
+```
 
-## What exactly are stride and padding?
+The `1` values appear where the image changes from `0` to `1`. That is why early CNN layers often learn edge-like filters.
 
-### Stride: how far to move each time
-
-`stride` can be understood as how many steps the convolution kernel moves each time.
-
-- `stride = 1`: move 1 step each time
-- `stride = 2`: move 2 steps each time
-
-The larger the stride:
-
-- The smaller the output
-- The faster the computation
-- The more detail is lost
-
-### Padding: add a border around the image first
-
-If you do not use padding, the convolution kernel stops when it reaches the edge, and the output size becomes smaller.
-
-Padding is used to:
-
-- Preserve edge information
-- Control the output size
-
-The most common approach is to pad with 0, also called zero padding.
-
-### When you first learn stride and padding, where do people usually get confused?
-
-The most confusing part is usually not the formula itself, but:
-
-- Not understanding that they control “how finely you look” and “how big the output is”
-
-A more stable way to remember them is:
-
-- `stride` is more like “how far to move each time”
-- `padding` is more like “whether to add a border first”
-
-So fundamentally, both affect two things:
-
-- How much information is preserved
-- How computation and output size change
+## Stride, Padding, and Output Size
 
 ![Convolution stride padding and output size change diagram](/img/course/ch06-conv-stride-padding-size-map-en.png)
 
-:::tip Reading hint
-When reading this diagram, think of `stride` as the sliding step and `padding` as the border you add around the image. The larger the step, the smaller the output; the more padding, the more edge information is preserved. The output size formula is just the result of these two actions.
-:::
+| Term | Meaning | Effect |
+|---|---|---|
+| `kernel_size` | window size | larger kernel sees more local area |
+| `stride` | how far the kernel moves each step | larger stride makes output smaller |
+| `padding` | border added around input | preserves edge information and controls size |
 
-### Output size formula
+Output size for one spatial dimension:
 
-For 2D convolution:
+```text
+output = floor((input + 2*padding - kernel_size) / stride) + 1
+```
 
-> `output = floor((input + 2*padding - kernel_size) / stride) + 1`
+Example:
 
-For example:
+```text
+input=6, kernel_size=3, padding=1, stride=2
+output = floor((6 + 2*1 - 3) / 2) + 1 = 3
+```
 
-- Input width/height: `6`
-- Kernel size: `3`
-- padding: `1`
-- stride: `2`
-
-Then the output size is:
-
-> `floor((6 + 2*1 - 3) / 2) + 1 = floor(5/2) + 1 = 2 + 1 = 3`
-
-### Runnable example: verify the output size
+Verify in PyTorch:
 
 ```python
 import torch
 from torch import nn
 
-x = torch.randn(1, 1, 6, 6)  # batch=1, channel=1, H=6, W=6
-
+x = torch.randn(1, 1, 6, 6)
 conv = nn.Conv2d(
     in_channels=1,
     out_channels=2,
     kernel_size=3,
     stride=2,
-    padding=1
+    padding=1,
 )
-
 y = conv(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("size_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
 ```
 
-In the output, you’ll see that both height and width become `3`.
+Expected output:
 
----
+```text
+size_lab
+input: (1, 1, 6, 6)
+output: (1, 2, 3, 3)
+```
 
-## Multi-channel convolution: how do color images work?
+Read the shape as `[batch, channels, height, width]`.
 
-### The difference between grayscale and RGB images
+## Multi-Channel Convolution
 
-A grayscale image usually has the shape:
+Color images have three input channels: red, green, and blue. In PyTorch, a batch of RGB images usually has shape:
 
-- `H x W`
+```text
+[batch, 3, height, width]
+```
 
-An RGB image is often written in deep learning as:
+A `3 x 3` convolution over an RGB image actually has kernel shape:
 
-- `C x H x W`
+```text
+[out_channels, in_channels, kernel_height, kernel_width]
+```
 
-where:
-
-- `C = 3`
-- corresponding to the R/G/B channels
-
-### A convolution kernel also “grows channels”
-
-If the input is an RGB image, then a convolution kernel is no longer just `3 x 3`, but:
-
-> `3 x 3 x 3`
-
-That means:
-
-- Look at a `3x3` area in the red channel
-- Look at a `3x3` area in the green channel
-- Look at a `3x3` area in the blue channel
-
-Then add the results from the three channels together, plus a bias, to get one output value.
-
-### Multiple convolution kernels = multiple output channels
-
-If you have 16 convolution kernels, you will get 16 feature maps.
-That is why `Conv2d` uses:
-
-- `in_channels`
-- `out_channels`
+Run it:
 
 ```python
 import torch
 from torch import nn
 
-x = torch.randn(2, 3, 32, 32)  # batch=2, RGB images
+x = torch.randn(2, 3, 32, 32)
 conv = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=3, padding=1)
 y = conv(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("channel_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
+print("weight:", tuple(conv.weight.shape))
+print("bias:", tuple(conv.bias.shape))
 ```
 
-Here the output shape will be:
+Expected output:
 
-- `[2, 8, 32, 32]`
+```text
+channel_lab
+input: (2, 3, 32, 32)
+output: (2, 8, 32, 32)
+weight: (8, 3, 3, 3)
+bias: (8,)
+```
 
-That means:
+Interpretation:
 
-- 2 images
-- Each image is transformed into 8-channel feature maps
+- `2`: two images in the batch;
+- `3`: RGB input channels;
+- `8`: eight learned output feature maps;
+- `(8, 3, 3, 3)`: eight kernels, each looking across three input channels.
 
----
-
-## Receptive field: why can deep networks see a larger area?
-
-### The intuition behind receptive field
-
-The receptive field refers to:
-
-> How large a region of the original image one position in the output can “see.”
-
-A single `3x3` convolution layer can only see a local `3x3` region.
-
-But if you stack multiple layers:
-
-- The first layer sees `3x3`
-- The second layer looks at the first layer’s output with another `3x3`
-
-Then the second layer indirectly sees a larger area of the original image.
-
-### Why is this important?
-
-Because image understanding is usually hierarchical:
-
-- Early layers: edges, textures
-- Middle layers: corners, local shapes
-- Deep layers: object parts, overall semantics
-
-The reason CNNs are powerful is not that “convolution itself is magical,” but that:
-
-> **Small local features can be combined layer by layer into more abstract, larger patterns.**
+## Receptive Field: How CNNs See More Over Depth
 
 ![CNN receptive field grows layer by layer feature combination diagram](/img/course/ch06-cnn-receptive-field-growth-map-en.png)
 
-:::tip Reading hint
-Read this diagram from shallow to deep: the first layer sees only small edges, the second layer combines them into local shapes, and later layers gradually see larger object parts. The strength of CNNs is not a single convolution kernel, but that local patterns can be combined layer by layer into higher-level semantics.
-:::
+One `3 x 3` convolution sees a small local region. If you stack layers, later features indirectly depend on larger regions of the original image.
 
----
+Intuition:
 
-## What exactly does a convolution layer do in PyTorch?
+| Layer depth | What it often learns |
+|---|---|
+| shallow | edges, color changes, textures |
+| middle | corners, simple shapes, parts |
+| deep | larger object parts and semantic patterns |
 
-### The most basic `Conv2d`
+This hierarchy is why CNNs work well for images: small local clues can be composed into larger visual ideas.
+
+## Basic `Conv2d` Checklist
 
 ```python
 import torch
 from torch import nn
 
 x = torch.randn(1, 1, 8, 8)
-
 conv = nn.Conv2d(
     in_channels=1,
     out_channels=4,
     kernel_size=3,
     stride=1,
-    padding=1
+    padding=1,
 )
-
 y = conv(x)
 
-print("input shape :", x.shape)
-print("output shape :", y.shape)
-print("weight shape :", conv.weight.shape)
-print("bias shape :", conv.bias.shape)
+print("conv2d_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
+print("weight:", tuple(conv.weight.shape))
+print("bias:", tuple(conv.bias.shape))
 ```
 
-Here:
+Expected output:
 
-- `out_channels=4` means there are 4 convolution kernels
-- `conv.weight.shape = [4, 1, 3, 3]`
-  - 4 output channels
-  - each kernel looks at 1 input channel
-  - kernel size `3x3`
-
-### Why is an activation function often added after a convolution layer?
-
-Just like in MLPs:
-
-- The convolution first performs a linear transformation
-- Then the activation function introduces nonlinearity
-
-A typical pattern is:
-
-```python
-nn.Conv2d(...)
-nn.ReLU()
+```text
+conv2d_lab
+input: (1, 1, 8, 8)
+output: (1, 4, 8, 8)
+weight: (4, 1, 3, 3)
+bias: (4,)
 ```
 
----
+When you read any `Conv2d`, ask:
 
-## Common beginner mistakes
+1. What is the input shape `[N, C, H, W]`?
+2. Does `in_channels` equal the input `C`?
+3. How many feature maps does `out_channels` create?
+4. How do `kernel_size`, `stride`, and `padding` change `H` and `W`?
 
-### Treating convolution as a “magic feature extractor”
+## Common Mistakes
 
-Convolution is not magic. In essence, it is just:
-
-- A small window
-- Element-wise multiplication
-- Summation
-- Sliding
-
-### Mixing up shapes
-
-One of the most common mistakes is confusing:
-
-- `H x W x C`
-- `C x H x W`
-
-In PyTorch, the usual format is:
-
-- `N x C x H x W`
-
-### Not knowing how to calculate output size
-
-Many errors are not because the model cannot learn, but because the dimensions do not match.
-So you must be able to calculate the sizes for `kernel_size / stride / padding`.
-
----
-
-## Summary
-
-The most important thing in this section is not memorizing the word “convolution,” but building three stable intuitions:
-
-1. Image tasks need to preserve spatial structure, so we cannot simply flatten and use a fully connected layer in a brute-force way
-2. A convolution kernel repeatedly searches for local patterns across the whole image
-3. Stacking multiple convolution layers allows the model to combine local features step by step into higher-level visual understanding
-
-Once you understand these three points, you won’t treat convolution layers as a black box when you later study CNN architectures, classic models, and object detection.
-
----
+| Mistake | Why it hurts | Fix |
+|---|---|---|
+| using image shape `[H, W, C]` in PyTorch | PyTorch expects `[N, C, H, W]` | use `permute` when converting from image libraries |
+| wrong `in_channels` | `Conv2d` cannot match the input | print `x.shape` before the layer |
+| forgetting padding | feature maps shrink unexpectedly | calculate output size or print shapes |
+| treating convolution as magic | hard to debug features | remember patch * kernel -> sum |
+| flattening too early | spatial structure is lost | use conv blocks before classifier head |
 
 ## Exercises
 
-1. Change the `2x2` convolution kernel in this section to other values and observe how the output changes.
-2. Manually compute one output position, then compare it with the code result.
-3. Rewrite a convolution layer with `kernel_size=5` and `stride=2` in PyTorch and verify the output size.
-4. Think about this: if an object in an image shifts slightly as a whole, why is convolution usually more robust than a fully connected layer?
+1. Change the hand-written `2 x 2` kernel and observe how the output changes.
+2. Manually compute `out[1, 0]` in Lab 1 and compare with the printed output.
+3. Change `stride=1` in the size lab. What output shape do you get?
+4. Change `out_channels=16` in the channel lab. Which shapes change?
+5. Convert an image-like tensor from `[N, H, W, C]` to `[N, C, H, W]` with `permute`.
+
+## Key Takeaways
+
+- Convolution preserves local spatial structure better than early flattening.
+- A kernel is a small pattern detector shared across positions.
+- `stride` and `padding` control how the kernel moves and how output size changes.
+- Multi-channel convolution combines information across input channels.
+- Stacked convolution layers grow receptive field and build visual hierarchy.
