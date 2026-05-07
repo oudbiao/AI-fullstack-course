@@ -705,7 +705,6 @@ const sidebars = {
           link: { type: "doc", id: "ch11-nlp/index" },
           items: [
             "ch11-nlp/study-guide",
-            "ch11-nlp/task-list",
             {
               type: "category",
               label: "11.1-11.6 NLP Basics to Pretrained Models",

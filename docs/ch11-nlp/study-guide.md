@@ -1,11 +1,11 @@
 ---
-title: "Study Guide: How to Learn Natural Language Processing Without Getting Confused"
+title: "Study Guide and Task Sheet: How to Learn Natural Language Processing Without Getting Confused"
 sidebar_position: 1
 description: "An NLP study guide for AI full-stack beginners: text representation, word embeddings, text classification, sequence labeling, pre-trained models, project roadmap, and acceptance criteria."
 keywords: [NLP Study Guide, how to learn natural language processing, text classification, how to learn BERT, how to learn GPT]
 ---
 
-# Study Guide: How to Learn Natural Language Processing Without Getting Confused
+# Study Guide and Task Sheet: How to Learn Natural Language Processing Without Getting Confused
 
 If you reach `Chapter 11 Natural Language Processing (elective track)` and feel that token, embedding, classification, extraction, generation, BERT, and GPT are all mixed together, first return to the main line of NLP: how text becomes a representation that a model can process.
 
@@ -14,6 +14,19 @@ If you reach `Chapter 11 Natural Language Processing (elective track)` and feel 
 For NLP, the first pass is to follow one development path: text is first cleaned and split, then turned into vector representations, then fed into tasks such as classification, extraction, and generation, and finally moves toward pre-trained language models.
 
 ![NLP text-to-model study guide map](/img/course/ch11-study-guide-text-to-model-map-en.png)
+
+## Tasks You Must Complete in This Stage
+
+Use these tasks to keep NLP grounded in real text work. Even with powerful LLMs, you still need clear labels, source evidence, metrics, and failure samples.
+
+| Task | Deliverable | Pass Criteria |
+|---|---|---|
+| Understand text preprocessing | A text cleaning script | Can handle tokenization, casing, stop words, punctuation, and special characters |
+| Complete a text representation experiment | A comparison record of representation methods | Can compare BoW, TF-IDF, embedding, and pre-trained model representations |
+| Complete a text classification task | A classification demo | Can explain labels, data splitting, metrics, and error samples |
+| Complete an extraction or summarization exercise | An information extraction or summarization example | Can explain field boundaries, factual consistency, and evaluation methods |
+| Run the reproducible NLP mini pipeline | `nlp_workshop_run/` evidence folder | Can explain outputs, reports, metrics, and `reports/failure_cases.md` |
+| Complete one stage project | A small text understanding project | Has input/output, metrics, failure samples, and a README |
 
 ## Recommended learning order
 
@@ -55,8 +68,32 @@ The second stumbling block is unclear task boundaries. Classification outputs ca
 
 The third stumbling block is looking only at the model and not the data. Text tasks depend heavily on annotation quality, category definitions, and evaluation set design.
 
-## Passing criteria
+## Stage Portfolio Deliverables
+
+![NLP text-to-artifacts pipeline map](/img/course/ch11-workshop-text-to-artifacts-pipeline-map-en.png)
+
+If you want this stage to become portfolio material, keep at least these files or equivalent evidence.
+
+| Deliverable | Description |
+|---|---|
+| `text_cleaning.py` | Text cleaning, tokenization, normalization, and sample output |
+| `label_guide.md` | Label definitions, boundary cases, positive and negative examples, and annotation rules |
+| `classification_report.md` | Metrics, confusion matrix, error samples, and model comparisons |
+| `extraction_examples.jsonl` | Information extraction or structured output examples |
+| `README.md` | Project goals, how to run it, input/output, evaluation, and limitations |
+
+These materials upgrade an NLP project from “the model can output text” to “the task definition is clear, the evaluation is trustworthy, and failures can be reviewed.”
+
+## Stage Completion Questions
 
 After finishing this stage, you should be able to explain the general process of how text goes from a raw string to model input, and you should be able to complete a text classification or information extraction project.
+
+Before moving on, check that you can answer these questions:
+
+- Why does text cleaning affect model performance?
+- What is the difference between TF-IDF and embedding?
+- Why does text classification need label rules?
+- How do summarization and extraction check factual consistency?
+- When is a traditional NLP method more suitable than an LLM?
 
 If you can clearly explain the differences between BERT and GPT in training objectives, applicable tasks, and usage patterns, you will be able to move more smoothly into the principles of large models.
