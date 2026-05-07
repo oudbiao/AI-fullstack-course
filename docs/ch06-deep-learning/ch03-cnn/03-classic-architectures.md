@@ -1,212 +1,123 @@
 ---
 title: "6.3.4 Classic CNN Architectures"
 sidebar_position: 3
-description: "From LeNet and AlexNet to VGG and ResNet, understand why classic CNN architectures evolved generation by generation, and what problem each generation actually solved."
+description: "Learn the evolution from LeNet to ResNet through practical checks: what each architecture fixed, how to read blocks, and how residual connections work."
 keywords: [LeNet, AlexNet, VGG, ResNet, CNN, residual connection, classic architecture]
 ---
 
 # 6.3.4 Classic CNN Architectures
 
-![Classic CNN architecture evolution](/img/course/imagenet-cnn-evolution-en.png)
-
-:::tip Section overview
-Learning classic architectures is not about memorizing model names. It is about seeing a very important evolution line clearly:
-
-> **As image tasks become more complex, how did CNNs gradually become stronger?**
-
-Once you understand this line, later when you encounter more modern vision models, you will not just see a pile of terms.
+:::tip Section Overview
+Classic CNNs are useful when you read them as an engineering evolution, not as model-name trivia. Each generation fixed a real bottleneck: feasibility, scale, repeatable blocks, or trainable depth.
 :::
 
-## Learning objectives
+## Learning Objectives
 
-- Understand what problems LeNet, AlexNet, VGG, and ResNet each solved
-- Read the evolution logic of classic CNNs instead of only memorizing diagrams
-- Understand why “stacking small convolution kernels” and “residual connections” matter
-- Write a minimal residual block and truly understand the core idea of ResNet
-- Judge the pros and cons of different architectures from an engineering perspective
-
----
-
-## Why learn “classic architectures”?
-
-### Classic models are not outdated knowledge, but the evolution history of visual modeling
-
-Many beginners learn CNN architectures like this:
-
-- LeNet: memorize one name
-- AlexNet: memorize another name
-- VGG: memorize yet another name
-- ResNet: seems important
-
-This kind of learning is easy to become fragmented.
-
-A better way is to see them as an evolution chain:
-
-1. LeNet: proved that convolutional networks can do image recognition
-2. AlexNet: truly scaled up deep CNNs and achieved strong results on large data
-3. VGG: turned “stacking many small convolution kernels” into a standard approach
-4. ResNet: solved the problem of training very deep networks
-
-So the real goal of learning classic architectures is not to “know the names,” but to know:
-
-> What key weakness did each generation make up for?
-
-### These names actually feel like a “deep visual evolution history”
-
-If you only treat them as model names, it will feel boring very quickly.
-But if you see them as an evolution history, it becomes much easier to feel their significance:
-
-- `LeNet` is like proving that “the convolution path is workable”
-- `AlexNet` is like telling the world “this path is not only feasible, it can suddenly perform extremely well”
-- `VGG` is like organizing engineering experience into a more stable recipe
-- `ResNet` is like solving the real bottleneck of “once the network gets deeper, training becomes hard”
-
-So this lesson is not just about models.
-It is about:
-
-> **Why the vision field has evolved into today’s structures step by step.**
-
-### A very easy-to-remember analogy
-
-You can understand classic CNN architectures as “building a house”:
-
-- LeNet: first prove the house can be built
-- AlexNet: the house gets taller, and it starts to be truly commercialized
-- VGG: a more unified and reproducible construction standard appears
-- ResNet: solve the problem that very tall buildings are easy to collapse
-
-That is their intuitive difference.
+- Explain what LeNet, AlexNet, VGG, and ResNet each contributed.
+- Read classic architectures by asking “what problem did this design solve?”
+- Compare large kernels with stacked small kernels.
+- Implement a minimal residual block.
+- Decide what ideas still matter in modern CNN practice.
 
 ---
 
-## LeNet: the early prototype of convolutional networks
+## See the Evolution First
 
-### LeNet’s historical position
+![Classic CNN architecture evolution](/img/course/imagenet-cnn-evolution-en.png)
 
-LeNet was originally used mainly for handwritten digit recognition.
-Its importance is not that it is still very strong today, but that it established the main line very early:
+Read the timeline like this:
 
-> **Convolution layers extract features, pooling layers compress them, and fully connected layers do classification.**
+| Architecture | What to remember | Main lesson |
+|---|---|---|
+| LeNet | early CNN skeleton | conv and pooling can recognize images |
+| AlexNet | scale plus GPU training | deeper CNNs work when data, compute, and training tricks align |
+| VGG | repeated `3 x 3` blocks | small kernels can build large receptive fields cleanly |
+| ResNet | residual paths | very deep networks need easier gradient and information flow |
 
-### The typical LeNet structure
+The point is not to copy these models exactly today. The point is to inherit the design questions they answered.
 
-Roughly speaking, LeNet is:
+## LeNet: The CNN Skeleton
+
+LeNet is old, but the skeleton is still familiar:
 
 ```text
-Input -> Conv -> Pool -> Conv -> Pool -> FC -> Output
+Input -> Conv -> Pool -> Conv -> Pool -> Fully Connected -> Output
 ```
 
-It already had the core skeleton of a CNN.
+It taught three durable ideas:
 
-### What did LeNet teach us?
+- do not flatten images before extracting local patterns;
+- use pooling to compress local responses;
+- let later layers classify using higher-level features.
 
-LeNet truly taught later researchers:
+If you understand LeNet, you understand the minimum structure behind many image classifiers.
 
-- Images should not be flattened from the start
-- Local feature extraction is feasible
-- Hierarchical feature learning is effective
+## AlexNet: Scale Made CNNs Convincing
 
-Today this seems very natural, but at the time it was a crucial breakthrough.
+AlexNet mattered because it combined several forces at once:
 
-### Why is LeNet, despite being old, still worth discussing?
+- larger dataset;
+- deeper CNN;
+- GPU training;
+- ReLU for faster optimization;
+- Dropout for regularization.
 
-Because it was like a real “prototype” moment:
+Its lesson is practical: architecture alone rarely wins. Data, compute, training stability, and regularization all have to fit together.
 
-- It did not solve every problem
-- But it was the first to lay out the skeleton of the entire later CNN main line
+For an experienced reader, this is the first systems lesson in CNN history: model quality is a stack, not a single clever layer.
 
-That is why in many classic architecture lessons,
-LeNet’s meaning is often not “how strong it is today,”
-but rather:
+## VGG: Small Kernels, Repeated Blocks
 
-> **It finally showed later people how this building should probably be constructed.**
+VGG made a simple recipe popular:
 
----
+```text
+Conv3x3 -> ReLU -> Conv3x3 -> ReLU -> Pool
+```
 
-## AlexNet: the real start of deep CNN breakthroughs
+Why stack small kernels instead of using one large kernel?
 
-### Why is AlexNet a milestone?
+- stacked layers grow receptive field;
+- each layer adds another nonlinearity;
+- parameters can be more controlled;
+- repeated blocks are easy to read and reproduce.
 
-AlexNet is best known for truly demonstrating the power of deep CNNs on ImageNet.
+## Lab 1: Compare Kernel Parameter Counts
 
-Its historical significance can be summarized as:
+This comparison is not the whole story, but it gives a useful intuition.
 
-- Deeper model
-- Larger data
-- GPU truly made a difference
-- Techniques like ReLU and Dropout began to be widely adopted
+```python
+from torch import nn
 
-### Why do many people call AlexNet the “starting gun” of the deep learning revival?
 
-Because before it, many people did not really believe that:
+def count_params(module):
+    return sum(p.numel() for p in module.parameters() if p.requires_grad)
 
-- deeper networks
-- larger datasets
-- stronger computing power
 
-would together lead to such a dramatic performance jump.
+one_large_kernel = nn.Conv2d(16, 16, kernel_size=7, padding=3)
+three_small_kernels = nn.Sequential(
+    nn.Conv2d(16, 16, kernel_size=3, padding=1),
+    nn.ReLU(),
+    nn.Conv2d(16, 16, kernel_size=3, padding=1),
+    nn.ReLU(),
+    nn.Conv2d(16, 16, kernel_size=3, padding=1),
+)
 
-What was most shocking about AlexNet was that it did not feel like “a little improvement step by step.”
-Instead, it was more like:
+print("kernel_param_lab")
+print("one 7x7 conv :", count_params(one_large_kernel))
+print("three 3x3 conv:", count_params(three_small_kernels))
+```
 
-- instantly pushing the whole route from “one research direction” to “the mainstream direction”
+Expected output:
 
-So its place in history is not only winning ImageNet,
-but also making many people believe for the first time:
+```text
+kernel_param_lab
+one 7x7 conv : 12560
+three 3x3 conv: 6960
+```
 
-> **Deep learning is not just exciting in concept; it can already deliver decisive results.**
+The stacked `3 x 3` version has fewer parameters in this setup and adds nonlinear steps between convolutions. That is why VGG-style thinking became such a clean baseline.
 
-### What problem did AlexNet solve?
-
-Compared with earlier small models, it proved:
-
-> **As long as data, compute, and training techniques keep up, deep convolutional networks can significantly improve image recognition.**
-
-### What did AlexNet inspire?
-
-AlexNet did not just “get deeper.” It told everyone that:
-
-- Deep networks are worth doing
-- GPU training is the future direction
-- Activation functions and regularization techniques are critical
-
-It was more like the real starting gun for the deep vision era.
-
----
-
-## VGG: Why is “stacking small convolution kernels” so important?
-
-### One core idea of VGG
-
-The easiest thing to remember about VGG is:
-
-> **Use many stacked `3x3` small convolution layers instead of directly using large convolution kernels.**
-
-### Why not use large kernels, and instead use many small ones?
-
-Because stacking several small convolution kernels has several advantages:
-
-1. The receptive field can still become larger
-2. The number of parameters is more controllable
-3. More nonlinearities can be inserted in between
-
-An intuitive example:
-
-- One `7x7` convolution kernel: sees a large region in one step
-- Three consecutive `3x3` convolutions: can also see a large range in the end, but each step can add nonlinearity
-
-This is usually more flexible.
-
-### A rough parameter-count intuition
-
-Assume the input and output channel numbers are the same. Roughly compare:
-
-- One `7x7` convolution: parameters are proportional to `49`
-- One `3x3` convolution: parameters are proportional to `9`
-
-Although stacking multiple layers does not always mean fewer parameters, “small kernels + many layers” often leads to more refined representations.
-
-### Runnable example: a VGG-style small block
+## Lab 2: Run a VGG-Style Block
 
 ```python
 import torch
@@ -217,84 +128,47 @@ vgg_block = nn.Sequential(
     nn.ReLU(),
     nn.Conv2d(16, 16, kernel_size=3, padding=1),
     nn.ReLU(),
-    nn.MaxPool2d(2)
+    nn.MaxPool2d(2),
 )
 
 x = torch.randn(2, 3, 32, 32)
 y = vgg_block(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("vgg_block_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
 ```
 
-This block is very much like the classic VGG idea:
+Expected output:
 
-- First apply convolution twice in a row
-- Then pool
+```text
+vgg_block_lab
+input: (2, 3, 32, 32)
+output: (2, 16, 16, 16)
+```
 
----
+Read it as:
 
-## ResNet: Why does training get harder when the network gets deeper?
+- two `3 x 3` convolutions refine features;
+- pooling halves height and width;
+- output channels become `16`.
 
-### A counterintuitive question
+## ResNet: Making Depth Trainable
 
-In theory, deeper networks have stronger expressive power, so the results should be better.
-But in practice, people found that:
+A deeper network should be more expressive, but it can become harder to optimize. ResNet’s key idea is the residual connection:
 
-> Once the network becomes deep enough, training becomes harder, and the results are not necessarily better.
+```text
+output = learned_change(x) + x
+```
 
-This is not as simple as “the model is too strong and overfits.” Instead, it is because:
+Instead of forcing every block to learn a completely new representation, the block can learn a change on top of the input. If the block is not useful yet, the shortcut still carries information forward.
 
-- Gradient flow becomes harder
-- Optimization becomes more difficult
-- Very deep networks are not always easy to learn an “at least not worse” mapping
-
-### The core idea of ResNet
-
-The key idea introduced by ResNet is the residual connection:
-
-> Instead of directly learning `H(x)`, learn `F(x) = H(x) - x`
-
-Then the output becomes:
-
-> `y = F(x) + x`
-
-### What is truly impressive about ResNet?
-
-What is impressive is not just the word “deeper,”
-but that it answers a very practical question:
-
-- If deep networks have such potential, why do they become harder to train as they go deeper?
-
-The value of ResNet is that it does not avoid this problem.
-Instead, it directly gives a very engineering-oriented answer:
-
-- Provide a side path that makes it easier for deep networks to preserve the original information
-
-That is why many people, after learning ResNet, clearly feel for the first time that:
-
-> **Neural network architecture design is not just stacking layers. It is seriously dealing with optimization difficulties.**
-
-### Why does this help?
-
-Because the model can now more easily learn:
-
-- “This layer is useful, so learn a little new thing”
-- “This layer does not need major changes, so keep the input information as much as possible”
-
-In other words:
-
-> Residual connections create a side path for deep networks so they do not completely lose the original information.
-
----
-
-## A minimal residual block that is really worth typing by hand
-
-### First look at the code
+## Lab 3: Implement a Residual Block
 
 ```python
 import torch
 from torch import nn
+
 
 class ResidualBlock(nn.Module):
     def __init__(self, channels):
@@ -305,22 +179,28 @@ class ResidualBlock(nn.Module):
 
     def forward(self, x):
         identity = x
-        out = self.conv1(x)
-        out = self.relu(out)
+        out = self.relu(self.conv1(x))
         out = self.conv2(out)
         out = out + identity
-        out = self.relu(out)
-        return out
+        return self.relu(out)
+
 
 block = ResidualBlock(8)
 x = torch.randn(2, 8, 16, 16)
 y = block(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("residual_block_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
 ```
 
-### Which line is the most important?
+Expected output:
+
+```text
+residual_block_lab
+input: (2, 8, 16, 16)
+output: (2, 8, 16, 16)
+```
 
 The most important line is:
 
@@ -328,96 +208,55 @@ The most important line is:
 out = out + identity
 ```
 
-This is the residual connection itself.
+That addition is element-wise, so the shapes must match. Real ResNet variants use a `1 x 1` convolution in the shortcut when channel count or spatial size changes.
 
-It allows the network to learn new features without completely losing the original input information.
+## How to Read an Architecture Diagram
 
-### Why must the shapes match?
+When you see a new CNN architecture, ask these questions:
 
-Because the addition is element-wise.
-If the input and output shapes do not match, residual addition cannot be done directly.
+| Question | Why it matters |
+|---|---|
+| How does the first stage reduce spatial size? | too much early compression loses detail |
+| Where do channels increase? | channels store feature diversity |
+| Are blocks repeated? | repeated blocks make the architecture scalable |
+| Is there a shortcut path? | shortcuts help optimization and information flow |
+| How does the classifier head work? | `Flatten` and GAP have different parameter costs |
 
-That is also why in real ResNet models, people sometimes use:
+This is more useful than memorizing exact layer counts.
 
-- `1x1 conv`
+## What Still Matters Today?
 
-to align dimensions.
+You may not start a modern project from LeNet or AlexNet, but their ideas still show up:
 
----
+- LeNet: the feature-extractor/classifier split;
+- AlexNet: data, compute, activation, and regularization as a system;
+- VGG: repeated simple blocks;
+- ResNet: residual paths as a default design tool.
 
-## A clear evolution line from classic architectures
+Modern CNN backbones and hybrid vision models still reuse these ideas, even when the names and blocks look newer.
 
-### Summary of the evolution logic
+## Common Mistakes
 
-| Architecture | Core contribution | Problem it solved |
-|---|---|---|
-| LeNet | Early CNN skeleton | Proved that convolution can be used for image recognition |
-| AlexNet | Deeper, larger, GPU training | Made deep CNNs take off for real |
-| VGG | Stacking many small convolution kernels | Improved expressive power and made the structure more unified |
-| ResNet | Residual connections | Solved the difficulty of training very deep networks |
-
-### What should you really remember?
-
-Not “which model had how many layers and convolutions,” but:
-
-> **Each generation of classic architecture is paving the way for deeper, more stable, and stronger visual representation learning.**
-
----
-
-## Do we still need to learn these classic architectures today?
-
-### Yes, but not to copy them exactly
-
-In real projects today, you may not necessarily start from LeNet or AlexNet directly.
-But these architectures are still important because they teach you:
-
-- Why CNNs are shaped this way
-- Why depth matters
-- Why small convolution kernels became popular
-- Why residual connections have almost become standard
-
-### Many modern models still inherit these ideas
-
-Even though more modern models have appeared today, many of their core ideas can still be traced back to classic CNNs:
-
-- Hierarchical features
-- Channel expansion
-- Deep stacking
-- Residual paths
-
----
-
-## Common mistakes beginners make
-
-### Treating classic architectures as just “memorizing model names”
-
-This is the easiest way to forget them, and it is almost impossible to transfer the knowledge.
-
-### Only looking at architecture diagrams without understanding why they were designed that way
-
-Once you do not understand the design motivation, it becomes very hard to judge whether changes in a new architecture are meaningful.
-
-### Thinking the key point of ResNet is simply “deeper”
-
-The key of ResNet is not depth itself, but:
-
-> **Making depth trainable.**
-
----
-
-## Summary
-
-The most important thing in this section is not memorizing the names LeNet, AlexNet, VGG, and ResNet, but grasping this main line:
-
-> **The evolution of classic CNN architectures is essentially about how to make image networks learn deeper, more stably, and more effectively.**
-
-Once you understand this line, when you look at more modern vision models later, you will know which ideas they are continuing and what they are improving.
-
----
+| Mistake | Better view |
+|---|---|
+| memorizing model names | remember the bottleneck each model solved |
+| thinking VGG is only “many layers” | its real lesson is repeated small-kernel blocks |
+| thinking ResNet is only “very deep” | its real lesson is making depth trainable |
+| copying classic models directly | usually start from a pretrained modern backbone |
+| ignoring compute cost | architecture choice must fit data size and deployment limits |
 
 ## Exercises
 
-1. Summarize the most important point of LeNet, AlexNet, VGG, and ResNet in your own words.
-2. Change `channels=8` in the minimal residual block to 16, and check whether the shapes still match.
-3. Think about this: why are several consecutive `3x3` convolutions often more popular than using one large convolution kernel directly?
-4. If you had to use just one sentence to distinguish VGG from ResNet, what would you say?
+1. Summarize LeNet, AlexNet, VGG, and ResNet in one sentence each.
+2. Change `ResidualBlock(8)` to `ResidualBlock(16)` and update the input tensor.
+3. Remove one `3 x 3` convolution from the VGG-style block. What changes and what stays the same?
+4. Explain why `out + identity` fails if channel counts differ.
+5. Pick a modern CNN backbone and identify which classic ideas it still uses.
+
+## Key Takeaways
+
+- Classic CNNs are a design evolution, not a name list.
+- LeNet gave the skeleton; AlexNet proved scale; VGG made repeated small blocks clean; ResNet made depth easier to train.
+- Stacked small kernels can be parameter-efficient and expressive.
+- Residual connections preserve information and improve optimization.
+- The practical skill is reading the design motivation behind an architecture.
