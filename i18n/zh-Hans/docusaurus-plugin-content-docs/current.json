@@ -183,9 +183,9 @@
     "message": "10 计算机视觉（方向选修）",
     "description": "The label for category '10 Computer Vision (Specialization Elective)' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.11 Natural Language Processing (Specialization Elective)": {
-    "message": "11 自然语言处理（方向选修）",
-    "description": "The label for category '11 Natural Language Processing (Specialization Elective)' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.11 NLP Specialization: Text Tasks After LLMs": {
+    "message": "11 NLP 专题：LLM 之后的文本任务",
+    "description": "The label for category '11 NLP Specialization: Text Tasks After LLMs' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.11.7 NLP Capstone Project": {
     "message": "11.7 NLP 综合项目",

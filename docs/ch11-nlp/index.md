@@ -1,15 +1,19 @@
 ---
-title: "11 Natural Language Processing (Elective Track)"
+title: "11 NLP Specialization: Text Tasks After LLMs"
 sidebar_position: 0
-description: "Learn NLP through the practical path from raw text to tokens, representations, classification, extraction, generation, evaluation, and pretrained models."
+description: "Use NLP as a post-LLM specialization: define text outputs, inspect tokens and representations, build classification/extraction/generation tasks, and evaluate failures."
 keywords: [NLP, Natural Language Processing, Transformer, BERT, word vectors, text classification, HuggingFace]
 ---
 
-# 11 Natural Language Processing (Elective Track)
+# 11 NLP Specialization: Text Tasks After LLMs
 
 ![Natural Language Processing hero visual](/img/course/ch11-nlp-en.png)
 
-This elective chapter answers: **how does raw text become something a model can classify, extract, search, or generate from?** LLMs hide many NLP steps, but Prompt, RAG, Agent memory, retrieval, evaluation, and information extraction still depend on NLP thinking.
+This specialization comes after the LLM/RAG/Agent main line. Chapter 7 already gives you the minimum NLP crash course; Chapter 11 is where you return when a real product needs cleaner labels, better extraction, stronger evaluation, or a text pipeline that an LLM alone cannot make reliable.
+
+The guiding question is: **how does raw text become something a model can classify, extract, search, or generate from?** LLMs hide many NLP steps, but Prompt, RAG, Agent memory, retrieval, evaluation, and information extraction still depend on NLP thinking.
+
+If you are following the fastest beginner route, finish Chapters 1-9 first, then come back here for a text-focused portfolio project.
 
 ## See the Text-To-Task Pipeline
 

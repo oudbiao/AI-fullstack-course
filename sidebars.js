@@ -793,7 +793,7 @@ const sidebars = {
         },
         {
           type: "category",
-          label: "11 Natural Language Processing (Specialization Elective)",
+          label: "11 NLP Specialization: Text Tasks After LLMs",
           collapsed: true,
           link: { type: "doc", id: "ch11-nlp/index" },
           items: [

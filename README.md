@@ -51,7 +51,7 @@ flowchart LR
   H --> I[9 Agent Systems]
   I --> J{Specialization}
   J --> K[10 Computer Vision]
-  J --> L[11 NLP]
+  J --> L[11 NLP Specialization]
   J --> M[12 Multimodal AIGC]
 ```
 
@@ -69,7 +69,7 @@ flowchart LR
 | 8 LLM Application Development and RAG | RAG, document processing, vector databases, deployment, evaluation | Build cited, logged, evaluated knowledge-base assistants |
 | 9 AI Agents and Agentic Systems | Planning, tools, memory, MCP, multi-agent systems, safety | Build traceable AI Agent workflows with guardrails |
 | 10 Computer Vision | Classification, detection, segmentation, OCR, video, 3D vision | Build visual AI projects with metrics and failure analysis |
-| 11 Natural Language Processing | Text basics, embeddings, classification, sequence labeling, Seq2Seq, pretrained models | Build NLP projects for QA, extraction, summarization, or semantic graphs |
+| 11 NLP Specialization After LLMs | Text basics, embeddings, classification, extraction, Seq2Seq, pretrained models | Build text projects for QA, extraction, summarization, or semantic graphs after the main LLM/RAG/Agent path |
 | 12 AIGC and Multimodal | Vision-language models, image/video/audio generation, ethics, product projects | Build multimodal creative AI prototypes |
 
 ## Beginner Learning Strategy
