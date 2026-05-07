@@ -485,7 +485,6 @@ const sidebars = {
           link: { type: "doc", id: "ch08-rag/index" },
           items: [
             "ch08-rag/study-guide",
-            "ch08-rag/task-list",
             {
               type: "category",
               label: "8.1 RAG: Retrieval-Augmented Generation",
