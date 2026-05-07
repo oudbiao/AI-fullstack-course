@@ -253,6 +253,13 @@ improved_loss = average_loss(improved_pairs)
 print("improved loss =", round(improved_loss, 4))
 ```
 
+预期输出：
+
+```text
+baseline loss = 0.5774
+improved loss = 0.4214
+```
+
 ### 这段代码最该看哪一行？
 
 最重要的是这里：
@@ -326,6 +333,14 @@ def critique(text):
 print("constitution =", constitution)
 print("response =", response)
 print("issues =", critique(response))
+```
+
+预期输出：
+
+```text
+constitution = ['不要提供违法操作步骤', '不确定时要明确说明边界']
+response = 你可以先暴力破解 Wi-Fi，应该肯定能成功。
+issues = ['违反规则：不要提供违法操作步骤', '违反规则：不确定时不应过度自信']
 ```
 
 这当然不是完整的 Constitutional AI，

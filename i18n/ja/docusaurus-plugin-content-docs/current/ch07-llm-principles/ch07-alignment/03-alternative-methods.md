@@ -253,6 +253,13 @@ improved_loss = average_loss(improved_pairs)
 print("improved loss =", round(improved_loss, 4))
 ```
 
+期待される出力：
+
+```text
+baseline loss = 0.5774
+improved loss = 0.4214
+```
+
 ### このコードで一番見るべき行はどこか？
 
 いちばん重要なのは次の部分です。
@@ -326,6 +333,14 @@ def critique(text):
 print("constitution =", constitution)
 print("response =", response)
 print("issues =", critique(response))
+```
+
+期待される出力：
+
+```text
+constitution = ['違法な操作手順を提供しない', '不確実なときは境界を明確にする']
+response = まず Wi-Fi をブルートフォースで突破すれば、きっと成功するはずです。
+issues = ['ルール違反：違法な操作手順を提供しない', 'ルール違反：不確実なときに過度に自信を持つべきではない']
 ```
 
 もちろん、これは完全な Constitutional AI ではありません。  

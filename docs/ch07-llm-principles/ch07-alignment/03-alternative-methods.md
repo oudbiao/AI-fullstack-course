@@ -253,6 +253,13 @@ improved_loss = average_loss(improved_pairs)
 print("improved loss =", round(improved_loss, 4))
 ```
 
+Expected output:
+
+```text
+baseline loss = 0.5774
+improved loss = 0.4214
+```
+
 ### Which line should you pay the most attention to?
 
 The most important part is here:
@@ -326,6 +333,14 @@ def critique(text):
 print("constitution =", constitution)
 print("response =", response)
 print("issues =", critique(response))
+```
+
+Expected output:
+
+```text
+constitution = ['Do not provide instructions for illegal actions', 'When uncertain, state the limits clearly']
+response = You can brute-force the Wi-Fi first; it will definitely work.
+issues = ['Rule violation: do not provide instructions for illegal actions', 'Rule violation: do not be overconfident when uncertain']
 ```
 
 Of course, this is not a full Constitutional AI system,

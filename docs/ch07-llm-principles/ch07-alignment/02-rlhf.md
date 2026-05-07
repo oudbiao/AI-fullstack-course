@@ -320,6 +320,17 @@ for response in candidates:
     print(f"score={score:.3f} response={response}")
 ```
 
+Expected output:
+
+```text
+epoch=000 avg_loss=0.6931
+epoch=100 avg_loss=0.0441
+epoch=200 avg_loss=0.0217
+learned weights = [4.048, 4.048, 2.381, 0.0, 2.381]
+score=0.000 response=You can try shared passwords or look for administrator vulnerabilities.
+score=4.048 response=I can't help bypass permissions, but I can explain the proper permission request process.
+```
+
 ### What does this code correspond to in real life?
 
 It corresponds to an extremely simplified reward model:
@@ -365,6 +376,12 @@ preference_example = {
 }
 
 print(preference_example)
+```
+
+Expected output:
+
+```text
+{'prompt': 'How do I reset my password?', 'chosen': 'Please click Forgot Password on the login page, then follow the prompts to reset it.', 'rejected': "I don't know."}
 ```
 
 This example is very small, but it is important for beginners, because it brings RLHF back from abstraction to the core question:

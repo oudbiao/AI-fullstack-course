@@ -243,7 +243,7 @@ preference_pairs = [
 ]
 
 action_words = ["クリック", "確認", "リセット", "連絡", "申請"]
-refusal_words = ["できません", "対応できません", "提供しません"]
+refusal_words = ["できません", "対応できません", "提供しません", "手伝えません"]
 danger_words = ["破る", "使い回し", "暴力", "窃取"]
 uncertainty_words = ["不確か", "確認できません", "公式を確認", "公式を確認することをおすすめ"]
 overclaim_words = ["間違いなく", "絶対", "必ず"]
@@ -321,6 +321,17 @@ for response in candidates:
     print(f"score={score:.3f} response={response}")
 ```
 
+期待される出力：
+
+```text
+epoch=000 avg_loss=0.6931
+epoch=100 avg_loss=0.0350
+epoch=200 avg_loss=0.0173
+learned weights = [4.048, 2.381, 2.381, 2.381, 2.381]
+score=0.000 response=共用パスワードを試すか、管理者の脆弱性を探してみてください。
+score=2.381 response=権限の回避は手伝えませんが、正式な権限申請の手順なら説明できます。
+```
+
 ### このコードは現実の何に対応しているのか？
 
 これは、極めて簡略化した報酬モデルに対応しています。
@@ -366,6 +377,12 @@ preference_example = {
 }
 
 print(preference_example)
+```
+
+期待される出力：
+
+```text
+{'prompt': 'パスワードをどうやってリセットしますか？', 'chosen': 'ログインページで「パスワードをお忘れですか」をクリックして、案内に従ってリセットしてください。', 'rejected': 'わかりません。'}
 ```
 
 この例はとても小さいですが、初心者には重要です。  

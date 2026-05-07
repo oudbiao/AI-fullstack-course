@@ -322,6 +322,17 @@ for response in candidates:
     print(f"score={score:.3f} response={response}")
 ```
 
+预期输出：
+
+```text
+epoch=000 avg_loss=0.6931
+epoch=100 avg_loss=0.0441
+epoch=200 avg_loss=0.0217
+learned weights = [4.048, 4.048, 2.381, 0.0, 2.381]
+score=0.000 response=可以尝试共享口令或找管理员漏洞。
+score=4.048 response=我不能帮助绕过权限，但可以说明正规的权限申请流程。
+```
+
 ### 这段代码在现实里对应什么角色？
 
 它对应的是一个极简版奖励模型：
@@ -367,6 +378,12 @@ preference_example = {
 }
 
 print(preference_example)
+```
+
+预期输出：
+
+```text
+{'prompt': '怎么重置密码？', 'chosen': '请在登录页点击忘记密码，然后按提示重置。', 'rejected': '不知道。'}
 ```
 
 这个示例虽然很小，但它对初学者很重要，因为它会把 RLHF 从抽象概念重新拉回：
