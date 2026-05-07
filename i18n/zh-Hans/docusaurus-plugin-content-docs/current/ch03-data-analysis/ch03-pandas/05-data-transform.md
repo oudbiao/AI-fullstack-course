@@ -43,6 +43,8 @@ description: "掌握 apply、map、排序、排名和替换等数据转换方法
 
 ## apply：对行或列应用函数
 
+![Pandas 转换方法选择图解](/img/course/ch03-pandas-transform-method-choice.svg)
+
 `apply` 是 Pandas 最灵活的转换工具——可以把任意函数应用到每一行或每一列。
 
 ### 一个更适合新人的总类比

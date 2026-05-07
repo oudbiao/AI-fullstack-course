@@ -239,6 +239,8 @@ print(matrix[rows, cols])   # [ 2  7 12]
 
 ## View vs Copy
 
+![NumPy view vs copy trap diagram](/img/course/ch03-numpy-view-copy-trap-en.svg)
+
 This is a common beginner trap — NumPy slicing returns a **view**, not a copy!
 
 ### View: Changes Affect the Original Array

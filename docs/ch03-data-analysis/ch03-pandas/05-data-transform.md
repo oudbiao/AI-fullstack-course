@@ -43,6 +43,8 @@ So what this section really aims to solve is:
 
 ## apply: Apply a function to rows or columns
 
+![Pandas transform method choice diagram](/img/course/ch03-pandas-transform-method-choice-en.svg)
+
 `apply` is one of Pandas’ most flexible transformation tools — it can apply any function to each row or each column.
 
 ### A better beginner-friendly analogy

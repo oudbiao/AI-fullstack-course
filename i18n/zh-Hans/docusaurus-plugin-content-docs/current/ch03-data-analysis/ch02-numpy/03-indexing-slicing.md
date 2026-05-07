@@ -239,6 +239,8 @@ print(matrix[rows, cols])   # [ 2  7 12]
 
 ## 视图（View）vs 拷贝（Copy）
 
+![NumPy 视图与拷贝陷阱图解](/img/course/ch03-numpy-view-copy-trap.svg)
+
 这是新手容易踩的坑——NumPy 切片返回的是**视图**，不是副本！
 
 ### 视图：修改会影响原数组

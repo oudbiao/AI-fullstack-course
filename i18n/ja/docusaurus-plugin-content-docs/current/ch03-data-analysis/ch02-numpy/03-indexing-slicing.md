@@ -239,6 +239,8 @@ print(matrix[rows, cols])   # [ 2  7 12]
 
 ## ビュー（View）vs コピー（Copy）
 
+![NumPy のビューとコピーの落とし穴図解](/img/course/ch03-numpy-view-copy-trap-ja.svg)
+
 ここは初心者がつまずきやすいポイントです。NumPy のスライスは**コピーではなくビュー**を返します。
 
 ### ビュー：変更すると元の配列にも影響する

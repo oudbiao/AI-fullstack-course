@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">NumPy View 与 Copy 陷阱</title>
+  <desc id="desc">教学图：切片可能与原数组共享内存，而 copy 会创建独立数组。</desc>
+  <rect width="1200" height="680" fill="#f7f4ee"/>
+  <text x="64" y="74" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#1f2933">View vs Copy：隐藏的共享陷阱</text>
+  <text x="64" y="112" font-family="Inter, Arial, sans-serif" font-size="18" fill="#52606d">修改切片之前，先判断它是否还指向原数组。</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="72" y="170" width="430" height="380" rx="8" fill="#fff" stroke="#d9e2ec" stroke-width="2"/>
+    <text x="104" y="218" font-size="24" font-weight="700" fill="#1f2933">切片返回 view</text>
+    <text x="104" y="252" font-size="17" fill="#52606d">sub = arr[1:4]</text>
+    <g transform="translate(104 292)">
+      <text x="0" y="-18" font-size="16" font-weight="700" fill="#334e68">arr</text>
+      <g font-size="18" font-weight="700" text-anchor="middle">
+        <rect x="0" y="0" width="56" height="48" fill="#e6f6ff" stroke="#9fb3c8"/><rect x="56" y="0" width="56" height="48" fill="#ffd6d6" stroke="#d64545"/><rect x="112" y="0" width="56" height="48" fill="#ffd6d6" stroke="#d64545"/><rect x="168" y="0" width="56" height="48" fill="#ffd6d6" stroke="#d64545"/><rect x="224" y="0" width="56" height="48" fill="#e6f6ff" stroke="#9fb3c8"/>
+        <text x="28" y="31" fill="#102a43">1</text><text x="84" y="31" fill="#102a43">2</text><text x="140" y="31" fill="#102a43">3</text><text x="196" y="31" fill="#102a43">4</text><text x="252" y="31" fill="#102a43">5</text>
+      </g>
+      <path d="M84 54 C84 86 56 96 56 128" fill="none" stroke="#d64545" stroke-width="3"/><path d="M140 54 C140 86 112 96 112 128" fill="none" stroke="#d64545" stroke-width="3"/><path d="M196 54 C196 86 168 96 168 128" fill="none" stroke="#d64545" stroke-width="3"/>
+      <text x="0" y="116" font-size="16" font-weight="700" fill="#334e68">sub 共享同一块内存</text>
+      <g transform="translate(0 132)" font-size="18" font-weight="700" text-anchor="middle">
+        <rect x="0" y="0" width="56" height="48" fill="#ffd6d6" stroke="#d64545"/><rect x="56" y="0" width="56" height="48" fill="#ffd6d6" stroke="#d64545"/><rect x="112" y="0" width="56" height="48" fill="#ffd6d6" stroke="#d64545"/>
+        <text x="28" y="31" fill="#102a43">2</text><text x="84" y="31" fill="#102a43">3</text><text x="140" y="31" fill="#102a43">4</text>
+      </g>
+    </g>
+    <rect x="104" y="490" width="330" height="36" rx="6" fill="#ffe3e3"/><text x="122" y="514" font-size="16" font-weight="700" fill="#9b1c1c">改 sub[0]，arr 也会一起变</text>
+    <rect x="698" y="170" width="430" height="380" rx="8" fill="#fff" stroke="#d9e2ec" stroke-width="2"/>
+    <text x="730" y="218" font-size="24" font-weight="700" fill="#1f2933">copy() 创建独立副本</text>
+    <text x="730" y="252" font-size="17" fill="#52606d">sub = arr[1:4].copy()</text>
+    <g transform="translate(730 292)">
+      <text x="0" y="-18" font-size="16" font-weight="700" fill="#334e68">arr</text>
+      <g font-size="18" font-weight="700" text-anchor="middle">
+        <rect x="0" y="0" width="56" height="48" fill="#e6f6ff" stroke="#9fb3c8"/><rect x="56" y="0" width="56" height="48" fill="#e6f6ff" stroke="#9fb3c8"/><rect x="112" y="0" width="56" height="48" fill="#e6f6ff" stroke="#9fb3c8"/><rect x="168" y="0" width="56" height="48" fill="#e6f6ff" stroke="#9fb3c8"/><rect x="224" y="0" width="56" height="48" fill="#e6f6ff" stroke="#9fb3c8"/>
+        <text x="28" y="31" fill="#102a43">1</text><text x="84" y="31" fill="#102a43">2</text><text x="140" y="31" fill="#102a43">3</text><text x="196" y="31" fill="#102a43">4</text><text x="252" y="31" fill="#102a43">5</text>
+      </g>
+      <path d="M140 62 L140 112" stroke="#2f9e44" stroke-width="3" stroke-dasharray="8 8"/>
+      <text x="0" y="116" font-size="16" font-weight="700" fill="#334e68">新内存</text>
+      <g transform="translate(0 132)" font-size="18" font-weight="700" text-anchor="middle">
+        <rect x="0" y="0" width="56" height="48" fill="#d3f9d8" stroke="#2f9e44"/><rect x="56" y="0" width="56" height="48" fill="#d3f9d8" stroke="#2f9e44"/><rect x="112" y="0" width="56" height="48" fill="#d3f9d8" stroke="#2f9e44"/>
+        <text x="28" y="31" fill="#102a43">2</text><text x="84" y="31" fill="#102a43">3</text><text x="140" y="31" fill="#102a43">4</text>
+      </g>
+    </g>
+    <rect x="730" y="490" width="330" height="36" rx="6" fill="#dcfce7"/><text x="748" y="514" font-size="16" font-weight="700" fill="#1b4332">改 sub[0]，arr 保持不变</text>
+  </g>
+</svg>

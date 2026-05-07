@@ -204,6 +204,8 @@ print(sales.loc["2024-06-15"])
 
 ## 重采样（resample）
 
+![Pandas 重采样与滚动窗口时间线图解](/img/course/ch03-pandas-resample-rolling-timeline.svg)
+
 重采样是时间序列最核心的操作——改变数据的**时间频率**。
 
 ### 降采样（高频 → 低频）

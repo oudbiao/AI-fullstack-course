@@ -201,6 +201,8 @@ print(sales.loc["2024-06-15"])
 
 ## リサンプリング（resample）
 
+![Pandas のリサンプリングとローリングのタイムライン図解](/img/course/ch03-pandas-resample-rolling-timeline-ja.svg)
+
 リサンプリングは、時系列で最も重要な操作の1つです。データの**時間頻度**を変えます。
 
 ### ダウンサンプリング（高頻度 → 低頻度）

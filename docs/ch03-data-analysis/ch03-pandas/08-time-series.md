@@ -204,6 +204,8 @@ This sequence is especially important because many beginners learn in a jumpy wa
 
 ## Resampling (`resample`)
 
+![Pandas resample and rolling timeline diagram](/img/course/ch03-pandas-resample-rolling-timeline-en.svg)
+
 Resampling is one of the core operations in time series—it changes the **time frequency** of the data.
 
 ### Downsampling (high frequency → low frequency)
