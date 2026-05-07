@@ -162,6 +162,12 @@ tool_call = {
 print(tool_call)
 ```
 
+预期输出：
+
+```text
+{'name': 'get_weather', 'arguments': {'city': 'Beijing'}}
+```
+
 ### 真正执行这个调用
 
 ```python
@@ -179,6 +185,12 @@ tool_call = {
 
 result = dispatch(tool_call)
 print(result)
+```
+
+预期输出：
+
+```text
+{'temperature': 22, 'condition': 'sunny'}
 ```
 
 这就是函数调用闭环的最小版本：
@@ -219,6 +231,12 @@ weather_schema = {
 }
 
 print(weather_schema)
+```
+
+预期输出：
+
+```text
+{'name': 'get_weather', 'description': '查询指定城市天气', 'parameters': {'city': {'type': 'string', 'description': '城市英文名，例如 Beijing'}}, 'required': ['city']}
 ```
 
 schema 不是“装饰文案”，而是在告诉模型和程序：
@@ -268,6 +286,13 @@ bad_call = {"name": "get_weather", "arguments": {"city_name": "Beijing"}}
 
 print(validate_weather_call(good_call))
 print(validate_weather_call(bad_call))
+```
+
+预期输出：
+
+```text
+(True, 'ok')
+(False, 'missing_city')
 ```
 
 ---
@@ -357,6 +382,19 @@ for q in queries:
     print("-" * 40)
 ```
 
+预期输出：
+
+```text
+用户问题: 北京今天天气怎么样
+工具调用: {'name': 'get_weather', 'arguments': {'city': 'Beijing'}}
+执行结果: {'temperature': 22, 'condition': 'sunny'}
+----------------------------------------
+用户问题: 计算 3 * (4 + 5)
+工具调用: {'name': 'calculate', 'arguments': {'expression': '3 * (4 + 5)'}}
+执行结果: {'result': 27}
+----------------------------------------
+```
+
 这个例子已经非常接近真实系统的骨架了。
 
 ---
@@ -427,6 +465,12 @@ tools = [
 ]
 
 print(tools)
+```
+
+预期输出：
+
+```text
+[{'name': 'retrieve_internal_docs', 'description': '按主题检索内部知识库资料', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': '把结构化课件内容导出为 Word 文档', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
 ```
 
 ## 九、最常见的工程问题

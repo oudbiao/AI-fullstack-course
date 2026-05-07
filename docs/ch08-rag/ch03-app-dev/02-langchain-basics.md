@@ -103,6 +103,12 @@ chain = SimpleChain([
 print(chain.run("  What is the refund policy? "))
 ```
 
+Expected output:
+
+```text
+According to the materials: Courses can be refunded within 7 days after purchase.
+```
+
 ### What is this code teaching?
 
 It is already teaching you the most important thing in LangChain:
@@ -134,6 +140,12 @@ payload = {"query": "What is the refund policy", "docs": ["Courses can be refund
 print(build_prompt(payload))
 ```
 
+Expected output:
+
+```text
+Please answer the question based on the following materials: materials=['Courses can be refunded within 7 days after purchase.'], question=What is the refund policy
+```
+
 This example is reminding you that:
 
 > Prompt can also be viewed as an intermediate transformation node in the chain.
@@ -156,6 +168,12 @@ chain = SimpleChain([
 ])
 
 print(chain.run("What is the refund policy?"))
+```
+
+Expected output:
+
+```text
+Model output: Please answer the question based on the following materials: materials=['Courses can be refunded within 7 days after purchase.'], question=what is the refund policy?
 ```
 
 ### The key takeaway from this step
@@ -208,6 +226,12 @@ chain = SimpleChain([
 ])
 
 print(chain.run("What is the refund policy?"))
+```
+
+Expected output:
+
+```text
+{'answer': "Please answer the question based on the following materials: materials=['Courses can be refunded within 7 days after purchase.'], question=what is the refund policy?", 'ok': True}
 ```
 
 This step helps you more clearly realize that:

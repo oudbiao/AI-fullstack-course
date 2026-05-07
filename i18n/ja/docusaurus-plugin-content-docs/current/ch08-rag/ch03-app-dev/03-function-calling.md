@@ -164,6 +164,12 @@ tool_call = {
 print(tool_call)
 ```
 
+想定出力：
+
+```text
+{'name': 'get_weather', 'arguments': {'city': 'Beijing'}}
+```
+
 ### この呼び出しを実際に実行する
 
 ```python
@@ -181,6 +187,12 @@ tool_call = {
 
 result = dispatch(tool_call)
 print(result)
+```
+
+想定出力：
+
+```text
+{'temperature': 22, 'condition': 'sunny'}
 ```
 
 これが関数呼び出しの最小閉ループです。
@@ -221,6 +233,12 @@ weather_schema = {
 }
 
 print(weather_schema)
+```
+
+想定出力：
+
+```text
+{'name': 'get_weather', 'description': '指定した都市の天気を取得する', 'parameters': {'city': {'type': 'string', 'description': '都市の英語名。例: Beijing'}}, 'required': ['city']}
 ```
 
 schema は「見た目を整えるための文」ではありません。モデルとプログラムにこう伝えています。
@@ -272,6 +290,13 @@ print(validate_weather_call(good_call))
 print(validate_weather_call(bad_call))
 ```
 
+想定出力：
+
+```text
+(True, 'ok')
+(False, 'missing_city')
+```
+
 ---
 
 ## 六、より完全な例：天気と計算機
@@ -282,15 +307,15 @@ print(validate_weather_call(bad_call))
 
 ```python
 def mock_llm_tool_selector(user_query):
-    if "天气" in user_query:
+    if "天気" in user_query:
         city = "Beijing" if "北京" in user_query else "Shanghai"
         return {
             "name": "get_weather",
             "arguments": {"city": city}
         }
 
-    if "计算" in user_query:
-        expression = user_query.replace("计算", "").strip()
+    if "計算" in user_query:
+        expression = user_query.replace("計算", "").strip()
         return {
             "name": "calculate",
             "arguments": {"expression": expression}
@@ -357,6 +382,19 @@ for q in queries:
     print("ツール呼び出し:", call)
     print("実行結果:", result)
     print("-" * 40)
+```
+
+想定出力：
+
+```text
+ユーザーの質問: 北京今天天気はどうですか
+ツール呼び出し: {'name': 'get_weather', 'arguments': {'city': 'Beijing'}}
+実行結果: {'temperature': 22, 'condition': 'sunny'}
+----------------------------------------
+ユーザーの質問: 計算 3 * (4 + 5)
+ツール呼び出し: {'name': 'calculate', 'arguments': {'expression': '3 * (4 + 5)'}}
+実行結果: {'result': 27}
+----------------------------------------
 ```
 
 この例は、実際のシステムの骨組みにかなり近いです。
@@ -429,6 +467,12 @@ tools = [
 ]
 
 print(tools)
+```
+
+想定出力：
+
+```text
+[{'name': 'retrieve_internal_docs', 'description': 'テーマに基づいて社内ナレッジベース資料を検索する', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': '構造化された教材内容を Word 文書として出力する', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
 ```
 
 ## 九、最もよくある実装上の問題

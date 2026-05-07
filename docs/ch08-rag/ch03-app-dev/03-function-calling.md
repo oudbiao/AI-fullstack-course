@@ -162,6 +162,12 @@ tool_call = {
 print(tool_call)
 ```
 
+Expected output:
+
+```text
+{'name': 'get_weather', 'arguments': {'city': 'Beijing'}}
+```
+
 ### Actually execute the call
 
 ```python
@@ -179,6 +185,12 @@ tool_call = {
 
 result = dispatch(tool_call)
 print(result)
+```
+
+Expected output:
+
+```text
+{'temperature': 22, 'condition': 'sunny'}
 ```
 
 This is the smallest version of a function-calling loop:
@@ -219,6 +231,12 @@ weather_schema = {
 }
 
 print(weather_schema)
+```
+
+Expected output:
+
+```text
+{'name': 'get_weather', 'description': 'Query the weather for a specified city', 'parameters': {'city': {'type': 'string', 'description': 'English city name, for example Beijing'}}, 'required': ['city']}
 ```
 
 A schema is not “decorative text.” It tells the model and the program:
@@ -268,6 +286,13 @@ bad_call = {"name": "get_weather", "arguments": {"city_name": "Beijing"}}
 
 print(validate_weather_call(good_call))
 print(validate_weather_call(bad_call))
+```
+
+Expected output:
+
+```text
+(True, 'ok')
+(False, 'missing_city')
 ```
 
 ---
@@ -357,6 +382,19 @@ for q in queries:
     print("-" * 40)
 ```
 
+Expected output:
+
+```text
+User query: What is the weather like in Beijing today
+Tool call: {'name': 'get_weather', 'arguments': {'city': 'Beijing'}}
+Execution result: {'temperature': 22, 'condition': 'sunny'}
+----------------------------------------
+User query: calculate 3 * (4 + 5)
+Tool call: {'name': 'calculate', 'arguments': {'expression': '3 * (4 + 5)'}}
+Execution result: {'result': 27}
+----------------------------------------
+```
+
 This example is already very close to the skeleton of a real system.
 
 ---
@@ -427,6 +465,12 @@ tools = [
 ]
 
 print(tools)
+```
+
+Expected output:
+
+```text
+[{'name': 'retrieve_internal_docs', 'description': 'Search internal knowledge base materials by topic', 'parameters': {'topic': {'type': 'string'}}}, {'name': 'export_word', 'description': 'Export structured courseware content to a Word document', 'parameters': {'title': {'type': 'string'}, 'sections': {'type': 'array'}}}]
 ```
 
 ## The most common engineering problems
