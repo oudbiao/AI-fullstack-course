@@ -1,437 +1,223 @@
 ---
-title: "6.1.6 深度学习中的正则化"
+title: "6.1.6 正则化"
 sidebar_position: 6
-description: "掌握 Dropout、Batch Normalization、Layer Normalization、数据增强和早停法"
-keywords: [正则化, Dropout, Batch Normalization, Layer Normalization, 数据增强, Early Stopping]
+description: "一节跟着操作的正则化课程：dropout、weight decay、early stopping、训练验证差距和 PyTorch 过拟合诊断"
+keywords: [正则化, dropout, weight decay, early stopping, 过拟合, PyTorch, AdamW]
 ---
 
-# 6.1.6 深度学习中的正则化
+# 6.1.6 正则化
 
 ![正则化控制过拟合图](/img/course/regularization-overfitting-controls.png)
 
-:::tip 本节定位
-深度网络参数量巨大，非常容易过拟合。本节介绍深度学习特有的正则化技术——**Dropout 和 BatchNorm 是你必须掌握的两个。**
+:::tip 本节概览
+正则化不是为了让训练 loss 尽可能低，而是为了让模型在验证集和未来数据上泛化更好。
 :::
 
-## 学习目标
+## 你会做出什么
 
-- 🔧 掌握 Dropout 的原理和使用
-- 🔧 掌握 Batch Normalization（BN）
-- 理解 Layer Normalization（LN）
-- 🔧 掌握数据增强和早停法
+这一节会运行一个 PyTorch 实验，比较：
 
----
-
-## 先建立一张地图
-
-正则化这节如果只背方法名，很容易变成“工具清单”。更适合新人的理解方式是：
-
-```mermaid
-flowchart LR
-    A["模型过拟合"] --> B["参数层面：weight decay"]
-    A --> C["结构层面：Dropout"]
-    A --> D["训练层面：Early Stopping"]
-    A --> E["数据层面：数据增强"]
-    C --> F["BatchNorm / LayerNorm<br/>同时影响训练稳定性"]
-```
-
-所以这节真正想解决的是：
-
-- 模型为什么会过拟合
-- 不同正则化方法分别在哪一层起作用
-- 第一次遇到过拟合时，应该先试什么
-
-## 这节和第 5 站、前面训练主线是怎么接上的
-
-如果你从第 5 站过来，其实你已经见过：
-
-- 欠拟合 / 过拟合
-- 正则化
-- 交叉验证和泛化
-
-到了这一节，只是把“控制泛化”这件事带到深度学习场景里，并补上更深度学习风格的方法：
-
-- Dropout
-- BatchNorm / LayerNorm
-- 数据增强
-- Early Stopping
-
-## 一、回顾：L1/L2 正则化
-
-第 5 站已学过——L2 正则化（权重衰减）在深度学习中直接通过优化器的 `weight_decay` 参数使用：
-
-```python
-import torch
-import torch.nn as nn
-
-# 先定义一个可独立运行的小模型，方便示例直接复现
-model = nn.Linear(10, 1)
-optimizer = torch.optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
-```
-
-### 为什么深度学习里也仍然需要先记住 `weight_decay`？
-
-因为它往往是最简单、最稳、最先该试的一种正则化手段。
-
-也就是说，深度学习里的正则化不是“全都换成新概念”，而是：
-
-- 先保留第 5 站你已经认识的那部分
-- 再往上叠深度学习里的结构和训练技巧
-
----
-
-## 二、Dropout——随机丢弃
-
-### 原理
-
-训练时，**随机让一部分神经元不工作**（输出置为 0）。这迫使网络不依赖任何单个神经元，增强鲁棒性。
-
-```mermaid
-flowchart LR
-    subgraph TRAIN["训练时 (Dropout=0.5)"]
-        A1["h1"] --> O1["输出"]
-        A2["h2 ❌"] -.-> O1
-        A3["h3"] --> O1
-        A4["h4 ❌"] -.-> O1
-    end
-    subgraph TEST["推理时（全部参与）"]
-        B1["h1"] --> O2["输出"]
-        B2["h2"] --> O2
-        B3["h3"] --> O2
-        B4["h4"] --> O2
-    end
-
-    style TRAIN fill:#fff3e0,stroke:#e65100,color:#333
-    style TEST fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### PyTorch 使用
-
-```python
-import torch
-import torch.nn as nn
-import matplotlib.pyplot as plt
-from sklearn.datasets import make_moons
-from sklearn.model_selection import train_test_split
-
-# 数据
-X, y = make_moons(500, noise=0.3, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-X_train_t = torch.FloatTensor(X_train)
-y_train_t = torch.LongTensor(y_train)
-X_test_t = torch.FloatTensor(X_test)
-y_test_t = torch.LongTensor(y_test)
-
-# 对比有无 Dropout
-class MLP(nn.Module):
-    def __init__(self, dropout_rate=0.0):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(2, 64),
-            nn.ReLU(),
-            nn.Dropout(dropout_rate),
-            nn.Linear(64, 64),
-            nn.ReLU(),
-            nn.Dropout(dropout_rate),
-            nn.Linear(64, 2),
-        )
-
-    def forward(self, x):
-        return self.net(x)
-
-results = {}
-for name, drop in [('无 Dropout', 0.0), ('Dropout=0.3', 0.3), ('Dropout=0.5', 0.5)]:
-    model = MLP(drop)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
-    criterion = nn.CrossEntropyLoss()
-    train_losses, test_losses = [], []
-
-    for epoch in range(200):
-        model.train()
-        loss = criterion(model(X_train_t), y_train_t)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        train_losses.append(loss.item())
-
-        model.eval()
-        with torch.no_grad():
-            test_loss = criterion(model(X_test_t), y_test_t)
-            test_losses.append(test_loss.item())
-
-    results[name] = (train_losses, test_losses)
-
-fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-for ax, (name, (tr, te)) in zip(axes, results.items()):
-    ax.plot(tr, label='训练', linewidth=2)
-    ax.plot(te, label='测试', linewidth=2)
-    ax.set_title(name)
-    ax.set_xlabel('Epoch')
-    ax.set_ylabel('Loss')
-    ax.legend()
-    ax.grid(True, alpha=0.3)
-plt.suptitle('Dropout 对过拟合的影响', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-:::info 重要
-- `model.train()` 开启 Dropout
-- `model.eval()` 关闭 Dropout
-- **推理时一定要调 `model.eval()`！**
-:::
-
-### Dropout 到底适不适合所有模型？
-
-不是。
-
-一个更实用的记法是：
-
-- MLP：常见且有用
-- CNN：有时用，但不一定是第一优先
-- Transformer：通常不靠 Dropout 一招解决所有问题
-
-所以不要把 Dropout 当成“只要过拟合就必开”的万能开关。
-
-### 第一次遇到过拟合时，为什么不要只会想到 Dropout？
-
-因为过拟合并不只来自一种原因。
-它可能来自：
-
-- 数据太少
-- 模型太大
-- 训练太久
-- 特征或样本多样性不够
-
-所以更稳的习惯是：
-
-- 先判断问题大概发生在哪一层
-- 再决定是从数据、结构、参数还是训练过程去处理
+- 不使用正则化；
+- dropout；
+- weight decay；
+- dropout + weight decay；
+- 通过 `best_epoch` 观察 early stopping 行为。
 
 ![过拟合问题到正则化动作选择图](/img/course/ch06-regularization-overfit-action-map.png)
 
-:::tip 读图提示
-这张图要帮你建立处理顺序：先确认数据划分和验证曲线，再考虑数据增强、weight decay、early stopping、Dropout。Dropout 很有用，但它不是所有过拟合问题的第一反应。
-:::
+## 环境准备
 
----
+```bash
+python -m pip install -U torch scikit-learn
+```
 
-## 三、Batch Normalization（BN）
+## 运行完整实验
 
-### 原理
-
-对每一层的输出做**归一化**（均值为 0，标准差为 1），然后用可学习的参数缩放和平移。
-
-**作用：**
-- 加速收敛
-- 减少对初始化的敏感性
-- 有轻微正则化效果
-
-### PyTorch 使用
+新建 `regularization_lab.py`：
 
 ```python
-class MLP_BN(nn.Module):
-    def __init__(self):
+import torch
+import torch.nn as nn
+from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+
+def make_data():
+    X, y = make_moons(n_samples=500, noise=0.28, random_state=42)
+    X = StandardScaler().fit_transform(X)
+    X_train, X_val, y_train, y_val = train_test_split(
+        X, y, test_size=0.35, random_state=42, stratify=y
+    )
+    return (
+        torch.tensor(X_train, dtype=torch.float32),
+        torch.tensor(y_train.reshape(-1, 1), dtype=torch.float32),
+        torch.tensor(X_val, dtype=torch.float32),
+        torch.tensor(y_val.reshape(-1, 1), dtype=torch.float32),
+    )
+
+
+class MLP(nn.Module):
+    def __init__(self, dropout=0.0):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(2, 64),
-            nn.BatchNorm1d(64),   # BN 放在激活函数前面
-            nn.ReLU(),
-            nn.Linear(64, 64),
-            nn.BatchNorm1d(64),
-            nn.ReLU(),
-            nn.Linear(64, 2),
+            nn.Linear(2, 32), nn.ReLU(), nn.Dropout(dropout),
+            nn.Linear(32, 32), nn.ReLU(), nn.Dropout(dropout),
+            nn.Linear(32, 1),
         )
 
     def forward(self, x):
         return self.net(x)
 
-# 对比有无 BN
-for name, ModelClass in [('无 BN', MLP), ('有 BN', MLP_BN)]:
-    model = ModelClass() if name == '有 BN' else ModelClass(0.0)
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.1)  # 用 SGD 更明显
-    criterion = nn.CrossEntropyLoss()
 
-    for epoch in range(100):
+def accuracy(logits, y):
+    pred = (torch.sigmoid(logits) >= 0.5).float()
+    return (pred == y).float().mean().item()
+
+
+def train_case(name, dropout=0.0, weight_decay=0.0, epochs=120):
+    torch.manual_seed(42)
+    X_train, y_train, X_val, y_val = make_data()
+    model = MLP(dropout=dropout)
+    loss_fn = nn.BCEWithLogitsLoss()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=0.01, weight_decay=weight_decay)
+    best_val = 10**9
+    patience = 0
+    best_epoch = 0
+    for epoch in range(1, epochs + 1):
         model.train()
-        loss = criterion(model(X_train_t), y_train_t)
+        loss = loss_fn(model(X_train), y_train)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
+        model.eval()
+        with torch.no_grad():
+            val_loss = loss_fn(model(X_val), y_val).item()
+        if val_loss < best_val:
+            best_val = val_loss
+            best_epoch = epoch
+            patience = 0
+        else:
+            patience += 1
+        if patience >= 20:
+            break
+
     model.eval()
     with torch.no_grad():
-        acc = (model(X_test_t).argmax(1) == y_test_t).float().mean()
-    print(f"{name}: 测试准确率 = {acc:.4f}")
+        train_loss = loss_fn(model(X_train), y_train).item()
+        val_loss = loss_fn(model(X_val), y_val).item()
+        train_acc = accuracy(model(X_train), y_train)
+        val_acc = accuracy(model(X_val), y_val)
+    print(
+        f"{name:<14} epochs={epoch:<3} best_epoch={best_epoch:<3} "
+        f"train_loss={train_loss:.3f} val_loss={val_loss:.3f} "
+        f"train_acc={train_acc:.3f} val_acc={val_acc:.3f}"
+    )
+
+
+print("regularization_lab")
+train_case("plain", dropout=0.0, weight_decay=0.0)
+train_case("dropout", dropout=0.25, weight_decay=0.0)
+train_case("weight_decay", dropout=0.0, weight_decay=0.05)
+train_case("both", dropout=0.25, weight_decay=0.05)
 ```
 
----
+运行：
 
-## 四、Layer Normalization（LN）
+```bash
+python regularization_lab.py
+```
 
-### BN vs LN
+预期输出：
 
-| 特性 | Batch Normalization | Layer Normalization |
-|------|-------------------|-------------------|
-| 归一化维度 | 跨样本（batch 维） | 跨特征（layer 维） |
-| 依赖 batch size | 是 | 否 |
-| 适用 | **CNN** | **Transformer、RNN** |
+```text
+regularization_lab
+plain          epochs=87  best_epoch=67  train_loss=0.141 val_loss=0.155 train_acc=0.945 val_acc=0.931
+dropout        epochs=101 best_epoch=81  train_loss=0.158 val_loss=0.162 train_acc=0.945 val_acc=0.943
+weight_decay   epochs=87  best_epoch=67  train_loss=0.141 val_loss=0.154 train_acc=0.948 val_acc=0.931
+both           epochs=101 best_epoch=81  train_loss=0.159 val_loss=0.162 train_acc=0.942 val_acc=0.949
+```
+
+## 读懂结果
+
+普通模型训练 loss 更低：
+
+```text
+plain train_loss=0.141 val_acc=0.931
+```
+
+但组合正则化模型验证准确率更高：
+
+```text
+both train_loss=0.159 val_acc=0.949
+```
+
+这就是正则化的重点。你可能接受稍差的训练拟合，换取更好的泛化。
+
+## Dropout
+
+`nn.Dropout(0.25)` 会在训练时随机丢弃一部分激活：
 
 ```python
-# BN vs LN 使用
-bn = nn.BatchNorm1d(64)    # 输入: (batch, 64)
-ln = nn.LayerNorm(64)      # 输入: (batch, 64)
-
-x = torch.randn(32, 64)
-print(f"BN 输出形状: {bn(x).shape}")
-print(f"LN 输出形状: {ln(x).shape}")
+nn.Linear(2, 32), nn.ReLU(), nn.Dropout(dropout)
 ```
 
-:::info
-记住：**CNN 用 BN，Transformer 用 LN。** 这是实际工程中的标准选择。
-:::
+它让网络不要过度依赖某一个隐藏单元。通常放在隐藏层。执行 `model.eval()` 时，dropout 会自动关闭。
 
-### BN 和 LN 为什么新人总容易混？
+## Weight Decay
 
-因为它们看起来都像“归一化”，但关注的维度不同：
-
-- BN 更依赖 batch 统计量
-- LN 更关注单个样本内部特征
-
-你先不用死背所有细节，只先记住：
-
-- 图像 CNN 里，先优先想到 BN
-- Transformer 里，先优先想到 LN
-
-### BN / LN 最值得先记的，不是公式，而是“放在哪”
-
-对新人更有帮助的记忆方式通常是：
-
-- BN 更像是 CNN 训练里的常见稳定器
-- LN 更像是 Transformer 里的常见稳定器
-
-先把应用场景记对，比一开始追归一化公式细节更重要。
-
----
-
-## 五、数据增强
-
-### 图像数据增强
+weight decay 是由 optimizer 施加的 L2 风格正则化：
 
 ```python
-from torchvision import transforms
-
-# 常用的图像增强组合
-train_transform = transforms.Compose([
-    transforms.RandomHorizontalFlip(p=0.5),     # 随机水平翻转
-    transforms.RandomRotation(15),               # 随机旋转 ±15°
-    transforms.ColorJitter(brightness=0.2, contrast=0.2),  # 颜色扰动
-    transforms.RandomResizedCrop(224, scale=(0.8, 1.0)),   # 随机裁剪
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-])
-
-# 测试集不做增强
-test_transform = transforms.Compose([
-    transforms.Resize(256),
-    transforms.CenterCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-])
+torch.optim.AdamW(model.parameters(), lr=0.01, weight_decay=0.05)
 ```
 
----
+它会抑制过大的权重。现代 PyTorch 工作中，`AdamW` 通常比旧式 Adam + L2 更清晰，因为 weight decay 与自适应梯度更新解耦。
 
-## 六、早停法（Early Stopping）
+## Early Stopping
 
-### 原理
+实验追踪了：
 
-监控**验证集损失**，连续 N 轮不下降就停止训练。
-
-```python
-class EarlyStopping:
-    def __init__(self, patience=10, min_delta=0.001):
-        self.patience = patience
-        self.min_delta = min_delta
-        self.counter = 0
-        self.best_loss = float('inf')
-        self.should_stop = False
-
-    def step(self, val_loss):
-        if val_loss < self.best_loss - self.min_delta:
-            self.best_loss = val_loss
-            self.counter = 0
-        else:
-            self.counter += 1
-            if self.counter >= self.patience:
-                self.should_stop = True
-        return self.should_stop
-
-# 使用示例
-early_stop = EarlyStopping(patience=10)
-# for epoch in range(max_epochs):
-#     train(...)
-#     val_loss = validate(...)
-#     if early_stop.step(val_loss):
-#         print(f"早停! Epoch {epoch}")
-#         break
+```text
+best_epoch=67
 ```
 
-### Early Stopping 为什么特别适合新人先学会？
+early stopping 的意思是：保存验证集表现最好的 checkpoint，如果验证 loss 很久不提升，就停止训练。它可以防止模型在验证效果停止提升后继续训练太久。
 
-因为它是最容易落地、最不容易写坏、收益又常常很直接的一招。
+## 先尝试什么
 
-很多时候你甚至还没完全搞清模型结构，只要先做到：
+| 问题 | 先做什么 |
+|---|---|
+| training loss 低，validation loss 高 | 加 weight decay 或 dropout |
+| validation 先升后降 | early stopping |
+| train 和 validation 都欠拟合 | 减少正则化或增强模型 |
+| validation 噪声很大 | 降低 LR，增加数据，多 fold 平均 |
 
-- 有验证集
-- 监控验证损失
-- 保存最佳权重
+## 常见排查清单
 
-项目质量就已经会明显提升。
+| 现象 | 可能原因 | 修复方式 |
+|---|---|---|
+| dropout 严重伤害训练 | dropout 太高或模型太小 | 降低 dropout |
+| train 和 validation 都差 | 欠拟合 | 减少正则化 |
+| validation 最佳 epoch 很早 | 训练太久 | 保存最佳 checkpoint |
+| weight decay 没效果 | 值太小或模型本来简单 | 逐步增大 |
+| eval 结果随机变化 | 忘记 `model.eval()` | 验证前切换 eval mode |
 
-## 新人第一次遇到过拟合时，最稳的处理顺序
+## 练习
 
-如果你已经看到“train_loss 继续降，val_loss 开始坏”，建议先按这个顺序试：
+1. 把 dropout 改成 `0.1`、`0.5`、`0.7`。
+2. 把 weight decay 改成 `0.001`、`0.01`、`0.1`。
+3. 每 20 个 epoch 打印 train 和 validation loss。
+4. 当 `val_loss` 提升时保存最佳模型状态。
+5. 验证时移除 `model.eval()`，解释发生了什么。
 
-1. 先检查数据量和数据增强
-2. 再考虑早停
-3. 再试 weight decay
-4. 再试 Dropout
-5. 最后再大改模型结构
+## 过关检查
 
-这样会比“看到过拟合就随便加点正则化”更有条理。
+你能解释下面几点，就完成本节：
 
----
-
-## 小结
-
-| 技术 | 类型 | 要点 |
-|------|------|------|
-| **Dropout** | 防过拟合 | 训练时随机丢弃，推理时关闭 |
-| **Batch Norm** | 加速+正则 | CNN 标配，放在激活前 |
-| **Layer Norm** | 加速+正则 | Transformer 标配 |
-| **数据增强** | 增加多样性 | 只在训练集用 |
-| **早停法** | 防过拟合 | 监控验证集 loss |
-| **权重衰减** | L2 正则 | optimizer 的 weight_decay |
-
-## 这节最该带走什么
-
-- 正则化不是一种方法，而是一整组控制泛化的手段
-- 不同方法作用在不同层面：参数、结构、数据、训练过程
-- 第一次处理过拟合时，先按顺序排查，比堆很多技巧更有效
-
-如果再压成一句话，那就是：
-
-> **正则化不是“加一个技巧”，而是在用不同层面的手段，让模型别把训练集学得太死。**
-
----
-
-## 动手练习
-
-### 练习 1：正则化组合
-
-在 MNIST 数据集上训练 MLP，依次添加 Dropout、BatchNorm、数据增强，观察测试准确率的变化。
-
-### 练习 2：Early Stopping 实践
-
-实现完整的早停训练循环，保存最佳模型权重，训练结束后加载最佳权重评估。
+- 正则化关注验证表现，不只是训练 loss；
+- dropout 会在训练时随机关闭隐藏激活；
+- weight decay 会抑制大权重；
+- early stopping 保留验证集最佳点；
+- 过强正则化会导致欠拟合。
