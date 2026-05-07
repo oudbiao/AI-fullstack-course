@@ -225,6 +225,8 @@ train_model(epochs=100, lr=0.01)
 ```
 
 :::caution デフォルト引数の落とし穴
+![ミュータブルなデフォルト引数の落とし穴図解](/img/course/ch02-mutable-default-trap-ja.svg)
+
 デフォルト値は、関数が定義されたときに決まります。リストや辞書のような可変オブジェクトをデフォルト値にしないでください。
 
 ```python

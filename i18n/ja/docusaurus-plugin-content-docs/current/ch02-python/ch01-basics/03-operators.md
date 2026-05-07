@@ -211,6 +211,8 @@ print(f"実用的ですか: {is_practical}")  # True
 
 ### 短絡評価
 
+![短絡評価の安全チェック図解](/img/course/ch02-short-circuit-safety-check-ja.svg)
+
 Python の `and` と `or` には、**短絡評価**という賢い性質があります。
 
 ```python

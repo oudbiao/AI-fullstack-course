@@ -233,6 +233,8 @@ print(parts)  # ['张三', '20', '北京']
 
 ### 字符串索引和切片
 
+![字符串索引和切片图解](/img/course/ch02-string-index-slice.svg)
+
 字符串里的每个字符都有一个**位置编号（索引）**，从 0 开始：
 
 ```python

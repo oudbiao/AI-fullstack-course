@@ -225,6 +225,8 @@ train_model(epochs=100, lr=0.01)
 ```
 
 :::caution The Default Parameter Trap
+![Mutable default parameter trap diagram](/img/course/ch02-mutable-default-trap-en.svg)
+
 Default parameter values are determined when the function is defined. Do not use mutable objects (such as lists or dictionaries) as default values:
 
 ```python

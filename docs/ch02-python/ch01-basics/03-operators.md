@@ -211,6 +211,8 @@ print(f"Is it practical: {is_practical}")  # True
 
 ### Short-circuit evaluation
 
+![Short-circuit safety check diagram](/img/course/ch02-short-circuit-safety-check-en.svg)
+
 Python’s `and` and `or` have a smart feature called **short-circuit evaluation**:
 
 ```python

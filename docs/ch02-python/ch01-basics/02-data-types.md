@@ -233,6 +233,8 @@ print(parts)  # ['Zhang San', '20', 'Beijing']
 
 ### String Indexing and Slicing
 
+![String index and slice diagram](/img/course/ch02-string-index-slice-en.svg)
+
 Each character in a string has a **position number (index)** starting from 0:
 
 ```python

@@ -225,6 +225,8 @@ train_model(epochs=100, lr=0.01)
 ```
 
 :::caution 默认参数的陷阱
+![可变默认参数陷阱图解](/img/course/ch02-mutable-default-trap.svg)
+
 默认参数的值在函数定义时就确定了。不要用可变对象（如列表、字典）作为默认值：
 
 ```python

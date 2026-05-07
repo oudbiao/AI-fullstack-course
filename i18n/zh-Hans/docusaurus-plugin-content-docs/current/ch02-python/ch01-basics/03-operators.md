@@ -211,6 +211,8 @@ print(f"是否实用: {is_practical}")  # True
 
 ### 短路求值
 
+![短路求值安全检查图解](/img/course/ch02-short-circuit-safety-check.svg)
+
 Python 的 `and` 和 `or` 有一个聪明的特性——**短路求值**：
 
 ```python

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">可变默认参数陷阱</title>
+  <desc id="desc">把列表作为默认参数时，列表会在函数定义时创建一次，后续调用共享同一个列表。</desc>
+  <rect width="960" height="540" fill="#f7fafc"/>
+  <text x="56" y="70" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#172033">可变默认参数陷阱</text>
+  <text x="56" y="108" font-family="Arial, sans-serif" font-size="18" fill="#506070">def add_item(item, items=[]):  会创建一个共享列表</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="74" y="172" width="300" height="216" rx="10" fill="#ffffff" stroke="#d0d5dd"/>
+    <text x="104" y="214" font-size="21" font-weight="700" fill="#172033">函数定义时</text>
+    <rect x="116" y="250" width="216" height="64" rx="8" fill="#e8f3ff" stroke="#2f80ed" stroke-width="3"/>
+    <text x="224" y="290" font-size="22" text-anchor="middle" fill="#172033">items = []</text>
+    <text x="104" y="354" font-size="17" fill="#506070">默认列表只创建一次。</text>
+    <path d="M374 280 H478" stroke="#667085" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="478" y="146" width="408" height="280" rx="10" fill="#ffffff" stroke="#d0d5dd"/>
+    <text x="514" y="192" font-size="21" font-weight="700" fill="#172033">后续调用会复用它</text>
+    <text x="526" y="236" font-size="18" fill="#344054">add_item("a") -> ["a"]</text>
+    <text x="526" y="278" font-size="18" fill="#344054">add_item("b") -> ["a", "b"]</text>
+    <text x="526" y="320" font-size="18" fill="#344054">add_item("c") -> ["a", "b", "c"]</text>
+    <rect x="518" y="356" width="320" height="40" rx="8" fill="#fff7e8" stroke="#f2994a"/>
+    <text x="678" y="382" font-size="17" font-weight="700" text-anchor="middle" fill="#172033">用 items=None，再新建列表</text>
+  </g>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#667085"/></marker></defs>
+</svg>
