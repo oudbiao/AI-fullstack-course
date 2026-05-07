@@ -1,73 +1,85 @@
 ---
-title: "5.5.1 Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?"
+title: "5.5.1 Feature Engineering Roadmap: Make Data Easier to Learn"
 sidebar_position: 13
-description: "First build a learning map for the Feature Engineering chapter: understand features, preprocessing, feature construction, feature selection, and why Pipelines are so important in ML projects."
+description: "A compact feature engineering roadmap: feature understanding, preprocessing, construction, selection, and pipelines."
 keywords: [feature engineering guide, preprocessing, feature construction, feature selection, Pipeline]
 ---
 
-# 5.5.1 Pre-study Guide: What Exactly Is This Feature Engineering Chapter About?
+# 5.5.1 Feature Engineering Roadmap: Make Data Easier to Learn
+
+Feature engineering is the work of making inputs useful, stable, and safe for models. Many model problems are actually feature problems.
+
+## 5.5.1.1 Look at the Feature Flow First
 
 ![Feature engineering roadmap](/img/course/feature-engineering-roadmap-en.png)
 
-If a model is “learning patterns,” then feature engineering is about:
-
-> **Whether the data you show the model is actually easy to learn from, worth learning from, and stable to learn from.**
-
-Many times, poor model performance is not because the algorithm is not advanced enough, but because the features fed into the model are not high-quality enough.
-
-## The relationship between the five sections in this chapter
-
 ![Feature engineering chapter flow diagram](/img/course/ch05-feature-engineering-chapter-flow-en.png)
 
-This progression is especially suitable for beginners:
+```text
+understand columns -> preprocess -> construct -> select -> package as Pipeline
+```
 
-- First, understand what features you have
-- Then clean up dirty data
-- Then try to create new features with more information
-- Then remove redundant or useless features
-- Finally, turn the whole process into a reusable pipeline
-
-## Which chapters should be studied together with this one
-
-This chapter is best studied by alternating with the following two chapters:
-
-- Study it together with Chapter 2 on supervised learning: build models while feeling how features affect them
-- Study it together with Chapter 4 on model evaluation: see whether feature processing really improves performance
-
-## What beginners should take away from this chapter
-
-- Understand that “features matter more than models” is not a slogan, but a practical rule
-- Understand that different types of features require different processing methods
-- Understand why real projects must use Pipelines to standardize workflows
-
-## How beginners and advanced learners should read this chapter
-
-When beginners study this chapter for the first time, they should first focus on the main storyline and the smallest runnable example. You do not need to understand every detail at once. As long as you can clearly explain what problem this chapter solves, what the inputs and outputs are, and how the smallest project runs, you can keep moving forward.
-
-More experienced learners can treat this chapter as a chance to fill gaps and practice engineering skills: pay attention to edge cases, failure cases, evaluation methods, code reproducibility, and how it connects with the stages before and after it. After reading, it is best to consolidate the chapter’s content into your own project README or experiment notes.
-
-## Recommended study time and difficulty
-
-| Study mode | Recommended time | Goal |
-|---|---|---|
-| Quick browse | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
-| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s small project outcome |
-| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
-
-## Self-check questions for this chapter
-
-| Self-check question | Passing standard |
+| Step | First action |
 |---|---|
-| What problem does this chapter solve? | Can explain its role in the course in one sentence |
-| What are the minimum input and output? | Can clearly describe what the example needs as input and what result it produces |
-| Where are the common failure points? | Can list at least one cause of errors, poor results, or misunderstandings |
-| What can you document after finishing? | Can write this chapter’s output into a project README, experiment notes, or portfolio |
-## Chapter mini-project outcome
+| understand | list numeric, categorical, text, date, target columns |
+| preprocess | scale, encode, fill missing values |
+| construct | create ratios, counts, dates, interactions |
+| select | remove useless or leaking features |
+| pipeline | make preprocessing reproducible |
 
-After finishing this chapter, it is recommended to complete a minimal practice task: choose the most core concept or tool in this chapter, and create a small result that can run, be screenshot, and be written into a README. It does not need to be complex, but it should clearly show what the input is, what the processing steps are, and what the output result is.
+## 5.5.1.2 Run One Pipeline
 
-## Passing criteria
+Create `feature_first_loop.py` and run it after installing `pandas` and `scikit-learn`.
 
-By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the chapters before and after it, and complete the minimum version of the chapter mini-project outcome.
+```python
+import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-If you can also record one common mistake, one debugging process, or one result improvement, that means you have not just “read the content,” but have started turning this chapter into your own project experience.
+X = pd.DataFrame(
+    {
+        "age": [22, 35, 47, 52, 28, 41],
+        "city": ["A", "B", "A", "C", "B", "C"],
+        "visits": [2, 6, 5, 9, 3, 7],
+    }
+)
+y = [0, 1, 1, 1, 0, 1]
+
+preprocess = ColumnTransformer(
+    transformers=[
+        ("num", StandardScaler(), ["age", "visits"]),
+        ("cat", OneHotEncoder(handle_unknown="ignore"), ["city"]),
+    ]
+)
+
+pipe = Pipeline([("preprocess", preprocess), ("model", LogisticRegression())])
+pipe.fit(X, y)
+
+print("pipeline_steps:", list(pipe.named_steps))
+print("training_accuracy:", round(pipe.score(X, y), 3))
+```
+
+Expected output:
+
+```text
+pipeline_steps: ['preprocess', 'model']
+training_accuracy: 1.0
+```
+
+This tiny dataset is too small for real evaluation. The point is the workflow: preprocessing and model travel together.
+
+## 5.5.1.3 Learn in This Order
+
+| Order | Read | What to practice |
+|---|---|---|
+| 1 | [5.5.2 Feature Understanding](./01-feature-understanding.md) | feature types, target, leakage risk |
+| 2 | [5.5.3 Data Preprocessing](./02-preprocessing.md) | scaling, encoding, missing values |
+| 3 | [5.5.4 Feature Construction](./03-feature-construction.md) | ratios, bins, dates, interactions |
+| 4 | [5.5.5 Feature Selection](./04-feature-selection.md) | remove noise, redundancy, leakage |
+| 5 | [5.5.6 Pipeline](./05-pipeline.md) | reproducible preprocessing and training |
+
+## 5.5.1.4 Pass Check
+
+You pass this roadmap when you can list feature types, build one preprocessing Pipeline, and explain why preprocessing outside the train/test workflow can cause leakage.
