@@ -101,6 +101,12 @@ request = {
 print(request)
 ```
 
+Expected output:
+
+```text
+{'query': 'What is the refund policy?', 'user_id': 1, 'session_id': 'sess_001', 'metadata': {'channel': 'web'}}
+```
+
 Here, you can already feel:
 
 - What the query is
@@ -143,6 +149,12 @@ response = {
 print(response)
 ```
 
+Expected output:
+
+```text
+{'trace_id': 'trace_001', 'answer': 'A refund can be requested within 7 days after purchase, provided the learning progress is below 20%.', 'sources': [{'id': 'doc_001', 'section': 'Refund Policy'}], 'usage': {'prompt_tokens': 120, 'completion_tokens': 35}}
+```
+
 ### Why are these fields valuable?
 
 - `trace_id`: makes it easy to trace the request path
@@ -175,6 +187,12 @@ error_response = {
 }
 
 print(error_response)
+```
+
+Expected output:
+
+```text
+{'trace_id': 'trace_002', 'error': {'code': 'INVALID_ARGUMENT', 'message': 'query cannot be empty'}}
 ```
 
 This step is very important because it makes the caller clearly understand:
@@ -218,6 +236,13 @@ def handle_chat(request):
 
 print(handle_chat({"query": "What is the refund policy?"}))
 print(handle_chat({"query": ""}))
+```
+
+Expected output:
+
+```text
+{'trace_id': 'trace_demo_001', 'answer': 'System reply: What is the refund policy?', 'sources': [], 'usage': {'prompt_tokens': 12, 'completion_tokens': 8}}
+{'trace_id': 'trace_demo_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': 'query cannot be empty'}}
 ```
 
 ### What is this code actually teaching?
@@ -281,6 +306,12 @@ api_info = {
 }
 
 print(api_info)
+```
+
+Expected output:
+
+```text
+{'version': 'v1', 'endpoint': '/api/v1/chat'}
 ```
 
 Even for a small project, it is best to build version awareness early.
@@ -355,9 +386,77 @@ generate_request = {
 print(generate_request)
 ```
 
+Expected output:
+
+```text
+{'topic': 'Discount word problems', 'audience': 'Upper elementary school', 'doc_format': 'word', 'style': 'classroom explanation', 'exercise_count': 3}
+```
+
 The value of this object is:
 
 - It turns the slots collected during multi-turn conversation into actual service API parameters
+
+## Hands-on: Simulate a Courseware Generation API Contract
+
+Before building a real FastAPI endpoint, first write the request validation and response contract in pure Python. This makes the service boundary clear.
+
+```python
+REQUIRED_FIELDS = ["topic", "audience", "doc_format", "style", "exercise_count"]
+
+
+def validate_generate_request(payload):
+    missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
+    if missing:
+        return False, {
+            "code": "INVALID_ARGUMENT",
+            "message": f"missing fields: {missing}"
+        }
+    if payload["doc_format"] not in {"word", "ppt"}:
+        return False, {
+            "code": "INVALID_ARGUMENT",
+            "message": "doc_format must be word or ppt"
+        }
+    return True, None
+
+
+def handle_generate(payload):
+    trace_id = "trace_courseware_001"
+    ok, error = validate_generate_request(payload)
+    if not ok:
+        return {"trace_id": trace_id, "error": error}
+
+    return {
+        "trace_id": trace_id,
+        "status": "accepted",
+        "courseware": {
+            "title": payload["topic"],
+            "audience": payload["audience"],
+            "format": payload["doc_format"],
+            "sections": ["Knowledge Review", "Example Explanation", "Classroom Practice"],
+        }
+    }
+
+
+generate_request = {
+    "topic": "Discount word problems",
+    "audience": "Upper elementary school",
+    "doc_format": "word",
+    "style": "classroom explanation",
+    "exercise_count": 3,
+}
+
+print(handle_generate(generate_request))
+print(handle_generate({"topic": "Discount word problems", "doc_format": "pdf"}))
+```
+
+Expected output:
+
+```text
+{'trace_id': 'trace_courseware_001', 'status': 'accepted', 'courseware': {'title': 'Discount word problems', 'audience': 'Upper elementary school', 'format': 'word', 'sections': ['Knowledge Review', 'Example Explanation', 'Classroom Practice']}}
+{'trace_id': 'trace_courseware_001', 'error': {'code': 'INVALID_ARGUMENT', 'message': "missing fields: ['audience', 'style', 'exercise_count']"}}
+```
+
+This exercise is useful because it forces you to design success and failure together. A service is not ready just because it can return a happy-path answer.
 
 ## Common mistakes beginners make most often
 
