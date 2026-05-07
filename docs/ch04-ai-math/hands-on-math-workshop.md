@@ -1,11 +1,11 @@
 ---
-title: "Hands-on: Full Chapter 4 Math Workshop"
-sidebar_position: 3
+title: "4.4 Hands-on: Full Chapter 4 Math Workshop"
+sidebar_position: 4
 description: "Run one practical AI math workflow from vectors, probability, entropy, and gradient descent to a reusable evidence pack."
 keywords: [AI math workshop, vector similarity, probability simulation, entropy, gradient descent, math evidence pack]
 ---
 
-# Hands-on: Full Chapter 4 Math Workshop
+# 4.4 Hands-on: Full Chapter 4 Math Workshop
 
 This workshop turns Chapter 4 into one runnable practice loop. You will not prove every formula here. Instead, you will run a small script that makes the most important math ideas visible: vectors compare similarity, probability measures uncertainty, entropy and loss measure surprise, and gradients tell a parameter how to move.
 
@@ -15,7 +15,7 @@ The script uses only the Python standard library. That keeps the first run easy:
 Follow the same pattern in every step: look at the diagram, run the code, then inspect the output file. If a formula feels abstract, ask: what object does it represent, what uncertainty does it measure, or what update does it guide?
 :::
 
-## 1. What you will build
+## 4.4.1 What You Will Build
 
 By the end, you will have a folder named `ch04_math_workshop_evidence` containing:
 
@@ -30,7 +30,7 @@ By the end, you will have a folder named `ch04_math_workshop_evidence` containin
 | `gradient_descent.svg` | You can see loss falling during optimization. |
 | `README.md` | You can explain how to rerun and review the experiment. |
 
-## 2. Visual checkpoint: the whole route
+## 4.4.2 Visual Checkpoint: The Whole Route
 
 Before writing code, use these diagrams as the workshop map.
 
@@ -54,7 +54,7 @@ The gradient descent step shows the training rhythm: compute loss, compute slope
 
 The evidence folder is the final learning artifact. It lets you review the math without rerunning everything from memory.
 
-## 3. Create the project folder
+## 4.4.3 Create the Project Folder
 
 Create a small local folder:
 
@@ -65,7 +65,7 @@ cd ch04_math_hands_on
 
 Then create a file named `math_workshop.py`.
 
-## 4. Paste and run the workshop code
+## 4.4.4 Paste and Run the Workshop Code
 
 Save the following code into `math_workshop.py`:
 
@@ -382,7 +382,7 @@ If your system uses `python3`, run:
 python3 math_workshop.py
 ```
 
-## 5. Expected output
+## 4.4.5 Expected Output
 
 You should see output close to this:
 
@@ -413,7 +413,7 @@ ch04_math_workshop_evidence/gradient_descent.svg
 
 Small differences are fine if you change the seed, learning rate, or number of steps.
 
-## 6. How to read the files
+## 4.4.6 How to Read the Files
 
 Open `vector_similarity.csv` first. Do not only look at the highest score. Compare `dot`, `cosine_similarity`, and `euclidean_distance`. The important habit is to connect the metric to the question: do you care about same direction, same size, or both?
 
@@ -421,7 +421,7 @@ Open `probability_simulation.csv` next. Look at `batch_rate` and `running_rate`.
 
 Open `gradient_descent.csv` last. Follow `x`, `loss`, and `gradient`. The gradient starts large, then becomes smaller as `x` approaches the low-loss point. This is the small-number version of model training.
 
-## 7. What each concept means in model language
+## 4.4.7 Translate Concepts into Model Language
 
 | Concept | In formulas | In model language | Workshop file |
 |---|---|---|---|
@@ -433,7 +433,7 @@ Open `gradient_descent.csv` last. Follow `x`, `loss`, and `gradient`. The gradie
 | Cross-entropy loss | Penalty for wrong confidence | How painful a prediction mistake is | `math_cards.md` |
 | Gradient | Direction of fastest change | How a parameter should move | `gradient_descent.csv` |
 
-## 8. Beginner troubleshooting
+## 4.4.8 Beginner Troubleshooting
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
@@ -444,7 +444,7 @@ Open `gradient_descent.csv` last. Follow `x`, `loss`, and `gradient`. The gradie
 | Gradient descent moves too slowly | Learning rate is too small | Try `learning_rate=0.3` only after seeing the stable version |
 | The numbers feel meaningless | You are reading them without a model question | Ask: similarity, uncertainty, or update direction? |
 
-## 9. Guided exercises
+## 4.4.9 Guided Exercises
 
 1. Change `QUERY` to `[0.1, 1.0, 0.7]`. Which topic becomes most similar? Why?
 2. Change `true_probability` from `0.65` to `0.5`. What happens to the running rate?
@@ -452,7 +452,7 @@ Open `gradient_descent.csv` last. Follow `x`, `loss`, and `gradient`. The gradie
 4. Add one new section to `math_cards.md` explaining matrix multiplication in your own words.
 5. Write one sentence connecting each file to a later chapter: machine learning, deep learning, RAG, or LLM.
 
-## 10. Exit checklist
+## 4.4.10 Exit Checklist
 
 - [ ] I can run the workshop locally.
 - [ ] I can explain why vector similarity can support retrieval or recommendation.

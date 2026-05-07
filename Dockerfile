@@ -6,6 +6,8 @@ WORKDIR /app
 # Keep Node below the host limit and render Docusaurus pages sequentially.
 ENV NODE_OPTIONS="--max-old-space-size=1536"
 ENV DOCUSAURUS_SSR_CONCURRENCY=1
+ENV DOCUSAURUS_DISABLE_LAST_UPDATE=true
+ENV CI=true
 
 # 先安装依赖，避免每次只改文档或图片都重新安装 node_modules
 COPY package.json package-lock.json ./

@@ -47,6 +47,10 @@
     "message": "1.3 開発環境のセットアップ",
     "description": "The label for category '1.3 Development Environment Setup' in sidebar 'courseSidebar'"
   },
+  "sidebar.courseSidebar.category.1.4 Hands-on Workshop": {
+    "message": "1.4 ハンズオンワークショップ",
+    "description": "The label for category '1.4 Hands-on Workshop' in sidebar 'courseSidebar'"
+  },
   "sidebar.courseSidebar.category.2 Python Programming Foundations": {
     "message": "2 Python プログラミング基礎",
     "description": "The label for category '2 Python Programming Foundations' in sidebar 'courseSidebar'"

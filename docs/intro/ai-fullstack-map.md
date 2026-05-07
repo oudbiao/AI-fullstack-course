@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: "AI Full-Stack Capability Map"
-description: "Understand the AI full-stack learning path with one capability map: development, data, models, LLM applications, RAG, Agent systems, engineering, and extended directions."
+description: "A compact visual map of the seven capability layers in AI full-stack learning."
 keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RAG, AI Agent]
 ---
 
@@ -9,89 +9,30 @@ keywords: [AI Full-Stack, capability map, AI learning path, LLM applications, RA
 
 ![AI Full-Stack Capability Map](/img/course/intro-ai-fullstack-capability-map-en.png)
 
-The easiest way to get lost when learning AI is that you will see many terms at the same time: Python, math, machine learning, deep learning, Transformer, Prompt, RAG, Agent, MCP, vector databases, fine-tuning, deployment, security, and more. These are not side-by-side topics; they are layers of capability stacked on top of one another.
+Use this page as a map, not a memorization list. The course has one main thread:
 
-This course divides AI full-stack capability into seven layers: development basics, data skills, model fundamentals, LLM understanding, application development, Agent systems, and engineering plus extended directions.
-
-## Remember this table first
-
-| Layer | Problem it solves | What you will eventually build |
-| --- | --- | --- |
-| Development basics | Where to write code, how to run it, how to save it | Small runnable, reviewable projects |
-| Data skills | How to clean, organize, and inspect materials | Data reports, charts, searchable materials |
-| Model fundamentals | Why models can learn patterns from data | Basic models for classification, prediction, clustering, recommendation, and more |
-| LLM understanding | Why LLMs can understand and generate text | Intuition for Prompt, Embedding, and Transformer |
-| Application development | How to turn a model into a feature users can use | Chat assistants, knowledge-base Q&A, document processing tools |
-| Agent systems | How to let AI break down tasks, use tools, and keep memory | Automation assistants, learning-planning Agents |
-| Engineering and expansion | How to launch applications reliably and explore deeper directions | Deployed projects, evaluation systems, CV/NLP/AIGC works |
-
-## Overall capability map
-
-```mermaid
-mindmap
-  root((AI Full-Stack Capability))
-    Development basics
-      Terminal and Git
-      Python programming
-      Environment and dependency management
-      API and basic backend
-    Data skills
-      NumPy
-      Pandas
-      Data cleaning
-      Visualization
-      Databases
-    Model fundamentals
-      AI math
-      Machine learning
-      Deep learning
-      PyTorch
-      Transformer
-    LLM understanding
-      Token and Embedding
-      Attention
-      Pretraining
-      Prompt
-      Fine-tuning and alignment
-    Application development
-      LLM API
-      Function Calling
-      RAG
-      Document parsing
-      Vector databases
-    Agent systems
-      Reasoning and planning
-      Tool calling
-      Memory systems
-      MCP
-      Multi-Agent
-    Engineering
-      Deployment
-      Monitoring
-      Evaluation
-      Cost control
-      Security and permissions
-    Extension directions
-      Computer vision
-      Natural language processing
-      Multimodal
-      AIGC
-      Model deployment optimization
+```text
+tools -> data -> models -> LLMs -> applications -> Agents -> engineering
 ```
 
-## How the seven layers connect
+## Seven Layers
 
-| From which layer to which layer | Connection |
-| --- | --- |
-| Development basics -> Data skills | First learn to write scripts, then you can automatically clean, summarize, and save data |
-| Data skills -> Model fundamentals | The patterns a model learns come from data quality, features, and labels |
-| Model fundamentals -> LLM understanding | Concepts such as Transformer, Embedding, and loss functions appear again and again |
-| LLM understanding -> Application development | Only after understanding context, hallucinations, and boundaries can you design reliable Prompts and RAG |
-| Application development -> Agent systems | RAG handles information retrieval, while Agents further break down tasks and call tools |
-| Agent systems -> Engineering | Real production systems must handle permissions, logs, evaluation, cost, and error recovery |
+| Layer | Why it matters | Output you should leave behind |
+| --- | --- | --- |
+| Tools | You need a stable place to write, run, and save work | Runnable folder, README, Git commit |
+| Data | AI work starts with clean, inspectable material | Data report, chart, cleaned file |
+| Models | You need to know how models learn and fail | Baseline, metrics, error samples |
+| LLMs | Prompt, Embedding, Transformer, and context become less mysterious | Prompt tests, explanation notes |
+| Applications | Model capability becomes a usable feature | Chat, document tool, knowledge-base Q&A |
+| Agents | AI can plan steps, call tools, and keep traces | Tool logs, task trace, permission rule |
+| Engineering | Real projects need deployment, evaluation, cost, and safety | Demo, monitoring notes, evaluation report |
 
-## Minimal memory version
+## How to Read the Map
 
-Combine the seven layers into one sentence: first get the code running, then organize the data, then understand how models learn, then use LLMs to build applications, and finally deploy, present, and review the project.
+Read down the layers once. Then stop. You do not need to understand every branch now.
 
-You do not need to memorize the entire map the first time you study it. Just remember this main thread: "tools -> data -> model -> LLM -> application -> Agent -> engineering" and you will not get lost in the terminology.
+When you feel lost, return to this one question:
+
+> Which layer is blocking my current project?
+
+If the blocker is running code, go back to tools. If the answer has no evidence, go back to data or RAG. If an Agent keeps acting unpredictably, go back to traces, permissions, and evaluation.

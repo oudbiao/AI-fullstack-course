@@ -25,6 +25,8 @@
 | `ai-learning-assistant-roadmap.png` | AI 学习助手版本路线图 | `docs/intro/ai-learning-assistant-version-roadmap.md` | AI 学习助手从项目骨架逐步升级到 RAG 和 Agent 毕业作品的路线图。 |
 | `prompt-rag-agent-progression.png` | Prompt 到 RAG 到 Agent 能力进阶图 | `docs/index.md` | Prompt、RAG、Agent 三阶段能力进阶：表达、查资料和分步行动。 |
 | `boss-challenge-map.png` | 课程 Boss 战挑战地图 | `docs/intro/boss-challenge-map.md` | 课程 Boss 战挑战地图：工作台守门人、JSON 地牢管理员、脏数据侦探、引用幻觉龙和无限循环魔王。 |
+| `intro-quick-experience-loop.png` | 30 分钟 AI 快速体验闭环图 | `docs/intro/quick-experience.md` | 30 分钟 AI 快速体验闭环图：打开 Colab、运行图像识别、体验文本生成、尝试图像生成，然后回到主课程。 |
+| `intro-stage-checkpoint-cards.png` | 课程阶段验收卡图 | `docs/intro/boss-challenge-map.md` | 课程阶段验收卡图：每个阶段只保留一个最小可运行成果、一份证据和一次复盘，替代冗长挑战地图。 |
 | `debug-detective-missions.png` | Debug 侦探任务集 | `docs/intro/debug-detective-missions.md` | Debug 侦探任务集：学习者像侦探一样收集线索、定位错误并写下修复记录。 |
 | `ch01-tools-foundation.png` | 开发者工具基础主视觉 | `docs/ch01-tools/index.md` | 开发者工具基础主视觉：终端、Git、编辑器和 Python 环境组成稳定工作台。 |
 | `ch01-ai-workstation-comic.png` | 开发者工具 AI 工作站漫画指导图 | `docs/ch01-tools/index.md` | 开发者工具 AI 工作站漫画：新人把终端、Python 环境、VS Code、Jupyter 和 Git 组装成可复现的 AI 学习工作台。 |

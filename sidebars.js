@@ -268,8 +268,6 @@ const sidebars = {
           link: { type: "doc", id: "ch04-ai-math/index" },
           items: [
             "ch04-ai-math/study-guide",
-            "ch04-ai-math/task-list",
-            "ch04-ai-math/hands-on-math-workshop",
             {
               type: "category",
               label: "4.1 Linear Algebra in Practice",
@@ -304,6 +302,7 @@ const sidebars = {
                 "ch04-ai-math/ch03-calculus/chain-rule-backprop",
               ],
             },
+            "ch04-ai-math/hands-on-math-workshop",
           ],
         },
         {

@@ -1,81 +1,78 @@
 ---
-title: "Study Guide: The Most Sustainable Way to Learn the Math Foundations for AI"
+title: "4.0 Study Guide and Task Sheet: AI Math Foundations"
 sidebar_position: 1
-description: "A math learning guide for AI full-stack beginners: the learning order for linear algebra, probability and statistics, calculus, and optimization, plus project experiments and pass criteria."
-keywords: [AI math learning guide, how to learn linear algebra, how to learn probability and statistics, how to learn calculus, gradient descent]
+description: "A compact study guide and task sheet for Chapter 4: learn linear algebra, probability and statistics, calculus, and optimization in the right order before running the final workshop."
+keywords: [AI math study guide, AI math task sheet, linear algebra, probability and statistics, gradient descent]
 ---
 
-# Study Guide: The Most Sustainable Way to Learn the Math Foundations for AI
+# 4.0 Study Guide and Task Sheet: AI Math Foundations
 
 ![AI math learning loop diagram](/img/course/math-study-loop-en.png)
 
-If you reach `03 Minimum Essential Math for AI` and start worrying that there are too many formulas, lower your goal a bit first: on the first pass, you are not trying to learn the entire math system, but to build model intuition.
+Use this page as the control panel for Chapter 4. The goal is not to learn every proof. The goal is to build enough math intuition to understand model inputs, uncertainty, loss, and parameter updates.
 
-## Overall principles for this stage
-
-On the first pass through AI math, focus on just three things: linear algebra explains how data and parameters are represented, probability and statistics explain uncertainty and evaluation, and calculus explains how models update through loss and gradients.
+## 4.0.1 Study This Stage in Order
 
 ![Minimum closed loop for AI math study guide](/img/course/ch04-study-guide-math-minimum-loop-en.png)
 
-## Recommended learning order
+Study the theory first, then run the full workshop. This keeps the workshop from becoming a pile of unexplained commands.
 
-In the first round, study linear algebra first. Focus on understanding vectors, matrices, matrix multiplication, linear transformations, and similarity. These concepts will keep coming up later in Embedding, neural networks, and Attention.
+| Order | Section | What to focus on | Evidence to produce |
+|---|---|---|---|
+| 1 | `4.1 Linear Algebra in Practice` | Vectors, matrices, dot product, norm, cosine similarity | A tiny vector similarity comparison |
+| 2 | `4.2 Probability and Statistics in Practice` | Probability, distributions, mean, variance, entropy | A small probability or uncertainty note |
+| 3 | `4.3 Calculus and Optimization in Practice` | Derivatives, gradients, learning rate, gradient descent | A short parameter-update trace |
+| 4 | `4.4 Hands-on Math Workshop` | Connect the three ideas in one runnable script | The generated evidence folder |
 
-In the second round, study probability and statistics. Focus on understanding probability, distributions, expectation, variance, conditional probability, statistical estimation, and entropy. They will appear in classification, evaluation, generation, and retrieval.
+If you only have one day, read the roadmap page in each theory section, run one small code example, and then complete `4.4`.
 
-In the third round, study calculus and optimization. Focus on understanding derivatives, partial derivatives, gradients, the chain rule, and gradient descent. You do not need to derive very complicated formulas at the beginning, but you should know why models can keep improving step by step.
+## 4.0.2 Terms You Need Before You Start
 
-## Formula-to-intuition translator
-
-When a formula looks intimidating, first translate it into model language:
-
-| Term | First intuition | Where you will see it later |
+| Term | Full name | First meaning in this chapter |
 |---|---|---|
-| Vector | A row of features, or the coordinates of meaning | embeddings, similarity search, model inputs |
-| Matrix | A batch of rows, or a machine that transforms vectors | neural network layers, attention weights |
-| Dot product | How much two directions agree | cosine similarity, attention scores |
-| Norm | Length or strength | distance, regularization, gradient clipping |
-| PCA (Principal Component Analysis) | Rotate the coordinate system and keep the most informative axes | dimensionality reduction, visualization |
-| SVD (Singular Value Decomposition) | Split a complex matrix into rotate-scale-rotate | compression, recommendation systems, PCA |
-| MLE (Maximum Likelihood Estimation) | Choose parameters that best explain observed data | loss functions, logistic regression |
-| MAP (Maximum A Posteriori estimation) | MLE plus prior belief | regularization, weight decay |
-| Entropy | Uncertainty or surprise | classification loss, language models |
-| KL divergence (Kullback-Leibler divergence) | How different two probability distributions are | distillation, variational models |
-| GD / SGD (Gradient Descent / Stochastic Gradient Descent) | Walk downhill on the loss surface | model training, optimizers |
+| `ML` | Machine Learning | A model learns patterns from data and uses them to predict or decide. |
+| `RAG` | Retrieval-Augmented Generation | Retrieve useful documents first, then answer with that evidence. |
+| `LLM` | Large Language Model | A large text model that predicts and generates tokens. |
+| `Embedding` | Vector representation | Turn text, images, users, or items into vectors for comparison. |
+| `Notebook` | Jupyter Notebook | A file that keeps code, charts, notes, and outputs together. |
 
-If you can say the right side out loud, you are already learning the useful part. The precise derivation can come later.
+You do not need to master these engineering topics now. They are here so each math idea has a future place to land.
 
-## Suggested study pace
+## 4.0.3 Minimum Task Sheet
 
-| Content type | Suggested time | Learning goal |
+| Task | Deliverable | Pass criteria |
 |---|---|---|
-| Linear algebra pages | 2–4 hours | Be able to connect vectors, matrices, and data |
-| Probability and statistics pages | 2–4 hours | Be able to understand classification probabilities and evaluation metrics |
-| Calculus and optimization pages | 2–4 hours | Be able to explain the intuition behind gradient descent |
-| Small experiments | 4–8 hours | Visualize mathematical concepts with code |
+| Understand vectors and matrices | `vector_similarity` example or notes | Can explain dot product, norm, cosine similarity, and matrix multiplication in plain language |
+| Understand probability and statistics | Distribution or sampling note | Can explain mean, variance, conditional probability, and uncertainty |
+| Understand entropy and loss | One short information-theory card | Can explain why confident and uncertain predictions have different loss values |
+| Understand gradient descent | Parameter update table or chart | Can explain gradient direction, learning rate, and why loss can fall step by step |
+| Complete the chapter artifact | `ch04_math_workshop_evidence/` | Can rerun the workshop and explain the generated CSV, SVG, cards, and README |
 
-## Stage project roadmap
+## 4.0.4 Formula-to-Intuition Translator
 
-The first small experiment is to use 2D vectors to draw similarity and understand dot products, distance, and similarity.
+When a formula looks intimidating, translate it into model language before trying to derive it.
 
-The second small experiment is to use random numbers to generate probability distributions and observe mean, variance, and sampling fluctuations.
+| Term | First intuition | Where it appears later |
+|---|---|---|
+| Vector | A row of features, or the coordinates of meaning | Embeddings, similarity search, model inputs |
+| Matrix | Many rows of data, or a machine that transforms vectors | Neural network layers, attention weights |
+| Dot product | How much two directions agree | Cosine similarity, attention scores |
+| Norm | Length or strength | Distance, regularization, gradient clipping |
+| PCA | Rotate the coordinate system and keep the most informative axes | Dimensionality reduction, visualization |
+| MLE | Choose parameters that best explain observed data | Loss functions, logistic regression |
+| Entropy | Uncertainty or surprise | Classification loss, language models |
+| GD / SGD | Walk downhill on the loss surface | Model training, optimizers |
 
-The third small experiment is to use a simple function to demonstrate gradient descent and watch a point gradually move closer to the minimum.
+If you can explain the right column aloud, you have already learned the useful first-pass version.
 
-These projects are not complicated, but they help connect formulas with code.
+## 4.0.5 Stage Checkpoint
 
-For a single guided version of all three, run [Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md). It creates CSV logs, SVG charts, math cards, and a README in one evidence folder.
+Before moving to Chapter 5, check that you can do these five things:
 
-## Common sticking points
+- Explain why one sample can be represented as a vector and a dataset as a matrix.
+- Explain why a model output can be read as probability or confidence.
+- Explain why entropy and cross-entropy are related to uncertainty and loss.
+- Demonstrate a minimal gradient descent process with code or a table.
+- Run [4.4 Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md) and keep the generated evidence folder.
 
-The most common sticking point is trying to learn math “thoroughly” before moving into machine learning. For AI learning, this usually slows you down. You should first build the minimum intuition, then come back and fill in the details when you encounter specific models later.
-
-The second sticking point is only looking at formulas and not writing code. It is recommended that every core concept be paired with a small NumPy experiment or a visualization.
-
-The third sticking point is worrying about forgetting. Math naturally requires repeated exposure; on the first pass, you only need to know what role it plays in the model.
-
-## Pass criteria
-
-After finishing this stage, you should be able to explain in your own words: why data can be represented as matrices, why models output probabilities, and why loss functions can guide parameter updates.
-
-If you can demonstrate a minimal gradient descent process with code and explain what each step is doing, you are ready to move on to the machine learning stage.
+You are ready to continue when you can connect each formula to a model action: represent data, measure uncertainty, measure loss, or update parameters.

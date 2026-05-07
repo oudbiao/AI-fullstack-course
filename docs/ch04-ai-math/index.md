@@ -15,9 +15,9 @@ At this stage, the goal is to stop feeling scared when you see the math inside m
 
 Many beginners fear AI math because formulas look like a wall. Let’s change the approach: treat math like a pair of glasses. Vectors let models see “direction and similarity,” matrices let models process lots of data at once, probability lets models express uncertainty, and gradients tell models where to improve. You do not need to become a math expert first; you only need to understand what role these tools play inside models.
 
-## Learning Quest Map
+## Learning Route Map
 
-![AI Math Learning Quest Map](/img/course/ch04-learning-quest-map-en.png)
+![AI Math Learning Route Map](/img/course/ch04-learning-quest-map-en.png)
 
 ## Interactive Practice: Turning Formulas into Pictures with Code
 
@@ -27,7 +27,7 @@ When learning vectors, try drawing two 2D arrows and observe that the smaller th
 
 The bonus for this stage is not a big project, but a set of “math mini-experiments”: vector similarity visualization, probability distribution observation, and gradient descent demonstration. Later, when you study recommendation systems, Embedding, neural networks, and Transformer, you will keep finding that these mini-experiments were already appearing inside real AI models.
 
-If you want to follow one complete runnable route first, start with [Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md). It combines vector similarity, probability simulation, entropy/loss, gradient descent, SVG charts, and a reusable evidence folder.
+After finishing `4.1`, `4.2`, and `4.3`, run [4.4 Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md). It combines vector similarity, probability simulation, entropy/loss, gradient descent, SVG charts, and a reusable evidence folder.
 
 ## Terms You Will See Repeatedly
 
@@ -147,7 +147,7 @@ If you can explain why this number can represent “similarity,” then later un
 
 The basic version is to complete three minimum experiments: 2D vector similarity, random data distribution observation, and gradient descent for a one-variable function. The standard version requires drawing the experiments as charts and using text to explain what action each mathematical concept corresponds to in the model. The challenge version can be an interactive math notebook where learners change parameters and observe how vector angles, distribution shapes, and optimization paths change.
 
-For a guided implementation, run [Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md) and save the generated `ch04_math_workshop_evidence` folder as your first project artifact.
+After the theory sections, run [4.4 Hands-on: Full Chapter 4 Math Workshop](./hands-on-math-workshop.md) and save the generated `ch04_math_workshop_evidence` folder as your first project artifact.
 
 If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn AI Math Foundations Without Giving Up](./study-guide.md).
 
@@ -158,8 +158,8 @@ If you want a more detailed learning rhythm, you can read [Study Guide: How to L
 | Play style | Task for this stage |
 |---|---|
 | Story mission | Help the assistant understand similarity, probability, loss, and metrics: turn abstract concepts into observable results with code. |
-| Boss fight | **Metric Maze** |
-| Unlockable badges | Vector Translator, Metric Explainer |
+| Stage checkpoint | **Metric Maze** |
+| Practice labels | Vector Translator, Metric Explainer |
 | Easy mode for beginners | Complete only one minimal input-to-output loop, and keep a run screenshot or command output first |
 | Portfolio evidence | One runnable math mini-experiment and explanation |
 

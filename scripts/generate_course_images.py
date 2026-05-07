@@ -451,6 +451,36 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "intro-quick-experience-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "30 分钟 AI 快速体验闭环图",
+        "suggested_page": "docs/intro/quick-experience.md",
+        "alt": "30 分钟 AI 快速体验闭环图：打开 Colab、运行图像识别、体验文本生成、尝试图像生成，然后回到主课程。",
+        "prompt": """
+一张竖版课程图解，主题是“30 分钟先体验 AI，再回到系统学习”。
+画面从上到下 5 个步骤：Open Colab、Image recognition、Text generation、Image generation、Back to course path。
+每一步像一张简洁操作卡：复制代码、运行、看输出、换一个输入试试。底部强调不要先背术语，先建立直觉。
+风格清晰、轻量、适合新手开篇；像可跟做的流程漫画，但不要夸张游戏化。
+文字不是主体；标准术语保留英文，例如 Colab、image recognition、text generation、prompt、course path。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "intro-stage-checkpoint-cards.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "课程阶段验收卡图",
+        "suggested_page": "docs/intro/boss-challenge-map.md",
+        "alt": "课程阶段验收卡图：每个阶段只保留一个最小可运行成果、一份证据和一次复盘，替代冗长挑战地图。",
+        "prompt": """
+一张竖版课程图解，主题是“每个阶段只留一张验收卡”。
+画面表现 9 张简洁 checkpoint cards，从工具、Python、数据、数学、机器学习、深度学习、Prompt/RAG、Agent 到毕业项目。
+每张卡只包含三个视觉元素：minimum artifact、evidence、reflection。强调学习不是闯关打怪，而是每阶段留下可运行、可展示、可复盘的证据。
+风格专业、温和、清晰，像作品集验收看板；不要游戏怪物、不要战斗视觉。
+文字不是主体；标准术语保留英文，例如 checkpoint、artifact、evidence、reflection、RAG、Agent。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "debug-detective-missions.png",
         "size": "1536x1024",
         "quality": "high",
