@@ -1,143 +1,92 @@
 ---
 title: "6.2.6 データ読み込み"
 sidebar_position: 4
-description: "Dataset、DataLoader、batch、shuffle、そして訓練データの分割を理解して、モデルがデータを安定して少しずつ受け取れるようにしよう。"
+description: "Dataset、DataLoader、batch shape、shuffle、train/validation split、小さな loader ベースの学習ループを練習します。"
 keywords: [Dataset, DataLoader, batch, shuffle, random_split, PyTorch]
 ---
 
 # 6.2.6 データ読み込み
 
-![Dataset DataLoader Batch の流れ図](/img/course/dataset-dataloader-batch-flow-ja.png)
+:::tip この節の位置づけ
+モデルは準備できましたが、巨大なデータの塊を一度に渡すべきではありません。`Dataset` は 1 つのサンプルを定義し、`DataLoader` はサンプルをシャッフルされた小さな batch にして学習ループへ渡します。
+:::
 
 ## 学習目標
 
-- 学習時に、なぜすべてのデータを一度にモデルへ入れないのかを理解する
-- `Dataset` と `DataLoader` の役割分担を理解する
-- もっともシンプルな自作データセットを書けるようになる
-- `batch_size`、`shuffle`、訓練データ / 検証データの分割を理解する
+- 小さなカスタム `Dataset` を書ける。
+- `DataLoader` で batch を作れる。
+- 学習前に batch shape を読める。
+- train / validation を再現可能に分割できる。
+- loader を小さな学習ループにつなげられる。
 
 ---
 
-## まず地図を作ろう
+## まず batch の流れを見る
 
-この節で、最初にしっかり見ておきたいのは次の流れです。
+![Dataset DataLoader Batch フロー図](/img/course/ch06-hands-on-dataset-dataloader-batch-flow-ja.png)
 
-```mermaid
-flowchart LR
-    A["元のサンプル"] --> B["Dataset: 1件のサンプルの取り方を定義"]
-    B --> C["DataLoader: batch を作る、シャッフルする、反復する"]
-    C --> D["訓練ループが batch ごとに読み込む"]
+次の順番で読みます。
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style D fill:#e8f5e9,stroke:#2e7d32,color:#333
+```text
+生サンプル -> Dataset が 1 サンプルを返す -> DataLoader が batch を作る -> 学習ループが batch を消費する
 ```
 
-つまり、この節で本当に解決したいのは、「2つのクラス名を覚えること」ではなく、
+この分離は便利です。
 
-- データがどうやって安定して訓練ループに流れ込むのか
+| オブジェクト | 仕事 |
+|---|---|
+| `Dataset` | 長さと、1 サンプルの取り出し方を定義する |
+| `DataLoader` | batch 化、shuffle、反復、必要なら並列読み込みを行う |
+| 学習ループ | `batch_x`、`batch_y` を読み、モデルを更新する |
 
-ということです。
+## なぜ batch が必要なのか
 
-## この節は前後の内容とどうつながるか
+batch は、モデルが 1 回のパラメータ更新で見る小さなサンプルのまとまりです。
 
-- これまでの節で、Tensor、勾配、モデルはすでに出てきました
-- この節からは、「学習時のデータをどうやって batch 単位で流し込むか」を扱います
-- 次の節では、訓練ループの中で「モデル + データ」を本当に結びつけます
-
-つまりこの節は、学習の流れに「データ側」を足すパートです。
-
-## なぜデータローダーが必要なのか？
-
-モデルにごはんを食べさせるところを想像してみましょう。
-
-- データ全部を一気に入れる: 多すぎてつらいし、メモリが足りないかもしれない
-- 少しずつ入れる: 安定しやすく、何度も学習しやすい
-
-深層学習では、この「一口分」を **batch** と呼びます。
-
-なので、普通はこうはしません。
+通常は次のようには書きません。
 
 ```python
 pred = model(all_data_once)
 ```
 
-代わりに、こうします。
+代わりに次のように書きます。
 
 ```python
-for batch_x, batch_y in dataloader:
+for batch_x, batch_y in train_loader:
     pred = model(batch_x)
 ```
 
-### 最初に `batch` について覚えるなら、何が大事？
+理由：
 
-まずはこの1文だけ覚えれば十分です。
+- メモリを管理しやすい。
+- パラメータ更新を何度も行える。
+- shuffle により、よりバランスのよいサンプル列になる。
+- 同じループで小さな CSV から大きな画像フォルダまで扱える。
 
-> **batch = 1回のパラメータ更新で、モデルが見る少量のサンプル。**
-
-これはとても大事です。なぜなら、この後に出てくる
-
-- `batch_size`
-- `shuffle`
-- `steps per epoch`
-
-は、すべてこの考え方を中心に動いているからです。
-
----
-
-## `Dataset` と `DataLoader` はそれぞれ何をするのか？
-
-次のように考えるとわかりやすいです。
-
-| コンポーネント | たとえ | 役割 |
-|---|---|---|
-| `Dataset` | 倉庫 | PyTorch に「i 番目のデータはこれ」と教える |
-| `DataLoader` | 運搬車 | batch 化、シャッフル、並列読み込みを担当する |
-
-一言でいうと、
-
-- `Dataset` は「1件のデータをどう取るか」を担当
-- `DataLoader` は「1件のデータをどうやって batch にまとめるか」を担当
-
-### なぜこの2つを分けるのか？
-
-理由は、解決している問題の階層が違うからです。
-
-- `Dataset` は「データの定義」に近い
-- `DataLoader` は「学習時にどう流すか」に近い
-
-このように分けると、次の利点があります。
-
-- 同じデータセットでも、違う batch 設定を使える
-- 同じ `DataLoader` の考え方を、別のデータセットにも使える
-
----
-
-## まずは最小の `Dataset` を見よう
+## 実験 1: 最小限使える Dataset を書く
 
 ```python
 import torch
 from torch.utils.data import Dataset
 
+
 class StudentDataset(Dataset):
     def __init__(self):
-        # 2つの特徴量: 勉強時間、練習問題の完了数
-        self.features = torch.tensor([
-            [2.0, 1.0],
-            [3.0, 2.0],
-            [4.0, 3.0],
-            [5.0, 5.0],
-            [6.0, 6.0],
-            [7.0, 8.0]
-        ])
-
-        self.labels = torch.tensor([
-            [55.0],
-            [60.0],
-            [68.0],
-            [78.0],
-            [85.0],
-            [92.0]
-        ])
+        self.features = torch.tensor(
+            [
+                [2.0, 1.0],
+                [3.0, 2.0],
+                [4.0, 3.0],
+                [5.0, 5.0],
+                [6.0, 6.0],
+                [7.0, 8.0],
+                [8.0, 9.0],
+                [9.0, 10.0],
+            ]
+        )
+        self.labels = torch.tensor(
+            [[55.0], [60.0], [68.0], [78.0], [85.0], [92.0], [96.0], [99.0]]
+        ) / 100.0
 
     def __len__(self):
         return len(self.features)
@@ -145,56 +94,62 @@ class StudentDataset(Dataset):
     def __getitem__(self, idx):
         return self.features[idx], self.labels[idx]
 
-dataset = StudentDataset()
 
-print("データセットのサイズ:", len(dataset))
-print("0 番目のサンプル:", dataset[0])
-print("3 番目のサンプル:", dataset[3])
+dataset = StudentDataset()
+x0, y0 = dataset[0]
+
+print("dataset_lab")
+print("dataset size:", len(dataset))
+print("sample 0 shapes:", tuple(x0.shape), tuple(y0.shape))
+print("sample 0:", x0, y0)
 ```
 
-### 自作データセットで最低限必要なものは？
+期待される出力：
 
-基本的には、次の2つのメソッドが必要です。
+```text
+dataset_lab
+dataset size: 8
+sample 0 shapes: (2,) (1,)
+sample 0: tensor([2., 1.]) tensor([0.5500])
+```
 
-- `__len__()`：全サンプル数を返す
-- `__getitem__(idx)`：`idx` 番目のデータを返す
+カスタム dataset の最小契約は次の 2 つです。
 
-### 初めて `Dataset` を自分で書くとき、何を最初に確認する？
+- `__len__()`: サンプル数を返す。
+- `__getitem__(idx)`: 1 サンプルを返す。
 
-まずは次の3つをチェックしましょう。
+loader を作る前に確認します。
 
-1. `len(dataset)` が正しいか
-2. `dataset[i]` が `(x, y)` のように、期待した形で返るか
-3. 各サンプルの shape と dtype が合っているか
+```text
+len(dataset)
+dataset[0]
+x と y の shape、dtype
+```
 
-この部分が不安定だと、その後の `DataLoader` や訓練ループで問題を見つけるのがどんどん難しくなります。
-
----
-
-## データセットを `DataLoader` に渡す
+## 実験 2: サンプルを batch にする
 
 ```python
 import torch
 from torch.utils.data import Dataset, DataLoader
 
+
 class StudentDataset(Dataset):
     def __init__(self):
-        self.features = torch.tensor([
-            [2.0, 1.0],
-            [3.0, 2.0],
-            [4.0, 3.0],
-            [5.0, 5.0],
-            [6.0, 6.0],
-            [7.0, 8.0]
-        ])
-        self.labels = torch.tensor([
-            [55.0],
-            [60.0],
-            [68.0],
-            [78.0],
-            [85.0],
-            [92.0]
-        ])
+        self.features = torch.tensor(
+            [
+                [2.0, 1.0],
+                [3.0, 2.0],
+                [4.0, 3.0],
+                [5.0, 5.0],
+                [6.0, 6.0],
+                [7.0, 8.0],
+                [8.0, 9.0],
+                [9.0, 10.0],
+            ]
+        )
+        self.labels = torch.tensor(
+            [[55.0], [60.0], [68.0], [78.0], [85.0], [92.0], [96.0], [99.0]]
+        ) / 100.0
 
     def __len__(self):
         return len(self.features)
@@ -202,239 +157,239 @@ class StudentDataset(Dataset):
     def __getitem__(self, idx):
         return self.features[idx], self.labels[idx]
 
-dataset = StudentDataset()
-loader = DataLoader(dataset, batch_size=2, shuffle=True)
 
+dataset = StudentDataset()
+loader = DataLoader(dataset, batch_size=3, shuffle=False)
+
+print("loader_lab")
 for batch_idx, (batch_x, batch_y) in enumerate(loader):
-    print(f"batch {batch_idx}")
-    print("batch_x:\n", batch_x)
-    print("batch_y:\n", batch_y)
+    print(
+        f"batch={batch_idx} "
+        f"x_shape={tuple(batch_x.shape)} "
+        f"y_shape={tuple(batch_y.shape)}"
+    )
 ```
 
-### ここで特に大事な2つの引数
+期待される出力：
 
-| 引数 | 役割 |
-|---|---|
-| `batch_size=2` | 1回で 2 件のサンプルを取る |
-| `shuffle=True` | 各 epoch の最初に順番を入れ替える |
-
-### `DataLoader` の段階で shape を確認するのが大事な理由
-
-ここは、訓練前にデータを確認できる最後のわかりやすい場所だからです。  
-最初に `DataLoader` を書いたら、ぜひ次をやってみましょう。
-
-```python
-for batch_x, batch_y in loader:
-    print(batch_x.shape, batch_y.shape)
-    break
+```text
+loader_lab
+batch=0 x_shape=(3, 2) y_shape=(3, 1)
+batch=1 x_shape=(3, 2) y_shape=(3, 1)
+batch=2 x_shape=(2, 2) y_shape=(2, 1)
 ```
 
-これで、すぐに次のことがわかります。
+最後の batch が 2 サンプルだけなのは、`8` が `3` で割り切れないためです。これは正常です。
 
-- batch が正しく作れているか
-- ラベルの shape は適切か
-- データが訓練ループにそのまま入れられる形になっているか
+shape の意味：
 
----
+- `batch_x`: `[batch, features]`
+- `batch_y`: `[batch, target_dim]`
 
-## なぜデータをシャッフルするのか？
+## 実験 3: train / validation 分割
 
-もし元のデータが、ある順番で並んでいたとします。たとえば、
-
-- 最初の 100 件は低得点
-- 後ろの 100 件は高得点
-
-このような並びだと、モデルは学習の前半で似たデータばかりを見ることになり、学習が偏りやすくなります。  
-そのため、訓練データでは普通 `shuffle=True` を使います。
-
-ただし、検証データ / テストデータでは、普通はシャッフルしません。
-
-```python
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
-```
-
----
-
-## 訓練データと検証データはどう分ける？
-
-PyTorch には `random_split` があります。
+seed 付き generator を使うと、分割を再現できます。
 
 ```python
 import torch
-from torch.utils.data import Dataset, random_split
-
-class StudentDataset(Dataset):
-    def __init__(self):
-        self.features = torch.tensor([
-            [2.0, 1.0],
-            [3.0, 2.0],
-            [4.0, 3.0],
-            [5.0, 5.0],
-            [6.0, 6.0],
-            [7.0, 8.0]
-        ])
-        self.labels = torch.tensor([
-            [55.0],
-            [60.0],
-            [68.0],
-            [78.0],
-            [85.0],
-            [92.0]
-        ])
-
-    def __len__(self):
-        return len(self.features)
-
-    def __getitem__(self, idx):
-        return self.features[idx], self.labels[idx]
-
-dataset = StudentDataset()
-
-train_dataset, val_dataset = random_split(
-    dataset,
-    [4, 2],
-    generator=torch.Generator().manual_seed(42)
-)
-
-print("訓練データサイズ:", len(train_dataset))
-print("検証データサイズ:", len(val_dataset))
-```
-
-### ここで乱数シードを設定するのはなぜ？
-
-設定しないと、毎回分割結果が変わる可能性があるからです。  
-学習やデバッグのときは、再現しやすいように乱数シードを固定しておくと便利です。
-
----
-
-## ひと通り動く小さな例
-
-```python
-import torch
-from torch.utils.data import Dataset, DataLoader, random_split
-
-class StudentDataset(Dataset):
-    def __init__(self):
-        self.features = torch.tensor([
-            [2.0, 1.0],
-            [3.0, 2.0],
-            [4.0, 3.0],
-            [5.0, 5.0],
-            [6.0, 6.0],
-            [7.0, 8.0],
-            [8.0, 9.0],
-            [9.0, 10.0]
-        ])
-        self.labels = torch.tensor([
-            [55.0],
-            [60.0],
-            [68.0],
-            [78.0],
-            [85.0],
-            [92.0],
-            [96.0],
-            [99.0]
-        ])
-
-    def __len__(self):
-        return len(self.features)
-
-    def __getitem__(self, idx):
-        return self.features[idx], self.labels[idx]
+from torch.utils.data import DataLoader, random_split
 
 dataset = StudentDataset()
 
 train_dataset, val_dataset = random_split(
     dataset,
     [6, 2],
-    generator=torch.Generator().manual_seed(42)
+    generator=torch.Generator().manual_seed(42),
 )
 
-train_loader = DataLoader(train_dataset, batch_size=3, shuffle=True)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=3,
+    shuffle=True,
+    generator=torch.Generator().manual_seed(7),
+)
 val_loader = DataLoader(val_dataset, batch_size=2, shuffle=False)
 
-print("訓練データの batch:")
-for x, y in train_loader:
-    print(x.shape, y.shape)
+train_x, train_y = next(iter(train_loader))
+val_x, val_y = next(iter(val_loader))
 
-print("\n検証データの batch:")
-for x, y in val_loader:
-    print(x.shape, y.shape)
+print("split_lab")
+print("train size:", len(train_dataset), "val size:", len(val_dataset))
+print("first train batch:", tuple(train_x.shape), tuple(train_y.shape))
+print("first val batch:", tuple(val_x.shape), tuple(val_y.shape))
 ```
 
----
+期待される出力：
 
-## `batch_size` はどう選べばいい？
+```text
+split_lab
+train size: 6 val size: 2
+first train batch: (3, 2) (3, 1)
+first val batch: (2, 2) (2, 1)
+```
 
-初心者のうちは、まず感覚でこう覚えれば大丈夫です。
+学習データでは通常 `shuffle=True` を使います。検証やテストの loader は、評価にランダム順が不要なので、通常 `shuffle=False` にします。
 
-- 小さい batch: 更新回数が多く、ばらつきも大きい
-- 大きい batch: より安定するが、メモリを多く使う
+## 実験 4: 学習で Loader を使う
 
-今が学習用の小さな例なら、まずは次あたりで十分です。
+これはまだ非常に小さなデータセットなので、validation loss は上下しやすいです。ここでの目的は本番品質の評価ではなく、loader が学習ループへどう入るかを見ることです。
 
-- `8`
-- `16`
-- `32`
+```python
+import torch
+from torch import nn
+from torch.utils.data import DataLoader, Dataset, random_split
 
-もっと大きなモデルを扱うようになったら、そこで初めてメモリや処理速度のバランスを考えれば大丈夫です。
 
-### まずは安定した設定を選ぶ考え方
+class StudentDataset(Dataset):
+    def __init__(self):
+        self.features = torch.tensor(
+            [
+                [2.0, 1.0],
+                [3.0, 2.0],
+                [4.0, 3.0],
+                [5.0, 5.0],
+                [6.0, 6.0],
+                [7.0, 8.0],
+                [8.0, 9.0],
+                [9.0, 10.0],
+            ]
+        )
+        self.labels = torch.tensor(
+            [[55.0], [60.0], [68.0], [78.0], [85.0], [92.0], [96.0], [99.0]]
+        ) / 100.0
 
-初心者の段階では、次の順番で考えるとよいです。
+    def __len__(self):
+        return len(self.features)
 
-- まず、自分の環境で無理なく動く `batch_size` を選ぶ
-- 次に、loss が安定しているか、速度が受け入れられるかを見る
-- 最初から「大きい batch の方が上級者向け」と考えすぎない
+    def __getitem__(self, idx):
+        return self.features[idx], self.labels[idx]
 
-なぜなら、学習の入り口で大事なのは性能の限界ではなく、
 
-- 訓練の流れが通ること
-- shape が正しいこと
-- loss がちゃんと下がること
+class ScorePredictor(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+        )
 
-だからです。
+    def forward(self, x):
+        return self.net(x)
 
----
 
-## 初心者がよくやる勘違い
+dataset = StudentDataset()
+train_dataset, val_dataset = random_split(
+    dataset,
+    [6, 2],
+    generator=torch.Generator().manual_seed(42),
+)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=3,
+    shuffle=True,
+    generator=torch.Generator().manual_seed(7),
+)
+val_loader = DataLoader(val_dataset, batch_size=2, shuffle=False)
 
-### `Dataset` はすべてのデータをメモリに読み込むものだと思う
+torch.manual_seed(42)
+model = ScorePredictor()
+loss_fn = nn.MSELoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
 
-必ずしもそうではありません。  
-この教材ではわかりやすくそう書いていますが、実際の開発では `__getitem__()` のタイミングでディスクから読み込むこともよくあります。
+print("training_with_loader")
+for epoch in range(1, 4):
+    model.train()
+    total_train_loss = 0.0
 
-### 訓練データをシャッフルしない
+    for batch_x, batch_y in train_loader:
+        pred = model(batch_x)
+        loss = loss_fn(pred, batch_y)
 
-動くことはありますが、普通はよい習慣ではありません。
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
-### 配列だけを書いて、データセットクラスを書かない
+        total_train_loss += loss.item() * len(batch_x)
 
-小さな実験ならそれでもよいですが、少しきちんとしたプロジェクトでは `Dataset` として書くのがおすすめです。
+    avg_train_loss = total_train_loss / len(train_loader.dataset)
 
----
+    model.eval()
+    total_val_loss = 0.0
+    with torch.no_grad():
+        for batch_x, batch_y in val_loader:
+            total_val_loss += loss_fn(model(batch_x), batch_y).item() * len(batch_x)
 
-## まとめ
+    avg_val_loss = total_val_loss / len(val_loader.dataset)
+    print(
+        f"epoch={epoch} "
+        f"train_loss={avg_train_loss:.4f} "
+        f"val_loss={avg_val_loss:.4f}"
+    )
+```
 
-この節でいちばん大事なのは、クラス名を覚えることではなく、「データの流れ」をイメージできるようになることです。
+期待される出力：
 
-1. データはまず `Dataset` に 1 件ずつ整理される
-2. それを `DataLoader` が batch にまとめる
-3. そして batch ごとにモデルへ渡す
+```text
+training_with_loader
+epoch=1 train_loss=0.4641 val_loss=0.6458
+epoch=2 train_loss=0.3653 val_loss=0.0059
+epoch=3 train_loss=0.1147 val_loss=0.3121
+```
 
-次の節では、モデル、損失関数、最適化器、そしてデータローダーをつなげて、完全な訓練フローを書いていきます。
+これで全体の形が見えます。
 
-## この節でいちばん持ち帰ってほしいこと
+```text
+Dataset -> DataLoader -> batch loop -> model -> loss -> backward -> step -> validation loop
+```
 
-1文にまとめるなら、こうです。
+## `batch_size` の選び方
 
-> **`Dataset` は「1件のデータがどういう形か」を決め、`DataLoader` は「そのデータをどう batch にして訓練へ送るか」を決める。**
+| batch size | 強み | トレードオフ |
+|---|---|---|
+| 小さい | 更新が頻繁で、メモリ使用量が少ない | loss が揺れやすい |
+| 大きい | 推定がなめらかで、ハードウェアを使いやすい | メモリを多く使い、更新回数が減ることがある |
 
----
+学習用の例では、`8`、`16`、`32` がよくある出発点です。実プロジェクトでは、最適値はメモリ、スループット、学習安定性によって決まります。
+
+## よくあるミス
+
+| ミス | なぜ困るか | 直し方 |
+|---|---|---|
+| `Dataset` は必ず全データをメモリへ読むと思い込む | 大きなプロジェクトでは `__getitem__` で必要なファイルだけ読むことが多い | `__getitem__` は 1 サンプルを返すことに集中する |
+| 学習前に 1 batch を表示しない | shape バグがモデル内で初めて見つかる | `next(iter(loader))` を確認する |
+| training set で `shuffle=False` | 順序付きデータが更新を偏らせることがある | training loader は `shuffle=True` にする |
+| 安定して検証サンプルを確認したいのに `shuffle=True` | 実行ごとにサンプル順が変わる | validation/test は決定的にする |
+| target scaling を忘れる | 小さな demo の回帰 loss が大きくなりすぎることがある | 必要なら target をスケールし、理由を書く |
+
+## クイックデバッグチェックリスト
+
+loader を作ったら、まずこれを実行します。
+
+```python
+batch_x, batch_y = next(iter(train_loader))
+print(batch_x.shape, batch_x.dtype)
+print(batch_y.shape, batch_y.dtype)
+```
+
+確認すること：
+
+- `Dataset` の 1 サンプルは正しいか？
+- `DataLoader` の 1 batch は正しいか？
+- `batch_x` はモデルの最初の層につながるか？
+- `batch_y` は loss 関数につながるか？
 
 ## 練習
 
-1. `StudentDataset` のサンプル数を 12 件に増やし、訓練データと検証データをもう一度分けてみましょう。
-2. `batch_size` を `1`、`2`、`4` に変えて、各 epoch の batch 数を観察しましょう。
-3. `shuffle=True` のときに、2 回続けて読み込んだ最初の batch を表示して、順番が変わるか確認しましょう。
+1. `StudentDataset` を 12 サンプルに増やし、9 個を training、3 個を validation に分けてください。
+2. `batch_size` を `1`、`2`、`4` に変えてください。各 epoch の batch 数はいくつになりますか？
+3. `shuffle=True` にして、2 epoch 連続で最初の training batch を表示し、順序が変わるか確認してください。
+4. 各サンプルに 3 つ目の特徴量を追加してください。モデルのどの層を変える必要がありますか？
+
+## まとめ
+
+- `Dataset` は 1 サンプルの形を定義します。
+- `DataLoader` はサンプルを batch に変えます。
+- 学習前に、必ず 1 サンプルと 1 batch を確認します。
+- training loader は通常 shuffle し、validation/test loader は通常 shuffle しません。
+- 次の training-loop 節では、この loader を model、loss、optimizer、evaluation につなげます。
