@@ -1,53 +1,57 @@
 ---
-title: "11.5.1 学前导读：Seq2Seq 与注意力这一章到底在学什么"
+title: "11.5.1 Seq2Seq 路线图：输入序列到输出序列"
 sidebar_position: 0
-description: "先建立 Seq2Seq 章节的学习地图：编码器-解码器、注意力和机器翻译任务是怎样衔接的。"
-keywords: [Seq2Seq导读, attention导读, 机器翻译]
+description: "Seq2Seq 与 Attention 的简短实操路线：理解 Encoder-Decoder、瓶颈、注意力、解码和 text-to-text 任务。"
+keywords: [Seq2Seq 指南, 注意力指南, 机器翻译]
 ---
 
-# 11.5.1 学前导读：Seq2Seq 与注意力这一章到底在学什么
+# 11.5.1 Seq2Seq 路线图：输入序列到输出序列
 
-## 本章定位
+Seq2Seq 处理输入和输出都是序列的任务：翻译、总结、改写、对话和纠错。
 
-这一章解决的是一个经典 NLP 问题：当输入和输出都是序列时，模型怎样把一段文本变成另一段文本。翻译、摘要、对话生成、纠错、标题生成，本质上都可以看成“序列到序列”的问题。
+## 11.5.1.1 先看生成桥梁
 
-它也是 RNN 时代通向 Transformer 的关键桥梁。你不需要把老式 Seq2Seq 当成未来项目的最终方案，但必须理解它为什么需要 Encoder-Decoder、为什么普通 RNN 会遗忘长距离信息、为什么 Attention 会成为后来 Transformer 的核心思想。
+![Seq2Seq 与 Attention 章节学习顺序图](/img/course/ch11-seq2seq-chapter-flow.png)
 
-## 这一章在 NLP 路线中的位置
+![Seq2Seq Encoder Decoder 瓶颈图](/img/course/ch11-seq2seq-encoder-decoder-bottleneck-map.png)
 
-![Seq2Seq 与注意力章节学习顺序图](/img/course/ch11-seq2seq-chapter-flow.png)
+![T5 text-to-text 任务统一图](/img/course/ch11-t5-text-to-text-task-unification-map.png)
 
-前面文本分类通常是“输入一段文本，输出一个标签”；序列标注是“输入一串 token，输出一串标签”；Seq2Seq 则进一步变成“输入一串 token，输出另一串 token”。这个变化会直接把你带到生成式模型的世界。
+通往现代 LLM 的桥梁很清楚：生成是一步步发生的，Attention 帮助 decoder 回看有用的输入位置。
 
-## 本章学习主线
+## 11.5.1.2 跑一个输入输出对检查
 
-第一步理解 Encoder 把输入序列压缩成表示，Decoder 根据表示逐步生成输出。第二步理解为什么单个上下文向量会成为瓶颈：句子越长，信息越容易丢。第三步学习 Attention：Decoder 在每一步生成时，可以回看输入序列的不同位置。第四步通过机器翻译实践，把输入、输出、teacher forcing、解码和评估串起来。最后可以读 CTC 与 Deep Speech，理解语音识别里“输入输出没有逐帧对齐”时，序列模型怎样训练。
+```python
+source = ["I", "love", "NLP"]
+target = ["J'aime", "le", "NLP"]
 
-## Seq2Seq、Attention 和 Transformer 的关系
+for step, token in enumerate(target, start=1):
+    print(f"decode_step_{step}:", token)
+print("source_length:", len(source))
+print("target_length:", len(target))
+```
 
-| 概念 | 解决的问题 | 后续连接 |
+预期输出：
+
+```text
+decode_step_1: J'aime
+decode_step_2: le
+decode_step_3: NLP
+source_length: 3
+target_length: 3
+```
+
+生成项目应该记录解码策略、失败案例，以及关键输入信息是否丢失。
+
+## 11.5.1.3 按这个顺序学
+
+| 步骤 | 阅读 | 实操产出 |
 |---|---|---|
-| Encoder-Decoder | 输入输出长度不同，任务从分类变成生成 | 摘要、翻译、问答生成 |
-| Attention | Decoder 生成每个 token 时需要关注不同输入位置 | Transformer 的核心机制 |
-| Teacher Forcing | 训练时让模型看到正确历史输出，提升收敛 | 生成模型训练直觉 |
-| Beam Search | 推理时不只贪心选一个 token | LLM 解码策略的前置概念 |
+| 1 | Encoder-Decoder | 解释为什么输入和输出长度可以不同 |
+| 2 | Attention | 解释生成时的动态对齐 |
+| 3 | 机器翻译 | 连接 teacher forcing、解码、BLEU/错误分析 |
+| 4 | CTC 与语音 | 理解输入输出不逐帧对齐时会发生什么 |
 
-学这一章时，重点不是记住某个老模型，而是理解生成式 NLP 的基本问题：训练时怎么对齐输入输出，推理时怎么一步步生成，生成结果怎么评估。
+## 11.5.1.4 通过标准
 
-## 和大模型课程的连接
-
-后面你学习 GPT、T5、Prompt、RAG 和 Agent 时，都会再次遇到本章的影子。GPT 是自回归生成，T5 把任务统一成 text-to-text，Prompt 本质上也是把任务改写成输入序列，让模型生成输出序列。理解 Seq2Seq 后，你会更容易明白为什么大模型可以做翻译、摘要、改写、问答和规划。
-
-## 本章小项目出口
-
-建议完成一个“小型文本改写或翻译实验”。基础版可以用现成模型或简化代码跑通中英短句翻译，记录输入输出。标准版可以对比贪心解码和 beam search 的结果差异。挑战版可以把课程段落做成“摘要生成”小实验，并记录哪些句子容易丢失关键信息。
-
-README 至少写清楚：输入序列是什么，输出序列是什么，模型如何逐步生成，使用了什么解码策略，失败样本是什么，以及 Attention 为什么能缓解长句信息丢失。
-
-## 常见误区
-
-不要把 Seq2Seq 只理解成机器翻译专用模型。它代表的是一类输入输出都是序列的建模方式。也不要以为 Attention 只是“加权平均”这么简单，它真正重要的是让生成过程具备动态对齐能力。最后，不要忽略推理阶段；很多生成问题不是训练代码写完就结束，解码策略会明显影响输出质量。
-
-## 过关标准
-
-学完这一章后，你应该能解释 Encoder-Decoder 为什么出现，Attention 解决了什么瓶颈，机器翻译任务如何组织输入输出，以及这些概念怎样连接到 Transformer、T5 和后面的大模型应用。
+如果你能解释 Encoder-Decoder、Attention、greedy/beam decoding 和一个生成失败，就通过了本章。
