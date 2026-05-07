@@ -1,96 +1,67 @@
 ---
-title: "6.2.1 学習前ガイド：この PyTorch 章では何を学ぶのか"
+title: "6.2.1 PyTorch ロードマップ：Tensor、Autograd、Module、DataLoader、Loop"
 sidebar_position: 0
-description: "まず PyTorch 章の学習マップを作ろう。tensor、autograd、nn.Module、DataLoader、学習ループがそれぞれ何を担当するのかを整理します。"
-keywords: [PyTorch入門, tensor, autograd, nn.Module, DataLoader, training loop]
+description: "短い PyTorch ロードマップです。テンソル、自動微分、nn.Module、Dataset/DataLoader、学習ループ、デバッグを扱います。"
+keywords: [PyTorch ガイド, tensor, autograd, nn.Module, DataLoader, training loop]
 ---
 
-# 6.2.1 学習前ガイド：この PyTorch 章では何を学ぶのか
+# 6.2.1 PyTorch ロードマップ：Tensor、Autograd、Module、DataLoader、Loop
 
-この章は「いくつかの API」を教える章ではありません。深層学習の学習に必要な、最小限の工程をつないだ流れを作れるようにする章です。
+PyTorch は深層学習ループを実行できるコードにします。まず実行順を覚えると、細部が後から楽になります。
 
-## まずは橋渡しの線を引こう
+## 6.2.1.1 まずワークフローを見る
 
-もし前に第 5 ステーションと第 6 ステーションの第 1 章を学んでいるなら、この章は次のように理解するとよいです。
+![PyTorch 章フローチャート](/img/course/ch06-pytorch-chapter-flow-ja.png)
 
-- これまでで、ニューラルネットワークがなぜ学習できるのかは分かっている
-- この章からは、その「学習できる」を実際にコードと学習手順でどう書くかを学ぶ
+![NumPy から PyTorch への学習ループマップ](/img/course/ch06-numpy-to-pytorch-training-loop-map-ja.png)
 
-つまり、この章が答えているのは次の問いです。
+```text
+tensor -> model -> loss -> backward -> optimizer.step -> repeat
+```
 
-> **`sklearn.fit()` に学習のすべてを任せずに、自分で実装するなら、どの手順を組み立てる必要があるのか？**
+## 6.2.1.2 Autograd を一度動かす
 
-## この章のメインテーマ
+`pytorch_first_loop.py` を作り、`torch` をインストールしてから実行します。
 
-![PyTorch 章の関係図](/img/course/ch06-pytorch-chapter-flow-ja.png)
+```python
+import torch
 
-この章を学び終えると、最小限の深層学習の学習フローを自分で組み立てられるようになります。
+w = torch.tensor([0.0], requires_grad=True)
+learning_rate = 0.2
 
-## 新人向けのおすすめ学習順
+for step in range(1, 5):
+    loss = (w - 3).pow(2)
+    loss.backward()
+    with torch.no_grad():
+        w -= learning_rate * w.grad
+        w.grad.zero_()
+    print(step, "w=", round(w.item(), 3), "loss=", round(loss.item(), 3))
+```
 
-1. まず `Tensor` を見る
-2. 次に自動微分を見る
-3. その次に `nn.Module` を見る
-4. 次に `DataLoader` を見る
-5. 最後に、それらを学習ループにつなげる
+出力：
 
-この順番のほうが、いきなり完全な学習コードを読むよりも理解しやすいです。
+```text
+1 w= 1.2 loss= 9.0
+2 w= 1.92 loss= 3.24
+3 w= 2.352 loss= 1.166
+4 w= 2.611 loss= 0.42
+```
 
-## この章で最初に押さえるべきこと
+ここで PyTorch の重要な習慣が見えます。loss を計算し、`backward()` を呼び、勾配追跡なしで更新し、古い勾配を消します。
 
-- `Tensor` は深層学習の基本データ入れ物
-- `autograd` は勾配を自動で計算する
-- `nn.Module` はネットワーク構造をまとめる
-- `DataLoader` はデータをまとめて与える
-- `training loop` はそれらを実際に動かす
+## 6.2.1.3 この順番で学ぶ
 
-## 第 5 ステーションの sklearn の流れと、どこで対応するのか
-
-まずは次の対応表でイメージすると分かりやすいです。
-
-| 第 5 ステーションでよくある体験 | この章で見るもの |
-|---|---|
-| `model.fit(X_train, y_train)` | 自分で学習ループを書く |
-| 学習の細かい処理が隠れている | forward / backward / step が明示される |
-| アルゴリズム選びが中心 | 学習フローの理解が中心になる |
-
-つまりこの章は、「モデリングをもう一度学ぶ」章ではなく、学習プロセスを開いて中身を見る章です。
-
-## 新人がつまずきやすいポイント
-
-- shape が分からない
-- `forward / backward / step` がそれぞれ何をするのか分からない
-- コードは動くが、各オブジェクトが学習フローの中で何の役割を持つのか分からない
-
-## 新人と上級学習者、それぞれの読み方
-
-新人が初めてこの章を学ぶときは、まず主線と最小実行例をつかみましょう。すべての細部を一度に理解する必要はありません。この章が何を解決するのか、入力と出力は何か、最小プロジェクトをどう動かすのかが説明できれば、先へ進んで大丈夫です。
-
-経験のある学習者は、この章を「抜け漏れの確認」と「実践的な練習」として使えます。境界条件、失敗例、評価方法、コードの再現性、そして前後の学習段階とのつながりに注目しましょう。読み終わったら、本章の内容を自分の作品 README や実験記録にまとめておくとよいです。
-
-## 学習時間と難易度の目安
-
-| 学び方 | おすすめ時間 | 目標 |
+| 順番 | 読む | 練習すること |
 |---|---|---|
-| ざっと読む | 20～30 分 | この章が何を解決するのかを理解し、後でどこで使うかを知る |
-| 最小クリア | 1～2 時間 | 最小例を動かし、本章の小さなゴールを達成する |
-| じっくり練習 | 半日～1 日 | エラー分析、比較実験、README 記録を追加する |
+| 1 | [6.2.2 sklearn から PyTorch へ](./00-sklearn-to-pytorch-bridge.md) | なぜ学習ループが明示的になるか |
+| 2 | [6.2.3 PyTorch 基礎](./01-pytorch-basics.md) | tensor、dtype、shape、device |
+| 3 | [6.2.4 Autograd](./02-autograd.md) | `requires_grad`、`backward`、`grad` |
+| 4 | [6.2.5 nn Module](./03-nn-module.md) | モデルクラス、パラメータ |
+| 5 | [6.2.6 データ読み込み](./04-data-loading.md) | Dataset、DataLoader、batch |
+| 6 | [6.2.7 学習ループ](./05-training-loop.md) | train/eval ループ、loss ログ |
+| 7 | [6.2.8 実践 Tips](./06-practical-tips.md) | shape、device、seed、デバッグ |
+| 8 | [6.2.9 PyTorch ワークショップ](./07-pytorch-matplotlib-workshop.md) | 小さなモデルを動かして可視化する |
 
-## 本章の確認問題
+## 6.2.1.4 合格ライン
 
-| 確認問題 | 合格ライン |
-|---|---|
-| この章は何を解決するのか？ | このコース全体の中での位置づけを一言で説明できる |
-| 最小の入力と出力は何か？ | 例に何が必要で、どんな結果が出るかを説明できる |
-| よくある失敗ポイントはどこか？ | 少なくとも 1 つ、エラー・精度の悪さ・理解のずれの原因を挙げられる |
-| 学習後に何を残せるか？ | 本章の成果を README、実験記録、作品集に書ける |
-
-## 本章の小プロジェクトのゴール
-
-この章を学び終えたら、最小の練習を 1 つやるのがおすすめです。つまり、本章でいちばん重要な概念やツールを 1 つ選び、実行できて、スクリーンショットを残せて、README に書ける小さな成果を作ります。複雑である必要はありませんが、入力は何か、処理は何か、出力は何かを説明できることが大切です。
-
-## 合格基準
-
-この章の終わりには、自分の言葉で「この章は何を解決するのか」「前後の学習ステーションとどうつながるのか」を説明でき、さらに本章の小プロジェクトの最小版を完成できるようになっているはずです。
-
-もし、よくあるエラーを 1 回、デバッグの流れを 1 回、または結果改善を 1 回でも記録できたなら、それはもう「見ただけ」ではなく、この章を自分のプロジェクト経験に変えられているということです。
+PyTorch ループを読み、データ batch、モデル出力、loss、`backward()`、optimizer 更新の5つを見つけられれば合格です。
