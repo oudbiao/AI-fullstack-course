@@ -1,180 +1,61 @@
 ---
-title: "7.1.2 分詞とTokenizer"
+title: "7.1.2 トークン化と Tokenizer"
 sidebar_position: 1
-description: "「なぜモデルは文字をそのまま読めないのか」から始めて、文字単位・単語単位・サブワード単位の分かれ方、そして padding、truncation、special tokens が実務でなぜ重要なのかを理解します。"
-keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation]
+description: "実行できる実験を通して、raw text を tokens、input_ids、attention_mask、token 予算の判断へ変換します。"
+keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation, attention_mask]
 ---
 
-# 7.1.2 分詞とTokenizer
+# 7.1.2 トークン化と Tokenizer
 
-![Tokenizer サブワード分割フロー図](/img/course/tokenizer-subword-flow-ja.png)
+![Tokenizer サブワード分割フロー](/img/course/tokenizer-subword-flow-ja.png)
 
-:::tip この節の位置づけ
-多くの人は、初めて大規模言語モデルを学ぶとき、モデルの構造ばかりに注目しがちです。  
-でも、実際にテキストをモデルへ入れる前には、どうしても通らなければならない関門があります。
+:::tip 学習後にできること
+この節の後では、任意の prompt を見て次の 4 点を確認できるようにします。
 
-> **文字列を、モデルが処理できる単位にどう切り分けるのか？**
-
-これが tokenizer です。
-
-ここを理解しないまま進むと、あとで出てくる次のような言葉が、
-
-- `input_ids`
-- `attention_mask`
-- context length
-- token コスト
-
-全部、バラバラの専門用語に見えてしまいます。
-
-この節の目的は、tokenizer を「黒箱の道具」から、その本質的な役割へ戻して理解することです。
+- この文章はどの tokens に分かれるか。
+- モデルが実際に受け取る整数 ID は何か。
+- どの位置が本物の内容で、どの位置が padding か。
+- この prompt は context window を無駄遣い、または超過していないか。
 :::
 
-## 学習目標
+## まずメンタルモデルを作る
 
-- なぜモデルは生の文字列をそのまま食べられないのかを理解する
-- 文字単位・単語単位・サブワード単位の分かれ方の違いを区別する
-- special tokens、padding、truncation が実務で果たす役割を理解する
-- 実行可能な例を通して、tokenizer がテキストを `input_ids` に変える流れを理解する
+ニューラルネットワークは文字列を直接読むわけではありません。受け取るのは tensor です。Tokenizer は、人間の文章とモデル用 tensor の間にある契約です。
 
----
+```text
+raw text -> tokens -> input_ids -> model
+```
 
-## 一、なぜモデルは文字をそのまま読めないのか？
+大きなモデルの不思議に見える挙動も、この契約を見ると原因が見えやすくなります。
 
-### モデルが最終的に扱うのは、文字そのものではなく数字です
+- 1 つの単語が複数 token になることがある。
+- 句読点、大文字小文字、中国語、コード、emoji は token 数を大きく変えることがある。
+- padding は同じ batch の例を同じ長さにそろえる。
+- truncation は長すぎる内容を静かに削る。
+- chat template は system、user、assistant の周囲に構造 token を追加する。
 
-ニューラルネットワークが本質的に扱えるのは、数値の tensor です。  
-一方で、人間がモデルに入力するのは通常、次のようなものです。
+## 分割粒度のトレードオフ
 
-- 中国語の文
-- 英語の段落
-- コード
-- 記号や絵文字が混ざった文字列
+![Tokenizer 粒度トレードオフ図](/img/course/ch07-tokenizer-granularity-tradeoff-map-ja.png)
 
-モデルは「返金」「password」「hello」といった単語の見た目を、そのままでは認識できません。  
-まず次の2段階が必要です。
+代表的な分け方は 3 つです。
 
-1. テキストを token に分ける
-2. token を整数 id に対応付ける
+| 方法 | 例 | 強み | 弱み |
+|---|---|---|---|
+| 文字単位 | `r e f u n d` | 未知語に強い | 系列が長くなりやすい |
+| 単語単位 | `refund policy` | 意味単位として直感的 | 語彙外の単語が増える |
+| サブワード単位 | `token ##ization` | 実務でバランスがよい | 目で読むと少し分かりにくい |
 
-つまり tokenizer がやっているのは、ただの「単語分割」ではなく、
+現代の LLM は多くの場合サブワード tokenization を使います。BPE、WordPiece、SentencePiece は、コーパスから再利用しやすい断片を学ぶ方法です。重要なのは、頻出断片には安定した ID を与え、珍しい単語も小さな断片で表せるようにすることです。
 
-> **人間の言語を、モデルが扱える離散シーケンスへ変換するための最初のインターフェース**
+## 実験 1：小さな WordPiece 風 Tokenizer を作る
 
-なのです。
-
-### たとえるなら、文章を機械が番号を付けられるブロックに翻訳する作業です
-
-tokenizer は、倉庫の管理人のようなものだと考えると分かりやすいです。
-
-元の文章は、まだ整理されていない大量の荷物のようなものです。  
-tokenizer はまず、次のことを決めます。
-
-- 1つ1つのブロックをどの大きさにするか
-- それぞれのブロックにどの番号を振るか
-
-その結果、モデルが見るのは「文章」ではなく、
-
-- `[101, 2057, 2024, 2172, 102]`
-
-のような数列になります。
-
-ブロックを細かく切りすぎると長くなりすぎます。  
-逆に粗く切りすぎると、知らない単語が増えてしまいます。
-
----
-
-## 二、もっともよく使われる3つの分け方
-
-### 文字単位 / 字単位：安定しているが、列が長くなる
-
-いちばん単純な考え方は、
-
-- 1文字、または1字を1 token とする
-
-という方法です。
-
-良い点は：
-
-- OOV 問題がほとんど起きない
-- 知らない単語でも分解して表現できる
-
-悪い点は：
-
-- シーケンスが長くなる
-- 意味の粒度が細かすぎる
-- モデルが単語の意味をまとめるために、より多くの層を使う必要がある
-
-たとえば日本語では：
-
-- “返金ルール” -> `返 / 金 / ル / ー / ル`
-
-### 単語単位：意味は直感的だが、OOV が深刻になりやすい
-
-別の考え方は、
-
-- 完全な単語を1 token とする
-
-という方法です。
-
-良い点は：
-
-- 粒度が自然
-- 単語の意味が分かりやすい
-
-悪い点は：
-
-- 新語、表記ゆれ、固有名詞が非常に多い
-- 語彙がとても大きくなりやすい
-
-たとえば英語では：
-
-- `refund` はよく出てきます
-- でも `refundability` や `refund-processing` は、簡単に未知語になりやすいです
-
-### サブワード単位：現実でいちばんよく使われる折衷案
-
-現代の大規模言語モデルで最もよく使われるのは、
-
-- subword tokenizer
-
-です。
-
-これは、単語を「頻出する断片」に分ける方法です。
-
-たとえば：
-
-- `transformers` -> `transform` + `ers`
-- `tokenization` -> `token` + `ization`
-
-この方法の利点は：
-
-- 語彙を無限に大きくしなくてよい
-- 新しい単語も、既存の subword の組み合わせで表現できる
-- シーケンス長と OOV 問題のバランスがよい
-
-だからこそ、BPE、WordPiece、SentencePiece のような方法がとても重要になります。
-
-![Tokenizer 粒度のトレードオフ図](/img/course/ch07-tokenizer-granularity-tradeoff-map-ja.png)
-
-:::tip 図の見方
-この図は左から右へ見るのがおすすめです。文字単位は安定していますが列が最も長く、単語単位は意味が直感的ですが OOV のリスクが高く、サブワード単位は語彙サイズ・列の長さ・未知語への対応の間でバランスを取ります。Tokenizer は「どう切ると見た目がきれいか」ではなく、コストと表現力のバランスを取る仕組みです。
-:::
-
----
-
-## 三、まずは本当に意味が分かる tokenizer の例を動かしてみよう
-
-以下のコードは、実際の本格的な工業用 tokenizer を完全再現するものではありません。  
-ただし、次の3つをとても分かりやすく示してくれます。
-
-1. 単語単位の分割
-2. サブワード単位の分割
-3. token を id に変えること、padding、truncation
+まずこれを動かします。小さいので行ごとに追えますが、実際のモデル API に出てくる重要なオブジェクトを含んでいます。
 
 ```python
 import re
 
-vocab = {
+VOCAB = {
     "[PAD]": 0,
     "[UNK]": 1,
     "[CLS]": 2,
@@ -190,234 +71,207 @@ vocab = {
     "##ization": 12,
     "please": 13,
     "help": 14,
+    "need": 15,
+    "evidence": 16,
 }
 
 
-def word_tokenize(text):
+def words(text):
     return re.findall(r"[A-Za-z]+", text.lower())
 
 
-def subword_tokenize(word, vocab):
-    if word in vocab:
+def split_wordpiece(word):
+    if word in VOCAB:
         return [word]
 
-    tokens = []
+    pieces = []
     start = 0
     while start < len(word):
-        matched = None
+        match = None
         for end in range(len(word), start, -1):
             piece = word[start:end] if start == 0 else "##" + word[start:end]
-            if piece in vocab:
-                matched = piece
-                tokens.append(piece)
-                start = end
+            if piece in VOCAB:
+                match = piece
                 break
-        if matched is None:
+        if match is None:
             return ["[UNK]"]
-    return tokens
+        pieces.append(match)
+        start = end
+    return pieces
 
 
-def encode(text, vocab, max_length=8):
-    words = word_tokenize(text)
+def encode(text, max_length=10):
     tokens = ["[CLS]"]
-    for word in words:
-        tokens.extend(subword_tokenize(word, vocab))
+    for word in words(text):
+        tokens.extend(split_wordpiece(word))
     tokens.append("[SEP]")
 
-    token_ids = [vocab.get(token, vocab["[UNK]"]) for token in tokens]
-    token_ids = token_ids[:max_length]
-    attention_mask = [1] * len(token_ids)
+    original_len = len(tokens)
+    if len(tokens) > max_length:
+        tokens = tokens[:max_length]
+        tokens[-1] = "[SEP]"
 
-    if len(token_ids) < max_length:
-        pad_count = max_length - len(token_ids)
-        token_ids += [vocab["[PAD]"]] * pad_count
-        attention_mask += [0] * pad_count
+    input_ids = [VOCAB.get(token, VOCAB["[UNK]"]) for token in tokens]
+    attention_mask = [1] * len(input_ids)
 
-    return tokens, token_ids, attention_mask
+    while len(input_ids) < max_length:
+        tokens.append("[PAD]")
+        input_ids.append(VOCAB["[PAD]"])
+        attention_mask.append(0)
+
+    return {
+        "text": text,
+        "original_len": original_len,
+        "tokens": tokens,
+        "input_ids": input_ids,
+        "attention_mask": attention_mask,
+    }
 
 
-examples = [
+for example in [
     "Please help reset password",
-    "Transformers policy",
-    "Tokenization refund",
-]
-
-for text in examples:
-    tokens, token_ids, attention_mask = encode(text, vocab, max_length=10)
-    print("-" * 60)
-    print("text          :", text)
-    print("tokens        :", tokens)
-    print("input_ids     :", token_ids)
-    print("attention_mask:", attention_mask)
+    "Transformers refund policy",
+    "Tokenization needs evidence",
+]:
+    row = encode(example, max_length=10)
+    print("-" * 64)
+    print("text:", row["text"])
+    print("original_len:", row["original_len"])
+    print("tokens:", row["tokens"])
+    print("input_ids:", row["input_ids"])
+    print("attention_mask:", row["attention_mask"])
 ```
 
-### このコードで特に見るべき行は？
+期待される出力：
 
-次の3か所が重要です。
+```text
+----------------------------------------------------------------
+text: Please help reset password
+original_len: 6
+tokens: ['[CLS]', 'please', 'help', 'reset', 'password', '[SEP]', '[PAD]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 13, 14, 6, 7, 3, 0, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+----------------------------------------------------------------
+text: Transformers refund policy
+original_len: 7
+tokens: ['[CLS]', 'transform', '##er', '##s', 'refund', 'policy', '[SEP]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 8, 9, 10, 4, 5, 3, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+----------------------------------------------------------------
+text: Tokenization needs evidence
+original_len: 7
+tokens: ['[CLS]', 'token', '##ization', 'need', '##s', 'evidence', '[SEP]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 11, 12, 15, 10, 16, 3, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+```
 
-1. `word_tokenize`  
-   元の文字列が、まずどのように単語へ切られるかを示しています
-2. `subword_tokenize`  
-   単語が語彙にないとき、どのように貪欲法で subword に分解するかを示しています
-3. `encode`  
-   special tokens、padding、truncation がどう追加されるかを示しています
+出力はこう読みます。
 
-### なぜ `Transformers` は複数の subword に分かれるのですか？
+- `[CLS]` と `[SEP]` は構造 token。
+- `transformers` は語彙に完全形がないため `transform`、`##er`、`##s` に分かれる。
+- `input_ids` がモデルに渡る実際の整数。
+- `attention_mask=0` は `[PAD]` 位置を示し、モデルに無視させる。
 
-語彙に完全な `transformers` が入っていないからです。  
-でも次のような部分はあります。
+## 実験 2：truncation をプロダクトリスクとして見る
 
-- `transform`
-- `##er`
-- `##s`
+![Tokenizer から input_ids と attention_mask への図](/img/course/ch07-tokenizer-inputids-mask-length-map-ja.png)
 
-そのため、まだ表現できます。
+今度は context window をあえて小さくします。
 
-これが subword tokenizer の重要な強みです。
+```python
+row = encode("Please help reset password refund policy evidence", max_length=6)
+print("original_len:", row["original_len"])
+print("tokens:", row["tokens"])
+print("input_ids:", row["input_ids"])
+print("attention_mask:", row["attention_mask"])
+```
 
-- 新しい単語が、全部そのまま語彙に入っていなくてもよい
+期待される出力：
 
-### `attention_mask` は何のためにあるのですか？
+```text
+original_len: 9
+tokens: ['[CLS]', 'please', 'help', 'reset', 'password', '[SEP]']
+input_ids: [2, 13, 14, 6, 7, 3]
+attention_mask: [1, 1, 1, 1, 1, 1]
+```
 
-batch に入る文の長さは、普通はそろっていません。  
-そのため、短い文の後ろに `[PAD]` を足して、同じ長さにそろえます。
+`refund policy evidence` が消えました。実際のサポート bot では、ここにユーザーの本当の意図が含まれているかもしれません。Tokenizer は小さな前処理ではなく、コスト、検索チャンク長、prompt 設計、失敗モードに直接影響します。
 
-ただし、モデルはその pad の位置を本当の内容だと思ってはいけません。  
-そこで `attention_mask` を使って、次のことを伝えます。
+## 実験 3：本物の Hugging Face Tokenizer を確認する
 
-- `1` は本物の token
-- `0` は padding
+初回の tokenizer ダウンロードにはネットワークが必要です。
 
-![Tokenizer から input_ids と attention_mask への対応図](/img/course/ch07-tokenizer-inputids-mask-length-map-ja.png)
+```bash
+python -m pip install "transformers>=4.0" torch
+```
 
-:::tip 図の見方
-この図は4段階に分けて見ると分かりやすいです。まず元の文を tokens に分け、次に `input_ids` に変換し、短い文は `[PAD]` でそろえ、最後に `attention_mask` でどこが本物の内容かをモデルに伝えます。batch のエラーや結果の不自然さは、この流れを理解できていないことが原因のことが多いです。
-:::
+```python
+from transformers import AutoTokenizer
 
----
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-## 四、なぜ tokenizer はコストと性能に直接効くのか？
+batch = tokenizer(
+    ["Please help reset password", "Tokenization needs evidence"],
+    padding="max_length",
+    truncation=True,
+    max_length=10,
+    return_tensors="pt",
+)
 
-### 同じ文でも、細かく切るほど token 数は増える
+print(batch.keys())
+print(batch["input_ids"].shape)
+print(tokenizer.convert_ids_to_tokens(batch["input_ids"][1]))
+print(batch["attention_mask"][1].tolist())
+```
 
-token が増えるということは、次のような意味です。
+期待される形状レベルの出力：
 
-- コンテキストを使い切りやすくなる
-- 推論コストが上がる
-- API の料金も高くなる
+```text
+dict_keys(['input_ids', 'token_type_ids', 'attention_mask'])
+torch.Size([2, 10])
+['[CLS]', 'token', '##ization', 'needs', 'evidence', '[SEP]', '[PAD]', '[PAD]', '[PAD]', '[PAD]']
+[1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+```
 
-つまり tokenizer は、理論だけの話ではありません。  
-実務コストにも直結します。
+正確な分割は tokenizer によって変わります。だからこそ、実際に使うモデルに付属する tokenizer を必ず確認します。
 
-### 語彙が小さすぎても、大きすぎてもよくありません
+## 覚えておきたい用語
 
-語彙が小さすぎると：
+| 用語 | 実務上の意味 |
+|---|---|
+| `vocab` | tokenizer 学習で作られた token から ID への辞書 |
+| OOV | out-of-vocabulary、語彙外。`[UNK]` やサブワード合成で扱う |
+| BPE | 頻出する文字ペアを結合して再利用可能なサブワードにする |
+| WordPiece | 似たサブワード方式。BERT 系 tokenizer でよく見る |
+| SentencePiece | テキストを生の文字列として扱う。多言語や空白のない言語に向く |
+| `padding_side` | padding を左に足すか右に足すか。decoder モデルでは重要なことがある |
+| context length | 入力と生成出力が共有する最大 token 予算 |
+| chat template | tokenizer レベルの会話フォーマット。役割 token と境界 token を追加する |
 
-- たくさんの単語が細かく切られる
+## デバッグチェックリスト
 
-語彙が大きすぎると：
+Prompt の挙動が変なときは、モデルを疑う前に tokenizer を見ます。
 
-- embedding 表が大きくなる
-- 稀な単語が増える
-- 学習データの使い方が必ずしも良くならない
-
-実際の tokenizer 設計は、こうした要素の間でバランスを取る作業です。
-
-### 言語が違うと、難しさも変わります
-
-たとえば：
-
-- 英語は空白があるので、分かち書きしやすい
-- 日本語や中国語は空白がないので、切り方の粒度がより重要になる
-- コードには、キャメルケース、アンダースコア、記号が混ざる
-
-そのため tokenizer は、学習コーパスの言語的特徴に合わせて調整されることが多いです。
-
----
-
-## 五、special tokens がいつも出てくるのはなぜですか？
-
-### `[CLS]`、`[SEP]`、`[PAD]` は飾りではありません
-
-これらの special token には、普通ははっきりした役割があります。
-
-- `[CLS]`：文全体の表現の開始位置
-- `[SEP]`：複数の断片を区切る
-- `[PAD]`：batch の長さをそろえる
-
-モデルによって具体的な記号は違うことがありますが、考え方はよく似ています。
-
-### Chat モデルの system / user / assistant も、考え方は同じです
-
-Chat モデルの時代になると、次のような特別なマークもよく見かけます。
-
-- `<|system|>`
-- `<|user|>`
-- `<|assistant|>`
-
-これらも本質的には、モデルに次のことを知らせるための special token です。
-
-- どの発話が誰のものか
-- 会話の構造をどう区切るか
-
-つまり chat template も、tokenizer エコシステムの一部なのです。
-
----
-
-## 六、つまずきやすいポイント
-
-### 誤解1：tokenizer はただの前処理の細部である
-
-違います。  
-次のことに直接影響します。
-
-- token 数
-- 語彙サイズ
-- OOV の扱い
-- 下流のテンプレート形式
-
-### 誤解2：とにかく切れればよい
-
-本当に大事なのは次の点です。
-
-- 安定して切れるか
-- コーパスに合っているか
-- 長さと意味の粒度のバランスが取れているか
-
-### 誤解3：中国語は必ず「単語」で切るのが最善
-
-そうとは限りません。  
-多くの現代モデルは次のような方法を使っています。
-
-- 文字単位
-- サブワード単位
-- SentencePiece のような統一的な分かち方
-
-大事なのは、学習目標とデータ分布です。
-
----
-
-## まとめ
-
-この節でいちばん大切なのは、BPE や WordPiece という名前を覚えることではありません。  
-次の1本の軸をつかむことです。
-
-> **Tokenizer の本質は、元のテキストをモデルが扱える離散単位に分け、語彙サイズ・未知語問題・シーケンス長の間で工学的なトレードオフを取ることです。**
-
-この軸ができると、あとで出てくる
-
-- input ids
-- attention mask
-- context length
-- prompt テンプレート
-
-を、バラバラの概念としてではなく、つながった仕組みとして理解できるようになります。
-
----
+- 完全な prompt の tokens と token IDs を出力する。
+- 生のユーザー文ではなく、chat template 適用後の token 数を数える。
+- truncation が指示、検索証拠、最新質問を削っていないか確認する。
+- decoder モデルを batch 化するときは padding 方向と `attention_mask` を確認する。
+- 中国語、英語、コード、emoji 入力を比較する。token 数は大きく違うことがある。
 
 ## 練習
 
-1. 例の語彙から `transform` か `##ization` を削除して、どの単語が `[UNK]` に落ちるか見てみましょう。
-2. なぜ subword tokenizer は、単語単位と文字単位の折衷案だと言えるのでしょうか。
-3. `max_length` を短くして、truncation が出力にどんな影響を与えるか観察してみましょう。
-4. もしあなたのコーパスにコードがとても多いなら、tokenizer 設計はまず何でつまずきそうでしょうか。
+1. `VOCAB` から `transform` を削除し、`Transformers refund policy` がどう変わるか見る。
+2. `max_length` を `10` から `5` に変え、どの有用 token が先に消えるか確認する。
+3. `"##ing"` を追加し、`resetting password` を表せるか試す。
+4. 実験 3 で別のモデル tokenizer に変え、中国語、英語、コードの token 数を比べる。
+5. RAG prompt 用に、system 指示、検索証拠、ユーザー質問、回答スペースへ token 予算を割り振る。
+
+## まとめ
+
+Tokenizer はただの文字分割ではありません。モデルが見える世界を決めています。
+
+```text
+text boundary -> token boundary -> ID sequence -> attention mask -> context budget
+```
+
+この経路を確認できれば、多くの LLM 工程問題はモデル構造を見る前に切り分けられます。

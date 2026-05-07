@@ -1,169 +1,61 @@
 ---
 title: "7.1.2 Tokenization and Tokenizer"
 sidebar_position: 1
-description: "Start with “why models can’t read text directly,” and understand the trade-offs between word-level, character-level, and subword-level tokenization, as well as why padding, truncation, and special tokens matter in practice."
-keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation]
+description: "Turn raw text into tokens, input_ids, attention_mask, and token-budget decisions through runnable tokenizer labs."
+keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation, attention_mask]
 ---
 
 # 7.1.2 Tokenization and Tokenizer
 
 ![Tokenizer Subword Splitting Flowchart](/img/course/tokenizer-subword-flow-en.png)
 
-:::tip Where This Section Fits
-When many people first learn about large models, they put all their attention on model architecture.
-But before text can actually be sent into a model, there is another unavoidable step:
+:::tip What You Should Be Able to Do
+After this lesson, you should be able to look at any prompt and answer four practical questions:
 
-> **What units should text be split into so the model can process it?**
-
-That is what a tokenizer does.
-
-If this step is not clear, later on these terms will all feel like a pile of jargon:
-
-- `input_ids`
-- `attention_mask`
-- context length
-- token cost
-
-The goal of this lesson is to bring the tokenizer back from a “black-box tool” to its most fundamental role.
+- How will this text be split into tokens?
+- Which integer IDs will the model receive?
+- Which positions are real content and which positions are padding?
+- Will this prompt waste or exceed the context window?
 :::
 
-## Learning Objectives
+## The Mental Model
 
-- Understand why models cannot directly consume raw strings
-- Distinguish the key differences between character-level, word-level, and subword-level tokenization
-- Understand the role of special tokens, padding, and truncation in practice
-- See through a runnable example how a tokenizer turns text into `input_ids`
+A neural network does not read strings directly. It receives tensors. A tokenizer is the contract between human text and model tensors:
 
----
+```text
+raw text -> tokens -> input_ids -> model
+```
 
-## Why Can’t a Model Read Text Directly?
+Most LLM issues that look mysterious become easier once you inspect this contract:
 
-### What a model ultimately processes is numbers, not characters themselves
+- a word may become several tokens;
+- punctuation, casing, Chinese, code, and emojis may change token count a lot;
+- padding makes examples in one batch the same length;
+- truncation silently removes content if the sequence is too long;
+- chat templates add hidden structure tokens around system, user, and assistant messages.
 
-Neural networks fundamentally can only process numerical tensors.
-But what humans feed into a model is usually:
-
-- Chinese sentences
-- English paragraphs
-- code
-- mixed punctuation and emojis
-
-A model does not recognize the visual shape of words like “refund”, “password”, or “hello”.
-It first needs two steps:
-
-1. Split text into tokens
-2. Map tokens to integer IDs
-
-So what a tokenizer does is not just “simple word splitting”;
-it is:
-
-> **the first interface that turns human language into a discrete symbol sequence the model can process.**
-
-### An analogy: translating an article into numbered building blocks for a machine
-
-You can think of a tokenizer as a warehouse manager.
-
-Raw text is like a large pile of unsorted goods.
-The tokenizer must first decide:
-
-- what size each building block should be
-- what number each block should have
-
-After that, the model no longer sees “an article,” but something like:
-
-- `[101, 2057, 2024, 2172, 102]`
-
-If the blocks are split too finely, the sequence becomes very long;
-if they are split too coarsely, many words will be unknown.
-
----
-
-## The Three Most Common Splitting Methods
-
-### Character-level: safest, but sequences become long
-
-The simplest idea is:
-
-- treat one character as one token
-
-The advantages are:
-
-- almost no OOV problem
-- even unseen words can still be represented by splitting them
-
-The disadvantages are:
-
-- sequences become long
-- semantic granularity is too fine
-- the model must spend more layers combining meanings
-
-For example, in English:
-
-- “refund policy” -> `r / e / f / u / n / d / p / o / l / i / c / y`
-
-### Word-level: intuitive meaning, but serious OOV issues
-
-Another approach is:
-
-- treat one complete word as one token
-
-The advantages are:
-
-- natural granularity
-- intuitive word meaning
-
-The disadvantages are:
-
-- many new words, spelling variants, and proper nouns
-- the vocabulary can become very large
-
-For example, in English:
-
-- `refund` is common
-- but `refundability` or `refund-processing` may easily become unknown words
-
-### Subword-level: the most common practical compromise
-
-What modern large models most commonly use is:
-
-- subword tokenizer
-
-That is, words are broken into “frequent fragments.”
-
-For example:
-
-- `transformers` -> `transform` + `ers`
-- `tokenization` -> `token` + `ization`
-
-The benefits of this approach are:
-
-- the vocabulary does not need to grow without bound
-- new words can be composed from existing subwords
-- it balances sequence length and OOV issues
-
-This is also why methods like BPE, WordPiece, and SentencePiece are so important.
+## Split Size Trade-Off
 
 ![Tokenizer Granularity Trade-off Diagram](/img/course/ch07-tokenizer-granularity-tradeoff-map-en.png)
 
-:::tip Reading Tip
-It is best to read this diagram from left to right: character-level is the safest but produces the longest sequences, word-level has intuitive meaning but high OOV risk, and subword-level strikes a balance among vocabulary size, sequence length, and coverage of new words. A tokenizer is not about “what looks neat”; it is about balancing cost and expressiveness.
-:::
+There are three common choices:
 
----
+| Method | Example | Strength | Weakness |
+|---|---|---|---|
+| Character-level | `r e f u n d` | almost no unknown words | very long sequences |
+| Word-level | `refund policy` | intuitive meaning units | many out-of-vocabulary words |
+| Subword-level | `token ##ization` | practical balance | harder to read by eye |
 
-## Let’s Run a Real Tokenizer Example That Shows the Problem Clearly
+Modern LLMs usually use subword tokenization. BPE, WordPiece, and SentencePiece are different ways to learn reusable fragments from a corpus. The important idea is the same: frequent fragments get stable IDs, rare words can still be composed from smaller pieces.
 
-The code below does not reproduce a full industrial tokenizer,
-but it clearly demonstrates three things:
+## Lab 1: Build a Tiny WordPiece-Style Tokenizer
 
-1. Word-level splitting
-2. Subword-level splitting
-3. Mapping tokens to IDs, padding, and truncation
+Run this first. It is small enough to understand line by line, but it contains the same objects you see in real model APIs.
 
 ```python
 import re
 
-vocab = {
+VOCAB = {
     "[PAD]": 0,
     "[UNK]": 1,
     "[CLS]": 2,
@@ -179,236 +71,207 @@ vocab = {
     "##ization": 12,
     "please": 13,
     "help": 14,
+    "need": 15,
+    "evidence": 16,
 }
 
 
-def word_tokenize(text):
+def words(text):
     return re.findall(r"[A-Za-z]+", text.lower())
 
 
-def subword_tokenize(word, vocab):
-    if word in vocab:
+def split_wordpiece(word):
+    if word in VOCAB:
         return [word]
 
-    tokens = []
+    pieces = []
     start = 0
     while start < len(word):
-        matched = None
+        match = None
         for end in range(len(word), start, -1):
             piece = word[start:end] if start == 0 else "##" + word[start:end]
-            if piece in vocab:
-                matched = piece
-                tokens.append(piece)
-                start = end
+            if piece in VOCAB:
+                match = piece
                 break
-        if matched is None:
+        if match is None:
             return ["[UNK]"]
-    return tokens
+        pieces.append(match)
+        start = end
+    return pieces
 
 
-def encode(text, vocab, max_length=8):
-    words = word_tokenize(text)
+def encode(text, max_length=10):
     tokens = ["[CLS]"]
-    for word in words:
-        tokens.extend(subword_tokenize(word, vocab))
+    for word in words(text):
+        tokens.extend(split_wordpiece(word))
     tokens.append("[SEP]")
 
-    token_ids = [vocab.get(token, vocab["[UNK]"]) for token in tokens]
-    token_ids = token_ids[:max_length]
-    attention_mask = [1] * len(token_ids)
+    original_len = len(tokens)
+    if len(tokens) > max_length:
+        tokens = tokens[:max_length]
+        tokens[-1] = "[SEP]"
 
-    if len(token_ids) < max_length:
-        pad_count = max_length - len(token_ids)
-        token_ids += [vocab["[PAD]"]] * pad_count
-        attention_mask += [0] * pad_count
+    input_ids = [VOCAB.get(token, VOCAB["[UNK]"]) for token in tokens]
+    attention_mask = [1] * len(input_ids)
 
-    return tokens, token_ids, attention_mask
+    while len(input_ids) < max_length:
+        tokens.append("[PAD]")
+        input_ids.append(VOCAB["[PAD]"])
+        attention_mask.append(0)
+
+    return {
+        "text": text,
+        "original_len": original_len,
+        "tokens": tokens,
+        "input_ids": input_ids,
+        "attention_mask": attention_mask,
+    }
 
 
-examples = [
+for example in [
     "Please help reset password",
-    "Transformers policy",
-    "Tokenization refund",
-]
-
-for text in examples:
-    tokens, token_ids, attention_mask = encode(text, vocab, max_length=10)
-    print("-" * 60)
-    print("text          :", text)
-    print("tokens        :", tokens)
-    print("input_ids     :", token_ids)
-    print("attention_mask:", attention_mask)
+    "Transformers refund policy",
+    "Tokenization needs evidence",
+]:
+    row = encode(example, max_length=10)
+    print("-" * 64)
+    print("text:", row["text"])
+    print("original_len:", row["original_len"])
+    print("tokens:", row["tokens"])
+    print("input_ids:", row["input_ids"])
+    print("attention_mask:", row["attention_mask"])
 ```
 
-### Which lines in this code matter most?
+Expected output:
 
-Focus on three parts:
+```text
+----------------------------------------------------------------
+text: Please help reset password
+original_len: 6
+tokens: ['[CLS]', 'please', 'help', 'reset', 'password', '[SEP]', '[PAD]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 13, 14, 6, 7, 3, 0, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+----------------------------------------------------------------
+text: Transformers refund policy
+original_len: 7
+tokens: ['[CLS]', 'transform', '##er', '##s', 'refund', 'policy', '[SEP]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 8, 9, 10, 4, 5, 3, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+----------------------------------------------------------------
+text: Tokenization needs evidence
+original_len: 7
+tokens: ['[CLS]', 'token', '##ization', 'need', '##s', 'evidence', '[SEP]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 11, 12, 15, 10, 16, 3, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+```
 
-1. `word_tokenize`
-   Shows how the raw string is first split into words
-2. `subword_tokenize`
-   Shows how a word is greedily split into subwords when it is not in the vocabulary
-3. `encode`
-   Shows how special tokens, padding, and truncation are added
+Read the output like this:
 
-### Why is `Transformers` split into multiple subwords?
+- `[CLS]` and `[SEP]` are structure tokens.
+- `transformers` becomes `transform`, `##er`, `##s` because the whole word is not in `VOCAB`.
+- `input_ids` are the integer values the model actually receives.
+- `attention_mask=0` marks `[PAD]` positions so the model can ignore them.
 
-Because the vocabulary does not contain the full word `transformers`,
-but it does contain:
-
-- `transform`
-- `##er`
-- `##s`
-
-So it can still be represented.
-
-This is the key advantage of a subword tokenizer:
-
-- a new word does not have to be fully present in the vocabulary
-
-### What is `attention_mask` for?
-
-Because sentences in a batch usually have different lengths.
-To make them into a single tensor, we pad shorter sentences with `[PAD]`.
-
-But the model should not treat those pad positions as real content,
-so `attention_mask` tells it:
-
-- `1` means a real token
-- `0` means padding
+## Lab 2: See Truncation as a Product Risk
 
 ![Tokenizer to input_ids and attention_mask Diagram](/img/course/ch07-tokenizer-inputids-mask-length-map-en.png)
 
-:::tip Reading Tip
-When reading this diagram, break the process into four steps: the original text is first split into tokens, then mapped to `input_ids`, shorter sequences are padded with `[PAD]`, and finally `attention_mask` tells the model which positions are real content. Many batch errors and strange results come from not understanding this chain clearly.
-:::
+Now force the same tokenizer into a small context window.
 
----
+```python
+row = encode("Please help reset password refund policy evidence", max_length=6)
+print("original_len:", row["original_len"])
+print("tokens:", row["tokens"])
+print("input_ids:", row["input_ids"])
+print("attention_mask:", row["attention_mask"])
+```
 
-## Why Does a Tokenizer Directly Affect Cost and Performance?
+Expected output:
 
-### The more finely a sentence is split, the more tokens it has
+```text
+original_len: 9
+tokens: ['[CLS]', 'please', 'help', 'reset', 'password', '[SEP]']
+input_ids: [2, 13, 14, 6, 7, 3]
+attention_mask: [1, 1, 1, 1, 1, 1]
+```
 
-More tokens means:
+The words `refund policy evidence` disappeared. In a real support assistant, that could remove the user’s actual intent. This is why tokenization is not a small preprocessing detail; it affects cost, retrieval size, prompt design, and failure modes.
 
-- context is used up more quickly
-- inference cost is higher
-- API billing is more expensive
+## Lab 3: Inspect a Real Hugging Face Tokenizer
 
-So a tokenizer is not just a theoretical issue;
-it also directly affects engineering cost.
+Use this when you have internet access for the first model download.
 
-### Neither a vocabulary that is too small nor too large is good
+```bash
+python -m pip install "transformers>=4.0" torch
+```
 
-If the vocabulary is too small:
+```python
+from transformers import AutoTokenizer
 
-- many words will be split too finely
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-If the vocabulary is too large:
+batch = tokenizer(
+    ["Please help reset password", "Tokenization needs evidence"],
+    padding="max_length",
+    truncation=True,
+    max_length=10,
+    return_tensors="pt",
+)
 
-- the embedding table becomes larger
-- there will be more rare words
-- data utilization during training may not actually improve
+print(batch.keys())
+print(batch["input_ids"].shape)
+print(tokenizer.convert_ids_to_tokens(batch["input_ids"][1]))
+print(batch["attention_mask"][1].tolist())
+```
 
-In practice, tokenizer design is about finding balance among these factors.
+Expected shape-level output:
 
-### Different languages bring different challenges
+```text
+dict_keys(['input_ids', 'token_type_ids', 'attention_mask'])
+torch.Size([2, 10])
+['[CLS]', 'token', '##ization', 'needs', 'evidence', '[SEP]', '[PAD]', '[PAD]', '[PAD]', '[PAD]']
+[1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+```
 
-For example:
+The exact split can differ across tokenizers. That is the point: always inspect the tokenizer that belongs to the model you actually use.
 
-- English naturally has spaces, so tokenization is relatively easy
-- Chinese has no spaces, so segmentation granularity is more sensitive
-- Code also mixes camelCase names, underscores, and symbols
+## Terms Worth Knowing
 
-So tokenizers are often adapted to the language characteristics of the training corpus.
+| Term | Meaning in practice |
+|---|---|
+| `vocab` | token-to-ID dictionary learned during tokenizer training |
+| OOV | out-of-vocabulary; often handled by `[UNK]` or subword composition |
+| BPE | merges frequent character pairs into reusable subwords |
+| WordPiece | similar subword idea, common in BERT-style tokenizers |
+| SentencePiece | treats text as a raw stream; useful for multilingual and no-space languages |
+| `padding_side` | whether pads are added on the left or right; important for some decoder models |
+| context length | maximum token budget for input plus generated output |
+| chat template | tokenizer-level formatting that adds role and boundary tokens |
 
----
+## Debugging Checklist
 
-## Why Do Special Tokens Keep Appearing?
+When a prompt behaves strangely, inspect the tokenizer before blaming the model:
 
-### `[CLS]`, `[SEP]`, and `[PAD]` are not just decoration
-
-These special tokens usually serve clear functions:
-
-- `[CLS]`: the starting point for sentence-level representation
-- `[SEP]`: separates multiple segments
-- `[PAD]`: aligns batch lengths
-
-Different models may use different exact symbols,
-but the idea is very similar.
-
-### In chat models, system / user / assistant are also based on the same idea
-
-In the era of chat models, you will see more special markers, such as:
-
-- `<|system|>`
-- `<|user|>`
-- `<|assistant|>`
-
-They are also fundamentally special tokens that tell the model:
-
-- who is speaking in this part
-- how the dialogue structure is separated
-
-So a chat template is actually part of the tokenizer ecosystem as well.
-
----
-
-## The Easiest Pitfalls to Fall Into
-
-### Mistake 1: Thinking the tokenizer is just a preprocessing detail
-
-It is not.
-It directly affects:
-
-- token count
-- vocabulary size
-- OOV handling
-- downstream template format
-
-### Mistake 2: Thinking that as long as it can be split, that is enough
-
-What really matters is:
-
-- whether the splitting is stable
-- whether it fits the corpus
-- whether it balances length and semantic granularity
-
-### Mistake 3: Thinking Chinese should always be segmented by “words” for the best result
-
-Not necessarily.
-Many modern models still use:
-
-- character-level
-- subword-level
-- unified tokenization methods like SentencePiece
-
-The key is still the training objective and data distribution.
-
----
-
-## Summary
-
-The most important thing in this lesson is not memorizing the names BPE or WordPiece,
-but understanding one main idea:
-
-> **The essence of a tokenizer is to split raw text into discrete units the model can process, while making engineering trade-offs among vocabulary size, unknown-word handling, and sequence length.**
-
-Once this main idea is clear,
-when you later see:
-
-- input ids
-- attention mask
-- context length
-- prompt templates
-
-you will no longer treat them as disconnected concepts.
-
----
+- Print tokens and token IDs for the exact prompt.
+- Count tokens after the chat template, not just raw user text.
+- Check whether truncation removed instructions, retrieved evidence, or the latest user question.
+- Verify padding side and `attention_mask` when batching decoder models.
+- Compare Chinese, English, code, and emoji-heavy inputs; their token counts can differ sharply.
 
 ## Exercises
 
-1. Remove `transform` or `##ization` from the vocabulary in the example and see which words degrade into `[UNK]`.
-2. Why is a subword tokenizer a compromise between word-level and character-level tokenization?
-3. Change `max_length` to a smaller value and observe how truncation affects the output.
-4. Think about this: if your corpus contains a lot of code, what problem would a tokenizer design most likely run into first?
+1. Remove `transform` from `VOCAB`. What happens to `Transformers refund policy`?
+2. Change `max_length` from `10` to `5`. Which useful tokens disappear first?
+3. Add `"##ing"` and test `resetting password`. Can your tokenizer represent it?
+4. Run Lab 3 with another model tokenizer and compare token counts for Chinese, English, and code.
+5. For a RAG prompt, decide how many tokens you reserve for system instructions, retrieved evidence, user question, and answer space.
+
+## Summary
+
+A tokenizer is not just a text splitter. It defines the model’s visible world:
+
+```text
+text boundary -> token boundary -> ID sequence -> attention mask -> context budget
+```
+
+If you can inspect that path, you can explain many practical LLM problems before touching model architecture.

@@ -1,171 +1,61 @@
 ---
 title: "7.1.2 分词与 Tokenizer"
 sidebar_position: 1
-description: "从“模型为什么不能直接读文字”讲起，理解词级、字级、子词级分词的取舍，以及 padding、truncation、special tokens 在工程里为什么重要。"
-keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation]
+description: "通过可运行实验，把原始文本变成 tokens、input_ids、attention_mask 和 token 预算判断。"
+keywords: [tokenizer, tokenization, subword, BPE, wordpiece, padding, truncation, attention_mask]
 ---
 
 # 7.1.2 分词与 Tokenizer
 
 ![Tokenizer 子词切分流程图](/img/course/tokenizer-subword-flow.png)
 
-:::tip 本节定位
-很多人第一次学大模型时，会把注意力全放在模型结构上。
-但真正把文本送进模型之前，还有一道绕不过去的门：
+:::tip 学完要能做到
+读完这一节，你应该能看着任意一段 prompt，回答四个实操问题：
 
-> **文字到底要被切成什么单位，模型才能处理？**
-
-这就是 tokenizer。
-
-如果这一步没想明白，后面你看到的：
-
-- `input_ids`
-- `attention_mask`
-- context length
-- token 成本
-
-都会像一堆零碎术语。
-
-这节课的目标，就是把 tokenizer 从“工具黑盒”拉回到它最本质的位置。
+- 这段文字会被切成哪些 tokens？
+- 模型实际收到哪些整数 ID？
+- 哪些位置是真内容，哪些位置只是 padding？
+- 这段 prompt 会不会浪费或超出上下文窗口？
 :::
 
-## 学习目标
+## 先建立心智模型
 
-- 理解为什么模型不能直接吃原始字符串
-- 区分字级、词级、子词级分词的核心差异
-- 理解 special tokens、padding、truncation 在工程中的作用
-- 通过可运行示例看懂 tokenizer 是怎样把文本变成 `input_ids` 的
+神经网络不能直接读字符串，它接收的是张量。Tokenizer 是人类文字和模型张量之间的契约：
 
----
+```text
+raw text -> tokens -> input_ids -> model
+```
 
-## 一、为什么模型不能直接读文字？
+很多看起来很玄的大模型问题，只要检查这个契约就会变清楚：
 
-### 模型最终处理的是数字，不是字符本身
+- 一个词可能被拆成多个 token；
+- 标点、大小写、中文、代码、emoji 都可能显著改变 token 数；
+- padding 让同一批样本长度一致；
+- truncation 会在序列过长时静默删掉内容；
+- chat template 会在 system、user、assistant 消息周围加入隐藏结构 token。
 
-神经网络本质上只能处理数值张量。
-而人类输入给模型的，通常是：
-
-- 中文句子
-- 英文段落
-- 代码
-- 混合标点和表情
-
-模型并不认识“退款”“password”“hello”这些词的肉眼形状。
-它需要先经过两步：
-
-1. 把文本切成一个个 token
-2. 把 token 映射成整数 id
-
-所以 tokenizer 做的不是“简单切词”，
-而是：
-
-> **把人类语言变成模型可处理离散符号序列的第一层接口。**
-
-### 一个类比：把文章翻译成机器能编号的积木
-
-你可以把 tokenizer 想成仓库管理员。
-
-原始文本像一大段还没整理的货物。
-tokenizer 要先决定：
-
-- 每块积木的大小是什么
-- 每块积木编号是多少
-
-之后模型看到的就不再是“文章”，而是：
-
-- `[101, 2057, 2024, 2172, 102]`
-
-如果积木切得太碎，会变得很长；
-如果切得太粗，又会有很多词不认识。
-
----
-
-## 二、最常见的三种切法
-
-### 字级 / 字符级：最稳，但序列会变长
-
-最简单的思路是：
-
-- 一个字或一个字符算一个 token
-
-优点是：
-
-- 几乎不会有 OOV 问题
-- 不认识的词也能拆开表示
-
-缺点是：
-
-- 序列很长
-- 语义粒度太细
-- 模型需要自己花更多层去组合词义
-
-例如中文里：
-
-- “退款规则” -> `退 / 款 / 规 / 则`
-
-### 词级：语义直观，但 OOV 会严重
-
-另一种思路是：
-
-- 一个完整单词算一个 token
-
-优点是：
-
-- 粒度自然
-- 词义直观
-
-缺点是：
-
-- 新词、拼写变体、专有名词很多
-- 词表会非常大
-
-例如英文里：
-
-- `refund` 很常见
-- 但 `refundability`、`refund-processing` 可能就很容易变成未知词
-
-### 子词级：现实里最常见的折中
-
-现代大模型里最常见的是：
-
-- subword tokenizer
-
-也就是把词拆成“高频片段”。
-
-例如：
-
-- `transformers` -> `transform` + `ers`
-- `tokenization` -> `token` + `ization`
-
-这种方法的好处是：
-
-- 词表不必无限大
-- 新词能由已有子词拼出来
-- 序列长度和 OOV 问题之间取得平衡
-
-这也是为什么 BPE、WordPiece、SentencePiece 这类方法会这么重要。
+## 切分粒度的取舍
 
 ![Tokenizer 粒度取舍图](/img/course/ch07-tokenizer-granularity-tradeoff-map.png)
 
-:::tip 读图提示
-这张图建议从左到右看：字符级最稳但序列最长，词级语义直观但 OOV 风险高，子词级在词表大小、序列长度和新词覆盖之间折中。Tokenizer 不是“怎么切好看”，而是在做成本和表达能力的平衡。
-:::
+常见切法有三类：
 
----
+| 方法 | 例子 | 优点 | 缺点 |
+|---|---|---|---|
+| 字符级 | `r e f u n d` | 几乎没有未知词 | 序列很长 |
+| 词级 | `refund policy` | 语义直观 | 很多词会超出词表 |
+| 子词级 | `token ##ization` | 工程上更平衡 | 肉眼不如整词好读 |
 
-## 三、先跑一个真正说明问题的 tokenizer 示例
+现代 LLM 通常使用子词分词。BPE、WordPiece、SentencePiece 是从语料中学习可复用片段的不同方法。核心思想一致：高频片段有稳定 ID，低频新词也能由更小片段组合出来。
 
-下面这段代码不会复刻完整工业 tokenizer，
-但它会非常清楚地演示三件事：
+## 实验 1：手写一个极小 WordPiece 风格 Tokenizer
 
-1. 词级切分
-2. 子词级切分
-3. token 到 id 的映射、padding 和 truncation
+先跑这个版本。它足够小，可以逐行看懂，但包含真实模型 API 里会出现的关键对象。
 
 ```python
 import re
 
-vocab = {
+VOCAB = {
     "[PAD]": 0,
     "[UNK]": 1,
     "[CLS]": 2,
@@ -181,236 +71,207 @@ vocab = {
     "##ization": 12,
     "please": 13,
     "help": 14,
+    "need": 15,
+    "evidence": 16,
 }
 
 
-def word_tokenize(text):
+def words(text):
     return re.findall(r"[A-Za-z]+", text.lower())
 
 
-def subword_tokenize(word, vocab):
-    if word in vocab:
+def split_wordpiece(word):
+    if word in VOCAB:
         return [word]
 
-    tokens = []
+    pieces = []
     start = 0
     while start < len(word):
-        matched = None
+        match = None
         for end in range(len(word), start, -1):
             piece = word[start:end] if start == 0 else "##" + word[start:end]
-            if piece in vocab:
-                matched = piece
-                tokens.append(piece)
-                start = end
+            if piece in VOCAB:
+                match = piece
                 break
-        if matched is None:
+        if match is None:
             return ["[UNK]"]
-    return tokens
+        pieces.append(match)
+        start = end
+    return pieces
 
 
-def encode(text, vocab, max_length=8):
-    words = word_tokenize(text)
+def encode(text, max_length=10):
     tokens = ["[CLS]"]
-    for word in words:
-        tokens.extend(subword_tokenize(word, vocab))
+    for word in words(text):
+        tokens.extend(split_wordpiece(word))
     tokens.append("[SEP]")
 
-    token_ids = [vocab.get(token, vocab["[UNK]"]) for token in tokens]
-    token_ids = token_ids[:max_length]
-    attention_mask = [1] * len(token_ids)
+    original_len = len(tokens)
+    if len(tokens) > max_length:
+        tokens = tokens[:max_length]
+        tokens[-1] = "[SEP]"
 
-    if len(token_ids) < max_length:
-        pad_count = max_length - len(token_ids)
-        token_ids += [vocab["[PAD]"]] * pad_count
-        attention_mask += [0] * pad_count
+    input_ids = [VOCAB.get(token, VOCAB["[UNK]"]) for token in tokens]
+    attention_mask = [1] * len(input_ids)
 
-    return tokens, token_ids, attention_mask
+    while len(input_ids) < max_length:
+        tokens.append("[PAD]")
+        input_ids.append(VOCAB["[PAD]"])
+        attention_mask.append(0)
+
+    return {
+        "text": text,
+        "original_len": original_len,
+        "tokens": tokens,
+        "input_ids": input_ids,
+        "attention_mask": attention_mask,
+    }
 
 
-examples = [
+for example in [
     "Please help reset password",
-    "Transformers policy",
-    "Tokenization refund",
-]
-
-for text in examples:
-    tokens, token_ids, attention_mask = encode(text, vocab, max_length=10)
-    print("-" * 60)
-    print("text          :", text)
-    print("tokens        :", tokens)
-    print("input_ids     :", token_ids)
-    print("attention_mask:", attention_mask)
+    "Transformers refund policy",
+    "Tokenization needs evidence",
+]:
+    row = encode(example, max_length=10)
+    print("-" * 64)
+    print("text:", row["text"])
+    print("original_len:", row["original_len"])
+    print("tokens:", row["tokens"])
+    print("input_ids:", row["input_ids"])
+    print("attention_mask:", row["attention_mask"])
 ```
 
-### 这段代码最该看哪几行？
+预期输出：
 
-重点看三处：
+```text
+----------------------------------------------------------------
+text: Please help reset password
+original_len: 6
+tokens: ['[CLS]', 'please', 'help', 'reset', 'password', '[SEP]', '[PAD]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 13, 14, 6, 7, 3, 0, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+----------------------------------------------------------------
+text: Transformers refund policy
+original_len: 7
+tokens: ['[CLS]', 'transform', '##er', '##s', 'refund', 'policy', '[SEP]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 8, 9, 10, 4, 5, 3, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+----------------------------------------------------------------
+text: Tokenization needs evidence
+original_len: 7
+tokens: ['[CLS]', 'token', '##ization', 'need', '##s', 'evidence', '[SEP]', '[PAD]', '[PAD]', '[PAD]']
+input_ids: [2, 11, 12, 15, 10, 16, 3, 0, 0, 0]
+attention_mask: [1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+```
 
-1. `word_tokenize`
-   说明原始字符串如何先被切成词
-2. `subword_tokenize`
-   说明词不在词表里时，如何贪心拆成子词
-3. `encode`
-   说明 special tokens、padding、truncation 是怎么加进去的
+这样读输出：
 
-### 为什么 `Transformers` 会被拆成多个子词？
+- `[CLS]` 和 `[SEP]` 是结构 token；
+- `transformers` 被拆成 `transform`、`##er`、`##s`，因为词表里没有完整单词；
+- `input_ids` 是模型真正接收的整数；
+- `attention_mask=0` 标记 `[PAD]` 位置，提醒模型忽略它们。
 
-因为词表里没有完整的 `transformers`，
-但有：
-
-- `transform`
-- `##er`
-- `##s`
-
-所以它仍然能被表示出来。
-
-这正是子词 tokenizer 的关键优势：
-
-- 新词不一定要整个都在词表里
-
-### `attention_mask` 是干什么的？
-
-因为 batch 里的句子长度通常不同。
-为了凑成统一张量，我们会在短句后面补 `[PAD]`。
-
-但模型不能把这些 pad 位当成真实内容，
-所以要用 `attention_mask` 告诉它：
-
-- `1` 是真实 token
-- `0` 是 padding
+## 实验 2：把 truncation 当成产品风险看
 
 ![Tokenizer 到 input_ids 与 attention_mask 图](/img/course/ch07-tokenizer-inputids-mask-length-map.png)
 
-:::tip 读图提示
-读这张图时把流程分成四步：原文先切成 tokens，再映射成 `input_ids`，短句用 `[PAD]` 补齐，最后用 `attention_mask` 告诉模型哪些位置是真内容。很多 batch 报错和效果异常，都和这条链没看清有关。
-:::
+现在故意把上下文窗口调小。
 
----
+```python
+row = encode("Please help reset password refund policy evidence", max_length=6)
+print("original_len:", row["original_len"])
+print("tokens:", row["tokens"])
+print("input_ids:", row["input_ids"])
+print("attention_mask:", row["attention_mask"])
+```
 
-## 四、为什么 tokenizer 会直接影响成本和效果？
+预期输出：
 
-### 同一句话切得越碎，token 数就越多
+```text
+original_len: 9
+tokens: ['[CLS]', 'please', 'help', 'reset', 'password', '[SEP]']
+input_ids: [2, 13, 14, 6, 7, 3]
+attention_mask: [1, 1, 1, 1, 1, 1]
+```
 
-token 越多意味着：
+`refund policy evidence` 不见了。在真实客服助手里，这可能正好删掉用户真正想问的内容。所以 tokenizer 不是小小的预处理细节，它会影响成本、检索片段长度、prompt 设计和失败模式。
 
-- 上下文更容易用完
-- 推理成本更高
-- API 计费更贵
+## 实验 3：检查真实 Hugging Face Tokenizer
 
-所以 tokenizer 不是纯理论问题，
-它也会直接影响工程成本。
+第一次下载模型 tokenizer 时需要网络。
 
-### 词表太小和太大都不好
+```bash
+python -m pip install "transformers>=4.0" torch
+```
 
-如果词表太小：
+```python
+from transformers import AutoTokenizer
 
-- 很多词会被切得很碎
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-如果词表太大：
+batch = tokenizer(
+    ["Please help reset password", "Tokenization needs evidence"],
+    padding="max_length",
+    truncation=True,
+    max_length=10,
+    return_tensors="pt",
+)
 
-- embedding 表会更大
-- 稀有词会更多
-- 训练数据利用率未必更好
+print(batch.keys())
+print(batch["input_ids"].shape)
+print(tokenizer.convert_ids_to_tokens(batch["input_ids"][1]))
+print(batch["attention_mask"][1].tolist())
+```
 
-现实中 tokenizer 设计就是在这些因素之间找平衡。
+预期形状级输出：
 
-### 不同语言会带来不同挑战
+```text
+dict_keys(['input_ids', 'token_type_ids', 'attention_mask'])
+torch.Size([2, 10])
+['[CLS]', 'token', '##ization', 'needs', 'evidence', '[SEP]', '[PAD]', '[PAD]', '[PAD]', '[PAD]']
+[1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+```
 
-例如：
+不同 tokenizer 的具体切法可能不同。这正是重点：永远检查你实际使用的模型自带 tokenizer。
 
-- 英文天然有空格，分词相对容易
-- 中文没有空格，切分粒度更敏感
-- 代码里还会混入驼峰命名、下划线、符号
+## 值得记住的术语
 
-所以 tokenizer 往往会针对训练语料的语言特征做适配。
+| 术语 | 实操含义 |
+|---|---|
+| `vocab` | tokenizer 训练得到的 token 到 ID 字典 |
+| OOV | out-of-vocabulary，超出词表；通常用 `[UNK]` 或子词组合处理 |
+| BPE | 把高频字符对合并成可复用子词 |
+| WordPiece | 类似的子词思想，常见于 BERT 类 tokenizer |
+| SentencePiece | 把文本当成原始字符流处理，适合多语言和无空格语言 |
+| `padding_side` | padding 加在左边还是右边；某些 decoder 模型很敏感 |
+| context length | 输入和生成输出共享的最大 token 预算 |
+| chat template | tokenizer 层面的对话格式，会加入角色和边界 token |
 
----
+## 排查清单
 
-## 五、special tokens 为什么总在出现？
+Prompt 表现异常时，先检查 tokenizer，再怀疑模型：
 
-### `[CLS]`、`[SEP]`、`[PAD]` 不只是装饰
-
-这些特殊 token 一般承担明确功能：
-
-- `[CLS]`：句子级表示的起点
-- `[SEP]`：分隔多个片段
-- `[PAD]`：对齐 batch 长度
-
-不同模型的具体符号可能不同，
-但思想很接近。
-
-### Chat 模型里的 system / user / assistant 其实也是类似思路
-
-到了聊天模型时代，你会看到更多特殊标记，例如：
-
-- `<|system|>`
-- `<|user|>`
-- `<|assistant|>`
-
-它们本质上也是在用特殊 token 告诉模型：
-
-- 这一段是谁说的
-- 对话结构怎么分隔
-
-所以 chat template 其实也是 tokenizer 生态的一部分。
-
----
-
-## 六、最容易踩的坑
-
-### 误区一：tokenizer 只是预处理细节
-
-不是。
-它直接影响：
-
-- token 数量
-- 词表规模
-- OOV 处理
-- 下游模板格式
-
-### 误区二：只要能切开就行
-
-真正重要的是：
-
-- 切得是否稳定
-- 是否适配语料
-- 是否兼顾长度和语义粒度
-
-### 误区三：中文就一定按“词”切最好
-
-不一定。
-很多现代模型仍然采用：
-
-- 字级
-- 子词级
-- SentencePiece 一类统一分词
-
-关键还是看训练目标和数据分布。
-
----
-
-## 小结
-
-这节最重要的不是背下 BPE 或 WordPiece 这些名字，
-而是抓住一条主线：
-
-> **Tokenizer 的本质，是把原始文本切成模型可处理的离散单位，并在词表大小、未知词问题和序列长度之间做工程权衡。**
-
-只要这条主线建立起来，
-你后面再看：
-
-- input ids
-- attention mask
-- context length
-- prompt 模板
-
-就不会把它们当成零碎概念了。
-
----
+- 打印完整 prompt 的 tokens 和 token IDs；
+- 统计 chat template 之后的 token 数，不只看原始用户文本；
+- 检查 truncation 是否删掉了指令、检索证据或最新问题；
+- 批处理 decoder 模型时确认 padding 方向和 `attention_mask`；
+- 对比中文、英文、代码、emoji 输入，它们的 token 数可能差很多。
 
 ## 练习
 
-1. 把示例里的词表删掉 `transform` 或 `##ization`，看看哪些词会退化成 `[UNK]`。
-2. 为什么说子词 tokenizer 是词级和字级之间的折中？
-3. 把 `max_length` 改短，观察 truncation 对输出有什么影响。
-4. 想一想：如果你的语料里代码特别多，tokenizer 设计最可能先碰到什么问题？
+1. 从 `VOCAB` 删除 `transform`，观察 `Transformers refund policy` 会怎样。
+2. 把 `max_length` 从 `10` 改成 `5`，看哪些有用 token 先消失。
+3. 加入 `"##ing"`，测试 `resetting password` 能不能被表示。
+4. 用实验 3 换一个模型 tokenizer，对比中文、英文、代码的 token 数。
+5. 为一个 RAG prompt 分配 token 预算：system 指令、检索证据、用户问题、回答空间各留多少？
+
+## 小结
+
+Tokenizer 不只是切文字。它定义了模型能看见的世界：
+
+```text
+text boundary -> token boundary -> ID sequence -> attention mask -> context budget
+```
+
+只要能检查这条路径，很多 LLM 工程问题在看模型结构之前就能先定位。
