@@ -24,4 +24,6 @@ You do not need every detail now. Just remember:
 | unreliable answers | evaluation and RAG |
 | uncontrolled actions | Agent traces and permissions |
 
+Optional background: if you want the history behind these layers, skim the [15-stage AI development map](/appendix/ai-milestones).
+
 Next, choose a learning path.

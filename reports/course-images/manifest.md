@@ -6,46 +6,13 @@
 
 | 文件 | 用途 | 建议插入页面 | Alt 文案 |
 |---|---|---|---|
-| `ai-fullstack-hero.png` | AI 全栈学习教程主视觉 | `docs/index.md` | AI 全栈学习教程主视觉：学习者沿着编程、数据、模型、RAG 和 Agent 路线成长。 |
-| `homepage-ai-history-comic-01-turing.png` | 首页 AI 发展史漫画 01 图灵与 AI 梦想的起点 | `docs/index.md` | 图灵与 AI 梦想的起点漫画：图灵机和图灵测试把机器智能变成可讨论、可测试的问题。 |
-| `homepage-ai-history-comic-02-dartmouth.png` | 首页 AI 发展史漫画 02 达特茅斯会议 | `docs/index.md` | 达特茅斯会议 AI 正式诞生漫画：科学家围绕黑板提出 Artificial Intelligence，符号主义规则推理兴起。 |
-| `homepage-ai-history-comic-03-perceptron.png` | 首页 AI 发展史漫画 03 感知机与第一次低谷 | `docs/index.md` | 感知机兴奋与神经网络第一次低谷漫画：感知机通过权重分类，XOR 暴露单层网络无法线性分割。 |
-| `homepage-ai-history-comic-04-expert-systems.png` | 首页 AI 发展史漫画 04 专家系统时代 | `docs/index.md` | 专家系统时代漫画：专家把 IF-THEN 规则写入知识库，窄领域有效但规则堆积导致难维护。 |
-| `homepage-ai-history-comic-05-backprop.png` | 首页 AI 发展史漫画 05 反向传播 | `docs/index.md` | 反向传播重新点火漫画：错误信号从输出层传回前面每层，指导多层神经网络调整参数。 |
-| `homepage-ai-history-comic-06-lenet.png` | 首页 AI 发展史漫画 06 LeNet 与 CNN 实用成功 | `docs/index.md` | LeNet 与 CNN 实用成功漫画：卷积滤镜扫描手写数字，逐层学习边缘、笔画和数字类别。 |
-| `homepage-ai-history-comic-07-statistical-ml.png` | 首页 AI 发展史漫画 07 统计机器学习时代 | `docs/index.md` | 统计机器学习时代漫画：数据取代手写规则，工程师仍需提取特征卡片喂给分类器。 |
-| `homepage-ai-history-comic-08-imagenet-alexnet.png` | 首页 AI 发展史漫画 08 ImageNet 与 AlexNet | `docs/index.md` | ImageNet 与 AlexNet 深度学习爆发漫画：大数据、GPU 和 CNN 让模型从原始图片自动学习特征。 |
-| `homepage-ai-history-comic-09-resnet.png` | 首页 AI 发展史漫画 09 ResNet 残差连接 | `docs/index.md` | ResNet 残差连接漫画：信息高速公路把 X 直接送到后面，网络学习修正量 F(X)。 |
-| `homepage-ai-history-comic-10-rnn-lstm.png` | 首页 AI 发展史漫画 10 RNN 与 LSTM | `docs/index.md` | RNN 与 LSTM 序列模型漫画：RNN 一个词一个词传递 hidden state，LSTM 用门控制记住和忘掉。 |
-| `homepage-ai-history-comic-11-attention.png` | 首页 AI 发展史漫画 11 Attention | `docs/index.md` | Attention 机器翻译漫画：生成当前词时用聚光灯关注输入句子中最相关的位置。 |
-| `homepage-ai-history-comic-12-transformer.png` | 首页 AI 发展史漫画 12 Transformer | `docs/index.md` | Transformer 自注意力漫画：所有 token 围坐会议桌，通过 Q/K/V 和 multi-head attention 直接交流。 |
-| `homepage-ai-history-comic-13-bert-gpt.png` | 首页 AI 发展史漫画 13 BERT 与 GPT | `docs/index.md` | BERT 与 GPT 预训练漫画：BERT 遮词再猜，GPT 根据前文预测下一个 token，预训练基础模型时代开始。 |
-| `homepage-ai-history-comic-14-rlhf-chatgpt.png` | 首页 AI 发展史漫画 14 SFT RLHF 与 ChatGPT | `docs/index.md` | SFT RLHF 与 ChatGPT 漫画：续写模型经过指令训练和人类反馈，变成更会对话的助手。 |
-| `homepage-ai-history-comic-15-rag-agent.png` | 首页 AI 发展史漫画 15 RAG 工具调用与 Agent | `docs/index.md` | RAG 工具调用与 Agent 漫画：AI 通过检索资料、调用工具、规划执行和检查结果走向真实任务。 |
-| `ai-learning-assistant-roadmap.png` | AI 学习助手版本路线图 | `docs/intro/ai-learning-assistant-version-roadmap.md` | AI 学习助手从项目骨架逐步升级到 RAG 和 Agent 毕业作品的路线图。 |
-| `prompt-rag-agent-progression.png` | Prompt 到 RAG 到 Agent 能力进阶图 | `docs/index.md` | Prompt、RAG、Agent 三阶段能力进阶：表达、查资料和分步行动。 |
-| `boss-challenge-map.png` | 课程 Boss 战挑战地图 | `docs/intro/boss-challenge-map.md` | 课程 Boss 战挑战地图：工作台守门人、JSON 地牢管理员、脏数据侦探、引用幻觉龙和无限循环魔王。 |
 | `intro-quick-experience-loop.png` | 30 分钟 AI 快速体验闭环图 | `docs/intro/quick-experience.md` | 30 分钟 AI 快速体验闭环图：打开 Colab、运行图像识别、体验文本生成、尝试图像生成，然后回到主课程。 |
 | `intro-minimal-setup-kit-en.png` | Minimal setup kit before starting the AI full-stack course | `docs/intro/environment-setup.md` | Minimal setup kit before starting the AI full-stack course: a normal computer, browser and Colab, VS Code, Terminal, Python 3.11 or Miniconda, Git and GitHub, and a project folder README; GPU, Docker, vector database, and LLM API key can wait. |
 | `intro-minimal-setup-kit.png` | AI 全栈课程最小准备包图 | `docs/intro/environment-setup.md` | AI 全栈课程最小准备包图：普通电脑、浏览器和 Colab、VS Code、Terminal、Python 3.11 或 Miniconda、Git 和 GitHub、项目文件夹 README；GPU、Docker、向量数据库和 LLM API Key 可以以后再准备。 |
 | `intro-minimal-setup-kit-ja.png` | AI フルスタック講座を始める前の最小準備セット図 | `docs/intro/environment-setup.md` | AI フルスタック講座を始める前の最小準備セット図：普通のPC、ブラウザと Colab、VS Code、Terminal、Python 3.11 または Miniconda、Git と GitHub、プロジェクトフォルダ README。GPU、Docker、ベクトルデータベース、LLM API Key は後でよい。 |
-| `intro-ai-assistant-repo-evidence-cabinet-en.png` | AI Learning Assistant repository evidence cabinet | `docs/intro/ai-learning-assistant-template.md` | AI Learning Assistant repository evidence cabinet: src code, data materials, evals checks, logs traces, docs showcase, and tests regression flow into a portfolio demo. |
-| `intro-ai-assistant-repo-evidence-cabinet.png` | AI 学习助手仓库证据柜图 | `docs/intro/ai-learning-assistant-template.md` | AI 学习助手仓库证据柜图：src 代码、data 材料、evals 检查、logs 轨迹、docs 展示、tests 回归测试汇入 portfolio demo。 |
-| `intro-ai-assistant-repo-evidence-cabinet-ja.png` | AI 学習アシスタント リポジトリ証拠キャビネット図 | `docs/intro/ai-learning-assistant-template.md` | AI 学習アシスタントのリポジトリ証拠キャビネット図：src コード、data 教材、evals チェック、logs トレース、docs ショーケース、tests 回帰テストが portfolio demo へ流れる。 |
-| `intro-concept-sorting-board-en.png` | Intro concept sorting board | `docs/intro/beginner-friendly-guide.md` | Concept sorting board: API, SDK, Model, Prompt, RAG, Agent, Embedding, and Deployment terms are sorted into five boxes before using a reference table. |
-| `intro-concept-sorting-board.png` | 入门术语分类板图 | `docs/intro/beginner-friendly-guide.md` | 入门术语分类板图：把 API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment 先分到调用接口、模型训练与服务、LLM 应用流程、数据向量、工程交付五个盒子，再查表。 |
-| `intro-concept-sorting-board-ja.png` | 入門用語の分類ボード図 | `docs/intro/beginner-friendly-guide.md` | 入門用語の分類ボード図：API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment を、インターフェース呼び出し、モデル訓練と提供、LLM アプリ流れ、データベクトル、エンジニアリング納品の五つに分類してから表を見る。 |
-| `intro-learning-pace-cards-en.png` | Intro learning pace cards | `docs/intro/learning-path.md` | Learning pace cards compare a 4-week sprint, 8-week portfolio path, and 12-week complete route, with weekly output and a reminder not to skip evaluation and failure samples. |
-| `intro-learning-pace-cards.png` | 学习节奏选择卡图 | `docs/intro/learning-path.md` | 学习节奏选择卡图：4 周快跑、8 周作品集、12 周完整路线三张卡，并列展示适合谁、每周产出，以及不要跳过评估与失败样本。 |
-| `intro-learning-pace-cards-ja.png` | 学習ペース選択カード図 | `docs/intro/learning-path.md` | 学習ペース選択カード図：4週間スプリント、8週間ポートフォリオ、12週間フルルートを並べ、向いている人、毎週の成果物、評価と失敗例を飛ばさないことを示す。 |
-| `intro-portfolio-acceptance-ladder-en.png` | Portfolio acceptance ladder | `docs/intro/badges-achievements.md` | Portfolio acceptance ladder from exercise level to project level, portfolio level, and interview level, with evidence: runs, reproducible, evaluable demo, and explain tradeoffs and boundaries. |
-| `intro-portfolio-acceptance-ladder.png` | 作品集验收阶梯图 | `docs/intro/badges-achievements.md` | 作品集验收阶梯图：练习级、项目级、作品集级、面试级逐级上升，对应证据是能跑、可复现、可评估演示、能解释取舍边界。 |
-| `intro-portfolio-acceptance-ladder-ja.png` | ポートフォリオ受け入れ基準の階段図 | `docs/intro/badges-achievements.md` | ポートフォリオ受け入れ基準の階段図：練習レベル、プロジェクトレベル、ポートフォリオレベル、面接レベルへ進み、動く、再現できる、評価できるデモ、取捨選択と境界を説明できる証拠を示す。 |
 | `intro-start-here-four-step-map-en.png` | Start Here four-step entrance map | `docs/intro/course-page-guide.md` | Start Here four-step map for new AI full-stack learners: Quick Experience, Environment Setup, Capability Map, and Learning Path into Chapter 1. |
 | `intro-start-here-four-step-map.png` | 先从这里开始四步入口图 | `docs/intro/course-page-guide.md` | 新人从零开始 AI 全栈课程的四步入口图：快速体验、环境准备、能力地图、学习路线，然后进入第 1 章。 |
 | `intro-start-here-four-step-map-ja.png` | ここから始める四ステップ入口図 | `docs/intro/course-page-guide.md` | AI フルスタック講座をゼロから始めるための四ステップ入口図：クイック体験、環境準備、能力マップ、学習ルートから第1章へ進む。 |
-| `intro-stage-checkpoint-cards.png` | 课程阶段验收卡图 | `docs/intro/boss-challenge-map.md` | 课程阶段验收卡图：每个阶段只保留一个最小可运行成果、一份证据和一次复盘，替代冗长挑战地图。 |
-| `debug-detective-missions.png` | Debug 侦探任务集 | `docs/intro/debug-detective-missions.md` | Debug 侦探任务集：学习者像侦探一样收集线索、定位错误并写下修复记录。 |
 | `ch01-tools-foundation.png` | 开发者工具基础主视觉 | `docs/ch01-tools/index.md` | 开发者工具基础主视觉：终端、Git、编辑器和 Python 环境组成稳定工作台。 |
 | `ch01-ai-workstation-comic.png` | 开发者工具 AI 工作站漫画指导图 | `docs/ch01-tools/index.md` | 开发者工具 AI 工作站漫画：新人把终端、Python 环境、VS Code、Jupyter 和 Git 组装成可复现的 AI 学习工作台。 |
 | `ch01-ai-workstation-comic-en.png` | Developer Tools AI Workstation Comic Guide | `docs/ch01-tools/index.md` | Developer tools AI workstation comic: a beginner assembles terminal, Python environment, VS Code, Jupyter, and Git into a reproducible AI learning workstation. |
@@ -65,7 +32,6 @@
 | `ch02-learning-quest-map.png` | Python 学习闯关地图 | `docs/ch02-python/index.md` | Python 学习闯关地图：第一段程序、数据组织、函数封装、文件保存、异常处理、API 调用和小作品逐步推进。 |
 | `ch02-python-ai-backbone.png` | Python AI 主线能力链 | `docs/ch02-python/index.md` | Python AI 主线能力链：语法、数据结构、函数模块、文件异常、第三方库、Web API 和 AI API 串成后续项目基础。 |
 | `ch02-study-guide-program-loop.png` | Python 学习指南最小闭环 | `docs/ch02-python/study-guide.md` | Python 学习指南最小闭环：输入进入程序，经过变量、条件循环、数据结构、函数模块，最后输出文件、API 或项目结果。 |
-| `ch02-task-list-workflow.png` | Python 阶段任务链 | `docs/ch02-python/task-list.md` | Python 阶段任务链：基础语法、数据结构、函数、文件保存、异常处理和阶段项目逐步串成编程能力。 |
 | `ch02-python-ai-workflow.png` | Python 到 AI 应用工作流 | `docs/ch02-python/ch01-basics/01-intro.md` | Python 到 AI 应用工作流：小脚本、文件数据、模型调用、API 封装、RAG 和 Agent 逐步连接。 |
 | `ch02-operators-decision-flow.png` | 运算符与条件判断流程图 | `docs/ch02-python/ch01-basics/03-operators.md` | 运算符与条件判断流程图：原始数据经过算术、比较和逻辑组合，进入条件分支。 |
 | `ch02-input-output-flow.png` | Python 输入处理输出流程图 | `docs/ch02-python/ch01-basics/04-io.md` | Python 输入处理输出流程图：input 接收用户输入，程序处理后用 f-string 和 print 展示结果。 |
@@ -85,8 +51,6 @@
 | `ch03-data-visualization.png` | 数据分析与可视化主视觉 | `docs/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
 | `ch03-learning-quest-map.png` | 数据分析学习闯关地图 | `docs/ch03-data-analysis/index.md` | 数据分析学习闯关地图：原始数据经过字段观察、清洗、聚合、可视化、解释和报告输出。 |
 | `ch03-data-analysis-backbone.png` | 数据分析主线闭环 | `docs/ch03-data-analysis/index.md` | 数据分析主线闭环：获取数据、理解字段、清洗异常、转换聚合、可视化探索并服务建模或业务决策。 |
-| `ch03-study-guide-data-loop.png` | 数据分析学习指南最小闭环 | `docs/ch03-data-analysis/study-guide.md` | 数据分析学习指南最小闭环：读取数据、理解字段、清洗整理、统计分析、可视化和写出结论。 |
-| `ch03-task-list-workflow.png` | 数据分析阶段任务链 | `docs/ch03-data-analysis/task-list.md` | 数据分析阶段任务链：读取数据、检查质量、清洗转换、统计分析、可视化表达和写出结论。 |
 | `ch03-pure-python-data-flow.png` | 纯 Python 数据处理痛点图 | `docs/ch03-data-analysis/ch01-warmup/01-pure-python-data.md` | 纯 Python 数据处理痛点图：CSV 解析、字典列表、手写循环、清洗统计和输出结果串成繁琐流程。 |
 | `ch03-numpy-overview-array-engine.png` | NumPy 科学计算引擎图 | `docs/ch03-data-analysis/ch02-numpy/01-overview.md` | NumPy 科学计算引擎图：ndarray 作为底层数组能力，支撑 Pandas、可视化、机器学习和深度学习。 |
 | `ch03-numpy-indexing-slicing-map.png` | NumPy 索引切片地图 | `docs/ch03-data-analysis/ch02-numpy/03-indexing-slicing.md` | NumPy 索引切片地图：基本索引、切片、布尔索引、花式索引、视图和拷贝帮助选择数组子集。 |
@@ -130,18 +94,14 @@
 | `ch04-gradient-parameter-knobs-map.png` | 偏导与梯度调参旋钮图 | `docs/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient.md` | 偏导与梯度调参旋钮图：固定其他变量只看一个旋钮的影响，所有偏导合成梯度给出整体调整方向。 |
 | `ch04-gradient-descent-iteration-loop.png` | 梯度下降迭代闭环图 | `docs/ch04-ai-math/ch03-calculus/03-gradient-descent.md` | 梯度下降迭代闭环图：当前位置计算梯度，沿负梯度方向走一步，损失变小并重复直到收敛。 |
 | `ch04-backprop-chain-rule-training-bridge.png` | 反向传播链式法则桥梁图 | `docs/ch04-ai-math/ch03-calculus/04-chain-rule-backprop.md` | 反向传播链式法则桥梁图：前向传播算出输出和损失，损失沿计算图反向传递，用链式法则得到每个参数梯度。 |
-| `ch04-linear-algebra-roadmap.png` | 线性代数学习地图 | `docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 线性代数学习地图：向量、矩阵、特殊方向和 AI 场景串成学习顺序。 |
 | `eigenvalue-special-directions.png` | 特征向量特殊方向示意图 | `docs/ch04-ai-math/ch01-linear-algebra/03-eigenvalues.md` | 特征向量特殊方向示意图：矩阵变换后方向不变，只发生拉伸或压缩。 |
 | `vector-space-basis-span.png` | 向量空间基向量张成示意图 | `docs/ch04-ai-math/ch01-linear-algebra/04-vector-spaces.md` | 向量空间基向量张成示意图：基向量通过线性组合覆盖可到达空间。 |
-| `ch04-probability-roadmap.png` | 概率与统计学习地图 | `docs/ch04-ai-math/ch02-probability/00-roadmap.md` | 概率与统计学习地图：不确定性、概率、分布、推断和信息论如何连接到模型。 |
 | `distribution-family-comparison.png` | 概率分布家族对比图 | `docs/ch04-ai-math/ch02-probability/02-distributions.md` | 概率分布家族对比图：二项、泊松、正态和中心极限定理对应不同随机现象。 |
 | `mle-likelihood-curve.png` | 最大似然估计似然曲线图 | `docs/ch04-ai-math/ch02-probability/03-statistical-inference.md` | 最大似然估计似然曲线图：让观测数据最可能出现的参数就是 MLE 选择。 |
-| `ch04-calculus-roadmap.png` | 微积分与优化学习地图 | `docs/ch04-ai-math/ch03-calculus/00-roadmap.md` | 微积分与优化学习地图：导数、偏导、梯度、梯度下降和反向传播组成模型学习链路。 |
 | `derivative-tangent-slope.png` | 导数切线斜率示意图 | `docs/ch04-ai-math/ch03-calculus/01-derivatives.md` | 导数切线斜率示意图：某一点的切线越陡，函数在附近变化越快。 |
 | `gradient-contour-field.png` | 梯度等高线方向场图 | `docs/ch04-ai-math/ch03-calculus/02-partial-derivatives-gradient.md` | 梯度等高线方向场图：负梯度方向引导参数一步步走向更低 loss。 |
 | `chain-rule-backprop-graph.png` | 链式法则计算图与反向传播示意图 | `docs/ch04-ai-math/ch03-calculus/04-chain-rule-backprop.md` | 链式法则计算图与反向传播示意图：前向计算损失，反向逐层传播梯度。 |
 | `math-study-loop.png` | AI 数学学习循环图 | `docs/ch04-ai-math/study-guide.md` | AI 数学学习循环图：直觉解释、小数字例子、代码实验、模型连接和误区复盘形成循环。 |
-| `math-task-checklist.png` | 数学最小通关任务单图 | `docs/ch04-ai-math/task-list.md` | 数学最小通关任务单图：向量相似度、概率分布和梯度下降三个小实验组成最低通关。 |
 | `ch04-probability-history-foundations-map.png` | 概率统计历史基础地图 | `docs/ch04-ai-math/ch02-probability/05-history-foundations.md` | 概率统计历史基础地图：Bayes 更新证据，MLE 从数据反推参数，EM 处理隐藏变量，Shannon 信息论度量不确定性。 |
 | `ch04-hands-on-math-workshop-route.png` | 第 4 章 AI 数学实操工作坊路线图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 第 4 章数学实操工作坊路线图：小数字、向量相似度、概率模拟、熵与 loss、梯度下降和证据包组成可跟做路线。 |
 | `ch04-hands-on-vector-similarity-flow.png` | 向量相似度证据流图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 向量相似度证据流图：query vector 与 topic vectors 经过 dot、norm、cosine similarity 和 distance 后输出最相似主题。 |
@@ -636,7 +596,9 @@
 | `elective-ai-security-red-team-loop.png` | AI 安全红队闭环图 | `docs/electives/module-d.md` | AI 安全红队闭环图：威胁建模、攻击样本、评估统计、修复和回归测试形成持续安全闭环。 |
 | `elective-ai-frontend-stack.png` | AI 前端交互栈图 | `docs/electives/module-e.md` | AI 前端交互栈图：HTML、CSS、JavaScript、fetch、加载态和错误态共同把模型能力变成可体验产品。 |
 | `elective-ai-product-decision-matrix.png` | AI 产品决策四象限图 | `docs/electives/module-f.md` | AI 产品决策四象限图：用户价值、成本、风险和体验共同决定一个 AI 功能是否值得做。 |
-| `appendix-ai-milestones-timeline.png` | AI 历史接力赛时间线图 | `docs/appendix/ai-milestones.md` | AI 历史接力赛时间线图：概率推断、神经网络、经典机器学习、深度学习、大模型、Agent 和多模态依次接力。 |
+| `appendix-ai-15-stage-history-map-en.png` | AI 15-stage development history vertical map | `docs/appendix/ai-milestones.md` | AI 15-stage development history vertical map: Symbolic AI, Expert Systems, ML, Deep Learning, Transformer, LLM, RAG, Agent, and Multimodal development stages. |
+| `appendix-ai-15-stage-history-map.png` | AI 15 阶段发展史竖版地图 | `docs/appendix/ai-milestones.md` | AI 15 阶段发展史竖版地图：从符号主义、专家系统到机器学习、深度学习、Transformer、LLM、RAG、Agent 和多模态。 |
+| `appendix-ai-15-stage-history-map-ja.png` | AI 15段階発展史の縦型マップ | `docs/appendix/ai-milestones.md` | AI 15段階発展史の縦型マップ：記号AI、エキスパートシステムから機械学習、深層学習、Transformer、LLM、RAG、Agent、マルチモーダルへ進む流れ。 |
 | `appendix-troubleshooting-rescue-map.png` | 学习卡点排障地图 | `docs/appendix/troubleshooting.md` | 学习卡点排障地图：环境、代码、训练、显存、项目拆解和学习焦虑对应不同排查路径。 |
 | `appendix-hardware-cloud-decision-tree.png` | 硬件与云资源决策树 | `docs/appendix/hardware.md` | 硬件与云资源决策树：先看学习阶段和任务，再决定本地电脑、云 GPU、API 或硬件升级。 |
 | `appendix-job-prep-funnel.png` | 求职准备漏斗图 | `docs/appendix/job-prep.md` | 求职准备漏斗图：岗位定位、项目选择、README 打磨、简历表达、面试复盘逐步收敛。 |
@@ -706,40 +668,4 @@
 | `ch03-pandas-groupby-split-apply-combine.png` | Pandas GroupBy 分组聚合流程图 | `docs/ch03-data-analysis/ch03-pandas/06-groupby.md` | Pandas GroupBy 分组聚合流程图：原始表先按字段拆分，再分别聚合，最后组合成结果表。 |
 | `ch03-multi-source-analysis-architecture.png` | 多数据源整合分析架构图 | `docs/ch03-data-analysis/ch06-projects/02-multi-source-analysis.md` | 多数据源整合分析架构图：CSV、Excel、数据库和 API 数据经过清洗、对齐、合并、分析和报告输出。 |
 | `intro-ai-fullstack-capability-map.png` | AI 全栈能力总地图 | `docs/intro/ai-fullstack-map.md` | AI 全栈能力总地图：开发基础、数据能力、模型基础、大模型理解、应用开发、Agent 系统和工程化方向逐层展开。 |
-| `intro-modern-ai-stack-map.png` | 现代 AI 应用技术栈全景图 | `docs/intro/modern-ai-stack.md` | 现代 AI 应用技术栈全景图：模型、RAG、Agent、多模态、模型工程、评估、监控和部署组成真实 AI 系统。 |
 | `intro-learning-path-selection.png` | 推荐学习路线选择图 | `docs/intro/learning-path.md` | 推荐学习路线选择图：根据应用开发、模型理解、作品集或时间投入选择不同学习深度。 |
-| `intro-four-main-routes-subway.png` | 四条主线学习路线地铁图 | `docs/intro/main-learning-routes.md` | 四条主线学习路线地铁图：零基础全栈、已有开发经验、数据模型方向和作品集冲刺路线在关键章节交汇。 |
-| `intro-blocker-diagnosis-flow.png` | 学习卡点诊断分流图 | `docs/intro/blocker-diagnosis-map.md` | 学习卡点诊断分流图：从环境、代码、数学、模型、RAG、Agent 和项目表达等卡点回流到对应课程章节。 |
-| `intro-project-portfolio-roadmap.png` | 项目作品集成长阶梯图 | `docs/intro/project-roadmap.md` | 项目作品集成长阶梯图：从命令行小工具、数据分析、机器学习、RAG、Agent 到毕业项目逐步形成作品集。 |
-| `intro-role-based-paths-map.png` | 角色路线选择地图 | `docs/intro/role-based-paths.md` | 角色路线选择地图：AI 应用工程师、RAG 工程师、Agent 开发者、模型工程方向和作品集求职者对应不同学习重点。 |
-| `intro-graduation-project-loop.png` | 毕业项目闭环设计图 | `docs/intro/graduation-project-guide.md` | 毕业项目闭环设计图：需求、数据、模型、系统、评估、部署和复盘组成可展示的 AI 全栈毕业项目。 |
-| `homepage-ai-history-comic-en-01-turing.png` | English homepage AI history comic 01 Turing and the AI dream | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about Turing, the Turing machine, and the Turing Test as the starting point of the AI dream. |
-| `homepage-ai-history-comic-en-02-dartmouth.png` | English homepage AI history comic 02 Dartmouth Conference | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about the 1956 Dartmouth Conference and the birth of artificial intelligence as a research field. |
-| `homepage-ai-history-comic-en-03-perceptron.png` | English homepage AI history comic 03 Perceptron and first neural winter | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about the perceptron boom, XOR limitation, and the first neural network downturn. |
-| `homepage-ai-history-comic-en-04-expert-systems.png` | English homepage AI history comic 04 Expert systems | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about expert systems, knowledge bases, rule engines, and maintenance limits. |
-| `homepage-ai-history-comic-en-05-backprop.png` | English homepage AI history comic 05 Backpropagation | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about backpropagation sending error signals backward through a multilayer neural network. |
-| `homepage-ai-history-comic-en-06-lenet.png` | English homepage AI history comic 06 LeNet and CNN | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about LeNet, convolution filters, handwritten digit recognition, and practical CNN success. |
-| `homepage-ai-history-comic-en-07-statistical-ml.png` | English homepage AI history comic 07 Statistical machine learning | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about statistical machine learning, feature engineering, SVM, random forests, and boosting. |
-| `homepage-ai-history-comic-en-08-imagenet-alexnet.png` | English homepage AI history comic 08 ImageNet and AlexNet | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about ImageNet, AlexNet, GPU training, CNN feature learning, and the deep learning explosion. |
-| `homepage-ai-history-comic-en-09-resnet.png` | English homepage AI history comic 09 ResNet | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about ResNet residual connections and why adding X back helps train deep networks. |
-| `homepage-ai-history-comic-en-10-rnn-lstm.png` | English homepage AI history comic 10 RNN and LSTM | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about RNNs, LSTMs, hidden state, memory gates, and long-distance dependency limits. |
-| `homepage-ai-history-comic-en-11-attention.png` | English homepage AI history comic 11 Attention | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about attention for machine translation, information bottlenecks, and weighted focus. |
-| `homepage-ai-history-comic-en-12-transformer.png` | English homepage AI history comic 12 Transformer | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about Transformer self-attention, QKV, multi-head attention, parallel training, and LLM foundations. |
-| `homepage-ai-history-comic-en-13-bert-gpt.png` | English homepage AI history comic 13 BERT and GPT | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about BERT, GPT, masked language modeling, next-token prediction, and pretraining. |
-| `homepage-ai-history-comic-en-14-rlhf-chatgpt.png` | English homepage AI history comic 14 SFT RLHF and ChatGPT | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about SFT, RLHF, ChatGPT, and turning a text completer into an assistant. |
-| `homepage-ai-history-comic-en-15-rag-agent.png` | English homepage AI history comic 15 RAG tools and Agents | `i18n/en/docusaurus-plugin-content-docs/current/index.md` | Comic about RAG, tool calling, AI Agents, planning, execution, safety, and real tasks. |
-| `homepage-ai-history-comic-ja-01-turing.png` | 日本語ホーム AI 史マンガ 01 チューリングと AI の夢 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | チューリング機械とチューリングテストが AI の出発点になったことを説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-02-dartmouth.png` | 日本語ホーム AI 史マンガ 02 ダートマス会議 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | 1956年のダートマス会議で人工知能が正式な研究分野になったことを説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-03-perceptron.png` | 日本語ホーム AI 史マンガ 03 パーセプトロンと最初の冬 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | パーセプトロン、XOR問題、ニューラルネットワーク最初の低迷を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-04-expert-systems.png` | 日本語ホーム AI 史マンガ 04 エキスパートシステム | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | エキスパートシステム、知識ベース、規則推論、保守限界を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-05-backprop.png` | 日本語ホーム AI 史マンガ 05 誤差逆伝播 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | 誤差逆伝播で多層ニューラルネットの重みを調整する仕組みを説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-06-lenet.png` | 日本語ホーム AI 史マンガ 06 LeNet と CNN | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | LeNet、畳み込み、手書き数字認識、CNNの実用成功を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-07-statistical-ml.png` | 日本語ホーム AI 史マンガ 07 統計的機械学習 | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | 統計的機械学習、SVM、ランダムフォレスト、Boosting、特徴量設計を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-08-imagenet-alexnet.png` | 日本語ホーム AI 史マンガ 08 ImageNet と AlexNet | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | ImageNet、AlexNet、GPU、CNN、大規模画像認識による深層学習の爆発を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-09-resnet.png` | 日本語ホーム AI 史マンガ 09 ResNet | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | ResNetの残差接続と X を足し戻す意味を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-10-rnn-lstm.png` | 日本語ホーム AI 史マンガ 10 RNN と LSTM | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | RNN、LSTM、hidden state、記憶ゲート、長距離依存の限界を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-11-attention.png` | 日本語ホーム AI 史マンガ 11 Attention | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | Attention、翻訳、情報ボトルネック、重み付き注目を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-12-transformer.png` | 日本語ホーム AI 史マンガ 12 Transformer | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | Transformer、self-attention、QKV、multi-head attention、並列訓練を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-13-bert-gpt.png` | 日本語ホーム AI 史マンガ 13 BERT と GPT | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | BERT、GPT、穴埋め学習、次トークン予測、事前学習時代を説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-14-rlhf-chatgpt.png` | 日本語ホーム AI 史マンガ 14 SFT RLHF と ChatGPT | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | SFT、RLHF、ChatGPT、文章補完モデルが対話助手になる流れを説明する日本語マンガ。 |
-| `homepage-ai-history-comic-ja-15-rag-agent.png` | 日本語ホーム AI 史マンガ 15 RAG と Agent | `i18n/ja/docusaurus-plugin-content-docs/current/index.md` | RAG、ツール呼び出し、AI Agent、計画、実行、安全性を説明する日本語マンガ。 |

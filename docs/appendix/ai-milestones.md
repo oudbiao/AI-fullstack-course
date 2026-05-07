@@ -1,13 +1,37 @@
 ---
-title: "Timeline of Key AI Papers and Algorithms"
+title: "AI Development History: 15 Stages and Key Papers"
 sidebar_position: 2
-description: "From the perceptron, backpropagation, LeNet, AlexNet, Transformer, BERT, and GPT to RLHF and diffusion models, get a one-page view of how the main AI storyline emerged."
-keywords: [AI history, key papers, Transformer paper, BERT paper, GPT paper, RLHF paper, diffusion model paper]
+description: "A beginner-friendly 15-stage map of AI development, followed by key papers and algorithms from the perceptron, backpropagation, AlexNet, Transformer, GPT, RAG, Agent, and diffusion models."
+keywords: [AI history, AI development stages, key papers, Transformer paper, GPT paper, RAG, Agent, diffusion model paper]
 ---
 
-# Timeline of Key AI Papers and Algorithms
+# AI Development History: 15 Stages and Key Papers
 
-![AI History Relay Race Timeline](/img/course/appendix-ai-milestones-timeline-en.png)
+![AI 15-stage development history map](/img/course/appendix-ai-15-stage-history-map-en.png)
+
+This is an optional background page. If you are new, read only the 15-stage map first, then return to the main course. The long paper tables are for later lookup.
+
+## Quick View: 15 Stages of AI Development
+
+| Stage | Beginner meaning | Course anchor |
+|---|---|---|
+| 1. The AI question | Can a machine show intelligent behavior? | Course overview |
+| 2. Symbolic AI | Humans write rules; machines reason with rules | History background |
+| 3. Expert systems | Domain knowledge becomes rule-based software | System design background |
+| 4. Probability and statistics | Use uncertainty and evidence instead of only fixed rules | Chapter 4 |
+| 5. Classic machine learning | Learn patterns from data and features | Chapter 5 |
+| 6. Early neural networks | A model begins to learn simple decision boundaries | Chapters 5-6 |
+| 7. Backpropagation | Multi-layer networks become trainable | Chapter 6 |
+| 8. Kernel and ensemble era | SVM, trees, forests, and boosting make ML practical | Chapter 5 |
+| 9. Deep learning breakthrough | Data + GPUs + deep networks unlock vision and speech | Chapters 6 and 10 |
+| 10. Embeddings and sequence models | Text becomes vectors and sequences become learnable | Chapter 11 |
+| 11. Transformer and pretraining | Attention makes large-scale language models practical | Chapters 6-7 |
+| 12. LLM and alignment | Models become instruction-following assistants | Chapter 7 |
+| 13. RAG | Models connect to external knowledge and citations | Chapter 8 |
+| 14. Agent and tool use | Models plan, call tools, and leave traces | Chapter 9 |
+| 15. Multimodal and AIGC | AI works across text, image, speech, video, and generation | Chapter 12 |
+
+The most important pattern is simple: each stage solves a bottleneck from the previous stage, then creates new engineering problems.
 
 This page is not meant to make you memorize paper names. It is here to help you build a more stable, more vivid sense of history:
 

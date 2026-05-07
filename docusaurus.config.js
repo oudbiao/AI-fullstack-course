@@ -200,7 +200,6 @@ const config = {
             items: [
               { label: "Course Overview", to: "/" },
               { label: "Learning Path", to: "/intro/learning-path" },
-              { label: "Career Paths", to: "/intro/career-guide" },
             ],
           },
           {

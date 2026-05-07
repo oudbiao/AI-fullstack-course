@@ -19,10 +19,6 @@
     "message": "学習ルート",
     "description": "The label of footer link with label=Learning Path linking to /intro/learning-path"
   },
-  "link.item.label.Career Paths": {
-    "message": "キャリア方向",
-    "description": "The label of footer link with label=Career Paths linking to /intro/career-guide"
-  },
   "link.item.label.GitHub": {
     "message": "GitHub",
     "description": "The label of footer link with label=GitHub linking to https://github.com/oudbiao/AI-fullstack-course"

@@ -24,4 +24,6 @@ tools -> data -> models -> LLM -> RAG -> Agent -> delivery
 | 答えが信頼できない | 評価と RAG |
 | 行動が制御できない | Agent trace と権限 |
 
+任意の背景：これらの能力がどのように発展してきたかを知りたい場合は、[AI 発展史 15 段階マップ](/appendix/ai-milestones)を軽く見てください。
+
 次に学習ルートを選びます。

@@ -24,4 +24,6 @@ tools -> data -> models -> LLM -> RAG -> Agent -> delivery
 | 回答不可靠 | 评估和 RAG |
 | 动作不可控 | Agent trace 和权限 |
 
+可选背景：如果想知道这些能力是怎样发展出来的，可以快速看一眼 [AI 15 阶段发展史](/appendix/ai-milestones)。
+
 下一步，选择学习路线。
