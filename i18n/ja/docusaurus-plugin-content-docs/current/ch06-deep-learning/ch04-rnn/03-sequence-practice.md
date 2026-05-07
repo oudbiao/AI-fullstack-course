@@ -1,231 +1,53 @@
 ---
 title: "6.4.4 シーケンスモデリング実践"
 sidebar_position: 3
-description: "本当に学習できる小さな時系列タスクを使って、ウィンドウ構成、RNN/LSTM の学習、検証、予測までをつなげて学びます。"
+description: "実用的な時系列予測ループを実行します：スライディングウィンドウ、時間順 split、LSTM 学習、baseline 比較、検証、予測確認。"
 keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 ---
 
 # 6.4.4 シーケンスモデリング実践
 
 :::tip この節の位置づけ
-前の2節で、あなたはすでに次を理解しました。
-
-- RNN は「読みながら覚える」
-- LSTM / GRU は「もっと賢く記憶をコントロールする」
-
-この節では、これらの概念を小さなプロジェクトに落とし込みます。
-
-> **ある系列を与えて、後ろの値を予測する。**
+この節では、シーケンスモデリングを小さなプロジェクトとして動かします。連続系列をスライディングウィンドウのサンプルに変換し、LSTM を学習し、naive baseline と比較し、検証予測を確認します。
 :::
 
 ![RNN 時系列スライディングウィンドウの実践ループ](/img/course/ch06-rnn-sliding-window-practice-loop-ja.png)
 
-:::tip この図の読み方
-LSTM のコードを読む前に、まず図でデータの流れを追いましょう。連続系列は多くのスライディングウィンドウのサンプルになり、各サンプルは `[batch, seq_len, input_size]` になります。検証は時間順を守り、未来情報の漏れを防ぎます。
-:::
-
 ## 学習目標
 
-- 連続した系列を学習用サンプルに分割できるようになる
-- LSTM を使って最小限の時系列予測器を作れるようになる
-- 訓練用データ、検証用データ、予測の流れを理解する
-- モデルが規則を学んでいるのか、それともただ暗記しているだけかを見分ける
-- 実践でよくある落とし穴を知る
+- 連続した時系列を教師あり学習サンプルに変換する。
+- LSTM 入力を `[batch, seq_len, input_size]` に保つ。
+- 未来情報の漏洩を避けるため、検証データを時間順に分ける。
+- LSTM 予測器を学習し、naive baseline と比較する。
+- 検証 loss と予測サンプルを読めるようになる。
 
 ---
 
-## 一、なぜ「時系列予測」を実践課題に選ぶのか？
+## 中心となる流れ
 
-### シーケンスモデリングの基礎練習に最適だから
-
-多くの系列タスクは、次のように抽象化できます。
-
-- 前の一部分を入力する
-- 後ろの1つを出力する
-
-時系列予測は、その代表例です。
-
-たとえば：
-
-- 過去7日間の売上から、8日目の売上を予測する
-- 過去12個の気温から、次の気温を予測する
-
-### とても大事な直感
-
-この種のタスクでは、モデルは個々の数字を覚えるのではなく、次を学びます。
-
-> **変化のパターン。**
-
-たとえば：
-
-- 周期
-- 傾向
-- 変動
-
-これは普通の分類タスクとはかなり違います。
-
----
-
-## 二、すぐに実行できるデータを先に作る
-
-### 正弦波 + ノイズで最小限の系列を作る
-
-こうすると、次の利点があります。
-
-- 外部データセットに依存しない
-- パターンがわかりやすい
-- 教学にとても向いている
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-np.random.seed(42)
-
-t = np.arange(0, 200)
-series = np.sin(t * 0.1) + np.random.randn(200) * 0.05
-
-plt.figure(figsize=(10, 4))
-plt.plot(t, series)
-plt.title("Toy Time Series")
-plt.grid(True, alpha=0.3)
-plt.show()
+```text
+連続系列 -> sliding window -> 時間順 split -> LSTM -> 検証 MSE -> 予測確認
 ```
 
-### このデータはどんな見た目？
+時系列では、基本的にランダム分割を避けます。未来の点が訓練に漏れると、検証が楽観的になりすぎます。
 
-特徴は2つあります。
+## 1 分でわかるスライディングウィンドウ
 
-- 全体として波打っている
-- 少しランダムなノイズが入っている
+`window_size = 3` の場合：
 
-そのため、完全に規則的な系列よりも、実際のタスクに少し近いです。
+```text
+series: [1, 2, 3, 4, 5, 6]
 
----
-
-## 三、スライディングウィンドウ：長い系列をどうやってサンプルに切るのか？
-
-### 核心の考え方
-
-モデルは、そのまま「1本の無限に続く系列」を直接受け取ることはできません。  
-通常は、これをたくさんの小さな断片に分けます。
-
-- `window_size` 個の点を入力にする
-- `window_size + 1` 個目の点をラベルにする
-
-これをスライディングウィンドウと呼びます。
-
-### 実行可能な例
-
-```python
-import numpy as np
-
-series = np.array([1, 2, 3, 4, 5, 6, 7], dtype=np.float32)
-window_size = 3
-
-X, y = [], []
-for i in range(len(series) - window_size):
-    X.append(series[i:i + window_size])
-    y.append(series[i + window_size])
-
-X = np.array(X)
-y = np.array(y)
-
-print("X =\n", X)
-print("y =", y)
+X[0] = [1, 2, 3] -> y[0] = 4
+X[1] = [2, 3, 4] -> y[1] = 5
+X[2] = [3, 4, 5] -> y[2] = 6
 ```
 
-### なぜこのステップがそんなに重要なのか？
+このように、連続系列を訓練用の行に変換します。
 
-なぜなら、ここで系列タスクのサンプル定義が決まるからです。  
-ウィンドウの作り方を間違えると、その後の学習、検証、予測もすべてずれてしまいます。
+## 完全な実験：LSTM 予測
 
----
-
-## 四、データを PyTorch で学習できる形に整える
-
-### 完全なデータ準備
-
-```python
-import numpy as np
-import torch
-
-np.random.seed(42)
-torch.manual_seed(42)
-
-t = np.arange(0, 200)
-series = np.sin(t * 0.1) + np.random.randn(200) * 0.05
-series = series.astype(np.float32)
-
-window_size = 12
-X, y = [], []
-
-for i in range(len(series) - window_size):
-    X.append(series[i:i + window_size])
-    y.append(series[i + window_size])
-
-X = np.array(X)
-y = np.array(y)
-
-# [batch, seq_len, input_size] に変換
-X = torch.tensor(X).unsqueeze(-1)
-y = torch.tensor(y).unsqueeze(-1)
-
-print("X shape:", X.shape)
-print("y shape:", y.shape)
-```
-
-### なぜ `unsqueeze(-1)` が必要なのか？
-
-LSTM が期待する入力は、通常次の形です。
-
-- `[batch, seq_len, input_size]`
-
-ここでは各時刻に1つの特徴量しかないので、
-
-- `input_size = 1`
-
-になります。
-
----
-
-## 五、本当に学習できる小さな LSTM 予測器
-
-### モデルを定義する
-
-```python
-import torch
-from torch import nn
-
-class LSTMForecaster(nn.Module):
-    def __init__(self, hidden_size=32):
-        super().__init__()
-        self.lstm = nn.LSTM(
-            input_size=1,
-            hidden_size=hidden_size,
-            batch_first=True
-        )
-        self.fc = nn.Linear(hidden_size, 1)
-
-    def forward(self, x):
-        out, (h, c) = self.lstm(x)
-        last_hidden = out[:, -1, :]
-        return self.fc(last_hidden)
-```
-
-### なぜ最後の時刻だけを取るのか？
-
-このタスクは次のようなものだからです。
-
-> 前のウィンドウを使って、次の値を予測する
-
-そのため、系列の最後の時刻の表現を、ウィンドウ全体の要約として使うのが最も自然です。
-
----
-
-## 六、完全な学習フロー
-
-### 学習 + 検証
+合成系列は 2 つの波とノイズでできています。まだ小さなデータですが、完全な正弦波より実データに近いです。
 
 ```python
 import numpy as np
@@ -235,158 +57,174 @@ from torch import nn
 np.random.seed(42)
 torch.manual_seed(42)
 
-t = np.arange(0, 200)
-series = np.sin(t * 0.1) + np.random.randn(200) * 0.05
-series = series.astype(np.float32)
 
-window_size = 12
-X, y = [], []
-for i in range(len(series) - window_size):
-    X.append(series[i:i + window_size])
-    y.append(series[i + window_size])
+def make_windows(series, window_size):
+    X, y = [], []
+    for i in range(len(series) - window_size):
+        X.append(series[i : i + window_size])
+        y.append(series[i + window_size])
+    X = torch.tensor(np.array(X), dtype=torch.float32).unsqueeze(-1)
+    y = torch.tensor(np.array(y), dtype=torch.float32).unsqueeze(-1)
+    return X, y
 
-X = torch.tensor(np.array(X)).unsqueeze(-1)
-y = torch.tensor(np.array(y)).unsqueeze(-1)
 
-train_size = int(len(X) * 0.8)
-X_train, X_val = X[:train_size], X[train_size:]
-y_train, y_val = y[:train_size], y[train_size:]
+t = np.arange(0, 220)
+series = (
+    np.sin(t * 0.12)
+    + 0.25 * np.sin(t * 0.03)
+    + np.random.randn(len(t)) * 0.04
+).astype(np.float32)
+
+window_size = 16
+X, y = make_windows(series, window_size)
+
+split = int(len(X) * 0.8)
+X_train, X_val = X[:split], X[split:]
+y_train, y_val = y[:split], y[split:]
+
+print("window_lab")
+print("X:", tuple(X.shape), "y:", tuple(y.shape))
+print("train:", tuple(X_train.shape), "val:", tuple(X_val.shape))
+
+naive_val = ((X_val[:, -1, :] - y_val) ** 2).mean().item()
+print("naive_val_mse:", round(naive_val, 4))
+
 
 class LSTMForecaster(nn.Module):
     def __init__(self, hidden_size=32):
         super().__init__()
-        self.lstm = nn.LSTM(input_size=1, hidden_size=hidden_size, batch_first=True)
+        self.lstm = nn.LSTM(1, hidden_size, batch_first=True)
         self.fc = nn.Linear(hidden_size, 1)
 
     def forward(self, x):
         out, _ = self.lstm(x)
         return self.fc(out[:, -1, :])
 
-model = LSTMForecaster(hidden_size=32)
+
+model = LSTMForecaster(32)
 loss_fn = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
-for epoch in range(200):
+for epoch in range(1, 121):
     model.train()
     pred = model(X_train)
     loss = loss_fn(pred, y_train)
 
     optimizer.zero_grad()
     loss.backward()
+    torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
     optimizer.step()
 
-    if epoch % 40 == 0:
+    if epoch == 1 or epoch % 30 == 0:
         model.eval()
         with torch.no_grad():
             val_loss = loss_fn(model(X_val), y_val)
-        print(f"epoch={epoch:3d}, train_loss={loss.item():.4f}, val_loss={val_loss.item():.4f}")
-```
+        print(f"epoch={epoch:03d} train_mse={loss.item():.4f} val_mse={val_loss.item():.4f}")
 
-### この学習コードで本当に見るべきポイント
-
-最も重要なのは次の3つです。
-
-- 入力の shape が正しいか
-- 最後に `out[:, -1, :]` だけを取っているか
-- 損失がちゃんと下がっているか
-
-この3点を理解できれば、あなたはもうシーケンスモデリング実践の入口を越えています。
-
----
-
-## 七、実際に予測してみる
-
-### 1つのウィンドウで予測する
-
-```python
 model.eval()
 with torch.no_grad():
-    sample_x = X_val[0:1]
-    pred = model(sample_x)
-    print("予測値:", float(pred.item()))
-    print("正解値:", float(y_val[0].item()))
+    val_pred = model(X_val)
+    print("first_5_pred:", [round(v, 3) for v in val_pred[:5, 0].tolist()])
+    print("first_5_true:", [round(v, 3) for v in y_val[:5, 0].tolist()])
 ```
 
-### 予測値と正解値を描画する
+期待される出力：
+
+```text
+window_lab
+X: (204, 16, 1) y: (204, 1)
+train: (163, 16, 1) val: (41, 16, 1)
+naive_val_mse: 0.0115
+epoch=001 train_mse=0.5168 val_mse=0.4633
+epoch=030 train_mse=0.0049 val_mse=0.0046
+epoch=060 train_mse=0.0032 val_mse=0.0035
+epoch=090 train_mse=0.0029 val_mse=0.0032
+epoch=120 train_mse=0.0028 val_mse=0.0030
+first_5_pred: [0.323, 0.261, 0.145, -0.025, -0.192]
+first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
+```
+
+## 出力を読む
+
+| 出力 | 意味 |
+|---|---|
+| `X: (204, 16, 1)` | 204 個の window、16 time steps、各 step 1 feature |
+| `train: (163, 16, 1)` | 最初の 80% の window を訓練に使う |
+| `val: (41, 16, 1)` | 後ろの window を検証に使う |
+| `naive_val_mse` | baseline：最後に観測した値を次の値として予測 |
+| `val_mse` | LSTM の検証誤差 |
+| `first_5_pred` vs `first_5_true` | 方向とスケールの簡易確認 |
+
+この実行では、LSTM は naive baseline を上回っています（`0.0030` vs `0.0115`）。これは重要です。信頼する前に、モデルはまず単純な baseline に勝つべきです。
+
+## なぜ Gradient Clipping を使うのか
+
+RNN 系のモデルでは、勾配が大きくなることがあります。この行は全体の勾配 norm を制限します。
+
+```python
+torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+```
+
+必ず必要とは限りませんが、系列モデルでは実用的な安全策です。
+
+## Notebook で何を描くべきか
+
+Notebook では次を追加します。
 
 ```python
 import matplotlib.pyplot as plt
 
-model.eval()
-with torch.no_grad():
-    val_pred = model(X_val).squeeze(-1).numpy()
-    val_true = y_val.squeeze(-1).numpy()
-
 plt.figure(figsize=(10, 4))
-plt.plot(val_true, label="true")
-plt.plot(val_pred, label="pred")
+plt.plot(y_val.squeeze(-1).numpy(), label="true")
+plt.plot(val_pred.squeeze(-1).numpy(), label="pred")
 plt.legend()
-plt.title("Validation Prediction")
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-実際の系列タスクでは、1つの指標よりもグラフのほうが問題を見つけやすいことがよくあります。
+見るべき点：
 
-- 波の山や谷に追いつけているか
-- 全体的に遅れていないか
-- ずっと平らな線になっていないか
+- lag：形は追えているが遅れている。
+- flatline：平均値のような平らな予測になっている。
+- missed peaks：window が短すぎる、またはモデルが弱い。
+- noisy prediction：学習率、データノイズ、過学習の問題。
 
----
+## よくある落とし穴
 
-## 八、シーケンスモデリング実践でよくある落とし穴
+| 落とし穴 | なぜ困るか | 修正 |
+|---|---|---|
+| train/val をランダム分割する | 未来が訓練に漏れる | 時間順に分割する |
+| window が短すぎる | 文脈が足りない | 大きい `window_size` を試す |
+| window が長すぎる | 最適化が難しく、ノイズも増える | 検証 loss で比較する |
+| baseline がない | モデルがよく見えても実は trivial かもしれない | 最後値 baseline と比べる |
+| MSE だけ見る | 傾向が遅れたり平坦化している可能性がある | 予測曲線を描く |
+| 実データをスケーリングしない | 値の範囲が大きく訓練が不安定になる | 訓練統計だけで正規化する |
 
-### データリーク
+## Toy Series から実プロジェクトへ
 
-訓練用データと検証用データの分け方が悪いと、未来の情報がモデルに漏れてしまうことがあります。
+実際の系列プロジェクトでは、次が必要になることがあります。
 
-時系列タスクでは、基本的に次の方針が安全です。
+- 各ステップに複数特徴。
+- 欠損値処理。
+- 訓練データだけに基づく正規化。
+- rolling-origin validation。
+- GRU、Temporal CNN、Transformer、統計 baseline。
+- MSE だけでなく業務指標。
 
-> 時系列順に分ける。むやみにシャッフルしない。
-
-### ウィンドウが短すぎる、または長すぎる
-
-- 短すぎる：モデルが十分な過去を見られない
-- 長すぎる：学習が難しくなり、ノイズも増える
-
-### loss だけ見て、曲線を見ない
-
-系列予測では、グラフを描くことがとても大事です。  
-なぜなら、loss が近い2つのモデルでも、予測の形はまったく違うことがあるからです。
-
-### 「因果」を学んだつもりで、実は短期パターンしか学んでいない
-
-これはすべての系列予測で注意が必要です。  
-モデルが予測できることと、本当に仕組みを理解していることは別です。
-
----
-
-## 九、とても大事な実務感覚
-
-実際のプロジェクトでは、系列タスクに必ずしも RNN / LSTM を使うとは限りません。  
-今では、次のような手法もよく使われます。
-
-- Transformer
-- Temporal Convolution
-- 伝統的な統計モデル
-
-ただし、将来どんなモデルを使うとしても、この節で学んだウィンドウ構成、時系列の分割、検証方法は、ずっと基礎になります。
-
----
-
-## まとめ
-
-この節で最も大事なのは、「LSTM を動かすこと」そのものではなく、次を理解することです。
-
-> **シーケンス実践の鍵は、連続データをどう学習サンプルに切り分け、未来情報を漏らさない前提でモデルに変化の規則を学ばせるかにある。**
-
-データの作り方、学習の流れ、検証、予測のグラフ化、これらを一つの流れとしてつなげられるようになってはじめて、シーケンスモデリングは本当に使えるものになります。
-
----
+それでも流れは同じです。window を定義し、時間順を守り、baseline と比較し、予測を確認します。
 
 ## 練習
 
-1. `window_size` を 12 から 6 と 24 に変えて、予測結果を比べてみましょう。
-2. モデルを LSTM から GRU に変えて、学習曲線が違うか確認してみましょう。
-3. あえて訓練用データと検証用データをランダムにシャッフルして、なぜ時系列では危険なのか考えてみましょう。
-4. もし系列に明確な週周期があるなら、ウィンドウ長はどう設計すべきか考えてみましょう。
+1. `window_size` を `8` と `32` に変える。どちらの検証 MSE が良いか。
+2. `nn.LSTM` を `nn.GRU` に変える。学習速度や曲線は変わるか。
+3. gradient clipping を外す。学習は安定したままか。
+4. `np.cos(t * 0.12)` などの 2 つ目の feature を追加する。
+5. 予測値を次の window に戻して使う rolling forecast を実装する。
+
+## まとめ
+
+- Sliding window は連続系列を教師あり学習サンプルに変える。
+- 時間ベースの検証は未来情報の漏洩を防ぐ。
+- 意味のある評価には naive baseline が必要。
+- LSTM 入力は `[batch, seq_len, input_size]`。
+- 曲線と予測サンプルは、1 つの loss 値では見えない問題を見せてくれる。

@@ -1,229 +1,53 @@
 ---
 title: "6.4.4 Sequence Modeling in Practice"
 sidebar_position: 3
-description: "Use a real, trainable small time-series task to connect window construction, RNN/LSTM training, validation, and prediction."
+description: "Run a practical time-series forecasting loop: sliding windows, time-order split, LSTM training, baseline comparison, validation, and prediction inspection."
 keywords: [sequence modeling, time series, RNN, LSTM, sliding window, forecast]
 ---
 
 # 6.4.4 Sequence Modeling in Practice
 
 :::tip Section Overview
-In the previous two sections, you already learned:
-
-- RNNs “read while remembering”
-- LSTM / GRU “control memory more intelligently”
-
-In this section, we will turn those ideas into a small project:
-
-> **Given a sequence, predict the next value.**
+This lesson turns sequence modeling into a small project: convert a continuous series into sliding-window samples, train an LSTM, compare against a naive baseline, and inspect validation predictions.
 :::
 
 ![RNN time-series sliding window practice loop](/img/course/ch06-rnn-sliding-window-practice-loop-en.png)
 
-:::tip How to use this picture
-Before reading the LSTM code, use this picture to trace the data first: a continuous series becomes many sliding-window samples, each sample becomes `[batch, seq_len, input_size]`, and validation must stay in time order to avoid future leakage.
-:::
-
 ## Learning Goals
 
-- Learn how to split a continuous sequence into training samples
-- Build a minimal time-series predictor with LSTM
-- Understand the training set, validation set, and prediction workflow
-- Learn how to tell whether a model is learning patterns or just memorizing blindly
-- Know the most common pitfalls in sequence practice
+- Convert a continuous time series into supervised learning samples.
+- Keep LSTM inputs in `[batch, seq_len, input_size]`.
+- Split validation data in time order to avoid future leakage.
+- Train an LSTM forecaster and compare it with a naive baseline.
+- Read validation loss and prediction samples.
 
 ---
 
-## Why choose “time-series forecasting” as a practical exercise?
+## The Core Workflow
 
-### Because it is ideal for practicing the basics of sequence modeling
-
-Many sequence tasks can be abstracted as:
-
-- A preceding input segment
-- A following output
-
-Time-series forecasting is the most typical example.
-
-For example:
-
-- Predict the sales on day 8 based on the previous 7 days of sales
-- Predict the next temperature based on the previous 12 temperature values
-
-### A very important intuition
-
-When doing this kind of task, the model is not memorizing individual numbers. It is learning:
-
-> **change patterns.**
-
-For example:
-
-- Periodicity
-- Trend
-- Fluctuation
-
-This is very different from a normal classification task.
-
----
-
-## First, generate a dataset we can run directly
-
-### Use a sine wave + noise to create a minimal sequence
-
-The benefits are:
-
-- No external dataset needed
-- Clear patterns
-- Very suitable for teaching
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-np.random.seed(42)
-
-t = np.arange(0, 200)
-series = np.sin(t * 0.1) + np.random.randn(200) * 0.05
-
-plt.figure(figsize=(10, 4))
-plt.plot(t, series)
-plt.title("Toy Time Series")
-plt.grid(True, alpha=0.3)
-plt.show()
+```text
+continuous series -> sliding windows -> time-order split -> LSTM -> validation MSE -> prediction inspection
 ```
 
-### What does this data look like?
+For time series, avoid random splitting by default. If future points leak into training, validation becomes too optimistic.
 
-It has two characteristics:
+## Sliding Window in One Minute
 
-- It fluctuates overall
-- It includes a bit of random noise
+If `window_size = 3`:
 
-That makes it a little closer to a real task than a perfectly regular sequence.
+```text
+series: [1, 2, 3, 4, 5, 6]
 
----
-
-## Sliding window: how do we turn a whole sequence into samples?
-
-### Core idea
-
-A model cannot directly consume “an entire infinite sequence.”
-We usually cut it into many small segments:
-
-- The first `window_size` points are used as input
-- The point at `window_size + 1` is used as the label
-
-This is called a sliding window.
-
-### Runnable example
-
-```python
-import numpy as np
-
-series = np.array([1, 2, 3, 4, 5, 6, 7], dtype=np.float32)
-window_size = 3
-
-X, y = [], []
-for i in range(len(series) - window_size):
-    X.append(series[i:i + window_size])
-    y.append(series[i + window_size])
-
-X = np.array(X)
-y = np.array(y)
-
-print("X =\n", X)
-print("y =", y)
+X[0] = [1, 2, 3] -> y[0] = 4
+X[1] = [2, 3, 4] -> y[1] = 5
+X[2] = [3, 4, 5] -> y[2] = 6
 ```
 
-### Why is this step so important?
+That is how a continuous sequence becomes training rows.
 
-Because it determines how sequence-task samples are defined.
-If the window construction is wrong, training, validation, and prediction will all be wrong too.
+## Full Lab: LSTM Forecasting
 
----
-
-## Organize the data into a PyTorch-trainable format
-
-### Complete data preparation
-
-```python
-import numpy as np
-import torch
-
-np.random.seed(42)
-torch.manual_seed(42)
-
-t = np.arange(0, 200)
-series = np.sin(t * 0.1) + np.random.randn(200) * 0.05
-series = series.astype(np.float32)
-
-window_size = 12
-X, y = [], []
-
-for i in range(len(series) - window_size):
-    X.append(series[i:i + window_size])
-    y.append(series[i + window_size])
-
-X = np.array(X)
-y = np.array(y)
-
-# Convert to [batch, seq_len, input_size]
-X = torch.tensor(X).unsqueeze(-1)
-y = torch.tensor(y).unsqueeze(-1)
-
-print("X shape:", X.shape)
-print("y shape:", y.shape)
-```
-
-### Why use `unsqueeze(-1)`?
-
-Because LSTM usually expects input in the form:
-
-- `[batch, seq_len, input_size]`
-
-Here each time step has only one feature value, so:
-
-- `input_size = 1`
-
----
-
-## A small LSTM predictor that can really be trained
-
-### Define the model
-
-```python
-import torch
-from torch import nn
-
-class LSTMForecaster(nn.Module):
-    def __init__(self, hidden_size=32):
-        super().__init__()
-        self.lstm = nn.LSTM(
-            input_size=1,
-            hidden_size=hidden_size,
-            batch_first=True
-        )
-        self.fc = nn.Linear(hidden_size, 1)
-
-    def forward(self, x):
-        out, (h, c) = self.lstm(x)
-        last_hidden = out[:, -1, :]
-        return self.fc(last_hidden)
-```
-
-### Why do we take only the last time step?
-
-Because the current task is:
-
-> Use the previous window to predict the “next value”
-
-So the most natural approach is to use the representation at the last time step as a summary of the whole window.
-
----
-
-## Complete training workflow
-
-### Training + validation
+The synthetic series combines two waves and noise. This is still small, but it is closer to real data than a perfect sine wave.
 
 ```python
 import numpy as np
@@ -233,158 +57,174 @@ from torch import nn
 np.random.seed(42)
 torch.manual_seed(42)
 
-t = np.arange(0, 200)
-series = np.sin(t * 0.1) + np.random.randn(200) * 0.05
-series = series.astype(np.float32)
 
-window_size = 12
-X, y = [], []
-for i in range(len(series) - window_size):
-    X.append(series[i:i + window_size])
-    y.append(series[i + window_size])
+def make_windows(series, window_size):
+    X, y = [], []
+    for i in range(len(series) - window_size):
+        X.append(series[i : i + window_size])
+        y.append(series[i + window_size])
+    X = torch.tensor(np.array(X), dtype=torch.float32).unsqueeze(-1)
+    y = torch.tensor(np.array(y), dtype=torch.float32).unsqueeze(-1)
+    return X, y
 
-X = torch.tensor(np.array(X)).unsqueeze(-1)
-y = torch.tensor(np.array(y)).unsqueeze(-1)
 
-train_size = int(len(X) * 0.8)
-X_train, X_val = X[:train_size], X[train_size:]
-y_train, y_val = y[:train_size], y[train_size:]
+t = np.arange(0, 220)
+series = (
+    np.sin(t * 0.12)
+    + 0.25 * np.sin(t * 0.03)
+    + np.random.randn(len(t)) * 0.04
+).astype(np.float32)
+
+window_size = 16
+X, y = make_windows(series, window_size)
+
+split = int(len(X) * 0.8)
+X_train, X_val = X[:split], X[split:]
+y_train, y_val = y[:split], y[split:]
+
+print("window_lab")
+print("X:", tuple(X.shape), "y:", tuple(y.shape))
+print("train:", tuple(X_train.shape), "val:", tuple(X_val.shape))
+
+naive_val = ((X_val[:, -1, :] - y_val) ** 2).mean().item()
+print("naive_val_mse:", round(naive_val, 4))
+
 
 class LSTMForecaster(nn.Module):
     def __init__(self, hidden_size=32):
         super().__init__()
-        self.lstm = nn.LSTM(input_size=1, hidden_size=hidden_size, batch_first=True)
+        self.lstm = nn.LSTM(1, hidden_size, batch_first=True)
         self.fc = nn.Linear(hidden_size, 1)
 
     def forward(self, x):
         out, _ = self.lstm(x)
         return self.fc(out[:, -1, :])
 
-model = LSTMForecaster(hidden_size=32)
+
+model = LSTMForecaster(32)
 loss_fn = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
-for epoch in range(200):
+for epoch in range(1, 121):
     model.train()
     pred = model(X_train)
     loss = loss_fn(pred, y_train)
 
     optimizer.zero_grad()
     loss.backward()
+    torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
     optimizer.step()
 
-    if epoch % 40 == 0:
+    if epoch == 1 or epoch % 30 == 0:
         model.eval()
         with torch.no_grad():
             val_loss = loss_fn(model(X_val), y_val)
-        print(f"epoch={epoch:3d}, train_loss={loss.item():.4f}, val_loss={val_loss.item():.4f}")
-```
+        print(f"epoch={epoch:03d} train_mse={loss.item():.4f} val_mse={val_loss.item():.4f}")
 
-### What should you pay closest attention to in this training code?
-
-The most important things are:
-
-- Whether the input shape is correct
-- Whether only `out[:, -1, :]` is used at the end
-- Whether the loss really decreases
-
-Once you understand these three points, you have truly stepped into sequence modeling practice.
-
----
-
-## Make a real prediction
-
-### Single-window prediction
-
-```python
 model.eval()
 with torch.no_grad():
-    sample_x = X_val[0:1]
-    pred = model(sample_x)
-    print("Predicted value:", float(pred.item()))
-    print("True value:", float(y_val[0].item()))
+    val_pred = model(X_val)
+    print("first_5_pred:", [round(v, 3) for v in val_pred[:5, 0].tolist()])
+    print("first_5_true:", [round(v, 3) for v in y_val[:5, 0].tolist()])
 ```
 
-### Plot the prediction against the true value
+Expected output:
+
+```text
+window_lab
+X: (204, 16, 1) y: (204, 1)
+train: (163, 16, 1) val: (41, 16, 1)
+naive_val_mse: 0.0115
+epoch=001 train_mse=0.5168 val_mse=0.4633
+epoch=030 train_mse=0.0049 val_mse=0.0046
+epoch=060 train_mse=0.0032 val_mse=0.0035
+epoch=090 train_mse=0.0029 val_mse=0.0032
+epoch=120 train_mse=0.0028 val_mse=0.0030
+first_5_pred: [0.323, 0.261, 0.145, -0.025, -0.192]
+first_5_true: [0.4, 0.213, 0.045, -0.076, -0.128]
+```
+
+## Read the Output
+
+| Output | Meaning |
+|---|---|
+| `X: (204, 16, 1)` | 204 windows, 16 time steps, 1 feature per step |
+| `train: (163, 16, 1)` | first 80% of windows used for training |
+| `val: (41, 16, 1)` | later windows used for validation |
+| `naive_val_mse` | baseline: predict the next value as the last observed value |
+| `val_mse` | LSTM validation error |
+| `first_5_pred` vs `first_5_true` | quick sanity check for direction and scale |
+
+The LSTM beats the naive baseline in this run (`0.0030` vs `0.0115`). That matters: a model should beat a simple baseline before you trust it.
+
+## Why Use Gradient Clipping?
+
+RNN-style models can sometimes produce large gradients. This line caps the total gradient norm:
+
+```python
+torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+```
+
+It is not always required, but it is a good practical safety habit in sequence models.
+
+## What to Plot in a Notebook
+
+In a notebook, add:
 
 ```python
 import matplotlib.pyplot as plt
 
-model.eval()
-with torch.no_grad():
-    val_pred = model(X_val).squeeze(-1).numpy()
-    val_true = y_val.squeeze(-1).numpy()
-
 plt.figure(figsize=(10, 4))
-plt.plot(val_true, label="true")
-plt.plot(val_pred, label="pred")
+plt.plot(y_val.squeeze(-1).numpy(), label="true")
+plt.plot(val_pred.squeeze(-1).numpy(), label="pred")
 plt.legend()
-plt.title("Validation Prediction")
 plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-When working on sequence tasks in practice, plots are often more helpful than a single metric for finding problems:
+Look for:
 
-- Is the model failing to follow peaks and valleys?
-- Is there an overall lag?
-- Has the model learned a flat line?
+- lag: predictions follow the shape but arrive late;
+- flatline: model predicts an average value;
+- missed peaks: window is too short or model too weak;
+- noisy prediction: learning rate, data noise, or overfitting issues.
 
----
+## Common Pitfalls
 
-## The most common pitfalls in sequence modeling practice
+| Pitfall | Why it hurts | Fix |
+|---|---|---|
+| random train/val split | future leaks into training | split in time order |
+| window too short | model cannot see enough context | try larger `window_size` |
+| window too long | harder optimization, more noise | compare validation loss |
+| no baseline | model may look good but be trivial | compare with naive last-value baseline |
+| only checking MSE | trend may lag or flatten | plot prediction curves |
+| no scaling on real data | large ranges destabilize training | normalize using train statistics |
 
-### Data leakage
+## From Toy Series to Real Projects
 
-If you split the training set / validation set incorrectly, you may leak future information to the model.
+Real sequence projects may use:
 
-For time-series tasks, the safest principle is usually:
+- multiple features per step;
+- missing-value handling;
+- normalization based only on training data;
+- rolling-origin validation;
+- GRU, Temporal CNN, Transformer, or statistical baselines;
+- business metrics, not only MSE.
 
-> Split in time order; do not shuffle randomly.
-
-### Window too short or too long
-
-- Too short: the model cannot see enough history
-- Too long: training becomes harder, and there is more noise
-
-### Only looking at loss, not the curve
-
-In sequence prediction, plotting is often very important.
-Because two models with similar loss can have completely different trends.
-
-### Thinking the model learned “causality” when it actually learned only short-term patterns
-
-This is something you must be careful about in all sequence prediction tasks.
-A model can predict something without truly understanding the mechanism.
-
----
-
-## A very important engineering intuition
-
-In real projects, sequence tasks do not always use RNN / LSTM.
-Today, many tasks also use:
-
-- Transformer
-- Temporal Convolution
-- Traditional statistical models
-
-But no matter what model you use in the future, the window construction, time-based splitting, and validation methods taught in this section are still foundational.
-
----
-
-## Summary
-
-The most important thing in this section is not “getting the LSTM to run,” but understanding:
-
-> **The key to practical sequence work is how to split continuous data into training samples, and how to let the model learn change patterns without leaking future information.**
-
-When you can connect data construction, the training workflow, validation, and prediction plotting, then sequence modeling is truly taking shape.
-
----
+But the workflow stays the same: define windows, protect time order, compare baselines, and inspect predictions.
 
 ## Exercises
 
-1. Change `window_size` from 12 to 6 and 24, and compare the prediction results.
-2. Replace the model with a GRU and see whether the training curves are different.
-3. Randomly shuffle the training set and validation set on purpose, then think about why this is dangerous for time-series data.
-4. Think about this: if your sequence has a clear weekly cycle, how should you design the window length?
+1. Change `window_size` to `8` and `32`. Which validation MSE is better?
+2. Replace `nn.LSTM` with `nn.GRU`. Does it train faster or differently?
+3. Remove gradient clipping. Does training remain stable?
+4. Add a second feature, such as `np.cos(t * 0.12)`.
+5. Implement a rolling forecast that feeds predictions back into the next window.
+
+## Key Takeaways
+
+- Sliding windows turn a continuous sequence into supervised learning samples.
+- Time-based validation prevents future leakage.
+- A naive baseline is required for meaningful evaluation.
+- LSTM inputs use `[batch, seq_len, input_size]`.
+- Plots and prediction samples often reveal issues that a single loss value hides.
