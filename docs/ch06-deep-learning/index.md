@@ -30,11 +30,11 @@ Use this table as both the chapter guide and the task sheet.
 | Page | Follow-along action | Evidence to keep |
 |---|---|---|
 | [6.1 Neural Network Basics](ch01-nn-basics/00-roadmap.md) | Understand neurons, activations, forward/backward pass, optimizers, regularization, and initialization | One hand-written training-loop explanation |
-| [6.1.2 DL History](ch01-nn-basics/06-history-breakthroughs.md) | Optional background: skim why backprop, CNN, RNN, Attention, and Transformer appeared | A short “why this architecture exists” note |
 | [6.2 PyTorch](ch02-pytorch/00-roadmap.md) | Practice tensors, autograd, `nn.Module`, Dataset, DataLoader, and a minimal training loop | One runnable PyTorch script |
 | [6.3 CNN](ch03-cnn/00-roadmap.md) | Use image classification to connect data shape, convolution, pooling, and transfer learning | Shape notes and one image-classification run |
 | [6.4 RNN](ch04-rnn/00-roadmap.md) | Learn why sequence data needs memory and how LSTM/GRU helped before Transformer | One sequence-model note |
 | [6.5 Transformer](ch05-transformer/00-roadmap.md) | Learn Query, Key, Value, self-attention, positional encoding, and Transformer blocks | One attention input/output diagram |
+| [6.1.8 Optional DL History](ch01-nn-basics/06-history-breakthroughs.md) | Skim why backprop, CNN, RNN, Attention, and Transformer appeared after you know the main loop | A short “why this architecture exists” note |
 | [6.6 Generative Models](ch06-generative/00-roadmap.md) and [6.7 Training Tips](ch07-training-tips/00-roadmap.md) | Treat as extensions after the training loop is stable | One tuning or diagnosis note |
 | [6.8 Projects](ch08-projects/00-roadmap.md) and [6.8.5 Workshop](ch08-projects/04-hands-on-dl-workshop.md) | Build a PyTorch evidence pack before larger image, sentiment, or generative projects | Logs, curves, checkpoint, shape trace, README |
 

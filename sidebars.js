@@ -316,13 +316,13 @@ const sidebars = {
               label: "6.1 Neural Network Foundations",
               items: [
                 "ch06-deep-learning/ch01-nn-basics/roadmap",
-                "ch06-deep-learning/ch01-nn-basics/history-breakthroughs",
                 "ch06-deep-learning/ch01-nn-basics/ml-to-dl-bridge",
                 "ch06-deep-learning/ch01-nn-basics/neurons-activation",
                 "ch06-deep-learning/ch01-nn-basics/forward-backward",
                 "ch06-deep-learning/ch01-nn-basics/optimizers",
                 "ch06-deep-learning/ch01-nn-basics/regularization",
                 "ch06-deep-learning/ch01-nn-basics/weight-init",
+                "ch06-deep-learning/ch01-nn-basics/history-breakthroughs",
               ],
             },
             {

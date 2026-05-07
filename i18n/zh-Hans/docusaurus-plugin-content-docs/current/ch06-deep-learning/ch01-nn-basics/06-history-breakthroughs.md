@@ -1,11 +1,11 @@
 ---
-title: "6.1.2 深度学习历史突破主线"
+title: "6.1.8 可选背景：深度学习历史突破主线"
 sidebar_position: 1
 description: "按历史进程理解深度学习的重要突破：感知器、XOR 挫折、反向传播、梯度消失、LSTM、RBM/DBN、AlexNet、ResNet、Attention 与 Transformer 分别解决了什么问题。"
 keywords: [深度学习历史, 神经网络三次浪潮, 感知器, XOR, 反向传播, LSTM, AlexNet, ResNet, Transformer]
 ---
 
-# 6.1.2 深度学习历史突破主线
+# 6.1.8 可选背景：深度学习历史突破主线
 
 ![深度学习历史突破地图](/img/course/ch06-dl-history-breakthrough-map.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "6.1.2 The Main Line of Breakthroughs in Deep Learning History"
+title: "6.1.8 Optional Background: Deep Learning Breakthroughs"
 sidebar_position: 1
 description: "Understand the major breakthroughs in deep learning through their historical progression: perceptron, the XOR setback, backpropagation, gradient vanishing, LSTM, RBM/DBN, AlexNet, ResNet, Attention, and Transformer, and what problems each one solved."
 keywords: [deep learning history, three waves of neural networks, perceptron, XOR, backpropagation, LSTM, AlexNet, ResNet, Transformer]
 ---
 
-# 6.1.2 The Main Line of Breakthroughs in Deep Learning History
+# 6.1.8 Optional Background: Deep Learning Breakthroughs
 
 ![Deep Learning History Breakthrough Map](/img/course/ch06-dl-history-breakthrough-map-en.png)
 

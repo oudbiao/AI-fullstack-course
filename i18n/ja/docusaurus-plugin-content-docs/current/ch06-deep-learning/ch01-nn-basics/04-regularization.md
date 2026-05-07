@@ -1,11 +1,11 @@
 ---
-title: "6.1.7 深層学習における正則化"
+title: "6.1.6 深層学習における正則化"
 sidebar_position: 6
 description: "Dropout、Batch Normalization、Layer Normalization、データ拡張、早期終了法をマスターする"
 keywords: [正則化, Dropout, Batch Normalization, Layer Normalization, データ拡張, Early Stopping]
 ---
 
-# 6.1.7 深層学習における正則化
+# 6.1.6 深層学習における正則化
 
 ![正則化で過学習を抑える図](/img/course/regularization-overfitting-controls-ja.png)
 

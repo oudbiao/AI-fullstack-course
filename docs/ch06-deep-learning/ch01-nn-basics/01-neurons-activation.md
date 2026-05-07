@@ -1,11 +1,11 @@
 ---
-title: "6.1.4 From Neurons to Multilayer Perceptrons"
+title: "6.1.3 From Neurons to Multilayer Perceptrons"
 sidebar_position: 3
 description: "Understand artificial neurons, the perceptron model, and common activation functions, and build your first multilayer perceptron (MLP)"
 keywords: [neuron, perceptron, activation function, ReLU, Sigmoid, Tanh, MLP, multilayer perceptron]
 ---
 
-# 6.1.4 From Neurons to Multilayer Perceptrons
+# 6.1.3 From Neurons to Multilayer Perceptrons
 
 ![Diagram from neurons to MLP](/img/course/mlp-neuron-activation-en.png)
 

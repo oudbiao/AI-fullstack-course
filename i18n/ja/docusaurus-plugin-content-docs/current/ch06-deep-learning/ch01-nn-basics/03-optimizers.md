@@ -1,11 +1,11 @@
 ---
-title: "6.1.6 勾配降下法とオプティマイザ"
+title: "6.1.5 勾配降下法とオプティマイザ"
 sidebar_position: 5
 description: "SGD、Mini-batch、Momentum、Adam、AdamW などのオプティマイザと学習率スケジューリング戦略を理解する"
 keywords: [オプティマイザ, SGD, Adam, AdamW, Momentum, 学習率, 学習率スケジューリング, CosineAnnealing]
 ---
 
-# 6.1.6 勾配降下法とオプティマイザ
+# 6.1.5 勾配降下法とオプティマイザ
 
 ![オプティマイザ経路の比較図](/img/course/optimizer-comparison-ja.png)
 

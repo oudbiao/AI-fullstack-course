@@ -58,13 +58,13 @@ relu_output: 3.35
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
-| 1 | [6.1.2 深度学习历史](./06-history-breakthroughs.md) | 可选背景：突破为什么出现 |
-| 2 | [6.1.3 从 ML 到 DL](./00-ml-to-dl-bridge.md) | sklearn 之后发生了什么变化 |
-| 3 | [6.1.4 神经元与激活](./01-neurons-activation.md) | 加权求和、偏置、ReLU |
-| 4 | [6.1.5 前向与反向传播](./02-forward-backward.md) | 预测、loss、梯度 |
-| 5 | [6.1.6 优化器](./03-optimizers.md) | SGD、Momentum、Adam 直觉 |
-| 6 | [6.1.7 正则化](./04-regularization.md) | 控制过拟合 |
-| 7 | [6.1.8 权重初始化](./05-weight-init.md) | 稳定起点 |
+| 1 | [6.1.2 从 ML 到 DL](./00-ml-to-dl-bridge.md) | sklearn 之后发生了什么变化 |
+| 2 | [6.1.3 神经元与激活](./01-neurons-activation.md) | 加权求和、偏置、ReLU |
+| 3 | [6.1.4 前向与反向传播](./02-forward-backward.md) | 预测、loss、梯度 |
+| 4 | [6.1.5 优化器](./03-optimizers.md) | SGD、Momentum、Adam 直觉 |
+| 5 | [6.1.6 正则化](./04-regularization.md) | 控制过拟合 |
+| 6 | [6.1.7 权重初始化](./05-weight-init.md) | 稳定起点 |
+| 7 | [6.1.8 可选历史背景](./06-history-breakthroughs.md) | backprop、CNN、RNN、Attention、Transformer 为什么出现 |
 
 ## 通过标准
 

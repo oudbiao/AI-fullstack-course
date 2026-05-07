@@ -1,11 +1,11 @@
 ---
-title: "6.1.5 前向传播与反向传播 🔧"
+title: "6.1.4 前向传播与反向传播"
 sidebar_position: 4
 description: "理解前向传播计算过程、损失函数（MSE/交叉熵）、反向传播算法与计算图"
 keywords: [前向传播, 反向传播, 损失函数, MSE, 交叉熵, 链式法则, 计算图, 反向传播推导]
 ---
 
-# 6.1.5 前向传播与反向传播
+# 6.1.4 前向传播与反向传播
 
 ![神经网络前向与反向传播图](/img/course/neural-network-forward-backward.png)
 

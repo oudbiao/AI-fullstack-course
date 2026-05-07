@@ -1,11 +1,11 @@
 ---
-title: "6.1.8 Weight Initialization"
+title: "6.1.7 Weight Initialization"
 sidebar_position: 7
 description: "Understand why weight initialization matters, and the principles and use cases of Xavier and He initialization"
 keywords: [weight initialization, Xavier, Glorot, He, Kaiming, vanishing gradients, exploding gradients]
 ---
 
-# 6.1.8 Weight Initialization
+# 6.1.7 Weight Initialization
 
 :::tip Section Overview
 One of the key factors in whether a deep network trains successfully is **weight initialization**. Bad initialization can cause vanishing or exploding gradients and make training fail completely. The good news is that PyTorch has already chosen a suitable default initialization for you.

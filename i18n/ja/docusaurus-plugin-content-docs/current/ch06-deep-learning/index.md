@@ -30,11 +30,11 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 | ページ | 手を動かすこと | 残す証拠 |
 |---|---|---|
 | [6.1 ニューラルネットワーク基礎](ch01-nn-basics/00-roadmap.md) | ニューロン、活性化、forward/backward、optimizer、正則化、初期化を理解する | 手書きの学習ループ説明 |
-| [6.1.2 深層学習の歴史](ch01-nn-basics/06-history-breakthroughs.md) | 任意の背景：backprop、CNN、RNN、Attention、Transformer がなぜ現れたかを軽く読む | 「この構造がある理由」のメモ |
 | [6.2 PyTorch](ch02-pytorch/00-roadmap.md) | tensor、autograd、`nn.Module`、Dataset、DataLoader、最小学習ループを練習する | 実行できる PyTorch スクリプト |
 | [6.3 CNN](ch03-cnn/00-roadmap.md) | 画像分類でデータ形状、畳み込み、プーリング、転移学習をつなげる | shape メモと画像分類の実行結果 |
 | [6.4 RNN](ch04-rnn/00-roadmap.md) | 系列データに記憶が必要な理由、LSTM/GRU が Transformer 前に解いた問題を理解する | 系列モデルメモ |
 | [6.5 Transformer](ch05-transformer/00-roadmap.md) | Query、Key、Value、self-attention、位置エンコーディング、Transformer block を学ぶ | attention の入出力図 |
+| [6.1.8 任意の深層学習史](ch01-nn-basics/06-history-breakthroughs.md) | 主な学習ループを理解してから、backprop、CNN、RNN、Attention、Transformer がなぜ現れたかを読む | 「この構造がある理由」のメモ |
 | [6.6 生成モデル](ch06-generative/00-roadmap.md) と [6.7 学習テクニック](ch07-training-tips/00-roadmap.md) | 学習ループが安定してから拡張として扱う | チューニングまたは診断メモ |
 | [6.8 プロジェクト](ch08-projects/00-roadmap.md) と [6.8.5 ワークショップ](ch08-projects/04-hands-on-dl-workshop.md) | 画像、感情分析、生成プロジェクトの前に PyTorch 証拠パックを作る | ログ、曲線、checkpoint、shape trace、README |
 

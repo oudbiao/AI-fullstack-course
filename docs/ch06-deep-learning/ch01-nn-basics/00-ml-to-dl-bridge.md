@@ -1,11 +1,11 @@
 ---
-title: "6.1.3 Transition: From Classical Machine Learning to Deep Learning"
+title: "6.1.2 Transition: From Classical Machine Learning to Deep Learning"
 sidebar_position: 2
 description: "Naturally bridge the linear models, tree models, evaluation, and feature engineering from Station 5 to the neural networks, PyTorch, and training loops of Station 6."
 keywords: [machine learning to deep learning, neural network bridge, from ML to DL, PyTorch bridge]
 ---
 
-# 6.1.3 Transition: From Classical Machine Learning to Deep Learning
+# 6.1.2 Transition: From Classical Machine Learning to Deep Learning
 
 :::tip Section focus
 This is not a new algorithms lesson, but a “transition map.” It has only one job: when you move from Station 5 into Station 6, it should not feel like you suddenly switched to a different course.
@@ -231,7 +231,7 @@ If you are just coming from Station 5, it is recommended to follow this order:
 1. First read [6.1.1 Pre-course guide: what is this chapter on neural network basics really about](./00-roadmap.md)
    First place the terms neuron, forward pass, backward pass, and optimizer in the right positions.
 
-2. Then read [6.1.4 From neurons to multilayer perceptrons](./01-neurons-activation.md)
+2. Then read [6.1.3 From neurons to multilayer perceptrons](./01-neurons-activation.md)
    First understand what “one neuron” is actually doing.
 
 3. Then move on to [6.2.1 Pre-course guide: what is this chapter on PyTorch really about](../ch02-pytorch/00-roadmap.md)

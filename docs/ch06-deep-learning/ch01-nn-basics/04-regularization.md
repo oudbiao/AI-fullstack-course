@@ -1,11 +1,11 @@
 ---
-title: "6.1.7 Regularization in Deep Learning"
+title: "6.1.6 Regularization in Deep Learning"
 sidebar_position: 6
 description: "Master Dropout, Batch Normalization, Layer Normalization, data augmentation, and Early Stopping"
 keywords: [regularization, Dropout, Batch Normalization, Layer Normalization, data augmentation, Early Stopping]
 ---
 
-# 6.1.7 Regularization in Deep Learning
+# 6.1.6 Regularization in Deep Learning
 
 ![Regularization controls overfitting](/img/course/regularization-overfitting-controls-en.png)
 

@@ -1,11 +1,11 @@
 ---
-title: "6.1.6 Gradient Descent and Optimizers"
+title: "6.1.5 Gradient Descent and Optimizers"
 sidebar_position: 5
 description: "Master optimizers and learning rate scheduling strategies such as SGD, Mini-batch, Momentum, Adam, and AdamW"
 keywords: [optimizer, SGD, Adam, AdamW, Momentum, learning rate, learning rate scheduling, CosineAnnealing]
 ---
 
-# 6.1.6 Gradient Descent and Optimizers
+# 6.1.5 Gradient Descent and Optimizers
 
 ![Optimizer path comparison](/img/course/optimizer-comparison-en.png)
 

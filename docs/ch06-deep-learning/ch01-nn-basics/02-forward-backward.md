@@ -1,11 +1,11 @@
 ---
-title: "6.1.5 Forward and Backward Propagation 🔧"
+title: "6.1.4 Forward and Backward Propagation"
 sidebar_position: 4
 description: "Understand the forward propagation computation process, loss functions (MSE/cross-entropy), the backpropagation algorithm, and computational graphs"
 keywords: [forward propagation, backpropagation, loss function, MSE, cross-entropy, chain rule, computational graph, backpropagation derivation]
 ---
 
-# 6.1.5 Forward and Backward Propagation
+# 6.1.4 Forward and Backward Propagation
 
 ![Neural network forward and backward propagation diagram](/img/course/neural-network-forward-backward-en.png)
 

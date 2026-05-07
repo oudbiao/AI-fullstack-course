@@ -58,13 +58,13 @@ If the linear output were negative, ReLU would turn it into `0`. That small gate
 
 | Order | Read | What to focus on |
 |---|---|---|
-| 1 | [6.1.2 Deep Learning History](./06-history-breakthroughs.md) | optional background, why breakthroughs appeared |
-| 2 | [6.1.3 ML to DL Bridge](./00-ml-to-dl-bridge.md) | what changes after sklearn |
-| 3 | [6.1.4 Neurons and Activation](./01-neurons-activation.md) | weighted sum, bias, ReLU |
-| 4 | [6.1.5 Forward and Backward](./02-forward-backward.md) | prediction, loss, gradient |
-| 5 | [6.1.6 Optimizers](./03-optimizers.md) | SGD, Momentum, Adam intuition |
-| 6 | [6.1.7 Regularization](./04-regularization.md) | overfitting controls |
-| 7 | [6.1.8 Weight Initialization](./05-weight-init.md) | stable starting points |
+| 1 | [6.1.2 ML to DL Bridge](./00-ml-to-dl-bridge.md) | what changes after sklearn |
+| 2 | [6.1.3 Neurons and Activation](./01-neurons-activation.md) | weighted sum, bias, ReLU |
+| 3 | [6.1.4 Forward and Backward](./02-forward-backward.md) | prediction, loss, gradient |
+| 4 | [6.1.5 Optimizers](./03-optimizers.md) | SGD, Momentum, Adam intuition |
+| 5 | [6.1.6 Regularization](./04-regularization.md) | overfitting controls |
+| 6 | [6.1.7 Weight Initialization](./05-weight-init.md) | stable starting points |
+| 7 | [6.1.8 Optional History](./06-history-breakthroughs.md) | why backprop, CNN, RNN, Attention, and Transformer appeared |
 
 ## Pass Check
 

@@ -1,11 +1,11 @@
 ---
-title: "6.1.5 順伝播と逆伝播 🔧"
+title: "6.1.4 順伝播と逆伝播"
 sidebar_position: 4
 description: "順伝播の計算過程、損失関数（MSE/交差エントロピー）、逆伝播アルゴリズムと計算グラフを理解する"
 keywords: [順伝播, 逆伝播, 損失関数, MSE, 交差エントロピー, 連鎖律, 計算グラフ, 逆伝播の導出]
 ---
 
-# 6.1.5 順伝播と逆伝播
+# 6.1.4 順伝播と逆伝播
 
 ![ニューラルネットワークの順伝播と逆伝播の図](/img/course/neural-network-forward-backward-ja.png)
 

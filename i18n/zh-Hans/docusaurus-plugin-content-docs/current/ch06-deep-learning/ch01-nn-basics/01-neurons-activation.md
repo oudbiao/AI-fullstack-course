@@ -1,11 +1,11 @@
 ---
-title: "6.1.4 从神经元到多层感知机"
+title: "6.1.3 从神经元到多层感知机"
 sidebar_position: 3
 description: "理解人工神经元、感知机模型和常用激活函数，搭建你的第一个多层感知机（MLP）"
 keywords: [神经元, 感知机, 激活函数, ReLU, Sigmoid, Tanh, MLP, 多层感知机]
 ---
 
-# 6.1.4 从神经元到多层感知机
+# 6.1.3 从神经元到多层感知机
 
 ![神经元到 MLP 结构图](/img/course/mlp-neuron-activation.png)
 
