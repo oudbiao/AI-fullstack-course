@@ -181,7 +181,7 @@
 | `user-segmentation-rfm.png` | 用户分群 RFM 聚类图 | `docs/ch05-machine-learning/ch06-projects/03-user-segmentation.md` | 用户分群 RFM 聚类图：Recency、Frequency、Monetary 特征经过标准化和聚类形成可解释用户群体。 |
 | `kaggle-submission-loop.png` | Kaggle 竞赛提交闭环图 | `docs/ch05-machine-learning/ch06-projects/04-kaggle.md` | Kaggle 竞赛提交闭环图：读取数据、建立 baseline、交叉验证、生成提交文件和复盘榜单形成训练闭环。 |
 | `ml-study-loop.png` | 机器学习学习循环图 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习循环图：先跑 baseline，再解释结果、做错误分析、改特征和复盘。 |
-| `ml-task-checklist.png` | 机器学习通关任务清单图 | `docs/ch05-machine-learning/task-list.md` | 机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。 |
+| `ml-task-checklist.png` | 机器学习阶段实操清单图 | `docs/ch05-machine-learning/study-guide.md` | 机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。 |
 | `ch06-deep-learning.png` | 深度学习与 Transformer 主视觉 | `docs/ch06-deep-learning/index.md` | 深度学习与 Transformer 主视觉：张量、训练循环、CNN、RNN、Attention 和 Transformer 串成学习路径。 |
 | `ch06-learning-quest-map.png` | 深度学习学习闯关地图 | `docs/ch06-deep-learning/index.md` | 深度学习学习闯关地图：张量、前向传播、损失、反向传播、优化器、CNN、序列模型、Attention 和 Transformer 逐步连接。 |
 | `ch06-training-loop-backbone.png` | 深度学习训练闭环主线图 | `docs/ch06-deep-learning/index.md` | 深度学习训练闭环主线图：神经网络基础、PyTorch 训练闭环、CNN、RNN、Attention、Transformer 和大模型基础逐步连接。 |

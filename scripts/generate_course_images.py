@@ -2592,13 +2592,13 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
         "filename": "ml-task-checklist.png",
         "size": "1536x1024",
         "quality": "medium",
-        "title": "机器学习通关任务清单图",
-        "suggested_page": "docs/ch05-machine-learning/task-list.md",
+        "title": "机器学习阶段实操清单图",
+        "suggested_page": "docs/ch05-machine-learning/study-guide.md",
         "alt": "机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。",
         "prompt": """
-一张中文机器学习阶段任务清单插图，主题是“完成这些小任务，就真正入门机器学习”。
+一张中文机器学习阶段实操清单插图，主题是“完成这些小任务，就真正入门机器学习”。
 画面用任务卡片展示：训练一个回归模型、训练一个分类模型、做一次聚类分析、画混淆矩阵和学习曲线、搭建 Pipeline、完成一个项目报告。
-风格像课程闯关任务板，现代、清晰、有成就感，适合放在任务单页面。
+风格现代、清晰、有成就感，适合放在学习指南里的任务清单区域。
 不要真实品牌 logo，不要密集小字，不要乱码。
 """.strip(),
     },

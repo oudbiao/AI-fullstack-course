@@ -316,7 +316,6 @@ const sidebars = {
           link: { type: "doc", id: "ch06-deep-learning/index" },
           items: [
             "ch06-deep-learning/study-guide",
-            "ch06-deep-learning/task-list",
             {
               type: "category",
               label: "6.1 Neural Network Foundations",
