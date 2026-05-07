@@ -210,6 +210,8 @@ echo "hello"       # 输出一段文字
 
 ## 第三部分：管道与重定向
 
+![终端管道、重定向与 PATH 数据流](/img/course/ch01-terminal-pipe-redirection-path.svg)
+
 这两个概念是命令行真正强大的地方。
 
 ### 管道 `|`

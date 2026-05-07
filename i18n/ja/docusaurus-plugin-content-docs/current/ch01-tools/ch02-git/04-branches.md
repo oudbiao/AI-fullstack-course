@@ -228,6 +228,8 @@ git branch
 
 ## マージコンフリクト
 
+![Git マージコンフリクト解決フロー](/img/course/ch01-git-merge-conflict-resolution-ja.svg)
+
 ### いつ起こる？
 
 2 つのブランチが**同じファイルの同じ場所**を変更すると、Git はどちらを残すべきか判断できず、コンフリクトが起こります。

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Git merge conflict resolution mental model</title>
+  <desc id="desc">A course placeholder diagram showing two branches changing the same file, Git conflict markers, manual choice, add, and commit.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8f9fb; }
+      .panel { fill: #ffffff; stroke: #26303f; stroke-width: 3; rx: 22; }
+      .blue { fill: #e4eefb; stroke: #315d95; stroke-width: 3; rx: 18; }
+      .green { fill: #e6f4ec; stroke: #327a55; stroke-width: 3; rx: 18; }
+      .gold { fill: #fff1c9; stroke: #8b6b17; stroke-width: 3; rx: 18; }
+      .red { fill: #f8ded8; stroke: #914535; stroke-width: 3; rx: 18; }
+      .text { font-family: Arial, Helvetica, sans-serif; fill: #202736; }
+      .title { font-size: 48px; font-weight: 700; }
+      .h2 { font-size: 32px; font-weight: 700; }
+      .body { font-size: 25px; }
+      .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 23px; fill: #182536; }
+      .small { font-size: 21px; fill: #526071; }
+      .arrow { stroke: #2b5e91; stroke-width: 7; fill: none; marker-end: url(#arrow); stroke-linecap: round; }
+      .branch { stroke: #526071; stroke-width: 8; fill: none; stroke-linecap: round; }
+      .dot { fill: #2b5e91; }
+    </style>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 14 7 L 0 14 z" fill="#2b5e91"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1536" height="1024"/>
+  <text class="text title" x="92" y="92">Git Merge Conflict: What You Are Looking At</text>
+  <text class="text body" x="92" y="137">A conflict is not Git being broken. It is Git asking you to choose between two edits.</text>
+
+  <rect class="panel" x="84" y="190" width="456" height="300" rx="22"/>
+  <text class="text h2" x="122" y="246">1. Two timelines</text>
+  <path class="branch" d="M 142 330 H 430"/>
+  <path class="branch" d="M 230 330 C 290 300 330 270 430 270"/>
+  <path class="branch" d="M 230 330 C 290 362 330 392 430 392"/>
+  <circle class="dot" cx="142" cy="330" r="13"/>
+  <circle class="dot" cx="230" cy="330" r="13"/>
+  <circle class="dot" cx="430" cy="270" r="13"/>
+  <circle class="dot" cx="430" cy="392" r="13"/>
+  <text class="text body" x="144" y="440">Alice and Bob edit the same line in src/model.py.</text>
+
+  <path class="arrow" d="M 562 340 H 666"/>
+
+  <rect class="panel" x="690" y="190" width="762" height="300" rx="22"/>
+  <text class="text h2" x="728" y="246">2. Git marks the disputed area</text>
+  <rect class="red" x="728" y="286" width="316" height="148" rx="18"/>
+  <text class="text mono" x="756" y="326">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</text>
+  <text class="text mono" x="756" y="365">Alice version</text>
+  <text class="text mono" x="756" y="404">=======</text>
+  <rect class="blue" x="1074" y="286" width="316" height="148" rx="18"/>
+  <text class="text mono" x="1102" y="326">Bob version</text>
+  <text class="text mono" x="1102" y="365">&gt;&gt;&gt;&gt;&gt;&gt;&gt; bob</text>
+  <text class="text small" x="728" y="462">Markers show current branch, separator, and incoming branch.</text>
+
+  <rect class="panel" x="84" y="550" width="420" height="300" rx="22"/>
+  <text class="text h2" x="122" y="606">3. Decide</text>
+  <rect class="gold" x="122" y="650" width="320" height="70" rx="18"/>
+  <text class="text body" x="154" y="694">Keep current</text>
+  <rect class="gold" x="122" y="742" width="320" height="70" rx="18"/>
+  <text class="text body" x="154" y="786">Keep incoming</text>
+  <text class="text small" x="122" y="878">Or combine both intentionally.</text>
+
+  <path class="arrow" d="M 526 700 H 648"/>
+
+  <rect class="panel" x="676" y="550" width="360" height="300" rx="22"/>
+  <text class="text h2" x="714" y="606">4. Clean file</text>
+  <rect class="green" x="714" y="652" width="284" height="118" rx="18"/>
+  <text class="text mono" x="746" y="697">src/model.py</text>
+  <text class="text mono" x="746" y="736">no markers left</text>
+  <text class="text small" x="714" y="830">The file must contain valid code again.</text>
+
+  <path class="arrow" d="M 1058 700 H 1180"/>
+
+  <rect class="panel" x="1208" y="550" width="244" height="300" rx="22"/>
+  <text class="text h2" x="1246" y="606">5. Record</text>
+  <text class="text mono" x="1246" y="680">git add</text>
+  <text class="text mono" x="1246" y="730">git commit</text>
+  <text class="text small" x="1246" y="810">Resolution becomes a normal commit.</text>
+
+  <rect class="blue" x="260" y="910" width="1016" height="64" rx="18"/>
+  <text class="text body" x="300" y="951">VS Code buttons are shortcuts for the same choice: current, incoming, or both.</text>
+</svg>

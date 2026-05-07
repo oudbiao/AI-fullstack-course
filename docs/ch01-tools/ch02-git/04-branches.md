@@ -228,6 +228,8 @@ git branch
 
 ## Merge Conflicts
 
+![Git merge conflict resolution flow](/img/course/ch01-git-merge-conflict-resolution-en.svg)
+
 ### When Do Conflicts Happen?
 
 When two branches modify the **same location in the same file**, Git does not know which version to keep, so a conflict occurs.

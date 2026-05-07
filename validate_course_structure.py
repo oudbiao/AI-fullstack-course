@@ -14,12 +14,18 @@ chapter_dirs = [
 ]
 
 required_index_sections = [
-    ('## Stage deliverables', '## Stage Deliverables', '## 阶段交付物'),
+    (
+        '## Stage deliverables',
+        '## Stage Deliverables',
+        '## Learning Order And Task List',
+        '## 阶段交付物',
+    ),
     (
         '## Stage completion criteria',
         '## Stage Completion Criteria',
         '## Stage completion standards',
         '## Stage Completion Standards',
+        '## Pass Check',
         '## 阶段通关标准',
     ),
 ]
@@ -31,11 +37,13 @@ required_task_sections = [
         '## Required tasks for this stage',
         '## Required tasks for this phase',
         '## Required Tasks for This Phase',
+        '## Learning Order And Task List',
         '## 本阶段必须完成的任务',
     ),
     (
         '## Recommended learning order',
         '## Recommended Learning Order',
+        '## Learning Order And Task List',
         '## 推荐学习顺序',
     ),
     (
@@ -46,6 +54,7 @@ required_task_sections = [
         '## Portfolio deliverables for this stage',
         '## Phase portfolio deliverables',
         '## Phase Portfolio Deliverables',
+        '## Learning Order And Task List',
         '## 阶段作品集交付物',
     ),
     (
@@ -55,6 +64,7 @@ required_task_sections = [
         '## Stage pass questions',
         '## Phase completion questions',
         '## Phase Completion Questions',
+        '## Pass Check',
         '## 阶段通关问题',
     ),
 ]

@@ -210,6 +210,8 @@ echo "hello"       # Print some text
 
 ## Part 3: Pipes and redirection
 
+![Terminal pipe, redirection, and PATH data flow](/img/course/ch01-terminal-pipe-redirection-path-en.svg)
+
 These two concepts are where the command line becomes truly powerful.
 
 ### Pipe `|`

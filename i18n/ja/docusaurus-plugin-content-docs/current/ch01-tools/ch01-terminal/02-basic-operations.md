@@ -210,6 +210,8 @@ echo "hello"       # 文字を表示する
 
 ## 第3部：パイプとリダイレクト
 
+![ターミナルのパイプ、リダイレクト、PATH のデータ流](/img/course/ch01-terminal-pipe-redirection-path-ja.svg)
+
 この2つは、コマンドラインを本当に強力にする仕組みです。
 
 ### パイプ `|`

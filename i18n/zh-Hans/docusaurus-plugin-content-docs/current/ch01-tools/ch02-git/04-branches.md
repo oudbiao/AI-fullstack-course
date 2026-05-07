@@ -228,6 +228,8 @@ git branch
 
 ## 合并冲突
 
+![Git 合并冲突解决流程](/img/course/ch01-git-merge-conflict-resolution.svg)
+
 ### 什么时候会冲突？
 
 当两个分支修改了**同一个文件的同一个位置**，Git 不知道该保留哪个版本，就会产生冲突。
