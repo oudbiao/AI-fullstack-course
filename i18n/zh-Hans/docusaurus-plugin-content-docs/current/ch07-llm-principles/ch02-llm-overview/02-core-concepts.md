@@ -1,81 +1,42 @@
 ---
 title: "7.2.3 大模型核心概念"
 sidebar_position: 6
-description: "用新人能读懂的方式理解 token、上下文、注意力、采样温度、预训练和指令跟随等核心概念。"
-keywords: [token, 上下文窗口, attention, temperature, sampling, pretraining, LLM]
+description: "通过可运行小实验理解 next-token prediction、token 预算、logits、temperature、attention 和适配方式。"
+keywords: [token, context window, attention, temperature, sampling, logits, pretraining, LLM]
 ---
 
 # 7.2.3 大模型核心概念
 
-## 学习目标
-
-完成本节后，你将能够：
-
-- 理解 token、上下文窗口、next-token prediction 的含义
-- 理解 embedding、logits、temperature 的直觉
-- 看懂一个极简的注意力计算例子
-- 分清预训练、微调、提示词驱动这几类能力来源
-
----
-
-## 一、大模型到底在做什么？
-
-### 先看一个故事：自动补全文本的学徒
-
-假设你带一个新人编辑做文字校对。你不先教他“什么是智能”，而是让他每天做一件事：
-
-> 看前面已经写好的内容，猜下一个最合理的词。
-
-一开始他只能猜很短的句子。后来他看过大量新闻、代码、问答、小说和说明书之后，就慢慢学会了：什么表达更自然，什么知识经常连在一起，什么问题后面通常要给步骤。
-
-大模型的训练直觉也可以先这样理解：它不是一开始就被明确教会“回答问题”，而是在海量文本里反复练习“根据上下文预测下一个 token”，最后长出了很多看起来像理解、推理和写作的能力。
-
-先用最不容易误解的话说：
-
-> **大语言模型本质上是在做“给定上下文，预测下一个 token”。**
-
-这听起来朴素，但能力就是从这里长出来的。
-
-```mermaid
-flowchart LR
-    A["原始文本"] --> B["切成 token"]
-    B --> C["转成 embedding 向量"]
-    C --> D["Transformer 计算上下文关系"]
-    D --> E["输出 logits 分数"]
-    E --> F["softmax 变成概率"]
-    F --> G["采样下一个 token"]
-    G --> H["拼回上下文继续生成"]
-```
-
-这张图先帮你建立主线：大模型并不是直接“吐出答案”，而是不断重复一条生成链路。后面你看到 token、embedding、attention、temperature 时，都可以把它们放回这条链路里理解。
-
 ![Next-token 生成循环与采样图](/img/course/ch07-next-token-generation-loop-map.png)
 
-:::tip 读图提示
-这张图建议按循环读：上下文变成向量，Transformer 输出 `logits`，`softmax` 变成概率，再由 temperature/top-p 等采样策略选出下一个 token。大模型生成不是一次写完整答案，而是把“预测下一个 token”重复很多次。
+:::tip 核心循环
+大语言模型不是一次写完整答案，而是不断重复：
+
+```text
+context -> logits -> probabilities -> choose next token -> append token -> repeat
+```
 :::
 
-比如你看到：
+## 概念地图
 
-> “北京是中国的”
+| 概念 | 实操含义 |
+|---|---|
+| token | 模型读写的基本单位 |
+| context window | system prompt、历史、证据、问题和输出共享的 token 预算 |
+| embedding | token 的向量表示 |
+| attention | 按相关性加权混合 token 信息 |
+| logits | 变成概率之前的原始分数 |
+| temperature | 让概率分布更尖锐或更平的旋钮 |
+| pretraining | 来自大规模文本的通用能力 |
+| instruction tuning / alignment | 让能力更像助手行为 |
 
-你很可能会接：
-
-> “首都”
-
-模型做的事，本质上也是类似的，只不过它是在超大规模语料上学会这种预测。
-
----
-
-### 一个完整的“下一 token”玩具示例
-
-下面这个例子非常小，但它把“上下文 -> logits -> 概率 -> 选择 token”的链路串起来了：
+## 实验 1：预测下一个 token
 
 ```python
 import numpy as np
 
-context = "北京是中国的"
-candidates = ["首都", "城市", "大学"]
+context = "Beijing is China's"
+candidates = ["capital", "city", "university"]
 logits = np.array([4.0, 2.0, 0.5])
 
 
@@ -87,140 +48,55 @@ def softmax(x):
 probs = softmax(logits)
 best = candidates[np.argmax(probs)]
 
-print("上下文:", context)
+print("Context:", context)
 for token, prob in zip(candidates, probs):
-    print(f"候选 token={token}, 概率={prob:.3f}")
-print("最可能的下一个 token:", best)
+    print(f"Candidate token={token}, probability={prob:.3f}")
+print("Most likely next token:", best)
 ```
 
-这个例子真正想说明的是：模型不是从候选里“凭感觉选”，而是先给每个可能 token 一个分数，再把分数转成概率分布。真实大模型的候选 token 数量会大得多，但核心流程是一致的。
+预期输出：
 
----
-
-## 二、Token：模型真正看到的不是“句子”，而是切分后的单位
-
-很多新人以为模型是按“字”或“词”看文本，其实不一定。
-
-更准确地说：
-
-> 模型看到的是 token。
-
-token 可以是：
-
-- 一个字
-- 一个词
-- 一个词的一部分
-- 一个标点
-
-### 一个玩具版 tokenizer
-
-```python
-text = "AI fullstack course"
-
-# 这里只是最简单的空格切分，真实大模型 tokenizer 更复杂
-tokens = text.split()
-
-print("原文:", text)
-print("tokens:", tokens)
-print("token 数量:", len(tokens))
+```text
+Context: Beijing is China's
+Candidate token=capital, probability=0.858
+Candidate token=city, probability=0.116
+Candidate token=university, probability=0.026
+Most likely next token: capital
 ```
 
-真实大模型通常会把文本切得更细，因为这样更利于处理生僻词和不同语言。
+真实模型会在很大的词表上做这件事。原则一样：输出分数，转成概率，再选择下一个 token。
 
----
-
-## 三、上下文窗口：模型一次能“看多远”
-
-上下文窗口（context window）可以理解成模型的“当前工作台”。
-
-工作台越大：
-
-- 一次能放下的信息越多
-- 模型越可能利用更长的历史内容
-
-但它不是无限的。
-所以很多长文任务、RAG 任务都绕不开“上下文怎么塞进去”这个问题。
-
-类比一下：
-
-> 你在桌上做题，桌面越大，能摊开的参考资料越多。
+## Context Window 是预算
 
 ![Context window 信息预算图](/img/course/ch07-context-window-budget-map.png)
 
-:::tip 读图提示
-把 context window 想成固定大小的工作台：系统提示、用户问题、历史对话、检索资料和输出空间都要抢 token 预算。窗口变大只是桌子变大，不代表资料可以随便塞，真正关键是把最有用的信息放进去。
-:::
+上下文窗口不是无限记忆，而是一段固定 token 预算：
 
----
-
-## 四、Embedding：先把 token 变成向量
-
-模型不能直接吃 token 字符串，所以要先变成向量。
-这个过程可以先理解成：
-
-> **给每个 token 分配一个高维坐标。**
-
-语义相近的 token，在好的表示空间里也会更接近。
-
-虽然真实 embedding 很复杂，但我们先用一个小例子体会“文本转向量”的思想：
-
-```python
-import numpy as np
-
-embedding_table = {
-    "cat": np.array([0.9, 0.1, 0.2]),
-    "dog": np.array([0.85, 0.15, 0.25]),
-    "car": np.array([0.1, 0.8, 0.3])
-}
-
-print("cat embedding:", embedding_table["cat"])
-print("dog embedding:", embedding_table["dog"])
-print("car embedding:", embedding_table["car"])
+```text
+system prompt + chat history + retrieved evidence + user question + answer space <= context window
 ```
 
-这里只是玩具示意，但你已经能看出：
+实操影响：
 
-- `cat` 和 `dog` 更接近
-- `car` 更远
+- 长文档必须筛选、压缩或分块；
+- RAG 要同时给证据和最终回答留空间；
+- 聊天历史不再有帮助时要总结或裁剪；
+- 更大上下文只有在放进正确信息时才有用。
 
----
-
-## 五、模型为什么叫“自回归”？
-
-因为它经常是这样生成文本的：
-
-1. 看已有上下文
-2. 预测下一个 token
-3. 把这个新 token 拼回上下文
-4. 再预测下一个
-
-所以生成是一点点往后滚的。
-
-就像你玩接龙游戏：
-
-- 先说一个词
-- 再根据前面的话继续往下接
-
----
-
-## 六、logits、概率和 temperature
-
-模型内部先算出来的通常不是“最终概率”，而是一组分数，常叫 `logits`。
-
-然后经过 softmax，变成概率分布。
-
-### 一个温度采样的可运行例子
+## 实验 2：Temperature 改变采样
 
 ```python
 import numpy as np
 
-tokens = ["北京", "上海", "广州"]
+tokens = ["Beijing", "Shanghai", "Guangzhou"]
 logits = np.array([3.0, 1.5, 0.5])
+
 
 def softmax_with_temperature(logits, temperature=1.0):
     scaled = logits / temperature
     exp_values = np.exp(scaled - scaled.max())
     return exp_values / exp_values.sum()
+
 
 for temp in [0.5, 1.0, 2.0]:
     probs = softmax_with_temperature(logits, temperature=temp)
@@ -229,44 +105,42 @@ for temp in [0.5, 1.0, 2.0]:
         print(f"  {token}: {prob:.4f}")
 ```
 
-### 怎么理解 temperature？
+预期输出：
 
-- 温度低：更保守，更偏向最高分选项
-- 温度高：更发散，更容易尝试次优选项
+```text
+temperature=0.5
+  Beijing: 0.9465
+  Shanghai: 0.0471
+  Guangzhou: 0.0064
+temperature=1.0
+  Beijing: 0.7662
+  Shanghai: 0.1710
+  Guangzhou: 0.0629
+temperature=2.0
+  Beijing: 0.5685
+  Shanghai: 0.2686
+  Guangzhou: 0.1629
+```
 
-类比一下：
+这样理解：
 
-- 低温像“特别谨慎的答题”
-- 高温像“更敢发散联想”
+- temperature 越低，最高分选项越占优势；
+- temperature 越高，低排名 token 越有机会；
+- temperature 高不等于更聪明，只代表更多样。
 
----
+做事实问答、抽取、代码修复时通常先用较低 temperature。做头脑风暴、命名、生成多方案时可以稍高。
 
-## 七、注意力（Attention）：为什么它这么关键？
-
-注意力的核心直觉是：
-
-> 当前 token 在计算表示时，不必平均看所有词，而是可以“更关注和自己相关的词”。
-
-比如句子：
-
-> “小王把球给了小李，因为他接得很稳。”
-
-这里“他”到底指谁，需要看上下文关系。
-注意力机制就是在做这种“相关性分配”。
-
-### 一个极简注意力示例
+## 实验 3：Attention 是按相关性混合信息
 
 ```python
 import numpy as np
 
-# 假设有 3 个 token 的向量表示
 X = np.array([
-    [1.0, 0.0],   # token1
-    [0.0, 1.0],   # token2
-    [1.0, 1.0]    # token3
+    [1.0, 0.0],
+    [0.0, 1.0],
+    [1.0, 1.0],
 ])
 
-# 这里为了演示，直接把 Q K V 都设成 X
 Q = X
 K = X
 V = X
@@ -274,117 +148,77 @@ V = X
 scores = Q @ K.T
 scaled_scores = scores / np.sqrt(K.shape[1])
 
+
 def softmax(row):
     e = np.exp(row - row.max())
     return e / e.sum()
 
+
 attention_weights = np.apply_along_axis(softmax, 1, scaled_scores)
 output = attention_weights @ V
 
-print("注意力分数:\n", np.round(scaled_scores, 3))
-print("注意力权重:\n", np.round(attention_weights, 3))
-print("输出表示:\n", np.round(output, 3))
+print("Attention scores:\n", np.round(scaled_scores, 3))
+print("Attention weights:\n", np.round(attention_weights, 3))
+print("Output representations:\n", np.round(output, 3))
 ```
 
-你不需要现在就完全吃透公式，但要先抓住直觉：
+预期输出：
 
-- 先比较“谁和谁相关”
-- 再按相关性做加权汇总
+```text
+Attention scores:
+ [[0.707 0.    0.707]
+ [0.    0.707 0.707]
+ [0.707 0.707 1.414]]
+Attention weights:
+ [[0.401 0.198 0.401]
+ [0.198 0.401 0.401]
+ [0.248 0.248 0.503]]
+Output representations:
+ [[0.802 0.599]
+ [0.599 0.802]
+ [0.752 0.752]]
+```
 
----
+暂时不用背公式，先记住机制：
 
-## 八、预训练、微调、提示词，分别在干什么？
+```text
+compare relevance -> normalize weights -> mix value vectors
+```
 
-### 预训练
+## 能力来自哪些层
 
-让模型在海量文本上学语言规律。
-
-### 微调
-
-在特定任务或风格上进一步训练，让模型更适应某场景。
-
-### 提示词（Prompting）
-
-不改模型参数，只通过输入方式引导模型按某种方式工作。
-
-类比一下：
-
-| 方式 | 类比 |
-|---|---|
-| 预训练 | 通读大量书籍 |
-| 微调 | 岗前专项培训 |
-| Prompting | 临时给清晰任务说明 |
-
----
-
-## 九、为什么大模型会“看起来像会思考”？
-
-因为当模型规模、数据量和训练质量足够高时，它会学到很多复杂模式：
-
-- 语言规律
-- 常识关联
-- 指令跟随
-- 多步生成结构
-
-但要注意：
-
-> 模型“像会思考”，不等于它和人类思维方式完全一样。
-
-作为工程师，我们更关心的是：
-
-- 它输入输出规律是什么
-- 它什么时候可靠
-- 它什么时候容易出错
-
----
-
-## 十、自测一下：这些说法对不对？
-
-在继续往后学 RAG 和 Agent 之前，可以先判断下面几句话：
-
-| 说法 | 是否正确 | 为什么 |
+| 层 | 提供什么 | 是否改变模型权重 |
 |---|---|---|
-| 大模型训练时的核心任务之一是根据上下文预测下一个 token | 正确 | next-token prediction 是理解 LLM 的入口直觉 |
-| token 一定等于中文里的一个字或英文里的一个完整单词 | 不正确 | token 可能是字、词、词片段或标点 |
-| temperature 越高，答案一定越聪明 | 不正确 | 高温只是更发散，不代表更准确 |
-| attention 可以理解成相关性加权 | 正确 | 先算相关性，再按权重汇总信息 |
+| pretraining | 通用语言和世界模式能力 | 是 |
+| instruction tuning | 更会按任务和格式回答 | 是 |
+| preference learning / RLHF | 更有帮助、更安全的行为 | 是 |
+| prompt | 运行时任务说明和示例 | 否 |
+| RAG | 运行时外部证据 | 否 |
+| tool calling / Agent | 文本以外的动作能力 | 否或部分改变 |
+| fine-tuning / LoRA | 重复领域行为适配 | 是 |
 
----
+## 避免误解
 
-## 十一、初学者常见误区
-
-### 以为大模型是“直接记住答案”
-
-不完全是。
-它更像是在学习大规模语言分布和模式。
-
-### 以为 temperature 越高越聪明
-
-不是。
-高温更发散，未必更准确。
-
-### 看到 attention 公式就放弃
-
-没必要。
-先抓住“相关性加权”这个直觉，再逐步看公式。
-
----
-
-## 小结
-
-这节课最核心的几句话是：
-
-1. 大模型通过预测下一个 token 学习语言
-2. token 会先变成向量，再进入模型计算
-3. 注意力让模型能根据相关性利用上下文
-4. 预训练、微调、Prompt 分别贡献不同层面的能力
-
-理解了这些，后面你看 RAG、Agent、工具调用时，就不会只觉得它们是“黑盒魔法”。
-
----
+- token 不总是一个词或一个字。
+- 更大 context window 不等于更好记忆。
+- temperature 控制多样性，不控制真实性。
+- attention 权重能帮助理解，但不是推理过程的完整解释。
+- 预训练给能力，产品可靠性仍然需要数据、评估和控制。
 
 ## 练习
 
-1. 修改温度采样例子里的 `logits`，看看概率分布怎么变化。
-2. 试着把注意力示例中的 `X` 改掉，观察注意力权重变化。
-3. 用自己的话解释：为什么上下文窗口会直接影响 RAG 效果？
+1. 把实验 1 的第一个 logit 从 `4.0` 改成 `2.2`，胜出 token 的置信度怎样变？
+2. 在实验 2 里试试 `temperature=0.1` 和 `temperature=5.0`。
+3. 把实验 3 第三个 token 向量从 `[1.0, 1.0]` 改成 `[2.0, 0.0]`，观察变化。
+4. 设计一个 1,000 token 的 RAG 预算：system prompt、证据、用户问题、回答空间各多少？
+5. 解释为什么模型有能力，但仍可能需要 RAG 或 alignment。
+
+## 小结
+
+核心概念是连在一起的：
+
+```text
+tokens fill the context -> Transformer mixes token information -> logits score next tokens -> sampling chooses one -> adaptation makes behavior useful
+```
+
+看清这条循环以后，RAG、Agent、微调和评估都会变成围绕同一个模型核心做工程选择。
