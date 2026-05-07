@@ -90,6 +90,12 @@ request = {
 print(request)
 ```
 
+期待される出力：
+
+```text
+{'model': 'demo-chat-model', 'messages': [{'role': 'system', 'content': 'あなたはコースアシスタントです。'}, {'role': 'user', 'content': '返金ポリシーは何ですか？'}], 'temperature': 0.2}
+```
+
 ### なぜ `messages` はリストなのか？
 
 チャットモデルは通常、1 つの文字列だけを見るのではなく、次のものを見ます。
@@ -135,6 +141,12 @@ response = client.chat([
 ])
 
 print(response)
+```
+
+期待される出力：
+
+```text
+{'model': 'demo-chat-model', 'content': '講座購入後 7 日以内かつ学習進捗が 20% 未満であれば、返金申請できます。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}
 ```
 
 ### なぜ先に mock 版を作るのか？
@@ -186,6 +198,12 @@ assistant = CourseAssistant(MockLLMClient())
 print(assistant.ask("証明書はどうやって取得しますか？"))
 ```
 
+期待される出力：
+
+```text
+{'model': 'demo-chat-model', 'content': 'すべての必修項目を完了し、修了テストに合格すると、修了証明書を取得できます。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}
+```
+
 ### このラップから何を学ぶのか？
 
 ここで学ぶのは次です。
@@ -218,6 +236,13 @@ response = assistant.ask("返金ポリシーは何ですか？")
 
 print("reply =", response["content"])
 print("usage =", response["usage"])
+```
+
+期待される出力：
+
+```text
+reply = 講座購入後 7 日以内かつ学習進捗が 20% 未満であれば、返金申請できます。
+usage = {'prompt_tokens': 42, 'completion_tokens': 18}
 ```
 
 一見すると単純ですが、これは次のことを教えてくれます。
@@ -265,6 +290,13 @@ print(safe_chat(client, messages))
 print(safe_chat(client, messages))
 ```
 
+期待される出力：
+
+```text
+{'error': 'temporary_api_error'}
+{'model': 'demo-chat-model', 'content': '再試行後に正常に返答できました。', 'usage': {'prompt_tokens': 20, 'completion_tokens': 6}}
+```
+
 ### なぜこの層を丁寧に作る必要があるのか？
 
 モデル呼び出しがシステムの中間に入ると、エラーは単に「ユーザーに返事が来ない」だけでは済みません。次のような影響があります。
@@ -289,6 +321,12 @@ def retry_chat(client, messages, retries=2):
 
 client = UnstableMockLLMClient()
 print(retry_chat(client, [{"role": "user", "content": "こんにちは"}]))
+```
+
+期待される出力：
+
+```text
+{'model': 'demo-chat-model', 'content': '再試行後に正常に返答できました。', 'usage': {'prompt_tokens': 20, 'completion_tokens': 6}}
 ```
 
 この例が教えているのは次です。
@@ -394,6 +432,14 @@ def robust_chat(client, messages):
 
 print(robust_chat(MockLLMClient(), [{"role": "user", "content": "返金ポリシーは何ですか？"}]))
 ```
+
+出力例：
+
+```text
+{'ok': True, 'content': '講座購入後 7 日以内かつ学習進捗が 20% 未満であれば、返金申請できます。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}, 'error': None, 'raw': {'model': 'demo-chat-model', 'content': '講座購入後 7 日以内かつ学習進捗が 20% 未満であれば、返金申請できます。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}, 'latency_ms': 0}
+```
+
+この mock 例では実際のネットワーク呼び出しがないため、`latency_ms` は `0` になることがあります。本物の API では、まず見るべき信号の 1 つになります。
 
 このラップがあると、上位の業務コードは次の判断をしやすくなります。呼び出しは成功したか、内容はどこか、token はどれくらい使ったか、失敗理由は何か、リクエストにどれくらい時間がかかったか、です。
 

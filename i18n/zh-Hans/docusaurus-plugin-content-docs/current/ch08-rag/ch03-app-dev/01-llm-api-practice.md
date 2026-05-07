@@ -90,6 +90,12 @@ request = {
 print(request)
 ```
 
+预期输出：
+
+```text
+{'model': 'demo-chat-model', 'messages': [{'role': 'system', 'content': '你是一个课程助手。'}, {'role': 'user', 'content': '退款政策是什么？'}], 'temperature': 0.2}
+```
+
 ### 为什么 `messages` 是列表？
 
 因为聊天模型通常不是只看一条字符串，而是看：
@@ -135,6 +141,12 @@ response = client.chat([
 ])
 
 print(response)
+```
+
+预期输出：
+
+```text
+{'model': 'demo-chat-model', 'content': '课程购买后 7 天内且学习进度低于 20% 可申请退款。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}
 ```
 
 ### 为什么先做 mock 版？
@@ -186,6 +198,12 @@ assistant = CourseAssistant(MockLLMClient())
 print(assistant.ask("证书怎么拿？"))
 ```
 
+预期输出：
+
+```text
+{'model': 'demo-chat-model', 'content': '完成所有必修项目并通过结课测试后，可以获得结业证书。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}
+```
+
 ### 这个封装在教你什么？
 
 它在教你：
@@ -218,6 +236,13 @@ response = assistant.ask("退款政策是什么？")
 
 print("reply =", response["content"])
 print("usage =", response["usage"])
+```
+
+预期输出：
+
+```text
+reply = 课程购买后 7 天内且学习进度低于 20% 可申请退款。
+usage = {'prompt_tokens': 42, 'completion_tokens': 18}
 ```
 
 这一步看似简单，但它在提醒你：
@@ -265,6 +290,13 @@ print(safe_chat(client, messages))
 print(safe_chat(client, messages))
 ```
 
+预期输出：
+
+```text
+{'error': 'temporary_api_error'}
+{'model': 'demo-chat-model', 'content': '重试后成功返回。', 'usage': {'prompt_tokens': 20, 'completion_tokens': 6}}
+```
+
 ### 为什么这一层一定要认真做？
 
 因为一旦模型调用成了系统中间的一环，错误就不只是“用户没回复”，而是：
@@ -289,6 +321,12 @@ def retry_chat(client, messages, retries=2):
 
 client = UnstableMockLLMClient()
 print(retry_chat(client, [{"role": "user", "content": "你好"}]))
+```
+
+预期输出：
+
+```text
+{'model': 'demo-chat-model', 'content': '重试后成功返回。', 'usage': {'prompt_tokens': 20, 'completion_tokens': 6}}
 ```
 
 这个例子在教你：
@@ -394,6 +432,14 @@ def robust_chat(client, messages):
 
 print(robust_chat(MockLLMClient(), [{"role": "user", "content": "退款政策是什么？"}]))
 ```
+
+示例输出：
+
+```text
+{'ok': True, 'content': '课程购买后 7 天内且学习进度低于 20% 可申请退款。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}, 'error': None, 'raw': {'model': 'demo-chat-model', 'content': '课程购买后 7 天内且学习进度低于 20% 可申请退款。', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}, 'latency_ms': 0}
+```
+
+因为这里没有真实网络请求，`latency_ms` 很可能是 `0`。换成真实 API 后，它会变成最值得优先观察的信号之一。
 
 这个封装会让上层业务更容易判断：调用是否成功，内容在哪里，token 用了多少，失败原因是什么，请求花了多久。
 

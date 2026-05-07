@@ -90,6 +90,12 @@ request = {
 print(request)
 ```
 
+Expected output:
+
+```text
+{'model': 'demo-chat-model', 'messages': [{'role': 'system', 'content': 'You are a course assistant.'}, {'role': 'user', 'content': 'What is the refund policy?'}], 'temperature': 0.2}
+```
+
 ### Why is `messages` a list?
 
 Because chat models usually do not look at just one string. They look at:
@@ -135,6 +141,12 @@ response = client.chat([
 ])
 
 print(response)
+```
+
+Expected output:
+
+```text
+{'model': 'demo-chat-model', 'content': 'You can request a refund within 7 days of purchase if your learning progress is below 20%.', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}
 ```
 
 ### Why start with a mock version?
@@ -186,6 +198,12 @@ assistant = CourseAssistant(MockLLMClient())
 print(assistant.ask("How do I get a certificate?"))
 ```
 
+Expected output:
+
+```text
+{'model': 'demo-chat-model', 'content': 'You can receive a completion certificate after finishing all required tasks and passing the final test.', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}
+```
+
 ### What is this wrapper teaching you?
 
 It is teaching you:
@@ -218,6 +236,13 @@ response = assistant.ask("What is the refund policy?")
 
 print("reply =", response["content"])
 print("usage =", response["usage"])
+```
+
+Expected output:
+
+```text
+reply = You can request a refund within 7 days of purchase if your learning progress is below 20%.
+usage = {'prompt_tokens': 42, 'completion_tokens': 18}
 ```
 
 This may look simple, but it reminds you:
@@ -265,6 +290,13 @@ print(safe_chat(client, messages))
 print(safe_chat(client, messages))
 ```
 
+Expected output:
+
+```text
+{'error': 'temporary_api_error'}
+{'model': 'demo-chat-model', 'content': 'Successfully returned after retry.', 'usage': {'prompt_tokens': 20, 'completion_tokens': 6}}
+```
+
 ### Why must this layer be taken seriously?
 
 Because once model calls become part of your system pipeline, an error is no longer just “the user didn’t get a reply.” It can mean:
@@ -289,6 +321,12 @@ def retry_chat(client, messages, retries=2):
 
 client = UnstableMockLLMClient()
 print(retry_chat(client, [{"role": "user", "content": "Hello"}]))
+```
+
+Expected output:
+
+```text
+{'model': 'demo-chat-model', 'content': 'Successfully returned after retry.', 'usage': {'prompt_tokens': 20, 'completion_tokens': 6}}
 ```
 
 This example teaches you:
@@ -394,6 +432,14 @@ def robust_chat(client, messages):
 
 print(robust_chat(MockLLMClient(), [{"role": "user", "content": "What is the refund policy?"}]))
 ```
+
+Example output:
+
+```text
+{'ok': True, 'content': 'You can request a refund within 7 days of purchase if your learning progress is below 20%.', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}, 'error': None, 'raw': {'model': 'demo-chat-model', 'content': 'You can request a refund within 7 days of purchase if your learning progress is below 20%.', 'usage': {'prompt_tokens': 42, 'completion_tokens': 18}}, 'latency_ms': 0}
+```
+
+`latency_ms` may be `0` in this mock example because there is no real network request. In real API calls, this field becomes one of the first signals to watch.
 
 This wrapper makes it easier for upper-layer business code to determine whether the call succeeded, where the content is, how many tokens were used, what the failure reason was, and how long the request took.
 
