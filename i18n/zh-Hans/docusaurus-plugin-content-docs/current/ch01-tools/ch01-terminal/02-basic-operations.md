@@ -106,7 +106,7 @@ pwd                    # 输出: /Users/zhangsan/projects/ai-course
 
 ### 导航命令
 
-#### `cd` — 切换目录
+### `cd` — 切换目录
 
 ```bash
 cd projects        # 进入 projects 文件夹
@@ -116,7 +116,7 @@ cd ~/Desktop       # 去桌面
 cd -               # 回到上一次所在的目录（很实用！）
 ```
 
-#### `ls` — 列出文件
+### `ls` — 列出文件
 
 ```bash
 ls                 # 列出当前目录下的文件和文件夹
@@ -132,14 +132,14 @@ ls projects/       # 列出 projects 文件夹里的内容
 
 ### 文件和文件夹操作
 
-#### `mkdir` — 创建文件夹
+### `mkdir` — 创建文件夹
 
 ```bash
 mkdir my-project               # 创建一个文件夹
 mkdir -p a/b/c                 # 一次性创建多层嵌套的文件夹
 ```
 
-#### `touch` — 创建空文件
+### `touch` — 创建空文件
 
 ```bash
 touch hello.py                 # 创建一个空的 Python 文件
@@ -150,7 +150,7 @@ touch README.md                # 创建一个空的 Markdown 文件
 PowerShell 没有 `touch`，用 `New-Item hello.py` 代替。
 :::
 
-#### `cp` — 复制
+### `cp` — 复制
 
 ```bash
 cp file.txt file_backup.txt          # 复制文件
@@ -158,7 +158,7 @@ cp file.txt ~/Desktop/               # 复制到桌面
 cp -r my-folder/ my-folder-backup/   # 复制整个文件夹（-r 表示递归）
 ```
 
-#### `mv` — 移动 / 重命名
+### `mv` — 移动 / 重命名
 
 ```bash
 mv old_name.py new_name.py       # 重命名文件
@@ -166,7 +166,7 @@ mv file.txt ~/Desktop/           # 移动到桌面
 mv project/ ~/projects/          # 移动文件夹
 ```
 
-#### `rm` — 删除
+### `rm` — 删除
 
 ```bash
 rm file.txt                  # 删除文件

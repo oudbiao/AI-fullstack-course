@@ -106,7 +106,7 @@ These are commands you will use every day. Type them along with the tutorial fir
 
 ### Navigation commands
 
-#### `cd` — change directory
+### `cd` — change directory
 
 ```bash
 cd projects        # Enter the projects folder
@@ -116,7 +116,7 @@ cd ~/Desktop       # Go to the Desktop
 cd -               # Go back to the previous directory (very useful!)
 ```
 
-#### `ls` — list files
+### `ls` — list files
 
 ```bash
 ls                 # List files and folders in the current directory
@@ -132,14 +132,14 @@ In PowerShell, `ls` also works (it is an alias for `Get-ChildItem`). `ls -la` do
 
 ### File and folder operations
 
-#### `mkdir` — create a folder
+### `mkdir` — create a folder
 
 ```bash
 mkdir my-project               # Create a folder
 mkdir -p a/b/c                 # Create nested folders in one go
 ```
 
-#### `touch` — create an empty file
+### `touch` — create an empty file
 
 ```bash
 touch hello.py                 # Create an empty Python file
@@ -150,7 +150,7 @@ touch README.md                # Create an empty Markdown file
 PowerShell does not have `touch`; use `New-Item hello.py` instead.
 :::
 
-#### `cp` — copy
+### `cp` — copy
 
 ```bash
 cp file.txt file_backup.txt          # Copy a file
@@ -158,7 +158,7 @@ cp file.txt ~/Desktop/               # Copy to the Desktop
 cp -r my-folder/ my-folder-backup/   # Copy an entire folder (`-r` means recursive)
 ```
 
-#### `mv` — move / rename
+### `mv` — move / rename
 
 ```bash
 mv old_name.py new_name.py       # Rename a file
@@ -166,7 +166,7 @@ mv file.txt ~/Desktop/           # Move to the Desktop
 mv project/ ~/projects/          # Move a folder
 ```
 
-#### `rm` — delete
+### `rm` — delete
 
 ```bash
 rm file.txt                  # Delete a file

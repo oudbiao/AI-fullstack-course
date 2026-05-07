@@ -305,7 +305,7 @@ conda env list
 
 プロジェクトが完成したあと、同僚や未来の自分がすぐ同じ環境を作れるようにしたいとします。
 
-#### 方法1：pip freeze（もっともよく使う）
+### 方法1：pip freeze（もっともよく使う）
 
 ```bash
 # 現在の環境のパッケージ一覧を requirements.txt に書き出す
@@ -333,7 +333,7 @@ conda activate restored-env
 pip install -r requirements.txt
 ```
 
-#### 方法2：conda env export
+### 方法2：conda env export
 
 ```bash
 # 完全な環境を書き出す（conda と pip で入れたパッケージを含む）
@@ -346,7 +346,7 @@ conda env export > environment.yml
 conda env create -f environment.yml
 ```
 
-#### どれを使うべき？
+### どれを使うべき？
 
 | ファイル | 適した場面 | メリット | デメリット |
 |------|---------|------|------|

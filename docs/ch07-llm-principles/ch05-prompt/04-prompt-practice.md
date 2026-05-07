@@ -142,7 +142,7 @@ This example looks simple, but it teaches you something very important:
 
 ### Task: Text summarization
 
-#### Version 1: Too vague
+### Version 1: Too vague
 
 ```text
 Summarize this paragraph.
@@ -154,7 +154,7 @@ Problems:
 - It does not say what style to use
 - It does not say whether key points should be preserved
 
-#### Version 2: More specific
+### Version 2: More specific
 
 ```text
 Please summarize the text below into 3 bullet points in Chinese, with no more than 20 characters per point.
@@ -162,7 +162,7 @@ Please summarize the text below into 3 bullet points in Chinese, with no more th
 
 This is much better.
 
-#### Version 3: Add boundaries
+### Version 3: Add boundaries
 
 ```text
 Please summarize the text below into 3 bullet points in Chinese, with no more than 20 characters per point.

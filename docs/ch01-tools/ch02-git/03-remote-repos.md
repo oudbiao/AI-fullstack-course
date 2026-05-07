@@ -119,7 +119,7 @@ Every time you push code, GitHub uses the public key to verify that "this person
 
 ### Example: Push our earlier AI project to GitHub
 
-#### Method 1: Create the repository on GitHub first, then connect your local project
+### Method 1: Create the repository on GitHub first, then connect your local project
 
 **Step 1: Create a repository on GitHub**
 
@@ -152,7 +152,7 @@ git push -u origin main
 
 Refresh the GitHub page, and you should see your code, commit history, and README there.
 
-#### Method 2: Clone an empty repository first, then add files to it
+### Method 2: Clone an empty repository first, then add files to it
 
 If you do not have local code yet, you can do the reverse:
 

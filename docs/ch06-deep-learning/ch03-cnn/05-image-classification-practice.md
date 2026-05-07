@@ -299,7 +299,7 @@ If the model has really learned:
 
 ### A few typical issues
 
-#### Both the training set and validation set are poor
+### Both the training set and validation set are poor
 
 Possible reasons:
 
@@ -307,7 +307,7 @@ Possible reasons:
 - The learning rate is not appropriate
 - There is a problem with how the data is created
 
-#### The training set is good, but the validation set is poor
+### The training set is good, but the validation set is poor
 
 Possible reasons:
 
@@ -315,7 +315,7 @@ Possible reasons:
 - Too little data
 - Too much noise
 
-#### The loss does not change
+### The loss does not change
 
 Possible reasons:
 

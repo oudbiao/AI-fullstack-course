@@ -106,7 +106,7 @@ pwd                    # 出力: /Users/zhangsan/projects/ai-course
 
 ### 移動コマンド
 
-#### `cd` — ディレクトリを切り替える
+### `cd` — ディレクトリを切り替える
 
 ```bash
 cd projects        # projects フォルダに入る
@@ -116,7 +116,7 @@ cd ~/Desktop       # デスクトップへ移動
 cd -               # 直前にいたディレクトリへ戻る（とても便利！）
 ```
 
-#### `ls` — ファイルを一覧表示する
+### `ls` — ファイルを一覧表示する
 
 ```bash
 ls                 # 現在のディレクトリのファイルとフォルダを表示
@@ -132,14 +132,14 @@ PowerShell でも `ls` は使えます（`Get-ChildItem` の別名です）。`l
 
 ### ファイルとフォルダの操作
 
-#### `mkdir` — フォルダを作る
+### `mkdir` — フォルダを作る
 
 ```bash
 mkdir my-project               # フォルダを1つ作成
 mkdir -p a/b/c                 # 複数階層のフォルダをまとめて作成
 ```
 
-#### `touch` — 空ファイルを作る
+### `touch` — 空ファイルを作る
 
 ```bash
 touch hello.py                 # 空の Python ファイルを作成
@@ -150,7 +150,7 @@ touch README.md                # 空の Markdown ファイルを作成
 PowerShell には `touch` がないので、代わりに `New-Item hello.py` を使います。
 :::
 
-#### `cp` — コピーする
+### `cp` — コピーする
 
 ```bash
 cp file.txt file_backup.txt          # ファイルをコピー
@@ -158,7 +158,7 @@ cp file.txt ~/Desktop/               # デスクトップへコピー
 cp -r my-folder/ my-folder-backup/   # フォルダ全体をコピー（-r は再帰的）
 ```
 
-#### `mv` — 移動 / 名前変更
+### `mv` — 移動 / 名前変更
 
 ```bash
 mv old_name.py new_name.py       # ファイル名を変更
@@ -166,7 +166,7 @@ mv file.txt ~/Desktop/           # デスクトップへ移動
 mv project/ ~/projects/          # フォルダを移動
 ```
 
-#### `rm` — 削除する
+### `rm` — 削除する
 
 ```bash
 rm file.txt                  # ファイルを削除

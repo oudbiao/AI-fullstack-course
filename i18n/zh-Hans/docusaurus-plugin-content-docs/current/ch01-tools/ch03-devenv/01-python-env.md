@@ -305,7 +305,7 @@ conda env list
 
 你做完一个项目，想让同事（或未来的自己）能快速搭建相同的环境。
 
-#### 方式一：pip freeze（最常用）
+### 方式一：pip freeze（最常用）
 
 ```bash
 # 导出当前环境的所有包到 requirements.txt
@@ -333,7 +333,7 @@ conda activate restored-env
 pip install -r requirements.txt
 ```
 
-#### 方式二：conda env export
+### 方式二：conda env export
 
 ```bash
 # 导出完整环境（包括 conda 和 pip 安装的包）
@@ -346,7 +346,7 @@ conda env export > environment.yml
 conda env create -f environment.yml
 ```
 
-#### 该用哪种？
+### 该用哪种？
 
 | 文件 | 适合场景 | 优点 | 缺点 |
 |------|---------|------|------|

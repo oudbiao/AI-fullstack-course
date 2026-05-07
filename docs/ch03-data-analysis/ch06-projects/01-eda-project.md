@@ -413,7 +413,7 @@ plt.show()
 
 ### Exploring key relationships
 
-#### Relationship between bill and tip
+### Relationship between bill and tip
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -440,7 +440,7 @@ plt.show()
 
 **Interpretation**: As the bill amount increases, the tip also increases, showing a clear linear trend. You can also see some “outliers” — for example, someone spent more than 40 USD but only left a 1.5 USD tip.
 
-#### Comparing tips across different scenarios
+### Comparing tips across different scenarios
 
 ```python
 fig, axes = plt.subplots(1, 3, figsize=(16, 5))

@@ -305,7 +305,7 @@ Recommended practice: in a conda environment, prioritize pip for installing all 
 
 After finishing a project, you may want your teammates (or your future self) to quickly recreate the same environment.
 
-#### Method 1: pip freeze (most common)
+### Method 1: pip freeze (most common)
 
 ```bash
 # Export all packages in the current environment to requirements.txt
@@ -333,7 +333,7 @@ conda activate restored-env
 pip install -r requirements.txt
 ```
 
-#### Method 2: conda env export
+### Method 2: conda env export
 
 ```bash
 # Export the full environment (including packages installed by conda and pip)
@@ -346,7 +346,7 @@ Restore:
 conda env create -f environment.yml
 ```
 
-#### Which one should you use?
+### Which one should you use?
 
 | File | Suitable for | Advantages | Disadvantages |
 |------|---------|------|------|
