@@ -26,7 +26,7 @@ Most early PyTorch failures are not caused by exotic models. They come from devi
 
 When training is broken, check simple engineering issues before redesigning the model.
 
-![PyTorch training debug check order](/img/course/ch06-pytorch-debug-check-order-en.svg)
+![PyTorch training debug check order](/img/course/ch06-pytorch-debug-check-order-en.png)
 
 Use this order:
 
