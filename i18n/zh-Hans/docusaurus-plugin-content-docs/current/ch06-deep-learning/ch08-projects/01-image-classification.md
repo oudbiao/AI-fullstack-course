@@ -1,88 +1,43 @@
 ---
 title: "6.8.2 项目：图像分类系统"
 sidebar_position: 1
-description: "围绕一个真正可展示的图像分类项目，从选题、数据、baseline、训练、评估到演示方式，走完整条交付闭环。"
+description: "完成一个图像分类项目闭环：标签定义、数据划分、baseline、confusion matrix、错误样本和作品集包装。"
 keywords: [image classification project, CNN, confusion matrix, error analysis, computer vision]
 ---
 
 # 6.8.2 项目：图像分类系统
 
 :::tip 本节定位
-图像分类很适合作为第一个视觉项目，不是因为它最简单，而是因为它最容易把完整工程链路讲清楚：
-
-- 类别怎么定
-- 数据怎么组织
-- baseline 怎么做
-- 指标怎么看
-- 错误怎么分析
-
-这一节的目标不是做一个“能跑的模型”，而是做一个**能讲清楚的项目**。
+图像分类项目能进入作品集，不是因为模型名字高级，而是因为别人能看懂标签、跑通 baseline、检查指标，并看到失败案例。
 :::
 
 ## 学习目标
 
-- 学会定义一个适合作品集展示的图像分类题目
-- 学会把数据、baseline、评估和错误分析串成闭环
-- 学会用最小可运行示例表达项目结构
-- 理解图像分类项目里最值得展示的是什么
+- 定义边界清晰的分类任务。
+- 组织 train/validation/test 证据。
+- 跑一个能产生预测的极小 baseline。
+- 构建 confusion matrix 并提取错误样本。
+- 知道真实 CNN 或 transfer-learning 项目应该展示什么。
 
 ---
 
-## 一、先别急着选模型，先把项目题目选对
+## 先看项目闭环
 
-### 一个适合练手的题目通常有三个特征
+![图像分类项目闭环图](/img/course/ch06-project-image-classification-loop.png)
 
-1. 类别边界清楚
-   例如 `猫 / 狗 / 鸟`、`苹果叶片病害分类`、`垃圾分类`
-2. 数据能拿到
-   不要一开始就选你根本没法收集样本的题目
-3. 错误能解释
-   分错后你能说出可能原因，而不是只剩“模型不行”
+```text
+labels -> data split -> baseline -> metrics -> error cases -> next data/model action
+```
 
-### 一个很稳的项目题目
+选题要满足：
 
-例如：
+- 类别边界清楚；
+- 数据真的能收集到；
+- 错误可以解释。
 
-> **做一个“宠物照片分类器”，把图片分成 `cat / dog / rabbit` 三类。**
+不要一开始就做几百个细分类别，也不要选择人类都难以一致标注的标签。
 
-它的优点是：
-
-- 类别直观
-- 数据相对容易收集
-- 很适合做 confusion matrix 和错误样例分析
-
-### 不建议一开始就做的题目
-
-例如：
-
-- 上百类细粒度分类
-- 类别边界极其模糊
-- 数据严重不平衡但你还没准备好处理
-
----
-
-## 二、项目最小闭环长什么样？
-
-一个最小但完整的图像分类项目，通常至少应包含：
-
-1. 题目与标签定义
-2. 数据集组织与划分
-3. baseline
-4. 训练与验证
-5. 评估与错误分析
-6. 演示方式
-
-如果这 6 件事都说清了，即使模型不复杂，项目也会很有说服力。
-
-![图像分类项目闭环](/img/course/ch06-project-image-classification-loop.png)
-
-:::tip 读图方式
-从上往下读：标签先确定任务边界，数据划分保护评估可信度，CNN baseline 给你一个可运行起点，指标展示整体结果，错误样本告诉你下一步该改数据还是改模型。
-:::
-
----
-
-## 三、先看一个最小项目规划对象
+## 项目计划模板
 
 ```python
 from dataclasses import dataclass, field
@@ -91,57 +46,36 @@ from dataclasses import dataclass, field
 @dataclass
 class CVProjectPlan:
     name: str
-    classes: list
-    dataset_split: dict
+    classes: list[str]
+    dataset_split: dict[str, int]
     baseline: str
-    metrics: list
-    risks: list = field(default_factory=list)
+    metrics: list[str]
+    risks: list[str] = field(default_factory=list)
 
 
 plan = CVProjectPlan(
     name="pet_image_classifier",
     classes=["cat", "dog", "rabbit"],
     dataset_split={"train": 900, "val": 180, "test": 180},
-    baseline="small_cnn",
+    baseline="small_cnn_then_transfer_learning",
     metrics=["accuracy", "confusion_matrix", "error_cases"],
-    risks=["类别不平衡", "背景泄漏", "标签噪声"],
+    risks=["class imbalance", "background leakage", "label noise"],
 )
 
 print(plan)
 ```
 
-### 这个对象为什么重要？
+这个对象是项目边界。如果你填不出来，说明还没到选模型的时候。
 
-因为项目一开始最容易缺的，不是代码，而是边界。
-这个最小对象逼你先说明：
+## 实验：Prototype Baseline 与 Confusion Matrix
 
-- 在做什么
-- 有哪些类别
-- 用什么 baseline
-- 用什么指标判断成败
+这个 toy 示例用三个伪特征代替真实图片。它训练的是之后 CNN 项目也要用的评估闭环。
 
----
-
-## 四、先用一个“伪特征”基线理解项目评估
-
-为了不引入额外依赖，我们用一个很小的 toy baseline 来模拟图像分类项目的验证流程。
-
-这里假设每张图片已经有三个非常粗糙的统计特征：
-
-- `fur`
-- `ear_shape`
-- `size`
-
-当然真实项目不会这么做，但它非常适合帮助你看懂：
-
-- 训练集
-- 类别原型
-- 预测
-- confusion matrix
-
-这条链。
+创建 `image_project_baseline.py`：
 
 ```python
+from collections import defaultdict
+
 train_data = [
     ("cat", [0.9, 0.8, 0.4]),
     ("cat", [0.8, 0.7, 0.5]),
@@ -151,183 +85,135 @@ train_data = [
     ("rabbit", [0.4, 0.8, 0.2]),
 ]
 
-test_data = [
+val_data = [
     ("cat", [0.85, 0.75, 0.45]),
     ("dog", [0.65, 0.45, 0.85]),
     ("rabbit", [0.45, 0.85, 0.25]),
-    ("dog", [0.82, 0.72, 0.42]),  # 故意放一个更像 cat 的错误样本
+    ("dog", [0.82, 0.72, 0.42]),
 ]
 
-
-def class_prototypes(data):
-    grouped = {}
-    for label, features in data:
-        grouped.setdefault(label, []).append(features)
-
-    prototypes = {}
-    for label, rows in grouped.items():
-        dim = len(rows[0])
-        prototypes[label] = [
-            sum(row[i] for row in rows) / len(rows)
-            for i in range(dim)
-        ]
-    return prototypes
-
-
-def l1_distance(a, b):
-    return sum(abs(x - y) for x, y in zip(a, b))
-
-
-def predict(features, prototypes):
-    distances = {label: l1_distance(features, proto) for label, proto in prototypes.items()}
-    return min(distances, key=distances.get), distances
-
-
-prototypes = class_prototypes(train_data)
-print("prototypes:", prototypes)
-
-results = []
-for gold, features in test_data:
-    pred, distances = predict(features, prototypes)
-    results.append({"gold": gold, "pred": pred, "distances": distances})
-    print(results[-1])
-```
-
-### 为什么这个示例仍然有项目价值？
-
-因为项目最重要的不是库名，而是评估思路。
-这个 toy baseline 已经让你看到：
-
-- train -> prototype
-- test -> predict
-- gold vs pred
-
-这正是后面真正 CNN 项目也必须走的一条线。
-
----
-
-## 五、一个最小 confusion matrix 和错误分析
-
-```python
 labels = ["cat", "dog", "rabbit"]
 
 
-def confusion_matrix(rows, labels):
-    matrix = {g: {p: 0 for p in labels} for g in labels}
-    for row in rows:
-        matrix[row["gold"]][row["pred"]] += 1
-    return matrix
+def prototypes(data):
+    groups = defaultdict(list)
+    for label, features in data:
+        groups[label].append(features)
+
+    result = {}
+    for label, rows in groups.items():
+        result[label] = [
+            round(sum(row[i] for row in rows) / len(rows), 3)
+            for i in range(len(rows[0]))
+        ]
+    return result
 
 
-cm = confusion_matrix(results, labels)
-print("confusion matrix:")
+def l1(a, b):
+    return sum(abs(x - y) for x, y in zip(a, b))
+
+
+def predict(features, protos):
+    distances = {label: round(l1(features, proto), 3) for label, proto in protos.items()}
+    pred = min(distances, key=distances.get)
+    return pred, distances
+
+
+protos = prototypes(train_data)
+print("prototypes")
+for label in labels:
+    print(label, protos[label])
+
+rows = []
+for gold, features in val_data:
+    pred, distances = predict(features, protos)
+    rows.append({"gold": gold, "pred": pred})
+    print("prediction", gold, "->", pred, distances)
+
+cm = {g: {p: 0 for p in labels} for g in labels}
+for row in rows:
+    cm[row["gold"]][row["pred"]] += 1
+
+print("confusion_matrix")
 for gold in labels:
-    print(gold, cm[gold])
+    print(gold, [cm[gold][p] for p in labels])
 
-error_cases = [row for row in results if row["gold"] != row["pred"]]
-print("\nerror cases:", error_cases)
+errors = [row for row in rows if row["gold"] != row["pred"]]
+print("accuracy:", round((len(rows) - len(errors)) / len(rows), 3))
+print("errors:", errors)
 ```
 
-### 为什么 confusion matrix 对图像分类特别重要？
+运行：
 
-因为总准确率只会告诉你：
+```bash
+python image_project_baseline.py
+```
 
-- 对了多少
+预期输出：
 
-但 confusion matrix 会告诉你：
+```text
+prototypes
+cat [0.85, 0.75, 0.45]
+dog [0.65, 0.45, 0.85]
+rabbit [0.45, 0.85, 0.25]
+prediction cat -> cat {'cat': 0.0, 'dog': 0.9, 'rabbit': 0.7}
+prediction dog -> dog {'cat': 0.9, 'dog': 0.0, 'rabbit': 1.2}
+prediction rabbit -> rabbit {'cat': 0.7, 'dog': 1.2, 'rabbit': 0.0}
+prediction dog -> cat {'cat': 0.09, 'dog': 0.87, 'rabbit': 0.67}
+confusion_matrix
+cat [1, 0, 0]
+dog [1, 1, 0]
+rabbit [0, 0, 1]
+accuracy: 0.75
+errors: [{'gold': 'dog', 'pred': 'cat'}]
+```
 
-- 哪两类最容易混
+读这个错误：
 
-这正是你下一步改数据和改模型最需要的信息。
+- 最后一个 `dog` 样本更接近 `cat` prototype；
+- confusion matrix 显示 `dog -> cat`；
+- 下一步不要立刻换大模型，先检查 dog 图片是否有像 cat 的背景、姿态或标签问题。
 
-### 错误样例为什么比总分更值钱？
+## 真实项目升级路线
 
-因为你能真正去看：
-
-- 是不是背景误导了模型
-- 是不是某类照片角度不一致
-- 是不是标签标错了
-
-这才是图像项目里最有洞察力的部分。
-
----
-
-## 六、真实项目里最该补的三层
-
-### 数据层
-
-你至少应该说明：
-
-- 每类大概多少图
-- train / val / test 怎么分
-- 有没有类别不平衡
-
-### 模型层
-
-很推荐先做两层 baseline：
-
-1. 小 CNN
-2. 迁移学习模型
-
-这样你才能说清：
-
-- 更复杂模型到底换来了什么
-
-### 展示层
-
-图像分类项目做作品集时，最值得展示的通常是：
-
-- 标签定义
-- confusion matrix
-- 典型正确样本
-- 典型错误样本
-
-而不只是贴一张“训练完成”的截图。
-
----
-
-## 七、这个项目最容易踩的坑
-
-### 只看总准确率
-
-你会很容易错过真正的问题分布。
-
-### 类别定义太随意
-
-如果类别边界本身模糊，模型和评估都会一起发虚。
-
-### 数据泄漏
-
-如果相似图片同时出现在训练和测试，
-结果会被高估。
-
----
-
-## 小结
-
-这节最重要的是建立一个项目意识：
-
-> **图像分类项目真正有说服力的地方，不是模型名，而是你能否把类别边界、数据组织、baseline、confusion matrix 和错误分析讲成一个完整闭环。**
-
-只要这个闭环立住了，即使是一个小型项目，也会很像作品级课程。
-
----
-
-
-
-## 版本路线建议
-
-| 版本 | 目标 | 交付重点 |
+| 版本 | 增加什么 | 展示证据 |
 |---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
+| baseline | small CNN 或 transfer-learning baseline | train/val 曲线、accuracy |
+| evaluation | confusion matrix 和错误样本 | 类别级错误 |
+| robustness | augmentation 和 leakage 检查 | before/after 对比 |
+| portfolio | README 和 demo command | 可复现运行 |
 
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+真实 CNN 项目至少保留：
+
+- 数据目录截图或类别数量表；
+- train/validation/test 划分规则；
+- baseline model summary；
+- metric table；
+- confusion matrix；
+- 6 到 12 个正确和错误样本；
+- 下一步计划。
+
+## 常见错误
+
+| 错误 | 修复 |
+|---|---|
+| 只报告 accuracy | 展示 confusion matrix 和错误样本 |
+| 类别定义模糊 | 收集数据前先定义标签边界 |
+| 相似图片泄漏到 train/test | 必要时按来源或主体划分 |
+| 一开始就上大模型 | 先做小 baseline |
+| 隐藏失败样本 | 用失败样本说明下一步改进 |
 
 ## 练习
 
-1. 把 toy 数据里的 `dog` 样本再加两条，看看 confusion matrix 会怎么变化。
-2. 如果 `cat` 和 `rabbit` 总混淆，你会优先查数据、标签还是模型？为什么？
-3. 想一想：为什么图像分类项目特别适合用 confusion matrix 做展示？
-4. 如果你要把这个项目做成作品集页面，你会优先放哪 4 块内容？
+1. 增加两个 `dog` validation 样本，再重跑 confusion matrix。
+2. 增加新类别 `hamster`。`labels` 和 matrix 要怎么变？
+3. 为 `dog -> cat` 错误写一个可能的数据原因。
+4. 在 README 中把 prototype baseline 替换成 small CNN outline。
+5. 做一个项目 checklist，包含 dataset、command、metric 和 failure cases。
+
+## 小结
+
+- 图像分类项目看的是完整闭环，不只是模型名。
+- Confusion matrix 能显示类别级失败。
+- 错误样本是项目证据，不是丢脸内容。
+- 强作品集项目会展示哪里改进了，哪里仍然失败。
