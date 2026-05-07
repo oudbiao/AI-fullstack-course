@@ -121,6 +121,12 @@ add_turn(session, "assistant", "期間について知りたいですか、それ
 print(session)
 ```
 
+想定出力：
+
+```text
+{'history': [{'role': 'user', 'content': '返金ポリシーは何ですか？'}, {'role': 'assistant', 'content': '期間について知りたいですか、それとも条件ですか？'}], 'topic': None}
+```
+
 ### このコードは小さいですが、すでに何を教えているのでしょうか？
 
 このコードが教えているのは、
@@ -146,6 +152,12 @@ if "30%" in user_message:
     state["slots"]["progress"] = "30%"
 
 print(state)
+```
+
+想定出力：
+
+```text
+{'topic': 'refund', 'slots': {'progress': '30%'}}
 ```
 
 この例は初学者にとても向いています。なぜなら、次のことが見えるからです。
@@ -196,6 +208,13 @@ print(dialog_step(session, "天気を調べて"))
 print(session["history"])
 ```
 
+想定出力：
+
+```text
+どの都市の天気を調べたいですか？
+[{'role': 'user', 'content': '天気を調べて'}, {'role': 'assistant', 'content': 'どの都市の天気を調べたいですか？'}]
+```
+
 ここには、とても大事な能力が表れています。
 
 > 対話システムは答えるだけでなく、情報の不足を管理する必要があります。 
@@ -237,6 +256,47 @@ print(session["history"])
 
 ---
 
+## 実践：直近ターンを残し、古い履歴を圧縮する
+
+次の小さな練習は、実際のシステムでよく使う考え方をまねています。直近の数ターンは元のメッセージとして残し、それより古い履歴は短い要約にします。
+
+```python
+def compact_history(history, keep_last=2):
+    older = history[:-keep_last]
+    recent = history[-keep_last:]
+
+    if older:
+        summary = " | ".join(f"{turn['role']}: {turn['content']}" for turn in older)
+    else:
+        summary = None
+
+    return {
+        "summary": summary,
+        "recent": recent
+    }
+
+
+history = [
+    {"role": "user", "content": "返金ポリシーは何ですか？"},
+    {"role": "assistant", "content": "購入後 7 日以内、かつ学習進度が 20% 未満なら返金可能です。"},
+    {"role": "user", "content": "もし 30% 学習済みなら？"},
+    {"role": "assistant", "content": "その場合、通常は返金条件を満たしません。"},
+]
+
+memory_view = compact_history(history, keep_last=2)
+print(memory_view)
+```
+
+想定出力：
+
+```text
+{'summary': 'user: 返金ポリシーは何ですか？ | assistant: 購入後 7 日以内、かつ学習進度が 20% 未満なら返金可能です。', 'recent': [{'role': 'user', 'content': 'もし 30% 学習済みなら？'}, {'role': 'assistant', 'content': 'その場合、通常は返金条件を満たしません。'}]}
+```
+
+これはまだ学習用の例ですが、大事な実装習慣を教えてくれます。prompt を無限に伸ばさず、直近の会話は正確に残し、古い文脈は意図的に要約します。
+
+---
+
 ## 少しだけ本格的なマルチターン例
 
 ```python
@@ -260,6 +320,14 @@ session = new_session()
 print(dialog_reply(session, "返金ポリシーは何ですか？"))
 print(dialog_reply(session, "じゃあ、もしもう30%学習していたら？"))
 print(session)
+```
+
+想定出力：
+
+```text
+返金ポリシーは、購入後 7 日以内かつ学習進度が 20% 未満なら返金可能です。期間を知りたいですか、それとも自分が条件を満たすかを確認したいですか？
+学習進度が 30% なら、通常は返金条件を満たしません。
+{'history': [{'role': 'user', 'content': '返金ポリシーは何ですか？'}, {'role': 'assistant', 'content': '返金ポリシーは、購入後 7 日以内かつ学習進度が 20% 未満なら返金可能です。期間を知りたいですか、それとも自分が条件を満たすかを確認したいですか？'}, {'role': 'user', 'content': 'じゃあ、もしもう30%学習していたら？'}, {'role': 'assistant', 'content': '学習進度が 30% なら、通常は返金条件を満たしません。'}], 'topic': 'refund'}
 ```
 
 ### この例は、普通のQ&Aと比べて何が増えたのでしょうか？
@@ -349,6 +417,12 @@ state = {
 print(state)
 ```
 
+想定出力：
+
+```text
+{'topic': '割引の文章題', 'audience': None, 'doc_format': 'word', 'style': None, 'exercise_count': None}
+```
+
 この例の一番大きな価値は、
 
 - マルチターン対話が、実際のプロジェクトでどんな情報を補っているか
@@ -379,6 +453,13 @@ state = {
 print(next_question(state))
 state["audience"] = "小学高学年"
 print(next_question(state))
+```
+
+想定出力：
+
+```text
+この教材は、主にどの学年や人向けですか？
+授業説明のような形がよいですか、それとも箇条書きの資料がよいですか？
 ```
 
 これによって、初学者はとても大事な感覚をつかめます。

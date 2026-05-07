@@ -121,6 +121,12 @@ add_turn(session, "assistant", "Do you want the time range, or the eligibility c
 print(session)
 ```
 
+Expected output:
+
+```text
+{'history': [{'role': 'user', 'content': 'What is the refund policy?'}, {'role': 'assistant', 'content': 'Do you want the time range, or the eligibility conditions?'}], 'topic': None}
+```
+
 ### Although This Code Is Very Small, What Is It Teaching?
 
 It teaches you that:
@@ -144,6 +150,12 @@ if "30%" in user_message:
     state["slots"]["progress"] = "30%"
 
 print(state)
+```
+
+Expected output:
+
+```text
+{'topic': 'refund', 'slots': {'progress': '30%'}}
 ```
 
 This example is very suitable for beginners because it helps you see:
@@ -194,6 +206,13 @@ print(dialog_step(session, "Help me check the weather"))
 print(session["history"])
 ```
 
+Expected output:
+
+```text
+Which city’s weather would you like to check?
+[{'role': 'user', 'content': 'Help me check the weather'}, {'role': 'assistant', 'content': 'Which city’s weather would you like to check?'}]
+```
+
 This already demonstrates a very important capability:
 
 > A dialog system does not just answer; it also manages information gaps.
@@ -233,6 +252,47 @@ In other words, multi-turn management is not just “having history,” but:
 
 ---
 
+## Hands-on: Keep Recent Turns and Compact Old History
+
+The following small exercise simulates a common production pattern: keep the most recent turns as raw messages, and compress older turns into a short summary.
+
+```python
+def compact_history(history, keep_last=2):
+    older = history[:-keep_last]
+    recent = history[-keep_last:]
+
+    if older:
+        summary = " | ".join(f"{turn['role']}: {turn['content']}" for turn in older)
+    else:
+        summary = None
+
+    return {
+        "summary": summary,
+        "recent": recent
+    }
+
+
+history = [
+    {"role": "user", "content": "What is the refund policy?"},
+    {"role": "assistant", "content": "Refunds are available within 7 days if progress is below 20%."},
+    {"role": "user", "content": "What if I have completed 30%?"},
+    {"role": "assistant", "content": "Then you usually do not qualify."},
+]
+
+memory_view = compact_history(history, keep_last=2)
+print(memory_view)
+```
+
+Expected output:
+
+```text
+{'summary': 'user: What is the refund policy? | assistant: Refunds are available within 7 days if progress is below 20%.', 'recent': [{'role': 'user', 'content': 'What if I have completed 30%?'}, {'role': 'assistant', 'content': 'Then you usually do not qualify.'}]}
+```
+
+This is still a toy example, but it teaches a serious engineering habit: do not let the prompt grow forever. Keep fresh turns precisely, and summarize older context deliberately.
+
+---
+
 ## A Slightly More Complete Multi-turn Example
 
 ```python
@@ -256,6 +316,14 @@ session = new_session()
 print(dialog_reply(session, "What is the refund policy?"))
 print(dialog_reply(session, "What if I’ve already completed 30%?"))
 print(session)
+```
+
+Expected output:
+
+```text
+The refund policy is: refunds are available within 7 days of purchase and if learning progress is below 20%. Do you want the time limit, or do you want to see whether you qualify?
+If your learning progress is 30%, you usually do not meet the refund conditions.
+{'history': [{'role': 'user', 'content': 'What is the refund policy?'}, {'role': 'assistant', 'content': 'The refund policy is: refunds are available within 7 days of purchase and if learning progress is below 20%. Do you want the time limit, or do you want to see whether you qualify?'}, {'role': 'user', 'content': 'What if I’ve already completed 30%?'}, {'role': 'assistant', 'content': 'If your learning progress is 30%, you usually do not meet the refund conditions.'}], 'topic': 'refund'}
 ```
 
 ### What Does This Example Really Add Compared with Ordinary Q&A?
@@ -343,6 +411,12 @@ state = {
 print(state)
 ```
 
+Expected output:
+
+```text
+{'topic': 'discount word problems', 'audience': None, 'doc_format': 'word', 'style': None, 'exercise_count': None}
+```
+
 The most important value of this example is:
 
 - to help beginners first understand what multi-turn conversation is actually filling in for a project
@@ -371,6 +445,13 @@ state = {
 print(next_question(state))
 state["audience"] = "upper elementary school"
 print(next_question(state))
+```
+
+Expected output:
+
+```text
+Which grade level or audience is this course material for?
+Would you like it to be more like classroom explanation or outline-style notes?
 ```
 
 This helps beginners build a very important intuition:

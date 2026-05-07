@@ -60,7 +60,7 @@ flowchart LR
 如果只把聊天记录全堆在旁边，但没有真正整理状态，
 这个客服还是会很容易答乱。
 
-## 一、为什么多轮对话比单轮问答难得多？
+## 为什么多轮对话比单轮问答难得多？
 
 ### 单轮问答更像“一问一答”
 
@@ -87,7 +87,7 @@ flowchart LR
 
 ---
 
-## 二、一个对话系统通常至少要管什么？
+## 一个对话系统通常至少要管什么？
 
 最少通常要管：
 
@@ -102,7 +102,7 @@ flowchart LR
 
 ---
 
-## 三、一个最小对话管理器示例
+## 一个最小对话管理器示例
 
 ```python
 def new_session():
@@ -119,6 +119,12 @@ add_turn(session, "user", "退款政策是什么？")
 add_turn(session, "assistant", "你是想看时间范围，还是资格条件？")
 
 print(session)
+```
+
+预期输出：
+
+```text
+{'history': [{'role': 'user', 'content': '退款政策是什么？'}, {'role': 'assistant', 'content': '你是想看时间范围，还是资格条件？'}], 'topic': None}
 ```
 
 ### 这段代码虽然很小，但它已经在教什么？
@@ -146,6 +152,12 @@ if "30%" in user_message:
 print(state)
 ```
 
+预期输出：
+
+```text
+{'topic': 'refund', 'slots': {'progress': '30%'}}
+```
+
 这个示例很适合初学者，因为它会帮助你看到：
 
 - 对话系统真正要保留的，不只是原话
@@ -159,7 +171,7 @@ print(state)
 
 ---
 
-## 四、对话系统不是只会回答，还要会追问
+## 对话系统不是只会回答，还要会追问
 
 ### 为什么追问能力很关键？
 
@@ -194,6 +206,13 @@ print(dialog_step(session, "帮我查天气"))
 print(session["history"])
 ```
 
+预期输出：
+
+```text
+你想查哪个城市的天气？
+[{'role': 'user', 'content': '帮我查天气'}, {'role': 'assistant', 'content': '你想查哪个城市的天气？'}]
+```
+
 这已经体现出一个很关键的能力：
 
 > 对话系统不只是答，还要能管理信息缺口。
@@ -211,7 +230,7 @@ print(session["history"])
 
 ---
 
-## 五、为什么“只把全部历史塞给模型”不够？
+## 为什么“只把全部历史塞给模型”不够？
 
 ### 历史太长会带来什么？
 
@@ -233,7 +252,48 @@ print(session["history"])
 
 ---
 
-## 六、一个更完整一点的多轮示例
+## 动手做：保留近期轮次，压缩旧历史
+
+下面这个小练习模拟一个真实系统常见做法：最近几轮保留原始消息，更早的历史压缩成简短摘要。
+
+```python
+def compact_history(history, keep_last=2):
+    older = history[:-keep_last]
+    recent = history[-keep_last:]
+
+    if older:
+        summary = " | ".join(f"{turn['role']}: {turn['content']}" for turn in older)
+    else:
+        summary = None
+
+    return {
+        "summary": summary,
+        "recent": recent
+    }
+
+
+history = [
+    {"role": "user", "content": "退款政策是什么？"},
+    {"role": "assistant", "content": "购买后 7 天内且学习进度低于 20% 可退款。"},
+    {"role": "user", "content": "如果我已经学了 30% 呢？"},
+    {"role": "assistant", "content": "那通常不符合退款条件。"},
+]
+
+memory_view = compact_history(history, keep_last=2)
+print(memory_view)
+```
+
+预期输出：
+
+```text
+{'summary': 'user: 退款政策是什么？ | assistant: 购买后 7 天内且学习进度低于 20% 可退款。', 'recent': [{'role': 'user', 'content': '如果我已经学了 30% 呢？'}, {'role': 'assistant', 'content': '那通常不符合退款条件。'}]}
+```
+
+这仍然是教学版代码，但它训练的是很重要的工程习惯：不要让 prompt 无限增长。最近对话保留准确内容，较早上下文要有意识地摘要。
+
+---
+
+## 一个更完整一点的多轮示例
 
 ```python
 def dialog_reply(session, user_message):
@@ -256,6 +316,14 @@ session = new_session()
 print(dialog_reply(session, "退款政策是什么？"))
 print(dialog_reply(session, "那如果我已经学了 30% 呢？"))
 print(session)
+```
+
+预期输出：
+
+```text
+退款政策是：购买后 7 天内且学习进度低于 20% 可退款。你是想看时间，还是想判断自己是否符合资格？
+如果你的学习进度是 30%，通常不符合退款条件。
+{'history': [{'role': 'user', 'content': '退款政策是什么？'}, {'role': 'assistant', 'content': '退款政策是：购买后 7 天内且学习进度低于 20% 可退款。你是想看时间，还是想判断自己是否符合资格？'}, {'role': 'user', 'content': '那如果我已经学了 30% 呢？'}, {'role': 'assistant', 'content': '如果你的学习进度是 30%，通常不符合退款条件。'}], 'topic': 'refund'}
 ```
 
 ### 这个例子真正比普通问答多了什么？
@@ -282,7 +350,7 @@ print(session)
 
 ---
 
-## 七、对话系统常见的几类状态
+## 对话系统常见的几类状态
 
 ### topic state
 
@@ -303,7 +371,7 @@ print(session)
 
 这在 Agent 化对话里特别重要。
 
-## 八、如果你的目标是“知识库驱动的课件生成助手”，最该维护哪些槽位？
+## 如果你的目标是“知识库驱动的课件生成助手”，最该维护哪些槽位？
 
 这类项目和普通聊天最大的不同是：
 
@@ -343,11 +411,17 @@ state = {
 print(state)
 ```
 
+预期输出：
+
+```text
+{'topic': '折扣应用题', 'audience': None, 'doc_format': 'word', 'style': None, 'exercise_count': None}
+```
+
 这个例子最重要的价值是：
 
 - 让新人先明白“多轮对话在项目里到底在补什么信息”
 
-## 九、一个更像真实项目的最小追问示例
+## 一个更像真实项目的最小追问示例
 
 ```python
 def next_question(state):
@@ -373,12 +447,19 @@ state["audience"] = "小学高年级"
 print(next_question(state))
 ```
 
+预期输出：
+
+```text
+这份课件主要面向哪个年级或人群？
+你希望它更像课堂讲解，还是提纲式讲义？
+```
+
 这会帮助新人先建立一个非常重要的直觉：
 
 - 对话系统不是为了“多聊几句”
 - 而是为了把生成任务需要的参数慢慢补齐
 
-## 十、新人第一次做对话系统时最稳的顺序
+## 新人第一次做对话系统时最稳的顺序
 
 更稳的顺序通常是：
 
@@ -389,7 +470,7 @@ print(next_question(state))
 
 如果一开始就想把所有状态都做满，通常会很乱。
 
-## 十一、如果把它做成项目，最值得展示什么
+## 如果把它做成项目，最值得展示什么
 
 最值得展示的通常不是：
 
@@ -410,7 +491,7 @@ print(next_question(state))
 
 ---
 
-## 十二、为什么多轮对话特别容易“跑偏”？
+## 为什么多轮对话特别容易“跑偏”？
 
 因为它很容易受这些影响：
 
@@ -425,7 +506,7 @@ print(next_question(state))
 
 ---
 
-## 十三、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 只维护 history，不维护结构化状态
 
