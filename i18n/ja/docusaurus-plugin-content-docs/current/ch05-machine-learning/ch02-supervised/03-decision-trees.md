@@ -1,764 +1,274 @@
 ---
 title: "5.2.4 決定木"
 sidebar_position: 5
-description: "決定木の構築プロセス、情報利得とジニ指数、枝刈り戦略、決定木の可視化、そして回帰木を理解する"
-keywords: [決定木, 情報利得, ジニ指数, 枝刈り, 回帰木, CART, 解釈性]
+description: "手を動かして学ぶ決定木：分割ルール、不純度、深さ制御、枝刈り、解釈性、回帰木"
+keywords: [決定木, Gini, エントロピー, 枝刈り, ccp_alpha, CART, 特徴量重要度, 回帰木]
 ---
 
 # 5.2.4 決定木
 
 ![決定木の分岐パス図](/img/course/decision-tree-split-path-ja.png)
 
-:::tip この節の位置づけ
-決定木は、**もっとも直感的で、もっとも解釈しやすい** ML アルゴリズムです。まるで「20 の質問」ゲームのように、一連の yes/no の判断でデータを分類します。さらに重要なのは、決定木がこのあとに出てくるアンサンブル学習（ランダムフォレスト、XGBoost）の基礎になることです。
+:::tip この節の概要
+決定木は、質問を積み重ねて作るモデルです。各予測がルールの道筋をたどるので読みやすい一方、ルールが細かくなりすぎるとすぐ過学習します。
 :::
 
-## 学習目標
+## 作るもの
 
-- 決定木の構築プロセスを理解する
-- 情報利得、ジニ指数（第 4 章のエントロピーの概念につなげる）
-- 枝刈り戦略（事前枝刈り、事後枝刈り）を理解する
-- 決定木の可視化と解釈性を理解する
-- 回帰木を知る
+この節では 1 つのスクリプトで次を確認します。
 
-## まず、とても大事な学習イメージについて
+- 木の深さが train/test accuracy にどう影響するか；
+- 読める形で木のルールを表示する方法；
+- 特徴量重要度が分割からどう計算されるか；
+- `ccp_alpha` による後枝刈りで葉の数がどう変わるか；
+- 回帰木が階段状の数値予測をする理由。
 
-この節は、初学者が最初に次のような正反対の感覚を持ちやすいです。
+まず図を見てください。決定木は単なる if-else ではなく、「if-else + 分割の評価 + 複雑さの制御」です。
 
-- 「決定木は if-else みたいで、すごく簡単そう」
-- 「でも、エントロピーやジニ、枝刈りが出てくると、急に難しく感じる」
-
-初回学習でいちばん大事なのは、すべての数式を一気に理解することではなく、まずこの主線をつかむことです。
-
-> **木は少しずつルールを育てていき、ルールが細かくなるほど訓練データを覚えやすくなる。だから、最終的には必ず複雑さの制御が必要になる。**
-
-この流れが先に見えていれば、あとで出てくる純度、枝刈り、ランダムフォレストもつながりやすくなります。
-
----
-
-## まずは全体図をつかもう
-
-決定木は、初学者に「とても直感的だから、きっと難しくないはず」と思わせやすいです。  
-でも実際にプロジェクトを始めると、よくある疑問はむしろ次のようなものです。
-
-- なぜ木は訓練データに対してすぐ高得点を出せるのか？
-- なぜこんなに過学習しやすいのか？
-- 単体の木は見やすいのに、実務ではなぜランダムフォレストや Boosting の方が好まれるのか？
-
-より安定した理解の順番は次の通りです。
-
-![決定木の学習主線図](/img/course/ch05-decision-tree-learning-flow-ja.png)
+![決定木学習の主フロー図](/img/course/ch05-decision-tree-learning-flow-ja.png)
 
 ![決定木の学習と枝刈りコミック](/img/course/ch05-decision-tree-learning-comic-ja.png)
 
-この流れを先につかめば、あとで学ぶエントロピー、ジニ、枝刈り、アンサンブル学習がずっと理解しやすくなります。
+## セットアップ
 
-### 用語の整理
-
-| 用語 | ここでの意味 | 実務での使い方 |
-|------|------|------|
-| `node` | データや分岐ルールを持つ木の節点 | ノードの経路をたどれば、なぜその予測になったか説明できます |
-| `root node` | すべての訓練サンプルを含む最初のノード | ルートの分岐は全体で最も重要な規則になりやすいです |
-| `leaf node` | クラスや数値を出力する最後のノード | 小さすぎる葉は、ノイズを覚えているサインかもしれません |
-| `entropy` | ラベルの不確実性を表す指標 | 分岐後に下がるほど、子ノードはきれいです |
-| `Gini` | CART でよく使う別の不純度指標 | sklearn のデフォルトで、最初の選択として安全です |
-| `max_depth` | 木の最大深さ | 複雑さを直接決めるので、最初に調整しやすいです |
-| `min_samples_leaf` | 葉に必要な最小サンプル数 | 小さなノイズ葉を防ぐのに役立ちます |
-| `ccp_alpha` | 代価複雑度枝刈りの強さ | 完全な木を育ててから後枝刈りするときに使います |
-| `CART` | Classification and Regression Trees | sklearn の決定木はこの系統です |
-
----
-
-## 一、決定木の直感
-
-### 日常生活の決定木
-
-```mermaid
-flowchart TD
-    A["今日は外出する？"] --> B{"天気はいい？"}
-    B -->|"はい"| C{"時間はある？"}
-    B -->|"いいえ"| D["外出しない 🏠"]
-    C -->|"はい"| E["外出する 🎉"]
-    C -->|"いいえ"| F["外出しない 🏠"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style D fill:#ffebee,stroke:#c62828,color:#333
-    style F fill:#ffebee,stroke:#c62828,color:#333
+```bash
+python -m pip install -U scikit-learn
 ```
 
-決定木は、**if-else の判断**を何段にも重ねたものです。毎回、ある特徴量の値に基づいてデータを 2 つ（または複数）に分けます。
+この節では sklearn の CART 風の `DecisionTreeClassifier` と `DecisionTreeRegressor` を使います。CART は **Classification and Regression Trees** の略で、同じ木の考え方で分類も回帰も扱えるという意味です。
 
-### 機械学習における決定木
+## 完全な実験を実行する
 
-| 要素 | 説明 |
-|------|------|
-| **根ノード** | いちばん上のノード。すべてのデータを含む |
-| **内部ノード** | 判断を行うノード（ある特徴量で分岐する） |
-| **葉ノード** | 最終的な判定結果（クラスまたは数値） |
-| **分岐条件** | 例: 「花びらの長さ ≤ 2.5cm」 |
-| **深さ** | 根から葉までの最長経路 |
-
-### なぜ決定木は一目でわかるのか？
-
-それは、モデルをたくさんの小さな局所問題に分けるからです。
-
-- まず 1 つ質問する
-- 答えに応じて左か右へ進む
-- 次の質問をする
-
-これは、線形回帰やロジスティック回帰のように「すべての特徴量を一度に 1 つの式へまとめる」やり方とはかなり違います。  
-そのため、決定木の大きな学習価値は次の 3 つです。
-
-- モデルが「どう判断しているか」を初めて見せてくれる
-- 「なぜそう判定したのか」を説明しやすい
-- 「なぜ訓練データを覚えてしまうのか」も直感的にわかる
-
-### 初学者に合うたとえ
-
-決定木は、こんなイメージで考えるとわかりやすいです。
-
-- とても質問好きな面接官
-
-毎回こう聞いてきます。
-
-- 「この質問で、サンプルをもっときれいに分けられる？」
-
-分けられるなら続けるし、分けられないならそこで結論を出します。  
-つまり木が深くなるほど、本質的には次のような状態になります。
-
-- ルールがどんどん細かくなる
-- 分類がどんどん細かく分かれる
-- ただし訓練データの細部まで覚えやすくなる
-
-### かんたんな例
+`decision_tree_lab.py` を作成します。
 
 ```python
-from sklearn.datasets import load_iris
-from sklearn.tree import DecisionTreeClassifier, plot_tree
-import matplotlib.pyplot as plt
+from sklearn.datasets import load_diabetes, load_iris
+from sklearn.metrics import accuracy_score, mean_absolute_error
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_text
 
-# 可視化しやすいように、2 つの特徴量だけ使う
+
 iris = load_iris()
-X = iris.data[:, 2:4]  # 花びらの長さと幅
+X = iris.data[:, 2:4]  # petal length and petal width, easier to read
 y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
 
-# 浅い決定木を学習
-tree = DecisionTreeClassifier(max_depth=3, random_state=42)
-tree.fit(X, y)
+print("classification_depth_lab")
+for depth in [1, 2, 3, None]:
+    tree = DecisionTreeClassifier(max_depth=depth, min_samples_leaf=3, random_state=42)
+    tree.fit(X_train, y_train)
+    train_acc = accuracy_score(y_train, tree.predict(X_train))
+    test_acc = accuracy_score(y_test, tree.predict(X_test))
+    print(
+        f"max_depth={str(depth):<4} "
+        f"train={train_acc:.3f} test={test_acc:.3f} "
+        f"leaves={tree.get_n_leaves()} depth={tree.get_depth()}"
+    )
 
-# 決定木を可視化
-fig, ax = plt.subplots(figsize=(14, 8))
-plot_tree(tree, feature_names=['花びらの長さ', '花びらの幅'],
-          class_names=iris.target_names, filled=True,
-          rounded=True, fontsize=10, ax=ax)
-plt.title('アイリスの決定木（max_depth=3）')
-plt.tight_layout()
-plt.show()
+best_tree = DecisionTreeClassifier(max_depth=3, min_samples_leaf=3, random_state=42)
+best_tree.fit(X_train, y_train)
+print("tree_rules")
+print(export_text(best_tree, feature_names=["petal length", "petal width"], decimals=2, max_depth=3))
 
-print(f"訓練精度: {tree.score(X, y):.1%}")
-print(f"木の深さ: {tree.get_depth()}")
-print(f"葉ノード数: {tree.get_n_leaves()}")
-print("ルートの分岐特徴量: 花びらの長さ")
-print(f"ルートのしきい値: {tree.tree_.threshold[0]:.2f}")
+print("feature_importance")
+for name, value in zip(["petal length", "petal width"], best_tree.feature_importances_):
+    print(f"- {name}: {value:.3f}")
+
+print("pruning_lab")
+path = DecisionTreeClassifier(random_state=42).cost_complexity_pruning_path(X_train, y_train)
+for alpha in path.ccp_alphas[[0, 1, -2]]:
+    pruned = DecisionTreeClassifier(random_state=42, ccp_alpha=float(alpha))
+    pruned.fit(X_train, y_train)
+    print(
+        f"ccp_alpha={alpha:.4f} "
+        f"test={accuracy_score(y_test, pruned.predict(X_test)):.3f} "
+        f"leaves={pruned.get_n_leaves()}"
+    )
+
+print("regression_tree_lab")
+diabetes = load_diabetes()
+X_train, X_test, y_train, y_test = train_test_split(
+    diabetes.data, diabetes.target, test_size=0.25, random_state=42
+)
+for depth in [2, 4, None]:
+    reg = DecisionTreeRegressor(max_depth=depth, min_samples_leaf=10, random_state=42)
+    reg.fit(X_train, y_train)
+    pred = reg.predict(X_test)
+    print(f"max_depth={str(depth):<4} mae={mean_absolute_error(y_test, pred):.1f} leaves={reg.get_n_leaves()}")
+```
+
+実行します。
+
+```bash
+python decision_tree_lab.py
 ```
 
 期待される出力：
 
 ```text
-訓練精度: 97.3%
-木の深さ: 3
-葉ノード数: 5
-ルートの分岐特徴量: 花びらの長さ
-ルートのしきい値: 2.45
+classification_depth_lab
+max_depth=1    train=0.670 test=0.658 leaves=2 depth=1
+max_depth=2    train=0.964 test=0.947 leaves=3 depth=2
+max_depth=3    train=0.982 test=0.974 leaves=5 depth=3
+max_depth=None train=0.982 test=0.974 leaves=5 depth=3
+tree_rules
+|--- petal length <= 2.45
+|   |--- class: 0
+|--- petal length >  2.45
+|   |--- petal width <= 1.70
+|   |   |--- petal length <= 4.95
+|   |   |   |--- class: 1
+|   |   |--- petal length >  4.95
+|   |   |   |--- class: 2
+|   |--- petal width >  1.70
+|   |   |--- petal length <= 4.95
+|   |   |   |--- class: 2
+|   |   |--- petal length >  4.95
+|   |   |   |--- class: 2
+
+feature_importance
+- petal length: 0.588
+- petal width: 0.412
+pruning_lab
+ccp_alpha=0.0000 test=0.921 leaves=7
+ccp_alpha=0.0067 test=0.921 leaves=5
+ccp_alpha=0.2636 test=0.658 leaves=2
+regression_tree_lab
+max_depth=2    mae=47.3 leaves=4
+max_depth=4    mae=44.4 leaves=14
+max_depth=None mae=48.7 leaves=25
 ```
 
-ルートがまず「花びらの長さ」を見るのは、その質問だけで多くのアイリスサンプルをうまく分けられるからです。
+## 出力を読む
 
----
-
-## 二、決定木はどうやって「学習」するのか？——分裂基準
-
-### 核心の問い
-
-各ノードで、アルゴリズムは次の 2 つを決める必要があります。
-1. **どの特徴量**で分岐するか？
-2. **どのしきい値**で分岐するか？
-
-目的は、分岐後の子ノードのデータをできるだけ**「純粋」**にすることです。
-
-### まず数式を覚える前に、ひとことだけ
-
-決定木が各ステップでやっていることは、とてもシンプルです。
-
-> **分けたあと、2 つのグループが元より整っているような質問を探す。**
-
-この「どれだけ整ったか」を数値化するのが、情報利得やジニ指数です。
-
-### 木モデルを最初に学ぶとき、何を先に覚えるべき？
-
-最初から
-
-- エントロピーの式
-- ジニの式
-
-を丸暗記するより、次を先に覚える方が大切です。
-
-- 分岐のたびに、より純粋な状態を目指す
-- 木を細かくしすぎると、訓練データを覚え始める
-- だから、最後は必ず「複雑さの制御」に進む
-
-![決定木の分岐基準：エントロピー、Gini、情報利得](/img/course/ch05-decision-tree-split-criteria-ja.png)
-
-数式を見る前に、まずこの図を読んでください。よい分岐とは、混ざった親ノードをよりきれいな子ノードに分けることです。エントロピーと Gini は「ノードがどれくらい混ざっているか」を測る方法で、情報利得は分岐後にその混ざり具合がどれだけ減ったかを表します。
-
-### 情報利得とエントロピー
-
-:::info 第 4 章とのつながり
-第 4 章の「2.4 情報理論の基礎」で、**エントロピー**を学びました。これは集合の「不確かさ」を表す指標です。決定木では、このエントロピーを使ってどう分岐するかを決めます。
-:::
-
-**エントロピー（Entropy）**：
-
-> **H(S) = -Σ pk × log₂(pk)**
-
-- `pk` = 集合 S におけるクラス k の割合
-- エントロピーが大きい = もっと「混ざっている」
-- エントロピー = 0 = 完全に純粋（1 つのクラスだけ）
-
-**情報利得**：分岐の前後で、エントロピーがどれだけ減ったか。
-
-> **IG(S, A) = H(S) - Σ (|Sv|/|S|) × H(Sv)**
-
-```python
-import numpy as np
-
-def entropy(y):
-    """エントロピーを計算する"""
-    classes, counts = np.unique(y, return_counts=True)
-    probs = counts / len(y)
-    return -np.sum(probs * np.log2(probs + 1e-10))
-
-def information_gain(y, y_left, y_right):
-    """情報利得を計算する"""
-    n = len(y)
-    return entropy(y) - (len(y_left)/n * entropy(y_left) + len(y_right)/n * entropy(y_right))
-
-# 例: 10 サンプル
-y_parent = np.array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1])  # 5:5 の混合
-print(f"親ノードのエントロピー: {entropy(y_parent):.4f}")
-
-# 分岐案 A: 完璧な分割
-y_left_a = np.array([0, 0, 0, 0, 0])  # すべて 0
-y_right_a = np.array([1, 1, 1, 1, 1])  # すべて 1
-ig_a = information_gain(y_parent, y_left_a, y_right_a)
-print(f"案 A（完璧な分割）の情報利得: {ig_a:.4f}")
-
-# 分岐案 B: よくない分割
-y_left_b = np.array([0, 0, 1, 1, 1])   # 2:3 の混合
-y_right_b = np.array([0, 0, 0, 1, 1])   # 3:2 の混合
-ig_b = information_gain(y_parent, y_left_b, y_right_b)
-print(f"案 B（よくない分割）の情報利得: {ig_b:.4f}")
-```
-
-期待される出力：
+最初のブロックが一番重要です。
 
 ```text
-親ノードのエントロピー: 1.0000
-案 A（完璧な分割）の情報利得: 1.0000
-案 B（よくない分割）の情報利得: 0.0290
+max_depth=1    train=0.670 test=0.658 leaves=2 depth=1
+max_depth=3    train=0.982 test=0.974 leaves=5 depth=3
 ```
 
-案 A は、混ざった 2 つのグループを、それぞれ純粋なグループに変えるので価値があります。案 B はほとんど改善しないので、木はあまり選びません。
+`max_depth=1` は 1 つの質問しかできないので単純すぎます。`max_depth=3` は数回の追加質問ができ、かなり良くなります。この小さなデータセットでは、`max_depth=None` でも深くなりすぎません。`min_samples_leaf=3` が小さすぎる葉を防ぎ、データ自体も単純だからです。
 
-### ジニ指数（Gini Impurity）
+![決定木の分割基準：エントロピー、Gini、情報利得](/img/course/ch05-decision-tree-split-criteria-ja.png)
 
-「純度」を測る別の指標です。計算が少し速いです。
-
-> **Gini(S) = 1 - Σ pk²**
-
-- Gini = 0 → 完全に純粋
-- Gini が最大 → 完全に混ざっている
-
-```python
-def gini(y):
-    """ジニ指数を計算する"""
-    classes, counts = np.unique(y, return_counts=True)
-    probs = counts / len(y)
-    return 1 - np.sum(probs ** 2)
-
-# エントロピーとジニ指数を比較
-p = np.linspace(0.01, 0.99, 100)
-entropy_vals = -p * np.log2(p) - (1-p) * np.log2(1-p)
-gini_vals = 2 * p * (1 - p)
-
-plt.figure(figsize=(8, 5))
-plt.plot(p, entropy_vals, 'b-', linewidth=2, label='エントロピー (Entropy)')
-plt.plot(p, gini_vals, 'r-', linewidth=2, label='ジニ指数 (Gini)')
-plt.xlabel('正例の割合 p')
-plt.ylabel('不純度')
-plt.title('エントロピー vs ジニ指数')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-
-for labels in [y_parent, y_left_a, y_left_b]:
-    print(f"Gini={gini(labels):.4f}, Entropy={entropy(labels):.4f}")
-```
-
-期待される出力：
+各ノードでは次のような質問を探します。
 
 ```text
-Gini=0.5000, Entropy=1.0000
-Gini=0.0000, Entropy=-0.0000
-Gini=0.4800, Entropy=0.9710
+petal length <= 2.45?
 ```
 
-Gini とエントロピーは、どちらも「このノードのラベルはどれくらい混ざっているか」を見ています。数値は違っても、順位はだいたい似ています。
+良い分割とは、子ノードが親ノードより「きれい」になる分割です。きれいとは、ノード内のラベルが混ざりにくいということです。
 
-### sklearn での選び方
+## Gini、エントロピー、情報利得
 
-| パラメータ | 選択肢 | 説明 |
-|------|------|------|
-| `criterion='gini'` | ジニ指数 | sklearn の**デフォルト**。計算が速い |
-| `criterion='entropy'` | 情報利得 | 分岐はより厳密だが、計算はやや遅い |
+初回からすべての式を覚える必要はありません。まず役割を押さえます。
 
-実際には、両者の差は大きくありません。まずは `gini` で十分です。
+| 用語 | 実用上の意味 |
+|---|---|
+| `Gini` | ノード内のラベルの混ざり具合。sklearn 分類木の既定値 |
+| `entropy` | 別の混ざり具合の指標。情報理論とつながる |
+| `information gain` | 分割後に混ざり具合がどれだけ下がったか |
+| `criterion` | 評価ルールを選ぶ設定。例：`criterion="gini"`、`criterion="entropy"` |
 
-### 初めてのプロジェクトでは、`gini` と `entropy` をどう選ぶのが安定？
+特別な理由がなければ、まず `gini` で十分です。多くの表形式データでは、Gini と entropy の違いより、深さ、葉サイズ、枝刈りの調整のほうが効きます。
 
-アルゴリズム比較を特別にしたいのでなければ、最初のプロジェクトでは次のように考えると安定です。
-
-- まずはデフォルトの `gini` を使う
-- `max_depth`、`min_samples_leaf`、`ccp_alpha` に主に注目する
-- これらを調整し終えてから、必要なら `entropy` と比較する
-
-理由はシンプルです。
-
-- 分裂基準は、性能差の主因になりにくい
-- 木の複雑さを抑えることの方が、たいてい重要
-
-### 初めて木モデルを調整するときの、いちばん安定な順番
-
-初めて決定木を調整するなら、次の順番がおすすめです。
-
-1. まず浅い木で baseline を作る
-2. 次に `max_depth` を見る
-3. その後 `min_samples_leaf` を見る
-4. さらに `ccp_alpha` を見る
-5. 最後に `gini / entropy` を比べる
-
-この順番が安定しているのは、最初に解決したいのが次だからです。
-
-- 木が長くなりすぎていないか
-- ルールが細かすぎてデータを覚え始めていないか
-
----
-
-## 三、決定境界の可視化
-
-```python
-from sklearn.datasets import make_classification, make_moons
-from sklearn.tree import DecisionTreeClassifier
-import numpy as np
-import matplotlib.pyplot as plt
-
-def plot_decision_boundary(ax, model, X, y, title):
-    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 200),
-                          np.linspace(y_min, y_max, 200))
-    Z = model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
-    ax.contourf(xx, yy, Z, alpha=0.3, cmap='coolwarm')
-    ax.scatter(X[:, 0], X[:, 1], c=y, cmap='coolwarm', s=20, edgecolors='w', linewidth=0.5)
-    ax.set_title(title)
-    ax.grid(True, alpha=0.3)
-
-# 異なる深さの決定木
-X, y = make_moons(n_samples=300, noise=0.25, random_state=42)
-
-fig, axes = plt.subplots(1, 4, figsize=(18, 4))
-depths = [1, 3, 5, None]
-
-for ax, depth in zip(axes, depths):
-    tree = DecisionTreeClassifier(max_depth=depth, random_state=42)
-    tree.fit(X, y)
-    label = f'深さ制限なし' if depth is None else f'深さ={depth}'
-    plot_decision_boundary(ax, tree, X, y,
-                          f'{label}\n訓練精度: {tree.score(X, y):.1%}')
-    print(f"{label}: 訓練精度 {tree.score(X, y):.1%}, "
-          f"葉ノード数 {tree.get_n_leaves()}, 深さ {tree.get_depth()}")
-
-plt.suptitle('決定木の深さが決定境界に与える影響', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
-
-```text
-深さ=1: 訓練精度 81.0%, 葉ノード数 2, 深さ 1
-深さ=3: 訓練精度 90.0%, 葉ノード数 6, 深さ 3
-深さ=5: 訓練精度 94.7%, 葉ノード数 14, 深さ 5
-深さ制限なし: 訓練精度 100.0%, 葉ノード数 33, 深さ 9
-```
-
-:::warning 決定木の過学習
-深さ制限のない決定木は、訓練サンプルをほぼすべて「覚えて」しまいます（訓練精度 100%）。しかし、その決定境界は非常に複雑になります。これが過学習です。**枝刈り**でこれを抑えます。
-:::
-
-### この境界図を初めて見るとき、何を見るべき？
-
-まず訓練精度を見るのではなく、次を見てください。
-
-- 境界が細かくなりすぎていないか
-- 孤立した点が小さな領域として切り出されていないか
-- 訓練スコアとテストスコアが離れ始めていないか
-
-これは機械学習でとても大事な診断です。
-
-- 「学べるかどうか」だけでなく
-- 「学んだのが本当の規則なのか、それともノイズなのか」を見る
+## 複雑さを制御する
 
 ![決定木の過学習と枝刈り図](/img/course/ch05-tree-pruning-overfit-map-ja.png)
 
-この図は、上の境界図と一緒に見ると理解しやすいです。木が深くなるほど、孤立したノイズが独立した小領域として切り出されやすくなります。枝刈りは「モデルを弱くする」ためではなく、細かすぎて訓練サンプルにしか効かない分岐を取り除き、モデルをより規則学習に近づけるために行います。
+実務での調整順は次の通りです。
 
----
+1. `max_depth` で木が深くなりすぎないようにする。
+2. `min_samples_leaf` で各葉に十分なサンプルを残す。
+3. `ccp_alpha` で、成長後の木を後枝刈りする。
 
-## 四、枝刈り——複雑さの制御
+![決定木の枝刈りと調整順](/img/course/ch05-decision-tree-pruning-order-ja.png)
 
-![決定木の枝刈りと調整順序の図](/img/course/ch05-decision-tree-pruning-order-ja.png)
-
-木を調整する前に、まずこの図を見てください。訓練スコアが満点でも、境界が細かく分断され、検証スコアが下がっているなら、それは勝利ではなくノイズの暗記かもしれません。枝刈りとは、大きなパターンを残し、訓練サンプルだけに効く細かい枝を取り除くことです。初心者はまず `max_depth`、次に `min_samples_leaf`、その後 `ccp_alpha` を調整し、`gini` と `entropy` の比較は複雑さを抑えた後に行うのが安全です。
-
-### 事前枝刈り（Pre-pruning）
-
-**構築中に**木の成長を制限します。
-
-| パラメータ | 説明 | デフォルト値 |
-|------|------|--------|
-| `max_depth` | 最大深さ | None（制限なし） |
-| `min_samples_split` | ノードが分岐するために必要な最小サンプル数 | 2 |
-| `min_samples_leaf` | 葉ノードに必要な最小サンプル数 | 1 |
-| `max_leaf_nodes` | 最大葉ノード数 | None（制限なし） |
-
-### 初めて木モデルを調整するとき、より安定した順番は？
-
-初学者は、最初にいろいろなパラメータを一気に変えてしまいがちです。すると、どれが効いているのかわからなくなります。  
-より安定した順番は次の通りです。
-
-1. まず `max_depth` だけを調整する
-2. 次に `min_samples_leaf` が必要かを見る
-3. 最後に `min_samples_split` と `ccp_alpha` を見る
-
-理由は次の通りです。
-
-- `max_depth` が木の複雑さを最も直接的に決める
-- `min_samples_leaf` は「少数点だけを切り出す」のを抑えるのに向いている
-- 他のパラメータは、より細かな調整に近い
-
-```python
-from sklearn.model_selection import train_test_split
-
-X, y = make_moons(n_samples=500, noise=0.3, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# 異なる深さを比較
-fig, axes = plt.subplots(1, 4, figsize=(18, 4))
-configs = [
-    (None, '枝刈りなし'),
-    (3, 'max_depth=3'),
-    (5, 'max_depth=5'),
-    (10, 'max_depth=10'),
-]
-
-for ax, (depth, title) in zip(axes, configs):
-    tree = DecisionTreeClassifier(max_depth=depth, random_state=42)
-    tree.fit(X_train, y_train)
-    train_acc = tree.score(X_train, y_train)
-    test_acc = tree.score(X_test, y_test)
-    plot_decision_boundary(ax, tree, X_train, y_train,
-                          f'{title}\n訓練: {train_acc:.1%}, テスト: {test_acc:.1%}')
-    print(f"{title}: 訓練={train_acc:.1%}, テスト={test_acc:.1%}, "
-          f"葉ノード数={tree.get_n_leaves()}")
-
-plt.suptitle('事前枝刈りによる過学習の制御', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
+枝刈りの出力はトレードオフを示しています。
 
 ```text
-枝刈りなし: 訓練=100.0%, テスト=82.0%, 葉ノード数=43
-max_depth=3: 訓練=90.0%, テスト=89.0%, 葉ノード数=6
-max_depth=5: 訓練=94.8%, テスト=90.0%, 葉ノード数=13
-max_depth=10: 訓練=99.2%, テスト=82.0%, 葉ノード数=39
+ccp_alpha=0.0000 test=0.921 leaves=7
+ccp_alpha=0.0067 test=0.921 leaves=5
+ccp_alpha=0.2636 test=0.658 leaves=2
 ```
 
-ここで最も重要なのは、枝刈りなしの木が訓練スコアは最高でも、テストスコアは最良ではないことです。この差こそが過学習の痕跡です。
+少し枝刈りすると、テストスコアを保ったまま葉が減りました。枝刈りしすぎると葉が 2 つだけになり、有用なルールも失われます。
 
-### 事後枝刈り（Post-pruning）——コスト複雑度枝刈り
+## 解釈性
 
-**まず完全な木まで育ててから、あとで「剪定」する**方法です。sklearn では `ccp_alpha`（Cost Complexity Pruning）を使います。
-
-```python
-# 最適な ccp_alpha を探す
-tree_full = DecisionTreeClassifier(random_state=42)
-tree_full.fit(X_train, y_train)
-
-# 異なる alpha に対応する部分木を取得
-path = tree_full.cost_complexity_pruning_path(X_train, y_train)
-ccp_alphas = path.ccp_alphas
-
-# 各 alpha で木を学習
-train_scores = []
-test_scores = []
-for alpha in ccp_alphas:
-    tree = DecisionTreeClassifier(ccp_alpha=alpha, random_state=42)
-    tree.fit(X_train, y_train)
-    train_scores.append(tree.score(X_train, y_train))
-    test_scores.append(tree.score(X_test, y_test))
-
-plt.figure(figsize=(8, 5))
-plt.plot(ccp_alphas, train_scores, 'b-o', markersize=3, label='訓練集')
-plt.plot(ccp_alphas, test_scores, 'r-o', markersize=3, label='テスト集')
-plt.xlabel('ccp_alpha')
-plt.ylabel('精度')
-plt.title('コスト複雑度枝刈り')
-plt.legend()
-plt.grid(True, alpha=0.3)
-
-# 最良点を表示
-best_idx = np.argmax(test_scores)
-plt.axvline(x=ccp_alphas[best_idx], color='green', linestyle='--',
-            label=f'最適 alpha={ccp_alphas[best_idx]:.4f}')
-plt.legend()
-plt.show()
-
-print(f"最適な ccp_alpha: {ccp_alphas[best_idx]:.4f}")
-print(f"最適なテスト精度: {test_scores[best_idx]:.1%}")
-print(f"最適な木の葉ノード数: {DecisionTreeClassifier(ccp_alpha=ccp_alphas[best_idx], random_state=42).fit(X_train, y_train).get_n_leaves()}")
-```
-
-期待される出力：
+`export_text()` は、サンプルがたどるルールの道筋を表示します。チームメイトに予測理由を説明するときに便利です。
 
 ```text
-最適な ccp_alpha: 0.0040
-最適なテスト精度: 91.0%
-最適な木の葉ノード数: 7
+|--- petal length <= 2.45
+|   |--- class: 0
 ```
 
-`ccp_alpha` は「枝を増やすコスト」のようなものです。新しい分岐が本当に必要かどうかを、このコストで判断します。少数の訓練サンプルにしか効かない分岐は枝刈りで削られます。
+特徴量重要度も便利ですが、読み方には注意が必要です。
 
----
+- この学習済みの木で、どの特徴量が不純度を多く下げたかを示す；
+- 分割候補が多い特徴量を有利に扱うことがある；
+- 相関した特徴量は重要度を分け合ったり隠したりする；
+- 因果的な重要度とは限らない。
 
-## 五、特徴量重要度
+より慎重に解釈したい場合は、あとで permutation importance と比較します。
 
-決定木は、自然に**特徴量重要度**を提供します。これは、各特徴量が分類判断にどれだけ貢献したかを表します。
-
-```python
-from sklearn.datasets import load_wine
-from sklearn.tree import DecisionTreeClassifier
-
-wine = load_wine()
-X, y = wine.data, wine.target
-
-tree = DecisionTreeClassifier(max_depth=4, random_state=42)
-tree.fit(X, y)
-
-# 特徴量重要度
-importance = tree.feature_importances_
-sorted_idx = np.argsort(importance)
-
-plt.figure(figsize=(8, 6))
-plt.barh(range(len(sorted_idx)), importance[sorted_idx], color='steelblue')
-plt.yticks(range(len(sorted_idx)), np.array(wine.feature_names)[sorted_idx])
-plt.xlabel('特徴量重要度')
-plt.title('決定木の特徴量重要度（Wine データセット）')
-plt.grid(axis='x', alpha=0.3)
-plt.tight_layout()
-plt.show()
-
-top_features = sorted(
-    zip(wine.feature_names, importance),
-    key=lambda item: item[1],
-    reverse=True
-)[:5]
-for name, score in top_features:
-    print(f"{name}: {score:.3f}")
-print(f"訓練精度: {tree.score(X, y):.1%}")
-```
-
-期待される出力：
-
-```text
-proline: 0.390
-od280/od315_of_diluted_wines: 0.319
-flavanoids: 0.144
-hue: 0.059
-magnesium: 0.034
-訓練精度: 98.9%
-```
-
-特徴量重要度は説明に役立ちますが、因果関係そのものではありません。木が分岐でよく使った特徴を示しているだけで、「本当に原因だった」とは限りません。
-
----
-
-## 六、回帰木
-
-決定木は分類だけでなく、**回帰**にも使えます。
+## 回帰木
 
 ![回帰木の階段状予測の直感図](/img/course/ch05-decision-tree-regression-tree-ja.png)
 
-違いは葉の出力です。分類木の葉はクラスを出力しますが、回帰木の葉はその領域に入ったサンプルの目的変数の平均値を出力します。各領域が 1 つの定数を出すため、回帰木の予測は滑らかな曲線ではなく、自然に階段状になります。
+回帰木は数値を予測しますが、考え方は同じです。特徴空間を複数の領域に分け、各葉で目的変数の平均を出します。
 
-### 原理
-
-分類木の葉ノードは**クラス**を出力します。回帰木の葉ノードは**数値**を出力します（その領域にあるすべてのサンプルの平均値）。
-
-### 例
-
-```python
-from sklearn.tree import DecisionTreeRegressor
-
-# 非線形データを生成
-rng = np.random.default_rng(seed=42)
-X_reg = np.sort(rng.uniform(0, 10, 200)).reshape(-1, 1)
-y_reg = np.sin(X_reg.ravel()) + rng.normal(size=200) * 0.3
-
-# 異なる深さの回帰木
-fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-depths = [2, 5, None]
-
-for ax, depth in zip(axes, depths):
-    tree = DecisionTreeRegressor(max_depth=depth, random_state=42)
-    tree.fit(X_reg, y_reg)
-
-    X_test_reg = np.linspace(0, 10, 500).reshape(-1, 1)
-    y_pred = tree.predict(X_test_reg)
-
-    ax.scatter(X_reg, y_reg, s=10, alpha=0.5, color='steelblue')
-    ax.plot(X_test_reg, y_pred, 'r-', linewidth=2)
-    label = '制限なし' if depth is None else str(depth)
-    ax.set_title(f'深さ={label}, R²={tree.score(X_reg, y_reg):.3f}')
-    ax.grid(True, alpha=0.3)
-    print(f"深さ={label}: R2={tree.score(X_reg, y_reg):.3f}, "
-          f"葉ノード数={tree.get_n_leaves()}")
-
-plt.suptitle('回帰木の異なる深さ', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
+そのため、回帰木の予測はなめらかな線ではなく、階段のように見えることがあります。実験では：
 
 ```text
-深さ=2: R2=0.604, 葉ノード数=4
-深さ=5: R2=0.895, 葉ノード数=31
-深さ=制限なし: R2=1.000, 葉ノード数=200
+max_depth=4    mae=44.4 leaves=14
+max_depth=None mae=48.7 leaves=25
 ```
 
-深さ制限なしの回帰木は、ほぼ各サンプルごとに小さな領域を作るので、訓練 `R²` は完璧に近くなります。だからこそ、汎化は危うくなります。
+深い木は葉が増えますが、テスト MAE は悪化しました。ルールが多ければ汎化が良い、とは限りません。
 
-:::note 回帰木 vs 線形回帰
-回帰木の予測は**段差状**です（各区間で一定の値を返す）であり、滑らかではありません。そのため、非線形データにはよく合いますが、過学習もしやすいです。
-:::
+## 単体の決定木を使う場面
 
----
+単体の木が向いている場面：
 
-## 七、決定木の長所と短所
+- すばやく説明しやすいベースラインが必要；
+- 業務ルールとしてモデルの分岐を取り出したい；
+- 非線形な分割を図で説明したい；
+- Random Forest や boosting に進む前の土台にしたい。
 
-| 長所 | 短所 |
-|------|------|
-| 理解しやすく、説明しやすい（可視化できる） | 過学習しやすい |
-| 特徴量のスケーリングが不要 | データのわずかな変化に敏感 |
-| 分類と回帰の両方に使える | 決定境界が軸平行になる |
-| 多クラス問題に対応できる | 貪欲法なので、全体最適は保証されない |
-| 暗黙的に特徴選択ができる | 単体の木の表現力には限界がある |
+単体の木だけに頼りにくい場面：
 
-:::info 短所を解決する方法
-決定木の多くの短所は、**アンサンブル学習**（次の節）で改善できます。
-- 複数の木で投票する → 過学習を減らす
-- ランダムサンプリングする → 個々のデータ点への敏感さを減らす
-:::
+- データが少し変わるだけで木構造が大きく変わる；
+- テストスコアが訓練スコアより大きく下がる；
+- 集成モデルの精度と安定性が必要。
 
-### 決定木はどんなときに特に試す価値がある？
+## よくあるトラブル
 
-単体の木が必ずしも最強モデルではありませんが、次の場面ではとても有用です。
+| 症状 | よくある原因 | 修正 |
+|---|---|---|
+| train score は高いが test score が低い | 木が深すぎる | `max_depth` を下げ、`min_samples_leaf` を上げ、枝刈りを試す |
+| 小さな葉が大量にある | まれなケースを記憶している | `min_samples_leaf` を上げる |
+| 特徴量重要度が怪しい | 相関特徴量や高カーディナリティ特徴量の影響 | permutation importance で確認する |
+| ルールが読みにくい | 木が大きすぎる | 小さな説明用の木を学習する、または重要経路だけ要約する |
+| 回帰木の予測がブロック状 | 葉の平均値で予測するため | 線形モデル、ランダムフォレスト、勾配ブースティングと比較する |
 
-- とくに解釈性がほしいとき
-- どの特徴量が役立ちそうか、素早く見たいとき
-- 特徴量とラベルの間に、はっきりした段階的ルールがあると疑うとき
-- ビジネス側に説明しやすい baseline をまず作りたいとき
+## 練習
 
-この講義での価値は、単なるアルゴリズムではなく、次の 2 つをつなぐところにもあります。
+1. `min_samples_leaf` を `3` から `1`、さらに `10` に変えてください。葉の数とテスト accuracy はどう変わりますか？
+2. `criterion` を `"entropy"` に変えてください。最初の分割は同じですか？
+3. `max_depth=2` の `export_text()` を表示してください。説明しやすくなりますか？
+4. Iris の 4 つすべての特徴量を使ってください。特徴量重要度は変わりますか？
+5. 回帰木の結果を、線形回帰レッスンのベースラインと比較してください。
 
-- 解釈しやすいモデリング
-- アンサンブル木モデルの出発点
+## 合格チェック
 
----
+次を説明できれば、この節はクリアです。
 
-## 八、最初に決定木をプロジェクトへ入れるときの、いちばん安定した順番
-
-最初に本当にプロジェクトへ入れるなら、次の順番がおすすめです。
-
-1. まずは解釈しやすい baseline として使う
-2. まず木の深さを制限し、最初から無限に育てない
-3. 訓練スコアと検証スコアの差を見る
-4. そのうえで、単体の木をさらに調整するか、ランダムフォレスト / Boosting に進むか決める
-
-この方が、いきなりアンサンブル学習へ飛ぶより安定しています。なぜなら、次のことをちゃんと理解できるからです。
-
-- 単体の木がなぜ直感的なのか
-- 単体の木がなぜ不安定なのか
-- アンサンブル学習が何を補っているのか
-
-:::info 次につながる内容
-- **次の節**: アンサンブル学習 — 複数の決定木を組み合わせると、単体の木よりはるかに高い性能が出る
-- **第 4 章の復習**: エントロピーと情報利得（2.4 節の情報理論）
-:::
-
----
-
-## まとめ
-
-| ポイント | 説明 |
-|------|------|
-| 核心思想 | 一連の判断条件でデータを再帰的に分割する |
-| 分裂基準 | 情報利得（エントロピー）またはジニ指数 |
-| 過学習の制御 | 事前枝刈り（深さやサンプル数を制限）または事後枝刈り（ccp_alpha） |
-| 解釈性 | 決定パスを可視化し、特徴量重要度を出せる |
-| 回帰木 | 葉ノードはクラスではなく数値を出力する |
-
-## この節でいちばん持ち帰ってほしいこと
-
-ひとことで言うなら、これです。
-
-> **決定木の核心は「分裂できること」ではなく、モデルの複雑さと過学習を“目で見える形”にしてくれることです。**
-
-つまり、重要な学びは次の通りです。
-
-- なぜ木は直感的なのか
-- なぜ木は過学習しやすいのか
-- 初めて木モデルを調整するとき、どのパラメータから触るべきか
-- なぜこのあとランダムフォレストや Boosting へ自然につながるのか
-
-## ハンズオン練習
-
-### 練習 1: 情報利得を手で計算する
-
-10 個のサンプルがあり、ラベルは `[はい,はい,いいえ,はい,いいえ,いいえ,はい,はい,いいえ,いいえ]`（「はい」が 5 個、「いいえ」が 5 個）です。特徴 A で分岐したあと、左ノード = `[はい,はい,はい,いいえ]`、右ノード = `[いいえ,いいえ,いいえ,いいえ,はい,はい]` になります。情報利得を手で計算してください。
-
-### 練習 2: 深さのチューニング
-
-`make_moons` データ（noise=0.3）を使って、`max_depth` を 1〜20 まで変えながら、訓練集とテスト集の精度変化を描き、最適な深さを見つけてください。
-
-### 練習 3: 回帰木 vs 線形回帰
-
-`y = sin(x) + ノイズ` でデータを作り、`LinearRegression`、`PolynomialFeatures(degree=5) + LinearRegression`、`DecisionTreeRegressor(max_depth=5)` の 3 つでフィットし、比較図を描いてください。
-
-### 練習 4: 特徴量重要度
-
-`load_iris()` を使って決定木を学習し、特徴量重要度の棒グラフを描いてください。重要でない特徴量を取り除いて再学習し、精度が下がるか確認してください。
+- 木は、子ノードがよりきれいになる分割を選んで学習する；
+- 深い木は訓練データを記憶しやすい；
+- `max_depth`、`min_samples_leaf`、`ccp_alpha` は複雑さを制御する；
+- 特徴量重要度は便利だが、因果関係そのものではない；
+- 回帰木は葉の平均値を出すので、予測が階段状になりやすい。

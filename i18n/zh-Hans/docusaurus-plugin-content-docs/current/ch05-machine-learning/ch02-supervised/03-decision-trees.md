@@ -1,763 +1,274 @@
 ---
 title: "5.2.4 决策树"
 sidebar_position: 5
-description: "理解决策树的构建过程、信息增益与基尼指数、剪枝策略、决策树可视化，以及回归树"
-keywords: [决策树, 信息增益, 基尼指数, 剪枝, 回归树, CART, 可解释性]
+description: "一节跟着操作的决策树课程：划分规则、纯度、深度控制、剪枝、解释性和回归树"
+keywords: [决策树, Gini, 熵, 剪枝, ccp_alpha, CART, 特征重要性, 回归树]
 ---
 
 # 5.2.4 决策树
 
-![决策树分裂路径图](/img/course/decision-tree-split-path.png)
+![决策树划分路径图](/img/course/decision-tree-split-path.png)
 
-:::tip 本节定位
-决策树是**最直觉、最易解释**的 ML 算法。它就像一个"20 个问题"游戏：通过一连串的是/否判断，把数据分类。更重要的是，决策树是后面集成学习（随机森林、XGBoost）的基础。
+:::tip 本节概览
+决策树是由一连串问题组成的模型。它容易读懂，因为每个预测都会沿着规则路径往下走；但如果规则过细，它也很容易过拟合。
 :::
 
-## 学习目标
+## 你会做出什么
 
-- 理解决策树的构建过程
-- 掌握信息增益、基尼指数（与第 4 站熵的概念衔接）
-- 理解剪枝策略（预剪枝、后剪枝）
-- 掌握决策树的可视化与解释性
-- 了解回归树
+这一节会通过一个脚本演示：
 
-## 先说一个很重要的学习预期
+- 树的深度如何影响训练集/测试集准确率；
+- 如何打印可读的树规则；
+- 特征重要性如何来自划分；
+- `ccp_alpha` 后剪枝如何改变叶子数量；
+- 回归树如何做出阶梯状的数值预测。
 
-这一节很容易让新人一开始产生两个相反的感觉：
+先看图。决策树不是简单的 “if-else”，而是 “if-else + 划分评分 + 复杂度控制”。
 
-- “决策树这么像 if-else，应该特别简单”
-- “可一到熵、基尼、剪枝，好像又突然很难”
-
-更适合第一遍的目标其实不是把所有公式一下吃透，而是先看顺这条主线：
-
-> **树会一步步长出规则，规则越细越容易把训练集记住，所以后面一定会自然走到复杂度控制。**
-
-只要这条线先立住，后面的纯度、剪枝、随机森林都会更容易接上。
-
----
-
-## 先建立一张地图
-
-决策树很容易给新人一种“特别直观，所以应该不难”的错觉。
-但真正开始做项目后，最常见的困惑反而是：
-
-- 为什么树一下就能把训练集学到很高分？
-- 为什么它又这么容易过拟合？
-- 为什么单棵树看起来好懂，但工业里大家更爱用随机森林和 Boosting？
-
-更稳的理解顺序是：
-
-![决策树学习主线图](/img/course/ch05-decision-tree-learning-flow.png)
+![决策树学习主流程图](/img/course/ch05-decision-tree-learning-flow.png)
 
 ![决策树学习与剪枝漫画](/img/course/ch05-decision-tree-learning-comic.png)
 
-如果你先抓住这条线，后面的熵、基尼、剪枝和集成学习都会更顺。
+## 环境准备
 
-### 术语解码
-
-| 术语 | 在这里是什么意思 | 实际项目里怎么用 |
-|------|------|------|
-| `node` | 树中的一个节点，里面放着数据或分裂规则 | 可以沿着节点路径解释模型为什么这么判 |
-| `root node` | 包含全部训练样本的起始节点 | 根节点的分裂通常是最重要的全局规则 |
-| `leaf node` | 输出类别或数值的最终节点 | 很小的叶子往往说明树在记忆少数噪声点 |
-| `entropy` | 衡量标签不确定性的指标 | 分裂后熵越低，子节点越纯 |
-| `Gini` | 另一种纯度指标，CART 常用 | sklearn 默认值，通常是稳妥的第一选择 |
-| `max_depth` | 树允许的最大深度 | 建议最先调，因为它直接控制复杂度 |
-| `min_samples_leaf` | 一个叶子至少要有多少样本 | 可以避免只为少数噪声点单独开叶子 |
-| `ccp_alpha` | 代价复杂度剪枝强度 | 完整树长好后再用它做后剪枝 |
-| `CART` | Classification and Regression Trees | sklearn 决策树使用的算法家族 |
-
----
-
-## 一、决策树的直觉
-
-### 生活中的决策树
-
-```mermaid
-flowchart TD
-    A["今天出去玩吗？"] --> B{"天气好？"}
-    B -->|"是"| C{"有空？"}
-    B -->|"否"| D["不出去 🏠"]
-    C -->|"是"| E["出去玩 🎉"]
-    C -->|"否"| F["不出去 🏠"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style E fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style D fill:#ffebee,stroke:#c62828,color:#333
-    style F fill:#ffebee,stroke:#c62828,color:#333
+```bash
+python -m pip install -U scikit-learn
 ```
 
-决策树就是一系列的**if-else 判断**，每次根据一个特征的值把数据分成两（或多）组。
+本节使用 sklearn 的 CART 风格 `DecisionTreeClassifier` 和 `DecisionTreeRegressor`。CART 是 **Classification and Regression Trees，分类与回归树**，意思是同一套树思想既能处理类别，也能处理数值。
 
-### 机器学习中的决策树
+## 运行完整实验
 
-| 要素 | 说明 |
-|------|------|
-| **根节点** | 最顶部的节点，包含所有数据 |
-| **内部节点** | 做判断的节点（按某个特征分裂） |
-| **叶节点** | 最终的决策结果（类别或数值） |
-| **分裂条件** | 如"花瓣长度 ≤ 2.5cm" |
-| **深度** | 从根到叶的最长路径 |
-
-### 决策树为什么让人一看就懂？
-
-因为它把模型拆成了很多局部问题：
-
-- 先问一个问题
-- 根据答案走左边还是右边
-- 再问下一个问题
-
-这和线性回归、逻辑回归那种“把所有特征一次性揉进一个公式”很不一样。
-所以决策树最大的教学价值是：
-
-- 它第一次让新人看见“模型在做判断”的过程
-- 它让“模型为什么这样判”变得能解释
-- 它也让“模型为什么会记住训练集”变得很直观
-
-### 一个更适合新人的类比
-
-你可以先把决策树想成：
-
-- 一个特别爱追问的面试官
-
-它每一轮都会问：
-
-- “这个问题能不能把样本分得更开一点？”
-
-如果能，就继续往下问；如果不能，就停在这里给结论。
-所以树越长，本质上就是：
-
-- 规则越问越细
-- 分类越分越开
-- 但也越容易把训练集的细节记住
-
-### 一个简单例子
+新建 `decision_tree_lab.py`：
 
 ```python
-from sklearn.datasets import load_iris
-from sklearn.tree import DecisionTreeClassifier, plot_tree
-import matplotlib.pyplot as plt
-
-# 只用 2 个特征，方便可视化
-iris = load_iris()
-X = iris.data[:, 2:4]  # 花瓣长度和宽度
-y = iris.target
-
-# 训练一棵浅层决策树
-tree = DecisionTreeClassifier(max_depth=3, random_state=42)
-tree.fit(X, y)
-
-# 可视化决策树
-fig, ax = plt.subplots(figsize=(14, 8))
-plot_tree(tree, feature_names=['花瓣长度', '花瓣宽度'],
-          class_names=iris.target_names, filled=True,
-          rounded=True, fontsize=10, ax=ax)
-plt.title('鸢尾花决策树（max_depth=3）')
-plt.tight_layout()
-plt.show()
-
-print(f"训练准确率: {tree.score(X, y):.1%}")
-print(f"树深度: {tree.get_depth()}")
-print(f"叶节点数: {tree.get_n_leaves()}")
-print("根节点分裂特征: 花瓣长度")
-print(f"根节点阈值: {tree.tree_.threshold[0]:.2f}")
-```
-
-预期输出：
-
-```text
-训练准确率: 97.3%
-树深度: 3
-叶节点数: 5
-根节点分裂特征: 花瓣长度
-根节点阈值: 2.45
-```
-
-根节点先问“花瓣长度”，说明这个问题已经足以把很多鸢尾花样本分开了。
-
----
-
-## 二、决策树如何"学习"？——分裂准则
-
-### 核心问题
-
-每个节点上，算法需要决定：
-1. **用哪个特征**分裂？
-2. **用什么阈值**分裂？
-
-目标：让每次分裂后，子节点的数据尽可能**"纯"**（同类数据聚在一起）。
-
-### 先别急着背公式，先记一句话
-
-决策树每一步真正想做的事其实很简单：
-
-> **找一个问题，让分开后的两堆数据比原来更整齐。**
-
-后面的信息增益和基尼指数，本质上都只是在量化“整齐了多少”。
-
-### 第一次学树模型时，最值得先记什么？
-
-比起一开始就背：
-
-- 熵公式
-- 基尼公式
-
-更值得先记的是：
-
-- 每次分裂都在追求更纯
-- 树一旦分太细，就会开始记住训练集
-- 所以后面一定会自然走到“复杂度控制”这一步
-
-![决策树分裂准则：熵、Gini 与信息增益](/img/course/ch05-decision-tree-split-criteria.png)
-
-先看图，再看公式：好的分裂会把混杂的父节点变成更干净的子节点。熵和 Gini 只是两种衡量“这个节点有多混”的方法，信息增益衡量的是分裂之后这种混乱程度下降了多少。
-
-### 信息增益与熵
-
-:::info 与第 4 站的衔接
-你在第 4 站"2.4 信息论基础"中学过**熵**——它衡量一个集合的"不确定性"。决策树就是用熵来决定如何分裂。
-:::
-
-**熵（Entropy）**：
-
-> **H(S) = -Σ pk × log₂(pk)**
-
-- `pk` = 类别 k 在集合 S 中的比例
-- 熵越大 = 越"混乱"；熵 = 0 = 完全纯（只有一个类别）
-
-**信息增益**：分裂前后熵的减少量。
-
-> **IG(S, A) = H(S) - Σ (|Sv|/|S|) × H(Sv)**
-
-```python
-import numpy as np
-
-def entropy(y):
-    """计算熵"""
-    classes, counts = np.unique(y, return_counts=True)
-    probs = counts / len(y)
-    return -np.sum(probs * np.log2(probs + 1e-10))
-
-def information_gain(y, y_left, y_right):
-    """计算信息增益"""
-    n = len(y)
-    return entropy(y) - (len(y_left)/n * entropy(y_left) + len(y_right)/n * entropy(y_right))
-
-# 示例：10 个样本
-y_parent = np.array([0, 0, 0, 0, 0, 1, 1, 1, 1, 1])  # 5:5 混合
-print(f"父节点熵: {entropy(y_parent):.4f}")
-
-# 分裂方案 A：完美分裂
-y_left_a = np.array([0, 0, 0, 0, 0])  # 全 0
-y_right_a = np.array([1, 1, 1, 1, 1])  # 全 1
-ig_a = information_gain(y_parent, y_left_a, y_right_a)
-print(f"方案 A（完美分裂）信息增益: {ig_a:.4f}")
-
-# 分裂方案 B：很差的分裂
-y_left_b = np.array([0, 0, 1, 1, 1])   # 2:3 混合
-y_right_b = np.array([0, 0, 0, 1, 1])   # 3:2 混合
-ig_b = information_gain(y_parent, y_left_b, y_right_b)
-print(f"方案 B（差的分裂）信息增益: {ig_b:.4f}")
-```
-
-预期输出：
-
-```text
-父节点熵: 1.0000
-方案 A（完美分裂）信息增益: 1.0000
-方案 B（差的分裂）信息增益: 0.0290
-```
-
-方案 A 值得选，因为它把两堆混合样本变成了两堆更纯的样本。方案 B 几乎没有改善，所以树不该偏向它。
-
-### 基尼指数（Gini Impurity）
-
-另一种衡量"纯度"的指标，计算更快：
-
-> **Gini(S) = 1 - Σ pk²**
-
-- Gini = 0 → 完全纯
-- Gini 最大 → 完全混乱
-
-```python
-def gini(y):
-    """计算基尼指数"""
-    classes, counts = np.unique(y, return_counts=True)
-    probs = counts / len(y)
-    return 1 - np.sum(probs ** 2)
-
-# 对比熵和基尼指数
-p = np.linspace(0.01, 0.99, 100)
-entropy_vals = -p * np.log2(p) - (1-p) * np.log2(1-p)
-gini_vals = 2 * p * (1 - p)
-
-plt.figure(figsize=(8, 5))
-plt.plot(p, entropy_vals, 'b-', linewidth=2, label='熵 (Entropy)')
-plt.plot(p, gini_vals, 'r-', linewidth=2, label='基尼指数 (Gini)')
-plt.xlabel('正类比例 p')
-plt.ylabel('不纯度')
-plt.title('熵 vs 基尼指数')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-
-for labels in [y_parent, y_left_a, y_left_b]:
-    print(f"Gini={gini(labels):.4f}, Entropy={entropy(labels):.4f}")
-```
-
-预期输出：
-
-```text
-Gini=0.5000, Entropy=1.0000
-Gini=0.0000, Entropy=-0.0000
-Gini=0.4800, Entropy=0.9710
-```
-
-Gini 和熵都在问同一件事：这个节点里的标签有多“混”。数值不同，但通常排序很接近。
-
-### sklearn 中的选择
-
-| 参数 | 选项 | 说明 |
-|------|------|------|
-| `criterion='gini'` | 基尼指数 | sklearn **默认**，计算快 |
-| `criterion='entropy'` | 信息增益 | 分裂更精确，但计算稍慢 |
-
-实际使用中两者差异不大，默认用 `gini` 即可。
-
-### 第一次做项目时，`gini` 和 `entropy` 怎么选最稳？
-
-如果你不是在专门做算法对比实验，第一次做项目时可以直接这样用：
-
-- 先用默认的 `gini`
-- 把主要精力放在 `max_depth`、`min_samples_leaf`、`ccp_alpha`
-- 如果你已经把这些都调过了，再考虑是否比较 `entropy`
-
-原因很简单：
-
-- 分裂准则通常不是性能差异的主要来源
-- 树的复杂度控制，往往比“选哪种纯度公式”更重要
-
-### 第一次调树模型时，最稳的默认顺序
-
-如果你第一次真正调树模型，建议先按下面顺序来：
-
-1. 先立一棵浅树做 baseline
-2. 先看 `max_depth`
-3. 再看 `min_samples_leaf`
-4. 再看 `ccp_alpha`
-5. 最后才去比较 `gini / entropy`
-
-这个顺序更稳，因为它优先解决的是：
-
-- 树有没有长过头
-- 规则有没有细到开始记数据
-
----
-
-## 三、决策边界可视化
-
-```python
-from sklearn.datasets import make_classification, make_moons
-from sklearn.tree import DecisionTreeClassifier
-import numpy as np
-import matplotlib.pyplot as plt
-
-def plot_decision_boundary(ax, model, X, y, title):
-    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 200),
-                          np.linspace(y_min, y_max, 200))
-    Z = model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
-    ax.contourf(xx, yy, Z, alpha=0.3, cmap='coolwarm')
-    ax.scatter(X[:, 0], X[:, 1], c=y, cmap='coolwarm', s=20, edgecolors='w', linewidth=0.5)
-    ax.set_title(title)
-    ax.grid(True, alpha=0.3)
-
-# 不同深度的决策树
-X, y = make_moons(n_samples=300, noise=0.25, random_state=42)
-
-fig, axes = plt.subplots(1, 4, figsize=(18, 4))
-depths = [1, 3, 5, None]
-
-for ax, depth in zip(axes, depths):
-    tree = DecisionTreeClassifier(max_depth=depth, random_state=42)
-    tree.fit(X, y)
-    label = f'深度不限' if depth is None else f'深度={depth}'
-    plot_decision_boundary(ax, tree, X, y,
-                          f'{label}\n训练准确率: {tree.score(X, y):.1%}')
-    print(f"{label}: 训练准确率 {tree.score(X, y):.1%}, "
-          f"叶节点数 {tree.get_n_leaves()}, 深度 {tree.get_depth()}")
-
-plt.suptitle('决策树深度对决策边界的影响', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-预期输出：
-
-```text
-深度=1: 训练准确率 81.0%, 叶节点数 2, 深度 1
-深度=3: 训练准确率 90.0%, 叶节点数 6, 深度 3
-深度=5: 训练准确率 94.7%, 叶节点数 14, 深度 5
-深度不限: 训练准确率 100.0%, 叶节点数 33, 深度 9
-```
-
-:::warning 决策树的过拟合
-不限深度的决策树会把每个训练样本都"记住"（训练准确率 100%），但决策边界会非常复杂。这就是过拟合——需要通过**剪枝**来控制。
-:::
-
-### 第一次看到这张边界图，最该看什么？
-
-不是先看训练准确率，而是先看：
-
-- 边界是不是开始变得非常碎
-- 一些孤立点是不是被单独切出一小块区域
-- 训练分数和测试分数是不是开始分叉
-
-这正是机器学习里特别重要的诊断思路：
-
-- 不是只问“模型能不能学到”
-- 而是问“模型学到的是规律，还是样本噪声”
-
-![决策树过拟合与剪枝图](/img/course/ch05-tree-pruning-overfit-map.png)
-
-这张图要和上面的边界图一起看：树越深，越容易把孤立噪声切成单独小区域；剪枝不是“让模型变弱”，而是把过于细碎、只服务训练样本的分裂剪掉，让模型更像是在学规律。
-
----
-
-## 四、剪枝——控制复杂度
-
-![决策树剪枝与调参顺序图](/img/course/ch05-decision-tree-pruning-order.png)
-
-调树之前先看这张图：训练分数满分并不一定是胜利，如果边界已经碎片化、验证分数下降，模型很可能在记噪声。剪枝的本质是保留大模式，移除只服务训练样本的细碎分支。新人调参时，先看 `max_depth`，再看 `min_samples_leaf`，然后看 `ccp_alpha`；等复杂度控制住以后，再比较 `gini` 和 `entropy`。
-
-### 预剪枝（Pre-pruning）
-
-**在构建过程中**限制树的生长：
-
-| 参数 | 说明 | 默认值 |
-|------|------|--------|
-| `max_depth` | 最大深度 | None（不限） |
-| `min_samples_split` | 节点最少样本数才能分裂 | 2 |
-| `min_samples_leaf` | 叶子节点最少样本数 | 1 |
-| `max_leaf_nodes` | 最大叶节点数 | None（不限） |
-
-### 第一次调树模型时，更稳的顺序是什么？
-
-新人第一次调决策树，很容易一口气改很多参数，最后不知道到底是谁在起作用。
-更稳的顺序是：
-
-1. 先只调 `max_depth`
-2. 再看是否需要调 `min_samples_leaf`
-3. 最后再看 `min_samples_split` 和 `ccp_alpha`
-
-因为：
-
-- `max_depth` 最直接决定树能长多复杂
-- `min_samples_leaf` 很适合抑制“为少数点单独切分”
-- 其他参数更像精细微调
-
-```python
+from sklearn.datasets import load_diabetes, load_iris
+from sklearn.metrics import accuracy_score, mean_absolute_error
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, export_text
 
-X, y = make_moons(n_samples=500, noise=0.3, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 对比不同深度
-fig, axes = plt.subplots(1, 4, figsize=(18, 4))
-configs = [
-    (None, '不剪枝'),
-    (3, 'max_depth=3'),
-    (5, 'max_depth=5'),
-    (10, 'max_depth=10'),
-]
+iris = load_iris()
+X = iris.data[:, 2:4]  # petal length and petal width, easier to read
+y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
 
-for ax, (depth, title) in zip(axes, configs):
-    tree = DecisionTreeClassifier(max_depth=depth, random_state=42)
+print("classification_depth_lab")
+for depth in [1, 2, 3, None]:
+    tree = DecisionTreeClassifier(max_depth=depth, min_samples_leaf=3, random_state=42)
     tree.fit(X_train, y_train)
-    train_acc = tree.score(X_train, y_train)
-    test_acc = tree.score(X_test, y_test)
-    plot_decision_boundary(ax, tree, X_train, y_train,
-                          f'{title}\n训练: {train_acc:.1%}, 测试: {test_acc:.1%}')
-    print(f"{title}: 训练={train_acc:.1%}, 测试={test_acc:.1%}, "
-          f"叶节点数={tree.get_n_leaves()}")
+    train_acc = accuracy_score(y_train, tree.predict(X_train))
+    test_acc = accuracy_score(y_test, tree.predict(X_test))
+    print(
+        f"max_depth={str(depth):<4} "
+        f"train={train_acc:.3f} test={test_acc:.3f} "
+        f"leaves={tree.get_n_leaves()} depth={tree.get_depth()}"
+    )
 
-plt.suptitle('预剪枝对过拟合的控制', fontsize=13)
-plt.tight_layout()
-plt.show()
+best_tree = DecisionTreeClassifier(max_depth=3, min_samples_leaf=3, random_state=42)
+best_tree.fit(X_train, y_train)
+print("tree_rules")
+print(export_text(best_tree, feature_names=["petal length", "petal width"], decimals=2, max_depth=3))
+
+print("feature_importance")
+for name, value in zip(["petal length", "petal width"], best_tree.feature_importances_):
+    print(f"- {name}: {value:.3f}")
+
+print("pruning_lab")
+path = DecisionTreeClassifier(random_state=42).cost_complexity_pruning_path(X_train, y_train)
+for alpha in path.ccp_alphas[[0, 1, -2]]:
+    pruned = DecisionTreeClassifier(random_state=42, ccp_alpha=float(alpha))
+    pruned.fit(X_train, y_train)
+    print(
+        f"ccp_alpha={alpha:.4f} "
+        f"test={accuracy_score(y_test, pruned.predict(X_test)):.3f} "
+        f"leaves={pruned.get_n_leaves()}"
+    )
+
+print("regression_tree_lab")
+diabetes = load_diabetes()
+X_train, X_test, y_train, y_test = train_test_split(
+    diabetes.data, diabetes.target, test_size=0.25, random_state=42
+)
+for depth in [2, 4, None]:
+    reg = DecisionTreeRegressor(max_depth=depth, min_samples_leaf=10, random_state=42)
+    reg.fit(X_train, y_train)
+    pred = reg.predict(X_test)
+    print(f"max_depth={str(depth):<4} mae={mean_absolute_error(y_test, pred):.1f} leaves={reg.get_n_leaves()}")
+```
+
+运行：
+
+```bash
+python decision_tree_lab.py
 ```
 
 预期输出：
 
 ```text
-不剪枝: 训练=100.0%, 测试=82.0%, 叶节点数=43
-max_depth=3: 训练=90.0%, 测试=89.0%, 叶节点数=6
-max_depth=5: 训练=94.8%, 测试=90.0%, 叶节点数=13
-max_depth=10: 训练=99.2%, 测试=82.0%, 叶节点数=39
+classification_depth_lab
+max_depth=1    train=0.670 test=0.658 leaves=2 depth=1
+max_depth=2    train=0.964 test=0.947 leaves=3 depth=2
+max_depth=3    train=0.982 test=0.974 leaves=5 depth=3
+max_depth=None train=0.982 test=0.974 leaves=5 depth=3
+tree_rules
+|--- petal length <= 2.45
+|   |--- class: 0
+|--- petal length >  2.45
+|   |--- petal width <= 1.70
+|   |   |--- petal length <= 4.95
+|   |   |   |--- class: 1
+|   |   |--- petal length >  4.95
+|   |   |   |--- class: 2
+|   |--- petal width >  1.70
+|   |   |--- petal length <= 4.95
+|   |   |   |--- class: 2
+|   |   |--- petal length >  4.95
+|   |   |   |--- class: 2
+
+feature_importance
+- petal length: 0.588
+- petal width: 0.412
+pruning_lab
+ccp_alpha=0.0000 test=0.921 leaves=7
+ccp_alpha=0.0067 test=0.921 leaves=5
+ccp_alpha=0.2636 test=0.658 leaves=2
+regression_tree_lab
+max_depth=2    mae=47.3 leaves=4
+max_depth=4    mae=44.4 leaves=14
+max_depth=None mae=48.7 leaves=25
 ```
 
-最关键的信号是：不剪枝的树训练分数最高，但测试分数不是最好。这就是过拟合留下的明显痕迹。
+## 读懂输出
 
-### 后剪枝（Post-pruning）——代价复杂度剪枝
-
-**先长成完全树，再回头"修剪"**。sklearn 使用 `ccp_alpha`（Cost Complexity Pruning）参数。
-
-```python
-# 找到最优的 ccp_alpha
-tree_full = DecisionTreeClassifier(random_state=42)
-tree_full.fit(X_train, y_train)
-
-# 获取不同 alpha 对应的子树
-path = tree_full.cost_complexity_pruning_path(X_train, y_train)
-ccp_alphas = path.ccp_alphas
-
-# 对每个 alpha 训练一棵树
-train_scores = []
-test_scores = []
-for alpha in ccp_alphas:
-    tree = DecisionTreeClassifier(ccp_alpha=alpha, random_state=42)
-    tree.fit(X_train, y_train)
-    train_scores.append(tree.score(X_train, y_train))
-    test_scores.append(tree.score(X_test, y_test))
-
-plt.figure(figsize=(8, 5))
-plt.plot(ccp_alphas, train_scores, 'b-o', markersize=3, label='训练集')
-plt.plot(ccp_alphas, test_scores, 'r-o', markersize=3, label='测试集')
-plt.xlabel('ccp_alpha')
-plt.ylabel('准确率')
-plt.title('代价复杂度剪枝')
-plt.legend()
-plt.grid(True, alpha=0.3)
-
-# 标注最优点
-best_idx = np.argmax(test_scores)
-plt.axvline(x=ccp_alphas[best_idx], color='green', linestyle='--',
-            label=f'最优 alpha={ccp_alphas[best_idx]:.4f}')
-plt.legend()
-plt.show()
-
-print(f"最优 ccp_alpha: {ccp_alphas[best_idx]:.4f}")
-print(f"最优测试准确率: {test_scores[best_idx]:.1%}")
-print(f"最优树的叶节点数: {DecisionTreeClassifier(ccp_alpha=ccp_alphas[best_idx], random_state=42).fit(X_train, y_train).get_n_leaves()}")
-```
-
-预期输出：
+第一段最重要：
 
 ```text
-最优 ccp_alpha: 0.0040
-最优测试准确率: 91.0%
-最优树的叶节点数: 7
+max_depth=1    train=0.670 test=0.658 leaves=2 depth=1
+max_depth=3    train=0.982 test=0.974 leaves=5 depth=3
 ```
 
-`ccp_alpha` 可以理解成“修剪成本”：每多长出一个分裂，都要付出一点复杂度代价。如果某个分裂只帮助了少数训练样本，剪枝就会把它删掉。
+`max_depth=1` 只问一个问题，模型太简单。`max_depth=3` 会继续追问几轮，效果明显更好。在这个小数据集上，`max_depth=None` 没有继续长得更深，因为 `min_samples_leaf=3` 限制了过小叶子，而且数据本身比较简单。
 
----
+![决策树划分标准：熵、Gini 与信息增益](/img/course/ch05-decision-tree-split-criteria.png)
 
-## 五、特征重要性
-
-决策树天然提供**特征重要性**——表示每个特征对分类决策的贡献程度。
-
-```python
-from sklearn.datasets import load_wine
-from sklearn.tree import DecisionTreeClassifier
-
-wine = load_wine()
-X, y = wine.data, wine.target
-
-tree = DecisionTreeClassifier(max_depth=4, random_state=42)
-tree.fit(X, y)
-
-# 特征重要性
-importance = tree.feature_importances_
-sorted_idx = np.argsort(importance)
-
-plt.figure(figsize=(8, 6))
-plt.barh(range(len(sorted_idx)), importance[sorted_idx], color='steelblue')
-plt.yticks(range(len(sorted_idx)), np.array(wine.feature_names)[sorted_idx])
-plt.xlabel('特征重要性')
-plt.title('决策树的特征重要性（Wine 数据集）')
-plt.grid(axis='x', alpha=0.3)
-plt.tight_layout()
-plt.show()
-
-top_features = sorted(
-    zip(wine.feature_names, importance),
-    key=lambda item: item[1],
-    reverse=True
-)[:5]
-for name, score in top_features:
-    print(f"{name}: {score:.3f}")
-print(f"训练准确率: {tree.score(X, y):.1%}")
-```
-
-预期输出：
+每个节点都会寻找这样的问题：
 
 ```text
-proline: 0.390
-od280/od315_of_diluted_wines: 0.319
-flavanoids: 0.144
-hue: 0.059
-magnesium: 0.034
-训练准确率: 98.9%
+petal length <= 2.45?
 ```
 
-特征重要性适合做解释，但它不等于因果关系。它只是说明树在分裂时最常用了哪些特征，不代表这些特征“真正导致”了标签。
+好的划分会让子节点比父节点更“干净”。干净的意思是，一个节点里的标签更少混杂。
 
----
+## Gini、熵与信息增益
 
-## 六、回归树
+第一次学习时，不需要立刻背所有公式。先记住它们的工作：
 
-决策树不只能做分类，也能做**回归**。
+| 术语 | 实用含义 |
+|---|---|
+| `Gini` | 衡量节点里标签有多混杂；sklearn 分类树默认值 |
+| `entropy` | 另一种混杂程度评分，和信息论有关 |
+| `information gain` | 划分后混杂程度下降了多少 |
+| `criterion` | 选择评分规则的参数，例如 `criterion="gini"` 或 `criterion="entropy"` |
+
+没有特殊理由时，先用 `gini`。很多表格项目里，调树深、叶子大小和剪枝，比把 Gini 换成 entropy 更关键。
+
+## 控制复杂度
+
+![决策树过拟合与剪枝示意图](/img/course/ch05-tree-pruning-overfit-map.png)
+
+实操调参顺序：
+
+1. 先设置 `max_depth`，防止树长得过深。
+2. 再设置 `min_samples_leaf`，让每个叶子至少有足够样本。
+3. 最后用 `ccp_alpha` 对已经长出来的树做后剪枝。
+
+![决策树剪枝与调参顺序](/img/course/ch05-decision-tree-pruning-order.png)
+
+剪枝输出展示了取舍：
+
+```text
+ccp_alpha=0.0000 test=0.921 leaves=7
+ccp_alpha=0.0067 test=0.921 leaves=5
+ccp_alpha=0.2636 test=0.658 leaves=2
+```
+
+轻微剪枝保留了测试分数，同时叶子更少。剪得太重时，树只剩两个叶子，很多有用规则也丢了。
+
+## 解释性
+
+`export_text()` 会打印样本会走过的规则路径。给同事解释预测原因时很有用：
+
+```text
+|--- petal length <= 2.45
+|   |--- class: 0
+```
+
+特征重要性也有价值，但要谨慎：
+
+- 它表示这个已训练树中，哪些特征降低纯度最多；
+- 它可能偏爱可划分点更多的特征；
+- 相关特征之间会分摊或掩盖重要性；
+- 它不等于因果重要性。
+
+后面做更严谨解释时，可以把树的重要性和 permutation importance 对照。
+
+## 回归树
 
 ![回归树阶梯预测直觉图](/img/course/ch05-decision-tree-regression-tree.png)
 
-关键差异在叶子输出：分类树的叶子输出类别，回归树的叶子输出该区域样本目标值的平均数。因为每个区域只输出一个常数，所以回归树的预测天然像阶梯，而不是平滑曲线。
+回归树预测数值，但思想相同：把特征空间切成多个区域，然后每个叶子输出目标值平均数。
 
-### 原理
-
-分类树的叶节点输出**类别**；回归树的叶节点输出**数值**（该区域所有样本的平均值）。
-
-### 示例
-
-```python
-from sklearn.tree import DecisionTreeRegressor
-
-# 生成非线性数据
-rng = np.random.default_rng(seed=42)
-X_reg = np.sort(rng.uniform(0, 10, 200)).reshape(-1, 1)
-y_reg = np.sin(X_reg.ravel()) + rng.normal(size=200) * 0.3
-
-# 不同深度的回归树
-fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-depths = [2, 5, None]
-
-for ax, depth in zip(axes, depths):
-    tree = DecisionTreeRegressor(max_depth=depth, random_state=42)
-    tree.fit(X_reg, y_reg)
-
-    X_test_reg = np.linspace(0, 10, 500).reshape(-1, 1)
-    y_pred = tree.predict(X_test_reg)
-
-    ax.scatter(X_reg, y_reg, s=10, alpha=0.5, color='steelblue')
-    ax.plot(X_test_reg, y_pred, 'r-', linewidth=2)
-    label = '不限' if depth is None else str(depth)
-    ax.set_title(f'深度={label}, R²={tree.score(X_reg, y_reg):.3f}')
-    ax.grid(True, alpha=0.3)
-    print(f"深度={label}: R2={tree.score(X_reg, y_reg):.3f}, "
-          f"叶节点数={tree.get_n_leaves()}")
-
-plt.suptitle('回归树的不同深度', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-预期输出：
+所以回归树的预测常常像阶梯，而不是光滑直线。实验里：
 
 ```text
-深度=2: R2=0.604, 叶节点数=4
-深度=5: R2=0.895, 叶节点数=31
-深度=不限: R2=1.000, 叶节点数=200
+max_depth=4    mae=44.4 leaves=14
+max_depth=None mae=48.7 leaves=25
 ```
 
-深度不限的回归树几乎给每个样本都划出一个很小的区域，所以训练 `R²` 会接近完美。但这正说明它可能很难泛化。
+更深的树叶子更多，但测试 MAE 反而更差。规则更多不等于泛化更好。
 
-:::note 回归树 vs 线性回归
-回归树的预测是**阶梯状**的（每个区间输出一个常数），而不是平滑的。它天然可以拟合非线性数据，但也容易过拟合。
-:::
+## 什么时候用单棵决策树
 
----
+适合使用单棵树的场景：
 
-## 七、决策树的优缺点
+- 需要一个快速、可解释的基线；
+- 需要把模型规则提取给业务流程；
+- 想用可视化方式解释非线性划分；
+- 作为 Random Forest 或 boosting 前的垫脚石。
 
-| 优点 | 缺点 |
-|------|------|
-| 易于理解和解释（可视化） | 容易过拟合 |
-| 不需要特征缩放 | 对数据微小变化敏感 |
-| 可处理分类和回归 | 决策边界是轴对齐的 |
-| 可处理多类别问题 | 贪心算法，不保证全局最优 |
-| 隐式特征选择 | 单棵树表达能力有限 |
+不建议只依赖单棵树的场景：
 
-:::info 解决缺点的方法
-决策树的多数缺点可以通过**集成学习**（下一节）来解决：
-- 多棵树投票 → 减少过拟合
-- 随机采样 → 减少对单个数据点的敏感性
-:::
+- 数据稍微变化，树结构就大变；
+- 测试分数远低于训练分数；
+- 问题需要集成模型的准确性和稳定性。
 
-### 决策树什么时候特别值得先试？
+## 常见排查清单
 
-虽然单棵树不一定是最终最强模型，但它在这些场景里很值得先试：
+| 现象 | 可能原因 | 修复方式 |
+|---|---|---|
+| 训练分数高，测试分数低 | 树太深 | 降低 `max_depth`，提高 `min_samples_leaf`，尝试剪枝 |
+| 叶子很多且很小 | 正在记住少数特殊样本 | 提高 `min_samples_leaf` |
+| 特征重要性不可信 | 特征相关或高基数特征影响 | 用 permutation importance 复核 |
+| 规则难读 | 树太大 | 训练一棵更小的解释树，或只总结关键路径 |
+| 回归树预测像一格一格的台阶 | 叶子平均值导致阶梯输出 | 对比线性模型、随机森林或梯度提升 |
 
-- 你特别需要可解释性
-- 你想快速判断哪些特征大概有用
-- 你怀疑特征和标签之间存在明显的分段规则
-- 你想先做一个很容易向业务方讲清楚的 baseline
+## 练习
 
-它在课程里的价值，不只是一个算法，而是连接了两件很重要的事：
+1. 把 `min_samples_leaf` 从 `3` 改成 `1`，再改成 `10`。叶子数和测试准确率怎么变？
+2. 把 `criterion` 改成 `"entropy"`。第一层划分还一样吗？
+3. 打印 `max_depth=2` 的 `export_text()`。是不是更容易解释？
+4. Iris 改成使用四个特征。特征重要性会变化吗？
+5. 在回归树部分，把结果和线性回归课程里的基线对比。
 
-- 可解释建模
-- 集成树模型的起点
+## 过关检查
 
----
+你能解释下面几点，就完成本节：
 
-## 八、第一次把决策树放进项目里，最稳的默认顺序
-
-第一次把决策树真正放进项目里，可以先按这个顺序：
-
-1. 先把它当成可解释 baseline
-2. 先限制树深，别让它一上来无限长
-3. 先看训练分数和验证分数差距
-4. 再决定是继续调单棵树，还是进入随机森林 / Boosting
-
-这样会比一上来直接跳到集成学习更稳，因为你先真的看懂了：
-
-- 单棵树为什么直观
-- 单棵树为什么不稳
-- 集成学习到底是在补它什么短板
-
-:::info 连接后续
-- **下一节**：集成学习——把多棵决策树组合起来，效果远超单棵树
-- **第 4 站回顾**：熵和信息增益（2.4 节信息论）
-:::
-
----
-
-## 小结
-
-| 要点 | 说明 |
-|------|------|
-| 核心思想 | 通过一系列判断条件将数据递归分割 |
-| 分裂准则 | 信息增益（熵）或基尼指数 |
-| 过拟合控制 | 预剪枝（限制深度/样本数）或后剪枝（ccp_alpha） |
-| 可解释性 | 可视化决策路径，输出特征重要性 |
-| 回归树 | 叶节点输出数值而非类别 |
-
-## 这节最该带走什么
-
-如果只带走一句话，我希望你记住：
-
-> **决策树的核心不是“会分裂”，而是它第一次把“模型复杂度”和“过拟合”这件事变得肉眼可见。**
-
-所以真正重要的收获应该是：
-
-- 知道树为什么直观
-- 知道树为什么容易过拟合
-- 知道第一次调树模型该先动哪些参数
-- 知道为什么后面会自然走到随机森林和 Boosting
-
-## 动手练习
-
-### 练习 1：手动计算信息增益
-
-有 10 个样本：标签为 `[是,是,否,是,否,否,是,是,否,否]`（5 个"是"，5 个"否"）。按特征 A 分裂后，左子节点 = `[是,是,是,否]`，右子节点 = `[否,否,否,否,是,是]`。手动计算信息增益。
-
-### 练习 2：深度调优
-
-用 `make_moons` 数据（noise=0.3），尝试不同的 `max_depth`（1~20），画出训练集和测试集准确率的变化曲线，找到最优深度。
-
-### 练习 3：回归树 vs 线性回归
-
-用 `y = sin(x) + 噪声` 生成数据，分别用 `LinearRegression`、`PolynomialFeatures(degree=5) + LinearRegression`、`DecisionTreeRegressor(max_depth=5)` 三种方法拟合，画出对比图。
-
-### 练习 4：特征重要性
-
-用 `load_iris()` 训练决策树，画出特征重要性柱状图。尝试去掉不重要的特征后重新训练，看准确率是否下降。
+- 树通过选择让子节点更干净的划分来学习；
+- 树越深，越容易记住训练集；
+- `max_depth`、`min_samples_leaf`、`ccp_alpha` 都在控制复杂度；
+- 特征重要性有用，但不等于因果关系；
+- 回归树输出叶子平均值，所以预测常呈阶梯状。
