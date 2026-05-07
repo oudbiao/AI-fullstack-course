@@ -1,243 +1,122 @@
 ---
-title: "6.3.5 Transfer Learning 🔧"
+title: "6.3.5 Transfer Learning"
 sidebar_position: 4
-description: "From why we don’t start training from scratch, to freezing the backbone, replacing the classification head, and progressively fine-tuning—truly understanding transfer learning in vision."
+description: "Practice transfer learning step by step: pretrain a small backbone, replace the head, freeze parameters, fine-tune the last block, and read the tradeoffs."
 keywords: [transfer learning, fine-tuning, feature extractor, freeze backbone, transfer learning, CNN]
 ---
 
 # 6.3.5 Transfer Learning
 
-:::tip Section Focus
-If you already know that CNNs extract features and how classic architectures evolve, then the next very natural engineering question is:
-
-> **When I build my own image task, do I really need to train an entire CNN from scratch?**
-
-Most of the time, the answer is no.
-Transfer learning answers this question: how do we borrow visual knowledge learned on other tasks?
+:::tip Section Overview
+Transfer learning is the default starting point for many vision projects: reuse a backbone that already knows general visual patterns, replace the task-specific head, and only fine-tune more layers when validation results justify it.
 :::
 
 ## Learning Objectives
 
-- Understand why transfer learning is often more practical than training from scratch for image tasks
-- Distinguish between two common approaches: “fixed feature extractor” and “fine-tuning”
-- Learn how to replace the classification head and freeze backbone parameters
-- Read a small but fully runnable transfer learning example
-- Understand when to train only the head, and when to unfreeze more layers
+- Explain why training a CNN from scratch is often wasteful.
+- Distinguish a pretrained backbone from a classification head.
+- Freeze a backbone and train only the new head.
+- Unfreeze the last convolution block with a smaller learning rate.
+- Avoid common transfer-learning mistakes such as data leakage and destructive fine-tuning.
 
 ---
 
-## Why has transfer learning become the default option for vision tasks?
-
-### How expensive is training from scratch?
-
-If you want to train a decent vision model from scratch, you will usually run into these problems:
-
-- Not enough data
-- High labeling cost
-- Long training time
-- Easy to overfit
-
-For example, suppose you only have 2,000 images and want to classify 5 classes.
-That is not especially small in a real project, but for training a deep CNN from scratch, it still may not be stable enough.
-
-### What exactly has a pretrained model “pretrained”?
-
-A model trained on large-scale image data has usually already learned many general visual features:
-
-- Edges
-- Textures
-- Color combinations
-- Part shapes
-- Common object patterns
-
-These capabilities are not exclusive to “cat and dog tasks”; they are basic visual knowledge useful for many image tasks.
-
-So the core intuition of transfer learning is:
-
-> **First reuse the low-level visual capabilities already learned, then adapt the last few layers to fit your own task.**
-
-### A helpful analogy
-
-Transfer learning is like asking someone who already knows general drawing skills to help create professional illustrations:
-
-- They do not need to relearn how to hold a pen
-- You only need them to adapt to your specific style and subject
-
-That is why transfer learning is usually such a good deal in vision tasks.
-
----
-
-## The two most common transfer learning approaches
-
-### Approach 1: Fixed feature extractor
-
-Method:
-
-- Keep the pretrained backbone parameters unchanged
-- Train only the final classification head
-
-Advantages:
-
-- Fast
-- Less likely to damage pretrained capabilities
-- Suitable for very small datasets
-
-Disadvantages:
-
-- Limited ability to adapt to a new task
-
-### Approach 2: Fine-tuning
-
-Method:
-
-- Replace the final classification head
-- In addition to the head, gradually unfreeze part or even all of the backbone
-
-Advantages:
-
-- Better adaptation to the target task
-
-Disadvantages:
-
-- Easier to overfit
-- Slower training
-- Requires more careful learning rate choices
-
-### One-line memory trick
-
-- Small dataset: prefer a fixed feature extractor first
-- Large dataset / big task difference: consider progressive fine-tuning
+## Look at the Decision Flow First
 
 ![Decision diagram for freezing the backbone and progressive fine-tuning in transfer learning](/img/course/ch06-transfer-learning-freeze-finetune-map-en.png)
 
-:::tip Reading hint
-When reading this diagram, first ask two questions: how much data do you have, and how similar is the new task to the pretrained task. If the data is small and the tasks are similar, freeze the backbone and train only the head first; if you have more data or the task is more different, gradually unfreeze later layers and fine-tune with a smaller learning rate.
-:::
+Read the flow like this:
 
----
-
-## A “directly runnable” toy transfer learning example
-
-To make sure the code runs without downloading any external model, we will simulate a “pretrained backbone” ourselves.
-
-### First define a small backbone
-
-```python
-import torch
-from torch import nn
-
-class TinyBackbone(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.features = nn.Sequential(
-            nn.Conv2d(1, 8, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(2),
-            nn.Conv2d(8, 16, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.AdaptiveAvgPool2d((1, 1))
-        )
-
-    def forward(self, x):
-        x = self.features(x)
-        return x.flatten(1)
+```text
+pretrained backbone -> replace head -> train head -> validate -> unfreeze later layers if needed
 ```
 
-The output of this backbone is a fixed-length feature vector.
-This is very similar to the “feature output from the backbone” in many real pretrained models.
+Two questions drive the decision:
 
----
+| Question | If the answer is small/similar | If the answer is large/different |
+|---|---|---|
+| How much labeled data do you have? | freeze most layers first | fine-tune more layers carefully |
+| How similar is the new task? | pretrained features may transfer well | later layers may need adaptation |
 
-## First build the “fixed feature extractor” version
+This section uses pure PyTorch and synthetic images so the code runs without downloading `torchvision` weights. In real projects, the backbone is usually a pretrained `torchvision` or `timm` model.
 
-### Replace the classification head and freeze the backbone
+## Core Terms
 
-```python
-import torch
-from torch import nn
+| Term | Meaning |
+|---|---|
+| backbone | feature extractor, usually all layers before the final classifier |
+| head | task-specific classifier or regressor attached to the backbone |
+| freeze | set `requires_grad=False` so parameters do not update |
+| fine-tune | unfreeze some pretrained layers and continue training |
+| logits | raw class scores before `softmax` |
 
-class TransferClassifier(nn.Module):
-    def __init__(self, num_classes=3):
-        super().__init__()
-        self.backbone = TinyBackbone()
-        self.head = nn.Linear(16, num_classes)
+The practical rule is:
 
-    def forward(self, x):
-        feat = self.backbone(x)
-        return self.head(feat)
-
-model = TransferClassifier(num_classes=3)
-
-# Freeze the backbone
-for param in model.backbone.parameters():
-    param.requires_grad = False
-
-for name, param in model.named_parameters():
-    print(name, "trainable =", param.requires_grad)
+```text
+small data -> train the head first
+not good enough -> unfreeze later backbone layers with a smaller learning rate
 ```
 
-### What should you see in the output?
+## Full Lab: Simulate Transfer Learning Offline
 
-You will find that:
+This lab has three stages:
 
-- All parameters in `backbone` are not trainable
-- Only the parameters in `head` are trainable
+1. Pretrain a tiny backbone on simple line patterns.
+2. Reuse that backbone on a new target task and train only the head.
+3. Unfreeze the last convolution layer and fine-tune with a smaller learning rate.
 
-This is the standard “train only the head” form of transfer learning.
-
----
-
-## Build a small image classification task that can actually be trained
-
-### Use synthetic data to simulate a small task
-
-We create 3 simple image classes:
-
-- Vertical line
-- Horizontal line
-- Diagonal line
-
-This way, we do not need an external dataset, and we can still complete the training loop.
+Run the full script:
 
 ```python
+import copy
 import numpy as np
 import torch
-
-def make_image(label, size=12):
-    img = np.zeros((size, size), dtype=np.float32)
-
-    if label == 0:  # Vertical line
-        img[:, size // 2] = 1.0
-    elif label == 1:  # Horizontal line
-        img[size // 2, :] = 1.0
-    else:  # Diagonal line
-        for i in range(size):
-            img[i, i] = 1.0
-
-    img += np.random.randn(size, size).astype(np.float32) * 0.05
-    return np.clip(img, 0.0, 1.0)
-
-X, y = [], []
-for label in range(3):
-    for _ in range(80):
-        X.append(make_image(label))
-        y.append(label)
-
-X = torch.tensor(np.array(X)).unsqueeze(1)
-y = torch.tensor(np.array(y))
-
-print(X.shape, y.shape)
-```
-
----
-
-## Full training: train only the head
-
-```python
-import torch
 from torch import nn
 
-torch.manual_seed(42)
+SEED = 7
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+
+
+def make_image(label, task, size=16, noise=0.05):
+    img = np.zeros((size, size), dtype=np.float32)
+    c = size // 2
+
+    if task == "source":
+        if label == 0:
+            img[:, c] = 1.0
+        elif label == 1:
+            img[c, :] = 1.0
+        else:
+            for i in range(size):
+                img[i, i] = 1.0
+    elif task == "target":
+        if label == 0:
+            img[:, c] = 1.0
+            img[c, :] = 1.0
+        elif label == 1:
+            for i in range(size):
+                img[i, size - 1 - i] = 1.0
+        else:
+            img[3:-3, 3] = 1.0
+            img[3:-3, -4] = 1.0
+            img[3, 3:-3] = 1.0
+            img[-4, 3:-3] = 1.0
+
+    img += np.random.randn(size, size).astype(np.float32) * noise
+    return np.clip(img, 0.0, 1.0)
+
+
+def make_dataset(task, per_class, size=16):
+    X, y = [], []
+    for label in range(3):
+        for _ in range(per_class):
+            X.append(make_image(label, task, size=size))
+            y.append(label)
+    X = torch.tensor(np.array(X)).unsqueeze(1)
+    y = torch.tensor(np.array(y), dtype=torch.long)
+    return X, y
+
 
 class TinyBackbone(nn.Module):
     def __init__(self):
@@ -248,154 +127,182 @@ class TinyBackbone(nn.Module):
             nn.MaxPool2d(2),
             nn.Conv2d(8, 16, kernel_size=3, padding=1),
             nn.ReLU(),
-            nn.AdaptiveAvgPool2d((1, 1))
+            nn.AdaptiveAvgPool2d((1, 1)),
         )
 
     def forward(self, x):
         return self.features(x).flatten(1)
 
-class TransferClassifier(nn.Module):
-    def __init__(self, num_classes=3):
+
+class ImageClassifier(nn.Module):
+    def __init__(self, backbone=None, num_classes=3):
         super().__init__()
-        self.backbone = TinyBackbone()
+        self.backbone = backbone if backbone is not None else TinyBackbone()
         self.head = nn.Linear(16, num_classes)
 
     def forward(self, x):
-        feat = self.backbone(x)
-        return self.head(feat)
+        return self.head(self.backbone(x))
 
-model = TransferClassifier(num_classes=3)
 
-# Freeze the backbone
-for param in model.backbone.parameters():
-    param.requires_grad = False
+def accuracy(model, X, y):
+    with torch.no_grad():
+        return (model(X).argmax(dim=1) == y).float().mean().item()
 
-loss_fn = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.head.parameters(), lr=0.05)
 
-for epoch in range(80):
-    pred = model(X)
-    loss = loss_fn(pred, y)
+def train(model, X, y, optimizer, epochs, label, print_every):
+    loss_fn = nn.CrossEntropyLoss()
+    for epoch in range(1, epochs + 1):
+        logits = model(X)
+        loss = loss_fn(logits, y)
 
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
-    if epoch % 20 == 0:
-        acc = (pred.argmax(dim=1) == y).float().mean().item()
-        print(f"epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
-```
+        if epoch == 1 or epoch % print_every == 0:
+            acc = accuracy(model, X, y)
+            print(f"{label} epoch={epoch:02d} loss={loss.item():.4f} acc={acc:.3f}")
 
-### What is this code really teaching you?
 
-Not the syntax of “freezing parameters” itself, but rather:
+source_X, source_y = make_dataset("source", per_class=80)
+target_train_X, target_train_y = make_dataset("target", per_class=12)
+target_val_X, target_val_y = make_dataset("target", per_class=40)
 
-> In transfer learning, the first step is often not retraining the entire model. Instead, you first check whether the existing features are already enough to support your task.
-
----
-
-## When should you fine-tune further?
-
-### A very common next step
-
-If training only the head is not good enough, you can consider:
-
-- Unfreezing the last convolution block
-- Continuing training with a smaller learning rate
-
-### A minimal fine-tuning example
-
-```python
-# Unfreeze the last convolution layer
-for param in model.backbone.features[3].parameters():
-    param.requires_grad = True
-
-optimizer = torch.optim.Adam(
-    filter(lambda p: p.requires_grad, model.parameters()),
-    lr=0.005
+# Stage 1: pretrain a source model.
+source_model = ImageClassifier(num_classes=3)
+train(
+    source_model,
+    source_X,
+    source_y,
+    torch.optim.Adam(source_model.parameters(), lr=0.03),
+    epochs=60,
+    label="pretrain",
+    print_every=20,
 )
 
-for epoch in range(40):
-    pred = model(X)
-    loss = loss_fn(pred, y)
+# Stage 2: transfer the backbone and train only a new head.
+frozen_backbone = copy.deepcopy(source_model.backbone)
+transfer_model = ImageClassifier(backbone=frozen_backbone, num_classes=3)
+for p in transfer_model.backbone.parameters():
+    p.requires_grad = False
 
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
+print("trainable_after_freeze")
+for name, p in transfer_model.named_parameters():
+    print(f"{name:<28} {p.requires_grad}")
 
-    if epoch % 10 == 0:
-        acc = (pred.argmax(dim=1) == y).float().mean().item()
-        print(f"finetune epoch={epoch:3d}, loss={loss.item():.4f}, acc={acc:.3f}")
+train(
+    transfer_model,
+    target_train_X,
+    target_train_y,
+    torch.optim.Adam(transfer_model.head.parameters(), lr=0.05),
+    epochs=20,
+    label="head",
+    print_every=10,
+)
+print("head_only_val_acc", round(accuracy(transfer_model, target_val_X, target_val_y), 3))
+
+# Stage 3: unfreeze the last conv layer and fine-tune gently.
+for p in transfer_model.backbone.features[3].parameters():
+    p.requires_grad = True
+
+optimizer = torch.optim.Adam(
+    [
+        {"params": transfer_model.backbone.features[3].parameters(), "lr": 0.0005},
+        {"params": transfer_model.head.parameters(), "lr": 0.005},
+    ]
+)
+train(
+    transfer_model,
+    target_train_X,
+    target_train_y,
+    optimizer,
+    epochs=20,
+    label="finetune",
+    print_every=10,
+)
+print("finetune_val_acc", round(accuracy(transfer_model, target_val_X, target_val_y), 3))
 ```
 
-### Why do we usually use a smaller learning rate for fine-tuning?
+Expected output:
 
-Because the backbone already has a set of features learned from before.
-If the learning rate is too large, it is easy to destroy those already good representations.
+```text
+pretrain epoch=01 loss=1.0995 acc=0.667
+pretrain epoch=20 loss=0.0000 acc=1.000
+pretrain epoch=40 loss=0.0000 acc=1.000
+pretrain epoch=60 loss=0.0000 acc=1.000
+trainable_after_freeze
+backbone.features.0.weight   False
+backbone.features.0.bias     False
+backbone.features.3.weight   False
+backbone.features.3.bias     False
+head.weight                  True
+head.bias                    True
+head epoch=01 loss=2.4749 acc=0.361
+head epoch=10 loss=0.7364 acc=0.667
+head epoch=20 loss=0.4991 acc=0.944
+head_only_val_acc 0.875
+finetune epoch=01 loss=0.4759 acc=0.667
+finetune epoch=10 loss=0.4367 acc=1.000
+finetune epoch=20 loss=0.4096 acc=1.000
+finetune_val_acc 1.0
+```
 
-So a common rule of thumb is:
+## What the Lab Teaches
 
-- Use a larger learning rate for the head
-- Use a smaller learning rate for the backbone
+| Stage | What happened | Practical meaning |
+|---|---|---|
+| pretrain | backbone learned line-like visual features | this stands in for a real pretrained model |
+| freeze | only the new head was trainable | fast and safer for small target data |
+| train head | target validation accuracy became useful | reused features were already helpful |
+| fine-tune | last conv layer adapted gently | small learning rate reduces damage to old features |
 
----
+Fine-tuning is not automatically better. It can overfit or destroy pretrained features if the target data is tiny or the learning rate is too high. Always judge by validation results, not by the training loss alone.
 
-## How is transfer learning usually done in real projects?
+## Real Project Workflow
 
-### The most common workflow
+1. Split data into train/validation/test before touching the model.
+2. Load a pretrained backbone.
+3. Replace the head so output classes match your task.
+4. Freeze the backbone and train the head.
+5. Inspect validation errors.
+6. If needed, unfreeze later blocks and use a smaller learning rate for the backbone.
+7. Stop when validation improves no further.
 
-1. Choose a pretrained backbone
-2. Replace the final classification head
-3. Train only the head first
-4. If results are not good enough, gradually unfreeze layers
-5. Keep watching validation performance
+For real images, also match the preprocessing expected by the pretrained weights: input size, normalization mean/std, and color channel order.
 
-### Why is this workflow so popular?
+## Freeze or Fine-Tune?
 
-Because it balances:
+| Situation | Starting choice |
+|---|---|
+| very small dataset, similar task | freeze backbone, train head |
+| medium dataset, similar task | freeze first, then unfreeze last block |
+| larger dataset, different visual domain | fine-tune more blocks carefully |
+| medical/satellite/industrial images | validate carefully; pretrained natural-image features may transfer only partly |
+| deployment-limited device | prefer smaller backbone or freeze-and-head baseline first |
 
-- Training speed
-- Stability
-- Final performance
+## Common Mistakes
 
-It is usually much more reliable than “train everything from the beginning.”
-
----
-
-## Common mistakes beginners make
-
-### Thinking transfer learning just means “copy a big model”
-
-What really matters is:
-
-- Which layers are frozen
-- Which layers are unfrozen
-- How the learning rates are set
-
-### Fine-tuning everything right away
-
-This is often both slow and unstable, especially for small-data tasks.
-
-### Forgetting to check which parameters are being trained
-
-This is a very common mistake.
-Before training, it is best to print the `requires_grad` status once.
-
----
-
-## Summary
-
-The most important thing in this section is not memorizing the words “transfer learning,” but building a stable engineering intuition:
-
-> **First reuse the general features already learned by a pretrained model, then decide whether to train the head, part of the network, or the whole model based on your task.**
-
-That is also why in many real-world vision projects, transfer learning is not just a trick—it is almost the default starting point.
-
----
+| Mistake | Why it hurts | Fix |
+|---|---|---|
+| fine-tuning all layers immediately | unstable on small data | train head first |
+| using one learning rate for everything | backbone updates too aggressively | use smaller LR for pretrained layers |
+| forgetting `requires_grad` checks | wrong layers train silently | print trainable parameters |
+| evaluating on training data only | hides overfitting | keep a validation set |
+| preprocessing mismatch | pretrained features receive unfamiliar input scale | use the weights’ expected transform |
+| leakage across splits | validation becomes meaningless | split by image source/user/object when needed |
 
 ## Exercises
 
-1. Expand the number of classes in the example from 3 to 4, and design a new image pattern.
-2. Compare the training curves for “train only the head” and “unfreeze one more layer.”
-3. Print `requires_grad` for all model parameters to make sure you really know which layers are training.
-4. Think about this: if your target task is very different from the original pretrained task, why might you need to unfreeze more layers?
+1. Add a fourth target class and design a new synthetic pattern.
+2. Increase target training data from `12` to `40` per class. Does head-only training improve?
+3. Change the backbone fine-tuning learning rate from `0.0005` to `0.05`. What happens?
+4. Print only trainable parameter names after unfreezing the last convolution.
+5. Explain when GAP plus a small head is preferable to a large `Flatten` head.
+
+## Key Takeaways
+
+- Transfer learning reuses visual features instead of relearning everything from scratch.
+- The safest first baseline is usually: replace head, freeze backbone, train head.
+- Fine-tune later layers only when validation results justify it.
+- Use smaller learning rates for pretrained layers.
+- Good transfer learning is an engineering workflow, not just copying a large model.
