@@ -1,305 +1,207 @@
 ---
 title: "6.7.2 超参数调优策略"
 sidebar_position: 1
-description: "从学习率、batch size、正则化和搜索顺序出发，理解超参数调优为什么更像实验设计而不是盲目撞运气。"
-keywords: [hyperparameter tuning, learning rate, batch size, regularization, search strategy]
+description: "用受控实验调 learning rate、batch size、正则和 early stopping，而不是盲目碰运气。"
+keywords: [hyperparameter tuning, learning rate, batch size, regularization, experiment tracking]
 ---
 
 # 6.7.2 超参数调优策略
 
 :::tip 本节定位
-很多训练问题最后都会绕回一句话：
-
-- 参数没调好
-
-但“调参”常常被做得很随意，好像只能靠运气。
-其实更稳的做法是：
-
-> **把调参当成实验设计问题，而不是盲目撞点。**
-
-这节课会把这件事讲实。
-:::
-
-![深度学习调参和诊断路线](/img/course/ch06-training-tuning-diagnosis-route.png)
-
-:::tip 怎样读这张图
-把这张图当成调试护栏：先读训练曲线，再按稳定顺序调参，每次实验只改一项，并保留日志，让下一步动作基于证据，而不是猜。
+超参数调优本质上是实验设计。一次改一个重要变量，记录结果，比较验证集证据，再决定下一步。
 :::
 
 ## 学习目标
 
-- 理解哪些超参数最值得先调
-- 理解学习率、batch size、正则化等参数分别在影响什么
-- 通过可运行示例建立“实验记录和排序比较”的调参直觉
-- 学会设计更稳的调参顺序
+- 按稳定顺序调参，而不是一次改一堆。
+- 在 PyTorch 中跑一个小型 learning-rate sweep。
+- 同时阅读 validation loss、validation accuracy 和训练稳定性。
+- 用可复用表格记录实验证据。
+- 判断什么时候该调 learning rate、batch size、正则或 early stopping。
 
 ---
 
-## 先建立一张地图
+## 先看路线图
 
-如果你已经学过优化器、正则化和训练循环，这一节最自然的续接就是：
+![深度学习调参与诊断路线图](/img/course/ch06-training-tuning-diagnosis-route.png)
 
-- 前面你已经知道模型能怎么训
-- 这一节开始问“怎样把这些训练配置调得更稳、更有效”
+实操顺序：
 
-所以调参不是训练之外的附加题，而是：
-
-- 训练闭环真正跑起来以后，迟早会面对的实验设计问题
-
-调参最好不要理解成“试很多组合”，而要理解成：
-
-```mermaid
-flowchart LR
-    A["先保证能稳定训练"] --> B["再看验证集效果"]
-    B --> C["再做局部细调"]
-    C --> D["记录并排序实验结果"]
+```text
+先让训练跑起来 -> 调 learning rate -> 看验证集 -> 控制过拟合 -> 局部细调
 ```
 
-这节真正想帮你建立的是：
+不要一开始就调所有旋钮。一次有用的调参实验，应该回答一个问题。
 
-- 先调什么
-- 后调什么
-- 怎样避免实验失控
+| 问题 | 优先尝试的参数 | 观察什么 |
+|---|---|---|
+| 模型到底能不能学？ | learning rate | train loss 趋势 |
+| 训练是否不稳定？ | learning rate、gradient clipping、batch size | spike 或发散 |
+| validation 比 training 差很多？ | weight decay、dropout、augmentation、early stopping | generalization gap |
+| 训练太慢？ | batch size、模型大小、precision | 时间和显存 |
+| 部署太重？ | 架构、pruning、quantization | latency 和 size |
 
-## 一、为什么调参不能靠乱试？
+## 实验：跑一个 Learning-Rate Sweep
 
-### 因为参数之间经常互相影响
+这个 toy classification 很小，运行快，但能展示完整流程。
 
-例如：
-
-- 学习率和 batch size 会一起影响稳定性
-- dropout 和 weight decay 会一起影响泛化
-
-### 如果没有顺序，实验很快失控
-
-你会遇到：
-
-- 同时改太多参数
-- 不知道是哪项起作用
-- 结果不可复现
-
-### 一个类比
-
-调参像做烘焙。
-如果你一次同时改：
-
-- 温度
-- 时间
-- 糖量
-- 面粉量
-
-你很难知道最后成败到底是谁导致的。
-
-### 调参这件事最值得先记的，不是参数名，而是什么？
-
-最值得先记的是：
-
-> **每一轮实验都应该尽量回答一个更清楚的问题。**
-
-比如：
-
-- 学习率太大还是太小？
-- batch size 会不会影响稳定性？
-- 过拟合更像该靠正则化还是该靠早停？
-
-一旦你把实验问题问清楚，调参就不会再像碰运气。
-
----
-
-## 二、最值得优先看的超参数有哪些？
-
-### 学习率
-
-通常是第一优先项。
-它太大容易震荡，太小又学不动。
-
-### batch size
-
-会影响：
-
-- 梯度稳定性
-- 显存占用
-- 训练速度
-
-### 正则化
-
-例如：
-
-- dropout
-- weight decay
-
-它们更偏向控制泛化能力。
-
-### 训练轮数 / 早停
-
-它们和是否过拟合关系很大。
-
----
-
-## 三、先跑一个最小调参记录示例
+创建 `lr_sweep.py`：
 
 ```python
-experiments = [
-    {"lr": 1e-3, "batch_size": 32, "val_acc": 0.84, "train_time_min": 18},
-    {"lr": 3e-4, "batch_size": 32, "val_acc": 0.88, "train_time_min": 20},
-    {"lr": 1e-4, "batch_size": 64, "val_acc": 0.86, "train_time_min": 16},
-]
+import torch
+from torch import nn
+
+torch.manual_seed(11)
+
+X = torch.randn(240, 2)
+y = ((X[:, 0] * 0.8 + X[:, 1] * -0.5) > 0).long()
+
+train_x, val_x = X[:180], X[180:]
+train_y, val_y = y[:180], y[180:]
 
 
-def score(exp):
-    return round(exp["val_acc"] - exp["train_time_min"] * 0.001, 4)
+def run(lr):
+    torch.manual_seed(123)
+    model = nn.Sequential(nn.Linear(2, 8), nn.ReLU(), nn.Linear(8, 2))
+    opt = torch.optim.SGD(model.parameters(), lr=lr)
+    loss_fn = nn.CrossEntropyLoss()
+
+    for _ in range(40):
+        logits = model(train_x)
+        loss = loss_fn(logits, train_y)
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+
+    with torch.no_grad():
+        train_loss = loss_fn(model(train_x), train_y).item()
+        val_logits = model(val_x)
+        val_loss = loss_fn(val_logits, val_y).item()
+        val_acc = (val_logits.argmax(dim=1) == val_y).float().mean().item()
+
+    return train_loss, val_loss, val_acc
 
 
-ranked = sorted(
-    [{**exp, "score": score(exp)} for exp in experiments],
-    key=lambda x: x["score"],
-    reverse=True,
-)
+results = []
+for lr in [1e-3, 1e-2, 1e-1, 1.0, 10.0]:
+    train_loss, val_loss, val_acc = run(lr)
+    results.append((lr, train_loss, val_loss, val_acc))
 
-for item in ranked:
-    print(item)
+print("lr_sweep")
+for lr, train_loss, val_loss, val_acc in results:
+    print(
+        f"lr={lr:g} "
+        f"train_loss={train_loss:.3f} "
+        f"val_loss={val_loss:.3f} "
+        f"val_acc={val_acc:.3f}"
+    )
+
+best = min(results, key=lambda row: row[2])
+print("best_lr:", best[0])
 ```
 
-### 这个例子想表达什么？
+运行：
 
-调参不是只看一个最终准确率。
-你通常还要一起看：
+```bash
+python lr_sweep.py
+```
 
-- 训练时间
-- 资源成本
-- 是否稳定
+预期输出：
 
-### 为什么实验记录这么重要？
+```text
+lr_sweep
+lr=0.001 train_loss=0.763 val_loss=0.733 val_acc=0.450
+lr=0.01 train_loss=0.675 val_loss=0.663 val_acc=0.533
+lr=0.1 train_loss=0.340 val_loss=0.373 val_acc=0.967
+lr=1 train_loss=0.053 val_loss=0.072 val_acc=0.983
+lr=10 train_loss=0.280 val_loss=0.291 val_acc=0.883
+best_lr: 1.0
+```
 
-因为没有记录，你就很难回答：
+仔细读：
 
-- 哪个参数真的更好
-- 这次变化是不是偶然
+- `0.001` 和 `0.01` 对这个预算太慢；
+- `0.1` 和 `1.0` 学得不错；
+- `10.0` 虽然还能训练，但变差了，所以不是越大越好；
+- 这里按 validation loss 选，而不是按 training loss 选。
 
----
+## 下一步调什么
 
-## 四、一个更稳的调参顺序
+![超参数搜索图](/img/course/hyperparameter-tuning-search.png)
 
-### 先固定大部分，只调一两项关键参数
+找到合理 learning rate 后，按这个顺序继续：
 
-通常建议先看：
+1. Batch size：影响显存、速度和梯度噪声。
+2. Epochs 与 early stopping：验证集不再提升时停止。
+3. Weight decay 与 dropout：控制过拟合。
+4. 架构大小：训练循环稳定后再改容量。
+5. Optimizer 细节：必要时再调 betas、scheduler、warmup 或 momentum。
 
-- 学习率
-- batch size
+规则：
 
-### 确认训练能稳定跑后，再看泛化控制
+```text
+先做全局粗搜，再做局部细调
+```
 
-例如：
+## 最小实验日志
 
-- dropout
-- weight decay
-
-### 最后再做更细的局部搜索
-
-这样能让实验更可解释。
-
-### 一个新人可直接照抄的顺序
-
-第一次调深度学习模型时，最稳的顺序通常是：
-
-1. 先调学习率
-2. 再调 batch size
-3. 再看训练轮数和早停
-4. 再看 dropout / weight decay
-5. 最后才去碰更细的结构和优化器细节
-
-这个顺序的好处是：你先解决“能不能稳定学”，再解决“泛化够不够好”。
-
-### 为什么这个顺序对新人特别重要？
-
-因为初学阶段最容易出现的问题，不是“上限不够高”，而是：
-
-- 训练根本不稳定
-- 实验解释不清
-- 一次改太多，最后不知道什么真的有效
-
-所以这个顺序本质上是在帮你先保住两件事：
-
-- 训练能稳定跑
-- 每轮实验有解释
-
----
-
-## 五、最容易踩的坑
-
-### 误区一：一次改很多参数
-
-这会让结果难解释。
-
-### 误区二：只看训练集表现
-
-调参更该关注：
-
-- 验证集
-- 泛化
-
-### 误区三：觉得调参就是黑魔法
-
-只要实验设计清楚，
-它其实是很工程化的工作。
-
-## 六、一次实验最好至少记什么
-
-建议至少记录这几项：
-
-- 模型版本
-- 数据版本
-- 关键超参数
-- 训练时长
-- 最佳验证指标
-- 你主观判断这次实验说明了什么
-
-没有记录，调参很容易变成重复劳动。
-
-### 一个最小实验记录模板
-
-你可以直接照着记：
+小项目也要记录日志。
 
 ```text
 experiment_id:
-model:
-dataset:
+code_version:
+data_version:
+seed:
 lr:
 batch_size:
+optimizer:
 weight_decay:
 dropout:
+epochs:
 best_val_metric:
 train_time:
-结论:
+decision:
 ```
 
-只要你真的把这份模板坚持记几轮，调参的混乱感会明显下降。
+示例结论：
 
----
+```text
+lr=1.0 在 quick sweep 中验证集 loss 最好。
+下一步：固定 lr=1.0，比较 batch_size=32 和 64。
+```
 
-## 如果继续把这节往上做，最值得补什么
+## 诊断模式
 
-更值得继续补的通常是：
+| 现象 | 可能原因 | 下一组实验 |
+|---|---|---|
+| train loss 不动 | LR 太低、模型太小、标签有问题 | 提高 LR，检查数据，试大模型 |
+| train loss 发散 | LR 太高、梯度不稳定 | 降低 LR，加 gradient clipping |
+| train 好，validation 差 | 过拟合或泄漏 | 加正则，检查划分 |
+| validation 先变好再变坏 | 最佳 epoch 后过拟合 | early stopping |
+| 换 seed 后差很多 | 训练不稳定或数据太少 | 跑 3 个 seed，报 mean/std |
 
-1. 一页实验记录表示例
-2. 一组“学习率太大 / 太小 / 合适”的对照曲线
-3. 一份从 baseline 到稳定模型的完整调参日志
+## 常见错误
 
-这样这节会更像真正的训练工程课，而不只是调参建议。
-
----
-
-## 小结
-
-这节最重要的是建立一个调参判断：
-
-> **超参数调优不是盲猜，而是围绕学习率、batch size 和泛化控制做有顺序、有记录的实验设计。**
-
-只要这个习惯建立起来，后面很多训练问题都会更容易排查。
+| 错误 | 修复 |
+|---|---|
+| 同时改 LR、batch size、optimizer 和模型 | 每次实验只改一个主变量 |
+| 按 training metric 选模型 | 用 validation metric 选 |
+| 忽略运行时间 | 同时记录时间和显存 |
+| 相信单个幸运 seed | 重要实验跑多个 seed |
+| 数据还没清理就调参 | 先检查标签、泄漏和预处理 |
 
 ## 练习
 
-1. 给示例再加两组实验，看看排序是否变化。
-2. 为什么说学习率通常是最值得优先调的参数？
-3. 想一想：如果模型训练特别慢，你会怎么让调参更省成本？
-4. 用自己的话解释：为什么“一次只改少量参数”会更稳？
+1. 把 `lr=0.3` 和 `lr=3.0` 加入 sweep。哪个更接近最好区域？
+2. 把训练预算从 `40` step 改成 `10` step。最佳 LR 会变化吗？
+3. 每个 LR 跑两个 seed，并增加 `seed` 列。
+4. 为 LR sweep 写一句下一步实验决策。
+5. 解释为什么每个实验只回答一个问题会让调参更简单。
+
+## 小结
+
+- 调参是受控实验设计，不是猜。
+- Learning rate 通常是第一个要测的旋钮。
+- 决策应该由验证集证据驱动。
+- 日志让实验可复现、可解释。
+- 先粗调全局设置，再局部细调。

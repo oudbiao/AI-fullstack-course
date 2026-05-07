@@ -1,305 +1,207 @@
 ---
 title: "6.7.2 Hyperparameter Tuning Strategy"
 sidebar_position: 1
-description: "Starting from learning rate, batch size, regularization, and search order, understand why hyperparameter tuning is more like experiment design than blind luck."
-keywords: [hyperparameter tuning, learning rate, batch size, regularization, search strategy]
+description: "Tune learning rate, batch size, regularization, and early stopping with controlled experiments instead of blind guessing."
+keywords: [hyperparameter tuning, learning rate, batch size, regularization, experiment tracking]
 ---
 
 # 6.7.2 Hyperparameter Tuning Strategy
 
-:::tip Section overview
-Many training problems eventually come back to one sentence:
-
-- The parameters were not tuned well
-
-But “tuning” is often done very casually, as if it could only rely on luck.
-In fact, a more reliable approach is:
-
-> **Treat tuning as an experiment design problem, not as blind trial and error.**
-
-This lesson will explain that clearly.
+:::tip Section Overview
+Hyperparameter tuning is experiment design. Change one important thing, keep a log, compare validation evidence, then decide the next move.
 :::
+
+## Learning Objectives
+
+- Tune in a stable order instead of changing everything at once.
+- Run a small learning-rate sweep in PyTorch.
+- Read validation loss, validation accuracy, and training stability together.
+- Record experiment evidence in a reusable table.
+- Decide when to tune learning rate, batch size, regularization, or early stopping.
+
+---
+
+## Use the Route First
 
 ![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-en.png)
 
-:::tip How to use this picture
-Use this route as a debugging guardrail: read the curves first, tune in a stable order, change only one thing per experiment, and keep logs so the next action is based on evidence instead of guessing.
-:::
+The practical order:
 
-## Learning objectives
-
-- Understand which hyperparameters are worth tuning first
-- Understand what learning rate, batch size, and regularization each affect
-- Build an intuition for tuning through runnable examples of “experiment logging and ranking”
-- Learn how to design a more stable tuning order
-
----
-
-## First, build a map
-
-If you have already learned about optimizers, regularization, and training loops, then the most natural continuation is:
-
-- You already know how to train a model
-- Now you ask, “How do we tune these training settings more stably and effectively?”
-
-So tuning is not an extra task outside training; it is:
-
-- An experiment design problem you will inevitably face once the training loop is running
-
-It is better not to think of tuning as “trying many combinations,” but instead as:
-
-```mermaid
-flowchart LR
-    A["First make training stable"] --> B["Then check validation performance"]
-    B --> C["Then do local fine-tuning"]
-    C --> D["Record and rank experiment results"]
+```text
+make training run -> tune learning rate -> check validation -> control overfitting -> refine locally
 ```
 
-What this section really wants to help you build is:
+Do not start by tuning every knob. A useful tuning run should answer one question.
 
-- What to tune first
-- What to tune later
-- How to avoid losing control of experiments
+| Question | Parameter to try first | What to watch |
+|---|---|---|
+| Does the model learn at all? | learning rate | train loss trend |
+| Is training unstable? | learning rate, gradient clipping, batch size | spikes or divergence |
+| Is validation worse than training? | weight decay, dropout, augmentation, early stopping | generalization gap |
+| Is training too slow? | batch size, model size, precision | time and memory |
+| Is deployment too heavy? | architecture, pruning, quantization | latency and size |
 
-## Why can’t tuning rely on random trial and error?
+## Lab: Run a Learning-Rate Sweep
 
-### Because parameters often interact with each other
+This toy classification task is small enough to run quickly, but it shows the workflow.
 
-For example:
-
-- Learning rate and batch size together affect stability
-- Dropout and weight decay together affect generalization
-
-### Without an order, experiments quickly get out of control
-
-You may run into situations where:
-
-- Too many parameters are changed at once
-- You do not know which change actually helped
-- The results cannot be reproduced
-
-### An analogy
-
-Tuning is like baking.
-If you change all of these at once:
-
-- temperature
-- time
-- sugar amount
-- flour amount
-
-it becomes very hard to know what caused the final success or failure.
-
-### What is the most important thing to remember about tuning, besides parameter names?
-
-The most important thing to remember is:
-
-> **Each round of experiments should try to answer one clearer question.**
-
-For example:
-
-- Is the learning rate too large or too small?
-- Does batch size affect stability?
-- Is overfitting better handled by regularization or by early stopping?
-
-Once you ask the right experimental question, tuning no longer feels like luck.
-
----
-
-## Which hyperparameters are worth looking at first?
-
-### Learning rate
-
-Usually the top priority.
-If it is too large, training may oscillate; if it is too small, learning may stall.
-
-### Batch size
-
-It affects:
-
-- Gradient stability
-- GPU memory usage
-- Training speed
-
-### Regularization
-
-For example:
-
-- dropout
-- weight decay
-
-These mainly help control generalization.
-
-### Number of training epochs / early stopping
-
-These are closely related to whether overfitting happens.
-
----
-
-## Start with a minimal tuning log example
+Create `lr_sweep.py`:
 
 ```python
-experiments = [
-    {"lr": 1e-3, "batch_size": 32, "val_acc": 0.84, "train_time_min": 18},
-    {"lr": 3e-4, "batch_size": 32, "val_acc": 0.88, "train_time_min": 20},
-    {"lr": 1e-4, "batch_size": 64, "val_acc": 0.86, "train_time_min": 16},
-]
+import torch
+from torch import nn
+
+torch.manual_seed(11)
+
+X = torch.randn(240, 2)
+y = ((X[:, 0] * 0.8 + X[:, 1] * -0.5) > 0).long()
+
+train_x, val_x = X[:180], X[180:]
+train_y, val_y = y[:180], y[180:]
 
 
-def score(exp):
-    return round(exp["val_acc"] - exp["train_time_min"] * 0.001, 4)
+def run(lr):
+    torch.manual_seed(123)
+    model = nn.Sequential(nn.Linear(2, 8), nn.ReLU(), nn.Linear(8, 2))
+    opt = torch.optim.SGD(model.parameters(), lr=lr)
+    loss_fn = nn.CrossEntropyLoss()
+
+    for _ in range(40):
+        logits = model(train_x)
+        loss = loss_fn(logits, train_y)
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+
+    with torch.no_grad():
+        train_loss = loss_fn(model(train_x), train_y).item()
+        val_logits = model(val_x)
+        val_loss = loss_fn(val_logits, val_y).item()
+        val_acc = (val_logits.argmax(dim=1) == val_y).float().mean().item()
+
+    return train_loss, val_loss, val_acc
 
 
-ranked = sorted(
-    [{**exp, "score": score(exp)} for exp in experiments],
-    key=lambda x: x["score"],
-    reverse=True,
-)
+results = []
+for lr in [1e-3, 1e-2, 1e-1, 1.0, 10.0]:
+    train_loss, val_loss, val_acc = run(lr)
+    results.append((lr, train_loss, val_loss, val_acc))
 
-for item in ranked:
-    print(item)
+print("lr_sweep")
+for lr, train_loss, val_loss, val_acc in results:
+    print(
+        f"lr={lr:g} "
+        f"train_loss={train_loss:.3f} "
+        f"val_loss={val_loss:.3f} "
+        f"val_acc={val_acc:.3f}"
+    )
+
+best = min(results, key=lambda row: row[2])
+print("best_lr:", best[0])
 ```
 
-### What is this example trying to show?
+Run it:
 
-Tuning is not just about one final accuracy number.
-You usually also need to look at:
+```bash
+python lr_sweep.py
+```
 
-- Training time
-- Resource cost
-- Whether it is stable
+Expected output:
 
-### Why is experiment logging so important?
+```text
+lr_sweep
+lr=0.001 train_loss=0.763 val_loss=0.733 val_acc=0.450
+lr=0.01 train_loss=0.675 val_loss=0.663 val_acc=0.533
+lr=0.1 train_loss=0.340 val_loss=0.373 val_acc=0.967
+lr=1 train_loss=0.053 val_loss=0.072 val_acc=0.983
+lr=10 train_loss=0.280 val_loss=0.291 val_acc=0.883
+best_lr: 1.0
+```
 
-Because without logs, it becomes hard to answer:
+Read it carefully:
 
-- Which parameter is really better?
-- Was this change just a coincidence?
+- `0.001` and `0.01` are too slow for this budget.
+- `0.1` and `1.0` learn well.
+- `10.0` is worse even though it still trains, so “larger” is not automatically better.
+- The best choice is based on validation loss here, not training loss.
 
----
+## What to Tune Next
 
-## A more stable tuning order
+![Hyperparameter tuning search diagram](/img/course/hyperparameter-tuning-search-en.png)
 
-### First fix most settings, and tune only one or two key parameters
+After a reasonable learning rate, tune in this order:
 
-A good starting point is usually:
+1. Batch size: adjust memory use, speed, and gradient noise.
+2. Epochs and early stopping: stop when validation stops improving.
+3. Weight decay and dropout: reduce overfitting.
+4. Architecture size: change capacity only after the loop is stable.
+5. Optimizer details: tune betas, scheduler, warmup, or momentum when needed.
 
-- Learning rate
-- Batch size
+The rule:
 
-### After confirming stable training, look at generalization control
+```text
+global search first, local refinement later
+```
 
-For example:
+## A Minimal Experiment Log
 
-- dropout
-- weight decay
-
-### Finally, do more detailed local search
-
-This makes the experiments easier to interpret.
-
-### A sequence beginners can directly follow
-
-When tuning a deep learning model for the first time, the safest order is usually:
-
-1. Tune the learning rate first
-2. Then tune the batch size
-3. Then look at the number of epochs and early stopping
-4. Then look at dropout / weight decay
-5. Only then move on to more detailed architecture and optimizer settings
-
-The benefit of this order is that you first solve “Can it learn stably?” and then solve “Is the generalization good enough?”
-
-### Why is this order especially important for beginners?
-
-Because in the early learning stage, the most common problems are not “the upper limit is too low,” but:
-
-- Training is not stable at all
-- Experiments are hard to interpret
-- Too many things are changed at once, so you no longer know what really worked
-
-So this order is essentially helping you protect two things first:
-
-- Training runs stably
-- Each experiment can be explained
-
----
-
-## The most common mistakes
-
-### Mistake 1: Changing too many parameters at once
-
-This makes the results hard to explain.
-
-### Mistake 2: Looking only at training set performance
-
-Tuning should pay more attention to:
-
-- Validation set
-- Generalization
-
-### Mistake 3: Thinking tuning is black magic
-
-As long as the experiment design is clear,
-it is actually a very engineering-oriented task.
-
-## What should you record in each experiment?
-
-At minimum, it is recommended to record these items:
-
-- Model version
-- Data version
-- Key hyperparameters
-- Training duration
-- Best validation metric
-- Your subjective interpretation of what this experiment means
-
-Without records, tuning easily turns into repeated work.
-
-### A minimal experiment log template
-
-You can record it like this:
+Use a log even for small projects.
 
 ```text
 experiment_id:
-model:
-dataset:
+code_version:
+data_version:
+seed:
 lr:
 batch_size:
+optimizer:
 weight_decay:
 dropout:
+epochs:
 best_val_metric:
 train_time:
-conclusion:
+decision:
 ```
 
-If you really keep using this template for a few rounds, the confusion around tuning will drop noticeably.
+Example decision text:
 
----
+```text
+lr=1.0 gives the best validation loss in the quick sweep.
+Next: keep lr=1.0 fixed and compare batch_size=32 vs 64.
+```
 
-## If you want to expand this section further, what is most worth adding?
+## Diagnosis Patterns
 
-The most useful additions are usually:
+| Pattern | Likely cause | Next experiment |
+|---|---|---|
+| train loss does not move | LR too low, model too small, bad labels | raise LR, inspect data, try larger model |
+| train loss explodes | LR too high, gradients unstable | lower LR, add clipping |
+| train good, validation poor | overfitting or leakage | add regularization, check split |
+| validation improves then worsens | overfitting after best epoch | early stopping |
+| results change a lot by seed | unstable training or small data | run 3 seeds and report mean/std |
 
-1. A one-page example of experiment logs
-2. A set of comparison curves for “learning rate too large / too small / just right”
-3. A complete tuning log from baseline to a stable model
+## Common Mistakes
 
-That would make this section feel more like a real training engineering lesson, not just tuning advice.
-
----
-
-## Summary
-
-The most important idea in this section is to build a tuning mindset:
-
-> **Hyperparameter tuning is not blind guessing, but a structured experiment design process centered on learning rate, batch size, and generalization control.**
-
-Once this habit is established, many training problems become easier to debug.
+| Mistake | Fix |
+|---|---|
+| changing LR, batch size, optimizer, and model together | change one main variable per experiment |
+| choosing by training metric | use validation metric for model selection |
+| ignoring runtime | track time and memory, not only accuracy |
+| trusting one lucky seed | repeat important runs with multiple seeds |
+| tuning before data is clean | inspect labels, leakage, and preprocessing first |
 
 ## Exercises
 
-1. Add two more experiments to the example and see whether the ranking changes.
-2. Why is learning rate usually the most important parameter to tune first?
-3. Think about this: if model training is very slow, how would you make tuning cheaper?
-4. Explain in your own words: why is “changing only a small number of parameters at a time” more stable?
+1. Add `lr=0.3` and `lr=3.0` to the sweep. Which is closer to the best region?
+2. Change the training budget from `40` steps to `10` steps. Does the best LR change?
+3. Add a `seed` column by running each LR with two seeds.
+4. Write a decision line for the next experiment after the LR sweep.
+5. Explain why tuning is easier when each experiment answers one question.
+
+## Key Takeaways
+
+- Tuning is controlled experiment design, not guessing.
+- Learning rate is usually the first knob to test.
+- Validation evidence should drive decisions.
+- Logs make experiments reproducible and interpretable.
+- Tune broad settings first, then refine locally.

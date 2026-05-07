@@ -1,306 +1,207 @@
 ---
 title: "6.7.2 ハイパーパラメータ調整戦略"
 sidebar_position: 1
-description: "学習率、batch size、正則化、検索順序を手がかりに、ハイパーパラメータ調整がなぜ当てずっぽうではなく実験設計に近いのかを理解する。"
-keywords: [hyperparameter tuning, learning rate, batch size, regularization, search strategy]
+description: "learning rate、batch size、正則化、early stopping を、勘ではなく制御された実験として調整します。"
+keywords: [hyperparameter tuning, learning rate, batch size, regularization, experiment tracking]
 ---
 
 # 6.7.2 ハイパーパラメータ調整戦略
 
 :::tip この節の位置づけ
-多くの学習トラブルは、最後にはこうした一言に戻ります。
-
-- パラメータの調整がうまくいっていない
-
-でも「調参」は、運任せのようにかなり雑に行われがちです。  
-実際には、もっと安定したやり方があります。
-
-> **調参は、当てずっぽうではなく実験設計の問題として考える。**
-
-この授業では、その考え方をしっかり説明します。
-:::
-
-![深層学習の調整と診断ルート](/img/course/ch06-training-tuning-diagnosis-route-ja.png)
-
-:::tip この図の読み方
-この図をデバッグのガードレールとして使いましょう。まず曲線を読み、安定した順番で調整し、1回の実験では1つだけ変えます。ログを残すことで、次の行動を推測ではなく証拠にもとづいて決められます。
+ハイパーパラメータ調整は実験設計です。重要な変数を 1 つ変え、記録を残し、validation の証拠を比較して、次の一手を決めます。
 :::
 
 ## 学習目標
 
-- どのハイパーパラメータを先に調整すべきかを理解する
-- 学習率、batch size、正則化などがそれぞれ何に影響するかを理解する
-- 実行できる例を通して、「実験の記録」と「順位付け比較」による調参の感覚を身につける
-- より安定した調参の順番を設計できるようになる
+- 何でも同時に変えず、安定した順序で調整できる。
+- PyTorch で小さな learning-rate sweep を実行できる。
+- validation loss、validation accuracy、訓練の安定性を一緒に読める。
+- 再利用できる表で実験 evidence を記録できる。
+- learning rate、batch size、正則化、early stopping のどれを次に調整すべきか判断できる。
 
 ---
 
-## まず全体像をつかもう
+## まずルートを見る
 
-すでに optimizer、正則化、training loop を学んでいるなら、この節は自然な続きです。
+![Deep learning tuning and diagnosis route](/img/course/ch06-training-tuning-diagnosis-route-ja.png)
 
-- これまでに、モデルをどう学習させるかは分かっている
-- ここからは「その学習設定をどう調整すれば、より安定して、よりよくなるか」を考える
+実践的な順序：
 
-つまり調参は、学習の外にあるおまけではありません。  
-むしろ、
-
-- 学習の一連の流れが本当に動き始めてから、必ず向き合うことになる実験設計の問題
-
-調参は「たくさん組み合わせを試すこと」と考えるより、次のように考えるとよいです。
-
-```mermaid
-flowchart LR
-    A["まず安定して学習できるようにする"] --> B["次に validation set の結果を見る"]
-    B --> C["その後で局所的に微調整する"]
-    C --> D["実験結果を記録して順位付けする"]
+```text
+訓練を動かす -> learning rate を調整する -> validation を見る -> overfitting を抑える -> 局所的に細かく詰める
 ```
 
-この節で本当に身につけたいのは、次の3つです。
+最初からすべての knob を回さないでください。有用な調整実験は、1 つの質問に答えるべきです。
 
-- 何を先に調整するか
-- 何を後回しにするか
-- 実験が暴走しないようにするにはどうするか
+| 質問 | まず試すパラメータ | 見るもの |
+|---|---|---|
+| モデルはそもそも学習するか | learning rate | train loss の傾向 |
+| 訓練が不安定か | learning rate、gradient clipping、batch size | spike や divergence |
+| validation が training より悪いか | weight decay、dropout、augmentation、early stopping | generalization gap |
+| 訓練が遅すぎるか | batch size、model size、precision | 時間とメモリ |
+| deploy には重すぎるか | architecture、pruning、quantization | latency と size |
 
-## 一、なぜ調参を雑に試してはいけないのか？
+## 実験：Learning-Rate Sweep を走らせる
 
-### パラメータ同士がよく影響し合うから
+この toy classification task は小さくてすぐ動きますが、調整の流れを学べます。
 
-たとえば：
-
-- 学習率と batch size は、学習の安定性に一緒に影響する
-- dropout と weight decay は、汎化性能に一緒に影響する
-
-### 順番がないと、実験はすぐに混乱する
-
-こういうことが起こります。
-
-- 同時にたくさんのパラメータを変えてしまう
-- どの変更が効いたのか分からない
-- 結果を再現できない
-
-### たとえ話
-
-調参は料理、特にお菓子作りに似ています。  
-もし一度に次を全部変えたら、
-
-- 温度
-- 時間
-- 砂糖の量
-- 小麦粉の量
-
-最後の出来が良かったのか悪かったのか、何が原因か分からなくなります。
-
-### 調参でまず覚えるべきことは、パラメータ名ではなく何か？
-
-まず覚えるべきなのは、これです。
-
-> **1回の実験で、できるだけ1つの明確な問いに答えること。**
-
-たとえば：
-
-- 学習率は大きすぎるのか、小さすぎるのか？
-- batch size は安定性に影響しているのか？
-- 過学習には、正則化と early stopping のどちらが効いているのか？
-
-実験で何を知りたいかがはっきりすれば、調参は運任せではなくなります。
-
----
-
-## 二、まず優先して見るべきハイパーパラメータは？
-
-### 学習率
-
-通常、最優先で確認します。  
-大きすぎると振動しやすく、小さすぎると学習が進みにくくなります。
-
-### batch size
-
-次のような点に影響します。
-
-- 勾配の安定性
-- GPUメモリ使用量
-- 学習速度
-
-### 正則化
-
-たとえば：
-
-- dropout
-- weight decay
-
-これらは、主に汎化性能のコントロールに関わります。
-
-### 学習回数 / early stopping
-
-これらは、過学習との関係がとても大きいです。
-
----
-
-## 三、まずは最小限の調参記録例を見てみよう
+`lr_sweep.py` を作成します。
 
 ```python
-experiments = [
-    {"lr": 1e-3, "batch_size": 32, "val_acc": 0.84, "train_time_min": 18},
-    {"lr": 3e-4, "batch_size": 32, "val_acc": 0.88, "train_time_min": 20},
-    {"lr": 1e-4, "batch_size": 64, "val_acc": 0.86, "train_time_min": 16},
-]
+import torch
+from torch import nn
+
+torch.manual_seed(11)
+
+X = torch.randn(240, 2)
+y = ((X[:, 0] * 0.8 + X[:, 1] * -0.5) > 0).long()
+
+train_x, val_x = X[:180], X[180:]
+train_y, val_y = y[:180], y[180:]
 
 
-def score(exp):
-    return round(exp["val_acc"] - exp["train_time_min"] * 0.001, 4)
+def run(lr):
+    torch.manual_seed(123)
+    model = nn.Sequential(nn.Linear(2, 8), nn.ReLU(), nn.Linear(8, 2))
+    opt = torch.optim.SGD(model.parameters(), lr=lr)
+    loss_fn = nn.CrossEntropyLoss()
+
+    for _ in range(40):
+        logits = model(train_x)
+        loss = loss_fn(logits, train_y)
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+
+    with torch.no_grad():
+        train_loss = loss_fn(model(train_x), train_y).item()
+        val_logits = model(val_x)
+        val_loss = loss_fn(val_logits, val_y).item()
+        val_acc = (val_logits.argmax(dim=1) == val_y).float().mean().item()
+
+    return train_loss, val_loss, val_acc
 
 
-ranked = sorted(
-    [{**exp, "score": score(exp)} for exp in experiments],
-    key=lambda x: x["score"],
-    reverse=True,
-)
+results = []
+for lr in [1e-3, 1e-2, 1e-1, 1.0, 10.0]:
+    train_loss, val_loss, val_acc = run(lr)
+    results.append((lr, train_loss, val_loss, val_acc))
 
-for item in ranked:
-    print(item)
+print("lr_sweep")
+for lr, train_loss, val_loss, val_acc in results:
+    print(
+        f"lr={lr:g} "
+        f"train_loss={train_loss:.3f} "
+        f"val_loss={val_loss:.3f} "
+        f"val_acc={val_acc:.3f}"
+    )
+
+best = min(results, key=lambda row: row[2])
+print("best_lr:", best[0])
 ```
 
-### この例は何を伝えたいのか？
+実行します。
 
-調参では、最終的な accuracy だけを見ればよいわけではありません。  
-多くの場合、次の点も一緒に見ます。
+```bash
+python lr_sweep.py
+```
 
-- 学習時間
-- リソースコスト
-- 安定性
+期待される出力：
 
-### なぜ実験記録がそんなに大事なのか？
+```text
+lr_sweep
+lr=0.001 train_loss=0.763 val_loss=0.733 val_acc=0.450
+lr=0.01 train_loss=0.675 val_loss=0.663 val_acc=0.533
+lr=0.1 train_loss=0.340 val_loss=0.373 val_acc=0.967
+lr=1 train_loss=0.053 val_loss=0.072 val_acc=0.983
+lr=10 train_loss=0.280 val_loss=0.291 val_acc=0.883
+best_lr: 1.0
+```
 
-記録がないと、次のことに答えにくくなるからです。
+読み方：
 
-- どのパラメータが本当に良かったのか
-- 今回の変化は偶然ではないのか
+- `0.001` と `0.01` は、この budget では遅すぎます。
+- `0.1` と `1.0` はよく学習しています。
+- `10.0` はまだ訓練できますが悪化しているので、大きければよいわけではありません。
+- ここでは training loss ではなく validation loss で選びます。
 
----
+## 次に何を調整するか
 
-## 四、より安定した調参の順番
+![Hyperparameter tuning search diagram](/img/course/hyperparameter-tuning-search-ja.png)
 
-### まず大部分を固定して、1〜2個の重要なパラメータだけを調整する
+妥当な learning rate を見つけたら、次の順で進めます。
 
-最初に見ることが多いのは、次の2つです。
+1. Batch size：メモリ、速度、gradient noise を調整する。
+2. Epochs と early stopping：validation が伸びなくなったら止める。
+3. Weight decay と dropout：overfitting を抑える。
+4. Architecture size：loop が安定してから容量を変える。
+5. Optimizer details：必要に応じて betas、scheduler、warmup、momentum を調整する。
 
-- 学習率
-- batch size
+ルール：
 
-### 学習が安定して回るようになったら、次に汎化の調整を見る
+```text
+まず広く探し、あとで近くを細かく詰める
+```
 
-たとえば：
+## 最小の実験ログ
 
-- dropout
-- weight decay
-
-### 最後に、より細かい局所探索を行う
-
-こうすると、実験の意味が分かりやすくなります。
-
-### 初学者がそのまま真似しやすい順番
-
-初めて深層学習モデルを調整するときは、次の順番がかなり安定です。
-
-1. まず学習率を調整する
-2. 次に batch size を調整する
-3. その後で学習回数と early stopping を見る
-4. 次に dropout / weight decay を見る
-5. 最後に、より細かい構造や optimizer の設定を触る
-
-この順番の利点は、まず「安定して学習できるか」を解決し、その後で「汎化が十分か」を見るところにあります。
-
-### なぜこの順番が初心者に特に大事なのか？
-
-学習初期に起こりやすい問題は、「上限が足りない」ことよりも、むしろ次のようなものだからです。
-
-- 学習がそもそも不安定
-- 実験の説明がしにくい
-- 一度に変えすぎて、何が本当に効いたのか分からない
-
-つまりこの順番は、次の2つを守るためのものです。
-
-- 学習を安定して回すこと
-- 1回ごとの実験に説明をつけられること
-
----
-
-## 五、よくある落とし穴
-
-### 落とし穴1：一度にたくさんのパラメータを変える
-
-これでは結果の意味が分かりにくくなります。
-
-### 落とし穴2：training set の結果だけを見る
-
-調参で本当に見るべきなのは、次のようなものです。
-
-- validation set
-- 汎化性能
-
-### 落とし穴3：調参は黒魔術だと思う
-
-実験設計をきちんとすれば、  
-調参はかなり工学的な作業です。
-
-## 六、1回の実験で最低限記録しておきたいこと
-
-少なくとも、次の項目は記録するのがおすすめです。
-
-- モデルのバージョン
-- データのバージョン
-- 重要なハイパーパラメータ
-- 学習時間
-- 最良の validation 指標
-- 今回の実験で何が分かったと自分は考えるか
-
-記録がないと、調参はすぐに繰り返し作業になってしまいます。
-
-### 最小の実験記録テンプレート
-
-そのまま使える形にすると、たとえばこうです。
+小さな project でも log を残します。
 
 ```text
 experiment_id:
-model:
-dataset:
+code_version:
+data_version:
+seed:
 lr:
 batch_size:
+optimizer:
 weight_decay:
 dropout:
+epochs:
 best_val_metric:
 train_time:
-結論:
+decision:
 ```
 
-このテンプレートを数回でも続けて記録すると、調参の混乱感はかなり減ります。
+decision の例：
 
----
+```text
+quick sweep では lr=1.0 が最も良い validation loss。
+次は lr=1.0 を固定し、batch_size=32 と 64 を比較する。
+```
 
-## もしこの節をさらに発展させるなら、何を足すとよいか
+## 診断パターン
 
-さらに良くするなら、次のようなものを追加すると効果的です。
+| パターン | ありそうな原因 | 次の実験 |
+|---|---|---|
+| train loss が動かない | LR が低い、モデルが小さい、label が悪い | LR を上げる、data を確認する、モデルを大きくする |
+| train loss が発散する | LR が高い、gradient が不安定 | LR を下げる、clipping を入れる |
+| train は良いが validation が悪い | overfitting または leakage | 正則化を足し、split を確認する |
+| validation が良くなった後で悪化する | best epoch の後に overfitting | early stopping |
+| seed で結果が大きく変わる | 訓練が不安定、または data が少ない | 3 seed で mean/std を出す |
 
-1. 1ページ分の実験記録例
-2. 「学習率が大きすぎる / 小さすぎる / 適切」の比較曲線
-3. baseline から安定モデルまでの、完全な調参ログ
+## よくある間違い
 
-こうすると、この節は単なるアドバイスではなく、本当の training engineering の授業に近づきます。
-
----
-
-## まとめ
-
-この節で最も大事なのは、調参の考え方を次のように持つことです。
-
-> **ハイパーパラメータ調整は当てずっぽうではなく、学習率、batch size、汎化の制御を中心に、順番と記録を持って進める実験設計である。**
-
-この習慣が身につけば、後の多くの学習トラブルはずっと見つけやすくなります。
+| 間違い | 直し方 |
+|---|---|
+| LR、batch size、optimizer、model を同時に変える | 1 実験で主変数を 1 つに絞る |
+| training metric で選ぶ | validation metric で選ぶ |
+| runtime を無視する | 時間とメモリも記録する |
+| lucky seed を信じる | 重要な run は複数 seed で繰り返す |
+| data が汚いまま調整する | label、leakage、preprocessing を先に確認する |
 
 ## 練習
 
-1. 例にさらに 2 組の実験を追加して、順位が変わるか見てみましょう。
-2. なぜ学習率は、通常いちばん優先して調整する価値があるのですか？
-3. 考えてみましょう。モデルの学習がとても遅いとき、どうすれば調参のコストを下げられますか？
-4. 自分の言葉で説明してみましょう。「一度に少数のパラメータだけを変える」と、なぜ安定しやすいのでしょうか？
+1. sweep に `lr=0.3` と `lr=3.0` を追加してください。どちらが良い領域に近いですか。
+2. training budget を `40` step から `10` step に変えてください。best LR は変わりますか。
+3. 各 LR を 2 つの seed で実行し、`seed` 列を追加してください。
+4. LR sweep の後に行う次の実験を 1 文で書いてください。
+5. 1 つの実験が 1 つの質問に答える形だと、なぜ調整が簡単になるのか説明してください。
+
+## まとめ
+
+- 調整は制御された実験設計であり、勘ではありません。
+- Learning rate は多くの場合、最初に試す knob です。
+- 判断は validation の evidence で行います。
+- Log があれば、実験は再現しやすく解釈しやすくなります。
+- まず広く調整し、あとで局所的に詰めます。
