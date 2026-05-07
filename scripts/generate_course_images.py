@@ -3063,16 +3063,17 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
     },
     {
         "filename": "ch06-autograd-gradient-lifecycle-map.png",
-        "size": "1536x1024",
+        "size": "1024x1792",
         "quality": "medium",
         "title": "PyTorch 自动求导梯度生命周期图",
         "suggested_page": "docs/ch06-deep-learning/ch02-pytorch/02-autograd.md",
-        "alt": "PyTorch 自动求导梯度生命周期图：forward 生成 loss，backward 把梯度写入 grad，optimizer.step 更新参数，zero_grad 清空旧梯度。",
+        "alt": "PyTorch 自动求导训练闭环图：先 zero_grad 清空旧梯度，再 forward 建图，backward 写入 grad，optimizer.step 更新参数，下一批重新建图。",
         "prompt": """
-一张解释 PyTorch autograd 的循环机制图，主题是“梯度从产生、使用到清空的生命周期”。
-画面按一轮训练循环展示：forward 计算 loss，autograd 记录 graph，loss.backward() 把 gradient 写进 .grad，optimizer.step() 更新 parameter，optimizer.zero_grad() 清空旧梯度；旁边标出“PyTorch 默认累计梯度”这个警示。
-风格像透明训练机器剖面图，强调 .grad 存储和清零动作。
-文字不是主体；中文短标签为主，API 和标准术语保留英文，例如 autograd、loss.backward()、.grad、optimizer.step()、zero_grad()。不要整张图全英文，不要乱码小字或真实品牌 logo。
+一张竖版 PyTorch autograd 训练闭环图，主题是“一轮训练里，计算图是临时的，.grad 缓冲区会保留到你清空”。
+画面用 5 个大步骤卡片展示：1 optimizer.zero_grad() 清空旧 .grad；2 forward 创建本轮计算图并得到 loss；3 loss.backward() 按链式法则把梯度写入 .grad；4 optimizer.step() 读取 .grad 更新参数；5 下一批 batch 重新创建新图。
+左右两侧用很轻的提示条区分两种生命周期：计算图 forward 创建、backward 使用、随后释放；.grad 默认累积，忘记 zero_grad 会叠加旧梯度。
+风格要像清爽工程白板和流程图结合，竖向、留白充足、每一步只放一两句短标签；避免密集小字、复杂公式和拥挤箭头。
+中文短标签为主，API 和标准术语保留英文，例如 autograd、loss.backward()、.grad、optimizer.step()、zero_grad()。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
