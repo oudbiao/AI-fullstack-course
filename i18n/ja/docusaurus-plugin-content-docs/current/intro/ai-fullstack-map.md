@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 title: "0.3 AI フルスタック能力マップ"
 description: "AIフルスタック学習の7つの能力層を1枚で見るための短いマップです。"
 keywords: [AIフルスタック, 能力マップ, AI学習ルート, LLMアプリ, RAG, AI Agent]

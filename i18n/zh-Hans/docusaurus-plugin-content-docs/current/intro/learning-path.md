@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 title: "0.4 推荐学习路线"
 description: "先选一条实用学习路线，然后进入第 1 章。"
 keywords: [AI 学习路线, AI 全栈路线, LLM 学习路线, Agent 学习路线, RAG 学习路线]

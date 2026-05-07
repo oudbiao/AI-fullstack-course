@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 title: "0.2 环境准备"
 description: "只准备第一周需要的最小工具：浏览器、Python、Git 和一个项目文件夹。"
 keywords: [AI 环境准备, Python 环境, VS Code, Git, Miniconda, 快速开始]

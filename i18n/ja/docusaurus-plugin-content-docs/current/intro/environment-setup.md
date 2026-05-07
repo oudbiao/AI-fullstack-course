@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 title: "0.2 環境準備"
 description: "最初の週に必要な最小ツールだけを準備します。ブラウザ、Python、Git、1つのプロジェクトフォルダです。"
 keywords: [AI環境準備, Python環境, VS Code, Git, Miniconda, クイックスタート]

@@ -1,114 +1,72 @@
 ---
-title: "3.4.1 Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It"
+title: "3.4.1 Visualization Roadmap: Choose the Chart Before the Style"
 sidebar_position: 16
-description: "A master map for beginners learning data visualization for the first time: how to choose charts for trends, comparisons, distributions, and relationships, and how Matplotlib, Seaborn, Plotly, and best practices fit together."
+description: "A compact visualization roadmap: choose charts for trends, comparisons, distributions, relationships, and reports."
 keywords: [data visualization, chart selection, matplotlib, seaborn, plotly, visualization roadmap]
 ---
 
-# 3.4.1 Visualization Guide: Learn to Choose the Right Chart First, Then Learn to Polish It
+# 3.4.1 Visualization Roadmap: Choose the Chart Before the Style
 
-This chapter answers one question: how do you turn trends, comparisons, distributions, and relationships in your data into charts that other people can understand at a glance?
+Visualization is not decoration. It turns an analysis result into something another person can understand quickly.
 
-When beginners first learn visualization, they often get overwhelmed by APIs: how to write `plot()`, how to tune parameters, how to change colors. But the most important first step in visualization is not memorizing functions. It is asking clearly: what exactly do I want the reader to see at a glance?
-
-## Where This Chapter Fits in the Course
-
-You have already learned Pandas, so you know how to read, clean, filter, and aggregate data. Visualization turns that organized data into graphical expressions, helping you explore data faster and helping others understand conclusions faster.
-
-In later machine learning and project stages, visualization will also be used for EDA, feature distribution analysis, model result presentation, error analysis, and project reporting. So this chapter is not an “extra” about making charts look nicer. It is a core part of data analysis communication.
+## 3.4.1.1 Look at the Chart Choice Map First
 
 ![Data Visualization Roadmap](/img/course/ch03-visualization-roadmap-en.png)
 
-## The Real Problems This Chapter Solves
+Use this decision first:
 
-This chapter answers five questions: when should you use a line chart, bar chart, scatter plot, histogram, box plot, or heatmap; what scenarios are Matplotlib, Seaborn, and Plotly each best for; what is the difference between exploratory charts and presentation charts; how do titles, axes, legends, and colors make charts clearer; and how do you avoid misleading readers.
-
-The most common mistake beginners make is starting to code before they have decided on the chart. Tools matter, but tools should serve the message. First decide whether you want to express a trend, comparison, distribution, relationship, or proportion, and then choose the chart.
-
-## Recommended Learning Order for Beginners
-
-It is recommended to start with Matplotlib, because it helps you understand Figure, Axes, axes, and basic plotting objects. Then learn Seaborn, which lets you create common statistical charts and exploratory analysis with less code. Next, learn visualization best practices so you understand chart selection, titles, colors, annotations, and how to avoid misleading visuals. Finally, learn Plotly when needed, for interactive charts, web display, or dynamic exploration.
-
-```mermaid
-flowchart TD
-  A[First identify the communication goal] --> B[Learn Matplotlib basics]
-  B --> C[Master common basic charts]
-  C --> D[Learn Seaborn statistical charts]
-  D --> E[Learn visualization best practices]
-  E --> F[Learn Plotly interactive charts as needed]
-```
-
-## The Main Thread to Focus on in This Chapter
-
-The main thread of this chapter can be summarized as: decide what you want to say first, then decide what chart to use, and only then talk about styling.
-
-```mermaid
-flowchart LR
-  A[Data problem] --> B{What do you want to express}
-  B -- Trend --> C[Line chart]
-  B -- Comparison --> D[Bar chart / Bar plot]
-  B -- Distribution --> E[Histogram / Box plot]
-  B -- Relationship --> F[Scatter plot]
-  B -- Correlation --> G[Heatmap]
-  C --> H[Chart annotations and explanation]
-  D --> H
-  E --> H
-  F --> H
-  G --> H
-```
-
-Once you understand this flow, you will know that “making charts look pretty” is not the goal. The goal is to help others understand the data faster.
-
-## What the 4 Lessons in This Chapter Do
-
-| Section | The problem it should help you solve |
+| If you want to show... | Start with... |
 |---|---|
-| [3.4.2 Matplotlib Basics](./01-matplotlib.md) | Learn the most basic plotting actions and the Figure/Axes model |
-| [3.4.3 Seaborn Statistical Visualization](./02-seaborn.md) | Do exploratory analysis and statistical charts faster with less code |
-| [3.4.4 Interactive Visualization (Optional)](./03-plotly.md) | How to handle interactivity, presentations, and web charts when needed |
-| [3.4.5 Visualization Best Practices](./04-best-practices.md) | Choose charts, colors, and avoid misleading visuals so the chart is truly readable |
+| change over time | line chart |
+| category comparison | bar chart |
+| distribution | histogram or box plot |
+| relationship between two numbers | scatter plot |
+| correlation matrix | heatmap |
 
-## How This Chapter Connects to Later Stages
+After the chart type is right, then polish title, axes, legend, colors, and annotation.
 
-Visualization will run through later machine learning, deep learning, and LLM application projects. Machine learning needs charts to inspect data distributions, feature relationships, model errors, and evaluation results; deep learning needs training curves and prediction examples; Agent and RAG projects can also use charts to show evaluation data, call costs, and failure types.
+## 3.4.1.2 Run One Chart Once
 
-If you do not build a solid foundation here, common problems later will be: data analysis reports with tables but no conclusions; machine learning projects that only give a score but no explanation; no curves for the training process; and project presentations that lack charts people can quickly understand.
+Create `visual_first_loop.py` and run it after installing `pandas` and `matplotlib`.
 
-## How Beginners and Advanced Learners Should Read This
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
 
-When beginners study this chapter for the first time, focus on the main thread and the smallest runnable example. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how the minimal project runs, you can keep moving forward.
+sales = pd.DataFrame(
+    {
+        "month": ["2026-01", "2026-02", "2026-03", "2026-04"],
+        "amount": [120, 180, 160, 220],
+    }
+)
 
-More experienced learners can treat this chapter as a chance to fill gaps and practice engineering habits: focus on boundary conditions, failure cases, evaluation methods, code reproducibility, and how this chapter connects to what comes before and after. After reading, it is best to turn the content into your own project README or experiment notes.
+ax = sales.plot(x="month", y="amount", marker="o", legend=False)
+ax.set_title("Monthly sales")
+ax.set_xlabel("Month")
+ax.set_ylabel("Amount")
+plt.tight_layout()
+plt.savefig("sales_trend.png", dpi=150)
 
-## Suggested Study Time and Difficulty
+print("saved: sales_trend.png")
+```
 
-| Study style | Suggested time | Goal |
+Expected output:
+
+```text
+saved: sales_trend.png
+```
+
+Open the image and check one thing: can a reader see the trend within three seconds?
+
+## 3.4.1.3 Learn in This Order
+
+| Order | Read | What to practice |
 |---|---|---|
-| Quick overview | 20–30 minutes | Understand what this chapter solves and where it will be used later |
-| Minimal completion | 1–2 hours | Run through a minimal example and finish the chapter’s small project goal |
-| In-depth practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
+| 1 | [3.4.2 Matplotlib Basics](./01-matplotlib.md) | Figure, Axes, line/bar/scatter |
+| 2 | [3.4.3 Seaborn Statistical Visualization](./02-seaborn.md) | faster exploratory charts |
+| 3 | [3.4.5 Visualization Best Practices](./04-best-practices.md) | chart choice, labels, color, misleading charts |
+| 4 | [3.4.4 Plotly Interactive Visualization](./03-plotly.md) | interactive charts when the project needs them |
 
-## Self-Check Questions for This Chapter
+## 3.4.1.4 Pass Check
 
-| Self-check question | Passing standard |
-|---|---|
-| What problem does this chapter solve? | You can explain its role in the course in one sentence |
-| What are the minimal input and output? | You can clearly state what input the example needs and what result it produces |
-| Where are the common failure points? | You can list at least one reason for an error, poor result, or misunderstanding |
-| What can you turn into a lasting artifact after learning it? | You can write the output of this chapter into a project README, experiment notes, or portfolio |
-
-## Small Project Goal for This Chapter
-
-After finishing this chapter, it is recommended to create a “sales data visualization report.” Using sales data organized with Pandas, draw monthly trends, category comparisons, order amount distributions, the relationship between price and sales volume, regional heatmaps, or pivot tables, and write one conclusion for each chart.
-
-The key point of the project is not the number of charts, but that each chart answers one clear question.
-
-## Passing Criteria
-
-By the end of this chapter, you should be able to choose appropriate charts based on trend, comparison, distribution, relationship, and correlation; draw basic charts with Matplotlib and Seaborn; explain what scenarios Plotly is suitable for; and use titles, axes, legends, and colors to make charts clearer.
-
-If you can turn a dataset into 4 to 6 meaningful charts and explain why each chart was chosen, you have reached the beginner level for data visualization.
-
-## What to Read Next
-
-It is recommended to first read Matplotlib Basics, then Seaborn Statistical Visualization, then Visualization Best Practices, and finally Interactive Visualization with Plotly as needed.
+You pass this subchapter when you can create 4 useful charts from one dataset and explain why each chart type was chosen.

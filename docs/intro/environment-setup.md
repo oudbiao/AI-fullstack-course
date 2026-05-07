@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 title: "0.2 Environment Setup"
 description: "Prepare only the minimum tools needed for the first week: browser, Python, Git, and one project folder."
 keywords: [AI environment setup, Python environment, VS Code, Git, Miniconda, quick start]
