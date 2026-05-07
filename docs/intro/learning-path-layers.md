@@ -1,66 +1,38 @@
 ---
 sidebar_position: 14
-title: "Layered Learning Path: Must-Learn, Quick Read, and Electives"
-description: "Split the entire course into must-learn, quick-read, and elective deep-dive paths based on three goals: application engineering, model understanding, and portfolio building."
-keywords: [learning path layering, AI learning roadmap, must-learn electives, full-stack AI]
+title: "How Deep Should I Read Each Part?"
+description: "A compact reading-depth guide that marks course content as required, quick-read, or elective based on the project you are building."
+keywords: [learning path, AI learning roadmap, required reading, elective reading]
 ---
 
-# Layered Learning Path: Must-Learn, Quick Read, and Electives
+# How Deep Should I Read Each Part?
 
-This course covers a lot of material, and different goals do not require the same way of reading. Based on your own goals, you can split the chapters into must-learn, quick-read, and elective deep-dive sections.
+![Learning path selection map](/img/course/intro-learning-path-selection-en.png)
 
-## One diagram to understand it all: one chapter, three ways to read it
+Do not read every page with the same force. Use three reading depths.
 
-```mermaid
-flowchart LR
-  A["Clarify your goal"] --> B["Must-learn: affects project completion"]
-  A --> C["Quick read: know the place and purpose first"]
-  A --> D["Elective: go deeper when the project needs it"]
-```
+| Depth | Use it when | Pass line |
+| --- | --- | --- |
+| Required | The current project cannot move without it | You can run the smallest example and explain input/output |
+| Quick read | You only need to know where it fits for now | You can say what problem it solves and where to return later |
+| Elective | It serves a specialization or capstone need | You add experiments only when the project asks for them |
 
-| Reading style | Decision rule | How well you need to learn it |
-|---|---|---|
-| Must-learn | Without it, the current project cannot move forward | You can run the smallest example and explain the input and output |
-| Quick read | You will use it later, but do not need to dig deep the first time | You know what problem it solves and the common pitfalls |
-| Elective | Only related to a specific direction or capstone project | Add experiments and case studies when the project needs them |
+## Default Reading Depth
 
-## Path 1: LLM application engineering
+| Course area | First-pass depth | Why |
+| --- | --- | --- |
+| Tools, Python, data | Required | Everything later depends on running code and handling data |
+| Math, ML, deep learning | Quick read first, required for model-focused learners | You need intuition for metrics, training, similarity, and failure analysis |
+| LLM, Prompt, RAG, Agent | Required for application builders | This is the main path for LLM applications |
+| CV, NLP, multimodal | Elective first | Choose one direction when the capstone needs it |
+| Deployment, evaluation, safety | Required for portfolio work | A demo is weak if others cannot run or evaluate it |
 
-Suitable for learners who want to quickly build AI applications, RAG, and Agent systems.
+## Skip-Ahead Rule
 
-| Module | Recommended reading style |
-|---|---|
-| Development tools, Python, data analysis | Must-learn, at least complete a minimal project |
-| AI math, machine learning, deep learning | Quickly go through the main line, and understand metrics, training, and evaluation |
-| LLM principles, Prompt, RAG, Agent | Must-learn, this is the main battlefield |
-| CV, traditional NLP, multimodal | Elective, based on project needs |
-| Engineering, evaluation, safety | Must-learn, determines whether it can be launched |
+You can move forward when you have:
 
-## Path 2: Stronger model understanding
+1. A runnable minimum example.
+2. One sentence explaining the input and output.
+3. One saved piece of evidence: screenshot, log, metric, README note, or failure case.
 
-Suitable for people who want to go deeper into models, training, fine-tuning, and algorithms.
-
-| Module | Recommended reading style |
-|---|---|
-| Math, machine learning, deep learning | Must-learn, and try to complete full experiments |
-| CV, NLP, Transformer, pretraining | Must-learn or elective for deeper study |
-| RAG, Agent | Quickly understand the boundary of application systems |
-| Multimodal, AIGC | Choose based on research interests |
-
-## Path 3: Portfolio path
-
-Suitable for learners who want to turn the learning process into a portfolio.
-
-| Stage | Portfolio focus |
-|---|---|
-| Python | A command-line tool or Web API |
-| Data analysis | An EDA report that can be showcased |
-| Machine learning | A prediction project with baseline and metrics |
-| Deep learning | A training experiment with curves and failed samples |
-| RAG | A knowledge-base Q&A assistant with citations and an evaluation set |
-| Agent | A tool-using assistant with traceability and safety boundaries |
-| Multimodal | A workflow project for images and text, voice, or video |
-
-## How to decide whether you can skip ahead
-
-If you can explain in your own words what problem this chapter solves, and you can complete the minimum project exit, then you can keep moving forward. Do not stop at the front because you have not fully mastered every detail. Many concepts will come back repeatedly in later projects.
+If you do not have these three, read less and build the smallest artifact first.
