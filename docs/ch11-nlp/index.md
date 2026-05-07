@@ -111,13 +111,6 @@ The key to an NLP project is not producing a fluent paragraph, but whether the t
 | Fluent but inaccurate summaries | Generated content drifts away from the original text | Annotate the source of each sentence | Add citation checks and factual consistency checks |
 | Question answering guesses when it does not know | Missing knowledge boundaries and refusal rules | Prepare questions with no answer | Add no-answer handling and human review |
 
-## Stage assessment rubric
-
-| Level | Assessment criteria | Portfolio evidence |
-|---|---|---|
-| Minimum pass | Can distinguish classification, extraction, summarization, and question-answering tasks | Label or schema description |
-| Recommended pass | Can complete one evaluable text project | Metrics, confusion matrix, sample inputs and outputs |
-| Portfolio pass | Can explain error examples and task boundaries | Failure cases, boundary samples, project README |
 
 ## Stage projects
 

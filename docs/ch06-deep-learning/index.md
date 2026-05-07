@@ -114,13 +114,6 @@ If you can plot the training loss and validation loss, and explain why they chan
 | good training, poor validation | Overfitting, unreasonable data split | Compare training and validation curves | Data augmentation, regularization, early stopping |
 | out of memory | Batch size, image size, or model too large | Check memory usage | Reduce the batch size, lower the resolution, switch to a lighter model |
 
-## Stage Acceptance Rubric
-
-| Level | Acceptance Criteria | Portfolio Evidence |
-|---|---|---|
-| Minimum pass | Can run Dataset, DataLoader, model, loss, and optimizer | `train.py`, training output |
-| Recommended pass | Can record training curves and explain overfitting/underfitting | Curve plots, validation metrics, config files |
-| Portfolio pass | Can compare model approaches and analyze failed samples | Experiment report, error samples, improvement plan |
 
 ## Stage Projects
 

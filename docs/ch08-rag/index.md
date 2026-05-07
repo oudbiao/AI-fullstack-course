@@ -192,15 +192,6 @@ The real outcome of this stage is a knowledge base assistant with sources, logs,
 | Failure samples | Record 1–3 failed questions | Separate retrieval, context, generation, citation, and deploy issues |
 | README | Clearly explain run commands and sample output | Show architecture, config, evaluation results, limitations, and next steps |
 
-## Stage evaluation rubric
-
-| Level | Evaluation standard | Portfolio evidence |
-|---|---|---|
-| Basic pass | Can complete document reading, chunking, retrieval, answering, and source display | Run screenshots, sample questions, recalled chunks |
-| Standard pass | Can add an evaluation question set, failure samples, logs, and error handling | `evals/questions.jsonl`, failure case table, log samples |
-| Excellent work | Can compare different retrieval strategies and explain cost, latency, and citation trustworthiness | Hybrid Search / Reranking comparison, cost records, deployment notes |
-
-When presenting in an interview or portfolio, don’t just say “I built a RAG.” A better way to say it is: I first built the minimal RAG loop, then found that recall was unstable for certain questions, so I added an evaluation set, printed top-k chunks, compared chunking and reranking strategies, and finally made the system provide sources and record failure reasons.
 
 ## Stage project
 

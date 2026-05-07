@@ -131,13 +131,6 @@ If you can explain why this number can represent “similarity,” then later un
 | Gradient descent does not converge | Learning rate too large or unclear function scale | Plot how loss changes over iterations | Adjust the learning rate and observe the path |
 | Math and code feel disconnected | Only reading derivations, no array experiments | Reproduce the minimal example with NumPy | Pair every formula with an executable snippet |
 
-## Stage Assessment Rubric
-
-| Level | Passing criteria | Portfolio evidence |
-|---|---|---|
-| Minimum pass | Can explain vectors, probability, and gradients intuitively | Math cards, handwritten examples |
-| Recommended pass | Can demonstrate core concepts with NumPy or charts | Runnable notebook, chart outputs |
-| Portfolio pass | Can connect math concepts to ML, RAG, and LLM | Concept review, application notes in projects |
 
 ## Stage Projects
 

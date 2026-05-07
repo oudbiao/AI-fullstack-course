@@ -39,6 +39,9 @@ required_task_sections = [
         '## 推荐学习顺序',
     ),
     (
+        '## Stage deliverables',
+        '## Stage Deliverables',
+        '## 阶段交付物',
         '## Stage portfolio deliverables',
         '## Portfolio deliverables for this stage',
         '## Phase portfolio deliverables',

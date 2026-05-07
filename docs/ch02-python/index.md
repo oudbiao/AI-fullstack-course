@@ -137,13 +137,6 @@ You do not need to build a complete CLI right away. First prove that the program
 | JSON parsing failed | The file is empty, malformed, or encoded inconsistently | Open the raw file and inspect the content | Add exception handling and a default empty value |
 | Functions become messy | Input/output is unclear and there are too many global variables | Write comments: what are the parameters, what is returned | Split into smaller functions and reduce hidden state |
 
-## Stage Assessment Rubric
-
-| Level | Assessment Criteria | Portfolio Evidence |
-|---|---|---|
-| Minimum pass | Can write functions, read/write files, and handle common exceptions | `todo_cli.py`, sample JSON |
-| Recommended pass | Can split a script into modules and clearly document run commands | Project structure, README, sample input/output |
-| Portfolio pass | Can build a reusable small tool or API entry point | Error-handling notes, test cases, version iteration notes |
 
 ## Stage Projects
 

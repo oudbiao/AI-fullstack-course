@@ -102,18 +102,6 @@ If the command fails, do not erase the error. Save the command, full output, ope
 | Git record | One local commit exists | Commit messages show small, meaningful progress |
 | README | Explains how to run `hello_ai.py` | Explains goal, setup, run command, sample output, and next step |
 
-## Stage portfolio deliverables
-
-Keep the smallest evidence set:
-
-| Evidence | Why it matters |
-|---|---|
-| `README.md` | Shows another person how to run the project |
-| `hello_ai.py` or workshop script | Proves the project has executable code |
-| Environment note | Explains which Python and dependencies were used |
-| Git history | Shows your work was saved in stable checkpoints |
-| One failure note | Shows you can debug, not only follow perfect steps |
-
 ## Stage completion criteria
 
 | Level | You can move on when... |

@@ -184,15 +184,6 @@ The real outcome of this stage is building a traceable, reviewable, and evaluabl
 | Evaluation task set | 3–5 fixed tasks | Track completion rate, average steps, tool error rate, and cost |
 | README | Explain run commands and example output | Show architecture, trace examples, permission boundaries, evaluation, and limitations |
 
-## Stage evaluation rubric
-
-| Level | Acceptance criteria | Portfolio evidence |
-|---|---|---|
-| Basic pass | The Agent can break down a task, call at least one tool, and output structured results | Execution screenshot, tool schema, minimal trace |
-| Standard pass | The Agent has failure retries, permission boundaries, logs, and stopping conditions | Failure recovery example, human confirmation screenshot, trace logs |
-| Excellent project | Can compare the suitability boundaries of fixed workflows, RAG, and Agents, and evaluate cost and completion rate | Fixed task set, completion-rate table, cost estimate, multi-solution comparison |
-
-When presenting in an interview or portfolio, do not show only one successful conversation. A better explanation is: I broke the task into goals, plans, tools, observations, and stopping conditions, restricted tool permissions, recorded a trace for every step, and used a fixed task set to check whether the Agent would loop, overstep permissions, or call tools incorrectly.
 
 ## Stage project
 

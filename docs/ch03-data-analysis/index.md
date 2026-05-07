@@ -112,13 +112,6 @@ The real pass criterion is not whether the code runs, but whether you can explai
 | Correlation looks very high | Influenced by time, scale, or sampling method | Compare by strata, draw scatter plots | Add business explanation and limitation notes |
 | Notebook cannot be reproduced | Data path, dependencies, or execution order is messy | Restart and run from the beginning | Fix the data path, dependencies, and execution order |
 
-## Stage evaluation rubric
-
-| Level | Evaluation standard | Portfolio evidence |
-|---|---|---|
-| Minimum pass | Can read, clean, summarize, and draw key charts | Notebook, CSV, chart outputs |
-| Recommended pass | Can write a data analysis report around a question | Data dictionary, cleaning log, conclusion notes |
-| Portfolio pass | Can explain data limitations and future modeling risks | Failure samples, limitations, reproducible run notes |
 
 ## Stage project
 

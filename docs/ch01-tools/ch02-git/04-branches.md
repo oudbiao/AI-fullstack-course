@@ -46,12 +46,12 @@ Now you want to try:
 
 If you change main directly:
   ❌ If you’re halfway done, the code may stop running
-  ❌ Your boss suddenly asks you to fix a bug, but main is already messed up by your changes
+  ❌ A teammate suddenly asks you to fix a bug, but main is already messed up by your changes
   ❌ In the end, you realize ViT is not good, but you have already changed 50 files
 
 If you use a branch:
   ✅ Work slowly on the feature/vit branch
-  ✅ Boss asks for a bug fix? Switch back to main, fix it, push it, then switch back and continue
+  ✅ A bug fix comes in? Switch back to main, fix it, push it, then switch back and continue
   ✅ Find out ViT is not working? Delete the branch, and main remains untouched
 ```
 

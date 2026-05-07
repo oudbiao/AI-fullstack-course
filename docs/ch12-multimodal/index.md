@@ -137,15 +137,6 @@ The key point of this experiment is to build multimodal engineering awareness: a
 | Video generation is not coherent | No storyboard or character consistency design | Check the copy, visuals, and transitions for each shot | Write the storyboard script first, then generate and review shot by shot |
 | The work cannot be used externally | Copyright, portrait rights, sensitive content, or factual risks were not checked | Confirm each item using a review checklist | Add asset source tracking, human confirmation, and export restrictions |
 
-## Stage assessment rubric
-
-| Level | Assessment criteria | Portfolio evidence |
-|---|---|---|
-| Basic pass | Can complete an image understanding, image generation, or multimodal Q&A demo | Input examples, output results, prompts, or parsing records |
-| Standard pass | Can connect generation or understanding results to an editable, reviewable, exportable workflow | Version records, screenshots of human edits, review checklist |
-| Excellent work | Can connect multimodal capabilities to RAG or Agent and explain sources, risks, and delivery boundaries | Multimodal RAG citations, multimodal Agent trace, content safety records |
-
-When presenting in an interview or portfolio, do not only show that “the result looks good.” A better way to explain it is: I turned multimodal input into structured records, then connected retrieval, generation, human editing, review, and export, focusing on input quality, version comparison, copyright and portrait rights, and delivery format.
 
 ## Stage project
 

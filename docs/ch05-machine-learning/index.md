@@ -132,13 +132,6 @@ Start with a baseline, then talk about optimization. Without a baseline, it is h
 | All models perform poorly | Poor label quality, weak features, unsuitable metric | Inspect error samples and label definition | Improve the data, add features, change the metric |
 | Results are not reproducible | Random seed, dependency, or data version not fixed | Rerun and compare data versions | Fix the seed, save configuration and data notes |
 
-## Stage acceptance rubric
-
-| Level | Acceptance criteria | Portfolio evidence |
-|---|---|---|
-| Minimum pass | Can train a baseline and explain the metric | Training script, metric output |
-| Recommended pass | Can compare models and analyze errors | Experiment table, error samples, feature notes |
-| Portfolio pass | Can write a complete modeling report and iteration plan | README, evaluation records, review report |
 
 ## Stage projects
 

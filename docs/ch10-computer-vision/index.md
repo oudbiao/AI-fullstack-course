@@ -108,13 +108,6 @@ Vision projects must keep the input image, processed result, and prediction visu
 | Rough segmentation boundaries | Inaccurate annotation edges or low model output resolution | Compare the mask with the original image | Improve annotation standards, use more suitable metrics |
 | Demo looks good but real images look bad | Training data and real-world scene distribution differ | Compare lighting, angle, and background | Add real samples and scene descriptions |
 
-## Stage acceptance rubric
-
-| Level | Acceptance criteria | Portfolio evidence |
-|---|---|---|
-| Minimum pass | Can explain the inputs and outputs of classification, detection, segmentation, and OCR | Input image, prediction results |
-| Recommended pass | Can train or call a vision model and calculate metrics | Data description, metrics, visualized results |
-| Portfolio pass | Can analyze false positives, false negatives, and scenario risks | Error sample set, annotation notes, project report |
 
 ## Stage project
 
