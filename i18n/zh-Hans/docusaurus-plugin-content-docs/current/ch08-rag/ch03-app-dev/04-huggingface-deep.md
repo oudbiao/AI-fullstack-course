@@ -25,7 +25,7 @@ keywords: [HuggingFace, transformers, datasets, tokenizers, model hub, ecosystem
 
 ---
 
-## 一、HuggingFace 为什么不只是一个模型库？
+## HuggingFace 为什么不只是一个模型库？
 
 ### 很多人对它的第一印象
 
@@ -52,7 +52,7 @@ HuggingFace 更像一个围绕模型使用的完整生态：
 
 ---
 
-## 二、先把生态的几个关键层分清
+## 先把生态的几个关键层分清
 
 ### Tokenizers
 
@@ -90,7 +90,7 @@ HuggingFace 更像一个围绕模型使用的完整生态：
 
 ---
 
-## 三、为什么 Tokenizer 在工程里特别重要？
+## 为什么 Tokenizer 在工程里特别重要？
 
 因为模型并不直接理解原始文本。
 它先看到的是：
@@ -117,9 +117,17 @@ tokenizer_layer = {
 print(tokenizer_layer)
 ```
 
+预期输出：
+
+```text
+{'text': '退款政策是什么？', 'tokens': ['退', '款', '政', '策', '是', '什', '么', '？'], 'input_ids': [101, 23, 45, 67, 89]}
+```
+
+后面使用 `transformers` 里的真实 tokenizer 时，token ids 会由模型词表生成，不需要你手写。这里要抓住的工程重点是：模型真正接收的是 ids 和 mask，而不是原始句子。
+
 ---
 
-## 四、为什么 pipeline 这么受欢迎？
+## 为什么 pipeline 这么受欢迎？
 
 ### 因为它特别适合快速验证
 
@@ -142,6 +150,12 @@ pipe = MockPipeline()
 print(pipe("这节课讲得很清楚"))
 ```
 
+预期输出：
+
+```text
+[{'label': 'positive', 'score': 0.91, 'text': '这节课讲得很清楚'}]
+```
+
 这个例子最重要的不是结果本身，而是让你意识到：
 
 > pipeline 更像“任务级快捷入口”。
@@ -150,7 +164,7 @@ print(pipe("这节课讲得很清楚"))
 
 ---
 
-## 五、什么时候不能只靠 pipeline？
+## 什么时候不能只靠 pipeline？
 
 如果你开始需要：
 
@@ -173,7 +187,7 @@ print(pipe("这节课讲得很清楚"))
 
 ---
 
-## 六、为什么 model hub 这么关键？
+## 为什么 model hub 这么关键？
 
 因为它解决了：
 
@@ -196,7 +210,7 @@ print(pipe("这节课讲得很清楚"))
 
 ---
 
-## 七、Datasets 为什么也不能忽略？
+## Datasets 为什么也不能忽略？
 
 很多初学者会只盯模型，却忽略数据层。
 但真实工程里：
@@ -213,7 +227,7 @@ print(pipe("这节课讲得很清楚"))
 
 ---
 
-## 八、一个实用的使用层级判断
+## 一个实用的使用层级判断
 
 可以先这样记：
 
@@ -225,7 +239,56 @@ print(pipe("这节课讲得很清楚"))
 
 ---
 
-## 九、初学者最常踩的坑
+## 动手判断：写代码前先选 HuggingFace 层级
+
+在导入大型库或下载模型之前，先写清楚目标，再选择能解决问题的最浅一层。这样能节省时间，也能让项目更容易调试。
+
+```python
+def choose_hf_layer(goal):
+    rules = [
+        ("快速情感", "pipeline", "用任务级快捷入口快速验证想法"),
+        ("自定义预处理", "tokenizer + model", "控制截断、补齐、批处理和后处理"),
+        ("微调", "datasets + trainer", "控制样本、切分、指标和训练"),
+        ("分享", "hub", "用 model card 和配置发布产物"),
+    ]
+
+    for keyword, layer, reason in rules:
+        if keyword in goal:
+            return {"goal": goal, "layer": layer, "reason": reason}
+
+    return {"goal": goal, "layer": "先从 pipeline 开始", "reason": "先验证任务，再在遇到限制时往底层走"}
+
+
+goals = [
+    "快速情感分类演示",
+    "自定义预处理长客服工单",
+    "微调一个领域分类器",
+    "分享一个课件生成模型",
+]
+
+for item in goals:
+    plan = choose_hf_layer(item)
+    print(f"{plan['goal']} -> {plan['layer']} | {plan['reason']}")
+```
+
+预期输出：
+
+```text
+快速情感分类演示 -> pipeline | 用任务级快捷入口快速验证想法
+自定义预处理长客服工单 -> tokenizer + model | 控制截断、补齐、批处理和后处理
+微调一个领域分类器 -> datasets + trainer | 控制样本、切分、指标和训练
+分享一个课件生成模型 -> hub | 用 model card 和配置发布产物
+```
+
+这个小练习在真实项目里很有用：如果你说不清为什么要从 `pipeline` 下沉到 `tokenizer + model`，大概率是过早增加了复杂度。
+
+:::tip 真实 SDK 路线
+真实联网实验时，可以使用当前稳定的 Hugging Face 包：`python -m pip install -U transformers datasets tokenizers accelerate`，再把这里的 mock 示例换成 `transformers.pipeline(...)` 或 `AutoTokenizer` + `AutoModel...`。项目笔记里要固定 model id，方便团队复现同样行为。
+:::
+
+---
+
+## 初学者最常踩的坑
 
 ### 以为 HuggingFace 只是模型仓库
 
