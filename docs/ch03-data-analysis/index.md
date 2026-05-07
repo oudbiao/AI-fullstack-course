@@ -15,10 +15,6 @@ This stage is about answering: “Can I understand data, organize data, discover
 
 As you enter this stage, imagine yourself as a data detective. CSV files, Excel sheets, logs, and database tables are like a pile of clues: some clues are missing, some are duplicated, and some look normal but are actually outliers. Your job is not to jump straight into a model. First, clean up the clues, then use statistics and charts to find patterns, and finally tell a trustworthy conclusion.
 
-## Learning quest map
-
-![Data analysis learning quest map](/img/course/ch03-learning-quest-map-en.png)
-
 ## Interactive practice: ask every dataset three questions
 
 The first question asks “What is it?”: How many rows, how many columns, and what does each column mean? The second question asks “Is it clean?”: Where are the missing values, where are the outliers, and are the data types correct? The third question asks “What does it tell us?”: Which variable is highest, which trend is most obvious, and which group differences are worth further study?
@@ -128,17 +124,6 @@ The real pass criterion is not whether the code runs, but whether you can explai
 
 The basic version is to choose a public CSV dataset and complete field understanding, missing-value checks, basic statistics, and 3–5 key charts. The standard version requires organizing the analysis process into a complete Notebook or report, including the question, cleaning, analysis, conclusions, and next-step suggestions. The challenge version can integrate multiple data sources, add database or web data, and form a data analysis workflow closer to real business scenarios.
 
-## Fun task cards for this stage
-
-| Play style | Task for this stage |
-|---|---|
-| Story mission | Let the assistant understand learning records: find missing values, duplicates, and outliers, and turn the conclusions into trustworthy charts. |
-| Boss fight | **Dirty Data Detective** |
-| Unlockable badges | Dirty Data Detective, Chart Storyteller |
-| Beginner easy mode | Complete only one minimum input-to-output loop, and keep a run screenshot or command output |
-| Portfolio evidence | Data quality checklist and one chart with explanation |
-
-If this stage feels like a lot, treat this task card as your minimum target first. Once you can complete beginner easy mode, you can keep going; later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage deliverables
 

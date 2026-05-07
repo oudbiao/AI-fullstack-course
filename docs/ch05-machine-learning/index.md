@@ -15,10 +15,6 @@ This stage is about solving the question: “Can a problem be turned into a trai
 
 You can think of machine learning as training an intern: first, you give it some historical cases and let it summarize patterns from them; then you test it with cases it has never seen before to see whether it really learned; if the result is poor, you go back and inspect the data, features, metrics, and model. This process is not a one-shot success, but an ongoing cycle of trial, evaluation, and improvement.
 
-## Learning quest map
-
-![Machine learning learning quest map](/img/course/ch05-learning-quest-map-en.png)
-
 ## Interactive exercise: Guess first, then train, then review
 
 For every machine learning task, before training, write down your own guesses: which features may be useful, which metric matters most, and where the model may fail. After training, compare the results and review them. In this way, you are not just “calling fit and predict”; you are practicing the modeling judgment that AI engineers really need.
@@ -152,17 +148,6 @@ For a step-by-step project rehearsal, use [Hands-on Workshop: Build a Reproducib
 
 If you want to see a more detailed learning sequence, you can read [Study guide: How to learn machine learning without getting confused](./study-guide.md).
 
-## Fun task card for this stage
-
-| Play style | Task for this stage |
-|---|---|
-| Story task | Teach the assistant how to judge whether a model is really effective: start with a baseline, then compare models, metrics, and error samples. |
-| Boss fight | **Baseline Gatekeeper** |
-| Unlockable badges | Baseline Gatekeeper, Leakage Detective |
-| Beginner easy mode | Complete only a minimal input-to-output loop and keep a runtime screenshot or command output |
-| Portfolio evidence | Baseline metric table and error samples |
-
-If you feel this stage contains a lot of content, first treat this task card as your minimum goal. Once you can complete the beginner easy mode, you can continue learning; later, when preparing your portfolio, come back and upgrade to the standard version and challenge version.
 
 ## Stage deliverables
 

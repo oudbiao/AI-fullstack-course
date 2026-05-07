@@ -15,10 +15,6 @@ This stage is about “how to connect a large model to a real system.” You wil
 
 If you only chat with a general-purpose large model, it knows public knowledge learned during training. If you want it to answer questions from company documents, course materials, product manuals, or personal notes, you need to bring in external information. RAG is like giving the model a librarian: first find the materials, then answer based on them, and finally leave citations and logs so it’s easy to check where the answer came from.
 
-## Learning quest map
-
-![RAG learning quest map](/img/course/ch08-learning-quest-map-en.png)
-
 ## One picture for the main loop
 
 ![How RAG works from question to evidence](/img/course/ch08-rag-basics-workflow-map-v2-en.png)
@@ -46,7 +42,7 @@ A bonus project for this stage could be a “course materials Q&A assistant” o
 
 Beginners should first hand-code a minimal RAG: prepare documents, chunk text, generate embeddings, retrieve chunks, organize the Prompt, and generate answers with sources. As long as you can identify whether poor RAG performance comes from the documents, chunking, retrieval, prompting, or the model, you’ve completed the minimum path.
 
-For a guided first pass, complete [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It gives you one runnable script that covers chunks, metadata, retrieval, permissions, citations, no-answer handling, traces, and a small evaluation set.
+For a guided first pass, complete [8.5 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). It gives you one runnable script that covers chunks, metadata, retrieval, permissions, citations, no-answer handling, traces, and a small evaluation set.
 
 ## Advanced learning path
 
@@ -160,7 +156,7 @@ for hit in hits[:2]:
 
 The point of this experiment is not how powerful the algorithm is, but to let learners see for the first time that “retrieval results can be inspected.” Once the minimal chain is working, you can replace it with vector models, Hybrid Search, Reranking, Query Rewrite, and evaluation sets.
 
-The longer follow-along version of this experiment is in [5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). Use it as the minimum runnable project before you build a portfolio RAG assistant.
+The longer follow-along version of this experiment is in [8.5 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md). Use it as the minimum runnable project before you build a portfolio RAG assistant.
 
 ## RAG failure case library: locate problems by symptom
 
@@ -184,17 +180,6 @@ The longer follow-along version of this experiment is in [5.6 Hands-on: Full Cha
 The real outcome of this stage is a knowledge base assistant with sources, logs, error handling, and evaluation samples—not just one successful model call.
 
 
-## Fun task card for this stage
-
-| Play mode | Task for this stage |
-|---|---|
-| Story quest | Let the assistant answer based on materials: import documents, retrieve chunks, generate answers, and check whether citations support the conclusion. |
-| Boss fight | **Citation Hallucination Dragon** |
-| Unlockable badges | RAG citation police, retrieval archaeologist |
-| Easy beginner mode | Only complete a minimal input-to-output loop and keep a run screenshot or command output |
-| Portfolio evidence | eval questions, retrieval logs, citation_check |
-
-If this stage feels like a lot, first treat this task card as your minimum goal. If you can finish the easy beginner mode, you can keep learning; later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage deliverables
 

@@ -15,10 +15,6 @@ This stage is about “how to make models understand images.” It is an electiv
 
 When humans look at an image, we naturally recognize objects, positions, boundaries, and actions; a model only sees a matrix of pixels. What computer vision does is help the model gradually learn from pixels: “what is this” and “where is it” and “where are the boundaries.” From classification to detection to segmentation, each step makes the model see more precisely.
 
-## Learning quest map
-
-![Computer vision learning quest map](/img/course/ch10-learning-quest-map-en.png)
-
 ## Interactive exercise: ask three levels of questions about the same image
 
 Take an image with multiple objects and first ask, “What is the main category of this image?” Then ask, “Where is each object?” Finally ask, “What are the boundaries of each object?” These three questions correspond to classification, detection, and segmentation. You’ll find that the difficulty of vision tasks does not suddenly increase; rather, the outputs become more and more detailed.
@@ -131,17 +127,6 @@ If you want a more detailed learning rhythm, you can read [Study Guide: How to L
 
 
 
-## Fun task cards for this stage
-
-| Gameplay | Task for this stage |
-|---|---|
-| Story task | Teach the assistant to understand images or screenshots: read the image, output inspectable results, and record failed recognition samples. |
-| Boss battle | **Visual Clue Hunter** |
-| Badges to unlock | Image Observer, Vision Failure Recorder |
-| Easy mode for beginners | Only complete one minimal input-to-output loop, and first save a runtime screenshot or command output |
-| Portfolio evidence | Input image, output result, and failed images |
-
-If you feel there is a lot of content in this stage, first treat this task card as the minimum goal. Once you complete the easy mode for beginners, you can continue learning; later, when you prepare your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage deliverables
 

@@ -15,10 +15,6 @@ This stage is about “how to get a model to handle text.” In the era of LLMs,
 
 Text is neither as neat as tables nor as fixed as images made of pixels. A word can change meaning depending on context, and a sentence may contain sentiment, entities, relationships, and intent. The goal of NLP is to turn these seemingly loose words into representations that models can compute with, compare, classify, and generate.
 
-## Learning quest map
-
-![NLP learning quest map](/img/course/ch11-learning-quest-map-en.png)
-
 ## Interactive exercise: Break one sentence into three layers of information
 
 Pick a user review, first identify its sentiment, then find any person names, product names, or locations in it, and finally think about the intent it is really trying to express. Sentiment classification, named entity recognition, and intent recognition correspond to different tasks in NLP. This kind of practice helps you break “reading text” into problems that can be modeled.
@@ -134,17 +130,6 @@ If you want a more detailed learning rhythm, you can read [Study Guide: The Leas
 
 
 
-## Fun task card for this stage
-
-| Play style | Task for this stage |
-|---|---|
-| Story task | Let the assistant understand text tasks: define label boundaries, complete classification, extraction, or summarization, and record error texts. |
-| Boss battle | **Text Label Judge** |
-| Unlockable badges | Label Designer, Text Error Analyst |
-| Easy mode for beginners | Complete only one minimal input-to-output loop and save a run screenshot or command output first |
-| Portfolio evidence | Label examples, metrics, and error texts |
-
-If you feel this stage has a lot of content, first treat this task card as the minimum goal. Once you can complete the easy mode for beginners, you can continue learning. Later, when you prepare your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage deliverables
 

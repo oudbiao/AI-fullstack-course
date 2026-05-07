@@ -442,19 +442,6 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
-        "filename": "ch02-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "Python 学习闯关地图",
-        "suggested_page": "docs/ch02-python/index.md",
-        "alt": "Python 学习闯关地图：第一段程序、数据组织、函数封装、文件保存、异常处理、API 调用和小作品逐步推进。",
-        "prompt": """
-一张适合 Python 入门首页的学习闯关地图，主题是“从第一段程序到 Python 小作品”。
-画面表现新手从写出第一段程序开始，逐步经过组织数据、封装函数、读写文件、处理异常、调用 Web API、接入 AI API，最后完成一个小作品。
-风格像清爽的编程冒险地图，用图标、路径和节点表达进阶关系；不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
-""".strip(),
-    },
-    {
         "filename": "ch02-python-ai-backbone.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -707,19 +694,6 @@ All visible text must be natural English, short, clear, and integrated into spee
 一张适合数据分析课程的阶段主视觉，主题是“数据分析与可视化”。
 画面表现一张凌乱数据表逐步被清洗、聚合、转成折线图、柱状图和分析报告，风格清晰、亲切、现代，适合新手建立数据工作流直觉。
 不要生成具体文字，不要出现真实品牌 logo。
-""".strip(),
-    },
-    {
-        "filename": "ch03-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "数据分析学习闯关地图",
-        "suggested_page": "docs/ch03-data-analysis/index.md",
-        "alt": "数据分析学习闯关地图：原始数据经过字段观察、清洗、聚合、可视化、解释和报告输出。",
-        "prompt": """
-一张适合数据分析与可视化首页的学习闯关地图，主题是“从原始数据到可信分析报告”。
-画面表现学习者拿到原始数据，依次经过观察字段、检查缺失异常、清洗转换、统计聚合、可视化探索、解释发现、写成报告。
-风格像数据侦探路线图，清爽、现代、新手友好；用图标、箭头和节点表达，不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
 """.strip(),
     },
     {
@@ -1072,20 +1046,6 @@ All visible text must be natural English, short, clear, and integrated into spee
 一张适合 AI 数学入门课程的阶段主视觉，主题是“AI 数学最小必要基础”。
 画面把向量箭头、矩阵网格、概率分布曲线、梯度下降路径和小模型训练连接在一起，像一张温和的学习地图。
 风格清晰、具体、帮助新手降低公式恐惧，不要生成具体文字，不要出现真实品牌 logo。
-""".strip(),
-    },
-    {
-        "filename": "ch04-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "AI 数学学习闯关地图",
-        "suggested_page": "docs/ch04-ai-math/index.md",
-        "alt": "AI 数学学习闯关地图：向量、矩阵、概率、损失、梯度和优化逐步连接到模型训练。",
-        "prompt": """
-一张适合 AI 数学基础首页的学习闯关地图，主题是“从数学直觉到模型训练”。
-画面表现学习者从向量表示一个样本开始，经过矩阵表示一批数据、概率表达不确定性、损失衡量错误、梯度指出改进方向、优化让模型逐步变好。
-重点降低公式恐惧，让新人看到数学概念是一组可用工具，而不是孤立定理。
-风格温和、清晰、现代教育插图；不要生成具体公式文字，不要出现真实品牌 logo，不要出现乱码小字。
 """.strip(),
     },
     {
@@ -1535,20 +1495,6 @@ All visible text must be natural English, short, clear, and integrated into spee
 一张适合机器学习课程的阶段主视觉，主题是“机器学习入门到实战”。
 画面表现数据表进入建模流水线，经过训练集测试集、baseline、评估指标、错误分析和特征工程，最终形成一份模型报告。
 风格专业但新手友好，不要生成具体文字，不要出现真实品牌 logo。
-""".strip(),
-    },
-    {
-        "filename": "ch05-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "机器学习学习闯关地图",
-        "suggested_page": "docs/ch05-machine-learning/index.md",
-        "alt": "机器学习学习闯关地图：定义问题、准备数据、建立 baseline、选择指标、训练模型、错误分析和建模报告。",
-        "prompt": """
-一张适合机器学习课程首页的学习闯关地图，主题是“从问题到可复盘的模型项目”。
-画面表现定义问题、准备数据、建立 baseline、选择指标、训练模型、分析错误、改进特征和模型、形成建模报告这些环节逐步连接。
-风格延续课程之前的视觉优先路线，图形清晰、流程感强、新手友好。
-文字不是主体；如确实需要标签，中英文自然混用：中文写概念提示，标准机器学习术语、API、变量名和公式保留英文或数学形式，例如 baseline、fit、predict、AUC、X/y、loss。不要出现整段英文说明、无意义英文、乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -2616,20 +2562,6 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
 """.strip(),
     },
     {
-        "filename": "ch06-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "深度学习学习闯关地图",
-        "suggested_page": "docs/ch06-deep-learning/index.md",
-        "alt": "深度学习学习闯关地图：张量、前向传播、损失、反向传播、优化器、CNN、序列模型、Attention 和 Transformer 逐步连接。",
-        "prompt": """
-一张适合深度学习课程首页的学习闯关地图，主题是“从训练循环走向 Transformer”。
-画面表现张量和数据加载进入前向传播，计算 loss，反向传播得到 gradient，optimizer 更新参数，再进入 CNN、RNN、Attention 和 Transformer 结构。
-风格视觉优先、流程清晰、新手友好，像一张模型发动机舱路线图。
-文字不是主体；如需标签，中英文自然混用，公式、API、变量名和标准术语保留英文或数学形式，例如 Tensor、loss、gradient、optimizer、CNN、RNN、Attention、Transformer。不要整段英文说明、无意义英文、乱码小字或真实品牌 logo。
-""".strip(),
-    },
-    {
         "filename": "ch06-training-loop-backbone.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -3393,20 +3325,6 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
 """.strip(),
     },
     {
-        "filename": "ch07-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "大模型学习闯关地图",
-        "suggested_page": "docs/ch07-llm-principles/index.md",
-        "alt": "大模型学习闯关地图：Token、Embedding、Attention、Transformer、预训练、Prompt、微调和对齐逐步连接。",
-        "prompt": """
-一张适合大模型课程首页的学习闯关地图，主题是“从文本进入可控的大模型能力”。
-画面表现文本先切成 Token，进入 Embedding 和 Attention，再进入 Transformer、预训练、Prompt、微调、对齐与安全，最后形成可控的大模型应用能力。
-风格视觉优先、路线清晰、新手友好，像把聊天机器人的魔法盒拆开。
-文字不是主体；如需标签，中英文自然混用，标准术语保留英文，例如 Token、Embedding、Attention、Transformer、Pretraining、Prompt、Fine-tuning、RLHF。不要整段英文说明、无意义英文、乱码小字或真实品牌 logo。
-""".strip(),
-    },
-    {
         "filename": "ch07-llm-capability-backbone.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -4107,20 +4025,6 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
 一张适合 LLM 应用工程课程的阶段主视觉，主题是“LLM 应用开发与 RAG”。
 画面表现 PDF、Word、PPT 和网页资料进入文档处理流水线，写入向量数据库，再通过检索、Prompt、API、日志和评估生成带来源答案。
 风格工程化、清晰、适合新手理解系统结构，不要生成具体文字，不要出现真实品牌 logo。
-""".strip(),
-    },
-    {
-        "filename": "ch08-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "RAG 学习闯关地图",
-        "suggested_page": "docs/ch08-rag/index.md",
-        "alt": "RAG 学习闯关地图：准备文档、切分、Embedding、向量库、检索、Prompt、生成带来源答案、评估和优化逐步连接。",
-        "prompt": """
-一张适合 LLM 应用与 RAG 首页的学习闯关地图，主题是“从资料到带来源答案”。
-画面表现准备文档、切分 Chunk、生成 Embedding、写入 vector database、retrieval、组织 Prompt、生成带来源答案、评估和优化逐步连接。
-风格像清晰的课程路线图和工程流水线结合，适合新人一眼看懂顺序。
-文字不是主体；标准术语保留英文，例如 Chunk、Embedding、vector database、retrieval、Prompt、evaluation。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -4838,20 +4742,6 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 一张适合 AI Agent 课程的阶段主视觉，主题是“AI Agent 与智能体系统”。
 画面表现一个 AI 助手围绕目标拆解计划、调用工具、读取资料、更新记忆、记录 trace、做安全检查并输出结果。
 风格清晰、系统设计感、适合技术课程，不要生成具体文字，不要出现真实品牌 logo。
-""".strip(),
-    },
-    {
-        "filename": "ch09-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "Agent 学习闯关地图",
-        "suggested_page": "docs/ch09-agent/index.md",
-        "alt": "Agent 学习闯关地图：目标理解、任务拆解、计划生成、工具调用、观察结果、记忆更新、自我检查和完成任务逐步连接。",
-        "prompt": """
-一张适合 AI Agent 阶段首页的学习闯关地图，主题是“让 AI 从回答问题升级成执行任务”。
-画面表现目标理解、任务拆解、plan、tool call、observation、memory update、self-check、task done 逐步连接，像一条可追踪的执行路线。
-风格像课程冒险地图和工程 trace 面板结合，清晰、现代、适合新人。
-文字不是主体；标准术语保留英文，例如 Agent、plan、tool call、observation、memory、trace、self-check。其他说明可用少量中文短标签。不要整张图全英文，不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {
@@ -5863,20 +5753,6 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
-        "filename": "ch10-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "计算机视觉学习闯关地图",
-        "suggested_page": "docs/ch10-computer-vision/index.md",
-        "alt": "计算机视觉学习闯关地图：像素颜色、OpenCV 预处理、图像分类、目标检测、图像分割、OCR 视频和视觉综合项目逐步连接。",
-        "prompt": """
-一张适合计算机视觉首页的学习闯关地图，主题是“模型如何从像素看见世界”。
-画面表现 pixels/RGB、OpenCV preprocessing、image classification、object detection、segmentation、OCR/video、CV project 逐步连接。
-风格像视觉任务路线图和工程流水线结合，清晰、新人友好。
-文字不是主体；标准术语保留英文，例如 pixels、RGB、OpenCV、classification、object detection、segmentation、OCR、video。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
-""".strip(),
-    },
-    {
         "filename": "ch10-visual-task-progression-map.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -6315,20 +6191,6 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 """.strip(),
     },
     {
-        "filename": "ch11-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "NLP 学习闯关地图",
-        "suggested_page": "docs/ch11-nlp/index.md",
-        "alt": "NLP 学习闯关地图：文本清洗、分词与 Token、词向量、文本分类、序列标注、Seq2Seq、预训练模型和 LLM 理解基础逐步连接。",
-        "prompt": """
-一张适合 NLP 首页的学习闯关地图，主题是“把人类语言变成模型能计算的表示”。
-画面表现 text cleaning、Token、Embedding、text classification、sequence labeling、Seq2Seq、pretrained models、LLM foundation 逐步连接。
-风格像文本处理流水线和学习路线图结合，清晰、新人友好。
-文字不是主体；标准术语保留英文，例如 Token、Embedding、text classification、sequence labeling、Seq2Seq、pretrained models、LLM。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
-""".strip(),
-    },
-    {
         "filename": "ch11-nlp-to-llm-backbone.png",
         "size": "1536x1024",
         "quality": "medium",
@@ -6750,20 +6612,6 @@ permission check 分成三条清晰路径：public or role allowed -> allowed_hi
 画面表现 raw text、schema design、rules/regex、NER、relation extraction、JSON output、human review、downstream table/RAG index。
 风格像文档解析流水线和结构化数据表结合，强调字段边界、关系和复核。
 文字不是主体；标准术语保留英文，例如 schema、rules、regex、NER、relation extraction、JSON output、human review、RAG index。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
-""".strip(),
-    },
-    {
-        "filename": "ch12-learning-quest-map.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "多模态与 AIGC 学习闯关地图",
-        "suggested_page": "docs/ch12-multimodal/index.md",
-        "alt": "多模态与 AIGC 学习闯关地图：文本理解、图文对齐、图像生成、语音视频、多模态问答、内容审核和创意工作流逐步连接。",
-        "prompt": """
-一张适合多模态与 AIGC 首页的学习闯关地图，主题是“把 AI 从文字世界带到真实世界输入输出”。
-画面表现 text understanding、vision-language alignment、image generation、voice/video、multimodal QA、content safety、creative workflow。
-风格像创意产品路线图和多模态系统图结合，明亮、专业。
-文字不是主体；标准术语保留英文，例如 vision-language alignment、image generation、voice、video、multimodal QA、content safety。其他说明可用少量中文短标签。不要乱码小字或真实品牌 logo。
 """.strip(),
     },
     {

@@ -15,10 +15,6 @@ This stage is about what happens when input and output are no longer just text. 
 
 When AI can only process text, it is like an assistant who is very good at writing and reasoning. When AI can understand images, audio, video, and text at the same time, it begins to approach the complexity of real-world input and output. AIGC and multimodal are not just about “generating pretty content”; they connect understanding, generation, editing, and workflows into a new creative system.
 
-## Learning quest map
-
-![Learning quest map for multimodal and AIGC](/img/course/ch12-learning-quest-map-en.png)
-
 ## Interactive exercise: break one creative idea into a multimodal pipeline
 
 Choose a topic, such as “making a promotional short video for an AI course.” First write the copy, then generate visuals, then design the narration, then plan the video storyboard, and finally add review and export steps. You will find that the key to multimodal projects is not a single model, but organizing multiple generation steps into a controllable workflow.
@@ -161,17 +157,6 @@ If you want a more detailed learning rhythm, you can read [Study Guide: How to L
 
 
 
-## Fun task card for this stage
-
-| Play style | Task for this stage |
-|---|---|
-| Story mission | Let the assistant handle materials beyond text: images, screenshots, audio, or generated content must all have asset, review, and export records. |
-| Boss fight | **Multimodal Chaos Entity** |
-| Unlockable badges | Multimodal Reviewer, Asset Manager |
-| Beginner easy mode | Complete only one minimal input-to-output loop, and keep a run screenshot or command output first |
-| Portfolio evidence | Asset sources, generation records, and human review form |
-
-If you feel there is a lot of content in this stage, first treat this task card as the minimum goal. Once you can complete the beginner easy mode, you can keep moving forward. Later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage deliverables
 

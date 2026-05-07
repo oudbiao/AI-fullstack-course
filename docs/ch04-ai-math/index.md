@@ -15,10 +15,6 @@ At this stage, the goal is to stop feeling scared when you see the math inside m
 
 Many beginners fear AI math because formulas look like a wall. Let’s change the approach: treat math like a pair of glasses. Vectors let models see “direction and similarity,” matrices let models process lots of data at once, probability lets models express uncertainty, and gradients tell models where to improve. You do not need to become a math expert first; you only need to understand what role these tools play inside models.
 
-## Learning Route Map
-
-![AI Math Learning Route Map](/img/course/ch04-learning-quest-map-en.png)
-
 ## Interactive Practice: Turning Formulas into Pictures with Code
 
 When learning vectors, try drawing two 2D arrows and observe that the smaller the angle between them, the higher the similarity. When learning probability, generate a set of random numbers and plot the distribution. When learning gradient descent, start from a random point and watch it move step by step toward the minimum. As long as you can turn formulas into arrays, curves, and animated intuition, you have already crossed the hardest first hurdle.
@@ -153,17 +149,6 @@ If you want a more detailed learning rhythm, you can read [Study Guide: How to L
 
 
 
-## Fun Task Card for This Stage
-
-| Play style | Task for this stage |
-|---|---|
-| Story mission | Help the assistant understand similarity, probability, loss, and metrics: turn abstract concepts into observable results with code. |
-| Stage checkpoint | **Metric Maze** |
-| Practice labels | Vector Translator, Metric Explainer |
-| Easy mode for beginners | Complete only one minimal input-to-output loop, and keep a run screenshot or command output first |
-| Portfolio evidence | One runnable math mini-experiment and explanation |
-
-If you feel this stage has a lot of content, first treat this task card as your minimum goal. If you can complete the easy mode for beginners, you can keep learning forward. Later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage Deliverables
 

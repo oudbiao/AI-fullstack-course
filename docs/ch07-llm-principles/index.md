@@ -15,10 +15,6 @@ This stage is about answering: “Where do LLM capabilities come from, and how a
 
 An LLM looks like magic: you type a sentence, and it can write code, summarize documents, play roles, and plan tasks. What this stage does is open that magic box: text is first split into Tokens, Tokens become vectors, the Transformer computes relationships in context, pretraining gives the model language ability, and Prompt and fine-tuning then guide that ability toward specific tasks.
 
-## Learning quest map
-
-![LLM learning quest map](/img/course/ch07-learning-quest-map-en.png)
-
 ## Interactive exercise: Write Prompts like doing experiments
 
 Don’t just ask, “Is this Prompt good?” Instead, change only one variable each time: whether you add a role, provide examples, require step-by-step reasoning, constrain the output format, or include grading criteria. Save different versions of inputs and outputs, and you will gradually build your own Prompt experiment handbook.
@@ -127,17 +123,6 @@ If you want a more detailed learning rhythm, you can read [Learning Guide: How t
 
 
 
-## Fun task card for this stage
-
-| Play style | Task for this stage |
-|---|---|
-| Story task | Make the assistant express itself stably: design Prompts, constrain structured output, and check drift with fixed inputs. |
-| Boss fight | **JSON Drift Monster** |
-| Unlockable badges | Prompt Tuning Master, Schema Guardian |
-| Beginner easy mode | Complete just one minimal input-to-output loop and keep a screenshot or command output |
-| Portfolio evidence | Prompt version table and schema validation results |
-
-If you feel there is a lot of content in this stage, first treat this task card as your minimum goal. Once you can complete the beginner easy mode, you can continue learning; later, when preparing your portfolio, come back and upgrade to the standard version and challenge version.
 
 ## Stage deliverables
 

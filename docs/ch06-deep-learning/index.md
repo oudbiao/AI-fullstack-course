@@ -15,10 +15,6 @@ This stage is about answering the question: “How does the model actually learn
 
 If the machine learning stage is like driving a car, the deep learning stage is like opening the hood and seeing how the power is produced. Tensors are the fuel, network layers are the parts, the loss function is like the dashboard, and gradients and the optimizer keep tuning the system. For the first time, you will really see how a model learns from mistakes.
 
-## Learning Quest Map
-
-![Deep learning learning quest map](/img/course/ch06-learning-quest-map-en.png)
-
 ## Interactive Exercise: Watch the Four Numbers in the Training Loop
 
 When training a small model, do not only look at the final accuracy. In every experiment, observe training loss, validation loss, training accuracy, and validation accuracy. If the training set keeps improving but the validation set does not, it may be overfitting; if both are poor, there may be a problem with the model, the data, or the learning rate. Understanding these curves is more important than blindly switching models.
@@ -137,17 +133,6 @@ If you want a more detailed learning rhythm, you can read [Study Guide: The Easi
 
 
 
-## Fun Task Card for This Stage
-
-| Play Style | Task for This Stage |
-|---|---|
-| Story quest | Help the assistant understand the training process: run the training loop, observe the loss curve, and locate the shape mismatch. |
-| Boss battle | **Shape Beast** |
-| Unlockable badges | Loss Observer, Shape Tracker |
-| Easy beginner mode | Only complete one minimal input-to-output loop, and keep a screenshot or command output |
-| Portfolio evidence | Training logs, curves, and one failure review |
-
-If you feel that this stage has a lot of content, first use this task card as your minimum goal. Once you can complete the easy beginner mode, you can keep learning forward; later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage Deliverables
 

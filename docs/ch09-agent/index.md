@@ -15,10 +15,6 @@ This stage is about answering: “How do we make AI do more than answer question
 
 A regular chatbot is like a person sitting at a table answering questions, while an Agent is more like a teammate who can pick up tools, look up materials, break down tasks, execute steps, and then come back to check the results. It does not just “say” things; it also has to “do” things. It does not just give one answer; it keeps moving toward the goal.
 
-## Learning quest map
-
-![Agent learning quest map](/img/course/ch09-learning-quest-map-en.png)
-
 ## Interactive exercise: first decide whether you really need an Agent
 
 Whenever you come up with an AI application idea, ask three questions first: Is it a multi-step task? Does it need to adjust the route based on intermediate results? Does it need external tools or long-term memory? If the answer to all three is no, a normal workflow or RAG may be more stable. If most answers are yes, then consider an Agent architecture.
@@ -176,17 +172,6 @@ The acceptance criterion for this experiment is: even if the result is not perfe
 
 The real outcome of this stage is building a traceable, reviewable, and evaluable Agent project, not just showing one successful conversation.
 
-## Fun task card for this stage
-
-| Mode | Task for this stage |
-|---|---|
-| Story mission | Upgrade the assistant from answering to acting: break down tasks, call tools, save traces, and prevent unauthorized actions. |
-| Boss battle | **The Infinite Loop Demon King** |
-| Unlockable badges | Trace Recorder, Agent Safety Officer |
-| Beginner easy mode | Complete only one minimal input-to-output loop first, and keep a runtime screenshot or command output |
-| Portfolio evidence | `agent_traces`, `tool_calls`, and safety boundary documentation |
-
-If you feel there is a lot of content in this stage, first treat this task card as the minimum goal. If you can finish the beginner easy mode, you can continue learning. Later, when preparing your portfolio, come back and upgrade to the standard and challenge versions.
 
 ## Stage deliverables
 

@@ -28,7 +28,6 @@
 | `ch01-git-remote-sync.png` | Git 本地远程同步图 | `docs/ch01-tools/ch02-git/03-remote-repos.md` | Git 本地远程同步图：本地仓库通过 push、pull、clone 和 GitHub 远程仓库同步。 |
 | `ch01-vscode-workspace-flow.png` | VS Code 项目工作流图 | `docs/ch01-tools/ch03-devenv/02-vscode.md` | VS Code 项目工作流图：打开项目文件夹、选择解释器、编辑代码、内置终端运行、调试并提交到 Git。 |
 | `ch02-python-foundation.png` | Python 编程基础主视觉 | `docs/ch02-python/index.md` | Python 编程基础主视觉：变量、函数、数据结构和小项目逐步组成程序。 |
-| `ch02-learning-quest-map.png` | Python 学习闯关地图 | `docs/ch02-python/index.md` | Python 学习闯关地图：第一段程序、数据组织、函数封装、文件保存、异常处理、API 调用和小作品逐步推进。 |
 | `ch02-python-ai-backbone.png` | Python AI 主线能力链 | `docs/ch02-python/index.md` | Python AI 主线能力链：语法、数据结构、函数模块、文件异常、第三方库、Web API 和 AI API 串成后续项目基础。 |
 | `ch02-study-guide-program-loop.png` | Python 学习指南最小闭环 | `docs/ch02-python/study-guide.md` | Python 学习指南最小闭环：输入进入程序，经过变量、条件循环、数据结构、函数模块，最后输出文件、API 或项目结果。 |
 | `ch02-python-ai-workflow.png` | Python 到 AI 应用工作流 | `docs/ch02-python/ch01-basics/01-intro.md` | Python 到 AI 应用工作流：小脚本、文件数据、模型调用、API 封装、RAG 和 Agent 逐步连接。 |
@@ -48,7 +47,6 @@
 | `ch02-hands-on-error-debug-map.png` | Python CLI 常见错误与调试地图 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | Python CLI 常见错误与调试地图：命令找不到、任务 id 不存在、JSON 损坏、路径错误和空数据分别对应不同检查点。 |
 | `ch02-hands-on-evidence-pack.png` | Python 项目作品集证据包 | `docs/ch02-python/ch03-projects/05-hands-on-python-workshop.md` | Python 项目作品集证据包：脚本、tasks.json、learning_report.md、终端输出、README 和调试记录共同证明项目可运行。 |
 | `ch03-data-visualization.png` | 数据分析与可视化主视觉 | `docs/ch03-data-analysis/index.md` | 数据分析与可视化主视觉：表格数据经过清洗、聚合和图表表达形成分析报告。 |
-| `ch03-learning-quest-map.png` | 数据分析学习闯关地图 | `docs/ch03-data-analysis/index.md` | 数据分析学习闯关地图：原始数据经过字段观察、清洗、聚合、可视化、解释和报告输出。 |
 | `ch03-data-analysis-backbone.png` | 数据分析主线闭环 | `docs/ch03-data-analysis/index.md` | 数据分析主线闭环：获取数据、理解字段、清洗异常、转换聚合、可视化探索并服务建模或业务决策。 |
 | `ch03-pure-python-data-flow.png` | 纯 Python 数据处理痛点图 | `docs/ch03-data-analysis/ch01-warmup/01-pure-python-data.md` | 纯 Python 数据处理痛点图：CSV 解析、字典列表、手写循环、清洗统计和输出结果串成繁琐流程。 |
 | `ch03-numpy-overview-array-engine.png` | NumPy 科学计算引擎图 | `docs/ch03-data-analysis/ch02-numpy/01-overview.md` | NumPy 科学计算引擎图：ndarray 作为底层数组能力，支撑 Pandas、可视化、机器学习和深度学习。 |
@@ -75,7 +73,6 @@
 | `ch03-hands-on-chart-report-flow.png` | 图表与报告输出流程 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 图表与报告输出流程：分组统计结果生成 SVG 条形图，并嵌入 HTML 报告形成可检查结论。 |
 | `ch03-hands-on-evidence-pack.png` | 数据分析作品集证据包清单 | `docs/ch03-data-analysis/ch06-projects/03-hands-on-data-workshop.md` | 数据分析作品集证据包清单：脚本、原始数据、清洗数据、清洗日志、数据库、图表、报告和复盘说明组成可信交付。 |
 | `ch04-ai-math.png` | AI 数学基础主视觉 | `docs/ch04-ai-math/index.md` | AI 数学基础主视觉：向量、矩阵、概率分布和梯度下降连接到模型训练。 |
-| `ch04-learning-quest-map.png` | AI 数学学习闯关地图 | `docs/ch04-ai-math/index.md` | AI 数学学习闯关地图：向量、矩阵、概率、损失、梯度和优化逐步连接到模型训练。 |
 | `ch04-ai-math-backbone.png` | AI 数学最小必要主线图 | `docs/ch04-ai-math/index.md` | AI 数学最小必要主线图：线性代数负责表示，概率统计负责不确定性，微积分负责损失和优化。 |
 | `ch04-study-guide-math-minimum-loop.png` | AI 数学学习指南最小闭环 | `docs/ch04-ai-math/study-guide.md` | AI 数学学习指南最小闭环：向量矩阵表示数据，概率统计衡量不确定性，导数梯度优化参数。 |
 | `ch04-linear-algebra-chapter-flow.png` | 线性代数章节关系图 | `docs/ch04-ai-math/ch01-linear-algebra/00-roadmap.md` | 线性代数章节关系图：现实数据先表示成向量，再堆成矩阵，经过变换找到特征方向并连接 PCA 和神经网络。 |
@@ -108,7 +105,6 @@
 | `ch04-hands-on-gradient-descent-loop.png` | 梯度下降执行循环图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 梯度下降执行循环图：x 进入 loss function，计算 gradient，乘 learning rate，更新 x 并重复直到 loss 下降。 |
 | `ch04-hands-on-evidence-pack.png` | 第 4 章数学证据包图 | `docs/ch04-ai-math/hands-on-math-workshop.md` | 第 4 章数学证据包图：README、vector_similarity.csv、probability_simulation.csv、gradient_descent.csv、math_cards.md 和 SVG 图组成可复盘证据。 |
 | `ch05-machine-learning.png` | 机器学习主视觉 | `docs/ch05-machine-learning/index.md` | 机器学习主视觉：数据、baseline、评估、特征工程和模型复盘组成建模闭环。 |
-| `ch05-learning-quest-map.png` | 机器学习学习闯关地图 | `docs/ch05-machine-learning/index.md` | 机器学习学习闯关地图：定义问题、准备数据、建立 baseline、选择指标、训练模型、错误分析和建模报告。 |
 | `ch05-modeling-loop-backbone.png` | 机器学习建模主线闭环 | `docs/ch05-machine-learning/index.md` | 机器学习建模主线闭环：业务问题、任务定义、数据准备、baseline、指标评估、特征工程、模型改进和误差分析。 |
 | `ch05-study-guide-project-loop.png` | 机器学习学习指南项目循环 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习指南项目循环：问题、任务定义、数据划分、baseline、指标评估、特征工程、模型改进和误差分析。 |
 | `ch05-basics-chapter-flow.png` | 机器学习基础章节关系图 | `docs/ch05-machine-learning/ch01-ml-basics/00-roadmap.md` | 机器学习基础章节关系图：Python 数据分析、AI 数学、机器学习基础、sklearn、监督学习、无监督学习、评估与特征工程逐步连接。 |
@@ -183,7 +179,6 @@
 | `ml-study-loop.png` | 机器学习学习循环图 | `docs/ch05-machine-learning/study-guide.md` | 机器学习学习循环图：先跑 baseline，再解释结果、做错误分析、改特征和复盘。 |
 | `ml-task-checklist.png` | 机器学习阶段实操清单图 | `docs/ch05-machine-learning/study-guide.md` | 机器学习通关任务清单图：回归、分类、聚类、评估和特征工程任务组成阶段通关作品。 |
 | `ch06-deep-learning.png` | 深度学习与 Transformer 主视觉 | `docs/ch06-deep-learning/index.md` | 深度学习与 Transformer 主视觉：张量、训练循环、CNN、RNN、Attention 和 Transformer 串成学习路径。 |
-| `ch06-learning-quest-map.png` | 深度学习学习闯关地图 | `docs/ch06-deep-learning/index.md` | 深度学习学习闯关地图：张量、前向传播、损失、反向传播、优化器、CNN、序列模型、Attention 和 Transformer 逐步连接。 |
 | `ch06-training-loop-backbone.png` | 深度学习训练闭环主线图 | `docs/ch06-deep-learning/index.md` | 深度学习训练闭环主线图：神经网络基础、PyTorch 训练闭环、CNN、RNN、Attention、Transformer 和大模型基础逐步连接。 |
 | `ch06-study-guide-training-loop.png` | 深度学习学习指南训练闭环 | `docs/ch06-deep-learning/study-guide.md` | 深度学习学习指南训练闭环：数据、模型前向传播、损失、反向传播、优化器更新、评估和调参组成学习主线。 |
 | `ch06-nn-basics-chapter-flow.png` | 神经网络基础章节关系图 | `docs/ch06-deep-learning/ch01-nn-basics/00-roadmap.md` | 神经网络基础章节关系图：神经元、激活函数、前向反向传播、优化器、正则化和初始化逐步连接。 |
@@ -238,7 +233,6 @@
 | `ch10-computer-vision.png` | 计算机视觉主视觉 | `docs/ch10-computer-vision/index.md` | 计算机视觉主视觉：图像分类、目标检测、分割、OCR 和医学影像组成视觉任务地图。 |
 | `ch11-nlp.png` | 自然语言处理主视觉 | `docs/ch11-nlp/index.md` | 自然语言处理主视觉：文本经过分词、词向量、分类、序列标注和预训练模型处理。 |
 | `ch07-llm-principles.png` | 大模型原理主视觉 | `docs/ch07-llm-principles/index.md` | 大模型原理主视觉：Token、Embedding、Transformer、预训练、Prompt、微调和对齐组成能力链路。 |
-| `ch07-learning-quest-map.png` | 大模型学习闯关地图 | `docs/ch07-llm-principles/index.md` | 大模型学习闯关地图：Token、Embedding、Attention、Transformer、预训练、Prompt、微调和对齐逐步连接。 |
 | `ch07-llm-capability-backbone.png` | 大模型能力来源主线图 | `docs/ch07-llm-principles/index.md` | 大模型能力来源主线图：NLP 基础、Token 与 Embedding、Transformer、大规模预训练、Prompt、PEFT、RLHF 和可控应用逐步连接。 |
 | `ch07-study-guide-evolution-line.png` | 大模型学习指南演进线 | `docs/ch07-llm-principles/study-guide.md` | 大模型学习指南演进线：token、embedding、Transformer、预训练、Prompt、微调、对齐和可控应用组成第一遍学习主线。 |
 | `ch07-nlp-crash-chapter-flow.png` | NLP 速成章节关系图 | `docs/ch07-llm-principles/ch01-nlp-crash/00-roadmap.md` | NLP 速成章节关系图：Tokenizer、Embedding、预训练模型速览和 Hugging Face 快速上手组成大模型文本底座。 |
@@ -289,7 +283,6 @@
 | `ch07-hands-on-route-decision-ladder.png` | Prompt、RAG 与微调路线阶梯图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | Prompt、RAG 与微调路线阶梯图：先看失败类型，格式问题用结构化输出，知识问题用 RAG，稳定行为问题再评估微调。 |
 | `ch07-hands-on-portfolio-evidence-pack.png` | 第 7 章作品集证据包图 | `docs/ch07-llm-principles/ch08-projects/03-stage-hands-on-workshop.md` | 第 7 章作品集证据包图：README、token_trace.json、prompt_eval.csv、route_decisions.json 和 failure_cases.md 组成可复现 LLM 工程证据。 |
 | `ch08-rag-engineering.png` | LLM 应用与 RAG 主视觉 | `docs/ch08-rag/index.md` | LLM 应用与 RAG 主视觉：文档处理、向量库、检索、Prompt、API 和日志组成知识库系统。 |
-| `ch08-learning-quest-map.png` | RAG 学习闯关地图 | `docs/ch08-rag/index.md` | RAG 学习闯关地图：准备文档、切分、Embedding、向量库、检索、Prompt、生成带来源答案、评估和优化逐步连接。 |
 | `ch08-rag-system-backbone.png` | RAG 应用系统主干图 | `docs/ch08-rag/index.md` | RAG 应用系统主干图：用户问题经过查询改写、向量检索、文档召回、重排、上下文拼接、LLM 生成、引用评估和日志记录。 |
 | `ch08-ragops-improvement-loop.png` | RAGOps 持续改进闭环图 | `docs/ch08-rag/index.md` | RAGOps 持续改进闭环图：文档更新、重新解析、重建索引、固定问题评估、上线监控、失败样本、调整切分检索和效果对比形成循环。 |
 | `ch08-study-guide-four-layer-map.png` | LLM 应用四层学习地图 | `docs/ch08-rag/study-guide.md` | LLM 应用四层学习地图：知识层、模型层、应用层和工程层逐步连接，形成可运行的 RAG 应用。 |
@@ -341,7 +334,6 @@
 | `ch08-assistant-session-tool-trace-map.png` | 智能助手 session、检索与工具 Trace 图 | `docs/ch08-rag/ch05-projects/03-intelligent-assistant.md` | 智能助手 session、检索与工具 Trace 图：多轮对话中 session state、retrieval、tool call、answer 和 state update 共同形成持续协作闭环。 |
 | `ch08-courseware-assistant-production-line-map.png` | 课件生成助手生产线图 | `docs/ch08-rag/ch05-projects/04-courseware-assistant.md` | 课件生成助手生产线图：PDF/Word/PPT 资料入库，解析成知识块，检索主题和例题，生成 courseware schema，再导出 Word。 |
 | `ch09-agent-systems.png` | AI Agent 系统主视觉 | `docs/ch09-agent/index.md` | AI Agent 系统主视觉：目标、计划、工具、记忆、观察和评估组成智能体执行闭环。 |
-| `ch09-learning-quest-map.png` | Agent 学习闯关地图 | `docs/ch09-agent/index.md` | Agent 学习闯关地图：目标理解、任务拆解、计划生成、工具调用、观察结果、记忆更新、自我检查和完成任务逐步连接。 |
 | `ch09-agent-vs-workflow-backbone.png` | Agent 与普通应用执行主线图 | `docs/ch09-agent/index.md` | Agent 与普通应用执行主线图：目标、任务理解、计划、工具选择、执行动作、观察结果、重新规划和输出记录组成 Agent 执行闭环。 |
 | `ch09-agentops-control-loop.png` | AgentOps 可控执行闭环图 | `docs/ch09-agent/index.md` | AgentOps 可控执行闭环图：用户目标、任务边界、计划步骤、工具白名单、执行观察、日志成本、高风险判断、人工确认和继续完成组成可控闭环。 |
 | `ch09-study-guide-minimal-agent-loop.png` | 最小 Agent 学习闭环图 | `docs/ch09-agent/study-guide.md` | 最小 Agent 学习闭环图：目标、计划、工具调用、观察结果、更新状态、判断完成和输出结果形成单 Agent 闭环。 |
@@ -413,7 +405,6 @@
 | `ch09-data-analysis-agent-notebook-loop-map.png` | 数据分析 Agent 可复核工作流图 | `docs/ch09-agent/ch10-projects/02-data-analysis-agent.md` | 数据分析 Agent 可复核工作流图：load data、profile schema、compute statistics、generate insight、suggest chart、write report 构成分析闭环。 |
 | `ch09-multi-agent-dev-team-delivery-map.png` | 多 Agent 开发团队交付闭环图 | `docs/ch09-agent/ch10-projects/03-multi-agent-dev-team.md` | 多 Agent 开发团队交付闭环图：planner 产出 plan，coder 产出 patch，reviewer 产出 issues，tester 产出 test report，失败后回退修复。 |
 | `ch12-multimodal-aigc.png` | AIGC 与多模态主视觉 | `docs/ch12-multimodal/index.md` | AIGC 与多模态主视觉：文字、图像、语音、视频和审核导出组成创意工作流。 |
-| `ch10-learning-quest-map.png` | 计算机视觉学习闯关地图 | `docs/ch10-computer-vision/index.md` | 计算机视觉学习闯关地图：像素颜色、OpenCV 预处理、图像分类、目标检测、图像分割、OCR 视频和视觉综合项目逐步连接。 |
 | `ch10-visual-task-progression-map.png` | 视觉任务输出粒度进阶图 | `docs/ch10-computer-vision/index.md` | 视觉任务输出粒度进阶图：图像基础、OpenCV、图像分类、目标检测、图像分割、OCR 视频 3D 和视觉综合项目由粗到细连接。 |
 | `ch10-study-guide-output-granularity-map.png` | 视觉输出粒度学习指南图 | `docs/ch10-computer-vision/study-guide.md` | 视觉输出粒度学习指南图：图像基础、分类、检测、分割、OCR 视频 3D 按输出粒度逐步升级。 |
 | `ch10-cv-basics-chapter-flow.png` | 视觉基础章节学习顺序图 | `docs/ch10-computer-vision/ch01-cv-basics/00-roadmap.md` | 视觉基础章节学习顺序图：图像是什么、OpenCV 读写查看图像、基础图像处理逐步连接。 |
@@ -445,7 +436,6 @@
 | `ch10-3d-depth-disparity-pointcloud-map.png` | 3D 视觉深度、视差与点云直觉图 | `docs/ch10-computer-vision/ch05-advanced/04-3d-vision.md` | 3D 视觉深度、视差与点云直觉图：stereo cameras、disparity、depth、pixel to 3D point、point cloud 和 camera geometry。 |
 | `ch10-security-detection-alert-dedup-map.png` | 安防检测、规则、跟踪与告警去重图 | `docs/ch10-computer-vision/ch06-projects/01-security-detection.md` | 安防检测、规则、跟踪与告警去重图：video stream、object detection、danger zone rule、track_id、alert dedup、human review 和 failure review。 |
 | `ch10-medical-imaging-risk-review-map.png` | 医学影像风险指标与人工复核闭环图 | `docs/ch10-computer-vision/ch06-projects/02-medical-imaging.md` | 医学影像风险指标与人工复核闭环图：task boundary、annotation protocol、prediction mask、sensitivity、false negative rate、human review 和 failure analysis。 |
-| `ch11-learning-quest-map.png` | NLP 学习闯关地图 | `docs/ch11-nlp/index.md` | NLP 学习闯关地图：文本清洗、分词与 Token、词向量、文本分类、序列标注、Seq2Seq、预训练模型和 LLM 理解基础逐步连接。 |
 | `ch11-nlp-to-llm-backbone.png` | NLP 到大模型技术主线图 | `docs/ch11-nlp/index.md` | NLP 到大模型技术主线图：文本预处理、文本表示、词向量和语言模型、文本分类、序列标注、Seq2Seq 注意力、预训练模型和 LLM 理解基础逐步连接。 |
 | `ch11-study-guide-text-to-model-map.png` | NLP 文本到模型学习指南图 | `docs/ch11-nlp/study-guide.md` | NLP 文本到模型学习指南图：文本预处理、表示、分类、抽取、生成和预训练模型组成文本任务主线。 |
 | `ch11-text-basics-chapter-flow.png` | 文本基础章节学习顺序图 | `docs/ch11-nlp/ch01-text-basics/00-roadmap.md` | 文本基础章节学习顺序图：NLP 地图、文本预处理、文本表示逐步连接，帮助学习者理解文本如何变成特征。 |
@@ -476,7 +466,6 @@
 | `ch11-qa-retrieval-answer-evaluation-map.png` | 问答系统检索回答评估闭环图 | `docs/ch11-nlp/ch07-projects/01-qa-system.md` | 问答系统检索回答评估闭环图：query、retrieval、evidence、answer、refusal、evaluation set 和 error log 组成 QA 项目闭环。 |
 | `ch11-summarization-extractive-generative-eval-map.png` | 文本摘要抽取生成评估图 | `docs/ch11-nlp/ch07-projects/02-text-summarization.md` | 文本摘要抽取生成评估图：source document 分别走 extractive summary 和 generative summary，并用 coverage、faithfulness、length control、human review 评估。 |
 | `ch11-information-extraction-schema-pipeline-map.png` | 信息抽取 schema 流程图 | `docs/ch11-nlp/ch07-projects/03-information-extraction.md` | 信息抽取 schema 流程图：raw text、schema design、rules、NER、relation extraction、JSON output、human review 和 downstream table。 |
-| `ch12-learning-quest-map.png` | 多模态与 AIGC 学习闯关地图 | `docs/ch12-multimodal/index.md` | 多模态与 AIGC 学习闯关地图：文本理解、图文对齐、图像生成、语音视频、多模态问答、内容审核和创意工作流逐步连接。 |
 | `ch12-multimodal-system-backbone.png` | 多模态系统主干图 | `docs/ch12-multimodal/index.md` | 多模态系统主干图：文本、图像、语音和视频进入多模态系统，完成理解、生成、编辑和工作流自动化。 |
 | `ch12-study-guide-modal-workflow-map.png` | 多模态学习指南工作流图 | `docs/ch12-multimodal/study-guide.md` | 多模态学习指南工作流图：不同模态编码为统一表示，模型完成理解或生成，再进入编辑、审核和产品工作流。 |
 | `ch12-multimodal-chapter-flow.png` | 多模态基础章节学习顺序图 | `docs/ch12-multimodal/ch01-multimodal/00-roadmap.md` | 多模态基础章节学习顺序图：多模态基础、视觉语言模型和多模态应用逐步连接。 |

@@ -15,10 +15,6 @@ This stage focuses on whether you can “describe problems with code, process da
 
 Imagine you are running a small “AI studio”: every day you need to organize tasks, scrape information, save data into files, provide an interface for others, and eventually connect an LLM to build a small assistant. Python is the toolkit that runs through all of this work. At first it may look like just variables, loops, and functions, but every syntax point you learn will later become a real capability: automatically organizing data, batch-processing files, calling APIs, and wrapping services.
 
-## Learning Quest Map
-
-![Python learning quest map](/img/course/ch02-learning-quest-map-en.png)
-
 ## Interactive Practice: Ask Yourself One Question After Each Chapter
 
 When learning basic syntax, ask yourself, “Can this knowledge help me handle input and produce output?” When learning data structures, ask yourself, “Is this set of information better stored in a list, a dictionary, or a file?” When learning functions and modules, ask yourself, “Will I use this logic repeatedly in the future?” When working on projects, ask yourself, “If someone else uses it, will they know how to run it, how to exit it, and where errors might happen?”
@@ -156,17 +152,6 @@ The basic version is to complete a command-line task manager that can add, view,
 If you want a more detailed learning rhythm, you can read [Study Guide: How to Learn Python Programming Without Getting Stuck Easily](./study-guide.md).
 
 
-## Fun Task Card for This Stage
-
-| Playstyle | Task for This Stage |
-|---|---|
-| Story mission | Give the assistant a notebook: it can add, view, complete learning tasks, and safely save data to JSON. |
-| Boss fight | **The JSON Dungeon Manager** |
-| Unlockable badges | JSON Tamer, Exception Catcher |
-| Easy mode for beginners | Complete just one minimal input-to-output loop and keep a screenshot or command output first |
-| Portfolio evidence | A CLI that can handle both normal and abnormal input |
-
-If this stage feels like a lot, treat this task card as your minimum target. Once you can complete the easy mode for beginners, you can keep learning; when you prepare a portfolio later, come back and upgrade to the standard and challenge versions.
 
 ## Stage Deliverables
 
