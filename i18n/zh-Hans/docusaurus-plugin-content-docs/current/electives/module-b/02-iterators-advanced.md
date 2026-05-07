@@ -1,215 +1,126 @@
 ---
 title: "E.B.2 迭代器与生成器进阶"
 sidebar_position: 9
-description: "从惰性计算、流式处理、生成器管道到 `yield from`，理解迭代器和生成器为什么特别适合数据与服务代码。"
+description: "用生成器一步一步处理数据流，而不是一次性把所有内容加载进内存。"
 keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 ---
 
 # E.B.2 迭代器与生成器进阶
 
-:::tip 本节定位
-迭代器和生成器最容易被误解成“语法技巧”。
-但在真实工程里，它们最重要的价值其实是：
+![生成器流式处理管线图](/img/course/elective-generator-stream-pipeline.png)
 
-> **让数据一边产生、一边消费，而不是一次性全塞进内存。**
+当数据像流一样到来时，生成器很有用：日志、文件、API 分页、样本批次、检索结果或模型输出。它一次只产出一个值，可以避免创建不必要的中间列表。
 
-这在数据处理、日志流、批量任务和服务端代码里非常常见。
-:::
+## 准备内容
 
-![生成器流式管道图](/img/course/elective-generator-stream-pipeline.png)
+- Python 3.10+
+- 不需要第三方包
+- 理解 `for` 循环
 
-## 学习目标
+## 关键术语
 
-- 理解迭代器和生成器在工程中的核心价值
-- 理解惰性计算为什么能显著降低内存压力
-- 学会构建简单生成器管道
-- 通过可运行示例掌握 `yield` 和 `yield from` 的使用场景
+- **Iterator（迭代器）**：能不断产出下一个值的对象。
+- **Generator（生成器）**：使用 `yield` 惰性产出值的函数。
+- **Lazy evaluation（惰性求值）**：需要下一个值时才计算。
+- **Pipeline（管线）**：多个小处理步骤串起来。
+- **`yield from`**：把另一个可迭代对象里的值继续向外产出。
 
----
+## 运行流式处理管线
 
-## 一、为什么工程代码很喜欢生成器？
-
-### 因为很多数据是“流”，不是“块”
-
-例如：
-
-- 日志流
-- 文件逐行读取
-- 网络请求结果
-- 大批量样本处理
-
-如果每次都先全部读进列表，
-很容易变成：
-
-- 内存浪费
-- 延迟增加
-
-### 生成器的核心价值
-
-它让你可以：
-
-- 需要时再产出下一个值
-
-这就是惰性计算。
-
-### 一个类比
-
-列表像一次性备好一大桌菜。
-生成器像按桌号一道一道上菜。
-
-如果客人很多、菜很多，后者通常更省资源。
-
----
-
-## 二、先看一个滑动窗口生成器
+创建 `generator_pipeline.py`：
 
 ```python
-def sliding_window(nums, size):
-    for i in range(len(nums) - size + 1):
-        yield nums[i : i + size]
-
-
-for window in sliding_window([1, 2, 3, 4, 5], 3):
-    print(window)
-```
-
-### 这段代码为什么有价值？
-
-因为它已经展示了生成器的本质：
-
-- 不是一次性返回所有窗口
-- 而是一个一个产出
-
-### 这类写法在哪常见？
-
-例如：
-
-- 时间序列窗口
-- NLP 分块
-- 批处理切片
-
----
-
-## 三、生成器管道：把多个步骤串起来
-
-工程里更常见的不是一个生成器，
-而是一串生成器组成的流水线。
-
-```python
-def read_lines():
-    lines = [
+def read_events():
+    events = [
         "INFO request ok",
         "ERROR db timeout",
         "INFO cache hit",
         "ERROR auth failed",
+        "ERROR model busy",
     ]
-    for line in lines:
-        yield line
+    for event in events:
+        yield event
 
 
-def filter_errors(lines):
-    for line in lines:
-        if "ERROR" in line:
-            yield line
+def filter_errors(events):
+    for event in events:
+        if event.startswith("ERROR"):
+            yield event
 
 
-def normalize(lines):
-    for line in lines:
-        yield line.lower()
+def normalize(events):
+    for event in events:
+        yield event.lower()
 
 
-pipeline = normalize(filter_errors(read_lines()))
+def batch(items, size):
+    group = []
+    for item in items:
+        group.append(item)
+        if len(group) == size:
+            yield group
+            group = []
+    if group:
+        yield group
 
-for item in pipeline:
+
+pipeline = batch(normalize(filter_errors(read_events())), size=2)
+
+for group in pipeline:
+    print(group)
+```
+
+运行：
+
+```bash
+python generator_pipeline.py
+```
+
+预期输出：
+
+```text
+['error db timeout', 'error auth failed']
+['error model busy']
+```
+
+这条管线完成读取、过滤、标准化和分批，但没有在每一步都生成完整列表。
+
+## 使用 `yield from`
+
+加入这个辅助函数：
+
+```python
+def flatten(groups):
+    for group in groups:
+        yield from group
+```
+
+然后把最后的循环改成：
+
+```python
+for item in flatten(pipeline):
     print(item)
 ```
 
-### 这个例子最想教什么？
+这比嵌套循环更清楚地表达了“把每个分组里的元素继续向外产出”。
 
-工程里很多数据处理都可以拆成：
+## 什么时候生成器有帮助
 
-- 读取
-- 过滤
-- 变换
+适合：
 
-如果每一步都生成完整列表，
-链路会更重；
-用生成器管道则更自然。
+1. 输入可能很大。
+2. 记录是一条一条处理的。
+3. 想把读取、过滤、转换、分批串起来。
+4. 不需要随机访问全部元素。
 
-### 为什么这对 AI 工程也有用？
+如果数据很小，而且反复访问列表会让代码更简单，就直接用列表。
 
-因为你会经常处理：
+## 常见错误
 
-- 样本流
-- 日志流
-- 检索结果流
-
-这类场景天然适合生成器管道。
-
----
-
-## 四、`yield from` 为什么值得学？
-
-### 它解决什么问题？
-
-当一个生成器只是想把另一个可迭代对象继续往外转发时，
-`yield from` 会让代码更清晰。
-
-```python
-def chunk_batches():
-    yield [1, 2]
-    yield [3, 4]
-
-
-def flatten():
-    for batch in chunk_batches():
-        yield from batch
-
-
-print(list(flatten()))
-```
-
-### 为什么它比双重循环更值得学？
-
-因为它表达意图更明确：
-
-- “把子迭代器的内容继续向外产出”
-
----
-
-## 五、最容易踩的坑
-
-### 误区一：生成器一定更快
-
-它通常更省内存，
-但不代表所有场景都绝对更快。
-
-### 误区二：生成器只能遍历一次
-
-很多时候这是设计特征，不是 bug。
-如果你需要重复消费，就要重新创建它。
-
-### 误区三：为了用生成器而用生成器
-
-如果数据量很小、逻辑很简单，
-直接列表也许更好读。
-
----
-
-## 小结
-
-这节最重要的是建立一个工程直觉：
-
-> **生成器和迭代器最适合处理“逐步产生、逐步消费”的数据流，它们的价值主要体现在节省内存、降低中间副本和组织流水线。**
-
-只要这层理解清楚，
-后面你在做日志处理、样本管道和流式服务时就会自然想到它们。
-
----
+- 以为生成器消费完后还能复用。
+- 以为生成器永远更快；它的主要价值常常是省内存和组织流程。
+- 很简单的列表转换也强行写成 `yield`，反而降低可读性。
 
 ## 练习
 
-1. 把 `sliding_window` 改成按固定 batch size 产出数据块。
-2. 用 `yield from` 再写一个把嵌套列表拉平的例子。
-3. 想一想：什么时候列表更合适，什么时候生成器更合适？
-4. 你能否把一个现有的数据处理函数改写成生成器管道？
+修改 `batch`，让它同时打印 `batch_id`。然后改变输入事件，确认后续步骤不改也能继续工作。

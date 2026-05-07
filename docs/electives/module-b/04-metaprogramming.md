@@ -1,105 +1,33 @@
 ---
 title: "E.B.4 Metaprogramming"
 sidebar_position: 11
-description: "Starting from dynamic class creation, registries, descriptors, and configuration-driven code, understand when metaprogramming is truly valuable in Python engineering."
+description: "Use practical metaprogramming patterns such as registries and descriptors without turning normal code into magic."
 keywords: [metaprogramming, type, registry, descriptor, dynamic class, Python]
 ---
 
 # E.B.4 Metaprogramming
 
-:::tip Section Focus
-Metaprogramming is a topic that is very easy to present as “showy” or “clever.”
-But in real engineering, when it has true value, the cases are usually very specific:
-
-- You want to reduce repetitive boilerplate
-- You want to automate registration logic
-- You want code to generate structure from configuration
-
-So in this section, we won’t treat metaprogramming like magic. Instead, we’ll focus on:
-
-> **When it is actually worth using, and when it makes code harder to understand.**
-:::
-
 ![Python Metaprogramming Registry Map](/img/course/elective-metaprogramming-registry-map-en.png)
 
-## Learning Objectives
+Metaprogramming means using code to organize or generate code structure. In day-to-day Python engineering, the most useful version is usually not clever magic; it is automatic registration, field validation, and reducing repeated boilerplate.
 
-- Understand the common engineering uses of metaprogramming in Python
-- Learn to read dynamic class creation and registry patterns
-- Build an initial intuition for descriptors and `__set_name__`
-- Develop judgment for using metaprogramming in a moderate, appropriate way
+## What You Need
 
----
+- Python 3.10+
+- No external packages
+- Comfort with classes
 
-## What Exactly Is Metaprogramming?
+## Key Terms
 
-### A One-Sentence Understanding
+- **Registry**: a mapping that remembers available implementations.
+- **Decorator registration**: using a decorator to add a class or function to a registry.
+- **Descriptor**: an object that controls attribute read/write behavior.
+- **`__set_name__`**: lets a descriptor know which attribute name it was assigned to.
+- **Dynamic class**: a class created at runtime, often with `type`.
 
-You can roughly think of it as:
+## Run A Registry And Descriptor Example
 
-> **Using code to generate, modify, or organize code structure itself.**
-
-For example:
-
-- Dynamically creating classes
-- Automatically registering subclasses
-- Generating behavior from field declarations
-
-### Why Is It Needed in Engineering?
-
-Because some boilerplate is repeated too many times.
-If you write everything manually every time, the code can become:
-
-- Long
-- Hard to maintain
-- Easy to forget parts of
-
-### An Analogy
-
-Regular programming is like handcrafting furniture.
-Metaprogramming is more like making a mold first, then mass-producing similar furniture.
-
----
-
-## Dynamic Class Creation: The Most Direct Entry Point to Metaprogramming
-
-```python
-def build_model_class(name, fields):
-    return type(name, (), fields)
-
-
-User = build_model_class("User", {"role": "student", "active": True})
-user = User()
-
-print(user.role, user.active)
-print(User.__name__)
-```
-
-### What Does This Code Really Show?
-
-It shows that:
-
-- A class itself is also an object
-- A class can be created at runtime
-
-### Why Isn’t This the Default Way to Write Code?
-
-Because writing `class User:` directly is usually clearer.
-Dynamic class creation is more valuable only when:
-
-- The structure is highly repetitive
-- Fields come from configuration
-- Or framework-level code needs to generate classes automatically
-
----
-
-## Registry Pattern: A High-Frequency Use of Metaprogramming in Engineering
-
-A registry is a very practical kind of pattern.
-It lets the system automatically remember:
-
-- Which implementations exist
-- Which class corresponds to a given name
+Create `metaprogramming_demo.py`:
 
 ```python
 REGISTRY = {}
@@ -109,55 +37,23 @@ def register(name):
     def decorator(cls):
         REGISTRY[name] = cls
         return cls
+
     return decorator
 
 
 @register("csv")
 class CsvLoader:
     def load(self):
-        return "load csv"
+        return "csv rows"
 
 
 @register("json")
 class JsonLoader:
     def load(self):
-        return "load json"
+        return "json rows"
 
 
-loader = REGISTRY["json"]()
-print(loader.load())
-print(REGISTRY)
-```
-
-### Why Is the Registry Pattern So Common?
-
-Because it is especially well-suited for:
-
-- Plugin systems
-- Data loaders
-- Model backends
-- Tool registration
-
-### Why Is This Called “Practical Metaprogramming”?
-
-Because it is not dynamic just for flashiness.
-Instead, it clearly reduces:
-
-- Manually maintained mapping tables
-
----
-
-## Descriptors: Wrapping Field Behavior
-
-Descriptors can feel abstract at first,
-but the engineering intuition can be remembered simply as:
-
-- Adding rules to attribute access
-
-Here is a minimal validation example.
-
-```python
-class PositiveNumber:
+class NonEmpty:
     def __set_name__(self, owner, name):
         self.private_name = "_" + name
 
@@ -167,92 +63,63 @@ class PositiveNumber:
         return getattr(instance, self.private_name, None)
 
     def __set__(self, instance, value):
-        if value <= 0:
-            raise ValueError("value must be positive")
+        if not value:
+            raise ValueError("name cannot be empty")
         setattr(instance, self.private_name, value)
 
 
-class Config:
-    timeout = PositiveNumber()
+class JobConfig:
+    name = NonEmpty()
 
 
-cfg = Config()
-cfg.timeout = 3
-print(cfg.timeout)
+loader = REGISTRY["json"]()
+print(loader.load())
+print(sorted(REGISTRY))
+
+config = JobConfig()
+config.name = "daily-import"
+print(config.name)
+
+try:
+    config.name = ""
+except ValueError as error:
+    print("error:", error)
 ```
 
-### What Is the Most Important Thing to Learn from This Example?
+Run it:
 
-Not the protocol details themselves,
-but the idea that:
+```bash
+python metaprogramming_demo.py
+```
 
-- Attributes can also have custom read/write logic
+Expected output:
 
-This is very common in configuration systems, ORMs, and validation frameworks.
+```text
+json rows
+['csv', 'json']
+daily-import
+error: name cannot be empty
+```
 
----
+The registry removes a manual mapping table. The descriptor keeps validation next to the field definition.
 
-## When Is Metaprogramming Actually Worth Using?
+## When It Is Worth Using
 
-### There Are Lots of Repeated Patterns
+Metaprogramming is useful when:
 
-For example:
+1. Many classes need automatic registration.
+2. A framework needs to discover plugins.
+3. Many fields share the same validation behavior.
+4. Configuration should generate repeated structure.
 
-- Many similar loaders
-- Many plugins
-- Lots of field validation logic
+Avoid it when a normal class or dictionary is clearer.
 
-### Framework-Level Code
+## Common Mistakes
 
-If you are building:
+- Using dynamic tricks just to look advanced.
+- Hiding behavior so deeply that debugging becomes painful.
+- Removing small, harmless repetition at the cost of readability.
 
-- A plugin framework
-- A configuration framework
-- A registration and discovery system
+## Practice
 
-metaprogramming can be very valuable.
-
-### Cases Where It Is Not Suitable
-
-If it is just a normal business module,
-forcing metaprogramming in often makes things:
-
-- Harder to read
-- Harder to debug
-
----
-
-## The Most Common Misconceptions
-
-### Misconception 1: Dynamic Always Means More Advanced
-
-Dynamic is just a means, not the value itself.
-
-### Misconception 2: All Repetition Must Be Eliminated with Metaprogramming
-
-Sometimes writing things explicitly a few times is actually clearer.
-
-### Misconception 3: Metaprogramming Is Only for Framework Authors
-
-Although it is especially common in frameworks,
-patterns like registries are also very common in engineering projects.
-
----
-
-## Summary
-
-The most important thing in this section is not to learn metaprogramming as some kind of black magic,
-but to develop a judgment:
-
-> **The most valuable use of metaprogramming is in highly repetitive, strongly structured scenarios where it reduces boilerplate and unifies behavior; if it does not clearly reduce complexity, it is not worth using.**
-
-Once you grasp this, it becomes much easier to understand why framework source code is designed the way it is.
-
----
-
-## Exercises
-
-1. Add a `yaml` loader to the registry and experience the benefit of automatic registration.
-2. Modify `PositiveNumber` into a descriptor that validates that a string is non-empty.
-3. Think about it: when is writing a normal class directly better than dynamically generating one?
-4. Explain in your own words: why is a registry such a practical metaprogramming pattern?
+Add a `yaml` loader and confirm `sorted(REGISTRY)` includes it. Then create an `IntegerRange(min_value, max_value)` descriptor for a `retry_count` field.

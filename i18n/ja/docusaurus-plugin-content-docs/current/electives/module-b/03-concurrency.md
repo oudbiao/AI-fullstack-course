@@ -1,7 +1,7 @@
 ---
 title: "E.B.3 並行プログラミング（asyncio を含む）"
 sidebar_position: 10
-description: "I/O 集約型タスクから始めて、スレッド・コルーチン・asyncio がサービスコードでどこまで使えるのかを理解し、最小限の並行制御器を作れるようになる。"
+description: "asyncio、セマフォ、タイムアウトを使って I/O タスクを並行実行しつつ、上流サービスを守る。"
 keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 ---
 
@@ -9,77 +9,52 @@ keywords: [asyncio, concurrency, async, semaphore, gather, Python]
 
 ![asyncio 並行制御フローチャート](/img/course/elective-asyncio-concurrency-control-ja.png)
 
-![非同期タスクのタイムアウト・キャンセルとレート制限図](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-ja.png)
+![非同期タスクのタイムアウト・キャンセル・レート制限図](/img/course/elective-asyncio-timeout-cancel-rate-limit-map-ja.png)
 
-:::tip 図の読み方
-並行処理は、多ければ多いほど良いわけではありません。図を見るときは、event loop、semaphore、timeout、cancellation、retry、rate limit がどのように協力して上流サービスを守っているかに注目してください。特に LLM API、RAG のクロール、Agent のツール呼び出しに向いています。
-:::
+並行処理は、プログラムの多くの時間が「待ち」であるときに役立ちます。HTTP 呼び出し、DB 呼び出し、ファイル I/O、スクレイピング、RAG 検索、Agent のツール呼び出しなどです。CPU が重い処理を魔法のように速くするものではありません。
 
-:::tip この節の位置づけ
-Python の並行プログラミングは、いちばん「API の暗記問題」として学ばれやすい分野です。  
-でも、実務で本当に大事なのは次の問いです。
+## 準備するもの
 
-> **いつ並行処理が必要で、いつそれがかえって複雑さを増やすのか？**
+- Python 3.10+
+- 外部パッケージ不要
+- `python` を実行できるターミナル
 
-特に AI アプリケーションやサービス側では、多くのタスクが本質的に I/O 集約型です。ここは `asyncio` が最も得意とする場面です。
-:::
+## 重要用語
 
-## 学習目標
+- **I/O-bound（I/O 待ち中心）**：大半の時間を外部システム待ちに使う処理。
+- **CPU-bound（CPU 計算中心）**：大半の時間を計算に使う処理。
+- **Coroutine（コルーチン）**：`await` で一時停止できる非同期関数。
+- **`asyncio.gather`**：複数の awaitable を実行し、結果を集める。
+- **Semaphore（セマフォ）**：同時に動くタスク数を制限する。
+- **Timeout（タイムアウト）**：一定時間を超えたら待つのをやめる。
 
-- I/O 集約型タスクと CPU 集約型タスクの違いを理解する
-- `asyncio` が多くのサービス場面に向いている理由を理解する
-- `gather`、`Semaphore`、タイムアウト制御を使って並行処理を組み立てられるようになる
-- 「並行処理は道具であって、デフォルトの答えではない」という意識を持つ
+## 制御付き非同期 batch を動かす
 
----
-
-## 一、なぜ多くの Python プロジェクトは asyncio に行き着くのか？
-
-### 多くの処理は「待つ」時間が長いから
-
-たとえば：
-
-- HTTP の応答を待つ
-- データベースの応答を待つ
-- ファイルの読み込みを待つ
-
-この種のタスクでは、時間を使っているのは CPU 計算ではなく、  
-外部 I/O を待つ時間です。
-
-### asyncio の核心的な価値
-
-1つのタスクを待っている間に、  
-別のタスクを進められることです。
-
-これは特に次の処理に向いています。
-
-- クロール
-- API のオーケストレーション
-- 複数ツールのサービス
-- 一括リクエスト
-
-### たとえ話
-
-同期コードは、1つの窓口が1人ずつ対応するイメージです。  
-非同期コードは、順番待ちの整理券のようなもので、ある人の情報待ちの間に別の人の手続きを先に進められます。
-
----
-
-## 二、まずは最小の非同期並行サンプルを見てみよう
+`async_batch.py` を作成します。
 
 ```python
 import asyncio
 
 
-async def fetch(name, delay):
+async def call_tool(name, delay):
     await asyncio.sleep(delay)
-    return f"{name} done"
+    return f"{name}:ok"
+
+
+async def guarded_call(semaphore, name, delay, timeout):
+    async with semaphore:
+        try:
+            return await asyncio.wait_for(call_tool(name, delay), timeout=timeout)
+        except asyncio.TimeoutError:
+            return f"{name}:timeout"
 
 
 async def main():
+    semaphore = asyncio.Semaphore(2)
     results = await asyncio.gather(
-        fetch("task_a", 0.2),
-        fetch("task_b", 0.1),
+        guarded_call(semaphore, "search", 0.1, 0.5),
+        guarded_call(semaphore, "database", 0.2, 0.5),
+        guarded_call(semaphore, "slow_tool", 1.0, 0.3),
     )
     print(results)
 
@@ -87,198 +62,58 @@ async def main():
 asyncio.run(main())
 ```
 
-### このコードが本当に伝えたいことは？
+実行します。
 
-それは、次のことです。
+```bash
+python async_batch.py
+```
 
-- 2つの待機タスクを並行に進められる
+期待される出力：
 
-もし同期的に順番実行すると、  
-合計時間は次に近くなります。
+```text
+['search:ok', 'database:ok', 'slow_tool:timeout']
+```
 
-- `0.2 + 0.1`
+大切なのは `gather` だけではありません。`gather`、並行数の上限、タイムアウト処理を組み合わせることです。
 
-それではなく、
+## 上限を変える
 
-- `max(0.2, 0.1)`
-
-に近づきます。
-
-### なぜ AI アプリケーションでよく出てくるのか？
-
-多くのアプリケーションは同時に次を行うからです。
-
-- 検索
-- 複数 API の呼び出し
-- 複数サービスの読み書き
-
-これらは CPU を大量に使うというより、待ち時間が中心です。
-
----
-
-## 三、なぜ並行処理は多ければ多いほど良いわけではないのか？
-
-### 並行数が多すぎると上流を壊すことがある
-
-一度に 1000 リクエストを投げると、  
-速くなるどころか、むしろ次の問題が起きます。
-
-- レート制限に引っかかる
-- タイムアウトが増える
-- 上流が雪崩のように落ちる
-
-### だから並行数の上限が必要になることが多い
-
-もっともシンプルな方法の1つが
-
-- `Semaphore`
-
-です。
-
-これにより、同時に動かすタスク数を制限できます。
+次を：
 
 ```python
-import asyncio
-
-
 semaphore = asyncio.Semaphore(2)
-
-
-async def bounded_fetch(name, delay):
-    async with semaphore:
-        print("start", name)
-        await asyncio.sleep(delay)
-        print("end", name)
-        return name
-
-
-async def main():
-    tasks = [bounded_fetch(f"task_{i}", 0.2) for i in range(5)]
-    results = await asyncio.gather(*tasks)
-    print(results)
-
-
-asyncio.run(main())
 ```
 
-### このコードでいちばん学ぶべきこと
-
-並行処理は「一緒に動かせるか」だけではなく、  
-「一度にどれだけ動かすか」も重要です。
-
-ここが、オンラインサービスの重要な制御ポイントになります。
-
----
-
-## 四、タイムアウトとキャンセルはなぜ重要なのか？
-
-### タイムアウトがないと遅いタスクがずっと残る
-
-外部依存が多いシステムでは、これは非常に危険です。  
-もっともよく使う方法の1つは
-
-- `asyncio.wait_for(...)`
-
-です。
+次に変更します。
 
 ```python
-import asyncio
-
-
-async def slow_task():
-    await asyncio.sleep(2)
-    return "done"
-
-
-async def main():
-    try:
-        result = await asyncio.wait_for(slow_task(), timeout=0.5)
-        print(result)
-    except asyncio.TimeoutError:
-        print("timeout")
-
-
-asyncio.run(main())
+semaphore = asyncio.Semaphore(1)
 ```
 
-### なぜ Agent では特に重要なのか？
+最終結果は同じですが、タスクはより保守的に実行されます。実サービスでは、これにより上流 API を急なリクエストから守れます。
 
-Agent は多くの場合、次に依存するからです。
+## asyncio を使う場面
 
-- 外部ツール
-- 上流モデル
-- 検索システム
+向いているもの：
 
-タイムアウトがないと、システム全体の処理が止まりやすくなります。
+1. 多数のネットワークリクエスト
+2. 複数のツール呼び出し
+3. 複数ソースからの RAG 検索
+4. DB やキュー待ち
 
----
+最初の選択肢にしにくいもの：
 
-## 五、どんなときに asyncio を優先すべきではないか？
+1. 重い数値計算
+2. 大きな画像変換
+3. 待ち時間のボトルネックがなく、単純さを優先したいコード
 
-### 純粋な CPU 集約型タスク
+## よくある間違い
 
-たとえば：
-
-- 大量の数値計算
-- 画像の一括変換
-
-この種のタスクには、次のほうが向いています。
-
-- マルチプロセス
-- ネイティブの高性能ライブラリ
-
-### チームがまだ非同期の複雑さに慣れていない場合
-
-非同期コードでは、次の複雑さが増えます。
-
-- デバッグの難しさ
-- 状態管理の難しさ
-
-必要がないなら、無理に使う必要はありません。
-
-### 同期で十分に簡単かつ安定している場合
-
-小さなスクリプトや小規模タスクでは、  
-同期のほうがむしろ分かりやすいことがあります。
-
----
-
-## 六、よくある誤解
-
-### 誤解1：並行処理は必ず速くなる
-
-そうとは限りません。  
-大事なのは、そのタスクが I/O 集約型かどうかです。
-
-### 誤解2：`async` はどこにでも付けるべき
-
-非同期は手段であって、スタイルのラベルではありません。
-
-### 誤解3：`gather` さえ使えれば asyncio を理解したことになる
-
-実際の開発では、より重要なのはしばしば次の点です。
-
-- レート制限
-- タイムアウト
-- エラー処理
-
----
-
-## まとめ
-
-この節で最も大事なのは、`asyncio` を API の一覧として覚えることではなく、  
-実用的な判断基準を持つことです。
-
-> **タスクの中心が I/O 待ちなら、非同期並行処理はスループットを大きく改善できる。  
-> ただし本番では、並行数の上限、タイムアウト、エラー制御を必ず組み合わせる。**
-
-この判断が安定すると、以降のサービス側の並行処理コードがずっと読みやすくなります。
-
----
+- I/O-bound か確認せず、どこにでも `async` を付ける。
+- 並行数上限なしで `gather` を使う。
+- タイムアウトを忘れ、遅い上流一つで全体が詰まる。
+- 例外を握りつぶし、どのタスクが失敗したか記録しない。
 
 ## 練習
 
-1. `Semaphore(2)` を `Semaphore(1)` と `Semaphore(5)` に変えて、ログの順番の変化を比べてみましょう。
-2. なぜ多くの Agent / API のオーケストレーション処理は、もともと asyncio に向いているのでしょうか？
-3. なぜタイムアウト制御は、非同期システムでは `gather` と同じくらい重要だと言えるのでしょうか？
-4. `asyncio` を優先して使うのに向かないと思うタスクの例を1つ挙げてみましょう。
+ツール呼び出しをさらに5つ追加し、`Semaphore(3)` にします。その後、タイムアウトを `0.15` に下げ、いくつが `:timeout` になるか数えてください。

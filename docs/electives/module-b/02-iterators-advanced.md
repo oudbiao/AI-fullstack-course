@@ -1,215 +1,126 @@
 ---
 title: "E.B.2 Advanced Iterators and Generators"
 sidebar_position: 9
-description: "From lazy evaluation and streaming processing to generator pipelines and `yield from`, understand why iterators and generators are especially well-suited for data and service code."
+description: "Use generators to process data streams step by step instead of loading everything into memory."
 keywords: [iterator, generator, yield, yield from, lazy evaluation, streaming]
 ---
 
 # E.B.2 Advanced Iterators and Generators
 
-:::tip Section Overview
-Iterators and generators are often misunderstood as just “syntax tricks.”
-But in real-world engineering, their most important value is actually this:
-
-> **They let data be produced and consumed step by step, instead of loading everything into memory at once.**
-
-This is very common in data processing, log streams, batch jobs, and server-side code.
-:::
-
 ![Generator streaming pipeline diagram](/img/course/elective-generator-stream-pipeline-en.png)
 
-## Learning Objectives
+Generators are useful when data arrives as a stream: logs, files, API pages, sample batches, retrieval results, or model outputs. They produce one item at a time, so you avoid building unnecessary intermediate lists.
 
-- Understand the core value of iterators and generators in engineering
-- Understand why lazy evaluation can significantly reduce memory pressure
-- Learn how to build simple generator pipelines
-- Use runnable examples to master when to use `yield` and `yield from`
+## What You Need
 
----
+- Python 3.10+
+- No external packages
+- Basic understanding of `for` loops
 
-## Why do engineering teams like generators so much?
+## Key Terms
 
-### Because much data is a “stream,” not a “chunk”
+- **Iterator**: an object that can produce the next value.
+- **Generator**: a function that uses `yield` to produce values lazily.
+- **Lazy evaluation**: compute the next value only when needed.
+- **Pipeline**: small processing steps chained together.
+- **`yield from`**: forward values from another iterable.
 
-For example:
+## Run A Streaming Pipeline
 
-- Log streams
-- Reading files line by line
-- Network request results
-- Large-scale sample processing
-
-If you always read everything into a list first,
-it can easily lead to:
-
-- Memory waste
-- Increased latency
-
-### The core value of generators
-
-They let you:
-
-- Produce the next value only when needed
-
-This is lazy evaluation.
-
-### An analogy
-
-A list is like preparing a large table of dishes all at once.
-A generator is like serving dishes one by one to each table.
-
-If there are many guests and many dishes, the second approach usually uses fewer resources.
-
----
-
-## First, look at a sliding-window generator
+Create `generator_pipeline.py`:
 
 ```python
-def sliding_window(nums, size):
-    for i in range(len(nums) - size + 1):
-        yield nums[i : i + size]
-
-
-for window in sliding_window([1, 2, 3, 4, 5], 3):
-    print(window)
-```
-
-### Why is this code valuable?
-
-Because it already shows the essence of a generator:
-
-- It does not return all windows at once
-- It produces them one by one
-
-### Where is this kind of pattern common?
-
-For example:
-
-- Time-series windows
-- NLP chunking
-- Batch slicing
-
----
-
-## Generator pipelines: chaining multiple steps together
-
-In engineering, what is more common is not a single generator,
-but a pipeline made of multiple generators.
-
-```python
-def read_lines():
-    lines = [
+def read_events():
+    events = [
         "INFO request ok",
         "ERROR db timeout",
         "INFO cache hit",
         "ERROR auth failed",
+        "ERROR model busy",
     ]
-    for line in lines:
-        yield line
+    for event in events:
+        yield event
 
 
-def filter_errors(lines):
-    for line in lines:
-        if "ERROR" in line:
-            yield line
+def filter_errors(events):
+    for event in events:
+        if event.startswith("ERROR"):
+            yield event
 
 
-def normalize(lines):
-    for line in lines:
-        yield line.lower()
+def normalize(events):
+    for event in events:
+        yield event.lower()
 
 
-pipeline = normalize(filter_errors(read_lines()))
+def batch(items, size):
+    group = []
+    for item in items:
+        group.append(item)
+        if len(group) == size:
+            yield group
+            group = []
+    if group:
+        yield group
 
-for item in pipeline:
+
+pipeline = batch(normalize(filter_errors(read_events())), size=2)
+
+for group in pipeline:
+    print(group)
+```
+
+Run it:
+
+```bash
+python generator_pipeline.py
+```
+
+Expected output:
+
+```text
+['error db timeout', 'error auth failed']
+['error model busy']
+```
+
+The pipeline reads, filters, normalizes, and batches without creating a full list at every step.
+
+## Use `yield from`
+
+Add this helper:
+
+```python
+def flatten(groups):
+    for group in groups:
+        yield from group
+```
+
+Then change the final loop:
+
+```python
+for item in flatten(pipeline):
     print(item)
 ```
 
-### What is this example mainly trying to teach?
+This expresses “send every item inside each group outward” more clearly than a nested loop.
 
-A lot of data processing in engineering can be broken into:
+## When Generators Help
 
-- Reading
-- Filtering
-- Transforming
+Use generators when:
 
-If each step generates a full list,
-the pipeline becomes heavier;
-using a generator pipeline is more natural.
+1. The input may be large.
+2. You process records one by one.
+3. You want to connect read/filter/transform/batch steps.
+4. You do not need random access to all items.
 
-### Why is this useful for AI engineering too?
+Prefer a list when the data is small and repeated access makes the code simpler.
 
-Because you often work with:
+## Common Mistakes
 
-- Sample streams
-- Log streams
-- Retrieval result streams
+- Expecting a generator to be reusable after it has been consumed.
+- Assuming generators are always faster; their main benefit is often memory and structure.
+- Making a simple list transformation harder to read by forcing `yield` everywhere.
 
-These scenarios are naturally suited to generator pipelines.
+## Practice
 
----
-
-## Why is `yield from` worth learning?
-
-### What problem does it solve?
-
-When a generator simply wants to forward another iterable outward,
-`yield from` makes the code clearer.
-
-```python
-def chunk_batches():
-    yield [1, 2]
-    yield [3, 4]
-
-
-def flatten():
-    for batch in chunk_batches():
-        yield from batch
-
-
-print(list(flatten()))
-```
-
-### Why is it more worth learning than a nested loop?
-
-Because it expresses intent more clearly:
-
-- “Continue yielding the contents of the sub-iterator outward”
-
----
-
-## The easiest pitfalls to fall into
-
-### Misconception 1: Generators are always faster
-
-They usually save memory,
-but that does not mean they are absolutely faster in every scenario.
-
-### Misconception 2: Generators can only be iterated once
-
-In many cases, this is a design feature, not a bug.
-If you need to consume it repeatedly, you must create it again.
-
-### Misconception 3: Using generators just for the sake of using generators
-
-If the data size is small and the logic is simple,
-a plain list may actually be easier to read.
-
----
-
-## Summary
-
-The most important thing in this section is to build an engineering intuition:
-
-> **Generators and iterators are best suited for data flows that are produced step by step and consumed step by step. Their value is mainly in saving memory, reducing intermediate copies, and organizing pipelines.**
-
-Once you clearly understand this layer,
-you will naturally think of them when doing log processing, sample pipelines, and streaming services.
-
----
-
-## Exercises
-
-1. Modify `sliding_window` so it outputs data chunks with a fixed batch size.
-2. Use `yield from` to write another example that flattens a nested list.
-3. Think about when a list is more appropriate and when a generator is more appropriate.
-4. Can you rewrite an existing data processing function as a generator pipeline?
+Modify `batch` so it also prints `batch_id`. Then change the input events and confirm the pipeline still works without changing the later steps.
