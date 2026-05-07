@@ -1,161 +1,44 @@
 ---
-title: "7.1.5 HuggingFace 快速上手"
+title: "7.1.5 Hugging Face 快速上手"
 sidebar_position: 4
-description: "从 tokenizer、config、model、batch 到 forward 输出，理解 HuggingFace 最常见的工作流，并给出一个不依赖网络下载的可运行入门示例。"
-keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
+description: "跑通 Hugging Face 核心流程：tokenizer 输出、config、batch 张量、model.forward、hidden states、logits 和常见排错。"
+keywords: [Hugging Face, transformers, tokenizer, model, config, forward, batch, logits]
 ---
 
-# 7.1.5 HuggingFace 快速上手
+# 7.1.5 Hugging Face 快速上手
 
-:::tip 本节定位
-很多新人第一次接触 HuggingFace 时，会被这些名字绕晕：
+![Hugging Face 工作流对象图](/img/course/ch07-huggingface-workflow-object-map.png)
 
-- `AutoTokenizer`
-- `AutoModel`
-- `pipeline`
-- `config`
-- `forward`
+:::tip 核心链路
+大多数 Hugging Face 示例都能还原成一条链：
 
-看起来像很多 API，
-但如果把核心流程抽出来，其实非常稳定：
-
-> **文本 -> tokenizer -> input ids / mask -> model.forward -> hidden states / logits**
-
-这节课的目标，就是把这条链讲清楚。
-:::
-
-## 学习目标
-
-- 理解 HuggingFace 最常见的输入到输出流程
-- 分清 tokenizer、config、model、batch 分别负责什么
-- 看懂一个不依赖在线下载的最小 `transformers` 示例
-- 建立以后读官方示例和仓库代码时的第一层熟悉感
-
----
-
-## 一、HuggingFace 到底在帮我们做什么？
-
-### 它不是一个“模型”，而是一整套生态
-
-很多人会把 HuggingFace 误解成：
-
-- 一个很强的模型平台
-
-更准确地说，它是一整套围绕模型开发的工具生态，常见包括：
-
-- `transformers`
-- `datasets`
-- `tokenizers`
-- `peft`
-
-其中你最常接触的是：
-
-- tokenizer
-- model
-- config
-
-### 最常见的工作流只有几步
-
-无论是做分类、生成还是抽特征，
-最核心的调用路径通常都长这样：
-
-1. 用 tokenizer 把文本转成 `input_ids`
-2. 准备 `attention_mask`
-3. 把 batch 喂给 model
-4. 从输出里拿到 hidden states、logits 或生成结果
-
-![HuggingFace 标准工作流对象关系图](/img/course/ch07-huggingface-workflow-object-map.png)
-
-:::tip 读图提示
-读这张图时把 HuggingFace 看成一条标准实验台：`tokenizer` 负责把文本变成张量，`config` 描述模型结构，`model.forward` 执行计算，输出再变成 hidden states、logits 或生成结果。API 名字很多，但主线其实很稳定。
-:::
-
-如果这条链在脑子里顺了，
-很多例子就不会再显得乱。
-
-### 一个类比：像组装标准化实验台
-
-你可以把 HuggingFace 想成实验台标准件：
-
-- tokenizer 像样本预处理器
-- config 像模型蓝图
-- model 像真正执行计算的机器
-- batch 像一次送进去的一盘样本
-
-它的价值就在于：
-
-- 统一接口
-- 降低重复劳动
-- 让你更快试模型和任务
-
----
-
-## 二、先把几个最常见对象分清楚
-
-### Tokenizer：把文本变成模型输入
-
-它通常负责：
-
-- 分词
-- token -> id
-- padding
-- truncation
-
-输出里最常见的字段是：
-
-- `input_ids`
-- `attention_mask`
-
-### Config：模型结构蓝图
-
-config 主要描述：
-
-- hidden size
-- 层数
-- 头数
-- 词表大小
-
-你可以把它理解成“模型长什么样”的说明书。
-
-### Model：真正执行 forward 的部分
-
-model 会根据 config 建出神经网络，
-然后接受张量输入，输出：
-
-- `last_hidden_state`
-- `pooler_output`
-- `logits`
-
-不同任务模型输出会不太一样，
-但核心思路一致。
-
-### Batch：为什么总要做 padding
-
-因为一批文本长度不同。
-模型通常要求输入张量形状统一，
-所以要：
-
-- 把短句补齐
-- 用 mask 告诉模型哪些位置是真实 token
-
----
-
-## 三、先看一个零下载、可直接运行的 `transformers` 示例
-
-这段代码有几个特别重要的特点：
-
-- 不依赖联网下载模型
-- 直接用本地 `BertConfig` 随机初始化一个小模型
-- 自己准备一份超小词表
-- 把两条句子编码成 batch 喂给模型
-
-也就是说，它能让你把 HuggingFace 的主干流程完整跑通。
-
-:::info 运行提示
-```bash
-pip install torch transformers
+```text
+text -> tokenizer -> input_ids / attention_mask -> model.forward -> hidden states / logits / generated tokens
 ```
+
+理解这条链以后，`pipeline`、`Trainer`、`DataCollator`、`AutoModel...` 都只是便利封装，不再是神秘 API。
 :::
+
+## 四个对象
+
+| 对象 | 负责什么 | 常见字段 |
+|---|---|---|
+| tokenizer | 文本预处理与 token 到 ID 转换 | `input_ids`, `attention_mask` |
+| config | 模型结构蓝图 | `hidden_size`, `num_hidden_layers`, `vocab_size` |
+| model | 神经网络计算 | `last_hidden_state`, `logits`, generated IDs |
+| batch | 形状统一的一批张量 | `[batch, seq_len]` 输入 |
+
+最重要的习惯是检查 shape。shape 不对时，模型通常还没进入真正的“AI”部分。
+
+## 实验 1：不下载权重也跑通流程
+
+安装依赖：
+
+```bash
+python -m pip install torch transformers
+```
+
+这个例子用 `BertConfig` 创建一个很小的随机 BERT。它没有真实语言能力，但不用下载预训练权重就能看清完整调用路径。
 
 ```python
 import torch
@@ -175,29 +58,21 @@ vocab = {
 }
 
 
-def tokenize(text):
-    return text.lower().split()
-
-
 def encode(text, max_length=6):
-    tokens = ["[CLS]"] + tokenize(text) + ["[SEP]"]
+    tokens = ["[CLS]"] + text.lower().split() + ["[SEP]"]
     input_ids = [vocab.get(token, vocab["[UNK]"]) for token in tokens][:max_length]
     attention_mask = [1] * len(input_ids)
 
-    if len(input_ids) < max_length:
-        pad_count = max_length - len(input_ids)
-        input_ids += [vocab["[PAD]"]] * pad_count
-        attention_mask += [0] * pad_count
+    while len(input_ids) < max_length:
+        input_ids.append(vocab["[PAD]"])
+        attention_mask.append(0)
 
     return input_ids, attention_mask
 
 
-texts = [
-    "please help reset password",
-    "refund order",
-]
-
+texts = ["please help reset password", "refund order"]
 encoded = [encode(text) for text in texts]
+
 input_ids = torch.tensor([item[0] for item in encoded], dtype=torch.long)
 attention_mask = torch.tensor([item[1] for item in encoded], dtype=torch.long)
 
@@ -218,59 +93,33 @@ print("last_hidden_state shape:", tuple(outputs.last_hidden_state.shape))
 print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 ```
 
-### 这段代码最该按什么顺序读？
+预期输出：
 
-最推荐的顺序是：
+```text
+input_ids shape        : (2, 6)
+attention_mask shape   : (2, 6)
+last_hidden_state shape: (2, 6, 32)
+pooler_output shape    : (2, 32)
+```
 
-1. 先看 `encode`，弄清文本是怎么变成 `input_ids` 的
-2. 再看 `BertConfig`，知道模型结构是怎样定义的
-3. 最后看 `model(...)` 的输出 shape
+这样读 shape：
 
-这样你会很快把：
+- `2` 表示 batch 里有两段文本；
+- `6` 表示每段都 pad 或截断到长度 6；
+- `32` 来自 `hidden_size=32`；
+- `last_hidden_state` 保留每个 token 一个向量；
+- `pooler_output` 是这个 BERT 风格模型里每段文本一个向量。
 
-- 文本格式
-- 模型结构
-- 前向输出
+## 实验 2：使用真实预训练模型
 
-这三件事串起来。
-
-### 为什么这里不用 `from_pretrained`？
-
-因为 `from_pretrained` 常常需要联网下载权重。
-为了保证示例可以离线直接跑，这里故意采用：
-
-- `BertConfig(...)`
-- `BertModel(config)`
-
-也就是说：
-
-- 模型是随机初始化的
-
-它不能拿来做真实任务预测，
-但非常适合拿来理解 HuggingFace 的基础调用流程。
-
-### 这个例子里最容易忽略的点是什么？
-
-最容易忽略的是：
-
-- batch 不是自然存在的
-- 是你先把每条文本编码，再拼成张量的
-
-如果你连这一层都看清楚，
-后面再读 `DataCollator`、`Trainer` 一类封装就容易很多。
-
----
-
-## 四、真实项目里最常见的 `from_pretrained` 长什么样？
-
-如果你有联网环境，
-更常见的写法会是：
+有网络时，使用 `from_pretrained`：
 
 ```python
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoModel, AutoTokenizer
 
-tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-model = AutoModel.from_pretrained("bert-base-uncased")
+model_name = "bert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModel.from_pretrained(model_name)
 
 batch = tokenizer(
     ["please help reset password", "refund order"],
@@ -280,122 +129,62 @@ batch = tokenizer(
 )
 
 outputs = model(**batch)
+
+print(batch.keys())
+print(batch["input_ids"].shape)
 print(outputs.last_hidden_state.shape)
 ```
 
-这段代码和前面的离线版，本质上做的是同一件事。
-区别只是：
+预期形状级输出：
 
-- tokenizer 和模型权重由 Hub 直接提供了
+```text
+dict_keys(['input_ids', 'token_type_ids', 'attention_mask'])
+torch.Size([2, 6])
+torch.Size([2, 6, 768])
+```
 
-所以你可以把前面的离线示例看成：
+这时模型拥有预训练权重。流程还是同一条，只是 tokenizer、config 和 weights 都来自 Hub，并且必须彼此匹配。
 
-- 把黑盒拆开看
+## 读真实代码时的对象地图
 
-把这段 `from_pretrained` 看成：
+![Hugging Face 术语地图](/img/course/ch07-huggingface-terms-map.png)
 
-- 用官方封装快速上手
+读仓库时，把陌生名字映射回核心链路：
 
----
+| 名称 | 怎么理解 |
+|---|---|
+| `pipeline` | tokenizer + model 的高层演示封装 |
+| `AutoTokenizer` | 根据模型仓库加载匹配的 tokenizer 类 |
+| `AutoModel` | 加载不带任务头的基础模型 |
+| `AutoModelForSequenceClassification` | 基础模型加分类头 |
+| `AutoModelForCausalLM` | 用于 next-token generation 的 decoder 类模型 |
+| `DataCollator` | 把样本 pad 并堆成 batch |
+| `Trainer` | 封装训练循环、评估、checkpoint 和日志 |
+| `logits` | softmax 或 token 选择之前的原始分数 |
 
-## 五、为什么 HuggingFace 这么适合入门和实验？
+## 排查清单
 
-### 因为接口统一
-
-很多模型虽然内部结构不同，
-但在 HuggingFace 里通常都遵循类似接口：
-
-- tokenizer 负责文本输入
-- model 负责 forward
-
-这让你切换模型时负担小很多。
-
-### 因为生态丰富
-
-你后面会继续碰到：
-
-- `AutoModelForSequenceClassification`
-- `AutoModelForCausalLM`
-- `Trainer`
-- `DataCollator`
-
-它们都建立在这条最基础的链上。
-
-![HuggingFace 术语地图](/img/course/ch07-huggingface-terms-map.png)
-
-:::tip 术语图怎么看
-先看主链路：文本变成 `input_ids` 和 `attention_mask`，再组成 batch 喂给 model，`forward` 执行计算，最后得到 hidden states 或 logits。`pipeline`、`Trainer`、`DataCollator` 都是围绕这条链路的便利封装，不是另一套神秘系统。
-:::
-
-### 常见 HuggingFace 术语速查
-
-| 术语 | 它是什么 | 这里为什么重要 |
-|---|---|---|
-| `pipeline` | 常见任务的高层封装 | 适合快速演示，但会隐藏 tokenizer 和 model 细节 |
-| `Trainer` | 管理训练循环、评估和 checkpoint 的训练助手 | 适合在你理解手写流程后使用 |
-| `DataCollator` | 把样本补齐并打包成 batch 的工具 | 可以减少很多 shape、padding 相关错误 |
-| `AutoModelForCausalLM` | 用于预测下一个 token 的模型类 | 常用于 GPT 风格的 decoder-only 语言模型 |
-| `logits` | 概率之前的原始预测分数 | 后续会用它来选类别或下一个 token |
-
-看到以 `Auto` 开头的类名时，可以先这样理解：
-
-- “根据模型配置，自动选择匹配的类。”
-
-### 因为它非常贴合“先实验，再深入”
-
-很多时候你不是先自己从零实现一切，
-而是先跑通一个标准接口，
-然后再逐步理解：
-
-- tokenizer
-- attention mask
-- logits
-- generation config
-
-这也是 HuggingFace 作为学习入口很有价值的原因。
-
----
-
-## 六、最容易踩的坑
-
-### 误区一：跑通 `from_pretrained` 就等于真的理解了模型
-
-跑通只是开始。
-真正理解还要继续知道：
-
-- 输入张量长什么样
-- 输出字段代表什么
-- tokenizer 和模型是否匹配
-
-### 误区二：忽略 `attention_mask`
-
-如果有 padding 却不带 mask，
-模型可能会把补齐位置当成真实内容处理。
-
-### 误区三：把随机初始化模型和预训练模型混为一谈
-
-这节课的离线示例只是为了理解接口。
-真正有任务能力的，通常是：
-
-- 加载了预训练权重的模型
-
----
-
-## 小结
-
-这节最重要的不是记住多少 HuggingFace 类名，
-而是把最基础的工作流真正串起来：
-
-> **文本先经过 tokenizer 变成 `input_ids` 和 `attention_mask`，再由 config 定义结构、由 model 执行 forward，最后输出隐藏状态或任务结果。**
-
-只要这条链顺了，
-你以后再看官方示例、第三方仓库或训练脚本，就不会被表面 API 吓住。
-
----
+- Tokenizer 和 model 应该来自同一个模型仓库。
+- 调用模型前先打印 `batch.keys()` 和张量 shape。
+- 只要用了 padding，通常就需要 `attention_mask`。
+- 随机 `BertModel(config)` 只用于理解接口，不是预训练模型。
+- `AutoModel` 输出表示；任务专用类会输出任务 logits。
+- CUDA 内存报错时，先降 batch size、sequence length 或 model size，再怀疑代码逻辑。
 
 ## 练习
 
-1. 把示例中的 `max_length` 改小，观察 padding 和 truncation 的变化。
-2. 为什么这节课用 `BertConfig + BertModel` 而不是直接 `from_pretrained`？
-3. 用自己的话解释：tokenizer、config、model 三者分别负责什么。
-4. 如果你看到一个 batch 里有 `input_ids` 但没有 `attention_mask`，你会先怀疑什么问题？
+1. 把实验 1 的 `max_length` 从 `6` 改成 `4`，哪个 token 被截掉？
+2. 把 `hidden_size=64`，哪个输出 shape 改变？
+3. 加入第三句话，确认 batch 维度从 `2` 变成 `3`。
+4. 在实验 2 中把 `AutoModel` 换成 `AutoModelForSequenceClassification`，会多出什么字段？
+5. 解释为什么 `pipeline()` 适合演示，但不足以排查 batch shape 问题。
+
+## 小结
+
+学习 Hugging Face 最稳的方法是跟着张量走：
+
+```text
+tokenizer creates tensors -> model consumes tensors -> outputs expose states or logits
+```
+
+一旦能检查这条路径，官方示例就不会那么吓人。

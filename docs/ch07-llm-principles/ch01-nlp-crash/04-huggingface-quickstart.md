@@ -1,161 +1,44 @@
 ---
-title: "7.1.5 HuggingFace Quick Start"
+title: "7.1.5 Hugging Face Quick Start"
 sidebar_position: 4
-description: "From tokenizer, config, model, batch, to forward outputs, understand HuggingFace’s most common workflow, and get a runnable beginner example that does not rely on network downloads."
-keywords: [HuggingFace, transformers, tokenizer, model, config, forward, batch]
+description: "Run the core Hugging Face workflow: tokenizer output, config, batch tensors, model.forward, hidden states, logits, and common debugging checks."
+keywords: [Hugging Face, transformers, tokenizer, model, config, forward, batch, logits]
 ---
 
-# 7.1.5 HuggingFace Quick Start
+# 7.1.5 Hugging Face Quick Start
 
-:::tip Section Overview
-When many beginners first encounter HuggingFace, they get confused by these names:
+![Hugging Face workflow object map](/img/course/ch07-huggingface-workflow-object-map-en.png)
 
-- `AutoTokenizer`
-- `AutoModel`
-- `pipeline`
-- `config`
-- `forward`
+:::tip Core Chain
+Most Hugging Face examples reduce to one chain:
 
-They look like a lot of APIs,
-but if you extract the core workflow, it is actually very stable:
-
-> **text -> tokenizer -> input ids / mask -> model.forward -> hidden states / logits**
-
-The goal of this lesson is to make this chain clear.
-:::
-
-## Learning Goals
-
-- Understand HuggingFace’s most common input-to-output workflow
-- Distinguish what tokenizer, config, model, and batch are responsible for
-- Read a minimal `transformers` example that does not depend on online downloads
-- Build an initial sense of familiarity for reading official examples and repository code later
-
----
-
-## What Exactly Does HuggingFace Help Us Do?
-
-### It is not a “model,” but an entire ecosystem
-
-Many people misunderstand HuggingFace as:
-
-- a very powerful model platform
-
-More accurately, it is a whole ecosystem of tools for model development, commonly including:
-
-- `transformers`
-- `datasets`
-- `tokenizers`
-- `peft`
-
-What you will encounter most often are:
-
-- tokenizer
-- model
-- config
-
-### The most common workflow only has a few steps
-
-Whether you are doing classification, generation, or feature extraction,
-the most important call path usually looks like this:
-
-1. Use the tokenizer to convert text into `input_ids`
-2. Prepare `attention_mask`
-3. Feed the batch into the model
-4. Get hidden states, logits, or generated results from the output
-
-![HuggingFace standard workflow object relationship diagram](/img/course/ch07-huggingface-workflow-object-map-en.png)
-
-:::tip Reading the diagram
-When reading this diagram, think of HuggingFace as a standard lab bench: `tokenizer` turns text into tensors, `config` describes the model structure, `model.forward` performs the computation, and the output is then turned into hidden states, logits, or generation results. There are many API names, but the main line is actually very stable.
-:::
-
-Once this chain becomes clear in your mind,
-many examples will no longer feel messy.
-
-### An analogy: like assembling a standardized lab setup
-
-You can think of HuggingFace as standardized lab components:
-
-- tokenizer is like a sample preprocessor
-- config is like the model blueprint
-- model is the machine that actually performs computation
-- batch is a tray of samples sent in at once
-
-Its value lies in:
-
-- unified interfaces
-- reduced repetitive work
-- helping you try models and tasks faster
-
----
-
-## First, Separate the Most Common Objects
-
-### Tokenizer: turns text into model input
-
-It usually handles:
-
-- tokenization
-- token -> id
-- padding
-- truncation
-
-The most common fields in its output are:
-
-- `input_ids`
-- `attention_mask`
-
-### Config: the model structure blueprint
-
-config mainly describes:
-
-- hidden size
-- number of layers
-- number of heads
-- vocabulary size
-
-You can think of it as the instruction manual for “what the model looks like.”
-
-### Model: the part that actually performs forward
-
-The model builds the neural network according to config,
-then accepts tensor inputs and outputs:
-
-- `last_hidden_state`
-- `pooler_output`
-- `logits`
-
-Outputs differ a bit across tasks,
-but the core idea is the same.
-
-### Batch: why padding is always needed
-
-Because a batch contains texts of different lengths.
-Models usually require input tensors to have a unified shape,
-so you need to:
-
-- pad shorter sentences
-- use a mask to tell the model which positions are real tokens
-
----
-
-## First Look at a Zero-Download, Runnable `transformers` Example
-
-This code has a few very important characteristics:
-
-- It does not rely on downloading a model from the internet
-- It directly uses a locally defined `BertConfig` to randomly initialize a small model
-- It prepares a very small vocabulary by itself
-- It encodes two sentences as a batch and feeds them into the model
-
-In other words, it lets you run through the main HuggingFace workflow completely.
-
-:::info Run tip
-```bash
-pip install torch transformers
+```text
+text -> tokenizer -> input_ids / attention_mask -> model.forward -> hidden states / logits / generated tokens
 ```
+
+If you understand this chain, `pipeline`, `Trainer`, `DataCollator`, and `AutoModel...` become convenience layers instead of mysterious APIs.
 :::
+
+## The Four Objects
+
+| Object | Responsibility | Common fields |
+|---|---|---|
+| tokenizer | text preprocessing and token-to-ID conversion | `input_ids`, `attention_mask` |
+| config | model blueprint | `hidden_size`, `num_hidden_layers`, `vocab_size` |
+| model | neural computation | `last_hidden_state`, `logits`, generated IDs |
+| batch | stacked tensors with one shape | `[batch, seq_len]` inputs |
+
+The important habit is to inspect shapes. If a shape is wrong, the model usually has not even reached the “AI” part yet.
+
+## Lab 1: Run the Workflow Without Downloading Weights
+
+Install dependencies:
+
+```bash
+python -m pip install torch transformers
+```
+
+This example uses a tiny random BERT model from `BertConfig`. It has no real language ability, but it lets you inspect the full call path without downloading pretrained weights.
 
 ```python
 import torch
@@ -175,29 +58,21 @@ vocab = {
 }
 
 
-def tokenize(text):
-    return text.lower().split()
-
-
 def encode(text, max_length=6):
-    tokens = ["[CLS]"] + tokenize(text) + ["[SEP]"]
+    tokens = ["[CLS]"] + text.lower().split() + ["[SEP]"]
     input_ids = [vocab.get(token, vocab["[UNK]"]) for token in tokens][:max_length]
     attention_mask = [1] * len(input_ids)
 
-    if len(input_ids) < max_length:
-        pad_count = max_length - len(input_ids)
-        input_ids += [vocab["[PAD]"]] * pad_count
-        attention_mask += [0] * pad_count
+    while len(input_ids) < max_length:
+        input_ids.append(vocab["[PAD]"])
+        attention_mask.append(0)
 
     return input_ids, attention_mask
 
 
-texts = [
-    "please help reset password",
-    "refund order",
-]
-
+texts = ["please help reset password", "refund order"]
 encoded = [encode(text) for text in texts]
+
 input_ids = torch.tensor([item[0] for item in encoded], dtype=torch.long)
 attention_mask = torch.tensor([item[1] for item in encoded], dtype=torch.long)
 
@@ -218,59 +93,33 @@ print("last_hidden_state shape:", tuple(outputs.last_hidden_state.shape))
 print("pooler_output shape    :", tuple(outputs.pooler_output.shape))
 ```
 
-### In what order should you read this code?
+Expected output:
 
-The best order is:
+```text
+input_ids shape        : (2, 6)
+attention_mask shape   : (2, 6)
+last_hidden_state shape: (2, 6, 32)
+pooler_output shape    : (2, 32)
+```
 
-1. Look at `encode` first to understand how text becomes `input_ids`
-2. Then look at `BertConfig` to see how the model structure is defined
-3. Finally, look at the output shapes from `model(...)`
+Read the shapes:
 
-This way, you will quickly connect:
+- `2` means two texts in the batch.
+- `6` means each sequence was padded or truncated to length 6.
+- `32` comes from `hidden_size=32`.
+- `last_hidden_state` keeps one vector per token.
+- `pooler_output` is one vector per sequence in this BERT-style model.
 
-- text format
-- model structure
-- forward outputs
+## Lab 2: Use a Real Pretrained Model
 
-These three things together.
-
-### Why not use `from_pretrained` here?
-
-Because `from_pretrained` often requires downloading weights from the internet.
-To make sure this example can run offline, we intentionally use:
-
-- `BertConfig(...)`
-- `BertModel(config)`
-
-That means:
-
-- the model is randomly initialized
-
-It cannot be used for real task prediction,
-but it is very suitable for understanding HuggingFace’s basic calling workflow.
-
-### What is the easiest detail to overlook here?
-
-The easiest thing to overlook is:
-
-- a batch does not exist naturally
-- you first encode each text, then stack them into tensors
-
-If you understand this layer clearly,
-it will be much easier to read wrappers such as `DataCollator` and `Trainer` later.
-
----
-
-## What Does a Real-World `from_pretrained` Usually Look Like?
-
-If you have an internet connection,
-a more common pattern would be:
+When internet access is available, use `from_pretrained`:
 
 ```python
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoModel, AutoTokenizer
 
-tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-model = AutoModel.from_pretrained("bert-base-uncased")
+model_name = "bert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModel.from_pretrained(model_name)
 
 batch = tokenizer(
     ["please help reset password", "refund order"],
@@ -280,122 +129,62 @@ batch = tokenizer(
 )
 
 outputs = model(**batch)
+
+print(batch.keys())
+print(batch["input_ids"].shape)
 print(outputs.last_hidden_state.shape)
 ```
 
-This code does essentially the same thing as the offline version above.
-The difference is just that:
+Expected shape-level output:
 
-- the tokenizer and model weights are provided directly by the Hub
+```text
+dict_keys(['input_ids', 'token_type_ids', 'attention_mask'])
+torch.Size([2, 6])
+torch.Size([2, 6, 768])
+```
 
-So you can think of the offline example above as:
+Now the model has pretrained weights. The workflow is the same, but the tokenizer, config, and weights come from the Hub and must match each other.
 
-- opening the black box and looking inside
+## Object Map for Reading Real Code
 
-And think of this `from_pretrained` version as:
+![Hugging Face terms map](/img/course/ch07-huggingface-terms-map-en.png)
 
-- getting started quickly with the official wrapper
+When reading a repository, map unfamiliar names back to the core chain:
 
----
+| Name | How to think about it |
+|---|---|
+| `pipeline` | high-level demo wrapper around tokenizer + model |
+| `AutoTokenizer` | loads the tokenizer class that matches the model repo |
+| `AutoModel` | loads the base model without a task head |
+| `AutoModelForSequenceClassification` | base model plus classification head |
+| `AutoModelForCausalLM` | decoder-style model for next-token generation |
+| `DataCollator` | pads and stacks examples into a batch |
+| `Trainer` | wraps training loop, evaluation, checkpoints, and logging |
+| `logits` | raw scores before softmax or token selection |
 
-## Why Is HuggingFace So Good for Beginners and Experiments?
+## Debugging Checklist
 
-### Because the interfaces are unified
-
-Even though many models differ internally,
-they usually follow a similar interface in HuggingFace:
-
-- tokenizer handles text input
-- model handles forward
-
-This makes switching models much easier.
-
-### Because the ecosystem is rich
-
-Later, you will also encounter:
-
-- `AutoModelForSequenceClassification`
-- `AutoModelForCausalLM`
-- `Trainer`
-- `DataCollator`
-
-They are all built on top of this most basic chain.
-
-![HuggingFace terms map](/img/course/ch07-huggingface-terms-map-en.png)
-
-:::tip How to read the terms map
-Read the core chain first: text becomes `input_ids` and `attention_mask`, a batch is sent into the model, `forward` runs the computation, and outputs such as hidden states or logits come back. Tools like `pipeline`, `Trainer`, and `DataCollator` are convenience layers around that chain, not a different magic system.
-:::
-
-### A Quick Glossary for Common HuggingFace Terms
-
-| Term | What it is | Why it matters here |
-|---|---|---|
-| `pipeline` | A high-level wrapper for common tasks | Good for quick demos, but it hides tokenizer/model details |
-| `Trainer` | A training helper that manages training loops, evaluation, and checkpoints | Useful after you understand the manual workflow |
-| `DataCollator` | A helper that pads and packs samples into batches | Prevents many batch-shape and padding mistakes |
-| `AutoModelForCausalLM` | A model class for next-token generation | Common for GPT-style decoder-only language models |
-| `logits` | Raw prediction scores before probabilities | Used to choose classes or the next token |
-
-If a name starts with `Auto`, you can read it as:
-
-- “Choose the matching class automatically based on the model configuration.”
-
-### Because it fits the pattern of “experiment first, then go deeper”
-
-Often, you do not implement everything from scratch first,
-but instead run a standard interface to get things working,
-and then gradually understand:
-
-- tokenizer
-- attention mask
-- logits
-- generation config
-
-This is also why HuggingFace is such a valuable learning entry point.
-
----
-
-## Common Pitfalls
-
-### Mistake 1: Thinking that making `from_pretrained` work means you truly understand the model
-
-Getting it to run is only the beginning.
-Real understanding also requires knowing:
-
-- what the input tensors look like
-- what each output field means
-- whether the tokenizer and model match
-
-### Mistake 2: Ignoring `attention_mask`
-
-If there is padding but no mask,
-the model may treat padded positions as real content.
-
-### Mistake 3: Mixing up randomly initialized models with pretrained models
-
-The offline example in this lesson is only for understanding the interface.
-Models with real task ability are usually:
-
-- models loaded with pretrained weights
-
----
-
-## Summary
-
-The most important thing in this lesson is not remembering how many HuggingFace class names there are,
-but truly connecting the most basic workflow:
-
-> **Text first goes through the tokenizer to become `input_ids` and `attention_mask`, then config defines the structure, model performs the forward pass, and finally the output is hidden states or task results.**
-
-Once this chain is clear,
-you will no longer be intimidated by official examples, third-party repositories, or training scripts.
-
----
+- Tokenizer and model should come from the same model repo.
+- Print `batch.keys()` and tensor shapes before calling the model.
+- If you pad, you usually need `attention_mask`.
+- A random `BertModel(config)` is only for interface learning; it is not pretrained.
+- `AutoModel` outputs representations; task-specific classes output task logits.
+- If CUDA memory fails, reduce batch size, sequence length, or model size before changing code logic.
 
 ## Exercises
 
-1. Change `max_length` in the example to a smaller value and observe how padding and truncation change.
-2. Why does this lesson use `BertConfig + BertModel` instead of `from_pretrained` directly?
-3. Explain in your own words what tokenizer, config, and model are responsible for.
-4. If you see a batch with `input_ids` but no `attention_mask`, what problem would you suspect first?
+1. Change `max_length` in Lab 1 from `6` to `4`. Which token gets truncated?
+2. Change `hidden_size=64`. Which output shape changes?
+3. Add a third sentence and confirm the batch dimension changes from `2` to `3`.
+4. In Lab 2, replace `AutoModel` with `AutoModelForSequenceClassification`. What new field appears?
+5. Explain why `pipeline()` is useful for demos but not enough for debugging batch-shape problems.
+
+## Summary
+
+Hugging Face is easiest to learn by following tensors:
+
+```text
+tokenizer creates tensors -> model consumes tensors -> outputs expose states or logits
+```
+
+Once you can inspect that path, official examples become much less intimidating.
