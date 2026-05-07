@@ -1,7 +1,7 @@
 ---
 title: "E.C.3 朴素贝叶斯"
 sidebar_position: 14
-description: "从条件概率和词频统计讲起，理解朴素贝叶斯为什么在文本分类和小样本任务里常常是一个便宜但有用的基线。"
+description: "用词袋模型和 Multinomial Naive Bayes 搭建一个小型文本分类 baseline。"
 keywords: [naive bayes, multinomial nb, text classification, probability, smoothing]
 ---
 
@@ -9,104 +9,28 @@ keywords: [naive bayes, multinomial nb, text classification, probability, smooth
 
 ![朴素贝叶斯证据累积图](/img/course/elective-naive-bayes-evidence.png)
 
-:::tip 本节定位
-朴素贝叶斯最容易被误解成：
+朴素贝叶斯会比较“哪个类别更可能生成这些证据”。在文本任务里，词频常常已经足够构建一个便宜又有用的 baseline。
 
-- 太老了
-- 假设太强了
+## 准备内容
 
-但在一些场景里，它依然非常有用，尤其是：
+- Python 3.10+
+- 当前稳定版 `scikit-learn`
 
-- 文本分类
-- 规则感强的小数据任务
-- 想快速做低成本基线时
+```bash
+python -m pip install -U scikit-learn
+```
 
-这节课的重点，就是把“朴素”这两个字背后的工程价值看清楚。
-:::
+## 关键术语
 
-## 学习目标
+- **Bag of words（词袋）**：用词频表示文本。
+- **Conditional probability（条件概率）**：给定类别时，某个证据出现的概率。
+- **朴素假设**：给定类别后，各特征之间近似独立。
+- **Smoothing（平滑）**：避免没见过的词直接变成不可能。
+- **`alpha`**：`MultinomialNB` 里的平滑强度。
 
-- 理解朴素贝叶斯的核心概率直觉
-- 理解为什么它在文本分类里尤其常见
-- 理解“条件独立假设”为什么既是弱点也是优势
-- 通过可运行示例掌握一个最小文本分类流程
+## 运行文本分类器
 
----
-
-## 一、朴素贝叶斯到底在做什么？
-
-### 它在比较“哪个类别更可能生成这条样本”
-
-比如给一句文本：
-
-- “退款多久到账”
-
-模型会去比较：
-
-- 这句更像退款类文本生成出来的吗？
-- 还是更像登录问题类文本生成出来的吗？
-
-### 为什么叫“朴素”？
-
-因为它做了一个很强但很方便的假设：
-
-- 在给定类别条件下，各个特征彼此独立
-
-现实里这个假设通常并不完全成立，
-但它换来了：
-
-- 训练快
-- 数据需求低
-- 实现简单
-
-### 一个类比
-
-你可以把朴素贝叶斯想成：
-
-- 先看每个词对“退款类”是不是有利
-- 再把这些局部证据累加起来
-
-它不像复杂模型那样学深层交互，
-但在很多任务里已经够用。
-
----
-
-## 二、为什么它特别适合文本分类？
-
-### 因为词频本身就是很强信号
-
-例如出现这些词：
-
-- 退款
-- 发票
-- 证书
-- 密码
-
-很多时候已经能强烈暗示类别。
-
-### Multinomial Naive Bayes 很贴词袋模型
-
-对文本来说，常见输入就是：
-
-- 每个词出现了几次
-
-这和 `MultinomialNB` 很搭。
-
-### 它经常是很好的便宜基线
-
-尤其在：
-
-- 语料不大
-- 标签少
-- 先想快速验证任务可行性
-
-时，非常适合先试。
-
----
-
-## 三、先跑一个小型文本分类示例
-
-这个例子会用词袋 + 朴素贝叶斯做一个最小客服意图分类。
+创建 `naive_bayes_text.py`：
 
 ```python
 from sklearn.feature_extraction.text import CountVectorizer
@@ -114,12 +38,12 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import make_pipeline
 
 texts = [
-    "退款多久到账",
-    "怎么申请退款",
-    "发票什么时候可以开",
-    "电子发票发到哪里",
-    "忘记密码怎么办",
-    "密码重置入口在哪",
+    "How long does a refund take?",
+    "How do I apply for a refund?",
+    "When can I issue an invoice?",
+    "Where is the e-invoice sent?",
+    "What should I do if I forget my password?",
+    "Where is the password reset entry?",
 ]
 
 labels = [
@@ -131,112 +55,54 @@ labels = [
     "password",
 ]
 
-clf = make_pipeline(
+model = make_pipeline(
     CountVectorizer(),
     MultinomialNB(alpha=1.0),
 )
 
-clf.fit(texts, labels)
-pred = clf.predict(["退款怎么处理", "电子发票什么时候开"])
-print(pred.tolist())
+model.fit(texts, labels)
+pred = model.predict([
+    "How do I handle a refund?",
+    "When can I issue an e-invoice?",
+])
+print("predictions:", pred.tolist())
 ```
 
-### 这个例子最该看哪两层？
+运行：
 
-1. `CountVectorizer()`
-   文本先变成词频特征
-2. `MultinomialNB()`
-   再根据各类下的词分布做判断
+```bash
+python naive_bayes_text.py
+```
 
-### 为什么这个流程在文本任务里很经典？
+预期输出：
 
-因为它足够轻：
+```text
+predictions: ['refund', 'invoice']
+```
 
-- 训练快
-- 可解释
-- 调试方便
+这是一个完整 baseline：文本转词频，词频转概率，概率转标签。
 
-而且在不少小任务里表现并不差。
+## 改变平滑
 
----
+把 `alpha=1.0` 改成 `0.1` 和 `2.0`。在小数据集里，平滑会明显影响模型对罕见词的信任程度。
 
-## 四、平滑为什么重要？
+## 实用判断
 
-### 如果训练里从没见过某个词会怎样？
+适合尝试朴素贝叶斯：
 
-假设某类文本里从来没出现过某个词，
-直接按概率乘法，可能会让整类概率被打到接近 0。
+1. 任务是文本分类。
+2. 需要快速 baseline。
+3. 数据少，标签相对简单。
+4. 需要一定可解释性。
 
-### 这就是为什么要做 smoothing
+当语义、上下文或词序很重要时，再换更强模型。
 
-例如 `alpha=1.0` 表示一种常见平滑。
-它的意义可以先粗略理解成：
+## 常见错误
 
-- 别因为“没见过一次”就把概率判死刑
-
-### 工程直觉
-
-平滑不是数学细节而已，
-它直接影响模型面对新词时有多脆弱。
-
----
-
-## 五、朴素贝叶斯的优点和局限
-
-### 优点
-
-- 训练非常快
-- 小数据也能起步
-- 文本分类常常够用
-- 比较容易解释
-
-### 局限
-
-- 特征独立假设过强
-- 很难建模复杂交互
-- 面对更复杂语义时通常不如更强模型
-
-### 一个很实用的判断
-
-如果你的目标是：
-
-- 先做一个轻量、便宜、可解释的文本分类基线
-
-朴素贝叶斯仍然很值得先试。
-
----
-
-## 六、最常见误区
-
-### 误区一：假设不真实，所以没必要学
-
-很多算法的假设都不完全真实。
-关键是它在工程上值不值得。
-
-### 误区二：它只适合教材示例
-
-在中小文本分类任务里，它依然常是有用基线。
-
-### 误区三：只要上 Naive Bayes 就不用看特征
-
-特征表示仍然非常关键。
-词袋质量差，模型也会差。
-
----
-
-## 小结
-
-这节最重要的是建立一个判断：
-
-> **朴素贝叶斯虽然假设简化，但在文本分类和小样本基线场景里，依然是一个训练快、成本低、解释性不错的实用模型。**
-
-只要这个判断清楚了，你以后做小任务时就知道什么时候该把它从工具箱里拿出来。
-
----
+- 以为“朴素”就等于没用。
+- 忘记特征表达仍然很重要。
+- 只拿它和大模型比，而不是把它当便宜 baseline。
 
 ## 练习
 
-1. 给示例再加一个新类别，例如 `certificate`，看看模型能否一起工作。
-2. 把 `alpha` 改小或改大，观察是否会影响结果。
-3. 为什么说朴素贝叶斯特别适合做文本分类基线？
-4. 如果一个文本分类任务标签很多但每类数据很少，你会不会先试它？为什么？
+添加一个 `certificate` 类别和两个样本。再测试一个证书问题是否能被分到新标签。
