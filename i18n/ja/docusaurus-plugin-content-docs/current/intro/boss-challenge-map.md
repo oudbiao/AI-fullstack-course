@@ -32,22 +32,22 @@ keywords: [ステージ確認, AI 学習証拠, プロジェクト確認, ポー
 | 5 Machine learning | baseline model | metrics と error samples |
 | 6 Deep learning | training run | loss curve と checkpoint |
 | 7 LLM/Prompt | 安定した prompt test | fixed inputs と output checks |
-| 8 RAG | citation 付き Q&A demo | retrieval logs と citation table |
-| 9 Agent | 制御できる task run | tool trace と stop condition |
-| 10-12 Extensions | 1 つの方向プロジェクト | before/after examples と evaluation |
-| Graduation | 完成した AI product | Demo、evaluation report、deployment notes |
+| 8 RAG | 引用付き Q&A デモ | 検索ログと引用表 |
+| 9 Agent | 制御できるタスク実行 | ツール trace と停止条件 |
+| 10-12 拡張方向 | 1 つの方向プロジェクト | 前後比較と評価 |
+| 卒業制作 | 完成した AI プロダクト | デモ、評価レポート、デプロイメモ |
 
 ## 振り返りは短く
 
 各ステージの最後に、このテンプレートだけを書きます。
 
 ```md
-## Stage Checkpoint
+## ステージ確認カード
 
-Artifact:
-Evidence:
-One failure:
-Fix or next step:
+成果物：
+証拠：
+失敗例：
+修正または次の一手：
 ```
 
 カードが埋まったら次へ進みます。空欄が多いなら、読む量を減らし、まず最小成果物を作ってください。

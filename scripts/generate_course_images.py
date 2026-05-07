@@ -580,6 +580,173 @@ src/ コード、data/ 教材、evals/ チェック、logs/ トレース、docs/
 """.strip(),
     },
     {
+        "filename": "intro-concept-sorting-board-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Intro concept sorting board",
+        "suggested_page": "docs/intro/beginner-friendly-guide.md",
+        "alt": "Concept sorting board: API, SDK, Model, Prompt, RAG, Agent, Embedding, and Deployment terms are sorted into five boxes before using a reference table.",
+        "prompt": """
+A vertical English course infographic, comic-like sorting board, explaining "sort concepts first, then use the cheat sheet".
+Scene: a beginner looks at floating term cards: API, SDK, Model, Prompt, RAG, Agent, Embedding, Deployment.
+The cards are sorted into five clear boxes on a board:
+Call interfaces, Model training and serving, LLM app flow, Data vectors, Engineering delivery.
+Use simple arrows from messy term cards at the top into organized boxes in the middle, then a small reference table icon at the bottom.
+Large readable tagline: "Sort first. Look up later."
+Use short English labels only. Text must be sparse, large, and clean. Avoid tiny text, gibberish, fake brand logos, watermarks, and decorative-only composition.
+Style: professional beginner-friendly technical course illustration, vertical 9:16, workflow comic, clear cards, calm colors, enough whitespace.
+""".strip(),
+    },
+    {
+        "filename": "intro-concept-sorting-board.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "入门术语分类板图",
+        "suggested_page": "docs/intro/beginner-friendly-guide.md",
+        "alt": "入门术语分类板图：把 API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment 先分到调用接口、模型训练与服务、LLM 应用流程、数据向量、工程交付五个盒子，再查表。",
+        "prompt": """
+一张竖版中文课程图解，主题是“先分类，再查表”。
+画面像漫画式术语分类板：新手面对一堆漂浮术语卡片：API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment。
+中间是一块清晰分类板，把卡片分到 5 个盒子：
+调用接口、模型训练与服务、LLM 应用流程、数据向量、工程交付。
+用简单箭头表现：上方混乱术语卡 -> 中间五个盒子 -> 底部小型查表图标。
+大字短句：“先分类，再查表”。文字要少、清晰、字号大。
+术语 API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment、LLM 可保留英文。不要小字乱码、不要真实品牌 logo、不要水印、不要只做装饰图。
+风格专业、温和、新手友好，竖版 9:16，流程漫画感，卡片和盒子清楚，留白充足。
+""".strip(),
+    },
+    {
+        "filename": "intro-concept-sorting-board-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "入門用語の分類ボード図",
+        "suggested_page": "docs/intro/beginner-friendly-guide.md",
+        "alt": "入門用語の分類ボード図：API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment を、インターフェース呼び出し、モデル訓練と提供、LLM アプリ流れ、データベクトル、エンジニアリング納品の五つに分類してから表を見る。",
+        "prompt": """
+日本語の縦長コース図解。テーマは「先に分類し、あとで表を見る」。
+漫画風の用語分類ボードにする。初心者が API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment のカードを見ている。
+中央のボードに 5 つの箱を配置：
+呼び出し接口、モデル訓練と提供、LLM アプリ流れ、データベクトル、エンジニアリング納品。
+上部の散らばった用語カードから、中央の 5 つの箱、下部の小さな早見表アイコンへ矢印で流す。
+大きな短いメッセージ：「先に分類、あとで確認」。文字は少なく、大きく、読みやすく。
+API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment、LLM などの標準用語は英語でよい。細かい文字、文字化け、実在ブランドロゴ、透かしは禁止。飾りだけの絵にしない。
+スタイルはプロ向けだがやさしい教材図解、縦 9:16、フロー漫画、明快なカード、十分な余白。
+""".strip(),
+    },
+    {
+        "filename": "intro-learning-pace-cards-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Intro learning pace cards",
+        "suggested_page": "docs/intro/learning-path.md",
+        "alt": "Learning pace cards compare a 4-week sprint, 8-week portfolio path, and 12-week complete route, with weekly output and a reminder not to skip evaluation and failure samples.",
+        "prompt": """
+A vertical English course infographic with three side-by-side learning pace cards.
+Cards: "4-week sprint", "8-week portfolio", "12-week complete route".
+Each card has three simple rows with icons and short labels:
+Who it fits, Weekly output, Do not skip: eval + failure samples.
+Make the three cards visually comparable, like a calm planning board for an AI full-stack course.
+Use a small bottom reminder strip: "Ship every week. Review failures."
+Text must be sparse, large, and readable. Avoid tiny text, dense paragraphs, gibberish, watermarks, and real brand logos.
+Style: professional beginner-friendly, vertical 9:16, structured comparison cards, light comic cues, clear calendar/checklist icons, enough whitespace.
+""".strip(),
+    },
+    {
+        "filename": "intro-learning-pace-cards.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "学习节奏选择卡图",
+        "suggested_page": "docs/intro/learning-path.md",
+        "alt": "学习节奏选择卡图：4 周快跑、8 周作品集、12 周完整路线三张卡，并列展示适合谁、每周产出，以及不要跳过评估与失败样本。",
+        "prompt": """
+一张竖版中文课程图解，主题是“选择自己的学习节奏”。
+画面是三张并列对比卡：
+4 周快跑、8 周作品集、12 周完整路线。
+每张卡只放三行短标签，配简单图标：
+适合谁、每周产出、别跳过：评估 + 失败样本。
+三张卡要像清晰计划看板，方便比较，不要做成装饰海报。
+底部小横条提醒：“每周交付，复盘失败”。文字少、字号大、清楚。
+术语 portfolio、eval 可以不用；中文自然短标签优先。不要小字乱码、不要真实品牌 logo、不要水印、不要密集段落。
+风格专业、温和、新手友好，竖版 9:16，对比卡片清楚，日历和检查图标简洁，留白充足。
+""".strip(),
+    },
+    {
+        "filename": "intro-learning-pace-cards-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "学習ペース選択カード図",
+        "suggested_page": "docs/intro/learning-path.md",
+        "alt": "学習ペース選択カード図：4週間スプリント、8週間ポートフォリオ、12週間フルルートを並べ、向いている人、毎週の成果物、評価と失敗例を飛ばさないことを示す。",
+        "prompt": """
+日本語の縦長コース図解。テーマは「自分の学習ペースを選ぶ」。
+3 枚の比較カードを横並びに見せる：
+4週間スプリント、8週間ポートフォリオ、12週間フルルート。
+各カードには短い 3 行だけ、シンプルなアイコン付き：
+向いている人、毎週の成果物、飛ばさない：評価 + 失敗例。
+3 枚を比較しやすい計画ボードとして描く。飾りポスターにしない。
+下部の小さなリマインダー：「毎週出す。失敗を見直す」。文字は少なく、大きく、読みやすく。
+細かい文字、文字化け、実在ブランドロゴ、透かし、長い段落は禁止。
+スタイルはプロフェッショナルでやさしい初心者向け教材図解、縦 9:16、比較カード、カレンダーとチェックの明快なアイコン、十分な余白。
+""".strip(),
+    },
+    {
+        "filename": "intro-portfolio-acceptance-ladder-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Portfolio acceptance ladder",
+        "suggested_page": "docs/intro/badges-achievements.md",
+        "alt": "Portfolio acceptance ladder from exercise level to project level, portfolio level, and interview level, with evidence: runs, reproducible, evaluable demo, and explain tradeoffs and boundaries.",
+        "prompt": """
+A vertical English course infographic showing a four-step portfolio acceptance ladder.
+Ladder steps from bottom to top:
+Exercise level -> Project level -> Portfolio level -> Interview level.
+Each step has one key evidence card:
+Runs, Reproducible, Evaluable demo, Explain tradeoffs + boundaries.
+Use simple upward arrows and a learner carrying evidence cards up the ladder. Make it workflow-like and practical, not decorative.
+Large readable tagline: "Raise the evidence, not the polish."
+Use sparse short English labels only. Text must be large and clean. Avoid tiny text, gibberish, watermarks, and real brand logos.
+Style: professional beginner-friendly technical course illustration, vertical 9:16, layered ladder, clear cards, calm colors, enough whitespace.
+""".strip(),
+    },
+    {
+        "filename": "intro-portfolio-acceptance-ladder.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "作品集验收阶梯图",
+        "suggested_page": "docs/intro/badges-achievements.md",
+        "alt": "作品集验收阶梯图：练习级、项目级、作品集级、面试级逐级上升，对应证据是能跑、可复现、可评估演示、能解释取舍边界。",
+        "prompt": """
+一张竖版中文课程图解，主题是“作品集验收阶梯”。
+画面是一段四级向上阶梯，从下到上：
+练习级 -> 项目级 -> 作品集级 -> 面试级。
+每一级只放一张关键证据卡：
+能跑、可复现、可评估演示、能解释取舍边界。
+用简单向上箭头和一个学习者带着证据卡上楼梯的漫画感构图。要像验收流程图，不要装饰图。
+大字短句：“提高证据，不是只做精美”。文字少、字号大、清楚。
+不要小字乱码、不要真实品牌 logo、不要水印、不要密集段落。
+风格专业、温和、新手友好，竖版 9:16，阶梯层次清楚，证据卡清晰，留白充足。
+""".strip(),
+    },
+    {
+        "filename": "intro-portfolio-acceptance-ladder-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "ポートフォリオ受け入れ基準の階段図",
+        "suggested_page": "docs/intro/badges-achievements.md",
+        "alt": "ポートフォリオ受け入れ基準の階段図：練習レベル、プロジェクトレベル、ポートフォリオレベル、面接レベルへ進み、動く、再現できる、評価できるデモ、取捨選択と境界を説明できる証拠を示す。",
+        "prompt": """
+日本語の縦長コース図解。テーマは「ポートフォリオ受け入れ基準の階段」。
+下から上へ 4 段の階段：
+練習レベル -> プロジェクトレベル -> ポートフォリオレベル -> 面接レベル。
+各段に 1 枚だけ重要な証拠カードを置く：
+動く、再現できる、評価できるデモ、取捨選択と境界を説明。
+学習者が証拠カードを持って階段を上がる、シンプルな漫画風フロー図にする。飾りだけの絵にしない。
+大きな短いメッセージ：「見た目より証拠を上げる」。文字は少なく、大きく、読みやすく。
+細かい文字、文字化け、実在ブランドロゴ、透かし、長い段落は禁止。
+スタイルはプロフェッショナルでやさしい初心者向け教材図解、縦 9:16、明確な階段、証拠カード、十分な余白。
+""".strip(),
+    },
+    {
         "filename": "intro-stage-checkpoint-cards.png",
         "size": "1024x1792",
         "quality": "high",

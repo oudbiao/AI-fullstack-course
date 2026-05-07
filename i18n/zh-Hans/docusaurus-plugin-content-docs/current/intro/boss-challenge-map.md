@@ -42,12 +42,12 @@ keywords: [阶段验收, AI 学习证据, 项目验收, 作品集证据]
 每阶段结束后用这个模板：
 
 ```md
-## Stage Checkpoint
+## 阶段验收卡
 
-Artifact:
-Evidence:
-One failure:
-Fix or next step:
+产出：
+证据：
+一个失败：
+修复或下一步：
 ```
 
 如果卡片完整，就继续下一阶段。如果卡片是空的，少读一点，先做出最小成果。

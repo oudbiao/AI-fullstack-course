@@ -1,70 +1,54 @@
 ---
 sidebar_position: 12
 title: "Full-Course Project Matrix"
-description: "See the minimum project, standard project, challenge project, and portfolio evidence for each stage at a glance in one matrix."
+description: "A compact matrix showing the smallest useful project for each course stage and the portfolio evidence to keep."
 keywords: [AI project matrix, portfolio, stage projects, AI full-stack project]
 ---
 
 # Full-Course Project Matrix
 
-This table helps you turn the course from a “list of chapters” into a “project roadmap.” At each stage, keep at least one runnable result, and by the end you will have a set of project artifacts that show your growth.
+![Project portfolio roadmap](/img/course/intro-project-portfolio-roadmap-en.png)
 
-## First, look at the diagram: each project has three tiers
+Use this page to answer one question: “What should I build at each stage?” Keep the first pass small. Upgrade only the projects you want to show in a portfolio.
 
-```mermaid
-flowchart LR
-  A["Minimum project: runs"] --> B["Standard project: can explain"]
-  B --> C["Challenge project: can extend"]
-  C --> D["Portfolio evidence: can showcase"]
-```
+## 1. Stage Project Map
 
-It is fine to start by doing only the “minimum project” in the first pass. When you prepare your portfolio, upgrade key projects to the “standard project” or “challenge project” tier.
-
-| Learning stage | Minimum project | Standard project | Challenge project | Portfolio evidence |
-|---|---|---|---|---|
-| 1 Developer Tools Basics | Create a repo and get Python running | Set up Git, VS Code, and Jupyter properly | Write an environment setup script | README, screenshots, commit history |
-| 2 Python Programming Basics | Command-line task manager | Support JSON saving and module splitting | Add a Web API or AI API call | Run commands, sample input/output |
-| 3 Data Analysis and Visualization | EDA on a single CSV | Analysis report from multiple data sources | Add a database and interactive charts | Charts, conclusions, data cleaning notes |
-| 4 AI Math Basics | Explain data with vectors and probability | Small gradient descent visualization experiment | Intuitive backpropagation demo | Formula explanations, diagrams, experiment logs |
-| 5 Machine Learning | House price or classification baseline | Complete sklearn pipeline | Feature engineering and model comparison | Metrics, baseline, error analysis |
-| 6 Deep Learning and Transformer | PyTorch training loop | Image or text classification project | Training diagnostics and transfer learning | Curves, confusion matrix, failed samples |
-| 7 LLM Principles and Prompt | Prompt template set | Study plan / review card generator | Behavior comparison evaluation table | Prompt versions, output comparison |
-| 8 LLM Applications and RAG | Markdown retrieval QA | Course knowledge base assistant | Rerank, evaluation set, citation checks | Question set, source citations, evaluation results |
-| 9 AI Agent | Small tool-calling Agent | Study planning Agent | Add memory, MCP, trace, and safety boundaries | Execution trace, tool logs, replay samples |
-| 10 Computer Vision | Image classification or OCR experiment | Object detection / visual understanding project | Industry visual inspection demo | Annotation samples, metrics, visualization results |
-| 11 Natural Language Processing | Text classification or keyword extraction | Comment understanding / information extraction project | Domain text analysis system | Label system, metrics, error samples |
-| 12 AIGC and Multimodal | Small image / audio / video experiment | Multimodal content workflow | Reviewable creative platform demo | Assets, generation logs, human review criteria |
-
-## How to use this matrix
-
-If you are short on time, finishing only the minimum project for each stage is enough to keep moving forward. If you want to build a portfolio, it is recommended to complete at least the standard project in the machine learning, RAG, Agent, and multimodal stages, and to write a complete README.
-
-Do not treat the challenge projects as required tasks. They are better suited for after you have already finished the main path, and can be used to upgrade your work from “learning exercise” to “showcase project.”
-
-## Project evidence tiers
-
-The same project can be delivered in three rounds. You do not need to build a complete product from the start. In the first round, submit the minimum closed loop to prove it runs; in the second round, add engineering evidence to prove it can be reproduced and debugged; in the third round, add presentation materials to prove it can go into a portfolio or interview.
-
-| Evidence tier | Question to answer | Common files |
+| Stage | Smallest useful project | Evidence to keep |
 |---|---|---|
-| Minimum closed loop | Can this project run? | `README.md`, run commands, sample input/output |
-| Engineering closed loop | Can errors be located and reproduced? | Config files, logs, test samples, failed samples |
-| Portfolio closed loop | Can others understand the value and trade-offs? | Architecture diagram, evaluation report, screenshots/GIFs, retrospective notes |
+| 1 Tools | Create a repo and run Python | README, command record, screenshots |
+| 2 Python | CLI task manager or simple API | Run command, sample input/output |
+| 3 Data | Analyze one CSV and draw charts | Cleaning notes, charts, conclusion |
+| 4 AI Math | Vector, probability, or gradient mini experiment | Diagram, tiny code, explanation |
+| 5 Machine Learning | Baseline classification or regression | Metric, baseline, error samples |
+| 6 Deep Learning | PyTorch training loop | Config, curve, failed samples |
+| 7 LLM and Prompt | Prompt assistant or review-card generator | Prompt versions, output comparison |
+| 8 RAG | Markdown Q&A with citations | Questions, retrieval logs, citation check |
+| 9 Agent | Tool-calling planning Agent | Tool schema, execution trace, limits |
+| 10 Vision | Classification, OCR, or detection experiment | Labels, metrics, visual results |
+| 11 NLP | Text classification or extraction project | Label rules, metrics, error cases |
+| 12 Multimodal | Image, audio, video, or multimodal workflow | Source materials, generation logs, review rules |
 
-As you move into the second half of the course, project evidence should shift from “it runs” to “it can be explained, evaluated, and reviewed.” RAG and Agent projects especially should keep intermediate process artifacts, not just the final answer.
+## 2. Upgrade Rule
 
-## Recommended repository organization
+| Version | Goal | Add this evidence |
+|---|---|---|
+| Minimum | Prove it runs | README, command, sample output |
+| Standard | Prove others can reproduce it | Dependency file, config notes, logs |
+| Portfolio | Prove it can be evaluated and explained | Evaluation set, failures, screenshots, retrospective |
 
-If you want to organize the entire course into a long-term portfolio, you can place each stage project in the same monorepo, or create a separate repo for each mature project. Either way, it is recommended to keep a consistent structure.
+Challenge projects are optional. They are useful after the main path is stable, not before the first working loop exists.
+
+## 3. Suggested Repository Shape
 
 ```text
 ai-fullstack-portfolio/
-├── ch01-tools1-python-cli/
-├── ch01-tools2-data-analysis/
-├── ch01-tools5-ml-baseline/
-├── ch01-tools8-rag-assistant/
-├── ch01-tools9-agent-planner/
+├── ch01-tools/
+├── ch02-python-cli/
+├── ch03-data-report/
+├── ch05-ml-baseline/
+├── ch08-rag-assistant/
+├── ch09-agent-planner/
 └── final-ai-app/
 ```
 
-Each project folder should include at least a README, source code, sample data or inputs, result screenshots or outputs, failed samples, and a next-step plan. The benefit is that after finishing the course, you will not just have a pile of exercise files—you will have a clear chain of evidence showing your growth.
+Every folder should include a README, source code, sample input or data, output evidence, one failure sample, and one next step.

@@ -32,6 +32,15 @@
 | `intro-ai-assistant-repo-evidence-cabinet-en.png` | AI Learning Assistant repository evidence cabinet | `docs/intro/ai-learning-assistant-template.md` | AI Learning Assistant repository evidence cabinet: src code, data materials, evals checks, logs traces, docs showcase, and tests regression flow into a portfolio demo. |
 | `intro-ai-assistant-repo-evidence-cabinet.png` | AI 学习助手仓库证据柜图 | `docs/intro/ai-learning-assistant-template.md` | AI 学习助手仓库证据柜图：src 代码、data 材料、evals 检查、logs 轨迹、docs 展示、tests 回归测试汇入 portfolio demo。 |
 | `intro-ai-assistant-repo-evidence-cabinet-ja.png` | AI 学習アシスタント リポジトリ証拠キャビネット図 | `docs/intro/ai-learning-assistant-template.md` | AI 学習アシスタントのリポジトリ証拠キャビネット図：src コード、data 教材、evals チェック、logs トレース、docs ショーケース、tests 回帰テストが portfolio demo へ流れる。 |
+| `intro-concept-sorting-board-en.png` | Intro concept sorting board | `docs/intro/beginner-friendly-guide.md` | Concept sorting board: API, SDK, Model, Prompt, RAG, Agent, Embedding, and Deployment terms are sorted into five boxes before using a reference table. |
+| `intro-concept-sorting-board.png` | 入门术语分类板图 | `docs/intro/beginner-friendly-guide.md` | 入门术语分类板图：把 API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment 先分到调用接口、模型训练与服务、LLM 应用流程、数据向量、工程交付五个盒子，再查表。 |
+| `intro-concept-sorting-board-ja.png` | 入門用語の分類ボード図 | `docs/intro/beginner-friendly-guide.md` | 入門用語の分類ボード図：API、SDK、Model、Prompt、RAG、Agent、Embedding、Deployment を、インターフェース呼び出し、モデル訓練と提供、LLM アプリ流れ、データベクトル、エンジニアリング納品の五つに分類してから表を見る。 |
+| `intro-learning-pace-cards-en.png` | Intro learning pace cards | `docs/intro/learning-path.md` | Learning pace cards compare a 4-week sprint, 8-week portfolio path, and 12-week complete route, with weekly output and a reminder not to skip evaluation and failure samples. |
+| `intro-learning-pace-cards.png` | 学习节奏选择卡图 | `docs/intro/learning-path.md` | 学习节奏选择卡图：4 周快跑、8 周作品集、12 周完整路线三张卡，并列展示适合谁、每周产出，以及不要跳过评估与失败样本。 |
+| `intro-learning-pace-cards-ja.png` | 学習ペース選択カード図 | `docs/intro/learning-path.md` | 学習ペース選択カード図：4週間スプリント、8週間ポートフォリオ、12週間フルルートを並べ、向いている人、毎週の成果物、評価と失敗例を飛ばさないことを示す。 |
+| `intro-portfolio-acceptance-ladder-en.png` | Portfolio acceptance ladder | `docs/intro/badges-achievements.md` | Portfolio acceptance ladder from exercise level to project level, portfolio level, and interview level, with evidence: runs, reproducible, evaluable demo, and explain tradeoffs and boundaries. |
+| `intro-portfolio-acceptance-ladder.png` | 作品集验收阶梯图 | `docs/intro/badges-achievements.md` | 作品集验收阶梯图：练习级、项目级、作品集级、面试级逐级上升，对应证据是能跑、可复现、可评估演示、能解释取舍边界。 |
+| `intro-portfolio-acceptance-ladder-ja.png` | ポートフォリオ受け入れ基準の階段図 | `docs/intro/badges-achievements.md` | ポートフォリオ受け入れ基準の階段図：練習レベル、プロジェクトレベル、ポートフォリオレベル、面接レベルへ進み、動く、再現できる、評価できるデモ、取捨選択と境界を説明できる証拠を示す。 |
 | `intro-stage-checkpoint-cards.png` | 课程阶段验收卡图 | `docs/intro/boss-challenge-map.md` | 课程阶段验收卡图：每个阶段只保留一个最小可运行成果、一份证据和一次复盘，替代冗长挑战地图。 |
 | `debug-detective-missions.png` | Debug 侦探任务集 | `docs/intro/debug-detective-missions.md` | Debug 侦探任务集：学习者像侦探一样收集线索、定位错误并写下修复记录。 |
 | `ch01-tools-foundation.png` | 开发者工具基础主视觉 | `docs/ch01-tools/index.md` | 开发者工具基础主视觉：终端、Git、编辑器和 Python 环境组成稳定工作台。 |
