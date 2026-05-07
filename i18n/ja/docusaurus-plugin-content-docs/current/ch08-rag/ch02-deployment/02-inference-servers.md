@@ -137,6 +137,16 @@ for r in requests:
     print("必要な batch 数:", num_batches)
 ```
 
+期待される出力：
+
+```text
+必要な batch 数: 2
+必要な batch 数: 1
+必要な batch 数: 2
+```
+
+ここでの `requests` は、分かりやすくした作業量のリストです。大事なのは切り上げ計算で、作業量が batch size を超えると、サービス層は複数回のモデル実行に分ける必要があります。
+
 ### このコードは何を教えているのか？
 
 このコードが教えているのは、
@@ -196,6 +206,14 @@ while queue:
     print("batch を実行:", batch)
 ```
 
+期待される出力：
+
+```text
+batch を実行: ['req1', 'req2']
+batch を実行: ['req3', 'req4']
+batch を実行: ['req5']
+```
+
 この例はとてもシンプルですが、すでに次のことを示しています。
 
 - リクエストはまずキューに入る
@@ -246,6 +264,15 @@ while queue:
 
     for item, result in zip(batch, results):
         print(item, "->", result)
+```
+
+期待される出力：
+
+```text
+q1 -> q1_の回答
+q2 -> q2_の回答
+q3 -> q3_の回答
+q4 -> q4_の回答
 ```
 
 ### このコードが重要な理由

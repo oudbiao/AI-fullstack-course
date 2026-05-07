@@ -136,6 +136,16 @@ for r in requests:
     print("needs", num_batches, "batches")
 ```
 
+预期输出：
+
+```text
+needs 2 batches
+needs 1 batches
+needs 2 batches
+```
+
+这里的 `requests` 是刻意简化的工作量列表。重点是向上取整：一旦工作量超过 batch size，服务层就要把它拆成多次模型执行。
+
 ### 这段代码在教什么？
 
 它在教你：
@@ -191,6 +201,14 @@ while queue:
     print("run batch:", batch)
 ```
 
+预期输出：
+
+```text
+run batch: ['req1', 'req2']
+run batch: ['req3', 'req4']
+run batch: ['req5']
+```
+
 这个例子很简单，但已经说明：
 
 - 请求先排队
@@ -241,6 +259,15 @@ while queue:
 
     for item, result in zip(batch, results):
         print(item, "->", result)
+```
+
+预期输出：
+
+```text
+q1 -> answer_for_q1
+q2 -> answer_for_q2
+q3 -> answer_for_q3
+q4 -> answer_for_q4
 ```
 
 ### 这段代码为什么重要？

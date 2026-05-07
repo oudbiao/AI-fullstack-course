@@ -131,6 +131,14 @@ for item in runtime_options:
     print(item)
 ```
 
+预期输出：
+
+```text
+{'name': 'small_quantized_model', 'memory_gb': 4, 'quality': 'basic'}
+{'name': 'medium_quantized_model', 'memory_gb': 8, 'quality': 'good'}
+{'name': 'larger_model', 'memory_gb': 16, 'quality': 'better'}
+```
+
 ### 这段代码真正想提醒你什么？
 
 不是让你记住数字，而是让你先建立一个非常实用的判断：
@@ -184,6 +192,16 @@ for name, bytes_per_param in precisions.items():
     print(name, "rough memory GB =", round(memory_gb, 2))
 ```
 
+预期输出：
+
+```text
+fp16 rough memory GB = 13.04
+int8 rough memory GB = 6.52
+int4 rough memory GB = 3.26
+```
+
+这只是非常粗略的参数内存估算。真实运行时还会有 KV cache、临时 buffer、tokenizer/runtime 开销和服务队列等额外占用。
+
 ### 量化的好处和代价
 
 好处：
@@ -217,6 +235,12 @@ def suggest_runtime(constraints):
 
 
 print(suggest_runtime(constraints))
+```
+
+预期输出：
+
+```text
+优先考虑小型量化本地模型。
 ```
 
 这个示例很适合初学者，因为它会提醒你：
@@ -295,6 +319,13 @@ class LocalModelRuntime:
 runtime = LocalModelRuntime("small-local-model")
 runtime.load()
 print(runtime.generate("退款政策是什么？"))
+```
+
+预期输出：
+
+```text
+loaded small-local-model
+[small-local-model] local reply to: 退款政策是什么？
 ```
 
 ### 这段代码在教什么？

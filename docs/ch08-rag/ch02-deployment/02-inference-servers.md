@@ -136,6 +136,16 @@ for r in requests:
     print("needs", num_batches, "batches")
 ```
 
+Expected output:
+
+```text
+needs 2 batches
+needs 1 batches
+needs 2 batches
+```
+
+Here `requests` is an intentionally simplified list of work sizes. The point is the ceiling division: once work exceeds the batch size, serving has to split it across multiple model runs.
+
 ### What Is This Code Teaching?
 
 It is teaching you:
@@ -191,6 +201,14 @@ while queue:
     print("run batch:", batch)
 ```
 
+Expected output:
+
+```text
+run batch: ['req1', 'req2']
+run batch: ['req3', 'req4']
+run batch: ['req5']
+```
+
 This example is simple, but it already shows:
 
 - requests are queued first
@@ -241,6 +259,15 @@ while queue:
 
     for item, result in zip(batch, results):
         print(item, "->", result)
+```
+
+Expected output:
+
+```text
+q1 -> answer_for_q1
+q2 -> answer_for_q2
+q3 -> answer_for_q3
+q4 -> answer_for_q4
 ```
 
 ### Why Is This Code Important?

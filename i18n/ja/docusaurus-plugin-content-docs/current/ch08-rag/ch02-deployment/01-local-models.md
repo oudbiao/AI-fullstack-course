@@ -133,6 +133,14 @@ for item in runtime_options:
     print(item)
 ```
 
+期待される出力：
+
+```text
+{'name': 'small_quantized_model', 'memory_gb': 4, 'quality': 'basic'}
+{'name': 'medium_quantized_model', 'memory_gb': 8, 'quality': 'good'}
+{'name': 'larger_model', 'memory_gb': 16, 'quality': 'better'}
+```
+
 ### このコードは本当は何を伝えているのか？
 
 数字を覚えてほしいのではありません。  
@@ -187,6 +195,16 @@ for name, bytes_per_param in precisions.items():
     print(name, "rough memory GB =", round(memory_gb, 2))
 ```
 
+期待される出力：
+
+```text
+fp16 rough memory GB = 13.04
+int8 rough memory GB = 6.52
+int4 rough memory GB = 3.26
+```
+
+これはパラメータ分のメモリだけを見た、とても粗い見積もりです。実際の実行時には KV cache、一時バッファ、tokenizer/runtime のオーバーヘッド、サービス用キューなども加わります。
+
 ### 量子化の利点と代償
 
 利点：
@@ -220,6 +238,12 @@ def suggest_runtime(constraints):
 
 
 print(suggest_runtime(constraints))
+```
+
+期待される出力：
+
+```text
+小型の量子化ローカルモデルを優先して検討します。
 ```
 
 この例は初学者にとても役立ちます。なぜなら、次のことを思い出させてくれるからです。
@@ -298,6 +322,13 @@ class LocalModelRuntime:
 runtime = LocalModelRuntime("small-local-model")
 runtime.load()
 print(runtime.generate("返品ポリシーは何ですか？"))
+```
+
+期待される出力：
+
+```text
+small-local-model を読み込みました
+[small-local-model] 返品ポリシーは何ですか？ へのローカル応答
 ```
 
 ### このコードは何を教えているのか？

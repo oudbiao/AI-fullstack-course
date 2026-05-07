@@ -131,6 +131,14 @@ for item in runtime_options:
     print(item)
 ```
 
+Expected output:
+
+```text
+{'name': 'small_quantized_model', 'memory_gb': 4, 'quality': 'basic'}
+{'name': 'medium_quantized_model', 'memory_gb': 8, 'quality': 'good'}
+{'name': 'larger_model', 'memory_gb': 16, 'quality': 'better'}
+```
+
 ### What is this code really trying to tell you?
 
 It is not asking you to memorize numbers. It is helping you build a very practical judgment:
@@ -184,6 +192,16 @@ for name, bytes_per_param in precisions.items():
     print(name, "rough memory GB =", round(memory_gb, 2))
 ```
 
+Expected output:
+
+```text
+fp16 rough memory GB = 13.04
+int8 rough memory GB = 6.52
+int4 rough memory GB = 3.26
+```
+
+This is only a rough parameter-memory estimate. Real runtime memory also includes KV cache, temporary buffers, tokenizer/runtime overhead, and serving queues.
+
 ### The benefits and costs of quantization
 
 Benefits:
@@ -217,6 +235,12 @@ def suggest_runtime(constraints):
 
 
 print(suggest_runtime(constraints))
+```
+
+Expected output:
+
+```text
+Prioritize a small quantized local model.
 ```
 
 This example is very suitable for beginners because it reminds you:
@@ -295,6 +319,13 @@ class LocalModelRuntime:
 runtime = LocalModelRuntime("small-local-model")
 runtime.load()
 print(runtime.generate("What is the refund policy?"))
+```
+
+Expected output:
+
+```text
+loaded small-local-model
+[small-local-model] local reply to: What is the refund policy?
 ```
 
 ### What is this code teaching?
