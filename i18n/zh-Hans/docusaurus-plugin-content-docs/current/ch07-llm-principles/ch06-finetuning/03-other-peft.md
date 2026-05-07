@@ -292,6 +292,24 @@ with torch.no_grad():
         print(f"{text:22s} -> {label_names[pred]}")
 ```
 
+预期输出：
+
+```text
+total params     = 694
+trainable params = 182
+step=000 loss=0.7183 acc=0.50
+step=050 loss=0.0000 acc=1.00
+step=100 loss=0.0000 acc=1.00
+step=150 loss=0.0000 acc=1.00
+step=200 loss=0.0000 acc=1.00
+refund my order        -> refund
+need a refund          -> refund
+cancel and refund      -> refund
+login failed again     -> login
+cannot login account   -> login
+password login problem -> login
+```
+
 ### 这段代码到底在教什么？
 
 它不是在教你“怎么做一个完整生产级微调”，而是在刻意把重点钉在 Adapter 本身：
@@ -339,6 +357,13 @@ print("原始长度:", token_embeddings.shape[1])
 print("拼接后长度:", combined.shape[1])
 ```
 
+预期输出：
+
+```text
+原始长度: 5
+拼接后长度: 8
+```
+
 这里最该记住的是：
 
 - soft prompt 本身不是可读文本
@@ -358,6 +383,13 @@ print("注意力原始 key 数量:", layer_keys.shape[1])
 print("加入 prefix 后 key 数量:", all_keys.shape[1])
 ```
 
+预期输出：
+
+```text
+注意力原始 key 数量: 4
+加入 prefix 后 key 数量: 6
+```
+
 这个示意对应的直觉是：
 
 - 普通注意力只看原序列
@@ -374,6 +406,13 @@ gate = torch.tensor([0.5, 1.0, 1.5, 2.0], requires_grad=True)
 scaled = hidden * gate
 print("before:", hidden)
 print("after :", scaled)
+```
+
+预期输出：
+
+```text
+before: tensor([[1., 2., 3., 4.]])
+after : tensor([[0.5000, 2.0000, 4.5000, 8.0000]], grad_fn=<MulBackward0>)
 ```
 
 IA3 的核心不是“变复杂”，而是“只在最关键的位置做轻量调节”。

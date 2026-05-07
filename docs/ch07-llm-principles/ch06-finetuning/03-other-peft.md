@@ -292,6 +292,24 @@ with torch.no_grad():
         print(f"{text:22s} -> {label_names[pred]}")
 ```
 
+Expected output:
+
+```text
+total params     = 694
+trainable params = 182
+step=000 loss=0.7183 acc=0.50
+step=050 loss=0.0000 acc=1.00
+step=100 loss=0.0000 acc=1.00
+step=150 loss=0.0000 acc=1.00
+step=200 loss=0.0000 acc=1.00
+refund my order        -> refund
+need a refund          -> refund
+cancel and refund      -> refund
+login failed again     -> login
+cannot login account   -> login
+password login problem -> login
+```
+
 ### What exactly does this code teach?
 
 It is not teaching you how to build a complete production-grade fine-tuning system. Instead, it deliberately focuses on Adapter itself:
@@ -339,6 +357,13 @@ print("Original length:", token_embeddings.shape[1])
 print("Length after concatenation:", combined.shape[1])
 ```
 
+Expected output:
+
+```text
+Original length: 5
+Length after concatenation: 8
+```
+
 The most important thing to remember here is:
 
 - The soft prompt is not readable text
@@ -358,6 +383,13 @@ print("Original number of attention keys:", layer_keys.shape[1])
 print("Number of keys after adding prefix:", all_keys.shape[1])
 ```
 
+Expected output:
+
+```text
+Original number of attention keys: 4
+Number of keys after adding prefix: 6
+```
+
 The intuition behind this illustration is:
 
 - Normal attention only sees the original sequence
@@ -374,6 +406,13 @@ gate = torch.tensor([0.5, 1.0, 1.5, 2.0], requires_grad=True)
 scaled = hidden * gate
 print("before:", hidden)
 print("after :", scaled)
+```
+
+Expected output:
+
+```text
+before: tensor([[1., 2., 3., 4.]])
+after : tensor([[0.5000, 2.0000, 4.5000, 8.0000]], grad_fn=<MulBackward0>)
 ```
 
 The core of IA3 is not “becoming more complex,” but “making lightweight adjustments only at the most important positions.”

@@ -242,6 +242,18 @@ for row in needs_review:
     )
 ```
 
+Expected output:
+
+```text
+agreement = 0.6
+kappa     = 0.167
+
+review queue:
+id=5 confidence=0.47 labels=(good, bad) text=I'm not sure whether changing the address is supported. Please contact human support to confirm.
+id=4 confidence=0.51 labels=(good, good) text=After the order is completed, you can apply for an invoice in the invoice center.
+id=3 confidence=0.52 labels=(bad, good) text=Even if it has already been shipped, it can definitely be refunded instantly.
+```
+
 ### Why is this code not a “useless example”?
 
 Because it corresponds to three things data teams do every day:

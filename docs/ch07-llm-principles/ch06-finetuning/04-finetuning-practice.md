@@ -210,6 +210,31 @@ print("first train example:")
 print(json.dumps(train_records[0], ensure_ascii=False, indent=2))
 ```
 
+Expected output:
+
+```text
+train size = 3
+val size   = 2
+first train example:
+{
+  "customer_id": "C002",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are an e-commerce customer service assistant. Please provide polite, accurate replies that follow platform policy."
+    },
+    {
+      "role": "user",
+      "content": "I forgot my password. How can I log in again?"
+    },
+    {
+      "role": "assistant",
+      "content": "Please click “Forgot Password” on the login page and follow the SMS or email instructions to reset it."
+    }
+  ]
+}
+```
+
 ### Why does this code have engineering value?
 
 Because it corresponds to the very first real step in fine-tuning:
@@ -281,6 +306,12 @@ def build_loss_mask(messages):
 
 
 print(build_loss_mask(messages))
+```
+
+Expected output:
+
+```text
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1]
 ```
 
 This is not meant to reproduce a real tokenizer,
@@ -363,6 +394,13 @@ val_history = [
 
 best = min(val_history, key=lambda item: (item["val_loss"], -item["format_acc"]))
 print("best checkpoint =", best)
+```
+
+Expected output:
+
+```text
+{'effective_batch_size': 32, 'steps_per_epoch': 100, 'total_steps': 300, 'warmup_steps': 9}
+best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 ```
 
 ### Why should you pay special attention to effective batch size?

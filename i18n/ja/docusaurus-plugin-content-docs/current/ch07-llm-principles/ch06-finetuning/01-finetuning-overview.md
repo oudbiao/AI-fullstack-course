@@ -238,6 +238,13 @@ for name, count in params.items():
     print(name, "trainable_params =", count)
 ```
 
+期待される出力：
+
+```text
+full_finetune trainable_params = 100000000
+peft trainable_params = 5000000
+```
+
 ### このコードは何を伝えているのか？
 
 正確な数を示しているわけではありません。伝えたいのは次のことです。

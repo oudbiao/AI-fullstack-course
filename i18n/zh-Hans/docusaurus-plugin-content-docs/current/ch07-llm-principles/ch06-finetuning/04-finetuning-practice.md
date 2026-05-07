@@ -210,6 +210,31 @@ print("first train example:")
 print(json.dumps(train_records[0], ensure_ascii=False, indent=2))
 ```
 
+预期输出：
+
+```text
+train size = 3
+val size   = 2
+first train example:
+{
+  "customer_id": "C002",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是电商客服助手，请给出礼貌、准确、符合平台政策的回复。"
+    },
+    {
+      "role": "user",
+      "content": "我忘记密码了，怎么重新登录？"
+    },
+    {
+      "role": "assistant",
+      "content": "请在登录页点击“忘记密码”，按短信或邮箱提示完成重置。"
+    }
+  ]
+}
+```
+
 ### 这段代码为什么有工程价值？
 
 因为它对应的是微调里最真实的第一步：
@@ -281,6 +306,12 @@ def build_loss_mask(messages):
 
 
 print(build_loss_mask(messages))
+```
+
+预期输出：
+
+```text
+[0, 0, 1]
 ```
 
 这不是在复现真实 tokenizer，
@@ -363,6 +394,13 @@ val_history = [
 
 best = min(val_history, key=lambda item: (item["val_loss"], -item["format_acc"]))
 print("best checkpoint =", best)
+```
+
+预期输出：
+
+```text
+{'effective_batch_size': 32, 'steps_per_epoch': 100, 'total_steps': 300, 'warmup_steps': 9}
+best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 ```
 
 ### 为什么要特别关心 effective batch size？

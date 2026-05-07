@@ -143,6 +143,14 @@ print("delta shape :", delta.shape)
 print("W_new shape :", W_new.shape)
 ```
 
+预期输出：
+
+```text
+W shape     : torch.Size([8, 8])
+delta shape : torch.Size([8, 8])
+W_new shape : torch.Size([8, 8])
+```
+
 ### 这段代码在教什么？
 
 它在教你：
@@ -213,6 +221,12 @@ config = {
 print(config)
 ```
 
+预期输出：
+
+```text
+{'base_model_precision': '4bit', 'trainable_part': 'LoRA adapters', 'goal': '在更低显存下做微调'}
+```
+
 这个示意最重要的意思是：
 
 - LoRA：主要省训练参数
@@ -237,6 +251,12 @@ def choose_peft_route(c):
 
 
 print(choose_peft_route(constraints))
+```
+
+预期输出：
+
+```text
+优先考虑 QLoRA。
 ```
 
 这个示例很适合初学者，因为它会提醒你：

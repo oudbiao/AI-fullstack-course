@@ -298,6 +298,24 @@ with torch.no_grad():
         print(f"{text:22s} -> {label_names[pred]}")
 ```
 
+期待される出力：
+
+```text
+総パラメータ数     = 694
+学習可能パラメータ数 = 182
+step=000 loss=0.7183 acc=0.50
+step=050 loss=0.0000 acc=1.00
+step=100 loss=0.0000 acc=1.00
+step=150 loss=0.0000 acc=1.00
+step=200 loss=0.0000 acc=1.00
+refund my order        -> refund
+need a refund          -> refund
+cancel and refund      -> refund
+login failed again     -> login
+cannot login account   -> login
+password login problem -> login
+```
+
 ### このコードは何を教えているのか？
 
 これは「本番の完全な微調整をどう作るか」を教えるものではありません。  
@@ -346,6 +364,13 @@ print("元の長さ:", token_embeddings.shape[1])
 print("連結後の長さ:", combined.shape[1])
 ```
 
+期待される出力：
+
+```text
+元の長さ: 5
+連結後の長さ: 8
+```
+
 ここで一番覚えてほしいのは次の点です。
 
 - soft prompt は人間が読めるテキストではない
@@ -365,6 +390,13 @@ print("注意機構の元の key 数:", layer_keys.shape[1])
 print("prefix 追加後の key 数:", all_keys.shape[1])
 ```
 
+期待される出力：
+
+```text
+注意機構の元の key 数: 4
+prefix 追加後の key 数: 6
+```
+
 この例の直感は次の通りです。
 
 - 通常の注意機構は元の系列だけを見る
@@ -381,6 +413,13 @@ gate = torch.tensor([0.5, 1.0, 1.5, 2.0], requires_grad=True)
 scaled = hidden * gate
 print("before:", hidden)
 print("after :", scaled)
+```
+
+期待される出力：
+
+```text
+before: tensor([[1., 2., 3., 4.]])
+after : tensor([[0.5000, 2.0000, 4.5000, 8.0000]], grad_fn=<MulBackward0>)
 ```
 
 IA3 の本質は「複雑にすること」ではなく、  

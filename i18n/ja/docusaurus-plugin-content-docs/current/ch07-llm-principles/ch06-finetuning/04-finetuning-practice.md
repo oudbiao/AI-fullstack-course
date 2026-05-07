@@ -210,6 +210,31 @@ print("first train example:")
 print(json.dumps(train_records[0], ensure_ascii=False, indent=2))
 ```
 
+期待される出力：
+
+```text
+train size = 3
+val size   = 2
+first train example:
+{
+  "customer_id": "C002",
+  "messages": [
+    {
+      "role": "system",
+      "content": "あなたは EC サポートのアシスタントです。丁寧で正確、かつプラットフォームのポリシーに合った返信をしてください。"
+    },
+    {
+      "role": "user",
+      "content": "パスワードを忘れました。どうすれば再ログインできますか？"
+    },
+    {
+      "role": "assistant",
+      "content": "ログインページの「パスワードを忘れた」をクリックし、SMS またはメールの案内に従って再設定してください。"
+    }
+  ]
+}
+```
+
 ### このコードにどんな実務上の価値があるのか？
 
 なぜなら、これは微調整の最初の本当に現実的な一歩だからです。
@@ -283,6 +308,12 @@ def build_loss_mask(messages):
 
 
 print(build_loss_mask(messages))
+```
+
+期待される出力：
+
+```text
+[0, 0, 1]
 ```
 
 これは本物の tokenizer を再現しているわけではありません。  
@@ -365,6 +396,13 @@ val_history = [
 
 best = min(val_history, key=lambda item: (item["val_loss"], -item["format_acc"]))
 print("best checkpoint =", best)
+```
+
+期待される出力：
+
+```text
+{'effective_batch_size': 32, 'steps_per_epoch': 100, 'total_steps': 300, 'warmup_steps': 9}
+best checkpoint = {'checkpoint': 300, 'val_loss': 1.31, 'format_acc': 0.74}
 ```
 
 ### なぜ effective batch size を特に気にするのか？

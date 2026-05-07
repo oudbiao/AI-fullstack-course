@@ -143,6 +143,14 @@ print("delta shape :", delta.shape)
 print("W_new shape :", W_new.shape)
 ```
 
+Expected output:
+
+```text
+W shape     : torch.Size([8, 8])
+delta shape : torch.Size([8, 8])
+W_new shape : torch.Size([8, 8])
+```
+
 ### What Does This Code Teach?
 
 It teaches you that:
@@ -213,6 +221,12 @@ config = {
 print(config)
 ```
 
+Expected output:
+
+```text
+{'base_model_precision': '4bit', 'trainable_part': 'LoRA adapters', 'goal': 'Fine-tune with lower VRAM usage'}
+```
+
 The most important meaning of this example is:
 
 - LoRA: mainly saves training parameters
@@ -237,6 +251,12 @@ def choose_peft_route(c):
 
 
 print(choose_peft_route(constraints))
+```
+
+Expected output:
+
+```text
+Prioritize QLoRA.
 ```
 
 This example is especially useful for beginners because it reminds you to:

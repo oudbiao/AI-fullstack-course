@@ -143,6 +143,14 @@ print("delta の形 :", delta.shape)
 print("W_new の形 :", W_new.shape)
 ```
 
+期待される出力：
+
+```text
+W の形     : torch.Size([8, 8])
+delta の形 : torch.Size([8, 8])
+W_new の形 : torch.Size([8, 8])
+```
+
 ### このコードは何を教えているのか？
 
 このコードが教えているのは、次のことです。
@@ -213,6 +221,12 @@ config = {
 print(config)
 ```
 
+期待される出力：
+
+```text
+{'base_model_precision': '4bit', 'trainable_part': 'LoRA adapters', 'goal': 'より少ない GPU メモリでファインチューニングする'}
+```
+
 このイメージでいちばん大事なのは、次の点です。
 
 - LoRA：主に学習パラメータを減らす
@@ -237,6 +251,12 @@ def choose_peft_route(c):
 
 
 print(choose_peft_route(constraints))
+```
+
+期待される出力：
+
+```text
+まずは QLoRA を優先して考えましょう。
 ```
 
 この例は、初心者にとても役立ちます。なぜなら、次の順番を思い出させてくれるからです。

@@ -233,6 +233,13 @@ for name, count in params.items():
     print(name, "trainable_params =", count)
 ```
 
+预期输出：
+
+```text
+full_finetune trainable_params = 100000000
+peft trainable_params = 5000000
+```
+
 ### 这段代码在提醒什么？
 
 它不是在告诉你某个精确数字，而是在提醒：

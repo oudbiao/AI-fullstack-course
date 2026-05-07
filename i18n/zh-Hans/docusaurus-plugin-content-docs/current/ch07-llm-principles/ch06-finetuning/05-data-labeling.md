@@ -242,6 +242,18 @@ for row in needs_review:
     )
 ```
 
+预期输出：
+
+```text
+agreement = 0.6
+kappa     = 0.167
+
+review queue:
+id=5 confidence=0.47 labels=(good, bad) text=我不确定是否支持改地址，建议联系人工客服确认。
+id=4 confidence=0.51 labels=(good, good) text=订单完成后可在发票中心申请开票。
+id=3 confidence=0.52 labels=(bad, good) text=已经发货也一定可以秒退。
+```
+
 ### 为什么这段代码不是“废示例”？
 
 因为它对应的是数据团队每天都会做的三件事：

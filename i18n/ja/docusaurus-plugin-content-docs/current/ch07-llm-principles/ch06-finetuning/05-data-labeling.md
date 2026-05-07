@@ -243,6 +243,18 @@ for row in needs_review:
     )
 ```
 
+期待される出力：
+
+```text
+agreement = 0.6
+kappa     = 0.167
+
+review queue:
+id=5 confidence=0.47 labels=(good, bad) text=住所変更に対応しているかは不明です。有人カスタマーサポートに確認することをおすすめします。
+id=4 confidence=0.51 labels=(good, good) text=注文完了後は請求書センターで請求書発行を申請できます。
+id=3 confidence=0.52 labels=(bad, good) text=すでに発送済みでも必ず即時返金できます。
+```
+
 ### なぜこのコードは「無駄な例」ではないのか？
 
 それは、データチームが毎日やっている3つの作業に対応しているからです。
