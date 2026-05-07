@@ -3328,6 +3328,81 @@ ColumnTransformer 再和三个模型分支相连：Dummy baseline、Logistic Reg
 """.strip(),
     },
     {
+        "filename": "ch06-hands-on-shape-split-guardrail.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "PyTorch shape 与数据划分护栏图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "PyTorch shape 与数据划分护栏图：16x16 灰度图像进入 batch/channel/height/width，再划分为 train、validation 和 test，避免数据泄漏。",
+        "prompt": """
+一张竖版课程图解，主题是“训练前先确认 tensor shape 和数据划分”。
+画面从上到下分成 5 个步骤：single image 16x16、add channel -> (1,16,16)、batch -> (32,1,16,16)、labels -> (32,)、random_split -> train / validation / test。
+旁边用护栏和检查牌强调：不要把 test set 用来调参，validation 用来选模型，test 只做最后确认。
+风格像新人跟做课程的漫画式流程图，清晰、竖版、有步骤编号。
+文字不是主体；标准术语和 shape 保留英文，例如 tensor、batch、channel、train、validation、test、random_split。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-dataset-dataloader-batch-flow.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Dataset 到 DataLoader 批处理流程图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "Dataset 到 DataLoader 批处理流程图：__len__、__getitem__、shuffle、batch size 和 mini-batch 输出连接到训练循环。",
+        "prompt": """
+一张竖版 PyTorch 教学流程图，主题是“Dataset 负责拿样本，DataLoader 负责组 batch”。
+画面从上到下展示：images + labels + sample_ids 进入 StripeDataset；__len__ 告诉总数；__getitem__ 拿出一个样本；DataLoader 做 shuffle 和 batch_size；最后输出 mini-batch images、labels、sample_ids 给 training loop。
+突出新人容易混淆的点：Dataset 不训练模型，DataLoader 不改变标签含义，它只负责批处理和迭代。
+风格像课堂白板加漫画步骤卡，竖版、简洁、适合跟着代码理解。
+文字不是主体；标准术语保留英文，例如 Dataset、DataLoader、__len__、__getitem__、shuffle、batch_size、mini-batch。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-training-loop-anatomy.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "PyTorch 训练循环解剖图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "PyTorch 训练循环解剖图：model.train、zero_grad、forward、CrossEntropyLoss、backward、clip_grad_norm、optimizer.step 和 validation 按顺序执行。",
+        "prompt": """
+一张竖版训练循环解剖图，主题是“每个 batch 的 PyTorch 更新顺序”。
+画面像放大的训练循环机器，从上到下显示：model.train()、batch images/labels、optimizer.zero_grad、logits = model(images)、loss = CrossEntropyLoss、loss.backward、clip_grad_norm、optimizer.step、log train metrics。
+右侧另有 validation 小通道：model.eval()、torch.no_grad()、evaluate val loss/accuracy、save best state。
+强调顺序不能乱，旧梯度要清空，验证不反向传播。
+文字不是主体；API 和函数名保留英文。中文只用短提示。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-output-reading-lab.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "深度学习输出文件阅读实验室图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "深度学习输出文件阅读实验室图：shape_trace、training_log、model_comparison、confusion_matrix、error_samples、metrics_summary 和 loss_curve 逐项阅读。",
+        "prompt": """
+一张竖版输出阅读实验室图，主题是“跑完代码后不要只看 accuracy，要逐个读证据文件”。
+画面像一个训练结果实验台，依次打开 shape_trace.md、training_log.csv、model_comparison.csv、confusion_matrix.csv、error_samples.csv、metrics_summary.json、loss_curve.png。
+每个文件旁边有一个短问题：shape 对吗、loss 降了吗、baseline 被超过了吗、哪类混淆了、哪些样本要复盘、最佳模型是谁、曲线是否健康。
+风格清晰、流程式、适合新人跟做后检查输出。
+文字不是主体；文件名和标准术语保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
+        "filename": "ch06-hands-on-rerun-experiment-loop.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "PyTorch 小步重跑实验闭环图",
+        "suggested_page": "docs/ch06-deep-learning/ch08-projects/04-hands-on-dl-workshop.md",
+        "alt": "PyTorch 小步重跑实验闭环图：一次只改 batch size、learning rate、epochs 或模型宽度，重跑后比较日志、曲线、checkpoint 和复盘样本。",
+        "prompt": """
+一张竖版小步实验闭环图，主题是“改一个变量，重跑一次，比较证据”。
+画面从上到下形成循环：choose one change、edit BATCH_SIZE or lr or epochs、rerun python dl_workshop.py、compare training_log.csv、compare loss_curve.png、read error_samples.csv、write experiment note、decide next change。
+强调不要一次改很多变量，否则无法解释结果变化。
+风格像工程实验笔记和课程漫画结合，竖版、清晰、可操作。
+文字不是主体；标准术语和文件名保留英文。中文只用短标签。不要乱码小字或真实品牌 logo。
+""".strip(),
+    },
+    {
         "filename": "ch06-neuron-linear-activation-gate.png",
         "size": "1536x1024",
         "quality": "medium",

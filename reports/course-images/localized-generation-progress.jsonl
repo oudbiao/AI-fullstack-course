@@ -1379,3 +1379,13 @@
 {"at": "2026-05-06T23:32:23.675755+00:00", "filename": "ch05-hands-on-rerun-experiment-loop-ja.png", "locale": "ja", "status": "generated"}
 {"at": "2026-05-06T23:44:40.656860+00:00", "filename": "ch05-hands-on-data-split-lab-ja.png", "locale": "ja", "status": "error", "error": "Image API request failed with HTTP 524 for ch05-hands-on-data-split-lab-ja.png: <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>airoads.org | 524: A timeout occurred</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Compat"}
 {"at": "2026-05-06T23:50:13+00:00", "filename": "ch05-hands-on-data-split-lab-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-07T00:12:02.620712+00:00", "filename": "ch06-hands-on-shape-split-guardrail-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-07T00:13:22.170688+00:00", "filename": "ch06-hands-on-dataset-dataloader-batch-flow-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-07T00:14:41.761275+00:00", "filename": "ch06-hands-on-training-loop-anatomy-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-07T00:15:58.589331+00:00", "filename": "ch06-hands-on-output-reading-lab-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-07T00:17:22.500177+00:00", "filename": "ch06-hands-on-rerun-experiment-loop-en.png", "locale": "en", "status": "generated"}
+{"at": "2026-05-07T00:18:44.090298+00:00", "filename": "ch06-hands-on-shape-split-guardrail-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-07T00:22:50.525453+00:00", "filename": "ch06-hands-on-dataset-dataloader-batch-flow-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-07T00:26:25.646660+00:00", "filename": "ch06-hands-on-training-loop-anatomy-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-07T00:30:45.819140+00:00", "filename": "ch06-hands-on-output-reading-lab-ja.png", "locale": "ja", "status": "generated"}
+{"at": "2026-05-07T00:31:59.617977+00:00", "filename": "ch06-hands-on-rerun-experiment-loop-ja.png", "locale": "ja", "status": "generated"}
