@@ -1,56 +1,60 @@
 ---
 title: "6.2.8 实用技巧"
 sidebar_position: 6
-description: "从设备切换、随机种子、AMP、梯度裁剪到 checkpoint，掌握 PyTorch 训练中最常见也最实用的工程技巧。"
-keywords: [PyTorch, AMP, 混合精度, 梯度裁剪, checkpoint, device, reproducibility]
+description: "PyTorch 调试与训练工程实操指南：device、seed、AMP、梯度裁剪、checkpoint 和排查顺序。"
+keywords: [PyTorch, AMP, mixed precision, gradient clipping, checkpoint, device, reproducibility]
 ---
 
 # 6.2.8 实用技巧
 
+:::tip 本节定位
+很多早期 PyTorch 问题不是模型太高级，而是 device 不一致、shape 错、梯度不稳、没有 checkpoint，或者验证代码还在追踪梯度。
+:::
+
 ## 学习目标
 
-完成本节后，你将能够：
-
-- 正确处理 CPU / GPU 设备切换
-- 使用随机种子提升实验可复现性
-- 理解混合精度训练和梯度裁剪的作用
-- 会保存和恢复模型 checkpoint
-- 建立一份 PyTorch 调试检查清单
+- 写出兼容 CPU、CUDA、Apple MPS 的 device 安全代码。
+- 固定常见随机来源，方便复现和调试。
+- 梯度爆炸时使用梯度裁剪。
+- CUDA 可用时使用 AMP，并在其他设备上安全降级。
+- 保存和恢复 checkpoint。
+- loss 不下降时按顺序排查。
 
 ---
 
-## 一、先解决最常见的工程问题
+## 先看排查顺序
 
-### 设备切换：先别假设你一定有 GPU
+训练坏掉时，先查简单工程问题，不要一上来重设计模型。
 
-很多初学者会直接把代码写死成 `cuda()`，结果在没有 GPU 的机器上直接报错。
+![PyTorch 训练调试排查顺序](/img/course/ch06-pytorch-debug-check-order.svg)
 
-更稳妥的写法是：
+按这个顺序：
 
-```python
-import torch
+1. 一个 batch 是否加载正确？
+2. shape 和 dtype 是否匹配模型与 loss？
+3. 模型和数据是否在同一个 device？
+4. loss 是否是有限数？
+5. 梯度是否非 `None`，并且没有爆炸？
+6. `optimizer.step()` 后参数是否真的更新？
+7. 验证和预测是否用了 `eval()` 和 `no_grad()`？
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-print("当前设备:", device)
+## 实验 1：Device 和 Seed
 
-x = torch.tensor([[1.0, 2.0], [3.0, 4.0]]).to(device)
-print(x)
-print("张量所在设备:", x.device)
-```
-
-你可以把 `device` 理解成“训练发生在哪张工作台上”：
-
-- CPU：普通桌面
-- GPU：并行运算的大工作台
-
-### 固定随机种子：让实验尽量可复现
-
-训练不稳定时，第一件事往往不是改模型，而是先固定随机性。
+这个实验可在 CPU、CUDA 或 Apple Silicon MPS 上运行。
 
 ```python
 import random
+
 import numpy as np
 import torch
+
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
+
 
 def set_seed(seed=42):
     random.seed(seed)
@@ -59,47 +63,39 @@ def set_seed(seed=42):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 
-set_seed(42)
 
-print(torch.randn(3))
+print("device_seed_lab")
+print("device:", device)
+
 set_seed(42)
-print(torch.randn(3))
+a = torch.randn(3)
+set_seed(42)
+b = torch.randn(3)
+
+print("same random:", torch.equal(a, b))
+print("sample:", a)
 ```
 
-如果两次打印结果一样，说明这部分随机性被固定住了。
-
-:::info 为什么“尽量”而不是“绝对”？
-有些 GPU 算子和并行细节仍然可能引入微小差异，所以可复现通常是“更接近”，不是“绝对一模一样”。
-:::
-
----
-
-## 二、让训练过程更稳
-
-### `train()`、`eval()` 和 `no_grad()` 要形成肌肉记忆
-
-训练与验证最容易写乱的地方，不是模型结构，而是模式切换。
-
-标准习惯：
+示例输出：
 
 ```text
-model.train()   # 训练前
-# 这里写训练代码
-model.eval()    # 验证 / 推理前
-with torch.no_grad():
-    # 这里写验证 / 推理代码
+device_seed_lab
+device: mps
+same random: True
+sample: tensor([0.3367, 0.1288, 0.2345])
 ```
 
-你可以把它理解成：
+你的 `device` 可能是 `cpu`、`cuda` 或 `mps`。
 
-- `train()`：模型进入“练习模式”
-- `eval()`：模型进入“考试模式”
-- `no_grad()`：考试时不做反向传播草稿，节省内存
+复现性说明：
 
-### 梯度裁剪：防止梯度突然爆掉
+- Seed 会让调试容易很多。
+- 某些 GPU 算子和并行细节仍可能带来微小差异。
+- 目标是“足够可复现，便于调试”，不是所有环境都数学上完全一致。
 
-在 RNN、Transformer 或较深网络里，梯度有时会变得很大，导致训练不稳定。
-梯度裁剪就是“给梯度设一个上限”。
+## 实验 2：梯度裁剪
+
+梯度裁剪会在 optimizer 更新前限制梯度范数。RNN、Transformer 和不稳定深层网络里很常见。
 
 ```python
 import torch
@@ -110,201 +106,196 @@ torch.manual_seed(42)
 model = nn.Sequential(
     nn.Linear(10, 20),
     nn.ReLU(),
-    nn.Linear(20, 1)
+    nn.Linear(20, 1),
 )
 
 x = torch.randn(32, 10)
 y = torch.randn(32, 1) * 50
 
-loss_fn = nn.MSELoss()
-pred = model(x)
-loss = loss_fn(pred, y)
+loss = nn.MSELoss()(model(x), y)
 loss.backward()
+
 
 def grad_norm(model):
     total = 0.0
-    for p in model.parameters():
-        if p.grad is not None:
-            total += p.grad.norm(2).item() ** 2
+    for param in model.parameters():
+        if param.grad is not None:
+            total += param.grad.norm(2).item() ** 2
     return total ** 0.5
 
+
+print("grad_clip_lab")
 before = grad_norm(model)
 torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 after = grad_norm(model)
 
-print("裁剪前梯度范数:", round(before, 4))
-print("裁剪后梯度范数:", round(after, 4))
+print("before:", round(before, 4))
+print("after:", round(after, 4))
 ```
 
-这就像给下坡的自行车加个限速器，避免冲得太猛。
+预期输出：
 
----
+```text
+grad_clip_lab
+before: 38.7677
+after: 1.0
+```
 
-## 三、让训练更快
+裁剪放在这里：
 
-### 混合精度训练（AMP）：更省显存、更快
+```text
+zero_grad -> backward -> clip gradients -> optimizer.step
+```
 
-AMP 的核心思想是：
+不要在 `backward()` 前裁剪，因为那时梯度还不存在。
 
-> 在合适的地方用更低精度计算，以换取更快速度和更低显存占用。
+## 实验 3：AMP 与安全降级
 
-它尤其适合 GPU 训练。
-为了保证下面代码在没有 GPU 的机器上也能直接运行，我们写成“有 GPU 就启用，没有就正常训练”。
+AMP 是自动混合精度。在 CUDA GPU 上，它可以减少显存占用并加速训练。在 CPU 或 MPS 上，这个例子会退回普通精度。
 
 ```python
 import torch
 from torch import nn
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
+
 model = nn.Sequential(nn.Linear(16, 32), nn.ReLU(), nn.Linear(32, 1)).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 loss_fn = nn.MSELoss()
 
-x = torch.randn(64, 16).to(device)
-y = torch.randn(64, 1).to(device)
+x = torch.randn(64, 16, device=device)
+y = torch.randn(64, 1, device=device)
 
-if device == "cuda":
+print("amp_lab")
+if device.type == "cuda":
     scaler = torch.amp.GradScaler("cuda")
     for _ in range(3):
         optimizer.zero_grad()
         with torch.amp.autocast("cuda"):
-            pred = model(x)
-            loss = loss_fn(pred, y)
+            loss = loss_fn(model(x), y)
         scaler.scale(loss).backward()
         scaler.step(optimizer)
         scaler.update()
-    print("已使用 AMP 在 GPU 上完成 3 步训练")
+    print("used AMP on cuda")
 else:
     for _ in range(3):
         optimizer.zero_grad()
-        pred = model(x)
-        loss = loss_fn(pred, y)
+        loss = loss_fn(model(x), y)
         loss.backward()
         optimizer.step()
-    print("当前无 GPU，使用普通精度完成 3 步训练")
+    print("used standard precision on", device.type)
 ```
 
-### Batch 太大怎么办？
+示例输出：
 
-如果你经常遇到显存不够：
+```text
+amp_lab
+used standard precision on mps
+```
 
-1. 先减小 `batch_size`
-2. 再考虑 AMP
-3. 再考虑梯度累积
+适合使用 AMP 的情况：
 
-梯度累积的直觉是：
+- 使用 CUDA 训练；
+- 显存紧张；
+- 模型适合混合精度。
 
-> 虽然一次吃不下大 batch，但可以分几口吃完，再统一更新一次。
+保留普通精度的情况：
 
----
+- 正在排查数值问题；
+- 在 CPU 上跑很小的例子；
+- 需要最简单的 baseline。
 
-## 四、保存和恢复训练进度
+## 实验 4：保存和恢复 Checkpoint
 
-### 为什么 checkpoint 很重要？
+Checkpoint 通常应包含：
 
-训练随时可能因为这些原因中断：
+- `model.state_dict()`；
+- `optimizer.state_dict()`；
+- epoch；
+- 最佳验证指标；
+- 必要时还包括配置或标签映射。
 
-- 断电
-- Notebook 超时
-- GPU 被回收
-- 程序报错
-
-checkpoint 就像“游戏存档”。
-
-### 一个最小可运行示例
+这个实验使用临时目录，不会留下文件。
 
 ```python
+import os
+import tempfile
+
 import torch
 from torch import nn
 
 model = nn.Linear(2, 1)
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
-checkpoint_path = "demo_checkpoint.pt"
+print("checkpoint_lab")
+with tempfile.TemporaryDirectory() as tmp:
+    checkpoint_path = os.path.join(tmp, "demo_checkpoint.pt")
 
-# 保存
-torch.save({
-    "model_state_dict": model.state_dict(),
-    "optimizer_state_dict": optimizer.state_dict(),
-    "epoch": 5
-}, checkpoint_path)
+    torch.save(
+        {
+            "model_state_dict": model.state_dict(),
+            "optimizer_state_dict": optimizer.state_dict(),
+            "epoch": 5,
+            "best_val": 0.123,
+        },
+        checkpoint_path,
+    )
 
-print("checkpoint 已保存:", checkpoint_path)
+    new_model = nn.Linear(2, 1)
+    new_optimizer = torch.optim.SGD(new_model.parameters(), lr=0.1)
 
-# 恢复
-new_model = nn.Linear(2, 1)
-new_optimizer = torch.optim.SGD(new_model.parameters(), lr=0.1)
+    ckpt = torch.load(checkpoint_path, map_location="cpu")
+    new_model.load_state_dict(ckpt["model_state_dict"])
+    new_optimizer.load_state_dict(ckpt["optimizer_state_dict"])
 
-ckpt = torch.load(checkpoint_path, map_location="cpu")
-new_model.load_state_dict(ckpt["model_state_dict"])
-new_optimizer.load_state_dict(ckpt["optimizer_state_dict"])
-
-print("恢复的 epoch:", ckpt["epoch"])
+    print("restored epoch:", ckpt["epoch"])
+    print("restored best_val:", ckpt["best_val"])
 ```
 
-真实项目里，通常会额外保存：
+预期输出：
 
-- 最优验证集指标
-- 训练配置
-- tokenizer / label mapping
-
----
-
-## 五、调试时先看哪里？
-
-### 形状（shape）永远排第一
-
-PyTorch 里很多 bug，本质上都不是“模型太难”，而是：
-
-- shape 不对
-- dtype 不对
-- device 不一致
-
-训练前建议多打几行：
-
-```python
-print("x shape:", x.shape)
-print("y shape:", y.shape)
-print("x dtype:", x.dtype)
-print("x device:", x.device)
+```text
+checkpoint_lab
+restored epoch: 5
+restored best_val: 0.123
 ```
 
-### 训练不下降时的检查顺序
+真实项目里通常保存到稳定路径，比如：
 
-可以按这个顺序查：
+```text
+checkpoints/best_model.pt
+```
 
-1. 数据有没有读对
-2. 标签有没有对齐
-3. loss 有没有算对
-4. `optimizer.zero_grad()` 有没有写
-5. `backward()` 和 `step()` 顺序对不对
-6. 学习率是不是太大或太小
+## 内存和稳定性排查
 
-![PyTorch 训练调试检查顺序图](/img/course/ch06-pytorch-debug-check-order.svg)
+| 现象 | 第一反应 | 下一步 |
+|---|---|---|
+| out of memory | 降低 `batch_size` | CUDA 上用 AMP，再考虑梯度累积 |
+| loss 变成 `nan` | 降低学习率 | 检查输入，加入梯度裁剪 |
+| 验证很慢 | 加 `model.eval()` 和 `torch.no_grad()` | 降低验证频率 |
+| 每次训练结果差很多 | 设置 seed | 记录配置和数据切分 |
+| checkpoint 加载失败 | 检查架构和 key 名 | 查看 `state_dict().keys()` |
 
-### 看到 `nan` 怎么办？
+梯度累积的直觉：
 
-常见原因有：
+```text
+大有效 batch = 多次小 forward/backward + 一次 optimizer step
+```
 
-- 学习率太大
-- 输入尺度过大
-- 梯度爆炸
-- 除零或 `log(0)` 等数值问题
+当显存放不下一整个大 batch 时，它很有用。
 
-最实用的第一反应：
-
-1. 降低学习率
-2. 打印 loss 和参数范围
-3. 打开梯度裁剪
-
----
-
-## 六、一份适合保存的训练模板
+## 可保存训练模板
 
 ```python
 model.train()
 for batch_x, batch_y in train_loader:
-    batch_x, batch_y = batch_x.to(device), batch_y.to(device)
+    batch_x = batch_x.to(device)
+    batch_y = batch_y.to(device)
 
     pred = model(batch_x)
     loss = loss_fn(pred, batch_y)
@@ -317,31 +308,25 @@ for batch_x, batch_y in train_loader:
 model.eval()
 with torch.no_grad():
     for batch_x, batch_y in val_loader:
-        batch_x, batch_y = batch_x.to(device), batch_y.to(device)
+        batch_x = batch_x.to(device)
+        batch_y = batch_y.to(device)
         pred = model(batch_x)
         val_loss = loss_fn(pred, batch_y)
 ```
 
-这个模板不花哨，但非常实用。
-
----
-
-## 小结
-
-这节课最重要的不是新 API，而是训练工程直觉：
-
-- 设备别写死
-- 随机种子先固定
-- `train / eval / no_grad` 要分清
-- 大梯度要会裁
-- 训练进度要会存
-
-很多模型训练卡住，不是因为算法不会，而是这些“小工程细节”没处理好。
-
----
+这个模板不花哨，但能防住最常见的 PyTorch 训练错误。
 
 ## 练习
 
-1. 给你自己的 PyTorch 训练代码加上 `device` 处理，确保 CPU 和 GPU 都能跑。
-2. 在现有训练循环里加上梯度裁剪，打印裁剪前后的梯度范数。
-3. 加一个 checkpoint 存档逻辑，并在中断后尝试恢复。
+1. 给你之前的训练循环加入 device 处理，确认模型和数据在同一设备。
+2. 在自己的模型里打印梯度裁剪前后的梯度范数。
+3. 为最佳验证 loss 加入 checkpoint 保存。
+4. 临时提高学习率直到 loss 不稳定，再通过降低学习率和裁剪梯度恢复。
+
+## 小结
+
+- 不要硬编码 `.cuda()`；选择 device，并同时移动模型和数据。
+- 调试训练行为前先设置 seed。
+- 梯度裁剪放在 `backward()` 后、`step()` 前。
+- AMP 主要用于 CUDA，同时保留简单降级路径。
+- checkpoint 应保存模型状态、优化器状态、epoch 和验证指标。
