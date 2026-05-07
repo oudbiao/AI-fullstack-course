@@ -248,6 +248,25 @@ print("\nfinal report:")
 print(context["report"])
 ```
 
+Expected output:
+
+```text
+plan:
+- {'step': 'load_tickets', 'description': 'Load this week’s support tickets'}
+- {'step': 'count_intents', 'description': 'Count the number of issues in each category'}
+- {'step': 'find_top_intent', 'description': 'Find the most frequent issue'}
+- {'step': 'draft_report', 'description': 'Generate a short weekly report'}
+
+trace:
+{'task': 'load_tickets', 'output': 'Loaded 5 tickets'}
+{'task': 'count_intents', 'output': {'refund': 3, 'password': 1, 'address': 1}}
+{'task': 'find_top_intent', 'output': 'refund'}
+{'task': 'draft_report', 'output': 'This week, a total of 5 support tickets were handled. The most frequent issue was refund, appearing 3 times. It is recommended to prioritize improving the refund workflow and FAQ copy.'}
+
+final report:
+This week, a total of 5 support tickets were handled. The most frequent issue was refund, appearing 3 times. It is recommended to prioritize improving the refund workflow and FAQ copy.
+```
+
 ### What is the most important value of this code?
 
 It clearly separates two things:
@@ -306,6 +325,12 @@ def next_fix(plan_quality):
 
 
 print(next_fix(plan_quality))
+```
+
+Expected output:
+
+```text
+First clarify how each step’s output is passed to the next step.
 ```
 
 This example is especially good for beginners, because it reminds you:

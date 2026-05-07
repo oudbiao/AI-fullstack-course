@@ -92,13 +92,13 @@ CoT 对模型的作用很像这一层。
 ```python
 import re
 
-problem = "商品原价80元，打8折后再减5元，最后多少钱？"
+problem = "商品原价80元，先优惠20%，再减5元，最后多少钱？"
 
 
 def bad_direct_answer(text):
     numbers = list(map(int, re.findall(r"\d+", text)))
     original, discount, minus = numbers
-    # 常见错误：把“8折”误当成“减 8”
+    # 常见错误：把“优惠 20%”误当成“减 20 元”
     return original - discount - minus
 
 
@@ -123,6 +123,18 @@ print("\nchain reasoning steps:")
 for step in steps:
     print("-", step)
 print("final answer:", answer)
+```
+
+预期输出：
+
+```text
+problem: 商品原价80元，先优惠20%，再减5元，最后多少钱？
+bad direct answer: 55
+
+chain reasoning steps:
+- 先算折扣价：80 * (1 - 20/100) = 64.0
+- 再减额外的 5 元：64.0 - 5 = 59.0
+final answer: 59.0
 ```
 
 ### 这段代码最能说明什么？
@@ -292,7 +304,7 @@ print("final answer:", answer)
 
 ```python
 ticket = {
-    "question": "订单未发货，原价80元打8折后又减5元，退款金额是多少？",
+    "question": "订单未发货，原价80元先优惠20%后又减5元，退款金额是多少？",
     "policy": "未发货订单可原路退款。",
 }
 
@@ -300,7 +312,7 @@ ticket = {
 def structured_reasoning(ticket):
     facts = [
         "订单未发货，可走原路退款",
-        "商品原价 80 元，打 8 折后再减 5 元",
+        "商品原价 80 元，先优惠 20% 后再减 5 元",
     ]
     calculation = ["80 * 0.8 = 64", "64 - 5 = 59"]
     decision = "退款金额应为 59 元，且原路退回。"
@@ -314,6 +326,12 @@ def structured_reasoning(ticket):
 
 result = structured_reasoning(ticket)
 print(result)
+```
+
+预期输出：
+
+```text
+{'facts': ['订单未发货，可走原路退款', '商品原价 80 元，先优惠 20% 后再减 5 元'], 'calculation': ['80 * 0.8 = 64', '64 - 5 = 59'], 'decision': '退款金额应为 59 元，且原路退回。'}
 ```
 
 这种格式的优点是：

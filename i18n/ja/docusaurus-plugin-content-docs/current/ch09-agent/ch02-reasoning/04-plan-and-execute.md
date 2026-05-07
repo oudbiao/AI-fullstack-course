@@ -249,6 +249,25 @@ print("\nfinal report:")
 print(context["report"])
 ```
 
+期待される出力：
+
+```text
+plan:
+- {'step': 'load_tickets', 'description': '今週のサポートチケットを読み込む'}
+- {'step': 'count_intents', 'description': '各種類の問題数を集計する'}
+- {'step': 'find_top_intent', 'description': '最も多い問題を見つける'}
+- {'step': 'draft_report', 'description': '短い週報を作る'}
+
+trace:
+{'task': 'load_tickets', 'output': '5件のチケットを読み込みました'}
+{'task': 'count_intents', 'output': {'refund': 3, 'password': 1, 'address': 1}}
+{'task': 'find_top_intent', 'output': 'refund'}
+{'task': 'draft_report', 'output': '今週は合計 5 件のサポートチケットを対応しました。最も多かった問題は refund で、3 回ありました。まずは refund の手順と FAQ 文を改善することをおすすめします。'}
+
+final report:
+今週は合計 5 件のサポートチケットを対応しました。最も多かった問題は refund で、3 回ありました。まずは refund の手順と FAQ 文を改善することをおすすめします。
+```
+
 ### このコードでいちばん大事な点は何か？
 
 次の2つをはっきり分けていることです。
@@ -309,6 +328,12 @@ def next_fix(plan_quality):
 
 
 print(next_fix(plan_quality))
+```
+
+期待される出力：
+
+```text
+まず各ステップの出力が次のステップにどう渡るかを書きましょう。
 ```
 
 この例は初心者にとても向いています。  

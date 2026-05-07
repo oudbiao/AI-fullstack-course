@@ -191,7 +191,7 @@ def policy(state):
     return {
         "thought": "情報は十分そろったので、最終回答を出せる。",
         "action": None,
-        "answer": f"{policy_text} この注文の予想返金額は {amount} 元です。",
+        "answer": f"{policy_text} この注文の予想返金額は {amount} 円です。",
     }
 
 
@@ -232,6 +232,17 @@ for item in trace:
     print(item)
 print("\nfinal answer:")
 print(answer)
+```
+
+期待される出力：
+
+```text
+trace:
+{'thought': 'まず返金ポリシーを確認して、ルール部分に答える必要がある。', 'action': 'search_policy', 'args': {'topic': 'refund'}, 'observation': '未発送の注文はそのまま返金申請できます。返金は元の支払い方法に戻り、通常 3〜7 営業日で着金します。'}
+{'thought': 'ポリシーは分かった。次は返金額 299 + 15 を計算する。', 'action': 'calculator', 'args': {'expression': '299 + 15'}, 'observation': '314'}
+
+final answer:
+未発送の注文はそのまま返金申請できます。返金は元の支払い方法に戻り、通常 3〜7 営業日で着金します。 この注文の予想返金額は 314 円です。
 ```
 
 ### このコードはどう読むべき？

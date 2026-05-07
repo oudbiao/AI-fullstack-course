@@ -248,6 +248,25 @@ print("\nfinal report:")
 print(context["report"])
 ```
 
+预期输出：
+
+```text
+plan:
+- {'step': 'load_tickets', 'description': '读取本周售后工单'}
+- {'step': 'count_intents', 'description': '统计各类问题数量'}
+- {'step': 'find_top_intent', 'description': '找出最高频问题'}
+- {'step': 'draft_report', 'description': '生成简短周报'}
+
+trace:
+{'task': 'load_tickets', 'output': '已读取 5 条工单'}
+{'task': 'count_intents', 'output': {'refund': 3, 'password': 1, 'address': 1}}
+{'task': 'find_top_intent', 'output': 'refund'}
+{'task': 'draft_report', 'output': '本周共处理 5 条售后工单。最高频问题是 refund，出现 3 次。建议优先优化 refund 流程和 FAQ 文案。'}
+
+final report:
+本周共处理 5 条售后工单。最高频问题是 refund，出现 3 次。建议优先优化 refund 流程和 FAQ 文案。
+```
+
 ### 这段代码最关键的价值是什么？
 
 它清楚分开了两件事：
@@ -306,6 +325,12 @@ def next_fix(plan_quality):
 
 
 print(next_fix(plan_quality))
+```
+
+预期输出：
+
+```text
+先写清每一步产出怎样传给后一步。
 ```
 
 这个示例很适合初学者，因为它会提醒你：

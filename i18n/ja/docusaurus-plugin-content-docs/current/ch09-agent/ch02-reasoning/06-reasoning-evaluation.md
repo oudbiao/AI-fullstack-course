@@ -143,8 +143,8 @@ agent_a = [
     },
     {
         "id": "case_2",
-        "expected": "3-7个工作日",
-        "final_answer": "3-7个工作日",
+        "expected": "3〜7営業日",
+        "final_answer": "3〜7営業日",
         "trace": [
             {"tool": "search_policy", "ok": True},
         ],
@@ -164,8 +164,8 @@ agent_b = [
     },
     {
         "id": "case_2",
-        "expected": "3-7个工作日",
-        "final_answer": "5-10个工作日",
+        "expected": "3〜7営業日",
+        "final_answer": "5〜10営業日",
         "trace": [
             {"tool": "search_policy", "ok": False},
             {"tool": "search_policy", "ok": True},
@@ -198,6 +198,13 @@ def evaluate_agent(cases):
 
 print("agent_a:", evaluate_agent(agent_a))
 print("agent_b:", evaluate_agent(agent_b))
+```
+
+期待される出力：
+
+```text
+agent_a: {'accuracy': 1.0, 'avg_steps': 1.0, 'tool_success': 1.0, 'repeated_tool_calls_per_case': 0.0}
+agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool_calls_per_case': 1.0}
 ```
 
 ### このコードから何を持ち帰るべきか？

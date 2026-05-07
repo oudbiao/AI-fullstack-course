@@ -125,6 +125,18 @@ for step in steps:
 print("final answer:", answer)
 ```
 
+Expected output:
+
+```text
+problem: A product originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted. What is the final price?
+bad direct answer: 55
+
+chain reasoning steps:
+- First calculate the discounted price: 80 * (1 - 20/100) = 64.0
+- Then subtract the extra 5 yuan: 64.0 - 5 = 59.0
+final answer: 59.0
+```
+
 ### What does this code show most clearly?
 
 It shows that:
@@ -313,6 +325,12 @@ def structured_reasoning(ticket):
 
 result = structured_reasoning(ticket)
 print(result)
+```
+
+Expected output:
+
+```text
+{'facts': ['The order has not shipped yet, so it can be refunded through the original payment method', 'The item originally costs 80 yuan, gets 20% off, and then another 5 yuan is subtracted'], 'calculation': ['80 * 0.8 = 64', '64 - 5 = 59'], 'decision': 'The refund amount should be 59 yuan, returned through the original payment method.'}
 ```
 
 The advantages of this format are:

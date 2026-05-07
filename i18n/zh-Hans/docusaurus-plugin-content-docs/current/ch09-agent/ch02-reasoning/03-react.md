@@ -234,6 +234,17 @@ print("\nfinal answer:")
 print(answer)
 ```
 
+预期输出：
+
+```text
+trace:
+{'thought': '我需要先确认退款政策，再回答规则部分。', 'action': 'search_policy', 'args': {'topic': 'refund'}, 'observation': '未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。'}
+{'thought': '我已经知道政策了，接下来计算退款金额 299 + 15。', 'action': 'calculator', 'args': {'expression': '299 + 15'}, 'observation': '314'}
+
+final answer:
+未发货订单可直接申请退款，款项原路返回，通常 3 到 7 个工作日到账。 本单预计退款金额为 314 元。
+```
+
 ### 这段代码最应该怎么读？
 
 建议按这个顺序：

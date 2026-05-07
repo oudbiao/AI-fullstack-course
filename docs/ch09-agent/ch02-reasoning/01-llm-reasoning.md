@@ -206,6 +206,17 @@ for step in steps:
 print("answer:", answer)
 ```
 
+Expected output:
+
+```text
+expression: 3 * (4 + 2) - 5
+steps:
+- 4 + 2 = 6
+- 3 * 6 = 18
+- 18 - 5 = 13
+answer: 13
+```
+
 ### What is most worth learning from this code is not `ast`
 
 What is truly worth taking away is:

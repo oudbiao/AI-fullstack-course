@@ -200,6 +200,13 @@ print("agent_a:", evaluate_agent(agent_a))
 print("agent_b:", evaluate_agent(agent_b))
 ```
 
+Expected output:
+
+```text
+agent_a: {'accuracy': 1.0, 'avg_steps': 1.0, 'tool_success': 1.0, 'repeated_tool_calls_per_case': 0.0}
+agent_b: {'accuracy': 0.5, 'avg_steps': 2.5, 'tool_success': 0.8, 'repeated_tool_calls_per_case': 1.0}
+```
+
 ### What is the most important takeaway from this code?
 
 The most important thing is not a formula,

@@ -180,6 +180,19 @@ for item in timeline:
     print(item)
 ```
 
+预期输出：
+
+```text
+{'time': 0, 'running': ['collect_policy_docs', 'collect_user_cases'], 'completed': []}
+{'time': 1, 'running': ['collect_policy_docs', 'collect_user_cases'], 'completed': []}
+{'time': 2, 'running': ['collect_user_cases', 'summarize_policy'], 'completed': ['collect_policy_docs']}
+{'time': 3, 'running': ['summarize_policy', 'analyze_cases'], 'completed': ['collect_policy_docs', 'collect_user_cases']}
+{'time': 4, 'running': ['analyze_cases'], 'completed': ['collect_policy_docs', 'collect_user_cases', 'summarize_policy']}
+{'time': 5, 'running': ['draft_report'], 'completed': ['analyze_cases', 'collect_policy_docs', 'collect_user_cases', 'summarize_policy']}
+{'time': 6, 'running': ['draft_report'], 'completed': ['analyze_cases', 'collect_policy_docs', 'collect_user_cases', 'summarize_policy']}
+{'time': 7, 'running': [], 'completed': ['analyze_cases', 'collect_policy_docs', 'collect_user_cases', 'draft_report', 'summarize_policy']}
+```
+
 ### 这段代码最该看什么？
 
 重点不是细节语法，

@@ -234,6 +234,17 @@ print("\nfinal answer:")
 print(answer)
 ```
 
+Expected output:
+
+```text
+trace:
+{'thought': 'I need to confirm the refund policy first before answering the policy part.', 'action': 'search_policy', 'args': {'topic': 'refund'}, 'observation': 'Unshipped orders can be refunded directly. The amount will be returned to the original payment method, usually within 3 to 7 business days.'}
+{'thought': 'Now that I know the policy, I should calculate the refund amount 299 + 15.', 'action': 'calculator', 'args': {'expression': '299 + 15'}, 'observation': '314'}
+
+final answer:
+Unshipped orders can be refunded directly. The amount will be returned to the original payment method, usually within 3 to 7 business days. The estimated refund amount for this order is 314 yuan.
+```
+
 ### How should you read this code?
 
 It is recommended to read it in this order:
