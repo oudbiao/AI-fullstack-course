@@ -45,7 +45,7 @@ For nested lessons, use a three-level display number so readers always know wher
 |---|---|---|
 | Start-here guide | `0.K` | `0.1 30-Minute AI Quick Experience` |
 | Chapter index | `N` | `4 AI Math` |
-| Chapter study guide | `N.0` | `4.0 Study Guide and Task Sheet` |
+| Optional printable checklist | `N.0` | `4.0 Study Guide and Task Sheet` |
 | Section category | `N.M` | `4.1 Linear Algebra` |
 | Page inside a section | `N.M.K` | `4.1.2 Vectors` |
 | Elective module | `E.X` | `E.A C++ and Model Deployment` |
@@ -53,6 +53,8 @@ For nested lessons, use a three-level display number so readers always know wher
 | Appendix page | `A.K` | `A.2 Course Numbering Convention` |
 
 Do not use local-only numbers such as `1.2` inside Chapter 4, because learners who open that page directly cannot tell whether it belongs to `4.1`, `5.1`, or another chapter.
+
+Chapter index pages are the main learning guides: each index should contain the short map, learning order, task list, first runnable loop, common failures, and pass check. `N.0` pages are optional printable checklists and should not duplicate the sidebar learning path.
 
 Inside an article, body headings should stay natural and short. Use numbers in the page title, sidebar label, and navigation context, but avoid deep body headings like `5.1.1.1 See the map first`.
 

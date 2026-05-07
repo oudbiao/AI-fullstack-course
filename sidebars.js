@@ -67,7 +67,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch02-python/index" },
           items: [
-            "ch02-python/study-guide",
             {
               type: "category",
               label: "2.1 Python Language Basics",
@@ -113,7 +112,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch03-data-analysis/index" },
           items: [
-            "ch03-data-analysis/study-guide",
             {
               type: "category",
               label: "3.1 From Python to Data Analysis",
@@ -193,7 +191,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch04-ai-math/index" },
           items: [
-            "ch04-ai-math/study-guide",
             {
               type: "category",
               label: "4.1 Linear Algebra in Practice",
@@ -237,7 +234,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch05-machine-learning/index" },
           items: [
-            "ch05-machine-learning/study-guide",
             {
               type: "category",
               label: "5.1 Core Machine Learning Concepts",
@@ -315,7 +311,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch06-deep-learning/index" },
           items: [
-            "ch06-deep-learning/study-guide",
             {
               type: "category",
               label: "6.1 Neural Network Foundations",
@@ -421,7 +416,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch07-llm-principles/index" },
           items: [
-            "ch07-llm-principles/study-guide",
             {
               type: "category",
               label: "7.1 NLP Crash Course",
@@ -520,7 +514,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch08-rag/index" },
           items: [
-            "ch08-rag/study-guide",
             {
               type: "category",
               label: "8.1 RAG: Retrieval-Augmented Generation",
@@ -591,7 +584,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch09-agent/index" },
           items: [
-            "ch09-agent/study-guide",
             {
               type: "category",
               label: "9.1 Agent Basics",
@@ -735,7 +727,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch10-computer-vision/index" },
           items: [
-            "ch10-computer-vision/study-guide",
             {
               type: "category",
               label: "10.1 Computer Vision Basics",
@@ -806,7 +797,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch11-nlp/index" },
           items: [
-            "ch11-nlp/study-guide",
             {
               type: "category",
               label: "11.1 Text Basics",
@@ -891,7 +881,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch12-multimodal/index" },
           items: [
-            "ch12-multimodal/study-guide",
             {
               type: "category",
               label: "12.1 Multimodal Basics",
