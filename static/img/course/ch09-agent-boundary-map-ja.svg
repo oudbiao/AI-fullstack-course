@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">Agent 境界選択図</title>
+  <desc id="desc">workflow、RAG、Function Calling、Agent の選び方を示す判断図。</desc>
+  <style>.title{font:700 30px Arial,sans-serif;fill:#0f172a}.sub{font:400 17px Arial,sans-serif;fill:#475569}.label{font:700 19px Arial,sans-serif;fill:#111827}.text{font:400 15px Arial,sans-serif;fill:#374151}</style>
+  <rect width="720" height="900" fill="#fff7ed"/>
+  <text x="360" y="58" text-anchor="middle" class="title">本当に Agent が必要？</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">最も単純で信頼できる制御構造を選びます。</text>
+  <g transform="translate(85 132)"><rect width="550" height="92" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="28" y="36" class="label">手順が固定で既知</text><text x="28" y="64" class="text">workflow を使う。プログラムが先に経路を決めます。</text></g>
+  <g transform="translate(85 252)"><rect width="550" height="92" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="28" y="36" class="label">私有情報や新情報が必要</text><text x="28" y="64" class="text">RAG を使う。証拠を検索してから答えます。</text></g>
+  <g transform="translate(85 372)"><rect width="550" height="92" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="28" y="36" class="label">1回の構造化 action</text><text x="28" y="64" class="text">Function Calling を使う。ループは不要です。</text></g>
+  <g transform="translate(85 492)"><rect width="550" height="92" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><text x="28" y="36" class="label">高リスク action</text><text x="28" y="64" class="text">人間承認を使う。Agent は下書きまでにします。</text></g>
+  <g transform="translate(85 612)"><rect width="550" height="118" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="28" y="36" class="label">開かれた多段階 goal</text><text x="28" y="64" class="text">計画、ツール、状態更新、回復が必要で、</text><text x="28" y="88" class="text">全ステップを記録し安全停止できるときだけ Agent。</text></g>
+  <rect x="85" y="770" width="550" height="66" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+  <text x="360" y="798" text-anchor="middle" class="label">安全門：ホワイトリスト、最大ステップ、trace、人間引継ぎ</text>
+</svg>

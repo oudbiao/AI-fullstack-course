@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">Agent 边界选择图</title>
+  <desc id="desc">选择工作流、RAG、Function Calling 或 Agent 的决策图。</desc>
+  <style>.title{font:700 30px Arial,sans-serif;fill:#0f172a}.sub{font:400 17px Arial,sans-serif;fill:#475569}.label{font:700 19px Arial,sans-serif;fill:#111827}.text{font:400 15px Arial,sans-serif;fill:#374151}</style>
+  <rect width="720" height="900" fill="#fff7ed"/>
+  <text x="360" y="58" text-anchor="middle" class="title">真的需要 Agent 吗？</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">先选最简单、最可靠的控制结构。</text>
+  <g transform="translate(85 132)"><rect width="550" height="92" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="28" y="36" class="label">固定且已知的步骤</text><text x="28" y="64" class="text">用工作流。程序提前决定路线。</text></g>
+  <g transform="translate(85 252)"><rect width="550" height="92" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="28" y="36" class="label">需要私有或新知识</text><text x="28" y="64" class="text">用 RAG。先检索证据，再回答。</text></g>
+  <g transform="translate(85 372)"><rect width="550" height="92" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="28" y="36" class="label">一次结构化动作</text><text x="28" y="64" class="text">用 Function Calling。不需要执行循环。</text></g>
+  <g transform="translate(85 492)"><rect width="550" height="92" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><text x="28" y="36" class="label">高风险动作</text><text x="28" y="64" class="text">用人工确认。Agent 可以起草，不能直接执行。</text></g>
+  <g transform="translate(85 612)"><rect width="550" height="118" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="28" y="36" class="label">开放式多步骤目标</text><text x="28" y="64" class="text">只有需要规划、工具、状态更新和失败恢复，</text><text x="28" y="88" class="text">且每一步都能记录和安全停止时，才用 Agent。</text></g>
+  <rect x="85" y="770" width="550" height="66" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+  <text x="360" y="798" text-anchor="middle" class="label">安全门：白名单、最大步数、trace、人工接管</text>
+</svg>

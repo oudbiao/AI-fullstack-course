@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="980" viewBox="0 0 720 980" role="img" aria-labelledby="title desc">
+  <title id="title">Agent execution loop</title>
+  <desc id="desc">A vertical Agent execution loop showing goal, state, plan, tool action, observation, adjustment, and trace.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .title{font:700 30px Arial,sans-serif;fill:#0f172a}
+      .sub{font:400 17px Arial,sans-serif;fill:#475569}
+      .step{font:700 19px Arial,sans-serif;fill:#111827}
+      .text{font:400 15px Arial,sans-serif;fill:#374151}
+    </style>
+  </defs>
+  <rect width="720" height="980" fill="#f8fafc"/>
+  <text x="360" y="58" text-anchor="middle" class="title">Agent Execution Loop</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">Act only inside boundaries, and leave a replayable trace.</text>
+  <g transform="translate(90 130)"><rect width="540" height="80" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="28" y="34" class="step">1. Goal</text><text x="28" y="60" class="text">Define scope, success criteria, and stop condition.</text></g>
+  <path d="M360 212 V252" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 264)"><rect width="540" height="80" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="28" y="34" class="step">2. State</text><text x="28" y="60" class="text">Collect current input, memory, observations, and remaining steps.</text></g>
+  <path d="M360 346 V386" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 398)"><rect width="540" height="80" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="28" y="34" class="step">3. Plan next step</text><text x="28" y="60" class="text">Choose one action with fallback and step limit.</text></g>
+  <path d="M360 480 V520" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 532)"><rect width="540" height="80" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="28" y="34" class="step">4. Tool action</text><text x="28" y="60" class="text">Call a whitelisted tool with validated parameters.</text></g>
+  <path d="M360 614 V654" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 666)"><rect width="540" height="80" rx="18" fill="#fce7f3" stroke="#db2777" stroke-width="2"/><text x="28" y="34" class="step">5. Observation</text><text x="28" y="60" class="text">Read result, error, cost, and trust boundary.</text></g>
+  <path d="M360 748 V788" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <g transform="translate(90 800)"><rect width="540" height="80" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/><text x="28" y="34" class="step">6. Adjust or stop</text><text x="28" y="60" class="text">Continue, ask for human approval, or stop safely.</text></g>
+  <path d="M630 840 C690 740 690 250 630 172" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="90" y="906" width="540" height="48" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="360" y="936" text-anchor="middle" class="step">Trace every step: goal, action, input, observation, result</text>
+</svg>

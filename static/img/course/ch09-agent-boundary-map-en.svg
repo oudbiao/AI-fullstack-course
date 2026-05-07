@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">Agent boundary map</title>
+  <desc id="desc">A decision map for choosing workflow, RAG, function calling, or Agent.</desc>
+  <style>.title{font:700 30px Arial,sans-serif;fill:#0f172a}.sub{font:400 17px Arial,sans-serif;fill:#475569}.label{font:700 19px Arial,sans-serif;fill:#111827}.text{font:400 15px Arial,sans-serif;fill:#374151}</style>
+  <rect width="720" height="900" fill="#fff7ed"/>
+  <text x="360" y="58" text-anchor="middle" class="title">Do You Really Need an Agent?</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">Pick the simplest reliable control structure.</text>
+  <g transform="translate(85 132)"><rect width="550" height="92" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="28" y="36" class="label">Fixed known steps</text><text x="28" y="64" class="text">Use workflow. Code decides the path in advance.</text></g>
+  <g transform="translate(85 252)"><rect width="550" height="92" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/><text x="28" y="36" class="label">Needs private or fresh knowledge</text><text x="28" y="64" class="text">Use RAG. Retrieve evidence before answering.</text></g>
+  <g transform="translate(85 372)"><rect width="550" height="92" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2"/><text x="28" y="36" class="label">One structured action</text><text x="28" y="64" class="text">Use function calling. No loop is needed.</text></g>
+  <g transform="translate(85 492)"><rect width="550" height="92" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/><text x="28" y="36" class="label">High-risk action</text><text x="28" y="64" class="text">Use human approval. Let Agent draft, not execute directly.</text></g>
+  <g transform="translate(85 612)"><rect width="550" height="118" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/><text x="28" y="36" class="label">Open-ended multi-step goal</text><text x="28" y="64" class="text">Use Agent only when it needs planning, tools, state updates,</text><text x="28" y="88" class="text">recovery, and every step can be logged and stopped safely.</text></g>
+  <rect x="85" y="770" width="550" height="66" rx="18" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+  <text x="360" y="798" text-anchor="middle" class="label">Safety gates: whitelist, max steps, trace, human takeover</text>
+</svg>

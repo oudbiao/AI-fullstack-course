@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="820" viewBox="0 0 720 820" role="img" aria-labelledby="title desc">
+  <title id="title">Agent trace 証拠パック</title>
+  <desc id="desc">追跡可能な Agent プロジェクトのポートフォリオ証拠ファイルを示すチェック図。</desc>
+  <style>.title{font:700 30px Arial,sans-serif;fill:#0f172a}.sub{font:400 17px Arial,sans-serif;fill:#475569}.file{font:700 18px Arial,sans-serif;fill:#111827}.text{font:400 15px Arial,sans-serif;fill:#374151}</style>
+  <rect width="720" height="820" fill="#f0fdfa"/>
+  <text x="360" y="58" text-anchor="middle" class="title">追跡可能 Agent の証拠</text>
+  <text x="360" y="88" text-anchor="middle" class="sub">本当の Agent プロジェクトは再生・制御・評価できます。</text>
+  <g transform="translate(86 128)"><rect width="548" height="82" rx="18" fill="#fff" stroke="#2563eb" stroke-width="2"/><text x="28" y="33" class="file">tools_schema.md</text><text x="28" y="59" class="text">ツール名、目的、引数、戻り値、エラー、リスク。</text></g>
+  <g transform="translate(86 232)"><rect width="548" height="82" rx="18" fill="#fff" stroke="#16a34a" stroke-width="2"/><text x="28" y="33" class="file">agent_traces.jsonl</text><text x="28" y="59" class="text">goal、step、action、input、observation、result。</text></g>
+  <g transform="translate(86 336)"><rect width="548" height="82" rx="18" fill="#fff" stroke="#dc2626" stroke-width="2"/><text x="28" y="33" class="file">safety_boundary.md</text><text x="28" y="59" class="text">ホワイトリスト、最大ステップ、ブロック action、承認。</text></g>
+  <g transform="translate(86 440)"><rect width="548" height="82" rx="18" fill="#fff" stroke="#d97706" stroke-width="2"/><text x="28" y="33" class="file">failure_cases.md</text><text x="28" y="59" class="text">誤ツール、悪い引数、ループ、未対応回答。</text></g>
+  <g transform="translate(86 544)"><rect width="548" height="82" rx="18" fill="#fff" stroke="#7c3aed" stroke-width="2"/><text x="28" y="33" class="file">eval_tasks.csv</text><text x="28" y="59" class="text">固定タスク、成功基準、完了率、安全スコア。</text></g>
+  <g transform="translate(86 648)"><rect width="548" height="82" rx="18" fill="#fff" stroke="#db2777" stroke-width="2"/><text x="28" y="33" class="file">README.md</text><text x="28" y="59" class="text">実行コマンド、trace 例、安全例、制限。</text></g>
+</svg>
