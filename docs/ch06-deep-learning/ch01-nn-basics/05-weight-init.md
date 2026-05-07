@@ -1,345 +1,321 @@
 ---
 title: "6.1.7 Weight Initialization"
 sidebar_position: 7
-description: "Understand why weight initialization matters, and the principles and use cases of Xavier and He initialization"
+description: "Use small PyTorch experiments to understand Xavier, He, PyTorch defaults, and common initialization failures"
 keywords: [weight initialization, Xavier, Glorot, He, Kaiming, vanishing gradients, exploding gradients]
 ---
 
 # 6.1.7 Weight Initialization
 
 :::tip Section Overview
-One of the key factors in whether a deep network trains successfully is **weight initialization**. Bad initialization can cause vanishing or exploding gradients and make training fail completely. The good news is that PyTorch has already chosen a suitable default initialization for you.
+Initialization decides whether a neural network starts training with usable signals. You usually start with PyTorch defaults, but you should know how to check Xavier, He, all-zero, too-small, and too-large initialization when training looks strange.
 :::
 
 ## Learning Objectives
 
-- Understand why all-zero initialization is not allowed
-- Understand Xavier / Glorot initialization
-- Understand He / Kaiming initialization
-- Observe the impact of initialization on training
+- Explain why all-zero weights break learning.
+- Choose Xavier for Tanh/Sigmoid and He for ReLU-style activations.
+- Run a signal probe before training.
+- Compare initialization choices on a tiny classification task.
+- Debug early training instability without changing random things blindly.
 
 ---
 
-## Build a Map First
+## First Look at the Map
 
-The easiest way for beginners to view initialization is as “an extra detail,” but it actually directly affects whether a model can start learning smoothly.
+Before formulas, look at the job of initialization:
 
 ![Weight initialization signal stability map](/img/course/ch06-weight-init-signal-stability-map-en.png)
 
-What this section really aims to solve is:
+Read the picture from top to bottom:
 
-- Why weights cannot be set arbitrarily
-- Why different activation functions need different initialization strategies
-- When you can safely use PyTorch defaults the first time you write a network
+- forward signal should not disappear layer by layer;
+- activations should not saturate immediately;
+- backward gradients should still have a path;
+- PyTorch defaults are a good first choice for normal `nn.Linear` and `nn.Conv2d` models.
 
-## How This Connects to the Previous Sections
+## The Minimal Idea
 
-If you connect the previous sections together, you’ll see that this section is actually answering a very natural question:
+A neural network does this loop:
 
-- Neurons perform forward propagation
-- Backpropagation sends gradients back
-- The optimizer updates parameters
+1. initialize weights;
+2. run forward propagation;
+3. compute loss;
+4. run backpropagation;
+5. update weights with the optimizer.
 
-But all of this has one prerequisite:
+If step 1 is broken, the later steps may still run, but they are running from a bad starting point.
 
-- The initial signals and gradients in the network must not be too extreme
+The common failures are simple:
 
-So initialization is really answering:
+| Bad start | What happens | What you see |
+|---|---|---|
+| All zeros | Neurons stay identical | loss does not improve |
+| Too small | signal shrinks through depth | deep layers become almost zero |
+| Too large | activations saturate or explode | huge loss, unstable gradients |
+| Mismatched init/activation | scale is wrong for the nonlinearity | slow or fragile training |
 
-> **Before model training starts, how should the first move be made so the whole game doesn’t fall apart later?**
+Two terms are worth knowing:
 
-## Why Is Initialization Important?
+- `fan_in`: number of input features entering a layer.
+- `fan_out`: number of output features leaving a layer.
 
-### The Problem with All-Zero Initialization
+Initialization formulas use these numbers to keep each layer's scale reasonable.
 
-If all weights are 0, then all neurons produce exactly the same results and the gradients are also the same. They will **never diverge**—which is equivalent to having only one neuron.
+## Xavier and He in One Table
 
-### Random Initialization Also Has Pitfalls
+You do not need to memorize every formula first. Remember the match:
 
-- **Too large**: activations saturate → vanishing gradients (Sigmoid/Tanh) or exploding gradients
-- **Too small**: signals weaken layer by layer → gradients also weaken → training becomes very slow
+| Activation | Good default choice | PyTorch helper | Why |
+|---|---|---|---|
+| Tanh / Sigmoid | Xavier, also called Glorot | `nn.init.xavier_normal_` | keeps input/output variance balanced |
+| ReLU / Leaky ReLU | He, also called Kaiming | `nn.init.kaiming_normal_` | compensates for ReLU setting many values to zero |
+| Not sure in a normal PyTorch model | PyTorch default | no manual code | good first baseline |
 
-### A More Beginner-Friendly Intuition: Don’t Let Each Layer Be Too “Quiet” or Too “Excited”
+:::info Practical rule
+For a normal first project, do not manually initialize everything on day one. Use PyTorch defaults, make sure the learning rate and data pipeline are sane, then investigate initialization if signals or gradients look abnormal.
+:::
 
-You can think of initialization as giving each layer a starting posture:
+## Lab Setup
 
-- Too small: like having no strength from the beginning, so the signal disappears as it passes through layer after layer
-- Too large: like using too much force right away, causing outputs and gradients to go out of control
+Run the labs in a notebook cell or save them as `weight_init_lab.py`.
 
-So the goal of a good initialization is very simple:
+Install the required packages if needed:
 
-- Keep forward signals from quickly shrinking or exploding
-- Keep backward gradients stable enough to flow back
+```bash
+pip install torch scikit-learn
+```
+
+## Lab 1: Probe Signals Before Training
+
+This experiment sends random data through an 8-layer network and prints the first-layer and last-layer activation statistics. The goal is not to get high accuracy; the goal is to see whether signals survive depth.
 
 ```python
 import torch
 import torch.nn as nn
-import matplotlib.pyplot as plt
 
-# Observe activation distributions under different initializations
-torch.manual_seed(42)
+torch.manual_seed(7)
 
-def observe_activations(init_fn, title, activation=nn.Tanh()):
-    """Observe the activation distribution of each layer in a 10-layer network"""
+
+def build_probe(activation):
     layers = []
-    for i in range(10):
-        linear = nn.Linear(256, 256, bias=False)
-        init_fn(linear.weight)
-        layers.append(linear)
-        layers.append(activation)
+    in_features = 32
+    for _ in range(8):
+        layer = nn.Linear(in_features, 128)
+        layers.append(layer)
+        layers.append(activation())
+        in_features = 128
+    return nn.Sequential(*layers)
 
-    model = nn.Sequential(*layers)
 
-    # Record outputs of each layer
-    x = torch.randn(200, 256)
-    activations = []
-    for i in range(0, len(layers), 2):
-        x = layers[i](x)       # Linear
-        x = layers[i+1](x)     # Activation
-        activations.append(x.detach().numpy().flatten())
+def apply_init(model, strategy):
+    for module in model:
+        if isinstance(module, nn.Linear):
+            if strategy == "tiny":
+                nn.init.normal_(module.weight, 0.0, 0.01)
+            elif strategy == "large":
+                nn.init.normal_(module.weight, 0.0, 1.0)
+            elif strategy == "xavier":
+                nn.init.xavier_normal_(module.weight)
+            elif strategy == "he":
+                nn.init.kaiming_normal_(module.weight, mode="fan_in", nonlinearity="relu")
+            nn.init.zeros_(module.bias)
 
-    fig, axes = plt.subplots(2, 5, figsize=(15, 5))
-    for i, (ax, act) in enumerate(zip(axes.ravel(), activations)):
-        ax.hist(act, bins=50, color='steelblue', alpha=0.7)
-        ax.set_title(f'Layer {i+1}')
-        ax.set_xlim(-1.5, 1.5)
-    plt.suptitle(title, fontsize=13)
-    plt.tight_layout()
-    plt.show()
 
-# Too-small initialization
-observe_activations(
-    lambda w: nn.init.normal_(w, 0, 0.01),
-    'Too-small initialization (std=0.01) + Tanh → signal decay'
-)
+def probe(strategy, activation_cls):
+    model = build_probe(activation_cls)
+    apply_init(model, strategy)
+    x = torch.randn(512, 32)
+    stats = []
 
-# Too-large initialization
-observe_activations(
-    lambda w: nn.init.normal_(w, 0, 1.0),
-    'Too-large initialization (std=1.0) + Tanh → saturation'
-)
-```
+    for layer in model:
+        x = layer(x)
+        if isinstance(layer, activation_cls):
+            stats.append(
+                {
+                    "mean": x.mean().item(),
+                    "std": x.std().item(),
+                    "zero_ratio": (x == 0).float().mean().item(),
+                    "saturated_ratio": (x.abs() > 0.98).float().mean().item(),
+                }
+            )
 
----
+    return stats[0], stats[-1]
 
-## Xavier / Glorot Initialization
 
-### Core Idea
-
-Keep the **variance of the input and output of each layer** consistent, so the signal does not grow or shrink from layer to layer.
-
-> **Sample weights from N(0, 2/(fan_in + fan_out))**
->
-> fan_in = input dimension, fan_out = output dimension
-
-### What Is the Most Important Thing to Remember About Xavier, Besides the Formula?
-
-The most important thing to remember is its goal:
-
-- Try to keep the scale of each layer’s input and output from being too different
-
-The formula is only one way to achieve that goal.
-So when learning it for the first time, holding on to this intuition is more important than memorizing the denominator exactly.
-
-### Applicable to: Sigmoid / Tanh
-
-```python
-observe_activations(
-    lambda w: nn.init.xavier_normal_(w),
-    'Xavier initialization + Tanh → stable signals'
-)
-```
-
----
-
-## He / Kaiming Initialization
-
-### Core Idea
-
-Xavier assumes the activation function is linear. But ReLU sets about half of the neurons to 0, so a **larger variance** is needed to compensate.
-
-> **Sample weights from N(0, 2/fan_in)**
-
-### Why Is He Initialization More Suitable for ReLU Than Xavier?
-
-Because ReLU directly cuts part of the signal to 0.
-If you still use a more conservative initialization, the signal is even more likely to decay all the way through.
-
-So a simple way to understand He initialization is:
-
-- To adapt to ReLU’s “truncation” behavior, slightly increase the initial variance
-
-### Applicable to: ReLU and its variants
-
-```python
-observe_activations(
-    lambda w: nn.init.kaiming_normal_(w, mode='fan_in', nonlinearity='relu'),
-    'He initialization + ReLU → stable signals',
-    activation=nn.ReLU()
-)
-```
-
----
-
-## Selection Guide
-
-| Activation Function | Recommended Initialization | PyTorch Function |
-|---------|-----------|-------------|
-| **Sigmoid / Tanh** | Xavier | `nn.init.xavier_normal_` |
-| **ReLU / Leaky ReLU** | He (Kaiming) | `nn.init.kaiming_normal_` |
-| **GELU / Swish** | He | `nn.init.kaiming_normal_` |
-
-### PyTorch Default Behavior
-
-```python
-# PyTorch's nn.Linear uses Kaiming Uniform by default
-linear = nn.Linear(256, 128)
-print(f"Default initialization range: [{linear.weight.min():.4f}, {linear.weight.max():.4f}]")
-
-# Manually specify initialization
-nn.init.kaiming_normal_(linear.weight, mode='fan_in', nonlinearity='relu')
-nn.init.zeros_(linear.bias)
-```
-
-:::info Good News
-PyTorch's `nn.Linear` uses Kaiming Uniform initialization by default, and so does `nn.Conv2d`. In most cases, **you do not need to initialize weights manually**—but understanding the principle can help you diagnose training issues.
-:::
-
-### When You First Start a Project, Do You Need to Initialize Manually?
-
-Most of the time:
-
-- You do not need to write your own initialization from the start
-- Using PyTorch defaults is usually enough
-
-Cases where manual initialization is more worth it usually include:
-
-- You are experimenting with deeper networks
-- You suspect training is unstable
-- You want to systematically compare different initialization strategies
-
-So the most important thing in this section is not “write a lot of initialization code today,” but rather to know:
-
-- Why default values are usually usable
-- When to suspect initialization problems
-
-### A More Stable Default Decision Order
-
-If you are just starting a project, you can judge things in this order:
-
-1. Use PyTorch default initialization first
-2. If training is clearly unstable, check the learning rate and optimizer
-3. If it still does not work, then suspect the combination of initialization and activation function
-
-This is more stable than “whenever a problem appears, change the initialization first,” because initialization is important, but not always the first suspect.
-
----
-
-## The Impact of Initialization on Training
-
-```python
-# Compare training results under different initializations
-from sklearn.datasets import make_moons
-
-X, y = make_moons(500, noise=0.2, random_state=42)
-X_t = torch.FloatTensor(X)
-y_t = torch.LongTensor(y)
-
-init_methods = {
-    'All zeros': lambda w: nn.init.zeros_(w),
-    'N(0, 0.01)': lambda w: nn.init.normal_(w, 0, 0.01),
-    'N(0, 1.0)': lambda w: nn.init.normal_(w, 0, 1.0),
-    'Xavier': lambda w: nn.init.xavier_normal_(w),
-    'He (Kaiming)': lambda w: nn.init.kaiming_normal_(w),
-}
-
-plt.figure(figsize=(10, 5))
-for name, init_fn in init_methods.items():
-    model = nn.Sequential(
-        nn.Linear(2, 64), nn.ReLU(),
-        nn.Linear(64, 64), nn.ReLU(),
-        nn.Linear(64, 2),
+print("signal_probe")
+for label, strategy, activation in [
+    ("tiny + ReLU", "tiny", nn.ReLU),
+    ("large + Tanh", "large", nn.Tanh),
+    ("Xavier + Tanh", "xavier", nn.Tanh),
+    ("He + ReLU", "he", nn.ReLU),
+]:
+    first, last = probe(strategy, activation)
+    print(
+        f"{label:14s} "
+        f"first_std={first['std']:.4f} "
+        f"last_std={last['std']:.4f} "
+        f"last_zero={last['zero_ratio']:.2f} "
+        f"last_saturated={last['saturated_ratio']:.2f}"
     )
-    # Initialize
-    for m in model:
-        if isinstance(m, nn.Linear):
-            init_fn(m.weight)
-            nn.init.zeros_(m.bias)
+```
+
+Expected output:
+
+```text
+signal_probe
+tiny + ReLU    first_std=0.0337 last_std=0.0000 last_zero=0.52 last_saturated=0.00
+large + Tanh   first_std=0.9273 last_std=0.9633 last_zero=0.00 last_saturated=0.84
+Xavier + Tanh  first_std=0.4872 last_std=0.2276 last_zero=0.00 last_saturated=0.00
+He + ReLU      first_std=0.8304 last_std=0.6937 last_zero=0.49 last_saturated=0.19
+```
+
+How to read it:
+
+- `tiny + ReLU`: last-layer standard deviation becomes almost zero, so the deep signal has faded.
+- `large + Tanh`: many values are saturated near -1 or 1, so gradients through Tanh become weak.
+- `Xavier + Tanh`: signal scale is more controlled.
+- `He + ReLU`: ReLU naturally has many zeros, but the signal still reaches deeper layers.
+
+## Lab 2: Train a Tiny Classifier
+
+Now compare the same idea during training. This is a small two-class toy dataset, so even some bad starts may recover. The important clue is the starting loss and whether all-zero initialization gets stuck.
+
+```python
+import torch
+import torch.nn as nn
+from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+
+torch.manual_seed(9)
+
+X, y = make_moons(n_samples=600, noise=0.22, random_state=9)
+X = torch.tensor(X, dtype=torch.float32)
+y = torch.tensor(y, dtype=torch.long)
+
+train_idx, val_idx = train_test_split(
+    torch.arange(len(X)),
+    test_size=0.25,
+    random_state=9,
+    stratify=y,
+)
+X_train, y_train = X[train_idx], y[train_idx]
+X_val, y_val = X[val_idx], y[val_idx]
+
+
+class MoonMLP(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 64),
+            nn.ReLU(),
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Linear(64, 2),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+
+def apply_init(model, strategy):
+    if strategy == "default":
+        return
+
+    for module in model.modules():
+        if isinstance(module, nn.Linear):
+            if strategy == "zeros":
+                nn.init.zeros_(module.weight)
+            elif strategy == "tiny":
+                nn.init.normal_(module.weight, 0.0, 0.01)
+            elif strategy == "large":
+                nn.init.normal_(module.weight, 0.0, 1.0)
+            elif strategy == "xavier":
+                nn.init.xavier_normal_(module.weight)
+            elif strategy == "he":
+                nn.init.kaiming_normal_(module.weight, mode="fan_in", nonlinearity="relu")
+            nn.init.zeros_(module.bias)
+
+
+def accuracy(model, X, y):
+    with torch.no_grad():
+        preds = model(X).argmax(dim=1)
+        return (preds == y).float().mean().item()
+
+
+def train_once(strategy):
+    torch.manual_seed(9)
+    model = MoonMLP()
+    apply_init(model, strategy)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
-    criterion = nn.CrossEntropyLoss()
-    losses = []
+    loss_fn = nn.CrossEntropyLoss()
+    start_loss = loss_fn(model(X_train), y_train).item()
 
-    for epoch in range(200):
-        loss = criterion(model(X_t), y_t)
+    for _ in range(120):
+        loss = loss_fn(model(X_train), y_train)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        losses.append(loss.item())
 
-    plt.plot(losses, label=name, linewidth=2)
+    end_loss = loss_fn(model(X_train), y_train).item()
+    return start_loss, end_loss, accuracy(model, X_val, y_val)
 
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.title('Training curves for different initialization methods')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
+
+print("training_probe")
+for strategy in ["default", "zeros", "tiny", "large", "xavier", "he"]:
+    start, end, acc = train_once(strategy)
+    print(f"{strategy:8s} start_loss={start:.3f} end_loss={end:.3f} val_acc={acc:.3f}")
 ```
 
-### If Training Feels Wrong from the Start, Initialization Is One Thing to Suspect
+Expected output:
 
-Typical signals include:
-
-- The loss is very large from the start
-- Many layer outputs are almost all 0 or extremely saturated
-- Gradients quickly vanish or explode
-
-Of course, initialization is not the only cause, but it is often one of the first things worth checking.
-
----
-
-## Summary
-
-| Initialization | Principle | Use Case |
-|--------|------|------|
-| **All zeros** | All neurons are the same | ❌ Never use |
-| **Small random** | Signal decay | ❌ Not suitable for deep networks |
-| **Large random** | Exploding gradients / saturation | ❌ Not suitable |
-| **Xavier** | Keep input/output variance stable | Sigmoid / Tanh |
-| **He (Kaiming)** | Compensation for ReLU | **ReLU family (most common)** |
-
-```mermaid
-flowchart TD
-    Q["Choose initialization"] --> A{"What is the activation function?"}
-    A --> |"Sigmoid / Tanh"|X["Xavier initialization"]
-    A --> |"ReLU / Leaky ReLU / GELU"|H["He initialization"]
-    A --> |"Not sure"|D["Use PyTorch defaults"]
-
-    style Q fill:#e3f2fd,stroke:#1565c0,color:#333
-    style X fill:#fff3e0,stroke:#e65100,color:#333
-    style H fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
+```text
+training_probe
+default  start_loss=0.671 end_loss=0.047 val_acc=0.973
+zeros    start_loss=0.693 end_loss=0.693 val_acc=0.500
+tiny     start_loss=0.693 end_loss=0.067 val_acc=0.973
+large    start_loss=20.040 end_loss=0.068 val_acc=0.980
+xavier   start_loss=0.696 end_loss=0.046 val_acc=0.980
+he       start_loss=0.924 end_loss=0.053 val_acc=0.980
 ```
 
-## What You Should Take Away from This Section
+What matters:
 
-- Initialization is not decoration; it determines whether the network can start propagating signals healthily
-- Xavier is more suited to Sigmoid / Tanh, while He is more suited to ReLU-based activations
-- When you first start a project, using PyTorch defaults is completely fine, but you should understand the principle behind them
+- `zeros` stays stuck because hidden neurons begin as identical copies.
+- `large` starts with a huge loss, which is a warning sign even if this small model later recovers.
+- `default`, `xavier`, and `he` all work here; that is exactly why defaults are a good first baseline.
 
-If we compress it into one sentence:
+## Debugging Checklist
 
-> **Initialization determines whether training can get off to a good start, not whether the model will definitely go far in the end.**
+When training is broken in the first few epochs, check in this order:
 
----
+1. Is the data shape correct?
+2. Is the target dtype correct? `CrossEntropyLoss` expects class labels as `torch.long`.
+3. Is the learning rate too high?
+4. Are activations mostly zero, saturated, `nan`, or `inf`?
+5. Does the initialization match the activation function?
 
-## Hands-on Exercises
+Use quick probes instead of guessing:
 
-### Exercise 1: Compare a Deep Network
+```python
+with torch.no_grad():
+    sample = X_train[:32]
+    out = model(sample)
+    print(out.mean().item(), out.std().item(), torch.isfinite(out).all().item())
+```
 
-Create a 20-layer MLP with ReLU activations. Use all-zero, Xavier, and He initialization respectively, and observe the distribution of activations after the forward pass (print the mean and standard deviation).
+If the output is not finite, or if every value is almost the same, inspect initialization, input scaling, and learning rate together.
 
-### Exercise 2: Train Deep MNIST
+## Exercises
 
-Use a 10-layer MLP to train MNIST, and compare the training speed and final accuracy of He initialization versus the default initialization.
+1. Change the probe network depth from 8 to 20. Which initialization fails first?
+2. Replace ReLU with Tanh in `MoonMLP`. Does Xavier become more competitive?
+3. Change Adam to SGD with `lr=0.1`. Which initialization becomes more fragile?
+
+## Key Takeaways
+
+- Initialization is the starting condition for forward signals and backward gradients.
+- All-zero weights break symmetry and should not be used for hidden layers.
+- Xavier is a strong match for Tanh/Sigmoid; He is a strong match for ReLU-style activations.
+- PyTorch defaults are usually the right first move, but signal probes help when training behaves strangely.

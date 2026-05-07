@@ -1,348 +1,321 @@
 ---
 title: "6.1.7 重みの初期化"
 sidebar_position: 7
-description: "重みの初期化がなぜ重要か、Xavier と He 初期化の考え方と使い分けを理解する"
+description: "小さな PyTorch 実験で Xavier、He、PyTorch デフォルト、初期化の失敗例を理解する"
 keywords: [重みの初期化, Xavier, Glorot, He, Kaiming, 勾配消失, 勾配爆発]
 ---
 
 # 6.1.7 重みの初期化
 
 :::tip この節の位置づけ
-深いネットワークの学習がうまくいくかどうかを左右する重要な要素の1つが、**重みの初期化**です。よくない初期化は勾配消失や勾配爆発を引き起こし、学習を完全に失敗させることがあります。うれしいことに、PyTorch ではデフォルトで適切な初期化が選ばれています。
+初期化は、ニューラルネットワークが学習開始時に使える信号を持てるかどうかを決めます。通常は PyTorch のデフォルトから始めれば十分ですが、学習がおかしいときに Xavier、He、全ゼロ、小さすぎる初期化、大きすぎる初期化を確認できるようにしておきましょう。
 :::
 
 ## 学習目標
 
-- なぜ全ゼロ初期化がだめなのかを理解する
-- Xavier / Glorot 初期化を理解する
-- He / Kaiming 初期化を理解する
-- 初期化が学習に与える影響を確認する
+- 全ゼロの重みがなぜ学習を壊すのか説明できる。
+- Tanh/Sigmoid には Xavier、ReLU 系には He を選べる。
+- 学習前に信号プローブを実行できる。
+- 小さな分類タスクで初期化の違いを比較できる。
+- 早期の学習不安定を、手当たり次第ではなく順番に切り分けられる。
 
 ---
 
-## まずは全体の地図を作ろう
+## まず図を見る
 
-初期化の節は、新しく学ぶ人にとって「おまけの細かい話」に見えやすいですが、実はモデルがスムーズに学習を始められるかに直結しています。
+式を覚える前に、初期化の役割を見ておきます。
 
 ![重み初期化の信号安定図](/img/course/ch06-weight-init-signal-stability-map-ja.png)
 
-この節で本当に解決したいのは、次のようなことです。
+この図は上から順に読みます。
 
-- なぜ重みを適当に決めてはいけないのか
-- なぜ活性化関数によって、組み合わせる初期化が違うのか
-- 最初にネットワークを書くとき、いつ PyTorch のデフォルト値を安心して使えるのか
+- 順伝播の信号が層ごとに消えてはいけない。
+- 活性値が最初から広く飽和してはいけない。
+- 逆伝播の勾配が戻る道を残す必要がある。
+- 通常の `nn.Linear` や `nn.Conv2d` モデルでは、まず PyTorch のデフォルトがよい出発点になる。
 
-## この節は前の節とどうつながるのか
+## 最小限の考え方
 
-前の節までをつなげて考えると、この節はとても自然な問いに答えています。
+ニューラルネットワークの学習は、おおまかに次のループです。
 
-- ニューロンは順伝播する
-- 逆伝播は勾配を返す
-- 最適化手法はパラメータを更新する
+1. 重みを初期化する。
+2. 順伝播する。
+3. 損失を計算する。
+4. 逆伝播する。
+5. 最適化手法で重みを更新する。
 
-でも、その前提として大事なのは次です。
+もし 1 番目が壊れていると、後の処理は動いていても、悪い出発点から走っていることになります。
 
-- ネットワークを最初に動かすときの信号や勾配が、極端すぎないこと
+よくある失敗はシンプルです。
 
-つまり初期化は、こういう問いへの答えです。
+| 悪い出発点 | 何が起きるか | 何が見えるか |
+|---|---|---|
+| 全ゼロ | ニューロンが同じままになる | loss が下がらない |
+| 小さすぎる | 信号が深さとともに弱くなる | 深い層の出力がほぼ 0 |
+| 大きすぎる | 活性値が飽和または爆発する | 初期 loss が大きい、勾配が不安定 |
+| 初期化と活性化のミスマッチ | 非線形後のスケールが合わない | 学習が遅い、壊れやすい |
 
-> **モデルの学習を始める前に、最初の一手をどう置けば、あとで崩れにくいのか。**
+先に知っておきたい用語は 2 つです。
 
-## なぜ初期化は大事なのか？
+- `fan_in`: その層に入ってくる入力特徴量の数。
+- `fan_out`: その層から出ていく出力特徴量の数。
 
-### 全ゼロ初期化の問題
+初期化の式は、これらを使って各層のスケールを整えます。
 
-もし重みがすべて 0 なら、すべてのニューロンの計算結果はまったく同じになり、勾配も同じになります。すると、**永遠に違いが生まれません**。つまり、1つのニューロンしかないのと同じです。
+## Xavier と He は表で覚える
 
-### ランダム初期化にも落とし穴がある
+最初からすべての式を暗記する必要はありません。まず対応関係を覚えます。
 
-- **大きすぎる**: 活性値が飽和する → 勾配消失（Sigmoid/Tanh）や勾配爆発
-- **小さすぎる**: 信号が層ごとに弱くなる → 勾配も弱くなる → 学習がとても遅い
+| 活性化関数 | よく使う選択 | PyTorch ヘルパー | 理由 |
+|---|---|---|---|
+| Tanh / Sigmoid | Xavier、別名 Glorot | `nn.init.xavier_normal_` | 入力と出力の分散をできるだけそろえる |
+| ReLU / Leaky ReLU | He、別名 Kaiming | `nn.init.kaiming_normal_` | ReLU が多くの値を 0 にする分を補う |
+| 通常の PyTorch モデルで迷う | PyTorch デフォルト | 手動初期化を書かない | 最初の baseline に向いている |
 
-### 新人向けの直感: 各層を「静かすぎず、興奮しすぎず」にする
+:::info 実用ルール
+普通の新規プロジェクトでは、最初からすべての層を手動初期化しなくてかまいません。まず PyTorch デフォルトを使い、学習率とデータ処理が正しいことを確認します。そのうえで信号や勾配が明らかにおかしいなら、初期化を調べます。
+:::
 
-初期化は、各層に「スタート姿勢」を与えるものだと考えるとわかりやすいです。
+## 実験準備
 
-- 小さすぎる: 最初から元気がなく、信号が層を通るたびに消えていく
-- 大きすぎる: 最初から力みすぎて、出力も勾配も暴れやすい
+Notebook のセルで実行しても、`weight_init_lab.py` として保存しても構いません。
 
-だから、よい初期化の目的はとてもシンプルです。
+パッケージが足りない場合はインストールします。
 
-- 順伝播の信号が急に弱くなったり、爆発したりしないようにする
-- 逆伝播の勾配も、ちゃんと安定して戻ってくるようにする
+```bash
+pip install torch scikit-learn
+```
+
+## 実験 1: 学習前に信号を確認する
+
+この実験では、ランダムデータを 8 層ネットワークに通し、最初の層と最後の層の活性値統計を表示します。目的は精度ではなく、信号が深い層まで残るかを見ることです。
 
 ```python
 import torch
 import torch.nn as nn
-import matplotlib.pyplot as plt
 
-# いろいろな初期化で活性値分布を観察する
-torch.manual_seed(42)
+torch.manual_seed(7)
 
-def observe_activations(init_fn, title, activation=nn.Tanh()):
-    """10層ネットワークで各層の活性値分布を観察する"""
+
+def build_probe(activation):
     layers = []
-    for i in range(10):
-        linear = nn.Linear(256, 256, bias=False)
-        init_fn(linear.weight)
-        layers.append(linear)
-        layers.append(activation)
+    in_features = 32
+    for _ in range(8):
+        layer = nn.Linear(in_features, 128)
+        layers.append(layer)
+        layers.append(activation())
+        in_features = 128
+    return nn.Sequential(*layers)
 
-    model = nn.Sequential(*layers)
 
-    # 各層の出力を記録
-    x = torch.randn(200, 256)
-    activations = []
-    for i in range(0, len(layers), 2):
-        x = layers[i](x)       # Linear
-        x = layers[i+1](x)     # Activation
-        activations.append(x.detach().numpy().flatten())
+def apply_init(model, strategy):
+    for module in model:
+        if isinstance(module, nn.Linear):
+            if strategy == "tiny":
+                nn.init.normal_(module.weight, 0.0, 0.01)
+            elif strategy == "large":
+                nn.init.normal_(module.weight, 0.0, 1.0)
+            elif strategy == "xavier":
+                nn.init.xavier_normal_(module.weight)
+            elif strategy == "he":
+                nn.init.kaiming_normal_(module.weight, mode="fan_in", nonlinearity="relu")
+            nn.init.zeros_(module.bias)
 
-    fig, axes = plt.subplots(2, 5, figsize=(15, 5))
-    for i, (ax, act) in enumerate(zip(axes.ravel(), activations)):
-        ax.hist(act, bins=50, color='steelblue', alpha=0.7)
-        ax.set_title(f'Layer {i+1}')
-        ax.set_xlim(-1.5, 1.5)
-    plt.suptitle(title, fontsize=13)
-    plt.tight_layout()
-    plt.show()
 
-# 小さすぎる初期化
-observe_activations(
-    lambda w: nn.init.normal_(w, 0, 0.01),
-    '小さすぎる初期化 (std=0.01) + Tanh → 信号が弱くなる'
-)
+def probe(strategy, activation_cls):
+    model = build_probe(activation_cls)
+    apply_init(model, strategy)
+    x = torch.randn(512, 32)
+    stats = []
 
-# 大きすぎる初期化
-observe_activations(
-    lambda w: nn.init.normal_(w, 0, 1.0),
-    '大きすぎる初期化 (std=1.0) + Tanh → 飽和する'
-)
-```
+    for layer in model:
+        x = layer(x)
+        if isinstance(layer, activation_cls):
+            stats.append(
+                {
+                    "mean": x.mean().item(),
+                    "std": x.std().item(),
+                    "zero_ratio": (x == 0).float().mean().item(),
+                    "saturated_ratio": (x.abs() > 0.98).float().mean().item(),
+                }
+            )
 
----
+    return stats[0], stats[-1]
 
-## Xavier / Glorot 初期化
 
-### 核となる考え方
-
-各層の**入力と出力の分散をそろえる**ことで、信号が層ごとに大きくなりすぎたり、小さくなりすぎたりするのを防ぎます。
-
-> **重みは N(0, 2/(fan_in + fan_out)) からサンプリングする**
->
-> fan_in = 入力次元, fan_out = 出力次元
-
-### Xavier で最初に覚えるべきことは、式ではなく何か？
-
-まず覚えるべきなのは、次の目的です。
-
-- 各層の入力と出力のスケールが、できるだけ大きく変わらないようにする
-
-この式は、その目的を実現するための1つの方法です。  
-なので、最初は分母の形を丸暗記するよりも、この直感をつかむほうが大事です。
-
-### 適用先: Sigmoid / Tanh
-
-```python
-observe_activations(
-    lambda w: nn.init.xavier_normal_(w),
-    'Xavier 初期化 + Tanh → 信号が安定する'
-)
-```
-
----
-
-## He / Kaiming 初期化
-
-### 核となる考え方
-
-Xavier は活性化関数が線形に近いことを前提にしています。  
-でも ReLU はニューロンの半分ほどを 0 にするので、それを補うために**より大きい分散**が必要です。
-
-> **重みは N(0, 2/fan_in) からサンプリングする**
-
-### He 初期化はなぜ ReLU に向いているのか？
-
-ReLU は入力の一部をそのまま 0 に切り捨てます。  
-もし保守的な初期化のままだと、信号はさらに弱くなりやすいです。
-
-そのため He 初期化は、まず次のように考えるとわかりやすいです。
-
-- ReLU の「切り捨て特性」に合わせて、最初の分散を少し大きめにする
-
-### 適用先: ReLU とその派生
-
-```python
-observe_activations(
-    lambda w: nn.init.kaiming_normal_(w, mode='fan_in', nonlinearity='relu'),
-    'He 初期化 + ReLU → 信号が安定する',
-    activation=nn.ReLU()
-)
-```
-
----
-
-## 選び方のガイド
-
-| 活性化関数 | 推奨初期化 | PyTorch 関数 |
-|---------|-----------|-------------|
-| **Sigmoid / Tanh** | Xavier | `nn.init.xavier_normal_` |
-| **ReLU / Leaky ReLU** | He (Kaiming) | `nn.init.kaiming_normal_` |
-| **GELU / Swish** | He | `nn.init.kaiming_normal_` |
-
-### PyTorch のデフォルト動作
-
-```python
-# PyTorch の nn.Linear はデフォルトで Kaiming Uniform を使う
-linear = nn.Linear(256, 128)
-print(f"デフォルト初期化の範囲: [{linear.weight.min():.4f}, {linear.weight.max():.4f}]")
-
-# 初期化を手動で指定する
-nn.init.kaiming_normal_(linear.weight, mode='fan_in', nonlinearity='relu')
-nn.init.zeros_(linear.bias)
-```
-
-:::info うれしいポイント
-PyTorch の `nn.Linear` はデフォルトで Kaiming Uniform 初期化を使い、`nn.Conv2d` も同じです。ほとんどの場合、**自分で初期化を書く必要はありません**。ただし、原理を理解しておくと学習の異常を診断しやすくなります。
-:::
-
-### 初めてプロジェクトを作るとき、手動で初期化すべき？
-
-多くの場合は、次のとおりです。
-
-- 最初から自分で初期化を書く必要はない
-- まずは PyTorch のデフォルト値で十分なことが多い
-
-手動初期化を考えたほうがよいのは、たとえば次のような場合です。
-
-- より深いネットワークの実験をしている
-- 学習がかなり不安定だと疑っている
-- いろいろな初期化戦略を体系的に比較したい
-
-この節で大切なのは、「今日すぐに初期化コードをたくさん書けるようになること」よりも、まず次を知ることです。
-
-- なぜデフォルト値でたいていうまくいくのか
-- いつ初期化を疑うべきなのか
-
-### より安定した最初の判断順
-
-プロジェクトを始めたばかりなら、次の順で考えるとよいです。
-
-1. まず PyTorch のデフォルト初期化を使う
-2. それでも学習が明らかに不安定なら、学習率や最適化手法を確認する
-3. まだおかしければ、初期化と活性化関数の組み合わせを疑う
-
-この順番は、「問題が起きたらまず初期化を変える」よりも安定しています。  
-初期化は重要ですが、いつも最初の容疑者とは限らないからです。
-
----
-
-## 初期化が学習に与える影響
-
-```python
-# いろいろな初期化の学習効果を比較する
-from sklearn.datasets import make_moons
-
-X, y = make_moons(500, noise=0.2, random_state=42)
-X_t = torch.FloatTensor(X)
-y_t = torch.LongTensor(y)
-
-init_methods = {
-    '全ゼロ': lambda w: nn.init.zeros_(w),
-    'N(0, 0.01)': lambda w: nn.init.normal_(w, 0, 0.01),
-    'N(0, 1.0)': lambda w: nn.init.normal_(w, 0, 1.0),
-    'Xavier': lambda w: nn.init.xavier_normal_(w),
-    'He (Kaiming)': lambda w: nn.init.kaiming_normal_(w),
-}
-
-plt.figure(figsize=(10, 5))
-for name, init_fn in init_methods.items():
-    model = nn.Sequential(
-        nn.Linear(2, 64), nn.ReLU(),
-        nn.Linear(64, 64), nn.ReLU(),
-        nn.Linear(64, 2),
+print("signal_probe")
+for label, strategy, activation in [
+    ("tiny + ReLU", "tiny", nn.ReLU),
+    ("large + Tanh", "large", nn.Tanh),
+    ("Xavier + Tanh", "xavier", nn.Tanh),
+    ("He + ReLU", "he", nn.ReLU),
+]:
+    first, last = probe(strategy, activation)
+    print(
+        f"{label:14s} "
+        f"first_std={first['std']:.4f} "
+        f"last_std={last['std']:.4f} "
+        f"last_zero={last['zero_ratio']:.2f} "
+        f"last_saturated={last['saturated_ratio']:.2f}"
     )
-    # 初期化
-    for m in model:
-        if isinstance(m, nn.Linear):
-            init_fn(m.weight)
-            nn.init.zeros_(m.bias)
+```
+
+期待される出力:
+
+```text
+signal_probe
+tiny + ReLU    first_std=0.0337 last_std=0.0000 last_zero=0.52 last_saturated=0.00
+large + Tanh   first_std=0.9273 last_std=0.9633 last_zero=0.00 last_saturated=0.84
+Xavier + Tanh  first_std=0.4872 last_std=0.2276 last_zero=0.00 last_saturated=0.00
+He + ReLU      first_std=0.8304 last_std=0.6937 last_zero=0.49 last_saturated=0.19
+```
+
+読み方:
+
+- `tiny + ReLU`: 最後の層の標準偏差がほぼ 0 で、深い層の信号が消えています。
+- `large + Tanh`: 多くの値が -1 または 1 に近く、Tanh の勾配が弱くなります。
+- `Xavier + Tanh`: 信号のスケールが比較的コントロールされています。
+- `He + ReLU`: ReLU は自然に 0 を多く作りますが、信号は深い層まで届いています。
+
+## 実験 2: 小さな分類器を学習する
+
+次に、同じ考え方を実際の学習で比べます。これは小さな 2 クラスの toy データなので、悪い出発点でも回復することがあります。大事なのは、初期 loss と全ゼロ初期化が止まるかどうかです。
+
+```python
+import torch
+import torch.nn as nn
+from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+
+torch.manual_seed(9)
+
+X, y = make_moons(n_samples=600, noise=0.22, random_state=9)
+X = torch.tensor(X, dtype=torch.float32)
+y = torch.tensor(y, dtype=torch.long)
+
+train_idx, val_idx = train_test_split(
+    torch.arange(len(X)),
+    test_size=0.25,
+    random_state=9,
+    stratify=y,
+)
+X_train, y_train = X[train_idx], y[train_idx]
+X_val, y_val = X[val_idx], y[val_idx]
+
+
+class MoonMLP(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 64),
+            nn.ReLU(),
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Linear(64, 2),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+
+def apply_init(model, strategy):
+    if strategy == "default":
+        return
+
+    for module in model.modules():
+        if isinstance(module, nn.Linear):
+            if strategy == "zeros":
+                nn.init.zeros_(module.weight)
+            elif strategy == "tiny":
+                nn.init.normal_(module.weight, 0.0, 0.01)
+            elif strategy == "large":
+                nn.init.normal_(module.weight, 0.0, 1.0)
+            elif strategy == "xavier":
+                nn.init.xavier_normal_(module.weight)
+            elif strategy == "he":
+                nn.init.kaiming_normal_(module.weight, mode="fan_in", nonlinearity="relu")
+            nn.init.zeros_(module.bias)
+
+
+def accuracy(model, X, y):
+    with torch.no_grad():
+        preds = model(X).argmax(dim=1)
+        return (preds == y).float().mean().item()
+
+
+def train_once(strategy):
+    torch.manual_seed(9)
+    model = MoonMLP()
+    apply_init(model, strategy)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
-    criterion = nn.CrossEntropyLoss()
-    losses = []
+    loss_fn = nn.CrossEntropyLoss()
+    start_loss = loss_fn(model(X_train), y_train).item()
 
-    for epoch in range(200):
-        loss = criterion(model(X_t), y_t)
+    for _ in range(120):
+        loss = loss_fn(model(X_train), y_train)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        losses.append(loss.item())
 
-    plt.plot(losses, label=name, linewidth=2)
+    end_loss = loss_fn(model(X_train), y_train).item()
+    return start_loss, end_loss, accuracy(model, X_val, y_val)
 
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.title('初期化方法ごとの学習曲線')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
+
+print("training_probe")
+for strategy in ["default", "zeros", "tiny", "large", "xavier", "he"]:
+    start, end, acc = train_once(strategy)
+    print(f"{strategy:8s} start_loss={start:.3f} end_loss={end:.3f} val_acc={acc:.3f}")
 ```
 
-### 学習の最初からおかしいなら、初期化を疑う価値がある
+期待される出力:
 
-典型的なサインは次のとおりです。
+```text
+training_probe
+default  start_loss=0.671 end_loss=0.047 val_acc=0.973
+zeros    start_loss=0.693 end_loss=0.693 val_acc=0.500
+tiny     start_loss=0.693 end_loss=0.067 val_acc=0.973
+large    start_loss=20.040 end_loss=0.068 val_acc=0.980
+xavier   start_loss=0.696 end_loss=0.046 val_acc=0.980
+he       start_loss=0.924 end_loss=0.053 val_acc=0.980
+```
 
-- loss が最初から非常に大きい
-- 多くの層の出力がほぼすべて 0 か、極端に飽和している
-- 勾配がすぐに消える、または爆発する
+見るべきポイント:
 
-もちろん、原因は初期化だけではありません。  
-それでも、まず確認する価値が高い項目の1つです。
+- `zeros` は止まります。隠れ層のニューロンが最初から互いのコピーだからです。
+- `large` は初期 loss が非常に大きく、この小さなモデルが後で回復しても警告サインです。
+- `default`、`xavier`、`he` はここではどれも動きます。だからこそデフォルトは最初の baseline に向いています。
 
----
+## デバッグチェックリスト
+
+最初の数 epoch で明らかにおかしいときは、次の順番で確認します。
+
+1. データ shape は正しいか？
+2. 目的変数の dtype は正しいか？`CrossEntropyLoss` は `torch.long` のクラスラベルを期待します。
+3. 学習率が高すぎないか？
+4. 活性値の大部分が 0、飽和、`nan`、`inf` になっていないか？
+5. 初期化と活性化関数の組み合わせは合っているか？
+
+推測で変えず、小さなプローブを使います。
+
+```python
+with torch.no_grad():
+    sample = X_train[:32]
+    out = model(sample)
+    print(out.mean().item(), out.std().item(), torch.isfinite(out).all().item())
+```
+
+出力が有限でない、またはほぼすべて同じ値なら、初期化、入力スケーリング、学習率をまとめて確認します。
+
+## 練習
+
+1. 信号プローブのネットワーク深さを 8 から 20 に変えてください。どの初期化が最初に失敗しますか？
+2. `MoonMLP` の ReLU を Tanh に変えてください。Xavier はより有利になりますか？
+3. Adam を `lr=0.1` の SGD に変えてください。どの初期化が壊れやすくなりますか？
 
 ## まとめ
 
-| 初期化 | 原理 | 適用 |
-|--------|------|------|
-| **全ゼロ** | すべてのニューロンが同じになる | ❌ 絶対に使わない |
-| **小さいランダム** | 信号が弱くなる | ❌ 深いネットワークには不向き |
-| **大きいランダム** | 勾配爆発 / 飽和 | ❌ 不向き |
-| **Xavier** | 入出力の分散を保つ | Sigmoid / Tanh |
-| **He (Kaiming)** | ReLU 用に補正する | **ReLU 系（最もよく使う）** |
-
-```mermaid
-flowchart TD
-    Q["初期化を選ぶ"] --> A{"活性化関数は？"}
-    A --> |"Sigmoid / Tanh"|X["Xavier 初期化"]
-    A --> |"ReLU / Leaky ReLU / GELU"|H["He 初期化"]
-    A --> |"わからない"|D["PyTorch のデフォルトを使う"]
-
-    style Q fill:#e3f2fd,stroke:#1565c0,color:#333
-    style X fill:#fff3e0,stroke:#e65100,color:#333
-    style H fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
-```
-
-## この節で一番持ち帰ってほしいこと
-
-- 初期化は飾りではなく、ネットワークが最初に健全に信号を流せるかを決めるもの
-- Xavier は Sigmoid / Tanh 向け、He は ReLU 系向け
-- 初めてプロジェクトを作るときは PyTorch のデフォルト値でまったく問題ないが、原理は知っておくべき
-
-一言でまとめるなら、こうです。
-
-> **初期化が決めるのは「学習がちゃんと走り出せるか」であって、最終的にどこまで伸びるかではありません。**
-
----
-
-## 手を動かしてみよう
-
-### 練習 1: 深いネットワークの比較
-
-20 層の MLP（ReLU 活性化）を作り、全ゼロ、Xavier、He 初期化をそれぞれ使って、順伝播後の各層の活性値分布を観察してください（平均と標準偏差を表示する）。
-
-### 練習 2: 深い MNIST の学習
-
-10 層の MLP で MNIST を学習し、He 初期化とデフォルト初期化の学習速度と最終精度を比較してください。
+- 初期化は、順伝播の信号と逆伝播の勾配の出発条件です。
+- 全ゼロ重みは対称性を壊せないため、隠れ層には使いません。
+- Xavier は Tanh/Sigmoid に、He は ReLU 系の活性化に向いています。
+- PyTorch デフォルトは多くの場合よい最初の一手ですが、学習がおかしいときは信号プローブで確認します。
