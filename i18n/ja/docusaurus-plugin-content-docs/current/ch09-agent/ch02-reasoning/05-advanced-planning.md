@@ -29,7 +29,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ---
 
-## 一、なぜ線形プランでは不十分なことがあるのか？
+## なぜ線形プランでは不十分なことがあるのか？
 
 ### 現実のタスクでは「A のあとに B、B のあとに C」とは限らないから
 
@@ -73,7 +73,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ---
 
-## 二、高度なプランニングでよく出る3つの概念
+## 高度なプランニングでよく出る3つの概念
 
 ### 依存関係
 
@@ -109,7 +109,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ---
 
-## 三、まずは本物の DAG スケジューリング例を動かしてみよう
+## まずは本物の DAG スケジューリング例を動かしてみよう
 
 次のコードは、とても代表的なことをします。
 
@@ -222,7 +222,7 @@ for item in timeline:
 
 ---
 
-## 四、いつ高度なプランニングが必要で、いつ普通のプランで十分か？
+## いつ高度なプランニングが必要で、いつ普通のプランで十分か？
 
 ### タスクがもともとグラフ構造を持っているとき
 
@@ -258,7 +258,7 @@ for item in timeline:
 
 ---
 
-## 五、なぜ高度なプランニングは「リスト化」よりも「グラフ探索」に近いのか？
+## なぜ高度なプランニングは「リスト化」よりも「グラフ探索」に近いのか？
 
 ### 理由は、経路が1つとは限らないから
 
@@ -291,7 +291,7 @@ for item in timeline:
 
 ---
 
-## 六、実務でよくある落とし穴
+## 実務でよくある落とし穴
 
 ### 落とし穴1：依存グラフを描けばそれで終わり
 

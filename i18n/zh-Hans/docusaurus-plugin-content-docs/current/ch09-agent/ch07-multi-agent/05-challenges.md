@@ -25,7 +25,7 @@ keywords: [multi-agent, failure modes, coordination, observability, cost, confli
 
 ---
 
-## 一、为什么多 Agent 系统更容易出问题？
+## 为什么多 Agent 系统更容易出问题？
 
 ### 单 Agent 最常见的问题
 
@@ -52,7 +52,7 @@ keywords: [multi-agent, failure modes, coordination, observability, cost, confli
 
 ---
 
-## 二、最常见挑战一：重复劳动
+## 最常见挑战一：重复劳动
 
 ### 为什么容易重复？
 
@@ -100,7 +100,7 @@ print(tasks_done)
 
 ---
 
-## 三、最常见挑战二：消息失真和状态不同步
+## 最常见挑战二：消息失真和状态不同步
 
 ### 为什么会失真？
 
@@ -141,7 +141,7 @@ print(message_b)
 
 ---
 
-## 四、最常见挑战三：冲突结论怎么收敛？
+## 最常见挑战三：冲突结论怎么收敛？
 
 ### 多 Agent 很容易得出不同结论
 
@@ -190,7 +190,7 @@ print(resolve_with_safe_bias(results))
 
 ---
 
-## 五、最常见挑战四：成本和时延指数上升
+## 最常见挑战四：成本和时延指数上升
 
 ### 为什么多 Agent 容易更贵？
 
@@ -234,7 +234,7 @@ print("total_latency_ms =", total_latency)
 
 ---
 
-## 六、最常见挑战五：系统不可观测
+## 最常见挑战五：系统不可观测
 
 ### 为什么这是大坑？
 
@@ -270,7 +270,7 @@ for item in trace:
 
 ---
 
-## 七、最常见挑战六：角色边界漂移
+## 最常见挑战六：角色边界漂移
 
 ### 什么叫角色边界漂移？
 
@@ -300,7 +300,7 @@ for item in trace:
 
 ---
 
-## 八、一个更实际的“挑战清单”
+## 一个更实际的“挑战清单”
 
 如果你在做多 Agent 系统，下面这份清单非常实用：
 
@@ -315,7 +315,7 @@ for item in trace:
 
 ---
 
-## 九、解决思路不是“更复杂”，而是“更清楚”
+## 解决思路不是“更复杂”，而是“更清楚”
 
 很多人遇到问题的第一反应是：
 

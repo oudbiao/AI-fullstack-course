@@ -28,7 +28,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 一、短期記憶とは何か？
+## 短期記憶とは何か？
 
 ### 一言でいうと
 
@@ -57,7 +57,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 二、なぜ履歴を全部ずっとモデルに入れられないのか？
+## なぜ履歴を全部ずっとモデルに入れられないのか？
 
 ### コンテキストウィンドウは無限ではないから
 
@@ -88,7 +88,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 三、短期記憶の代表的な3つの形
+## 短期記憶の代表的な3つの形
 
 ### 会話ウィンドウ（sliding window）
 
@@ -128,7 +128,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 四、もっとも簡単な短期記憶：スライディングウィンドウ
+## もっとも簡単な短期記憶：スライディングウィンドウ
 
 ### 実行可能な例
 
@@ -158,7 +158,7 @@ for msg in short_term_memory:
 
 ---
 
-## 五、でも、メッセージウィンドウだけでは足りない
+## でも、メッセージウィンドウだけでは足りない
 
 ### なぜ足りないのか？
 
@@ -192,7 +192,7 @@ print(task_state)
 
 ---
 
-## 六、学習上わかりやすい短期記憶マネージャー
+## 学習上わかりやすい短期記憶マネージャー
 
 次の例では、以下の両方を管理します。
 
@@ -239,7 +239,7 @@ print(memory.snapshot())
 
 ---
 
-## 七、要約記憶：メッセージが長くなってきたらどうする？
+## 要約記憶：メッセージが長くなってきたらどうする？
 
 ### よくある戦略
 
@@ -275,7 +275,7 @@ print(memory_package)
 
 ---
 
-## 八、短期記憶は Agent の中で何を解決するのか？
+## 短期記憶は Agent の中で何を解決するのか？
 
 主に次の3つを解決します。
 
@@ -301,7 +301,7 @@ print(memory_package)
 
 ---
 
-## 九、短期記憶でよくある失敗パターン
+## 短期記憶でよくある失敗パターン
 
 ### 少なすぎる
 
@@ -335,7 +335,7 @@ print(memory_package)
 
 ---
 
-## 十、初心者がよくハマる落とし穴
+## 初心者がよくハマる落とし穴
 
 ### 短期記憶と長期記憶を混同する
 

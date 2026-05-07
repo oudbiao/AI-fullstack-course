@@ -31,7 +31,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ---
 
-## 一、代码 Agent 和“让模型写代码”到底差在哪？
+## 代码 Agent 和“让模型写代码”到底差在哪？
 
 ### 普通代码生成更像一次性输出
 
@@ -74,7 +74,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ---
 
-## 二、代码 Agent 的最小闭环是什么？
+## 代码 Agent 的最小闭环是什么？
 
 ### Read：先读上下文
 
@@ -112,7 +112,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ---
 
-## 三、先跑一个最小的“代码 Agent 闭环”示例
+## 先跑一个最小的“代码 Agent 闭环”示例
 
 下面这个例子不会真的改文件，
 但它会完整模拟一条非常重要的循环：
@@ -210,7 +210,7 @@ if failures:
 
 ---
 
-## 四、真实代码 Agent 还会多出哪些关键环节？
+## 真实代码 Agent 还会多出哪些关键环节？
 
 ### 文件定位与读取
 
@@ -258,7 +258,7 @@ if failures:
 
 ---
 
-## 五、为什么代码 Agent 特别依赖验证？
+## 为什么代码 Agent 特别依赖验证？
 
 ### 因为代码任务往往有客观反馈
 
@@ -294,7 +294,7 @@ if failures:
 
 ---
 
-## 六、代码 Agent 最常见的失败点
+## 代码 Agent 最常见的失败点
 
 ### 没读懂上下文就改
 
@@ -325,7 +325,7 @@ if failures:
 
 ---
 
-## 七、代码 Agent 在工程上最该守住什么？
+## 代码 Agent 在工程上最该守住什么？
 
 ### 可回滚
 

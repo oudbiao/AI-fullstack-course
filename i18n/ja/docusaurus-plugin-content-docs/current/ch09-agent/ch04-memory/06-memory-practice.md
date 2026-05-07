@@ -28,7 +28,7 @@ keywords: [memory practice, short term, long term, episodic memory, procedural m
 
 ---
 
-## 一、作るシステムはどんなもの？
+## 作るシステムはどんなもの？
 
 ### 対象シナリオ
 
@@ -68,7 +68,7 @@ keywords: [memory practice, short term, long term, episodic memory, procedural m
 
 ---
 
-## 二、まずは完全に実行できる版を動かす
+## まずは完全に実行できる版を動かす
 
 次のコードは 2 回の会話をシミュレーションします。
 
@@ -232,7 +232,7 @@ print(agent.snapshot("u_001"))
 
 ---
 
-## 三、このシステムはどう拡張できる？
+## このシステムはどう拡張できる？
 
 ### 長期記憶に「信頼度」と「更新時刻」を加える
 
@@ -253,7 +253,7 @@ print(agent.snapshot("u_001"))
 
 ---
 
-## 四、実践で起こりやすい落とし穴
+## 実践で起こりやすい落とし穴
 
 ### すべての情報を長期記憶に書き込んでしまう
 

@@ -25,7 +25,7 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 ---
 
-## 一、なぜ多 Agent では「多い」だけが難しさではないのか
+## なぜ多 Agent では「多い」だけが難しさではないのか
 
 ### 多 Agent の最大のリスク：誰も仕事をしないのではなく、みんなが間違って仕事をすること
 
@@ -56,7 +56,7 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 ---
 
-## 二、もっともよく使われる3つのタスク分配方式
+## もっともよく使われる3つのタスク分配方式
 
 ### 静的分配
 
@@ -105,7 +105,7 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 ---
 
-## 三、最小のタスク分配例
+## 最小のタスク分配例
 
 ```python
 agents = {
@@ -138,7 +138,7 @@ for task in tasks:
 
 ---
 
-## 四、タスク協調は、割り当てるだけでなく順序も管理する
+## タスク協調は、割り当てるだけでなく順序も管理する
 
 ### 並列にできないタスクもある
 
@@ -182,7 +182,7 @@ print(execution_order)
 
 ---
 
-## 五、タスク協調でよく起きる競合
+## タスク協調でよく起きる競合
 
 ### 重複作業
 
@@ -207,7 +207,7 @@ writer はまだ資料が見つかっていないと思っているのに、retr
 
 ---
 
-## 六、競合解決の考え方を入れた最小例
+## 競合解決の考え方を入れた最小例
 
 ```python
 results = {
@@ -246,7 +246,7 @@ print(resolve_conflict(results))
 
 ---
 
-## 七、タスク協調と通信の関係は？
+## タスク協調と通信の関係は？
 
 通信が解決するのは：
 
@@ -267,7 +267,7 @@ print(resolve_conflict(results))
 
 ---
 
-## 八、実際のシステムでよく使われる協調戦略
+## 実際のシステムでよく使われる協調戦略
 
 ### 中央調度型
 
@@ -297,7 +297,7 @@ Agent 同士が提案し合い、協議します。
 
 ---
 
-## 九、初学者がよくやってしまう落とし穴
+## 初学者がよくやってしまう落とし穴
 
 ### 分業だけして、最後の回収を設計しない
 

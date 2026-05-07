@@ -25,7 +25,7 @@ keywords: [MCP client, tool discovery, client integration, dispatch, protocol cl
 
 ---
 
-## 一、Client 和 Server 的职责到底怎么分？
+## Client 和 Server 的职责到底怎么分？
 
 ### Server 提供能力
 
@@ -50,7 +50,7 @@ Client 更像“真正来办事的人”，它负责：
 
 ---
 
-## 二、Client 最先要学会什么？先发现工具
+## Client 最先要学会什么？先发现工具
 
 ### 为什么不能直接写死？
 
@@ -88,7 +88,7 @@ for tool in tools:
 
 ---
 
-## 三、发现完以后，client 还要做什么？
+## 发现完以后，client 还要做什么？
 
 ### 选择工具
 
@@ -118,7 +118,7 @@ client 不能只崩掉，还要决定：
 
 ---
 
-## 四、一个最小 Client 示例
+## 一个最小 Client 示例
 
 ### 可运行代码
 
@@ -167,7 +167,7 @@ print(client.call("search_docs", {"query": "退款政策"}))
 
 ---
 
-## 五、Client 其实还有“策略层”
+## Client 其实还有“策略层”
 
 ### 为什么说 client 不只是协议调用器？
 
@@ -201,7 +201,7 @@ print(client.call(decision["name"], decision["arguments"]))
 
 ---
 
-## 六、错误处理为什么对 client 特别重要？
+## 错误处理为什么对 client 特别重要？
 
 ### 因为 client 是“最先感知失败的一方”
 
@@ -236,7 +236,7 @@ print(safe_call(client, "bad_tool", {}))
 
 ---
 
-## 七、为什么有时 client 也需要缓存？
+## 为什么有时 client 也需要缓存？
 
 ### 一个很现实的问题
 
@@ -267,7 +267,7 @@ print(cached_client.discover_once())
 
 ---
 
-## 八、Client 集成里最常见的坑
+## Client 集成里最常见的坑
 
 ### 只会调，不会选
 

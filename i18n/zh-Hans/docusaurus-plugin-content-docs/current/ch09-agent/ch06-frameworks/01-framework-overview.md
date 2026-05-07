@@ -26,7 +26,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ---
 
-## 一、为什么需要 Agent 框架？
+## 为什么需要 Agent 框架？
 
 ### 没有框架时，自己写会遇到什么？
 
@@ -60,7 +60,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ---
 
-## 二、框架最大的差别通常不在“能不能做”，而在“怎么做”
+## 框架最大的差别通常不在“能不能做”，而在“怎么做”
 
 ### 一个很重要的视角：抽象层
 
@@ -90,7 +90,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ---
 
-## 三、先看一张粗粒度地图
+## 先看一张粗粒度地图
 
 下面这张图不是精确排名，而是帮助你快速建立直觉：
 
@@ -107,7 +107,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ---
 
-## 四、框架一般帮你省掉哪些工作？
+## 框架一般帮你省掉哪些工作？
 
 ### 状态流和节点管理
 
@@ -139,7 +139,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ---
 
-## 五、框架也会带来代价
+## 框架也会带来代价
 
 ### 抽象越高，越容易失去底层控制
 
@@ -164,7 +164,7 @@ keywords: [agent frameworks, LangGraph, LlamaIndex, CrewAI, AutoGen, framework o
 
 ---
 
-## 六、一个最小“框架感”示例
+## 一个最小“框架感”示例
 
 下面这个例子不是某个真实框架，而是一个“框架抽象味道”的极小示例。
 
@@ -209,7 +209,7 @@ wf.run({"query": "退款政策是什么"})
 
 ---
 
-## 七、什么时候更适合不用框架？
+## 什么时候更适合不用框架？
 
 如果你的系统是：
 
@@ -229,7 +229,7 @@ wf.run({"query": "退款政策是什么"})
 
 ---
 
-## 八、一个很实用的选型思路
+## 一个很实用的选型思路
 
 先问这几个问题：
 
@@ -243,7 +243,7 @@ wf.run({"query": "退款政策是什么"})
 
 ---
 
-## 九、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 先学框架，再学系统
 

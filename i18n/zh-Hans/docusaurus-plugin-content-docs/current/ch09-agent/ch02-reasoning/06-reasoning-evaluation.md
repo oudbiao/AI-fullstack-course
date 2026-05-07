@@ -32,7 +32,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 ---
 
-## 一、为什么推理评估比普通 QA 更复杂？
+## 为什么推理评估比普通 QA 更复杂？
 
 ### 因为推理系统不只是输出一个文本
 
@@ -69,7 +69,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 ---
 
-## 二、推理系统最常看的四类指标
+## 推理系统最常看的四类指标
 
 ### 最终结果指标
 
@@ -121,7 +121,7 @@ keywords: [reasoning evaluation, trace evaluation, agent metrics, optimization, 
 
 ---
 
-## 三、先跑一个真正有用的评估脚本
+## 先跑一个真正有用的评估脚本
 
 下面这段代码会比较两个 agent 的 trace 质量。
 它会统计：
@@ -240,7 +240,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ---
 
-## 四、评估时不能只看“有没有答对”
+## 评估时不能只看“有没有答对”
 
 ### 对答案类任务，看正确率
 
@@ -270,7 +270,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ---
 
-## 五、拿到评估结果后，该怎么优化？
+## 拿到评估结果后，该怎么优化？
 
 ### 如果准确率低
 
@@ -309,7 +309,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ---
 
-## 六、评估样本该怎么设计？
+## 评估样本该怎么设计？
 
 ### 不要只放容易题
 
@@ -335,7 +335,7 @@ print("agent_b:", evaluate_agent(agent_b))
 
 ---
 
-## 七、常见误区
+## 常见误区
 
 ### 误区一：最终答案对就说明系统没问题
 

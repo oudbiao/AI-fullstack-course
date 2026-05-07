@@ -25,7 +25,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 ---
 
-## 一、なぜフレームワーク選定は本質的にアーキテクチャ判断なのか？
+## なぜフレームワーク選定は本質的にアーキテクチャ判断なのか？
 
 フレームワークを一度選ぶと、その後の多くのことがそれに引きずられるからです。
 
@@ -43,7 +43,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 ---
 
-## 二、まず見るべき5つの重要な選定軸
+## まず見るべき5つの重要な選定軸
 
 ### タスクは複雑な状態遷移か？
 
@@ -95,7 +95,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 ---
 
-## 三、最小限の選定スコア例
+## 最小限の選定スコア例
 
 この例は「正解」を与えるためではなく、次の考え方を身につけるためのものです。
 
@@ -139,7 +139,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 四、典型的なタスクごとの直感的な選び方
+## 典型的なタスクごとの直感的な選び方
 
 ### 複雑な状態遷移を持つ Agent を作る場合
 
@@ -177,7 +177,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 五、いつ複雑なフレームワークを急いで使うべきではないか？
+## いつ複雑なフレームワークを急いで使うべきではないか？
 
 ### とてもよくあるのに見落とされがちなケース
 
@@ -210,7 +210,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 六、なぜチーム要因を無視できないのか？
+## なぜチーム要因を無視できないのか？
 
 フレームワークは個人開発者だけのためのものではなく、チーム全体にも影響します。
 
@@ -225,7 +225,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 七、よくある選定ミス
+## よくある選定ミス
 
 ### いちばん流行っているものを見る
 
@@ -248,7 +248,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 八、より実用的な選定手順
+## より実用的な選定手順
 
 「先にフレームワーク一覧を見る」より、次の順番をおすすめします。
 

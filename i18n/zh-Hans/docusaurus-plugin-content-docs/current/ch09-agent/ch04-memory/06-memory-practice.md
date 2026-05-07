@@ -28,7 +28,7 @@ keywords: [memory practice, short term, long term, episodic memory, procedural m
 
 ---
 
-## 一、我们要做的系统长什么样？
+## 我们要做的系统长什么样？
 
 ### 目标场景
 
@@ -68,7 +68,7 @@ keywords: [memory practice, short term, long term, episodic memory, procedural m
 
 ---
 
-## 二、先跑一个完整可执行版本
+## 先跑一个完整可执行版本
 
 下面代码会模拟两轮对话：
 
@@ -232,7 +232,7 @@ print(agent.snapshot("u_001"))
 
 ---
 
-## 三、这个系统还可以怎样扩展？
+## 这个系统还可以怎样扩展？
 
 ### 给长期记忆加“可信度”和“更新时间”
 
@@ -253,7 +253,7 @@ print(agent.snapshot("u_001"))
 
 ---
 
-## 四、实战里最容易踩的坑
+## 实战里最容易踩的坑
 
 ### 把所有信息都当长期记忆写入
 

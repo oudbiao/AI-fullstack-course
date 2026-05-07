@@ -30,7 +30,7 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 
 ---
 
-## 一、为什么很多 LLM 项目其实首先是“知识系统项目”？
+## 为什么很多 LLM 项目其实首先是“知识系统项目”？
 
 ### 不是所有系统都在解决对话问题
 
@@ -60,7 +60,7 @@ keywords: [LlamaIndex, documents, nodes, index, retriever, query engine, RAG]
 
 ---
 
-## 二、先把几个最重要的概念分清
+## 先把几个最重要的概念分清
 
 ### Document
 
@@ -94,7 +94,7 @@ Document 被切分后的更小单位。
 
 ---
 
-## 三、先用纯 Python 走一遍这条链
+## 先用纯 Python 走一遍这条链
 
 ### 文档 -> 节点
 
@@ -120,7 +120,7 @@ print(nodes)
 
 ---
 
-## 四、为什么“文档摄取”是知识系统的第一步？
+## 为什么“文档摄取”是知识系统的第一步？
 
 ### 原始文档通常很脏
 
@@ -146,7 +146,7 @@ print(nodes)
 
 ---
 
-## 五、索引和检索为什么是它的中心？
+## 索引和检索为什么是它的中心？
 
 ### 因为知识应用最怕“文档在那，但系统找不到”
 
@@ -191,7 +191,7 @@ print(retrieve("退款政策是什么"))
 
 ---
 
-## 六、Query Engine 为什么值得单独抽出来？
+## Query Engine 为什么值得单独抽出来？
 
 ### 因为问答不只等于“返回一个最像的段落”
 
@@ -223,7 +223,7 @@ print(query_engine("退款政策是什么"))
 
 ---
 
-## 七、LlamaIndex 和 LangGraph 的差别，最核心的一句是什么？
+## LlamaIndex 和 LangGraph 的差别，最核心的一句是什么？
 
 如果要非常粗暴地总结，可以记成：
 
@@ -242,7 +242,7 @@ print(query_engine("退款政策是什么"))
 
 ---
 
-## 八、什么时候 LlamaIndex 不一定是重点？
+## 什么时候 LlamaIndex 不一定是重点？
 
 如果你的系统更偏：
 
@@ -258,7 +258,7 @@ print(query_engine("退款政策是什么"))
 
 ---
 
-## 九、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 只看模型，不看文档摄取
 

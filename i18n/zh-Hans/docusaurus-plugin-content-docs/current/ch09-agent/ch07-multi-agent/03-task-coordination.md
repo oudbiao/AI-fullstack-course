@@ -25,7 +25,7 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 ---
 
-## 一、为什么多 Agent 最难的不只是“多”
+## 为什么多 Agent 最难的不只是“多”
 
 ### 多 Agent 最大风险：不是没人干活，而是大家都干不对
 
@@ -56,7 +56,7 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 ---
 
-## 二、最常见的三种任务分配方式
+## 最常见的三种任务分配方式
 
 ### 静态分配
 
@@ -105,7 +105,7 @@ keywords: [task coordination, task assignment, multi-agent, scheduling, conflict
 
 ---
 
-## 三、一个最小任务分配示例
+## 一个最小任务分配示例
 
 ```python
 agents = {
@@ -138,7 +138,7 @@ for task in tasks:
 
 ---
 
-## 四、任务协调不只是分配，还包括顺序控制
+## 任务协调不只是分配，还包括顺序控制
 
 ### 有些任务不能并行
 
@@ -182,7 +182,7 @@ print(execution_order)
 
 ---
 
-## 五、任务协调里最常见的冲突
+## 任务协调里最常见的冲突
 
 ### 重复劳动
 
@@ -209,7 +209,7 @@ writer 还以为资料没找到，但 retriever 其实已经返回了。
 
 ---
 
-## 六、一个带冲突解决思路的小例子
+## 一个带冲突解决思路的小例子
 
 ```python
 results = {
@@ -248,7 +248,7 @@ print(resolve_conflict(results))
 
 ---
 
-## 七、任务协调和通信有什么关系？
+## 任务协调和通信有什么关系？
 
 通信解决的是：
 
@@ -269,7 +269,7 @@ print(resolve_conflict(results))
 
 ---
 
-## 八、真实系统里常见的协调策略
+## 真实系统里常见的协调策略
 
 ### 中心调度型
 
@@ -299,7 +299,7 @@ Agent 之间互相提议、协商。
 
 ---
 
-## 九、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 只分工，不设计收尾
 

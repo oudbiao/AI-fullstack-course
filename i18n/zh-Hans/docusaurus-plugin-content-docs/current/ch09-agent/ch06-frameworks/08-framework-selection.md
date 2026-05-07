@@ -25,7 +25,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 ---
 
-## 一、为什么框架选型本质上是架构决策？
+## 为什么框架选型本质上是架构决策？
 
 因为框架一旦选定，后面很多东西都会跟着走：
 
@@ -43,7 +43,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 ---
 
-## 二、先看最关键的五个选型维度
+## 先看最关键的五个选型维度
 
 ### 任务是不是复杂状态流？
 
@@ -95,7 +95,7 @@ keywords: [framework selection, LangGraph, LlamaIndex, CrewAI, architecture deci
 
 ---
 
-## 三、一个最小选型打分示例
+## 一个最小选型打分示例
 
 这个例子不是为了给你“标准答案”，而是教你：
 
@@ -139,7 +139,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 四、几个典型任务下的直觉选型
+## 几个典型任务下的直觉选型
 
 ### 如果你做的是复杂状态流 Agent
 
@@ -177,7 +177,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 五、什么时候不该着急上复杂框架？
+## 什么时候不该着急上复杂框架？
 
 ### 一个很常见但容易被忽略的情况
 
@@ -210,7 +210,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 六、团队因素为什么不能忽略？
+## 团队因素为什么不能忽略？
 
 框架不是只服务单个开发者，它还会影响整个团队：
 
@@ -225,7 +225,7 @@ for name, info in frameworks.items():
 
 ---
 
-## 七、几个最常见的错误选型方式
+## 几个最常见的错误选型方式
 
 ### 看谁最火
 
@@ -248,7 +248,7 @@ demo 好看，不代表适合长期系统。
 
 ---
 
-## 八、一个更实用的选型顺序
+## 一个更实用的选型顺序
 
 比起“先列框架”，更建议你这样走：
 

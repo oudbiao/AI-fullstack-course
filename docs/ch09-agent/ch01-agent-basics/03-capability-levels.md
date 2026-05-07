@@ -157,16 +157,26 @@ tasks = [
 ]
 
 def recommend_level(task):
-    if "first check" in task and "then" in task:
+    task_lower = task.lower()
+    if "first check" in task_lower and "then" in task_lower:
         return "L2"
-    if "automatically generate a weekly report" in task or "send an email" in task:
+    if "automatically generate a weekly report" in task_lower or "send an email" in task_lower:
         return "L3"
-    if "check" in task:
+    if "check" in task_lower:
         return "L1"
     return "L0"
 
 for task in tasks:
     print(task, "-> recommended capability level:", recommend_level(task))
+```
+
+Expected output:
+
+```text
+Answer: What is RAG? -> recommended capability level: L0
+Check Beijing weather -> recommended capability level: L1
+First check the refund policy, then decide whether I qualify -> recommended capability level: L2
+Automatically generate a weekly report based on sales data and send an email -> recommended capability level: L3
 ```
 
 Of course, this is a simplified version, but it helps you build a very practical habit:

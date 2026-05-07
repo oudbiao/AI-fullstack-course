@@ -38,7 +38,7 @@ keywords: [production best practices, rollout, canary, rollback, observability, 
 
 ---
 
-## 一、上线前真正要确认什么？
+## 上线前真正要确认什么？
 
 ### 功能正确只是最基础的一层
 
@@ -63,7 +63,7 @@ keywords: [production best practices, rollout, canary, rollback, observability, 
 
 ---
 
-## 二、生产环境最重要的六条原则
+## 生产环境最重要的六条原则
 
 ### 先灰度，不要全量直上
 
@@ -109,7 +109,7 @@ Agent 系统的不确定性通常比普通 CRUD 更高。
 
 ---
 
-## 三、先跑一个最小 readiness 检查器
+## 先跑一个最小 readiness 检查器
 
 下面这个示例会模拟一套上线前检查。
 它不会直接部署服务，而是回答：
@@ -189,7 +189,7 @@ print(readiness_check(deployment_config))
 
 ---
 
-## 四、灰度发布为什么对 Agent 尤其重要？
+## 灰度发布为什么对 Agent 尤其重要？
 
 ### 因为 Agent 的问题 often 是概率性的
 
@@ -225,7 +225,7 @@ for request_id in ["req-001", "req-002", "req-003", "req-004"]:
 
 ---
 
-## 五、回滚为什么必须提前设计？
+## 回滚为什么必须提前设计？
 
 ### 回滚不是出事后临时想办法
 
@@ -256,7 +256,7 @@ for request_id in ["req-001", "req-002", "req-003", "req-004"]:
 
 ---
 
-## 六、告警和人工接管怎么配合？
+## 告警和人工接管怎么配合？
 
 ### 告警不是越多越好
 
@@ -288,7 +288,7 @@ for request_id in ["req-001", "req-002", "req-003", "req-004"]:
 
 ---
 
-## 七、最容易踩的误区
+## 最容易踩的误区
 
 ### 误区一：上线前只做功能自测
 

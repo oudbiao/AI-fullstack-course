@@ -28,7 +28,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 ---
 
-## 一、先把项目范围定窄
+## 先把项目范围定窄
 
 一个适合练手的研究助手项目，建议先做成：
 
@@ -48,7 +48,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 ---
 
-## 二、作品级研究助手最小闭环长什么样？
+## 作品级研究助手最小闭环长什么样？
 
 1. 输入主题或问题
 2. 检索候选资料
@@ -65,7 +65,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 研究助手最重要的不是“总结很流畅”，而是 claim 能回到 source。读图时按 retrieve、select、summarize、cite、verify 这条链路检查每条结论是否有证据。
 :::
 
-## 三、推荐推进顺序
+## 推荐推进顺序
 
 对新人来说，更稳的顺序通常是：
 
@@ -78,7 +78,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 ---
 
-## 四、先看一个最小研究助手示例
+## 先看一个最小研究助手示例
 
 下面这个例子会做三件事：
 
@@ -155,7 +155,7 @@ for item in result:
 
 ---
 
-## 五、这个项目最该怎么评估？
+## 这个项目最该怎么评估？
 
 ### 检索质量
 
@@ -201,7 +201,7 @@ for case in eval_cases:
 
 ---
 
-## 六、最容易踩的坑
+## 最容易踩的坑
 
 ### 检索对了，但总结丢了关键点
 
@@ -220,7 +220,7 @@ for case in eval_cases:
 
 ---
 
-## 七、怎么把它打磨成作品级项目？
+## 怎么把它打磨成作品级项目？
 
 ### 页面上分四栏展示
 

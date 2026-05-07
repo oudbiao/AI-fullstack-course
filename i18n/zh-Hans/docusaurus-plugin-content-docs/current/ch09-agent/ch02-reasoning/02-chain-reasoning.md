@@ -31,7 +31,7 @@ keywords: [chain of thought, CoT, reasoning trace, scratchpad, decomposition]
 
 ---
 
-## 一、为什么“先想步骤”会有帮助？
+## 为什么“先想步骤”会有帮助？
 
 ### 因为很多问题不是一跳到终点
 
@@ -81,7 +81,7 @@ CoT 对模型的作用很像这一层。
 
 ---
 
-## 二、先看一个“直接答”和“链式答”的对比
+## 先看一个“直接答”和“链式答”的对比
 
 下面这个例子不会调用 LLM，
 但它会非常清楚地演示：
@@ -165,7 +165,7 @@ print("final answer:", answer)
 
 ---
 
-## 三、CoT 在 Agent 里通常怎么用？
+## CoT 在 Agent 里通常怎么用？
 
 ### 先分解，再调用工具
 
@@ -216,7 +216,7 @@ print("final answer:", answer)
 
 ---
 
-## 四、什么时候 CoT 最有帮助？
+## 什么时候 CoT 最有帮助？
 
 ### 需要拆步骤的问题
 
@@ -246,7 +246,7 @@ print("final answer:", answer)
 
 ---
 
-## 五、什么时候 CoT 反而可能拖后腿？
+## 什么时候 CoT 反而可能拖后腿？
 
 ### 简单检索题
 
@@ -283,7 +283,7 @@ print("final answer:", answer)
 
 ---
 
-## 六、一个更实用的结构化 CoT 写法
+## 一个更实用的结构化 CoT 写法
 
 下面这个示例展示一种更适合 Agent 的写法：
 
@@ -324,7 +324,7 @@ print(result)
 
 ---
 
-## 七、常见误区
+## 常见误区
 
 ### 误区一：CoT 就是让模型啰嗦一点
 

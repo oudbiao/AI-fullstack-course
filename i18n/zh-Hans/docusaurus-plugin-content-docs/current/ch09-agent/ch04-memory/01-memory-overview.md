@@ -35,7 +35,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 一、为什么 Agent 需要记忆？
+## 为什么 Agent 需要记忆？
 
 ### 没有记忆，系统就像每次都重新开机
 
@@ -65,7 +65,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 二、记忆不等于“把所有历史全塞进去”
+## 记忆不等于“把所有历史全塞进去”
 
 ### 一个常见误解
 
@@ -94,7 +94,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 三、先建立一张完整地图
+## 先建立一张完整地图
 
 ### 记忆系统常见分层
 
@@ -122,7 +122,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 四、短期记忆：当前任务的工作区
+## 短期记忆：当前任务的工作区
 
 ### 它通常存什么？
 
@@ -143,7 +143,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 五、长期记忆：跨回合依然有价值的信息
+## 长期记忆：跨回合依然有价值的信息
 
 ### 它通常存什么？
 
@@ -162,7 +162,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 六、情景记忆和程序记忆是什么？
+## 情景记忆和程序记忆是什么？
 
 ### 情景记忆（episodic memory）
 
@@ -199,7 +199,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 七、一个最小多层记忆示例
+## 一个最小多层记忆示例
 
 下面这个例子虽然简单，但能帮你快速建立“多层记忆结构”直觉。
 
@@ -234,7 +234,7 @@ print(memory)
 
 ---
 
-## 八、记忆系统设计时最常见的权衡
+## 记忆系统设计时最常见的权衡
 
 ### 记多少？
 
@@ -259,7 +259,7 @@ print(memory)
 
 ---
 
-## 九、一个很重要的工程提醒
+## 一个很重要的工程提醒
 
 记忆系统不是越复杂越好。
 
@@ -282,7 +282,7 @@ print(memory)
 
 ---
 
-## 十、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 把记忆理解成“聊天记录归档”
 
@@ -301,7 +301,7 @@ print(memory)
 
 ---
 
-## 十一、记忆系统最值得展示什么
+## 记忆系统最值得展示什么
 
 如果把记忆系统做成作品集项目，最值得展示的不是“我存了很多历史记录”，而是：
 
@@ -315,7 +315,7 @@ print(memory)
 
 这会让别人看到你理解的是“记忆工程”，而不是简单的聊天记录归档。
 
-## 十二、这一节的学习闭环
+## 这一节的学习闭环
 
 | 层次 | 你应该能做到什么 |
 |---|---|

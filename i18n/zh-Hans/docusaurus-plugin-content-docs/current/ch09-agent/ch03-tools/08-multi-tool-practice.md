@@ -34,7 +34,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 ---
 
-## 一、多工具协作难在哪里？
+## 多工具协作难在哪里？
 
 ### 难点不只是“工具更多了”
 
@@ -69,7 +69,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 ---
 
-## 二、这个实战例子要解决什么问题？
+## 这个实战例子要解决什么问题？
 
 我们做一个最小但完整的退款工单助手。
 用户问题是：
@@ -92,7 +92,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 ---
 
-## 三、先跑一个完整闭环示例
+## 先跑一个完整闭环示例
 
 下面这段代码会完整展示：
 
@@ -250,7 +250,7 @@ print(answer)
 
 ---
 
-## 四、这类系统最容易失败在哪？
+## 这类系统最容易失败在哪？
 
 ### 工具顺序错
 
@@ -277,7 +277,7 @@ print(answer)
 
 ---
 
-## 五、怎样把这个 demo 进一步做成作品？
+## 怎样把这个 demo 进一步做成作品？
 
 ### 第一步：让工具更真实
 
@@ -320,7 +320,7 @@ print(answer)
 
 ---
 
-## 六、常见误区
+## 常见误区
 
 ### 误区一：多工具就是把多个函数按顺序连起来
 

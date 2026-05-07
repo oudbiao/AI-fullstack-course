@@ -30,7 +30,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ---
 
-## 一、なぜすべてのタスクにマルチ Agent が必要ではないのか？
+## なぜすべてのタスクにマルチ Agent が必要ではないのか？
 
 ### マルチ Agent はデフォルトの拡張先ではない
 
@@ -57,7 +57,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ---
 
-## 二、まずはよく使われるいくつかのパターンを見る
+## まずはよく使われるいくつかのパターンを見る
 
 ### Supervisor-Worker パターン
 
@@ -95,7 +95,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ---
 
-## 三、Supervisor-Worker：まず学ぶ価値が高いパターン
+## Supervisor-Worker：まず学ぶ価値が高いパターン
 
 ### なぜよく使われるのか？
 
@@ -140,7 +140,7 @@ for task in tasks:
 
 ---
 
-## 四、Pipeline パターン：工場のラインのように協力する
+## Pipeline パターン：工場のラインのように協力する
 
 ### supervisor パターンとの違い
 
@@ -192,7 +192,7 @@ print(step3)
 
 ---
 
-## 五、Reviewer パターン：生成とチェックを分ける
+## Reviewer パターン：生成とチェックを分ける
 
 ### なぜ実用的なのか？
 
@@ -230,7 +230,7 @@ print("review:", review)
 
 ---
 
-## 六、Peer / Group パターン：複数の Agent が対等に協力する
+## Peer / Group パターン：複数の Agent が対等に協力する
 
 ### 自由そうに見えるが、制御は難しい
 
@@ -265,7 +265,7 @@ print("review:", review)
 
 ---
 
-## 七、とても大事な問題：最後の取りまとめは誰がするのか？
+## とても大事な問題：最後の取りまとめは誰がするのか？
 
 どのパターンを使う場合でも、この問いに答える必要があります。
 
@@ -281,7 +281,7 @@ print("review:", review)
 
 ---
 
-## 八、マルチ Agent のアーキテクチャをどう選ぶか
+## マルチ Agent のアーキテクチャをどう選ぶか
 
 ### タスクの段階が固定されているなら
 
@@ -313,7 +313,7 @@ print("review:", review)
 
 ---
 
-## 九、初心者がよくハマる落とし穴
+## 初心者がよくハマる落とし穴
 
 ### マルチ Agent を「モデルをたくさん動かせばいいもの」と考える
 

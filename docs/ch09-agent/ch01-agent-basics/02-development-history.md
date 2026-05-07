@@ -16,6 +16,8 @@ After completing this section, you will be able to:
 - See why large models made Agents truly usable
 - Experience the differences between systems from different stages through a small example
 
+If you want a broader AI timeline, read this page together with [A.3 AI Development History: 15 Stages and Key Papers](/appendix/ai-milestones). This section focuses only on the Agent thread.
+
 ---
 
 ## Before Agents, automation already existed
@@ -181,6 +183,13 @@ print(rule_bot("How do I get a refund"))
 print(rule_bot("How do I get a certificate"))
 ```
 
+Expected output:
+
+```text
+Please check the refund policy.
+Please check the certificate instructions.
+```
+
 ### Workflow system
 
 ```python
@@ -194,6 +203,12 @@ def workflow_bot(query):
     return "No workflow node matched."
 
 print(workflow_bot("How do I get a refund"))
+```
+
+Expected output:
+
+```text
+Based on the knowledge base: Refund policy: You can get a refund within 7 days if your learning progress is below 20%.
 ```
 
 ### Simplified Agent
@@ -227,6 +242,13 @@ def simple_agent(query):
 steps, answer = simple_agent("If I have not learned much, can I get a refund?")
 print(steps)
 print(answer)
+```
+
+Expected output:
+
+```text
+['First, determine the question type', 'Decide to call the policy retrieval tool', 'Evidence obtained: Refund policy: You can get a refund within 7 days if your learning progress is below 20%.']
+Based on the retrieved policy, here is the answer: Refund policy: You can get a refund within 7 days if your learning progress is below 20%.
 ```
 
 In this example, although the Agent is still simplified, it already reflects the structure of “judge -> choose a tool -> use the result.”

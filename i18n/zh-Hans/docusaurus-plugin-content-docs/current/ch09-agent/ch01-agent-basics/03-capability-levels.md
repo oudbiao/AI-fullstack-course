@@ -20,7 +20,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 一、为什么要给 Agent 分级？
+## 为什么要给 Agent 分级？
 
 ### 因为“Agent”这个词太容易被说大
 
@@ -46,7 +46,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 二、一个实用的能力分级框架
+## 一个实用的能力分级框架
 
 ### L0：纯回答型
 
@@ -76,7 +76,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 三、再往上一层
+## 再往上一层
 
 ### L2：多步工具协同型
 
@@ -106,7 +106,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 四、更高层能力通常意味着更高风险
+## 更高层能力通常意味着更高风险
 
 ### L4：长时运行 / 多 Agent / 强自治
 
@@ -132,7 +132,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 五、一张能力分级速查表
+## 一张能力分级速查表
 
 | 等级 | 核心能力 | 典型系统 |
 |---|---|---|
@@ -144,7 +144,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 六、一个小练习：给任务分等级
+## 一个小练习：给任务分等级
 
 ### 可运行示例
 
@@ -169,13 +169,22 @@ for task in tasks:
     print(task, "-> 推荐能力等级:", recommend_level(task))
 ```
 
+预期输出：
+
+```text
+回答：什么是 RAG？ -> 推荐能力等级: L0
+查一下北京天气 -> 推荐能力等级: L1
+先查退款政策，再判断我是否满足条件 -> 推荐能力等级: L2
+根据销售数据自动生成周报并发邮件 -> 推荐能力等级: L3
+```
+
 这当然是简化版，但它能帮你建立一个非常实用的习惯：
 
 > 先判断任务需要哪个能力等级，再决定系统怎么做。
 
 ---
 
-## 七、怎么从低一级往上升级？
+## 怎么从低一级往上升级？
 
 ### 从 L0 到 L1
 
@@ -205,7 +214,7 @@ for task in tasks:
 
 ---
 
-## 八、工程上怎么避免“能力吹过头”？
+## 工程上怎么避免“能力吹过头”？
 
 ### 先给系统设边界
 
@@ -229,7 +238,7 @@ for task in tasks:
 
 ---
 
-## 九、初学者常见误区
+## 初学者常见误区
 
 ### 以为有工具调用就是高级 Agent
 

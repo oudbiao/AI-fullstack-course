@@ -29,7 +29,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ---
 
-## 一、为什么线性计划有时不够？
+## 为什么线性计划有时不够？
 
 ### 因为现实任务里很多步骤并不是“先 A 再 B 再 C”
 
@@ -72,7 +72,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ---
 
-## 二、高级规划里最常见的三个概念
+## 高级规划里最常见的三个概念
 
 ### 依赖关系
 
@@ -107,7 +107,7 @@ keywords: [advanced planning, DAG, scheduling, dependencies, replanning, critica
 
 ---
 
-## 三、先跑一个真正的 DAG 调度示例
+## 先跑一个真正的 DAG 调度示例
 
 下面这段代码会做一件很有代表性的事：
 
@@ -221,7 +221,7 @@ for item in timeline:
 
 ---
 
-## 四、什么时候需要高级规划，而不是普通计划？
+## 什么时候需要高级规划，而不是普通计划？
 
 ### 当任务天然是图结构
 
@@ -257,7 +257,7 @@ for item in timeline:
 
 ---
 
-## 五、为什么说高级规划更像“图搜索”而不是“列清单”？
+## 为什么说高级规划更像“图搜索”而不是“列清单”？
 
 ### 因为路径不一定唯一
 
@@ -290,7 +290,7 @@ for item in timeline:
 
 ---
 
-## 六、工程上最容易踩的坑
+## 工程上最容易踩的坑
 
 ### 误区一：依赖图画出来就万事大吉
 

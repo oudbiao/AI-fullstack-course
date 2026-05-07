@@ -30,7 +30,7 @@ keywords: [low-code, visual workflow, drag-and-drop, no-code, agent builder]
 
 ---
 
-## 一、低代码平台最核心的价值是什么？
+## 低代码平台最核心的价值是什么？
 
 ### 它不是为了“取代工程师”
 
@@ -62,7 +62,7 @@ keywords: [low-code, visual workflow, drag-and-drop, no-code, agent builder]
 
 ---
 
-## 二、为什么 Agent 场景特别容易出现低代码？
+## 为什么 Agent 场景特别容易出现低代码？
 
 因为很多 Agent 系统天然就长得像：
 
@@ -85,7 +85,7 @@ keywords: [low-code, visual workflow, drag-and-drop, no-code, agent builder]
 
 ---
 
-## 三、一个最小工作流示意
+## 一个最小工作流示意
 
 ```python
 workflow = {
@@ -110,7 +110,7 @@ print(workflow)
 
 ---
 
-## 四、低代码平台最适合什么类型的任务？
+## 低代码平台最适合什么类型的任务？
 
 ### 特别适合
 
@@ -137,7 +137,7 @@ print(workflow)
 
 ---
 
-## 五、低代码平台最大的优势到底在哪？
+## 低代码平台最大的优势到底在哪？
 
 ### 可视化沟通
 
@@ -158,7 +158,7 @@ print(workflow)
 
 ---
 
-## 六、但低代码为什么又常被高估？
+## 但低代码为什么又常被高估？
 
 ### 它并不能自动消灭复杂度
 
@@ -180,7 +180,7 @@ print(workflow)
 
 ---
 
-## 七、一个很重要的问题：谁在用这个平台？
+## 一个很重要的问题：谁在用这个平台？
 
 ### 如果主要是工程团队自己用
 
@@ -201,7 +201,7 @@ print(workflow)
 
 ---
 
-## 八、什么时候应该从低代码迁回代码？
+## 什么时候应该从低代码迁回代码？
 
 这通常发生在这些时刻：
 
@@ -224,7 +224,7 @@ print(workflow)
 
 ---
 
-## 九、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 因为低代码看起来快，就拿它做所有系统
 

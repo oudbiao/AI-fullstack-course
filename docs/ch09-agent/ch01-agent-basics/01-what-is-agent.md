@@ -201,6 +201,14 @@ for query in ["What's the weather in Beijing", "What is the refund policy", "cal
     print(query, "->", choose_action(query))
 ```
 
+Expected output:
+
+```text
+What's the weather in Beijing -> use_weather_tool
+What is the refund policy -> use_docs_tool
+calculate 7 * 8 -> use_calculator
+```
+
 This example is very suitable for beginners because it helps you grasp one core action first:
 
 - an Agent does not answer first
@@ -321,6 +329,16 @@ for step in steps:
 print("Final answer:", answer)
 ```
 
+Expected output:
+
+```text
+User question: calculate 23 * 7
+Execution steps:
+- Detected a calculation task, preparing to call the calculator tool, expression=23 * 7
+- Tool returned: 161
+Final answer: The calculation result is: 161
+```
+
 This example is simple, but it already contains the core flavor of an Agent:
 
 - recognize the task
@@ -365,30 +383,6 @@ But a real Agent goes further and cares about:
 - which tool to call
 - what to do next after the call
 - whether it needs to iterate further
-
-### Look at Another Minimal “Candidate Action” Example
-
-```python
-def choose_action(query):
-    if "weather" in query:
-        return "use_weather_tool"
-    if "refund" in query or "certificate" in query:
-        return "use_docs_tool"
-    if "calculate" in query:
-        return "use_calculator"
-    return "reply_directly"
-
-
-for query in ["What's the weather in Beijing", "What is the refund policy", "calculate 7 * 8"]:
-    print(query, "->", choose_action(query))
-```
-
-This example is very suitable for beginners because it helps you grasp one core action first:
-
-- an Agent does not answer first
-- it first decides what to do next
-
----
 
 ## Why Is an Agent Harder Than a Normal Q&A System?
 

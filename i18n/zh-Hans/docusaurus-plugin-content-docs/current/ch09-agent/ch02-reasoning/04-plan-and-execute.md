@@ -48,7 +48,7 @@ flowchart LR
 
 ---
 
-## 一、为什么任务一长，就更需要“先规划”？
+## 为什么任务一长，就更需要“先规划”？
 
 ### 边走边想容易丢全局
 
@@ -113,7 +113,7 @@ Planner 最核心的价值不是“更聪明”，
 
 ---
 
-## 二、Plan-and-Execute 和 ReAct 的差别到底在哪里？
+## Plan-and-Execute 和 ReAct 的差别到底在哪里？
 
 ### ReAct 更像边调查边走
 
@@ -160,7 +160,7 @@ Planner 最核心的价值不是“更聪明”，
 
 ---
 
-## 三、先跑一个真正的最小 Plan-and-Execute 示例
+## 先跑一个真正的最小 Plan-and-Execute 示例
 
 下面这个例子会模拟一个“售后周报 Agent”。
 用户任务是：
@@ -315,7 +315,7 @@ print(next_fix(plan_quality))
 
 ---
 
-## 四、Plan-and-Execute 什么时候特别有价值？
+## Plan-and-Execute 什么时候特别有价值？
 
 ### 长任务
 
@@ -344,7 +344,7 @@ print(next_fix(plan_quality))
 
 ---
 
-## 五、它最容易出什么问题？
+## 它最容易出什么问题？
 
 ### 计划一开始就拆错
 
@@ -373,7 +373,7 @@ print(next_fix(plan_quality))
 
 ---
 
-## 六、工程上怎样让 Plan-and-Execute 更稳？
+## 工程上怎样让 Plan-and-Execute 更稳？
 
 ### 让 plan 结构化
 
@@ -424,7 +424,7 @@ Plan-and-Execute 最稳的版本往往不是：
 
 ---
 
-## 七、常见误区
+## 常见误区
 
 ### 误区一：有了 plan 就一定更聪明
 

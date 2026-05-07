@@ -28,7 +28,7 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 ---
 
-## 一、为什么要讲“实战模式”？
+## 为什么要讲“实战模式”？
 
 ### 因为真实系统通常不是纯理论架构
 
@@ -56,7 +56,7 @@ keywords: [multi-agent patterns, research team, writer-reviewer, dev team, agent
 
 ---
 
-## 二、模式一：研究型协作
+## 模式一：研究型协作
 
 ### 典型分工
 
@@ -101,7 +101,7 @@ print(answer)
 
 ---
 
-## 三、模式二：写作 + 审核
+## 模式二：写作 + 审核
 
 ### 最经典也最实用的模式之一
 
@@ -154,7 +154,7 @@ print(final)
 
 ---
 
-## 四、模式三：开发团队模式
+## 模式三：开发团队模式
 
 ### 一个很常见的 AI 开发团队抽象
 
@@ -190,7 +190,7 @@ for step in workflow:
 
 ---
 
-## 五、模式四：双重核验 / 高风险审核模式
+## 模式四：双重核验 / 高风险审核模式
 
 ### 什么时候需要？
 
@@ -212,7 +212,7 @@ for step in workflow:
 
 ---
 
-## 六、一个小型多 Agent 工作流示例
+## 一个小型多 Agent 工作流示例
 
 ```python
 def planner(query):
@@ -248,7 +248,7 @@ print("review :", review)
 
 ---
 
-## 七、怎样选合适的实战模式？
+## 怎样选合适的实战模式？
 
 ### 如果任务重点在搜资料
 
@@ -284,7 +284,7 @@ print("review :", review)
 
 ---
 
-## 八、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 把模式和角色数量绑定死
 

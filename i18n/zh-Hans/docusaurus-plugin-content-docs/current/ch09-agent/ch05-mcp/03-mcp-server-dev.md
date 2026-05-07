@@ -27,7 +27,7 @@ keywords: [MCP server, tool server, schema, tool exposure, server development]
 
 ---
 
-## 一、MCP Server 真正在做什么？
+## MCP Server 真正在做什么？
 
 ### 它不是“另一个普通后端”
 
@@ -56,7 +56,7 @@ MCP Server 很像一个有前台的工具库管理员：
 
 ---
 
-## 二、先定义一个最小工具
+## 先定义一个最小工具
 
 ### 一个工具最少得有哪几样？
 
@@ -91,7 +91,7 @@ print(search_docs_tool)
 
 ---
 
-## 三、工具描述为什么不能写得太随意？
+## 工具描述为什么不能写得太随意？
 
 ### 一个坏描述
 
@@ -137,7 +137,7 @@ print(good_tool)
 
 ---
 
-## 四、Server 的最小两项能力：列工具 + 调工具
+## Server 的最小两项能力：列工具 + 调工具
 
 一个最小可用的 MCP Server，通常至少要能：
 
@@ -207,7 +207,7 @@ print(server.call_tool("search_docs", {"query": "退款政策是什么"}))
 
 ---
 
-## 五、参数校验为什么是 server 的责任之一？
+## 参数校验为什么是 server 的责任之一？
 
 ### 因为 client 或模型都可能给错参数
 
@@ -246,7 +246,7 @@ print(validate_search_docs({"query_text": "退款政策"}))
 
 ---
 
-## 六、一个更完整的最小 Server 版本
+## 一个更完整的最小 Server 版本
 
 ```python
 class BetterMCPServer:
@@ -306,7 +306,7 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 
 ---
 
-## 七、MCP Server 开发里最常见的坑
+## MCP Server 开发里最常见的坑
 
 ### 把业务逻辑和协议逻辑混在一起
 
@@ -327,7 +327,7 @@ print(server.call_tool("search_docs", {"wrong": "证书怎么获得"}))
 
 ---
 
-## 八、怎么判断一个 MCP Server 设计得够不够好？
+## 怎么判断一个 MCP Server 设计得够不够好？
 
 可以先问四个问题：
 

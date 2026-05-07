@@ -30,7 +30,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 
 ---
 
-## 一、情景记忆到底是什么？
+## 情景记忆到底是什么？
 
 ### 它更像单次经历
 
@@ -57,7 +57,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 
 ---
 
-## 二、程序记忆又是什么？
+## 程序记忆又是什么？
 
 ### 它更像技能和流程
 
@@ -80,7 +80,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 
 ---
 
-## 三、两者最大的区别是什么？
+## 两者最大的区别是什么？
 
 ### 情景记忆回答“发生过什么”
 
@@ -103,7 +103,7 @@ keywords: [episodic memory, procedural memory, workflow memory, agent experience
 
 ---
 
-## 四、先跑一个“经历 -> 流程”示例
+## 先跑一个“经历 -> 流程”示例
 
 下面这个例子会做两件事：
 
@@ -192,7 +192,7 @@ print("procedural_memory:", procedural_memory)
 
 ---
 
-## 五、情景记忆在系统里通常怎么用？
+## 情景记忆在系统里通常怎么用？
 
 ### 检索相似案例
 
@@ -216,7 +216,7 @@ print("procedural_memory:", procedural_memory)
 
 ---
 
-## 六、程序记忆在系统里通常怎么用？
+## 程序记忆在系统里通常怎么用？
 
 ### 作为 planner 的默认模板
 
@@ -239,7 +239,7 @@ print("procedural_memory:", procedural_memory)
 
 ---
 
-## 七、最容易踩的坑
+## 最容易踩的坑
 
 ### 误区一：把所有历史都叫情景记忆
 

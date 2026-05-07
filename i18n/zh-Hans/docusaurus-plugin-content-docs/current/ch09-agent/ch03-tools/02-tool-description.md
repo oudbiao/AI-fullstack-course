@@ -50,7 +50,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 ---
 
-## 一、为什么工具不能只靠函数名存在？
+## 为什么工具不能只靠函数名存在？
 
 ### 对程序员来说够清楚，对模型不一定
 
@@ -93,7 +93,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 ---
 
-## 二、一个工具描述至少应包含什么？
+## 一个工具描述至少应包含什么？
 
 ### 名字要体现用途，而不是只体现实现细节
 
@@ -156,7 +156,7 @@ keywords: [tool description, tool discovery, schema, registry, metadata, agent t
 
 ---
 
-## 三、先跑一个真正像样的工具注册表示例
+## 先跑一个真正像样的工具注册表示例
 
 下面这段代码会做三件事：
 
@@ -269,7 +269,7 @@ for item in candidates:
 
 ---
 
-## 四、真实系统里“发现”通常不止一种方式
+## 真实系统里“发现”通常不止一种方式
 
 ### 关键词 / 标签匹配
 
@@ -320,7 +320,7 @@ for item in candidates:
 
 ---
 
-## 五、返回结构为什么也属于“工具描述”的一部分？
+## 返回结构为什么也属于“工具描述”的一部分？
 
 ### 因为发现不只是“找到工具”，还要知道能不能接上后续流程
 
@@ -355,7 +355,7 @@ print(normalize_tool_result(False, error="missing_order_id"))
 
 ---
 
-## 六、工具描述最容易踩的坑
+## 工具描述最容易踩的坑
 
 ### 误区一：函数签名清楚就够了
 

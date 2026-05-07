@@ -25,7 +25,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ---
 
-## 一、なぜツールを種類ごとに見るのか？
+## なぜツールを種類ごとに見るのか？
 
 ### 「ツール」という言葉の範囲が広すぎるから
 
@@ -58,7 +58,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ---
 
-## 二、よくある5種類のツール
+## よくある5種類のツール
 
 ### 検索 / 検索取得系
 
@@ -127,7 +127,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ---
 
-## 三、統一されたツール登録表
+## 統一されたツール登録表
 
 実際のシステムでは、ツールをあちこちに散らすのではなく、まとめて登録することがよくあります。
 
@@ -199,7 +199,7 @@ print(TOOLS.keys())
 
 ---
 
-## 四、統一ディスパッチャ
+## 統一ディスパッチャ
 
 ### 最小ディスパッチャ例
 
@@ -237,7 +237,7 @@ for call in calls:
 
 ---
 
-## 五、種類ごとに何へ注意すべきか？
+## 種類ごとに何へ注意すべきか？
 
 ### 検索系ツール
 
@@ -322,7 +322,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 
 ---
 
-## 六、Agent らしいツール組み合わせの例
+## Agent らしいツール組み合わせの例
 
 ### シナリオ：ユーザーが返金できるか判断する
 
@@ -364,7 +364,7 @@ print(refund_eligibility_agent(2))
 
 ---
 
-## 七、ツール統合でよくある失敗点
+## ツール統合でよくある失敗点
 
 ### schema が一致しない
 
@@ -388,7 +388,7 @@ print(refund_eligibility_agent(2))
 
 ---
 
-## 八、実用的な提案：ツールの戻り値形式を統一する
+## 実用的な提案：ツールの戻り値形式を統一する
 
 もっとも安定しやすい方法の1つは、ツールの出力構造を統一することです。たとえば、すべて次の形式にそろえます。
 
@@ -425,7 +425,7 @@ print(wrapped_search("返金"))
 
 ---
 
-## 九、初心者がよくつまずくポイント
+## 初心者がよくつまずくポイント
 
 ### とりあえず全部のツールをつなぐ
 

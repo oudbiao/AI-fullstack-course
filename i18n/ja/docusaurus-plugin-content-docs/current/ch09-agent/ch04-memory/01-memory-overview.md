@@ -35,7 +35,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 一、なぜ Agent に記憶が必要なのか？
+## なぜ Agent に記憶が必要なのか？
 
 ### 記憶がないと、毎回再起動しているようなものになる
 
@@ -65,7 +65,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 二、記憶は「履歴を全部入れること」ではない
+## 記憶は「履歴を全部入れること」ではない
 
 ### よくある誤解
 
@@ -96,7 +96,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 三、まずは全体の地図を作る
+## まずは全体の地図を作る
 
 ### 代表的な記憶の階層
 
@@ -124,7 +124,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 四、短期記憶: 現在のタスクの作業領域
+## 短期記憶: 現在のタスクの作業領域
 
 ### ふつう何を保存するのか？
 
@@ -145,7 +145,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 五、長期記憶: 回をまたいでも価値がある情報
+## 長期記憶: 回をまたいでも価値がある情報
 
 ### ふつう何を保存するのか？
 
@@ -164,7 +164,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 六、エピソード記憶と手続き記憶とは？
+## エピソード記憶と手続き記憶とは？
 
 ### エピソード記憶（episodic memory）
 
@@ -207,7 +207,7 @@ keywords: [memory, Agent memory, short-term memory, long-term memory, episodic m
 
 ---
 
-## 七、最小構成の多層メモリ例
+## 最小構成の多層メモリ例
 
 次の例はシンプルですが、多層メモリ構造の感覚をつかむのに役立ちます。
 
@@ -244,7 +244,7 @@ print(memory)
 
 ---
 
-## 八、メモリシステム設計でよくあるトレードオフ
+## メモリシステム設計でよくあるトレードオフ
 
 ### どれくらい保存するか？
 
@@ -271,7 +271,7 @@ print(memory)
 
 ---
 
-## 九、とても重要な実装上の注意
+## とても重要な実装上の注意
 
 メモリシステムは、複雑にすればするほど良いわけではありません。
 
@@ -294,7 +294,7 @@ print(memory)
 
 ---
 
-## 十、初学者がよくハマるポイント
+## 初学者がよくハマるポイント
 
 ### 記憶を「会話ログの保存」と考えてしまう
 
@@ -313,7 +313,7 @@ print(memory)
 
 ---
 
-## 十一、メモリシステムで見せると価値が高いもの
+## メモリシステムで見せると価値が高いもの
 
 メモリシステムをポートフォリオ用プロジェクトとして見せるなら、「たくさんの履歴を保存しました」よりも、次のような点のほうがずっと重要です。
 
@@ -327,7 +327,7 @@ print(memory)
 
 これによって、あなたが理解しているのが単なる会話ログの保存ではなく、「記憶のエンジニアリング」だと伝わります。
 
-## 十二、この節の学習サイクル
+## この節の学習サイクル
 
 | レベル | できるようになること |
 |---|---|

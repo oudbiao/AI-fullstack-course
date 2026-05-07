@@ -20,7 +20,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 一、Agent は「1つのモデル」だけではない
+## Agent は「1つのモデル」だけではない
 
 ### 最初にありがちな誤解：Agent は大規模言語モデル + Prompt だけだと思ってしまう
 
@@ -49,7 +49,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 二、よくある主要コンポーネント
+## よくある主要コンポーネント
 
 ### Planner / 意思決定器
 
@@ -78,7 +78,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 三、状態、記憶、コンテキスト
+## 状態、記憶、コンテキスト
 
 ### State：今のタスクがどこまで進んだか
 
@@ -105,7 +105,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 四、標準的な実行ループ
+## 標準的な実行ループ
 
 ### 最小ループ：感知、決定、行動、観察
 
@@ -143,7 +143,7 @@ Agent の本質は、「1回だけ回答する」ことではありません。
 
 ---
 
-## 五、小さく動くアーキテクチャの例
+## 小さく動くアーキテクチャの例
 
 次の例では、明示的に以下を定義します。
 
@@ -237,11 +237,18 @@ print("状態:", state)
 print("最終回答:", answer)
 ```
 
+期待される出力：
+
+```text
+状態: {'query': '計算 23 * 8', 'steps': [{'tool': 'calc', 'args': '23 * 8'}], 'observations': ['184'], 'done': True}
+最終回答: 184
+```
+
 この例はとても小さいですが、Agent アーキテクチャの核心はすでに含まれています。
 
 ---
 
-## 六、Guardrails：なぜガードレールは必須なのか？
+## Guardrails：なぜガードレールは必須なのか？
 
 ### Agent は実際に行動するから
 
@@ -300,12 +307,19 @@ print(safe_eval("3 * (4 + 5)"))
 print(safe_eval("__import__('os').system('rm -rf /')"))
 ```
 
+期待される出力：
+
+```text
+27
+式に許可されていない文字が含まれています
+```
+
 ガードレールの大事な考え方は、「システムを絶対に間違えなくする」ことではありません。  
 むしろ、間違いの範囲を小さくすることです。
 
 ---
 
-## 七、Observability：なぜ Agent の動きを見えるようにするのか？
+## Observability：なぜ Agent の動きを見えるようにするのか？
 
 ### 多段階システムは見えにくいとデバッグしにくいから
 
@@ -328,7 +342,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ---
 
-## 八、単一 Agent と複数 Agent
+## 単一 Agent と複数 Agent
 
 ### まずは単一 Agent を安定させるのが基本
 
@@ -352,7 +366,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ---
 
-## 九、初学者がやりがちな誤解
+## 初学者がやりがちな誤解
 
 ### まず多 Agent にしてから、単一 Agent を考える
 

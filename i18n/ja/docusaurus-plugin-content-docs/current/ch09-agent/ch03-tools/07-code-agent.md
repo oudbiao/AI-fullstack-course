@@ -31,7 +31,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ---
 
-## 一、コード Agent と「モデルにコードを書かせる」のは何が違うのか？
+## コード Agent と「モデルにコードを書かせる」のは何が違うのか？
 
 ### 普通のコード生成は一回きりの出力に近い
 
@@ -74,7 +74,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ---
 
-## 二、コード Agent の最小閉ループとは何か？
+## コード Agent の最小閉ループとは何か？
 
 ### Read：まず文脈を読む
 
@@ -112,7 +112,7 @@ keywords: [code agent, coding agent, read edit run verify, sandbox, patch, tests
 
 ---
 
-## 三、まずは最小の「コード Agent 閉ループ」例を動かしてみる
+## まずは最小の「コード Agent 閉ループ」例を動かしてみる
 
 次の例は、実際にファイルを変更するわけではありません。  
 でも、非常に重要な一連の流れを完全に再現しています。
@@ -210,7 +210,7 @@ if failures:
 
 ---
 
-## 四、実際のコード Agent では、他にどんな重要な工程があるのか？
+## 実際のコード Agent では、他にどんな重要な工程があるのか？
 
 ### ファイルの特定と読み込み
 
@@ -258,7 +258,7 @@ if failures:
 
 ---
 
-## 五、なぜコード Agent は特に検証に依存するのか？
+## なぜコード Agent は特に検証に依存するのか？
 
 ### コードタスクには客観的なフィードバックがあることが多いから
 
@@ -293,7 +293,7 @@ if failures:
 
 ---
 
-## 六、コード Agent でよく起きる失敗ポイント
+## コード Agent でよく起きる失敗ポイント
 
 ### 文脈を理解しないまま修正する
 
@@ -324,7 +324,7 @@ if failures:
 
 ---
 
-## 七、コード Agent をエンジニアリング上で守るべきことは何か？
+## コード Agent をエンジニアリング上で守るべきことは何か？
 
 ### ロールバック可能であること
 

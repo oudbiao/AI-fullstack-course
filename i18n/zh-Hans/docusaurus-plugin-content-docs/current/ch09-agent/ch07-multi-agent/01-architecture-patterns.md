@@ -30,7 +30,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ---
 
-## 一、为什么不是所有任务都需要多 Agent？
+## 为什么不是所有任务都需要多 Agent？
 
 ### 多 Agent 不是默认升级路线
 
@@ -57,7 +57,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ---
 
-## 二、先看最常见的几种模式
+## 先看最常见的几种模式
 
 ### Supervisor-Worker 模式
 
@@ -95,7 +95,7 @@ keywords: [multi-agent, supervisor, pipeline, reviewer pattern, agent architectu
 
 ---
 
-## 三、Supervisor-Worker：最值得先学的模式
+## Supervisor-Worker：最值得先学的模式
 
 ### 为什么它很常见？
 
@@ -140,7 +140,7 @@ for task in tasks:
 
 ---
 
-## 四、Pipeline 模式：像工厂流水线一样协作
+## Pipeline 模式：像工厂流水线一样协作
 
 ### 它和 supervisor 模式的区别
 
@@ -192,7 +192,7 @@ print(step3)
 
 ---
 
-## 五、Reviewer 模式：生成和检查分离
+## Reviewer 模式：生成和检查分离
 
 ### 为什么这个模式很实用？
 
@@ -230,7 +230,7 @@ print("review:", review)
 
 ---
 
-## 六、Peer / Group 模式：多个 Agent 平等协作
+## Peer / Group 模式：多个 Agent 平等协作
 
 ### 看起来很自由，但也更难控
 
@@ -265,7 +265,7 @@ print("review:", review)
 
 ---
 
-## 七、一个很重要的问题：谁负责收尾？
+## 一个很重要的问题：谁负责收尾？
 
 不管你用哪种模式，都必须回答这个问题：
 
@@ -281,7 +281,7 @@ print("review:", review)
 
 ---
 
-## 八、多 Agent 架构的选择逻辑
+## 多 Agent 架构的选择逻辑
 
 ### 如果任务阶段固定
 
@@ -313,7 +313,7 @@ print("review:", review)
 
 ---
 
-## 九、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 把多 Agent 当成“多开几个模型就行”
 

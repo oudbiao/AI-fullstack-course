@@ -43,7 +43,7 @@ keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, age
 
 - 推理层在 Agent 系统里到底负责什么
 
-## 一、什么叫“推理”，它和“记住答案”有什么区别？
+## 什么叫“推理”，它和“记住答案”有什么区别？
 
 ### 记住答案：像查脑内词典
 
@@ -102,7 +102,7 @@ keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, age
 
 ---
 
-## 二、LLM 推理常见会遇到哪三类问题？
+## LLM 推理常见会遇到哪三类问题？
 
 ### 算术和符号推理
 
@@ -156,7 +156,7 @@ keywords: [reasoning, llm reasoning, decomposition, multi-step, constraints, age
 
 ---
 
-## 三、先跑一个真正体现“中间状态”的示例
+## 先跑一个真正体现“中间状态”的示例
 
 下面这段代码会把一个算式解析成语法树，
 然后递归求值，并把每一步计算过程记录下来。
@@ -256,7 +256,7 @@ print("answer:", answer)
 
 ---
 
-## 四、LLM 推理为什么有时会强，有时又会突然失常？
+## LLM 推理为什么有时会强，有时又会突然失常？
 
 ### 它擅长模式化的逐步结构
 
@@ -310,7 +310,7 @@ Agent 里的推理层，常常不是独立工作，
 
 ---
 
-## 五、什么时候该启用“更强的推理模式”？
+## 什么时候该启用“更强的推理模式”？
 
 ### 当答案需要多步推导
 
@@ -347,7 +347,7 @@ Agent 里的推理层，常常不是独立工作，
 
 ---
 
-## 六、最常见的误区
+## 最常见的误区
 
 ### 误区一：只要模型大，就天然会推理
 

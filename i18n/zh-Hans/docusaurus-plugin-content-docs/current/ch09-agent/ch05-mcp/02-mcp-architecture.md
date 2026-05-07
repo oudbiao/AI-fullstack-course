@@ -31,7 +31,7 @@ keywords: [MCP architecture, client, server, transport, tools, protocol flow]
 
 ---
 
-## 一、先把整张架构图看清楚
+## 先把整张架构图看清楚
 
 ```mermaid
 flowchart LR
@@ -58,7 +58,7 @@ flowchart LR
 
 ---
 
-## 二、Client 到底在做什么？
+## Client 到底在做什么？
 
 Client 的职责通常包括：
 
@@ -82,7 +82,7 @@ Client 的职责通常包括：
 
 ---
 
-## 三、Server 到底在做什么？
+## Server 到底在做什么？
 
 Server 的职责通常包括：
 
@@ -103,7 +103,7 @@ Server 的职责通常包括：
 
 ---
 
-## 四、Transport 为什么不能忽略？
+## Transport 为什么不能忽略？
 
 很多初学者会只盯着：
 
@@ -137,7 +137,7 @@ Server 的职责通常包括：
 
 ---
 
-## 五、MCP 系统里最常见的三类能力
+## MCP 系统里最常见的三类能力
 
 虽然大家经常说“工具”，但更完整一点看，常见暴露内容可以理解成三类：
 
@@ -169,7 +169,7 @@ Server 的职责通常包括：
 
 ---
 
-## 六、一条完整消息流长什么样？
+## 一条完整消息流长什么样？
 
 ### 先发现工具
 
@@ -238,7 +238,7 @@ print(call_response)
 
 ---
 
-## 七、为什么说 MCP 是“解耦层”？
+## 为什么说 MCP 是“解耦层”？
 
 ### 没有 MCP 时
 
@@ -269,7 +269,7 @@ client 更多依赖的是：
 
 ---
 
-## 八、一个最小的架构模拟
+## 一个最小的架构模拟
 
 下面用纯 Python 模拟一个极简的 MCP 交互过程。
 
@@ -317,7 +317,7 @@ print(client.call("search_docs", {"query": "退款政策"}))
 
 ---
 
-## 九、最常见的架构误区
+## 最常见的架构误区
 
 ### 把 server 当成工具本身
 

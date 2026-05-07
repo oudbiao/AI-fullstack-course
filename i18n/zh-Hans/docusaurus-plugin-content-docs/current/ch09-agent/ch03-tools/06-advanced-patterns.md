@@ -33,7 +33,7 @@ keywords: [tool patterns, composite tools, caching, batching, retries, decorator
 
 ---
 
-## 一、为什么工具层也需要模式？
+## 为什么工具层也需要模式？
 
 ### 因为很多问题会重复出现
 
@@ -71,7 +71,7 @@ keywords: [tool patterns, composite tools, caching, batching, retries, decorator
 
 ---
 
-## 二、四种最常见的高级工具模式
+## 四种最常见的高级工具模式
 
 ### 重试包装
 
@@ -109,7 +109,7 @@ keywords: [tool patterns, composite tools, caching, batching, retries, decorator
 
 ---
 
-## 三、先跑一个“可组合工具包装器”示例
+## 先跑一个“可组合工具包装器”示例
 
 下面这个例子会做三件事：
 
@@ -216,7 +216,7 @@ print(search_and_summarize("退款"))
 
 ---
 
-## 四、批量工具为什么重要？
+## 批量工具为什么重要？
 
 ### 因为很多请求本质上可以一起做
 
@@ -255,7 +255,7 @@ print(get_order_status_batch(["A001", "A002", "A009"]))
 
 ---
 
-## 五、什么时候该把一串工具封成“高级工具”？
+## 什么时候该把一串工具封成“高级工具”？
 
 ### 当组合足够固定
 
@@ -285,7 +285,7 @@ Agent 的工作不应该永远停留在低级操作。
 
 ---
 
-## 六、如果你的目标是“知识库驱动的课件生成助手”，哪些组合最值得先封装？
+## 如果你的目标是“知识库驱动的课件生成助手”，哪些组合最值得先封装？
 
 这类项目里，工具很容易自然长成下面这几类：
 
@@ -346,7 +346,7 @@ print(retrieve_teaching_materials("折扣应用题"))
 
 ---
 
-## 七、最常见的误区
+## 最常见的误区
 
 ### 误区一：高级模式就是“多写点装饰器”
 

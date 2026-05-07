@@ -25,7 +25,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ---
 
-## 一、为什么要把工具分类型来看？
+## 为什么要把工具分类型来看？
 
 ### 因为“工具”这个词太宽了
 
@@ -56,7 +56,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ---
 
-## 二、最常见的五类工具
+## 最常见的五类工具
 
 ### 搜索 / 检索类
 
@@ -125,7 +125,7 @@ keywords: [tool integration, search, calculator, database, filesystem, browser, 
 
 ---
 
-## 三、一个统一的工具注册表
+## 一个统一的工具注册表
 
 真实系统里，常常不会把工具散落在各处，而是统一注册。
 
@@ -197,7 +197,7 @@ print(TOOLS.keys())
 
 ---
 
-## 四、一个统一调度器
+## 一个统一调度器
 
 ### 最小调度器示例
 
@@ -235,7 +235,7 @@ for call in calls:
 
 ---
 
-## 五、不同类型工具到底要注意什么？
+## 不同类型工具到底要注意什么？
 
 ### 搜索类工具
 
@@ -320,7 +320,7 @@ print(safe_calculator("__import__('os').system('rm -rf /')"))
 
 ---
 
-## 六、一个更贴近 Agent 的工具组合例子
+## 一个更贴近 Agent 的工具组合例子
 
 ### 场景：判断用户能不能退款
 
@@ -360,7 +360,7 @@ print(refund_eligibility_agent(2))
 
 ---
 
-## 七、工具集成最常见的失败点
+## 工具集成最常见的失败点
 
 ### schema 对不上
 
@@ -383,7 +383,7 @@ print(refund_eligibility_agent(2))
 
 ---
 
-## 八、一个实用建议：统一工具返回格式
+## 一个实用建议：统一工具返回格式
 
 最稳妥的做法之一是统一工具输出结构，例如都返回：
 
@@ -420,7 +420,7 @@ print(wrapped_search("退款"))
 
 ---
 
-## 九、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 把所有工具都接进来再说
 

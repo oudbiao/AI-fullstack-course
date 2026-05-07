@@ -34,7 +34,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 ---
 
-## 一、マルチツール協調はどこが難しいのか？
+## マルチツール協調はどこが難しいのか？
 
 ### 難しさは「ツールが増える」だけではない
 
@@ -69,7 +69,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 ---
 
-## 二、この実践例は何を解決するのか？
+## この実践例は何を解決するのか？
 
 最小限だけれど完全な返金チケットアシスタントを作ります。  
 ユーザーの質問は次のようなものです。
@@ -92,7 +92,7 @@ keywords: [multi-tool agent, orchestration, tool chain, agent practice, refund a
 
 ---
 
-## 三、まずは完全な流れの例を動かしてみる
+## まずは完全な流れの例を動かしてみる
 
 次のコードでは、以下をまとめて示します。
 
@@ -250,7 +250,7 @@ print(answer)
 
 ---
 
-## 四、この種のシステムはどこで失敗しやすいのか？
+## この種のシステムはどこで失敗しやすいのか？
 
 ### ツールの順番を間違える
 
@@ -277,7 +277,7 @@ print(answer)
 
 ---
 
-## 五、この demo をどうやって作品に育てるか？
+## この demo をどうやって作品に育てるか？
 
 ### 第1段階：ツールをもっと本物にする
 
@@ -320,7 +320,7 @@ print(answer)
 
 ---
 
-## 六、よくある誤解
+## よくある誤解
 
 ### 誤解1：マルチツールとは、複数の関数を順番につなぐだけ
 

@@ -29,7 +29,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 ---
 
-## 一、まずはプロジェクト範囲を絞る
+## まずはプロジェクト範囲を絞る
 
 練習用の研究アシスタントプロジェクトは、まず次の形から始めるのがおすすめです。
 
@@ -49,7 +49,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 ---
 
-## 二、作品レベルの研究アシスタントの最小閉ループはどんな形？
+## 作品レベルの研究アシスタントの最小閉ループはどんな形？
 
 1. テーマや質問を入力する
 2. 候補資料を検索する
@@ -67,7 +67,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 図を見るときは、retrieve、select、summarize、cite、verify の流れに沿って、各結論に根拠があるかを確認しましょう。
 :::
 
-## 三、おすすめの進め方
+## おすすめの進め方
 
 初心者には、次の順番が比較的安全です。
 
@@ -80,7 +80,7 @@ keywords: [research assistant, citation, retrieval, summary, agent project, RAG]
 
 ---
 
-## 四、まずは最小の研究アシスタント例を見てみよう
+## まずは最小の研究アシスタント例を見てみよう
 
 以下の例では、3つのことを行います。
 
@@ -157,7 +157,7 @@ for item in result:
 
 ---
 
-## 五、このプロジェクトで最も大事な評価は何？
+## このプロジェクトで最も大事な評価は何？
 
 ### 検索品質
 
@@ -203,7 +203,7 @@ for case in eval_cases:
 
 ---
 
-## 六、いちばんハマりやすい落とし穴
+## いちばんハマりやすい落とし穴
 
 ### 検索は合っているのに、要約で重要点が抜ける
 
@@ -222,7 +222,7 @@ for case in eval_cases:
 
 ---
 
-## 七、どうやって作品レベルに磨き上げる？
+## どうやって作品レベルに磨き上げる？
 
 ### ページを4カラムで見せる
 

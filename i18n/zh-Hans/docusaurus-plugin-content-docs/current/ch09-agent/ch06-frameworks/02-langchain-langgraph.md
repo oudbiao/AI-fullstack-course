@@ -26,7 +26,7 @@ keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framewor
 
 ---
 
-## 一、为什么会先有 LangChain，后来又有 LangGraph？
+## 为什么会先有 LangChain，后来又有 LangGraph？
 
 ### 早期需求通常是线性的
 
@@ -66,7 +66,7 @@ keywords: [LangChain, LangGraph, chain, graph, stateful workflow, agent framewor
 
 ---
 
-## 二、先理解 LangChain：它到底在抽象什么？
+## 先理解 LangChain：它到底在抽象什么？
 
 ### 它最适合的，是“组件管道”
 
@@ -130,7 +130,7 @@ print(chain.run("  退款政策是什么？ "))
 
 ---
 
-## 三、LangChain 什么时候会很好用？
+## LangChain 什么时候会很好用？
 
 ### 适合这些情况
 
@@ -165,7 +165,7 @@ print(chain.run("  退款政策是什么？ "))
 
 ---
 
-## 四、再理解 LangGraph：它为什么更像“状态机”？
+## 再理解 LangGraph：它为什么更像“状态机”？
 
 ### LangGraph 的重点不只是节点，而是状态
 
@@ -243,7 +243,7 @@ while state["next"] is not None:
 
 ---
 
-## 五、什么时候你应该从 LangChain 思维切到 LangGraph 思维？
+## 什么时候你应该从 LangChain 思维切到 LangGraph 思维？
 
 ### 一个很实用的判断标准
 
@@ -273,7 +273,7 @@ if ...
 
 ---
 
-## 六、为什么很多团队会同时提到 LangChain 和 LangGraph？
+## 为什么很多团队会同时提到 LangChain 和 LangGraph？
 
 因为现实系统往往并不是“二选一”。
 
@@ -298,7 +298,7 @@ if ...
 
 ---
 
-## 七、一个真实工程里的选择建议
+## 一个真实工程里的选择建议
 
 ### 如果你现在要做的是：
 
@@ -329,7 +329,7 @@ if ...
 
 ---
 
-## 八、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 还没理解任务结构，就先学一堆框架 API
 

@@ -20,7 +20,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 一、Agent 不是“一个模型”这么简单
+## Agent 不是“一个模型”这么简单
 
 ### 最基础的误解：以为 Agent 只是大模型 + Prompt
 
@@ -48,7 +48,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 二、常见核心组件
+## 常见核心组件
 
 ### Planner / 决策器
 
@@ -77,7 +77,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 三、状态、记忆和上下文
+## 状态、记忆和上下文
 
 ### State：当前任务进行到哪
 
@@ -103,7 +103,7 @@ keywords: [agent architecture, planner, tools, memory, state, guardrails, observ
 
 ---
 
-## 四、一个标准执行闭环
+## 一个标准执行闭环
 
 ### 最小闭环：感知、决策、行动、观察
 
@@ -138,7 +138,7 @@ flowchart LR
 
 ---
 
-## 五、一个迷你可运行架构示例
+## 一个迷你可运行架构示例
 
 下面这个例子里，我们显式写出：
 
@@ -232,11 +232,18 @@ print("状态:", state)
 print("最终答案:", answer)
 ```
 
+预期输出：
+
+```text
+状态: {'query': '计算 23 * 8', 'steps': [{'tool': 'calc', 'args': '23 * 8'}], 'observations': ['184'], 'done': True}
+最终答案: 184
+```
+
 这个例子很小，但已经包含了 Agent 架构的核心味道。
 
 ---
 
-## 六、Guardrails：为什么护栏必不可少？
+## Guardrails：为什么护栏必不可少？
 
 ### 因为 Agent 会行动
 
@@ -295,11 +302,18 @@ print(safe_eval("3 * (4 + 5)"))
 print(safe_eval("__import__('os').system('rm -rf /')"))
 ```
 
+预期输出：
+
+```text
+27
+表达式包含不允许的字符
+```
+
 护栏的核心思想不是“让系统完全不会错”，而是把错误范围收窄。
 
 ---
 
-## 七、Observability：为什么要能看见 Agent 在做什么？
+## Observability：为什么要能看见 Agent 在做什么？
 
 ### 因为多步系统不透明就很难调试
 
@@ -322,7 +336,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ---
 
-## 八、单 Agent 和多 Agent
+## 单 Agent 和多 Agent
 
 ### 单 Agent 通常先学会
 
@@ -346,7 +360,7 @@ print(safe_eval("__import__('os').system('rm -rf /')"))
 
 ---
 
-## 九、初学者常见误区
+## 初学者常见误区
 
 ### 先上多 Agent，再想清楚单 Agent
 

@@ -30,7 +30,7 @@ keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 
 ---
 
-## 一、最小角色集为什么通常就够了？
+## 最小角色集为什么通常就够了？
 
 一个很稳的最小闭环通常只需要：
 
@@ -51,7 +51,7 @@ keywords: [multi-agent dev team, planner, coder, reviewer, tester, project]
 
 ---
 
-## 二、先跑一个角色工件交接示例
+## 先跑一个角色工件交接示例
 
 这个例子不会真的改代码，
 但它会把最关键的“交接工件”结构跑出来。
@@ -128,7 +128,7 @@ print(test_report)
 
 ---
 
-## 三、一个最小工作流闭环
+## 一个最小工作流闭环
 
 下面把四个角色串成一条最小流程：
 
@@ -196,7 +196,7 @@ print(test_report)
 
 ---
 
-## 四、作品级项目最该展示什么？
+## 作品级项目最该展示什么？
 
 ### 一条完整任务 trace
 
@@ -226,7 +226,7 @@ print(test_report)
 
 ---
 
-## 五、最容易踩的坑
+## 最容易踩的坑
 
 ### 角色很多但边界不清
 

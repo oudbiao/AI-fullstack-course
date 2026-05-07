@@ -24,7 +24,7 @@ keywords: [AutoGen, multi-agent, role dialogue, conversation loop, code executio
 
 ---
 
-## 一、AutoGen 风格最核心的直觉是什么？
+## AutoGen 风格最核心的直觉是什么？
 
 ### 它不是先把流程画成图，而是先让角色“说起来”
 
@@ -56,7 +56,7 @@ AutoGen 风格更像在问：
 
 ---
 
-## 二、为什么这种“对话式多 Agent”会让人觉得很自然？
+## 为什么这种“对话式多 Agent”会让人觉得很自然？
 
 因为很多复杂任务本来就有这种形态：
 
@@ -75,7 +75,7 @@ AutoGen 风格更像在问：
 
 ---
 
-## 三、一个最小的 AutoGen 风格示例
+## 一个最小的 AutoGen 风格示例
 
 先不用真实框架，先用纯 Python 把“多轮对话协作”的味道走通。
 
@@ -111,7 +111,7 @@ for msg in messages:
 
 ---
 
-## 四、为什么 AutoGen 经常和“代码执行”场景绑在一起？
+## 为什么 AutoGen 经常和“代码执行”场景绑在一起？
 
 ### 因为这类场景天然适合多轮反馈
 
@@ -142,7 +142,7 @@ for turn in conversation:
 
 ---
 
-## 五、AutoGen 的真正优势是什么？
+## AutoGen 的真正优势是什么？
 
 ### 对“多角色来回协作”的表达很自然
 
@@ -167,7 +167,7 @@ for turn in conversation:
 
 ---
 
-## 六、但 AutoGen 风格的风险也要看清
+## 但 AutoGen 风格的风险也要看清
 
 ### 消息轮数很容易失控
 
@@ -196,7 +196,7 @@ for turn in conversation:
 
 ---
 
-## 七、它和 CrewAI、LangGraph 的差别到底在哪？
+## 它和 CrewAI、LangGraph 的差别到底在哪？
 
 ### 和 CrewAI 的差别
 
@@ -232,7 +232,7 @@ AutoGen 更强调：
 
 ---
 
-## 八、什么时候值得考虑 AutoGen？
+## 什么时候值得考虑 AutoGen？
 
 特别适合：
 
@@ -252,7 +252,7 @@ AutoGen 更强调：
 
 ---
 
-## 九、一个很实用的工程提醒
+## 一个很实用的工程提醒
 
 如果你真的要把 AutoGen 风格系统做深，最好尽早补上：
 

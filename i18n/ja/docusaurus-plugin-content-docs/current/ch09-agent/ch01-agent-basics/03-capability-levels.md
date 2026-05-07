@@ -20,7 +20,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 一、なぜ Agent をレベル分けするのか？
+## なぜ Agent をレベル分けするのか？
 
 ### 「Agent」という言葉は、盛って言われやすいから
 
@@ -46,7 +46,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 二、実用的な能力レベル分けのフレームワーク
+## 実用的な能力レベル分けのフレームワーク
 
 ### L0：純粋な応答型
 
@@ -76,7 +76,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 三、さらに上のレベル
+## さらに上のレベル
 
 ### L2：複数ステップのツール連携型
 
@@ -106,7 +106,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 四、より高いレベルの能力は、たいていより高いリスクも意味する
+## より高いレベルの能力は、たいていより高いリスクも意味する
 
 ### L4：長時間実行 / マルチ Agent / 強い自律性
 
@@ -132,7 +132,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 五、能力レベルの速見表
+## 能力レベルの速見表
 
 | レベル | コア能力 | 代表的なシステム |
 |---|---|---|
@@ -144,7 +144,7 @@ keywords: [agent capability, tool use, planning, workflow, autonomy]
 
 ---
 
-## 六、小さな練習：タスクをレベル分けしてみる
+## 小さな練習：タスクをレベル分けしてみる
 
 ### 実行可能な例
 
@@ -169,13 +169,22 @@ for task in tasks:
     print(task, "-> 推奨能力レベル:", recommend_level(task))
 ```
 
+期待される出力：
+
+```text
+回答：RAG とは何ですか？ -> 推奨能力レベル: L0
+北京の天気を調べて -> 推奨能力レベル: L1
+まず返金ポリシーを調べて、それから条件を満たすか判断して -> 推奨能力レベル: L2
+売上データに基づいて週報を自動生成してメールで送る -> 推奨能力レベル: L3
+```
+
 もちろん、これは簡略版です。ただし、次のようなとても実用的な習慣を身につける助けになります。
 
 > まず、そのタスクにどの能力レベルが必要かを判断してから、システムの作り方を決める。
 
 ---
 
-## 七、低いレベルからどう上げるのか？
+## 低いレベルからどう上げるのか？
 
 ### L0 から L1 へ
 
@@ -205,7 +214,7 @@ for task in tasks:
 
 ---
 
-## 八、エンジニアリングで「能力を盛りすぎる」のを避けるには？
+## エンジニアリングで「能力を盛りすぎる」のを避けるには？
 
 ### まずシステムの境界を決める
 
@@ -229,7 +238,7 @@ for task in tasks:
 
 ---
 
-## 九、初心者がよくやる誤解
+## 初心者がよくやる誤解
 
 ### ツールを呼べるなら、高度な Agent だと思ってしまう
 

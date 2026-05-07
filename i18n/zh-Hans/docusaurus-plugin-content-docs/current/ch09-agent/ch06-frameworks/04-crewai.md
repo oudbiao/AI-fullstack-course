@@ -31,7 +31,7 @@ keywords: [CrewAI, multi-agent, roles, tasks, crew, team abstraction]
 
 ---
 
-## 一、CrewAI 最本质的抽象是什么？
+## CrewAI 最本质的抽象是什么？
 
 ### 不是先画状态图，而是先定义角色
 
@@ -59,7 +59,7 @@ CrewAI 更像：
 
 ---
 
-## 二、三个最重要的概念
+## 三个最重要的概念
 
 ### Agent
 
@@ -89,7 +89,7 @@ CrewAI 更像：
 
 ---
 
-## 三、一个最小 crew 示例
+## 一个最小 crew 示例
 
 ```python
 crew = [
@@ -118,7 +118,7 @@ print(tasks)
 
 ---
 
-## 四、为什么这种抽象特别适合内容型协作任务？
+## 为什么这种抽象特别适合内容型协作任务？
 
 很多任务天然就长得像一个小团队在干活：
 
@@ -139,7 +139,7 @@ CrewAI 的抽象和这类任务非常贴合，所以它常常会让人感觉：
 
 ---
 
-## 五、一个更完整的小型 Crew 工作流
+## 一个更完整的小型 Crew 工作流
 
 ```python
 def researcher_agent(topic):
@@ -171,7 +171,7 @@ print("review  :", review)
 
 ---
 
-## 六、CrewAI 的优势在哪里？
+## CrewAI 的优势在哪里？
 
 ### 易理解
 
@@ -194,7 +194,7 @@ print("review  :", review)
 
 ---
 
-## 七、CrewAI 的局限也要看清
+## CrewAI 的局限也要看清
 
 ### 它不自动替你解决复杂状态流
 
@@ -226,7 +226,7 @@ print("review  :", review)
 
 ---
 
-## 八、什么时候更适合选 CrewAI？
+## 什么时候更适合选 CrewAI？
 
 如果你的任务非常像：
 
@@ -251,7 +251,7 @@ print("review  :", review)
 
 ---
 
-## 九、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 角色很多，但职责不清
 

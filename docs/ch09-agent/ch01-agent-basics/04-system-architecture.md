@@ -232,6 +232,13 @@ print("State:", state)
 print("Final answer:", answer)
 ```
 
+Expected output:
+
+```text
+State: {'query': 'calculate 23 * 8', 'steps': [{'tool': 'calc', 'args': '23 * 8'}], 'observations': ['184'], 'done': True}
+Final answer: 184
+```
+
 This example is small, but it already contains the core feel of an Agent architecture.
 
 ---
@@ -293,6 +300,13 @@ def safe_eval(expression):
 
 print(safe_eval("3 * (4 + 5)"))
 print(safe_eval("__import__('os').system('rm -rf /')"))
+```
+
+Expected output:
+
+```text
+27
+The expression contains disallowed characters
 ```
 
 The core idea of guardrails is not to make the system completely error-free, but to narrow the scope of possible mistakes.

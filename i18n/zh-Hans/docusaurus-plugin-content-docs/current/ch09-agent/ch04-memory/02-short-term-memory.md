@@ -28,7 +28,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 一、短期记忆到底是什么？
+## 短期记忆到底是什么？
 
 ### 一句话理解
 
@@ -57,7 +57,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 二、为什么不能把所有历史都一直塞给模型？
+## 为什么不能把所有历史都一直塞给模型？
 
 ### 因为上下文窗口不是无限的
 
@@ -88,7 +88,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 三、短期记忆最常见的三种形态
+## 短期记忆最常见的三种形态
 
 ### 对话窗口（sliding window）
 
@@ -128,7 +128,7 @@ keywords: [short-term memory, context window, conversation memory, state, summar
 
 ---
 
-## 四、一个最简单的短期记忆：滑动窗口
+## 一个最简单的短期记忆：滑动窗口
 
 ### 可运行示例
 
@@ -158,7 +158,7 @@ for msg in short_term_memory:
 
 ---
 
-## 五、但仅靠消息窗口还不够
+## 但仅靠消息窗口还不够
 
 ### 为什么不够？
 
@@ -192,7 +192,7 @@ print(task_state)
 
 ---
 
-## 六、一个更有教学意义的短期记忆管理器
+## 一个更有教学意义的短期记忆管理器
 
 下面这个例子同时管理：
 
@@ -239,7 +239,7 @@ print(memory.snapshot())
 
 ---
 
-## 七、摘要记忆：当消息越来越长怎么办？
+## 摘要记忆：当消息越来越长怎么办？
 
 ### 一种常见策略
 
@@ -275,7 +275,7 @@ print(memory_package)
 
 ---
 
-## 八、短期记忆在 Agent 里到底解决什么？
+## 短期记忆在 Agent 里到底解决什么？
 
 它主要解决三件事：
 
@@ -301,7 +301,7 @@ print(memory_package)
 
 ---
 
-## 九、短期记忆最常见的失效方式
+## 短期记忆最常见的失效方式
 
 ### 记得太少
 
@@ -335,7 +335,7 @@ print(memory_package)
 
 ---
 
-## 十、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 把短期记忆和长期记忆混在一起
 

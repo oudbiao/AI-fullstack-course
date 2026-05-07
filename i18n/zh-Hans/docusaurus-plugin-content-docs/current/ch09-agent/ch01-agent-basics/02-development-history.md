@@ -16,9 +16,11 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 - 看懂“为什么大模型让 Agent 真正变得可用”
 - 用一个小例子体验不同阶段系统的差别
 
+如果想看更完整的 AI 时间线，可以把本节和 [A.3 AI 发展史：15 个阶段与关键论文](/appendix/ai-milestones) 放在一起读。本节只聚焦 Agent 这条线。
+
 ---
 
-## 一、Agent 之前，自动化早就存在了
+## Agent 之前，自动化早就存在了
 
 ### 最早的自动化更像“固定脚本”
 
@@ -44,7 +46,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 ---
 
-## 二、工作流时代：比规则更强，但还是偏固定
+## 工作流时代：比规则更强，但还是偏固定
 
 ### 工作流是“可组合的固定流程”
 
@@ -92,7 +94,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 ---
 
-## 三、大模型出现前，为什么很难做通用 Agent？
+## 大模型出现前，为什么很难做通用 Agent？
 
 ### 因为“理解任务”本身很难
 
@@ -118,7 +120,7 @@ keywords: [Agent history, workflow, AutoGPT, tool use, LLM agent]
 
 ---
 
-## 四、大模型把哪件事改变了？
+## 大模型把哪件事改变了？
 
 ### 它让“自然语言 -> 可执行动作”的桥接变强了
 
@@ -163,7 +165,7 @@ Agent 才真正从概念走向可用。
 
 ---
 
-## 五、一个“进化版”小例子
+## 一个“进化版”小例子
 
 下面我们用同一个任务，看三种不同阶段的实现味道。
 
@@ -181,6 +183,13 @@ print(rule_bot("怎么退款"))
 print(rule_bot("证书怎么拿"))
 ```
 
+预期输出：
+
+```text
+请查看退款政策。
+请查看证书说明。
+```
+
 ### 工作流系统
 
 ```python
@@ -194,6 +203,12 @@ def workflow_bot(query):
     return "未命中流程节点。"
 
 print(workflow_bot("怎么退款"))
+```
+
+预期输出：
+
+```text
+根据知识库：退款政策：7 天内且学习进度低于 20% 可退款。
 ```
 
 ### 简化版 Agent
@@ -229,11 +244,18 @@ print(steps)
 print(answer)
 ```
 
+预期输出：
+
+```text
+['先判断问题类型', '决定调用政策检索工具', '拿到证据：退款政策：7 天内且学习进度低于 20% 可退款。']
+根据检索到的政策，回答如下：退款政策：7 天内且学习进度低于 20% 可退款。
+```
+
 这个例子里，Agent 虽然还是简化版，但已经体现出“判断 -> 选工具 -> 利用结果”的结构了。
 
 ---
 
-## 六、从 AutoGPT 热潮到今天
+## 从 AutoGPT 热潮到今天
 
 ### 早期热潮带来了什么？
 
@@ -282,7 +304,7 @@ print(answer)
 
 ---
 
-## 七、今天的 Agent 更像什么？
+## 今天的 Agent 更像什么？
 
 ### 不再是“无限自主”，而是“有限自主”
 
@@ -303,7 +325,7 @@ print(answer)
 
 ---
 
-## 八、初学者常见误区
+## 初学者常见误区
 
 ### 以为 Agent 历史就是从 ChatGPT 开始
 
