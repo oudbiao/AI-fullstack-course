@@ -1,17 +1,17 @@
 ---
 sidebar_position: 10
 title: "AI 学習アシスタント リポジトリテンプレート"
-description: "AI 学習アシスタント通しプロジェクトの短いリポジトリ構成、README、評価、trace テンプレートです。"
-keywords: [AI学習アシスタント, プロジェクトテンプレート, ポートフォリオプロジェクト, RAGプロジェクトテンプレート, Agentプロジェクトテンプレート]
+description: "コース全体で育てる AI 学習アシスタントのための、短いリポジトリ構成、README、評価、trace テンプレートです。"
+keywords: [AI学習アシスタント, プロジェクトテンプレート, ポートフォリオ, RAGテンプレート, Agentテンプレート]
 ---
 
 # AI 学習アシスタント リポジトリテンプレート
 
 ![AI 学習アシスタント リポジトリ証拠キャビネット](/img/course/intro-ai-assistant-repo-evidence-cabinet-ja.png)
 
-このテンプレートはディレクトリの飾りではありません。コード、データ、ログ、評価、スクリーンショットで、プロジェクトが実行・確認できることを示す証拠キャビネットです。
+リポジトリは証拠キャビネットです。各フォルダは、動く、確認できる、評価できる、改善できる、のどれかを示します。
 
-## 最小ディレクトリ構成
+## 1. まずこの構成から
 
 ```text
 ai-learning-assistant/
@@ -19,75 +19,58 @@ ai-learning-assistant/
   requirements.txt
   .env.example
   src/
-    app/
-    rag/
-    agent/
   data/
-    raw/
-    processed/
   evals/
-    questions.jsonl
-    results/
   logs/
-    traces/
-    failures/
   docs/
-    screenshots/
-    decisions.md
   tests/
 ```
 
-最初は小さく始めます。第 1-3 章では `README.md`、`src/`、`data/`、`docs/screenshots/` だけで十分です。対応する能力に入ったら、`evals/`、`logs/`、`rag/`、`agent/` を追加します。
+1-3章では `README.md`、`src/`、`data/`、`docs/` だけで十分です。RAG、Agent、評価、ログを学ぶ段階で `evals/` や `logs/` を追加します。
 
-## 各フォルダが証明すること
+## 2. 各フォルダが示すこと
 
-| フォルダ | 証明 |
-| --- | --- |
-| `src/` | システムに実行可能なコードがある |
-| `data/` | 入力と材料が明示されている |
-| `evals/` | 結果を判断できる |
+| フォルダ | 証拠 |
+|---|---|
+| `src/` | 動くコードがある |
+| `data/` | 入力と素材が明確 |
+| `evals/` | 結果を再評価できる |
 | `logs/` | 失敗と trace を確認できる |
-| `docs/` | 他の人がプロジェクトを理解できる |
-| `tests/` | 修正後にもう一度確認できる |
+| `docs/` | スクリーンショットと判断理由が見える |
+| `tests/` | 修正を後で確認できる |
 
-## 最小 README
+## 3. 最小 README
 
 ````md
 # AI 学習アシスタント
 
-## 目標
-このアシスタントはどの学習問題を解決するか？
-
-## 現在のバージョン
-v0.x：
+## 目的
 
 ## 実行方法
 ```bash
 pip install -r requirements.txt
-python -m src.app.cli
+python -m src.app
 ```
 
 ## 例
-入力：
-出力：
 
 ## 評価
-どの固定質問、指標、手動チェックを使うか？
 
-## 失敗サンプル
-何が失敗し、次に何を変えるか？
+## 既知の失敗
+
+## 次の一手
 ````
 
-## 最小評価と trace 例
+## 4. 最初の評価と trace ファイル
 
 ```jsonl
-{"id":"q001","question":"なぜ RAG には引用が必要ですか？","expected_sources":["ch08-rag"],"ideal_points":["grounding","evaluation","failure cases"]}
+{"id":"q001","question":"Why does RAG need citations?","expected_sources":["ch08-rag"]}
 ```
 
 ```json
 {
   "run_id": "demo-001",
-  "user_input": "RAG の復習を手伝って",
+  "user_input": "Help me review RAG",
   "steps": [
     {"action": "retrieve", "sources": ["ch08-rag"]},
     {"action": "generate_plan", "status": "ok"}
@@ -96,4 +79,4 @@ python -m src.app.cli
 }
 ```
 
-プロジェクトを見せるときは、リポジトリを証拠として説明します。実行コマンド、サンプルデータ、評価ケース、trace ログ、失敗メモ、スクリーンショットです。
+発表では、実行コマンド、サンプル入力、評価ケース、trace、失敗記録、スクリーンショットを見せます。

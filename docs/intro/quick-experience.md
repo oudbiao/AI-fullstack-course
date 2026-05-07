@@ -9,29 +9,29 @@ keywords: [AI quick experience, Google Colab, image recognition, text generation
 
 ![30-minute AI quick experience loop](/img/course/intro-quick-experience-loop-en.png)
 
-**Goal:** run three tiny AI examples before studying the theory.
+**Goal:** run three tiny AI examples before learning the theory.
 
-**Need:** a Google account for Colab. No local install.
+**Need:** Google Colab and a browser. No local setup.
 
-Do not memorize the terms yet. Copy, run, observe the output, and keep one question for later.
+## 1. What You Will See
 
-## What You Will Try
+| Try | You do | Later chapter |
+|---|---|---|
+| Image recognition | Give a picture, get labels | Deep learning and vision |
+| Text generation | Give a sentence start, get continuation | Transformer and LLM |
+| Image generation | Give a prompt, get an image | AIGC and multimodal AI |
 
-| Try | What happens | You will study later |
-| --- | --- | --- |
-| Image recognition | A model labels a picture | Deep learning and computer vision |
-| Text generation | A model continues a sentence | Transformer and large language models |
-| Image generation | A model draws from a prompt | AIGC and multimodal AI |
+## 2. Image Recognition
 
-## 1. Image Recognition in Colab
+Open [Google Colab](https://colab.research.google.com), create a notebook, and run two cells.
 
-Open [Google Colab](https://colab.research.google.com), create a new notebook, and run:
+Cell 1:
 
 ```python
 !pip install transformers torch pillow requests -q
 ```
 
-Then create a second code cell:
+Cell 2:
 
 ```python
 from transformers import pipeline
@@ -46,59 +46,56 @@ resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
 resp.raise_for_status()
 image = Image.open(io.BytesIO(resp.content))
 
-results = classifier(image)
-
-print("AI thinks this image is:")
-for row in results[:3]:
+for row in classifier(image)[:3]:
     print(f"{row['label']:30s} confidence: {row['score']:.1%}")
 ```
 
-Expected shape of the output:
+Expected shape:
 
 ```text
-AI thinks this image is:
 Labrador retriever              confidence: 95.6%
 golden retriever                confidence: 1.0%
 kuvasz                          confidence: 0.5%
 ```
 
-Your exact confidence values may differ. The point is simple: the model already learned visual patterns from many images, so it can label a new image you did not train it on.
+Your numbers may differ. The important idea: a trained model can label an image it has never seen from you.
 
-## 2. Text Generation
+## 3. Text Generation
 
-Add a new cell:
+Add one more cell:
 
 ```python
 from transformers import pipeline
 
 generator = pipeline("text-generation", model="gpt2")
-
-prompt = "The future of artificial intelligence is"
-result = generator(prompt, max_length=80, num_return_sequences=1)
-
+result = generator(
+    "The future of artificial intelligence is",
+    max_length=60,
+    num_return_sequences=1,
+)
 print(result[0]["generated_text"])
 ```
 
-GPT-2 is an old, small model. We use it here only because it runs quickly in a free notebook. The core idea is still useful: a language model keeps predicting the next likely token.
+GPT-2 is old and small; it is used here because it runs quickly in a free notebook. The idea is still current: a language model predicts likely next tokens.
 
-## 3. Image Generation Without Code
+## 4. Image Generation
 
-Open any image generation tool you can access and try this prompt:
+Open any image generation tool you can access and try:
 
 ```text
 a small robot reading a book in a warm library, digital art
 ```
 
-Change one detail, such as `library` to `spaceship`, and generate again. This is the first taste of prompt control: the words you provide become constraints for the model.
+Change `library` to `spaceship` and generate again. You just tested prompt control.
 
-## Finish Here
+## Finish
 
-You have seen the three signals that will appear throughout the course:
+Keep only three notes:
 
-| Signal | Course meaning |
-| --- | --- |
-| Recognition | Models can map inputs to labels |
-| Generation | Models can continue or create content |
-| Prompt control | Your wording changes the output |
+| Signal | Meaning |
+|---|---|
+| Recognition | AI maps input to labels |
+| Generation | AI continues or creates content |
+| Prompt control | Wording changes the result |
 
-Next, read the capability map only as a picture first. The details will make sense after you build small projects.
+Next, open the capability map and read it as a picture first.

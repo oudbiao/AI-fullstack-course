@@ -1,17 +1,17 @@
 ---
 sidebar_position: 10
 title: "AI 学习助手仓库模板"
-description: "AI 学习助手贯穿项目的简短仓库结构、README、评估和 trace 模板。"
-keywords: [AI学习助手, 项目模板, 作品集项目, RAG项目模板, Agent项目模板]
+description: "为贯穿全课的 AI 学习助手项目提供精简仓库结构、README、评估和 trace 模板。"
+keywords: [AI 学习助手, 项目模板, 作品集项目, RAG 项目模板, Agent 项目模板]
 ---
 
 # AI 学习助手仓库模板
 
 ![AI 学习助手仓库证据柜](/img/course/intro-ai-assistant-repo-evidence-cabinet.png)
 
-这个模板不是目录装饰，而是证据柜：代码、数据、日志、评估和截图共同说明项目是否能运行、能复查。
+把仓库当成证据柜。每个文件夹都要证明一件事：项目能运行、能复查、能评估或能改进。
 
-## 最小目录结构
+## 1. 先从这个结构开始
 
 ```text
 ai-learning-assistant/
@@ -19,75 +19,58 @@ ai-learning-assistant/
   requirements.txt
   .env.example
   src/
-    app/
-    rag/
-    agent/
   data/
-    raw/
-    processed/
   evals/
-    questions.jsonl
-    results/
   logs/
-    traces/
-    failures/
   docs/
-    screenshots/
-    decisions.md
   tests/
 ```
 
-先从小结构开始。第 1-3 章只需要 `README.md`、`src/`、`data/` 和 `docs/screenshots/`。课程进入对应能力后，再加入 `evals/`、`logs/`、`rag/` 和 `agent/`。
+第 1-3 章只需要 `README.md`、`src/`、`data/` 和 `docs/`。等学到 RAG、Agent、评估和日志，再补 `evals/`、`logs/` 等内容。
 
-## 每个文件夹证明什么
+## 2. 每个文件夹证明什么
 
 | 文件夹 | 证明 |
-| --- | --- |
-| `src/` | 系统有可运行代码 |
+|---|---|
+| `src/` | 项目有可运行代码 |
 | `data/` | 输入和材料是明确的 |
-| `evals/` | 结果可以被判断 |
+| `evals/` | 结果可以再次评估 |
 | `logs/` | 失败和 trace 可以复查 |
-| `docs/` | 别人能理解项目 |
-| `tests/` | 修复后还能再次检查 |
+| `docs/` | 截图和决策过程可见 |
+| `tests/` | 修复后能再次检查 |
 
-## 最小 README
+## 3. 最小 README
 
 ````md
 # AI 学习助手
 
 ## 目标
-这个助手解决什么学习问题？
-
-## 当前版本
-v0.x：
 
 ## 如何运行
 ```bash
 pip install -r requirements.txt
-python -m src.app.cli
+python -m src.app
 ```
 
 ## 示例
-输入：
-输出：
 
 ## 评估
-用了哪些固定问题、指标或人工检查？
 
-## 失败样本
-哪里失败了？下一步要改什么？
+## 已知失败
+
+## 下一步
 ````
 
-## 最小评估与 trace 示例
+## 4. 第一份评估和 trace 文件
 
 ```jsonl
-{"id":"q001","question":"为什么 RAG 需要引用？","expected_sources":["ch08-rag"],"ideal_points":["grounding","evaluation","failure cases"]}
+{"id":"q001","question":"Why does RAG need citations?","expected_sources":["ch08-rag"]}
 ```
 
 ```json
 {
   "run_id": "demo-001",
-  "user_input": "帮我复习 RAG",
+  "user_input": "Help me review RAG",
   "steps": [
     {"action": "retrieve", "sources": ["ch08-rag"]},
     {"action": "generate_plan", "status": "ok"}
@@ -96,4 +79,4 @@ python -m src.app.cli
 }
 ```
 
-展示项目时，把仓库当证据来讲：运行命令、示例数据、评估用例、trace 日志、失败笔记和截图。
+展示项目时，优先展示运行命令、样例输入、评估案例、trace、失败记录和截图。

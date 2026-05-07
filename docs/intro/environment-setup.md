@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 title: "Environment Setup"
-description: "Prepare the minimum tools needed to start the AI full-stack course, then verify that Python, Git, and a project folder work."
+description: "Prepare the minimum tools needed to start the AI full-stack course, then verify Python, Git, and a project folder with one tiny run check."
 keywords: [AI environment setup, Python environment, VS Code, Git, Miniconda, quick start]
 ---
 
@@ -9,34 +9,38 @@ keywords: [AI environment setup, Python environment, VS Code, Git, Miniconda, qu
 
 ![Minimal AI course setup kit](/img/course/intro-minimal-setup-kit-en.png)
 
-**Goal:** prepare only what you need for the first chapters, then prove that your computer can run a tiny project.
+**Goal:** install only the tools needed for the first week, then prove the machine can run Python and save code with Git.
 
-If your local setup gets stuck, keep learning with [Google Colab](https://colab.research.google.com) and come back later. Environment problems are normal; they are not a sign that you are bad at AI.
+If setup blocks you for more than 20 minutes, use [Google Colab](https://colab.research.google.com) for now and return later. Environment trouble is a normal engineering task.
 
-## Install Only These First
+## 1. Install First
 
-| Tool | What it is | Why you need it now |
-| --- | --- | --- |
-| A modern browser | Chrome, Edge, Safari, or Firefox | Open the course, Colab, GitHub, and AI tools |
-| VS Code | Code editor | Edit files and browse projects |
-| Python 3.11 | Programming language | Run course examples |
-| Git | Version control | Save checkpoints and upload projects later |
-| Miniconda | Python environment manager | Keep project dependencies separate |
+| Install | Why now |
+|---|---|
+| Modern browser | Open the course, Colab, GitHub, and AI tools |
+| VS Code | Edit code and browse project folders |
+| Python 3.11 | Run the early examples |
+| Git | Save project checkpoints |
+| Miniconda or `venv` | Keep dependencies separate per project |
 
-You do **not** need to install GPU drivers, CUDA, Docker, vector databases, or every AI framework before Chapter 1. Those tools appear later when the course actually uses them.
+Wait on GPU drivers, CUDA, Docker, vector databases, and large AI frameworks. Install them when the relevant chapter uses them.
 
-## Five-Minute Check
+## 2. Five-Minute Check
 
-After installing the basics, open a terminal and check:
+Check versions:
 
 ```bash
 python --version
 git --version
 ```
 
-On some macOS or Linux machines, use `python3 --version` if `python` is not found.
+If `python` is not found on macOS or Linux, try:
 
-Then create a tiny project:
+```bash
+python3 --version
+```
+
+Create the first project folder:
 
 ```bash
 mkdir ai-learning-lab
@@ -44,9 +48,11 @@ cd ai-learning-lab
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
+python -c "print('AI course environment is ready')"
+git init
 ```
 
-Windows PowerShell uses a different activation command:
+Windows PowerShell uses this activation step:
 
 ```powershell
 mkdir ai-learning-lab
@@ -54,59 +60,36 @@ cd ai-learning-lab
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-```
-
-Create a quick run check:
-
-```bash
 python -c "print('AI course environment is ready')"
 git init
 ```
 
-Expected output:
+Expected signal:
 
 ```text
 AI course environment is ready
 Initialized empty Git repository ...
 ```
 
-If you see this, you are ready to enter Chapter 1.
+## 3. Know These Words
 
-## Concepts You Only Need to Recognize
-
-| Term | Simple meaning |
-| --- | --- |
-| Terminal | A place to run commands |
-| Editor | A place to write and organize code |
-| Python interpreter | The program that runs Python code |
-| Virtual environment | A small isolated room for one project's packages |
+| Term | Meaning |
+|---|---|
+| Terminal | Place to run commands |
+| Interpreter | Program that runs Python |
+| Virtual environment | Isolated package room for one project |
 | Package | Reusable code installed with `pip` or `conda` |
-| Repository | A project folder tracked by Git |
-| API key | A private password for calling an online AI service |
-| GPU | Hardware that speeds up deep learning; useful later, not required now |
+| Repository | Project folder tracked by Git |
+| API key | Private password for online AI services |
 
-## Install Later, Not Now
+## 4. If It Fails
 
-| Later tool | When it becomes useful |
-| --- | --- |
-| Jupyter Notebook | Chapter 3 data analysis |
-| PyTorch | Chapter 6 deep learning |
-| Hugging Face `transformers` | Chapters 7 and 11 |
-| OpenAI-compatible SDKs | Chapter 8 LLM applications |
-| Docker | Chapter 8 deployment and reproducibility |
-| Vector database | Chapter 8 RAG |
-| GPU or cloud GPU | Chapter 6+ model experiments |
+| Symptom | First fix |
+|---|---|
+| `python` not found | Try `python3` or `py -3.11`; reinstall Python 3.11 |
+| `git` not found | Install Git and reopen the terminal |
+| `source` fails on Windows | Use the PowerShell command above |
+| `pip install` is slow | Use Colab temporarily or a regional mirror |
+| Everything feels too much | Continue with Colab and return after Chapter 1 |
 
-Install tools when a chapter asks for them. This keeps the first week light and avoids dependency conflicts.
-
-## If Something Fails
-
-| Symptom | Check first |
-| --- | --- |
-| `python` is not found | Try `python3` or `py -3.11`; confirm Python 3.11 is installed |
-| `git` is not found | Install Git, then reopen the terminal |
-| `source` does not work on Windows | Use the PowerShell activation command shown above |
-| `pip install` is very slow | Try a regional PyPI mirror or use Colab temporarily |
-| The local setup feels overwhelming | Continue with Colab and return after Chapter 1 |
-
-For now, the pass line is simple: you can open a terminal, enter a project folder, run Python, and initialize Git.
+Pass line: you can enter a folder, run Python, and initialize Git.

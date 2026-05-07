@@ -1,7 +1,7 @@
 ---
 sidebar_position: 10
 title: "AI Learning Assistant Repository Template"
-description: "A compact repository structure, README, eval, and trace template for the course-wide AI Learning Assistant project."
+description: "A compact repository structure, README, evaluation, and trace template for the course-wide AI Learning Assistant project."
 keywords: [AI Learning Assistant, project template, portfolio project, RAG project template, Agent project template]
 ---
 
@@ -9,9 +9,9 @@ keywords: [AI Learning Assistant, project template, portfolio project, RAG proje
 
 ![AI Learning Assistant repository evidence cabinet](/img/course/intro-ai-assistant-repo-evidence-cabinet-en.png)
 
-This template is not a directory decoration. It is an evidence cabinet: code, data, logs, evaluations, and screenshots all explain whether the project can be run and reviewed.
+Treat the repository as an evidence cabinet. Every folder should prove one thing: the project can run, be reviewed, be evaluated, or be improved.
 
-## Minimum Directory Structure
+## 1. Start With This
 
 ```text
 ai-learning-assistant/
@@ -19,69 +19,52 @@ ai-learning-assistant/
   requirements.txt
   .env.example
   src/
-    app/
-    rag/
-    agent/
   data/
-    raw/
-    processed/
   evals/
-    questions.jsonl
-    results/
   logs/
-    traces/
-    failures/
   docs/
-    screenshots/
-    decisions.md
   tests/
 ```
 
-Start small. In Chapters 1-3, you only need `README.md`, `src/`, `data/`, and `docs/screenshots/`. Add `evals/`, `logs/`, `rag/`, and `agent/` when the course reaches those capabilities.
+In chapters 1-3, use only `README.md`, `src/`, `data/`, and `docs/`. Add `evals/`, `logs/`, RAG, and Agent files when the course reaches those topics.
 
-## What Each Folder Proves
+## 2. Folder Proof
 
 | Folder | Proof |
-| --- | --- |
-| `src/` | The system has runnable code |
+|---|---|
+| `src/` | The project has runnable code |
 | `data/` | Inputs and materials are explicit |
-| `evals/` | Results can be judged |
+| `evals/` | Results can be judged again |
 | `logs/` | Failures and traces can be reviewed |
-| `docs/` | Others can understand the project |
-| `tests/` | Fixes can be checked again |
+| `docs/` | Screenshots and decisions are visible |
+| `tests/` | Fixes can be checked later |
 
-## Minimum README
+## 3. Minimum README
 
 ````md
 # AI Learning Assistant
 
 ## Goal
-What learning problem does this assistant solve?
-
-## Current Version
-v0.x:
 
 ## How to Run
 ```bash
 pip install -r requirements.txt
-python -m src.app.cli
+python -m src.app
 ```
 
 ## Example
-Input:
-Output:
 
 ## Evaluation
-What fixed questions, metrics, or manual checks are used?
 
-## Failure Samples
-What failed and what will be changed next?
+## Known Failure
+
+## Next Step
 ````
 
-## Minimal Eval and Trace Examples
+## 4. First Eval and Trace Files
 
 ```jsonl
-{"id":"q001","question":"Why does RAG need citations?","expected_sources":["ch08-rag"],"ideal_points":["grounding","evaluation","failure cases"]}
+{"id":"q001","question":"Why does RAG need citations?","expected_sources":["ch08-rag"]}
 ```
 
 ```json
@@ -96,4 +79,4 @@ What failed and what will be changed next?
 }
 ```
 
-When presenting the project, show the repository as evidence: run command, sample data, eval cases, trace logs, failure notes, and screenshots.
+When presenting the project, show the command, sample input, eval case, trace, failure note, and screenshot.
