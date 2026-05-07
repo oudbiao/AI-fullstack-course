@@ -1,107 +1,54 @@
 ---
 title: "6.7.4 Model Compression [Elective]"
 sidebar_position: 3
-description: "Starting from quantization, pruning, and distillation, understand why model compression is essentially a trade-off between deployment and accuracy."
-keywords: [model compression, quantization, pruning, distillation, deployment]
+description: "Choose quantization, pruning, or distillation from deployment constraints, then measure size, latency, and task quality."
+keywords: [model compression, quantization, pruning, distillation, deployment, model size]
 ---
 
 # 6.7.4 Model Compression [Elective]
 
 :::tip Section Overview
-Model compression is not about pursuing the single goal of “making the model smaller.”
-It is about solving more concrete problems in real deployment:
-
-- Not enough memory
-- Inference is too slow
-- The device cannot run the model
-
-So the key idea in this lesson is not memorizing terms, but building a very practical judgment:
-
-> **Compression always trades some accuracy or flexibility for deployment benefits.**
+Model compression is a deployment trade-off, not a magic shrink button. You compress because memory, latency, throughput, or device limits force a decision.
 :::
 
 ## Learning Objectives
 
-- Understand the core ideas behind quantization, pruning, and distillation
-- Understand why compression is not free
-- Build intuition for quantization error through runnable examples
-- Learn how to choose a compression strategy based on deployment constraints
+- Explain quantization, pruning, and distillation by what they change.
+- Estimate model size from parameter count and numeric precision.
+- Measure quantization error in a tiny example.
+- Choose a compression path from a deployment bottleneck.
+- Avoid judging compression by size alone.
 
 ---
 
-## First, build a map
-
-Model compression is better understood by starting from deployment problems, not from method names:
+## Start from the Deployment Bottleneck
 
 ![Model compression trade-off map](/img/course/ch06-model-compression-tradeoff-en.png)
 
-:::tip Reading the diagram
-Start from the top. First find the deployment bottleneck, then choose a compression path, then measure size, latency, and accuracy again. Compression is only useful if the task still works after the trade-off.
-:::
+| Bottleneck | First method to consider | Why |
+|---|---|---|
+| memory too high | quantization | same parameter count, fewer bits per value |
+| many redundant weights/channels | pruning | remove structure that contributes little |
+| large teacher but retraining is possible | distillation | train a smaller student to imitate behavior |
+| latency still high after compression | profiling first | bottleneck may be data transfer or unsupported kernels |
 
-```mermaid
-flowchart LR
-    A["Deployment pain points"] --> B["Not enough memory -> Quantization"]
-    A --> C["Structural redundancy -> Pruning"]
-    A --> D["Model is too large but can be retrained -> Distillation"]
+The important habit:
+
+```text
+measure bottleneck -> choose method -> remeasure size, latency, and metric
 ```
 
-The most important thing in this section is to build the habit of “identify the pain point first, then choose the path.”
+## Three Compression Paths
 
-## What exactly are we trading with model compression?
+| Method | Changes | Typical benefit | Main risk |
+|---|---|---|---|
+| Quantization | numeric precision | smaller memory, sometimes faster inference | accuracy drop, hardware support issues |
+| Pruning | weights, channels, or blocks | less computation if structure is actually removed | sparse speedup may not appear on all hardware |
+| Distillation | training objective | smaller model with teacher-like behavior | requires retraining and teacher outputs |
 
-### Common benefits
+Compression is not complete until the task still works after compression.
 
-- Smaller memory footprint
-- Lower latency
-- Higher throughput
-- Better fit for edge devices
-
-### Common costs
-
-- Lower accuracy
-- Increased engineering complexity
-- Harder debugging
-
-### An analogy
-
-Model compression is like packing for a business trip.
-Of course you want the suitcase to be as light as possible,
-but you cannot throw away everything important.
-
----
-
-## Three of the most common compression paths
-
-### Quantization
-
-Convert high-precision values into lower-precision representations.
-
-### Pruning
-
-Remove weights, channels, or structures that are not very important.
-
-### Distillation
-
-Train a smaller model to imitate the behavior of a larger model.
-
-### A more beginner-friendly way to think about them
-
-If these three approaches feel easy to mix up, you can remember them like this first:
-
-- **Quantization**: Put the same thing into a more space-efficient material
-- **Pruning**: Cut off obviously unnecessary branches and leaves first
-- **Distillation**: Train a smaller student again so it can imitate the teacher
-
-They are all called “compression,” but the place where you actually work is different:
-
-- Quantization mainly changes numeric representation
-- Pruning mainly changes structural redundancy
-- Distillation mainly changes the training process
-
----
-
-## First, look at a minimal quantization error example
+## Lab 1: Quantization Error
 
 ```python
 weights = [0.12, -1.87, 3.44, -0.03]
@@ -118,199 +65,114 @@ def mae(a, b):
 q8_like = fake_quantize(weights, scale=16)
 q4_like = fake_quantize(weights, scale=4)
 
+print("quant_error_lab")
 print("original:", weights)
-print("q8_like :", q8_like)
-print("q4_like :", q4_like)
-print("q8 mae  :", round(mae(weights, q8_like), 4))
-print("q4 mae  :", round(mae(weights, q4_like), 4))
+print("q8_like:", q8_like)
+print("q4_like:", q4_like)
+print("q8_mae:", round(mae(weights, q8_like), 4))
+print("q4_mae:", round(mae(weights, q4_like), 4))
 ```
 
-### What is the most important insight from this example?
+Expected output:
 
-The more aggressively you compress, the larger the error usually becomes.
-So the core question in quantization is not:
+```text
+quant_error_lab
+original: [0.12, -1.87, 3.44, -0.03]
+q8_like: [0.125, -1.875, 3.4375, 0.0]
+q4_like: [0.0, -1.75, 3.5, 0.0]
+q8_mae: 0.0106
+q4_mae: 0.0825
+```
 
-- Can it be compressed?
+More aggressive quantization usually creates more numerical error. The practical question is whether the downstream task metric still stays acceptable.
 
-But rather:
-
-- After compression, can the business still accept the result?
-
-### Why is this highly related to real deployment?
-
-Because one of the most common deployment questions is:
-
-- Can the model fit on the device?
-
-Quantization is often the first solution people think of.
-
-### Another minimal example: estimating “model size”
-
-When many beginners first do compression experiments, the biggest problem is not that they cannot quantize,
-but that they have no idea at all:
-
-- How large the model is before compression
-- Roughly how much space they can save after compression
-
-This example only does one very practical thing:
-
-- It calculates “how many parameters the model has” and “roughly how much space different precisions take”
+## Lab 2: Estimate Model Size
 
 ```python
-param_count = 12_000_000  # Assume a small model with 12 million parameters
+import torch
+from torch import nn
 
+model = nn.Sequential(
+    nn.Linear(128, 64),
+    nn.ReLU(),
+    nn.Linear(64, 10),
+)
 
-def size_mb(param_count, bits):
-    return param_count * bits / 8 / 1024 / 1024
+param_count = sum(p.numel() for p in model.parameters())
 
+print("model_size_lab")
+print("params:", param_count)
 
-variants = [
-    ("fp32", 32),
-    ("fp16", 16),
-    ("int8", 8),
-    ("int4", 4),
-]
-
-for name, bits in variants:
-    print(f"{name:>4} -> {size_mb(param_count, bits):.2f} MB")
+for name, bits in [("fp32", 32), ("fp16", 16), ("int8", 8), ("int4", 4)]:
+    mb = param_count * bits / 8 / 1024 / 1024
+    print(f"{name:>4}: {mb:.4f} MB")
 ```
 
-What is worth remembering first here is not the exact numbers,
-but this:
+Expected output:
 
-- Without changing the number of parameters
-- **Simply changing numeric precision may already reduce the model size by a large amount**
+```text
+model_size_lab
+params: 8906
+fp32: 0.0340 MB
+fp16: 0.0170 MB
+int8: 0.0085 MB
+int4: 0.0042 MB
+```
 
-That is also why quantization is often the first choice.
+This is an estimate for parameters only. Real deployed size can also include metadata, tokenizer files, runtime overhead, and engine-specific packaging.
 
----
+## Choosing a Path
 
-## When should you think about quantization, pruning, or distillation?
-
-### Quantization
-
-Better when you want to quickly reduce memory usage and speed up inference.
-
-### Pruning
-
-Better when you clearly know there is a lot of redundant structure.
-
-### Distillation
-
-Better when you are willing to retrain a smaller model.
-
-### A decision table beginners can use directly
-
-| Scenario | Higher priority |
+| Situation | Good first action |
 |---|---|
-| The model is too large and you want quick compression first | Quantization |
-| You suspect the network has obvious redundancy | Pruning |
-| You are willing to retrain a small model for stable gains | Distillation |
+| model does not fit in memory | try quantization first |
+| model fits but latency is high | profile latency before pruning |
+| most channels appear redundant | consider structured pruning |
+| a smaller model must preserve behavior | distill from a teacher model |
+| metric drops too much after compression | reduce compression strength or fine-tune |
 
-This table is not always perfect, but it is enough for the first round of decisions.
+For pruning, prefer structured pruning for deployment because removing whole channels or blocks is easier for hardware to exploit than random sparse weights.
 
-### A flowchart that feels closer to real engineering
+For distillation, the common pattern is:
 
-```mermaid
-flowchart TD
-    A["First identify the pain point"] --> B{"Is the main issue memory?"}
-    B -->|"Yes"| Q["Try quantization first"]
-    B -->|"No"| C{"Is the main issue structural redundancy?"}
-    C -->|"Yes"| P["Consider pruning"]
-    C -->|"No"| D{"Willing to retrain a smaller model?"}
-    D -->|"Yes"| K["Consider distillation"]
-    D -->|"No"| E["First check whether the deployment bottleneck is actually not model size"]
-
-    style Q fill:#e3f2fd,stroke:#1565c0,color:#333
-    style P fill:#fff3e0,stroke:#e65100,color:#333
-    style K fill:#e8f5e9,stroke:#2e7d32,color:#333
+```text
+teacher logits or outputs -> student learns labels + teacher behavior
 ```
 
-What this diagram most wants to help you build is a habit:
+## What to Report in a Compression Experiment
 
-- Don’t first ask “Which compression method is most popular?”
-- First ask “What deployment problem am I actually trying to solve?”
+| Metric | Before | After | Why it matters |
+|---|---|---|---|
+| model size | required | required | did memory improve? |
+| latency | required | required | did inference actually speed up? |
+| throughput | useful | useful | can the service handle more requests? |
+| task metric | required | required | did quality remain acceptable? |
+| hardware/runtime | required | required | compression depends on deployment stack |
 
----
+Never report “int8 works” without task metric and latency. Smaller is not automatically better.
 
-## The most common pitfalls
+## Common Mistakes
 
-### Misconception 1: Compression always makes things faster
-
-Not necessarily.
-You also need to consider:
-
-- Hardware support
-- Inference engine support
-
-### Misconception 2: Only look at model size, not task metrics
-
-Deployment benefits only matter if the model is still usable for the task.
-
-### Misconception 3: Compress first and think later
-
-A more reliable order is usually:
-
-- First identify the deployment pain point
-- Then choose a compression strategy
-
----
-
-## What you should take away from this section
-
-- Compression is never free
-- Quantization, pruning, and distillation each have their own suitable range of use
-- The real starting point should always be deployment constraints, not method popularity
-
-## A safer order when doing your first compression experiment
-
-It is recommended to do it like this:
-
-1. First identify the real bottleneck: memory, latency, or throughput
-2. If the main issue is memory, try quantization first
-3. If the main issue is model redundancy, then consider pruning
-4. If you are willing to retrain and maintain the model long-term, then consider distillation
-
-This is more like engineering work than “trying compression methods one by one because you saw them.”
-
-## If you put this section into a project, what is most worth showing?
-
-If you want to turn a compression experiment into a page that truly feels like an engineering project,
-what is most worth showing is usually not:
-
-- “I know int8 quantization”
-
-But rather these four things:
-
-1. Comparison of model size before and after compression
-2. Comparison of latency / throughput before and after compression
-3. Comparison of core task metrics before and after compression
-4. Why you ultimately chose this compression path
-
-Then what others see is not “I used a trick,”
-but:
-
-- You can make trade-offs based on deployment constraints
-
----
-
-## Summary
-
-The most important thing in this section is to build a deployment-oriented judgment:
-
-> **Model compression is not about “the smaller the better,” but about making trade-offs among accuracy, engineering complexity, and deployment benefits.**
-
-Once you build this judgment, you will no longer see only method names when you later look at quantization and distillation.
-
-## What you should take away most from this section
-
-- Model compression is first a deployment problem, not a flashy-technique problem
-- Quantization, pruning, and distillation act on completely different parts of the system
-- In your first compression experiment, measuring “model size / latency / metrics” first is more valuable than jumping straight into methods
+| Mistake | Fix |
+|---|---|
+| compressing before measuring bottlenecks | measure memory, latency, and metric first |
+| assuming quantization always speeds things up | verify hardware and runtime support |
+| counting only parameter size | include tokenizer, runtime, and packaging where relevant |
+| using unstructured pruning and expecting automatic speedup | benchmark on target hardware |
+| ignoring accuracy after compression | compare task metric before and after |
 
 ## Exercises
 
-1. Change the `scale` in the example to larger and smaller values, and observe how the error changes.
-2. Explain in your own words: why is compression never free?
-3. Think about it: if the target device has very limited memory, which path would you consider first?
-4. If the model is already small enough but the latency is still high, would you still prioritize compression? Why?
+1. Change `scale=16` to `scale=32` in Lab 1. Does MAE decrease?
+2. Add a third Linear layer to Lab 2 and recompute model size.
+3. Choose a compression strategy for a model that fits in memory but is too slow.
+4. Write a before/after report template with size, latency, throughput, and metric.
+5. Explain why structured pruning is usually easier to deploy than unstructured pruning.
+
+## Key Takeaways
+
+- Compression starts from deployment constraints.
+- Quantization changes numeric precision.
+- Pruning changes model structure.
+- Distillation changes the training process.
+- Compression is successful only if the deployed task still meets quality and latency requirements.

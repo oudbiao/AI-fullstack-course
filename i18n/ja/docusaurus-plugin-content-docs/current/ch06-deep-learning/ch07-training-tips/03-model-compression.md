@@ -1,107 +1,54 @@
 ---
-title: "6.7.4 モデル圧縮【選択】"
+title: "6.7.4 モデル圧縮 [任意]"
 sidebar_position: 3
-description: "量子化、剪定、蒸留という3つの考え方から、モデル圧縮が本質的にはデプロイと精度のトレードオフであることを理解します。"
-keywords: [model compression, quantization, pruning, distillation, deployment]
+description: "デプロイ制約から quantization、pruning、distillation を選び、size、latency、task quality を測り直します。"
+keywords: [model compression, quantization, pruning, distillation, deployment, model size]
 ---
 
-# 6.7.4 モデル圧縮【選択】
+# 6.7.4 モデル圧縮 [任意]
 
 :::tip この節の位置づけ
-モデル圧縮は、「より小さくする」ことだけを目指すものではありません。  
-本番環境で、もっと具体的な問題を解決するためのものです。
-
-- メモリが足りない
-- 推論が遅い
-- デバイスで動かない
-
-この節で大事なのは、用語を覚えることではなく、実用的な見方を身につけることです。
-
-> **圧縮では、ある程度の精度や柔軟性を犠牲にして、デプロイ上のメリットを得る。**
+モデル圧縮はデプロイ上の trade-off であり、魔法の縮小ボタンではありません。memory、latency、throughput、device limit があるから圧縮を検討します。
 :::
 
 ## 学習目標
 
-- 量子化、剪定、蒸留という3種類の圧縮手法の考え方を理解する
-- なぜ圧縮は「ただ得をする」ものではないのかを理解する
-- 実行できる例を通して量子化誤差の感覚を身につける
-- デプロイ制約から圧縮の方法を選べるようになる
+- quantization、pruning、distillation を「何を変えるか」で説明できる。
+- parameter count と numeric precision から model size を見積もれる。
+- 小さな例で quantization error を測れる。
+- deployment bottleneck から compression path を選べる。
+- model size だけで圧縮を評価しないようになる。
 
 ---
 
-## まずは全体像をつかもう
-
-モデル圧縮は、方法名から考えるよりも、デプロイの問題から逆算すると理解しやすいです。
+## Deployment Bottleneck から始める
 
 ![モデル圧縮のトレードオフ図](/img/course/ch06-model-compression-tradeoff-ja.png)
 
-:::tip 図の読み方
-上から下へ読んでください。まずデプロイ上のボトルネックを見つけ、次に圧縮方法を選び、最後にサイズ・遅延・精度をもう一度測ります。圧縮してもタスクが動くなら、そのトレードオフには意味があります。
-:::
+| Bottleneck | まず考える方法 | 理由 |
+|---|---|---|
+| memory が大きすぎる | quantization | parameter count は同じでも、1 値あたりの bit を減らせる |
+| weight/channel に冗長性がある | pruning | ほとんど貢献しない structure を取り除く |
+| 大きな teacher があり再学習できる | distillation | 小さな student に behavior をまねさせる |
+| 圧縮後も latency が高い | まず profiling | data transfer や非対応 kernel が bottleneck かもしれない |
 
-```mermaid
-flowchart LR
-    A["デプロイ上の課題"] --> B["メモリ不足 -> 量子化"]
-    A --> C["構造の冗長性 -> 剪定"]
-    A --> D["モデルが大きいが再学習できる -> 蒸留"]
+重要な習慣：
+
+```text
+bottleneck を測る -> 方法を選ぶ -> size, latency, metric を測り直す
 ```
 
-この節でいちばん大事なのは、「まず課題を見る、それから方法を選ぶ」という考え方です。
+## 3 つの圧縮ルート
 
-## 一、モデル圧縮では何を交換しているのか？
+| 方法 | 何を変えるか | よくある benefit | 主な risk |
+|---|---|---|---|
+| Quantization | numeric precision | memory が小さくなり、推論が速くなることもある | accuracy drop、hardware support 問題 |
+| Pruning | weights、channels、blocks | structure が本当に消えれば計算が減る | sparse speedup は全 hardware で出るわけではない |
+| Distillation | training objective | teacher に近い小さな model | retraining と teacher outputs が必要 |
 
-### よくあるメリット
+圧縮は、圧縮後も task が使える状態で初めて完了です。
 
-- メモリが小さくなる
-- 遅延が小さくなる
-- スループットが高くなる
-- エッジデバイスに向いている
-
-### よくあるデメリット
-
-- 精度が下がる
-- 工学的な複雑さが増える
-- デバッグが難しくなる
-
-### たとえ話
-
-モデル圧縮は、出張の荷造りに似ています。  
-軽いほうがいいのはもちろんですが、  
-大事なものを全部捨ててはいけません。
-
----
-
-## 二、よく使われる3つの圧縮ルート
-
-### 量子化
-
-高精度の数値を低精度表現にします。
-
-### 剪定
-
-重要度の低い重み、チャネル、構造を取り除きます。
-
-### 蒸留
-
-より小さいモデルに、より大きいモデルの振る舞いをまねさせます。
-
-### 初学者向けの覚え方
-
-3つがごちゃ混ぜになりやすいなら、まずはこう覚えるとよいです。
-
-- **量子化**: 同じものを、より省スペースな材質に入れ替える
-- **剪定**: 明らかに不要な枝葉を先に切る
-- **蒸留**: 小さい生徒を再学習させて、先生のまねをさせる
-
-どれも「圧縮」ですが、実際に手を入れる場所は違います。
-
-- 量子化は主に数値表現を変える
-- 剪定は主に構造の冗長性を減らす
-- 蒸留は主に学習方法を変える
-
----
-
-## 三、まずは最小の量子化誤差の例を見よう
+## 実験 1：Quantization Error
 
 ```python
 weights = [0.12, -1.87, 3.44, -0.03]
@@ -118,207 +65,114 @@ def mae(a, b):
 q8_like = fake_quantize(weights, scale=16)
 q4_like = fake_quantize(weights, scale=4)
 
+print("quant_error_lab")
 print("original:", weights)
-print("q8_like :", q8_like)
-print("q4_like :", q4_like)
-print("q8 mae  :", round(mae(weights, q8_like), 4))
-print("q4 mae  :", round(mae(weights, q4_like), 4))
+print("q8_like:", q8_like)
+print("q4_like:", q4_like)
+print("q8_mae:", round(mae(weights, q8_like), 4))
+print("q4_mae:", round(mae(weights, q4_like), 4))
 ```
 
-### この例から何がわかる？
+期待される出力：
 
-強く圧縮するほど、ふつう誤差は大きくなります。  
-つまり、量子化の本質は次ではありません。
+```text
+quant_error_lab
+original: [0.12, -1.87, 3.44, -0.03]
+q8_like: [0.125, -1.875, 3.4375, 0.0]
+q4_like: [0.0, -1.75, 3.5, 0.0]
+q8_mae: 0.0106
+q4_mae: 0.0825
+```
 
-- 圧縮できるかどうか
+より強い quantization は、ふつうより大きな numerical error を生みます。実務上の問いは、その後の task metric がまだ許容範囲かどうかです。
 
-本質は次です。
-
-- 圧縮したあと、業務で使えるかどうか
-
-### これが本番デプロイと深く関係する理由
-
-本番でよくある問題の1つは、
-
-- モデルがデバイスに入るか
-
-です。
-
-量子化は、まず最初に思いつく解決策になりやすいです。
-
-### 次に、小さな「モデルサイズ」の見積もり例を見よう
-
-初学者が圧縮実験をするとき、いちばん困るのは量子化のやり方よりも、  
-そもそも次がわからないことです。
-
-- 圧縮前はどれくらい大きいのか
-- 圧縮後はどれくらい節約できるのか
-
-次の例では、実用上かなり大事なことだけをします。
-
-- 「パラメータ数」と「精度ごとのおおよそのサイズ」を計算する
+## 実験 2：Model Size を見積もる
 
 ```python
-param_count = 12_000_000  # 1200万パラメータの小さめのモデルを仮定
+import torch
+from torch import nn
 
+model = nn.Sequential(
+    nn.Linear(128, 64),
+    nn.ReLU(),
+    nn.Linear(64, 10),
+)
 
-def size_mb(param_count, bits):
-    return param_count * bits / 8 / 1024 / 1024
+param_count = sum(p.numel() for p in model.parameters())
 
+print("model_size_lab")
+print("params:", param_count)
 
-variants = [
-    ("fp32", 32),
-    ("fp16", 16),
-    ("int8", 8),
-    ("int4", 4),
-]
-
-for name, bits in variants:
-    print(f"{name:>4} -> {size_mb(param_count, bits):.2f} MB")
+for name, bits in [("fp32", 32), ("fp16", 16), ("int8", 8), ("int4", 4)]:
+    mb = param_count * bits / 8 / 1024 / 1024
+    print(f"{name:>4}: {mb:.4f} MB")
 ```
 
-この例でまず覚えるべきなのは、正確な数値そのものよりも、  
-次の感覚です。
+期待される出力：
 
-- パラメータ数を変えなくても
-- **数値精度を下げるだけで、モデルサイズはかなり減る**
+```text
+model_size_lab
+params: 8906
+fp32: 0.0340 MB
+fp16: 0.0170 MB
+int8: 0.0085 MB
+int4: 0.0042 MB
+```
 
-だからこそ、量子化はよく最初の選択肢になります。
+これは parameter size だけの概算です。実際の deploy size には metadata、tokenizer files、runtime overhead、engine-specific packaging も含まれる場合があります。
 
----
+## ルートの選び方
 
-## 四、量子化・剪定・蒸留は、いつ考えるべき？
-
-### 量子化
-
-向いているのは次のような場合です。
-
-- まずはメモリ削減と高速化を素早く試したい
-
-### 剪定
-
-向いているのは次のような場合です。
-
-- ネットワークに明らかな冗長性があるとわかっている
-
-### 蒸留
-
-向いているのは次のような場合です。
-
-- より小さいモデルを再学習してもよい
-
-### 初学者がそのまま使える選び方の表
-
-| 状況 | まず優先して考えるもの |
+| 状況 | 最初の action |
 |---|---|
-| モデルが大きすぎるので、まずは素早く圧縮したい | 量子化 |
-| ネットワークに明らかな冗長性がありそう | 剪定 |
-| 小さいモデルを再学習して安定した効果を狙いたい | 蒸留 |
+| model が memory に入らない | まず quantization を試す |
+| model は入るが latency が高い | pruning 前に latency を profile する |
+| channel に冗長性が多そう | structured pruning を考える |
+| 小さい model に teacher の behavior を残したい | teacher model から distillation する |
+| 圧縮後に metric が落ちすぎる | 圧縮を弱める、または fine-tune する |
 
-この表がいつも正しいとは限りませんが、最初の判断には十分です。
+pruning では、deploy では structured pruning が扱いやすいことが多いです。channel や block ごと取り除くほうが、random sparse weights より hardware に利用されやすいからです。
 
-### 実際の工程に近い選択フローチャート
+distillation のよくある pattern：
 
-```mermaid
-flowchart TD
-    A["まず課題を明確にする"] --> B{"主な問題はメモリ？"}
-    B -->|"はい"| Q["まず量子化を試す"]
-    B -->|"いいえ"| C{"主な問題は構造の冗長性？"}
-    C -->|"はい"| P["剪定を検討する"]
-    C -->|"いいえ"| D{"小さいモデルを再学習してもよい？"}
-    D -->|"はい"| K["蒸留を検討する"]
-    D -->|"いいえ"| E["本当のボトルネックがモデルサイズ以外にないか見直す"]
-
-    style Q fill:#e3f2fd,stroke:#1565c0,color:#333
-    style P fill:#fff3e0,stroke:#e65100,color:#333
-    style K fill:#e8f5e9,stroke:#2e7d32,color:#333
+```text
+teacher logits or outputs -> student learns labels + teacher behavior
 ```
 
-この図で身につけてほしい習慣は次です。
+## 圧縮実験で報告するもの
 
-- 「どの圧縮法がいちばん流行っているか」を先に聞かない
-- 「自分はどんなデプロイ問題を解きたいのか」を先に考える
+| Metric | Before | After | なぜ重要か |
+|---|---|---|---|
+| model size | 必須 | 必須 | memory は改善したか |
+| latency | 必須 | 必須 | 推論は本当に速くなったか |
+| throughput | あるとよい | あるとよい | service がより多くの request を扱えるか |
+| task metric | 必須 | 必須 | quality は許容範囲か |
+| hardware/runtime | 必須 | 必須 | compression は deployment stack に依存する |
 
----
+task metric と latency なしに「int8 が動いた」とだけ報告しないでください。小さいことは、自動的に良いことではありません。
 
-## 五、いちばんハマりやすい落とし穴
+## よくある間違い
 
-### 誤解1: 圧縮すれば必ず速くなる
-
-そうとは限りません。  
-次の要素も関係します。
-
-- ハードウェアの対応
-- 推論エンジンの対応
-
-### 誤解2: モデルサイズだけ見て、タスク指標を見ない
-
-デプロイのメリットは、タスクとしてまだ使える場合にだけ意味があります。
-
-### 誤解3: とりあえず先に圧縮する
-
-より安定した順番は、たいてい次の通りです。
-
-- まずデプロイ上の課題を明確にする
-- それから圧縮戦略を選ぶ
-
----
-
-## この節でいちばん持ち帰ってほしいこと
-
-- 圧縮は決して「ただ得をする」ものではない
-- 量子化、剪定、蒸留にはそれぞれ適した場面がある
-- 本当の出発点は、方法の流行ではなくデプロイ制約である
-
-## 初めて圧縮実験をするときの、より安全な順番
-
-次の順番がおすすめです。
-
-1. 本当のボトルネックがメモリ、遅延、スループットのどれかを確認する
-2. 主にメモリなら、まず量子化を試す
-3. 主にモデルの冗長性なら、剪定を考える
-4. 再学習と長期運用ができるなら、蒸留を考える
-
-このほうが、「圧縮手法を見つけたら片っ端から試す」より、実務に近いです。
-
-## これをプロジェクトに入れるなら、何を見せるとよいか
-
-圧縮実験を、本当に工程っぽいページとして見せたいなら、  
-いちばん大事なのは次のようなものです。
-
-- 「int8 量子化ができます」と見せること
-
-ではなく、次の4つです。
-
-1. 圧縮前後のモデルサイズ比較
-2. 圧縮前後の遅延 / スループット比較
-3. 圧縮前後の主要タスク指標の比較
-4. 最終的にその圧縮方法を選んだ理由
-
-こうすると、見る人に伝わるのは「小技を1つ試した」ではなく、  
-次の能力です。
-
-- デプロイ制約を踏まえてトレードオフを判断できる
-
----
-
-## まとめ
-
-この節でいちばん大事なのは、次の判断を身につけることです。
-
-> **モデル圧縮は「小さいほどよい」のではなく、精度・工学的複雑さ・デプロイ上のメリットの間でバランスを取る作業である。**
-
-この考え方ができるようになると、今後量子化や蒸留を見ても、単なる方法名だけでは終わりません。
-
-## この節でいちばん持ち帰るべきこと
-
-- モデル圧縮はまずデプロイの問題であり、テクニック自慢ではない
-- 量子化、剪定、蒸留は、実際に手を入れる場所がまったく違う
-- 初めて圧縮実験をするときは、「モデルサイズ / 遅延 / 指標」の3つを先に測るほうが、いきなり手法を試すより価値がある
+| 間違い | 直し方 |
+|---|---|
+| bottleneck を測る前に圧縮する | 先に memory、latency、metric を測る |
+| quantization は必ず速くなると思う | hardware と runtime support を確認する |
+| parameter size だけ数える | 必要なら tokenizer、runtime、packaging も含める |
+| unstructured pruning で自動的な speedup を期待する | target hardware で benchmark する |
+| 圧縮後の accuracy を無視する | task metric を before/after で比較する |
 
 ## 練習
 
-1. 例の `scale` を大きくしたり小さくしたりして、誤差の変化を観察してください。
-2. 自分の言葉で説明してください。なぜ圧縮は決して「ただ得をする」ものではないのですか？
-3. 考えてみてください。もし対象デバイスのメモリがとても小さいなら、まずどのルートを考えますか？
-4. もしモデルサイズは十分小さいのに遅延がまだ高いなら、それでも圧縮を優先しますか？ なぜですか？
+1. 実験 1 で `scale=16` を `scale=32` に変えてください。MAE は下がりますか。
+2. 実験 2 に 3 つ目の Linear layer を追加し、model size を再計算してください。
+3. memory には入るが latency が高すぎる model には、どの compression strategy を選びますか。
+4. size、latency、throughput、metric を含む before/after report template を書いてください。
+5. structured pruning が unstructured pruning より deploy しやすい理由を説明してください。
+
+## まとめ
+
+- 圧縮は deployment constraints から始まります。
+- Quantization は numeric precision を変えます。
+- Pruning は model structure を変えます。
+- Distillation は training process を変えます。
+- 圧縮が成功したと言えるのは、deploy 後の quality と latency が要求を満たすときです。
