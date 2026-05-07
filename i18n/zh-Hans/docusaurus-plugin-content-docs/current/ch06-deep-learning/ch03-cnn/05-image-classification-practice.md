@@ -1,164 +1,99 @@
 ---
 title: "6.3.6 CNN 实战：图像分类"
 sidebar_position: 5
-description: "从造数据、搭网络、训练、验证到预测，完整走通一个小型 CNN 图像分类项目。"
+description: "完整跑通 CNN 图像分类闭环：合成数据、张量 shape、模型、训练、验证、混淆矩阵和错例检查。"
 keywords: [image classification, CNN, PyTorch, train loop, validation, synthetic dataset]
 ---
 
 # 6.3.6 CNN 实战：图像分类
 
 :::tip 本节定位
-卷积、CNN 结构、经典架构、迁移学习都讲完以后，最重要的一件事就是：
-
-> **把这些概念真正串成一个完整训练闭环。**
-
-这一节不会追求“大模型效果”，而是追求一件更重要的事：
-
-> 让你完整走通一次图像分类项目。
+这是“把前面内容串起来”的一节。你会创建一个小型图像数据集，训练 CNN，做验证，检查预测结果，并判断下一步该尝试什么。
 :::
 
 ![CNN 图像分类实操闭环](/img/course/ch06-cnn-image-classification-practice-loop.png)
 
-:::tip 怎样读这张图
-先看图再跑代码：先确认合成图像和标签，再跟踪张量形状 `N x C x H x W`，最后把 CNN、损失函数、验证曲线和错例检查串成一个完整闭环。
-:::
-
 ## 学习目标
 
-- 构造一个最小可训练的图像分类任务
-- 用 CNN 完整跑通训练、验证和预测
-- 理解图像分类项目里数据、模型、损失函数和指标怎样配合
-- 学会从结果判断模型到底有没有学到东西
+- 搭建完整图像分类流程。
+- 保持图像张量为 `[N, C, H, W]` 格式。
+- 用 `CrossEntropyLoss` 训练并验证 CNN。
+- 检查混淆矩阵和单样本概率。
+- 理解从玩具任务迁移到真实图片时会增加什么工作。
 
 ---
 
-## 一、图像分类项目最小闭环是什么？
+## 最小闭环
 
-一个图像分类项目，最少要有这几个部分：
+一个图像分类项目需要：
 
-1. 数据
-2. 类别标签
-3. 模型
-4. 损失函数
-5. 训练循环
-6. 验证 / 测试
+```text
+图像 -> 标签 -> 训练/验证切分 -> CNN -> loss -> optimizer -> metrics -> 错例检查
+```
 
-很多初学者之所以学得发虚，就是因为只看到了“模型结构”，却没有把整个闭环串起来。
+不要跳过验证和错例检查。模型能“跑起来”，不等于它真的学到了正确规律。
 
-这节课的重点就是把这条链完整走一遍。
+## 完整实验：训练四分类 CNN
 
----
+这个实验使用四个简单类别：
 
-## 二、先准备一份能直接跑的数据
+| Label | Pattern |
+|---|---|
+| `0` | 竖线 |
+| `1` | 横线 |
+| `2` | 主对角线 |
+| `3` | 反对角线 |
 
-### 为什么继续用合成图像？
-
-因为这样：
-
-- 不依赖外部下载
-- 类别规律非常清楚
-- 最适合教学
-
-### 造三类小图像
-
-我们造 3 类：
-
-- 竖线
-- 横线
-- 对角线
+运行完整脚本：
 
 ```python
 import numpy as np
-import matplotlib.pyplot as plt
-
-def make_image(label, size=12):
-    img = np.zeros((size, size), dtype=np.float32)
-
-    if label == 0:
-        img[:, size // 2] = 1.0
-    elif label == 1:
-        img[size // 2, :] = 1.0
-    else:
-        for i in range(size):
-            img[i, i] = 1.0
-
-    img += np.random.randn(size, size).astype(np.float32) * 0.05
-    return np.clip(img, 0.0, 1.0)
-
-fig, axes = plt.subplots(1, 3, figsize=(9, 3))
-for label in range(3):
-    axes[label].imshow(make_image(label), cmap="gray")
-    axes[label].set_title(f"class {label}")
-    axes[label].axis("off")
-plt.tight_layout()
-plt.show()
-```
-
-### 这个数据集虽然简单，但足够教会你什么？
-
-它足够教会你：
-
-- 图像张量该怎么组织
-- 分类标签怎样对齐
-- CNN 怎么学习局部模式
-
-这比直接扔给你一个大数据集更适合入门。
-
----
-
-## 三、把数据做成训练集和验证集
-
-```python
-import numpy as np
-import torch
-
-np.random.seed(42)
-torch.manual_seed(42)
-
-X, y = [], []
-for label in range(3):
-    for _ in range(100):
-        X.append(make_image(label))
-        y.append(label)
-
-X = np.array(X, dtype=np.float32)
-y = np.array(y)
-
-# 打乱
-indices = np.random.permutation(len(X))
-X = X[indices]
-y = y[indices]
-
-# 转成张量
-X = torch.tensor(X).unsqueeze(1)  # [N, 1, H, W]
-y = torch.tensor(y)
-
-split = int(len(X) * 0.8)
-X_train, X_val = X[:split], X[split:]
-y_train, y_val = y[:split], y[split:]
-
-print("train:", X_train.shape, y_train.shape)
-print("val  :", X_val.shape, y_val.shape)
-```
-
-### 为什么要 `unsqueeze(1)`？
-
-因为 PyTorch 的卷积输入需要：
-
-- `[batch, channel, height, width]`
-
-这里是灰度图，所以通道数是 1。
-
----
-
-## 四、定义一个最小 CNN 分类器
-
-```python
 import torch
 from torch import nn
 
+SEED = 42
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+
+CLASS_NAMES = ["vertical", "horizontal", "diag_down", "diag_up"]
+
+
+def make_image(label, size=16, noise=0.08):
+    img = np.zeros((size, size), dtype=np.float32)
+    c = size // 2
+    if label == 0:
+        img[:, c] = 1.0
+    elif label == 1:
+        img[c, :] = 1.0
+    elif label == 2:
+        for i in range(size):
+            img[i, i] = 1.0
+    elif label == 3:
+        for i in range(size):
+            img[i, size - 1 - i] = 1.0
+
+    img += np.random.randn(size, size).astype(np.float32) * noise
+    return np.clip(img, 0.0, 1.0)
+
+
+def make_dataset(per_class=120):
+    X, y = [], []
+    for label in range(len(CLASS_NAMES)):
+        for _ in range(per_class):
+            X.append(make_image(label))
+            y.append(label)
+
+    X = np.array(X, dtype=np.float32)
+    y = np.array(y, dtype=np.int64)
+    idx = np.random.permutation(len(X))
+    X = torch.tensor(X[idx]).unsqueeze(1)
+    y = torch.tensor(y[idx])
+    split = int(len(X) * 0.8)
+    return X[:split], y[:split], X[split:], y[split:]
+
+
 class TinyCNNClassifier(nn.Module):
-    def __init__(self, num_classes=3):
+    def __init__(self, num_classes=4):
         super().__init__()
         self.features = nn.Sequential(
             nn.Conv2d(1, 8, kernel_size=3, padding=1),
@@ -166,54 +101,47 @@ class TinyCNNClassifier(nn.Module):
             nn.MaxPool2d(2),
             nn.Conv2d(8, 16, kernel_size=3, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d(2)
-        )
-
-        self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(16 * 3 * 3, 32),
+            nn.MaxPool2d(2),
+            nn.Conv2d(16, 32, kernel_size=3, padding=1),
             nn.ReLU(),
-            nn.Linear(32, num_classes)
+            nn.AdaptiveAvgPool2d((1, 1)),
         )
+        self.head = nn.Linear(32, num_classes)
 
     def forward(self, x):
         x = self.features(x)
-        x = self.classifier(x)
-        return x
+        x = x.flatten(1)
+        return self.head(x)
 
-model = TinyCNNClassifier(num_classes=3)
-sample_out = model(X_train[:4])
-print("sample output shape:", sample_out.shape)
-```
 
-### 为什么这里 `16 * 3 * 3`？
+def accuracy(logits, y):
+    return (logits.argmax(dim=1) == y).float().mean().item()
 
-因为原图大小是 `12x12`：
 
-- 第一次 `MaxPool2d(2)` 后变 `6x6`
-- 第二次 `MaxPool2d(2)` 后变 `3x3`
+def confusion_matrix(pred, y, num_classes):
+    matrix = torch.zeros(num_classes, num_classes, dtype=torch.int64)
+    for true_label, pred_label in zip(y, pred):
+        matrix[true_label, pred_label] += 1
+    return matrix
 
-最后输出通道是 16，所以展平后就是：
 
-> `16 * 3 * 3`
+X_train, y_train, X_val, y_val = make_dataset()
+print("data_lab")
+print("train:", tuple(X_train.shape), tuple(y_train.shape))
+print("val  :", tuple(X_val.shape), tuple(y_val.shape))
 
-这就是 CNN 实战里最常见的 shape 计算题。
+model = TinyCNNClassifier(num_classes=len(CLASS_NAMES))
+with torch.no_grad():
+    z = X_train[:4]
+    print("shape_lab")
+    print("input:", tuple(z.shape))
+    print("features:", tuple(model.features(z).shape))
+    print("logits:", tuple(model(z).shape))
 
----
-
-## 五、完整训练循环
-
-```python
-import torch
-from torch import nn
-
-torch.manual_seed(42)
-
-model = TinyCNNClassifier(num_classes=3)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 
-for epoch in range(100):
+for epoch in range(1, 81):
     model.train()
     train_logits = model(X_train)
     train_loss = loss_fn(train_logits, y_train)
@@ -222,156 +150,130 @@ for epoch in range(100):
     train_loss.backward()
     optimizer.step()
 
-    if epoch % 20 == 0:
+    if epoch == 1 or epoch % 20 == 0:
         model.eval()
         with torch.no_grad():
             val_logits = model(X_val)
             val_loss = loss_fn(val_logits, y_val)
-            train_acc = (train_logits.argmax(dim=1) == y_train).float().mean().item()
-            val_acc = (val_logits.argmax(dim=1) == y_val).float().mean().item()
-
         print(
-            f"epoch={epoch:3d}, "
-            f"train_loss={train_loss.item():.4f}, "
-            f"val_loss={val_loss.item():.4f}, "
-            f"train_acc={train_acc:.3f}, "
-            f"val_acc={val_acc:.3f}"
+            f"epoch={epoch:02d} "
+            f"train_loss={train_loss.item():.4f} "
+            f"val_loss={val_loss.item():.4f} "
+            f"train_acc={accuracy(train_logits, y_train):.3f} "
+            f"val_acc={accuracy(val_logits, y_val):.3f}"
         )
-```
-
-### 这段代码里最该盯住什么？
-
-初学图像分类时，最重要的是看这四样：
-
-- `train_loss`
-- `val_loss`
-- `train_acc`
-- `val_acc`
-
-因为它们会告诉你：
-
-- 模型有没有学到
-- 有没有过拟合
-- 是否还在稳定收敛
-
----
-
-## 六、真正做一次预测
-
-### 看单个样本
-
-```python
-import matplotlib.pyplot as plt
 
 model.eval()
 with torch.no_grad():
-    sample = X_val[0:1]
-    pred = model(sample).argmax(dim=1).item()
-    true = y_val[0].item()
+    val_logits = model(X_val)
+    val_pred = val_logits.argmax(dim=1)
+    cm = confusion_matrix(val_pred, y_val, len(CLASS_NAMES))
+    probs = torch.softmax(val_logits[0], dim=0)
 
-plt.imshow(sample[0, 0].numpy(), cmap="gray")
-plt.title(f"pred={pred}, true={true}")
-plt.axis("off")
-plt.show()
+print("confusion_matrix rows=true cols=pred")
+print(cm)
+print("sample_prediction")
+print("true:", CLASS_NAMES[y_val[0].item()])
+print("pred:", CLASS_NAMES[val_pred[0].item()])
+print("probs:", [round(v, 3) for v in probs.tolist()])
 ```
 
-### 为什么这一步很重要？
+预期输出：
 
-因为很多时候：
+```text
+data_lab
+train: (384, 1, 16, 16) (384,)
+val  : (96, 1, 16, 16) (96,)
+shape_lab
+input: (4, 1, 16, 16)
+features: (4, 32, 1, 1)
+logits: (4, 4)
+epoch=01 train_loss=1.3883 val_loss=1.3776 train_acc=0.245 val_acc=0.188
+epoch=20 train_loss=0.0193 val_loss=0.0080 train_acc=1.000 val_acc=1.000
+epoch=40 train_loss=0.0000 val_loss=0.0000 train_acc=1.000 val_acc=1.000
+epoch=60 train_loss=0.0000 val_loss=0.0000 train_acc=1.000 val_acc=1.000
+epoch=80 train_loss=0.0000 val_loss=0.0000 train_acc=1.000 val_acc=1.000
+confusion_matrix rows=true cols=pred
+tensor([[30,  0,  0,  0],
+        [ 0, 22,  0,  0],
+        [ 0,  0, 18,  0],
+        [ 0,  0,  0, 26]])
+sample_prediction
+true: vertical
+pred: vertical
+probs: [1.0, 0.0, 0.0, 0.0]
+```
 
-- 指标看起来不错
-- 但你并不知道模型到底在“看什么”
+## 读懂输出
 
-亲自看几张预测样本，会帮助你更快建立直觉。
+| 输出 | 含义 |
+|---|---|
+| `train: (384, 1, 16, 16)` | 384 张灰度训练图像 |
+| `features: (4, 32, 1, 1)` | CNN 把每张图压缩成 32 个特征值 |
+| `logits: (4, 4)` | 4 个样本，每个样本 4 个类别分数 |
+| `val_acc=1.000` | 模型学会了这个简单验证集 |
+| 混淆矩阵对角线 | 真实类别和预测类别一致 |
 
----
+混淆矩阵按行读：行是真实标签，列是预测标签。非对角线数字就是错误。
 
-## 七、怎样判断模型有没有真的学会？
+## 为什么这里用 GAP？
 
-### 几个典型信号
+模型使用 `AdaptiveAvgPool2d((1, 1))`，在这里可以理解为 Global Average Pooling。它把 `[N, 32, H, W]` 变成 `[N, 32, 1, 1]`。
 
-如果模型真的学到了：
+这样分类头很小：
 
-- train loss 会下降
-- val loss 通常也会下降
-- train / val acc 会提高
-- 对单样本预测越来越稳定
+```text
+[N, 32, 1, 1] -> flatten -> [N, 32] -> Linear(32, 4)
+```
 
-### 几个典型异常
+对本节来说，GAP 还能避免脆弱的手写尺寸计算，比如 `16 * 3 * 3`。
 
-### 训练集和验证集都很差
+## 如何诊断结果
 
-可能是：
+| 现象 | 可能原因 | 下一步 |
+|---|---|---|
+| train 和 val 都差 | 模型太弱、标签错、LR 有问题 | 打印 shape，检查样本，调整 LR |
+| train 好但 val 差 | 过拟合或切分不合理 | 加数据、增强、正则化 |
+| loss 不动 | 标签错、没有梯度、LR 太小 | 检查 `loss.backward()`、标签、可训练参数 |
+| 高置信度错判 | 数据偏差或模式泄漏 | 检查样本和类别分布 |
+| 只预测一个类别 | 类别不平衡或优化问题 | 打印类别计数和 logits |
 
-- 模型太弱
-- 学习率不合适
-- 数据构造有问题
+## 从玩具任务到真实图片
 
-### 训练集很好，验证集很差
+本节故意使用小型合成数据。真实项目还会增加：
 
-可能是：
+- `Dataset` 和 `DataLoader`；
+- 图像文件读取；
+- 按来源切分 train/validation/test；
+- 数据增强；
+- 预训练 backbone 或迁移学习；
+- 模型 checkpoint；
+- precision、recall、每类准确率等更丰富指标。
 
-- 过拟合
-- 数据量太少
-- 噪声过大
+流程是一样的，只是工具更严肃。
 
-### loss 不动
+## 常见错误
 
-可能是：
-
-- shape 错
-- 标签错
-- 学习率太小
-
----
-
-## 八、真实图像分类项目还要补什么？
-
-我们这个教学例子故意压得很小。
-真实项目里通常还要继续补：
-
-- DataLoader
-- 数据增强
-- 更真实的数据集
-- 更强 backbone
-- 更系统的验证指标
-- 模型保存与恢复
-
-也就是说：
-
-> 本节教的是“完整闭环”，不是“工业级最终方案”。
-
----
-
-## 九、初学者最常踩的坑
-
-### 只会抄模型，不会检查数据 shape
-
-图像任务里，shape 几乎永远是第一检查项。
-
-### 只盯 train loss
-
-验证集指标同样重要。
-
-### 模型能跑起来就以为任务做完了
-
-真正的项目，不只是跑通，而是要能解释结果。
-
----
-
-## 小结
-
-这一节最重要的不是把 CNN 跑通，而是把图像分类项目的完整闭环走通：
-
-> **造数据 / 整理数据 / 定义模型 / 训练 / 验证 / 单样本预测。**
-
-只有这条链真的完整了，后面你换更复杂的数据集和更强模型时，才不会一直发虚。
-
----
+| 错误 | 修复 |
+|---|---|
+| 只看训练 loss | 一定要计算验证指标 |
+| 忘记 channel 维度 | 使用 `[N, C, H, W]` |
+| 在 `CrossEntropyLoss` 前先 `softmax` | 把原始 logits 传给 `CrossEntropyLoss` |
+| 忽略错例 | 检查混淆矩阵和样本 |
+| 验证集太像训练集 | 真实图片要按来源切分 |
 
 ## 练习
 
-1. 给当前数据再加一个第 4 类图像模式，比如“反对角线”。
-2. 把 `TinyCNNClassifier` 的通道数改大，看收敛速度是否变化。
-3. 尝试加一个 `Dropout`，观察验证集表现是否更稳。
-4. 想一想：为什么图像分类项目里，数据构造和验证方式往往比多加几层网络更重要？
+1. 把 `noise` 从 `0.08` 增加到 `0.25`，验证结果如何变化？
+2. 把 `per_class` 从 `120` 减到 `10`，模型还能泛化吗？
+3. 去掉 `AdaptiveAvgPool2d`，改用 `Flatten` head。`Linear` 应该接收什么 shape？
+4. 再增加一类，比如方框边界。
+5. 如果有错例，打印前 5 个验证集错例。
+
+## 小结
+
+- 完整图像分类闭环包括数据、标签、切分、模型、loss、指标和错例分析。
+- PyTorch 中 CNN 输入使用 `[N, C, H, W]`。
+- `CrossEntropyLoss` 期待 logits，不是概率。
+- GAP 能让分类头更紧凑，也更不容易写错 shape。
+- 验证和错误分析是模型工作的一部分，不是附加项。
