@@ -1,491 +1,187 @@
 ---
 title: "5.4.4 偏差-方差权衡"
-sidebar_position: 12
-description: "理解欠拟合与过拟合的本质，掌握学习曲线和验证曲线分析，理解正则化对偏差-方差的影响"
-keywords: [偏差, 方差, 过拟合, 欠拟合, 学习曲线, 验证曲线, 正则化]
+sidebar_position: 4
+description: "一节跟着操作的偏差方差课程：欠拟合、过拟合、模型复杂度、训练测试差距、学习曲线和实用修复"
+keywords: [偏差, 方差, 欠拟合, 过拟合, 学习曲线, 验证曲线, 模型复杂度]
 ---
 
 # 5.4.4 偏差-方差权衡
 
 ![偏差方差权衡三联图](/img/course/bias-variance-tradeoff.png)
 
-:::tip 本节定位
-**偏差-方差权衡（Bias-Variance Tradeoff）** 是机器学习中最重要的理论框架之一。它解释了为什么模型会欠拟合或过拟合，以及如何找到两者之间的最佳平衡。
+:::tip 本节概览
+偏差和方差不是只存在于理论里的词。它们是一种诊断方式：模型是太简单、太不稳定，还是受限于数据质量。
 :::
 
-## 学习目标
+## 你会做出什么
 
-- 深入理解偏差（Bias）和方差（Variance）
-- 理解欠拟合和过拟合的本质
-- 掌握学习曲线分析
-- 掌握验证曲线分析
-- 理解正则化如何影响偏差-方差
+本节用决策树演示：
 
-## 先说一个很重要的学习预期
-
-这一节是第 5 站里最容易让新人“概念都认识，但一做题就不会判断”的地方。
-因为偏差、方差、欠拟合、过拟合听起来像理论词，但它们真正的价值其实很实用：
-
-> **它们是在帮你决定模型效果不好时，下一步到底该往哪改。**
-
-所以第一遍最值得先学会的，不是把误差分解背熟，而是先形成这种判断意识：
-
-- 现在是模型太简单，还是太敏感
-- 我下一步该加复杂度、加数据，还是加正则化
-
----
-
-## 先建立一张地图
-
-偏差-方差这节最适合新人的理解顺序不是“先看术语定义”，而是先看清它在机器学习决策里的角色：
+- 模型复杂度如何改变训练分数和测试分数；
+- 如何通过 train-test gap 判断欠拟合和过拟合；
+- 学习曲线如何说明更多数据是否可能有帮助；
+- 高偏差和高方差分别应该采取什么行动。
 
 ![偏差方差行动诊断图](/img/course/ch05-bias-variance-action-map.png)
 
-所以这节真正想解决的是：
+## 环境准备
 
-- 为什么模型效果差时不能乱试
-- 怎样把“下一步该做什么”建立在证据上
-
-## 一、什么是偏差和方差？
-
-### 直觉理解——打靶比喻
-
-```mermaid
-flowchart LR
-    subgraph 低偏差低方差
-        A["🎯 每次都打中靶心<br/>（理想模型）"]
-    end
-    subgraph 低偏差高方差
-        B["🎯 平均在靶心<br/>但散布很大<br/>（过拟合）"]
-    end
-    subgraph 高偏差低方差
-        C["🎯 总是偏离靶心<br/>但很集中<br/>（欠拟合）"]
-    end
-    subgraph 高偏差高方差
-        D["🎯 又偏又散<br/>（最差）"]
-    end
+```bash
+python -m pip install -U scikit-learn numpy
 ```
 
-| | 偏差（Bias） | 方差（Variance） |
-|---|-------------|-----------------|
-| 含义 | 模型预测值与真实值的系统性偏移 | 模型对不同训练数据的敏感程度 |
-| 高 → | 欠拟合（模型太简单） | 过拟合（模型太复杂） |
-| 解决 | 增加模型复杂度 | 减少模型复杂度、增加数据 |
+## 运行完整实验
 
-### 一个更适合新人的说法
-
-如果你不想一开始就陷进术语里，可以先这样记：
-
-- **高偏差**：模型太死板，怎么学都学不住
-- **高方差**：模型太敏感，换点数据就变很多
-
-这两句话虽然不严格，但特别适合第一遍先建立方向感。
-
-### 总误差分解
-
-> **总误差 = 偏差² + 方差 + 不可约误差（噪声）**
-
-### 先别急着记公式，先记一句话
-
-对新人来说，更实用的记法通常是：
-
-- **高偏差**：模型太“笨”，怎么学都学不住
-- **高方差**：模型太“敏感”，换点数据就大变样
-
-只要先把这句话记住，后面学习曲线和验证曲线就更容易看懂。
+新建 `bias_variance_lab.py`：
 
 ```python
 import numpy as np
-import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import learning_curve, train_test_split
+from sklearn.tree import DecisionTreeClassifier
 
-# 可视化偏差-方差权衡
-complexity = np.linspace(0.1, 10, 100)
-bias_sq = 5 / complexity
-variance = 0.5 * complexity
-noise = 0.5 * np.ones_like(complexity)
-total = bias_sq + variance + noise
 
-plt.figure(figsize=(8, 5))
-plt.plot(complexity, bias_sq, 'b-', linewidth=2, label='偏差²')
-plt.plot(complexity, variance, 'r-', linewidth=2, label='方差')
-plt.plot(complexity, noise, 'g--', linewidth=1, label='噪声（不可约）')
-plt.plot(complexity, total, 'k-', linewidth=2, label='总误差')
+X, y = load_breast_cancer(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
 
-best_idx = np.argmin(total)
-plt.axvline(x=complexity[best_idx], color='orange', linestyle=':', label='最优复杂度')
+print("complexity_lab")
+for depth in [1, 3, 5, None]:
+    model = DecisionTreeClassifier(max_depth=depth, random_state=42)
+    model.fit(X_train, y_train)
+    train_acc = accuracy_score(y_train, model.predict(X_train))
+    test_acc = accuracy_score(y_test, model.predict(X_test))
+    gap = train_acc - test_acc
+    print(
+        f"max_depth={str(depth):<4} "
+        f"train={train_acc:.3f} test={test_acc:.3f} gap={gap:.3f} "
+        f"leaves={model.get_n_leaves()}"
+    )
 
-plt.xlabel('模型复杂度')
-plt.ylabel('误差')
-plt.title('偏差-方差权衡')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
+print("learning_curve_lab")
+model = DecisionTreeClassifier(max_depth=3, random_state=42)
+train_sizes, train_scores, val_scores = learning_curve(
+    model,
+    X,
+    y,
+    cv=5,
+    train_sizes=[0.2, 0.4, 0.6, 0.8, 1.0],
+    scoring="accuracy",
+)
+for size, train_mean, val_mean in zip(train_sizes, train_scores.mean(axis=1), val_scores.mean(axis=1)):
+    print(f"train_size={size:<3} train={train_mean:.3f} cv={val_mean:.3f} gap={train_mean - val_mean:.3f}")
 ```
 
----
+运行：
 
-## 二、实际观察偏差和方差
-
-### 用多项式回归演示
-
-```python
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
-from sklearn.pipeline import make_pipeline
-
-# 生成非线性数据
-rng = np.random.default_rng(seed=42)
-n = 30
-X = np.sort(rng.uniform(-3, 3, n))
-y_true_func = lambda x: np.sin(x)
-y = y_true_func(X) + rng.normal(size=n) * 0.3
-
-x_plot = np.linspace(-3.5, 3.5, 200)
-
-fig, axes = plt.subplots(1, 3, figsize=(15, 4))
-configs = [
-    (1, '欠拟合（degree=1）\n高偏差，低方差'),
-    (4, '刚好（degree=4）\n偏差方差平衡'),
-    (15, '过拟合（degree=15）\n低偏差，高方差'),
-]
-
-for ax, (deg, title) in zip(axes, configs):
-    # 用不同数据子集训练多次，观察方差
-    for seed in range(10):
-        rng = np.random.default_rng(seed)
-        X_sample = np.sort(rng.uniform(-3, 3, n))
-        y_sample = y_true_func(X_sample) + rng.normal(size=n) * 0.3
-
-        model = make_pipeline(PolynomialFeatures(deg, include_bias=False), LinearRegression())
-        model.fit(X_sample.reshape(-1, 1), y_sample)
-        y_pred = model.predict(x_plot.reshape(-1, 1))
-        y_pred = np.clip(y_pred, -3, 3)
-        ax.plot(x_plot, y_pred, alpha=0.3, color='steelblue')
-
-    ax.plot(x_plot, y_true_func(x_plot), 'r--', linewidth=2, label='真实函数')
-    ax.scatter(X, y, color='black', s=20, zorder=5)
-    ax.set_title(title)
-    ax.set_ylim(-3, 3)
-    ax.legend(fontsize=8)
-    ax.grid(True, alpha=0.3)
-
-plt.suptitle('偏差-方差直觉（10 次不同数据训练）', fontsize=13)
-plt.tight_layout()
-plt.show()
+```bash
+python bias_variance_lab.py
 ```
 
-:::note 观察要点
-- **degree=1**：10 条线几乎重合（低方差），但都偏离真实函数（高偏差）
-- **degree=15**：10 条线差异很大（高方差），但平均更接近真实（低偏差）
-- **degree=4**：10 条线较一致（适当方差），且接近真实函数（适当偏差）
-:::
+预期输出：
 
----
+```text
+complexity_lab
+max_depth=1    train=0.923 test=0.923 gap=-0.001 leaves=2
+max_depth=3    train=0.977 test=0.944 gap=0.032 leaves=7
+max_depth=5    train=0.995 test=0.937 gap=0.058 leaves=15
+max_depth=None train=1.000 test=0.923 gap=0.077 leaves=18
+learning_curve_lab
+train_size=91  train=0.989 cv=0.847 gap=0.142
+train_size=182 train=0.986 cv=0.870 gap=0.116
+train_size=273 train=0.978 cv=0.903 gap=0.075
+train_size=364 train=0.975 cv=0.917 gap=0.057
+train_size=455 train=0.974 cv=0.919 gap=0.055
+```
 
-## 三、学习曲线
+## 读懂复杂度实验
 
-### 什么是学习曲线？
+`max_depth` 越大，树越复杂：
 
-学习曲线展示**训练集大小**对模型性能的影响。它能告诉你：
-- 模型是欠拟合还是过拟合
-- 增加数据是否有帮助
+```text
+max_depth=1    train=0.923 test=0.923 gap=-0.001 leaves=2
+max_depth=None train=1.000 test=0.923 gap=0.077 leaves=18
+```
+
+`max_depth=1` 很简单。训练和测试很接近，但分数不是最好。这可能是高偏差：模型太简单。
+
+`max_depth=None` 把训练集记得很完美，但测试准确率下降。这是高方差：模型学到了训练细节，却不能泛化。
+
+实用上最好的模型往往在中间：
+
+```text
+max_depth=3 train=0.977 test=0.944 gap=0.032
+```
+
+它没有在训练集上满分，但泛化更好。
+
+## 学习曲线
 
 ![学习曲线诊断图](/img/course/ch05-learning-curve-diagnosis-map.png)
 
-读学习曲线时，先看两条线的距离。如果训练分和验证分都低，通常先看欠拟合；如果训练分高、验证分低，而且两条线差很远，通常先看过拟合；如果验证分还在随数据量上涨，增加数据可能真的有帮助。
+学习曲线展示训练数据增加时会发生什么：
 
-```python
-from sklearn.model_selection import learning_curve
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.datasets import load_digits
-
-digits = load_digits()
-X, y = digits.data, digits.target
-
-def plot_learning_curve(model, X, y, title, ax):
-    train_sizes, train_scores, val_scores = learning_curve(
-        model, X, y, cv=5,
-        train_sizes=np.linspace(0.1, 1.0, 10),
-        scoring='accuracy', n_jobs=-1
-    )
-
-    train_mean = train_scores.mean(axis=1)
-    train_std = train_scores.std(axis=1)
-    val_mean = val_scores.mean(axis=1)
-    val_std = val_scores.std(axis=1)
-
-    ax.fill_between(train_sizes, train_mean - train_std, train_mean + train_std, alpha=0.1, color='blue')
-    ax.fill_between(train_sizes, val_mean - val_std, val_mean + val_std, alpha=0.1, color='red')
-    ax.plot(train_sizes, train_mean, 'bo-', label='训练集')
-    ax.plot(train_sizes, val_mean, 'ro-', label='验证集')
-    ax.set_xlabel('训练样本数')
-    ax.set_ylabel('准确率')
-    ax.set_title(title)
-    ax.legend()
-    ax.grid(True, alpha=0.3)
-
-fig, axes = plt.subplots(1, 3, figsize=(18, 5))
-
-# 欠拟合模型
-plot_learning_curve(
-    DecisionTreeClassifier(max_depth=1, random_state=42),
-    X, y, '欠拟合（max_depth=1）\n训练和验证都低', axes[0]
-)
-
-# 刚好的模型
-plot_learning_curve(
-    DecisionTreeClassifier(max_depth=10, random_state=42),
-    X, y, '适当复杂度（max_depth=10）', axes[1]
-)
-
-# 过拟合模型
-plot_learning_curve(
-    DecisionTreeClassifier(max_depth=None, random_state=42),
-    X, y, '过拟合（max_depth=None）\n训练和验证差距大', axes[2]
-)
-
-plt.tight_layout()
-plt.show()
+```text
+train_size=91  train=0.989 cv=0.847 gap=0.142
+train_size=455 train=0.974 cv=0.919 gap=0.055
 ```
 
-### 如何解读学习曲线
+数据增多后，验证分数上升，gap 变小。这说明更多数据可能有帮助，但模型仍然可以通过更好的特征或调参继续改进。
 
-| 现象 | 诊断 | 解决方案 |
-|------|------|---------|
-| 训练和验证都低 | **欠拟合** | 增加模型复杂度 |
-| 训练高，验证低 | **过拟合** | 更多数据 / 正则化 / 简化模型 |
-| 两条线收敛且都高 | **刚好** | 模型不错 |
-| 验证还在上升 | 需要更多数据 | 收集更多数据 |
+## 诊断规则
 
-### 为什么学习曲线在 Andrew Ng 那套课里这么重要？
+| 模式 | 可能问题 | 尝试 |
+|---|---|---|
+| train 低，validation 低 | 高偏差 / 欠拟合 | 更强模型、更好特征、减弱正则化 |
+| train 高，validation 低 | 高方差 / 过拟合 | 简化模型、加强正则化、增加数据 |
+| train 高，validation 高 | 拟合良好 | 在最终 holdout 上测试并监控漂移 |
+| validation 按 fold 波动大 | 不稳定或存在数据分群 | 检查 fold，增加数据，使用更稳模型 |
 
-因为它非常适合回答：
+不要只靠一个指标诊断。要同时看训练分数、验证分数、gap，以及错误是否集中在某个分群。
 
-- 继续加数据值不值得
-- 现在是欠拟合还是过拟合
+## 实用修复
 
-很多人会跳过这一步，直接去换模型。
-但学习曲线本来就是“先做诊断，再决定下一步”的核心证据。
+高偏差时：
 
----
+- 增加有用特征；
+- 使用表达能力更强的模型；
+- 减弱过强正则化；
+- 如果是迭代模型，训练更久。
 
-## 四、验证曲线
+高方差时：
 
-### 什么是验证曲线？
+- 降低模型复杂度；
+- 加强正则化；
+- 收集更多样且有代表性的数据；
+- 使用交叉验证和最终 holdout；
+- 考虑能降低方差的集成模型。
 
-验证曲线展示**某个超参数**对模型性能的影响，帮你找到最优值。
+## 常见排查清单
 
-```python
-from sklearn.model_selection import validation_curve
+| 现象 | 可能原因 | 修复方式 |
+|---|---|---|
+| train 和 validation 都差 | 模型表达不了模式 | 改进特征或模型类别 |
+| train 满分，validation 较差 | 过拟合 | 限制深度、剪枝、正则化 |
+| 更多数据提升 validation | 方差或数据不足 | 收集更有代表性的数据 |
+| 更多数据没帮助 | 高偏差或标签噪声 | 改进特征、标签或模型 |
+| validation 按 fold 跳动 | 数据不均匀 | 检查分群分布 |
 
-# max_depth 对决策树的影响
-param_range = range(1, 25)
-train_scores, val_scores = validation_curve(
-    DecisionTreeClassifier(random_state=42), X, y,
-    param_name='max_depth', param_range=param_range,
-    cv=5, scoring='accuracy', n_jobs=-1
-)
+## 练习
 
-train_mean = train_scores.mean(axis=1)
-train_std = train_scores.std(axis=1)
-val_mean = val_scores.mean(axis=1)
-val_std = val_scores.std(axis=1)
+1. 给树加入 `min_samples_leaf=5`。gap 怎么变？
+2. 尝试 `max_depth=2, 4, 6, 8`。测试准确率在哪里最高？
+3. 把树换成逻辑回归。问题更像偏差还是方差？
+4. 在复杂度实验中改用 5 折交叉验证，而不是一次测试切分。
+5. 查看最佳树的错误样本。错误是否集中在某个类别？
 
-plt.figure(figsize=(8, 5))
-plt.fill_between(param_range, train_mean - train_std, train_mean + train_std, alpha=0.1, color='blue')
-plt.fill_between(param_range, val_mean - val_std, val_mean + val_std, alpha=0.1, color='red')
-plt.plot(param_range, train_mean, 'bo-', label='训练集')
-plt.plot(param_range, val_mean, 'ro-', label='验证集')
-plt.xlabel('max_depth')
-plt.ylabel('准确率')
-plt.title('验证曲线：max_depth 的影响')
-plt.legend()
-plt.grid(True, alpha=0.3)
+## 过关检查
 
-best_depth = param_range[np.argmax(val_mean)]
-plt.axvline(x=best_depth, color='green', linestyle='--', label=f'最优 depth={best_depth}')
-plt.legend()
-plt.show()
-```
+你能解释下面几点，就完成本节：
 
-### 如何解读验证曲线
-
-```mermaid
-flowchart LR
-    subgraph 验证曲线
-        L["← 欠拟合区<br/>（参数太小）"]
-        M["最优点<br/>（验证分数最高）"]
-        R["过拟合区 →<br/>（参数太大）"]
-    end
-    L --> M --> R
-
-    style L fill:#ffebee,stroke:#c62828,color:#333
-    style M fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style R fill:#ffebee,stroke:#c62828,color:#333
-```
-
----
-
-## 五、正则化对偏差-方差的影响
-
-```python
-from sklearn.linear_model import Ridge
-from sklearn.preprocessing import PolynomialFeatures, StandardScaler
-from sklearn.pipeline import make_pipeline
-from sklearn.model_selection import cross_val_score
-
-# 非线性数据
-rng = np.random.default_rng(seed=42)
-X_nl = np.sort(rng.uniform(-3, 3, 100)).reshape(-1, 1)
-y_nl = np.sin(X_nl.ravel()) + rng.normal(size=100) * 0.3
-
-# 高阶多项式 + 不同正则化强度
-alphas = [0.0001, 0.001, 0.01, 0.1, 1, 10, 100]
-train_scores = []
-cv_scores = []
-
-for alpha in alphas:
-    model = make_pipeline(
-        StandardScaler(),
-        PolynomialFeatures(degree=10, include_bias=False),
-        Ridge(alpha=alpha)
-    )
-    model.fit(X_nl, y_nl)
-    train_scores.append(model.score(X_nl, y_nl))
-
-    cv = cross_val_score(model, X_nl, y_nl, cv=5)
-    cv_scores.append(cv.mean())
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# alpha vs 分数
-axes[0].plot(alphas, train_scores, 'bo-', label='训练集')
-axes[0].plot(alphas, cv_scores, 'ro-', label='CV 验证集')
-axes[0].set_xscale('log')
-axes[0].set_xlabel('正则化强度 α')
-axes[0].set_ylabel('R² 分数')
-axes[0].set_title('正则化强度 vs 模型表现')
-axes[0].legend()
-axes[0].grid(True, alpha=0.3)
-
-# 拟合曲线对比
-x_plot = np.linspace(-3.5, 3.5, 200).reshape(-1, 1)
-for alpha, color, ls in [(0.0001, 'blue', '--'), (0.1, 'green', '-'), (100, 'orange', ':')]:
-    model = make_pipeline(
-        StandardScaler(),
-        PolynomialFeatures(degree=10, include_bias=False),
-        Ridge(alpha=alpha)
-    )
-    model.fit(X_nl, y_nl)
-    y_pred = model.predict(x_plot)
-    axes[1].plot(x_plot, np.clip(y_pred, -3, 3), color=color, linestyle=ls,
-                  linewidth=2, label=f'α={alpha}')
-
-axes[1].scatter(X_nl, y_nl, s=15, alpha=0.5, color='gray')
-axes[1].plot(x_plot, np.sin(x_plot), 'r--', linewidth=1, label='真实函数')
-axes[1].set_title('不同正则化强度的拟合效果')
-axes[1].set_ylim(-3, 3)
-axes[1].legend()
-axes[1].grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-| α 值 | 偏差 | 方差 | 状态 |
-|------|------|------|------|
-| 很小（0.0001） | 低 | 高 | 过拟合 |
-| 适中（0.1） | 适中 | 适中 | 刚好 |
-| 很大（100） | 高 | 低 | 欠拟合 |
-
----
-
-## 六、实用诊断流程
-
-```mermaid
-flowchart TD
-    A["模型表现不好"] --> B{"训练集表现如何？"}
-    B -->|"训练集也不好"| UF["欠拟合"]
-    B -->|"训练集很好"| OF["过拟合"]
-
-    UF --> U1["增加特征"]
-    UF --> U2["用更复杂的模型"]
-    UF --> U3["减小正则化"]
-
-    OF --> O1["增加训练数据"]
-    OF --> O2["增加正则化"]
-    OF --> O3["减少特征"]
-    OF --> O4["用更简单的模型"]
-
-    style UF fill:#fff3e0,stroke:#e65100,color:#333
-    style OF fill:#ffebee,stroke:#c62828,color:#333
-```
-
-### 这张图最重要的地方是什么？
-
-它在教你：
-
-> 模型效果不好时，不要一上来就乱换方法，先判断它到底是偏差问题还是方差问题。
-
-这就是第 5 站后半段最重要的工程意识之一。
-
-### 第一次做诊断时，最稳的默认顺序
-
-如果你第一次面对“模型效果不好”这件事，可以先按这个顺序判断：
-
-1. 先看训练集分数高不高
-2. 再看验证集 / 交叉验证分数差多大
-3. 如果训练和验证都差，先怀疑欠拟合
-4. 如果训练好、验证差，先怀疑过拟合
-5. 最后再决定是加复杂度、加数据，还是加正则化
-
-这会比“哪个方法都试一遍”稳很多，因为你是在先诊断，再下药。
-
----
-
-## 如果你学完这节还觉得抽象，最该先抓什么
-
-如果你现在还觉得这节有点抽象，最值得先抓住的不是全部术语，而是这三句：
-
-1. 训练和验证都差，多半先看欠拟合
-2. 训练很好、验证很差，多半先看过拟合
-3. 诊断先于调参，证据先于尝试
-
-只要这三句开始立住，这一节就已经真正帮到你了。
-
----
-
-## 小结
-
-| 要点 | 说明 |
-|------|------|
-| 偏差 | 模型的系统性误差，模型太简单导致 |
-| 方差 | 模型对数据变化的敏感度，模型太复杂导致 |
-| 权衡 | 减少偏差通常增加方差，反之亦然 |
-| 学习曲线 | 训练集大小 vs 表现，诊断欠拟合/过拟合 |
-| 验证曲线 | 超参数 vs 表现，找最优值 |
-| 正则化 | 增大 α → 增大偏差、减小方差 |
-
-:::info 连接后续
-- **下一节**：超参数调优——系统化搜索最优参数
-:::
-
-## 这节最该带走什么
-
-- 偏差-方差不是理论装饰，而是“下一步该做什么”的判断框架
-- 学习曲线和验证曲线是把感觉变成证据的工具
-- 会诊断欠拟合 / 过拟合，机器学习项目就已经进了一大步
-
-## 动手练习
-
-### 练习 1：学习曲线诊断
-
-用 `load_digits()` 分别画随机森林（n_estimators=100）和逻辑回归的学习曲线。哪个更倾向过拟合？
-
-### 练习 2：验证曲线
-
-用 `load_wine()` 画随机森林 `n_estimators`（10~500）的验证曲线，找到最优树数量。
-
-### 练习 3：正则化实验
-
-用多项式回归（degree=15）+ Ridge 回归，画 alpha（从 0.0001 到 1000）的验证曲线。在同一张图上标注欠拟合区和过拟合区。
+- 高偏差表示模型太简单或缺少信号；
+- 高方差表示模型对训练细节太敏感；
+- train-validation gap 是实用诊断工具；
+- 学习曲线能说明更多数据是否可能有帮助；
+- 修复方式取决于现象，不取决于术语本身。
