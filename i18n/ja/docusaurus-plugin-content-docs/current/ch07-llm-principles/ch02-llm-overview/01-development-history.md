@@ -1,124 +1,70 @@
 ---
-title: "7.2.2 大規模モデルの発展の歴史"
+title: "7.2.2 大規模モデルの発展史"
 sidebar_position: 5
-description: "ルールベースシステム、統計言語モデル、RNN、Transformer から大規模言語モデルまで、言語モデル進化の主な流れを整理します。"
-keywords: [LLM の歴史, 言語モデル, n-gram, RNN, Transformer, GPT]
+description: "AI の 15 段階タイムラインと実行できる bigram 実験で、言語モデルが rules、statistics から Transformer、instruction alignment、RAG、Agent へ進んだ流れを理解します。"
+keywords: [LLM history, language model, n-gram, RNN, Transformer, GPT, RLHF, Agent]
 ---
 
-# 7.2.2 大規模モデルの発展の歴史
+# 7.2.2 大規模モデルの発展史
 
-![大規模モデル発展のタイムライン図](/img/course/llm-history-timeline-ja.png)
+![AI 15 段階発展マップ](/img/course/appendix-ai-15-stage-history-map-ja.png)
 
-## 学習目標
+:::tip 年表暗記ではなく地図として読む
+日付を暗記する必要はありません。次の 1 本の流れを押さえます。
 
-この節を終えると、次のことができるようになります。
+```text
+rules -> statistics -> neural representations -> attention -> scale -> alignment -> tools
+```
 
-- 大規模モデルは突然生まれたのではなく、NLP の長い進化の結果だと理解する
-- ルールベースシステムから Transformer への重要な転換点を説明できる
-- 「なぜ Transformer が大規模モデル時代を本当に押し上げたのか」を理解する
-- 小さな例を通して、初期の言語モデルの動きを体感する
+大規模言語モデルは突然生まれたものではなく、この長い変化の結果です。
+:::
 
----
+## 15 段階の全体像
 
-## 一、まず全体像を頭に入れよう
+| 段階 | 何が変わったか | LLM との関係 |
+|---|---|---|
+| 1. Turing question | 機械知能が具体的な問いになった | 言語が知能の重要なテストになった |
+| 2. Dartmouth AI | AI が研究分野になった | 初期は symbolic reasoning が中心 |
+| 3. Perceptron | 学習できる neural model が登場 | trainable model の第一波 |
+| 4. Expert systems | rules が狭い領域で広がった | 価値と保守コストを同時に示した |
+| 5. Backpropagation | 多層 neural nets が訓練可能になった | deep learning の基礎 |
+| 6. LeNet | neural nets が実タスクで機能した | representation learning の実例 |
+| 7. Statistical ML | data-driven methods が多くの手書き rules を超えた | NLP が corpus evidence へ移った |
+| 8. ImageNet / AlexNet | deep learning が scale で勝った | data、compute、architecture が重要になった |
+| 9. ResNet | 非常に深い networks が訓練しやすくなった | scale がより安定した |
+| 10. RNN / LSTM | sequences が neural に扱われた | language modeling が n-gram を超えた |
+| 11. Attention | 関連位置に focus できるようになった | long context bottleneck を緩和 |
+| 12. Transformer | attention が主アーキテクチャになった | parallel training と scaling が進んだ |
+| 13. BERT / GPT | pretraining が shared foundation になった | 1 つの model を多タスクへ転用 |
+| 14. RLHF / ChatGPT | behavior が instruction に合わせられた | capability が product behavior になった |
+| 15. RAG / Agent | models が knowledge と tools を使い始めた | LLM が application system になった |
 
-言語モデルの発展は、ざっくり次の 5 段階として覚えるとよいです。
+ここから言語モデルの主線に絞ります。
 
-1. ルールベースシステムの時代
-2. 統計言語モデルの時代
-3. ニューラルネットワーク言語モデルの時代
-4. Transformer の時代
-5. 大規模モデルと指示追従の時代
+## 5 つの言語モデル時代
 
-これは、ずっと進化し続ける「自動補完」の道筋だと考えるとわかりやすいです。
+| 時代 | 中心アイデア | 主な限界 |
+|---|---|---|
+| Rule-based systems | 人間が language rules を書く | 壊れやすく、保守が高コスト |
+| Statistical language models | 頻度から次の単語を予測 | sparse data、short context |
+| Neural sequence models | vector と recurrent state を学ぶ | 長距離依存が難しく、訓練が遅い |
+| Transformers | token 同士が直接 attention する | compute と data cost が高い |
+| LLM + alignment | 大規模 pretraining 後に behavior を調整 | hallucination、安全、コスト、評価 |
 
-- まずは人手のルールに頼る
-- 次に出現頻度の統計に頼る
-- 次にニューラルネットワークで表現を学ぶ
-- 次に Transformer で長距離の文脈を学ぶ
-- 最後に、大規模化とアラインメント技術でより実用的になる
+主線は context です。各世代は、手書き仮定を減らしながら、より多くの context を使おうとしてきました。
 
-### この歴史の流れにまず興味を持つなら、3 つの場面を覚えよう
+## 実験：Bigram 言語モデルを作る
 
-初心者がこの発展史を実感しやすいのは、たいてい概念そのものではなく、次の 3 つの場面です。
-
-1. 初期のシステムは、分厚いルール集のようだった  
-   できることはあるけれど、ルールを人が書く必要がとても大きい。
-
-2. Transformer が出たときは、ひとつの宣言のようだった  
-   `Attention Is All You Need` というタイトル自体が、  
-   「もしかすると系列モデリングはもう RNN に縛られなくていい」と言っているように見えました。
-
-3. GPT-3 の後、多くの人が初めて直感的に感じた  
-   「次の token を予測するだけ」の学習でも、十分に大規模にすると、  
-   本当に汎用能力のようなものが現れるのだ、と。
-
-この歴史の流れが特に面白いのは、次の点です。
-
-> **今では当たり前に見える多くの能力も、当時は少しずつ足されたのではなく、何度も路線変更を経て生まれた。**
-
----
-
-## 二、ルールベースシステム：最初期の「人工知能による言語処理」
-
-初期の NLP では、人がルールを手作業で書くことがよくありました。
-
-- 文に「予約」という単語があれば、移動関連に分類する
-- 「天気」という単語があれば、天気問い合わせに分類する
-
-よい点は次のとおりです。
-
-- シンプル
-- 説明しやすい
-- 小さな課題ならすぐ始められる
-
-一方、弱点もあります。
-
-- 作るのが大変
-- 状況が変わるとすぐに壊れやすい
-- 複雑な表現をカバーしにくい
-
-これは、新人のカスタマーサポート担当に、分厚い「応対ルール集」を丸ごと覚えさせるようなものです。  
-使うことはできても、限界は高くありません。
-
-### なぜこの道は「ずっと大変だ」と感じられるのか？
-
-それは、世界の切り分けを機械に代わって人が先にやらないといけないからです。  
-場面が少し複雑になるだけで、保守コストはすぐに増えます。
-
-- 表現が変わると、ルールが抜ける
-- 場面が広がると、ルールがどんどん増える
-
-そのため、初期のルールベースシステムは次のような雰囲気でした。
-
-- たしかに動く
-- でも、オープンな世界まで広げるのは難しいと、次第に強く感じられる
-
----
-
-## 三、統計言語モデル：出現頻度で次の単語を予測し始める
-
-統計言語モデルの核心は次の考え方です。
-
-> **ある単語の次に何が来るかは、その前にどんな単語が出たかに関係する。**
-
-たとえば：
-
-- 「今日は 天気 が」 のあとには「いい」が来そう
-- 「私は 食べる のが」 のあとには「好き」が来そう
-
-これが、古典的な `n-gram` の考え方です。
-
-### 最小の実行例：2-gram の言語モデル
+この小さな `n-gram` model は、現在の単語から次の単語を予測します。強くはありませんが、neural LM 以前の統計的な発想が見えます。
 
 ```python
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
 
 corpus = [
-    "私は AI を 学ぶ",
-    "私は Python を 学ぶ",
-    "あなたは NLP を 学ぶ",
-    "私は プロジェクト を 作る"
+    "I like learning AI",
+    "I like learning Python",
+    "You like learning NLP",
+    "I like doing projects",
 ]
 
 next_word_counter = defaultdict(Counter)
@@ -128,276 +74,93 @@ for sentence in corpus:
     for current_word, next_word in zip(tokens[:-1], tokens[1:]):
         next_word_counter[current_word][next_word] += 1
 
+
 def suggest_next(word):
     candidates = next_word_counter[word]
-    if not candidates:
-        return []
-    return candidates.most_common()
+    return candidates.most_common() if candidates else []
 
-print("「私」はこのあとに出やすい単語:", suggest_next("私"))
-print("「学ぶ」の前によく出る単語:", suggest_next("学ぶ"))
-print("「を」のあとに出やすい単語:", suggest_next("を"))
+
+print("Common words after I       :", suggest_next("I"))
+print("Common words after like    :", suggest_next("like"))
+print("Common words after learning:", suggest_next("learning"))
 ```
 
-この考え方は、かなり「次の単語を予測する」に近いです。  
-ただし、限界もはっきりしています。
+期待される出力：
 
-- 見られる文脈が短い
-- 単語の組み合わせが増えると、統計が疎になる
-- 本当の意味理解はできない
+```text
+Common words after I       : [('like', 3)]
+Common words after like    : [('learning', 3), ('doing', 1)]
+Common words after learning: [('AI', 1), ('Python', 1), ('NLP', 1)]
+```
 
-### なぜこの世代もとても重要なのか？
+これは autocomplete に少し似ています。しかし限界も明確です。
 
-それは、NLP の主流を初めて次の方向へ動かしたからです。
+- 1 つ前の単語しか見ない。
+- rare な組み合わせは統計が弱い。
+- 文の意味表現を持たない。
 
-- 人がルールを書く
+## なぜ Neural Models が重要だったのか
 
-から
+Neural language models は、単なるカウントを learned representations に置き換えました。
 
-- データに「何がよく起こるか」「何が自然か」を教えてもらう
+```text
+word id -> vector -> context state -> prediction
+```
 
-へと移りました。
+Word2Vec、GloVe、RNN、LSTM、GRU により、language modeling は柔軟になりました。similarity と長めの context を学べるようになりましたが、逐次的に読むため訓練は遅く、長距離記憶も不安定でした。
 
-つまり、この世代は今見ると十分強くないかもしれませんが、  
-とても重要な「橋渡し」でした。
+## なぜ Transformer が転換点だったのか
 
-> **言語の問題を「ルールの問題」から「統計の問題」へ変えた。**
+RNN は主に一歩ずつ読みます。Transformer では、token が attention を通して他の token と直接比較できます。
 
----
+```text
+current token -> attends to relevant tokens -> updated representation
+```
 
-## 四、ニューラルネットワーク言語モデル：表現を学び始める
+これにより 3 つの変化が起きました。
 
-その後、人々は「単なる頻度の数え上げ」だけでは満足せず、ニューラルネットワークに単語と文脈の表現を学ばせるようになりました。
+- 訓練をより並列化しやすい。
+- 長距離関係を扱いやすい。
+- parameters、data、compute の scale が効きやすい。
 
-ここでいくつか大きな変化が起きました。
+だから BERT、GPT、T5、後の LLM は Transformer family tree に属します。
 
-- 単語は単なる離散IDではなく、ベクトル表現を持つようになった
-- モデルが意味の近さを学べるようになった
-- 言語モデリングが、単純なハード統計だけに頼らなくなった
+## なぜ Scale だけでは足りないのか
 
-この時代の重要な流れには、次のものがあります。
+大規模 pretraining は広い capability を作りましたが、product behavior には別の層が必要でした。
 
-- Word2Vec / GloVe
-- RNN
-- LSTM / GRU
+| 必要なこと | 技術 |
+|---|---|
+| 指示に従う | instruction tuning |
+| 役に立つ回答を好む | preference learning / RLHF |
+| 最新または private knowledge を使う | RAG |
+| 行動する | tool calling / Agent loop |
+| unsafe behavior を減らす | safety evaluation and guardrails |
 
-### 何を解決したのか？
+現代 LLM で重要な区別はこれです。
 
-たとえば：
+```text
+model capability != model behavior
+```
 
-- `king` と `queen` が近い位置になる
-- 「今日は雨で傘を持っていなかったので、濡れてしまった」のような文で、より長い文脈を使える
+モデルは強力でも、ポリシーに従わない、証拠を引用しない、安全に行動しないことがあります。
 
-ただし、問題はまだ残っていました。
+## 何を覚えるか
 
-- 系列が長くなると、RNN は扱いにくい
-- 学習効率が高くない
-- 長距離の依存関係は依然として難しい
+大規模モデルは NLP の歴史に属しますが、今は狭い NLP を超えています。同じ architecture と training idea が、text、image、speech、code、video、multimodal QA、RAG、Agent に広がっています。
 
-### なぜこの世代で多くの人が再びわくわくしたのか？
+実務的な要点は次の通りです。
 
-この段階から、言語モデルは単なる
-
-- どの単語の後にどの単語がよく来るかを数えるもの
-
-ではなくなり、次のことを本当に学び始めました。
-
-- 単語と単語の関係
-- 文脈の中の意味構造
-
-そのため、この世代の魅力は次の点にあります。
-
-> **言語が、ただの記号の列ではなく、初めて「表現空間」に入っていった。**
-
----
-
-## 五、Transformer：状況を本当に変えた重要な転換点
-
-Transformer の中心的な突破口は、Attention 機構です。
-
-これは次のように考えるとわかりやすいです。
-
-> 文を読むとき、順番に少しずつ記憶を渡すのではなく、今の単語とすべての単語の関係を直接見られる。
-
-たとえば：
-
-- RNN は、1 文ずつ順番に読み、読みながら覚える感じ
-- Transformer は、ページ全体を広げて、重要な部分に印をつける感じ
-
-その利点はとても重要です。
-
-- 並列学習しやすい
-- 長い文脈を扱いやすい
-- 超大規模へ拡張しやすい
-
-これが、のちに GPT や BERT のようなモデルが急速に台頭できた理由です。
-
-### なぜこの論文はすぐに印象に残ったのか？
-
-もちろん技術そのものも大きな理由ですが、  
-タイトルに時代が切り替わる感じが強く出ていたことも大きいです。
-
-- `Attention Is All You Need`
-
-従来の論文のように控えめというより、  
-かなり強い主張を含んでいました。
-
-- 系列モデリングの主流は、もしかすると全部変わるかもしれない
-
-その後の歴史は、この主張が単なるスローガンではなく、  
-本当に大規模モデル時代の土台を作り変えたことを示しました。
-
----
-
-## 六、事前学習モデルの時代：大量テキストを先に読み、あとで個別タスクに使う
-
-この段階の核心は次の 2 ステップです。
-
-1. まず大量のコーパスで汎用的な事前学習をする
-2. その後、具体的なタスクへ転移する
-
-これは、昔のように「タスクごとに毎回ゼロからモデルを学習する」方法より、ずっと効率的です。
-
-代表例は次のとおりです。
-
-- BERT：理解寄り
-- GPT：生成寄り
-- T5：Text-to-Text の統一フレームワーク
-
-ここでとても重要な変化が起きました。
-
-> モデルが、ますます強い「汎用言語能力」を持つようになったのです。
-
----
-
-## 七、大規模言語モデルの時代：規模が能力の飛躍を生む
-
-モデルのパラメータ数、データ量、計算資源が大幅に増えると、今日私たちが大規模言語モデル（LLM）と呼ぶものが現れました。
-
-大規模モデル時代のキーワードは次のとおりです。
-
-- より大きなパラメータ規模
-- より長い文脈
-- より強い生成能力
-- 指示追従能力
-- ツール利用能力
-
-この段階では、モデルはもはや「分類器を作るもの」ではなく、より汎用的なテキストインターフェースのようになっていきます。
-
-- コードを書く
-- 文書を要約する
-- 翻訳する
-- 質問に答える
-- 推論する
-- ツールを呼び出す
-
-### なぜ GPT-3 は「雰囲気が変わった点」だと感じられたのか？
-
-多くの人にとって GPT-3 は、単に
-
-- モデルが大きくなった
-
-というだけではありませんでした。
-
-- いくつかの能力が、単発の機能ではなく、より汎用的な言語インターフェースのように見え始めた
-
-という感覚があったのです。
-
-そのため、多くの人が初めて強く意識しました。
-
-- パラメータ規模、データ規模、学習パラダイムが重なると、  
-  「言語モデル」は、よりプラットフォームに近い能力へ育つかもしれない
-
-つまり GPT-3 は、論文上の節目というだけでなく、  
-多くの人にとっては次のような感覚的な節目でもありました。
-
-> **「本当に大規模モデル時代が始まった」と感じさせた転換点。**
-
----
-
-## 八、なぜ「大きければそれで十分」ではないのか？
-
-モデルが大きくなると能力は強くなりますが、同時に問題も出ます。
-
-- ユーザーの意図を必ずしも理解しない
-- 指示どおりに答えないことがある
-- 有害または不安定な内容を出すことがある
-
-そのため、後に「アラインメント」のための一連の技術が発展しました。
-
-- 指示微調整
-- 望ましさ学習
-- RLHF
-- 安全性アラインメント
-
-これは、次のように言えます。
-
-> モデルはまず大量の読書で賢くなり、その後、人間のフィードバックによって「協力的なアシスタントらしさ」を学ぶ。
-
-### なぜこの段階で「学習目標と製品目標は同じではない」と気づくのか？
-
-GPT-3 のあと、多くの人が次のことを目の当たりにしたからです。
-
-- モデルは強くなれる
-- でも「強い」ことが、自動的に「使いやすい」ことを意味するわけではない
-
-モデルは次のようなことがあり得ます。
-
-- 指示に従うのが十分でない
-- 安定しない
-- 人間の期待に合わない
-
-そのため、アラインメントの段階が本当に生み出したのは、単なる新しい用語ではなく、重要な業界共通認識でした。
-
-> **モデルの能力とモデルの振る舞いは、同じものではない。**
-
----
-
-## 九、なぜ今日の大規模モデルは NLP だけのものではないのか？
-
-Transformer と大規模モデルの方法は、その後ほかのモダリティにも広がったからです。
-
-- 画像
-- 音声
-- 動画
-- マルチモーダル
-
-さらに進むと、次のようなものが出てきます。
-
-- RAG
-- Agent
-- ツール呼び出し
-- マルチモーダル質問応答
-
-つまり、「大規模モデルの発展史」は NLP の小さな分岐ではなく、  
-その後の AI アプリケーション開発全体の前史だといえます。
-
----
-
-## 十、タイムラインの早見表
-
-| 段階 | 核心アイデア | 限界 |
-|---|---|---|
-| ルールベースシステム | 人がルールを書く | 汎化が弱い、保守が大変 |
-| 統計言語モデル | 頻度で次を予測する | 疎になりやすい、遠くを見られない |
-| RNN/LSTM | ニューラルネットワークで系列をモデル化する | 長距離依存がまだ難しい |
-| Transformer | Attention で全体関係を見る | 学習コストが高い |
-| 大規模言語モデル | 大規模事前学習 + アラインメント | コスト、安全性、幻覚の問題 |
-
----
-
-## まとめ
-
-この節で一番大切なのは、年号を暗記することではなく、1 本の主線を理解することです。
-
-> **言語モデルはずっと、文脈をどううまく使って言語を予測し、理解するかを解いてきた。**
-
-ルールは柔軟性が足りず、統計は深さが足りず、RNN は遠くまで届かず、Transformer がようやく大規模な言語モデリングを今日の大規模モデル時代へ押し上げました。
-
----
+- rules は control を与えたが coverage が弱い。
+- statistics は data evidence を与えたが context が短い。
+- neural representations は semantic space を作った。
+- Transformer は scale を実用化した。
+- alignment、RAG、tool calling が model を system に変えた。
 
 ## 練習
 
-1. 上の `corpus` を変更して、もっと文を追加し、`n-gram` の予測結果がどう変わるか観察してみよう。
-2. 考えてみよう：なぜ「現在の単語 -> 次の単語」だけの統計では、長い文章を理解しにくいのか？
-3. 自分の言葉で説明してみよう：Transformer は RNN に比べて、どこが強いのか。
+1. bigram corpus に 2 文を追加し、suggestion がどう変わるか見る。
+2. bigram model が長い instruction に弱い理由を説明する。
+3. Transformer が RNN より並列訓練しやすい理由を説明する。
+4. model に capability はあるが、alignment または RAG が必要な例を 1 つ挙げる。
+5. 15 段階のどれか 1 つを選び、それが今日の LLM application にどう残っているか説明する。
