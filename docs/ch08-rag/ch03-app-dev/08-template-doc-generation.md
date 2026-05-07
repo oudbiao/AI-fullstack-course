@@ -112,6 +112,12 @@ courseware = {
 print(courseware)
 ```
 
+Expected output:
+
+```text
+{'title': 'Discount Word Problem Explanation', 'target_audience': 'Upper elementary school', 'sections': [{'heading': '1. Knowledge Review', 'content_type': 'concept', 'items': ['Discount = original price × discount rate']}, {'heading': '2. Example Explanation', 'content_type': 'example', 'items': ['If an item originally costs 100 yuan and is 20% off, what is the price?']}, {'heading': '3. Classroom Practice', 'content_type': 'exercise', 'items': ['If a shirt originally costs 80 yuan and is 30% off, how much is it?']}]}
+```
+
 The most important value of this example is:
 
 - it makes clear what structure needs to be generated first
@@ -164,7 +170,7 @@ def render_body(sections):
         for item in section["items"]:
             blocks.append(f"- {item}")
         blocks.append("")
-    return "\\n".join(blocks)
+    return "\n".join(blocks)
 
 
 result = template.format(
@@ -174,6 +180,24 @@ result = template.format(
 )
 
 print(result)
+```
+
+Expected output:
+
+```text
+# Discount Word Problem Explanation
+
+Target audience: Upper elementary school
+
+1. Knowledge Review
+- Discount = original price × discount rate
+
+2. Example Explanation
+- If an item originally costs 100 yuan and is 20% off, what is the price?
+
+3. Classroom Practice
+- If a shirt originally costs 80 yuan and is 30% off, how much is it?
+
 ```
 
 This example is especially suitable for beginners because it helps you first see:
@@ -241,6 +265,12 @@ payload = to_template_payload(courseware)
 print(payload)
 ```
 
+Expected output:
+
+```text
+{'title': 'Discount Word Problem Explanation', 'target_audience': 'Upper elementary school', 'teaching_goal': 'Understand the basic calculation method for discounts', 'concept_block': '- Discount = original price × discount rate', 'example_block': '- If an item originally costs 100 yuan and is 20% off, what is the price?', 'exercise_block': '- If a shirt originally costs 80 yuan and is 30% off, how much is it?', 'source_block': 'Source: internal knowledge base + external supplemental materials'}
+```
+
 The key takeaway for beginners in this example is:
 
 - a structured object is not necessarily the same as a template object
@@ -251,6 +281,92 @@ The key takeaway for beginners in this example is:
 :::tip Reading guide
 Do not let the model directly “write Word.” First produce the courseware schema, then organize it into a template payload, and finally hand it to the docx/pptx rendering layer. This makes it much easier to separate formatting errors from content errors.
 :::
+
+## Hands-on: Validate Template Fields Before Rendering
+
+Before sending data to `python-docx`, `docxtpl`, or `python-pptx`, validate that the template payload has all required fields. This avoids generating a half-empty Word document and discovering the issue only after export.
+
+```python
+REQUIRED_FIELDS = [
+    "title",
+    "target_audience",
+    "teaching_goal",
+    "concept_block",
+    "example_block",
+    "exercise_block",
+    "source_block",
+]
+
+
+def validate_payload(payload):
+    missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
+    if missing:
+        return False, f"missing fields: {missing}"
+    return True, "ok"
+
+
+def render_markdown_handout(payload):
+    ok, message = validate_payload(payload)
+    if not ok:
+        raise ValueError(message)
+
+    return f"""# {payload['title']}
+
+Audience: {payload['target_audience']}
+Goal: {payload['teaching_goal']}
+
+## Knowledge Review
+{payload['concept_block']}
+
+## Example Explanation
+{payload['example_block']}
+
+## Classroom Practice
+{payload['exercise_block']}
+
+## Sources
+{payload['source_block']}
+"""
+
+
+payload = {
+    "title": "Discount Word Problem Explanation",
+    "target_audience": "Upper elementary school",
+    "teaching_goal": "Understand the basic calculation method for discounts",
+    "concept_block": "- Discount = original price × discount rate",
+    "example_block": "- If an item originally costs 100 yuan and is 20% off, what is the price?",
+    "exercise_block": "- If a shirt originally costs 80 yuan and is 30% off, how much is it?",
+    "source_block": "Source: internal knowledge base + external supplemental materials",
+}
+
+print(validate_payload(payload))
+print(render_markdown_handout(payload))
+```
+
+Expected output:
+
+```text
+(True, 'ok')
+# Discount Word Problem Explanation
+
+Audience: Upper elementary school
+Goal: Understand the basic calculation method for discounts
+
+## Knowledge Review
+- Discount = original price × discount rate
+
+## Example Explanation
+- If an item originally costs 100 yuan and is 20% off, what is the price?
+
+## Classroom Practice
+- If a shirt originally costs 80 yuan and is 30% off, how much is it?
+
+## Sources
+Source: internal knowledge base + external supplemental materials
+
+```
+
+This check is simple, but it is the difference between a demo and an engineering pipeline: every rendering step should fail early when required structured fields are missing.
 
 ## Why Is This Layer Closely Related to Prompt / Structured Output?
 

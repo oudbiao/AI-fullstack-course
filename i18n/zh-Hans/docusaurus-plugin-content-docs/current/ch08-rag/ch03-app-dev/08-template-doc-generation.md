@@ -51,7 +51,7 @@ flowchart LR
 - 为什么不要让模型直接“自由写一整份 Word”
 - 为什么固定模板会让生成结果更稳
 
-## 一、为什么模板化这么重要？
+## 为什么模板化这么重要？
 
 因为你的目标不是普通问答，
 而是要交付：
@@ -66,7 +66,7 @@ flowchart LR
 - 标题级别固定
 - 例题和总结位置合理
 
-## 二、一个更适合新人的总类比
+## 一个更适合新人的总类比
 
 你可以把文档生成理解成：
 
@@ -84,7 +84,7 @@ flowchart LR
 - 先定骨架
 - 再填血肉
 
-## 三、一个最小结构化课件对象示例
+## 一个最小结构化课件对象示例
 
 ```python
 courseware = {
@@ -112,6 +112,12 @@ courseware = {
 print(courseware)
 ```
 
+预期输出：
+
+```text
+{'title': '折扣应用题讲解', 'target_audience': '小学高年级', 'sections': [{'heading': '一、知识点回顾', 'content_type': 'concept', 'items': ['折扣 = 原价 × 折扣率']}, {'heading': '二、例题讲解', 'content_type': 'example', 'items': ['商品原价 100 元，打 8 折后价格是多少？']}, {'heading': '三、课堂练习', 'content_type': 'exercise', 'items': ['一件衣服原价 80 元，打 7 折后是多少元？']}]}
+```
+
 这个例子最重要的价值是：
 
 - 先把“要生成什么结构”说清楚
@@ -119,7 +125,7 @@ print(courseware)
 也就是说，模型不应该直接输出最终 `.docx`，
 而应该先输出一份结构化内容对象。
 
-## 四、一个更适合真实项目的课件 schema
+## 一个更适合真实项目的课件 schema
 
 如果你的目标是“生成符合固定格式的 Word 课件”，
 建议在最小对象上再多补两层：
@@ -143,7 +149,7 @@ print(courseware)
 - 你不是在生成“长文本”
 - 你是在生成“可被模板稳定消费的数据对象”
 
-## 五、一个最小模板填充示例
+## 一个最小模板填充示例
 
 下面这个例子不用真实 `python-docx`，
 先用最简单的字符串模板讲清楚工作流。
@@ -164,7 +170,7 @@ def render_body(sections):
         for item in section["items"]:
             blocks.append(f"- {item}")
         blocks.append("")
-    return "\\n".join(blocks)
+    return "\n".join(blocks)
 
 
 result = template.format(
@@ -176,12 +182,30 @@ result = template.format(
 print(result)
 ```
 
+预期输出：
+
+```text
+# 折扣应用题讲解
+
+适用对象：小学高年级
+
+一、知识点回顾
+- 折扣 = 原价 × 折扣率
+
+二、例题讲解
+- 商品原价 100 元，打 8 折后价格是多少？
+
+三、课堂练习
+- 一件衣服原价 80 元，打 7 折后是多少元？
+
+```
+
 这个例子特别适合初学者，因为它会帮助你先看到：
 
 - 模板化的核心不是库
 - 而是“先有结构，再套模板”
 
-## 六、模板字段应该怎么设计？
+## 模板字段应该怎么设计？
 
 第一次做这类系统时，特别推荐先把模板字段明写出来。
 
@@ -201,7 +225,7 @@ print(result)
 - 模板渲染层知道自己要填什么
 - 你后面改版时也知道是哪一层出了问题
 
-## 七、Word / PPT 真正要额外处理什么？
+## Word / PPT 真正要额外处理什么？
 
 在真实工程里，除了正文内容，你还会处理：
 
@@ -218,7 +242,7 @@ print(result)
 1. 内容结构
 2. 文档排版
 
-## 八、一个最小“结构对象 -> 模板字段”示例
+## 一个最小“结构对象 -> 模板字段”示例
 
 ```python
 def to_template_payload(courseware):
@@ -241,6 +265,12 @@ payload = to_template_payload(courseware)
 print(payload)
 ```
 
+预期输出：
+
+```text
+{'title': '折扣应用题讲解', 'target_audience': '小学高年级', 'teaching_goal': '理解折扣的基本计算方法', 'concept_block': '- 折扣 = 原价 × 折扣率', 'example_block': '- 商品原价 100 元，打 8 折后价格是多少？', 'exercise_block': '- 一件衣服原价 80 元，打 7 折后是多少元？', 'source_block': '来源：内部知识库 + 外部资料补充'}
+```
+
 这个小例子最值得新人注意的是：
 
 - 结构对象不一定等于模板对象
@@ -252,7 +282,93 @@ print(payload)
 不要让模型直接“写 Word”。先产出 courseware schema，再整理成 template payload，最后交给 docx/pptx 渲染层。这样格式错误和内容错误才容易分开排查。
 :::
 
-## 九、为什么这一层和 Prompt / 结构化输出强相关？
+## 动手做：渲染前先校验模板字段
+
+在把数据交给 `python-docx`、`docxtpl` 或 `python-pptx` 之前，先检查 template payload 是否包含所有必填字段。这样可以避免导出后才发现 Word 文档有一半是空的。
+
+```python
+REQUIRED_FIELDS = [
+    "title",
+    "target_audience",
+    "teaching_goal",
+    "concept_block",
+    "example_block",
+    "exercise_block",
+    "source_block",
+]
+
+
+def validate_payload(payload):
+    missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
+    if missing:
+        return False, f"缺少字段：{missing}"
+    return True, "ok"
+
+
+def render_markdown_handout(payload):
+    ok, message = validate_payload(payload)
+    if not ok:
+        raise ValueError(message)
+
+    return f"""# {payload['title']}
+
+适用对象：{payload['target_audience']}
+教学目标：{payload['teaching_goal']}
+
+## 知识点回顾
+{payload['concept_block']}
+
+## 例题讲解
+{payload['example_block']}
+
+## 课堂练习
+{payload['exercise_block']}
+
+## 来源说明
+{payload['source_block']}
+"""
+
+
+payload = {
+    "title": "折扣应用题讲解",
+    "target_audience": "小学高年级",
+    "teaching_goal": "理解折扣的基本计算方法",
+    "concept_block": "- 折扣 = 原价 × 折扣率",
+    "example_block": "- 商品原价 100 元，打 8 折后价格是多少？",
+    "exercise_block": "- 一件衣服原价 80 元，打 7 折后是多少元？",
+    "source_block": "来源：内部知识库 + 外部资料补充",
+}
+
+print(validate_payload(payload))
+print(render_markdown_handout(payload))
+```
+
+预期输出：
+
+```text
+(True, 'ok')
+# 折扣应用题讲解
+
+适用对象：小学高年级
+教学目标：理解折扣的基本计算方法
+
+## 知识点回顾
+- 折扣 = 原价 × 折扣率
+
+## 例题讲解
+- 商品原价 100 元，打 8 折后价格是多少？
+
+## 课堂练习
+- 一件衣服原价 80 元，打 7 折后是多少元？
+
+## 来源说明
+来源：内部知识库 + 外部资料补充
+
+```
+
+这个检查很简单，但它体现了 demo 和工程管线的区别：每个渲染步骤都应该在缺少必填结构字段时尽早失败。
+
+## 为什么这一层和 Prompt / 结构化输出强相关？
 
 因为你通常会让模型先产出：
 
@@ -267,7 +383,7 @@ print(payload)
 - [7.5.2 Prompt 基础](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
 - [7.5.4 结构化输出](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
 
-## 十、第一次做这个模块时，最稳的范围控制
+## 第一次做这个模块时，最稳的范围控制
 
 第一次做时，最稳的范围通常是：
 
@@ -282,7 +398,7 @@ print(payload)
 - 模板字段稳定
 - 导出链路稳定
 
-## 十一、一个新人可直接照抄的生成顺序
+## 一个新人可直接照抄的生成顺序
 
 第一次做这种系统时，更稳的顺序通常是：
 
@@ -293,7 +409,7 @@ print(payload)
 
 这样会比一上来直接生成 `.docx` 内容稳定很多。
 
-## 十二、实际工程里会用到哪些库？
+## 实际工程里会用到哪些库？
 
 这部分当前课程里还没有展开到具体库使用层，
 但你做项目时大概率会接触：
@@ -307,7 +423,7 @@ print(payload)
 - 先把思路讲顺
 - 具体库再去查官方文档
 
-## 十三、如果把它做成项目，最值得展示什么？
+## 如果把它做成项目，最值得展示什么？
 
 最值得展示的通常不是：
 

@@ -51,7 +51,7 @@ flowchart LR
 - なぜモデルにそのまま「自由に Word を1本書かせる」のがよくないのか
 - なぜ固定テンプレートのほうが生成結果を安定させやすいのか
 
-## 一、なぜテンプレート化がそんなに重要なのか？
+## なぜテンプレート化がそんなに重要なのか？
 
 あなたの目標は、単なる Q&A ではなく、  
 次のような成果物を納品することです。
@@ -66,7 +66,7 @@ flowchart LR
 - 見出しの階層が固定されている
 - 例題とまとめの位置が適切である
 
-## 二、初心者向けのわかりやすい例え
+## 初心者向けのわかりやすい例え
 
 文書生成は、こんな流れだと考えるとよいです。
 
@@ -86,7 +86,7 @@ flowchart LR
 - 先に骨組みを決める
 - その後で中身を埋める
 
-## 三、最小の構造化された課件オブジェクトの例
+## 最小の構造化された課件オブジェクトの例
 
 ```python
 courseware = {
@@ -114,6 +114,12 @@ courseware = {
 print(courseware)
 ```
 
+想定出力：
+
+```text
+{'title': '割引の文章題の解説', 'target_audience': '小学校高学年', 'sections': [{'heading': '一、知識ポイントの確認', 'content_type': 'concept', 'items': ['割引 = 定価 × 割引率']}, {'heading': '二、例題の解説', 'content_type': 'example', 'items': ['商品の定価が 100 円で、2割引にしたときの価格はいくらですか？']}, {'heading': '三、授業内演習', 'content_type': 'exercise', 'items': ['1着 80 円の服を 3割引にしたら、いくらですか？']}]}
+```
+
 この例でいちばん大事なのは、次の点です。
 
 - まず「何を、どんな構造で生成するか」をはっきりさせること
@@ -121,7 +127,7 @@ print(courseware)
 つまり、モデルは最終的な `.docx` を直接出力するのではなく、  
 まず構造化された内容オブジェクトを出力すべきです。
 
-## 四、実際のプロジェクトにより近い課件 schema
+## 実際のプロジェクトにより近い課件 schema
 
 目標が「決まった形式の Word 課件を生成する」ことであれば、  
 最小のオブジェクトにさらに2層ほど足すのがおすすめです。
@@ -145,7 +151,7 @@ print(courseware)
 - あなたが生成しているのは「長文」ではない
 - あなたが生成しているのは「テンプレートが安定して扱えるデータオブジェクト」である
 
-## 五、最小のテンプレート入力の例
+## 最小のテンプレート入力の例
 
 以下の例では、本物の `python-docx` は使わず、  
 いちばんシンプルな文字列テンプレートで流れを説明します。
@@ -166,7 +172,7 @@ def render_body(sections):
         for item in section["items"]:
             blocks.append(f"- {item}")
         blocks.append("")
-    return "\\n".join(blocks)
+    return "\n".join(blocks)
 
 
 result = template.format(
@@ -178,12 +184,30 @@ result = template.format(
 print(result)
 ```
 
+想定出力：
+
+```text
+# 割引の文章題の解説
+
+対象者：小学校高学年
+
+一、知識ポイントの確認
+- 割引 = 定価 × 割引率
+
+二、例題の解説
+- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？
+
+三、授業内演習
+- 1着 80 円の服を 3割引にしたら、いくらですか？
+
+```
+
 この例は初心者にとても向いています。というのも、次の点が見えやすいからです。
 
 - テンプレート化の核心はライブラリではない
 - 「先に構造を作り、それをテンプレートに当てる」ことが本質である
 
-## 六、テンプレート字段はどう設計するべきか？
+## テンプレート字段はどう設計するべきか？
 
 この種のシステムを初めて作るときは、テンプレート字段を明示的に書き出すのがおすすめです。
 
@@ -203,7 +227,7 @@ print(result)
 - テンプレートの描画層が何を埋めればよいか明確になる
 - あとで改修するときも、どの層に問題があるか分かりやすい
 
-## 七、Word / PPT では実際に何を追加で処理するのか？
+## Word / PPT では実際に何を追加で処理するのか？
 
 実際の開発では、本文だけでなく、次のようなものも扱います。
 
@@ -220,7 +244,7 @@ print(result)
 1. コンテンツの構造
 2. 文書のレイアウト
 
-## 八、最小の「構造オブジェクト -> テンプレート字段」変換例
+## 最小の「構造オブジェクト -> テンプレート字段」変換例
 
 ```python
 def to_template_payload(courseware):
@@ -243,6 +267,12 @@ payload = to_template_payload(courseware)
 print(payload)
 ```
 
+想定出力：
+
+```text
+{'title': '割引の文章題の解説', 'target_audience': '小学校高学年', 'teaching_goal': '割引の基本計算方法を理解する', 'concept_block': '- 割引 = 定価 × 割引率', 'example_block': '- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？', 'exercise_block': '- 1着 80 円の服を 3割引にしたら、いくらですか？', 'source_block': '参照元：内部ナレッジベース + 外部資料の補足'}
+```
+
 この小さな例で、初心者が特に気をつけたいのは次の点です。
 
 - 構造オブジェクトとテンプレートオブジェクトは同じとは限らない
@@ -254,7 +284,93 @@ print(payload)
 モデルに直接「Word を書かせる」のではありません。まず courseware schema を出力し、次に template payload に整理し、最後に docx/pptx の描画層へ渡します。こうすると、形式エラーと内容エラーを切り分けて調べやすくなります。
 :::
 
-## 九、なぜこの層は Prompt / 结构化出力と強く関係するのか？
+## 実践：描画前にテンプレート字段を検証する
+
+データを `python-docx`、`docxtpl`、`python-pptx` に渡す前に、template payload に必須字段がそろっているか確認します。そうすれば、出力後に Word 文書の半分が空だったと気づく事態を避けやすくなります。
+
+```python
+REQUIRED_FIELDS = [
+    "title",
+    "target_audience",
+    "teaching_goal",
+    "concept_block",
+    "example_block",
+    "exercise_block",
+    "source_block",
+]
+
+
+def validate_payload(payload):
+    missing = [field for field in REQUIRED_FIELDS if not payload.get(field)]
+    if missing:
+        return False, f"不足字段：{missing}"
+    return True, "ok"
+
+
+def render_markdown_handout(payload):
+    ok, message = validate_payload(payload)
+    if not ok:
+        raise ValueError(message)
+
+    return f"""# {payload['title']}
+
+対象者：{payload['target_audience']}
+教学目標：{payload['teaching_goal']}
+
+## 知識ポイントの確認
+{payload['concept_block']}
+
+## 例題の解説
+{payload['example_block']}
+
+## 授業内演習
+{payload['exercise_block']}
+
+## 参照元
+{payload['source_block']}
+"""
+
+
+payload = {
+    "title": "割引の文章題の解説",
+    "target_audience": "小学校高学年",
+    "teaching_goal": "割引の基本計算方法を理解する",
+    "concept_block": "- 割引 = 定価 × 割引率",
+    "example_block": "- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？",
+    "exercise_block": "- 1着 80 円の服を 3割引にしたら、いくらですか？",
+    "source_block": "参照元：内部ナレッジベース + 外部資料の補足",
+}
+
+print(validate_payload(payload))
+print(render_markdown_handout(payload))
+```
+
+想定出力：
+
+```text
+(True, 'ok')
+# 割引の文章題の解説
+
+対象者：小学校高学年
+教学目標：割引の基本計算方法を理解する
+
+## 知識ポイントの確認
+- 割引 = 定価 × 割引率
+
+## 例題の解説
+- 商品の定価が 100 円で、2割引にしたときの価格はいくらですか？
+
+## 授業内演習
+- 1着 80 円の服を 3割引にしたら、いくらですか？
+
+## 参照元
+参照元：内部ナレッジベース + 外部資料の補足
+
+```
+
+この検証は小さいですが、demo と実装パイプラインの差を表します。描画処理は、必須の構造化字段が足りないときに早い段階で失敗するべきです。
+
+## なぜこの層は Prompt / 结构化出力と強く関係するのか？
 
 通常はモデルにまず次のようなものを出力させます。
 
@@ -269,7 +385,7 @@ print(payload)
 - [7.5.2 Prompt 基礎](../../ch07-llm-principles/ch05-prompt/01-prompt-basics.md)
 - [7.5.4 構造化出力](../../ch07-llm-principles/ch05-prompt/03-structured-output.md)
 
-## 十、最初にこのモジュールを作るときの、いちばん安定した範囲
+## 最初にこのモジュールを作るときの、いちばん安定した範囲
 
 最初は、次のように範囲を絞るのが最も安定です。
 
@@ -284,7 +400,7 @@ print(payload)
 - テンプレート字段が安定している
 - 出力パイプラインが安定している
 
-## 十一、初心者がそのまま真似できる生成順序
+## 初心者がそのまま真似できる生成順序
 
 この種のシステムを初めて作るときは、次の順序がより安定です。
 
@@ -295,7 +411,7 @@ print(payload)
 
 こうすると、最初から `.docx` を直接生成するよりも、ずっと安定します。
 
-## 十二、実際の開発ではどんなライブラリを使うのか？
+## 実際の開発ではどんなライブラリを使うのか？
 
 この部分は、現時点のこのコースではまだ具体的なライブラリ使用まで詳しく扱っていません。  
 ただし、プロジェクトでは高い確率で次のライブラリに触れることになります。
@@ -309,7 +425,7 @@ print(payload)
 - まず考え方を整理する
 - 具体的なライブラリは公式ドキュメントで確認する
 
-## 十三、これをプロジェクトとして見せるなら、何を示すとよいか？
+## これをプロジェクトとして見せるなら、何を示すとよいか？
 
 本当に見せる価値が高いのは、次のようなものです。
 
