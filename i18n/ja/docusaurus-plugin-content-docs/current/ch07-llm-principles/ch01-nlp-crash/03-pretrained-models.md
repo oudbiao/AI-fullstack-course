@@ -1,141 +1,52 @@
 ---
-title: "7.1.4 事前学習済み言語モデルの概要"
+title: "7.1.4 事前学習済み言語モデルの概観"
 sidebar_position: 3
-description: "「まず大規模コーパスで汎用パターンを学び、その後で具体的なタスクへ移す」という考え方から出発し、事前学習モデルがなぜ現代の NLP と大規模モデルの共通基盤になるのかを理解します。"
-keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models]
+description: "共有 foundation の実験を通して、pretraining、transfer learning、task head、Prompt/RAG 適応、fine-tuning の選択を理解します。"
+keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models, fine-tuning]
 ---
 
-# 7.1.4 事前学習済み言語モデルの概要
+# 7.1.4 事前学習済み言語モデルの概観
 
-:::tip この節の位置づけ
-大規模モデルの時代には、「事前学習」という言葉はほぼ至るところで見かけます。  
-でも、初めて聞くと、とても曖昧な一言に感じる人が多いです。
+![転移学習の適応マップ](/img/course/ch06-transfer-learning-freeze-finetune-map-ja.png)
 
-- まず大きなデータで一度学習する
-
-もちろんそれは正しいのですが、それだけでは足りません。
-
-本当に押さえたい判断は次のとおりです。
-
-> **なぜ、みんなが毎回ゼロから NLP タスクを作らず、まず汎用の土台を学習してから、その上で転移するのか。**
-
-この授業は、その直感を一気につかむための入口です。
+:::tip 実務での判断
+事前学習済みモデルは、あなたの業務を自動で理解する魔法ではありません。再利用できる言語 foundation です。大事なのは、その foundation を最小コストで信頼できる形に適応させることです。
 :::
 
-## 学習目標
+## まずメンタルモデルを作る
 
-- 事前学習とは何か、転移とは何か、下流タスクへの適応とは何かを理解する
-- 事前学習モデルがなぜ「1つで多用途」なのかを理解する
-- encoder-only、decoder-only、encoder-decoder の大まかな違いを区別する
-- 実行可能な例を通して「共通の土台 + 異なるタスク head」という考え方を理解する
+Pretraining が一般化する前は、NLP タスクごとに別のモデルとデータ処理が必要になることが多くありました。現代の NLP は違う出発点から始まります。
 
----
+```text
+large general corpus -> pretrained foundation -> task adaptation -> product behavior
+```
 
-## 一、なぜ事前学習モデルが現代 NLP の主流になったのか？
+Foundation model は、すでに有用な言語パターンを学んでいます。多くのタスクでは次のどれかで適応します。
 
-### 多くのタスクは、実は言語能力を共有しているから
+- prompt をより安定させる。
+- RAG で不足知識を補う。
+- 小さな task head を訓練する。
+- LoRA や full update で fine-tuning する。
+- 評価と guardrail で挙動を制御する。
 
-たとえば、次のようなタスクでも：
+## Pretraining が与えるもの
 
-- 感情分類
-- 質問応答
-- 要約
-- 対話
-- 検索
+Pretraining は主に 3 つの実務的な資産を与えます。
 
-どれも共通して、いくつかの基礎能力が必要です。
+| 資産 | 意味 | 例 |
+|---|---|---|
+| 再利用できる表現 | テキストが有用な hidden states に写る | classification、ranking、retrieval |
+| 再利用できる生成能力 | 文章を続ける、変換する | chat、writing、code generation |
+| 再利用できる言語 prior | 文法、よくあるパターン、高頻度事実 | 下流データが少なくて済む |
 
-- 単語の意味理解
-- 構文関係
-- 文脈モデリング
-- 常識や言語パターン
+ただし、知識が最新であること、業務ポリシーが正しいこと、安全な挙動は保証されません。そこにはデータ、検索、評価、デプロイ時の制御が必要です。
 
-もし毎回、これらの能力をゼロから学ばせると、  
-コストが非常に高くなります。
+## 実験：共有 foundation + 2 つの task head
 
-### 事前学習の核心となる考え方
-
-そこで、まず最初にやることが次の1つです。
-
-- 大量の汎用コーパスで基盤モデルを学習する
-
-すると、そのモデルは先に次のようなものを身につけます。
-
-- 一般的な言語規則
-- 汎用的な表現
-- 基礎知識の分布
-
-そのあとで、具体的なタスクへ転移させます。
-
-これは、たとえば：
-
-- まず一般教養の教材をひと通り学ぶ
-- そのあとで特定科目の演習をする
-
-という流れに似ています。
-
-### なぜこれが「各タスクを最初から学習する」よりずっと良いのか？
-
-それは、毎回言語そのものを学び直さなくてよいからです。  
-下流タスクでは、すでにある土台の上で次のことを行えばよくなります。
-
-- タスク head の学習
-- 微調整
-- Prompt による適応
-- 検索強化
-
-これにより、学習のハードルが大きく下がります。
-
----
-
-## 二、事前学習モデルは私たちに何を与えてくれるのか？
-
-### 「ある程度、言語がわかる」土台を与えてくれる
-
-ランダムに初期化されたモデルは、最初は何も知りません。  
-一方、事前学習モデルは少なくとも次のようなものを学習済みです。
-
-- 文法パターン
-- 連語関係
-- 頻出する事実
-- よくあるタスク形式
-
-つまり、下流タスクが完全な白紙から始まらなくなります。
-
-### 再利用できる表現を与えてくれる
-
-事前学習モデルの価値は、「答えられる」ことだけではありません。  
-それ以上に、良い hidden 表現を出力できる点にあります。
-
-この表現は下流タスクで次の用途に使えます。
-
-- 分類
-- 検索
-- マッチング
-- ランキング
-
-### 転移学習を可能にしてくれる
-
-転移学習の核心は次の通りです。
-
-> **大きなタスクで汎用能力を学び、小さなタスクでは少しだけ適応する。**
-
-だからこそ、事前学習モデルが登場してから、  
-NLP 全体の流れが大きく変わりました。
-
----
-
-## 三、まずは「共通の土台 + 2つのタスク head」の例を動かしてみよう
-
-次のコードは、実際の大規模モデルを学習するものではありません。  
-でも、事前学習モデルの最も重要な構造イメージはつかめます。
-
-- 共有される encoder がある
-- encoder が汎用表現を学ぶ
-- その上に、タスクごとに別々の head を載せる
+この玩具例は本物の LLM を訓練しません。ただし構造は示します。1 つの共有 encoder と、2 つの異なる head です。
 
 ```python
-from math import sqrt
+from math import exp
 
 word_vectors = {
     "refund": [0.9, 0.8, 0.1],
@@ -159,12 +70,11 @@ def dot(a, b):
 
 
 def softmax(scores):
-    exps = [2.71828 ** s for s in scores]
+    exps = [exp(score) for score in scores]
     total = sum(exps)
-    return [x / total for x in exps]
+    return [value / total for value in exps]
 
 
-# 同じ土台に、2つの異なるタスク head を載せる
 intent_head = {
     "refund_intent": [1.0, 0.9, 0.1],
     "password_intent": [0.1, 0.2, 1.0],
@@ -180,194 +90,82 @@ def classify(vector, head):
     labels = list(head.keys())
     scores = [dot(vector, head[label]) for label in labels]
     probs = softmax(scores)
-    best = max(zip(labels, probs), key=lambda x: x[1])
-    return best, dict(zip(labels, [round(p, 3) for p in probs]))
+    best = max(zip(labels, probs), key=lambda item: item[1])
+    rounded = dict(zip(labels, [round(prob, 3) for prob in probs]))
+    return best, rounded
 
 
-text_a = "refund order"
-text_b = "reset password"
-text_c = "great refund"
-text_d = "bad refund"
-
-for text in [text_a, text_b]:
-    vec = encode(text)
-    best, probs = classify(vec, intent_head)
+for text in ["refund order", "reset password"]:
+    vector = encode(text)
+    best, probs = classify(vector, intent_head)
     print("intent:", text, "->", best, probs)
 
-for text in [text_c, text_d]:
-    vec = encode(text)
-    best, probs = classify(vec, sentiment_head)
+for text in ["great refund", "bad refund"]:
+    vector = encode(text)
+    best, probs = classify(vector, sentiment_head)
     print("sentiment:", text, "->", best, probs)
 ```
 
-### このコードは、実際のどんな考え方に対応しているのか？
+期待される出力：
 
-これは、事前学習時代における最重要ワークフローの1つに対応しています。
+```text
+intent: refund order -> ('refund_intent', 0.7604230019887309) {'refund_intent': 0.76, 'password_intent': 0.24}
+intent: reset password -> ('password_intent', 0.654188113761243) {'refund_intent': 0.346, 'password_intent': 0.654}
+sentiment: great refund -> ('positive', 0.5793242521487495) {'positive': 0.579, 'negative': 0.421}
+sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'negative': 0.536}
+```
 
-1. まず共有される言語の土台を持つ
-2. その土台を異なるタスクで再利用する
-3. 上に別の head を載せるか、少しだけ適応する
+読み方：
 
-だからこそ、1つの事前学習モデルをたくさんのタスクに使えるのです。
+- `encode()` が共有 foundation。
+- `intent_head` と `sentiment_head` が task-specific adapter。
+- foundation は再利用され、最後の判断層だけが変わる。
+- 実際のモデルでは、手書き vector ではなく、百万から数千億規模の学習済み parameter が使われる。
 
-### なぜ「毎回、単語ベクトルを学び直す」より強いのか？
+## 主なモデルファミリー
 
-土台がすでに多くの汎用情報を学習しているからです。  
-下流タスクは、次のようなことをゼロから理解し直す必要がありません。
+| ファミリー | 典型的な情報の流れ | 得意 | 例 |
+|---|---|---|---|
+| Encoder-only | 入力を双方向に読む | classification、extraction、matching、embeddings | BERT 系 |
+| Decoder-only | causal に next token を予測 | chat、completion、code、tool use | GPT/LLaMA/Qwen 系 |
+| Encoder-decoder | 入力を読んでから出力を生成 | translation、summarization、structured generation | T5/BART 系 |
 
-- `refund` はおそらくアフターサービスに関係する
-- `reset password` はおそらくログイン問題に関係する
+これは最初のフィルタであって、絶対ルールではありません。現代のシステムは retrieval、tools、serving constraints と組み合わせて設計されます。
 
-その代わり、土台の上で目的に合った写像を追加すればよいのです。
+## 適応方法を選ぶ
 
-### 実際の世界での「head」とは何か？
+| 状況 | まず試すこと | 理由 |
+|---|---|---|
+| モデルがタスク形式をほぼ理解している | prompt 改善 | 反復が最速 |
+| 答えが private / fresh knowledge に依存する | RAG | 重みを変えずに知識を更新できる |
+| 安定した label や score が必要 | task head / classifier | 安く、評価しやすい |
+| style や domain behavior を変えたい | LoRA / PEFT | 管理しやすいコストで挙動を変える |
+| 高度に特殊で、データも強い | full fine-tuning | 最大の柔軟性。ただし高リスク高コスト |
 
-実世界のモデルでは、たとえば次のようなものになります。
+これは信念ではなくエンジニアリング判断です。評価を通る最小の変更を選びます。
 
-- 分類層
-- 生成 head
-- 検索用の投影層
-- token-level の予測 head
+## よくある失敗モード
 
-考え方はどれも同じです。
-
-- 土台は共有する
-- タスク head は分ける
-
----
-
-## 四、事前学習モデルには、どんな系統があるのか？
-
-### Encoder-only：理解と表現に強い
-
-代表例：
-
-- BERT
-
-この系統は、たとえば次のタスクに向いています。
-
-- 分類
-- 抽出
-- マッチング
-- 検索用エンコード
-
-### Decoder-only：生成に強い
-
-代表例：
-
-- GPT
-- LLaMA
-- Qwen
-
-この系統は、たとえば次のタスクに向いています。
-
-- 対話
-- 文章作成
-- コード生成
-- 自由形式の補完
-
-### Encoder-Decoder：「入力から出力へ」のタスクに向いている
-
-代表例：
-
-- T5
-- BART
-
-この系統は、たとえば次のタスクに自然に向いています。
-
-- 要約
-- 翻訳
-- 言い換え
-- 質問応答生成
-
----
-
-## 五、事前学習モデルのあと、どうやってタスクへ適応するのか？
-
-### 線形プローブ / タスク head の微調整
-
-もっとも軽い方法は次の通りです。
-
-- 土台を凍結する
-- 上の head だけ学習する
-
-これは小さなタスクでよく使われます。
-
-### 全体微調整
-
-モデル全体を一緒に更新します。  
-利点は柔軟なこと、欠点はコストが高いことです。
-
-### パラメータ効率の高い微調整
-
-たとえば：
-
-- LoRA
-- Adapter
-
-これは大規模モデル時代に非常に重要な手法です。  
-「大きな土台の上でタスクに適応する」ためのハードルを、かなり下げてくれます。
-
-### Prompt と RAG
-
-必ずしも、すべてのタスクでモデルのパラメータを変える必要はありません。  
-多くの問題は、次の方法でも解けます。
-
-- Prompt
-- RAG
-- ツール呼び出し
-
-つまり、事前学習モデルの価値は「微調整できるモデルをくれる」ことだけではなく、  
-「再利用できる土台をくれる」ことにもあります。
-
----
-
-## 六、最もよくある誤解
-
-### 誤解1：事前学習モデルは何でも知っている
-
-強い土台はありますが、次の意味ではありません。
-
-- 知識が常に最新
-- 振る舞いが必ず安定
-- すぐに自分の業務へ完璧に適応できる
-
-### 誤解2：事前学習モデルを使えば、データを気にしなくてよい
-
-それは違います。  
-微調整でも評価でも、最後の精度はデータ品質に大きく左右されます。
-
-### 誤解3：モデルが大きければ、必ず今のタスクに最適
-
-タスクが単純な場合もありますし、  
-コストがとても重要な場合もあります。  
-そのときは、大規模モデルが最適とは限りません。
-
----
-
-## まとめ
-
-この節で最も大切なのは、モデル名をたくさん覚えることではありません。  
-現代 NLP の核心となる判断を持つことです。
-
-> **事前学習モデルの価値は、大規模コーパスで汎用の言語土台を先に学び、その土台を多くの異なるタスクへ転移できる点にある。**
-
-この主線が一度わかれば、  
-このあと学ぶ次の内容も、ずっと理解しやすくなります。
-
-- 微調整
-- Prompt
-- RAG
-- Agent
-
-どれも「毎回ゼロから作る」のではなく、  
-「すでにある土台を活かす」ものだとわかるようになります。
-
----
+- **Pretraining data mismatch:** 一般言語は学んでいても、あなたの業務ポリシーを知っているとは限らない。
+- **Stale knowledge:** 最近の事実を知らないことがある。
+- **Contamination:** 評価データやテストデータに似たものが訓練コーパスに入っていることがある。
+- **Over-adaptation:** fine-tuning で一部は良くなり、別の能力が落ちることがある。
+- **Evaluation gaps:** デモ prompt は良くても、境界ケースで失敗することがある。
 
 ## 練習
 
-1. 自分の言葉で説明してみましょう：なぜ事前学習モデルは複数の異なるタスクで再利用できるのですか？
-2. 例を参考にして、共有土台に新しい task head を追加してみましょう。たとえば「トピック分類」です。
-3. なぜ「事前学習モデルは土台を与えるものであり、すべてのタスクを自動で解決する万能ボタンではない」と言えるのでしょうか？
-4. 考えてみましょう：もしタスクデータがとても少ないなら、事前学習モデルがゼロから学習するより有利な点は何でしょうか？
+1. 実験に `topic_head` を追加し、`account_topic` と `commerce_topic` を分類する。
+2. `bad` の vector を変えると sentiment confidence はどう変わるか。
+3. private policy を持つ support bot なら、prompt、RAG、task head、fine-tuning のどれから始めるか。理由も書く。
+4. 本番で pretrained model を信頼する前に、どの 2 つのチェックを行うか。
+5. 「大きいモデル」と「今のタスクに合うモデル」が同じではない理由を説明する。
+
+## まとめ
+
+Pretraining はワークフローを変えます。
+
+```text
+do not relearn language every time -> reuse a foundation -> adapt with evidence
+```
+
+このパターンが見えると、Prompt、RAG、fine-tuning、alignment、Agent はすべて、同じ再利用可能な foundation を別の方法で制御する技術として理解できます。

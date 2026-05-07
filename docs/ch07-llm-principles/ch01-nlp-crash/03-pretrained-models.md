@@ -1,139 +1,52 @@
 ---
 title: "7.1.4 Pretrained Language Models at a Glance"
 sidebar_position: 3
-description: "Start from the idea of “learn general patterns on large-scale corpora first, then transfer to specific tasks,” and understand why pretrained models have become the shared foundation of modern NLP and large models."
-keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models]
+description: "Use a runnable shared-foundation example to understand pretraining, transfer learning, task heads, prompt/RAG adaptation, and fine-tuning choices."
+keywords: [pretrained models, transfer learning, BERT, GPT, T5, foundation models, fine-tuning]
 ---
 
 # 7.1.4 Pretrained Language Models at a Glance
 
-:::tip Section Overview
-In the era of large models, the word “pretraining” appears almost everywhere.
-But when many beginners hear it for the first time, they understand it as a very vague idea:
+![Transfer learning adaptation map](/img/course/ch06-transfer-learning-freeze-finetune-map-en.png)
 
-- First learn once on big data
-
-That is of course correct, but not enough.
-
-The real judgment to build is:
-
-> **Why do people no longer start from scratch for every NLP task, but instead first train a general-purpose foundation and then transfer from it?**
-
-This lesson is a quick entry into that intuition.
+:::tip One Practical Judgment
+A pretrained model is not a magic model that knows your business. It is a reusable language foundation. Your job is to decide the cheapest reliable way to adapt that foundation to the task.
 :::
 
-## Learning Objectives
+## The Mental Model
 
-- Understand what pretraining means, and what transfer and downstream adaptation mean
-- Understand why pretrained models can be used for “many tasks with one model”
-- Distinguish the broad directions of encoder-only, decoder-only, and encoder-decoder models
-- Understand the idea of “shared foundation + different task heads” through a runnable example
+Before pretraining became common, every NLP task often needed its own model and data pipeline. Modern NLP starts differently:
 
----
+```text
+large general corpus -> pretrained foundation -> task adaptation -> product behavior
+```
 
-## Why Have Pretrained Models Become the Mainstream in Modern NLP?
+The foundation has already learned useful language patterns. Your task usually needs one of these adaptations:
 
-### Because Many Tasks Essentially Share Language Ability
+- prompt the model better;
+- retrieve missing knowledge with RAG;
+- train a small task head;
+- fine-tune with LoRA or full updates;
+- evaluate and guardrail the behavior.
 
-Whether you are doing:
+## What Pretraining Gives You
 
-- sentiment classification
-- question answering
-- summarization
-- dialogue
-- retrieval
+Pretraining usually gives three practical assets:
 
-they all rely on some common fundamentals:
+| Asset | What it means | Example use |
+|---|---|---|
+| reusable representations | text already maps to useful hidden states | classification, ranking, retrieval |
+| reusable generation ability | the model can continue or transform text | chat, writing, code generation |
+| reusable language priors | grammar, common patterns, frequent facts | fewer examples needed downstream |
 
-- word meaning understanding
-- syntactic relationships
-- context modeling
-- common sense and language patterns
+It does not guarantee current knowledge, correct business policy, or safe behavior. Those still need data, retrieval, evaluation, and deployment controls.
 
-If every task had to learn these abilities from scratch,
-the cost would be very high.
+## Lab: Shared Foundation + Two Task Heads
 
-### The Core Idea of Pretraining
-
-So people began by doing one thing first:
-
-- train a base model on massive general-purpose corpora
-
-Let it first learn:
-
-- general language regularities
-- general representations
-- basic knowledge distribution
-
-Then transfer it to specific tasks.
-
-It is like:
-
-- first reading most general education textbooks
-- then doing specialized training for specific subjects
-
-### Why Is This Much Better Than “Training Each Task from Scratch”?
-
-Because you do not need to relearn language itself every time.
-Downstream tasks only need to do the following on top of an existing foundation:
-
-- task head training
-- fine-tuning
-- Prompt adaptation
-- retrieval augmentation
-
-This greatly lowers the barrier.
-
----
-
-## What Do Pretrained Models Actually Give Us?
-
-### A Foundation That “Already Knows a Bit of Language”
-
-A model initialized from random weights knows nothing at the beginning.
-A pretrained model, however, has at least learned some of the following:
-
-- grammar patterns
-- collocation relationships
-- high-frequency facts
-- common task formats
-
-This means downstream tasks are no longer starting from complete zero.
-
-### Reusable Representations
-
-What makes many pretrained models so valuable is not just that they “can answer,”
-but that they can output a set of relatively good hidden representations.
-
-These representations can be used by downstream tasks for:
-
-- classification
-- retrieval
-- matching
-- ranking
-
-### The Possibility of Transfer Learning
-
-The core of transfer learning is:
-
-> **Learn general abilities on large tasks, and adapt with little effort on smaller tasks.**
-
-This is also why, once pretrained models appeared,
-the entire NLP workflow was rewritten.
-
----
-
-## First Run a “Shared Foundation + Two Task Heads” Example
-
-The code below does not train a real large model,
-but it captures the most important structural intuition of pretrained models:
-
-- there is a shared encoder
-- the encoder learns general representations
-- different tasks attach different heads on top of it
+This toy example does not train a real LLM. It shows the structure: one shared encoder, two different heads.
 
 ```python
-from math import sqrt
+from math import exp
 
 word_vectors = {
     "refund": [0.9, 0.8, 0.1],
@@ -157,12 +70,11 @@ def dot(a, b):
 
 
 def softmax(scores):
-    exps = [2.71828 ** s for s in scores]
+    exps = [exp(score) for score in scores]
     total = sum(exps)
-    return [x / total for x in exps]
+    return [value / total for value in exps]
 
 
-# Same foundation, two different task heads
 intent_head = {
     "refund_intent": [1.0, 0.9, 0.1],
     "password_intent": [0.1, 0.2, 1.0],
@@ -178,193 +90,82 @@ def classify(vector, head):
     labels = list(head.keys())
     scores = [dot(vector, head[label]) for label in labels]
     probs = softmax(scores)
-    best = max(zip(labels, probs), key=lambda x: x[1])
-    return best, dict(zip(labels, [round(p, 3) for p in probs]))
+    best = max(zip(labels, probs), key=lambda item: item[1])
+    rounded = dict(zip(labels, [round(prob, 3) for prob in probs]))
+    return best, rounded
 
 
-text_a = "refund order"
-text_b = "reset password"
-text_c = "great refund"
-text_d = "bad refund"
-
-for text in [text_a, text_b]:
-    vec = encode(text)
-    best, probs = classify(vec, intent_head)
+for text in ["refund order", "reset password"]:
+    vector = encode(text)
+    best, probs = classify(vector, intent_head)
     print("intent:", text, "->", best, probs)
 
-for text in [text_c, text_d]:
-    vec = encode(text)
-    best, probs = classify(vec, sentiment_head)
+for text in ["great refund", "bad refund"]:
+    vector = encode(text)
+    best, probs = classify(vector, sentiment_head)
     print("sentiment:", text, "->", best, probs)
 ```
 
-### What Real Idea Does This Code Correspond To?
+Expected output:
 
-It corresponds to one of the most important workflows in the pretraining era:
+```text
+intent: refund order -> ('refund_intent', 0.7604230019887309) {'refund_intent': 0.76, 'password_intent': 0.24}
+intent: reset password -> ('password_intent', 0.654188113761243) {'refund_intent': 0.346, 'password_intent': 0.654}
+sentiment: great refund -> ('positive', 0.5793242521487495) {'positive': 0.579, 'negative': 0.421}
+sentiment: bad refund -> ('negative', 0.5361866202317948) {'positive': 0.464, 'negative': 0.536}
+```
 
-1. first have a shared language foundation
-2. reuse this foundation across different tasks
-3. replace only the head on top, or do a small amount of adaptation
+Read it like this:
 
-This is why one pretrained model can be used for many tasks.
+- `encode()` is the shared foundation.
+- `intent_head` and `sentiment_head` are task-specific adapters.
+- The foundation is reused; only the final decision layer changes.
+- Real models do this with millions or billions of learned parameters instead of hand-written vectors.
 
-### Why Is This Better Than “Relearning Word Vectors for Every Task”?
+## Main Model Families
 
-Because the foundation has already learned a lot of general information.
-Downstream tasks do not need to start from scratch to understand:
+| Family | Typical mask / flow | Strong at | Examples |
+|---|---|---|---|
+| Encoder-only | reads input bidirectionally | classification, extraction, matching, embeddings | BERT-style models |
+| Decoder-only | predicts next token causally | chat, completion, code, tool use | GPT/LLaMA/Qwen-style models |
+| Encoder-decoder | reads input, then generates output | translation, summarization, structured generation | T5/BART-style models |
 
-- `refund` is probably related to after-sales service
-- `reset password` is probably related to login problems
+Use this as a first filter, not a final rule. Modern systems often combine families with retrieval, tools, and serving constraints.
 
-They only need to perform a directed mapping on top of the foundation.
+## Choose an Adaptation Path
 
-### What Would a “Head” Be in the Real World?
+| Situation | Usually try first | Why |
+|---|---|---|
+| model already knows the task format | prompt improvement | fastest iteration |
+| answer depends on private or fresh knowledge | RAG | update knowledge without changing weights |
+| you need a stable label or score | task head / classifier | cheaper and easier to evaluate |
+| style or domain behavior must shift | LoRA / PEFT | changes behavior with manageable cost |
+| task is deeply specialized and data is strong | full fine-tuning | maximum flexibility, highest risk/cost |
 
-In a real model, it might be:
+The decision is engineering, not ideology. Choose the smallest change that passes evaluation.
 
-- a classification layer
-- a generation head
-- a retrieval projection layer
-- a token-level prediction head
+## Common Failure Modes
 
-The idea is always the same:
-
-- shared foundation
-- specialized task heads
-
----
-
-## What Are the Main Pretrained Model Directions?
-
-### Encoder-only: More Focused on Understanding and Representation
-
-Representative models:
-
-- BERT
-
-These models are usually more suitable for:
-
-- classification
-- extraction
-- matching
-- retrieval encoding
-
-### Decoder-only: More Focused on Generation
-
-Representative models:
-
-- GPT
-- LLaMA
-- Qwen
-
-These models are usually more suitable for:
-
-- dialogue
-- writing
-- code generation
-- open-ended completion
-
-### Encoder-Decoder: Better for Input-to-Output Tasks
-
-Representative models:
-
-- T5
-- BART
-
-These models are naturally suitable for:
-
-- summarization
-- translation
-- paraphrasing
-- answer generation
-
----
-
-## After Pretraining, How Else Can We Adapt to Tasks?
-
-### Linear Probing / Task-Head Fine-Tuning
-
-The lightest approach is:
-
-- freeze the foundation
-- train only the top head
-
-This is very common for small tasks.
-
-### Full Fine-Tuning
-
-Let the entire model update together.
-The advantage is flexibility, but the disadvantage is high cost.
-
-### Parameter-Efficient Fine-Tuning
-
-For example:
-
-- LoRA
-- Adapter
-
-This is a very important direction in the large-model era,
-because it greatly lowers the barrier to adapting a task on a large foundation.
-
-### Prompt and RAG
-
-Not every task needs the model parameters to be changed.
-Many problems can also be solved through:
-
-- Prompt
-- RAG
-- tool calling
-
-So the value of pretrained models is not just “giving you a model that can be fine-tuned,”
-but also “giving you a reusable foundation.”
-
----
-
-## The Most Common Misunderstandings
-
-### Misunderstanding 1: Pretrained Models Know Everything
-
-They have a strong foundation, but that does not mean:
-
-- their knowledge is always up to date
-- their behavior is always stable
-- they are perfectly adapted to your business right away
-
-### Misunderstanding 2: Once You Use a Pretrained Model, You No Longer Need to Care About Data
-
-That is not true.
-Whether you are fine-tuning or evaluating, data quality still determines the final result.
-
-### Misunderstanding 3: As Long as the Model Is Bigger, It Must Be Better Than a Smaller Model for the Current Task
-
-Sometimes the task is very simple,
-or the cost is highly sensitive,
-and a large model is not necessarily the best solution.
-
----
-
-## Summary
-
-The most important thing in this lesson is not to memorize how many model names there are,
-but to build a core modern NLP judgment:
-
-> **The value of pretrained models lies in first learning a general language foundation from large corpora, and then transferring that foundation to many different tasks.**
-
-Once this main line is established,
-when you later learn:
-
-- fine-tuning
-- Prompt
-- RAG
-- Agent
-
-you will better understand that you are “using an existing foundation,” rather than starting from scratch every time.
-
----
+- **Pretraining data mismatch:** the model learned broad language, not your exact policy.
+- **Stale knowledge:** the model may not know recent facts.
+- **Contamination:** benchmark or test data may appear in training-like corpora.
+- **Over-adaptation:** fine-tuning can improve one behavior while damaging others.
+- **Evaluation gaps:** a demo prompt can look good while edge cases fail.
 
 ## Exercises
 
-1. Explain in your own words: why can a pretrained model be reused for multiple different tasks?
-2. Referring to the example, add a new task head to the shared foundation, such as “topic classification.”
-3. Why do we say a pretrained model provides a foundation, not a magic button that automatically solves every task?
-4. Think about it: if your task data is very limited, what is the biggest advantage of a pretrained model compared with training from scratch?
+1. Add a `topic_head` to the lab with labels `account_topic` and `commerce_topic`.
+2. Change the vector for `bad`. How does sentiment confidence change?
+3. For a support bot with private policies, would you start with prompt, RAG, task head, or fine-tuning? Explain.
+4. List two checks you would run before trusting a pretrained model in production.
+5. Explain why “bigger model” and “better task fit” are not the same thing.
+
+## Summary
+
+Pretraining changes the workflow:
+
+```text
+do not relearn language every time -> reuse a foundation -> adapt with evidence
+```
+
+Once you see that pattern, prompt engineering, RAG, fine-tuning, alignment, and agents all become different ways to steer the same reusable foundation.
