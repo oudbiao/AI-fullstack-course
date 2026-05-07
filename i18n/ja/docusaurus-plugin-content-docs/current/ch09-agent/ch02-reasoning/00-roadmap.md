@@ -1,80 +1,64 @@
 ---
-title: "9.2.1 学習ガイド：この章の推理と計画では何を学ぶのか"
+title: "9.2.1 Reasoning ロードマップ：Plan、Act、Check"
 sidebar_position: 0
-description: "まずは推理と計画の学習マップを作ろう。チェーン・オブ・ソート、ReAct、Plan-and-Execute、そして計画の評価が、どうつながって Agent の思考の流れになるのかを整理する。"
-keywords: [Agent推理ガイド, ReAct, Plan-and-Execute, 計画]
+description: "Agent reasoning と planning の短い実践ロードマップ：中間手順を作り、行動を選び、進捗を監視し、失敗を評価する。"
+keywords: [Agent reasoning guide, ReAct, Plan-and-Execute, planning]
 ---
 
-# 9.2.1 学習ガイド：この章の推理と計画では何を学ぶのか
+# 9.2.1 Reasoning ロードマップ：Plan、Act、Check
 
-この章で解決したいのは、次のことです。
+Agent reasoning は長い回答ではありません。使える中間手順を作り、次に何をするか決め、計画がまだ有効か確認する力です。
 
-> **Agent は、複雑なタスクをどう分解し、考え、前に進めるのか。**
+## 9.2.1.1 まず planning loop を見る
 
-## まずは橋渡しの線を作ろう
+![Agent reasoning and planning 章の学習順序図](/img/course/ch09-reasoning-chapter-flow-ja.png)
 
-もしあなたが Agent の基礎を学び終えたばかりなら、この章で最初にしっかり見ておきたいのは次の1点です。
+![Plan execute monitor replan map](/img/course/ch09-plan-execute-monitor-replan-map-ja.png)
 
-- Agent が普通のワークフローと違うのは、ツールが増えたからだけではない
-- いちばん大事なのは、次に何をするか、どの順番で進めるかを自分で決め始めること
+![Reasoning state checkpoint map](/img/course/ch09-reasoning-state-checkpoint-map-ja.png)
 
-だから、この章で本当に大切なのは「推理の用語が増えること」ではなく、次のことです。
+基本習慣は、1 step を計画し、実行し、結果を観察し、state checkpoint を残し、状況が変われば replan することです。
 
-> **Agent を「能力を呼び出せる」状態から、「行動を組み立てられる」状態へ進めること。**
+## 9.2.1.2 Plan checklist を動かす
 
-## この章の主な流れ
+tools を追加する前に、明示的な steps を作ります。print できない plan は inspect しにくいです。
 
-![Agent 推理と計画の章の学習順序図](/img/course/ch09-reasoning-chapter-flow-ja.png)
+```python
+task = "prepare a cited RAG demo answer"
+plan = ["inspect question", "retrieve sources", "draft answer", "check citations"]
 
-## この章は、初心者におすすめの順番で読むと理解しやすい
+print("task:", task)
+for index, step in enumerate(plan, start=1):
+    print(f"{index}. {step}")
+print("checkpoint:", plan[-1])
+```
 
-1. まず LLM の推理能力を見る  
-   まずは「答えを知っていること」と「答えを導き出すこと」の違いをはっきりさせる。
+出力：
 
-2. 次にチェーン・オブ・ソートを見る  
-   複数ステップの途中状態に意味があることを押さえる。
+```text
+task: prepare a cited RAG demo answer
+1. inspect question
+2. retrieve sources
+3. draft answer
+4. check citations
+checkpoint: check citations
+```
 
-3. そのあとで ReAct と Plan-and-Execute を見る  
-   ここで、なぜ Agent が「考える」と「動く」を交互に行うのかがわかりやすくなる。
+良い planning は見えるものです。失敗を見つけやすくし、最後の文章の裏に隠さないようにします。
 
-4. 最後に複雑な計画と推理の評価を見る  
-   「推理が良いかどうかは、最後の1文だけでは判断できない」という見方を身につける。
+## 9.2.1.3 この順番で学ぶ
 
-## この章でまずつかむべきこと
-
-- 推理とは「答えが長いこと」ではなく、中間状態が安定していること
-- Agent の推理とツール操作は、互いに入り交じっている
-- この章は、これからの計画、ツールの振り分け、エラー復旧の見方を決める
-
-## 初心者と上級学習者はどう読むか
-
-初心者がこの章を初めて学ぶときは、まず主な流れと、最小で動く例に集中しましょう。すべての細かい部分を一度に理解する必要はありません。この章が何を解決するのか、入力と出力は何か、最小プロジェクトをどう動かすのかが説明できれば、先へ進んで大丈夫です。
-
-経験のある学習者は、この章を「抜け漏れの確認」と「実践的な練習」として読むとよいです。境界条件、失敗例、評価方法、コードの再現性、そして前後の章とのつながりに注目しましょう。読み終えたら、この章の内容を自分の作品の README や実験記録にまとめておくのがおすすめです。
-
-## 学習時間と難易度の目安
-
-| 学習方法 | 目安時間 | 目標 |
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| ざっと読む | 20～30 分 | この章が何を解決するのかを理解し、あとでどこで使うかを知る |
-| 最小通過 | 1～2 時間 | 最小例を動かし、本章の小プロジェクトの出口まで終える |
-| じっくり練習 | 半日～1 日 | エラー分析、比較実験、またはプロジェクト README の記録を補う |
+| 1 | LLM reasoning | 答えを知ることと、道筋を導くことを区別する |
+| 2 | Chain reasoning | 中間 state と self-check point を作る |
+| 3 | ReAct | thought、action、observation、next step を交互に行う |
+| 4 | Plan-and-Execute | タスクが大きいとき planning と execution を分ける |
+| 5 | Advanced planning | dependency、priority、rollback、replan を扱う |
+| 6 | Reasoning evaluation | final result、path quality、failure type を採点する |
 
-## 本章の理解チェック
+## 9.2.1.4 合格ライン
 
-| 自己チェック項目 | 合格基準 |
-|---|---|
-| この章は何を解決するの？ | 1文で、コース全体の中での位置づけを説明できる |
-| 最小の入力と出力は何？ | 例に何を入力し、どんな結果が出るのかを説明できる |
-| よくある失敗点はどこ？ | 少なくとも1つ、エラー・性能の悪さ・理解のずれの原因を挙げられる |
-| 学んだ後に何を残せる？ | 本章の成果をプロジェクト README、実験記録、または作品集に書ける |
+計画の失敗理由を、分解不足、tool 選択ミス、古い observation、checkpoint 不足、弱い最終検証として説明できれば、この章は合格です。
 
-## 本章の小プロジェクトの出口
-
-この章を学び終えたら、最小の練習として、章の中でいちばん重要な概念かツールを1つ選び、実行できて、スクリーンショットを残せて、README に書ける小さな成果を作るのがおすすめです。複雑である必要はありませんが、入力、処理の流れ、出力結果が説明できることが大切です。
-
-## 合格ライン
-
-この章の終わりでは、自分の言葉で「この章は何を解決するのか」「前後の学習ステップとどうつながるのか」を説明でき、さらに本章の小プロジェクトの出口にある最小版を完成できるようになっているはずです。
-
-さらに、よくあるエラーを1回記録し、デバッグの流れを1回まとめ、結果の改善を1回残せるなら、ただ「内容を見た」だけではなく、この章を自分のプロジェクト経験にできていると言えます。
+出口ミニプロジェクトは、1 つの task に対する見える reasoning trace です：plan steps、observations、replans、final answer を残します。

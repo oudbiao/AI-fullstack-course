@@ -1,81 +1,64 @@
 ---
-title: "9.5.1 学前导读：MCP 这一章到底在学什么"
+title: "9.5.1 MCP 路线图：Server、Client、能力"
 sidebar_position: 0
-description: "先建立 MCP 章节的学习地图：协议定位、Server、Client、工具资源提示词和生态集成怎样让 Agent 能力连接更统一。"
-keywords: [MCP导读, Model Context Protocol, Agent工具生态, MCP Server]
+description: "MCP 的简短实操路线：理解协议层、Server/Client 职责、tools、resources、prompts 和安全生态集成。"
+keywords: [MCP 指南, Model Context Protocol, Agent 工具体系, MCP Server]
 ---
 
-# 9.5.1 学前导读：MCP 这一章到底在学什么
+# 9.5.1 MCP 路线图：Server、Client、能力
 
-这一章解决的是：当工具、数据源和外部能力越来越多时，怎样用统一协议把它们更稳定地接入 Agent 和大模型应用。
+MCP 是一种协议层，用更标准的方式把工具、资源和 Prompt 模板连接到模型应用。它不替代 Agent，也不替代工具本身，而是让能力更容易稳定暴露和使用。
 
-在前面的工具章节里，你已经知道 Agent 可以调用函数、API、检索系统和代码工具。但如果每个工具都用完全不同的接入方式，系统会很快变得难维护。MCP 这一章要帮助你理解：协议层为什么重要，以及它怎样让模型应用更容易连接外部上下文和能力。
-
-## 这一章在整个课程里的位置
-
-你已经学过 Agent 工具调用和记忆系统。工具调用让 Agent 能执行动作，记忆系统让 Agent 能延续上下文。MCP 则进一步回答：这些工具、资源和上下文能不能用更统一的方式暴露给模型应用。
-
-可以把 MCP 理解成一种连接层。它不是替代 Agent，也不是替代工具本身，而是让不同工具和数据源用更标准的方式被发现、描述、调用和组合。
+## 9.5.1.1 先看 MCP 边界
 
 ![MCP Host Client Server 架构图](/img/course/mcp-host-client-server.png)
 
-## 这一章真正要解决的问题
-
-这一章要回答五个问题：MCP 在大模型应用架构中处于哪一层；MCP Server 和 Client 分别负责什么；工具、资源、提示词模板这些能力如何被暴露；为什么协议化能降低集成复杂度；MCP 生态如何影响未来 Agent 应用开发方式。
-
-新人最容易误解的是：MCP 是某个具体工具或框架。更准确地说，它是一种协议和生态思路，重点不是某个单一功能，而是让模型应用连接外部能力时更标准、更可组合、更容易复用。
-
-## 新人推荐学习顺序
-
-建议先学 MCP 的概念和定位，知道它解决的是连接和标准化问题。然后看架构，分清 MCP Client、MCP Server、工具、资源和协议消息的角色。接着学习 Server 开发，理解如何把一个外部能力包装成可被调用的服务。再看 Client 集成，理解模型应用如何发现和使用这些能力。最后看 MCP 生态，知道它为什么会和 Agent、IDE、知识库、浏览器、数据库等场景结合。
-
 ![MCP 章节学习顺序图](/img/course/ch09-mcp-chapter-flow.png)
-
-## 学这一章时要抓住的主线
-
-这一章的主线可以概括为：MCP 把外部能力包装成模型应用可以统一发现和调用的上下文接口。
 
 ![MCP 能力接入桥接图](/img/course/ch09-mcp-capability-bridge.png)
 
-看懂这条线后，你会知道 MCP 与 Function Calling 的关系：Function Calling 更关注模型如何发起结构化调用，MCP 更关注外部工具和上下文如何以统一协议接入应用。
+Function Calling 更关注结构化调用；MCP 更关注外部能力如何通过协议被发现、描述、调用和治理。
 
-## 这一章和后面章节的关系
+## 9.5.1.2 跑一个能力注册检查
 
-MCP 会直接影响多 Agent、评估安全和部署。多个 Agent 如果共享工具生态，需要更清晰的能力边界；安全章节需要考虑 MCP Server 的权限、数据暴露和调用审计；部署章节需要考虑 MCP 服务的运行、认证、日志和故障处理。
+实现真实 MCP Server 之前，先列出它暴露什么，以及 Client 可以调用什么。
 
-如果这一章没学稳，后面常见的问题是：把 MCP 当成普通 API 调用；不知道 Server 和 Client 的职责边界；工具描述混乱导致模型误用；权限和资源暴露没有边界；生态集成很多但缺乏统一架构视角。
+```python
+server = {
+    "tools": ["search_docs"],
+    "resources": ["course://ch09-agent"],
+    "prompts": ["study_plan"],
+}
 
-## 新人和进阶学习者怎么读
+client_request = "search_docs"
 
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
+print("server_ready:", all(server.values()))
+print("can_call:", client_request in server["tools"])
+print("boundary:", "server exposes, client calls")
+```
 
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
+预期输出：
 
-## 学习时间与难度建议
+```text
+server_ready: True
+can_call: True
+boundary: server exposes, client calls
+```
 
-| 学习方式 | 建议投入 | 目标 |
+边界模糊，权限和调试也会模糊。
+
+## 9.5.1.3 按这个顺序学
+
+| 步骤 | 阅读 | 实操产出 |
 |---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
+| 1 | MCP 概念 | 解释为什么协议层能减少集成混乱 |
+| 2 | MCP 架构 | 区分 Host、Client、Server、tools、resources、prompts |
+| 3 | Server 开发 | 用清晰输入、输出和错误包装一个能力 |
+| 4 | Client 集成 | 安全发现并调用 Server 能力 |
+| 5 | 生态 | 把 MCP 和 IDE、数据库、浏览器、知识库、Agent 连接起来 |
 
-## 本章自测问题
+## 9.5.1.4 通过标准
 
-| 自测问题 | 通过标准 |
-|---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
+如果你能画出 Host-Client-Server 关系，并解释 Server 暴露什么、Client 调用什么、权限在哪里检查，就通过了本章。
 
-## 本章小项目出口
-
-学完这一章后，建议做一个“课程资料 MCP Server”设计或原型。它可以暴露课程文档检索工具、章节资源读取接口和常用学习计划提示词模板，让 Agent 能通过统一方式访问课程资料。
-
-项目重点是画清楚架构：MCP Server 提供哪些工具和资源，Client 如何连接，Agent 什么时候调用，返回结果如何进入下一步决策。
-
-## 过关标准
-
-这一章结束时，你应该能解释 MCP 为什么出现，能区分 MCP Client 和 MCP Server，能说明工具、资源和提示词模板在 MCP 中的大致作用，能画出一个 MCP 接入 Agent 的最小架构图。
-
-如果你能把一个已有 API 或本地资料库设计成 MCP Server，并说明权限、输入参数、返回结果和失败处理，就说明你已经掌握了 MCP 的入门应用方式。
+本章出口小项目是一个课程资料 MCP Server 设计：一个搜索工具、一个资源 URI 模式、一个 Prompt 模板和一条失败处理规则。

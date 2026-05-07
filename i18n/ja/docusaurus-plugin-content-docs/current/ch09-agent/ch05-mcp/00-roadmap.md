@@ -1,81 +1,64 @@
 ---
-title: "9.5.1 学習ガイド：この章で学ぶ MCP とは何か"
+title: "9.5.1 MCP ロードマップ：Server、Client、Capability"
 sidebar_position: 0
-description: "まずは MCP 章の学習マップを作ろう：プロトコルの位置づけ、Server、Client、ツール、リソース、Prompt、そしてエコシステム統合がどのように Agent の能力をより統一的につなぐのか。"
-keywords: [MCPガイド, Model Context Protocol, Agentツールエコシステム, MCP Server]
+description: "MCP の短い実践ロードマップ：protocol layer、Server/Client の責務、tools、resources、prompts、安全な ecosystem integration を理解する。"
+keywords: [MCP guide, Model Context Protocol, Agent tool ecosystem, MCP Server]
 ---
 
-# 9.5.1 学習ガイド：この章で学ぶ MCP とは何か
+# 9.5.1 MCP ロードマップ：Server、Client、Capability
 
-この章で解決したいのは、ツール、データソース、外部機能がどんどん増えていく中で、それらをどうやって統一されたプロトコルで、より安定して Agent や大規模モデルアプリケーションに接続するか、ということです。
+MCP は、tools、resources、prompt templates をより標準的に model applications へ接続する protocol layer です。Agent や tools を置き換えるものではなく、capabilities を一貫して expose/use しやすくします。
 
-これまでのツールの章で、Agent は関数、API、検索システム、コードツールを呼び出せることを学びました。しかし、各ツールの接続方法がバラバラだと、システムはすぐに保守しにくくなります。MCP の章では、プロトコル層がなぜ重要なのか、そしてそれがモデルアプリケーションに外部の文脈や機能をより簡単につなげるようにする理由を理解していきます。
+## 9.5.1.1 まず MCP boundary を見る
 
-## この章がカリキュラム全体で占める位置
-
-あなたはすでに Agent のツール呼び出しと記憶システムを学んでいます。ツール呼び出しは Agent に動作を実行させ、記憶システムは Agent に文脈を継続させます。MCP はさらに一歩進んで、こう問いかけます。これらのツール、リソース、文脈を、もっと統一的な方法でモデルアプリケーションに公開できないだろうか。
-
-MCP は接続層の一種として理解できます。Agent を置き換えるものでも、ツールそのものを置き換えるものでもありません。異なるツールやデータソースを、より標準的な方法で発見し、説明し、呼び出し、組み合わせられるようにするものです。
-
-![MCP Host Client Server アーキテクチャ図](/img/course/mcp-host-client-server-ja.png)
-
-## この章が本当に解決する問題
-
-この章では、次の 5 つの問いに答えます。MCP は大規模モデルアプリケーションのアーキテクチャのどの層にあるのか。MCP Server と Client はそれぞれ何を担当するのか。ツール、リソース、Prompt テンプレートといった機能はどう公開されるのか。なぜプロトコル化すると統合の複雑さを下げられるのか。MCP のエコシステムは今後の Agent アプリ開発にどう影響するのか。
-
-初心者がもっとも誤解しやすいのは、MCP を何か特定のツールやフレームワークだと思ってしまうことです。より正確には、MCP はプロトコルとエコシステムの考え方です。大事なのは単一の機能ではなく、モデルアプリケーションが外部機能につながるときに、より標準的で、組み合わせやすく、再利用しやすくすることです。
-
-## 初心者におすすめの学習順序
-
-まずは MCP の概念と位置づけを学び、MCP が解決するのは接続と標準化の問題だと理解しましょう。次にアーキテクチャを見て、MCP Client、MCP Server、ツール、リソース、プロトコルメッセージの役割を区別します。その後で Server 開発を学び、外部機能をどのように呼び出し可能なサービスとして包むのかを理解します。続いて Client 統合を学び、モデルアプリケーションがそれらの機能をどのように発見し利用するのかを理解します。最後に MCP のエコシステムを見て、なぜそれが Agent、IDE、知識ベース、ブラウザ、データベースなどの場面と結びつくのかを押さえます。
+![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-ja.png)
 
 ![MCP 章の学習順序図](/img/course/ch09-mcp-chapter-flow-ja.png)
 
-## この章を学ぶときに押さえるべき主線
+![MCP capability access bridge diagram](/img/course/ch09-mcp-capability-bridge-ja.png)
 
-この章の主線は、MCP が外部機能を、モデルアプリケーションが統一的に発見し呼び出せる文脈インターフェースとして包み込む、ということです。
+Function Calling は structured calls に注目します。MCP は external capabilities が protocol を通じて discovered、described、called、governed される方法に注目します。
 
-![MCP 能力接続ブリッジ図](/img/course/ch09-mcp-capability-bridge-ja.png)
+## 9.5.1.2 Capability registry check を動かす
 
-この流れが理解できると、MCP と Function Calling の関係も見えてきます。Function Calling はモデルが構造化された呼び出しをどう行うかにより注目し、MCP は外部ツールと文脈をどう統一プロトコルでアプリに接続するかにより注目します。
+本物の MCP Server を実装する前に、何を expose し、Client が何を call できるか列挙します。
 
-## この章と後続章の関係
+```python
+server = {
+    "tools": ["search_docs"],
+    "resources": ["course://ch09-agent"],
+    "prompts": ["study_plan"],
+}
 
-MCP はマルチ Agent、評価、安全性、デプロイにも直接影響します。複数の Agent がツールエコシステムを共有する場合、より明確な能力の境界が必要になります。安全性の章では、MCP Server の権限、データ公開、呼び出し監査を考慮する必要があります。デプロイの章では、MCP サービスの実行、認証、ログ、障害対応を考える必要があります。
+client_request = "search_docs"
 
-この章をしっかり理解していないと、後でよくある問題が起こります。MCP を普通の API 呼び出しだと思ってしまう、Server と Client の責務の境界が分からない、ツール説明が乱れてモデルが誤用する、権限やリソース公開に境界がない、エコシステム統合は多いのに統一されたアーキテクチャ視点がない、などです。
+print("server_ready:", all(server.values()))
+print("can_call:", client_request in server["tools"])
+print("boundary:", "server exposes, client calls")
+```
 
-## 初心者と上級学習者はどう読むべきか
+出力：
 
-初心者がこの章を初めて学ぶときは、まず主線と最小実行例をつかみましょう。すべての詳細を一度に理解する必要はありません。この章が何を解決するのか、入出力は何か、最小プロジェクトをどう動かすのかを説明できれば、次へ進めます。
+```text
+server_ready: True
+can_call: True
+boundary: server exposes, client calls
+```
 
-経験のある学習者は、この章を穴埋めと実践的な練習として使えます。境界条件、失敗例、評価方法、コードの再現性、そして前後の段階とのつながりに注目しましょう。読み終わったら、本章の内容を自分の作品の README や実験記録に残すのがおすすめです。
+boundary が曖昧だと、permissions と debugging も曖昧になります。
 
-## 学習時間と難易度の目安
+## 9.5.1.3 この順番で学ぶ
 
-| 学習方法 | 推奨時間 | 目標 |
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| ざっと読む | 20〜30 分 | この章が何を解決するのかを理解し、後でどこで使うかを知る |
-| 最小通過 | 1〜2 時間 | 最小例を動かし、本章の小プロジェクトを完成させる |
-| 深掘り演習 | 半日〜1 日 | エラー分析、比較実験、またはプロジェクト README の記録を補う |
+| 1 | MCP concept | protocol layer が integration の混乱を減らす理由を説明する |
+| 2 | MCP architecture | Host、Client、Server、tools、resources、prompts を区別する |
+| 3 | Server development | 1 つの capability を明確な input、output、errors で包む |
+| 4 | Client integration | Server capabilities を安全に discover/call する |
+| 5 | Ecosystem | MCP を IDE、database、browser、knowledge base、Agent につなげる |
 
-## この章の自己チェック問題
+## 9.5.1.4 合格ライン
 
-| 自己チェック問題 | 合格基準 |
-|---|---|
-| この章は何を解決する？ | 1 文で、この章がカリキュラム全体のどこにあるか説明できる |
-| 最小の入出力は何？ | 例に何が必要で、どんな結果が出るか説明できる |
-| よくある失敗点はどこ？ | 少なくとも 1 つ、エラー、効果不良、理解のズレの原因を挙げられる |
-| 学び終えた後に何を残せる？ | この章の成果をプロジェクト README、実験記録、ポートフォリオに書ける |
+Host-Client-Server 関係を描き、Server が何を expose し、Client が何を call し、permissions がどこで checked されるか説明できれば、この章は合格です。
 
-## この章の小プロジェクト出口
-
-この章を学び終えたら、「コース資料 MCP Server」の設計またはプロトタイプを作るのがおすすめです。コース文書の検索ツール、章リソースの読み取りインターフェース、よく使う学習計画 Prompt テンプレートを公開し、Agent が統一された方法でコース資料にアクセスできるようにします。
-
-プロジェクトで大事なのは、アーキテクチャをはっきり描くことです。MCP Server がどのツールとリソースを提供するのか、Client がどう接続するのか、Agent はいつ呼び出すのか、返却結果は次の意思決定にどう入るのか、を整理しましょう。
-
-## 合格基準
-
-この章の終わりには、MCP がなぜ生まれたのかを説明でき、MCP Client と MCP Server を区別でき、ツール、リソース、Prompt テンプレートが MCP の中で果たす大まかな役割を説明でき、MCP を Agent に接続する最小アーキテクチャ図を描けるようになっているはずです。
-
-すでにある API やローカル資料ベースを MCP Server として設計し、権限、入力パラメータ、返却結果、失敗時の処理を説明できれば、MCP の入門的な使い方を身につけたと言えます。
+出口ミニプロジェクトは course-materials MCP Server design です：1 つの search tool、1 つの resource URI pattern、1 つの prompt template、1 つの failure-handling rule を含めます。
