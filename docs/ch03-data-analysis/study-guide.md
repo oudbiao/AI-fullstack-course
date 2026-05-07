@@ -9,7 +9,7 @@ keywords: [data analysis study guide, data analysis task sheet, NumPy, Pandas, v
 
 Use this page as the control panel for Chapter 3. Your goal is not to memorize every Pandas method. Your goal is to turn raw data into a conclusion that someone can trust.
 
-## 3.0.1 Study This Stage in Order
+## 3.0.1 Recommended Learning Order
 
 ![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-vertical-en.png)
 
@@ -42,7 +42,7 @@ Do not draw charts first. First understand the fields, units, missing values, an
 
 When an API feels hard to remember, translate it back to the workflow step: read, inspect, clean, transform, visualize, or explain.
 
-## 3.0.3 Minimum Task Sheet
+## 3.0.3 Tasks You Must Complete in This Stage
 
 | Task | Deliverable | Pass criteria |
 |---|---|---|
@@ -78,7 +78,7 @@ A chart without a question is decoration. A chart with a question becomes eviden
 | `report.md` | You can turn analysis into conclusions and limits. |
 | `ch03_output/` | You completed the follow-along reproducible pipeline. |
 
-## 3.0.6 Stage Checkpoint
+## 3.0.6 Stage Completion Questions
 
 Before moving to Chapter 4, check that you can answer these questions:
 
