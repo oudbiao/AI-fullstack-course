@@ -1,410 +1,276 @@
 ---
-title: "6.2.7 Training Workflow 🔧"
+title: "6.2.7 Training Loop"
 sidebar_position: 5
-description: "Connect the model, loss function, optimizer, and DataLoader to write a complete, runnable PyTorch training loop."
-keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
+description: "Connect Dataset, DataLoader, nn.Module, loss, optimizer, train/eval mode, device handling, validation, best checkpoint, and prediction."
+keywords: [training loop, optimizer, loss, model.train, model.eval, checkpoint, PyTorch]
 ---
 
-# 6.2.7 Training Workflow
+# 6.2.7 Training Loop
 
-![PyTorch training loop diagram](/img/course/pytorch-training-loop-en.png)
+:::tip Section Overview
+This is the PyTorch workflow page where the pieces become one loop: batch, forward, loss, clear gradients, backward, update, validate, keep the best model, and predict.
+:::
 
 ## Learning Goals
 
-- Understand and write a standard PyTorch training loop
-- Know the order of `train()`, `eval()`, `zero_grad()`, `backward()`, and `step()`
-- Be able to complete training, validation, and prediction for a small task
-- Build a reusable training template
+- Write a complete PyTorch training loop.
+- Use `model.train()`, `model.eval()`, `torch.no_grad()`, and device transfer correctly.
+- Compute average train/validation loss by sample count.
+- Keep the best validation checkpoint in memory.
+- Run prediction after training.
 
 ---
 
-## First, build a map
+## Look at the Loop Anatomy
 
-The best way for beginners to understand this training-loop section is not to “memorize a template,” but to first see clearly what training is repeating:
+![PyTorch training loop diagram](/img/course/ch06-hands-on-training-loop-anatomy-en.png)
 
-```mermaid
-flowchart LR
-    A["Get a batch"] --> B["Model forward prediction"]
-    B --> C["Compute loss"]
-    C --> D["Backpropagate gradients"]
-    D --> E["Optimizer updates parameters"]
-    E --> F["Move to the next batch"]
+The training rhythm is:
+
+```text
+batch -> forward -> loss -> zero_grad -> backward -> optimizer.step -> repeat
 ```
 
-These five steps loop continuously. That is the core rhythm of deep learning training.
+Validation uses a different rhythm:
 
-## How this section connects with Station 5 and the earlier PyTorch lessons
-
-If you’ve come all the way here from Station 5, you can understand it like this:
-
-- In Station 5, `fit()` already wrapped the training process for you
-- In this section, you start writing the training process yourself, step by step
-
-If you’re connecting this with the earlier PyTorch lessons, you can also think about it this way:
-
-- `Tensor` solves “where the data lives”
-- `Autograd` solves “where gradients come from”
-- `nn.Module` solves “how the network is organized”
-- `DataLoader` solves “how data is split into batches and fed in”
-- And this section is responsible for stitching all of that into a real training process that runs
-
-## Why is the training loop important?
-
-In deep learning code, the most valuable thing to practice again and again is not one specific layer, but the **training loop**.
-
-Because no matter whether you are doing:
-
-- image classification
-- text classification
-- object detection
-- large model fine-tuning
-
-the main training flow always follows this line:
-
-```mermaid
-flowchart LR
-    A["Get a batch"] --> B["Forward computation"]
-    B --> C["Compute loss"]
-    C --> D["Clear old gradients"]
-    D --> E["Backpropagation"]
-    E --> F["Optimizer updates parameters"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#ffebee,stroke:#c62828,color:#333
-    style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style E fill:#fffde7,stroke:#f9a825,color:#333
-    style F fill:#e8f5e9,stroke:#2e7d32,color:#333
+```text
+eval mode -> no_grad -> forward -> loss/metrics -> no update
 ```
 
-### Why is practicing the training loop more worthwhile than memorizing a network structure first?
+## Why This Loop Matters
 
-Because network structures change:
+`sklearn.fit()` hides most of the training process. PyTorch exposes it because deep learning projects often need custom models, custom losses, custom batch logic, GPU control, logging, and checkpointing.
 
-- CNNs change
-- RNNs change
-- Transformers change
+The same backbone appears in:
 
-But the basic training loop stays stable for a long time.
-So this section is very valuable: it helps you grasp the part of deep learning that is least likely to become outdated.
+- image classification;
+- text classification;
+- object detection;
+- fine-tuning;
+- RAG reranker training;
+- multimodal models.
 
----
+Architecture changes, but this loop stays recognizable.
 
-## First, memorize the standard template
+## Complete Runnable Training Script
 
-Don’t rush to memorize it yet. Read it a few times first:
+This script trains a tiny regression model on synthetic data:
+
+```text
+y ~= 3*x1 + 2*x2 + 5
+```
+
+It includes device handling, train/validation split, average loss, best checkpoint, and final prediction.
 
 ```python
-for batch_x, batch_y in train_loader:
-    pred = model(batch_x)
-    loss = loss_fn(pred, batch_y)
+import copy
 
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-```
-
-It actually does only three things:
-
-1. Compute predictions
-2. Compute error
-3. Update parameters based on the error
-
-### The shortest chant a beginner should memorize first
-
-If your training loop gets messy every time you write it, remember this shortest chant:
-
-`forward -> compute loss -> clear gradients -> backprop -> update`
-
-As long as this line flows smoothly, adding validation, logging, and early stopping later is not hard.
-
-### Why can’t this order be changed?
-
-Because each step depends on the result of the previous one:
-
-- Without forward computation, there are no predictions
-- Without predictions, there is no loss
-- Without loss, `backward()` cannot happen
-- If you don’t clear old gradients, new gradients will mix with the old ones
-
-So the training loop is not just “a few APIs put together,” but a causal chain with a strict order.
-
-![PyTorch training loop order guardrail diagram](/img/course/ch06-training-loop-order-guardrail-en.png)
-
-:::tip Reading hint
-It’s a good idea to compare this diagram every time you write a training loop: `model.train()`, get batch, forward, loss, `zero_grad()`, `backward()`, `step()`. In the validation stage, switch to `model.eval()` and `torch.no_grad()` so validation does not record gradients.
-:::
-
----
-
-## A complete runnable example
-
-:::info Runtime environment
-The code below can run directly:
-
-```bash
-pip install torch
-```
-:::
-
-We will build a 2D regression task.
-The input has two features, and the target follows an approximate relationship:
-
-> `y ≈ 3*x1 + 2*x2 + 5`
-
-```python
 import torch
 from torch import nn
-from torch.utils.data import TensorDataset, DataLoader, random_split
+from torch.utils.data import DataLoader, TensorDataset, random_split
 
 torch.manual_seed(42)
 
-# 1. Create a simulation dataset that can run directly
-X = torch.randn(200, 2)
-noise = torch.randn(200, 1) * 0.3
+# 1. Build a small synthetic dataset
+X = torch.randn(240, 2)
+noise = torch.randn(240, 1) * 0.3
 y = 3 * X[:, [0]] + 2 * X[:, [1]] + 5 + noise
 
 dataset = TensorDataset(X, y)
 train_dataset, val_dataset = random_split(
     dataset,
-    [160, 40],
-    generator=torch.Generator().manual_seed(42)
+    [192, 48],
+    generator=torch.Generator().manual_seed(42),
 )
 
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=40, shuffle=False)
-
-# 2. Define the model
-model = nn.Sequential(
-    nn.Linear(2, 8),
-    nn.ReLU(),
-    nn.Linear(8, 1)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=32,
+    shuffle=True,
+    generator=torch.Generator().manual_seed(7),
 )
+val_loader = DataLoader(val_dataset, batch_size=48, shuffle=False)
 
-# 3. Define the loss function and optimizer
+# 2. Select device
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
+
+
+class Regressor(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+
+model = Regressor().to(device)
 loss_fn = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.05)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
 
-# 4. Train
-for epoch in range(1, 101):
-    model.train()
-    train_loss_sum = 0.0
 
-    for batch_x, batch_y in train_loader:
-        pred = model(batch_x)
-        loss = loss_fn(pred, batch_y)
+def run_epoch(loader, train):
+    if train:
+        model.train()
+    else:
+        model.eval()
 
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+    total_loss = 0.0
+    context = torch.enable_grad() if train else torch.no_grad()
 
-        train_loss_sum += loss.item() * len(batch_x)
+    with context:
+        for batch_x, batch_y in loader:
+            batch_x = batch_x.to(device)
+            batch_y = batch_y.to(device)
 
-    train_loss = train_loss_sum / len(train_dataset)
-
-    # 5. Validate
-    model.eval()
-    with torch.no_grad():
-        val_loss_sum = 0.0
-        for batch_x, batch_y in val_loader:
             pred = model(batch_x)
             loss = loss_fn(pred, batch_y)
-            val_loss_sum += loss.item() * len(batch_x)
-        val_loss = val_loss_sum / len(val_dataset)
 
-    if epoch % 20 == 0 or epoch == 1:
-        print(f"epoch={epoch:3d}, train_loss={train_loss:.4f}, val_loss={val_loss:.4f}")
+            if train:
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
 
-# 6. Test prediction
-test_x = torch.tensor([[1.0, 2.0], [-1.0, 0.5], [0.0, 0.0]])
+            total_loss += loss.item() * len(batch_x)
+
+    return total_loss / len(loader.dataset)
+
+
+best_val = float("inf")
+best_state = None
+
+print("training_loop_lab")
+for epoch in range(1, 81):
+    train_loss = run_epoch(train_loader, train=True)
+    val_loss = run_epoch(val_loader, train=False)
+
+    if val_loss < best_val:
+        best_val = val_loss
+        best_state = copy.deepcopy(model.state_dict())
+
+    if epoch == 1 or epoch % 20 == 0:
+        print(
+            f"epoch={epoch:3d} "
+            f"train_loss={train_loss:.4f} "
+            f"val_loss={val_loss:.4f}"
+        )
+
+model.load_state_dict(best_state)
+model.eval()
+
+test_x = torch.tensor([[1.0, 2.0], [-1.0, 0.5], [0.0, 0.0]], device=device)
 with torch.no_grad():
-    test_pred = model(test_x)
+    preds = model(test_x).cpu()
 
-print("\nPredictions on test samples:")
-for x_row, y_row in zip(test_x, test_pred):
-    print(f"x={x_row.tolist()} -> pred={round(y_row.item(), 2)}")
+print("best_val:", round(best_val, 4))
+print("predictions:")
+for row, pred in zip(test_x.cpu(), preds):
+    print(f"x={row.tolist()} -> pred={pred.item():.2f}")
 ```
 
----
-
-## Step-by-step breakdown of this code
-
-### `model.train()`
-
-Tells the model to enter training mode.
-If the model has layers like `Dropout` or `BatchNorm`, they switch to training behavior.
-
-### `pred = model(batch_x)`
-
-Forward pass.
-In other words, “make a prediction using the current parameters.”
-
-### `loss = loss_fn(pred, batch_y)`
-
-Tell the model: “How far are you from the true answer this time?”
-
-### `optimizer.zero_grad()`
-
-Clear old gradients.
-This is because PyTorch accumulates gradients by default.
-
-### `loss.backward()`
-
-Backpropagation.
-Computes the gradients of the loss with respect to each parameter.
-
-### `optimizer.step()`
-
-Actually update the parameters based on the gradients.
-
-### When beginners write this for the first time, what step is most likely to be missed?
-
-The two most common omissions are:
-
-- forgetting `optimizer.zero_grad()`
-- forgetting `model.eval()` and `torch.no_grad()` during validation
-
-Both problems can make training look “weird,” but not necessarily fail immediately with an error.
-
-### A more beginner-friendly “training checklist” for each epoch
-
-You can mentally run through this small table each epoch:
-
-| Step | What should I check? |
-|---|---|
-| Forward | Are the input shapes correct? Are the output shapes correct? |
-| loss | Do the outputs and labels match properly? |
-| zero_grad | Were the old gradients cleared? |
-| backward | Were gradients actually computed? |
-| step | Were the parameters actually updated? |
-
-This checklist is very helpful for debugging, because many training bugs happen in these five places.
-
----
-
-## Why do validation use `eval()` and `no_grad()`?
-
-The goal of validation is not learning, but checking model performance.
-
-So we usually write this:
+Expected output:
 
 ```text
-model.eval()
-with torch.no_grad():
-    # validation / inference code goes here
+training_loop_lab
+epoch=  1 train_loss=34.8472 val_loss=25.3358
+epoch= 20 train_loss=0.1022 val_loss=0.0856
+epoch= 40 train_loss=0.0950 val_loss=0.0776
+epoch= 60 train_loss=0.0972 val_loss=0.0760
+epoch= 80 train_loss=0.0936 val_loss=0.0776
+best_val: 0.0734
+predictions:
+x=[1.0, 2.0] -> pred=12.05
+x=[-1.0, 0.5] -> pred=3.00
+x=[0.0, 0.0] -> pred=4.98
 ```
 
-There are two reasons:
+The true noiseless values are `12`, `3`, and `5`, so the predictions are close.
 
-- `eval()`: switch certain layers into inference mode
-- `no_grad()`: do not record gradients, saving memory and time
+## Step-by-Step Breakdown
 
-### In the early learning stage, how important is it to separate training mode from validation mode?
+| Step | Code | Why it exists |
+|---|---|---|
+| device | `model.to(device)`, `batch_x.to(device)` | model and data must live on the same device |
+| mode | `model.train()` / `model.eval()` | Dropout and BatchNorm behave differently by mode |
+| forward | `pred = model(batch_x)` | current parameters make predictions |
+| loss | `loss_fn(pred, batch_y)` | measure error |
+| clear | `optimizer.zero_grad()` | remove old accumulated gradients |
+| backward | `loss.backward()` | compute gradients |
+| update | `optimizer.step()` | change parameters |
+| validation | `torch.no_grad()` | evaluate without recording gradients |
+| checkpoint | `copy.deepcopy(model.state_dict())` | keep the best weights, not a reference to changing weights |
 
-This is easy to overlook because many tiny examples show no obvious problem.
-But from this section on, you should develop a stable habit:
+The `copy.deepcopy` detail is important. If you write `best_state = model.state_dict()` directly, you may keep references to tensors that continue changing.
 
-- Before training: `model.train()`
-- Before validation: `model.eval()`
-- During validation: `with torch.no_grad():`
+## Why Average Loss by Sample Count?
 
-Because later, once you encounter:
+Inside each batch, `loss.item()` is already an average for that batch. If the last batch is smaller, a simple average of batch losses can be slightly biased.
 
-- Dropout
-- BatchNorm
-- larger models
-
-if training mode and validation mode are not clearly separated, things will become increasingly error-prone.
-
----
-
-## A more memorable “kitchen-style analogy”
-
-Thinking of training as running a restaurant is easy to remember:
-
-| Deep learning step | Restaurant analogy |
-|---|---|
-| `batch_x` | A batch of customer orders |
-| `model(batch_x)` | The chef cooks using the current method |
-| `loss_fn` | Customers give a rating |
-| `backward()` | Figure out what was done poorly |
-| `step()` | Adjust the cooking method next time |
-
-Training is repeated service, repeated improvement.
-
----
-
-## Common variations
-
-### Classification tasks
-
-Regression often uses `MSELoss()`, while classification more commonly uses:
+This is why the script uses:
 
 ```python
-loss_fn = nn.CrossEntropyLoss()
+total_loss += loss.item() * len(batch_x)
+average_loss = total_loss / len(loader.dataset)
 ```
 
-### Different optimizers
+That gives a per-sample average across the whole dataset.
 
-The two most common ones are:
+## Common Variations
 
-- `SGD`
-- `Adam`
+| Task | Output | Common loss |
+|---|---|---|
+| regression | `[batch, 1]` | `nn.MSELoss()` or `nn.L1Loss()` |
+| multi-class classification | `[batch, classes]` logits | `nn.CrossEntropyLoss()` |
+| binary classification | `[batch, 1]` logits | `nn.BCEWithLogitsLoss()` |
 
-For beginners, `Adam` is often a little easier to work with.
+For classification, track metrics in addition to loss:
 
-### Metrics
+- accuracy;
+- precision/recall/F1 for imbalanced data;
+- confusion matrix when classes are easy to confuse.
 
-In addition to loss, training often also tracks:
+## Debugging Checklist
 
-- accuracy
-- precision
-- recall
-- F1
+When training behaves strangely, check in this order:
 
----
+1. One batch shape: does `batch_x` match the first layer?
+2. Label shape and dtype: does `batch_y` match the loss function?
+3. Device: are model and data on the same device?
+4. Loss value: is it finite, or `nan` / `inf`?
+5. Gradients: are important parameters getting non-`None` gradients?
+6. Updates: do parameters actually change after `optimizer.step()`?
+7. Validation: did you use `model.eval()` and `torch.no_grad()`?
 
-## The easiest places to make mistakes
+Useful probes:
 
-### Forgetting `zero_grad()`
+```python
+print(batch_x.shape, batch_y.shape)
+print(batch_x.device, next(model.parameters()).device)
+print("loss:", loss.item())
+for name, param in model.named_parameters():
+    if param.grad is not None:
+        print(name, param.grad.norm().item())
+        break
+```
 
-Consequence: gradients keep accumulating, and the training result becomes unreliable.
-
-### Forgetting `model.eval()` during validation
-
-Some layers behave differently in training and validation modes, which affects results.
-
-### Computing gradients during validation too
-
-Even if it runs, it wastes memory and compute.
-
-### Mixing up `loss.item()` and `loss`
-
-- `loss` is a tensor and can participate in backpropagation
-- `loss.item()` is a normal Python number, suitable for printing and statistics
-
-### Only watching loss and ignoring the relationship between training and validation
-
-Another common beginner mistake is:
-
-- seeing training loss go down and assuming everything is fine
-
-But a more reliable judgment should be:
-
-- Is training loss going down?
-- Is validation loss improving at the same time?
-- Are the two starting to diverge?
-
-This is actually preparing you for diagnosing overfitting later.
-
----
-
-## A general skeleton you can save
+## Saveable Skeleton
 
 ```python
 for epoch in range(num_epochs):
     model.train()
     for batch_x, batch_y in train_loader:
+        batch_x = batch_x.to(device)
+        batch_y = batch_y.to(device)
+
         pred = model(batch_x)
         loss = loss_fn(pred, batch_y)
 
@@ -415,38 +281,24 @@ for epoch in range(num_epochs):
     model.eval()
     with torch.no_grad():
         for batch_x, batch_y in val_loader:
+            batch_x = batch_x.to(device)
+            batch_y = batch_y.to(device)
             pred = model(batch_x)
             val_loss = loss_fn(pred, batch_y)
 ```
 
-From now on, whenever you see any PyTorch project, you should be able to recognize this main line.
-
----
-
-## Summary
-
-If you only remember one sentence from this section, let it be:
-
-> **A training loop is “compute forward once, update backward once, and repeat many times.”**
-
-Once you practice this chain well, later when you learn CNNs, Transformers, or fine-tuning large models, you won’t be intimidated by framework code.
-
-## What you should take away most from this section
-
-If I could add one more thing to remember, it would be this:
-
-> **A training loop is not a template-memorization question, but a closed loop of “predict -> measure error -> update parameters based on the error.”**
-
-So what this section really needs you to keep stable is:
-
-- the order must not be messed up
-- training mode and validation mode must be separated
-- when debugging, first check shape, loss, gradients, and parameter updates
-
----
-
 ## Exercises
 
-1. Change the optimizer in the example above from `Adam` to `SGD`, and observe the difference in convergence speed.
-2. Change the hidden layer size from `8` to `16`, and observe how the training and validation losses change.
-3. Change the noise in the data from `0.3` to `1.0`, and see how the difficulty of training the model changes.
+1. Change the optimizer from `Adam` to `SGD(lr=0.05)`. How does convergence change?
+2. Change hidden size from `16` to `4` and `32`. Compare train and validation loss.
+3. Change noise from `0.3` to `1.0`. What happens to the best validation loss?
+4. Add a `best_epoch` variable and print which epoch produced the best validation loss.
+5. Convert the task to binary classification by creating labels from `y > 5`, then use `BCEWithLogitsLoss`.
+
+## Key Takeaways
+
+- A training loop is a closed cycle: predict, measure error, compute gradients, update, validate.
+- Training and validation must use different modes.
+- `zero_grad -> backward -> step` is the core update sequence.
+- Average losses by sample count when batch sizes differ.
+- Keep the best checkpoint using a copied `state_dict`, then restore it before prediction.

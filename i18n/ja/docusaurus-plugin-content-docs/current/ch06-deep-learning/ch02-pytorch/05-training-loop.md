@@ -1,408 +1,276 @@
 ---
-title: "6.2.7 訓練フロー 🔧"
+title: "6.2.7 学習ループ"
 sidebar_position: 5
-description: "モデル、損失関数、最適化器、DataLoader をつなげて、完全に動く PyTorch の訓練ループを書きます。"
-keywords: [training loop, optimizer, loss, model.train, model.eval, PyTorch]
+description: "Dataset、DataLoader、nn.Module、loss、optimizer、train/eval モード、device、検証、best checkpoint、予測をつなぎます。"
+keywords: [training loop, optimizer, loss, model.train, model.eval, checkpoint, PyTorch]
 ---
 
-# 6.2.7 訓練フロー
+# 6.2.7 学習ループ
 
-![PyTorch 訓練ループ図](/img/course/pytorch-training-loop-ja.png)
+:::tip この節の位置づけ
+ここは PyTorch ワークフローの部品が 1 つのループになるページです。batch、順伝播、loss、勾配のクリア、逆伝播、更新、検証、best model の保持、予測をつなぎます。
+:::
 
 ## 学習目標
 
-- 標準的な PyTorch の訓練ループを読めるようになる
-- `train()`、`eval()`、`zero_grad()`、`backward()`、`step()` の順番を理解する
-- 小さなタスクで訓練、検証、予測を実行できるようになる
-- 再利用しやすい訓練テンプレートを身につける
+- 完全な PyTorch 学習ループを書ける。
+- `model.train()`、`model.eval()`、`torch.no_grad()`、device 移動を正しく使える。
+- サンプル数で平均した train / validation loss を計算できる。
+- メモリ上に best validation checkpoint を保持できる。
+- 学習後に予測を実行できる。
 
 ---
 
-## まずは全体像をつかもう
+## まずループの構造を見る
 
-訓練ループの章で初心者にいちばん合う理解方法は、「テンプレートを暗記する」ことではなく、訓練で何が繰り返されているのかを先に見ることです。
+![PyTorch training loop 図解](/img/course/ch06-hands-on-training-loop-anatomy-ja.png)
 
-```mermaid
-flowchart LR
-    A["1つの batch を取る"] --> B["モデルで順方向予測をする"]
-    B --> C["損失を計算する"]
-    C --> D["勾配を逆伝播する"]
-    D --> E["最適化器がパラメータを更新する"]
-    E --> F["次の batch に進む"]
+学習のリズムは次です。
+
+```text
+batch -> forward -> loss -> zero_grad -> backward -> optimizer.step -> repeat
 ```
 
-この5つのステップを何度も繰り返すのが、深層学習の訓練の基本リズムです。
+検証のリズムは違います。
 
-## この章と第5章、そして PyTorch 前半のつながり
+```text
+eval mode -> no_grad -> forward -> loss/metrics -> no update
+```
 
-第5章から学んできた人は、まず次のように理解するとよいです。
+## なぜ学習ループが重要なのか
 
-- 第5章では、`fit()` が訓練全体をまとめてくれていました
-- この章では、その訓練処理を自分で分解して書いていきます
+`sklearn.fit()` は学習過程の多くを隠します。PyTorch がそれを見せるのは、深層学習プロジェクトではカスタムモデル、カスタム loss、カスタム batch ロジック、GPU 制御、ログ、checkpoint が必要になるからです。
 
-PyTorch 前半からつながっている人は、次のように見ると整理しやすいです。
-
-- `Tensor` は「データをどこに置くか」を担当する
-- `Autograd` は「勾配はどうやって生まれるか」を担当する
-- `nn.Module` は「ネットワークをどう構成するか」を担当する
-- `DataLoader` は「データをどう batch に分けて入力するか」を担当する
-- そしてこの章は、それらを実際に動く訓練プロセスとしてつなげる役割を持ちます
-
-## 訓練ループはなぜ重要なのか？
-
-深層学習コードで何度も練習すべきなのは、ある1つの層ではなく、**訓練ループ**です。
-
-なぜなら、次のどんなタスクでも、訓練の主な流れはこの線から逃れられないからです。
+同じ骨格は次のような場面に出てきます。
 
 - 画像分類
 - テキスト分類
 - 物体検出
-- 大規模モデルの微調整
+- fine-tuning
+- RAG reranker の学習
+- マルチモーダルモデル
 
-訓練の主流れはいつもほぼ同じです。
+アーキテクチャは変わっても、このループは見分けられます。
 
-```mermaid
-flowchart LR
-    A["1つの batch を取る"] --> B["順方向計算"]
-    B --> C["損失を計算する"]
-    C --> D["古い勾配を消す"]
-    D --> E["逆伝播する"]
-    E --> F["最適化器がパラメータを更新する"]
+## 完全に実行できる学習スクリプト
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#ffebee,stroke:#c62828,color:#333
-    style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style E fill:#fffde7,stroke:#f9a825,color:#333
-    style F fill:#e8f5e9,stroke:#2e7d32,color:#333
+このスクリプトは、合成データで小さな回帰モデルを学習します。
+
+```text
+y ~= 3*x1 + 2*x2 + 5
 ```
 
-### なぜネットワーク構造を暗記するより、訓練ループを先に練習すべきなのか？
-
-ネットワーク構造は変わるからです。
-
-- CNN も変わる
-- RNN も変わる
-- Transformer も変わる
-
-でも、訓練ループの骨組みは長いあいだかなり安定しています。  
-だからこの章はとても大事です。深層学習の中で、あまり古くならない部分をつかむ練習になるからです。
-
----
-
-## まず標準テンプレートを覚えよう
-
-いきなり暗記しようとせず、まずは何度か眺めてみましょう。
+device 処理、train / validation 分割、平均 loss、best checkpoint、最後の予測まで含めています。
 
 ```python
-for batch_x, batch_y in train_loader:
-    pred = model(batch_x)
-    loss = loss_fn(pred, batch_y)
+import copy
 
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-```
-
-このコードがやっていることは、実は3つだけです。
-
-1. 予測する
-2. 誤差を計算する
-3. 誤差に基づいてパラメータを更新する
-
-### 初心者がまず覚えるべき最短の合言葉
-
-訓練ループを書くたびに混乱するなら、次の最短フレーズを覚えてください。
-
-`前向き計算 -> loss を計算 -> 勾配を消す -> 逆伝播 -> 更新`
-
-これがスムーズになれば、あとから検証、ログ、早期終了を足すのはそれほど難しくありません。
-
-### なぜこの順番を崩してはいけないのか？
-
-それぞれのステップは、前のステップの結果に依存しているからです。
-
-- 前向き計算がなければ、予測がありません
-- 予測がなければ、loss を計算できません
-- loss がなければ、backward できません
-- 古い勾配を消さないと、新しい勾配と混ざってしまいます
-
-つまり訓練ループは、「いくつかの API を並べただけ」ではなく、厳密な順番を持つ因果の流れです。
-
-![PyTorch 訓練ループの順番ガードレール図](/img/course/ch06-training-loop-order-guardrail-ja.png)
-
-:::tip 読み方のヒント
-この図は、訓練ループを書くたびに照らし合わせるのがおすすめです。`model.train()`、batch を取る、forward、loss、`zero_grad()`、`backward()`、`step()` の順番を確認してください。検証フェーズでは `model.eval()` と `torch.no_grad()` に切り替えて、検証で勾配を記録しないようにします。
-:::
-
----
-
-## 完全に動く例
-
-:::info 実行環境
-次のコードはそのまま実行できます。
-
-```bash
-pip install torch
-```
-:::
-
-ここでは、2次元の回帰タスクを作ります。  
-2つの特徴量を入力し、目標値はおおよそ次の関係になります。
-
-> `y ≈ 3*x1 + 2*x2 + 5`
-
-```python
 import torch
 from torch import nn
-from torch.utils.data import TensorDataset, DataLoader, random_split
+from torch.utils.data import DataLoader, TensorDataset, random_split
 
 torch.manual_seed(42)
 
-# 1. そのまま実行できる模擬データを作る
-X = torch.randn(200, 2)
-noise = torch.randn(200, 1) * 0.3
+# 1. すぐ実行できる小さな合成データセットを作る
+X = torch.randn(240, 2)
+noise = torch.randn(240, 1) * 0.3
 y = 3 * X[:, [0]] + 2 * X[:, [1]] + 5 + noise
 
 dataset = TensorDataset(X, y)
 train_dataset, val_dataset = random_split(
     dataset,
-    [160, 40],
-    generator=torch.Generator().manual_seed(42)
+    [192, 48],
+    generator=torch.Generator().manual_seed(42),
 )
 
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=40, shuffle=False)
-
-# 2. モデルを定義する
-model = nn.Sequential(
-    nn.Linear(2, 8),
-    nn.ReLU(),
-    nn.Linear(8, 1)
+train_loader = DataLoader(
+    train_dataset,
+    batch_size=32,
+    shuffle=True,
+    generator=torch.Generator().manual_seed(7),
 )
+val_loader = DataLoader(val_dataset, batch_size=48, shuffle=False)
 
-# 3. 損失関数と最適化器を定義する
+# 2. device を選ぶ
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
+
+
+class Regressor(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(2, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+
+model = Regressor().to(device)
 loss_fn = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.05)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.03)
 
-# 4. 訓練する
-for epoch in range(1, 101):
-    model.train()
-    train_loss_sum = 0.0
 
-    for batch_x, batch_y in train_loader:
-        pred = model(batch_x)
-        loss = loss_fn(pred, batch_y)
+def run_epoch(loader, train):
+    if train:
+        model.train()
+    else:
+        model.eval()
 
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+    total_loss = 0.0
+    context = torch.enable_grad() if train else torch.no_grad()
 
-        train_loss_sum += loss.item() * len(batch_x)
+    with context:
+        for batch_x, batch_y in loader:
+            batch_x = batch_x.to(device)
+            batch_y = batch_y.to(device)
 
-    train_loss = train_loss_sum / len(train_dataset)
-
-    # 5. 検証する
-    model.eval()
-    with torch.no_grad():
-        val_loss_sum = 0.0
-        for batch_x, batch_y in val_loader:
             pred = model(batch_x)
             loss = loss_fn(pred, batch_y)
-            val_loss_sum += loss.item() * len(batch_x)
-        val_loss = val_loss_sum / len(val_dataset)
 
-    if epoch % 20 == 0 or epoch == 1:
-        print(f"epoch={epoch:3d}, train_loss={train_loss:.4f}, val_loss={val_loss:.4f}")
+            if train:
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
 
-# 6. 予測を試す
-test_x = torch.tensor([[1.0, 2.0], [-1.0, 0.5], [0.0, 0.0]])
+            total_loss += loss.item() * len(batch_x)
+
+    return total_loss / len(loader.dataset)
+
+
+best_val = float("inf")
+best_state = None
+
+print("training_loop_lab")
+for epoch in range(1, 81):
+    train_loss = run_epoch(train_loader, train=True)
+    val_loss = run_epoch(val_loader, train=False)
+
+    if val_loss < best_val:
+        best_val = val_loss
+        best_state = copy.deepcopy(model.state_dict())
+
+    if epoch == 1 or epoch % 20 == 0:
+        print(
+            f"epoch={epoch:3d} "
+            f"train_loss={train_loss:.4f} "
+            f"val_loss={val_loss:.4f}"
+        )
+
+model.load_state_dict(best_state)
+model.eval()
+
+test_x = torch.tensor([[1.0, 2.0], [-1.0, 0.5], [0.0, 0.0]], device=device)
 with torch.no_grad():
-    test_pred = model(test_x)
+    preds = model(test_x).cpu()
 
-print("\nテストサンプルの予測:")
-for x_row, y_row in zip(test_x, test_pred):
-    print(f"x={x_row.tolist()} -> pred={round(y_row.item(), 2)}")
+print("best_val:", round(best_val, 4))
+print("predictions:")
+for row, pred in zip(test_x.cpu(), preds):
+    print(f"x={row.tolist()} -> pred={pred.item():.2f}")
 ```
 
----
-
-## このコードを1行ずつ分解しよう
-
-### `model.train()`
-
-モデルを訓練モードに切り替えます。  
-`Dropout` や `BatchNorm` のような層がある場合、訓練時の動作に変わります。
-
-### `pred = model(batch_x)`
-
-順方向計算です。  
-つまり、「今のパラメータで予測してみる」ということです。
-
-### `loss = loss_fn(pred, batch_y)`
-
-モデルに対して、「今回の予測は正解とどれくらい違うか」を計算します。
-
-### `optimizer.zero_grad()`
-
-古い勾配を消します。  
-PyTorch では、勾配が自動でたまっていくからです。
-
-### `loss.backward()`
-
-逆伝播を行います。  
-loss が各パラメータに対してどんな勾配を持つかを計算します。
-
-### `optimizer.step()`
-
-勾配に基づいて、実際にパラメータを更新します。
-
-### 初心者が最初に書くとき、いちばん抜けやすいのはどこ？
-
-よくあるのは次の2つです。
-
-- `optimizer.zero_grad()` を忘れる
-- 検証時に `model.eval()` と `torch.no_grad()` を忘れる
-
-どちらも、エラーは出ないのに結果が「なんだか変」に見える原因になります。
-
-### 初心者向けの「毎エポック確認表」
-
-毎回、心の中でこの小さな表を確認するとよいです。
-
-| ステップ | 確認すること |
-|---|---|
-| 前向き計算 | 入力の shape は合っているか？ 出力の shape は合っているか？ |
-| loss | 出力とラベルは対応しているか？ |
-| zero_grad | 古い勾配は消えているか？ |
-| backward | 勾配は本当に計算されたか？ |
-| step | パラメータは実際に更新されたか？ |
-
-この表はデバッグにとても役立ちます。訓練バグの多くは、この5つのどこかで起きるからです。
-
----
-
-## なぜ検証では `eval()` と `no_grad()` を使うのか？
-
-検証フェーズの目的は学習ではなく、モデルの性能を確認することです。
-
-そのため、通常は次のように書きます。
+期待される出力：
 
 ```text
-model.eval()
-with torch.no_grad():
-    # validation / inference code goes here
+training_loop_lab
+epoch=  1 train_loss=34.8472 val_loss=25.3358
+epoch= 20 train_loss=0.1022 val_loss=0.0856
+epoch= 40 train_loss=0.0950 val_loss=0.0776
+epoch= 60 train_loss=0.0972 val_loss=0.0760
+epoch= 80 train_loss=0.0936 val_loss=0.0776
+best_val: 0.0734
+predictions:
+x=[1.0, 2.0] -> pred=12.05
+x=[-1.0, 0.5] -> pred=3.00
+x=[0.0, 0.0] -> pred=4.98
 ```
 
-理由は2つあります。
+ノイズなしの真の値は `12`、`3`、`5` なので、予測はかなり近いです。
 
-- `eval()`：一部の層を推論モードに切り替えるため
-- `no_grad()`：勾配を記録せず、メモリと時間を節約するため
+## ステップごとの分解
 
-### 学習モードと検証モードを分けることは、なぜそんなに大事なのか？
+| ステップ | コード | なぜ必要か |
+|---|---|---|
+| device | `model.to(device)`, `batch_x.to(device)` | モデルとデータは同じ device にある必要がある |
+| モード | `model.train()` / `model.eval()` | Dropout と BatchNorm はモードで挙動が変わる |
+| 順伝播 | `pred = model(batch_x)` | 現在のパラメータで予測する |
+| loss | `loss_fn(pred, batch_y)` | 誤差を測る |
+| クリア | `optimizer.zero_grad()` | 古い累積勾配を消す |
+| 逆伝播 | `loss.backward()` | 勾配を計算する |
+| 更新 | `optimizer.step()` | パラメータを変える |
+| 検証 | `torch.no_grad()` | 勾配を記録せず評価する |
+| checkpoint | `copy.deepcopy(model.state_dict())` | 変化し続ける参照ではなく、best weight を保持する |
 
-これはとても見落とされやすいです。小さな例では、目立った問題が出ないことも多いからです。  
-でも、この章からは、次の習慣をしっかり持つのがおすすめです。
+`copy.deepcopy` は重要です。`best_state = model.state_dict()` と直接書くと、後で変化し続ける tensor への参照を持つことがあります。
 
-- 訓練前：`model.train()`
-- 検証前：`model.eval()`
-- 検証中：`with torch.no_grad():`
+## なぜサンプル数で loss を平均するのか
 
-後で次のようなものが出てくると、モードを分けていないとミスが起きやすくなります。
+各 batch の `loss.item()` は、その batch 内の平均です。最後の batch が小さいと、batch loss を単純平均すると少し偏ることがあります。
 
-- Dropout
-- BatchNorm
-- より大きなモデル
-
----
-
-## 覚えやすい「レストラン版」のたとえ
-
-訓練をレストラン営業にたとえると、かなり覚えやすくなります。
-
-| 深層学習のステップ | レストランのたとえ |
-|---|---|
-| `batch_x` | その回の注文のかたまり |
-| `model(batch_x)` | シェフが今のやり方で料理する |
-| `loss_fn` | お客さんの評価点 |
-| `backward()` | どこがまずかったかを見つける |
-| `step()` | 次回に向けてやり方を直す |
-
-訓練とは、営業を繰り返しながら少しずつ改善していくことです。
-
----
-
-## よくある変形
-
-### 分類タスク
-
-回帰では `MSELoss()` をよく使いますが、分類では次がよく使われます。
+そのためスクリプトでは次の形にしています。
 
 ```python
-loss_fn = nn.CrossEntropyLoss()
+total_loss += loss.item() * len(batch_x)
+average_loss = total_loss / len(loader.dataset)
 ```
 
-### 違う最適化器を使う
+これでデータセット全体に対するサンプル平均 loss になります。
 
-よく使うものは次の2つです。
+## よくある変種
 
-- `SGD`
-- `Adam`
+| タスク | 出力 | よく使う loss |
+|---|---|---|
+| 回帰 | `[batch, 1]` | `nn.MSELoss()` または `nn.L1Loss()` |
+| 多クラス分類 | `[batch, classes]` logits | `nn.CrossEntropyLoss()` |
+| 二値分類 | `[batch, 1]` logits | `nn.BCEWithLogitsLoss()` |
 
-初心者には、まず `Adam` のほうが扱いやすいことが多いです。
+分類では loss に加えて指標も見ます。
 
-### 評価指標を追加する
+- accuracy
+- 不均衡データでは precision / recall / F1
+- クラスが混同されやすい場合は confusion matrix
 
-訓練では loss だけでなく、次のような指標もよく見ます。
+## デバッグチェックリスト
 
-- 正解率 `accuracy`
-- 適合率 `precision`
-- 再現率 `recall`
-- F1
+学習の挙動がおかしいときは、この順で確認します。
 
----
+1. 1 batch の shape：`batch_x` は最初の層に合うか？
+2. ラベル shape と dtype：`batch_y` は loss 関数に合うか？
+3. Device：モデルとデータは同じ device にあるか？
+4. Loss：有限値か、`nan` / `inf` か？
+5. 勾配：重要なパラメータに `None` ではない勾配があるか？
+6. 更新：`optimizer.step()` 後にパラメータは本当に変わったか？
+7. 検証：`model.eval()` と `torch.no_grad()` を使ったか？
 
-## いちばんミスしやすいところ
+便利な小さなプローブ：
 
-### `zero_grad()` を忘れる
+```python
+print(batch_x.shape, batch_y.shape)
+print(batch_x.device, next(model.parameters()).device)
+print("loss:", loss.item())
+for name, param in model.named_parameters():
+    if param.grad is not None:
+        print(name, param.grad.norm().item())
+        break
+```
 
-結果として勾配がどんどんたまり、訓練結果が信用できなくなります。
-
-### 検証時に `model.eval()` を忘れる
-
-訓練時と検証時で動きが違う層があるので、結果に影響します。
-
-### 検証時も勾配を計算してしまう
-
-動くことはありますが、メモリと計算資源が無駄になります。
-
-### `loss.item()` と `loss` を混同する
-
-- `loss` は Tensor なので、逆伝播に使えます
-- `loss.item()` は普通の Python 数値なので、表示や集計に向いています
-
-### loss だけ見て、訓練と検証の関係を見ない
-
-初心者にありがちなもう1つの問題はこれです。
-
-- 訓練 loss が下がっているから、すべて順調だと思ってしまう
-
-でも、より安定した見方は次の通りです。
-
-- 訓練 loss は下がっているか？
-- 検証 loss も一緒によくなっているか？
-- 2つはずれ始めていないか？
-
-これは、後の過学習の診断に向けた準備にもなります。
-
----
-
-## 保存しておける汎用骨組み
+## 保存して使える骨格
 
 ```python
 for epoch in range(num_epochs):
     model.train()
     for batch_x, batch_y in train_loader:
+        batch_x = batch_x.to(device)
+        batch_y = batch_y.to(device)
+
         pred = model(batch_x)
         loss = loss_fn(pred, batch_y)
 
@@ -413,38 +281,24 @@ for epoch in range(num_epochs):
     model.eval()
     with torch.no_grad():
         for batch_x, batch_y in val_loader:
+            batch_x = batch_x.to(device)
+            batch_y = batch_y.to(device)
             pred = model(batch_x)
             val_loss = loss_fn(pred, batch_y)
 ```
 
-今後 PyTorch のプロジェクトを見たとき、この主な流れをだいたい見分けられるようになります。
+## 練習
 
----
+1. optimizer を `Adam` から `SGD(lr=0.05)` に変えてください。収束はどう変わりますか？
+2. 隠れ層サイズを `16` から `4` と `32` に変え、train loss と validation loss を比べてください。
+3. noise を `0.3` から `1.0` に変えてください。best validation loss はどうなりますか？
+4. `best_epoch` 変数を追加し、どの epoch が best validation loss を出したか表示してください。
+5. `y > 5` でラベルを作って二値分類タスクに変え、`BCEWithLogitsLoss` を使ってください。
 
 ## まとめ
 
-この章で1つだけ覚えるなら、次の言葉です。
-
-> **訓練ループとは、「1回前向きに計算し、1回逆向きに直し、それを何度も繰り返す」ことです。**
-
-この流れをしっかり練習しておくと、CNN、Transformer、大規模モデルの微調整を学ぶときに、フレームワークのコードに怖がりにくくなります。
-
-## この章でいちばん持ち帰ってほしいこと
-
-もう1つ付け加えるなら、次を覚えてください。
-
-> **訓練ループはテンプレート暗記ではなく、「予測 -> 誤差を測る -> 誤差に応じてパラメータを直す」という閉じた流れです。**
-
-なので、この章で本当に押さえるべきことは次の3つです。
-
-- 順番を崩さない
-- 訓練モードと検証モードを分ける
-- デバッグ時は shape、loss、勾配、パラメータ更新の順に確認する
-
----
-
-## 練習
-
-1. 上の例の最適化器を `Adam` から `SGD` に変えて、収束速度の違いを見てみましょう。
-2. 隠れ層を `8` から `16` に変えて、訓練損失と検証損失の変化を観察しましょう。
-3. データ中のノイズ `0.3` を `1.0` に変えて、モデルの学習難易度がどう変わるか見てみましょう。
+- 学習ループは、予測、誤差計測、勾配計算、更新、検証の閉じたサイクルです。
+- 学習と検証では別のモードを使います。
+- `zero_grad -> backward -> step` が中心の更新順序です。
+- batch サイズが異なる場合は、サンプル数で loss を平均します。
+- コピーした `state_dict` で best checkpoint を保持し、予測前に復元します。
