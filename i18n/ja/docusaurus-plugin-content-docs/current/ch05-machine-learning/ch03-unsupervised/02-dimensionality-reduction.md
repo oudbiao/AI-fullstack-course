@@ -1,632 +1,233 @@
 ---
-title: "5.3.3 次元削減アルゴリズム"
+title: "5.3.3 次元削減"
 sidebar_position: 8
-description: "PCA による次元削減の原理と応用を身につけ、t-SNE と UMAP による高次元データ可視化技術を理解する"
-keywords: [次元削減, PCA, t-SNE, UMAP, 主成分分析, 高次元可視化, 分散説明率]
+description: "手を動かして学ぶ次元削減：PCA、説明分散、圧縮、再構成誤差、削減後のモデリング、可視化ツール"
+keywords: [次元削減, PCA, 説明分散, t-SNE, UMAP, 特徴量圧縮, 可視化]
 ---
 
-# 5.3.3 次元削減アルゴリズム
+# 5.3.3 次元削減
 
 ![PCA 次元削減の投影図](/img/course/pca-dimensionality-reduction-ja.png)
 
-:::tip この節の位置づけ
-実データには、数十個、場合によっては数千個の特徴量があることがよくあります。次元削減は**特徴量の数を減らしつつ、重要な情報を保つ**方法です。学習を速くできるだけでなく、可視化にも役立ちます。この節では、第 4 章の PCA の基礎を踏まえて、実践的な活用まで深めます。
+:::tip この節の概要
+次元削減は、多数の特徴量をより少ない特徴量へ圧縮する方法です。可視化、高速化、ノイズ低減、モデリングに役立ちますが、目的ごとに確認すべきことが違います。
 :::
 
-## 学習目標
+## 作るもの
 
-- PCA の原理と実践的な使い方を深く理解する（第 4 章とつなげる）
-- 分散説明率の分析を身につける
-- t-SNE の可視化原理と使い方を理解する
-- UMAP による次元削減手法を理解する
+この節では、手書き数字データセットを使って次を確認します。
 
-## まず、とても大事な学習イメージについて
+- PCA が高次元画像を 2 次元へ写す方法；
+- 10、20、40 個の成分を残したとき説明分散がどう変わるか；
+- PCA が分類 accuracy にどう影響するか；
+- 成分を増やすと再構成誤差がどう下がるか；
+- PCA、t-SNE、UMAP をどう使い分けるか。
 
-この節は、最初にツール名で迷いやすいです。
-
-- PCA
-- t-SNE
-- UMAP
-
-でも、最初の 1 回でいちばん先に覚えるべきなのは、ツールの違いを丸暗記することではありません。まずは次の 2 つを分けて考えましょう。
-
-> **モデル用の前処理として次元削減しているのか、それとも可視化のために次元削減しているのか。**
-
-この目的がはっきりすると、あとの手法選びがぐっと分かりやすくなります。
-
----
-
-## まずは地図を作ろう
-
-次元削減は「いくつかのツール名を覚える」だけの学習になりがちですが、本当に大事なのは最初に目的を分けることです。  
-なぜなら、次元削減で解決したい問題は、実はまったく違うことがあるからです。
-
-- 特徴量を圧縮して学習を速くしたい
-- ノイズや相関を減らしたい
-- 高次元データを図にして構造を見たい
-
-学び方としては、次の順番が安定しています。
+まず図を見てください。次元削減は、1 つの道具が 1 つの目的だけを持つものではありません。
 
 ![次元削減の目的選択図](/img/course/ch05-dimensionality-reduction-purpose-map-ja.png)
 
-「モデル用」と「可視化用」を分けて考えること。これがこの節でいちばん大事な最初の一歩です。
-
 ![PCA の直感を説明するマンガ](/img/course/ch05-pca-intuition-comic-ja.png)
 
-このマンガが、この節の主な流れです。PCA は「適当に列を削る」方法ではありません。座標軸を、情報が最も集まる方向へ回転させ、変化をよく説明する方向を残して、よりコンパクトでノイズの少ない表現を作ります。t-SNE と UMAP は別の問い、つまり「高次元の構造をより見やすくできるか」に答えるための方法です。
+## 用語早見表
 
-### 始める前のキーワード解説
+| 用語 | 実用上の意味 |
+|---|---|
+| `dimension` | 1 つの特徴量列。たとえば 1 ピクセルや 1 つの数値項目 |
+| `PCA` | Principal Component Analysis。できるだけ多くの分散を残す方向を探す |
+| `component` | PCA が作る新しい圧縮特徴量 |
+| `explained_variance_ratio_` | 各成分がどれだけ分散を保持しているか |
+| `reconstruction` | 圧縮成分から元データを近似的に復元すること |
+| `t-SNE` | 局所的な近傍構造を可視化する方法 |
+| `UMAP` | embedding の可視化や近傍探索によく使われる方法 |
 
-| 用語 | 初心者向けの意味 | この節での役割 |
-|---|---|---|
-| PCA | Principal Component Analysis、主成分分析。線形な方法で元の特徴量から新しい軸を作る | 前処理や圧縮の最初の選択肢としてよく使われる |
-| PC1 / PC2 | 第 1 主成分、第 2 主成分 | 元の列ではなく、新しく作られた軸 |
-| `n_components` | 次元削減後に残したい次元数 | 圧縮の強さを決める |
-| `explained_variance_ratio_` | 各主成分がどれだけ分散を保っているか | 2、10、30、40 個の主成分で十分か判断する助けになる |
-| Scree Plot | 主成分数ごとの分散説明率を表す図 | 主成分を増やしても効果が小さくなる位置を探せる |
-| t-SNE | t-distributed Stochastic Neighbor Embedding。非線形の可視化手法 | 局所的な近さを見るのに向いているが、下流モデルの特徴量には向かない |
-| UMAP | Uniform Manifold Approximation and Projection。非線形の次元削減手法 | t-SNE より速いことが多く、場合によっては特徴量抽出にも使える |
-| `perplexity` | t-SNE がどのくらいの近傍を見るかを表す目安 | 可視化結果が変わるため、複数の値を試すとよい |
-| `fit_transform()` | 変換ルールを学習し、そのままデータへ適用する処理 | sklearn の前処理コードでよく使う書き方 |
+## セットアップ
 
----
-
-## 一、なぜ次元削減が必要なのか？
-
-### 高次元データの問題
-
-```mermaid
-flowchart TD
-    H["高次元データ<br/>（特徴量が多い）"] --> P1["計算が遅い<br/>学習時間が長い"]
-    H --> P2["過学習リスク<br/>次元の呪い"]
-    H --> P3["可視化できない<br/>人間が直接見られるのは 2D/3D まで"]
-    P1 --> S["次元削減"]
-    P2 --> S
-    P3 --> S
-    S --> R["低次元データ<br/>重要情報を保持"]
-
-    style H fill:#ffebee,stroke:#c62828,color:#333
-    style S fill:#fff3e0,stroke:#e65100,color:#333
-    style R fill:#e8f5e9,stroke:#2e7d32,color:#333
+```bash
+python -m pip install -U scikit-learn numpy
 ```
 
-| 問題 | 説明 |
-|------|------|
-| **次元の呪い** | 特徴量が多いほどデータは疎になり、モデルが学習しにくくなる |
-| **計算コスト** | 特徴量が多い → 学習が遅い、メモリを多く使う |
-| **多重共線性** | 多くの特徴量が強く相関していて、冗長になっている |
-| **可視化** | 3 次元を超えるデータはそのままでは図にできない |
+実行するラボでは sklearn と NumPy だけを使います。UMAP は実務では便利ですが追加パッケージが必要なので、この初心者向けラボでは依存を小さく保ちます。
 
-### 次元削減の 2 つの考え方
+## 完全な実験を実行する
 
-| 考え方 | 手法 | 説明 |
-|------|------|------|
-| **特徴量選択** | 重要な特徴量を選ぶ | 元の特徴量の一部を残す |
-| **特徴量抽出** | 新しい特徴量を作る | 元の特徴量を変換して、より少ない新しい特徴量にする。PCA はモデル用にも使いやすい代表例で、t-SNE は主に可視化向け |
-
-### 初めて学ぶときに、いちばん混乱しやすい点
-
-多くの初心者は「次元削減」と「特徴量を消すこと」を同じものだと思いがちです。  
-でも、この 2 つは同じではありません。
-
-- 特徴量選択：元の列の中からいくつかの列を残す
-- 次元削減：元の列を組み合わせて、より少ない新しい軸に変える
-
-そのため、PCA のあとに得られる主成分は、元の列そのものではなく、それらの線形結合です。
-
-### 初心者向けのたとえ
-
-次元削減は、まずこんなイメージで考えると分かりやすいです。
-
-- バラバラな情報のかたまりを、少ない本筋に圧縮し直す
-
-これは単にいくつかの特徴量を削除することではありません。  
-むしろ、たくさんの元の特徴量をまとめ直して、情報がより濃い新しい軸を作る感じです。
-
-だから、次元削減で最初に覚えるべきなのはアルゴリズム名よりも、
-
-- 情報を圧縮し、表現を組み替えること
-
-です。
-
----
-
-## 二、PCA の実践
-
-### 原理の復習
-
-:::info 第 4 章とのつながり
-第 4 章の 1.3 節「固有値と固有ベクトル」では、PCA の数学的な原理を学びました。
-
-- 共分散行列を計算する
-- 固有値と固有ベクトルを求める
-- 最大の固有値に対応する方向を主成分として選ぶ
-
-この節では、**実データでどう使うか** に重点を置きます。
-:::
-
-**PCA の核心**：データの分散が最大になる方向を見つけて、そこへ射影する。
-
-### 手書き数字の次元削減
+`pca_lab.py` を作成します。
 
 ```python
-from sklearn.datasets import load_digits
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
 import numpy as np
-import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
-# 手書き数字データを読み込む
-digits = load_digits()
-X, y = digits.data, digits.target
-print(f"元データ: {X.shape[0]} サンプル, {X.shape[1]} 特徴量")
 
-# いくつかのサンプルを確認
-fig, axes = plt.subplots(2, 10, figsize=(15, 3))
-for i, ax in enumerate(axes.ravel()):
-    ax.imshow(digits.images[i], cmap='gray')
-    ax.set_title(str(y[i]), fontsize=9)
-    ax.axis('off')
-plt.suptitle('手書き数字のサンプル（8×8 = 64 個の特徴量）')
-plt.tight_layout()
-plt.show()
+X, y = load_digits(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
 
-# 標準化
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
-# PCA で 2 次元に削減
-pca_2d = PCA(n_components=2)
-X_2d = pca_2d.fit_transform(X_scaled)
-print(f"次元削減後: {X_2d.shape}")
-print(f"保持された分散比: {pca_2d.explained_variance_ratio_.sum():.1%}")
+print("pca_2d_map")
+pca2 = PCA(n_components=2, random_state=42)
+X_train_2d = pca2.fit_transform(X_train_scaled)
+print("shape=", X_train_2d.shape)
+print("explained_variance=", np.round(pca2.explained_variance_ratio_, 3).tolist())
+print("total_2d_variance=", round(float(pca2.explained_variance_ratio_.sum()), 3))
 
-# 可視化
-plt.figure(figsize=(10, 8))
-scatter = plt.scatter(X_2d[:, 0], X_2d[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-plt.colorbar(scatter, label='数字')
-plt.xlabel(f'PC1（分散比 {pca_2d.explained_variance_ratio_[0]:.1%}）')
-plt.ylabel(f'PC2（分散比 {pca_2d.explained_variance_ratio_[1]:.1%}）')
-plt.title('PCA による 2D 次元削減（手書き数字）')
-plt.grid(True, alpha=0.3)
-plt.show()
+print("pca_modeling_lab")
+for n in [10, 20, 40]:
+    model = Pipeline([
+        ("scale", StandardScaler()),
+        ("pca", PCA(n_components=n, random_state=42)),
+        ("clf", LogisticRegression(max_iter=5000, random_state=42)),
+    ])
+    model.fit(X_train, y_train)
+    pred = model.predict(X_test)
+    pca = model.named_steps["pca"]
+    print(
+        f"components={n:<2} "
+        f"variance={pca.explained_variance_ratio_.sum():.3f} "
+        f"accuracy={accuracy_score(y_test, pred):.3f}"
+    )
+
+print("reconstruction_lab")
+for n in [10, 20, 40]:
+    pca = PCA(n_components=n, random_state=42)
+    compressed = pca.fit_transform(X_train_scaled)
+    restored = pca.inverse_transform(compressed)
+    mse = mean_squared_error(X_train_scaled, restored)
+    print(f"components={n:<2} reconstruction_mse={mse:.3f}")
+```
+
+実行します。
+
+```bash
+python pca_lab.py
 ```
 
 期待される出力：
 
 ```text
-元データ: 1797 サンプル, 64 特徴量
-次元削減後: (1797, 2)
-保持された分散比: 21.6%
+pca_2d_map
+shape= (1347, 2)
+explained_variance= [0.119, 0.097]
+total_2d_variance= 0.216
+pca_modeling_lab
+components=10 variance=0.591 accuracy=0.858
+components=20 variance=0.791 accuracy=0.942
+components=40 variance=0.953 accuracy=0.960
+reconstruction_lab
+components=10 reconstruction_mse=0.390
+components=20 reconstruction_mse=0.199
+components=40 reconstruction_mse=0.045
 ```
 
-この結果は重要です。64 個のピクセル特徴量を 2 次元まで落とすと、可視化には便利ですが、保持される分散はおよそ 5 分の 1 だけです。2D の PCA 図だけで、高精度な分類器に十分な情報が残っているとは考えないようにしましょう。
+## 2 次元結果を読む
 
-### 分散説明率の分析
-
-**大事な問い**：主成分は何個残せばよいのか？
-
-```python
-# すべての主成分を使う
-pca_full = PCA()
-pca_full.fit(X_scaled)
-
-# 分散説明率
-explained = pca_full.explained_variance_ratio_
-cumulative = np.cumsum(explained)
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# 各主成分の分散比
-axes[0].bar(range(1, len(explained)+1), explained, color='steelblue', alpha=0.7)
-axes[0].set_xlabel('主成分番号')
-axes[0].set_ylabel('分散説明率')
-axes[0].set_title('各主成分の分散比')
-axes[0].set_xlim(0, 30)
-
-# 累積分散
-axes[1].plot(range(1, len(cumulative)+1), cumulative, 'bo-', markersize=3)
-axes[1].axhline(y=0.9, color='r', linestyle='--', label='90% 閾値')
-axes[1].axhline(y=0.95, color='orange', linestyle='--', label='95% 閾値')
-
-# 90% に達する点を表示
-n_90 = np.argmax(cumulative >= 0.9) + 1
-n_95 = np.argmax(cumulative >= 0.95) + 1
-axes[1].axvline(x=n_90, color='r', linestyle=':', alpha=0.5)
-axes[1].axvline(x=n_95, color='orange', linestyle=':', alpha=0.5)
-
-axes[1].set_xlabel('主成分数')
-axes[1].set_ylabel('累積分散説明率')
-axes[1].set_title('累積分散説明率（Scree Plot）')
-axes[1].legend()
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-
-print(f"90% の分散を保持するには {n_90} 個の主成分が必要です（元は 64 個）")
-print(f"95% の分散を保持するには {n_95} 個の主成分が必要です（元は 64 個）")
-```
-
-期待される出力：
+digits データセットには 64 個のピクセル特徴量があります。`n_components=2` の PCA は、各画像を 2 つの数値へ圧縮します。
 
 ```text
-90% の分散を保持するには 31 個の主成分が必要です（元は 64 個）
-95% の分散を保持するには 40 個の主成分が必要です（元は 64 個）
+shape= (1347, 2)
+total_2d_variance= 0.216
 ```
 
-### 90% と 95%、どちらを選ぶべき？
+2 成分は可視化には便利ですが、分散の約 `21.6%` しか保持しません。ざっくり地図を見るには十分でも、本格的な分類器には少なすぎることがあります。
 
-これに絶対の正解はありません。ですが、初心者が最初に試すなら、次のように考えるとよいです。
-
-- 学習速度や圧縮率を重視するなら、まず 90% を試す
-- 情報の損失が気になるなら、まず 95% を試す
-- 最後は、下流モデルの性能で確認する。分散説明率だけで決めない
-
-なぜなら、「どれだけ分散を保ったか」と「下流タスクで最も良いか」は同じではないからです。
+## 説明分散
 
 ![PCA 分散説明率の読み方ガイド](/img/course/ch05-pca-explained-variance-map-ja.png)
 
-PCA の図を見るときは、まず「累積分散曲線」の折れ曲がり点を見ます。折れ曲がり点より前は主成分を 1 つ増やす価値が高く、後ろでは効果が小さくなります。90% や 95% はあくまで目安で、最後は下流モデルのスコア、学習速度、説明しやすさをまとめて判断します。
-
-### PCA がモデル性能に与える影響
-
-```python
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import make_pipeline
-import time
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# 主成分数ごとの比較
-n_components_list = [2, 5, 10, 20, 30, 64]
-results = []
-
-for n in n_components_list:
-    pipe = make_pipeline(
-        StandardScaler(),
-        PCA(n_components=n) if n < 64 else PCA(),
-        LogisticRegression(max_iter=5000, random_state=42)
-    )
-
-    start = time.time()
-    pipe.fit(X_train, y_train)
-    train_time = time.time() - start
-
-    score = pipe.score(X_test, y_test)
-    results.append({'n': n, 'score': score, 'time': train_time})
-    print(f"PC={n:3d} | 正解率: {score:.1%} | 学習時間: {train_time:.3f}s")
-
-# 可視化
-fig, ax1 = plt.subplots(figsize=(8, 5))
-ax2 = ax1.twinx()
-
-ns = [r['n'] for r in results]
-scores = [r['score'] for r in results]
-times = [r['time'] for r in results]
-
-ax1.plot(ns, scores, 'bo-', label='正解率')
-ax2.plot(ns, times, 'rs-', label='学習時間')
-
-ax1.set_xlabel('主成分数')
-ax1.set_ylabel('正解率', color='blue')
-ax2.set_ylabel('学習時間 (s)', color='red')
-ax1.set_title('PCA 次元削減がモデル性能と速度に与える影響')
-
-ax1.legend(loc='lower right')
-ax2.legend(loc='center right')
-ax1.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
-一般的なノート PC での出力例：
+説明分散は、どれだけ情報を残すかを判断する助けになります。
 
 ```text
-PC=  2 | 正解率: 51.7% | 学習時間: 0.015s
-PC=  5 | 正解率: 81.9% | 学習時間: 0.013s
-PC= 10 | 正解率: 88.6% | 学習時間: 0.013s
-PC= 20 | 正解率: 94.4% | 学習時間: 0.010s
-PC= 30 | 正解率: 96.1% | 学習時間: 0.009s
-PC= 64 | 正解率: 97.2% | 学習時間: 0.009s
+components=10 variance=0.591 accuracy=0.858
+components=20 variance=0.791 accuracy=0.942
+components=40 variance=0.953 accuracy=0.960
 ```
 
-学習時間は環境によって変わるので、秒数そのものを覚える必要はありません。重要なのは、主成分が少なすぎると情報を失い、主成分を増やすと精度は戻りやすい一方で、圧縮効果は弱くなるという取引関係です。
+大事なのは「常に 95% 残す」ことではありません。実用的には次のように考えます。
 
-### PCA の本当の役割は、単なる次元圧縮ではない
+- 可視化が目的なら、`2` または `3` 成分で十分なことがある；
+- モデリングが目的なら、accuracy やプロジェクトで使う指標を比較する；
+- 圧縮が目的なら、再構成誤差と保存コストを比較する。
 
-プロジェクトで PCA が役立つ場面は、主に次の 3 つです。
+## 再構成誤差
 
-- 冗長な相関情報を取り除く
-- ノイズを減らしてモデルを安定させる
-- その後のアルゴリズムが、よりコンパクトな特徴空間で学習できるようにする
-
-だから、PCA をしたあとに見るべきなのは「次元がどれだけ減ったか」だけではありません。
-
-- モデルは速くなったか
-- 汎化性能は安定したか
-- 過学習しにくくなったか
-
-も一緒に見ましょう。
-
----
-
-## 三、t-SNE による可視化
-
-### PCA の限界
-
-PCA は**線形**の次元削減です。つまり、線形な方向しか見つけられません。複雑な高次元データでは、異なるクラスが PCA の 2D 図で重なって見えることがあります。
-
-### t-SNE の原理
-
-t-SNE（t-distributed Stochastic Neighbor Embedding）は、**可視化**のために設計された非線形次元削減手法です。
-
-**核心的な考え方**：
-- 高次元空間で点同士の「似ている度合い」を計算する
-- 低次元空間でも「似ている度合い」を計算する
-- 低次元の座標を調整して、2 つの空間の類似度分布ができるだけ近くなるようにする
-
-| 特徴 | 説明 |
-|------|------|
-| 非線形 | 複雑なデータ構造を表せる |
-| 可視化向け | 通常は 2D か 3D にする |
-| 局所構造を保つ | 近い点は低次元でも近くなる |
-| ランダム性 | 実行するたびに結果が変わることがある |
-
-### t-SNE の実践
-
-```python
-from sklearn.manifold import TSNE
-
-# t-SNE で次元削減
-tsne = TSNE(n_components=2, random_state=42, perplexity=30, max_iter=1000)
-X_tsne = tsne.fit_transform(X_scaled)
-print(f"t-SNE result shape: {X_tsne.shape}")
-
-# PCA と t-SNE の比較
-fig, axes = plt.subplots(1, 2, figsize=(16, 6))
-
-axes[0].scatter(X_2d[:, 0], X_2d[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-axes[0].set_title('PCA による 2D 次元削減')
-axes[0].set_xlabel('PC1')
-axes[0].set_ylabel('PC2')
-
-axes[1].scatter(X_tsne[:, 0], X_tsne[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-axes[1].set_title('t-SNE による 2D 次元削減')
-axes[1].set_xlabel('t-SNE 1')
-axes[1].set_ylabel('t-SNE 2')
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-
-plt.suptitle('PCA vs t-SNE（手書き数字データ）', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
+再構成は、圧縮後にどれだけ元データを復元できるかを見ます。
 
 ```text
-t-SNE result shape: (1797, 2)
+components=10 reconstruction_mse=0.390
+components=40 reconstruction_mse=0.045
 ```
 
-`max_iter` は最適化を最大何回行うかを表します。最近の sklearn では `max_iter` が推奨されます。古い教材では `n_iter` と書かれていることがありますが、それは旧バージョンの名前です。
+成分が多いほど復元は良くなりますが、次元も多く残ります。適切な数は、コンパクトさと有用な情報量のトレードオフです。
 
-### perplexity パラメータ
+## モデルパイプライン内の PCA
 
-`perplexity` は t-SNE が注目する「近傍の数」を調整するパラメータで、可視化結果に影響します。
+モデリング部分では次を使っています。
 
 ```python
-fig, axes = plt.subplots(1, 4, figsize=(20, 4))
-perplexities = [5, 15, 30, 50]
-
-for ax, perp in zip(axes, perplexities):
-    tsne = TSNE(n_components=2, perplexity=perp, random_state=42, max_iter=1000)
-    X_t = tsne.fit_transform(X_scaled)
-    print(f"perplexity={perp}: result shape = {X_t.shape}")
-    ax.scatter(X_t[:, 0], X_t[:, 1], c=y, cmap='tab10', s=8, alpha=0.6)
-    ax.set_title(f'perplexity = {perp}')
-    ax.grid(True, alpha=0.3)
-
-plt.suptitle('t-SNE の perplexity パラメータの影響', fontsize=13)
-plt.tight_layout()
-plt.show()
+Pipeline([
+    ("scale", StandardScaler()),
+    ("pca", PCA(n_components=n, random_state=42)),
+    ("clf", LogisticRegression(max_iter=5000, random_state=42)),
+])
 ```
 
-期待される出力：
+この順序が重要です。
 
-```text
-perplexity=5: result shape = (1797, 2)
-perplexity=15: result shape = (1797, 2)
-perplexity=30: result shape = (1797, 2)
-perplexity=50: result shape = (1797, 2)
-```
+1. まず train/test に分ける。
+2. スケーリングは訓練データだけで fit する。
+3. PCA も訓練データだけで fit する。
+4. 圧縮された訓練特徴量でモデルを学習する。
+5. 変換されたテスト特徴量で評価する。
 
-:::warning t-SNE の注意点
-1. **可視化専用**です。t-SNE を特徴量抽出に使って、そのままモデル学習に使うのはおすすめしません
-2. **処理が遅い**です。大きいデータセットでは、まず PCA で 50 次元くらいまで落としてから t-SNE を使うことがあります
-3. **距離の解釈に注意**してください。異なるクラスタ間の距離の大小を、原空間の意味で比べることはできません
-4. **毎回結果が変わる**ことがあります（`random_state` を設定すると固定しやすいです）
-:::
+スケーリングと PCA を pipeline に入れると、交差検証時のデータ漏れを防ぎやすくなります。
 
-### t-SNE で誤解しやすいポイント
+## PCA、t-SNE、UMAP
 
-t-SNE の図は見た目がきれいですが、初心者がよく誤解する点があります。
+| 方法 | 向いている用途 | 重要な注意点 |
+|---|---|---|
+| PCA | 圧縮、前処理、高速な 2D 概観 | 線形手法なので曲がった構造を見落とすことがある |
+| t-SNE | 局所近傍の可視化 | 離れたクラスタ同士の距離は誤解しやすい |
+| UMAP | embedding 可視化と近傍探索 | 追加パッケージが必要。パラメータと安定性を確認する |
 
-- クラスタ同士が離れて見えるほど、元の空間でも遠い
-- 図がきれいに分かれていれば、モデルも必ず良い
+初心者にとって安全な順序：
 
-この 2 つは、どちらも必ずしも正しくありません。  
-t-SNE で本当に見るべきなのは、
+1. まず PCA。速くて解釈しやすい。
+2. t-SNE や UMAP は可視化に使い、最初から本番特徴量パイプラインにしない。
+3. 次元削減でモデル結果が変わるなら、交差検証で確認する。
 
-- 近くにあるもの同士の関係が保たれているか
-- 同じクラスのサンプルがまとまりやすいか
+## よくあるトラブル
 
-です。図全体を、厳密な幾何学地図として読むのはやめましょう。
+| 症状 | よくある原因 | 修正 |
+|---|---|---|
+| PCA 結果が 1 つの特徴量に支配される | 特徴量をスケーリングしていない | PCA 前に `StandardScaler` を使う |
+| 2D 図はきれいだがモデルが弱い | 2D では分散を残しきれていない | モデリングではより多くの成分を使う |
+| PCA 後に accuracy が大きく下がる | 有用な特徴を捨てすぎた | `n_components` を増やし、PCA なしの基線と比べる |
+| 交差検証スコアが不自然に良い | 分割前に PCA を fit した | PCA を `Pipeline` に入れる |
+| t-SNE/UMAP 図を読みすぎる | 可視化レイアウトは証明ではない | 安定性と下流での有用性を確認する |
 
----
+## 練習
 
-## 四、UMAP による次元削減
+1. PCA 成分を `[5, 15, 30, 50]` に変えてください。accuracy はどこから伸びにくくなりますか？
+2. PCA なしで分類器を学習してください。PCA が助けているのは速度、精度、圧縮のどれですか？
+3. `StandardScaler` を外してください。説明分散はどう変わりますか？
+4. `PCA(n_components=0.95)` を使い、自動で選ばれた成分数を表示してください。
+5. 2D PCA の出力を使って、数字ラベルで色分けした散布図を描いてください。
 
-### UMAP の概要
+## 合格チェック
 
-UMAP（Uniform Manifold Approximation and Projection）は、t-SNE より速く、全体構造も比較的保ちやすい次元削減手法です。
+次を説明できれば、この節はクリアです。
 
-| | t-SNE | UMAP |
-|---|-------|------|
-| 速度 | 遅い | かなり速い |
-| 全体構造 | 保ちにくい | 比較的保ちやすい |
-| 特徴量抽出に使えるか | おすすめしない | 使える |
-| パラメータ | `perplexity` | `n_neighbors`, `min_dist` |
-
-### UMAP の実践
-
-```bash
-python -m pip install --upgrade umap-learn
-```
-
-```python
-# UMAP のインストールが必要: python -m pip install --upgrade umap-learn
-try:
-    import umap
-
-    reducer = umap.UMAP(n_components=2, random_state=42)
-    X_umap = reducer.fit_transform(X_scaled)
-    print(f"UMAP result shape: {X_umap.shape}")
-
-    # 3 つの手法を比較
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
-
-    axes[0].scatter(X_2d[:, 0], X_2d[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-    axes[0].set_title('PCA')
-
-    axes[1].scatter(X_tsne[:, 0], X_tsne[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-    axes[1].set_title('t-SNE')
-
-    axes[2].scatter(X_umap[:, 0], X_umap[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-    axes[2].set_title('UMAP')
-
-    for ax in axes:
-        ax.grid(True, alpha=0.3)
-
-    plt.suptitle('PCA vs t-SNE vs UMAP（手書き数字）', fontsize=13)
-    plt.tight_layout()
-    plt.show()
-
-except ImportError:
-    print("先に umap-learn をインストールしてください: python -m pip install --upgrade umap-learn")
-```
-
-`umap-learn` をインストールした場合の期待される出力：
-
-```text
-UMAP result shape: (1797, 2)
-```
-
-インストール案内が表示される場合でも、コード自体は正しく動いています。現在の Python 環境に任意パッケージが入っていない、という意味です。
-
-### UMAP のパラメータ
-
-| パラメータ | 説明 | 推奨 |
-|------|------|------|
-| `n_neighbors` | 近傍の数（perplexity に近い考え方） | 15（デフォルト） |
-| `min_dist` | 低次元空間での点同士の最小距離 | 0.1（デフォルト） |
-| `n_components` | 削減後の次元数 | 2 または 3 |
-| `metric` | 距離指標 | 'euclidean'（デフォルト） |
-
----
-
-## 五、次元削減手法のまとめ
-
-| 手法 | 種類 | 速度 | 適した場面 |
-|------|------|------|---------|
-| **PCA** | 線形 | 速い | 特徴量抽出、データ圧縮、前処理 |
-| **t-SNE** | 非線形 | 遅い | 高次元データの可視化（2D/3D） |
-| **UMAP** | 非線形 | 中程度 | 可視化 + 特徴量抽出 |
-
-```mermaid
-flowchart TD
-    Q["次元削減のニーズ"] --> Q1{"目的は？"}
-    Q1 -->|"学習を速くしたい / 前処理したい"| PCA["PCA<br/>90%〜95% の分散を保持"]
-    Q1 -->|"高次元データを可視化したい"| Q2{"データ量は？"}
-    Q2 -->|"少ない（1 万未満）"| TSNE["t-SNE"]
-    Q2 -->|"多い（1 万超）"| UMAP["UMAP"]
-
-    style PCA fill:#e3f2fd,stroke:#1565c0,color:#333
-    style TSNE fill:#fff3e0,stroke:#e65100,color:#333
-    style UMAP fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### 初めてプロジェクトで使うなら、どう選ぶのが安定？
-
-まずは、次の順番で試すのがよいです。
-
-1. 目的がモデル用の前処理なら、まず `PCA`
-2. 目的が 2D 可視化なら、まず `PCA` でベースラインを見てから `t-SNE`
-3. データが大きくて、構造も保ちたいなら `UMAP` も試す
-
-この順番が安定しているのは、いちばん説明しやすい方法から始められるからです。
-
----
-
-## 六、初めて次元削減をプロジェクトに入れるときの、いちばん安定した順番
-
-実際にプロジェクトへ次元削減を入れるときは、次の順番で進めると安心です。
-
-1. まず目的をはっきりさせる：高速化、ノイズ低減、可視化のどれか
-2. モデル用の前処理なら、まず PCA を試す
-3. 90% と 95% の分散を保つ場合で、下流の結果を比べる
-4. 探索的な可視化なら、t-SNE や UMAP を追加で試す
-5. 最後は、下流タスクの指標や業務上の説明しやすさで、残す価値があるか判断する
-
-こうすると、次元削減を「どの図がきれいか」だけで学ぶことにならず、実際のプロジェクトでの表現設計として考えられます。
-
-:::info 次につながる内容
-- **次の節**：異常検知――データの中の「おかしな値」を見つける
-- **第 4 章の復習**：PCA の固有値の原理（1.3 節）
-:::
-
----
-
-## まとめ
-
-| 要点 | 説明 |
-|------|------|
-| PCA | 線形の次元削減。最大分散方向を保ち、特徴量抽出に使える |
-| 分散説明率 | 累積で 90%〜95% くらいを目安に、何個主成分を残すか決める |
-| t-SNE | 非線形で、可視化専用。局所構造を保つ |
-| UMAP | t-SNE より速く、全体構造も比較的保ちやすい |
-
-## この節で本当に持ち帰ってほしいこと
-
-1 つだけ覚えるなら、私はこれをおすすめします。
-
-> **次元削減は、図をきれいにするためではなく、「情報をどれだけ残し、どれだけコンパクトに表現するか」を目的に選ぶものです。**
-
-だから、本当に大事なのは次の点です。
-
-- まずモデル用の前処理と可視化探索を分ける
-- PCA が基本の出発点だと知る
-- t-SNE と UMAP は探索・表示に強いと知る
-- 最後は下流タスクの結果で判断する
-
-## 実践練習
-
-### 練習 1：Iris の PCA 次元削減
-
-`load_iris()` を使って、PCA で 2D と 3D に削減してみましょう（`mpl_toolkits.mplot3d` を使用）。3 つの品種がどちらでより分かれやすいか比べてください。
-
-### 練習 2：分散説明率
-
-`load_wine()` データで PCA を行い、Scree Plot を描いて、95% の分散説明率を達成するには何個の主成分が必要か調べてください。
-
-### 練習 3：t-SNE vs PCA
-
-`load_digits()` データを使って、PCA と t-SNE の 2D 可視化結果を比較してください。`perplexity` の値を 5, 15, 30, 50, 100 と変えて、どれが見やすいか観察しましょう。
-
-### 練習 4：次元削減 + 分類
-
-`load_digits()` で、まず PCA で 5, 10, 20, 30, 50 次元に削減し、その後にロジスティック回帰で分類してください。「次元数 vs 正解率」の曲線を描き、最適な次元数を見つけましょう。
+- PCA は components と呼ばれる新しい圧縮特徴量を作る；
+- 2D PCA は可視化に便利だが、モデリング情報を捨てすぎることがある；
+- 説明分散は目安であり、自動的な目標ではない；
+- PCA は訓練 pipeline の中で fit する必要がある；
+- t-SNE と UMAP は主に可視化用で、厳密に検証しない限り安易に本番特徴量にしない。

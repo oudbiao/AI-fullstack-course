@@ -1,627 +1,233 @@
 ---
-title: "5.3.3 Dimensionality Reduction Algorithms"
+title: "5.3.3 Dimensionality Reduction"
 sidebar_position: 8
-description: "Master the principles and applications of PCA dimensionality reduction, and learn t-SNE and UMAP high-dimensional data visualization techniques"
-keywords: [dimensionality reduction, PCA, t-SNE, UMAP, principal component analysis, high-dimensional visualization, explained variance ratio]
+description: "A hands-on dimensionality reduction lesson: PCA, explained variance, compression, reconstruction error, modeling after reduction, and visualization tools"
+keywords: [dimensionality reduction, PCA, explained variance, t-SNE, UMAP, feature compression, visualization]
 ---
 
-# 5.3.3 Dimensionality Reduction Algorithms
+# 5.3.3 Dimensionality Reduction
 
 ![PCA dimensionality reduction projection](/img/course/pca-dimensionality-reduction-en.png)
 
 :::tip Section Overview
-Real-world data often has dozens or even thousands of features. Dimensionality reduction can **reduce the number of features while preserving important information**—it can both speed up training and help with visualization. This section builds on PCA from Station 4 and takes it into deeper practical use.
+Dimensionality reduction compresses many features into fewer features. It can help with visualization, speed, noise reduction, and modeling, but each goal needs a different check.
 :::
 
-## Learning Objectives
+## What You Will Build
 
-- Gain a deep understanding of PCA principles and practical applications (connected to Station 4)
-- Master explained variance ratio analysis
-- Understand the visualization principles and usage of t-SNE
-- Learn the UMAP dimensionality reduction method
+This lesson uses the handwritten digits dataset to show:
 
-## First, set a very important learning expectation
+- how PCA maps high-dimensional images into 2 dimensions;
+- how explained variance changes when keeping 10, 20, or 40 components;
+- how PCA affects classification accuracy;
+- how reconstruction error drops as more components are kept;
+- when PCA, t-SNE, and UMAP should be used differently.
 
-This section is very easy for newcomers to get sidetracked by tool names at the start:
-
-- PCA
-- t-SNE
-- UMAP
-
-But on the first pass, what you should learn is not the differences by memorizing tools, but first to distinguish:
-
-> **Are you reducing dimensions for modeling preprocessing, or for visualization and exploration?**
-
-Once that purpose is clear, the method choice later becomes much smoother.
-
----
-
-## First, build a map
-
-This section on dimensionality reduction can easily be learned as “knowing a few tool names,” but what really matters is clarifying the purpose first.
-Because when you do dimensionality reduction, you may actually be solving very different problems:
-
-- Want to compress features and speed up training
-- Want to reduce noise and correlation
-- Want to plot high-dimensional data to inspect its structure
-
-A more stable learning sequence is:
+Look at the maps first. Dimensionality reduction is not one tool with one purpose.
 
 ![Dimensionality reduction purpose selection map](/img/course/ch05-dimensionality-reduction-purpose-map-en.png)
 
-Separating “for modeling” from “for visualization” is the most important first step in this section.
-
 ![PCA intuition comic](/img/course/ch05-pca-intuition-comic-en.png)
 
-Read this comic as the main story of the section: PCA is not “delete a few columns.” It rotates the coordinate system, keeps the directions that explain the most variation, and gives you a smaller representation that may be faster and less noisy. t-SNE and UMAP answer a different question: “Can I see the structure better?”
+## Keyword Decoder
 
-### Keyword Decoder Before You Start
+| Term | Practical meaning |
+|---|---|
+| `dimension` | One feature column, such as one pixel or one numeric field |
+| `PCA` | Principal Component Analysis; finds directions that keep as much variance as possible |
+| `component` | A new compressed feature created by PCA |
+| `explained_variance_ratio_` | How much information-like variance each component keeps |
+| `reconstruction` | Approximate original data rebuilt from compressed components |
+| `t-SNE` | Visualization method for local neighborhood structure |
+| `UMAP` | Visualization and manifold method often used for embeddings |
 
-| Term | Beginner-friendly meaning | Why it matters here |
-|---|---|---|
-| PCA | Principal Component Analysis; a linear method that creates new axes from old features | Usually the safest first tool for preprocessing and compression |
-| PC1 / PC2 | The first and second principal components | They are new axes, not original columns |
-| `n_components` | How many dimensions you want after reduction | Controls the compression strength |
-| `explained_variance_ratio_` | The share of variance kept by each principal component | Helps decide whether 2, 10, 30, or 40 components are enough |
-| Scree Plot | A plot of explained variance by component count | Helps find where extra components stop adding much value |
-| t-SNE | t-distributed Stochastic Neighbor Embedding; a nonlinear visualization method | Useful for seeing local neighborhoods, not for downstream features |
-| UMAP | Uniform Manifold Approximation and Projection; a nonlinear reduction method | Often faster than t-SNE and sometimes usable as feature extraction |
-| `perplexity` | Roughly how many neighbors t-SNE pays attention to | Changes the shape of the visualization, so you should test several values |
-| `fit_transform()` | Learn the reduction rule and immediately apply it to the data | Common pattern in sklearn preprocessing code |
+## Setup
 
----
-
-## Why do we need dimensionality reduction?
-
-### Problems with high-dimensional data
-
-```mermaid
-flowchart TD
-    H["High-dimensional data<br/>(many features)"] --> P1["Slow computation<br/>Long training time"]
-    H --> P2["Overfitting risk<br/>Curse of dimensionality"]
-    H --> P3["Cannot visualize<br/>Humans can only see 2D/3D"]
-    P1 --> S["Dimensionality reduction"]
-    P2 --> S
-    P3 --> S
-    S --> R["Low-dimensional data<br/>with key information preserved"]
-
-    style H fill:#ffebee,stroke:#c62828,color:#333
-    style S fill:#fff3e0,stroke:#e65100,color:#333
-    style R fill:#e8f5e9,stroke:#2e7d32,color:#333
+```bash
+python -m pip install -U scikit-learn numpy
 ```
 
-| Problem | Description |
-|------|------|
-| **Curse of dimensionality** | The more features there are, the sparser the data becomes, and the harder it is for models to learn |
-| **Computational cost** | More features → slower training and larger memory usage |
-| **Multicollinearity** | Many features are highly correlated and redundant |
-| **Visualization** | Data with more than 3 dimensions cannot be plotted directly |
+The runnable lab uses only sklearn and NumPy. UMAP is useful in real projects, but it requires an extra package, so this beginner lab keeps the core dependency small.
 
-### Two approaches to dimensionality reduction
+## Run the Complete Lab
 
-| Approach | Method | Description |
-|------|------|------|
-| **Feature selection** | Pick important features | Keep a subset of the original features |
-| **Feature extraction** | Generate new features | Transform original features into fewer new features. PCA is the classic modeling-friendly example; t-SNE is mainly for visualization |
-
-### The easiest point to confuse when learning dimensionality reduction for the first time
-
-Many newcomers mix up “dimensionality reduction” and “dropping features.”
-In fact, they are not the same:
-
-- Feature selection: keep some columns from the original set
-- Dimensionality reduction: recombine original columns into fewer new axes
-
-So after PCA, the principal components are no longer the original fields themselves, but linear combinations of them.
-
-### A more beginner-friendly analogy
-
-You can think of dimensionality reduction as:
-
-- Compressing a big bundle of scattered information into fewer main lines
-
-This is not simply deleting some features,
-but more like twisting many original features into several “new axes” with denser information.
-
-So the most important thing to remember first is not the algorithm name, but:
-
-- It is doing information compression and representation reorganization
-
----
-
-## PCA in practice
-
-### Review the principle
-
-:::info Connection to Station 4
-In Section 1.3, "Eigenvalues and Eigenvectors," of Station 4, you already learned the mathematical principles behind PCA:
-- Compute the covariance matrix
-- Find eigenvalues and eigenvectors
-- Choose the direction corresponding to the largest eigenvalue as the principal component
-
-The focus of this section is **practical application**—how to use PCA on real data.
-:::
-
-**The core idea of PCA**: find the direction with the largest variance in the data and project onto it.
-
-### Handwritten digit dimensionality reduction
+Create `pca_lab.py`:
 
 ```python
-from sklearn.datasets import load_digits
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
 import numpy as np
-import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
-# Load handwritten digit data
-digits = load_digits()
-X, y = digits.data, digits.target
-print(f"Original data: {X.shape[0]} samples, {X.shape[1]} features")
 
-# Look at a few samples first
-fig, axes = plt.subplots(2, 10, figsize=(15, 3))
-for i, ax in enumerate(axes.ravel()):
-    ax.imshow(digits.images[i], cmap='gray')
-    ax.set_title(str(y[i]), fontsize=9)
-    ax.axis('off')
-plt.suptitle('Handwritten digit samples (8×8 = 64 features)')
-plt.tight_layout()
-plt.show()
+X, y = load_digits(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
 
-# Standardize
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
-# Reduce to 2D with PCA
-pca_2d = PCA(n_components=2)
-X_2d = pca_2d.fit_transform(X_scaled)
-print(f"After dimensionality reduction: {X_2d.shape}")
-print(f"Retained variance ratio: {pca_2d.explained_variance_ratio_.sum():.1%}")
+print("pca_2d_map")
+pca2 = PCA(n_components=2, random_state=42)
+X_train_2d = pca2.fit_transform(X_train_scaled)
+print("shape=", X_train_2d.shape)
+print("explained_variance=", np.round(pca2.explained_variance_ratio_, 3).tolist())
+print("total_2d_variance=", round(float(pca2.explained_variance_ratio_.sum()), 3))
 
-# Visualization
-plt.figure(figsize=(10, 8))
-scatter = plt.scatter(X_2d[:, 0], X_2d[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-plt.colorbar(scatter, label='Digit')
-plt.xlabel(f'PC1 (variance share {pca_2d.explained_variance_ratio_[0]:.1%})')
-plt.ylabel(f'PC2 (variance share {pca_2d.explained_variance_ratio_[1]:.1%})')
-plt.title('PCA reduced to 2D (handwritten digits)')
-plt.grid(True, alpha=0.3)
-plt.show()
+print("pca_modeling_lab")
+for n in [10, 20, 40]:
+    model = Pipeline([
+        ("scale", StandardScaler()),
+        ("pca", PCA(n_components=n, random_state=42)),
+        ("clf", LogisticRegression(max_iter=5000, random_state=42)),
+    ])
+    model.fit(X_train, y_train)
+    pred = model.predict(X_test)
+    pca = model.named_steps["pca"]
+    print(
+        f"components={n:<2} "
+        f"variance={pca.explained_variance_ratio_.sum():.3f} "
+        f"accuracy={accuracy_score(y_test, pred):.3f}"
+    )
+
+print("reconstruction_lab")
+for n in [10, 20, 40]:
+    pca = PCA(n_components=n, random_state=42)
+    compressed = pca.fit_transform(X_train_scaled)
+    restored = pca.inverse_transform(compressed)
+    mse = mean_squared_error(X_train_scaled, restored)
+    print(f"components={n:<2} reconstruction_mse={mse:.3f}")
+```
+
+Run it:
+
+```bash
+python pca_lab.py
 ```
 
 Expected output:
 
 ```text
-Original data: 1797 samples, 64 features
-After dimensionality reduction: (1797, 2)
-Retained variance ratio: 21.6%
+pca_2d_map
+shape= (1347, 2)
+explained_variance= [0.119, 0.097]
+total_2d_variance= 0.216
+pca_modeling_lab
+components=10 variance=0.591 accuracy=0.858
+components=20 variance=0.791 accuracy=0.942
+components=40 variance=0.953 accuracy=0.960
+reconstruction_lab
+components=10 reconstruction_mse=0.390
+components=20 reconstruction_mse=0.199
+components=40 reconstruction_mse=0.045
 ```
 
-This result is a good reminder: forcing 64 pixel features down to 2 dimensions is excellent for visualization, but it keeps only about one fifth of the variance. Do not assume that a 2D PCA plot contains enough information for a high-quality classifier.
+## Read the 2D Result
 
-### Explained variance ratio analysis
-
-**Key question**: How many principal components should we keep?
-
-```python
-# Use all principal components
-pca_full = PCA()
-pca_full.fit(X_scaled)
-
-# Explained variance ratio
-explained = pca_full.explained_variance_ratio_
-cumulative = np.cumsum(explained)
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# Variance share of each principal component
-axes[0].bar(range(1, len(explained)+1), explained, color='steelblue', alpha=0.7)
-axes[0].set_xlabel('Principal component index')
-axes[0].set_ylabel('Explained variance ratio')
-axes[0].set_title('Variance share of each principal component')
-axes[0].set_xlim(0, 30)
-
-# Cumulative variance
-axes[1].plot(range(1, len(cumulative)+1), cumulative, 'bo-', markersize=3)
-axes[1].axhline(y=0.9, color='r', linestyle='--', label='90% threshold')
-axes[1].axhline(y=0.95, color='orange', linestyle='--', label='95% threshold')
-
-# Mark the point reaching 90%
-n_90 = np.argmax(cumulative >= 0.9) + 1
-n_95 = np.argmax(cumulative >= 0.95) + 1
-axes[1].axvline(x=n_90, color='r', linestyle=':', alpha=0.5)
-axes[1].axvline(x=n_95, color='orange', linestyle=':', alpha=0.5)
-
-axes[1].set_xlabel('Number of principal components')
-axes[1].set_ylabel('Cumulative explained variance ratio')
-axes[1].set_title('Cumulative explained variance ratio (Scree Plot)')
-axes[1].legend()
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-
-print(f"Keeping 90% of the variance requires {n_90} principal components (out of the original 64)")
-print(f"Keeping 95% of the variance requires {n_95} principal components (out of the original 64)")
-```
-
-Expected output:
+The digits dataset has 64 pixel features. PCA with `n_components=2` compresses each image into two numbers:
 
 ```text
-Keeping 90% of the variance requires 31 principal components (out of the original 64)
-Keeping 95% of the variance requires 40 principal components (out of the original 64)
+shape= (1347, 2)
+total_2d_variance= 0.216
 ```
 
-### How do you decide between keeping 90% or 95%?
+Two components are useful for plotting, but they keep only about `21.6%` of the variance. That is fine for a quick map, but too little for a serious classifier.
 
-There is no fixed answer that always works, but for your first project, you can start like this:
-
-- If you care more about training speed and compression, try 90% first
-- If you worry more about losing information, try 95% first
-- In the end, always validate with downstream model performance, not just the explained variance ratio
-
-Because “how much variance is retained” is not the same as “what works best for the downstream task.”
+## Explained Variance
 
 ![PCA explained variance ratio reading guide](/img/course/ch05-pca-explained-variance-map-en.png)
 
-When reading a PCA plot, first look at the inflection point of the cumulative variance curve: before the inflection point, each extra principal component is very valuable; after that, the gain becomes smaller. 90% or 95% are just practical thresholds, and you still need to judge together with downstream model scores, training speed, and interpretability.
-
-### The impact of PCA on model performance
-
-```python
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import make_pipeline
-import time
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Compare different numbers of principal components
-n_components_list = [2, 5, 10, 20, 30, 64]
-results = []
-
-for n in n_components_list:
-    pipe = make_pipeline(
-        StandardScaler(),
-        PCA(n_components=n) if n < 64 else PCA(),
-        LogisticRegression(max_iter=5000, random_state=42)
-    )
-
-    start = time.time()
-    pipe.fit(X_train, y_train)
-    train_time = time.time() - start
-
-    score = pipe.score(X_test, y_test)
-    results.append({'n': n, 'score': score, 'time': train_time})
-    print(f"PC={n:3d} | Accuracy: {score:.1%} | Training time: {train_time:.3f}s")
-
-# Visualization
-fig, ax1 = plt.subplots(figsize=(8, 5))
-ax2 = ax1.twinx()
-
-ns = [r['n'] for r in results]
-scores = [r['score'] for r in results]
-times = [r['time'] for r in results]
-
-ax1.plot(ns, scores, 'bo-', label='Accuracy')
-ax2.plot(ns, times, 'rs-', label='Training time')
-
-ax1.set_xlabel('Number of principal components')
-ax1.set_ylabel('Accuracy', color='blue')
-ax2.set_ylabel('Training time (s)', color='red')
-ax1.set_title('How PCA affects model performance and speed')
-
-ax1.legend(loc='lower right')
-ax2.legend(loc='center right')
-ax1.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
-Example output on a typical laptop:
+Explained variance helps you decide how much information to keep:
 
 ```text
-PC=  2 | Accuracy: 51.7% | Training time: 0.015s
-PC=  5 | Accuracy: 81.9% | Training time: 0.013s
-PC= 10 | Accuracy: 88.6% | Training time: 0.013s
-PC= 20 | Accuracy: 94.4% | Training time: 0.010s
-PC= 30 | Accuracy: 96.1% | Training time: 0.009s
-PC= 64 | Accuracy: 97.2% | Training time: 0.009s
+components=10 variance=0.591 accuracy=0.858
+components=20 variance=0.791 accuracy=0.942
+components=40 variance=0.953 accuracy=0.960
 ```
 
-Training time depends on your machine, so do not memorize the seconds. The important pattern is the trade-off: too few components lose information; more components usually recover accuracy but reduce compression.
+The useful lesson is not "always keep 95%." The useful lesson is:
 
-### PCA is not just about compressing dimensions
+- if the goal is visualization, `2` or `3` components may be enough;
+- if the goal is modeling, compare accuracy or the metric your project uses;
+- if the goal is compression, compare reconstruction error and storage cost.
 
-PCA often provides three kinds of value in projects:
+## Reconstruction Error
 
-- Remove redundant correlated information
-- Reduce noise and make the model more stable
-- Let downstream algorithms train in a more compact feature space
-
-So after PCA, don’t just ask “How many dimensions were reduced?” Also ask:
-
-- Did the model become faster?
-- Did generalization become more stable?
-- Is overfitting less likely?
-
----
-
-## t-SNE visualization
-
-### Limitations of PCA
-
-PCA is a **linear** dimensionality reduction method—it can only find linear directions. For complex high-dimensional data, different classes may overlap on a 2D PCA plot.
-
-### t-SNE principle
-
-t-SNE (t-distributed Stochastic Neighbor Embedding) is a nonlinear dimensionality reduction method designed specifically for **visualization**.
-
-**Core idea**:
-- Compute pairwise "similarities" between points in high-dimensional space
-- Compute "similarities" again in low-dimensional space
-- Adjust the low-dimensional coordinates so the similarity distributions in both spaces match as closely as possible
-
-| Feature | Description |
-|------|------|
-| Nonlinear | Can show complex data structures |
-| Designed for visualization | Usually reduced to 2D or 3D |
-| Preserves local structure | Nearby points remain nearby in low-dimensional space |
-| Randomness | Results may differ each run |
-
-### t-SNE in practice
-
-```python
-from sklearn.manifold import TSNE
-
-# t-SNE dimensionality reduction
-tsne = TSNE(n_components=2, random_state=42, perplexity=30, max_iter=1000)
-X_tsne = tsne.fit_transform(X_scaled)
-print(f"t-SNE result shape: {X_tsne.shape}")
-
-# PCA vs t-SNE comparison
-fig, axes = plt.subplots(1, 2, figsize=(16, 6))
-
-axes[0].scatter(X_2d[:, 0], X_2d[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-axes[0].set_title('PCA reduced to 2D')
-axes[0].set_xlabel('PC1')
-axes[0].set_ylabel('PC2')
-
-axes[1].scatter(X_tsne[:, 0], X_tsne[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-axes[1].set_title('t-SNE reduced to 2D')
-axes[1].set_xlabel('t-SNE 1')
-axes[1].set_ylabel('t-SNE 2')
-
-for ax in axes:
-    ax.grid(True, alpha=0.3)
-
-plt.suptitle('PCA vs t-SNE (handwritten digit data)', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-Expected output:
+Reconstruction asks: after compression, how much of the original data can be rebuilt?
 
 ```text
-t-SNE result shape: (1797, 2)
+components=10 reconstruction_mse=0.390
+components=40 reconstruction_mse=0.045
 ```
 
-`max_iter` means the maximum number of optimization iterations. In recent sklearn versions, `max_iter` is the recommended parameter name; older tutorials may use `n_iter`, which was kept for compatibility in older versions.
+More components make reconstruction better, but they also keep more dimensions. The right number is a trade-off between compactness and useful information.
 
-### The perplexity parameter
+## PCA in a Model Pipeline
 
-`perplexity` controls the number of "neighbors" t-SNE pays attention to and affects the visualization:
+The modeling block uses:
 
 ```python
-fig, axes = plt.subplots(1, 4, figsize=(20, 4))
-perplexities = [5, 15, 30, 50]
-
-for ax, perp in zip(axes, perplexities):
-    tsne = TSNE(n_components=2, perplexity=perp, random_state=42, max_iter=1000)
-    X_t = tsne.fit_transform(X_scaled)
-    print(f"perplexity={perp}: result shape = {X_t.shape}")
-    ax.scatter(X_t[:, 0], X_t[:, 1], c=y, cmap='tab10', s=8, alpha=0.6)
-    ax.set_title(f'perplexity = {perp}')
-    ax.grid(True, alpha=0.3)
-
-plt.suptitle('The effect of the t-SNE perplexity parameter', fontsize=13)
-plt.tight_layout()
-plt.show()
+Pipeline([
+    ("scale", StandardScaler()),
+    ("pca", PCA(n_components=n, random_state=42)),
+    ("clf", LogisticRegression(max_iter=5000, random_state=42)),
+])
 ```
 
-Expected output:
+This order matters:
 
-```text
-perplexity=5: result shape = (1797, 2)
-perplexity=15: result shape = (1797, 2)
-perplexity=30: result shape = (1797, 2)
-perplexity=50: result shape = (1797, 2)
-```
+1. split train/test first;
+2. fit scaling on training data only;
+3. fit PCA on training data only;
+4. train the model on compressed training features;
+5. evaluate on transformed test features.
 
-:::warning t-SNE Notes
-1. **Use it only for visualization**. Do not use t-SNE to extract features and then train a model
-2. **It is slow**. For large datasets, first use PCA to reduce to 50 dimensions, then run t-SNE
-3. **Distances are not meaningful**. You cannot compare the sizes of distances between different clusters
-4. **Results differ each run** (you can fix this with `random_state`)
-:::
+Putting scaling and PCA in a pipeline helps prevent data leakage during cross-validation.
 
-### The easiest place to misread t-SNE
+## PCA, t-SNE, and UMAP
 
-t-SNE plots look beautiful, but beginners often mistakenly think:
+| Method | Best use | Important warning |
+|---|---|---|
+| PCA | compression, preprocessing, fast 2D overview | linear method; may miss curved structure |
+| t-SNE | local-neighborhood visualization | distances between far clusters can be misleading |
+| UMAP | embedding visualization and neighborhood exploration | needs extra package; tune parameters and verify stability |
 
-- If clusters are farther apart, that means they are also farther apart in the original space
-- If the plot looks more separated, the model must be better
+For beginners, the safest order is:
 
-Neither of these is always true.
-What you should mainly look at with t-SNE is:
+1. Start with PCA because it is fast and interpretable.
+2. Use t-SNE or UMAP for visualization, not as your first production feature pipeline.
+3. If dimensionality reduction changes a model, validate with cross-validation.
 
-- Whether local neighborhood relationships are preserved
-- Whether samples of the same class are more likely to form groups
+## Practical Debugging Checklist
 
-Do not treat the whole plot as a strict geometric map.
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| PCA result dominated by one feature | features are not scaled | use `StandardScaler` before PCA |
+| 2D plot looks nice but model is weak | 2D kept too little variance | use more components for modeling |
+| Accuracy drops sharply after PCA | too many useful features were discarded | increase `n_components`, compare with no-PCA baseline |
+| Cross-validation score is too good | PCA fitted before split | put PCA inside `Pipeline` |
+| t-SNE/UMAP plot looks overinterpreted | visualization layout is not a proof | check stability and downstream usefulness |
 
----
+## Practice
 
-## UMAP dimensionality reduction
+1. Change PCA components to `[5, 15, 30, 50]`. Where does accuracy stop improving?
+2. Run the classifier without PCA. Is PCA helping speed, accuracy, or only compression?
+3. Remove `StandardScaler`. How does explained variance change?
+4. Use `PCA(n_components=0.95)` and print the number of components selected.
+5. Use the 2D PCA output to draw a scatter plot colored by digit label.
 
-### Introduction to UMAP
+## Pass Check
 
-UMAP (Uniform Manifold Approximation and Projection) is a dimensionality reduction method that is faster than t-SNE and better at preserving global structure.
+You are done when you can explain:
 
-| | t-SNE | UMAP |
-|---|-------|------|
-| Speed | Slow | Much faster |
-| Global structure | Not preserved | Preserved better |
-| Can be used for feature extraction | Not recommended | Yes |
-| Parameters | `perplexity` | `n_neighbors`, `min_dist` |
-
-### UMAP in practice
-
-```bash
-python -m pip install --upgrade umap-learn
-```
-
-```python
-# UMAP requires installation: python -m pip install --upgrade umap-learn
-try:
-    import umap
-
-    reducer = umap.UMAP(n_components=2, random_state=42)
-    X_umap = reducer.fit_transform(X_scaled)
-    print(f"UMAP result shape: {X_umap.shape}")
-
-    # Compare three methods
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
-
-    axes[0].scatter(X_2d[:, 0], X_2d[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-    axes[0].set_title('PCA')
-
-    axes[1].scatter(X_tsne[:, 0], X_tsne[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-    axes[1].set_title('t-SNE')
-
-    axes[2].scatter(X_umap[:, 0], X_umap[:, 1], c=y, cmap='tab10', s=10, alpha=0.6)
-    axes[2].set_title('UMAP')
-
-    for ax in axes:
-        ax.grid(True, alpha=0.3)
-
-    plt.suptitle('PCA vs t-SNE vs UMAP (handwritten digits)', fontsize=13)
-    plt.tight_layout()
-    plt.show()
-
-except ImportError:
-    print("Please install umap-learn first: python -m pip install --upgrade umap-learn")
-```
-
-Expected output after installing `umap-learn`:
-
-```text
-UMAP result shape: (1797, 2)
-```
-
-If you see the installation message instead, the code is still behaving correctly. It means the optional package is not installed in your current Python environment.
-
-### UMAP parameters
-
-| Parameter | Description | Recommendation |
-|------|------|------|
-| `n_neighbors` | Number of local neighbors (similar to perplexity) | 15 (default) |
-| `min_dist` | Minimum distance between points in low-dimensional space | 0.1 (default) |
-| `n_components` | Target dimensionality | 2 or 3 |
-| `metric` | Distance metric | 'euclidean' (default) |
-
----
-
-## Summary of dimensionality reduction methods
-
-| Method | Type | Speed | Use case |
-|------|------|------|---------|
-| **PCA** | Linear | Fast | Feature extraction, data compression, preprocessing |
-| **t-SNE** | Nonlinear | Slow | High-dimensional data visualization (2D/3D) |
-| **UMAP** | Nonlinear | Medium | Visualization + feature extraction |
-
-```mermaid
-flowchart TD
-    Q["Dimensionality reduction need"] --> Q1{"Purpose?"}
-    Q1 -->|"Speed up training / preprocessing"| PCA["PCA<br/>Retain 90%~95% variance"]
-    Q1 -->|"Visualize high-dimensional data"| Q2{"Data size?"}
-    Q2 -->|"Small (< 10k)"| TSNE["t-SNE"]
-    Q2 -->|"Large (> 10k)"| UMAP["UMAP"]
-
-    style PCA fill:#e3f2fd,stroke:#1565c0,color:#333
-    style TSNE fill:#fff3e0,stroke:#e65100,color:#333
-    style UMAP fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### What is the safest default order when doing a project for the first time?
-
-You can follow this default order directly:
-
-1. If the goal is modeling preprocessing, try `PCA` first
-2. If the goal is 2D visualization, try `PCA` first as a baseline, then try `t-SNE`
-3. If the data is larger and you still want to preserve structure, try `UMAP`
-
-This order is the safest because it starts with the easiest method to explain.
-
----
-
-## The safest default order when putting dimensionality reduction into a project for the first time
-
-When you first put dimensionality reduction into a real project, you can follow this order:
-
-1. First clarify the purpose: speed up training, reduce noise, or visualize
-2. If it is modeling preprocessing, try PCA first
-3. Check downstream performance when retaining 90% and 95% variance
-4. If it is exploratory visualization, then add t-SNE or UMAP
-5. In the end, always return to downstream task metrics or business interpretation to decide whether it is worth keeping
-
-In this way, you won’t learn dimensionality reduction as “which picture looks better,” but more like representation design in a real project.
-
-:::info Next Steps
-- **Next section**: Anomaly Detection — finding what is “abnormal” in data
-- **Station 4 review**: The eigenvalue principle behind PCA (Section 1.3)
-:::
-
----
-
-## Summary
-
-| Key Point | Description |
-|------|------|
-| PCA | Linear dimensionality reduction; preserves directions of maximum variance; can be used for feature extraction |
-| Explained variance ratio | When the cumulative total reaches 90%~95%, you can decide how many principal components to keep |
-| t-SNE | Nonlinear, designed for visualization, preserves local structure |
-| UMAP | Faster than t-SNE and can preserve global structure |
-
-## What should you take away from this section?
-
-If you only take away one sentence, I hope you remember this:
-
-> **Dimensionality reduction is not about making the plot look nicer; it is about making purposeful trade-offs between “information preservation” and “more compact representation.”**
-
-So what really matters is:
-
-- First distinguish modeling preprocessing from visualization and exploration
-- Know that PCA is the default starting point
-- Know that t-SNE and UMAP are more about exploration and presentation
-- Know that in the end, you still need to judge by downstream task performance
-
-## Hands-on exercises
-
-### Exercise 1: Iris PCA reduction
-
-Use `load_iris()` to perform PCA reduction to 2D and 3D (using `mpl_toolkits.mplot3d`), and compare which one separates the three species better.
-
-### Exercise 2: Explained variance ratio
-
-Use the `load_wine()` dataset with PCA, draw a Scree Plot, and determine how many principal components are needed to reach 95% explained variance.
-
-### Exercise 3: t-SNE vs PCA
-
-Use the `load_digits()` dataset and compare PCA and t-SNE in 2D visualization. Try different `perplexity` values (5, 15, 30, 50, 100) and observe which works best.
-
-### Exercise 4: Dimensionality reduction + classification
-
-On `load_digits()`, first use PCA to reduce to different dimensions (5, 10, 20, 30, 50), then use logistic regression for classification, plot the “dimension vs accuracy” curve, and find the optimal dimension.
+- PCA creates new compressed features called components;
+- 2D PCA is useful for visualization but may discard too much information for modeling;
+- explained variance is a guide, not an automatic target;
+- PCA must be fitted inside the training pipeline;
+- t-SNE and UMAP are mainly visualization tools unless you validate them carefully.
