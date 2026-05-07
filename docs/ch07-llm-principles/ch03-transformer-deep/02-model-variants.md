@@ -189,6 +189,29 @@ pretty_print("decoder-only self-attention", causal_mask(length))
 pretty_print("encoder-decoder cross-attention", cross_attention_map(4, 3))
 ```
 
+Expected output:
+
+```text
+encoder-only self-attention
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+1 1 1 1 1
+
+decoder-only self-attention
+1 0 0 0 0
+1 1 0 0 0
+1 1 1 0 0
+1 1 1 1 0
+1 1 1 1 1
+
+encoder-decoder cross-attention
+1 1 1 1
+1 1 1 1
+1 1 1 1
+```
+
 ### What is this code teaching?
 
 It teaches three most fundamental things:
