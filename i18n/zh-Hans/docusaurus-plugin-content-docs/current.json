@@ -19,9 +19,17 @@
     "message": "项目与作品集参考",
     "description": "The label for category 'Project and Portfolio References' in sidebar 'courseSidebar'"
   },
+  "sidebar.courseSidebar.category.Project Evidence": {
+    "message": "项目证据",
+    "description": "The label for category 'Project Evidence' in sidebar 'courseSidebar'"
+  },
   "sidebar.courseSidebar.category.Optional Reference": {
     "message": "可选参考与排障",
     "description": "The label for category 'Optional Reference' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.Extra Help": {
+    "message": "补充帮助",
+    "description": "The label for category 'Extra Help' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.Main Track 1: Foundations (1-3)": {
     "message": "主线 1：打基础（1-3）",

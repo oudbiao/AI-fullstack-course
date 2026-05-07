@@ -19,9 +19,17 @@
     "message": "プロジェクトとポートフォリオ参照",
     "description": "The label for category 'Project and Portfolio References' in sidebar 'courseSidebar'"
   },
+  "sidebar.courseSidebar.category.Project Evidence": {
+    "message": "プロジェクト証拠",
+    "description": "The label for category 'Project Evidence' in sidebar 'courseSidebar'"
+  },
   "sidebar.courseSidebar.category.Optional Reference": {
     "message": "任意参照とトラブル対応",
     "description": "The label for category 'Optional Reference' in sidebar 'courseSidebar'"
+  },
+  "sidebar.courseSidebar.category.Extra Help": {
+    "message": "補足ヘルプ",
+    "description": "The label for category 'Extra Help' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.Main Track 1: Foundations (1-3)": {
     "message": "メイントラック 1：基礎固め（1-3）",
