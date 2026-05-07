@@ -1,330 +1,146 @@
 ---
-title: "6.8.4 项目：生成模型实战【选修】"
+title: "6.8.4 项目：生成模型实战 [选修]"
 sidebar_position: 3
-description: "从任务定义、数据、生成质量观察到样本多样性分析，建立一个最小生成模型项目的评估和展示框架。"
+description: "构建生成项目评审闭环：sample checkpoints、质量记录、多样性检查、失败样本和作品集展示。"
 keywords: [generative project, GAN, VAE, generation quality, diversity, evaluation]
 ---
 
-# 6.8.4 项目：生成模型实战【选修】
+# 6.8.4 项目：生成模型实战 [选修]
 
 :::tip 本节定位
-生成项目和分类项目最大的差别在于：
-
-- 你没有一个特别简单清楚的“正确标签”可对
-
-所以生成项目真正难的地方常常不是把模型跑起来，
-而是：
-
-> **你到底怎么判断它生成得好不好。**
-
-这一节的重点，就是把生成项目最基础的评估和展示框架讲清楚。
+生成项目不是产出一张好看的样本就结束。你需要展示质量、多样性、稳定性、失败样本，以及为什么保留某个 checkpoint。
 :::
 
 ## 学习目标
 
-- 理解生成项目和分类项目在评估上的差别
-- 学会设计一个最小生成项目的展示结构
-- 理解“质量”和“多样性”为什么都重要
-- 建立生成项目的基本复盘框架
+- 解释为什么生成项目的评估不同于分类。
+- 同时追踪质量和多样性。
+- 构建一个小型 checkpoint review table。
+- 识别 mode collapse 和模糊输出。
+- 把生成样本包装成项目证据。
 
 ---
 
-## 先建立一张地图
+## 先看评估闭环
 
-生成项目最容易让新人困惑的地方是：模型明明跑起来了，但你不知道自己到底做得算不算好。
+![生成模型项目评估闭环图](/img/course/ch06-project-generative-eval-loop.png)
 
-![生成模型项目评估闭环](/img/course/ch06-project-generative-eval-loop.png)
-
-:::tip 读图方式
-生成项目不能只看最好看的样本。要按 checkpoint 观察变化，同时比较质量和多样性，并保留失败样本，这样项目才有评估故事，而不是只有图片展示。
-:::
-
-```mermaid
-flowchart LR
-    A["训练生成模型"] --> B["看生成质量"]
-    A --> C["看多样性"]
-    A --> D["看训练是否稳定"]
-    B --> E["项目展示与复盘"]
-    C --> E
-    D --> E
+```text
+train -> sample checkpoints -> review quality + diversity -> keep failures -> choose next step
 ```
 
-所以这一节真正要学的，是“怎么判断和展示”，不只是“怎么生成”。
+练习项目建议选择：
 
-## 一、生成项目最先要解决的是什么？
+- 能肉眼检查；
+- 足够小，能训练或模拟；
+- checkpoint 之间容易比较。
 
-不是：
+数字、图标、简单形状、小灰度图案，都比开放式照片级生成更适合第一轮项目。
 
-- 用哪种最复杂模型
+## 实验：Checkpoint Review Dashboard
 
-而是：
-
-- 你到底在生成什么
-- 你要怎么判断生成结果值不值
-
-### 常见项目问题形式
-
-- 生成人脸或头像
-- 生成小型手写数字
-- 生成简单轮廓图
-
-对练手来说，建议先选：
-
-- 目标清楚
-- 数据容易获取
-- 结果容易肉眼观察
-
-的题目。
-
----
-
-## 二、生成项目最小骨架
-
-### 数据
-
-- 训练样本
-
-### 模型
-
-- GAN / VAE / 更现代生成模型
-
-### 采样与可视化
-
-- 定期生成样本看趋势
-
-### 评估
-
-- 样本质量
-- 多样性
-
-### 展示
-
-- 不同时期样本对比
-- 失败模式总结
-
-### 一张更适合新人的评估看板
-
-很多新人第一次做生成项目时，
-最大的问题不是“不会训”，
-而是：
-
-- 不知道该看什么
-
-可以先把最小看板收成下面这 4 栏：
-
-```mermaid
-flowchart LR
-    A["训练阶段样本"] --> E["项目评估看板"]
-    B["质量观察"] --> E
-    C["多样性观察"] --> E
-    D["失败样本"] --> E
-```
-
-只要这 4 栏你能持续填出来，
-这个项目就不会再只是“生成了一些图”。
-
-## 三、推荐推进顺序
-
-1. 先选一个非常小、容易观察的数据集
-2. 再确定你更重视质量、多样性还是稳定性
-3. 然后再选模型路线
-4. 最后再决定怎么展示和比较结果
-
----
-
-## 四、先跑一个最小项目规划示例
-
-```python
-from dataclasses import dataclass, field
-
-
-@dataclass
-class GenerativeProjectPlan:
-    name: str
-    data_source: str
-    model_family: str
-    evaluation_focus: list
-    risks: list = field(default_factory=list)
-
-
-plan = GenerativeProjectPlan(
-    name="simple_digit_generator",
-    data_source="small_grayscale_digits",
-    model_family="VAE",
-    evaluation_focus=["visual_quality", "diversity", "training_stability"],
-    risks=["mode collapse", "模糊样本", "潜空间不连续"],
-)
-
-print(plan)
-```
-
-### 为什么这一步比直接堆代码更重要？
-
-因为生成项目如果不先说清：
-
-- 数据
-- 模型路线
-- 评估重点
-
-后面很容易只剩“我生成了一些图”，却说不清项目价值。
-
----
-
-## 五、生成项目怎么做最基础的结果检查？
-
-### 先看质量
-
-生成结果像不像目标数据？
-
-### 再看多样性
-
-是不是总生成差不多的东西？
-
-### 一个极简多样性检查例子
-
-```python
-samples = [
-    "digit_like_pattern_A",
-    "digit_like_pattern_A",
-    "digit_like_pattern_B",
-    "digit_like_pattern_C",
-]
-
-diversity = len(set(samples)) / len(samples)
-print("diversity score =", diversity)
-```
-
-虽然这个例子非常简化，
-但它已经在提醒你：
-
-- 只看“像不像”还不够
-- 还要看“是不是老生成同样东西”
-
-### 再加一个“训练阶段样本看板”示例
-
-真实项目里，一个特别好用的展示方式是：
-
-- 固定几个 epoch
-- 每个 epoch 都保存一小组样本
-- 再把它们并排展示
-
-哪怕不用真的画图，
-先做一个结构化看板都很有帮助：
+创建 `generative_review_dashboard.py`：
 
 ```python
 checkpoints = [
-    {"epoch": 1, "quality": 0.20, "diversity": 0.80, "note": "大多是噪声"},
-    {"epoch": 10, "quality": 0.45, "diversity": 0.72, "note": "开始出现轮廓"},
-    {"epoch": 30, "quality": 0.68, "diversity": 0.60, "note": "清晰度提高，但开始变像"},
-    {"epoch": 60, "quality": 0.75, "diversity": 0.48, "note": "可能出现 mode collapse"},
+    {"epoch": 1, "quality": 0.20, "diversity": 0.80, "note": "mostly noise"},
+    {"epoch": 10, "quality": 0.45, "diversity": 0.72, "note": "outlines appear"},
+    {"epoch": 30, "quality": 0.68, "diversity": 0.60, "note": "usable but varied"},
+    {"epoch": 60, "quality": 0.75, "diversity": 0.48, "note": "possible collapse"},
 ]
 
+print("generation_review")
 for row in checkpoints:
-    print(row)
+    status = "candidate" if row["quality"] >= 0.6 and row["diversity"] >= 0.55 else "review"
+    print(
+        f"epoch={row['epoch']:03d} "
+        f"quality={row['quality']:.2f} "
+        f"diversity={row['diversity']:.2f} "
+        f"status={status}"
+    )
+
+selected = max(
+    [row for row in checkpoints if row["diversity"] >= 0.55],
+    key=lambda row: row["quality"],
+)
+print("selected_epoch:", selected["epoch"])
 ```
 
-这个例子最值得先记住的不是数值本身，
-而是：
+运行：
 
-- 质量和多样性往往要一起看
-- 训练越往后，不一定所有指标都一起变好
+```bash
+python generative_review_dashboard.py
+```
 
----
+预期输出：
 
-## 六、最容易踩的坑
+```text
+generation_review
+epoch=001 quality=0.20 diversity=0.80 status=review
+epoch=010 quality=0.45 diversity=0.72 status=review
+epoch=030 quality=0.68 diversity=0.60 status=candidate
+epoch=060 quality=0.75 diversity=0.48 status=review
+selected_epoch: 30
+```
 
-### 误区一：只放最好看的几张图
+为什么不选 epoch 60？因为质量更高，但多样性更低。好的生成项目不能只选最漂亮的一张。
 
-真正项目应该展示：
+## 要保存什么
 
-- 平均样本质量
-- 失败样本
+| 证据 | 为什么 |
+|---|---|
+| samples by checkpoint | 展示训练进展 |
+| failure samples | 诚实展示边界 |
+| diversity notes | 捕捉重复输出 |
+| quality notes | 解释视觉改善 |
+| training logs | 展示稳定或 collapse |
+| final selection rule | 让选择可复现 |
 
-### 误区二：只看质量，不看多样性
+## 质量、多样性、稳定性
 
-这会掩盖 mode collapse。
-
-### 误区三：一上来选太复杂数据集
-
-练手项目更适合先选：
-
-- 易观察
-- 易比较
-
-的小任务。
-
----
-
-## 项目交付时最好补上的内容
-
-- 一组不同训练阶段的样本对比
-- 一组失败样本
-- 一段对“质量 / 多样性 / 稳定性”取舍的说明
-- 一段为什么选这个模型而不是别的模型的解释
-
-## 一个新人可直接照抄的项目评估表
-
-如果你不知道怎么写生成项目复盘，
-最稳的起点通常是先做这样一张表：
-
-| 维度 | 你要回答的问题 | 最小证据 |
+| 维度 | 好信号 | 警告信号 |
 |---|---|---|
-| 质量 | 生成结果像不像目标数据？ | 不同时期样本对比 |
-| 多样性 | 是不是老生成差不多的东西？ | 一组不同采样结果 |
-| 稳定性 | 训练有没有明显崩掉或塌缩？ | loss / 样本趋势说明 |
-| 解释 | 为什么选这个模型路线？ | 一段路线选择理由 |
+| Quality | 样本像目标数据 | 噪声、模糊、结构破碎 |
+| Diversity | 样本有 meaningful variation | 重复输出或单一风格 |
+| Stability | checkpoint 逐步改善 | 突然 collapse 或震荡 |
+| Interpretability | 记录失败原因 | 只展示最好样本 |
 
-这张表特别适合初学者，
-因为它会把“我到底该展示什么”这件事先讲清楚。
+常见取舍：
 
-## 如果继续把这个项目往上做，最值得补什么
+```text
+最好看的单个样本 != 最好的项目 checkpoint
+```
 
-更值得优先补的通常是：
+## 项目升级路线
 
-1. 一页质量 / 多样性对照展示
-2. 不同模型路线的对比页
-3. 一组 mode collapse 或模糊样本的失败案例分析
+| 版本 | 增加什么 |
+|---|---|
+| basic | 一个模型、固定 sampling seed、checkpoint samples |
+| standard | quality/diversity table 和 failure samples |
+| challenge | 比较 VAE、GAN 或 diffusion-style 输出 |
+| portfolio | 清楚故事：data、model、samples、failures、next step |
 
-这样项目会从“生成了一些结果”进一步变成“我知道该怎么评价和解释这些结果”。
+## 常见错误
 
-## 十、一个更适合作品集的展示顺序
-
-如果你把这个项目做成作品集页面，比较推荐按这个顺序展示：
-
-1. 项目目标和数据范围
-2. 模型路线选择
-3. 不同训练阶段样本
-4. 质量 / 多样性对比
-5. 失败案例与原因判断
-6. 下一步升级方向
-
-这样别人看到的不是“几张图”，而是一条完整的生成项目思路。
-
----
-
-## 小结
-
-这节最重要的是建立一个生成项目判断：
-
-> **生成模型项目最难的不只是训练，而是怎样围绕质量、多样性和稳定性建立一个可信的评估与展示框架。**
-
-只要这个框架立住了，你做出来的项目就不再只是“生成几张图”。
-
-
-
-## 版本路线建议
-
-| 版本 | 目标 | 交付重点 |
-|---|---|---|
-| 基础版 | 跑通最小闭环 | 能输入、能处理、能输出，并保留一组示例 |
-| 标准版 | 形成可展示项目 | 增加配置、日志、错误处理、README 和截图 |
-| 挑战版 | 接近作品集质量 | 增加评估、对比实验、失败样本分析和下一步路线 |
-
-建议先完成基础版，不要一开始就追求大而全。每提升一个版本，都要把“新增了什么能力、怎么验证、还有什么问题”写进 README。
+| 错误 | 修复 |
+|---|---|
+| 只展示最好样本 | 同时展示平均样本和失败样本 |
+| 忽略多样性 | 跟踪重复输出或 unique patterns |
+| checkpoint 比较不公平 | 使用同一组 fixed seed |
+| 一开始数据集太复杂 | 从小视觉目标开始 |
+| 不解释模型选择 | 说明为什么选 VAE、GAN 或其他方法 |
 
 ## 练习
 
-1. 想一个你愿意做的最小生成项目，并写出它的数据源和评估重点。
-2. 为什么生成项目不能只展示最好看的几张结果？
-3. 什么情况下你会优先怀疑 mode collapse？
-4. 如果只能选一个指标优先观察，你会先看质量还是多样性？为什么？
+1. 加一个 epoch `90`，quality `0.80`、diversity `0.30`。应该选它吗？
+2. 给每个 checkpoint 增加 `failure` 字段。
+3. 为你自己的生成项目想法写一个 4 行表格。
+4. 用 checkpoint table 解释 mode collapse。
+5. 写一个作品集小节标题：“为什么我选择这个 checkpoint”。
+
+## 小结
+
+- 生成项目需要评估故事，而不只是 gallery。
+- 质量和多样性必须一起读。
+- 失败样本会让项目更可信。
+- 清楚的 checkpoint 选择规则也是交付物的一部分。

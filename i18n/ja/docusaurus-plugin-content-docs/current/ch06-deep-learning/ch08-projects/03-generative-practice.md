@@ -1,329 +1,146 @@
 ---
-title: "6.8.4 プロジェクト：生成モデル実践【選択】"
+title: "6.8.4 プロジェクト：生成モデル実践 [任意]"
 sidebar_position: 3
-description: "タスク定義、データ、生成品質の観察からサンプル多様性の分析まで、最小限の生成モデルプロジェクトにおける評価と発表の枠組みを作る。"
+description: "sample checkpoints、quality notes、diversity checks、failure cases、portfolio presentation を含む generative project review loop を作ります。"
 keywords: [generative project, GAN, VAE, generation quality, diversity, evaluation]
 ---
 
-# 6.8.4 プロジェクト：生成モデル実践【選択】
+# 6.8.4 プロジェクト：生成モデル実践 [任意]
 
 :::tip この節の位置づけ
-生成プロジェクトと分類プロジェクトのいちばん大きな違いは、次の点です。
-
-- 「正解ラベル」としてとても分かりやすいものがない
-
-そのため、生成プロジェクトで本当に難しいのは、モデルを動かすことよりも、  
-むしろ次の点です。
-
-> **どうやって「ちゃんと生成できている」と判断するか。**
-
-この節の重点は、生成プロジェクトの最も基本的な評価と発表の枠組みを、分かりやすく整理することです。
+生成 project は、きれいな sample を 1 つ出したら終わりではありません。quality、diversity、stability、failures、そしてなぜその checkpoint を残すのかを示す必要があります。
 :::
 
 ## 学習目標
 
-- 生成プロジェクトと分類プロジェクトの評価上の違いを理解する
-- 最小限の生成プロジェクトの発表構成を設計できるようになる
-- 「品質」と「多様性」の両方が重要な理由を理解する
-- 生成プロジェクトの基本的な振り返りの枠組みを作る
+- 生成 project の評価が分類と違う理由を説明できる。
+- quality と diversity を一緒に追跡できる。
+- 小さな checkpoint review table を作れる。
+- mode collapse と blurry-output failure を見分けられる。
+- generated samples を project evidence としてまとめられる。
 
 ---
 
-## まず全体像をつかもう
+## まず Evaluation Loop を見る
 
-生成プロジェクトで初心者がいちばん混乱しやすいのは、モデルは確かに動いているのに、「これって良い結果なの？」が分からないことです。
+![Generative model project evaluation loop](/img/course/ch06-project-generative-eval-loop-ja.png)
 
-![生成モデルプロジェクトの評価ループ](/img/course/ch06-project-generative-eval-loop-ja.png)
-
-:::tip 図の読み方
-生成プロジェクトでは、最高に見えるサンプルだけを見ないようにします。checkpoint ごとの変化を追い、品質と多様性を一緒に比較し、失敗例も残すことで、単なる画像ギャラリーではなく評価ストーリーになります。
-:::
-
-```mermaid
-flowchart LR
-    A["生成モデルを学習する"] --> B["生成品質を見る"]
-    A --> C["多様性を見る"]
-    A --> D["学習が安定しているか見る"]
-    B --> E["プロジェクト発表と振り返り"]
-    C --> E
-    D --> E
+```text
+train -> sample checkpoints -> review quality + diversity -> keep failures -> choose next step
 ```
 
-つまりこの節で本当に学ぶべきなのは、「どう生成するか」だけではなく、「どう判断して見せるか」です。
+練習 project では、次のような生成 target を選びます。
 
-## 一、生成プロジェクトで最初に解決すべきことは？
+- visual inspection できる。
+- 訓練または simulation が小さくできる。
+- checkpoint 間の比較がしやすい。
 
-最初に考えるべきなのは、
+digits、icons、simple shapes、小さな grayscale patterns は、open-ended photorealistic generation より最初の project に向いています。
 
-- どんな複雑なモデルを使うか
+## 実験：Checkpoint Review Dashboard
 
-ではなく、
-
-- 何を生成したいのか
-- 生成結果をどう判断するのか
-
-です。
-
-### よくあるプロジェクトの形
-
-- 顔画像やアバターの生成
-- 小さな手書き数字の生成
-- シンプルな輪郭図の生成
-
-練習用としては、まず次のような題材を選ぶのがおすすめです。
-
-- 目的がはっきりしている
-- データを集めやすい
-- 結果を目で見て判断しやすい
-
----
-
-## 二、生成プロジェクトの最小構成
-
-### データ
-
-- 学習サンプル
-
-### モデル
-
-- GAN / VAE / より新しい生成モデル
-
-### サンプリングと可視化
-
-- 定期的にサンプルを生成して変化を見る
-
-### 評価
-
-- サンプル品質
-- 多様性
-
-### 発表
-
-- 学習時期ごとのサンプル比較
-- 失敗パターンのまとめ
-
-### 初学者向けの評価ダッシュボード
-
-多くの初心者が初めて生成プロジェクトをやるとき、  
-いちばんの問題は「学習できない」ことではなく、  
-「何を見ればいいのか分からない」ことです。
-
-まずは、最小限のダッシュボードを次の4列にまとめるとよいです。
-
-```mermaid
-flowchart LR
-    A["学習段階のサンプル"] --> E["プロジェクト評価ダッシュボード"]
-    B["品質の観察"] --> E
-    C["多様性の観察"] --> E
-    D["失敗サンプル"] --> E
-```
-
-この4列を継続して埋められれば、  
-そのプロジェクトはもう単なる「画像をいくつか生成しただけ」ではありません。
-
-## 三、おすすめの進め方
-
-1. まず、非常に小さくて観察しやすいデータセットを選ぶ
-2. 次に、品質・多様性・安定性のどれを重視するか決める
-3. そのあとでモデルの方針を選ぶ
-4. 最後に、どう見せて比較するかを決める
-
----
-
-## 四、まずは最小プロジェクトの計画例を動かしてみよう
-
-```python
-from dataclasses import dataclass, field
-
-
-@dataclass
-class GenerativeProjectPlan:
-    name: str
-    data_source: str
-    model_family: str
-    evaluation_focus: list
-    risks: list = field(default_factory=list)
-
-
-plan = GenerativeProjectPlan(
-    name="simple_digit_generator",
-    data_source="small_grayscale_digits",
-    model_family="VAE",
-    evaluation_focus=["visual_quality", "diversity", "training_stability"],
-    risks=["mode collapse", "ぼやけたサンプル", "潜在空間の不連続性"],
-)
-
-print(plan)
-```
-
-### なぜこの段階が、いきなりコードを積み上げるより大事なのか？
-
-生成プロジェクトでは、最初に次の3つをはっきりさせないと、
-
-- データ
-- モデルの方針
-- 評価の重点
-
-後から「画像は生成できたけれど、このプロジェクトの価値は何？」となりやすいからです。
-
----
-
-## 五、生成プロジェクトの基本的な結果確認はどうする？
-
-### まず品質を見る
-
-生成結果は、目標データに似ていますか？
-
-### 次に多様性を見る
-
-毎回ほとんど同じものばかり生成していませんか？
-
-### とても簡単な多様性チェックの例
-
-```python
-samples = [
-    "digit_like_pattern_A",
-    "digit_like_pattern_A",
-    "digit_like_pattern_B",
-    "digit_like_pattern_C",
-]
-
-diversity = len(set(samples)) / len(samples)
-print("diversity score =", diversity)
-```
-
-この例はかなり単純ですが、  
-次のことを教えてくれます。
-
-- 「それっぽい」だけでは不十分
-- 同じようなものばかり出ていないかも見る必要がある
-
-### 「学習段階のサンプルダッシュボード」の例
-
-実際のプロジェクトでは、とても使いやすい見せ方があります。
-
-- いくつかの epoch を固定する
-- 各 epoch ごとに少数のサンプルを保存する
-- それらを横に並べて比較する
-
-図を本当に描かなくても、  
-まずは構造化されたダッシュボードを作るだけでも十分役に立ちます。
+`generative_review_dashboard.py` を作成します。
 
 ```python
 checkpoints = [
-    {"epoch": 1, "quality": 0.20, "diversity": 0.80, "note": "ほとんどノイズ"},
-    {"epoch": 10, "quality": 0.45, "diversity": 0.72, "note": "輪郭が出始めた"},
-    {"epoch": 30, "quality": 0.68, "diversity": 0.60, "note": "鮮明さは上がったが、似たものが増えてきた"},
-    {"epoch": 60, "quality": 0.75, "diversity": 0.48, "note": "mode collapse の可能性"},
+    {"epoch": 1, "quality": 0.20, "diversity": 0.80, "note": "mostly noise"},
+    {"epoch": 10, "quality": 0.45, "diversity": 0.72, "note": "outlines appear"},
+    {"epoch": 30, "quality": 0.68, "diversity": 0.60, "note": "usable but varied"},
+    {"epoch": 60, "quality": 0.75, "diversity": 0.48, "note": "possible collapse"},
 ]
 
+print("generation_review")
 for row in checkpoints:
-    print(row)
+    status = "candidate" if row["quality"] >= 0.6 and row["diversity"] >= 0.55 else "review"
+    print(
+        f"epoch={row['epoch']:03d} "
+        f"quality={row['quality']:.2f} "
+        f"diversity={row['diversity']:.2f} "
+        f"status={status}"
+    )
+
+selected = max(
+    [row for row in checkpoints if row["diversity"] >= 0.55],
+    key=lambda row: row["quality"],
+)
+print("selected_epoch:", selected["epoch"])
 ```
 
-この例でまず覚えておきたいのは数値そのものではなく、  
-次の点です。
+実行します。
 
-- 品質と多様性は、だいたい一緒に見る必要がある
-- 学習が進むほど、すべての指標が同時に良くなるとは限らない
+```bash
+python generative_review_dashboard.py
+```
 
----
+期待される出力：
 
-## 六、いちばんよくある落とし穴
+```text
+generation_review
+epoch=001 quality=0.20 diversity=0.80 status=review
+epoch=010 quality=0.45 diversity=0.72 status=review
+epoch=030 quality=0.68 diversity=0.60 status=candidate
+epoch=060 quality=0.75 diversity=0.48 status=review
+selected_epoch: 30
+```
 
-### 誤解1：いちばん見栄えの良い数枚だけを出す
+なぜ epoch 60 を選ばないのでしょうか。quality は高いですが diversity が低いからです。良い生成 project は、最もきれいな 1 枚だけを選びません。
 
-本当に大事な発表では、次の両方を見せるべきです。
+## 保存するもの
 
-- 平均的なサンプル品質
-- 失敗サンプル
+| Evidence | 理由 |
+|---|---|
+| samples by checkpoint | training progression を示す |
+| failure samples | limits を正直に示す |
+| diversity notes | repeated outputs を見つける |
+| quality notes | visual improvements を説明する |
+| training logs | stability や collapse を示す |
+| final selection rule | 選択を reproducible にする |
 
-### 誤解2：品質だけ見て、多様性を見ない
+## Quality、Diversity、Stability
 
-これでは mode collapse を見逃しやすくなります。
-
-### 誤解3：最初から難しすぎるデータセットを選ぶ
-
-練習用のプロジェクトでは、まず次のような小さなタスクが向いています。
-
-- 見て分かりやすい
-- 比較しやすい
-
----
-
-## プロジェクト提出時に、できれば追加したい内容
-
-- 学習段階ごとのサンプル比較
-- 失敗サンプルの例
-- 「品質 / 多様性 / 安定性」をどう優先したかの説明
-- なぜこのモデルを選び、他のモデルを選ばなかったのかの理由
-
-## 初心者がそのまま使える評価表
-
-生成プロジェクトの振り返りの書き方が分からないとき、  
-いちばん無難な出発点は、まずこんな表を作ることです。
-
-| 観点 | 答えるべき質問 | 最小限の証拠 |
+| Dimension | 良い sign | Warning sign |
 |---|---|---|
-| 品質 | 生成結果は目標データに似ているか？ | 時期ごとのサンプル比較 |
-| 多様性 | 毎回似たようなものばかり生成していないか？ | いくつかの異なるサンプル結果 |
-| 安定性 | 学習が明らかに崩れたり、潰れたりしていないか？ | loss / サンプル傾向の説明 |
-| 説明 | なぜこのモデル方針を選んだのか？ | 方針選択の理由を1段落で説明 |
+| Quality | samples が target data らしい | noisy、blurry、broken structure |
+| Diversity | samples に意味のある variation がある | repeated outputs または 1 つの style だけ |
+| Stability | checkpoints が徐々に改善する | sudden collapse または oscillation |
+| Interpretability | failures が記録されている | best samples だけを見せる |
 
-この表は、初学者にとても向いています。  
-なぜなら、「何を見せればいいのか」を先に整理できるからです。
+よくある trade-off：
 
-## このプロジェクトをさらに良くするなら、何を足すべき？
+```text
+best-looking single sample != best project checkpoint
+```
 
-優先して足す価値が高いのは、だいたい次の3つです。
+## Project Upgrade Path
 
-1. 品質 / 多様性の対比を1ページで見せる
-2. 異なるモデル方針の比較ページを作る
-3. mode collapse やぼやけたサンプルの失敗事例を分析する
+| Version | 追加するもの |
+|---|---|
+| basic | one model、fixed sampling seed、checkpoint samples |
+| standard | quality/diversity table と failure samples |
+| challenge | VAE、GAN、diffusion-style outputs の比較 |
+| portfolio | data、model、samples、failures、next step の clear story |
 
-こうすると、このプロジェクトは「画像を生成した」だけでなく、  
-「どう評価し、どう説明するか」まで含んだ内容になります。
+## よくある間違い
 
-## 十、作品集向けのおすすめ発表順
-
-このプロジェクトをポートフォリオページにするなら、次の順番がおすすめです。
-
-1. プロジェクトの目的とデータ範囲
-2. モデル方針の選択
-3. 学習段階ごとのサンプル
-4. 品質 / 多様性の比較
-5. 失敗事例と原因の判断
-6. 次に改善する方向
-
-こうすると、見る人に「数枚の画像」ではなく、  
-生成プロジェクトの流れ全体が伝わります。
-
----
-
-## まとめ
-
-この節で最も大事なのは、生成プロジェクトを見るときの判断軸を作ることです。
-
-> **生成モデルプロジェクトで本当に難しいのは、学習そのものだけではなく、品質・多様性・安定性を軸に、信頼できる評価と発表の枠組みを作ること。**
-
-この枠組みができれば、作ったプロジェクトはもう「いくつか画像を生成した」だけではありません。
-
-
-
-## バージョン別の進め方
-
-| バージョン | 目的 | 提出の重点 |
-|---|---|---|
-| 基礎版 | 最小限の流れを通す | 入力できる、処理できる、出力できる。さらにサンプルを1組残す |
-| 標準版 | 発表できる形にする | 設定、ログ、エラー処理、README、スクリーンショットを追加する |
-| 挑戦版 | 作品集レベルに近づける | 評価、比較実験、失敗サンプル分析、次の方針を追加する |
-
-まずは基礎版を完成させるのがおすすめです。最初から全部盛りを狙わないようにしましょう。  
-1つ上のバージョンに進むたびに、「何が増えたか、どう確認したか、まだ何が課題か」を README に書くとよいです。
+| 間違い | 直し方 |
+|---|---|
+| best samples だけ見せる | average samples と failure samples も見せる |
+| diversity を無視する | repeated outputs や unique patterns を追う |
+| checkpoint 比較で条件を揃えない | 同じ fixed seed set を使う |
+| dataset が最初から複雑すぎる | 小さな visual target から始める |
+| model choice を説明しない | なぜ VAE、GAN、または別手法なのかを書く |
 
 ## 練習
 
-1. 自分がやってみたい最小限の生成プロジェクトを考えて、データソースと評価の重点を書いてみましょう。
-2. なぜ生成プロジェクトでは、見た目の良い結果だけを数枚見せるのでは不十分なのでしょうか？
-3. どんなときに mode collapse をまず疑いますか？
-4. 1つだけ指標を優先して見るなら、品質と多様性のどちらを先に見ますか？ その理由も考えてみましょう。
+1. epoch `90`、quality `0.80`、diversity `0.30` を追加してください。選ぶべきですか。
+2. 各 checkpoint に `failure` field を追加してください。
+3. 自分の生成 project idea について 4 行の表を書いてください。
+4. checkpoint table を使って mode collapse を説明してください。
+5. “Why I selected this checkpoint” という portfolio section を下書きしてください。
+
+## まとめ
+
+- Generative project には gallery ではなく evaluation story が必要です。
+- Quality と diversity は一緒に読みます。
+- Failure samples は project をより信頼できるものにします。
+- 明確な checkpoint selection rule も deliverable の一部です。
