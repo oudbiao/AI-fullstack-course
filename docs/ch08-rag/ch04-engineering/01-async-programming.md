@@ -123,6 +123,14 @@ print("elapsed =", round(time.time() - start, 2))
 
 This code will take about 2 seconds.
 
+Example output:
+
+```text
+A done
+B done
+elapsed = 2.0
+```
+
 ### Asynchronous: send it off and do not wait idly
 
 ```python
@@ -146,6 +154,13 @@ asyncio.run(main())
 ```
 
 This version usually takes about 1 second.
+
+Example output:
+
+```text
+['A done', 'B done']
+elapsed = 1.0
+```
 
 ### What is the real difference?
 
@@ -227,6 +242,14 @@ async def main():
 asyncio.run(main())
 ```
 
+Expected output:
+
+```text
+['refund policy', 'certificate instructions']
+initial model response
+{'user_level': 'beginner'}
+```
+
 This is already very similar to “query several layers of information in parallel” in a real application.
 
 ---
@@ -263,6 +286,12 @@ async def main():
     print(results)
 
 asyncio.run(main())
+```
+
+Expected output:
+
+```text
+['task_0', 'task_1', 'task_2', 'task_3', 'task_4', 'task_5', 'task_6', 'task_7', 'task_8', 'task_9']
 ```
 
 This example means:
@@ -312,6 +341,12 @@ async def main():
         print("task timeout")
 
 asyncio.run(main())
+```
+
+Expected output:
+
+```text
+task timeout
 ```
 
 This is extremely important in engineering, because “waiting forever” is usually worse than “failing clearly.”
@@ -404,6 +439,12 @@ async def handle_request(query, user_id):
     return answer
 
 print(asyncio.run(handle_request("What is the refund policy?", 1)))
+```
+
+Expected output:
+
+```text
+LLM response: Please answer based on the following information: knowledge base result: What is the refund policy?, user status: {'user_id': 1, 'progress': 0.15}
 ```
 
 This example already looks very much like a real backend:
