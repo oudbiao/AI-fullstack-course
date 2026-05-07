@@ -15,7 +15,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 ## 先看完整流程
 
-![Token 到答案的完整流程](/img/course/ch07-token-to-answer-lifecycle.svg)
+![Token 到答案的完整流程](/img/course/ch07-token-to-answer-lifecycle.png)
 
 整章学习都可以围绕这张图走。
 
@@ -45,7 +45,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 ## 第一个可运行循环：不用 API 测 Prompt
 
-![Prompt 实验循环](/img/course/ch07-prompt-experiment-loop.svg)
+![Prompt 实验循环](/img/course/ch07-prompt-experiment-loop.png)
 
 Prompt 工作应该像软件测试：固定输入样本，每次只改一个 Prompt 变量，校验输出，并保存失败样本。
 
@@ -113,7 +113,7 @@ json: 2/2 cases passed
 
 ## 选择 Prompt、RAG、微调还是工具
 
-![Prompt、RAG、微调和工具选择图](/img/course/ch07-solution-choice-map.svg)
+![Prompt、RAG、微调和工具选择图](/img/course/ch07-solution-choice-map.png)
 
 大模型效果不好时，不要直接跳到微调。
 

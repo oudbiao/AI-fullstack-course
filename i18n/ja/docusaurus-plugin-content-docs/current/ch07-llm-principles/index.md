@@ -15,7 +15,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 ## まず全体の流れを見る
 
-![Token から回答までの流れ](/img/course/ch07-token-to-answer-lifecycle-ja.svg)
+![Token から回答までの流れ](/img/course/ch07-token-to-answer-lifecycle-ja.png)
 
 この図を、この章全体の地図として使ってください。
 
@@ -45,7 +45,7 @@ keywords: [大規模言語モデル, LLM, Transformer, Prompt Engineering, LoRA,
 
 ## 最初に動かすループ：API なしで Prompt を試す
 
-![Prompt 実験ループ](/img/course/ch07-prompt-experiment-loop-ja.svg)
+![Prompt 実験ループ](/img/course/ch07-prompt-experiment-loop-ja.png)
 
 Prompt の作業はソフトウェアテストに近いです。入力ケースを固定し、毎回1つの Prompt 変数だけを変え、出力を検証し、失敗例を保存します。
 
@@ -113,7 +113,7 @@ json: 2/2 cases passed
 
 ## Prompt、RAG、微調整、ツールの選び方
 
-![Prompt、RAG、微調整、ツールの選択図](/img/course/ch07-solution-choice-map-ja.svg)
+![Prompt、RAG、微調整、ツールの選択図](/img/course/ch07-solution-choice-map-ja.png)
 
 LLM の結果が弱いとき、すぐ微調整へ進まないでください。
 

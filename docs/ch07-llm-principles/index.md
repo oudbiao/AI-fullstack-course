@@ -15,7 +15,7 @@ Do not start by memorizing model names. Start with the loop you can operate: tex
 
 ## See the Whole Loop First
 
-![Token to answer lifecycle](/img/course/ch07-token-to-answer-lifecycle-en.svg)
+![Token to answer lifecycle](/img/course/ch07-token-to-answer-lifecycle-en.png)
 
 Use this picture as the map for the whole chapter.
 
@@ -45,7 +45,7 @@ The workshop belongs at the end. First build the mental model, then run the full
 
 ## First Runnable Loop: Prompt Testing Without an API
 
-![Prompt experiment loop](/img/course/ch07-prompt-experiment-loop-en.svg)
+![Prompt experiment loop](/img/course/ch07-prompt-experiment-loop-en.png)
 
 Prompt work should feel like testing software: keep the input cases fixed, change one prompt variable at a time, validate the output, and save failures.
 
@@ -113,7 +113,7 @@ Operation tip: add one bad case, one longer case, and one output field requireme
 
 ## Choose Prompt, RAG, Fine-tuning, Or Tools
 
-![Prompt, RAG, fine-tuning, and tool choice map](/img/course/ch07-solution-choice-map-en.svg)
+![Prompt, RAG, fine-tuning, and tool choice map](/img/course/ch07-solution-choice-map-en.png)
 
 When an LLM result is weak, do not jump straight to fine-tuning.
 
