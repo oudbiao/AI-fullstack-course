@@ -3,29 +3,25 @@
     "message": "最新版",
     "description": "The label for version current"
   },
-  "sidebar.courseSidebar.category.🚀 Start Here: Learning Map": {
-    "message": "🚀 まずここから：学習マップ",
-    "description": "The label for category '🚀 Start Here: Learning Map' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.🚀 Start Here": {
+    "message": "🚀 ここから始める",
+    "description": "The label for category '🚀 Start Here' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Learn in a Friendly Way": {
-    "message": "楽しくやさしく学ぶ",
-    "description": "The label for category 'Learn in a Friendly Way' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Quick Start and Setup": {
+    "message": "クイックスタートと準備",
+    "description": "The label for category 'Quick Start and Setup' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Routes and Pace": {
-    "message": "ルートと学習ペース",
-    "description": "The label for category 'Routes and Pace' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Map, Concepts, and Route": {
+    "message": "マップ・概念・ルート",
+    "description": "The label for category 'Map, Concepts, and Route' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Projects and Portfolio": {
-    "message": "プロジェクトとポートフォリオ",
-    "description": "The label for category 'Projects and Portfolio' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Project and Portfolio References": {
+    "message": "プロジェクトとポートフォリオ参照",
+    "description": "The label for category 'Project and Portfolio References' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Concepts and Engineering View": {
-    "message": "概念とエンジニアリング視点",
-    "description": "The label for category 'Concepts and Engineering View' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Usage and Preparation": {
-    "message": "使い方と準備",
-    "description": "The label for category 'Usage and Preparation' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Optional Reference": {
+    "message": "任意参照とトラブル対応",
+    "description": "The label for category 'Optional Reference' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.Main Track 1: Foundations (1-3)": {
     "message": "メイントラック 1：基礎固め（1-3）",

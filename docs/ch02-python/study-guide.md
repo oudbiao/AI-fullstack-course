@@ -1,60 +1,84 @@
 ---
-title: "Study Guide: How to Learn Python Programming Basics Without Getting Lost"
+title: "2.0 Study Guide and Task Sheet: Python Programming Fundamentals"
 sidebar_position: 1
-description: "A Python learning guide for AI full-stack beginners: learning sequence, practice rhythm, project roadmap, evaluation criteria, and common stumbling blocks."
-keywords: [Python learning guide, Python beginner sequence, how to learn programming basics, Python stage learning advice]
+description: "A compact study guide and task sheet for Chapter 2: learn Python syntax, data structures, functions, files, exceptions, and projects in the right order."
+keywords: [Python study guide, Python task sheet, programming fundamentals, JSON, CLI]
 ---
 
-# Study Guide: How to Learn Python Programming Basics Without Getting Lost
+# 2.0 Study Guide and Task Sheet: Python Programming Fundamentals
 
-If you have already reached `01 Python Programming Basics`, the most important goal is not to memorize every syntax rule, but to be able to write a small Python program that runs, can be modified, and can be explained.
+Use this page as the control panel for Chapter 2. Your goal is not to memorize every syntax rule. Your goal is to write a small Python program that runs, saves data, handles errors, and can be explained.
 
-## The Core Principle for This Stage
+## 2.0.1 Study This Stage in Order
 
-For the first pass through Python, focus on one main line: input enters the program, goes through data structures, conditionals, loops, and functions, and finally produces output or saves a file. As long as this line is solid, later learning in data analysis, machine learning, RAG, and Agent development will go much more smoothly.
+![Python learning guide minimal closed loop](/img/course/ch02-study-guide-program-loop-en.png)
 
-![Python Learning Guide Minimal Closed Loop](/img/course/ch02-study-guide-program-loop-en.png)
+Keep one line in mind: **input -> data structure -> function -> file or output**.
 
-## Recommended Learning Sequence
+| Order | Section | Focus | Evidence to leave behind |
+|---|---|---|---|
+| 1 | `2.1 Python Language Basics` | Variables, types, operators, input/output, control flow | 5 tiny scripts you typed and changed |
+| 2 | `2.1 Data Structures and Functions` | Lists, dictionaries, functions, modules | A script split into small functions |
+| 3 | `2.2 Intermediate Python` | Classes, exceptions, files, iterators, type hints | A file-reading or JSON-saving example |
+| 4 | `2.3 Stage Projects` | CLI, scraper, Web API, AI API experience | One runnable project folder |
+| 5 | `2.5 Follow-Along Workshop` | CLI commands, JSON persistence, stats, report export | `ch02_output/` and a README note |
 
-In the first round, learn the smallest programming closed loop first: Python introduction, data types, operators, input/output, control flow, lists, dictionaries, functions, and modules. The goal is to be able to write a small script, not to memorize every detail.
+Do not start by chasing advanced syntax. First make the program run, save something, read it back, and explain why each function exists.
 
-In the second round, build code organization skills: object-oriented programming, exception handling, file read/write, functional programming, iterators and generators, type annotations, and code quality. The goal is to make code clearer, more stable, and easier to extend.
+## 2.0.2 Terms You Need Before You Start
 
-In the third round, move into projects: a command-line task manager, a web crawler, a Web API, and a quick AI API experiment. Projects will force you to connect syntax, files, exceptions, third-party libraries, and debugging skills.
-
-Before you choose your own project variation, complete [2.5 Follow-Along Workshop: Build a Local Learning Task Assistant](./ch03-projects/05-hands-on-python-workshop.md). It gives you fixed commands, expected output, generated files, and a debugging checklist, so you can practice the full Python project loop without guessing the next step.
-
-## Suggested Learning Rhythm
-
-| Content Type | Suggested Time | Learning Goal |
+| Term | Full name | First meaning in this chapter |
 |---|---|---|
-| Basic syntax pages | 1–2 hours | Be able to type the examples by hand and change them to get new results |
-| Data structures and functions | 2–4 hours | Be able to break repeated logic into functions |
-| Advanced organization pages | 2–4 hours | Be able to understand files, classes, exceptions, and module relationships |
-| 2.5 guided workshop | 1–2 hours | Build and run one complete CLI, JSON, statistics, and report workflow |
-| Project pages | 4–8 hours | Be able to run them independently and make small changes |
+| `CLI` | Command-Line Interface | A program controlled by typed commands. |
+| `I/O` | Input/Output | Data entering a program and results leaving it. |
+| `JSON` | JavaScript Object Notation | A lightweight text format for saving nested data. |
+| `API` | Application Programming Interface | A doorway that lets one program call another program. |
+| `SDK` | Software Development Kit | A library that wraps an API into easier functions. |
 
-## Stage Project Roadmap
+Read abbreviations as capabilities: interface, storage, request, response, or workflow.
 
-The first project should be a command-line task manager to practice input/output, lists/dictionaries, file saving, and exception handling.
+## 2.0.3 Minimum Task Sheet
 
-The second project should be a web data collection tool to practice HTTP requests, HTML parsing, data cleaning, and file storage.
+| Task | Deliverable | Pass criteria |
+|---|---|---|
+| Master the basic loop | 5 small scripts | Can use variables, conditionals, loops, and functions to solve simple tasks |
+| Organize data | A list/dict practice file | Can choose list, dict, set, or tuple and explain the choice |
+| Split logic into functions | A small program with multiple functions | Each function has clear inputs, outputs, and responsibility |
+| Read and write files | Text, JSON, or JSONL example | Can save results and read them back without guessing paths |
+| Handle errors | A debug note | Can locate the line, inspect variable values, and fix at least 2 common errors |
+| Complete the guided workshop | `ch02_output/` | Can run commands, save JSON, mark tasks done, show stats, and export a report |
 
-The third project should be a Web API to understand requests, responses, routing, parameter validation, and service startup.
+## 2.0.4 Mini Project Pattern
 
-The fourth project should be a quick AI API experiment, connecting large model capabilities into your own Python program and laying the foundation for the LLM application track that follows.
+For every Python project in this stage, use the same simple pattern:
 
-## Common Stumbling Blocks
+1. Write the run command.
+2. Create one tiny input.
+3. Print or save one clear output.
+4. Add one error case.
+5. Record what changed in the README.
 
-The most common stumbling block is: “I can understand the example, but I can’t write it myself.” The solution is not to keep reading more tutorials, but to close the example, keep only the requirement, and use the simplest possible method to write the first version.
+This pattern is enough for the task manager, scraper, Web API, and AI API demo.
 
-The second stumbling block is functions and modules. You can start by writing everything in one file, and once the code grows beyond a few dozen lines, extract repeated logic into functions and organize related functions into modules.
+## 2.0.5 Stage Portfolio Deliverables
 
-The third stumbling block is errors. Don’t be afraid of them. First look at the last line of the error message, then check the file name and line number, and finally reproduce the problem with the smallest possible code.
+| Deliverable | What it proves |
+|---|---|
+| `todo_cli.py` or project folder | You can build a small command-line tool. |
+| `data/tasks.json` | You can persist and reload structured data. |
+| `api_demo.py` | You can call an external service and inspect the response. |
+| `README.md` | Others can rerun your project. |
+| `debug_notes.md` | You can learn from errors instead of hiding them. |
+| `ch02_output/` | You completed the follow-along workshop evidence pack. |
 
-## Passing Criteria
+## 2.0.6 Stage Checkpoint
 
-After finishing this stage, you should be able to complete a small Python project independently, explain the purpose of each file, handle common errors, read and write files, install third-party libraries, and call a simple API.
+Before moving to Chapter 3, check that you can answer these questions:
 
-If you can write a “command-line task manager” from scratch and add a new feature such as search, sorting, categorization, or export, then you are ready to move on to the next stage.
+- When should a repeated block become a function?
+- When is a dictionary better than a list?
+- What folder is a file path relative to?
+- What is the difference between `print` and `return`?
+- How does one script become a small project with modules, data, and a README?
+
+You are ready to continue when you can build a command-line task manager from scratch and add one small feature such as search, sorting, categories, or export.

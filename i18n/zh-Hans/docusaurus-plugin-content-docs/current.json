@@ -3,29 +3,25 @@
     "message": "最新版",
     "description": "The label for version current"
   },
-  "sidebar.courseSidebar.category.🚀 Start Here: Learning Map": {
-    "message": "🚀 先看这里：学习地图",
-    "description": "The label for category '🚀 Start Here: Learning Map' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.🚀 Start Here": {
+    "message": "🚀 先从这里开始",
+    "description": "The label for category '🚀 Start Here' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Learn in a Friendly Way": {
-    "message": "轻松有趣地学",
-    "description": "The label for category 'Learn in a Friendly Way' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Quick Start and Setup": {
+    "message": "快速上手与准备",
+    "description": "The label for category 'Quick Start and Setup' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Routes and Pace": {
-    "message": "路线与节奏",
-    "description": "The label for category 'Routes and Pace' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Map, Concepts, and Route": {
+    "message": "地图、概念与路线",
+    "description": "The label for category 'Map, Concepts, and Route' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Projects and Portfolio": {
-    "message": "项目与作品集",
-    "description": "The label for category 'Projects and Portfolio' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Project and Portfolio References": {
+    "message": "项目与作品集参考",
+    "description": "The label for category 'Project and Portfolio References' in sidebar 'courseSidebar'"
   },
-  "sidebar.courseSidebar.category.Concepts and Engineering View": {
-    "message": "概念与工程视角",
-    "description": "The label for category 'Concepts and Engineering View' in sidebar 'courseSidebar'"
-  },
-  "sidebar.courseSidebar.category.Usage and Preparation": {
-    "message": "使用与准备",
-    "description": "The label for category 'Usage and Preparation' in sidebar 'courseSidebar'"
+  "sidebar.courseSidebar.category.Optional Reference": {
+    "message": "可选参考与排障",
+    "description": "The label for category 'Optional Reference' in sidebar 'courseSidebar'"
   },
   "sidebar.courseSidebar.category.Main Track 1: Foundations (1-3)": {
     "message": "主线 1：打基础（1-3）",

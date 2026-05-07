@@ -466,6 +466,69 @@ IMAGE_JOBS: list[dict[str, Any]] = [
 """.strip(),
     },
     {
+        "filename": "intro-minimal-setup-kit-en.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "Minimal setup kit before starting the AI full-stack course",
+        "suggested_page": "docs/intro/environment-setup.md",
+        "alt": "Minimal setup kit before starting the AI full-stack course: a normal computer, browser and Colab, VS Code, Terminal, Python 3.11 or Miniconda, Git and GitHub, and a project folder README; GPU, Docker, vector database, and LLM API key can wait.",
+        "prompt": """
+A vertical English course infographic, comic-like but practical, explaining "Minimal setup kit before starting the AI full-stack course".
+Use a clean step-by-step layout, not a decorative poster. The main area shows one ordinary laptop as the center, with six clear setup cards around it:
+1. Browser / Colab
+2. VS Code
+3. Terminal
+4. Python 3.11 / Miniconda
+5. Git / GitHub
+6. Project folder + README
+At the bottom, add a separate muted section labeled "Later, not now" with four small cards: GPU, Docker, vector database, LLM API key.
+Use short natural English labels only, large and readable. Avoid dense paragraphs, tiny text, gibberish, fake UI text, watermarks, and real brand logos.
+Style: warm professional beginner-friendly course illustration, light workflow comic, clear icons, simple arrows, good spacing, vertical 9:16.
+""".strip(),
+    },
+    {
+        "filename": "intro-minimal-setup-kit.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "AI 全栈课程最小准备包图",
+        "suggested_page": "docs/intro/environment-setup.md",
+        "alt": "AI 全栈课程最小准备包图：普通电脑、浏览器和 Colab、VS Code、Terminal、Python 3.11 或 Miniconda、Git 和 GitHub、项目文件夹 README；GPU、Docker、向量数据库和 LLM API Key 可以以后再准备。",
+        "prompt": """
+一张竖版中文课程图解，主题是“AI 全栈课程开始前，最小需要准备什么”。
+画面要像可跟做的步骤漫画/流程图，不要做成装饰海报。主体是一台普通电脑，周围分成 6 张清晰准备卡：
+1. 浏览器 / Colab
+2. VS Code
+3. Terminal
+4. Python 3.11 / Miniconda
+5. Git / GitHub
+6. 项目文件夹 + README
+底部单独做一个弱化区域，标题“以后再说”，放 4 张小卡：GPU、Docker、向量数据库、LLM API Key。
+文字只用自然中文短标签，术语 VS Code、Terminal、Python 3.11、Miniconda、Git、GitHub、README、GPU、Docker、LLM API Key 可以保留英文。字体要大、清楚、少量。不要密集段落、不要小字乱码、不要真实品牌 logo、不要水印。
+风格专业、温和、新手友好，竖版 9:16，图标清晰，箭头简单，留白充足。
+""".strip(),
+    },
+    {
+        "filename": "intro-minimal-setup-kit-ja.png",
+        "size": "1024x1792",
+        "quality": "high",
+        "title": "AI フルスタック講座を始める前の最小準備セット図",
+        "suggested_page": "docs/intro/environment-setup.md",
+        "alt": "AI フルスタック講座を始める前の最小準備セット図：普通のPC、ブラウザと Colab、VS Code、Terminal、Python 3.11 または Miniconda、Git と GitHub、プロジェクトフォルダ README。GPU、Docker、ベクトルデータベース、LLM API Key は後でよい。",
+        "prompt": """
+AI フルスタック講座を始める前の「最小準備セット」を説明する、日本語の縦長コース図解。
+飾りポスターではなく、手順が分かる漫画風/フロー図にする。中央に普通のノートPCを置き、その周囲に 6 枚の分かりやすい準備カードを配置：
+1. ブラウザ / Colab
+2. VS Code
+3. Terminal
+4. Python 3.11 / Miniconda
+5. Git / GitHub
+6. プロジェクトフォルダ + README
+下部に控えめな別エリアを作り、見出しは「後でOK」。小カードは GPU、Docker、ベクトルDB、LLM API Key。
+文字は自然な日本語の短いラベルだけにし、VS Code、Terminal、Python 3.11、Miniconda、Git、GitHub、README、GPU、Docker、LLM API Key などの標準用語は英語表記でよい。文字は大きく読みやすく、少なめに。細かすぎる文字、文字化け、透かし、実在ブランドロゴは禁止。
+スタイルはプロフェッショナルでやさしい初心者向け教材図解、縦 9:16、明快なアイコン、簡単な矢印、余白を十分に。
+""".strip(),
+    },
+    {
         "filename": "intro-stage-checkpoint-cards.png",
         "size": "1024x1792",
         "quality": "high",

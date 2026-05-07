@@ -1,95 +1,91 @@
 ---
-title: "Study Guide: How to Learn Data Analysis and Visualization Without Getting Confused"
+title: "3.0 Study Guide and Task Sheet: Data Analysis and Visualization"
 sidebar_position: 1
-description: "A data analysis learning guide for AI full-stack beginners: NumPy, Pandas, visualization, the minimal analysis loop, project roadmap, and acceptance criteria."
-keywords: [Data analysis learning guide, How to learn NumPy, How to learn Pandas, How to learn visualization]
+description: "A compact study guide and task sheet for Chapter 3: move from raw data to cleaning, analysis, charts, and a reproducible report."
+keywords: [data analysis study guide, data analysis task sheet, NumPy, Pandas, visualization]
 ---
 
-# Study Guide: How to Learn Data Analysis and Visualization Without Getting Confused
+# 3.0 Study Guide and Task Sheet: Data Analysis and Visualization
 
-If you arrive at `02 Data Analysis and Visualization` and feel like there are too many libraries and the APIs are too fragmented, don’t rush to memorize method names. What you really need to build at this stage is data-flow awareness.
+Use this page as the control panel for Chapter 3. Your goal is not to memorize every Pandas method. Your goal is to turn raw data into a conclusion that someone can trust.
 
-## Overall principle for this stage
-
-The first time you learn data analysis, focus on one main flow: read the data in, understand the fields first, then clean and organize it, then do statistical analysis, and finally use charts to present conclusions.
+## 3.0.1 Study This Stage in Order
 
 ![Minimum loop for the data analysis study guide](/img/course/ch03-study-guide-data-loop-vertical-en.png)
 
-## The beginner mental model: a data detective workflow
+Keep one workflow in mind: **read -> inspect -> clean -> summarize -> visualize -> explain**.
 
-Think of every dataset as a case file. The goal is not to "use Pandas" or "draw charts"; the goal is to turn messy evidence into a conclusion that someone can trust.
+| Order | Section | Focus | Evidence to leave behind |
+|---|---|---|---|
+| 1 | `3.1 From Python to Data Analysis` | Why pure Python becomes painful for tables | A small before/after note |
+| 2 | `3.2 NumPy Scientific Computing` | Arrays, shape, broadcasting, vectorization | One array practice file |
+| 3 | `3.3 Pandas Data Processing` | DataFrame, selection, cleaning, groupby, merge | A cleaned table and cleaning log |
+| 4 | `3.4 Data Visualization` | Chart choice, labels, conclusions, limits | 3 charts tied to 3 questions |
+| 5 | `3.5 Database Basics` | SQL and relational data, optional but useful | One query or join example |
+| 6 | `3.6 Stage Projects` | EDA report and reproducible pipeline | Report, chart files, and workshop output |
 
-| Step | Question to ask | Common tools |
-|---|---|---|
-| Read | Where does the data come from? | `read_csv()`, `read_excel()`, SQL |
-| Inspect | What do the rows and columns mean? | `head()`, `info()`, `shape`, `dtypes` |
-| Clean | Is anything missing, duplicated, inconsistent, or extreme? | `isna()`, `drop_duplicates()`, `fillna()`, filtering |
-| Transform | What new fields or summaries do I need? | column calculation, `assign()`, `groupby()` |
-| Visualize | Which chart answers the question most directly? | bar, line, scatter, histogram, box plot |
-| Explain | What changed, what was found, and what are the limits? | Notebook notes, report paragraphs, chart captions |
+Do not draw charts first. First understand the fields, units, missing values, and sample source.
 
-If you get lost, return to this sentence: **read the table, understand the columns, clean the obvious problems, summarize the important groups, then draw only the charts that answer a real question.**
+## 3.0.2 Terms You Need Before You Start
 
-## Core words you must understand before memorizing APIs
-
-| Term | Plain explanation |
+| Term | First meaning in this chapter |
 |---|---|
-| `CSV` (Comma-Separated Values) | A plain text table file; each row is a record, each comma separates columns |
-| `JSON` (JavaScript Object Notation) | A nested data format often used by APIs and web services |
-| `DataFrame` | A Pandas table with rows, columns, column names, and indexes |
-| `Series` | One column of a Pandas DataFrame |
-| `Index` | The row labels of a DataFrame; sometimes meaningful, sometimes just row numbers |
-| `shape` | The size of the data, usually `(rows, columns)` |
-| `dtype` (data type) | The data type of a column or array, such as integer, float, string, or datetime |
-| `missing value` | Empty or unknown data, usually represented by `NaN` or `None` |
-| `outlier` | A value that is unusually far away from most data |
-| `EDA` (Exploratory Data Analysis) | First-pass exploration before modeling |
-| `groupby` | Split data by category, apply statistics to each group, then combine results |
-| `merge` / `join` | Combine tables by shared keys, such as user ID or product ID |
-| `axis` | The direction of an operation; in tables, `axis=0` usually means down rows and `axis=1` across columns |
-| `vectorization` | Let NumPy/Pandas operate on many values at once instead of writing Python loops |
-| `broadcasting` | NumPy automatically aligns small arrays with larger arrays when shapes are compatible |
+| `CSV` | A plain text table; each row is a record. |
+| `JSON` | Nested data often returned by APIs. |
+| `DataFrame` | A Pandas table with rows, columns, names, and indexes. |
+| `Series` | One column of a DataFrame. |
+| `dtype` | The data type of a column or array. |
+| `EDA` | Exploratory Data Analysis: first-pass exploration before modeling. |
+| `groupby` | Split by category, calculate statistics, then combine. |
+| `merge` / `join` | Combine tables by shared keys. |
+| `vectorization` | Let NumPy/Pandas process many values at once. |
 
-## Recommended learning order
+When an API feels hard to remember, translate it back to the workflow step: read, inspect, clean, transform, visualize, or explain.
 
-In the first round, do some pure Python data processing warm-up to feel why specialized tools are needed.
+## 3.0.3 Minimum Task Sheet
 
-In the second round, learn NumPy, focusing on arrays, shape, indexing, broadcasting, vectorization, matrix operations, and basic statistics. Don’t try to memorize every function from the start.
-
-In the third round, learn Pandas, focusing on DataFrame, reading and writing files, selecting and filtering, missing values, grouping and aggregation, merging, and time series.
-
-In the fourth round, learn visualization. First learn how to choose the right chart, then learn how to polish it. Charts should serve the question, not be drawn just to look nice.
-
-In the fifth round, do an EDA project and connect reading, cleaning, analysis, visualization, and conclusion writing into a complete report.
-
-If you want a guided path before choosing your own dataset, first complete [6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline](./ch06-projects/03-hands-on-data-workshop.md). It gives you a fixed input, expected output, generated files, and troubleshooting checklist, so you can practice the whole loop without guessing what to do next.
-
-## Suggested learning pace
-
-| Content type | Suggested time | Learning goal |
+| Task | Deliverable | Pass criteria |
 |---|---|---|
-| NumPy basics | 1–2 hours | Understand arrays, shape, and vectorization |
-| Pandas processing page | 2–4 hours | Be able to filter, clean, aggregate, and merge |
-| Visualization page | 1–3 hours | Be able to choose the right chart and explain it |
-| 6.3 guided workshop | 1–2 hours | Run one complete CSV cleaning, SQLite, chart, and report pipeline |
-| Project page | 6–12 hours | Complete a readable data analysis report |
+| Use NumPy arrays | Array practice file | Can explain shape, slicing, broadcasting, and vectorized operations |
+| Load data with Pandas | Script or Notebook | Can read CSV/Excel/JSON and inspect rows, columns, types, and missing values |
+| Clean data | Before/after cleaning record | Can handle missing values, duplicates, outliers, and type conversion |
+| Explore data | EDA Notebook | Can use statistics and charts to answer clear questions |
+| Complete the guided pipeline | `ch03_output/` | Can reproduce raw data, clean data, SQLite query, chart, and report |
+| Finish the stage project | Analysis report | Includes question, process, charts, conclusions, and limitations |
 
-## Stage project roadmap
+## 3.0.4 Chart Decision Rule
 
-For your first project, it is recommended to do an EDA on a single dataset, such as Titanic, housing prices, movie ratings, e-commerce orders, or public operations data. You need to complete field understanding, missing value handling, statistical summaries, key charts, and conclusions.
+Before drawing a chart, write the question first.
 
-For your second project, you can do multi-source data analysis by combining multiple CSV files, web data, or database tables, and practice the data organization process that is more common in real work.
+| Question | Chart to try first |
+|---|---|
+| Which category is largest? | Bar chart |
+| How does a value change over time? | Line chart |
+| Are two numbers related? | Scatter plot |
+| What does the distribution look like? | Histogram or box plot |
+| Which groups differ? | Grouped bar chart or box plot |
 
-## Common stumbling blocks
+A chart without a question is decoration. A chart with a question becomes evidence.
 
-The most common stumbling block is “there are too many APIs to remember.” That’s completely normal. You only need to first remember the common actions: read, inspect, select, filter, modify, group, merge, and plot. You can look up the other methods when you need them.
+## 3.0.5 Stage Portfolio Deliverables
 
-The second stumbling block is “I don’t know what the chart is saying.” Before drawing each chart, write down the question it is meant to answer, such as “which category is the largest,” “are price and area correlated,” or “where are the outliers?”
+| Deliverable | What it proves |
+|---|---|
+| `analysis.ipynb` | You can run a full EDA loop. |
+| `data_dictionary.md` | You understand field meaning, type, unit, and missingness. |
+| `cleaning_log.md` | You can explain data cleaning decisions. |
+| `figures/` | Your charts answer specific questions. |
+| `report.md` | You can turn analysis into conclusions and limits. |
+| `ch03_output/` | You completed the follow-along reproducible pipeline. |
 
-The third stumbling block is not recording your cleaning steps. It’s recommended that you keep the reason for each step in your Notebook; otherwise, it will be hard to review and trace back later.
+## 3.0.6 Stage Checkpoint
 
-## Passing criteria
+Before moving to Chapter 4, check that you can answer these questions:
 
-After you finish this stage, you should be able to take a CSV file and independently complete reading, cleaning, exploration, visualization, and conclusion summarization.
+- Why does array `shape` matter?
+- What is the difference between a Series and a DataFrame?
+- How can missing values change a conclusion?
+- What question does each chart answer?
+- Why should a data analysis report include limitations?
 
-If you can write a data analysis report that includes at least three key charts, one data cleaning process, and three clear conclusions, then you are ready to move on to the AI math and machine learning stage.
+You are ready to continue when you can take one CSV file from loading to cleaning, analysis, visualization, and a short written conclusion.
