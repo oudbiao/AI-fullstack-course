@@ -1,11 +1,11 @@
 ---
-title: "2.5 Plan-and-Execute"
+title: "2.5 計画してから実行する方式（Plan-and-Execute）"
 sidebar_position: 8
 description: "「まず計画し、それから実行する」を分けてわかりやすく説明し、長いタスクや複雑なタスクがなぜ全工程を即興の ReAct で進めるのに向いていないのか、そしてなぜより安定した計画層が必要なのかを理解する。"
 keywords: [plan and execute, planner, executor, workflow, long horizon tasks, agent planning]
 ---
 
-# Plan-and-Execute
+# 計画してから実行する方式（Plan-and-Execute）
 
 :::tip この節の位置づけ
 ReAct は、行きながら様子を見るのにとても向いています。  
