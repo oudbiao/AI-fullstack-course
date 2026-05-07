@@ -1,457 +1,337 @@
 ---
 title: "6.2.3 PyTorch の基礎"
 sidebar_position: 1
-description: "テンソル、形状、インデックス、ブロードキャストから NumPy との関係まで、PyTorch の最初の土台をしっかり固めます。"
-keywords: [PyTorch, tensor, 张量, shape, broadcasting, numpy]
+description: "shape、dtype、device、broadcasting、logits、小さな分類の順伝播を通して PyTorch テンソルを練習します。"
+keywords: [PyTorch, tensor, テンソル, shape, dtype, device, broadcasting, logits]
 ---
 
 # 6.2.3 PyTorch の基礎
 
+:::tip この節の位置づけ
+このページは API 一覧ではありません。目的は、PyTorch モデルを書く前に毎回必要になる反射を作ることです。**学習前に shape、dtype、device、演算の意味を読む。**
+:::
+
 ## 学習目標
 
-- `Tensor` とは何かを理解する
-- テンソルの作成、形状、データ型、よく使う演算を身につける
-- PyTorch と NumPy の関係を理解する
-- 最も基本的なテンソル操作のコードを独力で読めるようになる
+- Python と NumPy のデータからテンソルを作れる。
+- `shape`、`dtype`、`device`、各次元の意味を読める。
+- 要素ごとの演算と行列積を区別できる。
+- broadcasting を偶然ではなく意図して使える。
+- 小さな順伝播を実行し、logits、確率、予測、loss を得られる。
 
 ---
 
-## まずは全体像をつかもう
-
-この節は「PyTorch の文法一覧」として覚えるより、次の順番で理解するのが向いています。
+## まず Tensor のライフサイクルを見る
 
 ![PyTorch Tensor ライフサイクル図](/img/course/ch06-pytorch-tensor-lifecycle-map-ja.png)
 
-つまり、この節で本当に固めたいのは次の3つです。
+多くの PyTorch データは、次の流れを通ります。
 
-- データを PyTorch に入れられるか
-- テンソルの形状を読めるか
-- 最低限の演算を安全にできるか
-
-## この節は第 5 ステーションと NumPy とどうつながるのか
-
-もし第 5 ステーションから来たなら、この節は次のように考えると分かりやすいです。
-
-- 第 5 ステーションで出てきた `X`、`y`、行列積は、ここでもそのまま使う
-- ただし今度は、それらを深層学習の学習に向いた入れ物である `Tensor` に入れる
-
-NumPy に慣れているなら、次のように覚えておくとよいです。
-
-- `Tensor` は `ndarray` にとてもよく似ている
-- ただし GPU に載せられるし、自動微分にも対応できる
-
-つまり、この節で学ぶのは「まったく新しい数学」ではなく、
-
-- 同じデータを、ニューラルネットワークの学習により適した形で表す方法
-
-です。
-
-## テンソルとは何か？
-
-いちばん実用的な理解はこれです。
-
-> **テンソル = CPU / GPU 上で計算できる多次元配列**
-
-NumPy を学んだことがあるなら、「強化版 `ndarray`」だと思うとよいです。
-
-- 数値計算ができる
-- GPU に載せられる
-- 自動微分に参加できる
-
-たとえると、次のようになります。
-
-| 概念 | たとえ |
-|---|---|
-| スカラー（0 次元） | 1 つの数字 |
-| ベクトル（1 次元） | 数字が 1 列に並んだもの |
-| 行列（2 次元） | 表のようなもの |
-| テンソル（より高次元） | 表が何枚も重なったもの / 画像のまとまり / 動画 |
-
-深層学習では、ほとんどすべてのデータは最終的にテンソルになります。
-
-- 1 枚のグレースケール画像: `[高さ, 幅]`
-- 1 枚のカラー画像: `[チャネル, 高さ, 幅]`
-- 画像のバッチ: `[バッチサイズ, チャネル, 高さ, 幅]`
-- 文の単語ベクトルのバッチ: `[バッチサイズ, シーケンス長, ベクトル次元]`
-
-### テンソルを初めて見るとき、最初に何を確認する？
-
-いきなり API を見る前に、まず次の 3 つを確認しましょう。
-
-1. 何のデータが入っているか？
-2. 各次元は何を表すか？
-3. このデータは次にどの層へ渡るのか？
-
-こうすると、最初から「形状」と「意味」を結びつけて考えられます。
-
----
-
-## テンソルを作成する
-
-:::info 実行環境
-以下のコードはそのまま実行できます。ローカルに未インストールなら、次のコマンドを使ってください。
-
-```bash
-pip install torch
-```
-:::
-
-```python
-import torch
-
-# Python のリストから作成
-scores = torch.tensor([88, 92, 76, 95])
-print(scores)
-
-# データ型を指定
-prices = torch.tensor([12.5, 19.9, 8.8], dtype=torch.float32)
-print(prices.dtype)
-
-# よく使う初期化方法
-zeros = torch.zeros((2, 3))
-ones = torch.ones((2, 3))
-randn = torch.randn((2, 3))
-arange = torch.arange(0, 10, 2)
-
-print("zeros:\n", zeros)
-print("ones:\n", ones)
-print("randn:\n", randn)
-print("arange:", arange)
+```text
+生データ -> tensor -> shape/dtype/device の確認 -> 演算/モデル -> loss -> 勾配/更新
 ```
 
----
+初心者がやりがちなのは、すぐモデルへ進むことです。より安全なのは、モデルに入れる前にテンソルを確認する習慣です。
 
-## 形状、次元、データ型
+## Tensor は学習用の情報を持つデータ
 
-深層学習の入門で、いちばんつまずきやすいのは公式ではなく、**形状（shape）** です。
+短く実用的に言うと、次のようになります。
 
-`shape` は、「このデータの箱が何層あるか、各層にいくつ要素があるか」という意味だと思うとよいです。
+> **テンソルは、PyTorch が計算でき、device 間を移動でき、必要なら勾配も追跡できる多次元配列です。**
 
-```python
-import torch
+NumPy 配列と比べると、PyTorch テンソルには深層学習向けの機能が 2 つあります。
 
-X = torch.tensor([
-    [1.0, 2.0, 3.0],
-    [4.0, 5.0, 6.0]
-])
+- `device`: テンソルを CPU、GPU、Apple MPS に置ける。
+- `requires_grad`: 自動微分に参加できる。
 
-print("テンソル:\n", X)
-print("shape:", X.shape)       # torch.Size([2, 3])
-print("ndim:", X.ndim)         # 2 次元
-print("dtype:", X.dtype)       # float32
-print("要素数:", X.numel())    # 6
-```
-
-### とても大事な習慣
-
-モデルを書く前に、次の3つを自分に聞いてみましょう。
-
-1. このテンソルの各次元は何を意味するか？
-2. 今の形状は正しいか？
-3. 次の層はどんな形状を期待しているか？
-
-多くの学習エラーは、本質的には shape の不一致です。
-
-### より安定した「テンソルを見る4ステップ」
-
-これからテンソルを見たら、次の 4 つを確認する習慣をつけましょう。
-
-1. `shape` を見る
-2. `dtype` を見る
-3. 各次元の意味を考える
-4. 次に何の演算をするか考える
-
-たとえば：
-
-```python
-print(X.shape, X.dtype)
-print("meaning: [batch, features]")
-```
-
-この習慣があるだけで、原因不明のエラーをかなり減らせます。
-
-### 初心者がまず身につけたい記録のしかた
-
-PyTorch に初めて触れるときは、テンソルを見たらついでに次のように 1 行メモするのがおすすめです。
-
-```python
-print("shape:", X.shape, "| meaning: [batch, features]")
-```
-
-`torch.Size(...)` だけを見るより、「形状」と「意味」を一緒に書いたほうがずっと分かりやすくなります。
+よく見る shape：
 
 ![PyTorch テンソル shape と意味の速習図](/img/course/ch06-tensor-shape-meaning-map-ja.png)
 
-:::tip 読み方のヒント
-この図は shape の早見表として使えます。表形式のデータはよく `[batch, features]`、画像は `[batch, channels, height, width]`、テキスト列は `[batch, seq_len, embedding_dim]` になります。まず各次元の意味を言葉で説明してからモデルを書くと、エラーがかなり減ります。
+| データ | よくある shape | 意味 |
+|---|---|---|
+| 表形式の batch | `[batch, features]` | 行がサンプル、列が特徴量 |
+| 分類ラベル | `[batch]` | 各サンプルに 1 つの整数クラス id |
+| 画像 batch | `[batch, channels, height, width]` | PyTorch の画像の慣例 |
+| テキスト埋め込み | `[batch, seq_len, embedding_dim]` | token ごとのベクトル表現 |
+| logits | `[batch, classes]` | softmax 前の生のクラススコア |
+
+## 実験 1: 計算する前にテンソルを調べる
+
+まずこれを実行します。以後の学習ループで毎回使う確認習慣を作ります。
+
+```python
+import torch
+
+
+def describe(name, tensor, meaning):
+    print(
+        f"{name}: shape={tuple(tensor.shape)} "
+        f"dtype={tensor.dtype} "
+        f"device={tensor.device} "
+        f"meaning={meaning}"
+    )
+
+
+X = torch.tensor(
+    [
+        [1.0, 2.0, 3.0],
+        [4.0, 5.0, 6.0],
+    ]
+)
+y = torch.tensor([0, 1], dtype=torch.long)
+
+describe("X", X, "[batch, features]")
+describe("y", y, "[batch]")
+
+print("ndim:", X.ndim)
+print("numel:", X.numel())
+print("first row:", X[0])
+print("feature means:", X.mean(dim=0))
+```
+
+期待される出力：
+
+```text
+X: shape=(2, 3) dtype=torch.float32 device=cpu meaning=[batch, features]
+y: shape=(2,) dtype=torch.int64 device=cpu meaning=[batch]
+ndim: 2
+numel: 6
+first row: tensor([1., 2., 3.])
+feature means: tensor([2.5000, 3.5000, 4.5000])
+```
+
+見るポイント：
+
+- `X` は `float32` で、通常のモデル入力によく使う型です。
+- `y` は `int64`、つまり `torch.long` で、`CrossEntropyLoss` が分類ラベルに期待する型です。
+- `dim=0` は batch 方向に集約し、特徴量ごとの平均を返します。
+
+## 実験 2: 特徴量から logits へ
+
+次に、とても小さな分類用の順伝播を手で書きます。これは `nn.Linear` が内部でしていることに近いです。
+
+```python
+import torch
+import torch.nn as nn
+
+
+def describe(name, tensor, meaning):
+    print(
+        f"{name}: shape={tuple(tensor.shape)} "
+        f"dtype={tensor.dtype} "
+        f"device={tensor.device} "
+        f"meaning={meaning}"
+    )
+
+
+X = torch.tensor(
+    [
+        [1.0, 2.0, 3.0],
+        [4.0, 5.0, 6.0],
+    ]
+)
+y = torch.tensor([0, 1], dtype=torch.long)
+
+W = torch.tensor(
+    [
+        [0.1, 0.2],
+        [0.3, -0.1],
+        [0.5, 0.4],
+    ]
+)
+b = torch.tensor([0.01, -0.02])
+
+logits = X @ W + b
+probs = torch.softmax(logits, dim=1)
+pred = probs.argmax(dim=1)
+loss = nn.CrossEntropyLoss()(logits, y)
+
+describe("logits", logits, "[batch, classes]")
+print("logits:", torch.round(logits * 100) / 100)
+print("probabilities:", torch.round(probs * 1000) / 1000)
+print("prediction:", pred)
+print("loss:", round(loss.item(), 3))
+```
+
+期待される出力：
+
+```text
+logits: shape=(2, 2) dtype=torch.float32 device=cpu meaning=[batch, classes]
+logits: tensor([[2.2100, 1.1800],
+        [4.9100, 2.6800]])
+probabilities: tensor([[0.7370, 0.2630],
+        [0.9030, 0.0970]])
+prediction: tensor([0, 0])
+loss: 1.319
+```
+
+shape を丁寧に読みます。
+
+- `X` は `[2, 3]`：2 サンプル、3 特徴量です。
+- `W` は `[3, 2]`：3 入力特徴量、2 出力クラスです。
+- `X @ W` は `[2, 2]`：各サンプルに 1 つのスコアベクトルです。
+- `b` は `[2]` で、batch 全体へ broadcast されます。
+- `CrossEntropyLoss` は softmax 後の確率ではなく、生の `logits` を受け取ります。
+
+:::warning 重要
+PyTorch の多クラス分類では、生の logits を `nn.CrossEntropyLoss()` に渡します。loss の前に手動で `softmax` しないでください。`softmax` は、確率を読みたいときや予測を説明したいときに使います。
 :::
 
----
+## 実際によく使う shape 操作
 
-## インデックス、スライス、変形
-
-```python
-import torch
-
-X = torch.tensor([
-    [10, 20, 30],
-    [40, 50, 60],
-    [70, 80, 90]
-])
-
-print("0 行目:", X[0])
-print("1 行目 2 列目:", X[1, 2])
-print("先頭 2 行:\n", X[:2])
-print("2 列目:", X[:, 1])
-
-# 変形
-flat = X.reshape(9)
-grid = flat.reshape(3, 3)
-
-print("平らにした形:", flat)
-print("3x3 に戻した形:\n", grid)
-```
-
-### `reshape` の感覚
-
-積み木の箱を並べ替えるようなイメージです。
-
-- 要素数は変わらない
-- ただ並べ方を変えるだけ
-
-### `reshape` で初心者がよくハマる点
-
-よくある誤解は、
-
-- `reshape` がデータの中身を変えると思ってしまうこと
-
-実際には、多くの場合「どう見せるか」を変えているだけです。  
-なので、`reshape` の後は毎回次のことを確認するのが安全です。
-
-- 今の各次元は何を意味するか？
-
----
-
-## テンソル演算
+`reshape`、`unsqueeze`、`squeeze` を使って、次の演算が期待する shape に合わせます。
 
 ```python
 import torch
 
-a = torch.tensor([1.0, 2.0, 3.0])
-b = torch.tensor([4.0, 5.0, 6.0])
+x = torch.arange(12)
+grid = x.reshape(3, 4)
+batch = grid.unsqueeze(0)
+restored = batch.squeeze(0)
 
-print("加算:", a + b)
-print("減算:", a - b)
-print("要素ごとの乗算:", a * b)
-print("2 乗:", a ** 2)
-print("合計:", a.sum())
-print("平均:", a.mean())
+print("x:", tuple(x.shape))
+print("grid:", tuple(grid.shape))
+print("batch:", tuple(batch.shape))
+print("restored:", tuple(restored.shape))
 ```
 
-### 行列積
+期待される出力：
 
-深層学習で最もよく使う演算の 1 つが行列積です。
+```text
+x: (12,)
+grid: (3, 4)
+batch: (1, 3, 4)
+restored: (3, 4)
+```
+
+実用的な意味：
+
+- `reshape(3, 4)`：同じ 12 個の要素を表の形に並べ替える。
+- `unsqueeze(0)`：batch 次元を追加する。
+- `squeeze(0)`：サイズ 1 の batch 次元を取り除く。
+
+`view` を使う理由がはっきり分かっている場合を除き、まずは `reshape` を使います。メモリ配置が連続でないときも、`reshape` のほうが扱いやすいです。
+
+## Broadcasting: 便利だが方向を確認する
+
+Broadcasting とは、shape に互換性があるとき、小さいテンソルを大きいテンソルに合わせて自動的に拡張する仕組みです。
 
 ```python
 import torch
 
-X = torch.tensor([[1.0, 2.0],
-                  [3.0, 4.0]])
+X = torch.tensor(
+    [
+        [1.0, 2.0, 3.0],
+        [4.0, 5.0, 6.0],
+    ]
+)
 
-W = torch.tensor([[2.0, 0.0],
-                  [0.0, 2.0]])
+feature_mean = X.mean(dim=0)
+centered = X - feature_mean
 
-Y = X @ W
-print(Y)
+print("feature_mean:", feature_mean)
+print("centered:", centered)
 ```
 
-これは第 4 ステーションで学んだ線形代数と同じです。  
-ニューラルネットワークの多くの層は、本質的には「テンソルに線形変換をかけ、そのあと非線形関数を通す」という流れです。
+期待される出力：
 
-### `@` を見たとき、まず頭に浮かぶべきこと
+```text
+feature_mean: tensor([2.5000, 3.5000, 4.5000])
+centered: tensor([[-1.5000, -1.5000, -1.5000],
+        [ 1.5000,  1.5000,  1.5000]])
+```
 
-まず思い出したいのは次のことです。
+ここでは `feature_mean` の shape は `[3]`、`X` の shape は `[2, 3]` です。PyTorch は同じ特徴量平均を各行から引きます。
 
-- これは普通の四則演算ではないことが多い
-- 「入力を重みで組み合わせ直す」操作だということ
-
-つまり、ネットワークのコードで
+broadcasting に頼る前に、shape をコードのそばに書きます。
 
 ```python
-X @ W
+# X: [batch, features]
+# feature_mean: [features]
+centered = X - feature_mean
 ```
 
-を見たら、まずは次のように理解できます。
+この小さなメモで、多くの静かな論理バグを防げます。
 
-- この層は入力を新しい表現に変換している
+## Device と NumPy 変換
 
----
-
-## ブロードキャスト
-
-ブロードキャストは、PyTorch でとてもコードを短くできる仕組みです。
-
-直感的には、
-
-> 「2 つのテンソルの形状が完全に同じでなくても、差が小さければ PyTorch が自動で広げてくれる」
-
-というものです。
+実際の学習コードでは、テンソルを同じ device に置く必要があります。次の書き方なら CPU、CUDA、Apple Silicon MPS に対応できます。
 
 ```python
 import torch
 
-scores = torch.tensor([
-    [80.0, 85.0, 90.0],
-    [70.0, 75.0, 88.0]
-])
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
 
-bonus = torch.tensor([5.0, 5.0, 5.0])
+X = torch.tensor([[1.0, 2.0, 3.0]])
+X = X.to(device)
 
-print(scores + bonus)
+print("device:", X.device)
 ```
 
-ここで `bonus` の shape は `[3]`、`scores` の shape は `[2, 3]` です。  
-PyTorch は `bonus` を各行に対して足すように自動調整します。
-
-### ブロードキャストのよくある使い方
-
-- バッチ全体に同じバイアスを足す
-- 画像を正規化する
-- バッチ内の各特徴量をスケーリングする
-
-### ブロードキャストはなぜ便利で、なぜ危ないのか？
-
-便利なのは、とてもコードが短くなるからです。  
-危ないのは、
-
-- コードは動く
-- でも、自分が思っていた方向と違う形で広がっていることがある
-
-からです。
-
-なので、ブロードキャストを使うときは、次の習慣が安全です。
-
-- まず 2 つのテンソルの shape を書く
-- 次に「どちらが広げられるのか」を確認する
-
----
-
-## NumPy との相互変換
-
-NumPy と PyTorch はとても近い関係なので、相互変換はよく使います。
+可視化や分析のために NumPy へ戻すときは、先に detach し、CPU へ移します。
 
 ```python
-import numpy as np
-import torch
-
-arr = np.array([[1, 2], [3, 4]], dtype=np.float32)
-tensor = torch.from_numpy(arr)
-
-print("NumPy -> Tensor:\n", tensor)
-
-back_to_numpy = tensor.numpy()
-print("Tensor -> NumPy:\n", back_to_numpy)
+arr = X.detach().cpu().numpy()
+print(type(arr), arr.shape)
 ```
 
-### いつ NumPy を使い、いつ PyTorch を使う？
+この順番が大事な理由：
 
-- データ分析や従来の数値実験: NumPy が便利
-- ニューラルネットワークの学習、自動微分、GPU: PyTorch が向いている
+- `.detach()` は勾配グラフから外します。
+- `.cpu()` は NumPy がデータを読める場所に移します。
+- `.numpy()` は NumPy 配列に変換します。
 
----
+## よくあるエラーパターン
 
-## 小さな例: 学生の合計点と平均点を計算する
+| 症状 | ありがちな原因 | 直し方 |
+|---|---|---|
+| `mat1 and mat2 shapes cannot be multiplied` | 行列積の次元が合わない | `@` や `nn.Linear` の前に両方の shape を表示する |
+| `expected scalar type Long` | 分類 loss のラベルが float | `y = y.long()` を使う |
+| `Expected all tensors to be on the same device` | モデルとデータが別 device にある | モデルとデータの両方を `.to(device)` する |
+| loss は動くが結果がおかしい | broadcasting が想定外の方向に起きている | 両方の shape を書き、拡張方向を確認する |
+| NumPy 変換が失敗する | テンソルが GPU 上、または勾配グラフにつながっている | `tensor.detach().cpu().numpy()` を使う |
 
-この例は「深層学習っぽさ」はあまりありませんが、テンソル思考の練習にはとてもよいです。
+## クイックデバッグチェックリスト
+
+テンソルをモデルへ入れる前に、まず表示します。
 
 ```python
-import torch
-
-# 3 人の学生、4 科目
-scores = torch.tensor([
-    [85.0, 92.0, 78.0, 90.0],
-    [76.0, 88.0, 91.0, 84.0],
-    [93.0, 87.0, 89.0, 95.0]
-])
-
-student_totals = scores.sum(dim=1)
-student_means = scores.mean(dim=1)
-subject_means = scores.mean(dim=0)
-
-print("各学生の合計点:", student_totals)
-print("各学生の平均点:", student_means)
-print("各科目の平均点:", subject_means)
+print("shape:", tuple(X.shape))
+print("dtype:", X.dtype)
+print("device:", X.device)
+print("meaning: [batch, features]")
 ```
 
-ここで使っているテンソルの大事な考え方は、  
-**「どの次元に沿って計算するか？」** です。
+loss 関数の前には、これを確認します。
 
-- `dim=1` は行方向に集約する
-- `dim=0` は列方向に集約する
+```python
+print("logits:", tuple(logits.shape), logits.dtype)
+print("labels:", tuple(y.shape), y.dtype)
+```
 
----
+多クラス分類でよくある組み合わせは次です。
 
-## 初心者がよくやるミス
-
-### shape を無視する
-
-数字だけ見て、テンソルの形状を見ない人が多いです。  
-その結果、コードは一見正しそうでも、実行すると次元エラーになります。
-
-### `*` を行列積だと思う
-
-PyTorch では、
-
-- `*` は要素ごとの乗算
-- `@` が行列積
-
-です。
-
-### dtype が分かっていない
-
-モデルによっては `float32` が必要で、ラベルは `long` であることもあります。  
-型が合わないと、損失関数がエラーになることがあります。
-
-### 値だけ見て、「意味」を見ない
-
-初心者によくある問題は、コードが書けないことではなく、
-
-- テンソルは表示できた
-- でもこの次元が batch なのか、特徴量なのか、チャネルなのか、クラスなのか分からない
-
-ことです。
-
-意味がつかめないまま進むと、`Linear`、`Conv`、`Loss` のあたりで一気に混乱します。
-
----
-
-## まとめ
-
-この節で本当に大事なのは、API をどれだけ覚えるかではなく、次の 3 つの反応を身につけることです。
-
-1. データを見たらまず `shape` を確認する
-2. 演算を見たら「要素ごとか」「行列積か」を区別する
-3. 深層学習の入力、パラメータ、出力は、結局すべてテンソルだと理解する
-
-次は、このテンソルが「自分でどこを直せばよいか」を学びます。  
-それが自動微分です。
-
-## この節でいちばん持ち帰ってほしいこと
-
-1 つだけ持ち帰るなら、これを覚えてください。
-
-> **PyTorch 基礎で本当に練習すべきなのは文法の暗記ではなく、「テンソルの shape、意味、演算方法」をきちんと対応づけられることです。**
-
-なぜなら、今後出てくる深層学習のコードの問題の多くは、最終的に次の 3 つに戻るからです。
-
-- shape
-- dtype
-- 演算の意味
-
----
+```text
+logits: [batch, classes], float32
+labels: [batch], int64 / long
+```
 
 ## 練習
 
-1. 形状が `(2, 3, 4)` のランダムテンソルを作成し、`shape`、`ndim`、`numel()` を表示してください。
-2. `3x3` テンソルを作成し、それを `1x9` と `9x1` に reshape してください。
-3. 自分で掛け算できる 2 つの行列を作り、`@` を使って行列積を 1 回試してください。
+1. 実験 2 の `X` を 2 サンプルから 3 サンプルに変えてください。どの shape が変わり、どの shape は変わりませんか？
+2. shape が `[batch, 1]` のラベルを作り、`squeeze(1)` で `CrossEntropyLoss` が受け取れる形に直してください。
+3. `X`、`W`、`b` を `device` に移してください。1 つだけ移すとどんなエラーになりますか？
+4. `X @ W` を `X * W` に変えてください。なぜ失敗する、または意味がまったく変わるのでしょうか？
+
+## まとめ
+
+- PyTorch の基礎は、多くの関数を暗記することではなく、shape、dtype、device、演算の意味を対応させることです。
+- `@` は行列積、`*` は要素ごとの積です。
+- `CrossEntropyLoss` には生の logits と `long` ラベルを渡します。
+- Broadcasting は強力ですが、どの次元が拡張されているか必ず理解して使います。

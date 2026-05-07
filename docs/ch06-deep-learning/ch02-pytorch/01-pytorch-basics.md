@@ -1,446 +1,337 @@
 ---
 title: "6.2.3 PyTorch Basics"
 sidebar_position: 1
-description: "Build a solid first layer of PyTorch fundamentals, from tensors, shapes, and indexing to broadcasting and its relationship with NumPy."
-keywords: [PyTorch, tensor, shape, broadcasting, numpy]
+description: "Practice PyTorch tensors through shape, dtype, device, broadcasting, logits, and a tiny classification-style forward pass."
+keywords: [PyTorch, tensor, shape, dtype, device, broadcasting, logits]
 ---
 
 # 6.2.3 PyTorch Basics
 
+:::tip Section Overview
+This page is not an API catalog. The goal is to build the reflex you need before every PyTorch model: **read shape, dtype, device, and operation meaning before you train.**
+:::
+
 ## Learning Objectives
 
-- Understand what a `Tensor` is
-- Master tensor creation, shapes, data types, and common operations
-- Understand the relationship between PyTorch and NumPy
-- Be able to read the most basic tensor operation code independently
+- Create tensors from Python and NumPy data.
+- Read `shape`, `dtype`, `device`, and dimension meaning.
+- Distinguish element-wise operations from matrix multiplication.
+- Use broadcasting intentionally instead of accidentally.
+- Run a tiny forward pass that produces logits, probabilities, predictions, and loss.
 
 ---
 
-## First, Build a Map
-
-Don’t treat this section as a “PyTorch syntax table.” A better way to think about it is:
+## Look at the Tensor Lifecycle
 
 ![PyTorch Tensor lifecycle map](/img/course/ch06-pytorch-tensor-lifecycle-map-en.png)
 
-In other words, what you really need to solidify here is:
+Most PyTorch data follows this path:
 
-- Can you put data into PyTorch?
-- Can you read tensor shapes?
-- Can you safely perform the most basic operations?
-
-## How This Section Connects to Station 5 and NumPy
-
-If you’re coming from Station 5, you can first understand this section like this:
-
-- The `X`, `y`, and matrix multiplication from Station 5 are still here
-- The difference is that now they enter a container more suitable for deep learning training: `Tensor`
-
-If you’re already familiar with NumPy, you can remember it this way:
-
-- `Tensor` is very similar to `ndarray`
-- But it can also run on GPU and participate in automatic differentiation
-
-So this section is not about learning “brand-new math,” but about:
-
-- Expressing the same data objects in a way that is more suitable for training neural networks
-
-## What Exactly Is a Tensor?
-
-The most practical way to understand it is:
-
-> **Tensor = a multi-dimensional array that can be computed on CPU / GPU**
-
-If you’ve studied NumPy, you can think of it as an “upgraded `ndarray`”:
-
-- It can perform numerical operations
-- It can be moved to the GPU
-- It can participate in automatic differentiation
-
-By analogy:
-
-| Concept | Analogy |
-|---|---|
-| Scalar (0D) | A single number |
-| Vector (1D) | A row of numbers |
-| Matrix (2D) | A table |
-| Tensor (higher dimensions) | A stack of tables / a batch of images / a video clip |
-
-In deep learning, almost all data eventually becomes a tensor:
-
-- A grayscale image: `[height, width]`
-- A color image: `[channels, height, width]`
-- A batch of images: `[batch_size, channels, height, width]`
-- A batch of sentence embeddings: `[batch_size, seq_len, embedding_dim]`
-
-### What Should You Ask First When You See a Tensor?
-
-Don’t rush to ask about the API. First ask these three questions:
-
-1. What data does it contain?
-2. What does each dimension represent?
-3. Which layer will this data be sent to next?
-
-This helps you connect “shape” and “meaning” from the very beginning.
-
----
-
-## Creating Tensors
-
-:::info Runtime Environment
-The following code can be run directly. If PyTorch is not installed locally:
-
-```bash
-pip install torch
-```
-:::
-
-```python
-import torch
-
-# Create from a Python list
-scores = torch.tensor([88, 92, 76, 95])
-print(scores)
-
-# Specify data type
-prices = torch.tensor([12.5, 19.9, 8.8], dtype=torch.float32)
-print(prices.dtype)
-
-# Common initialization methods
-zeros = torch.zeros((2, 3))
-ones = torch.ones((2, 3))
-randn = torch.randn((2, 3))
-arange = torch.arange(0, 10, 2)
-
-print("zeros:\n", zeros)
-print("ones:\n", ones)
-print("randn:\n", randn)
-print("arange:", arange)
+```text
+raw data -> tensor -> shape/dtype/device check -> operation/model -> loss -> gradient/update
 ```
 
----
+The beginner mistake is to jump straight to the model. A safer habit is to inspect the tensor before it enters the model.
 
-## Shape, Dimensions, and Data Types
+## Tensor Means Data With Training Metadata
 
-When you’re learning deep learning, what trips you up most often is not formulas, but **shape**.
+The shortest useful definition is:
 
-You can think of `shape` as “how many layers this data box has, and how many elements each layer contains.”
+> **A tensor is a multi-dimensional array that PyTorch can compute with, move across devices, and track for gradients when needed.**
 
-```python
-import torch
+Compared with NumPy arrays, PyTorch tensors add two deep learning features:
 
-X = torch.tensor([
-    [1.0, 2.0, 3.0],
-    [4.0, 5.0, 6.0]
-])
+- `device`: the tensor can live on CPU, GPU, or Apple MPS.
+- `requires_grad`: the tensor can join automatic differentiation.
 
-print("tensor:\n", X)
-print("shape:", X.shape)       # torch.Size([2, 3])
-print("ndim:", X.ndim)         # 2 dimensions
-print("dtype:", X.dtype)       # float32
-print("total elements:", X.numel())   # 6
-```
-
-### A Very Important Habit
-
-Before writing a model, ask yourself:
-
-1. What does each dimension of this tensor mean?
-2. Is the current shape correct?
-3. What shape will the next layer expect?
-
-Many training errors are, at their core, shape mismatches.
-
-### A More Reliable “4-Step Tensor Check”
-
-Whenever you get a tensor, it’s a good idea to check it in these four steps:
-
-1. Look at `shape`
-2. Look at `dtype`
-3. Clarify the meaning of each dimension
-4. Clarify what operation you’ll do next
-
-For example:
-
-```python
-print(X.shape, X.dtype)
-print("meaning: [batch, features]")
-```
-
-This habit will save you from a lot of mysterious errors.
-
-### A Recording Habit Beginners Should Build
-
-When you first start using PyTorch, it’s a good idea to jot down a sentence whenever you see a tensor:
-
-```python
-print("shape:", X.shape, "| meaning: [batch, features]")
-```
-
-Writing the “shape” and the “meaning” together is much clearer than looking at `torch.Size(...)` alone.
+Common shapes:
 
 ![Quick reference map for PyTorch tensor shapes and meanings](/img/course/ch06-tensor-shape-meaning-map-en.png)
 
-:::tip Reading Tip
-You can use this diagram as a quick shape reference: tabular data commonly uses `[batch, features]`, images commonly use `[batch, channels, height, width]`, and text sequences commonly use `[batch, seq_len, embedding_dim]`. First clarify the meaning of each dimension, then write the model, and you’ll get far fewer errors.
+| Data | Common shape | Meaning |
+|---|---|---|
+| tabular batch | `[batch, features]` | rows are samples, columns are features |
+| class labels | `[batch]` | one integer class id per sample |
+| image batch | `[batch, channels, height, width]` | PyTorch image convention |
+| text embeddings | `[batch, seq_len, embedding_dim]` | tokens with vector representations |
+| logits | `[batch, classes]` | raw class scores before softmax |
+
+## Lab 1: Inspect Tensors Before Doing Math
+
+Run this first. It builds the inspection habit you will use in every later training loop.
+
+```python
+import torch
+
+
+def describe(name, tensor, meaning):
+    print(
+        f"{name}: shape={tuple(tensor.shape)} "
+        f"dtype={tensor.dtype} "
+        f"device={tensor.device} "
+        f"meaning={meaning}"
+    )
+
+
+X = torch.tensor(
+    [
+        [1.0, 2.0, 3.0],
+        [4.0, 5.0, 6.0],
+    ]
+)
+y = torch.tensor([0, 1], dtype=torch.long)
+
+describe("X", X, "[batch, features]")
+describe("y", y, "[batch]")
+
+print("ndim:", X.ndim)
+print("numel:", X.numel())
+print("first row:", X[0])
+print("feature means:", X.mean(dim=0))
+```
+
+Expected output:
+
+```text
+X: shape=(2, 3) dtype=torch.float32 device=cpu meaning=[batch, features]
+y: shape=(2,) dtype=torch.int64 device=cpu meaning=[batch]
+ndim: 2
+numel: 6
+first row: tensor([1., 2., 3.])
+feature means: tensor([2.5000, 3.5000, 4.5000])
+```
+
+What to notice:
+
+- `X` is `float32`, which is the usual type for model inputs.
+- `y` is `int64`, also shown as `torch.long`, which is what `CrossEntropyLoss` expects for class labels.
+- `dim=0` aggregates down the batch dimension, producing one mean per feature.
+
+## Lab 2: From Features to Logits
+
+Now make one tiny classification-style forward pass by hand. This mirrors what `nn.Linear` does internally.
+
+```python
+import torch
+import torch.nn as nn
+
+
+def describe(name, tensor, meaning):
+    print(
+        f"{name}: shape={tuple(tensor.shape)} "
+        f"dtype={tensor.dtype} "
+        f"device={tensor.device} "
+        f"meaning={meaning}"
+    )
+
+
+X = torch.tensor(
+    [
+        [1.0, 2.0, 3.0],
+        [4.0, 5.0, 6.0],
+    ]
+)
+y = torch.tensor([0, 1], dtype=torch.long)
+
+W = torch.tensor(
+    [
+        [0.1, 0.2],
+        [0.3, -0.1],
+        [0.5, 0.4],
+    ]
+)
+b = torch.tensor([0.01, -0.02])
+
+logits = X @ W + b
+probs = torch.softmax(logits, dim=1)
+pred = probs.argmax(dim=1)
+loss = nn.CrossEntropyLoss()(logits, y)
+
+describe("logits", logits, "[batch, classes]")
+print("logits:", torch.round(logits * 100) / 100)
+print("probabilities:", torch.round(probs * 1000) / 1000)
+print("prediction:", pred)
+print("loss:", round(loss.item(), 3))
+```
+
+Expected output:
+
+```text
+logits: shape=(2, 2) dtype=torch.float32 device=cpu meaning=[batch, classes]
+logits: tensor([[2.2100, 1.1800],
+        [4.9100, 2.6800]])
+probabilities: tensor([[0.7370, 0.2630],
+        [0.9030, 0.0970]])
+prediction: tensor([0, 0])
+loss: 1.319
+```
+
+Read the shapes carefully:
+
+- `X` is `[2, 3]`: two samples, three features.
+- `W` is `[3, 2]`: three input features, two output classes.
+- `X @ W` becomes `[2, 2]`: one score vector per sample.
+- `b` is `[2]` and is broadcast across the batch.
+- `CrossEntropyLoss` receives raw `logits`, not softmax probabilities.
+
+:::warning Important
+For multi-class classification in PyTorch, pass raw logits to `nn.CrossEntropyLoss()`. Do not apply `softmax` before the loss. Use `softmax` only when you want readable probabilities for inspection or prediction.
 :::
 
----
+## Shape Operations You Actually Need
 
-## Indexing, Slicing, and Reshaping
-
-```python
-import torch
-
-X = torch.tensor([
-    [10, 20, 30],
-    [40, 50, 60],
-    [70, 80, 90]
-])
-
-print("row 0:", X[0])
-print("row 1, column 2:", X[1, 2])
-print("first two rows:\n", X[:2])
-print("column 2:", X[:, 1])
-
-# Reshape
-flat = X.reshape(9)
-grid = flat.reshape(3, 3)
-
-print("flattened:", flat)
-print("back to 3x3:\n", grid)
-```
-
-### Intuition for `reshape`
-
-It’s like rearranging a box of building blocks:
-
-- The number of elements cannot change
-- You’re only changing how they are organized
-
-### A Common Pitfall for Beginners with `reshape`
-
-The most common misunderstanding is:
-
-- Thinking `reshape` changes the actual data content
-
-In fact, it usually just changes how you view the same set of elements.
-So a safer habit is to ask after every `reshape`:
-
-- What does each dimension mean now?
-
----
-
-## Tensor Operations
+Use `reshape`, `unsqueeze`, and `squeeze` to make shapes match what the next operation expects.
 
 ```python
 import torch
 
-a = torch.tensor([1.0, 2.0, 3.0])
-b = torch.tensor([4.0, 5.0, 6.0])
+x = torch.arange(12)
+grid = x.reshape(3, 4)
+batch = grid.unsqueeze(0)
+restored = batch.squeeze(0)
 
-print("addition:", a + b)
-print("subtraction:", a - b)
-print("element-wise multiplication:", a * b)
-print("square:", a ** 2)
-print("sum:", a.sum())
-print("mean:", a.mean())
+print("x:", tuple(x.shape))
+print("grid:", tuple(grid.shape))
+print("batch:", tuple(batch.shape))
+print("restored:", tuple(restored.shape))
 ```
 
-### Matrix Multiplication
+Expected output:
 
-One of the most common operations in deep learning is matrix multiplication:
+```text
+x: (12,)
+grid: (3, 4)
+batch: (1, 3, 4)
+restored: (3, 4)
+```
+
+Practical meanings:
+
+- `reshape(3, 4)`: reorganize the same 12 elements into a table.
+- `unsqueeze(0)`: add a batch dimension.
+- `squeeze(0)`: remove a size-1 batch dimension.
+
+Use `reshape` unless you specifically know why you need `view`. `reshape` is more forgiving when memory layout is not contiguous.
+
+## Broadcasting: Useful, But Check Direction
+
+Broadcasting means PyTorch expands a smaller tensor to match a larger tensor when the shapes are compatible.
 
 ```python
 import torch
 
-X = torch.tensor([[1.0, 2.0],
-                  [3.0, 4.0]])
+X = torch.tensor(
+    [
+        [1.0, 2.0, 3.0],
+        [4.0, 5.0, 6.0],
+    ]
+)
 
-W = torch.tensor([[2.0, 0.0],
-                  [0.0, 2.0]])
+feature_mean = X.mean(dim=0)
+centered = X - feature_mean
 
-Y = X @ W
-print(Y)
+print("feature_mean:", feature_mean)
+print("centered:", centered)
 ```
 
-This is the same linear algebra you learned at Station 4.
-Many layers in neural networks are essentially “tensor linear transformations followed by a nonlinear function.”
+Expected output:
 
-### When You See `@`, What Should Immediately Come to Mind?
+```text
+feature_mean: tensor([2.5000, 3.5000, 4.5000])
+centered: tensor([[-1.5000, -1.5000, -1.5000],
+        [ 1.5000,  1.5000,  1.5000]])
+```
 
-The first thing worth thinking is:
+Here `feature_mean` has shape `[3]`, and `X` has shape `[2, 3]`. PyTorch subtracts the same feature mean from each row.
 
-- This is usually not ordinary arithmetic
-- This is “recombining a batch of inputs according to weights”
-
-In other words, when you see:
+Before relying on broadcasting, write the shapes next to the code:
 
 ```python
-X @ W
+# X: [batch, features]
+# feature_mean: [features]
+centered = X - feature_mean
 ```
 
-you can first understand it as:
+That tiny note prevents many silent logic bugs.
 
-- This layer is transforming the input into a new representation
+## Device and NumPy Conversion
 
----
-
-## Broadcasting
-
-Broadcasting is a very code-saving mechanism in PyTorch.
-
-The intuition is:
-
-> “If two tensors don’t have exactly the same shape but are close enough, PyTorch will automatically expand them for you.”
+Real training code must keep tensors on the same device. This helper works on CPU, CUDA, or Apple Silicon MPS.
 
 ```python
 import torch
 
-scores = torch.tensor([
-    [80.0, 85.0, 90.0],
-    [70.0, 75.0, 88.0]
-])
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
 
-bonus = torch.tensor([5.0, 5.0, 5.0])
+X = torch.tensor([[1.0, 2.0, 3.0]])
+X = X.to(device)
 
-print(scores + bonus)
+print("device:", X.device)
 ```
 
-Here `bonus` has shape `[3]`, and `scores` has shape `[2, 3]`.
-PyTorch automatically treats `bonus` as being added to each row.
-
-### Common Uses of Broadcasting
-
-- Adding a shared bias to a batch of samples
-- Normalizing images
-- Scaling each feature in a batch
-
-### Why Is Broadcasting Both Convenient and Risky?
-
-It’s convenient because it saves a lot of code.
-It’s risky because:
-
-- Sometimes the code runs
-- But the broadcasting direction is not the one you expected
-
-So in broadcasting scenarios, the safest habit is:
-
-- First write down the shapes of both tensors
-- Then make it clear which one is being expanded
-
----
-
-## Converting Between NumPy and PyTorch
-
-NumPy and PyTorch are very closely related, so converting between them is common.
+When converting back to NumPy for plotting or analysis, detach and move to CPU first:
 
 ```python
-import numpy as np
-import torch
-
-arr = np.array([[1, 2], [3, 4]], dtype=np.float32)
-tensor = torch.from_numpy(arr)
-
-print("NumPy -> Tensor:\n", tensor)
-
-back_to_numpy = tensor.numpy()
-print("Tensor -> NumPy:\n", back_to_numpy)
+arr = X.detach().cpu().numpy()
+print(type(arr), arr.shape)
 ```
 
-### When Should You Use NumPy, and When Should You Use PyTorch?
+Why this order matters:
 
-- For data analysis and traditional numerical experiments: NumPy is convenient
-- For training neural networks, automatic differentiation, and GPU usage: PyTorch is more suitable
+- `.detach()` leaves the gradient graph.
+- `.cpu()` ensures NumPy can read the data.
+- `.numpy()` converts to a NumPy array.
 
----
+## Common Error Patterns
 
-## A Small Example: Calculating Students’ Total Scores and Averages
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| `mat1 and mat2 shapes cannot be multiplied` | wrong matrix multiplication dimensions | print both shapes before `@` or `nn.Linear` |
+| `expected scalar type Long` | labels are float for classification loss | use `y = y.long()` |
+| `Expected all tensors to be on the same device` | model and data live on different devices | move both model and data with `.to(device)` |
+| loss runs but result is strange | broadcasting happened in the wrong direction | write both shapes and verify expansion |
+| NumPy conversion fails | tensor is on GPU or still attached to graph | use `tensor.detach().cpu().numpy()` |
 
-This example doesn’t feel very “deep learning”-like, but it’s great for practicing tensor thinking.
+## Quick Debug Checklist
+
+Before a tensor enters a model, print this:
 
 ```python
-import torch
-
-# 3 students, 4 subjects
-scores = torch.tensor([
-    [85.0, 92.0, 78.0, 90.0],
-    [76.0, 88.0, 91.0, 84.0],
-    [93.0, 87.0, 89.0, 95.0]
-])
-
-student_totals = scores.sum(dim=1)
-student_means = scores.mean(dim=1)
-subject_means = scores.mean(dim=0)
-
-print("total score for each student:", student_totals)
-print("average score for each student:", student_means)
-print("average score for each subject:", subject_means)
+print("shape:", tuple(X.shape))
+print("dtype:", X.dtype)
+print("device:", X.device)
+print("meaning: [batch, features]")
 ```
 
-Here you’re already using one of the most important tensor-thinking ideas:
-**“Along which dimension should the calculation be performed?”**
+Before a loss function, check this:
 
-- `dim=1` means aggregate by rows
-- `dim=0` means aggregate by columns
+```python
+print("logits:", tuple(logits.shape), logits.dtype)
+print("labels:", tuple(y.shape), y.dtype)
+```
 
----
+For multi-class classification, the common pair is:
 
-## Common Mistakes Beginners Make
-
-### Ignoring shape
-
-Many people only look at the numbers and not the tensor shape.
-As a result, the code seems correct at a glance, but throws a dimension error when run.
-
-### Treating `*` as matrix multiplication
-
-In PyTorch:
-
-- `*` is element-wise multiplication
-- `@` is matrix multiplication
-
-### Not Being Clear About `dtype`
-
-Some models require `float32`, while labels sometimes need `long`.
-If the type is wrong, the loss function may fail immediately.
-
-### Looking at the values but not their meaning
-
-The most common beginner problem is not inability to write code, but:
-
-- The tensor prints out
-- But you don’t know whether a dimension represents batch, features, channels, or classes
-
-Once the semantics are unclear, `Linear`, `Conv`, and `Loss` all start to feel confusing.
-
----
-
-## Summary
-
-The most important thing in this section is not memorizing how many APIs you know, but building three basic instincts:
-
-1. When you see data, first check `shape`
-2. When you see an operation, first distinguish between “element-wise” and “matrix multiplication”
-3. Know that inputs, parameters, and outputs in deep learning are all tensors at their core
-
-Next, we’ll make these tensors “know how to change themselves,” and that is automatic differentiation.
-
-## What You Should Take Away from This Section
-
-If you only remember one sentence, I hope it is this:
-
-> **What you really need to practice in the PyTorch basics section is not syntax fluency, but whether you can reliably match up a tensor’s shape, meaning, and operation style.**
-
-Because most deep learning code problems later on eventually come back to these three things:
-
-- shape
-- dtype
-- what the operation means
-
----
+```text
+logits: [batch, classes], float32
+labels: [batch], int64 / long
+```
 
 ## Exercises
 
-1. Create a random tensor with shape `(2, 3, 4)` and print its `shape`, `ndim`, and `numel()`.
-2. Create a `3x3` tensor and reshape it into `1x9` and `9x1`.
-3. Construct two matrices that can be multiplied, and try matrix multiplication with `@`.
+1. Change `X` in Lab 2 from two samples to three samples. Which shapes change, and which shapes stay the same?
+2. Create labels with shape `[batch, 1]`, then fix them with `squeeze(1)` so `CrossEntropyLoss` accepts them.
+3. Move `X`, `W`, and `b` to `device`. What error do you get if you move only one of them?
+4. Replace `X @ W` with `X * W`. Why does it fail or produce a different meaning?
+
+## Key Takeaways
+
+- PyTorch basics are not about memorizing many functions; they are about matching shape, dtype, device, and operation.
+- `@` means matrix multiplication; `*` means element-wise multiplication.
+- `CrossEntropyLoss` wants raw logits and `long` labels.
+- Broadcasting is powerful, but you should always know which dimension is being expanded.
