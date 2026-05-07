@@ -1,7 +1,7 @@
 ---
 title: "3 Data Analysis and Visualization"
 sidebar_position: 0
-description: "Learn NumPy, Pandas, data cleaning, statistical analysis, and visualization to build the data skills needed for machine learning, RAG evaluation, and AI application analytics."
+description: "Learn the practical data loop: read data, inspect quality, clean problems, summarize patterns, draw charts, and explain conclusions."
 keywords: [NumPy, Pandas, Matplotlib, Seaborn, data analysis, data visualization, Python data analysis]
 ---
 
@@ -9,136 +9,119 @@ keywords: [NumPy, Pandas, Matplotlib, Seaborn, data analysis, data visualization
 
 ![Main visual for data analysis and visualization](/img/course/ch03-data-visualization-en.png)
 
-This stage is about answering: “Can I understand data, organize data, discover patterns, and explain conclusions?” Whether you later work on machine learning, RAG, Agents, or product analytics, data skills are a foundational capability.
+Chapter 3 has one job: help you turn messy data into **a trustworthy conclusion with reproducible code and charts**.
 
-## Story-based introduction: investigate like a data detective
-
-As you enter this stage, imagine yourself as a data detective. CSV files, Excel sheets, logs, and database tables are like a pile of clues: some clues are missing, some are duplicated, and some look normal but are actually outliers. Your job is not to jump straight into a model. First, clean up the clues, then use statistics and charts to find patterns, and finally tell a trustworthy conclusion.
-
-## Interactive practice: ask every dataset three questions
-
-The first question asks “What is it?”: How many rows, how many columns, and what does each column mean? The second question asks “Is it clean?”: Where are the missing values, where are the outliers, and are the data types correct? The third question asks “What does it tell us?”: Which variable is highest, which trend is most obvious, and which group differences are worth further study?
-
-## Project bonus
-
-The bonus project for this stage is a truly presentable data analysis report. You can build it as a Notebook, or organize it as a visual report: start with the question, show the cleaning and analysis process in the middle, and end with conclusions and next-step modeling suggestions. When you later learn machine learning, this report can be upgraded directly into a complete “from data analysis to prediction model” project.
-
-## Stage overview
-
-| Information | Description |
-|---|---|
-| Suitable for | Learners who can already write basic Python and want to move into data and AI projects |
-| Estimated time | 80–120 hours |
-| Prerequisites | Completed Python programming basics |
-| Stage output | A complete data analysis report, and a multi-source data organization project |
-
-## Minimum path for beginners
-
-Beginners should first learn how to read data, inspect fields, handle missing values, do basic filtering and grouping statistics, and then use Matplotlib or Seaborn to draw charts that explain the problem. As long as you can complete a Notebook report from reading data to summarizing conclusions, you have passed the minimum path.
-
-## Advanced path
-
-Experienced learners can go deeper into multi-source data merging, time series, database access, visualization storytelling, and analysis report structure. You can further try turning the data cleaning process into reusable functions and output a clean dataset for future machine learning projects.
-
-## What beginners should do first, and what advanced learners should do later
-
-When beginners study this stage for the first time, treat data as “tables that need cleaning.” If you can load data, understand column meanings, handle missing values, draw key charts, and write three conclusions, you have already grasped the main thread.
-
-Experienced learners can focus more on the reliability of the analysis: Is the data source trustworthy? Are the cleaning rules explainable? Do the charts mislead? Do the conclusions have boundaries? Your goal is not to draw more charts, but to produce data analysis that can support later modeling and business decisions.
-
-## Why AI cannot do without data
-
-Models do not learn from thin air. Data quality, structure, distribution, and labeling methods directly affect model results. Even if you mainly work on large model applications in the future, you will still encounter document cleaning, log analysis, evaluation set construction, user feedback statistics, and retrieval quality analysis.
+## 3.0.1 See The Data Analysis Loop
 
 ![Main workflow loop of data analysis](/img/course/ch03-data-analysis-backbone-en.png)
 
-## Learning path for this stage
+Read the picture first. Most useful analysis follows this loop:
 
-Section 3.1 uses pure Python to process data, helping you feel why NumPy and Pandas are needed.
-
-Section 3.2 teaches NumPy. You will understand arrays, vectorization, broadcasting, matrix operations, and random statistics. These concepts will appear again and again in machine learning and deep learning.
-
-Section 3.3 teaches Pandas. You will work with tabular data, read and write files, filter and select, clean missing values, group and aggregate, merge data, and handle time series.
-
-Section 3.4 teaches visualization. You will use charts to express distributions, trends, relationships, and anomalies, rather than just printing results as tables.
-
-Section 3.5 databases are optional, but if you want to work on real applications or enterprise data projects, it is recommended that you at least understand relational databases and the basics of SQL.
-
-Section 3.6 is where you turn the scattered skills into visible evidence. If you want one course page to follow from start to finish, do [3.6.3 Follow-Along Workshop: Build a Reproducible Data Analysis Pipeline](./ch06-projects/03-hands-on-data-workshop.md): it creates dirty CSV data, cleans it, writes SQLite, generates a chart, and outputs a report.
-
-## What you should be able to do after finishing this stage
-
-- Read common data files such as CSV, Excel, and JSON
-- Use Pandas to filter, clean, transform, aggregate, and merge data
-- Use NumPy to understand array computation and basic statistics
-- Choose appropriate charts to present data conclusions
-- Organize the data analysis process into a Notebook or report
-- Prepare clean datasets for future machine learning projects
-
-## Common mistakes
-
-Do not turn data analysis into “memorizing APIs.” Pandas has many methods, and you do not need to remember them all the first time. You should understand the workflow of data processing: first inspect what the data looks like, then check missing values and anomalies, then perform transformations and statistics, and finally use charts to verify your judgment.
-
-Also, do not just make pretty charts. The purpose of a chart is not decoration, but answering questions. Each chart should correspond to a clear question, such as “Which feature is most related to the target?”, “Is there a clear anomaly?”, or “What differences exist between groups?”
-
-## Data failure theater: why charts and conclusions can mislead
-
-If a chart looks beautiful but the conclusion is strange, first check whether the data has missing values, duplicates, outliers, or inconsistent units. If grouped results do not match intuition, check whether the category fields contain spaces, case differences, or encoding issues. If the correlation looks very high, first ask whether it is only influenced by time, scale, or the sampling method.
-
-## Minimum runnable experiment: from dirty data to one trustworthy chart
-
-The minimum experiment for this stage is to prepare a small CSV with missing values, duplicate rows, and outliers, then complete reading, inspection, cleaning, statistics, and visualization. You need to prove that you are not just calling the Pandas API, but can explain why each step is handled that way.
-
-```python
-import pandas as pd
-
-df = pd.read_csv("learning_log.csv")
-print(df.info())
-print(df.isna().sum())
-
-clean_df = df.drop_duplicates()
-summary = clean_df.groupby("topic")["minutes"].sum().sort_values(ascending=False)
-print(summary)
+```text
+read -> inspect -> clean -> summarize -> visualize -> explain
 ```
 
-The real pass criterion is not whether the code runs, but whether you can explain: which data was changed, why it was changed, and what impact it had on the conclusion.
+Do not draw charts first. First understand fields, units, missing values, duplicates, and sample sources.
 
-## Data failure case library: check fields, units, and sample sources first
+## 3.0.2 Learning Order And Task List
 
-| Phenomenon | Common cause | How to locate it | Fix direction |
-|---|---|---|---|
-| Charts look nice but the conclusion is untrustworthy | Missing values, duplicates, or outliers were not handled | Check `info()`, missing-value statistics, and distributions | Record cleaning rules and the scope of impact |
-| Grouped statistics look abnormal | Category fields contain spaces, case differences, or aliases | Print unique values and frequencies | Normalize field names and category mappings |
-| Correlation looks very high | Influenced by time, scale, or sampling method | Compare by strata, draw scatter plots | Add business explanation and limitation notes |
-| Notebook cannot be reproduced | Data path, dependencies, or execution order is messy | Restart and run from the beginning | Fix the data path, dependencies, and execution order |
+Use this table as both the chapter guide and the task sheet.
 
-
-## Stage project
-
-The basic version is to choose a public CSV dataset and complete field understanding, missing-value checks, basic statistics, and 3–5 key charts. The standard version requires organizing the analysis process into a complete Notebook or report, including the question, cleaning, analysis, conclusions, and next-step suggestions. The challenge version can integrate multiple data sources, add database or web data, and form a data analysis workflow closer to real business scenarios.
-
-
-## Stage deliverables
-
-| Deliverable | Minimum version | Portfolio version |
+| Page | Follow-along action | Evidence to keep |
 |---|---|---|
-| Data analysis Notebook | Complete reading, cleaning, statistics, and charts | Includes problem definition, cleaning rules, key findings, and limitations |
-| Data quality record | Mark missing values, duplicates, and outliers | Explains the reason for handling, impact scope, and basis for keeping/deleting |
-| Visualization results | Draw 3–5 key charts | Each chart includes the question, conclusion, and misleading-risk notes |
-| Analysis report | Write 3 conclusions | Can connect business questions, future modeling, and data limitations |
-| Reproducibility notes | Clearly state data source and how to run | Includes data dictionary, dependencies, random seed, or version records |
-| Reproducible workshop evidence | Run the 6.3 pipeline and keep the generated files | Includes raw data, clean data, cleaning log, SQLite database, SVG chart, and HTML report |
+| [3.1.1 Pure Python Data Processing](ch01-warmup/01-pure-python-data.md) | Process a small table with lists and dictionaries | A note explaining why tables become awkward in pure Python |
+| [3.2.1 NumPy Overview](ch02-numpy/01-overview.md) to [3.2.7 Random and Statistics](ch02-numpy/07-random-stats.md) | Practice arrays, shapes, slicing, broadcasting, and vectorized math | One NumPy practice file |
+| [3.3.1 Pandas Core Structures](ch03-pandas/01-core-structures.md) to [3.3.8 Time Series](ch03-pandas/08-time-series.md) | Read a table, clean missing values, group rows, merge tables, and export results | Cleaned data plus a cleaning log |
+| [3.4.1 Matplotlib](ch04-visualization/01-matplotlib.md) to [3.4.4 Visualization Best Practices](ch04-visualization/04-best-practices.md) | Draw charts that answer named questions | 3 charts, each with one conclusion |
+| [3.5.1 Relational Databases](ch05-database/01-relational-db.md) to [3.5.4 Database Design](ch05-database/04-db-design.md) | Learn enough SQL to filter, group, and join real application data | One query or join example |
+| [3.6.1 EDA Project](ch06-projects/01-eda-project.md) and [3.6.3 Follow-Along Workshop](ch06-projects/03-hands-on-data-workshop.md) | Build a reproducible data pipeline and report | Raw data, clean data, chart, report, and README |
 
-## Relationship with the AI learning assistant throughout the project
+Key terms for this chapter:
 
-This stage can correspond to AI Learning Assistant v0.3: analyze learning records, count study time, completion rate, and procrastination topics, and generate charts. If you are following the end-to-end project path, it is recommended that by the end of this stage you submit at least one version record: what capabilities were added, how to run it, what the sample inputs and outputs are, what problems were encountered, and what you plan to improve next.
-
-## Stage completion criteria
-
-| Pass level | What you need to do |
+| Term | Meaning |
 |---|---|
-| Minimum pass | Can use NumPy, Pandas, SQL, and visualization tools to complete a data analysis report. |
-| Recommended pass | Complete at least one runnable mini project for this stage, and record the run method, sample inputs and outputs, and problems encountered in the README. |
-| Portfolio pass | Connect the output of this stage to the “AI Learning Assistant” end-to-end project, leaving screenshots, logs, evaluation examples, and a next-step plan. |
+| `CSV` | A plain-text table where each row is a record |
+| `DataFrame` | A Pandas table with rows, columns, names, and indexes |
+| `Series` | One column from a DataFrame |
+| `dtype` | The data type of a column or array |
+| `EDA` | Exploratory Data Analysis: first-pass exploration before modeling |
+| `groupby` | Split by category, calculate statistics, then combine |
+| `merge` / `join` | Combine tables by shared keys |
 
-After finishing this stage, you do not need to memorize every detail. What matters more is that you can clearly explain: what problem this stage solves, how it relates to the previous stage, and how it supports future learning. The next stage will use this data intuition to understand probability, vectors, gradients, and model evaluation.
+## 3.0.3 First Runnable Loop
+
+Install the two packages once:
+
+```bash
+python -m pip install pandas matplotlib
+```
+
+Then run this script in an empty practice folder. It creates dirty data, cleans it, summarizes it, and saves one chart.
+
+```python
+from io import StringIO
+import pandas as pd
+import matplotlib.pyplot as plt
+
+raw = StringIO("""topic,minutes
+Python,45
+Pandas,30
+Python,45
+Visualization,
+Pandas,300
+""")
+
+df = pd.read_csv(raw)
+print("Before cleaning")
+print(df)
+
+clean_df = df.drop_duplicates()
+clean_df["minutes"] = clean_df["minutes"].fillna(clean_df["minutes"].median())
+clean_df = clean_df[clean_df["minutes"] <= 180]
+
+summary = clean_df.groupby("topic")["minutes"].sum().sort_values(ascending=False)
+print("\nAfter cleaning")
+print(summary)
+
+summary.plot(kind="bar", title="Study minutes by topic")
+plt.ylabel("minutes")
+plt.tight_layout()
+plt.savefig("topic_minutes.png")
+print("\nSaved chart: topic_minutes.png")
+```
+
+Expected shape:
+
+```text
+Before cleaning
+...
+After cleaning
+topic
+Python           45.0
+Visualization    ...
+Saved chart: topic_minutes.png
+```
+
+The pass line is not “the chart looks nice.” The pass line is: you can explain which rows changed, why they changed, and how that affects the conclusion.
+
+## 3.0.4 Common Failures
+
+| Symptom | First thing to check | Usual fix |
+|---|---|---|
+| Chart is pretty but conclusion is weak | Did you name the question first? | Write the question above the chart |
+| Grouped result looks wrong | Category spaces, aliases, or inconsistent case | Print `unique()` and normalize categories |
+| Missing values change the conclusion | Which rows and columns are missing? | Record the rule: drop, fill, or keep |
+| Correlation looks too perfect | Time, scale, leakage, or sampling bias | Compare groups and add limitation notes |
+| Notebook cannot rerun | Data path, dependency, or execution order | Restart and run from top to bottom |
+
+## 3.0.5 Pass Check
+
+Move to Chapter 4 when you can answer these five questions:
+
+- What does each column mean, and what unit does it use?
+- Which cleaning rules changed the data?
+- What question does each chart answer?
+- What conclusion is supported, and what is still uncertain?
+- Can another person rerun the analysis from the README?
+
+For a printable checklist, use [3.0 Study Guide and Task Sheet](./study-guide.md). The next chapter uses this data intuition to understand probability, vectors, gradients, and model evaluation.
