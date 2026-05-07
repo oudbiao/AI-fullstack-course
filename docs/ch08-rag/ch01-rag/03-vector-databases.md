@@ -142,6 +142,14 @@ for score, rid, text in sorted(results, reverse=True):
     print(rid, round(score, 4), text)
 ```
 
+Expected output:
+
+```text
+r1 0.9983 A refund can be requested within 7 days after purchasing the course
+r3 0.3601 The system will issue a certificate after passing the final course test
+r2 0.218 You can receive a certificate after completing the course project
+```
+
 Here, `query_vector` can be understood as the embedding of the user’s question.
 
 ---
@@ -200,6 +208,13 @@ for item in records:
 
 for score, text in sorted(filtered_results, reverse=True):
     print(round(score, 4), "->", text)
+```
+
+Expected output:
+
+```text
+0.9966 -> You can receive a certificate after completing the course project
+0.9944 -> The system will issue a certificate after passing the final course test
 ```
 
 This is the minimal form of “similarity search + business filtering”.
@@ -407,6 +422,13 @@ for record in records:
     if not record["text"].strip():
         problems.append("empty_text")
     print(record["id"], problems or "ok")
+```
+
+Expected output:
+
+```text
+doc_001_chunk_01 ok
+doc_001_chunk_02 ok
 ```
 
 You can put this check before ingestion. In real projects, once metadata is missing, it becomes very hard to do citations, filtering, permissions, and evaluation later.

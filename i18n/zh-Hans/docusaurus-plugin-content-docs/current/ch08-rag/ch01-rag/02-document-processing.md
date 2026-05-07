@@ -128,6 +128,19 @@ for s in sentences:
     print("-", s)
 ```
 
+预期输出：
+
+```text
+句子列表:
+- 退款政策：
+- 课程购买后 7 天内，如果学习进度低于 20%，可以申请退款
+- 超过 7 天后，不再支持无条件退款
+- 证书说明：
+- 完成所有必修项目并通过结课测试后，可以获得结业证书
+- 学习顺序：
+- 建议先学习 Python、数据分析、机器学习，再进入深度学习和大模型阶段
+```
+
 如果句子已经比较短，你可以直接把句子当 chunk。
 但更多时候，我们会把几句组合成一个块。
 
@@ -142,15 +155,16 @@ for s in sentences:
 
 ```python
 def chunk_sentences(sentences, chunk_size=2, overlap=1):
+    if chunk_size - overlap <= 0:
+        raise ValueError("chunk_size 必须大于 overlap")
+
     chunks = []
     start = 0
     while start < len(sentences):
         end = start + chunk_size
-        chunk = "。".join(sentences[start:end])
+        chunk = " ".join(sentences[start:end])
         chunks.append(chunk)
         start += chunk_size - overlap
-        if chunk_size - overlap <= 0:
-            raise ValueError("chunk_size 必须大于 overlap")
     return chunks
 
 chunks = chunk_sentences(sentences, chunk_size=2, overlap=1)
@@ -159,6 +173,21 @@ print("切块结果:")
 for i, chunk in enumerate(chunks):
     print(f"[chunk {i}] {chunk}")
 ```
+
+预期输出：
+
+```text
+切块结果:
+[chunk 0] 退款政策： 课程购买后 7 天内，如果学习进度低于 20%，可以申请退款
+[chunk 1] 课程购买后 7 天内，如果学习进度低于 20%，可以申请退款 超过 7 天后，不再支持无条件退款
+[chunk 2] 超过 7 天后，不再支持无条件退款 证书说明：
+[chunk 3] 证书说明： 完成所有必修项目并通过结课测试后，可以获得结业证书
+[chunk 4] 完成所有必修项目并通过结课测试后，可以获得结业证书 学习顺序：
+[chunk 5] 学习顺序： 建议先学习 Python、数据分析、机器学习，再进入深度学习和大模型阶段
+[chunk 6] 建议先学习 Python、数据分析、机器学习，再进入深度学习和大模型阶段
+```
+
+这段输出也暴露了朴素切块的真实局限：标题会和正文粘在一起，标点可能被清掉。生产项目里要保留 source offset，并在入库前做 chunk 抽查。
 
 ---
 
@@ -291,7 +320,10 @@ chunks = [
 ]
 
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return words + cjk_bigrams
 
 vocab = sorted(set(token for chunk in chunks for token in tokenize(chunk)))
 vocab_index = {word: idx for idx, word in enumerate(vocab)}
@@ -323,6 +355,14 @@ for chunk in chunks:
 scores.sort(reverse=True)
 for score, chunk in scores:
     print(round(score, 4), "->", chunk)
+```
+
+预期输出：
+
+```text
+0.3693 -> 课程购买后 7 天内，如果学习进度低于 20%，可以申请退款
+0.0 -> 建议先学习 Python、数据分析、机器学习，再进入深度学习和大模型阶段
+0.0 -> 完成所有必修项目并通过结课测试后，可以获得结业证书
 ```
 
 这就是“检索”的最小原理版。
@@ -423,6 +463,13 @@ for chunk in chunks_with_meta:
         "too_long": too_long,
         "preview": chunk["text"][:40],
     })
+```
+
+预期输出：
+
+```text
+{'id': 'policy_001_01', 'missing_fields': [], 'too_short': False, 'too_long': False, 'preview': '课程购买后 7 天内，如果学习进度低于 20%，可以申请退款'}
+{'id': 'policy_001_02', 'missing_fields': [], 'too_short': False, 'too_long': False, 'preview': '完成所有必修项目并通过结课测试后，可以获得结业证书'}
 ```
 
 这个脚本不会替你判断语义质量，但能先发现一类基础问题：字段缺失、chunk 过短、chunk 过长、来源不可追踪。

@@ -134,7 +134,10 @@ query = "How do I apply for a course refund?"
 query_vector = np.array([0.90, 0.10, 0.10])
 
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return words + cjk_bigrams
 
 def keyword_score(query, text):
     q = Counter(tokenize(query))
@@ -153,6 +156,14 @@ for doc in docs:
 
 for hybrid, kw, vec, doc_id, text in sorted(results, reverse=True):
     print(doc_id, "hybrid=", round(hybrid, 4), "kw=", kw, "vec=", round(vec, 4), "->", text)
+```
+
+Expected output:
+
+```text
+d1 hybrid= 1.799 kw= 3 vec= 0.9983 -> A refund can be requested within 7 days after purchasing the course
+d2 hybrid= 0.5337 kw= 1 vec= 0.2228 -> You can earn a certificate after completing all projects and passing the test
+d3 hybrid= 0.1977 kw= 0 vec= 0.3295 -> It is recommended to learn Python first, then machine learning and deep learning
 ```
 
 Although simplified, this example is already very close to the core idea of a real system.
@@ -214,6 +225,14 @@ queries = ["How do I drop a course?", "I want to earn a certificate", "Can I can
 
 for q in queries:
     print(q, "->", rewrite_query(q))
+```
+
+Expected output:
+
+```text
+How do I drop a course? -> How do I refund?
+I want to earn a certificate -> I want to certificate
+Can I cancel the course? -> Can I refund?
 ```
 
 In real systems, query rewrite may be done by an LLM.
@@ -311,6 +330,13 @@ hits = [
 
 for hit in hits:
     print(hit)
+```
+
+Expected output:
+
+```text
+{'topic': 'discount word problems', 'content_type': 'concept', 'source_origin': 'internal', 'text': 'Discount = original price × discount rate'}
+{'topic': 'discount word problems', 'content_type': 'example', 'source_origin': 'internal', 'text': 'If a product costs 100 yuan and is discounted by 20%, how much is it?'}
 ```
 
 This example is especially suitable for beginners, because it lets you see first that:

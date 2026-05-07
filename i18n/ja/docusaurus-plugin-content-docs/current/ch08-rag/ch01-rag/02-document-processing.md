@@ -128,6 +128,19 @@ for s in sentences:
     print("-", s)
 ```
 
+期待される出力：
+
+```text
+文のリスト:
+- 返金ポリシー：
+- コース購入後 7 日以内で、学習進捗が 20% 未満なら、返金を申請できます
+- 7 日を過ぎると、無条件返金はできません
+- 証明書の説明：
+- すべての必修項目を完了し、修了テストに合格すると、修了証を取得できます
+- 学習順序：
+- まず Python、データ分析、機械学習を学び、その後に深層学習と大規模モデルの段階へ進むのがおすすめです
+```
+
 もし文がすでにかなり短いなら、そのまま 1 文を 1 chunk として使えます。  
 ただし実際には、複数の文をまとめて 1 つのブロックにすることのほうが多いです。
 
@@ -142,15 +155,16 @@ for s in sentences:
 
 ```python
 def chunk_sentences(sentences, chunk_size=2, overlap=1):
+    if chunk_size - overlap <= 0:
+        raise ValueError("chunk_size は overlap より大きくなければなりません")
+
     chunks = []
     start = 0
     while start < len(sentences):
         end = start + chunk_size
-        chunk = "。".join(sentences[start:end])
+        chunk = " ".join(sentences[start:end])
         chunks.append(chunk)
         start += chunk_size - overlap
-        if chunk_size - overlap <= 0:
-            raise ValueError("chunk_size は overlap より大きくなければなりません")
     return chunks
 
 chunks = chunk_sentences(sentences, chunk_size=2, overlap=1)
@@ -159,6 +173,21 @@ print("分割結果:")
 for i, chunk in enumerate(chunks):
     print(f"[chunk {i}] {chunk}")
 ```
+
+期待される出力：
+
+```text
+分割結果:
+[chunk 0] 返金ポリシー： コース購入後 7 日以内で、学習進捗が 20% 未満なら、返金を申請できます
+[chunk 1] コース購入後 7 日以内で、学習進捗が 20% 未満なら、返金を申請できます 7 日を過ぎると、無条件返金はできません
+[chunk 2] 7 日を過ぎると、無条件返金はできません 証明書の説明：
+[chunk 3] 証明書の説明： すべての必修項目を完了し、修了テストに合格すると、修了証を取得できます
+[chunk 4] すべての必修項目を完了し、修了テストに合格すると、修了証を取得できます 学習順序：
+[chunk 5] 学習順序： まず Python、データ分析、機械学習を学び、その後に深層学習と大規模モデルの段階へ進むのがおすすめです
+[chunk 6] まず Python、データ分析、機械学習を学び、その後に深層学習と大規模モデルの段階へ進むのがおすすめです
+```
+
+この出力は、素朴な分割の限界も見せています。見出しが本文にくっつき、句読点が消えることがあります。本番では source offset を残し、インデックス投入前に chunk audit を行います。
 
 ---
 
@@ -291,7 +320,10 @@ chunks = [
 ]
 
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return words + cjk_bigrams
 
 vocab = sorted(set(token for chunk in chunks for token in tokenize(chunk)))
 vocab_index = {word: idx for idx, word in enumerate(vocab)}
@@ -323,6 +355,14 @@ for chunk in chunks:
 scores.sort(reverse=True)
 for score, chunk in scores:
     print(round(score, 4), "->", chunk)
+```
+
+期待される出力：
+
+```text
+0.3032 -> コース購入後 7 日以内で、学習進捗が 20% 未満なら、返金を申請できます
+0.07 -> すべての必修項目を完了し、修了テストに合格すると、修了証を取得できます
+0.0609 -> まず Python、データ分析、機械学習を学び、その後に深層学習と大規模モデルの段階へ進むのがおすすめです
 ```
 
 これが、最小限の「検索」の原理です。
@@ -423,6 +463,13 @@ for chunk in chunks_with_meta:
         "too_long": too_long,
         "preview": chunk["text"][:40],
     })
+```
+
+期待される出力：
+
+```text
+{'id': 'policy_001_01', 'missing_fields': [], 'too_short': False, 'too_long': False, 'preview': 'コース購入後 7 日以内で、学習進捗が 20% 未満なら、返金を申請できます'}
+{'id': 'policy_001_02', 'missing_fields': [], 'too_short': False, 'too_long': False, 'preview': 'すべての必修項目を完了し、修了テストに合格すると、修了証を取得できます'}
 ```
 
 このスクリプトは意味の品質までは判断してくれませんが、まず次のような基本問題を見つけるのに役立ちます。

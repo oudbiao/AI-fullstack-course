@@ -142,6 +142,14 @@ for score, rid, text in sorted(results, reverse=True):
     print(rid, round(score, 4), text)
 ```
 
+预期输出：
+
+```text
+r1 0.9983 课程购买后 7 天内可申请退款
+r3 0.3601 通过结课测试后系统会发放证书
+r2 0.218 完成结课项目后可获得证书
+```
+
 这里 `query_vector` 可以理解成“用户问题的 embedding”。
 
 ---
@@ -200,6 +208,13 @@ for item in records:
 
 for score, text in sorted(filtered_results, reverse=True):
     print(round(score, 4), "->", text)
+```
+
+预期输出：
+
+```text
+0.9966 -> 完成结课项目后可获得证书
+0.9944 -> 通过结课测试后系统会发放证书
 ```
 
 这就是“相似度检索 + 业务过滤”的最小形态。
@@ -407,6 +422,13 @@ for record in records:
     if not record["text"].strip():
         problems.append("empty_text")
     print(record["id"], problems or "ok")
+```
+
+预期输出：
+
+```text
+doc_001_chunk_01 ok
+doc_001_chunk_02 ok
 ```
 
 这个校验可以放在入库前。真实项目里，一旦 metadata 丢失，后面很难做引用、过滤、权限和评估。

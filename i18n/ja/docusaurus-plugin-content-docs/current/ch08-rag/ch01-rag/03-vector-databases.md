@@ -142,6 +142,14 @@ for score, rid, text in sorted(results, reverse=True):
     print(rid, round(score, 4), text)
 ```
 
+期待される出力：
+
+```text
+r1 0.9983 コース購入後 7 日以内であれば返金を申請できます
+r3 0.3601 修了テストに合格するとシステムが証明書を発行します
+r2 0.218 コース修了プロジェクトを完了すると証明書を取得できます
+```
+
 ここでの `query_vector` は、「ユーザーの質問の embedding」と考えてください。
 
 ---
@@ -200,6 +208,13 @@ for item in records:
 
 for score, text in sorted(filtered_results, reverse=True):
     print(round(score, 4), "->", text)
+```
+
+期待される出力：
+
+```text
+0.9966 -> コース修了プロジェクトを完了すると証明書を取得できます
+0.9944 -> 修了テストに合格するとシステムが証明書を発行します
 ```
 
 これが「類似度検索 + 業務フィルタ」の最小形です。
@@ -408,6 +423,13 @@ for record in records:
     if not record["text"].strip():
         problems.append("empty_text")
     print(record["id"], problems or "ok")
+```
+
+期待される出力：
+
+```text
+doc_001_chunk_01 ok
+doc_001_chunk_02 ok
 ```
 
 この確認は、入庫前に入れておくとよいです。実際のプロジェクトでは、metadata が欠けると、その後の引用、フィルタ、権限、評価がとても難しくなります。

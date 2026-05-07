@@ -134,7 +134,10 @@ query = "怎么申请退课退款"
 query_vector = np.array([0.90, 0.10, 0.10])
 
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return words + cjk_bigrams
 
 def keyword_score(query, text):
     q = Counter(tokenize(query))
@@ -153,6 +156,14 @@ for doc in docs:
 
 for hybrid, kw, vec, doc_id, text in sorted(results, reverse=True):
     print(doc_id, "hybrid=", round(hybrid, 4), "kw=", kw, "vec=", round(vec, 4), "->", text)
+```
+
+预期输出：
+
+```text
+d1 hybrid= 1.799 kw= 3 vec= 0.9983 -> 课程购买后 7 天内可申请退款
+d3 hybrid= 0.1977 kw= 0 vec= 0.3295 -> 建议先学 Python，再学机器学习和深度学习
+d2 hybrid= 0.1337 kw= 0 vec= 0.2228 -> 完成所有项目并通过测试后可获得证书
 ```
 
 这个例子虽然简化，但已经很接近真实系统的核心思路。
@@ -200,6 +211,8 @@ RAG 也是一样。
 ```python
 def rewrite_query(query):
     replacements = {
+        "怎么退课": "怎么退款",
+        "我想拿证": "我想要证书",
         "退课": "退款",
         "退掉课程": "退款",
         "拿证": "证书",
@@ -214,6 +227,14 @@ queries = ["怎么退课", "我想拿证", "退掉课程可以吗"]
 
 for q in queries:
     print(q, "->", rewrite_query(q))
+```
+
+预期输出：
+
+```text
+怎么退课 -> 怎么退款
+我想拿证 -> 我想要证书
+退掉课程可以吗 -> 退款可以吗
 ```
 
 真实系统里，query rewrite 可能由 LLM 来完成。
@@ -311,6 +332,13 @@ hits = [
 
 for hit in hits:
     print(hit)
+```
+
+预期输出：
+
+```text
+{'topic': '折扣应用题', 'content_type': 'concept', 'source_origin': 'internal', 'text': '折扣 = 原价 × 折扣率'}
+{'topic': '折扣应用题', 'content_type': 'example', 'source_origin': 'internal', 'text': '商品原价 100 元，打 8 折后是多少元？'}
 ```
 
 这个例子特别适合新人，因为它会让你先看到：

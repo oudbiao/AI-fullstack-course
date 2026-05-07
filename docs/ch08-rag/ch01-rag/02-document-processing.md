@@ -117,13 +117,26 @@ It is recommended to study Python, data analysis, and machine learning first, an
 """.strip()
 
 def split_into_sentences(text):
-    parts = re.split(r"[。！？\\n]+", text)
+    parts = re.split(r"[。！？.!?\\n]+", text)
     return [p.strip() for p in parts if p.strip()]
 
 sentences = split_into_sentences(text)
 print("Sentence list:")
 for s in sentences:
     print("-", s)
+```
+
+Expected output:
+
+```text
+Sentence list:
+- Refund policy:
+- If your learning progress is below 20% within 7 days after purchase, you can apply for a refund
+- After 7 days, unconditional refunds are no longer supported
+- Certificate description:
+- After completing all required items and passing the final test, you can receive a completion certificate
+- Learning order:
+- It is recommended to study Python, data analysis, and machine learning first, and then move on to deep learning and large models
 ```
 
 If the sentences are already fairly short, you can use each sentence directly as a chunk.
@@ -140,15 +153,16 @@ Adding a little overlap reduces the chance that context gets cut off.
 
 ```python
 def chunk_sentences(sentences, chunk_size=2, overlap=1):
+    if chunk_size - overlap <= 0:
+        raise ValueError("chunk_size must be greater than overlap")
+
     chunks = []
     start = 0
     while start < len(sentences):
         end = start + chunk_size
-        chunk = "。".join(sentences[start:end])
+        chunk = " ".join(sentences[start:end])
         chunks.append(chunk)
         start += chunk_size - overlap
-        if chunk_size - overlap <= 0:
-            raise ValueError("chunk_size must be greater than overlap")
     return chunks
 
 chunks = chunk_sentences(sentences, chunk_size=2, overlap=1)
@@ -157,6 +171,21 @@ print("Chunking result:")
 for i, chunk in enumerate(chunks):
     print(f"[chunk {i}] {chunk}")
 ```
+
+Expected output:
+
+```text
+Chunking result:
+[chunk 0] Refund policy: If your learning progress is below 20% within 7 days after purchase, you can apply for a refund
+[chunk 1] If your learning progress is below 20% within 7 days after purchase, you can apply for a refund After 7 days, unconditional refunds are no longer supported
+[chunk 2] After 7 days, unconditional refunds are no longer supported Certificate description:
+[chunk 3] Certificate description: After completing all required items and passing the final test, you can receive a completion certificate
+[chunk 4] After completing all required items and passing the final test, you can receive a completion certificate Learning order:
+[chunk 5] Learning order: It is recommended to study Python, data analysis, and machine learning first, and then move on to deep learning and large models
+[chunk 6] It is recommended to study Python, data analysis, and machine learning first, and then move on to deep learning and large models
+```
+
+This output also shows a real limitation of naive chunking: headings can stick to nearby content, and punctuation may be stripped. In production, keep source offsets and run a small chunk audit before indexing.
 
 ---
 
@@ -289,7 +318,10 @@ chunks = [
 ]
 
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return words + cjk_bigrams
 
 vocab = sorted(set(token for chunk in chunks for token in tokenize(chunk)))
 vocab_index = {word: idx for idx, word in enumerate(vocab)}
@@ -321,6 +353,14 @@ for chunk in chunks:
 scores.sort(reverse=True)
 for score, chunk in scores:
     print(round(score, 4), "->", chunk)
+```
+
+Expected output:
+
+```text
+0.4714 -> If your learning progress is below 20% within 7 days after purchase, you can apply for a refund
+0.125 -> After completing all required items and passing the final test, you can receive a completion certificate
+0.0 -> It is recommended to study Python, data analysis, and machine learning first, and then move on to deep learning and large models
 ```
 
 This is the most basic version of retrieval.
@@ -421,6 +461,13 @@ for chunk in chunks_with_meta:
         "too_long": too_long,
         "preview": chunk["text"][:40],
     })
+```
+
+Expected output:
+
+```text
+{'id': 'policy_001_01', 'missing_fields': [], 'too_short': False, 'too_long': False, 'preview': 'If your learning progress is below 20% w'}
+{'id': 'policy_001_02', 'missing_fields': [], 'too_short': False, 'too_long': False, 'preview': 'After completing all required items and '}
 ```
 
 This script will not judge semantic quality for you, but it can quickly reveal basic issues: missing fields, chunks that are too short, chunks that are too long, and untraceable sources.

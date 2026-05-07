@@ -134,7 +134,10 @@ query = "講座をやめて返金したい"
 query_vector = np.array([0.90, 0.10, 0.10])
 
 def tokenize(text):
-    return re.findall(r"[\w\u4e00-\u9fff\u3040-\u30ff]+", text.lower())
+    words = re.findall(r"[a-zA-Z0-9_]+", text.lower())
+    cjk_chars = re.findall(r"[\u4e00-\u9fff\u3040-\u30ff]", text)
+    cjk_bigrams = ["".join(cjk_chars[i:i + 2]) for i in range(len(cjk_chars) - 1)]
+    return words + cjk_bigrams
 
 def keyword_score(query, text):
     q = Counter(tokenize(query))
@@ -153,6 +156,14 @@ for doc in docs:
 
 for hybrid, kw, vec, doc_id, text in sorted(results, reverse=True):
     print(doc_id, "hybrid=", round(hybrid, 4), "kw=", kw, "vec=", round(vec, 4), "->", text)
+```
+
+期待される出力：
+
+```text
+d1 hybrid= 1.399 kw= 2 vec= 0.9983 -> 講座購入後 7 日以内なら返金申請できます
+d3 hybrid= 0.1977 kw= 0 vec= 0.3295 -> まず Python を学び、その後に機械学習と深層学習を学ぶのがおすすめです
+d2 hybrid= 0.1337 kw= 0 vec= 0.2228 -> すべてのプロジェクトを完了し、テストに合格すると証明書を取得できます
 ```
 
 この例は簡略化されていますが、実際のシステムの核心にかなり近い考え方です。
@@ -200,6 +211,9 @@ RAG でも同じです。
 ```python
 def rewrite_query(query):
     replacements = {
+        "講座をやめたい": "返金したい",
+        "コースをやめてもいい？": "返金できますか？",
+        "証明書を取りたい": "証明書を取得したい",
         "講座をやめる": "返金",
         "コースをやめる": "返金",
         "証明書を取る": "証明書",
@@ -214,6 +228,14 @@ queries = ["講座をやめたい", "証明書を取りたい", "コースをや
 
 for q in queries:
     print(q, "->", rewrite_query(q))
+```
+
+期待される出力：
+
+```text
+講座をやめたい -> 返金したい
+証明書を取りたい -> 証明書を取得したい
+コースをやめてもいい？ -> 返金できますか？
 ```
 
 実際のシステムでは、query rewrite を LLM が担当することもあります。
@@ -311,6 +333,13 @@ hits = [
 
 for hit in hits:
     print(hit)
+```
+
+期待される出力：
+
+```text
+{'topic': '割引の応用問題', 'content_type': 'concept', 'source_origin': 'internal', 'text': '割引 = 定価 × 割引率'}
+{'topic': '割引の応用問題', 'content_type': 'example', 'source_origin': 'internal', 'text': '商品が 100 円で、2 割引の後はいくらになりますか？'}
 ```
 
 この例は特に初心者に向いています。なぜなら、次のことが分かるからです。
