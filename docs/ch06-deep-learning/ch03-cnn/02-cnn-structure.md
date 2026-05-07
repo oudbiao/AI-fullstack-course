@@ -1,208 +1,111 @@
 ---
 title: "6.3.3 Basic CNN Architecture"
 sidebar_position: 2
-description: "From convolution blocks, activation, and pooling to the classification head, systematically understand how a CNN turns an image into a category decision layer by layer."
+description: "Build a small CNN step by step: conv blocks, activation, pooling, shape tracing, classifier heads, and practical debugging."
 keywords: [CNN, convolution block, pooling, feature map, classification head, fully connected layer, Global Average Pooling]
 ---
 
 # 6.3.3 Basic CNN Architecture
 
-![CNN feature map pipeline](/img/course/cnn-feature-map-pipeline-en.png)
-
-:::tip Where this section fits
-In the previous section, we learned that convolution kernels “slide across the image to find local patterns.”
-In this section, we will assemble those scattered pieces and answer a more complete question:
-
-> **How does an entire CNN actually work?**
-
-You will see that a CNN is not just made of convolution layers. It is a chain of modules that “extract features -> compress -> make decisions.”
+:::tip Section Overview
+The previous page explained how one kernel scans one local window. This page assembles those pieces into a complete CNN and traces every shape, so the model is no longer a mysterious diagram.
 :::
 
 ## Learning Objectives
 
-- Understand which modules a typical CNN is made of
-- Master the main path of `convolution -> activation -> pooling -> classification head`
-- Understand why the number of channels keeps increasing and why spatial size keeps decreasing
-- Read the forward pass of a minimal CNN in PyTorch
-- Distinguish between the two classification head ideas: `Flatten` and `Global Average Pooling`
+- Describe the path `image -> conv block -> feature map -> classifier head -> logits`.
+- Explain why channels usually increase while height and width decrease.
+- Run a small convolution block and read its output shape.
+- Build a complete `TinyCNN` in PyTorch.
+- Compare `Flatten` and Global Average Pooling (GAP) from an engineering point of view.
 
 ---
 
-## First, get the whole map clear
+## Start with the Whole Pipeline
 
-### What does a typical CNN look like?
+![CNN feature map pipeline](/img/course/cnn-feature-map-pipeline-en.png)
 
-The classic CNN can be roughly drawn like this:
+Read the picture from left to right:
 
-```mermaid
-flowchart LR
-    A["Input image"] --> B["Convolution layer"]
-    B --> C["Activation function ReLU"]
-    C --> D["Pooling layer"]
-    D --> E["Convolution layer"]
-    E --> F["Activation function ReLU"]
-    F --> G["Pooling layer"]
-    G --> H["Flatten / Global Pooling"]
-    H --> I["Fully connected layer"]
-    I --> J["Class output"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-    style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style E fill:#fff3e0,stroke:#e65100,color:#333
-    style F fill:#fff3e0,stroke:#e65100,color:#333
-    style G fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style H fill:#fffde7,stroke:#f9a825,color:#333
-    style I fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style J fill:#ffebee,stroke:#c62828,color:#333
+```text
+image -> low-level features -> compressed feature maps -> classifier head -> class scores
 ```
 
-If we put that into plain language:
+A CNN is usually split into two parts:
 
-1. First use convolution to find local features
-2. Then use an activation function to add nonlinearity
-3. Then use pooling to shrink the size and keep key information
-4. Repeat several rounds to get more and more abstract features
-5. Finally, hand those features to the classification head for decision-making
+| Part | Job | Typical layers |
+|---|---|---|
+| feature extractor | turn pixels into useful feature maps | `Conv2d`, `ReLU`, `BatchNorm2d`, `MaxPool2d` |
+| classifier head | turn final feature maps into class scores | `Flatten` or GAP, `Linear` |
 
-### A memory aid
+The output of the final layer is usually called `logits`: raw class scores before `softmax`.
 
-You can think of a CNN as a “multi-stage security screening system”:
-
-- The first layer looks at edges and textures
-- The second layer looks at local shapes
-- The third layer looks at combinations of parts
-- The last few layers decide whether it looks like a cat or a dog
-
-In other words, a CNN does not directly understand “cat” at the beginning.
-It first understands things like “fur edge, ear contour, eye region, body shape,” and then gradually combines them.
-
----
-
-## Why does the number of channels in a CNN keep increasing?
-
-### Channel count can be understood as “number of feature types”
-
-In the input layer:
-
-- Grayscale images usually have 1 channel
-- RGB images usually have 3 channels
-
-But once the image enters a CNN, the meaning of channels changes.
-They are no longer just “color channels”; instead, they represent:
-
-> **Different feature maps extracted by different convolution kernels.**
-
-For example:
-
-- The first kernel may be good at finding vertical edges
-- The second kernel may be good at finding horizontal edges
-- The third kernel may be good at finding diagonal edges
-
-So when you see:
-
-```python
-nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3)
-```
-
-it means:
-
-- There are 3 input channels
-- There are 16 output feature maps
-
-### Why do we often see 32, 64, 128 later?
-
-Because deeper layers are expected to learn more and more abstract patterns.
-Early layers only need to detect basic textures, while later layers need to combine them into more complex structures, so the channel count is usually increased gradually.
-
----
-
-## Why does the spatial size keep shrinking?
-
-### Because the model is moving from “details” to “abstraction”
-
-Early layers focus more on local details:
-
-- Where are the edges?
-- Where are the textures?
-
-Later layers focus more on overall abstraction:
-
-- Are there ears?
-- Are there wheels?
-- Does it look like a cat?
-
-So a common trend is:
-
-- Height and width get smaller over time
-- Channel count gets larger over time
-
-You can think of it like this:
-
-> Spatial resolution goes down, but semantic richness goes up.
+## Channels Go Up, Spatial Size Goes Down
 
 ![CNN channel count vs spatial size trade-off](/img/course/ch06-cnn-channel-spatial-tradeoff-map-en.png)
 
-:::tip Reading guide
-This figure helps you understand a common shape change in CNNs: as you go deeper, height and width usually get smaller because the model no longer needs to preserve every pixel detail; channels usually get larger because the model needs to store more and more abstract kinds of features.
-:::
+Early layers keep more spatial detail. Deeper layers keep fewer pixels but more feature types.
 
-### What does a pooling layer do?
+| Stage | Shape intuition | Meaning |
+|---|---|---|
+| input | `[N, 3, 32, 32]` | RGB images |
+| early feature | `[N, 16, 32, 32]` | many edge and texture detectors |
+| after pooling | `[N, 16, 16, 16]` | smaller map, strongest local signals kept |
+| deeper feature | `[N, 64, 8, 8]` | more abstract patterns |
 
-The most common pooling operation is `MaxPool`, which takes the maximum value within a small window.
+This tradeoff is the heart of CNN design:
 
-For example:
+- fewer spatial positions reduces compute;
+- more channels let the model store richer visual evidence;
+- the classifier head should see enough semantics, not every raw pixel.
+
+## Lab 1: MaxPool by Hand
+
+`MaxPool2d(2)` keeps the strongest value in each `2 x 2` window.
 
 ```python
 import numpy as np
 
-feature_map = np.array([
-    [1, 3, 2, 0],
-    [4, 6, 1, 2],
-    [0, 1, 5, 3],
-    [2, 4, 1, 7]
-], dtype=np.float32)
+feature_map = np.array(
+    [
+        [1, 3, 2, 0],
+        [4, 6, 1, 2],
+        [0, 1, 5, 3],
+        [2, 4, 1, 7],
+    ],
+    dtype=np.float32,
+)
 
-pooled = np.array([
-    [feature_map[0:2, 0:2].max(), feature_map[0:2, 2:4].max()],
-    [feature_map[2:4, 0:2].max(), feature_map[2:4, 2:4].max()]
-])
+pooled = np.array(
+    [
+        [feature_map[0:2, 0:2].max(), feature_map[0:2, 2:4].max()],
+        [feature_map[2:4, 0:2].max(), feature_map[2:4, 2:4].max()],
+    ]
+)
 
-print("feature_map =\n", feature_map)
-print("pooled =\n", pooled)
+print("maxpool_lab")
+print(pooled)
 ```
 
-The output will compress `4x4` into `2x2`.
-
-### Doesn’t MaxPool “lose information”?
-
-Yes, it does discard some details.
-But it keeps the most prominent response in each local region, which is often very helpful for classification tasks.
-
-You can think of it like this:
-
-> Instead of remembering every pixel, it is better to first keep whether the strongest feature in this region has appeared.
-
----
-
-## A convolution block is the basic building unit of a CNN
-
-### What is a convolution block?
-
-In modern deep learning, people usually do not look at a convolution layer alone. Instead, they often treat the following combination as one basic block:
+Expected output:
 
 ```text
-convolution -> activation -> (optional) pooling
+maxpool_lab
+[[6. 2.]
+ [4. 7.]]
 ```
 
-or:
+Pooling loses some detail, but it keeps the strongest local response. For classification, that is often a useful bias: the model cares more that a feature appeared than the exact pixel where it appeared.
+
+## Lab 2: Run One Convolution Block
+
+A basic CNN block is:
 
 ```text
-convolution -> BN -> ReLU
+Conv2d -> activation -> optional pooling
 ```
 
-### A minimal convolution block example
+Run it:
 
 ```python
 import torch
@@ -211,240 +114,182 @@ from torch import nn
 block = nn.Sequential(
     nn.Conv2d(3, 8, kernel_size=3, padding=1),
     nn.ReLU(),
-    nn.MaxPool2d(kernel_size=2)
+    nn.MaxPool2d(kernel_size=2),
 )
 
 x = torch.randn(2, 3, 32, 32)
 y = block(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("block_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
 ```
 
-This block does three things:
+Expected output:
 
-1. Maps a 3-channel image to 8-channel features
-2. Adds nonlinearity through ReLU
-3. Compresses `32x32` to `16x16` through pooling
+```text
+block_lab
+input: (2, 3, 32, 32)
+output: (2, 8, 16, 16)
+```
 
----
+What changed:
 
-## Forward pass of a complete small CNN
+- batch stays `2`;
+- channels change from `3` to `8`;
+- height and width shrink from `32` to `16` because of `MaxPool2d(2)`.
 
-### Runnable example
+In production CNNs, you often see this variant:
+
+```text
+Conv2d -> BatchNorm2d -> ReLU
+```
+
+`BatchNorm2d` stabilizes feature scale during training. It is useful, but the first model should be kept simple until the shape flow is clear.
+
+## Lab 3: Build a Complete Tiny CNN
+
+This model accepts grayscale `28 x 28` images and returns `10` class scores.
 
 ```python
 import torch
 from torch import nn
+
 
 class TinyCNN(nn.Module):
     def __init__(self, num_classes=10):
         super().__init__()
-
-        self.features = nn.Sequential(
-            nn.Conv2d(1, 8, kernel_size=3, padding=1),   # [B, 1, 28, 28] -> [B, 8, 28, 28]
-            nn.ReLU(),
-            nn.MaxPool2d(2),                             # -> [B, 8, 14, 14]
-
-            nn.Conv2d(8, 16, kernel_size=3, padding=1),  # -> [B, 16, 14, 14]
-            nn.ReLU(),
-            nn.MaxPool2d(2)                              # -> [B, 16, 7, 7]
-        )
-
+        self.conv1 = nn.Conv2d(1, 8, kernel_size=3, padding=1)
+        self.pool1 = nn.MaxPool2d(2)
+        self.conv2 = nn.Conv2d(8, 16, kernel_size=3, padding=1)
+        self.pool2 = nn.MaxPool2d(2)
         self.classifier = nn.Sequential(
-            nn.Flatten(),                                # -> [B, 16*7*7]
+            nn.Flatten(),
             nn.Linear(16 * 7 * 7, 64),
             nn.ReLU(),
-            nn.Linear(64, num_classes)
+            nn.Linear(64, num_classes),
         )
 
     def forward(self, x):
-        x = self.features(x)
+        print("shape_trace")
+        print(f"{'input':<8} {tuple(x.shape)}")
+        x = torch.relu(self.conv1(x))
+        print(f"{'conv1':<8} {tuple(x.shape)}")
+        x = self.pool1(x)
+        print(f"{'pool1':<8} {tuple(x.shape)}")
+        x = torch.relu(self.conv2(x))
+        print(f"{'conv2':<8} {tuple(x.shape)}")
+        x = self.pool2(x)
+        print(f"{'pool2':<8} {tuple(x.shape)}")
         x = self.classifier(x)
+        print(f"{'logits':<8} {tuple(x.shape)}")
         return x
+
 
 model = TinyCNN(num_classes=10)
 x = torch.randn(4, 1, 28, 28)
-y = model(x)
-
-print("output shape:", y.shape)
-```
-
-### Why is the final output `[4, 10]` here?
-
-Because:
-
-- There are 4 images in the batch
-- Each image should output 10 class scores
-
-In other words, this model is already a complete skeleton for an image classifier.
-
----
-
-## Truly understanding this network structure
-
-### The earlier part: `features`
-
-This part is responsible for:
-
-- Extracting local patterns
-- Compressing spatial size
-- Gradually obtaining more abstract features
-
-### The later part: `classifier`
-
-This part is responsible for:
-
-- Turning high-dimensional feature maps into class scores
-
-Remember this in one sentence:
-
-> The front part “looks at the image and refines features,” while the back part “makes decisions based on those features.”
-
----
-
-## What is the difference between Flatten and Global Average Pooling?
-
-### Flatten: directly unroll the tensor
-
-Using the example above:
-
-- `16 x 7 x 7`
-- Flattened into `784`
-
-Advantages:
-
-- Simple and direct
-
-Disadvantages:
-
-- The number of parameters may become large
-
-### Global Average Pooling: keep only one average value per channel
-
-For example:
-
-- `16 x 7 x 7`
-- Becomes `16`
-
-This greatly reduces the number of parameters.
-
-### A runnable mini example
-
-```python
-import torch
-
-x = torch.randn(2, 16, 7, 7)
-
-flat = torch.flatten(x, start_dim=1)
-gap = x.mean(dim=(2, 3))
-
-print("flatten shape:", flat.shape)
-print("gap shape    :", gap.shape)
-```
-
-So in modern CNNs, we often prefer:
-
-- A convolution backbone
-- Global average pooling
-- One final linear layer
-
----
-
-## Why can CNNs gradually understand images from low-level to high-level features?
-
-You can think of it like this:
-
-- The 1st layer sees edges
-- The 2nd layer sees corners and local textures
-- The 3rd layer sees combinations of parts
-- Deeper layers see object semantics
-
-This is like when you look at a cat image:
-
-1. First you see lines and color changes
-2. Then you see ears, eyes, and whisker regions
-3. Finally, you decide: this is a cat
-
-The hierarchical structure of a CNN is essentially simulating this recognition process from local to global.
-
----
-
-## How do you print intermediate shapes in PyTorch?
-
-This is a very practical debugging skill.
-
-```python
-import torch
-from torch import nn
-
-class DebugCNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.conv1 = nn.Conv2d(1, 8, 3, padding=1)
-        self.pool = nn.MaxPool2d(2)
-        self.conv2 = nn.Conv2d(8, 16, 3, padding=1)
-
-    def forward(self, x):
-        print("input :", x.shape)
-        x = self.conv1(x)
-        print("conv1 :", x.shape)
-        x = torch.relu(x)
-        x = self.pool(x)
-        print("pool1 :", x.shape)
-        x = self.conv2(x)
-        print("conv2 :", x.shape)
-        return x
-
-model = DebugCNN()
-x = torch.randn(1, 1, 28, 28)
 _ = model(x)
 ```
 
-Most CNN errors are not really because “convolution does not work,” but because:
+Expected output:
 
-- The shapes were not calculated correctly
-- The flattened dimension was written wrongly
-- The input dimension for the linear layer does not match
+```text
+shape_trace
+input    (4, 1, 28, 28)
+conv1    (4, 8, 28, 28)
+pool1    (4, 8, 14, 14)
+conv2    (4, 16, 14, 14)
+pool2    (4, 16, 7, 7)
+logits   (4, 10)
+```
 
----
+The final shape is `[4, 10]` because there are four images and ten scores per image.
 
-## Common beginner mistakes
+## Read the Architecture Like an Engineer
 
-### Knowing only that “convolution is important,” but not that a CNN is actually a combination of many layers
+When you inspect a CNN, do not only read layer names. Track the tensor contract at every boundary.
 
-The real power of CNNs comes from the structure, not from one convolution layer by itself.
+| Line | Contract to check |
+|---|---|
+| `Conv2d(1, 8, ...)` | input must have one channel |
+| `MaxPool2d(2)` | height and width are divided by two |
+| `Conv2d(8, 16, ...)` | previous output channels must be eight |
+| `Linear(16 * 7 * 7, 64)` | flattened feature size must match the actual feature map |
+| final `Linear(..., 10)` | output dimension must equal number of classes |
 
-### Not tracking shapes
+Most CNN bugs are contract bugs: the tensor shape reaching a layer is different from what that layer expects.
 
-This is one of the most common bug sources in image models.
+## Flatten vs Global Average Pooling
 
-### Thinking pooling just “shrinks things a bit”
+`Flatten` turns all spatial positions into one long vector:
 
-Pooling is actually balancing feature retention and spatial compression.
+```text
+[N, 16, 7, 7] -> [N, 784]
+```
 
----
+GAP keeps one average value per channel:
 
-## Summary
+```text
+[N, 16, 7, 7] -> [N, 16]
+```
 
-The most important thing in this section is not memorizing “CNN = Convolutional Neural Network,” but grasping its main workflow:
+Compare parameter counts:
 
-> **A CNN turns the original image into increasingly abstract features layer by layer, and then makes a classification decision based on those features.**
+```python
+from torch import nn
 
-That is why a complete CNN usually looks like this:
 
-- Convolution blocks stacked together
-- Spatial size gradually decreasing
-- Channel count gradually increasing
-- A classification head at the end
+def count_params(module):
+    return sum(p.numel() for p in module.parameters() if p.requires_grad)
 
-Once you understand this, you will no longer just be memorizing diagrams when you look at LeNet, VGG, or ResNet.
 
----
+flatten_head = nn.Linear(16 * 7 * 7, 10)
+gap_head = nn.Linear(16, 10)
+
+print("head_param_lab")
+print("flatten head:", count_params(flatten_head))
+print("gap head    :", count_params(gap_head))
+```
+
+Expected output:
+
+```text
+head_param_lab
+flatten head: 7850
+gap head    : 170
+```
+
+Use the tradeoff like this:
+
+| Head | Strength | Cost |
+|---|---|---|
+| Flatten + Linear | simple, can use location-specific details | many parameters, fixed input size |
+| GAP + Linear | compact, works with variable spatial size more easily | may discard fine location detail |
+
+Modern CNN classifiers often use GAP because it reduces overfitting risk and makes the head smaller.
+
+## Common Mistakes
+
+| Mistake | Symptom | Fix |
+|---|---|---|
+| wrong channel order | `expected input ... to have C channels` | use `[N, C, H, W]` in PyTorch |
+| wrong `Linear` input size | matrix multiplication shape error | print shape before `Flatten` |
+| too much pooling too early | feature maps become tiny | trace `H` and `W` after every block |
+| treating logits as probabilities | confusing loss or evaluation | use logits with `CrossEntropyLoss`; apply `softmax` only for display |
+| adding BatchNorm without understanding mode | train/eval behavior differs | call `model.train()` for training and `model.eval()` for evaluation |
 
 ## Exercises
 
-1. Change the output channels of the second convolution in `TinyCNN` from 16 to 32 and see how the shape changes.
-2. Change the classification head to the form `Global Average Pooling + Linear`.
-3. Work out by hand why a `28x28` input becomes `7x7` after two `MaxPool2d(2)` operations.
-4. Think about this: why do CNNs often use convolution blocks in the earlier part and a classification head only at the end?
+1. Change `conv2` from `16` output channels to `32`. Which lines must change?
+2. Replace the classifier with `AdaptiveAvgPool2d((1, 1))`, `Flatten`, and `Linear(16, 10)`.
+3. Remove one pooling layer and predict the new flattened size before running the code.
+4. Add a `BatchNorm2d(8)` after `conv1`; verify that the shape stays unchanged.
+5. Write down the shape after every line for an RGB `64 x 64` input.
+
+## Key Takeaways
+
+- A CNN is a feature extractor plus a classifier head.
+- Convolution blocks increase feature channels; pooling or stride usually reduces spatial size.
+- Shape tracing is the fastest way to debug CNN architecture.
+- `Flatten` is simple but parameter-heavy; GAP is compact and common in modern CNNs.
+- A strong CNN design is mostly about controlling information flow, not stacking layers blindly.

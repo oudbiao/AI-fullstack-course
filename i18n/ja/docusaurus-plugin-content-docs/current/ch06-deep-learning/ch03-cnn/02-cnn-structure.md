@@ -1,217 +1,111 @@
 ---
 title: "6.3.3 CNN の基本構造"
 sidebar_position: 2
-description: "畳み込みブロック、活性化、プーリングから分類ヘッドまで、CNN がどのように層を重ねて画像をクラス判定へ変えていくのかを体系的に理解します。"
+description: "小さな CNN を段階的に作ります：畳み込みブロック、活性化、pooling、shape 追跡、分類ヘッド、実用的なデバッグ。"
 keywords: [CNN, 畳み込みブロック, プーリング, 特徴マップ, 分類ヘッド, 全結合層, Global Average Pooling]
 ---
 
 # 6.3.3 CNN の基本構造
 
-![CNN 特徴マップのパイプライン](/img/course/cnn-feature-map-pipeline-ja.png)
-
 :::tip この節の位置づけ
-前の節では、カーネルが画像上を「スライドして局所パターンを探す」ことを学びました。  
-この節では、それらの部品を組み合わせて、もっと全体的な問いに答えます。
-
-> **CNN 全体は、いったいどう動いているのか？**
-
-ここで分かるのは、CNN は畳み込み層だけではなく、「特徴抽出 -> 圧縮 -> 判断」という流れのモジュールの集まりだということです。
+前のページでは、1 つの kernel が 1 つの局所 window をどう走査するかを学びました。このページでは、それらの部品を完全な CNN として組み立て、各段階の shape を追跡します。図だけの存在だったモデルを、実際に読める構造にしていきます。
 :::
 
 ## 学習目標
 
-- 典型的な CNN がどのようなモジュールで構成されるかを理解する
-- `畳み込み -> 活性化 -> プーリング -> 分類ヘッド` という主な流れをつかむ
-- なぜチャネル数が増え、空間サイズが小さくなるのかを理解する
-- PyTorch で最小限の CNN の順伝播を読めるようになる
-- `Flatten` と `Global Average Pooling` の2つの分類ヘッドの考え方を区別できるようになる
+- `image -> conv block -> feature map -> classifier head -> logits` の流れを説明できる。
+- channel 数が増え、高さと幅が小さくなる理由を説明できる。
+- 小さな畳み込みブロックを実行し、出力 shape を読める。
+- PyTorch で完全な `TinyCNN` を作れる。
+- `Flatten` と Global Average Pooling（GAP）を、実装上の観点から比較できる。
 
 ---
 
-## 一、まず全体の地図を見てみよう
+## まず全体のパイプラインを見る
 
-### いちばん典型的な CNN はどんな形？
+![CNN 特徴マップのパイプライン](/img/course/cnn-feature-map-pipeline-ja.png)
 
-もっとも基本的な CNN は、ざっくり次のように描けます。
+図は左から右へ読みます。
 
-```mermaid
-flowchart LR
-    A["入力画像"] --> B["畳み込み層"]
-    B --> C["活性化関数 ReLU"]
-    C --> D["プーリング層"]
-    D --> E["畳み込み層"]
-    E --> F["活性化関数 ReLU"]
-    F --> G["プーリング層"]
-    G --> H["Flatten / Global Pooling"]
-    H --> I["全結合層"]
-    I --> J["クラス出力"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-    style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style E fill:#fff3e0,stroke:#e65100,color:#333
-    style F fill:#fff3e0,stroke:#e65100,color:#333
-    style G fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style H fill:#fffde7,stroke:#f9a825,color:#333
-    style I fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style J fill:#ffebee,stroke:#c62828,color:#333
+```text
+画像 -> 低レベル特徴 -> 圧縮された feature map -> 分類ヘッド -> クラススコア
 ```
 
-これをやさしく言い換えると、次の流れです。
+CNN は通常、2 つの部分に分けて考えます。
 
-1. まず畳み込みで局所特徴を見つける
-2. 次に活性化関数で非線形性を加える
-3. 次にプーリングでサイズを圧縮し、重要な情報を残す
-4. これを何段か繰り返して、より抽象的な特徴を作る
-5. 最後に分類ヘッドへ渡して判定する
+| 部分 | 役割 | よく使う層 |
+|---|---|---|
+| feature extractor | ピクセルを有用な feature map に変える | `Conv2d`、`ReLU`、`BatchNorm2d`、`MaxPool2d` |
+| classifier head | 最後の feature map をクラススコアに変える | `Flatten` または GAP、`Linear` |
 
-### 覚えやすい比喩
+最後の層の出力は、よく `logits` と呼ばれます。これは `softmax` に入れる前の生のクラススコアです。
 
-CNN は「何段階もの検査システム」と考えると分かりやすいです。
-
-- 最初の層は輪郭や模様を見る
-- 次の層は局所的な形を見る
-- その次の層は部品の組み合わせを見る
-- 最後の層で「これは猫っぽいか、犬っぽいか」を判断する
-
-つまり、CNN は最初から「猫」という概念を直接理解するわけではありません。  
-まず「毛の境目、耳の輪郭、目のあたり、体の形」を少しずつ組み合わせていきます。
-
----
-
-## 二、なぜ CNN のチャネル数は増えていくのか？
-
-### チャネル数は「特徴の種類数」と考えられる
-
-入力層では、
-
-- グレースケール画像は通常 1 チャネル
-- RGB 画像は通常 3 チャネル
-
-です。
-
-ただし CNN に入ると、チャネルの意味は変わります。  
-もはや「色のチャネル」ではなく、
-
-> **それぞれの畳み込みカーネルが取り出した、異なる特徴マップの数**
-
-を表します。
-
-たとえば、
-
-- 1つ目のカーネルは縦線に強い
-- 2つ目のカーネルは横線に強い
-- 3つ目のカーネルは斜めの角に強い
-
-ということがあります。
-
-だから、次のように書くと：
-
-```python
-nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3)
-```
-
-意味はこうなります。
-
-- 入力は 3 チャネル
-- 出力は 16 種類の特徴マップ
-
-### なぜ後ろの層で 32、64、128 と増えるのか？
-
-後ろの層ほど、モデルはより多く、より抽象的なパターンを学びたいからです。  
-前半は基本的な模様を見つければよく、後半はそれらを組み合わせた複雑な構造を表現する必要があります。  
-そのため、チャネル数はだんだん増えていくのが一般的です。
-
----
-
-## 三、なぜ空間サイズは小さくなっていくのか？
-
-### モデルが「細部」から「要約」へ進むから
-
-前半の層は、主に局所的な細部に注目します。
-
-- どこに輪郭があるか
-- どこに模様があるか
-
-後半の層は、より全体的な意味を見ます。
-
-- 耳があるか
-- 車輪があるか
-- 猫らしい形か
-
-そのため、よくある変化は次の通りです。
-
-- 高さ・幅は少しずつ小さくなる
-- チャネル数は少しずつ多くなる
-
-これは次のように言い換えられます。
-
-> 空間分解能は下がるが、意味の濃さは上がる。
+## Channel は増え、空間サイズは小さくなる
 
 ![CNN チャネル数と空間サイズのトレードオフ図](/img/course/ch06-cnn-channel-spatial-tradeoff-map-ja.png)
 
-:::tip 図の読み方
-この図は、CNN でよくある形の変化を示しています。後ろの層に行くほど、高さと幅は小さくなることが多いです。これは、モデルがすべての画素の細部を残す必要がなくなるためです。一方でチャネル数は増えることが多く、より多くの、より抽象的な特徴の種類を記録します。
-:::
+浅い層は空間的な細部を多く残します。深い層はピクセル位置を減らす代わりに、より多くの特徴種類を保持します。
 
-### プーリング層は何をしているのか？
+| 段階 | shape の直感 | 意味 |
+|---|---|---|
+| input | `[N, 3, 32, 32]` | RGB 画像 |
+| early feature | `[N, 16, 32, 32]` | 多くのエッジ・テクスチャ検出器 |
+| after pooling | `[N, 16, 16, 16]` | 小さな map に、局所的に強い信号を残す |
+| deeper feature | `[N, 64, 8, 8]` | より抽象的なパターン |
 
-もっともよく使われるのは `MaxPool` で、小さな窓の中の最大値を取ります。
+このトレードオフが CNN 設計の中心です。
 
-たとえば：
+- 空間位置を減らすと計算量が下がる。
+- channel を増やすと、より豊かな視覚的証拠を保存できる。
+- classifier head は生の全ピクセルではなく、十分な意味を持つ特徴を見るべき。
+
+## 実験 1：MaxPool を手計算する
+
+`MaxPool2d(2)` は、各 `2 x 2` window の最大値を残します。
 
 ```python
 import numpy as np
 
-feature_map = np.array([
-    [1, 3, 2, 0],
-    [4, 6, 1, 2],
-    [0, 1, 5, 3],
-    [2, 4, 1, 7]
-], dtype=np.float32)
+feature_map = np.array(
+    [
+        [1, 3, 2, 0],
+        [4, 6, 1, 2],
+        [0, 1, 5, 3],
+        [2, 4, 1, 7],
+    ],
+    dtype=np.float32,
+)
 
-pooled = np.array([
-    [feature_map[0:2, 0:2].max(), feature_map[0:2, 2:4].max()],
-    [feature_map[2:4, 0:2].max(), feature_map[2:4, 2:4].max()]
-])
+pooled = np.array(
+    [
+        [feature_map[0:2, 0:2].max(), feature_map[0:2, 2:4].max()],
+        [feature_map[2:4, 0:2].max(), feature_map[2:4, 2:4].max()],
+    ]
+)
 
-print("feature_map =\n", feature_map)
-print("pooled =\n", pooled)
+print("maxpool_lab")
+print(pooled)
 ```
 
-出力では、`4x4` が `2x2` に圧縮されます。
-
-### MaxPool は「情報を捨てている」のでは？
-
-はい、細かい情報の一部は確かに失われます。  
-ただし、各局所領域の中でいちばん強い反応を残すので、分類タスクではむしろ役立つことが多いです。
-
-イメージとしては、
-
-> すべての画素を覚えるのではなく、「この部分でいちばん強い特徴が出たか」を残す
-
-という感じです。
-
----
-
-## 四、CNN の基本単位は畳み込みブロック
-
-### 畳み込みブロックとは？
-
-現代の深層学習では、1つの畳み込み層を単独で見るよりも、次の組み合わせを 1 つの基本ブロックとして扱うことが多いです。
+期待される出力：
 
 ```text
-畳み込み -> 活性化 -> （必要なら）プーリング
+maxpool_lab
+[[6. 2.]
+ [4. 7.]]
 ```
 
-または、
+Pooling は一部の細かい情報を捨てますが、局所領域で最も強い反応を残します。分類では、「特徴が正確にどのピクセルにあったか」よりも、「その特徴が現れたか」が重要なことが多いためです。
+
+## 実験 2：1 つの畳み込みブロックを実行する
+
+基本的な CNN block は次の形です。
 
 ```text
-畳み込み -> BN -> ReLU
+Conv2d -> activation -> optional pooling
 ```
 
-### 最小の畳み込みブロック例
+実行します。
 
 ```python
 import torch
@@ -220,243 +114,182 @@ from torch import nn
 block = nn.Sequential(
     nn.Conv2d(3, 8, kernel_size=3, padding=1),
     nn.ReLU(),
-    nn.MaxPool2d(kernel_size=2)
+    nn.MaxPool2d(kernel_size=2),
 )
 
 x = torch.randn(2, 3, 32, 32)
 y = block(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("block_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
 ```
 
-このブロックは 3 つのことをしています。
+期待される出力：
 
-1. 3 チャネル画像を 8 チャネルの特徴へ変換する
-2. ReLU で非線形性を入れる
-3. プーリングで `32x32` を `16x16` に圧縮する
+```text
+block_lab
+input: (2, 3, 32, 32)
+output: (2, 8, 16, 16)
+```
 
----
+変化を読むと：
 
-## 五、小さな CNN の順伝播を見てみよう
+- batch は `2` のまま。
+- channel は `3` から `8` になる。
+- 高さと幅は `MaxPool2d(2)` により `32` から `16` になる。
 
-### 実行できる例
+実務の CNN では、次の形もよく見ます。
+
+```text
+Conv2d -> BatchNorm2d -> ReLU
+```
+
+`BatchNorm2d` は学習中の feature scale を安定させます。便利ですが、最初のモデルでは、まず shape の流れを明確にするほうが大事です。
+
+## 実験 3：完全な Tiny CNN を作る
+
+このモデルはグレースケールの `28 x 28` 画像を受け取り、`10` 個のクラススコアを返します。
 
 ```python
 import torch
 from torch import nn
+
 
 class TinyCNN(nn.Module):
     def __init__(self, num_classes=10):
         super().__init__()
-
-        self.features = nn.Sequential(
-            nn.Conv2d(1, 8, kernel_size=3, padding=1),   # [B, 1, 28, 28] -> [B, 8, 28, 28]
-            nn.ReLU(),
-            nn.MaxPool2d(2),                             # -> [B, 8, 14, 14]
-
-            nn.Conv2d(8, 16, kernel_size=3, padding=1),  # -> [B, 16, 14, 14]
-            nn.ReLU(),
-            nn.MaxPool2d(2)                              # -> [B, 16, 7, 7]
-        )
-
+        self.conv1 = nn.Conv2d(1, 8, kernel_size=3, padding=1)
+        self.pool1 = nn.MaxPool2d(2)
+        self.conv2 = nn.Conv2d(8, 16, kernel_size=3, padding=1)
+        self.pool2 = nn.MaxPool2d(2)
         self.classifier = nn.Sequential(
-            nn.Flatten(),                                # -> [B, 16*7*7]
+            nn.Flatten(),
             nn.Linear(16 * 7 * 7, 64),
             nn.ReLU(),
-            nn.Linear(64, num_classes)
+            nn.Linear(64, num_classes),
         )
 
     def forward(self, x):
-        x = self.features(x)
+        print("shape_trace")
+        print(f"{'input':<8} {tuple(x.shape)}")
+        x = torch.relu(self.conv1(x))
+        print(f"{'conv1':<8} {tuple(x.shape)}")
+        x = self.pool1(x)
+        print(f"{'pool1':<8} {tuple(x.shape)}")
+        x = torch.relu(self.conv2(x))
+        print(f"{'conv2':<8} {tuple(x.shape)}")
+        x = self.pool2(x)
+        print(f"{'pool2':<8} {tuple(x.shape)}")
         x = self.classifier(x)
+        print(f"{'logits':<8} {tuple(x.shape)}")
         return x
+
 
 model = TinyCNN(num_classes=10)
 x = torch.randn(4, 1, 28, 28)
-y = model(x)
-
-print("output shape:", y.shape)
-```
-
-### なぜ最後の出力は `[4, 10]` なのか？
-
-理由は次の通りです。
-
-- バッチには 4 枚の画像がある
-- それぞれの画像について 10 個のクラススコアを出す
-
-つまり、このモデルはすでに画像分類器として一通りの形になっています。
-
----
-
-## 六、このネットワーク構造を本当に理解する
-
-### 前半の `features`
-
-この部分の役割は次の通りです。
-
-- 局所パターンを抽出する
-- 空間サイズを圧縮する
-- 少しずつ抽象的な特徴を作る
-
-### 後半の `classifier`
-
-この部分の役割は次の通りです。
-
-- 高次元の特徴マップをクラススコアに変える
-
-ひと言でまとめると、
-
-> 前半は「画像を見て特徴を取り出す」、後半は「特徴をもとに判断する」
-
-ということです。
-
----
-
-## 七、Flatten と Global Average Pooling の違いは？
-
-### Flatten: そのまま平らにする
-
-上の例では、
-
-- `16 x 7 x 7`
-- これを `784` に展開します
-
-利点：
-
-- シンプルで分かりやすい
-
-欠点：
-
-- パラメータ数が多くなりやすい
-
-### Global Average Pooling: 各チャネルを 1 つの平均値にする
-
-たとえば、
-
-- `16 x 7 x 7`
-- これを `16` にします
-
-これにより、必要なパラメータをかなり減らせます。
-
-### 小さな実行例
-
-```python
-import torch
-
-x = torch.randn(2, 16, 7, 7)
-
-flat = torch.flatten(x, start_dim=1)
-gap = x.mean(dim=(2, 3))
-
-print("flatten shape:", flat.shape)
-print("gap shape    :", gap.shape)
-```
-
-そのため、現代の CNN ではよく次のような構成が使われます。
-
-- CNN の本体
-- Global Average Pooling
-- 最後の線形層
-
----
-
-## 八、なぜ CNN は低層から高層へと画像を理解できるのか？
-
-次のように考えると分かりやすいです。
-
-- 第 1 層で見るもの: 辺
-- 第 2 層で見るもの: 角、局所的な模様
-- 第 3 層で見るもの: 部品の組み合わせ
-- より深い層で見るもの: 物体の意味
-
-猫の画像を見るときも同じです。
-
-1. まず線や色の変化に気づく
-2. 次に耳、目、ひげのあたりを見る
-3. 最後に全体をまとめて「猫だ」と判断する
-
-CNN の階層構造は、この「局所から全体へ」という認識の流れを表しています。
-
----
-
-## 九、PyTorch で中間の shape を表示するには？
-
-これはとても便利なデバッグ方法です。
-
-```python
-import torch
-from torch import nn
-
-class DebugCNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.conv1 = nn.Conv2d(1, 8, 3, padding=1)
-        self.pool = nn.MaxPool2d(2)
-        self.conv2 = nn.Conv2d(8, 16, 3, padding=1)
-
-    def forward(self, x):
-        print("input :", x.shape)
-        x = self.conv1(x)
-        print("conv1 :", x.shape)
-        x = torch.relu(x)
-        x = self.pool(x)
-        print("pool1 :", x.shape)
-        x = self.conv2(x)
-        print("conv2 :", x.shape)
-        return x
-
-model = DebugCNN()
-x = torch.randn(1, 1, 28, 28)
 _ = model(x)
 ```
 
-CNN のエラーの多くは、実は畳み込みが分からないからではありません。  
-よくある原因は次の通りです。
+期待される出力：
 
-- shape の計算ミス
-- Flatten 後のサイズの書き間違い
-- 全結合層の入力次元が合っていない
+```text
+shape_trace
+input    (4, 1, 28, 28)
+conv1    (4, 8, 28, 28)
+pool1    (4, 8, 14, 14)
+conv2    (4, 16, 14, 14)
+pool2    (4, 16, 7, 7)
+logits   (4, 10)
+```
 
----
+最後の shape が `[4, 10]` なのは、4 枚の画像それぞれに 10 個のスコアを出しているからです。
 
-## 十、初心者がよくつまずくポイント
+## エンジニアのように構造を読む
 
-### 「畳み込みが重要」とだけ覚えて、CNN 全体は複数層の組み合わせだと気づかない
+CNN を読むときは、層の名前だけでなく、各境界の tensor contract を追跡します。
 
-CNN の本当の力は、1 層の畳み込みそのものではなく、構造全体にあります。
+| 行 | 確認する contract |
+|---|---|
+| `Conv2d(1, 8, ...)` | 入力は 1 channel でなければならない |
+| `MaxPool2d(2)` | 高さと幅が 2 で割られる |
+| `Conv2d(8, 16, ...)` | 直前の出力 channel は 8 でなければならない |
+| `Linear(16 * 7 * 7, 64)` | flatten 後の特徴数が実際の feature map と一致する必要がある |
+| 最後の `Linear(..., 10)` | 出力次元はクラス数と一致する必要がある |
 
-### shape を追えない
+CNN の多くのエラーは contract の不一致です。ある層に届いた tensor shape が、その層の期待と違っているのです。
 
-これは画像モデルで最もよくあるバグの原因の 1 つです。
+## Flatten と Global Average Pooling
 
-### プーリングを「ただ小さくするだけ」と思ってしまう
+`Flatten` は、すべての空間位置を長いベクトルにします。
 
-プーリングは、特徴を残しつつ空間を圧縮するためのバランス調整です。
+```text
+[N, 16, 7, 7] -> [N, 784]
+```
 
----
+GAP は、各 channel につき平均値を 1 つだけ残します。
 
-## まとめ
+```text
+[N, 16, 7, 7] -> [N, 16]
+```
 
-この節で大事なのは、「CNN = 畳み込みニューラルネットワーク」と暗記することではなく、動きの流れをつかむことです。
+パラメータ数を比べます。
 
-> **CNN は、元の画像を層ごとにより抽象的な特徴へ変え、最後にその特徴をもとに分類を行う。**
+```python
+from torch import nn
 
-そのため、完成した CNN はだいたい次のような形になります。
 
-- 畳み込みブロックを重ねる
-- 空間サイズを少しずつ小さくする
-- チャネル数を少しずつ増やす
-- 最後に分類ヘッドをつける
+def count_params(module):
+    return sum(p.numel() for p in module.parameters() if p.requires_grad)
 
-この考え方が分かると、後で LeNet、VGG、ResNet を見るときも、ただ構造図を覚えるだけではなくなります。
 
----
+flatten_head = nn.Linear(16 * 7 * 7, 10)
+gap_head = nn.Linear(16, 10)
+
+print("head_param_lab")
+print("flatten head:", count_params(flatten_head))
+print("gap head    :", count_params(gap_head))
+```
+
+期待される出力：
+
+```text
+head_param_lab
+flatten head: 7850
+gap head    : 170
+```
+
+トレードオフは次の通りです。
+
+| Head | 強み | コスト |
+|---|---|---|
+| Flatten + Linear | 単純で、位置に依存する細部も使える | パラメータが多く、入力サイズが固定されやすい |
+| GAP + Linear | コンパクトで、空間サイズの変化に比較的強い | 細かい位置情報を捨てることがある |
+
+現代的な CNN 分類器では、GAP がよく使われます。過学習リスクを下げ、head を小さくできるからです。
+
+## よくあるミス
+
+| ミス | 症状 | 修正 |
+|---|---|---|
+| channel 順序が違う | `expected input ... to have C channels` | PyTorch では `[N, C, H, W]` を使う |
+| `Linear` の入力サイズが違う | 行列積の shape エラー | `Flatten` の前で shape を表示する |
+| pooling が早すぎる・多すぎる | feature map が小さくなりすぎる | 各 block 後の `H` と `W` を追跡する |
+| logits を確率だと思う | loss や評価の解釈が混乱する | `CrossEntropyLoss` は logits を受け取り、表示時だけ `softmax` する |
+| BatchNorm の mode を意識しない | train/eval で挙動が変わる | 学習時は `model.train()`、評価時は `model.eval()` |
 
 ## 練習
 
-1. `TinyCNN` の 2 つ目の畳み込み層の出力チャネル数を 16 から 32 に変えて、shape がどう変わるか確認してみましょう。
-2. 分類ヘッドを `Global Average Pooling + Linear` の形に変えてみましょう。
-3. `28x28` の入力が 2 回の `MaxPool2d(2)` を通ると、なぜ `7x7` になるのかを手計算してみましょう。
-4. 考えてみましょう。なぜ CNN の前半では畳み込みブロックをよく使い、後半で分類ヘッドにつなぐのでしょうか。
+1. `conv2` の出力 channel を `16` から `32` に変える。どの行も一緒に変える必要があるか。
+2. 分類ヘッドを `AdaptiveAvgPool2d((1, 1))`、`Flatten`、`Linear(16, 10)` に置き換える。
+3. pooling 層を 1 つ削除し、新しい flatten サイズを実行前に予測する。
+4. `conv1` の後に `BatchNorm2d(8)` を追加し、shape が変わらないことを確認する。
+5. RGB の `64 x 64` 入力について、各層の後の shape を手で書く。
+
+## まとめ
+
+- CNN は feature extractor と classifier head で構成される。
+- 畳み込みブロックは feature channel を増やし、pooling や stride は空間サイズを小さくする。
+- shape tracing は CNN 構造をデバッグする最速の方法。
+- `Flatten` は単純だがパラメータが多い。GAP はコンパクトで、現代 CNN でよく使われる。
+- 良い CNN 設計は、層を闇雲に積むことではなく、情報の流れを制御すること。

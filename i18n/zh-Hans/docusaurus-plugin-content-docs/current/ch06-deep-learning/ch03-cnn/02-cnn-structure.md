@@ -1,208 +1,111 @@
 ---
 title: "6.3.3 CNN 基本结构"
 sidebar_position: 2
-description: "从卷积块、激活、池化到分类头，系统理解一个 CNN 是如何一层层把图像变成类别判断的。"
+description: "一步步搭建小型 CNN：卷积块、激活、池化、shape 追踪、分类头和实用调试。"
 keywords: [CNN, 卷积块, 池化, 特征图, 分类头, 全连接层, Global Average Pooling]
 ---
 
 # 6.3.3 CNN 基本结构
 
-![CNN 特征图流水线](/img/course/cnn-feature-map-pipeline.png)
-
 :::tip 本节定位
-上一节我们已经知道卷积核是在图像上“滑动找局部模式”。
-这一节要把这些零散部件组装起来，回答一个更完整的问题：
-
-> **一整个 CNN 到底是怎么工作的？**
-
-你会看到，CNN 不是只有卷积层，而是由一串“提特征 -> 压缩 -> 决策”的模块组成。
+上一页解释了一个 kernel 如何扫描一个局部窗口。本页把这些部件组装成完整 CNN，并逐层追踪 shape，让模型不再只是图上的几个方块。
 :::
 
 ## 学习目标
 
-- 理解一个典型 CNN 由哪些模块组成
-- 掌握 `卷积 -> 激活 -> 池化 -> 分类头` 这条主线
-- 理解通道数为什么会越来越多、空间尺寸为什么会越来越小
-- 看懂一个最小 CNN 在 PyTorch 中的前向传播
-- 分清 `Flatten` 和 `Global Average Pooling` 两种分类头思路
+- 描述 `image -> conv block -> feature map -> classifier head -> logits` 的路径。
+- 解释为什么通道数通常增加，而高宽通常减小。
+- 运行一个小卷积块，并读懂输出 shape。
+- 用 PyTorch 搭建完整的 `TinyCNN`。
+- 从工程角度比较 `Flatten` 和 Global Average Pooling（GAP）。
 
 ---
 
-## 一、先把整张地图看清楚
+## 先看整体流水线
 
-### 一个最典型的 CNN 长什么样？
+![CNN 特征图流水线](/img/course/cnn-feature-map-pipeline.png)
 
-最经典的 CNN 可以先粗略画成这样：
+按从左到右读图：
 
-```mermaid
-flowchart LR
-    A["输入图像"] --> B["卷积层"]
-    B --> C["激活函数 ReLU"]
-    C --> D["池化层"]
-    D --> E["卷积层"]
-    E --> F["激活函数 ReLU"]
-    F --> G["池化层"]
-    G --> H["展平 / 全局池化"]
-    H --> I["全连接层"]
-    I --> J["类别输出"]
-
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style B fill:#fff3e0,stroke:#e65100,color:#333
-    style C fill:#fff3e0,stroke:#e65100,color:#333
-    style D fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style E fill:#fff3e0,stroke:#e65100,color:#333
-    style F fill:#fff3e0,stroke:#e65100,color:#333
-    style G fill:#f3e5f5,stroke:#6a1b9a,color:#333
-    style H fill:#fffde7,stroke:#f9a825,color:#333
-    style I fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style J fill:#ffebee,stroke:#c62828,color:#333
+```text
+图像 -> 低层特征 -> 压缩后的 feature map -> 分类头 -> 类别分数
 ```
 
-如果把它翻译成人话，就是：
+CNN 通常分成两部分：
 
-1. 先用卷积找局部特征
-2. 再用激活函数加入非线性
-3. 再用池化压缩尺寸、保留关键信息
-4. 重复几轮，得到越来越抽象的特征
-5. 最后把这些特征交给分类头做决策
+| 部分 | 作用 | 常见层 |
+|---|---|---|
+| feature extractor | 把像素变成有用的 feature map | `Conv2d`、`ReLU`、`BatchNorm2d`、`MaxPool2d` |
+| classifier head | 把最后的 feature map 变成类别分数 | `Flatten` 或 GAP、`Linear` |
 
-### 一个帮助记忆的类比
+最后一层输出通常叫 `logits`：也就是进入 `softmax` 之前的原始类别分数。
 
-你可以把 CNN 理解成一个“多层安检系统”：
-
-- 第一层看边缘、纹理
-- 第二层看局部形状
-- 第三层看部件组合
-- 最后几层才判断“这到底像猫还是狗”
-
-也就是说，CNN 不会一上来就直接理解“猫”，
-它是先理解“毛边、耳朵轮廓、眼睛区域、身体形状”，再一点点组合起来。
-
----
-
-## 二、为什么 CNN 的通道数越来越多？
-
-### 通道数可以理解成“特征种类数”
-
-在输入层里：
-
-- 灰度图通常是 1 个通道
-- RGB 图通常是 3 个通道
-
-但进入 CNN 以后，通道的意义变了。
-它不再只是“颜色通道”，而是：
-
-> **不同卷积核提取出来的不同特征图。**
-
-例如：
-
-- 第 1 个核可能擅长找竖边
-- 第 2 个核可能擅长找横边
-- 第 3 个核可能擅长找斜角
-
-所以当你看到：
-
-```python
-nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3)
-```
-
-它的意思是：
-
-- 输入有 3 个通道
-- 输出 16 种特征图
-
-### 为什么后面常常是 32、64、128？
-
-因为越往后，模型希望学到更多更抽象的模式。
-前面层只需要发现基础纹理，后面层要组合出更复杂的结构，所以通常会逐渐增加通道数。
-
----
-
-## 三、为什么空间尺寸会越来越小？
-
-### 因为模型要从“细节”走向“概括”
-
-前几层更关注局部细节：
-
-- 哪里有边缘
-- 哪里有纹理
-
-后几层更关注整体概括：
-
-- 有没有耳朵
-- 有没有轮子
-- 是不是像一只猫
-
-所以一个常见趋势是：
-
-- 高宽逐渐变小
-- 通道逐渐变多
-
-这可以理解成：
-
-> 空间分辨率下降，但语义浓度上升。
+## 通道数变多，空间尺寸变小
 
 ![CNN 通道数与空间尺寸权衡图](/img/course/ch06-cnn-channel-spatial-tradeoff-map.png)
 
-:::tip 读图提示
-这张图要帮你看懂 CNN 常见形状变化：越往后，高宽通常变小，因为模型不再需要保留每个像素细节；通道数通常变多，因为模型要记录更多、更抽象的特征种类。
-:::
+浅层保留更多空间细节。深层保留更少像素位置，但保存更多特征类型。
 
-### 池化层在做什么？
+| 阶段 | shape 直觉 | 含义 |
+|---|---|---|
+| input | `[N, 3, 32, 32]` | RGB 图像 |
+| early feature | `[N, 16, 32, 32]` | 多种边缘、纹理检测器 |
+| after pooling | `[N, 16, 16, 16]` | 更小的图，保留局部最强信号 |
+| deeper feature | `[N, 64, 8, 8]` | 更抽象的模式 |
 
-池化最常见的是 `MaxPool`，它会在一个小窗口里取最大值。
+这是 CNN 设计的核心取舍：
 
-比如：
+- 更少的空间位置可以减少计算；
+- 更多的通道可以存储更丰富的视觉证据；
+- 分类头应该看到足够语义，而不是每一个原始像素。
+
+## 实验 1：手算 MaxPool
+
+`MaxPool2d(2)` 会在每个 `2 x 2` 窗口里保留最大值。
 
 ```python
 import numpy as np
 
-feature_map = np.array([
-    [1, 3, 2, 0],
-    [4, 6, 1, 2],
-    [0, 1, 5, 3],
-    [2, 4, 1, 7]
-], dtype=np.float32)
+feature_map = np.array(
+    [
+        [1, 3, 2, 0],
+        [4, 6, 1, 2],
+        [0, 1, 5, 3],
+        [2, 4, 1, 7],
+    ],
+    dtype=np.float32,
+)
 
-pooled = np.array([
-    [feature_map[0:2, 0:2].max(), feature_map[0:2, 2:4].max()],
-    [feature_map[2:4, 0:2].max(), feature_map[2:4, 2:4].max()]
-])
+pooled = np.array(
+    [
+        [feature_map[0:2, 0:2].max(), feature_map[0:2, 2:4].max()],
+        [feature_map[2:4, 0:2].max(), feature_map[2:4, 2:4].max()],
+    ]
+)
 
-print("feature_map =\n", feature_map)
-print("pooled =\n", pooled)
+print("maxpool_lab")
+print(pooled)
 ```
 
-输出会把 `4x4` 压成 `2x2`。
-
-### MaxPool 为什么不是“丢信息”吗？
-
-是的，它确实会丢掉一部分细节。
-但它保留了每个局部区域里最显著的响应，这对分类任务通常很有帮助。
-
-你可以把它理解成：
-
-> 与其记住每一个像素，不如先保留“这一块里最强的特征有没有出现”。
-
----
-
-## 四、卷积块（Conv Block）才是 CNN 的基本单元
-
-### 什么是卷积块？
-
-在现代深度学习里，人们通常不会孤立地看一层卷积，而更常把下面这一组合当成一个基本块：
+预期输出：
 
 ```text
-卷积 -> 激活 -> （可选）池化
+maxpool_lab
+[[6. 2.]
+ [4. 7.]]
 ```
 
-或者：
+池化会丢掉一部分细节，但它保留了局部最强响应。对分类任务来说，这通常是有用的偏置：模型更关心某个特征是否出现，而不是它精确出现在哪个像素。
+
+## 实验 2：运行一个卷积块
+
+一个基础 CNN block 是：
 
 ```text
-卷积 -> BN -> ReLU
+Conv2d -> activation -> optional pooling
 ```
 
-### 一个最小卷积块示例
+运行：
 
 ```python
 import torch
@@ -211,240 +114,182 @@ from torch import nn
 block = nn.Sequential(
     nn.Conv2d(3, 8, kernel_size=3, padding=1),
     nn.ReLU(),
-    nn.MaxPool2d(kernel_size=2)
+    nn.MaxPool2d(kernel_size=2),
 )
 
 x = torch.randn(2, 3, 32, 32)
 y = block(x)
 
-print("input shape :", x.shape)
-print("output shape:", y.shape)
+print("block_lab")
+print("input:", tuple(x.shape))
+print("output:", tuple(y.shape))
 ```
 
-这个块做了三件事：
+预期输出：
 
-1. 把 3 通道图像映射成 8 通道特征
-2. 通过 ReLU 引入非线性
-3. 通过池化把 `32x32` 压成 `16x16`
+```text
+block_lab
+input: (2, 3, 32, 32)
+output: (2, 8, 16, 16)
+```
 
----
+变化在哪里：
 
-## 五、一个完整小 CNN 的前向传播
+- batch 仍然是 `2`；
+- 通道从 `3` 变成 `8`；
+- 高和宽因为 `MaxPool2d(2)` 从 `32` 缩到 `16`。
 
-### 可运行示例
+实际项目里常见的变体是：
+
+```text
+Conv2d -> BatchNorm2d -> ReLU
+```
+
+`BatchNorm2d` 可以在训练时稳定 feature 的尺度。它很有用，但第一次搭模型时，先把 shape 流程看清楚更重要。
+
+## 实验 3：搭建完整 Tiny CNN
+
+这个模型接收灰度 `28 x 28` 图像，并输出 `10` 个类别分数。
 
 ```python
 import torch
 from torch import nn
+
 
 class TinyCNN(nn.Module):
     def __init__(self, num_classes=10):
         super().__init__()
-
-        self.features = nn.Sequential(
-            nn.Conv2d(1, 8, kernel_size=3, padding=1),   # [B, 1, 28, 28] -> [B, 8, 28, 28]
-            nn.ReLU(),
-            nn.MaxPool2d(2),                             # -> [B, 8, 14, 14]
-
-            nn.Conv2d(8, 16, kernel_size=3, padding=1),  # -> [B, 16, 14, 14]
-            nn.ReLU(),
-            nn.MaxPool2d(2)                              # -> [B, 16, 7, 7]
-        )
-
+        self.conv1 = nn.Conv2d(1, 8, kernel_size=3, padding=1)
+        self.pool1 = nn.MaxPool2d(2)
+        self.conv2 = nn.Conv2d(8, 16, kernel_size=3, padding=1)
+        self.pool2 = nn.MaxPool2d(2)
         self.classifier = nn.Sequential(
-            nn.Flatten(),                                # -> [B, 16*7*7]
+            nn.Flatten(),
             nn.Linear(16 * 7 * 7, 64),
             nn.ReLU(),
-            nn.Linear(64, num_classes)
+            nn.Linear(64, num_classes),
         )
 
     def forward(self, x):
-        x = self.features(x)
+        print("shape_trace")
+        print(f"{'input':<8} {tuple(x.shape)}")
+        x = torch.relu(self.conv1(x))
+        print(f"{'conv1':<8} {tuple(x.shape)}")
+        x = self.pool1(x)
+        print(f"{'pool1':<8} {tuple(x.shape)}")
+        x = torch.relu(self.conv2(x))
+        print(f"{'conv2':<8} {tuple(x.shape)}")
+        x = self.pool2(x)
+        print(f"{'pool2':<8} {tuple(x.shape)}")
         x = self.classifier(x)
+        print(f"{'logits':<8} {tuple(x.shape)}")
         return x
+
 
 model = TinyCNN(num_classes=10)
 x = torch.randn(4, 1, 28, 28)
-y = model(x)
-
-print("output shape:", y.shape)
-```
-
-### 为什么这里最后输出是 `[4, 10]`？
-
-因为：
-
-- batch 里有 4 张图
-- 每张图要输出 10 个类别分数
-
-也就是说，这个模型已经是一个完整的图像分类器骨架了。
-
----
-
-## 六、真正理解这段网络结构
-
-### 前半段 `features`
-
-这部分负责：
-
-- 提取局部模式
-- 压缩空间尺寸
-- 逐步得到更抽象的特征
-
-### 后半段 `classifier`
-
-这部分负责：
-
-- 把高维特征图变成类别分数
-
-一句话记住：
-
-> 前面在“看图并做特征提炼”，后面在“根据特征做决策”。
-
----
-
-## 七、Flatten 和 Global Average Pooling 有什么区别？
-
-### Flatten：直接摊平
-
-像上面的例子：
-
-- `16 x 7 x 7`
-- 展平成 `784`
-
-优点：
-
-- 简单直接
-
-缺点：
-
-- 参数量可能变大
-
-### Global Average Pooling：每个通道只保留一个平均值
-
-例如：
-
-- `16 x 7 x 7`
-- 变成 `16`
-
-这样参数会少很多。
-
-### 一个可运行小例子
-
-```python
-import torch
-
-x = torch.randn(2, 16, 7, 7)
-
-flat = torch.flatten(x, start_dim=1)
-gap = x.mean(dim=(2, 3))
-
-print("flatten shape:", flat.shape)
-print("gap shape    :", gap.shape)
-```
-
-所以现代 CNN 很多时候会更偏向：
-
-- 卷积主干
-- 全局平均池化
-- 最后一个线性层
-
----
-
-## 八、为什么 CNN 能从低层到高层逐步理解图像？
-
-可以这样理解：
-
-- 第 1 层看到：边缘
-- 第 2 层看到：角点、局部纹理
-- 第 3 层看到：部件组合
-- 更深层看到：物体语义
-
-这就像你看一张猫图：
-
-1. 先看到线条和颜色变化
-2. 再看到耳朵、眼睛、胡须区域
-3. 最后综合判断：这是一只猫
-
-CNN 的层级结构，本质上就在模拟这种“从局部到整体”的识别过程。
-
----
-
-## 九、PyTorch 中怎么打印中间 shape？
-
-这是非常实用的调试技巧。
-
-```python
-import torch
-from torch import nn
-
-class DebugCNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.conv1 = nn.Conv2d(1, 8, 3, padding=1)
-        self.pool = nn.MaxPool2d(2)
-        self.conv2 = nn.Conv2d(8, 16, 3, padding=1)
-
-    def forward(self, x):
-        print("input :", x.shape)
-        x = self.conv1(x)
-        print("conv1 :", x.shape)
-        x = torch.relu(x)
-        x = self.pool(x)
-        print("pool1 :", x.shape)
-        x = self.conv2(x)
-        print("conv2 :", x.shape)
-        return x
-
-model = DebugCNN()
-x = torch.randn(1, 1, 28, 28)
 _ = model(x)
 ```
 
-很多 CNN 报错，本质上都不是卷积不会，而是：
+预期输出：
 
-- shape 没算清楚
-- 展平尺寸写错
-- 线性层输入维度不匹配
+```text
+shape_trace
+input    (4, 1, 28, 28)
+conv1    (4, 8, 28, 28)
+pool1    (4, 8, 14, 14)
+conv2    (4, 16, 14, 14)
+pool2    (4, 16, 7, 7)
+logits   (4, 10)
+```
 
----
+最后 shape 是 `[4, 10]`，因为 batch 里有 4 张图，每张图输出 10 个分数。
 
-## 十、初学者最常踩的坑
+## 像工程师一样读结构
 
-### 只知道“卷积很重要”，但不知道一个 CNN 其实是很多层组合
+看 CNN 时，不要只读层名，要追踪每个边界的 tensor contract。
 
-CNN 真正的力量来自结构，而不是一层卷积本身。
+| 代码行 | 要检查的约定 |
+|---|---|
+| `Conv2d(1, 8, ...)` | 输入必须有 1 个通道 |
+| `MaxPool2d(2)` | 高和宽会除以 2 |
+| `Conv2d(8, 16, ...)` | 上一层输出通道必须是 8 |
+| `Linear(16 * 7 * 7, 64)` | flatten 后的特征数必须和真实 feature map 一致 |
+| 最后的 `Linear(..., 10)` | 输出维度必须等于类别数 |
 
-### 不会跟踪 shape
+大多数 CNN 报错都是 contract 报错：到达某一层的 tensor shape 和这层期待的不一样。
 
-这是图像模型最常见的 bug 来源之一。
+## Flatten 和 Global Average Pooling
 
-### 以为池化只是“随便压小一点”
+`Flatten` 会把所有空间位置拉成一个长向量：
 
-池化其实是在做特征保留和空间压缩的平衡。
+```text
+[N, 16, 7, 7] -> [N, 784]
+```
 
----
+GAP 每个通道只保留一个平均值：
 
-## 小结
+```text
+[N, 16, 7, 7] -> [N, 16]
+```
 
-这一节最重要的不是背“CNN = 卷积神经网络”，而是抓住它的工作主线：
+比较参数量：
 
-> **CNN 会一层层把原始图像变成越来越抽象的特征，最后再基于这些特征做分类决策。**
+```python
+from torch import nn
 
-这就是为什么一个完整 CNN 看起来总像：
 
-- 卷积块堆叠
-- 空间逐步缩小
-- 通道逐步增加
-- 最后接分类头
+def count_params(module):
+    return sum(p.numel() for p in module.parameters() if p.requires_grad)
 
-理解了这一点，后面看 LeNet、VGG、ResNet 就不会只是记结构图了。
 
----
+flatten_head = nn.Linear(16 * 7 * 7, 10)
+gap_head = nn.Linear(16, 10)
+
+print("head_param_lab")
+print("flatten head:", count_params(flatten_head))
+print("gap head    :", count_params(gap_head))
+```
+
+预期输出：
+
+```text
+head_param_lab
+flatten head: 7850
+gap head    : 170
+```
+
+取舍可以这样看：
+
+| Head | 优点 | 代价 |
+|---|---|---|
+| Flatten + Linear | 简单，能使用位置相关细节 | 参数多，输入尺寸更固定 |
+| GAP + Linear | 紧凑，更容易适配变化的空间尺寸 | 可能丢掉精细位置信息 |
+
+现代 CNN 分类器经常用 GAP，因为它能降低过拟合风险，并让 head 更小。
+
+## 常见错误
+
+| 错误 | 现象 | 修复 |
+|---|---|---|
+| 通道顺序写错 | `expected input ... to have C channels` | PyTorch 中使用 `[N, C, H, W]` |
+| `Linear` 输入尺寸写错 | 矩阵乘法 shape 报错 | 在 `Flatten` 前打印 shape |
+| 太早、太多 pooling | feature map 变得过小 | 每个 block 后追踪 `H` 和 `W` |
+| 把 logits 当概率 | loss 或评估理解混乱 | `CrossEntropyLoss` 直接吃 logits；展示时再 `softmax` |
+| 加了 BatchNorm 却不理解模式 | train/eval 行为不同 | 训练用 `model.train()`，评估用 `model.eval()` |
 
 ## 练习
 
-1. 把 `TinyCNN` 的第二层卷积输出通道从 16 改成 32，看看 shape 怎么变化。
-2. 把分类头改成 `Global Average Pooling + Linear` 的形式。
-3. 手工算一遍 `28x28` 输入经过两次 `MaxPool2d(2)` 后为什么会变成 `7x7`。
-4. 想一想：为什么 CNN 前半段常常用卷积块，后半段才接分类头？
+1. 把 `conv2` 的输出通道从 `16` 改成 `32`，哪些行必须跟着改？
+2. 用 `AdaptiveAvgPool2d((1, 1))`、`Flatten` 和 `Linear(16, 10)` 替换分类头。
+3. 删除一个 pooling 层，先预测新的 flatten 尺寸，再运行代码验证。
+4. 在 `conv1` 后加入 `BatchNorm2d(8)`，确认 shape 不变。
+5. 针对 RGB `64 x 64` 输入，手写每一层后的 shape。
+
+## 小结
+
+- CNN 是 feature extractor 加 classifier head。
+- 卷积块增加特征通道；pooling 或 stride 通常降低空间尺寸。
+- shape tracing 是调试 CNN 结构最快的方法。
+- `Flatten` 简单但参数多；GAP 更紧凑，在现代 CNN 中很常见。
+- 好的 CNN 设计重点是控制信息流，而不是盲目堆层数。
