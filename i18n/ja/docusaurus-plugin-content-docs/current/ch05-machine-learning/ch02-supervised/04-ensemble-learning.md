@@ -1,1005 +1,204 @@
 ---
-title: "5.2.5 アンサンブル学習"
+title: "5.2.5 アンサンブル学習：Forest、Boosting、Stacking"
 sidebar_position: 6
-description: "Bagging と Boosting の原理を理解し、ランダムフォレスト、GBDT、XGBoost、LightGBM などのアンサンブル手法を身につける"
-keywords: [アンサンブル学習, ランダムフォレスト, Bagging, Boosting, GBDT, XGBoost, LightGBM, CatBoost, Stacking]
+description: "短いアンサンブル学習ハンズオン。単一木、Random Forest、Gradient Boosting、リークを避けた Stacking を比較します。"
+keywords: [アンサンブル学習, Random Forest, Bagging, Boosting, GBDT, Stacking, XGBoost, LightGBM, CatBoost]
 ---
 
-# 5.2.5 アンサンブル学習
+# 5.2.5 アンサンブル学習：Forest、Boosting、Stacking
 
-![集約学習の投票と森林の図](/img/course/ensemble-learning-voting-forest-ja.png)
+![Bagging と Boosting の比較図](/img/course/ch05-ensemble-bagging-boosting-flow-ja.png)
 
-:::tip この節の位置づけ
-アンサンブル学習は、ML コンペや実務で**最もよく使われる**技術のひとつです。考え方はとてもシンプルです。**三人寄れば文殊の知恵**——複数の弱いモデルを組み合わせると、1つの強いモデルより良い結果になります。XGBoost と LightGBM は、今でも表形式データの「まず試す定番」です。
-:::
+アンサンブル学習は複数のモデルを組み合わせ、1つのモデルの弱点が最終予測を支配しにくくします。表形式データでは、古典的機械学習の中でも特に強い手法群です。
 
-## 学習目標
+## まず二つの主線を見る
 
-- Bagging の原理とランダムフォレストを理解する
-- Boosting の原理と AdaBoost を理解する
-- GBDT と XGBoost を身につける
-- LightGBM と CatBoost を知る
-- Stacking 戦略を知る
+![アンサンブル学習ファミリー漫画](/img/course/ch05-ensemble-family-comic-ja.png)
 
-## 先に、とても大事な学習イメージを共有します
+最初からモデル名を暗記しないでください。まず二つの考え方を分けます。
 
-この節で初心者がいちばんプレッシャーを感じやすいのは、原理が難しいからではなく、名前が一気に多く出てくるからです。
+| ルート | イメージ | 代表モデル | 主な利点 | 主なリスク |
+|---|---|---|---|---|
+| Bagging | 複数モデルを並列に学習して投票 | Random Forest | 安定し、分散を下げる | 大きくなり、説明しづらい |
+| Boosting | 後続モデルが前の誤りを補正 | GBDT、XGBoost、LightGBM、CatBoost | 精度が強い | 制御しないと過学習しやすい |
+| Stacking | 基本モデルの予測をメタモデルへ渡す | `StackingClassifier` | 異なるモデル群を組み合わせる | 交差検証なしだとリークする |
 
-- ランダムフォレスト
-- AdaBoost
-- GBDT
-- XGBoost
-- LightGBM
-- CatBoost
+## 比較実験を動かす
 
-最初の1回で全部暗記するより、まずは次の2つを分けて考えるのが大切です。
-
-> **アンサンブル学習は、実は主に2本の流れだけです。並列に投票する Bagging と、順番に誤りを直す Boosting です。**
-
-この2本が先に頭に入ると、あとから出てくるモデル名も、ただのバラバラな知識に見えなくなります。
-
----
-
-## まずは地図を作りましょう
-
-アンサンブル学習で初心者が混乱しやすいのは、概念が少ないからではなく、名前が多いからです。
-
-- Bagging
-- ランダムフォレスト
-- AdaBoost
-- GBDT
-- XGBoost
-- LightGBM
-- CatBoost
-
-いきなり道具名で覚えると、知識がバラバラになりやすいです。より安定した理解順は次の通りです。
-
-![Bagging と Boosting の対比図](/img/course/ch05-ensemble-bagging-boosting-flow-ja.png)
-
-![アンサンブル学習の系統コミック](/img/course/ch05-ensemble-family-comic-ja.png)
-
-「並列投票」と「順番に誤りを修正する」の2本の流れを先に分けておけば、あとからモデル名が混ざりにくくなります。
-
-### 用語の整理
-
-| 用語 | ここでの意味 | 実務での役割 |
-|------|------|------|
-| `ensemble` | 複数のモデルを組み合わせた予測システム | 1つのモデルの弱点に結果が左右されにくくなります |
-| `Bagging` | Bootstrap Aggregating。標本を変えて並列にモデルを学習する方法 | 分散を下げ、木モデルを安定させやすいです |
-| `Bootstrap` | 復元抽出、つまり戻しながらサンプリングすること | 各木に少し違う訓練データを見せます |
-| `Boosting` | モデルを順番に学習し、後のモデルが前の誤りを補う方法 | 精度を上げやすい一方、過学習対策が重要です |
-| `GBDT` | Gradient Boosting Decision Tree | 小さな木を順に足し、残差を少しずつ減らします |
-| `XGBoost` | eXtreme Gradient Boosting | 高速で正則化もある、実装最適化された GBDT です |
-| `LightGBM` | Light Gradient Boosting Machine | 大規模な表形式データで高速な Boosting フレームワークです |
-| `CatBoost` | Categorical Boosting | カテゴリ特徴量の扱いが強い Boosting フレームワークです |
-| `Stacking` | ベースモデルの予測をメタモデルの特徴量にする方法 | 強力ですが、交差検証を誤るとデータリークしやすいです |
-
----
-
-## 一、アンサンブル学習のコアな考え方
-
-### 1枚の図で理解するアンサンブル学習
-
-```mermaid
-flowchart TD
-    D["訓練データ"] --> M1["モデル 1"]
-    D --> M2["モデル 2"]
-    D --> M3["モデル 3"]
-    D --> Mn["モデル n"]
-    M1 --> V["組み合わせ戦略<br/>投票 / 平均 / 重み付け"]
-    M2 --> V
-    M3 --> V
-    Mn --> V
-    V --> R["最終予測<br/>（単体モデルより正確）"]
-
-    style D fill:#e3f2fd,stroke:#1565c0,color:#333
-    style V fill:#fff3e0,stroke:#e65100,color:#333
-    style R fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### なぜうまくいくのか？
-
-それぞれのモデルは間違えますが、**間違える場所がモデルごとに違う**ことが多いです。複数のモデルで「投票」すると、互いのミスを補えます。
+`ch05_ensemble_lab.py` を作成します。
 
 ```python
-import numpy as np
-
-# シミュレーション: 3つの独立したモデルが、それぞれ 70% の精度を持つ
-rng = np.random.default_rng(seed=42)
-n = 10000
-true_labels = rng.integers(0, 2, n)
-
-# 各モデルの独立予測
-accs = []
-for _ in range(3):
-    # 70% の確率で正解
-    correct = rng.random(n) < 0.7
-    pred = np.where(correct, true_labels, 1 - true_labels)
-    accs.append(pred)
-
-accs = np.array(accs)
-
-# 多数決
-ensemble_pred = (accs.sum(axis=0) >= 2).astype(int)
-
-print(f"モデル 1 の正解率: {np.mean(accs[0] == true_labels):.1%}")
-print(f"モデル 2 の正解率: {np.mean(accs[1] == true_labels):.1%}")
-print(f"モデル 3 の正解率: {np.mean(accs[2] == true_labels):.1%}")
-print(f"投票アンサンブルの正解率: {np.mean(ensemble_pred == true_labels):.1%}")
-```
-
-期待される出力：
-
-```text
-モデル 1 の正解率: 70.2%
-モデル 2 の正解率: 69.2%
-モデル 3 の正解率: 69.8%
-投票アンサンブルの正解率: 77.7%
-```
-
-この簡単なシミュレーションは、アンサンブルの約束を見せています。各モデルの間違い方が完全には同じでなければ、投票によって単独モデルより正確になることがあります。
-
-### 2つの大きな流派
-
-| | Bagging | Boosting |
-|---|---------|---------|
-| 考え方 | 並列学習、投票 | 逐次学習、誤り修正 |
-| 多様性の源 | データと特徴のランダムサンプリング | 前のラウンドの誤りに注目 |
-| 何を減らすか | 分散（variance） | バイアス（bias） |
-| 代表アルゴリズム | ランダムフォレスト | AdaBoost、GBDT、XGBoost |
-| 過学習の傾向 | 起きにくい | 起きやすい（early stopping が必要） |
-
-```mermaid
-flowchart LR
-    subgraph Bagging
-        D1["データ → ランダムサンプリング"] --> M1a["木 1"]
-        D1 --> M1b["木 2"]
-        D1 --> M1c["木 n"]
-        M1a --> V1["投票/平均"]
-        M1b --> V1
-        M1c --> V1
-    end
-
-    subgraph Boosting
-        D2["データ"] --> M2a["木 1"]
-        M2a -->|"誤りに注目"| M2b["木 2"]
-        M2b -->|"誤りに注目"| M2c["木 n"]
-        M2c --> V2["重み付き和"]
-    end
-
-    style V1 fill:#e3f2fd,stroke:#1565c0,color:#333
-    style V2 fill:#fff3e0,stroke:#e65100,color:#333
-```
-
-### 先に覚えるのはモデル名ではなく、2つの違いです
-
-この節で最初に覚えるべきなのは、ライブラリ名ではありません。次の2文です。
-
-- **Bagging** は「複数の人に独立で判断してもらい、最後に投票する」イメージ
-- **Boosting** は「前回のミスを次回で重点的に補う」イメージ
-
-この2つだけでも、後の多くのモデルの関係が見えやすくなります。
-
-### 初心者向けのたとえ
-
-この2本の流れをしっかり覚えたいなら、次のたとえが便利です。
-
-- **Bagging** は会議の投票に似ています。たくさんの人にそれぞれ独立して判断してもらい、最後にまとめます
-- **Boosting** は先生の添削に似ています。前回どこが間違っていたかを、次の回で重点的に直します
-
-最初からライブラリ名やパラメータに入るより、この全体像を持っておいた方が理解しやすいです。
-
-![集約学習の誤り修正ラボの図](/img/course/ch05-ensemble-error-correction-lab-ja.png)
-
-この図を見るときは、まず「強くなる2つの方法」を分けて考えましょう。ランダムフォレストはたくさんの木の平均でブレを小さくし、Boosting は後ろのラウンドで前のラウンドの誤りを直しながら表現力を上げていきます。前者は多数決、後者は連続添削です。これを押さえておくと、XGBoost、LightGBM、CatBoost を見たときに、名前だけを覚える状態になりにくいです。
-
----
-
-## 二、Bagging とランダムフォレスト
-
-### Bagging の原理
-
-**Bootstrap Aggregating = ブートストラップサンプリング + 集約**
-
-1. 訓練データから**復元抽出**で複数のデータセットを作る
-2. それぞれのデータで決定木を学習する
-3. 分類では多数決、回帰では平均を取る
-
-```python
-# ブートストラップサンプリングのイメージ
-rng = np.random.default_rng(seed=42)
-data = np.arange(1, 11)  # 元データ: [1, 2, ..., 10]
-
-print("元データ:", data)
-for i in range(3):
-    sample = rng.choice(data, size=len(data), replace=True)
-    print(f"ブートストラップサンプル {i+1}: {[int(x) for x in sorted(sample)]}")
-    # 注意: 同じデータが重複し、選ばれないデータもあります
-```
-
-期待される出力：
-
-```text
-元データ: [ 1  2  3  4  5  6  7  8  9 10]
-ブートストラップサンプル 1: [1, 1, 1, 3, 5, 5, 7, 7, 8, 9]
-ブートストラップサンプル 2: [2, 5, 6, 6, 8, 8, 8, 8, 9, 10]
-ブートストラップサンプル 3: [2, 4, 5, 5, 6, 6, 7, 8, 9, 10]
-```
-
-大切なのは「復元抽出」です。ある行は何度も選ばれ、別の行はまったく選ばれないことがあります。これにより、ランダムフォレストでは木どうしに違いが生まれます。
-
-### ランダムフォレスト（Random Forest）
-
-ランダムフォレスト = Bagging + **特徴量のランダム選択**
-
-各分割のたびに、**ランダムに選んだ一部の特徴量**の中から最適な分割を探します。これにより、木どうしの多様性が高まります。
-
-### なぜランダムフォレストは単独の木より安定しやすいのか？
-
-理由は、単独の決定木ではできないことを2つやっているからです。
-
-- データをランダムサンプリングする
-- 特徴量もランダムに選ぶ
-
-その結果、各木に少しずつ違いが出ます。  
-単独の木は、特定のサンプルや特定の特徴に敏感になりやすいです。ランダムフォレストは「少しずつ違うたくさんの木」を平均することで、この不安定さを抑えます。
-
-```python
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_moons
-from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
-import numpy as np
-
-# データ生成
-X, y = make_moons(n_samples=500, noise=0.3, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# 単独の木 vs ランダムフォレスト
-from sklearn.tree import DecisionTreeClassifier
-
-dt = DecisionTreeClassifier(random_state=42)
-dt.fit(X_train, y_train)
-
-rf = RandomForestClassifier(n_estimators=100, random_state=42)
-rf.fit(X_train, y_train)
-
-print(f"単独の決定木 | 学習: {dt.score(X_train, y_train):.1%} | テスト: {dt.score(X_test, y_test):.1%}")
-print(f"ランダムフォレスト | 学習: {rf.score(X_train, y_train):.1%} | テスト: {rf.score(X_test, y_test):.1%}")
-
-# 決定境界の比較を可視化
-fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-
-for ax, model, name in zip(axes, [dt, rf], ['単独の決定木', 'ランダムフォレスト (100本)']):
-    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    xx, yy = np.meshgrid(np.linspace(x_min, x_max, 200),
-                          np.linspace(y_min, y_max, 200))
-    Z = model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
-    ax.contourf(xx, yy, Z, alpha=0.3, cmap='coolwarm')
-    ax.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap='coolwarm', s=20, edgecolors='w', linewidth=0.5)
-    test_acc = model.score(X_test, y_test)
-    ax.set_title(f'{name}\nテスト正解率: {test_acc:.1%}')
-    ax.grid(True, alpha=0.3)
-
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
-
-```text
-単独の決定木 | 学習: 100.0% | テスト: 82.0%
-ランダムフォレスト | 学習: 100.0% | テスト: 88.0%
-```
-
-どちらも訓練データを覚える力はありますが、ランダムフォレストは多くの木が投票するため、境界が単独の木より滑らかで壊れにくくなりやすいです。
-
-### ランダムフォレストの重要なハイパーパラメータ
-
-| パラメータ | 説明 | 推奨 |
-|------|------|------|
-| `n_estimators` | 木の本数 | 100~500 |
-| `max_depth` | 1本の木の最大深さ | None または 10~20 |
-| `max_features` | 分割時に考慮する特徴量数 | 'sqrt'（分類）, 'log2' |
-| `min_samples_split` | ノード分割に必要な最小サンプル数 | 2~10 |
-| `min_samples_leaf` | 葉ノードの最小サンプル数 | 1~5 |
-
-### 最初にランダムフォレストを調整するとき、どう進めるのが安定か？
-
-おすすめは、次の順番です。
-
-1. まず `n_estimators` を十分大きくする。たとえば `100~300`
-2. 次に `max_depth` を見る
-3. 次に `min_samples_leaf` を見る
-4. 最後に `max_features` を微調整する
-
-理由は次の通りです。
-
-- 木の本数が少ないと、結果がブレやすく判断しづらい
-- `max_depth` と `min_samples_leaf` は、過学習に直接影響しやすい
-- `max_features` は、より細かい調整向き
-
-### 最初にランダムフォレストを使うとき、何を覚えるべきか？
-
-最初に覚えるべきなのは、
-
-- 単独の決定木より「すごい」ということ
-
-ではなく、
-
-- 本質は「少しずつ違うたくさんの木でブレを減らす」こと
-
-です。
-
-つまり、ランダムフォレストのデフォルトの強みは次のようになります。
-
-- 安定している
-- 単独の木ほど過学習しにくい
-- 表形式データでは強い baseline として使いやすい
-
-```python
-# 木の本数 vs 正解率
-n_trees = [1, 5, 10, 30, 50, 100, 200, 500]
-train_scores = []
-test_scores = []
-
-for n in n_trees:
-    rf = RandomForestClassifier(n_estimators=n, random_state=42)
-    rf.fit(X_train, y_train)
-    train_scores.append(rf.score(X_train, y_train))
-    test_scores.append(rf.score(X_test, y_test))
-    print(f"n_estimators={n:>3}: 学習={train_scores[-1]:.1%}, テスト={test_scores[-1]:.1%}")
-
-plt.figure(figsize=(8, 5))
-plt.plot(n_trees, train_scores, 'bo-', label='訓練セット')
-plt.plot(n_trees, test_scores, 'ro-', label='テストセット')
-plt.xlabel('木の本数 (n_estimators)')
-plt.ylabel('正解率')
-plt.title('木の本数がランダムフォレスト性能に与える影響')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-期待される出力：
-
-```text
-n_estimators=  1: 学習=95.0%, テスト=84.0%
-n_estimators=  5: 学習=97.8%, テスト=88.0%
-n_estimators= 10: 学習=99.5%, テスト=88.0%
-n_estimators= 30: 学習=99.8%, テスト=88.0%
-n_estimators= 50: 学習=99.8%, テスト=88.0%
-n_estimators=100: 学習=100.0%, テスト=88.0%
-```
-
-木の数が十分になると、性能は安定しやすくなります。ただし、木を増やせば永遠に精度が上がるわけではありません。
-
----
-
-## 三、Boosting 系列
-
-### AdaBoost
-
-**考え方**：毎ラウンドで**前のラウンドが間違えたサンプル**に注目し、その重みを高くします。
-
-```mermaid
-flowchart LR
-    D1["ラウンド 1<br/>一様な重み"] --> T1["弱分類器 1"]
-    T1 -->|"誤りを見つける"| D2["ラウンド 2<br/>誤ったサンプルの重みを増やす"]
-    D2 --> T2["弱分類器 2"]
-    T2 -->|"誤りを見つける"| D3["ラウンド 3<br/>さらに増やす"]
-    D3 --> T3["弱分類器 3"]
-    T3 --> R["重み付き投票 → 強い分類器"]
-
-    style D1 fill:#e3f2fd,stroke:#1565c0,color:#333
-    style R fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-```python
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.tree import DecisionTreeClassifier
-
-# AdaBoost は通常、浅い決定木（決定木の stump）を使う
-ada = AdaBoostClassifier(
-    estimator=DecisionTreeClassifier(max_depth=1),
-    n_estimators=50,
-    learning_rate=1.0,
-    random_state=42
-)
-ada.fit(X_train, y_train)
-print(f"AdaBoost | 学習: {ada.score(X_train, y_train):.1%} | テスト: {ada.score(X_test, y_test):.1%}")
-```
-
-期待される出力：
-
-```text
-AdaBoost | 学習: 93.5% | テスト: 89.0%
-```
-
-### GBDT（勾配ブースティング決定木）
-
-**考え方**：新しい木は、元のラベルそのものではなく、これまでの木が残した**残差**（予測誤差）を学習します。
-
-![GBDT の残差修正コミック](/img/course/ch05-ensemble-gbdt-residual-correction-ja.png)
-
-まず図を見てから式を読みましょう。1本目の木は大まかな予測を出します。次にモデルは「まだどこを外しているか」を確認します。この残った誤差が**残差**です。次の木は最初から問題を解き直すのではなく、小さな修正を学びます。これを何度も繰り返すことで、全体のモデルは「小さな修正の積み重ね」になります。
-
-> **Fm(x) = Fm-1(x) + η × hm(x)**
-
-ここで `hm(x)` は m 本目の木が学習する残差、`η` は学習率です。
-
-初心者向けの用語整理です。
-
-- **GBDT** は **Gradient Boosting Decision Tree** の略で、勾配ブースティング決定木という意味です。弱学習器として浅い決定木を使う Boosting 手法です。
-- **残差** は、現在のモデルがまだ予測できていない部分です。回帰では、単純には `真の値 - 現在の予測` と考えられます。
-- **学習率** は、新しい木の修正を各ラウンドでどれだけ足すかを決めます。小さいほど遅くなりますが、安定しやすいです。
-- **`n_estimators`** は、アンサンブルに追加する木の本数です。
-
-### GBDT で最初に覚えるべき直感
-
-GBDT をひとことで言うなら、こう覚えると分かりやすいです。
-
-> **前のラウンドでうまく当てられなかったところを、次のラウンドで重点的に補う。**
-
-これはランダムフォレストとはかなり違います。  
-ランダムフォレストは「みんなが独立に判断して平均する」方式ですが、GBDT は「1ラウンドずつ穴を埋める」方式です。
-
-```python
-from sklearn.ensemble import GradientBoostingClassifier
-
-gbdt = GradientBoostingClassifier(
-    n_estimators=100,
-    learning_rate=0.1,
-    max_depth=3,
-    random_state=42
-)
-gbdt.fit(X_train, y_train)
-print(f"GBDT | 学習: {gbdt.score(X_train, y_train):.1%} | テスト: {gbdt.score(X_test, y_test):.1%}")
-```
-
-期待される出力：
-
-```text
-GBDT | 学習: 98.0% | テスト: 90.0%
-```
-
-### GBDT の回帰を直感で理解する
-
-```python
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.tree import DecisionTreeRegressor
-
-# 回帰問題で「残差を学習する」感覚をつかむ
-rng = np.random.default_rng(seed=42)
-X_demo = np.linspace(0, 10, 100).reshape(-1, 1)
-y_demo = np.sin(X_demo.ravel()) + rng.normal(size=100) * 0.2
-
-fig, axes = plt.subplots(2, 3, figsize=(15, 9))
-
-# GBDT の流れを手動でまねる
-current_pred = np.zeros(len(y_demo))
-learning_rate = 0.5
-
-for i in range(6):
-    ax = axes[i // 3][i % 3]
-
-    # 残差を計算
-    residual = y_demo - current_pred
-
-    # 決定木で残差を学習
-    tree = DecisionTreeRegressor(max_depth=2, random_state=42)
-    tree.fit(X_demo, residual)
-    tree_pred = tree.predict(X_demo)
-
-    # 予測を更新
-    current_pred += learning_rate * tree_pred
-    mse = np.mean((y_demo - current_pred) ** 2)
-
-    ax.scatter(X_demo, y_demo, s=10, alpha=0.5, color='steelblue')
-    ax.plot(X_demo, current_pred, 'r-', linewidth=2, label=f'現在の予測')
-    ax.set_title(f'{i+1} 本目の木の後\nMSE={mse:.4f}')
-    ax.legend(fontsize=8)
-    ax.grid(True, alpha=0.3)
-    print(f"{i+1} 本目の木の後: MSE={mse:.4f}")
-
-plt.suptitle('GBDT が残差を順に学習する流れ', fontsize=13)
-plt.tight_layout()
-plt.show()
-```
-
-期待される出力：
-
-```text
-1 本目の木の後: MSE=0.2314
-2 本目の木の後: MSE=0.1635
-3 本目の木の後: MSE=0.1031
-4 本目の木の後: MSE=0.0782
-5 本目の木の後: MSE=0.0462
-6 本目の木の後: MSE=0.0381
-```
-
-これは「誤りを順に直す」流れを目で見える形にしたものです。新しい木は最初からやり直すのではなく、今のアンサンブルがまだ外している部分に集中します。
-
----
-
-## 四、XGBoost
-
-### XGBoost の改良点
-
-XGBoost（eXtreme Gradient Boosting）は、GBDT の**実装・最適化版**です。
-
-| 特性 | GBDT | XGBoost |
-|------|------|---------|
-| 正則化 | なし | L1 + L2 正則化（過学習を抑える） |
-| 欠損値 | 前処理が必要 | 自動処理 |
-| 並列化 | 逐次 | 特徴量単位で並列化（高速） |
-| 列サンプリング | なし | 対応（ランダムフォレストに近い） |
-| 早期停止 | なし | `early_stopping_rounds` に対応 |
-
-### インストールと使い方
-
-```bash
-pip install xgboost
-```
-
-```python
-import xgboost as xgb
-from sklearn.datasets import load_wine
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-
-# データを読み込む
-wine = load_wine()
-X, y = wine.data, wine.target
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# XGBoost を学習
-xgb_model = xgb.XGBClassifier(
-    n_estimators=100,
-    max_depth=4,
-    learning_rate=0.1,
-    random_state=42,
-    eval_metric='mlogloss',
-)
-xgb_model.fit(X_train, y_train)
-
-print(f"XGBoost | 学習: {xgb_model.score(X_train, y_train):.1%} | テスト: {xgb_model.score(X_test, y_test):.1%}")
-```
-
-:::note 任意依存関係
-`xgboost`、`lightgbm`、`catboost` は任意の追加パッケージであり、コースの最小実行環境には含めていません。この節まで来たら必要に応じてインストールしてください。最近の XGBoost では、古いチュートリアルでよく見る `use_label_encoder=False` は不要です。
-:::
-
-### XGBoost の重要なハイパーパラメータ
-
-| パラメータ | 説明 | 推奨範囲 |
-|------|------|---------|
-| `n_estimators` | 木の本数 | 100~1000 |
-| `max_depth` | 木の最大深さ | 3~8 |
-| `learning_rate` | 学習率（縮小率） | 0.01~0.3 |
-| `subsample` | 1本の木に使うサンプル比率 | 0.6~1.0 |
-| `colsample_bytree` | 1本の木に使う特徴量比率 | 0.6~1.0 |
-| `reg_alpha` | L1 正則化係数 | 0~1 |
-| `reg_lambda` | L2 正則化係数 | 1~5 |
-
-### 最初に XGBoost を調整するとき、どこから触るべき？
-
-最初から10個以上のパラメータを一気に調整しない方が安全です。おすすめの順番は次の通りです。
-
-1. まず `learning_rate` を決める
-2. 次に `n_estimators` を合わせる
-3. その後で `max_depth` を見る
-4. 最後に `subsample`、`colsample_bytree`、正則化項を調整する
-
-実践的な目安は次の通りです。
-
-- 小さい学習率 + 多めの木 の方が、大きく一気に進むより安定しやすい
-- 深さを大きくしすぎると、Boosting 系は訓練データを覚えやすくなります
-
-### 早期停止（Early Stopping）
-
-```python
-# 早期停止: 検証セットで連続 N 回改善しなければ止める
-xgb_model = xgb.XGBClassifier(
-    n_estimators=1000,   # 十分大きな値を設定する
-    max_depth=4,
-    learning_rate=0.1,
-    random_state=42,
-    eval_metric='mlogloss',
-    early_stopping_rounds=20,  # 20 回連続で改善しなければ停止
-)
-
-xgb_model.fit(
-    X_train, y_train,
-    eval_set=[(X_test, y_test)],
-    verbose=False
-)
-
-print(f"最良の反復回数: {xgb_model.best_iteration}")
-print(f"テスト正解率: {xgb_model.score(X_test, y_test):.1%}")
-```
-
-### 特徴量重要度
-
-```python
-# XGBoost の特徴量重要度
-importance = xgb_model.feature_importances_
-sorted_idx = np.argsort(importance)
-
-plt.figure(figsize=(8, 6))
-plt.barh(range(len(sorted_idx)), importance[sorted_idx], color='coral')
-plt.yticks(range(len(sorted_idx)), np.array(wine.feature_names)[sorted_idx])
-plt.xlabel('特徴量重要度')
-plt.title('XGBoost の特徴量重要度（Wine データセット）')
-plt.grid(axis='x', alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## 五、LightGBM と CatBoost
-
-### LightGBM
-
-LightGBM は Microsoft が開発した高効率な勾配ブースティングフレームワークで、XGBoost より**高速**です。
-
-| 特性 | 説明 |
-|------|------|
-| **Leaf-wise 成長** | 葉を伸ばす方式で、階層ごとではないため効率的 |
-| **ヒストグラム最適化** | 特徴量をビン分割して、分割点探索を高速化 |
-| **カテゴリ特徴量のネイティブ対応** | 手動の One-Hot エンコードが不要 |
-| **非常に速い学習速度** | 大規模データでは XGBoost より数倍速いことがある |
-
-```bash
-pip install lightgbm
-```
-
-```python
-import lightgbm as lgb
-
-lgb_model = lgb.LGBMClassifier(
-    n_estimators=100,
-    max_depth=4,
-    learning_rate=0.1,
-    random_state=42,
-    verbose=-1,
-)
-lgb_model.fit(X_train, y_train)
-print(f"LightGBM | 学習: {lgb_model.score(X_train, y_train):.1%} | テスト: {lgb_model.score(X_test, y_test):.1%}")
-```
-
-### CatBoost
-
-CatBoost（Categorical Boosting）は Yandex が開発したフレームワークで、**カテゴリ特徴量**の処理が得意です。
-
-| 特性 | 説明 |
-|------|------|
-| **カテゴリ特徴量の処理** | 自動で処理でき、エンコードが不要 |
-| **Ordered Boosting** | 予測のズレを減らす |
-| **デフォルトが強い** | そのまま使っても良い結果になりやすい |
-
-```bash
-pip install catboost
-```
-
-```python
-from catboost import CatBoostClassifier
-
-cat_model = CatBoostClassifier(
-    iterations=100,
-    depth=4,
-    learning_rate=0.1,
-    random_seed=42,
-    verbose=0,
-)
-cat_model.fit(X_train, y_train)
-print(f"CatBoost | 学習: {cat_model.score(X_train, y_train):.1%} | テスト: {cat_model.score(X_test, y_test):.1%}")
-```
-
-### 3つの Boosting フレームワーク比較
-
-![Boosting ツール選択コミック](/img/course/ch05-ensemble-boosting-toolkit-ja.png)
-
-| | XGBoost | LightGBM | CatBoost |
-|---|---------|----------|----------|
-| 開発者 | Chen Tianqi | Microsoft | Yandex |
-| 成長戦略 | Level-wise | Leaf-wise | 対称木 |
-| 速度 | 中程度 | 最速 | 中程度 |
-| カテゴリ特徴量 | エンコードが必要 | ネイティブ対応 | 最も強い対応 |
-| デフォルト性能 | 良い | 良い | たいてい最良 |
-| Kaggle での利用 | 非常に広い | 非常に広い | 広い |
-
-この比較は「どれか1つが常に最強」という意味ではありません。安全な読み方は次の通りです。
-
-- **XGBoost** は、安定して強い Boosting の最初の候補にしやすいです。
-- **LightGBM** は、表が大きく、学習速度を重視したいときに有力です。
-- **CatBoost** は、都市、端末種別、料金プラン、商品カテゴリのようなカテゴリ列が多いときに有力です。
-
-### 最初に表形式データのプロジェクトをするなら、どう選ぶのが安定か？
-
-初めて構造化された表形式データを扱うなら、まずは次のように選ぶと安定です。
-
-- 安定性が欲しい、説明もしやすい、学習も速い: まずはランダムフォレスト
-- さらに高い上限を狙いたい: XGBoost / LightGBM
-- カテゴリ特徴量が特に多い: CatBoost を優先
-
-「今いちばん流行っているものを先に使う」より、この順番の方が安定です。まず baseline を作ってから、少しずつ上限を上げていくイメージです。
-
-### アンサンブル学習を最初に学ぶときの、安定した読み順
-
-この節を初めて学ぶなら、次の順で理解するのがおすすめです。
-
-1. まず単独の決定木の長所と短所を整理する
-2. 次に Bagging と Boosting を分けて考える
-3. ランダムフォレストを「より安定した木」として見る
-4. GBDT / XGBoost を「ラウンドごとに誤りを直す木」として見る
-5. 最後に LightGBM / CatBoost のような実装最適化版を見る
-
-こうすると、この節が「モデル名の羅列」になりにくいです。
-
----
-
-## 六、Stacking——モデルの積み重ね
-
-### 原理
-
-複数の異なるモデルの予測結果を**新しい特徴量**として使い、その上でもう1つモデルを学習して最終予測を行います。
-
-![Stacking のデータリーク防止フローコミック](/img/course/ch05-ensemble-stacking-leakage-safe-ja.png)
-
-Stacking で特に注意したいのは**データリーク**です。ベースモデルが、自分が学習した同じ行に対して予測すると、その予測は実力以上によく見えることがあります。モデルがすでに「答えを見ている」からです。`StackingClassifier(cv=5)` は交差検証を使って**Out-of-fold 予測**を作ります。各訓練行は、その行を学習していないベースモデルから予測されます。
-
-用語を先に整理しておきましょう。
-
-- **CV** は **cross-validation**、つまり交差検証です。データを複数の fold に分け、ある fold で検証し、残りで学習します。
-- **Out-of-fold 予測** は、その行を学習していないモデルが出した予測です。
-- **メタ学習器** は、ベースモデルの予測を受け取って最終予測を作る組み合わせ役です。
-- **リーク** は、本来見えてはいけない答えや未来情報が訓練に入り、評価が実際より良く見えてしまうことです。
-
-```mermaid
-flowchart TD
-    D["訓練データ"]
-    D --> M1["モデル 1: ランダムフォレスト"]
-    D --> M2["モデル 2: XGBoost"]
-    D --> M3["モデル 3: ロジスティック回帰"]
-    M1 -->|"予測結果"| F["新しい特徴量行列"]
-    M2 -->|"予測結果"| F
-    M3 -->|"予測結果"| F
-    F --> META["メタ学習器<br/>（例: ロジスティック回帰）"]
-    META --> R["最終予測"]
-
-    style F fill:#fff3e0,stroke:#e65100,color:#333
-    style R fill:#e8f5e9,stroke:#2e7d32,color:#333
-```
-
-### sklearn での実装
-
-```python
-from sklearn.ensemble import StackingClassifier, RandomForestClassifier, GradientBoostingClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier, StackingClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-
-# ベースモデル
-estimators = [
-    ('rf', RandomForestClassifier(n_estimators=50, random_state=42)),
-    ('gbdt', GradientBoostingClassifier(n_estimators=50, random_state=42)),
-    ('svm', SVC(probability=True, random_state=42)),
-]
-
-# Stacking
-stack = StackingClassifier(
-    estimators=estimators,
-    final_estimator=LogisticRegression(max_iter=1000),
-    cv=5  # 5 分割交差検証でメタ特徴量を生成
-)
-
-stack.fit(X_train, y_train)
-print(f"Stacking | 学習: {stack.score(X_train, y_train):.1%} | テスト: {stack.score(X_test, y_test):.1%}")
-```
-
-期待される出力：
-
-```text
-Stacking | 学習: 95.0% | テスト: 89.0%
-```
-
-### なぜ Stacking は初心者の最初の一歩ではないのか？
-
-Stacking は強力になりやすい一方で、実験設計の難易度も上がります。
-
-- データリークが起きやすい
-- 交差検証への依存が大きい
-- なぜ効いたのかを説明しにくい
-
-そのため、より安定した学習順は次の通りです。
-
-- まず単一モデルの baseline を学ぶ
-- 次にランダムフォレストと Boosting を学ぶ
-- 最後に Stacking を扱う
-
----
-
-## 七、総合比較の実践
-
-```python
-from sklearn.ensemble import (
-    RandomForestClassifier, AdaBoostClassifier,
-    GradientBoostingClassifier, StackingClassifier
-)
+from sklearn.metrics import accuracy_score, f1_score
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.datasets import load_wine
-from sklearn.model_selection import train_test_split, cross_val_score
-import numpy as np
-import matplotlib.pyplot as plt
 
-# データ
-wine = load_wine()
-X, y = wine.data, wine.target
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+data = load_breast_cancer()
+X_train, X_test, y_train, y_test = train_test_split(
+    data.data,
+    data.target,
+    test_size=0.25,
+    random_state=42,
+    stratify=data.target,
+)
 
-# すべてのモデル
 models = {
-    "決定木": DecisionTreeClassifier(max_depth=5, random_state=42),
-    "ランダムフォレスト": RandomForestClassifier(n_estimators=100, random_state=42),
-    "AdaBoost": AdaBoostClassifier(n_estimators=100, random_state=42),
-    "GBDT": GradientBoostingClassifier(n_estimators=100, random_state=42),
+    "single_tree": DecisionTreeClassifier(max_depth=4, random_state=42),
+    "random_forest": RandomForestClassifier(
+        n_estimators=200,
+        max_depth=6,
+        random_state=42,
+    ),
+    "gradient_boost": GradientBoostingClassifier(
+        n_estimators=120,
+        learning_rate=0.05,
+        max_depth=2,
+        random_state=42,
+    ),
 }
 
-# XGBoost と LightGBM を試しに読み込む
-try:
-    import xgboost as xgb
-    models["XGBoost"] = xgb.XGBClassifier(n_estimators=100, random_state=42,
-                                            eval_metric='mlogloss')
-except ImportError:
-    print("XGBoost は未インストールのため、このモデルはスキップします。")
+models["stacking_cv"] = StackingClassifier(
+    estimators=[
+        ("rf", models["random_forest"]),
+        ("gb", models["gradient_boost"]),
+        ("lr", make_pipeline(
+            StandardScaler(),
+            LogisticRegression(max_iter=2000, random_state=42),
+        )),
+    ],
+    final_estimator=LogisticRegression(max_iter=2000, random_state=42),
+    cv=5,
+)
 
-try:
-    import lightgbm as lgb
-    models["LightGBM"] = lgb.LGBMClassifier(n_estimators=100, random_state=42, verbose=-1)
-except ImportError:
-    print("LightGBM は未インストールのため、このモデルはスキップします。")
-
-# 交差検証で評価
-results = {}
 for name, model in models.items():
-    cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy')
     model.fit(X_train, y_train)
-    test_score = model.score(X_test, y_test)
-    results[name] = {
-        'cv_mean': cv_scores.mean(),
-        'cv_std': cv_scores.std(),
-        'test': test_score
-    }
-    print(f"{name:12s} | CV: {cv_scores.mean():.1%} ± {cv_scores.std():.1%} | テスト: {test_score:.1%}")
+    pred = model.predict(X_test)
+    print(f"{name:<15} accuracy={accuracy_score(y_test, pred):.3f} f1={f1_score(y_test, pred):.3f}")
 
-# 可視化
-fig, ax = plt.subplots(figsize=(10, 5))
-names = list(results.keys())
-cv_means = [v['cv_mean'] for v in results.values()]
-cv_stds = [v['cv_std'] for v in results.values()]
-test_scores = [v['test'] for v in results.values()]
-
-x = np.arange(len(names))
-width = 0.35
-bars1 = ax.bar(x - width/2, cv_means, width, yerr=cv_stds, label='CV 平均', color='steelblue', capsize=3)
-bars2 = ax.bar(x + width/2, test_scores, width, label='テストセット', color='coral')
-
-ax.set_xticks(x)
-ax.set_xticklabels(names, rotation=20, ha='right')
-ax.set_ylabel('正解率')
-ax.set_title('アンサンブル学習手法の比較（Wine データセット）')
-ax.set_ylim(0.8, 1.05)
-ax.legend()
-ax.grid(axis='y', alpha=0.3)
-
-plt.tight_layout()
-plt.show()
+rf = models["random_forest"]
+importances = rf.feature_importances_
+top = importances.argsort()[-3:][::-1]
+print("top_rf_features=")
+for idx in top:
+    print(f"- {data.feature_names[idx]}: {importances[idx]:.3f}")
 ```
 
-任意パッケージを入れていない場合の期待される出力：
+実行します。
+
+```bash
+python ch05_ensemble_lab.py
+```
+
+期待される出力：
 
 ```text
-XGBoost は未インストールのため、このモデルはスキップします。
-LightGBM は未インストールのため、このモデルはスキップします。
-決定木          | CV: 91.5% ± 1.8% | テスト: 94.4%
-ランダムフォレスト | CV: 97.9% ± 2.9% | テスト: 100.0%
-AdaBoost     | CV: 92.2% ± 3.5% | テスト: 94.4%
-GBDT         | CV: 92.2% ± 2.7% | テスト: 94.4%
+single_tree     accuracy=0.944 f1=0.956
+random_forest   accuracy=0.958 f1=0.967
+gradient_boost  accuracy=0.944 f1=0.956
+stacking_cv     accuracy=0.986 f1=0.989
+top_rf_features=
+- worst perimeter: 0.146
+- worst area: 0.140
+- worst concave points: 0.109
 ```
 
-この表は「比較のやり方」として見てください。別のデータセットでは勝者が変わることがあります。大切なのは、同じ検証手順でモデルを比較する習慣です。
+sklearn のバージョンによりスコアが少し変わることがあります。比較表と重要特徴量をプロジェクト証拠として残します。
 
----
+## 結果を読む
 
-## 八、どうやってアルゴリズムを選ぶか？
+単一木は baseline です。Random Forest は多くの異なる木を平均するため、たいてい安定します。
 
-```mermaid
-flowchart TD
-    A["表形式データの分類/回帰"] --> B{"データ量は？"}
-    B -->|"小さい < 1000"| C["ランダムフォレスト / GBDT"]
-    B -->|"中くらい 1000~10万"| D["XGBoost / LightGBM"]
-    B -->|"大きい > 10万"| E["LightGBM（最速）"]
+Boosting は小さなデータセットで常に勝つわけではありません。木の深さ、learning rate、木の本数、検証性能を制御する必要があります。
 
-    D --> F{"高い解釈性が必要？"}
-    F -->|"はい"| G["単独の決定木 / ロジスティック回帰"]
-    F -->|"いいえ"| H["XGBoost / LightGBM"]
+Stacking は異なるモデル群を組み合わせるため、この例では勝つことがあります。ただし、交差検証が必須です。メタモデルが基モデルの学習行に対する予測を直接見ると、情報リークになります。
 
-    E --> I{"カテゴリ特徴量は多い？"}
-    I -->|"多い"| J["CatBoost / LightGBM"]
-    I -->|"少ない"| K["LightGBM / XGBoost"]
+## Bagging：Random Forest
 
-    style A fill:#e3f2fd,stroke:#1565c0,color:#333
-    style H fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style J fill:#e8f5e9,stroke:#2e7d32,color:#333
-    style K fill:#e8f5e9,stroke:#2e7d32,color:#333
+![アンサンブル学習の投票と森の図](/img/course/ensemble-learning-voting-forest-ja.png)
+
+Random Forest はランダム化されたデータ視点で多くの決定木を学習し、その予測を平均または投票します。
+
+最初に見る設定：
+
+| パラメータ | 何を制御するか | 初心者の目安 |
+|---|---|---|
+| `n_estimators` | 木の数 | `100` から `300` |
+| `max_depth` | 木の深さ | 小さく始めて増やす |
+| `min_samples_leaf` | 葉に必要な最小サンプル数 | 過学習時に増やす |
+| `random_state` | 再現性 | 学習中は必ず設定 |
+
+## Boosting：GBDT とツール群
+
+![GBDT 残差補正漫画](/img/course/ch05-ensemble-gbdt-residual-correction-ja.png)
+
+Boosting は順番にモデルを作ります。
+
+```text
+最初の小さな木 -> 誤りを見る -> 次の小さな木が誤りに集中 -> 繰り返す
 ```
 
-:::tip 実用アドバイス
-1. **最初の baseline**: まずロジスティック回帰、単独の木、ランダムフォレストで説明しやすい baseline を作る
-2. **より高い上限**: 検証分割が安定してから XGBoost や LightGBM を試す
-3. **調整の順番**: `n_estimators` → `learning_rate` → `max_depth` → 正則化パラメータ
-4. **早期停止**: 検証セットがあるなら Boosting では早期停止を使う
-5. **コンペで上を狙う**: 単独モデルの実験が安定してから Stacking を考える
-:::
+sklearn では、まず `GradientBoostingClassifier` または `HistGradientBoostingClassifier` から始めます。実際の表形式プロジェクトでは XGBoost、LightGBM、CatBoost もよく使いますが、sklearn baseline が見える前に外部ライブラリへ飛ばないでください。
 
----
+![Boosting ツール選択漫画](/img/course/ch05-ensemble-boosting-toolkit-ja.png)
 
-## 九、最初にアンサンブル学習をプロジェクトへ入れるときの、安定した順番
+Boosting の最初の調整順：
 
-最初にアンサンブル学習をプロジェクトへ入れるときは、次の順番が安定です。
+| 手順 | 変えるもの | 理由 |
+|---|---|---|
+| 1 | `learning_rate` と `n_estimators` | 歩幅と学習ラウンド数を制御 |
+| 2 | `max_depth` / leaf 設定 | 複雑さを制御 |
+| 3 | 検証または early stopping | 過学習を止める |
+| 4 | 特徴量前処理 | 信号品質を上げる |
 
-1. まず線形モデルか単独の決定木で baseline を作る
-2. 単独の木が不安定なら、まずランダムフォレストを試す
-3. 評価の枠組みがある程度固まってきたら、GBDT / XGBoost を試す
-4. 最後に、より細かいパラメータ調整やモデル融合を考える
+## Stacking を安全に使う
 
-この進め方の方が、実際のプロジェクトに近く、最初から複雑なチューニングに入り込みにくいです。
+![リークを避ける Stacking ワークフロー漫画](/img/course/ch05-ensemble-stacking-leakage-safe-ja.png)
 
-:::info 次につながる内容
-- **第 3 章**：教師なし学習——クラスタリング、次元削減、異常検知
-- **第 4 章**：モデル評価——交差検証、バイアス・バリアンストレードオフ、ハイパーパラメータ調整
-:::
+Stacking が信頼できるのは、メタモデルが out-of-fold 予測を見る場合です。
 
----
+```text
+CV fold 内で基モデルを学習 -> out-of-fold 予測を集める -> メタモデルを学習 -> holdout test で評価
+```
 
-## まとめ
+手作業で学習行の予測をそのままメタモデルに渡すのではなく、sklearn の `StackingClassifier(cv=5)` を優先します。
 
-| 方法 | 考え方 | 代表例 | 特徴 |
-|------|------|------|------|
-| **Bagging** | 並列 + 投票 | ランダムフォレスト | 分散を減らし、過学習しにくい |
-| **Boosting** | 逐次 + 誤り修正 | XGBoost、LightGBM | バイアスを減らし、性能が高いことが多い |
-| **Stacking** | モデルの積み重ね | 複数の組み合わせ | 異なるモデルの強みを活かせる |
+## モデルをどう選ぶか
 
-## この節で一番持ち帰ってほしいこと
+| 状況 | まず使う |
+|---|---|
+| 強く安定した baseline がほしい | Random Forest |
+| 表形式データに非線形が多い | Gradient Boosting / XGBoost / LightGBM |
+| カテゴリ特徴量が多い | baseline 後に CatBoost |
+| 複数のモデル群が補完し合う | 交差検証つき Stacking |
+| 説明しやすさを優先 | 浅い木または Random Forest の特徴量重要度 |
 
-ひとことで言うなら、ぜひ次を覚えてください。
+## よくある失敗
 
-> **アンサンブル学習の本質は「モデルを増やすこと」ではなく、いろいろなやり方で不完全な木を組み合わせ、より安定またはより強いシステムにすることです。**
+| 症状 | 最初に確認 | よくある修正 |
+|---|---|---|
+| アンサンブルが単一木とあまり変わらない | 特徴量が弱い、分割が不安定 | 特徴量追加、交差検証 |
+| 学習は良いがテストが悪い | 過学習 | 深さを下げ、leaf を増やし、検証を入れる |
+| Boosting が木を増やすほど悪化 | ラウンド数が多すぎる | learning rate を下げる、early stopping |
+| Stacking が異常に完璧 | 情報リーク | out-of-fold 予測または `StackingClassifier(cv=...)` |
+| 特徴量重要度を読みすぎる | 特徴量が相関している | permutation importance や ablation で確認 |
 
-だから本当に大切なのは次の点です。
+## 練習
 
-- Bagging と Boosting を区別できること
-- ランダムフォレストがなぜ安定するか分かること
-- GBDT / XGBoost がなぜ強いか分かること
-- 最初の表形式データプロジェクトで、どう選ぶか分かること
+1. Random Forest の `max_depth` を `6` から `3` と `None` に変える。
+2. Gradient Boosting の `learning_rate` を `0.05` から `0.2` に変える。
+3. Stacking が交差検証なしだとなぜリークするか説明する。
+4. モデル比較表を保存し、最初に本番へ出すモデルを一段落で説明する。
 
-## 手を動かしてみよう
+## 通過チェック
 
-### 練習 1：ランダムフォレストのチューニング
+次を説明できれば先へ進めます。
 
-`make_moons` データを使って、`n_estimators`（10, 50, 100, 200, 500）と `max_depth`（3, 5, 10, None）をいろいろ試し、最適な組み合わせを見つけましょう。ヒートマップを描いてください。
-
-### 練習 2：XGBoost の早期停止
-
-Wine データセットで XGBoost を学習し、`n_estimators=1000`、`early_stopping_rounds=10` を設定して、最良の反復回数を確認しましょう。`learning_rate` を変えて、最良の反復回数がどう変わるかも試してください。
-
-### 練習 3：総合比較
-
-Iris データセットを使って、この節で紹介したすべてのアルゴリズム（決定木、ランダムフォレスト、AdaBoost、GBDT、XGBoost、LightGBM）を比較しましょう。5 分割交差検証で評価し、比較の棒グラフを描いてください。
-
-### 練習 4：Stacking の実験
-
-Stacking モデルを作成し、ベースモデルにランダムフォレスト + XGBoost + KNN、メタ学習器にロジスティック回帰を使いましょう。各ベースモデルを単独で使った場合と比較してください。
+- Bagging と Boosting の違い。
+- Random Forest が単一木より安定しやすい理由。
+- Boosting に検証制御が必要な理由。
+- Stacking に交差検証が必須な理由。
+- leaderboard 最高スコアが、常に本番最適とは限らない理由。
