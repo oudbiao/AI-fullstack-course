@@ -1,11 +1,11 @@
 ---
-title: "Study Guide: How to Learn Machine Learning Without Getting Lost"
+title: "Study Guide and Task Sheet: How to Learn Machine Learning Without Getting Lost"
 sidebar_position: 1
 description: "A machine learning study guide for AI full-stack beginners: task definition, baseline, metrics, feature engineering, project roadmap, and acceptance criteria."
 keywords: [machine learning study guide, how to learn sklearn, machine learning project, baseline, feature engineering]
 ---
 
-# Study Guide: How to Learn Machine Learning Without Getting Lost
+# Study Guide and Task Sheet: How to Learn Machine Learning Without Getting Lost
 
 ![Machine learning study loop diagram](/img/course/ml-study-loop-en.png)
 
@@ -16,6 +16,21 @@ If you reach `Chapter 5: Introduction to Machine Learning and Practical Applicat
 In machine learning, you need to follow one main project line: translate the problem into a task, prepare the data, build a baseline, evaluate with metrics, and then improve the results through features and models.
 
 ![Machine learning study guide project loop](/img/course/ch05-study-guide-project-loop-en.png)
+
+## Tasks You Must Complete in This Stage
+
+![Machine Learning Completion Checklist Diagram](/img/course/ml-task-checklist-en.png)
+
+Use this checklist to keep the stage practical. A machine learning project is complete only when you can rerun it and explain the model's failures, not just when you get a score.
+
+| Task | Deliverable | Passing Criteria |
+|---|---|---|
+| Build ML problem awareness | A problem definition note | Can distinguish classification, regression, clustering, and anomaly detection |
+| Run an sklearn baseline end to end | A minimal training script | Can complete train/test split, fit, predict, and score |
+| Complete the guided evidence workshop | A generated `ml_workshop_run/` evidence pack | Can rerun the script and explain `model_comparison.csv`, `threshold_review.csv`, `error_samples.csv`, and `leakage_check.md` |
+| Complete feature engineering | A feature processing log | Can explain missing values, categorical variables, standardization, and leakage risks |
+| Complete model evaluation | A metric comparison table | Can explain the use cases of accuracy, recall, F1, AUC, or RMSE |
+| Complete one stage project | A reproducible experiment project | Includes README, data description, metrics, failure cases, and improvement plan |
 
 ## Recommended Learning Order
 
@@ -79,8 +94,28 @@ The second sticking point is metric confusion. Classification, regression, and c
 
 The third sticking point is data leakage. Standardization, encoding, and feature selection all require attention to the boundary between the training set and the test set.
 
-## Passing Criteria
+## Stage Portfolio Deliverables
+
+If you want this stage to become a portfolio item, keep at least these files or equivalent evidence.
+
+| Deliverable | Description |
+|---|---|
+| `train.py` or Notebook | A reproducible baseline training flow, including data splitting, training, and evaluation |
+| `feature_report.md` | Feature meanings, missing-value handling, encoding, standardization, and leakage risk checks |
+| `metrics.md` | Records accuracy, F1, AUC, RMSE, or other task-appropriate metrics with the reasons for choosing them |
+| `error_analysis.md` | Saves incorrectly predicted samples and analyzes issues in the data, features, model, or metrics |
+| `README.md` | Problem definition, run commands, model results, limitations, and next-step plan |
+
+## Stage Completion Questions
 
 After finishing this stage, you should be able to complete a machine learning project independently: define the task, process the data, train a baseline, choose metrics, improve the model, and explain the results.
 
-If you can organize a tabular data project into a report and explain what the model does well, what it does poorly, and how to improve it next, you are ready to move on to the deep learning stage.
+Before moving to Chapter 6, check that you can answer these questions:
+
+- Why do we split the training set and test set?
+- What is data leakage, and how does `Pipeline` reduce the risk?
+- When is accuracy unreliable?
+- Why is a simple baseline the starting point of an ML project?
+- What does the model do well, what does it do poorly, and what would you improve next?
+
+If you can organize a tabular data project into a report and answer these questions, you are ready to move on to the deep learning stage.

@@ -238,7 +238,6 @@ const sidebars = {
           link: { type: "doc", id: "ch05-machine-learning/index" },
           items: [
             "ch05-machine-learning/study-guide",
-            "ch05-machine-learning/task-list",
             {
               type: "category",
               label: "5.1 Core Machine Learning Concepts",
