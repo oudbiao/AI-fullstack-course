@@ -1,88 +1,67 @@
 ---
-title: "10.4.1 学習ガイド：画像分割この章で何を学ぶのか"
+title: "10.4.1 Segmentation ロードマップ：Pixel-Level Regions"
 sidebar_position: 0
-description: "まず画像分割の学習マップを作りましょう。セマンティック分割、インスタンス分割、そして実践演習が、ピクセルレベルの理解へどう広がるのかを整理します。"
-keywords: [画像分割の導入, セマンティック分割, インスタンス分割, mask]
+description: "Image segmentation の短い実践ロードマップ：masks、semantic segmentation、instance segmentation、IoU、boundary failures を理解する。"
+keywords: [image segmentation guide, semantic segmentation, instance segmentation, mask]
 ---
 
-# 10.4.1 学習ガイド：画像分割この章で何を学ぶのか
+# 10.4.1 Segmentation ロードマップ：Pixel-Level Regions
 
-この章で扱うのは、次のことです：
+Segmentation は detection より細かいです。box ではなく mask を出力し、どの pixels が class または instance に属するかを示します。
 
-> **ただ枠を出すのではなく、もっと細かい領域の理解を与えること。**
+## 10.4.1.1 まず mask workflow を見る
 
-## まずつながりを整理しよう
+![Image segmentation 章の学習順序図](/img/course/ch10-segmentation-chapter-flow-ja.png)
 
-もし分類と検出をすでに学んでいるなら、この章で最初にしっかり見ておきたいのは次の点です。
+![Semantic segmentation mask example](/img/course/semantic-segmentation-mask-ja.png)
 
-- 分類は画像全体に 1 つのラベルを与える
-- 検出は対象に 1 つの枠を与える
-- 分割はピクセル単位の領域の答えを与え始める
+![Semantic segmentation IoU and boundary map](/img/course/ch10-semantic-segmentation-iou-boundary-map-ja.png)
 
-つまり、分割で本当に新しく増える核心は、「もっと複雑なモデル」ではなく、次の点です。
+この章の中心 object は mask です。よくある failure は boundary quality、small objects、occlusion、class confusion です。
 
-- 出力の粒度が細かくなる
-- 評価も細かくなる
-- 境界の理解がより重要になる
+## 10.4.1.2 Mask IoU check を動かす
 
-## この章の主な流れ
+この script は 2 つの小さな binary masks を比較します。
 
-![画像分割章の学習順序図](/img/course/ch10-segmentation-chapter-flow-ja.png)
+```python
+truth = [
+    [1, 1, 0],
+    [1, 0, 0],
+    [0, 0, 0],
+]
 
-この章は、初心者が次の違いを整理するのに特に役立ちます。
+pred = [
+    [1, 0, 0],
+    [1, 1, 0],
+    [0, 0, 0],
+]
 
-- 画像全体の分類
-- 枠レベルの検出
-- ピクセルレベルの分割
+intersection = 0
+union = 0
+for y in range(3):
+    for x in range(3):
+        intersection += truth[y][x] == 1 and pred[y][x] == 1
+        union += truth[y][x] == 1 or pred[y][x] == 1
 
-この3つのビジュアルタスクが、実際にはどこが違うのかを理解しましょう。
+print("mask_iou:", round(intersection / union, 3))
+```
 
-## この章は、こんな順番で学ぶと理解しやすい
+出力：
 
-1. まずセマンティック分割を見る  
-   「すべてのピクセルをクラス判定する」ということを理解します。
+```text
+mask_iou: 0.5
+```
 
-2. 次にインスタンス分割を見る  
-   この段階で、「同じクラスでも、別の個体をなぜ分けるのか」が分かりやすくなります。
+Segmentation report では mask、metrics、boundary errors を示します。colored overlay だけで終わらせないでください。
 
-3. 最後に分割の実践に進む  
-   mask、損失、IoU、そして失敗例の分析をつなげて学びます。
+## 10.4.1.3 この順番で学ぶ
 
-## この章で最初に押さえるべきこと
-
-- 分割は検出より細かく、ピクセル単位で出力する
-- mask はこの章で最も重要な対象
-- この章で、初めて本格的に「領域の理解」に入る
-
-## 初心者と上級学習者はどう読むか
-
-初心者がこの章を初めて学ぶときは、まず主な流れと、最小で動く例をつかみましょう。すべての細かい部分を一度に理解する必要はありません。この章が何を解決するのか、入力と出力は何か、最小プロジェクトをどう動かすのかを説明できれば、先へ進めます。
-
-経験のある学習者は、この章を「抜け漏れの確認」と「実装練習」の場として使えます。境界条件、失敗例、評価方法、コードの再現性、そして前後の学習段階とのつながりに注目しましょう。読み終えたら、この章の内容を自分の作品の README や実験記録にまとめておくとよいです。
-
-## 学習時間と難易度の目安
-
-| 学び方 | 目安時間 | 目標 |
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| ざっと読む | 20～30 分 | この章が何を解決するのかを理解し、後でどこで使うかを知る |
-| 最小到達 | 1～2 時間 | 最小例を動かし、この章の小さな出口課題を終える |
-| しっかり練習 | 半日～1 日 | エラー分析、比較実験、または README 記録を補足する |
+| 1 | Semantic segmentation | すべての pixel に 1 つの class を予測する |
+| 2 | Instance segmentation | 同じ class の別 object を分ける |
+| 3 | Segmentation practice | masks、IoU/Dice、boundary errors、failed samples を比較する |
 
-## この章の自己チェック問題
+## 10.4.1.4 合格ライン
 
-| 自己チェック問題 | 合格基準 |
-|---|---|
-| この章は何を解決するのか？ | この講座全体の中での位置を 1 文で説明できる |
-| 最小の入力と出力は何か？ | 例に何が必要で、どんな結果が出るか説明できる |
-| よくある失敗点はどこか？ | エラー、精度の悪さ、理解のズレの原因を少なくとも 1 つ挙げられる |
-| 学んだあと、何を残せるか？ | この章の成果をプロジェクトの README、実験記録、または作品集に書ける |
-
-## この章の小プロジェクトの出口
-
-この章を学び終えたら、最小の練習を 1 つ完成させるのがおすすめです。この章で最も重要な概念またはツールを 1 つ選び、動かせて、スクリーンショットを残せて、README に書ける小さな成果物を作りましょう。複雑である必要はありませんが、入力は何か、処理はどうなっているか、出力結果は何かを説明できることが大切です。
-
-## 合格基準
-
-この章の終わりには、自分の言葉で「この章は何を解決するのか」「前後の学習ステップとどうつながるのか」を説明でき、さらにこの章の小プロジェクト出口の最小版を完成できるようになっているはずです。
-
-もし、よくあるエラーを 1 回、デバッグの流れを 1 回、または結果の改善を 1 回記録できたなら、あなたはもう単に「内容を見ただけ」ではなく、この章を自分のプロジェクト経験に変えられています。
+mask を作成または inspect し、簡単な overlap metric を計算し、boundary または class-confusion failure を説明できれば、この章は合格です。

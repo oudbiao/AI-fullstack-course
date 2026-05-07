@@ -1,84 +1,55 @@
 ---
-title: "10.2.1 学習ガイド：画像分類のこの章では何を学ぶのか"
+title: "10.2.1 Image Classification ロードマップ：Image In、Label Out"
 sidebar_position: 0
-description: "まず画像分類の学習地図を作ろう。データ拡張、現代的なアーキテクチャ、学習テクニックがどう一緒に分類モデルの性能を決めるのかを整理する。"
-keywords: [画像分類の導入, データ拡張, ResNet, 学習テクニック]
+description: "Image classification の短い実践ロードマップ：augmentation、architecture、training checks、whole-image labels の failure analysis を学ぶ。"
+keywords: [image classification guide, data augmentation, ResNet, training techniques]
 ---
 
-# 10.2.1 学習ガイド：画像分類のこの章では何を学ぶのか
+# 10.2.1 Image Classification ロードマップ：Image In、Label Out
 
-画像分類のこの章が扱うのは、次のことです。
+Image classification は 1 つの問いに答えます：画像全体を見て、最も適切な class は何か。
 
-> **1枚の画像全体を見て、その中で最も重要なカテゴリだけを出力する。**
+## 10.2.1.1 まず classification loop を見る
 
-## まずは橋渡しの線を作ろう
+![Image classification 章の学習フローチャート](/img/course/ch10-classification-chapter-flow-ja.png)
 
-もしあなたが 6 深層学習と Transformer 基礎 の CNN の内容から来ているなら、この章でまず確認したい一番大事なことは次です。
+![Image classification architecture evolution map](/img/course/ch10-classification-architecture-evolution-map-ja.png)
 
-- 前の章では、畳み込みネットワークがなぜ画像を見られるのかを学んだ
-- この章では、それがどうやって「画像全体の判定」という、いちばん基本の視覚タスクをこなすのかを学ぶ
+![Classification training diagnosis map](/img/course/ch10-classification-training-diagnosis-map-ja.png)
 
-つまり、画像分類のこの章は、ビジョンの本筋の中で最初にしっかり押さえるべき重要な入口です。  
-ここではまず、次のことを身につけます。
+Classification は最も単純な vision output ですが、data split、augmentation、architecture、loss、metrics、error examples に依存します。
 
-- 入力は1枚の画像全体であること
-- 出力は1つのカテゴリであること
-- モデルが画像全体から何を学んでいるのか
+## 10.2.1.2 Prediction check を動かす
 
-## この章の中心の流れ
+この script は classifier の最後の step を再現します：score が最も高い label を選びます。
 
-![画像分類章の学習順序図](/img/course/ch10-classification-chapter-flow-ja.png)
+```python
+labels = ["cat", "dog", "panda"]
+scores = [0.12, 0.74, 0.14]
 
-この章は、ビジュアルモデルが「1枚の画像から安定した特徴をどう学ぶのか」を、初心者が初めてちゃんとつかむのにとても向いています。
+best_index = max(range(len(scores)), key=lambda index: scores[index])
 
-## この章で初心者におすすめの学習順序
+print("prediction:", labels[best_index])
+print("confidence:", scores[best_index])
+```
 
-1. 先にデータ拡張を見る  
-   まず、なぜビジョンタスクでは「データがどんな見た目か」が汎化性能に直接影響するのかを理解します。
+出力：
 
-2. 次に現代的な分類アーキテクチャを見る  
-   分類ネットワークが畳み込みブロックをどう積み上げて作られているのかを整理します。
+```text
+prediction: dog
+confidence: 0.74
+```
 
-3. 最後に学習テクニックを見る  
-   ここまで来ると、どのテクニックが分類モデルの学習安定化や汎化改善を助けているのかが分かりやすくなります。
+実プロジェクトでは top class だけを見せないでください。confidence、wrong examples、confusion patterns を残します。
 
-## この章でまずつかむべきこと
+## 10.2.1.3 この順番で学ぶ
 
-- 画像分類は、ビジョンタスクの中で最も基本的な「画像全体の判定」
-- 拡張、アーキテクチャ、学習戦略は一緒に最終結果を決める
-- この章は、後の検出やセグメンテーションの共通の出発点になる
-
-## 初心者と応用学習者はどう読むか
-
-初心者がこの章を初めて学ぶときは、まず全体の流れと最小の動く例をつかみましょう。すべての細部を一度に理解する必要はありません。  
-この章が何を解決するのか、入力と出力は何か、最小プロジェクトをどう動かすのかを説明できれば、次へ進んで大丈夫です。
-
-経験のある学習者は、この章を「抜け漏れの確認」と「実装の練習」として使えます。境界条件、失敗例、評価方法、コードの再現性、そして前後の段階とのつながりに注目しましょう。読み終わったら、この章の内容を自分の作品 README や実験記録にまとめておくとよいです。
-
-## 学習時間と難易度の目安
-
-| 学習方法 | 目安時間 | 目標 |
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| ざっと読む | 20～30 分 | この章が何を解決するのかを理解し、後でどこで使うかを把握する |
-| 最小クリア | 1～2 時間 | 最小例を動かし、この章のミニプロジェクトの出口を完成させる |
-| じっくり練習 | 半日～1 日 | エラー分析、比較実験、またはプロジェクト README の記録を補う |
+| 1 | Data augmentation | class を保つ変化と risk を生む変化を説明する |
+| 2 | Modern architectures | feature extractor、classifier head、pretrained backbone を比較する |
+| 3 | Training techniques | split、loss、accuracy、overfitting、error samples を追跡する |
 
-## この章の自己チェック問題
+## 10.2.1.4 合格ライン
 
-| 自己チェック問題 | 合格基準 |
-|---|---|
-| この章は何を解決するのか？ | このコース全体の中での位置を1文で説明できる |
-| 最小の入力と出力は何か？ | 例に何が必要で、どんな結果が出るかを説明できる |
-| よくある失敗点はどこか？ | エラー、性能の悪さ、理解のずれの原因を少なくとも1つ挙げられる |
-| 学んだ後に何を残せるか？ | この章の成果をプロジェクト README、実験記録、または作品集に書ける |
-
-## この章のミニプロジェクト出口
-
-この章を学び終えたら、最小の練習を1つ完成させるのがおすすめです。つまり、この章でいちばん大事な概念やツールを1つ選び、動かせて、スクリーンショットを残せて、README に書ける小さな成果物を作りましょう。  
-複雑である必要はありません。ただし、入力が何か、処理の流れが何か、出力結果が何かを説明できることが大切です。
-
-## 合格基準
-
-この章の終わりには、あなた自身の言葉で「この章は何を解決するのか」「前後の学習ステップとどうつながるのか」を説明でき、さらにこの章のミニプロジェクト出口の最小版を完成させられるはずです。
-
-もし、よくあるエラーを1回、デバッグの過程を1回、または結果改善の記録を1回残せるなら、あなたはもう単に「内容を見ただけ」ではなく、この章を自分のプロジェクト経験に変え始めているということです。
+minimal classifier を動かし、train/validation metrics を示し、少なくとも 1 枚の failure image を説明できれば、この章は合格です。

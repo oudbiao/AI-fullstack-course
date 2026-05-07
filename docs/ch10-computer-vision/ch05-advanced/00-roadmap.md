@@ -1,55 +1,70 @@
 ---
-title: "10.5.1 Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?"
+title: "10.5.1 Advanced Vision Roadmap: OCR, Face, Video, 3D"
 sidebar_position: 0
-description: "First build a learning map for the Advanced Vision chapter: why face recognition, video, OCR, and 3D vision can all be seen as specialized extensions of the main vision line."
+description: "A concise hands-on roadmap for advanced vision directions: choose OCR, face, video, or 3D based on input, output, risk, and project goals."
 keywords: [Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Vision]
 ---
 
-# 10.5.1 Pre-Study Guide: What Exactly Will We Learn in the Advanced Vision Chapter?
+# 10.5.1 Advanced Vision Roadmap: OCR, Face, Video, 3D
 
-## What This Chapter Is About
+Advanced vision is not a list of model names. It is a set of application directions built on the same visual foundation: more complex inputs, outputs, constraints, and risks.
 
-This chapter is not a new required core track. Instead, it expands computer vision from "image classification, detection, and segmentation" into several directions that are closer to real-world applications: face, video, OCR, and 3D vision. They may look very different, but they are all answering the same question: when the input is no longer just a clean image, how can a vision system understand more complex scenes?
-
-If this is your first time learning CV, you do not need to go deep into every direction in this chapter. A more reasonable approach is to first build a map, understand what problem each direction solves, what its inputs and outputs are, and how the smallest project runs; then choose one to explore deeply based on your portfolio goals.
-
-## Where This Chapter Fits in the CV Roadmap
+## 10.5.1.1 See the Direction Map First
 
 ![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-en.png)
 
-The previous chapters are more like the basic capabilities of vision models: recognizing image categories, finding object locations, and separating pixel regions. This chapter is more like choosing application directions: OCR is for documents and receipts, face is for identity and interaction, video is for time series, and 3D vision is for spatial structure.
+![OCR layout reading order map](/img/course/ch10-ocr-layout-reading-order-map-en.png)
 
-## What Problems the Four Directions Solve
+![Video frame tracking temporal window map](/img/course/ch10-video-frame-tracking-temporal-window-map-en.png)
 
-| Direction | Input | Output | Good Project Ideas |
-|---|---|---|---|
-| Face detection and recognition | Images, camera frames | Face boxes, identity, keypoints | Access control demo, face check-in, expression analysis prototype |
-| Video analysis | Video streams, consecutive frames | Actions, events, trajectories | Security detection, sports analysis, classroom behavior analysis |
-| OCR | Images, screenshots, scanned documents | Text, layout structure, fields | Receipt recognition, slide text extraction, document digitization |
-| 3D vision | Stereo images, point clouds, depth maps | Spatial structure, position, shape | Robotics perception, AR, introductory 3D reconstruction |
+OCR fits documents, face recognition fits identity-sensitive scenarios, video fits time and motion, and 3D vision fits spatial structure.
 
-The key point of this table is not to make you master all four directions at once, but to help you judge: is your project more like image understanding, document understanding, video understanding, or spatial understanding?
+## 10.5.1.2 Run a Direction Choice Check
 
-## Recommended Learning Order
+Pick one direction instead of trying all four shallowly.
 
-For your first pass, it is recommended to follow the order from "easiest to get running" to "hardest to productionize": OCR first, then face, then video, and finally 3D vision. OCR is very easy to connect with the later RAG and multimodal courseware assistant; face and video are more likely to involve privacy, real-time performance, and scenario boundaries; 3D vision spans a wider conceptual range and is better for deeper study when you have a clear interest.
+```python
+requirement = {
+    "input": "screenshot",
+    "needs_text": True,
+    "needs_identity": False,
+    "needs_time": False,
+    "needs_depth": False,
+}
 
-## Connection to Later Multimodal Courses
+if requirement["needs_text"]:
+    direction = "OCR"
+elif requirement["needs_identity"]:
+    direction = "Face"
+elif requirement["needs_time"]:
+    direction = "Video"
+elif requirement["needs_depth"]:
+    direction = "3D"
+else:
+    direction = "Classification or detection"
 
-This chapter will lay the foundation for later multimodal applications. For example, OCR can help a multimodal assistant understand screenshots and courseware; video analysis connects to video generation, video understanding, and digital humans; the face direction leads to privacy, compliance, and bias issues; 3D vision connects to robotics, AR, and spatial intelligence.
+print("direction:", direction)
+print("first_output:", "text with layout")
+```
 
-So when studying this chapter, do not just ask "What is the model called?" Ask instead: where does the data for this direction come from, how do we validate the output, what impact will errors have, and can it be integrated into a complete workflow?
+Expected output:
 
-## Small Project Exit for This Chapter
+```text
+direction: OCR
+first_output: text with layout
+```
 
-It is recommended to choose one minimum viable project instead of trying all four directions superficially. The basic version can be a "courseware screenshot OCR extractor": input a course screenshot and output the recognized text and cleaned Markdown. The standard version can add layout regions, confidence scores, and error sample logging. The challenge version can connect the OCR results to RAG, allowing the learning assistant to answer questions based on screenshot content.
+For face, surveillance, medical, or identity projects, write privacy and usage boundaries before showing results.
 
-If you prefer vision projects, you can also choose a "video event detection mini experiment" or a "face keypoint visualization" project. No matter which one you choose, the README should clearly explain the input, output, model or tool, failure cases, privacy, and usage boundaries.
+## 10.5.1.3 Learn in This Order
 
-## Common Misconceptions
+| Step | Direction | Practice Output |
+|---|---|---|
+| 1 | OCR | Extract text, layout, fields, confidence, failure samples |
+| 2 | Face | Detect faces, explain threshold, privacy, and bias risks |
+| 3 | Video | Track events across frames and record temporal failures |
+| 4 | 3D vision | Explain depth, point cloud, geometry, and sensor assumptions |
 
-The first misconception is treating advanced vision as a "collection of model names." In real projects, data quality, scenario constraints, evaluation methods, and the cost of errors matter more. The second misconception is ignoring privacy and compliance, especially in face, surveillance, and identity recognition projects. The third misconception is showing only successful screenshots and not recording failure samples; in fact, the most valuable experience in vision systems often comes from failures under poor lighting, occlusion, blur, angle changes, and complex layouts.
+## 10.5.1.4 Pass Check
 
-## Passing Criteria
-
-After finishing this chapter, you should be able to explain what OCR, face, video, and 3D vision each solve, judge which direction a vision requirement belongs to, complete a minimum directional project, and clearly describe the input and output, evaluation method, failure cases, and usage boundaries in the README.
+You pass this chapter when you choose one direction, define input/output, run a minimum project, and document failure cases plus usage boundaries.

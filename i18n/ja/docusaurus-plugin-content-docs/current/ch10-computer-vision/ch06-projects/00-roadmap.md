@@ -1,123 +1,75 @@
 ---
-title: "10.6.1 学習ガイド：総合プロジェクトこの章はどう学ぶべきか"
+title: "10.6.1 Project ロードマップ：Vision Evidence Pack を作る"
 sidebar_position: 0
-description: "まずはコンピュータビジョンのプロジェクト章の学習地図を作ろう：画像分類、物体検出、画像セグメンテーション、業界シナリオを、データ・アノテーション・学習・評価・展示の流れで作品集の形にまとめる。"
-keywords: [CVプロジェクトガイド, 防犯検知, 医用画像, 画像分類プロジェクト, 物体検出プロジェクト]
+description: "Computer vision projects の短い実践ロードマップ：data、annotation、model output、metrics、failure cases、presentation を接続する。"
+keywords: [CV project guide, security inspection, medical imaging, image classification project, object detection project]
 ---
 
-# 10.6.1 学習ガイド：総合プロジェクトこの章はどう学ぶべきか
+# 10.6.1 Project ロードマップ：Vision Evidence Pack を作る
 
-この章は、さらにモデルを積み重ねる章ではありません。これまでに学んだ視覚タスクを、実際のアプリケーションシーンにきちんと組み込む章です。
+Computer vision project は「model を使った」だけではありません。data、annotation、model output、metrics、failure cases、presentation の loop です。
 
-コンピュータビジョンのプロジェクトで大事なのは、「どのモデルを使ったか」ではなく、入力画像は何か、アノテーションの基準は何か、モデルの出力は何か、評価指標は何か、どこで失敗しているか、結果をどう実際の利用者に見せるか、です。
+## 10.6.1.1 まず project loop を見る
 
-## この章がコース全体の中で占める位置
+![Vision tasks の output granularity progression map](/img/course/ch10-visual-task-progression-map-ja.png)
 
-第 10 章のコンピュータビジョン（選択分野）の前半では、視覚の基礎、画像分類、物体検出、画像セグメンテーション、そして高度な視覚分野を学びました。総合プロジェクトはこの分野の出口であり、これらのタスクを、例えば防犯検知、工業品質検査、医用画像、文書 OCR、商品認識といった実際の場面に入れていくことが目的です。
+![Vision projects の closed-loop delivery diagram](/img/course/ch10-projects-delivery-loop-ja.png)
 
-コース全体の流れで見ると、視覚プロジェクトは後のマルチモーダルと AIGC の土台にもなります。なぜなら、マルチモーダルシステムの画像理解能力も、分類、検出、セグメンテーション、OCR、エラー分析、そしてデータ品質への意識に支えられているからです。
+![Computer vision evidence pack diagram](/img/course/ch10-vision-evidence-pack-ja.svg)
 
-## この章で本当に解決したい問題
+最速で complete loop を作るなら classification から始めます。boxes が必要なら detection、masks が必要なら segmentation、OCR/video/3D は specialized scenarios に使います。
 
-この章では、次の 5 つの問いに答えます。シーンの要求をどう視覚タスクに変えるか。画像データをどう収集し、どうアノテーションするか。分類、検出、セグメンテーションのどれを選ぶか。accuracy、F1、mAP、IoU、Dice などの指標でどう評価するか。モデルの成功例、失敗例、業務上のリスクをどう見せるか。
+## 10.6.1.2 Project readiness check を動かす
 
-初心者が最もやりがちな失敗は、モデルのアーキテクチャばかり追って、データとアノテーションを見ないことです。視覚プロジェクトでは、データ品質、クラス定義、アノテーションの一貫性、光の当たり方、遮蔽の有無、サンプル分布のほうが、モデルを変えることより最終結果に強く影響することがよくあります。
+presentable project と呼ぶ前に、このチェックを使います。
 
-## 新人におすすめの学習順序
+```python
+project = {
+    "task": "helmet detection",
+    "has_data_note": True,
+    "has_metric": True,
+    "has_failure_case": True,
+    "has_annotation_rule": True,
+}
 
-まずは画像分類プロジェクトから始めるのがおすすめです。データ準備、学習、評価、結果の見せ方まで、最も通しやすいからです。次に物体検出プロジェクトで、ボックスのアノテーション、IoU、mAP、誤検知・見逃しの分析を練習します。最後に興味に応じて、画像セグメンテーション、OCR、工業検査、医用画像のプロジェクトに進み、ピクセル単位の出力や高リスク場面での評価要件をさらに理解します。
+ready = all(project[key] for key in ["has_data_note", "has_metric", "has_failure_case", "has_annotation_rule"])
 
-![視覚タスクの出力粒度の進化図](/img/course/ch10-visual-task-progression-map-ja.png)
+print("task:", project["task"])
+print("presentable:", ready)
+```
 
-## この章を学ぶときに押さえるべき主線
+出力：
 
-この章の主線は、次のようにまとめられます。視覚プロジェクトは「データアノテーション + モデル学習 + 指標評価 + 失敗例の提示」という閉ループです。
+```text
+task: helmet detection
+presentable: True
+```
 
-![視覚プロジェクト納品の閉ループ図](/img/course/ch10-projects-delivery-loop-ja.png)
+annotation rule や failure case がない project は、まだ demo であり portfolio project ではありません。
 
-この流れが分かると、視覚プロジェクトの発表では予測画像を 1 枚出すだけでは足りないと分かります。データ例、アノテーションルール、指標、混同行列や検出結果の可視化、失敗例、改善方向まで示す必要があります。
+## 10.6.1.3 この順番で学ぶ
 
-## 2 つのプロジェクトでそれぞれ何を練習するか
-
-| プロジェクト | 本当に練習すること |
-|---|---|
-| 防犯検知 | 検出モデルをアラート場面に置いて、誤報と見逃しを考える |
-| 医用画像 | セグメンテーション / 分類結果を高リスク場面に置いて、評価と責任範囲を考える |
-
-## この章と後続フェーズの関係
-
-視覚プロジェクトは、そのままマルチモーダル段階につながります。画像と文章の質問応答、スクリーンショット理解、文書解析、AIGC の制作では、画像入力、視覚出力、結果の可視化、失敗の境界を理解していることが必要です。
-
-この章がしっかり身についていないと、後でよくある問題は、マルチモーダルモデルは画像を読めるように見えても、どこで間違ったのか分からない、AIGC の画像結果に審査基準がない、視覚プロジェクトで成功例しか見せず、誤報・見逃しの意味が分からない、というものです。
-
-## 新人と上級学習者はどう読むか
-
-初心者がこの章を初めて読むときは、まず主線と最小実行例をつかんでください。すべての細部を一度に理解する必要はありません。この章が何を解決するのか、入力と出力は何か、最小プロジェクトをどう動かすのかを説明できれば、先へ進めます。
-
-最初に動かす例としては、[10.6.4 実践：再現可能なビジョン・ミニパイプラインを作る](./03-hands-on-vision-workshop.md) をおすすめします。大きなプロジェクトページに入る前に、データ生成、前処理、分類、検出 box、segmentation mask、指標、失敗分析の具体的な baseline を作れます。
-
-経験のある学習者は、この章を不足点の確認とエンジニアリング練習として読むとよいです。境界条件、失敗例、評価方法、コードの再現性、そして前後の章とのつながりに注目してください。読み終えたら、本章の内容を自分の作品 README や実験記録に残すのがおすすめです。
-
-## 学習時間と難易度の目安
-
-| 学習方法 | 推奨時間 | 目標 |
+| 手順 | Project Type | Evidence |
 |---|---|---|
-| ざっと見る | 20〜30 分 | この章が何を解決するのかを理解し、後でどこに使うかを知る |
-| 最小通過 | 1〜2 時間 | 最小例を動かし、この章の小プロジェクト出口まで進める |
-| 深く練習 | 半日〜1 日 | エラー分析、比較実験、またはプロジェクト README の記録を補う |
+| 1 | Classification | dataset split、accuracy/F1、confusion examples |
+| 2 | Detection | box annotations、IoU/mAP、false positives and missed detections |
+| 3 | Segmentation | masks、IoU/Dice、boundary failures |
+| 4 | Industry scenario | risk notes、user impact、deployment idea |
+| 5 | Hands-on workshop | larger project pages の前に reproducible mini pipeline |
 
-## 本章の自己チェック問題
+project を広げる前に、[10.6.4 実践：再現可能な Vision Mini Pipeline を作る](./03-hands-on-vision-workshop.md) を実行します。
 
-| 自己チェックの質問 | 合格基準 |
-|---|---|
-| この章は何を解決する？ | 1 文で、この章のコース全体での位置を説明できる |
-| 最小の入力と出力は何？ | 例に何が必要で、どんな結果が出るか説明できる |
-| よくある失敗点はどこ？ | 少なくとも 1 つ、エラー・精度低下・理解のずれの理由を挙げられる |
-| 学んだ後に何を残せる？ | 本章の成果をプロジェクト README、実験記録、または作品集に書ける |
+## 10.6.1.4 プロジェクト成果物基準
 
-## 本章の小プロジェクト出口
-
-この章を学び終えたら、「見せられる視覚プロジェクト」を 1 つ完成させるのがおすすめです。最小版は画像分類で、データセット説明、学習/検証の分割、モデル、指標、予測例、エラー分析を含めます。発展版では、安全帽検出、車両検出、欠陥検出、医用セグメンテーション、または OCR を作り、アノテーション例とモデルの可視化結果も示します。
-
-作品集版では、プロジェクト背景、タスク定義、データソース、アノテーション規約、評価指標、成功例/失敗例、デプロイの想定、リスクの説明を追加するのがおすすめです。
-
-## Debug 事件ファイル
-
-| 案件 | 内容 |
-|---|---|
-| 案件名 | 視覚手がかり誤判定事件 |
-| 事件現場 | モデルや OCR が、ある画像ではとても良い結果なのに、別の画像では明らかに失敗する。 |
-| 捜査手順 | 画像サイズ、光、アノテーション、クラス分布、失敗サンプルの共通点を確認する。 |
-| 結末の証拠 | 失敗画像、手動アノテーション、誤りの原因整理表。 |
-
-プロジェクト演習では、成功した画面だけを残さないでください。少なくとも 1 つは本当の失敗サンプルを選び、「現象、手がかり、疑わしい原因、調査手順、修正アクション、回帰チェック」という流れで `reports/failure_cases.md` に書き込むと、より実務に近いプロジェクトになります。
-
-## プロジェクト交付物標準
-
-各視覚総合プロジェクトは、1 枚の予測成功画像だけを見せるのではなく、同じ作品集基準で納品するのがおすすめです。最小納品物には、README 1 つ、再現可能な実行コマンド 1 つ、入力と出力の例 1 組、データとアノテーションの説明、失敗サンプル 1 回の分析、そして次の改善計画が含まれるべきです。
-
-| 納品物 | 最低要件 | 発展要件 |
+| 成果物 | 最低要件 | 強いポートフォリオ版 |
 |---|---|---|
-| README | プロジェクト目標、実行方法、依存関係、例を明記する | 視覚タスクの境界、データソース、デプロイの想定を追加する |
-| 入出力例 | 少なくとも 1 枚の入力画像と予測結果を残す | 正解、誤報、見逃し、境界ケースを残す |
-| 評価記録 | accuracy、mAP、IoU、または OCR 命中率を明記する | クラス別、シーン別、鮮明度別のエラー分析を入れる |
-| データとアノテーション記録 | 画像の出どころ、クラス、アノテーション形式を説明する | アノテーション例、品質チェック、データ偏りを示す |
-| 発表資料 | スクリーンショットや短い GIF で動作を証明する | 解説できる視覚アプリ作品ページにする |
+| README | goal、run command、dependencies、examples | task boundary、data source、deployment idea を追加 |
+| Data and annotation | image source、class list、annotation format | annotation examples、quality checks、bias notes を追加 |
+| Results | 1 枚以上の input image と prediction result | correct、false positive、false negative、boundary cases を追加 |
+| Evaluation | Accuracy、F1、mAP、IoU、Dice、OCR hit rate | class、scenario、lighting、clarity ごとの error analysis を追加 |
+| Failure analysis | 1 件以上の real failure | suspected cause、fix action、regression check を追加 |
+| Presentation | screenshot または short GIF で動作を証明 | 明確な visual project page を作る |
 
-視覚プロジェクトで最も大事なのは、「モデルが見た目には正しく認識したように見える」ことではなく、データがどこから来たのか、指標をどう計算したのか、どの画像で失敗したのか、実際の利用でどんなリスクがあるのかをきちんと説明できることです。
+## 10.6.1.5 合格ライン
 
-## 过关标准
-
-この章の終わりには、視覚シーンを分類、検出、またはセグメンテーションのタスクに分解でき、データとアノテーション規約を準備でき、適切な指標を選べ、モデル結果と失敗例を示せ、誤報・見逃し・セグメンテーションミスが業務に与える影響を説明できるようになっているはずです。
-
-1 つの視覚プロジェクトを再現可能な Notebook かスクリプトにまとめ、画像例でモデルの挙動と限界を説明できれば、コンピュータビジョン分野の作品集出口基準に達しています。
-
-## 版本路线建议
-
-| バージョン | 目標 | 納品の重点 |
-|---|---|---|
-| 基礎版 | 最小の閉ループを動かす | 入力できる、処理できる、出力できる、そして例を 1 組残す |
-| 標準版 | 見せられるプロジェクトにする | 設定、ログ、エラー処理、README、スクリーンショットを追加する |
-| 挑戦版 | 作品集品質に近づける | 評価、比較実験、失敗サンプル分析、今後の方針を追加する |
-
-まずは基礎版を完成させることをおすすめします。最初から大きく全部を目指さないでください。1 段階上げるごとに、「何が新しくできるようになったか、どう検証したか、まだ何が問題か」を README に書き足しましょう。
+vision project が再現可能で、明確な data and annotation rules、適切な metrics、model failure の例を持っていれば、この章は合格です。

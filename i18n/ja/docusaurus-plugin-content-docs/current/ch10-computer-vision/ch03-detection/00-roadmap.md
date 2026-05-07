@@ -1,84 +1,63 @@
 ---
-title: "10.3.1 学習ガイド：この章で学ぶ物体検出とは何か"
+title: "10.3.1 Object Detection ロードマップ：Class plus Box"
 sidebar_position: 0
-description: "まず物体検出の学習マップを作ろう：検出タスク、代表的な検出器、YOLO 系列、そして実践編がどうつながるのかを整理する。"
-keywords: [物体検出ガイド, YOLO, IoU, mAP]
+description: "Object detection の短い実践ロードマップ：boxes、IoU、thresholds、YOLO-style outputs、detection failure analysis を理解する。"
+keywords: [object detection guide, YOLO, IoU, mAP]
 ---
 
-# 10.3.1 学習ガイド：この章で学ぶ物体検出とは何か
+# 10.3.1 Object Detection ロードマップ：Class plus Box
 
-この章で扱うのは、次の問いです。
+Object detection は classification に location を加えます。どの object があり、image のどこにあるかを答えます。
 
-> **画像の中に何があるかだけでなく、それがどこにあるかも知る。**
+## 10.3.1.1 まず box workflow を見る
 
-## まずは橋渡しの線を作ろう
+![Object detection 章の学習フローチャート](/img/course/ch10-detection-chapter-flow-ja.png)
 
-すでに画像分類を学んでいるなら、この章でまず大事なのは次の違いをはっきりさせることです。
+![Object detection output diagram](/img/course/object-detection-output-ja.png)
 
-- 分類は「この画像は何か」に答える
-- 検出は「それはどこにあるか」にも答える
+![Detection output IoU error map](/img/course/ch10-detection-output-iou-error-map-ja.png)
 
-つまり、検出は分類を少し拡張しただけではありません。さらに次の要素が加わります。
+重要概念は bounding box、class、confidence、IoU、threshold、false positive、false negative、mAP です。
 
-- 位置の理解
-- 複数対象の処理
-- बॉक्स単位の評価
+## 10.3.1.2 IoU check を動かす
 
-## この章のメインの流れ
+IoU は predicted box と ground-truth box の重なりを測ります。
 
-![物体検出章の学習順序図](/img/course/ch10-detection-chapter-flow-ja.png)
+```python
+truth = (10, 10, 50, 50)
+pred = (20, 20, 60, 60)
 
-この章を学ぶときに大事なのは、まずモデル名を暗記することではなく、まず बॉक्स、IoU、mAP、そして複数対象の場面を理解することです。
+def area(box):
+    x1, y1, x2, y2 = box
+    return max(0, x2 - x1) * max(0, y2 - y1)
 
-## この章はこういう順番で学ぶと理解しやすい
+ix1 = max(truth[0], pred[0])
+iy1 = max(truth[1], pred[1])
+ix2 = min(truth[2], pred[2])
+iy2 = min(truth[3], pred[3])
+intersection = area((ix1, iy1, ix2, iy2))
+union = area(truth) + area(pred) - intersection
 
-1. まず検出タスクの全体像を見る  
-   まず बॉक्स、クラス、IoU、mAP などの最重要要素を押さえます。
+print("iou:", round(intersection / union, 3))
+```
 
-2. 次に代表的な検出器を見る  
-   2段階方式と1段階方式の流れがどう生まれたかを理解します。
+出力：
 
-3. その後で YOLO を見る  
-   この段階になると、なぜ YOLO がよく使われる実装の出発点なのかが分かりやすくなります。
+```text
+iou: 0.391
+```
 
-4. 最後に実践プロジェクトをやる  
-   बॉक्स、閾値、誤検出・見逃しの分析を、実際につなげて理解します。
+Detection debug は boxes と metrics の表示から始めます。きれいな screenshot 1 枚だけで detection quality を判断しないでください。
 
-## この章でまず押さえるべきこと
+## 10.3.1.3 この順番で学ぶ
 
-- 検出は分類よりも「位置特定」が難しい
-- 複数対象の場面では、タスクも評価も複雑になる
-- この章で本当に大事なのはモデル名よりも बॉक्सと指標
-
-## 初心者と上級学習者はどう読めばいいか
-
-初心者がこの章を初めて学ぶときは、まず全体の流れと最小の動く例に集中しましょう。最初からすべての細部を理解する必要はありません。この章が何を解決するのか、入力と出力は何か、最小プロジェクトはどう動かすのかを説明できれば、次に進んで大丈夫です。
-
-経験のある学習者は、この章を「抜け漏れチェック」と「実装練習」の場として使えます。境界条件、失敗例、評価方法、コードの再現性、そして前後の章とのつながりに注目しましょう。読み終わったら、この章の内容を自分の作品の README や実験記録にまとめておくとよいです。
-
-## 学習時間と難易度の目安
-
-| 学習方法 | 目安時間 | 目標 |
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| ざっと読む | 20～30 分 | この章が何を解決するのかを理解し、後でどこで使うかを知る |
-| 最小クリア | 1～2 時間 | 最小例を動かし、この章のミニプロジェクトを完了する |
-| 深く練習する | 半日～1 日 | エラー分析、比較実験、または README 記録を追加する |
+| 1 | Detection overview | box、class、confidence、IoU、mAP を説明する |
+| 2 | Classic detectors | two-stage と one-stage の考え方を比較する |
+| 3 | YOLO | grid prediction、threshold、NMS、speed trade-off を理解する |
+| 4 | Detection practice | false positives、missed detections、threshold changes を記録する |
 
-## この章の確認問題
+## 10.3.1.4 合格ライン
 
-| 確認問題 | 合格基準 |
-|---|---|
-| この章は何を解決する？ | コース全体の中での位置を一文で説明できる |
-| 最小の入力と出力は？ | 例に何が必要で、どんな結果が出るかを説明できる |
-| よくある失敗点はどこ？ | エラー、精度の低さ、理解のずれの原因を少なくとも1つ挙げられる |
-| 学んだ後に何を残せる？ | この章の成果を README、実験記録、または作品集に書ける |
-
-## この章のミニプロジェクト出口
-
-この章を学び終えたら、最小の練習を1つやってみましょう。この章で最も重要な概念やツールを1つ選び、実行できて、スクリーンショットを残せて、README に書ける小さな成果を作ります。複雑である必要はありませんが、入力、処理、出力が何かを説明できることが大切です。
-
-## 合格ライン
-
-この章の終わりには、自分の言葉でこの章が何を解決するのか、前後の学習ステップとどうつながるのかを説明でき、さらにこの章のミニプロジェクト出口の最小版を完成できるようになっているはずです。
-
-また、1回でもよくあるミス、1回のデバッグ過程、あるいは1回の結果改善を記録できたなら、ただ「内容を見た」だけではなく、この章を自分のプロジェクト経験に変えられていると言えます。
+boxes、confidence、IoU、少なくとも 1 つの false-positive または false-negative case で detection result を説明できれば、この章は合格です。

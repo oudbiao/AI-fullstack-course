@@ -1,76 +1,60 @@
 ---
-title: "10.1.1 学習前ガイド：このビジョン基礎の章では何を学ぶのか"
+title: "10.1.1 Vision Basics ロードマップ：Pixels、Channels、Processing"
 sidebar_position: 0
-description: "まずはビジョン基礎章の学習マップを作ろう。画像表現、OpenCV、基本処理が、後の分類・検出・セグメンテーションの土台をどう作るのかを確認する。"
-keywords: [ビジョン基礎ガイド, OpenCVガイド, 画像処理ガイド]
+description: "Vision basics の短い実践ロードマップ：pixels、image shapes、color channels、OpenCV-style coordinates、basic processing を理解する。"
+keywords: [vision basics guide, OpenCV guide, image processing guide]
 ---
 
-# 10.1.1 学習前ガイド：このビジョン基礎の章では何を学ぶのか
+# 10.1.1 Vision Basics ロードマップ：Pixels、Channels、Processing
 
-この章で学ぶのは「いくつかの画像 API」ではなく、ビジョンタスクの最も基本的な入力の感覚を身につけることです。
+Computer vision は input intuition から始まります。classification、detection、segmentation の前に、image がどんな数字として扱われるかを理解します。
 
-## まず橋渡しの線を作ろう
+## 10.1.1.1 まず image pipeline を見る
 
-もしあなたが第 6 站の CNN 本線から来たなら、この章でまずはっきり見ておきたいことが1つあります。
+![Vision basics 章の学習フロー](/img/course/ch10-cv-basics-chapter-flow-ja.png)
 
-- これまでに、畳み込みネットワークは画像にとても向いていると学んだ
-- この章では、「画像そのものがコンピュータの中でどう表されているのか」を学ぶ
+![Pixel RGB grid diagram](/img/course/cv-pixel-rgb-grid-ja.png)
 
-つまり、この章は深層学習の本線から外れるのではなく、次の土台を補う章です。
+![Image array shape and channel map](/img/course/ch10-image-array-shape-channel-map-ja.png)
 
-> **ビジョンタスクにおける最も基本的な入力の感覚。**
+最初の mental model は単純です：image = height × width × channels。多くの後続 bug は shape、channel order、coordinates、color space の混同から来ます。
 
-## この章のメインの流れ
+## 10.1.1.2 小さな image shape check を動かす
 
-![ビジョン基礎章の学習順序図](/img/course/ch10-cv-basics-chapter-flow-ja.png)
+この toy image は 2 rows、3 columns、RGB values を持ちます。
 
-この章がしっかり身についていないと、後の分類・検出・セグメンテーションでは、モデル名だけ覚えていて入力のイメージがつかめない、という状態になりやすいです。
+```python
+image = [
+    [[255, 0, 0], [0, 255, 0], [0, 0, 255]],
+    [[255, 255, 255], [0, 0, 0], [128, 128, 128]],
+]
 
-## この章は、初心者におすすめの学習順序
+height = len(image)
+width = len(image[0])
+channels = len(image[0][0])
+top_left_pixel = image[0][0]
 
-1. まず、画像がコンピュータの中で何なのかを知る  
-   ピクセル、チャンネル、サイズ、色空間を先に整理しましょう。
+print("shape:", (height, width, channels))
+print("top_left_pixel:", top_left_pixel)
+```
 
-2. 次に、OpenCV の読み書きと表示を見る  
-   まずは画像を読み込み、表示し、チャンネルを分けられるようにします。
+出力：
 
-3. 最後に、基本処理を見る  
-   この段階でグレースケール、しきい値処理、フィルタなどを行うと、より理解しやすくなります。
+```text
+shape: (2, 3, 3)
+top_left_pixel: [255, 0, 0]
+```
 
-## この章でまず押さえるべきこと
+実画像を wrong shape や wrong channel order で読むと、その後の model result は信頼しにくくなります。
 
-- 画像は本質的には、空間的に並んだ数字である
-- チャンネルと色空間は、その後の画像処理方法を直接左右する
-- ビジョンモデルの前に、まず「入力データが何か」を読み解く必要がある
+## 10.1.1.3 この順番で学ぶ
 
-## 初心者と中級以上の学習者はどう読むか
-
-初心者がこの章を初めて学ぶときは、まず全体の流れと最小実行例を押さえましょう。すべての細部を一度で理解する必要はありません。この章が何を解決するのか、入力と出力は何か、最小のプロジェクトをどう動かすのかを説明できれば、次に進んで大丈夫です。
-
-経験のある学習者は、この章を「理解の抜け漏れの確認」と「実装練習」の場として使えます。境界条件、失敗例、評価方法、コードの再現性、そして前後のステップとのつながりに注目しましょう。読み終わったら、本章の内容を自分の作品の README や実験記録にまとめておくとよいです。
-
-## 学習時間と難易度の目安
-
-| 学習方法 | 推奨時間 | 目標 |
+| 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
-| ざっと読む | 20～30 分 | この章が何を解決するのかを理解し、後でどこで使うかを知る |
-| 最小クリア | 1～2 時間 | 最小例を動かし、本章の小さな出口課題を終える |
-| じっくり練習 | 半日～1 日 | エラー分析、比較実験、または README 記録を補強する |
+| 1 | Image representation | pixel、channel、height、width、RGB/BGR を説明する |
+| 2 | OpenCV basics | image の load、view、crop、resize、save を行う |
+| 3 | Basic processing | grayscale、threshold、blur、edge、simple filters を試す |
 
-## 本章の自己チェック問題
+## 10.1.1.4 合格ライン
 
-| 自己チェック問題 | 合格基準 |
-|---|---|
-| この章は何を解決するのか？ | それがこのコース全体のどこに位置するかを1文で説明できる |
-| 最小の入力と出力は何か？ | 例に何が必要で、どんな結果が出るかを説明できる |
-| よくある失敗点はどこか？ | 少なくとも1つ、エラー・精度の悪さ・理解のずれの原因を挙げられる |
-| 学んだあと、何を残せるか？ | 本章の成果をプロジェクト README、実験記録、または作品集に書ける |
-## 本章の小さなプロジェクト出口
-
-この章を学び終えたら、最小限の練習を1つやってみましょう。本章で最も重要な概念またはツールを1つ選び、動かせる・スクリーンショットを残せる・README に書ける、そんな小さな成果物を作ります。複雑である必要はありませんが、入力が何で、処理が何で、出力が何かを説明できることが大切です。
-
-## 合格基準
-
-この章の終わりには、自分の言葉で「この章は何を解決するのか」「前後の学習ステップとどうつながっているのか」を説明でき、さらに本章の小さなプロジェクト出口の最小版を完成できるようになっているはずです。
-
-もし、よくあるエラーを1回、デバッグの過程を1回、あるいは結果改善の記録を1回残せたなら、あなたはもう単に「内容を見ただけ」ではなく、この章を自分のプロジェクト経験に変えられています。
+image shape を inspect し、coordinates で region を crop し、channel order を説明し、processed result を README 用に保存できれば、この章は合格です。
