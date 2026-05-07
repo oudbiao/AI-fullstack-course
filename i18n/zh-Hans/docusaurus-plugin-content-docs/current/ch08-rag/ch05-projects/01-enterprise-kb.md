@@ -107,7 +107,7 @@ keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source c
 
 ---
 
-## 三、先设计知识单元，而不是先写模型
+## 先设计知识单元，而不是先写模型
 
 下面这个示例会做三件事：
 
@@ -139,12 +139,20 @@ kb = [
         "department": "internal",
         "visibility": "internal",
         "text": "客服处理退款申请时，需要先核验订单号、学习进度和支付渠道。",
-        "keywords": {"退款", "客服", "SOP", "核验"},
+        "keywords": {"退款", "客服", "SOP", "核验", "流程"},
     },
 ]
 
 for item in kb:
-    print(item)
+    print(f"{item['id']} | {item['visibility']} | {item['section']}")
+```
+
+预期输出：
+
+```text
+doc_001 | public | 退款政策
+doc_002 | public | 证书说明
+doc_003 | internal | 内部客服 SOP
 ```
 
 ### 为什么这里要加这么多元数据？
@@ -160,7 +168,7 @@ for item in kb:
 
 ---
 
-## 四、先做一个可解释检索器
+## 先做一个可解释检索器
 
 为了让示例在当前环境里也能直接跑，我们先不用外部 embedding 库，
 而是用一个纯 Python 的关键词重叠检索器，先把项目骨架搭稳。
@@ -168,11 +176,12 @@ for item in kb:
 ```python
 def retrieve(query, allowed_visibility, top_k=2):
     candidates = []
+    query_text = query.lower()
 
     for item in kb:
         if item["visibility"] not in allowed_visibility:
             continue
-        score = sum(keyword in query for keyword in item["keywords"])
+        score = sum(keyword.lower() in query_text for keyword in item["keywords"])
         candidates.append((score, item))
 
     candidates.sort(key=lambda x: x[0], reverse=True)
@@ -180,10 +189,22 @@ def retrieve(query, allowed_visibility, top_k=2):
 
 
 print("public user:")
-print(retrieve("退款规则是什么？", allowed_visibility={"public"}))
+for hit in retrieve("退款规则是什么？", allowed_visibility={"public"}):
+    print(hit["id"], hit["visibility"], hit["section"])
 
 print("\ninternal support:")
-print(retrieve("客服核验流程是什么？", allowed_visibility={"public", "internal"}))
+for hit in retrieve("客服核验流程是什么？", allowed_visibility={"public", "internal"}):
+    print(hit["id"], hit["visibility"], hit["section"])
+```
+
+预期输出：
+
+```text
+public user:
+doc_001 public 退款政策
+
+internal support:
+doc_003 internal 内部客服 SOP
 ```
 
 ### 这个检索器虽然简单，但为什么很适合教学？
@@ -207,7 +228,7 @@ print(retrieve("客服核验流程是什么？", allowed_visibility={"public", "
 
 ---
 
-## 五、把“回答 + 来源”一起做出来
+## 把“回答 + 来源”一起做出来
 
 ```python
 def answer_with_sources(query, allowed_visibility):
@@ -237,6 +258,13 @@ print(answer_with_sources("退款规则是什么？", {"public"}))
 print(answer_with_sources("客服核验流程是什么？", {"public", "internal"}))
 ```
 
+预期输出：
+
+```text
+{'answer': '课程购买后 7 天内且学习进度低于 20% 可申请退款。', 'sources': [{'id': 'doc_001', 'section': '退款政策', 'department': 'support', 'visibility': 'public'}]}
+{'answer': '客服处理退款申请时，需要先核验订单号、学习进度和支付渠道。', 'sources': [{'id': 'doc_003', 'section': '内部客服 SOP', 'department': 'internal', 'visibility': 'internal'}]}
+```
+
 ### 为什么“来源返回”是作品级项目的亮点？
 
 因为它让系统不只是“给你一个答案”，
@@ -254,7 +282,7 @@ print(answer_with_sources("客服核验流程是什么？", {"public", "internal
 
 ---
 
-## 六、项目最该怎么评估？
+## 项目最该怎么评估？
 
 ### 不是只看“有没有答出来”
 
@@ -294,6 +322,14 @@ for case in eval_cases:
         "got": got,
         "match": got == case["expected_doc"],
     })
+```
+
+预期输出：
+
+```text
+{'query': '退款规则是什么？', 'expected_doc': 'doc_001', 'got': 'doc_001', 'match': True}
+{'query': '客服核验流程是什么？', 'expected_doc': None, 'got': None, 'match': True}
+{'query': '客服核验流程是什么？', 'expected_doc': 'doc_003', 'got': 'doc_003', 'match': True}
 ```
 
 ### 为什么这种评估很值钱？

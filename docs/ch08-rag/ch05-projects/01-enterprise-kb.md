@@ -137,12 +137,20 @@ kb = [
         "department": "internal",
         "visibility": "internal",
         "text": "When handling a refund request, customer support must first verify the order number, learning progress, and payment channel.",
-        "keywords": {"refund", "customer support", "SOP", "verify"},
+        "keywords": {"refund", "customer support", "SOP", "verify", "verification", "process"},
     },
 ]
 
 for item in kb:
-    print(item)
+    print(f"{item['id']} | {item['visibility']} | {item['section']}")
+```
+
+Expected output:
+
+```text
+doc_001 | public | Refund Policy
+doc_002 | public | Certificate Guide
+doc_003 | internal | Internal Customer Support SOP
 ```
 
 ### Why add so much metadata here?
@@ -166,11 +174,12 @@ but instead use a pure Python keyword-overlap retriever to get the project skele
 ```python
 def retrieve(query, allowed_visibility, top_k=2):
     candidates = []
+    query_text = query.lower()
 
     for item in kb:
         if item["visibility"] not in allowed_visibility:
             continue
-        score = sum(keyword in query for keyword in item["keywords"])
+        score = sum(keyword.lower() in query_text for keyword in item["keywords"])
         candidates.append((score, item))
 
     candidates.sort(key=lambda x: x[0], reverse=True)
@@ -178,10 +187,22 @@ def retrieve(query, allowed_visibility, top_k=2):
 
 
 print("public user:")
-print(retrieve("What is the refund policy?", allowed_visibility={"public"}))
+for hit in retrieve("What is the refund policy?", allowed_visibility={"public"}):
+    print(hit["id"], hit["visibility"], hit["section"])
 
 print("\ninternal support:")
-print(retrieve("What is the customer verification process?", allowed_visibility={"public", "internal"}))
+for hit in retrieve("What is the customer verification process?", allowed_visibility={"public", "internal"}):
+    print(hit["id"], hit["visibility"], hit["section"])
+```
+
+Expected output:
+
+```text
+public user:
+doc_001 public Refund Policy
+
+internal support:
+doc_003 internal Internal Customer Support SOP
 ```
 
 ### Although this retriever is simple, why is it very suitable for teaching?
@@ -233,6 +254,13 @@ def answer_with_sources(query, allowed_visibility):
 
 print(answer_with_sources("What is the refund policy?", {"public"}))
 print(answer_with_sources("What is the customer verification process?", {"public", "internal"}))
+```
+
+Expected output:
+
+```text
+{'answer': 'A refund can be requested within 7 days of purchase if learning progress is below 20%.', 'sources': [{'id': 'doc_001', 'section': 'Refund Policy', 'department': 'support', 'visibility': 'public'}]}
+{'answer': 'When handling a refund request, customer support must first verify the order number, learning progress, and payment channel.', 'sources': [{'id': 'doc_003', 'section': 'Internal Customer Support SOP', 'department': 'internal', 'visibility': 'internal'}]}
 ```
 
 ### Why is “returning sources” a highlight of a portfolio project?
@@ -292,6 +320,14 @@ for case in eval_cases:
         "got": got,
         "match": got == case["expected_doc"],
     })
+```
+
+Expected output:
+
+```text
+{'query': 'What is the refund policy?', 'expected_doc': 'doc_001', 'got': 'doc_001', 'match': True}
+{'query': 'What is the customer verification process?', 'expected_doc': None, 'got': None, 'match': True}
+{'query': 'What is the customer verification process?', 'expected_doc': 'doc_003', 'got': 'doc_003', 'match': True}
 ```
 
 ### Why is this kind of evaluation valuable?

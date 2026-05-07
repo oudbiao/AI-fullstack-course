@@ -167,6 +167,12 @@ def retrieve(query, top_k=2):
 print(retrieve("What are the refund conditions"))
 ```
 
+Expected output:
+
+```text
+[{'id': 'doc1', 'text': 'Refund policy: Refunds are available within 7 days of purchase if learning progress is below 20%.'}, {'id': 'doc3', 'text': 'Customer support rule: When answering, first explain the policy basis, then give the conclusion.'}]
+```
+
 This retriever is not complicated, but it is already the first half of the combined system.
 
 ---
@@ -231,6 +237,14 @@ result = rag_plus_finetune_system("What are the refund conditions?")
 print(result["question"])
 print(result["answer"])
 print("evidence:", result["evidence"])
+```
+
+Expected output:
+
+```text
+What are the refund conditions?
+According to the current refund policy, users may request a refund within 7 days of purchase if their learning progress is below 20%.
+evidence: Refund policy: Refunds are available within 7 days of purchase if learning progress is below 20%. Customer support rule: When answering, first explain the policy basis, then give the conclusion.
 ```
 
 ### What does this system already show?
@@ -312,7 +326,37 @@ for item in eval_data:
     print(item["question"], "retrieval_hit=", hit, "answer_ok=", good_answer)
 ```
 
+Expected output:
+
+```text
+What are the refund conditions retrieval_hit= True answer_ok= True
+How to get a certificate retrieval_hit= True answer_ok= True
+```
+
 This is already much better than just saying “the demo looks good.”
+
+## Add a Small Layer Diagnosis Drill
+
+When the combined system fails, first decide which layer owns the problem. This small table is the beginning of a real project postmortem.
+
+```python
+diagnostics = [
+    {"symptom": "Correct document is not in top-2", "likely_layer": "RAG", "next_step": "Improve chunking, query rewrite, or retrieval"},
+    {"symptom": "Correct document is retrieved but answer format is unstable", "likely_layer": "fine-tuning / prompt", "next_step": "Add supervised examples or stricter schema"},
+    {"symptom": "Answer cites one source but uses facts from another", "likely_layer": "grounding", "next_step": "Add citation checks and sentence-level evidence"},
+]
+
+for row in diagnostics:
+    print(f"{row['likely_layer']}: {row['symptom']} -> {row['next_step']}")
+```
+
+Expected output:
+
+```text
+RAG: Correct document is not in top-2 -> Improve chunking, query rewrite, or retrieval
+fine-tuning / prompt: Correct document is retrieved but answer format is unstable -> Add supervised examples or stricter schema
+grounding: Answer cites one source but uses facts from another -> Add citation checks and sentence-level evidence
+```
 
 ---
 

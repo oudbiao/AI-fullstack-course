@@ -106,7 +106,7 @@ RAG の強み：
 
 ---
 
-## 三、まずシステム構造を描く
+## まずシステム構造を描く
 
 ```mermaid
 flowchart LR
@@ -133,7 +133,7 @@ flowchart LR
 
 ---
 
-## 四、最小限のナレッジベースと検索器
+## 最小限のナレッジベースと検索器
 
 :::note 依存関係
 この例では、軽量な TF-IDF 検索器として `scikit-learn` を使います。ローカルで実行したい場合は、先にインストールしてください。
@@ -155,7 +155,7 @@ kb = [
     {"id": "doc3", "text": "カスタマーサポート対応規範：回答時は、まずポリシーの根拠を示し、その後に結論を述べます。"}
 ]
 
-vectorizer = TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b")
+vectorizer = TfidfVectorizer(analyzer="char", ngram_range=(2, 4))
 doc_vectors = vectorizer.fit_transform([item["text"] for item in kb])
 
 def retrieve(query, top_k=2):
@@ -167,11 +167,19 @@ def retrieve(query, top_k=2):
 print(retrieve("返金条件は何ですか"))
 ```
 
+期待される出力：
+
+```text
+[{'id': 'doc1', 'text': '返金ポリシー：購入後 7 日以内かつ学習進捗が 20% 未満なら返金可能です。'}, {'id': 'doc3', 'text': 'カスタマーサポート対応規範：回答時は、まずポリシーの根拠を示し、その後に結論を述べます。'}]
+```
+
+日本語の例では `analyzer="char"` と `ngram_range=(2, 4)` を使います。日本語は英語のように空白で単語が区切られないため、追加の分かち書きライブラリなしでも安定した教材用の結果にするためです。
+
 この検索器自体は複雑ではありませんが、すでに組み合わせ型システムの前半部分になっています。
 
 ---
 
-## 五、次に「微調整後の回答スタイル」をまねる
+## 次に「微調整後の回答スタイル」をまねる
 
 実際のプロジェクトでは、この部分はたとえば次のような方法で作られます。
 
@@ -215,7 +223,7 @@ def domain_answer_style(question, retrieved_docs):
 
 ---
 
-## 六、2つを本当に接続する
+## 2つを本当に接続する
 
 ```python
 def rag_plus_finetune_system(question):
@@ -233,6 +241,14 @@ print(result["answer"])
 print("evidence:", result["evidence"])
 ```
 
+期待される出力：
+
+```text
+返金条件は何ですか？
+現行の返金ポリシーによると、購入後 7 日以内かつ学習進捗が 20% 未満のユーザーは返金を申請できます。
+evidence: 返金ポリシー：購入後 7 日以内かつ学習進捗が 20% 未満なら返金可能です。 カスタマーサポート対応規範：回答時は、まずポリシーの根拠を示し、その後に結論を述べます。
+```
+
 ### このシステムは何を示しているのか？
 
 これで示されるのは次のことです。
@@ -241,7 +257,7 @@ print("evidence:", result["evidence"])
 
 ---
 
-## 七、本当のプロジェクトでは、何を微調整することが多いのか？
+## 本当のプロジェクトでは、何を微調整することが多いのか？
 
 ### 「すべての文書を覚えさせる」ためではない
 
@@ -268,7 +284,7 @@ print("evidence:", result["evidence"])
 
 ---
 
-## 八、プロジェクト価値の高い分け方
+## プロジェクト価値の高い分け方
 
 ### RAG 層が担当すること
 
@@ -288,7 +304,7 @@ print("evidence:", result["evidence"])
 
 ---
 
-## 九、この統合システムはどう評価するのか？
+## この統合システムはどう評価するのか？
 
 ### 「答えが自然か」だけでは足りない
 
@@ -312,11 +328,41 @@ for item in eval_data:
     print(item["question"], "retrieval_hit=", hit, "answer_ok=", good_answer)
 ```
 
+期待される出力：
+
+```text
+返金条件は何ですか retrieval_hit= True answer_ok= True
+修了証はどうやって取得しますか retrieval_hit= True answer_ok= True
+```
+
 これだけでも、「ただデモがそれっぽく見えるか」を確認するより、ずっと前進しています。
+
+## 小さなレイヤー診断ドリルを追加する
+
+組み合わせ型システムが失敗したら、まずどの層が担当すべき問題かを切り分けます。この小さな表が、実プロジェクトの振り返りの入口になります。
+
+```python
+diagnostics = [
+    {"symptom": "正しい文書が top-2 に入らない", "likely_layer": "RAG", "next_step": "チャンク化、クエリ書き換え、検索戦略を改善する"},
+    {"symptom": "正しい文書は取れているが、回答形式が安定しない", "likely_layer": "微調整 / プロンプト", "next_step": "教師あり例を増やすか schema を厳しくする"},
+    {"symptom": "回答は A を引用しているが、事実は B から来ている", "likely_layer": "grounding", "next_step": "引用チェックと文単位の根拠検証を追加する"},
+]
+
+for row in diagnostics:
+    print(f"{row['likely_layer']}: {row['symptom']} -> {row['next_step']}")
+```
+
+期待される出力：
+
+```text
+RAG: 正しい文書が top-2 に入らない -> チャンク化、クエリ書き換え、検索戦略を改善する
+微調整 / プロンプト: 正しい文書は取れているが、回答形式が安定しない -> 教師あり例を増やすか schema を厳しくする
+grounding: 回答は A を引用しているが、事実は B から来ている -> 引用チェックと文単位の根拠検証を追加する
+```
 
 ---
 
-## 十、初心者がよくやる失敗
+## 初心者がよくやる失敗
 
 ### 知識更新の問題を微調整で解決しようとする
 

@@ -100,12 +100,12 @@ keywords: [enterprise knowledge base, RAG project, retrieval, metadata, source c
 ### なぜこの範囲がよいのか？
 
 - 文書のテーマがまとまっている
-- 権限の境界が বাস্ত際的
+- 権限の境界が現実的
 - 結果の良し悪しを説明しやすい
 
 ---
 
-## 三、モデルを書く前に、まず知識単位を設計する
+## モデルを書く前に、まず知識単位を設計する
 
 次の例では3つのことを行います。
 
@@ -137,12 +137,20 @@ kb = [
         "department": "internal",
         "visibility": "internal",
         "text": "サポートが返金申請を処理するときは、注文番号、学習進捗、支払いチャネルを先に確認する必要があります。",
-        "keywords": {"返金", "サポート", "SOP", "確認"},
+        "keywords": {"返金", "サポート", "SOP", "確認", "フロー"},
     },
 ]
 
 for item in kb:
-    print(item)
+    print(f"{item['id']} | {item['visibility']} | {item['section']}")
+```
+
+期待される出力：
+
+```text
+doc_001 | public | 返金ポリシー
+doc_002 | public | 修了証の説明
+doc_003 | internal | 社内カスタマーサポートSOP
 ```
 
 ### なぜここでこんなにメタデータを付けるのか？
@@ -158,7 +166,7 @@ for item in kb:
 
 ---
 
-## 四、まずは説明しやすい検索器を作る
+## まずは説明しやすい検索器を作る
 
 この例を現在の環境でそのまま動かせるように、外部の embedding ライブラリは使わず、  
 純粋な Python のキーワード重複検索器で、まずはプロジェクトの骨組みを作ります。
@@ -166,11 +174,12 @@ for item in kb:
 ```python
 def retrieve(query, allowed_visibility, top_k=2):
     candidates = []
+    query_text = query.lower()
 
     for item in kb:
         if item["visibility"] not in allowed_visibility:
             continue
-        score = sum(keyword in query for keyword in item["keywords"])
+        score = sum(keyword.lower() in query_text for keyword in item["keywords"])
         candidates.append((score, item))
 
     candidates.sort(key=lambda x: x[0], reverse=True)
@@ -178,10 +187,22 @@ def retrieve(query, allowed_visibility, top_k=2):
 
 
 print("public user:")
-print(retrieve("返金ルールは何ですか？", allowed_visibility={"public"}))
+for hit in retrieve("返金ルールは何ですか？", allowed_visibility={"public"}):
+    print(hit["id"], hit["visibility"], hit["section"])
 
 print("\ninternal support:")
-print(retrieve("サポートの確認フローは何ですか？", allowed_visibility={"public", "internal"}))
+for hit in retrieve("サポートの確認フローは何ですか？", allowed_visibility={"public", "internal"}):
+    print(hit["id"], hit["visibility"], hit["section"])
+```
+
+期待される出力：
+
+```text
+public user:
+doc_001 public 返金ポリシー
+
+internal support:
+doc_003 internal 社内カスタマーサポートSOP
 ```
 
 ### この検索器は単純でも、なぜ学習に向いているのか？
@@ -204,7 +225,7 @@ print(retrieve("サポートの確認フローは何ですか？", allowed_visib
 
 ---
 
-## 五、「回答 + 出典」をまとめて返す
+## 「回答 + 出典」をまとめて返す
 
 ```python
 def answer_with_sources(query, allowed_visibility):
@@ -234,6 +255,13 @@ print(answer_with_sources("返金ルールは何ですか？", {"public"}))
 print(answer_with_sources("サポートの確認フローは何ですか？", {"public", "internal"}))
 ```
 
+期待される出力：
+
+```text
+{'answer': 'コース購入後7日以内かつ学習進捗が20%未満の場合、返金を申請できます。', 'sources': [{'id': 'doc_001', 'section': '返金ポリシー', 'department': 'support', 'visibility': 'public'}]}
+{'answer': 'サポートが返金申請を処理するときは、注文番号、学習進捗、支払いチャネルを先に確認する必要があります。', 'sources': [{'id': 'doc_003', 'section': '社内カスタマーサポートSOP', 'department': 'internal', 'visibility': 'internal'}]}
+```
+
 ### なぜ「出典を返すこと」が作品レベルの強みなのか？
 
 それによって、システムは単に「答えを返す」だけではなく、  
@@ -251,7 +279,7 @@ print(answer_with_sources("サポートの確認フローは何ですか？", {"
 
 ---
 
-## 六、このプロジェクトはどう評価すべきか？
+## このプロジェクトはどう評価すべきか？
 
 ### 「答えられたか」だけを見ない
 
@@ -291,6 +319,14 @@ for case in eval_cases:
         "got": got,
         "match": got == case["expected_doc"],
     })
+```
+
+期待される出力：
+
+```text
+{'query': '返金ルールは何ですか？', 'expected_doc': 'doc_001', 'got': 'doc_001', 'match': True}
+{'query': 'サポートの確認フローは何ですか？', 'expected_doc': None, 'got': None, 'match': True}
+{'query': 'サポートの確認フローは何ですか？', 'expected_doc': 'doc_003', 'got': 'doc_003', 'match': True}
 ```
 
 ### なぜこの評価が価値が高いのか？

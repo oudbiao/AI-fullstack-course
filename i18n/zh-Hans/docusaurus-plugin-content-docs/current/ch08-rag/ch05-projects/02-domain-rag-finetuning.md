@@ -106,7 +106,7 @@ RAG 的优点：
 
 ---
 
-## 三、先画出系统结构
+## 先画出系统结构
 
 ```mermaid
 flowchart LR
@@ -133,7 +133,7 @@ flowchart LR
 
 ---
 
-## 四、一个最小知识库和检索器
+## 一个最小知识库和检索器
 
 :::note 依赖说明
 这个示例使用 `scikit-learn` 来实现一个轻量级的 TF-IDF 检索器。如果你想在本地运行，请先安装：
@@ -155,7 +155,7 @@ kb = [
     {"id": "doc3", "text": "客服处理规范：回答时需要先说明政策依据，再给出结论。"}
 ]
 
-vectorizer = TfidfVectorizer(token_pattern=r"(?u)\\b\\w+\\b")
+vectorizer = TfidfVectorizer(analyzer="char", ngram_range=(2, 4))
 doc_vectors = vectorizer.fit_transform([item["text"] for item in kb])
 
 def retrieve(query, top_k=2):
@@ -167,11 +167,19 @@ def retrieve(query, top_k=2):
 print(retrieve("退款条件是什么"))
 ```
 
+预期输出：
+
+```text
+[{'id': 'doc1', 'text': '退款政策：购买后 7 天内且学习进度低于 20% 可退款。'}, {'id': 'doc3', 'text': '客服处理规范：回答时需要先说明政策依据，再给出结论。'}]
+```
+
+中文示例这里使用 `analyzer="char"` 和 `ngram_range=(2, 4)`，因为中文没有天然空格分词。这样即使不额外安装分词库，也能得到稳定的教学结果。
+
 这个检索器本身不复杂，但它已经是组合系统的第一半。
 
 ---
 
-## 五、再模拟一个“微调后的回答风格”
+## 再模拟一个“微调后的回答风格”
 
 在真实项目里，这一步可能来自：
 
@@ -215,7 +223,7 @@ def domain_answer_style(question, retrieved_docs):
 
 ---
 
-## 六、把两部分真正串起来
+## 把两部分真正串起来
 
 ```python
 def rag_plus_finetune_system(question):
@@ -233,6 +241,14 @@ print(result["answer"])
 print("evidence:", result["evidence"])
 ```
 
+预期输出：
+
+```text
+退款条件是什么？
+根据现行退款政策，购买后 7 天内且学习进度低于 20% 的用户可申请退款。
+evidence: 退款政策：购买后 7 天内且学习进度低于 20% 可退款。 客服处理规范：回答时需要先说明政策依据，再给出结论。
+```
+
 ### 这个系统已经说明了什么？
 
 它已经说明：
@@ -241,7 +257,7 @@ print("evidence:", result["evidence"])
 
 ---
 
-## 七、真正项目里，微调通常微调什么？
+## 真正项目里，微调通常微调什么？
 
 ### 不是为了“记住所有文档”
 
@@ -268,7 +284,7 @@ print("evidence:", result["evidence"])
 
 ---
 
-## 八、一个真正有项目价值的拆分方式
+## 一个真正有项目价值的拆分方式
 
 ### RAG 层负责
 
@@ -288,7 +304,7 @@ print("evidence:", result["evidence"])
 
 ---
 
-## 九、怎样评估这个综合系统？
+## 怎样评估这个综合系统？
 
 ### 不能只看“答得顺不顺”
 
@@ -312,11 +328,41 @@ for item in eval_data:
     print(item["question"], "retrieval_hit=", hit, "answer_ok=", good_answer)
 ```
 
+预期输出：
+
+```text
+退款条件是什么 retrieval_hit= True answer_ok= True
+证书如何获得 retrieval_hit= True answer_ok= True
+```
+
 这已经比“只看看 Demo 像不像”前进很多了。
+
+## 增加一个小型分层诊断练习
+
+组合系统出问题时，先判断是哪一层负责。这个小表就是项目复盘的起点。
+
+```python
+diagnostics = [
+    {"symptom": "正确文档没有进入 top-2", "likely_layer": "RAG", "next_step": "改进切块、查询改写或检索策略"},
+    {"symptom": "正确文档已命中，但回答格式不稳定", "likely_layer": "微调 / 提示词", "next_step": "补监督样例或收紧结构化 schema"},
+    {"symptom": "回答引用 A 来源，却用了 B 来源的事实", "likely_layer": "grounding", "next_step": "增加引用检查和句子级证据校验"},
+]
+
+for row in diagnostics:
+    print(f"{row['likely_layer']}: {row['symptom']} -> {row['next_step']}")
+```
+
+预期输出：
+
+```text
+RAG: 正确文档没有进入 top-2 -> 改进切块、查询改写或检索策略
+微调 / 提示词: 正确文档已命中，但回答格式不稳定 -> 补监督样例或收紧结构化 schema
+grounding: 回答引用 A 来源，却用了 B 来源的事实 -> 增加引用检查和句子级证据校验
+```
 
 ---
 
-## 十、初学者最常踩的坑
+## 初学者最常踩的坑
 
 ### 用微调去解决知识更新问题
 
