@@ -75,7 +75,7 @@ def build_payload(user_task, max_output_tokens=600, temperature=0.3):
     remaining = CONTEXT_LIMIT - used_tokens - max_output_tokens
 
     payload = {
-        "model": "gpt-5.2",
+        "model": "gpt-5.5",
         "instructions": instructions,
         "input": input_text,
         "text": {"format": {"type": "json_object"}},
@@ -160,7 +160,7 @@ Expected output shape:
 ```text
 used input tokens estimate: 36
 remaining output room     : 3460
-request model             : gpt-5.2
+request model             : gpt-5.5
 
 attempt: 1
 validation: era_0_missing_['summary']
@@ -202,7 +202,7 @@ Blind retries waste time and cost. A better retry changes something specific:
 If you have an API key, you can run the same idea with the official OpenAI Python SDK and the modern Responses API. Use this only after the offline workbench makes sense.
 
 ```bash
-pip install --upgrade openai pydantic
+python -m pip install --upgrade openai pydantic
 export OPENAI_API_KEY="your_api_key_here"
 python real_responses_call.py
 ```
@@ -226,7 +226,7 @@ class Timeline(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
+    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
     input=[
         {
             "role": "system",
@@ -249,6 +249,8 @@ print(response.output_parsed.model_dump())
 :::info Why this uses Responses API
 For new text-generation applications, prefer the Responses API rather than starting from older chat-completion examples. The key engineering idea is the same as the offline workbench: build a request, control output, parse the result, and verify that the result is usable by the program.
 :::
+
+Set `OPENAI_MODEL` if your account or deployment uses a different approved model. The example keeps the model name configurable so course code does not depend on one fixed vendor default forever.
 
 ## How to practice
 

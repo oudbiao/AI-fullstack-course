@@ -235,6 +235,14 @@ for score, name in sorted(scores, reverse=True):
     print(name, "->", round(score, 2))
 ```
 
+预期输出：
+
+```text
+open_source_8b -> 7.4
+open_source_70b -> 7.0
+cloud_api_model -> 6.8
+```
+
 你可以把 `weights` 改掉，模拟不同公司的不同偏好。
 
 ---

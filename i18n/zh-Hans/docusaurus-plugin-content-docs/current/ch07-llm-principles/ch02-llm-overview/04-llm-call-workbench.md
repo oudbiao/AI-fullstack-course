@@ -75,7 +75,7 @@ def build_payload(user_task, max_output_tokens=600, temperature=0.3):
     remaining = CONTEXT_LIMIT - used_tokens - max_output_tokens
 
     payload = {
-        "model": "gpt-5.2",
+        "model": "gpt-5.5",
         "instructions": instructions,
         "input": input_text,
         "text": {"format": {"type": "json_object"}},
@@ -160,7 +160,7 @@ run_workbench("Explain AI history with simple language.")
 ```text
 used input tokens estimate: 36
 remaining output room     : 3460
-request model             : gpt-5.2
+request model             : gpt-5.5
 
 attempt: 1
 validation: era_0_missing_['summary']
@@ -202,7 +202,7 @@ Payload 里包含 `model`、`instructions`、`input`、`text.format`、`max_outp
 如果你有 API key，可以使用官方 OpenAI Python SDK 和现代 Responses API 跑同样的思路。建议先理解离线工作台，再运行真实调用。
 
 ```bash
-pip install --upgrade openai pydantic
+python -m pip install --upgrade openai pydantic
 export OPENAI_API_KEY="your_api_key_here"
 python real_responses_call.py
 ```
@@ -226,7 +226,7 @@ class Timeline(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
+    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
     input=[
         {
             "role": "system",
@@ -249,6 +249,8 @@ print(response.output_parsed.model_dump())
 :::info 为什么使用 Responses API
 新的文本生成应用优先使用 Responses API，而不是从更旧的 chat-completion 示例开始。关键工程思路和离线工作台一样：构造请求、控制输出、解析结果，并确认结果真的能被程序使用。
 :::
+
+如果你的账号或部署使用其他已批准模型，可以设置 `OPENAI_MODEL`。示例保留模型名可配置，避免课程代码永远绑定一个固定默认值。
 
 ## 练习方式
 

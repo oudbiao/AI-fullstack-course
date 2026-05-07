@@ -235,6 +235,14 @@ for score, name in sorted(scores, reverse=True):
     print(name, "->", round(score, 2))
 ```
 
+期待される出力：
+
+```text
+open_source_8b -> 7.4
+open_source_70b -> 7.0
+cloud_api_model -> 6.8
+```
+
 `weights` を変えることで、会社ごとの重視点の違いを再現できます。
 
 ---
