@@ -11,7 +11,7 @@ keywords: [Python study guide, Python task sheet, programming fundamentals, JSON
 
 The main study route is now in [Chapter 2 entry](./). Use this page only as a quick checklist while you practice.
 
-## 2.0.1 One-Line Mental Model
+## One-Line Mental Model
 
 ```text
 input -> data structure -> function -> file/API/output
@@ -19,7 +19,7 @@ input -> data structure -> function -> file/API/output
 
 If a topic does not help this loop yet, skim it first and return later.
 
-## 2.0.2 Practice Checklist
+## Practice Checklist
 
 | Check | Evidence |
 |---|---|
@@ -30,6 +30,6 @@ If a topic does not help this loop yet, skim it first and return later.
 | I can handle one broken file or bad input | debug note |
 | I can finish the workshop | `ch02_output/` |
 
-## 2.0.3 Ready To Continue
+## Ready To Continue
 
 Continue to Chapter 3 when your task manager can add a task, save it, reload it, and explain the run command in a README.

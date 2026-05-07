@@ -9,7 +9,7 @@ keywords: [文本分类指南, 情感分析, TF-IDF, 文本分类项目]
 
 文本分类接收一段文本，预测一个标签，例如情感、主题、意图或风险类型。
 
-## 11.3.1.1 先看分类流水线
+## 先看分类流水线
 
 ![文本分类章节学习顺序图](/img/course/ch11-classification-chapter-flow.png)
 
@@ -19,7 +19,7 @@ keywords: [文本分类指南, 情感分析, TF-IDF, 文本分类项目]
 
 复杂模型之前先做 baseline。大多数分类问题不是模型不够强，而是标签模糊或样本分布偏。
 
-## 11.3.1.2 跑一个关键词 Baseline
+## 跑一个关键词 Baseline
 
 ```python
 texts = ["great course and clear examples", "confusing setup error"]
@@ -40,7 +40,7 @@ needs_review - confusing setup error
 
 简单 baseline 不是最终模型，但能快速暴露标签规则和失败案例。
 
-## 11.3.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -48,6 +48,6 @@ needs_review - confusing setup error
 | 2 | 深度学习方法 | 比较 embeddings、pooling、CNN/RNN/Transformer 特征 |
 | 3 | 项目实战 | 追踪划分、指标、标签歧义和错误样例 |
 
-## 11.3.1.4 通过标准
+## 通过标准
 
 如果你能训练或模拟一个分类器，报告 accuracy/F1，并解释至少一个标签模糊案例，就通过了本章。

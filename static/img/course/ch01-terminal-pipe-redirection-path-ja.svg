@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
   <title id="title">ターミナルのパイプ、リダイレクト、PATH の考え方</title>
-  <desc id="desc">ターミナル出力がパイプで流れ、リダイレクトでログに残り、PATH がコマンドを探す流れを示すコース用プレースホルダー図。</desc>
+  <desc id="desc">ターミナル出力がパイプで流れ、リダイレクトでログに残り、PATH がコマンドを探す流れを示すコース用 SVG 教材図。</desc>
   <defs>
     <style>
       .bg { fill: #f7faf8; }

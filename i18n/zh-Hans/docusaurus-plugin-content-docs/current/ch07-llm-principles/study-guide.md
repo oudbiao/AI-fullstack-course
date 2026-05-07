@@ -11,7 +11,7 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 
 ![大模型学习进化路径](/img/course/ch07-study-guide-evolution-line.png)
 
-## 7.0.1 两小时快速通读
+## 两小时快速通读
 
 | 时间 | 做什么 | 能说出这句话就停 |
 |---|---|---|
@@ -21,7 +21,7 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 | 30 分钟 | 运行入口页的 Prompt 测试脚本 | “我能用固定样本比较 Prompt 版本。” |
 | 20 分钟 | 阅读方案选择表 | “在检查 Prompt、RAG、工具和校验前，不该急着微调。” |
 
-## 7.0.2 必须留下的证据
+## 必须留下的证据
 
 | 证据 | 最小版本 |
 |---|---|
@@ -32,7 +32,7 @@ keywords: [大模型学习检查表, Prompt 评估, Transformer, 微调, RLHF]
 | `llm_stage_workshop_output.txt` | [7.8.4 实操：第 7 章完整工作坊](./ch08-projects/03-stage-hands-on-workshop.md) 的输出 |
 | `README.md` | 如何运行、哪些通过、哪些失败、下一步怎么试 |
 
-## 7.0.3 离章问题
+## 离章问题
 
 - 你能不照抄定义，解释 token、embedding、attention、上下文窗口、预训练、Prompt、微调和对齐吗？
 - 你能每次只改一个 Prompt 变量，并用同一组输入比较结果吗？

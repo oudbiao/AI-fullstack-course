@@ -11,7 +11,7 @@ keywords: [深層学習学習ガイド, PyTorch, CNN, Transformer, Attention]
 
 主な学習ルートは [第 6 章の入口](./) にまとめました。このページは、練習中に見る短いチェックリストとして使います。
 
-## 6.0.1 一行モデル
+## 一行モデル
 
 ```text
 batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer step -> 曲線
@@ -19,7 +19,7 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 
 コードが長く見えるときは、まずこの 6 ステップを探します。
 
-## 6.0.2 練習チェックリスト
+## 練習チェックリスト
 
 | チェック | 証拠 |
 |---|---|
@@ -30,6 +30,6 @@ batch データ -> モデル forward -> loss -> 勾配 backward -> optimizer ste
 | Attention が何を変えたか説明できる | attention メモ |
 | 証拠パックワークショップを完了できる | `deep_learning_workshop_run/` |
 
-## 6.0.3 次へ進めるサイン
+## 次へ進めるサイン
 
 小さなモデルを学習し、ログを保存し、失敗サンプルを確認し、なぜ改善または失敗したかを説明できたら、第 7 章へ進めます。

@@ -9,7 +9,7 @@ keywords: [PyTorch 指南, tensor, autograd, nn.Module, DataLoader, training loo
 
 PyTorch 把深度学习闭环变成可运行代码。先学执行顺序，再补细节会轻松很多。
 
-## 6.2.1.1 先看工作流
+## 先看工作流
 
 ![PyTorch 章节流程图](/img/course/ch06-pytorch-chapter-flow.png)
 
@@ -19,7 +19,7 @@ PyTorch 把深度学习闭环变成可运行代码。先学执行顺序，再补
 tensor -> model -> loss -> backward -> optimizer.step -> repeat
 ```
 
-## 6.2.1.2 跑一次 Autograd
+## 跑一次 Autograd
 
 创建 `pytorch_first_loop.py`，安装 `torch` 后运行。
 
@@ -49,7 +49,7 @@ for step in range(1, 5):
 
 这里能看到 PyTorch 的关键习惯：计算 loss，调用 `backward()`，在不跟踪梯度的区域更新参数，然后清空旧梯度。
 
-## 6.2.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
@@ -62,6 +62,6 @@ for step in range(1, 5):
 | 7 | [6.2.8 实用技巧](./06-practical-tips.md) | shape、device、seed、调试 |
 | 8 | [6.2.9 PyTorch 工作坊](./07-pytorch-matplotlib-workshop.md) | 运行并可视化小模型 |
 
-## 6.2.1.4 通过标准
+## 通过标准
 
 能读懂一个 PyTorch 循环，并定位数据 batch、模型输出、loss、`backward()` 和 optimizer 更新这五件事，就算通过。

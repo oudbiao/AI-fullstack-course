@@ -9,7 +9,7 @@ keywords: [Text Basics Guide, NLP Guide, Text Representation]
 
 Text is not naturally computable. Before classification, extraction, summarization, or QA, you need to turn raw text into stable units and features.
 
-## 11.1.1.1 See the Text Pipeline First
+## See the Text Pipeline First
 
 ![Text basics chapter learning flowchart](/img/course/ch11-text-basics-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Text is not naturally computable. Before classification, extraction, summarizati
 
 The first habit is to ask: what is the input text, what is the task, and what output shape should the system produce?
 
-## 11.1.1.2 Run a Token and Vocabulary Check
+## Run a Token and Vocabulary Check
 
 ```python
 text = "RAG answers need citations"
@@ -42,7 +42,7 @@ vocab_size: 4
 
 If tokenization is unstable, every downstream task becomes unstable too.
 
-## 11.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -50,6 +50,6 @@ If tokenization is unstable, every downstream task becomes unstable too.
 | 2 | Preprocessing | Normalize text, split tokens, handle noise and boundaries |
 | 3 | Text representation | Build tokens, ids, vocabulary, sparse features, or vectors |
 
-## 11.1.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can take raw text, tokenize it, explain the task output shape, and save one preprocessing example in your project notes.

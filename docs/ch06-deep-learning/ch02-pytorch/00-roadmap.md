@@ -9,7 +9,7 @@ keywords: [PyTorch guide, tensor, autograd, nn.Module, DataLoader, training loop
 
 PyTorch is the framework that turns the deep learning loop into runnable code. First learn the execution order; details become easier afterward.
 
-## 6.2.1.1 Look at the Workflow First
+## Look at the Workflow First
 
 ![PyTorch chapter flowchart](/img/course/ch06-pytorch-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ PyTorch is the framework that turns the deep learning loop into runnable code. F
 tensor -> model -> loss -> backward -> optimizer.step -> repeat
 ```
 
-## 6.2.1.2 Run Autograd Once
+## Run Autograd Once
 
 Create `pytorch_first_loop.py` and run it after installing `torch`.
 
@@ -49,7 +49,7 @@ Expected output:
 
 The key PyTorch habit is visible here: compute loss, call `backward()`, update without tracking gradients, then clear old gradients.
 
-## 6.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -62,6 +62,6 @@ The key PyTorch habit is visible here: compute loss, call `backward()`, update w
 | 7 | [6.2.8 Practical Tips](./06-practical-tips.md) | shape, device, seed, debugging |
 | 8 | [6.2.9 PyTorch Workshop](./07-pytorch-matplotlib-workshop.md) | run and visualize a tiny model |
 
-## 6.2.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can read a PyTorch loop and locate these five things: data batch, model output, loss, `backward()`, and optimizer update.

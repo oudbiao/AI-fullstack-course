@@ -1,148 +1,73 @@
 ---
-title: "E.A Elective Module: C++ and Model Deployment"
+title: "E.A C++ and Model Deployment Roadmap"
 sidebar_position: 0
-description: "Overview of the C++ and Model Deployment module, helping you understand the learning sequence, applicable scenarios, and the relationship between lessons."
+description: "A concise hands-on roadmap for the C++ and model deployment elective: move from runtime basics to optimization, inference engines, edge deployment, serving, and a delivery project."
 ---
 
-# E.A Elective Module: C++ and Model Deployment
+# E.A C++ and Model Deployment Roadmap
 
-:::tip Module Positioning
-To truly move a trained model into inference and deployment environments, you need a systematic understanding of performance, inference, and serviceization.
-:::
+Use this elective when a Python model already works, but latency, memory, packaging, or serving cost becomes the real problem.
+
+## See the Deployment Path First
 
 ![C++ and Model Deployment module learning map](/img/course/elective-cpp-deployment-module-map-en.png)
 
-:::info Hands-on checkpoint
-If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](../hands-on-elective-workshop) first and inspect the Module A deployment score output.
-:::
+![C++ runtime memory map](/img/course/elective-cpp-runtime-memory-en.png)
 
-## Learning Goals
+The core question is simple: can you turn model output into a fast, measurable, deployable inference path?
 
-- Understand where the C++ and Model Deployment module fits in the overall learning path
-- Know what problem each lesson in this module solves
-- Clarify which parts to learn first and which to learn later
-- Build intuition quickly with a minimal example
+## Run the Smallest C++ Inference Step
 
----
-
-## What problem is this module solving?
-
-### Module Positioning
-
-C++ and model deployment are not here to “learn a bit more content,” but to fill in a kind of capability that often determines how far an engineering solution can go.
-
-You can first think of it as a toolbox of specialized topics:
-
-- Come back to it when you encounter relevant projects
-- You do not have to learn it all at once
-- But once you enter the corresponding scenario, it becomes very valuable
-
-### Recommended Learning Order
-
-A more reliable way to learn is usually:
-
-1. Read the overview first and understand what each lesson is roughly about
-2. Start with the most basic topics that can be used right away
-3. Then move into more engineering-focused or project-focused content
-
----
-
-## What topics are included in this module?
-
-### Chapter List
-
-| Chapter | Topic |
-|---|---|
-| Lesson 1 | C++ Programming Basics |
-| Lesson 2 | Advanced C++ |
-| Lesson 3 | Model Optimization Techniques |
-| Lesson 4 | Inference Engine |
-| Lesson 5 | Edge Device Deployment |
-| Lesson 6 | Model Serviceization |
-| Lesson 7 | Comprehensive Deployment Project |
-
-### How should you use this module?
-
-A very practical strategy is:
-
-- First use the main course to get the whole workflow running
-- Then return to the elective module to refine specific skills when needed
-
-This way, you avoid losing the rhythm of the main learning path because there are too many specialized topics.
-
----
-
-## A minimal runnable example
-
-:::info Run Tip
-```bash
-# macOS / Linux
-c++ -std=c++17 demo.cpp -o demo
-```
-:::
+Create `demo.cpp`:
 
 ```cpp
 #include <iostream>
 #include <vector>
 
 int main() {
-std::vector<float> logits = {1.2f, 0.3f, 2.1f};
-float best = logits[0];
-int best_idx = 0;
-for (int i = 1; i < logits.size(); ++i) {
-    if (logits[i] > best) {
-        best = logits[i];
-        best_idx = i;
+    std::vector<float> logits = {1.2f, 0.3f, 2.1f};
+    int best_index = 0;
+
+    for (int i = 1; i < static_cast<int>(logits.size()); ++i) {
+        if (logits[i] > logits[best_index]) {
+            best_index = i;
+        }
     }
-}
-std::cout << "best class = " << best_idx << ", score = " << best << std::endl;
-return 0;
+
+    std::cout << "best_class=" << best_index << "\n";
+    std::cout << "score=" << logits[best_index] << "\n";
+    return 0;
 }
 ```
 
-### What should you take away from this example?
+Run it:
 
-This small piece of code is not meant to cover the whole module. Instead, it helps you quickly build a sense of “what exactly this module is doing.”
+```bash
+c++ -std=c++17 demo.cpp -o demo
+./demo
+```
 
-When reading it, focus on these three things first:
+Expected output:
 
-- What is the input?
-- What happens in the middle?
-- How does the output correspond to a real project?
+```text
+best_class=2
+score=2.1
+```
 
----
+This is the smallest deployment habit: input tensor-like values, compute a decision, print a reproducible result.
 
-## Learning advice
+## Learn in This Order
 
-### If time is limited, what should you learn first?
+| Step | Lesson | Practice Output |
+|---|---|---|
+| 1 | [E.A.1 C++ Basics](./01-cpp-basics.md) | Compile and run a tiny inference helper |
+| 2 | [E.A.2 Advanced C++](./02-cpp-advanced.md) | Explain ownership, RAII, and safe resource release |
+| 3 | [E.A.3 Optimization](./03-model-optimization.md) | Compare latency, memory, and accuracy trade-offs |
+| 4 | [E.A.4 Inference Engines](./04-inference-engines.md) | Pick an engine based on hardware and model format |
+| 5 | [E.A.5 Edge Deployment](./05-edge-deployment.md) | Name edge constraints and export a checklist |
+| 6 | [E.A.6 Model Serving](./06-model-serving.md) | Design versioned serving with metrics |
+| 7 | [E.A.7 Project](./07-projects.md) | Deliver a small deployment evidence pack |
 
-Prioritize the topics that will appear frequently in later projects and can immediately help reduce cost or improve efficiency.
+## Pass Check
 
-### Common mistakes
-
-- Seeing it as elective and not learning it at all
-- Trying to finish all electives at once from the start
-- Only reading concepts and never running the minimal example
-
----
-
-## When is the best time to come back and study this module?
-
-When you see the following signals, it means you are a good fit to come back and fill in this set of topics:
-
-- You already know how to train a model, but performance is poor after deployment
-- You start caring about inference latency, throughput, memory usage, and cost
-- You need to put the model on edge devices or in a service-based environment
-- You find that the Python prototype works, but it is still far from production
-
-## What can you do after finishing this module?
-
-- Understand that training and inference are two different problems
-- Read and understand common optimization and serviceization concepts in deployment pipelines
-- Enter model release, edge deployment, and inference engineering scenarios with more confidence
-
----
-
-## Summary
-
-The purpose of this overview page is to give you a map. When actually learning the module, you do not need to aim for “understanding everything.” Instead, know when to come back and which part to fill in first.
+You pass this module when you can compile one C++ example, explain the deployment trade-off, record latency or memory evidence, and connect the result to the [Elective Hands-on Workshop](../hands-on-elective-workshop.md).

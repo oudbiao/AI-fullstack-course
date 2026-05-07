@@ -9,7 +9,7 @@ keywords: [video generation guide, speech synthesis guide, digital human guide, 
 
 Video and speech generation adds time. You are no longer creating one image; you are organizing script, shots, narration, timing, subtitles, motion, and review on a timeline.
 
-## 12.3.1.1 See the Timeline First
+## See the Timeline First
 
 ![Video, speech, and digital human chapter learning sequence diagram](/img/course/ch12-video-gen-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Video and speech generation adds time. You are no longer creating one image; you
 
 The first habit is to describe every generated asset by its place on the timeline.
 
-## 12.3.1.2 Build a 30-Second Asset Plan
+## Build a 30-Second Asset Plan
 
 ```python
 shots = [
@@ -44,7 +44,7 @@ total_seconds: 30
 
 This is already a useful video-generation brief, even before calling a real video model.
 
-## 12.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -52,6 +52,6 @@ This is already a useful video-generation brief, even before calling a real vide
 | 2 | TTS | Turn narration into speech settings and subtitle text |
 | 3 | Digital humans | Track face, voice, lip sync, consent, and safety boundaries |
 
-## 12.3.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can turn one topic into a timeline with shots, narration, durations, subtitles, risk notes, and export requirements.

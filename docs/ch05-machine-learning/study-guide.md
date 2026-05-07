@@ -11,7 +11,7 @@ keywords: [machine learning study guide, sklearn, machine learning project, base
 
 The main study route is now in [Chapter 5 entry](./). Use this page only as a quick checklist while you practice.
 
-## 5.0.1 One-Line Mental Model
+## One-Line Mental Model
 
 ```text
 define task -> split data -> train baseline -> evaluate -> inspect errors -> improve
@@ -19,7 +19,7 @@ define task -> split data -> train baseline -> evaluate -> inspect errors -> imp
 
 If you do not know which model to use, start with a baseline.
 
-## 5.0.2 Practice Checklist
+## Practice Checklist
 
 | Check | Evidence |
 |---|---|
@@ -30,6 +30,6 @@ If you do not know which model to use, start with a baseline.
 | I can inspect errors | error samples |
 | I can finish the evidence-pack workshop | `ml_workshop_run/` |
 
-## 5.0.3 Ready To Continue
+## Ready To Continue
 
 Continue to Chapter 6 when one tabular project includes a baseline, a real model, metrics, error analysis, and a README that another person can rerun.

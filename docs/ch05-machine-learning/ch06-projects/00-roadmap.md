@@ -9,7 +9,7 @@ keywords: [machine learning project guide, house price prediction, customer chur
 
 This chapter is the exit point of Chapter 5. It proves you can turn a data problem into a modeling workflow that can be evaluated, explained, and shown in a portfolio.
 
-## 5.6.1.1 Look at the Project Loop First
+## Look at the Project Loop First
 
 ![Machine Learning Project Practice Roadmap](/img/course/ml-projects-roadmap-en.png)
 
@@ -23,7 +23,7 @@ problem -> data -> baseline -> metric -> improvement -> failure cases -> report
 
 Do not jump straight to a complex model. A project without a baseline, metric, and failure analysis is only a demo run.
 
-## 5.6.1.2 Keep One Experiment Log
+## Keep One Experiment Log
 
 Create `ml_project_log_first_loop.py`. This is not a model; it is the habit every model project needs.
 
@@ -51,7 +51,7 @@ next_step: inspect failure cases before adding more models
 
 This is the mindset shift: from "I ran a model" to "I can compare versions and explain the next step."
 
-## 5.6.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to deliver |
 |---|---|---|
@@ -63,12 +63,12 @@ This is the mindset shift: from "I ran a model" to "I can compare versions and e
 
 The workshop comes last because it packages the project habits into one reproducible evidence pack.
 
-## 5.6.1.4 Project Deliverable Standards
+## Project Deliverable Standards
 
 ![Machine Learning Project Report Storyboard](/img/course/ch05-project-report-storyboard-en.png)
 
 Keep these files for at least one project: `README.md`, run command, metric table, experiment log, one failure case, one chart, and a next-step plan.
 
-## 5.6.1.5 Pass Check
+## Pass Check
 
 You pass this roadmap when you can clearly say: how I defined the task, what baseline I used, which metric I trusted, what improved, where the model failed, and what I would do next.

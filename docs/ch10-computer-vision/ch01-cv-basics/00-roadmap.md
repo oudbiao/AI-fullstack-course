@@ -9,7 +9,7 @@ keywords: [vision basics guide, OpenCV guide, image processing guide]
 
 Computer vision starts with input intuition. Before classification, detection, or segmentation, you need to know what an image looks like as numbers.
 
-## 10.1.1.1 See the Image Pipeline First
+## See the Image Pipeline First
 
 ![Vision basics chapter learning flow](/img/course/ch10-cv-basics-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Computer vision starts with input intuition. Before classification, detection, o
 
 The first mental model is simple: image = height × width × channels. Most later bugs come from shape, channel order, coordinates, or color-space confusion.
 
-## 10.1.1.2 Run a Tiny Image Shape Check
+## Run a Tiny Image Shape Check
 
 This toy image has 2 rows, 3 columns, and RGB values.
 
@@ -47,7 +47,7 @@ top_left_pixel: [255, 0, 0]
 
 If your code reads a real image with the wrong shape or channel order, every later model result becomes harder to trust.
 
-## 10.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -55,6 +55,6 @@ If your code reads a real image with the wrong shape or channel order, every lat
 | 2 | OpenCV basics | Load, view, crop, resize, and save an image |
 | 3 | Basic processing | Try grayscale, threshold, blur, edge, and simple filters |
 
-## 10.1.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can inspect an image shape, crop a region by coordinates, explain channel order, and save one processed result for your README.

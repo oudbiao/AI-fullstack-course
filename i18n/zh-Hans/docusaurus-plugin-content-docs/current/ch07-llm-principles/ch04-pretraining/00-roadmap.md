@@ -9,7 +9,7 @@ keywords: [LLM 预训练, 训练数据, next token prediction, 数据治理, 预
 
 预训练让模型先学到广泛语言模式。工程视角是：清理数据，选择目标，大规模训练，追踪风险。
 
-## 7.4.1.1 先看预训练三角
+## 先看预训练三角
 
 ![预训练章节关系图](/img/course/ch07-pretraining-chapter-flow.png)
 
@@ -22,7 +22,7 @@ keywords: [LLM 预训练, 训练数据, next token prediction, 数据治理, 预
 | 工程 | 规模、checkpoint、日志和失败如何处理？ |
 | 评估 | 模型能做什么，哪里会失败？ |
 
-## 7.4.1.2 创建 next-token 样本
+## 创建 next-token 样本
 
 ```python
 tokens = ["AI", "learns", "from", "text"]
@@ -42,7 +42,7 @@ from -> text
 
 这个小例子就是 next-token prediction 的形状。真实预训练会把它扩展到海量文本，并配合严格的数据治理。
 
-## 7.4.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
@@ -50,6 +50,6 @@ from -> text
 | 2 | [7.4.3 预训练方法](./02-pretraining-methods.md) | next-token prediction、loss、scaling |
 | 3 | [7.4.4 预训练工程](./03-pretraining-engineering.md) | 分布式训练、checkpoint、监控 |
 
-## 7.4.1.4 通过标准
+## 通过标准
 
 能解释数据、目标和工程分别如何影响最终模型，并知道数据污染为什么会让评估误导人，就算通过。

@@ -461,7 +461,7 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 ## Step 4：資産と storyboard を確認する
 
-ブラウザで `assets/scene_01.svg`、`assets/scene_02.svg`、`assets/scene_03.svg` を開きます。これは簡単な SVG placeholder ですが、ワークフロー上では生成資産として扱います。
+ブラウザで `assets/scene_01.svg`、`assets/scene_02.svg`、`assets/scene_03.svg` を開きます。これはスクリプトで生成した基線 SVG 素材で、ワークフロー上では生成資産として扱います。
 
 `outputs/storyboard.json` と `outputs/timeline.csv` を開きます。これらのファイルは、ビジュアル資産が短い動画やランディングページの流れにどう変わるかを説明します。
 
@@ -488,7 +488,7 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 | Baseline モジュール | 実プロジェクトでの置き換え |
 |---|---|
-| SVG placeholder | 画像生成 API またはローカル画像モデル |
+| 基線 SVG 素材 | 画像生成 API またはローカル画像モデル |
 | Storyboard JSON | 動画生成ワークフロー |
 | コピー文 | LLM 生成コピーと人間レビュー |
 | Safety checklist | 人間レビューとポリシーチェック |

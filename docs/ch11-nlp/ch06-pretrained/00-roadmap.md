@@ -9,7 +9,7 @@ keywords: [pretraining guide, BERT, GPT, T5, transformers]
 
 Pretrained models move NLP from one-task training to a reusable foundation: pretrain on large text, then transfer to downstream tasks.
 
-## 11.6.1.1 See the Paradigm Map First
+## See the Paradigm Map First
 
 ![BERT GPT T5 comparison chart](/img/course/bert-gpt-t5-comparison-en.png)
 
@@ -19,7 +19,7 @@ Pretrained models move NLP from one-task training to a reusable foundation: pret
 
 BERT emphasizes understanding, GPT emphasizes generation, and T5 rewrites many tasks into text-to-text form.
 
-## 11.6.1.2 Run a Model Family Choice Check
+## Run a Model Family Choice Check
 
 ```python
 task = {
@@ -48,7 +48,7 @@ reason: match model objective to task output
 
 Do not choose by model name alone. Match tokenizer, objective, output format, cost, and deployment constraints.
 
-## 11.6.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -58,6 +58,6 @@ Do not choose by model name alone. Match tokenizer, objective, output format, co
 | 4 | T5 | Rewrite tasks into text-to-text form |
 | 5 | Transformers practice | Connect tokenizer, model, pipeline, input, output |
 
-## 11.6.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can explain why different objectives create different strengths, and run or design one small pretrained-model comparison experiment.

@@ -9,7 +9,7 @@ keywords: [Prompt Guide, Prompt Engineering, Structured Output, Prompt Evaluatio
 
 Prompt engineering is the interface between your application and the model. The goal is not to write a clever sentence; the goal is to make one model call predictable, parseable, testable, and easy to improve.
 
-## 7.5.1.1 See the Prompt Loop First
+## See the Prompt Loop First
 
 ![Prompt engineering chapter relationship diagram](/img/course/ch07-prompt-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Prompt engineering is the interface between your application and the model. The 
 
 Use this chapter when the model already has the general ability, but the result is vague, unstable, in the wrong format, or hard to evaluate.
 
-## 7.5.1.2 Run a Prompt Contract Check
+## Run a Prompt Contract Check
 
 Before calling any LLM, describe the prompt as a contract: task, context, output format, and constraints. This tiny script checks whether the contract is complete enough to test.
 
@@ -49,7 +49,7 @@ test_case_count: 3
 
 If `ready` is `False`, fix the prompt brief before you try more examples. A vague prompt produces vague debugging.
 
-## 7.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -59,7 +59,7 @@ If `ready` is `False`, fix the prompt brief before you try more examples. A vagu
 | 4 | Prompt practice | Compare prompt versions on the same fixed inputs |
 | 5 | Evaluation lab | Record pass rate, failure type, and the next prompt change |
 
-## 7.5.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can keep the input set fixed, change one prompt layer at a time, and explain why the new version is better with evidence instead of a feeling.
 

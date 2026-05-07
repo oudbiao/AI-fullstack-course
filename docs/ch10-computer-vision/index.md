@@ -13,7 +13,7 @@ This elective chapter answers a simple question: **what does it mean for a model
 
 If your main track is LLM apps and Agents, you can return later. If you care about OCR, industrial inspection, medical imaging, visual search, or multimodal products, study this chapter systematically.
 
-## 10.0.1 See Vision Tasks By Output Granularity
+## See Vision Tasks By Output Granularity
 
 ![Vision task granularity ladder](/img/course/ch10-vision-task-granularity-ladder-en.svg)
 
@@ -26,7 +26,7 @@ Ask three questions about the same image:
 | Which pixels belong to which object or region? | Segmentation | masks or pixel classes |
 | What text or visual meaning can be extracted? | OCR / visual understanding | text, tables, descriptions, answers |
 
-## 10.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Do the project after you understand the output type. The same image can become several different tasks.
 
@@ -39,7 +39,7 @@ Do the project after you understand the output type. The same image can become s
 | 10.5 | Advanced topics | Choose OCR, video, face, 3D, or medical direction only if needed | direction notes and scenario boundary |
 | 10.6 | Stage project | Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./ch06-projects/03-hands-on-vision-workshop.md) | generated images, masks, boxes, metrics, failure report |
 
-## 10.0.3 First Runnable Loop: Inspect Pixels Without Dependencies
+## First Runnable Loop: Inspect Pixels Without Dependencies
 
 This zero-dependency lab creates a tiny color image, converts it to grayscale, and saves files that most image viewers can open. It teaches the core idea: an image is structured numeric data.
 
@@ -85,7 +85,7 @@ saved: synthetic_rgb.ppm synthetic_gray.pgm
 
 Operation tip: change `width`, `height`, or the RGB formula. If the saved image changes, you are already doing image preprocessing. Later sections replace this tiny lab with OpenCV, Pillow, PyTorch, and detection or segmentation models.
 
-## 10.0.4 Debug Vision Results
+## Debug Vision Results
 
 ![Vision pipeline and failure review loop](/img/course/ch10-vision-pipeline-loop-en.svg)
 
@@ -98,7 +98,7 @@ When a vision model is wrong, inspect the input and labels before blaming the ar
 | Segmentation boundary is rough | mask overlaid on the original image | improve annotation, use suitable IoU/Dice metrics |
 | Demo images work but real images fail | lighting, angle, background, camera source | add real samples and scenario notes |
 
-## 10.0.5 Common Failures
+## Common Failures
 
 - Chasing model names before checking data quality.
 - Reporting accuracy without saving failed images.
@@ -106,7 +106,7 @@ When a vision model is wrong, inspect the input and labels before blaming the ar
 - Using augmentation that changes the meaning of labels.
 - Ignoring deployment constraints such as image size, latency, and device memory.
 
-## 10.0.6 Pass Check
+## Pass Check
 
 Before leaving this elective, you should be able to:
 

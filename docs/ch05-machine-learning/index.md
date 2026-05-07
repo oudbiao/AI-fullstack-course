@@ -11,7 +11,7 @@ keywords: [machine learning, Scikit-learn, supervised learning, unsupervised lea
 
 Chapter 5 has one job: help you turn a data problem into **a trainable, evaluable, improvable machine learning project**.
 
-## 5.0.1 See The Modeling Loop
+## See The Modeling Loop
 
 ![Main loop of machine learning modeling](/img/course/ch05-modeling-loop-backbone-en.png)
 
@@ -23,7 +23,7 @@ define task -> split data -> train baseline -> evaluate -> inspect errors -> imp
 
 Start with a baseline before chasing model names. A baseline tells you whether later changes actually improve anything.
 
-## 5.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Use this table as both the chapter guide and the task sheet.
 
@@ -48,7 +48,7 @@ Key terms for this chapter:
 | `leakage` | Test or target information accidentally entering training |
 | `Pipeline` | Preprocessing and model packaged together to reduce leakage |
 
-## 5.0.3 First Runnable Loop
+## First Runnable Loop
 
 Install sklearn if needed:
 
@@ -94,7 +94,7 @@ Logistic regression
 
 Do not only compare the final scores. Ask: which classes are easy, which are hard, and what error would matter most in the real use case?
 
-## 5.0.4 Common Failures
+## Common Failures
 
 | Symptom | First thing to check | Usual fix |
 |---|---|---|
@@ -104,7 +104,7 @@ Do not only compare the final scores. Ask: which classes are easy, which are har
 | Accuracy looks fine but product risk is high | Class imbalance or costly false negatives | Use recall, precision, F1, AUC, or threshold review |
 | Results cannot be reproduced | Random seed, data version, or dependency changed | Fix seeds and record versions |
 
-## 5.0.5 Pass Check
+## Pass Check
 
 Move to Chapter 6 when you can answer these five questions:
 

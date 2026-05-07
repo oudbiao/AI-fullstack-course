@@ -9,7 +9,7 @@ keywords: [finetuning guide, LoRA, QLoRA, PEFT, LLM finetuning]
 
 Finetuning changes model behavior by training on examples. It is useful for stable task patterns, repeated formats, domain style, or behavior habits. It is usually not the first fix for missing private knowledge; that is often a RAG problem.
 
-## 7.6.1.1 See the Decision Loop First
+## See the Decision Loop First
 
 ![Relationship diagram of the large model finetuning chapter](/img/course/ch07-finetuning-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Finetuning changes model behavior by training on examples. It is useful for stab
 
 Key terms: LoRA means low-rank adapters, QLoRA means quantized LoRA, and PEFT means parameter-efficient fine-tuning. They reduce cost by training a small set of extra parameters instead of every model weight.
 
-## 7.6.1.2 Run a Finetuning Route Check
+## Run a Finetuning Route Check
 
 Use this check before you start training. A finetuning run without a prompt baseline, validation set, and failure log is hard to judge.
 
@@ -51,7 +51,7 @@ minimum_before_training: ['prompt baseline', 'validation set', 'failure log']
 
 Change one value at a time and rerun it. For example, set `private_facts` to `True`; the decision should move to RAG first.
 
-## 7.6.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -61,7 +61,7 @@ Change one value at a time and rerun it. For example, set `private_facts` to `Tr
 | 4 | Finetuning practice | Prepare train/validation examples and one run command |
 | 5 | Data labeling | Audit samples for format, duplicates, leakage, and edge cases |
 
-## 7.6.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can say why finetuning is worth trying, show the baseline it beats, and keep a validation set that was not used for training.
 

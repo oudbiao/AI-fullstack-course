@@ -9,7 +9,7 @@ keywords: [シーケンスラベリングガイド, NER, BiLSTM-CRF]
 
 分類は文全体に 1 つのラベルを付けます。系列ラベリングは、文の中の各 token にラベルを付けます。NER（Named Entity Recognition、固有表現認識）は代表例です。
 
-## 11.4.1.1 先に全体像を見る
+## 先に全体像を見る
 
 ![系列ラベリング章の進め方](/img/course/ch11-sequence-labeling-chapter-flow-ja.png)
 
@@ -19,7 +19,7 @@ keywords: [シーケンスラベリングガイド, NER, BiLSTM-CRF]
 | 2 | HMM / CRF | ラベル列の自然なつながりを扱う |
 | 3 | BiLSTM-CRF | 文脈表現とラベル列制約を組み合わせる |
 
-## 11.4.1.2 BIO ラベルを手で見る
+## BIO ラベルを手で見る
 
 ![HMM と CRF から系列ラベリングを見る](/img/course/ch11-hmm-crf-sequence-history-map-ja.png)
 
@@ -44,13 +44,13 @@ notes O
 
 操作のコツ：系列ラベリングでは token 数と tag 数が一致している必要があります。ここがずれると、学習データとして使えません。
 
-## 11.4.1.3 BiLSTM-CRF の直感
+## BiLSTM-CRF の直感
 
 ![BiLSTM-CRF のラベル経路](/img/course/ch11-bilstm-crf-label-path-map-ja.png)
 
 `BiLSTM` は前後の文脈を読み、`CRF` はラベル列として自然な並びを選びます。たとえば `I-PER` が文頭に突然出るより、`B-PER` の後に出るほうが自然です。
 
-## 11.4.1.4 通過条件
+## 通過条件
 
 | チェック | 合格ライン |
 |---|---|

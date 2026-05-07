@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
   <title id="title">Git 合并冲突解决心智模型</title>
-  <desc id="desc">一张课程占位图，展示两个分支修改同一文件、Git 冲突标记、人工选择、add 和 commit 的流程。</desc>
+  <desc id="desc">一张课程 SVG 教学图，展示两个分支修改同一文件、Git 冲突标记、人工选择、add 和 commit 的流程。</desc>
   <defs>
     <style>
       .bg { fill: #f8f9fb; }

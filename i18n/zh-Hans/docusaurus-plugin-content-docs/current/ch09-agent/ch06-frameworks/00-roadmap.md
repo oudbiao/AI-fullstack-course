@@ -9,7 +9,7 @@ keywords: [Agent 框架指南, LangGraph, LlamaIndex, CrewAI, AutoGen]
 
 框架不会让 Agent 自动变聪明。它们是在任务复杂度足够高时，帮助你组织状态、工具、工作流、记忆、日志和协作。
 
-## 9.6.1.1 先看选择地图
+## 先看选择地图
 
 ![Agent 框架位置图](/img/course/ch09-frameworks-position-map.png)
 
@@ -19,7 +19,7 @@ keywords: [Agent 框架指南, LangGraph, LlamaIndex, CrewAI, AutoGen]
 
 如果任务只有三个固定步骤，普通 Python 函数可能更好。只有当状态、分支、恢复、数据连接或角色协作开始难以管理时，再加入框架。
 
-## 9.6.1.2 跑一个框架路线检查
+## 跑一个框架路线检查
 
 不要因为框架热门就选择它，先跑这个检查。
 
@@ -53,7 +53,7 @@ reason: choose the smallest abstraction that exposes state
 
 框架选择应该写进 README，作为取舍说明，而不是藏在依赖里。
 
-## 9.6.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -63,6 +63,6 @@ reason: choose the smallest abstraction that exposes state
 | 4 | CrewAI / AutoGen | 比较角色协作和多 Agent 对话 |
 | 5 | 框架选择 | 写出决策表和无框架基线 |
 
-## 9.6.1.4 通过标准
+## 通过标准
 
 如果你能用普通函数和一个框架实现同一个小任务，并解释哪一版更容易调试、为什么，就通过了本章。

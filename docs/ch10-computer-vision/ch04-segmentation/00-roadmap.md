@@ -9,7 +9,7 @@ keywords: [image segmentation guide, semantic segmentation, instance segmentatio
 
 Segmentation is finer than detection. Instead of a box, it outputs a mask that says which pixels belong to a class or instance.
 
-## 10.4.1.1 See the Mask Workflow First
+## See the Mask Workflow First
 
 ![Image segmentation chapter learning order diagram](/img/course/ch10-segmentation-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Segmentation is finer than detection. Instead of a box, it outputs a mask that s
 
 The main object in this chapter is the mask. The main failure is often boundary quality, tiny objects, occlusion, or class confusion.
 
-## 10.4.1.2 Run a Mask IoU Check
+## Run a Mask IoU Check
 
 This script compares two tiny binary masks.
 
@@ -54,7 +54,7 @@ mask_iou: 0.5
 
 Segmentation reports should show masks, metrics, and boundary errors, not only a colored overlay.
 
-## 10.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -62,6 +62,6 @@ Segmentation reports should show masks, metrics, and boundary errors, not only a
 | 2 | Instance segmentation | Separate different objects of the same class |
 | 3 | Segmentation practice | Compare masks, IoU/Dice, boundary errors, and failed samples |
 
-## 10.4.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can create or inspect a mask, compute a simple overlap metric, and explain one boundary or class-confusion failure.

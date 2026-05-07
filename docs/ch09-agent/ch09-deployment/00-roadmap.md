@@ -9,7 +9,7 @@ keywords: [Agent deployment guide, Agent operations, cost optimization, runtime,
 
 Deploying an Agent means more than putting code on a server. You need model calls, tool services, queues, state storage, traces, permissions, cost limits, and rollback paths.
 
-## 9.9.1.1 See the Runtime Loop First
+## See the Runtime Loop First
 
 ![Agent production runtime architecture diagram](/img/course/ch09-production-runtime-map-en.png)
 
@@ -19,7 +19,7 @@ Deploying an Agent means more than putting code on a server. You need model call
 
 The production question is not “did it work once?” It is “can it keep working, fail safely, and recover?”
 
-## 9.9.1.2 Run a Deployment Readiness Check
+## Run a Deployment Readiness Check
 
 This check highlights missing production basics.
 
@@ -47,7 +47,7 @@ missing: ['rollback']
 
 If the system cannot roll back or recover, do not call it production-ready.
 
-## 9.9.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -57,6 +57,6 @@ If the system cannot roll back or recover, do not call it production-ready.
 | 4 | Cost optimization | Track model calls, tool calls, caching, batching, routing |
 | 5 | Production practices | Add monitoring, alerts, canary release, rollback, permissions |
 
-## 9.9.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when a local Agent demo becomes a small service with API entry, state persistence, trace logs, error responses, cost records, and deployment instructions.

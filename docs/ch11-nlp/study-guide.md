@@ -11,7 +11,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![NLP portfolio evidence pack](/img/course/ch11-nlp-evidence-pack-en.svg)
 
-## 11.0.1 Two-Hour First Pass
+## Two-Hour First Pass
 
 | Time box | Do this | Stop when you can say |
 |---|---|---|
@@ -21,7 +21,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | 25 min | Skim classification, extraction, and generation roadmaps | "The task is defined by the output." |
 | 25 min | Read the task output map | "I can choose metrics from the output type." |
 
-## 11.0.2 Required Evidence
+## Required Evidence
 
 | Evidence | Minimum version |
 |---|---|
@@ -32,7 +32,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `failure_cases.md` | confusing labels, missing fields, unsupported facts, bad summaries |
 | `README.md` | task goal, run command, input/output, metrics, limitations |
 
-## 11.0.3 Exit Questions
+## Exit Questions
 
 - Can you explain how raw text becomes tokens and model input?
 - Can you define label boundaries before training or prompting?

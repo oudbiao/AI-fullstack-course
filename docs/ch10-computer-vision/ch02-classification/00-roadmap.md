@@ -9,7 +9,7 @@ keywords: [image classification guide, data augmentation, ResNet, training techn
 
 Image classification answers one question: given a whole image, which class best describes it?
 
-## 10.2.1.1 See the Classification Loop First
+## See the Classification Loop First
 
 ![Image classification chapter learning flowchart](/img/course/ch10-classification-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Image classification answers one question: given a whole image, which class best
 
 Classification is the simplest vision output, but it still depends on data split, augmentation, architecture, loss, metrics, and error examples.
 
-## 10.2.1.2 Run a Prediction Check
+## Run a Prediction Check
 
 This script mimics the last step of a classifier: choose the label with the highest score.
 
@@ -42,7 +42,7 @@ confidence: 0.74
 
 In real projects, never show only the top class. Keep confidence, wrong examples, and confusion patterns.
 
-## 10.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -50,6 +50,6 @@ In real projects, never show only the top class. Keep confidence, wrong examples
 | 2 | Modern architectures | Compare feature extractor, classifier head, and pretrained backbone |
 | 3 | Training techniques | Track split, loss, accuracy, overfitting, and error samples |
 
-## 10.2.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can run a minimal classifier, show train/validation metrics, and explain at least one failure image.

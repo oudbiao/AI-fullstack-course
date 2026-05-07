@@ -9,7 +9,7 @@ keywords: [model evaluation guide, cross-validation, bias-variance, hyperparamet
 
 Model evaluation answers: is the model actually good, or did the score only look good by accident?
 
-## 5.4.1.1 Look at the Evaluation Map First
+## Look at the Evaluation Map First
 
 ![Model Evaluation Learning Map](/img/course/ml-evaluation-roadmap-en.png)
 
@@ -22,7 +22,7 @@ Model evaluation answers: is the model actually good, or did the score only look
 | bias-variance | is the model too simple or too flexible? |
 | tuning | which parameter change is actually better? |
 
-## 5.4.1.2 Run One Cross-Validation Check
+## Run One Cross-Validation Check
 
 Create `evaluation_first_loop.py` and run it after installing `scikit-learn`.
 
@@ -48,7 +48,7 @@ mean_accuracy: 0.933
 
 One score is a snapshot. Several folds tell you whether the result is stable enough to trust.
 
-## 5.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -57,6 +57,6 @@ One score is a snapshot. Several folds tell you whether the result is stable eno
 | 3 | [5.4.4 Bias and Variance](./03-bias-variance.md) | underfitting, overfitting, learning curves |
 | 4 | [5.4.5 Hyperparameter Tuning](./04-hyperparameter-tuning.md) | grid search, comparison records |
 
-## 5.4.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can choose a metric for the task, explain one score stability check, and avoid tuning before the evaluation method is trustworthy.

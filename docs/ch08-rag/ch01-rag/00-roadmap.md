@@ -9,7 +9,7 @@ keywords: [RAG guide, retrieval-augmented generation, vector database, document 
 
 RAG solves a practical problem: the model does not know every fresh, private, or source-specific fact, so the application must retrieve evidence before asking the model to answer.
 
-## 8.1.1.1 See the RAG Pipeline First
+## See the RAG Pipeline First
 
 ![Bridge diagram showing RAG's position in LLM applications](/img/course/ch08-rag-position-bridge-en.png)
 
@@ -19,7 +19,7 @@ RAG solves a practical problem: the model does not know every fresh, private, or
 
 The core loop is: load documents, split chunks, add metadata, embed, retrieve, rerank, assemble context, answer, cite sources, and evaluate.
 
-## 8.1.1.2 Run a Tiny Retrieval Check
+## Run a Tiny Retrieval Check
 
 This is not a vector database yet. It is a tiny offline version of the retrieval habit: score chunks, print sources, and verify whether the evidence matches the question.
 
@@ -50,7 +50,7 @@ eval.md 1
 
 If the top source is unrelated, do not tune the final prompt first. Check document parsing, chunking, metadata, and retrieval coverage.
 
-## 8.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -61,7 +61,7 @@ If the top source is unrelated, do not tune the final prompt first. Check docume
 | 5 | Optimization and advanced RAG | Debug poor recall, poor ranking, and weak context |
 | 6 | RAG evaluation | Test answer correctness, citation support, and no-answer behavior |
 
-## 8.1.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can build a minimal knowledge-base Q&A loop that prints retrieved chunks, answer text, and source citations for at least 10 fixed questions.
 

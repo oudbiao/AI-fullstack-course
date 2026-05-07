@@ -9,7 +9,7 @@ keywords: [memory systems overview, Agent memory, short-term memory, long-term m
 
 Memory is not there to make an Agent feel human. It should help the task: reduce repeated questions, preserve useful context, reuse experience, and avoid stale or private information leaks.
 
-## 9.4.1.1 See the Memory Loop First
+## See the Memory Loop First
 
 ![Layered diagram of the Agent memory system](/img/course/agent-memory-system-en.png)
 
@@ -19,7 +19,7 @@ Memory is not there to make an Agent feel human. It should help the task: reduce
 
 The core decision is not “save everything.” It is what to save, when to retrieve it, when to update it, and when to forget it.
 
-## 9.4.1.2 Run a Memory Write Filter
+## Run a Memory Write Filter
 
 Only stable preferences and reusable facts should become long-term memory.
 
@@ -48,7 +48,7 @@ count: 2
 
 If a memory is not useful, current, permitted, and retrievable, it can hurt the Agent more than it helps.
 
-## 9.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -58,7 +58,7 @@ If a memory is not useful, current, permitted, and retrievable, it can hurt the 
 | 4 | Episodic and procedural memory | Separate what happened from how to do it next time |
 | 5 | Memory engineering | Design write, retrieve, update, expire, and delete rules |
 
-## 9.4.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can explain why “remember more” is not the same as “perform better.”
 

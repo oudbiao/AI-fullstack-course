@@ -9,7 +9,7 @@ keywords: [PyTorch ガイド, tensor, autograd, nn.Module, DataLoader, training 
 
 PyTorch は深層学習ループを実行できるコードにします。まず実行順を覚えると、細部が後から楽になります。
 
-## 6.2.1.1 まずワークフローを見る
+## まずワークフローを見る
 
 ![PyTorch 章フローチャート](/img/course/ch06-pytorch-chapter-flow-ja.png)
 
@@ -19,7 +19,7 @@ PyTorch は深層学習ループを実行できるコードにします。まず
 tensor -> model -> loss -> backward -> optimizer.step -> repeat
 ```
 
-## 6.2.1.2 Autograd を一度動かす
+## Autograd を一度動かす
 
 `pytorch_first_loop.py` を作り、`torch` をインストールしてから実行します。
 
@@ -49,7 +49,7 @@ for step in range(1, 5):
 
 ここで PyTorch の重要な習慣が見えます。loss を計算し、`backward()` を呼び、勾配追跡なしで更新し、古い勾配を消します。
 
-## 6.2.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 順番 | 読む | 練習すること |
 |---|---|---|
@@ -62,6 +62,6 @@ for step in range(1, 5):
 | 7 | [6.2.8 実践 Tips](./06-practical-tips.md) | shape、device、seed、デバッグ |
 | 8 | [6.2.9 PyTorch ワークショップ](./07-pytorch-matplotlib-workshop.md) | 小さなモデルを動かして可視化する |
 
-## 6.2.1.4 合格ライン
+## 合格ライン
 
 PyTorch ループを読み、データ batch、モデル出力、loss、`backward()`、optimizer 更新の5つを見つけられれば合格です。

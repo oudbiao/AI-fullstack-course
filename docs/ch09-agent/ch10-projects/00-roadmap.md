@@ -9,7 +9,7 @@ keywords: [Agent Project Guide, research assistant, data analysis Agent, multi-A
 
 An Agent project portfolio should show a traceable execution loop, not just one final model answer.
 
-## 9.10.1.1 See the Project Loop First
+## See the Project Loop First
 
 ![Agent comprehensive project roadmap](/img/course/ch09-projects-route-map-en.png)
 
@@ -19,7 +19,7 @@ An Agent project portfolio should show a traceable execution loop, not just one 
 
 The loop is: goal, plan, tool call, observation, state update, failure handling, stop decision, final output, evaluation.
 
-## 9.10.1.2 Run an Agent Evidence Check
+## Run an Agent Evidence Check
 
 Use this before calling the project portfolio-ready.
 
@@ -53,7 +53,7 @@ evidence: goal, trace, tools, failure, eval
 
 If this says `False`, improve the evidence before adding more Agent roles.
 
-## 9.10.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Project | What It Trains |
 |---|---|---|
@@ -64,7 +64,7 @@ If this says `False`, improve the evidence before adding more Agent roles.
 
 Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./04-stage-hands-on-workshop.md) before expanding the project.
 
-## 9.10.1.4 Project Deliverable Standards
+## Project Deliverable Standards
 
 | Deliverable | Minimum Requirement | Stronger Portfolio Version |
 |---|---|---|
@@ -76,7 +76,7 @@ Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./04-stage-hands
 | Evaluation set | Fixed tasks and pass/fail rules | Add baseline, metrics, and comparison experiments |
 | Deployment note | How to run locally | Add API entry, environment variables, monitoring, rollback |
 
-## 9.10.1.5 Pass Check
+## Pass Check
 
 You pass this chapter when another developer can replay your Agent run, inspect each tool call and observation, understand why it stopped, and see at least one failure analysis.
 

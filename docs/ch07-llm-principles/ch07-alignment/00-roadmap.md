@@ -9,7 +9,7 @@ keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 
 Pretraining teaches broad language ability. Finetuning adapts task behavior. Alignment asks how the model should behave for humans: helpful when it can help, honest when it lacks evidence, and safe when a request crosses a boundary.
 
-## 7.7.1.1 See the Safety Boundary First
+## See the Safety Boundary First
 
 ![LLM alignment chapter relationship diagram](/img/course/ch07-alignment-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Pretraining teaches broad language ability. Finetuning adapts task behavior. Ali
 
 Key terms: RLHF means reinforcement learning from human feedback, DPO means direct preference optimization, and RLAIF means reinforcement learning from AI feedback.
 
-## 7.7.1.2 Run a Safety Decision Check
+## Run a Safety Decision Check
 
 Alignment is easier to understand when you test fixed behavior cases. Start with clear requests where the safe action is obvious.
 
@@ -51,7 +51,7 @@ score_dimensions: helpful, honest, harmless
 
 The point is not that this script is an alignment algorithm. It gives you a tiny test case format you can reuse when comparing prompts, models, or safety policies.
 
-## 7.7.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -60,7 +60,7 @@ The point is not that this script is an alignment algorithm. It gives you a tiny
 | 3 | Alternative methods | Explain why DPO/RLAIF can be cheaper or simpler in some setups |
 | 4 | Safety evaluation lab | Score fixed cases for helpfulness, honesty, and safety boundaries |
 
-## 7.7.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can explain the difference between capability and behavior, and when you can build a small behavior comparison log instead of judging one answer by impression.
 

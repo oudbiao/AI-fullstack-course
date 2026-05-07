@@ -9,7 +9,7 @@ keywords: [Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability
 
 Agent は動くだけでは不十分です。成功したか、process は安全だったか、failure がどこで起きたかを知る必要があります。
 
-## 9.8.1.1 まず guardrail stack を見る
+## まず guardrail stack を見る
 
 ![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-ja.png)
 
@@ -19,7 +19,7 @@ Agent は動くだけでは不十分です。成功したか、process は安全
 
 Evaluation は system が有効かを示します。Safety は system が何をしてよいかを決めます。Observability はどこで壊れたかを示します。
 
-## 9.8.1.2 Launch scorecard check を動かす
+## Launch scorecard check を動かす
 
 final output と execution process の両方を評価します。
 
@@ -53,7 +53,7 @@ scorecard: task, tools, safety, trace, cost
 
 滑らかな final answer だけでは十分な evidence ではありません。replayable tasks と process traces を残します。
 
-## 9.8.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
@@ -63,7 +63,7 @@ scorecard: task, tools, safety, trace, cost
 | 4 | Guardrails | input filter、output validation、permissions、human confirmation を追加する |
 | 5 | Observability | logs、traces、errors、latency、cost、failure reason を保存する |
 
-## 9.8.1.4 合格ライン
+## 合格ライン
 
 すべての Agent run を、goal、plan、tool calls、observations、final answer、safety rule、cost、failure reason からレビューできれば、この章は合格です。
 

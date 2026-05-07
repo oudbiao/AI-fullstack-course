@@ -9,7 +9,7 @@ keywords: [calculus guide, optimization guide, derivatives, gradients, gradient 
 
 Calculus explains how a model changes its parameters. The first goal is intuition: measure change, move in a better direction, repeat.
 
-## 4.3.1.1 Look at the Map First
+## Look at the Map First
 
 ![Calculus and Optimization Learning Map](/img/course/ch04-calculus-roadmap-vertical-en.png)
 
@@ -27,7 +27,7 @@ The training flow is:
 
 When you later see `loss.backward()` and `optimizer.step()`, this chapter is the background.
 
-## 4.3.1.2 Run the Smallest Loop
+## Run the Smallest Loop
 
 Create `gradient_descent_first_loop.py`. It finds a number close to `3` by reducing `(w - 3)^2`.
 
@@ -55,15 +55,15 @@ Expected output:
 
 The number moves toward `3`, and the loss gets smaller. That is the training idea before the neural network becomes large.
 
-## 4.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on first |
 |---|---|---|
 | 1 | [4.3.2 Derivatives](./01-derivatives.md) | rate of change |
-| 2 | [4.3.3 Partial Derivatives and Gradients](./02-partial-gradients.md) | many parameters changing together |
+| 2 | [4.3.3 Partial Derivatives and Gradients](./02-partial-derivatives-gradient.md) | many parameters changing together |
 | 3 | [4.3.4 Gradient Descent](./03-gradient-descent.md) | update loop, learning rate, loss curve |
-| 4 | [4.3.5 Backpropagation](./04-backpropagation.md) | chain rule, `loss.backward()` intuition |
+| 4 | [4.3.5 Backpropagation](./04-chain-rule-backprop.md) | chain rule, `loss.backward()` intuition |
 
-## 4.3.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain why gradient descent repeats “compute loss -> compute gradient -> update parameter,” and why a learning rate that is too large can make training unstable.

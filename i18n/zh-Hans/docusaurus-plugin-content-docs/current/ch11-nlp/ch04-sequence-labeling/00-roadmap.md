@@ -9,7 +9,7 @@ keywords: [序列标注指南, NER, BiLSTM-CRF]
 
 序列标注为每个 token 预测一个标签。NER、分词、词性标注和槽位填充都属于这个思路。
 
-## 11.4.1.1 先看标签路径
+## 先看标签路径
 
 ![序列标注章节学习流程图](/img/course/ch11-sequence-labeling-chapter-flow.png)
 
@@ -19,7 +19,7 @@ keywords: [序列标注指南, NER, BiLSTM-CRF]
 
 关键输出不是一个句子标签，而是对齐 token 的标签，例如 `B-PER`、`I-PER` 和 `O`。
 
-## 11.4.1.2 跑一个 BIO 标签检查
+## 跑一个 BIO 标签检查
 
 ```python
 tokens = ["Ada", "Lovelace", "wrote", "notes"]
@@ -40,7 +40,7 @@ notes O
 
 如果分词变化，标签必须仍然对齐。很多序列标注 bug 本质上是对齐 bug。
 
-## 11.4.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -49,6 +49,6 @@ notes O
 | 3 | BiLSTM-CRF | 连接上下文特征和合法标签路径 |
 | 4 | 项目实战 | 评估 precision、recall、F1、边界错误 |
 
-## 11.4.1.4 通过标准
+## 通过标准
 
 如果你能检查 token/tag 对齐，并解释一个边界错误或非法标签转移，就通过了本章。

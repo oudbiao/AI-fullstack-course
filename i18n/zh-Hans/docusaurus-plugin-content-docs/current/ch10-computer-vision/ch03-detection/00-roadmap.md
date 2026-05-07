@@ -9,7 +9,7 @@ keywords: [目标检测指南, YOLO, IoU, mAP]
 
 目标检测在分类上增加位置：图里有什么对象，它在哪里？
 
-## 10.3.1.1 先看框工作流
+## 先看框工作流
 
 ![目标检测章节学习流程图](/img/course/ch10-detection-chapter-flow.png)
 
@@ -19,7 +19,7 @@ keywords: [目标检测指南, YOLO, IoU, mAP]
 
 重要概念是 bounding box、class、confidence、IoU、threshold、false positive、false negative 和 mAP。
 
-## 10.3.1.2 跑一个 IoU 检查
+## 跑一个 IoU 检查
 
 IoU 衡量预测框和真实框重叠多少。
 
@@ -49,7 +49,7 @@ iou: 0.391
 
 检测调试从打印框和指标开始。不要凭一张漂亮截图判断检测质量。
 
-## 10.3.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -58,6 +58,6 @@ iou: 0.391
 | 3 | YOLO | 理解网格预测、阈值、NMS 和速度取舍 |
 | 4 | 检测实战 | 记录误报、漏检和阈值变化 |
 
-## 10.3.1.4 通过标准
+## 通过标准
 
 如果你能用框、confidence、IoU 和至少一个误报或漏检案例解释检测结果，就通过了本章。

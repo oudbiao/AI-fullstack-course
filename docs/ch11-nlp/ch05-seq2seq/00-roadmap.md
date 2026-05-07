@@ -9,7 +9,7 @@ keywords: [Seq2Seq guide, attention guide, machine translation]
 
 Seq2Seq handles tasks where both input and output are sequences: translation, summarization, rewriting, dialogue, and error correction.
 
-## 11.5.1.1 See the Generation Bridge First
+## See the Generation Bridge First
 
 ![Seq2Seq and Attention chapter learning order diagram](/img/course/ch11-seq2seq-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Seq2Seq handles tasks where both input and output are sequences: translation, su
 
 The bridge to modern LLMs is clear: generation happens step by step, and attention helps the decoder look back at useful input positions.
 
-## 11.5.1.2 Run an Input-Output Pair Check
+## Run an Input-Output Pair Check
 
 ```python
 source = ["I", "love", "NLP"]
@@ -43,7 +43,7 @@ target_length: 3
 
 Generation projects should record decoding strategy, failure cases, and whether important input information was lost.
 
-## 11.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -52,6 +52,6 @@ Generation projects should record decoding strategy, failure cases, and whether 
 | 3 | Machine translation | Connect teacher forcing, decoding, BLEU/error analysis |
 | 4 | CTC and speech | See what changes when input/output are not frame-aligned |
 
-## 11.5.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can explain encoder-decoder, attention, greedy/beam decoding, and one generation failure.

@@ -9,7 +9,7 @@ keywords: [text classification guide, sentiment analysis, TF-IDF, text classific
 
 Text classification takes one piece of text and predicts one label, such as sentiment, topic, intent, or risk type.
 
-## 11.3.1.1 See the Classification Pipeline First
+## See the Classification Pipeline First
 
 ![Text classification chapter learning sequence diagram](/img/course/ch11-classification-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Text classification takes one piece of text and predicts one label, such as sent
 
 Always build a baseline before a complex model. Most classification problems fail because labels are vague or examples are skewed.
 
-## 11.3.1.2 Run a Keyword Baseline
+## Run a Keyword Baseline
 
 ```python
 texts = ["great course and clear examples", "confusing setup error"]
@@ -40,7 +40,7 @@ needs_review - confusing setup error
 
 Simple baselines are not the final model, but they expose label rules and failure cases quickly.
 
-## 11.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -48,6 +48,6 @@ Simple baselines are not the final model, but they expose label rules and failur
 | 2 | Deep learning methods | Compare embeddings, pooling, CNN/RNN/Transformer features |
 | 3 | Project practice | Track split, metrics, label ambiguity, and error samples |
 
-## 11.3.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can train or simulate a classifier, report accuracy/F1, and explain at least one ambiguous label case.

@@ -9,7 +9,7 @@ keywords: [AIGC frontier overview, AI ethics overview, AI regulations overview, 
 
 Responsible AIGC is not a disclaimer at the end. It is a workflow that checks material sources, people, voices, synthetic labels, sensitive content, and human review before export.
 
-## 12.4.1.1 See the Guardrails First
+## See the Guardrails First
 
 ![AIGC frontier ethics and compliance roadmap](/img/course/ch12-frontier-ethics-route-map-en.png)
 
@@ -19,7 +19,7 @@ Responsible AIGC is not a disclaimer at the end. It is a workflow that checks ma
 
 The first habit is to ask what should be blocked, what should be limited, and what needs human confirmation.
 
-## 12.4.1.2 Run a Risk Checklist
+## Run a Risk Checklist
 
 ```python
 request = {
@@ -51,7 +51,7 @@ checks: voice authorization, synthetic content label
 
 This is not legal advice. It is an engineering checklist that makes product risk visible early.
 
-## 12.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -59,6 +59,6 @@ This is not legal advice. It is an engineering checklist that makes product risk
 | 2 | Ethics and safety | Map copyright, portrait, voice, bias, and misinformation risks |
 | 3 | Regulations | Convert rules into input checks, review steps, labels, and logs |
 
-## 12.4.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can add a risk checklist to one AIGC workflow and explain which cases are blocked, restricted, reviewed, or ready to export.

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
   <title id="title">Git merge conflict resolution mental model</title>
-  <desc id="desc">A course placeholder diagram showing two branches changing the same file, Git conflict markers, manual choice, add, and commit.</desc>
+  <desc id="desc">A course SVG teaching diagram showing two branches changing the same file, Git conflict markers, manual choice, add, and commit.</desc>
   <defs>
     <style>
       .bg { fill: #f8f9fb; }

@@ -11,7 +11,7 @@ keywords: [Python Basics, Python Fundamentals, Python Tutorial, Programming Basi
 
 Chapter 2 has one job: help you turn a small idea into **Python code that runs, saves data, handles errors, and can be explained**.
 
-## 2.0.1 See The Python Work Loop
+## See The Python Work Loop
 
 ![Python AI backbone capability chain](/img/course/ch02-python-ai-backbone-en.png)
 
@@ -23,7 +23,7 @@ input -> data structure -> function -> file/API/output
 
 Python matters in AI because the same loop later becomes data cleaning, model training, RAG retrieval, API wrapping, and Agent tools.
 
-## 2.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Use this table as both the chapter guide and the task sheet.
 
@@ -47,7 +47,7 @@ Key terms for this chapter:
 | `API` | A doorway that lets one program call another program |
 | `SDK` | A library that wraps an API into easier functions |
 
-## 2.0.3 First Runnable Loop
+## First Runnable Loop
 
 Run this in an empty practice folder. It creates a tiny JSON task manager without any third-party package.
 
@@ -82,7 +82,7 @@ saved 1 task(s)
 
 Run it twice. The second run should print `saved 2 task(s)`. That proves the program can save state and read it back.
 
-## 2.0.4 Common Failures
+## Common Failures
 
 | Symptom | First thing to check | Usual fix |
 |---|---|---|
@@ -92,7 +92,7 @@ Run it twice. The second run should print `saved 2 task(s)`. That proves the pro
 | Function is confusing | Inputs, return value, and hidden global state | Split it into smaller functions with one responsibility |
 | API call fails | Parameters, status code, and returned error body | Print the response safely and handle the error path |
 
-## 2.0.5 Pass Check
+## Pass Check
 
 Move to Chapter 3 when you can answer these five questions:
 

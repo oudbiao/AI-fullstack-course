@@ -11,7 +11,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![Vision portfolio evidence pack](/img/course/ch10-vision-evidence-pack-en.svg)
 
-## 10.0.1 Two-Hour First Pass
+## Two-Hour First Pass
 
 | Time box | Do this | Stop when you can say |
 |---|---|---|
@@ -21,7 +21,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | 25 min | Skim classification, detection, segmentation roadmaps | "I know which metric belongs to which task." |
 | 25 min | Read the debugging loop | "I should inspect data and labels before blaming architecture." |
 
-## 10.0.2 Required Evidence
+## Required Evidence
 
 | Evidence | Minimum version |
 |---|---|
@@ -31,7 +31,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `failure_cases.md` | failed images, possible cause, fix direction |
 | `README.md` | task goal, run command, input/output examples, scenario boundary |
 
-## 10.0.3 Exit Questions
+## Exit Questions
 
 - Can you explain classification, detection, segmentation, and OCR by output shape?
 - Can you show the original image, processed image, and prediction visualization?

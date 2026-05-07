@@ -13,7 +13,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 
 不要从背模型名字开始。先掌握你能操作的循环：文本变成 token，token 变成向量，Transformer 根据上下文预测下一个 token，然后你用 Prompt、结构化输出、RAG、微调或工具来控制结果。
 
-## 7.0.1 先看完整流程
+## 先看完整流程
 
 ![Token 到答案的完整流程](/img/course/ch07-token-to-answer-lifecycle.svg)
 
@@ -29,7 +29,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 | 微调 | 用训练样本改变模型的长期行为 | 这是反复出现的行为问题，还是只是缺少知识？ |
 | 对齐 | 让输出更安全、更接近人的意图 | 即使回答流畅，还可能在哪些地方失败？ |
 
-## 7.0.2 学习顺序与任务表
+## 学习顺序与任务表
 
 完整工作坊应该放在最后。先建立心智模型，再跑全流程实验。
 
@@ -43,7 +43,7 @@ keywords: [大语言模型, LLM, Transformer, Prompt Engineering, LoRA, 微调, 
 | 7.7 | 对齐 | 检查失败模式和安全边界 | 一份安全/评估清单 |
 | 7.8 | 阶段项目 | 运行 [7.8.4 实操：第 7 章完整工作坊](./ch08-projects/03-stage-hands-on-workshop.md) | 终端输出、通过率、README 记录 |
 
-## 7.0.3 第一个可运行循环：不用 API 测 Prompt
+## 第一个可运行循环：不用 API 测 Prompt
 
 ![Prompt 实验循环](/img/course/ch07-prompt-experiment-loop.svg)
 
@@ -111,7 +111,7 @@ json: 2/2 cases passed
 
 操作提示：再加一个坏样本、一个更长样本、一个新的输出字段要求。如果分数变化了，就记录是哪一次 Prompt 改动导致的。这个习惯比单次“看起来不错”的回答更重要。
 
-## 7.0.4 选择 Prompt、RAG、微调还是工具
+## 选择 Prompt、RAG、微调还是工具
 
 ![Prompt、RAG、微调和工具选择图](/img/course/ch07-solution-choice-map.svg)
 
@@ -125,7 +125,7 @@ json: 2/2 cases passed
 | 模型需要长期遵守领域行为 | 考虑微调或 LoRA | 已有足够高质量样本和评估集 |
 | 任务需要外部动作 | 使用工具或 Agent 工作流 | 模型必须调用 API、搜索文件或执行步骤 |
 
-## 7.0.5 常见错误
+## 常见错误
 
 - 把大模型当数据库：文字流畅不等于事实正确。
 - 同时改 Prompt、输入样本和模型：你无法判断到底是谁改善了结果。
@@ -133,7 +133,7 @@ json: 2/2 cases passed
 - 过早微调：很多问题应该先用 Prompt、RAG、工具或产品逻辑解决。
 - 还没看过输出循环就钻 Transformer 细节：理论会很难落地。
 
-## 7.0.6 通关检查
+## 通关检查
 
 进入第 8 章前，你应该能做到：
 

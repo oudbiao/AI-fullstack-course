@@ -9,7 +9,7 @@ keywords: [machine learning guide, ML introduction, sklearn guide, supervised le
 
 Machine learning starts when you stop hand-writing every rule and let a model learn patterns from data. The first habit is not algorithm memorization. It is a small project loop.
 
-## 5.1.1.1 Look at the Map First
+## Look at the Map First
 
 ![Machine Learning Basics Learning Map](/img/course/ml-basics-roadmap-en.png)
 
@@ -29,7 +29,7 @@ define task -> split data -> fit model -> predict -> score -> decide next step
 | test set | data kept aside to check generalization |
 | baseline | a simple first model used for comparison |
 
-## 5.1.1.2 Run the Smallest sklearn Loop
+## Run the Smallest sklearn Loop
 
 Create `ml_first_loop.py` and run it after installing `scikit-learn`.
 
@@ -62,7 +62,7 @@ prediction_count: 30
 
 This is the smallest useful machine learning loop: split first, train only on the training set, evaluate on the test set.
 
-## 5.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -72,6 +72,6 @@ This is the smallest useful machine learning loop: split first, train only on th
 | 4 | [5.1.5 Machine Learning History](./04-history-breakthroughs.md) | why major algorithms appeared |
 | 5 | [5.1.6 sklearn and Matplotlib Workshop](./05-sklearn-matplotlib-workshop.md) | run, plot, explain a baseline |
 
-## 5.1.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can name the task type, identify `X` and `y`, explain why train/test split matters, and keep one baseline score as evidence.

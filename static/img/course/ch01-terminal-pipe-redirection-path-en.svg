@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
   <title id="title">Terminal pipe, redirection, and PATH mental model</title>
-  <desc id="desc">A course placeholder diagram showing terminal output flowing through pipes, redirection saving logs, and PATH resolving commands.</desc>
+  <desc id="desc">A course SVG teaching diagram showing terminal output flowing through pipes, redirection saving logs, and PATH resolving commands.</desc>
   <defs>
     <style>
       .bg { fill: #f7faf8; }

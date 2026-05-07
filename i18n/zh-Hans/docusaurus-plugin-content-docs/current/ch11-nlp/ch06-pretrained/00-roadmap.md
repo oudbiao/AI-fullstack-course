@@ -9,7 +9,7 @@ keywords: [预训练指南, BERT, GPT, T5, transformers]
 
 预训练模型让 NLP 从单任务训练进入可复用基础模型：先在大规模文本上预训练，再迁移到下游任务。
 
-## 11.6.1.1 先看范式地图
+## 先看范式地图
 
 ![BERT GPT T5 对比图](/img/course/bert-gpt-t5-comparison.png)
 
@@ -19,7 +19,7 @@ keywords: [预训练指南, BERT, GPT, T5, transformers]
 
 BERT 偏理解，GPT 偏生成，T5 把很多任务改写成 text-to-text。
 
-## 11.6.1.2 跑一个模型家族选择检查
+## 跑一个模型家族选择检查
 
 ```python
 task = {
@@ -48,7 +48,7 @@ reason: match model objective to task output
 
 不要只按模型名称选择。要匹配 tokenizer、训练目标、输出格式、成本和部署约束。
 
-## 11.6.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -58,6 +58,6 @@ reason: match model objective to task output
 | 4 | T5 | 把任务改写成 text-to-text 形式 |
 | 5 | Transformers 实战 | 连接 tokenizer、model、pipeline、input、output |
 
-## 11.6.1.4 通过标准
+## 通过标准
 
 如果你能解释不同训练目标为什么带来不同优势，并运行或设计一个小型预训练模型对比实验，就通过了本章。

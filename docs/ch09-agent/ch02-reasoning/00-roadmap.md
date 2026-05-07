@@ -9,7 +9,7 @@ keywords: [Agent reasoning guide, ReAct, Plan-and-Execute, planning]
 
 Agent reasoning is not a longer answer. It is the ability to create usable intermediate steps, decide what to do next, and check whether the plan is still working.
 
-## 9.2.1.1 See the Planning Loop First
+## See the Planning Loop First
 
 ![Agent reasoning and planning chapter learning sequence diagram](/img/course/ch09-reasoning-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Agent reasoning is not a longer answer. It is the ability to create usable inter
 
 The core habit is: plan a step, act, observe the result, checkpoint state, and replan when the result changes the situation.
 
-## 9.2.1.2 Run a Plan Checklist
+## Run a Plan Checklist
 
 Use explicit steps before adding tools. A plan you cannot print is hard to inspect.
 
@@ -46,7 +46,7 @@ checkpoint: check citations
 
 Good planning is visible. It should make failures easier to locate, not hide them behind a final paragraph.
 
-## 9.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -57,7 +57,7 @@ Good planning is visible. It should make failures easier to locate, not hide the
 | 5 | Advanced planning | Handle dependency, priority, rollback, and replan |
 | 6 | Reasoning evaluation | Score final result, path quality, and failure type |
 
-## 9.2.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can explain why a plan failed: bad decomposition, wrong tool choice, stale observation, missing checkpoint, or weak final verification.
 

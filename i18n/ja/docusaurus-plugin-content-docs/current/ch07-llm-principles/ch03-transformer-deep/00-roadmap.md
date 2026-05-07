@@ -9,13 +9,13 @@ keywords: [Transformer 深掘り, decoder block, efficient attention, KV cache, 
 
 この章では Transformer の内部を少し深く見ます。LLM の挙動をデバッグし、context length、attention、KV cache、モデル変種がなぜ重要かを理解します。
 
-## 7.3.1.1 まず内部フローを見る
+## まず内部フローを見る
 
 ![Transformer 深掘り章関係図](/img/course/ch07-transformer-deep-chapter-flow-ja.png)
 
 ![Transformer 情報フロー、計算コスト、タスク適合図](/img/course/ch07-transformer-cost-task-map-ja.png)
 
-## 7.3.1.2 causal mask を作る
+## causal mask を作る
 
 ```python
 seq_len = 4
@@ -41,7 +41,7 @@ for row in mask:
 
 生成ではこの「未来を見ない」ルールを使います。token は前の token を見られますが、未来 token は見られません。
 
-## 7.3.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
@@ -51,6 +51,6 @@ for row in mask:
 | 4 | [7.3.5 効率的 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、長い context |
 | 5 | [7.3.6 スケールと計算](./04-scale-computation.md) | コスト、遅延、メモリ |
 
-## 7.3.1.4 合格ライン
+## 合格ライン
 
 decoder-only モデルになぜ causal mask が必要か、context が長くなるほど attention が高価になる理由、KV cache が生成を助ける理由を説明できれば合格です。

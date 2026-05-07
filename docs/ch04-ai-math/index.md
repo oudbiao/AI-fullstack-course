@@ -11,7 +11,7 @@ keywords: [AI math, linear algebra, probability and statistics, calculus, machin
 
 Chapter 4 has one job: make the math inside models feel like **tools you can run and explain**, not a wall of formulas.
 
-## 4.0.1 See The Model Math Loop
+## See The Model Math Loop
 
 ![AI Math Minimum Necessary Backbone](/img/course/ch04-ai-math-backbone-en.png)
 
@@ -23,7 +23,7 @@ represent data -> measure uncertainty -> measure loss -> update parameters
 
 Vectors and matrices represent data. Probability describes uncertainty. Loss tells the model how wrong it is. Gradients tell it how to improve.
 
-## 4.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Study the theory first, then run the full workshop. The workshop is last because it combines the ideas rather than introducing them from zero.
 
@@ -46,7 +46,7 @@ Key terms for this chapter:
 | `gradient` | The direction that changes a value fastest |
 | `GD` / `SGD` | Gradient descent / stochastic gradient descent: walking downhill on loss |
 
-## 4.0.3 First Runnable Loop
+## First Runnable Loop
 
 Install NumPy if needed:
 
@@ -79,7 +79,7 @@ Python vs unrelated: 0.071
 
 The code is small, but the idea returns later in Embeddings, retrieval, recommendation, attention, and RAG.
 
-## 4.0.4 Common Failures
+## Common Failures
 
 | Symptom | First thing to check | Usual fix |
 |---|---|---|
@@ -89,7 +89,7 @@ The code is small, but the idea returns later in Embeddings, retrieval, recommen
 | Gradient descent diverges | Learning rate is too large | Plot or print loss each step and lower the rate |
 | Workshop feels like magic | Theory was skipped | Read the 4.1, 4.2, and 4.3 roadmap pages first |
 
-## 4.0.5 Pass Check
+## Pass Check
 
 Move to Chapter 5 when you can answer these five questions:
 

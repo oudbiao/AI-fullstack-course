@@ -9,7 +9,7 @@ keywords: [Agent Evaluation Guide, Agent Safety Guide, Guardrails, Observability
 
 An Agent should not only run. You must know whether it succeeded, whether the process was safe, and where the failure happened.
 
-## 9.8.1.1 See the Guardrail Stack First
+## See the Guardrail Stack First
 
 ![Agent guardrails layer diagram](/img/course/agent-guardrails-layers-en.png)
 
@@ -19,7 +19,7 @@ An Agent should not only run. You must know whether it succeeded, whether the pr
 
 Evaluation tells you whether the system works. Safety tells you what it may do. Observability tells you where it broke.
 
-## 9.8.1.2 Run a Launch Scorecard Check
+## Run a Launch Scorecard Check
 
 Evaluate both final output and execution process.
 
@@ -53,7 +53,7 @@ scorecard: task, tools, safety, trace, cost
 
 One smooth final answer is not enough evidence. Keep replayable tasks and process traces.
 
-## 9.8.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -63,7 +63,7 @@ One smooth final answer is not enough evidence. Keep replayable tasks and proces
 | 4 | Guardrails | Add input filter, output validation, permissions, human confirmation |
 | 5 | Observability | Save logs, traces, errors, latency, cost, and failure reason |
 
-## 9.8.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when every Agent run can be reviewed through goal, plan, tool calls, observations, final answer, safety rule, cost, and failure reason.
 

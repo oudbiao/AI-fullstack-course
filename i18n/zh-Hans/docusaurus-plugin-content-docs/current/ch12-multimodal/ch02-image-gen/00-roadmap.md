@@ -9,7 +9,7 @@ keywords: [图像生成指南, 扩散模型, Stable Diffusion, ControlNet, LoRA]
 
 图像生成不是写一句提示词就结束，而是一套工作流：明确意图，记录提示词和参数，选择控制方式，对候选图做比较和审核。
 
-## 12.2.1.1 先看流程图
+## 先看流程图
 
 ![图像生成章节学习流程图](/img/course/ch12-image-gen-chapter-flow.png)
 
@@ -19,7 +19,7 @@ keywords: [图像生成指南, 扩散模型, Stable Diffusion, ControlNet, LoRA]
 
 先养成一个习惯：记录你要什么、用了哪种模式、哪些 seed 或参数影响结果，以及导出前必须审核什么。
 
-## 12.2.1.2 建一个提示词记录
+## 建一个提示词记录
 
 ```python
 import json
@@ -59,7 +59,7 @@ print(json.dumps(record, indent=2))
 
 如果提示词记录无法复现，后面就很难稳定改图。
 
-## 12.2.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读内容 | 练习产物 |
 |---|---|---|
@@ -67,6 +67,6 @@ print(json.dumps(record, indent=2))
 | 2 | Stable Diffusion 组件 | 画出 text encoder、U-Net、VAE、latent space |
 | 3 | 应用与控制 | 对比 text-to-image、image-to-image、inpainting、ControlNet、LoRA |
 
-## 12.2.1.4 通过标准
+## 通过标准
 
 你能写出提示词记录，解释为什么选择某种生成模式，保存 3 个候选图备注，并在导出前标记至少 1 个审核风险，就算通过本章。

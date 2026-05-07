@@ -9,7 +9,7 @@ keywords: [RNN guide, sequence model, LSTM, GRU, hidden state]
 
 RNNs are built for ordered data: text, time series, clicks, sensor readings, and any input where earlier steps affect later steps.
 
-## 6.4.1.1 Look at the Sequence Flow First
+## Look at the Sequence Flow First
 
 ![RNN sequence model chapter relationship diagram](/img/course/ch06-rnn-chapter-flow-en.png)
 
@@ -23,7 +23,7 @@ RNNs are built for ordered data: text, time series, clicks, sensor readings, and
 | LSTM / GRU | gated memory control |
 | batch first | shape style `[batch, seq_len, features]` |
 
-## 6.4.1.2 Run One GRU Shape Check
+## Run One GRU Shape Check
 
 Create `rnn_first_loop.py` and run it after installing `torch`.
 
@@ -49,7 +49,7 @@ hidden_shape: (1, 2, 4)
 
 Read this as two sequences, three steps each, five features per step. The GRU returns a hidden representation of size `4`.
 
-## 6.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -57,6 +57,6 @@ Read this as two sequences, three steps each, five features per step. The GRU re
 | 2 | [6.4.3 LSTM and GRU](./02-lstm-gru.md) | gates, long dependency, memory control |
 | 3 | [6.4.4 Sequence Practice](./03-sequence-practice.md) | sliding windows, train/eval loop |
 
-## 6.4.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can read `[batch, seq_len, features]`, explain hidden state as rolling memory, and know why LSTM/GRU were introduced for longer dependencies.

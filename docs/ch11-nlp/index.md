@@ -11,7 +11,7 @@ keywords: [NLP, Natural Language Processing, Transformer, BERT, word vectors, te
 
 This elective chapter answers: **how does raw text become something a model can classify, extract, search, or generate from?** LLMs hide many NLP steps, but Prompt, RAG, Agent memory, retrieval, evaluation, and information extraction still depend on NLP thinking.
 
-## 11.0.1 See the Text-To-Task Pipeline
+## See the Text-To-Task Pipeline
 
 ![Text to NLP task pipeline](/img/course/ch11-text-to-task-pipeline-en.svg)
 
@@ -26,7 +26,7 @@ Use this as the chapter map.
 | Task output | label, entity, summary, answer, retrieval result | Is the output schema clear? |
 | Evaluation | metric, error sample, factual check | Can failures be reviewed? |
 
-## 11.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 First understand the text workflow, then study model families.
 
@@ -40,7 +40,7 @@ First understand the text workflow, then study model families.
 | 11.6 | Pretrained models | compare BERT, GPT, T5, Transformers usage | model choice note |
 | 11.7 | Stage project | run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./ch07-projects/05-hands-on-nlp-workshop.md) | data files, metrics, extraction outputs, failure report |
 
-## 11.0.3 First Runnable Loop: Labels, Rules, And Evaluation
+## First Runnable Loop: Labels, Rules, And Evaluation
 
 This zero-dependency script is intentionally simple. It teaches the core NLP project habit: define labels, predict on fixed samples, and save errors.
 
@@ -90,7 +90,7 @@ accuracy=3/3
 
 Operation tip: add a confusing sample such as "the document source field is missing." If the rule system fails, write down whether the problem is label overlap, keyword coverage, or unclear task definition. The same thinking applies when you later use BERT, GPT, or an LLM.
 
-## 11.0.4 Choose The NLP Task By Output
+## Choose The NLP Task By Output
 
 ![NLP task output map](/img/course/ch11-nlp-task-output-map-en.svg)
 
@@ -104,7 +104,7 @@ Do not choose a model before you know the output.
 | answer from documents | QA / retrieval | hit rate, answer quality, source support |
 | model behavior comparison | pretrained model experiment | quality, cost, latency, data requirement |
 
-## 11.0.5 Common Failures
+## Common Failures
 
 - Jumping to LLMs before defining labels or fields.
 - Cleaning text so aggressively that meaning is lost.
@@ -112,7 +112,7 @@ Do not choose a model before you know the output.
 - Evaluating generated summaries only by fluency, not factual consistency.
 - Reporting metrics without error samples or boundary cases.
 
-## 11.0.6 Pass Check
+## Pass Check
 
 Before leaving this elective, you should be able to:
 

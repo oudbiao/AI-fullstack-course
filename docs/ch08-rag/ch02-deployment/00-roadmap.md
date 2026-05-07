@@ -9,7 +9,7 @@ keywords: [model deployment guide, local models, inference services, unified API
 
 Deployment turns a model from a notebook experiment into a reusable capability. The application should call a stable interface, even when the model, provider, hardware, or cost policy changes.
 
-## 8.2.1.1 See the Serving Decision First
+## See the Serving Decision First
 
 ![Model deployment chapter learning flowchart](/img/course/ch08-deployment-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Deployment turns a model from a notebook experiment into a reusable capability. 
 
 Deployment choices balance quality, latency, cost, privacy, and operational complexity. The strongest model is not always the model you should call.
 
-## 8.2.1.2 Run a Model Route Check
+## Run a Model Route Check
 
 Use this as a mental model before setting up real serving tools. It turns deployment into an explicit routing decision.
 
@@ -53,7 +53,7 @@ watch: latency, cost, errors
 
 The route can change, but the application contract should stay stable.
 
-## 8.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -61,7 +61,7 @@ The route can change, but the application contract should stay stable.
 | 2 | Inference servers | Expose model calls through a service endpoint |
 | 3 | Unified API | Keep one application interface for multiple providers |
 
-## 8.2.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can explain where the model runs, how the app calls it, what can fail, and what metrics you watch: latency, cost, errors, rate limits, and fallback behavior.
 

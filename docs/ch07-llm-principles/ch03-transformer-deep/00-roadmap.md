@@ -9,13 +9,13 @@ keywords: [Transformer deep dive, decoder block, efficient attention, KV cache, 
 
 This chapter looks inside the Transformer enough to debug LLM behavior and understand why context length, attention, KV cache, and model variants matter.
 
-## 7.3.1.1 Look at the Internal Flow First
+## Look at the Internal Flow First
 
 ![Transformer deep-dive chapter relationship diagram](/img/course/ch07-transformer-deep-chapter-flow-en.png)
 
 ![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map-en.png)
 
-## 7.3.1.2 Build a Causal Mask
+## Build a Causal Mask
 
 ```python
 seq_len = 4
@@ -41,7 +41,7 @@ Expected output:
 
 Generation uses this "no future peeking" rule: a token can attend to earlier tokens, but not future tokens.
 
-## 7.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on |
 |---|---|---|
@@ -51,6 +51,6 @@ Generation uses this "no future peeking" rule: a token can attend to earlier tok
 | 4 | [7.3.5 Efficient Attention](./03-efficient-attention.md) | KV cache, MQA/GQA, long context |
 | 5 | [7.3.6 Scale and Computation](./04-scale-computation.md) | cost, latency, memory |
 
-## 7.3.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain why decoder-only models need a causal mask, why attention gets expensive as context grows, and why KV cache helps generation.

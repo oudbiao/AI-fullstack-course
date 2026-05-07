@@ -11,7 +11,7 @@ keywords: [AI math study guide, AI math task sheet, linear algebra, probability 
 
 The main study route is now in [Chapter 4 entry](./). Use this page only as a quick checklist while you practice.
 
-## 4.0.1 One-Line Mental Model
+## One-Line Mental Model
 
 ```text
 represent data -> measure uncertainty -> measure loss -> update parameters
@@ -19,7 +19,7 @@ represent data -> measure uncertainty -> measure loss -> update parameters
 
 If a formula feels difficult, first ask what model action it supports.
 
-## 4.0.2 Practice Checklist
+## Practice Checklist
 
 | Check | Evidence |
 |---|---|
@@ -30,6 +30,6 @@ If a formula feels difficult, first ask what model action it supports.
 | I can trace gradient descent step by step | update table |
 | I can finish the final workshop after theory | `ch04_math_workshop_evidence/` |
 
-## 4.0.3 Ready To Continue
+## Ready To Continue
 
 Continue to Chapter 5 when each math idea maps to a model action: represent data, compare examples, measure uncertainty, measure loss, or update parameters.

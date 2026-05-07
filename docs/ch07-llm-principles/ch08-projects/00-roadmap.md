@@ -9,7 +9,7 @@ keywords: [LLM project guide, domain fine-tuning, Prompt, RAG, LLM evaluation]
 
 This capstone turns Chapter 7 into one engineering decision: is the problem task expression, missing knowledge, unstable format, unsafe behavior, or weak evaluation?
 
-## 7.8.1.1 See the Project Route First
+## See the Project Route First
 
 ![LLM capstone project roadmap](/img/course/ch07-projects-route-map-en.png)
 
@@ -19,7 +19,7 @@ This capstone turns Chapter 7 into one engineering decision: is the problem task
 
 Do not start with the strongest model or the most complex framework. Start with a small domain task, a prompt baseline, fixed examples, and a failure log.
 
-## 7.8.1.2 Run an Evidence Pack Check
+## Run an Evidence Pack Check
 
 Use this tiny project log before writing a report. It forces you to show the baseline, improvement, next route, and whether finetuning is actually justified.
 
@@ -51,7 +51,7 @@ fine_tune_now: False
 
 If your project cannot fill these fields, keep the project smaller. A clear comparison beats a large but untestable demo.
 
-## 7.8.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Do | Evidence |
 |---|---|---|
@@ -63,7 +63,7 @@ If your project cannot fill these fields, keep the project smaller. A clear comp
 
 If you want a guided starter, run [7.8.4 Hands-on: Full Chapter 7 Workshop](./03-stage-hands-on-workshop.md) before designing your own domain project.
 
-## 7.8.1.4 Project Deliverable Standards
+## Project Deliverable Standards
 
 | Deliverable | Minimum Standard | Stronger Portfolio Version |
 |---|---|---|
@@ -73,7 +73,7 @@ If you want a guided starter, run [7.8.4 Hands-on: Full Chapter 7 Workshop](./03
 | Prompt/data record | Save prompt versions or sample format | Add schema validation, data quality checks, and safety notes |
 | Presentation | Screenshot or short GIF proving it runs | Explain why the chosen route beats alternatives |
 
-## 7.8.1.5 Pass Check
+## Pass Check
 
 You pass this chapter when you can clearly explain “why not finetune here,” “why RAG is needed here,” or “why this prompt change works,” with a fixed evaluation set rather than a single good answer.
 

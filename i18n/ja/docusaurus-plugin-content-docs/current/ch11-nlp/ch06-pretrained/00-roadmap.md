@@ -11,7 +11,7 @@ keywords: [事前学習ガイド, BERT, GPT, T5, transformers]
 
 ![BERT、GPT、T5 の違い](/img/course/bert-gpt-t5-comparison-ja.png)
 
-## 11.6.1.1 先に全体像を見る
+## 先に全体像を見る
 
 ![事前学習モデル章の進め方](/img/course/ch11-pretrained-chapter-flow-ja.png)
 
@@ -21,7 +21,7 @@ keywords: [事前学習ガイド, BERT, GPT, T5, transformers]
 | GPT | 生成 | チャット、文章生成、ツール呼び出し |
 | T5 | text-to-text | 翻訳、要約、QA、分類の統一 |
 
-## 11.6.1.2 タスクからモデルの型を選ぶ
+## タスクからモデルの型を選ぶ
 
 ![事前学習から転移・微調整への流れ](/img/course/ch11-pretraining-transfer-finetune-map-ja.png)
 
@@ -54,7 +54,7 @@ reason: match model objective to task output
 
 操作のコツ：`autoregressive` は、前の token を見ながら次の token を生成する方式です。GPT 系の生成直感を理解するための重要語です。
 
-## 11.6.1.3 transformers を学ぶときの見方
+## transformers を学ぶときの見方
 
 `transformers` は、tokenizer、model、pipeline などを同じ考え方で扱えるライブラリです。初心者はまず次の 3 点だけ意識します。
 
@@ -64,7 +64,7 @@ reason: match model objective to task output
 | model | ID を受け取り、予測や生成を行う |
 | pipeline | よくある処理を短いコードで実行する |
 
-## 11.6.1.4 通過条件
+## 通過条件
 
 | チェック | 合格ライン |
 |---|---|

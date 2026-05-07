@@ -9,7 +9,7 @@ keywords: [NLP 速成, tokenizer, embedding, pretrained model, Hugging Face]
 
 想理解 LLM，先看文本如何变成模型能处理的形式：文本 -> token -> ID -> 向量 -> 模型输出。
 
-## 7.1.1.1 先看流程
+## 先看流程
 
 ![NLP 速成章节流程图](/img/course/ch07-nlp-crash-chapter-flow.png)
 
@@ -21,7 +21,7 @@ keywords: [NLP 速成, tokenizer, embedding, pretrained model, Hugging Face]
 | pretrained model | 已经在大规模文本上训练过的模型 |
 | Hugging Face | 模型、数据集、工具生态 |
 
-## 7.1.1.2 跑一个极小 token 实验
+## 跑一个极小 token 实验
 
 ```python
 text = "RAG retrieves evidence before answering"
@@ -44,7 +44,7 @@ unique_tokens: 5
 
 真实 tokenizer 更复杂，但主线一样：文本必须先变成稳定的片段和 ID，后面才能进入向量和模型。
 
-## 7.1.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
@@ -54,6 +54,6 @@ unique_tokens: 5
 | 4 | [7.1.5 Hugging Face 快速上手](./04-huggingface-quickstart.md) | pipeline、model card、本地运行 |
 | 5 | [7.1.6 Tokenizer 与 Embedding 实验](./05-tokenizer-embedding-lab.md) | 检查 token 和向量 |
 
-## 7.1.1.4 通过标准
+## 通过标准
 
 能解释为什么原始文本需要分词、为什么 embedding 是向量、为什么预训练模型通常复用而不是从零训练，就算通过。

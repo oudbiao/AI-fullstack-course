@@ -9,7 +9,7 @@ keywords: [probability guide, statistics guide, probability distribution, Bayes,
 
 Probability and statistics explain why models output confidence, why data varies, and why training uses loss values instead of only right/wrong labels.
 
-## 4.2.1.1 Look at the Map First
+## Look at the Map First
 
 ![Probability and statistics learning map](/img/course/ch04-probability-roadmap-vertical-en.png)
 
@@ -26,7 +26,7 @@ The chapter flow is:
 | cross-entropy | how wrong is the predicted probability distribution? |
 | KL divergence | how different are two distributions? |
 
-## 4.2.1.2 Run the Smallest Loop
+## Run the Smallest Loop
 
 Create `probability_first_loop.py`. It uses only the Python standard library.
 
@@ -55,7 +55,7 @@ predicted_probs: [0.9, 0.2, 0.6, 0.8]
 
 Lower cross-entropy means the probabilities are closer to the labels. This is why probability is directly connected to model training.
 
-## 4.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on first |
 |---|---|---|
@@ -65,6 +65,6 @@ Lower cross-entropy means the probabilities are closer to the labels. This is wh
 | 4 | [4.2.5 Information Theory](./04-information-theory.md) | entropy, cross-entropy, KL divergence |
 | 5 | [4.2.6 Historical Foundations](./05-history-foundations.md) | Bayes, Fisher, Shannon, EM in context |
 
-## 4.2.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can say what uncertainty a probability term is measuring, and explain why a classifier output such as `0.93` is useful but not an absolute truth.

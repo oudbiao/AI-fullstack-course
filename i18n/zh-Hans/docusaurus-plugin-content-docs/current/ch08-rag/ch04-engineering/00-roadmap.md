@@ -9,7 +9,7 @@ keywords: [大模型工程指南, 异步编程, API 设计, 日志监控, Docker
 
 工程化把一个能跑的大模型 Demo 变成软件：Prompt、模型、文档和用户变化后，它仍然可以部署、调试、度量和维护。
 
-## 8.4.1.1 先看 LLMOps 闭环
+## 先看 LLMOps 闭环
 
 ![大模型工程章节学习顺序图](/img/course/ch08-engineering-chapter-flow.png)
 
@@ -19,7 +19,7 @@ keywords: [大模型工程指南, 异步编程, API 设计, 日志监控, Docker
 
 第一个工程目标很简单：当答案错了，你能解释是哪一层导致的。
 
-## 8.4.1.2 跑一个 Trace 完整性检查
+## 跑一个 Trace 完整性检查
 
 每个接近生产的大模型功能，都需要足够的 trace 字段来排查一个错误答案。
 
@@ -48,7 +48,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 
 如果这些字段缺失，调试就会变成猜测。先补日志，再加功能。
 
-## 8.4.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -57,7 +57,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 | 3 | 日志与监控 | 记录 Prompt 版本、检索命中、延迟、成本和失败 |
 | 4 | Docker 部署 | 用可复现运行说明打包应用 |
 
-## 8.4.1.4 通过标准
+## 通过标准
 
 如果你的最小应用有运行命令、API 合约、错误处理、日志和一次记录下来的失败排查，就通过了本章。
 

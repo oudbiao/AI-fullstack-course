@@ -9,7 +9,7 @@ keywords: [multimodal introduction, alignment, fusion, visual-language models, m
 
 Multimodal AI is not just “chat with an image.” A useful system turns images, text, audio, or video into structured observations, aligns them with the task, then sends the result into retrieval, review, creation, or automation.
 
-## 12.1.1.1 See the Pipeline First
+## See the Pipeline First
 
 ![Multimodal foundations chapter learning flow diagram](/img/course/ch12-multimodal-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Multimodal AI is not just “chat with an image.” A useful system turns images
 
 The first habit is to ask: what modality comes in, what evidence is visible, what is uncertain, and where does the structured result go next?
 
-## 12.1.1.2 Run a Simulated Vision Record
+## Run a Simulated Vision Record
 
 ```python
 import json
@@ -59,7 +59,7 @@ Expected output:
 
 This tiny record is enough to practice the product shape before you connect a real vision model.
 
-## 12.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -67,6 +67,6 @@ This tiny record is enough to practice the product shape before you connect a re
 | 2 | Alignment and fusion | Explain how image evidence connects to text tasks |
 | 3 | Multimodal applications | Build a screenshot or document understanding record |
 
-## 12.1.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can turn one image or screenshot into structured text, mark uncertainty, and explain how the result enters a RAG, review, or Agent workflow.

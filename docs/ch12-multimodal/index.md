@@ -13,7 +13,7 @@ Chapter 12 is the final expansion: **AI is no longer only text.** Images, PDFs, 
 
 Do not chase every new demo. First learn how to turn non-text inputs into structured records, connect them to RAG or Agents, generate or edit assets, review risks, and export something usable.
 
-## 12.0.1 See the Multimodal Workflow
+## See the Multimodal Workflow
 
 ![Multimodal workflow loop](/img/course/ch12-multimodal-workflow-loop-en.svg)
 
@@ -27,7 +27,7 @@ Use this workflow as the chapter map.
 | Edit / review | human selection, factual check, copyright and portrait checks | review checklist, rejected versions, reason |
 | Export / integrate | RAG index, Agent trace, creative package, demo | README, export file, limitations, next step |
 
-## 12.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Make one small workflow traceable before trying video or full creative platforms.
 
@@ -39,7 +39,7 @@ Make one small workflow traceable before trying video or full creative platforms
 | 12.4 | Ethics and compliance | check copyright, portrait rights, sensitive content, factual risk | safety review checklist |
 | 12.5 | Stage project | run [12.5.3 Hands-on: Build a Reproducible Multimodal Creative Package](./ch05-projects/02-hands-on-multimodal-workshop.md) | brief, prompts, assets, storyboard, review, export preview |
 
-## 12.0.3 First Runnable Loop: Structure A Visual Input
+## First Runnable Loop: Structure A Visual Input
 
 This offline script simulates the first engineering step of a multimodal system: after a model or human reads an image, the result must become a structured, checkable record.
 
@@ -76,7 +76,7 @@ rag_ready: True
 
 Operation tip: add `page`, `region`, or `timestamp` fields. If the record can be cited later, it can enter multimodal RAG. If it cannot be checked or cited, it should stay in review.
 
-## 12.0.4 Connect Multimodal To RAG, Agent, And Creative Work
+## Connect Multimodal To RAG, Agent, And Creative Work
 
 ![Multimodal RAG Agent capstone map](/img/course/ch12-multimodal-rag-agent-capstone-map-en.svg)
 
@@ -90,7 +90,7 @@ Multimodal is not separate from the main track.
 | Engineering | track assets, licenses, reviews, export files, latency, and cost |
 | Capstone | build a multimodal learning assistant or creative workspace |
 
-## 12.0.5 Common Failures
+## Common Failures
 
 - Treating AIGC as "one pretty output" instead of a workflow.
 - Losing source references after OCR, PDF parsing, or screenshot understanding.
@@ -98,7 +98,7 @@ Multimodal is not separate from the main track.
 - Skipping human review for copyright, portrait rights, sensitive content, or factual risk.
 - Starting with video generation before the storyboard, assets, and review rules are clear.
 
-## 12.0.6 Pass Check
+## Pass Check
 
 Before finishing the course, you should be able to:
 

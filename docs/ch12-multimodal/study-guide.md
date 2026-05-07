@@ -11,7 +11,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![Multimodal portfolio evidence pack](/img/course/ch12-multimodal-evidence-pack-en.svg)
 
-## 12.0.1 Two-Hour First Pass
+## Two-Hour First Pass
 
 | Time box | Do this | Stop when you can say |
 |---|---|---|
@@ -21,7 +21,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | 25 min | Skim ethics and compliance | "External use needs copyright, portrait, sensitive, and factual checks." |
 | 25 min | Read the RAG/Agent bridge | "Multimodal can extend RAG, Agent, and the final capstone." |
 
-## 12.0.2 Required Evidence
+## Required Evidence
 
 | Evidence | Minimum version |
 |---|---|
@@ -32,7 +32,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `safety_review.md` | copyright, portrait rights, sensitive content, factuality, usage boundary |
 | `README.md` | goal, run command, source materials, sample output, limitations |
 
-## 12.0.3 Exit Questions
+## Exit Questions
 
 - Can you preserve source references for screenshots, PDFs, images, audio, or video?
 - Can you turn a non-text input into a structured record that RAG or an Agent can use?

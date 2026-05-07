@@ -9,7 +9,7 @@ keywords: [Agent guide, intelligent agent guide, Agent system architecture, tool
 
 Agent はモデル名ではありません。Goal に向かって、model、tools、state、memory、feedback をまとめる system pattern です。
 
-## 9.1.1.1 まず single-Agent loop を見る
+## まず single-Agent loop を見る
 
 ![Agent 基礎位置づけブリッジ図](/img/course/ch09-basics-position-bridge-ja.png)
 
@@ -19,7 +19,7 @@ Agent はモデル名ではありません。Goal に向かって、model、tool
 
 普通の chatbot は 1 回答えます。workflow は固定手順を進みます。Agent は plan、act、observe、state update を行い、goal が終わっていなければ続けます。
 
-## 9.1.1.2 小さな Agent state loop を動かす
+## 小さな Agent state loop を動かす
 
 このスクリプトはまだモデルを呼びません。Agent を debug できるようにする最小 state を示します。
 
@@ -47,7 +47,7 @@ done: True
 
 demo が goal、state、action、observation、stop condition を示せないなら、まず LLM app と呼び、Agent とは呼ばないほうが正確です。
 
-## 9.1.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
@@ -57,7 +57,7 @@ demo が goal、state、action、observation、stop condition を示せないな
 | 4 | System architecture | goal、state、planner、tools、memory、observation、executor を描く |
 | 5 | RL から Agent への突破 | action、reward、feedback、planning をつなげる |
 
-## 9.1.1.4 合格ライン
+## 合格ライン
 
 single-Agent loop を描き、multi-Agent collaboration の前に single-Agent stability が必要な理由を説明できれば、この章は合格です。
 

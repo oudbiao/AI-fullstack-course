@@ -9,7 +9,7 @@ keywords: [LLM overview, large language model, model capability, LLM application
 
 LLM overview is not a model-name list. It helps you decide what a large model can do, what it costs, and when prompting, RAG, Agent, or fine-tuning is a better route.
 
-## 7.2.1.1 Look at the Capability Stack First
+## Look at the Capability Stack First
 
 ![LLM overview chapter relationship diagram](/img/course/ch07-llm-overview-chapter-flow-en.png)
 
@@ -22,7 +22,7 @@ LLM overview is not a model-name list. It helps you decide what a large model ca
 | Agent | the model must use tools or take steps |
 | fine-tuning | behavior/style/format needs repeated adaptation |
 
-## 7.2.1.2 Run One Route Decision
+## Run One Route Decision
 
 ```python
 request = {
@@ -51,7 +51,7 @@ recommended_route: RAG
 
 This is not a full architecture decision. It is the habit: choose the smallest route that solves the actual product need.
 
-## 7.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to keep |
 |---|---|---|
@@ -60,6 +60,6 @@ This is not a full architecture decision. It is the habit: choose the smallest r
 | 3 | [7.2.4 Industry Landscape](./03-industry-landscape.md) | model/provider selection notes |
 | 4 | [7.2.5 LLM Call Workbench](./04-llm-call-workbench.md) | one request/response record |
 
-## 7.2.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain one model choice in terms of capability, context, cost, latency, data privacy, and route fit.

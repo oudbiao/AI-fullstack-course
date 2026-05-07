@@ -9,13 +9,13 @@ keywords: [Transformer 深入, decoder block, efficient attention, KV cache, mod
 
 本小章往 Transformer 内部看一层，帮助你调试 LLM 行为，并理解上下文长度、attention、KV cache 和模型变体为什么重要。
 
-## 7.3.1.1 先看内部流
+## 先看内部流
 
 ![Transformer 深入章节关系图](/img/course/ch07-transformer-deep-chapter-flow.png)
 
 ![Transformer 信息流、计算成本与任务适配图](/img/course/ch07-transformer-cost-task-map.png)
 
-## 7.3.1.2 构造 causal mask
+## 构造 causal mask
 
 ```python
 seq_len = 4
@@ -41,7 +41,7 @@ for row in mask:
 
 生成任务使用这种“不看未来”的规则：一个 token 可以看前面的 token，但不能看未来 token。
 
-## 7.3.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
@@ -51,6 +51,6 @@ for row in mask:
 | 4 | [7.3.5 高效 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、长上下文 |
 | 5 | [7.3.6 规模与计算](./04-scale-computation.md) | 成本、延迟、显存 |
 
-## 7.3.1.4 通过标准
+## 通过标准
 
 能解释 decoder-only 模型为什么需要 causal mask、为什么上下文变长会让 attention 变贵，以及 KV cache 为什么能帮助生成，就算通过。

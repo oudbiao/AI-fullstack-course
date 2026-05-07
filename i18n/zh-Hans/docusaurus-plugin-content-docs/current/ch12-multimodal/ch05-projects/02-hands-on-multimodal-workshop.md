@@ -461,7 +461,7 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 ## Step 4：检查资产和分镜
 
-用浏览器打开 `assets/scene_01.svg`、`assets/scene_02.svg` 和 `assets/scene_03.svg`。它们只是简单 SVG 占位资产，但在工作流里扮演“生成结果”的角色。
+用浏览器打开 `assets/scene_01.svg`、`assets/scene_02.svg` 和 `assets/scene_03.svg`。它们是脚本生成的基线 SVG 素材，在工作流里扮演“生成结果”的角色。
 
 打开 `outputs/storyboard.json` 和 `outputs/timeline.csv`。这些文件说明视觉资产如何组成短视频或落地页顺序。
 
@@ -488,7 +488,7 @@ export_preview: multimodal_workshop_run/outputs/export_preview.html
 
 | Baseline 模块 | 真实项目替换 |
 |---|---|
-| SVG 占位图 | 图像生成 API 或本地图像模型 |
+| 基线 SVG 素材 | 图像生成 API 或本地图像模型 |
 | Storyboard JSON | 视频生成工作流 |
 | 文案文本 | LLM 生成文案加人工审核 |
 | Safety checklist | 人工审核加策略检查 |

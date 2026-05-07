@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
   <title id="title">PyTorch 学習デバッグの確認順序</title>
-  <desc id="desc">PyTorch の学習が進まないとき、初心者がどの順序で訓練ループを確認すべきかを示す教材用プレースホルダー図。</desc>
+  <desc id="desc">PyTorch の学習が進まないとき、初心者がどの順序で訓練ループを確認すべきかを示す SVG 教材図。</desc>
   <defs>
     <style>
       .bg { fill: #f7f9fc; }

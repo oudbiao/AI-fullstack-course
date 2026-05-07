@@ -11,7 +11,7 @@ keywords: [Terminal, command line, Git, VS Code, development environment, Python
 
 Chapter 1 has one job: make sure you can **create code, run code, save code, and explain how to rerun it**.
 
-## 1.0.1 See The Workstation
+## See The Workstation
 
 ![AI workstation comic guide for developer tools](/img/course/ch01-ai-workstation-comic-en.png)
 
@@ -23,7 +23,7 @@ terminal -> project folder -> Python environment -> editor/notebook -> Git histo
 
 Do not try to master every tool now. Build one stable workstation, then reuse it in later AI projects.
 
-## 1.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Use this table as both the guide and the task list.
 
@@ -39,7 +39,7 @@ Use this table as both the guide and the task list.
 
 The workshop stays at the end because it is the integration step: learn the pieces first, then connect them.
 
-## 1.0.3 First Runnable Loop
+## First Runnable Loop
 
 Run this in a practice folder. It creates a tiny project, runs it, documents it, and commits it.
 
@@ -63,7 +63,7 @@ AI learning lab is ready
 
 If the command fails, do not erase the error. Save the command, full output, operating system, Python version, and current directory. That record is useful project evidence.
 
-## 1.0.4 Common Failures
+## Common Failures
 
 | Symptom | First thing to check | Usual fix |
 |---|---|---|
@@ -73,7 +73,7 @@ If the command fails, do not erase the error. Save the command, full output, ope
 | Git commit fails | Is Git initialized, staged, and configured? | Run `git status` and set username/email if needed |
 | README command fails | Did the README include every required step? | Test from a fresh terminal and update the README |
 
-## 1.0.5 Pass Check
+## Pass Check
 
 Move to Chapter 2 when you can answer these five questions:
 

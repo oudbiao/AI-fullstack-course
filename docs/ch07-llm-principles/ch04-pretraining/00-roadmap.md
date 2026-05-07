@@ -9,7 +9,7 @@ keywords: [LLM pretraining, training data, next token prediction, data governanc
 
 Pretraining is how a model first learns broad language patterns. The useful engineering view is: clean data, choose an objective, train at scale, track risk.
 
-## 7.4.1.1 Look at the Pretraining Triangle First
+## Look at the Pretraining Triangle First
 
 ![Diagram of pretraining chapter relationships](/img/course/ch07-pretraining-chapter-flow-en.png)
 
@@ -22,7 +22,7 @@ Pretraining is how a model first learns broad language patterns. The useful engi
 | engineering | how are scale, checkpoints, logs, and failures handled? |
 | evaluation | what can the model do, and where does it fail? |
 
-## 7.4.1.2 Create Next-Token Pairs
+## Create Next-Token Pairs
 
 ```python
 tokens = ["AI", "learns", "from", "text"]
@@ -42,7 +42,7 @@ from -> text
 
 This tiny example is the shape of next-token prediction. Real pretraining repeats this over massive text with careful data governance.
 
-## 7.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on |
 |---|---|---|
@@ -50,6 +50,6 @@ This tiny example is the shape of next-token prediction. Real pretraining repeat
 | 2 | [7.4.3 Pretraining Methods](./02-pretraining-methods.md) | next-token prediction, loss, scaling |
 | 3 | [7.4.4 Pretraining Engineering](./03-pretraining-engineering.md) | distributed training, checkpoints, monitoring |
 
-## 7.4.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain how data, objective, and engineering each affect the final model, and why contamination can make evaluation misleading.

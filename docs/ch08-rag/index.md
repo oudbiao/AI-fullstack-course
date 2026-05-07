@@ -13,7 +13,7 @@ Chapter 7 explained how an LLM produces text. Chapter 8 turns that model into a 
 
 Think of RAG as "read before answering." The model should not guess from memory when the answer must come from your course notes, company documents, product manuals, or private knowledge base.
 
-## 8.0.1 See the RAG Application Loop
+## See the RAG Application Loop
 
 ![RAG application loop](/img/course/ch08-rag-app-loop-en.svg)
 
@@ -27,7 +27,7 @@ Use this loop as the chapter map.
 | Application | Wrap the flow as CLI, API, chat UI, or internal tool | request, response, error handling, user feedback |
 | Operations | Compare quality, cost, latency, and failures over time | eval set, logs, token cost, latency, failure cases |
 
-## 8.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Do the workshop after the basics. First make the retrieval chain visible; then replace simple parts with stronger components.
 
@@ -39,7 +39,7 @@ Do the workshop after the basics. First make the retrieval chain visible; then r
 | 8.4 | Engineering practices | Add async, logging, monitoring, API design, or Docker notes | logs, config, deployment checklist |
 | 8.5 | Stage project | Run [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md) | workshop output, one added doc, one added eval case |
 
-## 8.0.3 First Runnable Loop: Tiny RAG Without a Framework
+## First Runnable Loop: Tiny RAG Without a Framework
 
 Before LangChain, LlamaIndex, or a vector database, run the smallest possible chain. The goal is not a powerful retriever; the goal is to see every step.
 
@@ -109,7 +109,7 @@ answer: Use a fixed evaluation set so every RAG change can be compared against t
 
 Operation tip: add one new document, ask one new question, and print the top-k chunks before reading the final answer. If the evidence is wrong, the answer cannot be trusted.
 
-## 8.0.4 Debug Bad RAG Answers
+## Debug Bad RAG Answers
 
 ![RAG debugging ladder](/img/course/ch08-rag-debug-ladder-en.svg)
 
@@ -123,7 +123,7 @@ When the answer is bad, locate the failing layer before changing the model.
 | The answer uses old information | document version and index build time | rebuild index and add regression tests |
 | You cannot tell whether quality improved | before/after answers on the same questions | create a fixed evaluation set |
 
-## 8.0.5 Common Failures
+## Common Failures
 
 - Treating "connected a vector database" as "RAG is done." RAG quality also depends on document quality, chunking, ranking, Prompt, citations, and evaluation.
 - Adding frameworks before understanding the chain. Frameworks are easier after you can print query, chunks, prompt, answer, and source.
@@ -131,7 +131,7 @@ When the answer is bad, locate the failing layer before changing the model.
 - Forgetting metadata. Without source, page, section, and version, citations and debugging become weak.
 - Optimizing by feeling. Use the same evaluation questions every time you change chunking, retrieval, reranking, or Prompt.
 
-## 8.0.6 Pass Check
+## Pass Check
 
 Before entering Chapter 9, you should be able to:
 

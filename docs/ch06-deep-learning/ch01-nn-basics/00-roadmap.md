@@ -9,7 +9,7 @@ keywords: [neural network guide, deep learning basics, activation function, back
 
 Neural networks are not magic. A layer first does a weighted sum, then an activation changes the shape of the signal, then training adjusts weights to reduce loss.
 
-## 6.1.1.1 Look at the Flow First
+## Look at the Flow First
 
 ![Neural network basics chapter relationship diagram](/img/course/ch06-nn-basics-chapter-flow-en.png)
 
@@ -27,7 +27,7 @@ input -> weighted sum -> activation -> loss -> gradient -> update weights
 | backward pass | compute responsibility for error |
 | optimizer | update weights using gradients |
 
-## 6.1.1.2 Run One Neuron
+## Run One Neuron
 
 Create `nn_first_loop.py` and run it after installing `torch`.
 
@@ -54,7 +54,7 @@ relu_output: 3.35
 
 If the linear output were negative, ReLU would turn it into `0`. That small gate is what lets stacked layers model nonlinear patterns.
 
-## 6.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on |
 |---|---|---|
@@ -66,6 +66,6 @@ If the linear output were negative, ReLU would turn it into `0`. That small gate
 | 6 | [6.1.7 Regularization](./04-regularization.md) | overfitting controls |
 | 7 | [6.1.8 Weight Initialization](./05-weight-init.md) | stable starting points |
 
-## 6.1.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain one layer as `input @ weights + bias`, describe what an activation does, and connect loss, gradient, and optimizer into one training loop.

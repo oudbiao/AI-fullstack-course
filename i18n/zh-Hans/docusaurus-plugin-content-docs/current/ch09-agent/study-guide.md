@@ -11,7 +11,7 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 
 ![Agent trace 证据包](/img/course/ch09-agent-trace-pack.svg)
 
-## 9.0.1 两小时快速通读
+## 两小时快速通读
 
 | 时间 | 做什么 | 能说出这句话就停 |
 |---|---|---|
@@ -21,7 +21,7 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 | 25 分钟 | 浏览 9.3 工具安全 | “工具 schema 和权限比花哨 Prompt 更重要。” |
 | 25 分钟 | 阅读边界选择图 | “我知道什么时候不该用 Agent。” |
 
-## 9.0.2 必须留下的证据
+## 必须留下的证据
 
 | 证据 | 最小版本 |
 |---|---|
@@ -32,7 +32,7 @@ keywords: [Agent 检查表, AI Agent 学习, ReAct, MCP, 工具调用, Agent 评
 | `eval_tasks.csv` | 3～5 个固定任务，包含期望结果和成功标准 |
 | `README.md` | 运行命令、trace 示例、安全样例、评估结果、限制 |
 
-## 9.0.3 离章问题
+## 离章问题
 
 - 你能说明 Agent 和普通 LLM 应用的区别吗？
 - 你能展示一条 trace，并解释每次工具调用为什么发生吗？

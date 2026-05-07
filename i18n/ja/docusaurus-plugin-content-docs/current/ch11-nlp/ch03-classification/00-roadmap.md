@@ -9,7 +9,7 @@ keywords: [テキスト分類ガイド, 感情分析, TF-IDF, テキスト分類
 
 テキスト分類は、文章を 1 つ受け取り、カテゴリを 1 つ返すタスクです。感情分析、スパム判定、問い合わせ分類、レビュー判定はすべてこの形です。
 
-## 11.3.1.1 先に全体像を見る
+## 先に全体像を見る
 
 ![テキスト分類章の進め方](/img/course/ch11-classification-chapter-flow-ja.png)
 
@@ -19,7 +19,7 @@ keywords: [テキスト分類ガイド, 感情分析, TF-IDF, テキスト分類
 | 2 | TF-IDF + 分類器 | 小さなデータで強い基準線を作る |
 | 3 | embedding + neural model | 意味情報を使って改善する |
 
-## 11.3.1.2 まずルール baseline を動かす
+## まずルール baseline を動かす
 
 ![従来分類 baseline の流れ](/img/course/ch11-traditional-classification-baseline-map-ja.png)
 
@@ -44,13 +44,13 @@ needs_review - confusing setup error
 
 操作のコツ：この baseline は賢くありません。目的は「分類タスクの入出力を固定すること」です。ここでラベル定義が曖昧なら、強いモデルでも安定しません。
 
-## 11.3.1.3 embedding 分類へ進む
+## embedding 分類へ進む
 
 ![embedding と pooling を使う分類の流れ](/img/course/ch11-neural-classification-embedding-pooling-map-ja.png)
 
 深層学習版では、token を embedding に変え、文全体の表現を作り、最後にラベルを予測します。`pooling` は複数 token の情報を 1 つの文ベクトルにまとめる操作です。
 
-## 11.3.1.4 通過条件
+## 通過条件
 
 | チェック | 合格ライン |
 |---|---|

@@ -9,7 +9,7 @@ keywords: [CNN guide, convolution, image classification, transfer learning, feat
 
 CNNs learn local visual patterns. Instead of reading an image as one flat row of numbers, they scan small regions and build feature maps.
 
-## 6.3.1.1 Look at the Image Flow First
+## Look at the Image Flow First
 
 ![CNN chapter relationship diagram](/img/course/ch06-cnn-chapter-flow-en.png)
 
@@ -23,7 +23,7 @@ CNNs learn local visual patterns. Instead of reading an image as one flat row of
 | pooling / stride | shrink spatial size |
 | transfer learning | reuse a pretrained vision backbone |
 
-## 6.3.1.2 Run One Convolution
+## Run One Convolution
 
 Create `cnn_first_loop.py` and run it after installing `torch`.
 
@@ -47,7 +47,7 @@ feature_shape: (1, 8, 32, 32)
 
 Read the shape as `[batch, channels, height, width]`. The convolution changed `3` input channels into `8` learned feature channels.
 
-## 6.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -57,6 +57,6 @@ Read the shape as `[batch, channels, height, width]`. The convolution changed `3
 | 4 | [6.3.5 Transfer Learning](./04-transfer-learning.md) | frozen backbone, fine-tuning |
 | 5 | [6.3.6 Image Classification Practice](./05-image-classification-practice.md) | dataset, training, prediction examples |
 
-## 6.3.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain what changed between input image shape and feature map shape, and why pretrained CNN backbones are useful for small datasets.

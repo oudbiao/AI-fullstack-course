@@ -9,7 +9,7 @@ keywords: [database overview, relational database, SQL, sqlite, Pandas and datab
 
 This chapter is optional in Chapter 3. Read it when you want to understand where real project data lives before it becomes a CSV or DataFrame.
 
-## 3.5.1.1 Look at the Database Map First
+## Look at the Database Map First
 
 ![Database elective learning roadmap](/img/course/ch03-database-roadmap-en.png)
 
@@ -23,7 +23,7 @@ Remember the simple comparison:
 
 You do not need to become a database administrator. You only need enough database literacy to query data and connect it to Python.
 
-## 3.5.1.2 Run One SQLite Query Once
+## Run One SQLite Query Once
 
 Create `sqlite_first_loop.py`. It uses `sqlite3`, which comes with Python.
 
@@ -54,7 +54,7 @@ tool 80
 
 This is the database loop: create a table, insert rows, ask a question with SQL, and receive a result table.
 
-## 3.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -63,6 +63,6 @@ This is the database loop: create a table, insert rows, ask a question with SQL,
 | 3 | [3.5.4 Python Database Operations](./03-python-db.md) | `sqlite3`, Pandas read/write, query results |
 | 4 | [3.5.5 Database Design](./04-db-design.md) | split tables, avoid duplication, keep relationships clear |
 
-## 3.5.1.4 Pass Check
+## Pass Check
 
 You pass this optional subchapter when you can explain why a database is different from a CSV, write one `SELECT ... GROUP BY` query, and read the result from Python.

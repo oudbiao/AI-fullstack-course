@@ -13,7 +13,7 @@ Chapter 8 made the model answer from documents. Chapter 9 makes the system **act
 
 Do not start with multi-agent frameworks. Start with one small Agent that can show every step.
 
-## 9.0.1 See the Agent Execution Loop
+## See the Agent Execution Loop
 
 ![Agent execution loop](/img/course/ch09-agent-execution-loop-en.svg)
 
@@ -29,7 +29,7 @@ An Agent is not "a chatbot with tools." It is a controlled execution loop.
 | Memory | What should persist across steps or runs | short-term state versus long-term preference |
 | Trace | The replayable record of the run | goal, action, arguments, observation, cost, final result |
 
-## 9.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Build a single traceable Agent before multi-agent systems.
 
@@ -43,7 +43,7 @@ Build a single traceable Agent before multi-agent systems.
 | 9.6-9.7 | Frameworks and multi-agent | Study only after the single-Agent loop is stable | framework choice note |
 | 9.8-9.10 | Evaluation, safety, deployment, project | Run [9.10.5 Hands-on: Build a Traceable Single-Agent Assistant](./ch10-projects/04-stage-hands-on-workshop.md) | trace logs, safety block, eval cases |
 
-## 9.0.3 First Runnable Loop: Print the Trace
+## First Runnable Loop: Print the Trace
 
 This offline script has no LLM dependency. It teaches the engineering habit: every action must be replayable. Later, replace the fixed `plan` with a model-generated plan, but keep the trace format.
 
@@ -116,7 +116,7 @@ Expected output starts like this:
 
 Operation tip: change `make_todo` to a non-whitelisted tool name such as `send_email`. The script should block it. This is the smallest version of a safety boundary.
 
-## 9.0.4 Choose Agent, Workflow, RAG, Or Function Calling
+## Choose Agent, Workflow, RAG, Or Function Calling
 
 ![Agent boundary map](/img/course/ch09-agent-boundary-map-en.svg)
 
@@ -130,7 +130,7 @@ Agents are powerful, but they are not the default solution.
 | Task is high risk | Workflow with human approval | the Agent can draft, but humans must confirm risky actions |
 | Exploration needs planning, tools, memory, and recovery | Agent | you can log every step and stop safely |
 
-## 9.0.5 Common Failures
+## Common Failures
 
 - Building multi-agent before a single Agent is stable.
 - Calling tools without schema, validation, or useful error messages.
@@ -139,7 +139,7 @@ Agents are powerful, but they are not the default solution.
 - Showing only a successful demo while hiding failed traces.
 - Using memory as a dumping ground instead of separating current state, long-term preference, and task history.
 
-## 9.0.6 Pass Check
+## Pass Check
 
 Before leaving this chapter, you should be able to:
 

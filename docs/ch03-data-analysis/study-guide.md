@@ -11,7 +11,7 @@ keywords: [data analysis study guide, data analysis task sheet, NumPy, Pandas, v
 
 The main study route is now in [Chapter 3 entry](./). Use this page only as a quick checklist while you practice.
 
-## 3.0.1 One-Line Mental Model
+## One-Line Mental Model
 
 ```text
 read -> inspect -> clean -> summarize -> visualize -> explain
@@ -19,7 +19,7 @@ read -> inspect -> clean -> summarize -> visualize -> explain
 
 If you cannot explain a chart in one sentence, return to the data question.
 
-## 3.0.2 Practice Checklist
+## Practice Checklist
 
 | Check | Evidence |
 |---|---|
@@ -30,6 +30,6 @@ If you cannot explain a chart in one sentence, return to the data question.
 | I can state a conclusion and a limitation | `report.md` |
 | I can finish the reproducible workshop | `ch03_output/` |
 
-## 3.0.3 Ready To Continue
+## Ready To Continue
 
 Continue to Chapter 4 when one CSV can travel from raw data to cleaned data, summary table, chart, and short written conclusion.

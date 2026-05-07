@@ -13,7 +13,7 @@ This chapter answers one practical question: **when a user sends text to an LLM,
 
 Do not start by memorizing model names. Start with the loop you can operate: text becomes tokens, tokens become vectors, the Transformer predicts the next token from context, and you control the result with Prompt, structured output, RAG, fine-tuning, or tools.
 
-## 7.0.1 See the Whole Loop First
+## See the Whole Loop First
 
 ![Token to answer lifecycle](/img/course/ch07-token-to-answer-lifecycle-en.svg)
 
@@ -29,7 +29,7 @@ Use this picture as the map for the whole chapter.
 | Fine-tuning | Updating model behavior with training examples | Is this a repeated behavior pattern, not just missing knowledge? |
 | Alignment | Making outputs safer and closer to human intent | What can still fail even when the answer sounds fluent? |
 
-## 7.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 The workshop belongs at the end. First build the mental model, then run the full experiment.
 
@@ -43,7 +43,7 @@ The workshop belongs at the end. First build the mental model, then run the full
 | 7.7 | Alignment | Check failure modes and safety boundaries | A safety/evaluation checklist |
 | 7.8 | Stage project | Run [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) | Terminal output, pass rate, README notes |
 
-## 7.0.3 First Runnable Loop: Prompt Testing Without an API
+## First Runnable Loop: Prompt Testing Without an API
 
 ![Prompt experiment loop](/img/course/ch07-prompt-experiment-loop-en.svg)
 
@@ -111,7 +111,7 @@ json: 2/2 cases passed
 
 Operation tip: add one bad case, one longer case, and one output field requirement. If the score changes, write down which prompt change caused it. That habit matters more than a single good-looking answer.
 
-## 7.0.4 Choose Prompt, RAG, Fine-tuning, Or Tools
+## Choose Prompt, RAG, Fine-tuning, Or Tools
 
 ![Prompt, RAG, fine-tuning, and tool choice map](/img/course/ch07-solution-choice-map-en.svg)
 
@@ -125,7 +125,7 @@ When an LLM result is weak, do not jump straight to fine-tuning.
 | The model must follow a repeated domain behavior | Consider fine-tuning or LoRA | You have enough high-quality examples and evaluation cases |
 | The task needs external action | Use tools or an Agent workflow | The model must call APIs, search files, or execute steps |
 
-## 7.0.5 Common Failures
+## Common Failures
 
 - Treating an LLM as a database: fluent text is not proof of truth.
 - Changing the prompt, input cases, and model all at once: you cannot tell what improved the result.
@@ -133,7 +133,7 @@ When an LLM result is weak, do not jump straight to fine-tuning.
 - Fine-tuning too early: many problems should start with Prompt, RAG, tools, or product logic.
 - Reading Transformer details before seeing any output loop: the theory becomes hard to anchor.
 
-## 7.0.6 Pass Check
+## Pass Check
 
 Before entering Chapter 8, you should be able to:
 

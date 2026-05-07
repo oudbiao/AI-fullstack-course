@@ -9,7 +9,7 @@ keywords: [MCP guide, Model Context Protocol, Agent tool ecosystem, MCP Server]
 
 MCP is a protocol layer for connecting tools, resources, and prompt templates to model applications in a more standard way. It does not replace Agents or tools; it makes capabilities easier to expose and use consistently.
 
-## 9.5.1.1 See the MCP Boundary First
+## See the MCP Boundary First
 
 ![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-en.png)
 
@@ -19,7 +19,7 @@ MCP is a protocol layer for connecting tools, resources, and prompt templates to
 
 Function Calling focuses on structured calls. MCP focuses on how external capabilities are discovered, described, called, and governed through a protocol.
 
-## 9.5.1.2 Run a Capability Registry Check
+## Run a Capability Registry Check
 
 Before implementing a real MCP Server, list what it exposes and what the Client may call.
 
@@ -47,7 +47,7 @@ boundary: server exposes, client calls
 
 If the boundary is vague, permissions and debugging will be vague too.
 
-## 9.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -57,7 +57,7 @@ If the boundary is vague, permissions and debugging will be vague too.
 | 4 | Client integration | Discover and call server capabilities safely |
 | 5 | Ecosystem | Connect MCP to IDEs, databases, browsers, knowledge bases, and Agents |
 
-## 9.5.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can draw the Host-Client-Server relationship and explain what the Server exposes, what the Client calls, and where permissions are checked.
 

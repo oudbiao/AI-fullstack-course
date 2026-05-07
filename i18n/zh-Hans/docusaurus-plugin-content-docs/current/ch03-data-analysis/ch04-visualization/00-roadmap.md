@@ -9,7 +9,7 @@ keywords: [数据可视化, 图表选择, matplotlib, seaborn, plotly, 可视化
 
 可视化不是装饰。它把分析结果变成别人能快速看懂的图。
 
-## 3.4.1.1 先看选图地图
+## 先看选图地图
 
 ![数据可视化路线图](/img/course/ch03-visualization-roadmap.png)
 
@@ -25,7 +25,7 @@ keywords: [数据可视化, 图表选择, matplotlib, seaborn, plotly, 可视化
 
 图表类型选对之后，再处理标题、坐标轴、图例、颜色和标注。
 
-## 3.4.1.2 先跑一次图表
+## 先跑一次图表
 
 创建 `visual_first_loop.py`，安装 `pandas` 和 `matplotlib` 后运行。
 
@@ -58,7 +58,7 @@ saved: sales_trend.png
 
 打开图片，只检查一件事：读者能不能在三秒内看出趋势？
 
-## 3.4.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
@@ -67,6 +67,6 @@ saved: sales_trend.png
 | 3 | [3.4.5 可视化最佳实践](./04-best-practices.md) | 选图、标签、颜色、误导性图表 |
 | 4 | [3.4.4 Plotly 交互式可视化](./03-plotly.md) | 项目需要交互时再用 |
 
-## 3.4.1.4 通过标准
+## 通过标准
 
 能从一个数据集做出 4 张有用图表，并说清楚每张图为什么这样选，就算通过。

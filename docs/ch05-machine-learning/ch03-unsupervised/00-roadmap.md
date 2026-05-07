@@ -9,7 +9,7 @@ keywords: [Unsupervised Learning Guide, Clustering, Dimensionality Reduction, An
 
 Unsupervised learning starts when the data has no labels. The model does not tell you the final truth. It helps you discover possible structure.
 
-## 5.3.1.1 Look at the Structure Map First
+## Look at the Structure Map First
 
 ![Unsupervised Learning Roadmap](/img/course/unsupervised-learning-roadmap-en.png)
 
@@ -23,7 +23,7 @@ Unsupervised learning starts when the data has no labels. The model does not tel
 
 The key question is not "is the label correct?" but "does this structure have evidence and meaning?"
 
-## 5.3.1.2 Run One Clustering Baseline
+## Run One Clustering Baseline
 
 Create `unsupervised_first_loop.py` and run it after installing `scikit-learn`.
 
@@ -51,7 +51,7 @@ inertia: 43.44
 
 Clustering gives group IDs, not human meaning. You still need charts, feature summaries, and domain interpretation.
 
-## 5.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -59,6 +59,6 @@ Clustering gives group IDs, not human meaning. You still need charts, feature su
 | 2 | [5.3.3 Dimensionality Reduction](./02-dimensionality-reduction.md) | PCA, visualization, compression |
 | 3 | [5.3.4 Anomaly Detection](./03-anomaly-detection.md) | outliers, thresholds, alert evidence |
 
-## 5.3.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain what structure you are looking for, run one unsupervised model, and write one cautious interpretation instead of treating the output as absolute truth.

@@ -11,7 +11,7 @@ keywords: [deep learning study guide, PyTorch, CNN, Transformer, Attention]
 
 The main study route is now in [Chapter 6 entry](./). Use this page only as a quick checklist while you practice.
 
-## 6.0.1 One-Line Mental Model
+## One-Line Mental Model
 
 ```text
 batch data -> model forward -> loss -> backward gradients -> optimizer step -> curves
@@ -19,7 +19,7 @@ batch data -> model forward -> loss -> backward gradients -> optimizer step -> c
 
 If the code feels long, find these six steps first.
 
-## 6.0.2 Practice Checklist
+## Practice Checklist
 
 | Check | Evidence |
 |---|---|
@@ -30,6 +30,6 @@ If the code feels long, find these six steps first.
 | I can explain what Attention changes | attention note |
 | I can finish the evidence-pack workshop | `deep_learning_workshop_run/` |
 
-## 6.0.3 Ready To Continue
+## Ready To Continue
 
 Continue to Chapter 7 when you can train one small model, save the training log, inspect failure cases, and explain why the model improved or failed.

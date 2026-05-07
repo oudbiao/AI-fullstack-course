@@ -9,7 +9,7 @@ keywords: [feature engineering guide, preprocessing, feature construction, featu
 
 Feature engineering is the work of making inputs useful, stable, and safe for models. Many model problems are actually feature problems.
 
-## 5.5.1.1 Look at the Feature Flow First
+## Look at the Feature Flow First
 
 ![Feature engineering roadmap](/img/course/feature-engineering-roadmap-en.png)
 
@@ -27,7 +27,7 @@ understand columns -> preprocess -> construct -> select -> package as Pipeline
 | select | remove useless or leaking features |
 | pipeline | make preprocessing reproducible |
 
-## 5.5.1.2 Run One Pipeline
+## Run One Pipeline
 
 Create `feature_first_loop.py` and run it after installing `pandas` and `scikit-learn`.
 
@@ -70,7 +70,7 @@ training_accuracy: 1.0
 
 This tiny dataset is too small for real evaluation. The point is the workflow: preprocessing and model travel together.
 
-## 5.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -80,6 +80,6 @@ This tiny dataset is too small for real evaluation. The point is the workflow: p
 | 4 | [5.5.5 Feature Selection](./04-feature-selection.md) | remove noise, redundancy, leakage |
 | 5 | [5.5.6 Pipeline](./05-pipeline.md) | reproducible preprocessing and training |
 
-## 5.5.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can list feature types, build one preprocessing Pipeline, and explain why preprocessing outside the train/test workflow can cause leakage.

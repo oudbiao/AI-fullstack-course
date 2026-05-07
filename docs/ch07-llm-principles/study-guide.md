@@ -11,7 +11,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![LLM study guide evolution path](/img/course/ch07-study-guide-evolution-line-en.png)
 
-## 7.0.1 Two-Hour First Pass
+## Two-Hour First Pass
 
 | Time box | Do this | Stop when you can say |
 |---|---|---|
@@ -21,7 +21,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | 30 min | Run the prompt testing script from the entry page | "I can compare prompt versions with fixed cases." |
 | 20 min | Read the solution-choice table | "I should not fine-tune before checking Prompt, RAG, tools, and validation." |
 
-## 7.0.2 Required Evidence
+## Required Evidence
 
 | Evidence | Minimum version |
 |---|---|
@@ -32,7 +32,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `llm_stage_workshop_output.txt` | Output from [7.8.4 Hands-on: Full Chapter 7 Workshop](./ch08-projects/03-stage-hands-on-workshop.md) |
 | `README.md` | How to run, what passed, what failed, what to try next |
 
-## 7.0.3 Exit Questions
+## Exit Questions
 
 - Can you explain token, embedding, attention, context window, pretraining, Prompt, fine-tuning, and alignment without copying definitions?
 - Can you change one prompt variable at a time and compare results with the same input cases?

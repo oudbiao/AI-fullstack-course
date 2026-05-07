@@ -9,7 +9,7 @@ keywords: [深度学习项目指南, 图像分类, 情感分析, 生成实践, P
 
 本小章是第 6 章出口。深度学习项目不只是训练脚本，还需要数据证据、形状检查、loss 日志、预测样本、失败案例和 README。
 
-## 6.8.1.1 先看项目闭环
+## 先看项目闭环
 
 ![深度学习项目作品集路线图](/img/course/ch06-projects-portfolio-loop.png)
 
@@ -19,7 +19,7 @@ keywords: [深度学习项目指南, 图像分类, 情感分析, 生成实践, P
 数据集 -> 模型 -> 训练日志 -> 评估 -> 失败案例 -> 打包
 ```
 
-## 6.8.1.2 保留一份证据记录
+## 保留一份证据记录
 
 创建 `dl_project_evidence_first_loop.py`。
 
@@ -49,7 +49,7 @@ next_step: inspect confused classes and add augmentation
 
 这就是项目习惯：每次改进都要有 baseline、指标、失败证据和下一步。
 
-## 6.8.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 交付什么 |
 |---|---|---|
@@ -58,10 +58,10 @@ next_step: inspect confused classes and add augmentation
 | 3 | [6.8.4 生成实践](./03-generative-practice.md) | 生成样本和审查记录 |
 | 4 | [6.8.5 DL 实操工作坊](./04-hands-on-dl-workshop.md) | 一份可复现 PyTorch 证据包 |
 
-## 6.8.1.4 项目交付物标准
+## 项目交付物标准
 
 至少为一个项目保留这些文件：`README.md`、运行命令、数据集说明、模型摘要、loss 曲线或日志、指标表、预测样本、失败案例、下一步计划。
 
-## 6.8.1.5 通过标准
+## 通过标准
 
 另一个学习者能运行你的项目、查看训练证据、看到成功和失败样本，并理解你下一步会怎么改，就算通过。

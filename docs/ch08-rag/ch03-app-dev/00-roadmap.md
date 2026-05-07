@@ -9,7 +9,7 @@ keywords: [LLM application development guide, dialogue systems, Function Calling
 
 LLM application development is not just an input box plus a model API. A real feature validates input, calls models, uses tools, keeps state, parses output, logs errors, and gives users a recoverable experience.
 
-## 8.3.1.1 See the Application Loop First
+## See the Application Loop First
 
 ![LLM application development chapter relationship diagram](/img/course/ch08-app-dev-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ LLM application development is not just an input box plus a model API. A real fe
 
 The chapter upgrades one model call into a maintainable application loop: input, prompt/context, model, optional tool, validation, output, feedback.
 
-## 8.3.1.2 Run a Tool Dispatch Check
+## Run a Tool Dispatch Check
 
 Function Calling means the model proposes structured action arguments, but your application must validate and dispatch them.
 
@@ -51,7 +51,7 @@ dispatch: search_docs
 
 Never execute tool calls directly from model text. Validate tool name, argument schema, permission, and failure path.
 
-## 8.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -62,7 +62,7 @@ Never execute tool calls directly from model text. Validate tool name, argument 
 | 5 | Dialogue systems | Store session state, slots, memory, and user feedback |
 | 6 | Document and template apps | Turn parsing, extraction, and generation into modules |
 
-## 8.3.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can build a small assistant loop that handles one API call, one optional tool call, one structured output, and one error path.
 

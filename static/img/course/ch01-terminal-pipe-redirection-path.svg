@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
   <title id="title">终端管道、重定向与 PATH 心智模型</title>
-  <desc id="desc">一张课程占位图，展示终端输出如何经过管道流转、如何用重定向保存日志，以及 PATH 如何寻找命令。</desc>
+  <desc id="desc">一张课程 SVG 教学图，展示终端输出如何经过管道流转、如何用重定向保存日志，以及 PATH 如何寻找命令。</desc>
   <defs>
     <style>
       .bg { fill: #f7faf8; }

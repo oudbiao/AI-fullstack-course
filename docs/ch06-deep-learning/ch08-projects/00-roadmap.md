@@ -9,7 +9,7 @@ keywords: [deep learning project guide, image classification, sentiment analysis
 
 This chapter is the exit point of Chapter 6. A deep learning project is not just a training script. It needs data evidence, shape checks, loss logs, prediction samples, failure cases, and a README.
 
-## 6.8.1.1 Look at the Project Loop First
+## Look at the Project Loop First
 
 ![Deep Learning Project Portfolio Roadmap](/img/course/ch06-projects-portfolio-loop-en.png)
 
@@ -19,7 +19,7 @@ This chapter is the exit point of Chapter 6. A deep learning project is not just
 dataset -> model -> training log -> evaluation -> failure cases -> package
 ```
 
-## 6.8.1.2 Keep One Evidence Record
+## Keep One Evidence Record
 
 Create `dl_project_evidence_first_loop.py`.
 
@@ -49,7 +49,7 @@ next_step: inspect confused classes and add augmentation
 
 This is the project habit: every improvement needs a baseline, metric, failure evidence, and next step.
 
-## 6.8.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to deliver |
 |---|---|---|
@@ -58,10 +58,10 @@ This is the project habit: every improvement needs a baseline, metric, failure e
 | 3 | [6.8.4 Generative Practice](./03-generative-practice.md) | generated samples and review notes |
 | 4 | [6.8.5 Hands-on DL Workshop](./04-hands-on-dl-workshop.md) | one reproducible PyTorch evidence pack |
 
-## 6.8.1.4 Project Deliverable Standards
+## Project Deliverable Standards
 
 Keep at least these files for one project: `README.md`, run command, dataset note, model summary, loss curve or log, metric table, prediction samples, failure cases, and next-step plan.
 
-## 6.8.1.5 Pass Check
+## Pass Check
 
 You pass this roadmap when another learner can run your project, inspect the training evidence, see both success and failure samples, and understand what you would improve next.

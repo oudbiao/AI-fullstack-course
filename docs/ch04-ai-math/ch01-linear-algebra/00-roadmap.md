@@ -9,7 +9,7 @@ keywords: [Linear Algebra Guide, AI Math Guide, Vectors, Matrices, Eigenvalues, 
 
 Linear algebra is the language AI uses to represent data and transform it. Do not start by memorizing proofs. First see what each object does in code.
 
-## 4.1.1.1 Look at the Map First
+## Look at the Map First
 
 ![Linear Algebra Learning Map](/img/course/ch04-linear-algebra-roadmap-vertical-en.png)
 
@@ -25,7 +25,7 @@ The chapter flow is:
 | matrix multiplication | many dot products at once |
 | eigenvalue / eigenvector | important directions, useful for PCA intuition |
 
-## 4.1.1.2 Run the Smallest Loop
+## Run the Smallest Loop
 
 Create `linear_algebra_first_loop.py` and run it after installing `numpy`.
 
@@ -62,7 +62,7 @@ all_scores: [89.8 75.6 91.8]
 
 If you accidentally use `*` instead of `@`, you get element-by-element multiplication, not a weighted score. This is the most useful early distinction.
 
-## 4.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on first |
 |---|---|---|
@@ -71,6 +71,6 @@ If you accidentally use `*` instead of `@`, you get element-by-element multiplic
 | 3 | [4.1.4 Eigenvalues and Eigenvectors](./03-eigenvalues.md) | special directions, PCA intuition |
 | 4 | [4.1.5 Vector Spaces](./04-vector-spaces.md) | basis, dimension, linear transformation |
 
-## 4.1.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain why one sample is a vector, why a batch is a matrix, what `@` does, and why these ideas reappear in RAG similarity, PCA, and neural network layers.

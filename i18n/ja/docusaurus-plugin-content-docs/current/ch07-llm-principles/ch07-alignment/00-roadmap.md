@@ -9,7 +9,7 @@ keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 
 事前学習は広い言語能力を与え、微調整はタスク行動に適応させます。Alignment は、人に対してモデルがどう振る舞うべきかを扱います：助けられるときは helpful、根拠がないときは honest、境界を越えるときは safe です。
 
-## 7.7.1.1 まず安全境界を見る
+## まず安全境界を見る
 
 ![大規模モデルのアライメント章の関係図](/img/course/ch07-alignment-chapter-flow-ja.png)
 
@@ -19,7 +19,7 @@ keywords: [alignment guide, RLHF, DPO, safety alignment, human feedback]
 
 重要語：RLHF は reinforcement learning from human feedback、DPO は direct preference optimization、RLAIF は reinforcement learning from AI feedback です。
 
-## 7.7.1.2 安全判断チェックを動かす
+## 安全判断チェックを動かす
 
 Alignment は、固定した行動ケースでテストすると理解しやすくなります。まず、安全な対応が明らかなリクエストから始めます。
 
@@ -51,7 +51,7 @@ score_dimensions: helpful, honest, harmless
 
 このスクリプトは alignment アルゴリズムではありません。Prompt、モデル、安全ポリシーを比較するときに再利用できる、小さなテストケース形式です。
 
-## 7.7.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
@@ -60,7 +60,7 @@ score_dimensions: helpful, honest, harmless
 | 3 | 代替手法 | DPO/RLAIF が一部の構成で安く、簡単になる理由を説明する |
 | 4 | 安全評価ラボ | 固定ケースで helpfulness、honesty、安全境界を採点する |
 
-## 7.7.1.4 合格ライン
+## 合格ライン
 
 能力と行動の違いを説明でき、1 つの回答の印象ではなく、小さな行動比較ログで判断できれば、この章は合格です。
 

@@ -9,7 +9,7 @@ keywords: [CV project guide, security inspection, medical imaging, image classif
 
 A computer vision project is not “I used a model.” It is a loop of data, annotation, model output, metrics, failure cases, and presentation.
 
-## 10.6.1.1 See the Project Loop First
+## See the Project Loop First
 
 ![Progression map of output granularity in vision tasks](/img/course/ch10-visual-task-progression-map-en.png)
 
@@ -19,7 +19,7 @@ A computer vision project is not “I used a model.” It is a loop of data, ann
 
 Start with classification if you need the fastest complete loop. Move to detection for boxes, segmentation for masks, and OCR/video/3D for specialized scenarios.
 
-## 10.6.1.2 Run a Project Readiness Check
+## Run a Project Readiness Check
 
 Use this before you call the project presentable.
 
@@ -47,7 +47,7 @@ presentable: True
 
 If a project has no annotation rule or failure case, it is still a demo, not a portfolio project.
 
-## 10.6.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Project Type | Evidence |
 |---|---|---|
@@ -59,7 +59,7 @@ If a project has no annotation rule or failure case, it is still a demo, not a p
 
 Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./03-hands-on-vision-workshop.md) before expanding the project.
 
-## 10.6.1.4 Project Deliverable Standards
+## Project Deliverable Standards
 
 | Deliverable | Minimum Requirement | Stronger Portfolio Version |
 |---|---|---|
@@ -70,6 +70,6 @@ Run [10.6.4 Hands-on: Build a Reproducible Vision Mini Pipeline](./03-hands-on-v
 | Failure analysis | At least 1 real failure | Add suspected cause, fix action, regression check |
 | Presentation | Screenshot or short GIF proving it runs | Build a clear visual project page |
 
-## 10.6.1.5 Pass Check
+## Pass Check
 
 You pass this chapter when your vision project can be reproduced, has clear data and annotation rules, reports proper metrics, and shows where the model fails.

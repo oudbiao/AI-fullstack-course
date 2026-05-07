@@ -9,7 +9,7 @@ keywords: [LLM engineering guide, asynchronous programming, API design, logging 
 
 Engineering turns a working LLM demo into software that can be deployed, debugged, measured, and maintained after prompts, models, documents, and users change.
 
-## 8.4.1.1 See the LLMOps Loop First
+## See the LLMOps Loop First
 
 ![LLM engineering chapter learning sequence diagram](/img/course/ch08-engineering-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Engineering turns a working LLM demo into software that can be deployed, debugge
 
 Your first engineering goal is simple: when an answer is wrong, you can explain which layer caused it.
 
-## 8.4.1.2 Run a Trace Readiness Check
+## Run a Trace Readiness Check
 
 Every production-style LLM feature needs enough trace fields to debug one bad answer.
 
@@ -48,7 +48,7 @@ debug_fields: request_id, prompt_version, retrieval_hits, model_ms, format_ok, c
 
 If these fields are missing, debugging becomes guesswork. Add logs before adding more features.
 
-## 8.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -57,7 +57,7 @@ If these fields are missing, debugging becomes guesswork. Add logs before adding
 | 3 | Logging and monitoring | Record prompt version, retrieval hits, latency, cost, and failures |
 | 4 | Docker deployment | Package the app with reproducible run instructions |
 
-## 8.4.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when your minimal app has a run command, API contract, error handling, logs, and one documented failure investigation.
 

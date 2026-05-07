@@ -9,7 +9,7 @@ keywords: [object detection guide, YOLO, IoU, mAP]
 
 Object detection adds location to classification: what object is present, and where is it in the image?
 
-## 10.3.1.1 See the Box Workflow First
+## See the Box Workflow First
 
 ![Learning flowchart for the object detection chapter](/img/course/ch10-detection-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Object detection adds location to classification: what object is present, and wh
 
 The important concepts are bounding box, class, confidence, IoU, threshold, false positive, false negative, and mAP.
 
-## 10.3.1.2 Run an IoU Check
+## Run an IoU Check
 
 IoU measures how much the predicted box overlaps the ground-truth box.
 
@@ -49,7 +49,7 @@ iou: 0.391
 
 Detection debugging starts by printing boxes and metrics. Do not judge detection quality from one nice screenshot.
 
-## 10.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -58,6 +58,6 @@ Detection debugging starts by printing boxes and metrics. Do not judge detection
 | 3 | YOLO | Understand grid prediction, threshold, NMS, and speed trade-offs |
 | 4 | Detection practice | Record false positives, missed detections, and threshold changes |
 
-## 10.3.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can explain a detection result with boxes, confidence, IoU, and at least one false-positive or false-negative case.

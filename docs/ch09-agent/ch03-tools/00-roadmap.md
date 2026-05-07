@@ -9,7 +9,7 @@ keywords: [Tools overview, Function Calling, Tool Use, Code Agent, Agent tools]
 
 Tools move an Agent from language to action. More tools do not automatically make the Agent stronger; unclear tools create wrong calls, unsafe actions, loops, and cost leaks.
 
-## 9.3.1.1 See the Action Boundary First
+## See the Action Boundary First
 
 ![Agent tool action layer map](/img/course/ch09-tools-action-layer-map-en.png)
 
@@ -19,7 +19,7 @@ Tools move an Agent from language to action. More tools do not automatically mak
 
 Tool calling should always be controlled: choose tool, validate arguments, check permission, run, observe, and decide the next step.
 
-## 9.3.1.2 Run a Tool Schema Check
+## Run a Tool Schema Check
 
 Use a schema before executing any tool call.
 
@@ -52,7 +52,7 @@ observation_needed: True
 
 After the tool runs, the Agent must observe and summarize the result. Never let the model pretend a failed tool succeeded.
 
-## 9.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -62,7 +62,7 @@ After the tool runs, the Agent must observe and summarize the result. Never let 
 | 4 | Tool safety | Add permission, sandbox, audit, and human confirmation |
 | 5 | Multi-tool practice | Record trace for successful and failed calls |
 
-## 9.3.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can read a tool trace and tell whether the failure happened in planning, parameterization, execution, observation, or permission control.
 

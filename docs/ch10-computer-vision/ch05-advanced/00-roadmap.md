@@ -9,7 +9,7 @@ keywords: [Advanced Vision Guide, OCR, Video Analysis, Face Recognition, 3D Visi
 
 Advanced vision is not a list of model names. It is a set of application directions built on the same visual foundation: more complex inputs, outputs, constraints, and risks.
 
-## 10.5.1.1 See the Direction Map First
+## See the Direction Map First
 
 ![Advanced vision direction selection map](/img/course/ch10-advanced-vision-route-map-en.png)
 
@@ -19,7 +19,7 @@ Advanced vision is not a list of model names. It is a set of application directi
 
 OCR fits documents, face recognition fits identity-sensitive scenarios, video fits time and motion, and 3D vision fits spatial structure.
 
-## 10.5.1.2 Run a Direction Choice Check
+## Run a Direction Choice Check
 
 Pick one direction instead of trying all four shallowly.
 
@@ -56,7 +56,7 @@ first_output: text with layout
 
 For face, surveillance, medical, or identity projects, write privacy and usage boundaries before showing results.
 
-## 10.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Direction | Practice Output |
 |---|---|---|
@@ -65,6 +65,6 @@ For face, surveillance, medical, or identity projects, write privacy and usage b
 | 3 | Video | Track events across frames and record temporal failures |
 | 4 | 3D vision | Explain depth, point cloud, geometry, and sensor assumptions |
 
-## 10.5.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you choose one direction, define input/output, run a minimum project, and document failure cases plus usage boundaries.

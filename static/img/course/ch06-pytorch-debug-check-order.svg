@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
   <title id="title">PyTorch 训练调试检查顺序</title>
-  <desc id="desc">一张课程占位教学图，展示当 PyTorch 训练没有学起来时，新人应按什么顺序检查训练循环。</desc>
+  <desc id="desc">一张课程 SVG 教学图，展示当 PyTorch 训练没有学起来时，新人应按什么顺序检查训练循环。</desc>
   <defs>
     <style>
       .bg { fill: #f7f9fc; }

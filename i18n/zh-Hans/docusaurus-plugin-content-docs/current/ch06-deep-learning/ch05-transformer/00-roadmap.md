@@ -9,7 +9,7 @@ keywords: [Transformer 指南, attention mechanism, QKV, self-attention, deep le
 
 Transformer 是从深度学习走向现代 LLM 的桥。第一直觉很简单：每个 token 可以决定哪些其他 token 更重要。
 
-## 6.5.1.1 先看 Attention 流程
+## 先看 Attention 流程
 
 ![Transformer 章节关系图](/img/course/ch06-transformer-chapter-flow.png)
 
@@ -23,7 +23,7 @@ Transformer 是从深度学习走向现代 LLM 的桥。第一直觉很简单：
 | block | attention 加前馈层反复精炼表示 |
 | mask | 生成时防止看见未来 token |
 
-## 6.5.1.2 跑一次 Attention 形状检查
+## 跑一次 Attention 形状检查
 
 创建 `transformer_first_loop.py`，安装 `torch` 后运行。
 
@@ -49,13 +49,13 @@ attention_shape: (1, 4, 4)
 
 `attention_shape` 是 `[batch, query_position, key_position]`：4 个位置里的每个位置都能看 4 个位置。
 
-## 6.5.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 先抓住什么 |
 |---|---|---|
 | 1 | [6.5.2 Attention 机制](./01-attention-mechanism.md) | QKV、attention 权重、mask |
 | 2 | [6.5.3 Transformer 架构](./02-transformer-architecture.md) | block 结构、残差、前馈层 |
 
-## 6.5.1.4 通过标准
+## 通过标准
 
 能读懂 attention 权重形状，解释为什么 attention 带来全局上下文，并把 mask 和文本生成联系起来，就算通过。

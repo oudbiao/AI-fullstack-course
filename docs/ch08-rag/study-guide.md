@@ -11,7 +11,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![RAG portfolio evidence pack](/img/course/ch08-rag-evidence-pack-en.svg)
 
-## 8.0.1 Two-Hour First Pass
+## Two-Hour First Pass
 
 | Time box | Do this | Stop when you can say |
 |---|---|---|
@@ -21,7 +21,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | 25 min | Skim 8.3 API practice and tool/function calling | "An LLM app needs request, response, error, and retry paths." |
 | 25 min | Read the debugging ladder | "I can separate document, retrieval, generation, citation, and ops failures." |
 
-## 8.0.2 Required Evidence
+## Required Evidence
 
 | Evidence | Minimum version |
 |---|---|
@@ -33,7 +33,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `rag_app_workshop_output.txt` | output from [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./ch05-projects/05-stage-hands-on-workshop.md) |
 | `README.md` | run command, sample question, cited answer, evaluation result, next fix |
 
-## 8.0.3 Exit Questions
+## Exit Questions
 
 - Can you explain why RAG is different from asking a longer Prompt?
 - Can you show which document chunks were retrieved for a question?

@@ -9,7 +9,7 @@ keywords: [deep learning training tips, hyperparameter tuning, training diagnosi
 
 Training tips are useful only when they answer a diagnosis. Do not change optimizer, learning rate, model size, and data at the same time.
 
-## 6.7.1.1 Look at the Diagnosis Flow First
+## Look at the Diagnosis Flow First
 
 ![Deep learning training tips chapter relationship diagram](/img/course/ch06-training-tips-chapter-flow-en.png)
 
@@ -23,7 +23,7 @@ Training tips are useful only when they answer a diagnosis. Do not change optimi
 | too slow | batch size, device, model size |
 | too heavy to deploy | compression, quantization, pruning |
 
-## 6.7.1.2 Read a Tiny Loss Log
+## Read a Tiny Loss Log
 
 Create `training_tips_first_loop.py`.
 
@@ -46,7 +46,7 @@ action: stop or reduce learning rate if validation keeps worsening
 
 Before adding tricks, read the curve. A simple log often tells you what to try next.
 
-## 6.7.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -54,6 +54,6 @@ Before adding tricks, read the curve. A simple log often tells you what to try n
 | 2 | [6.7.3 Training Diagnosis](./02-training-diagnosis.md) | loss curves, overfitting, instability |
 | 3 | [6.7.4 Model Compression](./03-model-compression.md) | smaller, faster, deployable models |
 
-## 6.7.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can look at a training/validation curve and choose one next action with a reason.

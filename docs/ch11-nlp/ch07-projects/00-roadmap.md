@@ -9,7 +9,7 @@ keywords: [NLP Project Guide, QA, Summarization, Information Extraction, NLP Por
 
 An NLP project is not a fluent paragraph. It is a clear task boundary, data source, baseline, evaluation method, failure analysis, and structured deliverable.
 
-## 11.7.1.1 See the Project Evidence Loop First
+## See the Project Evidence Loop First
 
 ![NLP project delivery loop](/img/course/ch11-projects-delivery-loop-en.png)
 
@@ -19,7 +19,7 @@ An NLP project is not a fluent paragraph. It is a clear task boundary, data sour
 
 Start with information extraction or classification for clear labels. Move to summarization and QA when you can evaluate factuality, refusal, citations, and boundaries.
 
-## 11.7.1.2 Run a Project Readiness Check
+## Run a Project Readiness Check
 
 ```python
 project = {
@@ -45,7 +45,7 @@ portfolio_ready: True
 
 If labels, fields, or knowledge boundaries are unclear, fix the task definition before changing models.
 
-## 11.7.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Project | Evidence |
 |---|---|---|
@@ -57,7 +57,7 @@ If labels, fields, or knowledge boundaries are unclear, fix the task definition 
 
 Run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./05-hands-on-nlp-workshop.md) before expanding the project.
 
-## 11.7.1.4 Project Deliverable Standards
+## Project Deliverable Standards
 
 | Deliverable | Minimum Requirement | Stronger Portfolio Version |
 |---|---|---|
@@ -68,6 +68,6 @@ Run [11.7.6 Hands-on: Build a Reproducible NLP Mini Pipeline](./05-hands-on-nlp-
 | Failure case | At least 1 real failure | Add cause, fix action, regression check |
 | Presentation | Screenshot or short GIF proving it runs | Build a clear text-understanding project page |
 
-## 11.7.1.5 Pass Check
+## Pass Check
 
 You pass this chapter when your NLP project has a task definition, data examples, evaluation metric, baseline, failure case, and next-step improvement plan.

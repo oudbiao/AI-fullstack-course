@@ -9,7 +9,7 @@ keywords: [MCP guide, Model Context Protocol, Agent tool ecosystem, MCP Server]
 
 MCP は、tools、resources、prompt templates をより標準的に model applications へ接続する protocol layer です。Agent や tools を置き換えるものではなく、capabilities を一貫して expose/use しやすくします。
 
-## 9.5.1.1 まず MCP boundary を見る
+## まず MCP boundary を見る
 
 ![MCP Host Client Server architecture diagram](/img/course/mcp-host-client-server-ja.png)
 
@@ -19,7 +19,7 @@ MCP は、tools、resources、prompt templates をより標準的に model appli
 
 Function Calling は structured calls に注目します。MCP は external capabilities が protocol を通じて discovered、described、called、governed される方法に注目します。
 
-## 9.5.1.2 Capability registry check を動かす
+## Capability registry check を動かす
 
 本物の MCP Server を実装する前に、何を expose し、Client が何を call できるか列挙します。
 
@@ -47,7 +47,7 @@ boundary: server exposes, client calls
 
 boundary が曖昧だと、permissions と debugging も曖昧になります。
 
-## 9.5.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
@@ -57,7 +57,7 @@ boundary が曖昧だと、permissions と debugging も曖昧になります。
 | 4 | Client integration | Server capabilities を安全に discover/call する |
 | 5 | Ecosystem | MCP を IDE、database、browser、knowledge base、Agent につなげる |
 
-## 9.5.1.4 合格ライン
+## 合格ライン
 
 Host-Client-Server 関係を描き、Server が何を expose し、Client が何を call し、permissions がどこで checked されるか説明できれば、この章は合格です。
 

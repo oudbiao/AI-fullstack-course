@@ -1,137 +1,58 @@
 ---
-title: "E.C Elective Module: Supplementary Classic ML Algorithms"
+title: "E.C Classic ML Roadmap"
 sidebar_position: 0
-description: "Overview of the supplementary classic machine learning module, helping you understand the learning order, applicable scenarios, and the relationships between lessons."
+description: "A concise hands-on roadmap for supplementary classic machine learning: SVM, KNN, Naive Bayes, and LDA as strong baselines for small and medium data."
 ---
 
-# E.C Elective Module: Supplementary Classic ML Algorithms
+# E.C Classic ML Roadmap
 
-:::tip Module Positioning
-These algorithms are still very valuable in many small- to medium-sized data tasks. Studying them helps complete your toolbox for making judgments.
-:::
+Use this elective when your dataset is small, your features are clear, or you need a strong baseline before trying a heavier model.
+
+## See the Baseline Map First
 
 ![Module map for supplementary classic ML algorithms](/img/course/elective-classic-ml-module-map-en.png)
 
-:::info Hands-on checkpoint
-If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](../hands-on-elective-workshop) first and inspect the Module C KNN baseline output.
-:::
+![KNN neighbor voting diagram](/img/course/elective-knn-neighbor-voting-en.png)
 
-## Learning Objectives
+Classic ML helps you answer: is the problem already solvable with simple features?
 
-- Understand the role of the supplementary classic machine learning module in the overall learning path
-- Know what problem each lesson in this module solves
-- Be clear about which topics to learn first and which to learn later
-- Build intuition quickly with a minimal example
-
----
-
-## What problem does this module solve?
-
-### Module Positioning
-
-The purpose of the supplementary classic machine learning module is not to “learn a little more,” but to fill in capabilities that often determine the upper limit of engineering performance.
-
-You can first think of it as a set of topic-based toolboxes:
-
-- Come back to them when you encounter relevant projects
-- No need to finish everything at once
-- But once you enter the corresponding scenario, they become very valuable
-
-### Recommended learning order
-
-A relatively safe learning approach is usually:
-
-1. First look at the overview to understand what each lesson is roughly about
-2. Start with the most basic topics that can be applied immediately
-3. Then move on to content that is more engineering-focused or project-oriented
-
----
-
-## What topics are included in this module?
-
-### Chapter list
-
-| Chapter | Topic |
-|---|---|
-| Lesson 1 | Support Vector Machine |
-| Lesson 2 | K-Nearest Neighbors |
-| Lesson 3 | Naive Bayes |
-| Lesson 4 | Linear Discriminant Analysis |
-
-### How should you use this module?
-
-A very practical strategy is:
-
-- First use the main course to get the overall workflow running
-- When you have a specific need, come back to the elective module for focused improvement
-
-This way, you won’t lose the rhythm of the main learning path because there are too many specialized topics.
-
----
-
-## A minimal runnable example
-
-:::info Run Tip
-```bash
-pip install numpy scikit-learn
-```
-:::
+## Run the Smallest KNN Baseline
 
 ```python
-import numpy as np
-from sklearn.svm import SVC
+def distance(a, b):
+    return sum((x - y) ** 2 for x, y in zip(a, b)) ** 0.5
 
-X = np.array([[0, 0], [1, 1], [1, 0], [0, 1]])
-y = np.array([0, 1, 1, 0])
+train = [
+    ([0.1, 0.2], "low"),
+    ([0.2, 0.1], "low"),
+    ([0.8, 0.9], "high"),
+    ([0.9, 0.8], "high"),
+]
 
-clf = SVC(kernel="linear")
-clf.fit(X, y)
-print(clf.predict([[0.8, 0.9]]))
+point = [0.75, 0.85]
+nearest = min(train, key=lambda row: distance(row[0], point))
+print("prediction:", nearest[1])
+print("neighbor:", nearest[0])
 ```
 
-### What should you take away from this example?
+Expected output:
 
-This small piece of code is not meant to cover the whole module. Instead, it is meant to help you quickly build a sense of “what exactly does this module do?”
+```text
+prediction: high
+neighbor: [0.8, 0.9]
+```
 
-When reading it, focus on these three things first:
+This is the smallest baseline habit: define features, compare distance, predict, and keep the result for later comparison.
 
-- What the input is
-- What happens in the middle
-- How the output corresponds to a real project
+## Learn in This Order
 
----
+| Step | Lesson | Practice Output |
+|---|---|---|
+| 1 | [E.C.1 SVM](./01-svm.md) | Explain margin, support vectors, `C`, and kernel choice |
+| 2 | [E.C.2 KNN](./02-knn.md) | Build a distance-voting baseline |
+| 3 | [E.C.3 Naive Bayes](./03-naive-bayes.md) | Convert evidence counts into class probabilities |
+| 4 | [E.C.4 LDA](./04-lda.md) | Project features to separate classes |
 
-## Learning recommendations
+## Pass Check
 
-### If time is limited, what should you learn first?
-
-Prioritize topics that will appear frequently in later projects and can immediately help you reduce cost or improve efficiency.
-
-### Common mistakes
-
-- Seeing it as elective and skipping it completely
-- Trying to finish all elective topics at once
-- Only reading concepts without running the minimal example
-
----
-
-## When is the best time to come back and study this module?
-
-When the following signs appear, it means you are a good fit to return and fill in this set of topics:
-
-- Your current task uses small- to medium-sized data, and deep learning is not necessarily the best choice
-- You need a strong baseline but don’t know where to start
-- You want to improve your judgment about “why choose this model”
-- You want to complete your classic ML toolbox instead of only knowing tree models and linear models
-
-## What can you do after finishing this module?
-
-- Select models more flexibly in small- to medium-sized data tasks
-- Understand the applicable boundaries of SVM, KNN, Naive Bayes, and LDA
-- Add a more solid classic baseline to mainline projects
-
----
-
-## Summary
-
-This overview page is meant to give you a map. When you actually study the module, you do not need to aim for “understanding everything.” Instead, you should know when to come back and which part to fill in first.
+You pass this module when you can build one classic baseline, explain why it is appropriate, and compare it with a heavier model or later project result.

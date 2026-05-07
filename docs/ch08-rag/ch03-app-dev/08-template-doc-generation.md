@@ -209,7 +209,7 @@ In real engineering work, besides the body content, you also need to handle:
 - paragraph hierarchy
 - numbering
 - tables
-- image placeholders
+- image slots
 - headers and footers
 - slide layouts
 

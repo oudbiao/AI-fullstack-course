@@ -9,7 +9,7 @@ keywords: [image generation guide, diffusion model, Stable Diffusion, ControlNet
 
 Image generation is a workflow, not a single prompt. A useful result needs intent, prompt records, parameters, optional controls, candidate comparison, and review.
 
-## 12.2.1.1 See the Pipeline First
+## See the Pipeline First
 
 ![Image generation chapter learning flowchart](/img/course/ch12-image-gen-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Image generation is a workflow, not a single prompt. A useful result needs inten
 
 The first habit is to log what you asked for, which mode you used, which seed or parameters shaped the result, and what must be reviewed before export.
 
-## 12.2.1.2 Build a Prompt Record
+## Build a Prompt Record
 
 ```python
 import json
@@ -59,7 +59,7 @@ Expected output:
 
 If you cannot reproduce the prompt record, you cannot reliably improve the image.
 
-## 12.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -67,6 +67,6 @@ If you cannot reproduce the prompt record, you cannot reliably improve the image
 | 2 | Stable Diffusion parts | Map text encoder, U-Net, VAE, and latent space |
 | 3 | Applications and control | Compare text-to-image, image-to-image, inpainting, ControlNet, LoRA |
 
-## 12.2.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can write a prompt record, explain which generation mode you chose, save 3 candidate notes, and mark at least one review risk before export.

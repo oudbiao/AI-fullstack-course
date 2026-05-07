@@ -9,7 +9,7 @@ keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, 
 
 This capstone proves you can connect knowledge, model calls, application flow, and engineering evidence into one reproducible LLM application.
 
-## 8.5.1.1 See the Project Evidence Loop First
+## See the Project Evidence Loop First
 
 ![LLM application capstone project roadmap](/img/course/ch08-projects-route-map-en.png)
 
@@ -19,7 +19,7 @@ This capstone proves you can connect knowledge, model calls, application flow, a
 
 The project is not “connect a vector database.” It is a traceable loop: documents, chunks, retrieval, context, answer, citations, logs, evaluation, and improvement.
 
-## 8.5.1.2 Run a Project Readiness Check
+## Run a Project Readiness Check
 
 Use this checklist before calling the project done.
 
@@ -56,7 +56,7 @@ evidence: docs, eval, citations, failures
 
 If `ready` is `False`, do not add another feature yet. Complete the evidence loop first.
 
-## 8.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Project | What It Trains |
 |---|---|---|
@@ -68,7 +68,7 @@ If `ready` is `False`, do not add another feature yet. Complete the evidence loo
 
 If you need a guided baseline, start with [8.5.6 Hands-on: Full Chapter 8 RAG App Workshop](./05-stage-hands-on-workshop.md).
 
-## 8.5.1.4 Project Deliverable Standards
+## Project Deliverable Standards
 
 | Deliverable | Minimum Requirement | Stronger Portfolio Version |
 |---|---|---|
@@ -80,7 +80,7 @@ If you need a guided baseline, start with [8.5.6 Hands-on: Full Chapter 8 RAG Ap
 | Evaluation | Fixed questions with pass/fail rules | Add baseline, metrics, and regression testing |
 | Deployment note | How to run and required environment variables | Add Docker, monitoring, and fallback notes |
 
-## 8.5.1.5 Pass Check
+## Pass Check
 
 You pass this chapter when the project can answer with citations, show retrieval logs, handle empty retrieval, keep evaluation cases, and explain at least one failure.
 

@@ -9,7 +9,7 @@ keywords: [object detection guide, YOLO, IoU, mAP]
 
 Object detection は classification に location を加えます。どの object があり、image のどこにあるかを答えます。
 
-## 10.3.1.1 まず box workflow を見る
+## まず box workflow を見る
 
 ![Object detection 章の学習フローチャート](/img/course/ch10-detection-chapter-flow-ja.png)
 
@@ -19,7 +19,7 @@ Object detection は classification に location を加えます。どの object
 
 重要概念は bounding box、class、confidence、IoU、threshold、false positive、false negative、mAP です。
 
-## 10.3.1.2 IoU check を動かす
+## IoU check を動かす
 
 IoU は predicted box と ground-truth box の重なりを測ります。
 
@@ -49,7 +49,7 @@ iou: 0.391
 
 Detection debug は boxes と metrics の表示から始めます。きれいな screenshot 1 枚だけで detection quality を判断しないでください。
 
-## 10.3.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 手順 | 読む内容 | 実践アウトプット |
 |---|---|---|
@@ -58,6 +58,6 @@ Detection debug は boxes と metrics の表示から始めます。きれいな
 | 3 | YOLO | grid prediction、threshold、NMS、speed trade-off を理解する |
 | 4 | Detection practice | false positives、missed detections、threshold changes を記録する |
 
-## 10.3.1.4 合格ライン
+## 合格ライン
 
 boxes、confidence、IoU、少なくとも 1 つの false-positive または false-negative case で detection result を説明できれば、この章は合格です。

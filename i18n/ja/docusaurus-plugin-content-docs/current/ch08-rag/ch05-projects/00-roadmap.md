@@ -9,7 +9,7 @@ keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, 
 
 このキャップストーンは、知識、モデル呼び出し、アプリケーションフロー、engineering evidence を 1 つの再現可能な LLM アプリに接続できることを示します。
 
-## 8.5.1.1 まずプロジェクト証拠ループを見る
+## まずプロジェクト証拠ループを見る
 
 ![LLM アプリケーション総合プロジェクトのロードマップ](/img/course/ch08-projects-route-map-ja.png)
 
@@ -19,7 +19,7 @@ keywords: [LLM project guide, enterprise knowledge base, intelligent assistant, 
 
 プロジェクトは「ベクトルデータベースをつなぐ」だけではありません。文書、chunks、検索、context、回答、引用、logs、評価、改善の traceable loop です。
 
-## 8.5.1.2 プロジェクト readiness チェックを動かす
+## プロジェクト readiness チェックを動かす
 
 プロジェクト完了前に、この checklist を使います。
 
@@ -56,7 +56,7 @@ evidence: docs, eval, citations, failures
 
 `ready` が `False` なら、別の機能を足す前に evidence loop を完成させます。
 
-## 8.5.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 手順 | プロジェクト | 本当に鍛える力 |
 |---|---|---|
@@ -68,7 +68,7 @@ evidence: docs, eval, citations, failures
 
 ガイド付き baseline が必要なら、[8.5.6 実践：第 8 章 RAG アプリ完全ワークショップ](./05-stage-hands-on-workshop.md) から始めます。
 
-## 8.5.1.4 プロジェクト成果物基準
+## プロジェクト成果物基準
 
 | 成果物 | 最低要件 | 強いポートフォリオ版 |
 |---|---|---|
@@ -80,7 +80,7 @@ evidence: docs, eval, citations, failures
 | 評価 | 固定質問と pass/fail rules | baseline、metrics、regression testing を追加 |
 | デプロイメモ | 実行方法と必要な環境変数 | Docker、monitoring、fallback notes を追加 |
 
-## 8.5.1.5 合格ライン
+## 合格ライン
 
 引用付き回答、検索ログ表示、empty retrieval 処理、評価ケース保存、少なくとも 1 件の失敗説明ができれば、この章は合格です。
 

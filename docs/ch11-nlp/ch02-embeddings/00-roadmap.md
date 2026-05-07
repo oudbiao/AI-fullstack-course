@@ -9,7 +9,7 @@ keywords: [representation learning guide, word embeddings, contextualized repres
 
 Representation learning asks how text can become numbers that carry meaning, not just identity.
 
-## 11.2.1.1 See the Representation Path First
+## See the Representation Path First
 
 ![NLP representation learning chapter learning sequence diagram](/img/course/ch11-embeddings-chapter-flow-en.png)
 
@@ -19,7 +19,7 @@ Representation learning asks how text can become numbers that carry meaning, not
 
 The path moves from sparse word identity, to word vectors, to contextual vectors, to language models that learn broader language patterns.
 
-## 11.2.1.2 Run a Similarity Check
+## Run a Similarity Check
 
 ```python
 vectors = {
@@ -44,7 +44,7 @@ cat_car: 0.26
 
 This is a toy score, but it shows the core idea: close meanings should be easier for a model to compare.
 
-## 11.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -52,6 +52,6 @@ This is a toy score, but it shows the core idea: close meanings should be easier
 | 2 | Contextual representations | Explain why the same word can mean different things |
 | 3 | Language models | Connect representation learning to next-token or masked prediction |
 
-## 11.2.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can compare sparse features, word embeddings, and contextual embeddings, and explain why representation quality affects classification, retrieval, and RAG.

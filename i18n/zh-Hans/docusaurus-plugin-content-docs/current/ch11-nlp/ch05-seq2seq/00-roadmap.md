@@ -9,7 +9,7 @@ keywords: [Seq2Seq 指南, 注意力指南, 机器翻译]
 
 Seq2Seq 处理输入和输出都是序列的任务：翻译、总结、改写、对话和纠错。
 
-## 11.5.1.1 先看生成桥梁
+## 先看生成桥梁
 
 ![Seq2Seq 与 Attention 章节学习顺序图](/img/course/ch11-seq2seq-chapter-flow.png)
 
@@ -19,7 +19,7 @@ Seq2Seq 处理输入和输出都是序列的任务：翻译、总结、改写、
 
 通往现代 LLM 的桥梁很清楚：生成是一步步发生的，Attention 帮助 decoder 回看有用的输入位置。
 
-## 11.5.1.2 跑一个输入输出对检查
+## 跑一个输入输出对检查
 
 ```python
 source = ["I", "love", "NLP"]
@@ -43,7 +43,7 @@ target_length: 3
 
 生成项目应该记录解码策略、失败案例，以及关键输入信息是否丢失。
 
-## 11.5.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -52,6 +52,6 @@ target_length: 3
 | 3 | 机器翻译 | 连接 teacher forcing、解码、BLEU/错误分析 |
 | 4 | CTC 与语音 | 理解输入输出不逐帧对齐时会发生什么 |
 
-## 11.5.1.4 通过标准
+## 通过标准
 
 如果你能解释 Encoder-Decoder、Attention、greedy/beam decoding 和一个生成失败，就通过了本章。

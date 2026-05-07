@@ -9,7 +9,7 @@ keywords: [generative model guide, GAN, VAE, latent vector, deep learning]
 
 Generative models create new samples instead of only predicting labels. The practical loop is: sample a latent code, decode it, review the output, and compare versions.
 
-## 6.6.1.1 Look at the Generation Flow First
+## Look at the Generation Flow First
 
 ![Generative models chapter relationship diagram](/img/course/ch06-generative-chapter-flow-en.png)
 
@@ -23,7 +23,7 @@ Generative models create new samples instead of only predicting labels. The prac
 | VAE | learns a smoother latent space |
 | review | generated output still needs human and metric checks |
 
-## 6.6.1.2 Run One Tiny Decoder
+## Run One Tiny Decoder
 
 Create `generative_first_loop.py` and run it after installing `torch`.
 
@@ -50,13 +50,13 @@ value_range: -0.863 0.695
 
 This is not a real generator yet. It shows the core shape idea: small latent vectors can be decoded into larger outputs.
 
-## 6.6.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on |
 |---|---|---|
 | 1 | [6.6.2 GAN](./01-gan.md) | generator, discriminator, adversarial balance |
 | 2 | [6.6.3 VAE](./02-vae.md) | encoder, decoder, latent space |
 
-## 6.6.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain the difference between predicting a label and generating a sample, and describe why generated outputs need review rather than blind trust.

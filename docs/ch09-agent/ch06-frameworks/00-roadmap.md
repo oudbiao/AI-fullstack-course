@@ -9,7 +9,7 @@ keywords: [Agent Framework Guide, LangGraph, LlamaIndex, CrewAI, AutoGen]
 
 Frameworks do not make an Agent smarter. They organize state, tools, workflows, memory, logs, and collaboration once the task has enough complexity to justify the abstraction.
 
-## 9.6.1.1 See the Selection Map First
+## See the Selection Map First
 
 ![Agent framework position map](/img/course/ch09-frameworks-position-map-en.png)
 
@@ -19,7 +19,7 @@ Frameworks do not make an Agent smarter. They organize state, tools, workflows, 
 
 If a task has three fixed steps, plain Python functions may be better. Add a framework when state, branching, recovery, data connection, or role collaboration becomes hard to manage.
 
-## 9.6.1.2 Run a Framework Route Check
+## Run a Framework Route Check
 
 Use this check before choosing a framework because it is popular.
 
@@ -53,7 +53,7 @@ reason: choose the smallest abstraction that exposes state
 
 Framework choice should be written into the README as a trade-off, not hidden inside dependencies.
 
-## 9.6.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -63,6 +63,6 @@ Framework choice should be written into the README as a trade-off, not hidden in
 | 4 | CrewAI / AutoGen | Compare role collaboration and multi-Agent conversation |
 | 5 | Framework selection | Write a decision table and a no-framework baseline |
 
-## 9.6.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can implement the same small task with plain functions and with one framework, then explain which version is easier to debug and why.

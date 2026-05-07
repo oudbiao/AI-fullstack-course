@@ -11,7 +11,7 @@ keywords: [deep learning, PyTorch, neural network, CNN, RNN, Transformer, Attent
 
 Chapter 6 has one job: help you understand **how a model learns from loss, gradients, and repeated training steps**.
 
-## 6.0.1 See The Training Loop
+## See The Training Loop
 
 ![Main diagram of the deep learning training loop](/img/course/ch06-training-loop-backbone-en.png)
 
@@ -23,7 +23,7 @@ batch data -> model forward -> loss -> backward gradients -> optimizer step -> c
 
 Do not start by chasing large models. First make a small model train, log what happened, and explain why it improved or failed.
 
-## 6.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Use this table as both the chapter guide and the task sheet.
 
@@ -50,7 +50,7 @@ Key terms for this chapter:
 | `epoch` | One pass through the training data |
 | `batch` | A small group of samples processed together |
 
-## 6.0.3 First Runnable Loop
+## First Runnable Loop
 
 Install PyTorch from the official selector if needed, then run this tiny loop after PyTorch is available:
 
@@ -87,7 +87,7 @@ Expected shape:
 
 The exact numbers can differ, but the loss should generally move down. If it does, you have seen the training loop work.
 
-## 6.0.4 Common Failures
+## Common Failures
 
 | Symptom | First thing to check | Usual fix |
 |---|---|---|
@@ -97,7 +97,7 @@ The exact numbers can differ, but the loss should generally move down. If it doe
 | Out of memory | Batch size, image size, model size | Reduce batch/resolution or use a smaller model |
 | Transformer feels abstract | Q/K/V and sequence length | Draw one attention table before code |
 
-## 6.0.5 Pass Check
+## Pass Check
 
 Move to Chapter 7 when you can answer these five questions:
 

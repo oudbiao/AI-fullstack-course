@@ -9,7 +9,7 @@ keywords: [NLP crash course, tokenizer, embedding, pretrained model, Hugging Fac
 
 Before LLMs feel understandable, first see how text becomes pieces a model can process: text -> tokens -> IDs -> vectors -> model output.
 
-## 7.1.1.1 Look at the Flow First
+## Look at the Flow First
 
 ![NLP crash course chapter flowchart](/img/course/ch07-nlp-crash-chapter-flow-en.png)
 
@@ -21,7 +21,7 @@ Before LLMs feel understandable, first see how text becomes pieces a model can p
 | pretrained model | model already trained on broad text |
 | Hugging Face | model/dataset/tool ecosystem |
 
-## 7.1.1.2 Run One Tiny Token Lab
+## Run One Tiny Token Lab
 
 ```python
 text = "RAG retrieves evidence before answering"
@@ -44,7 +44,7 @@ unique_tokens: 5
 
 Real tokenizers are smarter, but this shows the main idea: text must become stable pieces and IDs before vectors and models can work.
 
-## 7.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -54,6 +54,6 @@ Real tokenizers are smarter, but this shows the main idea: text must become stab
 | 4 | [7.1.5 Hugging Face Quickstart](./04-huggingface-quickstart.md) | pipeline, model card, local run |
 | 5 | [7.1.6 Tokenizer and Embedding Lab](./05-tokenizer-embedding-lab.md) | inspect tokens and vectors |
 
-## 7.1.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can explain why raw text needs tokenization, why embeddings are vectors, and why pretrained models are reused instead of trained from zero.

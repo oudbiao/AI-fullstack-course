@@ -9,7 +9,7 @@ keywords: [supervised learning guide, linear regression, logistic regression, de
 
 Supervised learning answers one question: when examples already have labels, how do we learn a model that predicts labels for new examples?
 
-## 5.2.1.1 Look at the Model Choice Map First
+## Look at the Model Choice Map First
 
 ![Supervised Learning Roadmap](/img/course/supervised-learning-roadmap-en.png)
 
@@ -23,7 +23,7 @@ Supervised learning answers one question: when examples already have labels, how
 | ensemble models | combine many models for stronger tabular baselines |
 | SVM | learn a stable boundary with margin intuition |
 
-## 5.2.1.2 Run One Regression Baseline
+## Run One Regression Baseline
 
 Create `supervised_first_loop.py` and run it after installing `scikit-learn`.
 
@@ -54,7 +54,7 @@ first_prediction: 137.9
 
 The score is not perfect, and that is useful. A baseline tells you where later models or feature work must improve.
 
-## 5.2.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to compare |
 |---|---|---|
@@ -64,6 +64,6 @@ The score is not perfect, and that is useful. A baseline tells you where later m
 | 4 | [5.2.5 Ensemble Learning](./04-ensemble-learning.md) | bagging, boosting, stronger tabular models |
 | 5 | [5.2.6 Support Vector Machines](./05-svm.md) | margin, boundary, classic classifier intuition |
 
-## 5.2.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can decide whether a labeled task is regression or classification, run one baseline, and explain one reason the model may fail.

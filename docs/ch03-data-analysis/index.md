@@ -11,7 +11,7 @@ keywords: [NumPy, Pandas, Matplotlib, Seaborn, data analysis, data visualization
 
 Chapter 3 has one job: help you turn messy data into **a trustworthy conclusion with reproducible code and charts**.
 
-## 3.0.1 See The Data Analysis Loop
+## See The Data Analysis Loop
 
 ![Main workflow loop of data analysis](/img/course/ch03-data-analysis-backbone-en.png)
 
@@ -23,7 +23,7 @@ read -> inspect -> clean -> summarize -> visualize -> explain
 
 Do not draw charts first. First understand fields, units, missing values, duplicates, and sample sources.
 
-## 3.0.2 Learning Order And Task List
+## Learning Order And Task List
 
 Use this table as both the chapter guide and the task sheet.
 
@@ -48,7 +48,7 @@ Key terms for this chapter:
 | `groupby` | Split by category, calculate statistics, then combine |
 | `merge` / `join` | Combine tables by shared keys |
 
-## 3.0.3 First Runnable Loop
+## First Runnable Loop
 
 Install the two packages once:
 
@@ -104,7 +104,7 @@ Saved chart: topic_minutes.png
 
 The pass line is not “the chart looks nice.” The pass line is: you can explain which rows changed, why they changed, and how that affects the conclusion.
 
-## 3.0.4 Common Failures
+## Common Failures
 
 | Symptom | First thing to check | Usual fix |
 |---|---|---|
@@ -114,7 +114,7 @@ The pass line is not “the chart looks nice.” The pass line is: you can expla
 | Correlation looks too perfect | Time, scale, leakage, or sampling bias | Compare groups and add limitation notes |
 | Notebook cannot rerun | Data path, dependency, or execution order | Restart and run from top to bottom |
 
-## 3.0.5 Pass Check
+## Pass Check
 
 Move to Chapter 4 when you can answer these five questions:
 

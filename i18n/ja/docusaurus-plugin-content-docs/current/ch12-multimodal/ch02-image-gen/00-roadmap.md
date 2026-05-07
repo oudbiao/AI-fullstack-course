@@ -9,7 +9,7 @@ keywords: [画像生成ガイド, 拡散モデル, Stable Diffusion, ControlNet,
 
 画像生成は、1 行のプロンプトで終わる作業ではありません。意図、プロンプト記録、パラメータ、必要な制御、候補比較、レビューまで含むワークフローです。
 
-## 12.2.1.1 まずパイプラインを見る
+## まずパイプラインを見る
 
 ![画像生成章の学習フロー](/img/course/ch12-image-gen-chapter-flow-ja.png)
 
@@ -19,7 +19,7 @@ keywords: [画像生成ガイド, 拡散モデル, Stable Diffusion, ControlNet,
 
 最初の習慣は、何を作りたいか、どのモードを使ったか、どの seed やパラメータが結果を左右したか、出力前に何を確認すべきかを記録することです。
 
-## 12.2.1.2 プロンプト記録を作る
+## プロンプト記録を作る
 
 ```python
 import json
@@ -59,7 +59,7 @@ print(json.dumps(record, indent=2))
 
 プロンプト記録を再現できなければ、画像を安定して改善することも難しくなります。
 
-## 12.2.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | ステップ | 読む内容 | 練習の成果 |
 |---|---|---|
@@ -67,6 +67,6 @@ print(json.dumps(record, indent=2))
 | 2 | Stable Diffusion の部品 | text encoder、U-Net、VAE、latent space を図にする |
 | 3 | 応用と制御 | text-to-image、image-to-image、inpainting、ControlNet、LoRA を比較する |
 
-## 12.2.1.4 通過条件
+## 通過条件
 
 プロンプト記録を書き、選んだ生成モードを説明し、3 つの候補メモを残し、出力前に少なくとも 1 つのレビューリスクを記録できれば、この章は通過です。

@@ -9,7 +9,7 @@ keywords: [Transformer guide, attention mechanism, QKV, self-attention, deep lea
 
 Transformer is the bridge from deep learning to modern LLMs. Its first idea is simple: each token can decide which other tokens matter.
 
-## 6.5.1.1 Look at the Attention Flow First
+## Look at the Attention Flow First
 
 ![Transformer chapter relationship diagram](/img/course/ch06-transformer-chapter-flow-en.png)
 
@@ -23,7 +23,7 @@ Transformer is the bridge from deep learning to modern LLMs. Its first idea is s
 | block | attention plus feed-forward refinement |
 | mask | prevent seeing future tokens in generation |
 
-## 6.5.1.2 Run One Attention Shape Check
+## Run One Attention Shape Check
 
 Create `transformer_first_loop.py` and run it after installing `torch`.
 
@@ -49,13 +49,13 @@ attention_shape: (1, 4, 4)
 
 `attention_shape` is `[batch, query_position, key_position]`: each of 4 positions can look at 4 positions.
 
-## 6.5.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to focus on |
 |---|---|---|
 | 1 | [6.5.2 Attention Mechanism](./01-attention-mechanism.md) | QKV, attention weights, masking |
 | 2 | [6.5.3 Transformer Architecture](./02-transformer-architecture.md) | block structure, residuals, feed-forward layers |
 
-## 6.5.1.4 Pass Check
+## Pass Check
 
 You pass this roadmap when you can read the attention weight shape, explain why attention gives global context, and connect masks to text generation.

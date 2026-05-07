@@ -9,7 +9,7 @@ keywords: [特征工程指南, 预处理, 特征构造, 特征选择, Pipeline]
 
 特征工程是在让输入对模型更有用、更稳定、更安全。很多模型问题，其实是特征问题。
 
-## 5.5.1.1 先看特征流
+## 先看特征流
 
 ![特征工程路线图](/img/course/feature-engineering-roadmap.png)
 
@@ -27,7 +27,7 @@ keywords: [特征工程指南, 预处理, 特征构造, 特征选择, Pipeline]
 | 选择 | 去掉无用或泄漏特征 |
 | Pipeline | 让预处理可复现 |
 
-## 5.5.1.2 跑一个 Pipeline
+## 跑一个 Pipeline
 
 创建 `feature_first_loop.py`，安装 `pandas` 和 `scikit-learn` 后运行。
 
@@ -70,7 +70,7 @@ training_accuracy: 1.0
 
 这个数据太小，不能当真实评估。这里要学的是流程：预处理和模型应该一起走。
 
-## 5.5.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
@@ -80,6 +80,6 @@ training_accuracy: 1.0
 | 4 | [5.5.5 特征选择](./04-feature-selection.md) | 去噪声、去冗余、防泄漏 |
 | 5 | [5.5.6 Pipeline](./05-pipeline.md) | 可复现的预处理和训练 |
 
-## 5.5.1.4 通过标准
+## 通过标准
 
 能列出特征类型，构建一个预处理 Pipeline，并解释为什么在训练/测试流程外做预处理可能导致泄漏，就算通过。

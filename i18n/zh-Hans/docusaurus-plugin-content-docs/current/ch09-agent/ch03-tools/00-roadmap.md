@@ -9,7 +9,7 @@ keywords: [工具概览, Function Calling, Tool Use, Code Agent, Agent 工具]
 
 工具让 Agent 从语言走向行动。更多工具不会自动让 Agent 更强；不清楚的工具会带来错误调用、不安全动作、循环和成本泄漏。
 
-## 9.3.1.1 先看行动边界
+## 先看行动边界
 
 ![Agent 工具行动层地图](/img/course/ch09-tools-action-layer-map.png)
 
@@ -19,7 +19,7 @@ keywords: [工具概览, Function Calling, Tool Use, Code Agent, Agent 工具]
 
 工具调用必须受控：选择工具、校验参数、检查权限、执行、观察，再决定下一步。
 
-## 9.3.1.2 跑一个工具 Schema 检查
+## 跑一个工具 Schema 检查
 
 执行任何工具调用前，先使用 schema。
 
@@ -52,7 +52,7 @@ observation_needed: True
 
 工具运行后，Agent 必须观察并总结结果。不要让模型假装失败的工具已经成功。
 
-## 9.3.1.3 按这个顺序学
+## 按这个顺序学
 
 | 步骤 | 阅读 | 实操产出 |
 |---|---|---|
@@ -62,7 +62,7 @@ observation_needed: True
 | 4 | 工具安全 | 加入权限、沙箱、审计和人工确认 |
 | 5 | 多工具实战 | 记录成功和失败调用 trace |
 
-## 9.3.1.4 通过标准
+## 通过标准
 
 如果你能阅读工具 trace，并判断失败发生在规划、参数、执行、观察还是权限控制，就通过了本章。
 

@@ -11,7 +11,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 
 ![Agent trace evidence pack](/img/course/ch09-agent-trace-pack-en.svg)
 
-## 9.0.1 Two-Hour First Pass
+## Two-Hour First Pass
 
 | Time box | Do this | Stop when you can say |
 |---|---|---|
@@ -21,7 +21,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | 25 min | Skim 9.3 tool safety | "Tool schema and permissions matter more than clever prompting." |
 | 25 min | Read the boundary map | "I know when not to use an Agent." |
 
-## 9.0.2 Required Evidence
+## Required Evidence
 
 | Evidence | Minimum version |
 |---|---|
@@ -32,7 +32,7 @@ Use this page as a printable checklist. If you need the full explanation, return
 | `eval_tasks.csv` | 3-5 fixed tasks with expected outcome and success criteria |
 | `README.md` | run command, trace example, safety example, evaluation result, limitation |
 
-## 9.0.3 Exit Questions
+## Exit Questions
 
 - Can you explain why an Agent is different from a normal LLM application?
 - Can you show a trace and explain why each tool call happened?

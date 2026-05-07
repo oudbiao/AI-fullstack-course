@@ -9,7 +9,7 @@ keywords: [Transformer ガイド, attention mechanism, QKV, self-attention, deep
 
 Transformer は深層学習から現代 LLM への橋です。最初の直感は単純です。各 token が、どの他 token を重要視するかを決めます。
 
-## 6.5.1.1 まず Attention の流れを見る
+## まず Attention の流れを見る
 
 ![Transformer 章関係図](/img/course/ch06-transformer-chapter-flow-ja.png)
 
@@ -23,7 +23,7 @@ Transformer は深層学習から現代 LLM への橋です。最初の直感は
 | block | attention と feed-forward による表現の更新 |
 | mask | 生成時に未来 token を見ないための制御 |
 
-## 6.5.1.2 Attention の形を一度確認する
+## Attention の形を一度確認する
 
 `transformer_first_loop.py` を作り、`torch` をインストールしてから実行します。
 
@@ -49,13 +49,13 @@ attention_shape: (1, 4, 4)
 
 `attention_shape` は `[batch, query_position, key_position]` です。4つの位置それぞれが4つの位置を見られます。
 
-## 6.5.1.3 この順番で学ぶ
+## この順番で学ぶ
 
 | 順番 | 読む | まず見ること |
 |---|---|---|
 | 1 | [6.5.2 Attention 機構](./01-attention-mechanism.md) | QKV、attention 重み、mask |
 | 2 | [6.5.3 Transformer アーキテクチャ](./02-transformer-architecture.md) | block 構造、残差、feed-forward 層 |
 
-## 6.5.1.4 合格ライン
+## 合格ライン
 
 attention 重みの形を読み、attention がなぜグローバル文脈を持てるかを説明し、mask をテキスト生成と結びつけられれば合格です。

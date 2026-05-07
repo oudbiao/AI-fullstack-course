@@ -9,7 +9,7 @@ keywords: [Pandas introduction, DataFrame, data processing, data cleaning, group
 
 Pandas is the table workstation of this course. Use it when a plain CSV, Excel file, log table, or SQL query result must become clean enough for charts, machine learning, RAG evaluation, or reports.
 
-## 3.3.1.1 Look at the Workflow First
+## Look at the Workflow First
 
 ![Pandas data processing roadmap](/img/course/ch03-pandas-roadmap-en.png)
 
@@ -21,7 +21,7 @@ read -> inspect -> select -> clean -> transform -> group -> merge -> export
 
 Do not memorize every API first. Ask: what table do I have, what table do I need, and which step changes one into the other?
 
-## 3.3.1.2 Run a Tiny Table Once
+## Run a Tiny Table Once
 
 Create `pandas_first_loop.py` and run it after installing `pandas`.
 
@@ -57,7 +57,7 @@ Expected output shape:
 
 You just did the core Pandas loop: create/read data, clean missing values, add a derived column, group, and summarize.
 
-## 3.3.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -70,6 +70,6 @@ You just did the core Pandas loop: create/read data, clean missing values, add a
 | 7 | [3.3.8 Data Merging](./07-merge.md) | join multiple tables safely |
 | 8 | [3.3.9 Time Series](./08-time-series.md) | date index, resampling, time windows |
 
-## 3.3.1.4 Pass Check
+## Pass Check
 
 You pass this subchapter when you can turn one raw table into one clean summary table, explain each column change, and save the result for visualization or machine learning.

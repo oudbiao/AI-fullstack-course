@@ -1,142 +1,57 @@
 ---
-title: "E.B Elective Module: Advanced Python Topics"
+title: "E.B Advanced Python Roadmap"
 sidebar_position: 0
-description: "An overview of the Advanced Python module to help you understand the learning order, use cases, and how each lesson connects."
+description: "A concise hands-on roadmap for the Advanced Python elective: decorators, generators, asyncio, and metaprogramming for traceable engineering pipelines."
 ---
 
-# E.B Elective Module: Advanced Python Topics
+# E.B Advanced Python Roadmap
 
-:::tip Module Positioning
-These topics are not here to show off. They are here to help your future engineering code become more stable, faster, and easier to maintain.
-:::
+Use this elective when your prototype starts repeating logic, waiting on slow calls, streaming data, or registering tools dynamically.
+
+## See the Engineering Path First
 
 ![Advanced Python Topics Module Map](/img/course/elective-python-advanced-module-map-en.png)
 
-:::info Hands-on checkpoint
-If you want to see how this module can become a portfolio artifact, run the [Elective Hands-on Workshop](../hands-on-elective-workshop) first and inspect the Module B pipeline trace output.
-:::
+![Generator stream pipeline](/img/course/elective-generator-stream-pipeline-en.png)
 
-## Learning Objectives
+Advanced Python is useful when it makes code more observable, reusable, and easier to control.
 
-- Understand where the Advanced Python module fits in the overall learning path
-- Know what problem each lesson in this module solves
-- Be clear about what to learn first and what to learn later
-- Build intuition quickly with a minimal example
-
----
-
-## What Problems Does This Module Solve?
-
-### Module Positioning
-
-Advanced Python is not about “learning a little more.” It is about filling in certain capabilities that often determine the upper limit of engineering work.
-
-You can think of it as a set of topic-based toolboxes:
-
-- Come back to them when you encounter related projects
-- You do not need to learn everything at once
-- But once you enter the matching scenario, they become very valuable
-
-### Recommended Learning Order
-
-A more stable learning approach is usually:
-
-1. First read the overview so you know what each lesson does
-2. Start with the most basic topics that you can use immediately
-3. Then move into more engineering-oriented or project-oriented content
-
----
-
-## What Topics Are Included in This Module?
-
-### Chapter List
-
-| Chapter | Topic |
-|---|---|
-| Lesson 1 | Advanced Use of Decorators |
-| Lesson 2 | Advanced Iterators and Generators |
-| Lesson 3 | Concurrent Programming (including asyncio) |
-| Lesson 4 | Metaprogramming |
-
-### How Should You Use This Module?
-
-A very practical strategy is:
-
-- First, use the main course to get the overall workflow running
-- Then, when you have a specific need, come back to the elective module to refine your skills
-
-This way, you will not lose the rhythm of the main learning path because there are too many special topics.
-
----
-
-## A Minimal Runnable Example
-
-:::info Run Tip
-```bash
-pip install numpy
-```
-:::
+## Run the Smallest Async Trace
 
 ```python
 import asyncio
 
 async def fetch(name, delay):
     await asyncio.sleep(delay)
-    return f"{name} done"
+    return f"{name}:done"
 
 async def main():
     results = await asyncio.gather(
-        fetch("task_a", 0.2),
-        fetch("task_b", 0.1),
+        fetch("retrieval", 0.1),
+        fetch("rerank", 0.05),
     )
     print(results)
 
 asyncio.run(main())
 ```
 
-### What Should You Learn from This Example?
+Expected output:
 
-This small piece of code is not meant to cover the whole module. It is meant to help you quickly build a sense of what this module is really about.
+```text
+['retrieval:done', 'rerank:done']
+```
 
-When reading it, focus on three things first:
+This is the smallest async habit: launch independent work, wait for all results, then keep a trace.
 
-- What is the input?
-- What happens in the middle?
-- How does the output map to a real project?
+## Learn in This Order
 
----
+| Step | Lesson | Practice Output |
+|---|---|---|
+| 1 | [E.B.1 Decorators](./01-decorators-advanced.md) | Add timing or logging without changing business code |
+| 2 | [E.B.2 Iterators and Generators](./02-iterators-advanced.md) | Stream rows without loading everything at once |
+| 3 | [E.B.3 Concurrency](./03-concurrency.md) | Run async tasks with timeout and cancellation thinking |
+| 4 | [E.B.4 Metaprogramming](./04-metaprogramming.md) | Register tools or handlers explicitly |
 
-## Learning Suggestions
+## Pass Check
 
-### If You Have Limited Time, What Should You Learn First?
-
-Prioritize topics that will appear frequently in later projects and can immediately help you reduce cost or improve efficiency.
-
-### Common Mistakes
-
-- Seeing it as an elective and not learning it at all
-- Trying to finish every elective topic all at once
-- Only reading the concepts without running the minimal example
-
----
-
-## When Is the Best Time to Come Back and Study This Module?
-
-If you see any of the following signs, it means you are a good candidate to revisit this set of topics:
-
-- You start writing engineering code and find that it is getting messy
-- You need concurrent requests, async calls, or streaming processing
-- You often cannot understand decorators and generators when reading other people’s Python projects
-- You want to make tool registration, plugin mechanisms, and dynamic extension more robust
-
-## What Can You Do After Finishing This Module?
-
-- Understand more advanced Python styles in real engineering code
-- Write async, streaming, and extensible code more reliably
-- Build a stronger engineering foundation for later RAG, Agent, and service systems
-
----
-
-## Summary
-
-This overview page is meant to give you a map. When actually learning the module, do not aim to “understand everything.” Instead, know when to come back and which part to fill in first.
+You pass this module when you can build one traceable pipeline that uses a decorator, generator, async call, or registry, and can explain why the code became easier to debug.

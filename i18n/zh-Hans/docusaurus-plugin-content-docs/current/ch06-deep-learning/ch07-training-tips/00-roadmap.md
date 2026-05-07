@@ -9,7 +9,7 @@ keywords: [深度学习训练技巧, 超参数调优, 训练诊断, 模型压缩
 
 训练技巧只有在回答诊断问题时才有用。不要同时改优化器、学习率、模型大小和数据。
 
-## 6.7.1.1 先看诊断流程
+## 先看诊断流程
 
 ![深度学习训练技巧章节关系图](/img/course/ch06-training-tips-chapter-flow.png)
 
@@ -23,7 +23,7 @@ keywords: [深度学习训练技巧, 超参数调优, 训练诊断, 模型压缩
 | 太慢 | batch size、device、模型大小 |
 | 部署太重 | 压缩、量化、剪枝 |
 
-## 6.7.1.2 读一段极小 loss 记录
+## 读一段极小 loss 记录
 
 创建 `training_tips_first_loop.py`。
 
@@ -46,7 +46,7 @@ action: stop or reduce learning rate if validation keeps worsening
 
 加技巧之前，先读曲线。一段简单日志通常已经能告诉你下一步该试什么。
 
-## 6.7.1.3 按这个顺序学
+## 按这个顺序学
 
 | 顺序 | 阅读 | 练什么 |
 |---|---|---|
@@ -54,6 +54,6 @@ action: stop or reduce learning rate if validation keeps worsening
 | 2 | [6.7.3 训练诊断](./02-training-diagnosis.md) | loss 曲线、过拟合、不稳定 |
 | 3 | [6.7.4 模型压缩](./03-model-compression.md) | 更小、更快、更适合部署的模型 |
 
-## 6.7.1.4 通过标准
+## 通过标准
 
 能看一条训练/验证曲线，并带理由选择一个下一步动作，就算通过。

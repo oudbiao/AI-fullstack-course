@@ -9,7 +9,7 @@ keywords: [data visualization, chart selection, matplotlib, seaborn, plotly, vis
 
 Visualization is not decoration. It turns an analysis result into something another person can understand quickly.
 
-## 3.4.1.1 Look at the Chart Choice Map First
+## Look at the Chart Choice Map First
 
 ![Data Visualization Roadmap](/img/course/ch03-visualization-roadmap-en.png)
 
@@ -25,7 +25,7 @@ Use this decision first:
 
 After the chart type is right, then polish title, axes, legend, colors, and annotation.
 
-## 3.4.1.2 Run One Chart Once
+## Run One Chart Once
 
 Create `visual_first_loop.py` and run it after installing `pandas` and `matplotlib`.
 
@@ -58,7 +58,7 @@ saved: sales_trend.png
 
 Open the image and check one thing: can a reader see the trend within three seconds?
 
-## 3.4.1.3 Learn in This Order
+## Learn in This Order
 
 | Order | Read | What to practice |
 |---|---|---|
@@ -67,6 +67,6 @@ Open the image and check one thing: can a reader see the trend within three seco
 | 3 | [3.4.5 Visualization Best Practices](./04-best-practices.md) | chart choice, labels, color, misleading charts |
 | 4 | [3.4.4 Plotly Interactive Visualization](./03-plotly.md) | interactive charts when the project needs them |
 
-## 3.4.1.4 Pass Check
+## Pass Check
 
 You pass this subchapter when you can create 4 useful charts from one dataset and explain why each chart type was chosen.

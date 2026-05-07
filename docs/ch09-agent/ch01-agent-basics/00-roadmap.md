@@ -9,7 +9,7 @@ keywords: [Agent guide, intelligent agent guide, Agent system architecture, tool
 
 An Agent is not a model name. It is a system pattern that uses a model, tools, state, memory, and feedback to keep working toward a goal.
 
-## 9.1.1.1 See the Single-Agent Loop First
+## See the Single-Agent Loop First
 
 ![Agent basics position bridging diagram](/img/course/ch09-basics-position-bridge-en.png)
 
@@ -19,7 +19,7 @@ An Agent is not a model name. It is a system pattern that uses a model, tools, s
 
 A normal chatbot answers once. A workflow follows fixed steps. An Agent can plan, act, observe, update state, and continue when the goal is not done.
 
-## 9.1.1.2 Run a Tiny Agent State Loop
+## Run a Tiny Agent State Loop
 
 This script does not call a model yet. It shows the minimum state you need before an Agent can be debugged.
 
@@ -47,7 +47,7 @@ done: True
 
 If a demo cannot show goal, state, action, observation, and stop condition, call it an LLM app first, not an Agent.
 
-## 9.1.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -57,7 +57,7 @@ If a demo cannot show goal, state, action, observation, and stop condition, call
 | 4 | System architecture | Draw goal, state, planner, tools, memory, observation, executor |
 | 5 | RL to Agent breakthroughs | Connect action, reward, feedback, and planning |
 
-## 9.1.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when you can draw one single-Agent loop and explain why single-Agent stability comes before multi-Agent collaboration.
 

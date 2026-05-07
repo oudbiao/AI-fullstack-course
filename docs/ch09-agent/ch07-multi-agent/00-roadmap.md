@@ -9,7 +9,7 @@ keywords: [Multi-Agent guide, collaborative systems, Agent communication, Agent 
 
 Multi-Agent is a division-of-labor mechanism, not several chatbots talking. Use it only when role separation, parallel work, cross-checking, or specialist collaboration is worth the coordination cost.
 
-## 9.7.1.1 See the Collaboration Cost First
+## See the Collaboration Cost First
 
 ![Multi-Agent collaboration message flow diagram](/img/course/multi-agent-message-flow-en.png)
 
@@ -19,7 +19,7 @@ Multi-Agent is a division-of-labor mechanism, not several chatbots talking. Use 
 
 The key question is: does the benefit of splitting work exceed the cost of messages, repeated context, conflicts, and final merging?
 
-## 9.7.1.2 Run a Role Boundary Check
+## Run a Role Boundary Check
 
 Every role needs one responsibility and one output. Keep one owner for the final decision.
 
@@ -50,7 +50,7 @@ final_owner: reviewer
 
 If two roles produce the same output, merge them. If nobody owns the final decision, the system will drift.
 
-## 9.7.1.3 Learn in This Order
+## Learn in This Order
 
 | Step | Read | Practice Output |
 |---|---|---|
@@ -60,6 +60,6 @@ If two roles produce the same output, merge them. If nobody owns the final decis
 | 4 | Coordination | Track owner, queue, conflict rule, and aggregation |
 | 5 | Practice and risks | Measure cost, loops, duplicated work, and role overreach |
 
-## 9.7.1.4 Pass Check
+## Pass Check
 
 You pass this chapter when a 2 to 3 Agent demo has traceable inputs, outputs, handoffs, final ownership, and a clear reason why it beats a single Agent.
