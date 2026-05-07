@@ -1,7 +1,7 @@
 ---
 title: "1 Developer Tools Fundamentals"
 sidebar_position: 0
-description: "Learn terminal command lines, Git, VS Code, Python environments, and dependency management to build the development toolchain needed for later AI learning."
+description: "Build the minimum terminal, Git, editor, Python environment, and notebook workflow needed for later AI projects."
 keywords: [Terminal, command line, Git, VS Code, development environment, Python environment setup]
 ---
 
@@ -9,189 +9,125 @@ keywords: [Terminal, command line, Git, VS Code, development environment, Python
 
 ![Main visual for Developer Tools Fundamentals](/img/course/ch01-tools-foundation-en.png)
 
-This stage is about whether you can write code, run code, and save code reliably. Many beginners get stuck later in AI learning not because the models are too hard, but because they do not know how to use the command line, their environments are messy, dependencies are installed incorrectly, and their code has no version management.
+Chapter 1 has one job: make sure you can **create code, run code, save code, and explain how to rerun it**. If this workstation is unstable, every later AI topic will feel harder than it really is.
 
-## Story-based introduction: first build your AI workstation
-
-Before you start writing models and applications, set up your workstation properly. The terminal is like a console, Git is like an archive system, the Python environment is like a lab, and VS Code and Jupyter are like two different operating panels. The goal of this tools stage is not to learn a lot of commands, but to make sure that when you encounter a project later, you can create, run, save, and restore it on your own.
+## See the workstation first
 
 ![AI workstation comic guide for developer tools](/img/course/ch01-ai-workstation-comic-en.png)
 
-:::tip Read this comic as a workflow
-This stage is easier if you treat the tools as one workstation instead of five separate topics: the terminal sends repeatable commands, the Python environment isolates experiments, VS Code organizes project code, Jupyter records explorations, and Git saves every stable checkpoint.
-:::
+Read the picture as one workflow:
 
-## Learning roadmap
-
-```mermaid
-flowchart LR
-  A[Open the terminal] --> B[Enter the project directory]
-  B --> C[Create a Python environment]
-  C --> D[Run the first code snippet]
-  D --> E[Edit with VS Code]
-  E --> F[Save history with Git]
-  F --> G[Form a learning repository]
+```text
+terminal -> project folder -> Python environment -> editor/notebook -> Git history
 ```
 
-## Interactive exercise: leave one reproducible record every day
+You do not need to memorize every command. You need a small repeatable loop that works.
 
-Every time you complete a tool operation, write a note in your learning repository: “What I did, what command I used, what error I ran into, and how I solved it.” These records will become your own development manual. When environment problems come up later, you will not be guessing from scratch — you can go back to your history and look for clues.
+## Stage goal
 
-## Project bonus
-
-The bonus project for this stage is a repository called `ai-learning-lab`. At first it may look like just a simple folder, but later it will gradually hold Python scripts, data analysis notebooks, model experiments, RAG projects, and Agent demos. In other words, this repository will grow from a small toolbox on day one into your AI full-stack portfolio.
-
-## Stage position
-
-| Information | Description |
+| Item | Target |
 |---|---|
-| Suitable for | Learners who are just starting to study AI full-stack systematically, or whose development toolchain is unstable |
-| Estimated time | 8–12 hours |
-| Prerequisites | None |
-| Stage output | A reproducible Python development environment and a learning repository managed with Git |
+| Suitable for | Beginners, or learners whose development environment is unstable |
+| Estimated time | 8-12 hours |
+| Minimum output | A runnable `ai-learning-lab` folder with one Python file and one Git commit |
+| Portfolio output | README, environment notes, screenshots/logs, and clear Git history |
 
-## Beginner minimum path to completion
+## Recommended learning order
 
-Beginners should first get the basics of the terminal, Git, and Python environment setup working. You do not need to master complex branching models or every command parameter at the start. As long as you can create a project, run a Python file, install dependencies, and make one Git commit, you have completed the minimum path for this stage.
+| Step | Page | What to do |
+|---|---|---|
+| 1.1 | [Terminal and command line](ch01-terminal/01-why-cli.md) | Open a terminal, move between folders, list files, and run commands |
+| 1.2 | [Basic terminal operations](ch01-terminal/02-basic-operations.md) | Create, move, inspect, and remove files inside a practice folder |
+| 1.3 | [Package managers](ch01-terminal/03-package-managers.md) | Understand how tools are installed and checked |
+| 1.4 | [Git basics](ch02-git/01-git-basics.md) | Save a first project snapshot with Git |
+| 1.5 | [Git core operations](ch02-git/02-core-operations.md) | Use `status`, `add`, `commit`, `log`, and `diff` |
+| 1.6 | [Python environment](ch03-devenv/01-python-env.md) | Create an isolated Python environment and install packages correctly |
+| 1.7 | [VS Code](ch03-devenv/02-vscode.md) and [Jupyter](ch03-devenv/03-jupyter.md) | Use an editor for projects and a notebook for exploration |
+| 1.8 | [Follow-along workshop](ch04-workshop/01-hands-on-tools-workshop.md) | Connect everything into one reproducible mini-project |
 
-## Advanced deepening path
+The workshop stays at the end because it is the integration step. First learn the pieces, then use them together.
 
-If you already have development experience, focus on environment isolation, Git branch collaboration, remote repository synchronization, and reproducible project documentation. Try to turn `ai-learning-lab` into a standard project repository, including environment instructions, run commands, directory structure, and common troubleshooting notes.
+## Tasks you must complete in this stage
 
-## What beginners should do first, and what advanced learners should do later
+| Task | Deliverable | Completion check |
+|---|---|---|
+| Use terminal safely | Command practice log | You can explain where `pwd`, `ls`, and `cd` are operating |
+| Run Python | `hello_ai.py` | `python hello_ai.py` prints the expected output |
+| Isolate an environment | `.venv` or Conda environment note | You know which Python interpreter is active |
+| Use an editor | Project opened in VS Code or equivalent | You can edit, run, and inspect terminal output |
+| Save with Git | At least one local commit | `git status` is clean after the commit |
+| Finish the workshop | `ai-learning-lab` with README and logs | Another person can follow your README and rerun it |
 
-When beginners study this stage for the first time, keep the goal as small as possible: open the terminal, enter the project directory, run a Python file, install one dependency, and make one Git commit. Do not be intimidated by command parameters. First build the habit of checking paths, reading errors, and understanding the current environment when problems occur.
+## Minimum runnable experiment
 
-Learners with experience can focus on reproducibility: how to isolate environments for different projects, how to write run steps in the README, how to record dependency versions, and how Git history helps with rollbacks. Your goal is not just to “know how to use tools,” but to make sure every AI project later can be rerun by someone else.
-
-## Safety rules before you run commands
-
-Tools are powerful because they can change files, environments, and repositories quickly. The beginner rule is simple: **practice risky commands only inside the practice repository created for this chapter.**
-
-| Situation | Safer habit |
-|---|---|
-| Before deleting files | Run `pwd` and `ls` first, then confirm you are inside the practice folder |
-| Before installing packages | Confirm the active Python environment with `which python` or `conda info --envs` |
-| Before committing | Run `git status` and read what will be recorded |
-| Before undoing Git history | Prefer `git status`, `git diff`, and `git restore --staged` first; avoid destructive rollback unless you know what will be lost |
-| Before sharing code | Make sure `.env`, API keys, large data, and model weights are ignored |
-
-This is not meant to make you afraid of tools. It is the opposite: once you have these small checks, the terminal and Git become much less mysterious.
-
-## Why learn tools first
-
-AI learning is not just about reading concepts on a web page. Later you will constantly install libraries, run scripts, open notebooks, download data, call APIs, train models, start services, and troubleshoot errors. The earlier your toolchain becomes stable, the less energy you will waste on unrelated problems.
-
-```mermaid
-flowchart LR
-  A[Terminal] --> B[Run commands and scripts]
-  B --> C[Python environment]
-  C --> D[Install dependencies]
-  D --> E[Run course code]
-  E --> F[Save history with Git]
-  F --> G[Build project outcomes]
-```
-
-## Learning path for this stage
-
-In Chapter 1, learn the terminal and command line first. You need to be able to enter directories, view files, run commands, understand paths, and handle common errors.
-
-In Chapter 2, learn Git and version management. You need to build the habit of committing as you go, know how to view history, roll back changes, manage branches, and sync with remote repositories.
-
-In Chapter 3, learn development environment setup. You will build a Python environment, configure VS Code, use Jupyter, and understand why virtual environments are needed to isolate dependencies.
-
-## What you should be able to do after finishing
-
-- Complete basic file and project operations in the terminal
-- Create, activate, and manage Python environments
-- Use VS Code to write, run, and debug Python files
-- Use Git to save your learning process and push projects to GitHub
-- When environment issues occur, first determine whether the problem is path, interpreter, dependency, or permission related
-
-## Common misconceptions
-
-Many beginners think, “I can always learn the command line and Git later.” But in AI projects, environments, dependencies, data paths, model files, and deployment commands appear almost every day. If your tool foundation is unstable, every later stage will be interrupted again and again.
-
-Another common misconception is installing every Python package into the same environment. That may feel convenient in the short term, but in the long term it leads to version conflicts. You should understand the meaning of virtual environments from the very beginning.
-
-## Tool troubleshooting theater: where to look first
-
-If the terminal says a command cannot be found, first check whether the command is installed, whether the current shell has refreshed, and whether the path is written correctly. If Python can run but imports fail, first confirm whether the current interpreter and the environment where you installed the dependency are the same. If a Git commit fails, first check whether the repository has been initialized, whether your username and email are configured, and whether the file has really been added to the staging area.
-
-## Minimum runnable experiment: from an empty folder to a reproducible repository
-
-The minimum experiment in this stage is not about writing complex code, but about completing the full development workflow: create an `ai-learning-lab` folder, write a `hello_ai.py`, run it in the terminal, write the commands and output into the README, and then make one Git commit.
+Run this in a practice folder. It creates a tiny project, runs it, documents it, and commits it.
 
 ```bash
 mkdir ai-learning-lab
 cd ai-learning-lab
 python -m venv .venv
+printf 'print("AI learning lab is ready")\n' > hello_ai.py
+printf '# AI Learning Lab\n\nRun with: python hello_ai.py\n' > README.md
 python hello_ai.py
 git init
-git add .
+git add README.md hello_ai.py
 git commit -m "init learning lab"
 ```
 
-If you can complete this chain independently, then when you later study Python, data analysis, RAG, and Agent, you will already have a stable workstation.
+Expected output:
 
-## Tool failure case library: check paths, environment, and version first
+```text
+AI learning lab is ready
+```
 
-| Symptom | Common cause | How to locate it | How to fix it |
-|---|---|---|---|
-| The terminal says command not found | The command is not installed or PATH has not taken effect | Check the installation location and the current shell | Reinstall, refresh the terminal, and check PATH |
-| Python runs but importing packages fails | `pip` and `python` are not in the same environment | Compare `which python` and `python -m pip --version` | Use a virtual environment and install with `python -m pip install` |
-| Git commit fails | Repository not initialized, not staged, or identity not configured | Run `git status` and `git config --list` | Initialize the repository, configure username and email, then add before committing |
-| Commands in the README do not work | Missing path, filename, or dependency | Re-run from a fresh terminal according to the README | Add the directory, dependencies, and full commands |
+If the command fails, do not erase the error. Save the command, full output, operating system, Python version, and current directory. That record is useful project evidence.
 
-## Stage evaluation rubric
+## Common failures
 
-| Level | Evaluation criteria | Portfolio evidence |
+| Symptom | First thing to check | Usual fix |
 |---|---|---|
-| Minimum pass | Can open the terminal, run Python, and make one Git commit | Run screenshots, commit record |
-| Recommended pass | Can create a virtual environment, install dependencies, and write a clear README | `.venv` notes, `requirements.txt`, README |
-| Portfolio pass | Can turn the toolchain into a reusable repository for later courses | Directory structure, command notes, troubleshooting notes, remote repository link |
-
-## Stage project
-
-The basic version is to create an `ai-learning-lab` learning repository, including a runnable `hello_ai.py`, one Git commit, and a command log. The standard version should add Python environment instructions, dependency installation steps, VS Code or Jupyter usage notes, and push the repository to a remote platform. The challenge version can organize it as the portfolio root directory for the following 12 learning stations, and pre-design folders such as `scripts/`, `notebooks/`, `projects/`, and `notes/` so that the results of the whole course can be continuously accumulated.
-
-If you want a fully guided route, follow [1.4 Follow-Along Workshop: Build a Reproducible AI Learning Lab](ch04-workshop/01-hands-on-tools-workshop.md). It turns the stage project into a step-by-step local repository with a runnable Python check script, Git commits, troubleshooting notes, and report files.
-
-If you want to see a more detailed learning rhythm, you can read [Stage Learning Task List: Developer Tools Fundamentals](task-list.md).
-
-## Fun task card for this stage
-
-| Play style | Task in this stage |
-|---|---|
-| Story task | Help the AI learning assistant build its first workstation: open the terminal, run Python, write a README, and complete one Git archive. |
-| Boss battle | **Workstation Gatekeeper** |
-| Unlockable badges | Terminal Survivor, Git Archivist |
-| Beginner easy mode | Only complete one minimal input-to-output loop, and first leave a run screenshot or command output |
-| Portfolio evidence | From an empty folder to one reproducible commit |
-
-If you feel there is a lot of content in this stage, use this task card as your minimum goal first. Once you can complete the beginner easy mode, you can keep going; when you prepare your portfolio later, come back and upgrade to the standard and challenge versions.
+| Command not found | Is the tool installed and available in PATH? | Reopen the terminal or reinstall the tool |
+| Python import fails | Are `python` and `pip` from the same environment? | Install with `python -m pip install ...` |
+| File not found | Are you in the correct directory? | Run `pwd` and `ls`, then move to the project folder |
+| Git commit fails | Is Git initialized, staged, and configured? | Run `git status` and set username/email if needed |
+| README command fails | Did the README include every required step? | Test from a fresh terminal and update the README |
 
 ## Stage deliverables
 
 | Deliverable | Minimum version | Portfolio version |
 |---|---|---|
-| Learning repository | Create `ai-learning-lab` and run one Python file | Clear directory structure, README, screenshots, and commit history |
-| Environment notes | Record the Python version and installation commands | Provide virtual environment notes, dependency files, and common troubleshooting steps |
-| Command log | Save 5–10 commonly used terminal commands | Explain the purpose, output, and failure handling of each command |
-| Git record | Make one local commit | Include branches, remote repository, commit messages, and rollback records |
-| README | Clearly explain how to run `hello_ai.py` | Explain project goals, directory structure, environment setup, and next steps |
+| Learning repository | `ai-learning-lab` exists and runs one Python file | Clear folders, README, screenshots/logs, and commit history |
+| Environment notes | Python version and install commands are recorded | Virtual environment steps and dependency files are included |
+| Command log | 5-10 useful commands are saved | Each command includes purpose, output, and failure handling |
+| Git record | One local commit exists | Commit messages show small, meaningful progress |
+| README | Explains how to run `hello_ai.py` | Explains goal, setup, run command, sample output, and next step |
 
-## Relationship with the AI learning assistant integrated project
+## Stage portfolio deliverables
 
-This stage can correspond to AI Learning Assistant v0.1: create the repository, configure the Python environment, write the README, and save the first run screenshot. If you are learning through the integrated project path, it is recommended that by the end of this stage you submit at least one version record: what new capability was added in this stage, how to run it, what the sample input and output are, what problems you encountered, and how you plan to improve it next.
+Keep the smallest evidence set:
 
+| Evidence | Why it matters |
+|---|---|
+| `README.md` | Shows another person how to run the project |
+| `hello_ai.py` or workshop script | Proves the project has executable code |
+| Environment note | Explains which Python and dependencies were used |
+| Git history | Shows your work was saved in stable checkpoints |
+| One failure note | Shows you can debug, not only follow perfect steps |
 
 ## Stage completion criteria
 
-| Completion level | What you need to do |
+| Level | You can move on when... |
 |---|---|
-| Minimum pass | Independently use the terminal, Git, editor, and Python/Jupyter environment. |
-| Recommended pass | Complete at least one runnable mini-project in this stage, preferably the 1.4 follow-along workshop, and record the run method, sample input/output, and problems encountered in the README. |
-| Portfolio pass | Connect the output of this stage to the “AI Learning Assistant” integrated project, leaving screenshots, logs, evaluation samples, and a next-step plan. |
+| Minimum pass | You can open the terminal, run Python, and make one Git commit |
+| Recommended pass | You can create a virtual environment, install a dependency, and write a clear README |
+| Portfolio pass | You can complete the workshop and leave enough evidence for another person to rerun it |
 
-After finishing this stage, you do not need to memorize every detail. What matters more is being able to clearly explain: what problem this stage solves, how it relates to the previous stage, and how it will support later learning. The next stage will use these tools to write Python programs and save project code.
+## Stage completion questions
+
+- Which directory is the terminal currently using?
+- Which Python interpreter is running your script?
+- What changed since the last Git commit?
+- What command reruns your project from a fresh terminal?
+- Where did you record the first error you met and how you fixed it?
+
+After this chapter, continue to Chapter 2. The goal is not tool perfection; it is a stable workstation for the rest of the course.

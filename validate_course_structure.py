@@ -87,13 +87,15 @@ for chapter in sorted(chapter_dirs):
             if not has_any_section(text, section):
                 errors.append(f'{chapter}/index.md missing section: {section_label(section)}')
 
-    if not os.path.exists(task_path):
-        errors.append(f'{chapter}/task-list.md missing')
-    else:
-        text = open(task_path, encoding='utf-8').read()
-        for section in required_task_sections:
-            if not has_any_section(text, section):
-                errors.append(f'{chapter}/task-list.md missing section: {section_label(section)}')
+    task_text = ''
+    if os.path.exists(task_path):
+        task_text += open(task_path, encoding='utf-8').read()
+    if os.path.exists(index_path):
+        task_text += '\n' + open(index_path, encoding='utf-8').read()
+
+    for section in required_task_sections:
+        if not has_any_section(task_text, section):
+            errors.append(f'{chapter} missing task section: {section_label(section)}')
 
 project_roadmaps = []
 for dirpath, _, files in os.walk(docs):

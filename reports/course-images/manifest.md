@@ -17,7 +17,6 @@
 | `ch01-ai-workstation-comic.png` | 开发者工具 AI 工作站漫画指导图 | `docs/ch01-tools/index.md` | 开发者工具 AI 工作站漫画：新人把终端、Python 环境、VS Code、Jupyter 和 Git 组装成可复现的 AI 学习工作台。 |
 | `ch01-ai-workstation-comic-en.png` | Developer Tools AI Workstation Comic Guide | `docs/ch01-tools/index.md` | Developer tools AI workstation comic: a beginner assembles terminal, Python environment, VS Code, Jupyter, and Git into a reproducible AI learning workstation. |
 | `ch01-ai-workstation-comic-ja.png` | 開発者ツール AI 作業台漫画ガイド | `docs/ch01-tools/index.md` | 開発者ツール AI 作業台漫画：初心者がターミナル、Python 環境、VS Code、Jupyter、Git を組み合わせて再現可能な AI 学習作業台を作る。 |
-| `ch01-task-list-workflow.png` | 开发者工具阶段任务链 | `docs/ch01-tools/task-list.md` | 开发者工具阶段任务链：终端、项目目录、Python 环境、编辑器、Git 和远程仓库串成完整工作流。 |
 | `ch01-hands-on-workstation-route.png` | 第 1 章工作台实操路线图 | `docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md` | 第 1 章工作台实操路线图：终端、项目骨架、Python 检查脚本、VS Code、Jupyter、Git commit 和证据报告组成完整练习。 |
 | `ch01-hands-on-terminal-git-loop.png` | 终端 Python Git 最小执行循环 | `docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md` | 终端 Python Git 最小执行循环：进入项目目录，运行 Python 脚本，生成报告，查看 git status，add 并 commit。 |
 | `ch01-hands-on-env-editor-notebook-flow.png` | 环境 编辑器 Notebook 协作流程图 | `docs/ch01-tools/ch04-workshop/01-hands-on-tools-workshop.md` | 环境、编辑器与 Notebook 协作流程图：同一个项目环境被终端、VS Code 和 Jupyter 共享，脚本生成报告，Notebook 读取报告。 |

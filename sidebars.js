@@ -24,7 +24,6 @@ const sidebars = {
           collapsed: true,
           link: { type: "doc", id: "ch01-tools/index" },
           items: [
-            "ch01-tools/task-list",
             {
               type: "category",
               label: "1.1 Terminal and Command Line",

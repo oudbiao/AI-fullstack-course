@@ -282,19 +282,6 @@ All visible text must be natural English, short, clear, and integrated into spee
 """.strip(),
     },
     {
-        "filename": "ch01-task-list-workflow.png",
-        "size": "1536x1024",
-        "quality": "medium",
-        "title": "开发者工具阶段任务链",
-        "suggested_page": "docs/ch01-tools/task-list.md",
-        "alt": "开发者工具阶段任务链：终端、项目目录、Python 环境、编辑器、Git 和远程仓库串成完整工作流。",
-        "prompt": """
-一张适合开发者工具入门课程的教学插图，主题是“从空项目到可复现仓库的任务链”。
-画面表现六个清晰环节：打开终端、创建项目目录、配置 Python 环境、用编辑器写代码、用 Git 保存版本、推送到远程仓库。
-风格清爽、工程化、新手友好，像一张课程闯关路线图；用图标和箭头表达，不要生成具体文字，不要出现真实品牌 logo，不要出现乱码小字。
-""".strip(),
-    },
-    {
         "filename": "ch01-hands-on-workstation-route.png",
         "size": "1024x1792",
         "quality": "high",
