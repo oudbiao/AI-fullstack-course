@@ -130,6 +130,12 @@ request = {
 print(request)
 ```
 
+Expected output:
+
+```text
+{'provider': 'demo_provider', 'model': 'demo-chat-model', 'query': 'What is the refund policy?'}
+```
+
 ### A Minimal Unified Response Structure
 
 ```python
@@ -144,6 +150,12 @@ response = {
 }
 
 print(response)
+```
+
+Expected output:
+
+```text
+{'provider': 'demo_provider', 'model': 'demo-chat-model', 'answer': 'Courses can be refunded within 7 days of purchase if the learning progress is below 20%.', 'usage': {'prompt_tokens': 24, 'completion_tokens': 18}}
 ```
 
 The advantage of doing this is:
@@ -196,6 +208,20 @@ If you let business code call these two providers separately, the code will beco
 ### Translate Different Providers into the Same Structure
 
 ```python
+class ProviderA:
+    def chat(self, query, model):
+        return {
+            "text": f"A-provider reply: {query}",
+            "tokens": 30
+        }
+
+class ProviderB:
+    def generate(self, prompt, model_name):
+        return {
+            "output_text": f"B-provider reply: {prompt}",
+            "usage": {"total_tokens": 28}
+        }
+
 class UnifiedClient:
     def __init__(self):
         self.providers = {
@@ -227,6 +253,13 @@ class UnifiedClient:
 client = UnifiedClient()
 print(client.chat("provider_a", "What is the refund policy?", "demo-1"))
 print(client.chat("provider_b", "What is the refund policy?", "demo-2"))
+```
+
+Expected output:
+
+```text
+{'provider': 'provider_a', 'model': 'demo-1', 'answer': 'A-provider reply: What is the refund policy?', 'usage': {'total_tokens': 30}}
+{'provider': 'provider_b', 'model': 'demo-2', 'answer': 'B-provider reply: What is the refund policy?', 'usage': {'total_tokens': 28}}
 ```
 
 ### What Is Really Important Here Is Not the Syntax, but the Layering
@@ -264,6 +297,12 @@ def normalize_error(provider, error_type, message):
 
 
 print(normalize_error("provider_a", "timeout", "request timed out"))
+```
+
+Expected output:
+
+```text
+{'provider': 'provider_a', 'ok': False, 'error': {'type': 'timeout', 'message': 'request timed out', 'retryable': True}}
 ```
 
 This example is very suitable for beginners because it helps you realize:
@@ -313,6 +352,13 @@ def route_model(query):
 
 for q in ["Help me summarize this paragraph", "What is the refund policy?"]:
     print(q, "->", route_model(q))
+```
+
+Expected output:
+
+```text
+Help me summarize this paragraph -> ('provider_a', 'cheap-model')
+What is the refund policy? -> ('provider_b', 'strong-model')
 ```
 
 The unified API layer is very suitable for taking on this role as the “model routing entry point.”

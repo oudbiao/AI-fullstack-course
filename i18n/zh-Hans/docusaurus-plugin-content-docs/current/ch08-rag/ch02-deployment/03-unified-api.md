@@ -130,6 +130,12 @@ request = {
 print(request)
 ```
 
+预期输出：
+
+```text
+{'provider': 'demo_provider', 'model': 'demo-chat-model', 'query': '退款政策是什么？'}
+```
+
 ### 一个最小统一响应结构
 
 ```python
@@ -144,6 +150,12 @@ response = {
 }
 
 print(response)
+```
+
+预期输出：
+
+```text
+{'provider': 'demo_provider', 'model': 'demo-chat-model', 'answer': '课程购买后 7 天内且学习进度低于 20% 可退款。', 'usage': {'prompt_tokens': 24, 'completion_tokens': 18}}
 ```
 
 这样做的好处是：
@@ -196,6 +208,20 @@ class ProviderB:
 ### 把不同 provider 翻译成同一种结构
 
 ```python
+class ProviderA:
+    def chat(self, query, model):
+        return {
+            "text": f"A-provider reply: {query}",
+            "tokens": 30
+        }
+
+class ProviderB:
+    def generate(self, prompt, model_name):
+        return {
+            "output_text": f"B-provider reply: {prompt}",
+            "usage": {"total_tokens": 28}
+        }
+
 class UnifiedClient:
     def __init__(self):
         self.providers = {
@@ -227,6 +253,13 @@ class UnifiedClient:
 client = UnifiedClient()
 print(client.chat("provider_a", "退款政策是什么？", "demo-1"))
 print(client.chat("provider_b", "退款政策是什么？", "demo-2"))
+```
+
+预期输出：
+
+```text
+{'provider': 'provider_a', 'model': 'demo-1', 'answer': 'A-provider reply: 退款政策是什么？', 'usage': {'total_tokens': 30}}
+{'provider': 'provider_b', 'model': 'demo-2', 'answer': 'B-provider reply: 退款政策是什么？', 'usage': {'total_tokens': 28}}
 ```
 
 ### 这段代码真正重要的不是语法，而是分层
@@ -264,6 +297,12 @@ def normalize_error(provider, error_type, message):
 
 
 print(normalize_error("provider_a", "timeout", "request timed out"))
+```
+
+预期输出：
+
+```text
+{'provider': 'provider_a', 'ok': False, 'error': {'type': 'timeout', 'message': 'request timed out', 'retryable': True}}
 ```
 
 这个示例很适合初学者，因为它会帮助你意识到：
@@ -313,6 +352,13 @@ def route_model(query):
 
 for q in ["帮我总结这段话", "退款政策是什么？"]:
     print(q, "->", route_model(q))
+```
+
+预期输出：
+
+```text
+帮我总结这段话 -> ('provider_a', 'cheap-model')
+退款政策是什么？ -> ('provider_b', 'strong-model')
 ```
 
 统一 API 层很适合承担这种“模型路由入口”角色。

@@ -130,6 +130,12 @@ request = {
 print(request)
 ```
 
+期待される出力：
+
+```text
+{'provider': 'demo_provider', 'model': 'demo-chat-model', 'query': '返金ポリシーは何ですか？'}
+```
+
 ### 最小限の統一レスポンス構造
 
 ```python
@@ -144,6 +150,12 @@ response = {
 }
 
 print(response)
+```
+
+期待される出力：
+
+```text
+{'provider': 'demo_provider', 'model': 'demo-chat-model', 'answer': 'コース購入後7日以内かつ学習進捗が20%未満であれば返金できます。', 'usage': {'prompt_tokens': 24, 'completion_tokens': 18}}
 ```
 
 こうしておくと、次の利点があります。
@@ -197,6 +209,20 @@ class ProviderB:
 ### 異なる provider を同じ構造に翻訳する
 
 ```python
+class ProviderA:
+    def chat(self, query, model):
+        return {
+            "text": f"A-provider reply: {query}",
+            "tokens": 30
+        }
+
+class ProviderB:
+    def generate(self, prompt, model_name):
+        return {
+            "output_text": f"B-provider reply: {prompt}",
+            "usage": {"total_tokens": 28}
+        }
+
 class UnifiedClient:
     def __init__(self):
         self.providers = {
@@ -228,6 +254,13 @@ class UnifiedClient:
 client = UnifiedClient()
 print(client.chat("provider_a", "返金ポリシーは何ですか？", "demo-1"))
 print(client.chat("provider_b", "返金ポリシーは何ですか？", "demo-2"))
+```
+
+期待される出力：
+
+```text
+{'provider': 'provider_a', 'model': 'demo-1', 'answer': 'A-provider reply: 返金ポリシーは何ですか？', 'usage': {'total_tokens': 30}}
+{'provider': 'provider_b', 'model': 'demo-2', 'answer': 'B-provider reply: 返金ポリシーは何ですか？', 'usage': {'total_tokens': 28}}
 ```
 
 ### このコードで本当に大事なのは文法ではなく、層の分け方
@@ -265,6 +298,12 @@ def normalize_error(provider, error_type, message):
 
 
 print(normalize_error("provider_a", "timeout", "request timed out"))
+```
+
+期待される出力：
+
+```text
+{'provider': 'provider_a', 'ok': False, 'error': {'type': 'timeout', 'message': 'request timed out', 'retryable': True}}
 ```
 
 この例は初心者にとても役立ちます。  
@@ -316,6 +355,13 @@ def route_model(query):
 
 for q in ["この文章を要約して", "返金ポリシーは何ですか？"]:
     print(q, "->", route_model(q))
+```
+
+期待される出力：
+
+```text
+この文章を要約して -> ('provider_a', 'cheap-model')
+返金ポリシーは何ですか？ -> ('provider_b', 'strong-model')
 ```
 
 統一 API 層は、このような「モデルルーティングの入口」としてとても適しています。
