@@ -1,82 +1,59 @@
 ---
-title: "7.1.1 Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?"
+title: "7.1.1 NLP Crash Roadmap: Text to Tokens to Vectors"
 sidebar_position: 0
-description: "First build a learning map for the NLP crash course chapter: how tokenizer, embedding, pre-trained models, and hands-on practice with Hugging Face fit together."
-keywords: [NLP crash course guide, tokenizer, embedding, HuggingFace]
+description: "A compact NLP crash roadmap: tokenization, embeddings, pretrained models, Hugging Face, and a small token lab."
+keywords: [NLP crash course, tokenizer, embedding, pretrained model, Hugging Face]
 ---
 
-# 7.1.1 Pre-Class Guide: What Is This NLP Crash Course Chapter Really About?
+# 7.1.1 NLP Crash Roadmap: Text to Tokens to Vectors
 
-This chapter is not meant to reteach all of NLP. Instead, it provides the minimum essential text foundation for the main LLM track later on.
+Before LLMs feel understandable, first see how text becomes pieces a model can process: text -> tokens -> IDs -> vectors -> model output.
 
-## First, Build a Bridge
-
-If you are coming from the Chapter 11 Natural Language Processing (elective track) main line, the most important thing to notice in this chapter is:
-
-- It is not repeating Chapter 11 Natural Language Processing (elective track)
-- Instead, it is adding the minimum shared foundation needed for Chapter 7 on LLM principles, Prompt, and fine-tuning, as well as the later sections on LLM principles, pre-training, and model usage
-
-So the real position of this chapter is:
-
-> **Before entering LLM principles, first strengthen the minimum text-handling tools: tokenizer, embedding, and pre-trained models.**
-
-## The Main Thread of This Chapter
+## 7.1.1.1 Look at the Flow First
 
 ![NLP crash course chapter flowchart](/img/course/ch07-nlp-crash-chapter-flow-en.png)
 
-Once you learn this chapter solidly, it will be much easier to understand LLM training and usage.
-
-## A Better Learning Order for Beginners
-
-1. Start with tokenizer
-   First make sure you understand how text is split into units that a model can process.
-
-2. Then look at embedding
-   Connect the idea of how words or tokens are turned into vectors.
-
-3. Then review pre-trained models
-   At this point, it becomes easier to understand why different models share some underlying structures.
-
-4. Finally, look at Hugging Face
-   Then map all of the above concepts to actual library calls.
-
-5. Run the tokenizer and embedding lab
-   Connect tokens, `input_ids`, `attention_mask`, embeddings, and similarity in one runnable example.
-
-## What You Should Focus on First
-
-- This chapter is not about relearning NLP, but about adding the minimum usable text foundation for the LLM track
-- tokenizer and embedding will become the entry objects for all later LLM usage and training
-- the pre-trained model overview is the prerequisite bridge to later LLM overviews and deeper Transformer study
-
-## How Beginners and Advanced Learners Should Read This Chapter
-
-When beginners study this chapter for the first time, focus on the main thread and the smallest runnable examples. You do not need to understand every detail at once. As long as you can explain what problem this chapter solves, what the input and output are, and how to run the minimum project, you can move forward.
-
-Experienced learners can treat this chapter as a chance to fill gaps and practice engineering skills: pay attention to edge cases, failure examples, evaluation methods, code reproducibility, and how it connects to earlier and later stages. After reading, it is best to turn the content of this chapter into your own project README or experiment notes.
-
-## Suggested Study Time and Difficulty
-
-| Study style | Recommended time | Goal |
-|---|---|---|
-| Quick overview | 20–30 minutes | Understand what problem this chapter solves and where it will be used later |
-| Minimum pass | 1–2 hours | Run a minimal example and complete the chapter’s smallest project outcome |
-| Deep practice | Half a day to 1 day | Add error analysis, comparison experiments, or project README notes |
-
-## Self-Check Questions for This Chapter
-
-| Self-check question | Passing standard |
+| Word | First meaning |
 |---|---|
-| What problem does this chapter solve? | You can explain its role in the whole course in one sentence |
-| What are the minimum input and output? | You can clearly describe what input the example needs and what result it produces |
-| Where are the common failure points? | You can list at least one cause of errors, poor results, or misunderstanding |
-| What can you document after learning it? | You can write the chapter output into a project README, experiment notes, or portfolio |
-## Small Project Outcome for This Chapter
+| token | a piece of text used by the model |
+| tokenizer | tool that splits text and maps pieces to IDs |
+| embedding | dense vector for a token or text |
+| pretrained model | model already trained on broad text |
+| Hugging Face | model/dataset/tool ecosystem |
 
-After finishing this chapter, it is recommended that you complete the tokenizer and embedding lab, then save the printed output into your notes. It does not need to be complex, but it should clearly show what the input is, how it becomes `input_ids`, how the mask works, and how the final vectors can be compared.
+## 7.1.1.2 Run One Tiny Token Lab
 
-## Passing Standard
+```python
+text = "RAG retrieves evidence before answering"
+tokens = text.lower().split()
+vocab = {token: index for index, token in enumerate(sorted(set(tokens)))}
+ids = [vocab[token] for token in tokens]
 
-By the end of this chapter, you should be able to explain in your own words what problem this chapter solves, how it relates to the learning stages before and after it, and complete the minimum version of the chapter’s small project outcome.
+print("tokens:", tokens)
+print("ids:", ids)
+print("unique_tokens:", len(vocab))
+```
 
-If you can also record one common error, one debugging process, or one result improvement, that means you are no longer just “reading the content” — you are turning this chapter into your own project experience.
+Expected output:
+
+```text
+tokens: ['rag', 'retrieves', 'evidence', 'before', 'answering']
+ids: [3, 4, 2, 1, 0]
+unique_tokens: 5
+```
+
+Real tokenizers are smarter, but this shows the main idea: text must become stable pieces and IDs before vectors and models can work.
+
+## 7.1.1.3 Learn in This Order
+
+| Order | Read | What to practice |
+|---|---|---|
+| 1 | [7.1.2 Tokenizer](./01-tokenizer.md) | text -> tokens -> IDs |
+| 2 | [7.1.3 Embeddings](./02-embeddings.md) | tokens/text -> vectors |
+| 3 | [7.1.4 Pretrained Models](./03-pretrained-models.md) | load and reuse model capability |
+| 4 | [7.1.5 Hugging Face Quickstart](./04-huggingface-quickstart.md) | pipeline, model card, local run |
+| 5 | [7.1.6 Tokenizer and Embedding Lab](./05-tokenizer-embedding-lab.md) | inspect tokens and vectors |
+
+## 7.1.1.4 Pass Check
+
+You pass this roadmap when you can explain why raw text needs tokenization, why embeddings are vectors, and why pretrained models are reused instead of trained from zero.

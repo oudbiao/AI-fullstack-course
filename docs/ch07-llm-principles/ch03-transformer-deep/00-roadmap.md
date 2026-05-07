@@ -1,52 +1,56 @@
 ---
-title: "7.3.1 Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?"
+title: "7.3.1 Transformer Deep Dive Roadmap: Blocks, Masks, Cost"
 sidebar_position: 0
-description: "Build the learning map for the Transformer deep dive: how attention, architectural variants, efficient computation, and scaling work together to support modern large models."
-keywords: [Transformer overview, attention mechanism, large model architecture, efficient attention]
+description: "A compact Transformer deep dive roadmap: architecture review, decoder blocks, variants, efficient attention, and scale cost."
+keywords: [Transformer deep dive, decoder block, efficient attention, KV cache, model variants]
 ---
 
-# 7.3.1 Pre-class Guide: What Exactly Will You Learn in This Transformer Deep Dive?
+# 7.3.1 Transformer Deep Dive Roadmap: Blocks, Masks, Cost
 
-## What this chapter is about
+This chapter looks inside the Transformer enough to debug LLM behavior and understand why context length, attention, KV cache, and model variants matter.
 
-This chapter is not a repeat of “what is a Transformer.” Instead, it takes you from being able to read a diagram to understanding why modern large models are designed the way they are. In earlier chapters, you already saw Attention, Encoder, Decoder, and pre-trained models. This chapter goes further and answers: why can Transformers scale to large models, why do mainstream architectures have different variants, and why have long context and inference cost become engineering issues?
-
-If you only know how to recite “multi-head attention + FFN + residual + LayerNorm,” that is still not enough to understand LLMs, fine-tuning, RAG, and deployment. The focus of this chapter is to connect structure, computation, and engineering constraints.
-
-## Where this chapter fits in the large-model storyline
+## 7.3.1.1 Look at the Internal Flow First
 
 ![Transformer deep-dive chapter relationship diagram](/img/course/ch07-transformer-deep-chapter-flow-en.png)
 
-The Transformer deep dive is the backbone of the large-model theory section. Later, when you see concepts like context windows, KV Cache, memory usage, inference latency, LoRA insertion points, and RAG context concatenation limits, you will come back to the ideas in this chapter.
-
-## Main learning path for this chapter
-
-| Section | Key question | What you should be able to explain after learning it |
-|---|---|---|
-| Architecture review and deep dive | Why does each component in a Transformer exist? | The role of Attention, FFN, residual connections, and LayerNorm |
-| Original Transformer vs modern decoder | How did the 2017 block evolve into modern LLM decoder blocks? | Pre-norm, RMSNorm, RoPE, GQA/MQA, and SwiGLU |
-| Model architecture variants | What are the differences among Encoder-only, Decoder-only, and Encoder-Decoder? | Why BERT, GPT, and T5 are suited to different tasks |
-| Efficient attention mechanisms | Why are long texts expensive? | What problems sparse attention, linear attention, and FlashAttention solve |
-| Model scale and computation | How do parameters, memory, throughput, and context affect each other? | Why deploying large models is an engineering trade-off |
-
-## Three questions to keep in mind while studying
-
-First, how does information flow: how do tokens use Attention to see other tokens, and how do layers gradually build representations? Second, where is the computation expensive: why is Attention strongly tied to sequence length, and why does memory become a bottleneck? Third, how does the architecture serve the task: why do understanding tasks, generation tasks, and text-to-text tasks prefer different structures?
-
 ![Transformer information flow, computation cost, and task fit diagram](/img/course/ch07-transformer-cost-task-map-en.png)
 
-## How this connects to later chapters
+## 7.3.1.2 Build a Causal Mask
 
-The pre-training chapter will continue discussing how these structures learn from large-scale data; the fine-tuning chapter will focus on which parameters to update and where to insert LoRA; the deployment chapter will cover KV Cache, batching, and inference services; and RAG will focus on context windows and long-document compression. In other words, this chapter is not pure theory — it is the foundation for later engineering decisions.
+```python
+seq_len = 4
+mask = []
+for query_pos in range(seq_len):
+    row = []
+    for key_pos in range(seq_len):
+        row.append("allow" if key_pos <= query_pos else "block")
+    mask.append(row)
 
-## Small project suggestion
+for row in mask:
+    print(row)
+```
 
-It is recommended to build a “Transformer cost intuition mini-experiment.” For the basic version, you can write a simple script to compare how the size of the Attention matrix grows with different sequence lengths. For the standard version, you can use a small model to observe how changes in input length affect inference time. For the challenge version, you can compare the conceptual differences between standard Attention, FlashAttention, or long-context strategies, and write them up as a one-page experiment report.
+Expected output:
 
-## Common misunderstandings
+```text
+['allow', 'block', 'block', 'block']
+['allow', 'allow', 'block', 'block']
+['allow', 'allow', 'allow', 'block']
+['allow', 'allow', 'allow', 'allow']
+```
 
-The first misunderstanding is treating the Transformer only as a structure diagram and ignoring computation cost. The second is viewing all large models as the same kind of architecture and overlooking the task differences among Encoder-only, Decoder-only, and Encoder-Decoder models. The third is believing that longer context is always better; in real applications, long context brings costs, latency, and attention dilution problems.
+Generation uses this "no future peeking" rule: a token can attend to earlier tokens, but not future tokens.
 
-## Pass standard
+## 7.3.1.3 Learn in This Order
 
-After finishing this chapter, you should be able to explain the key components of a Transformer, the applicable tasks of mainstream architectural variants, why long sequences are expensive, and how this knowledge affects decisions in pre-training, fine-tuning, RAG, and deployment.
+| Order | Read | What to focus on |
+|---|---|---|
+| 1 | [7.3.2 Architecture Review](./01-architecture-review.md) | attention, residual, normalization |
+| 2 | [7.3.3 Modern Decoder Block](./02-modern-decoder-block.md) | decoder-only LLM block |
+| 3 | [7.3.4 Model Variants](./02-model-variants.md) | encoder, decoder, encoder-decoder |
+| 4 | [7.3.5 Efficient Attention](./03-efficient-attention.md) | KV cache, MQA/GQA, long context |
+| 5 | [7.3.6 Scale and Computation](./04-scale-computation.md) | cost, latency, memory |
+
+## 7.3.1.4 Pass Check
+
+You pass this roadmap when you can explain why decoder-only models need a causal mask, why attention gets expensive as context grows, and why KV cache helps generation.

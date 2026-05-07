@@ -1,82 +1,59 @@
 ---
-title: "7.1.1 学前导读：NLP 核心速成这一章到底在学什么"
+title: "7.1.1 NLP 速成路线图：文本到 token 到向量"
 sidebar_position: 0
-description: "先建立 NLP 核心速成章的学习地图：tokenizer、embedding、预训练模型和 Hugging Face 快速实践是怎样串起来的。"
-keywords: [NLP速成导读, tokenizer, embedding, HuggingFace]
+description: "紧凑版 NLP 速成路线图：分词、嵌入、预训练模型、Hugging Face 和 token 小实验。"
+keywords: [NLP 速成, tokenizer, embedding, pretrained model, Hugging Face]
 ---
 
-# 7.1.1 学前导读：NLP 核心速成这一章到底在学什么
+# 7.1.1 NLP 速成路线图：文本到 token 到向量
 
-这一章不是要把完整 NLP 再学一遍，而是给后面大模型主线补最小必需的文本基础。
+想理解 LLM，先看文本如何变成模型能处理的形式：文本 -> token -> ID -> 向量 -> 模型输出。
 
-## 先建立一张桥接线
+## 7.1.1.1 先看流程
 
-如果你是从 11 自然语言处理（方向选修）主线过来的，这一章最值得先看清的一件事是：
+![NLP 速成章节流程图](/img/course/ch07-nlp-crash-chapter-flow.png)
 
-- 它不是在重复 11 自然语言处理（方向选修）
-- 而是在给 7 大模型原理、Prompt 与微调后面的 LLM 原理、预训练和调用，补一套最小共同底座
-
-所以这一章真正的定位是：
-
-> **在进入大模型原理前，先把 tokenizer、embedding、预训练模型这些最低限度的文本抓手重新压实。**
-
-## 这一章的主线
-
-![NLP 速成章节关系图](/img/course/ch07-nlp-crash-chapter-flow.png)
-
-这一章学稳后，你再看大模型训练和调用，心里会更有抓手。
-
-## 这一章更适合新人的学习顺序
-
-1. 先看 tokenizer
-   先把“文本怎么切成模型能吃的单位”看清楚。
-
-2. 再看 embedding
-   先把“词或 token 怎么变成向量”接起来。
-
-3. 再看预训练模型速览
-   这时你更容易理解不同模型为什么共享某些底层结构。
-
-4. 最后看 Hugging Face
-   再把前面这些对象真正落到库调用上。
-
-5. 跑 Tokenizer 与 Embedding 实验室
-   用一个可运行例子把 token、`input_ids`、`attention_mask`、embedding 和相似度连起来。
-
-## 这一章最该先抓住什么
-
-- 这一章不是重学 NLP，而是在给大模型主线补最小可用文本底座
-- tokenizer 和 embedding 会成为后面所有 LLM 调用和训练的入口对象
-- 预训练模型速览是后面进入 LLM 概览与 Transformer 深入的前置抓手
-
-## 新人和进阶学习者怎么读
-
-新人第一次学这一章时，先抓住主线和最小可运行例子。你不需要一次理解所有细节，只要能说清楚这一章解决什么问题、输入输出是什么、最小项目怎么跑起来，就可以继续往后走。
-
-有经验的学习者可以把这一章当成查漏补缺和工程化练习：关注边界条件、失败案例、评估方式、代码可复现性，以及它和前后阶段的连接。读完后最好能把本章内容沉淀到自己的作品 README 或实验记录里。
-
-## 学习时间与难度建议
-
-| 学习方式 | 建议投入 | 目标 |
-|---|---|---|
-| 快速浏览 | 20～30 分钟 | 看懂本章解决什么问题，知道后面会用到哪里 |
-| 最小通关 | 1～2 小时 | 跑通一个最小例子，完成本章小项目出口 |
-| 深入练习 | 半天～1 天 | 补充错误分析、对比实验或项目 README 记录 |
-
-## 本章自测问题
-
-| 自测问题 | 通过标准 |
+| 词 | 第一层意思 |
 |---|---|
-| 这一章解决什么问题？ | 能用一句话说明它在整门课里的位置 |
-| 最小输入输出是什么？ | 能说清楚例子需要什么输入，会产生什么结果 |
-| 常见失败点在哪里？ | 能列出至少一个报错、效果差或理解偏差的原因 |
-| 学完后能沉淀什么？ | 能把本章产出写进项目 README、实验记录或作品集 |
-## 本章小项目出口
+| token | 模型使用的一小段文本 |
+| tokenizer | 切分文本并映射成 ID 的工具 |
+| embedding | token 或文本的稠密向量 |
+| pretrained model | 已经在大规模文本上训练过的模型 |
+| Hugging Face | 模型、数据集、工具生态 |
 
-学完这一章后，建议完成 Tokenizer 与 Embedding 实验室，并把打印结果保存到学习笔记里。它不需要复杂，但要能说明输入是什么、怎样变成 `input_ids`、mask 怎样工作，以及最终向量怎样被比较。
+## 7.1.1.2 跑一个极小 token 实验
 
-## 过关标准
+```python
+text = "RAG retrieves evidence before answering"
+tokens = text.lower().split()
+vocab = {token: index for index, token in enumerate(sorted(set(tokens)))}
+ids = [vocab[token] for token in tokens]
 
-这一章结束时，你应该能用自己的话说明本章解决什么问题、它和前后学习站有什么关系，并能完成本章小项目出口的最小版本。
+print("tokens:", tokens)
+print("ids:", ids)
+print("unique_tokens:", len(vocab))
+```
 
-如果你还能记录一次常见错误、一次调试过程或一次结果改进，就说明你已经不只是“看过内容”，而是在把这一章变成自己的项目经验。
+预期输出：
+
+```text
+tokens: ['rag', 'retrieves', 'evidence', 'before', 'answering']
+ids: [3, 4, 2, 1, 0]
+unique_tokens: 5
+```
+
+真实 tokenizer 更复杂，但主线一样：文本必须先变成稳定的片段和 ID，后面才能进入向量和模型。
+
+## 7.1.1.3 按这个顺序学
+
+| 顺序 | 阅读 | 练什么 |
+|---|---|---|
+| 1 | [7.1.2 Tokenizer](./01-tokenizer.md) | 文本 -> token -> ID |
+| 2 | [7.1.3 Embeddings](./02-embeddings.md) | token/文本 -> 向量 |
+| 3 | [7.1.4 预训练模型](./03-pretrained-models.md) | 加载并复用模型能力 |
+| 4 | [7.1.5 Hugging Face 快速上手](./04-huggingface-quickstart.md) | pipeline、model card、本地运行 |
+| 5 | [7.1.6 Tokenizer 与 Embedding 实验](./05-tokenizer-embedding-lab.md) | 检查 token 和向量 |
+
+## 7.1.1.4 通过标准
+
+能解释为什么原始文本需要分词、为什么 embedding 是向量、为什么预训练模型通常复用而不是从零训练，就算通过。

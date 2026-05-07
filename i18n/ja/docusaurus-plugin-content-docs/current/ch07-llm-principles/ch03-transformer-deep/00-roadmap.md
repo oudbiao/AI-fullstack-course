@@ -1,52 +1,56 @@
 ---
-title: "7.3.1 学習ガイド：Transformer 深掘り、この章では何を学ぶのか"
+title: "7.3.1 Transformer 深掘りロードマップ：Block、Mask、コスト"
 sidebar_position: 0
-description: "まずは Transformer 深掘り章の学習地図を作ろう。Attention、構造の変種、高効率計算、スケーリングがどう現代の大規模モデルを支えているかをつかむ。"
-keywords: [Transformerガイド, 注意力机制, 大模型架构, 高效注意力]
+description: "短い Transformer 深掘りロードマップです。アーキテクチャ復習、decoder block、モデル変種、効率的 attention、スケールコストを扱います。"
+keywords: [Transformer 深掘り, decoder block, efficient attention, KV cache, model variants]
 ---
 
-# 7.3.1 学習ガイド：Transformer 深掘り、この章では何を学ぶのか
+# 7.3.1 Transformer 深掘りロードマップ：Block、Mask、コスト
 
-## 本章の位置づけ
+この章では Transformer の内部を少し深く見ます。LLM の挙動をデバッグし、context length、attention、KV cache、モデル変種がなぜ重要かを理解します。
 
-この章は「Transformer とは何か」を繰り返し説明する章ではありません。むしろ、構造図が読める状態から、現代の大規模モデルがなぜこのように設計されているのかを理解できる状態へ進めるための章です。前の章で、Attention、Encoder、Decoder、そして事前学習モデルはすでに見てきました。この章ではさらに、なぜ Transformer は大規模モデルへスケールできるのか、なぜ主流のアーキテクチャにはさまざまな変種があるのか、そしてなぜ長い文脈や推論コストがエンジニアリング上の課題になるのかを考えます。
+## 7.3.1.1 まず内部フローを見る
 
-もし「多頭注意力 + FFN + 残差 + LayerNorm」を暗記しているだけなら、その先にある LLM、微調整、RAG、デプロイメントまではまだ十分に理解できません。この章の重点は、構造・計算・エンジニアリング上の制約をつなげて理解することです。
+![Transformer 深掘り章関係図](/img/course/ch07-transformer-deep-chapter-flow-ja.png)
 
-## 本章が大規模モデルの全体像の中で占める位置
+![Transformer 情報フロー、計算コスト、タスク適合図](/img/course/ch07-transformer-cost-task-map-ja.png)
 
-![Transformer 深掘り章の関係図](/img/course/ch07-transformer-deep-chapter-flow-ja.png)
+## 7.3.1.2 causal mask を作る
 
-Transformer の深掘りは、大規模モデル原理パートの中心軸です。後でコンテキストウィンドウ、KV Cache、VRAM 使用量、推論遅延、LoRA の挿入位置、RAG のコンテキスト結合制限を見るとき、必ずこの章の概念に戻ってきます。
+```python
+seq_len = 4
+mask = []
+for query_pos in range(seq_len):
+    row = []
+    for key_pos in range(seq_len):
+        row.append("allow" if key_pos <= query_pos else "block")
+    mask.append(row)
 
-## 本章の学習の流れ
+for row in mask:
+    print(row)
+```
 
-| 小節 | 重点となる問い | 学び終えたら説明できること |
+出力：
+
+```text
+['allow', 'block', 'block', 'block']
+['allow', 'allow', 'block', 'block']
+['allow', 'allow', 'allow', 'block']
+['allow', 'allow', 'allow', 'allow']
+```
+
+生成ではこの「未来を見ない」ルールを使います。token は前の token を見られますが、未来 token は見られません。
+
+## 7.3.1.3 この順番で学ぶ
+
+| 順番 | 読む | まず見ること |
 |---|---|---|
-| アーキテクチャの振り返りと深掘り | Transformer の各コンポーネントはなぜ存在するのか | Attention、FFN、残差、LayerNorm の役割 |
-| 元の Transformer と現代 decoder | 2017 年の block はどのように現代 LLM decoder block へ進化したのか | pre-norm、RMSNorm、RoPE、GQA/MQA、SwiGLU |
-| モデルアーキテクチャの変種 | Encoder-only、Decoder-only、Encoder-Decoder は何が違うのか | BERT、GPT、T5 がそれぞれどんなタスクに向いているか |
-| 効率的な Attention 機構 | 長文がなぜ高コストなのか | Sparse Attention、Linear Attention、FlashAttention が何を解決するのか |
-| モデル規模と計算 | パラメータ、VRAM、スループット、コンテキストはどう影響し合うのか | なぜ大規模モデルのデプロイにはエンジニアリング上のトレードオフがあるのか |
+| 1 | [7.3.2 アーキテクチャ復習](./01-architecture-review.md) | attention、残差、正規化 |
+| 2 | [7.3.3 現代 Decoder Block](./02-modern-decoder-block.md) | decoder-only LLM block |
+| 3 | [7.3.4 モデル変種](./02-model-variants.md) | encoder、decoder、encoder-decoder |
+| 4 | [7.3.5 効率的 Attention](./03-efficient-attention.md) | KV cache、MQA/GQA、長い context |
+| 5 | [7.3.6 スケールと計算](./04-scale-computation.md) | コスト、遅延、メモリ |
 
-## 学習するときに押さえるべき3つの問い
+## 7.3.1.4 合格ライン
 
-1つ目は、情報がどう流れるかです。token が Attention を通して他の token をどう見るのか、層から層へどうやって少しずつ表現が形作られるのかを理解します。2つ目は、どこで計算コストが高くなるかです。Attention がなぜ系列長に強く依存するのか、なぜ VRAM がボトルネックになるのかを見ます。3つ目は、アーキテクチャがどうタスクに合わせられているかです。理解系タスク、生成系タスク、text-to-text タスクが、それぞれなぜ異なる構造を好むのかを考えます。
-
-![Transformer 情報フロー・計算コスト・タスク適合図](/img/course/ch07-transformer-cost-task-map-ja.png)
-
-## 後続の章とのつながり
-
-事前学習の章では、こうした構造が大規模データ上でどのように学習されるかを引き続き扱います。微調整の章では、どのパラメータを更新するのか、LoRA をどこに挿入するのかを考えます。デプロイメントの章では、KV Cache、バッチ処理、推論サービスがテーマになります。RAG の章では、コンテキストウィンドウや長文書の圧縮が重要になります。つまり、この章は単なる理論ではなく、後のエンジニアリング判断の土台です。
-
-## 本章のミニプロジェクト出口
-
-「Transformer のコスト感覚をつかむミニ実験」をおすすめします。基礎版では、異なる系列長で Attention 行列のサイズがどう増えるかを比較する簡単なスクリプトを書いてみましょう。標準版では、小さなモデルを使って入力長の変化が推論時間にどう影響するかを観察します。チャレンジ版では、通常の Attention、FlashAttention、長文脈戦略の概念的な違いを比較し、1ページの実験記録としてまとめます。
-
-## よくある誤解
-
-1つ目の誤解は、Transformer を構造図としてだけ見て、計算コストを気にしないことです。2つ目の誤解は、すべての大規模モデルを同じアーキテクチャだと思い込み、Encoder-only、Decoder-only、Encoder-Decoder のタスク差を見落とすことです。3つ目の誤解は、コンテキストは長ければ長いほど良いと考えることです。実際のアプリケーションでは、長いコンテキストによってコスト、遅延、Attention の希薄化の問題が生じます。
-
-## 合格基準
-
-この章を学び終えたら、Transformer の重要コンポーネント、主流アーキテクチャ変種がどのタスクに向いているか、長い系列がなぜ高コストなのか、そしてそれらの知識が事前学習・微調整・RAG・デプロイメントの判断にどう影響するかを説明できるようになっているはずです。
+decoder-only モデルになぜ causal mask が必要か、context が長くなるほど attention が高価になる理由、KV cache が生成を助ける理由を説明できれば合格です。
