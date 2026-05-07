@@ -196,13 +196,13 @@ print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sa
 print("sft_sample:", sft_dataset[0])
 ```
 
-预期输出形态大致如下：
+预期输出：
 
 ```text
 question: 订单还没发货，可以直接退款吗？
 generic  : 一般可以申请退款，具体以订单状态为准。 coverage= 0.0
-retrieval: 可以。如果订单尚未发货，您可以直接申请退款... coverage= 1.0
-sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [...]}
+retrieval: 可以。如果订单尚未发货，您可以直接申请退款，款项会原路退回，通常 3 到 7 个工作日到账。 coverage= 1.0
+sft_sample: {'messages': [{'role': 'system', 'content': '你是电商售后政策助手，请用礼貌、准确、符合平台规则的方式回答用户问题。'}, {'role': 'user', 'content': '订单还没发货，可以直接退款吗？'}, {'role': 'assistant', 'content': '可以。如果订单尚未发货，您可以直接申请退款，款项会原路退回，通常 3 到 7 个工作日到账。'}], 'intent': 'refund_unshipped', 'policy_points': ['未发货可直接申请退款', '退款原路返回', '到账时间 3 到 7 个工作日']}
 ```
 
 这段小代码的重点不是做一个生产级检索系统，而是让对比变得可见：通用回答听起来礼貌，但缺少必须覆盖的政策细节；领域相关回答则可以用固定政策点检查。

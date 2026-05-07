@@ -152,7 +152,7 @@ def infer_intent(text):
 
 def build_payload(case, prompt_version):
     base = {
-        "model": "gpt-5.2",
+        "model": "gpt-5.5",
         "input": case["user_input"],
         "max_output_tokens": 180,
         "temperature": 0.2,
@@ -404,7 +404,7 @@ ch07_workshop_evidence/README.md
 オフラインの流れが分かったら、`fake_model()` を実モデル呼び出しに置き換えられます。現在の OpenAI テキスト生成では、古い chat-completion 例をそのままコピーするのではなく、Responses API と構造化出力を優先して使うのが基本です。
 
 :::info モデル名は変わります
-このワークショップの payload 例では `gpt-5.2` を使っています。現在の OpenAI モデルドキュメントで GPT-5.2 が最新のフロンティアモデルとして示されているためです。本番コードでは `OPENAI_MODEL` を設定可能にし、公開前に公式の [OpenAI Models](https://platform.openai.com/docs/models)、[Responses API](https://platform.openai.com/docs/api-reference/responses/create)、[Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) を確認してください。
+このワークショップの payload 例では `gpt-5.5` を使っています。現在の OpenAI モデルドキュメントで GPT-5.5 が最新のフロンティアモデルとして示されているためです。本番コードでは `OPENAI_MODEL` を設定可能にし、公開前に公式の [OpenAI Models](https://platform.openai.com/docs/models)、[Responses API](https://platform.openai.com/docs/api-reference/responses/create)、[Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) を確認してください。
 :::
 
 実際の構造化出力呼び出しは、次のように書けます。
@@ -425,7 +425,7 @@ class RouteResult(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
+    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
     input=[
         {
             "role": "system",

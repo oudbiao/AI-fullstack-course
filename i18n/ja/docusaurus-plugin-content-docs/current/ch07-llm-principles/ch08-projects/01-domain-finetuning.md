@@ -196,13 +196,13 @@ print("retrieval:", retrieval_answer, "coverage=", coverage(retrieval_answer, sa
 print("sft_sample:", sft_dataset[0])
 ```
 
-想定される出力の形は、次のようになります。
+期待される出力は次のとおりです。
 
 ```text
 question: 注文がまだ発送されていませんが、そのまま返金できますか？
 generic  : 一般的には返金申請は可能です。詳細は注文状況によります。 coverage= 0.0
-retrieval: はい。注文がまだ発送されていない場合は... coverage= 1.0
-sft_sample: {'messages': [...], 'intent': 'refund_unshipped', 'policy_points': [...]}
+retrieval: はい。注文がまだ発送されていない場合は、そのまま返金を申請できます。代金は元の支払い方法に返金され、通常 3〜7 営業日で反映されます。 coverage= 1.0
+sft_sample: {'messages': [{'role': 'system', 'content': 'あなたは EC のアフターサービス方針アシスタントです。丁寧で正確、かつプラットフォーム規則に沿ってユーザーの質問に答えてください。'}, {'role': 'user', 'content': '注文がまだ発送されていませんが、そのまま返金できますか？'}, {'role': 'assistant', 'content': 'はい。注文がまだ発送されていない場合は、そのまま返金を申請できます。代金は元の支払い方法に返金され、通常 3〜7 営業日で反映されます。'}], 'intent': 'refund_unshipped', 'policy_points': ['未発送なら直接返金申請できる', '返金は元の支払い方法に戻る', '着金は通常 3〜7 営業日']}
 ```
 
 この小さなコードの目的は、本番レベルの検索システムを作ることではありません。比較を見える形にすることです。汎用回答は丁寧に聞こえても、必須のポリシー詳細を落とすことがあります。一方、領域に合った回答は、固定した必須点に照らして確認できます。

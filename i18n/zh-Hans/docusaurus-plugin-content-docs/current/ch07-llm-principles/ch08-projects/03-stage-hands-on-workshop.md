@@ -152,7 +152,7 @@ def infer_intent(text):
 
 def build_payload(case, prompt_version):
     base = {
-        "model": "gpt-5.2",
+        "model": "gpt-5.5",
         "input": case["user_input"],
         "max_output_tokens": 180,
         "temperature": 0.2,
@@ -404,7 +404,7 @@ ch07_workshop_evidence/README.md
 离线流程理解清楚后，可以把 `fake_model()` 换成真实模型调用。当前做 OpenAI 文本生成时，优先使用 Responses API 和结构化输出，不要直接照搬旧的 chat-completion 示例。
 
 :::info 模型名称会变化
-本工作坊的载荷示例使用 `gpt-5.2`，因为当前 OpenAI 模型文档把 GPT-5.2 列为最新前沿模型。生产代码里请让 `OPENAI_MODEL` 可配置，并在发布前检查官方 [OpenAI Models](https://platform.openai.com/docs/models)、[Responses API](https://platform.openai.com/docs/api-reference/responses/create) 和 [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) 文档。
+本工作坊的载荷示例使用 `gpt-5.5`，因为当前 OpenAI 模型文档把 GPT-5.5 列为最新前沿模型。生产代码里请让 `OPENAI_MODEL` 可配置，并在发布前检查官方 [OpenAI Models](https://platform.openai.com/docs/models)、[Responses API](https://platform.openai.com/docs/api-reference/responses/create) 和 [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) 文档。
 :::
 
 一个真实的结构化输出调用可以写成这样：
@@ -425,7 +425,7 @@ class RouteResult(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
+    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
     input=[
         {
             "role": "system",

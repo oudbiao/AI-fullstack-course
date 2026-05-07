@@ -152,7 +152,7 @@ def infer_intent(text):
 
 def build_payload(case, prompt_version):
     base = {
-        "model": "gpt-5.2",
+        "model": "gpt-5.5",
         "input": case["user_input"],
         "max_output_tokens": 180,
         "temperature": 0.2,
@@ -404,7 +404,7 @@ ch07_workshop_evidence/README.md
 After the offline workflow is clear, you can replace `fake_model()` with a real model call. For current OpenAI text-generation work, prefer the Responses API and structured outputs instead of copying old chat-completion examples.
 
 :::info Model names change
-This workshop uses `gpt-5.2` in payload examples because the current OpenAI model docs list GPT-5.2 as the newest frontier model. For production code, keep `OPENAI_MODEL` configurable and check the official [OpenAI Models](https://platform.openai.com/docs/models), [Responses API](https://platform.openai.com/docs/api-reference/responses/create), and [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) docs before publishing.
+This workshop uses `gpt-5.5` in payload examples because the current OpenAI model docs list GPT-5.5 as the latest frontier model. For production code, keep `OPENAI_MODEL` configurable and check the official [OpenAI Models](https://platform.openai.com/docs/models), [Responses API](https://platform.openai.com/docs/api-reference/responses/create), and [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) docs before publishing.
 :::
 
 A real structured-output call can look like this:
@@ -425,7 +425,7 @@ class RouteResult(BaseModel):
 client = OpenAI()
 
 response = client.responses.parse(
-    model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
+    model=os.getenv("OPENAI_MODEL", "gpt-5.5"),
     input=[
         {
             "role": "system",
