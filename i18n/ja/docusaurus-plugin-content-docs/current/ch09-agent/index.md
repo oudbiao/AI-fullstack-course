@@ -15,7 +15,7 @@ keywords: [AI Agent, エージェント, Function Calling, ReAct, MCP, Multi-Age
 
 ## まず Agent 実行ループを見る
 
-![Agent 実行ループ](/img/course/ch09-agent-execution-loop-ja.svg)
+![Agent 実行ループ](/img/course/ch09-agent-execution-loop-ja.png)
 
 Agent は「ツール付きチャットボット」ではなく、制御された実行ループです。
 
@@ -118,7 +118,7 @@ for item in trace:
 
 ## Agent、ワークフロー、RAG、Function Calling の選び方
 
-![Agent 境界選択図](/img/course/ch09-agent-boundary-map-ja.svg)
+![Agent 境界選択図](/img/course/ch09-agent-boundary-map-ja.png)
 
 Agent は強力ですが、常に最初の選択肢ではありません。
 

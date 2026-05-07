@@ -15,7 +15,7 @@ Do not start with multi-agent frameworks. Start with one small Agent that can sh
 
 ## See the Agent Execution Loop
 
-![Agent execution loop](/img/course/ch09-agent-execution-loop-en.svg)
+![Agent execution loop](/img/course/ch09-agent-execution-loop-en.png)
 
 An Agent is not "a chatbot with tools." It is a controlled execution loop.
 
@@ -118,7 +118,7 @@ Operation tip: change `make_todo` to a non-whitelisted tool name such as `send_e
 
 ## Choose Agent, Workflow, RAG, Or Function Calling
 
-![Agent boundary map](/img/course/ch09-agent-boundary-map-en.svg)
+![Agent boundary map](/img/course/ch09-agent-boundary-map-en.png)
 
 Agents are powerful, but they are not the default solution.
 
